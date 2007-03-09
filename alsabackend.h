@@ -1,0 +1,56 @@
+//
+// C++ Interface: alsabackend
+//
+// Description: 
+//
+//
+// Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
+//
+// Copyright: See COPYING file that comes with this distribution
+//
+//
+#ifndef ALSABACKEND_H
+#define ALSABACKEND_H
+
+#include "soundbackend.h"
+#include <iostream>
+
+
+#include <alsa/asoundlib.h>
+
+/**
+ *	@class ALSABackend
+ *	@brief The ALSA Backend - implements the SoundInterface
+ *
+ *	The ALSA Backend provides another Layer, used from the plattform-indepentant
+ *	MicControl to provide an interface to the low level system calls
+ *
+ *	@version 0.1
+ *	@date 23.01.2006
+ *	@author Peter Grasch
+ *	@todo Implementing the Volume functions
+ */
+class ALSABackend : public SoundBackend 
+{
+
+private:
+	snd_pcm_t *capture_handle; //!< The handle
+	snd_pcm_hw_params_t *hw_params; //!< Stores all config options for the handle
+	
+public:
+	bool openDevice( const char* deviceID );
+	bool setSampleRate( int sampleRate );
+	bool setChannels( short channels );
+	bool setInterleaved( bool interleaved );
+	bool closeDevice();
+	bool prepareDevice();
+	short **readData( short count, short buffersize );
+	int getVolume();
+	void setVolume( int percent );
+	
+	ALSABackend();
+	~ALSABackend();
+
+};
+
+#endif

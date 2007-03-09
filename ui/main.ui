@@ -1,0 +1,390 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>999</width>
+    <height>631</height>
+   </rect>
+  </property>
+  <property name="palette" >
+   <palette>
+    <active>
+     <colorrole role="WindowText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>130</red>
+        <green>191</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="WindowText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>130</red>
+        <green>191</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="WindowText" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>117</red>
+        <green>117</green>
+        <blue>117</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window" >
+      <brush brushstyle="SolidPattern" >
+       <color alpha="255" >
+        <red>255</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
+   </palette>
+  </property>
+  <property name="windowTitle" >
+   <string>simon</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset>:/images/tray.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <widget class="QPushButton" name="pbTrain" >
+    <property name="geometry" >
+     <rect>
+      <x>510</x>
+      <y>170</y>
+      <width>421</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>&amp;Trainieren</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="leSearch" >
+    <property name="geometry" >
+     <rect>
+      <x>210</x>
+      <y>40</y>
+      <width>161</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbSearch" >
+    <property name="geometry" >
+     <rect>
+      <x>70</x>
+      <y>40</y>
+      <width>91</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="palette" >
+     <palette>
+      <active>
+       <colorrole role="WindowText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>175</red>
+          <green>190</green>
+          <blue>200</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>175</red>
+          <green>190</green>
+          <blue>200</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="WindowText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>175</red>
+          <green>190</green>
+          <blue>200</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>175</red>
+          <green>190</green>
+          <blue>200</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="WindowText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>117</red>
+          <green>117</green>
+          <blue>117</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>117</red>
+          <green>117</green>
+          <blue>117</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="text" >
+     <string>&amp;Suchen nach:</string>
+    </property>
+    <property name="buddy" >
+     <cstring>leSearch</cstring>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbSettings" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>570</y>
+      <width>221</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>&amp;System</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbActivision" >
+    <property name="geometry" >
+     <rect>
+      <x>280</x>
+      <y>570</y>
+      <width>201</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>&amp;Deaktivieren</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbHide" >
+    <property name="geometry" >
+     <rect>
+      <x>740</x>
+      <y>570</y>
+      <width>251</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>&amp;Verstecken</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>550</y>
+      <width>1001</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation" >
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbEditWordList" >
+    <property name="geometry" >
+     <rect>
+      <x>70</x>
+      <y>350</y>
+      <width>421</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>&amp;Wortliste</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbAddWord" >
+    <property name="geometry" >
+     <rect>
+      <x>70</x>
+      <y>170</y>
+      <width>421</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Wort &amp;hinzufuegen</string>
+    </property>
+    <property name="iconSize" >
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbClose" >
+    <property name="geometry" >
+     <rect>
+      <x>490</x>
+      <y>570</y>
+      <width>201</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>&amp;Beenden</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbRunProgram" >
+    <property name="geometry" >
+     <rect>
+      <x>510</x>
+      <y>350</y>
+      <width>421</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>&amp;Ausführen</string>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="pbLevel2" >
+    <property name="geometry" >
+     <rect>
+      <x>970</x>
+      <y>10</y>
+      <width>20</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="minimum" >
+     <number>0</number>
+    </property>
+    <property name="maximum" >
+     <number>32768</number>
+    </property>
+    <property name="value" >
+     <number>0</number>
+    </property>
+    <property name="textVisible" >
+     <bool>false</bool>
+    </property>
+    <property name="orientation" >
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="pbLevel1" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>20</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="minimum" >
+     <number>0</number>
+    </property>
+    <property name="maximum" >
+     <number>32768</number>
+    </property>
+    <property name="value" >
+     <number>0</number>
+    </property>
+    <property name="textVisible" >
+     <bool>false</bool>
+    </property>
+    <property name="orientation" >
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbBg" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1001</width>
+      <height>557</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>TextLabel</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

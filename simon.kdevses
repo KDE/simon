@@ -1,0 +1,193 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE KDevPrjSession>
+<KDevPrjSession>
+ <DocsAndViews NumberOfDocuments="55" >
+  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/simonview.cpp" >
+   <View0 Encoding="" line="198" Type="Source" />
+  </Doc0>
+  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/simonview.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc1>
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/simoninfo.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc2>
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/simoninfo.cpp" >
+   <View0 Encoding="" line="47" Type="Source" />
+  </Doc3>
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/addwordview.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/addwordview.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc5>
+  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/simoncontrol.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/simoncontrol.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/alsabackend.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc8>
+  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/alsabackend.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc9>
+  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/command.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc10>
+  <Doc11 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/directsoundbackend.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc11>
+  <Doc12 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/directsoundbackend.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc12>
+  <Doc13 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/juliuscontrol.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc13>
+  <Doc14 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/juliuscontrol.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc14>
+  <Doc15 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/main.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc15>
+  <Doc16 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/miccontrol.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc16>
+  <Doc17 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/miccontrol.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc17>
+  <Doc18 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/modelmanager.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc18>
+  <Doc19 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/modelmanager.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc19>
+  <Doc20 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/runapplicationview.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc20>
+  <Doc21 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/runapplicationview.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc21>
+  <Doc22 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/runcommand.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc22>
+  <Doc23 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/runcommand.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc23>
+  <Doc24 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/soundbackend.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc24>
+  <Doc25 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trainingmanager.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc25>
+  <Doc26 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trainingmanager.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc26>
+  <Doc27 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trainingtext.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc27>
+  <Doc28 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trainingtext.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc28>
+  <Doc29 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trainingview.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc29>
+  <Doc30 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trainingview.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc30>
+  <Doc31 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wordlistmanager.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc31>
+  <Doc32 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wordlistmanager.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc32>
+  <Doc33 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wordlistview.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc33>
+  <Doc34 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trayiconmanager.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc34>
+  <Doc35 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trayiconmanager.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc35>
+  <Doc36 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/word.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc36>
+  <Doc37 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/osd.cpp" >
+   <View0 Encoding="" line="72" Type="Source" />
+  </Doc37>
+  <Doc38 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/osd.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc38>
+  <Doc39 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/dragtablewidget.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc39>
+  <Doc40 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/dragtablewidget.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc40>
+  <Doc41 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/droplistwidget.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc41>
+  <Doc42 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/droplistwidget.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc42>
+  <Doc43 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wordlistview.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc43>
+  <Doc44 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/runlinuxbackend.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc44>
+  <Doc45 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/runlinuxbackend.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc45>
+  <Doc46 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/runbackend.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc46>
+  <Doc47 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/vumeter.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc47>
+  <Doc48 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/vumeter.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc48>
+  <Doc49 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/eventhandler.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc49>
+  <Doc50 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/eventhandler.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc50>
+  <Doc51 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/coreevents.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc51>
+  <Doc52 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/xevents.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc52>
+  <Doc53 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/xevents.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc53>
+  <Doc54 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/xmlreader.h" >
+   <View0 Encoding="" line="28" Type="Source" />
+  </Doc54>
+ </DocsAndViews>
+ <pluginList>
+  <kdevdebugger>
+   <breakpointList/>
+   <showInternalCommands value="0" />
+  </kdevdebugger>
+  <kdevastyle>
+   <Extensions ext="*.cpp *.h,*.c *.h,*.cxx *.hxx,*.c++ *.h++,*.cc *.hh,*.C *.H,*.diff,*.inl,*.java,*.moc,*.patch,*.tlh,*.xpm" />
+   <AStyle IndentPreprocessors="0" FillCount="4" PadParenthesesOut="1" IndentNamespaces="1" IndentLabels="1" Fill="Tabs" MaxStatement="40" Brackets="Break" MinConditional="-1" IndentBrackets="0" PadParenthesesUn="1" BlockBreak="0" KeepStatements="1" KeepBlocks="1" BlockIfElse="0" IndentSwitches="1" PadOperators="0" FStyle="UserDefined" IndentCases="0" FillEmptyLines="0" BracketsCloseHeaders="0" BlockBreakAll="0" PadParenthesesIn="1" IndentClasses="1" IndentBlocks="0" FillForce="0" />
+  </kdevastyle>
+  <kdevbookmarks>
+   <bookmarks/>
+  </kdevbookmarks>
+  <kdevsubversion>
+   <subversion base="" />
+  </kdevsubversion>
+  <kdevvalgrind>
+   <executable path="" params="" />
+   <valgrind path="" params="" />
+   <calltree path="" params="" />
+   <kcachegrind path="" />
+  </kdevvalgrind>
+ </pluginList>
+</KDevPrjSession>
