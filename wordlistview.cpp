@@ -192,7 +192,7 @@ void WordListView::insertVocab(WordList *vocab)
 	for (int i=0; i<vocab->count(); i++)
 	{
 		twVocab->setItem(i, 0, new QTableWidgetItem(vocab->at(i)->getWord()));
-		twVocab->setItem(i, 1, new QTableWidgetItem(*(vocab->at(i)->getPronounciation(0))));
+		twVocab->setItem(i, 1, new QTableWidgetItem(*(vocab->at(i)->getPronunciation(0))));
 		twVocab->setItem(i, 2, new QTableWidgetItem(vocab->at(i)->getTerminal()));
 		twVocab->setItem(i, 3, new QTableWidgetItem(QString().setNum(vocab->at(i)->getPropability())));
 

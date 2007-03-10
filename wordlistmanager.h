@@ -20,23 +20,6 @@
 #include "modelmanager.h"
 
 /**
- *	@struct vocab
- *	@brief Defines one entry in the vocabulary list
- *
- *	@version 0.1
- *	@date 10.03.2007
- *	@author Peter Grasch
- */
-
-struct vocab {
-	QString terminal;
-	QString wordname;
-	QString pronunciaton;
-};
-
-typedef QList<vocab> VocabList;
-
-/**
  *	@class WordListManager
  *	@brief Manages the Wordlist, the grammar definitions and the vocabulary data
  *
@@ -47,13 +30,15 @@ typedef QList<vocab> VocabList;
  */
 
 class WordListManager{
+
 private:
-	WordList *wordlist;	//!< Holds all the Vocabulary
-	VocabList *vocablist;
+	WordList *wordlist;	//!< Holds the wordlist
 	
 public:
 	WordListManager(QString path="model/lexicon");
 	WordList* readWordList(QString lexiconpath="model/lexicon", QString vocabpath="model/model.voca");
+	WordList* readVocab(QString vocabpath="model/model.voca");
+	QString getTerminal(QString name, QString pronunciation, WordList *wlist);
 	WordList* getWordList() { return wordlist; }
 
 	~WordListManager();
