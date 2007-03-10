@@ -19,6 +19,7 @@
 #include "wordlistmanager.h"
 #include "dragtablewidget.h"
 #include "droplistwidget.h"
+#include <QMessageBox>
 #include "addwordview.h"
 #include "ui_wordlist.h"
 

@@ -12,7 +12,29 @@
 #ifndef WORDLISTMANAGER_H
 #define WORDLISTMANAGER_H
 #include <QList>
+#include <QFile>
+#include <QByteArray>
+#include <QMessageBox>
+#include <QtGlobal>
 #include "word.h"
+#include "modelmanager.h"
+
+/**
+ *	@struct vocab
+ *	@brief Defines one entry in the vocabulary list
+ *
+ *	@version 0.1
+ *	@date 10.03.2007
+ *	@author Peter Grasch
+ */
+
+struct vocab {
+	QString terminal;
+	QString wordname;
+	QString pronunciaton;
+};
+
+typedef QList<vocab> VocabList;
 
 /**
  *	@class WordListManager
@@ -24,13 +46,14 @@
  *	@todo Implementing
  */
 
-
 class WordListManager{
 private:
 	WordList *wordlist;	//!< Holds all the Vocabulary
+	VocabList *vocablist;
+	
 public:
-	WordListManager(QString path="words.xml");
-	WordList* readVocab(QString path="words.xml");
+	WordListManager(QString path="model/lexicon");
+	WordList* readWordList(QString lexiconpath="model/lexicon", QString vocabpath="model/model.voca");
 	WordList* getWordList() { return wordlist; }
 
 	~WordListManager();

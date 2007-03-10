@@ -1,7 +1,7 @@
 //
 // C++ Implementation: wordlistmanager
 //
-// Description: 
+// Description:
 //
 //
 // Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
@@ -11,37 +11,80 @@
 //
 #include "wordlistmanager.h"
 
-WordListManager::WordListManager(QString path)
+/**
+ * @brief Constructor
+ *
+ * Reads the vocab and initializes the wordlist (member) with it
+ *
+ * @author Peter Grasch
+ *
+ */
+WordListManager::WordListManager ( QString path )
 {
 	this->wordlist = new WordList();
-	readVocab(path);
+	readWordList ( path );
 }
 
-WordList* WordListManager::readVocab(QString path)
+/**
+ * @brief Reads the Vocab and returns the read Data
+ *
+ * This method parses the given File and creates a WordList out of it
+ *
+ * @author Peter Grasch
+ *
+ * @param QString path
+ * Path to the lexicon
+ * @return Wordlist*
+ * The parsed WordList
+ */
+WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath )
 {
 	wordlist->clear();
 	//read the vocab
-	//replace this dummy with the xml code
-	
-	wordlist->append(new Word("Birne", "b I R n @", "Nomen", 6));
-	wordlist->append(new Word("Eins", "aI n @", "Nomen", 1));
-	wordlist->append(new Word("Zwei", "t s v aI", "Nomen", 2));
-	wordlist->append(new Word("Magarita", "m a: g a: R i: t a:", "Nomen", 4));
-	wordlist->append(new Word("Tonno", "t o: n o:", "Nomen", 2));
-	wordlist->append(new Word("Drei", "d R aI", "Nomen", 3));
-	wordlist->append(new Word("Vier", "f i: 6", "Nomen", 4));
-	wordlist->append(new Word("Fünf", "f Y n f", "Nomen", 5));
-	wordlist->append(new Word("Sechs", "z E k s", "Nomen", 6));
-	wordlist->append(new Word("Sieben", "z i: b @ n", "Nomen", 7));
-	wordlist->append(new Word("Acht", "a x t", "Nomen", 8));
-	wordlist->append(new Word("Neun", "n OY n", "Nomen", 9));
-	
-	//end dummy
+
+	//opening
+	QFile *lexicon = new QFile ( lexiconpath );
+	lexicon->open ( QFile::ReadOnly );
+	if ( !lexicon->isReadable() ) return false;
+
+	QFile *vocab = new QFile ( vocabpath );
+	vocab->open ( QFile::ReadOnly );
+	if ( !vocab->isReadable() ) return false;
+
+
+
+
+	char buffer[1024]; //this will hold the current line
+	qint64 length; //this stores the length of the read line - we can determine the end of the file that way
+	QString line;
+
+	QString name;
+	QString output;
+	QString pronunciation;
+	QString category;
+
+	length = lexicon->readLine ( buffer, sizeof ( buffer ) );
+	//for each line
+	while ( length != -1 )
+	{
+		line = QString ( buffer );
+		
+		//parsing the line
+		name = line.left ( line.indexOf ( "\t" ) ).trimmed();
+		output = line.mid ( line.indexOf ( "\t" ), line.lastIndexOf ( "\t" ) - line.indexOf ( "\t" ) ).trimmed();
+		output = output.mid ( 1, output.length()-2 );
+		pronunciation = line.right ( line.length() - line.lastIndexOf ( "\t" ) ).trimmed();
+		
+		
+		//creates and appends the word to the wordlist
+		wordlist->append ( new Word ( output, pronunciation, "undefined", 0 ) );
+
+		//reading the next line
+		length = lexicon->readLine ( buffer, sizeof ( buffer ) );
+	}
+
 	return this->wordlist;
 }
 
 WordListManager::~WordListManager()
-{
-}
-
-
+{}

@@ -112,6 +112,12 @@ void WordListView::filterListbyPattern(QString filter)
  */
 void WordListView::copyWordToTrain()
 {
+	if (this->twVocab->selectedItems().isEmpty())
+	{
+		QMessageBox::information(0,"Nichts ausgewählt","Bitte selektieren Sie zuerst ein Wort aus der Liste links");
+		return;
+	}
+	
 	QString word = this->twVocab->item(this->twVocab->currentRow(),0)->text();
 	QString sampa = this->twVocab->item(this->twVocab->currentRow(),1)->text();
 	QString category = this->twVocab->item(this->twVocab->currentRow(),2)->text();
@@ -153,22 +159,32 @@ void WordListView::addWord()
 
 
 /**
- * @brief Asks the WordListManager for the whole Vocabulary and adds it to the QTableWidget
+ * @brief Asks the WordListManager for the whole Vocabulary and sends it to insertVocab
  *
  * @author Peter Grasch
- * @todo implement correct behavior on words with multiple pronounciations
- * @see initializeItems()
+ * @see insertVocab()
  */
 void WordListView::readVocab()
 {
-	WordList *vocab = this->wordListManager->readVocab();
+	WordList *vocab = this->wordListManager->readWordList();
 	
 	if (!vocab)
+	{
+		QMessageBox::critical(0, "Lesefehler", "Konnte benötigte Dateien nicht einlesen. Bitte überprüfen Sie die Einstellungen und stellen Sie sicher das sie die nötigen Leserechte haben.");
 		return;
+	}
 	
 	insertVocab( vocab );
 }
 
+/**
+ * @brief Inserts a given Wordlist to the QTableWidget
+ *
+ * @author Peter Grasch
+ * @see readVocab()
+ * @param WordList *vocab
+ * The Wordlist to insert
+ */
 void WordListView::insertVocab(WordList *vocab)
 {
 	twVocab->setRowCount(vocab->count());
