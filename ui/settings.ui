@@ -30,6 +30,132 @@
    <property name="frameShadow" >
     <enum>QFrame::Raised</enum>
    </property>
+   <widget class="QPushButton" name="pbRevert" >
+    <property name="geometry" >
+     <rect>
+      <x>820</x>
+      <y>70</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Zurücksetzen</string>
+    </property>
+    <property name="flat" >
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbSystemSettings" >
+    <property name="geometry" >
+     <rect>
+      <x>60</x>
+      <y>10</y>
+      <width>51</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Die Haupt-Systemeinstellungen</string>
+    </property>
+    <property name="text" >
+     <string/>
+    </property>
+    <property name="pixmap" >
+     <pixmap resource="../simon.qrc" >:/images/icons/computer.svg</pixmap>
+    </property>
+    <property name="scaledContents" >
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbSystemSettings" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Die Haupt-Systemeinstellungen</string>
+    </property>
+    <property name="text" >
+     <string>Systemeinstellungen</string>
+    </property>
+    <property name="checkable" >
+     <bool>true</bool>
+    </property>
+    <property name="checked" >
+     <bool>true</bool>
+    </property>
+    <property name="flat" >
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbSoundSettings" >
+    <property name="geometry" >
+     <rect>
+      <x>280</x>
+      <y>10</y>
+      <width>51</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Alle einstellungen rund um die Aufnahmen und das verwendete Soundsystem</string>
+    </property>
+    <property name="text" >
+     <string/>
+    </property>
+    <property name="pixmap" >
+     <pixmap resource="../simon.qrc" >:/images/icons/gnome-settings-sound.svg</pixmap>
+    </property>
+    <property name="scaledContents" >
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbSoundSettings" >
+    <property name="geometry" >
+     <rect>
+      <x>230</x>
+      <y>70</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Alle einstellungen rund um die Aufnahmen und das verwendete Soundsystem</string>
+    </property>
+    <property name="text" >
+     <string>Soundeinstellungen</string>
+    </property>
+    <property name="flat" >
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbCommands" >
+    <property name="geometry" >
+     <rect>
+      <x>480</x>
+      <y>10</y>
+      <width>51</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Kommandos die simon veranlasst auf gewisse Schlüsselwörter spezielle Aktionen auszuführen</string>
+    </property>
+    <property name="text" >
+     <string/>
+    </property>
+    <property name="pixmap" >
+     <pixmap resource="../simon.qrc" >:/images/icons/terminal.svg</pixmap>
+    </property>
+    <property name="scaledContents" >
+     <bool>false</bool>
+    </property>
+   </widget>
    <widget class="QPushButton" name="pbCommands" >
     <property name="geometry" >
      <rect>
@@ -38,6 +164,9 @@
       <width>141</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Kommandos die simon veranlasst auf gewisse Schlüsselwörter spezielle Aktionen auszuführen</string>
     </property>
     <property name="text" >
      <string>Kommandos</string>
@@ -55,106 +184,14 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="toolTip" >
+     <string>Einstellungen über die Protokolle von simon</string>
+    </property>
     <property name="text" >
      <string>Protokolle</string>
     </property>
     <property name="flat" >
      <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pbRevert" >
-    <property name="geometry" >
-     <rect>
-      <x>820</x>
-      <y>70</y>
-      <width>141</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>Zurücksetzen</string>
-    </property>
-    <property name="flat" >
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pbSystemSettings" >
-    <property name="geometry" >
-     <rect>
-      <x>10</x>
-      <y>70</y>
-      <width>141</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>Systemeinstellungen</string>
-    </property>
-    <property name="checkable" >
-     <bool>true</bool>
-    </property>
-    <property name="checked" >
-     <bool>true</bool>
-    </property>
-    <property name="flat" >
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lbSystemSettings" >
-    <property name="geometry" >
-     <rect>
-      <x>60</x>
-      <y>10</y>
-      <width>51</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string/>
-    </property>
-    <property name="pixmap" >
-     <pixmap resource="../simon.qrc" >:/images/icons/computer.svg</pixmap>
-    </property>
-    <property name="scaledContents" >
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lbSoundSettings" >
-    <property name="geometry" >
-     <rect>
-      <x>280</x>
-      <y>10</y>
-      <width>51</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string/>
-    </property>
-    <property name="pixmap" >
-     <pixmap resource="../simon.qrc" >:/images/icons/gnome-settings-sound.svg</pixmap>
-    </property>
-    <property name="scaledContents" >
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lbCommands" >
-    <property name="geometry" >
-     <rect>
-      <x>480</x>
-      <y>10</y>
-      <width>51</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string/>
-    </property>
-    <property name="pixmap" >
-     <pixmap resource="../simon.qrc" >:/images/icons/terminal.svg</pixmap>
-    </property>
-    <property name="scaledContents" >
-     <bool>false</bool>
     </property>
    </widget>
    <widget class="QLabel" name="lbProtocol" >
@@ -165,6 +202,9 @@
       <width>51</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Einstellungen über die Protokolle von simon</string>
     </property>
     <property name="text" >
      <string/>
@@ -185,6 +225,9 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="toolTip" >
+     <string>Setzt das System auf einen früheren Status zurück</string>
+    </property>
     <property name="text" >
      <string/>
     </property>
@@ -193,22 +236,6 @@
     </property>
     <property name="scaledContents" >
      <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pbSoundSettings" >
-    <property name="geometry" >
-     <rect>
-      <x>230</x>
-      <y>70</y>
-      <width>141</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>Soundeinstellungen</string>
-    </property>
-    <property name="flat" >
-     <bool>true</bool>
     </property>
    </widget>
   </widget>
@@ -230,7 +257,7 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>647</width>
+       <width>652</width>
        <height>351</height>
       </rect>
      </property>
@@ -241,7 +268,7 @@
       <property name="spacing" >
        <number>6</number>
       </property>
-      <item row="0" column="2" >
+      <item row="8" column="2" >
        <spacer>
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
@@ -254,14 +281,53 @@
         </property>
        </spacer>
       </item>
-      <item row="7" column="3" >
-       <widget class="QLabel" name="lbCommands" >
+      <item row="12" column="2" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="8" column="1" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="11" column="4" >
+       <widget class="QLineEdit" name="lePrompts" >
         <property name="text" >
-         <string>Kommandos:</string>
+         <string>model/prompts</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="4" >
+      <item row="4" column="1" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="5" column="3" >
        <spacer>
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
@@ -277,17 +343,30 @@
       <item row="4" column="0" >
        <spacer>
         <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Vertical</enum>
         </property>
         <property name="sizeHint" >
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>20</width>
+          <height>40</height>
          </size>
         </property>
        </spacer>
       </item>
-      <item row="0" column="4" >
+      <item row="12" column="4" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="8" column="3" >
        <spacer>
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
@@ -300,86 +379,91 @@
         </property>
        </spacer>
       </item>
-      <item row="7" column="1" >
-       <widget class="QLineEdit" name="leConfig" >
-        <property name="text" >
-         <string>conf/settings.xml</string>
+      <item row="6" column="4" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
         </property>
-       </widget>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item row="4" column="3" >
        <spacer>
         <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Vertical</enum>
         </property>
         <property name="sizeHint" >
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>20</width>
+          <height>40</height>
          </size>
         </property>
        </spacer>
       </item>
-      <item row="8" column="4" >
+      <item row="10" column="4" >
        <widget class="QLineEdit" name="leVocab" >
         <property name="text" >
          <string>model/model.voca</string>
         </property>
        </widget>
       </item>
-      <item row="9" column="3" >
-       <widget class="QLabel" name="lbPrompts" >
-        <property name="text" >
-         <string>Prompts:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0" >
-       <widget class="QLabel" name="lbAutostart" >
-        <property name="text" >
-         <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Autostart:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="1" >
-       <widget class="QLineEdit" name="leGrammar" >
-        <property name="text" >
-         <string>model/model.grammar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="5" column="4" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
       <item row="5" column="2" >
        <spacer>
         <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="5" column="1" >
+       <widget class="QCheckBox" name="cbStartSimonOnBoot" >
+        <property name="text" >
+         <string>Starte simon bei Systemstart</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="3" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="4" column="4" >
+       <spacer>
+        <property name="orientation" >
          <enum>Qt::Vertical</enum>
         </property>
         <property name="sizeHint" >
@@ -390,14 +474,7 @@ p, li { white-space: pre-wrap; }
         </property>
        </spacer>
       </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="lbJuliusdAddr" >
-        <property name="text" >
-         <string>Addresse zu Juliusd:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1" >
+      <item row="6" column="2" >
        <spacer>
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
@@ -423,7 +500,21 @@ p, li { white-space: pre-wrap; }
         </property>
        </spacer>
       </item>
-      <item row="5" column="0" >
+      <item row="3" column="0" >
+       <widget class="QLabel" name="lbJuliusdAddr" >
+        <property name="text" >
+         <string>Addresse zu Juliusd:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="0" >
+       <widget class="QLabel" name="lbGrammar" >
+        <property name="text" >
+         <string>Grammatik:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="3" >
        <spacer>
         <property name="orientation" >
          <enum>Qt::Vertical</enum>
@@ -437,108 +528,49 @@ p, li { white-space: pre-wrap; }
        </spacer>
       </item>
       <item row="8" column="0" >
-       <widget class="QLabel" name="lbLexicon" >
+       <widget class="QLabel" name="lbFiles" >
         <property name="text" >
-         <string>Lexikon:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" >
-       <widget class="QCheckBox" name="cbStartSimonOnBoot" >
-        <property name="text" >
-         <string>Starte simon bei Systemstart</string>
-        </property>
-        <property name="checked" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4" >
-       <widget class="QSpinBox" name="sbPort" >
-        <property name="maximum" >
-         <number>10000</number>
-        </property>
-        <property name="minimum" >
-         <number>4000</number>
-        </property>
-        <property name="value" >
-         <number>4444</number>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="6" column="4" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="1" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="3" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="9" column="4" >
-       <widget class="QLineEdit" name="lePrompts" >
-        <property name="text" >
-         <string>model/prompts</string>
+         <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Dateien:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
         </property>
        </widget>
       </item>
       <item row="2" column="1" >
        <spacer>
         <property name="orientation" >
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" >
          <size>
-          <width>20</width>
-          <height>40</height>
+          <width>40</width>
+          <height>20</height>
          </size>
         </property>
        </spacer>
       </item>
-      <item row="5" column="1" >
+      <item row="6" column="0" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="9" column="0" >
+       <widget class="QLabel" name="lbConfig" >
+        <property name="text" >
+         <string>Konfiguration:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="4" >
        <spacer>
         <property name="orientation" >
          <enum>Qt::Vertical</enum>
@@ -564,27 +596,7 @@ p, li { white-space: pre-wrap; }
         </property>
        </spacer>
       </item>
-      <item row="1" column="3" >
-       <widget class="QLabel" name="lbJuliusdPort" >
-        <property name="text" >
-         <string>Port:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="4" >
+      <item row="7" column="3" >
        <spacer>
         <property name="orientation" >
          <enum>Qt::Vertical</enum>
@@ -597,20 +609,73 @@ p, li { white-space: pre-wrap; }
         </property>
        </spacer>
       </item>
-      <item row="9" column="0" >
-       <widget class="QLabel" name="lbGrammar" >
+      <item row="12" column="0" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="5" column="0" >
+       <widget class="QLabel" name="lbAutostart" >
         <property name="text" >
-         <string>Grammatik:</string>
+         <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Autostart:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
         </property>
        </widget>
       </item>
-      <item row="3" column="4" >
-       <widget class="QCheckBox" name="cbStartJuliusdOnBoot" >
-        <property name="text" >
-         <string>Starte juliusd bei Systemstart</string>
+      <item row="12" column="1" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
         </property>
-        <property name="checked" >
-         <bool>true</bool>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="11" column="1" >
+       <widget class="QLineEdit" name="leGrammar" >
+        <property name="text" >
+         <string>model/model.grammar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="2" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="9" column="1" >
+       <widget class="QLineEdit" name="leConfig" >
+        <property name="text" >
+         <string>conf/settings.xml</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="4" >
+       <widget class="QLineEdit" name="leCommands" >
+        <property name="text" >
+         <string>conf/commands.xml</string>
         </property>
        </widget>
       </item>
@@ -627,189 +692,20 @@ p, li { white-space: pre-wrap; }
         </property>
        </spacer>
       </item>
-      <item row="8" column="1" >
-       <widget class="QLineEdit" name="leLexicon" >
-        <property name="text" >
-         <string>model/lexicon</string>
+      <item row="0" column="3" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
         </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QLineEdit" name="leAddress" >
-        <property name="text" >
-         <string>127.0.0.1</string>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
         </property>
-       </widget>
+       </spacer>
       </item>
       <item row="7" column="0" >
-       <widget class="QLabel" name="lbConfig" >
-        <property name="text" >
-         <string>Konfiguration:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="8" column="2" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="3" column="3" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="7" column="4" >
-       <widget class="QLineEdit" name="leCommands" >
-        <property name="text" >
-         <string>conf/commands.xml</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="3" >
-       <widget class="QLabel" name="lbVocab" >
-        <property name="text" >
-         <string>Vokabular:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="3" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="7" column="2" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="lbJuliusd" >
-        <property name="text" >
-         <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Juliusd:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="2" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="3" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="6" column="0" >
-       <widget class="QLabel" name="lbFiles" >
-        <property name="text" >
-         <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Dateien:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1" >
-       <widget class="QCheckBox" name="cbStartJuliusAsNeeded" >
-        <property name="text" >
-         <string>Starte juliusd wenn nötig</string>
-        </property>
-        <property name="checked" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="0" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="10" column="1" >
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="10" column="2" >
        <spacer>
         <property name="orientation" >
          <enum>Qt::Vertical</enum>
@@ -823,6 +719,92 @@ p, li { white-space: pre-wrap; }
        </spacer>
       </item>
       <item row="10" column="3" >
+       <widget class="QLabel" name="lbVocab" >
+        <property name="text" >
+         <string>Vokabular:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="10" column="2" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="4" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="5" column="4" >
+       <widget class="QCheckBox" name="cbStartJuliusdOnBoot" >
+        <property name="text" >
+         <string>Starte juliusd bei Systemstart</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="0" >
+       <widget class="QLabel" name="lbLexicon" >
+        <property name="text" >
+         <string>Lexikon:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1" >
+       <widget class="QCheckBox" name="cbStartJuliusAsNeeded" >
+        <property name="text" >
+         <string>Starte juliusd wenn nötig</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="4" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="7" column="1" >
        <spacer>
         <property name="orientation" >
          <enum>Qt::Vertical</enum>
@@ -835,7 +817,64 @@ p, li { white-space: pre-wrap; }
         </property>
        </spacer>
       </item>
-      <item row="10" column="4" >
+      <item row="3" column="4" >
+       <widget class="QSpinBox" name="sbPort" >
+        <property name="maximum" >
+         <number>10000</number>
+        </property>
+        <property name="minimum" >
+         <number>4000</number>
+        </property>
+        <property name="value" >
+         <number>4444</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3" >
+       <widget class="QLabel" name="lbJuliusdPort" >
+        <property name="text" >
+         <string>Port:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Allgemein:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" >
+       <widget class="QLineEdit" name="leAddress" >
+        <property name="text" >
+         <string>127.0.0.1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="3" >
+       <widget class="QLabel" name="lbPrompts" >
+        <property name="text" >
+         <string>Prompts:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="4" column="2" >
        <spacer>
         <property name="orientation" >
          <enum>Qt::Vertical</enum>
@@ -847,6 +886,115 @@ p, li { white-space: pre-wrap; }
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="10" column="1" >
+       <widget class="QLineEdit" name="leLexicon" >
+        <property name="text" >
+         <string>model/lexicon</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="3" >
+       <widget class="QLabel" name="lbCommands" >
+        <property name="text" >
+         <string>Kommandos:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="lbJuliusd" >
+        <property name="text" >
+         <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Juliusd:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="2" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="0" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="1" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="2" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="3" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="4" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QCheckBox" name="checkBox" >
+        <property name="text" >
+         <string>Nachfragen vor dem Beenden</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -885,22 +1033,6 @@ Die Port Nummer muss beim Juliusd und bei simon gleich sein.</string>
    </widget>
    <widget class="QWidget" name="page_2" />
   </widget>
-  <widget class="QPushButton" name="pbApply" >
-   <property name="geometry" >
-    <rect>
-     <x>700</x>
-     <y>510</y>
-     <width>141</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>Ü&amp;bernehmen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/view-refresh.svg</iconset>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pbConfirm" >
    <property name="geometry" >
     <rect>
@@ -910,11 +1042,33 @@ Die Port Nummer muss beim Juliusd und bei simon gleich sein.</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="toolTip" >
+    <string>Speichert und Übernimmt die Einstellungen und schließt den Dialog</string>
+   </property>
    <property name="text" >
     <string>&amp;Ok</string>
    </property>
    <property name="icon" >
     <iconset resource="../simon.qrc" >:/images/icons/document-save.svg</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbApply" >
+   <property name="geometry" >
+    <rect>
+     <x>700</x>
+     <y>510</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Übernimmt die neuen Einstellungen</string>
+   </property>
+   <property name="text" >
+    <string>Ü&amp;bernehmen</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/view-refresh.svg</iconset>
    </property>
   </widget>
   <widget class="QPushButton" name="pbBack" >
@@ -926,8 +1080,11 @@ Die Port Nummer muss beim Juliusd und bei simon gleich sein.</string>
      <height>31</height>
     </rect>
    </property>
+   <property name="toolTip" >
+    <string>Verwirft alle Änderungen und schließt den Dialog</string>
+   </property>
    <property name="text" >
-    <string>&amp;Zurück</string>
+    <string>&amp;Abbrechen</string>
    </property>
    <property name="icon" >
     <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>

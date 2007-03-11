@@ -195,7 +195,8 @@ void SimonView::toggleActivation()
 	if (this->control->toggleActivition())
 	{
 		ui.lbBg->setPixmap(QPixmap(":/images/bg.png"));
-		ui.pbActivision->setText("&Deaktivieren");
+		ui.pbActivision->setText("  &Deaktivieren");
+		ui.pbActivision->setIcon(QIcon(":/images/icons/media-playback-pause.svg"));
 		this->trayManager->createIcon( QIcon( ":/images/tray.png" ), "Simon" );
 		
 		if (isHidden()) SimonInfo::showMessage(QString("Simon wurde aktiviert"), 2000);
@@ -204,7 +205,8 @@ void SimonView::toggleActivation()
 	} else 
 	{
 		ui.lbBg->setPixmap(QPixmap(":/images/bg_d.png"));
-		ui.pbActivision->setText("A&ktivieren");
+		ui.pbActivision->setText("  A&ktivieren");
+		ui.pbActivision->setIcon(QIcon(":/images/icons/media-playback-start.svg"));
 
 		if (isHidden()) SimonInfo::showMessage(QString("simon wurde deaktiviert"), 2000);
 

@@ -63,7 +63,11 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit" />
+         <widget class="QLineEdit" name="lineEdit" >
+          <property name="toolTip" >
+           <string>Der Wert des neuen Wortes (das, das geschrieben werden soll wenn das Wort erkannt wird)</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -95,15 +99,18 @@ p, li { white-space: pre-wrap; }
         <item>
          <widget class="QPushButton" name="pbBack" >
           <property name="text" >
-           <string>  &amp;Zurück</string>
+           <string>  &amp;Abbrechen</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+           <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="pbNext" >
+          <property name="toolTip" >
+           <string>Zum nächsten Schritt</string>
+          </property>
           <property name="layoutDirection" >
            <enum>Qt::RightToLeft</enum>
           </property>
@@ -133,47 +140,6 @@ p, li { white-space: pre-wrap; }
      <property name="title" >
       <string>Sample2</string>
      </property>
-     <widget class="QLabel" name="label_5" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>271</x>
-        <y>50</y>
-        <width>68</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>0:00 / 0:00</string>
-      </property>
-     </widget>
-     <widget class="QSlider" name="horizontalSlider_2" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>50</y>
-        <width>231</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="maximum" >
-       <number>0</number>
-      </property>
-      <property name="value" >
-       <number>0</number>
-      </property>
-      <property name="sliderPosition" >
-       <number>0</number>
-      </property>
-      <property name="orientation" >
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
      <widget class="QPushButton" name="pushButton_3" >
       <property name="enabled" >
        <bool>false</bool>
@@ -186,30 +152,14 @@ p, li { white-space: pre-wrap; }
         <height>27</height>
        </rect>
       </property>
+      <property name="toolTip" >
+       <string>Startet die Aufnahme</string>
+      </property>
       <property name="text" >
        <string>Record</string>
       </property>
       <property name="icon" >
        <iconset resource="../simon.qrc" >:/images/icons/media-record.svg</iconset>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_4" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>120</x>
-        <y>20</y>
-        <width>111</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Play</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_6" >
@@ -224,11 +174,80 @@ p, li { white-space: pre-wrap; }
         <height>27</height>
        </rect>
       </property>
+      <property name="toolTip" >
+       <string>Löscht die Aufnahme</string>
+      </property>
       <property name="text" >
        <string>Delete</string>
       </property>
       <property name="icon" >
        <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>120</x>
+        <y>20</y>
+        <width>111</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="toolTip" >
+       <string>Gibt die Aufnahme wieder (zur Kontrolle)</string>
+      </property>
+      <property name="text" >
+       <string>Play</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
+      </property>
+     </widget>
+     <widget class="QSlider" name="horizontalSlider_2" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>231</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="toolTip" >
+       <string>Aktuelle position der Wiedergabe</string>
+      </property>
+      <property name="maximum" >
+       <number>0</number>
+      </property>
+      <property name="value" >
+       <number>0</number>
+      </property>
+      <property name="sliderPosition" >
+       <number>0</number>
+      </property>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>271</x>
+        <y>50</y>
+        <width>68</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>0:00 / 0:00</string>
       </property>
      </widget>
     </widget>
@@ -266,6 +285,9 @@ p, li { white-space: pre-wrap; }
         <height>16</height>
        </rect>
       </property>
+      <property name="toolTip" >
+       <string>Aktuelle position der Wiedergabe</string>
+      </property>
       <property name="maximum" >
        <number>7</number>
       </property>
@@ -285,6 +307,9 @@ p, li { white-space: pre-wrap; }
         <height>27</height>
        </rect>
       </property>
+      <property name="toolTip" >
+       <string>Startet die Aufnahme</string>
+      </property>
       <property name="text" >
        <string>Record</string>
       </property>
@@ -301,6 +326,9 @@ p, li { white-space: pre-wrap; }
         <height>27</height>
        </rect>
       </property>
+      <property name="toolTip" >
+       <string>Gibt die Aufnahme wieder (zur Kontrolle)</string>
+      </property>
       <property name="text" >
        <string>Play</string>
       </property>
@@ -316,6 +344,9 @@ p, li { white-space: pre-wrap; }
         <width>101</width>
         <height>27</height>
        </rect>
+      </property>
+      <property name="toolTip" >
+       <string>Löscht die Aufnahme</string>
       </property>
       <property name="text" >
        <string>Delete</string>
@@ -360,6 +391,9 @@ Sprechen Sie so deutlich wie möglich und vermeiden sie Umgebungsgeräusche.</st
       </property>
       <item>
        <widget class="QPushButton" name="pbBack_2" >
+        <property name="toolTip" >
+         <string>Zurück zum eingeben des Wertes der Aufnahme (das, das simon schreibt wenn das Wort erkannt wird)</string>
+        </property>
         <property name="text" >
          <string>  &amp;Zurück</string>
         </property>
@@ -372,6 +406,9 @@ Sprechen Sie so deutlich wie möglich und vermeiden sie Umgebungsgeräusche.</st
        <widget class="QPushButton" name="pbNext_2" >
         <property name="enabled" >
          <bool>false</bool>
+        </property>
+        <property name="toolTip" >
+         <string>Weiter zum nächsten Schritt (Fertigstellung)</string>
         </property>
         <property name="layoutDirection" >
          <enum>Qt::RightToLeft</enum>

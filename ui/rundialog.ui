@@ -47,108 +47,6 @@
     <cstring>cbShow</cstring>
    </property>
   </widget>
-  <widget class="QPushButton" name="pbClearSearch" >
-   <property name="geometry" >
-    <rect>
-     <x>190</x>
-     <y>10</y>
-     <width>21</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>&amp;x</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbBack" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>440</y>
-     <width>91</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="layoutDirection" >
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="text" >
-    <string>&amp;Zurück</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
-   </property>
-   <property name="checkable" >
-    <bool>false</bool>
-   </property>
-   <property name="checked" >
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbRun" >
-   <property name="geometry" >
-    <rect>
-     <x>350</x>
-     <y>440</y>
-     <width>101</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>&amp;Ausführen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
-   </property>
-   <property name="default" >
-    <bool>true</bool>
-   </property>
-   <property name="flat" >
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="cbShow" >
-   <property name="geometry" >
-    <rect>
-     <x>310</x>
-     <y>10</y>
-     <width>142</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text" >
-     <string>Alles</string>
-    </property>
-    <property name="icon" >
-     <iconset resource="../simon.qrc" >:/images/icons/system-file-manager.svg</iconset>
-    </property>
-   </item>
-   <item>
-    <property name="text" >
-     <string>Programme</string>
-    </property>
-    <property name="icon" >
-     <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
-    </property>
-   </item>
-   <item>
-    <property name="text" >
-     <string>Orte</string>
-    </property>
-    <property name="icon" >
-     <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
-    </property>
-   </item>
-   <item>
-    <property name="text" >
-     <string>Sonderzeichen</string>
-    </property>
-    <property name="icon" >
-     <iconset resource="../simon.qrc" >:/images/icons/format-text-bold.svg</iconset>
-    </property>
-   </item>
-  </widget>
   <widget class="QTableWidget" name="twPrograms" >
    <property name="geometry" >
     <rect>
@@ -192,6 +90,59 @@
     </property>
    </column>
   </widget>
+  <widget class="QPushButton" name="pbBack" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>440</y>
+     <width>91</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Zurück zum Hauptmenü</string>
+   </property>
+   <property name="layoutDirection" >
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text" >
+    <string>&amp;Zurück</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+   </property>
+   <property name="checkable" >
+    <bool>false</bool>
+   </property>
+   <property name="checked" >
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbRun" >
+   <property name="geometry" >
+    <rect>
+     <x>350</x>
+     <y>440</y>
+     <width>101</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Führt das selektierte Kommando aus</string>
+   </property>
+   <property name="text" >
+    <string>&amp;Ausführen</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+   </property>
+   <property name="default" >
+    <bool>true</bool>
+   </property>
+   <property name="flat" >
+    <bool>false</bool>
+   </property>
+  </widget>
   <widget class="QLineEdit" name="leSearch" >
    <property name="geometry" >
     <rect>
@@ -201,6 +152,70 @@
      <height>25</height>
     </rect>
    </property>
+   <property name="toolTip" >
+    <string>Schränkt die Liste auf die Eingabe ein</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbClearSearch" >
+   <property name="geometry" >
+    <rect>
+     <x>190</x>
+     <y>10</y>
+     <width>21</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Zurücksetzen der Suche</string>
+   </property>
+   <property name="text" >
+    <string>&amp;x</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cbShow" >
+   <property name="geometry" >
+    <rect>
+     <x>310</x>
+     <y>10</y>
+     <width>142</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Schränkt die Ausgabe auf gewisse Gruppen ein</string>
+   </property>
+   <item>
+    <property name="text" >
+     <string>Alles</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../simon.qrc" >:/images/icons/system-file-manager.svg</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>Programme</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>Orte</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>Sonderzeichen</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../simon.qrc" >:/images/icons/format-text-bold.svg</iconset>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources>

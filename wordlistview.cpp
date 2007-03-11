@@ -195,13 +195,13 @@ void WordListView::insertVocab(WordList *vocab)
 		twVocab->setItem(i, 1, new QTableWidgetItem(*(vocab->at(i)->getPronunciation(0))));
 		twVocab->setItem(i, 2, new QTableWidgetItem(vocab->at(i)->getTerminal()));
 		
-		QTableWidgetItem *temp = new QTableWidgetItem(QString().setNum(vocab->at(i)->getPropability()));
+		QTableWidgetItem *prob = new QTableWidgetItem(QString().setNum(vocab->at(i)->getPropability()));
 		if (vocab->at(i)->getPropability() == 0)
-			temp->setBackgroundColor( QColor(255,0,0) );
+			prob->setBackgroundColor( QColor(255,0,0) );
 		else 
 			if (vocab->at(i)->getPropability() < 2)
-				temp->setBackgroundColor( QColor( 241, 134, 134 ) );
-		twVocab->setItem(i, 3, temp);
+				prob->setBackgroundColor( QColor( 241, 134, 134 ) );
+		twVocab->setItem(i, 3, prob);
 		
 
 		for (int j = 0; j<4; j++)
