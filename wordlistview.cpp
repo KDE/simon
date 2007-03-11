@@ -194,7 +194,15 @@ void WordListView::insertVocab(WordList *vocab)
 		twVocab->setItem(i, 0, new QTableWidgetItem(vocab->at(i)->getWord()));
 		twVocab->setItem(i, 1, new QTableWidgetItem(*(vocab->at(i)->getPronunciation(0))));
 		twVocab->setItem(i, 2, new QTableWidgetItem(vocab->at(i)->getTerminal()));
-		twVocab->setItem(i, 3, new QTableWidgetItem(QString().setNum(vocab->at(i)->getPropability())));
+		
+		QTableWidgetItem *temp = new QTableWidgetItem(QString().setNum(vocab->at(i)->getPropability()));
+		if (vocab->at(i)->getPropability() == 0)
+			temp->setBackgroundColor( QColor(255,0,0) );
+		else 
+			if (vocab->at(i)->getPropability() < 2)
+				temp->setBackgroundColor( QColor( 241, 134, 134 ) );
+		twVocab->setItem(i, 3, temp);
+		
 
 		for (int j = 0; j<4; j++)
 			twVocab->item(i,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
@@ -244,7 +252,7 @@ void WordListView::initializeItems()
 {
 	lwTrainingWords = new DropListWidget(this);
 	lwTrainingWords->setObjectName(QString::fromUtf8("lwTrainingWords"));
-	lwTrainingWords->setGeometry(QRect(470, 50, 221, 201));
+	lwTrainingWords->setGeometry(QRect(470, 50, 221, 150));
 	
 	twVocab = new DragTableWidget(this);
 	twVocab->setObjectName("twVocab");

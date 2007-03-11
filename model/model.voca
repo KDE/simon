@@ -4,6 +4,18 @@
 % NS_E
 </s>	sil
 
+% Abkürzung
+
+
+% Grußformel
+
+
+% Interjektion
+
+
+% Partizip
+
+
 % Zahl
 EINE 	aI n @
 ZWEI 	t s v aI
@@ -19,7 +31,7 @@ ZEHN 	t s e: n
 % Konjunktion
 ABER	a: b 6
 
-% Modalpartikel
+% Partikel
 ABER	a: b 6
 
 % Adverb
@@ -29,7 +41,7 @@ ABSOLUT	a p z o: l u: t
 ABSOLUTE	a p z o: l u: t @
 ALSO	a l z o:
 
-% Indefinitpronomen
+% Pronomen
 ALLES	a l @ s
 ANDERE	a n d @ R @
 
@@ -58,7 +70,7 @@ EINE	aI n @
 EINES	aI n @ s
 
 % Verb
-ANRUFEN	a n g @ R u: f @ n
+ANRUFEN		a n g @ R u: f @ n
 ANGESCHRIEN	a n g @ S R i: n
 BIN	b I n
 BIST	b I s t
@@ -73,6 +85,7 @@ SEI	z aI
 SEID	z aI t
 SEIEN	z aI E n
 SEIEND	z aI E n t
+
 
 % Nomen
 ICH	I C
