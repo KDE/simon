@@ -16,6 +16,7 @@
 #include <QByteArray>
 #include <QMessageBox>
 #include <QtGlobal>
+#include <QHash>
 #include "word.h"
 #include "modelmanager.h"
 
@@ -29,6 +30,8 @@
  *	@todo Implementing
  */
 
+typedef QHash<QString, QString> PromptsTable;
+
 class WordListManager{
 
 private:
@@ -36,9 +39,11 @@ private:
 	
 public:
 	WordListManager(QString path="model/lexicon");
-	WordList* readWordList(QString lexiconpath="model/lexicon", QString vocabpath="model/model.voca");
+	WordList* readWordList(QString lexiconpath="model/lexicon", QString vocabpath="model/model.voca", QString promptspath="model/prompts");
 	WordList* readVocab(QString vocabpath="model/model.voca");
+	PromptsTable* readPrompts(QString promptspath="model/prompts");
 	QString getTerminal(QString name, QString pronunciation, WordList *wlist);
+	int getProbability(QString name, PromptsTable *promptsTable);
 	WordList* getWordList() { return wordlist; }
 
 	~WordListManager();

@@ -37,11 +37,13 @@ WordListManager::WordListManager ( QString path )
  * @return Wordlist*
  * The parsed WordList
  */
-WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath )
+WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QString promptspath )
 {
 	WordList *wordlist = new WordList();
 	//read the vocab
 	WordList *vocablist = readVocab(vocabpath);
+	//read the prompts
+	PromptsTable *promptsTable = readPrompts(promptspath);
 
 	//opening
 	QFile *lexicon = new QFile ( lexiconpath );
@@ -55,6 +57,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 	QString output;
 	QString pronunciation;
 	QString category;
+	int probability;
 
 	length = lexicon->readLine ( buffer, sizeof ( buffer ) );
 	
@@ -69,9 +72,10 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 		pronunciation = line.right ( line.length() - line.lastIndexOf ( "\t" ) ).trimmed();
 		
 		category = getTerminal( name, pronunciation, vocablist );
+		probability = getProbability( name, promptsTable );
 		
 		//creates and appends the word to the wordlist
-		wordlist->append ( new Word ( output, pronunciation, category, 0 ) );
+		wordlist->append ( new Word ( output, pronunciation, category, probability ) );
 
 		//reading the next line
 		length = lexicon->readLine ( buffer, sizeof ( buffer ) );
@@ -97,6 +101,56 @@ QString WordListManager::getTerminal(QString name, QString pronunciation, WordLi
 	return (terminal.isEmpty()) ? "Unbekannt" : terminal;
 }
 
+int WordListManager::getProbability(QString wordname, PromptsTable *promptsTable)
+{
+	int i=0;
+	int probability = 0;
+	int foundpos;
+	QList<QString> promptsList = promptsTable->values();
+	while (i < promptsList.count())
+	{
+		foundpos = promptsList.at(i).indexOf( wordname );
+		while (foundpos != -1)
+		{
+			probability++;
+			promptsList.replace( i, promptsList.at(i).mid(
+					     promptsList.at(i).indexOf( wordname )+ wordname.length()));
+			foundpos = promptsList.at(i).indexOf( wordname );
+		}
+		i++;
+	}
+	
+	return probability;
+}
+
+PromptsTable* WordListManager::readPrompts(QString promptspath)
+{
+	PromptsTable *promptsTable = new PromptsTable();
+	
+	QFile *prompts = new QFile ( promptspath );
+	prompts->open ( QFile::ReadOnly );
+	if ( !prompts->isReadable() ) return false;
+	
+	char buffer[1024]; //this will hold the current line
+	qint64 length; //this stores the read length - we can determine the end of the file that way
+	QString label;
+	QString prompt;
+	QString line;
+	length = prompts->readLine ( buffer, sizeof ( buffer ) );
+	while ( length != -1 ) //for each line that was successfully read
+	{
+		line = QString ( buffer );
+		
+		label = line.left(line.indexOf(" ")).trimmed();
+		prompt = line.right( line.length() - line.indexOf(" ") ).trimmed();
+
+		promptsTable->insert( label, prompt );
+		//reading the next line
+		length = prompts->readLine ( buffer, sizeof ( buffer ) );
+	}
+	
+	return promptsTable;
+}
 
 WordList* WordListManager::readVocab(QString vocabpath)
 {
