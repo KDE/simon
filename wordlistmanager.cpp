@@ -48,7 +48,8 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 	//opening
 	QFile *lexicon = new QFile ( lexiconpath );
 	lexicon->open ( QFile::ReadOnly );
-	if ( !lexicon->isReadable() ) return false;
+	
+	if ( !lexicon->isReadable() || !vocablist || !promptsTable) return false;
 
 	char buffer[1024]; //this will hold the current line
 	qint64 length; //this stores the read length - we can determine the end of the file that way
