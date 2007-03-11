@@ -13,7 +13,7 @@
    <string>Wort hinzufuegen</string>
   </property>
   <property name="windowIcon" >
-   <iconset>:/images/tray.png</iconset>
+   <iconset resource="../simon.qrc" >:/images/tray.png</iconset>
   </property>
   <widget class="QStackedWidget" name="swMain" >
    <property name="geometry" >
@@ -25,7 +25,7 @@
     </rect>
    </property>
    <property name="currentIndex" >
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="page" >
     <widget class="QWidget" name="verticalLayout" >
@@ -95,10 +95,10 @@ p, li { white-space: pre-wrap; }
         <item>
          <widget class="QPushButton" name="pbBack" >
           <property name="text" >
-           <string>&amp;Zurück</string>
+           <string>  &amp;Zurück</string>
           </property>
           <property name="icon" >
-           <iconset>:/images/icons/back.png</iconset>
+           <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
           </property>
          </widget>
         </item>
@@ -108,10 +108,10 @@ p, li { white-space: pre-wrap; }
            <enum>Qt::RightToLeft</enum>
           </property>
           <property name="text" >
-           <string>&amp;Weiter</string>
+           <string>  &amp;Weiter</string>
           </property>
           <property name="icon" >
-           <iconset>:/images/icons/next.png</iconset>
+           <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
           </property>
          </widget>
         </item>
@@ -149,22 +149,6 @@ p, li { white-space: pre-wrap; }
        <string>0:00 / 0:00</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_3" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>101</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Record</string>
-      </property>
-     </widget>
      <widget class="QSlider" name="horizontalSlider_2" >
       <property name="enabled" >
        <bool>false</bool>
@@ -190,6 +174,25 @@ p, li { white-space: pre-wrap; }
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_3" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>101</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Record</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/media-record.svg</iconset>
+      </property>
+     </widget>
      <widget class="QPushButton" name="pushButton_4" >
       <property name="enabled" >
        <bool>false</bool>
@@ -204,6 +207,9 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text" >
        <string>Play</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_6" >
@@ -220,6 +226,9 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text" >
        <string>Delete</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
       </property>
      </widget>
     </widget>
@@ -267,17 +276,20 @@ p, li { white-space: pre-wrap; }
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_5" >
+     <widget class="QPushButton" name="pushButton_2" >
       <property name="geometry" >
        <rect>
-        <x>240</x>
+        <x>10</x>
         <y>20</y>
         <width>101</width>
         <height>27</height>
        </rect>
       </property>
       <property name="text" >
-       <string>Delete</string>
+       <string>Record</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/media-record.svg</iconset>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton" >
@@ -292,18 +304,24 @@ p, li { white-space: pre-wrap; }
       <property name="text" >
        <string>Play</string>
       </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
+      </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2" >
+     <widget class="QPushButton" name="pushButton_5" >
       <property name="geometry" >
        <rect>
-        <x>10</x>
+        <x>240</x>
         <y>20</y>
         <width>101</width>
         <height>27</height>
        </rect>
       </property>
       <property name="text" >
-       <string>Record</string>
+       <string>Delete</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
       </property>
      </widget>
     </widget>
@@ -343,10 +361,10 @@ Sprechen Sie so deutlich wie möglich und vermeiden sie Umgebungsgeräusche.</st
       <item>
        <widget class="QPushButton" name="pbBack_2" >
         <property name="text" >
-         <string>&amp;Zurück</string>
+         <string>  &amp;Zurück</string>
         </property>
         <property name="icon" >
-         <iconset>:/images/icons/back.png</iconset>
+         <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
         </property>
        </widget>
       </item>
@@ -359,10 +377,10 @@ Sprechen Sie so deutlich wie möglich und vermeiden sie Umgebungsgeräusche.</st
          <enum>Qt::RightToLeft</enum>
         </property>
         <property name="text" >
-         <string>&amp;Weiter</string>
+         <string>  &amp;Weiter</string>
         </property>
         <property name="icon" >
-         <iconset>:/images/icons/next.png</iconset>
+         <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
         </property>
        </widget>
       </item>
@@ -371,7 +389,9 @@ Sprechen Sie so deutlich wie möglich und vermeiden sie Umgebungsgeräusche.</st
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
  <connections>
   <connection>
    <sender>pbBack</sender>

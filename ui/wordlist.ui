@@ -13,7 +13,7 @@
    <string>Bekannte Wörter</string>
   </property>
   <property name="windowIcon" >
-   <iconset>:/images/tray.png</iconset>
+   <iconset resource="../simon.qrc" >:/images/tray.png</iconset>
   </property>
   <widget class="Line" name="line" >
    <property name="geometry" >
@@ -86,19 +86,6 @@ p, li { white-space: pre-wrap; }
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QPushButton" name="pbAddWord_2" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>440</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>Wort &amp;löschen</string>
-   </property>
-  </widget>
   <widget class="Line" name="line_2" >
    <property name="geometry" >
     <rect>
@@ -110,19 +97,6 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="orientation" >
     <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbDeleteTrainingWord" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>260</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>Wort aus Liste &amp;löschen</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2" >
@@ -170,6 +144,16 @@ p, li { white-space: pre-wrap; }
     <cstring>leSearch</cstring>
    </property>
   </widget>
+  <widget class="QLineEdit" name="leSearch" >
+   <property name="geometry" >
+    <rect>
+     <x>310</x>
+     <y>10</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QPushButton" name="pbClearSearch" >
    <property name="geometry" >
     <rect>
@@ -183,14 +167,20 @@ p, li { white-space: pre-wrap; }
     <string>&amp;x</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="leSearch" >
+  <widget class="QPushButton" name="pbBack" >
    <property name="geometry" >
     <rect>
-     <x>310</x>
-     <y>10</y>
-     <width>113</width>
-     <height>25</height>
+     <x>470</x>
+     <y>500</y>
+     <width>221</width>
+     <height>41</height>
     </rect>
+   </property>
+   <property name="text" >
+    <string>  &amp;Zurück</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
    </property>
   </widget>
   <widget class="QPushButton" name="pbAddToTraining" >
@@ -205,6 +195,25 @@ p, li { white-space: pre-wrap; }
    <property name="text" >
     <string>Zum Training &amp;hinzufügen</string>
    </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/go-up.svg</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbDeleteTrainingWord" >
+   <property name="geometry" >
+    <rect>
+     <x>470</x>
+     <y>260</y>
+     <width>221</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Wort aus Liste &amp;löschen</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+   </property>
   </widget>
   <widget class="QPushButton" name="pbSuggestTrain" >
    <property name="geometry" >
@@ -218,31 +227,8 @@ p, li { white-space: pre-wrap; }
    <property name="text" >
     <string>Trainingsprogramm &amp;vorschlagen</string>
    </property>
-  </widget>
-  <widget class="QPushButton" name="pbBack" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>500</y>
-     <width>221</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>&amp;Zurück</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbAddWord" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>400</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>&amp;Neues Wort hinzufügen</string>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/bookmark-new.svg</iconset>
    </property>
   </widget>
   <widget class="QPushButton" name="pbSuggestTrain_2" >
@@ -262,6 +248,41 @@ p, li { white-space: pre-wrap; }
    <property name="text" >
     <string>&amp;Trainieren</string>
    </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbAddWord" >
+   <property name="geometry" >
+    <rect>
+     <x>470</x>
+     <y>400</y>
+     <width>221</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>&amp;Neues Wort hinzufügen</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbAddWord_2" >
+   <property name="geometry" >
+    <rect>
+     <x>470</x>
+     <y>440</y>
+     <width>221</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Wort &amp;löschen</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
+   </property>
   </widget>
  </widget>
  <tabstops>
@@ -274,6 +295,8 @@ p, li { white-space: pre-wrap; }
   <tabstop>pbAddWord_2</tabstop>
   <tabstop>pbBack</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
  <connections/>
 </ui>

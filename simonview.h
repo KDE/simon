@@ -47,6 +47,7 @@
 #include "wordlistview.h"
 #include "vumeter.h"
 #include "trainingview.h"
+#include "settingsview.h"
 #include "ui_main.h"
 
 
@@ -63,6 +64,7 @@ private:
 	WordListView *wordList; //!< Pointer on the Dialog "WordList"
 	RunApplicationView *runDialog; //!< Pointer on the Dialog "RunCommand"
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
+	SettingsView *settingsDialog; //!< Pointer on the Dialog "Settings"
 	
 	VuMeter *vuMeter; //!< Does the calculation of the current input "loudness" for the 2 bars in the mainwindow
 
@@ -81,6 +83,7 @@ public slots:
 	void showRunDialog();
 	void showTrainDialog();
 	void showWordListDialog();
+	void showSettingsDialog();
 
 public:
 	SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);

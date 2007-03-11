@@ -7,6 +7,7 @@ FORMS += ui/main.ui \
          ui/wordlist.ui \
          ui/rundialog.ui \
          ui/addword.ui \
+         ui/settings.ui \
          ui/trainmain.ui
 HEADERS += simonview.h \
            addwordview.h \
@@ -37,7 +38,8 @@ HEADERS += simonview.h \
            xmlreader.h \
            eventhandler.h \
            coreevents.h \
-           xevents.h
+           xevents.h \
+           settingsview.h
 SOURCES += main.cpp \
            simonview.cpp \
            addwordview.cpp \
@@ -63,7 +65,8 @@ SOURCES += main.cpp \
            vumeter.cpp \
            xmlreader.cpp \
            eventhandler.cpp \
-           xevents.cpp
+           xevents.cpp \
+           settingsview.cpp
 QT += network \
 core \
 gui

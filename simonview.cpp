@@ -53,6 +53,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->wordList = new WordListView(this);
 	this->runDialog = new RunApplicationView(this);
 	this->trainDialog = new TrainingView(this);
+	this->settingsDialog = new SettingsView(this);
 	
 	this->vuMeter = new VuMeter();
 	if (vuMeter->prepare())
@@ -69,6 +70,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(showWordListDialog()));
 	QObject::connect(ui.pbRunProgram, SIGNAL(clicked()), this, SLOT(showRunDialog()));
 	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(showTrainDialog()));
+	QObject::connect(ui.pbSettings, SIGNAL(clicked()), this, SLOT(showSettingsDialog()));
 	QObject::connect(ui.pbHide, SIGNAL(clicked()), this, SLOT(hideSimon()));
 	QObject::connect(ui.pbClose, SIGNAL(clicked()), this, SLOT(closeSimon()));
 	QObject::connect(this->trayManager, SIGNAL(clicked()), this, SLOT(toggleVisibility()));
@@ -112,6 +114,16 @@ void SimonView::showRunDialog()
 void SimonView::showAddWordDialog()
 {
 	this->addWordView->exec();
+}
+
+/**
+ * @brief Shows a dialog to configure simon
+ *
+ * @author Peter Grasch
+ */
+void SimonView::showSettingsDialog()
+{
+	this->settingsDialog->exec();
 }
 
 /**
@@ -192,7 +204,7 @@ void SimonView::toggleActivation()
 	} else 
 	{
 		ui.lbBg->setPixmap(QPixmap(":/images/bg_d.png"));
-		ui.pbActivision->setText("&Aktivieren");
+		ui.pbActivision->setText("A&ktivieren");
 
 		if (isHidden()) SimonInfo::showMessage(QString("simon wurde deaktiviert"), 2000);
 

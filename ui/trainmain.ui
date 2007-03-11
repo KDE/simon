@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>459</width>
-    <height>510</height>
+    <height>485</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -40,17 +40,23 @@
     </property>
    </column>
   </widget>
-  <widget class="QPushButton" name="pbWordList" >
+  <widget class="QPushButton" name="pbBack" >
    <property name="geometry" >
     <rect>
-     <x>240</x>
-     <y>460</y>
+     <x>10</x>
+     <y>450</y>
      <width>211</width>
-     <height>41</height>
+     <height>31</height>
     </rect>
    </property>
+   <property name="toolTip" >
+    <string>Schließt den Dialog</string>
+   </property>
    <property name="text" >
-    <string>Zur Wortliste</string>
+    <string>  &amp;Zurück</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
    </property>
   </widget>
   <widget class="QPushButton" name="pbImportText" >
@@ -59,11 +65,14 @@
      <x>10</x>
      <y>410</y>
      <width>211</width>
-     <height>41</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="text" >
-    <string>Text(e) importieren</string>
+    <string>  Text(e) &amp;importieren</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/document-open.svg</iconset>
    </property>
   </widget>
   <widget class="QPushButton" name="pbDelText" >
@@ -72,11 +81,33 @@
      <x>240</x>
      <y>410</y>
      <width>211</width>
-     <height>41</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="text" >
-    <string>Markierten Text löschen</string>
+    <string>  Markierten Text &amp;löschen</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbWordList" >
+   <property name="geometry" >
+    <rect>
+     <x>240</x>
+     <y>450</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Schließt den Dialog und öffnet die Wordliste - Dort kann ein individuelles Trainingsprogramm erstellt werden</string>
+   </property>
+   <property name="text" >
+    <string>  Wechsle zur &amp;Wortliste</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>
    </property>
   </widget>
   <widget class="QPushButton" name="pbTrainText" >
@@ -88,24 +119,20 @@
      <height>41</height>
     </rect>
    </property>
-   <property name="text" >
-    <string>Markierten Text vorlesen</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbBack" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>460</y>
-     <width>211</width>
-     <height>41</height>
-    </rect>
+   <property name="layoutDirection" >
+    <enum>Qt::RightToLeft</enum>
    </property>
    <property name="text" >
-    <string>Zurück</string>
+    <string>                    (Markierten Text &amp;vorlesen (trainieren</string>
    </property>
    <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/back.png</iconset>
+    <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+   </property>
+   <property name="iconSize" >
+    <size>
+     <width>20</width>
+     <height>20</height>
+    </size>
    </property>
   </widget>
  </widget>

@@ -104,7 +104,7 @@
    <string>simon</string>
   </property>
   <property name="windowIcon" >
-   <iconset>:/images/tray.png</iconset>
+   <iconset>../../../../../../../:/images/tray.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <widget class="QPushButton" name="pbTrain" >
@@ -116,8 +116,22 @@
       <height>121</height>
      </rect>
     </property>
+    <property name="font" >
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
     <property name="text" >
-     <string>&amp;Trainieren</string>
+     <string>  &amp;Trainieren</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../simon.qrc" >:/images/icons/document-properties.svg</iconset>
+    </property>
+    <property name="iconSize" >
+     <size>
+      <width>56</width>
+      <height>56</height>
+     </size>
     </property>
    </widget>
    <widget class="QLineEdit" name="leSearch" >
@@ -210,45 +224,6 @@
      <cstring>leSearch</cstring>
     </property>
    </widget>
-   <widget class="QPushButton" name="pbSettings" >
-    <property name="geometry" >
-     <rect>
-      <x>10</x>
-      <y>570</y>
-      <width>221</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>&amp;System</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pbActivision" >
-    <property name="geometry" >
-     <rect>
-      <x>280</x>
-      <y>570</y>
-      <width>201</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>&amp;Deaktivieren</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pbHide" >
-    <property name="geometry" >
-     <rect>
-      <x>740</x>
-      <y>570</y>
-      <width>251</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>&amp;Verstecken</string>
-    </property>
-   </widget>
    <widget class="Line" name="line" >
     <property name="geometry" >
      <rect>
@@ -271,8 +246,22 @@
       <height>121</height>
      </rect>
     </property>
+    <property name="font" >
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
     <property name="text" >
-     <string>&amp;Wortliste</string>
+     <string>  &amp;Wortliste</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>
+    </property>
+    <property name="iconSize" >
+     <size>
+      <width>56</width>
+      <height>56</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="pbAddWord" >
@@ -284,27 +273,22 @@
       <height>121</height>
      </rect>
     </property>
+    <property name="font" >
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
     <property name="text" >
-     <string>Wort &amp;hinzufuegen</string>
+     <string>  Wort &amp;hinzufügen</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
     </property>
     <property name="iconSize" >
      <size>
-      <width>24</width>
-      <height>24</height>
+      <width>56</width>
+      <height>56</height>
      </size>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pbClose" >
-    <property name="geometry" >
-     <rect>
-      <x>490</x>
-      <y>570</y>
-      <width>201</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>&amp;Beenden</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pbRunProgram" >
@@ -316,8 +300,22 @@
       <height>121</height>
      </rect>
     </property>
+    <property name="font" >
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
     <property name="text" >
-     <string>&amp;Ausführen</string>
+     <string>  &amp;Ausführen</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+    </property>
+    <property name="iconSize" >
+     <size>
+      <width>56</width>
+      <height>56</height>
+     </size>
     </property>
    </widget>
    <widget class="QProgressBar" name="pbLevel2" >
@@ -370,6 +368,94 @@
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
+   <widget class="QPushButton" name="pbClose" >
+    <property name="geometry" >
+     <rect>
+      <x>490</x>
+      <y>570</y>
+      <width>201</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>  &amp;Beenden</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../simon.qrc" >:/images/icons/system-log-out.svg</iconset>
+    </property>
+    <property name="iconSize" >
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbActivision" >
+    <property name="geometry" >
+     <rect>
+      <x>280</x>
+      <y>570</y>
+      <width>201</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>  &amp;Deaktivieren</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../simon.qrc" >:/images/icons/media-playback-pause.svg</iconset>
+    </property>
+    <property name="iconSize" >
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbSettings" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>570</y>
+      <width>221</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>  &amp;System</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../simon.qrc" >:/images/icons/computer.svg</iconset>
+    </property>
+    <property name="iconSize" >
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbHide" >
+    <property name="geometry" >
+     <rect>
+      <x>740</x>
+      <y>570</y>
+      <width>251</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>  &amp;Verstecken</string>
+    </property>
+    <property name="icon" >
+     <iconset resource="../simon.qrc" >:/images/icons/window-new.svg</iconset>
+    </property>
+    <property name="iconSize" >
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+   </widget>
    <widget class="QLabel" name="lbBg" >
     <property name="geometry" >
      <rect>
@@ -380,11 +466,13 @@
      </rect>
     </property>
     <property name="text" >
-     <string>TextLabel</string>
+     <string/>
     </property>
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
  <connections/>
 </ui>
