@@ -16,8 +16,9 @@
  *
  *	@author Peter Grasch
  */
-TrainingView::TrainingView()
+TrainingView::TrainingView(QWidget *parent) : QDialog(parent)
 {
+	ui.setupUi(this);
 }
 
 

@@ -6,7 +6,8 @@
 FORMS += ui/main.ui \
          ui/wordlist.ui \
          ui/rundialog.ui \
-         ui/addword.ui
+         ui/addword.ui \
+         ui/trainmain.ui
 HEADERS += simonview.h \
            addwordview.h \
            simoncontrol.h \

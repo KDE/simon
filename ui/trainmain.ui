@@ -1,0 +1,133 @@
+<ui version="4.0" >
+ <class>TrainMain</class>
+ <widget class="QDialog" name="TrainMain" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>459</width>
+    <height>510</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Training</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../simon.qrc" >:/images/tray.png</iconset>
+  </property>
+  <widget class="QTableWidget" name="tableWidget" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>441</width>
+     <height>341</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text" >
+     <string>Name</string>
+    </property>
+   </column>
+   <column>
+    <property name="text" >
+     <string>Seiten</string>
+    </property>
+   </column>
+   <column>
+    <property name="text" >
+     <string>Relevanz</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QPushButton" name="pbWordList" >
+   <property name="geometry" >
+    <rect>
+     <x>240</x>
+     <y>460</y>
+     <width>211</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Zur Wortliste</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbImportText" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>410</y>
+     <width>211</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Text(e) importieren</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbDelText" >
+   <property name="geometry" >
+    <rect>
+     <x>240</x>
+     <y>410</y>
+     <width>211</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Markierten Text löschen</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbTrainText" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>360</y>
+     <width>441</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Markierten Text vorlesen</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbBack" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>460</y>
+     <width>211</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Zurück</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/back.png</iconset>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>pbBack</sender>
+   <signal>clicked()</signal>
+   <receiver>TrainMain</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>894</x>
+     <y>528</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>843</x>
+     <y>486</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

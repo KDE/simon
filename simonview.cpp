@@ -52,6 +52,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->addWordView = new AddWordView(this);
 	this->wordList = new WordListView(this);
 	this->runDialog = new RunApplicationView(this);
+	this->trainDialog = new TrainingView(this);
 	
 	this->vuMeter = new VuMeter();
 	if (vuMeter->prepare())
@@ -67,6 +68,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QObject::connect(ui.pbAddWord, SIGNAL(clicked()), this, SLOT(showAddWordDialog()));
 	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(showWordListDialog()));
 	QObject::connect(ui.pbRunProgram, SIGNAL(clicked()), this, SLOT(showRunDialog()));
+	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(showTrainDialog()));
 	QObject::connect(ui.pbHide, SIGNAL(clicked()), this, SLOT(hideSimon()));
 	QObject::connect(ui.pbClose, SIGNAL(clicked()), this, SLOT(closeSimon()));
 	QObject::connect(this->trayManager, SIGNAL(clicked()), this, SLOT(toggleVisibility()));
@@ -110,6 +112,16 @@ void SimonView::showRunDialog()
 void SimonView::showAddWordDialog()
 {
 	this->addWordView->exec();
+}
+
+/**
+ * @brief Shows a dialog to train the language model
+ *
+ * @author Peter Grasch
+ */
+void SimonView::showTrainDialog()
+{
+	this->trainDialog->exec();
 }
 
 /**

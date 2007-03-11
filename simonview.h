@@ -46,6 +46,7 @@
 #include "trayiconmanager.h"
 #include "wordlistview.h"
 #include "vumeter.h"
+#include "trainingview.h"
 #include "ui_main.h"
 
 
@@ -61,6 +62,7 @@ private:
 	AddWordView *addWordView; //!< Pointer on the Dialog "Add Word to Language model"
 	WordListView *wordList; //!< Pointer on the Dialog "WordList"
 	RunApplicationView *runDialog; //!< Pointer on the Dialog "RunCommand"
+	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
 	
 	VuMeter *vuMeter; //!< Does the calculation of the current input "loudness" for the 2 bars in the mainwindow
 
@@ -77,7 +79,7 @@ public slots:
 	
 	void showAddWordDialog();
 	void showRunDialog();
-//	void showTrainDialog();
+	void showTrainDialog();
 	void showWordListDialog();
 
 public:

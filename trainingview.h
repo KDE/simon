@@ -12,6 +12,9 @@
 #ifndef TRAININGVIEW_H
 #define TRAININGVIEW_H
 
+#include <QDialog>
+#include <QWidget>
+#include "ui_trainmain.h"
 
 /**
  *	@class TrainingView
@@ -22,11 +25,13 @@
  *	@author Peter Grasch
  *	@todo Implementing
  */
-class TrainingView{
+class TrainingView : public QDialog{
+	Q_OBJECT
 private:
+	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
 public:
 	
-    TrainingView();
+    TrainingView(QWidget *parent = 0);
 
     ~TrainingView();
 
