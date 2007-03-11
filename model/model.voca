@@ -4,7 +4,7 @@
 % NS_E
 </s>	sil
 
-% ZAHL
+% Zahl
 EINE 	aI n @
 ZWEI 	t s v aI
 DREI  	d R aI
@@ -16,7 +16,37 @@ ACHT 	a x t
 NEUN 	n OY n
 ZEHN 	t s e: n
 
-% ARTIKEL
+% Konjunktion
+ABER	a: b 6
+
+% Modalpartikel
+ABER	a: b 6
+
+% Adverb
+ABER	a: b 6
+ANSCHEINEND	a n S aI n @ n t
+ABSOLUT	a p z o: l u: t
+ABSOLUTE	a p z o: l u: t @
+ALSO	a l z o:
+
+% Indefinitpronomen
+ALLES	a l @ s
+ANDERE	a n d @ R @
+
+% Subjunktion
+ALS	a l s
+ALSO	a l z o:
+
+% Adjektiv
+ABSOLUT		a p z o: l u: t
+ABSOLUTE	a p z o: l u: t @
+ANERKANNT	a n E R k a n t
+ANSTRENGENDE	a n S t R E N @ n d e:
+
+% Präposition
+AN	a n
+
+% Artikel
 DER	d e: 6
 DES	d E s
 DEM	d e: m
@@ -27,7 +57,9 @@ EIN	aI n
 EINE	aI n @
 EINES	aI n @ s
 
-% VERB
+% Verb
+ANRUFEN	a n g @ R u: f @ n
+ANGESCHRIEN	a n g @ S R i: n
 BIN	b I n
 BIST	b I s t
 IST	I s t
@@ -42,7 +74,7 @@ SEID	z aI t
 SEIEN	z aI E n
 SEIEND	z aI E n t
 
-% NOMEN
+% Nomen
 ICH	I C
 DU	d u:
 ER	e: 6
@@ -54,3 +86,5 @@ MAGARITHA 	m a g a R I t h a:
 TONNO 		t o: n o:
 THUNFISCH 	t u: n f I S
 HAWAI 		h a v aI
+ALPHABET	a l f a b e: t
+ARBEIT	a R b aI t

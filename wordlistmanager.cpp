@@ -82,16 +82,19 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 QString WordListManager::getTerminal(QString name, QString pronunciation, WordList *wlist)
 {
 	int i=0;
+	QString terminal("");
 	while (i < wlist->count())
 	{
-		if ((wlist->at( i )->getWord() == name) && //Because vocabs have just one
-							//pronunciation for each entry
+		//Because vocabs have just one pronunciation for each entry
+		if ((wlist->at( i )->getWord() == name) && 
 				   ( (* wlist->at( i )->getPronunciation(0)) == pronunciation))
-			return wlist->at( i )->getTerminal();
+			
+			terminal += (terminal.isEmpty()) ? wlist->at( i )->getTerminal() :
+					", " + wlist->at( i )->getTerminal();
 		i++;
 	}
 	// there was no result
-	return "Unbekannt";
+	return (terminal.isEmpty()) ? "Unbekannt" : terminal;
 }
 
 

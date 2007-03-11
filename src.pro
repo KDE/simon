@@ -4,10 +4,9 @@
 # Target is an application:  ./bin/simon
 
 FORMS += ui/main.ui \
-         ui/addwordspell.ui \
          ui/wordlist.ui \
          ui/rundialog.ui \
-         ui/addwordrecord.ui
+         ui/addword.ui
 HEADERS += simonview.h \
            addwordview.h \
            simoncontrol.h \

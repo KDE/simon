@@ -36,10 +36,12 @@
 AddWordView::AddWordView(QWidget *parent, Qt::WFlags f)
 	: QDialog (parent, f)
 {
-	this->actstate=0;
-	spellui.setupUi(this);
+	ui.setupUi(this);
 	//recordui.setupUi(this);
-	connect(spellui.pbNext, SIGNAL(clicked()), this, SLOT(nextStep()));
+	connect(ui.pbNext, SIGNAL(clicked()), this, SLOT(nextStep()));
+	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(prevStep()));
+	connect(ui.pbNext_2, SIGNAL(clicked()), this, SLOT(nextStep()));
+	connect(ui.pbBack_2, SIGNAL(clicked()), this, SLOT(prevStep()));
 }
 
 /**
@@ -51,25 +53,22 @@ AddWordView::AddWordView(QWidget *parent, Qt::WFlags f)
  * 	* Record two samples of the word
  * 	* Completion
  *
- * The current state is determined by the member-variable
- * actstate. It reassambles the state by a integer value.
- * "0"=>"Spell the word"
- * "1"=>"Record two samples of the word"
- * "2"=>"Completion"
+ * 
+ * If there is no step left, it calls the method finish()
  *
  *	@author Peter Grasch
- * @see prevStep()
+ * @see prevStep() finish()
 */
 void AddWordView::nextStep()
 {
-	this->close();
-	for (int i=0; i<this->children().size(); i++)
-		this->children().at(i)->deleteLater();
-	qApp->processEvents();
-	recordui.setupUi(this);
-	this->show();
-	connect(recordui.pbNext, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(recordui.pbBack, SIGNAL(clicked()), this, SLOT(prevStep()));
+	if (ui.swMain->currentIndex() + 1 < ui.swMain->count())
+		ui.swMain->setCurrentIndex( ui.swMain->currentIndex()+1 );
+	else finish();
+}
+
+void AddWordView::finish()
+{
+	//finishs up
 }
 
 /**
@@ -81,25 +80,16 @@ void AddWordView::nextStep()
  * 	* Record two samples of the word
  * 	* Completion
  *
- * The current state is determined by the member-variable
- * actstate. It reassambles the state by a integer value.
- * "0"=>"Spell the word"
- * "1"=>"Record two samples of the word"
- * "2"=>"Completion"
+ * If there is no previous step it rejects the wizard
  *
  *	@author Peter Grasch
  * @see nextStep()
 */
 void AddWordView::prevStep()
 {
-	this->close();
-	for (int i=0; i<this->children().size(); i++)
-		this->children().at(i)->deleteLater();
-	qApp->processEvents();
-	spellui.setupUi(this);
-	this->show();
-	connect(spellui.pbNext, SIGNAL(clicked()), this, SLOT(nextStep()));
-	connect(spellui.pbBack, SIGNAL(clicked()), this, SLOT(reject()));
+	if (ui.swMain->currentIndex() - 1 >= 0)
+		ui.swMain->setCurrentIndex( ui.swMain->currentIndex()-1 );
+	else reject();
 }
 
 /**

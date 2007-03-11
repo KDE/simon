@@ -25,7 +25,6 @@
  *
  *	This dialog is using a step-by-step guide through the procedure to
  *	add a new word to the Language Model.
- *	It uses three different UI files - one for each step.
  *
  *	@version 0.1
  *	@date 08.01.2006
@@ -39,8 +38,7 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include "simoninfo.h"
-#include "ui_addwordspell.h"
-#include "ui_addwordrecord.h"
+#include "ui_addword.h"
 
 
 class AddWordView : public QDialog
@@ -48,14 +46,14 @@ class AddWordView : public QDialog
 	Q_OBJECT
 
 	private:
-		Ui::AddWordSpell spellui; //!< AddWordSpell UI definition - made by uic from the QTDesigner .ui
-		int actstate; //!< defines the current state the wizard is in - [0-2]
+
 		//SimonInfo info;
-//		Ui::AddWordRecord recordui; //!< AddWordRecord UI definition - made by uic from the QTDesigner .ui
-		Ui::AddWordRecord recordui;
+
+		Ui::AddWord ui; //!< The ui definition created with uic
 	public slots:
 		void nextStep();
 		void prevStep();
+		void finish();
 		
 	public:
 		AddWordView(QWidget *parent=0, Qt::WFlags flags=0);
