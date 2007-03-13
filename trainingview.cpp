@@ -48,8 +48,8 @@ void TrainingView::switchToWordList()
  */
 void TrainingView::loadList()
 {
-	this->trainingTexts = this->trainMgr->readTrainingTexts();
-	ui.twTrainingWords->setWordCount(trainingTexts->count());
+	//TrainList *list = this->trainMgr->readTrainingTexts();
+	//ui.twTrainingWords->setWordCount(trainingTexts->count());
 }
 
 // 	twVocab->setRowCount(vocab->count());

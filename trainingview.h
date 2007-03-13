@@ -34,7 +34,6 @@ class TrainingView : public QDialog{
 	Q_OBJECT
 private:
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
-	TrainingList trainingTexts;
 	TrainingManager *trainMgr;
 public slots:
 	void switchToWordList();

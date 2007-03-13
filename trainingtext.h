@@ -12,6 +12,7 @@
 #ifndef TRAININGTEXT_H
 #define TRAININGTEXT_H
 
+#include <QList>
 /**
  *	@class TrainingText
  *	@brief Convenient class to be used as a container to hold all theinformation for one text
