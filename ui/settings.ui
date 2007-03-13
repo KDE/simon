@@ -1087,7 +1087,7 @@ Die Port Nummer muss beim Juliusd und bei simon gleich sein.</string>
     <string>&amp;Abbrechen</string>
    </property>
    <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+    <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
    </property>
   </widget>
  </widget>

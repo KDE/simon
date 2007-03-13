@@ -12,6 +12,9 @@
 #ifndef TRAININGMANAGER_H
 #define TRAININGMANAGER_H
 
+#include "trainingtext.h"
+#include "word.h"
+
 /**
  *	@class TrainingManager
  *	@brief Class to handle the process of training the language model
@@ -22,10 +25,16 @@
  *	@todo Implementing
  */
 class TrainingManager{
+private:
+	TrainingList *trainingTexts;
 public:
-    TrainingManager();
+	TrainingManager();
 
-    ~TrainingManager();
+	TrainingList* readTrainingTexts();
+	TrainingList* getList();
+	int calcRelevance(TrainingText *text, WordList *wlist);
+
+	~TrainingManager();
 
 };
 

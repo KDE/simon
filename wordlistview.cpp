@@ -35,6 +35,7 @@ WordListView::WordListView(QWidget *parent) : QDialog(parent)
 	connect(ui.pbSuggestTrain, SIGNAL(clicked()), this, SLOT(suggestTraining()));
 	connect(ui.leSearch, SIGNAL(textChanged(QString)), this, SLOT(filterListbyPattern(QString)));
 	connect(ui.pbClearSearch, SIGNAL(clicked()), this, SLOT(clearSearchText()));
+	connect(ui.pbSwitchToTraining, SIGNAL(clicked()), this, SLOT(switchToGenericTraining()));
 }
 
 /**
@@ -139,6 +140,23 @@ bool WordListView::showAddWordDialog()
 {
 	AddWordView *addword = new AddWordView();
 	return addword->exec();
+}
+
+
+/**
+ * @brief Switches to the Generic Training Dialog
+ * 
+ * Discards the Dialog and opens the Training Dialog
+ *
+ *	@author Peter Grasch
+ * @todo When we call reject() to close the dialog before we show the TrainingView we sometimes destroy the Dialog (and thus the TrainingView handle) before we actually execute it - this causes a crash. This behaviour is now avoided by hiding the Dialog, showing the Training and only after this execution returns we close the WordListView
+ */
+void WordListView::switchToGenericTraining()
+{
+	TrainingView *train = new TrainingView(parentWidget());
+	hide();
+	train->exec();
+	reject();
 }
 
 

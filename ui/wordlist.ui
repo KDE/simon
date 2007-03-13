@@ -15,77 +15,6 @@
   <property name="windowIcon" >
    <iconset resource="../simon.qrc" >:/images/tray.png</iconset>
   </property>
-  <widget class="Line" name="line" >
-   <property name="geometry" >
-    <rect>
-     <x>700</x>
-     <y>0</y>
-     <width>20</width>
-     <height>551</height>
-    </rect>
-   </property>
-   <property name="orientation" >
-    <enum>Qt::Vertical</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbHelp" >
-   <property name="geometry" >
-    <rect>
-     <x>720</x>
-     <y>20</y>
-     <width>270</width>
-     <height>510</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Hilfe:&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Das ist die Hauptansicht für alle Aktionen&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">rund um das Spachmodell.&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Hier kannst du &lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> * Einzelne Wörter trainieren&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;span style=" font-style:italic;">Für das allgemeine Training gibt es im &lt;/span>&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-style:italic;">    Hauptmenü einen extra Punkt &lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-style:italic;">    &lt;span style=" font-weight:600;">"Trainieren"&lt;/span>&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> * Wörter hinzufügen&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> * Wörter löschen&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Um einzelne Wörter zu trainieren, markiere &lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">das Wort in der Tabelle links und ziehe es&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">in das Feld oben in der Mitte.&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Alternativ kannst du es auch im linken&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Auswahlfeld selektieren und den Knopf&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">"Zum Training hinzufügen" &lt;/span>drücken.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Der Knopf &lt;span style=" font-weight:600;">"Trainingsprogramm &lt;/span>&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">vorschlagen" &lt;span style=" font-weight:400;">selektiert automatisch &lt;/span>&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">zehn Wörter die noch&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Verbesserungspotential besitzen&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Der Knopf "&lt;span style=" font-weight:600;">Neues Wort hinzufügen&lt;/span>"&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">öffnet einen neuen Dialog der Ihnen&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">helfen wird ein neues Wort hinzuzufügen.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">"&lt;span style=" font-weight:600;">Wort löschen&lt;/span>" &lt;span style=" text-decoration: underline;">löscht&lt;/span> das selektierte&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Wort &lt;span style=" text-decoration: underline;">unwiederbringlich&lt;/span>.&lt;/p>&lt;/body>&lt;/html></string>
-   </property>
-  </widget>
-  <widget class="Line" name="line_3" >
-   <property name="geometry" >
-    <rect>
-     <x>480</x>
-     <y>480</y>
-     <width>201</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="orientation" >
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
   <widget class="Line" name="line_2" >
    <property name="geometry" >
     <rect>
@@ -161,25 +90,6 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="icon" >
     <iconset resource="../simon.qrc" >:/images/icons/go-up.svg</iconset>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbDeleteTrainingWord" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>260</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Löscht das Wort aus der Liste der zu trainierenden Wörter</string>
-   </property>
-   <property name="text" >
-    <string>Wort aus Liste &amp;löschen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
    </property>
   </widget>
   <widget class="QPushButton" name="pbSuggestTrain" >
@@ -263,25 +173,6 @@ p, li { white-space: pre-wrap; }
     <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
    </property>
   </widget>
-  <widget class="QPushButton" name="pbBack" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>500</y>
-     <width>221</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Schließt den Dialog</string>
-   </property>
-   <property name="text" >
-    <string>  &amp;Zurück</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
-   </property>
-  </widget>
   <widget class="QLineEdit" name="leSearch" >
    <property name="geometry" >
     <rect>
@@ -309,6 +200,131 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text" >
     <string>&amp;x</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbHelp" >
+   <property name="geometry" >
+    <rect>
+     <x>720</x>
+     <y>20</y>
+     <width>270</width>
+     <height>461</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Hilfe:&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Das ist die Hauptansicht für alle Aktionen&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">rund um das Spachmodell.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Hier kannst du &lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> * Einzelne Wörter trainieren&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">    &lt;span style=" font-style:italic;">Für das allgemeine Training gibt es im &lt;/span>&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-style:italic;">    Hauptmenü einen extra Punkt &lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-style:italic;">    &lt;span style=" font-weight:600;">"Trainieren"&lt;/span>&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> * Wörter hinzufügen&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"> * Wörter löschen&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Um einzelne Wörter zu trainieren, markiere &lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">das Wort in der Tabelle links und ziehe es&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">in das Feld oben in der Mitte.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Alternativ kannst du es auch im linken&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Auswahlfeld selektieren und den Knopf&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">"Zum Training hinzufügen" &lt;/span>drücken.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Der Knopf &lt;span style=" font-weight:600;">"Trainingsprogramm &lt;/span>&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;">vorschlagen" &lt;span style=" font-weight:400;">selektiert automatisch &lt;/span>&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">zehn Wörter die noch&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Verbesserungspotential besitzen&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Der Knopf "&lt;span style=" font-weight:600;">Neues Wort hinzufügen&lt;/span>"&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">öffnet einen neuen Dialog der Ihnen&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">helfen wird ein neues Wort hinzuzufügen.&lt;/p>&lt;/body>&lt;/html></string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbBack" >
+   <property name="geometry" >
+    <rect>
+     <x>470</x>
+     <y>510</y>
+     <width>221</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Schließt den Dialog</string>
+   </property>
+   <property name="text" >
+    <string>  &amp;Zurück</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+   </property>
+  </widget>
+  <widget class="Line" name="line_3" >
+   <property name="geometry" >
+    <rect>
+     <x>470</x>
+     <y>490</y>
+     <width>511</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="Line" name="line" >
+   <property name="geometry" >
+    <rect>
+     <x>700</x>
+     <y>0</y>
+     <width>20</width>
+     <height>541</height>
+    </rect>
+   </property>
+   <property name="orientation" >
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbSwitchToTraining" >
+   <property name="geometry" >
+    <rect>
+     <x>720</x>
+     <y>510</y>
+     <width>251</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Schließt den Dialog und wechselt zum generischen Training (Vorlesen vorgefertigter Texte)</string>
+   </property>
+   <property name="text" >
+    <string>Zum generischen Training wechseln</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/document-properties.svg</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbDeleteTrainingWord" >
+   <property name="geometry" >
+    <rect>
+     <x>470</x>
+     <y>260</y>
+     <width>221</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Löscht das Wort aus der Liste der zu trainierenden Wörter</string>
+   </property>
+   <property name="text" >
+    <string>Wort aus Trainings-Liste &amp;löschen</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
    </property>
   </widget>
  </widget>

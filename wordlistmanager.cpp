@@ -76,7 +76,8 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 		probability = getProbability( name, promptsTable );
 		
 		//creates and appends the word to the wordlist
-		wordlist->append ( new Word ( output, pronunciation, category, probability ) );
+		if (output != "")
+			wordlist->append ( new Word ( output, pronunciation, category, probability ) );
 
 		//reading the next line
 		length = lexicon->readLine ( buffer, sizeof ( buffer ) );

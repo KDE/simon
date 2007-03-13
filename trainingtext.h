@@ -21,6 +21,9 @@
  *	@author Peter Grasch
  *	@todo Implementing
  */
+class TrainingText;
+typedef  QList<TrainingText> TrainingList;
+
 class TrainingText{
 public:
     TrainingText();

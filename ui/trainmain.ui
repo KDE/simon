@@ -15,34 +15,6 @@
   <property name="windowIcon" >
    <iconset resource="../simon.qrc" >:/images/tray.png</iconset>
   </property>
-  <widget class="QPushButton" name="pbTrainText" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>360</y>
-     <width>441</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Startet das Training des selektierten Textes.</string>
-   </property>
-   <property name="layoutDirection" >
-    <enum>Qt::RightToLeft</enum>
-   </property>
-   <property name="text" >
-    <string>                    (Markierten Text &amp;vorlesen (trainieren</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
-   </property>
-   <property name="iconSize" >
-    <size>
-     <width>20</width>
-     <height>20</height>
-    </size>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pbImportText" >
    <property name="geometry" >
     <rect>
@@ -119,7 +91,35 @@
     <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>
    </property>
   </widget>
-  <widget class="QTableWidget" name="tableWidget" >
+  <widget class="QPushButton" name="pbTrainText" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>360</y>
+     <width>441</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Startet das Training des selektierten Textes.</string>
+   </property>
+   <property name="layoutDirection" >
+    <enum>Qt::RightToLeft</enum>
+   </property>
+   <property name="text" >
+    <string>                    (Markierten Text &amp;vorlesen (trainieren</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+   </property>
+   <property name="iconSize" >
+    <size>
+     <width>20</width>
+     <height>20</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="twTrainingWords" >
    <property name="geometry" >
     <rect>
      <x>10</x>

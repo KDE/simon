@@ -20,7 +20,9 @@
 #include "dragtablewidget.h"
 #include "droplistwidget.h"
 #include <QMessageBox>
+#include <QTimer>
 #include "addwordview.h"
+#include "trainingview.h"
 #include "ui_wordlist.h"
 
 /**
@@ -55,6 +57,7 @@ public slots:
 	void addWord();
 	void filterListbyPattern(QString filter);
 	void clearSearchText();
+	void switchToGenericTraining();
 	void insertVocab(WordList *vocab);
 
 public:
