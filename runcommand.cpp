@@ -77,6 +77,10 @@ void RunCommand::run(QString commandName)
 		RunLinuxBackend *lin = (RunLinuxBackend*) this->runner;
 		lin->run(commandlist.at(i)->getValue());
 #endif
+#ifdef WINDOWS
+		RunWindowsBackend *win = (RunWindowsBackend*) this->runner;
+		win->run(commandlist.at(i)->getValue());
+#endif
 	}
 	
 	if (commandlist.at(i)->getType() == place)
@@ -84,6 +88,10 @@ void RunCommand::run(QString commandName)
 #ifdef LINUX
 		RunLinuxBackend *lin = (RunLinuxBackend*) this->runner;
 		lin->goTo(commandlist.at(i)->getValue());
+#endif
+#ifdef WINDOWS
+		RunWindowsBackend *win = (RunWindowsBackend*) this->runner;
+		win->goTo(commandlist.at(i)->getValue());
 #endif
 	}
 }

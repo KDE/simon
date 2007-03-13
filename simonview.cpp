@@ -56,8 +56,9 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->settingsDialog = new SettingsView(this);
 	
 	this->vuMeter = new VuMeter();
-	if (vuMeter->prepare())
-		vuMeter->start();
+	//Disabled for now because it crashes the windows compile
+	//if (vuMeter->prepare())
+	//	vuMeter->start();
 	
 	QMainWindow(parent,flags);
 	ui.setupUi(this);

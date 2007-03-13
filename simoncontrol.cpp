@@ -59,7 +59,6 @@ SimonControl::~SimonControl()
  */
 void SimonControl::wordRecognised(QString word)
 {
-	sleep (2);
 	//run->run(word);
 	if (word.indexOf(COMMANDIDENT,0,Qt::CaseInsensitive) == 0)
 	{

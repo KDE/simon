@@ -12,15 +12,21 @@
 #ifndef RUNCOMMAND_H
 #define RUNCOMMAND_H
 
+#define WINDOWS
+
 #include "command.h"
 #include "runbackend.h"
+
+#ifdef LINUX
 #include "runlinuxbackend.h"
+#else
+#include "runwindowsbackend.h"
+#endif
 #include <QString>
 #include <QMessageBox>
 #include <iostream>
 #include "simoninfo.h"
 
-#define LINUX
 
 /**
  *	@class RunCommand

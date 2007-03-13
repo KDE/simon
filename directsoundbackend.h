@@ -4,7 +4,7 @@
 // Description: 
 //
 //
-// Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
+// Author: Martin Gigerl <gigmab03@htl-kaindorf.ac.at>, (C) 2007
 //
 // Copyright: See COPYING file that comes with this distribution
 //
@@ -12,6 +12,9 @@
 #ifndef DIRECTSOUNDBACKEND_H
 #define DIRECTSOUNDBACKEND_H
 
+#include "soundbackend.h"
+#include <iostream>
+//#include <dsound.h>
 /**
  *	@class DirectSoundBackend
  *	@brief The DirectSound Backend - implements the SoundInterface
@@ -21,7 +24,7 @@
  *
  *	@version 0.1
  *	@date 23.01.2006
- *	@author Peter Grasch
+ *	@author Martin Gigerl
  *	@todo Implementing
  */
 class DirectSoundBackend{

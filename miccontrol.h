@@ -12,7 +12,7 @@
 #ifndef MICCONTROL_H
 #define MICCONTROL_H
 
-#define LINUX
+#define WINDOWS
 
 #include "simoninfo.h"
 #include "soundbackend.h"
