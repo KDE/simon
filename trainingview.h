@@ -19,6 +19,7 @@
 #include "trainingtext.h"
 #include "trainingmanager.h"
 #include "wordlistview.h"
+#include "trainingtext.h"
 #include "ui_trainmain.h"
 
 /**

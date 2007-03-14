@@ -48,7 +48,7 @@ void TrainingView::switchToWordList()
  */
 void TrainingView::loadList()
 {
-	//TrainList *list = this->trainMgr->readTrainingTexts();
+	TrainingList *list = this->trainMgr->readTrainingTexts();
 	//ui.twTrainingWords->setWordCount(trainingTexts->count());
 }
 

@@ -34,7 +34,12 @@ HEADERS += simonview.h \
            runapplicationview.h \
            runlinuxbackend.h \
            runbackend.h \
-           vumeter.h
+           vumeter.h \
+           xmlreader.h \
+           eventhandler.h \
+           coreevents.h \
+           xevents.h \
+           settingsview.h
 SOURCES += main.cpp \
            simonview.cpp \
            addwordview.cpp \
@@ -48,7 +53,6 @@ SOURCES += main.cpp \
            directsoundbackend.cpp \
            miccontrol.cpp \
            modelmanager.cpp \
-           eventhandler.cpp \
            runcommand.cpp \
            trainingmanager.cpp \
            trainingtext.cpp \
@@ -58,8 +62,27 @@ SOURCES += main.cpp \
            droplistwidget.cpp \
            runapplicationview.cpp \
            runlinuxbackend.cpp \
-           vumeter.cpp
-INCLUDEPATH += /usr/include/alsa /usr/include/qt4/QtNetwork
-LIBS += -L/usr/lib/alsa-lib -lasound
-QT += network
+           vumeter.cpp \
+           xmlreader.cpp \
+           eventhandler.cpp \
+           xevents.cpp \
+           settingsview.cpp
+QT += network \
+core \
+gui
 TARGET = ./bin/simon
+TEMPLATE = app
+
+CONFIG += qt \
+warn_on \
+thread
+INCLUDEPATH += /usr/X11R6/include/ \
+/usr/include/alsa \
+/usr/include/qt4/QtNetwork
+LIBS += -L/usr/X11R6/lib \
+-L/usr/lib/alsa-lib \
+-lX11 \
+-lXtst \
+-lasound
+RESOURCES += simon.qrc
+

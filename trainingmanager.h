@@ -28,10 +28,21 @@ class TrainingManager{
 private:
 	TrainingList *trainingTexts;
 public:
-	TrainingManager();
+	TrainingManager(QString pathToTexts="texts/");
 
-	TrainingList* readTrainingTexts();
-	TrainingList* getList();
+	TrainingList* readTrainingTexts(QString pathToTexts="texts/");
+	
+	/**
+	* @brief Getter method for the QList of training texts
+	*
+	* @return TrainingList*
+	* The TrainingList (member)
+	*/
+	TrainingList* getList()
+	{
+		return trainingTexts;
+	}
+	
 	int calcRelevance(TrainingText *text, WordList *wlist);
 
 	~TrainingManager();

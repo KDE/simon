@@ -31,7 +31,7 @@ HEADERS += simonview.h \
            dragtablewidget.h \
            droplistwidget.h \
            runapplicationview.h \
-		   runwindowsbackend.h \
+	   runwindowsbackend.h \
            runbackend.h \
            vumeter.h \
            settingsview.h
