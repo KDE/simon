@@ -17,8 +17,6 @@
 #include <QMessageBox>
 #include "coreevents.h"
 
-#define linux
-
 #ifdef linux
 #include "xevents.h"
 #endif
