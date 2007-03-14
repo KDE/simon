@@ -20,11 +20,11 @@
  */
 RunCommand::RunCommand(QString path)
 {
-	#ifdef LINUX
+	#ifdef linux
 	this->runner = new RunLinuxBackend();
 	#endif
 	
-	#ifdef WINDOWS
+	#ifdef __WIN32
 	this->runner = new RunWindowsBackend();
 	#endif
 	
@@ -73,11 +73,11 @@ void RunCommand::run(QString commandName)
 	
 	if (commandlist.at(i)->getType() == exec)
 	{
-#ifdef LINUX
+#ifdef linux
 		RunLinuxBackend *lin = (RunLinuxBackend*) this->runner;
 		lin->run(commandlist.at(i)->getValue());
 #endif
-#ifdef WINDOWS
+#ifdef __WIN32
 		RunWindowsBackend *win = (RunWindowsBackend*) this->runner;
 		win->run(commandlist.at(i)->getValue());
 #endif
@@ -85,11 +85,11 @@ void RunCommand::run(QString commandName)
 	
 	if (commandlist.at(i)->getType() == place)
 	{
-#ifdef LINUX
+#ifdef linux
 		RunLinuxBackend *lin = (RunLinuxBackend*) this->runner;
 		lin->goTo(commandlist.at(i)->getValue());
 #endif
-#ifdef WINDOWS
+#ifdef __WIN32
 		RunWindowsBackend *win = (RunWindowsBackend*) this->runner;
 		win->goTo(commandlist.at(i)->getValue());
 #endif

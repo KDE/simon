@@ -21,7 +21,7 @@
  */
 MicControl::MicControl()
 {
-#ifdef LINUX
+#ifdef linux
 	soundbackend = new ALSABackend();
 #endif
 }
@@ -44,7 +44,7 @@ MicControl::MicControl()
  */
 bool MicControl::initializeMic(short channels, int samplerate)
 {
-#ifdef LINUX
+#ifdef linux
 	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
 	if (!(abackend)) return false;
 	
@@ -76,7 +76,7 @@ bool MicControl::initializeMic(short channels, int samplerate)
 		return false;
 	}
 	
-#endif //LINUX
+#endif //linux
 }
 
 
@@ -97,7 +97,7 @@ bool MicControl::initializeMic(short channels, int samplerate)
 short** MicControl::capture (int count, short buffersize)
 {
 	
-#ifdef LINUX
+#ifdef linux
 	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
 	if (!(abackend)) return false;
 	
@@ -109,7 +109,7 @@ short** MicControl::capture (int count, short buffersize)
 		SimonInfo::showMessage("Aufnehmen fehlgeschlagen", 6000);
 	}
 	return buffer;
-#endif //LINUX
+#endif //linux
 }
 
 
@@ -124,7 +124,7 @@ short** MicControl::capture (int count, short buffersize)
  */
 bool MicControl::closeMic()
 {
-#ifdef LINUX
+#ifdef linux
 	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
 	if (!(abackend)) return false;
 	
@@ -133,7 +133,7 @@ bool MicControl::closeMic()
 		SimonInfo::showMessage("Konnte Soundkarte nicht schlieﬂen", 6000);
 		return false;
 	}
-#endif //LINUX
+#endif //linux
 }
 
 

@@ -17,9 +17,9 @@
 #include <QMessageBox>
 #include "coreevents.h"
 
-#define LINUX
+#define linux
 
-#ifdef LINUX
+#ifdef linux
 #include "xevents.h"
 #endif
 
@@ -33,7 +33,7 @@
  */
 class EventHandler{
 private:
-#ifdef LINUX
+#ifdef linux
 	CoreEvents *coreEvents; //!< The event backend
 #endif
 public:

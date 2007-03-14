@@ -20,7 +20,7 @@
  */
 EventHandler::EventHandler()
 {
-#ifdef LINUX
+#ifdef linux
 	coreEvents= (CoreEvents*) new XEvents();
 #endif
 }
@@ -57,7 +57,7 @@ void EventHandler::sendWord(QString word)
  */
 void EventHandler::sendKey(QChar key)
 {
-#ifdef LINUX
+#ifdef linux
 	XEvents *events = dynamic_cast<XEvents*>(coreEvents);
 	if (events)
 	{

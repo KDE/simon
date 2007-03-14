@@ -12,12 +12,10 @@
 #ifndef MICCONTROL_H
 #define MICCONTROL_H
 
-#define WINDOWS
-
 #include "simoninfo.h"
 #include "soundbackend.h"
 
-#ifdef LINUX
+#ifdef linux
 #include "alsabackend.h"
 #endif
 
@@ -35,7 +33,7 @@
  *	@todo Implementing all Windows and all Volume related stuff
  */
 class MicControl{
-#ifdef LINUX
+#ifdef linux
 	ALSABackend *soundbackend;
 #endif
 public:

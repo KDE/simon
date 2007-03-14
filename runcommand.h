@@ -12,14 +12,13 @@
 #ifndef RUNCOMMAND_H
 #define RUNCOMMAND_H
 
-#define LINUX
-
 #include "command.h"
 #include "runbackend.h"
 
-#ifdef LINUX
+#ifdef linux
 #include "runlinuxbackend.h"
-#else
+#endif
+#ifdef __WIN32
 #include "runwindowsbackend.h"
 #endif
 #include <QString>
