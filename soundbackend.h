@@ -33,7 +33,8 @@ public:
     virtual bool setInterleaved( bool interleaved ) = 0;
     virtual bool closeDevice() = 0;
     virtual bool prepareDevice() = 0;
-    virtual short **readData( short count, short buffersize ) = 0;
+    virtual char* readData( int msecs, long unsigned int& length ) = 0;
+    virtual short* readData( int count, int buffersize, long unsigned int& length ) = 0;
     virtual int getVolume() = 0;
     virtual void setVolume( int percent ) = 0;
 

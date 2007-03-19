@@ -38,8 +38,6 @@
 #include <QPixmap>
 #include <QSplashScreen>
 #include <QMessageBox>
-#include <QPainter>
-#include <QPaintEvent>
 #include "simoncontrol.h"
 #include "simoninfo.h"
 #include "runapplicationview.h"

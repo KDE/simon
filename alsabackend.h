@@ -12,6 +12,8 @@
 #ifndef ALSABACKEND_H
 #define ALSABACKEND_H
 
+#define ALSA_PCM_NEW_HW_PARAMS_API
+
 #include "soundbackend.h"
 #include <iostream>
 
@@ -37,6 +39,10 @@ private:
 	snd_pcm_t *capture_handle; //!< The handle
 	snd_pcm_hw_params_t *hw_params; //!< Stores all config options for the handle
 	
+	int dir; //!< I have NO idea
+	snd_pcm_uframes_t frames; //!< holds the number of frames
+	unsigned int sampleRate; //!< we seem to need this again later on
+	
 public:
 	bool openDevice( const char* deviceID );
 	bool setSampleRate( int sampleRate );
@@ -44,7 +50,8 @@ public:
 	bool setInterleaved( bool interleaved );
 	bool closeDevice();
 	bool prepareDevice();
-	short **readData( short count, short buffersize );
+	char* readData( int msecs, long unsigned int& length );
+	short* readData( int count, int buffersize, long unsigned int& length );
 	int getVolume();
 	void setVolume( int percent );
 	

@@ -30,7 +30,7 @@
 class RunWindowsBackend : public RunBackend {
 public:
     RunWindowsBackend();
-    
+
     void goTo(QString place);
     void run(QString command);
 

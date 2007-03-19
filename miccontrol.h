@@ -14,7 +14,6 @@
 
 #include "simoninfo.h"
 #include "soundbackend.h"
-
 #ifdef linux
 #include "alsabackend.h"
 #endif
@@ -38,7 +37,8 @@ class MicControl{
 #endif
 public:
 	bool initializeMic(short channels=2, int samplerate=44100);
-	short** capture (int count, short buffersize);
+	char* capture (int msecs, long unsigned int& size);
+	short* capture (int count, int buffersize, long unsigned int& size);
 	bool closeMic();
 	int getVolume();
 	void setVolume(int percent);

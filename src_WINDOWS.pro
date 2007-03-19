@@ -34,6 +34,7 @@ HEADERS += simonview.h \
 	   runwindowsbackend.h \
            runbackend.h \
            vumeter.h \
+	   wav.h \
            settingsview.h
 SOURCES += main.cpp \
            simonview.cpp \
@@ -56,7 +57,8 @@ SOURCES += main.cpp \
            dragtablewidget.cpp \
            droplistwidget.cpp \
            runapplicationview.cpp \
-		   runwindowsbackend.cpp \
+	   runwindowsbackend.cpp \
+	   wav.h \
            settingsview.cpp \
            vumeter.cpp
 #INCLUDEPATH += /usr/include/alsa /usr/include/qt4/QtNetwork

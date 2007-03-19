@@ -39,7 +39,8 @@ HEADERS += simonview.h \
            eventhandler.h \
            coreevents.h \
            xevents.h \
-           settingsview.h
+           settingsview.h \
+           wav.h
 SOURCES += main.cpp \
            simonview.cpp \
            addwordview.cpp \
@@ -66,7 +67,8 @@ SOURCES += main.cpp \
            xmlreader.cpp \
            eventhandler.cpp \
            xevents.cpp \
-           settingsview.cpp
+           settingsview.cpp \
+           wav.cpp
 QT += network \
 core \
 gui

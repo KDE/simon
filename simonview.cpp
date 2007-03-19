@@ -57,8 +57,8 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	this->vuMeter = new VuMeter();
 	//Disabled for now because it crashes the windows compile
-	//if (vuMeter->prepare())
-	//	vuMeter->start();
+	if (vuMeter->prepare())
+		vuMeter->start();
 	
 	QMainWindow(parent,flags);
 	ui.setupUi(this);
@@ -84,6 +84,15 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 
 	//hiding splash again after loading
 	this->info->hideSplash();
+	
+	//MicControl *mic = new MicControl();
+	//mic->initializeMic(2, 44100);
+	//long unsigned int length=0;
+	//char* data = mic->capture(1000, length);
+	
+	//WAV *w = new WAV("test.wav", 44100);
+	//w->addData(data,length);
+	//w->writeFile("test.wav");
 }
 
 

@@ -39,8 +39,8 @@ ALSABackend::ALSABackend()
  */
 bool ALSABackend::openDevice( const char* deviceID )
 {
-	//Open the device for recording
-	if (snd_pcm_open (&capture_handle, deviceID, SND_PCM_STREAM_CAPTURE, SND_PCM_ASYNC) < 0) 
+	//Open the device for recording 
+	if (snd_pcm_open (&capture_handle, deviceID, SND_PCM_STREAM_CAPTURE, 0) < 0) 
 		return false;
 	
 	//Allocate the size for the paramter
@@ -92,8 +92,10 @@ bool ALSABackend::setSampleRate( int sampleRate )
 {
 	if (snd_pcm_hw_params_set_format (capture_handle, hw_params, SND_PCM_FORMAT_S16_LE) < 0) 
 		return false;
-
-	if (snd_pcm_hw_params_set_rate_near (capture_handle, hw_params, (unsigned int*) &sampleRate, 0) < 0) 
+	
+	this->sampleRate = sampleRate;
+	
+	if (snd_pcm_hw_params_set_rate_near (capture_handle, hw_params, (unsigned int*) (&(this->sampleRate)), &dir) < 0) 
 		return false;
 	
 	return true;
@@ -124,7 +126,8 @@ bool ALSABackend::setChannels( short channels )
  */
 bool ALSABackend::closeDevice()
 {
-	snd_pcm_close (capture_handle);
+	snd_pcm_drain(capture_handle);
+	snd_pcm_close(capture_handle);
 	return true;
 }
 
@@ -142,10 +145,13 @@ bool ALSABackend::closeDevice()
  */
 bool ALSABackend::prepareDevice()
 {
+	frames = 32;
+	snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, &frames, &dir);
+	
 	if (snd_pcm_hw_params (capture_handle, hw_params) < 0) 
 		return false;
-
-	snd_pcm_hw_params_free (hw_params);
+	
+	//snd_pcm_hw_params_free (hw_params);
 	
 	return true;
 }
@@ -154,33 +160,116 @@ bool ALSABackend::prepareDevice()
  * @brief Reads data from the device
  * 
  *	Prepares the device (this is an ALSA function)
+ *	Reads some data from the device and returns it in a character array
+ * 
+ *	@author Peter Grasch
+ *	@param int msecs
+ *	The time to read
+ *	@param long unsigned int& length
+ *	The number of frames actually read
+ *	@return char*
+ *	Returns the read data
+ */
+char* ALSABackend::readData( int msecs, long unsigned int& length )
+{
+	snd_pcm_hw_params_get_period_size(hw_params,
+					  &frames, &dir);
+
+	int size = frames * 4;
+	int alreadywritten=0;
+	char* tmp;
+	char* all = new char();
+	char *buffer = (char *) malloc(size);
+	int rc; //this will holds all occuring errors
+	
+	snd_pcm_hw_params_get_period_time(hw_params,
+					  &sampleRate, &dir);
+	
+	int loops = (msecs*1000) / sampleRate;
+	length = size * loops;
+	
+	while (loops > 0) {
+		loops--;
+		rc = snd_pcm_readi(capture_handle, buffer, frames);
+		if (rc == -EPIPE) {
+			fprintf(stderr, "overrun occurred\n");
+			snd_pcm_prepare(capture_handle);
+		} else if (rc < 0) 
+			fprintf(stderr,	"error from read: %s\n", snd_strerror(rc));
+		  else if (rc != (int)frames) 
+			fprintf(stderr, "short read, read %d frames\n", rc);
+		
+		
+		//adding the buffer to the data already read
+		tmp  = (char*) malloc(alreadywritten);
+		for (int i=0; i < alreadywritten; i++)
+			tmp[i] = all[i];
+		all =  (char*) malloc(alreadywritten + size);
+		for (int i=0; i < alreadywritten; i++)
+			all[i] = tmp[i];
+		for (int i=0; i < size; i++)
+			all[alreadywritten+i] = buffer[i];
+		
+		alreadywritten+=size;
+		
+		
+	}
+	
+	
+	return all;
+}
+
+
+
+/**
+ * @brief Reads data from the device
+ * 
+ *	Prepares the device (this is an ALSA function)
  *	Reads some data from the device and returns it in a short array
  * 
  *	@author Peter Grasch
- *	@param short count
- *	How many times the buffersize we should read
- *	@return short**
- *	Returns the read data
+ *	@param int count
+ *	How often should we read the buffersize?
+ *	@param int buffersize
+ *	How long should the buffer be?
+ *	@param unsigned long int& length
+ *	Reference used to return the number of frames read
+ *	@return short*
+ *	Array of the freq. data (length: count*buffersize)
  */
-short **ALSABackend::readData( short count, short buffersize )
+short* ALSABackend::readData( int count, int buffersize, unsigned long int& length )
 {	
-	short **buf = new short*[count];
-	for (int i = 0; i < count; i++)
-		buf[i] = new short[buffersize];
-	short *buffer[buffersize];
+	int error;
+	length = 0;
+	short *all = (short*) malloc(count*buffersize);
+	short *buffer = (short*) malloc(buffersize);
 	
-	if (snd_pcm_prepare (capture_handle) < 0) return buf;
+	if (snd_pcm_prepare (capture_handle) < 0) return all;
+	
+	int frmCount = count*buffersize;
 	
 	for (int i = 0; i < count; i++) 
 	{
-		if ((snd_pcm_readi (capture_handle, buffer, buffersize)) != buffersize) 
-			return buf;
-		//write (1, buffer, buffersize*4);
+		error = snd_pcm_readi (capture_handle, buffer, buffersize);
+		length += error;
 		
-		buf[i] = (short*) buffer;
+		//copying the new buffer into the "main" buffer
+		for (int j=0; j < buffersize; j++)
+			all[ (i*buffersize) + j ] = buffer[j];
+		
+		if (error != buffersize)
+		{
+			return all;
+		}
+
 	}
-	return buf;
+	
+	return all;
 }
+
+
+
+
 
 
 /**
@@ -194,7 +283,6 @@ int ALSABackend::getVolume()
 {
 	
 }
-
 
 /**
  * @brief Sets the volume

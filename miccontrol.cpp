@@ -86,24 +86,24 @@ bool MicControl::initializeMic(short channels, int samplerate)
  *	Records data from a prepared the device
  *	
  *	@author Peter Grasch
- *	@param int count
- *	Number of frames
- *	@param short buffersize
- *	Buffersize per frame
- *	@return short**
- *	Twodimensional array of the frequencies
+ *	@param int msecs
+ *	Msecs of time to capture
+ *	@param long unsigned int *size
+ *	Number of frames read
+ *	@return char
+ *	The read data
  *	@see initializeMic()
  */
-short** MicControl::capture (int count, short buffersize)
+char* MicControl::capture (int msecs, long unsigned int& size)
 {
 	
 #ifdef linux
 	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
 	if (!(abackend)) return false;
 	
-	short **buffer;
+	char * buffer;
+	buffer = abackend->readData(msecs,size);
 	
-	buffer = abackend->readData(count,buffersize);
 	if (!(buffer))
 	{
 		SimonInfo::showMessage("Aufnehmen fehlgeschlagen", 6000);
@@ -112,6 +112,39 @@ short** MicControl::capture (int count, short buffersize)
 #endif //linux
 }
 
+/**
+ *	@brief Captures data from the device
+ *	
+ *	Records data from a prepared the device
+ *	
+ *	@author Peter Grasch
+ *	@param int count
+ *	How often should we read the buffersize?
+ *	@param int buffersize
+ *	How long should the buffer be?
+ *	@param long unsigned int& size
+ *	Reference parameter to return the actual number of frames read
+ *	@return short*
+ *	Array of the freq. data
+ *	@see initializeMic()
+ */
+short* MicControl::capture (int count, int buffersize, long unsigned int& size)
+{
+	
+#ifdef linux
+	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
+	if (!(abackend)) return false;
+	
+	short * buffer;
+	buffer = abackend->readData(count,buffersize,size);
+	
+	if (!(buffer))
+	{
+		SimonInfo::showMessage("Aufnehmen fehlgeschlagen", 6000);
+	}
+	return buffer;
+#endif //linux
+}
 
 /**
  *	@brief Closes the mic
