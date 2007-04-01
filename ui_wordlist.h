@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading ui file 'wordlist.ui'
 **
-** Created: Tue 20. Mar 12:24:00 2007
-**      by: Qt User Interface Compiler version 4.2.2
+** Created: Sun Apr 1 21:29:14 2007
+**      by: Qt User Interface Compiler version 4.2.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
 ********************************************************************************/
@@ -28,7 +28,6 @@ public:
     QLabel *lbSearch_2;
     QLabel *lbSearch;
     QPushButton *pbAddToTraining;
-    QPushButton *pbSuggestTrain;
     QPushButton *pbSuggestTrain_2;
     QPushButton *pbAddWord;
     QPushButton *pbAddWord_2;
@@ -40,6 +39,7 @@ public:
     QFrame *line;
     QPushButton *pbSwitchToTraining;
     QPushButton *pbDeleteTrainingWord;
+    QPushButton *pbSuggestTrain;
 
     void setupUi(QDialog *WordList)
     {
@@ -63,10 +63,6 @@ public:
     pbAddToTraining->setObjectName(QString::fromUtf8("pbAddToTraining"));
     pbAddToTraining->setGeometry(QRect(470, 220, 221, 31));
     pbAddToTraining->setIcon(QIcon(QString::fromUtf8(":/images/icons/go-up.svg")));
-    pbSuggestTrain = new QPushButton(WordList);
-    pbSuggestTrain->setObjectName(QString::fromUtf8("pbSuggestTrain"));
-    pbSuggestTrain->setGeometry(QRect(470, 300, 221, 31));
-    pbSuggestTrain->setIcon(QIcon(QString::fromUtf8(":/images/icons/bookmark-new.svg")));
     pbSuggestTrain_2 = new QPushButton(WordList);
     pbSuggestTrain_2->setObjectName(QString::fromUtf8("pbSuggestTrain_2"));
     pbSuggestTrain_2->setGeometry(QRect(470, 340, 221, 31));
@@ -113,6 +109,10 @@ public:
     pbDeleteTrainingWord->setObjectName(QString::fromUtf8("pbDeleteTrainingWord"));
     pbDeleteTrainingWord->setGeometry(QRect(470, 260, 221, 31));
     pbDeleteTrainingWord->setIcon(QIcon(QString::fromUtf8(":/images/icons/emblem-unreadable.svg")));
+    pbSuggestTrain = new QPushButton(WordList);
+    pbSuggestTrain->setObjectName(QString::fromUtf8("pbSuggestTrain"));
+    pbSuggestTrain->setGeometry(QRect(470, 300, 221, 31));
+    pbSuggestTrain->setIcon(QIcon(QString::fromUtf8(":/images/icons/bookmark-new.svg")));
     lbSearch_2->setBuddy(leSearch);
     lbSearch->setBuddy(leSearch);
     QWidget::setTabOrder(leSearch, pbClearSearch);
@@ -141,8 +141,6 @@ public:
     lbSearch->setText(QApplication::translate("WordList", "&Suchen:", 0, QApplication::UnicodeUTF8));
     pbAddToTraining->setToolTip(QApplication::translate("WordList", "F\303\274gt das in der Liste links selektierte Wort in die Liste der zu trainierenden W\303\266rter (oben) ein", 0, QApplication::UnicodeUTF8));
     pbAddToTraining->setText(QApplication::translate("WordList", "Zum Training &hinzuf\303\274gen", 0, QApplication::UnicodeUTF8));
-    pbSuggestTrain->setToolTip(QApplication::translate("WordList", "Schl\303\244gt automatisch ein Training vor das die schw\303\244chsten 10 W\303\266rter trainiert.", 0, QApplication::UnicodeUTF8));
-    pbSuggestTrain->setText(QApplication::translate("WordList", "Trainingsprogramm &vorschlagen", 0, QApplication::UnicodeUTF8));
     pbSuggestTrain_2->setToolTip(QApplication::translate("WordList", "Trainiert die Liste der W\303\266rter", 0, QApplication::UnicodeUTF8));
     pbSuggestTrain_2->setText(QApplication::translate("WordList", "&Trainieren", 0, QApplication::UnicodeUTF8));
     pbAddWord->setToolTip(QApplication::translate("WordList", "F\303\274gt ein neues Wort in das Sprachmodell ein", 0, QApplication::UnicodeUTF8));
@@ -191,7 +189,9 @@ public:
     pbSwitchToTraining->setToolTip(QApplication::translate("WordList", "Schlie\303\237t den Dialog und wechselt zum generischen Training (Vorlesen vorgefertigter Texte)", 0, QApplication::UnicodeUTF8));
     pbSwitchToTraining->setText(QApplication::translate("WordList", "Zum generischen Training wechseln", 0, QApplication::UnicodeUTF8));
     pbDeleteTrainingWord->setToolTip(QApplication::translate("WordList", "L\303\266scht das Wort aus der Liste der zu trainierenden W\303\266rter", 0, QApplication::UnicodeUTF8));
-    pbDeleteTrainingWord->setText(QApplication::translate("WordList", "Wort aus Trainings-Liste &l\303\266schen", 0, QApplication::UnicodeUTF8));
+    pbDeleteTrainingWord->setText(QApplication::translate("WordList", "Wort aus Liste &l\303\266schen", 0, QApplication::UnicodeUTF8));
+    pbSuggestTrain->setToolTip(QApplication::translate("WordList", "Schl\303\244gt automatisch ein Training vor das die schw\303\244chsten 10 W\303\266rter trainiert.", 0, QApplication::UnicodeUTF8));
+    pbSuggestTrain->setText(QApplication::translate("WordList", "Trainingsprog. &vorschlagen", 0, QApplication::UnicodeUTF8));
     Q_UNUSED(WordList);
     } // retranslateUi
 

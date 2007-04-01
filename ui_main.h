@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading ui file 'main.ui'
 **
-** Created: Tue 20. Mar 12:23:59 2007
-**      by: Qt User Interface Compiler version 4.2.2
+** Created: Sun Apr 1 21:29:14 2007
+**      by: Qt User Interface Compiler version 4.2.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
 ********************************************************************************/
@@ -16,7 +16,6 @@
 #include <QtGui/QButtonGroup>
 #include <QtGui/QFrame>
 #include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
 #include <QtGui/QMainWindow>
 #include <QtGui/QProgressBar>
 #include <QtGui/QPushButton>
@@ -26,8 +25,6 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QLineEdit *leSearch;
-    QLabel *lbSearch;
     QFrame *line;
     QProgressBar *pbLevel2;
     QProgressBar *pbLevel1;
@@ -39,6 +36,12 @@ public:
     QPushButton *pbEditWordList;
     QPushButton *pbTrain;
     QPushButton *pbRunProgram;
+    QLabel *lbLogo;
+    QFrame *frmConnecting;
+    QProgressBar *progressBar;
+    QPushButton *pbCancelConnect;
+    QLabel *label;
+    QPushButton *pbConnect;
     QLabel *lbBg;
 
     void setupUi(QMainWindow *MainWindow)
@@ -76,32 +79,6 @@ public:
     MainWindow->setWindowIcon(QIcon(QString::fromUtf8("../../../../../../../:/images/tray.png")));
     centralwidget = new QWidget(MainWindow);
     centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-    leSearch = new QLineEdit(centralwidget);
-    leSearch->setObjectName(QString::fromUtf8("leSearch"));
-    leSearch->setGeometry(QRect(210, 40, 161, 25));
-    lbSearch = new QLabel(centralwidget);
-    lbSearch->setObjectName(QString::fromUtf8("lbSearch"));
-    lbSearch->setGeometry(QRect(70, 40, 91, 17));
-    QPalette palette1;
-    QBrush brush9(QColor(175, 190, 200, 255));
-    brush9.setStyle(Qt::SolidPattern);
-    palette1.setBrush(QPalette::Active, QPalette::WindowText, brush9);
-    QBrush brush10(QColor(175, 190, 200, 255));
-    brush10.setStyle(Qt::SolidPattern);
-    palette1.setBrush(QPalette::Active, QPalette::Text, brush10);
-    QBrush brush11(QColor(175, 190, 200, 255));
-    brush11.setStyle(Qt::SolidPattern);
-    palette1.setBrush(QPalette::Inactive, QPalette::WindowText, brush11);
-    QBrush brush12(QColor(175, 190, 200, 255));
-    brush12.setStyle(Qt::SolidPattern);
-    palette1.setBrush(QPalette::Inactive, QPalette::Text, brush12);
-    QBrush brush13(QColor(117, 117, 117, 255));
-    brush13.setStyle(Qt::SolidPattern);
-    palette1.setBrush(QPalette::Disabled, QPalette::WindowText, brush13);
-    QBrush brush14(QColor(117, 117, 117, 255));
-    brush14.setStyle(Qt::SolidPattern);
-    palette1.setBrush(QPalette::Disabled, QPalette::Text, brush14);
-    lbSearch->setPalette(palette1);
     line = new QFrame(centralwidget);
     line->setObjectName(QString::fromUtf8("line"));
     line->setGeometry(QRect(0, 550, 1001, 16));
@@ -146,17 +123,17 @@ public:
     pbAddWord = new QPushButton(centralwidget);
     pbAddWord->setObjectName(QString::fromUtf8("pbAddWord"));
     pbAddWord->setGeometry(QRect(110, 170, 381, 121));
-    QPalette palette2;
-    QBrush brush15(QColor(175, 190, 200, 255));
-    brush15.setStyle(Qt::SolidPattern);
-    palette2.setBrush(QPalette::Active, QPalette::ButtonText, brush15);
-    QBrush brush16(QColor(175, 190, 200, 255));
-    brush16.setStyle(Qt::SolidPattern);
-    palette2.setBrush(QPalette::Inactive, QPalette::ButtonText, brush16);
-    QBrush brush17(QColor(119, 119, 119, 255));
-    brush17.setStyle(Qt::SolidPattern);
-    palette2.setBrush(QPalette::Disabled, QPalette::ButtonText, brush17);
-    pbAddWord->setPalette(palette2);
+    QPalette palette1;
+    QBrush brush9(QColor(175, 190, 200, 255));
+    brush9.setStyle(Qt::SolidPattern);
+    palette1.setBrush(QPalette::Active, QPalette::ButtonText, brush9);
+    QBrush brush10(QColor(175, 190, 200, 255));
+    brush10.setStyle(Qt::SolidPattern);
+    palette1.setBrush(QPalette::Inactive, QPalette::ButtonText, brush10);
+    QBrush brush11(QColor(119, 119, 119, 255));
+    brush11.setStyle(Qt::SolidPattern);
+    palette1.setBrush(QPalette::Disabled, QPalette::ButtonText, brush11);
+    pbAddWord->setPalette(palette1);
     QFont font;
     font.setPointSize(20);
     pbAddWord->setFont(font);
@@ -166,35 +143,35 @@ public:
     pbEditWordList = new QPushButton(centralwidget);
     pbEditWordList->setObjectName(QString::fromUtf8("pbEditWordList"));
     pbEditWordList->setGeometry(QRect(110, 350, 381, 121));
-    QPalette palette3;
+    QPalette palette2;
+    QBrush brush12(QColor(255, 255, 255, 255));
+    brush12.setStyle(Qt::SolidPattern);
+    palette2.setBrush(QPalette::Active, QPalette::WindowText, brush12);
+    QBrush brush13(QColor(255, 255, 255, 255));
+    brush13.setStyle(Qt::SolidPattern);
+    palette2.setBrush(QPalette::Active, QPalette::Text, brush13);
+    QBrush brush14(QColor(175, 190, 200, 255));
+    brush14.setStyle(Qt::SolidPattern);
+    palette2.setBrush(QPalette::Active, QPalette::ButtonText, brush14);
+    QBrush brush15(QColor(255, 255, 255, 255));
+    brush15.setStyle(Qt::SolidPattern);
+    palette2.setBrush(QPalette::Inactive, QPalette::WindowText, brush15);
+    QBrush brush16(QColor(255, 255, 255, 255));
+    brush16.setStyle(Qt::SolidPattern);
+    palette2.setBrush(QPalette::Inactive, QPalette::Text, brush16);
+    QBrush brush17(QColor(175, 190, 200, 255));
+    brush17.setStyle(Qt::SolidPattern);
+    palette2.setBrush(QPalette::Inactive, QPalette::ButtonText, brush17);
     QBrush brush18(QColor(255, 255, 255, 255));
     brush18.setStyle(Qt::SolidPattern);
-    palette3.setBrush(QPalette::Active, QPalette::WindowText, brush18);
+    palette2.setBrush(QPalette::Disabled, QPalette::WindowText, brush18);
     QBrush brush19(QColor(255, 255, 255, 255));
     brush19.setStyle(Qt::SolidPattern);
-    palette3.setBrush(QPalette::Active, QPalette::Text, brush19);
-    QBrush brush20(QColor(175, 190, 200, 255));
+    palette2.setBrush(QPalette::Disabled, QPalette::Text, brush19);
+    QBrush brush20(QColor(255, 255, 255, 255));
     brush20.setStyle(Qt::SolidPattern);
-    palette3.setBrush(QPalette::Active, QPalette::ButtonText, brush20);
-    QBrush brush21(QColor(255, 255, 255, 255));
-    brush21.setStyle(Qt::SolidPattern);
-    palette3.setBrush(QPalette::Inactive, QPalette::WindowText, brush21);
-    QBrush brush22(QColor(255, 255, 255, 255));
-    brush22.setStyle(Qt::SolidPattern);
-    palette3.setBrush(QPalette::Inactive, QPalette::Text, brush22);
-    QBrush brush23(QColor(175, 190, 200, 255));
-    brush23.setStyle(Qt::SolidPattern);
-    palette3.setBrush(QPalette::Inactive, QPalette::ButtonText, brush23);
-    QBrush brush24(QColor(255, 255, 255, 255));
-    brush24.setStyle(Qt::SolidPattern);
-    palette3.setBrush(QPalette::Disabled, QPalette::WindowText, brush24);
-    QBrush brush25(QColor(255, 255, 255, 255));
-    brush25.setStyle(Qt::SolidPattern);
-    palette3.setBrush(QPalette::Disabled, QPalette::Text, brush25);
-    QBrush brush26(QColor(255, 255, 255, 255));
-    brush26.setStyle(Qt::SolidPattern);
-    palette3.setBrush(QPalette::Disabled, QPalette::ButtonText, brush26);
-    pbEditWordList->setPalette(palette3);
+    palette2.setBrush(QPalette::Disabled, QPalette::ButtonText, brush20);
+    pbEditWordList->setPalette(palette2);
     QFont font1;
     font1.setPointSize(20);
     font1.setKerning(true);
@@ -206,17 +183,17 @@ public:
     pbTrain = new QPushButton(centralwidget);
     pbTrain->setObjectName(QString::fromUtf8("pbTrain"));
     pbTrain->setGeometry(QRect(570, 170, 351, 121));
-    QPalette palette4;
-    QBrush brush27(QColor(175, 190, 200, 255));
-    brush27.setStyle(Qt::SolidPattern);
-    palette4.setBrush(QPalette::Active, QPalette::ButtonText, brush27);
-    QBrush brush28(QColor(175, 190, 200, 255));
-    brush28.setStyle(Qt::SolidPattern);
-    palette4.setBrush(QPalette::Inactive, QPalette::ButtonText, brush28);
-    QBrush brush29(QColor(119, 119, 119, 255));
-    brush29.setStyle(Qt::SolidPattern);
-    palette4.setBrush(QPalette::Disabled, QPalette::ButtonText, brush29);
-    pbTrain->setPalette(palette4);
+    QPalette palette3;
+    QBrush brush21(QColor(175, 190, 200, 255));
+    brush21.setStyle(Qt::SolidPattern);
+    palette3.setBrush(QPalette::Active, QPalette::ButtonText, brush21);
+    QBrush brush22(QColor(175, 190, 200, 255));
+    brush22.setStyle(Qt::SolidPattern);
+    palette3.setBrush(QPalette::Inactive, QPalette::ButtonText, brush22);
+    QBrush brush23(QColor(119, 119, 119, 255));
+    brush23.setStyle(Qt::SolidPattern);
+    palette3.setBrush(QPalette::Disabled, QPalette::ButtonText, brush23);
+    pbTrain->setPalette(palette3);
     QFont font2;
     font2.setPointSize(20);
     pbTrain->setFont(font2);
@@ -226,29 +203,70 @@ public:
     pbRunProgram = new QPushButton(centralwidget);
     pbRunProgram->setObjectName(QString::fromUtf8("pbRunProgram"));
     pbRunProgram->setGeometry(QRect(570, 350, 351, 121));
-    QPalette palette5;
-    QBrush brush30(QColor(175, 190, 200, 255));
-    brush30.setStyle(Qt::SolidPattern);
-    palette5.setBrush(QPalette::Active, QPalette::ButtonText, brush30);
-    QBrush brush31(QColor(175, 190, 200, 255));
-    brush31.setStyle(Qt::SolidPattern);
-    palette5.setBrush(QPalette::Inactive, QPalette::ButtonText, brush31);
-    QBrush brush32(QColor(119, 119, 119, 255));
-    brush32.setStyle(Qt::SolidPattern);
-    palette5.setBrush(QPalette::Disabled, QPalette::ButtonText, brush32);
-    pbRunProgram->setPalette(palette5);
+    QPalette palette4;
+    QBrush brush24(QColor(175, 190, 200, 255));
+    brush24.setStyle(Qt::SolidPattern);
+    palette4.setBrush(QPalette::Active, QPalette::ButtonText, brush24);
+    QBrush brush25(QColor(175, 190, 200, 255));
+    brush25.setStyle(Qt::SolidPattern);
+    palette4.setBrush(QPalette::Inactive, QPalette::ButtonText, brush25);
+    QBrush brush26(QColor(119, 119, 119, 255));
+    brush26.setStyle(Qt::SolidPattern);
+    palette4.setBrush(QPalette::Disabled, QPalette::ButtonText, brush26);
+    pbRunProgram->setPalette(palette4);
     QFont font3;
     font3.setPointSize(20);
     pbRunProgram->setFont(font3);
     pbRunProgram->setIcon(QIcon(QString::fromUtf8(":/images/icons/emblem-system.svg")));
     pbRunProgram->setIconSize(QSize(56, 56));
     pbRunProgram->setFlat(true);
+    lbLogo = new QLabel(centralwidget);
+    lbLogo->setObjectName(QString::fromUtf8("lbLogo"));
+    lbLogo->setGeometry(QRect(655, 0, 265, 149));
+    frmConnecting = new QFrame(centralwidget);
+    frmConnecting->setObjectName(QString::fromUtf8("frmConnecting"));
+    frmConnecting->setGeometry(QRect(390, 230, 211, 151));
+    frmConnecting->setAutoFillBackground(true);
+    frmConnecting->setFrameShape(QFrame::StyledPanel);
+    frmConnecting->setFrameShadow(QFrame::Raised);
+    progressBar = new QProgressBar(frmConnecting);
+    progressBar->setObjectName(QString::fromUtf8("progressBar"));
+    progressBar->setGeometry(QRect(20, 70, 181, 23));
+    progressBar->setMaximum(0);
+    progressBar->setValue(0);
+    progressBar->setTextVisible(false);
+    progressBar->setOrientation(Qt::Horizontal);
+    progressBar->setTextDirection(QProgressBar::TopToBottom);
+    pbCancelConnect = new QPushButton(frmConnecting);
+    pbCancelConnect->setObjectName(QString::fromUtf8("pbCancelConnect"));
+    pbCancelConnect->setGeometry(QRect(20, 110, 181, 29));
+    pbCancelConnect->setIcon(QIcon(QString::fromUtf8(":/images/icons/process-stop.svg")));
+    pbCancelConnect->setIconSize(QSize(20, 20));
+    label = new QLabel(frmConnecting);
+    label->setObjectName(QString::fromUtf8("label"));
+    label->setGeometry(QRect(20, 20, 161, 20));
+    QFont font4;
+    font4.setPointSize(10);
+    label->setFont(font4);
+    pbConnect = new QPushButton(centralwidget);
+    pbConnect->setObjectName(QString::fromUtf8("pbConnect"));
+    pbConnect->setGeometry(QRect(70, 30, 171, 29));
+    QPalette palette5;
+    QBrush brush27(QColor(130, 191, 255, 255));
+    brush27.setStyle(Qt::SolidPattern);
+    palette5.setBrush(QPalette::Active, QPalette::ButtonText, brush27);
+    QBrush brush28(QColor(130, 191, 255, 255));
+    brush28.setStyle(Qt::SolidPattern);
+    palette5.setBrush(QPalette::Inactive, QPalette::ButtonText, brush28);
+    QBrush brush29(QColor(137, 137, 139, 255));
+    brush29.setStyle(Qt::SolidPattern);
+    palette5.setBrush(QPalette::Disabled, QPalette::ButtonText, brush29);
+    pbConnect->setPalette(palette5);
+    pbConnect->setFlat(true);
     lbBg = new QLabel(centralwidget);
     lbBg->setObjectName(QString::fromUtf8("lbBg"));
     lbBg->setGeometry(QRect(0, 0, 1001, 557));
     MainWindow->setCentralWidget(centralwidget);
-    lbSearch->setBuddy(leSearch);
-    QWidget::setTabOrder(leSearch, pbAddWord);
     QWidget::setTabOrder(pbAddWord, pbTrain);
     QWidget::setTabOrder(pbTrain, pbEditWordList);
     QWidget::setTabOrder(pbEditWordList, pbRunProgram);
@@ -270,7 +288,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
     MainWindow->setWindowTitle(QApplication::translate("MainWindow", "simon", 0, QApplication::UnicodeUTF8));
-    lbSearch->setText(QApplication::translate("MainWindow", "&Suchen nach:", 0, QApplication::UnicodeUTF8));
     pbSettings->setToolTip(QApplication::translate("MainWindow", "Einstellungen", 0, QApplication::UnicodeUTF8));
     pbSettings->setText(QApplication::translate("MainWindow", "  &System", 0, QApplication::UnicodeUTF8));
     pbActivision->setToolTip(QApplication::translate("MainWindow", "De-/aktiviert das System", 0, QApplication::UnicodeUTF8));
@@ -288,6 +305,10 @@ public:
     pbTrain->setText(QApplication::translate("MainWindow", "  &Trainieren", 0, QApplication::UnicodeUTF8));
     pbRunProgram->setToolTip(QApplication::translate("MainWindow", "Zeigt den Ausf\303\274hrendialog an. Hier k\303\266nnen Sie Kommandos ausf\303\274hren und \303\244ndern", 0, QApplication::UnicodeUTF8));
     pbRunProgram->setText(QApplication::translate("MainWindow", "  &Ausf\303\274hren", 0, QApplication::UnicodeUTF8));
+    lbLogo->setText(QString());
+    pbCancelConnect->setText(QApplication::translate("MainWindow", "Abbrechen", 0, QApplication::UnicodeUTF8));
+    label->setText(QApplication::translate("MainWindow", "Verbinde zu julius...", 0, QApplication::UnicodeUTF8));
+    pbConnect->setText(QApplication::translate("MainWindow", "Verbinden", 0, QApplication::UnicodeUTF8));
     lbBg->setText(QString());
     Q_UNUSED(MainWindow);
     } // retranslateUi

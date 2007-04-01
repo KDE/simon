@@ -1,8 +1,8 @@
 /********************************************************************************
 ** Form generated from reading ui file 'addword.ui'
 **
-** Created: Tue 20. Mar 12:24:01 2007
-**      by: Qt User Interface Compiler version 4.2.2
+** Created: Sun Apr 1 21:29:14 2007
+**      by: Qt User Interface Compiler version 4.2.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling ui file!
 ********************************************************************************/

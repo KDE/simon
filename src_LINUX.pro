@@ -40,7 +40,10 @@ HEADERS += simonview.h \
            coreevents.h \
            xevents.h \
            settingsview.h \
-           wav.h
+           wav.h \
+           xmlcommand.h \
+           xmldocument.h \
+           xmlsetting.h
 SOURCES += main.cpp \
            simonview.cpp \
            addwordview.cpp \
@@ -68,10 +71,14 @@ SOURCES += main.cpp \
            eventhandler.cpp \
            xevents.cpp \
            settingsview.cpp \
-           wav.cpp
+           wav.cpp \
+           xmlcommand.cpp \
+           xmldocument.cpp \
+           xmlsetting.cpp
 QT += network \
 core \
-gui
+gui \
+xml
 TARGET = ./bin/simon
 TEMPLATE = app
 
