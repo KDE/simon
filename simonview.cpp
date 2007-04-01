@@ -43,7 +43,6 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->info->writeToSplash("Loading...");
 	
 	this->control = new SimonControl();
-	this->control->activateSimon();
 	this->trayManager = new TrayIconManager();
 	
 	this->trayManager->createIcon( QIcon( ":/images/tray.png" ), "Simon" );
@@ -62,6 +61,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	QMainWindow(parent,flags);
 	ui.setupUi(this);
+	ui.frmConnecting->setVisible(false);
 	
 
 	//Setting up Signal/Slots
@@ -78,6 +78,12 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QObject::connect(ui.pbActivision, SIGNAL(clicked()), this, SLOT(toggleActivation()));
 	QObject::connect(this->trayManager, SIGNAL(middleClicked()), this, SLOT(toggleActivation()));
 	
+	QObject::connect(control, SIGNAL(connected()), this, SLOT(connected()));
+	QObject::connect(control, SIGNAL(disconnected()), this, SLOT(disconnected()));
+	
+	connect(ui.pbConnect, SIGNAL(clicked()), control, SLOT(connect()));
+	connect(ui.pbCancelConnect, SIGNAL(clicked()), this, SLOT(abortConnecting()));
+	
 	//setting Background
 	ui.lbBg->lower();
 	ui.lbBg->setPixmap(QPixmap(":/images/bg_clear.png"));
@@ -87,7 +93,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	//hiding splash again after loading
 	this->info->hideSplash();
 	
-	ui.frmConnecting->setVisible(false);
+	connectToServer();
 	
 // 	MicControl *mic = new MicControl();
 // 	mic->initializeMic(2, 44100);
@@ -99,7 +105,70 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 // 	w->writeFile("test.wav");
 }
 
+/**
+ * \brief Connects to juliusd and gives appropriate status information about it
+ */
+void SimonView::connectToServer()
+{
+	ui.pbConnect->setText("Verbinde...");
+	ui.pbConnect->setEnabled(false);
+	
+	ui.frmConnecting->setVisible(true);
+	
+	if (this->control->activateSimon())
+		this->control->connect();
+}
 
+/**
+ * \brief Informs the user that we connected to the server
+ */
+void SimonView::connected()
+{
+	ui.pbConnect->setText("Verbindung trennen");
+	ui.pbConnect->setEnabled(true);
+	disconnect(ui.pbConnect, 0,0,0);
+	connect(ui.pbConnect, SIGNAL(clicked()), control, SLOT(disconnect()));
+	
+	ui.frmConnecting->setVisible(false);
+	SimonInfo::showMessage("Verbunden zu Julius", 3000);
+}
+
+
+/**
+ * \brief Informs the user that we have been disconnected from the server
+ */
+void SimonView::disconnected()
+{
+	ui.pbConnect->setText("Verbinden");
+	ui.pbConnect->setEnabled(true);
+	disconnect(ui.pbConnect, 0,0,0);
+	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
+	
+	SimonInfo::showMessage("Verbindung zu Julius verloren", 4000);
+	//we should probably try to reconnect at this point
+}
+
+
+/**
+ * \brief We canceled the connecting to the server
+ */
+void SimonView::abortConnecting()
+{
+	ui.pbConnect->setText("Verbinden");
+	ui.pbConnect->setEnabled(true);
+	disconnect(ui.pbConnect, 0,0,0);
+	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
+	
+	ui.frmConnecting->setVisible(false);
+	this->control->deactivateSimon();
+	this->control->abortConnecting();
+}
+
+
+
+/**
+ * \brief Sets the vumeter to the given level
+ */
 void SimonView::setLevel(int level)
 {
 	level = abs(level);

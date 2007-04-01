@@ -107,96 +107,6 @@
    <iconset>../../../../../../../:/images/tray.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <widget class="QLineEdit" name="leSearch" >
-    <property name="geometry" >
-     <rect>
-      <x>210</x>
-      <y>40</y>
-      <width>161</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lbSearch" >
-    <property name="geometry" >
-     <rect>
-      <x>70</x>
-      <y>40</y>
-      <width>91</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="palette" >
-     <palette>
-      <active>
-       <colorrole role="WindowText" >
-        <brush brushstyle="SolidPattern" >
-         <color alpha="255" >
-          <red>175</red>
-          <green>190</green>
-          <blue>200</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Text" >
-        <brush brushstyle="SolidPattern" >
-         <color alpha="255" >
-          <red>175</red>
-          <green>190</green>
-          <blue>200</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </active>
-      <inactive>
-       <colorrole role="WindowText" >
-        <brush brushstyle="SolidPattern" >
-         <color alpha="255" >
-          <red>175</red>
-          <green>190</green>
-          <blue>200</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Text" >
-        <brush brushstyle="SolidPattern" >
-         <color alpha="255" >
-          <red>175</red>
-          <green>190</green>
-          <blue>200</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </inactive>
-      <disabled>
-       <colorrole role="WindowText" >
-        <brush brushstyle="SolidPattern" >
-         <color alpha="255" >
-          <red>117</red>
-          <green>117</green>
-          <blue>117</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Text" >
-        <brush brushstyle="SolidPattern" >
-         <color alpha="255" >
-          <red>117</red>
-          <green>117</green>
-          <blue>117</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </disabled>
-     </palette>
-    </property>
-    <property name="text" >
-     <string>&amp;Suchen nach:</string>
-    </property>
-    <property name="buddy" >
-     <cstring>leSearch</cstring>
-    </property>
-   </widget>
    <widget class="Line" name="line" >
     <property name="geometry" >
      <rect>
@@ -699,19 +609,6 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="lbBg" >
-    <property name="geometry" >
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>1001</width>
-      <height>557</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="lbLogo" >
     <property name="geometry" >
      <rect>
@@ -733,6 +630,9 @@
       <width>211</width>
       <height>151</height>
      </rect>
+    </property>
+    <property name="autoFillBackground" >
+     <bool>true</bool>
     </property>
     <property name="frameShape" >
      <enum>QFrame::StyledPanel</enum>
@@ -806,10 +706,75 @@
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="pbConnect" >
+    <property name="geometry" >
+     <rect>
+      <x>70</x>
+      <y>30</y>
+      <width>171</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="palette" >
+     <palette>
+      <active>
+       <colorrole role="ButtonText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>130</red>
+          <green>191</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="ButtonText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>130</red>
+          <green>191</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="ButtonText" >
+        <brush brushstyle="SolidPattern" >
+         <color alpha="255" >
+          <red>137</red>
+          <green>137</green>
+          <blue>139</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="text" >
+     <string>Verbinden</string>
+    </property>
+    <property name="flat" >
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbBg" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1001</width>
+      <height>557</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string/>
+    </property>
+   </widget>
   </widget>
  </widget>
  <tabstops>
-  <tabstop>leSearch</tabstop>
   <tabstop>pbAddWord</tabstop>
   <tabstop>pbTrain</tabstop>
   <tabstop>pbEditWordList</tabstop>

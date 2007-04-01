@@ -73,11 +73,16 @@ private:
 public slots:
 	void setLevel(int level);
 	
+	
 	void toggleVisibility();
 	void hideSimon();
 	void showSimon();
 	
 	void closeSimon();
+	void connectToServer();
+	void abortConnecting();
+	void connected();
+	void disconnected();
 	
 	void toggleActivation();
 	

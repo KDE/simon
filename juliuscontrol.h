@@ -15,6 +15,7 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include "simoninfo.h"
 #include <QByteArray>
 #include <QMessageBox>
 
@@ -39,9 +40,10 @@ public slots:
 	void connectTo( QString server="127.0.0.1", quint16 port=4444 );
 	void connectionLost();
 	void connectedTo();
+	void disconnect();
 
 public:
-	JuliusControl(QString host="127.0.0.1", quint16 port=4444);
+	JuliusControl();
 
     ~JuliusControl();
 

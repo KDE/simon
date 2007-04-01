@@ -47,10 +47,16 @@
 class SimonControl : public QObject {
 	Q_OBJECT
 
+signals:
+	void connected();
+	void disconnected();
 public slots:
+	void connect();
+	void disconnect();
 	void connectedToJulius();
 	void disconnectedFromJulius();
 	void wordRecognised(QString word);
+	void abortConnecting();
 private:
 	bool active; //!< Is active?
 	MicControl *mic; //!< Mic Handle

@@ -22,10 +22,9 @@
  *	Port the Server should listen to
  *	@todo Restrict the allowed connection to certain hosts
  */
-JuliusControl::JuliusControl(QString host, quint16 port)
+JuliusControl::JuliusControl()
 {
 	socket = new QTcpSocket();
-	this->connectTo(host, port);
 }
 
 
@@ -45,11 +44,14 @@ JuliusControl::JuliusControl(QString host, quint16 port)
  */
 void JuliusControl::connectTo(QString server, quint16 port)
 {
-	socket->connectToHost( server, port );
+	//do
+		socket->connectToHost( server, port );
+	//while (!(socket->waitForConnected(5000))); //this would not return - we have to pack that in a different thread
 	
 	connect(socket, SIGNAL(connected()), this, SLOT(connectedTo()));
 	connect(socket, SIGNAL(disconnected()), this, SLOT(connectionLost()));
 	connect(socket, SIGNAL(readyRead()), this, SLOT(recognised()));
+// 	QMessageBox::information(0,"Verbinde", "Ich verbinde gerade");
 }
 
 /**
@@ -63,6 +65,17 @@ void JuliusControl::recognised()
 {
 	QByteArray word = socket->readAll();
 	emit wordRecognised(word);
+}
+
+/**
+ *	@brief Disconnects the socket from julius
+ *	
+ *	@author Peter Grasch
+ */
+void JuliusControl::disconnect()
+{
+	this->socket->abort();
+	this->socket->disconnectFromHost();
 }
 
 /**

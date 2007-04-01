@@ -47,6 +47,27 @@ SimonControl::~SimonControl()
 	
 }
 
+/**
+ * @brief Connects to julius
+ *
+ *	@author Peter Grasch
+ * @todo We should make the host and the port configurable
+ */
+void SimonControl::connect()
+{
+	julius->connectTo();
+}
+
+/**
+ * @brief disconnects from julius
+ *
+ *	@author Peter Grasch
+ */
+void SimonControl::disconnect()
+{
+	julius->disconnect();
+}
+
 
 /**
  * @brief Word recognised
@@ -59,7 +80,6 @@ SimonControl::~SimonControl()
  */
 void SimonControl::wordRecognised(QString word)
 {
-	//run->run(word);
 	if (word.indexOf(COMMANDIDENT,0,Qt::CaseInsensitive) == 0)
 	{
 		word = word.replace(0, QString(COMMANDIDENT).length()+1,"");
@@ -79,7 +99,7 @@ void SimonControl::wordRecognised(QString word)
  */
 void SimonControl::connectedToJulius()
 {
-	SimonInfo::showMessage("Verbunden zu Julius", 4000);
+	emit connected();
 }
 
 /**
@@ -92,7 +112,17 @@ void SimonControl::connectedToJulius()
  */
 void SimonControl::disconnectedFromJulius()
 {
-	SimonInfo::showMessage("Verbindung zu Julius verloren", 4000);
+	emit disconnected();
+}
+
+/**
+ * @brief We want to abort connecting to julius
+ * 
+ *	@author Peter Grasch
+ */
+void SimonControl::abortConnecting()
+{
+	this->julius->disconnect();
 }
 
 /**
@@ -130,7 +160,7 @@ bool SimonControl::getActivitionState()
 bool SimonControl::deactivateSimon()
 {
 	this->active=false;
-	disconnect( this->julius, 0,0,0);
+	QObject::disconnect( this->julius, 0,0,0);
 	return this->active;
 }
 
@@ -157,9 +187,9 @@ bool SimonControl::toggleActivition()
 bool SimonControl::activateSimon()
 {
 	this->active=true;
-	connect(julius, SIGNAL(wordRecognised(QString)), this, SLOT(wordRecognised(QString)));
-	connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));
-	connect(julius, SIGNAL(disconnected()), this, SLOT(disconnectedFromJulius()));
+	QObject::connect(julius, SIGNAL(wordRecognised(QString)), this, SLOT(wordRecognised(QString)));
+	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));
+	QObject::connect(julius, SIGNAL(disconnected()), this, SLOT(disconnectedFromJulius()));
 	return this->active;
 }
 
