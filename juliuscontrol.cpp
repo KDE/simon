@@ -22,11 +22,34 @@
  *	Port the Server should listen to
  *	@todo Restrict the allowed connection to certain hosts
  */
-JuliusControl::JuliusControl(quint16 port)
+JuliusControl::JuliusControl(QString host, quint16 port)
 {
-	this->server = new QTcpServer();
-	server->listen( QHostAddress::Any, port);
-	connect (server, SIGNAL(newConnection()), this, SLOT(getConnection()));
+	socket = new QTcpSocket();
+	this->connectTo(host, port);
+}
+
+
+
+/**
+ * @brief Connects to a juliusd server
+ * 
+ * 	Connects the QTcpSocket socket (member) to the Host described
+ * 	with server (ip or hostname) (default: 127.0.0.1) and port 
+ * 	(default: 4444)
+ *
+ *	@author Peter Grasch
+ *	@param QString server
+ *	Serverstring - either an ip or a hostname (default: 127.0.0.1)
+ *	@param quint16 port
+ *	Port (default: 4444)
+ */
+void JuliusControl::connectTo(QString server, quint16 port)
+{
+	socket->connectToHost( server, port );
+	
+	connect(socket, SIGNAL(connected()), this, SLOT(connectedTo()));
+	connect(socket, SIGNAL(disconnected()), this, SLOT(connectionLost()));
+	connect(socket, SIGNAL(readyRead()), this, SLOT(recognised()));
 }
 
 /**
@@ -43,25 +66,6 @@ void JuliusControl::recognised()
 }
 
 /**
- *	@brief A connection has been initiated
- *	
- *	This function should be called when the QTcpServer recieves a new connection;
- *	It extracts a pointer to the connecting socket and stores it in the socket (member-)
- *	variable.
- *	It also sets up the signals/slots to react on recieving data
- *	
- *	@author Peter Grasch
- *	@todo If two clients connect simultaniosly the first connection is simply dropped
- */
-void JuliusControl::getConnection()
-{
-	emit connected();
-	socket = server->nextPendingConnection();
-	QObject::connect (socket, SIGNAL(readyRead()), this, SLOT(recognised()));
-	QObject::connect (socket, SIGNAL(disconnected()), this, SLOT(connectionLost()));
-}
-
-/**
  *	@brief A Connection has been dropped
  *	
  *	Emits the disconnected() signal
@@ -71,6 +75,18 @@ void JuliusControl::getConnection()
 void JuliusControl::connectionLost()
 {
 	emit disconnected();
+}
+
+/**
+ *	@brief A Connection has been established
+ *	
+ *	Emits the connected() signal
+ *	
+ *	@author Peter Grasch
+ */
+void JuliusControl::connectedTo()
+{
+	emit connected();
 }
 
 /**

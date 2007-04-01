@@ -92,25 +92,6 @@
     <iconset resource="../simon.qrc" >:/images/icons/go-up.svg</iconset>
    </property>
   </widget>
-  <widget class="QPushButton" name="pbSuggestTrain" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>300</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Schlägt automatisch ein Training vor das die schwächsten 10 Wörter trainiert.</string>
-   </property>
-   <property name="text" >
-    <string>Trainingsprogramm &amp;vorschlagen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/bookmark-new.svg</iconset>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pbSuggestTrain_2" >
    <property name="geometry" >
     <rect>
@@ -321,10 +302,29 @@ p, li { white-space: pre-wrap; }
     <string>Löscht das Wort aus der Liste der zu trainierenden Wörter</string>
    </property>
    <property name="text" >
-    <string>Wort aus Trainings-Liste &amp;löschen</string>
+    <string>Wort aus Liste &amp;löschen</string>
    </property>
    <property name="icon" >
     <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbSuggestTrain" >
+   <property name="geometry" >
+    <rect>
+     <x>470</x>
+     <y>300</y>
+     <width>221</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Schlägt automatisch ein Training vor das die schwächsten 10 Wörter trainiert.</string>
+   </property>
+   <property name="text" >
+    <string>Trainingsprog. &amp;vorschlagen</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/bookmark-new.svg</iconset>
    </property>
   </widget>
  </widget>

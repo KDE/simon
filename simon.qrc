@@ -1,7 +1,8 @@
 <RCC>
     <qresource prefix="/" >
-        <file>images/bg.png</file>
-        <file>images/bg_d.png</file>
+        <file>images/bg_clear.png</file>
+        <file>images/simon.png</file>
+        <file>images/simon_d.png</file>
         <file>images/icons/bookmark-new.svg</file>
         <file>images/icons/computer.svg</file>
         <file>images/icons/document-new.svg</file>

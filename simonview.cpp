@@ -57,8 +57,8 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	this->vuMeter = new VuMeter();
 	//Disabled for now because it crashes the windows compile
-	if (vuMeter->prepare())
-		vuMeter->start();
+	//if (vuMeter->prepare())
+	//	vuMeter->start();
 	
 	QMainWindow(parent,flags);
 	ui.setupUi(this);
@@ -80,19 +80,23 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	//setting Background
 	ui.lbBg->lower();
-	ui.lbBg->setPixmap(QPixmap(":/images/bg.png"));
+	ui.lbBg->setPixmap(QPixmap(":/images/bg_clear.png"));
+	
+	ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
 
 	//hiding splash again after loading
 	this->info->hideSplash();
 	
-	//MicControl *mic = new MicControl();
-	//mic->initializeMic(2, 44100);
-	//long unsigned int length=0;
-	//char* data = mic->capture(1000, length);
+	ui.frmConnecting->setVisible(false);
 	
-	//WAV *w = new WAV("test.wav", 44100);
-	//w->addData(data,length);
-	//w->writeFile("test.wav");
+// 	MicControl *mic = new MicControl();
+// 	mic->initializeMic(2, 44100);
+// 	long unsigned int length=0;
+// 	char* data = mic->capture(5000, length);
+// 	
+// 	WAV *w = new WAV("test.wav", 44100);
+// 	w->addData(data,length);
+// 	w->writeFile("test.wav");
 }
 
 
@@ -204,7 +208,7 @@ void SimonView::toggleActivation()
 {
 	if (this->control->toggleActivition())
 	{
-		ui.lbBg->setPixmap(QPixmap(":/images/bg.png"));
+		ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
 		ui.pbActivision->setText("  &Deaktivieren");
 		ui.pbActivision->setIcon(QIcon(":/images/icons/media-playback-pause.svg"));
 		this->trayManager->createIcon( QIcon( ":/images/tray.png" ), "Simon" );
@@ -214,7 +218,7 @@ void SimonView::toggleActivation()
 		repaint();
 	} else 
 	{
-		ui.lbBg->setPixmap(QPixmap(":/images/bg_d.png"));
+		ui.lbLogo->setPixmap(QPixmap(":/images/simon_d.png"));
 		ui.pbActivision->setText("  A&ktivieren");
 		ui.pbActivision->setIcon(QIcon(":/images/icons/media-playback-start.svg"));
 

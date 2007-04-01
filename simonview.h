@@ -46,6 +46,10 @@
 #include "vumeter.h"
 #include "trainingview.h"
 #include "settingsview.h"
+
+#include "wav.h"
+#include "miccontrol.h"
+
 #include "ui_main.h"
 
 

@@ -29,19 +29,19 @@
 class JuliusControl : public QObject {
 	Q_OBJECT
 private:
-	QTcpServer *server;  //!< The listening server
-	QTcpSocket *socket; //!< If a client connects to the server this holds the connecting socket
+	QTcpSocket *socket; //!< QTcpSocket for communicating with the juliusd-socket
 signals:
 	void wordRecognised(QString word);
 	void connected();
 	void disconnected();
 public slots:
 	void recognised();
-	void getConnection();
+	void connectTo( QString server="127.0.0.1", quint16 port=4444 );
 	void connectionLost();
+	void connectedTo();
 
 public:
-	JuliusControl(quint16 port=4444);
+	JuliusControl(QString host="127.0.0.1", quint16 port=4444);
 
     ~JuliusControl();
 
