@@ -1,28 +1,44 @@
-//
-// C++ Interface: xmlreader
-//
-// Description: 
-//
-//
-// Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
 #ifndef XMLREADER_H
 #define XMLREADER_H
-
+#include <QtXml>
 #include <QString>
+#include <QList>
+#include <QFile>
+#include <QIODevice>
+#include <QStringList>
+#include <QDomNode>
+#include <QDomDocument>
+#include "word.h"
 /**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
+ *  @class XMLReader
+ *  @brief To handle with xml-files
+ *
+ *  @version 0.1
+ *  @date 17.03.2007
+ *  @author Christoph Kirschner
+ *  @todo implementing
+ */
+ 
+typedef QList<Word*> WordList;
+ 
 class XMLReader{
+ 
+ private:
+ 	
+ 	QDomNode root;
+ 	WordList wordlist;
+ 
 public:
-    XMLReader();
-
-    void parseFile(QString filename);
-    ~XMLReader();
-
+	QDomDocument doc;
+	XMLReader(QString name);	
+	
+	void save(WordList wordlist, QString path);
+	
+	void load();
+	
+	WordList getWords();
+	
+	~XMLReader();
 };
 
 #endif
