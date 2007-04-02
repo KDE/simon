@@ -81,10 +81,12 @@ public slots:
 	void closeSimon();
 	void connectToServer();
 	void abortConnecting();
+	void errorConnecting(QString error);
 	void connected();
 	void disconnected();
 	
 	void toggleActivation();
+	void representState();
 	
 	void showAddWordDialog();
 	void showRunDialog();

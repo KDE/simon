@@ -35,11 +35,13 @@ signals:
 	void wordRecognised(QString word);
 	void connected();
 	void disconnected();
+	void error(QString error);
 public slots:
 	void recognised();
 	void connectTo( QString server="127.0.0.1", quint16 port=4444 );
 	void connectionLost();
 	void connectedTo();
+	bool isConnected();
 	void disconnect();
 
 public:

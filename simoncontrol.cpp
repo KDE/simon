@@ -35,6 +35,10 @@ SimonControl::SimonControl() : QObject ()
 	this->julius = new JuliusControl();
 	this->run = new RunCommand();
 	eventHandler = new EventHandler();
+	
+	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));
+	QObject::connect(julius, SIGNAL(disconnected()), this, SLOT(disconnectedFromJulius()));
+	QObject::connect(julius, SIGNAL(error(QString)), this, SLOT(errorConnecting(QString)));
 }
 
 /**
@@ -125,6 +129,17 @@ void SimonControl::abortConnecting()
 	this->julius->disconnect();
 }
 
+
+/**
+ * @brief Emits the signal connetionError(QString)
+ * 
+ *	@author Peter Grasch
+ */
+void SimonControl::errorConnecting(QString error)
+{
+	emit connectionError(error);
+}
+
 /**
  * @brief Sets basic Parameters for the Sound-System
  *
@@ -160,7 +175,7 @@ bool SimonControl::getActivitionState()
 bool SimonControl::deactivateSimon()
 {
 	this->active=false;
-	QObject::disconnect( this->julius, 0,0,0);
+	QObject::disconnect( this->julius, SIGNAL(wordRecognised(QString)), this, SLOT(wordRecognised(QString)));
 	return this->active;
 }
 
@@ -171,6 +186,8 @@ bool SimonControl::deactivateSimon()
  */
 bool SimonControl::toggleActivition()
 {
+	if (!julius->isConnected()) return false;
+	
 	if (this->active)
 	{
 		deactivateSimon();
@@ -188,8 +205,6 @@ bool SimonControl::activateSimon()
 {
 	this->active=true;
 	QObject::connect(julius, SIGNAL(wordRecognised(QString)), this, SLOT(wordRecognised(QString)));
-	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));
-	QObject::connect(julius, SIGNAL(disconnected()), this, SLOT(disconnectedFromJulius()));
 	return this->active;
 }
 

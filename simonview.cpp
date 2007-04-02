@@ -78,11 +78,13 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QObject::connect(ui.pbActivision, SIGNAL(clicked()), this, SLOT(toggleActivation()));
 	QObject::connect(this->trayManager, SIGNAL(middleClicked()), this, SLOT(toggleActivation()));
 	
+	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
+	connect(ui.pbCancelConnect, SIGNAL(clicked()), this, SLOT(abortConnecting()));
+	
+	
 	QObject::connect(control, SIGNAL(connected()), this, SLOT(connected()));
 	QObject::connect(control, SIGNAL(disconnected()), this, SLOT(disconnected()));
-	
-	connect(ui.pbConnect, SIGNAL(clicked()), control, SLOT(connect()));
-	connect(ui.pbCancelConnect, SIGNAL(clicked()), this, SLOT(abortConnecting()));
+	connect(control, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
 	
 	//setting Background
 	ui.lbBg->lower();
@@ -90,9 +92,6 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
 
-	//hiding splash again after loading
-	this->info->hideSplash();
-	
 	connectToServer();
 	
 // 	MicControl *mic = new MicControl();
@@ -103,10 +102,15 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 // 	WAV *w = new WAV("test.wav", 44100);
 // 	w->addData(data,length);
 // 	w->writeFile("test.wav");
+	
+	//hiding splash again after loading
+	this->info->hideSplash();
 }
 
 /**
  * \brief Connects to juliusd and gives appropriate status information about it
+ *
+ * @author Peter Grasch
  */
 void SimonView::connectToServer()
 {
@@ -115,12 +119,14 @@ void SimonView::connectToServer()
 	
 	ui.frmConnecting->setVisible(true);
 	
-	if (this->control->activateSimon())
-		this->control->connect();
+	this->control->activateSimon();
+	this->control->connect();
 }
 
 /**
  * \brief Informs the user that we connected to the server
+ *
+ * @author Peter Grasch
  */
 void SimonView::connected()
 {
@@ -131,11 +137,16 @@ void SimonView::connected()
 	
 	ui.frmConnecting->setVisible(false);
 	SimonInfo::showMessage("Verbunden zu Julius", 3000);
+	
+	this->control->getActivitionState();
+	this->representState();
 }
 
 
 /**
  * \brief Informs the user that we have been disconnected from the server
+ *
+ * @author Peter Grasch
  */
 void SimonView::disconnected()
 {
@@ -146,11 +157,16 @@ void SimonView::disconnected()
 	
 	SimonInfo::showMessage("Verbindung zu Julius verloren", 4000);
 	//we should probably try to reconnect at this point
+	
+	control->deactivateSimon();
+	this->representState();
 }
 
 
 /**
  * \brief We canceled the connecting to the server
+ *
+ * @author Peter Grasch
  */
 void SimonView::abortConnecting()
 {
@@ -160,14 +176,43 @@ void SimonView::abortConnecting()
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
 	
 	ui.frmConnecting->setVisible(false);
-	this->control->deactivateSimon();
+	
 	this->control->abortConnecting();
+	this->representState();
+	
+	this->control->deactivateSimon();
+	
+}
+
+/**
+ * \brief Error connecting to the server
+ *
+ * @author Peter Grasch
+ * 
+ * \param QString error
+ * The error that occured
+ */
+void SimonView::errorConnecting(QString error)
+{
+	ui.pbConnect->setText("Verbinden");
+	ui.pbConnect->setEnabled(true);
+	disconnect(ui.pbConnect, 0,0,0);
+	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
+	
+	ui.frmConnecting->setVisible(false);
+	
+	this->control->deactivateSimon();
+	this->representState();
+	
+	QMessageBox::critical(this, "Kritischer Verbindungsfehler", "Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte Fehlermeldung lautete:\n"+error);
 }
 
 
 
 /**
  * \brief Sets the vumeter to the given level
+ *
+ * @author Peter Grasch
  */
 void SimonView::setLevel(int level)
 {
@@ -242,7 +287,6 @@ void SimonView::showWordListDialog()
 void SimonView::hideSimon()
 {
 	hide();
-	//hide the program
 }
 
 
@@ -275,7 +319,18 @@ void SimonView::showSimon()
  */
 void SimonView::toggleActivation()
 {
-	if (this->control->toggleActivition())
+	this->control->toggleActivition();
+	this->representState();
+}
+
+/**
+ * \brief Make the widgets represent the current state (active/inactive)
+ * 
+ * \author Peter Grasch
+ */
+void SimonView::representState()
+{
+	if (this->control->getActivitionState())
 	{
 		ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
 		ui.pbActivision->setText("  &Deaktivieren");
@@ -297,6 +352,8 @@ void SimonView::toggleActivation()
 		repaint();
 	}
 }
+
+
 
 /**
  * @brief Trigger Visibility

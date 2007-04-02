@@ -25,8 +25,10 @@
 JuliusControl::JuliusControl()
 {
 	socket = new QTcpSocket();
+	connect(socket, SIGNAL(connected()), this, SLOT(connectedTo()));
+	connect(socket, SIGNAL(disconnected()), this, SLOT(connectionLost()));
+	connect(socket, SIGNAL(readyRead()), this, SLOT(recognised()));
 }
-
 
 
 /**
@@ -44,14 +46,27 @@ JuliusControl::JuliusControl()
  */
 void JuliusControl::connectTo(QString server, quint16 port)
 {
-	//do
-		socket->connectToHost( server, port );
-	//while (!(socket->waitForConnected(5000))); //this would not return - we have to pack that in a different thread
+	socket->connectToHost( server, port );
 	
-	connect(socket, SIGNAL(connected()), this, SLOT(connectedTo()));
-	connect(socket, SIGNAL(disconnected()), this, SLOT(connectionLost()));
-	connect(socket, SIGNAL(readyRead()), this, SLOT(recognised()));
-// 	QMessageBox::information(0,"Verbinde", "Ich verbinde gerade");
+	if (!(socket->waitForConnected(5000)))
+	{
+		emit error(socket->errorString());
+		return;
+	}
+}
+
+/**
+ * \brief Returns wether the socket is connected to a valid juliusd server
+ * 
+ * \author Peter Grasch
+ * \return bool
+ * True = is connected
+ */
+bool JuliusControl::isConnected()
+{
+	if (!socket) return false;
+	
+	return (socket->state() == QAbstractSocket::ConnectedState);
 }
 
 /**

@@ -50,6 +50,7 @@ class SimonControl : public QObject {
 signals:
 	void connected();
 	void disconnected();
+	void connectionError(QString error);
 public slots:
 	void connect();
 	void disconnect();
@@ -57,6 +58,7 @@ public slots:
 	void disconnectedFromJulius();
 	void wordRecognised(QString word);
 	void abortConnecting();
+	void errorConnecting(QString error);
 private:
 	bool active; //!< Is active?
 	MicControl *mic; //!< Mic Handle
