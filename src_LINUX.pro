@@ -43,7 +43,8 @@ HEADERS += simonview.h \
            wav.h \
            xmlcommand.h \
            xmldocument.h \
-           xmlsetting.h
+           xmlsetting.h \
+           settingsmanager.h
 SOURCES += main.cpp \
            simonview.cpp \
            addwordview.cpp \
@@ -74,11 +75,12 @@ SOURCES += main.cpp \
            wav.cpp \
            xmlcommand.cpp \
            xmldocument.cpp \
-           xmlsetting.cpp
+           xmlsetting.cpp \
+           settingsmanager.cpp
 QT += network \
 core \
-gui \
-xml
+xml \
+gui
 TARGET = ./bin/simon
 TEMPLATE = app
 

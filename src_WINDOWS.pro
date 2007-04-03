@@ -35,7 +35,8 @@ HEADERS += simonview.h \
            runbackend.h \
            vumeter.h \
 	   wav.h \
-           settingsview.h
+           settingsview.h \
+           settingsmanager.h
 SOURCES += main.cpp \
            simonview.cpp \
            addwordview.cpp \
@@ -60,9 +61,10 @@ SOURCES += main.cpp \
 	   runwindowsbackend.cpp \
 	   wav.h \
            settingsview.cpp \
+           settingsmanager.cpp \
            vumeter.cpp
 #INCLUDEPATH += /usr/include/alsa /usr/include/qt4/QtNetwork
 #LIBS += -L/usr/lib/alsa-lib -lasound
-QT += network
+QT += network xml
 RESOURCES += simon.qrc
 TARGET = ./bin/simon

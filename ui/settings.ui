@@ -15,6 +15,63 @@
   <property name="windowIcon" >
    <iconset resource="../simon.qrc" >:/images/tray.png</iconset>
   </property>
+  <widget class="QPushButton" name="pbConfirm" >
+   <property name="geometry" >
+    <rect>
+     <x>850</x>
+     <y>510</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Speichert und Übernimmt die Einstellungen und schließt den Dialog</string>
+   </property>
+   <property name="text" >
+    <string>&amp;Ok</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/document-save.svg</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbApply" >
+   <property name="geometry" >
+    <rect>
+     <x>700</x>
+     <y>510</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Übernimmt die neuen Einstellungen</string>
+   </property>
+   <property name="text" >
+    <string>Ü&amp;bernehmen</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/view-refresh.svg</iconset>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbBack" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>510</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip" >
+    <string>Verwirft alle Änderungen und schließt den Dialog</string>
+   </property>
+   <property name="text" >
+    <string>&amp;Abbrechen</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+   </property>
+  </widget>
   <widget class="QFrame" name="frame" >
    <property name="geometry" >
     <rect>
@@ -30,20 +87,92 @@
    <property name="frameShadow" >
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QPushButton" name="pbRevert" >
+   <widget class="QLabel" name="lbCommands" >
     <property name="geometry" >
      <rect>
-      <x>820</x>
-      <y>70</y>
-      <width>141</width>
-      <height>31</height>
+      <x>480</x>
+      <y>10</y>
+      <width>51</width>
+      <height>61</height>
      </rect>
     </property>
-    <property name="text" >
-     <string>Zurücksetzen</string>
+    <property name="toolTip" >
+     <string>Kommandos die simon veranlasst auf gewisse Schlüsselwörter spezielle Aktionen auszuführen</string>
     </property>
-    <property name="flat" >
-     <bool>true</bool>
+    <property name="text" >
+     <string/>
+    </property>
+    <property name="pixmap" >
+     <pixmap resource="../simon.qrc" >:/images/icons/terminal.svg</pixmap>
+    </property>
+    <property name="scaledContents" >
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbProtocol" >
+    <property name="geometry" >
+     <rect>
+      <x>680</x>
+      <y>10</y>
+      <width>51</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Einstellungen über die Protokolle von simon</string>
+    </property>
+    <property name="text" >
+     <string/>
+    </property>
+    <property name="pixmap" >
+     <pixmap resource="../simon.qrc" >:/images/icons/text-editor.svg</pixmap>
+    </property>
+    <property name="scaledContents" >
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbRevert" >
+    <property name="geometry" >
+     <rect>
+      <x>870</x>
+      <y>10</y>
+      <width>51</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Setzt das System auf einen früheren Status zurück</string>
+    </property>
+    <property name="text" >
+     <string/>
+    </property>
+    <property name="pixmap" >
+     <pixmap resource="../simon.qrc" >:/images/icons/gtk-undo-ltr.svg</pixmap>
+    </property>
+    <property name="scaledContents" >
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbSoundSettings" >
+    <property name="geometry" >
+     <rect>
+      <x>280</x>
+      <y>10</y>
+      <width>51</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Alle einstellungen rund um die Aufnahmen und das verwendete Soundsystem</string>
+    </property>
+    <property name="text" >
+     <string/>
+    </property>
+    <property name="pixmap" >
+     <pixmap resource="../simon.qrc" >:/images/icons/gnome-settings-sound.svg</pixmap>
+    </property>
+    <property name="scaledContents" >
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="QLabel" name="lbSystemSettings" >
@@ -93,28 +222,6 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="lbSoundSettings" >
-    <property name="geometry" >
-     <rect>
-      <x>280</x>
-      <y>10</y>
-      <width>51</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="toolTip" >
-     <string>Alle einstellungen rund um die Aufnahmen und das verwendete Soundsystem</string>
-    </property>
-    <property name="text" >
-     <string/>
-    </property>
-    <property name="pixmap" >
-     <pixmap resource="../simon.qrc" >:/images/icons/gnome-settings-sound.svg</pixmap>
-    </property>
-    <property name="scaledContents" >
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pbSoundSettings" >
     <property name="geometry" >
      <rect>
@@ -134,29 +241,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="lbCommands" >
-    <property name="geometry" >
-     <rect>
-      <x>480</x>
-      <y>10</y>
-      <width>51</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="toolTip" >
-     <string>Kommandos die simon veranlasst auf gewisse Schlüsselwörter spezielle Aktionen auszuführen</string>
-    </property>
-    <property name="text" >
-     <string/>
-    </property>
-    <property name="pixmap" >
-     <pixmap resource="../simon.qrc" >:/images/icons/terminal.svg</pixmap>
-    </property>
-    <property name="scaledContents" >
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pbCommands" >
+   <widget class="QPushButton" name="pbCommandSettings" >
     <property name="geometry" >
      <rect>
       <x>430</x>
@@ -175,7 +260,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pbProtocol" >
+   <widget class="QPushButton" name="pbProtocolSettings" >
     <property name="geometry" >
      <rect>
       <x>630</x>
@@ -194,48 +279,20 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="lbProtocol" >
+   <widget class="QPushButton" name="pbRevert" >
     <property name="geometry" >
      <rect>
-      <x>680</x>
-      <y>10</y>
-      <width>51</width>
-      <height>61</height>
+      <x>820</x>
+      <y>70</y>
+      <width>141</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="toolTip" >
-     <string>Einstellungen über die Protokolle von simon</string>
-    </property>
     <property name="text" >
-     <string/>
+     <string>Zurücksetzen</string>
     </property>
-    <property name="pixmap" >
-     <pixmap resource="../simon.qrc" >:/images/icons/text-editor.svg</pixmap>
-    </property>
-    <property name="scaledContents" >
-     <bool>false</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lbRevert" >
-    <property name="geometry" >
-     <rect>
-      <x>870</x>
-      <y>10</y>
-      <width>51</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="toolTip" >
-     <string>Setzt das System auf einen früheren Status zurück</string>
-    </property>
-    <property name="text" >
-     <string/>
-    </property>
-    <property name="pixmap" >
-     <pixmap resource="../simon.qrc" >:/images/icons/gtk-undo-ltr.svg</pixmap>
-    </property>
-    <property name="scaledContents" >
-     <bool>false</bool>
+    <property name="flat" >
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
@@ -838,7 +895,7 @@ p, li { white-space: pre-wrap; }
        </widget>
       </item>
       <item row="0" column="0" >
-       <widget class="QLabel" name="label" >
+       <widget class="QLabel" name="lbGeneralSystem" >
         <property name="text" >
          <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
@@ -1014,9 +1071,9 @@ p, li { white-space: pre-wrap; }
     <widget class="QLabel" name="lbHelpSystem" >
      <property name="geometry" >
       <rect>
-       <x>720</x>
+       <x>710</x>
        <y>0</y>
-       <width>241</width>
+       <width>251</width>
        <height>351</height>
       </rect>
      </property>
@@ -1024,78 +1081,1134 @@ p, li { white-space: pre-wrap; }
       <string>simon verwendet für die Erkennung selbst die Open Source Spracherkennungs-engine "Julius".
 Die Verbindung zu Julius wird über das Netzwerk aufgebaut.
 Die Addresse zum Juliusd wird entweder mit entweder mit einem Hostnamen oder einer direkten "IP Adresse" angegeben (4x3 stellige Netzwerksidentifikationsnummer - xxx.xxx.xxx.xxx)
-Die Port Nummer muss beim Juliusd und bei simon gleich sein.</string>
+Die Port Nummer muss beim Juliusd und bei simon gleich sein.
+Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal gestartet, sollte zu keinem laufenden Dämon verbunden werden können.</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="page_2" />
-  </widget>
-  <widget class="QPushButton" name="pbConfirm" >
-   <property name="geometry" >
-    <rect>
-     <x>850</x>
-     <y>510</y>
-     <width>141</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Speichert und Übernimmt die Einstellungen und schließt den Dialog</string>
-   </property>
-   <property name="text" >
-    <string>&amp;Ok</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/document-save.svg</iconset>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbApply" >
-   <property name="geometry" >
-    <rect>
-     <x>700</x>
-     <y>510</y>
-     <width>141</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Übernimmt die neuen Einstellungen</string>
-   </property>
-   <property name="text" >
-    <string>Ü&amp;bernehmen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/view-refresh.svg</iconset>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbBack" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>510</y>
-     <width>141</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Verwirft alle Änderungen und schließt den Dialog</string>
-   </property>
-   <property name="text" >
-    <string>&amp;Abbrechen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
-   </property>
+   <widget class="QWidget" name="page_2" >
+    <widget class="QLabel" name="lbALSA" >
+     <property name="geometry" >
+      <rect>
+       <x>552</x>
+       <y>0</y>
+       <width>131</width>
+       <height>129</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string/>
+     </property>
+     <property name="pixmap" >
+      <pixmap resource="../simon.qrc" >:/images/alsalogo.gif</pixmap>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbDirectX" >
+     <property name="geometry" >
+      <rect>
+       <x>530</x>
+       <y>0</y>
+       <width>163</width>
+       <height>129</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string/>
+     </property>
+     <property name="pixmap" >
+      <pixmap resource="../simon.qrc" >:/images/directX.png</pixmap>
+     </property>
+    </widget>
+    <widget class="QWidget" name="gridLayout_2" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>511</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="lbMixing" >
+        <property name="text" >
+         <string>Mixing:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QCheckBox" name="cbMixing" >
+        <property name="toolTip" >
+         <string>Verwenden Sie dies wenn Sie sicher sind das sie mehrere Sounds paralell aufnehmen/abspielen können.</string>
+        </property>
+        <property name="text" >
+         <string>Vorhanden</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="lbDevice" >
+        <property name="text" >
+         <string>Gerät:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QComboBox" name="cbDevice" >
+        <item>
+         <property name="text" >
+          <string>Default</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>331</width>
+       <height>201</height>
+      </rect>
+     </property>
+     <property name="title" >
+      <string>Aufnahme</string>
+     </property>
+     <widget class="QWidget" name="gridLayout_3" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>311</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item row="0" column="0" >
+        <widget class="QLabel" name="lbChannels" >
+         <property name="text" >
+          <string>Kanäle:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QComboBox" name="cbChannels" >
+         <property name="currentIndex" >
+          <number>1</number>
+         </property>
+         <item>
+          <property name="text" >
+           <string>Mono</string>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Stereo</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="lbSamplerate" >
+         <property name="text" >
+          <string>Samplerate:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QSpinBox" name="spinBox" >
+         <property name="maximum" >
+          <number>96000</number>
+         </property>
+         <property name="minimum" >
+          <number>8000</number>
+         </property>
+         <property name="value" >
+          <number>44000</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLineEdit" name="leSaveRecordingsTo" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>110</x>
+        <y>50</y>
+        <width>211</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lbSaveRecordingsTo" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>54</y>
+        <width>81</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Speicherort:</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="cbSaveAllRecordings" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>311</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Alle Aufnahmen speichern</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="gbCalibrate" >
+     <property name="geometry" >
+      <rect>
+       <x>350</x>
+       <y>140</y>
+       <width>331</width>
+       <height>201</height>
+      </rect>
+     </property>
+     <property name="title" >
+      <string>Kalibrierung</string>
+     </property>
+     <widget class="QLabel" name="label_3" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>70</y>
+        <width>124</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Mikrofonlautstärke:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lbActLoudness" >
+      <property name="geometry" >
+       <rect>
+        <x>20</x>
+        <y>140</y>
+        <width>211</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Aktuelle, gemessene Lautstärke:</string>
+      </property>
+     </widget>
+     <widget class="QProgressBar" name="pbLoudness" >
+      <property name="geometry" >
+       <rect>
+        <x>20</x>
+        <y>160</y>
+        <width>291</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="value" >
+       <number>24</number>
+      </property>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pbAutoCalibrate" >
+      <property name="geometry" >
+       <rect>
+        <x>170</x>
+        <y>20</y>
+        <width>151</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Autokalibrierung</string>
+      </property>
+     </widget>
+     <widget class="QSlider" name="hsMic" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>301</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="value" >
+       <number>68</number>
+      </property>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickInterval" >
+       <number>0</number>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="lbHelpSystem_2" >
+     <property name="geometry" >
+      <rect>
+       <x>710</x>
+       <y>0</y>
+       <width>251</width>
+       <height>351</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Hier finden Sie alle Einstellungen zur Spracheingabe und Tonausgabe.
+
+Die Einstellung "Mixing" aktiviert die Limitierung (wenn nicht aktiviert) auf maximal eine Tonein- bzw. -ausgabe gleichzeitig.
+Ist Mixing durch Software oder Hardware abgedeckt, sollte diese Option gesetzt sein.
+Wenn unsicher setzten Sie bitte "Ja".
+
+Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen wird nach jeder Aufnahme eine Audiodatei mit Datum und Uhrzeit, sowohl wie eine erstellte Transkribtion im angegebenen Verzeichnis erstellt.</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="Line" name="liSep1_2" >
+     <property name="geometry" >
+      <rect>
+       <x>690</x>
+       <y>0</y>
+       <width>20</width>
+       <height>351</height>
+      </rect>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_3" >
+    <widget class="Line" name="line_2" >
+     <property name="geometry" >
+      <rect>
+       <x>480</x>
+       <y>200</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_4" >
+     <property name="geometry" >
+      <rect>
+       <x>480</x>
+       <y>100</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_3" >
+     <property name="geometry" >
+      <rect>
+       <x>480</x>
+       <y>40</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line" >
+     <property name="geometry" >
+      <rect>
+       <x>480</x>
+       <y>300</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbSearchCommand" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>59</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>&amp;Suchen:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>leSearchCommand</cstring>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="leSearchCommand" >
+     <property name="geometry" >
+      <rect>
+       <x>70</x>
+       <y>10</y>
+       <width>113</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="toolTip" >
+      <string>Schränkt die Liste auf die Eingabe ein</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbClearSearchCommand" >
+     <property name="geometry" >
+      <rect>
+       <x>190</x>
+       <y>10</y>
+       <width>21</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="toolTip" >
+      <string>Zurücksetzen der Suche</string>
+     </property>
+     <property name="text" >
+      <string>&amp;x</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbShowCommand" >
+     <property name="geometry" >
+      <rect>
+       <x>240</x>
+       <y>10</y>
+       <width>64</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Anzei&amp;gen:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>cbShowCommand</cstring>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cbShowCommand" >
+     <property name="geometry" >
+      <rect>
+       <x>310</x>
+       <y>10</y>
+       <width>142</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="toolTip" >
+      <string>Schränkt die Ausgabe auf gewisse Gruppen ein</string>
+     </property>
+     <item>
+      <property name="text" >
+       <string>Alles</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/system-file-manager.svg</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Programme</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Orte</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Sonderzeichen</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/format-text-bold.svg</iconset>
+      </property>
+     </item>
+    </widget>
+    <widget class="QTableWidget" name="twCommand" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>441</width>
+       <height>321</height>
+      </rect>
+     </property>
+     <property name="alternatingRowColors" >
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode" >
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior" >
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="showGrid" >
+      <bool>false</bool>
+     </property>
+     <property name="gridStyle" >
+      <enum>Qt::SolidLine</enum>
+     </property>
+     <property name="sortingEnabled" >
+      <bool>false</bool>
+     </property>
+     <column>
+      <property name="text" >
+       <string>Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Typ</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Wert</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QPushButton" name="pbReloadCommands" >
+     <property name="geometry" >
+      <rect>
+       <x>480</x>
+       <y>10</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Liste zurücksetzen</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../simon.qrc" >:/images/icons/view-refresh.svg</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbEditCommand" >
+     <property name="geometry" >
+      <rect>
+       <x>480</x>
+       <y>70</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Kommando bearbeiten</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../simon.qrc" >:/images/icons/text-editor.svg</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbNewCommand" >
+     <property name="geometry" >
+      <rect>
+       <x>480</x>
+       <y>130</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Neues Kommando</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbDeleteCommand" >
+     <property name="geometry" >
+      <rect>
+       <x>480</x>
+       <y>170</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Kommando löschen</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbImportProgram" >
+     <property name="geometry" >
+      <rect>
+       <x>480</x>
+       <y>230</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Programm importieren</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbImportPlace" >
+     <property name="geometry" >
+      <rect>
+       <x>480</x>
+       <y>270</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Ort importieren</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbCreateMacro" >
+     <property name="geometry" >
+      <rect>
+       <x>480</x>
+       <y>330</y>
+       <width>221</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Makro aufzeichnen</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../simon.qrc" >:/images/icons/media-record.svg</iconset>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbHelpSystem_3" >
+     <property name="geometry" >
+      <rect>
+       <x>720</x>
+       <y>10</y>
+       <width>251</width>
+       <height>351</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Hier können neue Kommandos hinzugefügt werden, vorhandene bearbeitet und gelöscht werden.
+
+Ein Programm kann aus dem Startmenü über den betreffenden Button ganz einfach in die Liste der Applikationen aufgenommen werden.
+
+Auch ein Ort kann einfach über die Auswahl eines Orderns importiert werden.
+
+Makros können ebenfalls aufgezeichnet werden. Ein Makro ist ein bestimmter Ablauf der immer wieder kehrt. (z.B.: Öffnen des Startmenüs)</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="Line" name="liSep1_3" >
+     <property name="geometry" >
+      <rect>
+       <x>700</x>
+       <y>10</y>
+       <width>20</width>
+       <height>351</height>
+      </rect>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_4" >
+    <widget class="QLabel" name="lbHelpSystem_4" >
+     <property name="geometry" >
+      <rect>
+       <x>730</x>
+       <y>20</y>
+       <width>251</width>
+       <height>341</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Hier kann das Geschehen der letzten Zeit verfolgt werden.
+
+Simon protokolliert im laufenden Betrieb seine Tätigkeiten um dem User einen Überblick zu verschaffen, was passiert ist.
+
+Hier können Sie nach bestimmten Ereignissen suchen, oder einfach einmal durch das Protokoll durchsehen.
+Eingaben im Suchfenster werden sofort wirksam.
+
+Sie können sogar ihre bisherigen Aufnahmen durchsuchen, sollten Sie diese Funktion aktiviert haben.</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="Line" name="liSep1_4" >
+     <property name="geometry" >
+      <rect>
+       <x>710</x>
+       <y>20</y>
+       <width>20</width>
+       <height>351</height>
+      </rect>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="gbLogComponents" >
+     <property name="geometry" >
+      <rect>
+       <x>270</x>
+       <y>10</y>
+       <width>441</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="title" >
+      <string>Anzeigen</string>
+     </property>
+     <widget class="QWidget" name="gridLayout_5" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>421</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item row="0" column="0" >
+        <widget class="QPushButton" name="pbActionLog" >
+         <property name="text" >
+          <string>Simon Aktionslog</string>
+         </property>
+         <property name="checkable" >
+          <bool>true</bool>
+         </property>
+         <property name="checked" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QPushButton" name="pbRecordings" >
+         <property name="text" >
+          <string>Aufnahmen</string>
+         </property>
+         <property name="checkable" >
+          <bool>true</bool>
+         </property>
+         <property name="checked" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QTreeWidget" name="twLogEntries" >
+     <property name="geometry" >
+      <rect>
+       <x>270</x>
+       <y>90</y>
+       <width>441</width>
+       <height>271</height>
+      </rect>
+     </property>
+     <column>
+      <property name="text" >
+       <string>Datum</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Nachricht</string>
+      </property>
+     </column>
+     <item>
+      <property name="text" >
+       <string>03.04.2007</string>
+      </property>
+      <property name="text" >
+       <string/>
+      </property>
+      <item>
+       <property name="text" >
+        <string>15:30:12</string>
+       </property>
+       <property name="text" >
+        <string>Just a mockup</string>
+       </property>
+      </item>
+     </item>
+    </widget>
+    <widget class="QGroupBox" name="gwSearchInLogs" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>251</width>
+       <height>351</height>
+      </rect>
+     </property>
+     <property name="title" >
+      <string>Suchen</string>
+     </property>
+     <widget class="QWidget" name="gridLayout_4" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>231</width>
+        <height>58</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item row="0" column="1" >
+        <widget class="QCheckBox" name="cbLogError" >
+         <property name="text" >
+          <string>Fehler</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QCheckBox" name="cbLogInfo" >
+         <property name="text" >
+          <string>Infos</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0" >
+        <widget class="QLabel" name="lbSearchLogsFor" >
+         <property name="text" >
+          <string>Suchen in:</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLineEdit" name="leSearchLogs" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>231</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="cbOnlyDay" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>126</y>
+        <width>221</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Nur vom Tag:</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frmLogDay" >
+      <property name="geometry" >
+       <rect>
+        <x>20</x>
+        <y>152</y>
+        <width>210</width>
+        <height>185</height>
+       </rect>
+      </property>
+      <property name="frameShape" >
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow" >
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QCalendarWidget" name="cwLogDay" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="geometry" >
+        <rect>
+         <x>1</x>
+         <y>1</y>
+         <width>208</width>
+         <height>183</height>
+        </rect>
+       </property>
+       <property name="firstDayOfWeek" >
+        <enum>Qt::Monday</enum>
+       </property>
+       <property name="gridVisible" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_5" >
+    <widget class="Line" name="liSep1_5" >
+     <property name="geometry" >
+      <rect>
+       <x>710</x>
+       <y>10</y>
+       <width>20</width>
+       <height>351</height>
+      </rect>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="twChanges" >
+     <property name="geometry" >
+      <rect>
+       <x>270</x>
+       <y>10</y>
+       <width>441</width>
+       <height>311</height>
+      </rect>
+     </property>
+     <property name="selectionBehavior" >
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <column>
+      <property name="text" >
+       <string>Datum</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Veränderung</string>
+      </property>
+     </column>
+    </widget>
+    <widget class="QPushButton" name="pbRevertChanges" >
+     <property name="geometry" >
+      <rect>
+       <x>270</x>
+       <y>330</y>
+       <width>441</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Die ausgewählten Änderungen rückgängig machen</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../simon.qrc" >:/images/icons/gtk-undo-ltr.svg</iconset>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbHelpSystem_5" >
+     <property name="geometry" >
+      <rect>
+       <x>730</x>
+       <y>10</y>
+       <width>251</width>
+       <height>341</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>Dieser Menüpunkt erlaubt es Ihnen, die Einstellungen simpel und einfach zu einem früheren Stadium zurückzusetzen.
+
+Um zum Beispiel zum Stand vom 1.1. zurückzusetzen, wählen Sie einfach im Kalender den 1. Jänner, selektieren alle Änderungen und klicken auf "Die ausgewählten Änderungen Rückgängig machen".
+
+Die Suche dient als Einschränkung der Änderung.
+
+Bitte beachten sie das die immer nur die selektierten Änderungen zurückgenommen werden!</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="gpChooseRevert" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>251</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="title" >
+      <string>Auswahl</string>
+     </property>
+     <widget class="QComboBox" name="comboBox" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>231</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text" >
+        <string>Einstellungen</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>Kommandos</string>
+       </property>
+      </item>
+      <item>
+       <property name="text" >
+        <string>Sprachmodell</string>
+       </property>
+      </item>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="gwSearchInChanges" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>251</width>
+       <height>291</height>
+      </rect>
+     </property>
+     <property name="title" >
+      <string>Suchen</string>
+     </property>
+     <widget class="QLabel" name="lbGoBackTill" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>67</y>
+        <width>121</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Zurückgehen bis:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="leSearchChanges" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>231</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QFrame" name="frmDayofTimeMachine" >
+      <property name="geometry" >
+       <rect>
+        <x>20</x>
+        <y>91</y>
+        <width>210</width>
+        <height>185</height>
+       </rect>
+      </property>
+      <property name="frameShape" >
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow" >
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QCalendarWidget" name="cwTimeMachineDay" >
+       <property name="enabled" >
+        <bool>true</bool>
+       </property>
+       <property name="geometry" >
+        <rect>
+         <x>1</x>
+         <y>1</y>
+         <width>208</width>
+         <height>183</height>
+        </rect>
+       </property>
+       <property name="firstDayOfWeek" >
+        <enum>Qt::Monday</enum>
+       </property>
+       <property name="gridVisible" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <tabstops>
   <tabstop>pbSystemSettings</tabstop>
   <tabstop>pbSoundSettings</tabstop>
-  <tabstop>pbCommands</tabstop>
-  <tabstop>pbProtocol</tabstop>
+  <tabstop>pbCommandSettings</tabstop>
+  <tabstop>pbProtocolSettings</tabstop>
   <tabstop>pbRevert</tabstop>
   <tabstop>leAddress</tabstop>
   <tabstop>sbPort</tabstop>
@@ -1144,6 +2257,54 @@ Die Port Nummer muss beim Juliusd und bei simon gleich sein.</string>
     <hint type="destinationlabel" >
      <x>799</x>
      <y>534</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbSaveAllRecordings</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbSaveRecordingsTo</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>80</x>
+     <y>305</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>67</x>
+     <y>325</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbSaveAllRecordings</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leSaveRecordingsTo</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>203</x>
+     <y>305</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>206</x>
+     <y>329</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbOnlyDay</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cwLogDay</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>133</x>
+     <y>276</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>135</x>
+     <y>322</y>
     </hint>
    </hints>
   </connection>

@@ -37,7 +37,6 @@ AddWordView::AddWordView(QWidget *parent, Qt::WFlags f)
 	: QDialog (parent, f)
 {
 	ui.setupUi(this);
-	//recordui.setupUi(this);
 	connect(ui.pbNext, SIGNAL(clicked()), this, SLOT(nextStep()));
 	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(prevStep()));
 	connect(ui.pbNext_2, SIGNAL(clicked()), this, SLOT(nextStep()));

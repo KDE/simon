@@ -20,11 +20,21 @@
 */
 class SettingsView : public QDialog
 {
+	Q_OBJECT
 private:
 	Ui::SettingsDialog ui;
+public slots:
+	void unsetAllTabs();
+	void switchToSystem();
+	void switchToSound();
+	void switchToCommands();
+	void switchToProtocols();
+	void switchToHistory();
+	
 public:
     SettingsView(QWidget *parent);
 
+    
     ~SettingsView();
 
 };
