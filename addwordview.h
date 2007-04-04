@@ -38,6 +38,8 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include "simoninfo.h"
+#include "wavrecorder.h"
+#include <QFile>
 #include "ui_addword.h"
 
 
@@ -46,13 +48,18 @@ class AddWordView : public QDialog
 	Q_OBJECT
 
 	private:
-
-		//SimonInfo info;
+		WavRecorder *rec;
 
 		Ui::AddWord ui; //!< The ui definition created with uic
 	public slots:
 		void nextStep();
 		void prevStep();
+		void startRecording(QString filename, QSlider *prog, QLabel *textprog);
+		void stopRecording();
+		void recSample1();
+		void recSample1Status(int msecs);
+		void recSample2Status(int msecs);
+		void recSample2();
 		void finish();
 		
 	public:

@@ -37,10 +37,16 @@ AddWordView::AddWordView(QWidget *parent, Qt::WFlags f)
 	: QDialog (parent, f)
 {
 	ui.setupUi(this);
+	
+	rec = new WavRecorder();
+	
 	connect(ui.pbNext, SIGNAL(clicked()), this, SLOT(nextStep()));
 	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(prevStep()));
 	connect(ui.pbNext_2, SIGNAL(clicked()), this, SLOT(nextStep()));
 	connect(ui.pbBack_2, SIGNAL(clicked()), this, SLOT(prevStep()));
+	
+	connect(ui.pbRec1, SIGNAL(clicked()), this, SLOT(recSample1()));
+	connect(ui.pbRec2, SIGNAL(clicked()), this, SLOT(recSample2()));
 }
 
 /**
@@ -65,9 +71,79 @@ void AddWordView::nextStep()
 	else finish();
 }
 
+/**
+ * \brief Writes the word into the files and cleans up the wizard
+ * 
+ * \author Peter Grasch
+ */
 void AddWordView::finish()
 {
 	//finishs up
+	
+	//cleaning up
+	QFile rec("1.wav");
+	rec.remove();
+	rec.setFileName("2.wav");
+	rec.remove();
+}
+
+void AddWordView::recSample1Status(int msecs)
+{
+	ui.hsRec1->setMaximum(msecs/100);
+	ui.lbRec1->setText("00:00 / "+QString::number(msecs/1000)+":"+QString::number(msecs/10-msecs/1000));
+}
+
+void AddWordView::recSample2Status(int msecs)
+{
+	ui.hsRec2->setMaximum(msecs/100);
+	ui.lbRec2->setText("00:00 / "+QString::number(msecs/1000)+":"+QString::number(msecs/10-msecs/1000));
+}
+
+
+/**
+ * \brief Starts the recording with the given Elements
+ * 
+ * \author Peter Grasch
+ * 
+ * \param QString filename
+ * This is the filename to record to (e.g.: 1.wav)
+ * \param QSlider *prog
+ * Here the wavrecorder will store the current progress (in seconds) - this will later on be used as a position slider
+ * \param QLabel *textprog
+ * Here we will store the current length in the format "xx:xx / xx:xx"
+ */
+void AddWordView::startRecording(QString filename, QSlider *prog, QLabel *textprog)
+{
+	rec->record(filename, 2, 44100); // hardcoded stereo, 44100hz
+	rec->start();
+}
+
+/**
+ * \brief This will stop the current recording
+ * 
+ * Tells the wavrecorder to simply stop the recording and save the result.
+ * \author Peter Grasch
+ */
+void AddWordView::stopRecording()
+{
+	rec->finish();
+}
+
+void AddWordView::recSample1()
+{
+	disconnect(ui.pbRec1, SIGNAL(clicked()), this, SLOT(recSample1()));
+	connect (ui.pbRec1, SIGNAL(clicked()), this, SLOT(stopRecording()));
+	this->startRecording("1.wav", ui.hsRec1, ui.lbRec1);
+	disconnect(rec,0,0,0);
+	connect(rec, SIGNAL(currentProgress(int)), this, SLOT(recSample1Status(int)));
+}
+void AddWordView::recSample2()
+{
+	this->startRecording("2.wav", ui.hsRec1, ui.lbRec1);
+	disconnect(ui.pbRec2, SIGNAL(clicked()), this, SLOT(recSample2()));
+	connect (ui.pbRec2, SIGNAL(clicked()), this, SLOT(stopRecording()));
+	disconnect(rec,0,0,0);
+	connect(rec, SIGNAL(currentProgress(int)), this, SLOT(recSample1Status(int)));
 }
 
 /**

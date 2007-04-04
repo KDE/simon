@@ -11,6 +11,18 @@
 //
 #include "settingsview.h"
 
+
+/**
+ * \brief Constructor
+ * 
+ * This instances a new dialog and connects the signals/slots
+ * It also enables/disables the plattform dependant options (alsa/dsound)
+ * 
+ * \author Peter Grasch
+ * 
+ * \param QWidget *parent
+ * The parent of the dialog
+ */
 SettingsView::SettingsView(QWidget *parent)
  : QDialog(parent)
 {
@@ -31,6 +43,18 @@ SettingsView::SettingsView(QWidget *parent)
 }
 
 
+
+
+
+/**********************************************/
+/******************Tab Stuff*******************/
+/**********************************************/
+
+/**
+ * \brief Untoggles all the "tab" buttons on top
+ * 
+ * \author Peter Grasch
+ */
 void SettingsView::unsetAllTabs()
 {
 	ui.pbSystemSettings->setChecked(false);
@@ -40,6 +64,11 @@ void SettingsView::unsetAllTabs()
 	ui.pbRevert->setChecked(false);
 }
 
+/**
+ * \brief Switches to the "system" tab
+ * 
+ * \author Peter Grasch
+ */
 void SettingsView::switchToSystem()
 {
 	unsetAllTabs();
@@ -48,6 +77,11 @@ void SettingsView::switchToSystem()
 	ui.swSettings->setCurrentIndex( 0 );
 }
 
+/**
+ * \brief Switches to the "sound" tab
+ * 
+ * \author Peter Grasch
+ */
 void SettingsView::switchToSound()
 {
 	unsetAllTabs();
@@ -56,6 +90,11 @@ void SettingsView::switchToSound()
 	ui.swSettings->setCurrentIndex( 1 );
 }
 
+/**
+ * \brief Switches to the "command" tab
+ * 
+ * \author Peter Grasch
+ */
 void SettingsView::switchToCommands()
 {
 	unsetAllTabs();
@@ -64,6 +103,11 @@ void SettingsView::switchToCommands()
 	ui.swSettings->setCurrentIndex( 2 );
 }
 
+/**
+ * \brief Switches to the "command" tab
+ * 
+ * \author Peter Grasch
+ */
 void SettingsView::switchToProtocols()
 {
 	unsetAllTabs();
@@ -72,6 +116,11 @@ void SettingsView::switchToProtocols()
 	ui.swSettings->setCurrentIndex( 3 );
 }
 
+/**
+ * \brief Switches to the "history" tab
+ * 
+ * \author Peter Grasch
+ */
 void SettingsView::switchToHistory()
 {
 	unsetAllTabs();
@@ -81,6 +130,11 @@ void SettingsView::switchToHistory()
 }
 
 
+/**
+ * \brief Destructor
+ * 
+ * \author Peter Grasch
+ */
 SettingsView::~SettingsView()
 {
 }

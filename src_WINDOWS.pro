@@ -28,6 +28,7 @@ HEADERS += simonview.h \
            eventhandler.h \
            trayiconmanager.h \
            osd.h \
+	   wavrecorder.h \
            dragtablewidget.h \
            droplistwidget.h \
            runapplicationview.h \
@@ -60,6 +61,7 @@ SOURCES += main.cpp \
            runapplicationview.cpp \
 	   runwindowsbackend.cpp \
 	   wav.h \
+	   wavrecorder.cpp \
            settingsview.cpp \
            settingsmanager.cpp \
            vumeter.cpp

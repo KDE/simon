@@ -61,6 +61,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	QMainWindow(parent,flags);
 	ui.setupUi(this);
+	
 	ui.frmConnecting->setVisible(false);
 	
 
@@ -92,6 +93,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
 
+	this->info->writeToSplash("Connecting to juliusd...");
 	connectToServer();
 	
 // 	MicControl *mic = new MicControl();
@@ -383,8 +385,11 @@ void SimonView::toggleVisibility()
 */
 void SimonView::closeSimon()
 {
-	close();
-	this->~ SimonView();
+	if ((!false /*Confirm shutdown*/) || (QMessageBox::question(this, "Wirklich beenden?", "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No) == QMessageBox::Yes))
+	{
+		close();
+		this->~ SimonView();
+	}
 }
 
 

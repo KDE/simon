@@ -13,7 +13,13 @@
 #define SETTINGSMANAGER_H
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+	\class SettingsManager
+	
+	\brief The class provides all the functions to store/load/get the current config
+	
+	\version 0.1
+	\author Peter Grasch
+	\todo Implementing
 */
 class SettingsManager{
 public:

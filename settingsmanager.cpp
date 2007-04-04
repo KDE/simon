@@ -11,11 +11,16 @@
 //
 #include "settingsmanager.h"
 
+/**
+ * \brief Constructor
+ */
 SettingsManager::SettingsManager()
 {
 }
 
-
+/**
+ * \brief Destructor
+ */
 SettingsManager::~SettingsManager()
 {
 }

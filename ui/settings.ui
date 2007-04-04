@@ -237,6 +237,9 @@
     <property name="text" >
      <string>Soundeinstellungen</string>
     </property>
+    <property name="checkable" >
+     <bool>true</bool>
+    </property>
     <property name="flat" >
      <bool>true</bool>
     </property>
@@ -255,6 +258,9 @@
     </property>
     <property name="text" >
      <string>Kommandos</string>
+    </property>
+    <property name="checkable" >
+     <bool>true</bool>
     </property>
     <property name="flat" >
      <bool>true</bool>
@@ -275,6 +281,9 @@
     <property name="text" >
      <string>Protokolle</string>
     </property>
+    <property name="checkable" >
+     <bool>true</bool>
+    </property>
     <property name="flat" >
      <bool>true</bool>
     </property>
@@ -291,6 +300,9 @@
     <property name="text" >
      <string>Zurücksetzen</string>
     </property>
+    <property name="checkable" >
+     <bool>true</bool>
+    </property>
     <property name="flat" >
      <bool>true</bool>
     </property>
@@ -306,7 +318,7 @@
     </rect>
    </property>
    <property name="currentIndex" >
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="page" >
     <widget class="QWidget" name="gridLayout" >
@@ -1152,6 +1164,9 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
         </property>
         <property name="text" >
          <string>Vorhanden</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
         </property>
        </widget>
       </item>

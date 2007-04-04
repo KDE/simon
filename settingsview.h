@@ -16,13 +16,23 @@
 #include "ui_settings.h"
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+	\class SettingsView
+	
+	\author Peter Grasch
+	\version 0.1
+	\todo Pretty much everything
+	
+	This Dialog provides an interface to all the not-so-commonly needed
+	system settings/actions.
+	Here you can configure simon, set up the paths to the components,
+	view the logs, Browse through all the commands, add new or change and
+	even delete them; or you can "undo" your changes
 */
 class SettingsView : public QDialog
 {
 	Q_OBJECT
 private:
-	Ui::SettingsDialog ui;
+	Ui::SettingsDialog ui; //!< The user interface
 public slots:
 	void unsetAllTabs();
 	void switchToSystem();
