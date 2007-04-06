@@ -175,7 +175,7 @@ int RunApplicationView::getCategory(QString commandtype)
 		return 1;
 	else if (commandtype == "Sonderzeichen")
 		return 2;
-	else if (commandtype == "Alles") return 3;
+	else return 3; //most probably "Alles" - but you never know ^^ (and we need a default)
 }
 
 

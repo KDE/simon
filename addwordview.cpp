@@ -112,7 +112,7 @@ void AddWordView::recSample2Status(int msecs)
  * \param QLabel *textprog
  * Here we will store the current length in the format "xx:xx / xx:xx"
  */
-void AddWordView::startRecording(QString filename, QSlider *prog, QLabel *textprog)
+void AddWordView::startRecording(QString filename)
 {
 	rec->record(filename, 2, 44100); // hardcoded stereo, 44100hz
 	rec->start();
@@ -133,13 +133,13 @@ void AddWordView::recSample1()
 {
 	disconnect(ui.pbRec1, SIGNAL(clicked()), this, SLOT(recSample1()));
 	connect (ui.pbRec1, SIGNAL(clicked()), this, SLOT(stopRecording()));
-	this->startRecording("1.wav", ui.hsRec1, ui.lbRec1);
+	this->startRecording("1.wav");
 	disconnect(rec,0,0,0);
 	connect(rec, SIGNAL(currentProgress(int)), this, SLOT(recSample1Status(int)));
 }
 void AddWordView::recSample2()
 {
-	this->startRecording("2.wav", ui.hsRec1, ui.lbRec1);
+	this->startRecording("2.wav");
 	disconnect(ui.pbRec2, SIGNAL(clicked()), this, SLOT(recSample2()));
 	connect (ui.pbRec2, SIGNAL(clicked()), this, SLOT(stopRecording()));
 	disconnect(rec,0,0,0);

@@ -54,7 +54,7 @@ class AddWordView : public QDialog
 	public slots:
 		void nextStep();
 		void prevStep();
-		void startRecording(QString filename, QSlider *prog, QLabel *textprog);
+		void startRecording(QString filename);
 		void stopRecording();
 		void recSample1();
 		void recSample1Status(int msecs);

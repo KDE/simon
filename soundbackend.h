@@ -40,6 +40,7 @@ public:
     virtual void writeData ( char* data, long unsigned int length, int buffersize ) = 0;
     virtual int getVolume() = 0;
     virtual void setVolume( int percent ) = 0;
+    virtual ~SoundBackend() {}
 
 };
 
