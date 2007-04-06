@@ -17,7 +17,7 @@
 	
 	\brief This class is used to capture wave input from the mic.
 	
-	It uses a MicControl to control the microphone, captures data (until its interrupted)
+	It uses a SoundControl to control the microphone, captures data (until its interrupted)
 	Then it writes the data into a specified wav-file.
 	All this is done in a seperate thread;
 	
@@ -25,14 +25,14 @@
 */
 
 #include <QThread>
-#include "miccontrol.h"
+#include "soundcontrol.h"
 #include "wav.h"
 
 class WavRecorder : public QThread {
 	Q_OBJECT
 private:
 	WAV *wavData;
-	MicControl *mic;
+	SoundControl *mic;
 signals:
 	void currentProgress(int msecs);
 public:

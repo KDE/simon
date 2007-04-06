@@ -16,7 +16,7 @@
  */
 WavRecorder::WavRecorder() : QThread()
 {
-	this->mic = new MicControl();
+	this->mic = new SoundControl();
 	
 }
 
@@ -35,7 +35,6 @@ void WavRecorder::record(QString filename, short channels, int sampleRate)
  */
 void WavRecorder::finish()
 {
-	//QMessageBox::information(0,"otecdi","otceidstcoeid");
 	wavData->writeFile();
 	this->terminate();
 }

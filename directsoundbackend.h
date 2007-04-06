@@ -20,7 +20,7 @@
  *	@brief The DirectSound Backend - implements the SoundInterface
  *
  *	The DirectSound Backend provides another Layer, used from the plattform-indepentant
- *	MicControl to provide an interface to the low level system calls
+ *	SoundControl to provide an interface to the low level system calls
  *
  *	@version 0.1
  *	@date 23.01.2006

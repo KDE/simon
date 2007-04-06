@@ -25,7 +25,7 @@ ALSABackend::ALSABackend()
 /**
  * @brief Opens the given DeviceID
  *
- * This initializes the capture_handle (member) by opening a system alsa device
+ * This initializes the handle (member) by opening a system alsa device
  * the ID is a char* and can also take values like "default"
  * 
  * After opening the device the function tries to allocate memory to hold the
@@ -34,13 +34,17 @@ ALSABackend::ALSABackend()
  * The function aborts on the first error
  * 
  *	@author Peter Grasch
+ *	\param const char* deviceID
+ *	The ID of the device
+ *	\param int mode
+ *	either READ or WRITE
  *	@return bool
  *	Returns if something went wrong. true= all went well, false= error occured
  */
-bool ALSABackend::openDevice( const char* deviceID )
+bool ALSABackend::openDevice( const char* deviceID, int mode )
 {
 	//Open the device for recording 
-	if (snd_pcm_open (&capture_handle, deviceID, SND_PCM_STREAM_CAPTURE, 0) < 0) 
+	if (snd_pcm_open (&handle, deviceID, (mode == READ) ? SND_PCM_STREAM_CAPTURE : SND_PCM_STREAM_PLAYBACK, 0) < 0) 
 		return false;
 	
 	//Allocate the size for the paramter
@@ -48,12 +52,31 @@ bool ALSABackend::openDevice( const char* deviceID )
 		return false;
 	
 	//Fills the parameter with default values
-	if (snd_pcm_hw_params_any (capture_handle, hw_params) < 0) 
+	if (snd_pcm_hw_params_any (handle, hw_params) < 0) 
 		return false;
 
 	return true; // All done
 }
 
+/**
+ * \brief Writes the given raw pcm data to the device
+ * 
+ * This is used for playback of raw pcm data
+ * 
+ * \param char* data
+ * The datastream
+ */
+void ALSABackend::writeData ( char* data, long unsigned int length, int buffersize )
+{
+	char* buffer = (char*) malloc(buffersize);
+	for (int i=0; i<length; )
+	{
+		for (int j=0; j < buffersize;j++)
+			buffer[j] = data[j+i];
+		
+		i += snd_pcm_writei (handle, buffer, buffersize);
+	}
+}
 
 /**
  * @brief Sets the interleaving mode
@@ -70,9 +93,9 @@ bool ALSABackend::setInterleaved( bool interleaved )
 {
 	if (interleaved)
 	{
-		return (!(snd_pcm_hw_params_set_access (capture_handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED) < 0));
+		return (!(snd_pcm_hw_params_set_access (handle, hw_params, SND_PCM_ACCESS_RW_INTERLEAVED) < 0));
 	} else 
-		return (!(snd_pcm_hw_params_set_access (capture_handle, hw_params,  SND_PCM_ACCESS_RW_NONINTERLEAVED) < 0));
+		return (!(snd_pcm_hw_params_set_access (handle, hw_params,  SND_PCM_ACCESS_RW_NONINTERLEAVED) < 0));
 	return true;
 }
 
@@ -90,12 +113,12 @@ bool ALSABackend::setInterleaved( bool interleaved )
  */
 bool ALSABackend::setSampleRate( int sampleRate )
 {
-	if (snd_pcm_hw_params_set_format (capture_handle, hw_params, SND_PCM_FORMAT_S16_LE) < 0) 
+	if (snd_pcm_hw_params_set_format (handle, hw_params, SND_PCM_FORMAT_S16_LE) < 0) 
 		return false;
 	
 	this->sampleRate = sampleRate;
 	
-	if (snd_pcm_hw_params_set_rate_near (capture_handle, hw_params, (unsigned int*) (&(this->sampleRate)), &dir) < 0) 
+	if (snd_pcm_hw_params_set_rate_near (handle, hw_params, (unsigned int*) (&(this->sampleRate)), &dir) < 0) 
 		return false;
 	
 	return true;
@@ -112,7 +135,7 @@ bool ALSABackend::setSampleRate( int sampleRate )
  */
 bool ALSABackend::setChannels( short channels )
 {
-	if (snd_pcm_hw_params_set_channels (capture_handle, hw_params, channels) < 0) 
+	if (snd_pcm_hw_params_set_channels (handle, hw_params, channels) < 0) 
 		return false;
 	return true;
 }
@@ -126,8 +149,8 @@ bool ALSABackend::setChannels( short channels )
  */
 bool ALSABackend::closeDevice()
 {
-	snd_pcm_drain(capture_handle);
-	snd_pcm_close(capture_handle);
+	snd_pcm_drain(handle);
+	snd_pcm_close(handle);
 	return true;
 }
 
@@ -146,9 +169,9 @@ bool ALSABackend::closeDevice()
 bool ALSABackend::prepareDevice()
 {
 	frames = 32;
-	snd_pcm_hw_params_set_period_size_near(capture_handle, hw_params, &frames, &dir);
+	snd_pcm_hw_params_set_period_size_near(handle, hw_params, &frames, &dir);
 	
-	if (snd_pcm_hw_params (capture_handle, hw_params) < 0) 
+	if (snd_pcm_hw_params (handle, hw_params) < 0) 
 		return false;
 	
 	//snd_pcm_hw_params_free (hw_params);
@@ -190,10 +213,10 @@ char* ALSABackend::readData( int msecs, long unsigned int& length )
 	
 	while (loops > 0) {
 		loops--;
-		rc = snd_pcm_readi(capture_handle, buffer, frames);
+		rc = snd_pcm_readi(handle, buffer, frames);
 		if (rc == -EPIPE) {
 			fprintf(stderr, "overrun occurred\n");
-			snd_pcm_prepare(capture_handle);
+			snd_pcm_prepare(handle);
 		} else if (rc < 0) 
 			fprintf(stderr,	"error from read: %s\n", snd_strerror(rc));
 		  else if (rc != (int)frames) 
@@ -244,13 +267,13 @@ short* ALSABackend::readData( int count, int buffersize, unsigned long int& leng
 	short *all = (short*) malloc(count*buffersize);
 	short *buffer = (short*) malloc(buffersize);
 	
-	if (snd_pcm_prepare (capture_handle) < 0) return all;
+	if (snd_pcm_prepare (handle) < 0) return all;
 	
 	int frmCount = count*buffersize;
 	
 	for (int i = 0; i < count; i++) 
 	{
-		error = snd_pcm_readi (capture_handle, buffer, buffersize);
+		error = snd_pcm_readi (handle, buffer, buffersize);
 		length += error;
 		
 		//copying the new buffer into the "main" buffer

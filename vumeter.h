@@ -13,7 +13,7 @@
 #define VUMETER_H
 
 #include <QThread>
-#include "miccontrol.h"
+#include "soundcontrol.h"
 
 /**
  *	@class VuMeter
@@ -29,7 +29,7 @@ class VuMeter : public QThread
 signals:
 	void level(int level); //!< publishs the current "loudness"
 private:
-	MicControl *mic;
+	SoundControl *mic;
 public:
 	VuMeter();
 	void run();

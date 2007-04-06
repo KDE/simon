@@ -1,5 +1,5 @@
 //
-// C++ Implementation: miccontrol
+// C++ Implementation: soundcontrol
 //
 // Description: 
 //
@@ -9,7 +9,7 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include "miccontrol.h"
+#include "soundcontrol.h"
 
 
 /**
@@ -19,7 +19,7 @@
  *	
  *	@author Peter Grasch
  */
-MicControl::MicControl()
+SoundControl::SoundControl()
 {
 #ifdef linux
 	soundbackend = new ALSABackend();
@@ -42,7 +42,7 @@ MicControl::MicControl()
  *	@return bool
  *	Returns wether the mic was successfully prepared
  */
-bool MicControl::initializeMic(short channels, int samplerate)
+bool SoundControl::initializeMic(short channels, int samplerate)
 {
 #ifdef linux
 	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
@@ -94,7 +94,7 @@ bool MicControl::initializeMic(short channels, int samplerate)
  *	The read data
  *	@see initializeMic()
  */
-char* MicControl::capture (int msecs, long unsigned int& size)
+char* SoundControl::capture (int msecs, long unsigned int& size)
 {
 	
 #ifdef linux
@@ -128,7 +128,7 @@ char* MicControl::capture (int msecs, long unsigned int& size)
  *	Array of the freq. data
  *	@see initializeMic()
  */
-short* MicControl::capture (int count, int buffersize, long unsigned int& size)
+short* SoundControl::capture (int count, int buffersize, long unsigned int& size)
 {
 	
 #ifdef linux
@@ -155,7 +155,7 @@ short* MicControl::capture (int count, int buffersize, long unsigned int& size)
  *	@return bool
  *	Returns wether the mic was successfully closed
  */
-bool MicControl::closeMic()
+bool SoundControl::closeMic()
 {
 #ifdef linux
 	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
@@ -177,7 +177,7 @@ bool MicControl::closeMic()
  *	@return int
  *	volume in percent
 */
-int MicControl::getVolume()
+int SoundControl::getVolume()
 {
 	
 }
@@ -189,7 +189,7 @@ int MicControl::getVolume()
  *	@param int percent
  *	volume in percent
 */
-void MicControl::setVolume(int percent)
+void SoundControl::setVolume(int percent)
 {
 	
 }
@@ -200,6 +200,6 @@ void MicControl::setVolume(int percent)
  *	
  *	@author Peter Grasch
 */
-MicControl::~MicControl()
+SoundControl::~SoundControl()
 {
 }

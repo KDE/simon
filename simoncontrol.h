@@ -38,7 +38,7 @@
 #include <QObject>
 #include "simoninfo.h"
 #include "addwordview.h"
-#include "miccontrol.h"
+#include "soundcontrol.h"
 #include "runcommand.h"
 #include "eventhandler.h"
 #include "juliuscontrol.h"
@@ -61,7 +61,7 @@ public slots:
 	void errorConnecting(QString error);
 private:
 	bool active; //!< Is active?
-	MicControl *mic; //!< Mic Handle
+	SoundControl *mic; //!< Mic Handle
 	JuliusControl *julius; //!< Julius Backend
 	RunCommand *run; //!< Runs the commands
 	EventHandler *eventHandler; //!< simulates keystrokes,etc.

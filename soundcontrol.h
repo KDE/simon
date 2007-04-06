@@ -1,5 +1,5 @@
 //
-// C++ Interface: miccontrol
+// C++ Interface: soundcontrol
 //
 // Description: 
 //
@@ -9,8 +9,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#ifndef MICCONTROL_H
-#define MICCONTROL_H
+#ifndef SOUNDCONTROL_H
+#define SOUNDCONTROL_H
 
 #include "simoninfo.h"
 #include "soundbackend.h"
@@ -19,10 +19,10 @@
 #endif
 
 /**
- *	@class MicControl
- *	@brief The MicControl provides a layer to the SoundBackends
+ *	@class SoundControl
+ *	@brief The SoundControl provides a layer to the SoundBackends
  *
- *	The MicControl controls the sound-backends to provide a Control-Point
+ *	The SoundControl controls the sound-backends to provide a Control-Point
  *	to communicate with the individual backends without losing the benefit
  *	of plattform indepandance
  *
@@ -31,7 +31,7 @@
  *	@author Peter Grasch
  *	@todo Implementing all Windows and all Volume related stuff
  */
-class MicControl{
+class SoundControl{
 #ifdef linux
 	ALSABackend *soundbackend;
 #endif
@@ -42,9 +42,9 @@ public:
 	bool closeMic();
 	int getVolume();
 	void setVolume(int percent);
-    MicControl();
+    SoundControl();
 
-    ~MicControl();
+    ~SoundControl();
 
 };
 

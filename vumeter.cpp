@@ -15,13 +15,13 @@
 /**
  * @brief Destructor
  * 
- * Initializes the mic (MicControl*) (member)
+ * Initializes the mic (SoundControl*) (member)
  *
  *	@author Peter Grasch
  */
 VuMeter::VuMeter() : QThread ()
 {
-	mic = new MicControl();
+	mic = new SoundControl();
 }
 
 /**
@@ -78,7 +78,7 @@ void VuMeter::exec()
 /**
  * @brief Constructor
  * 
- * Tells the MicControl to close the handle
+ * Tells the SoundControl to close the handle
  *
  *	@author Peter Grasch
  */

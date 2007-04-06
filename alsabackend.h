@@ -17,8 +17,8 @@
 #include "soundbackend.h"
 #include <iostream>
 
-
 #include <alsa/asoundlib.h>
+
 
 /**
  *	@class ALSABackend
@@ -36,7 +36,7 @@ class ALSABackend : public SoundBackend
 {
 
 private:
-	snd_pcm_t *capture_handle; //!< The handle
+	snd_pcm_t *handle; //!< The handle
 	snd_pcm_hw_params_t *hw_params; //!< Stores all config options for the handle
 	
 	int dir; //!< I have NO idea
@@ -44,11 +44,12 @@ private:
 	unsigned int sampleRate; //!< we seem to need this again later on
 	
 public:
-	bool openDevice( const char* deviceID );
+	bool openDevice( const char* deviceID, int mode=READ );
 	bool setSampleRate( int sampleRate );
 	bool setChannels( short channels );
 	bool setInterleaved( bool interleaved );
 	bool closeDevice();
+	void writeData ( char* data, long unsigned int length, int buffersize );
 	bool prepareDevice();
 	char* readData( int msecs, long unsigned int& length );
 	short* readData( int count, int buffersize, long unsigned int& length );

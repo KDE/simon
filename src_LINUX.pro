@@ -20,7 +20,6 @@ HEADERS += simonview.h \
            alsabackend.h \
            command.h \
            directsoundbackend.h \
-           miccontrol.h \
            modelmanager.h \
            runcommand.h \
            trainingmanager.h \
@@ -45,7 +44,9 @@ HEADERS += simonview.h \
            xmldocument.h \
            xmlsetting.h \
            settingsmanager.h \
-           wavrecorder.h
+           wavrecorder.h \
+           wavplayer.h \
+           soundcontrol.h
 SOURCES += main.cpp \
            simonview.cpp \
            addwordview.cpp \
@@ -57,7 +58,6 @@ SOURCES += main.cpp \
            wordlistmanager.cpp \
            alsabackend.cpp \
            directsoundbackend.cpp \
-           miccontrol.cpp \
            modelmanager.cpp \
            runcommand.cpp \
            trainingmanager.cpp \
@@ -78,7 +78,9 @@ SOURCES += main.cpp \
            xmldocument.cpp \
            xmlsetting.cpp \
            settingsmanager.cpp \
-           wavrecorder.cpp
+           wavrecorder.cpp \
+           wavplayer.cpp \
+           soundcontrol.cpp
 QT += network \
 core \
 gui \

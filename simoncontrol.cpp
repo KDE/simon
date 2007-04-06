@@ -143,7 +143,7 @@ void SimonControl::errorConnecting(QString error)
 /**
  * @brief Sets basic Parameters for the Sound-System
  *
- * Uses the MicControl control handle to initialize the primary sound card
+ * Uses the SoundControl control handle to initialize the primary sound card
  *
  *	@author Peter Grasch
  */

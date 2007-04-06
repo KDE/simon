@@ -48,7 +48,7 @@
 #include "settingsview.h"
 
 #include "wav.h"
-#include "miccontrol.h"
+#include "soundcontrol.h"
 
 #include "ui_main.h"
 

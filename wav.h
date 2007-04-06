@@ -23,7 +23,7 @@
  *	@brief The WAV Filewriter
  *
  *	This class provides all the needed utilities to write a standard compliant
- *	WAV File out of raw PCM data (such as the data provided by MicControl,etc.).
+ *	WAV File out of raw PCM data (such as the data provided by SoundControl,etc.).
  *
  *	@version 0.1
  *	@date 17.03.2007
@@ -41,9 +41,12 @@ private:
 	void writeHeader(QDataStream *dstream);
 	void writeFormat(QDataStream *dstream);
 	void writeDataChunk(QDataStream *dstream);
+	void importDataFromFile(QString filename);
+	int retrieveSampleRate();
+	char* getRawData();
 	
 public:
-    WAV(QString filename, int samplerate);
+    WAV(QString filename, int samplerate=0);
 
     void addData(char* data, int length);
     bool writeFile(QString filename="");
