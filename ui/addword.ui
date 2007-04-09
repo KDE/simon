@@ -140,28 +140,6 @@ p, li { white-space: pre-wrap; }
      <property name="title" >
       <string>Sample2</string>
      </property>
-     <widget class="QPushButton" name="pbPlay2" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>120</x>
-        <y>20</y>
-        <width>111</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="toolTip" >
-       <string>Gibt die Aufnahme wieder (zur Kontrolle)</string>
-      </property>
-      <property name="text" >
-       <string>Play</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
-      </property>
-     </widget>
      <widget class="QPushButton" name="pbStartOver2" >
       <property name="enabled" >
        <bool>false</bool>
@@ -182,50 +160,6 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="icon" >
        <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
-      </property>
-     </widget>
-     <widget class="QSlider" name="hsRec2" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>50</y>
-        <width>231</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="toolTip" >
-       <string>Aktuelle position der Wiedergabe</string>
-      </property>
-      <property name="maximum" >
-       <number>0</number>
-      </property>
-      <property name="value" >
-       <number>0</number>
-      </property>
-      <property name="sliderPosition" >
-       <number>0</number>
-      </property>
-      <property name="orientation" >
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbRec2" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>271</x>
-        <y>50</y>
-        <width>68</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>0:00 / 0:00</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pbRec2" >
@@ -251,6 +185,78 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="checkable" >
        <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pbPlay2" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>120</x>
+        <y>20</y>
+        <width>111</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="toolTip" >
+       <string>Gibt die Aufnahme wieder (zur Kontrolle)</string>
+      </property>
+      <property name="text" >
+       <string>Play</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
+      </property>
+      <property name="checkable" >
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QSlider" name="hsRec2" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>221</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="toolTip" >
+       <string>Aktuelle position der Wiedergabe</string>
+      </property>
+      <property name="maximum" >
+       <number>0</number>
+      </property>
+      <property name="value" >
+       <number>0</number>
+      </property>
+      <property name="sliderPosition" >
+       <number>0</number>
+      </property>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lbRec2" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>238</x>
+        <y>50</y>
+        <width>101</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>0:00 / 0:00</string>
+      </property>
+      <property name="alignment" >
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </widget>
@@ -316,47 +322,6 @@ p, li { white-space: pre-wrap; }
      <property name="title" >
       <string>Sample1</string>
      </property>
-     <widget class="QPushButton" name="pbStartOver1" >
-      <property name="geometry" >
-       <rect>
-        <x>240</x>
-        <y>20</y>
-        <width>101</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="toolTip" >
-       <string>Löscht die Aufnahme</string>
-      </property>
-      <property name="text" >
-       <string>Delete</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pbPlay1" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>120</x>
-        <y>20</y>
-        <width>111</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="toolTip" >
-       <string>Gibt die Aufnahme wieder (zur Kontrolle)</string>
-      </property>
-      <property name="text" >
-       <string>Play</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
-      </property>
-     </widget>
      <widget class="QPushButton" name="pbRec1" >
       <property name="geometry" >
        <rect>
@@ -384,7 +349,7 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>10</x>
         <y>50</y>
-        <width>231</width>
+        <width>221</width>
         <height>16</height>
        </rect>
       </property>
@@ -407,14 +372,67 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="lbRec1" >
       <property name="geometry" >
        <rect>
-        <x>271</x>
+        <x>238</x>
         <y>50</y>
-        <width>68</width>
+        <width>101</width>
         <height>20</height>
        </rect>
       </property>
+      <property name="layoutDirection" >
+       <enum>Qt::LeftToRight</enum>
+      </property>
       <property name="text" >
        <string>0:00 / 0:00</string>
+      </property>
+      <property name="alignment" >
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pbPlay1" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>120</x>
+        <y>20</y>
+        <width>111</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="toolTip" >
+       <string>Gibt die Aufnahme wieder (zur Kontrolle)</string>
+      </property>
+      <property name="text" >
+       <string>Play</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
+      </property>
+      <property name="checkable" >
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pbStartOver1" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>240</x>
+        <y>20</y>
+        <width>101</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="toolTip" >
+       <string>Löscht die Aufnahme</string>
+      </property>
+      <property name="text" >
+       <string>Delete</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
       </property>
      </widget>
     </widget>
@@ -642,11 +660,75 @@ Sprechen Sie so deutlich wie möglich und vermeiden sie Umgebungsgeräusche.</st
    <hints>
     <hint type="sourcelabel" >
      <x>259</x>
-     <y>122</y>
+     <y>126</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>231</x>
+     <x>259</x>
      <y>255</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbStartOver1</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>pbRec1</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>274</x>
+     <y>123</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>67</x>
+     <y>105</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbStartOver1</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>pbStartOver1</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>307</x>
+     <y>124</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>308</x>
+     <y>122</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbStartOver2</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>pbRec2</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>271</x>
+     <y>186</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>23</x>
+     <y>188</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbStartOver2</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>pbStartOver2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>300</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>300</x>
+     <y>193</y>
     </hint>
    </hints>
   </connection>

@@ -25,6 +25,7 @@
 */
 
 #include <QThread>
+#include <QTimer>
 #include "soundcontrol.h"
 #include "wav.h"
 
@@ -32,11 +33,17 @@ class WavRecorder : public QThread {
 	Q_OBJECT
 private:
 	WAV *wavData;
+	QTimer *progressTimer;
+	int progress;
+	bool killMe;
 	SoundControl *mic;
 signals:
 	void currentProgress(int msecs);
+public slots:
+	void increaseProgress();
+	
 public:
-	WavRecorder();
+	WavRecorder(QWidget *parent=0);
 	void run();
 	void exec();
 	void finish();

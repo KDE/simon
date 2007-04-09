@@ -15,6 +15,8 @@
 #include <QString>
 #include <QDataStream>
 #include <QFile>
+#include <iostream>
+#include <QMessageBox>
 
 
 
@@ -43,13 +45,14 @@ private:
 	void writeDataChunk(QDataStream *dstream);
 	void importDataFromFile(QString filename);
 	int retrieveSampleRate();
-	char* getRawData();
 	
 public:
     WAV(QString filename, int samplerate=0);
 
+	char* getRawData(int& data);
     void addData(char* data, int length);
     bool writeFile(QString filename="");
+    ~WAV();
 
 };
 

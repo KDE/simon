@@ -37,9 +37,13 @@ class SoundControl{
 #endif
 public:
 	bool initializeMic(short channels=2, int samplerate=44100);
+	bool initializeSpeaker(short channels=2, int samplerate=44100);
 	char* capture (int msecs, long unsigned int& size);
 	short* capture (int count, int buffersize, long unsigned int& size);
-	bool closeMic();
+	
+	bool playback (char* data, int count);
+	
+	bool close();
 	int getVolume();
 	void setVolume(int percent);
     SoundControl();

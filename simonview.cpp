@@ -96,10 +96,10 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->info->writeToSplash("Connecting to juliusd...");
 	connectToServer();
 	
-// 	SoundControl *mic = new SoundControl();
-// 	mic->initializeMic(2, 44100);
-// 	long unsigned int length=0;
-// 	char* data = mic->capture(5000, length);
+//  	SoundControl *mic = new SoundControl();
+//  	mic->initializeMic(2, 44100);
+//  	long unsigned int length=0;
+//  	char* data = mic->capture(5000, length);
 // 	
 // 	WAV *w = new WAV("test.wav", 44100);
 // 	w->addData(data,length);

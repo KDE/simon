@@ -48,8 +48,9 @@ WAV::WAV(QString filename, int samplerate)
  * \return char*
  * The data of the file
  */
-char* WAV::getRawData()
+char* WAV::getRawData(int& length)
 {
+	length = this->length;
 	return this->waveData;
 }
 
@@ -64,20 +65,20 @@ char* WAV::getRawData()
 void WAV::importDataFromFile(QString filename)
 {
 	QFile wavFile(filename);
-	wavFile.open(QIODevice::WriteOnly);
+	wavFile.open(QIODevice::ReadOnly);
 	QDataStream *dstream = new QDataStream(&wavFile);
 	
 	dstream->setByteOrder( QDataStream::LittleEndian );
 	
-	dstream->skipRawData( 38 ); //we have to skip 40 bytes of header
+	dstream->skipRawData( 40 ); //we have to skip 40 bytes of header
 	
-	quint16 bytesToFollow;
-	dstream->readRawData((char*) &bytesToFollow, 2);
+	quint32 bytesToFollow;
+	dstream->readRawData((char*) &bytesToFollow, 4);
 	
 	char *out = (char*) malloc(bytesToFollow);
-	dstream->readRawData(out, bytesToFollow);
+	int length = dstream->readRawData(out, bytesToFollow);
 	
-	this->addData(out, bytesToFollow);
+	this->addData(out, length);
 }
 
 /**
@@ -100,12 +101,12 @@ int WAV::retrieveSampleRate()
 	{
 		//this is no new file
 		QFile wavFile(filename);
-		wavFile.open(QIODevice::WriteOnly);
+		wavFile.open(QIODevice::ReadOnly);
 		QDataStream *dstream = new QDataStream(&wavFile);
 		
 		dstream->setByteOrder( QDataStream::LittleEndian );
 		
-		dstream->skipRawData( 28 ); //we have to skip 28 bytes of other information before we reach the samplerate
+		dstream->skipRawData( 24 ); //we have to skip 24 bytes of other information before we reach the samplerate
 		
 		quint32 samplerate;
 		dstream->readRawData( (char*) &samplerate, 4); //4 byte samplerate, 32bit
@@ -158,7 +159,7 @@ bool WAV::writeFile(QString filename)
  *	This identifies the WAV file as WAV file.
  *	
  *	+------------------------------------------------------+
- *	| CHAR|Length of Byte to follow (16bit)|CHAR           |
+ *	| CHAR|Length of Byte to follow (32bit)|CHAR           |
  *	|------------------------------------------------------|
  *	| RIFF|         18276                  |WAVE           |
  *	+------------------------------------------------------+
@@ -170,7 +171,7 @@ bool WAV::writeFile(QString filename)
 void WAV::writeHeader(QDataStream *dstream)
 {
 	dstream->writeRawData("RIFF",4);
-	*dstream << (quint16) ((this->length)*2)+36;
+	*dstream << (quint32) (this->length)+36;
 	dstream->writeRawData("WAVE",4);
 }
 
@@ -180,7 +181,7 @@ void WAV::writeHeader(QDataStream *dstream)
  *	This identifies the WAV file as WAV file.
  *	
  *	+------------------------------------------------------+
- *	| CHAR|Length of Byte to follow (16bit)                |
+ *	| CHAR|Length of Byte to follow (32bit)                |
  *	|------------------------------------------------------|
  *	| data|         18276                                  |
  *	+------------------------------------------------------+
@@ -192,7 +193,7 @@ void WAV::writeHeader(QDataStream *dstream)
 void WAV::writeDataChunk(QDataStream *dstream)
 {
 	dstream->writeRawData("data",4);
-	*dstream << (quint32) (this->length)*2;
+	*dstream << (quint32) this->length;
 }
 
 /**
@@ -256,3 +257,11 @@ void WAV::addData(char* data, int length)
 	this->length += length;
 }
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
+WAV::~WAV()
+{
+	delete waveData;
+}

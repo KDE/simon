@@ -84,7 +84,7 @@ void VuMeter::exec()
  */
 VuMeter::~VuMeter()
 {
-	mic->closeMic();
+	mic->close();
 }
 
 

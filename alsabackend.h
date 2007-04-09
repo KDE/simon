@@ -16,6 +16,7 @@
 
 #include "soundbackend.h"
 #include <iostream>
+#include <math.h>
 
 #include <alsa/asoundlib.h>
 
@@ -49,7 +50,7 @@ public:
 	bool setChannels( short channels );
 	bool setInterleaved( bool interleaved );
 	bool closeDevice();
-	void writeData ( char* data, long unsigned int length, int buffersize );
+	void writeData ( char* data, long unsigned int length, int buffersize=255 );
 	bool prepareDevice();
 	char* readData( int msecs, long unsigned int& length );
 	short* readData( int count, int buffersize, long unsigned int& length );

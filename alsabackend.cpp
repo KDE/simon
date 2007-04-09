@@ -68,14 +68,25 @@ bool ALSABackend::openDevice( const char* deviceID, int mode )
  */
 void ALSABackend::writeData ( char* data, long unsigned int length, int buffersize )
 {
-	char* buffer = (char*) malloc(buffersize);
-	for (int i=0; i<length; )
-	{
-		for (int j=0; j < buffersize;j++)
-			buffer[j] = data[j+i];
-		
-		i += snd_pcm_writei (handle, buffer, buffersize);
-	}
+	snd_pcm_nonblock(handle, 0);
+	
+	snd_pcm_writei(handle, data,length/4);
+	
+// 	char* buffer = (char*) malloc(buffersize);
+// 	
+// 	for (int i=0; i<length/buffersize; i++)
+// 	{
+// 	
+// 		for (int j=0; j<buffersize; j++)
+// 			buffer[j] = data[j+(i*buffersize)];
+// 		std::cout << i << " / " << (length/buffersize) << std::endl;
+// 		
+// 		if (snd_pcm_writei(handle, buffer, buffersize/4) != buffersize/4)
+// 		{
+// 			std::cout<<"ERROR" << std::endl;
+// 			return;
+// 		}
+// 	}
 }
 
 /**
@@ -149,8 +160,14 @@ bool ALSABackend::setChannels( short channels )
  */
 bool ALSABackend::closeDevice()
 {
-	snd_pcm_drain(handle);
-	snd_pcm_close(handle);
+//	snd_pcm_hw_params_free(hw_params);
+	snd_pcm_drop(handle);
+	
+	// When we close a playback stream the procedure fails with an segmentation fault
+	//we can avoid this behavior when we only close the capturing stream
+	if (snd_pcm_stream(handle) == SND_PCM_STREAM_CAPTURE ) {
+		snd_pcm_close(handle); 
+	}
 	return true;
 }
 
@@ -195,6 +212,7 @@ bool ALSABackend::prepareDevice()
  */
 char* ALSABackend::readData( int msecs, long unsigned int& length )
 {
+	
 	snd_pcm_hw_params_get_period_size(hw_params,
 					  &frames, &dir);
 
@@ -269,7 +287,6 @@ short* ALSABackend::readData( int count, int buffersize, unsigned long int& leng
 	
 	if (snd_pcm_prepare (handle) < 0) return all;
 	
-	int frmCount = count*buffersize;
 	
 	for (int i = 0; i < count; i++) 
 	{

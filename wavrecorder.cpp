@@ -14,7 +14,7 @@
 /**
  * \brief Constructor
  */
-WavRecorder::WavRecorder() : QThread()
+WavRecorder::WavRecorder(QWidget *parent) : QThread(parent)
 {
 	this->mic = new SoundControl();
 	
@@ -22,9 +22,15 @@ WavRecorder::WavRecorder() : QThread()
 
 void WavRecorder::record(QString filename, short channels, int sampleRate)
 {
-	if (wavData) delete wavData;
 	this->wavData = new WAV(filename, sampleRate);
 	mic->initializeMic(channels, sampleRate);
+	
+	progressTimer = new QTimer();
+	connect(progressTimer, SIGNAL(timeout()), this, SLOT(increaseProgress()));
+	progressTimer->start(100);
+	
+	killMe=false;
+	start();
 }
 
 /**
@@ -35,20 +41,37 @@ void WavRecorder::record(QString filename, short channels, int sampleRate)
  */
 void WavRecorder::finish()
 {
+	killMe = true;
+	wait(1000);
 	wavData->writeFile();
-	this->terminate();
+	mic->close();
+	progressTimer->stop();
 }
 
 /**
  * \brief Starts the thread
  * 
  * \author Peter Grasch
+ * \see exec()
  */
 void WavRecorder::run()
 {
 	exec();
-	wait(5000);
 }
+
+/**
+ * \brief Increases the progress by 100 msecs
+ * 
+ * emits the currentProgress signal
+ * 
+ * \author Peter Grasch
+ */
+void WavRecorder::increaseProgress()
+{
+	progress+=100;
+	emit currentProgress(progress);
+}
+
 
 /**
  * \brief Main execution loop
@@ -59,18 +82,12 @@ void WavRecorder::exec()
 {
 	if (!mic || !wavData) return;
 	int msecs=0; //current timecode
-	while (true)
+	while (!killMe)
 	{
 		unsigned long length=0;
 		char* data = mic->capture( 100, length );
 		wavData->addData( data, length );
-		
-		msecs+=100;
-		emit currentProgress(msecs);
-		//prog->setMaximum(msecs/100);
-		//this->textprog->setText("00:00 / "+QString::number(msecs/1000)+":"+QString::number(msecs/10));
 	}
-	mic->closeMic();
 }
 
 
@@ -79,6 +96,8 @@ void WavRecorder::exec()
  */
 WavRecorder::~WavRecorder()
 {
+	delete mic;
+	delete wavData;
 }
 
 
