@@ -17,15 +17,15 @@
  *	@author Peter Grasch
  * \param QString name
  * The name of the text
- * \param int pageCount
- * count of pages in the text
+ * \param QStringList pages
+ * The pages of the text
  * \param float relevance
  * The relevance of the text - the higher the better it'd be to train the text
  */
-TrainingText::TrainingText(  QString name, int pageCount, float relevance  )
+TrainingText::TrainingText(  QString name, QStringList pages, float relevance  )
 {
 	this->name = name;
-	this->pageCount = pageCount;
+	this->pages = pages;
 	this->relevance = relevance;
 }
 

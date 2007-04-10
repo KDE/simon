@@ -14,7 +14,7 @@ XMLDocument::XMLDocument(QString path):XMLReader(path)
 }
 
 
-void XMLDocument::save(TextPerPage textperpage, QString path, QString title)
+void XMLDocument::save(QStringList pages, QString path, QString title)
 {
 	QDomDocument doc("mydocument");
 	QDomElement root = doc.createElement("document");
@@ -23,32 +23,49 @@ void XMLDocument::save(TextPerPage textperpage, QString path, QString title)
 	QDomNode newnode;
 	newnode.setNodeValue(title);
 	
-	for(int i=0; i<=textperpage.size(); i++)
+	for(int i=0; i<=pages.size(); i++)
 	{
 		QDomNode page;
-		page.setNodeValue(textperpage.value(i));
+		page.setNodeValue(pages.value(i));
 		newnode.appendChild(page);
 
 		root.appendChild(newnode);
 	}
 }
 
+/**
+ * \brief Returns the count of pages of the currently loaded text
+ * 
+ * This does not, however, load the data if it isn't already stored.
+ * Please use load() before using that function
+ * 
+ * \see load()
+ * \author Peter Grasch
+ * \return int
+ * pages
+ */
+int XMLDocument::getPageCount()
+{
+	return pages.count();
+}
+		
+
 void XMLDocument::load()
 {
 	QDomElement root = doc.documentElement();
 	
+	this->title = root.attribute("title");
 	QDomElement newnode = root.firstChildElement();
-	this->title = newnode.text();
 	
-	QDomNode n = newnode.firstChild();
+	QDomNode n = root.firstChild();
 	QDomElement page = n.toElement();
-	
-	while(!page.isNull()) 
+	int i=0;
+	while(!page.isNull() && (i<10)) 
 	{
 		QString text = page.text();
-			
-		textperpage.append(text);
-		page = n.nextSiblingElement();
+		pages.append(text.trimmed());
+		page = page.nextSiblingElement();
+		i++;
 	}
 }
 
@@ -61,13 +78,27 @@ QString XMLDocument::getTitle()
 
 QString XMLDocument::getPage(int index)
 {
-	return textperpage[index];
+	return pages[index];
 }
 
 
-TextPerPage XMLDocument::getTextPerPage()
+
+/**
+ * \brief Returns all pages of the currently loaded document in a QStringList
+ * 
+ * Each page is one element in the list
+ * This does not, however, load the data if it isn't already stored.
+ * Please use load() before using that function
+ * 
+ * \see load()
+ * 
+ * \author Peter Grasch
+ * \return QStringList
+ * The pages of the text
+ */
+QStringList XMLDocument::getAllPages()
 {
-	return textperpage;
+	return pages;
 }
 
 

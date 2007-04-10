@@ -38,7 +38,9 @@ private:
 	TrainingManager *trainMgr;
 public slots:
 	void switchToWordList();
+	void trainSelected();
 	void loadList();
+	void cancelReading();
 public:
 	
     TrainingView(QWidget *parent = 0);

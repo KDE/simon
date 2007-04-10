@@ -34,6 +34,8 @@ public:
 	
 	void save(CommandList commandlist, QString path);
 	
+	int getPageCount();
+	
 	void load();
 	
 	CommandList getCommands();

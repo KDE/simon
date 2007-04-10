@@ -91,7 +91,7 @@ TEMPLATE = app
 CONFIG += qt \
 warn_on \
 thread
-INCLUDEPATH += /usr/X11R6/include/ \
+INCLUDEPATH += /usr/X11R6/include \
 /usr/include/alsa \
 /usr/include/qt4/QtNetwork
 LIBS += -L/usr/X11R6/lib \

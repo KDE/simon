@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>459</width>
-    <height>485</height>
+    <width>630</width>
+    <height>481</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -15,140 +15,374 @@
   <property name="windowIcon" >
    <iconset resource="../simon.qrc" >:/images/tray.png</iconset>
   </property>
-  <widget class="QPushButton" name="pbImportText" >
+  <widget class="QStackedWidget" name="swAction" >
    <property name="geometry" >
     <rect>
-     <x>10</x>
-     <y>410</y>
-     <width>211</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
-   </property>
-   <property name="text" >
-    <string>  Text(e) &amp;importieren</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/document-open.svg</iconset>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbDelText" >
-   <property name="geometry" >
-    <rect>
-     <x>240</x>
-     <y>410</y>
-     <width>211</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Löschen des markierten Textes aus dem System</string>
-   </property>
-   <property name="text" >
-    <string>  Markierten Text &amp;löschen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbBack" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>450</y>
-     <width>211</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Schließt den Dialog</string>
-   </property>
-   <property name="text" >
-    <string>  &amp;Zurück</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbWordList" >
-   <property name="geometry" >
-    <rect>
-     <x>240</x>
-     <y>450</y>
-     <width>211</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Schließt den Dialog und öffnet die Wordliste - Dort kann ein individuelles Trainingsprogramm erstellt werden</string>
-   </property>
-   <property name="text" >
-    <string>  Wechsle zur &amp;Wortliste</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbTrainText" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>360</y>
-     <width>441</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Startet das Training des selektierten Textes.</string>
-   </property>
-   <property name="layoutDirection" >
-    <enum>Qt::RightToLeft</enum>
-   </property>
-   <property name="text" >
-    <string>                    (Markierten Text &amp;vorlesen (trainieren</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
-   </property>
-   <property name="iconSize" >
-    <size>
-     <width>20</width>
-     <height>20</height>
-    </size>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="twTrainingWords" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
+     <x>0</x>
      <y>10</y>
-     <width>441</width>
-     <height>341</height>
+     <width>621</width>
+     <height>461</height>
     </rect>
    </property>
-   <property name="selectionMode" >
-    <enum>QAbstractItemView::SingleSelection</enum>
+   <property name="currentIndex" >
+    <number>0</number>
    </property>
-   <property name="selectionBehavior" >
-    <enum>QAbstractItemView::SelectRows</enum>
-   </property>
-   <column>
-    <property name="text" >
-     <string>Name</string>
-    </property>
-   </column>
-   <column>
-    <property name="text" >
-     <string>Seiten</string>
-    </property>
-   </column>
-   <column>
-    <property name="text" >
-     <string>Relevanz</string>
-    </property>
-   </column>
+   <widget class="QWidget" name="page" >
+    <widget class="QWidget" name="verticalLayout" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>350</y>
+       <width>621</width>
+       <height>108</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="pbTrainText" >
+        <property name="toolTip" >
+         <string>Startet das Training des selektierten Textes.</string>
+        </property>
+        <property name="layoutDirection" >
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text" >
+         <string>                    (Markierten Text &amp;vorlesen (trainieren</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item row="1" column="1" >
+         <widget class="QPushButton" name="pbWordList" >
+          <property name="toolTip" >
+           <string>Schließt den Dialog und öffnet die Wordliste - Dort kann ein individuelles Trainingsprogramm erstellt werden</string>
+          </property>
+          <property name="text" >
+           <string>  Wechsle zur &amp;Wortliste</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" >
+         <widget class="QPushButton" name="pbBack" >
+          <property name="toolTip" >
+           <string>Schließt den Dialog</string>
+          </property>
+          <property name="text" >
+           <string>  &amp;Zurück</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" >
+         <widget class="QPushButton" name="pbImportText" >
+          <property name="toolTip" >
+           <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
+          </property>
+          <property name="text" >
+           <string>  Text(e) &amp;importieren</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/document-open.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" >
+         <widget class="QPushButton" name="pbDelText" >
+          <property name="toolTip" >
+           <string>Löschen des markierten Textes aus dem System</string>
+          </property>
+          <property name="text" >
+           <string>  Markierten Text &amp;löschen</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QTableWidget" name="twTrainingWords" >
+     <property name="geometry" >
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>621</width>
+       <height>341</height>
+      </rect>
+     </property>
+     <property name="selectionMode" >
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior" >
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <column>
+      <property name="text" >
+       <string>Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Seiten</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Relevanz</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_3" >
+    <widget class="QFrame" name="frmActPage" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>0</y>
+       <width>611</width>
+       <height>321</height>
+      </rect>
+     </property>
+     <property name="frameShape" >
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow" >
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="lbPage" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>591</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string/>
+      </property>
+      <property name="wordWrap" >
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="pbBackToMain" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>430</y>
+       <width>181</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="toolTip" >
+      <string>Schließt den Dialog</string>
+     </property>
+     <property name="text" >
+      <string>  &amp;Zurück zur Übersicht</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbNextPage" >
+     <property name="geometry" >
+      <rect>
+       <x>490</x>
+       <y>430</y>
+       <width>131</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="toolTip" >
+      <string>Startet das Training des selektierten Textes.</string>
+     </property>
+     <property name="layoutDirection" >
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="text" >
+      <string>&amp;Nächste Seite</string>
+     </property>
+     <property name="icon" >
+      <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+     </property>
+     <property name="iconSize" >
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="gpRecord" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>330</y>
+       <width>611</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="title" >
+      <string>Seite: </string>
+     </property>
+     <widget class="QWidget" name="gridLayout_2" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>591</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item row="0" column="0" >
+        <layout class="QHBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="pbRec1" >
+           <property name="toolTip" >
+            <string>Startet die Aufnahme</string>
+           </property>
+           <property name="text" >
+            <string>Aufnehmen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/media-record.svg</iconset>
+           </property>
+           <property name="checkable" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbPlay1" >
+           <property name="enabled" >
+            <bool>false</bool>
+           </property>
+           <property name="toolTip" >
+            <string>Gibt die Aufnahme wieder (zur Kontrolle)</string>
+           </property>
+           <property name="text" >
+            <string>Abspielen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
+           </property>
+           <property name="checkable" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QSlider" name="hsRec1" >
+         <property name="toolTip" >
+          <string>Aktuelle position der Wiedergabe</string>
+         </property>
+         <property name="maximum" >
+          <number>0</number>
+         </property>
+         <property name="value" >
+          <number>0</number>
+         </property>
+         <property name="sliderPosition" >
+          <number>0</number>
+         </property>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QPushButton" name="pbStartOver1" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="toolTip" >
+          <string>Löscht die Aufnahme</string>
+         </property>
+         <property name="text" >
+          <string>Löschen</string>
+         </property>
+         <property name="icon" >
+          <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QLabel" name="lbRec1" >
+         <property name="layoutDirection" >
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text" >
+          <string>0:00 / 0:00</string>
+         </property>
+         <property name="alignment" >
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QProgressBar" name="pbPages" >
+     <property name="geometry" >
+      <rect>
+       <x>200</x>
+       <y>430</y>
+       <width>281</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="value" >
+      <number>0</number>
+     </property>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <resources>

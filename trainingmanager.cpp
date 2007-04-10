@@ -38,10 +38,23 @@ TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 	
 	trainingTexts = new TrainingList();
 	for (int i=0; i < textsrcs.count(); i++)
-		trainingTexts->append(new TrainingText(textsrcs.at(i), 4,3.5));
+	{
+		XMLDocument *text = new XMLDocument( pathToTexts+textsrcs.at(i) );
+		text->load();
+		trainingTexts->append(new TrainingText(text->getTitle(), text->getAllPages(),3.5));
+	}
 	
 	return trainingTexts;
 }
+
+TrainingText* TrainingManager::getText(int i)
+{
+	if (this->trainingTexts)
+		return this->trainingTexts->at(i);
+	else return NULL;
+}
+		
+
 
 int TrainingManager::calcRelevance(TrainingText *text, WordList *wlist)
 {

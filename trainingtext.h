@@ -13,6 +13,7 @@
 #define TRAININGTEXT_H
 
 #include <QList>
+#include <QStringList>
 #include <QString>
 /**
  *	@class TrainingText
@@ -29,7 +30,7 @@ typedef  QList<TrainingText*> TrainingList;
 class TrainingText{
 private:
 	QString name;
-	int pageCount;
+	QStringList pages;
 	float relevance;
 public:
 	/**
@@ -43,10 +44,26 @@ public:
 	/**
 	 * \brief Returns the page count of the text
 	 * \author Peter Grasch
-	 * \return QString
+	 * \return int
 	 * count of pages
 	 */
-	int getPageCount() { return this->pageCount; }
+	int getPageCount() { return pages.count(); }
+	
+	/**
+	 * \brief Returns the pages of the text
+	 * \author Peter Grasch
+	 * \return QStringList
+	 * pages
+	 */
+	QStringList getPages() { return pages; }
+	
+	/**
+	 * \brief Returns the page <page> of the text
+	 * \author Peter Grasch
+	 * \return QString
+	 * page
+	 */
+	QString getPage( int page ) { return pages.at(page); }
 	
 	/**
 	 * \brief Returns the relevance of the text
@@ -59,7 +76,7 @@ public:
 	 */
 	float getRelevance() { return this->relevance; }
 	
-    TrainingText( QString name, int pageCount, float relevance );
+    TrainingText( QString name, QStringList pages, float relevance );
 
     ~TrainingText();
 

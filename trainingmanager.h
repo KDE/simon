@@ -14,6 +14,7 @@
 
 #include <QDir>
 #include "trainingtext.h"
+#include "xmldocument.h"
 #include "word.h"
 
 /**
@@ -45,6 +46,8 @@ public:
 	}
 	
 	int calcRelevance(TrainingText *text, WordList *wlist);
+	
+	TrainingText* getText(int i);
 
 	~TrainingManager();
 

@@ -6,6 +6,7 @@
 #include <QtXml>
 #include <QDomNode>
 #include <QDomDocument>
+#include <QMessageBox>
 /**
  *  @class XMLDocument
  *  @brief To handle with xml-documents
@@ -17,18 +18,19 @@
  */
 
 
-typedef QList<QString> TextPerPage;
 
 
-class XMLDocument:public XMLReader
+class XMLDocument : public XMLReader
 {
 private:
 	QString title;
-	TextPerPage textperpage;
+	QStringList pages;
 public: 
 	XMLDocument(QString path);
 	
-	void save(TextPerPage textperpage, QString path, QString title);
+	void save(QStringList pages, QString path, QString title);
+	
+	int getPageCount();
 	
 	void load();
 	
@@ -36,7 +38,7 @@ public:
 	
 	QString getPage(int index);
 	
-	TextPerPage getTextPerPage();
+	QStringList getAllPages();
 	
 	~XMLDocument();
 };

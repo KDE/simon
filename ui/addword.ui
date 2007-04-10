@@ -25,7 +25,7 @@
     </rect>
    </property>
    <property name="currentIndex" >
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="page" >
     <widget class="QWidget" name="verticalLayout" >
@@ -140,78 +140,6 @@ p, li { white-space: pre-wrap; }
      <property name="title" >
       <string>Sample2</string>
      </property>
-     <widget class="QPushButton" name="pbStartOver2" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>240</x>
-        <y>20</y>
-        <width>101</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="toolTip" >
-       <string>Löscht die Aufnahme</string>
-      </property>
-      <property name="text" >
-       <string>Delete</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pbRec2" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>101</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="toolTip" >
-       <string>Startet die Aufnahme</string>
-      </property>
-      <property name="text" >
-       <string>Record</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../simon.qrc" >:/images/icons/media-record.svg</iconset>
-      </property>
-      <property name="checkable" >
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pbPlay2" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>120</x>
-        <y>20</y>
-        <width>111</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="toolTip" >
-       <string>Gibt die Aufnahme wieder (zur Kontrolle)</string>
-      </property>
-      <property name="text" >
-       <string>Play</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
-      </property>
-      <property name="checkable" >
-       <bool>true</bool>
-      </property>
-     </widget>
      <widget class="QSlider" name="hsRec2" >
       <property name="enabled" >
        <bool>false</bool>
@@ -259,6 +187,78 @@ p, li { white-space: pre-wrap; }
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
+     <widget class="QPushButton" name="pbRec2" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>101</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="toolTip" >
+       <string>Startet die Aufnahme</string>
+      </property>
+      <property name="text" >
+       <string>Aufnehmen</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/media-record.svg</iconset>
+      </property>
+      <property name="checkable" >
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pbPlay2" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>120</x>
+        <y>20</y>
+        <width>111</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="toolTip" >
+       <string>Gibt die Aufnahme wieder (zur Kontrolle)</string>
+      </property>
+      <property name="text" >
+       <string>Abspielen</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
+      </property>
+      <property name="checkable" >
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pbStartOver2" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>240</x>
+        <y>20</y>
+        <width>101</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="toolTip" >
+       <string>Löscht die Aufnahme</string>
+      </property>
+      <property name="text" >
+       <string>Löschen</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+      </property>
+     </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox" >
      <property name="geometry" >
@@ -272,28 +272,6 @@ p, li { white-space: pre-wrap; }
      <property name="title" >
       <string>Sample1</string>
      </property>
-     <widget class="QPushButton" name="pbRec1" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>101</width>
-        <height>27</height>
-       </rect>
-      </property>
-      <property name="toolTip" >
-       <string>Startet die Aufnahme</string>
-      </property>
-      <property name="text" >
-       <string>Record</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../simon.qrc" >:/images/icons/media-record.svg</iconset>
-      </property>
-      <property name="checkable" >
-       <bool>true</bool>
-      </property>
-     </widget>
      <widget class="QSlider" name="hsRec1" >
       <property name="geometry" >
        <rect>
@@ -338,6 +316,28 @@ p, li { white-space: pre-wrap; }
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
+     <widget class="QPushButton" name="pbRec1" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>101</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="toolTip" >
+       <string>Startet die Aufnahme</string>
+      </property>
+      <property name="text" >
+       <string>Aufnehmen</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/media-record.svg</iconset>
+      </property>
+      <property name="checkable" >
+       <bool>true</bool>
+      </property>
+     </widget>
      <widget class="QPushButton" name="pbPlay1" >
       <property name="enabled" >
        <bool>false</bool>
@@ -354,7 +354,7 @@ p, li { white-space: pre-wrap; }
        <string>Gibt die Aufnahme wieder (zur Kontrolle)</string>
       </property>
       <property name="text" >
-       <string>Play</string>
+       <string>Abspielen</string>
       </property>
       <property name="icon" >
        <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
@@ -379,7 +379,7 @@ p, li { white-space: pre-wrap; }
        <string>Löscht die Aufnahme</string>
       </property>
       <property name="text" >
-       <string>Delete</string>
+       <string>Löschen</string>
       </property>
       <property name="icon" >
        <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
