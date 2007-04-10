@@ -29,7 +29,18 @@ TrainingManager::TrainingManager(QString pathToTexts)
  */
 TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 {
+	QDir *textdir = new QDir(pathToTexts);
+	if (!textdir || !textdir->exists()) return NULL;
+	QStringList filter;
+	textdir->setFilter(QDir::Files|QDir::Readable);
 	
+	QStringList textsrcs = textdir->entryList();
+	
+	trainingTexts = new TrainingList();
+	for (int i=0; i < textsrcs.count(); i++)
+		trainingTexts->append(new TrainingText(textsrcs.at(i), 4,3.5));
+	
+	return trainingTexts;
 }
 
 int TrainingManager::calcRelevance(TrainingText *text, WordList *wlist)

@@ -12,6 +12,7 @@
 #ifndef TRAININGMANAGER_H
 #define TRAININGMANAGER_H
 
+#include <QDir>
 #include "trainingtext.h"
 #include "word.h"
 

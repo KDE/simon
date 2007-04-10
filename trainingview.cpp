@@ -19,8 +19,10 @@
 TrainingView::TrainingView(QWidget *parent) : QDialog(parent)
 {
 	ui.setupUi(this);
-	
 	connect(ui.pbWordList, SIGNAL(clicked()), this, SLOT(switchToWordList()));
+	
+	trainMgr = new TrainingManager();
+	loadList();
 }
 
 /**
@@ -49,7 +51,17 @@ void TrainingView::switchToWordList()
 void TrainingView::loadList()
 {
 	TrainingList *list = this->trainMgr->readTrainingTexts();
-	//ui.twTrainingWords->setWordCount(trainingTexts->count());
+
+	if (!list) return;
+	
+	ui.twTrainingWords->setRowCount(list->count());
+	
+	for (int i=0; i<list->count(); i++)
+	{
+		ui.twTrainingWords->setItem(i, 0, new QTableWidgetItem(list->at(i)->getName()));
+		ui.twTrainingWords->setItem(i, 1, new QTableWidgetItem(QString::number(list->at(i)->getPageCount())));
+		ui.twTrainingWords->setItem(i, 2, new QTableWidgetItem(QString::number(list->at(i)->getRelevance())));
+	}
 }
 
 // 	twVocab->setRowCount(vocab->count());

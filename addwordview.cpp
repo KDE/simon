@@ -38,11 +38,14 @@ AddWordView::AddWordView(QWidget *parent, Qt::WFlags f)
 {
 	ui.setupUi(this);
 	
+	connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(saveWord()));
 	
 	connect(ui.pbNext, SIGNAL(clicked()), this, SLOT(nextStep()));
 	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(prevStep()));
 	connect(ui.pbNext_2, SIGNAL(clicked()), this, SLOT(nextStep()));
 	connect(ui.pbBack_2, SIGNAL(clicked()), this, SLOT(prevStep()));
+	connect(ui.pbBack_3, SIGNAL(clicked()), this, SLOT(prevStep()));
+	connect(ui.pbFinish, SIGNAL(clicked()), this, SLOT(finish()));
 	
 	connect(ui.pbRec1, SIGNAL(clicked()), this, SLOT(recSample1()));
 	connect(ui.pbRec2, SIGNAL(clicked()), this, SLOT(recSample2()));
@@ -53,6 +56,19 @@ AddWordView::AddWordView(QWidget *parent, Qt::WFlags f)
 	connect(ui.pbStartOver1, SIGNAL(clicked()), this, SLOT(deleteSample1()));
 	connect(ui.pbStartOver2, SIGNAL(clicked()), this, SLOT(deleteSample2()));
 }
+
+/**
+ * \brief Saves the name of the word (input) in the member and sends the wizard to the next step
+ * 
+ * 
+ * \author Peter Grasch
+ */
+void AddWordView::saveWord()
+{
+	this->word = ui.leWord->text();
+	this->setWindowTitle(tr("Wort hinzufügen") + " - " + word);
+}
+
 
 /**
  * @brief Sends the wizard to the next step
@@ -86,10 +102,16 @@ void AddWordView::finish()
 	//finishs up
 	
 	//cleaning up
-	QFile rec("1.wav");
-	rec.remove();
-	rec.setFileName("2.wav");
-	rec.remove();
+	
+	//close the dialog
+	accept();
+	
+	//ui clean up
+	ui.swMain->setCurrentIndex(0);
+	ui.leWord->setText("");
+	setWindowTitle(tr("Wort hinzufügen"));
+	deleteSample1();
+	deleteSample2();
 }
 
 /**

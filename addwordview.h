@@ -49,35 +49,59 @@ class AddWordView : public QDialog
 	Q_OBJECT
 
 	private:
-		WavRecorder *rec;
-		WavPlayer *play;
+		Ui::AddWord ui; //!< The ui definition created with uic
+		WavRecorder *rec; //!< To record the samples
+		WavPlayer *play;  //!< To play the samples (preview)
+		QString word;     //!< The name of the word to add
+		
 		QString makeTextProgress(int msecs);
 		void setRecStatus(QSlider *prog, QLabel *textprog, int msecs);
 		void setPlayStatus(QSlider *prog, QLabel *textprog, int msecs);
 		
-		Ui::AddWord ui; //!< The ui definition created with uic
 	public slots:
+		void saveWord();
+		
+		
+		/*---------------------------------*/
+		/*         Wizard Stuff            */
+		/*---------------------------------*/
 		void nextStep();
 		void prevStep();
+		void finish();
+		
+		/*---------------------------------*/
+		/*            Recording            */
+		/*---------------------------------*/
 		void startRecording(QString filename);
-		void startPlayback(QString filename);
+		void recSample1();
+		void recSample2();
 		void stopRecording();
 		void stopRecording1();
 		void stopRecording2();
-		void stopPlayback();
-		void recSample1();
-		void recSample2();
-		void playSample1();
-		void playSample2();
-		void deleteSample1();
-		void deleteSample2();
+		
 		void recSample1Status(int msecs);
 		void recSample2Status(int msecs);
-		void playSample1Status(int msecs);
-		void playSample2Status(int msecs);
+		
+		/*---------------------------------*/
+		/*             Playing             */
+		/*---------------------------------*/
+		void startPlayback(QString filename);
+		void playSample1();
+		void playSample2();
 		void finishPlayback1();
 		void finishPlayback2();
-		void finish();
+		void stopPlayback();
+		
+		void playSample1Status(int msecs);
+		void playSample2Status(int msecs);
+		
+		/*---------------------------------*/
+		/*             Deleting             */
+		/*---------------------------------*/
+		void deleteSample1();
+		void deleteSample2();
+		
+		
 		
 	public:
 		AddWordView(QWidget *parent=0, Qt::WFlags flags=0);

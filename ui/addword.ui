@@ -5,12 +5,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>374</width>
-    <height>284</height>
+    <width>369</width>
+    <height>297</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Wort hinzufuegen</string>
+   <string>Wort hinzufügen</string>
   </property>
   <property name="windowIcon" >
    <iconset resource="../simon.qrc" >:/images/tray.png</iconset>
@@ -21,11 +21,11 @@
      <x>0</x>
      <y>0</y>
      <width>371</width>
-     <height>281</height>
+     <height>291</height>
     </rect>
    </property>
    <property name="currentIndex" >
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page" >
     <widget class="QWidget" name="verticalLayout" >
@@ -34,7 +34,7 @@
        <x>10</x>
        <y>10</y>
        <width>351</width>
-       <height>261</height>
+       <height>281</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" >
@@ -63,7 +63,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit" >
+         <widget class="QLineEdit" name="leWord" >
           <property name="toolTip" >
            <string>Der Wert des neuen Wortes (das, das geschrieben werden soll wenn das Wort erkannt wird)</string>
           </property>
@@ -260,56 +260,6 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="layoutWidget" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>240</y>
-       <width>351</width>
-       <height>29</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" >
-      <property name="margin" >
-       <number>0</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <item>
-       <widget class="QPushButton" name="pbBack_2" >
-        <property name="toolTip" >
-         <string>Zurück zum eingeben des Wertes der Aufnahme (das, das simon schreibt wenn das Wort erkannt wird)</string>
-        </property>
-        <property name="text" >
-         <string>  &amp;Zurück</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pbNext_2" >
-        <property name="enabled" >
-         <bool>false</bool>
-        </property>
-        <property name="toolTip" >
-         <string>Weiter zum nächsten Schritt (Fertigstellung)</string>
-        </property>
-        <property name="layoutDirection" >
-         <enum>Qt::RightToLeft</enum>
-        </property>
-        <property name="text" >
-         <string>  &amp;Weiter</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
     <widget class="QGroupBox" name="groupBox" >
      <property name="geometry" >
       <rect>
@@ -448,6 +398,132 @@ p, li { white-space: pre-wrap; }
      <property name="text" >
       <string>Bitte nehmen Sie das Wort nun zweimal auf.
 Sprechen Sie so deutlich wie möglich und vermeiden sie Umgebungsgeräusche.</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>250</y>
+       <width>351</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="pbBack_2" >
+        <property name="toolTip" >
+         <string>Zurück zum eingeben des Wertes der Aufnahme (das, das simon schreibt wenn das Wort erkannt wird)</string>
+        </property>
+        <property name="text" >
+         <string>  &amp;Zurück</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbNext_2" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <property name="toolTip" >
+         <string>Weiter zum nächsten Schritt (Fertigstellung)</string>
+        </property>
+        <property name="layoutDirection" >
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text" >
+         <string>  &amp;Weiter</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_3" >
+    <widget class="QWidget" name="layoutWidget_2" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>250</y>
+       <width>351</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QPushButton" name="pbBack_3" >
+        <property name="toolTip" >
+         <string>Zurück zum eingeben des Wertes der Aufnahme (das, das simon schreibt wenn das Wort erkannt wird)</string>
+        </property>
+        <property name="text" >
+         <string>  &amp;Zurück</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbFinish" >
+        <property name="enabled" >
+         <bool>true</bool>
+        </property>
+        <property name="toolTip" >
+         <string>Weiter zum nächsten Schritt (Fertigstellung)</string>
+        </property>
+        <property name="layoutDirection" >
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text" >
+         <string>&amp;Fertigstellen</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../simon.qrc" >:/images/icons/document-save.svg</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="label_4" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>351</width>
+       <height>231</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sie können nun das hinzufügen des neuen Wortes abschließen.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bevor Sie hier jedoch bestätigen, bitte kontrollieren Sie ob sie das Wort richtig geschrieben haben und die Aufnahmen klar, deutlich und ohne Hintergrundgeräusche geschehen sind.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Beim klicken von &lt;span style=" font-style:italic;">Fertigstellen&lt;/span>, schließen Sie den Prozess ab und das Wort wird hinzugefügt.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sie können es anschließend im Wortlistmanager kontrollieren und auch bei Bedarf wieder löschen.&lt;/p>&lt;/body>&lt;/html></string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>

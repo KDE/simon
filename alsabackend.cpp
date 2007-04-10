@@ -65,6 +65,8 @@ bool ALSABackend::openDevice( const char* deviceID, int mode )
  * 
  * \param char* data
  * The datastream
+ * \todo Buffer the writing
+ * \note There is a simple buffering code, but I simply can't get it to work... Anybody else?
  */
 void ALSABackend::writeData ( char* data, long unsigned int length, int buffersize )
 {
@@ -79,6 +81,7 @@ void ALSABackend::writeData ( char* data, long unsigned int length, int buffersi
 // 	
 // 		for (int j=0; j<buffersize; j++)
 // 			buffer[j] = data[j+(i*buffersize)];
+// 		//debug
 // 		std::cout << i << " / " << (length/buffersize) << std::endl;
 // 		
 // 		if (snd_pcm_writei(handle, buffer, buffersize/4) != buffersize/4)
