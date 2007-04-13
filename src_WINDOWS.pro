@@ -42,6 +42,7 @@ HEADERS += simonview.h \
 	       wav.h \
 		   wavplayer.h \
            settingsview.h \
+		   sounddevice.h \
            settingsmanager.h
 SOURCES += main.cpp \
            simonview.cpp \

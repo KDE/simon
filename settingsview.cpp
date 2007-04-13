@@ -23,6 +23,7 @@
  * \param QWidget *parent
  * The parent of the dialog
  */
+
 SettingsView::SettingsView(QWidget *parent)
  : QDialog(parent)
 {
@@ -31,8 +32,15 @@ SettingsView::SettingsView(QWidget *parent)
 	connect(ui.pbSystemSettings, SIGNAL(clicked()), this, SLOT(switchToSystem()));
 	connect(ui.pbSoundSettings, SIGNAL(clicked()), this, SLOT(switchToSound()));
 	connect(ui.pbCommandSettings, SIGNAL(clicked()), this, SLOT(switchToCommands()));
-	connect(ui.pbProtocolSettings, SIGNAL(clicked()), this, SLOT(switchToProtocols()));
+	connect(ui.pbProtocolSettings, SIGNAL(clicked ()), this, SLOT(switchToProtocols()));
 	connect(ui.pbRevert, SIGNAL(clicked()), this, SLOT(switchToHistory()));
+	
+	sm=new SettingsManager();
+    sm->loadFile();
+	
+    ui.cbChannels->clear();
+    ui.cbChannels->addItem("Mono",1);
+    ui.cbChannels->addItem("Stereo",2);
 	
 #ifdef linux
 	ui.lbDirectX->setVisible(false);
@@ -40,6 +48,7 @@ SettingsView::SettingsView(QWidget *parent)
 #ifdef __win32
 	ui.lbAlSA->setVisible(false);
 #endif
+    this->switchToSystem();
 }
 
 
@@ -62,6 +71,7 @@ void SettingsView::unsetAllTabs()
 	ui.pbCommandSettings->setChecked(false);
 	ui.pbProtocolSettings->setChecked(false);
 	ui.pbRevert->setChecked(false);
+	
 }
 
 /**
@@ -72,9 +82,20 @@ void SettingsView::unsetAllTabs()
 void SettingsView::switchToSystem()
 {
 	unsetAllTabs();
-	
 	ui.pbSystemSettings->setChecked(true);
 	ui.swSettings->setCurrentIndex( 0 );
+	ui.sbPort->setValue(sm->getPortNum()); 
+    ui.cbAskBeforeExit->setCheckState((sm->getAskBeforeExit()) ? Qt::Checked : Qt::Unchecked);
+    ui.cbStartSimonOnBoot->setCheckState((sm->getSimonAutoStart()) ? Qt::Checked : Qt::Unchecked);
+    ui.cbStartJuliusdOnBoot->setCheckState((sm->getJuliusdAutoStart()) ? Qt::Checked : Qt::Unchecked);
+    ui.cbStartJuliusAsNeeded->setCheckState((sm->getJuliusdRequired()) ? Qt::Checked : Qt::Unchecked);
+    ui.leConfig->setText(sm->getPathToConfig());
+    ui.leLexicon->setText(sm->getPathToLexicon());
+    ui.leGrammar->setText(sm->getPathToGrammar());
+    ui.leCommands->setText(sm->getPathToCommando());
+    ui.leVocab->setText(sm->getPathToVocabul());
+    ui.lePrompts->setText(sm->getPathToPrompts());
+                          
 }
 
 /**
@@ -84,8 +105,31 @@ void SettingsView::switchToSystem()
  */
 void SettingsView::switchToSound()
 {
-	unsetAllTabs();
-	
+	ui.pbSoundSettings->setChecked(false);
+	SoundDeviceList *sd=sm->getDevices();
+    ui.cbDevice->clear();
+    for (int i=0; i<sd->count(); i++)
+    {
+        ui.cbDevice->addItem(((SoundDevice) sd->at(i)).getName(),((SoundDevice)sd->at(i)).getDeviceID());
+    }
+    ui.cbMixing->setCheckState((sm->getMixing()) ? Qt::Checked : Qt::Unchecked);
+    ui.cbSaveAllRecordings->setCheckState((sm->getSaveAllRecordings()) ? Qt::Checked : Qt::Unchecked);
+    ui.leSaveRecordingsTo->setText(sm->getPathToSaveRecordings());
+    int channel=sm->getChannel();
+    int j=0;
+    while ((j<ui.cbChannels->count()) && (ui.cbChannels->itemData(j)!=channel))
+    {
+            j++;
+    }
+    if (j==ui.cbChannels->count())
+    {
+       QMessageBox::critical(this,"Lesen der Kanäle fehlgeschlagen","Beim Auslesen der Kanäle aus der Konfigurationsdatei ist ein Fehler aufgetreten");
+       return;
+    }
+    ui.cbChannels->setCurrentIndex(j);
+    ui.sbSamplerate->setValue(sm->getSamplerate());
+    ui.hsMic->setValue(sm->getVolume());
+   	unsetAllTabs();
 	ui.pbSoundSettings->setChecked(true);
 	ui.swSettings->setCurrentIndex( 1 );
 }

@@ -11,7 +11,10 @@
 //
 #ifndef SETTINGSMANAGER_H
 #define SETTINGSMANAGER_H
-
+#include <QString>
+#include <QDebug>
+#include "sounddevice.h"
+#include "xmlsetting.h"
 /**
 	\class SettingsManager
 	
@@ -22,9 +25,31 @@
 	\todo Implementing
 */
 class SettingsManager{
+
+private:
+         QHash<QString,QString> *settings;
+
 public:
     SettingsManager();
-
+     void loadFile();
+     int getPortNum();
+     bool getSimonAutoStart();
+     bool getJuliusdAutoStart();
+     bool getJuliusdRequired();
+     bool getAskBeforeExit();
+     QString getPathToConfig();
+     QString getPathToLexicon();
+     QString getPathToGrammar();
+     QString getPathToCommando();
+     QString getPathToVocabul();
+     QString getPathToPrompts();
+     SoundDeviceList* getDevices();
+     bool getMixing();
+     bool getSaveAllRecordings();
+     int getChannel();
+     QString getPathToSaveRecordings();
+     int getSamplerate();
+     int getVolume();
     ~SettingsManager();
 
 };

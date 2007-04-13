@@ -13,7 +13,9 @@
 #define SETTINGSVIEW_H
 
 #include <QDialog>
+#include <QMessageBox>
 #include "ui_settings.h"
+#include "settingsmanager.h"
 
 /**
 	\class SettingsView
@@ -33,6 +35,7 @@ class SettingsView : public QDialog
 	Q_OBJECT
 private:
 	Ui::SettingsDialog ui; //!< The user interface
+    SettingsManager *sm;
 public slots:
 	void unsetAllTabs();
 	void switchToSystem();
@@ -43,10 +46,12 @@ public slots:
 	
 public:
     SettingsView(QWidget *parent);
-
+    
     
     ~SettingsView();
 
 };
+
+
 
 #endif

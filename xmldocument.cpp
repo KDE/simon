@@ -11,6 +11,7 @@
 XMLDocument::XMLDocument(QString path):XMLReader(path)
 {
 	//XMLReader reader(path);
+	
 }
 
 
@@ -50,9 +51,10 @@ int XMLDocument::getPageCount()
 }
 		
 
-void XMLDocument::load()
+void XMLDocument::load(QString path)
 {
-	QDomElement root = doc.documentElement();
+     XMLReader::load(path);
+	QDomElement root = doc->documentElement();
 	
 	this->title = root.attribute("title");
 	QDomElement newnode = root.firstChildElement();

@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>996</width>
-    <height>551</height>
+    <width>994</width>
+    <height>549</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -175,28 +175,6 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="lbSystemSettings" >
-    <property name="geometry" >
-     <rect>
-      <x>60</x>
-      <y>10</y>
-      <width>51</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="toolTip" >
-     <string>Die Haupt-Systemeinstellungen</string>
-    </property>
-    <property name="text" >
-     <string/>
-    </property>
-    <property name="pixmap" >
-     <pixmap resource="../simon.qrc" >:/images/icons/computer.svg</pixmap>
-    </property>
-    <property name="scaledContents" >
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pbSystemSettings" >
     <property name="geometry" >
      <rect>
@@ -263,28 +241,6 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pbSoundSettings" >
-    <property name="geometry" >
-     <rect>
-      <x>230</x>
-      <y>70</y>
-      <width>141</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="toolTip" >
-     <string>Alle einstellungen rund um die Aufnahmen und das verwendete Soundsystem</string>
-    </property>
-    <property name="text" >
-     <string>Soundeinstellungen</string>
-    </property>
-    <property name="checkable" >
-     <bool>true</bool>
-    </property>
-    <property name="flat" >
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pbCommandSettings" >
     <property name="geometry" >
      <rect>
@@ -299,6 +255,50 @@
     </property>
     <property name="text" >
      <string>Kommandos</string>
+    </property>
+    <property name="checkable" >
+     <bool>true</bool>
+    </property>
+    <property name="flat" >
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbSystemSettings" >
+    <property name="geometry" >
+     <rect>
+      <x>60</x>
+      <y>10</y>
+      <width>51</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Die Haupt-Systemeinstellungen</string>
+    </property>
+    <property name="text" >
+     <string/>
+    </property>
+    <property name="pixmap" >
+     <pixmap resource="../simon.qrc" >:/images/icons/computer.svg</pixmap>
+    </property>
+    <property name="scaledContents" >
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbSoundSettings" >
+    <property name="geometry" >
+     <rect>
+      <x>230</x>
+      <y>70</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Alle einstellungen rund um die Aufnahmen und das verwendete Soundsystem</string>
+    </property>
+    <property name="text" >
+     <string>Soundeinstellungen</string>
     </property>
     <property name="checkable" >
      <bool>true</bool>
@@ -1059,7 +1059,7 @@ p, li { white-space: pre-wrap; }
        </spacer>
       </item>
       <item row="0" column="1" >
-       <widget class="QCheckBox" name="checkBox" >
+       <widget class="QCheckBox" name="cbAskBeforeExit" >
         <property name="text" >
          <string>Nachfragen vor dem Beenden</string>
         </property>
@@ -1188,123 +1188,6 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
       </item>
      </layout>
     </widget>
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>140</y>
-       <width>331</width>
-       <height>201</height>
-      </rect>
-     </property>
-     <property name="title" >
-      <string>Aufnahme</string>
-     </property>
-     <widget class="QWidget" name="gridLayout_3" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>90</y>
-        <width>311</width>
-        <height>71</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" >
-       <property name="margin" >
-        <number>0</number>
-       </property>
-       <property name="spacing" >
-        <number>6</number>
-       </property>
-       <item row="0" column="0" >
-        <widget class="QLabel" name="lbChannels" >
-         <property name="text" >
-          <string>Kanäle:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1" >
-        <widget class="QComboBox" name="cbChannels" >
-         <property name="currentIndex" >
-          <number>1</number>
-         </property>
-         <item>
-          <property name="text" >
-           <string>Mono</string>
-          </property>
-         </item>
-         <item>
-          <property name="text" >
-           <string>Stereo</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="lbSamplerate" >
-         <property name="text" >
-          <string>Samplerate:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1" >
-        <widget class="QSpinBox" name="spinBox" >
-         <property name="maximum" >
-          <number>96000</number>
-         </property>
-         <property name="minimum" >
-          <number>8000</number>
-         </property>
-         <property name="value" >
-          <number>44000</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QLineEdit" name="leSaveRecordingsTo" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>110</x>
-        <y>50</y>
-        <width>211</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbSaveRecordingsTo" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>54</y>
-        <width>81</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Speicherort:</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="cbSaveAllRecordings" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>311</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Alle Aufnahmen speichern</string>
-      </property>
-     </widget>
-    </widget>
     <widget class="QGroupBox" name="gbCalibrate" >
      <property name="geometry" >
       <rect>
@@ -1426,6 +1309,118 @@ Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen wird nach jeder Au
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>331</width>
+       <height>201</height>
+      </rect>
+     </property>
+     <property name="title" >
+      <string>Aufnahme</string>
+     </property>
+     <widget class="QWidget" name="gridLayout_3" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>311</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item row="0" column="0" >
+        <widget class="QLabel" name="lbChannels" >
+         <property name="text" >
+          <string>Kanäle:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QComboBox" name="cbChannels" >
+         <property name="currentIndex" >
+          <number>0</number>
+         </property>
+         <item>
+          <property name="text" >
+           <string>Wird im Konstruktor eingefüllt</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="lbSamplerate" >
+         <property name="text" >
+          <string>Samplerate:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QSpinBox" name="sbSamplerate" >
+         <property name="maximum" >
+          <number>96000</number>
+         </property>
+         <property name="minimum" >
+          <number>8000</number>
+         </property>
+         <property name="value" >
+          <number>44000</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="lbSaveRecordingsTo" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>54</y>
+        <width>81</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Speicherort:</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="cbSaveAllRecordings" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>311</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>Alle Aufnahmen speichern</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="leSaveRecordingsTo" >
+      <property name="enabled" >
+       <bool>false</bool>
+      </property>
+      <property name="geometry" >
+       <rect>
+        <x>110</x>
+        <y>50</y>
+        <width>211</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="page_3" >

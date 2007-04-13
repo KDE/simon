@@ -19,24 +19,21 @@
  *  @todo implementing
  */
  
-typedef QList<Word*> WordList;
+
  
 class XMLReader{
  
- private:
+protected:
  	
- 	QDomNode root;
- 	WordList wordlist;
+ 	QDomDocument *doc;
+ 	QString path;
  
 public:
-	QDomDocument doc;
-	XMLReader(QString name);	
+	XMLReader(QString path);	
 	
-	void save(WordList wordlist, QString path);
+	void save(QString path="");
 	
-	void load();
-	
-	WordList getWords();
+	void load(QString path="");
 	
 	~XMLReader();
 };

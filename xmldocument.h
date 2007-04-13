@@ -32,7 +32,7 @@ public:
 	
 	int getPageCount();
 	
-	void load();
+	void load(QString path="");
 	
 	QString getTitle();
 	
