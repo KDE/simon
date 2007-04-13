@@ -48,6 +48,10 @@ public:
 	
 	int calcRelevance(TrainingText *text, WordList *wlist);
 	
+	void abortTraining();
+	void pauseTraining();
+	void resumeTraining();
+	
 	bool trainText(int i);
 	int getPageCount();
 	QString getPage(int i);

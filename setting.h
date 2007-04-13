@@ -9,13 +9,11 @@ class Setting
 private:
 	QString name;
 	QString value;
-	QString hardware;
 public:
 	Setting(QString name, QString value, QString hardware)
 	{
 		this->name=name;
 		this->value=value;
-		this->hardware=hardware;
 	}
 	
 	QString getName()
@@ -26,11 +24,6 @@ public:
 	QString getValue()
 	{
 		return this->value;
-	}
-	
-	QString getHardware()
-	{
-		return this->hardware;
 	}
 	
 	~Setting()

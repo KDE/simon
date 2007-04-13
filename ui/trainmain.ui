@@ -22,7 +22,7 @@
     </rect>
    </property>
    <property name="currentIndex" >
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="page" >
     <widget class="QWidget" name="verticalLayout" >
@@ -474,6 +474,98 @@
         <bool>false</bool>
        </property>
       </widget>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_2" >
+    <widget class="QGroupBox" name="gbCurrentlyTraining" >
+     <property name="geometry" >
+      <rect>
+       <x>50</x>
+       <y>40</y>
+       <width>541</width>
+       <height>361</height>
+      </rect>
+     </property>
+     <property name="title" >
+      <string>Trainiere Sprachmodell</string>
+     </property>
+     <widget class="QLabel" name="lbCurrentStatus" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>280</y>
+        <width>521</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="font" >
+       <font>
+        <italic>true</italic>
+       </font>
+      </property>
+      <property name="text" >
+       <string>Verarbeite Grammatik...</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lbProgressInfo" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>521</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <property name="text" >
+       <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Das Sprachmodell wird mit den von ihnen bereitgestellten Daten jetzt trainiert.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Danke das Sie sich die Zeit genommen haben und bei der Verbesserung des Sprachmodelles mitgeholfen haben.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Das Modell wird nun neu erstellt. Dies kann, je nach Menge und Qualität der Trainingsdaten und Ihrer Rechenleistung, einige Zeit in Anspruch nehmen.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bitte beachten Sie, dass wenn Sie diesen Vorgang jetzt abbrechen, die bisher in dieser Trainingseinheit gesammelten Daten die Erkennungsrate &lt;span style=" font-style:italic;">nicht&lt;/span> weiter verbessern.&lt;/p>&lt;/body>&lt;/html></string>
+      </property>
+      <property name="wordWrap" >
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QProgressBar" name="pbCompileModel" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>250</y>
+        <width>521</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="value" >
+       <number>24</number>
+      </property>
+      <property name="orientation" >
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pbCancelTraining" >
+      <property name="geometry" >
+       <rect>
+        <x>210</x>
+        <y>320</y>
+        <width>131</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <property name="toolTip" >
+       <string>Schließt den Dialog</string>
+      </property>
+      <property name="text" >
+       <string>&amp;Abbrechen</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+      </property>
      </widget>
     </widget>
    </widget>

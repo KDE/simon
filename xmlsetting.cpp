@@ -25,7 +25,6 @@ void XMLSetting::safe(SettingList settinglist, QString path)
 		setting.setTagName("setting");
 
 		setting.setAttribute("name", settinglist[i]->getName());
-		setting.setAttribute("hardware", settinglist[i]->getHardware());
 	
 		root.appendChild(setting);		
 	}

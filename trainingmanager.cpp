@@ -22,6 +22,39 @@ TrainingManager::TrainingManager(QString pathToTexts)
 }
 
 /**
+ * \brief Aborts the rebuilding of the language model and cleans up
+ * \author Peter Grasch
+ */
+void TrainingManager::abortTraining()
+{
+	
+}
+
+/**
+ * \brief Pauses the training progress
+ * Holds the process and waits for the signal to resume - or not;
+ * This is useful if the user aborts the process and we want to ask him if he really
+ * meant to;
+ * \see resumeTraining
+ * \author Peter Grasch
+ */
+void TrainingManager::pauseTraining()
+{
+	
+}
+
+/**
+ * \brief Resumes the training progress
+ * Resumes the training after a pause using pauseTraining()
+ * \see pauseTraining
+ * \author Peter Grasch
+ */
+void TrainingManager::resumeTraining()
+{
+	
+}
+
+/**
  * @brief Read the Training Texts and returns the list
  *
  * @return TrainingList*

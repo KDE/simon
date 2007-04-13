@@ -29,9 +29,82 @@ TrainingView::TrainingView(QWidget *parent) : QDialog(parent)
 	connect(ui.pbPlay, SIGNAL(clicked()), this, SLOT(playSample()));
 	connect(ui.pbStartOver, SIGNAL(clicked()), this, SLOT(deleteSample()));
 	
+	connect(ui.pbCancelTraining, SIGNAL(clicked()), this, SLOT(cancelTraining()));
+	connect(ui.pbFinish, SIGNAL(clicked()), this, SLOT(finish()));
+	
 	currentPage=0;
 	trainMgr = new TrainingManager();
 	loadList();
+}
+
+/**
+ * \brief Starts the recording with the given Elements
+ * 
+ * \author Peter Grasch
+ * 
+ * \param QString filename
+ * This is the filename to record to (e.g.: 1.wav)
+ */
+void TrainingView::startRecording(QString filename)
+{
+	rec = new WavRecorder(this);
+	rec->record(filename, 2, 44100); // hardcoded stereo, 44100hz
+}
+
+/**
+ * \brief This will stop the current recording
+ * 
+ * Tells the wavrecorder to simply stop the recording and save the result.
+ * \author Peter Grasch
+ */
+void TrainingView::stopRecording()
+{
+	rec->finish();
+	disconnect(rec,0,0,0);
+	delete rec;
+	ui.pbPrevPage->setEnabled(true);
+	ui.pbNextPage->setEnabled(true);
+	disconnect(ui.pbRec, SIGNAL(clicked()), this, SLOT(stopRecording()));
+	connect(ui.pbRec, SIGNAL(clicked()), this, SLOT(recordPage()));
+	
+	//check if we are finished
+	bool done=true;
+	for (int i=0; i<trainMgr->getPageCount(); i++)
+		if (lengthList->at(i) == 0) done=false;
+	
+	if (done) ui.pbFinish->setEnabled(true);
+}
+
+/**
+ * \brief Sets the recording status with the given msecs
+ * \author Peter Grasch
+ * \param int msecs
+ * The msecs to set the status to
+ */
+void TrainingView::setRecStatus(int msecs)
+{
+	ui.hsRec->setMaximum(msecs/100);
+	QString tprog = makeTextProgress(msecs);
+	ui.lbRec->setText("00:00 / "+tprog);
+	this->lengthList->replace(currentPage,msecs);
+}
+
+
+/**
+ * \brief Makes an easily readable textprogress of the given time (in msecs)
+ * 
+ * e.g: 2.5 seconds (2500 msecs) would be translated to 2:50
+ * \author Peter Grasch
+ * \param int msecs
+ * The msecs to tranlate
+ * \return QString the converted QString
+ */
+QString TrainingView::makeTextProgress(int msecs)
+{
+	QString textprog = QString::number((int) msecs/10);
+	
+	textprog.insert(textprog.length()-2, ':');
+	return textprog;
 }
 
 /**
@@ -42,7 +115,14 @@ TrainingView::TrainingView(QWidget *parent) : QDialog(parent)
  */
 void TrainingView::recordPage()
 {
+	ui.pbPrevPage->setEnabled(false);
+	ui.pbNextPage->setEnabled(false);
+	startRecording(QString("rec")+QString::number(currentPage)+QString(".wav"));
 	
+	connect(rec, SIGNAL(currentProgress(int)), this, SLOT(setRecStatus(int)));
+	
+	disconnect(ui.pbRec, SIGNAL(clicked()), this, SLOT(recordPage()));
+	connect(ui.pbRec, SIGNAL(clicked()), this, SLOT(stopRecording()));
 }
 
 /**
@@ -52,7 +132,7 @@ void TrainingView::recordPage()
  */
 void TrainingView::makeRecControlsReflectStatus()
 {
-	if (QFile(QString("rec")+currentPage+QString(".wav")).exists())
+	if (QFile(QString("rec")+QString::number(currentPage)+QString(".wav")).exists())
 	{
 		ui.pbRec->setEnabled(false);
 		ui.pbPlay->setEnabled(true);
@@ -62,7 +142,59 @@ void TrainingView::makeRecControlsReflectStatus()
 		ui.pbPlay->setEnabled(false);
 		ui.pbStartOver->setEnabled(false);
 	}
+	setRecStatus(lengthList->at(currentPage));
 }
+
+
+/**
+ * \brief Starts the playback of the given file
+ * \author Peter Grasch
+ * \param QString filename
+ * The filename of the file to play
+ */
+void TrainingView::startPlayback(QString filename)
+{
+	play = new WavPlayer(this);
+	play->play(filename);
+}
+
+/**
+ * \brief Make the progressbar reflect the current playback status
+ * \author Peter Grasch
+ */
+void TrainingView::setPlayStatus(int msecs)
+{
+	ui.hsRec->setValue(msecs/100);
+	QString tprog = makeTextProgress(msecs);
+	ui.lbRec->setText(  ui.lbRec->text().replace(0,ui.lbRec->text().indexOf(" /"),
+			    tprog));
+}
+
+
+/**
+ * \brief Finishs the first playback
+ * En-/Disables all the buttons, sets the slider and the progressbar and cleans up
+ * \author Peter Grasch
+ */
+void TrainingView::stopPlayback()
+{
+	ui.pbPlay->setChecked(false);
+	
+	play->stop();
+	
+	disconnect(play,0,0,0);
+	
+	disconnect(ui.pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
+	connect(ui.pbPlay, SIGNAL(clicked()), this, SLOT(playSample()));
+	delete play;
+	
+	ui.pbPrevPage->setEnabled(true);
+	ui.pbNextPage->setEnabled(true);
+	
+	setPlayStatus(ui.hsRec->maximum()*100);
+}
+
+
 
 /**
  * \brief Records the current page
@@ -72,7 +204,16 @@ void TrainingView::makeRecControlsReflectStatus()
  */
 void TrainingView::playSample()
 {
+	ui.pbPrevPage->setEnabled(false);
+	ui.pbNextPage->setEnabled(false);
 	
+	startPlayback(QString("rec")+QString::number(currentPage)+QString(".wav"));
+	connect(play, SIGNAL(currentProgress(int)),this,SLOT(setPlayStatus(int)));
+	disconnect(ui.pbPlay, SIGNAL(clicked()), this, SLOT(playSample()));
+	connect(ui.pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
+	
+	connect(play, SIGNAL(finished()), this, SLOT(stopPlayback()));
+	connect(play, SIGNAL(terminated()), this, SLOT(stopPlayback()));
 }
 
 /**
@@ -83,7 +224,14 @@ void TrainingView::playSample()
  */
 void TrainingView::deleteSample()
 {
-	
+	ui.hsRec->setMaximum(0);
+	ui.lbRec->setText("00:00 / 00:00");
+	QFile f(QString("rec")+QString::number(currentPage)+QString(".wav"));
+	f.remove();
+	this->lengthList->replace(currentPage,0);
+	//whenever we delete a sample, there is no way that all samples are recorded
+	//any longer
+	ui.pbFinish->setEnabled(false);
 }
 
 /**
@@ -102,12 +250,30 @@ void TrainingView::trainSelected()
 	
 	if (!(this-trainMgr->trainText(ui.twTrainingWords->currentRow()))) return;
 	setWindowTitle(tr("Training - ")+trainMgr->getTextName());
-	ui.pbPages->setMaximum(trainMgr->getPageCount());
 	
-	currentPage=0;
+	int count = trainMgr->getPageCount();
+	ui.pbPages->setMaximum(count-1);
+	lengthList = new QList<int>();
+	for (int i=0; i < count; i++)
+		lengthList->append(0);
+	
+	
+	ui.pbFinish->setEnabled(false);
+	this->currentPage=0;
 	
 	fetchPage(currentPage);
-	
+}
+
+/**
+ * \brief Trains the model with the gathered data
+ * 
+ * \author Peter Grasch
+ */
+void TrainingView::finish()
+{
+	ui.swAction->setCurrentIndex(2);
+	ui.pbCompileModel->setValue(0);
+	//trainMgr->setupTrainingSession();
 }
 
 /**
@@ -137,6 +303,7 @@ void TrainingView::prevPage()
 		currentPage--;
 	else return;
 	fetchPage(currentPage);
+	makeRecControlsReflectStatus();
 }
 
 /**
@@ -150,6 +317,7 @@ void TrainingView::nextPage()
 		currentPage++;
 	else return;
 	fetchPage(currentPage);
+	makeRecControlsReflectStatus();
 }
 
 
@@ -162,6 +330,22 @@ void TrainingView::cancelReading()
 {
 	ui.swAction->setCurrentIndex(0);
 	setWindowTitle(tr("Training"));
+}
+
+/**
+ * \brief Cancels the current Training
+ * Tells the TrainingManager to abort building the new model (and to clean up)
+ * It also goes back to the main list of trainingtexts
+ * \author Peter Grasch
+ */
+void TrainingView::cancelTraining()
+{
+	this->trainMgr->pauseTraining();
+	if (QMessageBox::question(this, "Wollen Sie wirklich abbrechen?", "Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhöhen.\n\nWollen Sie wirklich abbrechen?", QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+	{
+		this->trainMgr->abortTraining();
+		ui.swAction->setCurrentIndex(0);
+	} else this->trainMgr->resumeTraining();
 }
 
 

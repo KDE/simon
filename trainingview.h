@@ -38,9 +38,20 @@ private:
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	TrainingManager *trainMgr;
 	int currentPage; //!< when we train a text this will hold the page we are on
+	QList<int> *lengthList; //!< Stores the length of the pages in msecs
+	WavRecorder *rec;
+	WavPlayer *play;
+	QString makeTextProgress(int msecs);
 public slots:
 	void switchToWordList();
+	void finish();
 	void trainSelected();
+	void startPlayback(QString filename);
+	void startRecording(QString filename);
+	void stopRecording();
+	void stopPlayback();
+	void setRecStatus(int msecs);
+	void setPlayStatus(int msecs);
 	void nextPage();
 	void prevPage();
 	void playSample();
@@ -49,6 +60,7 @@ public slots:
 	void makeRecControlsReflectStatus();
 	void loadList();
 	void cancelReading();
+	void cancelTraining();
 	void fetchPage(int page);
 public:
 	

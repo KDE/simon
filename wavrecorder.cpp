@@ -25,6 +25,7 @@ void WavRecorder::record(QString filename, short channels, int sampleRate)
 	this->wavData = new WAV(filename, sampleRate);
 	mic->initializeMic(channels, sampleRate);
 	
+	progress=0;
 	progressTimer = new QTimer();
 	connect(progressTimer, SIGNAL(timeout()), this, SLOT(increaseProgress()));
 	progressTimer->start(100);
