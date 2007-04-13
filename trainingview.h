@@ -14,6 +14,7 @@
 
 #include <QDialog>
 #include <QWidget>
+#include <QString>
 #include <QTableWidget>
 #include <QHeaderView>
 #include "trainingtext.h"
@@ -36,11 +37,19 @@ class TrainingView : public QDialog{
 private:
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	TrainingManager *trainMgr;
+	int currentPage; //!< when we train a text this will hold the page we are on
 public slots:
 	void switchToWordList();
 	void trainSelected();
+	void nextPage();
+	void prevPage();
+	void playSample();
+	void deleteSample();
+	void recordPage();
+	void makeRecControlsReflectStatus();
 	void loadList();
 	void cancelReading();
+	void fetchPage(int page);
 public:
 	
     TrainingView(QWidget *parent = 0);

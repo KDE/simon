@@ -47,6 +47,67 @@ TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 	return trainingTexts;
 }
 
+/**
+ * \brief Marks text at the given index as the one we are training now
+ * Stores a pointer of the text in the member currentText
+ * \author Peter Grasch
+ * \param int i
+ * The index
+ * \return bool
+ * Success?
+ */
+bool TrainingManager::trainText(int i)
+{
+	this->currentText = getText(i);
+	return (currentText != NULL);
+}
+
+/**
+ * \brief This is used to get the page <i> of the currently training text (stored in the currentText member)
+ * \author Peter Grasch
+ * \param int i
+ * The index
+ * \return QString
+ * The text of the page <i>
+ */
+QString TrainingManager::getPage(int i)
+{
+	if (!currentText) return "";
+	return currentText->getPage(i);
+}
+
+/**
+ * \brief Returns the pagecount of the currently training text
+ * \author Peter Grasch
+ * \return int
+ * count of pages
+ */
+int TrainingManager::getPageCount()
+{
+	if (!currentText) return 0;
+	return currentText->getPageCount();
+}
+
+/**
+ * \brief Returns the name of the currently trained text
+ * \author Peter Grasch
+ * \return QString
+ * Name of the text
+ */
+QString TrainingManager::getTextName()
+{
+	if (!currentText) return "";
+	return currentText->getName();
+}
+
+/**
+ * \brief Returns the Text <i>
+ * \author Peter Grasch
+ * \param int i
+ * The index of the text
+ * \return TraininText*
+ * Pointer to the TrainingText
+ */
 TrainingText* TrainingManager::getText(int i)
 {
 	if (this->trainingTexts)

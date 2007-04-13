@@ -29,6 +29,7 @@
 class TrainingManager{
 private:
 	TrainingList *trainingTexts;
+	TrainingText *currentText;
 public:
 	TrainingManager(QString pathToTexts="texts/");
 
@@ -47,6 +48,10 @@ public:
 	
 	int calcRelevance(TrainingText *text, WordList *wlist);
 	
+	bool trainText(int i);
+	int getPageCount();
+	QString getPage(int i);
+	QString getTextName();
 	TrainingText* getText(int i);
 
 	~TrainingManager();

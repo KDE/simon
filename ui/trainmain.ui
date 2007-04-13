@@ -5,14 +5,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>630</width>
-    <height>481</height>
+    <width>632</width>
+    <height>482</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Training</string>
   </property>
-  <property name="windowIcon" >
+  <property name="icon" >
    <iconset resource="../simon.qrc" >:/images/tray.png</iconset>
   </property>
   <widget class="QStackedWidget" name="swAction" >
@@ -31,18 +31,27 @@
     <widget class="QWidget" name="verticalLayout" >
      <property name="geometry" >
       <rect>
-       <x>0</x>
+       <x>10</x>
        <y>350</y>
-       <width>621</width>
+       <width>611</width>
        <height>108</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>0</number>
-      </property>
       <property name="spacing" >
        <number>6</number>
+      </property>
+      <property name="leftMargin" >
+       <number>0</number>
+      </property>
+      <property name="topMargin" >
+       <number>0</number>
+      </property>
+      <property name="rightMargin" >
+       <number>0</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>0</number>
       </property>
       <item>
        <widget class="QPushButton" name="pbTrainText" >
@@ -68,10 +77,22 @@
       </item>
       <item>
        <layout class="QGridLayout" >
-        <property name="margin" >
+        <property name="leftMargin" >
          <number>0</number>
         </property>
-        <property name="spacing" >
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
+        </property>
+        <property name="horizontalSpacing" >
+         <number>6</number>
+        </property>
+        <property name="verticalSpacing" >
          <number>6</number>
         </property>
         <item row="1" column="1" >
@@ -133,9 +154,9 @@
     <widget class="QTableWidget" name="twTrainingWords" >
      <property name="geometry" >
       <rect>
-       <x>0</x>
+       <x>10</x>
        <y>0</y>
-       <width>621</width>
+       <width>611</width>
        <height>341</height>
       </rect>
      </property>
@@ -163,92 +184,158 @@
     </widget>
    </widget>
    <widget class="QWidget" name="page_3" >
-    <widget class="QFrame" name="frmActPage" >
+    <widget class="QWidget" name="verticalLayout_2" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>390</y>
+       <width>611</width>
+       <height>72</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" >
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <property name="leftMargin" >
+       <number>0</number>
+      </property>
+      <property name="topMargin" >
+       <number>0</number>
+      </property>
+      <property name="rightMargin" >
+       <number>0</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>0</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="pbPrevPage" >
+          <property name="toolTip" >
+           <string>Startet das Training des selektierten Textes.</string>
+          </property>
+          <property name="layoutDirection" >
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text" >
+           <string>&amp;Vorige Seite</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+          </property>
+          <property name="iconSize" >
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pbNextPage" >
+          <property name="toolTip" >
+           <string>Startet das Training des selektierten Textes.</string>
+          </property>
+          <property name="layoutDirection" >
+           <enum>Qt::RightToLeft</enum>
+          </property>
+          <property name="text" >
+           <string>&amp;Nächste Seite</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+          </property>
+          <property name="iconSize" >
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="pbBackToMain" >
+          <property name="toolTip" >
+           <string>Schließt den Dialog</string>
+          </property>
+          <property name="text" >
+           <string>&amp;Abbrechen</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="pbPages" >
+          <property name="value" >
+           <number>0</number>
+          </property>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pbFinish" >
+          <property name="layoutDirection" >
+           <enum>Qt::RightToLeft</enum>
+          </property>
+          <property name="text" >
+           <string>&amp;Fertigstellen</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/document-save.svg</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="gbPage" >
      <property name="geometry" >
       <rect>
        <x>10</x>
        <y>0</y>
        <width>611</width>
-       <height>321</height>
-      </rect>
-     </property>
-     <property name="frameShape" >
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow" >
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QLabel" name="lbPage" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>591</width>
-        <height>301</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string/>
-      </property>
-      <property name="wordWrap" >
-       <bool>true</bool>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QPushButton" name="pbBackToMain" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>430</y>
-       <width>181</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="toolTip" >
-      <string>Schließt den Dialog</string>
-     </property>
-     <property name="text" >
-      <string>  &amp;Zurück zur Übersicht</string>
-     </property>
-     <property name="icon" >
-      <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbNextPage" >
-     <property name="geometry" >
-      <rect>
-       <x>490</x>
-       <y>430</y>
-       <width>131</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="toolTip" >
-      <string>Startet das Training des selektierten Textes.</string>
-     </property>
-     <property name="layoutDirection" >
-      <enum>Qt::RightToLeft</enum>
-     </property>
-     <property name="text" >
-      <string>&amp;Nächste Seite</string>
-     </property>
-     <property name="icon" >
-      <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
-     </property>
-     <property name="iconSize" >
-      <size>
-       <width>20</width>
-       <height>20</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QGroupBox" name="gpRecord" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>330</y>
-       <width>611</width>
-       <height>91</height>
+       <height>381</height>
       </rect>
      </property>
      <property name="title" >
@@ -258,28 +345,49 @@
       <property name="geometry" >
        <rect>
         <x>10</x>
-        <y>20</y>
+        <y>170</y>
         <width>591</width>
         <height>61</height>
        </rect>
       </property>
       <layout class="QGridLayout" >
-       <property name="margin" >
+       <property name="leftMargin" >
         <number>0</number>
        </property>
-       <property name="spacing" >
+       <property name="topMargin" >
+        <number>0</number>
+       </property>
+       <property name="rightMargin" >
+        <number>0</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>0</number>
+       </property>
+       <property name="horizontalSpacing" >
+        <number>6</number>
+       </property>
+       <property name="verticalSpacing" >
         <number>6</number>
        </property>
        <item row="0" column="0" >
         <layout class="QHBoxLayout" >
-         <property name="margin" >
-          <number>0</number>
-         </property>
          <property name="spacing" >
           <number>6</number>
          </property>
+         <property name="leftMargin" >
+          <number>0</number>
+         </property>
+         <property name="topMargin" >
+          <number>0</number>
+         </property>
+         <property name="rightMargin" >
+          <number>0</number>
+         </property>
+         <property name="bottomMargin" >
+          <number>0</number>
+         </property>
          <item>
-          <widget class="QPushButton" name="pbRec1" >
+          <widget class="QPushButton" name="pbRec" >
            <property name="toolTip" >
             <string>Startet die Aufnahme</string>
            </property>
@@ -295,7 +403,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pbPlay1" >
+          <widget class="QPushButton" name="pbPlay" >
            <property name="enabled" >
             <bool>false</bool>
            </property>
@@ -316,7 +424,7 @@
         </layout>
        </item>
        <item row="1" column="0" >
-        <widget class="QSlider" name="hsRec1" >
+        <widget class="QSlider" name="hsRec" >
          <property name="toolTip" >
           <string>Aktuelle position der Wiedergabe</string>
          </property>
@@ -335,7 +443,7 @@
         </widget>
        </item>
        <item row="0" column="1" >
-        <widget class="QPushButton" name="pbStartOver1" >
+        <widget class="QPushButton" name="pbStartOver" >
          <property name="enabled" >
           <bool>false</bool>
          </property>
@@ -351,7 +459,7 @@
         </widget>
        </item>
        <item row="1" column="1" >
-        <widget class="QLabel" name="lbRec1" >
+        <widget class="QLabel" name="lbRec" >
          <property name="layoutDirection" >
           <enum>Qt::LeftToRight</enum>
          </property>
@@ -359,28 +467,86 @@
           <string>0:00 / 0:00</string>
          </property>
          <property name="alignment" >
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <set>Qt::AlignCenter|Qt::AlignHorizontal_Mask|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter|Qt::AlignVertical_Mask</set>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-    </widget>
-    <widget class="QProgressBar" name="pbPages" >
-     <property name="geometry" >
-      <rect>
-       <x>200</x>
-       <y>430</y>
-       <width>281</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="value" >
-      <number>0</number>
-     </property>
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
+     <widget class="QFrame" name="frame" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>591</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="frameShape" >
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow" >
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="lbPage" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>571</width>
+         <height>111</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string/>
+       </property>
+       <property name="wordWrap" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="pgRecogniced" >
+      <property name="geometry" >
+       <rect>
+        <x>10</x>
+        <y>250</y>
+        <width>591</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="title" >
+       <string>Erkannter Text</string>
+      </property>
+      <widget class="QLabel" name="lbRecognitionInfo" >
+       <property name="geometry" >
+        <rect>
+         <x>380</x>
+         <y>20</y>
+         <width>201</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="text" >
+        <string>Hinweis: Die Erkennung die hierfür verwendet ist, profitiert noch nicht vom gerade laufenden Training.</string>
+       </property>
+       <property name="wordWrap" >
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="teRecognitionInfo" >
+       <property name="geometry" >
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>361</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="readOnly" >
+        <bool>false</bool>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -396,12 +562,140 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>894</x>
-     <y>528</y>
+     <x>312</x>
+     <y>463</y>
     </hint>
     <hint type="destinationlabel" >
      <x>843</x>
      <y>486</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbRec</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pbPlay</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>207</x>
+     <y>208</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>405</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbRec</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pbStartOver</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>138</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>570</x>
+     <y>211</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbStartOver</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>pbPlay</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>542</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>437</x>
+     <y>193</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbStartOver</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>pbRec</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>554</x>
+     <y>208</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>144</x>
+     <y>203</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbStartOver</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>pbStartOver</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>568</x>
+     <y>197</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>568</x>
+     <y>197</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbPlay</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pbStartOver</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>377</x>
+     <y>185</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>568</x>
+     <y>197</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbRec</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>pbRec</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>114</x>
+     <y>198</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>118</x>
+     <y>203</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbRec</sender>
+   <signal>clicked()</signal>
+   <receiver>teRecognitionInfo</receiver>
+   <slot>setFocus()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>140</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>164</x>
+     <y>329</y>
     </hint>
    </hints>
   </connection>

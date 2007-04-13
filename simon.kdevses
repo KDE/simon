@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="74" >
+ <DocsAndViews NumberOfDocuments="75" >
   <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/simonview.cpp" >
    <View0 Encoding="" Type="Source" />
   </Doc0>
@@ -15,10 +15,10 @@
    <View0 Encoding="" Type="Source" />
   </Doc3>
   <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/addwordview.cpp" >
-   <View0 Encoding="" line="192" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc4>
   <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/addwordview.h" >
-   <View0 Encoding="" line="72" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc5>
   <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/simoncontrol.cpp" >
    <View0 Encoding="" Type="Source" />
@@ -27,10 +27,10 @@
    <View0 Encoding="" Type="Source" />
   </Doc7>
   <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/alsabackend.cpp" >
-   <View0 Encoding="" line="167" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc8>
   <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/alsabackend.h" >
-   <View0 Encoding="" line="18" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc9>
   <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/command.h" >
    <View0 Encoding="" Type="Source" />
@@ -57,7 +57,7 @@
    <View0 Encoding="" Type="Source" />
   </Doc17>
   <Doc18 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/runapplicationview.cpp" >
-   <View0 Encoding="" line="186" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc18>
   <Doc19 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/runapplicationview.h" >
    <View0 Encoding="" Type="Source" />
@@ -168,7 +168,7 @@
    <View0 Encoding="" Type="Source" />
   </Doc54>
   <Doc55 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wav.cpp" >
-   <View0 Encoding="" line="212" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc55>
   <Doc56 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/xmlreader.cpp" >
    <View0 Encoding="" Type="Source" />
@@ -201,29 +201,32 @@
    <View0 Encoding="" Type="Source" />
   </Doc65>
   <Doc66 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wavrecorder.cpp" >
-   <View0 Encoding="" line="44" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc66>
   <Doc67 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wavrecorder.h" >
-   <View0 Encoding="" line="42" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc67>
   <Doc68 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wav.h" >
-   <View0 Encoding="" line="35" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc68>
   <Doc69 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wavplayer.cpp" >
-   <View0 Encoding="" line="90" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc69>
   <Doc70 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wavplayer.h" >
-   <View0 Encoding="" line="42" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc70>
   <Doc71 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/soundcontrol.cpp" >
-   <View0 Encoding="" line="173" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc71>
   <Doc72 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/soundcontrol.h" >
-   <View0 Encoding="" line="33" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc72>
   <Doc73 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/vumeter.h" >
-   <View0 Encoding="" line="36" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc73>
+  <Doc74 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/setting.h" >
+   <View0 Encoding="" line="31" Type="Source" />
+  </Doc74>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

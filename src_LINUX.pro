@@ -82,8 +82,6 @@ SOURCES += main.cpp \
            wavplayer.cpp \
            soundcontrol.cpp
 QT += network \
-core \
-gui \
 xml
 TARGET = ./bin/simon
 TEMPLATE = app
@@ -91,9 +89,9 @@ TEMPLATE = app
 CONFIG += qt \
 warn_on \
 thread
-INCLUDEPATH += /usr/X11R6/include \
+INCLUDEPATH += \
 /usr/include/alsa \
-/usr/include/qt4/QtNetwork
+/usr/X11R6/include 
 LIBS += -L/usr/X11R6/lib \
 -L/usr/lib/alsa-lib \
 -lX11 \
@@ -101,3 +99,4 @@ LIBS += -L/usr/X11R6/lib \
 -lasound
 RESOURCES += simon.qrc
 
+#/usr/X11R6/include \

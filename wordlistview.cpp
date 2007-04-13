@@ -115,7 +115,7 @@ void WordListView::copyWordToTrain()
 {
 	if (this->twVocab->selectedItems().isEmpty())
 	{
-		QMessageBox::information(0,"Nichts ausgewählt","Bitte selektieren Sie zuerst ein Wort aus der Liste links");
+		QMessageBox::information(this,"Nichts ausgewählt","Bitte selektieren Sie zuerst ein Wort aus der Liste links");
 		return;
 	}
 	

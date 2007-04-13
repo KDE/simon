@@ -35,7 +35,9 @@
 #ifndef ADDWORDVIEW_H
 #define ADDWORDVIEW_H
 
-#include <QMainWindow>
+
+
+#include <QDialog>
 #include <QMessageBox>
 #include "simoninfo.h"
 #include "wavrecorder.h"
