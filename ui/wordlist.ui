@@ -166,6 +166,9 @@
    <property name="toolTip" >
     <string>Schränkt die Liste ein</string>
    </property>
+   <property name="text" >
+    <string/>
+   </property>
   </widget>
   <widget class="QPushButton" name="pbClearSearch" >
    <property name="geometry" >

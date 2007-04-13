@@ -222,6 +222,47 @@
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="pbProtocolSettings" >
+    <property name="geometry" >
+     <rect>
+      <x>630</x>
+      <y>70</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="toolTip" >
+     <string>Einstellungen über die Protokolle von simon</string>
+    </property>
+    <property name="text" >
+     <string>Protokolle</string>
+    </property>
+    <property name="checkable" >
+     <bool>true</bool>
+    </property>
+    <property name="flat" >
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pbRevert" >
+    <property name="geometry" >
+     <rect>
+      <x>820</x>
+      <y>70</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Zurücksetzen</string>
+    </property>
+    <property name="checkable" >
+     <bool>true</bool>
+    </property>
+    <property name="flat" >
+     <bool>true</bool>
+    </property>
+   </widget>
    <widget class="QPushButton" name="pbSoundSettings" >
     <property name="geometry" >
      <rect>
@@ -258,47 +299,6 @@
     </property>
     <property name="text" >
      <string>Kommandos</string>
-    </property>
-    <property name="checkable" >
-     <bool>true</bool>
-    </property>
-    <property name="flat" >
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pbProtocolSettings" >
-    <property name="geometry" >
-     <rect>
-      <x>630</x>
-      <y>70</y>
-      <width>141</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="toolTip" >
-     <string>Einstellungen über die Protokolle von simon</string>
-    </property>
-    <property name="text" >
-     <string>Protokolle</string>
-    </property>
-    <property name="checkable" >
-     <bool>true</bool>
-    </property>
-    <property name="flat" >
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pbRevert" >
-    <property name="geometry" >
-     <rect>
-      <x>820</x>
-      <y>70</y>
-      <width>141</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text" >
-     <string>Zurücksetzen</string>
     </property>
     <property name="checkable" >
      <bool>true</bool>
@@ -1115,7 +1115,7 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
       <string/>
      </property>
      <property name="pixmap" >
-      <pixmap resource="../simon.qrc" >:/images/alsalogo.gif</pixmap>
+      <pixmap/>
      </property>
     </widget>
     <widget class="QLabel" name="lbDirectX" >

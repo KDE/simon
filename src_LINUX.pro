@@ -69,11 +69,11 @@ SOURCES += main.cpp \
            runapplicationview.cpp \
            runlinuxbackend.cpp \
            vumeter.cpp \
-           xmlreader.cpp \
            eventhandler.cpp \
            xevents.cpp \
            settingsview.cpp \
            wav.cpp \
+		   xmlreader.cpp \
            xmlcommand.cpp \
            xmldocument.cpp \
            xmlsetting.cpp \

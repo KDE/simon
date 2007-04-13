@@ -24,6 +24,9 @@ SoundControl::SoundControl()
 #ifdef linux
 	soundbackend = new ALSABackend();
 #endif
+#ifdef __WIN32
+	soundbackend= new DirectSoundBackend();
+#endif
 }
 
 /**

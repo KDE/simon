@@ -18,7 +18,7 @@ HEADERS += simonview.h \
            wordlistmanager.h \
            command.h \
            directsoundbackend.h \
-           miccontrol.h \
+           soundcontrol.h \
            modelmanager.h \
            runcommand.h \
            trainingmanager.h \
@@ -28,14 +28,19 @@ HEADERS += simonview.h \
            eventhandler.h \
            trayiconmanager.h \
            osd.h \
-	   wavrecorder.h \
+		   xmlreader.h \
+		   xmlcommand.h \
+           xmldocument.h \
+           xmlsetting.h \
+		   wavrecorder.h \
            dragtablewidget.h \
            droplistwidget.h \
            runapplicationview.h \
-	   runwindowsbackend.h \
+	       runwindowsbackend.h \
            runbackend.h \
            vumeter.h \
-	   wav.h \
+	       wav.h \
+		   wavplayer.h \
            settingsview.h \
            settingsmanager.h
 SOURCES += main.cpp \
@@ -48,7 +53,7 @@ SOURCES += main.cpp \
            juliuscontrol.cpp \
            wordlistmanager.cpp \
            directsoundbackend.cpp \
-           miccontrol.cpp \
+           soundcontrol.cpp \
            modelmanager.cpp \
            runcommand.cpp \
            trainingmanager.cpp \
@@ -56,12 +61,17 @@ SOURCES += main.cpp \
            trayiconmanager.cpp \
            eventhandler.cpp \
            osd.cpp \
+		   xmlreader.cpp \
+           xmlcommand.cpp \
+           xmldocument.cpp \
+           xmlsetting.cpp \
            dragtablewidget.cpp \
            droplistwidget.cpp \
            runapplicationview.cpp \
-	   runwindowsbackend.cpp \
-	   wav.h \
-	   wavrecorder.cpp \
+			runwindowsbackend.cpp \
+			wav.cpp \
+			wavrecorder.cpp \
+			wavplayer.cpp \
            settingsview.cpp \
            settingsmanager.cpp \
            vumeter.cpp

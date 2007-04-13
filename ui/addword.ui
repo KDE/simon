@@ -12,9 +12,6 @@
   <property name="windowTitle" >
    <string>Wort hinzufügen</string>
   </property>
-  <property name="icon" >
-   <iconset resource="../simon.qrc" >:/images/tray.png</iconset>
-  </property>
   <widget class="QStackedWidget" name="swMain" >
    <property name="geometry" >
     <rect>
@@ -38,37 +35,19 @@
       </rect>
      </property>
      <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
       <property name="spacing" >
        <number>6</number>
       </property>
-      <property name="leftMargin" >
-       <number>0</number>
-      </property>
-      <property name="topMargin" >
-       <number>0</number>
-      </property>
-      <property name="rightMargin" >
-       <number>0</number>
-      </property>
-      <property name="bottomMargin" >
-       <number>0</number>
-      </property>
       <item>
        <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
         <property name="spacing" >
          <number>6</number>
-        </property>
-        <property name="leftMargin" >
-         <number>0</number>
-        </property>
-        <property name="topMargin" >
-         <number>0</number>
-        </property>
-        <property name="rightMargin" >
-         <number>0</number>
-        </property>
-        <property name="bottomMargin" >
-         <number>0</number>
         </property>
         <item>
          <widget class="QLabel" name="label" >
@@ -84,6 +63,9 @@ p, li { white-space: pre-wrap; }
          <widget class="QLineEdit" name="leWord" >
           <property name="toolTip" >
            <string>Der Wert des neuen Wortes (das, das geschrieben werden soll wenn das Wort erkannt wird)</string>
+          </property>
+          <property name="text" >
+           <string/>
           </property>
          </widget>
         </item>
@@ -108,20 +90,11 @@ p, li { white-space: pre-wrap; }
       </item>
       <item>
        <layout class="QHBoxLayout" >
+        <property name="margin" >
+         <number>0</number>
+        </property>
         <property name="spacing" >
          <number>6</number>
-        </property>
-        <property name="leftMargin" >
-         <number>0</number>
-        </property>
-        <property name="topMargin" >
-         <number>0</number>
-        </property>
-        <property name="rightMargin" >
-         <number>0</number>
-        </property>
-        <property name="bottomMargin" >
-         <number>0</number>
         </property>
         <item>
          <widget class="QPushButton" name="pbBack" >
@@ -211,7 +184,7 @@ p, li { white-space: pre-wrap; }
        <string>0:00 / 0:00</string>
       </property>
       <property name="alignment" >
-       <set>Qt::AlignCenter|Qt::AlignHorizontal_Mask|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter|Qt::AlignVertical_Mask</set>
+       <set>Qt::AlignAbsolute|Qt::AlignBottom|Qt::AlignCenter|Qt::AlignHCenter|Qt::AlignHorizontal_Mask|Qt::AlignJustify|Qt::AlignLeading|Qt::AlignLeft|Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing|Qt::AlignVCenter|Qt::AlignVertical_Mask</set>
       </property>
      </widget>
      <widget class="QPushButton" name="pbRec2" >
@@ -340,7 +313,7 @@ p, li { white-space: pre-wrap; }
        <string>0:00 / 0:00</string>
       </property>
       <property name="alignment" >
-       <set>Qt::AlignCenter|Qt::AlignHorizontal_Mask|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter|Qt::AlignVertical_Mask</set>
+       <set>Qt::AlignAbsolute|Qt::AlignBottom|Qt::AlignCenter|Qt::AlignHCenter|Qt::AlignHorizontal_Mask|Qt::AlignJustify|Qt::AlignLeading|Qt::AlignLeft|Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing|Qt::AlignVCenter|Qt::AlignVertical_Mask</set>
       </property>
      </widget>
      <widget class="QPushButton" name="pbRec1" >
@@ -440,20 +413,11 @@ Sprechen Sie so deutlich wie möglich und vermeiden sie Umgebungsgeräusche.</st
       </rect>
      </property>
      <layout class="QHBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
       <property name="spacing" >
        <number>6</number>
-      </property>
-      <property name="leftMargin" >
-       <number>0</number>
-      </property>
-      <property name="topMargin" >
-       <number>0</number>
-      </property>
-      <property name="rightMargin" >
-       <number>0</number>
-      </property>
-      <property name="bottomMargin" >
-       <number>0</number>
       </property>
       <item>
        <widget class="QPushButton" name="pbBack_2" >
@@ -501,20 +465,11 @@ Sprechen Sie so deutlich wie möglich und vermeiden sie Umgebungsgeräusche.</st
       </rect>
      </property>
      <layout class="QHBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
       <property name="spacing" >
        <number>6</number>
-      </property>
-      <property name="leftMargin" >
-       <number>0</number>
-      </property>
-      <property name="topMargin" >
-       <number>0</number>
-      </property>
-      <property name="rightMargin" >
-       <number>0</number>
-      </property>
-      <property name="bottomMargin" >
-       <number>0</number>
       </property>
       <item>
        <widget class="QPushButton" name="pbBack_3" >
@@ -588,7 +543,7 @@ p, li { white-space: pre-wrap; }
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>95</x>
+     <x>93</x>
      <y>288</y>
     </hint>
     <hint type="destinationlabel" >
@@ -737,7 +692,7 @@ p, li { white-space: pre-wrap; }
     </hint>
     <hint type="destinationlabel" >
      <x>359</x>
-     <y>252</y>
+     <y>254</y>
     </hint>
    </hints>
   </connection>
@@ -753,7 +708,7 @@ p, li { white-space: pre-wrap; }
     </hint>
     <hint type="destinationlabel" >
      <x>359</x>
-     <y>253</y>
+     <y>254</y>
     </hint>
    </hints>
   </connection>
@@ -784,8 +739,8 @@ p, li { white-space: pre-wrap; }
      <y>126</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>259</x>
-     <y>255</y>
+     <x>359</x>
+     <y>254</y>
     </hint>
    </hints>
   </connection>

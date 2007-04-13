@@ -17,6 +17,9 @@
 #ifdef linux
 #include "alsabackend.h"
 #endif
+#ifdef __WIN32
+#include "directsoundbackend.h"
+#endif
 
 /**
  *	@class SoundControl
@@ -32,8 +35,12 @@
  *	@todo Implementing all Windows and all Volume related stuff
  */
 class SoundControl{
+private:
 #ifdef linux
 	ALSABackend *soundbackend;
+#endif
+#ifdef __WIN32
+	DirectSoundBackend *soundbackend;
 #endif
 public:
 	bool initializeMic(short channels=2, int samplerate=44100);
