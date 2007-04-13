@@ -345,6 +345,15 @@ void TrainingView::cancelTraining()
 	{
 		this->trainMgr->abortTraining();
 		ui.swAction->setCurrentIndex(0);
+		
+		//cleaning up
+		for (int i=0; i < trainMgr->getPageCount(); i++)
+		{
+// 			ui.hsRec->setMaximum(0);
+// 			ui.lbRec->setText("00:00 / 00:00");
+			QFile f(QString("rec")+QString::number(currentPage)+QString(".wav"));
+			f.remove();
+		}
 	} else this->trainMgr->resumeTraining();
 }
 
