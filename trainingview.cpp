@@ -16,7 +16,7 @@
  *
  *	@author Peter Grasch
  */
-TrainingView::TrainingView(QWidget *parent) : QDialog(parent)
+TrainingView::TrainingView(QWidget *parent, WordList *trainWords) : QDialog(parent)
 {
 	ui.setupUi(this);
 	connect(ui.pbWordList, SIGNAL(clicked()), this, SLOT(switchToWordList()));
@@ -34,7 +34,29 @@ TrainingView::TrainingView(QWidget *parent) : QDialog(parent)
 	
 	currentPage=0;
 	trainMgr = new TrainingManager();
-	loadList();
+	
+	loadList(); // we load the list of avalible trainingtexts despite we probably won't
+	// use it when given a special training program, but it would confuse the user if
+	// the interface wouldn't provide the same "back" button to return to the
+	// traininglist like we do when we train with generic texts
+	
+	if (trainWords)
+	{
+		this->trainWords(trainWords);
+	}
+}
+
+/**
+ * \brief Starts a special training with the given words
+ * \author Peter Grasch
+ */
+void TrainingView::trainWords(WordList* words)
+{
+	if (!words) return;
+	
+	this->trainMgr->trainWords(words);
+	
+	startTraining();
 }
 
 /**
@@ -246,9 +268,23 @@ void TrainingView::trainSelected()
 		return;
 	}
 	
-	ui.swAction->setCurrentIndex(1);
-	
 	if (!(this-trainMgr->trainText(ui.twTrainingWords->currentRow()))) return;
+	
+	startTraining();
+}
+
+/**
+ * \brief Starts the training of the currently used text in the TrainingManager
+ * 
+ * Trains a text or a special Training Programm;
+ * All the needed data is fetched from the concept class;
+ * This ensures that the behaviour from the specialized training is not different from
+ * the default training texts.
+ * \author Peter Grasch
+ */
+void TrainingView::startTraining()
+{
+	ui.swAction->setCurrentIndex(1);
 	setWindowTitle(tr("Training - ")+trainMgr->getTextName());
 	
 	int count = trainMgr->getPageCount();
@@ -349,8 +385,6 @@ void TrainingView::cancelTraining()
 		//cleaning up
 		for (int i=0; i < trainMgr->getPageCount(); i++)
 		{
-// 			ui.hsRec->setMaximum(0);
-// 			ui.lbRec->setText("00:00 / 00:00");
 			QFile f(QString("rec")+QString::number(currentPage)+QString(".wav"));
 			f.remove();
 		}

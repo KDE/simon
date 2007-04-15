@@ -62,9 +62,11 @@ public slots:
 	void cancelReading();
 	void cancelTraining();
 	void fetchPage(int page);
+	void trainWords(WordList *words);
+	void startTraining();
 public:
 	
-    TrainingView(QWidget *parent = 0);
+    TrainingView(QWidget *parent = 0, WordList *trainWords=NULL);
 	
     ~TrainingView();
 

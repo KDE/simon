@@ -44,6 +44,7 @@ public:
 	PromptsTable* readPrompts(QString promptspath="model/prompts");
 	QString getTerminal(QString name, QString pronunciation, WordList *wlist);
 	int getProbability(QString name, PromptsTable *promptsTable);
+	void trainList();
 	WordList* getWordList() { return wordlist; }
 
 	~WordListManager();

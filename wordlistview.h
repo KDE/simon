@@ -54,6 +54,7 @@ public slots:
 	void markWordToTrain( Word *word );
 	void copyWordToTrain();
 	void deleteTrainingWord();
+	void trainList();
 	void addWord();
 	void filterListbyPattern(QString filter);
 	void clearSearchText();

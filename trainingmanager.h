@@ -13,6 +13,7 @@
 #define TRAININGMANAGER_H
 
 #include <QDir>
+#include "math.h"
 #include "trainingtext.h"
 #include "xmldocument.h"
 #include "word.h"
@@ -47,6 +48,8 @@ public:
 	}
 	
 	int calcRelevance(TrainingText *text, WordList *wlist);
+	
+	void trainWords(WordList *words);
 	
 	void abortTraining();
 	void pauseTraining();

@@ -92,30 +92,6 @@
     <iconset resource="../simon.qrc" >:/images/icons/go-up.svg</iconset>
    </property>
   </widget>
-  <widget class="QPushButton" name="pbSuggestTrain_2" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>340</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font" >
-    <font>
-     <italic>true</italic>
-    </font>
-   </property>
-   <property name="toolTip" >
-    <string>Trainiert die Liste der Wörter</string>
-   </property>
-   <property name="text" >
-    <string>&amp;Trainieren</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pbAddWord" >
    <property name="geometry" >
     <rect>
@@ -326,6 +302,30 @@ p, li { white-space: pre-wrap; }
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Der Knopf "&lt;span style=" font-weight:600;">Neues Wort hinzufügen&lt;/span>"&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">öffnet einen neuen Dialog der Ihnen&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">helfen wird ein neues Wort hinzuzufügen.&lt;/p>&lt;/body>&lt;/html></string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbTrainList" >
+   <property name="geometry" >
+    <rect>
+     <x>470</x>
+     <y>340</y>
+     <width>221</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font" >
+    <font>
+     <italic>true</italic>
+    </font>
+   </property>
+   <property name="toolTip" >
+    <string>Trainiert die Liste der Wörter</string>
+   </property>
+   <property name="text" >
+    <string>&amp;Trainieren</string>
+   </property>
+   <property name="icon" >
+    <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
    </property>
   </widget>
  </widget>

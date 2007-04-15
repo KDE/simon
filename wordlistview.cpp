@@ -36,6 +36,7 @@ WordListView::WordListView(QWidget *parent) : QDialog(parent)
 	connect(ui.leSearch, SIGNAL(textChanged(QString)), this, SLOT(filterListbyPattern(QString)));
 	connect(ui.pbClearSearch, SIGNAL(clicked()), this, SLOT(clearSearchText()));
 	connect(ui.pbSwitchToTraining, SIGNAL(clicked()), this, SLOT(switchToGenericTraining()));
+	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
 }
 
 /**
@@ -102,6 +103,19 @@ void WordListView::filterListbyPattern(QString filter)
 	insertVocab( limitedVocab );
 }
 
+/**
+ * \brief Trains the list of words to train
+ * Tells the TrainingView to guide the user to the process of training the
+ * Wordlist given in lwTrainingWords (member)
+ * \author Peter Grasch
+ */
+void WordListView::trainList()
+{
+	TrainingView *training = new TrainingView(this, &trainingwordlist);
+// 	hide();
+	training->exec();
+// 	show();
+}
 
 /**
  * @brief Copys a word to the Traininglist
