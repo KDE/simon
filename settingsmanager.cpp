@@ -22,39 +22,50 @@ SettingsManager::SettingsManager()
 
 SoundDeviceList* SettingsManager::getDevices()
 {
-     QString name="Ich bin eine Soundkarte";
-     QString device="1.Soundkarte";
-     SoundDeviceList *sdl= new SoundDeviceList();
-     sdl->append(SoundDevice(device,name));
-     qDebug()<<"Ich bin da "<<sdl->count();
-     return sdl;           
+     SoundControl *sc= new SoundControl();
+     return sc->getDevices() ;           
 }
+
+int SettingsManager::getDefaultDevice()
+{
+    return settings->value("device").toInt(); 
+}
+
 bool SettingsManager::getMixing()
 {
-     return false;
+     int temp=settings->value("mixing").toInt();
+     if (temp==0) return false;
+     else if (temp==1) return true;
+          else return false;
+     
 }
+
 
 bool SettingsManager::getSaveAllRecordings()
 {
-     return false;
+     int temp=settings->value("saveallrecordings").toInt();
+     if (temp==0) return false;
+     else if (temp==1) return true;
+          else return false;
 }
 
 QString SettingsManager::getPathToSaveRecordings()
 {
-     return ("genau hier");
+     return settings->value("pathtosaverecordings");
 }
 int SettingsManager::getVolume()
 {
-    return (45);   
+    return settings->value("volume").toInt();  
 }
+
 int SettingsManager::getChannel()
 {
-    return (2);
+    return settings->value("channel").toInt();  
 }
 
 int SettingsManager::getSamplerate()
 {
-   return 564234;   
+   return settings->value("samplerate").toInt();  
 }
 void SettingsManager::loadFile()
 {
@@ -72,52 +83,69 @@ int SettingsManager::getPortNum()
 
 bool SettingsManager::getSimonAutoStart()
 {
-    return false;
+     int temp=settings->value("simonautostart").toInt();
+     if (temp==0) return false;
+     else if (temp==1) return true;
+          else return false;
+}
+
+QString SettingsManager::getIpAdress()
+{
+    return settings->value("juliusdip");
 }
 
 bool SettingsManager::getJuliusdAutoStart()
 {
-    return false;
+     int temp=settings->value("juliusdautostart").toInt();
+     if (temp==0) return false;
+     else if (temp==1) return true;
+          else return false;
 }
 
 bool SettingsManager::getJuliusdRequired()
 {
-    return false;
+     int temp=settings->value("juliusdrequired").toInt();
+     if (temp==0) return false;
+     else if (temp==1) return true;
+          else return false;
 }
 
 bool SettingsManager::getAskBeforeExit()
 {
-     return false;
+     int temp=settings->value("askbeforeexit").toInt();
+     if (temp==0) return false;
+     else if (temp==1) return true;
+          else return false;
 }
   
 QString SettingsManager::getPathToConfig()
 {
-     return "BLABLA";
+     return settings->value("pathtoconfig");
 }
 
 QString SettingsManager::getPathToLexicon()
 {
-     return "BLABLA";
+     return settings->value("pathtolexicon");
 }
 
 QString SettingsManager::getPathToGrammar()
 {
-     return "BLABLA";
+     return settings->value("pathtogrammar");
 }
 
 QString SettingsManager::getPathToCommando()
 {
-     return "BLABLA";
+     return settings->value("pathtocommando");
 }
 
 QString SettingsManager::getPathToVocabul()
 {
-     return "BLABLA";
+     return settings->value("pathtovocabul");
 }
 
 QString SettingsManager::getPathToPrompts()
 {
-     return "BLABLA";
+     return settings->value("pathtoprompts");
 }
 
 

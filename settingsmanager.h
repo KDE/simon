@@ -14,6 +14,7 @@
 #include <QString>
 #include <QDebug>
 #include "sounddevice.h"
+#include "soundcontrol.h"
 #include "xmlsetting.h"
 /**
 	\class SettingsManager
@@ -43,6 +44,7 @@ public:
      QString getPathToCommando();
      QString getPathToVocabul();
      QString getPathToPrompts();
+     QString getIpAdress();
      SoundDeviceList* getDevices();
      bool getMixing();
      bool getSaveAllRecordings();
@@ -50,6 +52,7 @@ public:
      QString getPathToSaveRecordings();
      int getSamplerate();
      int getVolume();
+     int getDefaultDevice();
     ~SettingsManager();
 
 };

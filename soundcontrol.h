@@ -14,6 +14,7 @@
 
 #include "simoninfo.h"
 #include "soundbackend.h"
+#include "sounddevice.h"
 #ifdef linux
 #include "alsabackend.h"
 #endif
@@ -47,7 +48,7 @@ public:
 	bool initializeSpeaker(short channels=2, int samplerate=44100);
 	char* capture (int msecs, long unsigned int& size);
 	short* capture (int count, int buffersize, long unsigned int& size);
-	
+	SoundDeviceList* getDevices();
 	bool playback (char* data, int count);
 	
 	bool close();

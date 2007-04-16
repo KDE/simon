@@ -95,7 +95,7 @@ void SettingsView::switchToSystem()
     ui.leCommands->setText(sm->getPathToCommando());
     ui.leVocab->setText(sm->getPathToVocabul());
     ui.lePrompts->setText(sm->getPathToPrompts());
-                          
+    ui.leAddress->setText(sm->getIpAdress());                      
 }
 
 /**
@@ -108,10 +108,15 @@ void SettingsView::switchToSound()
 	ui.pbSoundSettings->setChecked(false);
 	SoundDeviceList *sd=sm->getDevices();
     ui.cbDevice->clear();
+    int defaultdevice=sm->getDefaultDevice();
     for (int i=0; i<sd->count(); i++)
     {
-        ui.cbDevice->addItem(((SoundDevice) sd->at(i)).getName(),((SoundDevice)sd->at(i)).getDeviceID());
+        QString deviceid= ((SoundDevice)sd->at(i)).getDeviceID();
+        ui.cbDevice->addItem(((SoundDevice) sd->at(i)).getName(),deviceid);
+        if (deviceid.toInt()==defaultdevice) ui.cbDevice->setCurrentIndex(ui.cbDevice->count());
+        
     }
+    
     ui.cbMixing->setCheckState((sm->getMixing()) ? Qt::Checked : Qt::Unchecked);
     ui.cbSaveAllRecordings->setCheckState((sm->getSaveAllRecordings()) ? Qt::Checked : Qt::Unchecked);
     ui.leSaveRecordingsTo->setText(sm->getPathToSaveRecordings());

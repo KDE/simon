@@ -1,8 +1,6 @@
 #include "xmlsetting.h"
 
 
-
-
 XMLSetting::XMLSetting(QString path):XMLReader(path)
 {
 	
@@ -21,11 +19,11 @@ QHash<QString,QString>* XMLSetting::getSettings()
        
          QDomElement ent = node.toElement(); 
                     
-            if( !ent.isNull() && (ent.tagName() == "option") ) 
+            if( (!ent.isNull()) && (ent.tagName() == "option") ) 
             { 
                       settings->insert(ent.attribute("name"), ent.attribute("value"));
+                      
             } 
-               
             node = node.nextSibling();
      }
      return settings;

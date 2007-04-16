@@ -269,6 +269,26 @@ void SoundControl::setVolume(int percent)
 	
 }
 
+/**
+ *	@brief Sets the volume in percent
+ *	
+ *	@author Gigerl Martin
+ *	@param int percent
+ *	returns the aviable sound devices
+*/
+
+SoundDeviceList* SoundControl::getDevices()
+{
+SoundDeviceList *sdl= new SoundDeviceList(); 
+ sdl->append(SoundDevice("145","fakedevice1"));
+ sdl->append(SoundDevice("147","fakedevice2"));        
+#ifdef linux
+ return sdl;
+#endif
+#ifdef __WIN32
+ return sdl;
+#endif
+}
 
 /**
  *	@brief Destructor
