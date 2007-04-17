@@ -4,11 +4,11 @@
  <option value="model/model.voca" name="pathtovocabul" />
  <option value="model/prompts" name="pathtoprompts" />
  <option value="model/model.grammar" name="pathtogrammar" />
- <option value="1" name="channel" />
+ <option value="2" name="channel" />
  <option value="127.0.0.1" name="juliusdip" />
  <option value="1" name="juliusdrequired" />
- <option value="8000" name="samplerate" />
- <option value="92" name="volume" />
+ <option value="44000" name="samplerate" />
+ <option value="99" name="volume" />
  <option value="0" name="saveallrecordings" />
  <option value="145" name="device" />
  <option value="4567" name="portnumber" />

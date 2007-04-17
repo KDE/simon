@@ -33,13 +33,15 @@ void TrainingManager::abortTraining()
 /**
  * \brief Creates a training text and sets it to be the current text
  * \author Peter Grasch
- * \todo The relevance is 0 (hardcoded)
+ * \todo The relevance is 0 (hardcoded); We allways assume the first pronunciation
+ * \todo
  */
 void TrainingManager::trainWords(WordList *words)
 {
 	if (!words) return;
 	
 	QStringList pages;
+	QStringList labels;
 	
 	//we try to guess the perfect amount of words/page
 	//We first go through the possible words/page word counts from 5 to 12
@@ -84,17 +86,27 @@ void TrainingManager::trainWords(WordList *words)
 	if (wordsPerPage==13) wordsPerPage=leftOverWordsPerPage;
 	
 	QString page;
+	QString label;
 	for (int i=0; i< ceil((double)wordCount/wordsPerPage); i++)
 	{
 		page="";
+		label="sil ";
 		for (int j=0; (j<wordsPerPage) && (j+(i*wordsPerPage) < wordCount); j++)
+		{
 			page += words->at(j+(i*wordsPerPage))->getWord()+QString(" ");
+			if (words->at(j+(i*wordsPerPage))->getPronunciation(0)) 
+				label += *(words->at(j+(i*wordsPerPage))->getPronunciation(0))+QString(" sp ");
+		}
+		label += " sil";
 		
 		pages.append(page);
+		labels.append(label);
 	}
 	
+	labels.append("sil");
+	
 	TrainingText *newText = new TrainingText( "Spezialisiertes Training",
-						pages, 0);
+						"", pages, labels, 0);
 	
 	currentText=newText;
 }
@@ -124,6 +136,18 @@ void TrainingManager::resumeTraining()
 }
 
 /**
+ * \brief Deletes the given file from the harddrive
+ * \author Peter Grasch
+ * \param int index
+ * The index of the text to delete
+ */
+bool TrainingManager::deleteText(int index)
+{
+	QFile text(trainingTexts->at(index)->getPath());
+	text.remove();
+}
+
+/**
  * @brief Read the Training Texts and returns the list
  *
  * @return TrainingList*
@@ -143,7 +167,9 @@ TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 	{
 		XMLDocument *text = new XMLDocument( pathToTexts+textsrcs.at(i) );
 		text->load();
-		trainingTexts->append(new TrainingText(text->getTitle(), text->getAllPages(),3.5));
+		trainingTexts->append(new TrainingText(text->getTitle(), 
+				      pathToTexts+textsrcs.at(i),
+				      text->getAllPages(),text->getAllLabels(), 3.5));
 	}
 	
 	return trainingTexts;

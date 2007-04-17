@@ -30,9 +30,11 @@ typedef  QList<TrainingText*> TrainingList;
 class TrainingText{
 private:
 	QString name;
+	QString path;
 	QStringList pages;
+	QStringList labels;
 	float relevance;
-public:
+	public:
 	/**
 	 * \brief Returns the name of the text
 	 * \author Peter Grasch
@@ -40,6 +42,14 @@ public:
 	 * Name
 	 */
 	QString getName() { return this->name; }
+	
+	/**
+		 * \brief Returns the path to the text
+		 * \author Peter Grasch
+		 * \return QString
+		 * path
+	 */
+	QString getPath() { return this->path; }
 	
 	/**
 	 * \brief Returns the page count of the text
@@ -58,12 +68,28 @@ public:
 	QStringList getPages() { return pages; }
 	
 	/**
+	 * \brief Returns the labels of the text
+	 * \author Peter Grasch
+	 * \return QStringList
+	 * labels
+	 */
+	QStringList getLabels() { return labels; }
+	
+	/**
 	 * \brief Returns the page <page> of the text
 	 * \author Peter Grasch
 	 * \return QString
 	 * page
 	 */
 	QString getPage( int page ) { return pages.at(page); }
+	
+	/**
+	 * \brief Returns the labels of the page <page> of the text
+	 * \author Peter Grasch
+	 * \return QString
+	 * label
+	 */
+	QString getLabel( int page ) { return labels.at(page); }
 	
 	/**
 	 * \brief Returns the relevance of the text
@@ -76,7 +102,8 @@ public:
 	 */
 	float getRelevance() { return this->relevance; }
 	
-    TrainingText( QString name, QStringList pages, float relevance );
+    TrainingText( QString name, QString path, QStringList pages, 
+		  QStringList labels, float relevance );
 
     ~TrainingText();
 

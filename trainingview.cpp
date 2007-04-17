@@ -21,7 +21,7 @@ TrainingView::TrainingView(QWidget *parent, WordList *trainWords) : QDialog(pare
 	ui.setupUi(this);
 	connect(ui.pbWordList, SIGNAL(clicked()), this, SLOT(switchToWordList()));
 	connect(ui.pbTrainText, SIGNAL(clicked()), this, SLOT(trainSelected()));
-	connect (ui.pbBackToMain, SIGNAL(clicked()), this, SLOT(cancelReading()));
+	
 	connect (ui.pbNextPage, SIGNAL(clicked()), this, SLOT(nextPage()));
 	connect (ui.pbPrevPage, SIGNAL(clicked()), this, SLOT(prevPage()));
 	
@@ -36,14 +36,39 @@ TrainingView::TrainingView(QWidget *parent, WordList *trainWords) : QDialog(pare
 	trainMgr = new TrainingManager();
 	
 	loadList(); // we load the list of avalible trainingtexts despite we probably won't
-	// use it when given a special training program, but it would confuse the user if
-	// the interface wouldn't provide the same "back" button to return to the
-	// traininglist like we do when we train with generic texts
+	// use it when given a special training program
 	
 	if (trainWords)
 	{
 		this->trainWords(trainWords);
+		connect (ui.pbBackToMain, SIGNAL(clicked()), this, SLOT(reject()));
+	} else {
+		connect (ui.pbBackToMain, SIGNAL(clicked()), this, SLOT(cancelReading()));
+		connect (ui.pbDelText, SIGNAL(clicked()), this, SLOT(deleteSelected()));
 	}
+}
+
+/**
+ * \brief Deletes the selected text from the harddisc
+ * 
+ * Asks the user for confirmation befor the irreversible deletion
+ * \author Peter Grasch
+ */
+void TrainingView::deleteSelected()
+{
+	if (ui.twTrainingWords->selectedItems().isEmpty())
+	{
+		QMessageBox::information(this,"Nichts ausgewählt","Bitte selektieren Sie zuerst einen Text aus der Liste.");
+		return;
+	}
+	int currentIndex = ui.twTrainingWords->currentRow();
+	if (!(this->trainMgr->trainText(currentIndex))) return;
+	
+	
+	if (QMessageBox::question(this, "Wollen Sie den ausgewählten Text wirklich löschen?", "Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiederbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählt wirklich löschen?", QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+		this->trainMgr->deleteText(currentIndex);
+	
+	loadList();
 }
 
 /**
@@ -340,6 +365,11 @@ void TrainingView::prevPage()
 	else return;
 	fetchPage(currentPage);
 	makeRecControlsReflectStatus();
+}
+
+void TrainingView::importTexts()
+{
+	
 }
 
 /**

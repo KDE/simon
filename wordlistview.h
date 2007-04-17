@@ -21,6 +21,7 @@
 #include "droplistwidget.h"
 #include <QMessageBox>
 #include <QTimer>
+#include "importdictview.h"
 #include "addwordview.h"
 #include "trainingview.h"
 #include "ui_wordlist.h"
@@ -44,6 +45,7 @@ private:
 	DragTableWidget *twVocab; //!< A QTableWidget that holds all vocabulary
 	DropListWidget *lwTrainingWords;  //!< QListWidget that displays the words scheduled for training
 	WordListManager *wordListManager; //!< Concept class
+	ImportDictView *importDictView; //!< Provides the Interface to import a dictionary
 	
 	void initializeItems();
 	bool showAddWordDialog();
@@ -55,6 +57,7 @@ public slots:
 	void copyWordToTrain();
 	void deleteTrainingWord();
 	void trainList();
+	void importDict();
 	void addWord();
 	void filterListbyPattern(QString filter);
 	void clearSearchText();

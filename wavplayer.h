@@ -21,7 +21,7 @@
 /**
 	\class WavPlayer
 	
-	This class is used to get the needed data out of existing wav files to play them
+	\brief This class is used to get the needed data out of existing wav files to play them
 	
 	\author Peter Grasch
 	\version 0.1

@@ -43,10 +43,12 @@ SettingsView::SettingsView(QWidget *parent)
     ui.cbChannels->addItem("Stereo",2);
 	this->readConfig();
 #ifdef linux
-	ui.lbDirectX->setVisible(false);
+    ui.lbDirectX->setVisible(false);
+    ui.lbALSA->setVisible(true);
 #endif
-#ifdef __win32
-	ui.lbAlSA->setVisible(false);
+#ifdef __WIN32
+	ui.lbDirectX->setVisible(true);
+	ui.lbALSA->setVisible(false);
 #endif
     this->switchToSystem();
 }

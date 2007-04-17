@@ -25,6 +25,7 @@ class XMLDocument : public XMLReader
 private:
 	QString title;
 	QStringList pages;
+	QStringList labels;
 public: 
 	XMLDocument(QString path);
 	
@@ -37,8 +38,11 @@ public:
 	QString getTitle();
 	
 	QString getPage(int index);
+	QString getLabel(int index);
 	
 	QStringList getAllPages();
+	QStringList getAllLabels();
+	
 	
 	~XMLDocument();
 };

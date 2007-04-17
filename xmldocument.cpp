@@ -59,15 +59,19 @@ void XMLDocument::load(QString path)
 	this->title = root.attribute("title");
 	QDomElement newnode = root.firstChildElement();
 	
-	QDomNode n = root.firstChild();
-	QDomElement page = n.toElement();
-	int i=0;
-	while(!page.isNull() && (i<10)) 
+	QDomElement page = root.firstChild().toElement();
+	while(!page.isNull()) 
 	{
-		QString text = page.text();
-		pages.append(text.trimmed());
+		QDomElement text = page.firstChildElement();
+		
+		QString textcontent = text.text();
+		pages.append(textcontent.trimmed());
+		
+		QDomElement label = text.nextSiblingElement();
+		
+		labels.append(label.text().trimmed());
+		
 		page = page.nextSiblingElement();
-		i++;
 	}
 }
 
@@ -78,11 +82,32 @@ QString XMLDocument::getTitle()
 }
 
 
+/**
+ * \brief Returns the page at the given index
+ * \author Kirschner Christoph (?)
+ * \param int index
+ * The index of the page
+ * \return QString
+ * the text
+ */
 QString XMLDocument::getPage(int index)
 {
-	return pages[index];
+	return pages.at(index);
 }
 
+
+/**
+ * \brief Returns the label of the given page index
+ * \author Peter Grasch
+ * \param int index
+ * The index of the label we want to return
+ * \return QString
+ * The label
+ */
+QString XMLDocument::getLabel(int index)
+{
+	return labels.at(index);
+}
 
 
 /**
@@ -101,6 +126,24 @@ QString XMLDocument::getPage(int index)
 QStringList XMLDocument::getAllPages()
 {
 	return pages;
+}
+
+/**
+ * \brief Returns all labels of the currently loaded document in a QStringList
+ * 
+ * Each page is one element in the list
+ * This does not, however, load the data if it isn't already stored.
+ * Please use load() before using that function
+ * 
+ * \see load()
+ * 
+ * \author Peter Grasch
+ * \return QStringList
+ * The labels of the pages of the text
+ */
+QStringList XMLDocument::getAllLabels()
+{
+	return labels;
 }
 
 

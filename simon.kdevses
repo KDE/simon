@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="73" >
+ <DocsAndViews NumberOfDocuments="81" >
   <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/simonview.cpp" >
    <View0 Encoding="" Type="Source" />
   </Doc0>
@@ -84,13 +84,13 @@
    <View0 Encoding="" Type="Source" />
   </Doc26>
   <Doc27 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wordlistmanager.cpp" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="186" Type="Source" />
   </Doc27>
   <Doc28 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wordlistmanager.h" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="34" Type="Source" />
   </Doc28>
   <Doc29 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wordlistview.h" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="39" Type="Source" />
   </Doc29>
   <Doc30 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trayiconmanager.cpp" >
    <View0 Encoding="" Type="Source" />
@@ -117,10 +117,10 @@
    <View0 Encoding="" Type="Source" />
   </Doc37>
   <Doc38 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/droplistwidget.h" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="15" Type="Source" />
   </Doc38>
   <Doc39 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wordlistview.cpp" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="60" Type="Source" />
   </Doc39>
   <Doc40 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/runlinuxbackend.cpp" >
    <View0 Encoding="" Type="Source" />
@@ -135,7 +135,7 @@
    <View0 Encoding="" Type="Source" />
   </Doc43>
   <Doc44 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/eventhandler.cpp" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="0" Type="Source" />
   </Doc44>
   <Doc45 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/eventhandler.h" >
    <View0 Encoding="" Type="Source" />
@@ -153,7 +153,7 @@
    <View0 Encoding="" Type="Source" />
   </Doc49>
   <Doc50 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trainingview.cpp" >
-   <View0 Encoding="" line="355" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc50>
   <Doc51 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/settingsview.cpp" >
    <View0 Encoding="" Type="Source" />
@@ -219,8 +219,32 @@
    <View0 Encoding="" Type="Source" />
   </Doc71>
   <Doc72 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/soundcontrol.h" >
-   <View0 Encoding="" line="31" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc72>
+  <Doc73 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/xmlsetting.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc73>
+  <Doc74 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/xmlsetting.h" >
+   <View0 Encoding="" line="4" Type="Source" />
+  </Doc74>
+  <Doc75 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importdictview.cpp" >
+   <View0 Encoding="" line="10" Type="Source" />
+  </Doc75>
+  <Doc76 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importdictview.h" >
+   <View0 Encoding="" line="34" Type="Source" />
+  </Doc76>
+  <Doc77 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importdict.cpp" >
+   <View0 Encoding="" line="26" Type="Source" />
+  </Doc77>
+  <Doc78 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importdict.h" >
+   <View0 Encoding="" line="9" Type="Source" />
+  </Doc78>
+  <Doc79 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wiktionarydict.cpp" >
+   <View0 Encoding="" line="66" Type="Source" />
+  </Doc79>
+  <Doc80 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wiktionarydict.h" >
+   <View0 Encoding="" line="24" Type="Source" />
+  </Doc80>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

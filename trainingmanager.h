@@ -37,15 +37,23 @@ public:
 	TrainingList* readTrainingTexts(QString pathToTexts="texts/");
 	
 	/**
-	* @brief Getter method for the QList of training texts
-	*
-	* @return TrainingList*
-	* The TrainingList (member)
-	*/
+	 * @brief Getter method for the QList of training texts
+	 *
+	 * @return TrainingList*
+	 * The TrainingList (member)
+	 */
 	TrainingList* getList()
 	{
 		return trainingTexts;
 	}
+	
+	
+	QString getLabel(int i)
+	{
+		return currentText->getLabel(i);
+	}
+	
+	bool deleteText(int index);
 	
 	int calcRelevance(TrainingText *text, WordList *wlist);
 	

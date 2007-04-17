@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>994</width>
-    <height>549</height>
+    <height>553</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -1104,22 +1104,6 @@ p, li { white-space: pre-wrap; }
       <pixmap/>
      </property>
     </widget>
-    <widget class="QLabel" name="lbDirectX" >
-     <property name="geometry" >
-      <rect>
-       <x>530</x>
-       <y>0</y>
-       <width>163</width>
-       <height>129</height>
-      </rect>
-     </property>
-     <property name="text" >
-      <string/>
-     </property>
-     <property name="pixmap" >
-      <pixmap resource="../simon.qrc" >:/images/directX.png</pixmap>
-     </property>
-    </widget>
     <widget class="QWidget" name="gridLayout_2" >
      <property name="geometry" >
       <rect>
@@ -1407,6 +1391,38 @@ Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen wird nach jeder Au
        </rect>
       </property>
      </widget>
+    </widget>
+    <widget class="QLabel" name="lbDirectX" >
+     <property name="geometry" >
+      <rect>
+       <x>530</x>
+       <y>0</y>
+       <width>163</width>
+       <height>129</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string/>
+     </property>
+     <property name="pixmap" >
+      <pixmap resource="../simon.qrc" >:/images/directX.png</pixmap>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbALSA" >
+     <property name="geometry" >
+      <rect>
+       <x>540</x>
+       <y>0</y>
+       <width>142</width>
+       <height>129</height>
+      </rect>
+     </property>
+     <property name="text" >
+      <string/>
+     </property>
+     <property name="pixmap" >
+      <pixmap resource="../simon.qrc" >:/images/alsalogo.gif</pixmap>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="page_3" >

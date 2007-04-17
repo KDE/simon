@@ -8,7 +8,8 @@ FORMS += ui/main.ui \
          ui/rundialog.ui \
          ui/addword.ui \
          ui/settings.ui \
-         ui/trainmain.ui
+         ui/trainmain.ui \
+         ui/importdict.ui
 HEADERS += simonview.h \
            addwordview.h \
            simoncontrol.h \
@@ -47,7 +48,10 @@ HEADERS += simonview.h \
            wavrecorder.h \
            wavplayer.h \
 		   sounddevice.h \
-           soundcontrol.h
+           soundcontrol.h \
+           importdictview.h \
+           importdict.h \
+           wiktionarydict.h
 SOURCES += main.cpp \
            simonview.cpp \
            addwordview.cpp \
@@ -81,7 +85,10 @@ SOURCES += main.cpp \
            settingsmanager.cpp \
            wavrecorder.cpp \
            wavplayer.cpp \
-           soundcontrol.cpp
+           soundcontrol.cpp \
+           importdictview.cpp \
+           importdict.cpp \
+           wiktionarydict.cpp
 QT += network \
 xml
 TARGET = ./bin/simon

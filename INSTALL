@@ -1,3 +1,13 @@
+Requirements:
+-------------------
+qt >= 4.2
+alsa (only linux)
+X11 (only linux)
+direct sound (only windows)
+
+
+Installation:
+-------------------
 This is a qt4 project so you have to run qmake to get a Makefile.
 
 This Makefiles differs on Windows and Linux in some respects.
@@ -13,14 +23,55 @@ Then you can run
 make
 from your project directory to compile the code.
 
-IMPORTANT:
----------
-If you recieve a wierd error about qstyleoption.h, you have encountered a bug which occurs with a certain combination of qt and X11.
-You can, however, work around that bug by replacing every instance of the word "None" in your qstyleoption.h to something different (for example "NoneX").
-Now you should be able to complie simon without further hassle.
-You can change back you qstyleoption.h after your successful compile.
-
 The executable will be called "simon" and should be in ./bin or ./release/bin/.
+
+
+
+Troubleshooting:
+---------
+There are currently some known bugs about qdir.h, qstyleoption.h and qtextstream.h.
+
+If you run into these problems you will see something like this when compiling:
+
+/usr/include/QtGui/qstyleoption.h:113: error: expected identifier before numeric constant 
+/usr/include/QtGui/qstyleoption.h:113: error: expected `}' before numeric constant 
+/usr/include/QtGui/qstyleoption.h:113: error: expected unqualified-id before numeric constant 
+/usr/include/QtGui/qstyleoption.h:116: error: 'FrameFeature' was not declared in this scope 
+/usr/include/QtGui/qstyleoption.h:116: error: template argument 1 is invalid 
+/usr/include/QtGui/qstyleoption.h:116: error: invalid type in declaration before ';' token
+/usr/include/QtGui/qstyleoption.h:119: error: expected unqualified-id before ')' token
+/usr/include/QtGui/qstyleoption.h:120: error: expected unqualified-id before 'const'
+/usr/include/QtGui/qstyleoption.h:120: error: expected `)' before 'const'
+/usr/include/QtGui/qstyleoption.h:121: error: expected unqualified-id before 'const'
+...
+
+
+This seems to be related to a certain X11/qt combination. (this seems to be fixed in qt4.3)
+You can easily work around these problems with this little hack:
+
+Fire up a texteditor and insert these lines:
+ qtextstream.h line 39+: 
+ #ifdef Status 
+ #undef Status 
+ #endif 
+
+ qdir.h line 82+: 
+ #ifdef Unsorted 
+ #undef Unsorted 
+ #endif 
+
+ qstyleoption.h line 112+: 
+ #ifdef None 
+ #undef None 
+ #endif 
+
+You'll find these files in /usr/include/qt4/QtCore (qdir, qtextstream) and /usr/include/qt4/QtGui (may vary - these are the paths for gentoo). 
+
+These constants seem to get defined somewhere (probably X11 libs) but I haven't yet been able to track that down...
+
+You can change back the qt sources at any time (of course this will reintroduce the compile errors when compiling simon again).
+
+
 
 
 Have fun!

@@ -26,6 +26,7 @@ WordListView::WordListView(QWidget *parent) : QDialog(parent)
 	ui.setupUi(this);
 	
 	this->initializeItems();
+	importDictView = new ImportDictView(this);
 	
 	connect(ui.pbAddToTraining, SIGNAL(clicked()), this, SLOT(copyWordToTrain()));
 	connect(ui.pbDeleteTrainingWord, SIGNAL(clicked()), this, SLOT(deleteTrainingWord()));
@@ -37,6 +38,7 @@ WordListView::WordListView(QWidget *parent) : QDialog(parent)
 	connect(ui.pbClearSearch, SIGNAL(clicked()), this, SLOT(clearSearchText()));
 	connect(ui.pbSwitchToTraining, SIGNAL(clicked()), this, SLOT(switchToGenericTraining()));
 	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
+	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(importDict()));
 }
 
 /**
@@ -51,6 +53,17 @@ void WordListView::clearSearchText()
 	ui.leSearch->setFocus();
 }
 
+/**
+ * \brief Import an existing dictionary
+ * \author Peter Grasch
+ */
+void WordListView::importDict()
+{
+	importDictView->exec();
+	WordList* list = importDictView->getList();
+	if (list)
+		insertVocab(list);
+}
 
 /**
  * @brief Suggest a training

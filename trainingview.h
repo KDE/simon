@@ -45,11 +45,13 @@ private:
 public slots:
 	void switchToWordList();
 	void finish();
+	void importTexts();
 	void trainSelected();
 	void startPlayback(QString filename);
 	void startRecording(QString filename);
 	void stopRecording();
 	void stopPlayback();
+	void deleteSelected();
 	void setRecStatus(int msecs);
 	void setPlayStatus(int msecs);
 	void nextPage();
