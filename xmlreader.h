@@ -30,8 +30,8 @@ protected:
  
 public:
 	XMLReader(QString path);	
-	
-	void save(QString path="");
+	QDomElement settingToNode(QDomDocument &d, QString name, QString value );
+	int save(QString path="");
 	
 	void load(QString path="");
 	

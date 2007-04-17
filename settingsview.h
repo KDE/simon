@@ -36,6 +36,7 @@ class SettingsView : public QDialog
 private:
 	Ui::SettingsDialog ui; //!< The user interface
     SettingsManager *sm;
+    void readConfig();
 public slots:
 	void unsetAllTabs();
 	void switchToSystem();
@@ -43,6 +44,7 @@ public slots:
 	void switchToCommands();
 	void switchToProtocols();
 	void switchToHistory();
+	void apply();
 	
 public:
     SettingsView(QWidget *parent);

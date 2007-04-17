@@ -1,21 +1,21 @@
 <settings>
- <option name="portnumber" value="4567" />
- <option name="juliusdip" value="127.0.0.1" />
- <option name="simonautostart" value="0" />
- <option name="juliusdautostart" value="0"/>
- <option name="juliusdrequired" value="0"/>
- <option name="askbeforeexit" value="0"/>
- <option name="pathtoconfig" value="conf/settings.xml"/>
- <option name="pathtolexicon" value="model/lexicon"/>
- <option name="pathtogrammar" value="model/model.grammar"/>
- <option name="pathtocommando" value="conf/commandos"/>
- <option name="pathtovocabul" value="model/model.voca"/>
- <option name="pathtoprompts" value="model/prompts"/>
- <option name="device" value="147"/>
- <option name="mixing" value="1"/>
- <option name="saveallrecordings" value="0"/>
- <option name="channel" value="1"/>
- <option name="pathtosaverecordings" value="records/"/>
- <option name="samplerate" value="6666"/>
- <option name="volume" value="12"/>
+ <option value="1" name="juliusdautostart" />
+ <option value="0" name="askbeforeexit" />
+ <option value="model/model.voca" name="pathtovocabul" />
+ <option value="model/prompts" name="pathtoprompts" />
+ <option value="model/model.grammar" name="pathtogrammar" />
+ <option value="1" name="channel" />
+ <option value="127.0.0.1" name="juliusdip" />
+ <option value="1" name="juliusdrequired" />
+ <option value="8000" name="samplerate" />
+ <option value="92" name="volume" />
+ <option value="0" name="saveallrecordings" />
+ <option value="145" name="device" />
+ <option value="4567" name="portnumber" />
+ <option value="1" name="simonautostart" />
+ <option value="records/" name="pathtosaverecordings" />
+ <option value="conf/commandos" name="pathtocommando" />
+ <option value="1" name="mixing" />
+ <option value="model/prompts" name="pathtoptompts" />
+ <option value="model/lexicon" name="pathtolexicon" />
 </settings>

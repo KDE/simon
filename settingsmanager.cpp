@@ -19,6 +19,99 @@ SettingsManager::SettingsManager()
 {
                                   
 }
+     
+     
+void SettingsManager::setPortNum(int portnum)
+{
+     
+}
+     
+void SettingsManager::setSimonAutoStart(bool simonautostart)
+{
+     settings->insert("simonautostart",simonautostart ? "1" : "0"); 
+}
+     
+void SettingsManager::setJuliusdAutostart(bool juliusdautostart)
+{
+     settings->insert("juliusdautostart",juliusdautostart ? "1" : "0"); 
+}
+     
+void SettingsManager::setJuliusdRequired(bool juliusdrequired)
+{
+     settings->insert("juliusdrequired",juliusdrequired ? "1" : "0"); 
+}
+     
+void SettingsManager::setAskBeforeExit(bool askbeforeexit)
+{
+     settings->insert("askbeforeexit",askbeforeexit ? "1" : "0"); 
+}
+     
+void SettingsManager::setPathToLexicon(QString pathtolexicon)
+{
+     settings->insert("pathtolexicon",pathtolexicon); 
+}
+     
+void SettingsManager::setPathToGrammar(QString pathtogrammar)
+{
+     settings->insert("pathtogrammar",pathtogrammar); 
+}
+     
+void SettingsManager::setPathToCommando(QString pathtocommando)
+{
+     settings->insert("pathtocommando",pathtocommando); 
+}
+     
+void SettingsManager::setPathToVocabul(QString pathtovocabul)
+{
+     settings->insert("pathtovocabul",pathtovocabul); 
+}
+     
+void SettingsManager::setPathToPrompts(QString pathtoprompts)
+{
+     settings->insert("pathtoptompts",pathtoprompts); 
+}
+     
+void SettingsManager::setIpAdress(QString ipadress)
+{
+     settings->insert("juliusdip",ipadress); 
+}
+     
+void SettingsManager::setMixing(bool mixing)
+{
+     settings->insert("mixing",mixing ? "1" : "0"); 
+}
+     
+void SettingsManager::setSaveAllRecordings(bool saveallrecordings)
+{
+     settings->insert("saveallrecordings",saveallrecordings ? "1" : "0"); 
+}
+     
+void SettingsManager::setChannel(QString channel)
+{
+     settings->insert("channel",channel); 
+}
+     
+void SettingsManager::setPathToSaveRecordings(QString pathtosaverecordings)
+{
+     settings->insert("pathtosaverecordings",pathtosaverecordings);      
+}
+
+void SettingsManager::setSamplerate(int samplerate)
+{
+     settings->insert("samplerate",QString::number(samplerate)); 
+}
+     
+void SettingsManager::setVolume(int volume)
+{
+     settings->insert("volume",QString::number(volume)); 
+}
+     
+void SettingsManager::setDefaultDevice(QString defaultdeviceid)
+{
+     settings->insert("device",defaultdeviceid); 
+}
+
+  
 
 SoundDeviceList* SettingsManager::getDevices()
 {
@@ -30,6 +123,7 @@ int SettingsManager::getDefaultDevice()
 {
     return settings->value("device").toInt(); 
 }
+
 
 bool SettingsManager::getMixing()
 {
@@ -69,11 +163,18 @@ int SettingsManager::getSamplerate()
 }
 void SettingsManager::loadFile()
 {
-    XMLSetting *xmls= new XMLSetting("conf/settings.xml");
+    XMLSetting *xmls= new XMLSetting();
     if(!xmls) return;
-    
-    xmls->load();
+    xmls->loadSettings();
     settings=xmls->getSettings();
+}
+
+int SettingsManager::saveSettings()
+{
+    XMLSetting *xmls= new XMLSetting();
+    //if(!xmls) return;
+    return xmls->saveSettings(this->settings);
+     
 }
  
 int SettingsManager::getPortNum()
@@ -117,11 +218,7 @@ bool SettingsManager::getAskBeforeExit()
      else if (temp==1) return true;
           else return false;
 }
-  
-QString SettingsManager::getPathToConfig()
-{
-     return settings->value("pathtoconfig");
-}
+
 
 QString SettingsManager::getPathToLexicon()
 {

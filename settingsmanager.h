@@ -38,7 +38,6 @@ public:
      bool getJuliusdAutoStart();
      bool getJuliusdRequired();
      bool getAskBeforeExit();
-     QString getPathToConfig();
      QString getPathToLexicon();
      QString getPathToGrammar();
      QString getPathToCommando();
@@ -53,6 +52,28 @@ public:
      int getSamplerate();
      int getVolume();
      int getDefaultDevice();
+     
+     void setPortNum(int portnum);
+     void setSimonAutoStart(bool simonautostart);
+     void setJuliusdAutostart(bool juliusdautostart);
+     void setJuliusdRequired(bool juliusdrequired);
+     void setAskBeforeExit(bool askbeforeexit);
+     void setPathToLexicon(QString pathtolexicon);
+     void setPathToGrammar(QString pathtogrammar);
+     void setPathToCommando(QString pathtocommando);
+     void setPathToVocabul(QString pathtovocabul);
+     void setPathToPrompts(QString pathtoprompts);
+     void setIpAdress(QString ipadress);
+     void setMixing(bool mixing);
+     void setSaveAllRecordings(bool saveallrecordings);
+     void setChannel(QString Channel);
+     void setPathToSaveRecordings(QString pathtosaverecordings);
+     void setSamplerate(int Samplerate);
+     void setVolume(int volume);
+     void setDefaultDevice(QString defaultdeviceid);
+     
+     int saveSettings();
+
     ~SettingsManager();
 
 };

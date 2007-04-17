@@ -3,6 +3,8 @@
 #include "xmlreader.h"
 #include <QHash>
 #include <QString>
+#include <QDomNode>
+#include <QDomDocument>
 /**
  *  @class XMLSetting
  *  @brief To handle with xml-settingdocuments
@@ -20,10 +22,10 @@ class XMLSetting: public XMLReader
 {
 
 public:
-	XMLSetting(QString path);
-
-    QHash<QString,QString>* getSettings();
-	
+	XMLSetting();
+    int saveSettings(QHash<QString,QString>* settings);
+    QHash<QString,QString>* getSettings();	
+    void loadSettings();
 	~XMLSetting();
 };
 

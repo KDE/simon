@@ -1,4 +1,7 @@
 #include "xmlreader.h"
+
+#include <QMessageBox>
+
 /**
  *  @class XMLReader.cpp
  *  
@@ -13,12 +16,27 @@ XMLReader::XMLReader(QString path)
 }
 
 
-void XMLReader::save(QString path)
+int XMLReader::save(QString path)
 {
-     if (path.isEmpty()) path = this->path;
-    
+     QFile file(path);
+     if(!file.open(QIODevice::WriteOnly ) )
+     return -1;
+     QTextStream ts(&file);
+     ts << doc->toString(); 
+     file.close();
+     return 0;
 }
+QDomElement XMLReader::settingToNode(QDomDocument &d, QString name, QString value )
+{
 
+   QDomElement c = d.createElement( "option" );
+      c.setAttribute( "value", name);
+   c.setAttribute( "name", value);
+
+   
+
+   return c;
+}
 
 void XMLReader::load(QString path)
 {
