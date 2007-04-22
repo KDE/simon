@@ -59,10 +59,12 @@ void WordListView::clearSearchText()
  */
 void WordListView::importDict()
 {
-	importDictView->exec();
-	WordList* list = importDictView->getList();
-	if (list)
-		insertVocab(list);
+	if (importDictView->exec())
+	{
+		WordList* list = importDictView->getList();
+		if (list)
+			insertVocab(list);
+	}
 }
 
 /**

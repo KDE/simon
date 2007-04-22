@@ -14,10 +14,6 @@
  *  @author Christoph Kirschner
  *  @todo implementing
  */
-
-
-
-
 class XMLSetting: public XMLReader
 {
 

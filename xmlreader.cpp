@@ -10,7 +10,7 @@
  *  @author Martin Gigerl
  *  @todo Implementing
  */
-XMLReader::XMLReader(QString path)
+XMLReader::XMLReader(QString path, QObject *parent) : QObject(parent)
 {
     this->path=path;
 }
@@ -23,17 +23,18 @@ int XMLReader::save(QString path)
      return -1;
      QTextStream ts(&file);
      ts << doc->toString(); 
+     emit(written());
      file.close();
+     emit(closed());
      return 0;
 }
+
 QDomElement XMLReader::settingToNode(QDomDocument &d, QString name, QString value )
 {
 
    QDomElement c = d.createElement( "option" );
       c.setAttribute( "value", name);
    c.setAttribute( "name", value);
-
-   
 
    return c;
 }
@@ -51,7 +52,7 @@ void XMLReader::load(QString path)
 			return;
 		}
 		file.close();
-
+	emit (loaded());
 }
 
 

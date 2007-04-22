@@ -10,14 +10,13 @@
 
 XMLDocument::XMLDocument(QString path):XMLReader(path)
 {
-	//XMLReader reader(path);
 	
 }
 
 
 void XMLDocument::save(QStringList pages, QString path, QString title)
 {
-	QDomDocument doc("mydocument");
+/*	QDomDocument doc("mydocument");
 	QDomElement root = doc.createElement("document");
 	doc.appendChild(root);
 	
@@ -31,7 +30,7 @@ void XMLDocument::save(QStringList pages, QString path, QString title)
 		newnode.appendChild(page);
 
 		root.appendChild(newnode);
-	}
+	}*/
 }
 
 /**

@@ -1,6 +1,7 @@
 #ifndef XMLREADER_H
 #define XMLREADER_H
 #include <QtXml>
+#include <QObject>
 #include <QString>
 #include <QList>
 #include <QFile>
@@ -21,15 +22,19 @@
  
 
  
-class XMLReader{
- 
+class XMLReader : public QObject {
+ 	Q_OBJECT
+signals:
+	void loaded();
+	void closed();
+	void written();
+
 protected:
- 	
  	QDomDocument *doc;
  	QString path;
  
 public:
-	XMLReader(QString path);	
+	XMLReader(QString path, QObject *parent=0);	
 	QDomElement settingToNode(QDomDocument &d, QString name, QString value );
 	int save(QString path="");
 	

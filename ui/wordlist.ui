@@ -338,7 +338,7 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
    <property name="toolTip" >
-    <string>Löscht das Wort komplett aus dem Sprachmodell</string>
+    <string>Importiert ein vorhandenes Wörterbuch</string>
    </property>
    <property name="text" >
     <string>Importiere Wörterbuch</string>
