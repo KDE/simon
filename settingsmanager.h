@@ -12,7 +12,6 @@
 #ifndef SETTINGSMANAGER_H
 #define SETTINGSMANAGER_H
 #include <QString>
-#include <QDebug>
 #include "sounddevice.h"
 #include "soundcontrol.h"
 #include "xmlsetting.h"
@@ -22,7 +21,7 @@
 	\brief The class provides all the functions to store/load/get the current config
 	
 	\version 0.1
-	\author Peter Grasch
+	\author Martin Gigerl
 	\todo Implementing
 */
 class SettingsManager{
@@ -31,7 +30,8 @@ private:
          QHash<QString,QString> *settings;
 
 public:
-    SettingsManager();
+     SettingsManager();
+     
      void loadFile();
      int getPortNum();
      bool getSimonAutoStart();
@@ -53,6 +53,7 @@ public:
      int getVolume();
      int getDefaultDevice();
      
+     int saveSettings();
      void setPortNum(int portnum);
      void setSimonAutoStart(bool simonautostart);
      void setJuliusdAutostart(bool juliusdautostart);
@@ -72,7 +73,6 @@ public:
      void setVolume(int volume);
      void setDefaultDevice(QString defaultdeviceid);
      
-     int saveSettings();
 
     ~SettingsManager();
 

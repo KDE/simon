@@ -83,7 +83,7 @@ void SettingsView::unsetAllTabs()
  */
 void SettingsView::readConfig()
 {
-	ui.sbPort->setValue(sm->getPortNum()); 
+	//ui.sbPort->setValue(sm->getPortNum()); 
     ui.cbAskBeforeExit->setCheckState((sm->getAskBeforeExit()) ? Qt::Checked : Qt::Unchecked);
     ui.cbStartSimonOnBoot->setCheckState((sm->getSimonAutoStart()) ? Qt::Checked : Qt::Unchecked);
     ui.cbStartJuliusdOnBoot->setCheckState((sm->getJuliusdAutoStart()) ? Qt::Checked : Qt::Unchecked);
@@ -150,7 +150,7 @@ void SettingsView::apply()
      sm->setAskBeforeExit(askbeforeexit);
      sm->setMixing(mixing);
      sm->setSaveAllRecordings(saveallrecordings);
-     sm->setPortNum(ui.sbPort->value());
+     //sm->setPortNum(ui.sbPort->value());
      sm->setPathToLexicon(ui.leLexicon->text());
      sm->setPathToGrammar(ui.leGrammar->text());
      sm->setPathToVocabul(ui.leVocab->text());

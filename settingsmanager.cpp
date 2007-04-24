@@ -17,13 +17,11 @@
  */
 SettingsManager::SettingsManager()
 {
-                                  
 }
-     
      
 void SettingsManager::setPortNum(int portnum)
 {
-     
+     settings->insert("portnum",QString::number(portnum));
 }
      
 void SettingsManager::setSimonAutoStart(bool simonautostart)
@@ -111,19 +109,16 @@ void SettingsManager::setDefaultDevice(QString defaultdeviceid)
      settings->insert("device",defaultdeviceid); 
 }
 
-  
-
 SoundDeviceList* SettingsManager::getDevices()
 {
      SoundControl *sc= new SoundControl();
-     return sc->getDevices() ;           
+     return sc->getDevices() ;
 }
 
 int SettingsManager::getDefaultDevice()
 {
     return settings->value("device").toInt(); 
 }
-
 
 bool SettingsManager::getMixing()
 {
@@ -133,7 +128,6 @@ bool SettingsManager::getMixing()
           else return false;
      
 }
-
 
 bool SettingsManager::getSaveAllRecordings()
 {
@@ -147,6 +141,7 @@ QString SettingsManager::getPathToSaveRecordings()
 {
      return settings->value("pathtosaverecordings");
 }
+
 int SettingsManager::getVolume()
 {
     return settings->value("volume").toInt();  
@@ -161,6 +156,7 @@ int SettingsManager::getSamplerate()
 {
    return settings->value("samplerate").toInt();  
 }
+
 void SettingsManager::loadFile()
 {
     XMLSetting *xmls= new XMLSetting();
@@ -218,7 +214,6 @@ bool SettingsManager::getAskBeforeExit()
      else if (temp==1) return true;
           else return false;
 }
-
 
 QString SettingsManager::getPathToLexicon()
 {
