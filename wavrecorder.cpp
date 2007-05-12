@@ -23,7 +23,7 @@ WavRecorder::WavRecorder(QWidget *parent) : QThread(parent)
 void WavRecorder::record(QString filename, short channels, int sampleRate)
 {
 	this->wavData = new WAV(filename, sampleRate);
-	mic->initializeMic(channels, sampleRate);
+	if (!mic->initializeMic(channels, sampleRate)) return;
 	
 	progress=0;
 	progressTimer = new QTimer();

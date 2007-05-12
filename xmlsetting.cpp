@@ -4,7 +4,7 @@
 
 
 
-XMLSetting::XMLSetting():XMLReader("conf/setting.xml")
+XMLSetting::XMLSetting():XMLDomReader("conf/setting.xml")
 {
 	
 }
@@ -42,6 +42,16 @@ int XMLSetting::saveSettings(QHash<QString,QString>* settings)
        root.appendChild(this->settingToNode(*doc,QString(settings->values().at(i)),QString(settings->keys().at(i))));       
      }
      return this->save("conf/settings.xml"); 
+}
+
+QDomElement XMLSetting::settingToNode(QDomDocument &d, QString name, QString value )
+{
+
+   QDomElement c = d.createElement( "option" );
+      c.setAttribute( "value", name);
+   c.setAttribute( "name", value);
+
+   return c;
 }
 
 void XMLSetting::loadSettings()

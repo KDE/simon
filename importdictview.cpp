@@ -26,6 +26,7 @@ ImportDictView::ImportDictView(QWidget *parent) : QDialog(parent)
 	import = new ImportDict();
 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(importDict()));
 	connect(ui.pbGetPath, SIGNAL(clicked()), this, SLOT(openFileDialog()));
+	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 /**

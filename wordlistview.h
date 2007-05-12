@@ -40,6 +40,7 @@
 class WordListView : public QDialog {
 	Q_OBJECT
 private:
+	bool dirty; //!< Determines if we changed the model since the last save
 	Ui::WordList ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	WordList trainingwordlist;  //!< Holds all the words that are scheduled for training
 	DragTableWidget *twVocab; //!< A QTableWidget that holds all vocabulary
@@ -50,6 +51,7 @@ private:
 	void initializeItems();
 	bool showAddWordDialog();
 	void readVocab();
+	void setDirty ( bool dirty );
 	
 public slots:
 	void suggestTraining();
@@ -63,6 +65,7 @@ public slots:
 	void clearSearchText();
 	void switchToGenericTraining();
 	void insertVocab(WordList *vocab);
+	void askToSave();
 
 public:
 	WordListView(QWidget *parent);

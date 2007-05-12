@@ -17,9 +17,92 @@
  * \param QString path
  * The path to the dict
  */
-WiktionaryDict::WiktionaryDict(QString path) : XMLReader(path)
+WiktionaryDict::WiktionaryDict(QString path, QObject* parent) : QObject(parent), QXmlDefaultHandler(), Dict()
 {
+	this->reader = new XMLSAXReader(path);
 }
+
+
+bool WiktionaryDict::startElement(const QString &namespaceURI,
+			      const QString &localName,
+				const QString &qName,
+				const QXmlAttributes &attributes)
+{
+	if (qName == "page")
+	{
+		word="";
+		text="";
+	}
+	
+	if (qName == "title")
+	{
+		currentTag = WORD;
+	} else if (qName == "text")
+			currentTag = TEXT;
+		else currentTag = NONE;
+		
+	return true;
+}
+
+bool WiktionaryDict::endElement(const QString &namespaceURI, const QString &localName,
+			    const QString &qName)
+{
+	if (qName == "text")
+	{
+		int indexOfStartTerm = text.indexOf("{{Wortart|");
+		if (indexOfStartTerm == -1) return true;
+		
+		
+		//found the terminal
+		
+		indexOfStartTerm+=10;
+		int indexOfEndTerm=text.indexOf("|",indexOfStartTerm);
+		QString terminal = text.mid(indexOfStartTerm, 
+				indexOfEndTerm-indexOfStartTerm);
+		
+		//return if not a german word
+		if (!text.mid(indexOfEndTerm+1).startsWith("Deutsch")) return true;
+		
+		
+		int indexOfStartIPA = text.indexOf("IPA]]: {{Lautschrift|");
+		if (indexOfStartIPA == -1) return true;	//return if word doesn't come
+							//with a valid pronunciation
+		
+		indexOfStartIPA+= 21;
+		int indexOfCloseIPA = text.indexOf("}}",indexOfStartIPA);
+			
+		QString IPA = text.mid(indexOfStartIPA, indexOfCloseIPA-indexOfStartIPA).trimmed();
+		
+		//takes only the first pronunciation
+		//FIX THIS!
+		if (IPA.indexOf(","))
+			IPA = IPA.left(IPA.indexOf(","));
+		IPA.remove(' ');
+				
+		if ((!IPA.isEmpty()) && (IPA != "...")) //if everything seems alright
+		{
+			words.append(word);
+			pronunciations.append(ipaToXSampa(IPA));
+			terminals.append(terminal);
+		}
+		emit progress(round(pos/maxpos*1000));
+	}
+	return true;
+}
+
+
+bool WiktionaryDict::characters(const QString &str)
+{
+	if (currentTag == WORD)
+		word += str;
+	if (currentTag == TEXT)
+		text += str;
+	
+	pos += str.count();
+	
+	return true;
+}
+
 
 /**
  * \brief Loads the file
@@ -29,76 +112,10 @@ WiktionaryDict::WiktionaryDict(QString path) : XMLReader(path)
  */
 void WiktionaryDict::load(QString path)
 {
-	XMLReader::load(path);
+	connect(reader, SIGNAL(loaded()), this, SIGNAL(loaded()));
+	this->maxpos = QFile(path).size();
+	reader->load(this, path);
 	
-	QDomElement root = doc->documentElement();
-	QDomNode meta;
-	QString title;
-	QString text;
-	QString terminal;
-	QDomElement metaInfo;
-	QDomElement revision;
-	short indexOfStartTerm;
-	short indexOfEndTerm;
-	short indexOfStartIPA;
-	short indexOfCloseIPA;
-	QString IPA;
-	
-	QDomNode el=root.firstChild();
-	int max=0;
-	while(!el.isNull()) 
-	{ max++; el = el.nextSibling(); }
-	
-	
-	QDomElement page = root.firstChildElement();
-	int i=0;
-	
-	while(!page.isNull()) 
-	{
-		if (page.tagName()=="page")
-		{
-			metaInfo = page.firstChildElement();
-			if (metaInfo.tagName() == "title")
-				title = metaInfo.text();
-			else title = metaInfo.nextSiblingElement("title").text();
-			
-			revision = metaInfo.nextSiblingElement("revision");
-			if (revision.firstChildElement().tagName() == "text")
-				text = revision.firstChildElement().text();
-			else text = revision.firstChildElement().nextSiblingElement("text").text();
-			
-			
-			indexOfStartTerm = text.indexOf("{{Wortart|");
-			if (indexOfStartTerm != -1)
-			{
-				indexOfStartTerm+=10;
-				indexOfEndTerm=text.indexOf("|",indexOfStartTerm);
-				terminal = text.mid(indexOfStartTerm, 
-						indexOfEndTerm-indexOfStartTerm);
-				if (text.mid(indexOfEndTerm+1).startsWith("Deutsch"))
-				{
-					indexOfStartIPA = text.indexOf("IPA]]: {{Lautschrift|");
-					if (indexOfStartIPA != -1)
-					{
-						indexOfStartIPA+= 21;
-						indexOfCloseIPA = text.indexOf("}}",indexOfStartIPA);
-					
-						IPA = text.mid(indexOfStartIPA, indexOfCloseIPA-indexOfStartIPA);
-					
-						if ((!IPA.isEmpty()) && (IPA != "..."))
-						{
-							words.append(title);
-							pronunciations.append(IPA);
-							terminals.append(terminal);
-						}
-					}
-				}
-			}
-		}
-		emit progress(round((((double)i)/(((double)max)))*1000));
-		i++;
-		page = page.nextSiblingElement();
-	}
 }
 
 /**

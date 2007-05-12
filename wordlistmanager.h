@@ -16,6 +16,7 @@
 #include <QByteArray>
 #include <QMessageBox>
 #include <QtGlobal>
+#include <QTextStream>
 #include <QHash>
 #include "word.h"
 #include "modelmanager.h"
@@ -36,6 +37,7 @@ class WordListManager{
 
 private:
 	WordList *wordlist;	//!< Holds the wordlist
+	QString path;
 	
 public:
 	WordListManager(QString path="model/lexicon");
@@ -46,6 +48,9 @@ public:
 	int getProbability(QString name, PromptsTable *promptsTable);
 	void trainList();
 	WordList* getWordList() { return wordlist; }
+	void addWords(WordList *list);
+	bool save( QString filename="" );
+	WordList* sortList(WordList* list);
 
 	~WordListManager();
 

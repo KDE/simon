@@ -42,7 +42,7 @@ HEADERS += simonview.h \
            settingsview.h \
            wav.h \
            xmlcommand.h \
-           xmldocument.h \
+           xmltrainingtext.h \
            xmlsetting.h \
            settingsmanager.h \
            wavrecorder.h \
@@ -51,7 +51,10 @@ HEADERS += simonview.h \
            soundcontrol.h \
            importdictview.h \
            importdict.h \
-           wiktionarydict.h
+           wiktionarydict.h \
+           dict.h \
+           xmldomreader.h \
+           xmlsaxreader.h
 SOURCES += main.cpp \
            simonview.cpp \
            addwordview.cpp \
@@ -80,7 +83,7 @@ SOURCES += main.cpp \
            wav.cpp \
 		   xmlreader.cpp \
            xmlcommand.cpp \
-           xmldocument.cpp \
+           xmltrainingtext.cpp \
            xmlsetting.cpp \
            settingsmanager.cpp \
            wavrecorder.cpp \
@@ -88,7 +91,10 @@ SOURCES += main.cpp \
            soundcontrol.cpp \
            importdictview.cpp \
            importdict.cpp \
-           wiktionarydict.cpp
+           wiktionarydict.cpp \
+           dict.cpp \
+           xmldomreader.cpp \
+           xmlsaxreader.cpp
 QT += network \
 xml
 TARGET = ./bin/simon

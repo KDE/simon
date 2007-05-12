@@ -32,13 +32,18 @@ WordListView::WordListView(QWidget *parent) : QDialog(parent)
 	connect(ui.pbDeleteTrainingWord, SIGNAL(clicked()), this, SLOT(deleteTrainingWord()));
 	connect(this->lwTrainingWords, SIGNAL(droppedText(QString)), this, SLOT(copyWordToTrain()));
 	connect(ui.pbAddWord, SIGNAL(clicked()), this, SLOT(addWord()));
+	
+	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(askToSave()));
 	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(close()));
+	
 	connect(ui.pbSuggestTrain, SIGNAL(clicked()), this, SLOT(suggestTraining()));
 	connect(ui.leSearch, SIGNAL(textChanged(QString)), this, SLOT(filterListbyPattern(QString)));
 	connect(ui.pbClearSearch, SIGNAL(clicked()), this, SLOT(clearSearchText()));
 	connect(ui.pbSwitchToTraining, SIGNAL(clicked()), this, SLOT(switchToGenericTraining()));
 	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(importDict()));
+	
+	dirty = false;
 }
 
 /**
@@ -61,9 +66,11 @@ void WordListView::importDict()
 {
 	if (importDictView->exec())
 	{
+		setDirty(true);
 		WordList* list = importDictView->getList();
 		if (list)
 			insertVocab(list);
+		wordListManager->addWords(list);
 	}
 }
 
@@ -204,6 +211,37 @@ void WordListView::addWord()
 	}
 }
 
+/**
+ * \brief Sets the Member and lets the user know about it
+ * \author Peter Grasch
+ * \param bool dirty
+ */
+void WordListView::setDirty(bool dirty)
+{
+	this->dirty = dirty;
+	if (dirty)
+	{
+		setWindowTitle("Wortliste - Ungesicherte Änderungen");
+	} else setWindowTitle("Wortliste");
+}
+
+/**
+ * \brief Asks the user if he wants to save
+ * \author Peter Grasch
+ */
+void WordListView::askToSave()
+{
+	if (!dirty) return;
+	
+	if (QMessageBox::question(this, "Änderungen speichern", "Sie haben das Sprachmodell verändert. Möchten Sie die Änderungen speichern?", QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
+	{
+		//save the dict
+		QString filename = "test.out";
+		if (this->wordListManager->save(filename))
+			setDirty(false);
+		else QMessageBox::critical(this, "Fehler beim speichern", "Das Wörterbuch konnte nicht nach "+filename+" geschrieben werden. Bitte überprüfen Sie Ihre Berechtigungen.");
+	}
+}
 
 /**
  * @brief Asks the WordListManager for the whole Vocabulary and sends it to insertVocab

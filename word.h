@@ -14,6 +14,7 @@
 #include <QString>
 #include <QStringList>
 #include <QList>
+#include <QDebug>
 
 /**
  *	@class Word
@@ -157,7 +158,7 @@ public:
 	 * Returns the word
 	 * 
 	 */
-	QString getWord() 
+	QString getWord() const
 	{
 		return this->word;
 	}
@@ -176,7 +177,7 @@ public:
 	 * Contains the pronounciation i
 	 * 
 	 */
-	const QString* getPronunciation ( int i )
+	const QString* getPronunciation ( int i ) const
 	{
 		if (this->pronunciations.count() > i)
 			return &(this->pronunciations.at( i ));
@@ -193,7 +194,7 @@ public:
 	 * Contains the pronunciations of the word
 	 * 
 	 */
-	QStringList getPronunciations() 
+	QStringList getPronunciations() const
 	{
 		return this->pronunciations;
 	}
@@ -206,9 +207,27 @@ public:
 	 * Returns the terminal (category) of the word
 	 * 
 	 */
-	QString getTerminal() 
+	QString getTerminal() const
 	{
 		return this->terminal;
+	}
+	
+	/**
+	 * \brief Determines if a word is "smaller" than the other
+	 * This is a simple comparison of the two "word" values (retrieved by getWord())
+	 * used for sorting
+	 * \author Peter Grasch
+	 * \param const Word& w2
+	 * The second word
+	 * \return bool
+	 * smaller?
+	 */
+	const bool operator<(const Word w2) const
+	{
+		//return (QString::compare(
+		//		 getWord().toUpper(),w2.getWord().toUpper() ) < 0);
+		
+		return (getWord().toUpper() < w2.getWord().toUpper() );
 	}
 
 	
@@ -233,7 +252,7 @@ public:
 	* @author Peter Grasch
 	* 
 	*/
-    ~Word();
+    ~Word() {}
 
 };
 

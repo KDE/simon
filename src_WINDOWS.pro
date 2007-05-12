@@ -30,7 +30,7 @@ HEADERS += simonview.h \
            osd.h \
 		   xmlreader.h \
 		   xmlcommand.h \
-           xmldocument.h \
+           xmltrainingtext.h \
            xmlsetting.h \
 		   wavrecorder.h \
            dragtablewidget.h \
@@ -64,7 +64,7 @@ SOURCES += main.cpp \
            osd.cpp \
 		   xmlreader.cpp \
            xmlcommand.cpp \
-           xmldocument.cpp \
+           xmltrainingtext.cpp \
            xmlsetting.cpp \
            dragtablewidget.cpp \
            droplistwidget.cpp \

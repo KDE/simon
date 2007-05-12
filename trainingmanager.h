@@ -15,7 +15,7 @@
 #include <QDir>
 #include "math.h"
 #include "trainingtext.h"
-#include "xmldocument.h"
+#include "xmltrainingtext.h"
 #include "word.h"
 
 /**

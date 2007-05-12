@@ -226,6 +226,7 @@ void AddWordView::startRecording(QString filename)
  */
 void AddWordView::stopRecording()
 {
+	if (!rec) return;
 	rec->finish();
 	disconnect(rec,0,0,0);
 	delete rec;
@@ -390,6 +391,7 @@ void AddWordView::playSample2()
  */
 void AddWordView::stopPlayback()
 {
+	if (!play) return;
 	play->stop();
 	
 	disconnect(play,0,0,0);

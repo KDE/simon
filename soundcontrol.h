@@ -28,7 +28,7 @@
  *
  *	The SoundControl controls the sound-backends to provide a Control-Point
  *	to communicate with the individual backends without losing the benefit
- *	of plattform indepandance
+ *	of plattform independence
  *
  *	@version 0.1
  *	@date 23.01.2006

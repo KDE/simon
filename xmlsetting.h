@@ -1,6 +1,6 @@
 #ifndef XMLSETTING_H
 #define XMLSETTING_H
-#include "xmlreader.h"
+#include "xmldomreader.h"
 #include <QHash>
 #include <QString>
 #include <QDomNode>
@@ -14,13 +14,14 @@
  *  @author Christoph Kirschner
  *  @todo implementing
  */
-class XMLSetting: public XMLReader
+class XMLSetting: public XMLDomReader
 {
 
 public:
 	XMLSetting();
     int saveSettings(QHash<QString,QString>* settings);
-    QHash<QString,QString>* getSettings();	
+    QHash<QString,QString>* getSettings();
+    QDomElement settingToNode(QDomDocument &d, QString name, QString value );	
     void loadSettings();
 	~XMLSetting();
 };

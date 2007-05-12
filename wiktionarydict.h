@@ -12,30 +12,53 @@
 #ifndef WIKTIONARYDICT_H
 #define WIKTIONARYDICT_H
 
-#include "xmlreader.h"
+#include "xmlsaxreader.h"
 #include <QStringList>
 #include <QString>
-#include <QThread>
-#include <iostream>
+#include <QFile>
+#include <QXmlDefaultHandler>
+#include "dict.h"
 #include <math.h>
+
+#define NONE 0
+#define WORD 1
+#define TEXT 2
 
 /**
  * \class WiktionaryDict
  * \author Peter Grasch
  * \brief Describes a Wiktionary XML database dump in
 */
-class WiktionaryDict : public XMLReader {
+class WiktionaryDict : public QObject, public QXmlDefaultHandler, public Dict {
+	
 	Q_OBJECT
+
 signals:
+	void loaded();
 	void progress(int prog);
+	
 private:
-	QStringList words;
-	QStringList pronunciations;
-	QStringList terminals;
+	XMLSAXReader *reader;
+	QString word, text;
+	int currentTag; //what are we currently parsing [NONE, WORD, TEXT]
+	QStringList words, terminals, pronunciations;
+	int pos; //pos in bytes
+	int maxpos;
 	
 public:
-    WiktionaryDict(QString path="");
+	WiktionaryDict(QString path="", QObject *parent=0);
 	void load(QString path="");
+	
+	
+	bool startElement(const QString &namespaceURI,
+			  const QString &localName,
+			  const QString &qName,
+			  const QXmlAttributes &attributes);
+	
+	bool endElement(const QString &namespaceURI, const QString &localName,
+			const QString &qName);
+
+	bool characters (const QString &str);
 	
 	QStringList getWords() { return words; }
 	QStringList getPronuncations() { return pronunciations; }

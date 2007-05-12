@@ -165,7 +165,7 @@ TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 	trainingTexts = new TrainingList();
 	for (int i=0; i < textsrcs.count(); i++)
 	{
-		XMLDocument *text = new XMLDocument( pathToTexts+textsrcs.at(i) );
+		XMLTrainingText *text = new XMLTrainingText( pathToTexts+textsrcs.at(i) );
 		text->load();
 		trainingTexts->append(new TrainingText(text->getTitle(), 
 				      pathToTexts+textsrcs.at(i),

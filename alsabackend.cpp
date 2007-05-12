@@ -189,7 +189,7 @@ bool ALSABackend::closeDevice()
 bool ALSABackend::prepareDevice()
 {
 	frames = 32;
-	snd_pcm_hw_params_set_period_size_near(handle, hw_params, &frames, &dir);
+	//snd_pcm_hw_params_set_period_size_near(handle, hw_params, &frames, &dir);
 	
 	if (snd_pcm_hw_params (handle, hw_params) < 0) 
 		return false;
