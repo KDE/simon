@@ -122,18 +122,33 @@ bool WiktionaryDict::endElement(const QString &namespaceURI, const QString &loca
 			
 		QString IPA = text.mid(indexOfStartIPA, indexOfCloseIPA-indexOfStartIPA).trimmed();
 		
-		//takes only the first pronunciation
-		//FIX THIS!
-		if (IPA.indexOf(","))
-			IPA = IPA.left(IPA.indexOf(","));
+		//if we determine that the pronunciation is not finished/the writer
+		//was not so sure, we ignore it
+		if ((IPA.indexOf("?") != -1) || (IPA.indexOf("/") != -1)) return true;
+		
+		
 		IPA.remove(' ');
-		IPA = IPA.trimmed();
-				
-		if ((!IPA.isEmpty()) && (IPA != "...")) //if everything seems alright
+		QStringList IPAs = IPA.split(QRegExp("(;|,)"), QString::SkipEmptyParts);
+		
+		for (int i=0; i<IPAs.count(); i++)
 		{
-			words.append(word.trimmed());
-			pronunciations.append(ipaToXSampa(IPA));
-			terminals.append(terminal);
+			if ((IPAs.at(i).startsWith("-"))&&(i>0))
+			{
+				//a syllable seperator is here out of
+				//order, so we guess that it means "in-addition-to-the-prior"
+				IPAs.replace(i, QString(IPAs.at(i)).remove(0,1)); 
+				//remove the "-"
+				IPAs.replace(i, QString(IPAs.at(i)).insert(0, IPAs.at(i-1)));
+				//so we take the preceding element and insert it
+			}
+				
+			if ((!IPAs.at(i).trimmed().isEmpty()) && 
+				(IPAs.at(i).trimmed() != "...")) //if everything seems alright
+			{
+				words.append(word.trimmed());
+				pronunciations.append(ipaToXSampa(IPAs.at(i).trimmed()));
+				terminals.append(terminal);
+			}
 		}
 		emit progress(round(((double)pos/(double)maxpos)*1000));
 	}

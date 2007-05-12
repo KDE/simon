@@ -19,6 +19,7 @@
 #include <QXmlDefaultHandler>
 #include "dict.h"
 #include <QDebug>
+#include <QRegExp>
 #include <math.h>
 
 #define NONE 0
