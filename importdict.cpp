@@ -27,7 +27,7 @@ ImportDict::ImportDict(QObject *parent) : QThread(parent)
 void ImportDict::parseWordList(QString pathToDict)
 {
 	this->pathToDict = pathToDict;
-	start();
+	start(QThread::IdlePriority);
 }
 
 /**
@@ -57,9 +57,7 @@ void ImportDict::run()
 		vocablist->append ( new Word(QString(words.at(i)), 
 				    QString(pronunciations.at(i)), 
 					QString(terminals.at(i)), 0 ) );
-		emit progress(
-			      (((double) i)/((double)words.count())) *140+860);
-		usleep(1);
+		emit progress((((double) i)/((double)words.count())) *40+960);
 	}
 	
 	emit progress(1000);
@@ -78,8 +76,7 @@ void ImportDict::run()
  */
 void ImportDict::loadProgress(int prog)
 {
-	int globalProg = (((double)prog)/1000)*850+10;
-	
+	int globalProg = (((double)prog)/1000)*950+10;
 	emit progress(globalProg);
 }
 

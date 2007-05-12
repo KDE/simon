@@ -49,6 +49,7 @@ void ImportDictView::displayStatus(QString status)
 void ImportDictView::displayProgress(int progress)
 {
 	ui.pbProgress->setValue(progress);
+	
 }
 
 /**
@@ -80,7 +81,7 @@ void ImportDictView::openingFinished()
 /**
  * \brief Imports the dictionary 
  * \author Peter Grasch
- * Makes the progressbar displaying a waiting... thingy (we don't know how long it will take;
+ * Makes the progressbar displaying a waiting... thingy (we don't know how long it will take)
  * Connect the signal/slots
  * Start parsing the WordList
  */

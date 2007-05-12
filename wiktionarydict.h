@@ -18,6 +18,7 @@
 #include <QFile>
 #include <QXmlDefaultHandler>
 #include "dict.h"
+#include <QDebug>
 #include <math.h>
 
 #define NONE 0
