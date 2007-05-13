@@ -22,6 +22,7 @@
 #include <QRegExp>
 #include <math.h>
 
+
 #define NONE 0
 #define WORD 1
 #define TEXT 2
@@ -46,6 +47,7 @@ private:
 	QStringList words, terminals, pronunciations;
 	int pos; //pos in bytes
 	int maxpos;
+	int processFoundIPA(QString ipa);
 	
 public:
 	WiktionaryDict(QString path="", QObject *parent=0);
@@ -61,6 +63,9 @@ public:
 			const QString &qName);
 
 	bool characters (const QString &str);
+	
+	QStringList findIPAs(QString haystack);
+	void insertWords(QString word, QString terminal, QStringList pronunciations);
 	
 	QStringList getWords() { return words; }
 	QStringList getPronuncations() { return pronunciations; }

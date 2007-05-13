@@ -34,6 +34,7 @@ public slots:
 	void openFileDialog();
 	void finishedImporting();
 	void openingFinished();
+	void validatePath(QString path);
 	void displayStatus(QString status);
 	void displayProgress(int progress);
 public:

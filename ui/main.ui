@@ -418,18 +418,21 @@
     <property name="font" >
      <font>
       <pointsize>20</pointsize>
-      <antialiasing>true</antialiasing>
+      <stylestrategy>PreferDefault</stylestrategy>
       <kerning>true</kerning>
      </font>
     </property>
     <property name="toolTip" >
      <string>Vokabel durchsehen / editieren und ändern. Außerdem kann hier ein per-Wort Trainingsprogramm zusammengestellt werden.</string>
     </property>
+    <property name="layoutDirection" >
+     <enum>Qt::LeftToRight</enum>
+    </property>
     <property name="styleSheet" >
      <string/>
     </property>
     <property name="text" >
-     <string>  &amp;Wortliste</string>
+     <string> Wortliste              </string>
     </property>
     <property name="icon" >
      <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>

@@ -113,48 +113,147 @@ bool WiktionaryDict::endElement(const QString &namespaceURI, const QString &loca
 		if (!text.mid(indexOfEndTerm+1).startsWith("Deutsch")) return true;
 		
 		
+		
 		int indexOfStartIPA = text.indexOf("IPA]]: {{Lautschrift|");
-		if (indexOfStartIPA == -1) return true;	//return if word doesn't come
-							//with a valid pronunciation
 		
-		indexOfStartIPA+= 21;
-		int indexOfCloseIPA = text.indexOf("}}",indexOfStartIPA);
-			
-		QString IPA = text.mid(indexOfStartIPA, indexOfCloseIPA-indexOfStartIPA).trimmed();
+		int pluralstart = text.indexOf(QRegExp("(Plurarl|Pl\\.)"),
+					       indexOfStartIPA);
 		
-		//if we determine that the pronunciation is not finished/the writer
-		//was not so sure, we ignore it
-		if ((IPA.indexOf("?") != -1) || (IPA.indexOf("/") != -1)) return true;
-		
-		
-		IPA.remove(' ');
-		QStringList IPAs = IPA.split(QRegExp("(;|,)"), QString::SkipEmptyParts);
-		
-		for (int i=0; i<IPAs.count(); i++)
+		QString ipasingle; //only the pronunciation of singular for now
+		QString ipaplural;
+		if (pluralstart != -1)
 		{
-			if ((IPAs.at(i).startsWith("-"))&&(i>0))
-			{
-				//a syllable seperator is here out of
-				//order, so we guess that it means "in-addition-to-the-prior"
-				IPAs.replace(i, QString(IPAs.at(i)).remove(0,1)); 
-				//remove the "-"
-				IPAs.replace(i, QString(IPAs.at(i)).insert(0, IPAs.at(i-1)));
-				//so we take the preceding element and insert it
-			}
-				
-			if ((!IPAs.at(i).trimmed().isEmpty()) && 
-				(IPAs.at(i).trimmed() != "...")) //if everything seems alright
-			{
-				words.append(word.trimmed());
-				pronunciations.append(ipaToXSampa(IPAs.at(i).trimmed()));
-				terminals.append(terminal);
-			}
+			ipasingle = text.mid(indexOfStartIPA, pluralstart-indexOfStartIPA);
+			ipaplural = text.mid(pluralstart);
 		}
+		else ipasingle = text.mid(indexOfStartIPA);
+		
+		QStringList ipas = findIPAs(ipasingle);
+		insertWords(word.trimmed(), terminal.trimmed(), ipas);
+		
+		
+		if (pluralstart != -1)
+		{
+			int ptitlestart;
+			//the first space after (Mehrzahl)= is the start of the word
+			//e.g.: (Mehrzahl)=die Melonen
+			ptitlestart = text.indexOf(" ", text.indexOf(QString("(Mehrzahl)=")));
+			QString pluraltitle = text.mid(ptitlestart, 
+					text.indexOf(QRegExp("(\n|\\|)"), 
+					ptitlestart)-ptitlestart);
+			
+			pluraltitle.remove(QRegExp("&lt;.*&gt;"));
+			
+			QStringList ipap = findIPAs(ipaplural);
+			
+			//deal with ipa
+			if (!pluraltitle.trimmed().isEmpty() && 
+					(pluraltitle.indexOf(QString("(Einzahl)")) == -1))
+				insertWords(pluraltitle.trimmed(), terminal.trimmed(), ipap);
+		}
+		
 		emit progress(round(((double)pos/(double)maxpos)*1000));
 	}
 	return true;
 }
 
+
+/**
+ * \brief Insert words for the given data into the members
+ * \author Peter Grasch
+ * \param QString word
+ * The name of the word
+ * \param QString terminal
+ * The terminal
+ * \param QStringList pronunciations
+ * The found "pronunciations" (most certainly from findIPAs());
+ * \see findIPAs() processFoundIPA()
+ */
+void WiktionaryDict::insertWords(QString word, QString terminal, QStringList pronunciations)
+{
+	for (int prons=0; prons<pronunciations.count(); prons++)
+	{
+		int found = processFoundIPA(pronunciations.at(prons));
+		for (int i=0; i < found; i++)
+		{
+			words.append(word.trimmed());
+			terminals.append(terminal);
+		}
+	}
+}
+
+/**
+ * \brief Searches the given strings for the wiktionary indicators that an ipa follows
+ * \author Peter Grasch
+ * \param QString haystack
+ * The wikipedia xml string
+ * \return QStringList
+ * every found ipa. Please note that this extracts the wikipedia "IPAs" not the real ipas; they may still contain other/wrong information
+ * \see processFoundIPA()
+ */
+QStringList WiktionaryDict::findIPAs(QString haystack)
+{
+	
+	int start = haystack.indexOf(QString("{{Lautschrift|"));
+	int end;
+	QStringList ipas;
+	while (start != -1)
+	{
+		start += 14;
+		end = haystack.indexOf("}}", start);
+		
+		ipas << haystack.mid(start, end-start);
+		
+		haystack = haystack.mid(end);
+		start = haystack.indexOf(QString("{{Lautschrift|"));
+	}
+	
+	return ipas;
+}
+
+
+/**
+ * \brief Parses the given IPA string and inserts it (if valid) into the pronunciations
+ * \author Peter Grasch
+ * \param QString ipa
+ * We assume that this is wiktionary input so we skip stuff like "betont" and make a "fuzzy" conversion (e.g. interpret also ' instead of the correct unicode char. 0x02C8
+ * \return int
+ * How many found sampas were in the given IPA string?
+ */
+int WiktionaryDict::processFoundIPA(QString ipa)
+{
+	int inserted = 0;
+	
+	//if we determine that the pronunciation is not finished/the writer
+		//was not so sure, we ignore it
+	if ((ipa.indexOf("?") != -1) || (ipa.indexOf("/") != -1)) return false;
+		
+		
+	ipa.remove(' ');
+	ipa.remove("betont", Qt::CaseInsensitive);
+	QStringList IPAs = ipa.split(QRegExp("(;|,)"), QString::SkipEmptyParts);
+		
+	for (int i=0; i<IPAs.count(); i++)
+	{
+		if ((IPAs.at(i).startsWith("-"))&&(i>0))
+		{
+				//a syllable seperator is here out of
+				//order, so we guess that it means "in-addition-to-the-prior"
+			IPAs.replace(i, QString(IPAs.at(i)).remove(0,1)); 
+				//remove the "-"
+			IPAs.replace(i, QString(IPAs.at(i)).insert(0, IPAs.at(i-1)));
+				//so we take the preceding element and insert it
+		}
+				
+		if ((!IPAs.at(i).trimmed().isEmpty()) && 
+				    (IPAs.at(i).trimmed() != "...")) //if everything seems alright
+		{
+			pronunciations.append(ipaToXSampa(IPAs.at(i).trimmed()));
+			inserted++;
+		}
+	}
+	return inserted;
+}
 
 /**
  * \brief This function gatheres the "value" of the xml tags

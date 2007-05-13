@@ -40,14 +40,17 @@
      <widget class="QPushButton" name="pbGetPath" >
       <property name="geometry" >
        <rect>
-        <x>330</x>
+        <x>390</x>
         <y>20</y>
-        <width>91</width>
+        <width>31</width>
         <height>29</height>
        </rect>
       </property>
       <property name="text" >
-       <string>Durchsuchen</string>
+       <string/>
+      </property>
+      <property name="icon" >
+       <iconset resource="../simon.qrc" >:/images/icons/document-open.svg</iconset>
       </property>
      </widget>
      <widget class="QLineEdit" name="lePath" >
@@ -55,7 +58,7 @@
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>311</width>
+        <width>371</width>
         <height>27</height>
        </rect>
       </property>
@@ -90,23 +93,35 @@ Sie finden Versionen davon zum Downlod hier: http://download.wikimedia.org/dewik
        </rect>
       </property>
       <layout class="QHBoxLayout" >
-       <property name="margin" >
-        <number>0</number>
-       </property>
        <property name="spacing" >
         <number>6</number>
        </property>
-       <item>
-        <widget class="QPushButton" name="pbImport" >
-         <property name="text" >
-          <string>Importieren</string>
-         </property>
-        </widget>
-       </item>
+       <property name="leftMargin" >
+        <number>0</number>
+       </property>
+       <property name="topMargin" >
+        <number>0</number>
+       </property>
+       <property name="rightMargin" >
+        <number>0</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>0</number>
+       </property>
        <item>
         <widget class="QPushButton" name="pbCancel" >
          <property name="text" >
           <string>Abbrechen</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pbImport" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="text" >
+          <string>Importieren</string>
          </property>
         </widget>
        </item>
@@ -182,6 +197,8 @@ p, li { white-space: pre-wrap; }
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
  <connections/>
 </ui>

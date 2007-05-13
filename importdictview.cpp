@@ -27,6 +27,7 @@ ImportDictView::ImportDictView(QWidget *parent) : QDialog(parent)
 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(importDict()));
 	connect(ui.pbGetPath, SIGNAL(clicked()), this, SLOT(openFileDialog()));
 	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(ui.lePath, SIGNAL(textChanged(QString)), this, SLOT(validatePath(QString)));
 }
 
 /**
@@ -38,6 +39,19 @@ ImportDictView::ImportDictView(QWidget *parent) : QDialog(parent)
 void ImportDictView::displayStatus(QString status)
 {
 	ui.lbStatus->setText(status);
+}
+
+/**
+ * \brief Enables the "Import" button when we detect that the path given is correct
+ * \author Peter Grasch
+ * \param QString path
+ * The path to check
+ */
+void ImportDictView::validatePath(QString path)
+{
+	if (QFile::exists(path) && path.endsWith(".xml"))
+		ui.pbImport->setEnabled(true);
+	else ui.pbImport->setEnabled(false);
 }
 
 /**
@@ -105,6 +119,7 @@ void ImportDictView::finishedImporting()
 {
 	list = import->getWordList();
 	accept();
+	ui.swMain->setCurrentIndex(0);
 }
 
 /**
