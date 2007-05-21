@@ -43,7 +43,7 @@ void ImportDict::run()
 	WiktionaryDict *wdict = new WiktionaryDict(pathToDict);
 	connect(wdict, SIGNAL(loaded()), this, SLOT(openingFinished()));
 	connect(wdict, SIGNAL(progress(int)), this, SLOT(loadProgress(int)));
-	emit status("Parse Wörterbuch...");
+	emit status("Verarbeite Wörterbuch...");
 	wdict->load(pathToDict);
 	emit status("Erstelle Liste...");
 	QStringList words = wdict->getWords();

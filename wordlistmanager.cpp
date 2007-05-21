@@ -58,6 +58,7 @@ bool WordListManager::save ( QString filename )
 	for (int i=0; i< wordlist->count(); i++)
 		tmplist->append(*(wordlist->at(i)));
 	
+// 	qStableSort(tmplist->begin(), tmplist->end());
 	qSort(tmplist->begin(), tmplist->end());
 	
 	if (filename.isEmpty()) filename = this->path;

@@ -25,6 +25,7 @@
 #include <QMessageBox>
 #include <iostream>
 #include "simoninfo.h"
+#include "xmlcommand.h"
 
 
 /**

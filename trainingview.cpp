@@ -31,6 +31,8 @@ TrainingView::TrainingView(QWidget *parent, WordList *trainWords) : QDialog(pare
 	
 	connect(ui.pbCancelTraining, SIGNAL(clicked()), this, SLOT(cancelTraining()));
 	connect(ui.pbFinish, SIGNAL(clicked()), this, SLOT(finish()));
+	connect(ui.pbImportText, SIGNAL(clicked()), this, SLOT(importTexts()));
+	
 	
 	currentPage=0;
 	trainMgr = new TrainingManager();
@@ -47,6 +49,7 @@ TrainingView::TrainingView(QWidget *parent, WordList *trainWords) : QDialog(pare
 		connect (ui.pbDelText, SIGNAL(clicked()), this, SLOT(deleteSelected()));
 	}
 }
+
 
 /**
  * \brief Deletes the selected text from the harddisc
@@ -369,7 +372,9 @@ void TrainingView::prevPage()
 
 void TrainingView::importTexts()
 {
-	
+	ImportTrainingTexts *import = new ImportTrainingTexts();
+	import->start();
+	delete import;
 }
 
 /**

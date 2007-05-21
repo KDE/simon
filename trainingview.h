@@ -17,10 +17,12 @@
 #include <QString>
 #include <QTableWidget>
 #include <QHeaderView>
+#include <QWizard>
 #include "trainingtext.h"
 #include "trainingmanager.h"
 #include "wordlistview.h"
 #include "trainingtext.h"
+#include "importtrainingtexts.h"
 #include "ui_trainmain.h"
 
 /**

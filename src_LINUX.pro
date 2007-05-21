@@ -54,7 +54,8 @@ HEADERS += simonview.h \
            wiktionarydict.h \
            dict.h \
            xmldomreader.h \
-           xmlsaxreader.h
+           xmlsaxreader.h \
+           importtrainingtexts.h
 SOURCES += main.cpp \
            simonview.cpp \
            addwordview.cpp \
@@ -94,7 +95,8 @@ SOURCES += main.cpp \
            wiktionarydict.cpp \
            dict.cpp \
            xmldomreader.cpp \
-           xmlsaxreader.cpp
+           xmlsaxreader.cpp \
+           importtrainingtexts.cpp
 QT += network \
 xml
 TARGET = ./bin/simon

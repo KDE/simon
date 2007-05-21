@@ -9,38 +9,34 @@
 #include <QDomNode>
 #include <QDomDocument>
 #include "command.h"
+#include "xmldomreader.h"
 
 /**
  *  @class XMLCommand
- *  @brief To handle with xml-commandfiles
+ *  @brief Extends the XMLDomReader class to handle the commands
  *
  *  @version 0.1
  *  @date 17.03.2007
- *  @author Christoph Kirschner
- *  @todo implementing
+ *  @author Peter Grasch
  */
 
 
 typedef QList<Command*> CommandList;
 
 
-class XMLCommand{
+class XMLCommand : public XMLDomReader {
 
 private:
 	CommandList commandlist;
-	QDomDocument doc;
+	
 public:
-	XMLCommand(QString path);
+	XMLCommand(QString path="conf/commands.xml");
 	
-	void save(CommandList commandlist, QString path);
+	void save(CommandList commandlist, QString path="conf/commands.xml");
 	
-	int getPageCount();
-	
-	void load();
+	void load(QString path="");
 	
 	CommandList getCommands();
-	
-	Command getCommand(int index);
 	
 	~XMLCommand();
 };

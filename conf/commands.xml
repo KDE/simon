@@ -1,1 +1,8 @@
-
+<commands>
+	<command name="Konqueror" type="0">
+		/home/bedahr
+	</command>
+	<command name="Eigene Dateien" type="1">
+		/home/bedahr
+	</command>
+</commands>

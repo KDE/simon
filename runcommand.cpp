@@ -41,16 +41,10 @@ RunCommand::RunCommand(QString path)
  */
 void RunCommand::readCommands(QString path)
 {
-	this->commandlist.append(new Command("Konqueror", exec, "konqueror"));
-	this->commandlist.append(new Command("Firefox", exec, "firefox"));
-	this->commandlist.append(new Command("Home", place, "/home/bedahr"));
-	this->commandlist.append(new Command("Texteditor", exec, "kwrite"));
-	this->commandlist.append(new Command("GEWESEN", exec, "kwrite"));
-	this->commandlist.append(new Command("Google", place, "http://google.at"));
-	this->commandlist.append(new Command("Geräte", place, "media:/"));
-	this->commandlist.append(new Command("Drucker", place, "print:/"));
-	this->commandlist.append(new Command("Suchen nach Test", place, "beagle:test"));
-	this->commandlist.append(new Command("Beistrich", type, ","));
+	XMLCommand *reader = new XMLCommand();
+	reader->load();
+	
+	this->commandlist = reader->getCommands();
 }
 
 /**

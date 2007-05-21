@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="86" >
+ <DocsAndViews NumberOfDocuments="88" >
   <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/simonview.cpp" >
    <View0 Encoding="" Type="Source" />
   </Doc0>
@@ -72,7 +72,7 @@
    <View0 Encoding="" Type="Source" />
   </Doc22>
   <Doc23 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trainingmanager.cpp" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="18" Type="Source" />
   </Doc23>
   <Doc24 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trainingmanager.h" >
    <View0 Encoding="" Type="Source" />
@@ -84,7 +84,7 @@
    <View0 Encoding="" Type="Source" />
   </Doc26>
   <Doc27 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wordlistmanager.cpp" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="61" Type="Source" />
   </Doc27>
   <Doc28 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/wordlistmanager.h" >
    <View0 Encoding="" Type="Source" />
@@ -96,10 +96,10 @@
    <View0 Encoding="" Type="Source" />
   </Doc30>
   <Doc31 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/trayiconmanager.h" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="0" Type="Source" />
   </Doc31>
   <Doc32 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/word.h" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="230" Type="Source" />
   </Doc32>
   <Doc33 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/osd.cpp" >
    <View0 Encoding="" Type="Source" />
@@ -258,8 +258,14 @@
    <View0 Encoding="ISO 8859-1" Type="Source" />
   </Doc84>
   <Doc85 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/xmltrainingtext.h" >
-   <View0 Encoding="ISO 8859-1" line="27" Type="Source" />
+   <View0 Encoding="ISO 8859-1" Type="Source" />
   </Doc85>
+  <Doc86 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importtrainingtexts.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc86>
+  <Doc87 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importtrainingtexts.h" >
+   <View0 Encoding="" line="26" Type="Source" />
+  </Doc87>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

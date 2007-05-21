@@ -246,12 +246,13 @@ Dict::Dict()
 	ipaToXsp.insert('g', "g");
 	ipaToXsp.insert('\'', "\"");
 	ipaToXsp.insert('`', "\"");
+	ipaToXsp.insert(0x2019, "\"");
+	ipaToXsp.insert(0x02C8, "\"");
+	
 	ipaToXsp.insert(':', ":");
 	ipaToXsp.insert('-', "-");
 	ipaToXsp.insert(0x00E3, "e~");
 	ipaToXsp.insert(0x00F5, "o~");
-	ipaToXsp.insert(0x2019, "\"");
-	ipaToXsp.insert(0x02C8, "\"");
 	ipaToXsp.insert(0x222B, "S");
 	ipaToXsp.insert(0x02B6, "R");
 	ipaToXsp.insert(0x02CC, "%");

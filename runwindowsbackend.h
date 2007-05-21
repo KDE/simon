@@ -16,7 +16,6 @@
 #include <QUrl>
 #include "runbackend.h"
 
-
 /**
  *	@class RunWindowsBackend
  *	@brief The Windows Run Backend
