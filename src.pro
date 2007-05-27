@@ -3,6 +3,27 @@
 # Subdir relative project main directory: .
 # Target is an application:  ./bin/simon
 
+unix {
+	HEADERS += runlinuxbackend.h xevents.h 
+	SOURCES += xevents.cpp runlinuxbackend.cpp
+	CONFIG += x11
+	DEFINES += __LINUX_ALSA__
+	INCLUDEPATH += /usr/include/alsa \
+		/usr/X11R6/include
+	LIBS += -L/usr/X11R6/lib \
+	-L/usr/lib/alsa-lib \
+	-lX11 \
+	-lXtst \
+	-lasound \
+	-lpthread
+}
+
+win32 {
+	HEADERS += runwindowsbackend.h
+	SOURCES += runwindowsbackend.cpp
+	DEFINES += __WINDOWS_DS__
+}
+
 
 FORMS += ui/main.ui \
          ui/wordlist.ui \
@@ -32,13 +53,11 @@ HEADERS += simonview.h \
            dragtablewidget.h \
            droplistwidget.h \
            runapplicationview.h \
-           runlinuxbackend.h \
            runbackend.h \
            vumeter.h \
            xmlreader.h \
            eventhandler.h \
            coreevents.h \
-           xevents.h \
            settingsview.h \
            wav.h \
            xmlcommand.h \
@@ -47,7 +66,7 @@ HEADERS += simonview.h \
            settingsmanager.h \
            wavrecorder.h \
            wavplayer.h \
-		   sounddevice.h \
+	   sounddevice.h \
            soundcontrol.h \
            importdictview.h \
            importdict.h \
@@ -56,7 +75,7 @@ HEADERS += simonview.h \
            xmldomreader.h \
            xmlsaxreader.h \
            importtrainingtexts.h \
- recwidget.h
+	   recwidget.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -76,13 +95,11 @@ SOURCES += main.cpp \
            dragtablewidget.cpp \
            droplistwidget.cpp \
            runapplicationview.cpp \
-           runlinuxbackend.cpp \
            vumeter.cpp \
            eventhandler.cpp \
-           xevents.cpp \
            settingsview.cpp \
            wav.cpp \
-		   xmlreader.cpp \
+		xmlreader.cpp \
            xmlcommand.cpp \
            xmltrainingtext.cpp \
            xmlsetting.cpp \
@@ -97,26 +114,17 @@ SOURCES += main.cpp \
            xmldomreader.cpp \
            xmlsaxreader.cpp \
            importtrainingtexts.cpp \
- recwidget.cpp
+	   recwidget.cpp
+
 QT += network \
 xml
+
 TARGET = ./bin/simon
 TEMPLATE = app
 
 CONFIG += qt \
 warn_on \
-x11 \
 thread
 
-DEFINES += __LINUX_ALSA__
 
-INCLUDEPATH += \
-/usr/include/alsa \
-/usr/X11R6/include 
-LIBS += -L/usr/X11R6/lib \
--L/usr/lib/alsa-lib \
--lX11 \
--lXtst \
--lasound \
--lpthread
 RESOURCES += simon.qrc

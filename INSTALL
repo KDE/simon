@@ -1,6 +1,6 @@
 Requirements:
 -------------------
-qt >= 4.2
+qt >= 4.3
 alsa (only linux)
 X11 (only linux)
 direct sound (only windows)
@@ -10,13 +10,8 @@ Installation:
 -------------------
 This is a qt4 project so you have to run qmake to get a Makefile.
 
-This Makefiles differs on Windows and Linux in some respects.
-These changes are made automatically by running qmake with the right Makefile for your operating system.
-
 Run: 
-qmake src_LINUX.pro
-on Linux - or
-qmake src_WINDOWS.pro
+qmake 
 to build your Makefile
 
 Then you can run
