@@ -33,7 +33,6 @@
  *	@version 0.1
  *	@date 28.01.2006
  *	@author Peter Grasch
- *	@todo Implementing
  */
 class DragTableWidget : public QTableWidget
 {

@@ -23,7 +23,6 @@
 	It utilizes callback functions for optimal performance
 	
 	\date 27.05.2007
-	\todo Implementing; The class does not care much about buffering so we could easily run out of RAM;
 */
 
 #include <QObject>

@@ -31,7 +31,6 @@
  *	@version 0.1
  *	@date 10.01.2006
  *	@author Peter Grasch
- *	@todo Implementing functions
 */
 
 #include <QMainWindow>

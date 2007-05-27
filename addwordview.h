@@ -29,7 +29,7 @@
  *	@version 0.1
  *	@date 08.01.2006
  *	@author Peter Grasch
- *	@todo Implementing functions
+ *	@todo Adding the word to the model
 */
  
 #ifndef ADDWORDVIEW_H

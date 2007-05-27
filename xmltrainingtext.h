@@ -15,7 +15,6 @@
  *  @version 0.1
  *  @date 17.03.2007
  *  @author Christoph Kirschner, Peter Grasch
- *  @todo implementing
  */
 class XMLTrainingText : public XMLDomReader
 {

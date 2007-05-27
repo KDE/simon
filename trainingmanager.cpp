@@ -34,7 +34,6 @@ void TrainingManager::abortTraining()
  * \brief Creates a training text and sets it to be the current text
  * \author Peter Grasch
  * \todo The relevance is 0 (hardcoded); We allways assume the first pronunciation
- * \todo
  */
 void TrainingManager::trainWords(WordList *words)
 {

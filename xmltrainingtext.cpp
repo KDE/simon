@@ -5,7 +5,6 @@
  *  @version 0.1
  *  @date 17.03.2007
  *  @author Christoph Kirschner
- *  @todo implementing
  */
 
 XMLTrainingText::XMLTrainingText(QString path):XMLDomReader(path)

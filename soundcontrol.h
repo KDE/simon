@@ -33,7 +33,7 @@
  *	@version 0.1
  *	@date 23.01.2006
  *	@author Peter Grasch
- *	@todo Implementing all Windows and all Volume related stuff
+ *	@todo Implementing all Volume related stuff
  *	
  *	@note AVOID USAGE! DEPRCATED!
  */

@@ -1,17 +1,17 @@
-//
-// C++ Implementation: recwidget
-//
-// Description: 
-//
-//
-// Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
 #include "recwidget.h"
 
 
+/**
+ * \brief Constructor
+ * \author Peter Grasch
+ * @param QString name
+ * The name that is displayed in the title of the groupbox
+ * @param QString filename
+ * The filename to record to; 
+ * We will ressamble the file (existing or not) when we create the play/pause/delete handles
+ * @param QWidget *parent
+ * The parent of the object
+ */
 RecWidget::RecWidget(QString name, QString filename, QWidget *parent) : QGroupBox(parent)
 {	
 	this->filename = filename;
@@ -34,6 +34,10 @@ RecWidget::RecWidget(QString name, QString filename, QWidget *parent) : QGroupBo
 	
 }
 
+/**
+ * \brief Sets up the signal/slot connections
+ * \author Peter Grasch
+ */
 void RecWidget::setupSignalsSlots()
 {
 	//Enable / Disable
@@ -59,11 +63,27 @@ void RecWidget::setupSignalsSlots()
 	connect(play, SIGNAL(finished()), this, SLOT(finishPlayback()));
 }
 
+
+/**
+ * \brief Displays the current position
+ * 
+ * Moves the slider to the given msecs
+ *
+ * @param int msecs
+ * Timecode to move to
+ */
 void RecWidget::displayPosition(int msecs)
 {
 	hsProgress->setValue(msecs);
 }
 
+/**
+ * \brief Displays the given progress in recording
+ * \author Peter Grasch
+ * Sets the Label to a string similar to "00:00 / xx:xx"
+ * @param int msecs
+ * How long have we been recording?
+ */
 void RecWidget::displayRecordingProgress(int msecs)
 {
  	QString textprog = QString("%1").arg((int) msecs/10, 4, 10, QChar('0'));
@@ -72,6 +92,12 @@ void RecWidget::displayRecordingProgress(int msecs)
 	hsProgress->setMaximum(msecs);
 }
 
+/**
+ * \brief Displays the given progress in playing
+ * \author Peter Grasch
+ * @param int msecs
+ * How long have we been playing?
+ */
 void RecWidget::displayPlaybackProgress(int msecs)
 {
  	QString textprog = QString("%1").arg(QString::number(msecs/10), 4, QChar('0'));
@@ -81,6 +107,10 @@ void RecWidget::displayPlaybackProgress(int msecs)
 }
 
 
+/**
+ * \brief Starts the recording
+ * \author Peter Grasch
+ */
 void RecWidget::record()
 {
 	if (!rec->record(this->filename, 2, 44100))
@@ -101,6 +131,10 @@ void RecWidget::record()
 	emit recording();
 }
 
+/**
+ * \brief Finishes up the playback
+ * \author Peter Grasch
+ */
 void RecWidget::finishPlayback()
 {
 	disconnect(pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
@@ -109,6 +143,10 @@ void RecWidget::finishPlayback()
 	emit playbackFinished();
 }
 
+/**
+ * \brief Stops the recording
+ * \author Peter Grasch
+ */
 void RecWidget::stopRecording()
 {
 	if (!rec->finish()) 
@@ -119,11 +157,19 @@ void RecWidget::stopRecording()
 	emit recordingFinished();
 }
 
+/**
+ * \brief Stops the playback
+ * \author Peter Grasch
+ */
 void RecWidget::stopPlayback()
 {
 	play->stop();
 }
 
+/**
+ * \brief Starts the playback
+ * \author Peter Grasch
+ */
 void RecWidget::playback()
 {
 	if (play->play(this->filename))
@@ -134,6 +180,10 @@ void RecWidget::playback()
 	} else pbPlay->setChecked(false);
 }
 
+/**
+ * \brief Deletes the file at filename (member)
+ * \author Peter Grasch
+ */
 void RecWidget::deleteSample()
 {
 	if(QFile::remove(this->filename))
@@ -146,6 +196,11 @@ void RecWidget::deleteSample()
 }
 
 
+/**
+ * \brief Sets up the GUI Widgets
+ * \author Peter Grasch
+ * \see setupLayout() setupSignalsSlots()
+ */
 void RecWidget::setupWidgets()
 {
 	pbRecord = new QPushButton(QIcon(":/images/icons/media-record.svg"), "Aufnehmen", 
@@ -166,6 +221,11 @@ void RecWidget::setupWidgets()
 	pbDelete->setEnabled(false);
 }
 
+/**
+ * \brief Sets up the Layouts of the GUI Widgets
+ * \author Peter Grasch
+ * \see setupWidgets() setupSignalsSlots()
+ */
 void RecWidget::setupLayout()
 {
 	QVBoxLayout *thisLayout = new QVBoxLayout(this);
@@ -184,6 +244,10 @@ void RecWidget::setupLayout()
 }
 
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 RecWidget::~RecWidget()
 {
 	delete pbRecord;

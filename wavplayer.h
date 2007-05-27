@@ -29,7 +29,6 @@
 	
 	\author Peter Grasch
 	\version 0.1
-	\todo Replace the dummy methods with implemented ones
 */
 class WavPlayer : public QObject {
 	Q_OBJECT
