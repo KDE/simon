@@ -44,6 +44,7 @@
 #include "wavplayer.h"
 #include <QFile>
 #include "ui_addword.h"
+#include "recwidget.h"
 
 
 class AddWordView : public QDialog
@@ -55,10 +56,9 @@ class AddWordView : public QDialog
 		WavRecorder *rec; //!< To record the samples
 		WavPlayer *play;  //!< To play the samples (preview)
 		QString word;     //!< The name of the word to add
+		RecWidget *rec1;
+		RecWidget *rec2;
 		
-		QString makeTextProgress(int msecs);
-		void setRecStatus(QSlider *prog, QLabel *textprog, int msecs);
-		void setPlayStatus(QSlider *prog, QLabel *textprog, int msecs);
 		
 	public slots:
 		void saveWord();
@@ -71,38 +71,9 @@ class AddWordView : public QDialog
 		void prevStep();
 		void finish();
 		
-		/*---------------------------------*/
-		/*            Recording            */
-		/*---------------------------------*/
-		void startRecording(QString filename);
-		void recSample1();
-		void recSample2();
-		void stopRecording();
-		void stopRecording1();
-		void stopRecording2();
-		
-		void recSample1Status(int msecs);
-		void recSample2Status(int msecs);
-		
-		/*---------------------------------*/
-		/*             Playing             */
-		/*---------------------------------*/
-		void startPlayback(QString filename);
-		void playSample1();
-		void playSample2();
-		void finishPlayback1();
-		void finishPlayback2();
-		void stopPlayback();
-		
-		void playSample1Status(int msecs);
-		void playSample2Status(int msecs);
-		
-		/*---------------------------------*/
-		/*             Deleting             */
-		/*---------------------------------*/
-		void deleteSample1();
-		void deleteSample2();
-		
+		//recording stuff
+		void checkReady();
+		void setNotReady();
 		
 		
 	public:

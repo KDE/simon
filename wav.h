@@ -52,6 +52,7 @@ public:
 	char* getRawData(int& data);
     void addData(char* data, int length);
     bool writeFile(QString filename="");
+    int getSampleRate() { return samplerate; }
     ~WAV();
 
 };

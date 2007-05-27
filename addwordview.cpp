@@ -47,14 +47,29 @@ AddWordView::AddWordView(QWidget *parent, Qt::WFlags f)
 	connect(ui.pbBack_3, SIGNAL(clicked()), this, SLOT(prevStep()));
 	connect(ui.pbFinish, SIGNAL(clicked()), this, SLOT(finish()));
 	
-	connect(ui.pbRec1, SIGNAL(clicked()), this, SLOT(recSample1()));
-	connect(ui.pbRec2, SIGNAL(clicked()), this, SLOT(recSample2()));
+	rec1 = new RecWidget("Aufnahme 1", "1.wav", ui.wRec1);
+	rec2 = new RecWidget("Aufnahme 2", "2.wav", ui.wRec2);
 	
-	connect (ui.pbPlay1, SIGNAL(clicked()), this, SLOT(playSample1()));
-	connect (ui.pbPlay2, SIGNAL(clicked()), this, SLOT(playSample2()));
+	ui.wRec1->layout()->addWidget(rec1);
+	ui.wRec2->layout()->addWidget(rec2);
 	
-	connect(ui.pbStartOver1, SIGNAL(clicked()), this, SLOT(deleteSample1()));
-	connect(ui.pbStartOver2, SIGNAL(clicked()), this, SLOT(deleteSample2()));
+	connect(rec1, SIGNAL(recordingFinished()), this, SLOT(checkReady()));
+	connect(rec2, SIGNAL(recordingFinished()), this, SLOT(checkReady()));
+	connect(rec1, SIGNAL(sampleDeleted()), this, SLOT(setNotReady()));
+	connect(rec2, SIGNAL(sampleDeleted()), this, SLOT(setNotReady()));
+}
+
+void AddWordView::checkReady()
+{
+	if (rec1->hasRecordingReady() && rec2->hasRecordingReady())
+	{
+		ui.pbNext_2->setEnabled(true);
+	}
+}
+
+void AddWordView::setNotReady()
+{
+	ui.pbNext_2->setEnabled(false);
 }
 
 /**
@@ -84,12 +99,33 @@ void AddWordView::saveWord()
  *
  *	@author Peter Grasch
  * @see prevStep() finish()
-*/
+ */
 void AddWordView::nextStep()
 {
 	if (ui.swMain->currentIndex() + 1 < ui.swMain->count())
 		ui.swMain->setCurrentIndex( ui.swMain->currentIndex()+1 );
 	else finish();
+}
+
+/**
+ * @brief Sends the wizard to the previous step
+ *
+ * This function sends the wizard to the next step.
+ * There are three steps in this wizard.
+ * 	* Spell the word
+ * 	* Record two samples of the word
+ * 	* Completion
+ *
+ * 
+ * If there is no step left, it calls the method finish()
+ *
+ *	@author Peter Grasch
+ * @see nextStep() finish()
+ */
+void AddWordView::prevStep()
+{
+	if (ui.swMain->currentIndex() - 1 >= 0)
+		ui.swMain->setCurrentIndex( ui.swMain->currentIndex()-1 );
 }
 
 /**
@@ -110,329 +146,14 @@ void AddWordView::finish()
 	ui.swMain->setCurrentIndex(0);
 	ui.leWord->setText("");
 	setWindowTitle(tr("Wort hinzufügen"));
-	deleteSample1();
-	deleteSample2();
-}
-
-/**
- * \brief Makes the progress information for the 1st sample reflect the current progress
- * 
- * Sets the label and the slider maxes to the given msecs
- * 
- * \author Peter Grasch
- * \param int msecs
- * The progress
- */
-void AddWordView::recSample1Status(int msecs)
-{
-	setRecStatus(ui.hsRec1, ui.lbRec1, msecs);
-}
-
-/**
- * \brief Makes the progress information for the 2nd sample reflect the current progress
- * 
- * Sets the label and the slider maxes to the given msecs
- * 
- * \author Peter Grasch
- * \param int msecs
- * The progress
- */
-void AddWordView::recSample2Status(int msecs)
-{
-	setRecStatus(ui.hsRec2, ui.lbRec2, msecs);
-}
-
-
-void AddWordView::setRecStatus(QSlider *prog, QLabel *textprog, int msecs)
-{
-	prog->setMaximum(msecs/100);
-	QString tprog = makeTextProgress(msecs);
-	textprog->setText("00:00 / "+tprog);
-}
-		
-void AddWordView::setPlayStatus(QSlider *prog, QLabel *textprog, int msecs)
-{
-	prog->setValue(msecs/100);
-	QString tprog = makeTextProgress(msecs);
-	textprog->setText(  textprog->text().replace(0,textprog->text().indexOf(" /"),
-			     tprog));
-}
-
-/**
- * \brief Makes an easily readable textprogress of the given time (in msecs)
- * 
- * e.g: 2.5 seconds (2500 msecs) would be translated to 2:50
- * \author Peter Grasch
- * \param int msecs
- * The msecs to tranlate
- * \return QString the converted QString
- */
-QString AddWordView::makeTextProgress(int msecs)
-{
-	QString textprog = QString::number((int) msecs/10);
 	
-	textprog.insert(textprog.length()-2, ':');
-	return textprog;
-}
-
-/**
- * \brief Makes the progress information for the 1st sample reflect the current progress
- * 
- * Sets the label and the slider values to the given msecs
- * 
- * \author Peter Grasch
- * \param int msecs
- * The progress
- */
-void AddWordView::playSample1Status(int msecs)
-{
-	setPlayStatus(ui.hsRec1, ui.lbRec1, msecs);
-}
-
-/**
- * \brief Makes the progress information for the 2nd sample reflect the current progress
- * 
- * Sets the label and the slider values to the given msecs
- * 
- * \author Peter Grasch
- * \param int msecs
- * The progress
- */
-void AddWordView::playSample2Status(int msecs)
-{
-	setPlayStatus(ui.hsRec2, ui.lbRec2, msecs);
+	rec1->deleteSample();
+	rec2->deleteSample();
 }
 
 
-/**
- * \brief Starts the recording with the given Elements
- * 
- * \author Peter Grasch
- * 
- * \param QString filename
- * This is the filename to record to (e.g.: 1.wav)
- */
-void AddWordView::startRecording(QString filename)
-{
-	rec = new WavRecorder(this);
-	rec->record(filename, 2, 44100); // hardcoded stereo, 44100hz
-}
-
-/**
- * \brief This will stop the current recording
- * 
- * Tells the wavrecorder to simply stop the recording and save the result.
- * \author Peter Grasch
- */
-void AddWordView::stopRecording()
-{
-	if (!rec) return;
-	rec->finish();
-	disconnect(rec,0,0,0);
-	delete rec;
-	
-	disconnect (ui.pbRec1, SIGNAL(clicked()), this, SLOT(stopRecording1()));
-	disconnect (ui.pbRec2, SIGNAL(clicked()), this, SLOT(stopRecording2()));
-	connect(ui.pbRec1, SIGNAL(clicked()), this, SLOT(recSample1()));
-	connect(ui.pbRec2, SIGNAL(clicked()), this, SLOT(recSample2()));
-}
-
-/**
- * \brief This will stop the recording of sample 1
- * 
- * Calls the generic stopRecording function and disables the recording button
- * Enables the gui elements of the recording process of the second sample
- * 
- * \author Peter Grasch
- */
-void AddWordView::stopRecording1()
-{
-	stopRecording();
-	ui.pbPlay1->setEnabled(true);
-	ui.pbRec1->setEnabled(false);
-	ui.pbRec2->setEnabled(true);
-	ui.hsRec2->setEnabled(true);
-	ui.lbRec2->setEnabled(true);
-	ui.pbStartOver1->setEnabled(true);
-}
-
-/**
- * \brief Deletes the first sample
- * 
- * Reinitializes the controls to a length of 00:00 and deletes the temp. file 1.wav
- * \author Peter Grasch
- */
-void AddWordView::deleteSample1()
-{
-	ui.hsRec1->setMaximum(0);
-	ui.lbRec1->setText("00:00 / 00:00");
-	QFile f("1.wav");
-	f.remove();
-}
-
-/**
- * \brief Deletes the second sample
- * 
- * Reinitializes the controls to a length of 00:00 and deletes the temp. file 2.wav
- * \author Peter Grasch
- */
-void AddWordView::deleteSample2()
-{
-	ui.hsRec2->setMaximum(0);
-	ui.lbRec2->setText("00:00 / 00:00");
-	QFile f("2.wav");
-	f.remove();
-}
-
-
-/**
- * \brief This will stop the recording of sample 2
- * 
- * Calls the generic stopRecording function and disables the recording button
- * \author Peter Grasch
- */
-void AddWordView::stopRecording2()
-{
-	stopRecording();
-	ui.pbRec2->setEnabled(false);
-	ui.pbPlay2->setEnabled(true);
-	ui.pbStartOver2->setEnabled(true);
-}
-
-void AddWordView::recSample1()
-{
-	this->startRecording("1.wav");
-	
-	disconnect(ui.pbRec1, SIGNAL(clicked()), this, SLOT(recSample1()));
-	connect (ui.pbRec1, SIGNAL(clicked()), this, SLOT(stopRecording1()));
-	disconnect(rec,0,0,0);
-	connect(rec, SIGNAL(currentProgress(int)), this, SLOT(recSample1Status(int)));
-}
-void AddWordView::recSample2()
-{
-	this->startRecording("2.wav");
-	disconnect(ui.pbRec2, SIGNAL(clicked()), this, SLOT(recSample2()));
-	connect (ui.pbRec2, SIGNAL(clicked()), this, SLOT(stopRecording2()));
-	disconnect(rec,0,0,0);
-	connect(rec, SIGNAL(currentProgress(int)), this, SLOT(recSample2Status(int)));
-}
-
-/**
- * \brief Starts the playback of the given file
- * \author Peter Grasch
- * \param QString filename
- * The filename of the file to play
- */
-void AddWordView::startPlayback(QString filename)
-{
-	play = new WavPlayer(this);
-	play->play(filename);
-}
-
-/**
- * \brief Finishs the first playback
- * En-/Disables all the buttons, sets the slider and the progressbar and cleans up
- * \author Peter Grasch
- */
-void AddWordView::finishPlayback1()
-{
-	ui.pbPlay1->setChecked(false);
-	stopPlayback();
-	playSample1Status(ui.hsRec1->maximum()*100);
-}
-
-/**
- * \brief Finishs the second playback
- * En-/Disables all the buttons, sets the slider and the progressbar and cleans up
- * \author Peter Grasch
- */
-void AddWordView::finishPlayback2()
-{
-	ui.pbPlay2->setChecked(false);
-	stopPlayback();
-	playSample2Status(ui.hsRec2->maximum()*100);
-}
-
-/**
- * \brief Plays the first sample
- * \author Peter Grasch
- */
-void AddWordView::playSample1()
-{
-	//testing
-	startPlayback("1.wav");
-	connect(play, SIGNAL(currentProgress(int)),this,SLOT(playSample1Status(int)));
-	disconnect(ui.pbPlay1, SIGNAL(clicked()), this, SLOT(playSample1()));
-	connect(ui.pbPlay1, SIGNAL(clicked()), this, SLOT(stopPlayback()));
-	
-	connect(play, SIGNAL(finished()), this, SLOT(finishPlayback1()));
-	connect(play, SIGNAL(terminated()), this, SLOT(finishPlayback1()));
-	
-}
-
-/**
- * \brief Plays the second sample
- * \author Peter Grasch
- */
-void AddWordView::playSample2()
-{
-	startPlayback("2.wav");
-	connect(play, SIGNAL(currentProgress(int)),this,SLOT(playSample2Status(int)));
-	disconnect(ui.pbPlay2, SIGNAL(clicked()), this, SLOT(playSample2()));
-	connect(ui.pbPlay2, SIGNAL(clicked()), this, SLOT(stopPlayback()));
-	
-	connect(play, SIGNAL(finished()), this, SLOT(finishPlayback2()));
-	connect(play, SIGNAL(terminated()), this, SLOT(finishPlayback2()));
-}
-
-/**
- * \brief Stops the current playback by terminating the playing thread
- * \author Peter Grasch
- */
-void AddWordView::stopPlayback()
-{
-	if (!play) return;
-	play->stop();
-	
-	disconnect(play,0,0,0);
-	
-	disconnect(ui.pbPlay1, SIGNAL(clicked()), this, SLOT(stopPlayback()));
-	connect(ui.pbPlay1, SIGNAL(clicked()), this, SLOT(playSample1()));
-	disconnect(ui.pbPlay2, SIGNAL(clicked()), this, SLOT(stopPlayback()));
-	connect(ui.pbPlay2, SIGNAL(clicked()), this, SLOT(playSample2()));
-	
-	delete play;
-}
-
-
-/**
- * @brief Sends the wizard to the previous step
- *
- * This function sends the wizard to the previous step.
- * There are three steps in this wizard.
- * 	* Spell the word
- * 	* Record two samples of the word
- * 	* Completion
- *
- * If there is no previous step it rejects the wizard
- *
- *	@author Peter Grasch
- * @see nextStep()
-*/
-void AddWordView::prevStep()
-{
-	if (ui.swMain->currentIndex() - 1 >= 0)
-		ui.swMain->setCurrentIndex( ui.swMain->currentIndex()-1 );
-	else reject();
-}
-
-/**
- * @brief Destructor
- *
- *	@author Peter Grasch
-*/
 AddWordView::~AddWordView()
 {
-
+	delete rec1;
+	delete rec2;
 }
-

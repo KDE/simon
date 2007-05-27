@@ -1,37 +1,60 @@
-//
-// C++ Implementation: wavrecorder
-//
-// Description: 
-//
-//
-// Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
 #include "wavrecorder.h"
 
 /**
  * \brief Constructor
  */
-WavRecorder::WavRecorder(QWidget *parent) : QThread(parent)
+WavRecorder::WavRecorder(QWidget *parent)
 {
-	this->mic = new SoundControl();
 	
 }
 
-void WavRecorder::record(QString filename, short channels, int sampleRate)
+/**
+ * \brief Records a WAV file to the given filename
+ * \author Peter Grasch
+ * \param QString filename
+ * Filename to write to
+ * \param short channels
+ * Channels
+ * \param int sampleRate
+ * The samplerate of the file
+ */
+bool WavRecorder::record(QString filename, short channels, int sampleRate)
 {
-	this->wavData = new WAV(filename, sampleRate);
-	if (!mic->initializeMic(channels, sampleRate)) return;
+	wavData = new WAV(filename, sampleRate);
 	
 	progress=0;
 	progressTimer = new QTimer();
 	connect(progressTimer, SIGNAL(timeout()), this, SLOT(increaseProgress()));
 	progressTimer->start(100);
 	
-	killMe=false;
-	start();
+	int fs=44100, buffer_size=512, device = 0;
+	chans=2;
+	long frames, counter = 0;
+	signed short *buffer;
+	audio = 0;
+
+	try {
+		audio = new RtAudio(0, 0, device, chans,
+				    RTAUDIO_SINT16, fs, &buffer_size, 8);
+	}
+	catch (RtError &error) {
+		error.printMessage();
+		exit(EXIT_FAILURE);
+	}
+
+	try {
+		buffer = (signed short *) audio->getStreamBuffer();
+		audio->startStream();
+	}
+	catch (RtError &error) {
+		error.printMessage();
+		audio->closeStream();
+		delete audio;
+		return false;
+	}
+	
+	audio->setStreamCallback(&processWrapper, (void*) this);
+	audio->startStream();
 }
 
 /**
@@ -40,24 +63,22 @@ void WavRecorder::record(QString filename, short channels, int sampleRate)
  * Tells the wavrecorder to simply stop the recording and save the result.
  * \author Peter Grasch
  */
-void WavRecorder::finish()
+bool WavRecorder::finish()
 {
-	killMe = true;
-	wait(1000);
-	wavData->writeFile();
-	mic->close();
+	try {
+		audio->stopStream();
+		audio->closeStream();
+	}
+	catch (RtError &error) {
+		error.printMessage();
+	}
+	delete audio;
+	
 	progressTimer->stop();
-}
-
-/**
- * \brief Starts the thread
- * 
- * \author Peter Grasch
- * \see exec()
- */
-void WavRecorder::run()
-{
-	exec();
+	if (! wavData->writeFile()) return false;
+	
+	delete wavData;
+	return true;
 }
 
 /**
@@ -73,22 +94,23 @@ void WavRecorder::increaseProgress()
 	emit currentProgress(progress);
 }
 
-
 /**
- * \brief Main execution loop
- * 
- * \author Peter Grasch
+ * \brief Callback function that sends the gathered data to the WAV class
+ * @param buffer
+ * The buffer to process
+ * @param bufferSize 
+ * Buffersize
+ * @param rec
+ * The object who gathered the data - this is used to get the WAV object and the channels 
+ * @return int
+ * always 0
  */
-void WavRecorder::exec()
+int WavRecorder::processWrapper(char* buffer, int bufferSize, void *rec)
 {
-	if (!mic || !wavData) return;
-	int msecs=0; //current timecode
-	while (!killMe)
-	{
-		unsigned long length=0;
-		char* data = mic->capture( 100, length );
-		wavData->addData( data, length );
-	}
+	WAV *wavFile = ((WavRecorder*) rec)->getWav();
+	wavFile->addData((char*) buffer, sizeof(signed short)*
+			((bufferSize*((WavRecorder*) rec)->getChannels())));
+	return 0;
 }
 
 
@@ -97,8 +119,6 @@ void WavRecorder::exec()
  */
 WavRecorder::~WavRecorder()
 {
-	delete mic;
-	delete wavData;
 }
 
 

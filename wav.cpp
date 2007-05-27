@@ -137,7 +137,7 @@ bool WAV::writeFile(QString filename)
 	if (filename.isEmpty()) filename = this->filename;
 	
 	QFile wavFile(filename);
-	wavFile.open(QIODevice::WriteOnly);
+	if (!(wavFile.open(QIODevice::WriteOnly))) return false;
 	QDataStream *dstream = new QDataStream(&wavFile);
 	
 	dstream->setByteOrder( QDataStream::LittleEndian );
@@ -237,18 +237,21 @@ void WAV::writeFormat(QDataStream *dstream)
  */
 void WAV::addData(char* data, int length)
 {
-	
 	//saving the wavedata temp.
 	char* tmp = (char*) malloc (this->length);
 	for (int i = 0; i < this->length; i++)
 		tmp[i] = waveData[i];
 	
 	//reallocate the member and extends its size of the size of the data to add
+	if (this->length > 0)
+		delete waveData;
 	waveData = (char*) malloc(this->length + length);
 	
 	//copy back the original data
 	for (int i = 0; i < this->length; i++)
 		waveData[i] = tmp[i];
+	
+	delete tmp;
 	
 	//add the new data
 	for (int i = 0; i < length; i++)

@@ -14,11 +14,16 @@
 /**
  * \brief Constructor
  * \author Peter Grasch
+ * \todo Fix the hardcoded stereo
  */
-WavPlayer::WavPlayer(QWidget *parent) : QThread(parent)
+WavPlayer::WavPlayer(QWidget *parent) : QObject(parent)
 {
-	this->sound = new SoundControl();
-	progress = 0;
+// 	this->sound = new SoundControl();
+	progressTimer = new QTimer();
+	connect(progressTimer, SIGNAL(timeout()), this, SLOT(increaseProgress()));
+	audio = new RtAudio();
+	position=0;
+	chans=2;
 }
 
 
@@ -28,36 +33,61 @@ WavPlayer::WavPlayer(QWidget *parent) : QThread(parent)
  */
 bool WavPlayer::play( QString filename )
 {
+	progress = 0;
+	position=0;
+	
+	int device=0, bufferSize=512, nBuffers=4;
 	WAV *file = new WAV(filename); 
 	
 	this->data = file->getRawData(this->length);
 	if (length==0) return false;
 	
-	if (!sound->initializeSpeaker(2,44100))
+	
+// 	std::cout << "check1" << std::endl;
+	try {
+		audio = new RtAudio(2, chans, 0, 0, RTAUDIO_SINT16,
+				    file->getSampleRate(), &bufferSize, nBuffers);
+	}
+	catch (RtError &error) {
+		error.printMessage();
 		return false;
-	
-	progressTimer = new QTimer();
-	connect(progressTimer, SIGNAL(timeout()), this, SLOT(increaseProgress()));
+	}
+// 	std::cout << "check2" << std::endl;
+
+	try {
+		audio->setStreamCallback(&processWrapper, (void*) this);
+		audio->startStream();
+	}
+	catch (RtError &error) {
+		error.printMessage();
+		delete audio;
+	}
 	progressTimer->start(100);
-	connect (this, SIGNAL(finished()), this, SLOT(stop())); //to disable the progressTimer
-	
-	start(); //start the thread
-	setPriority(QThread::LowestPriority);
-	
-	return true;
+// 	std::cout << "check3" << std::endl;
+
+// 	stop();
 }
 
 
-/**
- * \brief Starts the thread
- * 
- * \author Peter Grasch
- */
-void WavPlayer::run()
+int WavPlayer::processWrapper(char* buffer, int bufferSize, void *play)
 {
-	exec();
+	char* data = ((WavPlayer*) play)->getData();
+	
+	long position = ((WavPlayer*) play)->getPosition();
+	int channels = ((WavPlayer*) play)->getChannels();
+	long realBufferLength = bufferSize*channels*sizeof(signed short);
+	
+	if (((WavPlayer*) play)->getLength() <= 
+		     position+realBufferLength)
+	{
+		((WavPlayer*) play)->stop();
+		return 1;
+	}
+	
+	buffer =(char*)  memcpy(buffer, data+position, realBufferLength);
+	((WavPlayer*) play)->setPosition(position+realBufferLength);
+	return 0;
 }
-
 
 /**
  * \brief Increases the progress by 100 msecs
@@ -68,21 +98,8 @@ void WavPlayer::run()
  */
 void WavPlayer::increaseProgress()
 {
-	progress+=104;
+	progress+=100;
 	emit currentProgress(progress);
-}
-
-
-/**
- * \brief Main execution loop
- * 
- * \author Peter Grasch
- */
-void WavPlayer::exec()
-{
-	if (!sound || !data) return;
-	
-	sound->playback ( data, length );
 }
 
 /**
@@ -93,9 +110,19 @@ void WavPlayer::exec()
 void WavPlayer::stop()
 {
 	//this function is also called when the thread is finished to stop the timer
-
-	sound->close();
+	try {
+    		// Stop and close the stream
+		audio->stopStream();
+		audio->closeStream();
+		delete audio;
+	}
+	catch (RtError &error) {
+		error.printMessage();
+	}
+	
 	progressTimer->stop();
+	delete data;
+	emit finished();
 }
 
 
@@ -106,9 +133,6 @@ void WavPlayer::stop()
  */
 WavPlayer::~WavPlayer()
 {
-	//delete sound;
-	delete progressTimer;
-	delete data;
 }
 
 

@@ -15,8 +15,12 @@
 #include <QThread>
 #include <QMessageBox>
 #include <QTimer>
-#include "soundcontrol.h"
+#include "simoninfo.h"
 #include "wav.h"
+#include "RtError.h"
+#include "RtAudio.h"
+#include <stdio.h>
+#include <iostream>
 
 /**
 	\class WavPlayer
@@ -27,24 +31,33 @@
 	\version 0.1
 	\todo Replace the dummy methods with implemented ones
 */
-class WavPlayer : public QThread {
+class WavPlayer : public QObject {
 	Q_OBJECT
 private:
-	SoundControl *sound;
 	QTimer *progressTimer;
 	char* data;
+	
 	int length;
+	int chans;
 	int progress;
+	long position;
+	RtAudio *audio;
+	
+	static int processWrapper(char *buffer, int bufferSize, void* play);
 signals:
 	void currentProgress(int);
+	void finished();
 public:
+	char* getData() { return this->data; }
+	int getChannels() { return chans; }
+	long getPosition() { return this->position; }
+	void setPosition(long position) { this->position = position; }
+	int getLength() { return this->length; }
     WavPlayer(QWidget *parent=0);
     bool play(QString filename);
-    void run();
     ~WavPlayer();
 public slots:
 	void increaseProgress();
-	void exec();
 	void stop();
 	
 

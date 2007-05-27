@@ -23,6 +23,7 @@
 #include "wordlistview.h"
 #include "trainingtext.h"
 #include "importtrainingtexts.h"
+#include "recwidget.h"
 #include "ui_trainmain.h"
 
 /**
@@ -41,30 +42,23 @@ private:
 	TrainingManager *trainMgr;
 	int currentPage; //!< when we train a text this will hold the page we are on
 	QList<int> *lengthList; //!< Stores the length of the pages in msecs
-	WavRecorder *rec;
-	WavPlayer *play;
+	
+	RecWidget *recorder;
+	
 	QString makeTextProgress(int msecs);
 public slots:
 	void switchToWordList();
 	void finish();
 	void importTexts();
 	void trainSelected();
-	void startPlayback(QString filename);
-	void startRecording(QString filename);
-	void stopRecording();
-	void stopPlayback();
-	void deleteSelected();
-	void setRecStatus(int msecs);
-	void setPlayStatus(int msecs);
+	
 	void nextPage();
 	void prevPage();
-	void playSample();
-	void deleteSample();
-	void recordPage();
-	void makeRecControlsReflectStatus();
 	void loadList();
 	void cancelReading();
 	void cancelTraining();
+	void resetRecorder();
+	void deleteSelected();
 	void fetchPage(int page);
 	void trainWords(WordList *words);
 	void startTraining();

@@ -162,11 +162,7 @@
     <dest>/home/bedahr/Projets/simon/trunk</dest>
   </substmap>
   <kdevcppsupport>
-    <references>
-      <pcs>alsa</pcs>
-      <pcs>boost</pcs>
-      <pcs>qt4</pcs>
-    </references>
+    <references/>
     <codecompletion>
       <includeGlobalFunctions>true</includeGlobalFunctions>
       <includeTypes>true</includeTypes>
@@ -193,6 +189,8 @@
       <usePermanentCaching>true</usePermanentCaching>
       <alwaysIncludeNamespaces>false</alwaysIncludeNamespaces>
       <includePaths>.;</includePaths>
+      <parseMissingHeadersExperimental>false</parseMissingHeadersExperimental>
+      <resolveIncludePathsUsingMakeExperimental>false</resolveIncludePathsUsingMakeExperimental>
     </codecompletion>
     <qt>
       <used>true</used>

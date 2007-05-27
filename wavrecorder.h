@@ -12,6 +12,7 @@
 #ifndef WAVRECORDER_H
 #define WAVRECORDER_H
 
+
 /**
 	\class WavRecorder
 	
@@ -19,35 +20,41 @@
 	
 	It uses a SoundControl to control the microphone, captures data (until its interrupted)
 	Then it writes the data into a specified wav-file.
-	All this is done in a seperate thread;
+	It utilizes callback functions for optimal performance
 	
+	\date 27.05.2007
 	\todo Implementing; The class does not care much about buffering so we could easily run out of RAM;
 */
 
-#include <QThread>
+#include <QObject>
 #include <QTimer>
-#include "soundcontrol.h"
 #include "wav.h"
+#include "RtError.h"
+#include "RtAudio.h"
+#include <stdio.h>
 
-class WavRecorder : public QThread {
+class WavRecorder : public QObject {
 	Q_OBJECT
 private:
 	WAV *wavData;
 	QTimer *progressTimer;
 	int progress;
-	bool killMe;
-	SoundControl *mic;
+	RtAudio *audio;
+	int chans;
+	
+	static int processWrapper(char *buffer, int bufferSize, void* rec);
+
 signals:
 	void currentProgress(int msecs);
 public slots:
 	void increaseProgress();
 	
 public:
+	WAV* getWav() { return wavData; }
+	int getChannels() { return chans; }
 	WavRecorder(QWidget *parent=0);
-	void run();
-	void exec();
-	void finish();
-    	void record(QString filename, short channels, int sampleRate);
+	bool finish();
+    	bool record(QString filename, short channels, int sampleRate);
     
 
     ~WavRecorder();

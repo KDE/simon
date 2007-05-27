@@ -5,520 +5,394 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>632</width>
-    <height>482</height>
+    <width>643</width>
+    <height>489</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Training</string>
   </property>
-  <widget class="QStackedWidget" name="swAction" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>10</y>
-     <width>621</width>
-     <height>461</height>
-    </rect>
-   </property>
-   <property name="currentIndex" >
-    <number>0</number>
-   </property>
-   <widget class="QWidget" name="page" >
-    <widget class="QWidget" name="verticalLayout" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>350</y>
-       <width>611</width>
-       <height>108</height>
-      </rect>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QStackedWidget" name="swAction" >
+     <property name="currentIndex" >
+      <number>1</number>
      </property>
-     <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>0</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <item>
-       <widget class="QPushButton" name="pbTrainText" >
-        <property name="toolTip" >
-         <string>Startet das Training des selektierten Textes.</string>
-        </property>
-        <property name="layoutDirection" >
-         <enum>Qt::RightToLeft</enum>
-        </property>
-        <property name="text" >
-         <string>                    (Markierten Text &amp;vorlesen (trainieren</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
-        </property>
-        <property name="iconSize" >
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QGridLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item row="1" column="1" >
-         <widget class="QPushButton" name="pbWordList" >
-          <property name="toolTip" >
-           <string>Schließt den Dialog und öffnet die Wordliste - Dort kann ein individuelles Trainingsprogramm erstellt werden</string>
-          </property>
-          <property name="text" >
-           <string>  Wechsle zur &amp;Wortliste</string>
-          </property>
-          <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" >
-         <widget class="QPushButton" name="pbBack" >
-          <property name="toolTip" >
-           <string>Schließt den Dialog</string>
-          </property>
-          <property name="text" >
-           <string>  &amp;Zurück</string>
-          </property>
-          <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" >
-         <widget class="QPushButton" name="pbImportText" >
-          <property name="toolTip" >
-           <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
-          </property>
-          <property name="text" >
-           <string>  Text(e) &amp;importieren</string>
-          </property>
-          <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/document-open.svg</iconset>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" >
-         <widget class="QPushButton" name="pbDelText" >
-          <property name="toolTip" >
-           <string>Löschen des markierten Textes aus dem System</string>
-          </property>
-          <property name="text" >
-           <string>  Markierten Text &amp;löschen</string>
-          </property>
-          <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QTableWidget" name="twTrainingWords" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>0</y>
-       <width>611</width>
-       <height>341</height>
-      </rect>
-     </property>
-     <property name="selectionMode" >
-      <enum>QAbstractItemView::SingleSelection</enum>
-     </property>
-     <property name="selectionBehavior" >
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-     <column>
-      <property name="text" >
-       <string>Name</string>
-      </property>
-     </column>
-     <column>
-      <property name="text" >
-       <string>Seiten</string>
-      </property>
-     </column>
-     <column>
-      <property name="text" >
-       <string>Relevanz</string>
-      </property>
-     </column>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="page_3" >
-    <widget class="QWidget" name="verticalLayout_2" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>390</y>
-       <width>611</width>
-       <height>72</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>0</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <item>
-       <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="pbPrevPage" >
-          <property name="toolTip" >
-           <string>Startet das Training des selektierten Textes.</string>
-          </property>
-          <property name="layoutDirection" >
-           <enum>Qt::LeftToRight</enum>
-          </property>
-          <property name="text" >
-           <string>&amp;Vorige Seite</string>
-          </property>
-          <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
-          </property>
-          <property name="iconSize" >
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pbNextPage" >
-          <property name="toolTip" >
-           <string>Startet das Training des selektierten Textes.</string>
-          </property>
-          <property name="layoutDirection" >
-           <enum>Qt::RightToLeft</enum>
-          </property>
-          <property name="text" >
-           <string>&amp;Nächste Seite</string>
-          </property>
-          <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
-          </property>
-          <property name="iconSize" >
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="pbBackToMain" >
-          <property name="toolTip" >
-           <string>Schließt den Dialog</string>
-          </property>
-          <property name="text" >
-           <string>&amp;Abbrechen</string>
-          </property>
-          <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QProgressBar" name="pbPages" >
-          <property name="value" >
-           <number>0</number>
-          </property>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pbFinish" >
-          <property name="layoutDirection" >
-           <enum>Qt::RightToLeft</enum>
-          </property>
-          <property name="text" >
-           <string>&amp;Fertigstellen</string>
-          </property>
-          <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/document-save.svg</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QGroupBox" name="gbPage" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>0</y>
-       <width>611</width>
-       <height>381</height>
-      </rect>
-     </property>
-     <property name="title" >
-      <string>Seite: </string>
-     </property>
-     <widget class="QWidget" name="gridLayout_2" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>170</y>
-        <width>591</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" >
-       <property name="margin" >
-        <number>0</number>
-       </property>
-       <property name="spacing" >
-        <number>6</number>
-       </property>
-       <item row="0" column="0" >
-        <layout class="QHBoxLayout" >
-         <property name="margin" >
-          <number>0</number>
+     <widget class="QWidget" name="page" >
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QTableWidget" name="twTrainingWords" >
+         <property name="selectionMode" >
+          <enum>QAbstractItemView::SingleSelection</enum>
          </property>
+         <property name="selectionBehavior" >
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <column>
+          <property name="text" >
+           <string>Name</string>
+          </property>
+         </column>
+         <column>
+          <property name="text" >
+           <string>Seiten</string>
+          </property>
+         </column>
+         <column>
+          <property name="text" >
+           <string>Relevanz</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" >
          <property name="spacing" >
           <number>6</number>
          </property>
+         <property name="leftMargin" >
+          <number>0</number>
+         </property>
+         <property name="topMargin" >
+          <number>0</number>
+         </property>
+         <property name="rightMargin" >
+          <number>0</number>
+         </property>
+         <property name="bottomMargin" >
+          <number>0</number>
+         </property>
          <item>
-          <widget class="QPushButton" name="pbRec" >
+          <widget class="QPushButton" name="pbTrainText" >
            <property name="toolTip" >
-            <string>Startet die Aufnahme</string>
+            <string>Startet das Training des selektierten Textes.</string>
+           </property>
+           <property name="layoutDirection" >
+            <enum>Qt::RightToLeft</enum>
            </property>
            <property name="text" >
-            <string>Aufnehmen</string>
+            <string>                    (Markierten Text &amp;vorlesen (trainieren</string>
            </property>
            <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/media-record.svg</iconset>
+            <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
            </property>
-           <property name="checkable" >
-            <bool>true</bool>
+           <property name="iconSize" >
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pbPlay" >
-           <property name="enabled" >
-            <bool>false</bool>
+          <layout class="QGridLayout" >
+           <property name="leftMargin" >
+            <number>0</number>
            </property>
-           <property name="toolTip" >
-            <string>Gibt die Aufnahme wieder (zur Kontrolle)</string>
+           <property name="topMargin" >
+            <number>0</number>
            </property>
-           <property name="text" >
-            <string>Abspielen</string>
+           <property name="rightMargin" >
+            <number>0</number>
            </property>
-           <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
+           <property name="bottomMargin" >
+            <number>0</number>
            </property>
-           <property name="checkable" >
-            <bool>true</bool>
+           <property name="horizontalSpacing" >
+            <number>6</number>
            </property>
-          </widget>
+           <property name="verticalSpacing" >
+            <number>6</number>
+           </property>
+           <item row="1" column="1" >
+            <widget class="QPushButton" name="pbWordList" >
+             <property name="toolTip" >
+              <string>Schließt den Dialog und öffnet die Wordliste - Dort kann ein individuelles Trainingsprogramm erstellt werden</string>
+             </property>
+             <property name="text" >
+              <string>  Wechsle zur &amp;Wortliste</string>
+             </property>
+             <property name="icon" >
+              <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" >
+            <widget class="QPushButton" name="pbBack" >
+             <property name="toolTip" >
+              <string>Schließt den Dialog</string>
+             </property>
+             <property name="text" >
+              <string>  &amp;Zurück</string>
+             </property>
+             <property name="icon" >
+              <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" >
+            <widget class="QPushButton" name="pbImportText" >
+             <property name="toolTip" >
+              <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
+             </property>
+             <property name="text" >
+              <string>  Text(e) &amp;importieren</string>
+             </property>
+             <property name="icon" >
+              <iconset resource="../simon.qrc" >:/images/icons/document-open.svg</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" >
+            <widget class="QPushButton" name="pbDelText" >
+             <property name="toolTip" >
+              <string>Löschen des markierten Textes aus dem System</string>
+             </property>
+             <property name="text" >
+              <string>  Markierten Text &amp;löschen</string>
+             </property>
+             <property name="icon" >
+              <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
-       <item row="1" column="0" >
-        <widget class="QSlider" name="hsRec" >
-         <property name="toolTip" >
-          <string>Aktuelle position der Wiedergabe</string>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_3" >
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QGroupBox" name="gbPage" >
+         <property name="title" >
+          <string>Seite: </string>
          </property>
-         <property name="maximum" >
-          <number>0</number>
-         </property>
-         <property name="value" >
-          <number>0</number>
-         </property>
-         <property name="sliderPosition" >
-          <number>0</number>
-         </property>
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QFrame" name="frame" >
+            <property name="minimumSize" >
+             <size>
+              <width>16</width>
+              <height>92</height>
+             </size>
+            </property>
+            <property name="frameShape" >
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow" >
+             <enum>QFrame::Raised</enum>
+            </property>
+            <widget class="QLabel" name="lbPage" >
+             <property name="geometry" >
+              <rect>
+               <x>10</x>
+               <y>10</y>
+               <width>571</width>
+               <height>111</height>
+              </rect>
+             </property>
+             <property name="text" >
+              <string/>
+             </property>
+             <property name="wordWrap" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" native="1" name="wRecTexts" >
+            <property name="minimumSize" >
+             <size>
+              <width>345</width>
+              <height>110</height>
+             </size>
+            </property>
+            <layout class="QHBoxLayout" />
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="pgRecogniced" >
+            <property name="title" >
+             <string>Erkannter Text</string>
+            </property>
+            <layout class="QHBoxLayout" >
+             <item>
+              <widget class="QTextEdit" name="teRecognitionInfo" >
+               <property name="readOnly" >
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lbRecognitionInfo" >
+               <property name="text" >
+                <string>Hinweis: Die Erkennung die hierfür verwendet ist, profitiert noch nicht vom gerade laufenden Training.</string>
+               </property>
+               <property name="wordWrap" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
-       <item row="0" column="1" >
-        <widget class="QPushButton" name="pbStartOver" >
-         <property name="enabled" >
-          <bool>false</bool>
+       <item>
+        <layout class="QVBoxLayout" >
+         <property name="spacing" >
+          <number>6</number>
          </property>
-         <property name="toolTip" >
-          <string>Löscht die Aufnahme</string>
+         <property name="leftMargin" >
+          <number>0</number>
          </property>
-         <property name="text" >
-          <string>Löschen</string>
+         <property name="topMargin" >
+          <number>0</number>
          </property>
-         <property name="icon" >
-          <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+         <property name="rightMargin" >
+          <number>0</number>
          </property>
-        </widget>
-       </item>
-       <item row="1" column="1" >
-        <widget class="QLabel" name="lbRec" >
-         <property name="layoutDirection" >
-          <enum>Qt::LeftToRight</enum>
+         <property name="bottomMargin" >
+          <number>0</number>
          </property>
-         <property name="text" >
-          <string>0:00 / 0:00</string>
-         </property>
-         <property name="alignment" >
-          <set>Qt::AlignAbsolute|Qt::AlignBottom|Qt::AlignCenter|Qt::AlignHCenter|Qt::AlignHorizontal_Mask|Qt::AlignJustify|Qt::AlignLeading|Qt::AlignLeft|Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing|Qt::AlignVCenter|Qt::AlignVertical_Mask</set>
-         </property>
-        </widget>
+         <item>
+          <layout class="QHBoxLayout" >
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <property name="leftMargin" >
+            <number>0</number>
+           </property>
+           <property name="topMargin" >
+            <number>0</number>
+           </property>
+           <property name="rightMargin" >
+            <number>0</number>
+           </property>
+           <property name="bottomMargin" >
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="pbPrevPage" >
+             <property name="toolTip" >
+              <string>Startet das Training des selektierten Textes.</string>
+             </property>
+             <property name="layoutDirection" >
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="text" >
+              <string>&amp;Vorige Seite</string>
+             </property>
+             <property name="icon" >
+              <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+             </property>
+             <property name="iconSize" >
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pbNextPage" >
+             <property name="toolTip" >
+              <string>Startet das Training des selektierten Textes.</string>
+             </property>
+             <property name="layoutDirection" >
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text" >
+              <string>&amp;Nächste Seite</string>
+             </property>
+             <property name="icon" >
+              <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+             </property>
+             <property name="iconSize" >
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" >
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <property name="leftMargin" >
+            <number>0</number>
+           </property>
+           <property name="topMargin" >
+            <number>0</number>
+           </property>
+           <property name="rightMargin" >
+            <number>0</number>
+           </property>
+           <property name="bottomMargin" >
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="pbBackToMain" >
+             <property name="toolTip" >
+              <string>Schließt den Dialog</string>
+             </property>
+             <property name="text" >
+              <string>&amp;Abbrechen</string>
+             </property>
+             <property name="icon" >
+              <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QProgressBar" name="pbPages" >
+             <property name="value" >
+              <number>0</number>
+             </property>
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pbFinish" >
+             <property name="layoutDirection" >
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text" >
+              <string>&amp;Fertigstellen</string>
+             </property>
+             <property name="icon" >
+              <iconset resource="../simon.qrc" >:/images/icons/document-save.svg</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
-     <widget class="QFrame" name="frame" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>591</width>
-        <height>131</height>
-       </rect>
-      </property>
-      <property name="frameShape" >
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow" >
-       <enum>QFrame::Raised</enum>
-      </property>
-      <widget class="QLabel" name="lbPage" >
-       <property name="geometry" >
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>571</width>
-         <height>111</height>
-        </rect>
-       </property>
-       <property name="text" >
-        <string/>
-       </property>
-       <property name="wordWrap" >
-        <bool>true</bool>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="pgRecogniced" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>250</y>
-        <width>591</width>
-        <height>121</height>
-       </rect>
-      </property>
-      <property name="title" >
-       <string>Erkannter Text</string>
-      </property>
-      <widget class="QLabel" name="lbRecognitionInfo" >
-       <property name="geometry" >
-        <rect>
-         <x>380</x>
-         <y>20</y>
-         <width>201</width>
-         <height>91</height>
-        </rect>
-       </property>
-       <property name="text" >
-        <string>Hinweis: Die Erkennung die hierfür verwendet ist, profitiert noch nicht vom gerade laufenden Training.</string>
-       </property>
-       <property name="wordWrap" >
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QTextEdit" name="teRecognitionInfo" >
-       <property name="geometry" >
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>361</width>
-         <height>91</height>
-        </rect>
-       </property>
-       <property name="readOnly" >
-        <bool>false</bool>
-       </property>
-      </widget>
-     </widget>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="page_2" >
-    <widget class="QGroupBox" name="gbCurrentlyTraining" >
-     <property name="geometry" >
-      <rect>
-       <x>50</x>
-       <y>40</y>
-       <width>541</width>
-       <height>361</height>
-      </rect>
-     </property>
-     <property name="title" >
-      <string>Trainiere Sprachmodell</string>
-     </property>
-     <widget class="QLabel" name="lbCurrentStatus" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>280</y>
-        <width>521</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="font" >
-       <font>
-        <italic>true</italic>
-       </font>
-      </property>
-      <property name="text" >
-       <string>Verarbeite Grammatik...</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbProgressInfo" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>30</y>
-        <width>521</width>
-        <height>191</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+     <widget class="QWidget" name="page_2" >
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QGroupBox" name="gbCurrentlyTraining" >
+         <property name="title" >
+          <string>Trainiere Sprachmodell</string>
+         </property>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QLabel" name="lbProgressInfo" >
+            <property name="text" >
+             <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
 &lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Das Sprachmodell wird mit den von ihnen bereitgestellten Daten jetzt trainiert.&lt;/p>
@@ -527,49 +401,85 @@ p, li { white-space: pre-wrap; }
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Das Modell wird nun neu erstellt. Dies kann, je nach Menge und Qualität der Trainingsdaten und Ihrer Rechenleistung, einige Zeit in Anspruch nehmen.&lt;/p>
 &lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bitte beachten Sie, dass wenn Sie diesen Vorgang jetzt abbrechen, die bisher in dieser Trainingseinheit gesammelten Daten die Erkennungsrate &lt;span style=" font-style:italic;">nicht&lt;/span> weiter verbessern.&lt;/p>&lt;/body>&lt;/html></string>
-      </property>
-      <property name="wordWrap" >
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QProgressBar" name="pbCompileModel" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>250</y>
-        <width>521</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="value" >
-       <number>24</number>
-      </property>
-      <property name="orientation" >
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pbCancelTraining" >
-      <property name="geometry" >
-       <rect>
-        <x>210</x>
-        <y>320</y>
-        <width>131</width>
-        <height>29</height>
-       </rect>
-      </property>
-      <property name="toolTip" >
-       <string>Schließt den Dialog</string>
-      </property>
-      <property name="text" >
-       <string>&amp;Abbrechen</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
-      </property>
+            </property>
+            <property name="wordWrap" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QProgressBar" name="pbCompileModel" >
+            <property name="value" >
+             <number>24</number>
+            </property>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbCurrentStatus" >
+            <property name="font" >
+             <font>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="text" >
+             <string>Verarbeite Grammatik...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" >
+            <item>
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pbCancelTraining" >
+              <property name="toolTip" >
+               <string>Schließt den Dialog</string>
+              </property>
+              <property name="text" >
+               <string>&amp;Abbrechen</string>
+              </property>
+              <property name="icon" >
+               <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
-   </widget>
-  </widget>
+   </item>
+  </layout>
  </widget>
  <resources>
   <include location="../simon.qrc" />
@@ -588,134 +498,6 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel" >
      <x>843</x>
      <y>486</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbRec</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>pbPlay</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>207</x>
-     <y>208</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>405</x>
-     <y>204</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbRec</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>pbStartOver</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>138</x>
-     <y>211</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>570</x>
-     <y>211</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbStartOver</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>pbPlay</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>542</x>
-     <y>193</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>437</x>
-     <y>193</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbStartOver</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>pbRec</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>554</x>
-     <y>208</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>144</x>
-     <y>203</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbStartOver</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>pbStartOver</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>568</x>
-     <y>197</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>568</x>
-     <y>197</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbPlay</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>pbStartOver</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>377</x>
-     <y>185</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>568</x>
-     <y>197</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbRec</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>pbRec</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>114</x>
-     <y>198</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>118</x>
-     <y>203</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbRec</sender>
-   <signal>clicked()</signal>
-   <receiver>teRecognitionInfo</receiver>
-   <slot>setFocus()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>140</x>
-     <y>193</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>164</x>
-     <y>329</y>
     </hint>
    </hints>
   </connection>

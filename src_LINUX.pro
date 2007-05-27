@@ -3,6 +3,7 @@
 # Subdir relative project main directory: .
 # Target is an application:  ./bin/simon
 
+
 FORMS += ui/main.ui \
          ui/wordlist.ui \
          ui/rundialog.ui \
@@ -18,16 +19,15 @@ HEADERS += simonview.h \
            trainingview.h \
            juliuscontrol.h \
            wordlistmanager.h \
-           alsabackend.h \
            command.h \
-           directsoundbackend.h \
            modelmanager.h \
            runcommand.h \
            trainingmanager.h \
            trainingtext.h \
-           soundbackend.h  \
            word.h \
            trayiconmanager.h \
+	   RtAudio.h \
+	   RtError.h \
            osd.h \
            dragtablewidget.h \
            droplistwidget.h \
@@ -55,9 +55,11 @@ HEADERS += simonview.h \
            dict.h \
            xmldomreader.h \
            xmlsaxreader.h \
-           importtrainingtexts.h
+           importtrainingtexts.h \
+ recwidget.h
 SOURCES += main.cpp \
            simonview.cpp \
+	   RtAudio.cpp \
            addwordview.cpp \
            simoncontrol.cpp \
            simoninfo.cpp \
@@ -65,8 +67,6 @@ SOURCES += main.cpp \
            trainingview.cpp \
            juliuscontrol.cpp \
            wordlistmanager.cpp \
-           alsabackend.cpp \
-           directsoundbackend.cpp \
            modelmanager.cpp \
            runcommand.cpp \
            trainingmanager.cpp \
@@ -96,7 +96,8 @@ SOURCES += main.cpp \
            dict.cpp \
            xmldomreader.cpp \
            xmlsaxreader.cpp \
-           importtrainingtexts.cpp
+           importtrainingtexts.cpp \
+ recwidget.cpp
 QT += network \
 xml
 TARGET = ./bin/simon
@@ -104,7 +105,11 @@ TEMPLATE = app
 
 CONFIG += qt \
 warn_on \
+x11 \
 thread
+
+DEFINES += __LINUX_ALSA__
+
 INCLUDEPATH += \
 /usr/include/alsa \
 /usr/X11R6/include 
@@ -112,7 +117,6 @@ LIBS += -L/usr/X11R6/lib \
 -L/usr/lib/alsa-lib \
 -lX11 \
 -lXtst \
--lasound
+-lasound \
+-lpthread
 RESOURCES += simon.qrc
-
-#/usr/X11R6/include \

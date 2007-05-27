@@ -1,6 +1,9 @@
 <commands>
 	<command name="Konqueror" type="0">
-		/home/bedahr
+		konqueror
+	</command>
+	<command name="Texteditor" type="0">
+		kwrite
 	</command>
 	<command name="Eigene Dateien" type="1">
 		/home/bedahr

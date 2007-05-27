@@ -21,12 +21,14 @@
  */
 SoundControl::SoundControl()
 {
-#ifdef linux
-	soundbackend = new ALSABackend();
-#endif
-#ifdef __WIN32
-	soundbackend= new DirectSoundBackend();
-#endif
+	in_audio= new RtAudio();
+	out_audio = new RtAudio();
+// 	try {
+// 		in_audio = new RtAudio();
+// 	}
+// 	catch (RtError &error) {
+// 		error.printMessage();
+// 	}
 }
 
 /**
@@ -41,11 +43,35 @@ SoundControl::SoundControl()
 
 bool SoundControl::playback (char* data, int count)
 {
-#ifdef linux
-	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
-	if (!(abackend)) return false;
-	abackend->writeData(data, count);
-#endif
+	int read=0;
+	//char* tmp = new char(255);
+	
+	while (read+out_buffersize < count) {
+		
+		memcpy((void*) this->out_data, 
+				     ((void*) (out_data+read)), 
+				      (size_t) out_buffersize);
+	
+		try {
+			out_audio->tickStream();
+		}
+		catch (RtError &error) {
+			error.printMessage();
+			this->closeSpeaker();
+		}
+ 		
+		read += out_buffersize;
+	}
+	try {
+		out_audio->stopStream();
+	}
+	catch (RtError &error) {
+		
+		SimonInfo::showMessage(error.getMessageString(), 6000);
+		error.printMessage();
+	}
+	
+	return true;
 }
 
 /**
@@ -65,39 +91,34 @@ bool SoundControl::playback (char* data, int count)
  */
 bool SoundControl::initializeMic(short channels, int samplerate)
 {
-#ifdef linux
-	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
-	if (!(abackend)) return false;
+	int device=0;
+	in_buffersize = 512;
+	in_samplerate = samplerate;
+	in_channels=channels;
+	try {
+		in_audio = new RtAudio(0, 0, device, channels,
+				    FORMAT, samplerate, &in_buffersize, 8);
+	}
+	catch (RtError &error) {
+		SimonInfo::showMessage(error.getMessageString(), 6000);
+		error.printMessage();
+		return false;
+	}
+
+
+	try {
+		in_data = (char *) in_audio->getStreamBuffer();
+		in_audio->startStream();
+	}
+	catch (RtError &error) {
+		SimonInfo::showMessage(error.getMessageString(), 6000);
+		error.printMessage();
+		in_audio->closeStream();
+		return false;
+	}
+
 	
-	if (!(abackend->openDevice("default", READ)))
-	{
-		SimonInfo::showMessage("Konnte Mikrofon nicht öffnen", 6000);
-		return false;
-	}
-	if (!(abackend->setInterleaved(true)))
-	{
-		SimonInfo::showMessage("Konnte Soundkarte nicht auf interleaved setzen", 6000);
-		return false;
-	}
-	if (!(abackend->setSampleRate(samplerate)))
-	{
-		SimonInfo::showMessage("Konnte Samplerate nicht setzen", 6000);
-		return false;
-	}
-	
-	if (!(abackend->setChannels(channels)))
-	{
-		SimonInfo::showMessage("Setzen der Kanäle fehlgeschlagen", 6000);
-		return false;
-	}
-	
-	if (!(abackend->prepareDevice()))
-	{
-		SimonInfo::showMessage("Konnte das Gerät nicht vorbereiten", 6000);
-		return false;
-	}
-	
-#endif //linux
+	return true;
 }
 
 
@@ -118,39 +139,32 @@ bool SoundControl::initializeMic(short channels, int samplerate)
  */
 bool SoundControl::initializeSpeaker(short channels, int samplerate)
 {
-#ifdef linux
-	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
-	if (!(abackend)) return false;
+	out_buffersize = 512;
+	int device = 0;
+	out_samplerate=samplerate;
+	in_channels=channels;
 	
-	if (!(abackend->openDevice("default", WRITE)))
-	{
-		SimonInfo::showMessage("Konnte Lautsprecher nicht öffnen", 6000);
+	try {
+		out_audio = new RtAudio(device, channels, 0, 0,
+				    FORMAT, samplerate, &out_buffersize, 2);
+	}
+	catch (RtError &error) {
+		SimonInfo::showMessage(error.getMessageString(), 6000);
+		error.printMessage();
 		return false;
 	}
-	if (!(abackend->setInterleaved(true)))
-	{
-		SimonInfo::showMessage("Konnte Soundkarte nicht auf interleaved setzen", 6000);
-		return false;
+
+	try {
+		out_data = (char *) out_audio->getStreamBuffer();
+		out_audio->startStream();
 	}
-	if (!(abackend->setSampleRate(samplerate)))
-	{
-		SimonInfo::showMessage("Konnte Samplerate nicht setzen", 6000);
-		return false;
-	}
-	
-	if (!(abackend->setChannels(channels)))
-	{
-		SimonInfo::showMessage("Setzen der Kanäle fehlgeschlagen", 6000);
-		return false;
-	}
-	
-	if (!(abackend->prepareDevice()))
-	{
-		SimonInfo::showMessage("Konnte das Gerät nicht vorbereiten", 6000);
+	catch (RtError &error) {
+		SimonInfo::showMessage(error.getMessageString(), 6000);
+		out_audio->closeStream();
 		return false;
 	}
 	
-#endif //linux
+	return true;
 }
 
 
@@ -170,55 +184,53 @@ bool SoundControl::initializeSpeaker(short channels, int samplerate)
  */
 char* SoundControl::capture (int msecs, long unsigned int& size)
 {
+	FILE *fd = fopen("test.raw","wb");
+	long counter=0;
+	long frames = (long) (((double)in_samplerate) * (((double) msecs)/((double)1000)));
+	size=frames;
+// 	std::cout << "Channels: " << in_channels << "; Samplerate: " << in_samplerate << "; Frames: " << frames << ";" << std::endl;
+	char* data = new char(frames*in_channels);
 	
-#ifdef linux
-	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
-	if (!(abackend)) return false;
-	
-	char * buffer;
-	buffer = abackend->readData(msecs,size);
-	
-	if (!(buffer))
-	{
-		SimonInfo::showMessage("Aufnehmen fehlgeschlagen", 6000);
-	}
-	
-	return buffer;
-#endif //linux
-}
+	while (counter < frames) {
 
-/**
- *	@brief Captures data from the device
- *	
- *	Records data from a prepared the device
- *	
- *	@author Peter Grasch
- *	@param int count
- *	How often should we read the buffersize?
- *	@param int buffersize
- *	How long should the buffer be?
- *	@param long unsigned int& size
- *	Reference parameter to return the actual number of frames read
- *	@return short*
- *	Array of the freq. data
- *	@see initializeMic()
- */
-short* SoundControl::capture (int count, int buffersize, long unsigned int& size)
-{
-	
-#ifdef linux
-	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
-	if (!(abackend)) return false;
-	
-	short * buffer;
-	buffer = abackend->readData(count,buffersize,size);
-	
-	if (!(buffer))
-	{
-		SimonInfo::showMessage("Aufnehmen fehlgeschlagen", 6000);
+		try {
+			in_audio->tickStream();
+		}
+		catch (RtError &error) {
+			error.printMessage();
+			in_audio->closeStream();
+			break;
+		}
+		
+		//saving the wavedata temp.
+		char* tmp = (char*) malloc (counter*in_channels);
+		for (int i = 0; i < counter*in_channels; i++)
+			tmp[i] = data[i];
+// 	
+// 		//reallocate the member and extends its size of the size of the data to add
+		data = (char*) malloc(counter*in_channels + in_buffersize*in_channels);
+// 	
+// 		//copy back the original data
+		for (int i = 0; i < counter*in_channels; i++)
+			data[i] = tmp[i];
+// 	
+// 		//add the new data
+		for (int i = 0; i < in_buffersize*in_channels; i++)
+			data[i+(counter*in_channels)] = in_data[i];
+		
+		fwrite(in_data, sizeof(char), in_channels * in_buffersize, fd);
+		counter += in_buffersize;
 	}
-	return buffer;
-#endif //linux
+	fclose(fd);
+
+	try {
+		in_audio->stopStream();
+	}
+	catch (RtError &error) {
+		error.printMessage();
+	}
+	size=counter*in_channels;
+	return data;
 }
 
 /**
@@ -230,18 +242,46 @@ short* SoundControl::capture (int count, int buffersize, long unsigned int& size
  *	@return bool
  *	Returns wether the mic was successfully closed
  */
-bool SoundControl::close()
+bool SoundControl::closeMic()
 {
-#ifdef linux
-	ALSABackend *abackend = dynamic_cast<ALSABackend*>(soundbackend);
-	if (!(abackend)) return false;
-	
-	if (!(abackend->closeDevice()))
-	{
-		SimonInfo::showMessage("Konnte Soundkarte nicht schließen", 6000);
-		return false;
+	if (in_audio) {
+		 
+		try {
+			in_audio->closeStream();
+		}
+		catch (RtError &error) {
+			error.printMessage();
+			return false;
+		}
 	}
-#endif //linux
+	
+	return true;
+}
+
+
+/**
+ *	@brief Closes the "speakers"
+ *	
+ *	Closes the handles and opens the lock
+ *	
+ *	@author Peter Grasch
+ *	@return bool
+ *	Returns wether the speakers were successfully closed
+ */
+bool SoundControl::closeSpeaker()
+{
+	if (out_audio) {
+		 
+		try {
+			out_audio->closeStream();
+		}
+		catch (RtError &error) {
+			error.printMessage();
+			return false;
+		}
+	}
+	
+	return true;
 }
 
 
@@ -297,5 +337,7 @@ SoundDeviceList *sdl= new SoundDeviceList();
 */
 SoundControl::~SoundControl()
 {
-	delete this->soundbackend;
+// 	delete this->soundbackend;
+// 	delete in_audio;
+// 	delete out_audio;
 }

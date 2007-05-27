@@ -66,9 +66,10 @@ void VuMeter::exec()
 	while (true)
 	{
 		unsigned long int length;
-		short *buffer = mic->capture(1,3,length);
-		if (buffer)
-			emit level((buffer[0]+buffer[1]+buffer[2]) / 3);
+		short *buffer = (short*) mic->capture(3,length);
+		if (length > 2)
+			if (buffer)
+				emit level((buffer[0]+buffer[1]+buffer[2]) / 3);
 		
 		msleep( 80 );
 	}
@@ -84,7 +85,7 @@ void VuMeter::exec()
  */
 VuMeter::~VuMeter()
 {
-	mic->close();
+	mic->closeMic();
 }
 
 
