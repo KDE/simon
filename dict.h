@@ -34,7 +34,7 @@
 */
 class Dict {
 protected:
-	QHash<int, QString> ipaToXsp;
+	QHash<int, QString> phonemes, modifiers;
 	QStringList words;
 	QStringList pronunciations;
 	QStringList terminals;

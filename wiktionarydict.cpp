@@ -112,14 +112,12 @@ bool WiktionaryDict::endElement(const QString &namespaceURI, const QString &loca
 		//return if not a german word
 		if (!text.mid(indexOfEndTerm+1).startsWith("Deutsch")) return true;
 		
-		
-		
 		int indexOfStartIPA = text.indexOf("IPA]]: {{Lautschrift|");
 		
 		int pluralstart = text.indexOf(QRegExp("(Plurarl|Pl\\.)"),
 					       indexOfStartIPA);
 		
-		QString ipasingle; //only the pronunciation of singular for now
+		QString ipasingle;
 		QString ipaplural;
 		if (pluralstart != -1)
 		{
@@ -129,7 +127,9 @@ bool WiktionaryDict::endElement(const QString &namespaceURI, const QString &loca
 		else ipasingle = text.mid(indexOfStartIPA);
 		
 		QStringList ipas = findIPAs(ipasingle);
-		insertWords(word.trimmed(), terminal.trimmed(), ipas);
+		
+		if (!cleanTitle(word).isEmpty())
+			insertWords(cleanTitle(word), terminal.trimmed(), ipas);
 		
 		
 		if (pluralstart != -1)
@@ -142,19 +142,39 @@ bool WiktionaryDict::endElement(const QString &namespaceURI, const QString &loca
 					text.indexOf(QRegExp("(\n|\\|)"), 
 					ptitlestart)-ptitlestart);
 			
-			pluraltitle.remove(QRegExp("&lt;.*&gt;"));
+// 			pluraltitle.remove(QRegExp("&lt;.*&gt;"));#
+			pluraltitle = cleanTitle(pluraltitle);
 			
 			QStringList ipap = findIPAs(ipaplural);
 			
 			//deal with ipa
-			if (!pluraltitle.trimmed().isEmpty() && 
+			if (!pluraltitle.isEmpty() && 
 					(pluraltitle.indexOf(QString("(Einzahl)")) == -1))
-				insertWords(pluraltitle.trimmed(), terminal.trimmed(), ipap);
+				insertWords(pluraltitle, terminal.trimmed(), ipap);
 		}
 		
 		emit progress(round(((double)pos/(double)maxpos)*1000));
 	}
 	return true;
+}
+
+
+/**
+ * \brief Cleans the title from unwanted spaces, html tags, etc.
+ * \author Peter Grasch
+ */
+QString WiktionaryDict::cleanTitle ( QString title )
+{
+	//strip <...>
+	while (title.indexOf("<") != -1)
+	{
+		title.remove(title.indexOf("<"), title.indexOf(">", title.indexOf("<")));
+	}
+	title.remove(QRegExp("-.*"));
+	title.remove("*");
+	title = title.mid(title.lastIndexOf(" "));
+	
+	return title.trimmed();
 }
 
 

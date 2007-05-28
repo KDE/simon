@@ -71,11 +71,8 @@ void WordListView::importDict()
 		WordList* list = importDictView->getList();
 		if (list)
 		{
-			qDebug() << "Sorting";
-			list = wordListManager->sortList(list);
-			qDebug() << "done";
-			insertVocab(list);
 			wordListManager->addWords(list);
+			insertVocab(wordListManager->sortList(wordListManager->getWordList()));
 		}
 	}
 }

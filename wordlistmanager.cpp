@@ -136,6 +136,31 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 }
 
 
+WordList* WordListManager::removeDoubles(WordList *in)
+{
+	if (!in) return NULL;
+	
+	for (int i=0; i < in->count(); i++)
+	{
+		for (int j=i; j < in->count(); j++)
+		{
+			if (in->at(i).getWord() == in->at(j).getWord())
+			{
+				for (int k=0; k < in->at(i).getPronunciations().count(); k++)
+				{
+					Word w = in->at(i);
+					w.delPronunciation(w.getPronunciations().at(k));
+				}
+				if (in->at(j).getPronunciations().count() == 0)
+				{
+					in->removeAt(j);
+				}
+			}
+		}
+	}
+}
+
+
 /**
  * \brief Returns the Terminal of the name & pronunciation (it is pulled out of the wlist)
  * \author Peter Grasch
@@ -176,6 +201,8 @@ void WordListManager::addWords(WordList *list)
 {
 	for (int i=0; i<list->count(); i++)
 		this->wordlist->append(list->at(i));
+	
+	removeDoubles(list);
 }
 
 /**

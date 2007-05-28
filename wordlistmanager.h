@@ -39,6 +39,7 @@ private:
 	QString path;
 	
 public:
+	WordList* removeDoubles(WordList *in);
 	WordListManager(QString path="model/lexicon");
 	WordList* readWordList(QString lexiconpath="model/lexicon", QString vocabpath="model/model.voca", QString promptspath="model/prompts");
 	WordList* readVocab(QString vocabpath="model/model.voca");

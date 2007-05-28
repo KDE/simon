@@ -48,11 +48,11 @@ private:
 	int pos; //pos in bytes
 	int maxpos;
 	int processFoundIPA(QString ipa);
+	QString cleanTitle(QString title);
 	
 public:
 	WiktionaryDict(QString path="", QObject *parent=0);
 	void load(QString path="");
-	
 	
 	bool startElement(const QString &namespaceURI,
 			  const QString &localName,

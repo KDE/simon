@@ -5,197 +5,174 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>449</width>
-    <height>210</height>
+    <width>460</width>
+    <height>220</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Wörterbuch importieren</string>
   </property>
-  <widget class="QStackedWidget" name="swMain" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>441</width>
-     <height>201</height>
-    </rect>
-   </property>
-   <property name="currentIndex" >
-    <number>0</number>
-   </property>
-   <widget class="QWidget" name="page" >
-    <widget class="QGroupBox" name="gbSource" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>431</width>
-       <height>191</height>
-      </rect>
+  <layout class="QHBoxLayout" >
+   <item>
+    <widget class="QStackedWidget" name="swMain" >
+     <property name="currentIndex" >
+      <number>0</number>
      </property>
-     <property name="title" >
-      <string>Quelle</string>
-     </property>
-     <widget class="QPushButton" name="pbGetPath" >
-      <property name="geometry" >
-       <rect>
-        <x>390</x>
-        <y>20</y>
-        <width>31</width>
-        <height>29</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string/>
-      </property>
-      <property name="icon" >
-       <iconset resource="../simon.qrc" >:/images/icons/document-open.svg</iconset>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="lePath" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>20</y>
-        <width>371</width>
-        <height>27</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>60</y>
-        <width>401</width>
-        <height>71</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Derzeit werden nur Wiktionary (http://www.wiktionary.org) kompatible Wörterbücher unterstützt.
-Sie finden Versionen davon zum Downlod hier: http://download.wikimedia.org/dewiktionary/latest/</string>
-      </property>
-      <property name="wordWrap" >
-       <bool>true</bool>
-      </property>
-      <property name="openExternalLinks" >
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QWidget" name="horizontalLayout" >
-      <property name="geometry" >
-       <rect>
-        <x>10</x>
-        <y>150</y>
-        <width>411</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" >
-       <property name="spacing" >
-        <number>6</number>
-       </property>
-       <property name="leftMargin" >
-        <number>0</number>
-       </property>
-       <property name="topMargin" >
-        <number>0</number>
-       </property>
-       <property name="rightMargin" >
-        <number>0</number>
-       </property>
-       <property name="bottomMargin" >
-        <number>0</number>
-       </property>
+     <widget class="QWidget" name="page" >
+      <layout class="QVBoxLayout" >
        <item>
-        <widget class="QPushButton" name="pbCancel" >
-         <property name="text" >
-          <string>Abbrechen</string>
+        <widget class="QGroupBox" name="gbSource" >
+         <property name="title" >
+          <string>Quelle</string>
          </property>
+         <layout class="QVBoxLayout" >
+          <item>
+           <layout class="QHBoxLayout" >
+            <item>
+             <widget class="QLineEdit" name="lePath" />
+            </item>
+            <item>
+             <widget class="QPushButton" name="pbGetPath" >
+              <property name="text" >
+               <string/>
+              </property>
+              <property name="icon" >
+               <iconset resource="../simon.qrc" >:/images/icons/document-open.svg</iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QLabel" name="label" >
+            <property name="text" >
+             <string>Derzeit werden nur Wiktionary (http://www.wiktionary.org) kompatible Wörterbücher unterstützt.
+Sie finden Versionen davon zum Downlod hier: http://download.wikimedia.org/dewiktionary/latest/</string>
+            </property>
+            <property name="wordWrap" >
+             <bool>true</bool>
+            </property>
+            <property name="openExternalLinks" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" >
+            <property name="spacing" >
+             <number>6</number>
+            </property>
+            <property name="leftMargin" >
+             <number>0</number>
+            </property>
+            <property name="topMargin" >
+             <number>0</number>
+            </property>
+            <property name="rightMargin" >
+             <number>0</number>
+            </property>
+            <property name="bottomMargin" >
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="pbCancel" >
+              <property name="text" >
+               <string>Abbrechen</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pbImport" >
+              <property name="enabled" >
+               <bool>false</bool>
+              </property>
+              <property name="text" >
+               <string>Importieren</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </widget>
        </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_2" >
+      <layout class="QVBoxLayout" >
        <item>
-        <widget class="QPushButton" name="pbImport" >
-         <property name="enabled" >
-          <bool>false</bool>
+        <widget class="QGroupBox" name="gbImporting" >
+         <property name="title" >
+          <string>Importiere Wörterbuch</string>
          </property>
-         <property name="text" >
-          <string>Importieren</string>
-         </property>
+         <layout class="QVBoxLayout" >
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QProgressBar" name="pbProgress" >
+            <property name="maximum" >
+             <number>1000</number>
+            </property>
+            <property name="value" >
+             <number>-1</number>
+            </property>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbStatus" >
+            <property name="text" >
+             <string>Importiere Wörterbuch...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2" >
+            <property name="text" >
+             <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-size:8pt; font-style:italic;">Das importieren eines Wörterbuches kann je nach dessen Größe sehr lange dauern. Bitte haben Sie etwas Geduld und unterbrechen Sie den Vorgang nicht.&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+            </property>
+            <property name="wordWrap" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
      </widget>
     </widget>
-   </widget>
-   <widget class="QWidget" name="page_2" >
-    <widget class="QGroupBox" name="gbImporting" >
-     <property name="geometry" >
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>431</width>
-       <height>191</height>
-      </rect>
-     </property>
-     <property name="title" >
-      <string>Importiere Wörterbuch</string>
-     </property>
-     <widget class="QLabel" name="label_2" >
-      <property name="geometry" >
-       <rect>
-        <x>20</x>
-        <y>120</y>
-        <width>391</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-size:8pt; font-style:italic;">Das importieren eines Wörterbuches kann je nach dessen Größe sehr lange dauern. Bitte haben Sie etwas Geduld und unterbrechen Sie den Vorgang nicht.&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
-      </property>
-      <property name="wordWrap" >
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QProgressBar" name="pbProgress" >
-      <property name="geometry" >
-       <rect>
-        <x>20</x>
-        <y>40</y>
-        <width>391</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="maximum" >
-       <number>1000</number>
-      </property>
-      <property name="value" >
-       <number>-1</number>
-      </property>
-      <property name="orientation" >
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-     <widget class="QLabel" name="lbStatus" >
-      <property name="geometry" >
-       <rect>
-        <x>20</x>
-        <y>70</y>
-        <width>391</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text" >
-       <string>Importiere Wörterbuch...</string>
-      </property>
-     </widget>
-    </widget>
-   </widget>
-  </widget>
+   </item>
+  </layout>
  </widget>
  <resources>
   <include location="../simon.qrc" />

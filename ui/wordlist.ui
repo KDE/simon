@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>997</width>
-    <height>554</height>
+    <height>549</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -145,6 +145,24 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="pbTrainList" >
+           <property name="font" >
+            <font>
+             <italic>true</italic>
+            </font>
+           </property>
+           <property name="toolTip" >
+            <string>Trainiert die Liste der Wörter</string>
+           </property>
+           <property name="text" >
+            <string>&amp;Trainieren</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="pbDeleteTrainingWord" >
            <property name="toolTip" >
             <string>Löscht das Wort aus der Liste der zu trainierenden Wörter</string>
@@ -213,31 +231,6 @@
            </property>
            <property name="icon" >
             <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="Line" name="line_5" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pbTrainList" >
-           <property name="font" >
-            <font>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="toolTip" >
-            <string>Trainiert die Liste der Wörter</string>
-           </property>
-           <property name="text" >
-            <string>&amp;Trainieren</string>
-           </property>
-           <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
            </property>
           </widget>
          </item>

@@ -108,7 +108,7 @@ public:
 	 * @todo Maybe check if the Pronunciations is already stored?
 	 * 
 	 */	
-	void addPronunciations (QString pronounciation)
+	void addPronunciation (QString pronounciation)
 	{
 		this->pronunciations.append(pronounciation);
 	}
@@ -125,12 +125,12 @@ public:
 	 * The pronounciation to delete
 	 * 
 	 */
-	void delPronunciations ( QString pronounciation )
+	void delPronunciation ( QString pronounciation )
 	{
 		//get index of the pattern
 		//call the delPronunciations-function again - this time with the index
 		//as paramter
-		this->delPronunciations( this->pronunciations.indexOf(pronounciation) );
+		this->delPronunciation( this->pronunciations.indexOf(pronounciation) );
 	}
 	
 	/**
@@ -144,7 +144,7 @@ public:
 	 * The index of the pronounciation to delete
 	 * 
 	 */
-	void delPronunciations ( int i )
+	void delPronunciation ( int i )
 	{
 		this->pronunciations.removeAt( i );
 	}
