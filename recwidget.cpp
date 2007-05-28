@@ -190,6 +190,9 @@ void RecWidget::deleteSample()
 	{
 		hsProgress->setValue(0);
 		lbProgress->setText("00:00 / 00:00");
+		pbDelete->setEnabled(false);
+		pbRecord->setEnabled(true);
+		pbPlay->setEnabled(false);
 		emit sampleDeleted();
 	} else QMessageBox::critical(this, "Fehler beim Löschen", 
 			QString("Konnte die Datei %1 nicht entfernen").arg(this->filename));

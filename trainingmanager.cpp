@@ -92,9 +92,9 @@ void TrainingManager::trainWords(WordList *words)
 		label="sil ";
 		for (int j=0; (j<wordsPerPage) && (j+(i*wordsPerPage) < wordCount); j++)
 		{
-			page += words->at(j+(i*wordsPerPage))->getWord()+QString(" ");
-			if (words->at(j+(i*wordsPerPage))->getPronunciation(0)) 
-				label += *(words->at(j+(i*wordsPerPage))->getPronunciation(0))+QString(" sp ");
+			page += words->at(j+(i*wordsPerPage)).getWord()+QString(" ");
+			if (words->at(j+(i*wordsPerPage)).getPronunciation(0)) 
+				label += *(words->at(j+(i*wordsPerPage)).getPronunciation(0))+QString(" sp ");
 		}
 		label += " sil";
 		

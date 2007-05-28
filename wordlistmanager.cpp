@@ -53,30 +53,25 @@ WordList* WordListManager::sortList(WordList* list)
  */
 bool WordListManager::save ( QString filename )
 {
-	//this->wordlist = sortList(wordlist);
-	QList<Word> *tmplist = new QList<Word>();
-	for (int i=0; i< wordlist->count(); i++)
-		tmplist->append(*(wordlist->at(i)));
-	
-// 	qStableSort(tmplist->begin(), tmplist->end());
-	qSort(tmplist->begin(), tmplist->end());
+	this->wordlist = sortList(wordlist);
 	
 	if (filename.isEmpty()) filename = this->path;
 	
 	QFile *outfile = new QFile(filename);
-	if (!outfile->open(QIODevice::WriteOnly | QIODevice::Text)) return false;
+	if (!outfile->open(QIODevice::WriteOnly)) return false;
 	QTextStream outstream(outfile);
+	outstream.setCodec("UTF-8");
 	
-	for (int i=0; i< tmplist->count(); i++)
+	for (int i=0; i< wordlist->count(); i++)
 	{
-		for (int j=0; j<tmplist->at(i).getPronunciations().count(); j++)
-			outstream << QString(tmplist->at(i).getWord().toUpper() 
-			+ "\t\t[" + tmplist->at(i).getWord() + "]\t\t" +
-			tmplist->at(i).getPronunciations().at(j)).trimmed() << "\n";
+		for (int j=0; j<wordlist->at(i).getPronunciations().count(); j++)
+			outstream << QString(wordlist->at(i).getWord().trimmed().toUpper() 
+				+ "\t\t[" + wordlist->at(i).getWord().trimmed() + "]\t\t" +
+				wordlist->at(i).getPronunciations().at(j)).trimmed() << "\n";
 	}
 	
 	outfile->close();
-	delete tmplist;
+	
 	return true;
 }
 
@@ -132,7 +127,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 		
 		//creates and appends the word to the wordlist
 		if (output != "")
-			wordlist->append ( new Word ( output, pronunciation, category, probability ) );
+			wordlist->append ( Word ( output, pronunciation, category, probability ) );
 
 		//reading the next line
 		length = lexicon->readLine ( buffer, sizeof ( buffer ) );
@@ -160,11 +155,11 @@ QString WordListManager::getTerminal(QString name, QString pronunciation, WordLi
 	while (i < wlist->count())
 	{
 		//Because vocabs have just one pronunciation for each entry
-		if ((wlist->at( i )->getWord() == name) && 
-				   ( (* wlist->at( i )->getPronunciation(0)) == pronunciation))
+		if ((wlist->at( i ).getWord() == name) && 
+				   ( (* wlist->at( i ).getPronunciation(0)) == pronunciation))
 			
-			terminal += (terminal.isEmpty()) ? wlist->at( i )->getTerminal() :
-					", " + wlist->at( i )->getTerminal();
+			terminal += (terminal.isEmpty()) ? wlist->at( i ).getTerminal() :
+					", " + wlist->at( i ).getTerminal();
 		i++;
 	}
 	// there was no result
@@ -291,7 +286,7 @@ WordList* WordListManager::readVocab(QString vocabpath)
 		pronunciation = line.mid ( line.indexOf ( "\t" ) ).trimmed();
 		
 		//creates and appends the word to the wordlist
-		vocablist->append ( new Word(name, pronunciation, terminal, 0 ) );
+		vocablist->append ( Word(name, pronunciation, terminal, 0 ) );
 
 		//reading the next line
 		length = vocab->readLine ( buffer, sizeof ( buffer ) );

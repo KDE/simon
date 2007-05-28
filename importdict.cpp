@@ -54,7 +54,7 @@ void ImportDict::run()
 	
 	for (int i=0; i<words.count(); i++)
 	{
-		vocablist->append ( new Word(QString(words.at(i)), 
+		vocablist->append ( Word(QString(words.at(i)), 
 				    QString(pronunciations.at(i)), 
 					QString(terminals.at(i)), 0 ) );
 		emit progress((((double) i)/((double)words.count())) *40+960);

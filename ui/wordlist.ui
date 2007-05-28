@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>997</width>
-    <height>552</height>
+    <height>554</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -15,164 +15,245 @@
   <property name="windowIcon" >
    <iconset resource="../simon.qrc" >:/images/tray.png</iconset>
   </property>
-  <widget class="QLabel" name="label_2" >
-   <property name="geometry" >
-    <rect>
-     <x>480</x>
-     <y>12</y>
-     <width>181</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>Zum Trainieren ausgewählt:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbSearch_2" >
-   <property name="geometry" >
-    <rect>
-     <x>17</x>
-     <y>12</y>
-     <width>134</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>Gesamtes Vokabular:</string>
-   </property>
-   <property name="buddy" >
-    <cstring>leSearch</cstring>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbSearch" >
-   <property name="geometry" >
-    <rect>
-     <x>250</x>
-     <y>13</y>
-     <width>61</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>&amp;Suchen:</string>
-   </property>
-   <property name="buddy" >
-    <cstring>leSearch</cstring>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbAddToTraining" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>220</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Fügt das in der Liste links selektierte Wort in die Liste der zu trainierenden Wörter (oben) ein</string>
-   </property>
-   <property name="text" >
-    <string>Zum Training &amp;hinzufügen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/go-up.svg</iconset>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="leSearch" >
-   <property name="geometry" >
-    <rect>
-     <x>310</x>
-     <y>10</y>
-     <width>113</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Schränkt die Liste ein</string>
-   </property>
-   <property name="text" >
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbClearSearch" >
-   <property name="geometry" >
-    <rect>
-     <x>430</x>
-     <y>10</y>
-     <width>16</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Setzt die Sucheingabe zurück</string>
-   </property>
-   <property name="text" >
-    <string>&amp;x</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbBack" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>510</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Schließt den Dialog</string>
-   </property>
-   <property name="text" >
-    <string>  &amp;Zurück</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
-   </property>
-  </widget>
-  <widget class="Line" name="line" >
-   <property name="geometry" >
-    <rect>
-     <x>700</x>
-     <y>0</y>
-     <width>20</width>
-     <height>541</height>
-    </rect>
-   </property>
-   <property name="orientation" >
-    <enum>Qt::Vertical</enum>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbSwitchToTraining" >
-   <property name="geometry" >
-    <rect>
-     <x>720</x>
-     <y>510</y>
-     <width>251</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Schließt den Dialog und wechselt zum generischen Training (Vorlesen vorgefertigter Texte)</string>
-   </property>
-   <property name="text" >
-    <string>Zum generischen Training wechseln</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/document-properties.svg</iconset>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbHelp" >
-   <property name="geometry" >
-    <rect>
-     <x>720</x>
-     <y>10</y>
-     <width>283</width>
-     <height>475</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+  <layout class="QHBoxLayout" >
+   <item>
+    <layout class="QVBoxLayout" >
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QLabel" name="lbSearch_2" >
+         <property name="text" >
+          <string>Gesamtes Vokabular:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>leSearch</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbSearch" >
+         <property name="text" >
+          <string>&amp;Suchen:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>leSearch</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="leSearch" >
+         <property name="toolTip" >
+          <string>Schränkt die Liste ein</string>
+         </property>
+         <property name="text" >
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pbClearSearch" >
+         <property name="maximumSize" >
+          <size>
+           <width>19</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip" >
+          <string>Setzt die Sucheingabe zurück</string>
+         </property>
+         <property name="text" >
+          <string>&amp;x</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QWidget" native="1" name="wList" >
+       <layout class="QVBoxLayout" />
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" >
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <layout class="QVBoxLayout" >
+         <item>
+          <widget class="QLabel" name="label_2" >
+           <property name="maximumSize" >
+            <size>
+             <width>16777215</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="text" >
+            <string>Zum Trainieren ausgewählt:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" native="1" name="wTrainList" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize" >
+            <size>
+             <width>0</width>
+             <height>144</height>
+            </size>
+           </property>
+           <layout class="QVBoxLayout" />
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line_2" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbAddToTraining" >
+           <property name="toolTip" >
+            <string>Fügt das in der Liste links selektierte Wort in die Liste der zu trainierenden Wörter (oben) ein</string>
+           </property>
+           <property name="text" >
+            <string>Zum Training &amp;hinzufügen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/go-up.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbDeleteTrainingWord" >
+           <property name="toolTip" >
+            <string>Löscht das Wort aus der Liste der zu trainierenden Wörter</string>
+           </property>
+           <property name="text" >
+            <string>Wort aus Liste &amp;löschen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbSuggestTrain" >
+           <property name="toolTip" >
+            <string>Schlägt automatisch ein Training vor das die schwächsten 10 Wörter trainiert.</string>
+           </property>
+           <property name="text" >
+            <string>Trainingsprog. &amp;vorschlagen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/bookmark-new.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line_4" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbImport" >
+           <property name="toolTip" >
+            <string>Importiert ein vorhandenes Wörterbuch</string>
+           </property>
+           <property name="text" >
+            <string>Importiere Wörterbuch</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbAddWord" >
+           <property name="toolTip" >
+            <string>Fügt ein neues Wort in das Sprachmodell ein</string>
+           </property>
+           <property name="text" >
+            <string>&amp;Neues Wort hinzufügen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbAddWord_3" >
+           <property name="toolTip" >
+            <string>Löscht das Wort komplett aus dem Sprachmodell</string>
+           </property>
+           <property name="text" >
+            <string>Wort &amp;löschen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line_5" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbTrainList" >
+           <property name="font" >
+            <font>
+             <italic>true</italic>
+            </font>
+           </property>
+           <property name="toolTip" >
+            <string>Trainiert die Liste der Wörter</string>
+           </property>
+           <property name="text" >
+            <string>&amp;Trainieren</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="Line" name="line" >
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbHelp" >
+         <property name="text" >
+          <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
 &lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Das ist die Hauptansicht für alle Aktionen&lt;/p>
@@ -200,153 +281,51 @@ p, li { white-space: pre-wrap; }
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Der Knopf "&lt;span style=" font-weight:600;">Neues Wort hinzufügen&lt;/span>"&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">öffnet einen neuen Dialog der Ihnen&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">helfen wird ein neues Wort hinzuzufügen.&lt;/p>&lt;/body>&lt;/html></string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbDeleteTrainingWord" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>255</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Löscht das Wort aus der Liste der zu trainierenden Wörter</string>
-   </property>
-   <property name="text" >
-    <string>Wort aus Liste &amp;löschen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbSuggestTrain" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>290</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Schlägt automatisch ein Training vor das die schwächsten 10 Wörter trainiert.</string>
-   </property>
-   <property name="text" >
-    <string>Trainingsprog. &amp;vorschlagen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/bookmark-new.svg</iconset>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbTrainList" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>325</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font" >
-    <font>
-     <italic>true</italic>
-    </font>
-   </property>
-   <property name="toolTip" >
-    <string>Trainiert die Liste der Wörter</string>
-   </property>
-   <property name="text" >
-    <string>&amp;Trainieren</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
-   </property>
-  </widget>
-  <widget class="Line" name="line_2" >
-   <property name="geometry" >
-    <rect>
-     <x>480</x>
-     <y>359</y>
-     <width>201</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="orientation" >
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbAddWord" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>377</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Fügt ein neues Wort in das Sprachmodell ein</string>
-   </property>
-   <property name="text" >
-    <string>&amp;Neues Wort hinzufügen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
-   </property>
-  </widget>
-  <widget class="Line" name="line_3" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>489</y>
-     <width>511</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="orientation" >
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbAddWord_3" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>452</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Löscht das Wort komplett aus dem Sprachmodell</string>
-   </property>
-   <property name="text" >
-    <string>Wort &amp;löschen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbImport" >
-   <property name="geometry" >
-    <rect>
-     <x>470</x>
-     <y>414</y>
-     <width>221</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Importiert ein vorhandenes Wörterbuch</string>
-   </property>
-   <property name="text" >
-    <string>Importiere Wörterbuch</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
-   </property>
-  </widget>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_3" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QPushButton" name="pbBack" >
+         <property name="toolTip" >
+          <string>Schließt den Dialog</string>
+         </property>
+         <property name="text" >
+          <string>  &amp;Zurück</string>
+         </property>
+         <property name="icon" >
+          <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pbSwitchToTraining" >
+         <property name="toolTip" >
+          <string>Schließt den Dialog und wechselt zum generischen Training (Vorlesen vorgefertigter Texte)</string>
+         </property>
+         <property name="text" >
+          <string>Zum generischen Training wechseln</string>
+         </property>
+         <property name="icon" >
+          <iconset resource="../simon.qrc" >:/images/icons/document-properties.svg</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <tabstops>
   <tabstop>leSearch</tabstop>

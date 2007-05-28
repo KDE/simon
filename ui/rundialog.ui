@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
-    <height>476</height>
+    <width>441</width>
+    <height>427</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -15,208 +15,189 @@
   <property name="windowIcon" >
    <iconset resource="../simon.qrc" >:/images/tray.png</iconset>
   </property>
-  <widget class="QLabel" name="lbSearch" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>13</y>
-     <width>59</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>&amp;Suchen:</string>
-   </property>
-   <property name="buddy" >
-    <cstring>leSearch</cstring>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbShow" >
-   <property name="geometry" >
-    <rect>
-     <x>240</x>
-     <y>10</y>
-     <width>61</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text" >
-    <string>Anzei&amp;gen:</string>
-   </property>
-   <property name="buddy" >
-    <cstring>cbShow</cstring>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="twPrograms" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>50</y>
-     <width>441</width>
-     <height>381</height>
-    </rect>
-   </property>
-   <property name="alternatingRowColors" >
-    <bool>true</bool>
-   </property>
-   <property name="selectionMode" >
-    <enum>QAbstractItemView::SingleSelection</enum>
-   </property>
-   <property name="selectionBehavior" >
-    <enum>QAbstractItemView::SelectRows</enum>
-   </property>
-   <property name="showGrid" >
-    <bool>false</bool>
-   </property>
-   <property name="gridStyle" >
-    <enum>Qt::SolidLine</enum>
-   </property>
-   <property name="sortingEnabled" >
-    <bool>false</bool>
-   </property>
-   <column>
-    <property name="text" >
-     <string>Name</string>
-    </property>
-   </column>
-   <column>
-    <property name="text" >
-     <string>Typ</string>
-    </property>
-   </column>
-   <column>
-    <property name="text" >
-     <string>Wert</string>
-    </property>
-   </column>
-  </widget>
-  <widget class="QPushButton" name="pbBack" >
-   <property name="geometry" >
-    <rect>
-     <x>10</x>
-     <y>440</y>
-     <width>91</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Zurück zum Hauptmenü</string>
-   </property>
-   <property name="layoutDirection" >
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="text" >
-    <string>&amp;Zurück</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
-   </property>
-   <property name="checkable" >
-    <bool>false</bool>
-   </property>
-   <property name="checked" >
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbRun" >
-   <property name="geometry" >
-    <rect>
-     <x>350</x>
-     <y>440</y>
-     <width>101</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Führt das selektierte Kommando aus</string>
-   </property>
-   <property name="text" >
-    <string>&amp;Ausführen</string>
-   </property>
-   <property name="icon" >
-    <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
-   </property>
-   <property name="default" >
-    <bool>true</bool>
-   </property>
-   <property name="flat" >
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="leSearch" >
-   <property name="geometry" >
-    <rect>
-     <x>70</x>
-     <y>10</y>
-     <width>113</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Schränkt die Liste auf die Eingabe ein</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbClearSearch" >
-   <property name="geometry" >
-    <rect>
-     <x>190</x>
-     <y>10</y>
-     <width>21</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Zurücksetzen der Suche</string>
-   </property>
-   <property name="text" >
-    <string>&amp;x</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="cbShow" >
-   <property name="geometry" >
-    <rect>
-     <x>310</x>
-     <y>10</y>
-     <width>142</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="toolTip" >
-    <string>Schränkt die Ausgabe auf gewisse Gruppen ein</string>
-   </property>
+  <layout class="QVBoxLayout" >
    <item>
-    <property name="text" >
-     <string>Alles</string>
-    </property>
-    <property name="icon" >
-     <iconset resource="../simon.qrc" >:/images/icons/system-file-manager.svg</iconset>
-    </property>
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QLabel" name="lbSearch" >
+       <property name="text" >
+        <string>&amp;Suchen:</string>
+       </property>
+       <property name="buddy" >
+        <cstring>leSearch</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leSearch" >
+       <property name="toolTip" >
+        <string>Schränkt die Liste auf die Eingabe ein</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbClearSearch" >
+       <property name="maximumSize" >
+        <size>
+         <width>25</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="toolTip" >
+        <string>Zurücksetzen der Suche</string>
+       </property>
+       <property name="text" >
+        <string>&amp;x</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbShow" >
+       <property name="text" >
+        <string>Anzei&amp;gen:</string>
+       </property>
+       <property name="buddy" >
+        <cstring>cbShow</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="cbShow" >
+       <property name="toolTip" >
+        <string>Schränkt die Ausgabe auf gewisse Gruppen ein</string>
+       </property>
+       <item>
+        <property name="text" >
+         <string>Alles</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../simon.qrc" >:/images/icons/system-file-manager.svg</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Programme</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Orte</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
+        </property>
+       </item>
+       <item>
+        <property name="text" >
+         <string>Sonderzeichen</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../simon.qrc" >:/images/icons/format-text-bold.svg</iconset>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
-    <property name="text" >
-     <string>Programme</string>
-    </property>
-    <property name="icon" >
-     <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
-    </property>
+    <widget class="QTableWidget" name="twPrograms" >
+     <property name="alternatingRowColors" >
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode" >
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior" >
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="showGrid" >
+      <bool>false</bool>
+     </property>
+     <property name="gridStyle" >
+      <enum>Qt::SolidLine</enum>
+     </property>
+     <property name="sortingEnabled" >
+      <bool>false</bool>
+     </property>
+     <column>
+      <property name="text" >
+       <string>Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Typ</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Wert</string>
+      </property>
+     </column>
+    </widget>
    </item>
    <item>
-    <property name="text" >
-     <string>Orte</string>
-    </property>
-    <property name="icon" >
-     <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
-    </property>
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QPushButton" name="pbBack" >
+       <property name="toolTip" >
+        <string>Zurück zum Hauptmenü</string>
+       </property>
+       <property name="layoutDirection" >
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="text" >
+        <string>&amp;Zurück</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
+       </property>
+       <property name="checkable" >
+        <bool>false</bool>
+       </property>
+       <property name="checked" >
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbRun" >
+       <property name="toolTip" >
+        <string>Führt das selektierte Kommando aus</string>
+       </property>
+       <property name="text" >
+        <string>&amp;Ausführen</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+       </property>
+       <property name="default" >
+        <bool>true</bool>
+       </property>
+       <property name="flat" >
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
-   <item>
-    <property name="text" >
-     <string>Sonderzeichen</string>
-    </property>
-    <property name="icon" >
-     <iconset resource="../simon.qrc" >:/images/icons/format-text-bold.svg</iconset>
-    </property>
-   </item>
-  </widget>
+  </layout>
  </widget>
  <resources>
   <include location="../simon.qrc" />

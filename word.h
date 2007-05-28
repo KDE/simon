@@ -31,7 +31,7 @@
 
 class Word;
 
-typedef QList<Word*> WordList; //!< QList from Word
+typedef QList<Word> WordList; //!< QList from Word
 
 class Word{
 	
@@ -225,93 +225,7 @@ public:
 	 */
 	const bool operator<(const Word w2) const
 	{
-		
-// 		return (getWord().trimmed().compare(w2.getWord().trimmed()));
-		
-		if ((getWord().trimmed().toUpper() == "BUTAN") || (w2.getWord().trimmed().toUpper() == "BUTAN"))
-			QMessageBox::information(0, "Hallo", "Vergleiche: "+getWord().trimmed().toUpper()+" und "+w2.getWord().trimmed().toUpper()+" und das is: "+((getWord().trimmed().toUpper() < w2.getWord().trimmed().toUpper()) ? "Kleiner" : "Nicht kleiner"));
-		
 		return getWord().trimmed().toUpper() < w2.getWord().trimmed().toUpper();
-		
-// 		QString word1=getWord().toUpper();
-// 		QString word2=w2.getWord().toUpper();
-// 		
-// 		if (word1.startsWith(word2))
-// 		{
-// 			if (word1.size() < word2.size())
-// 				return true;
-// 			else return false;
-// 		} else if (word2.startsWith(word1))
-// 			{
-// 				if (word1.size() < word2.size())
-// 					return true;
-// 				else return false;
-// 			}
-// 		
-// 		return (word1.toUpper() < word2.toUpper());
-		
-		
-// 		QStringList words;
-// 		words << getWord().trimmed();
-// 		words << w2.getWord().trimmed();<
-// 		words.sort();
-// 		if ((words.at(0) == "AACHEN") || (words.at(1) == "AACHEN"))
-// 			QMessageBox::information(0, "sdifj", words.at(0)+" ist kleiner als "
-// 					+words.at(1));
-		
-// 		return (words.at(0) == getWord());
-		
-// 		QString s1;
-// 		QString s2;
-// 		QString wo1 = getWord();
-// 		QString wo2 = w2.getWord();
-// 		
-// 		if (wo1.size() < wo2.size()){ s1 = wo1; s2 = wo2.left(wo1.size()); }
-// 		else { s1 = wo1.left(wo2.size()); s2 = wo2; }
-// 		
-// 		if (s1 == s2)
-// 			return (wo1.size() < wo2.size());
-// 		else return (s1<s2);
-		
-
-		
-// 		
-// 		QString s1 = getWord().toUpper();
-// 		QString s2 = w2.getWord().toUpper();
-// 		QString t;
-// 		if (s2.size() < s1.size())
-// 		{
-// 			t = s1;
-// 			s1 = s2;
-// 			s2 = t;
-// 		}
-// 		
-// 		//s1.size() < s2.size
-// 		
-// 		for (int i=0; i<s1.size(); i++)
-// 		{
-// 			if (s1.at(i) < s2.at(i)) 
-// 			{ 
-// 				/*QMessageBox::information(0, "sidjf", s1+" < "+s2);*/
-// 				if (((getWord().toUpper() == "ABER") && 
-// 					((w2.getWord().toUpper() == "AB"))) ||
-// 						((w2.getWord().toUpper() == "ABER") && 
-// 						((getWord().toUpper() == "AB"))))
-// 						QMessageBox::information(0, "sidjf", s1+" < "+s2);
-// 				return true; 
-// 			}
-// 			else if (s1.at(i) > s2.at(i))
-// 			{ 
-// 				if (((getWord().toUpper() == "ABER") && 
-// 						((w2.getWord().toUpper() == "AB"))) ||
-// 						((w2.getWord().toUpper() == "ABER") && 
-// 						((getWord().toUpper() == "AB"))))
-// 					QMessageBox::information(0, "sidjf", s1+" < "+s2);
-// 				/*QMessageBox::information(0, "sidjf", s1+" > "+s2);*/ 
-// 				return false; 
-// 			}
-// 		}
-// 		return (s1.size() < s2.size());
 	}
 
 	
@@ -323,7 +237,7 @@ public:
 	 * Returns the probability (how well it has been trained) of the word
 	 * 
 	 */
-	int getPropability() 
+	int getPropability() const
 	{
 		return this->probability;
 	}

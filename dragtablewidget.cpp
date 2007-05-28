@@ -76,7 +76,7 @@ void DragTableWidget::mouseMoveEvent(QMouseEvent *event)
  * cell in the current row.
  * 
  * Displays a OSD-Message:
- * 	"Ziehen Sie d. Wort in d. Liste rechts um es zu trainieren"
+ * 	"Ziehe das Wort in die Liste rechts um es zu trainieren"
  *
  * It uses the text-plain mimetype
  *
@@ -92,7 +92,7 @@ void DragTableWidget::startDrag()
 	mimeData->setText( currentItem );
 	drag->setMimeData(mimeData);
 	
-	SimonInfo::showMessage( "Ziehen Sie d. Wort in d. Liste rechts um es zu trainieren" , 2000 );
+	SimonInfo::showMessage( "Ziehe das Wort in die Liste rechts um es zu trainieren" , 2000 );
 	
 	drag->start(Qt::MoveAction);
 }

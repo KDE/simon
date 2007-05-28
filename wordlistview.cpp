@@ -43,6 +43,7 @@ WordListView::WordListView(QWidget *parent) : QDialog(parent)
 	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(importDict()));
 	
+// 	qDebug() << ((QString("BUT") < QString("BUTAN")) ? "BUT ist kleiner als BUTAN" : "BUT ist groesser als BUTAN") ;
 	dirty = false;
 }
 
@@ -69,8 +70,13 @@ void WordListView::importDict()
 		setDirty(true);
 		WordList* list = importDictView->getList();
 		if (list)
+		{
+			qDebug() << "Sorting";
+			list = wordListManager->sortList(list);
+			qDebug() << "done";
 			insertVocab(list);
-		wordListManager->addWords(list);
+			wordListManager->addWords(list);
+		}
 	}
 }
 
@@ -96,10 +102,10 @@ void WordListView::suggestTraining()
  *
  * @author Peter Grasch
  */
-void WordListView::markWordToTrain(Word *word)
+void WordListView::markWordToTrain(Word word)
 {
 	this->trainingwordlist.append( word );
-	this->lwTrainingWords->addItem( word->getWord() );
+	this->lwTrainingWords->addItem( word.getWord() );
 }
 
 
@@ -118,7 +124,7 @@ void WordListView::filterListbyPattern(QString filter)
 	
 	for (int i = 0; i < vocab->size(); i++)
 	{
-		if (!(vocab->at(i)->getWord().toUpper().indexOf( filter.toUpper(), Qt::CaseInsensitive) == -1))
+		if (!(vocab->at(i).getWord().toUpper().indexOf( filter.toUpper(), Qt::CaseInsensitive) == -1))
 			limitedVocab->append(vocab->at(i));
 	}
 	
@@ -160,7 +166,7 @@ void WordListView::copyWordToTrain()
 	QString category = this->twVocab->item(this->twVocab->currentRow(),2)->text();
 	int probability = this->twVocab->item(this->twVocab->currentRow(),3)->text().toInt();
 	
-	this->trainingwordlist.append(new Word(word, sampa, category, probability));
+	this->trainingwordlist.append(Word(word, sampa, category, probability));
 	
 	this->lwTrainingWords->addItem(word);
 }
@@ -276,15 +282,15 @@ void WordListView::insertVocab(WordList *vocab)
 	
 	for (int i=0; i<vocab->count(); i++)
 	{
-		twVocab->setItem(i, 0, new QTableWidgetItem(vocab->at(i)->getWord()));
-		twVocab->setItem(i, 1, new QTableWidgetItem(*(vocab->at(i)->getPronunciation(0))));
-		twVocab->setItem(i, 2, new QTableWidgetItem(vocab->at(i)->getTerminal()));
+		twVocab->setItem(i, 0, new QTableWidgetItem(vocab->at(i).getWord()));
+		twVocab->setItem(i, 1, new QTableWidgetItem(*(vocab->at(i).getPronunciation(0))));
+		twVocab->setItem(i, 2, new QTableWidgetItem(vocab->at(i).getTerminal()));
 		
-		QTableWidgetItem *prob = new QTableWidgetItem(QString().setNum(vocab->at(i)->getPropability()));
-		if (vocab->at(i)->getPropability() == 0)
+		QTableWidgetItem *prob = new QTableWidgetItem(QString().setNum(vocab->at(i).getPropability()));
+		if (vocab->at(i).getPropability() == 0)
 			prob->setBackgroundColor( QColor(255,0,0) );
 		else 
-			if (vocab->at(i)->getPropability() < 2)
+			if (vocab->at(i).getPropability() < 2)
 				prob->setBackgroundColor( QColor( 241, 134, 134 ) );
 		twVocab->setItem(i, 3, prob);
 		
@@ -311,7 +317,7 @@ void WordListView::deleteTrainingWord()
 		int i=0;
 		while  (i < trainingwordlist.count())//(wordlist.at(i)->getWord() != word)
 		{
-			if ((trainingwordlist.at(i)) && (trainingwordlist.at(i)->getWord() == word))
+			if (trainingwordlist.at(i).getWord() == word)
 				trainingwordlist.removeAt(i);
 			i++;
 		}
@@ -337,11 +343,10 @@ void WordListView::initializeItems()
 {
 	lwTrainingWords = new DropListWidget(this);
 	lwTrainingWords->setObjectName(QString::fromUtf8("lwTrainingWords"));
-	lwTrainingWords->setGeometry(QRect(470, 50, 221, 150));
+	ui.wTrainList->layout()->addWidget(lwTrainingWords);
 	
 	twVocab = new DragTableWidget(this);
 	twVocab->setObjectName("twVocab");
-	twVocab->setGeometry(QRect(10, 50, 441, 491));
 	twVocab->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	twVocab->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 	twVocab->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -350,7 +355,6 @@ void WordListView::initializeItems()
 	twVocab->verticalHeader()->hide();
 	
 	twVocab->setColumnCount(4);
-
 	QTableWidgetItem *__colItem = new QTableWidgetItem();
 	__colItem->setText(QApplication::translate("WordList", "Wort", 0, QApplication::UnicodeUTF8));
 	twVocab->setHorizontalHeaderItem(0, __colItem);
@@ -365,6 +369,8 @@ void WordListView::initializeItems()
 	QTableWidgetItem *__colItem3 = new QTableWidgetItem();
 	__colItem3->setText(QApplication::translate("WordList", "Erkennungsrate", 0, QApplication::UnicodeUTF8));
 	twVocab->setHorizontalHeaderItem(3, __colItem3);
+	
+	ui.wList->layout()->addWidget(twVocab);
 
 	this->readVocab();
 }

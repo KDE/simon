@@ -54,7 +54,7 @@ private:
 	
 public slots:
 	void suggestTraining();
-	void markWordToTrain( Word *word );
+	void markWordToTrain( Word word );
 	void copyWordToTrain();
 	void deleteTrainingWord();
 	void trainList();

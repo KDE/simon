@@ -93,7 +93,7 @@ void SettingsView::readConfig()
     ui.leCommands->setText(sm->getPathToCommando());
     ui.leVocab->setText(sm->getPathToVocabul());
     ui.lePrompts->setText(sm->getPathToPrompts());
-    ui.leAddress->setText(sm->getIpAdress()); 
+//     ui.leAddress->setText(sm->getIpAdress()); 
     
     
     	SoundDeviceList *sd=sm->getDevices();
@@ -155,7 +155,7 @@ void SettingsView::apply()
      sm->setPathToGrammar(ui.leGrammar->text());
      sm->setPathToVocabul(ui.leVocab->text());
      sm->setPathToPrompts(ui.lePrompts->text());
-     sm->setIpAdress(ui.leAddress->text());
+//      sm->setIpAdress(ui.leAddress->text());
      sm->setChannel(ui.cbChannels->itemData(ui.cbChannels->currentIndex(),Qt::UserRole).toString()); 
      sm->setPathToSaveRecordings(ui.leSaveRecordingsTo->text());
      sm->setSamplerate(ui.sbSamplerate->value());

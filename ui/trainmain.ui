@@ -16,7 +16,7 @@
    <item>
     <widget class="QStackedWidget" name="swAction" >
      <property name="currentIndex" >
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page" >
       <layout class="QVBoxLayout" >
@@ -184,22 +184,18 @@
             <property name="frameShadow" >
              <enum>QFrame::Raised</enum>
             </property>
-            <widget class="QLabel" name="lbPage" >
-             <property name="geometry" >
-              <rect>
-               <x>10</x>
-               <y>10</y>
-               <width>571</width>
-               <height>111</height>
-              </rect>
-             </property>
-             <property name="text" >
-              <string/>
-             </property>
-             <property name="wordWrap" >
-              <bool>true</bool>
-             </property>
-            </widget>
+            <layout class="QVBoxLayout" >
+             <item>
+              <widget class="QLabel" name="lbPage" >
+               <property name="text" >
+                <string/>
+               </property>
+               <property name="wordWrap" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
           <item>
