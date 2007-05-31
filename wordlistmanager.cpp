@@ -20,11 +20,13 @@
  * @param QString path
  * Sets the path (member) to the given string
  */
-WordListManager::WordListManager ( QString path )
+WordListManager::WordListManager ( QString lexiconPath, QString vocabPath )
 {
 	this->wordlist = new WordList();
-	this->path = path;
-	this->wordlist = readWordList ( path );
+	this->lexiconPath = lexiconPath;
+	this->vocabPath = vocabPath;
+	this->extralist = new WordList();
+	this->wordlist = readWordList ( lexiconPath, vocabPath );
 }
 
 
@@ -51,13 +53,14 @@ WordList* WordListManager::sortList(WordList* list)
  * \return bool
  * Saving successful?
  */
-bool WordListManager::save ( QString filename )
+bool WordListManager::save ( QString lexiconFilename, QString vocabFilename )
 {
 	this->wordlist = sortList(wordlist);
 	
-	if (filename.isEmpty()) filename = this->path;
+	if (lexiconFilename.isEmpty()) lexiconFilename = this->lexiconPath;
+	if (vocabFilename.isEmpty()) vocabFilename = this->vocabPath;
 	
-	QFile *outfile = new QFile(filename);
+	QFile *outfile = new QFile(lexiconPath);
 	if (!outfile->open(QIODevice::WriteOnly)) return false;
 	QTextStream outstream(outfile);
 	outstream.setCodec("UTF-8");
@@ -68,6 +71,13 @@ bool WordListManager::save ( QString filename )
 			outstream << QString(wordlist->at(i).getWord().trimmed().toUpper() 
 				+ "\t\t[" + wordlist->at(i).getWord().trimmed() + "]\t\t" +
 				wordlist->at(i).getPronunciations().at(j)).trimmed() << "\n";
+	}
+	for (int i=0; i< extralist->count(); i++)
+	{
+		for (int j=0; j<extralist->at(i).getPronunciations().count(); j++)
+			outstream << QString(extralist->at(i).getWord().trimmed().toUpper() 
+				+ "\t\t[" + extralist->at(i).getWord().trimmed() + "]\t\t" +
+				extralist->at(i).getPronunciations().at(j)).trimmed() << "\n";
 	}
 	
 	outfile->close();
@@ -126,8 +136,10 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 		probability = getProbability( name, promptsTable );
 		
 		//creates and appends the word to the wordlist
-		if (output != "")
-			wordlist->append ( Word ( output, pronunciation, category, probability ) );
+		if (!category.isEmpty())
+			wordlist->append(Word(output, pronunciation, category, probability));
+		else  extralist->append(Word(output, pronunciation, "Unbekannt", probability));
+		
 
 		//reading the next line
 		length = lexicon->readLine ( buffer, sizeof ( buffer ) );
@@ -188,7 +200,7 @@ QString WordListManager::getTerminal(QString name, QString pronunciation, WordLi
 		i++;
 	}
 	// there was no result
-	return (terminal.isEmpty()) ? "Unbekannt" : terminal;
+	return (terminal.isEmpty()) ? "" : terminal;
 }
 
 /**

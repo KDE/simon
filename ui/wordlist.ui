@@ -23,7 +23,7 @@
        <item>
         <widget class="QLabel" name="lbSearch_2" >
          <property name="text" >
-          <string>Gesamtes Vokabular:</string>
+          <string>Vokabular:</string>
          </property>
          <property name="buddy" >
           <cstring>leSearch</cstring>
@@ -84,6 +84,16 @@
      <item>
       <widget class="QWidget" native="1" name="wList" >
        <layout class="QVBoxLayout" />
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="cbShowCompleteLexicon" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="text" >
+        <string>Zeige auch Wörter an, die nicht verwendete werden</string>
+       </property>
       </widget>
      </item>
     </layout>

@@ -36,11 +36,14 @@ class WordListManager{
 
 private:
 	WordList *wordlist;	//!< Holds the wordlist
-	QString path;
+	WordList *extralist;	//!< this holds the word that are not in the vocabulary (unused)
+	QString lexiconPath, vocabPath;
 	
 public:
+	WordList* getExtraWords() { return extralist; }
+	
 	WordList* removeDoubles(WordList *in);
-	WordListManager(QString path="model/lexicon");
+	WordListManager(QString lexiconPath="model/lexicon", QString vocabPath="model/model.voca");
 	WordList* readWordList(QString lexiconpath="model/lexicon", QString vocabpath="model/model.voca", QString promptspath="model/prompts");
 	WordList* readVocab(QString vocabpath="model/model.voca");
 	PromptsTable* readPrompts(QString promptspath="model/prompts");
@@ -49,7 +52,7 @@ public:
 	void trainList();
 	WordList* getWordList() { return wordlist; }
 	void addWords(WordList *list);
-	bool save( QString filename="" );
+	bool save( QString lexiconFilename="", QString vocabFilename="" );
 	WordList* sortList(WordList* list);
 
 	~WordListManager();

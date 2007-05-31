@@ -177,9 +177,13 @@ void TrainingView::prevPage()
 
 void TrainingView::importTexts()
 {
+// 	QLabel *test = new QLabel(this);
+// 	test->setPixmap(QPixmap(":/images/importexts.png"));
+// 	test->setText("hi");
+// 	test->show();
 	ImportTrainingTexts *import = new ImportTrainingTexts();
 	import->start();
-	delete import;
+	setModal(false);
 }
 
 void TrainingView::resetRecorder()

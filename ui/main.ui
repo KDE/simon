@@ -104,7 +104,7 @@
    <string>simon</string>
   </property>
   <property name="windowIcon" >
-   <iconset>../../../../../../../:/images/tray.png</iconset>
+   <iconset>:/images/tray.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <widget class="Line" name="line" >

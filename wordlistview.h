@@ -59,7 +59,9 @@ public slots:
 	void deleteTrainingWord();
 	void trainList();
 	void importDict();
+	void clearList();
 	void addWord();
+	void toggleExtraWords();
 	void filterListbyPattern(QString filter);
 	void clearSearchText();
 	void switchToGenericTraining();

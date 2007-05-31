@@ -43,16 +43,14 @@ bool WavPlayer::play( QString filename )
 	if (length==0) return false;
 	
 	
-// 	std::cout << "check1" << std::endl;
 	try {
-		audio = new RtAudio(2, chans, 0, 0, RTAUDIO_SINT16,
+		audio = new RtAudio(device, chans, 0, 0, RTAUDIO_SINT16,
 				    file->getSampleRate(), &bufferSize, nBuffers);
 	}
 	catch (RtError &error) {
 		error.printMessage();
 		return false;
 	}
-// 	std::cout << "check2" << std::endl;
 
 	try {
 		audio->setStreamCallback(&processWrapper, (void*) this);
@@ -63,7 +61,6 @@ bool WavPlayer::play( QString filename )
 		delete audio;
 	}
 	progressTimer->start(100);
-// 	std::cout << "check3" << std::endl;
 
 // 	stop();
 }

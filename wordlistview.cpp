@@ -43,7 +43,7 @@ WordListView::WordListView(QWidget *parent) : QDialog(parent)
 	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(importDict()));
 	
-// 	qDebug() << ((QString("BUT") < QString("BUTAN")) ? "BUT ist kleiner als BUTAN" : "BUT ist groesser als BUTAN") ;
+	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(toggleExtraWords()));
 	dirty = false;
 }
 
@@ -199,6 +199,20 @@ void WordListView::switchToGenericTraining()
 }
 
 
+void WordListView::toggleExtraWords()
+{
+	clearList();
+	ui.leSearch->setText("");
+	if (ui.cbShowCompleteLexicon->checkState() == Qt::Checked)
+	{
+		insertVocab(this->wordListManager->getWordList());
+		insertVocab(this->wordListManager->getExtraWords());
+	} else {
+		insertVocab(this->wordListManager->getWordList());
+	}
+}
+
+
 /**
  * @brief Calls showAddWordDialog() and rereads the words if nescessairy
  *
@@ -212,6 +226,12 @@ void WordListView::addWord()
 		twVocab->clearContents();
 		this->readVocab();
 	}
+}
+
+
+void WordListView::clearList()
+{
+	this->twVocab->setRowCount(0);
 }
 
 /**
@@ -254,7 +274,7 @@ void WordListView::askToSave()
  */
 void WordListView::readVocab()
 {
-	WordList *vocab = this->wordListManager->readWordList();
+	WordList *vocab = this->wordListManager->getWordList();
 	
 	if (!vocab)
 	{
@@ -279,6 +299,8 @@ void WordListView::insertVocab(WordList *vocab)
 	
 	for (int i=0; i<vocab->count(); i++)
 	{
+		if (!vocab->at(i).getWord().isEmpty())
+		{
 		twVocab->setItem(i, 0, new QTableWidgetItem(vocab->at(i).getWord()));
 		twVocab->setItem(i, 1, new QTableWidgetItem(*(vocab->at(i).getPronunciation(0))));
 		twVocab->setItem(i, 2, new QTableWidgetItem(vocab->at(i).getTerminal()));
@@ -294,6 +316,11 @@ void WordListView::insertVocab(WordList *vocab)
 
 		for (int j = 0; j<4; j++)
 			twVocab->item(i,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+		} else {
+			vocab->removeAt(i);
+			twVocab->setRowCount(vocab->count());
+			i--;
+		}
 	}
 }
 

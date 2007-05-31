@@ -16,6 +16,10 @@
 #include <QWizard>
 #include <QWizardPage>
 #include <QMessageBox>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QPixmap>
+#include <QRadioButton>
 
 /**
  * \brief Guides the user through the process of adding a new trainingtext
