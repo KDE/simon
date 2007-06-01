@@ -56,10 +56,10 @@ bool WiktionaryDict::startElement(const QString &namespaceURI,
 	
 	if (qName == "title")
 	{
-		currentTag = WORD;
+		currentTag = WDWORD;
 	} else if (qName == "text")
-			currentTag = TEXT;
-		else currentTag = NONE;
+			currentTag = WDTEXT;
+		else currentTag = WDNONE;
 	
 		
 	//adding the length of the xml data to the position
@@ -291,9 +291,9 @@ int WiktionaryDict::processFoundIPA(QString ipa)
  */
 bool WiktionaryDict::characters(const QString &str)
 {
-	if (currentTag == WORD)
+	if (currentTag == WDWORD)
 		word += str;
-	if (currentTag == TEXT)
+	if (currentTag == WDTEXT)
 		text += str;
 	
 	pos += str.count();

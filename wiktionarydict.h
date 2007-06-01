@@ -23,9 +23,9 @@
 #include <math.h>
 
 
-#define NONE 0
-#define WORD 1
-#define TEXT 2
+#define WDNONE 0
+#define WDWORD 1
+#define WDTEXT 2
 
 /**
  * \class WiktionaryDict

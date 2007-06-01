@@ -8,4 +8,7 @@
 	<command name="Eigene Dateien" type="1">
 		/home/bedahr
 	</command>
+	<command name="Explorer" type="0">
+		explorer.exe
+	</command>
 </commands>
