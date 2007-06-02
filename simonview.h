@@ -35,6 +35,7 @@
 #include <QMainWindow>
 #include <QPlastiqueStyle>
 #include <QPixmap>
+#include <QPalette>
 #include <QSplashScreen>
 #include <QMessageBox>
 #include "simoncontrol.h"

@@ -88,22 +88,17 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	connect(control, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
 	
 	//setting Background
-	ui.lbBg->lower();
-	ui.lbBg->setPixmap(QPixmap(":/images/bg_clear.png"));
+	QPixmap bg(":/images/bg_clear.png");
+
+	QPalette p(palette());
+	p.setBrush(QPalette::Background, bg);
+	setPalette(p);
+	
 	
 	ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
 
 	this->info->writeToSplash("Connecting to juliusd...");
 	connectToServer();
-	
-//  	SoundControl *mic = new SoundControl();
-//  	mic->initializeMic(2, 44100);
-//  	long unsigned int length=0;
-//  	char* data = mic->capture(5000, length);
-// 	
-// 	WAV *w = new WAV("test.wav", 44100);
-// 	w->addData(data,length);
-// 	w->writeFile("test.wav");
 	
 	//hiding splash again after loading
 	this->info->hideSplash();
