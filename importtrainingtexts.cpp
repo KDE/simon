@@ -118,12 +118,6 @@ QWizardPage* ImportTrainingTexts::createLocalImportPage()
 	lbName->setText("Name des Textes: ");
 	QLineEdit *leName = new QLineEdit(localImport);
 	
-// 	nameLay->addWidget(lbName);
-// 	nameLay->addWidget(leName);
-	
-// 	layout->addLayout(nameLay);
-// 	layout->addLayout(fileLay);
-	
 	glInput->addWidget(lbName, 0,0);
 	glInput->addWidget(leName, 0,1);
 	
