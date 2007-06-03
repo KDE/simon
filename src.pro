@@ -22,6 +22,7 @@ win32 {
     HEADERS += runwindowsbackend.h
     SOURCES += runwindowsbackend.cpp
     DEFINES += __WINDOWS_DS__
+	LIBS += -ldsound -lwinmm -lole32
 }
 
 
