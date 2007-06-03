@@ -23,16 +23,19 @@ ImportTrainingTexts::ImportTrainingTexts(QWidget *parent) : QWizard(parent)
 	QWizardPage *source = createSourcePage();
 	QWizardPage *local = createLocalImportPage();
 	QWizardPage *remote = createRemoteImportPage();
+	QWizardPage *working = createWorkingPage();
 	
-	connect(source, SIGNAL(changingToRemote()), remote, SLOT(fetchList()));
+	connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(idChanged(int)));
 	
 	this->addPage(source);
 	this->addPage(local);
 	this->addPage(remote);
+	this->addPage(working);
 	
 	this->addPage(createFinishedPage());
 	setWindowTitle("Trainingstext importieren");
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/importtexts.png"));
+	prevId = 0;
 	
 }
 
@@ -97,8 +100,12 @@ QWizardPage* ImportTrainingTexts::createLocalImportPage()
 	
 	QVBoxLayout *layout = new QVBoxLayout(localImport);
 	
+	QGridLayout *glInput = new QGridLayout();
+	
 	QHBoxLayout *fileLay = new QHBoxLayout();
-	QLineEdit *lePath = new QLineEdit(localImport);
+	QLabel *lbPath = new QLabel();
+	lbPath->setText("Datei:");
+	QLineEdit* lePath = new QLineEdit(localImport);
 	lePath->setReadOnly(true);
 	QPushButton *pbSelectPath = new QPushButton(localImport);
 	pbSelectPath->setIcon(QIcon(":/images/icons/document-open.svg"));
@@ -106,31 +113,34 @@ QWizardPage* ImportTrainingTexts::createLocalImportPage()
 	fileLay->addWidget(lePath);
 	fileLay->addWidget(pbSelectPath);
 	
+// 	QHBoxLayout *nameLay = new QHBoxLayout();
+	QLabel *lbName = new QLabel(localImport);
+	lbName->setText("Name des Textes: ");
+	QLineEdit *leName = new QLineEdit(localImport);
+	
+// 	nameLay->addWidget(lbName);
+// 	nameLay->addWidget(leName);
+	
+// 	layout->addLayout(nameLay);
+// 	layout->addLayout(fileLay);
+	
+	glInput->addWidget(lbName, 0,0);
+	glInput->addWidget(leName, 0,1);
+	
+	glInput->addWidget(lbPath, 1,0);
+	glInput->addLayout(fileLay, 1,1);
+	
 	layout->addWidget(label);
-	layout->addLayout(fileLay);
+	layout->addLayout(glInput);
+	
 	localImport->setLayout(layout);
-	connect(pbSelectPath, SIGNAL(clicked()), this, SLOT(setLocalSourceFile()));
+	localImport->setPathEdit(lePath);
+	connect(pbSelectPath, SIGNAL(clicked()), localImport, SLOT(setLocalSourceFile()));
 	
 	localImport->registerField("Filename*", lePath);
+	localImport->registerField("Textname*", leName);
 	
 	return localImport;
-}
-
-void ImportTrainingTexts::setLocalSourceFile()
-{
-	
-	QStringList files = QFileDialog::getOpenFileNames(this, "Zu importierende Textdateien öffnen", QDir::currentPath(), "Textdateien (*.txt)");
-	if (files.count() == 0) return;
-	
-	QObjectList children = page(2)->children();
-	
-	for (int i=0; i < children.count(); i++)
-	{
-		if (dynamic_cast<QLineEdit*>(children.at(i)))
-		{
-			dynamic_cast<QLineEdit*>(children.at(i))->setText(files.at(0));
-		}
-	}
 }
 
 QWizardPage* ImportTrainingTexts::createSourcePage()
@@ -170,7 +180,20 @@ QWizardPage* ImportTrainingTexts::createSourcePage()
 
 QWizardPage* ImportTrainingTexts::createWorkingPage()
 {
+	ImportWorkingWizardPage *working= new ImportWorkingWizardPage(this);
+	working->setTitle("Text wird hinzugefügt");
+	QLabel *label = new QLabel(working);
+	label->setText("Der gewählte Text wird hinzugefügt.\n\nBitte haben Sie etwas Geduld.\n");
+	QProgressBar *progress = new QProgressBar(working);
+	progress->setMaximum(0);
+	progress->setValue(0);
 	
+	QVBoxLayout *layout = new QVBoxLayout(working);
+	layout->addWidget(label);
+	layout->addWidget(progress);
+	working->setLayout(layout);
+	
+	return working;
 }
 
 QWizardPage* ImportTrainingTexts::createFinishedPage()
@@ -187,6 +210,28 @@ QWizardPage* ImportTrainingTexts::createFinishedPage()
 }
 
 
+void ImportTrainingTexts::idChanged(int id)
+{
+	if (id < prevId) {
+		prevId = id;
+		return;
+	}
+	
+	if (id==3) //remote
+	{
+		((ImportRemoteWizardPage*) page(id))->fetchList();
+	} else if (id == 4) //working
+	{
+		if (!((ImportLocalWizardPage*)page(2))->getField("Filename")
+				     .toString().isEmpty())
+			((ImportWorkingWizardPage*)currentPage())->startImport(
+		  	   ((ImportLocalWizardPage*)page(2))->getField("Filename").toString());
+		else ((ImportWorkingWizardPage*)currentPage())->startImport(
+		       ((ImportRemoteWizardPage*)page(3))->getCurrentData());
+	}
+	prevId = id;
+}
+
 
 
 
@@ -199,6 +244,16 @@ void ImportLocalWizardPage::registerField(const QString &name, QWidget *widget, 
 		property, const char* changedSignal)
 {
 	QWizardPage::registerField(name, widget, property, changedSignal);
+}
+
+
+void ImportLocalWizardPage::setLocalSourceFile()
+{
+	
+	QStringList files = QFileDialog::getOpenFileNames(this, "Zu importierende Textdateien öffnen", QDir::currentPath(), "Textdateien (*.txt)");
+	if (files.count() == 0) return;
+	
+	lePath->setText(files.at(0));
 }
 
 
@@ -223,8 +278,19 @@ void ImportRemoteWizardPage::fetchList()
 
 void ImportRemoteWizardPage::importList(QString path)
 {
-// 	QMessageBox::information(0, "Texte", "Importiere Textliste von "+path);
-	list->addItem("Test");
+	XMLTrainingTextList *tlist = new XMLTrainingTextList(path);
+	tlist->load();
+	QHash<QString, QString> textlist = tlist->getTrainingTextList();
+	
+	QListWidgetItem *item;
+	list->clear();
+	for (int i=0; i < textlist.count(); i++)
+	{
+		item = new QListWidgetItem(list);
+		item->setText(textlist.keys().at(i));
+		item->setData(Qt::UserRole, textlist.values().at(i));
+		list->addItem(item);
+	}
 }
 
 
@@ -235,10 +301,78 @@ int SelectSourceWizardPage::nextId() const
 {
 	if (this->local->isChecked())
 	{
-		emit changingToLocal();
 		return 2;
 	} else {
-		emit changingToRemote();
 		return 3;
 	}
+}
+
+ImportWorkingWizardPage::ImportWorkingWizardPage(QWidget *parent) : QWizardPage(parent)
+{ }
+
+void ImportWorkingWizardPage::startImport(QString path)
+{
+	if (path.startsWith("http"))
+	{
+		QuickDownloader *qd = new QuickDownloader(this);
+		connect(qd, SIGNAL(downloadFinished(QString)), this,
+			SLOT(processText(QString)));
+		qd->download(path);
+	} else
+		parseFile(path);
+}
+
+void ImportWorkingWizardPage::processText(QString path)
+{
+	QFileInfo fi = QFileInfo(path);
+	QFile::copy(path, "texts/"+fi.fileName());
+	QFile::remove(path);
+	
+	wizard()->next();
+}
+
+void ImportWorkingWizardPage::parseFile(QString path)
+{
+	QFile file(path);
+	if (!file.open(QIODevice::ReadOnly))
+		return;
+	
+	QStringList sents;
+	QString tmp;
+	QTextStream ts(&file);
+	
+	int sentend;
+	QRegExp reg("(\\.|\\!|\\?)");
+	QRegExp spec("(\\.\\.\\.|\\!\\!\\!|\\?\\?\\?)");
+	QString currentLine;
+	while ((!ts.atEnd()) || (!tmp.isEmpty()))
+	{
+		if (!ts.atEnd())
+			currentLine = ts.readLine();
+		else currentLine = "";
+		
+		if ((QString(tmp+currentLine).indexOf(spec) <= 
+				   QString(tmp+currentLine).indexOf(reg)) && 
+				   (QString(tmp+currentLine).indexOf(spec) != -1))
+			sentend = QString(tmp+currentLine).indexOf(spec)+3;
+		else if (QString(tmp+currentLine).indexOf(reg) != -1)
+			 sentend = QString(tmp+currentLine).indexOf(reg)+1;
+		else sentend = QString(tmp+currentLine).length();
+		
+		if (sentend == -1)
+			tmp += currentLine;
+		else  {
+			sents << QString(tmp+" "+currentLine).left(sentend+1).trimmed();
+			tmp = QString(tmp+currentLine).mid(sentend).trimmed();
+		}
+	}
+	file.close();
+	
+	QFileInfo fi = QFileInfo(path);
+	XMLTrainingText *text = new XMLTrainingText("texts/"+fi.fileName().left(fi.fileName().lastIndexOf("."))+".xml");
+	text->setTitle(((ImportLocalWizardPage*)wizard()->page(2))->getField("Textname").toString());
+	text->addPages(sents);
+	text->save();
+	
+	wizard()->next();
 }

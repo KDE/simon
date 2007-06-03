@@ -11,13 +11,27 @@
 //
 #include "quickdownloader.h"
 
+/**
+ * \brief Constructor
+ * \author Peter Grasch
+ * @param QWidget *parent
+ * The parent of the Widget - is passed on to the QWidget constructor
+ */
 QuickDownloader::QuickDownloader(QWidget *parent) : QWidget(parent)
 {
 	this->loader = new QHttp();
 	this->progressDlg = new QProgressDialog(this);
-	file = new QTemporaryFile(this);
+	file = new QTemporaryFile("simon",this);
 }
 
+/**
+ * \brief Downloads the given URL
+ * \author Peter Grasch
+ * @param QString url
+ * The url to the file to download
+ * @return bool
+ * if there is an error this is set to false
+ */
 bool QuickDownloader::download(QString url)
 {
 	if (!loader || !progressDlg) return false;
@@ -42,8 +56,8 @@ bool QuickDownloader::download(QString url)
 	
 	progressDlg->setWindowTitle("Lade "+info.fileName());
 	progressDlg->setLabelText("Lade "+url);
-	progressDlg->setMaximum(-1);
-	progressDlg->setValue(-1);
+	progressDlg->setMaximum(0);
+	progressDlg->setValue(0);
 	progressDlg->show();
 	
 	aborting = false;
@@ -63,6 +77,12 @@ bool QuickDownloader::download(QString url)
 	return true;
 }
 
+/**
+ * \brief reads the response header from the server
+ * \author Peter Grasch
+ * @param QHttpResponseHeader header
+ * The header we recieved
+ */
 void QuickDownloader::readResponse(const QHttpResponseHeader header)
 {
 	if (header.statusCode() != 200) {
@@ -76,12 +96,23 @@ void QuickDownloader::readResponse(const QHttpResponseHeader header)
 	}
 }
 
+/**
+ * \brief Cancels the current upload and returns
+ * \author Peter Grasch
+ */
 void QuickDownloader::cancelDownload()
 {
 	aborting = true;
 	loader->abort();
 }
 
+/**
+ * \brief Updates the progressbar and emits the current progress
+ * @param int now
+ * How many bytes have we already recieved?
+ * @param int max
+ * How many bytes are there to retrieve?
+ */
 void QuickDownloader::dataRecieved(int now, int max)
 {
 	if (aborting) return;
@@ -91,6 +122,13 @@ void QuickDownloader::dataRecieved(int now, int max)
 	emit progress(now, max);
 }
 
+/**
+ * \brief Emits signals like downloadFinished(...), errorOccured(...) and aborted(); cleans up
+ * @param int id
+ * ID of the finished request
+ * @param bool error
+ * Was there an error?
+ */
 void QuickDownloader::requestFinished(int id, bool error)
 {
 	if (error) emit errorOccured(loader->errorString());
@@ -113,8 +151,15 @@ void QuickDownloader::requestFinished(int id, bool error)
 }
 
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 QuickDownloader::~QuickDownloader()
 {
+	delete progressDlg;
+	delete loader;
+	delete file;
 }
 
 

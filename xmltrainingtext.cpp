@@ -12,24 +12,38 @@ XMLTrainingText::XMLTrainingText(QString path):XMLDomReader(path)
 	
 }
 
-
-void XMLTrainingText::save(QStringList pages, QString path, QString title)
+void XMLTrainingText::save(QString path)
 {
-/*	QDomDocument doc("mydocument");
-	QDomElement root = doc.createElement("document");
-	doc.appendChild(root);
+	if (path.isEmpty()) path = this->path;
 	
-	QDomNode newnode;
-	newnode.setNodeValue(title);
+	doc = new QDomDocument();
 	
-	for(int i=0; i<=pages.size(); i++)
+	QDomElement root = doc->createElement("text");
+	QDomElement page = QDomElement();
+	QDomNode text = QDomElement();
+	QDomText textc;
+	
+	root.setAttribute("title", this->title);
+	
+	for (int i=0; i < this->pages.count(); i++)
 	{
-		QDomNode page;
-		page.setNodeValue(pages.value(i));
-		newnode.appendChild(page);
-
-		root.appendChild(newnode);
-	}*/
+		page = doc->createElement("page");
+		
+		text = doc->createElement("text");
+		
+		textc = doc->createTextNode("text");
+		
+		textc.setNodeValue(pages.at(i));
+		
+		text.appendChild(textc);
+		
+		page.appendChild(text.toElement());
+		root.appendChild(page);
+	}
+	
+	doc->appendChild(root);
+	XMLDomReader::save(path);
+	
 }
 
 /**
@@ -64,14 +78,15 @@ void XMLTrainingText::load(QString path)
 		
 		QString textcontent = text.text();
 		pages.append(textcontent.trimmed());
-		
-		QDomElement label = text.nextSiblingElement();
-		
-		labels.append(label.text().trimmed());
-		
 		page = page.nextSiblingElement();
 	}
 }
+
+void XMLTrainingText::addPages(QStringList pages)
+{
+	for (int i=0; i < pages.count(); i++) this->pages << pages.at(i);
+}
+
 
 
 QString XMLTrainingText::getTitle()
@@ -95,20 +110,6 @@ QString XMLTrainingText::getPage(int index)
 
 
 /**
- * \brief Returns the label of the given page index
- * \author Peter Grasch
- * \param int index
- * The index of the label we want to return
- * \return QString
- * The label
- */
-QString XMLTrainingText::getLabel(int index)
-{
-	return labels.at(index);
-}
-
-
-/**
  * \brief Returns all pages of the currently loaded document in a QStringList
  * 
  * Each page is one element in the list
@@ -125,25 +126,6 @@ QStringList XMLTrainingText::getAllPages()
 {
 	return pages;
 }
-
-/**
- * \brief Returns all labels of the currently loaded document in a QStringList
- * 
- * Each page is one element in the list
- * This does not, however, load the data if it isn't already stored.
- * Please use load() before using that function
- * 
- * \see load()
- * 
- * \author Peter Grasch
- * \return QStringList
- * The labels of the pages of the text
- */
-QStringList XMLTrainingText::getAllLabels()
-{
-	return labels;
-}
-
 
 XMLTrainingText::~XMLTrainingText()
 {

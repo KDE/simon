@@ -40,7 +40,6 @@ void TrainingManager::trainWords(WordList *words)
 	if (!words) return;
 	
 	QStringList pages;
-	QStringList labels;
 	
 	//we try to guess the perfect amount of words/page
 	//We first go through the possible words/page word counts from 5 to 12
@@ -85,27 +84,19 @@ void TrainingManager::trainWords(WordList *words)
 	if (wordsPerPage==13) wordsPerPage=leftOverWordsPerPage;
 	
 	QString page;
-	QString label;
 	for (int i=0; i< ceil((double)wordCount/wordsPerPage); i++)
 	{
 		page="";
-		label="sil ";
 		for (int j=0; (j<wordsPerPage) && (j+(i*wordsPerPage) < wordCount); j++)
 		{
 			page += words->at(j+(i*wordsPerPage)).getWord()+QString(" ");
-			if (words->at(j+(i*wordsPerPage)).getPronunciation(0)) 
-				label += *(words->at(j+(i*wordsPerPage)).getPronunciation(0))+QString(" sp ");
 		}
-		label += " sil";
 		
 		pages.append(page);
-		labels.append(label);
 	}
 	
-	labels.append("sil");
-	
 	TrainingText *newText = new TrainingText( "Spezialisiertes Training",
-						"", pages, labels, 0);
+						"", pages, 0);
 	
 	currentText=newText;
 }
@@ -143,7 +134,7 @@ void TrainingManager::resumeTraining()
 bool TrainingManager::deleteText(int index)
 {
 	QFile text(trainingTexts->at(index)->getPath());
-	text.remove();
+	return text.remove();
 }
 
 /**
@@ -168,7 +159,7 @@ TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 		text->load();
 		trainingTexts->append(new TrainingText(text->getTitle(), 
 				      pathToTexts+textsrcs.at(i),
-				      text->getAllPages(),text->getAllLabels(), 3.5));
+				      text->getAllPages(),3.5));
 	}
 	
 	return trainingTexts;

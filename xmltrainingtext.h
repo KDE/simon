@@ -21,23 +21,22 @@ class XMLTrainingText : public XMLDomReader
 private:
 	QString title;
 	QStringList pages;
-	QStringList labels;
 public: 
 	XMLTrainingText(QString path);
 	
-	void save(QStringList pages, QString path, QString title);
-	
 	int getPageCount();
+	void save(QString path="");
 	
 	void load(QString path="");
 	
 	QString getTitle();
 	
 	QString getPage(int index);
-	QString getLabel(int index);
 	
 	QStringList getAllPages();
-	QStringList getAllLabels();
+	
+	void addPages(QStringList pages);
+	void setTitle(QString title) { this->title =title; }
 	
 	
 	~XMLTrainingText();

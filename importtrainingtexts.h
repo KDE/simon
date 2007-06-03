@@ -20,14 +20,20 @@
 #include <QListWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QGridLayout>
 #include <QLineEdit>
+#include <QProgressBar>
 #include <QDir>
 #include <QFileDialog>
+#include <QListWidgetItem>
 #include <QPushButton>
 #include <QPixmap>
 #include <QRadioButton>
 #include "quickdownloader.h"
+#include "xmltrainingtextlist.h"
+#include "xmltrainingtext.h"
 #include <QObjectList>
+#include <QFileInfo>
 
 /**
  * \brief Guides the user through the process of adding a new trainingtext
@@ -44,6 +50,7 @@ class ImportTrainingTexts : public QWizard{
 	enum { PageIntro, PageSource, PageFile, PageInternet, PageWorking, PageFinished };
 private:
 	QFileDialog *fd;
+	int prevId;
 public:
     ImportTrainingTexts(QWidget *parent=0);
     
@@ -62,17 +69,12 @@ public:
     ~ImportTrainingTexts();
 
 public slots:
-	void setLocalSourceFile();
-
+	void idChanged(int id);
 
 };
 
 class SelectSourceWizardPage :  public QWizardPage {
 	Q_OBJECT
-
-	signals:
-		void changingToLocal() const;
-		void changingToRemote() const;
 
 	private:
 		QRadioButton *local;
@@ -89,12 +91,20 @@ class SelectSourceWizardPage :  public QWizardPage {
 };
 
 class ImportLocalWizardPage : public QWizardPage {
-	
+	Q_OBJECT
+private:
+	QLineEdit *lePath;
+public slots:
+	void setLocalSourceFile();
 public:
 	ImportLocalWizardPage(QWidget* parent);
+	void setPathEdit(QLineEdit *lePath) { this->lePath = lePath; }
 	void registerField(const QString & name, QWidget * widget, 
 			   const char * property = 0, const char * changedSignal = 0 );
-	int nextId() const { return 4; }
+	int nextId() const {
+		return 4;
+	}
+	QVariant getField(QString name) { return field(name);}
 };
 
 class ImportRemoteWizardPage : public QWizardPage {
@@ -110,6 +120,24 @@ class ImportRemoteWizardPage : public QWizardPage {
 		void setList(QListWidget* list) { this->list = list; }
 		void registerField(const QString & name, QWidget * widget, 
 				   const char * property = 0, const char * changedSignal = 0 );
+		int nextId() const {
+			return 4; 
+		}
+		QString getCurrentData() { 
+			if (list && list->currentItem())
+				return list->currentItem()->data(Qt::UserRole).toString(); 
+			else return "";
+		}
+};
+
+class ImportWorkingWizardPage : public QWizardPage {
+	Q_OBJECT 
+	public slots:
+		void startImport(QString path);
+		void processText(QString path);
+		void parseFile(QString path);
+	public:
+		ImportWorkingWizardPage(QWidget* parent);
 };
 
 #endif

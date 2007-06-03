@@ -31,7 +31,6 @@ private:
 	QString name;
 	QString path;
 	QStringList pages;
-	QStringList labels;
 	float relevance;
 	public:
 	/**
@@ -67,14 +66,6 @@ private:
 	QStringList getPages() { return pages; }
 	
 	/**
-	 * \brief Returns the labels of the text
-	 * \author Peter Grasch
-	 * \return QStringList
-	 * labels
-	 */
-	QStringList getLabels() { return labels; }
-	
-	/**
 	 * \brief Returns the page <page> of the text
 	 * \author Peter Grasch
 	 * \return QString
@@ -82,13 +73,6 @@ private:
 	 */
 	QString getPage( int page ) { return pages.at(page); }
 	
-	/**
-	 * \brief Returns the labels of the page <page> of the text
-	 * \author Peter Grasch
-	 * \return QString
-	 * label
-	 */
-	QString getLabel( int page ) { return labels.at(page); }
 	
 	/**
 	 * \brief Returns the relevance of the text
@@ -101,8 +85,7 @@ private:
 	 */
 	float getRelevance() { return this->relevance; }
 	
-    TrainingText( QString name, QString path, QStringList pages, 
-		  QStringList labels, float relevance );
+    TrainingText( QString name, QString path, QStringList pages, float relevance );
 
     ~TrainingText();
 

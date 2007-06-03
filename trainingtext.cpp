@@ -23,12 +23,11 @@
  * The relevance of the text - the higher the better it'd be to train the text
  */
 TrainingText::TrainingText(  QString name, QString path, QStringList pages, 
-			     QStringList labels, float relevance  )
+			     float relevance  )
 {
 	this->name = name;
 	this->path = path;
 	this->pages = pages;
-	this->labels = labels;
 	this->relevance = relevance;
 }
 

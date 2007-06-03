@@ -181,6 +181,7 @@ void TrainingView::importTexts()
 	hide();
 	import->start();
 	connect(import, SIGNAL(finished(int)), this, SLOT(show()));
+	connect(import, SIGNAL(finished(int)), this, SLOT(loadList()));
 }
 
 void TrainingView::resetRecorder()
@@ -212,6 +213,7 @@ void TrainingView::nextPage()
 void TrainingView::cancelReading()
 {
 	ui.swAction->setCurrentIndex(0);
+	delete recorder;
 	setWindowTitle(tr("Training"));
 }
 

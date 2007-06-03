@@ -50,7 +50,7 @@ public:
 	
 	QString getLabel(int i)
 	{
-		return currentText->getLabel(i);
+// 		return currentText->getLabel(i);
 	}
 	
 	bool deleteText(int index);

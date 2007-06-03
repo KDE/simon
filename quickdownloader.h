@@ -23,7 +23,7 @@
 
 /**
  * \class QuickDownloader
- * \brief Downloadwidget that pops up and displays a progressdlg. and downloads the given url
+ * \brief Downloadwidget that pops up, displays a progressdlg. and downloads the given url
  * \author Peter Grasch
  * \version 0.1
  * \date 02.06.2007
