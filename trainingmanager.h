@@ -50,7 +50,8 @@ public:
 	
 	QString getLabel(int i)
 	{
-// 		return currentText->getLabel(i);
+		return ""; //just to supress these silly compiler
+		//warnings that make me mad
 	}
 	
 	bool deleteText(int index);
