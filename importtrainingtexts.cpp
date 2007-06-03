@@ -362,7 +362,8 @@ void ImportWorkingWizardPage::parseFile(QString path)
 		if (sentend == -1)
 			tmp += currentLine;
 		else  {
-			sents << QString(tmp+" "+currentLine).left(sentend+1).trimmed();
+			QString sentence = QString(tmp+" "+currentLine).left(sentend).trimmed();
+			if (!sentence.isEmpty()) sents << sentence;
 			tmp = QString(tmp+currentLine).mid(sentend).trimmed();
 		}
 	}
