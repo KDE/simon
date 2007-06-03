@@ -26,6 +26,7 @@
 #include <QPushButton>
 #include <QPixmap>
 #include <QRadioButton>
+#include "quickdownloader.h"
 #include <QObjectList>
 
 /**
@@ -67,6 +68,12 @@ public slots:
 };
 
 class SelectSourceWizardPage :  public QWizardPage {
+	Q_OBJECT
+
+	signals:
+		void changingToLocal() const;
+		void changingToRemote() const;
+
 	private:
 		QRadioButton *local;
 		QRadioButton *remote;
@@ -91,9 +98,16 @@ public:
 };
 
 class ImportRemoteWizardPage : public QWizardPage {
+	Q_OBJECT
+	private:
+		QListWidget *list;
+	public slots:
+		void fetchList();
+		void importList(QString path);
 		
 	public:
 		ImportRemoteWizardPage(QWidget* parent);
+		void setList(QListWidget* list) { this->list = list; }
 		void registerField(const QString & name, QWidget * widget, 
 				   const char * property = 0, const char * changedSignal = 0 );
 };

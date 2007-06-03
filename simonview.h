@@ -47,8 +47,6 @@
 #include "trainingview.h"
 #include "settingsview.h"
 
-#include "wav.h"
-#include "soundcontrol.h"
 
 #include "ui_main.h"
 

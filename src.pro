@@ -4,13 +4,13 @@
 # Target is an application:  ./bin/simon
 
 unix {
-	HEADERS += runlinuxbackend.h xevents.h 
-	SOURCES += xevents.cpp runlinuxbackend.cpp
-	CONFIG += x11
-	DEFINES += __LINUX_ALSA__
-	INCLUDEPATH += /usr/include/alsa \
+    HEADERS += runlinuxbackend.h xevents.h 
+    SOURCES += xevents.cpp runlinuxbackend.cpp
+    CONFIG += x11
+    DEFINES += __LINUX_ALSA__
+    INCLUDEPATH += /usr/include/alsa \
 		/usr/X11R6/include
-	LIBS += -L/usr/X11R6/lib \
+    LIBS += -L/usr/X11R6/lib \
 	-L/usr/lib/alsa-lib \
 	-lX11 \
 	-lXtst \
@@ -19,10 +19,9 @@ unix {
 }
 
 win32 {
-	HEADERS += runwindowsbackend.h
-	SOURCES += runwindowsbackend.cpp
-	DEFINES += __WINDOWS_DS__
-        LIBS += -ldsound -lole32 -lwinmm
+    HEADERS += runwindowsbackend.h
+    SOURCES += runwindowsbackend.cpp
+    DEFINES += __WINDOWS_DS__
 }
 
 
@@ -76,7 +75,9 @@ HEADERS += simonview.h \
            xmldomreader.h \
            xmlsaxreader.h \
            importtrainingtexts.h \
-	   recwidget.h
+	   recwidget.h \
+ quickdownloader.h \
+ xmltrainingtextlist.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -115,7 +116,9 @@ SOURCES += main.cpp \
            xmldomreader.cpp \
            xmlsaxreader.cpp \
            importtrainingtexts.cpp \
-	   recwidget.cpp
+	   recwidget.cpp \
+ quickdownloader.cpp \
+ xmltrainingtextlist.cpp
 
 QT += network \
 xml

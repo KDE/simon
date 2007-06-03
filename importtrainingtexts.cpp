@@ -19,9 +19,17 @@
 ImportTrainingTexts::ImportTrainingTexts(QWidget *parent) : QWizard(parent)
 {
 	this->addPage(createIntroPage());
-	this->addPage(createSourcePage());
-	this->addPage(createLocalImportPage());
-	this->addPage(createRemoteImportPage());
+	
+	QWizardPage *source = createSourcePage();
+	QWizardPage *local = createLocalImportPage();
+	QWizardPage *remote = createRemoteImportPage();
+	
+	connect(source, SIGNAL(changingToRemote()), remote, SLOT(fetchList()));
+	
+	this->addPage(source);
+	this->addPage(local);
+	this->addPage(remote);
+	
 	this->addPage(createFinishedPage());
 	setWindowTitle("Trainingstext importieren");
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/importtexts.png"));
@@ -69,12 +77,12 @@ QWizardPage* ImportTrainingTexts::createRemoteImportPage()
 	label->setText("Hier können Sie Texte life aus dem Internet importieren.\n\nBitte haben Sie einen Moment Geduld während die Liste der verfügbaren Texte geladen wird.\n\nSobald die Liste vollständig geladen wurde, wählen Sie bitte einen Text aus der Liste und bestätigen Sie mit weiter.");
 	
 	QListWidget *textList = new QListWidget(remoteImport);
-	textList->addItem("Test");
 	
 	QVBoxLayout *layout = new QVBoxLayout(remoteImport);
 	layout->addWidget(label);
 	layout->addWidget(textList);
 	remoteImport->setLayout(layout);
+	remoteImport->setList(textList);
 	
 	
 	return remoteImport;
@@ -205,6 +213,20 @@ void ImportRemoteWizardPage::registerField(const QString &name, QWidget *widget,
 	QWizardPage::registerField(name, widget, property, changedSignal);
 }
 
+void ImportRemoteWizardPage::fetchList()
+{
+	QuickDownloader *downloader = new QuickDownloader(this);
+	
+	connect (downloader, SIGNAL(downloadFinished(QString)), this, SLOT(importList(QString)));
+	downloader->download("http://simon.pytalhost.org/texts/list.xml");
+}
+
+void ImportRemoteWizardPage::importList(QString path)
+{
+// 	QMessageBox::information(0, "Texte", "Importiere Textliste von "+path);
+	list->addItem("Test");
+}
+
 
 SelectSourceWizardPage::SelectSourceWizardPage(QWidget *parent) : QWizardPage(parent)
 { }
@@ -212,6 +234,11 @@ SelectSourceWizardPage::SelectSourceWizardPage(QWidget *parent) : QWizardPage(pa
 int SelectSourceWizardPage::nextId() const
 {
 	if (this->local->isChecked())
+	{
+		emit changingToLocal();
 		return 2;
-	else return 3;
+	} else {
+		emit changingToRemote();
+		return 3;
+	}
 }

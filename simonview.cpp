@@ -102,6 +102,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	//hiding splash again after loading
 	this->info->hideSplash();
+	
 }
 
 /**
