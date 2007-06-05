@@ -24,15 +24,13 @@
 #endif
 
 #include <iostream>
-#include "simonview.h"
-#include <QPlastiqueStyle>
+#include <simonview.h>
 
 
 int main(int argc, char *argv[])
 {
 	QApplication app(argc,argv);
 	SimonView *pv = new SimonView();
-	app.setStyle(new QPlastiqueStyle());
 	pv->show();
 	return app.exec();
 }

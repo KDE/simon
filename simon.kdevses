@@ -129,7 +129,7 @@
    <View0 Encoding="" Type="Source" />
   </Doc41>
   <Doc42 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/xevents.h" >
-   <View0 Encoding="" line="18" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc42>
   <Doc43 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/xevents.cpp" >
    <View0 Encoding="" Type="Source" />
@@ -246,10 +246,10 @@
    <View0 Encoding="ISO 8859-1" Type="Source" />
   </Doc80>
   <Doc81 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importtrainingtexts.cpp" >
-   <View0 Encoding="" line="141" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc81>
   <Doc82 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importtrainingtexts.h" >
-   <View0 Encoding="" line="48" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc82>
   <Doc83 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/sounddevice.h" >
    <View0 Encoding="" Type="Source" />
@@ -276,7 +276,7 @@
    <View0 Encoding="" Type="Source" />
   </Doc90>
   <Doc91 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importlocalwizardpage.h" >
-   <View0 Encoding="" line="15" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc91>
   <Doc92 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/selectsourcewizardpage.cpp" >
    <View0 Encoding="" Type="Source" />
@@ -285,16 +285,16 @@
    <View0 Encoding="" Type="Source" />
   </Doc93>
   <Doc94 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importremotewizardpage.cpp" >
-   <View0 Encoding="" line="31" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc94>
   <Doc95 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importremotewizardpage.h" >
-   <View0 Encoding="" line="21" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc95>
   <Doc96 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importworkingwizardpage.cpp" >
-   <View0 Encoding="" line="62" Type="Source" />
+   <View0 Encoding="" line="58" Type="Source" />
   </Doc96>
   <Doc97 NumberOfViews="1" URL="file:///home/bedahr/Daten/Projects/simon/trunk/importworkingwizardpage.h" >
-   <View0 Encoding="" line="25" Type="Source" />
+   <View0 Encoding="" line="23" Type="Source" />
   </Doc97>
  </DocsAndViews>
  <pluginList>
