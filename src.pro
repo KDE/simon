@@ -10,7 +10,8 @@ unix {
     DEFINES += __LINUX_ALSA__
     INCLUDEPATH += /usr/include/alsa \
 		/usr/X11R6/include
-    LIBS += -L/usr/X11R6/lib \
+    LIBS += \
+	-L/usr/X11R6/lib \
 	-L/usr/lib/alsa-lib \
 	-lX11 \
 	-lXtst \
@@ -78,7 +79,11 @@ HEADERS += simonview.h \
            importtrainingtexts.h \
 	   recwidget.h \
  quickdownloader.h \
- xmltrainingtextlist.h
+ xmltrainingtextlist.h \
+ importlocalwizardpage.h \
+ selectsourcewizardpage.h \
+ importremotewizardpage.h \
+ importworkingwizardpage.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -119,7 +124,11 @@ SOURCES += main.cpp \
            importtrainingtexts.cpp \
 	   recwidget.cpp \
  quickdownloader.cpp \
- xmltrainingtextlist.cpp
+ xmltrainingtextlist.cpp \
+ importlocalwizardpage.cpp \
+ selectsourcewizardpage.cpp \
+ importremotewizardpage.cpp \
+ importworkingwizardpage.cpp
 
 QT += network \
 xml

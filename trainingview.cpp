@@ -116,10 +116,6 @@ void TrainingView::startTraining()
 	
 	int count = trainMgr->getPageCount();
 	ui.pbPages->setMaximum(count-1);
-	lengthList = new QList<int>();
-	for (int i=0; i < count; i++)
-		lengthList->append(0);
-	
 	
 	ui.pbFinish->setEnabled(false);
 	this->currentPage=0;

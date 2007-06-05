@@ -40,7 +40,7 @@ private:
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	TrainingManager *trainMgr;
 	int currentPage; //!< when we train a text this will hold the page we are on
-	QList<int> *lengthList; //!< Stores the length of the pages in msecs
+	//QList<int> *lengthList; //!< Stores the length of the pages in msecs
 	
 	RecWidget *recorder;
 	

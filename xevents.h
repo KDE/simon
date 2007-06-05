@@ -24,7 +24,9 @@
 #include <X11/keysymdef.h>
 #include <X11/keysym.h>
 #include <X11/extensions/XTest.h>
-
+#ifdef None
+#undef None
+#endif
 
 
 /**
