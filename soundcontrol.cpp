@@ -11,7 +11,7 @@
 //
 #include "soundcontrol.h"
 #include <string.h>
-
+#include "simoninfo.h"
 /**
  *	@brief Constructor
  *	
@@ -317,7 +317,7 @@ void SoundControl::setVolume(int percent)
  *	returns the aviable sound devices
 */
 
-SoundDeviceList* SoundControl::getDevices()
+SoundDeviceList* SoundControl::getOutputDevices()
 {
 SoundDeviceList *sdl= new SoundDeviceList(); 
   RtAudio *audio = 0;
@@ -342,8 +342,50 @@ SoundDeviceList *sdl= new SoundDeviceList();
     try 
     {        
       info = audio->getDeviceInfo(i);
-      
-      sdl->append(SoundDevice(QString::number(i),QString(info.name.c_str())));
+      if(info.outputChannels>0)
+      {
+       sdl->append(SoundDevice(QString::number(i),QString(info.name.c_str())));
+      }
+    }
+    catch (RtError &error) 
+    {
+      error.printMessage();
+      break;
+    }
+  }
+  
+ return sdl;
+}
+
+SoundDeviceList* SoundControl::getInputDevices()
+{
+SoundDeviceList *sdl= new SoundDeviceList(); 
+  RtAudio *audio = 0;
+  try 
+  {
+    audio = new RtAudio();
+  }
+  catch (RtError &error) 
+  {
+    error.printMessage();
+    exit(EXIT_FAILURE);
+  }
+  
+  // Determine the number of devices available
+  int devices = audio->getDeviceCount();
+
+  // Scan through devices for various capabilities
+  RtAudioDeviceInfo info;
+  for (int i=1; i<=devices; i++) 
+  {
+
+    try 
+    {        
+      info = audio->getDeviceInfo(i);
+      if(info.inputChannels>0)
+      {
+       sdl->append(SoundDevice(QString::number(i),QString(info.name.c_str())));
+      }
     }
     catch (RtError &error) 
     {
@@ -352,12 +394,9 @@ SoundDeviceList *sdl= new SoundDeviceList();
     }
   }
        
-#ifdef linux
+
  return sdl;
-#endif
-#ifdef __WIN32
- return sdl;
-#endif
+
 }
 
 /**

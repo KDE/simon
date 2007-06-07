@@ -96,15 +96,24 @@ void SettingsView::readConfig()
 //     ui.leAddress->setText(sm->getIpAdress()); 
     
     
-    	SoundDeviceList *sd=sm->getDevices();
-    ui.cbDevice->clear();
+   	SoundDeviceList *sd=sm->getInputDevices();
+    ui.cbInDevice->clear();
     int defaultdevice=sm->getDefaultDevice();
     for (int i=0; i<sd->count(); i++)
     {
         QString deviceid= ((SoundDevice)sd->at(i)).getDeviceID();
-        ui.cbDevice->addItem(((SoundDevice) sd->at(i)).getName(),deviceid);
-        if (deviceid.toInt()==defaultdevice) ui.cbDevice->setCurrentIndex(ui.cbDevice->count());
-        
+        ui.cbInDevice->addItem(((SoundDevice) sd->at(i)).getName(),deviceid);
+        if (deviceid.toInt()==defaultdevice) ui.cbInDevice->setCurrentIndex(ui.cbInDevice->count());  
+    }
+    
+   	sd=sm->getOutputDevices();
+    ui.cbOutDevice->clear();
+    defaultdevice=sm->getDefaultDevice();
+    for (int i=0; i<sd->count(); i++)
+    {
+        QString deviceid= ((SoundDevice)sd->at(i)).getDeviceID();
+        ui.cbOutDevice->addItem(((SoundDevice) sd->at(i)).getName(),deviceid);
+        if (deviceid.toInt()==defaultdevice) ui.cbOutDevice->setCurrentIndex(ui.cbOutDevice->count());  
     }
     
     ui.cbMixing->setCheckState((sm->getMixing()) ? Qt::Checked : Qt::Unchecked);
@@ -160,7 +169,7 @@ void SettingsView::apply()
      sm->setPathToSaveRecordings(ui.leSaveRecordingsTo->text());
      sm->setSamplerate(ui.sbSamplerate->value());
      sm->setVolume(ui.hsMic->sliderPosition());
-     sm->setDefaultDevice((ui.cbDevice->itemData(ui.cbDevice->currentIndex(),Qt::UserRole)).toString());
+     sm->setDefaultDevice((ui.cbInDevice->itemData(ui.cbInDevice->currentIndex(),Qt::UserRole)).toString());
      
      int result=sm->saveSettings();
      if (result==0) QMessageBox::information(this,"Einstellungen gespeichert","Die geänderten Einstellungen wurden gespeichert");

@@ -1218,14 +1218,14 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
              <property name="verticalSpacing" >
               <number>6</number>
              </property>
-             <item row="1" column="0" >
+             <item row="2" column="0" >
               <widget class="QLabel" name="lbMixing" >
                <property name="text" >
                 <string>Mixing:</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" >
+             <item row="2" column="1" >
               <widget class="QCheckBox" name="cbMixing" >
                <property name="toolTip" >
                 <string>Verwenden Sie dies wenn Sie sicher sind das sie mehrere Sounds paralell aufnehmen/abspielen können.</string>
@@ -1238,15 +1238,31 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
                </property>
               </widget>
              </item>
+             <item row="0" column="1" >
+              <widget class="QComboBox" name="cbInDevice" >
+               <item>
+                <property name="text" >
+                 <string>Default</string>
+                </property>
+               </item>
+              </widget>
+             </item>
              <item row="0" column="0" >
-              <widget class="QLabel" name="lbDevice" >
+              <widget class="QLabel" name="lbInDevice" >
                <property name="text" >
-                <string>Gerät:</string>
+                <string>Eingabe Gerät:</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1" >
-              <widget class="QComboBox" name="cbDevice" >
+             <item row="1" column="0" >
+              <widget class="QLabel" name="lbOutDevice" >
+               <property name="text" >
+                <string>Ausgabe Gerät:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" >
+              <widget class="QComboBox" name="cbOutDevice" >
                <item>
                 <property name="text" >
                  <string>Default</string>

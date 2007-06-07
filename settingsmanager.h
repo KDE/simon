@@ -44,7 +44,8 @@ public:
      QString getPathToVocabul();
      QString getPathToPrompts();
      QString getIpAdress();
-     SoundDeviceList* getDevices();
+     SoundDeviceList* getInputDevices();
+     SoundDeviceList* getOutputDevices();
      bool getMixing();
      bool getSaveAllRecordings();
      int getChannel();

@@ -10,7 +10,7 @@
  <option value="44000" name="samplerate" />
  <option value="99" name="volume" />
  <option value="0" name="saveallrecordings" />
- <option value="2" name="device" />
+ <option value="3" name="device" />
  <option value="4567" name="portnumber" />
  <option value="1" name="simonautostart" />
  <option value="records/" name="pathtosaverecordings" />

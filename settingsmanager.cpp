@@ -109,10 +109,16 @@ void SettingsManager::setDefaultDevice(QString defaultdeviceid)
      settings->insert("device",defaultdeviceid); 
 }
 
-SoundDeviceList* SettingsManager::getDevices()
+SoundDeviceList* SettingsManager::getInputDevices()
 {
      SoundControl *sc= new SoundControl();
-     return sc->getDevices() ;
+     return sc->getInputDevices() ;
+}
+
+SoundDeviceList* SettingsManager::getOutputDevices()
+{
+     SoundControl *sc= new SoundControl();
+     return sc->getOutputDevices() ;
 }
 
 int SettingsManager::getDefaultDevice()

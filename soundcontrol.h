@@ -49,7 +49,8 @@ public:
 	bool initializeMic(short channels=2, int samplerate=44100);
 	bool initializeSpeaker(short channels=2, int samplerate=44100);
 	char* capture (int msecs, long unsigned int& size);
-	SoundDeviceList* getDevices();
+	SoundDeviceList* getInputDevices();
+	SoundDeviceList* getOutputDevices();
 	bool playback (char* data, int count);
 	
 	bool closeSpeaker();
