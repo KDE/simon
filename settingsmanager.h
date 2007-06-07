@@ -12,6 +12,7 @@
 #ifndef SETTINGSMANAGER_H
 #define SETTINGSMANAGER_H
 #include <QString>
+#include <QSettings>
 #include "sounddevice.h"
 #include "soundcontrol.h"
 #include "xmlsetting.h"
@@ -27,7 +28,7 @@
 class SettingsManager{
 
 private:
-         QHash<QString,QString> *settings;
+         QSettings settings;
 
 public:
      SettingsManager();
