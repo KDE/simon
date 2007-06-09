@@ -65,7 +65,6 @@ HEADERS += simonview.h \
            xmlcommand.h \
            xmltrainingtext.h \
            xmlsetting.h \
-           settingsmanager.h \
            wavrecorder.h \
            wavplayer.h \
 	   sounddevice.h \
@@ -111,7 +110,6 @@ SOURCES += main.cpp \
            xmlcommand.cpp \
            xmltrainingtext.cpp \
            xmlsetting.cpp \
-           settingsmanager.cpp \
            wavrecorder.cpp \
            wavplayer.cpp \
            soundcontrol.cpp \

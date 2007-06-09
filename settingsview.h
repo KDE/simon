@@ -15,7 +15,9 @@
 #include <QDialog>
 #include <QMessageBox>
 #include "ui_settings.h"
-#include "settingsmanager.h"
+#include <QSettings>
+#include "soundcontrol.h"
+#include "sounddevice.h"
 
 /**
 	\class SettingsView
@@ -36,6 +38,7 @@ class SettingsView : public QDialog
 private:
 	Ui::SettingsDialog ui; //!< The user interface
     QSettings *settings;
+    SoundControl *sc;
     void readConfig();
 public slots:
 	void unsetAllTabs();
