@@ -35,8 +35,10 @@ SettingsView::SettingsView(QWidget *parent)
 	connect(ui.pbRevert, SIGNAL(clicked()), this, SLOT(switchToHistory()));
 	connect(ui.pbApply, SIGNAL(clicked()), this, SLOT(apply()));
 	connect(ui.pbConfirm, SIGNAL(clicked()), this, SLOT(apply()));
-	sm=new SettingsManager();
-    sm->loadFile();
+	
+    
+ 
+   
 	
     ui.cbChannels->clear();
     ui.cbChannels->addItem("Mono",1);
@@ -83,6 +85,7 @@ void SettingsView::unsetAllTabs()
  */
 void SettingsView::readConfig()
 {
+    sm->sync();
 	//ui.sbPort->setValue(sm->getPortNum()); 
     ui.cbAskBeforeExit->setCheckState((sm->getAskBeforeExit()) ? Qt::Checked : Qt::Unchecked);
     ui.cbStartSimonOnBoot->setCheckState((sm->getSimonAutoStart()) ? Qt::Checked : Qt::Unchecked);
@@ -171,10 +174,10 @@ void SettingsView::apply()
      sm->setVolume(ui.hsMic->sliderPosition());
      sm->setDefaultDevice((ui.cbInDevice->itemData(ui.cbInDevice->currentIndex(),Qt::UserRole)).toString());
      
-     int result=sm->saveSettings();
-     if (result==0) QMessageBox::information(this,"Einstellungen gespeichert","Die geänderten Einstellungen wurden gespeichert");
+     sm->sync();
+     /*if (result==0) QMessageBox::information(this,"Einstellungen gespeichert","Die geänderten Einstellungen wurden gespeichert");
      else QMessageBox::critical(this,"Fehler beim Speichern der Einstellungen","Beim Speichern der Einstellungen ist ein Fehler aufgetreten! Kontrollieren sie ob der Datenträger weder voll noch schreibgeschützt ist.");
-    
+    */
      
      
      

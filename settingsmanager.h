@@ -28,7 +28,7 @@
 class SettingsManager{
 
 private:
-         QSettings settings;
+         QSettings *settings;
 
 public:
      SettingsManager();
@@ -55,7 +55,7 @@ public:
      int getVolume();
      int getDefaultDevice();
      
-     int saveSettings();
+     void sync();
      void setPortNum(int portnum);
      void setSimonAutoStart(bool simonautostart);
      void setJuliusdAutostart(bool juliusdautostart);

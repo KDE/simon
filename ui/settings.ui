@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>911</width>
-    <height>554</height>
+    <width>805</width>
+    <height>485</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -1218,26 +1218,6 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
              <property name="verticalSpacing" >
               <number>6</number>
              </property>
-             <item row="2" column="0" >
-              <widget class="QLabel" name="lbMixing" >
-               <property name="text" >
-                <string>Mixing:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1" >
-              <widget class="QCheckBox" name="cbMixing" >
-               <property name="toolTip" >
-                <string>Verwenden Sie dies wenn Sie sicher sind das sie mehrere Sounds paralell aufnehmen/abspielen können.</string>
-               </property>
-               <property name="text" >
-                <string>Vorhanden</string>
-               </property>
-               <property name="checked" >
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
              <item row="0" column="1" >
               <widget class="QComboBox" name="cbInDevice" >
                <item>
@@ -1277,7 +1257,7 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
              <property name="minimumSize" >
               <size>
                <width>159</width>
-               <height>161</height>
+               <height>117</height>
               </size>
              </property>
              <property name="maximumSize" >
@@ -1291,8 +1271,8 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>169</width>
-                <height>151</height>
+                <width>163</width>
+                <height>129</height>
                </rect>
               </property>
               <property name="maximumSize" >
@@ -1311,10 +1291,10 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
              <widget class="QLabel" name="lbALSA" >
               <property name="geometry" >
                <rect>
-                <x>10</x>
-                <y>10</y>
-                <width>131</width>
-                <height>131</height>
+                <x>24</x>
+                <y>4</y>
+                <width>113</width>
+                <height>113</height>
                </rect>
               </property>
               <property name="text" >
@@ -1322,6 +1302,9 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
               </property>
               <property name="pixmap" >
                <pixmap resource="../simon.qrc" >:/images/alsalogo.gif</pixmap>
+              </property>
+              <property name="scaledContents" >
+               <bool>true</bool>
               </property>
              </widget>
             </widget>

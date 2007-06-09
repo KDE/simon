@@ -35,7 +35,7 @@ class SettingsView : public QDialog
 	Q_OBJECT
 private:
 	Ui::SettingsDialog ui; //!< The user interface
-    SettingsManager *sm;
+    QSettings *settings;
     void readConfig();
 public slots:
 	void unsetAllTabs();
