@@ -21,7 +21,7 @@
  */
 VuMeter::VuMeter() : QThread ()
 {
-	mic = new SoundControl();
+	//mic = new SoundControl();
 }
 
 /**
@@ -33,7 +33,7 @@ VuMeter::VuMeter() : QThread ()
  */
 bool VuMeter::prepare()
 {
-	return mic->initializeMic( (short) 2, 44100 );
+	return true;//mic->initializeMic( (short) 2, 44100 );
 }
 
 /**
@@ -61,7 +61,7 @@ void VuMeter::run()
  */
 void VuMeter::exec()
 {
-	if (!mic) return;
+	/*if (!mic) return;
 	
 	while (true)
 	{
@@ -72,7 +72,8 @@ void VuMeter::exec()
 				emit level((buffer[0]+buffer[1]+buffer[2]) / 3);
 		
 		msleep( 80 );
-	}
+	}*/
+	
 }
 
 
@@ -85,7 +86,7 @@ void VuMeter::exec()
  */
 VuMeter::~VuMeter()
 {
-	mic->closeMic();
+	//mic->closeMic();
 }
 
 

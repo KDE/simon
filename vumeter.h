@@ -22,6 +22,7 @@
  *	@version 0.1
  *	@date 5.02.2007
  *	@author Peter Grasch
+ *  @TODO adept to the huge changes in soundcontrol etc.
  */
 class VuMeter : public QThread
 {
@@ -29,7 +30,7 @@ class VuMeter : public QThread
 signals:
 	void level(int level); //!< publishs the current "loudness"
 private:
-	SoundControl *mic;
+	//SoundControl *mic;
 public:
 	VuMeter();
 	void run();

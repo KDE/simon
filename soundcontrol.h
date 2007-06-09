@@ -13,14 +13,12 @@
 #define SOUNDCONTROL_H
 
 #include <stdio.h>
-#include "simoninfo.h"
+
 #include "sounddevice.h"
 #include "RtAudio.h"
 #include "RtError.h"
+#include <QList>
 
-#ifndef FORMAT
-#define FORMAT RTAUDIO_SINT16
-#endif
 
 /**
  *	@class SoundControl
@@ -39,22 +37,13 @@
  */
 class SoundControl{
 private:
-	RtAudio *out_audio;
-	RtAudio *in_audio;
-	char *in_data;
-	char *out_data;
-	int in_buffersize, out_samplerate, in_samplerate, out_buffersize;
-	int in_channels, out_channels;
+	RtAudio *audio;
+
 public:
-	bool initializeMic(short channels=2, int samplerate=44100);
-	bool initializeSpeaker(short channels=2, int samplerate=44100);
-	char* capture (int msecs, long unsigned int& size);
 	SoundDeviceList* getInputDevices();
 	SoundDeviceList* getOutputDevices();
-	bool playback (char* data, int count);
-	
-	bool closeSpeaker();
-	bool closeMic();
+	QList<int>* getSamplerate(QString id);
+	int getChannel(QString id);
 	int getVolume();
 	void setVolume(int percent);
     SoundControl();

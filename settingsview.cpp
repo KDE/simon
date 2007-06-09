@@ -1,4 +1,4 @@
-//
+//3
 // C++ Implementation: settingsview
 //
 // Description: 
@@ -35,6 +35,7 @@ SettingsView::SettingsView(QWidget *parent)
 	connect(ui.pbRevert, SIGNAL(clicked()), this, SLOT(switchToHistory()));
 	connect(ui.pbApply, SIGNAL(clicked()), this, SLOT(apply()));
 	connect(ui.pbConfirm, SIGNAL(clicked()), this, SLOT(apply()));
+	connect(ui.cbInDevice, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshDeviceCapabilities()));
 	
 	this->settings = new QSettings(QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon");
 	this->sc= new SoundControl();
@@ -71,6 +72,23 @@ void SettingsView::unsetAllTabs()
 	ui.pbProtocolSettings->setChecked(false);
 	ui.pbRevert->setChecked(false);
 	
+}
+void SettingsView::refreshDeviceCapabilities()
+{
+    ui.cbChannels->clear();
+    ui.cbSampleRate->clear();
+    if (sc->getChannel(ui.cbInDevice->currentText())>1) ui.cbChannels->addItem("Stereo", 2);
+    if (sc->getChannel(ui.cbInDevice->currentText())>0) ui.cbChannels->addItem("Mono", 1);
+    
+    QList<int>* samplerates;
+    samplerates=sc->getSamplerate(ui.cbInDevice->currentText());
+    if (!samplerates) return;
+    qSort(samplerates->begin(), samplerates->end(),  qGreater<int>());
+    for (int i=0; i<samplerates->count(); i++)
+    {
+        ui.cbSampleRate->addItem(QString::number(samplerates->at(i)));
+//        if(QString::number(samplreates->at(i)>44000
+    }
 }
 
 /**
@@ -114,6 +132,10 @@ void SettingsView::readConfig()
     
     ui.cbSaveAllRecordings->setCheckState((settings->value("saveallrecordings").toBool()) ? Qt::Checked : Qt::Unchecked);
     ui.leSaveRecordingsTo->setText(settings->value("pathtosaverecordings").toString());
+    
+    
+    refreshDeviceCapabilities();
+    
     int channel=settings->value("channel").toInt();
     int j=0;
     while ((j<ui.cbChannels->count()) && (ui.cbChannels->itemData(j)!=channel))
@@ -126,7 +148,17 @@ void SettingsView::readConfig()
        return;
     }
     ui.cbChannels->setCurrentIndex(j);
-    ui.sbSamplerate->setValue(settings->value("samplerate").toInt());
+    
+    
+    QString desiredSRate=settings->value("samplerate").toString();
+    for (int i=0; i< ui.cbSampleRate->count(); i++)
+    {
+        if (ui.cbSampleRate->itemText(i) == desiredSRate)
+        {
+         ui.cbSampleRate->setCurrentIndex(i);
+         break;
+        }
+    }
     ui.hsMic->setValue(settings->value("volume").toInt());
    	
 
@@ -141,9 +173,9 @@ void SettingsView::apply()
      settings->setValue("askbeforeexit",ui.cbAskBeforeExit->checkState()==Qt::Checked);
      settings->setValue("setsaveallrecordings",ui.cbSaveAllRecordings->checkState()==Qt::Checked);
      settings->setValue("channel",ui.cbChannels->itemData(ui.cbChannels->currentIndex(),Qt::UserRole).toString()); 
-     settings->setValue("samplerate",ui.sbSamplerate->value());
+     settings->setValue("samplerate",ui.cbSampleRate->currentText());
      settings->setValue("volume",ui.hsMic->sliderPosition());
-     settings->setValue("defaultdeviceid",ui.cbInDevice->itemData(ui.cbInDevice->currentIndex(),Qt::UserRole).toString());
+     settings->setValue("defaultdeviceid",ui.cbInDevice->currentText());
   
      settings->setValue("paths/lexicon",ui.leLexicon->text());
      settings->setValue("paths/grammar",ui.leGrammar->text());

@@ -18,6 +18,7 @@
 #include <QSettings>
 #include "soundcontrol.h"
 #include "sounddevice.h"
+#include <QList>
 
 /**
 	\class SettingsView
@@ -48,6 +49,7 @@ public slots:
 	void switchToProtocols();
 	void switchToHistory();
 	void apply();
+	void refreshDeviceCapabilities();
 	
 public:
     SettingsView(QWidget *parent);

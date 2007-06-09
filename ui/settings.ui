@@ -1394,17 +1394,7 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
                  </widget>
                 </item>
                 <item row="1" column="1" >
-                 <widget class="QSpinBox" name="sbSamplerate" >
-                  <property name="minimum" >
-                   <number>8000</number>
-                  </property>
-                  <property name="maximum" >
-                   <number>96000</number>
-                  </property>
-                  <property name="value" >
-                   <number>44000</number>
-                  </property>
-                 </widget>
+                 <widget class="QComboBox" name="cbSampleRate" />
                 </item>
                </layout>
               </item>
@@ -2308,12 +2298,12 @@ Bitte beachten sie das die immer nur die selektierten Änderungen zurückgenomme
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>105</x>
-     <y>523</y>
+     <x>91</x>
+     <y>474</y>
     </hint>
     <hint type="destinationlabel" >
      <x>166</x>
-     <y>540</y>
+     <y>484</y>
     </hint>
    </hints>
   </connection>
@@ -2324,12 +2314,12 @@ Bitte beachten sie das die immer nur die selektierten Änderungen zurückgenomme
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>885</x>
-     <y>530</y>
+     <x>794</x>
+     <y>474</y>
     </hint>
     <hint type="destinationlabel" >
      <x>799</x>
-     <y>534</y>
+     <y>484</y>
     </hint>
    </hints>
   </connection>
@@ -2344,8 +2334,8 @@ Bitte beachten sie das die immer nur die selektierten Änderungen zurückgenomme
      <y>305</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>67</x>
-     <y>325</y>
+     <x>89</x>
+     <y>351</y>
     </hint>
    </hints>
   </connection>
@@ -2360,8 +2350,24 @@ Bitte beachten sie das die immer nur die selektierten Änderungen zurückgenomme
      <y>305</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>206</x>
-     <y>329</y>
+     <x>265</x>
+     <y>351</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbOnlyDay</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>cwLogDay</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>91</x>
+     <y>236</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>91</x>
+     <y>287</y>
     </hint>
    </hints>
   </connection>
