@@ -367,7 +367,7 @@
    <item>
     <widget class="QStackedWidget" name="swSettings" >
      <property name="currentIndex" >
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page" >
       <layout class="QHBoxLayout" >
@@ -913,19 +913,6 @@ p, li { white-space: pre-wrap; }
            </property>
           </spacer>
          </item>
-         <item row="3" column="2" >
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
          <item row="11" column="1" >
           <widget class="QLineEdit" name="leGrammar" >
            <property name="text" >
@@ -1115,26 +1102,13 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton" >
+            <widget class="QPushButton" name="pbDeleteAdress" >
              <property name="text" >
-              <string>Ändern</string>
+              <string>Entfernen</string>
              </property>
             </widget>
            </item>
           </layout>
-         </item>
-         <item row="3" column="3" >
-          <spacer>
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" >
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
          </item>
          <item row="3" column="4" >
           <spacer>
@@ -1148,6 +1122,13 @@ p, li { white-space: pre-wrap; }
             </size>
            </property>
           </spacer>
+         </item>
+         <item row="3" column="3" >
+          <widget class="QPushButton" name="pbAddAdress" >
+           <property name="text" >
+            <string>Hinzufügen</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -2362,12 +2343,12 @@ Bitte beachten sie das die immer nur die selektierten Änderungen zurückgenomme
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>91</x>
-     <y>236</y>
+     <x>119</x>
+     <y>248</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>91</x>
-     <y>287</y>
+     <x>119</x>
+     <y>284</y>
     </hint>
    </hints>
   </connection>

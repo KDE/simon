@@ -19,6 +19,7 @@
 #include "soundcontrol.h"
 #include "sounddevice.h"
 #include <QList>
+#include <QInputDialog>
 
 /**
 	\class SettingsView
@@ -50,6 +51,8 @@ public slots:
 	void switchToHistory();
 	void apply();
 	void refreshDeviceCapabilities();
+	void deleteAddress();
+	void addAddress();
 	
 public:
     SettingsView(QWidget *parent);

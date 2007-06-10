@@ -36,6 +36,8 @@ SettingsView::SettingsView(QWidget *parent)
 	connect(ui.pbApply, SIGNAL(clicked()), this, SLOT(apply()));
 	connect(ui.pbConfirm, SIGNAL(clicked()), this, SLOT(apply()));
 	connect(ui.cbInDevice, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshDeviceCapabilities()));
+	connect(ui.pbAddAdress, SIGNAL(clicked()), this, SLOT(addAddress()));
+	connect(ui.pbDeleteAdress, SIGNAL(clicked()), this, SLOT(deleteAddress()));
 	
 	this->settings = new QSettings(QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon");
 	this->sc= new SoundControl();
@@ -73,6 +75,30 @@ void SettingsView::unsetAllTabs()
 	ui.pbRevert->setChecked(false);
 	
 }
+
+void SettingsView::deleteAddress()
+{
+     ui.cbAddress->removeItem(ui.cbAddress->currentIndex());
+}
+
+void SettingsView::addAddress()
+{    
+     QString host="";
+     QString port="";
+     bool ok=false;
+     host=QInputDialog::getText(this, "Neue Adresse Hinzufügen","Host:", QLineEdit::Normal,"localhost", &ok);
+     if (ok && !host.isEmpty())
+     {
+        ok=false;
+        port=QInputDialog::getText(this, "Neue Adresse Hinzufügen","Portnummer:", QLineEdit::Normal, "4444",&ok);
+        if (ok)
+        {
+           if (!port.isEmpty()) ui.cbAddress->addItem(host+":"+port);
+           else ui.cbAddress->addItem(host+":4444");
+        }
+     }
+}
+
 void SettingsView::refreshDeviceCapabilities()
 {
     ui.cbChannels->clear();
@@ -104,6 +130,7 @@ void SettingsView::readConfig()
     ui.cbStartSimonOnBoot->setCheckState((settings->value("simonautostart").toBool()) ? Qt::Checked : Qt::Unchecked);
     ui.cbStartJuliusdOnBoot->setCheckState((settings->value("juliusdautostart").toBool()) ? Qt::Checked : Qt::Unchecked);
     ui.cbStartJuliusAsNeeded->setCheckState((settings->value("juliusdrequired").toBool()) ? Qt::Checked : Qt::Unchecked);
+    ui.cbSaveAllRecordings->setCheckState((settings->value("saveallrecordings").toBool()) ? Qt::Checked : Qt::Unchecked);
     ui.leLexicon->setText(settings->value("paths/lexicon").toString());
     ui.leGrammar->setText(settings->value("paths/grammar").toString());
     ui.leCommands->setText(settings->value("paths/commando").toString());
@@ -112,17 +139,17 @@ void SettingsView::readConfig()
     
    	SoundDeviceList *sd=sc->getInputDevices();
     ui.cbInDevice->clear();
-    int defindevice=settings->value("defindevice").toInt();
+    settings->value("sounddevice/indevice").toString();
     for (int i=0; i<sd->count(); i++)
     {
         QString deviceid= ((SoundDevice)sd->at(i)).getDeviceID();
         ui.cbInDevice->addItem(((SoundDevice) sd->at(i)).getName(),deviceid);
-        if (deviceid.toInt()==defindevice) ui.cbInDevice->setCurrentIndex(ui.cbInDevice->count());  
+        //if (deviceid.toInt()==defindevice) ui.cbInDevice->setCurrentIndex(ui.cbInDevice->count());  
     }
     
    	sd=sc->getOutputDevices();
     ui.cbOutDevice->clear();
-    int defoutdevice=settings->value("defoutdevice").toInt();
+    int defoutdevice=settings->value("sounddevice/outdevice").toInt();
     for (int i=0; i<sd->count(); i++)
     {
         QString deviceid= ((SoundDevice)sd->at(i)).getDeviceID();
@@ -136,7 +163,7 @@ void SettingsView::readConfig()
     
     refreshDeviceCapabilities();
     
-    int channel=settings->value("channel").toInt();
+    int channel=settings->value("sounddevice/channel").toInt();
     int j=0;
     while ((j<ui.cbChannels->count()) && (ui.cbChannels->itemData(j)!=channel))
     {
@@ -150,7 +177,7 @@ void SettingsView::readConfig()
     ui.cbChannels->setCurrentIndex(j);
     
     
-    QString desiredSRate=settings->value("samplerate").toString();
+    QString desiredSRate=settings->value("sounddevice/samplerate").toString();
     for (int i=0; i< ui.cbSampleRate->count(); i++)
     {
         if (ui.cbSampleRate->itemText(i) == desiredSRate)
@@ -159,7 +186,7 @@ void SettingsView::readConfig()
          break;
         }
     }
-    ui.hsMic->setValue(settings->value("volume").toInt());
+    ui.hsMic->setValue(settings->value("sounddevice/volume").toInt());
    	
 
                     
@@ -172,10 +199,11 @@ void SettingsView::apply()
      settings->setValue("juliusdrequired",ui.cbStartJuliusAsNeeded->checkState()==Qt::Checked);
      settings->setValue("askbeforeexit",ui.cbAskBeforeExit->checkState()==Qt::Checked);
      settings->setValue("setsaveallrecordings",ui.cbSaveAllRecordings->checkState()==Qt::Checked);
-     settings->setValue("channel",ui.cbChannels->itemData(ui.cbChannels->currentIndex(),Qt::UserRole).toString()); 
-     settings->setValue("samplerate",ui.cbSampleRate->currentText());
-     settings->setValue("volume",ui.hsMic->sliderPosition());
-     settings->setValue("defaultdeviceid",ui.cbInDevice->currentText());
+     settings->setValue("sounddevice/channel",ui.cbChannels->itemData(ui.cbChannels->currentIndex(),Qt::UserRole).toString()); 
+     settings->setValue("sounddevice/samplerate",ui.cbSampleRate->currentText());
+     settings->setValue("sounddevice/volume",ui.hsMic->sliderPosition());
+     settings->setValue("sounddevice/indevice",ui.cbInDevice->currentText());
+     settings->setValue("sounddevice/outdevice",ui.cbOutDevice->currentText());
   
      settings->setValue("paths/lexicon",ui.leLexicon->text());
      settings->setValue("paths/grammar",ui.leGrammar->text());
