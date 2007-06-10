@@ -46,7 +46,7 @@
 #include "vumeter.h"
 #include "trainingview.h"
 #include "settingsview.h"
-
+#include <QSettings>
 
 #include "ui_main.h"
 
@@ -65,7 +65,7 @@ private:
 	RunApplicationView *runDialog; //!< Pointer on the Dialog "RunCommand"
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
 	SettingsView *settingsDialog; //!< Pointer on the Dialog "Settings"
-	
+	QSettings *settings;
 	VuMeter *vuMeter; //!< Does the calculation of the current input "loudness" for the 2 bars in the mainwindow
 
 public slots:

@@ -41,6 +41,7 @@
 #include "runcommand.h"
 #include "eventhandler.h"
 #include "juliuscontrol.h"
+#include <QStringList>
 
 
 class SimonControl : public QObject {
@@ -51,7 +52,7 @@ signals:
 	void disconnected();
 	void connectionError(QString error);
 public slots:
-	void connect();
+	void connect(QString host);
 	void disconnect();
 	void connectedToJulius();
 	void disconnectedFromJulius();

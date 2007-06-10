@@ -57,9 +57,12 @@ SimonControl::~SimonControl()
  *	@author Peter Grasch
  * @todo We should make the host and the port configurable
  */
-void SimonControl::connect()
+void SimonControl::connect(QString host)
 {
-	julius->connectTo();
+	QStringList hostport;
+	hostport=host.split(":",QString::KeepEmptyParts,Qt::CaseSensitive);
+	
+    julius->connectTo(hostport[0],hostport[1].toInt());
 }
 
 /**

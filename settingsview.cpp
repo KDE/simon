@@ -125,7 +125,7 @@ void SettingsView::refreshDeviceCapabilities()
 void SettingsView::readConfig()
 {
     settings->sync();
-
+    
     ui.cbAskBeforeExit->setCheckState((settings->value("askbeforeexit").toBool()) ? Qt::Checked : Qt::Unchecked);
     ui.cbStartSimonOnBoot->setCheckState((settings->value("simonautostart").toBool()) ? Qt::Checked : Qt::Unchecked);
     ui.cbStartJuliusdOnBoot->setCheckState((settings->value("juliusdautostart").toBool()) ? Qt::Checked : Qt::Unchecked);
@@ -176,7 +176,6 @@ void SettingsView::readConfig()
     }
     ui.cbChannels->setCurrentIndex(j);
     
-    
     QString desiredSRate=settings->value("sounddevice/samplerate").toString();
     for (int i=0; i< ui.cbSampleRate->count(); i++)
     {
@@ -187,6 +186,13 @@ void SettingsView::readConfig()
         }
     }
     ui.hsMic->setValue(settings->value("sounddevice/volume").toInt());
+    QStringList hosts;
+	hosts=(settings->value("network/juliusdaddresses").toString()).split(";",QString::KeepEmptyParts,Qt::CaseSensitive);
+    for (int i=0; i<hosts.count(); i++)
+    {
+     ui.cbAddress->addItem(hosts[i]);
+    }
+    ui.cbAddress->setCurrentIndex(ui.cbAddress->findText(settings->value("network/defaultjuliusdAddress").toString(),Qt::MatchCaseSensitive));
    	
 
                     
@@ -210,7 +216,17 @@ void SettingsView::apply()
      settings->setValue("paths/vocabul",ui.leVocab->text());
      settings->setValue("paths/prompts",ui.lePrompts->text());
      settings->setValue("paths/saverecordings",ui.leSaveRecordingsTo->text());
-
+     
+     QString addresses="";
+     for (int i=0; i<ui.cbAddress->count(); i++)
+     {
+             if (addresses=="") addresses=ui.cbAddress->itemText(i);
+             else addresses=addresses+";"+ui.cbAddress->itemText(i);
+             
+     }
+     settings->setValue("network/juliusdaddresses",addresses);
+     settings->setValue("network/defaultjuliusdaddress",ui.cbAddress->currentText());
+     
      settings->sync();  
 }
 void SettingsView::switchToSystem()

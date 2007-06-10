@@ -20,6 +20,7 @@
 #include "sounddevice.h"
 #include <QList>
 #include <QInputDialog>
+#include <QStringList>
 
 /**
 	\class SettingsView

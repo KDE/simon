@@ -35,6 +35,7 @@
 
 SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 {
+    this->settings = new QSettings(QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon");                        
 	this->info = new SimonInfo();
 	
 	//showing splash
@@ -112,13 +113,16 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
  */
 void SimonView::connectToServer()
 {
-	ui.pbConnect->setText("Verbinde...");
-	ui.pbConnect->setEnabled(false);
+
 	
-	ui.frmConnecting->setVisible(true);
-	
-	this->control->activateSimon();
-	this->control->connect();
+	if (!(settings->value("network/defaultjuliusdaddress").toString()).isEmpty())
+	{
+       ui.pbConnect->setText("Verbinde...");
+	   ui.pbConnect->setEnabled(false);
+	   ui.frmConnecting->setVisible(true);
+	   this->control->activateSimon();
+	   this->control->connect(settings->value("network/defaultjuliusdaddress").toString());
+    }
 }
 
 /**
