@@ -10,6 +10,7 @@
 //
 //
 #include "runcommand.h"
+#include "logger.h"
 
 /**
  *	@brief Constructor
@@ -41,6 +42,7 @@ RunCommand::RunCommand(QString path)
  */
 void RunCommand::readCommands(QString path)
 {
+	Logger::log("Reading commands from "+path);
 	XMLCommand *reader = new XMLCommand();
 	reader->load();
 	
@@ -66,27 +68,31 @@ void RunCommand::run(QString commandName)
 	
 	if (i == commandlist.size()) return;
 	
+	QString command = commandlist.at(i)->getValue();
+	
 	if (commandlist.at(i)->getType() == exec)
 	{
+		Logger::log("Executing command: "+command);
 #ifdef linux
 		RunLinuxBackend *lin = (RunLinuxBackend*) this->runner;
-		lin->run(commandlist.at(i)->getValue());
+		lin->run(command);
 #endif
 #ifdef __WIN32
 		RunWindowsBackend *win = (RunWindowsBackend*) this->runner;
-		win->run(commandlist.at(i)->getValue());
+		win->run(command);
 #endif
 	}
 	
 	if (commandlist.at(i)->getType() == place)
 	{
+		Logger::log("Opening place: "+command);
 #ifdef linux
 		RunLinuxBackend *lin = (RunLinuxBackend*) this->runner;
-		lin->goTo(commandlist.at(i)->getValue());
+		lin->goTo(command);
 #endif
 #ifdef __WIN32
 		RunWindowsBackend *win = (RunWindowsBackend*) this->runner;
-		win->goTo(commandlist.at(i)->getValue());
+		win->goTo(command);
 #endif
 	}
 }

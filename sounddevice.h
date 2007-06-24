@@ -27,20 +27,20 @@ class SoundDevice;
 typedef QList<SoundDevice> SoundDeviceList;
 
 
-class SoundDevice{
-private:
-        QString deviceID;
-        QString name;
-public:
-    SoundDevice(QString deviceID, QString name)
-    {
-       this->deviceID=deviceID;
-       this->name=name;                                 
-    } 
-    QString getDeviceID() {return this->deviceID;}
-    QString getName() {return this->name;}
-    ~SoundDevice()    { }
-
+class SoundDevice
+{
+	private:
+		QString deviceID;
+		QString name;
+	public:
+		SoundDevice ( QString deviceID, QString name )
+		{
+			this->deviceID=deviceID;
+			this->name=name;
+		}
+		QString getDeviceID() {return this->deviceID;}
+		QString getName() {return this->name;}
+		~SoundDevice()    { }
 };
 
 #endif

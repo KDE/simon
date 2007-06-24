@@ -33,11 +33,6 @@
 */
 
 #include <QMainWindow>
-#include <QPlastiqueStyle>
-#include <QPixmap>
-#include <QPalette>
-#include <QSplashScreen>
-#include <QMessageBox>
 #include "simoncontrol.h"
 #include "simoninfo.h"
 #include "runapplicationview.h"
@@ -56,7 +51,6 @@ class SimonView : public QMainWindow {
 	Q_OBJECT
 private:
 	Ui::MainWindow ui;	//!< Mainwindow UI definition - made by uic from the QTDesigner .ui
-	QSplashScreen *splash;  //!< Splashscreen-Pointer
 	SimonControl *control; //!< Pointer to the main concept class
 	SimonInfo *info;  //!< Pointer to the Info class
 	TrayIconManager *trayManager; //!< Handles the TrayIcon

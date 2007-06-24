@@ -1,4 +1,5 @@
 #include "xmltrainingtext.h"
+#include "logger.h"
 /**
  *  @class XMLTrainingText.cpp
  *  
@@ -14,6 +15,8 @@ XMLTrainingText::XMLTrainingText(QString path):XMLDomReader(path)
 
 void XMLTrainingText::save(QString path)
 {
+	Logger::log("Saving trainingtext \""+this->title+"\"");
+	
 	if (path.isEmpty()) path = this->path;
 	
 	doc = new QDomDocument();
@@ -28,15 +31,12 @@ void XMLTrainingText::save(QString path)
 	for (int i=0; i < this->pages.count(); i++)
 	{
 		page = doc->createElement("page");
-		
 		text = doc->createElement("text");
-		
 		textc = doc->createTextNode("text");
 		
 		textc.setNodeValue(pages.at(i));
 		
 		text.appendChild(textc);
-		
 		page.appendChild(text.toElement());
 		root.appendChild(page);
 	}
@@ -65,6 +65,7 @@ int XMLTrainingText::getPageCount()
 
 void XMLTrainingText::load(QString path)
 {
+	Logger::log("Loading trainingtext at \""+path+"\"");
      XMLDomReader::load(path);
 	QDomElement root = doc->documentElement();
 	

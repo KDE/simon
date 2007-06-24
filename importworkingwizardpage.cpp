@@ -10,6 +10,7 @@
 //
 //
 #include "importworkingwizardpage.h"
+#include "logger.h"
 
 
 ImportWorkingWizardPage::ImportWorkingWizardPage(QWidget *parent) : QWizardPage(parent)
@@ -19,12 +20,15 @@ void ImportWorkingWizardPage::startImport(QString path)
 {
 	if (path.startsWith("http"))
 	{
+		Logger::log("Starting remote import from \""+path+"\"");
 		QuickDownloader *qd = new QuickDownloader(this);
 		connect(qd, SIGNAL(downloadFinished(QString)), this,
 			SLOT(processText(QString)));
 		qd->download(path);
-	} else
+	} else {
+		Logger::log("Starting local import from \""+path+"\"");
 		parseFile(path);
+	}
 }
 
 void ImportWorkingWizardPage::processText(QString path)

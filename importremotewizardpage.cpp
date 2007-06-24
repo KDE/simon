@@ -10,13 +10,11 @@
 //
 //
 #include "importremotewizardpage.h"
-
+#include "logger.h"
 
 
 ImportRemoteWizardPage::ImportRemoteWizardPage(QWidget *parent) : QWizardPage(parent)
 {}
-
-
 
 void ImportRemoteWizardPage::registerField(const QString &name, QWidget *widget, const char* 
 		property, const char* changedSignal)
@@ -28,6 +26,8 @@ void ImportRemoteWizardPage::fetchList()
 {
 	QuickDownloader *downloader = new QuickDownloader(this);
 
+	Logger::log("Fetching list of availible remote trainingstexts");
+	
 	connect (downloader, SIGNAL(downloadFinished(QString)), this, SLOT(importList(QString)));
 	downloader->download("http://simon.pytalhost.org/texts/list.xml");
 }

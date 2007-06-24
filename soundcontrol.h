@@ -12,8 +12,6 @@
 #ifndef SOUNDCONTROL_H
 #define SOUNDCONTROL_H
 
-#include <stdio.h>
-
 #include "sounddevice.h"
 #include "RtAudio.h"
 #include "RtError.h"

@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "simoncontrol.h"
+#include "logger.h"
 
 #define COMMANDIDENT "simon"
 
@@ -61,6 +62,8 @@ void SimonControl::connect(QString host)
 {
 	QStringList hostport;
 	hostport=host.split(":",QString::KeepEmptyParts,Qt::CaseSensitive);
+	
+	Logger::log("Connecting to juliusd at "+host);
 	
     julius->connectTo(hostport[0],hostport[1].toInt());
 }
@@ -106,6 +109,7 @@ void SimonControl::wordRecognised(QString word)
  */
 void SimonControl::connectedToJulius()
 {
+	Logger::log("Connected to Julius");
 	emit connected();
 }
 
@@ -119,6 +123,7 @@ void SimonControl::connectedToJulius()
  */
 void SimonControl::disconnectedFromJulius()
 {
+	Logger::log("Disconnected from Julius");
 	emit disconnected();
 }
 
@@ -129,6 +134,7 @@ void SimonControl::disconnectedFromJulius()
  */
 void SimonControl::abortConnecting()
 {
+	Logger::log("Connecting aborted");
 	this->julius->disconnect();
 }
 
@@ -140,6 +146,7 @@ void SimonControl::abortConnecting()
  */
 void SimonControl::errorConnecting(QString error)
 {
+	Logger::log("Connecting to juliusd failed: "+error);
 	emit connectionError(error);
 }
 
@@ -152,8 +159,7 @@ void SimonControl::errorConnecting(QString error)
  */
 void SimonControl::initializeMic()
 {
-	//mic->initializeMic( (short) 2, 44100 );
-	//mic->capture(10,10);
+	
 }
 
 
@@ -179,6 +185,7 @@ bool SimonControl::deactivateSimon()
 {
 	this->active=false;
 	QObject::disconnect( this->julius, SIGNAL(wordRecognised(QString)), this, SLOT(wordRecognised(QString)));
+	Logger::log("Simon deactivated");
 	return this->active;
 }
 
@@ -208,6 +215,8 @@ bool SimonControl::activateSimon()
 {
 	this->active=true;
 	QObject::connect(julius, SIGNAL(wordRecognised(QString)), this, SLOT(wordRecognised(QString)));
+		
+	Logger::log("Simon activated");
 	return this->active;
 }
 

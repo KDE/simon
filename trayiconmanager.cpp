@@ -10,6 +10,7 @@
 //
 //
 #include "trayiconmanager.h"
+#include "logger.h"
 
 /**
  * @brief Constructor
@@ -39,6 +40,7 @@ TrayIconManager::TrayIconManager()
  */
 void TrayIconManager::createIcon(QIcon icon, QString tooltip)
 {
+	Logger::log("Creating systray icon ("+tooltip+")");
 	this->icon->setIcon( icon );
 	this->icon->setToolTip( tooltip );
 	this->icon->show();

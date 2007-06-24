@@ -11,6 +11,7 @@
 //
 #include "runlinuxbackend.h"
 
+#include <QProcess>
 
 /**
  *	@brief Constructor
@@ -46,14 +47,7 @@ void RunLinuxBackend::goTo(QString place)
  */
 void RunLinuxBackend::run(QString command)
 {
-	command+= " &";
-	QChar* com = command.data();
-	char asciicommand[500];
-	
-	for (int i=0; i < command.size(); i++)
-		asciicommand[i] = com[i].toAscii();
-	
-	system(asciicommand);
+	QProcess::startDetached  (command);
 }
 
 

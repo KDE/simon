@@ -10,6 +10,7 @@
 //
 //
 #include "wavplayer.h"
+#include "logger.h"
 
 /**
  * \brief Constructor
@@ -18,12 +19,11 @@
  */
 WavPlayer::WavPlayer(QWidget *parent) : QObject(parent)
 {
-// 	this->sound = new SoundControl();
 	progressTimer = new QTimer();
 	connect(progressTimer, SIGNAL(timeout()), this, SLOT(increaseProgress()));
 	audio = new RtAudio();
 	position=0;
-	chans=2;
+	chans=1;
 }
 
 
@@ -33,10 +33,11 @@ WavPlayer::WavPlayer(QWidget *parent) : QObject(parent)
  */
 bool WavPlayer::play( QString filename )
 {
+	Logger::log("Playing \""+filename+"\"");
 	progress = 0;
 	position=0;
 	
-	int device=0, bufferSize=512, nBuffers=4;
+	int device=2, bufferSize=512, nBuffers=4;
 	WAV *file = new WAV(filename); 
 	
 	this->data = file->getRawData(this->length);
@@ -61,8 +62,6 @@ bool WavPlayer::play( QString filename )
 		delete audio;
 	}
 	progressTimer->start(100);
-
-// 	stop();
 }
 
 
@@ -74,8 +73,7 @@ int WavPlayer::processWrapper(char* buffer, int bufferSize, void *play)
 	int channels = ((WavPlayer*) play)->getChannels();
 	long realBufferLength = bufferSize*channels*sizeof(signed short);
 	
-	if (((WavPlayer*) play)->getLength() <= 
-		     position+realBufferLength)
+	if (((WavPlayer*) play)->getLength() <= position+realBufferLength)
 	{
 		((WavPlayer*) play)->stop();
 		return 1;

@@ -113,7 +113,6 @@ QWizardPage* ImportTrainingTexts::createLocalImportPage()
 	fileLay->addWidget(lePath);
 	fileLay->addWidget(pbSelectPath);
 	
-// 	QHBoxLayout *nameLay = new QHBoxLayout();
 	QLabel *lbName = new QLabel(localImport);
 	lbName->setText("Name des Textes: ");
 	QLineEdit *leName = new QLineEdit(localImport);

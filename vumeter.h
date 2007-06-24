@@ -29,8 +29,7 @@ class VuMeter : public QThread
 	Q_OBJECT
 signals:
 	void level(int level); //!< publishs the current "loudness"
-private:
-	//SoundControl *mic;
+	
 public:
 	VuMeter();
 	void run();

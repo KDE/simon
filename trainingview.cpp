@@ -150,7 +150,7 @@ void TrainingView::fetchPage(int page)
 	
 	
 	recorder = new RecWidget( "Seite: "+QString::number(page+1),
-				  "train"+QString::number(page+1)+".wav", ui.wRecTexts);
+				  "sample"+QString::number(page+1)+".wav", ui.wRecTexts);
 	ui.wRecTexts->layout()->addWidget(recorder);
 	
 	ui.gbPage->setTitle("Seite: "+QString::number(page+1)+ " / "+ 

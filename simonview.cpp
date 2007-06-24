@@ -17,7 +17,10 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#include <QPixmap>
+#include <QPalette>
 #include "simonview.h"
+#include "logger.h"
 
 /**
  * @brief Constructor
@@ -32,9 +35,11 @@
  * The flags which are also passed on to the QMainWindow constructor - as before: Default: NULL
  * 
 */
-
 SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 {
+	Logger::init();
+	Logger::log("Starting simon...");
+	
     this->settings = new QSettings(QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon");                        
 	this->info = new SimonInfo();
 	
@@ -96,6 +101,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	setPalette(p);
 	
 	
+	
 	ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
 
 	this->info->writeToSplash("Connecting to juliusd...");
@@ -113,11 +119,10 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
  */
 void SimonView::connectToServer()
 {
-
-	
 	if (!(settings->value("network/defaultjuliusdaddress").toString()).isEmpty())
 	{
-       ui.pbConnect->setText("Verbinde...");
+		
+           ui.pbConnect->setText("Verbinde...");
 	   ui.pbConnect->setEnabled(false);
 	   ui.frmConnecting->setVisible(true);
 	   this->control->activateSimon();
@@ -143,7 +148,6 @@ void SimonView::connected()
 	this->control->getActivitionState();
 	this->representState();
 }
-
 
 /**
  * \brief Informs the user that we have been disconnected from the server
@@ -401,9 +405,11 @@ void SimonView::closeSimon()
 */
 SimonView::~SimonView()
 {
+	Logger::log("Shutting down...");
 	this->trayManager->~ TrayIconManager();
 	this->control->~ SimonControl();
 	this->info->~ SimonInfo();
+	Logger::close();
 }
 
 

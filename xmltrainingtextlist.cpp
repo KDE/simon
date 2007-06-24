@@ -10,6 +10,7 @@
 //
 //
 #include "xmltrainingtextlist.h"
+#include "logger.h"
 
 /**
  * \brief Constructor
@@ -33,6 +34,7 @@ XMLTrainingTextList::XMLTrainingTextList(QString path) : XMLDomReader(path)
  */
 void XMLTrainingTextList::load(QString path)
 {
+	Logger::log("Loading a list of trainingtexts from "+path);
 	XMLDomReader::load(path);
 	
 	trainingtexts.clear();

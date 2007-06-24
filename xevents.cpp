@@ -9,8 +9,9 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include "xevents.h"
+#include "logger.h"
 
+#include "xevents.h"
 /**
  * @brief Constructor
  * 
@@ -39,17 +40,21 @@ XEvents::XEvents(char* displayName)
 Display* XEvents::openDisplay(char* displayName)
 {
 	int Event, Error;
-	int Major, Minor;  
+	int Major, Minor;
+	
+	Logger::log("Opening display \""+QString(displayName)+"\"");
 
 	Display * display = XOpenDisplay(displayName);
 
 	if (!display) {
+		Logger::log("CRITICAL: Couldn't open display \""+QString(displayName)+"\"");
 		QMessageBox::critical(0,"Error",QString("Konnte Display nicht öffnen. Bitte überprüfen Sie ihre Konfiguration und / oder setzen Sie sich mit den simon-Entwickler in Verbindung. (Display: \"")+QString(XDisplayName ( displayName ))+QString("\")"));
 		return NULL;
 	}
 
 	//check wether the XTest extension is installed
 	if ( !XTestQueryExtension(display, &Event, &Error, &Major, &Minor) ) {
+		Logger::log("CRITICAL: Display "+QString(displayName)+" does not support XTest");
 		QMessageBox::critical(0,"Fehler","Der X-Server unterstützt die \"XTest\" nicht - bitte kontaktieren sie die simon-Entwickler. (Display: \""+QString(DisplayString(display)) + "\")");
 
 		XCloseDisplay(display);
@@ -58,9 +63,11 @@ Display* XEvents::openDisplay(char* displayName)
 
 	//The following should be logged somewhere... Interresting for debugging purposes...
 	//We'll do that once we have the logging classes...
-	//"Info","XTest for server \"" + QString(DisplayString(D)) + "\" is version " + QString(Major) + "." + QString(Minor) + "."
+	Logger::log("XTest for server \"" + QString(DisplayString(display)) + "\" is version " + QString::number(Major) + "." + QString::number(Minor));
 
+	Logger::log("Grabbing display control");
 	XTestGrabControl( display, True ); 
+	Logger::log("Syncing Display");
 	XSync( display,True ); 
 	return display;
 }
@@ -99,27 +106,27 @@ void XEvents::sendChar(char key)
 	
 	if ( ( kc = XKeysymToKeycode ( display, ks ) ) == 0 )
 	{
-		std::cerr << "No keycode on remote display found for char: " << key << std::endl;
+		Logger::log("No keycode found");
 		return;
 	}
 	if ( ( skc = XKeysymToKeycode ( display, sks ) ) == 0 )
 	{
-		std::cerr << "No keycode on remote display found for XK_Shift_L!" << std::endl;
+		Logger::log("No keycode found");
 		return;
 	}
 
 	kss=XGetKeyboardMapping(display, kc, 1, &syms);
 	if (!kss)
 	{
-		std::cerr << "XGetKeyboardMapping failed on the remote display (keycode: " << kc << ")" << std::endl;
+		Logger::log("XGetKeyboardMapping failed on the remote display for \""+QString(kc)+"\"");
 		return;
 	}
 	for (; syms && (!kss[syms-1]); syms--);
 	if (!syms)
 	{
-		std::cerr << "XGetKeyboardMapping failed on the remote display (no syms) (keycode: " << kc << ")" << std::endl;
+		Logger::log("XGetKeyboardMapping failed on the remote display (no syms) for \""
+				+QString(kc)+"\"");
 		XFree(kss);
-		return;
 	}
 	XConvertCase(ks,&ksl,&ksu);
 	

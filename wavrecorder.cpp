@@ -1,4 +1,5 @@
 #include "wavrecorder.h"
+#include "logger.h"
 
 /**
  * \brief Constructor
@@ -20,6 +21,9 @@ WavRecorder::WavRecorder(QWidget *parent)
  */
 bool WavRecorder::record(QString filename, short channels, int sampleRate)
 {
+	Logger::log("Recording: ("+QString::number(channels)+" channels, samplerate: "
+			+QString::number(sampleRate)+" Hz) to +"+filename);
+	
 	wavData = new WAV(filename, sampleRate);
 	
 	progress=0;
@@ -28,7 +32,7 @@ bool WavRecorder::record(QString filename, short channels, int sampleRate)
 	progressTimer->start(100);
 	
 	int fs=44100, buffer_size=512, device = 0;
-	chans=2;
+	chans=1;
 	long frames, counter = 0;
 	signed short *buffer;
 	audio = 0;

@@ -10,6 +10,7 @@
 //
 //
 #include "importdict.h"
+#include "logger.h"
 
 /**
  * \brief Constructor
@@ -38,12 +39,16 @@ void ImportDict::parseWordList(QString pathToDict)
  */
 void ImportDict::run()
 {
+	Logger::log("Opening (wiktionary-) lexicon at \""+pathToDict+"\"");
 	emit status("Öffne Wörterbuch...");
+	
 	emit progress(10);
 	WiktionaryDict *wdict = new WiktionaryDict(pathToDict);
 	connect(wdict, SIGNAL(loaded()), this, SLOT(openingFinished()));
 	connect(wdict, SIGNAL(progress(int)), this, SLOT(loadProgress(int)));
+	
 	emit status("Verarbeite Wörterbuch...");
+	
 	wdict->load(pathToDict);
 	emit status("Erstelle Liste...");
 	QStringList words = wdict->getWords();
@@ -63,6 +68,7 @@ void ImportDict::run()
 	emit progress(1000);
 	emit status("Fertig");
 	
+	Logger::log("Imported "+QString::number(words.count())+" words from the wiktionary-lexicon \""+pathToDict+"\"");
 	wordList = vocablist;
 	emit finished();
 }

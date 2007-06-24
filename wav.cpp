@@ -10,6 +10,7 @@
 //
 //
 #include "wav.h"
+#include "logger.h"
 
 /**
  *	@brief Constructor
@@ -32,9 +33,11 @@ WAV::WAV(QString filename, int samplerate)
 	
 	if (samplerate == 0)
 	{
+		Logger::log("Opening WAV file: "+filename);
 		this->samplerate = this->retrieveSampleRate();
 		this->importDataFromFile(filename);
 	} else {
+		Logger::log("Creating new WAV file: "+filename);
 		waveData = new char();
 		length = 0;	
 	}
@@ -134,6 +137,7 @@ int WAV::retrieveSampleRate()
  */
 bool WAV::writeFile(QString filename)
 {
+	Logger::log("Writing WAV file to \""+filename+"\"");
 	if (filename.isEmpty()) filename = this->filename;
 	
 	QFile wavFile(filename);
@@ -222,8 +226,8 @@ void WAV::writeDataChunk(QDataStream *dstream)
 void WAV::writeFormat(QDataStream *dstream)
 {
 	dstream->writeRawData("fmt ",4);
-	*dstream << (quint32) 0x10 << (quint16) 0x01 << (quint16) 0x02 <<
-			(quint32) 44100 << (quint32) 88200 << (quint16) 4 << (quint16) 16;
+	*dstream << (quint32) 0x10 << (quint16) 0x01 << (quint16) 0x01 <<
+			(quint32) 44100 << (quint32) 44100 << (quint16) 4 << (quint16) 16;
 }
 
 /**

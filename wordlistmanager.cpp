@@ -10,6 +10,7 @@
 //
 //
 #include "wordlistmanager.h"
+#include "logger.h"
 
 /**
  * @brief Constructor
@@ -40,6 +41,7 @@ WordListManager::WordListManager ( QString lexiconPath, QString vocabPath )
  */
 WordList* WordListManager::sortList(WordList* list)
 {
+	Logger::log("Sorting a list of "+QString::number(list->count())+" words");
 	qSort(list->begin(), list->end());
 	return list;
 }
@@ -55,31 +57,38 @@ WordList* WordListManager::sortList(WordList* list)
  */
 bool WordListManager::save ( QString lexiconFilename, QString vocabFilename )
 {
-	this->wordlist = sortList(wordlist);
+	Logger::log("Saving wordlist");
+	Logger::log("Creating wordlist utilizing the vocabulary from "+vocabFilename
+		   +"and the current wordlist");
+	
+	WordList *saving = this->wordlist;
+	for (int i=0; i < extralist->count(); i++)
+		saving->append(this->extralist->at(i));
+	
+	saving = sortList(saving);
 	
 	if (lexiconFilename.isEmpty()) lexiconFilename = this->lexiconPath;
 	if (vocabFilename.isEmpty()) vocabFilename = this->vocabPath;
 	
+	Logger::log("Opening output file: "+lexiconPath);
+	
 	QFile *outfile = new QFile(lexiconPath);
-	if (!outfile->open(QIODevice::WriteOnly)) return false;
+	if (!outfile->open(QIODevice::WriteOnly)) {
+		Logger::log("Cannot open outputfile "+lexiconPath);
+		return false;
+	}
 	QTextStream outstream(outfile);
-	outstream.setCodec("UTF-8");
+	outstream.setCodec("ISO 8859-15");
 	
-	for (int i=0; i< wordlist->count(); i++)
+	for (int i=0; i< saving->count(); i++)
 	{
-		for (int j=0; j<wordlist->at(i).getPronunciations().count(); j++)
-			outstream << QString(wordlist->at(i).getWord().trimmed().toUpper() 
-				+ "\t\t[" + wordlist->at(i).getWord().trimmed() + "]\t\t" +
-				wordlist->at(i).getPronunciations().at(j)).trimmed() << "\n";
-	}
-	for (int i=0; i< extralist->count(); i++)
-	{
-		for (int j=0; j<extralist->at(i).getPronunciations().count(); j++)
-			outstream << QString(extralist->at(i).getWord().trimmed().toUpper() 
-				+ "\t\t[" + extralist->at(i).getWord().trimmed() + "]\t\t" +
-				extralist->at(i).getPronunciations().at(j)).trimmed() << "\n";
+		for (int j=0; j<saving->at(i).getPronunciations().count(); j++)
+			outstream << QString(saving->at(i).getWord().trimmed().toUpper() 
+				+ "\t\t[" + saving->at(i).getWord().trimmed() + "]\t\t" +
+				saving->at(i).getPronunciations().at(j)).trimmed() << "\n";
 	}
 	
+	Logger::log("Closing output file");
 	outfile->close();
 	
 	return true;
@@ -99,6 +108,11 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename )
  */
 WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QString promptspath )
 {
+	Logger::log ("Reading wordlist consisting of ");
+	Logger::log("\t\tLexicon: "+lexiconPath+",");
+	Logger::log("\t\tVocabulary: "+vocabPath+",");
+	Logger::log("\t\tPrompts: "+promptspath);
+	
 	WordList *wordlist = new WordList();
 	//read the vocab
 	WordList *vocablist = readVocab(vocabpath);
@@ -106,10 +120,10 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 	PromptsTable *promptsTable = readPrompts(promptspath);
 
 	//opening
+	Logger::log("Opening output file at "+lexiconPath);
 	QFile *lexicon = new QFile ( lexiconpath );
-	lexicon->open ( QFile::ReadOnly );
 	
-	if ( !lexicon->isReadable() || !vocablist || !promptsTable) return false;
+	if ( !lexicon->open ( QFile::ReadOnly ) || !vocablist || !promptsTable) return false;
 
 	char buffer[1024]; //this will hold the current line
 	qint64 length; //this stores the read length - we can determine the end of the file that way
@@ -144,6 +158,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 		//reading the next line
 		length = lexicon->readLine ( buffer, sizeof ( buffer ) );
 	}
+	Logger::log("Wordlist created");
 	return wordlist;
 }
 
@@ -151,6 +166,8 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 WordList* WordListManager::removeDoubles(WordList *in)
 {
 	if (!in) return NULL;
+	
+	Logger::log("Cleaning up wordlist");
 	
 	for (int i=0; i < in->count(); i++)
 	{
@@ -199,6 +216,7 @@ QString WordListManager::getTerminal(QString name, QString pronunciation, WordLi
 					", " + wlist->at( i ).getTerminal();
 		i++;
 	}
+// 	Logger::log("Resolving terminal of "+name+": "+terminal);
 	// there was no result
 	return (terminal.isEmpty()) ? "" : terminal;
 }
@@ -211,6 +229,7 @@ QString WordListManager::getTerminal(QString name, QString pronunciation, WordLi
  */
 void WordListManager::addWords(WordList *list)
 {
+	Logger::log("Adding "+QString::number(list->count())+" words to the wordlist");
 	for (int i=0; i<list->count(); i++)
 		this->wordlist->append(list->at(i));
 	
@@ -245,6 +264,7 @@ int WordListManager::getProbability(QString wordname, PromptsTable *promptsTable
 		}
 		i++;
 	}
+// 	Logger::log("Resolving probability of "+wordname+": "+QString::number(probability));
 	
 	return probability;
 }
@@ -259,6 +279,7 @@ int WordListManager::getProbability(QString wordname, PromptsTable *promptsTable
  */
 PromptsTable* WordListManager::readPrompts(QString promptspath)
 {
+	Logger::log("Parsing promptsfile from "+promptspath);
 	PromptsTable *promptsTable = new PromptsTable();
 	
 	QFile *prompts = new QFile ( promptspath );
@@ -296,6 +317,7 @@ PromptsTable* WordListManager::readPrompts(QString promptspath)
  */
 WordList* WordListManager::readVocab(QString vocabpath)
 {
+	Logger::log("Reading vocab from "+vocabpath);
 	WordList *vocablist = new WordList();
 	
 	QFile *vocab = new QFile ( vocabpath );

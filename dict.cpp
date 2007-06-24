@@ -24,7 +24,7 @@ Dict::Dict()
 	phonemes.insert(0x00E7, "C");
 	phonemes.insert(0x00F0, "D");
 	phonemes.insert(0x002E, " ");
-	phonemes.insert(0x002E, ".");
+// 	phonemes.insert(0x002E, ".");
 	phonemes.insert(0x0061, "a");
 	phonemes.insert(0x0062, "b");
 	phonemes.insert(0x0063, "c");
@@ -206,7 +206,7 @@ Dict::Dict()
 	phonemes.insert(0x03B2, "B");
 	phonemes.insert(0x03B8, "T");
 	phonemes.insert(0x03C7, "X");
-	phonemes.insert(0x203F, "-");
+	//phonemes.insert(0x203F, "-");
 	phonemes.insert(0x207F, "_n");
 	phonemes.insert(0x2191, "^");
 	phonemes.insert(0x2193, "!");
@@ -222,18 +222,18 @@ Dict::Dict()
 	
 	//simon modifications
 	phonemes.insert('g', "g");
-	phonemes.insert('\'', "\\\"");
-	phonemes.insert('`', "\\\"");
-	phonemes.insert(0x2019, "\\\"");
-	phonemes.insert(0x02C8, "\\\"");
+// 	phonemes.insert('\'', "\\\"");
+// 	phonemes.insert('`', "\\\"");
+// 	phonemes.insert(0x2019, "\\\"");
+// 	phonemes.insert(0x02C8, "\\\"");
 	
-	phonemes.insert('-', "-");
+	//phonemes.insert('-', "-");
 	phonemes.insert(0x00E3, "e~");
 	phonemes.insert(0x00F5, "o~");
 	phonemes.insert(0x222B, "S");
 	phonemes.insert(0x02B6, "R");
 	phonemes.insert(0x02CC, "%");
-	phonemes.insert(0x01A6, "R\\\\");
+// 	phonemes.insert(0x01A6, "R\\\\");
 // 	phonemes.insert(0x00F8, "2");
 // 	phonemes.insert(0x00F6, "2");
 // 	phonemes.insert(0x0020, "2");
@@ -242,7 +242,7 @@ Dict::Dict()
 	
 	
 	
-	modifiers.insert(0x0308, "_\\\"");
+// 	modifiers.insert(0x0308, "_\\\"");
 	modifiers.insert(0x02D0, ":");
 	modifiers.insert(':', ":");
 	modifiers.insert(0x02D1, ":");
@@ -262,7 +262,7 @@ Dict::Dict()
 	modifiers.insert(0x02DE, "`");
 	modifiers.insert(0x031A, "_}");
 	modifiers.insert(0x0322, "`");
-	modifiers.insert(0x02C8, "'");
+// 	modifiers.insert(0x02C8, "'");
 }
 
 /**

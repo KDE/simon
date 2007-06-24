@@ -18,7 +18,8 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
  
- #include "addwordview.h"
+#include "addwordview.h"
+#include "logger.h"
 
 /**
  * @brief Constructor
@@ -81,6 +82,10 @@ void AddWordView::setNotReady()
 void AddWordView::saveWord()
 {
 	this->word = ui.leWord->text();
+	
+	Logger::log("Adding new word to the model");
+	Logger::log("New word is called: "+this->word);
+	
 	this->setWindowTitle(tr("Wort hinzufügen") + " - " + word);
 }
 
@@ -146,6 +151,7 @@ void AddWordView::finish()
 	ui.swMain->setCurrentIndex(0);
 	ui.leWord->setText("");
 	setWindowTitle(tr("Wort hinzufügen"));
+	Logger::log("Word added: "+this->word);
 	
 	rec1->deleteSample();
 	rec2->deleteSample();

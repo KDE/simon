@@ -1,4 +1,5 @@
 #include "xmlcommand.h"
+#include "logger.h"
 
 
 /**
@@ -40,6 +41,7 @@ void XMLCommand::save(CommandList commandlist, QString path)
  */
 void XMLCommand::load(QString path)
 {
+	Logger::log("Loading command definitions from \""+path+"\"");
 	XMLDomReader::load(path);
 	if (!this->doc) return;
 	

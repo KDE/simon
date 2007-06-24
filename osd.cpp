@@ -10,6 +10,7 @@
 //
 //
 #include "osd.h"
+#include "logger.h"
 
 /**
  * @brief Constructor
@@ -32,6 +33,8 @@
 OSD::OSD(QString message, int timeout, int alignment)
 	: QWidget(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint)
 {
+	Logger::log("Showing message: "+message);
+	
 	this->timer = new QTimer();
 	
 	QDesktopWidget* tmp = QApplication::desktop();

@@ -10,6 +10,7 @@
 //
 //
 #include "trainingmanager.h"
+#include "logger.h"
 
 /**
  * @brief Constructor
@@ -38,6 +39,8 @@ void TrainingManager::abortTraining()
 void TrainingManager::trainWords(WordList *words)
 {
 	if (!words) return;
+	
+	Logger::log("Starting on-the-fly training with "+QString::number(words->count())+" words");
 	
 	QStringList pages;
 	
@@ -133,6 +136,8 @@ void TrainingManager::resumeTraining()
  */
 bool TrainingManager::deleteText(int index)
 {
+	Logger::log("Deleting text \""+trainingTexts->at(index)->getName()+
+			"\" at \""+trainingTexts->at(index)->getPath());
 	QFile text(trainingTexts->at(index)->getPath());
 	return text.remove();
 }
@@ -145,6 +150,7 @@ bool TrainingManager::deleteText(int index)
  */
 TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 {
+	Logger::log("Reading trainingtexts at \""+pathToTexts+"\"");
 	QDir *textdir = new QDir(pathToTexts);
 	if (!textdir || !textdir->exists()) return NULL;
 	QStringList filter;
@@ -176,6 +182,7 @@ TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
  */
 bool TrainingManager::trainText(int i)
 {
+	Logger::log("Training text: \""+getText(i)->getName()+"\"");
 	this->currentText = getText(i);
 	return (currentText != NULL);
 }

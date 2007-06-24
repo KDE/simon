@@ -10,6 +10,7 @@
 //
 //
 #include "quickdownloader.h"
+#include "logger.h"
 
 /**
  * \brief Constructor
@@ -34,6 +35,7 @@ QuickDownloader::QuickDownloader(QWidget *parent) : QWidget(parent)
  */
 bool QuickDownloader::download(QString url)
 {
+	Logger::log("Loading \""+url+"\" to \""+file->fileName()+"\"");
 	if (!loader || !progressDlg) return false;
 	
 	QUrl urlD = QUrl(url);
@@ -85,6 +87,7 @@ bool QuickDownloader::download(QString url)
  */
 void QuickDownloader::readResponse(const QHttpResponseHeader header)
 {
+	Logger::log("Got HTTP response: \""+QString::number(header.statusCode())+"\"");
 	if (header.statusCode() != 200) {
 		QMessageBox::information(this, tr("HTTP"),
 					 tr("Download failed: %1.")
@@ -102,6 +105,7 @@ void QuickDownloader::readResponse(const QHttpResponseHeader header)
  */
 void QuickDownloader::cancelDownload()
 {
+	Logger::log("Canceling download");
 	aborting = true;
 	loader->abort();
 }
@@ -131,9 +135,13 @@ void QuickDownloader::dataRecieved(int now, int max)
  */
 void QuickDownloader::requestFinished(int id, bool error)
 {
-	if (error) emit errorOccured(loader->errorString());
+	if (error) {
+		Logger::log("Error occured: \""+loader->errorString()+"\"");
+		emit errorOccured(loader->errorString());
+	}
 	
 	if ((id == this->request) && (aborting == false)) {
+		Logger::log("Download finished: \""+filename+"\"");
 		if (file)
 			file->close();
 		progressDlg->hide();
@@ -141,6 +149,7 @@ void QuickDownloader::requestFinished(int id, bool error)
 	}
 	if (aborting)
 	{
+		Logger::log("Download aborted: \""+filename+"\"");
 		if (file) {
 			file->close();
 			file->remove();

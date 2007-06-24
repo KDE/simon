@@ -1,4 +1,5 @@
 #include "xmlreader.h"
+#include "logger.h"
 
 
 /**
@@ -7,7 +8,8 @@
  */
 XMLReader::XMLReader(QString path, QObject *parent) : QObject(parent)
 {
-    this->path=path;
+	Logger::log("Initializing XML file \""+path+"\"");
+	this->path=path;
 }
 
 

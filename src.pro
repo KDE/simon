@@ -23,7 +23,7 @@ win32 {
     HEADERS += runwindowsbackend.h
     SOURCES += runwindowsbackend.cpp
     DEFINES += __WINDOWS_DS__
-	LIBS += -ldsound -lwinmm -lole32
+    LIBS += -ldsound -lwinmm -lole32
 }
 
 
@@ -82,7 +82,8 @@ HEADERS += simonview.h \
  importlocalwizardpage.h \
  selectsourcewizardpage.h \
  importremotewizardpage.h \
- importworkingwizardpage.h
+ importworkingwizardpage.h \
+ logger.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -126,7 +127,8 @@ SOURCES += main.cpp \
  importlocalwizardpage.cpp \
  selectsourcewizardpage.cpp \
  importremotewizardpage.cpp \
- importworkingwizardpage.cpp
+ importworkingwizardpage.cpp \
+ logger.cpp
 
 QT += network \
 xml

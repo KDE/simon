@@ -19,15 +19,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGridLayout>
-// #include <QLineEdit>
 #include <QProgressBar>
-// #include <QDir>
-// #include <QFileDialog>
-// #include <QFileInfo>
-// #include <QListWidgetItem>
 #include <QPushButton>
-// #include <QPixmap>
-// #include <QRadioButton>
 #include "quickdownloader.h"
 #include "xmltrainingtextlist.h"
 #include "importlocalwizardpage.h"
