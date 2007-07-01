@@ -177,7 +177,6 @@ SoundDeviceList* SoundControl::getInputDevices()
 	RtAudioDeviceInfo info;
 	for ( int i=1; i<=devices; i++ )
 	{
-
 		try
 		{
 			info = audio->getDeviceInfo ( i );
