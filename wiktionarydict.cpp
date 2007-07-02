@@ -10,6 +10,7 @@
 //
 //
 #include "wiktionarydict.h"
+#include <QDebug>
 
 /**
  * \brief Constructor
@@ -242,6 +243,7 @@ QStringList WiktionaryDict::findIPAs(QString haystack)
  */
 int WiktionaryDict::processFoundIPA(QString ipa)
 {
+	qDebug() << ipa;
 	int inserted = 0;
 	
 	//if we determine that the pronunciation is not finished/the writer
@@ -268,10 +270,12 @@ int WiktionaryDict::processFoundIPA(QString ipa)
 		if ((!IPAs.at(i).trimmed().isEmpty()) && 
 				    (IPAs.at(i).trimmed() != "...")) //if everything seems alright
 		{
+			qDebug() << ipaToXSampa(IPAs.at(i).trimmed());
 			pronunciations.append(ipaToXSampa(IPAs.at(i).trimmed()));
 			inserted++;
 		}
 	}
+	qDebug() << inserted;
 	return inserted;
 }
 
