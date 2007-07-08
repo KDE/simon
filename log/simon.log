@@ -967,3 +967,104 @@
 [2007/07/08 17:22:37] Cleaning up wordlist
 [2007/07/08 17:22:52] Sorting a list of 10431 words
 [2007/07/08 17:24:14] Shutting down...
+[2007/07/08 17:35:57] Starting simon...
+[2007/07/08 17:35:57] Reading commands from commands.xml
+[2007/07/08 17:35:57] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:35:57] Opening display ":0.0"
+[2007/07/08 17:35:57] XTest for server ":0.0" is version 2.2
+[2007/07/08 17:35:57] Grabbing display control
+[2007/07/08 17:35:57] Syncing Display
+[2007/07/08 17:35:57] Creating systray icon (Simon)
+[2007/07/08 17:35:57] Reading wordlist consisting of 
+[2007/07/08 17:35:57] 		Lexicon: model/lexicon,
+[2007/07/08 17:35:57] 		Vocabulary: model/model.voca,
+[2007/07/08 17:35:57] 		Prompts: model/prompts
+[2007/07/08 17:35:57] Reading vocab from model/model.voca
+[2007/07/08 17:35:57] Parsing promptsfile from model/prompts
+[2007/07/08 17:35:57] Opening output file at model/lexicon
+[2007/07/08 17:36:00] Reading commands from commands.xml
+[2007/07/08 17:36:00] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:36:00] Reading trainingtexts at "texts/"
+[2007/07/08 17:36:00] Initializing XML file "texts/prompts.xml"
+[2007/07/08 17:36:00] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 17:36:00] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 17:36:00] Initializing XML file "texts/test.xml"
+[2007/07/08 17:36:00] Initializing XML file "texts/text00.xml"
+[2007/07/08 17:36:00] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 17:36:00] Loading settings
+[2007/07/08 17:36:00] Getting list of available input devices
+[2007/07/08 17:36:00] Returning available channels of device ""
+[2007/07/08 17:36:00] Returning available channels of device ""
+[2007/07/08 17:36:00] Determining samplerate of device ""
+[2007/07/08 17:36:00] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:36:00] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:36:00] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:36:00] Getting list of available output devices
+[2007/07/08 17:36:00] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:36:00] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:36:00] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:36:00] Simon activated
+[2007/07/08 17:36:00] Connecting to juliusd at localhost:4444
+[2007/07/08 17:36:00] Connecting to juliusd failed: Connection refused
+[2007/07/08 17:36:00] Simon deactivated
+[2007/07/08 17:36:00] Showing message: simon wurde deaktiviert
+[2007/07/08 17:36:00] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 17:36:07] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:36:07] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:36:24] Imported 10352 words from the wiktionary-lexicon "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:36:24] Adding 10352 words to the wordlist
+[2007/07/08 17:36:41] Starting simon...
+[2007/07/08 17:36:41] Reading commands from commands.xml
+[2007/07/08 17:36:41] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:36:41] Opening display ":0.0"
+[2007/07/08 17:36:41] XTest for server ":0.0" is version 2.2
+[2007/07/08 17:36:41] Grabbing display control
+[2007/07/08 17:36:41] Syncing Display
+[2007/07/08 17:36:41] Creating systray icon (Simon)
+[2007/07/08 17:36:42] Reading wordlist consisting of 
+[2007/07/08 17:36:42] 		Lexicon: model/lexicon,
+[2007/07/08 17:36:42] 		Vocabulary: model/model.voca,
+[2007/07/08 17:36:42] 		Prompts: model/prompts
+[2007/07/08 17:36:42] Reading vocab from model/model.voca
+[2007/07/08 17:36:42] Parsing promptsfile from model/prompts
+[2007/07/08 17:36:42] Opening output file at model/lexicon
+[2007/07/08 17:36:42] Wordlist created
+[2007/07/08 17:36:42] Reading commands from commands.xml
+[2007/07/08 17:36:42] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:36:42] Reading trainingtexts at "texts/"
+[2007/07/08 17:36:42] Initializing XML file "texts/prompts.xml"
+[2007/07/08 17:36:42] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 17:36:42] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 17:36:42] Initializing XML file "texts/test.xml"
+[2007/07/08 17:36:42] Initializing XML file "texts/text00.xml"
+[2007/07/08 17:36:42] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 17:36:42] Loading settings
+[2007/07/08 17:36:42] Getting list of available input devices
+[2007/07/08 17:36:42] Returning available channels of device ""
+[2007/07/08 17:36:42] Returning available channels of device ""
+[2007/07/08 17:36:42] Determining samplerate of device ""
+[2007/07/08 17:36:42] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:36:42] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:36:42] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:36:42] Getting list of available output devices
+[2007/07/08 17:36:42] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:36:42] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:36:42] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:36:42] Simon activated
+[2007/07/08 17:36:42] Connecting to juliusd at localhost:4444
+[2007/07/08 17:36:42] Connecting to juliusd failed: Connection refused
+[2007/07/08 17:36:42] Simon deactivated
+[2007/07/08 17:36:42] Showing message: simon wurde deaktiviert
+[2007/07/08 17:36:42] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 17:36:48] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:36:48] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:37:03] Imported 10352 words from the wiktionary-lexicon "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:37:03] Adding 10352 words to the wordlist
+[2007/07/08 17:37:03] Cleaning up wordlist
+[2007/07/08 17:37:19] Sorting a list of 10352 words
+[2007/07/08 17:38:13] Saving wordlist
+[2007/07/08 17:38:13] Creating wordlist utilizing the vocabulary from and the current wordlist
+[2007/07/08 17:38:13] Sorting a list of 10352 words
+[2007/07/08 17:38:13] Opening output file: model/lexicon
+[2007/07/08 17:38:13] Closing output file
+[2007/07/08 17:38:14] Shutting down...
