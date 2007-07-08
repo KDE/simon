@@ -1,0 +1,969 @@
+[2007/07/08 13:42:15] Starting simon...
+[2007/07/08 13:42:16] Reading commands from commands.xml
+[2007/07/08 13:42:16] Initializing XML file "conf/commands.xml"
+[2007/07/08 13:42:16] Opening display ":0.0"
+[2007/07/08 13:42:16] XTest for server ":0.0" is version 2.2
+[2007/07/08 13:42:16] Grabbing display control
+[2007/07/08 13:42:16] Syncing Display
+[2007/07/08 13:42:16] Creating systray icon (Simon)
+[2007/07/08 13:42:16] Reading wordlist consisting of 
+[2007/07/08 13:42:16] 		Lexicon: model/lexicon,
+[2007/07/08 13:42:16] 		Vocabulary: model/model.voca,
+[2007/07/08 13:42:16] 		Prompts: model/prompts
+[2007/07/08 13:42:16] Reading vocab from model/model.voca
+[2007/07/08 13:42:16] Parsing promptsfile from model/prompts
+[2007/07/08 13:42:16] Opening output file at model/lexicon
+[2007/07/08 13:42:16] Wordlist created
+[2007/07/08 13:42:16] Reading commands from commands.xml
+[2007/07/08 13:42:16] Initializing XML file "conf/commands.xml"
+[2007/07/08 13:42:16] Reading trainingtexts at "texts/"
+[2007/07/08 13:42:16] Initializing XML file "texts/prompts.xml"
+[2007/07/08 13:42:16] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 13:42:16] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 13:42:16] Initializing XML file "texts/test.xml"
+[2007/07/08 13:42:16] Initializing XML file "texts/text00.xml"
+[2007/07/08 13:42:16] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 13:42:17] Loading settings
+[2007/07/08 13:42:17] Getting list of available input devices
+[2007/07/08 13:42:17] Returning available channels of device ""
+[2007/07/08 13:42:17] Returning available channels of device ""
+[2007/07/08 13:42:17] Determining samplerate of device ""
+[2007/07/08 13:42:17] Returning available channels of device "hw:Intel,0"
+[2007/07/08 13:42:17] Returning available channels of device "hw:Intel,0"
+[2007/07/08 13:42:17] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 13:42:17] Getting list of available output devices
+[2007/07/08 13:42:17] Returning available channels of device "hw:Intel,0"
+[2007/07/08 13:42:17] Returning available channels of device "hw:Intel,0"
+[2007/07/08 13:42:17] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 13:42:17] Simon activated
+[2007/07/08 13:42:17] Connecting to juliusd at localhost:4444
+[2007/07/08 13:42:17] Connecting to juliusd failed: Connection refused
+[2007/07/08 13:42:17] Simon deactivated
+[2007/07/08 13:42:17] Showing message: simon wurde deaktiviert
+[2007/07/08 13:42:17] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 13:42:19] Shutting down...
+[2007/07/08 13:46:18] Starting simon...
+[2007/07/08 13:46:18] Reading commands from commands.xml
+[2007/07/08 13:46:18] Initializing XML file "conf/commands.xml"
+[2007/07/08 13:46:18] Opening display ":0.0"
+[2007/07/08 13:46:18] XTest for server ":0.0" is version 2.2
+[2007/07/08 13:46:18] Grabbing display control
+[2007/07/08 13:46:18] Syncing Display
+[2007/07/08 13:46:18] Creating systray icon (Simon)
+[2007/07/08 13:46:18] Reading wordlist consisting of 
+[2007/07/08 13:46:18] 		Lexicon: model/lexicon,
+[2007/07/08 13:46:18] 		Vocabulary: model/model.voca,
+[2007/07/08 13:46:18] 		Prompts: model/prompts
+[2007/07/08 13:46:18] Reading vocab from model/model.voca
+[2007/07/08 13:46:18] Parsing promptsfile from model/prompts
+[2007/07/08 13:46:18] Opening output file at model/lexicon
+[2007/07/08 13:46:19] Wordlist created
+[2007/07/08 13:46:19] Reading commands from commands.xml
+[2007/07/08 13:46:19] Initializing XML file "conf/commands.xml"
+[2007/07/08 13:46:19] Reading trainingtexts at "texts/"
+[2007/07/08 13:46:19] Initializing XML file "texts/prompts.xml"
+[2007/07/08 13:46:19] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 13:46:19] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 13:46:19] Initializing XML file "texts/test.xml"
+[2007/07/08 13:46:19] Initializing XML file "texts/text00.xml"
+[2007/07/08 13:46:19] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 13:46:19] Loading settings
+[2007/07/08 13:46:19] Getting list of available input devices
+[2007/07/08 13:46:19] Returning available channels of device ""
+[2007/07/08 13:46:19] Returning available channels of device ""
+[2007/07/08 13:46:19] Determining samplerate of device ""
+[2007/07/08 13:46:19] Returning available channels of device "hw:Intel,0"
+[2007/07/08 13:46:19] Returning available channels of device "hw:Intel,0"
+[2007/07/08 13:46:19] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 13:46:19] Getting list of available output devices
+[2007/07/08 13:46:19] Returning available channels of device "hw:Intel,0"
+[2007/07/08 13:46:19] Returning available channels of device "hw:Intel,0"
+[2007/07/08 13:46:19] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 13:46:19] Simon activated
+[2007/07/08 13:46:19] Connecting to juliusd at localhost:4444
+[2007/07/08 13:46:19] Connecting to juliusd failed: Connection refused
+[2007/07/08 13:46:19] Simon deactivated
+[2007/07/08 13:46:19] Showing message: simon wurde deaktiviert
+[2007/07/08 13:46:19] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 13:46:21] Shutting down...
+[2007/07/08 13:48:55] Starting simon...
+[2007/07/08 13:48:55] Reading commands from commands.xml
+[2007/07/08 13:48:55] Initializing XML file "conf/commands.xml"
+[2007/07/08 13:48:55] Opening display ":0.0"
+[2007/07/08 13:48:55] XTest for server ":0.0" is version 2.2
+[2007/07/08 13:48:55] Grabbing display control
+[2007/07/08 13:48:55] Syncing Display
+[2007/07/08 13:48:55] Creating systray icon (Simon)
+[2007/07/08 13:48:55] Reading wordlist consisting of 
+[2007/07/08 13:48:55] 		Lexicon: model/lexicon,
+[2007/07/08 13:48:55] 		Vocabulary: model/model.voca,
+[2007/07/08 13:48:55] 		Prompts: model/prompts
+[2007/07/08 13:48:55] Reading vocab from model/model.voca
+[2007/07/08 13:48:55] Parsing promptsfile from model/prompts
+[2007/07/08 13:48:55] Opening output file at model/lexicon
+[2007/07/08 13:48:56] Wordlist created
+[2007/07/08 13:48:56] Reading commands from commands.xml
+[2007/07/08 13:48:56] Initializing XML file "conf/commands.xml"
+[2007/07/08 13:48:56] Reading trainingtexts at "texts/"
+[2007/07/08 15:41:11] Starting simon...
+[2007/07/08 15:41:11] Reading commands from commands.xml
+[2007/07/08 15:41:11] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:41:11] Opening display ":0.0"
+[2007/07/08 15:41:11] XTest for server ":0.0" is version 2.2
+[2007/07/08 15:41:11] Grabbing display control
+[2007/07/08 15:41:11] Syncing Display
+[2007/07/08 15:41:11] Creating systray icon (Simon)
+[2007/07/08 15:41:11] Reading wordlist consisting of 
+[2007/07/08 15:41:11] 		Lexicon: model/lexicon,
+[2007/07/08 15:41:11] 		Vocabulary: model/model.voca,
+[2007/07/08 15:41:11] 		Prompts: model/prompts
+[2007/07/08 15:41:11] Reading vocab from model/model.voca
+[2007/07/08 15:41:11] Parsing promptsfile from model/prompts
+[2007/07/08 15:41:11] Opening output file at model/lexicon
+[2007/07/08 15:41:11] Wordlist created
+[2007/07/08 15:41:12] Reading commands from commands.xml
+[2007/07/08 15:41:12] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:41:12] Reading trainingtexts at "texts/"
+[2007/07/08 15:41:12] Initializing XML file "texts/prompts.xml"
+[2007/07/08 15:41:12] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 15:41:12] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 15:41:12] Initializing XML file "texts/test.xml"
+[2007/07/08 15:41:12] Initializing XML file "texts/text00.xml"
+[2007/07/08 15:41:12] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 15:41:12] Loading settings
+[2007/07/08 15:41:12] Getting list of available input devices
+[2007/07/08 15:41:12] Returning available channels of device ""
+[2007/07/08 15:41:12] Returning available channels of device ""
+[2007/07/08 15:41:12] Determining samplerate of device ""
+[2007/07/08 15:41:12] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:41:12] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:41:12] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:41:12] Getting list of available output devices
+[2007/07/08 15:41:12] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:41:12] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:41:12] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:41:12] Simon activated
+[2007/07/08 15:41:12] Connecting to juliusd at localhost:4444
+[2007/07/08 15:41:12] Connecting to juliusd failed: Connection refused
+[2007/07/08 15:41:12] Simon deactivated
+[2007/07/08 15:41:12] Showing message: simon wurde deaktiviert
+[2007/07/08 15:41:12] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 15:41:14] Shutting down...
+[2007/07/08 15:43:48] Starting simon...
+[2007/07/08 15:43:49] Reading commands from commands.xml
+[2007/07/08 15:43:49] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:43:49] Opening display ":0.0"
+[2007/07/08 15:43:49] XTest for server ":0.0" is version 2.2
+[2007/07/08 15:43:49] Grabbing display control
+[2007/07/08 15:43:49] Syncing Display
+[2007/07/08 15:43:49] Creating systray icon (Simon)
+[2007/07/08 15:43:49] Reading wordlist consisting of 
+[2007/07/08 15:43:49] 		Lexicon: model/lexicon,
+[2007/07/08 15:43:49] 		Vocabulary: model/model.voca,
+[2007/07/08 15:43:49] 		Prompts: model/prompts
+[2007/07/08 15:43:49] Reading vocab from model/model.voca
+[2007/07/08 15:43:49] Parsing promptsfile from model/prompts
+[2007/07/08 15:43:49] Opening output file at model/lexicon
+[2007/07/08 15:43:49] Wordlist created
+[2007/07/08 15:43:49] Reading commands from commands.xml
+[2007/07/08 15:43:49] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:43:49] Reading trainingtexts at "texts/"
+[2007/07/08 15:43:49] Initializing XML file "texts/prompts.xml"
+[2007/07/08 15:43:49] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 15:43:49] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 15:43:49] Initializing XML file "texts/test.xml"
+[2007/07/08 15:43:49] Initializing XML file "texts/text00.xml"
+[2007/07/08 15:43:49] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 15:43:49] Loading settings
+[2007/07/08 15:43:49] Getting list of available input devices
+[2007/07/08 15:43:50] Returning available channels of device ""
+[2007/07/08 15:43:50] Returning available channels of device ""
+[2007/07/08 15:43:50] Determining samplerate of device ""
+[2007/07/08 15:43:50] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:43:50] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:43:50] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:43:50] Getting list of available output devices
+[2007/07/08 15:43:50] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:43:50] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:43:50] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:43:50] Simon activated
+[2007/07/08 15:43:50] Connecting to juliusd at localhost:4444
+[2007/07/08 15:43:50] Connecting to juliusd failed: Connection refused
+[2007/07/08 15:43:50] Simon deactivated
+[2007/07/08 15:43:50] Showing message: simon wurde deaktiviert
+[2007/07/08 15:43:50] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 15:43:58] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 15:43:58] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 15:45:05] Starting simon...
+[2007/07/08 15:45:05] Reading commands from commands.xml
+[2007/07/08 15:45:05] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:45:05] Opening display ":0.0"
+[2007/07/08 15:45:05] XTest for server ":0.0" is version 2.2
+[2007/07/08 15:45:05] Grabbing display control
+[2007/07/08 15:45:05] Syncing Display
+[2007/07/08 15:45:05] Creating systray icon (Simon)
+[2007/07/08 15:45:05] Reading wordlist consisting of 
+[2007/07/08 15:45:05] 		Lexicon: model/lexicon,
+[2007/07/08 15:45:05] 		Vocabulary: model/model.voca,
+[2007/07/08 15:45:05] 		Prompts: model/prompts
+[2007/07/08 15:45:05] Reading vocab from model/model.voca
+[2007/07/08 15:45:05] Parsing promptsfile from model/prompts
+[2007/07/08 15:45:05] Opening output file at model/lexicon
+[2007/07/08 15:45:06] Wordlist created
+[2007/07/08 15:45:06] Reading commands from commands.xml
+[2007/07/08 15:45:06] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:45:06] Reading trainingtexts at "texts/"
+[2007/07/08 15:45:06] Initializing XML file "texts/prompts.xml"
+[2007/07/08 15:45:06] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 15:45:06] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 15:45:06] Initializing XML file "texts/test.xml"
+[2007/07/08 15:45:06] Initializing XML file "texts/text00.xml"
+[2007/07/08 15:45:06] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 15:45:06] Loading settings
+[2007/07/08 15:45:06] Getting list of available input devices
+[2007/07/08 15:45:06] Returning available channels of device ""
+[2007/07/08 15:45:06] Returning available channels of device ""
+[2007/07/08 15:45:06] Determining samplerate of device ""
+[2007/07/08 15:45:06] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:45:06] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:45:06] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:45:06] Getting list of available output devices
+[2007/07/08 15:45:06] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:45:06] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:45:06] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:45:06] Simon activated
+[2007/07/08 15:45:06] Connecting to juliusd at localhost:4444
+[2007/07/08 15:45:06] Connecting to juliusd failed: Connection refused
+[2007/07/08 15:45:06] Simon deactivated
+[2007/07/08 15:45:06] Showing message: simon wurde deaktiviert
+[2007/07/08 15:45:06] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 15:45:14] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 15:45:14] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 15:47:51] Starting simon...
+[2007/07/08 15:47:51] Reading commands from commands.xml
+[2007/07/08 15:47:51] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:47:51] Opening display ":0.0"
+[2007/07/08 15:47:52] XTest for server ":0.0" is version 2.2
+[2007/07/08 15:47:52] Grabbing display control
+[2007/07/08 15:47:52] Syncing Display
+[2007/07/08 15:47:52] Creating systray icon (Simon)
+[2007/07/08 15:47:52] Reading wordlist consisting of 
+[2007/07/08 15:47:52] 		Lexicon: model/lexicon,
+[2007/07/08 15:47:52] 		Vocabulary: model/model.voca,
+[2007/07/08 15:47:52] 		Prompts: model/prompts
+[2007/07/08 15:47:52] Reading vocab from model/model.voca
+[2007/07/08 15:47:52] Parsing promptsfile from model/prompts
+[2007/07/08 15:47:52] Opening output file at model/lexicon
+[2007/07/08 15:47:52] Wordlist created
+[2007/07/08 15:47:52] Reading commands from commands.xml
+[2007/07/08 15:47:52] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:47:52] Reading trainingtexts at "texts/"
+[2007/07/08 15:47:52] Initializing XML file "texts/prompts.xml"
+[2007/07/08 15:47:52] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 15:47:52] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 15:47:52] Initializing XML file "texts/test.xml"
+[2007/07/08 15:47:52] Initializing XML file "texts/text00.xml"
+[2007/07/08 15:47:52] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 15:47:52] Loading settings
+[2007/07/08 15:47:52] Getting list of available input devices
+[2007/07/08 15:47:52] Returning available channels of device ""
+[2007/07/08 15:47:52] Returning available channels of device ""
+[2007/07/08 15:47:52] Determining samplerate of device ""
+[2007/07/08 15:47:52] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:47:52] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:47:52] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:47:52] Getting list of available output devices
+[2007/07/08 15:47:52] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:47:52] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:47:52] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:47:52] Simon activated
+[2007/07/08 15:47:52] Connecting to juliusd at localhost:4444
+[2007/07/08 15:47:52] Connecting to juliusd failed: Connection refused
+[2007/07/08 15:47:52] Simon deactivated
+[2007/07/08 15:47:52] Showing message: simon wurde deaktiviert
+[2007/07/08 15:47:52] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 15:47:59] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 15:47:59] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 15:50:27] Starting simon...
+[2007/07/08 15:50:27] Reading commands from commands.xml
+[2007/07/08 15:50:27] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:50:27] Opening display ":0.0"
+[2007/07/08 15:50:27] XTest for server ":0.0" is version 2.2
+[2007/07/08 15:50:27] Grabbing display control
+[2007/07/08 15:50:27] Syncing Display
+[2007/07/08 15:50:27] Creating systray icon (Simon)
+[2007/07/08 15:50:27] Reading wordlist consisting of 
+[2007/07/08 15:50:27] 		Lexicon: model/lexicon,
+[2007/07/08 15:50:27] 		Vocabulary: model/model.voca,
+[2007/07/08 15:50:27] 		Prompts: model/prompts
+[2007/07/08 15:50:27] Reading vocab from model/model.voca
+[2007/07/08 15:50:27] Parsing promptsfile from model/prompts
+[2007/07/08 15:50:27] Opening output file at model/lexicon
+[2007/07/08 15:50:28] Wordlist created
+[2007/07/08 15:50:28] Reading commands from commands.xml
+[2007/07/08 15:50:28] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:50:28] Reading trainingtexts at "texts/"
+[2007/07/08 15:50:28] Initializing XML file "texts/prompts.xml"
+[2007/07/08 15:50:28] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 15:50:28] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 15:50:28] Initializing XML file "texts/test.xml"
+[2007/07/08 15:50:28] Initializing XML file "texts/text00.xml"
+[2007/07/08 15:50:28] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 15:50:28] Loading settings
+[2007/07/08 15:50:28] Getting list of available input devices
+[2007/07/08 15:50:28] Returning available channels of device ""
+[2007/07/08 15:50:28] Returning available channels of device ""
+[2007/07/08 15:50:28] Determining samplerate of device ""
+[2007/07/08 15:50:28] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:50:28] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:50:28] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:50:28] Getting list of available output devices
+[2007/07/08 15:50:28] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:50:28] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:50:28] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:50:28] Simon activated
+[2007/07/08 15:50:28] Connecting to juliusd at localhost:4444
+[2007/07/08 15:50:28] Connecting to juliusd failed: Connection refused
+[2007/07/08 15:50:28] Simon deactivated
+[2007/07/08 15:50:28] Showing message: simon wurde deaktiviert
+[2007/07/08 15:50:28] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 15:50:32] Adding new word to the model
+[2007/07/08 15:50:32] New word is called: 
+[2007/07/08 15:50:38] Shutting down...
+[2007/07/08 15:50:47] Starting simon...
+[2007/07/08 15:50:47] Reading commands from commands.xml
+[2007/07/08 15:50:47] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:50:47] Opening display ":0.0"
+[2007/07/08 15:50:47] XTest for server ":0.0" is version 2.2
+[2007/07/08 15:50:47] Grabbing display control
+[2007/07/08 15:50:47] Syncing Display
+[2007/07/08 15:50:47] Creating systray icon (Simon)
+[2007/07/08 15:50:47] Reading wordlist consisting of 
+[2007/07/08 15:50:47] 		Lexicon: model/lexicon,
+[2007/07/08 15:50:47] 		Vocabulary: model/model.voca,
+[2007/07/08 15:50:47] 		Prompts: model/prompts
+[2007/07/08 15:50:47] Reading vocab from model/model.voca
+[2007/07/08 15:50:47] Parsing promptsfile from model/prompts
+[2007/07/08 15:50:47] Opening output file at model/lexicon
+[2007/07/08 15:50:47] Wordlist created
+[2007/07/08 15:50:48] Reading commands from commands.xml
+[2007/07/08 15:50:48] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:50:48] Reading trainingtexts at "texts/"
+[2007/07/08 15:50:48] Initializing XML file "texts/prompts.xml"
+[2007/07/08 15:50:48] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 15:50:48] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 15:50:48] Initializing XML file "texts/test.xml"
+[2007/07/08 15:50:48] Initializing XML file "texts/text00.xml"
+[2007/07/08 15:50:48] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 15:50:48] Loading settings
+[2007/07/08 15:50:48] Getting list of available input devices
+[2007/07/08 15:50:48] Returning available channels of device ""
+[2007/07/08 15:50:48] Returning available channels of device ""
+[2007/07/08 15:50:48] Determining samplerate of device ""
+[2007/07/08 15:50:48] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:50:48] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:50:48] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:50:48] Getting list of available output devices
+[2007/07/08 15:50:48] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:50:48] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:50:48] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:50:48] Simon activated
+[2007/07/08 15:50:48] Connecting to juliusd at localhost:4444
+[2007/07/08 15:50:48] Connecting to juliusd failed: Connection refused
+[2007/07/08 15:50:48] Simon deactivated
+[2007/07/08 15:50:48] Showing message: simon wurde deaktiviert
+[2007/07/08 15:50:48] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 15:50:52] Adding new word to the model
+[2007/07/08 15:50:52] New word is called: 
+[2007/07/08 15:50:59] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 15:50:59] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 15:51:25] Starting simon...
+[2007/07/08 15:51:25] Reading commands from commands.xml
+[2007/07/08 15:51:25] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:51:25] Opening display ":0.0"
+[2007/07/08 15:51:25] XTest for server ":0.0" is version 2.2
+[2007/07/08 15:51:25] Grabbing display control
+[2007/07/08 15:51:25] Syncing Display
+[2007/07/08 15:51:25] Creating systray icon (Simon)
+[2007/07/08 15:51:25] Reading wordlist consisting of 
+[2007/07/08 15:51:25] 		Lexicon: model/lexicon,
+[2007/07/08 15:51:25] 		Vocabulary: model/model.voca,
+[2007/07/08 15:51:25] 		Prompts: model/prompts
+[2007/07/08 15:51:25] Reading vocab from model/model.voca
+[2007/07/08 15:51:25] Parsing promptsfile from model/prompts
+[2007/07/08 15:51:25] Opening output file at model/lexicon
+[2007/07/08 15:51:26] Wordlist created
+[2007/07/08 15:51:26] Reading commands from commands.xml
+[2007/07/08 15:51:26] Initializing XML file "conf/commands.xml"
+[2007/07/08 15:51:26] Reading trainingtexts at "texts/"
+[2007/07/08 15:51:26] Initializing XML file "texts/prompts.xml"
+[2007/07/08 15:51:26] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 15:51:26] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 15:51:26] Initializing XML file "texts/test.xml"
+[2007/07/08 15:51:26] Initializing XML file "texts/text00.xml"
+[2007/07/08 15:51:26] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 15:51:26] Loading settings
+[2007/07/08 15:51:26] Getting list of available input devices
+[2007/07/08 15:51:26] Returning available channels of device ""
+[2007/07/08 15:51:26] Returning available channels of device ""
+[2007/07/08 15:51:26] Determining samplerate of device ""
+[2007/07/08 15:51:26] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:51:26] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:51:26] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:51:26] Getting list of available output devices
+[2007/07/08 15:51:26] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:51:26] Returning available channels of device "hw:Intel,0"
+[2007/07/08 15:51:26] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 15:51:26] Simon activated
+[2007/07/08 15:51:26] Connecting to juliusd at localhost:4444
+[2007/07/08 15:51:26] Connecting to juliusd failed: Connection refused
+[2007/07/08 15:51:26] Simon deactivated
+[2007/07/08 15:51:26] Showing message: simon wurde deaktiviert
+[2007/07/08 15:51:26] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 15:51:33] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 15:51:33] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 15:51:54] Imported 2974 words from the wiktionary-lexicon "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 15:51:54] Adding 2974 words to the wordlist
+[2007/07/08 15:51:54] Cleaning up wordlist
+[2007/07/08 15:51:56] Sorting a list of 3026 words
+[2007/07/08 15:57:21] Showing message: Ziehe das Wort in die Liste rechts um es zu trainieren
+[2007/07/08 16:03:47] Shutting down...
+[2007/07/08 16:03:48] Starting simon...
+[2007/07/08 16:03:48] Reading commands from commands.xml
+[2007/07/08 16:03:48] Initializing XML file "conf/commands.xml"
+[2007/07/08 16:03:48] Opening display ":0.0"
+[2007/07/08 16:03:48] XTest for server ":0.0" is version 2.2
+[2007/07/08 16:03:48] Grabbing display control
+[2007/07/08 16:03:48] Syncing Display
+[2007/07/08 16:03:48] Creating systray icon (Simon)
+[2007/07/08 16:03:48] Reading wordlist consisting of 
+[2007/07/08 16:03:48] 		Lexicon: model/lexicon,
+[2007/07/08 16:03:48] 		Vocabulary: model/model.voca,
+[2007/07/08 16:03:48] 		Prompts: model/prompts
+[2007/07/08 16:03:48] Reading vocab from model/model.voca
+[2007/07/08 16:03:48] Parsing promptsfile from model/prompts
+[2007/07/08 16:03:48] Opening output file at model/lexicon
+[2007/07/08 16:03:48] Wordlist created
+[2007/07/08 16:03:48] Reading commands from commands.xml
+[2007/07/08 16:03:48] Initializing XML file "conf/commands.xml"
+[2007/07/08 16:03:48] Reading trainingtexts at "texts/"
+[2007/07/08 16:03:49] Initializing XML file "texts/prompts.xml"
+[2007/07/08 16:03:49] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 16:03:49] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 16:03:49] Initializing XML file "texts/test.xml"
+[2007/07/08 16:03:49] Initializing XML file "texts/text00.xml"
+[2007/07/08 16:03:49] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 16:03:49] Loading settings
+[2007/07/08 16:03:49] Getting list of available input devices
+[2007/07/08 16:03:49] Returning available channels of device ""
+[2007/07/08 16:03:49] Returning available channels of device ""
+[2007/07/08 16:03:49] Determining samplerate of device ""
+[2007/07/08 16:03:49] Returning available channels of device "hw:Intel,0"
+[2007/07/08 16:03:49] Returning available channels of device "hw:Intel,0"
+[2007/07/08 16:03:49] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 16:03:49] Getting list of available output devices
+[2007/07/08 16:03:49] Returning available channels of device "hw:Intel,0"
+[2007/07/08 16:03:49] Returning available channels of device "hw:Intel,0"
+[2007/07/08 16:03:49] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 16:03:49] Simon activated
+[2007/07/08 16:03:49] Connecting to juliusd at localhost:4444
+[2007/07/08 16:03:49] Connecting to juliusd failed: Connection refused
+[2007/07/08 16:03:49] Simon deactivated
+[2007/07/08 16:03:49] Showing message: simon wurde deaktiviert
+[2007/07/08 16:03:49] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 16:03:51] Adding new word to the model
+[2007/07/08 16:03:51] New word is called: 
+[2007/07/08 16:03:54] Shutting down...
+[2007/07/08 16:03:56] Starting simon...
+[2007/07/08 16:03:56] Reading commands from commands.xml
+[2007/07/08 16:03:56] Initializing XML file "conf/commands.xml"
+[2007/07/08 16:03:56] Opening display ":0.0"
+[2007/07/08 16:03:56] XTest for server ":0.0" is version 2.2
+[2007/07/08 16:03:56] Grabbing display control
+[2007/07/08 16:03:56] Syncing Display
+[2007/07/08 16:03:56] Creating systray icon (Simon)
+[2007/07/08 16:03:56] Reading wordlist consisting of 
+[2007/07/08 16:03:56] 		Lexicon: model/lexicon,
+[2007/07/08 16:03:56] 		Vocabulary: model/model.voca,
+[2007/07/08 16:03:56] 		Prompts: model/prompts
+[2007/07/08 16:03:56] Reading vocab from model/model.voca
+[2007/07/08 16:03:56] Parsing promptsfile from model/prompts
+[2007/07/08 16:03:56] Opening output file at model/lexicon
+[2007/07/08 16:03:56] Wordlist created
+[2007/07/08 16:03:56] Reading commands from commands.xml
+[2007/07/08 16:03:56] Initializing XML file "conf/commands.xml"
+[2007/07/08 16:03:56] Reading trainingtexts at "texts/"
+[2007/07/08 16:03:56] Initializing XML file "texts/prompts.xml"
+[2007/07/08 16:03:56] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 16:03:56] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 16:03:56] Initializing XML file "texts/test.xml"
+[2007/07/08 16:03:56] Initializing XML file "texts/text00.xml"
+[2007/07/08 16:03:56] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 16:03:56] Loading settings
+[2007/07/08 16:03:56] Getting list of available input devices
+[2007/07/08 16:03:56] Returning available channels of device ""
+[2007/07/08 16:03:56] Returning available channels of device ""
+[2007/07/08 16:03:56] Determining samplerate of device ""
+[2007/07/08 16:03:56] Returning available channels of device "hw:Intel,0"
+[2007/07/08 16:03:56] Returning available channels of device "hw:Intel,0"
+[2007/07/08 16:03:56] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 16:03:56] Getting list of available output devices
+[2007/07/08 16:03:56] Returning available channels of device "hw:Intel,0"
+[2007/07/08 16:03:56] Returning available channels of device "hw:Intel,0"
+[2007/07/08 16:03:56] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 16:03:56] Simon activated
+[2007/07/08 16:03:56] Connecting to juliusd at localhost:4444
+[2007/07/08 16:03:56] Connecting to juliusd failed: Connection refused
+[2007/07/08 16:03:56] Simon deactivated
+[2007/07/08 16:03:56] Showing message: simon wurde deaktiviert
+[2007/07/08 16:03:56] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 16:04:03] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 16:04:03] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 16:33:05] Starting simon...
+[2007/07/08 16:33:05] Reading commands from commands.xml
+[2007/07/08 16:33:05] Initializing XML file "conf/commands.xml"
+[2007/07/08 16:33:05] Opening display ":0.0"
+[2007/07/08 16:33:05] XTest for server ":0.0" is version 2.2
+[2007/07/08 16:33:05] Grabbing display control
+[2007/07/08 16:33:05] Syncing Display
+[2007/07/08 16:33:05] Creating systray icon (Simon)
+[2007/07/08 16:33:05] Reading wordlist consisting of 
+[2007/07/08 16:33:05] 		Lexicon: model/lexicon,
+[2007/07/08 16:33:05] 		Vocabulary: model/model.voca,
+[2007/07/08 16:33:05] 		Prompts: model/prompts
+[2007/07/08 16:33:05] Reading vocab from model/model.voca
+[2007/07/08 16:33:05] Parsing promptsfile from model/prompts
+[2007/07/08 16:33:05] Opening output file at model/lexicon
+[2007/07/08 16:33:05] Wordlist created
+[2007/07/08 16:33:06] Reading commands from commands.xml
+[2007/07/08 16:33:06] Initializing XML file "conf/commands.xml"
+[2007/07/08 16:33:06] Reading trainingtexts at "texts/"
+[2007/07/08 16:33:06] Initializing XML file "texts/prompts.xml"
+[2007/07/08 16:33:06] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 16:33:06] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 16:33:06] Initializing XML file "texts/test.xml"
+[2007/07/08 16:33:06] Initializing XML file "texts/text00.xml"
+[2007/07/08 16:33:06] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 16:33:06] Loading settings
+[2007/07/08 16:33:06] Getting list of available input devices
+[2007/07/08 16:33:06] Returning available channels of device ""
+[2007/07/08 16:33:06] Returning available channels of device ""
+[2007/07/08 16:33:06] Determining samplerate of device ""
+[2007/07/08 16:33:06] Returning available channels of device "hw:Intel,0"
+[2007/07/08 16:33:06] Returning available channels of device "hw:Intel,0"
+[2007/07/08 16:33:06] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 16:33:06] Getting list of available output devices
+[2007/07/08 16:33:06] Returning available channels of device "hw:Intel,0"
+[2007/07/08 16:33:06] Returning available channels of device "hw:Intel,0"
+[2007/07/08 16:33:06] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 16:33:06] Simon activated
+[2007/07/08 16:33:06] Connecting to juliusd at localhost:4444
+[2007/07/08 16:33:06] Connecting to juliusd failed: Connection refused
+[2007/07/08 16:33:06] Simon deactivated
+[2007/07/08 16:33:06] Showing message: simon wurde deaktiviert
+[2007/07/08 16:33:06] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 16:33:13] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 16:33:13] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 16:33:37] Imported 3145 words from the wiktionary-lexicon "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 16:33:37] Adding 3145 words to the wordlist
+[2007/07/08 16:33:37] Cleaning up wordlist
+[2007/07/08 16:33:39] Sorting a list of 3197 words
+[2007/07/08 17:08:05] Starting simon...
+[2007/07/08 17:08:05] Reading commands from commands.xml
+[2007/07/08 17:08:05] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:08:05] Opening display ":0.0"
+[2007/07/08 17:08:05] XTest for server ":0.0" is version 2.2
+[2007/07/08 17:08:05] Grabbing display control
+[2007/07/08 17:08:05] Syncing Display
+[2007/07/08 17:08:05] Creating systray icon (Simon)
+[2007/07/08 17:08:05] Reading wordlist consisting of 
+[2007/07/08 17:08:05] 		Lexicon: model/lexicon,
+[2007/07/08 17:08:05] 		Vocabulary: model/model.voca,
+[2007/07/08 17:08:05] 		Prompts: model/prompts
+[2007/07/08 17:08:05] Reading vocab from model/model.voca
+[2007/07/08 17:08:05] Parsing promptsfile from model/prompts
+[2007/07/08 17:08:05] Opening output file at model/lexicon
+[2007/07/08 17:08:05] Wordlist created
+[2007/07/08 17:08:05] Reading commands from commands.xml
+[2007/07/08 17:08:05] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:08:05] Reading trainingtexts at "texts/"
+[2007/07/08 17:08:05] Initializing XML file "texts/prompts.xml"
+[2007/07/08 17:08:05] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 17:08:05] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 17:08:05] Initializing XML file "texts/test.xml"
+[2007/07/08 17:08:05] Initializing XML file "texts/text00.xml"
+[2007/07/08 17:08:05] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 17:08:05] Loading settings
+[2007/07/08 17:08:05] Getting list of available input devices
+[2007/07/08 17:08:05] Returning available channels of device ""
+[2007/07/08 17:08:05] Returning available channels of device ""
+[2007/07/08 17:08:05] Determining samplerate of device ""
+[2007/07/08 17:08:05] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:08:05] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:08:05] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:08:05] Getting list of available output devices
+[2007/07/08 17:08:05] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:08:05] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:08:05] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:08:07] Starting simon...
+[2007/07/08 17:08:07] Reading commands from commands.xml
+[2007/07/08 17:08:07] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:08:07] Opening display ":0.0"
+[2007/07/08 17:08:07] XTest for server ":0.0" is version 2.2
+[2007/07/08 17:08:07] Grabbing display control
+[2007/07/08 17:08:07] Syncing Display
+[2007/07/08 17:08:07] Creating systray icon (Simon)
+[2007/07/08 17:08:07] Reading wordlist consisting of 
+[2007/07/08 17:08:07] 		Lexicon: model/lexicon,
+[2007/07/08 17:08:07] 		Vocabulary: model/model.voca,
+[2007/07/08 17:08:07] 		Prompts: model/prompts
+[2007/07/08 17:08:07] Reading vocab from model/model.voca
+[2007/07/08 17:08:07] Parsing promptsfile from model/prompts
+[2007/07/08 17:08:07] Opening output file at model/lexicon
+[2007/07/08 17:08:08] Wordlist created
+[2007/07/08 17:08:08] Reading commands from commands.xml
+[2007/07/08 17:08:08] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:08:08] Reading trainingtexts at "texts/"
+[2007/07/08 17:08:08] Initializing XML file "texts/prompts.xml"
+[2007/07/08 17:08:08] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 17:08:08] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 17:08:08] Initializing XML file "texts/test.xml"
+[2007/07/08 17:08:08] Initializing XML file "texts/text00.xml"
+[2007/07/08 17:08:08] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 17:08:08] Loading settings
+[2007/07/08 17:08:08] Getting list of available input devices
+[2007/07/08 17:08:08] Returning available channels of device ""
+[2007/07/08 17:08:08] Returning available channels of device ""
+[2007/07/08 17:08:08] Determining samplerate of device ""
+[2007/07/08 17:08:08] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:08:08] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:08:08] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:08:08] Getting list of available output devices
+[2007/07/08 17:08:08] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:08:08] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:08:08] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:08:08] Simon activated
+[2007/07/08 17:08:08] Connecting to juliusd at localhost:4444
+[2007/07/08 17:08:08] Connecting to juliusd failed: Connection refused
+[2007/07/08 17:08:08] Simon deactivated
+[2007/07/08 17:08:08] Showing message: simon wurde deaktiviert
+[2007/07/08 17:08:08] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 17:08:10] Adding new word to the model
+[2007/07/08 17:08:10] New word is called: 
+[2007/07/08 17:08:14] Shutting down...
+[2007/07/08 17:08:19] Starting simon...
+[2007/07/08 17:08:19] Reading commands from commands.xml
+[2007/07/08 17:08:19] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:08:19] Opening display ":0.0"
+[2007/07/08 17:08:19] XTest for server ":0.0" is version 2.2
+[2007/07/08 17:08:19] Grabbing display control
+[2007/07/08 17:08:19] Syncing Display
+[2007/07/08 17:08:19] Creating systray icon (Simon)
+[2007/07/08 17:08:20] Reading wordlist consisting of 
+[2007/07/08 17:08:20] 		Lexicon: model/lexicon,
+[2007/07/08 17:08:20] 		Vocabulary: model/model.voca,
+[2007/07/08 17:08:20] 		Prompts: model/prompts
+[2007/07/08 17:08:20] Reading vocab from model/model.voca
+[2007/07/08 17:08:20] Parsing promptsfile from model/prompts
+[2007/07/08 17:08:20] Opening output file at model/lexicon
+[2007/07/08 17:08:20] Wordlist created
+[2007/07/08 17:08:20] Reading commands from commands.xml
+[2007/07/08 17:08:20] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:08:20] Reading trainingtexts at "texts/"
+[2007/07/08 17:08:20] Initializing XML file "texts/prompts.xml"
+[2007/07/08 17:08:20] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 17:08:20] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 17:08:20] Initializing XML file "texts/test.xml"
+[2007/07/08 17:08:20] Initializing XML file "texts/text00.xml"
+[2007/07/08 17:08:20] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 17:08:20] Loading settings
+[2007/07/08 17:08:20] Getting list of available input devices
+[2007/07/08 17:08:20] Returning available channels of device ""
+[2007/07/08 17:08:20] Returning available channels of device ""
+[2007/07/08 17:08:20] Determining samplerate of device ""
+[2007/07/08 17:08:20] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:08:20] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:08:20] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:08:20] Getting list of available output devices
+[2007/07/08 17:08:20] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:08:20] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:08:20] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:08:20] Simon activated
+[2007/07/08 17:08:20] Connecting to juliusd at localhost:4444
+[2007/07/08 17:08:20] Connecting to juliusd failed: Connection refused
+[2007/07/08 17:08:20] Simon deactivated
+[2007/07/08 17:08:20] Showing message: simon wurde deaktiviert
+[2007/07/08 17:08:20] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 17:08:22] Adding new word to the model
+[2007/07/08 17:08:22] New word is called: 
+[2007/07/08 17:08:28] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:08:28] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:08:42] Imported 3137 words from the wiktionary-lexicon "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:08:42] Adding 3137 words to the wordlist
+[2007/07/08 17:08:42] Cleaning up wordlist
+[2007/07/08 17:08:44] Sorting a list of 3189 words
+[2007/07/08 17:09:34] Saving wordlist
+[2007/07/08 17:09:34] Creating wordlist utilizing the vocabulary from and the current wordlist
+[2007/07/08 17:09:34] Sorting a list of 9678 words
+[2007/07/08 17:09:35] Opening output file: model/lexicon
+[2007/07/08 17:09:35] Closing output file
+[2007/07/08 17:09:36] Shutting down...
+[2007/07/08 17:09:55] Starting simon...
+[2007/07/08 17:09:55] Reading commands from commands.xml
+[2007/07/08 17:09:55] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:09:55] Opening display ":0.0"
+[2007/07/08 17:09:55] XTest for server ":0.0" is version 2.2
+[2007/07/08 17:09:55] Grabbing display control
+[2007/07/08 17:09:55] Syncing Display
+[2007/07/08 17:09:55] Creating systray icon (Simon)
+[2007/07/08 17:09:55] Reading wordlist consisting of 
+[2007/07/08 17:09:55] 		Lexicon: model/lexicon,
+[2007/07/08 17:09:55] 		Vocabulary: model/model.voca,
+[2007/07/08 17:09:55] 		Prompts: model/prompts
+[2007/07/08 17:09:55] Reading vocab from model/model.voca
+[2007/07/08 17:09:55] Parsing promptsfile from model/prompts
+[2007/07/08 17:09:55] Opening output file at model/lexicon
+[2007/07/08 17:09:56] Wordlist created
+[2007/07/08 17:09:56] Reading commands from commands.xml
+[2007/07/08 17:09:56] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:09:56] Reading trainingtexts at "texts/"
+[2007/07/08 17:09:56] Initializing XML file "texts/prompts.xml"
+[2007/07/08 17:09:56] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 17:09:56] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 17:09:56] Initializing XML file "texts/test.xml"
+[2007/07/08 17:09:56] Initializing XML file "texts/text00.xml"
+[2007/07/08 17:09:56] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 17:09:56] Loading settings
+[2007/07/08 17:09:56] Getting list of available input devices
+[2007/07/08 17:09:56] Returning available channels of device ""
+[2007/07/08 17:09:56] Returning available channels of device ""
+[2007/07/08 17:09:56] Determining samplerate of device ""
+[2007/07/08 17:09:56] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:09:56] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:09:56] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:09:56] Getting list of available output devices
+[2007/07/08 17:09:56] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:09:56] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:09:56] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:09:56] Simon activated
+[2007/07/08 17:09:56] Connecting to juliusd at localhost:4444
+[2007/07/08 17:09:56] Connecting to juliusd failed: Connection refused
+[2007/07/08 17:09:56] Simon deactivated
+[2007/07/08 17:09:56] Showing message: simon wurde deaktiviert
+[2007/07/08 17:09:56] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 17:10:06] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:10:06] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:10:21] Imported 3137 words from the wiktionary-lexicon "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:10:21] Adding 3137 words to the wordlist
+[2007/07/08 17:10:21] Cleaning up wordlist
+[2007/07/08 17:10:22] Sorting a list of 3189 words
+[2007/07/08 17:14:45] Starting simon...
+[2007/07/08 17:14:45] Reading commands from commands.xml
+[2007/07/08 17:14:45] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:14:45] Opening display ":0.0"
+[2007/07/08 17:14:45] XTest for server ":0.0" is version 2.2
+[2007/07/08 17:14:45] Grabbing display control
+[2007/07/08 17:14:45] Syncing Display
+[2007/07/08 17:14:45] Creating systray icon (Simon)
+[2007/07/08 17:14:45] Reading wordlist consisting of 
+[2007/07/08 17:14:45] 		Lexicon: model/lexicon,
+[2007/07/08 17:14:45] 		Vocabulary: model/model.voca,
+[2007/07/08 17:14:45] 		Prompts: model/prompts
+[2007/07/08 17:14:45] Reading vocab from model/model.voca
+[2007/07/08 17:14:45] Parsing promptsfile from model/prompts
+[2007/07/08 17:14:45] Opening output file at model/lexicon
+[2007/07/08 17:14:46] Wordlist created
+[2007/07/08 17:14:46] Reading commands from commands.xml
+[2007/07/08 17:14:46] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:14:46] Reading trainingtexts at "texts/"
+[2007/07/08 17:14:46] Initializing XML file "texts/prompts.xml"
+[2007/07/08 17:14:46] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 17:14:46] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 17:14:46] Initializing XML file "texts/test.xml"
+[2007/07/08 17:14:46] Initializing XML file "texts/text00.xml"
+[2007/07/08 17:14:46] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 17:14:46] Loading settings
+[2007/07/08 17:14:46] Getting list of available input devices
+[2007/07/08 17:14:46] Returning available channels of device ""
+[2007/07/08 17:14:46] Returning available channels of device ""
+[2007/07/08 17:14:46] Determining samplerate of device ""
+[2007/07/08 17:14:46] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:14:46] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:14:46] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:14:46] Getting list of available output devices
+[2007/07/08 17:14:46] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:14:46] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:14:46] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:14:47] Simon activated
+[2007/07/08 17:14:47] Connecting to juliusd at localhost:4444
+[2007/07/08 17:14:47] Connecting to juliusd failed: Connection refused
+[2007/07/08 17:14:47] Simon deactivated
+[2007/07/08 17:14:47] Showing message: simon wurde deaktiviert
+[2007/07/08 17:14:47] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 17:14:49] Adding new word to the model
+[2007/07/08 17:14:49] New word is called: 
+[2007/07/08 17:14:55] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:14:55] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:15:10] Imported 10386 words from the wiktionary-lexicon "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:15:10] Adding 10386 words to the wordlist
+[2007/07/08 17:15:10] Cleaning up wordlist
+[2007/07/08 17:15:27] Sorting a list of 10438 words
+[2007/07/08 17:16:24] Shutting down...
+[2007/07/08 17:17:09] Starting simon...
+[2007/07/08 17:17:09] Reading commands from commands.xml
+[2007/07/08 17:17:09] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:17:09] Opening display ":0.0"
+[2007/07/08 17:17:09] XTest for server ":0.0" is version 2.2
+[2007/07/08 17:17:09] Grabbing display control
+[2007/07/08 17:17:09] Syncing Display
+[2007/07/08 17:17:09] Creating systray icon (Simon)
+[2007/07/08 17:17:09] Reading wordlist consisting of 
+[2007/07/08 17:17:09] 		Lexicon: model/lexicon,
+[2007/07/08 17:17:09] 		Vocabulary: model/model.voca,
+[2007/07/08 17:17:09] 		Prompts: model/prompts
+[2007/07/08 17:17:09] Reading vocab from model/model.voca
+[2007/07/08 17:17:09] Parsing promptsfile from model/prompts
+[2007/07/08 17:17:09] Opening output file at model/lexicon
+[2007/07/08 17:17:10] Wordlist created
+[2007/07/08 17:17:10] Reading commands from commands.xml
+[2007/07/08 17:17:10] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:17:10] Reading trainingtexts at "texts/"
+[2007/07/08 17:17:10] Initializing XML file "texts/prompts.xml"
+[2007/07/08 17:17:10] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 17:17:10] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 17:17:10] Initializing XML file "texts/test.xml"
+[2007/07/08 17:17:10] Initializing XML file "texts/text00.xml"
+[2007/07/08 17:17:10] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 17:17:10] Loading settings
+[2007/07/08 17:17:10] Getting list of available input devices
+[2007/07/08 17:17:10] Returning available channels of device ""
+[2007/07/08 17:17:10] Returning available channels of device ""
+[2007/07/08 17:17:10] Determining samplerate of device ""
+[2007/07/08 17:17:10] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:17:10] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:17:10] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:17:10] Getting list of available output devices
+[2007/07/08 17:17:10] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:17:10] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:17:10] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:17:10] Simon activated
+[2007/07/08 17:17:10] Connecting to juliusd at localhost:4444
+[2007/07/08 17:17:10] Connecting to juliusd failed: Connection refused
+[2007/07/08 17:17:10] Simon deactivated
+[2007/07/08 17:17:10] Showing message: simon wurde deaktiviert
+[2007/07/08 17:17:10] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 17:17:17] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:17:17] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:17:32] Imported 10480 words from the wiktionary-lexicon "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:17:32] Adding 10480 words to the wordlist
+[2007/07/08 17:17:32] Cleaning up wordlist
+[2007/07/08 17:17:49] Sorting a list of 10532 words
+[2007/07/08 17:18:02] Showing message: Ziehe das Wort in die Liste rechts um es zu trainieren
+[2007/07/08 17:18:03] Showing message: Ziehe das Wort in die Liste rechts um es zu trainieren
+[2007/07/08 17:18:07] Showing message: Ziehe das Wort in die Liste rechts um es zu trainieren
+[2007/07/08 17:18:51] Showing message: Ziehe das Wort in die Liste rechts um es zu trainieren
+[2007/07/08 17:19:27] Starting simon...
+[2007/07/08 17:19:27] Reading commands from commands.xml
+[2007/07/08 17:19:27] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:19:27] Opening display ":0.0"
+[2007/07/08 17:19:27] XTest for server ":0.0" is version 2.2
+[2007/07/08 17:19:27] Grabbing display control
+[2007/07/08 17:19:27] Syncing Display
+[2007/07/08 17:19:27] Creating systray icon (Simon)
+[2007/07/08 17:19:27] Reading wordlist consisting of 
+[2007/07/08 17:19:27] 		Lexicon: model/lexicon,
+[2007/07/08 17:19:27] 		Vocabulary: model/model.voca,
+[2007/07/08 17:19:27] 		Prompts: model/prompts
+[2007/07/08 17:19:27] Reading vocab from model/model.voca
+[2007/07/08 17:19:27] Parsing promptsfile from model/prompts
+[2007/07/08 17:19:27] Opening output file at model/lexicon
+[2007/07/08 17:19:28] Wordlist created
+[2007/07/08 17:19:28] Reading commands from commands.xml
+[2007/07/08 17:19:28] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:19:28] Reading trainingtexts at "texts/"
+[2007/07/08 17:19:28] Initializing XML file "texts/prompts.xml"
+[2007/07/08 17:19:28] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 17:19:28] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 17:19:28] Initializing XML file "texts/test.xml"
+[2007/07/08 17:19:28] Initializing XML file "texts/text00.xml"
+[2007/07/08 17:19:28] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 17:19:28] Loading settings
+[2007/07/08 17:19:28] Getting list of available input devices
+[2007/07/08 17:19:28] Returning available channels of device ""
+[2007/07/08 17:19:28] Returning available channels of device ""
+[2007/07/08 17:19:28] Determining samplerate of device ""
+[2007/07/08 17:19:28] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:19:28] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:19:28] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:19:28] Getting list of available output devices
+[2007/07/08 17:19:28] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:19:28] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:19:28] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:19:28] Simon activated
+[2007/07/08 17:19:28] Connecting to juliusd at localhost:4444
+[2007/07/08 17:19:28] Connecting to juliusd failed: Connection refused
+[2007/07/08 17:19:28] Simon deactivated
+[2007/07/08 17:19:28] Showing message: simon wurde deaktiviert
+[2007/07/08 17:19:28] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 17:19:35] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:19:35] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:19:50] Imported 10352 words from the wiktionary-lexicon "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:19:50] Adding 10352 words to the wordlist
+[2007/07/08 17:19:50] Cleaning up wordlist
+[2007/07/08 17:20:06] Sorting a list of 10404 words
+[2007/07/08 17:20:30] Saving wordlist
+[2007/07/08 17:20:30] Creating wordlist utilizing the vocabulary from and the current wordlist
+[2007/07/08 17:20:30] Sorting a list of 20030 words
+[2007/07/08 17:20:31] Opening output file: model/lexicon
+[2007/07/08 17:20:31] Closing output file
+[2007/07/08 17:20:32] Shutting down...
+[2007/07/08 17:22:13] Starting simon...
+[2007/07/08 17:22:13] Reading commands from commands.xml
+[2007/07/08 17:22:13] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:22:13] Opening display ":0.0"
+[2007/07/08 17:22:13] XTest for server ":0.0" is version 2.2
+[2007/07/08 17:22:13] Grabbing display control
+[2007/07/08 17:22:13] Syncing Display
+[2007/07/08 17:22:13] Creating systray icon (Simon)
+[2007/07/08 17:22:13] Reading wordlist consisting of 
+[2007/07/08 17:22:13] 		Lexicon: model/lexicon,
+[2007/07/08 17:22:13] 		Vocabulary: model/model.voca,
+[2007/07/08 17:22:13] 		Prompts: model/prompts
+[2007/07/08 17:22:13] Reading vocab from model/model.voca
+[2007/07/08 17:22:13] Parsing promptsfile from model/prompts
+[2007/07/08 17:22:13] Opening output file at model/lexicon
+[2007/07/08 17:22:14] Wordlist created
+[2007/07/08 17:22:14] Reading commands from commands.xml
+[2007/07/08 17:22:14] Initializing XML file "conf/commands.xml"
+[2007/07/08 17:22:14] Reading trainingtexts at "texts/"
+[2007/07/08 17:22:14] Initializing XML file "texts/prompts.xml"
+[2007/07/08 17:22:14] Initializing XML file "texts/simon.hc9905"
+[2007/07/08 17:22:14] Initializing XML file "texts/simon.jG6597"
+[2007/07/08 17:22:14] Initializing XML file "texts/test.xml"
+[2007/07/08 17:22:14] Initializing XML file "texts/text00.xml"
+[2007/07/08 17:22:14] Initializing XML file "texts/zeitungstext.xml"
+[2007/07/08 17:22:15] Loading settings
+[2007/07/08 17:22:15] Getting list of available input devices
+[2007/07/08 17:22:15] Returning available channels of device ""
+[2007/07/08 17:22:15] Returning available channels of device ""
+[2007/07/08 17:22:15] Determining samplerate of device ""
+[2007/07/08 17:22:15] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:22:15] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:22:15] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:22:15] Getting list of available output devices
+[2007/07/08 17:22:15] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:22:15] Returning available channels of device "hw:Intel,0"
+[2007/07/08 17:22:15] Determining samplerate of device "hw:Intel,0"
+[2007/07/08 17:22:15] Simon activated
+[2007/07/08 17:22:15] Connecting to juliusd at localhost:4444
+[2007/07/08 17:22:15] Connecting to juliusd failed: Connection refused
+[2007/07/08 17:22:15] Simon deactivated
+[2007/07/08 17:22:15] Showing message: simon wurde deaktiviert
+[2007/07/08 17:22:15] Creating systray icon (Simon - Deaktiviert)
+[2007/07/08 17:22:22] Opening (wiktionary-) lexicon at "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:22:22] Initializing XML file "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:22:37] Imported 10352 words from the wiktionary-lexicon "/home/bedahr/Daten/Projects/simon/trunk/dict/dewiktionary-20070405-pages-articles.xml"
+[2007/07/08 17:22:37] Adding 10352 words to the wordlist
+[2007/07/08 17:22:37] Cleaning up wordlist
+[2007/07/08 17:22:52] Sorting a list of 10431 words
+[2007/07/08 17:24:14] Shutting down...

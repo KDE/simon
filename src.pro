@@ -131,14 +131,15 @@ SOURCES += main.cpp \
  logger.cpp
 
 QT += network \
-xml
+xml 
 
 TARGET = ./bin/simon
 TEMPLATE = app
 
 CONFIG += qt \
 warn_on \
-thread
+thread \
+debug
 
 
 RESOURCES += simon.qrc

@@ -13,8 +13,8 @@
     <projectname>simon</projectname>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
-    <description/>
-    <defaultencoding/>
+    <description></description>
+    <defaultencoding></defaultencoding>
     <versioncontrol>kdevsubversion</versioncontrol>
   </general>
   <kdevfileview>
@@ -23,8 +23,6 @@
       <group pattern="*.ui" name="User Interface" />
       <group pattern="*.png" name="Icons" />
       <group pattern="*" name="Others" />
-      <hidenonprojectfiles>false</hidenonprojectfiles>
-      <hidenonlocation>false</hidenonlocation>
     </groups>
     <tree>
       <hidepatterns>*.o,*.lo,CVS</hidepatterns>
@@ -73,12 +71,12 @@
   </kdevdoctreeview>
   <kdevdebugger>
     <general>
-      <dbgshell/>
+      <dbgshell></dbgshell>
       <programargs/>
-      <gdbpath/>
-      <configGdbScript/>
-      <runShellScript/>
-      <runGdbScript/>
+      <gdbpath></gdbpath>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
@@ -92,7 +90,7 @@
   <kdevtrollproject>
     <run>
       <mainprogram>/home/bedahr/Daten/Projects/simon/trunk/bin/simon</mainprogram>
-      <programargs/>
+      <programargs></programargs>
       <directoryradio>executable</directoryradio>
       <customdirectory>/</customdirectory>
       <terminal>false</terminal>
@@ -100,7 +98,7 @@
       <envvars/>
       <autoinstall>false</autoinstall>
       <autokdesu>false</autokdesu>
-      <globaldebugarguments/>
+      <globaldebugarguments></globaldebugarguments>
       <globalcwd>/home/bedahr/Daten/Projects/simon/trunk</globalcwd>
       <useglobalprogram>true</useglobalprogram>
       <runarguments>
@@ -121,7 +119,7 @@
       <runmultiplejobs>false</runmultiplejobs>
       <numberofjobs>1</numberofjobs>
       <dontact>false</dontact>
-      <makebin/>
+      <makebin></makebin>
       <prio>0</prio>
       <envvars/>
     </make>
@@ -143,8 +141,8 @@
   </kdevfilecreate>
   <kdevdocumentation>
     <projectdoc>
-      <docsystem>Doxygen Documentation Collection</docsystem>
-      <docurl/>
+      <docsystem></docsystem>
+      <docurl></docurl>
       <usermanualurl>/home/bedahr/Daten/Projects/simon/documentation/simon/refman.out</usermanualurl>
     </projectdoc>
   </kdevdocumentation>
@@ -182,7 +180,7 @@
       <namespaceAliases>std=_GLIBCXX_STD</namespaceAliases>
       <processPrimaryTypes>true</processPrimaryTypes>
       <processFunctionArguments>false</processFunctionArguments>
-      <preProcessAllHeaders>false</preProcessAllHeaders>
+      <preProcessAllHeaders>true</preProcessAllHeaders>
       <parseMissingHeaders>false</parseMissingHeaders>
       <resolveIncludePaths>true</resolveIncludePaths>
       <alwaysParseInBackground>true</alwaysParseInBackground>
@@ -203,7 +201,7 @@
       <designerpluginpaths/>
     </qt>
     <creategettersetter>
-      <prefixGet/>
+      <prefixGet></prefixGet>
       <prefixSet>set</prefixSet>
       <prefixVariable>m_,_</prefixVariable>
       <parameterName>theValue</parameterName>
@@ -223,7 +221,7 @@
     </filetemplates>
   </cppsupportpart>
   <ctagspart>
-    <customArguments/>
+    <customArguments></customArguments>
     <customTagfilePath>/home/bedahr/Daten/Projects/simon/trunk/tags</customTagfilePath>
     <activeTagsFiles/>
   </ctagspart>

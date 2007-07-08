@@ -68,9 +68,9 @@ bool WiktionaryDict::startElement(const QString &namespaceURI,
 	//but it's still there to get a better estimation of the current progress
 	//even with this workaround we still loose a bit of accuracy (which is why
 	//the progressbar is quite "jumpy" at the end
-	pos += qName.count()+3;
+	pos += qName.count()+4;
 	for(int i=0; i<attributes.count(); i++)
-		pos += attributes.qName(i).count() + attributes.value(i).count()+1;
+		pos += attributes.qName(i).count() + attributes.value(i).count()+4;
 	
 	return true;
 }
@@ -143,7 +143,6 @@ bool WiktionaryDict::endElement(const QString &namespaceURI, const QString &loca
 					text.indexOf(QRegExp("(\n|\\|)"), 
 					ptitlestart)-ptitlestart);
 			
-// 			pluraltitle.remove(QRegExp("&lt;.*&gt;"));#
 			pluraltitle = cleanTitle(pluraltitle);
 			
 			QStringList ipap = findIPAs(ipaplural);
@@ -171,9 +170,17 @@ QString WiktionaryDict::cleanTitle ( QString title )
 	{
 		title.remove(title.indexOf("<"), title.indexOf(">", title.indexOf("<")));
 	}
-	title.remove(QRegExp("-.*"));
+	//strip (...)
+	while (title.indexOf("(") != -1)
+	{
+		title.remove(title.indexOf("("), title.indexOf(")", title.indexOf("(")));
+	}
+	title= title.trimmed();
+	title.remove(QRegExp("^(-|=).*"));
 	title.remove("*");
-	title = title.mid(title.lastIndexOf(" "));
+	//if some parenthesis isn't closed it isn't caught by the stripping algorithm above
+	title.remove("(");
+	title.remove(")");
 	
 	return title.trimmed();
 }
@@ -200,6 +207,8 @@ void WiktionaryDict::insertWords(QString word, QString terminal, QStringList pro
 			words.append(word.trimmed());
 			terminals.append(terminal);
 		}
+// 		words.append(word.trimmed());
+// 		terminals.append(pronunciations.at(prons));
 	}
 }
 
@@ -243,39 +252,54 @@ QStringList WiktionaryDict::findIPAs(QString haystack)
  */
 int WiktionaryDict::processFoundIPA(QString ipa)
 {
-	qDebug() << ipa;
-	int inserted = 0;
+	QStringList ipas;
+	int inserted=0;
 	
-	//if we determine that the pronunciation is not finished/the writer
-		//was not so sure, we ignore it
-	if ((ipa.indexOf("?") != -1) || (ipa.indexOf("/") != -1)) return false;
-		
-		
-	ipa.remove(' ');
-	ipa.remove("betont", Qt::CaseInsensitive);
-	QStringList IPAs = ipa.split(QRegExp("(;|,)"), QString::SkipEmptyParts);
-		
-	for (int i=0; i<IPAs.count(); i++)
+	ipas = ipa.split(QRegExp("(;|,|\\/)"), QString::SkipEmptyParts);
+	for (int i= 0; i < ipas.size(); i++)
 	{
-		if ((IPAs.at(i).startsWith("-"))&&(i>0))
+		ipa=ipas.at(i);
+		//removing bogus
+		ipa.remove("...");
+		
+		//if we start with a "-" it cannot be a syllable break IPA-char so we guess that
+		//it is used like "test/-s" or "test, -s" and replace acordingly
+		//we use the local variable "ipas" instead of the pronunciations because if the
+		//preceding ipa was empty it wouldn't have been added to the list and prepending
+		//the last recorded pronunciation would cause a faulty pronunciation in that 
+		//case
+		if (ipa.startsWith("-"))
+			if (i>0) {
+				ipa.insert(0, ipas.at(i-1));
+			} else
+				ipa.remove(QRegExp("-.*"));
+		
+		//with the substitution taken care of, we can safely remove all syllable brakes
+		ipa.remove("-");
+		
+		
+// 		ipa.left(ipa.indexOf("/")); //this is needed because we could get stuff like:
+// 			//"test/-e" and we can _not_ in any way distinguish the "-"
+// 			//from the IPA key-char "-" (its the same, obviously) so we
+// 			//strip the hole second part and sacrifice stuff like test/tist
+		
+		ipa.remove(0x2026); //UTF-8 for the horizontal ellipsis 
+				//(the character looking like "...")
+		ipa.remove("-");
+		ipa.remove("{{fehlend}}", Qt::CaseInsensitive);
+		ipa.remove("betont", Qt::CaseInsensitive);
+		ipa.remove(QRegExp("\\(.*\\)"));
+		
+		ipa = ipa.trimmed();
+		ipas.replace(i, ipa); //for easy access for the "-" substitution
+		
+		if (!ipa.isEmpty())
 		{
-				//a syllable seperator is here out of
-				//order, so we guess that it means "in-addition-to-the-prior"
-			IPAs.replace(i, QString(IPAs.at(i)).remove(0,1)); 
-				//remove the "-"
-			IPAs.replace(i, QString(IPAs.at(i)).insert(0, IPAs.at(i-1)));
-				//so we take the preceding element and insert it
-		}
-				
-		if ((!IPAs.at(i).trimmed().isEmpty()) && 
-				    (IPAs.at(i).trimmed() != "...")) //if everything seems alright
-		{
-			qDebug() << ipaToXSampa(IPAs.at(i).trimmed());
-			pronunciations.append(ipaToXSampa(IPAs.at(i).trimmed()));
+// 			qDebug() << ipa;
+			this->pronunciations << ipaToXSampa(ipa);
 			inserted++;
 		}
 	}
-	qDebug() << inserted;
 	return inserted;
 }
 
