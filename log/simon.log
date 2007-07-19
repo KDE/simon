@@ -1068,3 +1068,142 @@
 [2007/07/08 17:38:13] Opening output file: model/lexicon
 [2007/07/08 17:38:13] Closing output file
 [2007/07/08 17:38:14] Shutting down...
+[2007/07/19 20:26:56] Starting simon...
+[2007/07/19 20:26:57] Reading commands from commands.xml
+[2007/07/19 20:26:57] Initializing XML file "conf/commands.xml"
+[2007/07/19 20:26:57] Creating systray icon (Simon)
+[2007/07/19 20:26:58] Reading wordlist consisting of 
+[2007/07/19 20:26:58] 		Lexicon: model/lexicon,
+[2007/07/19 20:26:58] 		Vocabulary: model/model.voca,
+[2007/07/19 20:26:58] 		Prompts: model/prompts
+[2007/07/19 20:26:58] Reading vocab from model/model.voca
+[2007/07/19 20:26:58] Parsing promptsfile from model/prompts
+[2007/07/19 20:26:58] Opening output file at model/lexicon
+[2007/07/19 20:26:58] Wordlist created
+[2007/07/19 20:26:59] Reading commands from commands.xml
+[2007/07/19 20:26:59] Initializing XML file "conf/commands.xml"
+[2007/07/19 20:26:59] Reading trainingtexts at "texts/"
+[2007/07/19 20:26:59] Initializing XML file "texts/text00.xml"
+[2007/07/19 20:26:59] Loading settings
+[2007/07/19 20:26:59] Getting list of available input devices
+[2007/07/19 20:26:59] Returning available channels of device ""
+[2007/07/19 20:26:59] Returning available channels of device ""
+[2007/07/19 20:26:59] Determining samplerate of device ""
+[2007/07/19 20:26:59] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:26:59] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:26:59] Determining samplerate of device "Conexant AMC Audio"
+[2007/07/19 20:26:59] Getting list of available output devices
+[2007/07/19 20:26:59] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:26:59] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:26:59] Determining samplerate of device "Conexant AMC Audio"
+[2007/07/19 20:27:01] CRITICAL: Couldn't read channels
+[2007/07/19 20:27:18] Applying settings...
+[2007/07/19 20:27:19] Shutting down...
+[2007/07/19 20:27:21] Starting simon...
+[2007/07/19 20:27:21] Reading commands from commands.xml
+[2007/07/19 20:27:21] Initializing XML file "conf/commands.xml"
+[2007/07/19 20:27:21] Creating systray icon (Simon)
+[2007/07/19 20:27:22] Reading wordlist consisting of 
+[2007/07/19 20:27:22] 		Lexicon: model/lexicon,
+[2007/07/19 20:27:22] 		Vocabulary: model/model.voca,
+[2007/07/19 20:27:22] 		Prompts: model/prompts
+[2007/07/19 20:27:22] Reading vocab from model/model.voca
+[2007/07/19 20:27:22] Parsing promptsfile from model/prompts
+[2007/07/19 20:27:22] Opening output file at model/lexicon
+[2007/07/19 20:27:22] Wordlist created
+[2007/07/19 20:27:22] Reading commands from commands.xml
+[2007/07/19 20:27:22] Initializing XML file "conf/commands.xml"
+[2007/07/19 20:27:22] Reading trainingtexts at "texts/"
+[2007/07/19 20:27:22] Initializing XML file "texts/text00.xml"
+[2007/07/19 20:27:22] Loading settings
+[2007/07/19 20:27:22] Getting list of available input devices
+[2007/07/19 20:27:22] Returning available channels of device ""
+[2007/07/19 20:27:22] Returning available channels of device ""
+[2007/07/19 20:27:22] Determining samplerate of device ""
+[2007/07/19 20:27:22] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:27:22] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:27:22] Determining samplerate of device "Conexant AMC Audio"
+[2007/07/19 20:27:22] Getting list of available output devices
+[2007/07/19 20:27:22] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:27:22] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:27:22] Determining samplerate of device "Conexant AMC Audio"
+[2007/07/19 20:27:29] Adding new word to the model
+[2007/07/19 20:27:29] New word is called: 
+[2007/07/19 20:27:30] Showing message: Ziehe das Wort in die Liste rechts um es zu trainieren
+[2007/07/19 20:27:36] Training text: "Der kleine Riese feiert Geburtstag"
+[2007/07/19 20:27:37] Deleting text "Der kleine Riese feiert Geburtstag" at "texts/text00.xml
+[2007/07/19 20:27:37] Reading trainingtexts at "texts/"
+[2007/07/19 20:27:39] Shutting down...
+[2007/07/19 20:27:41] Starting simon...
+[2007/07/19 20:27:41] Reading commands from commands.xml
+[2007/07/19 20:27:41] Initializing XML file "conf/commands.xml"
+[2007/07/19 20:27:41] Creating systray icon (Simon)
+[2007/07/19 20:27:41] Reading wordlist consisting of 
+[2007/07/19 20:27:41] 		Lexicon: model/lexicon,
+[2007/07/19 20:27:41] 		Vocabulary: model/model.voca,
+[2007/07/19 20:27:41] 		Prompts: model/prompts
+[2007/07/19 20:27:41] Reading vocab from model/model.voca
+[2007/07/19 20:27:41] Parsing promptsfile from model/prompts
+[2007/07/19 20:27:41] Opening output file at model/lexicon
+[2007/07/19 20:27:42] Wordlist created
+[2007/07/19 20:27:42] Reading commands from commands.xml
+[2007/07/19 20:27:42] Initializing XML file "conf/commands.xml"
+[2007/07/19 20:27:42] Reading trainingtexts at "texts/"
+[2007/07/19 20:27:42] Loading settings
+[2007/07/19 20:27:42] Getting list of available input devices
+[2007/07/19 20:27:42] Returning available channels of device ""
+[2007/07/19 20:27:42] Returning available channels of device ""
+[2007/07/19 20:27:42] Determining samplerate of device ""
+[2007/07/19 20:27:42] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:27:42] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:27:42] Determining samplerate of device "Conexant AMC Audio"
+[2007/07/19 20:27:42] Getting list of available output devices
+[2007/07/19 20:27:42] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:27:42] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:27:42] Determining samplerate of device "Conexant AMC Audio"
+[2007/07/19 20:27:47] Fetching list of availible remote trainingstexts
+[2007/07/19 20:27:47] Loading "http://simon.pytalhost.org/texts/list.xml" to ""
+[2007/07/19 20:27:50] Got HTTP response: "200"
+[2007/07/19 20:27:50] Download finished: "simon.nf2236"
+[2007/07/19 20:27:50] Initializing XML file "simon.nf2236"
+[2007/07/19 20:27:50] Loading a list of trainingtexts from 
+[2007/07/19 20:27:53] Starting remote import from "http://simon.pytalhost.org/texts/geburtstag.xml"
+[2007/07/19 20:27:53] Loading "http://simon.pytalhost.org/texts/geburtstag.xml" to ""
+[2007/07/19 20:27:53] Got HTTP response: "200"
+[2007/07/19 20:27:53] Download finished: "simon.Dq2236"
+[2007/07/19 20:27:54] Reading trainingtexts at "texts/"
+[2007/07/19 20:27:54] Initializing XML file "texts/simon.Dq2236"
+[2007/07/19 20:28:05] Training text: "Der kleine Riese feiert Geburtstag"
+[2007/07/19 20:28:08] Shutting down...
+[2007/07/19 20:28:57] Starting simon...
+[2007/07/19 20:28:57] Reading commands from commands.xml
+[2007/07/19 20:28:57] Initializing XML file "conf/commands.xml"
+[2007/07/19 20:28:57] Creating systray icon (Simon)
+[2007/07/19 20:28:58] Reading wordlist consisting of 
+[2007/07/19 20:28:58] 		Lexicon: model/lexicon,
+[2007/07/19 20:28:58] 		Vocabulary: model/model.voca,
+[2007/07/19 20:28:58] 		Prompts: model/prompts
+[2007/07/19 20:28:58] Reading vocab from model/model.voca
+[2007/07/19 20:28:58] Parsing promptsfile from model/prompts
+[2007/07/19 20:28:58] Opening output file at model/lexicon
+[2007/07/19 20:28:58] Wordlist created
+[2007/07/19 20:28:58] Reading commands from commands.xml
+[2007/07/19 20:28:58] Initializing XML file "conf/commands.xml"
+[2007/07/19 20:28:58] Reading trainingtexts at "texts/"
+[2007/07/19 20:28:58] Initializing XML file "texts/simon.Dq2236"
+[2007/07/19 20:28:58] Loading settings
+[2007/07/19 20:28:58] Getting list of available input devices
+[2007/07/19 20:28:59] Returning available channels of device ""
+[2007/07/19 20:28:59] Returning available channels of device ""
+[2007/07/19 20:28:59] Determining samplerate of device ""
+[2007/07/19 20:28:59] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:28:59] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:28:59] Determining samplerate of device "Conexant AMC Audio"
+[2007/07/19 20:28:59] Getting list of available output devices
+[2007/07/19 20:28:59] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:28:59] Returning available channels of device "Conexant AMC Audio"
+[2007/07/19 20:28:59] Determining samplerate of device "Conexant AMC Audio"
+[2007/07/19 20:29:05] Training text: "Der kleine Riese feiert Geburtstag"
+[2007/07/19 20:29:07] Reading trainingtexts at "texts/"
+[2007/07/19 20:29:07] Initializing XML file "texts/simon.Dq2236"
+[2007/07/19 20:29:08] Training text: "Der kleine Riese feiert Geburtstag"

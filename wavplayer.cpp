@@ -62,6 +62,8 @@ bool WavPlayer::play( QString filename )
 		delete audio;
 	}
 	progressTimer->start(100);
+	
+	return true;
 }
 
 

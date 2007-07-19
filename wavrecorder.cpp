@@ -33,7 +33,7 @@ bool WavRecorder::record(QString filename, short channels, int sampleRate)
 	
 	int fs=44100, buffer_size=512, device = 0;
 	chans=1;
-	long frames, counter = 0;
+	//long frames, counter = 0;
 	signed short *buffer;
 	audio = 0;
 
@@ -59,6 +59,8 @@ bool WavRecorder::record(QString filename, short channels, int sampleRate)
 	
 	audio->setStreamCallback(&processWrapper, (void*) this);
 	audio->startStream();
+	
+	return true;
 }
 
 /**
