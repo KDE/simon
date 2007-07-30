@@ -39,18 +39,18 @@ void ImportDict::parseWordList(QString pathToDict)
  */
 void ImportDict::run()
 {
-	Logger::log("Opening (wiktionary-) lexicon at \""+pathToDict+"\"");
-	emit status("Öffne Wörterbuch...");
+	Logger::log(tr("Ã–ffne (wiktionary-) lexikon")+" \""+pathToDict+"\"");
+	emit status(tr("Ã–ffne WÃ¶rterbuch..."));
 	
 	emit progress(10);
 	WiktionaryDict *wdict = new WiktionaryDict(pathToDict);
 	connect(wdict, SIGNAL(loaded()), this, SLOT(openingFinished()));
 	connect(wdict, SIGNAL(progress(int)), this, SLOT(loadProgress(int)));
 	
-	emit status("Verarbeite Wörterbuch...");
+	emit status(tr("Verarbeite WÃ¶rterbuch..."));
 	
 	wdict->load(pathToDict);
-	emit status("Erstelle Liste...");
+	emit status(tr("Erstelle Liste..."));
 	QStringList words = wdict->getWords();
 	QStringList terminals = wdict->getTerminals();
 	QStringList pronunciations = wdict->getPronuncations();
@@ -66,9 +66,9 @@ void ImportDict::run()
 	}
 	
 	emit progress(1000);
-	emit status("Fertig");
+	emit status(tr("Fertig"));
 	
-	Logger::log("Imported "+QString::number(words.count())+" words from the wiktionary-lexicon \""+pathToDict+"\"");
+	Logger::log(QString::number(words.count())+" "+tr("WÃ¶rter aud dem wiktionary-lexikon")+" \""+pathToDict+"\""+tr("importiert"));
 	wordList = vocablist;
 	emit finished();
 }

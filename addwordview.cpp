@@ -48,8 +48,8 @@ AddWordView::AddWordView(QWidget *parent, Qt::WFlags f)
 	connect(ui.pbBack_3, SIGNAL(clicked()), this, SLOT(prevStep()));
 	connect(ui.pbFinish, SIGNAL(clicked()), this, SLOT(finish()));
 	
-	rec1 = new RecWidget("Aufnahme 1", "1.wav", ui.wRec1);
-	rec2 = new RecWidget("Aufnahme 2", "2.wav", ui.wRec2);
+	rec1 = new RecWidget(tr("Aufnahme 1"), "1.wav", ui.wRec1);
+	rec2 = new RecWidget(tr("Aufnahme 2"), "2.wav", ui.wRec2);
 	
 	ui.wRec1->layout()->addWidget(rec1);
 	ui.wRec2->layout()->addWidget(rec2);
@@ -83,10 +83,10 @@ void AddWordView::saveWord()
 {
 	this->word = ui.leWord->text();
 	
-	Logger::log("Adding new word to the model");
-	Logger::log("New word is called: "+this->word);
+	Logger::log(tr("FÃ¼ge neues Wort zum Modell hinzu..."));
+	Logger::log(tr("Neues Wort lautet: ")+this->word);
 	
-	this->setWindowTitle(tr("Wort hinzufügen") + " - " + word);
+	this->setWindowTitle(tr("Wort hinzufÃ¼gen") + " - " + word);
 }
 
 
@@ -149,9 +149,9 @@ void AddWordView::finish()
 	
 	//ui clean up
 	ui.swMain->setCurrentIndex(0);
-	ui.leWord->setText("");
-	setWindowTitle(tr("Wort hinzufügen"));
-	Logger::log("Word added: "+this->word);
+	ui.leWord->clear();
+	setWindowTitle(tr("Wort hinzufÃ¼gen"));
+	Logger::log(tr("Word added: ")+this->word);
 	
 	rec1->deleteSample();
 	rec2->deleteSample();

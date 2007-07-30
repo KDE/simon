@@ -19,6 +19,7 @@
  */
 WavPlayer::WavPlayer(QWidget *parent) : QObject(parent)
 {
+	stopTimer = false;
 	progressTimer = new QTimer();
 	connect(progressTimer, SIGNAL(timeout()), this, SLOT(increaseProgress()));
 	audio = new RtAudio();
@@ -37,7 +38,7 @@ bool WavPlayer::play( QString filename )
 	progress = 0;
 	position=0;
 	
-	int device=2, bufferSize=512, nBuffers=4;
+	int device=0, bufferSize=512, nBuffers=4;
 	WAV *file = new WAV(filename); 
 	
 	this->data = file->getRawData(this->length);
@@ -95,6 +96,7 @@ int WavPlayer::processWrapper(char* buffer, int bufferSize, void *play)
  */
 void WavPlayer::increaseProgress()
 {
+	if (stopTimer)	{ progressTimer->stop(); return; }
 	progress+=100;
 	emit currentProgress(progress);
 }
@@ -106,7 +108,8 @@ void WavPlayer::increaseProgress()
  */
 void WavPlayer::stop()
 {
-	//this function is also called when the thread is finished to stop the timer
+	stopTimer = true; // to work around the issue that you can't stop the timer from a different thread
+	//which would be the case if we would stop it here (this is called from the callback thread)
 	try {
     		// Stop and close the stream
 		audio->stopStream();
@@ -117,7 +120,6 @@ void WavPlayer::stop()
 		error.printMessage();
 	}
 	
-	progressTimer->stop();
 	delete data;
 	emit finished();
 }

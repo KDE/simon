@@ -128,7 +128,6 @@ void SimonView::connectToServer()
 {
 	if (!(settings->value("network/defaultjuliusdaddress").toString()).isEmpty())
 	{
-		
            ui.pbConnect->setText("Verbinde...");
 	   ui.pbConnect->setEnabled(false);
 	   ui.frmConnecting->setVisible(true);
@@ -177,18 +176,6 @@ void SimonView::disconnected()
 
 
 /**
- * \brief Overrides the paintEvent to draw the background
- * \author Peter Grasch
- * @param event 
- * Paint event showing the rectangle affected
- */
-// void SimonView::paintEvent( QPaintEvent * event )
-// {
-// 	
-// }
-
-
-/**
  * \brief We canceled the connecting to the server
  *
  * @author Peter Grasch
@@ -229,7 +216,7 @@ void SimonView::errorConnecting(QString error)
 	this->control->deactivateSimon();
 	this->representState();
 	
-	QMessageBox::critical(this, "Kritischer Verbindungsfehler", "Die Verbindung zum juliusd Erkennungsd�mon konnte nicht aufgenommen werden.\n\nBitte �berpr�fen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte Fehlermeldung lautete:\n"+error);
+	QMessageBox::critical(this, "Kritischer Verbindungsfehler", "Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte Fehlermeldung lautete:\n"+error);
 }
 
 
@@ -408,7 +395,7 @@ void SimonView::toggleVisibility()
 */
 void SimonView::closeSimon()
 {
-	if ((!false /*Confirm shutdown*/) || (QMessageBox::question(this, "Wirklich beenden?", "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos k�nnen mehr benutzt werden.\n\nWollen Sie wirklich beenden?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No) == QMessageBox::Yes))
+	if ((!false /*Confirm shutdown*/) || (QMessageBox::question(this, "Wirklich beenden?", "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No) == QMessageBox::Yes))
 	{
 		close();
 		this->~ SimonView();

@@ -26,6 +26,7 @@ win32 {
     LIBS += -ldsound -lwinmm -lole32
 }
 
+TRANSLATIONS =  simon_en.ts
 
 FORMS += ui/main.ui \
          ui/wordlist.ui \

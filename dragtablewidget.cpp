@@ -92,7 +92,7 @@ void DragTableWidget::startDrag()
 	mimeData->setText( currentItem );
 	drag->setMimeData(mimeData);
 	
-	SimonInfo::showMessage( "Ziehe das Wort in die Liste rechts um es zu trainieren" , 2000 );
+	SimonInfo::showMessage( tr("Ziehe das Wort in die Liste rechts um es zu trainieren") , 2000 );
 	
 	drag->start(Qt::MoveAction);
 }

@@ -40,6 +40,7 @@ private:
 	int chans;
 	int progress;
 	long position;
+	bool stopTimer;
 	RtAudio *audio;
 	
 	static int processWrapper(char *buffer, int bufferSize, void* play);

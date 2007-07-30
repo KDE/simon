@@ -30,6 +30,12 @@
 int main(int argc, char *argv[])
 {
 	QApplication app(argc,argv);
+	QString locale = QLocale::system().name();
+
+	QTranslator translator;
+	translator.load(QString("simon_") + locale);
+	app.installTranslator(&translator);
+
 	SimonView *pv = new SimonView();
 	app.setStyle(new QPlastiqueStyle());
 	pv->show();
