@@ -12,6 +12,11 @@
 #include "settingsview.h"
 #include "simoninfo.h"
 #include "logger.h"
+#include "command.h"
+#include <QTableWidget>
+#include <QTableWidgetItem>
+#include <QComboBox>
+
 
 /**
  * \brief Constructor
@@ -40,9 +45,11 @@ SettingsView::SettingsView ( QWidget *parent )
 	connect ( ui.cbInDevice, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( refreshDeviceCapabilities() ) );
 	connect ( ui.pbAddAdress, SIGNAL ( clicked() ), this, SLOT ( addAddress() ) );
 	connect ( ui.pbDeleteAdress, SIGNAL ( clicked() ), this, SLOT ( deleteAddress() ) );
+	connect ( ui.twCommand, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(saveCommands()));
 
 	this->settings = new QSettings ( QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon" );
 	this->sc= new SoundControl();
+	commandLoader = new XMLCommand("conf/commands.xml");
 	this->readConfig();
 #ifdef linux
 	ui.lbDirectX->setVisible ( false );
@@ -178,7 +185,61 @@ void SettingsView::readConfig()
 	ui.cbAddress->setCurrentIndex ( ui.cbAddress->findText ( settings->value ( "network/defaultjuliusdAddress" ).toString(),Qt::MatchCaseSensitive ) );
 
 
+	initCommands();
+}
 
+
+void SettingsView::saveCommands()
+{
+	Logger::log(tr("Speichere Kommandos..."));
+	commandLoader->save();
+}
+
+/**
+ * \brief Loads the commands from the corresponding XML file and inserts them into the list for configuring the available comamnds
+ * \author Peter Grasch, Tschernegg Susanne
+ */
+void SettingsView::initCommands(QString path)
+{
+	Logger::log(tr("Importiere Kommandos von ")+path);
+	commandLoader->load(path);
+	CommandList commands = commandLoader->getCommands();
+	
+	ui.twCommand->setRowCount(commands.count());
+	QTableWidgetItem *tmp;
+	
+	//baue combobox
+	
+	Logger::log(tr("Habe ")+QString::number(commands.count())+tr(" Kommandos gefunden"));
+	for (int i=0; i < commands.count(); i++)
+	{
+		tmp = new QTableWidgetItem(commands.at(i)->getName());
+		ui.twCommand->setItem(i, 0, tmp);
+		
+		CommandType ctype = commands.at(i)->getType();
+		QString strType;
+			
+		//if (ctype ==place)
+		//	strType = tr("Ort");
+		//else if (ctype == type)
+		//	strType = tr("Sonderzeichen");
+		//else strType = tr("Program");
+		
+		//tmp = new QTableWidgetItem(strType);
+		
+		//ui.twCommand->setItem(i, 1, tmp);
+		
+		QComboBox *cbType = new QComboBox();
+		cbType->addItem(QIcon(":/images/icons/emblem-system.svg"),QApplication::translate("RunDialog", "Programme", 0, QApplication::UnicodeUTF8));
+		cbType->addItem(QIcon(":/images/icons/folder.svg"), QApplication::translate("RunDialog", "Orte", 0, QApplication::UnicodeUTF8));
+		cbType->addItem(QIcon(":/images/icons/format-text-bold.svg"),QApplication::translate("RunDialog", "Sonderzeichen", 0, QApplication::UnicodeUTF8));
+		
+		cbType->setCurrentIndex(ctype);
+		ui.twCommand->setCellWidget(i, 1, cbType);
+		
+		tmp = new QTableWidgetItem(commands.at(i)->getValue());
+		ui.twCommand->setItem(i, 2, tmp);
+	}
 }
 
 void SettingsView::apply()

@@ -20,6 +20,7 @@
 #include "sounddevice.h"
 #include <QList>
 #include <QInputDialog>
+#include "xmlcommand.h"
 #include <QStringList>
 
 /**
@@ -42,7 +43,13 @@ private:
 	Ui::SettingsDialog ui; //!< The user interface
     QSettings *settings;
     SoundControl *sc;
+	XMLCommand *commandLoader;
     void readConfig();
+
+private slots:
+	void initCommands(QString path="conf/commands.xml");
+	void saveCommands();
+
 public slots:
 	void unsetAllTabs();
 	void switchToSystem();

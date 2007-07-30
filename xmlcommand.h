@@ -32,7 +32,10 @@ private:
 public:
 	XMLCommand(QString path="conf/commands.xml");
 	
-	void save(CommandList commandlist, QString path="conf/commands.xml");
+	void save(QString path="conf/commands.xml");
+
+	void replaceCommand(QString commandName, Command newCommand);
+	void addCommand(Command newCommand);
 	
 	void load(QString path="");
 	
