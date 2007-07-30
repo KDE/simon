@@ -96,7 +96,7 @@ int WavPlayer::processWrapper(char* buffer, int bufferSize, void *play)
  */
 void WavPlayer::increaseProgress()
 {
-	if (stopTimer)	{ progressTimer->stop(); return; }
+	if (stopTimer)	{ progressTimer->stop(); stopTimer=false; return; }
 	progress+=100;
 	emit currentProgress(progress);
 }

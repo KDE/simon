@@ -241,6 +241,7 @@ void WAV::writeFormat(QDataStream *dstream)
  *	the data to add
  *	@param int length
  *	the length of the provided array
+ *	\todo Use memcpy for speed improvement
  */
 void WAV::addData(char* data, int length)
 {
