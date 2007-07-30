@@ -11,7 +11,6 @@
 //
 #include "trainingmanager.h"
 #include "logger.h"
-#include <QDebug>
 
 /**
  * @brief Constructor
@@ -282,7 +281,9 @@ float TrainingManager::calcRelevance(TrainingText *text, WordList *wlist)
 			}
 		}
 	}
-	return probability/wordCount;
+	if (wordCount > 0)
+		return probability/wordCount;
+	else return 0;
 }
 
 /**

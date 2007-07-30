@@ -26,6 +26,7 @@
  */
 WAV::WAV(QString filename, int samplerate)
 {
+	length = 0;
 	this->filename = filename;
 	this->samplerate = samplerate; //the samplerate /has/ to be initialized - even if it is initialized with 0
 	// that way we know (for example in the retrieveSampleRate() function, that we have a new file and that the
@@ -39,7 +40,6 @@ WAV::WAV(QString filename, int samplerate)
 	} else {
 		Logger::log("Creating new WAV file: "+filename);
 		waveData = new char();
-		length = 0;	
 	}
 	
 }
@@ -68,7 +68,10 @@ char* WAV::getRawData(int& length)
 void WAV::importDataFromFile(QString filename)
 {
 	QFile wavFile(filename);
-	wavFile.open(QIODevice::ReadOnly);
+	if (!wavFile.open(QIODevice::ReadOnly)) {
+		Logger::log("Importing the existing data failed. Will continue with an empty file.");
+		return;
+	}
 	QDataStream *dstream = new QDataStream(&wavFile);
 	
 	dstream->setByteOrder( QDataStream::LittleEndian );
