@@ -187,6 +187,7 @@ WordList* WordListManager::removeDoubles(WordList *in)
 			}
 		}
 	}
+	return in;
 }
 
 

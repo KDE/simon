@@ -17,7 +17,6 @@
 #include <QString>
 #include <QTableWidget>
 #include <QHeaderView>
-#include <QWizard>
 #include "trainingtext.h"
 #include "trainingmanager.h"
 #include "wordlistview.h"
@@ -25,6 +24,9 @@
 #include "importtrainingtexts.h"
 #include "recwidget.h"
 #include "ui_trainmain.h"
+
+
+class WordListView;
 
 /**
  *	@class TrainingView
@@ -40,7 +42,7 @@ private:
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	TrainingManager *trainMgr;
 	int currentPage; //!< when we train a text this will hold the page we are on
-	//QList<int> *lengthList; //!< Stores the length of the pages in msecs
+	WordListView *wordlistView;
 	
 	RecWidget *recorder;
 	
@@ -63,7 +65,8 @@ public slots:
 	void startTraining();
 public:
 	
-    TrainingView(QWidget *parent = 0, WordList *trainWords=NULL);
+    TrainingView(WordListView *wordlistView, QWidget *parent=0
+		/*, WordList *trainWords=NULL*/);
 	
     ~TrainingView();
 

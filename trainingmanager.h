@@ -17,6 +17,7 @@
 #include "trainingtext.h"
 #include "xmltrainingtext.h"
 #include "word.h"
+#include "wordlistmanager.h"
 
 /**
  *	@class TrainingManager
@@ -31,10 +32,12 @@ class TrainingManager{
 private:
 	TrainingList *trainingTexts;
 	TrainingText *currentText;
+	WordListManager *wlistmgr;
+	QString filename;
 public:
-	TrainingManager(QString pathToTexts="texts/");
+	TrainingManager(WordListManager *wlistmgr, QString pathToTexts="texts/");
 
-	TrainingList* readTrainingTexts(QString pathToTexts="texts/");
+	TrainingList* readTrainingTexts(QString pathToTexts="");
 	
 	/**
 	 * @brief Getter method for the QList of training texts
@@ -50,13 +53,13 @@ public:
 	
 	QString getLabel(int i)
 	{
-		return ""; //just to supress these silly compiler
+		return QString::number(i); //just to supress these silly compiler
 		//warnings that make me mad
 	}
 	
 	bool deleteText(int index);
 	
-	int calcRelevance(TrainingText *text, WordList *wlist);
+	float calcRelevance(TrainingText *text, WordList *wlist);
 	
 	void trainWords(WordList *words);
 	

@@ -19,6 +19,7 @@
  ***************************************************************************/
 #include <QPixmap>
 #include <QPalette>
+#include <QLinearGradient>
 #include "simonview.h"
 #include "logger.h"
 
@@ -40,7 +41,8 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	Logger::init();
 	Logger::log("Starting simon...");
 	
-    this->settings = new QSettings(QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon");                        
+	this->settings = new 
+		QSettings(QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon");
 	this->info = new SimonInfo();
 	
 	//showing splash
@@ -57,7 +59,8 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->addWordView = new AddWordView(this);
 	this->wordList = new WordListView(this);
 	this->runDialog = new RunApplicationView(this);
-	this->trainDialog = new TrainingView(this);
+	this->trainDialog = new TrainingView(wordList, this);
+	this->wordList->setTrainingView(trainDialog);
 	this->settingsDialog = new SettingsView(this);
 	
 	this->vuMeter = new VuMeter();
@@ -94,7 +97,11 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	connect(control, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
 	
 	//setting Background
-	QPixmap bg(":/images/bg_clear.png");
+// 	QPixmap bg(":/images/bg_clear.png");
+
+	QLinearGradient bg(QPointF(1, 1), QPointF(900, 550));
+	bg.setColorAt(0, QColor(70, 120, 190));
+	bg.setColorAt(1, QColor(25, 60, 130));
 
 	QPalette p(palette());
 	p.setBrush(QPalette::Background, bg);
@@ -170,6 +177,18 @@ void SimonView::disconnected()
 
 
 /**
+ * \brief Overrides the paintEvent to draw the background
+ * \author Peter Grasch
+ * @param event 
+ * Paint event showing the rectangle affected
+ */
+// void SimonView::paintEvent( QPaintEvent * event )
+// {
+// 	
+// }
+
+
+/**
  * \brief We canceled the connecting to the server
  *
  * @author Peter Grasch
@@ -210,7 +229,7 @@ void SimonView::errorConnecting(QString error)
 	this->control->deactivateSimon();
 	this->representState();
 	
-	QMessageBox::critical(this, "Kritischer Verbindungsfehler", "Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte Fehlermeldung lautete:\n"+error);
+	QMessageBox::critical(this, "Kritischer Verbindungsfehler", "Die Verbindung zum juliusd Erkennungsdï¿½mon konnte nicht aufgenommen werden.\n\nBitte ï¿½berprï¿½fen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte Fehlermeldung lautete:\n"+error);
 }
 
 
@@ -389,7 +408,7 @@ void SimonView::toggleVisibility()
 */
 void SimonView::closeSimon()
 {
-	if ((!false /*Confirm shutdown*/) || (QMessageBox::question(this, "Wirklich beenden?", "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No) == QMessageBox::Yes))
+	if ((!false /*Confirm shutdown*/) || (QMessageBox::question(this, "Wirklich beenden?", "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos kï¿½nnen mehr benutzt werden.\n\nWollen Sie wirklich beenden?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No) == QMessageBox::Yes))
 	{
 		close();
 		this->~ SimonView();

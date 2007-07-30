@@ -11,15 +11,17 @@
 //
 #include "trainingmanager.h"
 #include "logger.h"
+#include <QDebug>
 
 /**
  * @brief Constructor
  *
  *	@author Peter Grasch
  */
-TrainingManager::TrainingManager(QString pathToTexts)
+TrainingManager::TrainingManager(WordListManager *wlistmgr, QString pathToTexts)
 {
-	
+	filename = pathToTexts;
+	this->wlistmgr = wlistmgr;
 }
 
 /**
@@ -99,7 +101,7 @@ void TrainingManager::trainWords(WordList *words)
 	}
 	
 	TrainingText *newText = new TrainingText( "Spezialisiertes Training",
-						"", pages, 0);
+						"", pages);
 	
 	currentText=newText;
 }
@@ -150,6 +152,7 @@ bool TrainingManager::deleteText(int index)
  */
 TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 {
+	if (pathToTexts.isEmpty()) pathToTexts=this->filename;
 	Logger::log("Reading trainingtexts at \""+pathToTexts+"\"");
 	QDir *textdir = new QDir(pathToTexts);
 	if (!textdir || !textdir->exists()) return NULL;
@@ -163,9 +166,11 @@ TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 	{
 		XMLTrainingText *text = new XMLTrainingText( pathToTexts+textsrcs.at(i) );
 		text->load();
-		trainingTexts->append(new TrainingText(text->getTitle(), 
+		TrainingText *newText = new TrainingText(text->getTitle(), 
 				      pathToTexts+textsrcs.at(i),
-				      text->getAllPages(),3.5));
+				      text->getAllPages());
+		newText->setRelevance(calcRelevance(newText, wlistmgr->getWordList()));
+		trainingTexts->append(newText);
 	}
 	
 	return trainingTexts;
@@ -242,9 +247,42 @@ TrainingText* TrainingManager::getText(int i)
 		
 
 
-int TrainingManager::calcRelevance(TrainingText *text, WordList *wlist)
+float TrainingManager::calcRelevance(TrainingText *text, WordList *wlist)
 {
-	
+	Logger::log(QCoreApplication::tr("Berechne Nutzen des Textes ")+"\""+text->getName()+"\" ("+
+		text->getPath()+")");
+	QString currPage;
+	QStringList words;
+	int wordCount=0;
+	int probability=0;
+	for (int i=0; i<text->getPageCount();i++)
+	{
+		currPage = text->getPage(i);
+		currPage.remove(".");
+		currPage.remove(",");
+		currPage.remove("?");
+		currPage.remove("!");
+		currPage.remove("\"");
+		currPage.remove("/");
+		currPage.remove("[");
+		currPage.remove("]");
+		
+		words = currPage.split(" ");
+ 		
+		for (int j=0; j<words.count(); j++)
+		{
+			int k=0;
+			while((k<wlist->count()) && 
+				(wlist->at(k).getWord().toUpper() != words.at(j).toUpper())) 
+			{  k++;  }
+			if (k < wlist->count())
+			{
+				wordCount++;
+				probability+=wlist->at(k).getPropability();
+			}
+		}
+	}
+	return probability/wordCount;
 }
 
 /**

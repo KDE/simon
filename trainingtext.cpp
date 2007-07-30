@@ -22,13 +22,11 @@
  * \param float relevance
  * The relevance of the text - the higher the better it'd be to train the text
  */
-TrainingText::TrainingText(  QString name, QString path, QStringList pages, 
-			     float relevance  )
+TrainingText::TrainingText(  QString name, QString path, QStringList pages )
 {
 	this->name = name;
 	this->path = path;
 	this->pages = pages;
-	this->relevance = relevance;
 }
 
 

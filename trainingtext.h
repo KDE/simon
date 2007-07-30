@@ -36,7 +36,7 @@ private:
 	/**
 	 * \brief Returns the name of the text
 	 * \author Peter Grasch
-	 * \return QString
+	 * \return
 	 * Name
 	 */
 	QString getName() { return this->name; }
@@ -44,7 +44,7 @@ private:
 	/**
 		 * \brief Returns the path to the text
 		 * \author Peter Grasch
-		 * \return QString
+		 * \return
 		 * path
 	 */
 	QString getPath() { return this->path; }
@@ -52,7 +52,7 @@ private:
 	/**
 	 * \brief Returns the page count of the text
 	 * \author Peter Grasch
-	 * \return int
+	 * \return
 	 * count of pages
 	 */
 	int getPageCount() { return pages.count(); }
@@ -60,7 +60,7 @@ private:
 	/**
 	 * \brief Returns the pages of the text
 	 * \author Peter Grasch
-	 * \return QStringList
+	 * \return
 	 * pages
 	 */
 	QStringList getPages() { return pages; }
@@ -68,7 +68,7 @@ private:
 	/**
 	 * \brief Returns the page <page> of the text
 	 * \author Peter Grasch
-	 * \return QString
+	 * \return 
 	 * page
 	 */
 	QString getPage( int page ) { return pages.at(page); }
@@ -80,12 +80,21 @@ private:
 	 * The higher the value, the more the text would improve the recognition rate
 	 * 
 	 * \author Peter Grasch
-	 * \return float
+	 * \return 
 	 * relevance
 	 */
 	float getRelevance() { return this->relevance; }
 	
-    TrainingText( QString name, QString path, QStringList pages, float relevance );
+	
+	/**
+	 * \brief Sets the relevance of the current text to the given value
+	 * \author Peter Grasch
+	 * @param relevance
+	 * The relevance
+	 */
+	void setRelevance( float relevance ) {	this->relevance = relevance; }
+	
+    TrainingText( QString name, QString path, QStringList pages );
 
     ~TrainingText();
 

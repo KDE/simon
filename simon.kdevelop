@@ -23,6 +23,8 @@
       <group pattern="*.ui" name="User Interface" />
       <group pattern="*.png" name="Icons" />
       <group pattern="*" name="Others" />
+      <hidenonprojectfiles>false</hidenonprojectfiles>
+      <hidenonlocation>false</hidenonlocation>
     </groups>
     <tree>
       <hidepatterns>*.o,*.lo,CVS</hidepatterns>
@@ -89,7 +91,7 @@
   </kdevdebugger>
   <kdevtrollproject>
     <run>
-      <mainprogram>/home/bedahr/Daten/Projects/simon/trunk/bin/simon</mainprogram>
+      <mainprogram>/home/bedahr/simon/speech2text/trunk/bin/simon</mainprogram>
       <programargs></programargs>
       <directoryradio>executable</directoryradio>
       <customdirectory>/</customdirectory>
@@ -99,7 +101,7 @@
       <autoinstall>false</autoinstall>
       <autokdesu>false</autokdesu>
       <globaldebugarguments></globaldebugarguments>
-      <globalcwd>/home/bedahr/Daten/Projects/simon/trunk</globalcwd>
+      <globalcwd>.</globalcwd>
       <useglobalprogram>true</useglobalprogram>
       <runarguments>
         <simon/>
@@ -141,8 +143,8 @@
   </kdevfilecreate>
   <kdevdocumentation>
     <projectdoc>
-      <docsystem></docsystem>
-      <docurl></docurl>
+      <docsystem/>
+      <docurl/>
       <usermanualurl>/home/bedahr/Daten/Projects/simon/documentation/simon/refman.out</usermanualurl>
     </projectdoc>
   </kdevdocumentation>
@@ -160,7 +162,9 @@
     <dest>/home/bedahr/Projets/simon/trunk</dest>
   </substmap>
   <kdevcppsupport>
-    <references/>
+    <references>
+      <pcs>Qt4</pcs>
+    </references>
     <codecompletion>
       <includeGlobalFunctions>true</includeGlobalFunctions>
       <includeTypes>true</includeTypes>
@@ -197,7 +201,7 @@
       <includestyle>4</includestyle>
       <designerintegration>ExternalDesigner</designerintegration>
       <qmake>/usr/bin/qmake</qmake>
-      <designer>/usr/bin/designer</designer>
+      <designer></designer>
       <designerpluginpaths/>
     </qt>
     <creategettersetter>
@@ -221,7 +225,7 @@
     </filetemplates>
   </cppsupportpart>
   <ctagspart>
-    <customArguments></customArguments>
+    <customArguments/>
     <customTagfilePath>/home/bedahr/Daten/Projects/simon/trunk/tags</customTagfilePath>
     <activeTagsFiles/>
   </ctagspart>

@@ -26,6 +26,9 @@
 #include "trainingview.h"
 #include "ui_wordlist.h"
 
+
+class TrainingView;
+
 /**
  *	@class WordListView
  *	@brief Frontend to the Wordlist
@@ -46,6 +49,7 @@ private:
 	DropListWidget *lwTrainingWords;  //!< QListWidget that displays the words scheduled for training
 	WordListManager *wordListManager; //!< Concept class
 	ImportDictView *importDictView; //!< Provides the Interface to import a dictionary
+	TrainingView *trainView; //!< Single trainingview is used for the special training
 	
 	void initializeItems();
 	bool showAddWordDialog();
@@ -70,7 +74,8 @@ public slots:
 
 public:
 	WordListView(QWidget *parent);
-
+	WordListManager* getManager() { return wordListManager; }
+	void setTrainingView(TrainingView *trainView) { this->trainView = trainView; }
 	~WordListView();
 
 };

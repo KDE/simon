@@ -136,9 +136,11 @@ void WordListView::filterListbyPattern(QString filter)
  */
 void WordListView::trainList()
 {
-	TrainingView *training = new TrainingView(this, &trainingwordlist);
+	//TrainingView *training = new TrainingView(this, &trainingwordlist);
+	if (!trainView) return;
+	trainView->trainWords(&trainingwordlist);
 // 	hide();
-	training->exec();
+	trainView->exec();
 // 	show();
 }
 
@@ -154,7 +156,7 @@ void WordListView::copyWordToTrain()
 {
 	if (this->twVocab->selectedItems().isEmpty())
 	{
-		QMessageBox::information(this,"Nichts ausgewählt","Bitte selektieren Sie zuerst ein Wort aus der Liste links");
+		QMessageBox::information(this,"Nichts ausgewï¿½hlt","Bitte selektieren Sie zuerst ein Wort aus der Liste links");
 		return;
 	}
 	
@@ -188,14 +190,11 @@ bool WordListView::showAddWordDialog()
  * Discards the Dialog and opens the Training Dialog
  *
  *	@author Peter Grasch
- * @todo When we call reject() to close the dialog before we show the TrainingView we sometimes destroy the Dialog (and thus the TrainingView handle) before we actually execute it - this causes a crash. This behaviour is now avoided by hiding the Dialog, showing the Training and only after this execution returns we close the WordListView
  */
 void WordListView::switchToGenericTraining()
 {
-	TrainingView *train = new TrainingView(parentWidget());
-	hide();
-	train->exec();
 	reject();
+	trainView->show();
 }
 
 
@@ -244,7 +243,7 @@ void WordListView::setDirty(bool dirty)
 	this->dirty = dirty;
 	if (dirty)
 	{
-		setWindowTitle("Wortliste - Ungesicherte Änderungen");
+		setWindowTitle("Wortliste - Ungesicherte ï¿½nderungen");
 	} else setWindowTitle("Wortliste");
 }
 
@@ -256,13 +255,13 @@ void WordListView::askToSave()
 {
 	if (!dirty) return;
 	
-	if (QMessageBox::question(this, "Änderungen speichern", "Sie haben das Sprachmodell verändert. Möchten Sie die Änderungen speichern?", QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
+	if (QMessageBox::question(this, "ï¿½nderungen speichern", "Sie haben das Sprachmodell verï¿½ndert. Mï¿½chten Sie die ï¿½nderungen speichern?", QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
 	{
 		//save the dict
 		QString filename = "test.out";
 		if (this->wordListManager->save(filename))
 			setDirty(false);
-		else QMessageBox::critical(this, "Fehler beim speichern", "Das Wörterbuch konnte nicht nach "+filename+" geschrieben werden. Bitte überprüfen Sie Ihre Berechtigungen.");
+		else QMessageBox::critical(this, "Fehler beim speichern", "Das Wï¿½rterbuch konnte nicht nach "+filename+" geschrieben werden. Bitte ï¿½berprï¿½fen Sie Ihre Berechtigungen.");
 	}
 }
 
@@ -278,7 +277,7 @@ void WordListView::readVocab()
 	
 	if (!vocab)
 	{
-		QMessageBox::critical(0, "Lesefehler", "Konnte benötigte Dateien nicht einlesen. Bitte überprüfen Sie die Einstellungen und stellen Sie sicher das sie die nötigen Leserechte haben.");
+		QMessageBox::critical(0, "Lesefehler", "Konnte benï¿½tigte Dateien nicht einlesen. Bitte ï¿½berprï¿½fen Sie die Einstellungen und stellen Sie sicher das sie die nï¿½tigen Leserechte haben.");
 		return;
 	}
 	
