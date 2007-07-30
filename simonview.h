@@ -89,8 +89,6 @@ public slots:
 public:
 	SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
 
-// 	void paintEvent( QPaintEvent * event );
-	
 	~SimonView();
 
 };

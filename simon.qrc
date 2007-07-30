@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/" >
         <file>images/alsalogo.gif</file>
-        <file>images/bg_clear.png</file>
         <file>images/directX.png</file>
         <file>images/icons/bookmark-new.svg</file>
         <file>images/icons/computer.svg</file>
