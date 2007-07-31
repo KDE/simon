@@ -131,6 +131,8 @@ void RecWidget::record()
 	emit recording();
 }
 
+#include "logger.h"
+
 /**
  * \brief Finishes up the playback
  * \author Peter Grasch

@@ -32,6 +32,8 @@ WAV::WAV(QString filename, int samplerate)
 	// that way we know (for example in the retrieveSampleRate() function, that we have a new file and that the
 	// file at <filename> may not be current/even existing
 	
+    waveData = new char();
+    
 	if (samplerate == 0)
 	{
 		Logger::log("Opening WAV file: "+filename);
@@ -39,7 +41,6 @@ WAV::WAV(QString filename, int samplerate)
 		this->importDataFromFile(filename);
 	} else {
 		Logger::log("Creating new WAV file: "+filename);
-		waveData = new char();
 	}
 	
 }
@@ -245,31 +246,11 @@ void WAV::writeFormat(QDataStream *dstream)
  */
 void WAV::addData(char* data, int length)
 {
-// 	//saving the wavedata temp.
-// 	char* tmp = (char*) malloc (this->length);
-// 	for (int i = 0; i < this->length; i++)
-// 		tmp[i] = waveData[i];
-// 	
-// 	//reallocate the member and extends its size of the size of the data to add
-// 	if (this->length > 0)
-// 		delete waveData;
-// 	waveData = (char*) malloc(this->length + length);
-// 	
-// 	//copy back the original data
-// 	for (int i = 0; i < this->length; i++)
-// 		waveData[i] = tmp[i];
-// 	
-// 	delete tmp;
-// 	
-// 	//add the new data
-// 	for (int i = 0; i < length; i++)
-// 		waveData[i+this->length] = data[i];
-
 	char *tmp = (char*) malloc (this->length+length);
 
 	//moving back original data
-	memmove(tmp, this->waveData, this->length);
-	
+	memcpy(tmp, this->waveData, this->length);
+    
 	//adding new data
 	memcpy(tmp+this->length, data, length);
 	

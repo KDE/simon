@@ -91,12 +91,40 @@ int WavPlayer::processWrapper(char* buffer, int bufferSize, void *play)
  * \brief Increases the progress by 100 msecs
  * 
  * emits the currentProgress signal
+ * Also watches the killflag "stopTimer" which is used to stop the timer
+ * and close the stream when finished
+ * 
+ * \see stop()
  * 
  * \author Peter Grasch
  */
 void WavPlayer::increaseProgress()
 {
-	if (stopTimer)	{ progressTimer->stop(); stopTimer=false; return; }
+	if (stopTimer)	{ 
+        progressTimer->stop(); 
+                Logger::log("1");
+        try {
+            // Stop and close the stream
+            //audio->abortStream();
+            Logger::log("1,5");
+            audio->stopStream();
+            Logger::log("2");
+            audio->closeStream();
+            Logger::log("3");
+            delete audio;
+            Logger::log("bin am ende vom try");
+        }
+        catch (RtError &error) {
+            Logger::log("fehler");
+            error.printMessage();
+        }
+        
+        delete data;
+        emit finished();
+        
+        stopTimer=false; 
+        return;
+    }
 	progress+=100;
 	emit currentProgress(progress);
 }
@@ -110,18 +138,8 @@ void WavPlayer::stop()
 {
 	stopTimer = true; // to work around the issue that you can't stop the timer from a different thread
 	//which would be the case if we would stop it here (this is called from the callback thread)
-	try {
-    		// Stop and close the stream
-		audio->stopStream();
-		audio->closeStream();
-		delete audio;
-	}
-	catch (RtError &error) {
-		error.printMessage();
-	}
-	
-	delete data;
-	emit finished();
+    //this also triggers the closing of the stream as we can't stop it here because it would still be open
+    //from the callback function
 }
 
 
