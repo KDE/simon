@@ -10,6 +10,7 @@
 //
 //
 #include "trainingview.h"
+#include "importtrainingdirectory.h"
 
 /**
  * @brief Constructor
@@ -30,7 +31,7 @@ TrainingView::TrainingView(WordListView *wordlistView, QWidget *parent) : QDialo
 	connect(ui.pbImportText, SIGNAL(clicked()), this, SLOT(importTexts()));
 		connect (ui.pbBackToMain, SIGNAL(clicked()), this, SLOT(cancelReading()));
 		connect (ui.pbDelText, SIGNAL(clicked()), this, SLOT(deleteSelected()));
-	
+	connect(ui.pbImportDir, SIGNAL(clicked()), this, SLOT(importDirectory()));	
 	
 	currentPage=0;
 	this->wordlistView = wordlistView;
@@ -119,6 +120,16 @@ void TrainingView::startTraining()
 	this->currentPage=0;
 	
 	fetchPage(currentPage);
+}
+
+void TrainingView::importDirectory()
+{
+	ImportTrainingDirectory *importDir = new 
+		ImportTrainingDirectory(this);
+	hide();
+	connect(importDir, SIGNAL(finished(int)), this, SLOT(show()));
+	importDir->show();
+	
 }
 
 /**

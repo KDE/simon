@@ -19,6 +19,9 @@
  ***************************************************************************/
  
 #include "addwordview.h"
+#include <QWizardPage>
+#include <QMessageBox>
+#include <QLineEdit>
 #include "logger.h"
 
 /**
@@ -34,43 +37,96 @@
  * Qt Windowflags - default 0
 */
 
-AddWordView::AddWordView(QWidget *parent, Qt::WFlags f)
-	: QDialog (parent, f)
+AddWordView::AddWordView(QWidget *parent)
+	: QWizard (parent)
 {
-	ui.setupUi(this);
+	oldId = 0;
+	this->addPage(createWelcomePage());
+// 	this->addPage(createRecordPage());
+	this->addPage(createFinishedPage());
+
+	connect( this, SIGNAL(currentIdChanged( int )), this, 
+			SLOT(pageChanged(int)));
+
+// 	connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(saveWord()));
 	
-	connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(saveWord()));
+// 	connect(this, SIGNAL(finished( int )), this, SLOT(finish()));
+
+	setWindowTitle("Wort hinzufuegen");
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/addword.png"));
+}
+
+void AddWordView::pageChanged(int id)
+{
+	if ((id==1) && (oldId == 0))
+		saveWord();
 	
-	connect(ui.pbNext, SIGNAL(clicked()), this, SLOT(nextStep()));
-	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(prevStep()));
-	connect(ui.pbNext_2, SIGNAL(clicked()), this, SLOT(nextStep()));
-	connect(ui.pbBack_2, SIGNAL(clicked()), this, SLOT(prevStep()));
-	connect(ui.pbBack_3, SIGNAL(clicked()), this, SLOT(prevStep()));
-	connect(ui.pbFinish, SIGNAL(clicked()), this, SLOT(finish()));
+	oldId = id;
+}
+
+QWizardPage* AddWordView::createWelcomePage()
+{
+	QWizardPage *intro = new QWizardPage(this);
+	intro->setTitle(tr("Hinzufuegen eines neuen Wortes"));
+	QLabel *label = new QLabel(intro);
+	label->setText("Mit Hilfe dieses Assistenten koennen Sie neue Woerter zum\nSprachmodell hinzufuegen. Geben Sie hierzu\nbitte den Namen des Wortes an\nund bestaetigen Sie mit \"Weiter\":\n\n");
+	QLabel *lbName = new QLabel(intro);
+	lbName->setText(tr("Neues Wort:"));
+	QLineEdit *leName = new QLineEdit(intro);
+	QVBoxLayout *layout = new QVBoxLayout(intro);
+	QHBoxLayout *loName = new QHBoxLayout(intro);
+	loName->addWidget(lbName);
+	loName->addWidget(leName);
+
+	layout->addWidget(label);
+// 	intro->registerField("name*", leName));
+	layout->addLayout(loName);
 	
-	rec1 = new RecWidget(tr("Aufnahme 1"), "1.wav", ui.wRec1);
-	rec2 = new RecWidget(tr("Aufnahme 2"), "2.wav", ui.wRec2);
+	intro->setLayout(layout);
 	
-	ui.wRec1->layout()->addWidget(rec1);
-	ui.wRec2->layout()->addWidget(rec2);
+	return intro;
+}
+
+QWizardPage* AddWordView::createRecordPage()
+{
 	
-	connect(rec1, SIGNAL(recordingFinished()), this, SLOT(checkReady()));
-	connect(rec2, SIGNAL(recordingFinished()), this, SLOT(checkReady()));
-	connect(rec1, SIGNAL(sampleDeleted()), this, SLOT(setNotReady()));
-	connect(rec2, SIGNAL(sampleDeleted()), this, SLOT(setNotReady()));
+// 	rec1 = new RecWidget(tr("Aufnahme 1"), "1.wav", ui.wRec1);
+// 	rec2 = new RecWidget(tr("Aufnahme 2"), "2.wav", ui.wRec2);
+	
+// 	ui.wRec1->layout()->addWidget(rec1);
+// 	ui.wRec2->layout()->addWidget(rec2);
+// 
+// 	connect(rec1, SIGNAL(recordingFinished()), this, SLOT(checkReady()));
+// 	connect(rec2, SIGNAL(recordingFinished()), this, SLOT(checkReady()));
+// 	connect(rec1, SIGNAL(sampleDeleted()), this, SLOT(setNotReady()));
+// 	connect(rec2, SIGNAL(sampleDeleted()), this, SLOT(setNotReady()));
+}
+
+
+QWizardPage* AddWordView::createFinishedPage()
+{
+	QWizardPage *finished = new QWizardPage(this);
+	finished->setTitle("Hinzufuegen des Wortes");
+	QLabel *label = new QLabel(finished);
+	label->setText("Es wurden alle benoetigten Daten gesammelt.\n\nSimon kann das neue Wort jetzt lernen.\nBitte ueberpruefen Sie, bevor Sie hier\nbestaetigen, ob die Aufnahmen nicht von\nHintergrundgeraeuschen beeintraechtigt werden.\n\nKlicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschlieszen.");
+	QVBoxLayout *layout = new QVBoxLayout(finished);
+	layout->addWidget(label);
+	finished->setLayout(layout);
+	
+	return finished;
 }
 
 void AddWordView::checkReady()
 {
-	if (rec1->hasRecordingReady() && rec2->hasRecordingReady())
-	{
-		ui.pbNext_2->setEnabled(true);
-	}
+// 	if (rec1->hasRecordingReady() && rec2->hasRecordingReady())
+// 	{
+// 		ui.pbNext_2->setEnabled(true);
+// 	}
 }
 
 void AddWordView::setNotReady()
 {
-	ui.pbNext_2->setEnabled(false);
+// 	ui.pbNext_2->setEnabled(false);
 }
 
 /**
@@ -81,57 +137,15 @@ void AddWordView::setNotReady()
  */
 void AddWordView::saveWord()
 {
-	this->word = ui.leWord->text();
+// 	this->word = ui.leWord->text();
+	this->word = "test";
 	
-	Logger::log(tr("Füge neues Wort zum Modell hinzu..."));
+	Logger::log(tr("Fuege neues Wort zum Modell hinzu..."));
 	Logger::log(tr("Neues Wort lautet: ")+this->word);
 	
-	this->setWindowTitle(tr("Wort hinzufügen") + " - " + word);
+	this->setWindowTitle(tr("Wort hinzufuegen") + " - " + word);
 }
 
-
-/**
- * @brief Sends the wizard to the next step
- *
- * This function sends the wizard to the next step.
- * There are three steps in this wizard.
- * 	* Spell the word
- * 	* Record two samples of the word
- * 	* Completion
- *
- * 
- * If there is no step left, it calls the method finish()
- *
- *	@author Peter Grasch
- * @see prevStep() finish()
- */
-void AddWordView::nextStep()
-{
-	if (ui.swMain->currentIndex() + 1 < ui.swMain->count())
-		ui.swMain->setCurrentIndex( ui.swMain->currentIndex()+1 );
-	else finish();
-}
-
-/**
- * @brief Sends the wizard to the previous step
- *
- * This function sends the wizard to the next step.
- * There are three steps in this wizard.
- * 	* Spell the word
- * 	* Record two samples of the word
- * 	* Completion
- *
- * 
- * If there is no step left, it calls the method finish()
- *
- *	@author Peter Grasch
- * @see nextStep() finish()
- */
-void AddWordView::prevStep()
-{
-	if (ui.swMain->currentIndex() - 1 >= 0)
-		ui.swMain->setCurrentIndex( ui.swMain->currentIndex()-1 );
-}
 
 /**
  * \brief Writes the word into the files and cleans up the wizard
@@ -143,14 +157,6 @@ void AddWordView::finish()
 	//finishs up
 	
 	//cleaning up
-	
-	//close the dialog
-	accept();
-	
-	//ui clean up
-	ui.swMain->setCurrentIndex(0);
-	ui.leWord->clear();
-	setWindowTitle(tr("Wort hinzufügen"));
 	Logger::log(tr("Word added: ")+this->word);
 	
 	rec1->deleteSample();
@@ -160,6 +166,6 @@ void AddWordView::finish()
 
 AddWordView::~AddWordView()
 {
-	delete rec1;
-	delete rec2;
+// 	delete rec1;
+// 	delete rec2;
 }

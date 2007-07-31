@@ -37,39 +37,45 @@
 
 
 
-#include <QDialog>
-#include <QMessageBox>
+#include <QWizard>
 #include "simoninfo.h"
 #include "wavrecorder.h"
 #include "wavplayer.h"
-#include <QFile>
-#include "ui_addword.h"
 #include "recwidget.h"
 
 
-class AddWordView : public QDialog
+class QWizardPage;
+
+class AddWordView : public QWizard
 {
 	Q_OBJECT
 
 	private:
-		Ui::AddWord ui; //!< The ui definition created with uic
+		//Ui::AddWord ui; //!< The ui definition created with uic
 		WavRecorder *rec; //!< To record the samples
 		WavPlayer *play;  //!< To play the samples (preview)
 		QString word;     //!< The name of the word to add
 		RecWidget *rec1;
 		RecWidget *rec2;
+		int oldId;
 		
 		
 	public slots:
 		void saveWord();
 		
 		
-		/*---------------------------------*/
-		/*         Wizard Stuff            */
-		/*---------------------------------*/
-		void nextStep();
-		void prevStep();
+// 		/*---------------------------------*/
+// 		/*         Wizard Stuff            */
+// 		/*---------------------------------*/
+// 		void nextStep();
+// 		void prevStep();
 		void finish();
+
+		void pageChanged(int id);
+
+		QWizardPage* createWelcomePage();
+		QWizardPage* createRecordPage();
+		QWizardPage* createFinishedPage();
 		
 		//recording stuff
 		void checkReady();
@@ -77,7 +83,7 @@ class AddWordView : public QDialog
 		
 		
 	public:
-		AddWordView(QWidget *parent=0, Qt::WFlags flags=0);
+		AddWordView(QWidget *parent=0);
 		~AddWordView();
 };
 

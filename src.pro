@@ -3,8 +3,8 @@
 # Subdir relative project main directory: .
 # Target is an application:  ./bin/simon
 
-unix {
-    HEADERS += runlinuxbackend.h xevents.h 
+unix{
+    HEADERS += runlinuxbackend.h xevents.h  
     SOURCES += xevents.cpp runlinuxbackend.cpp
     CONFIG += x11
     DEFINES += __LINUX_ALSA__
@@ -19,14 +19,13 @@ unix {
 	-lpthread
 }
 
-win32 {
+win32{
     HEADERS += runwindowsbackend.h
     SOURCES += runwindowsbackend.cpp
     DEFINES += __WINDOWS_DS__
     LIBS += -ldsound -lwinmm -lole32
 }
 
-TRANSLATIONS =  simon_en.ts
 
 FORMS += ui/main.ui \
          ui/wordlist.ui \
@@ -84,7 +83,10 @@ HEADERS += simonview.h \
  selectsourcewizardpage.h \
  importremotewizardpage.h \
  importworkingwizardpage.h \
- logger.h
+ logger.h\
+importtrainingdirectory.h \
+importtrainingdirectoryintropage.h \
+importtrainingdirectoryworkingpage.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -129,7 +131,10 @@ SOURCES += main.cpp \
  selectsourcewizardpage.cpp \
  importremotewizardpage.cpp \
  importworkingwizardpage.cpp \
- logger.cpp
+ logger.cpp \
+ importtrainingdirectory.cpp \
+ importtrainingdirectoryintropage.cpp \
+ importtrainingdirectoryworkingpage.cpp
 
 QT += network \
 xml 
@@ -139,7 +144,8 @@ TEMPLATE = app
 
 CONFIG += qt \
 warn_on \
-thread 
+thread \
+debug
 
 
 RESOURCES += simon.qrc

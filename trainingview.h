@@ -27,6 +27,7 @@
 
 
 class WordListView;
+class ImportTrainingDirectory;
 
 /**
  *	@class TrainingView
@@ -43,6 +44,7 @@ private:
 	TrainingManager *trainMgr;
 	int currentPage; //!< when we train a text this will hold the page we are on
 	WordListView *wordlistView;
+	int oldId; //!< where did we come from?
 	
 	RecWidget *recorder;
 	
@@ -63,6 +65,7 @@ public slots:
 	void fetchPage(int page);
 	void trainWords(WordList *words);
 	void startTraining();
+	void importDirectory();
 public:
 	
     TrainingView(WordListView *wordlistView, QWidget *parent=0

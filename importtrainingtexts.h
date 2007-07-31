@@ -41,7 +41,6 @@
 class ImportTrainingTexts : public QWizard{
 	
 	Q_OBJECT
-	enum { PageIntro, PageSource, PageFile, PageInternet, PageWorking, PageFinished };
 private:
 	QFileDialog *fd;
 	int prevId;
