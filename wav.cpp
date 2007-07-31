@@ -245,25 +245,39 @@ void WAV::writeFormat(QDataStream *dstream)
  */
 void WAV::addData(char* data, int length)
 {
-	//saving the wavedata temp.
-	char* tmp = (char*) malloc (this->length);
-	for (int i = 0; i < this->length; i++)
-		tmp[i] = waveData[i];
+// 	//saving the wavedata temp.
+// 	char* tmp = (char*) malloc (this->length);
+// 	for (int i = 0; i < this->length; i++)
+// 		tmp[i] = waveData[i];
+// 	
+// 	//reallocate the member and extends its size of the size of the data to add
+// 	if (this->length > 0)
+// 		delete waveData;
+// 	waveData = (char*) malloc(this->length + length);
+// 	
+// 	//copy back the original data
+// 	for (int i = 0; i < this->length; i++)
+// 		waveData[i] = tmp[i];
+// 	
+// 	delete tmp;
+// 	
+// 	//add the new data
+// 	for (int i = 0; i < length; i++)
+// 		waveData[i+this->length] = data[i];
+
+	char *tmp = (char*) malloc (this->length+length);
+
+	//moving back original data
+	memmove(tmp, this->waveData, this->length);
 	
-	//reallocate the member and extends its size of the size of the data to add
-	if (this->length > 0)
-		delete waveData;
-	waveData = (char*) malloc(this->length + length);
+	//adding new data
+	memcpy(tmp+this->length, data, length);
 	
-	//copy back the original data
-	for (int i = 0; i < this->length; i++)
-		waveData[i] = tmp[i];
-	
-	delete tmp;
-	
-	//add the new data
-	for (int i = 0; i < length; i++)
-		waveData[i+this->length] = data[i];
+	//deleting old pointer
+	delete this->waveData;
+
+	//setting it to the new array
+	this->waveData = tmp;
 	
 	this->length += length;
 }

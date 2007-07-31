@@ -1,20 +1,8 @@
 <commands>
-	<command name="Konqueror" type="0">
-		konqueror
-	</command>
-	<command name="Texteditor" type="0">
-		kwrite
-	</command>
-	<command name="Test" type="1">
-		/home/bedahr
-	</command>
-	<command name="Explorer" type="0">
-		explorer.exe
-	</command>
-	<command name="Thunfisch" type="0">
-		feh -FZ /home/bedahr/thunfisch.jpg
-	</command>
-	<command name="Google" type="1">
-		http://www.google.at
-	</command>
+ <command type="0" name="Konqueror" >konqueror</command>
+ <command type="0" name="Texteditor" >kwrite</command>
+ <command type="1" name="Test" >/home/bedahr</command>
+ <command type="0" name="Explorer" >explorer.exe</command>
+ <command type="0" name="Thunfisch" >feh -FZ /home/bedahr/thunfisch.jpg</command>
+ <command type="1" name="Google" >http://www.google.at</command>
 </commands>
