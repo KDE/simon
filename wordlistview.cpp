@@ -179,7 +179,7 @@ void WordListView::copyWordToTrain()
  */
 bool WordListView::showAddWordDialog()
 {
-	AddWordView *addword = new AddWordView();
+	AddWordView *addword = new AddWordView(this);
 	return addword->exec();
 }
 

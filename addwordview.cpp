@@ -107,6 +107,8 @@ void AddWordView::finish(int done)
 	
 	//cleaning up
 	Logger::log(tr("Word added: ")+word);
+	
+	restart();
 }
 
 
