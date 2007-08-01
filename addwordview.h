@@ -35,12 +35,7 @@
 #ifndef ADDWORDVIEW_H
 #define ADDWORDVIEW_H
 
-
-
 #include <QWizard>
-#include "simoninfo.h"
-#include "wavrecorder.h"
-#include "wavplayer.h"
 #include "recwidget.h"
 
 
@@ -51,35 +46,20 @@ class AddWordView : public QWizard
 	Q_OBJECT
 
 	private:
-		//Ui::AddWord ui; //!< The ui definition created with uic
-		WavRecorder *rec; //!< To record the samples
-		WavPlayer *play;  //!< To play the samples (preview)
-		QString word;     //!< The name of the word to add
 		RecWidget *rec1;
 		RecWidget *rec2;
 		int oldId;
 		
 		
 	public slots:
-		void saveWord();
 		
-		
-// 		/*---------------------------------*/
-// 		/*         Wizard Stuff            */
-// 		/*---------------------------------*/
-// 		void nextStep();
-// 		void prevStep();
-		void finish();
+		void finish(int done);
 
 		void pageChanged(int id);
 
 		QWizardPage* createWelcomePage();
 		QWizardPage* createRecordPage();
 		QWizardPage* createFinishedPage();
-		
-		//recording stuff
-		void checkReady();
-		void setNotReady();
 		
 		
 	public:

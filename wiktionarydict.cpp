@@ -20,6 +20,10 @@
  */
 WiktionaryDict::WiktionaryDict(QString path, QObject* parent) : QObject(parent), QXmlDefaultHandler(), Dict()
 {
+	allowedChars = "-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890";
+	allowedChars+= 0x128; //AE
+	allowedChars+= 0x133; //OE
+	allowedChars+= 0x134; //UE
 	this->reader = new XMLSAXReader(path);
 	pos=0;
 }
@@ -175,12 +179,22 @@ QString WiktionaryDict::cleanTitle ( QString title )
 	{
 		title.remove(title.indexOf("("), title.indexOf(")", title.indexOf("(")));
 	}
+	title.remove("&nbsp;");
 	title= title.trimmed();
-	title.remove(QRegExp("^(-|=).*"));
+	title.remove(QRegExp(".*>"));
 	title.remove("*");
 	//if some parenthesis isn't closed it isn't caught by the stripping algorithm above
 	title.remove("(");
 	title.remove(")");
+	title.remove(QRegExp("^(-|=).*"));
+	if (title.contains(QRegExp("[^"+allowedChars+"]"))) return "";
+	
+	title = title.trimmed();
+	if (title.indexOf(" ")) //more words than one
+	{
+		//kill generic stuff
+		title.remove(QRegExp("^(der|den|dem|das|des|ein|eine|eines|einer|einem|die|the)"));
+	}
 	
 	return title.trimmed();
 }
@@ -295,7 +309,6 @@ int WiktionaryDict::processFoundIPA(QString ipa)
 		
 		if (!ipa.isEmpty())
 		{
-// 			qDebug() << ipa;
 			this->pronunciations << ipaToXSampa(ipa);
 			inserted++;
 		}

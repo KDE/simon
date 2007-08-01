@@ -86,7 +86,9 @@ HEADERS += simonview.h \
  logger.h\
 importtrainingdirectory.h \
 importtrainingdirectoryintropage.h \
-importtrainingdirectoryworkingpage.h
+importtrainingdirectoryworkingpage.h \
+           addwordintropage.h \
+           addwordrecordpage.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -134,8 +136,9 @@ SOURCES += main.cpp \
  logger.cpp \
  importtrainingdirectory.cpp \
  importtrainingdirectoryintropage.cpp \
- importtrainingdirectoryworkingpage.cpp
-
+ importtrainingdirectoryworkingpage.cpp \
+           addwordintropage.cpp \
+           addwordrecordpage.cpp
 QT += network \
 xml 
 

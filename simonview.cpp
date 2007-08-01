@@ -38,7 +38,12 @@
 */
 SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 {
-	Logger::init();
+	if (!Logger::init())
+	{
+		QMessageBox::critical(this, tr("Fehler"), tr("Konnte die Log-Datei nicht öffnen. Bitte überprüfen Sie die Berechtigungen.."));
+		exit(1);
+	}
+	
 	Logger::log("Starting simon...");
 	
 	this->settings = new 

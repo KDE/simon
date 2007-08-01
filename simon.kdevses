@@ -1,9 +1,9 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="22" >
+ <DocsAndViews NumberOfDocuments="40" >
   <Doc0 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/modelmanager.cpp" >
-   <View0 Encoding="" line="0" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc0>
   <Doc1 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/juliuscontrol.cpp" >
    <View0 Encoding="" Type="Source" />
@@ -18,56 +18,110 @@
    <View0 Encoding="" Type="Source" />
   </Doc4>
   <Doc5 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simoncontrol.h" >
-   <View0 Encoding="" line="0" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc5>
   <Doc6 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/trainingmanager.h" >
-   <View0 Encoding="" line="31" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc6>
   <Doc7 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/trainingmanager.cpp" >
-   <View0 Encoding="" line="285" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc7>
   <Doc8 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/trainingtext.cpp" >
-   <View0 Encoding="" line="24" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc8>
   <Doc9 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/trainingtext.h" >
-   <View0 Encoding="" line="96" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc9>
   <Doc10 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wordlistmanager.h" >
-   <View0 Encoding="" line="17" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc10>
   <Doc11 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wordlistmanager.cpp" >
    <View0 Encoding="" line="189" Type="Source" />
   </Doc11>
   <Doc12 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/trainingview.cpp" >
-   <View0 Encoding="" line="242" Type="Source" />
+   <View0 Encoding="" line="127" Type="Source" />
   </Doc12>
   <Doc13 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/trainingview.h" >
-   <View0 Encoding="" line="38" Type="Source" />
+   <View0 Encoding="" line="19" Type="Source" />
   </Doc13>
   <Doc14 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simonview.cpp" >
    <View0 Encoding="" line="92" Type="Source" />
   </Doc14>
   <Doc15 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wordlistview.h" >
-   <View0 Encoding="" line="41" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc15>
   <Doc16 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wordlistview.cpp" >
-   <View0 Encoding="" line="191" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc16>
   <Doc17 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simonview.h" >
-   <View0 Encoding="" line="89" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc17>
   <Doc18 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wavplayer.cpp" >
-   <View0 Encoding="" line="39" Type="Source" />
+   <View0 Encoding="" line="84" Type="Source" />
   </Doc18>
   <Doc19 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wav.h" >
-   <View0 Encoding="" line="36" Type="Source" />
+   <View0 Encoding="" line="49" Type="Source" />
   </Doc19>
   <Doc20 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wavplayer.h" >
    <View0 Encoding="" line="47" Type="Source" />
   </Doc20>
   <Doc21 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wav.cpp" >
-   <View0 Encoding="" line="254" Type="Source" />
+   <View0 Encoding="" line="271" Type="Source" />
   </Doc21>
+  <Doc22 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wavrecorder.h" >
+   <View0 Encoding="" line="52" Type="Source" />
+  </Doc22>
+  <Doc23 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wavrecorder.cpp" >
+   <View0 Encoding="" line="124" Type="Source" />
+  </Doc23>
+  <Doc24 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/recwidget.h" >
+   <View0 Encoding="" line="47" Type="Source" />
+  </Doc24>
+  <Doc25 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/recwidget.cpp" >
+   <View0 Encoding="" line="98" Type="Source" />
+  </Doc25>
+  <Doc26 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importworkingwizardpage.h" >
+   <View0 Encoding="" line="25" Type="Source" />
+  </Doc26>
+  <Doc27 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importtrainingtexts.h" >
+   <View0 Encoding="" line="49" Type="Source" />
+  </Doc27>
+  <Doc28 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importtrainingtexts.cpp" >
+   <View0 Encoding="" line="40" Type="Source" />
+  </Doc28>
+  <Doc29 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/addwordview.h" >
+   <View0 Encoding="" line="45" Type="Source" />
+  </Doc29>
+  <Doc30 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/addwordview.cpp" >
+   <View0 Encoding="" line="147" Type="Source" />
+  </Doc30>
+  <Doc31 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importtrainingdirectory.cpp" >
+   <View0 Encoding="" line="28" Type="Source" />
+  </Doc31>
+  <Doc32 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importtrainingdirectory.h" >
+   <View0 Encoding="" line="29" Type="Source" />
+  </Doc32>
+  <Doc33 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importtrainingdirectoryintropage.cpp" >
+   <View0 Encoding="" line="44" Type="Source" />
+  </Doc33>
+  <Doc34 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importtrainingdirectoryintropage.h" >
+   <View0 Encoding="" line="27" Type="Source" />
+  </Doc34>
+  <Doc35 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importtrainingdirectoryworkingpage.cpp" >
+   <View0 Encoding="" line="97" Type="Source" />
+  </Doc35>
+  <Doc36 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importtrainingdirectoryworkingpage.h" >
+   <View0 Encoding="" line="28" Type="Source" />
+  </Doc36>
+  <Doc37 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importlocalwizardpage.h" >
+   <View0 Encoding="" line="17" Type="Source" />
+  </Doc37>
+  <Doc38 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importlocalwizardpage.cpp" >
+   <View0 Encoding="" line="35" Type="Source" />
+  </Doc38>
+  <Doc39 NumberOfViews="1" URL="file:///usr/include/qt4/QtCore/qdir.h" >
+   <View0 Encoding="" line="147" Type="Source" />
+  </Doc39>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

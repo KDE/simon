@@ -23,6 +23,16 @@ class ImportTrainingDirectoryWorkingPage : public QWizardPage{
 private:
 	QProgressBar *pbMain;
 	bool completed;
+	int prog;
+	
+	bool error() { completed = false; return false; }
+	
+	QString extractSaid(QString source);
+	QStringList* searchDir(QString dir);
+	QStringList* processSounds(QStringList files, QString destDir);
+	bool createPrompts(QStringList dataFiles, QString destDir);
+	bool createScp(QStringList dataFiles, QString destDir);
+
 public:
     ImportTrainingDirectoryWorkingPage(QWidget *parent=0);
 bool importDir(QString dir);

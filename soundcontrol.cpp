@@ -160,7 +160,7 @@ int SoundControl::getChannel ( QString id )
 			break;
 		}
 	}
-	return NULL;
+	return 0;
 
 }
 

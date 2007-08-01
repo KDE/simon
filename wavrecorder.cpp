@@ -4,7 +4,7 @@
 /**
  * \brief Constructor
  */
-WavRecorder::WavRecorder(QWidget *parent)
+WavRecorder::WavRecorder(QWidget *parent) : QObject(parent)
 {
 	
 }

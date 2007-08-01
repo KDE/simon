@@ -21,6 +21,7 @@
 #include <QDir>
 #include <QPushButton>
 #include <QIcon>
+#include <QCoreApplication>
 
 ImportTrainingDirectory::ImportTrainingDirectory(QWidget *parent) : QWizard(parent)
 {
@@ -38,10 +39,14 @@ void ImportTrainingDirectory::idChanged(int id)
 	{
 		if (prevId==2)
 			restart();
-		else ((ImportTrainingDirectoryWorkingPage*) 
-			page(1))->importDir(
-				((ImportTrainingDirectoryIntroPage*) 
-				page(0))->getField("directory").toString());
+		else 
+		{
+			QCoreApplication::processEvents();
+			((ImportTrainingDirectoryWorkingPage*)
+				page(1))->importDir(
+					((ImportTrainingDirectoryIntroPage*) 
+					page(0))->getField("directory").toString());
+		}
 	}
 	
 	prevId = id;

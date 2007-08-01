@@ -15,7 +15,8 @@
 #include <QTextStream>
 #include <QFile>
 #include <QDateTime>
-#include <QDebug>
+#include <QDir>
+#include <QFileInfo>
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
@@ -23,12 +24,19 @@ class Logger{
 private:
 	static QTextStream *logFile;
 	static QFile * logF;
+	
 public:
     	Logger();
 	static bool init(QString path="log/simon.log")
 	{
+		QFileInfo fInfo;
+		fInfo.setFile(path);
+		
+		QDir *dir = new QDir(fInfo.path());
+		if ((!dir->exists()) && (!dir->mkpath(path)))
+			return false;
+		
 		logF = new QFile(path);
-	
 		if (!logF->open(QIODevice::WriteOnly|QIODevice::Append)) return false;
 		Logger::logFile = new QTextStream(logF);
 		return true;

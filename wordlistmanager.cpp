@@ -65,6 +65,9 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename )
 	for (int i=0; i < extralist->count(); i++)
 		saving->append(this->extralist->at(i));
 	
+	saving->append(Word("SENT-START", QStringList("sil"), "NS_B", 0));
+	saving->append(Word("SENT-END", QStringList("sil"), "NS_E", 0));
+	
 	saving = sortList(saving);
 	
 	if (lexiconFilename.isEmpty()) lexiconFilename = this->lexiconPath;

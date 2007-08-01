@@ -41,6 +41,7 @@ signals:
 	void progress(int prog);
 	
 private:
+	QString allowedChars;
 	XMLSAXReader *reader;
 	QString word, text;
 	int currentTag; //what are we currently parsing [NONE, WORD, TEXT]

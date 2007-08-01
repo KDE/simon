@@ -42,6 +42,7 @@ class TrainingView;
 class WordListView : public QDialog {
 	Q_OBJECT
 private:
+	bool abortVocabInsertion;
 	bool dirty; //!< Determines if we changed the model since the last save
 	Ui::WordList ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	WordList trainingwordlist;  //!< Holds all the words that are scheduled for training
@@ -55,8 +56,10 @@ private:
 	bool showAddWordDialog();
 	void readVocab();
 	void setDirty ( bool dirty );
+
 	
 public slots:
+	void abortInsertion() { abortVocabInsertion = true; }
 	void suggestTraining();
 	void markWordToTrain( Word word );
 	void copyWordToTrain();

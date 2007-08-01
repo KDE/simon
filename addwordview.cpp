@@ -23,6 +23,8 @@
 #include <QMessageBox>
 #include <QLineEdit>
 #include "logger.h"
+#include "addwordintropage.h"
+#include "addwordrecordpage.h"
 
 /**
  * @brief Constructor
@@ -42,15 +44,13 @@ AddWordView::AddWordView(QWidget *parent)
 {
 	oldId = 0;
 	this->addPage(createWelcomePage());
-// 	this->addPage(createRecordPage());
+	this->addPage(createRecordPage());
 	this->addPage(createFinishedPage());
 
 	connect( this, SIGNAL(currentIdChanged( int )), this, 
 			SLOT(pageChanged(int)));
-
-// 	connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(saveWord()));
 	
-// 	connect(this, SIGNAL(finished( int )), this, SLOT(finish()));
+	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
 
 	setWindowTitle("Wort hinzufuegen");
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/addword.png"));
@@ -58,48 +58,18 @@ AddWordView::AddWordView(QWidget *parent)
 
 void AddWordView::pageChanged(int id)
 {
-	if ((id==1) && (oldId == 0))
-		saveWord();
 	
 	oldId = id;
 }
 
 QWizardPage* AddWordView::createWelcomePage()
 {
-	QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle(tr("Hinzufuegen eines neuen Wortes"));
-	QLabel *label = new QLabel(intro);
-	label->setText("Mit Hilfe dieses Assistenten koennen Sie neue Woerter zum\nSprachmodell hinzufuegen. Geben Sie hierzu\nbitte den Namen des Wortes an\nund bestaetigen Sie mit \"Weiter\":\n\n");
-	QLabel *lbName = new QLabel(intro);
-	lbName->setText(tr("Neues Wort:"));
-	QLineEdit *leName = new QLineEdit(intro);
-	QVBoxLayout *layout = new QVBoxLayout(intro);
-	QHBoxLayout *loName = new QHBoxLayout(intro);
-	loName->addWidget(lbName);
-	loName->addWidget(leName);
-
-	layout->addWidget(label);
-// 	intro->registerField("name*", leName));
-	layout->addLayout(loName);
-	
-	intro->setLayout(layout);
-	
-	return intro;
+	return new AddWordIntroPage(this);
 }
 
 QWizardPage* AddWordView::createRecordPage()
 {
-	
-// 	rec1 = new RecWidget(tr("Aufnahme 1"), "1.wav", ui.wRec1);
-// 	rec2 = new RecWidget(tr("Aufnahme 2"), "2.wav", ui.wRec2);
-	
-// 	ui.wRec1->layout()->addWidget(rec1);
-// 	ui.wRec2->layout()->addWidget(rec2);
-// 
-// 	connect(rec1, SIGNAL(recordingFinished()), this, SLOT(checkReady()));
-// 	connect(rec2, SIGNAL(recordingFinished()), this, SLOT(checkReady()));
-// 	connect(rec1, SIGNAL(sampleDeleted()), this, SLOT(setNotReady()));
-// 	connect(rec2, SIGNAL(sampleDeleted()), this, SLOT(setNotReady()));
+	return new AddWordRecordPage(this);
 }
 
 
@@ -116,35 +86,7 @@ QWizardPage* AddWordView::createFinishedPage()
 	return finished;
 }
 
-void AddWordView::checkReady()
-{
-// 	if (rec1->hasRecordingReady() && rec2->hasRecordingReady())
-// 	{
-// 		ui.pbNext_2->setEnabled(true);
-// 	}
-}
 
-void AddWordView::setNotReady()
-{
-// 	ui.pbNext_2->setEnabled(false);
-}
-
-/**
- * \brief Saves the name of the word (input) in the member and sends the wizard to the next step
- * 
- * 
- * \author Peter Grasch
- */
-void AddWordView::saveWord()
-{
-// 	this->word = ui.leWord->text();
-	this->word = "test";
-	
-	Logger::log(tr("Fuege neues Wort zum Modell hinzu..."));
-	Logger::log(tr("Neues Wort lautet: ")+this->word);
-	
-	this->setWindowTitle(tr("Wort hinzufuegen") + " - " + word);
-}
 
 
 /**
@@ -152,20 +94,22 @@ void AddWordView::saveWord()
  * 
  * \author Peter Grasch
  */
-void AddWordView::finish()
+void AddWordView::finish(int done)
 {
+	((AddWordRecordPage*) this->page(1))->cleanUp();
+	if (!done) return;
+	
+	QString word = ((AddWordIntroPage*) this->page(0))->getName();
+	
+	Logger::log(tr("Fuege neues Wort zum Modell hinzu..."));
+	Logger::log(tr("Neues Wort lautet: ")+word);
 	//finishs up
 	
 	//cleaning up
-	Logger::log(tr("Word added: ")+this->word);
-	
-	rec1->deleteSample();
-	rec2->deleteSample();
+	Logger::log(tr("Word added: ")+word);
 }
 
 
 AddWordView::~AddWordView()
 {
-// 	delete rec1;
-// 	delete rec2;
 }

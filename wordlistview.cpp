@@ -10,6 +10,8 @@
 //
 //
 #include "wordlistview.h"
+#include <QProgressDialog>
+#include <QCoreApplication>
 
 /**
  * @brief Constructor
@@ -21,6 +23,7 @@
  */
 WordListView::WordListView(QWidget *parent) : QDialog(parent)
 {
+	abortVocabInsertion = false;
 	this->wordListManager = new WordListManager();
 	
 	ui.setupUi(this);
@@ -136,12 +139,9 @@ void WordListView::filterListbyPattern(QString filter)
  */
 void WordListView::trainList()
 {
-	//TrainingView *training = new TrainingView(this, &trainingwordlist);
 	if (!trainView) return;
 	trainView->trainWords(&trainingwordlist);
-// 	hide();
 	trainView->exec();
-// 	show();
 }
 
 /**
@@ -295,11 +295,18 @@ void WordListView::readVocab()
 void WordListView::insertVocab(WordList *vocab)
 {
 	twVocab->setRowCount(vocab->count());
-	
-	for (int i=0; i<vocab->count(); i++)
+	QProgressDialog *pgDlg = new QProgressDialog("Lade Liste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Woerterbuch nicht!)", "Abbrechen", 0, 
+			vocab->count(), this);
+
+	connect(pgDlg, SIGNAL(canceled()), this, SLOT(abortInsertion()));
+
+        int i=0;
+	while ((!abortVocabInsertion) && (i<vocab->count()))
 	{
+		QCoreApplication::processEvents();
 		if (!vocab->at(i).getWord().isEmpty())
 		{
+		twVocab->setRowCount(i+1);
 		twVocab->setItem(i, 0, new QTableWidgetItem(vocab->at(i).getWord()));
 		twVocab->setItem(i, 1, new QTableWidgetItem(*(vocab->at(i).getPronunciation(0))));
 		twVocab->setItem(i, 2, new QTableWidgetItem(vocab->at(i).getTerminal()));
@@ -320,7 +327,10 @@ void WordListView::insertVocab(WordList *vocab)
 			twVocab->setRowCount(vocab->count());
 			i--;
 		}
+		pgDlg->setValue(++i);
 	}
+	twVocab->setRowCount(i);
+	pgDlg->hide();
 }
 
 
