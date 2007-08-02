@@ -13,11 +13,9 @@
 #define JULIUSCONTROL_H
 
 #include <QObject>
-#include <QTcpServer>
-#include <QTcpSocket>
 #include "simoninfo.h"
-#include <QByteArray>
-#include <QMessageBox>
+
+class QTcpSocket;
 
 /**
  *	@class JuliusControl

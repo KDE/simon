@@ -25,6 +25,12 @@
 #include <QLabel>
 #include <QDebug>
 
+/**
+ * \brief Constructor - creates the GUI
+ * \author Peter Grasch
+ * @param parent 
+ * Parent of the widget
+ */
 ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *parent) : QWizardPage(parent)
 {
 	setTitle("Verarbeite Ordner...");
@@ -42,6 +48,12 @@ ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *
 	setLayout(lay);
 }
 
+/**
+ * \brief Starts the importing process and calls all the other methods
+ * \author Peter Grasch
+ * @param dir The directory to import
+ * @return success
+ */
 bool ImportTrainingDirectoryWorkingPage::importDir(QString dir)
 {
 	prog=0;
@@ -78,6 +90,15 @@ bool ImportTrainingDirectoryWorkingPage::importDir(QString dir)
 }
 
 
+/**
+ * \brief Creates the promptsfile from the given stringlist
+ * Using extractSaid()
+ * \author Peter Grasch
+ * \see extractSaid()
+ * @param dataFiles The dataFiles to include in the prompts-file
+ * @param destDir The destination directory
+ * @return success
+ */
 bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles, QString destDir)
 {
 	QFile *prompts = new QFile(destDir+"/prompts", this);
@@ -108,6 +129,16 @@ bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles, QS
 }
 
 
+/**
+ * \brief Extracts the information that has been said out of the source
+ * 
+ * Returns the cleaned fielname without the extension and in uppercase
+ * 
+ * \author Peter Grasch
+ * 
+ * @param source The string to parse
+ * @return cleaned string
+ */
 QString ImportTrainingDirectoryWorkingPage::extractSaid(QString source)
 {
 	QString said = source.left(source.lastIndexOf("."));
@@ -116,6 +147,11 @@ QString ImportTrainingDirectoryWorkingPage::extractSaid(QString source)
 	return said.toUpper();
 }
 
+/**
+ * \brief Walks the given dir. recursively and returns all ,wav files
+ * @param dir The dir to walk
+ * @return All files found
+ */
 QStringList* ImportTrainingDirectoryWorkingPage::searchDir(QString dir)
 {
 	QDir *dirHandle = new QDir(dir);
@@ -144,6 +180,15 @@ QStringList* ImportTrainingDirectoryWorkingPage::searchDir(QString dir)
 	return dataFiles;
 }
 
+/**
+ * \brief Process the sound files from given in the list to the destDir
+ * 
+ * Resamples the audio to 16khz and normalizes it afterwards.
+ * 
+ * @param dataFiles The given datafiles
+ * @param destDir The destination directory
+ * @return the datafiles - if not successful it returns NULL
+ */
 QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataFiles, 
 		QString destDir)
 {
@@ -177,16 +222,17 @@ QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataF
 		pbMain->setValue(prog);
 	}
 
-// 	QString allFiles;
-// 	for (int i=0; i < newFiles->size(); i++) allFiles += " "+newFiles->at(i);
-	
-// 	QProcess::execute("normalize-audio "+allFiles);
-// 	prog += newFiles->size()-1;
 	pbMain->setValue(prog);
 	
 	return newFiles;
 }
 
+/**
+ * \brief Creates the codetrain.scp with the dataFiles in the destDir
+ * @param dataFiles The datafiles to process
+ * @param destDir The directory where we should write the file
+ * @return success
+ */
 bool ImportTrainingDirectoryWorkingPage::createScp(QStringList dataFiles, QString destDir)
 {
 	QFile *scp = new QFile(destDir+"/codetrain.scp", this);
@@ -213,10 +259,4 @@ bool ImportTrainingDirectoryWorkingPage::createScp(QStringList dataFiles, QStrin
 	scp->close();
 	return true;
 }
-
-
-ImportTrainingDirectoryWorkingPage::~ImportTrainingDirectoryWorkingPage()
-{
-}
-
 

@@ -15,6 +15,12 @@
 #include <QVBoxLayout>
 #include <QLineEdit>
 
+/**
+ * \brief Constructor - also creates the GUI Elements
+ * \author Peter Grasch
+ * @param parent
+ * The parent of the widget
+ */
 AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 {
 	
@@ -36,9 +42,5 @@ AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 	setLayout(layout);
 }
 
-
-AddWordIntroPage::~AddWordIntroPage()
-{
-}
 
 

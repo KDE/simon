@@ -11,6 +11,12 @@
 //
 #include "addwordrecordpage.h"
 
+/**
+ * \brief Constructor - also creates the GUI Elements
+ * \author Peter Grasch
+ * @param parent
+ * The parent of the widget
+ */
 AddWordRecordPage::AddWordRecordPage(QWidget *parent)
  : QWizardPage(parent)
 {
@@ -30,6 +36,10 @@ AddWordRecordPage::AddWordRecordPage(QWidget *parent)
 	connect(rec2, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
 }
 
+/**
+ * \brief Cleans up and removes the samples
+ * \author Peter Grasch
+ */
 void AddWordRecordPage::cleanUp()
 {
 	if (rec1->hasRecordingReady())
@@ -39,6 +49,11 @@ void AddWordRecordPage::cleanUp()
 }
 
 
+/**
+ * \brief Destructor; Calls cleanUp()
+ * \author Peter Grasch
+ * \see cleanUp()
+ */
 AddWordRecordPage::~AddWordRecordPage()
 {
 	cleanUp();

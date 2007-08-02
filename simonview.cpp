@@ -70,9 +70,10 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	this->vuMeter = new VuMeter();
 	//Disabled for now because it crashes the windows compile
-	//if (vuMeter->prepare())
-	//	vuMeter->start();
+	if (vuMeter->prepare())
+		vuMeter->start();
 	
+	shownDialogs = 0;
 	QMainWindow(parent,flags);
 	ui.setupUi(this);
 	
@@ -92,6 +93,13 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QObject::connect(this->trayManager, SIGNAL(clicked()), this, SLOT(toggleVisibility()));
 	QObject::connect(ui.pbActivision, SIGNAL(clicked()), this, SLOT(toggleActivation()));
 	QObject::connect(this->trayManager, SIGNAL(middleClicked()), this, SLOT(toggleActivation()));
+
+	connect(wordList, SIGNAL(showAddWordDialog()), this, 
+			SLOT(showAddWordDialog()));
+	connect(addWordView, SIGNAL(addedWord()), wordList, 
+			SLOT(reloadList()));
+	connect(trainDialog, SIGNAL(trainingCompleted()), wordList, 
+			SLOT(reloadList()));
 	
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
 	connect(ui.pbCancelConnect, SIGNAL(clicked()), this, SLOT(abortConnecting()));
@@ -247,7 +255,7 @@ void SimonView::setLevel(int level)
  */
 void SimonView::showRunDialog()
 {
-	this->runDialog->exec();
+	this->runDialog->show();
 }
 
 
@@ -258,7 +266,7 @@ void SimonView::showRunDialog()
  */
 void SimonView::showAddWordDialog()
 {
-	this->addWordView->exec();
+	this->addWordView->show();
 }
 
 /**
@@ -268,7 +276,7 @@ void SimonView::showAddWordDialog()
  */
 void SimonView::showSettingsDialog()
 {
-	this->settingsDialog->exec();
+	this->settingsDialog->show();
 }
 
 /**
@@ -278,7 +286,7 @@ void SimonView::showSettingsDialog()
  */
 void SimonView::showTrainDialog()
 {
-	this->trainDialog->exec();
+	this->trainDialog->show();
 }
 
 /**
@@ -288,7 +296,7 @@ void SimonView::showTrainDialog()
  */
 void SimonView::showWordListDialog()
 {
-	this->wordList->exec();
+	this->wordList->show();
 }
 
 
@@ -303,6 +311,41 @@ void SimonView::showWordListDialog()
 */
 void SimonView::hideSimon()
 {
+	shownDialogs=0;
+	currentPos = pos();
+
+	if (this->addWordView->isVisible())
+	{
+		this->shownDialogs = shownDialogs | sAddWordView;
+		addWordDlgPos = addWordView->pos();
+		this->addWordView->hide();
+	}
+	if (this->trainDialog->isVisible())
+	{
+		this->shownDialogs = shownDialogs | sTrainMain;
+		trainDlgPos = trainDialog->pos();
+		this->trainDialog->hide();
+	}
+	if (this->wordList->isVisible())
+	{
+		this->shownDialogs = shownDialogs | sWordListView;
+		wordlistDlgPos = wordList->pos();
+		this->wordList->hide();
+	}
+	if (this->runDialog->isVisible())
+	{
+		this->shownDialogs = shownDialogs | 
+					sRunApplicationView;
+		runDlgPos = runDialog->pos();
+		this->runDialog->hide();
+	}
+	if (this->settingsDialog->isVisible())
+	{
+		this->shownDialogs = shownDialogs | 
+					sSettingsView;
+		settingsDlgPos = settingsDialog->pos();
+		this->settingsDialog->hide();
+	}
 	hide();
 }
 
@@ -318,7 +361,37 @@ void SimonView::hideSimon()
  */
 void SimonView::showSimon()
 {
+	move(currentPos);
 	show();
+	if (shownDialogs & sAddWordView) 
+	{
+		addWordView->show();
+		addWordView->move(addWordDlgPos);
+	}
+
+	if (shownDialogs & sTrainMain)
+	{
+		trainDialog->show();
+		trainDialog->move(trainDlgPos);
+	}
+
+	if (shownDialogs & sRunApplicationView)
+	{
+		runDialog->show();
+		runDialog->move(runDlgPos);
+	}
+
+	if (shownDialogs & sWordListView)
+	{
+		wordList->show();
+		wordList->move(wordlistDlgPos);
+	}
+
+	if (shownDialogs & sSettingsView)
+	{
+		settingsDialog->show();
+		settingsDialog->move(settingsDlgPos);
+	}
 }
 
 
@@ -384,8 +457,8 @@ void SimonView::representState()
 void SimonView::toggleVisibility()
 {
 	if (!(this->isHidden()))
-		this->hide();
-	else this->show();
+		this->hideSimon();
+	else this->showSimon();
 }
 
 

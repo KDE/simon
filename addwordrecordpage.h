@@ -16,12 +16,19 @@
 #include "recwidget.h"
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class AddWordRecordPage
+ \author Peter Grasch
+ \date 01.08.2007
+ \brief Records two samples of the new word
+ 
+ The WizardPage of the AddWordView-Wizard that manages the recordings;
+ Uses two Recwidgets and the QT-Mechanism to ensure that you can't 
+ continiue without both recordings done.
 */
 class AddWordRecordPage : public QWizardPage
 {
 private:
-	RecWidget *rec1, *rec2;
+	RecWidget *rec1, *rec2; ///<! The 
 public:
     AddWordRecordPage(QWidget *parent=0);
     bool isComplete() const 

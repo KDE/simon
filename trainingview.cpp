@@ -141,7 +141,16 @@ void TrainingView::finish()
 {
 	ui.swAction->setCurrentIndex(2);
 	ui.pbCompileModel->setValue(0);
+
+	//training...
+
+
+	//finishing up
+
 	//trainMgr->setupTrainingSession();
+
+	//done
+	emit trainingCompleted();
 }
 
 /**

@@ -23,6 +23,7 @@
  */
 WordListView::WordListView(QWidget *parent) : QDialog(parent)
 {
+	shownDialogs = 0;
 	abortVocabInsertion = false;
 	this->wordListManager = new WordListManager();
 	
@@ -34,7 +35,7 @@ WordListView::WordListView(QWidget *parent) : QDialog(parent)
 	connect(ui.pbAddToTraining, SIGNAL(clicked()), this, SLOT(copyWordToTrain()));
 	connect(ui.pbDeleteTrainingWord, SIGNAL(clicked()), this, SLOT(deleteTrainingWord()));
 	connect(this->lwTrainingWords, SIGNAL(droppedText(QString)), this, SLOT(copyWordToTrain()));
-	connect(ui.pbAddWord, SIGNAL(clicked()), this, SLOT(addWord()));
+	connect(ui.pbAddWord, SIGNAL(clicked()), this, SIGNAL(showAddWordDialog()));
 	
 	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(askToSave()));
 	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(close()));
@@ -44,10 +45,18 @@ WordListView::WordListView(QWidget *parent) : QDialog(parent)
 	connect(ui.pbClearSearch, SIGNAL(clicked()), this, SLOT(clearSearchText()));
 	connect(ui.pbSwitchToTraining, SIGNAL(clicked()), this, SLOT(switchToGenericTraining()));
 	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
-	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(importDict()));
+	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(showImportDictDialog()));
+	connect(importDictView, SIGNAL(dictGenerated(WordList*)), this, SLOT(importDict(WordList*)));
 	
 	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(toggleExtraWords()));
 	dirty = false;
+}
+
+
+void WordListView::reloadList()
+{
+	this->clearList();
+	readVocab();
 }
 
 /**
@@ -62,21 +71,22 @@ void WordListView::clearSearchText()
 	ui.leSearch->setFocus();
 }
 
+void WordListView::showImportDictDialog()
+{
+	importDictView->show();
+}
+
 /**
  * \brief Import an existing dictionary
  * \author Peter Grasch
  */
-void WordListView::importDict()
+void WordListView::importDict(WordList* list)
 {
-	if (importDictView->exec())
+	if (list)
 	{
 		setDirty(true);
-		WordList* list = importDictView->getList();
-		if (list)
-		{
-			wordListManager->addWords(list);
-			insertVocab(wordListManager->sortList(wordListManager->getWordList()));
-		}
+		wordListManager->addWords(list);
+		insertVocab(wordListManager->sortList(wordListManager->getWordList()));
 	}
 }
 
@@ -170,18 +180,6 @@ void WordListView::copyWordToTrain()
 	this->lwTrainingWords->addItem(word);
 }
 
-/**
- * @brief Displays the Add New Word Dialog
- *
- * @author Peter Grasch
- * @return returns if the Dialog was aborted or not
- * @see showAddWordDialog()
- */
-bool WordListView::showAddWordDialog()
-{
-	AddWordView *addword = new AddWordView(this);
-	return addword->exec();
-}
 
 
 /**
@@ -213,21 +211,9 @@ void WordListView::toggleExtraWords()
 
 
 /**
- * @brief Calls showAddWordDialog() and rereads the words if nescessairy
- *
- * @author Peter Grasch
- * @see showAddWordDialog()
+ * \brief Clears the VocabList
+ * \author Peter Grasch
  */
-void WordListView::addWord()
-{
-	if (showAddWordDialog())
-	{
-		twVocab->clearContents();
-		this->readVocab();
-	}
-}
-
-
 void WordListView::clearList()
 {
 	this->twVocab->setRowCount(0);
@@ -245,6 +231,29 @@ void WordListView::setDirty(bool dirty)
 	{
 		setWindowTitle("Wortliste - Ungesicherte �nderungen");
 	} else setWindowTitle("Wortliste");
+}
+
+void WordListView::show()
+{
+	if (sImportDict & shownDialogs)
+	{
+		importDictView->show();
+		importDictView->move(importDictPos);
+	}
+	QWidget::show();
+	shownDialogs = 0;
+}
+
+void WordListView::hide()
+{
+	if (importDictView->isVisible())
+	{
+		shownDialogs = shownDialogs | sImportDict;
+		importDictPos = importDictView->pos();
+		importDictView->hide();
+	}
+	
+	QWidget::hide();
 }
 
 /**
@@ -300,6 +309,7 @@ void WordListView::insertVocab(WordList *vocab)
 
 	connect(pgDlg, SIGNAL(canceled()), this, SLOT(abortInsertion()));
 
+	twVocab->hide();
         int i=0;
 	while ((!abortVocabInsertion) && (i<vocab->count()))
 	{
@@ -330,6 +340,7 @@ void WordListView::insertVocab(WordList *vocab)
 		pgDlg->setValue(++i);
 	}
 	twVocab->setRowCount(i);
+	twVocab->show();
 	pgDlg->hide();
 }
 

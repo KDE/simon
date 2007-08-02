@@ -11,6 +11,9 @@
 //
 #ifndef WORDLISTVIEW_H
 #define WORDLISTVIEW_H
+
+#define sImportDict 	32
+
 #include <QDialog>
 #include <QTableWidget>
 #include <QHeaderView>
@@ -22,12 +25,12 @@
 #include <QMessageBox>
 #include <QTimer>
 #include "importdictview.h"
-#include "addwordview.h"
 #include "trainingview.h"
 #include "ui_wordlist.h"
 
 
 class TrainingView;
+class QPoint;
 
 /**
  *	@class WordListView
@@ -42,6 +45,9 @@ class TrainingView;
 class WordListView : public QDialog {
 	Q_OBJECT
 private:
+	int shownDialogs;
+	QPoint importDictPos;
+	
 	bool abortVocabInsertion;
 	bool dirty; //!< Determines if we changed the model since the last save
 	Ui::WordList ui;	//!< UI definition - made by uic from the QTDesigner .ui
@@ -53,27 +59,31 @@ private:
 	TrainingView *trainView; //!< Single trainingview is used for the special training
 	
 	void initializeItems();
-	bool showAddWordDialog();
 	void readVocab();
 	void setDirty ( bool dirty );
 
+signals:
+	void showAddWordDialog();
 	
 public slots:
 	void abortInsertion() { abortVocabInsertion = true; }
+	void reloadList();
 	void suggestTraining();
 	void markWordToTrain( Word word );
 	void copyWordToTrain();
 	void deleteTrainingWord();
 	void trainList();
-	void importDict();
+	void importDict(WordList* list);
 	void clearList();
-	void addWord();
 	void toggleExtraWords();
 	void filterListbyPattern(QString filter);
 	void clearSearchText();
 	void switchToGenericTraining();
 	void insertVocab(WordList *vocab);
 	void askToSave();
+	void show();
+	void hide();
+	void showImportDictDialog();
 
 public:
 	WordListView(QWidget *parent);

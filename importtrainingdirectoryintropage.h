@@ -18,7 +18,11 @@
 class QLineEdit;
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  \class ImportTrainingDirectoryIntroPage
+  \author Peter Grasch
+  \brief Shows the user an introduction and asks for the folder
+  
+  Extends QWizardPage and uses the QT-Mandatory-field mechanism
 */
 class ImportTrainingDirectoryIntroPage : public QWizardPage{
 	Q_OBJECT
@@ -29,10 +33,8 @@ public slots:
 public:
 	ImportTrainingDirectoryIntroPage(QWidget *parent=0);
 
-	~ImportTrainingDirectoryIntroPage();
+	~ImportTrainingDirectoryIntroPage() { }
 	void setPathEdit(QLineEdit *leDirectory) { this->leDirectory = leDirectory; }
-	void registerField(const QString & name, QWidget * widget, 
-				const char * property = 0, const char * changedSignal = 0 );
 	QVariant getField(QString name) { return field(name);}
 
 };

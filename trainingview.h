@@ -39,6 +39,10 @@ class ImportTrainingDirectory;
  */
 class TrainingView : public QDialog{
 	Q_OBJECT
+
+signals:
+	void trainingCompleted();
+
 private:
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	TrainingManager *trainMgr;

@@ -16,14 +16,22 @@
 #include <QVariant>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class AddWordIntroPage
+ \author Peter Grasch
+ \date 01.08.2007
+ \brief Asks for the name of the word
+ 
+ The WizardPage of the AddWordView-Wizard that manages the wordname;
+ Uses a mandatory-field mechanism to ensure that there is a name.
+ Also it tells the user what this wizard is about (kind of an 
+ instruction-page)
 */
 class AddWordIntroPage : public QWizardPage
 {
 public:
     AddWordIntroPage(QWidget* parent);
 	QString getName() { return field("name").toString(); }
-    ~AddWordIntroPage();
+    ~AddWordIntroPage() {}
 
 };
 

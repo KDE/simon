@@ -18,7 +18,9 @@
 #include <QDir>
 #include <QFileInfo>
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class Logger
+ \author Peter Grasch
+ \brief Logs messages to the logfile with static functions
 */
 class Logger{
 private:
@@ -27,6 +29,14 @@ private:
 	
 public:
     	Logger();
+	/**
+	 * \brief Initialises the file handle and the stream
+	 * \author Peter Grasch
+	 * @param path 
+	 * The path to the file - will be created if it doesn't exist
+	 * @return 
+	 * success
+	 */
 	static bool init(QString path="log/simon.log")
 	{
 		QFileInfo fInfo;
@@ -42,11 +52,21 @@ public:
 		return true;
 	}
 	
+	/**
+	 * \brief Logs the given string to the file (adds a timecode)
+	 * \author Peter Grasch
+	 * @param message 
+	 * The message to log
+	 */
 	static void log(QString message)
 	{
 		*(Logger::logFile) << QDateTime::currentDateTime().toString("[yyyy/MM/dd hh:mm:ss] ") << message << endl;
 	}
 	
+	/**
+	 *        \brief Closes and flushes the buffer
+	 *        \author Peter Grasch
+	 */
 	static void close()
 	{
 		(Logger::logFile)->flush();

@@ -19,8 +19,26 @@ class QWizardPage;
 class ImportTrainingDirectoryIntroPage;
 class ImportTrainingDirectoryWorkingPage;
 
+
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+  \class ImportTrainingDirectory
+  \author Peter Grasch
+  \brief The wizard to import a training-directory
+
+  The wizard is there to migrated tagged-audio-data into the language
+  model.
+  It does that using the filename to determine what the user said;
+  e.g.: this_is_a_test.wav
+  would be the line: *\/this_is_a_test.wav THIS IS A TEST
+  in the prompts file and so on.
+
+  The wizard walks the directory recursive;
+
+
+  Extends QWizard;
+
+  \todo The source/dest-dir should be configurable
+  
 */
 class ImportTrainingDirectory : public QWizard {
 	Q_OBJECT
@@ -34,7 +52,9 @@ private:
 public:
     ImportTrainingDirectory(QWidget *parent=0);
 
-    ~ImportTrainingDirectory();
+    ~ImportTrainingDirectory()
+	{
+	}
 
 };
 

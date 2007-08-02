@@ -23,6 +23,11 @@
 #include <QIcon>
 #include <QCoreApplication>
 
+/**
+ * \brief Constructor - Creats the pages and adds them
+ * \author Peter Grasch
+ * @param parent The parent of the widget
+ */
 ImportTrainingDirectory::ImportTrainingDirectory(QWidget *parent) : QWizard(parent)
 {
 	setWindowTitle("Importiere Trainingsdaten von Ordner");
@@ -35,6 +40,14 @@ ImportTrainingDirectory::ImportTrainingDirectory(QWidget *parent) : QWizard(pare
 	prevId=0;
 }
 
+/**
+ * \brief Slot to react on changing the page
+ * 
+ * Restarts the wizard if we want to go back from finished->working;
+ * Starts the importing if we go from intro->working
+ * 
+ * @param id newId
+ */
 void ImportTrainingDirectory::idChanged(int id)
 {
 	if (id == 1)
@@ -55,11 +68,11 @@ void ImportTrainingDirectory::idChanged(int id)
 }
 
 
-ImportTrainingDirectory::~ImportTrainingDirectory()
-{
-}
 
-
+/**
+ * \brief Creates a new ImoprtTrainingDirectoryIntroPage
+ * @return the wizard page
+ */
 ImportTrainingDirectoryIntroPage* ImportTrainingDirectory::createIntroPage()
 {
 	ImportTrainingDirectoryIntroPage *introPage =  new 
@@ -67,11 +80,19 @@ ImportTrainingDirectoryIntroPage* ImportTrainingDirectory::createIntroPage()
 	return introPage;
 }
 
+/**
+ * \brief creates the working-page
+ * @return the newly created ImportTrainingDirectoryWorkingPage
+ */
 ImportTrainingDirectoryWorkingPage* ImportTrainingDirectory::createWorkingPage()
 {
 	return new ImportTrainingDirectoryWorkingPage(this);
 }
 
+/**
+ * \brief Creates the Finished page
+ * @return the page
+ */
 QWizardPage* ImportTrainingDirectory::createFinishedPage()
 {
 	QWizardPage *intro = new QWizardPage(this);

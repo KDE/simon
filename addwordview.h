@@ -21,10 +21,10 @@
 
 /**
  *	@class AddWordView
- *	@brief The Dialog to add a new word to the Model
+ *	@brief The wizard to add a new word to the Model
  *
- *	This dialog is using a step-by-step guide through the procedure to
- *	add a new word to the Language Model.
+ *	This wizard is using a step-by-step guide through the procedure
+ *	to add a new word to the Language Model.
  *
  *	@version 0.1
  *	@date 08.01.2006
@@ -48,14 +48,13 @@ class AddWordView : public QWizard
 	private:
 		RecWidget *rec1;
 		RecWidget *rec2;
-		int oldId;
-		
+	
+	signals:
+		void addedWord();
 		
 	public slots:
 		
 		void finish(int done);
-
-		void pageChanged(int id);
 
 		QWizardPage* createWelcomePage();
 		QWizardPage* createRecordPage();
@@ -64,7 +63,9 @@ class AddWordView : public QWizard
 		
 	public:
 		AddWordView(QWidget *parent=0);
-		~AddWordView();
+		~AddWordView()
+		{
+		}
 };
 
 #endif

@@ -32,6 +32,12 @@
  *	@author Peter Grasch
 */
 
+#define sAddWordView 		1
+#define sTrainMain 		2
+#define sWordListView 		4
+#define sRunApplicationView 	8
+#define sSettingsView	 	16
+
 #include <QMainWindow>
 #include "simoncontrol.h"
 #include "simoninfo.h"
@@ -45,11 +51,23 @@
 
 #include "ui_main.h"
 
+class QPoint;
 
 class SimonView : public QMainWindow {
 	
 	Q_OBJECT
 private:
+	int shownDialogs;
+
+	QPoint currentPos;
+	QPoint runDlgPos;
+	QPoint addWordDlgPos;
+	QPoint wordlistDlgPos;
+	QPoint trainDlgPos;
+	QPoint settingsDlgPos;
+
+
+
 	Ui::MainWindow ui;	//!< Mainwindow UI definition - made by uic from the QTDesigner .ui
 	SimonControl *control; //!< Pointer to the main concept class
 	SimonInfo *info;  //!< Pointer to the Info class

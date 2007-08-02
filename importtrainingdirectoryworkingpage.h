@@ -17,8 +17,24 @@
 class QProgressBar;
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
+ * \class ImportTrainingDirectoryWorkingPage
+ * \author Peter Grasch
+ * \version 0.1
+ * \brief Imports the given directory
+ * 
+ * Starts the import process per importDir():
+ *   * Create Prompts
+ *   * Resample WAVs to a new dest.dir
+ *   * Normalize WAVs
+ *   * Write codetrain.scp
+ * 
+ * Normalisation and resampling is done with external programs
+ * (resample and normalize-audio)
+ * 
+ * \todo Fix the normalising/resampling (espacially for windows!)
+ * 
+ * Extends QWizardpage;
+ */
 class ImportTrainingDirectoryWorkingPage : public QWizardPage{
 private:
 	QProgressBar *pbMain;
@@ -35,10 +51,10 @@ private:
 
 public:
     ImportTrainingDirectoryWorkingPage(QWidget *parent=0);
-bool importDir(QString dir);
+	bool importDir(QString dir);
 	bool isComplete() { return completed; }
 
-    ~ImportTrainingDirectoryWorkingPage();
+    ~ImportTrainingDirectoryWorkingPage() {}
 
 };
 

@@ -82,7 +82,7 @@ void ImportDict::run()
  */
 void ImportDict::loadProgress(int prog)
 {
-	int globalProg =(int)  (((double)prog)/1000)*950+10;
+	int globalProg =(int)  ((((double)prog)/1000)*950+10);
 	emit progress(globalProg);
 }
 

@@ -42,13 +42,10 @@
 AddWordView::AddWordView(QWidget *parent)
 	: QWizard (parent)
 {
-	oldId = 0;
 	this->addPage(createWelcomePage());
 	this->addPage(createRecordPage());
 	this->addPage(createFinishedPage());
 
-	connect( this, SIGNAL(currentIdChanged( int )), this, 
-			SLOT(pageChanged(int)));
 	
 	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
 
@@ -56,23 +53,32 @@ AddWordView::AddWordView(QWidget *parent)
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/addword.png"));
 }
 
-void AddWordView::pageChanged(int id)
-{
-	
-	oldId = id;
-}
-
+/**
+ * \brief Creates the welcomepage
+ * \author Peter Grasch
+ * @return the QWizardPage
+ */
 QWizardPage* AddWordView::createWelcomePage()
 {
 	return new AddWordIntroPage(this);
 }
 
+/**
+ * \brief Creates the recordpage
+ * \author Peter Grasch
+ * @return the QWizardPage
+ */
 QWizardPage* AddWordView::createRecordPage()
 {
 	return new AddWordRecordPage(this);
 }
 
 
+/**
+ * \brief Creates the finishedpage
+ * \author Peter Grasch
+ * @return the QWizardPage
+ */
 QWizardPage* AddWordView::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage(this);
@@ -107,11 +113,7 @@ void AddWordView::finish(int done)
 	
 	//cleaning up
 	Logger::log(tr("Word added: ")+word);
+	emit addedWord();
 	
 	restart();
-}
-
-
-AddWordView::~AddWordView()
-{
 }

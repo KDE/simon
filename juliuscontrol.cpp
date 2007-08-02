@@ -10,6 +10,8 @@
 //
 //
 #include "juliuscontrol.h"
+#include <QByteArray>
+#include <QTcpSocket>
 
 /**
  *	@brief Constructor
@@ -20,7 +22,6 @@
  *	@author Peter Grasch
  *	@param qint16 port
  *	Port the Server should listen to
- *	@todo Restrict the allowed connection to certain hosts
  */
 JuliusControl::JuliusControl()
 {

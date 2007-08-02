@@ -23,6 +23,11 @@
 #include "importlocalwizardpage.h"
 #include "xmltrainingtextlist.h"
 
+/**
+ * \class ImportWorkingWizardPage
+ * \brief Imports the given trainingstext
+ * \author Peter Grasch
+ */
 class ImportWorkingWizardPage : public QWizardPage {
 	Q_OBJECT 
 	public slots:

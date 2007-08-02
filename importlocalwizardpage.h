@@ -18,6 +18,14 @@
 #include <QFileDialog>
 #include <QDir>
 
+/**
+ * \class ImportLocalWizardPage
+ * \author Peter Grasch
+ * \version 0.1
+ * \brief Asks the user for the file to import
+ * 
+ * Extends QWizardpage; Uses the QT-Mandatory-field mechanism
+ */
 class ImportLocalWizardPage : public QWizardPage {
 	Q_OBJECT
 	private:

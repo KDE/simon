@@ -11,7 +11,6 @@
 //
 #include "importdictview.h"
 
-
 /**
  * \brief Constructor
  * \author Peter Grasch
@@ -63,7 +62,6 @@ void ImportDictView::validatePath(QString path)
 void ImportDictView::displayProgress(int progress)
 {
 	ui.pbProgress->setValue(progress);
-	
 }
 
 /**
@@ -72,7 +70,7 @@ void ImportDictView::displayProgress(int progress)
  */
 void ImportDictView::openFileDialog()
 {
-	QString file= QFileDialog::getOpenFileName(this, "Wiktionary kompatibles Wörterbuch öffnen", ".", "*.xml");
+	QString file= QFileDialog::getOpenFileName(this, "Wiktionary kompatibles Wï¿½rterbuch ï¿½ffnen", ".", "*.xml");
 	ui.lePath->setText(file);
 }
 
@@ -120,6 +118,7 @@ void ImportDictView::finishedImporting()
 	list = import->getWordList();
 	accept();
 	ui.swMain->setCurrentIndex(0);
+	emit(dictGenerated(list));
 }
 
 /**

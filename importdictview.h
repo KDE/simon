@@ -29,6 +29,8 @@ private:
 	Ui::ImportView ui;
 	ImportDict *import; //!< Underlying concept class
 	WordList *list;  //!< Is filled later on with the retrieved List
+signals:
+	void dictGenerated(WordList*);
 public slots:
 	void importDict();
 	void openFileDialog();

@@ -20,6 +20,11 @@
 #include <QVBoxLayout>
 #include <QLabel>
 
+/**
+ * \brief Constructor
+ * \author Peter Grasch
+ * @param parent The parent of the widget
+ */
 ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *parent) : QWizardPage(parent)
 {
 	setTitle("Trainingsdaten aus Ordner importieren");
@@ -46,17 +51,11 @@ ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *pare
 }
 
 
-ImportTrainingDirectoryIntroPage::~ImportTrainingDirectoryIntroPage()
-{
-}
 
-void ImportTrainingDirectoryIntroPage::registerField(const QString &name, QWidget *widget, const char* 
-		property, const char* changedSignal)
-{
-	QWizardPage::registerField(name, widget, property, changedSignal);
-}
-
-
+/**
+ * \brief Prompts the user to select a directory
+ * \author Peter Grasch
+ */
 void ImportTrainingDirectoryIntroPage::setDir()
 {
 	QString dir = QFileDialog::getExistingDirectory(this, "Trainingsdaten-Ordner");
