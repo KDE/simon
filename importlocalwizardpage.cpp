@@ -51,7 +51,7 @@ void ImportLocalWizardPage::registerField(const QString &name, QWidget *widget, 
 void ImportLocalWizardPage::setLocalSourceFile()
 {
 
-	QStringList files = QFileDialog::getOpenFileNames(this, "Zu importierende Textdateien ï¿½ffnen", QDir::currentPath(), "Textdateien (*.txt)");
+	QStringList files = QFileDialog::getOpenFileNames(this, "Zu importierende Textdateien öffnen", QDir::currentPath(), "Textdateien (*.txt)");
 	if (files.count() == 0) return;
 
 	lePath->setText(files.at(0));

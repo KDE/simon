@@ -70,7 +70,7 @@ void ImportDictView::displayProgress(int progress)
  */
 void ImportDictView::openFileDialog()
 {
-	QString file= QFileDialog::getOpenFileName(this, "Wiktionary kompatibles Wï¿½rterbuch ï¿½ffnen", ".", "*.xml");
+	QString file= QFileDialog::getOpenFileName(this, "Wiktionary kompatibles Wörterbuch öffnen", ".", "*.xml");
 	ui.lePath->setText(file);
 }
 

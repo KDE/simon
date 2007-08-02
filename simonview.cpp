@@ -40,7 +40,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 {
 	if (!Logger::init())
 	{
-		QMessageBox::critical(this, tr("Fehler"), tr("Konnte die Log-Datei nicht Ã¶ffnen. Bitte Ã¼berprÃ¼fen Sie die Berechtigungen.."));
+		QMessageBox::critical(this, tr("Fehler"), tr("Konnte die Log-Datei nicht öffnen. Bitte Überprüfen Sie die Berechtigungen.."));
 		exit(1);
 	}
 	
@@ -229,7 +229,7 @@ void SimonView::errorConnecting(QString error)
 	this->control->deactivateSimon();
 	this->representState();
 	
-	QMessageBox::critical(this, "Kritischer Verbindungsfehler", "Die Verbindung zum juliusd ErkennungsdÃ¤mon konnte nicht aufgenommen werden.\n\nBitte Ã¼berprÃ¼fen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte Fehlermeldung lautete:\n"+error);
+	QMessageBox::critical(this, tr("Kritischer Verbindungsfehler"), tr("Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte Überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte Fehlermeldung lautete:\n")+error);
 }
 
 
@@ -473,7 +473,7 @@ void SimonView::toggleVisibility()
 */
 void SimonView::closeSimon()
 {
-	if ((!false /*Confirm shutdown*/) || (QMessageBox::question(this, "Wirklich beenden?", "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos kÃ¶nnen mehr benutzt werden.\n\nWollen Sie wirklich beenden?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No) == QMessageBox::Yes))
+	if ((!false /*Confirm shutdown*/) || (QMessageBox::question(this, "Wirklich beenden?", "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No) == QMessageBox::Yes))
 	{
 		close();
 		this->~ SimonView();

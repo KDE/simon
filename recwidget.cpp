@@ -152,7 +152,7 @@ void RecWidget::finishPlayback()
 void RecWidget::stopRecording()
 {
 	if (!rec->finish()) 
-		QMessageBox::critical(this, "Aufnehmen fehlgeschlagen", QString("Abschlieï¿½en der Aufnahme fehlgeschlagen. Mï¿½glicherweise ist die Aufnahme fehlerhaft.\n\nTip: ï¿½berprï¿½fen Sie ob Sie die nï¿½tigen Berechtigungen besitzen um auf %1 schreiben zu dï¿½rfen!").arg(this->filename));
+		QMessageBox::critical(this, "Aufnehmen fehlgeschlagen", QString("Abschlieöen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!").arg(this->filename));
 	
 	disconnect(pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
 	connect(pbRecord, SIGNAL(clicked()), this, SLOT(record()));
@@ -196,7 +196,7 @@ void RecWidget::deleteSample()
 		pbRecord->setEnabled(true);
 		pbPlay->setEnabled(false);
 		emit sampleDeleted();
-	} else QMessageBox::critical(this, "Fehler beim Lï¿½schen", 
+	} else QMessageBox::critical(this, "Fehler beim Löschen", 
 			QString("Konnte die Datei %1 nicht entfernen").arg(this->filename));
 }
 
@@ -212,7 +212,7 @@ void RecWidget::setupWidgets()
 				   this);
 	pbPlay = new QPushButton(QIcon(":/images/icons/media-playback-start.svg"), "Abspielen",
 				 this);
-	pbDelete = new QPushButton(QIcon( ":/images/icons/emblem-unreadable.svg"), "Lï¿½schen",
+	pbDelete = new QPushButton(QIcon( ":/images/icons/emblem-unreadable.svg"), "Löschen",
 				   this);
 	
 	hsProgress = new QSlider(Qt::Horizontal, this);

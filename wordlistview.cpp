@@ -166,7 +166,7 @@ void WordListView::copyWordToTrain()
 {
 	if (this->twVocab->selectedItems().isEmpty())
 	{
-		QMessageBox::information(this,"Nichts ausgewï¿½hlt","Bitte selektieren Sie zuerst ein Wort aus der Liste links");
+		QMessageBox::information(this,"Nichts ausgewählt","Bitte selektieren Sie zuerst ein Wort aus der Liste links");
 		return;
 	}
 	
@@ -229,7 +229,7 @@ void WordListView::setDirty(bool dirty)
 	this->dirty = dirty;
 	if (dirty)
 	{
-		setWindowTitle("Wortliste - Ungesicherte ï¿½nderungen");
+		setWindowTitle("Wortliste - Ungesicherte Änderungen");
 	} else setWindowTitle("Wortliste");
 }
 
@@ -264,13 +264,13 @@ void WordListView::askToSave()
 {
 	if (!dirty) return;
 	
-	if (QMessageBox::question(this, "ï¿½nderungen speichern", "Sie haben das Sprachmodell verï¿½ndert. Mï¿½chten Sie die ï¿½nderungen speichern?", QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
+	if (QMessageBox::question(this, "Änderungen speichern", "Sie haben das Sprachmodell verändert. Möchten Sie die Änderungen speichern?", QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
 	{
 		//save the dict
 		QString filename = "test.out";
 		if (this->wordListManager->save(filename))
 			setDirty(false);
-		else QMessageBox::critical(this, "Fehler beim speichern", "Das Wï¿½rterbuch konnte nicht nach "+filename+" geschrieben werden. Bitte ï¿½berprï¿½fen Sie Ihre Berechtigungen.");
+		else QMessageBox::critical(this, "Fehler beim Speichern", "Das Wörterbuch konnte nicht nach "+filename+" geschrieben werden. Bitte überprüfen Sie Ihre Berechtigungen.");
 	}
 }
 
@@ -286,7 +286,7 @@ void WordListView::readVocab()
 	
 	if (!vocab)
 	{
-		QMessageBox::critical(0, "Lesefehler", "Konnte benï¿½tigte Dateien nicht einlesen. Bitte ï¿½berprï¿½fen Sie die Einstellungen und stellen Sie sicher das sie die nï¿½tigen Leserechte haben.");
+		QMessageBox::critical(0, "Lesefehler", "Konnte benötigte Dateien nicht einlesen. Bitte überprüfen Sie die Einstellungen und stellen Sie sicher das sie die nötigen Leserechte haben.");
 		return;
 	}
 	
@@ -304,7 +304,7 @@ void WordListView::readVocab()
 void WordListView::insertVocab(WordList *vocab)
 {
 	twVocab->setRowCount(vocab->count());
-	QProgressDialog *pgDlg = new QProgressDialog("Lade Liste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Woerterbuch nicht!)", "Abbrechen", 0, 
+	QProgressDialog *pgDlg = new QProgressDialog("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Wörterbuch nicht!)", "Abbrechen", 0, 
 			vocab->count(), this);
 
 	connect(pgDlg, SIGNAL(canceled()), this, SLOT(abortInsertion()));

@@ -40,9 +40,6 @@ TrainingView::TrainingView(WordListView *wordlistView, QWidget *parent) : QDialo
 	loadList(); // we load the list of avalible trainingtexts despite we probably won't
 	// use it when given a special training program
 	
-// 	if (trainWords)
-// 		this->trainWords(trainWords);
-	
 }
 
 
@@ -56,14 +53,14 @@ void TrainingView::deleteSelected()
 {
 	if (ui.twTrainingWords->selectedItems().isEmpty())
 	{
-		QMessageBox::information(this,"Nichts ausgewï¿½hlt","Bitte selektieren Sie zuerst einen Text aus der Liste.");
+		QMessageBox::information(this,"Nichts ausgewählt","Bitte selektieren Sie zuerst einen Text aus der Liste.");
 		return;
 	}
 	int currentIndex = ui.twTrainingWords->currentRow();
 	if (!(this->trainMgr->trainText(currentIndex))) return;
 	
 	
-	if (QMessageBox::question(this, "Wollen Sie den ausgewï¿½hlten Text wirklich lï¿½schen?", "Wenn Sie hier mit \"Ja\" bestï¿½tigen, wird der ausgewï¿½hlte Text unwiederbringlich von der Festplatte gelï¿½scht. Wollen Sie den ausgewï¿½hlt wirklich lï¿½schen?", QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+	if (QMessageBox::question(this, "Wollen Sie den ausgewählten Text wirklich löschen?", "Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?", QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
 		this->trainMgr->deleteText(currentIndex);
 	
 	loadList();
@@ -90,7 +87,7 @@ void TrainingView::trainSelected()
 {
 	if (ui.twTrainingWords->selectedItems().isEmpty())
 	{
-		QMessageBox::information(this,"Nichts ausgewï¿½hlt","Bitte selektieren Sie zuerst einen Text aus der Liste.");
+		QMessageBox::information(this,"Nichts ausgewählt","Bitte selektieren Sie zuerst einen Text aus der Liste.");
 		return;
 	}
 	
@@ -240,7 +237,7 @@ void TrainingView::cancelReading()
 void TrainingView::cancelTraining()
 {
 	this->trainMgr->pauseTraining();
-	if (QMessageBox::question(this, "Wollen Sie wirklich abbrechen?", "Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhï¿½hen.\n\nWollen Sie wirklich abbrechen?", QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+	if (QMessageBox::question(this, "Wollen Sie wirklich abbrechen?", "Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhöhen.\n\nWollen Sie wirklich abbrechen?", QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
 	{
 		this->trainMgr->abortTraining();
 		ui.swAction->setCurrentIndex(0);

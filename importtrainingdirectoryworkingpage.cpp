@@ -38,7 +38,7 @@ ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *
 	
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	QLabel *lbMain = new QLabel(this);
-	lbMain->setText("Der angegebene Ordner wird verarbeit.\nSie koennen den Fortschritt mit dem Fortschrittsbalken\nueberpruefen.\n\nBitte haben Sie einen Moment Geduld.\n\n");
+	lbMain->setText("Der angegebene Ordner wird verarbeit.\nSie können den Fortschritt mit dem Fortschrittsbalken\nüberpruefen.\n\nBitte haben Sie einen Moment Geduld.\n\n");
 	
 	pbMain = new QProgressBar(this);
 	pbMain->setMaximum(0);
@@ -105,7 +105,7 @@ bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles, QS
 	if (!prompts->open(QIODevice::WriteOnly|QIODevice::Truncate|QIODevice::Text))
 	{
 		QMessageBox::critical(this, tr("Fehler"), 
-			tr("Beim Ã¶ffnen der Ausgabe-Dateie \"prompts\" ist ein Fehler aufgetreten."));
+			tr("Beim Öffnen der Ausgabe-Dateie \"prompts\" ist ein Fehler aufgetreten."));
 		return false;
 	}
 	QTextStream *promptsStream = new QTextStream(prompts);
@@ -239,7 +239,7 @@ bool ImportTrainingDirectoryWorkingPage::createScp(QStringList dataFiles, QStrin
 	if (!scp->open(QIODevice::WriteOnly|QIODevice::Truncate|QIODevice::Text))
 	{
 		QMessageBox::critical(this, tr("Fehler"), 
-			tr("Beim oeffnen der Ausgabedateien ist ein Fehler aufgetreten."));
+			tr("Beim öffnen der Ausgabedateien ist ein Fehler aufgetreten."));
 		return false;
 	}
 	
