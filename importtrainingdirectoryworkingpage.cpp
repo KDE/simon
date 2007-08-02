@@ -109,6 +109,7 @@ bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles, QS
 		return false;
 	}
 	QTextStream *promptsStream = new QTextStream(prompts);
+	promptsStream->setCodec("ISO-8859-1");
 
 	QFileInfo fileInfo;
 	QString said, fileName;
@@ -244,6 +245,7 @@ bool ImportTrainingDirectoryWorkingPage::createScp(QStringList dataFiles, QStrin
 	}
 	
 	QTextStream *scpStream = new QTextStream(scp);
+	scpStream->setCodec("ISO-8859-1");
 	QFileInfo fileInfo;
 	QString fileName;
 	

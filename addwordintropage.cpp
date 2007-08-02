@@ -31,7 +31,7 @@ AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 	lbName->setText(tr("Neues Wort:"));
 	QLineEdit *leName = new QLineEdit(this);
 	QVBoxLayout *layout = new QVBoxLayout(this);
-	QHBoxLayout *loName = new QHBoxLayout(this);
+	QHBoxLayout *loName = new QHBoxLayout();
 	loName->addWidget(lbName);
 	loName->addWidget(leName);
 

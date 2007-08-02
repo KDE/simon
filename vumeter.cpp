@@ -46,7 +46,7 @@ bool VuMeter::prepare()
 void VuMeter::run()
 {
 	exec();
-	wait(5000);
+// 	wait(5000);
 }
 
 /**

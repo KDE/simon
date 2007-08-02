@@ -88,7 +88,11 @@ importtrainingdirectory.h \
 importtrainingdirectoryintropage.h \
 importtrainingdirectoryworkingpage.h \
            addwordintropage.h \
-           addwordrecordpage.h
+           addwordrecordpage.h \
+           importbomppage.h \
+           importdictworkingpage.h \
+           importdictwiktionarypage.h \
+           importdictselectsourcepage.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -138,7 +142,11 @@ SOURCES += main.cpp \
  importtrainingdirectoryintropage.cpp \
  importtrainingdirectoryworkingpage.cpp \
            addwordintropage.cpp \
-           addwordrecordpage.cpp
+           addwordrecordpage.cpp \
+           importbomppage.cpp \
+           importdictworkingpage.cpp \
+           importdictwiktionarypage.cpp \
+           importdictselectsourcepage.cpp
 QT += network \
 xml 
 

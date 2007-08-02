@@ -11,6 +11,13 @@
 //
 #include "importdictview.h"
 
+#include "importdictworkingpage.h"
+#include "importdictselectsourcepage.h"
+#include "importbomppage.h"
+#include "importdictwiktionarypage.h"
+#include <QLabel>
+#include <QVBoxLayout>
+
 /**
  * \brief Constructor
  * \author Peter Grasch
@@ -18,108 +25,73 @@
  * \param QWidget *parent
  * The parent of the window.
  */
-ImportDictView::ImportDictView(QWidget *parent) : QDialog(parent)
+ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 {
-	ui.setupUi(this);
-	list = new WordList();
-	import = new ImportDict();
-	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(importDict()));
-	connect(ui.pbGetPath, SIGNAL(clicked()), this, SLOT(openFileDialog()));
-	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(ui.lePath, SIGNAL(textChanged(QString)), this, SLOT(validatePath(QString)));
+// 	ui.setupUi(this);
+// 	list = new WordList();
+// 	import = new ImportDict();
+// 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(importDict()));
+// 	connect(ui.pbGetPath, SIGNAL(clicked()), this, SLOT(openFileDialog()));
+// 	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(reject()));
+// 	connect(ui.lePath, SIGNAL(textChanged(QString)), this, SLOT(validatePath(QString)));
+	addPage(createIntroPage());
+
+	addPage(createSelectSourcePage());
+	addPage(createImportBOMPPage());
+	addPage(createImportWiktionaryPage());
+	addPage(createImportDictWorkingPage());
+
+	addPage(createFinishedPage());
+	setWindowTitle(tr("Importiere Wörterbuch"));
 }
 
-/**
- * \brief Displays the given Status (explaining the progress
- * \author Peter Grasch
- * \param QString status
- * The current Status message
- */
-void ImportDictView::displayStatus(QString status)
+
+QWizardPage* ImportDictView::createIntroPage()
 {
-	ui.lbStatus->setText(status);
+	QWizardPage *intro = new QWizardPage(this);
+	intro->setTitle(tr("Wörterbuch importieren"));
+	QLabel *lbIntro = new QLabel(intro);
+	lbIntro->setText(tr("Dieser Assistent wird Ihnen dabei helfen, ein neues\nWörterbuch zu importieren.\n\nEin Wörterbuch beinhaltet Informationen über die\nbekannten Wörter wie zum Beispiel wie Sie geschrieben\nwerden und wie sie ausgesprochen werden.\n\nDas Wörterbuch ist deshalb ein wichtiger Bestandteil\nvon simon.\n\nBitte wählen Sie Ihre Quellen sorgfältig und achten Sie\ndarauf nur hochqualitatives Material zu verwenden."));
+
+	QVBoxLayout *lay = new QVBoxLayout(intro);
+	lay->addWidget(lbIntro);
+	intro->setLayout(lay);
+	return intro;
 }
 
-/**
- * \brief Enables the "Import" button when we detect that the path given is correct
- * \author Peter Grasch
- * \param QString path
- * The path to check
- */
-void ImportDictView::validatePath(QString path)
+
+ImportDictSelectSourcePage* ImportDictView::createSelectSourcePage()
 {
-	if (QFile::exists(path) && path.endsWith(".xml"))
-		ui.pbImport->setEnabled(true);
-	else ui.pbImport->setEnabled(false);
+	return new ImportDictSelectSourcePage(this);
 }
 
-/**
- * \brief Displays the given progress
- * \author Peter Grasch
- * \param int progress
- * The current progress (between 0 and 1000)
- */
-void ImportDictView::displayProgress(int progress)
+ImportBOMPPage* ImportDictView::createImportBOMPPage() 
 {
-	ui.pbProgress->setValue(progress);
+	return new ImportBOMPPage(this);
 }
 
-/**
- * \brief Displays a Filedialog to choose the file to import.
- * \author Peter Grasch
- */
-void ImportDictView::openFileDialog()
+ImportDictWiktionaryPage* ImportDictView::createImportWiktionaryPage()
 {
-	QString file= QFileDialog::getOpenFileName(this, "Wiktionary kompatibles Wörterbuch öffnen", ".", "*.xml");
-	ui.lePath->setText(file);
+	return new ImportDictWiktionaryPage(this);
 }
 
-/**
- * \brief Sets the progressbar to displays a real progress - not just a "please wait" thingy
- * \author Peter Grasch
- * 
- * While we open the file there is no information of how long it will take.
- * But once we opened it we know how long it will take to finish. This is why
- * we just provide a waiting... progressbar (ie maximum=0) while wo open the file
- * afterwards we provide a nice, clean progressbar (maximum=1000).
- * 
- * This function basically sets the maximum to 1000.
- */
-void ImportDictView::openingFinished()
+ImportDictWorkingPage* ImportDictView::createImportDictWorkingPage()
 {
-	ui.pbProgress->setMaximum(1000);
+	return new ImportDictWorkingPage(this);
 }
 
-/**
- * \brief Imports the dictionary 
- * \author Peter Grasch
- * Makes the progressbar displaying a waiting... thingy (we don't know how long it will take)
- * Connect the signal/slots
- * Start parsing the WordList
- */
-void ImportDictView::importDict()
+QWizardPage* ImportDictView::createFinishedPage()
 {
-	ui.pbProgress->setMaximum(0);
-	ui.swMain->setCurrentIndex(1);
-	connect (import, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
-	connect (import, SIGNAL(progress(int)), this, SLOT(displayProgress(int)));
-	connect (import, SIGNAL(finished()), this, SLOT(finishedImporting()));
-	
-	connect (import, SIGNAL(opened()), this, SLOT(openingFinished()));
-	import->parseWordList(ui.lePath->text());
+	QWizardPage *finished = new QWizardPage(this);
+	finished->setTitle(tr("Wörterbuch importiert"));
+	QLabel *lbFinished = new QLabel(finished);
+	lbFinished->setText(tr("Das Wörterbuch wurde erfolgreich importiert und wird nun\nübernommen.\n\nDas noch einige Zeit dauern, währenddessen ist simon\naber bereits voll einsatzfähig und der Abgleich geschieht\nim Hintergrund.\n\nDas neue Wörterbuch wird in spätestenens einigen Minuten\nvoll aktiviert sein.\n\nVielen Dank, dass Sie simon verbessert haben."));
+	QVBoxLayout *lay = new QVBoxLayout(finished);
+	lay->addWidget(lbFinished);
+	finished->setLayout(lay);
+	return finished;
 }
 
-/**
- * \brief We are done importing: Close the dialog and set the list (member) to the retrieved wordlist
- * \author Peter Grasch
- */
-void ImportDictView::finishedImporting()
-{
-	list = import->getWordList();
-	accept();
-	ui.swMain->setCurrentIndex(0);
-	emit(dictGenerated(list));
-}
 
 /**
  * \brief Destructor

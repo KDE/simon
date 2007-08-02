@@ -13,9 +13,9 @@
 #define IMPORTDICTVIEW_H
 
 
-#include <QDialog>
-#include <QFileDialog>
-#include "ui_importdict.h"
+#include <QWizard>
+// #include <QFileDialog>
+// #include "ui_importdict.h"
 #include "word.h"
 #include "importdict.h"
 /**
@@ -23,22 +23,43 @@
  * \brief Provides a dialog for importing dictonaries
  * \author Peter Grasch
 */
-class ImportDictView : public QDialog{
+
+class QWizardPage;
+class ImportDictSelectSourcePage;
+class ImportBOMPPage;
+class ImportDictWiktionaryPage;
+class ImportDictWorkingPage;
+
+class ImportDictView : public QWizard {
 	Q_OBJECT
 private:
-	Ui::ImportView ui;
+// 	Ui::ImportView ui;
 	ImportDict *import; //!< Underlying concept class
 	WordList *list;  //!< Is filled later on with the retrieved List
 signals:
 	void dictGenerated(WordList*);
 public slots:
-	void importDict();
-	void openFileDialog();
-	void finishedImporting();
-	void openingFinished();
-	void validatePath(QString path);
-	void displayStatus(QString status);
-	void displayProgress(int progress);
+	QWizardPage* createIntroPage();
+	ImportDictSelectSourcePage* 
+		createSelectSourcePage();
+	ImportBOMPPage* createImportBOMPPage();
+	ImportDictWiktionaryPage*
+		createImportWiktionaryPage();
+	ImportDictWorkingPage* createImportDictWorkingPage();
+	QWizardPage* createFinishedPage();
+	
+
+
+
+
+
+// 	void importDict();
+// 	void openFileDialog();
+// 	void finishedImporting();
+// 	void openingFinished();
+// 	void validatePath(QString path);
+// 	void displayStatus(QString status);
+// 	void displayProgress(int progress);
 public:
     ImportDictView(QWidget *parent=0);
 	WordList* getList() {return list;}
