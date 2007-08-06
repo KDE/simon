@@ -12,6 +12,7 @@
 #include "wordlistview.h"
 #include <QProgressDialog>
 #include <QCoreApplication>
+#include <QDebug>
 
 /**
  * @brief Constructor
@@ -21,7 +22,7 @@
  *
  * @author Peter Grasch
  */
-WordListView::WordListView(QWidget *parent) : QDialog(parent)
+WordListView::WordListView(QWidget *parent) : QMainWindow(parent)
 {
 	shownDialogs = 0;
 	abortVocabInsertion = false;
@@ -41,7 +42,7 @@ WordListView::WordListView(QWidget *parent) : QDialog(parent)
 	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(close()));
 	
 	connect(ui.pbSuggestTrain, SIGNAL(clicked()), this, SLOT(suggestTraining()));
-	connect(ui.leSearch, SIGNAL(textChanged(QString)), this, SLOT(filterListbyPattern(QString)));
+	connect(ui.leSearch, SIGNAL(returnPressed()), this, SLOT(filterListbyPattern()));
 	connect(ui.pbClearSearch, SIGNAL(clicked()), this, SLOT(clearSearchText()));
 	connect(ui.pbSwitchToTraining, SIGNAL(clicked()), this, SLOT(switchToGenericTraining()));
 	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
@@ -91,6 +92,17 @@ void WordListView::importDict(WordList* list)
 }
 
 /**
+ * \brief Escape closes "dialog"
+ * \author Peter Grasch
+ * @param e 
+ */
+void WordListView::keyPressEvent( QKeyEvent *e )
+{
+        if ( e->key() == Qt::Key_Escape )
+                this->close();
+}
+
+/**
  * @brief Suggest a training
  *
  * Uses the recognition rate and chooses the lowest 10
@@ -128,14 +140,18 @@ void WordListView::markWordToTrain(Word word)
  */
 void WordListView::filterListbyPattern(QString filter)
 {
+	if (filter.isEmpty()) filter = ui.leSearch->text();
 	WordList *vocab = this->wordListManager->getWordList();
 	
 	WordList *limitedVocab = new WordList();
 	
-	for (int i = 0; i < vocab->size(); i++)
+	int i=0;
+	while (i < vocab->count())
 	{
-		if (!(vocab->at(i).getWord().toUpper().indexOf( filter.toUpper(), Qt::CaseInsensitive) == -1))
+		if (vocab->at(i).getWord().contains(filter, Qt::CaseInsensitive))
 			limitedVocab->append(vocab->at(i));
+		
+		i++;
 	}
 	
 	insertVocab( limitedVocab );
@@ -191,7 +207,7 @@ void WordListView::copyWordToTrain()
  */
 void WordListView::switchToGenericTraining()
 {
-	reject();
+	close();
 	trainView->show();
 }
 
@@ -303,15 +319,18 @@ void WordListView::readVocab()
  */
 void WordListView::insertVocab(WordList *vocab)
 {
+	abortVocabInsertion=false;
 	twVocab->setRowCount(vocab->count());
 	QProgressDialog *pgDlg = new QProgressDialog("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Wörterbuch nicht!)", "Abbrechen", 0, 
-			vocab->count(), this);
+			((vocab->count() < 1000) ? vocab->count() : 1000), this);
 
 	connect(pgDlg, SIGNAL(canceled()), this, SLOT(abortInsertion()));
 
 	twVocab->hide();
         int i=0;
-	while ((!abortVocabInsertion) && (i<vocab->count()))
+	int limit=1000;
+	
+	while ((!abortVocabInsertion) && (i<vocab->count()) && (i<limit))
 	{
 		QCoreApplication::processEvents();
 		if (!vocab->at(i).getWord().isEmpty())

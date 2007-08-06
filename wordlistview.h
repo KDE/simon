@@ -14,7 +14,7 @@
 
 #define sImportDict 	32
 
-#include <QDialog>
+#include <QMainWindow>
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QString>
@@ -42,7 +42,7 @@ class QPoint;
  */
 
 
-class WordListView : public QDialog {
+class WordListView : public QMainWindow {
 	Q_OBJECT
 private:
 	int shownDialogs;
@@ -61,6 +61,7 @@ private:
 	void initializeItems();
 	void readVocab();
 	void setDirty ( bool dirty );
+	void keyPressEvent( QKeyEvent *e );
 
 signals:
 	void showAddWordDialog();
@@ -76,7 +77,7 @@ public slots:
 	void importDict(WordList* list);
 	void clearList();
 	void toggleExtraWords();
-	void filterListbyPattern(QString filter);
+	void filterListbyPattern(QString filter="");
 	void clearSearchText();
 	void switchToGenericTraining();
 	void insertVocab(WordList *vocab);

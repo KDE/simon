@@ -94,7 +94,8 @@ importtrainingdirectoryworkingpage.h \
            importdictwiktionarypage.h \
            importdictselectsourcepage.h \
            bunzip.h \
-           bompdict.h
+           bompdict.h \
+           quickunpacker.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -150,7 +151,8 @@ SOURCES += main.cpp \
            importdictwiktionarypage.cpp \
            importdictselectsourcepage.cpp \
            bunzip.cpp \
-           bompdict.cpp
+           bompdict.cpp \
+           quickunpacker.cpp
 QT += network \
 xml 
 
@@ -159,7 +161,8 @@ TEMPLATE = app
 
 CONFIG += qt \
 warn_on \
-thread
+thread \
+debug
 
 
 RESOURCES += simon.qrc

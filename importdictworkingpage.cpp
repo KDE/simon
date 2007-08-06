@@ -12,10 +12,12 @@
 #include "importdictworkingpage.h"
 #include <QLabel>
 #include <QProgressBar>
+#include <QDebug>
 #include <QVBoxLayout>
 #include "bunzip.h"
 #include "quickdownloader.h"
 #include "importdict.h"
+#include "quickunpacker.h"
 
 ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent): QWizardPage(parent)
 {
@@ -45,7 +47,7 @@ ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent): QWizardPage(paren
 
 
 
-bool ImportDictWorkingPage::isCompleted()
+bool ImportDictWorkingPage::isComplete() const
 {
 	return ready;
 }
@@ -53,13 +55,15 @@ bool ImportDictWorkingPage::isCompleted()
 
 void ImportDictWorkingPage::importHADIFIX(QString path)
 {
+	ready=false;
+	completeChanged();
+	
 	displayStatus(tr("Importiere Hadifix-Wörterbuch %1...").arg(path));
 	pbMain->setMaximum(1000);
 	
 	import->parseWordList(path, 1);
 
-	ready = true;
-	emit completeChanged();
+	connect(import, SIGNAL(finished(WordList*)), this, SLOT(setCompleted()));
 }
 
 void ImportDictWorkingPage::importWiktionary(QString url)
@@ -89,13 +93,16 @@ void ImportDictWorkingPage::displayProgress(int progress)
 
 void ImportDictWorkingPage::importWiktionaryFile(QString path)
 {
+	if (path.endsWith("bzip2"))
+	{
+		QuickUnpacker *unpacker = new QuickUnpacker(this);
+	}
 	displayStatus(tr("Importiere Wiktionary-Wörterbuch %1...").arg(path));
 	pbMain->setMaximum(1000);
 	
 	import->parseWordList(path, 2);
 
-	ready = true;
-	emit completeChanged();
+	setCompleted();
 }
 
 ImportDictWorkingPage::~ImportDictWorkingPage()

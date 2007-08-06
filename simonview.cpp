@@ -18,6 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #include <QPixmap>
+#include <QDebug>
 #include <QPalette>
 #include <QLinearGradient>
 #include "simonview.h"
@@ -490,27 +491,11 @@ void SimonView::closeSimon()
 */
 void SimonView::closeEvent ( QCloseEvent * event )
 {
-	
 	this->hideSimon();
-	event->ignore();
+	if (sender() != ui.pbClose)
+		event->ignore();
 }
 
-
-/**
- * @brief 
- *
- * 
- *	@author Phillip Goriup
-*/
-
-bool SimonView::close()
-{
-	
-	if(sender() == this)
-		Logger::log("test");
-	return QWidget::close();
-	
-}
 
 
 

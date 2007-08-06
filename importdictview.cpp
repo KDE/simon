@@ -75,7 +75,6 @@ void ImportDictView::idChanged(int newId)
 			{
 				((ImportDictWorkingPage*) page(4))->importHADIFIX(
 					((ImportBOMPPage*) page(2))->getFileName());
-				qDebug() << "bin da";
 			} else ((ImportDictWorkingPage*) page(4))->importWiktionary(
 					((ImportDictWiktionaryPage*) page(3))->getPath());
 		}

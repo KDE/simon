@@ -34,13 +34,14 @@ private:
 	bool ready;
 private slots:
 	void importWiktionaryFile(QString path);
+	void setCompleted() { ready=true; emit completeChanged(); }
 public slots:
 	void displayStatus(QString status);
 	void displayProgress(int progress);
 	
 	void importHADIFIX(QString path);
 	void importWiktionary(QString url);
-	bool isCompleted();
+	bool isComplete() const;
 public:
     ImportDictWorkingPage(QWidget* parent);
 
