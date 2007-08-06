@@ -26,7 +26,7 @@ void Bunzip::extract(QString filename)
 void Bunzip::extractingFinishing(int code)
 {
 	if (!code)
-		emit errorOccured(tr("Es ist ein Fehler beim entpacken aufgetreten.\n\nBitte überprüfen Sie ob Sie das Paket \"bzip2\" installiert haben"));
+		emit errorOccured(tr("Es ist ein Fehler beim Entpacken aufgetreten.\n\nBitte überprüfen Sie ob Sie das Paket \"bzip2\" installiert haben"));
 	emit extractionFinished();
 }
 
