@@ -103,11 +103,17 @@ public slots:
 	void showTrainDialog();
 	void showWordListDialog();
 	void showSettingsDialog();
+	
+	bool close();
 
 public:
 	SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
 
 	~SimonView();
+
+	void closeEvent ( QCloseEvent * event );
+	
+
 
 };
 

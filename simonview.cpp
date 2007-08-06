@@ -108,6 +108,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QObject::connect(control, SIGNAL(connected()), this, SLOT(connected()));
 	QObject::connect(control, SIGNAL(disconnected()), this, SLOT(disconnected()));
 	connect(control, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
+
 	
 	//setting Background
 // 	QPixmap bg(":/images/bg_clear.png");
@@ -479,6 +480,38 @@ void SimonView::closeSimon()
 		this->~ SimonView();
 	}
 }
+
+
+/**
+ * @brief hides the main window Parameter doku
+ *
+ * with a click on the Windows Button: "X"
+ *	@author Phillip Goriup
+*/
+void SimonView::closeEvent ( QCloseEvent * event )
+{
+	
+	this->hideSimon();
+	event->ignore();
+}
+
+
+/**
+ * @brief 
+ *
+ * 
+ *	@author Phillip Goriup
+*/
+
+bool SimonView::close()
+{
+	
+	if(sender() == this)
+		Logger::log("test");
+	return QWidget::close();
+	
+}
+
 
 
 
