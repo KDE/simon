@@ -487,7 +487,7 @@ void SimonView::closeSimon()
  * @brief hides the main window Parameter doku
  *
  * with a click on the Windows Button: "X"
- *	@author Phillip Goriup
+ *	@author Phillip Goriup, Peter Grasch
 */
 void SimonView::closeEvent ( QCloseEvent * event )
 {
