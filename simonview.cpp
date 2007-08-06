@@ -44,7 +44,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 		exit(1);
 	}
 	
-	Logger::log("Starting simon...");
+	Logger::log("Starte simon...");
 	
 	this->settings = new 
 		QSettings(QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon");
@@ -53,7 +53,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	//showing splash
 	this->info->showSplash();
 	
-	this->info->writeToSplash("Loading...");
+	this->info->writeToSplash("Lade Interface...");
 	
 	this->control = new SimonControl();
 	this->trayManager = new TrayIconManager();
@@ -124,7 +124,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
 
-	this->info->writeToSplash("Connecting to juliusd...");
+	this->info->writeToSplash("Verbinde zu juliusd...");
 	connectToServer();
 	
 	//hiding splash again after loading

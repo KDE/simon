@@ -10,7 +10,15 @@
 //
 //
 #include "runwindowsbackend.h"
+#include "logger.h"
+#include <QProcess>
+#include <QSettings>
+#include <windows.h>
+#include <stdio.h>
+#include <string.h>
+#include <wchar.h>
 
+using namespace std;
 
 /**
  *	@brief Constructor
@@ -20,6 +28,9 @@
 RunWindowsBackend::RunWindowsBackend()
 {
 }
+
+
+
 
 /**
  *	@brief Passes the given URL to the systems URL Handler
@@ -42,17 +53,40 @@ void RunWindowsBackend::goTo(QString place)
  *
  *	@param QString command
  *	The command - it will be passed to the system as-is
- *	@author Gigerl Martin
+ *	@author Gigerl Martin / Goriup Phillip
  */
 void RunWindowsBackend::run(QString command)
 {
-	QChar* com = command.data();
-	char asciicommand[500];
+    HKEY    hKey = NULL;
+    BYTE    bData[MAX_PATH + 1] = {0};
+    DWORD   dwDataLen = MAX_PATH;
+    string result;
+
+    QByteArray path("\\Applications\\"+command.toAscii()+"\\shell\\open\\command");
+    if (RegOpenKeyEx(HKEY_CLASSES_ROOT ,(WCHAR*) path.data(), 0,KEY_QUERY_VALUE,&hKey) != ERROR_SUCCESS) result = "0";
+    if (RegQueryValueEx(hKey,TEXT("App"),NULL,NULL,bData,&dwDataLen) == ERROR_SUCCESS) result = (string)((char*)bData);
+    else result = "0";
+    RegCloseKey(hKey);
+
+    Logger::log(path+result.c_str());
+    
+    
+    
+	//QSettings settings(QSettings::UserScope, "Microsoft", "Windows");
+	//settings.beginGroup("CurrentVersion/Explorer/Shell Folders");
+	//Logger::log(settings.value("Personal").toString());
 	
-	for (int i=0; i < command.size(); i++)
-		asciicommand[i] = com[i].toAscii();
-	
-	system(asciicommand);
+	//QSettings registry;
+	//QString settingspath= "/Applications/"+command+"/shell/open/command";
+	//QString pathToCommand = registry.value(settingspath, "gibsnet" ).toString();
+	//Logger::log( "/Applications/"+command+"/shell/open/command: "+pathToCommand);
+	//QProcess::startDetached(pathToCommand);
+
+
+	/*char *asciicommand;
+	asciicommand = command.toAscii().data();
+	Logger::log(asciicommand);
+	system(asciicommand);*/
 }
 
 

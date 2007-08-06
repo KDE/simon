@@ -38,7 +38,6 @@
  * @param Qt::Wflags f
  * Qt Windowflags - default 0
 */
-
 AddWordView::AddWordView(QWidget *parent)
 	: QWizard (parent)
 {

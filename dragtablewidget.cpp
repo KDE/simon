@@ -10,6 +10,7 @@
 //
 //
 #include "dragtablewidget.h"
+#include "logger.h"
 
 
 /**
@@ -62,10 +63,13 @@ void DragTableWidget::mousePressEvent(QMouseEvent *event)
 void DragTableWidget::mouseMoveEvent(QMouseEvent *event)
 {
 	if (!(event->buttons() & Qt::LeftButton))
+	{
 		return;
+	}
 	if ((this->mousePos - event->pos()).manhattanLength() < QApplication::startDragDistance())
+	{	
 		return;
-	
+	}
 	startDrag();
 }
 
@@ -80,21 +84,24 @@ void DragTableWidget::mouseMoveEvent(QMouseEvent *event)
  *
  * It uses the text-plain mimetype
  *
- * @author Peter Grasch
+ * @author Peter Grasch / Phillip Goriup
  */
 void DragTableWidget::startDrag()
 {
 	QDrag *drag = new QDrag ( this );
 	QMimeData *mimeData = new QMimeData();
+	Logger::log(QString::number(this->rowCount()));
+	if(this->currentItem())
+	{
+		QString currentItem( this->item(this->currentRow(),0)->text() );
 		
-	QString currentItem( this->item(this->currentRow(),0)->text() );
-		
-	mimeData->setText( currentItem );
-	drag->setMimeData(mimeData);
+		mimeData->setText( currentItem );
+		drag->setMimeData(mimeData);
 	
-	SimonInfo::showMessage( tr("Ziehe das Wort in die Liste rechts um es zu trainieren") , 2000 );
+		SimonInfo::showMessage( tr("Ziehe das Wort in die Liste rechts um es zu trainieren") , 2000 );
 	
-	drag->start(Qt::MoveAction);
+		drag->start(Qt::MoveAction);
+	}
 }
 
 
