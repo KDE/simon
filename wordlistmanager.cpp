@@ -234,10 +234,17 @@ QString WordListManager::getTerminal(QString name, QString pronunciation, WordLi
 void WordListManager::addWords(WordList *list)
 {
 	Logger::log("Adding "+QString::number(list->count())+" words to the wordlist");
-	for (int i=0; i<list->count(); i++)
-		this->wordlist->append(list->at(i));
-	
-	removeDoubles(list);
+	if (list->count() < wordlist->count())
+	{
+		for (int i=0; i<list->count(); i++)
+			this->wordlist->append(list->at(i));
+	} else
+	{
+		for (int i=0; i<wordlist->count(); i++)
+			list->append(wordlist->at(i));
+		this->wordlist = list;
+	}	
+// 	removeDoubles(this->wordlist);
 }
 
 /**
