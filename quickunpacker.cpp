@@ -13,7 +13,6 @@
 #include <QProgressDialog>
 #include <QObject>
 #include <QString>
-#include "bunzip.h"
 #include "logger.h"
 
 QuickUnpacker::QuickUnpacker(QObject* parent): QObject(parent)
@@ -23,7 +22,7 @@ QuickUnpacker::QuickUnpacker(QObject* parent): QObject(parent)
 void QuickUnpacker::unpack(QString path)
 {
 	prog = new QProgressDialog(tr("Extrahiere")+" "+path, tr("Abbrechen"), 0, 100);
-	Bunzip *bunzip = new Bunzip(this);
+	bunzip = new Bunzip(this);
 	connect(bunzip, SIGNAL(progress(int)), this, SLOT(setProgress(int)));
 	connect(bunzip, SIGNAL(errorOccured(QString)), this, SLOT(errorOccured(QString)));
 	bunzip->extract(path);
@@ -34,6 +33,14 @@ void QuickUnpacker::setStatus(QString status)
 {
 	Logger::log(status);
 	prog->setLabelText(status);
+}
+
+void QuickUnpacker::cancel()
+{
+	emit status(tr("Abbrechen..."));
+	bunzip->cancel();
+	prog->cancel();
+	emit canceled();
 }
 
 void QuickUnpacker::setProgress(int currentProg)

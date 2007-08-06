@@ -95,7 +95,9 @@ importtrainingdirectoryworkingpage.h \
            importdictselectsourcepage.h \
            bunzip.h \
            bompdict.h \
-           quickunpacker.h
+           quickunpacker.h \
+           logentry.h \
+           logmanager.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -152,7 +154,9 @@ SOURCES += main.cpp \
            importdictselectsourcepage.cpp \
            bunzip.cpp \
            bompdict.cpp \
-           quickunpacker.cpp
+           quickunpacker.cpp \
+           logentry.cpp \
+           logmanager.cpp
 QT += network \
 xml 
 

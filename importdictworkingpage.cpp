@@ -96,6 +96,7 @@ void ImportDictWorkingPage::importWiktionaryFile(QString path)
 	if (path.endsWith("bzip2"))
 	{
 		QuickUnpacker *unpacker = new QuickUnpacker(this);
+		unpacker->unpack(path);
 	}
 	displayStatus(tr("Importiere Wiktionary-Wörterbuch %1...").arg(path));
 	pbMain->setMaximum(1000);
@@ -103,6 +104,11 @@ void ImportDictWorkingPage::importWiktionaryFile(QString path)
 	import->parseWordList(path, 2);
 
 	setCompleted();
+}
+
+void ImportDictWorkingPage::unpackFile(QString path)
+{
+	
 }
 
 ImportDictWorkingPage::~ImportDictWorkingPage()

@@ -12,7 +12,7 @@
 #ifndef QUICKUNPACKER_H
 #define QUICKUNPACKER_H
 
-
+#include "bunzip.h"
 #include <QObject>
 
 /**
@@ -43,11 +43,13 @@ private slots:
 	void setStatus(QString status);
 	void setProgress(int currentProg);
 	void errorOccured(QString err);
+	void cancel();
 	
 public slots:
 	void unpack(QString path);
 private:
 	QProgressDialog *prog;
+	Bunzip *bunzip;
 public:
     QuickUnpacker(QObject* parent);
 

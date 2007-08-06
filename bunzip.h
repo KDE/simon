@@ -26,6 +26,7 @@ signals:
 	void progress(int);
 
 public slots:
+	void cancel();
 	void extract(QString filename);
 	void extractingFinishing(int exitCode);
 public:

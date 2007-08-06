@@ -10,7 +10,9 @@
 //
 //
 #include "bunzip.h"
+#include "logger.h"
 #include <QProcess>
+// #include "bzip2stream.hpp"
 
 Bunzip::Bunzip(QObject *parent) : QObject(parent)
 {
@@ -18,10 +20,18 @@ Bunzip::Bunzip(QObject *parent) : QObject(parent)
 
 void Bunzip::extract(QString filename)
 {
+	Logger::log(tr("Extrahiere BZIP2 komprimierte Datei ")+filename);
+	
 	emit extracting(filename);
-	QProcess *proc = new QProcess(this);
-	connect(proc, SIGNAL(finished( int )), this, SLOT(extractingFinishing(int)));
+// 	QProcess *proc = new QProcess(this);
+// 	connect(proc, SIGNAL(finished( int )), this, SLOT(extractingFinishing(int)));
 }
+
+void Bunzip::cancel()
+{
+	
+}
+
 
 void Bunzip::extractingFinishing(int code)
 {

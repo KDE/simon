@@ -41,6 +41,9 @@ public slots:
 	
 	void importHADIFIX(QString path);
 	void importWiktionary(QString url);
+
+	void unpackFile(QString file);
+
 	bool isComplete() const;
 public:
     ImportDictWorkingPage(QWidget* parent);
