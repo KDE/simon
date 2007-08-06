@@ -14,10 +14,7 @@
 
 
 #include <QWizard>
-// #include <QFileDialog>
-// #include "ui_importdict.h"
 #include "word.h"
-#include "importdict.h"
 /**
  * \class ImportDictView
  * \brief Provides a dialog for importing dictonaries
@@ -33,11 +30,13 @@ class ImportDictWorkingPage;
 class ImportDictView : public QWizard {
 	Q_OBJECT
 private:
-// 	Ui::ImportView ui;
-	ImportDict *import; //!< Underlying concept class
-	WordList *list;  //!< Is filled later on with the retrieved List
+	int prevId;
+	//WordList *list;  //!< Is filled later on with the retrieved List
+	
 signals:
 	void dictGenerated(WordList*);
+private slots:
+	void idChanged(int id);
 public slots:
 	QWizardPage* createIntroPage();
 	ImportDictSelectSourcePage* 
@@ -51,18 +50,9 @@ public slots:
 
 
 
-
-
-// 	void importDict();
-// 	void openFileDialog();
-// 	void finishedImporting();
-// 	void openingFinished();
-// 	void validatePath(QString path);
-// 	void displayStatus(QString status);
-// 	void displayProgress(int progress);
 public:
     ImportDictView(QWidget *parent=0);
-	WordList* getList() {return list;}
+// 	WordList* getList() {return list;}
     ~ImportDictView();
 
 };

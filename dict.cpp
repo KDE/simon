@@ -15,7 +15,7 @@
  * \brief Constructor
  * \author Peter Grasch
  */
-Dict::Dict()
+Dict::Dict(QObject *parent) : QObject(parent)
 {
 	phonemes = QHash<int, QString>();
 	

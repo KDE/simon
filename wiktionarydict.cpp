@@ -18,7 +18,7 @@
  * \param QString path
  * The path to the dict
  */
-WiktionaryDict::WiktionaryDict(QString path, QObject* parent) : QObject(parent), QXmlDefaultHandler(), Dict()
+WiktionaryDict::WiktionaryDict(QString path, QObject* parent) :QXmlDefaultHandler(), Dict(parent)
 {
 	allowedChars = "-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890";
 	allowedChars+= 0x128; //AE
@@ -221,8 +221,6 @@ void WiktionaryDict::insertWords(QString word, QString terminal, QStringList pro
 			words.append(word.trimmed());
 			terminals.append(terminal);
 		}
-// 		words.append(word.trimmed());
-// 		terminals.append(pronunciations.at(prons));
 	}
 }
 

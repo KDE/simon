@@ -1,15 +1,15 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="14" >
+ <DocsAndViews NumberOfDocuments="40" >
   <Doc0 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simonview.h" >
    <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc0>
   <Doc1 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simonview.cpp" >
-   <View0 Encoding="ISO 8859-15" line="231" Type="Source" />
+   <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc1>
   <Doc2 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wordlistview.h" >
-   <View0 Encoding="ISO 8859-15" line="0" Type="Source" />
+   <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc2>
   <Doc3 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wordlistview.cpp" >
    <View0 Encoding="ISO 8859-15" Type="Source" />
@@ -26,24 +26,102 @@
   <Doc7 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/trainingview.h" >
    <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc7>
-  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdictview.h" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
+  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdictview.cpp" >
+   <View0 Encoding="ISO 8859-15" line="74" Type="Source" />
   </Doc8>
-  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdictview.cpp" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
-  </Doc9>
-  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdict.h" >
+  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wordlistmanager.h" >
    <View0 Encoding="ISO 8859-15" line="0" Type="Source" />
+  </Doc9>
+  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdict.cpp" >
+   <View0 Encoding="ISO 8859-15" line="87" Type="Source" />
   </Doc10>
-  <Doc11 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wordlistmanager.h" >
+  <Doc11 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wiktionarydict.cpp" >
    <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc11>
-  <Doc12 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdict.cpp" >
+  <Doc12 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importbomppage.cpp" >
    <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc12>
-  <Doc13 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wiktionarydict.cpp" >
-   <View0 Encoding="ISO 8859-15" line="219" Type="Source" />
+  <Doc13 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importbomppage.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc13>
+  <Doc14 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdictworkingpage.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc14>
+  <Doc15 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdictworkingpage.cpp" >
+   <View0 Encoding="ISO 8859-15" line="99" Type="Source" />
+  </Doc15>
+  <Doc16 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdictwiktionarypage.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc16>
+  <Doc17 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdictview.h" >
+   <View0 Encoding="ISO 8859-15" line="42" Type="Source" />
+  </Doc17>
+  <Doc18 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdictselectsourcepage.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc18>
+  <Doc19 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdictselectsourcepage.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc19>
+  <Doc20 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importtrainingdirectoryworkingpage.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc20>
+  <Doc21 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importtrainingdirectoryworkingpage.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc21>
+  <Doc22 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/runapplicationview.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc22>
+  <Doc23 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/runcommand.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc23>
+  <Doc24 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdictwiktionarypage.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc24>
+  <Doc25 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importtrainingdirectoryintropage.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc25>
+  <Doc26 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/quickdownloader.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc26>
+  <Doc27 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importlocalwizardpage.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc27>
+  <Doc28 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importlocalwizardpage.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc28>
+  <Doc29 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/bunzip.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc29>
+  <Doc30 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/bunzip.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc30>
+  <Doc31 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importdict.h" >
+   <View0 Encoding="ISO 8859-15" line="36" Type="Source" />
+  </Doc31>
+  <Doc32 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/quickdownloader.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc32>
+  <Doc33 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/importtrainingtexts.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc33>
+  <Doc34 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wiktionarydict.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc34>
+  <Doc35 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/dict.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc35>
+  <Doc36 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/dict.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc36>
+  <Doc37 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/bompdict.cpp" >
+   <View0 Encoding="ISO 8859-15" line="63" Type="Source" />
+  </Doc37>
+  <Doc38 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/bompdict.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc38>
+  <Doc39 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/word.h" >
+   <View0 Encoding="ISO 8859-15" line="21" Type="Source" />
+  </Doc39>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

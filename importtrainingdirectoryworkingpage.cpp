@@ -109,7 +109,7 @@ bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles, QS
 		return false;
 	}
 	QTextStream *promptsStream = new QTextStream(prompts);
-	promptsStream->setCodec("ISO-8859-1");
+	promptsStream->setCodec("UTF-8");
 
 	QFileInfo fileInfo;
 	QString said, fileName;
@@ -120,7 +120,7 @@ bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles, QS
 		fileName = fileInfo.fileName();
 
 		said = extractSaid(fileName);
-		(*promptsStream) << "*/" << fileName << " " << said << endl;
+		(*promptsStream) << "*/" << fileName.left(fileName.lastIndexOf(".")) << " " << said << endl;
 		
 		pbMain->setValue(++prog);
 	}
@@ -245,7 +245,7 @@ bool ImportTrainingDirectoryWorkingPage::createScp(QStringList dataFiles, QStrin
 	}
 	
 	QTextStream *scpStream = new QTextStream(scp);
-	scpStream->setCodec("ISO-8859-1");
+	scpStream->setCodec("UTF-8");
 	QFileInfo fileInfo;
 	QString fileName;
 	
@@ -253,7 +253,7 @@ bool ImportTrainingDirectoryWorkingPage::createScp(QStringList dataFiles, QStrin
 	{
 		fileInfo.setFile(dataFiles[i]);
 		fileName = fileInfo.fileName();
-		(*scpStream) << dataFiles[i] << " " << "interim_files/mfc/" << fileName.left(fileName.lastIndexOf(".")) << ".mfc" << endl;
+		(*scpStream) << dataFiles[i] << " " << "interim_files/mfcc/" << fileName.left(fileName.lastIndexOf(".")) << ".mfc" << endl;
 		
 		pbMain->setValue(++prog);
 	}

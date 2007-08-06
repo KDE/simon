@@ -32,15 +32,24 @@
 	\author Peter Grasch
 	\date 6.5.2007
 */
-class Dict {
+class Dict : public QObject{
+Q_OBJECT
+
+signals:
+	void loaded();
+	void progress(int prog);
 protected:
 	QHash<int, QString> phonemes, modifiers;
 	QStringList words;
 	QStringList pronunciations;
 	QStringList terminals;
 public:
-    Dict();
+    Dict(QObject *parent=0);
 	QString ipaToXSampa(QString ipa);
+	virtual void load(QString path) = 0;
+	QStringList getWords() const { return words; }
+	QStringList getPronuncations() const { return pronunciations; }
+	QStringList getTerminals() const { return terminals; }
     ~Dict();
 
 };

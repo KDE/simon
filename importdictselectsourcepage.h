@@ -24,6 +24,7 @@ class ImportDictSelectSourcePage : public QWizardPage
 {
 public:
 	int getType();
+	int nextId() const;
     ImportDictSelectSourcePage(QWidget* parent);
 
     ~ImportDictSelectSourcePage();

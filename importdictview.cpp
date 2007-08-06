@@ -27,7 +27,7 @@
  */
 ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 {
-// 	ui.setupUi(this);
+	prevId=0;
 // 	list = new WordList();
 // 	import = new ImportDict();
 // 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(importDict()));
@@ -39,10 +39,16 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 	addPage(createSelectSourcePage());
 	addPage(createImportBOMPPage());
 	addPage(createImportWiktionaryPage());
-	addPage(createImportDictWorkingPage());
+	ImportDictWorkingPage *workingPage = createImportDictWorkingPage();
+	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SIGNAL(dictGenerated(WordList*)));
+	addPage(workingPage);
 
 	addPage(createFinishedPage());
 	setWindowTitle(tr("Importiere Wörterbuch"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/importdict.png"));
+	
+	
+	connect(this, SIGNAL(currentIdChanged( int )), this, SLOT(idChanged(int)));
 }
 
 
@@ -57,6 +63,25 @@ QWizardPage* ImportDictView::createIntroPage()
 	lay->addWidget(lbIntro);
 	intro->setLayout(lay);
 	return intro;
+}
+
+void ImportDictView::idChanged(int newId)
+{
+	if ((newId ==4))
+	{
+		if ((prevId <4))
+		{
+			if (((ImportDictSelectSourcePage*)page(1))->getType() == HADIFIXBOMP)
+			{
+				((ImportDictWorkingPage*) page(4))->importHADIFIX(
+					((ImportBOMPPage*) page(2))->getFileName());
+				qDebug() << "bin da";
+			} else ((ImportDictWorkingPage*) page(4))->importWiktionary(
+					((ImportDictWiktionaryPage*) page(3))->getPath());
+		}
+		else restart();
+	}
+	prevId = newId;
 }
 
 
@@ -85,7 +110,8 @@ QWizardPage* ImportDictView::createFinishedPage()
 	QWizardPage *finished = new QWizardPage(this);
 	finished->setTitle(tr("Wörterbuch importiert"));
 	QLabel *lbFinished = new QLabel(finished);
-	lbFinished->setText(tr("Das Wörterbuch wurde erfolgreich importiert und wird nun\nübernommen.\n\nDas noch einige Zeit dauern, währenddessen ist simon\naber bereits voll einsatzfähig und der Abgleich geschieht\nim Hintergrund.\n\nDas neue Wörterbuch wird in spätestenens einigen Minuten\nvoll aktiviert sein.\n\nVielen Dank, dass Sie simon verbessert haben."));
+	lbFinished->setText(tr("Das Wörterbuch wurde erfolgreich importiert und wird nun übernommen.\n\nDas noch einige Zeit dauern, währenddessen ist simon aber bereits voll einsatzfähig und der Abgleich geschieht im Hintergrund.\n\nDas neue Wörterbuch wird in spätestenens einigen Minuten voll aktiviert sein.\n\nVielen Dank, dass Sie simon verbessert haben."));
+	lbFinished->setWordWrap(true);
 	QVBoxLayout *lay = new QVBoxLayout(finished);
 	lay->addWidget(lbFinished);
 	finished->setLayout(lay);

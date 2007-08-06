@@ -14,13 +14,34 @@
 
 #include <QWizardPage>
 
+class QListWidget;
+class QLineEdit;
+class QPushButton;
+class QLabel;
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class ImportDictWiktionaryPage : public QWizardPage
 {
+Q_OBJECT
+
+private:
+	QListWidget *remoteList;
+	QLineEdit *leWikiPath;
+	QPushButton *pbWikiSelectFolder;
+	QLabel *lbWikiPath;
+	
+private slots:
+    void resambleImportLocal(bool isTru);
+    void loadList();
+    void importList(QString list);
+    void setFile();
+
+
 public:
     ImportDictWiktionaryPage(QWidget* parent);
+	bool isComplete() const;
+    QString getPath();
 
     ~ImportDictWiktionaryPage();
 

@@ -32,13 +32,8 @@
  * \author Peter Grasch
  * \brief Describes a Wiktionary XML database dump in
 */
-class WiktionaryDict : public QObject, public QXmlDefaultHandler, public Dict {
-	
-	Q_OBJECT
+class WiktionaryDict : public QXmlDefaultHandler, public Dict {
 
-signals:
-	void loaded();
-	void progress(int prog);
 	
 private:
 	QString allowedChars;
@@ -68,9 +63,6 @@ public:
 	QStringList findIPAs(QString haystack);
 	void insertWords(QString word, QString terminal, QStringList pronunciations);
 	
-	QStringList getWords() { return words; }
-	QStringList getPronuncations() { return pronunciations; }
-	QStringList getTerminals() { return terminals; }
 	
     ~WiktionaryDict();
 

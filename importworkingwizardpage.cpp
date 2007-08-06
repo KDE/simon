@@ -31,6 +31,8 @@ void ImportWorkingWizardPage::startImport(QString path)
 	}
 }
 
+
+
 void ImportWorkingWizardPage::processText(QString path)
 {
 	QFileInfo fi = QFileInfo(path);

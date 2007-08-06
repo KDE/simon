@@ -92,7 +92,9 @@ importtrainingdirectoryworkingpage.h \
            importbomppage.h \
            importdictworkingpage.h \
            importdictwiktionarypage.h \
-           importdictselectsourcepage.h
+           importdictselectsourcepage.h \
+           bunzip.h \
+           bompdict.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -146,7 +148,9 @@ SOURCES += main.cpp \
            importbomppage.cpp \
            importdictworkingpage.cpp \
            importdictwiktionarypage.cpp \
-           importdictselectsourcepage.cpp
+           importdictselectsourcepage.cpp \
+           bunzip.cpp \
+           bompdict.cpp
 QT += network \
 xml 
 

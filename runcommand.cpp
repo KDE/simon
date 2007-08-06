@@ -11,7 +11,6 @@
 //
 #include "runcommand.h"
 #include "logger.h"
-
 /**
  *	@brief Constructor
  *	

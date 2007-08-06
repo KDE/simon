@@ -48,7 +48,10 @@ ImportBOMPPage::ImportBOMPPage(QWidget* parent): QWizardPage(parent)
 
 void ImportBOMPPage::setFile()
 {
+	QStringList files = QFileDialog::getOpenFileNames(this, "Zu importierende Textdateien öffnen", QDir::currentPath(), "Textdateien (*.txt)");
+	if (files.count() == 0) return;
 
+	setField("fileName", files.at(0));
 }
 
 ImportBOMPPage::~ImportBOMPPage()

@@ -30,6 +30,7 @@ public:
     ImportBOMPPage(QWidget* parent);
 	QString getFileName()
 	 { return field("fileName").toString(); }
+	int nextId() const { return 4; }
 
     ~ImportBOMPPage();
 

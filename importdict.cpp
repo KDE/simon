@@ -11,6 +11,7 @@
 //
 #include "importdict.h"
 #include "logger.h"
+#include "bompdict.h"
 
 /**
  * \brief Constructor
@@ -25,9 +26,10 @@ ImportDict::ImportDict(QObject *parent) : QThread(parent)
  * \brief Parses the wordlist of an existing wiktioray wordlist
  * \author Peter Grasch
  */
-void ImportDict::parseWordList(QString pathToDict)
+void ImportDict::parseWordList(QString pathToDict, int type)
 {
 	this->pathToDict = pathToDict;
+	this->type = type;
 	start(QThread::IdlePriority);
 }
 
@@ -39,21 +41,25 @@ void ImportDict::parseWordList(QString pathToDict)
  */
 void ImportDict::run()
 {
-	Logger::log(tr("Öffne (wiktionary-) lexikon")+" \""+pathToDict+"\"");
+	Logger::log(tr("Öffne lexikon")+" \""+pathToDict+"\"");
 	emit status(tr("Öffne Wörterbuch..."));
 	
 	emit progress(10);
-	WiktionaryDict *wdict = new WiktionaryDict(pathToDict);
-	connect(wdict, SIGNAL(loaded()), this, SLOT(openingFinished()));
-	connect(wdict, SIGNAL(progress(int)), this, SLOT(loadProgress(int)));
+	Dict *dict;
+	if (type == WIKTIONARY)
+		dict = new WiktionaryDict(pathToDict);
+	else dict = new BOMPDict(pathToDict);
+	
+	connect(dict, SIGNAL(loaded()), this, SLOT(openingFinished()));
+	connect(dict, SIGNAL(progress(int)), this, SLOT(loadProgress(int)));
 	
 	emit status(tr("Verarbeite Wörterbuch..."));
 	
-	wdict->load(pathToDict);
+	dict->load(pathToDict);
 	emit status(tr("Erstelle Liste..."));
-	QStringList words = wdict->getWords();
-	QStringList terminals = wdict->getTerminals();
-	QStringList pronunciations = wdict->getPronuncations();
+	QStringList words = dict->getWords();
+	QStringList terminals = dict->getTerminals();
+	QStringList pronunciations = dict->getPronuncations();
 	
 	WordList* vocablist = new WordList();
 	
@@ -68,9 +74,8 @@ void ImportDict::run()
 	emit progress(1000);
 	emit status(tr("Fertig"));
 	
-	Logger::log(QString::number(words.count())+" "+tr("Wörter aud dem wiktionary-lexikon")+" \""+pathToDict+"\""+tr("importiert"));
-	wordList = vocablist;
-	emit finished();
+	Logger::log(QString::number(words.count())+" "+tr("Wörter aus dem lexikon")+" \""+pathToDict+"\""+tr(" importiert"));
+	emit finished(vocablist);
 }
 
 /**

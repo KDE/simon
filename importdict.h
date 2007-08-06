@@ -12,6 +12,9 @@
 #ifndef IMPORTDICT_H
 #define IMPORTDICT_H
 
+#define HADIFIXBOMP 1
+#define WIKTIONARY 2
+
 #include "word.h"
 
 #include <QThread>
@@ -28,20 +31,19 @@ Q_OBJECT
 
 private:
 	QString pathToDict; //!< the path to the dictionary
-	WordList *wordList; //!< The WordList we are creating
+	int type;
 signals:
 	void status(QString);
 	void progress(int);
-	void finished();
+	void finished(WordList*);
 	void opened();
 private slots:
 	void loadProgress(int prog);
 	void openingFinished();
 public:
     ImportDict(QObject *parent=0);
-	WordList* getWordList() { return wordList; }
     void run();
-    void parseWordList(QString pathToDict);
+    void parseWordList(QString pathToDict, int type);
     ~ImportDict();
 
 };

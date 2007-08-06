@@ -13,12 +13,34 @@
 #define IMPORTDICTWORKINGPAGE_H
 
 #include <QWizardPage>
+#include "word.h"
+
+class QProgressBar;
+class QLabel;
+class ImportDict;
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class ImportDictWorkingPage : public QWizardPage
 {
+	Q_OBJECT
+signals:
+	void wordListImported(WordList* wlist);
+private:
+	QProgressBar *pbMain;
+	ImportDict *import; //!< Underlying concept class
+	QLabel *lbStatus;
+	bool ready;
+private slots:
+	void importWiktionaryFile(QString path);
+public slots:
+	void displayStatus(QString status);
+	void displayProgress(int progress);
+	
+	void importHADIFIX(QString path);
+	void importWiktionary(QString url);
+	bool isCompleted();
 public:
     ImportDictWorkingPage(QWidget* parent);
 
