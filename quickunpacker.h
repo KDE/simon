@@ -37,11 +37,12 @@ signals:
 	void status(QString);
 	void progress(int);
 	void canceled();
+	void error(QString);
 
 private slots:
 	void setStatus(QString status);
 	void setProgress(int currentProg);
-	void errorOccured(QString error);
+	void errorOccured(QString err);
 	
 public slots:
 	void unpack(QString path);

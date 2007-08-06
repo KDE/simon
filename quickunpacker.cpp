@@ -32,17 +32,19 @@ void QuickUnpacker::unpack(QString path)
 
 void QuickUnpacker::setStatus(QString status)
 {
+	Logger::log(status);
 	prog->setLabelText(status);
 }
 
 void QuickUnpacker::setProgress(int currentProg)
 {
-	emit this->progress(progress);
+	emit this->progress(currentProg);
 }
 
-void QuickUnpacker::errorOccured(QString error)
+void QuickUnpacker::errorOccured(QString err)
 {
-	
+	Logger::log(tr("Fehler: ")+err);
+	emit error(err);
 }
 
 
@@ -50,5 +52,3 @@ QuickUnpacker::~QuickUnpacker()
 {
 	
 }
-
-
