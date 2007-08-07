@@ -367,7 +367,7 @@
    <item>
     <widget class="QStackedWidget" name="swSettings" >
      <property name="currentIndex" >
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page" >
       <layout class="QHBoxLayout" >
@@ -1624,6 +1624,31 @@ Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen wird nach jeder Au
        <item>
         <layout class="QVBoxLayout" >
          <item>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="Line" name="line_5" >
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_4" >
+             <property name="text" >
+              <string>Allgemeines</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="Line" name="line_6" >
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
           <widget class="QPushButton" name="pbReloadCommands" >
            <property name="text" >
             <string>Liste zurücksetzen</string>
@@ -1634,55 +1659,32 @@ Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen wird nach jeder Au
           </widget>
          </item>
          <item>
-          <widget class="Line" name="line_3" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pbEditCommand" >
-           <property name="text" >
-            <string>Kommando bearbeiten</string>
-           </property>
-           <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/text-editor.svg</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="Line" name="line_4" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pbNewCommand" >
-           <property name="text" >
-            <string>Neues Kommando</string>
-           </property>
-           <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pbDeleteCommand" >
-           <property name="text" >
-            <string>Kommando löschen</string>
-           </property>
-           <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="Line" name="line_2" >
-           <property name="orientation" >
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="Line" name="line_2" >
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_2" >
+             <property name="text" >
+              <string>Neu</string>
+             </property>
+             <property name="alignment" >
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="Line" name="line_4" >
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QPushButton" name="pbImportProgram" >
@@ -1711,6 +1713,61 @@ Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen wird nach jeder Au
            </property>
            <property name="icon" >
             <iconset resource="../simon.qrc" >:/images/icons/media-record.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbNewCommand" >
+           <property name="text" >
+            <string>Manuell</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="Line" name="line" >
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label" >
+             <property name="text" >
+              <string>Bearbeiten</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="Line" name="line_3" >
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbEditCommand" >
+           <property name="text" >
+            <string>Kommando bearbeiten</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/text-editor.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbDeleteCommand" >
+           <property name="text" >
+            <string>Kommando löschen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
            </property>
           </widget>
          </item>

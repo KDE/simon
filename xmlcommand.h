@@ -34,8 +34,10 @@ public:
 	
 	void save(QString path="conf/commands.xml");
 
-	void replaceCommand(QString commandName, Command newCommand);
-	void addCommand(Command newCommand);
+	void replaceCommand(QString commandName, Command *newCommand);
+	void addCommand(Command *newCommand);
+	void deleteCommand(QString commandName);
+	bool commandExists(QString commandName);
 	
 	void load(QString path="");
 	

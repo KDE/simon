@@ -10,6 +10,7 @@
 //
 //
 #include "runwindowsbackend.h"
+
 #include "logger.h"
 #include <QProcess>
 #include <QSettings>
@@ -17,6 +18,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <wchar.h>
+
 
 using namespace std;
 
@@ -57,6 +59,9 @@ void RunWindowsBackend::goTo(QString place)
  */
 void RunWindowsBackend::run(QString command)
 {
+
+	//command = winword.exe
+
     HKEY    hKey = NULL;
     BYTE    bData[MAX_PATH + 1] = {0};
     DWORD   dwDataLen = MAX_PATH;
@@ -75,7 +80,7 @@ void RunWindowsBackend::run(QString command)
 	//QSettings settings(QSettings::UserScope, "Microsoft", "Windows");
 	//settings.beginGroup("CurrentVersion/Explorer/Shell Folders");
 	//Logger::log(settings.value("Personal").toString());
-	
+
 	//QSettings registry;
 	//QString settingspath= "/Applications/"+command+"/shell/open/command";
 	//QString pathToCommand = registry.value(settingspath, "gibsnet" ).toString();

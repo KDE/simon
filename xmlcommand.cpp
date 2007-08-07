@@ -48,18 +48,50 @@ void XMLCommand::save(QString path)
  * \brief Replaces a command of the commandlist (member) identified by <commandName> with the new command supplied by <newCommand>
  * \author Susanne Tschernegg
  */
-void XMLCommand::replaceCommand(QString commandName, Command newCommand)
+void XMLCommand::replaceCommand(QString commandName, Command *newCommand)
 {
-	
+	for (int i=0; i < commandlist.size(); i++)
+	{
+		if(commandlist.at(i)->getName()==commandName)
+		{
+			commandlist.replace(i, newCommand);
+		}
+	}
 }
 
 /**
  * \brief Replaces a command of the commandlist (member) identified by <commandName> with the new command supplied by <newCommand>
  * \author Susanne Tschernegg
  */
-void XMLCommand::addCommand(Command newCommand)
+void XMLCommand::addCommand(Command *newCommand)
 {
-	
+	commandlist.append(newCommand);
+}
+
+/**
+ * \author Susanne Tschernegg
+ */
+void XMLCommand::deleteCommand(QString commandName)
+{
+	for (int i=0; i < commandlist.size(); i++)
+	{
+		if(commandlist.at(i)->getName()==commandName)
+		{
+			commandlist.removeAt(i);
+		}
+	}
+}
+
+bool XMLCommand::commandExists(QString commandName)
+{
+	for (int i=0; i < commandlist.size(); i++)
+	{
+		if(commandlist.at(i)->getName()==commandName)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 
@@ -73,6 +105,7 @@ void XMLCommand::addCommand(Command newCommand)
  */
 void XMLCommand::load(QString path)
 {
+	commandlist.clear();
 	XMLDomReader::load(path);
 	if (!this->doc) return;
 	

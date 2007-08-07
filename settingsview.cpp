@@ -12,10 +12,11 @@
 #include "settingsview.h"
 #include "simoninfo.h"
 #include "logger.h"
-#include "command.h"
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QComboBox>
+#include <QMessageBox>
+#include "command.h"
 
 
 /**
@@ -45,8 +46,19 @@ SettingsView::SettingsView ( QWidget *parent )
 	connect ( ui.cbInDevice, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( refreshDeviceCapabilities() ) );
 	connect ( ui.pbAddAdress, SIGNAL ( clicked() ), this, SLOT ( addAddress() ) );
 	connect ( ui.pbDeleteAdress, SIGNAL ( clicked() ), this, SLOT ( deleteAddress() ) );
-	connect ( ui.twCommand, SIGNAL(itemChanged(QTableWidgetItem*)), this, SLOT(saveCommands()));
+	connect ( ui.twCommand, SIGNAL (itemChanged(QTableWidgetItem*)), this, SLOT(saveCommands()));
+	connect ( ui.pbNewCommand, SIGNAL (clicked()), this, SLOT (newCommand()));
+	connect ( ui.pbDeleteCommand, SIGNAL (clicked()), this, SLOT (deleteCommand()));
+	connect (ui.twCommand, SIGNAL (cellDoubleClicked (int, int) ), this, SLOT(activateCb()));
+	connect (ui.twCommand, SIGNAL (currentCellChanged(int,int,int,int) ), this, SLOT(deactivateCb(int,int,int,int)));
+	connect (ui.pbEditCommand, SIGNAL (clicked()), this, SLOT (editCommand()));
+	connect (ui.pbReloadCommands, SIGNAL (clicked()), this, SLOT (reloadCommands()));
+	connect (ui.cbShowCommand, SIGNAL (currentIndexChanged ( const QString &) ), this, SLOT(showOnlyCommands()));
+	connect (ui.pbClearSearchCommand, SIGNAL(clicked()), this, SLOT(clearSearchLineEdit()));
+	connect (ui.leSearchCommand, SIGNAL(textChanged(const QString &)), this, SLOT(searchCommandList()));
 
+	ui.twCommand->resizeColumnToContents(1);
+	
 	this->settings = new QSettings ( QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon" );
 	this->sc= new SoundControl();
 	commandLoader = new XMLCommand("conf/commands.xml");
@@ -219,23 +231,26 @@ void SettingsView::initCommands(QString path)
 		CommandType ctype = commands.at(i)->getType();
 		QString strType;
 			
-		//if (ctype ==place)
-		//	strType = tr("Ort");
-		//else if (ctype == type)
-		//	strType = tr("Sonderzeichen");
-		//else strType = tr("Program");
+		if (ctype ==place)
+			strType = tr("Orte");
+		else if (ctype == type)
+			strType = tr("Sonderzeichen");
+		else strType = tr("Programme");
 		
 		//tmp = new QTableWidgetItem(strType);
 		
 		//ui.twCommand->setItem(i, 1, tmp);
 		
-		QComboBox *cbType = new QComboBox();
-		cbType->addItem(QIcon(":/images/icons/emblem-system.svg"),QApplication::translate("RunDialog", "Programme", 0, QApplication::UnicodeUTF8));
-		cbType->addItem(QIcon(":/images/icons/folder.svg"), QApplication::translate("RunDialog", "Orte", 0, QApplication::UnicodeUTF8));
-		cbType->addItem(QIcon(":/images/icons/format-text-bold.svg"),QApplication::translate("RunDialog", "Sonderzeichen", 0, QApplication::UnicodeUTF8));
+		//QComboBox *cbType = new QComboBox();
+		//cbType->addItem(QIcon(":/images/icons/emblem-system.svg"),QApplication::translate("RunDialog", "Programme", 0, QApplication::UnicodeUTF8));
+		//cbType->addItem(QIcon(":/images/icons/folder.svg"), QApplication::translate("RunDialog", "Orte", 0, QApplication::UnicodeUTF8));
+		//cbType->addItem(QIcon(":/images/icons/format-text-bold.svg"),QApplication::translate("RunDialog", "Sonderzeichen", 0, QApplication::UnicodeUTF8));
 		
-		cbType->setCurrentIndex(ctype);
-		ui.twCommand->setCellWidget(i, 1, cbType);
+		//cbType->setCurrentIndex(ctype);
+		tmp = new QTableWidgetItem(strType);
+		ui.twCommand->setItem(i, 1, tmp);
+		//ui.twCommand->setCellWidget(i, 1, cbType);
+		ui.twCommand->resizeColumnToContents(1);
 		
 		tmp = new QTableWidgetItem(commands.at(i)->getValue());
 		ui.twCommand->setItem(i, 2, tmp);
@@ -274,6 +289,32 @@ void SettingsView::apply()
 	settings->setValue ( "network/defaultjuliusdaddress",ui.cbAddress->currentText() );
 
 	settings->sync();
+	
+	
+	QWidget *tmpWidget = new QWidget();
+	tmpWidget = ui.twCommand->cellWidget(ui.twCommand->currentRow(), 1);
+	if(tmpWidget!=NULL)
+	{
+		QComboBox *cbType = (QComboBox*)tmpWidget;
+		QString type = cbType->itemText(cbType->currentIndex());
+		QTableWidgetItem *tmp = new QTableWidgetItem();
+		tmp->setText(type);
+		ui.twCommand->removeCellWidget(ui.twCommand->currentRow(), 1);
+		ui.twCommand->setItem(ui.twCommand->currentRow(), 1, tmp);
+		
+		int typeInt;
+		if(type == "Orte")
+			typeInt = 1;
+		else if (type == "Sonderzeichen")
+			typeInt = 2;
+		else typeInt = 0;
+
+		Command *newCommand = new Command(ui.twCommand->item(ui.twCommand->currentRow(),0)->text(), CommandType(typeInt), ui.twCommand->item(ui.twCommand->currentRow(),2)->text());
+		if(commandLoader->commandExists(ui.twCommand->item(ui.twCommand->currentRow(),0)->text()))
+			commandLoader->replaceCommand(ui.twCommand->item(ui.twCommand->currentRow(),0)->text(), newCommand);
+		else commandLoader->addCommand(newCommand);
+	}
+	commandLoader->save();
 }
 
 
@@ -358,6 +399,229 @@ void SettingsView::switchToHistory()
 	ui.swSettings->setCurrentIndex ( 4 );
 }
 
+/**
+*\author SusanneTschernegg
+*/
+void SettingsView::editCommand()
+{
+	int row = ui.twCommand->currentRow();
+	//QTableWidgetItem *tmp = new QTableWidgetItem();
+	QString typeStr = ui.twCommand->item(row,1)->text();
+	
+	QComboBox *cbType = new QComboBox();
+	cbType->addItem(QIcon(":/images/icons/emblem-system.svg"),QApplication::translate("RunDialog", "Programme", 0, QApplication::UnicodeUTF8));
+	cbType->addItem(QIcon(":/images/icons/folder.svg"), QApplication::translate("RunDialog", "Orte", 0, QApplication::UnicodeUTF8));
+	cbType->addItem(QIcon(":/images/icons/format-text-bold.svg"),QApplication::translate("RunDialog", "Sonderzeichen", 0, QApplication::UnicodeUTF8));
+	
+	int posCb;
+	if(typeStr == "Orte")
+		posCb = 1;
+	else if (typeStr == "Sonderzeichen")
+		posCb = 2;
+	else posCb = 0;
+	cbType->setCurrentIndex(posCb);
+	ui.twCommand->setCellWidget(row, 1, cbType);
+	
+	ui.twCommand->selectColumn(0);
+	ui.twCommand->selectRow(row);
+	ui.twCommand->editItem(ui.twCommand->item(row, 0));
+}
+
+/**
+* \author Susanne Tschernegg
+*/
+void SettingsView::newCommand()
+{
+	int rows = ui.twCommand->rowCount();
+	ui.twCommand->insertRow(rows);
+	ui.twCommand->setCurrentCell(rows, 0);
+	QTableWidgetItem *tmp = new QTableWidgetItem();
+	ui.twCommand->setItem(rows, 0, tmp);
+	ui.twCommand->editItem(tmp);
+	QComboBox *cbType = new QComboBox(ui.twCommand);
+	cbType->addItem(QIcon(":/images/icons/emblem-system.svg"),QApplication::translate("RunDialog", "Programme", 0, QApplication::UnicodeUTF8));
+	cbType->addItem(QIcon(":/images/icons/folder.svg"), QApplication::translate("RunDialog", "Orte", 0, QApplication::UnicodeUTF8));
+	cbType->addItem(QIcon(":/images/icons/format-text-bold.svg"),QApplication::translate("RunDialog", "Sonderzeichen", 0, QApplication::UnicodeUTF8));
+
+	//cbType->setCurrentIndex();
+	ui.twCommand->setCellWidget(rows, 1, cbType);
+	
+	ui.twCommand->setItem(rows, 2, new QTableWidgetItem());
+}
+
+/**
+* \author Susanne Tschernegg
+*/
+void SettingsView::deleteCommand()
+{
+	commandLoader->deleteCommand(ui.twCommand->item(ui.twCommand->currentRow(), 0)->text());
+	ui.twCommand->removeRow(ui.twCommand->currentRow());
+}
+
+/**
+* \author Susanne Tschernegg
+*/
+void SettingsView::activateCb()
+{
+	QComboBox *cbType = new QComboBox();
+	cbType->addItem(QIcon(":/images/icons/emblem-system.svg"),QApplication::translate("RunDialog", "Programme", 0, QApplication::UnicodeUTF8));
+	cbType->addItem(QIcon(":/images/icons/folder.svg"), QApplication::translate("RunDialog", "Orte", 0, QApplication::UnicodeUTF8));
+	cbType->addItem(QIcon(":/images/icons/format-text-bold.svg"),QApplication::translate("RunDialog", "Sonderzeichen", 0, QApplication::UnicodeUTF8));
+	ui.twCommand->setCellWidget(ui.twCommand->currentRow(), 1, cbType);
+}
+
+/**
+* \author Susanne Tschernegg
+*/
+void SettingsView::deactivateCb(int currRow, int currCol, int prevRow, int prevCol)
+{
+	if(currRow == prevRow)
+		return;
+	//if(ui.twCommand->item(prevRow,0) && ui.twCommand->item(prevRow,2) )
+	if(prevRow < 0)
+		return;
+	if((ui.twCommand->item(prevRow, 0)->text()==NULL)||(ui.twCommand->item(prevRow, 0)->text()==NULL)||
+		(ui.twCommand->item(prevRow,0)->text().trimmed()=="")||(ui.twCommand->item(prevRow,2)->text().trimmed()==""))
+	{
+		int result = QMessageBox::question(this, tr("Leeres Kommandofeld"), tr("Dieses Kommando wurde nicht vollständig ausgefüllt.\nJedes Kommando muss einen Namen, Wert und Typ besitzen.\n\nWollen Sie diesen Eintrag jetzt löschen? (Klicken Sie Nein, um das Kommando jetzt zu vervollständigen)"),
+			QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+
+		 if (result == QMessageBox::Yes) 
+		 {
+			 ui.twCommand->removeRow(prevRow);
+		 } else
+		 {
+			ui.twCommand->selectColumn(0);
+			ui.twCommand->selectRow(prevRow);
+			ui.twCommand->editItem(ui.twCommand->item(prevRow, 0));
+		 }
+		 return;
+	 }
+	
+	QWidget *tmpWidget = new QWidget();
+	tmpWidget = ui.twCommand->cellWidget(prevRow, 1);
+	if(tmpWidget!=NULL)
+	{
+		QComboBox *cbType = (QComboBox*)tmpWidget;
+		QString type = cbType->itemText(cbType->currentIndex());
+		QTableWidgetItem *tmp = new QTableWidgetItem();
+		tmp->setText(type);
+		ui.twCommand->removeCellWidget(prevRow, 1);
+		ui.twCommand->setItem(prevRow, 1, tmp);
+		
+		int typeInt;
+		if(type == "Orte")
+			typeInt = 1;
+		else if (type == "Sonderzeichen")
+			typeInt = 2;
+		else typeInt = 0;
+
+		Command *newCommand = new Command(ui.twCommand->item(prevRow,0)->text(), CommandType(typeInt), ui.twCommand->item(prevRow,2)->text());
+		if(commandLoader->commandExists(ui.twCommand->item(prevRow,0)->text()))
+			commandLoader->replaceCommand(ui.twCommand->item(prevRow,0)->text(), newCommand);
+		else commandLoader->addCommand(newCommand);
+	}
+}
+
+/**
+* \author Susanne Tschernegg
+*/
+//todo: an fixen pfad angeben
+void SettingsView::reloadCommands()
+{
+	ui.twCommand->clearContents();
+	ui.twCommand->setRowCount(0);
+	initCommands();
+}
+
+/**
+* \author Susanne Tschernegg
+*/
+void SettingsView::showOnlyCommands()
+{
+	QString currType = ui.cbShowCommand->currentText();
+	ui.twCommand->clearContents();
+	ui.twCommand->setRowCount(0);
+	QTableWidgetItem *tmp;
+	CommandList commands = commandLoader->getCommands();
+	int counter = 0;
+	for (int i=0; i < commands.count(); i++)
+	{
+		CommandType ctype = commands.at(i)->getType();
+		QString strType;
+			
+		if (ctype ==place)
+			strType = tr("Orte");
+		else if (ctype == type)
+			strType = tr("Sonderzeichen");
+		else strType = tr("Programme");
+				
+		if((strType==currType)||(currType=="Alles"))
+		{
+			counter ++;
+			ui.twCommand->setRowCount(counter);
+			
+			tmp = new QTableWidgetItem(commands.at(i)->getName());
+			ui.twCommand->setItem(counter-1, 0, tmp);
+			
+			tmp = new QTableWidgetItem(strType);
+			ui.twCommand->setItem(counter-1, 1, tmp);
+			
+			tmp = new QTableWidgetItem(commands.at(i)->getValue());
+			ui.twCommand->setItem(counter-1, 2, tmp);
+		}
+	}
+	ui.twCommand->resizeColumnToContents(1);
+}
+
+/**
+* \author Susanne Tschernegg
+*/
+void SettingsView::clearSearchLineEdit()
+{
+	ui.leSearchCommand->clear();
+}
+
+/**
+* \author Susanne Tschernegg
+*/
+void SettingsView::searchCommandList()
+{
+	QString searchText = ui.leSearchCommand->text();
+	ui.twCommand->clearContents();
+	ui.twCommand->setRowCount(0);
+	QTableWidgetItem *tmp;
+	CommandList commands = commandLoader->getCommands();
+	int counter = 0;
+	for (int i=0; i < commands.count(); i++)
+	{	
+		QString name = commands.at(i)->getName();
+		if(name.indexOf(searchText)>=0)
+		{
+			counter ++;
+			ui.twCommand->setRowCount(counter);
+			
+			tmp = new QTableWidgetItem(commands.at(i)->getName());
+			ui.twCommand->setItem(counter-1, 0, tmp);
+			
+			CommandType ctype = commands.at(i)->getType();
+			QString strType;
+				
+			if (ctype ==place)
+				strType = tr("Orte");
+			else if (ctype == type)
+				strType = tr("Sonderzeichen");
+			else strType = tr("Programme");
+			
+			tmp = new QTableWidgetItem(strType);
+			ui.twCommand->setItem(counter-1, 1, tmp);
+			
+			tmp = new QTableWidgetItem(commands.at(i)->getValue());
+			ui.twCommand->setItem(counter-1, 2, tmp);
+		}
+	}
+	ui.twCommand->resizeColumnToContents(1);
+}
 
 /**
  * \brief Destructor
@@ -366,5 +630,5 @@ void SettingsView::switchToHistory()
  */
 SettingsView::~SettingsView()
 {}
-
-
+	
+	

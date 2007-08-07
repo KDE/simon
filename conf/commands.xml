@@ -1,8 +1,5 @@
 <commands>
- <command type="0" name="Konqueror" >konqueror</command>
- <command type="0" name="Texteditor" >kwrite</command>
- <command type="1" name="Test" >/home/bedahr</command>
+ <command type="0" name="Winword" >winword.exe</command>
  <command type="0" name="Explorer" >explorer.exe</command>
- <command type="0" name="Thunfisch" >feh -FZ /home/bedahr/thunfisch.jpg</command>
- <command type="1" name="Google" >http://www.google.at</command>
+ <command type="1" name="eigene dateien" >eigene Dateien</command>
 </commands>

@@ -257,6 +257,7 @@ void SimonView::setLevel(int level)
  */
 void SimonView::showRunDialog()
 {
+	runDialog = new RunApplicationView(this);
 	this->runDialog->show();
 }
 

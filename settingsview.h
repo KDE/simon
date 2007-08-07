@@ -49,6 +49,7 @@ private:
 private slots:
 	void initCommands(QString path="conf/commands.xml");
 	void saveCommands();
+	//void editCommands();
 
 public slots:
 	void unsetAllTabs();
@@ -61,10 +62,19 @@ public slots:
 	void refreshDeviceCapabilities();
 	void deleteAddress();
 	void addAddress();
+	void newCommand();
+	void deleteCommand();
+	void activateCb();
+	void deactivateCb(int currRow, int currCol, int prevRow, int prevCol);
+	void editCommand();
+	void showOnlyCommands();
+	void reloadCommands();
+
+	void clearSearchLineEdit();
+	void searchCommandList();
 	
 public:
     SettingsView(QWidget *parent);
-    
     
     ~SettingsView();
 
