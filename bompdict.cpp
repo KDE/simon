@@ -37,7 +37,7 @@ void BOMPDict::load(QString path)
 	int currentProg = 0;
 	
 	QTextStream *dictStream = new QTextStream(dict);
-	
+	dictStream->setCodec("ISO-8859-1");
 	emit loaded();
 	
 	QString line, xsp;

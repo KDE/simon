@@ -243,7 +243,8 @@ void WordListManager::addWords(WordList *list)
 		for (int i=0; i<wordlist->count(); i++)
 			list->append(wordlist->at(i));
 		this->wordlist = list;
-	}	
+	}
+	
 // 	removeDoubles(this->wordlist);
 }
 

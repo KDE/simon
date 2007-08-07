@@ -225,7 +225,7 @@ public:
 	 */
 	const bool operator<(const Word w2) const
 	{
-		return getWord().trimmed().toUpper() < w2.getWord().trimmed().toUpper();
+		return getWord().toUpper() < w2.getWord().toUpper();
 	}
 
 	

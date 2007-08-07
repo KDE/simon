@@ -11,8 +11,12 @@
 //
 #include "bunzip.h"
 #include "logger.h"
+
+
+
+#include <QRegExp>
 #include <QProcess>
-// #include "bzip2stream.hpp"
+
 
 Bunzip::Bunzip(QObject *parent) : QObject(parent)
 {
@@ -20,24 +24,42 @@ Bunzip::Bunzip(QObject *parent) : QObject(parent)
 
 void Bunzip::extract(QString filename)
 {
-	Logger::log(tr("Extrahiere BZIP2 komprimierte Datei ")+filename);
 	
 	emit extracting(filename);
-// 	QProcess *proc = new QProcess(this);
-// 	connect(proc, SIGNAL(finished( int )), this, SLOT(extractingFinishing(int)));
+	proc = new QProcess(this);
+	connect(proc, SIGNAL(finished( int )), this, SLOT(extractingFinishing(int)));
+	connect(proc, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
+	
+	this->filename = filename;
+	if (QFile::exists(this->filename.remove(QRegExp(".bz2$")))) 
+		QFile::remove(this->filename.remove(QRegExp(".bz2$")));;
+	proc->start("bzip2 -d "+filename);
+}
+
+void Bunzip::readError()
+{
+	QString err = proc->readAllStandardError();
+	emit errorOccured(err);
 }
 
 void Bunzip::cancel()
 {
-	
+	proc->terminate();
+	emit canceled();
 }
 
 
 void Bunzip::extractingFinishing(int code)
 {
-	if (!code)
-		emit errorOccured(tr("Es ist ein Fehler beim Entpacken aufgetreten.\n\nBitte überprüfen Sie ob Sie das Paket \"bzip2\" installiert haben"));
-	emit extractionFinished();
+	if (code!=0)
+	{
+		emit errorOccured(tr("Es ist ein Fehler beim Entpacken aufgetreten.\n\nBitte überprüfen Sie ob Sie das Paket \"bzip2\" installiert haben.\n\n(Rückgabewert %1)").arg(code));
+// 		Logger::log(tr("[FEHLER]")+" "+tr("Programm \"bzip2 -d\" gab nicht 0 zurück"));
+	} else {
+		QString extFile = this->filename.remove(QRegExp(".bz2$"));
+// 		Logger::log(this->filename+" "+tr("erfolgreich extrahiert zsu")+" "+extFile);
+		emit extractionFinished(extFile);
+	}
 }
 
 

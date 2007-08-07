@@ -13,7 +13,7 @@
 #define QUICKUNPACKER_H
 
 #include "bunzip.h"
-#include <QObject>
+#include <QWidget>
 
 /**
  \class QuickUnpacker
@@ -27,7 +27,7 @@ class QProgressDialog;
 class QString;
 class QObject;
 
-class QuickUnpacker : public QObject
+class QuickUnpacker : public QWidget
 {
 Q_OBJECT
 
@@ -40,6 +40,7 @@ signals:
 	void error(QString);
 
 private slots:
+	void unpacked(QString to);
 	void setStatus(QString status);
 	void setProgress(int currentProg);
 	void errorOccured(QString err);
@@ -51,7 +52,7 @@ private:
 	QProgressDialog *prog;
 	Bunzip *bunzip;
 public:
-    QuickUnpacker(QObject* parent);
+    QuickUnpacker(QWidget* parent);
 
     ~QuickUnpacker();
 

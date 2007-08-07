@@ -16,10 +16,12 @@
 #include <QProgressDialog>
 #include <QHttp>
 #include <QUrl>
-#include <QTemporaryFile>
 #include <QHttpResponseHeader>
 #include <QMessageBox>
 #include <QFileInfo>
+
+
+class QFile;
 
 /**
  * \class QuickDownloader
@@ -43,7 +45,8 @@ private:
 	QHttp *loader;
 	int request;
 	bool aborting;
-	QTemporaryFile *file;
+// 	QTemporaryFile *file;
+	QFile *file;
 	
 private slots:
 	void requestFinished(int id, bool error);
@@ -51,7 +54,7 @@ private slots:
 	void readResponse(const QHttpResponseHeader header);
 	
 public slots:
-	bool download(QString url);
+	bool download(QString url, QString filename="");
 	void cancelDownload();
 
 public:

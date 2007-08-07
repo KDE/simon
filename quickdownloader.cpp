@@ -11,6 +11,8 @@
 //
 #include "quickdownloader.h"
 #include "logger.h"
+#include <QTemporaryFile>
+#include <QFile>
 
 /**
  * \brief Constructor
@@ -22,7 +24,6 @@ QuickDownloader::QuickDownloader(QWidget *parent) : QWidget(parent)
 {
 	this->loader = new QHttp();
 	this->progressDlg = new QProgressDialog(this);
-	file = new QTemporaryFile("simon",this);
 }
 
 /**
@@ -33,8 +34,12 @@ QuickDownloader::QuickDownloader(QWidget *parent) : QWidget(parent)
  * @return bool
  * if there is an error this is set to false
  */
-bool QuickDownloader::download(QString url)
+bool QuickDownloader::download(QString url, QString filename)
 {
+	if (filename.isEmpty())
+		file = new QTemporaryFile("simon_tmp_download",this);
+	else file = new QFile(filename, this);
+
 	Logger::log("Loading \""+url+"\" to \""+file->fileName()+"\"");
 	if (!loader || !progressDlg) return false;
 	
@@ -64,7 +69,7 @@ bool QuickDownloader::download(QString url)
 	
 	aborting = false;
 	if (!file) return false;
-	if (!file->open())
+	if (!file->open(QIODevice::WriteOnly))
 	{
 		
 		QMessageBox::critical(this, tr("Fehler beim Öffnen"),

@@ -12,7 +12,6 @@
 #include "importdictworkingpage.h"
 #include <QLabel>
 #include <QProgressBar>
-#include <QDebug>
 #include <QVBoxLayout>
 #include "bunzip.h"
 #include "quickdownloader.h"
@@ -74,11 +73,21 @@ void ImportDictWorkingPage::importWiktionary(QString url)
 		displayStatus(tr("Lade Wörterbuch herunter..."));
 		QuickDownloader *loader = new QuickDownloader(this);
 		connect(loader, SIGNAL(downloadFinished(QString)), this, 
-				SLOT(importWiktionaryFile(QString)));
-		loader->download(url);
-	} else importWiktionaryFile(url);
+				SLOT(unpackWikiIfNecessary(QString)));
+		loader->download(url, "wiki_tmp.bz2");
+	} else unpackWikiIfNecessary(url);
 }
 
+void ImportDictWorkingPage::unpackWikiIfNecessary(QString file)
+{
+	if (file.endsWith("bz2"))
+	{
+		QuickUnpacker *unpacker = new QuickUnpacker(this);
+		unpacker->unpack(file);
+		connect(unpacker, SIGNAL(unpackedTo(QString)), this, 
+			SLOT(importWiktionaryFile(QString)));
+	} else importWiktionaryFile(file);
+}
 
 void ImportDictWorkingPage::displayStatus(QString status)
 {
@@ -93,22 +102,12 @@ void ImportDictWorkingPage::displayProgress(int progress)
 
 void ImportDictWorkingPage::importWiktionaryFile(QString path)
 {
-	if (path.endsWith("bzip2"))
-	{
-		QuickUnpacker *unpacker = new QuickUnpacker(this);
-		unpacker->unpack(path);
-	}
 	displayStatus(tr("Importiere Wiktionary-Wörterbuch %1...").arg(path));
 	pbMain->setMaximum(1000);
 	
 	import->parseWordList(path, 2);
 
 	setCompleted();
-}
-
-void ImportDictWorkingPage::unpackFile(QString path)
-{
-	
 }
 
 ImportDictWorkingPage::~ImportDictWorkingPage()

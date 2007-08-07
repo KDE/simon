@@ -126,13 +126,6 @@
            </widget>
           </item>
           <item>
-           <widget class="Line" name="line_2" >
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="pbAddToTraining" >
             <property name="toolTip" >
              <string>Fügt das in der Liste links selektierte Wort in die Liste der zu trainierenden Wörter (oben) ein</string>
@@ -190,11 +183,29 @@
            </widget>
           </item>
           <item>
-           <widget class="Line" name="line_4" >
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" >
+            <item>
+             <widget class="Line" name="line_4" >
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label" >
+              <property name="text" >
+               <string>Wörterbuch bearbeiten</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="Line" name="line_2" >
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
            <widget class="QPushButton" name="pbImport" >

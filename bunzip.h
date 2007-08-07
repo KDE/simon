@@ -16,14 +16,24 @@
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
+class QString;
+class QProcess;
 class Bunzip : public QObject {
 Q_OBJECT
 
 signals:
-	void extractionFinished();
+	void extractionFinished(QString filename);
 	void errorOccured(QString);
 	void extracting(QString filename);
 	void progress(int);
+	void canceled();
+
+private:
+	QProcess *proc;
+	QString filename;
+
+private slots:
+	void readError();
 
 public slots:
 	void cancel();

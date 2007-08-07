@@ -28,12 +28,6 @@
 ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 {
 	prevId=0;
-// 	list = new WordList();
-// 	import = new ImportDict();
-// 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(importDict()));
-// 	connect(ui.pbGetPath, SIGNAL(clicked()), this, SLOT(openFileDialog()));
-// 	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(reject()));
-// 	connect(ui.lePath, SIGNAL(textChanged(QString)), this, SLOT(validatePath(QString)));
 	addPage(createIntroPage());
 
 	addPage(createSelectSourcePage());
@@ -49,6 +43,12 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 	
 	
 	connect(this, SIGNAL(currentIdChanged( int )), this, SLOT(idChanged(int)));
+}
+
+void ImportDictView::show()
+{
+	restart();
+	QWidget::show();
 }
 
 

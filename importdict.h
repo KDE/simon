@@ -16,11 +16,9 @@
 #define WIKTIONARY 2
 
 #include "word.h"
-
 #include <QThread>
-#include <iostream>
-
 #include "wiktionarydict.h"
+
 /**
 	\class ImportDict
 	\brief The ImportDict class provides the functions to import e.g. Wiktionary dicts

@@ -31,13 +31,13 @@ class ImportDictView : public QWizard {
 	Q_OBJECT
 private:
 	int prevId;
-	//WordList *list;  //!< Is filled later on with the retrieved List
 	
 signals:
 	void dictGenerated(WordList*);
 private slots:
 	void idChanged(int id);
 public slots:
+	void show();
 	QWizardPage* createIntroPage();
 	ImportDictSelectSourcePage* 
 		createSelectSourcePage();

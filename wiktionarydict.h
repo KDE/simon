@@ -40,7 +40,6 @@ private:
 	XMLSAXReader *reader;
 	QString word, text;
 	int currentTag; //what are we currently parsing [NONE, WORD, TEXT]
-	QStringList words, terminals, pronunciations;
 	int pos; //pos in bytes
 	int maxpos;
 	int processFoundIPA(QString ipa);

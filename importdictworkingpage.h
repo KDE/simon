@@ -42,7 +42,7 @@ public slots:
 	void importHADIFIX(QString path);
 	void importWiktionary(QString url);
 
-	void unpackFile(QString file);
+	void unpackWikiIfNecessary(QString file);
 
 	bool isComplete() const;
 public:

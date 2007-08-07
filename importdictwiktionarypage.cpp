@@ -35,7 +35,7 @@ ImportDictWiktionaryPage::ImportDictWiktionaryPage(QWidget* parent): QWizardPage
 	
 	QHBoxLayout *fileLay = new QHBoxLayout();
 	lbWikiPath = new QLabel(this);
-	lbWikiPath->setText(tr("Wiktionary-Dump (extrahiert):"));
+	lbWikiPath->setText(tr("Wiktionary-Dump:"));
 	
 	QRadioButton *importLocal = new QRadioButton("Lokale Datei", this);
 	importLocal->setChecked(true);
@@ -155,10 +155,15 @@ QString ImportDictWiktionaryPage::getPath()
 
 void ImportDictWiktionaryPage::setFile()
 {
-	QStringList files = QFileDialog::getOpenFileNames(this, "Zu importierende Textdateien öffnen", QDir::currentPath(), "Textdateien (*.xml)");
-	if (files.count() == 0) return;
-
-	setField("wikiFileName", files.at(0));
+	QFileDialog *dlg = new QFileDialog(this, "Zu importierende Textdatei öffnen", QDir::currentPath());
+	QStringList filters;
+	filters << "Textdateien (*.xml)";
+	filters << "BZip2 Komprimierte Dateien (*.xml.bz2)";
+	dlg->setFilters(filters);
+	if(!dlg->exec()) return;
+	
+	
+	setField("wikiFileName", dlg->selectedFiles().at(0));
 }
 
 
