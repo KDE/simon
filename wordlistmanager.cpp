@@ -124,7 +124,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 	PromptsTable *promptsTable = readPrompts(promptspath);
 
 	//opening
-	Logger::log(QObject::tr("[INF] Öffnen des Lexikons von: ").arg(lexiconPath));
+	Logger::log(QObject::tr("[INF] Öffnen des Lexikons von: %1").arg(lexiconPath));
 	QFile *lexicon = new QFile ( lexiconpath );
 	
 	if ( !lexicon->open ( QFile::ReadOnly ) || !vocablist || !promptsTable) return false;
@@ -296,7 +296,7 @@ int WordListManager::getProbability(QString wordname, PromptsTable *promptsTable
  */
 PromptsTable* WordListManager::readPrompts(QString promptspath)
 {
-	Logger::log(QObject::tr("[INF] Parse Promptsdatei von ").arg(promptspath));
+	Logger::log(QObject::tr("[INF] Parse Promptsdatei von %1").arg(promptspath));
 	PromptsTable *promptsTable = new PromptsTable();
 	
 	QFile *prompts = new QFile ( promptspath );
@@ -330,7 +330,7 @@ PromptsTable* WordListManager::readPrompts(QString promptspath)
  */
 WordList* WordListManager::readVocab(QString vocabpath)
 {
-	Logger::log(QObject::tr("[INF] Lese Vokabular von ").arg(vocabpath));
+	Logger::log(QObject::tr("[INF] Lese Vokabular von %1").arg(vocabpath));
 	WordList *vocablist = new WordList();
 	
 	QFile *vocab = new QFile ( vocabpath );

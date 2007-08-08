@@ -27,7 +27,7 @@ void SimonView::setupAnimations()
 
 void SimonView::resizeButtons()
 {
-  	setUpdatesEnabled(false);
+ 	setUpdatesEnabled(false);
 	if (currentSizeW <= 200) {
 		tresizeButtons->stop();
 		qDebug() << currentSizeW;
@@ -51,7 +51,7 @@ void SimonView::resizeButtons()
 
 void SimonView::startTransformToBusy()
 {
-	QMessageBox::information(this, "hallo", "dudu");
+	//QMessageBox::information(this, "hallo", "dudu");
 	currentSizeW = ui.pbAddWord->width();
 	currentSizeH = ui.pbAddWord->height();
 
