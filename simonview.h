@@ -20,6 +20,8 @@
 #ifndef PROJECTVIEW_H
 #define PROJECTVIEW_H
 
+#define ANIMATIONS
+
 /**
  *	@class SimonView
  *	@brief The Main UI Class
@@ -48,6 +50,9 @@
 #include "trainingview.h"
 #include "settingsview.h"
 #include <QSettings>
+#include <QVector>
+#include <QPushButton>
+#include <QGridLayout>
 
 #include "ui_main.h"
 
@@ -56,8 +61,24 @@ class QPoint;
 class SimonView : public QMainWindow {
 	
 	Q_OBJECT
+
+private slots:
+	
+	#ifdef ANIMATIONS
+	void resizeButtons();
+	void startTransformToBusy();
+	#endif
+
 private:
 	int shownDialogs;
+
+	#ifdef ANIMATIONS
+	float currentSizeH, currentSizeW;
+	QTimer *tresizeButtons;
+	void setupAnimations();
+	QVector<QPushButton*> animatedButtons;
+	QGridLayout *buttonMover;
+	#endif
 
 	QPoint currentPos;
 	QPoint runDlgPos;

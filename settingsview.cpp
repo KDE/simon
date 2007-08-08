@@ -62,15 +62,7 @@ SettingsView::SettingsView ( QWidget *parent )
 	connect ( ui.cwLogDay, SIGNAL (selectionChanged()), this, SLOT (onlyDay()));
 
 	this->manager = new LogManager();
-	if (!this->manager->readLog())
-	{		
-		QMessageBox::critical(this,tr("Fehler beim Auslesen des Logs"),tr("Beim Auslesen der Logdatei ist ein Fehler aufgetreten.\n\nÜberprüfen Sie ob Sie die benötigten Berechtigugnen besitzen."));
-		Logger::log(tr("[ERR] Fehler beim öffnen des Logfilse"));
-	}
-	else
-	{
-		this->manager->readLog();
-	}
+
 	ui.twCommand->resizeColumnToContents(1);
 	
 	this->settings = new QSettings ( QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon" );
@@ -399,8 +391,21 @@ void SettingsView::switchToProtocols()
 	ui.pbProtocolSettings->setChecked ( true );
 	ui.swSettings->setCurrentIndex ( 3 );
 	
-	QCoreApplication::processEvents();
 	
+	ui.pbLogLoad->setMaximum(0);
+	QCoreApplication::processEvents();
+	if (!this->manager->readLog())
+	{		
+		QMessageBox::critical(this,tr("Fehler beim Auslesen des Logs"),tr("Beim Auslesen der Logdatei ist ein Fehler aufgetreten.\n\nÜberprüfen Sie ob Sie die benötigten Berechtigungen besitzen."));
+		Logger::log(tr("[ERR] Fehler beim Öffnen des Logfiles"));
+	}
+	else
+	{
+		this->manager->readLog();
+	}
+	ui.pbLogLoad->setMaximum(1);
+	ui.pbLogLoad->setValue(1);
+
 	insertEntries(getEntries(NULL));
 
 }	

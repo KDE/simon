@@ -49,7 +49,7 @@ bool LogManager::readLog()
 	QString str, strdate, strtime;
 	QTime time;
 	QDate date;
-	int type, datestart;
+	int type, datestart, timestart;
 	
 	while (!LogF->atEnd ())
 	{
@@ -57,8 +57,12 @@ bool LogManager::readLog()
 		
 		str = LogF->readLine();
 		datestart = str.indexOf(QRegExp("\\d{4,4}\\/\\d{2,2}\\/\\d{2,2}"));
+		timestart= str.indexOf(QRegExp("\\d{2,2}:\\d{2,2}:\\d{2,2}"));
+// 		datestart = 1;
+// 		timestart = 13;
+		
 		strdate = str.mid(datestart,10);
-		strtime = str.mid(str.indexOf(QRegExp("\\d{2,2}:\\d{2,2}:\\d{2,2}"), datestart) ,8);
+		strtime = str.mid(timestart ,8);
 		
 		date = QDate::fromString (strdate,"yyyy/MM/dd") ;
 		time = QTime::fromString(strtime,"hh:mm:ss");

@@ -1,8 +1,6 @@
 <RCC>
     <qresource prefix="/" >
         <file>images/addword.png</file>
-        <file>images/importdict.png</file>
-        <file>images/importfolder.png</file>
         <file>images/alsalogo.gif</file>
         <file>images/directX.png</file>
         <file>images/icons/bookmark-new.svg</file>
@@ -25,6 +23,7 @@
         <file>images/icons/media-playback-pause.svg</file>
         <file>images/icons/media-playback-start.svg</file>
         <file>images/icons/media-record.svg</file>
+        <file>images/icons/network-receive.svg</file>
         <file>images/icons/process-stop.svg</file>
         <file>images/icons/system-file-manager.svg</file>
         <file>images/icons/system-log-out.svg</file>
@@ -32,6 +31,8 @@
         <file>images/icons/text-editor.svg</file>
         <file>images/icons/view-refresh.svg</file>
         <file>images/icons/window-new.svg</file>
+        <file>images/importdict.png</file>
+        <file>images/importfolder.png</file>
         <file>images/importtexts.png</file>
         <file>images/osd.png</file>
         <file>images/simon.png</file>

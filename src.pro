@@ -156,7 +156,8 @@ SOURCES += main.cpp \
            bompdict.cpp \
            quickunpacker.cpp \
            logentry.cpp \
-           logmanager.cpp
+           logmanager.cpp \
+           simonanimations.cpp
 QT += network \
 xml 
 
@@ -165,7 +166,8 @@ TEMPLATE = app
 
 CONFIG += qt \
 warn_on \
-thread 
+thread \
+debug
 
 
 RESOURCES += simon.qrc

@@ -69,7 +69,6 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->settingsDialog = new SettingsView(this);
 	
 	this->vuMeter = new VuMeter();
-	//Disabled for now because it crashes the windows compile
 	if (vuMeter->prepare())
 		vuMeter->start();
 	
@@ -109,6 +108,10 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QObject::connect(control, SIGNAL(disconnected()), this, SLOT(disconnected()));
 	connect(control, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
 
+	#ifdef ANIMATIONS
+	setupAnimations();
+	
+	#endif
 	
 	//setting Background
 // 	QPixmap bg(":/images/bg_clear.png");

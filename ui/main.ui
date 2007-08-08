@@ -152,75 +152,6 @@
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="sizeType" >
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" >
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pbConnect" >
-          <property name="minimumSize" >
-           <size>
-            <width>150</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="palette" >
-           <palette>
-            <active>
-             <colorrole role="ButtonText" >
-              <brush brushstyle="SolidPattern" >
-               <color alpha="255" >
-                <red>130</red>
-                <green>191</green>
-                <blue>255</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </active>
-            <inactive>
-             <colorrole role="ButtonText" >
-              <brush brushstyle="SolidPattern" >
-               <color alpha="255" >
-                <red>130</red>
-                <green>191</green>
-                <blue>255</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </inactive>
-            <disabled>
-             <colorrole role="ButtonText" >
-              <brush brushstyle="SolidPattern" >
-               <color alpha="255" >
-                <red>137</red>
-                <green>137</green>
-                <blue>139</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </disabled>
-           </palette>
-          </property>
-          <property name="text" >
-           <string>Verbinden</string>
-          </property>
-          <property name="flat" >
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
           <property name="sizeHint" >
            <size>
             <width>40</width>
@@ -251,8 +182,8 @@
         </property>
         <property name="sizeHint" >
          <size>
-          <width>20</width>
-          <height>3</height>
+          <width>732</width>
+          <height>16</height>
          </size>
         </property>
        </spacer>
@@ -266,8 +197,8 @@
           </property>
           <property name="sizeHint" >
            <size>
-            <width>10</width>
-            <height>20</height>
+            <width>16</width>
+            <height>272</height>
            </size>
           </property>
          </spacer>
@@ -291,8 +222,8 @@
            <widget class="QPushButton" name="pbAddWord" >
             <property name="minimumSize" >
              <size>
-              <width>300</width>
-              <height>80</height>
+              <width>100</width>
+              <height>20</height>
              </size>
             </property>
             <property name="palette" >
@@ -380,7 +311,7 @@
              </size>
             </property>
             <property name="flat" >
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -404,8 +335,8 @@
            <widget class="QPushButton" name="pbEditWordList" >
             <property name="minimumSize" >
              <size>
-              <width>300</width>
-              <height>80</height>
+              <width>100</width>
+              <height>20</height>
              </size>
             </property>
             <property name="palette" >
@@ -601,7 +532,7 @@
                 </size>
                </property>
                <property name="maximum" >
-                <number>0</number>
+                <number>1</number>
                </property>
                <property name="value" >
                 <number>0</number>
@@ -676,8 +607,8 @@
            <widget class="QPushButton" name="pbTrain" >
             <property name="minimumSize" >
              <size>
-              <width>300</width>
-              <height>80</height>
+              <width>100</width>
+              <height>20</height>
              </size>
             </property>
             <property name="palette" >
@@ -762,8 +693,8 @@
            <widget class="QPushButton" name="pbRunProgram" >
             <property name="minimumSize" >
              <size>
-              <width>300</width>
-              <height>80</height>
+              <width>100</width>
+              <height>20</height>
              </size>
             </property>
             <property name="palette" >
@@ -850,8 +781,8 @@
           </property>
           <property name="sizeHint" >
            <size>
-            <width>10</width>
-            <height>20</height>
+            <width>16</width>
+            <height>272</height>
            </size>
           </property>
          </spacer>
@@ -865,8 +796,8 @@
         </property>
         <property name="sizeHint" >
          <size>
-          <width>20</width>
-          <height>47</height>
+          <width>732</width>
+          <height>16</height>
          </size>
         </property>
        </spacer>
@@ -877,7 +808,7 @@
          <widget class="QPushButton" name="pbSettings" >
           <property name="minimumSize" >
            <size>
-            <width>160</width>
+            <width>120</width>
             <height>50</height>
            </size>
           </property>
@@ -918,7 +849,7 @@
          <widget class="QPushButton" name="pbActivision" >
           <property name="minimumSize" >
            <size>
-            <width>160</width>
+            <width>130</width>
             <height>50</height>
            </size>
           </property>
@@ -926,7 +857,7 @@
            <string>De-/aktiviert das System</string>
           </property>
           <property name="text" >
-           <string>  &amp;Deaktivieren</string>
+           <string>&amp;Deaktivieren</string>
           </property>
           <property name="icon" >
            <iconset resource="../simon.qrc" >:/images/icons/media-playback-pause.svg</iconset>
@@ -940,10 +871,35 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="pbConnect" >
+          <property name="minimumSize" >
+           <size>
+            <width>123</width>
+            <height>50</height>
+           </size>
+          </property>
+          <property name="toolTip" >
+           <string>De-/aktiviert das System</string>
+          </property>
+          <property name="text" >
+           <string>Ver&amp;binden</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/network-receive.svg</iconset>
+          </property>
+          <property name="iconSize" >
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="pbClose" >
           <property name="minimumSize" >
            <size>
-            <width>160</width>
+            <width>132</width>
             <height>50</height>
            </size>
           </property>
@@ -984,7 +940,7 @@
          <widget class="QPushButton" name="pbHide" >
           <property name="minimumSize" >
            <size>
-            <width>160</width>
+            <width>140</width>
             <height>50</height>
            </size>
           </property>
