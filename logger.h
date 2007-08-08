@@ -71,6 +71,8 @@ public:
 	{
 		(Logger::logFile)->flush();
 	}
+	
+	
     ~Logger();
 
 };

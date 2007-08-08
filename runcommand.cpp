@@ -11,6 +11,7 @@
 //
 #include "runcommand.h"
 #include "logger.h"
+#include <QObject>
 /**
  *	@brief Constructor
  *	
@@ -41,7 +42,7 @@ RunCommand::RunCommand(QString path)
  */
 void RunCommand::readCommands(QString path)
 {
-	Logger::log("Reading commands from "+path);
+	Logger::log(QObject::tr("[INF] Lese Befehle von ")+path);
 	XMLCommand *reader = new XMLCommand();
 	reader->load();
 	
@@ -71,7 +72,7 @@ void RunCommand::run(QString commandName)
 	
 	if (commandlist.at(i)->getType() == exec)
 	{
-		Logger::log("Executing command: "+command);
+		Logger::log(QObject::tr("[INF] Ausführen des Befehls: ")+command);
 #ifdef linux
 		RunLinuxBackend *lin = (RunLinuxBackend*) this->runner;
 		lin->run(command);
@@ -84,7 +85,7 @@ void RunCommand::run(QString commandName)
 	
 	if (commandlist.at(i)->getType() == place)
 	{
-		Logger::log("Opening place: "+command);
+		Logger::log(QObject::tr("[INF] öffne Ort: ")+command);
 #ifdef linux
 		RunLinuxBackend *lin = (RunLinuxBackend*) this->runner;
 		lin->goTo(command);

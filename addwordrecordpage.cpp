@@ -20,10 +20,10 @@
 AddWordRecordPage::AddWordRecordPage(QWidget *parent)
  : QWizardPage(parent)
 {
-	setTitle("Aufnehmen des Wortes");
+	setTitle(tr("Aufnehmen des Wortes"));
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	QLabel *desc = new QLabel(this);
-	desc->setText(tr("Bitte nehmen Sie nun das hinzuzufuegende Wort zweimal auf.\n\nBitte achten Sie darauf, das Wort deutlich, aber natuerlich\nauszusprechen und vermeiden Sie Hintergrundgeraeusche.\n"));
+	desc->setText(tr("Bitte nehmen Sie nun das hinzuzufügende Wort zweimal auf.\n\nBitte achten Sie darauf, das Wort deutlich, aber natürlich\nauszusprechen und vermeiden Sie Hintergrundgeräusche.\n"));
 	rec1 = new RecWidget(tr("Aufnahme 1"), "1.wav", this);
 	rec2 = new RecWidget(tr("Aufnahme 2"), "2.wav", this);
 	lay->addWidget(desc);

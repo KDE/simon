@@ -11,8 +11,14 @@
 //
 #include "logentry.h"
 
-LogEntry::LogEntry()
+
+
+LogEntry::LogEntry(QDate date, QTime time, QString message, int type)
 {
+	this->time = time;
+	this->date = date;
+	this->message = message;
+	this->type = type;
 }
 
 

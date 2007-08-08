@@ -63,7 +63,7 @@ void SimonControl::connect(QString host)
 	QStringList hostport;
 	hostport=host.split(":",QString::KeepEmptyParts,Qt::CaseSensitive);
 	
-	Logger::log("Connecting to juliusd at "+host);
+	Logger::log(tr("[INF] Verbinden zu Julius auf ")+host);
 	
     julius->connectTo(hostport[0],hostport[1].toInt());
 }
@@ -123,7 +123,7 @@ void SimonControl::connectedToJulius()
  */
 void SimonControl::disconnectedFromJulius()
 {
-	Logger::log("Disconnected from Julius");
+	Logger::log(tr("[INF] Verbindung von Julius getrennt"));
 	emit disconnected();
 }
 
@@ -134,7 +134,7 @@ void SimonControl::disconnectedFromJulius()
  */
 void SimonControl::abortConnecting()
 {
-	Logger::log("Connecting aborted");
+	Logger::log(tr("[INF] Verbinden abgebrochen"));
 	this->julius->disconnect();
 }
 
@@ -146,7 +146,7 @@ void SimonControl::abortConnecting()
  */
 void SimonControl::errorConnecting(QString error)
 {
-	Logger::log("Connecting to juliusd failed: "+error);
+	Logger::log(tr("[ERR] Verbinden zu Julius fehlgeschlagen: ")+error);
 	emit connectionError(error);
 }
 
@@ -185,7 +185,7 @@ bool SimonControl::deactivateSimon()
 {
 	this->active=false;
 	QObject::disconnect( this->julius, SIGNAL(wordRecognised(QString)), this, SLOT(wordRecognised(QString)));
-	Logger::log("Simon deactivated");
+	Logger::log(tr("[INF] Simon deaktiviert"));
 	return this->active;
 }
 
@@ -216,7 +216,7 @@ bool SimonControl::activateSimon()
 	this->active=true;
 	QObject::connect(julius, SIGNAL(wordRecognised(QString)), this, SLOT(wordRecognised(QString)));
 		
-	Logger::log("Simon activated");
+	Logger::log(tr("[INF] Simon aktiviert"));
 	return this->active;
 }
 

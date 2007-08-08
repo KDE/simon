@@ -26,7 +26,7 @@ void ImportRemoteWizardPage::fetchList()
 {
 	QuickDownloader *downloader = new QuickDownloader(this);
 
-	Logger::log("Fetching list of availible remote trainingstexts");
+	Logger::log(tr("[INF] Abrufen der Liste von verfügbaren Trainingstexten"));
 	
 	connect (downloader, SIGNAL(downloadFinished(QString)), this, SLOT(importList(QString)));
 	downloader->download("http://simon.pytalhost.org/texts/list.xml");

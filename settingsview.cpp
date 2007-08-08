@@ -15,6 +15,7 @@
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QComboBox>
+#include <QCoreApplication>
 #include <QMessageBox>
 #include "command.h"
 
@@ -56,7 +57,20 @@ SettingsView::SettingsView ( QWidget *parent )
 	connect (ui.cbShowCommand, SIGNAL (currentIndexChanged ( const QString &) ), this, SLOT(showOnlyCommands()));
 	connect (ui.pbClearSearchCommand, SIGNAL(clicked()), this, SLOT(clearSearchLineEdit()));
 	connect (ui.leSearchCommand, SIGNAL(textChanged(const QString &)), this, SLOT(searchCommandList()));
+	
+	connect (ui.cbOnlyDay, SIGNAL (stateChanged(int)), this, SLOT (onlyDay()));
+	connect ( ui.cwLogDay, SIGNAL (selectionChanged()), this, SLOT (onlyDay()));
 
+	this->manager = new LogManager();
+	if (!this->manager->readLog())
+	{		
+		QMessageBox::critical(this,tr("Fehler beim Auslesen des Logs"),tr("Beim Auslesen der Logdatei ist ein Fehler aufgetreten.\n\nÜberprüfen Sie ob Sie die benötigten Berechtigugnen besitzen."));
+		Logger::log(tr("[ERR] Fehler beim öffnen des Logfilse"));
+	}
+	else
+	{
+		this->manager->readLog();
+	}
 	ui.twCommand->resizeColumnToContents(1);
 	
 	this->settings = new QSettings ( QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon" );
@@ -87,11 +101,11 @@ void SettingsView::addAddress()
 	QString host="";
 	QString port="";
 	bool ok=false;
-	host=QInputDialog::getText ( this, "Neue Adresse Hinzufügen","Host:", QLineEdit::Normal,"localhost", &ok );
+	host=QInputDialog::getText ( this, tr("Neue Adresse Hinzufügen"),tr("Host:"), QLineEdit::Normal,"localhost", &ok );
 	if ( ok && !host.isEmpty() )
 	{
 		ok=false;
-		port=QInputDialog::getText ( this, "Neue Adresse Hinzufügen","Portnummer:", QLineEdit::Normal, "4444",&ok );
+		port=QInputDialog::getText ( this, tr("Neue Adresse Hinzufügen"),tr("Portnummer:"), QLineEdit::Normal, "4444",&ok );
 		if ( ok )
 		{
 			if ( !port.isEmpty() ) ui.cbAddress->addItem ( host+":"+port );
@@ -124,7 +138,7 @@ void SettingsView::refreshDeviceCapabilities()
  */
 void SettingsView::readConfig()
 {
-	Logger::log("Loading settings");
+	Logger::log(tr("[INF] lade Einstellungen"));
 	settings->sync();
 
 	ui.cbAskBeforeExit->setCheckState ( ( settings->value ( "askbeforeexit" ).toBool() ) ? Qt::Checked : Qt::Unchecked );
@@ -172,8 +186,8 @@ void SettingsView::readConfig()
 	}
 	if ( j==ui.cbChannels->count() )
 	{
-		QMessageBox::critical ( this,"Lesen der Kanäle fehlgeschlagen","Beim Auslesen der Kanäle aus der Konfigurationsdatei ist ein Fehler aufgetreten" );
-		Logger::log("CRITICAL: Couldn't read channels");
+		QMessageBox::critical ( this,tr("Lesen der Kanäle fehlgeschlagen"),tr("Beim Auslesen der Kanäle aus der Konfigurationsdatei ist ein Fehler aufgetreten" ));
+		Logger::log(tr("[ERR] Konnte die Kanäle nicht lesen"));
 		return;
 	}
 	ui.cbChannels->setCurrentIndex ( j );
@@ -203,7 +217,7 @@ void SettingsView::readConfig()
 
 void SettingsView::saveCommands()
 {
-	Logger::log(tr("Speichere Kommandos..."));
+	Logger::log(tr("[INF] Speichere Kommandos..."));
 	commandLoader->save();
 }
 
@@ -213,7 +227,7 @@ void SettingsView::saveCommands()
  */
 void SettingsView::initCommands(QString path)
 {
-	Logger::log(tr("Importiere Kommandos von ")+path);
+	Logger::log(tr("[INF] Importiere Kommandos von ")+path);
 	commandLoader->load(path);
 	CommandList commands = commandLoader->getCommands();
 	
@@ -222,7 +236,7 @@ void SettingsView::initCommands(QString path)
 	
 	//baue combobox
 	
-	Logger::log(tr("Habe ")+QString::number(commands.count())+tr(" Kommandos gefunden"));
+	Logger::log(tr("[INF] Habe ")+QString::number(commands.count())+tr("Kommandos gefunden"));
 	for (int i=0; i < commands.count(); i++)
 	{
 		tmp = new QTableWidgetItem(commands.at(i)->getName());
@@ -259,7 +273,7 @@ void SettingsView::initCommands(QString path)
 
 void SettingsView::apply()
 {
-	Logger::log("Applying settings...");
+	Logger::log(tr("[INF] Wende Settings an..."));
 	
 	settings->setValue ( "simonautostart",ui.cbStartSimonOnBoot->checkState() ==Qt::Checked );
 	settings->setValue ( "juliusdautostart",ui.cbStartJuliusdOnBoot->checkState() ==Qt::Checked );
@@ -376,15 +390,101 @@ void SettingsView::switchToCommands()
 /**
  * \brief Switches to the "command" tab
  *
- * \author Peter Grasch
+ * \author Peter Grasch, Phillip Goriup
  */
 void SettingsView::switchToProtocols()
 {
 	unsetAllTabs();
-
+	
 	ui.pbProtocolSettings->setChecked ( true );
 	ui.swSettings->setCurrentIndex ( 3 );
+	
+	QCoreApplication::processEvents();
+	
+	insertEntries(getEntries(NULL));
+
+}	
+
+/**
+ * \brief 
+ *
+ * \author Phillip Goriup
+ */
+void SettingsView::onlyDay()
+{
+	//QMessageBox::information(this, "BLA","only Day");
+	if(ui.cbOnlyDay->checkState () == Qt::Checked)
+	{
+		//QMessageBox::information(this, "BLA","OnlyDay in  "+ui.cwLogDay->selectedDate().toString());
+		insertEntries(getEntries(&ui.cwLogDay->selectedDate()));
+	}
+	else
+	{
+		insertEntries(getEntries(NULL));
+	}
 }
+
+
+/**
+ * \brief 
+ *
+ * \author Phillip Goriup
+ */
+LogEntryList SettingsView::getEntries(QDate *day)
+{	
+	ui.pbLogLoad->setMaximum(0);
+	ui.lbLogLoad->setText(tr("Lade Einträge..."));
+	QCoreApplication::processEvents();
+	ui.twLogEntries->clear();
+	if(day == NULL)
+	{	
+		return manager->getAll();
+	}
+	else
+	{
+		return manager->getDay(*day);
+	}
+	// * * QMessageBox::information(this, "BLA",entries[0]->getDate().toString("yyyy/MM/dd"));
+}
+
+/**
+ * \brief 
+ *
+ * \author Phillip Goriup
+ */
+void SettingsView::insertEntries(LogEntryList entries)
+{
+	QList<QTreeWidgetItem *> items;
+	QDate currentdate; 
+	int i = 0;
+	QTreeWidgetItem *item;
+	
+	ui.pbLogLoad->setMaximum(entries.count());
+	ui.lbLogLoad->setText(tr("Füge Einträge ein..."));
+	QCoreApplication::processEvents();
+	//ui.twLogEntries->hide();
+	while (i < entries.count())
+	{
+		if (entries[i]->getDate() != currentdate)
+		{
+			currentdate = entries[i]->getDate();
+			item = new QTreeWidgetItem(ui.twLogEntries);
+			item->setText(0, currentdate.toString("yyyy/MM/dd"));
+		}
+		QTreeWidgetItem *child = new QTreeWidgetItem(item);
+		child->setText(0,entries[i]->getTime().toString());
+		child->setText(1,entries[i]->getMessage());
+		ui.pbLogLoad->setValue(i);
+		i++;
+	}
+	ui.pbLogLoad->setMaximum(1);
+	ui.pbLogLoad->setValue(ui.pbLogLoad->maximum());
+	ui.lbLogLoad->setText(tr("Fertig"));
+	//ui.twLogEntries->show();
+}
+
+
+
 
 /**
  * \brief Switches to the "history" tab
@@ -630,5 +730,3 @@ void SettingsView::searchCommandList()
  */
 SettingsView::~SettingsView()
 {}
-	
-	

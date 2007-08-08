@@ -23,6 +23,8 @@
 #include "xmlcommand.h"
 #include <QStringList>
 
+#include "logmanager.h"
+
 /**
 	\class SettingsView
 	
@@ -45,6 +47,9 @@ private:
     SoundControl *sc;
 	XMLCommand *commandLoader;
     void readConfig();
+	
+	LogManager *manager;
+
 
 private slots:
 	void initCommands(QString path="conf/commands.xml");
@@ -62,6 +67,9 @@ public slots:
 	void refreshDeviceCapabilities();
 	void deleteAddress();
 	void addAddress();
+	void insertEntries(LogEntryList entries);
+	LogEntryList  getEntries(QDate *day);
+	void onlyDay();
 	void newCommand();
 	void deleteCommand();
 	void activateCb();

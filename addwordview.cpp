@@ -48,8 +48,8 @@ AddWordView::AddWordView(QWidget *parent)
 	
 	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
 
-	setWindowTitle("Wort hinzufuegen");
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/addword.png"));
+	setWindowTitle(tr("Wort hinzufügen"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/addword.png")));
 }
 
 /**
@@ -81,9 +81,9 @@ QWizardPage* AddWordView::createRecordPage()
 QWizardPage* AddWordView::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle("Hinzufuegen des Wortes");
+	finished->setTitle(tr("Hinzufügen des Wortes"));
 	QLabel *label = new QLabel(finished);
-	label->setText("Es wurden alle benoetigten Daten gesammelt.\n\nSimon kann das neue Wort jetzt lernen.\nBitte ueberpruefen Sie, bevor Sie hier\nbestaetigen, ob die Aufnahmen nicht von\nHintergrundgeraeuschen beeintraechtigt werden.\n\nKlicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschlieszen.");
+	label->setText(tr("Es wurden alle benötigten Daten gesammelt.\n\nSimon kann das neue Wort jetzt lernen.\nBitte ueberprüfen Sie, bevor Sie hier\nbestätigen, ob die Aufnahmen nicht von\nHintergrundgeräuschen beeinträchtigt werden.\n\nKlicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschließen."));
 	QVBoxLayout *layout = new QVBoxLayout(finished);
 	layout->addWidget(label);
 	finished->setLayout(layout);
@@ -106,12 +106,12 @@ void AddWordView::finish(int done)
 	
 	QString word = ((AddWordIntroPage*) this->page(0))->getName();
 	
-	Logger::log(tr("Fuege neues Wort zum Modell hinzu..."));
-	Logger::log(tr("Neues Wort lautet: ")+word);
+	Logger::log(tr("[INF] Füge neues Wort zum Modell hinzu..."));
+	Logger::log(tr("[INF] Neues Wort lautet: ")+word);
 	//finishs up
 	
 	//cleaning up
-	Logger::log(tr("Word added: ")+word);
+	Logger::log(tr("[INF] Wort hinzugefügt: ")+word);
 	emit addedWord();
 	
 	restart();

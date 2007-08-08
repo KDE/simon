@@ -18,7 +18,6 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #include <QPixmap>
-#include <QDebug>
 #include <QPalette>
 #include <QLinearGradient>
 #include "simonview.h"
@@ -45,7 +44,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 		exit(1);
 	}
 	
-	Logger::log("Starte simon...");
+	Logger::log(tr("[INF] Starte simon..."));
 	
 	this->settings = new 
 		QSettings(QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon");
@@ -54,7 +53,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	//showing splash
 	this->info->showSplash();
 	
-	this->info->writeToSplash("Lade Interface...");
+	this->info->writeToSplash(tr("Lade Interface..."));
 	
 	this->control = new SimonControl();
 	this->trayManager = new TrayIconManager();
@@ -126,7 +125,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
 
-	this->info->writeToSplash("Verbinde zu juliusd...");
+	this->info->writeToSplash(tr("Verbinde zu juliusd..."));
 	connectToServer();
 	
 	//hiding splash again after loading
@@ -158,13 +157,13 @@ void SimonView::connectToServer()
  */
 void SimonView::connected()
 {
-	ui.pbConnect->setText("Verbindung trennen");
+	ui.pbConnect->setText(tr("Verbindung trennen"));
 	ui.pbConnect->setEnabled(true);
 	disconnect(ui.pbConnect, 0,0,0);
 	connect(ui.pbConnect, SIGNAL(clicked()), control, SLOT(disconnect()));
 	
 	ui.frmConnecting->setVisible(false);
-	SimonInfo::showMessage("Verbunden zu Julius", 3000);
+	SimonInfo::showMessage(tr("Verbunden zu Julius"), 3000);
 	
 	this->control->getActivitionState();
 	this->representState();
@@ -177,12 +176,12 @@ void SimonView::connected()
  */
 void SimonView::disconnected()
 {
-	ui.pbConnect->setText("Verbinden");
+	ui.pbConnect->setText(tr("Verbinden"));
 	ui.pbConnect->setEnabled(true);
 	disconnect(ui.pbConnect, 0,0,0);
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
 	
-	SimonInfo::showMessage("Verbindung zu Julius verloren", 4000);
+	SimonInfo::showMessage(tr("Verbindung zu Julius verloren"), 4000);
 	//we should probably try to reconnect at this point
 	
 	control->deactivateSimon();
@@ -197,7 +196,7 @@ void SimonView::disconnected()
  */
 void SimonView::abortConnecting()
 {
-	ui.pbConnect->setText("Verbinden");
+	ui.pbConnect->setText(tr("Verbinden"));
 	ui.pbConnect->setEnabled(true);
 	disconnect(ui.pbConnect, 0,0,0);
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
@@ -216,12 +215,12 @@ void SimonView::abortConnecting()
  *
  * @author Peter Grasch
  * 
- * \param QString error
+ * \param  error
  * The error that occured
  */
 void SimonView::errorConnecting(QString error)
 {
-	ui.pbConnect->setText("Verbinden");
+	ui.pbConnect->setText(tr("Verbinden"));
 	ui.pbConnect->setEnabled(true);
 	disconnect(ui.pbConnect, 0,0,0);
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
@@ -232,6 +231,7 @@ void SimonView::errorConnecting(QString error)
 	this->representState();
 	
 	QMessageBox::critical(this, tr("Kritischer Verbindungsfehler"), tr("Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte Überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte Fehlermeldung lautete:\n")+error);
+	Logger::log(tr("[ERR] Verbindung zu juliusd fehlgeschlagen..."));
 }
 
 
@@ -426,7 +426,7 @@ void SimonView::representState()
 	if (this->control->getActivitionState())
 	{
 		ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
-		ui.pbActivision->setText("  &Deaktivieren");
+		ui.pbActivision->setText(tr("Deaktivieren"));
 		ui.pbActivision->setIcon(QIcon(":/images/icons/media-playback-pause.svg"));
 		this->trayManager->createIcon( QIcon( ":/images/tray.png" ), "Simon" );
 		
@@ -436,12 +436,12 @@ void SimonView::representState()
 	} else 
 	{
 		ui.lbLogo->setPixmap(QPixmap(":/images/simon_d.png"));
-		ui.pbActivision->setText("  A&ktivieren");
+		ui.pbActivision->setText(tr("Aktivieren"));
 		ui.pbActivision->setIcon(QIcon(":/images/icons/media-playback-start.svg"));
 
-		if (isHidden()) SimonInfo::showMessage(QString("simon wurde deaktiviert"), 2000);
+		if (isHidden()) SimonInfo::showMessage(QString(tr("simon wurde deaktiviert")), 2000);
 
-		this->trayManager->createIcon( QIcon( ":/images/tray_d.png" ), "Simon - Deaktiviert" );
+		this->trayManager->createIcon( QIcon( ":/images/tray_d.png" ), tr("Simon - Deaktiviert" ));
 		repaint();
 	}
 }
@@ -476,7 +476,7 @@ void SimonView::toggleVisibility()
 */
 void SimonView::closeSimon()
 {
-	if ((!false /*Confirm shutdown*/) || (QMessageBox::question(this, "Wirklich beenden?", "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?",QMessageBox::Yes|QMessageBox::No,QMessageBox::No) == QMessageBox::Yes))
+	if ((!false /*Confirm shutdown*/) || (QMessageBox::question(this, tr("Wirklich beenden?"), tr("Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?"),QMessageBox::Yes|QMessageBox::No,QMessageBox::No) == QMessageBox::Yes))
 	{
 		close();
 		this->~ SimonView();
@@ -485,9 +485,12 @@ void SimonView::closeSimon()
 
 
 /**
- * @brief hides the main window Parameter doku
- *
- * with a click on the Windows Button: "X"
+ * @brief sender request
+ * it differs if the sender is pbClose, or the CloseButton in the title bar
+ * 
+ * \param *event
+ * just to complie with the original definition in QObject
+ * 
  *	@author Phillip Goriup, Peter Grasch
 */
 void SimonView::closeEvent ( QCloseEvent * event )
@@ -508,7 +511,7 @@ void SimonView::closeEvent ( QCloseEvent * event )
 */
 SimonView::~SimonView()
 {
-	Logger::log("Shutting down...");
+	Logger::log(tr("[INF] Beenden..."));
 	this->trayManager->~ TrayIconManager();
 	this->control->~ SimonControl();
 	this->info->~ SimonInfo();

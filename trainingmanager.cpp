@@ -11,6 +11,7 @@
 //
 #include "trainingmanager.h"
 #include "logger.h"
+#include <QObject>
 
 /**
  * @brief Constructor
@@ -41,7 +42,7 @@ void TrainingManager::trainWords(WordList *words)
 {
 	if (!words) return;
 	
-	Logger::log("Starting on-the-fly training with "+QString::number(words->count())+" words");
+	Logger::log(QObject::tr("[INF] Starten eines  on-the-fly Trainings mit %1 Wörter").arg(words->count()));
 	
 	QStringList pages;
 	
@@ -99,7 +100,7 @@ void TrainingManager::trainWords(WordList *words)
 		pages.append(page);
 	}
 	
-	TrainingText *newText = new TrainingText( "Spezialisiertes Training",
+	TrainingText *newText = new TrainingText( QObject::tr("Spezialisiertes Training"),
 						"", pages);
 	
 	currentText=newText;
@@ -137,8 +138,7 @@ void TrainingManager::resumeTraining()
  */
 bool TrainingManager::deleteText(int index)
 {
-	Logger::log("Deleting text \""+trainingTexts->at(index)->getName()+
-			"\" at \""+trainingTexts->at(index)->getPath());
+	Logger::log(QObject::tr("[INF] Löschen von \"%1\" von \"%2\"").arg(trainingTexts->at(index)->getName()).arg(trainingTexts->at(index)->getPath()));
 	QFile text(trainingTexts->at(index)->getPath());
 	return text.remove();
 }
@@ -152,7 +152,7 @@ bool TrainingManager::deleteText(int index)
 TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 {
 	if (pathToTexts.isEmpty()) pathToTexts=this->filename;
-	Logger::log("Reading trainingtexts at \""+pathToTexts+"\"");
+	Logger::log(QObject::tr("[INF] Lesen der Trainingtexte von \"")+pathToTexts+"\"");
 	QDir *textdir = new QDir(pathToTexts);
 	if (!textdir || !textdir->exists()) return NULL;
 	QStringList filter;
@@ -186,7 +186,7 @@ TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
  */
 bool TrainingManager::trainText(int i)
 {
-	Logger::log("Training text: \""+getText(i)->getName()+"\"");
+	Logger::log(QObject::tr("[INF] Training Text: \"")+getText(i)->getName()+"\"");
 	this->currentText = getText(i);
 	return (currentText != NULL);
 }
@@ -248,7 +248,7 @@ TrainingText* TrainingManager::getText(int i)
 
 float TrainingManager::calcRelevance(TrainingText *text, WordList *wlist)
 {
-	Logger::log(QCoreApplication::tr("Berechne Nutzen des Textes ")+"\""+text->getName()+"\" ("+
+	Logger::log(QObject::tr("[INF] Berechne Nutzen des Textes ")+"\""+text->getName()+"\" ("+
 		text->getPath()+")");
 	QString currPage;
 	QStringList words;

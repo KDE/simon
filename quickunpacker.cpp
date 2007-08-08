@@ -46,7 +46,7 @@ void QuickUnpacker::unpacked(QString to)
 
 void QuickUnpacker::setStatus(QString status)
 {
-	Logger::log(status);
+	Logger::log(tr("[INF] ")+status);
 	prog->setLabelText(status);
 }
 
@@ -63,8 +63,8 @@ void QuickUnpacker::setProgress(int currentProg)
 
 void QuickUnpacker::errorOccured(QString err)
 {
-	Logger::log(tr("[ERR] ")+err);
-	QMessageBox::critical(this, tr("Fehler beim Entpacken"), tr("Beim Entpacken ist ein Fehler aufgetreten: ")+err);
+	Logger::log(tr("[ERR] Fehler beim Entpacken: %1").arg(err));
+	QMessageBox::critical(this, tr("Fehler beim Entpacken"), tr("Beim Entpacken ist ein Fehler aufgetreten: %1").arg(err));
 	emit error(err);
 }
 

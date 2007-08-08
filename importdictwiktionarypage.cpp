@@ -37,7 +37,7 @@ ImportDictWiktionaryPage::ImportDictWiktionaryPage(QWidget* parent): QWizardPage
 	lbWikiPath = new QLabel(this);
 	lbWikiPath->setText(tr("Wiktionary-Dump:"));
 	
-	QRadioButton *importLocal = new QRadioButton("Lokale Datei", this);
+	QRadioButton *importLocal = new QRadioButton(tr("Lokale Datei"), this);
 	importLocal->setChecked(true);
 	
 	pbWikiSelectFolder = new QPushButton(this);
@@ -50,7 +50,7 @@ ImportDictWiktionaryPage::ImportDictWiktionaryPage(QWidget* parent): QWizardPage
 	
 	connect(pbWikiSelectFolder, SIGNAL(clicked()), this, SLOT(setFile()));
 	
-	QRadioButton *importRemote = new QRadioButton("Direkt Herunterladen", this);
+	QRadioButton *importRemote = new QRadioButton(tr("Direkt Herunterladen"), this);
 
 	lay->addWidget(lbDesc);
 	lay->addWidget(importLocal);
@@ -64,7 +64,7 @@ ImportDictWiktionaryPage::ImportDictWiktionaryPage(QWidget* parent): QWizardPage
 	registerField("importLocal", importLocal, "checked", SIGNAL(toggled(bool)));
 	registerField("importRemote", importRemote, "checked", SIGNAL(toggled(bool)));
 
-	setTitle("Importiere Wiktionary Wörterbuch");
+	setTitle(tr("Importiere Wiktionary Wörterbuch"));
 	
 	connect(importLocal, SIGNAL(toggled(bool)), this, SLOT(resambleImportLocal(bool)));
 	connect(importLocal, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
@@ -157,10 +157,10 @@ QString ImportDictWiktionaryPage::getPath()
 
 void ImportDictWiktionaryPage::setFile()
 {
-	QFileDialog *dlg = new QFileDialog(this, "Zu importierende Textdatei öffnen", QDir::currentPath());
+	QFileDialog *dlg = new QFileDialog(this, tr("Zu importierende Textdatei öffnen"), QDir::currentPath());
 	QStringList filters;
-	filters << "Textdateien (*.xml)";
-	filters << "BZip2 Komprimierte Dateien (*.xml.bz2)";
+	filters << tr("Textdateien (%1)").arg("*.xml");
+	filters << tr("BZip2 Komprimierte Dateien (%1)").arg("*.xml.bz2");
 	dlg->setFilters(filters);
 	if(!dlg->exec()) return;
 	

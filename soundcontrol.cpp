@@ -13,6 +13,7 @@
 #include <string.h>
 #include "simoninfo.h"
 #include "logger.h"
+#include <QObject>
 /**
  *	@brief Constructor
  *
@@ -70,7 +71,7 @@ void SoundControl::setVolume ( int percent )
 
 SoundDeviceList* SoundControl::getOutputDevices()
 {
-	Logger::log("Getting list of available output devices");
+	Logger::log(QObject::tr("[INF] Bekommen einer Liste mit den verfügbaren devices"));
 	SoundDeviceList *sdl= new SoundDeviceList();
 
 	// Determine the number of devices available
@@ -101,7 +102,7 @@ SoundDeviceList* SoundControl::getOutputDevices()
 
 QList<int>* SoundControl::getSamplerate ( QString id )
 {
-	Logger::log("Determining samplerate of device \""+id+"\"");
+	Logger::log(QObject::tr("[INF] Bestimmen der Samplerate des device \"")+id+"\"");
 	// Determine the number of devices available
 	int devices = audio->getDeviceCount();
 	// Scan through devices for various capabilities
@@ -138,7 +139,7 @@ QList<int>* SoundControl::getSamplerate ( QString id )
 
 int SoundControl::getChannel ( QString id )
 {
-	Logger::log("Returning available channels of device \""+id+"\"");
+	Logger::log(QObject::tr("[INF] Zurückgeben verfügbarer Kanäle des device \"")+id+"\"");
 	// Determine the number of devices available
 	int devices = audio->getDeviceCount();
 	// Scan through devices for various capabilities
@@ -167,7 +168,7 @@ int SoundControl::getChannel ( QString id )
 
 SoundDeviceList* SoundControl::getInputDevices()
 {
-	Logger::log("Getting list of available input devices");
+	Logger::log(QObject::tr("[INF] Bekommen einer Liste mit den verfügbaren Input-devices"));
 	SoundDeviceList *sdl= new SoundDeviceList();
 
 	// Determine the number of devices available

@@ -33,7 +33,7 @@
 OSD::OSD(QString message, int timeout, int alignment)
 	: QWidget(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint)
 {
-	Logger::log("Showing message: "+message);
+	Logger::log(tr("[INF] ")+message);
 	
 	this->timer = new QTimer();
 	

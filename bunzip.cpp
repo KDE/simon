@@ -54,7 +54,8 @@ void Bunzip::extractingFinishing(int code)
 	if (code!=0)
 	{
 		emit errorOccured(tr("Es ist ein Fehler beim Entpacken aufgetreten.\n\nBitte überprüfen Sie ob Sie das Paket \"bzip2\" installiert haben.\n\n(Rückgabewert %1)").arg(code));
-// 		Logger::log(tr("[FEHLER]")+" "+tr("Programm \"bzip2 -d\" gab nicht 0 zurück"));
+		cancel();
+		Logger::log(tr("[FEHLER]")+" "+tr("Programm \"bzip2 -d\" gab nicht %1 zurück").arg(code));
 	} else {
 		QString extFile = this->filename.remove(QRegExp(".bz2$"));
 // 		Logger::log(this->filename+" "+tr("erfolgreich extrahiert zsu")+" "+extFile);

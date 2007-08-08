@@ -33,12 +33,12 @@
  */
 ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *parent) : QWizardPage(parent)
 {
-	setTitle("Verarbeite Ordner...");
+	setTitle(tr("Verarbeite Ordner..."));
 	completed = false;
 	
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	QLabel *lbMain = new QLabel(this);
-	lbMain->setText("Der angegebene Ordner wird verarbeit.\nSie können den Fortschritt mit dem Fortschrittsbalken\nüberpruefen.\n\nBitte haben Sie einen Moment Geduld.\n\n");
+	lbMain->setText(tr("Der angegebene Ordner wird verarbeit.\nSie können den Fortschritt mit dem Fortschrittsbalken\nüberprüfen.\n\nBitte haben Sie einen Moment Geduld.\n\n"));
 	
 	pbMain = new QProgressBar(this);
 	pbMain->setMaximum(0);

@@ -11,6 +11,7 @@
 //
 #include "importworkingwizardpage.h"
 #include "logger.h"
+#include <QObject>
 
 
 ImportWorkingWizardPage::ImportWorkingWizardPage(QWidget *parent) : QWizardPage(parent)
@@ -20,13 +21,13 @@ void ImportWorkingWizardPage::startImport(QString path)
 {
 	if (path.startsWith("http"))
 	{
-		Logger::log("Starting remote import from \""+path+"\"");
+		Logger::log(QObject::tr("[INF] Starte Remote Import von \"")+path+QObject::tr("\""));
 		QuickDownloader *qd = new QuickDownloader(this);
 		connect(qd, SIGNAL(downloadFinished(QString)), this,
 			SLOT(processText(QString)));
 		qd->download(path);
 	} else {
-		Logger::log("Starting local import from \""+path+"\"");
+		Logger::log(QObject::tr("[INF] Starte Lokalen Import von\"")+path+QObject::tr("\""));
 		parseFile(path);
 	}
 }

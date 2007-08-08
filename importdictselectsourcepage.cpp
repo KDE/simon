@@ -20,7 +20,7 @@
 
 ImportDictSelectSourcePage::ImportDictSelectSourcePage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle("Typ auswählen");
+	setTitle(tr("Typ auswählen"));
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	
 	QLabel *desc = new QLabel(this);

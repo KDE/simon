@@ -24,9 +24,9 @@
 AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 {
 	
-	setTitle(tr("Hinzufuegen eines neuen Wortes"));
+	setTitle(tr("Hinzufügen eines neuen Wortes"));
 	QLabel *label = new QLabel(this);
-	label->setText("Mit Hilfe dieses Assistenten koennen Sie neue Woerter zum\nSprachmodell hinzufuegen. Geben Sie hierzu\nbitte den Namen des Wortes an\nund bestaetigen Sie mit \"Weiter\":\n\n");
+	label->setText(tr("Mit Hilfe dieses Assistenten koennen Sie neue Wörter zum\nSprachmodell hinzufügen. Geben Sie hierzu\nbitte den Namen des Wortes an\nund bestätigen Sie mit \"Weiter\":\n\n"));
 	QLabel *lbName = new QLabel(this);
 	lbName->setText(tr("Neues Wort:"));
 	QLineEdit *leName = new QLineEdit(this);
@@ -36,7 +36,7 @@ AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 	loName->addWidget(leName);
 
 	layout->addWidget(label);
-	registerField("name*", leName);
+	registerField(tr("name*"), leName);
 	layout->addLayout(loName);
 	
 	setLayout(layout);

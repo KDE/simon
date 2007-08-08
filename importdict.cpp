@@ -41,7 +41,7 @@ void ImportDict::parseWordList(QString pathToDict, int type)
  */
 void ImportDict::run()
 {
-	Logger::log(tr("Öffne lexikon")+" \""+pathToDict+"\"");
+	Logger::log(tr("[INF] Öffne Lexikon")+" \""+pathToDict+"\"");
 	emit status(tr("Öffne Wörterbuch..."));
 	
 	emit progress(10);
@@ -77,7 +77,7 @@ void ImportDict::run()
 	emit progress(1000);
 	emit status(tr("Wörterbuch wird verteilt..."));
 	
-	Logger::log(QString::number(words.count())+" "+tr("Wörter aus dem lexikon")+" \""+pathToDict+"\""+tr(" importiert"));
+	Logger::log(tr("[UPT] ")+QString::number(words.count())+" "+tr("Wörter aus dem lexikon")+" \""+pathToDict+"\""+tr(" importiert"));
 	emit finished(vocablist);
 }
 

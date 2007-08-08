@@ -27,7 +27,7 @@
  */
 ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *parent) : QWizardPage(parent)
 {
-	setTitle("Trainingsdaten aus Ordner importieren");
+	setTitle(tr("Trainingsdaten aus Ordner importieren"));
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	
 	QLabel *lbIntroText = new QLabel(this);
@@ -58,6 +58,6 @@ ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *pare
  */
 void ImportTrainingDirectoryIntroPage::setDir()
 {
-	QString dir = QFileDialog::getExistingDirectory(this, "Trainingsdaten-Ordner");
+	QString dir = QFileDialog::getExistingDirectory(this, tr("Trainingsdaten-Ordner"));
 	leDirectory->setText(dir);
 }

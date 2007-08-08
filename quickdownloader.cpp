@@ -40,7 +40,7 @@ bool QuickDownloader::download(QString url, QString filename)
 		file = new QTemporaryFile("simon_tmp_download",this);
 	else file = new QFile(filename, this);
 
-	Logger::log("Loading \""+url+"\" to \""+file->fileName()+"\"");
+	Logger::log(tr("[INF] Lade \"%1\" zu \"%2\"").arg(url).arg(file->fileName()));
 	if (!loader || !progressDlg) return false;
 	
 	QUrl urlD = QUrl(url);
@@ -61,8 +61,8 @@ bool QuickDownloader::download(QString url, QString filename)
 	loader->setHost(urlD.host(), mode, urlD.port() == -1 ? 0 : urlD.port());;
 	QFileInfo info = QFileInfo(urlD.path());
 	
-	progressDlg->setWindowTitle("Lade "+info.fileName());
-	progressDlg->setLabelText("Lade "+url);
+	progressDlg->setWindowTitle(tr("Lade ")+info.fileName());
+	progressDlg->setLabelText(tr("Lade ")+url);
 	progressDlg->setMaximum(0);
 	progressDlg->setValue(0);
 	progressDlg->show();
@@ -73,7 +73,7 @@ bool QuickDownloader::download(QString url, QString filename)
 	{
 		
 		QMessageBox::critical(this, tr("Fehler beim Öffnen"),
-				QString("Konnte die temporäre Datei (%1) nicht öffnen:\n%2")
+				QString(tr("Konnte die temporäre Datei (%1) nicht öffnen:\n%2"))
 				.arg(file->fileName()).arg(file->errorString()));
 		return false;
 	}
@@ -92,11 +92,12 @@ bool QuickDownloader::download(QString url, QString filename)
  */
 void QuickDownloader::readResponse(const QHttpResponseHeader header)
 {
-	Logger::log("Got HTTP response: \""+QString::number(header.statusCode())+"\"");
+	Logger::log(tr("[INF] Erhaltene HTTP Antwort: \"")+QString::number(header.statusCode())+"\"");
 	if (header.statusCode() != 200) {
 		QMessageBox::information(this, tr("HTTP"),
-					 tr("Download failed: %1.")
+					 tr("Download fehlgeschlagen: %1.")
 							 .arg(header.reasonPhrase()));
+		Logger::log(tr("[INF] Download fehlgeschlagen: %1.").arg(header.reasonPhrase()));
 		aborting = true;
 		progressDlg->hide();
 		loader->abort();
@@ -110,7 +111,7 @@ void QuickDownloader::readResponse(const QHttpResponseHeader header)
  */
 void QuickDownloader::cancelDownload()
 {
-	Logger::log("Canceling download");
+	Logger::log(tr("[INF] Download zurückgesetzt"));
 	aborting = true;
 	loader->abort();
 }
@@ -141,12 +142,12 @@ void QuickDownloader::dataRecieved(int now, int max)
 void QuickDownloader::requestFinished(int id, bool error)
 {
 	if (error) {
-		Logger::log("Error occured: \""+loader->errorString()+"\"");
+		Logger::log(tr("[ERR] Fehler beim Download aufgetreten: \"")+loader->errorString()+"\"");
 		emit errorOccured(loader->errorString());
 	}
 	
 	if ((id == this->request) && (aborting == false)) {
-		Logger::log("Download finished: \""+filename+"\"");
+		Logger::log(tr("[INF] Download abgeschlossen: \"")+filename+"\"");
 		if (file)
 			file->close();
 		progressDlg->hide();
@@ -154,7 +155,7 @@ void QuickDownloader::requestFinished(int id, bool error)
 	}
 	if (aborting)
 	{
-		Logger::log("Download aborted: \""+filename+"\"");
+		Logger::log(tr("[INF] Download abgebrochen: \"")+filename+"\"");
 		if (file) {
 			file->close();
 			file->remove();

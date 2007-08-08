@@ -54,7 +54,7 @@ void DropListWidget::dragEnterEvent(QDragEnterEvent *event)
  */
 void DropListWidget::dragMoveEvent(QDragMoveEvent *event)
 {
-	if (event->mimeData()->hasFormat("text/plain"))
+	if (event->mimeData()->hasFormat(tr("text/plain")))
 		event->accept();
 }
 
