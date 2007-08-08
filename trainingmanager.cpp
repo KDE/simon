@@ -21,6 +21,7 @@ TrainingManager::TrainingManager(WordListManager *wlistmgr, QString pathToTexts)
 {
 	filename = pathToTexts;
 	this->wlistmgr = wlistmgr;
+	this->promptsTable = wlistmgr->readPrompts();
 }
 
 /**
@@ -251,6 +252,7 @@ float TrainingManager::calcRelevance(TrainingText *text, WordList *wlist)
 		text->getPath()+")");
 	QString currPage;
 	QStringList words;
+	
 	int wordCount=0;
 	int probability=0;
 	for (int i=0; i<text->getPageCount();i++)
@@ -269,19 +271,12 @@ float TrainingManager::calcRelevance(TrainingText *text, WordList *wlist)
  		
 		for (int j=0; j<words.count(); j++)
 		{
-			int k=0;
-			while((k<wlist->count()) && 
-				(wlist->at(k).getWord().toUpper() != words.at(j).toUpper())) 
-			{  k++;  }
-			if (k < wlist->count())
-			{
-				wordCount++;
-				probability+=wlist->at(k).getPropability();
-			}
+			wordCount++;
+			probability += wlistmgr->getProbability(words.at(j), this->promptsTable);
 		}
 	}
 	if (wordCount > 0)
-		return probability/wordCount;
+		return round(probability/wordCount);
 	else return 0;
 }
 

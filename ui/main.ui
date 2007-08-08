@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>883</width>
+    <width>858</width>
     <height>532</height>
    </rect>
   </property>
@@ -298,6 +298,15 @@
             <property name="palette" >
              <palette>
               <active>
+               <colorrole role="Button" >
+                <brush brushstyle="SolidPattern" >
+                 <color alpha="150" >
+                  <red>235</red>
+                  <green>235</green>
+                  <blue>235</blue>
+                 </color>
+                </brush>
+               </colorrole>
                <colorrole role="ButtonText" >
                 <brush brushstyle="SolidPattern" >
                  <color alpha="255" >
@@ -309,6 +318,15 @@
                </colorrole>
               </active>
               <inactive>
+               <colorrole role="Button" >
+                <brush brushstyle="SolidPattern" >
+                 <color alpha="150" >
+                  <red>235</red>
+                  <green>235</green>
+                  <blue>235</blue>
+                 </color>
+                </brush>
+               </colorrole>
                <colorrole role="ButtonText" >
                 <brush brushstyle="SolidPattern" >
                  <color alpha="255" >
@@ -320,6 +338,15 @@
                </colorrole>
               </inactive>
               <disabled>
+               <colorrole role="Button" >
+                <brush brushstyle="SolidPattern" >
+                 <color alpha="150" >
+                  <red>235</red>
+                  <green>235</green>
+                  <blue>235</blue>
+                 </color>
+                </brush>
+               </colorrole>
                <colorrole role="ButtonText" >
                 <brush brushstyle="SolidPattern" >
                  <color alpha="255" >
@@ -353,7 +380,7 @@
              </size>
             </property>
             <property name="flat" >
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>

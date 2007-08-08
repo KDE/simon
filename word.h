@@ -227,6 +227,25 @@ public:
 	{
 		return getWord().toUpper() < w2.getWord().toUpper();
 	}
+	
+	
+	const bool operator!=(const Word w2) const
+	{
+		if ((getWord() != w2.getWord()) || (getTerminal() != w2.getTerminal()))
+			return true;
+
+		if (getPronunciations().size() != w2.getPronunciations().size()) return true;
+		
+		int i=0;
+		
+		while ( i < getPronunciations().size())
+		{
+			if (getPronunciations().at(i) != w2.getPronunciations().at(i))
+				return true;
+			 i++;
+		}
+		return false;
+	}
 
 	
 	/**

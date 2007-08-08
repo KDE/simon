@@ -51,13 +51,15 @@ ImportDictWiktionaryPage::ImportDictWiktionaryPage(QWidget* parent): QWizardPage
 	connect(pbWikiSelectFolder, SIGNAL(clicked()), this, SLOT(setFile()));
 	
 	QRadioButton *importRemote = new QRadioButton("Direkt Herunterladen", this);
-	this->remoteList = new QListWidget();
 
 	lay->addWidget(lbDesc);
 	lay->addWidget(importLocal);
 	lay->addLayout(fileLay);
 	lay->addWidget(importRemote);
-	lay->addWidget(this->remoteList);
+	this->remoteList = new QListWidget(this);
+	remoteList->setMinimumHeight(100);
+	remoteList->setMaximumHeight(153);
+	lay->addWidget(remoteList);
 	this->setLayout(lay);
 	registerField("importLocal", importLocal, "checked", SIGNAL(toggled(bool)));
 	registerField("importRemote", importRemote, "checked", SIGNAL(toggled(bool)));

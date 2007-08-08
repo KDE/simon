@@ -68,11 +68,14 @@ void ImportDict::run()
 		vocablist->append ( Word(QString(words.at(i)), 
 				    QString(pronunciations.at(i)), 
 					QString(terminals.at(i)), 0 ) );
-		emit progress((int) ((((double) i)/((double)words.count())) *40+960));
+		emit progress((int) ((((double) i)/((double)words.count())) *40+800));
 	}
+	emit status(tr("Sortiere Wörterbuch..."));
+	qSort(vocablist->begin(), vocablist->end());
+	
 	
 	emit progress(1000);
-	emit status(tr("Fertig"));
+	emit status(tr("Wörterbuch wird verteilt..."));
 	
 	Logger::log(QString::number(words.count())+" "+tr("Wörter aus dem lexikon")+" \""+pathToDict+"\""+tr(" importiert"));
 	emit finished(vocablist);
@@ -87,7 +90,7 @@ void ImportDict::run()
  */
 void ImportDict::loadProgress(int prog)
 {
-	int globalProg =(int)  ((((double)prog)/1000)*950+10);
+	int globalProg =(int)  ((((double)prog)/1000)*800+10);
 	emit progress(globalProg);
 }
 

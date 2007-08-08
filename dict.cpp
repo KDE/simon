@@ -283,7 +283,7 @@ QString Dict::ipaToXSampa(QString ipa)
 	for (int i=0; i < ipa.count(); i++)
 	{
 		if (phonemes.contains(ipa.at(i).unicode()))
-			out += " "+phonemes.value(ipa.at(i).unicode());
+			out += phonemes.value(ipa.at(i).unicode());
 		else out += modifiers.value(ipa.at(i).unicode());
 	}
 	return out;

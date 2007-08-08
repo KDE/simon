@@ -12,7 +12,6 @@
 #include "bompdict.h"
 #include <QString>
 #include <QFile>
-#include <QDebug>
 #include <QTextStream>
 #include <QRegExp>
 #include <QFileInfo>
@@ -27,7 +26,6 @@ void BOMPDict::load(QString path)
 	if (path.isEmpty()) path = this->path;
 	
 	emit progress(0);
-	qDebug() << path;
 	QFile *dict = new QFile(path);
 	if (!dict->open(QIODevice::ReadOnly))
 		return;

@@ -36,22 +36,22 @@ class WordListManager{
 
 private:
 	WordList *wordlist;	//!< Holds the wordlist
-	WordList *extralist;	//!< this holds the word that are not in the vocabulary (unused)
+//	WordList *extralist;	//!< this holds the word that are not in the vocabulary (unused)
 	QString lexiconPath, vocabPath;
 	
 public:
-	WordList* getExtraWords() { return extralist; }
+// 	WordList* getExtraWords() { return extralist; }
 	
 	WordList* removeDoubles(WordList *in);
 	WordListManager(QString lexiconPath="model/lexicon", QString vocabPath="model/model.voca");
 	WordList* readWordList(QString lexiconpath="model/lexicon", QString vocabpath="model/model.voca", QString promptspath="model/prompts");
 	WordList* readVocab(QString vocabpath="model/model.voca");
 	PromptsTable* readPrompts(QString promptspath="model/prompts");
-	QString getTerminal(QString name, QString pronunciation, WordList *wlist);
+	QString* getTerminal(QString name, QString pronunciation, WordList *wlist);
 	int getProbability(QString name, PromptsTable *promptsTable);
 	void trainList();
 	WordList* getWordList() { return wordlist; }
-	void addWords(WordList *list);
+	void addWords(WordList *list, bool isSorted=false);
 	bool save( QString lexiconFilename="", QString vocabFilename="" );
 	WordList* sortList(WordList* list);
 

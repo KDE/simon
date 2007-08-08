@@ -86,7 +86,7 @@ void WordListView::importDict(WordList* list)
 	if (list)
 	{
 		setDirty(true);
-		wordListManager->addWords(list);
+		wordListManager->addWords(list, true);
 		insertVocab(wordListManager->sortList(wordListManager->getWordList()));
 	}
 }
@@ -219,7 +219,7 @@ void WordListView::toggleExtraWords()
 	if (ui.cbShowCompleteLexicon->checkState() == Qt::Checked)
 	{
 		insertVocab(this->wordListManager->getWordList());
-		insertVocab(this->wordListManager->getExtraWords());
+// 		insertVocab(this->wordListManager->getExtraWords());
 	} else {
 		insertVocab(this->wordListManager->getWordList());
 	}
@@ -361,6 +361,7 @@ void WordListView::insertVocab(WordList *vocab)
 	twVocab->setRowCount(i);
 	twVocab->show();
 	pgDlg->hide();
+	emit wordlistLoaded();
 }
 
 

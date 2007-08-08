@@ -32,6 +32,7 @@ class TrainingManager{
 private:
 	TrainingList *trainingTexts;
 	TrainingText *currentText;
+	PromptsTable *promptsTable;
 	WordListManager *wlistmgr;
 	QString filename;
 public:
