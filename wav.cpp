@@ -11,6 +11,7 @@
 //
 #include "wav.h"
 #include "logger.h"
+#include <QObject>
 
 /**
  *	@brief Constructor
@@ -36,11 +37,11 @@ WAV::WAV(QString filename, int samplerate)
     
 	if (samplerate == 0)
 	{
-		Logger::log("Opening WAV file: "+filename);
+		Logger::log(QObject::tr("[INF] Öffne WAV Datei: %1").arg(filename));
 		this->samplerate = this->retrieveSampleRate();
 		this->importDataFromFile(filename);
 	} else {
-		Logger::log("Creating new WAV file: "+filename);
+		Logger::log(QObject::tr("[INF] Erstelle neue WAV Datei: %1").arg(filename));
 	}
 	
 }
@@ -70,7 +71,7 @@ void WAV::importDataFromFile(QString filename)
 {
 	QFile wavFile(filename);
 	if (!wavFile.open(QIODevice::ReadOnly)) {
-		Logger::log("Importing the existing data failed. Will continue with an empty file.");
+		Logger::log(QObject::tr("Importieren des existierenden Daten Datei. Fortsetzen mit einer Lehren Datei."));
 		return;
 	}
 	QDataStream *dstream = new QDataStream(&wavFile);
@@ -141,7 +142,7 @@ int WAV::retrieveSampleRate()
  */
 bool WAV::writeFile(QString filename)
 {
-	Logger::log("Writing WAV file to \""+filename+"\"");
+	Logger::log(QObject::tr("Writing WAV file to \"%1\"").arg(filename));
 	if (filename.isEmpty()) filename = this->filename;
 	
 	QFile wavFile(filename);

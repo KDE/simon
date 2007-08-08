@@ -12,7 +12,8 @@
 #ifndef RUNBACKEND_H
 #define RUNBACKEND_H
 
-#include <QString>
+
+class QString;
 
 /**
 	@interface RunBackend

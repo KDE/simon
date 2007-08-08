@@ -12,8 +12,6 @@
 #ifndef RUNWINDOWSBACKEND_H
 #define RUNWINDOWSBACKEND_H
 
-#include <QDesktopServices>
-#include <QUrl>
 #include "runbackend.h"
 
 /**

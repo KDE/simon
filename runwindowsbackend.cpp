@@ -18,6 +18,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <wchar.h>
+#include <QDesktopServices>
+#include <QUrl>
 
 
 using namespace std;

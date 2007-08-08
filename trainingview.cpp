@@ -53,14 +53,14 @@ void TrainingView::deleteSelected()
 {
 	if (ui.twTrainingWords->selectedItems().isEmpty())
 	{
-		QMessageBox::information(this,"Nichts ausgewählt","Bitte selektieren Sie zuerst einen Text aus der Liste.");
+		QMessageBox::information(this,tr("Nichts ausgewählt"),tr("Bitte selektieren Sie zuerst einen Text aus der Liste."));
 		return;
 	}
 	int currentIndex = ui.twTrainingWords->currentRow();
 	if (!(this->trainMgr->trainText(currentIndex))) return;
 	
 	
-	if (QMessageBox::question(this, "Wollen Sie den ausgewählten Text wirklich löschen?", "Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?", QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+	if (QMessageBox::question(this, tr("Wollen Sie den ausgewählten Text wirklich löschen?"), tr("Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
 		this->trainMgr->deleteText(currentIndex);
 	
 	loadList();
@@ -87,7 +87,7 @@ void TrainingView::trainSelected()
 {
 	if (ui.twTrainingWords->selectedItems().isEmpty())
 	{
-		QMessageBox::information(this,"Nichts ausgewählt","Bitte selektieren Sie zuerst einen Text aus der Liste.");
+		QMessageBox::information(this,tr("Nichts ausgewählt"),tr("Bitte selektieren Sie zuerst einen Text aus der Liste."));
 		return;
 	}
 	
@@ -164,12 +164,11 @@ void TrainingView::fetchPage(int page)
 	ui.lbPage->setText( this->trainMgr->getPage(page) );
 	
 	
-	recorder = new RecWidget( "Seite: "+QString::number(page+1),
-				  "sample"+QString::number(page+1)+".wav", ui.wRecTexts);
+	recorder = new RecWidget( tr("Seite: %1").arg(page+1),
+				  tr("sample%1.wav").arg(page+1), ui.wRecTexts);
 	ui.wRecTexts->layout()->addWidget(recorder);
 	
-	ui.gbPage->setTitle("Seite: "+QString::number(page+1)+ " / "+ 
-				QString::number(trainMgr->getPageCount()));
+	ui.gbPage->setTitle(tr("Seite: %1/%2").arg(page+1).arg(trainMgr->getPageCount()));
 	ui.pbPages->setValue(page);
 }
 
@@ -237,7 +236,7 @@ void TrainingView::cancelReading()
 void TrainingView::cancelTraining()
 {
 	this->trainMgr->pauseTraining();
-	if (QMessageBox::question(this, "Wollen Sie wirklich abbrechen?", "Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhöhen.\n\nWollen Sie wirklich abbrechen?", QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+	if (QMessageBox::question(this, tr("Wollen Sie wirklich abbrechen?"), tr("Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhöhen.\n\nWollen Sie wirklich abbrechen?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
 	{
 		this->trainMgr->abortTraining();
 		ui.swAction->setCurrentIndex(0);

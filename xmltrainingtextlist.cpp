@@ -34,7 +34,7 @@ XMLTrainingTextList::XMLTrainingTextList(QString path) : XMLDomReader(path)
  */
 void XMLTrainingTextList::load(QString path)
 {
-	Logger::log("Loading a list of trainingtexts from "+path);
+	Logger::log(tr("Laden einer Liste von Trainingstexten von %1").arg(path));
 	XMLDomReader::load(path);
 	
 	trainingtexts.clear();

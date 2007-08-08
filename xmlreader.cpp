@@ -8,7 +8,7 @@
  */
 XMLReader::XMLReader(QString path, QObject *parent) : QObject(parent)
 {
-	Logger::log("Initializing XML file \""+path+"\"");
+	Logger::log(tr("[INF] Initialisiere XML Datei \"%1\"").arg(path));
 	this->path=path;
 }
 

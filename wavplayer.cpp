@@ -34,7 +34,7 @@ WavPlayer::WavPlayer(QWidget *parent) : QObject(parent)
  */
 bool WavPlayer::play( QString filename )
 {
-	Logger::log("Playing \""+filename+"\"");
+	Logger::log(tr("[INF] Abspielen von %1").arg(filename)); 
 	progress = 0;
 	position=0;
 	
@@ -102,20 +102,20 @@ void WavPlayer::increaseProgress()
 {
 	if (stopTimer)	{ 
         progressTimer->stop(); 
-                Logger::log("1");
+                Logger::log(tr("[INF] 1"));
         try {
             // Stop and close the stream
             //audio->abortStream();
-            Logger::log("1,5");
+            Logger::log(tr("[INF] 1,5"));
             audio->stopStream();
-            Logger::log("2");
+            Logger::log(tr("[INF] 2"));
             audio->closeStream();
-            Logger::log("3");
+            Logger::log(tr("[INF] 3"));
             delete audio;
-            Logger::log("bin am ende vom try");
+            Logger::log(tr("[INF] Bin am ende vom try"));
         }
         catch (RtError &error) {
-            Logger::log("fehler");
+            Logger::log(tr("[ERR] Fehler"));
             error.printMessage();
         }
         

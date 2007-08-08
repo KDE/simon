@@ -27,27 +27,26 @@ void SimonView::setupAnimations()
 
 void SimonView::resizeButtons()
 {
-//  	setUpdatesEnabled(false);
+  	setUpdatesEnabled(false);
 	if (currentSizeW <= 200) {
 		tresizeButtons->stop();
 		qDebug() << currentSizeW;
 	}
-	currentSizeW = currentSizeW*0.90;
-	currentSizeH=currentSizeH*0.90;
+	currentSizeW = currentSizeW*0.95;
+	currentSizeH=currentSizeH*0.95;;
 	
 	QSize newIconSize = QSize((currentSizeW-100)/5+16, (currentSizeW-100)/5+16);
-	int newFontSize = (currentSizeW/20)+4;
+	float newFontSize = ((float)(currentSizeW/20))+(float)4;
 	for (int i=0; i < animatedButtons.size(); i++)
 	{
 		animatedButtons.at(i)->resize((int) round(currentSizeW), (int) round(currentSizeH));
 		QFont f = animatedButtons.at(i)->font();
-		f.setPointSize(newFontSize);
+		f.setPointSizeF(newFontSize);
 // 		QIcon icon = animatedButtons.at(i)->icon();
 		animatedButtons.at(i)->setIconSize(newIconSize);
 		animatedButtons.at(i)->setFont(f);
 	}
-// 	setUpdatesEnabled(true);
-	QCoreApplication::processEvents();
+ 	setUpdatesEnabled(true);
 }
 
 void SimonView::startTransformToBusy()
@@ -70,6 +69,6 @@ void SimonView::startTransformToBusy()
 	buttonMover->addWidget(ui.pbEditWordList, 0,1);
 	buttonMover->addWidget(ui.pbTrain, 1,0);
 	buttonMover->addWidget(ui.pbRunProgram, 1,1);
-	buttonMover->setColumnMinimumWidth(0,1000);
-	tresizeButtons->start(50);
+	//buttonMover->setColumnMinimumWidth(0,1000);
+	tresizeButtons->start(40);
 }

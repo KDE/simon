@@ -21,8 +21,7 @@ WavRecorder::WavRecorder(QWidget *parent) : QObject(parent)
  */
 bool WavRecorder::record(QString filename, short channels, int sampleRate)
 {
-	Logger::log("Recording: ("+QString::number(channels)+" channels, samplerate: "
-			+QString::number(sampleRate)+" Hz) to +"+filename);
+	Logger::log(tr("[INF] Aufnehmen: %1 Kanäle, samplerate: %2 Hz) zu %3").arg(channels).arg(sampleRate).arg(filename));
 	
 	wavData = new WAV(filename, sampleRate);
 	

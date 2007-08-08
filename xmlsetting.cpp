@@ -28,7 +28,7 @@ QHash<QString,QString>* XMLSetting::getSettings()
 
 int XMLSetting::saveSettings ( QHash<QString,QString>* settings )
 {
-	Logger::log("Saving settings...");
+	Logger::log(QObject::tr("[INF] Speichere Einstellungen..."));
 	doc=new QDomDocument();
 	QDomElement root = doc->createElement ( "settings" );
 	doc->appendChild ( root );
@@ -53,7 +53,7 @@ QDomElement XMLSetting::settingToNode ( QDomDocument &d, QString name, QString v
 void XMLSetting::loadSettings()
 {
 	QString pathToSettings("conf/settings.xml");
-	Logger::log("Loading settings from \""+pathToSettings+"\"");
+	Logger::log(QObject::tr("[INF] Lade Einstellungen von \"%1\"").arg(pathToSettings));
 	this->load ( pathToSettings );
 }
 

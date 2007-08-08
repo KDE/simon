@@ -40,7 +40,7 @@ TrayIconManager::TrayIconManager()
  */
 void TrayIconManager::createIcon(QIcon icon, QString tooltip)
 {
-	Logger::log("Creating systray icon ("+tooltip+")");
+	Logger::log(tr("[INF] Erstelle systray icon(%1)").arg(tooltip));
 	this->icon->setIcon( icon );
 	this->icon->setToolTip( tooltip );
 	this->icon->show();

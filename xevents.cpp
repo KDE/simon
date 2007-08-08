@@ -42,13 +42,13 @@ Display* XEvents::openDisplay(char* displayName)
 	int Event, Error;
 	int Major, Minor;
 	
-	Logger::log("Opening display \""+QString(displayName)+"\"");
+	Logger::log(tr("[INF] Öffne display \"%1\"").arg(QString(displayName)));
 
 	Display * display = XOpenDisplay(displayName);
 
 	if (!display) {
-		Logger::log("CRITICAL: Couldn't open display \""+QString(displayName)+"\"");
-		QMessageBox::critical(0,"Error",QString("Konnte Display nicht öffnen. Bitte überprüfen Sie ihre Konfiguration und / oder setzen Sie sich mit den simon-Entwickler in Verbindung. (Display: \"")+QString(XDisplayName ( displayName ))+QString("\")"));
+		Logger::log(tr("[ERR] Fehler beim öffnen des display \"%1\"").arg(QString(displayName));
+		QMessageBox::critical(0,tr("Error"),QString(tr("Konnte Display nicht öffnen. Bitte überprüfen Sie ihre Konfiguration und / oder setzen Sie sich mit den simon-Entwickler in Verbindung. (Display: \""))+QString(XDisplayName ( displayName ))+QString("\")"));
 		return NULL;
 	}
 
@@ -63,11 +63,11 @@ Display* XEvents::openDisplay(char* displayName)
 
 	//The following should be logged somewhere... Interresting for debugging purposes...
 	//We'll do that once we have the logging classes...
-	Logger::log("XTest for server \"" + QString(DisplayString(display)) + "\" is version " + QString::number(Major) + "." + QString::number(Minor));
+	Logger::log(tr("[INF] Test für Server \"%1\" ist Version %2.%3").arg(QString(DisplayString(display))).arg(Major).arg(Minor));
 
-	Logger::log("Grabbing display control");
+	Logger::log(tr("[INF] Aufnahme der display Kontrolle"));
 	XTestGrabControl( display, True ); 
-	Logger::log("Syncing Display");
+	Logger::log(tr("[INF] Syncronisiere Display"));
 	XSync( display,True ); 
 	return display;
 }
@@ -106,26 +106,25 @@ void XEvents::sendChar(char key)
 	
 	if ( ( kc = XKeysymToKeycode ( display, ks ) ) == 0 )
 	{
-		Logger::log("No keycode found");
+		Logger::log(tr("[INF] Kein keycode gefunden"));
 		return;
 	}
 	if ( ( skc = XKeysymToKeycode ( display, sks ) ) == 0 )
 	{
-		Logger::log("No keycode found");
+		Logger::log(tr("[INF] kein keycode gefunden"));
 		return;
 	}
 
 	kss=XGetKeyboardMapping(display, kc, 1, &syms);
 	if (!kss)
 	{
-		Logger::log("XGetKeyboardMapping failed on the remote display for \""+QString(kc)+"\"");
+		Logger::log(tr("[INF] XGetKeyBoardMapping am Remote-Display fehlgeschlagen für \"%1\"").arg(QString(kc)));
 		return;
 	}
 	for (; syms && (!kss[syms-1]); syms--);
 	if (!syms)
 	{
-		Logger::log("XGetKeyboardMapping failed on the remote display (no syms) for \""
-				+QString(kc)+"\"");
+		Logger::log(tr("[INF] XGetKeyBoardMapping am Remote-Display fehlgeschlagen für \"%1\"").arg(QString(kc)));
 		XFree(kss);
 	}
 	XConvertCase(ks,&ksl,&ksu);

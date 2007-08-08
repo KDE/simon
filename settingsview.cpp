@@ -62,7 +62,15 @@ SettingsView::SettingsView ( QWidget *parent )
 	connect ( ui.cwLogDay, SIGNAL (selectionChanged()), this, SLOT (onlyDay()));
 
 	this->manager = new LogManager();
-
+	if (!this->manager->readLog())
+	{		
+		QMessageBox::critical(this,tr("Fehler beim Auslesen des Logs"),tr("Beim Auslesen der Logdatei ist ein Fehler aufgetreten.\n\nÜberprüfen Sie ob Sie die benötigten Berechtigugnen besitzen."));
+		Logger::log(tr("[ERR] Fehler beim öffnen des Logfilse"));
+	}
+	else
+	{
+		this->manager->readLog();
+	}
 	ui.twCommand->resizeColumnToContents(1);
 	
 	this->settings = new QSettings ( QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon" );
@@ -391,21 +399,8 @@ void SettingsView::switchToProtocols()
 	ui.pbProtocolSettings->setChecked ( true );
 	ui.swSettings->setCurrentIndex ( 3 );
 	
-	
-	ui.pbLogLoad->setMaximum(0);
 	QCoreApplication::processEvents();
-	if (!this->manager->readLog())
-	{		
-		QMessageBox::critical(this,tr("Fehler beim Auslesen des Logs"),tr("Beim Auslesen der Logdatei ist ein Fehler aufgetreten.\n\nÜberprüfen Sie ob Sie die benötigten Berechtigungen besitzen."));
-		Logger::log(tr("[ERR] Fehler beim Öffnen des Logfiles"));
-	}
-	else
-	{
-		this->manager->readLog();
-	}
-	ui.pbLogLoad->setMaximum(1);
-	ui.pbLogLoad->setValue(1);
-
+	
 	insertEntries(getEntries(NULL));
 
 }	
@@ -468,6 +463,10 @@ void SettingsView::insertEntries(LogEntryList entries)
 	ui.lbLogLoad->setText(tr("Füge Einträge ein..."));
 	QCoreApplication::processEvents();
 	//ui.twLogEntries->hide();
+	//QMessageBox::critical(this,tr("F"),QString::number(entries[1]->getType()));
+	QColor color;
+	
+	
 	while (i < entries.count())
 	{
 		if (entries[i]->getDate() != currentdate)
@@ -476,9 +475,23 @@ void SettingsView::insertEntries(LogEntryList entries)
 			item = new QTreeWidgetItem(ui.twLogEntries);
 			item->setText(0, currentdate.toString("yyyy/MM/dd"));
 		}
+		
 		QTreeWidgetItem *child = new QTreeWidgetItem(item);
 		child->setText(0,entries[i]->getTime().toString());
 		child->setText(1,entries[i]->getMessage());
+		
+		if (entries[i]->getType() == ERR)
+			color = QColor(255, 0, 0);
+		if (entries[i]->getType() == INF)
+			color = QColor(237, 235, 143);
+		if (entries[i]->getType() == UPD)
+			color = QColor(0, 150, 0);
+		if (entries[i]->getType() == SET)
+			color = QColor(0, 0, 150);
+		
+		child->setBackground(0, QBrush(color,Qt::SolidPattern));
+		child->setBackground(1, QBrush(color,Qt::SolidPattern));
+
 		ui.pbLogLoad->setValue(i);
 		i++;
 	}
