@@ -228,7 +228,7 @@
              <active>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="100" >
+                <color alpha="0" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -248,7 +248,7 @@
              <inactive>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="100" >
+                <color alpha="0" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -268,7 +268,7 @@
              <disabled>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="100" >
+                <color alpha="0" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -334,7 +334,7 @@
              <active>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="100" >
+                <color alpha="0" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -354,7 +354,7 @@
              <inactive>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="100" >
+                <color alpha="0" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -374,7 +374,7 @@
              <disabled>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="100" >
+                <color alpha="0" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -402,7 +402,7 @@
             <string>Hier können Sie das Sprachmodell editieren und somit die Erkennungsrate erhöhen</string>
            </property>
            <property name="text" >
-            <string>  &amp;Trainieren  </string>
+            <string> &amp;Trainieren</string>
            </property>
            <property name="icon" >
             <iconset resource="../simon.qrc" >:/images/icons/document-properties.svg</iconset>
@@ -449,7 +449,7 @@
               </colorrole>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="100" >
+                <color alpha="0" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -487,7 +487,7 @@
               </colorrole>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="100" >
+                <color alpha="0" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -525,7 +525,7 @@
               </colorrole>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="100" >
+                <color alpha="0" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -605,7 +605,7 @@
              <active>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="100" >
+                <color alpha="0" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -625,7 +625,7 @@
              <inactive>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="100" >
+                <color alpha="0" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -645,7 +645,7 @@
              <disabled>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="100" >
+                <color alpha="0" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -673,7 +673,7 @@
             <string>Zeigt den Ausführendialog an. Hier können Sie Kommandos ausführen und ändern</string>
            </property>
            <property name="text" >
-            <string>  &amp;Ausführen</string>
+            <string> &amp;Ausführen</string>
            </property>
            <property name="icon" >
             <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>

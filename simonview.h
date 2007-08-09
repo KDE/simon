@@ -66,9 +66,9 @@ private slots:
 	
 	#ifdef ANIMATIONS
 	void resizeButtons();
-	void setButtonsBusy();
 	void startTransformToBusy();
 	#endif
+	void setButtonsBusy();
 
 private:
 	int shownDialogs;
@@ -86,6 +86,9 @@ private:
 	QVector<QPushButton*> animatedButtons;
 	QGridLayout *buttonMover;
 	#endif
+	
+	bool viewBusy;
+	void resizeEvent(QResizeEvent *event);
 
 	QPoint currentPos;
 	QPoint runDlgPos;

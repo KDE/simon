@@ -53,7 +53,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	//showing splash
 	this->info->showSplash();
 	
-	this->info->writeToSplash(tr("Lade Interface..."));
+	this->info->writeToSplash(tr("Lade Programmlogik..."));
 	
 	this->control = new SimonControl();
 	this->trayManager = new TrayIconManager();
@@ -61,18 +61,26 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->trayManager->createIcon( QIcon( ":/images/tray.png" ), "Simon" );
 	
 	//Preloads all Dialogs
+	this->info->writeToSplash(tr("Lade \"Wort hinzufügen\"..."));
 	this->addWordView = new AddWordView(this);
+	this->info->writeToSplash(tr("Lade \"Wortliste\"..."));
 	this->wordList = new WordListView(this);
+	this->info->writeToSplash(tr("Lade \"Ausführen\"..."));
 	this->runDialog = new RunApplicationView(this);
+	this->info->writeToSplash(tr("Lade \"Trainieren\"..."));
 	this->trainDialog = new TrainingView(wordList, this);
 	this->wordList->setTrainingView(trainDialog);
+	this->info->writeToSplash(tr("Lade \"System\"..."));
 	this->settingsDialog = new SettingsView(this);
 	
+	this->info->writeToSplash(tr("Lade Oberfläche..."));
+
 	this->vuMeter = new VuMeter();
 	if (vuMeter->prepare())
 		vuMeter->start();
 	
 	shownDialogs = 0;
+	viewBusy = false;
 	QMainWindow(parent,flags);
 	ui.setupUi(this);
 	
@@ -92,6 +100,14 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QObject::connect(this->trayManager, SIGNAL(clicked()), this, SLOT(toggleVisibility()));
 	QObject::connect(ui.pbActivision, SIGNAL(clicked()), this, SLOT(toggleActivation()));
 	QObject::connect(this->trayManager, SIGNAL(middleClicked()), this, SLOT(toggleActivation()));
+
+	#ifndef ANIMATIONS
+	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(setButtonsBusy()));
+	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(setButtonsBusy()));
+	QObject::connect(ui.pbSettings, SIGNAL(clicked()), this, SLOT(setButtonsBusy()));
+	#endif //ANIMATIONS
+
+
 
 	connect(wordList, SIGNAL(showAddWordDialog()), this, 
 			SLOT(showAddWordDialog()));
@@ -126,6 +142,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	
 	
+	
 	ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
 
 	this->info->writeToSplash(tr("Verbinde zu juliusd..."));
@@ -134,6 +151,16 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	//hiding splash again after loading
 	this->info->hideSplash();
 	
+}
+
+
+void  SimonView::resizeEvent(QResizeEvent *event)
+{
+	if (viewBusy) 
+	{
+		this->setButtonsBusy();
+		viewBusy = true;
+	}
 }
 
 /**

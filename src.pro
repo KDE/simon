@@ -97,7 +97,8 @@ importtrainingdirectoryworkingpage.h \
            bompdict.h \
            quickunpacker.h \
            logentry.h \
-           logmanager.h
+           logmanager.h \
+           inlinewidget.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -157,7 +158,8 @@ SOURCES += main.cpp \
            quickunpacker.cpp \
            logentry.cpp \
            logmanager.cpp \
-           simonanimations.cpp
+           simonanimations.cpp \
+           inlinewidget.cpp
 QT += network \
 xml 
 

@@ -10,9 +10,7 @@
 
 void SimonView::setupAnimations()
 {
-	QObject::connect(ui.pbAddWord, SIGNAL(clicked()), this, SLOT(startTransformToBusy()));
 	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(startTransformToBusy()));
-	QObject::connect(ui.pbRunProgram, SIGNAL(clicked()), this, SLOT(startTransformToBusy()));
 	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(startTransformToBusy()));
 	QObject::connect(ui.pbSettings, SIGNAL(clicked()), this, SLOT(startTransformToBusy()));
 	tresizeButtons = new QTimer(this);
@@ -26,23 +24,17 @@ void SimonView::setupAnimations()
 	animatedButtons << ui.pbTrain;
 	animatedButtons << ui.pbRunProgram;
 }
-
-void SimonView::setButtonsBusy()
-{
-	
-}
-
 void SimonView::resizeButtons()
 {
-	if (currentSizeW <= this->width()-400)
+	if (currentSizeW <= this->width()-300	)
 		wScaleDone=true;
 	if (currentSizeH <= 90)
 		hScaleDone=true;
-	if (!logoScaleDone && (ui.lbLogo->height() >= 100))
+	if (!logoScaleDone && (ui.lbLogo->height() >= 95))
 		logoScaleFactor = 0.95f;
 	else { logoScaleDone=true; }
 	
-	if (!xMoveDone && (test->x() > 50)) { currentMoveX = 7; }
+	if (!xMoveDone && (test->x() > 60)) { currentMoveX = 7; }
 	else { xMoveDone = true; currentMoveX=0; }
 
 	if (!yMoveDone && (test->y() > 15)) { currentMoveY = 6; }
@@ -91,7 +83,6 @@ void SimonView::startTransformToBusy()
 // 	ui.lbLogo->resize(10,10);
 	ui.vboxLayout->removeWidget(ui.wButtonWidget);
 	test = ui.wButtonWidget;
-	((QGridLayout*) test->layout())->setVerticalSpacing(1);
 
 	currentMoveX=0;
 	currentMoveY=0;
@@ -106,3 +97,35 @@ void SimonView::startTransformToBusy()
 	tresizeButtons->start(40);
 }
 #endif
+
+
+void SimonView::setButtonsBusy()
+{
+ 	setUpdatesEnabled(false);
+
+	((QGridLayout*) ui.wButtonWidget->layout())->setVerticalSpacing(1);
+	ui.wButtonWidget->setMinimumHeight(89);
+	ui.wButtonWidget->setMaximumHeight(90);
+	ui.wButtonWidget->setMinimumWidth(this->width()-310);
+	ui.wButtonWidget->setMaximumWidth(this->width()-309);
+	ui.lbLogo->setMaximumWidth(160);
+	ui.lbLogo->setMaximumHeight(90);
+	ui.vboxLayout->removeWidget(ui.wButtonWidget);
+
+	QSize newIconSize = QSize(15, 15);
+	QFont f = ui.pbAddWord->font();
+	f.setPointSizeF(15.6287f);
+	ui.pbAddWord->setIconSize(newIconSize);
+	ui.pbAddWord->setFont(f);
+	ui.pbEditWordList->setIconSize(newIconSize);
+	ui.pbEditWordList->setFont(f);
+	ui.pbTrain->setIconSize(newIconSize);
+	ui.pbTrain->setFont(f);
+	ui.pbRunProgram->setIconSize(newIconSize);
+	ui.pbRunProgram->setFont(f);
+
+	ui.hboxLayout1->insertWidget(0,ui.wButtonWidget);
+
+	viewBusy = false;
+ 	setUpdatesEnabled(true);
+}
