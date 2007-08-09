@@ -41,7 +41,7 @@ void SimonView::resizeButtons()
 	else { yMoveDone = true; currentMoveY=0; }
 
 	if (hScaleDone && wScaleDone && xMoveDone && yMoveDone && logoScaleDone)
-	{ tresizeButtons->stop(); setButtonsBusy(); return; }
+	{ tresizeButtons->stop(); setButtonsBusy(); viewBusy=true; return; }
 
 
  	setUpdatesEnabled(false);

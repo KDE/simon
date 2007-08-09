@@ -19,6 +19,7 @@
 */
 class InlineWidget : public QWidget
 {
+Q_OBJECT
 public:
     InlineWidget(QWidget* parent, Qt::WindowFlags f);
 
