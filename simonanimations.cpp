@@ -34,10 +34,10 @@ void SimonView::resizeButtons()
 		logoScaleFactor = 0.95f;
 	else { logoScaleDone=true; }
 	
-	if (!xMoveDone && (test->x() > 60)) { currentMoveX = 7; }
+	if (!xMoveDone && (test->x() > 48)) { currentMoveX = 1; }
 	else { xMoveDone = true; currentMoveX=0; }
 
-	if (!yMoveDone && (test->y() > 15)) { currentMoveY = 6; }
+	if (!yMoveDone && (test->y() > 15)) { currentMoveY = 13; }
 	else { yMoveDone = true; currentMoveY=0; }
 
 	if (hScaleDone && wScaleDone && xMoveDone && yMoveDone && logoScaleDone)
