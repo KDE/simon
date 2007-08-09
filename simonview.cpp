@@ -76,14 +76,14 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QMainWindow(parent,flags);
 	ui.setupUi(this);
 	
-	ui.frmConnecting->setVisible(false);
+// 	ui.frmConnecting->setVisible(false);
 	
 
 	//Setting up Signal/Slots
 	QObject::connect(vuMeter, SIGNAL(level(int)), this, SLOT(setLevel(int)));
 	
 	QObject::connect(ui.pbAddWord, SIGNAL(clicked()), this, SLOT(showAddWordDialog()));
-	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(showWordListDialog()));
+// 	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(showWordListDialog()));
 	QObject::connect(ui.pbRunProgram, SIGNAL(clicked()), this, SLOT(showRunDialog()));
 	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(showTrainDialog()));
 	QObject::connect(ui.pbSettings, SIGNAL(clicked()), this, SLOT(showSettingsDialog()));
@@ -101,7 +101,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 			SLOT(reloadList()));
 	
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
-	connect(ui.pbCancelConnect, SIGNAL(clicked()), this, SLOT(abortConnecting()));
+// 	connect(ui.pbCancelConnect, SIGNAL(clicked()), this, SLOT(abortConnecting()));
 	
 	
 	QObject::connect(control, SIGNAL(connected()), this, SLOT(connected()));
@@ -147,7 +147,7 @@ void SimonView::connectToServer()
 	{
            ui.pbConnect->setText("Verbinde...");
 	   ui.pbConnect->setEnabled(false);
-	   ui.frmConnecting->setVisible(true);
+// 	   ui.frmConnecting->setVisible(true);
 	   this->control->activateSimon();
 	   this->control->connect(settings->value("network/defaultjuliusdaddress").toString());
     }
@@ -165,7 +165,7 @@ void SimonView::connected()
 	disconnect(ui.pbConnect, 0,0,0);
 	connect(ui.pbConnect, SIGNAL(clicked()), control, SLOT(disconnect()));
 	
-	ui.frmConnecting->setVisible(false);
+// 	ui.frmConnecting->setVisible(false);
 	SimonInfo::showMessage(tr("Verbunden zu Julius"), 3000);
 	
 	this->control->getActivitionState();
@@ -204,7 +204,7 @@ void SimonView::abortConnecting()
 	disconnect(ui.pbConnect, 0,0,0);
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
 	
-	ui.frmConnecting->setVisible(false);
+// 	ui.frmConnecting->setVisible(false);
 	
 	this->control->abortConnecting();
 	this->representState();
@@ -228,7 +228,7 @@ void SimonView::errorConnecting(QString error)
 	disconnect(ui.pbConnect, 0,0,0);
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
 	
-	ui.frmConnecting->setVisible(false);
+// 	ui.frmConnecting->setVisible(false);
 	
 	this->control->deactivateSimon();
 	this->representState();

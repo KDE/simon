@@ -73,6 +73,7 @@ private:
 	int shownDialogs;
 
 	#ifdef ANIMATIONS
+	QWidget *test;
 	float currentSizeH, currentSizeW;
 	QTimer *tresizeButtons;
 	void setupAnimations();

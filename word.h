@@ -13,9 +13,7 @@
 #define WORD_H
 #include <QString>
 #include <QStringList>
-#include <QMessageBox>
 #include <QList>
-#include <QDebug>
 
 /**
  *	@class Word

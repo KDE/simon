@@ -42,7 +42,7 @@ public:
 		QFileInfo fInfo;
 		fInfo.setFile(path);
 		
-		QDir *dir = new QDir(fInfo.path());
+		QDir *dir = new QDir(fInfo.absolutePath());
 		if ((!dir->exists()) && (!dir->mkpath(path)))
 			return false;
 		
