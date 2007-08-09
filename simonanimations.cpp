@@ -1,6 +1,9 @@
+
 #include "simonview.h"
 
+
 #ifdef ANIMATIONS
+
 #include <QMessageBox>
 #include <QPushButton>
 #include <QVector>
@@ -30,11 +33,11 @@ void SimonView::resizeButtons()
 		wScaleDone=true;
 	if (currentSizeH <= 90)
 		hScaleDone=true;
-	if (!logoScaleDone && (ui.lbLogo->height() >= 95))
+	if (!logoScaleDone && (ui.lbLogo->height() >= 97))
 		logoScaleFactor = 0.95f;
 	else { logoScaleDone=true; }
 	
-	if (!xMoveDone && (test->x() > 48)) { currentMoveX = 1; }
+	if (!xMoveDone && (test->x() > 60)) { currentMoveX = 1; }
 	else { xMoveDone = true; currentMoveX=0; }
 
 	if (!yMoveDone && (test->y() > 15)) { currentMoveY = 13; }
@@ -43,8 +46,8 @@ void SimonView::resizeButtons()
 	if (hScaleDone && wScaleDone && xMoveDone && yMoveDone && logoScaleDone)
 	{ tresizeButtons->stop(); setButtonsBusy(); viewBusy=true; return; }
 
-
  	setUpdatesEnabled(false);
+
 
 	if (!logoScaleDone)
 	{
@@ -53,9 +56,10 @@ void SimonView::resizeButtons()
 	}
 
 	if (!wScaleDone)
-		currentSizeW = currentSizeW*0.95; //-2.5f;    // 
+		currentSizeW = currentSizeW-23;    // *0.94; //
 	if (!hScaleDone)
-		currentSizeH=currentSizeH*0.9;      // *0.95;
+		currentSizeH=currentSizeH*0.91;      // *0.95;
+
 	
 	int iconsize = round(((currentSizeH/2.5f))/5+8);
 	QSize newIconSize = QSize(iconsize, iconsize);
@@ -96,6 +100,7 @@ void SimonView::startTransformToBusy()
 	currentSizeH = test->height();
 	tresizeButtons->start(40);
 }
+
 #endif
 
 
@@ -105,11 +110,11 @@ void SimonView::setButtonsBusy()
 
 	((QGridLayout*) ui.wButtonWidget->layout())->setVerticalSpacing(1);
 	ui.wButtonWidget->setMinimumHeight(89);
-	ui.wButtonWidget->setMaximumHeight(90);
-	ui.wButtonWidget->setMinimumWidth(this->width()-310);
+	ui.wButtonWidget->setMaximumHeight(89);
+	ui.wButtonWidget->setMinimumWidth(this->width()-309);
 	ui.wButtonWidget->setMaximumWidth(this->width()-309);
-	ui.lbLogo->setMaximumWidth(160);
-	ui.lbLogo->setMaximumHeight(90);
+	ui.lbLogo->setMaximumWidth(167);
+	ui.lbLogo->setMaximumHeight(94);
 	ui.vboxLayout->removeWidget(ui.wButtonWidget);
 
 	QSize newIconSize = QSize(15, 15);
@@ -129,3 +134,4 @@ void SimonView::setButtonsBusy()
 	viewBusy = false;
  	setUpdatesEnabled(true);
 }
+

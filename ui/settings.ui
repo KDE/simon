@@ -453,9 +453,9 @@
          <item row="0" column="0" >
           <widget class="QLabel" name="lbGeneralSystem" >
            <property name="text" >
-            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">&#xd;
+p, li { white-space: pre-wrap; }&#xd;
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&#xd;
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Allgemein:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
            </property>
           </widget>
@@ -690,9 +690,9 @@ p, li { white-space: pre-wrap; }
          <item row="2" column="0" >
           <widget class="QLabel" name="lbJuliusd" >
            <property name="text" >
-            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">&#xd;
+p, li { white-space: pre-wrap; }&#xd;
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&#xd;
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Juliusd:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
            </property>
           </widget>
@@ -1015,9 +1015,9 @@ p, li { white-space: pre-wrap; }
          <item row="5" column="0" >
           <widget class="QLabel" name="lbAutostart" >
            <property name="text" >
-            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">&#xd;
+p, li { white-space: pre-wrap; }&#xd;
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&#xd;
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Autostart:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
            </property>
           </widget>
@@ -1025,9 +1025,9 @@ p, li { white-space: pre-wrap; }
          <item row="8" column="0" >
           <widget class="QLabel" name="lbFiles" >
            <property name="text" >
-            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">&#xd;
+p, li { white-space: pre-wrap; }&#xd;
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&#xd;
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Dateien:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
            </property>
           </widget>
@@ -1131,10 +1131,10 @@ p, li { white-space: pre-wrap; }
           </size>
          </property>
          <property name="text" >
-          <string>simon verwendet für die Erkennung selbst die Open Source Spracherkennungs-engine "Julius".
-Die Verbindung zu Julius wird über das Netzwerk aufgebaut.
-Die Addresse zum Juliusd wird entweder mit entweder mit einem Hostnamen oder einer direkten "IP Adresse" angegeben (4x3 stellige Netzwerksidentifikationsnummer - xxx.xxx.xxx.xxx)
-Die Port Nummer muss beim Juliusd und bei simon gleich sein.
+          <string>simon verwendet für die Erkennung selbst die Open Source Spracherkennungs-engine "Julius".&#xd;
+Die Verbindung zu Julius wird über das Netzwerk aufgebaut.&#xd;
+Die Addresse zum Juliusd wird entweder mit entweder mit einem Hostnamen oder einer direkten "IP Adresse" angegeben (4x3 stellige Netzwerksidentifikationsnummer - xxx.xxx.xxx.xxx)&#xd;
+Die Port Nummer muss beim Juliusd und bei simon gleich sein.&#xd;
 Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal gestartet, sollte zu keinem laufenden Dämon verbunden werden können.</string>
          </property>
          <property name="wordWrap" >
@@ -1463,12 +1463,12 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
           </size>
          </property>
          <property name="text" >
-          <string>Hier finden Sie alle Einstellungen zur Spracheingabe und Tonausgabe.
-
-Die Einstellung "Mixing" aktiviert die Limitierung (wenn nicht aktiviert) auf maximal eine Tonein- bzw. -ausgabe gleichzeitig.
-Ist Mixing durch Software oder Hardware abgedeckt, sollte diese Option gesetzt sein.
-Wenn unsicher setzten Sie bitte "Ja".
-
+          <string>Hier finden Sie alle Einstellungen zur Spracheingabe und Tonausgabe.&#xd;
+&#xd;
+Die Einstellung "Mixing" aktiviert die Limitierung (wenn nicht aktiviert) auf maximal eine Tonein- bzw. -ausgabe gleichzeitig.&#xd;
+Ist Mixing durch Software oder Hardware abgedeckt, sollte diese Option gesetzt sein.&#xd;
+Wenn unsicher setzten Sie bitte "Ja".&#xd;
+&#xd;
 Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen wird nach jeder Aufnahme eine Audiodatei mit Datum und Uhrzeit, sowohl wie eine erstellte Transkribtion im angegebenen Verzeichnis erstellt.</string>
          </property>
          <property name="wordWrap" >
@@ -1797,14 +1797,14 @@ Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen wird nach jeder Au
             </size>
            </property>
            <property name="text" >
-            <string>Hier können neue Kommandos hinzugefügt werden, vorhandene bearbeitet und gelöscht werden.
-
-Ein Programm kann aus dem Startmenü über den betreffenden Button ganz einfach in die Liste der Applikationen aufgenommen werden.
-
-Auch ein Ort kann einfach über die Auswahl eines Orderns importiert werden.
-
-Makros können ebenfalls aufgezeichnet werden. Ein Makro ist ein bestimmter Ablauf der immer wieder kehrt. (z.B.: Öffnen des Startmenüs)
-
+            <string>Hier können neue Kommandos hinzugefügt werden, vorhandene bearbeitet und gelöscht werden.&#xd;
+&#xd;
+Ein Programm kann aus dem Startmenü über den betreffenden Button ganz einfach in die Liste der Applikationen aufgenommen werden.&#xd;
+&#xd;
+Auch ein Ort kann einfach über die Auswahl eines Orderns importiert werden.&#xd;
+&#xd;
+Makros können ebenfalls aufgezeichnet werden. Ein Makro ist ein bestimmter Ablauf der immer wieder kehrt. (z.B.: Öffnen des Startmenüs)&#xd;
+&#xd;
 Das Schlüssel Wort gibt an welches Wort für die Befehlseingabe verwendet wird. (z.B.: Schlüsselwort:"simon"; simon www.website.at)</string>
            </property>
            <property name="wordWrap" >
@@ -2037,22 +2037,6 @@ Das Schlüssel Wort gibt an welches Wort für die Befehlseingabe verwendet wird.
              <string>Nachricht</string>
             </property>
            </column>
-           <item>
-            <property name="text" >
-             <string>03.04.2007</string>
-            </property>
-            <property name="text" >
-             <string/>
-            </property>
-            <item>
-             <property name="text" >
-              <string>15:30:12</string>
-             </property>
-             <property name="text" >
-              <string>Just a mockup</string>
-             </property>
-            </item>
-           </item>
           </widget>
          </item>
         </layout>
@@ -2073,13 +2057,13 @@ Das Schlüssel Wort gibt an welches Wort für die Befehlseingabe verwendet wird.
           </size>
          </property>
          <property name="text" >
-          <string>Hier kann das Geschehen der letzten Zeit verfolgt werden.
-
-Simon protokolliert im laufenden Betrieb seine Tätigkeiten um dem User einen Überblick zu verschaffen, was passiert ist.
-
-Hier können Sie nach bestimmten Ereignissen suchen, oder einfach einmal durch das Protokoll durchsehen.
-Eingaben im Suchfenster werden sofort wirksam.
-
+          <string>Hier kann das Geschehen der letzten Zeit verfolgt werden.&#xd;
+&#xd;
+Simon protokolliert im laufenden Betrieb seine Tätigkeiten um dem User einen Überblick zu verschaffen, was passiert ist.&#xd;
+&#xd;
+Hier können Sie nach bestimmten Ereignissen suchen, oder einfach einmal durch das Protokoll durchsehen.&#xd;
+Eingaben im Suchfenster werden sofort wirksam.&#xd;
+&#xd;
 Sie können sogar ihre bisherigen Aufnahmen durchsuchen, sollten Sie diese Funktion aktiviert haben.</string>
          </property>
          <property name="wordWrap" >
@@ -2233,12 +2217,12 @@ Sie können sogar ihre bisherigen Aufnahmen durchsuchen, sollten Sie diese Funkt
           </size>
          </property>
          <property name="text" >
-          <string>Dieser Menüpunkt erlaubt es Ihnen, die Einstellungen simpel und einfach zu einem früheren Stadium zurückzusetzen.
-
-Um zum Beispiel zum Stand vom 1.1. zurückzusetzen, wählen Sie einfach im Kalender den 1. Jänner, selektieren alle Änderungen und klicken auf "Die ausgewählten Änderungen Rückgängig machen".
-
-Die Suche dient als Einschränkung der Änderung.
-
+          <string>Dieser Menüpunkt erlaubt es Ihnen, die Einstellungen simpel und einfach zu einem früheren Stadium zurückzusetzen.&#xd;
+&#xd;
+Um zum Beispiel zum Stand vom 1.1. zurückzusetzen, wählen Sie einfach im Kalender den 1. Jänner, selektieren alle Änderungen und klicken auf "Die ausgewählten Änderungen Rückgängig machen".&#xd;
+&#xd;
+Die Suche dient als Einschränkung der Änderung.&#xd;
+&#xd;
 Bitte beachten sie das die immer nur die selektierten Änderungen zurückgenommen werden!</string>
          </property>
          <property name="wordWrap" >

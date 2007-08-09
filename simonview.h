@@ -46,7 +46,7 @@
 #include "runapplicationview.h"
 #include "trayiconmanager.h"
 #include "wordlistview.h"
-#include "vumeter.h"
+//~ #include "vumeter.h"
 #include "trainingview.h"
 #include "settingsview.h"
 #include <QSettings>

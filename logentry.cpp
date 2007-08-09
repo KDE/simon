@@ -13,7 +13,7 @@
 
 
 
-LogEntry::LogEntry(QDate date, QTime time, QString message, int type)
+LogEntry::LogEntry(QDate date, QTime time, QByteArray message, short type)
 {
 	this->time = time;
 	this->date = date;

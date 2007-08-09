@@ -14,7 +14,7 @@
 
 
 #include <QDate>
-#include <QVector>
+#include <QList>
 
 
 #define ERR 1
@@ -23,7 +23,8 @@
 #define SET 8
 class LogEntry;
 class QTime;
-typedef QVector <LogEntry*> LogEntryList;
+class QByteArray;
+typedef QList <LogEntry> LogEntryList;
 
 
 /**
@@ -34,25 +35,25 @@ class LogEntry{
 private:
 	QTime time;
 	QDate date;
-	QString message;
+	QByteArray message;
 	//todo
-	int type;
+	short type;
 
 public:
-    LogEntry(QDate date, QTime time, QString message, int type);
+    LogEntry(QDate date, QTime time, QByteArray message, short type);
 
     ~LogEntry();
 //Set-Methoden
 void setTime(QTime time) {this->time = time;}
 void setDate(QDate date) {this->date = date;}
 void setType(int type) {this->type = type;}
-void setMessage(QString message) {this->message = message;}
+void setMessage(QByteArray message) {this->message = message;}
 
 //Get-Methoden
-QDate getDate(){return this->date;}
-QTime getTime(){return this->time;}
-int getType(){return this->type;}
-QString getMessage(){return this->message;}
+QDate getDate() const {return this->date;}
+QTime getTime() const {return this->time;}
+short getType() const {return this->type;}
+QByteArray getMessage(){return this->message;}
 
 };
 

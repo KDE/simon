@@ -77,6 +77,9 @@ public slots:
 	void editCommand();
 	void showOnlyCommands();
 	void reloadCommands();
+	void leaveProtocol();
+	
+	void logReadFinished(int value);
 
 	void clearSearchLineEdit();
 	void searchCommandList();
@@ -85,6 +88,9 @@ public:
     SettingsView(QWidget *parent);
     
     ~SettingsView();
+
+signals:
+	void logReadStop();
 
 };
 

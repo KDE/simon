@@ -12,6 +12,9 @@
 #include "logmanager.h"
 #include <QRegExp>
 #include <QFile>
+#include <QCoreApplication>
+#include <logger.h>
+#include <QMessageBox>
 
 
 /**
@@ -22,7 +25,10 @@
  */
 LogManager::LogManager()
 {
-
+	entries = new LogEntryList();
+	killMe=false;
+	connect(this, SIGNAL(finished()), this, SLOT(resetKillFlag()));
+	connect(this, SIGNAL(terminated()), this, SLOT(resetKillFlag()));
 }
 
 
@@ -40,7 +46,7 @@ LogManager::LogManager()
  */
 bool LogManager::readLog()
 {
-	this->entries.clear();
+	/*this->entries.clear();
 	QFile *LogF = new QFile("log/simon.log");
 	if (!LogF->open(QIODevice::ReadOnly))
 	{
@@ -50,22 +56,13 @@ bool LogManager::readLog()
 	QTime time;
 	QDate date;
 	int type, datestart, timestart;
-	
+	  
+	QCoreApplication::processEvents();
 	while (!LogF->atEnd ())
 	{
 		type = 0;
 		
 		str = LogF->readLine();
-		datestart = str.indexOf(QRegExp("\\d{4,4}\\/\\d{2,2}\\/\\d{2,2}"));
-		timestart= str.indexOf(QRegExp("\\d{2,2}:\\d{2,2}:\\d{2,2}"));
-// 		datestart = 1;
-// 		timestart = 13;
-		
-		strdate = str.mid(datestart,10);
-		strtime = str.mid(timestart ,8);
-		
-		date = QDate::fromString (strdate,"yyyy/MM/dd") ;
-		time = QTime::fromString(strtime,"hh:mm:ss");
 		
 		if(str.contains("[ERR]", Qt::CaseInsensitive))
 			type = type|ERR;
@@ -76,12 +73,66 @@ bool LogManager::readLog()
 		if(str.contains("[SET]", Qt::CaseInsensitive))
 			type = type|SET;
 		
-		str.remove(QRegExp("\\[.*\\]"));
+		this->entries.append(new LogEntry(QDate::fromString (str.mid(1,10),"yyyy/MM/dd") , 
+		QTime::fromString(str.mid(13 ,8),"hh:mm:ss"), 
+		str.remove(QRegExp("\\[.*\\]")).trimmed().toLatin1(), type));
 		
-		this->entries.append(new LogEntry(date, time, str.trimmed(), type));
-	}		
+	}	*/
+	
 	return true;
 }
+
+void LogManager::run ()
+{
+	this->entries->clear();
+	QFile *LogF = new QFile("log/simon.log");
+	if (!LogF->open(QIODevice::ReadOnly))
+	{
+		emit logReadFinished(0);
+	}
+	QString str/*, strdate, strtime*/;
+	//QTime time;
+	//QDate date;
+	int type/*, datestart, timestart*/;
+	
+	int i = 0;
+	//Logger::log("[INF] BLAAAAAAAAAAA");
+	
+	QCoreApplication::processEvents();
+	while (!LogF->atEnd () && !killMe)
+	{
+		type = 0;
+		
+		str = LogF->readLine();
+		//QMessageBox::information(NULL,"",str);
+		if(str.contains("[ERR]", Qt::CaseInsensitive))
+			type = type|ERR;
+		if(str.contains("[INF]", Qt::CaseInsensitive))
+			type = type|INF;
+		if(str.contains("[UPD]", Qt::CaseInsensitive))
+			type = type|UPD;
+		if(str.contains("[SET]", Qt::CaseInsensitive))
+			type = type|SET;
+		//MMMMMMMMMMMMUUUUUUUUUUUUUUUUUUHHHHHHHAAAAAAHHHHHHAAAAAAAA
+		QTime funzi_der_erste = QTime::fromString(str.mid(12 ,8),"hh:mm:ss");
+		QDate funzus_der_grosse = QDate::fromString(str.mid(1,10),"yyyy/MM/dd");
+		//_______________________________________________________________________
+		
+		this->entries->append(LogEntry(funzus_der_grosse , 
+		funzi_der_erste, 
+		str.remove(QRegExp("\\[.*\\]")).trimmed().toLatin1(), type));
+		//QMessageBox::information(NULL,"",entries->at(i).getDate().toString("yyyy/MM/dd"));
+		//QMessageBox::information(NULL,"",entries->at(i).getTime().toString("hh:mm:ss"));
+		
+		i++;
+	}	
+	if (!killMe)
+	{
+		emit this->logReadFinished(1);
+	}
+}
+
+
 
 
 /**
@@ -95,16 +146,31 @@ LogEntryList LogManager::getDay(QDate day)
 {
 	LogEntryList entriesperday;
 	int i = 0;
-	int size = entries.size();
-	while((i<size) && (this->entries[i++]->getDate() < day)) ;
+	int size = entries->size();
+	while((i<size) && (this->entries->at(i++).getDate() < day)) ;
 		
-	while((i<size) && (this->entries[i]->getDate() == day))
+	while((i<size) && (this->entries->at(i).getDate() == day))
 	{
-		entriesperday.append(entries[i++]);
+		entriesperday.append(entries->at(i++));
 	}
 	return entriesperday;
 }
 
+
+void LogManager::stop()
+{
+	killMe=true;
+	this->wait(5000);
+	this->entries->clear();
+	
+//QMessageBox::critical(NULL,QString::number(this->entries->count()),
+//	tr("Beim Auslesen der Logdatei ist ein Fen."));
+	
+	
+	this->terminate();
+	killMe=false;
+	//delete(this->entries);
+}
 
 /**
  * \brief returns all entries
@@ -113,7 +179,8 @@ LogEntryList LogManager::getDay(QDate day)
  */
 LogEntryList LogManager::getAll()
 {
-	return this->entries;
+	//QMessageBox::information(NULL, this->entries->at(1).getDate().toString(),this->entries->at(1).getDate().toString());
+	return *this->entries;
 }
 
 
@@ -124,6 +191,7 @@ LogEntryList LogManager::getAll()
  */
 LogManager::~LogManager()
 {
+	this->entries->clear();
 }
 
 

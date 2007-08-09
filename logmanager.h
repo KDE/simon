@@ -13,16 +13,23 @@
 #define LOGMANAGER_H
 
 #include "logentry.h"
+#include <QThread>
 
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class LogManager{
-
-private:
-	QVector<LogEntry*> entries;
+class LogManager : public QThread
+{
+	Q_OBJECT
 	
+private:
+	LogEntryList *entries;
+	bool killMe;
+
+private slots:
+	void resetKillFlag()  { killMe = false; }
+
 public:
     LogManager();
 
@@ -31,6 +38,15 @@ public:
 	LogEntryList getDay(QDate day);
 	LogEntryList getAll();
 	bool readLog();
+
+	void run ();
+
+public slots:
+	void stop();
+
+signals:
+	void logReadFinished(int value);
+
 
 };
 
