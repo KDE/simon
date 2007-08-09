@@ -1,4 +1,6 @@
 #include "simonview.h"
+
+#ifdef ANIMATIONS
 #include <QMessageBox>
 #include <QPushButton>
 #include <QVector>
@@ -25,13 +27,45 @@ void SimonView::setupAnimations()
 	animatedButtons << ui.pbRunProgram;
 }
 
+void SimonView::setButtonsBusy()
+{
+	
+}
+
 void SimonView::resizeButtons()
 {
- 	setUpdatesEnabled(false);
-	currentSizeW = currentSizeW*0.98; //-2.5f;    // 
-	currentSizeH=currentSizeH*0.963;      // *0.95;
+	if (currentSizeW <= this->width()-400)
+		wScaleDone=true;
+	if (currentSizeH <= 90)
+		hScaleDone=true;
+	if (!logoScaleDone && (ui.lbLogo->height() >= 100))
+		logoScaleFactor = 0.95f;
+	else { logoScaleDone=true; }
 	
-	int iconsize = round(((currentSizeW/2.5f)-100)/5+8);
+	if (!xMoveDone && (test->x() > 50)) { currentMoveX = 7; }
+	else { xMoveDone = true; currentMoveX=0; }
+
+	if (!yMoveDone && (test->y() > 15)) { currentMoveY = 6; }
+	else { yMoveDone = true; currentMoveY=0; }
+
+	if (hScaleDone && wScaleDone && xMoveDone && yMoveDone && logoScaleDone)
+	{ tresizeButtons->stop(); setButtonsBusy(); return; }
+
+
+ 	setUpdatesEnabled(false);
+
+	if (!logoScaleDone)
+	{
+		ui.lbLogo->setMaximumSize(
+			ui.lbLogo->size()*logoScaleFactor);
+	}
+
+	if (!wScaleDone)
+		currentSizeW = currentSizeW*0.95; //-2.5f;    // 
+	if (!hScaleDone)
+		currentSizeH=currentSizeH*0.9;      // *0.95;
+	
+	int iconsize = round(((currentSizeH/2.5f))/5+8);
 	QSize newIconSize = QSize(iconsize, iconsize);
 	float newFontSize = (currentSizeW/(float) 1000)*19  + 5;
 
@@ -46,56 +80,29 @@ void SimonView::resizeButtons()
 		tmp->setIconSize(newIconSize);
 	}
 
-	if (currentSizeW <= 430) {
-		tresizeButtons->stop();
-		qDebug() << currentSizeW;
-	} else if(currentSizeW >= 680)
-	{
-		currentMoveY+=1.3;
-	} else if (currentSizeW <= 455)
-	{
-		currentMoveY -= 2.6;
-	}
-	qDebug() << tmp->y();
-
-	test->move(test->x(), test->y()+(currentMoveY*moveYDirection));
+	test->move((int) round(test->x()+(currentMoveX*moveXDirection)),
+			(int) round(test->y()+(currentMoveY*moveYDirection)));
  	setUpdatesEnabled(true);
+ 	QCoreApplication::processEvents();
 }
 
 void SimonView::startTransformToBusy()
 {
-
-// 	test = new QWidget(this);
-// 	test->resize(ui.pbRunProgram->x()+ui.pbRunProgram->width() - ui.pbAddWord->x()+15, 
-// 			ui.pbRunProgram->y()+ui.pbRunProgram->height() - ui.pbAddWord->y()+15);
-// 	test->move(ui.pbAddWord->x()-9, ui.pbAddWord->y()-20);
-
-
-// 	QLayout *lay = ui.wButtonWidget->layout();
-	
-// 	lay->removeWidget(ui.pbAddWord);
-// 	lay->removeWidget(ui.pbEditWordList);
-// 	lay->removeWidget(ui.pbTrain);
-// 	lay->removeWidget(ui.pbRunProgram);
-
-// 	buttonMover->addWidget(ui.pbAddWord, 0,0);
-// 	buttonMover->addWidget(ui.pbEditWordList, 1,0);
-// 	buttonMover->addWidget(ui.pbTrain, 0,1);
-// 	buttonMover->addWidget(ui.pbRunProgram, 1,1);
-// 	buttonMover->setHorizontalSpacing(5);
-
-// 	test->setLayout(buttonMover);
-
+// 	ui.lbLogo->resize(10,10);
 	ui.vboxLayout->removeWidget(ui.wButtonWidget);
 	test = ui.wButtonWidget;
 	((QGridLayout*) test->layout())->setVerticalSpacing(1);
 
+	currentMoveX=0;
 	currentMoveY=0;
+	logoScaleFactor=0;
+	logoScaleDone=xMoveDone=yMoveDone=hScaleDone=wScaleDone=false;
+	
+	moveXDirection=-1;
 	moveYDirection=-1;
+	logoScaleDirection=-1;
 	currentSizeW = test->width();
-// 	qDebug() << currentSizeW;
 	currentSizeH = test->height();
-	test->show();
-	//buttonMover->setColumnMinimumWidth(0,1000);
 	tresizeButtons->start(40);
 }
+#endif

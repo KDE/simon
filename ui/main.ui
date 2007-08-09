@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>858</width>
+    <width>873</width>
     <height>532</height>
    </rect>
   </property>
@@ -152,6 +152,9 @@
           <property name="orientation" >
            <enum>Qt::Horizontal</enum>
           </property>
+          <property name="sizeType" >
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
           <property name="sizeHint" >
            <size>
             <width>40</width>
@@ -163,7 +166,7 @@
         <item>
          <widget class="QLabel" name="lbLogo" >
           <property name="sizePolicy" >
-           <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -173,6 +176,9 @@
           </property>
           <property name="pixmap" >
            <pixmap resource="../simon.qrc" >:/images/simon.png</pixmap>
+          </property>
+          <property name="scaledContents" >
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -222,10 +228,10 @@
              <active>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="150" >
-                 <red>235</red>
-                 <green>235</green>
-                 <blue>235</blue>
+                <color alpha="100" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
                 </color>
                </brush>
               </colorrole>
@@ -242,10 +248,10 @@
              <inactive>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="150" >
-                 <red>235</red>
-                 <green>235</green>
-                 <blue>235</blue>
+                <color alpha="100" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
                 </color>
                </brush>
               </colorrole>
@@ -262,10 +268,10 @@
              <disabled>
               <colorrole role="Button" >
                <brush brushstyle="SolidPattern" >
-                <color alpha="150" >
-                 <red>235</red>
-                 <green>235</green>
-                 <blue>235</blue>
+                <color alpha="100" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
                 </color>
                </brush>
               </colorrole>
@@ -290,7 +296,7 @@
             <string>Fügt ein neues Wort in das Sprachmodell ein</string>
            </property>
            <property name="text" >
-            <string>  Wort &amp;hinzufügen</string>
+            <string> Wort &amp;hinzufügen</string>
            </property>
            <property name="icon" >
             <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
@@ -305,7 +311,7 @@
             <bool>true</bool>
            </property>
            <property name="flat" >
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -326,6 +332,15 @@
            <property name="palette" >
             <palette>
              <active>
+              <colorrole role="Button" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="100" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
               <colorrole role="ButtonText" >
                <brush brushstyle="SolidPattern" >
                 <color alpha="255" >
@@ -337,6 +352,15 @@
               </colorrole>
              </active>
              <inactive>
+              <colorrole role="Button" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="100" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
               <colorrole role="ButtonText" >
                <brush brushstyle="SolidPattern" >
                 <color alpha="255" >
@@ -348,6 +372,15 @@
               </colorrole>
              </inactive>
              <disabled>
+              <colorrole role="Button" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="100" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
               <colorrole role="ButtonText" >
                <brush brushstyle="SolidPattern" >
                 <color alpha="255" >
@@ -369,7 +402,7 @@
             <string>Hier können Sie das Sprachmodell editieren und somit die Erkennungsrate erhöhen</string>
            </property>
            <property name="text" >
-            <string>  &amp;Trainieren</string>
+            <string>  &amp;Trainieren  </string>
            </property>
            <property name="icon" >
             <iconset resource="../simon.qrc" >:/images/icons/document-properties.svg</iconset>
@@ -384,7 +417,7 @@
             <bool>true</bool>
            </property>
            <property name="flat" >
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -414,6 +447,15 @@
                 </color>
                </brush>
               </colorrole>
+              <colorrole role="Button" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="100" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
               <colorrole role="Text" >
                <brush brushstyle="SolidPattern" >
                 <color alpha="255" >
@@ -443,6 +485,15 @@
                 </color>
                </brush>
               </colorrole>
+              <colorrole role="Button" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="100" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
               <colorrole role="Text" >
                <brush brushstyle="SolidPattern" >
                 <color alpha="255" >
@@ -466,6 +517,15 @@
               <colorrole role="WindowText" >
                <brush brushstyle="SolidPattern" >
                 <color alpha="255" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Button" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="100" >
                  <red>255</red>
                  <green>255</green>
                  <blue>255</blue>
@@ -507,7 +567,7 @@
             <enum>Qt::LeftToRight</enum>
            </property>
            <property name="text" >
-            <string> Wortliste              </string>
+            <string> Wortliste          </string>
            </property>
            <property name="icon" >
             <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>
@@ -522,7 +582,7 @@
             <bool>true</bool>
            </property>
            <property name="flat" >
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -543,6 +603,15 @@
            <property name="palette" >
             <palette>
              <active>
+              <colorrole role="Button" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="100" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
               <colorrole role="ButtonText" >
                <brush brushstyle="SolidPattern" >
                 <color alpha="255" >
@@ -554,6 +623,15 @@
               </colorrole>
              </active>
              <inactive>
+              <colorrole role="Button" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="100" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
               <colorrole role="ButtonText" >
                <brush brushstyle="SolidPattern" >
                 <color alpha="255" >
@@ -565,6 +643,15 @@
               </colorrole>
              </inactive>
              <disabled>
+              <colorrole role="Button" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="100" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
               <colorrole role="ButtonText" >
                <brush brushstyle="SolidPattern" >
                 <color alpha="255" >
@@ -601,7 +688,7 @@
             <bool>true</bool>
            </property>
            <property name="flat" >
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>

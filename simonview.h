@@ -66,6 +66,7 @@ private slots:
 	
 	#ifdef ANIMATIONS
 	void resizeButtons();
+	void setButtonsBusy();
 	void startTransformToBusy();
 	#endif
 
@@ -73,9 +74,12 @@ private:
 	int shownDialogs;
 
 	#ifdef ANIMATIONS
+	
+	bool xMoveDone, yMoveDone, wScaleDone, hScaleDone, logoScaleDone;
+	
 	QWidget *test;
-	short moveYDirection;
-	float currentSizeH, currentSizeW, currentMoveY;
+	short moveYDirection, moveXDirection, logoScaleDirection;
+	float currentSizeH, currentSizeW, currentMoveX, currentMoveY, logoScaleFactor;
 	QTimer *tresizeButtons;
 	QTimer *moveButtons;
 	void setupAnimations();

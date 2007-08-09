@@ -24,6 +24,7 @@ ImportBOMPPage::ImportBOMPPage(QWidget* parent): QWizardPage(parent)
 	QLabel *lbDesc = new QLabel (this);
 	lbDesc->setText(tr("<html><head></head><body><p>Das BOMP Wörterbuch ist ein von der Universität Bonn entwickeltes, frei erhätliches, Wörterbuch. Der Download ist gratis, muss aber per e-Mail angefragt werden.</p><p>Näheres finden Sie hier:<br/><a href=http://www.ikp.uni-bonn.de/dt/forsch/phonetik/bomp/LIESMICH.html>http://www.ikp.uni-bonn.de/dt/forsch/phonetik/bomp/LIESMICH.html</a></p><p>Simon kann die <b>HADIFIX</b> Version des Wörterbuchs importieren. Bitte wählen Sie die (extrahierte) aus und bestätigen Sie mit weiter:<br /><br /></p></body></html>"));
 	lbDesc->setWordWrap(true);
+	lbDesc->setOpenExternalLinks(true);
 	
 	QHBoxLayout *fileLay = new QHBoxLayout();
 	QLabel *lbFile = new QLabel(this);
