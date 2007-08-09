@@ -27,32 +27,30 @@ void SimonView::setupAnimations()
 
 void SimonView::resizeButtons()
 {
-// 	qDebug() << ui.pbAddWord->width();
-// 	qDebug()  << ui.pbEditWordList->width();
  	setUpdatesEnabled(false);
-	if (currentSizeW <= 200) {
+	currentSizeW = currentSizeW-2.5f;    // *0.99;
+	currentSizeH=currentSizeH-0.80f;      // *0.95;
+	
+	int iconsize = round(((currentSizeW/2.5f)-100)/5+8);
+	QSize newIconSize = QSize(iconsize, iconsize);
+	float newFontSize = (currentSizeW/(float) 1000)*19  + 5;
+
+	test->resize((int) round(currentSizeW), (int) round(currentSizeH));
+	QPushButton *tmp;
+	for (int i=0; i < animatedButtons.size(); i++)
+	{
+		tmp = animatedButtons.at(i);
+		QFont f = tmp->font();
+		f.setPointSizeF(newFontSize);
+		tmp->setFont(f);
+		tmp->setIconSize(newIconSize);
+	}
+
+	if (currentSizeW <= 430) {
 		tresizeButtons->stop();
 		qDebug() << currentSizeW;
 	}
-	currentSizeW = currentSizeW*0.99;
-	currentSizeH=currentSizeH*0.95;
-	
-	QSize newIconSize = QSize((currentSizeW-100)/5+8, (currentSizeW-100)/5+8);
-	float newFontSize = round(((float)currentSizeW/(float)22)+3);
-	for (int i=0; i < animatedButtons.size(); i++)
-	{
-// 		animatedButtons.at(i)->resize((int) round(currentSizeW), (int) round(currentSizeH));
-		test->resize((int) round(currentSizeW*2.3), (int) round(currentSizeH*2.3));
-		QFont f = animatedButtons.at(i)->font();
-		f.setPointSizeF(newFontSize);
-		animatedButtons.at(i)->setIconSize(newIconSize);
-		animatedButtons.at(i)->setFont(f);
-	}
  	setUpdatesEnabled(true);
-// 	qDebug() << test->height();
-// 	qDebug() << ui.pbAddWord->width();
-// 	qDebug()  << ui.pbEditWordList->width();
-// 	tresizeButtons->stop();
 }
 
 void SimonView::startTransformToBusy()
@@ -82,8 +80,10 @@ void SimonView::startTransformToBusy()
 	test->move(ui.pbAddWord->x()-9, ui.pbAddWord->y()-20);
 	test->setLayout(buttonMover);
 
-	currentSizeW = ((float)test->width())/2.5f;
-	currentSizeH = ((float)test->height())/2.5f;
+	
+	currentSizeW = test->width();
+// 	qDebug() << currentSizeW;
+	currentSizeH = test->height();
 	test->show();
 	//buttonMover->setColumnMinimumWidth(0,1000);
 	tresizeButtons->start(40);
