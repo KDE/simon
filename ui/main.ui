@@ -162,6 +162,12 @@
         </item>
         <item>
          <widget class="QLabel" name="lbLogo" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text" >
            <string/>
           </property>
@@ -182,518 +188,438 @@
         </property>
         <property name="sizeHint" >
          <size>
-          <width>732</width>
-          <height>16</height>
+          <width>20</width>
+          <height>10</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" >
-        <item>
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType" >
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" >
-           <size>
-            <width>16</width>
-            <height>272</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" >
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pbAddWord" >
-            <property name="minimumSize" >
-             <size>
-              <width>100</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="palette" >
-             <palette>
-              <active>
-               <colorrole role="Button" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="150" >
-                  <red>235</red>
-                  <green>235</green>
-                  <blue>235</blue>
-                 </color>
-                </brush>
-               </colorrole>
-               <colorrole role="ButtonText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>175</red>
-                  <green>190</green>
-                  <blue>200</blue>
-                 </color>
-                </brush>
-               </colorrole>
-              </active>
-              <inactive>
-               <colorrole role="Button" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="150" >
-                  <red>235</red>
-                  <green>235</green>
-                  <blue>235</blue>
-                 </color>
-                </brush>
-               </colorrole>
-               <colorrole role="ButtonText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>175</red>
-                  <green>190</green>
-                  <blue>200</blue>
-                 </color>
-                </brush>
-               </colorrole>
-              </inactive>
-              <disabled>
-               <colorrole role="Button" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="150" >
-                  <red>235</red>
-                  <green>235</green>
-                  <blue>235</blue>
-                 </color>
-                </brush>
-               </colorrole>
-               <colorrole role="ButtonText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>119</red>
-                  <green>119</green>
-                  <blue>119</blue>
-                 </color>
-                </brush>
-               </colorrole>
-              </disabled>
-             </palette>
-            </property>
-            <property name="font" >
-             <font>
-              <pointsize>19</pointsize>
-             </font>
-            </property>
-            <property name="toolTip" >
-             <string>Fügt ein neues Wort in das Sprachmodell ein</string>
-            </property>
-            <property name="text" >
-             <string>  Wort &amp;hinzufügen</string>
-            </property>
-            <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
-            </property>
-            <property name="iconSize" >
-             <size>
-              <width>56</width>
-              <height>56</height>
-             </size>
-            </property>
-            <property name="flat" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeType" >
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>30</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pbEditWordList" >
-            <property name="minimumSize" >
-             <size>
-              <width>100</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="palette" >
-             <palette>
-              <active>
-               <colorrole role="WindowText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>255</red>
-                  <green>255</green>
-                  <blue>255</blue>
-                 </color>
-                </brush>
-               </colorrole>
-               <colorrole role="Text" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>255</red>
-                  <green>255</green>
-                  <blue>255</blue>
-                 </color>
-                </brush>
-               </colorrole>
-               <colorrole role="ButtonText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>175</red>
-                  <green>190</green>
-                  <blue>200</blue>
-                 </color>
-                </brush>
-               </colorrole>
-              </active>
-              <inactive>
-               <colorrole role="WindowText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>255</red>
-                  <green>255</green>
-                  <blue>255</blue>
-                 </color>
-                </brush>
-               </colorrole>
-               <colorrole role="Text" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>255</red>
-                  <green>255</green>
-                  <blue>255</blue>
-                 </color>
-                </brush>
-               </colorrole>
-               <colorrole role="ButtonText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>175</red>
-                  <green>190</green>
-                  <blue>200</blue>
-                 </color>
-                </brush>
-               </colorrole>
-              </inactive>
-              <disabled>
-               <colorrole role="WindowText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>255</red>
-                  <green>255</green>
-                  <blue>255</blue>
-                 </color>
-                </brush>
-               </colorrole>
-               <colorrole role="Text" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>255</red>
-                  <green>255</green>
-                  <blue>255</blue>
-                 </color>
-                </brush>
-               </colorrole>
-               <colorrole role="ButtonText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>255</red>
-                  <green>255</green>
-                  <blue>255</blue>
-                 </color>
-                </brush>
-               </colorrole>
-              </disabled>
-             </palette>
-            </property>
-            <property name="font" >
-             <font>
-              <pointsize>19</pointsize>
-              <stylestrategy>PreferDefault</stylestrategy>
-              <kerning>true</kerning>
-             </font>
-            </property>
-            <property name="toolTip" >
-             <string>Vokabel durchsehen / editieren und ändern. Außerdem kann hier ein per-Wort Trainingsprogramm zusammengestellt werden.</string>
-            </property>
-            <property name="layoutDirection" >
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="styleSheet" >
-             <string/>
-            </property>
-            <property name="text" >
-             <string> Wortliste              </string>
-            </property>
-            <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>
-            </property>
-            <property name="iconSize" >
-             <size>
-              <width>56</width>
-              <height>56</height>
-             </size>
-            </property>
-            <property name="flat" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" >
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pbTrain" >
-            <property name="minimumSize" >
-             <size>
-              <width>100</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="palette" >
-             <palette>
-              <active>
-               <colorrole role="ButtonText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>175</red>
-                  <green>190</green>
-                  <blue>200</blue>
-                 </color>
-                </brush>
-               </colorrole>
-              </active>
-              <inactive>
-               <colorrole role="ButtonText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>175</red>
-                  <green>190</green>
-                  <blue>200</blue>
-                 </color>
-                </brush>
-               </colorrole>
-              </inactive>
-              <disabled>
-               <colorrole role="ButtonText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>119</red>
-                  <green>119</green>
-                  <blue>119</blue>
-                 </color>
-                </brush>
-               </colorrole>
-              </disabled>
-             </palette>
-            </property>
-            <property name="font" >
-             <font>
-              <pointsize>19</pointsize>
-             </font>
-            </property>
-            <property name="toolTip" >
-             <string>Hier können Sie das Sprachmodell editieren und somit die Erkennungsrate erhöhen</string>
-            </property>
-            <property name="text" >
-             <string>  &amp;Trainieren</string>
-            </property>
-            <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/document-properties.svg</iconset>
-            </property>
-            <property name="iconSize" >
-             <size>
-              <width>56</width>
-              <height>56</height>
-             </size>
-            </property>
-            <property name="flat" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeType" >
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>30</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pbRunProgram" >
-            <property name="minimumSize" >
-             <size>
-              <width>100</width>
-              <height>20</height>
-             </size>
-            </property>
-            <property name="palette" >
-             <palette>
-              <active>
-               <colorrole role="ButtonText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>175</red>
-                  <green>190</green>
-                  <blue>200</blue>
-                 </color>
-                </brush>
-               </colorrole>
-              </active>
-              <inactive>
-               <colorrole role="ButtonText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>175</red>
-                  <green>190</green>
-                  <blue>200</blue>
-                 </color>
-                </brush>
-               </colorrole>
-              </inactive>
-              <disabled>
-               <colorrole role="ButtonText" >
-                <brush brushstyle="SolidPattern" >
-                 <color alpha="255" >
-                  <red>119</red>
-                  <green>119</green>
-                  <blue>119</blue>
-                 </color>
-                </brush>
-               </colorrole>
-              </disabled>
-             </palette>
-            </property>
-            <property name="font" >
-             <font>
-              <pointsize>19</pointsize>
-             </font>
-            </property>
-            <property name="toolTip" >
-             <string>Zeigt den Ausführendialog an. Hier können Sie Kommandos ausführen und ändern</string>
-            </property>
-            <property name="text" >
-             <string>  &amp;Ausführen</string>
-            </property>
-            <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
-            </property>
-            <property name="iconSize" >
-             <size>
-              <width>56</width>
-              <height>56</height>
-             </size>
-            </property>
-            <property name="flat" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType" >
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" >
-           <size>
-            <width>16</width>
-            <height>272</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
+       <widget class="QWidget" native="1" name="wButtonWidget" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+          <horstretch>0</horstretch>
+          <verstretch>1</verstretch>
+         </sizepolicy>
+        </property>
+        <layout class="QGridLayout" >
+         <item row="0" column="0" colspan="2" >
+          <widget class="QPushButton" name="pbAddWord" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize" >
+            <size>
+             <width>100</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="palette" >
+            <palette>
+             <active>
+              <colorrole role="Button" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="150" >
+                 <red>235</red>
+                 <green>235</green>
+                 <blue>235</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="ButtonText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>175</red>
+                 <green>190</green>
+                 <blue>200</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </active>
+             <inactive>
+              <colorrole role="Button" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="150" >
+                 <red>235</red>
+                 <green>235</green>
+                 <blue>235</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="ButtonText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>175</red>
+                 <green>190</green>
+                 <blue>200</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </inactive>
+             <disabled>
+              <colorrole role="Button" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="150" >
+                 <red>235</red>
+                 <green>235</green>
+                 <blue>235</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="ButtonText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>119</red>
+                 <green>119</green>
+                 <blue>119</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </disabled>
+            </palette>
+           </property>
+           <property name="font" >
+            <font>
+             <pointsize>19</pointsize>
+            </font>
+           </property>
+           <property name="toolTip" >
+            <string>Fügt ein neues Wort in das Sprachmodell ein</string>
+           </property>
+           <property name="text" >
+            <string>  Wort &amp;hinzufügen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>56</width>
+             <height>56</height>
+            </size>
+           </property>
+           <property name="checkable" >
+            <bool>true</bool>
+           </property>
+           <property name="flat" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2" >
+          <widget class="QPushButton" name="pbTrain" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize" >
+            <size>
+             <width>100</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="palette" >
+            <palette>
+             <active>
+              <colorrole role="ButtonText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>175</red>
+                 <green>190</green>
+                 <blue>200</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </active>
+             <inactive>
+              <colorrole role="ButtonText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>175</red>
+                 <green>190</green>
+                 <blue>200</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </inactive>
+             <disabled>
+              <colorrole role="ButtonText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>119</red>
+                 <green>119</green>
+                 <blue>119</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </disabled>
+            </palette>
+           </property>
+           <property name="font" >
+            <font>
+             <pointsize>19</pointsize>
+            </font>
+           </property>
+           <property name="toolTip" >
+            <string>Hier können Sie das Sprachmodell editieren und somit die Erkennungsrate erhöhen</string>
+           </property>
+           <property name="text" >
+            <string>  &amp;Trainieren</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/document-properties.svg</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>56</width>
+             <height>56</height>
+            </size>
+           </property>
+           <property name="checkable" >
+            <bool>true</bool>
+           </property>
+           <property name="flat" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" >
+          <widget class="QPushButton" name="pbEditWordList" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize" >
+            <size>
+             <width>100</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="palette" >
+            <palette>
+             <active>
+              <colorrole role="WindowText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Text" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="ButtonText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>175</red>
+                 <green>190</green>
+                 <blue>200</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </active>
+             <inactive>
+              <colorrole role="WindowText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Text" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="ButtonText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>175</red>
+                 <green>190</green>
+                 <blue>200</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </inactive>
+             <disabled>
+              <colorrole role="WindowText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Text" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="ButtonText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>255</red>
+                 <green>255</green>
+                 <blue>255</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </disabled>
+            </palette>
+           </property>
+           <property name="font" >
+            <font>
+             <pointsize>19</pointsize>
+             <stylestrategy>PreferDefault</stylestrategy>
+             <kerning>true</kerning>
+            </font>
+           </property>
+           <property name="toolTip" >
+            <string>Vokabel durchsehen / editieren und ändern. Außerdem kann hier ein per-Wort Trainingsprogramm zusammengestellt werden.</string>
+           </property>
+           <property name="layoutDirection" >
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="text" >
+            <string> Wortliste              </string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>56</width>
+             <height>56</height>
+            </size>
+           </property>
+           <property name="checkable" >
+            <bool>true</bool>
+           </property>
+           <property name="flat" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" colspan="2" >
+          <widget class="QPushButton" name="pbRunProgram" >
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize" >
+            <size>
+             <width>100</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="palette" >
+            <palette>
+             <active>
+              <colorrole role="ButtonText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>175</red>
+                 <green>190</green>
+                 <blue>200</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </active>
+             <inactive>
+              <colorrole role="ButtonText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>175</red>
+                 <green>190</green>
+                 <blue>200</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </inactive>
+             <disabled>
+              <colorrole role="ButtonText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>119</red>
+                 <green>119</green>
+                 <blue>119</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </disabled>
+            </palette>
+           </property>
+           <property name="font" >
+            <font>
+             <pointsize>19</pointsize>
+            </font>
+           </property>
+           <property name="toolTip" >
+            <string>Zeigt den Ausführendialog an. Hier können Sie Kommandos ausführen und ändern</string>
+           </property>
+           <property name="text" >
+            <string>  &amp;Ausführen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>56</width>
+             <height>56</height>
+            </size>
+           </property>
+           <property name="checkable" >
+            <bool>true</bool>
+           </property>
+           <property name="flat" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
       <item>
        <spacer>
         <property name="orientation" >
          <enum>Qt::Vertical</enum>
         </property>
+        <property name="sizeType" >
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
         <property name="sizeHint" >
          <size>
-          <width>732</width>
-          <height>16</height>
+          <width>20</width>
+          <height>10</height>
          </size>
         </property>
        </spacer>

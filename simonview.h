@@ -74,8 +74,10 @@ private:
 
 	#ifdef ANIMATIONS
 	QWidget *test;
-	float currentSizeH, currentSizeW;
+	short moveYDirection;
+	float currentSizeH, currentSizeW, currentMoveY;
 	QTimer *tresizeButtons;
+	QTimer *moveButtons;
 	void setupAnimations();
 	QVector<QPushButton*> animatedButtons;
 	QGridLayout *buttonMover;

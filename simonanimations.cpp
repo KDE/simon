@@ -28,8 +28,8 @@ void SimonView::setupAnimations()
 void SimonView::resizeButtons()
 {
  	setUpdatesEnabled(false);
-	currentSizeW = currentSizeW-2.5f;    // *0.99;
-	currentSizeH=currentSizeH-0.80f;      // *0.95;
+	currentSizeW = currentSizeW*0.98; //-2.5f;    // 
+	currentSizeH=currentSizeH*0.963;      // *0.95;
 	
 	int iconsize = round(((currentSizeW/2.5f)-100)/5+8);
 	QSize newIconSize = QSize(iconsize, iconsize);
@@ -49,38 +49,49 @@ void SimonView::resizeButtons()
 	if (currentSizeW <= 430) {
 		tresizeButtons->stop();
 		qDebug() << currentSizeW;
+	} else if(currentSizeW >= 680)
+	{
+		currentMoveY+=1.3;
+	} else if (currentSizeW <= 455)
+	{
+		currentMoveY -= 2.6;
 	}
+	qDebug() << tmp->y();
+
+	test->move(test->x(), test->y()+(currentMoveY*moveYDirection));
  	setUpdatesEnabled(true);
 }
 
 void SimonView::startTransformToBusy()
 {
-// 	currentSizeW = ui.pbAddWord->width();
-// 	currentSizeH = ui.pbAddWord->height();
 
-// 	for (int i=0; i < animatedButtons.count(); i++)
-// 	{
-// 		laBt = animatedButtons.at(i)->layout();
-// 		laBt->removeWidget(animatedButtons.at(i));
-// 	}
-	ui.vboxLayout1->removeWidget(ui.pbAddWord);
-	ui.vboxLayout1->removeWidget(ui.pbEditWordList);
-	ui.vboxLayout2->removeWidget(ui.pbTrain);
-	ui.vboxLayout2->removeWidget(ui.pbRunProgram);
+// 	test = new QWidget(this);
+// 	test->resize(ui.pbRunProgram->x()+ui.pbRunProgram->width() - ui.pbAddWord->x()+15, 
+// 			ui.pbRunProgram->y()+ui.pbRunProgram->height() - ui.pbAddWord->y()+15);
+// 	test->move(ui.pbAddWord->x()-9, ui.pbAddWord->y()-20);
 
-	buttonMover->addWidget(ui.pbAddWord, 0,0);
-	buttonMover->addWidget(ui.pbEditWordList, 1,0);
-	buttonMover->addWidget(ui.pbTrain, 0,1);
-	buttonMover->addWidget(ui.pbRunProgram, 1,1);
-	buttonMover->setHorizontalSpacing(5);
-	buttonMover->setVerticalSpacing(2);
-	test = new QWidget(this);
-	test->resize(ui.pbRunProgram->x()+ui.pbRunProgram->width() - ui.pbAddWord->x()+15, 
-			ui.pbRunProgram->y()+ui.pbRunProgram->height() - ui.pbAddWord->y()+15);
-	test->move(ui.pbAddWord->x()-9, ui.pbAddWord->y()-20);
-	test->setLayout(buttonMover);
 
+// 	QLayout *lay = ui.wButtonWidget->layout();
 	
+// 	lay->removeWidget(ui.pbAddWord);
+// 	lay->removeWidget(ui.pbEditWordList);
+// 	lay->removeWidget(ui.pbTrain);
+// 	lay->removeWidget(ui.pbRunProgram);
+
+// 	buttonMover->addWidget(ui.pbAddWord, 0,0);
+// 	buttonMover->addWidget(ui.pbEditWordList, 1,0);
+// 	buttonMover->addWidget(ui.pbTrain, 0,1);
+// 	buttonMover->addWidget(ui.pbRunProgram, 1,1);
+// 	buttonMover->setHorizontalSpacing(5);
+
+// 	test->setLayout(buttonMover);
+
+	ui.vboxLayout->removeWidget(ui.wButtonWidget);
+	test = ui.wButtonWidget;
+	((QGridLayout*) test->layout())->setVerticalSpacing(1);
+
+	currentMoveY=0;
+	moveYDirection=-1;
 	currentSizeW = test->width();
 // 	qDebug() << currentSizeW;
 	currentSizeH = test->height();
