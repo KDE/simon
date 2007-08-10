@@ -11,8 +11,12 @@
 //
 #include "inlinewidget.h"
 
-InlineWidget::InlineWidget(QWidget* parent, Qt::WindowFlags f): QWidget(parent, f)
+InlineWidget::InlineWidget(QString title, QIcon icon, QString desc, QWidget* parent) 
+	: QWidget(parent)
 {
+	this->title = title;
+	this->icon = icon;
+	this->desc = desc;
 }
 
 
@@ -21,3 +25,43 @@ InlineWidget::~InlineWidget()
 }
 
 
+void InlineWidget::accept()
+{
+	emit accepted();
+}
+
+void InlineWidget::reject()
+{
+	emit reject();
+}
+
+bool InlineWidget::close()
+{
+	emit closed();
+	return QWidget::close();
+}
+
+void InlineWidget::setVisible(bool visible)
+{
+	emit settingVisible(visible);
+	QWidget::setVisible(visible);
+}
+
+void InlineWidget::hide()
+{
+	emit hidden();
+	QWidget::hide();
+}
+
+void InlineWidget::show()
+{
+	emit shown();
+	QWidget::show();
+}
+
+
+bool InlineWidget::exec()
+{
+	emit execd();
+	QWidget::show();
+}

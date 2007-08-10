@@ -14,7 +14,6 @@
 
 #define sImportDict 	32
 
-#include <QMainWindow>
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QString>
@@ -27,6 +26,8 @@
 #include "importdictview.h"
 #include "trainingview.h"
 #include "ui_wordlist.h"
+#include "inlinewidget.h"
+
 
 
 class TrainingView;
@@ -42,7 +43,7 @@ class QPoint;
  */
 
 
-class WordListView : public QMainWindow {
+class WordListView : public InlineWidget {
 	Q_OBJECT
 private:
 	int shownDialogs;

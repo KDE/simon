@@ -24,6 +24,7 @@
 #include "importtrainingtexts.h"
 #include "recwidget.h"
 #include "ui_trainmain.h"
+#include "inlinewidget.h"
 
 
 class WordListView;
@@ -37,7 +38,7 @@ class ImportTrainingDirectory;
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class TrainingView : public QDialog{
+class TrainingView : public InlineWidget {
 	Q_OBJECT
 
 signals:
@@ -72,8 +73,7 @@ public slots:
 	void importDirectory();
 public:
 	
-    TrainingView(WordListView *wordlistView, QWidget *parent=0
-		/*, WordList *trainWords=NULL*/);
+    TrainingView(WordListView *wordlistView, QWidget *parent=0);
 	
     ~TrainingView();
 

@@ -60,20 +60,35 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	this->trayManager->createIcon( QIcon( ":/images/tray.png" ), "Simon" );
 	
+	inlineView = new InlineWidgetView(this);
+	inlineView->hide();
+	QPalette inlinePalette;
+	QBrush inlineBrush(QColor(255, 255, 255, 100));
+	inlineBrush.setStyle(Qt::SolidPattern);
+	inlinePalette.setBrush(QPalette::Active, QPalette::Window, inlineBrush);
+	QSizePolicy pol(QSizePolicy::Expanding,QSizePolicy::Expanding);
+	pol.setVerticalStretch(1);
+	inlineView->setSizePolicy(pol);
+	inlineView->setPalette(inlinePalette);
+	inlineView->setAutoFillBackground(true);
+
 	//Preloads all Dialogs
 	this->info->writeToSplash(tr("Lade \"Wort hinzufügen\"..."));
 	this->addWordView = new AddWordView(this);
 	this->info->writeToSplash(tr("Lade \"Wortliste\"..."));
-	this->wordList = new WordListView(this);
+	this->wordList = new WordListView(inlineView);
 	this->info->writeToSplash(tr("Lade \"Ausführen\"..."));
 	this->runDialog = new RunApplicationView(this);
 	this->info->writeToSplash(tr("Lade \"Trainieren\"..."));
+
 	this->trainDialog = new TrainingView(wordList, this);
 	this->wordList->setTrainingView(trainDialog);
+
 	this->info->writeToSplash(tr("Lade \"System\"..."));
 	this->settingsDialog = new SettingsView(this);
 	
 	this->info->writeToSplash(tr("Lade Oberfläche..."));
+
 
 	this->vuMeter = new VuMeter();
 	if (vuMeter->prepare())
@@ -387,10 +402,12 @@ void SimonView::showTrainDialog(bool show)
 {
 	if (show) {
 		ui.pbTrain->setChecked(true);
-		this->trainDialog->show();
+		inlineView->registerPage(trainDialog);
+// 		this->trainDialog->show();
 	} else {
 		ui.pbTrain->setChecked(false);
-		this->trainDialog->hide();
+		inlineView->unRegisterPage(trainDialog);
+// 		this->trainDialog->hide();
 	}
 }
 
@@ -402,10 +419,12 @@ void SimonView::showTrainDialog(bool show)
 void SimonView::showWordListDialog(bool show)
 {
 	if (show) {
-		this->wordList->show();
+// 		this->wordList->show();
+		inlineView->registerPage(wordList);
 		ui.pbEditWordList->setChecked(true);
 	} else {
-		this->wordList->hide();
+		inlineView->unRegisterPage(wordList);
+// 		this->wordList->hide();
 		ui.pbEditWordList->setChecked(false);
 	}
 }

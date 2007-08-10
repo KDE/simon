@@ -9,6 +9,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
+#include <QDialog>
+#include <QHBoxLayout>
 #include "trainingview.h"
 #include "importtrainingdirectory.h"
 
@@ -16,10 +18,21 @@
  * @brief Constructor
  *
  *	@author Peter Grasch
+ * TODO: Fix "tmp" dialog to use the designer .ui files
  */
-TrainingView::TrainingView(WordListView *wordlistView, QWidget *parent) : QDialog(parent)
+TrainingView::TrainingView(WordListView *wordlistView, QWidget *parent)
+	 : InlineWidget(tr("Training"), QIcon(":/images/icons/document-properties.svg"), 
+	   tr("Trainieren des Sprachmodells"), parent)
 {
-	ui.setupUi(this);
+	QDialog *tmp = new QDialog(this);
+	ui.setupUi(tmp);
+	tmp->layout()->removeWidget(ui.swAction);
+	QHBoxLayout *lay = new QHBoxLayout(this);
+	lay->addWidget(ui.swAction);
+	setLayout(lay);
+	delete tmp;
+// 	this->show();
+	
 	connect(ui.pbWordList, SIGNAL(clicked()), this, SLOT(switchToWordList()));
 	connect(ui.pbTrainText, SIGNAL(clicked()), this, SLOT(trainSelected()));
 	

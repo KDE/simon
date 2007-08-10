@@ -10,14 +10,9 @@
 #include <QFont>
 #include <QLayout>
 #include <QCoreApplication>
-#include "inlinewidget.h"
 
 void SimonView::setupAnimations()
 {
-// 	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(startTransformToBusy()));
-// 	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(startTransformToBusy()));
-// 	QObject::connect(ui.pbSettings, SIGNAL(clicked()), this, SLOT(startTransformToBusy()));
-
 	tresizeButtons = new QTimer(this);
 	connect(tresizeButtons, SIGNAL(timeout()), this, SLOT(resizeButtons()));
 
@@ -31,7 +26,7 @@ void SimonView::setupAnimations()
 
 void SimonView::resizeButtons()
 {
-	if (!wScaleDone && (((scaleXFactor < 1) && (currentSizeW <= this->width()-365)) ||
+	if (!wScaleDone && (((scaleXFactor < 1) && (currentSizeW <= this->width()-360)) ||
 		((scaleXFactor > 1) && (currentSizeW >= this->width()-120)) || (scaleXFactor==1)))
 		wScaleDone=true;
 
@@ -47,7 +42,7 @@ void SimonView::resizeButtons()
 		((moveXDirection > 0) && (buttonMover->x() >= 55)) || (moveXDirection==0)))
 		xMoveDone = true;
 
-	if (!yMoveDone && (((moveYDirection < 0) && (buttonMover->y() < 15)) ||
+	if (!yMoveDone && (((moveYDirection < 0) && (buttonMover->y() < 20)) ||
 		((moveYDirection > 0) && (buttonMover->y() > 170)) || (moveYDirection==0)))
 		yMoveDone = true;
 
@@ -191,8 +186,13 @@ void SimonView::setButtonsBusy()
 
 	resizeMainButtonContentsToWindow();
 
+	
+
 	viewBusy = false;
  	setUpdatesEnabled(true);
+
+	ui.vboxLayout->insertWidget(2, inlineView);
+	inlineView->show();
 
 	viewBusy = true;
 }
@@ -200,6 +200,7 @@ void SimonView::setButtonsBusy()
 void SimonView::setButtonsIdle()
 {
  	setUpdatesEnabled(false);
+// 	ui.vboxLayout->removeWidget( (QWidget*) this->inlineView);
 
 	ui.hboxLayout1->removeWidget(buttonMover);
 	ui.vboxLayout->insertWidget(2,buttonMover);

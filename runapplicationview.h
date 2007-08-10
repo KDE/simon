@@ -40,7 +40,7 @@ signals:
 private:
 	Ui::RunDialog ui;
 	RunCommand *run;
-	void hideEvent(QHideEvent *event) { emit hidden(); }
+	void hideEvent(QHideEvent *event) { emit hidden(); return QWidget::hideEvent(event); }
 public slots:
 	void insertCommands(CommandList list);
 	void runCommand(QTableWidgetItem* command);

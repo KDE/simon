@@ -98,6 +98,7 @@ importtrainingdirectoryworkingpage.h \
            quickunpacker.h \
            logentry.h \
            logmanager.h \
+           inlinewidgetview.h \
            inlinewidget.h
 SOURCES += main.cpp \
            simonview.cpp \
@@ -159,6 +160,7 @@ SOURCES += main.cpp \
            logentry.cpp \
            logmanager.cpp \
            simonanimations.cpp \
+           inlinewidgetview.cpp \
            inlinewidget.cpp
 QT += network \
 xml 

@@ -9,11 +9,11 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include "wordlistview.h"
 #include <QProgressDialog>
 #include <QCoreApplication>
-#include <QDebug>
+#include <QIcon>
 #include "logger.h"
+#include "wordlistview.h"
 
 /**
  * @brief Constructor
@@ -23,7 +23,9 @@
  *
  * @author Peter Grasch
  */
-WordListView::WordListView(QWidget *parent) : QMainWindow(parent)
+WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"), 
+	QIcon(":/images/icons/format-justify-fill.svg"), 
+	tr("Betrachten und bearbeiten der Wortliste"), parent)
 {
 	shownDialogs = 0;
 	abortVocabInsertion = false;

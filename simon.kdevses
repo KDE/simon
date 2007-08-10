@@ -1,22 +1,34 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="5" >
+ <DocsAndViews NumberOfDocuments="9" >
   <Doc0 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simonanimations.cpp" >
-   <View0 Encoding="ISO 8859-15" line="36" Type="Source" />
+   <View0 Encoding="ISO 8859-15" line="186" Type="Source" />
   </Doc0>
   <Doc1 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simonview.cpp" >
-   <View0 Encoding="ISO 8859-15" line="93" Type="Source" />
+   <View0 Encoding="ISO 8859-15" line="81" Type="Source" />
   </Doc1>
   <Doc2 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simonview.h" >
-   <View0 Encoding="ISO 8859-15" line="55" Type="Source" />
+   <View0 Encoding="ISO 8859-15" line="53" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/inlinewidget.cpp" >
-   <View0 Encoding="ISO 8859-15" line="0" Type="Source" />
-  </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/inlinewidget.h" >
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/inlinewidgetview.cpp" >
    <View0 Encoding="ISO 8859-15" line="12" Type="Source" />
+  </Doc3>
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/inlinewidgetview.h" >
+   <View0 Encoding="ISO 8859-15" line="17" Type="Source" />
   </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/inlinewidget.cpp" >
+   <View0 Encoding="ISO 8859-15" line="16" Type="Source" />
+  </Doc5>
+  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/inlinewidget.h" >
+   <View0 Encoding="ISO 8859-15" line="22" Type="Source" />
+  </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wordlistview.h" >
+   <View0 Encoding="ISO 8859-15" line="45" Type="Source" />
+  </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/wordlistview.cpp" >
+   <View0 Encoding="ISO 8859-15" line="25" Type="Source" />
+  </Doc8>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

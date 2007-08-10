@@ -13,6 +13,11 @@
 #define INLINEWIDGET_H
 
 #include <QWidget>
+#include <QObject>
+#include <QIcon>
+
+class QString;
+class QIcon;
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -20,14 +25,38 @@
 class InlineWidget : public QWidget
 {
 Q_OBJECT
-signals:
-	void hidden();
+
 private:
-	void hideEvent(QHideEvent *event) { emit hidden(); }
+	QString title, desc;
+	QIcon icon;
+
+signals:
+	void closed();
+	void rejected();
+	void hidden();
+	void execd();
+	void shown();
+	void accepted();
+	void settingVisible(bool);
+
 public:
-    InlineWidget(QWidget* parent, Qt::WindowFlags f);
+    InlineWidget(QString title, QIcon icon, QString desc, QWidget* parent=0);
 
     ~InlineWidget();
+
+	void setVisible(bool visible);
+
+	QString getTitle() const {return title; }
+	QIcon getIcon() const { return icon; }
+	QString getDesc() const { return desc; }
+
+public slots:
+    void accept();
+    void reject();
+    bool close();
+    bool exec();
+    void hide();
+    void show();
 
 };
 

@@ -40,12 +40,15 @@
 #define sRunApplicationView 	8
 #define sSettingsView	 	16
 
+
+#include "inlinewidgetview.h"
+#include "wordlistview.h"
+
 #include <QMainWindow>
 #include "simoncontrol.h"
 #include "simoninfo.h"
 #include "runapplicationview.h"
 #include "trayiconmanager.h"
-#include "wordlistview.h"
 #include "vumeter.h"
 #include "trainingview.h"
 #include "settingsview.h"
@@ -53,7 +56,6 @@
 #include <QVector>
 #include <QPushButton>
 #include <QGridLayout>
-
 #include "ui_main.h"
 
 class QPoint;
@@ -80,6 +82,7 @@ private slots:
 private:
 	int shownDialogs;
 	QWidget *buttonMover;
+	InlineWidgetView *inlineView;
 
 	#ifdef ANIMATIONS
 	
