@@ -27,6 +27,8 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	QIcon(":/images/icons/format-justify-fill.svg"), 
 	tr("Betrachten und bearbeiten der Wortliste"), parent)
 {
+	hide();
+
 	shownDialogs = 0;
 	abortVocabInsertion = false;
 	this->wordListManager = new WordListManager();
