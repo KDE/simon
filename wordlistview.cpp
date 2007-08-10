@@ -27,7 +27,6 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	QIcon(":/images/icons/format-justify-fill.svg"), 
 	tr("Betrachten und bearbeiten der Wortliste"), parent)
 {
-	hide();
 
 	shownDialogs = 0;
 	abortVocabInsertion = false;
@@ -56,6 +55,7 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	
 	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(toggleExtraWords()));
 	dirty = false;
+	hide();
 }
 
 
