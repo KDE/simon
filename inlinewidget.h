@@ -20,6 +20,10 @@
 class InlineWidget : public QWidget
 {
 Q_OBJECT
+signals:
+	void hidden();
+private:
+	void hideEvent(QHideEvent *event) { emit hidden(); }
 public:
     InlineWidget(QWidget* parent, Qt::WindowFlags f);
 

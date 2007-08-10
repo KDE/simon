@@ -48,9 +48,11 @@ class AddWordView : public QWizard
 	private:
 		RecWidget *rec1;
 		RecWidget *rec2;
+		void hideEvent(QHideEvent *event) { emit hidden(); }
 	
 	signals:
 		void addedWord();
+		void hidden();
 		
 	public slots:
 		

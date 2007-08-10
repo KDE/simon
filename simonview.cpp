@@ -90,24 +90,26 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	//Setting up Signal/Slots
 	QObject::connect(vuMeter, SIGNAL(level(int)), this, SLOT(setLevel(int)));
 	
-	QObject::connect(ui.pbAddWord, SIGNAL(clicked()), this, SLOT(showAddWordDialog()));
-	//QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(showWordListDialog()));
-	QObject::connect(ui.pbRunProgram, SIGNAL(clicked()), this, SLOT(showRunDialog()));
-	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(showTrainDialog()));
-	QObject::connect(ui.pbSettings, SIGNAL(clicked()), this, SLOT(showSettingsDialog()));
+	QObject::connect(ui.pbAddWord, SIGNAL(toggled(bool)), this, SLOT(showAddWordDialog(bool)));
+	QObject::connect(ui.pbEditWordList, SIGNAL(toggled(bool)), this, SLOT(showWordListDialog(bool)));
+	QObject::connect(ui.pbRunProgram, SIGNAL(toggled(bool)), this, SLOT(showRunDialog(bool)));
+	QObject::connect(ui.pbTrain, SIGNAL(toggled(bool)), this, SLOT(showTrainDialog(bool)));
+	QObject::connect(ui.pbSettings, SIGNAL(toggled(bool)), this, SLOT(showSettingsDialog(bool)));
+	QObject::connect(addWordView, SIGNAL(hidden()), this, SLOT(setButtonNotChecked()));
+	
+
+
 	QObject::connect(ui.pbHide, SIGNAL(clicked()), this, SLOT(hideSimon()));
 	QObject::connect(ui.pbClose, SIGNAL(clicked()), this, SLOT(closeSimon()));
 	QObject::connect(this->trayManager, SIGNAL(clicked()), this, SLOT(toggleVisibility()));
 	QObject::connect(ui.pbActivision, SIGNAL(clicked()), this, SLOT(toggleActivation()));
 	QObject::connect(this->trayManager, SIGNAL(middleClicked()), this, SLOT(toggleActivation()));
 
-	#ifndef ANIMATIONS
-	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(setButtonsBusy()));
-	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(setButtonsBusy()));
-	QObject::connect(ui.pbSettings, SIGNAL(clicked()), this, SLOT(setButtonsBusy()));
-	#endif //ANIMATIONS
+	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
+	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
+	QObject::connect(ui.pbSettings, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
 
-
+	buttonMover= ui.wButtonWidget;
 
 	connect(wordList, SIGNAL(showAddWordDialog()), this, 
 			SLOT(showAddWordDialog()));
@@ -126,22 +128,15 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 
 	#ifdef ANIMATIONS
 	setupAnimations();
-	
 	#endif
 	
 	//setting Background
-// 	QPixmap bg(":/images/bg_clear.png");
-
 	QLinearGradient bg(QPointF(1, 1), QPointF(900, 550));
 	bg.setColorAt(0, QColor(70, 120, 190));
 	bg.setColorAt(1, QColor(25, 60, 130));
-
 	QPalette p(palette());
 	p.setBrush(QPalette::Background, bg);
 	setPalette(p);
-	
-	
-	
 	
 	ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
 
@@ -150,17 +145,68 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	//hiding splash again after loading
 	this->info->hideSplash();
-	
+
+	show();
+	QCoreApplication::processEvents();
+	resizeMainButtonContentsToWindow();
 }
 
+bool SimonView::viewShouldBeBusy()
+{
+	return (ui.pbSettings->isChecked() || 
+		ui.pbTrain->isChecked() || ui.pbEditWordList->isChecked());
+}
+
+void SimonView::setButtonNotChecked()
+{
+	if (dynamic_cast<AddWordView*>(sender())) {
+		ui.pbAddWord->setChecked(false);
+	} else if (dynamic_cast<RunApplicationView*>(sender())) {
+		ui.pbRunProgram->setChecked(false);
+	} else if (dynamic_cast<WordListView*>(sender())) {
+		ui.pbEditWordList->setChecked(false);
+	} else if (dynamic_cast<SettingsView*>(sender())) {
+		ui.pbSettings->setChecked(false);
+	} else if (dynamic_cast<TrainingView*>(sender())) {
+		ui.pbTrain->setChecked(false);
+	}
+}
 
 void  SimonView::resizeEvent(QResizeEvent *event)
 {
 	if (viewBusy) 
-	{
 		this->setButtonsBusy();
-		viewBusy = true;
+	else {
+		resizeMainButtonContentsToWindow();
 	}
+}
+
+void SimonView::resizeMainButtonContentsToWindow()
+{
+	float newFontSize = (((float) this->width()-309)/(float) 1000)*19  + 5;
+	int iconSize = (int) round((((float)buttonMover->height())/2.5f)/5+8);
+	QSize newIconSize = QSize(iconSize, iconSize);
+	setMainButtonsIconSize(newIconSize);
+	setMainButtonsFontSize(newFontSize);
+}
+
+void SimonView::setMainButtonsIconSize(QSize newSize)
+{
+	ui.pbRunProgram->setIconSize(newSize);
+	ui.pbTrain->setIconSize(newSize);
+	ui.pbEditWordList->setIconSize(newSize);
+	ui.pbAddWord->setIconSize(newSize);
+}
+
+void SimonView::setMainButtonsFontSize(float fontSize)
+{
+	QFont f = ui.pbAddWord->font();
+	f.setPointSizeF(fontSize);
+	ui.pbAddWord->setFont(f);
+	ui.pbEditWordList->setFont(f);
+	ui.pbTrain->setFont(f);
+	ui.pbRunProgram->setFont(f);
+
 }
 
 /**
@@ -285,10 +331,16 @@ void SimonView::setLevel(int level)
  *
  * @author Peter Grasch
  */
-void SimonView::showRunDialog()
+void SimonView::showRunDialog(bool show)
 {
-	runDialog = new RunApplicationView(this);
-	this->runDialog->show();
+	if (show)
+	{
+		this->runDialog->show();
+		ui.pbRunProgram->setChecked(true);
+	} else {
+		this->runDialog->hide();
+		ui.pbRunProgram->setChecked(false);
+	}
 }
 
 
@@ -297,9 +349,17 @@ void SimonView::showRunDialog()
  *
  * @author Peter Grasch
  */
-void SimonView::showAddWordDialog()
+void SimonView::showAddWordDialog(bool show)
 {
-	this->addWordView->show();
+	if (show)
+	{
+		this->addWordView->show();
+		ui.pbAddWord->setChecked(true);
+	} else 
+	{
+		this->addWordView->hide();
+		ui.pbAddWord->setChecked(false);
+	}
 }
 
 /**
@@ -307,9 +367,15 @@ void SimonView::showAddWordDialog()
  *
  * @author Peter Grasch
  */
-void SimonView::showSettingsDialog()
+void SimonView::showSettingsDialog(bool show)
 {
-	this->settingsDialog->show();
+	if (show) {
+		this->settingsDialog->show();
+		ui.pbSettings->setChecked(true);
+	} else {
+		this->settingsDialog->hide();
+		ui.pbSettings->setChecked(false);
+	}
 }
 
 /**
@@ -317,9 +383,15 @@ void SimonView::showSettingsDialog()
  *
  * @author Peter Grasch
  */
-void SimonView::showTrainDialog()
+void SimonView::showTrainDialog(bool show)
 {
-	this->trainDialog->show();
+	if (show) {
+		ui.pbTrain->setChecked(true);
+		this->trainDialog->show();
+	} else {
+		ui.pbTrain->setChecked(false);
+		this->trainDialog->hide();
+	}
 }
 
 /**
@@ -327,9 +399,15 @@ void SimonView::showTrainDialog()
  *
  * @author Peter Grasch
  */
-void SimonView::showWordListDialog()
+void SimonView::showWordListDialog(bool show)
 {
-	this->wordList->show();
+	if (show) {
+		this->wordList->show();
+		ui.pbEditWordList->setChecked(true);
+	} else {
+		this->wordList->hide();
+		ui.pbEditWordList->setChecked(false);
+	}
 }
 
 

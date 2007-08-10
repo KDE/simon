@@ -33,9 +33,14 @@
  */
 class RunApplicationView : public QDialog {
 	Q_OBJECT
+
+signals:
+	void hidden();
+	
 private:
 	Ui::RunDialog ui;
 	RunCommand *run;
+	void hideEvent(QHideEvent *event) { emit hidden(); }
 public slots:
 	void insertCommands(CommandList list);
 	void runCommand(QTableWidgetItem* command);

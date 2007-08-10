@@ -20,7 +20,7 @@
 #ifndef PROJECTVIEW_H
 #define PROJECTVIEW_H
 
-#define ANIMATIONS
+// #define ANIMATIONS
 
 /**
  *	@class SimonView
@@ -46,7 +46,7 @@
 #include "runapplicationview.h"
 #include "trayiconmanager.h"
 #include "wordlistview.h"
-//~ #include "vumeter.h"
+#include "vumeter.h"
 #include "trainingview.h"
 #include "settingsview.h"
 #include <QSettings>
@@ -67,26 +67,35 @@ private slots:
 	#ifdef ANIMATIONS
 	void resizeButtons();
 	void startTransformToBusy();
+	void startTransformToIdle();
 	#endif
+	void inlineButtonClicked();
+	void setMainButtonsIconSize(QSize newSize);
+	void setMainButtonsFontSize(float fontSize);
+	void resizeMainButtonContentsToWindow();
 	void setButtonsBusy();
+	void setButtonsIdle();
+	void setButtonNotChecked();
 
 private:
 	int shownDialogs;
+	QWidget *buttonMover;
 
 	#ifdef ANIMATIONS
 	
 	bool xMoveDone, yMoveDone, wScaleDone, hScaleDone, logoScaleDone;
 	
-	QWidget *test;
-	short moveYDirection, moveXDirection, logoScaleDirection;
-	float currentSizeH, currentSizeW, currentMoveX, currentMoveY, logoScaleFactor;
-	QTimer *tresizeButtons;
-	QTimer *moveButtons;
-	void setupAnimations();
 	QVector<QPushButton*> animatedButtons;
-	QGridLayout *buttonMover;
+	short moveYDirection, moveXDirection, logoScaleDirection;
+	float currentSizeH, currentSizeW, currentMoveX, currentMoveY, logoScaleFactor,
+		scaleXFactor, scaleYFactor;
+	QTimer *tresizeButtons;
+	QTimer *fadeIn;
+
+	void setupAnimations();
 	#endif
 	
+	bool viewShouldBeBusy();
 	bool viewBusy;
 	void resizeEvent(QResizeEvent *event);
 
@@ -129,11 +138,11 @@ public slots:
 	void toggleActivation();
 	void representState();
 	
-	void showAddWordDialog();
-	void showRunDialog();
-	void showTrainDialog();
-	void showWordListDialog();
-	void showSettingsDialog();
+	void showAddWordDialog(bool show=true);
+	void showRunDialog(bool show=true);
+	void showTrainDialog(bool show=true);
+	void showWordListDialog(bool show=true);
+	void showSettingsDialog(bool show=true);
 
 public:
 	SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
