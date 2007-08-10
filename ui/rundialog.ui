@@ -150,7 +150,7 @@
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="text" >
-        <string>&amp;Zurück</string>
+        <string>A&amp;bbrechen</string>
        </property>
        <property name="icon" >
         <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
