@@ -178,7 +178,7 @@ void SimonView::setButtonsBusy()
 
 	((QGridLayout*) buttonMover->layout())->setVerticalSpacing(1);
 	buttonMover->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
-	buttonMover->resize(this->width()-330, 89);
+	buttonMover->resize(this->width()-370, 89);
 	buttonMover->setMaximumWidth(this->width()-370);
 	buttonMover->setMinimumWidth(this->width()-370);
 	buttonMover->setMinimumHeight(89);
