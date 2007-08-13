@@ -1,0 +1,227 @@
+<ui version="4.0" >
+ <class>GeneralSettingsDlg</class>
+ <widget class="QWidget" name="GeneralSettingsDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>452</width>
+    <height>375</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Allgemeine Einstellungen</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../simon.qrc" >:/images/icons/computer.svg</iconset>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QGroupBox" name="gbGeneral" >
+     <property name="title" >
+      <string>Allgemein</string>
+     </property>
+     <property name="flat" >
+      <bool>true</bool>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QCheckBox" name="cbStartSimonOnBoot" >
+        <property name="text" >
+         <string>Starte simon bei Systemstart</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QCheckBox" name="cbStartJuliusAsNeeded" >
+        <property name="text" >
+         <string>Starte juliusd wenn nötig</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QCheckBox" name="cbAskBeforeExit" >
+        <property name="text" >
+         <string>Nachfragen vor dem Beenden</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbJulius" >
+     <property name="title" >
+      <string>Julius</string>
+     </property>
+     <property name="flat" >
+      <bool>true</bool>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="lbJuliusdAddr" >
+        <property name="text" >
+         <string>Addresse zu Juliusd:</string>
+        </property>
+        <property name="buddy" >
+         <cstring>cbAddress</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QComboBox" name="cbAddress" />
+        </item>
+        <item>
+         <widget class="QPushButton" name="pbDeleteAdress" >
+          <property name="text" >
+           <string>Entfernen</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pbAddAdress" >
+          <property name="text" >
+           <string>Hinzufügen</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbPaths" >
+     <property name="title" >
+      <string>Pfade</string>
+     </property>
+     <property name="flat" >
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" >
+      <item>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QLabel" name="lbCommands_3" >
+          <property name="text" >
+           <string>Kommandos:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>leCommands</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbLexicon" >
+          <property name="text" >
+           <string>Lexikon:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>leLexicon</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbGrammar" >
+          <property name="text" >
+           <string>Grammatik:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>leGrammar</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbPrompts" >
+          <property name="text" >
+           <string>Prompts:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>lePrompts</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbVocab" >
+          <property name="text" >
+           <string>Vokabular:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>leVocab</cstring>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QLineEdit" name="leCommands" >
+          <property name="text" >
+           <string>conf/commands.xml</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leLexicon" >
+          <property name="text" >
+           <string>model/lexicon</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leGrammar" >
+          <property name="text" >
+           <string>model/model.grammar</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lePrompts" >
+          <property name="text" >
+           <string>model/prompts</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leVocab" >
+          <property name="text" >
+           <string>model/model.voca</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
+ <connections/>
+</ui>

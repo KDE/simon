@@ -1,0 +1,169 @@
+<ui version="4.0" >
+ <class>RevertDlg</class>
+ <widget class="QWidget" name="RevertDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>609</width>
+    <height>412</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Zurücksetzen</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../simon.qrc" >:/images/icons/gtk-undo-ltr.svg</iconset>
+  </property>
+  <layout class="QHBoxLayout" >
+   <item>
+    <layout class="QVBoxLayout" >
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>1</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="twChanges" >
+       <property name="minimumSize" >
+        <size>
+         <width>250</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="selectionBehavior" >
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <column>
+        <property name="text" >
+         <string>Datum</string>
+        </property>
+       </column>
+       <column>
+        <property name="text" >
+         <string>Veränderung</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" >
+     <item>
+      <widget class="QGroupBox" name="gpChooseRevert" >
+       <property name="title" >
+        <string>Auswahl</string>
+       </property>
+       <property name="flat" >
+        <bool>true</bool>
+       </property>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QComboBox" name="cbToRevert" >
+          <item>
+           <property name="text" >
+            <string>Einstellungen</string>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Kommandos</string>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Sprachmodell</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="gwSearchInChanges" >
+       <property name="maximumSize" >
+        <size>
+         <width>233</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="title" >
+        <string>Suchen</string>
+       </property>
+       <property name="flat" >
+        <bool>true</bool>
+       </property>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QLineEdit" name="leSearchChanges" />
+        </item>
+        <item>
+         <widget class="QLabel" name="lbGoBackTill" >
+          <property name="text" >
+           <string>Zurückgehen bis:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCalendarWidget" name="cwTimeMachineDay" >
+          <property name="enabled" >
+           <bool>true</bool>
+          </property>
+          <property name="minimumSize" >
+           <size>
+            <width>208</width>
+            <height>183</height>
+           </size>
+          </property>
+          <property name="maximumSize" >
+           <size>
+            <width>208</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="firstDayOfWeek" >
+           <enum>Qt::Monday</enum>
+          </property>
+          <property name="gridVisible" >
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
+ <connections/>
+</ui>

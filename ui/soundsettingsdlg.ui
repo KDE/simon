@@ -1,0 +1,261 @@
+<ui version="4.0" >
+ <class>SoundSettingsDlg</class>
+ <widget class="QWidget" name="SoundSettingsDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>526</width>
+    <height>291</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Soundeinstellungen</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../simon.qrc" >:/images/icons/gnome-settings-sound.svg</iconset>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QGroupBox" name="gbDevices" >
+     <property name="title" >
+      <string>Geräte</string>
+     </property>
+     <property name="flat" >
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" >
+      <item>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QLabel" name="lbInDevice" >
+          <property name="text" >
+           <string>Eingabe Gerät:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbOutDevice" >
+          <property name="text" >
+           <string>Ausgabe Gerät:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbChannels" >
+          <property name="text" >
+           <string>Kanäle:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbSamplerate" >
+          <property name="text" >
+           <string>Samplerate:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QComboBox" name="cbInDevice" >
+          <item>
+           <property name="text" >
+            <string>Default</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cbOutDevice" >
+          <item>
+           <property name="text" >
+            <string>Default</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cbChannels" >
+          <property name="currentIndex" >
+           <number>0</number>
+          </property>
+          <item>
+           <property name="text" >
+            <string>Debug Me</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cbSampleRate" />
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QWidget" native="1" name="widget" >
+        <property name="minimumSize" >
+         <size>
+          <width>159</width>
+          <height>129</height>
+         </size>
+        </property>
+        <property name="maximumSize" >
+         <size>
+          <width>159</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <widget class="QLabel" name="lbDirectX" >
+         <property name="geometry" >
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>163</width>
+           <height>129</height>
+          </rect>
+         </property>
+         <property name="maximumSize" >
+          <size>
+           <width>169</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text" >
+          <string/>
+         </property>
+         <property name="pixmap" >
+          <pixmap resource="../simon.qrc" >:/images/directX.png</pixmap>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lbALSA" >
+         <property name="geometry" >
+          <rect>
+           <x>24</x>
+           <y>2</y>
+           <width>113</width>
+           <height>113</height>
+          </rect>
+         </property>
+         <property name="text" >
+          <string/>
+         </property>
+         <property name="pixmap" >
+          <pixmap resource="../simon.qrc" >:/images/alsalogo.gif</pixmap>
+         </property>
+         <property name="scaledContents" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QGroupBox" name="groupBox" >
+       <property name="title" >
+        <string>Alle Aufnahmen speichern</string>
+       </property>
+       <property name="flat" >
+        <bool>false</bool>
+       </property>
+       <property name="checkable" >
+        <bool>true</bool>
+       </property>
+       <property name="checked" >
+        <bool>false</bool>
+       </property>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QLabel" name="lbSaveRecordingsTo" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
+          <property name="text" >
+           <string>Speicherort:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" >
+          <item>
+           <widget class="QLineEdit" name="leSaveRecordingsTo" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="tbSelectDirForRecs" >
+            <property name="text" >
+             <string>...</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="gbCalibrate" >
+       <property name="title" >
+        <string>Mikrofon-Lautstärke</string>
+       </property>
+       <property name="flat" >
+        <bool>false</bool>
+       </property>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QSlider" name="hsMic" >
+          <property name="value" >
+           <number>68</number>
+          </property>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickInterval" >
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pbAutoCalibrate" >
+          <property name="text" >
+           <string>Autokalibrierung</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
+ <connections/>
+</ui>
