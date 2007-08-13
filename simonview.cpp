@@ -162,6 +162,7 @@ void SimonView::setupSignalSlots()
 
 	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
 	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
+	QObject::connect(ui.pbRunProgram, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
 	QObject::connect(ui.pbSettings, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
 
 	connect(wordList, SIGNAL(showAddWordDialog()), this, 
@@ -183,7 +184,8 @@ void SimonView::setupSignalSlots()
 bool SimonView::viewShouldBeBusy()
 {
 	return (ui.pbSettings->isChecked() || 
-		ui.pbTrain->isChecked() || ui.pbEditWordList->isChecked());
+		ui.pbTrain->isChecked() || ui.pbEditWordList->isChecked() || 
+			ui.pbRunProgram->isChecked() );
 }
 
 void SimonView::setButtonNotChecked()

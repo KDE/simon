@@ -22,6 +22,7 @@
 #include "revert.h"
 #include "logger.h"
 #include "logview.h"
+#include "externalprogrammanager.h"
 
 
 SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/images/icons/computer.svg"), tr("Einstellungen, Protokolle, etc."), parent)
@@ -30,6 +31,7 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
 	registerControl(new GeneralSettings(this));
 	registerControl(new SoundSettings(this));
 	registerControl(new LogView(this));
+	registerControl(new ExternalProgramManager(this));
 	registerControl(new Revert(this));
 
 	connect(selectControl, SIGNAL(currentRowChanged(int)), this, SLOT(displayId(int)));
@@ -71,11 +73,15 @@ void SystemView::displayId(int id)
 {
 	if (id == -1) return; //none selected
 	
-	controls->setCurrentIndex(id);
-
 	SystemWidget *sysWidget = dynamic_cast<SystemWidget*>(controls->widget(id));
 	if (!sysWidget) return;
+	
+// 	controls->widget(id)->setVisible(false); //old is hidden
+	
+	controls->setCurrentIndex(id);
+	
 	help->setText(sysWidget->getHelp());
+// 	sysWidget->setVisible(true);
 }
 
 void SystemView::setupUi(QWidget *parent)
@@ -118,13 +124,13 @@ void SystemView::setupUi(QWidget *parent)
 
 void SystemView::registerControl(SystemWidget* control)
 {
+	controls->addWidget(control);
 	if (!control->init())
 	{
 		//something went wrong
 		Logger::log("[ERR] "+tr("Konnte %1 nicht initiieren").arg(control->getTitle()));
 		return;
 	}
-	controls->addWidget(control);
 	
 	QListWidgetItem *newItem = new QListWidgetItem(control->getIcon(), 
 				control->getTitle(), selectControl);

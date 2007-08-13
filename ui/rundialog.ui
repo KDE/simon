@@ -144,28 +144,6 @@
      <item>
       <layout class="QHBoxLayout" >
        <item>
-        <widget class="QPushButton" name="pbBack" >
-         <property name="toolTip" >
-          <string>Zurück zum Hauptmenü</string>
-         </property>
-         <property name="layoutDirection" >
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="text" >
-          <string>A&amp;bbrechen</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="../simon.qrc" >:/images/icons/go-previous.svg</iconset>
-         </property>
-         <property name="checkable" >
-          <bool>false</bool>
-         </property>
-         <property name="checked" >
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
         <spacer>
          <property name="orientation" >
           <enum>Qt::Horizontal</enum>
@@ -196,6 +174,19 @@
           <bool>false</bool>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>

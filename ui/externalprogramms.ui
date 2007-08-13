@@ -1,0 +1,276 @@
+<ui version="4.0" >
+ <class>ExternalProgrammsDlg</class>
+ <widget class="QWidget" name="ExternalProgrammsDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>446</width>
+    <height>341</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QGroupBox" name="gbHTK" >
+     <property name="title" >
+      <string>HTK Programme</string>
+     </property>
+     <property name="flat" >
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" >
+      <item>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QLabel" name="lbMakeTriHed" >
+          <property name="text" >
+           <string>maketrihed:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbMkclscript" >
+          <property name="text" >
+           <string>mkclscript.prl:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbPrompts2Mlf" >
+          <property name="text" >
+           <string>prompts2mlf:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbPrompts2Wlist" >
+          <property name="text" >
+           <string>prompts2wlist:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbHDMan" >
+          <property name="text" >
+           <string>HDMan:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbHLEd" >
+          <property name="text" >
+           <string>HLEd:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QLineEdit" name="leMaketrihed" />
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leMkclscript" />
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lePrompts2Mlf" />
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lePrompts2Wlist" />
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leHDMan" />
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leHLEd" />
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QLabel" name="lbHCopy" >
+          <property name="text" >
+           <string>HCopy:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbHCompV" >
+          <property name="text" >
+           <string>HCompV:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbHERest" >
+          <property name="text" >
+           <string>HERest:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbHHEd" >
+          <property name="text" >
+           <string>HHEd:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbHVite" >
+          <property name="text" >
+           <string>HVite:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QLineEdit" name="leHCopy" />
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leHCompV" />
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leHERest" />
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leHHEd" />
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leHVite" />
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QGroupBox" name="groupBox" >
+       <property name="title" >
+        <string>Audiobearbeitung</string>
+       </property>
+       <property name="flat" >
+        <bool>true</bool>
+       </property>
+       <layout class="QHBoxLayout" >
+        <item>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QLabel" name="lbNormalize" >
+            <property name="text" >
+             <string>Normalize:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbResample" >
+            <property name="text" >
+             <string>Resample:</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QLineEdit" name="leNormalize" />
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leResample" />
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_2" >
+       <property name="title" >
+        <string>Dateibearbeitung</string>
+       </property>
+       <property name="flat" >
+        <bool>true</bool>
+       </property>
+       <layout class="QVBoxLayout" >
+        <item>
+         <layout class="QHBoxLayout" >
+          <item>
+           <widget class="QLabel" name="label" >
+            <property name="text" >
+             <string>BZip2:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leBzip2" >
+            <property name="text" >
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
+ <connections/>
+</ui>

@@ -38,7 +38,6 @@ signals:
 	void execd();
 	void shown();
 	void accepted();
-	void settingVisible(bool);
 
 public:
     InlineWidget(QString title, QIcon icon, QString desc, QWidget* parent=0);
@@ -56,8 +55,6 @@ public slots:
     void reject();
     bool close();
     bool exec();
-    void hide();
-    void show();
 
 };
 

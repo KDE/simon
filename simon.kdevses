@@ -1,52 +1,22 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="15" >
-  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/systemview.cpp" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
+ <DocsAndViews NumberOfDocuments="5" >
+  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/externalprogrammanager.cpp" >
+   <View0 Encoding="ISO 8859-15" line="51" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/generalsettings.cpp" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/externalprogrammanager.h" >
+   <View0 Encoding="ISO 8859-15" line="25" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/generalsettings.h" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/systemview.h" >
+   <View0 Encoding="ISO 8859-15" line="36" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/systemview.h" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/systemview.cpp" >
+   <View0 Encoding="ISO 8859-15" line="33" Type="Source" />
   </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/systemwidget.h" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simonview.cpp" >
+   <View0 Encoding="ISO 8859-15" line="187" Type="Source" />
   </Doc4>
-  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/systemwidget.cpp" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
-  </Doc5>
-  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/trainingview.h" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
-  </Doc6>
-  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/settingsview_old.cpp" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
-  </Doc7>
-  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/settingsview_old.h" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
-  </Doc8>
-  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/soundsettings.cpp" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
-  </Doc9>
-  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/soundsettings.h" >
-   <View0 Encoding="ISO 8859-15" line="24" Type="Source" />
-  </Doc10>
-  <Doc11 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simoncontrol.cpp" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
-  </Doc11>
-  <Doc12 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/settings.cpp" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
-  </Doc12>
-  <Doc13 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/settings.h" >
-   <View0 Encoding="ISO 8859-15" Type="Source" />
-  </Doc13>
-  <Doc14 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/logger.h" >
-   <View0 Encoding="ISO 8859-15" line="72" Type="Source" />
-  </Doc14>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

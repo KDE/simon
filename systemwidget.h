@@ -26,6 +26,10 @@ class QString;
 class SystemWidget : public InlineWidget
 {
 	Q_OBJECT
+signals:
+	void busy();
+	void idle();
+
 protected:
 	QString help;
 

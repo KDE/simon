@@ -26,6 +26,8 @@ private:
 	Ui::LogManagerDlg ui;
 
 public slots:
+	void enter();
+	void leave();
 	bool apply();
 	bool init();
 	bool reset();

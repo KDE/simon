@@ -10,7 +10,7 @@
 //
 //
 #include "inlinewidget.h"
-#include <QSettings>
+#include <QDebug>
 
 InlineWidget::InlineWidget(QString title, QIcon icon, QString desc, QWidget* parent) 
 	: QWidget(parent)
@@ -44,20 +44,10 @@ bool InlineWidget::close()
 
 void InlineWidget::setVisible(bool visible)
 {
-	emit settingVisible(visible);
 	QWidget::setVisible(visible);
-}
-
-void InlineWidget::hide()
-{
-	emit hidden();
-	QWidget::hide();
-}
-
-void InlineWidget::show()
-{
-	emit shown();
-	QWidget::show();
+	if (visible)
+		emit shown();
+	else emit hidden();
 }
 
 
