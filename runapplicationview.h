@@ -12,7 +12,7 @@
 #ifndef RUNAPPLICATIONVIEW_H
 #define RUNAPPLICATIONVIEW_H
 
-#include <QDialog>
+#include "inlinewidget.h"
 #include <QWidget>
 #include <QTableWidgetItem>
 #include <QHeaderView>
@@ -31,14 +31,14 @@
  *	@author Peter Grasch
  *	@todo Implementing filtering functions
  */
-class RunApplicationView : public QDialog {
+class RunApplicationView : public InlineWidget {
 	Q_OBJECT
 
 signals:
 	void hidden();
 	
 private:
-	Ui::RunDialog ui;
+	Ui::RunDlg ui;
 	RunCommand *run;
 	void hideEvent(QHideEvent *event) { emit hidden(); return QWidget::hideEvent(event); }
 public slots:

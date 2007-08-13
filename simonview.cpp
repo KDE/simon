@@ -17,11 +17,21 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#include "simonview.h"
+#include "inlinewidgetview.h"
+#include "logger.h"
 #include <QPixmap>
 #include <QPalette>
 #include <QLinearGradient>
-#include "simonview.h"
-#include "logger.h"
+#include "simoncontrol.h"
+#include "simoninfo.h"
+#include "runapplicationview.h"
+#include "trayiconmanager.h"
+#include "vumeter.h"
+#include "soundsettings.h"
+#include "trainingview.h"
+#include "systemview.h"
+#include "settings.h"
 
 /**
  * @brief Constructor
@@ -40,18 +50,20 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 {
 	if (!Logger::init())
 	{
-		QMessageBox::critical(this, tr("Fehler"), tr("Konnte die Log-Datei nicht öffnen. Bitte Überprüfen Sie die Berechtigungen.."));
+		QMessageBox::critical(this, tr("Fehler"), tr("Konnte die Log-Datei nicht öffnen. Bitte überprüfen Sie die Berechtigungen.."));
 		exit(1);
 	}
 	
 	Logger::log(tr("[INF] Starte simon..."));
 	
-	this->settings = new 
-		QSettings(QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon");
 	this->info = new SimonInfo();
 	
 	//showing splash
+	Logger::log(tr("[INF] Zeige Splashscreen..."));
 	this->info->showSplash();
+	
+	Logger::log(tr("[INF] Lade Einstellungen..."));
+	Settings::initSettings();
 	
 	this->info->writeToSplash(tr("Lade Programmlogik..."));
 	
@@ -62,18 +74,13 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	inlineView = new InlineWidgetView(this);
 	inlineView->hide();
-	QPalette inlinePalette;
-	QBrush inlineBrush(QColor(255, 255, 255, 100));
-	inlineBrush.setStyle(Qt::SolidPattern);
-	inlinePalette.setBrush(QPalette::Active, QPalette::Window, inlineBrush);
 	QSizePolicy pol(QSizePolicy::Expanding,QSizePolicy::Expanding);
 	pol.setVerticalStretch(1);
 	inlineView->setSizePolicy(pol);
-	inlineView->setPalette(inlinePalette);
-	inlineView->setAutoFillBackground(true);
+	
 
 	//Preloads all Dialogs
-	this->info->writeToSplash(tr("Lade \"Wort hinzufügen\"..."));
+	this->info->writeToSplash(tr("Lade \"Wort hinzufühgen\"..."));
 	this->addWordView = new AddWordView(this);
 	this->info->writeToSplash(tr("Lade \"Wortliste\"..."));
 	this->wordList = new WordListView(inlineView);
@@ -85,7 +92,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->wordList->setTrainingView(trainDialog);
 
 	this->info->writeToSplash(tr("Lade \"System\"..."));
-	this->settingsDialog = new SettingsView(this);
+	this->systemDialog = new SystemView(this);
 	
 	this->info->writeToSplash(tr("Lade Oberfläche..."));
 
@@ -99,51 +106,14 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QMainWindow(parent,flags);
 	ui.setupUi(this);
 	
-// 	ui.frmConnecting->setVisible(false);
 	
-
-	//Setting up Signal/Slots
-	QObject::connect(vuMeter, SIGNAL(level(int)), this, SLOT(setLevel(int)));
-	
-	QObject::connect(ui.pbAddWord, SIGNAL(toggled(bool)), this, SLOT(showAddWordDialog(bool)));
-	QObject::connect(ui.pbEditWordList, SIGNAL(toggled(bool)), this, SLOT(showWordListDialog(bool)));
-	QObject::connect(ui.pbRunProgram, SIGNAL(toggled(bool)), this, SLOT(showRunDialog(bool)));
-	QObject::connect(ui.pbTrain, SIGNAL(toggled(bool)), this, SLOT(showTrainDialog(bool)));
-	QObject::connect(ui.pbSettings, SIGNAL(toggled(bool)), this, SLOT(showSettingsDialog(bool)));
-	QObject::connect(addWordView, SIGNAL(hidden()), this, SLOT(setButtonNotChecked()));
-	
-
-
-	QObject::connect(ui.pbHide, SIGNAL(clicked()), this, SLOT(hideSimon()));
-	QObject::connect(ui.pbClose, SIGNAL(clicked()), this, SLOT(closeSimon()));
-	QObject::connect(this->trayManager, SIGNAL(clicked()), this, SLOT(toggleVisibility()));
-	QObject::connect(ui.pbActivision, SIGNAL(clicked()), this, SLOT(toggleActivation()));
-	QObject::connect(this->trayManager, SIGNAL(middleClicked()), this, SLOT(toggleActivation()));
-
-	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
-	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
-	QObject::connect(ui.pbSettings, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
-
 	buttonMover= ui.wButtonWidget;
-
-	connect(wordList, SIGNAL(showAddWordDialog()), this, 
-			SLOT(showAddWordDialog()));
-	connect(addWordView, SIGNAL(addedWord()), wordList, 
-			SLOT(reloadList()));
-	connect(trainDialog, SIGNAL(trainingCompleted()), wordList, 
-			SLOT(reloadList()));
-	
-	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
-// 	connect(ui.pbCancelConnect, SIGNAL(clicked()), this, SLOT(abortConnecting()));
-	
-	
-	QObject::connect(control, SIGNAL(connected()), this, SLOT(connected()));
-	QObject::connect(control, SIGNAL(disconnected()), this, SLOT(disconnected()));
-	connect(control, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
-
 	#ifdef ANIMATIONS
 	setupAnimations();
 	#endif
+	
+	setupSignalSlots();
+
 	
 	//setting Background
 	QLinearGradient bg(QPointF(1, 1), QPointF(900, 550));
@@ -166,6 +136,50 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	resizeMainButtonContentsToWindow();
 }
 
+/**
+ * \brief Sets up the signal/slot connections
+ * \author Peter Grasch
+ */
+void SimonView::setupSignalSlots()
+{
+	//Setting up Signal/Slots
+	QObject::connect(vuMeter, SIGNAL(level(int)), this, SLOT(setLevel(int)));
+	
+	QObject::connect(ui.pbAddWord, SIGNAL(toggled(bool)), this, SLOT(showAddWordDialog(bool)));
+	QObject::connect(ui.pbEditWordList, SIGNAL(toggled(bool)), this, SLOT(showWordListDialog(bool)));
+	QObject::connect(ui.pbRunProgram, SIGNAL(toggled(bool)), this, SLOT(showRunDialog(bool)));
+	QObject::connect(ui.pbTrain, SIGNAL(toggled(bool)), this, SLOT(showTrainDialog(bool)));
+	QObject::connect(ui.pbSettings, SIGNAL(toggled(bool)), this, SLOT(showSystemDialog(bool)));
+	QObject::connect(addWordView, SIGNAL(hidden()), this, SLOT(setButtonNotChecked()));
+	
+
+
+	QObject::connect(ui.pbHide, SIGNAL(clicked()), this, SLOT(hideSimon()));
+	QObject::connect(ui.pbClose, SIGNAL(clicked()), this, SLOT(closeSimon()));
+	QObject::connect(this->trayManager, SIGNAL(clicked()), this, SLOT(toggleVisibility()));
+	QObject::connect(ui.pbActivision, SIGNAL(clicked()), this, SLOT(toggleActivation()));
+	QObject::connect(this->trayManager, SIGNAL(middleClicked()), this, SLOT(toggleActivation()));
+
+	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
+	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
+	QObject::connect(ui.pbSettings, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
+
+	connect(wordList, SIGNAL(showAddWordDialog()), this, 
+		SLOT(showAddWordDialog()));
+	connect(addWordView, SIGNAL(addedWord()), wordList, 
+		SLOT(reloadList()));
+	connect(trainDialog, SIGNAL(trainingCompleted()), wordList, 
+		SLOT(reloadList()));
+	
+	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
+// 	connect(ui.pbCancelConnect, SIGNAL(clicked()), this, SLOT(abortConnecting()));
+	
+	
+	QObject::connect(control, SIGNAL(connected()), this, SLOT(connected()));
+	QObject::connect(control, SIGNAL(disconnected()), this, SLOT(disconnected()));
+	connect(control, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
+}
+
 bool SimonView::viewShouldBeBusy()
 {
 	return (ui.pbSettings->isChecked() || 
@@ -180,7 +194,7 @@ void SimonView::setButtonNotChecked()
 		ui.pbRunProgram->setChecked(false);
 	} else if (dynamic_cast<WordListView*>(sender())) {
 		ui.pbEditWordList->setChecked(false);
-	} else if (dynamic_cast<SettingsView*>(sender())) {
+	} else if (dynamic_cast<SystemView*>(sender())) {
 		ui.pbSettings->setChecked(false);
 	} else if (dynamic_cast<TrainingView*>(sender())) {
 		ui.pbTrain->setChecked(false);
@@ -194,12 +208,14 @@ void  SimonView::resizeEvent(QResizeEvent *event)
 	else {
 		resizeMainButtonContentsToWindow();
 	}
+	QWidget::resizeEvent(event);
 }
 
 void SimonView::resizeMainButtonContentsToWindow()
 {
-	float newFontSize = (((float) this->width()-309)/(float) 1000)*19  + 5;
-	int iconSize = (int) round((((float)buttonMover->height())/2.5f)/5+8);
+	float newFontSize =  (int) round( ((float) buttonMover->height())/35.3f )+7;
+		//(((float) this->width()-309)/(float) 1000)*25;
+	int iconSize = (int) round((((float)buttonMover->height())/2.5f)/4+10);
 	QSize newIconSize = QSize(iconSize, iconSize);
 	setMainButtonsIconSize(newIconSize);
 	setMainButtonsFontSize(newFontSize);
@@ -231,13 +247,14 @@ void SimonView::setMainButtonsFontSize(float fontSize)
  */
 void SimonView::connectToServer()
 {
-	if (!(settings->value("network/defaultjuliusdaddress").toString()).isEmpty())
+	QString juliusAddr = Settings::get("Network/JuliusdAddress").toString();
+	if (!(juliusAddr).isEmpty())
 	{
            ui.pbConnect->setText("Verbinde...");
 	   ui.pbConnect->setEnabled(false);
 // 	   ui.frmConnecting->setVisible(true);
 	   this->control->activateSimon();
-	   this->control->connect(settings->value("network/defaultjuliusdaddress").toString());
+	   this->control->connect(juliusAddr);
     }
 }
 
@@ -321,7 +338,7 @@ void SimonView::errorConnecting(QString error)
 	this->control->deactivateSimon();
 	this->representState();
 	
-	QMessageBox::critical(this, tr("Kritischer Verbindungsfehler"), tr("Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte Überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte Fehlermeldung lautete:\n")+error);
+	QMessageBox::critical(this, tr("Kritischer Verbindungsfehler"), tr("Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte Fehlermeldung lautete:\n")+error);
 	Logger::log(tr("[ERR] Verbindung zu juliusd fehlgeschlagen..."));
 }
 
@@ -350,10 +367,12 @@ void SimonView::showRunDialog(bool show)
 {
 	if (show)
 	{
-		this->runDialog->show();
+// 		this->runDialog->show();
+		inlineView->registerPage(runDialog);
 		ui.pbRunProgram->setChecked(true);
 	} else {
-		this->runDialog->hide();
+// 		this->runDialog->hide();
+		inlineView->unRegisterPage(runDialog);
 		ui.pbRunProgram->setChecked(false);
 	}
 }
@@ -382,13 +401,16 @@ void SimonView::showAddWordDialog(bool show)
  *
  * @author Peter Grasch
  */
-void SimonView::showSettingsDialog(bool show)
+void SimonView::showSystemDialog(bool show)
 {
 	if (show) {
-		this->settingsDialog->show();
+// 		this->systemDialog->show();
+// 		inlineView->registerPage(new SoundSettings(this));
+		inlineView->registerPage(systemDialog);
 		ui.pbSettings->setChecked(true);
 	} else {
-		this->settingsDialog->hide();
+// 		this->systemDialog->hide();
+		inlineView->unRegisterPage(systemDialog);
 		ui.pbSettings->setChecked(false);
 	}
 }
@@ -469,12 +491,12 @@ void SimonView::hideSimon()
 		runDlgPos = runDialog->pos();
 		this->runDialog->hide();
 	}
-	if (this->settingsDialog->isVisible())
+	if (this->systemDialog->isVisible())
 	{
 		this->shownDialogs = shownDialogs | 
-					sSettingsView;
-		settingsDlgPos = settingsDialog->pos();
-		this->settingsDialog->hide();
+					sSystemView;
+		settingsDlgPos = systemDialog->pos();
+		this->systemDialog->hide();
 	}
 	hide();
 }
@@ -517,10 +539,10 @@ void SimonView::showSimon()
 		wordList->move(wordlistDlgPos);
 	}
 
-	if (shownDialogs & sSettingsView)
+	if (shownDialogs & sSystemView)
 	{
-		settingsDialog->show();
-		settingsDialog->move(settingsDlgPos);
+		systemDialog->show();
+		systemDialog->move(settingsDlgPos);
 	}
 }
 
@@ -603,7 +625,7 @@ void SimonView::toggleVisibility()
 */
 void SimonView::closeSimon()
 {
-	if ((!false /*Confirm shutdown*/) || (QMessageBox::question(this, tr("Wirklich beenden?"), tr("Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?"),QMessageBox::Yes|QMessageBox::No,QMessageBox::No) == QMessageBox::Yes))
+	if ((!Settings::get("AskBeforeExit").toBool()) || (QMessageBox::question(this, tr("Wirklich beenden?"), tr("Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?"),QMessageBox::Yes|QMessageBox::No,QMessageBox::No) == QMessageBox::Yes))
 	{
 		close();
 		this->~ SimonView();
@@ -644,5 +666,3 @@ SimonView::~SimonView()
 	this->info->~ SimonInfo();
 	Logger::close();
 }
-
-

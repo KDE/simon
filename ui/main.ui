@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>873</width>
-    <height>532</height>
+    <height>656</height>
    </rect>
   </property>
   <property name="palette" >
@@ -137,7 +137,7 @@
       </property>
       <property name="sizeHint" >
        <size>
-        <width>16</width>
+        <width>12</width>
         <height>514</height>
        </size>
       </property>
@@ -794,7 +794,7 @@
            <string>De-/aktiviert das System</string>
           </property>
           <property name="text" >
-           <string>Ver&amp;binden</string>
+           <string>Verb&amp;inden</string>
           </property>
           <property name="icon" >
            <iconset resource="../simon.qrc" >:/images/icons/network-receive.svg</iconset>
@@ -887,7 +887,7 @@
       </property>
       <property name="sizeHint" >
        <size>
-        <width>16</width>
+        <width>12</width>
         <height>514</height>
        </size>
       </property>

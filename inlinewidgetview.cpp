@@ -12,10 +12,19 @@
 #include "inlinewidgetview.h"
 #include "inlinewidget.h"
 #include <QTabBar>
+#include <QPalette>
+#include <QBrush>
 
 InlineWidgetView::InlineWidgetView(QWidget* parent): QTabWidget(parent)
 {
+	setAutoFillBackground(false);
 	tabBar()->hide();
+	QPalette inlinePalette;
+	QBrush inlineBrush(QColor(255, 255, 255, 100));
+	inlineBrush.setStyle(Qt::SolidPattern);
+	inlinePalette.setBrush(QPalette::Active, QPalette::Window, inlineBrush);
+	setPalette(inlinePalette);
+	setAutoFillBackground(true);
 }
 
 void InlineWidgetView::registerPage(InlineWidget *page)
@@ -24,6 +33,7 @@ void InlineWidgetView::registerPage(InlineWidget *page)
 
 	int newpage = addTab(page, page->getTitle());
 	setTabIcon(newpage, page->getIcon());
+	setTabToolTip(newpage, page->getDesc());
 	setCurrentIndex(newpage);
 	
 	if (count() > 1) tabBar()->show();

@@ -10,6 +10,7 @@
 //
 //
 #include "inlinewidget.h"
+#include <QSettings>
 
 InlineWidget::InlineWidget(QString title, QIcon icon, QString desc, QWidget* parent) 
 	: QWidget(parent)

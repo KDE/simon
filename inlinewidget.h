@@ -18,6 +18,7 @@
 
 class QString;
 class QIcon;
+class QSettings;
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>

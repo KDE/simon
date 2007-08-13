@@ -22,13 +22,16 @@
  \author Peter Grasch
  \brief Logs messages to the logfile with static functions
 */
+
+
+
+
 class Logger{
 private:
 	static QTextStream *logFile;
 	static QFile * logF;
 	
 public:
-    	Logger();
 	/**
 	 * \brief Initialises the file handle and the stream
 	 * \author Peter Grasch
@@ -72,8 +75,6 @@ public:
 		(Logger::logFile)->flush();
 	}
 	
-	
-    ~Logger();
 
 };
 

@@ -17,9 +17,10 @@
  *
  *	@author Peter Grasch
  */
-RunApplicationView::RunApplicationView(QWidget *parent) : QDialog(parent)
+RunApplicationView::RunApplicationView(QWidget *parent) : InlineWidget(tr("Ausführen"), QIcon(":/images/icons/emblem-system"), tr("Direkte ausführung von simon-Befehlen"), parent)
 {
 	ui.setupUi(this);
+	hide();
 	run = new RunCommand();
 	ui.twPrograms->verticalHeader()->hide();
 	insertCommands ( run->getCommands() );

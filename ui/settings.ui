@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>805</width>
-    <height>485</height>
+    <height>508</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -367,7 +367,7 @@
    <item>
     <widget class="QStackedWidget" name="swSettings" >
      <property name="currentIndex" >
-      <number>3</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page" >
       <layout class="QHBoxLayout" >
@@ -1463,12 +1463,8 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
           </size>
          </property>
          <property name="text" >
-          <string>Hier finden Sie alle Einstellungen zur Spracheingabe und Tonausgabe.&#xd;
-&#xd;
-Die Einstellung "Mixing" aktiviert die Limitierung (wenn nicht aktiviert) auf maximal eine Tonein- bzw. -ausgabe gleichzeitig.&#xd;
-Ist Mixing durch Software oder Hardware abgedeckt, sollte diese Option gesetzt sein.&#xd;
-Wenn unsicher setzten Sie bitte "Ja".&#xd;
-&#xd;
+          <string>Hier finden Sie alle Einstellungen zur Spracheingabe und Tonausgabe.
+
 Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen wird nach jeder Aufnahme eine Audiodatei mit Datum und Uhrzeit, sowohl wie eine erstellte Transkribtion im angegebenen Verzeichnis erstellt.</string>
          </property>
          <property name="wordWrap" >

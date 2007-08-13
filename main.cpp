@@ -37,7 +37,9 @@ int main(int argc, char *argv[])
 	app.installTranslator(&translator);
 
 	SimonView *pv = new SimonView();
+	#ifdef __WIN32
 	app.setStyle(new QPlastiqueStyle());
+	#endif
 	pv->show();
 	return app.exec();
 }

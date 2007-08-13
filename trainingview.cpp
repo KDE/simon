@@ -9,7 +9,6 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include <QDialog>
 #include <QHBoxLayout>
 #include "trainingview.h"
 #include "importtrainingdirectory.h"
@@ -24,16 +23,9 @@ TrainingView::TrainingView(WordListView *wordlistView, QWidget *parent)
 	 : InlineWidget(tr("Training"), QIcon(":/images/icons/document-properties.svg"), 
 	   tr("Trainieren des Sprachmodells"), parent)
 {
-	QDialog *tmp = new QDialog(this);
-	ui.setupUi(tmp);
-	tmp->layout()->removeWidget(ui.swAction);
-	QHBoxLayout *lay = new QHBoxLayout(this);
-	lay->addWidget(ui.swAction);
-	setLayout(lay);
-	delete tmp;
-// 	this->show();
+	ui.setupUi(this);
+ 	this->hide();
 	
-	connect(ui.pbWordList, SIGNAL(clicked()), this, SLOT(switchToWordList()));
 	connect(ui.pbTrainText, SIGNAL(clicked()), this, SLOT(trainSelected()));
 	
 	connect (ui.pbNextPage, SIGNAL(clicked()), this, SLOT(nextPage()));
@@ -47,7 +39,7 @@ TrainingView::TrainingView(WordListView *wordlistView, QWidget *parent)
 	connect(ui.pbImportDir, SIGNAL(clicked()), this, SLOT(importDirectory()));	
 	
 	currentPage=0;
-	this->wordlistView = wordlistView;
+//	this->wordlistView = wordlistView;
 	trainMgr = new TrainingManager(wordlistView->getManager());
 	
 	loadList(); // we load the list of avalible trainingtexts despite we probably won't
@@ -136,8 +128,6 @@ void TrainingView::importDirectory()
 {
 	ImportTrainingDirectory *importDir = new 
 		ImportTrainingDirectory(this);
-	hide();
-	connect(importDir, SIGNAL(finished(int)), this, SLOT(show()));
 	importDir->show();
 	
 }
@@ -201,9 +191,7 @@ void TrainingView::prevPage()
 void TrainingView::importTexts()
 {
 	ImportTrainingTexts *import = new ImportTrainingTexts();
-	hide();
 	import->start();
-	connect(import, SIGNAL(finished(int)), this, SLOT(show()));
 	connect(import, SIGNAL(finished(int)), this, SLOT(loadList()));
 }
 
@@ -263,20 +251,6 @@ void TrainingView::cancelTraining()
 	} else this->trainMgr->resumeTraining();
 }
 
-
-/**
- * @brief Switches to the WordList
- * 
- * Discards the Dialog and opens the Wordlist
- *
- *	@author Peter Grasch
- */
-void TrainingView::switchToWordList()
-{
-	reject();
-	this->wordlistView->show();
-}
-
 /**
  * @brief Loads the List of known Trainingtexts
  * 
@@ -298,6 +272,7 @@ void TrainingView::loadList()
 		ui.twTrainingWords->setItem(i, 1, new QTableWidgetItem(QString::number(list->at(i)->getPageCount())));
 		ui.twTrainingWords->setItem(i, 2, new QTableWidgetItem(QString::number(list->at(i)->getRelevance())));
 	}
+	ui.twTrainingWords->resizeColumnToContents(0);
 }
 
 /**

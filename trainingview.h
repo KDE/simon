@@ -48,14 +48,12 @@ private:
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	TrainingManager *trainMgr;
 	int currentPage; //!< when we train a text this will hold the page we are on
-	WordListView *wordlistView;
 	int oldId; //!< where did we come from?
 	
 	RecWidget *recorder;
 	
 	QString makeTextProgress(int msecs);
 public slots:
-	void switchToWordList();
 	void finish();
 	void importTexts();
 	void trainSelected();

@@ -33,7 +33,10 @@ FORMS += ui/main.ui \
          ui/addword.ui \
          ui/settings.ui \
          ui/trainmain.ui \
-         ui/importdict.ui
+         ui/importdict.ui \
+         ui/generalsettingsdlg.ui \
+         ui/soundsettingsdlg.ui \
+         ui/revertdlg.ui
 HEADERS += simonview.h \
            addwordview.h \
            simoncontrol.h \
@@ -60,7 +63,6 @@ HEADERS += simonview.h \
            xmlreader.h \
            eventhandler.h \
            coreevents.h \
-           settingsview.h \
            wav.h \
            xmlcommand.h \
            xmltrainingtext.h \
@@ -99,7 +101,13 @@ importtrainingdirectoryworkingpage.h \
            logentry.h \
            logmanager.h \
            inlinewidgetview.h \
-           inlinewidget.h
+           inlinewidget.h \
+           systemview.h \
+           systemwidget.h \
+           generalsettings.h \
+           soundsettings.h \
+           settings.h \
+           revert.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -121,7 +129,6 @@ SOURCES += main.cpp \
            runapplicationview.cpp \
            vumeter.cpp \
            eventhandler.cpp \
-           settingsview.cpp \
            wav.cpp \
 		xmlreader.cpp \
            xmlcommand.cpp \
@@ -144,7 +151,6 @@ SOURCES += main.cpp \
  selectsourcewizardpage.cpp \
  importremotewizardpage.cpp \
  importworkingwizardpage.cpp \
- logger.cpp \
  importtrainingdirectory.cpp \
  importtrainingdirectoryintropage.cpp \
  importtrainingdirectoryworkingpage.cpp \
@@ -161,7 +167,14 @@ SOURCES += main.cpp \
            logmanager.cpp \
            simonanimations.cpp \
            inlinewidgetview.cpp \
-           inlinewidget.cpp
+           inlinewidget.cpp \
+           systemview.cpp \
+           systemwidget.cpp \
+           generalsettings.cpp \
+           soundsettings.cpp \
+           settings.cpp \
+           logger.cpp \
+           revert.cpp
 QT += network \
 xml 
 

@@ -42,13 +42,12 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	connect(this->lwTrainingWords, SIGNAL(droppedText(QString)), this, SLOT(copyWordToTrain()));
 	connect(ui.pbAddWord, SIGNAL(clicked()), this, SIGNAL(showAddWordDialog()));
 	
-	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(askToSave()));
-	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(close()));
+//	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(askToSave()));
+//	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(close()));
 	
 	connect(ui.pbSuggestTrain, SIGNAL(clicked()), this, SLOT(suggestTraining()));
 	connect(ui.leSearch, SIGNAL(returnPressed()), this, SLOT(filterListbyPattern()));
 	connect(ui.pbClearSearch, SIGNAL(clicked()), this, SLOT(clearSearchText()));
-	connect(ui.pbSwitchToTraining, SIGNAL(clicked()), this, SLOT(switchToGenericTraining()));
 	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(showImportDictDialog()));
 	connect(importDictView, SIGNAL(dictGenerated(WordList*)), this, SLOT(importDict(WordList*)));
@@ -58,6 +57,11 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	hide();
 }
 
+void WordListView::closeEvent( QCloseEvent *event)
+{
+	this->askToSave();
+	QWidget::closeEvent(event);	
+}
 
 void WordListView::reloadList()
 {
@@ -199,21 +203,6 @@ void WordListView::copyWordToTrain()
 	this->trainingwordlist.append(Word(word, sampa, category, probability));
 	
 	this->lwTrainingWords->addItem(word);
-}
-
-
-
-/**
- * @brief Switches to the Generic Training Dialog
- * 
- * Discards the Dialog and opens the Training Dialog
- *
- *	@author Peter Grasch
- */
-void WordListView::switchToGenericTraining()
-{
-	close();
-	trainView->show();
 }
 
 
@@ -416,7 +405,12 @@ void WordListView::initializeItems()
 {
 	lwTrainingWords = new DropListWidget(this);
 	lwTrainingWords->setObjectName(QString::fromUtf8("lwTrainingWords"));
-	ui.wTrainList->layout()->addWidget(lwTrainingWords);
+	lwTrainingWords->setMinimumHeight(90);
+
+	if (dynamic_cast<QVBoxLayout*>(ui.tbTrainSpecial->layout()))
+		((QVBoxLayout*) ui.tbTrainSpecial->layout())->insertWidget(0,lwTrainingWords);
+	else ui.tbTrainSpecial->layout()->addWidget(lwTrainingWords);
+	
 	
 	twVocab = new DragTableWidget(this);
 	twVocab->setObjectName("twVocab");

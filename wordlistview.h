@@ -81,7 +81,6 @@ public slots:
 	void toggleExtraWords();
 	void filterListbyPattern(QString filter="");
 	void clearSearchText();
-	void switchToGenericTraining();
 	void insertVocab(WordList *vocab);
 	void askToSave();
 	void show();
@@ -89,6 +88,7 @@ public slots:
 	void showImportDictDialog();
 
 public:
+	void closeEvent(QCloseEvent *event);
 	WordListView(QWidget *parent);
 	WordListManager* getManager() { return wordListManager; }
 	void setTrainingView(TrainingView *trainView) { this->trainView = trainView; }

@@ -5,16 +5,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>522</width>
-    <height>564</height>
+    <width>653</width>
+    <height>437</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Training</string>
   </property>
+  <property name="windowIcon" >
+   <iconset resource="../simon.qrc" >:/images/icons/document-properties.svg</iconset>
+  </property>
   <layout class="QVBoxLayout" >
    <item>
     <widget class="QStackedWidget" name="swAction" >
+     <property name="frameShape" >
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="lineWidth" >
+      <number>0</number>
+     </property>
      <property name="currentIndex" >
       <number>0</number>
      </property>
@@ -74,34 +83,8 @@
         </widget>
        </item>
        <item>
-        <layout class="QGridLayout" >
-         <item row="0" column="0" >
-          <widget class="QPushButton" name="pbImportText" >
-           <property name="toolTip" >
-            <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
-           </property>
-           <property name="text" >
-            <string>  Text(e) &amp;importieren</string>
-           </property>
-           <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/document-save.svg</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1" >
-          <widget class="QPushButton" name="pbImportDir" >
-           <property name="toolTip" >
-            <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
-           </property>
-           <property name="text" >
-            <string>Trainingsdaten Importieren</string>
-           </property>
-           <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0" >
+        <layout class="QHBoxLayout" >
+         <item>
           <widget class="QPushButton" name="pbDelText" >
            <property name="toolTip" >
             <string>Löschen des markierten Textes aus dem System</string>
@@ -114,16 +97,29 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1" >
-          <widget class="QPushButton" name="pbWordList" >
+         <item>
+          <widget class="QPushButton" name="pbImportText" >
            <property name="toolTip" >
-            <string>Schließt den Dialog und öffnet die Wordliste - Dort kann ein individuelles Trainingsprogramm erstellt werden</string>
+            <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
            </property>
            <property name="text" >
-            <string>  Wechsle zur &amp;Wortliste</string>
+            <string>  Text &amp;importieren</string>
            </property>
            <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>
+            <iconset resource="../simon.qrc" >:/images/icons/document-save.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbImportDir" >
+           <property name="toolTip" >
+            <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
+           </property>
+           <property name="text" >
+            <string>Trainingsdaten Importieren</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
            </property>
           </widget>
          </item>
@@ -132,81 +128,7 @@
       </layout>
      </widget>
      <widget class="QWidget" name="page_3" >
-      <layout class="QVBoxLayout" >
-       <item>
-        <widget class="QGroupBox" name="gbPage" >
-         <property name="title" >
-          <string>Seite: </string>
-         </property>
-         <layout class="QVBoxLayout" >
-          <item>
-           <widget class="QFrame" name="frame" >
-            <property name="minimumSize" >
-             <size>
-              <width>16</width>
-              <height>92</height>
-             </size>
-            </property>
-            <property name="frameShape" >
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow" >
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" >
-             <item>
-              <widget class="QLabel" name="lbPage" >
-               <property name="text" >
-                <string/>
-               </property>
-               <property name="wordWrap" >
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QWidget" native="1" name="wRecTexts" >
-            <property name="minimumSize" >
-             <size>
-              <width>345</width>
-              <height>110</height>
-             </size>
-            </property>
-            <layout class="QHBoxLayout" />
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="pgRecogniced" >
-            <property name="title" >
-             <string>Erkannter Text</string>
-            </property>
-            <layout class="QHBoxLayout" >
-             <item>
-              <widget class="QTextEdit" name="teRecognitionInfo" >
-               <property name="readOnly" >
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="lbRecognitionInfo" >
-               <property name="text" >
-                <string>Hinweis: Die Erkennung die hierfür verwendet ist, profitiert noch nicht vom gerade laufenden Training.</string>
-               </property>
-               <property name="wordWrap" >
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
+      <layout class="QHBoxLayout" >
        <item>
         <layout class="QVBoxLayout" >
          <property name="spacing" >
@@ -224,6 +146,182 @@
          <property name="bottomMargin" >
           <number>0</number>
          </property>
+         <item>
+          <widget class="QGroupBox" name="gbPage" >
+           <property name="title" >
+            <string>Seite: </string>
+           </property>
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="QLabel" name="lbPage" >
+              <property name="palette" >
+               <palette>
+                <active>
+                 <colorrole role="Window" >
+                  <brush brushstyle="SolidPattern" >
+                   <color alpha="255" >
+                    <red>255</red>
+                    <green>255</green>
+                    <blue>255</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                </active>
+                <inactive>
+                 <colorrole role="Window" >
+                  <brush brushstyle="SolidPattern" >
+                   <color alpha="255" >
+                    <red>255</red>
+                    <green>255</green>
+                    <blue>255</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                </inactive>
+                <disabled>
+                 <colorrole role="Window" >
+                  <brush brushstyle="SolidPattern" >
+                   <color alpha="255" >
+                    <red>255</red>
+                    <green>255</green>
+                    <blue>255</blue>
+                   </color>
+                  </brush>
+                 </colorrole>
+                </disabled>
+               </palette>
+              </property>
+              <property name="autoFillBackground" >
+               <bool>true</bool>
+              </property>
+              <property name="frameShape" >
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="text" >
+               <string/>
+              </property>
+              <property name="wordWrap" >
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" native="1" name="wRecTexts" >
+              <property name="minimumSize" >
+               <size>
+                <width>345</width>
+                <height>100</height>
+               </size>
+              </property>
+              <layout class="QHBoxLayout" />
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="pgRecogniced" >
+              <property name="title" >
+               <string>Erkannter Text</string>
+              </property>
+              <property name="flat" >
+               <bool>false</bool>
+              </property>
+              <property name="checkable" >
+               <bool>false</bool>
+              </property>
+              <property name="checked" >
+               <bool>false</bool>
+              </property>
+              <layout class="QVBoxLayout" >
+               <item>
+                <widget class="QLabel" name="label" >
+                 <property name="palette" >
+                  <palette>
+                   <active>
+                    <colorrole role="Window" >
+                     <brush brushstyle="SolidPattern" >
+                      <color alpha="255" >
+                       <red>255</red>
+                       <green>255</green>
+                       <blue>255</blue>
+                      </color>
+                     </brush>
+                    </colorrole>
+                   </active>
+                   <inactive>
+                    <colorrole role="Window" >
+                     <brush brushstyle="SolidPattern" >
+                      <color alpha="255" >
+                       <red>255</red>
+                       <green>255</green>
+                       <blue>255</blue>
+                      </color>
+                     </brush>
+                    </colorrole>
+                   </inactive>
+                   <disabled>
+                    <colorrole role="Window" >
+                     <brush brushstyle="SolidPattern" >
+                      <color alpha="255" >
+                       <red>255</red>
+                       <green>255</green>
+                       <blue>255</blue>
+                      </color>
+                     </brush>
+                    </colorrole>
+                   </disabled>
+                  </palette>
+                 </property>
+                 <property name="font" >
+                  <font>
+                   <italic>true</italic>
+                   <strikeout>false</strikeout>
+                   <stylestrategy>PreferAntialias</stylestrategy>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
+                 <property name="layoutDirection" >
+                  <enum>Qt::LeftToRight</enum>
+                 </property>
+                 <property name="autoFillBackground" >
+                  <bool>true</bool>
+                 </property>
+                 <property name="frameShape" >
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow" >
+                  <enum>QFrame::Sunken</enum>
+                 </property>
+                 <property name="text" >
+                  <string/>
+                 </property>
+                 <property name="alignment" >
+                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 </property>
+                 <property name="wordWrap" >
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="lbRecognitionInfo" >
+                 <property name="font" >
+                  <font>
+                   <pointsize>7</pointsize>
+                  </font>
+                 </property>
+                 <property name="text" >
+                  <string>Hinweis: Die Erkennung die hierfür verwendet ist, profitiert noch nicht vom gerade laufenden Training.</string>
+                 </property>
+                 <property name="wordWrap" >
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
          <item>
           <layout class="QHBoxLayout" >
            <property name="spacing" >
@@ -344,6 +442,30 @@
          </item>
         </layout>
        </item>
+       <item>
+        <widget class="QTextEdit" name="textEdit" >
+         <property name="maximumSize" >
+          <size>
+           <width>190</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="readOnly" >
+          <bool>true</bool>
+         </property>
+         <property name="html" >
+          <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bitte nehmen Sie nun Seite für Seite des Textes auf. &lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sie können jederzeit zu einer vorigen Seite zurückgehen, es gehen dabei keine Daten verloren.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Wenn Sie alle Seiten aufgenommen haben wird der Knopf "Fertigstellen" verfügbar sein und das Sprachmodell mit den gesammelten Daten neu berechnen.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bitte achten Sie darauf alle Aufnahmen ohne Hintergrundgeräusche aufzunehmen, halten Sie sich genau an den angezeigten Text und versuchen Sie möglichst deutlich aber natürlich zu sprechen.&lt;/p>&lt;/body>&lt;/html></string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="page_2" >
@@ -365,7 +487,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Das Modell wird nun neu erstellt. Dies kann, je nach Menge und Qualität der Trainingsdaten und Ihrer Rechenleistung, einige Zeit in Anspruch nehmen.&lt;/p>
 &lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bitte beachten Sie, dass wenn Sie diesen Vorgang jetzt abbrechen, die bisher in dieser Trainingseinheit gesammelten Daten die Erkennungsrate &lt;span style=" font-style:italic;">nicht&lt;/span> weiter verbessern.&lt;/p>&lt;/body>&lt;/html></string>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bitte beachten Sie, dass wenn Sie diesen Vorgang jetzt abbrechen, die bisher in dieser Trainingseinheit gesammelten Daten die Erkennungsrate &lt;span style=" font-style:italic;">nicht&lt;/span> weiter verbessern.&lt;/p>&lt;br />&lt;/body>&lt;/html></string>
             </property>
             <property name="wordWrap" >
              <bool>true</bool>
@@ -418,7 +540,7 @@ p, li { white-space: pre-wrap; }
                <string>&amp;Abbrechen</string>
               </property>
               <property name="icon" >
-               <iconset/>
+               <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
               </property>
              </widget>
             </item>

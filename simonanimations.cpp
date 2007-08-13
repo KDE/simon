@@ -1,5 +1,7 @@
 
 #include "simonview.h"
+#include "inlinewidgetview.h"
+
 
 
 #ifdef ANIMATIONS
@@ -26,7 +28,7 @@ void SimonView::setupAnimations()
 
 void SimonView::resizeButtons()
 {
-	if (!wScaleDone && (((scaleXFactor < 1) && (currentSizeW <= this->width()-360)) ||
+	if (!wScaleDone && (((scaleXFactor < 1) && (currentSizeW <= this->width()-420)) ||
 		((scaleXFactor > 1) && (currentSizeW >= this->width()-120)) || (scaleXFactor==1)))
 		wScaleDone=true;
 
@@ -173,9 +175,8 @@ void SimonView::setButtonsBusy()
 
 	((QGridLayout*) buttonMover->layout())->setVerticalSpacing(1);
 	buttonMover->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
-	buttonMover->resize(this->width()-370, 89);
-	buttonMover->setMaximumWidth(this->width()-370);
-	buttonMover->setMinimumWidth(this->width()-370);
+	buttonMover->setMaximumWidth(this->width()-430);
+	buttonMover->setMinimumWidth(this->width()-430);
 	buttonMover->setMinimumHeight(89);
 
 	
@@ -184,12 +185,14 @@ void SimonView::setButtonsBusy()
 	ui.lbLogo->setMaximumWidth(167);
 	ui.lbLogo->setMaximumHeight(94);
 
-	resizeMainButtonContentsToWindow();
 
 	
 
 	viewBusy = false;
  	setUpdatesEnabled(true);
+
+	QCoreApplication::processEvents();
+	resizeMainButtonContentsToWindow();
 
 	ui.vboxLayout->insertWidget(2, inlineView);
 	inlineView->show();

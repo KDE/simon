@@ -38,20 +38,14 @@
 #define sTrainMain 		2
 #define sWordListView 		4
 #define sRunApplicationView 	8
-#define sSettingsView	 	16
+#define sSystemView	 	16
 
 
-#include "inlinewidgetview.h"
 #include "wordlistview.h"
 
 #include <QMainWindow>
-#include "simoncontrol.h"
-#include "simoninfo.h"
-#include "runapplicationview.h"
-#include "trayiconmanager.h"
-#include "vumeter.h"
-#include "trainingview.h"
-#include "settingsview.h"
+
+
 #include <QSettings>
 #include <QVector>
 #include <QPushButton>
@@ -59,6 +53,18 @@
 #include "ui_main.h"
 
 class QPoint;
+class QWidget;
+class InlineWidgetView;
+class QString;
+class QTimer;
+class SimonControl;
+class SimonInfo;
+class TrainingView;
+class VuMeter;
+class AddWordView;
+class TrayIconManager;
+class RunApplicationView;
+class SystemView;
 
 class SimonView : public QMainWindow {
 	
@@ -81,8 +87,26 @@ private slots:
 
 private:
 	int shownDialogs;
+	QPoint currentPos;
+	QPoint runDlgPos;
+	QPoint addWordDlgPos;
+	QPoint wordlistDlgPos;
+	QPoint trainDlgPos;
+	QPoint settingsDlgPos;
 	QWidget *buttonMover;
 	InlineWidgetView *inlineView;
+
+	Ui::MainWindow ui;	//!< Mainwindow UI definition - made by uic from the QTDesigner .ui
+	SimonControl *control; //!< Pointer to the main concept class
+	SimonInfo *info;  //!< Pointer to the Info class
+	TrayIconManager *trayManager; //!< Handles the TrayIcon
+	AddWordView *addWordView; //!< Pointer on the Dialog "Add Word to Language model"
+	WordListView *wordList; //!< Pointer on the Dialog "WordList"
+	RunApplicationView *runDialog; //!< Pointer on the Dialog "RunCommand"
+	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
+	SystemView *systemDialog; //!< Pointer on the Dialog "System"
+	VuMeter *vuMeter; //!< Does the calculation of the current input "loudness" for the 2 bars in the mainwindow
+	
 
 	#ifdef ANIMATIONS
 	
@@ -101,27 +125,8 @@ private:
 	bool viewShouldBeBusy();
 	bool viewBusy;
 	void resizeEvent(QResizeEvent *event);
+	void setupSignalSlots();
 
-	QPoint currentPos;
-	QPoint runDlgPos;
-	QPoint addWordDlgPos;
-	QPoint wordlistDlgPos;
-	QPoint trainDlgPos;
-	QPoint settingsDlgPos;
-
-
-
-	Ui::MainWindow ui;	//!< Mainwindow UI definition - made by uic from the QTDesigner .ui
-	SimonControl *control; //!< Pointer to the main concept class
-	SimonInfo *info;  //!< Pointer to the Info class
-	TrayIconManager *trayManager; //!< Handles the TrayIcon
-	AddWordView *addWordView; //!< Pointer on the Dialog "Add Word to Language model"
-	WordListView *wordList; //!< Pointer on the Dialog "WordList"
-	RunApplicationView *runDialog; //!< Pointer on the Dialog "RunCommand"
-	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
-	SettingsView *settingsDialog; //!< Pointer on the Dialog "Settings"
-	QSettings *settings;
-	VuMeter *vuMeter; //!< Does the calculation of the current input "loudness" for the 2 bars in the mainwindow
 
 public slots:
 	void setLevel(int level);
@@ -145,7 +150,7 @@ public slots:
 	void showRunDialog(bool show=true);
 	void showTrainDialog(bool show=true);
 	void showWordListDialog(bool show=true);
-	void showSettingsDialog(bool show=true);
+	void showSystemDialog(bool show=true);
 
 public:
 	SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);

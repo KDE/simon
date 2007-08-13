@@ -44,6 +44,9 @@
 #include <QStringList>
 
 
+class QSettings;
+class QVariant;
+
 class SimonControl : public QObject {
 	Q_OBJECT
 
