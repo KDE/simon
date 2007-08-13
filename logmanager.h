@@ -35,8 +35,8 @@ public:
 
     ~LogManager();
 
-	LogEntryList getDay(QDate day);
-	LogEntryList getAll();
+	LogEntryList* getDay(QDate day);
+	LogEntryList* getAll();
 	bool readLog();
 
 	void run ();

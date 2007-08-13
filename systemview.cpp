@@ -21,6 +21,7 @@
 #include "soundsettings.h"
 #include "revert.h"
 #include "logger.h"
+#include "logview.h"
 
 
 SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/images/icons/computer.svg"), tr("Einstellungen, Protokolle, etc."), parent)
@@ -28,6 +29,7 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
 	setupUi(this);
 	registerControl(new GeneralSettings(this));
 	registerControl(new SoundSettings(this));
+	registerControl(new LogView(this));
 	registerControl(new Revert(this));
 
 	connect(selectControl, SIGNAL(currentRowChanged(int)), this, SLOT(displayId(int)));
@@ -64,7 +66,6 @@ void SystemView::ok()
 {
 	
 }
-
 
 void SystemView::displayId(int id)
 {

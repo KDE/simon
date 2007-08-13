@@ -36,7 +36,8 @@ FORMS += ui/main.ui \
          ui/importdict.ui \
          ui/generalsettingsdlg.ui \
          ui/soundsettingsdlg.ui \
-         ui/revertdlg.ui
+         ui/revertdlg.ui \
+	 ui/logmanagerdlg.ui
 HEADERS += simonview.h \
            addwordview.h \
            simoncontrol.h \

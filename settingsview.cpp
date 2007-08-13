@@ -17,6 +17,7 @@
 #include <QComboBox>
 #include <QCoreApplication>
 #include <QMessageBox>
+#include <QRegExp>
 #include "command.h"
 
 
@@ -44,6 +45,7 @@ SettingsView::SettingsView ( QWidget *parent )
 	connect ( ui.pbRevert, SIGNAL ( clicked() ), this, SLOT ( switchToHistory() ) );
 	connect ( ui.pbApply, SIGNAL ( clicked() ), this, SLOT ( apply() ) );
 	connect ( ui.pbConfirm, SIGNAL ( clicked() ), this, SLOT ( apply() ) );
+	connect ( ui.pbBack, SIGNAL ( clicked() ), this, SLOT ( back() ) );
 	connect ( ui.cbInDevice, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( refreshDeviceCapabilities() ) );
 	connect ( ui.pbAddAdress, SIGNAL ( clicked() ), this, SLOT ( addAddress() ) );
 	connect ( ui.pbDeleteAdress, SIGNAL ( clicked() ), this, SLOT ( deleteAddress() ) );
@@ -58,12 +60,15 @@ SettingsView::SettingsView ( QWidget *parent )
 	connect (ui.pbClearSearchCommand, SIGNAL(clicked()), this, SLOT(clearSearchLineEdit()));
 	connect (ui.leSearchCommand, SIGNAL(textChanged(const QString &)), this, SLOT(searchCommandList()));
 	
+	connect(ui.twLogEntries,SIGNAL(itemClicked (QTreeWidgetItem* , int)),this,SLOT(insertSelectedItem(QTreeWidgetItem* , int)));
 	connect (ui.cbOnlyDay, SIGNAL (stateChanged(int)), this, SLOT (onlyDay()));
 	connect ( ui.cwLogDay, SIGNAL (selectionChanged()), this, SLOT (onlyDay()));
 		
 	ui.twCommand->resizeColumnToContents(1);
 	
 	this->manager = new LogManager();
+	/*connect(manager,SIGNAL(logReadFinished(int)),this,SLOT(logReadFinished(int)));
+	connect(this,SIGNAL(logReadStop()),this->manager,SLOT(stop()));*/
 	
 	this->settings = new QSettings ( QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon" );
 	this->sc= new SoundControl();
@@ -324,6 +329,177 @@ void SettingsView::apply()
 }
 
 
+void SettingsView::back()
+{
+	if(ui.swSettings->currentIndex() == 3);
+	{
+		leaveProtocol();
+	}
+}
+
+
+void SettingsView::show()
+{
+	this->setVisible(true);
+	int test = ui.swSettings->currentIndex();
+	if( test == 3)
+	{
+		switchToProtocols();
+	}
+}
+
+
+void SettingsView::insertSelectedItem(QTreeWidgetItem* item, int column)
+{	
+	int index = this->ui.twLogEntries->indexOfTopLevelItem(item);
+	
+	if ((column == 0) && (!item->parent()))
+	{
+	
+		int i = 0;
+		QTreeWidgetItem *temp = new QTreeWidgetItem();
+		QTreeWidgetItem *garbage = new QTreeWidgetItem();
+		
+		
+		deactivateProtocolWidgets();
+		/*ui.pbLogLoad->setMaximum(entries->count());
+		ui.lbLogLoad->setText(tr("Füge Einträge in die Liste ein"));
+		deactivateProtocolWidgets();
+		QCoreApplication::processEvents();*/
+		deactivateProtocolWidgets();
+		while (i<this->ui.twLogEntries->topLevelItemCount ())
+			{
+				QCoreApplication::processEvents();
+				ui.lbLogLoad->setText(tr("Füge Einträge in die Liste ein"));
+				if (!this->ui.twLogEntries->topLevelItem(i)->childCount () == 0  && ui.twLogEntries->topLevelItem(i)->text(0) != item->text(0))
+				{	
+					garbage = this->ui.twLogEntries->takeTopLevelItem(i);
+					temp->setText(0,garbage->text (0));
+					this->ui.twLogEntries->insertTopLevelItem (i, temp) ;
+					this->ui.twLogEntries->setCurrentItem(temp);
+					delete garbage;
+				}
+				i++;
+			}
+			
+			activateProtocolWidgets();
+			ui.pbLogLoad->setMaximum(1);
+			ui.pbLogLoad->setValue(ui.pbLogLoad->maximum());
+			ui.lbLogLoad->setText(tr("Fertig"));
+			
+			QColor color;
+			QDate currentdate;
+			QDate day = QDate::fromString(item->text(0),"yyyy/MM/dd");
+
+			LogEntryList *entries  = manager->getDay(day);
+			
+			
+			
+			
+			i = 0;
+			if (item->childCount () == 0)
+			{
+				QTreeWidgetItem *garbage = new QTreeWidgetItem() ;
+				garbage = this->ui.twLogEntries->takeTopLevelItem (index); 
+				delete garbage;
+				
+				ui.pbLogLoad->setMaximum(entries->count());
+				ui.lbLogLoad->setText(tr("Füge Einträge in die Liste ein"));
+				deactivateProtocolWidgets();
+				QCoreApplication::processEvents();
+				//QMessageBox::critical(this,"","");
+				
+				while (i < entries->count())
+				{
+					
+					if(!this->LogFlag)
+					{
+						//QMessageBox::critical(this,entries[i].getDate().toString(),"FUCK IT__FALSE");
+						delete(item);
+						break;
+					}
+					QCoreApplication::processEvents();
+					if (entries->at(i).getDate() != currentdate)
+					{
+						currentdate = entries->at(i).getDate();
+						item = new QTreeWidgetItem();
+						item->setText(0, currentdate.toString("yyyy/MM/dd"));
+					}
+					//QMessageBox::critical(this,"2","");
+					QTreeWidgetItem *child = new QTreeWidgetItem(item);
+					child->setText(0,entries->at(i).getTime().toString());
+					child->setText(1,entries->at(i).getMessage());
+					
+					if (entries->at(i).getType() == ERR)
+						color = QColor(255, 0, 0);
+					else if (entries->at(i).getType() == INF)
+						color = QColor(255, 252, 207);
+					else if (entries->at(i).getType() == UPD)
+						color = QColor(60, 190,80);
+					else if (entries->at(i).getType() == SET)
+						color = QColor(85,160,250);
+					else
+						color = QColor(250,250,10);
+					
+					child->setBackground(0, QBrush(color,Qt::SolidPattern));
+					child->setBackground(1, QBrush(color,Qt::SolidPattern));;
+					//QMessageBox::critical(this,"2.1","");
+					ui.pbLogLoad->setValue(i);
+					i++;
+				}
+				this->ui.twLogEntries->insertTopLevelItem ( index, item ) ;
+				this->ui.twLogEntries->setCurrentItem ( item) ;
+				this->ui.twLogEntries->expandItem(item);
+				activateProtocolWidgets();
+				
+				ui.pbLogLoad->setMaximum(1);
+				ui.pbLogLoad->setValue(ui.pbLogLoad->maximum());
+				ui.lbLogLoad->setText(tr("Fertig"));
+			}
+			else
+			{	
+				//QMessageBox::critical(this,"2.2","");
+				if (this->ui.twLogEntries->isItemExpanded ( item))
+				{
+					this->ui.twLogEntries->collapseItem(item);
+				}
+				else
+				{
+					this->ui.twLogEntries->expandItem(item);
+				}
+			}
+			delete(entries);
+	}
+	
+		
+}
+
+
+void SettingsView::deactivateProtocolWidgets()
+{
+	this->ui.leSearchLogs->setEnabled(false);
+	this->ui.cbLogError->setEnabled(false);
+	this->ui.cbLogInfo->setEnabled(false);
+	this->ui.cbOnlyDay->setEnabled(false);
+	this->ui.pbActionLog->setEnabled(false);
+	this->ui.pbRecordings->setEnabled(false);
+	this->ui.twLogEntries->setEnabled(false);
+	this->ui.pbApply->setEnabled(false);
+	this->ui.pbConfirm->setEnabled(false);
+}
+
+void SettingsView::activateProtocolWidgets()
+{
+	this->ui.leSearchLogs->setEnabled(true);
+	this->ui.cbLogError->setEnabled(true);
+	this->ui.cbLogInfo->setEnabled(true);
+	this->ui.cbOnlyDay->setEnabled(true);
+	this->ui.pbActionLog->setEnabled(true);
+	this->ui.pbRecordings->setEnabled(true);
+	this->ui.twLogEntries->setEnabled(true);
+	this->ui.pbApply->setEnabled(true);
+	this->ui.pbConfirm->setEnabled(true);
+}
 
 
 /**********************************************/
@@ -388,19 +564,15 @@ void SettingsView::switchToCommands()
  */
 void SettingsView::switchToProtocols()
 {
+	this->LogFlag = true;
 	unsetAllTabs();
 	
 	ui.pbProtocolSettings->setChecked ( true );
 	ui.swSettings->setCurrentIndex ( 3 );
 	
-	
-	
 	ui.pbLogLoad->setMaximum(0);
 	ui.lbLogLoad->setText(tr("Lese Log..."));
 	QCoreApplication::processEvents();
-	
-		
-        //delete(this->manager);
 	
 	if (!this->manager->readLog())
 	{		
@@ -409,6 +581,8 @@ void SettingsView::switchToProtocols()
 	}
 	else
 	{
+		
+		deactivateProtocolWidgets();
 		disconnect(manager,0,0,0);//disconnect everything
 		connect(manager,SIGNAL(logReadFinished(int)),this,SLOT(logReadFinished(int)));
 		connect(this,SIGNAL(logReadStop()),this->manager,SLOT(stop()));
@@ -424,12 +598,20 @@ void SettingsView::switchToProtocols()
  */
 void SettingsView::logReadFinished(int value)
 {
-	ui.lbLogLoad->setText(tr("Log gelesen"));
-	ui.pbLogLoad->setMaximum(100);
-	ui.pbLogLoad->setValue(100);
-	disconnect(manager,SIGNAL(logReadFinished(int)),this,SLOT(logReadFinished(int)));
-	insertEntries(getEntries(NULL));
-	//QMessageBox::information(this, "BLA","only Day");
+	if(value == 1)
+	{
+		ui.lbLogLoad->setText(tr("Log gelesen"));
+		ui.pbLogLoad->setMaximum(100);
+		ui.pbLogLoad->setValue(100);
+		disconnect(manager,SIGNAL(logReadFinished(int)),this,SLOT(logReadFinished(int)));
+		activateProtocolWidgets();
+		insertEntries(getEntries(NULL), false);
+		//QMessageBox::information(this, "BLA","only Day");
+	}
+	else
+	{
+		
+	}
 }
 
 /**
@@ -443,11 +625,11 @@ void SettingsView::onlyDay()
 	if(ui.cbOnlyDay->checkState () == Qt::Checked)
 	{
 		//QMessageBox::information(this, "BLA","OnlyDay in  "+ui.cwLogDay->selectedDate().toString());
-		insertEntries(getEntries(&ui.cwLogDay->selectedDate()));
+		insertEntries(getEntries(&ui.cwLogDay->selectedDate()), true);
 	}
 	else
 	{
-		insertEntries(getEntries(NULL));
+		insertEntries(getEntries(NULL), false);
 	}
 }
 
@@ -459,7 +641,9 @@ void SettingsView::onlyDay()
  */
 void SettingsView::leaveProtocol()
 {
+	changeLogReadFlag(false);
 	emit logReadStop();
+	ui.twLogEntries->clear();
 	
 	if (ui.cbOnlyDay->checkState() == Qt::Checked)
 	{
@@ -476,14 +660,13 @@ void SettingsView::leaveProtocol()
  *
  * \author Phillip Goriup
  */
-LogEntryList SettingsView::getEntries(QDate *day)
+LogEntryList* SettingsView::getEntries(QDate *day)
 {	
 	
 	ui.pbLogLoad->setMaximum(0);
 	ui.lbLogLoad->setText(tr("Lade Einträge..."));
 	QCoreApplication::processEvents();
 	ui.twLogEntries->clear();
-
 	if(day == NULL)
 	{
 		return manager->getAll();
@@ -500,51 +683,87 @@ LogEntryList SettingsView::getEntries(QDate *day)
  *
  * \author Phillip Goriup
  */
-void SettingsView::insertEntries(LogEntryList entries)
+void SettingsView::insertEntries(LogEntryList* entries, bool day)
 {
-	QList<QTreeWidgetItem *> items;
 	QDate currentdate; 
 	int i = 0;
 	QTreeWidgetItem *item;
 	
-	ui.pbLogLoad->setMaximum(entries.count());
+	ui.pbLogLoad->setMaximum(entries->count());
 	ui.lbLogLoad->setText(tr("Füge Einträge ein..."));
 	QCoreApplication::processEvents();
 	QColor color;
 	
 	
-	while (i < entries.count())
+	ui.pbLogLoad->setMaximum(entries->count());
+	ui.lbLogLoad->setText(tr("Füge Einträge in die Liste ein"));
+	
+	deactivateProtocolWidgets();
+	QCoreApplication::processEvents();
+	
+	if(day)
 	{
-		if (entries[i].getDate() != currentdate)
+		while (i < entries->count())
 		{
-			currentdate = entries[i].getDate();
-			item = new QTreeWidgetItem(ui.twLogEntries);
-			item->setText(0, currentdate.toString("yyyy/MM/dd"));
-		}
-		
-		QTreeWidgetItem *child = new QTreeWidgetItem(item);
-		child->setText(0,entries[i].getTime().toString());
-		child->setText(1,entries[i].getMessage());
-		
-		if (entries[i].getType() == ERR)
-			color = QColor(255, 0, 0);
-		if (entries[i].getType() == INF)
-			color = QColor(255, 252, 207);
-		if (entries[i].getType() == UPD)
-			color = QColor(60, 190,80);
-		if (entries[i].getType() == SET)
-			//color = QColor(0, 121, 255);
-			color = QColor(85,160,250);
-		
-		child->setBackground(0, QBrush(color,Qt::SolidPattern));
-		child->setBackground(1, QBrush(color,Qt::SolidPattern));
+			QCoreApplication::processEvents();
+			if(!this->LogFlag)
+			{
+				break;
+			}
+			if (entries->at(i).getDate() != currentdate)
+			{
+				currentdate = entries->at(i).getDate();
+				item = new QTreeWidgetItem(ui.twLogEntries);
+				item->setText(0, currentdate.toString("yyyy/MM/dd"));
+			}
+			
+			QTreeWidgetItem *child = new QTreeWidgetItem(item);
+			child->setText(0,entries->at(i).getTime().toString());
+			child->setText(1,entries->at(i).getMessage());
+			
+			if (entries->at(i).getType() == ERR)
+				color = QColor(255, 0, 0);
+			if (entries->at(i).getType() == INF)
+				color = QColor(255, 252, 207);
+			if (entries->at(i).getType() == UPD)
+				color = QColor(60, 190,80);
+			if (entries->at(i).getType() == SET)
+				//color = QColor(0, 121, 255);
+				color = QColor(85,160,250);
+			
+			child->setBackground(0, QBrush(color,Qt::SolidPattern));
+			child->setBackground(1, QBrush(color,Qt::SolidPattern));;
 
-		ui.pbLogLoad->setValue(i);
-		i++;
+			ui.pbLogLoad->setValue(i);
+			i++;
+		}	
 	}
+	else
+	{
+		while (i < entries->count())
+		{
+			QCoreApplication::processEvents();
+			if(!this->LogFlag)
+			{
+				break;
+			}
+			
+			if (entries->at(i).getDate() != currentdate)
+			{
+				currentdate = entries->at(i).getDate();
+				item = new QTreeWidgetItem(ui.twLogEntries);
+				item->setText(0, currentdate.toString("yyyy/MM/dd"));
+			}
+			
+			ui.pbLogLoad->setValue(i);
+			i++;
+		}
+	}
+	activateProtocolWidgets();
 	ui.pbLogLoad->setMaximum(1);
 	ui.pbLogLoad->setValue(ui.pbLogLoad->maximum());
 	ui.lbLogLoad->setText(tr("Fertig"));
+	//delete entries;
 	//ui.twLogEntries->show();
 }
 

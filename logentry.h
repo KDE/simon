@@ -53,7 +53,7 @@ void setMessage(QByteArray message) {this->message = message;}
 QDate getDate() const {return this->date;}
 QTime getTime() const {return this->time;}
 short getType() const {return this->type;}
-QByteArray getMessage(){return this->message;}
+QByteArray getMessage() const {return this->message;}
 
 };
 

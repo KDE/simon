@@ -11,13 +11,28 @@
 //
 #include "logview.h"
 
-LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images/icons/text-editor.svg"), tr("Hier kÃ¶nnen Sie die letzten Aktionen von simon Ã¼berprÃ¼fen"), parent)
+LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images/icons/text-editor.svg"), tr("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
 {
+	ui.setupUi(this);
 }
 
 
 LogView::~LogView()
 {
+	
 }
 
+
+bool LogView::apply()
+{
+	return true;
+}
+bool LogView::init()
+{
+	return true;
+}
+bool LogView::reset()
+{
+	return true;
+}
 

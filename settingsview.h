@@ -49,11 +49,12 @@ private:
     void readConfig();
 	
 	LogManager *manager;
-
+	bool LogFlag;
 
 private slots:
 	void initCommands(QString path="conf/commands.xml");
 	void saveCommands();
+	
 	//void editCommands();
 
 public slots:
@@ -64,11 +65,13 @@ public slots:
 	void switchToProtocols();
 	void switchToHistory();
 	void apply();
+	void back();
+
 	void refreshDeviceCapabilities();
 	void deleteAddress();
 	void addAddress();
-	void insertEntries(LogEntryList entries);
-	LogEntryList  getEntries(QDate *day);
+	void insertEntries(LogEntryList *entries, bool day);
+	LogEntryList*  getEntries(QDate *day);
 	void onlyDay();
 	void newCommand();
 	void deleteCommand();
@@ -79,10 +82,15 @@ public slots:
 	void reloadCommands();
 	void leaveProtocol();
 	
+	void changeLogReadFlag(bool b){this->LogFlag =b;}
 	void logReadFinished(int value);
-
+	void deactivateProtocolWidgets();
+	void activateProtocolWidgets();
+	
+	void insertSelectedItem(QTreeWidgetItem* item, int column);
 	void clearSearchLineEdit();
 	void searchCommandList();
+	void show();
 	
 public:
     SettingsView(QWidget *parent);

@@ -84,7 +84,15 @@ bool LogManager::readLog()
 
 void LogManager::run ()
 {
-	this->entries->clear();
+	if(!this->entries)
+	{
+		this->entries = new LogEntryList;
+	}
+	else
+	{
+		delete(this->entries);
+		this->entries = new LogEntryList;
+	}
 	QFile *LogF = new QFile("log/simon.log");
 	if (!LogF->open(QIODevice::ReadOnly))
 	{
@@ -126,9 +134,15 @@ void LogManager::run ()
 		
 		i++;
 	}	
+	delete(LogF);
+	//QMessageBox::critical(NULL,"","");
 	if (!killMe)
 	{
 		emit this->logReadFinished(1);
+	}
+	else
+	{
+		emit this->logReadFinished(0);
 	}
 }
 
@@ -142,17 +156,23 @@ void LogManager::run ()
  * 
  * \author Phillip Goriup
  */
-LogEntryList LogManager::getDay(QDate day)
+LogEntryList* LogManager::getDay(QDate day)
 {
-	LogEntryList entriesperday;
+	LogEntryList *entriesperday = new LogEntryList;
 	int i = 0;
-	int size = entries->size();
-	while((i<size) && (this->entries->at(i++).getDate() < day)) ;
+	int size = entries->count();
+	while((i<size) && (this->entries->at(i++).getDate() < day));
+	i--;
 		
+	
 	while((i<size) && (this->entries->at(i).getDate() == day))
 	{
-		entriesperday.append(entries->at(i++));
+		
+		entriesperday->append(this->entries->at(i));
+		i++;
+		
 	}
+	
 	return entriesperday;
 }
 
@@ -161,11 +181,12 @@ void LogManager::stop()
 {
 	killMe=true;
 	this->wait(5000);
+	
+	//this->entries->clear();
 	this->entries->clear();
-	
-//QMessageBox::critical(NULL,QString::number(this->entries->count()),
+	//delete(entries);
+	//QMessageBox::critical(NULL,QString::number(this->entries->count()),"");
 //	tr("Beim Auslesen der Logdatei ist ein Fen."));
-	
 	
 	this->terminate();
 	killMe=false;
@@ -177,10 +198,9 @@ void LogManager::stop()
  *
  * \author Phillip Goriup
  */
-LogEntryList LogManager::getAll()
+LogEntryList* LogManager::getAll()
 {
-	//QMessageBox::information(NULL, this->entries->at(1).getDate().toString(),this->entries->at(1).getDate().toString());
-	return *this->entries;
+	return this->entries;
 }
 
 

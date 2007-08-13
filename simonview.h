@@ -20,7 +20,8 @@
 #ifndef PROJECTVIEW_H
 #define PROJECTVIEW_H
 
-// #define ANIMATIONS
+
+//#define ANIMATIONS
 
 /**
  *	@class SimonView
