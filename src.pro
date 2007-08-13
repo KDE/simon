@@ -107,7 +107,8 @@ importtrainingdirectoryworkingpage.h \
            generalsettings.h \
            soundsettings.h \
            settings.h \
-           revert.h
+           revert.h \
+           logview.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -174,7 +175,8 @@ SOURCES += main.cpp \
            soundsettings.cpp \
            settings.cpp \
            logger.cpp \
-           revert.cpp
+           revert.cpp \
+           logview.cpp
 QT += network \
 xml 
 
