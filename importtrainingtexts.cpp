@@ -10,6 +10,21 @@
 //
 //
 #include "importtrainingtexts.h"
+#include <QWizardPage>
+#include <QLabel>
+#include <QListWidget>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QProgressBar>
+#include <QPushButton>
+#include "quickdownloader.h"
+#include "xmltrainingtextlist.h"
+#include "importlocalwizardpage.h"
+#include "importremotewizardpage.h"
+#include "importworkingwizardpage.h"
+#include "selectsourcewizardpage.h"
+#include "xmltrainingtext.h"
 
 
 /**

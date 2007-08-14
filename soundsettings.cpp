@@ -14,6 +14,11 @@
 #include "settings.h"
 #include <QDebug>
 
+/**
+ * \brief Constructor - inits the help text and the gui
+ * \author Peter Grasch
+ * @param parent the parent of the widget
+ */
 SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellungen"), QIcon(":/images/icons/gnome-settings-sound.svg"), tr("Konfigurieren Sie hier ihre Audiogeräte und legen Einstellungen für dessen Verwendung fest"), parent)
 {
 	ui.setupUi(this);
@@ -36,6 +41,11 @@ SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellung
 	connect ( ui.cbInDevice, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( refreshDeviceCapabilities() ) );
 }
 
+/**
+ * \author Peter Grasch
+ * \brief Asks the SoundControl for the needed infos and inserts the data in the comboboxes
+ * \return success
+ */
 bool SoundSettings::init()
 {
 	SoundDeviceList *sd=sc->getInputDevices();
@@ -70,6 +80,10 @@ bool SoundSettings::init()
 	return true;
 }
 
+/**
+ * \brief Refreshes the capabilities of the available devices
+ * \author Peter Grasch
+ */
 void SoundSettings::refreshDeviceCapabilities()
 {
 	ui.cbChannels->clear();
@@ -91,6 +105,11 @@ void SoundSettings::refreshDeviceCapabilities()
 }
 
 
+/**
+ * \brief Applys the changes
+ * \author Peter Grasch
+ * @return success
+ */
 bool SoundSettings::apply()
 {
 	Settings::set("Sound/InputDevice", ui.cbInDevice->itemData(ui.cbInDevice->currentIndex()));
@@ -103,11 +122,20 @@ bool SoundSettings::apply()
 	return true;
 }
 
+/**
+ * \brief Resets the cxhanges
+ * \author Peter Grasch
+ * @return success
+ */
 bool SoundSettings::reset()
 {
 	return init();
 }
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 SoundSettings::~SoundSettings()
 {
 }

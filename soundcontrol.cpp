@@ -100,6 +100,12 @@ SoundDeviceList* SoundControl::getOutputDevices()
 	return sdl;
 }
 
+/**
+ * \brief Gets the available samplerates of the device given by id
+ * \author Gigerl Martin
+ * @param id the id of the device
+ * @return The possible samplerates for that device
+ */
 QList<int>* SoundControl::getSamplerate ( QString id )
 {
 	Logger::log(QObject::tr("[INF] Bestimmen der Samplerate des device \"")+id+"\"");
@@ -118,9 +124,7 @@ QList<int>* SoundControl::getSamplerate ( QString id )
 
 				for ( int i=0; i<info.sampleRates.size();i++ )
 				{
-
 					temp->append ( info.sampleRates.at ( i ) );
-
 				}
 				return temp;
 
@@ -137,6 +141,12 @@ QList<int>* SoundControl::getSamplerate ( QString id )
 }
 
 
+/**
+ * \brief Gets the available channels for the device identified by the given id
+ * @param id the id of the device
+ * @author Gigerl Martin
+ * @return Available channels
+ */
 int SoundControl::getChannel ( QString id )
 {
 	Logger::log(QObject::tr("[INF] Zurückgeben verfügbarer Kanäle des device \"")+id+"\"");
@@ -166,6 +176,11 @@ int SoundControl::getChannel ( QString id )
 }
 
 
+/**
+ * \author Gigerl Martin
+ * \brief Returns the available input devices
+ * @return The list of found Sounddevices
+ */
 SoundDeviceList* SoundControl::getInputDevices()
 {
 	Logger::log(QObject::tr("[INF] Bekommen einer Liste mit den verfügbaren Input-devices"));

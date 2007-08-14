@@ -15,12 +15,13 @@
 
 #include <QWizard>
 #include "word.h"
+
 /**
  * \class ImportDictView
  * \brief Provides a dialog for importing dictonaries
  * \author Peter Grasch
+ * \version 0.1
 */
-
 class QWizardPage;
 class ImportDictSelectSourcePage;
 class ImportBOMPPage;
@@ -46,13 +47,10 @@ public slots:
 		createImportWiktionaryPage();
 	ImportDictWorkingPage* createImportDictWorkingPage();
 	QWizardPage* createFinishedPage();
-	
-
 
 
 public:
     ImportDictView(QWidget *parent=0);
-// 	WordList* getList() {return list;}
     ~ImportDictView();
 
 };

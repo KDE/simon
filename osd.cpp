@@ -77,6 +77,10 @@ void OSD::paintEvent( QPaintEvent *e )
 	painter.drawPixmap(0,0,bg);
 }
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 OSD::~OSD()
 {
 }

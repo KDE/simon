@@ -53,7 +53,6 @@ private:
 public slots:
 	void apply();
 	void reset();
-	void ok();
 public:
     SystemView(QWidget* parent);
 

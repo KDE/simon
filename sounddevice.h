@@ -26,7 +26,12 @@ class SoundDevice;
 
 typedef QList<SoundDevice> SoundDeviceList;
 
-
+/**
+ * \class SoundDevice
+ * \author Gigerl Martin
+ * \brief A simple class to store all the information representing a sounddevice
+ * \version 0.1
+ */
 class SoundDevice
 {
 	private:

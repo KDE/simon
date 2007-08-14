@@ -23,7 +23,8 @@
 #include <QFile>
 #include <QProcess>
 #include <QLabel>
-#include <QDebug>
+#include <QVariant>
+#include "settings.h"
 
 /**
  * \brief Constructor - creates the GUI
@@ -203,20 +204,29 @@ QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataF
 		fInfo.setFile(dataFiles[i]);
 		newFileName = destDir+"/"+fInfo.fileName();
 		
-		if (!QProcess::execute("resample -to 16000 "+dataFiles[i]+" "+newFileName))
+		if (QFile::exists(newFileName) && (!QFile::remove(newFileName)))
+		{
+			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht überschreiben. Bitte überprüfen Sie, ob Sie die nötigen Rechte besitzen.").arg(newFileName));
+			return NULL;
+		}
+			
+		
+		if (!QProcess::execute(Settings::get("Programs/Audio/Resample").toString()
+				   +" -to 16000 "+dataFiles[i]+" "+newFileName))
 		{
 			//something went wrong
 			//resample always returns ERROR - crap
-// 			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 resamplen. Bitte ueberpruefen Sie ob Sie das Programm \"resample\" installiert haben und es im Suchpfad liegt und ob Sie all die noetigen Berechtigungen besitzen.").arg(dataFiles[i]).arg(newFileName));
-// 			return NULL;
+			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 resamplen. Bitte ueberpruefen Sie ob Sie das Programm \"resample\" installiert haben und es im Suchpfad liegt und ob Sie all die noetigen Berechtigungen besitzen.").arg(dataFiles[i]).arg(newFileName));
+			return NULL;
 		}
 		prog += 5;
 		pbMain->setValue(prog);
-		if (!QProcess::execute("normalize-audio "+newFileName))
+		if (!QProcess::execute(Settings::get("Programs/Audio/Normalize").toString()+
+				   " "+newFileName))
 		{
 			//something went wrong
-// 			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 normalisieren. Bitte ueberpruefen Sie ob Sie das Programm \"resample\" installiert haben und es im Suchpfad liegt und ob Sie all die noetigen Berechtigungen besitzen.").arg(dataFiles[i]).arg(newFileName));
-// 			return NULL;
+			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 normalisieren. Bitte ueberpruefen Sie ob Sie das Programm \"resample\" installiert haben, der Pfad richtig eingestellt ist und ob Sie all die noetigen Berechtigungen besitzen.").arg(dataFiles[i]).arg(newFileName));
+			return NULL;
 		}
 		*newFiles << newFileName;
 		prog += 3;
@@ -253,7 +263,8 @@ bool ImportTrainingDirectoryWorkingPage::createScp(QStringList dataFiles, QStrin
 	{
 		fileInfo.setFile(dataFiles[i]);
 		fileName = fileInfo.fileName();
-		(*scpStream) << dataFiles[i] << " " << "interim_files/mfcc/" << fileName.left(fileName.lastIndexOf(".")) << ".mfc" << endl;
+		(*scpStream) << dataFiles[i] << " " << "interim_files/mfcc/" 
+				<< fileName.left(fileName.lastIndexOf(".")) << ".mfc" << endl;
 		
 		pbMain->setValue(++prog);
 	}

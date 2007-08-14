@@ -31,7 +31,11 @@ GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(tr("Allgemeine E
 }
 
 
-
+/**
+ * \brief Applys the changed settings
+ * \author Peter Grasch
+ * @return Success
+ */
 bool GeneralSettings::apply()
 {
 	//general
@@ -52,11 +56,23 @@ bool GeneralSettings::apply()
 	return true;
 }
 
+
+/**
+ * \brief Resets the settings
+ * \author Peter Grasch
+ * @return Success
+ */
 bool GeneralSettings::reset()
 {
 	return init();
 }
 
+
+/**
+ * \brief Initialy loads the settings
+ * \author Peter Grasch
+ * @return Success
+ */
 bool GeneralSettings::init()
 {
 	//general
@@ -79,11 +95,21 @@ bool GeneralSettings::init()
 }
 
 
+
+/**
+ * \brief Deletes an address from the list
+ * \author Peter Grasch
+ */
 void GeneralSettings::deleteAddress()
 {
 	ui.cbAddress->removeItem ( ui.cbAddress->currentIndex() );
 }
 
+
+/**
+ * \brief Adds an address to the list
+ * \author Peter Grasch
+ */
 void GeneralSettings::addAddress()
 {
 	QString host="";
@@ -102,6 +128,11 @@ void GeneralSettings::addAddress()
 	}
 }
 
+
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 GeneralSettings::~GeneralSettings()
 {
 }

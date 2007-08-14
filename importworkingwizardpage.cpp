@@ -12,11 +12,30 @@
 #include "importworkingwizardpage.h"
 #include "logger.h"
 #include <QObject>
+#include <QString>
+#include <QWidget>
+#include "quickdownloader.h"
+#include <QFile>
+#include <QFileInfo>
+#include <QTextStream>
+#include "xmltrainingtext.h"
+#include "importlocalwizardpage.h"
+#include "xmltrainingtextlist.h"
 
 
+/**
+ * \brief Constructor
+ * \author Peter Grasch
+ * @param parent sets the parent to the given parent
+ */
 ImportWorkingWizardPage::ImportWorkingWizardPage(QWidget *parent) : QWizardPage(parent)
 { }
 
+/**
+ * \brief Sets the path to the given Path
+ * @param path The path to import from (this can be a url too)
+ * \author Peter Grasch
+ */
 void ImportWorkingWizardPage::startImport(QString path)
 {
 	if (path.startsWith("http"))
@@ -34,6 +53,11 @@ void ImportWorkingWizardPage::startImport(QString path)
 
 
 
+/**
+ * \brief Processes the text at the given path 
+ * \author Peter Grasch
+ * @param path the path to the new text
+ */
 void ImportWorkingWizardPage::processText(QString path)
 {
 	QFileInfo fi = QFileInfo(path);
@@ -43,6 +67,11 @@ void ImportWorkingWizardPage::processText(QString path)
 	wizard()->next();
 }
 
+/**
+ * \brief Parses the textfile at the given path
+ * @param path Path to the textfile
+ * @author Peter Grasch
+ */
 void ImportWorkingWizardPage::parseFile(QString path)
 {
 	QFile file(path);

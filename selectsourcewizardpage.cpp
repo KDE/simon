@@ -12,9 +12,20 @@
 #include "selectsourcewizardpage.h"
 
 
+/**
+ * \brief Constructor
+ * \author Peter Grasch
+ * @param parent the parent of the qwizardpage
+ */
 SelectSourceWizardPage::SelectSourceWizardPage(QWidget *parent) : QWizardPage(parent)
 { }
 
+/**
+ * \brief The next id of the wizard
+ * \author Peter Grasch
+ * If local: 2, else 3
+ * @return 
+ */
 int SelectSourceWizardPage::nextId() const
 {
 	if (this->local->isChecked())

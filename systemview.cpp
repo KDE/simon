@@ -25,6 +25,11 @@
 #include "externalprogrammanager.h"
 
 
+/**
+ *  \author Peter Grasch
+ *  \brief Constructor - inits the ui and registers the controls
+ * @param parent the parent of the widget
+ */
 SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/images/icons/computer.svg"), tr("Einstellungen, Protokolle, etc."), parent)
 {
 	setupUi(this);
@@ -40,6 +45,10 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
 
 }
 
+/**
+ * \brief Tells all the controls to apply the changes
+ * \author Peter Grasch
+ */
 void SystemView::apply()
 {
 	SystemWidget *currentControl;
@@ -52,6 +61,10 @@ void SystemView::apply()
 	}
 }
 
+/**
+ * \brief Tells all the controls to reset the changes
+ * \author Peter Grasch
+ */
 void SystemView::reset()
 {
 	SystemWidget *currentControl;
@@ -64,11 +77,11 @@ void SystemView::reset()
 	}
 }
 
-void SystemView::ok()
-{
-	
-}
-
+/**
+ * \brief Displays the control at the position <id>
+ * \author Peter Grasch
+ * @param id The id to display
+ */
 void SystemView::displayId(int id)
 {
 	if (id == -1) return; //none selected
@@ -84,6 +97,11 @@ void SystemView::displayId(int id)
 // 	sysWidget->setVisible(true);
 }
 
+/**
+ * \brief Sets up the ui
+ * \author Peter Grasch
+ * @param parent the parent of the widgets
+ */
 void SystemView::setupUi(QWidget *parent)
 {
 	help = new QTextEdit(parent);
@@ -122,6 +140,11 @@ void SystemView::setupUi(QWidget *parent)
 	hide();
 }
 
+/**
+ * \brief Registers the given SystemWidget as a control in the view and displays it
+ * \author Peter Grasch
+ * @param control The control to register
+ */
 void SystemView::registerControl(SystemWidget* control)
 {
 	controls->addWidget(control);
@@ -136,6 +159,10 @@ void SystemView::registerControl(SystemWidget* control)
 				control->getTitle(), selectControl);
 }
 
+/**
+ * \brief Removes the control
+ * @param control The control to remove
+ */
 void SystemView::deleteControl(SystemWidget* control)
 {
 	controls->removeWidget(control);

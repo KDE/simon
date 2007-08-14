@@ -11,6 +11,11 @@
 //
 #include "revert.h"
 
+/**
+ * \brief Constructor - Inits the helptext and sets up the gui
+ * \author Peter Grasch
+ * @param parent the parent of the object
+ */
 Revert::Revert(QWidget *parent) : SystemWidget(tr("Zurücksetzen"), QIcon(":/images/icons/gtk-undo-ltr.svg"), tr("Stellen Sie einen vorherigen Zeitpunkt des Systems wieder her"), parent)
 {
 	ui.setupUi(this);
@@ -21,6 +26,11 @@ Revert::Revert(QWidget *parent) : SystemWidget(tr("Zurücksetzen"), QIcon(":/imag
 }
 
 
+/**
+ * \brief Inits the Control
+ * \author Peter Grasch
+ * @return success
+ */
 bool Revert::init()
 {
 	
@@ -28,18 +38,31 @@ bool Revert::init()
 }
 
 
+/**
+ * \brief Applys the changes
+ * \author Peter Grasch
+ * @return success
+ */
 bool Revert::apply()
 {
 	
 	return true;
 }
 
+/**
+ * \brief Resets the Control
+ * \author Peter Grasch
+ */
 bool Revert::reset()
 {
 	
 	return true;
 }
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 Revert::~Revert()
 {
 }

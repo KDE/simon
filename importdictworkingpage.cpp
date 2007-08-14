@@ -18,6 +18,11 @@
 #include "importdict.h"
 #include "quickunpacker.h"
 
+/**
+ * \brief Constructor - inits the gui
+ * \author Peter Grasch
+ * @param parent the parent of the page
+ */
 ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent): QWizardPage(parent)
 {
 	ready = false;
@@ -46,12 +51,21 @@ ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent): QWizardPage(paren
 
 
 
+/**
+ * \brief Returns true if we completed the wizard
+ * \author Peter Grasch
+ * @return completed?
+ */
 bool ImportDictWorkingPage::isComplete() const
 {
 	return ready;
 }
 
 
+/**
+ * \brief Tells the ImportDict class to imoprt the hadifix dict from the given path
+ * @param path the path to the hadifix dict.
+ */
 void ImportDictWorkingPage::importHADIFIX(QString path)
 {
 	ready=false;
@@ -65,6 +79,11 @@ void ImportDictWorkingPage::importHADIFIX(QString path)
 	connect(import, SIGNAL(finished(WordList*)), this, SLOT(setCompleted()));
 }
 
+/**
+ * \brief Imports the wiki at the given url (local or remote)
+ * \author Peter Grasch
+ * @param url the url to import from
+ */
 void ImportDictWorkingPage::importWiktionary(QString url)
 {
 	if (url.startsWith("http"))
@@ -78,6 +97,12 @@ void ImportDictWorkingPage::importWiktionary(QString url)
 	} else unpackWikiIfNecessary(url);
 }
 
+/**
+ * \brief Unpacks the wiki if necessary
+ * \author Peter Grasch
+ * @param file the wiki
+ * \todo The distinction if the file is packed or not is entirely done by using the filename
+ */
 void ImportDictWorkingPage::unpackWikiIfNecessary(QString file)
 {
 	if (file.endsWith("bz2"))
@@ -89,17 +114,30 @@ void ImportDictWorkingPage::unpackWikiIfNecessary(QString file)
 	} else importWiktionaryFile(file);
 }
 
+/**
+ * \brief Displays the given status
+ * \author Peter Grasch
+ * @param status The status to set to
+ */
 void ImportDictWorkingPage::displayStatus(QString status)
 {
 	lbStatus->setText(status);
 }
 
 
+/**
+ * \brief Displays the given progress
+ * @param progress The progress to set to
+ */
 void ImportDictWorkingPage::displayProgress(int progress)
 {
 	pbMain->setValue(progress);
 }
 
+/**
+ * \brief Imports the wiktionary at <path>
+ * @param path the path of the (downloaded and extracted) wiki
+ */
 void ImportDictWorkingPage::importWiktionaryFile(QString path)
 {
 	displayStatus(tr("Importiere Wiktionary-Wörterbuch %1...").arg(path));
@@ -110,6 +148,10 @@ void ImportDictWorkingPage::importWiktionaryFile(QString path)
 	setCompleted();
 }
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 ImportDictWorkingPage::~ImportDictWorkingPage()
 {
 }

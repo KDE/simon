@@ -16,7 +16,12 @@ class QSettings;
 class QString;
 class QVariant;
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ * \class Settings
+ * \author Peter Grasch
+ * \date 12.08.2007
+ * \version 0.1
+ * \brief Provides a convient way to store and retrieve settings
+ * \note Uses QSettings
 */
 class Settings{
 private:

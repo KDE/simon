@@ -25,6 +25,11 @@
 #include <QIcon>
 #include "quickdownloader.h"
 
+/**
+ * \brief Constructor - Inits the gui
+ * \author Peter Grasch
+ * @param parent The parent of the page
+ */
 ImportDictWiktionaryPage::ImportDictWiktionaryPage(QWidget* parent): QWizardPage(parent)
 {
 	QVBoxLayout *lay = new QVBoxLayout(this);
@@ -73,6 +78,11 @@ ImportDictWiktionaryPage::ImportDictWiktionaryPage(QWidget* parent): QWizardPage
 }
 
 
+/**
+ * \brief Changes the gui to activate/deactivate the widgets to display what we are doing (local/remote-import)
+ * \author Peter Grasch
+ * @param isTrue if set to true we go for the "import-local-look"
+ */
 void ImportDictWiktionaryPage::resambleImportLocal(bool isTrue)
 {
 	if (!isTrue)
@@ -93,6 +103,11 @@ void ImportDictWiktionaryPage::resambleImportLocal(bool isTrue)
 }
 
 
+/**
+ * \brief Imports the given html list of available wikis
+ * \author Peter Grasch
+ * @param list Path to the list
+ */
 void ImportDictWiktionaryPage::importList(QString list)
 {
 	remoteList->clear();
@@ -126,6 +141,13 @@ void ImportDictWiktionaryPage::importList(QString list)
 	}
 }
 
+/**
+ * \brief Loads the list of available wikis from the internet
+ * \author Peter Grasch
+ * 
+ * Loads the list from http://download.wikimedia.org/backup-index.html using
+ * the QuickDownloader class
+ */
 void ImportDictWiktionaryPage::loadList()
 {
 	QuickDownloader *qDownloader = new QuickDownloader(this);
@@ -137,6 +159,11 @@ void ImportDictWiktionaryPage::loadList()
 	
 }
 
+/**
+ * \brief Returns true if we have entered what we need for the given method (local/remote)-import
+ * \author Peter Grasch
+ * @return completed?
+ */
 bool ImportDictWiktionaryPage::isComplete() const
 {
 	if (field("importLocal").toBool())
@@ -145,6 +172,11 @@ bool ImportDictWiktionaryPage::isComplete() const
 	} else return !remoteList->selectedItems().isEmpty();
 }
 
+/**
+ * \brief Returns the path to the wiki if we selected local import - else the link to it
+ * \author Peter Grasch
+ * @return the path to the wiki
+ */
 QString ImportDictWiktionaryPage::getPath()
 {
 	if (field("importLocal").toBool())
@@ -155,6 +187,10 @@ QString ImportDictWiktionaryPage::getPath()
 	}
 }
 
+/**
+ * \brief Set the filename to a filename the user can enter with a filedialog
+ * \author Peter Grasch
+ */
 void ImportDictWiktionaryPage::setFile()
 {
 	QFileDialog *dlg = new QFileDialog(this, tr("Zu importierende Textdatei öffnen"), QDir::currentPath());
@@ -169,6 +205,10 @@ void ImportDictWiktionaryPage::setFile()
 }
 
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 ImportDictWiktionaryPage::~ImportDictWiktionaryPage()
 {
 }

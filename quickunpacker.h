@@ -19,6 +19,7 @@
  \class QuickUnpacker
  \author Peter Grasch
  \date 06.08.2007
+ \version 0.1
  \brief Displays a nice progressdialog and unpacks the file
  \note Uses the Bunzip class
 */

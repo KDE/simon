@@ -30,8 +30,6 @@
  *	@date 23.01.2006
  *	@author Peter Grasch
  *	@todo Implementing all Volume related stuff
- *	
- *	@note AVOID USAGE! DEPRCATED!
  */
 class SoundControl{
 private:

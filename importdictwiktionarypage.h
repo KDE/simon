@@ -18,9 +18,14 @@ class QListWidget;
 class QLineEdit;
 class QPushButton;
 class QLabel;
+
 /**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
+ * \class ImportDictWiktionaryPage
+ * \brief Lets the user select a local or remote wiktionary to import
+ * \author Peter Grasch
+ * \version 0.1
+ * \date 10.8.2007
+ */
 class ImportDictWiktionaryPage : public QWizardPage
 {
 Q_OBJECT

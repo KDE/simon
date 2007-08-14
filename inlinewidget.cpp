@@ -12,6 +12,14 @@
 #include "inlinewidget.h"
 #include <QDebug>
 
+/**
+ * \brief Constructor
+ * \author Peter Grasch
+ * @param title The title of the widget
+ * @param icon The icon to display for the widget
+ * @param desc A short description (mainly used as tooltip)
+ * @param parent the parent of the widget
+ */
 InlineWidget::InlineWidget(QString title, QIcon icon, QString desc, QWidget* parent) 
 	: QWidget(parent)
 {
@@ -21,27 +29,50 @@ InlineWidget::InlineWidget(QString title, QIcon icon, QString desc, QWidget* par
 }
 
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 InlineWidget::~InlineWidget()
 {
 }
 
 
+/**
+ * \brief Accept the InlineWidget
+ * \todo implement dialog like functionality
+ * \author Peter Grasch
+ */
 void InlineWidget::accept()
 {
 	emit accepted();
 }
 
+/**
+ * \brief Rejects the "dialog
+ * \todo implement dialog like functionality
+ * \author Peter Grasch
+ */
 void InlineWidget::reject()
 {
 	emit reject();
 }
 
+/**
+ * \brief Wrapper for the close method - emits closed()
+ * \author Peter Grasch
+ */
 bool InlineWidget::close()
 {
 	emit closed();
 	return QWidget::close();
 }
 
+/**
+ * \brief Sets the visibility to the given bool emits shown() / hidden()
+ * \author Peter Grasch
+ * @param visible sets the widget tot his state 
+ */
 void InlineWidget::setVisible(bool visible)
 {
 	QWidget::setVisible(visible);
@@ -51,6 +82,12 @@ void InlineWidget::setVisible(bool visible)
 }
 
 
+/**
+ * \brief "Executes" the "dialog"
+ * \author Peter Grasch
+ * \todo implement dialog-like functionality
+ * @return accepted or rejected?
+ */
 bool InlineWidget::exec()
 {
 	emit execd();

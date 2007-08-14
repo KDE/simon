@@ -20,7 +20,11 @@ class QLabel;
 class ImportDict;
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class ImportDictWorkingPage
+ \brief This class actually imports the dict. by using the ImportDict class and displays the progress
+ \author Peter Grasch
+ \date 10.8.2007
+ \version 0.1
 */
 class ImportDictWorkingPage : public QWizardPage
 {

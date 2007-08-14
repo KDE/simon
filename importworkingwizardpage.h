@@ -13,20 +13,14 @@
 #define IMPORTWORKINGWIZARDPAGE_H
 
 #include <QWizardPage>
-#include <QString>
-#include <QWidget>
-#include "quickdownloader.h"
-#include <QFile>
-#include <QFileInfo>
-#include <QTextStream>
-#include "xmltrainingtext.h"
-#include "importlocalwizardpage.h"
-#include "xmltrainingtextlist.h"
+class QString;
+class QWidget;
 
 /**
  * \class ImportWorkingWizardPage
  * \brief Imports the given trainingstext
  * \author Peter Grasch
+ * \version 0.1
  */
 class ImportWorkingWizardPage : public QWizardPage {
 	Q_OBJECT 

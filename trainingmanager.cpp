@@ -246,6 +246,12 @@ TrainingText* TrainingManager::getText(int i)
 		
 
 
+/**
+ * \brief Calculates the relevance of the given text with the given wordlist
+ * @param text The text to check
+ * @param wlist The wordlist as reference
+ * @return An index of how well simon would recognize it - the lower the worse
+ */
 float TrainingManager::calcRelevance(TrainingText *text, WordList *wlist)
 {
 	Logger::log(QObject::tr("[INF] Berechne Nutzen des Textes ")+"\""+text->getName()+"\" ("+

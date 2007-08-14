@@ -18,7 +18,11 @@
 #include <QWizardPage>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ * \class ImportDictSelectSourcePage
+ * \brief Displays a WizardPage to let the user select the type of dict. to import
+ * \author Peter Grasch
+ * \version 0.1
+ * \date 10.8.2007
 */
 class ImportDictSelectSourcePage : public QWizardPage
 {

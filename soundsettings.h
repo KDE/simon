@@ -18,8 +18,11 @@
 class SoundControl;
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
+ * \class SoundSettinsg
+ * \author Peter Grasch
+ * \date 12.8.2007
+ * \brief SystemWidget to manager the soundsettings
+ */
 class SoundSettings : public SystemWidget
 {
 Q_OBJECT

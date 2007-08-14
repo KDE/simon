@@ -18,6 +18,12 @@
 #include <QHBoxLayout>
 #include <QIcon>
 
+
+/**
+ * \brief Constructor - inits the GUI
+ * \author Peter Grasch
+ * @param parent Parent of the page
+ */
 ImportBOMPPage::ImportBOMPPage(QWidget* parent): QWizardPage(parent)
 {
 	QVBoxLayout *lay = new QVBoxLayout(this);
@@ -47,6 +53,10 @@ ImportBOMPPage::ImportBOMPPage(QWidget* parent): QWizardPage(parent)
 	setTitle(tr("Importiere BOMP Wörterbuch"));
 }
 
+/**
+ * \brief Displays a filedialog and lets the user select a *.txt-file; Sets the path to that file
+ * \author Peter Grasch
+ */
 void ImportBOMPPage::setFile()
 {
 	QStringList files = QFileDialog::getOpenFileNames(this, tr("Zu importierende Textdateien öffnen"), QDir::currentPath(), tr("Textdateien (*.txt)"));
@@ -55,6 +65,11 @@ void ImportBOMPPage::setFile()
 	setField(tr("fileName"), files.at(0));
 }
 
+
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 ImportBOMPPage::~ImportBOMPPage()
 {
 }

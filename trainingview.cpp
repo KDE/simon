@@ -13,11 +13,12 @@
 #include "trainingview.h"
 #include "importtrainingdirectory.h"
 
+
 /**
- * @brief Constructor
- *
- *	@author Peter Grasch
- * TODO: Fix "tmp" dialog to use the designer .ui files
+ * \brief Construcotr - inits the Gui
+ * \author Peter Grasch
+ * @param wordlistView The WordlistView used as a reference for relevance calculations
+ * @param parent The parent of the widget
  */
 TrainingView::TrainingView(WordListView *wordlistView, QWidget *parent)
 	 : InlineWidget(tr("Training"), QIcon(":/images/icons/document-properties.svg"), 
@@ -124,6 +125,10 @@ void TrainingView::startTraining()
 	fetchPage(currentPage);
 }
 
+/**
+ * \brief Shows the ImportTrainingDirectory-Wizard
+ * \author Peter Grasch
+ */
 void TrainingView::importDirectory()
 {
 	ImportTrainingDirectory *importDir = new 
@@ -188,6 +193,10 @@ void TrainingView::prevPage()
 	fetchPage(currentPage);
 }
 
+/**
+ * \brief Displays the ImportTrainingTexts Wizard
+ * \author Peter Grasch
+ */
 void TrainingView::importTexts()
 {
 	ImportTrainingTexts *import = new ImportTrainingTexts();
@@ -195,6 +204,10 @@ void TrainingView::importTexts()
 	connect(import, SIGNAL(finished(int)), this, SLOT(loadList()));
 }
 
+/**
+ * \brief Resets the RecordingWidget
+ * \author Peter Grasch
+ */
 void TrainingView::resetRecorder()
 {
 	ui.wRecTexts->layout()->removeWidget(recorder);

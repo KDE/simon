@@ -12,6 +12,14 @@
 #include "externalprogrammanager.h"
 #include "settings.h"
 
+/**
+ * \brief Constructor
+ *
+ * Initializes the Systemwidget by giving name, icon and description
+ * 
+ * \author Peter Grasch
+ * @param parent The parent of the widget
+ */
 ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(tr("Externe Programme"), QIcon(":/images/icons/emblem-system.svg"), tr("Externe Programme verwalten"), parent)
 {
 	ui.setupUi(this);
@@ -19,6 +27,11 @@ ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(tr
 }
 
 
+/**
+ * \brief Applys the changed settings
+ * \author Peter Grasch
+ * @return Success
+ */
 bool ExternalProgramManager::apply()
 {
 	Settings::set("Programs/HTK/maketrihed", ui.leMaketrihed->text());
@@ -41,11 +54,21 @@ bool ExternalProgramManager::apply()
 	return true;
 }
 
+/**
+ * \brief Resets the changed settings
+ * \author Peter Grasch
+ * @return Success
+ */
 bool ExternalProgramManager::reset()
 {
 	return init();
 }
 
+/**
+ * \brief Initialy loads the settings
+ * \author Peter Grasch
+ * @return Success
+ */
 bool ExternalProgramManager::init()
 {
 	ui.leMaketrihed->setText(Settings::get("Programs/HTK/maketrihed").toString());
@@ -70,6 +93,10 @@ bool ExternalProgramManager::init()
 }
 
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 ExternalProgramManager::~ExternalProgramManager()
 {
 }

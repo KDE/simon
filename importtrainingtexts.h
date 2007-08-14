@@ -13,21 +13,10 @@
 #define IMPORTTRAININGTEXTS_H
 
 #include <QWizard>
-#include <QWizardPage>
-#include <QLabel>
-#include <QListWidget>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QProgressBar>
-#include <QPushButton>
-#include "quickdownloader.h"
-#include "xmltrainingtextlist.h"
-#include "importlocalwizardpage.h"
-#include "importremotewizardpage.h"
-#include "importworkingwizardpage.h"
-#include "selectsourcewizardpage.h"
-#include "xmltrainingtext.h"
+
+class QWidget;
+class QFileDialog;
+class QWizardPage;
 
 /**
  * \brief Guides the user through the process of adding a new trainingtext
@@ -46,12 +35,11 @@ private:
 	int prevId;
 public:
     ImportTrainingTexts(QWidget *parent=0);
-    
-    void start();
-    
-    
-    //creating the pages for the wizard
 
+    void start();
+
+
+    //creating the pages for the wizard
     QWizardPage* createIntroPage();
     QWizardPage* createSourcePage();
     QWizardPage* createRemoteImportPage();

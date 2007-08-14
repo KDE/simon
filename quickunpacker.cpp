@@ -16,10 +16,20 @@
 #include <QString>
 #include "logger.h"
 
+/**
+ * \brief Constructor
+ * \author Peter Grasch
+ * @param parent The parent of the Widget
+ */
 QuickUnpacker::QuickUnpacker(QWidget* parent): QWidget(parent)
 {
 }
 
+/**
+ * \brief Unpacks the given file
+ * \author Peter Grasch
+ * @param path the path of the file to unpack
+ */
 void QuickUnpacker::unpack(QString path)
 {
 	prog = new QProgressDialog(tr("Extrahiere")+" "+path, tr("Abbrechen"), 0, 0);
@@ -37,6 +47,11 @@ void QuickUnpacker::unpack(QString path)
 	
 }
 
+/**
+ * \brief Reacts on finishing the unpack-process; emits unapckedTo(path-to-new-file)
+ * \author Peter Grasch
+ * @param to the path we unpacked to
+ */
 void QuickUnpacker::unpacked(QString to)
 {
 	setStatus(tr("BZIP2 Datei erfolgreich nach %1 extrahiert").arg(to));
@@ -44,23 +59,42 @@ void QuickUnpacker::unpacked(QString to)
 	emit unpackedTo(to);
 }
 
+/**
+ * \brief Sets the Status to the given status
+ * \author Peter Grasch
+ * @param status status
+ */
 void QuickUnpacker::setStatus(QString status)
 {
 	Logger::log(tr("[INF] ")+status);
 	prog->setLabelText(status);
 }
 
+/**
+ * \brief Cancels the unpacking-process
+ * \author Peter Grasch
+ */
 void QuickUnpacker::cancel()
 {
 	emit status(tr("Abbrechen..."));
 	bunzip->cancel();
 }
 
+/**
+ * \brief Sets the progress to the given progress
+ * \author Peter Grasch
+ * @param currentProg progress
+ */
 void QuickUnpacker::setProgress(int currentProg)
 {
 	emit this->progress(currentProg);
 }
 
+/**
+ * \brief An error occured - we react on it: Shows a messagebox and emits error(the-error)
+ * \author Peter Grasch
+ * @param err The error
+ */
 void QuickUnpacker::errorOccured(QString err)
 {
 	Logger::log(tr("[ERR] Fehler beim Entpacken"));
@@ -69,6 +103,10 @@ void QuickUnpacker::errorOccured(QString err)
 }
 
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 QuickUnpacker::~QuickUnpacker()
 {
 	

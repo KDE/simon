@@ -16,8 +16,12 @@
 #include "ui_externalprogramms.h"
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
+ * \class ExternalProgramManager
+ * \author Peter Grasch
+ * \brief SystemWidgets that manages the paths to external programs
+ * \date 13.08.2007
+ * \version 0.1
+ */
 class ExternalProgramManager : public SystemWidget
 {
 Q_OBJECT

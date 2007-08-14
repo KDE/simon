@@ -15,7 +15,11 @@
 #include "systemwidget.h"
 #include "ui_revertdlg.h"
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class Revert
+ \author Peter Grasch
+ \brief Provides a SystemWidget to restore a previous state of the system
+ \version 0.1
+ \date 13.8.2007
 */
 class Revert : public SystemWidget {
 Q_OBJECT

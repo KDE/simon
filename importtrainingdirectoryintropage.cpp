@@ -35,9 +35,8 @@ ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *pare
 	lay->addWidget(lbIntroText);
 	
 	
-	QHBoxLayout *fileSelectorLay = new QHBoxLayout(this);
+	QHBoxLayout *fileSelectorLay = new QHBoxLayout();
 	this->leDirectory = new QLineEdit(this);
-// 	leDirectory->setText(QDir::currentPath());
 	QPushButton *selectDir = new QPushButton(this);
 	selectDir->setIcon(QIcon(":/images/icons/document-open.svg"));
 	connect(selectDir, SIGNAL(clicked()), this, SLOT(setDir()));

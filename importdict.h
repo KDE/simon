@@ -20,10 +20,11 @@
 #include "wiktionarydict.h"
 
 /**
-	\class ImportDict
-	\brief The ImportDict class provides the functions to import e.g. Wiktionary dicts
-	\author Peter Grasch
-*/
+ *	\class ImportDict
+ *	\brief The ImportDict class provides the functions to import e.g. Wiktionary dicts
+ *	\author Peter Grasch
+ *	\version 0.1
+ */
 class ImportDict : public QThread{
 Q_OBJECT
 

@@ -28,14 +28,14 @@
 #include "wavplayer.h"
 
 /**
-	\class RecWidget
-	\brief This class provides a nice Recording Widget to easily use within the application
-	
-	It draws the GUI and uses the WavRecorder/WavPlayer classes
-	
-	\author Peter Grasch
-	\date 26.05.2007
-*/
+ * \class RecWidget
+ * \brief This class provides a nice Recording Widget to easily use within the application
+ * 
+ * It draws the GUI and uses the WavRecorder/WavPlayer classes
+ * 
+ * \author Peter Grasch
+ * \date 26.05.2007
+ */
 class RecWidget : public QGroupBox {
 	Q_OBJECT
 

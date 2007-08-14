@@ -23,7 +23,6 @@
 
  Used to control the genernal system settings (like paths to the language model, etc.)
 
-	@author Peter Grasch <bedahr@gmx.net>
 */
 class GeneralSettings : public SystemWidget
 {

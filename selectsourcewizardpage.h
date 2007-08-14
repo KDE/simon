@@ -15,6 +15,12 @@
 #include <QWizardPage>
 #include <QRadioButton>
 
+/**
+ * \class SelectSourceWizardPage
+ * \author Peter Grasch
+ * \version 0.1
+ * \brief Selects the type of text to import: local or remote
+ */
 class SelectSourceWizardPage :  public QWizardPage {
 	Q_OBJECT
 

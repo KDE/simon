@@ -18,6 +18,11 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
+/**
+ * \brief Constructor - Inits the gui
+ * \author Peter Grasch
+ * @param parent Parent of the WizardPage
+ */
 ImportDictSelectSourcePage::ImportDictSelectSourcePage(QWidget* parent): QWizardPage(parent)
 {
 	setTitle(tr("Typ auswählen"));
@@ -41,11 +46,21 @@ ImportDictSelectSourcePage::ImportDictSelectSourcePage(QWidget* parent): QWizard
 	hadifixBOMP->setChecked(true);
 }
 
+/**
+ * \brief Returns the type of the dict
+ * \author Peter Grasch
+ * @return the type of the dict (either HADIFIXBOMP or WIKTIONARY)
+ */
 int ImportDictSelectSourcePage::getType()
 {
 	return (field("hadifix").toBool()) ? HADIFIXBOMP : WIKTIONARY;
 }
 
+/**
+ * \brief Returns the next id for the wizard (2 if we selected hadifix, else 3)
+ * \author Peter Grasch
+ * @return the id
+ */
 int ImportDictSelectSourcePage::nextId() const
 {
 	if (field("hadifix").toBool())
@@ -54,6 +69,10 @@ int ImportDictSelectSourcePage::nextId() const
 	} else return 3;
 }
 
+/**
+ * \brief destructor
+ * \author Peter Grasch
+ */
 ImportDictSelectSourcePage::~ImportDictSelectSourcePage()
 {
 }

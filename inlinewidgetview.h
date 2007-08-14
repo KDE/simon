@@ -18,7 +18,11 @@
 class InlineWidget;
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class InlineWidgetView
+ \author Peter Grasch
+ \brief Extends the QTabWidget to display InlienWidgets
+ \version 0.1
+ \date 10.8.2007
 */
 class InlineWidgetView : public QTabWidget
 {

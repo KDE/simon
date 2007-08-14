@@ -15,6 +15,11 @@
 #include <QPalette>
 #include <QBrush>
 
+/**
+ * \brief Constructor - inits the gui
+ * \author Peter Grasch
+ * @param parent the parent of the widget 
+ */
 InlineWidgetView::InlineWidgetView(QWidget* parent): QTabWidget(parent)
 {
 	setAutoFillBackground(false);
@@ -27,6 +32,11 @@ InlineWidgetView::InlineWidgetView(QWidget* parent): QTabWidget(parent)
 	setAutoFillBackground(true);
 }
 
+/**
+ * \brief Registers the given InlineWidget as a new page and displays it
+ * \author Peter Grasch
+ * @param page the page to register
+ */
 void InlineWidgetView::registerPage(InlineWidget *page)
 {
 	if(!page) return;
@@ -38,7 +48,11 @@ void InlineWidgetView::registerPage(InlineWidget *page)
 	
 	if (count() > 1) tabBar()->show();
 }
-
+/**
+ * \brief Unregisters the given InlineWidget as a new page and hides it
+ * \author Peter Grasch
+ * @param page the page to remove
+ */
 void InlineWidgetView::unRegisterPage(InlineWidget *page)
 {
 	if(!page) return;
@@ -49,6 +63,10 @@ void InlineWidgetView::unRegisterPage(InlineWidget *page)
 	if (count() == 0) hide();
 }
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 InlineWidgetView::~InlineWidgetView()
 {
 }

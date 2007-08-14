@@ -17,7 +17,11 @@
 class QString;
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class BOMPDict
+ \author Peter Grasch
+ \version 0.1
+ \date 10.08.2007
+ \brief Represetnts a dictionary from the university Bonn (Germany)
 */
 class BOMPDict : public Dict
 {

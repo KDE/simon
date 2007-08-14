@@ -1,23 +1,20 @@
-//
-// C++ Interface: bunzip
-//
-// Description: 
-//
-//
-// Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
 #ifndef BUNZIP_H
 #define BUNZIP_H
 
  #include <QObject>
-/**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
+
 class QString;
 class QProcess;
+
+/**
+ * \class Bunzip
+ * \brief Extracts *.bz2 / *.bzip2 files
+ * \author Peter Grasch
+ * \note This uses the programm bzip2 which might not be installed
+ * \todo somehow provide progress feedback
+ * \version 0.1
+ * \date 10.08.2007
+ */
 class Bunzip : public QObject {
 Q_OBJECT
 
@@ -42,7 +39,6 @@ public slots:
 public:
     Bunzip(QObject *parent=0);
 
-    ~Bunzip();
 
 };
 

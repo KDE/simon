@@ -16,9 +16,14 @@
 #include <QVariant>
 
 class QString;
+
 /**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
+ * \class ImportBOMPPage
+ * \brief WizardPage to select a BOMP Dictionary
+ * \author Peter Grasch
+ * \date 10.8.2007
+ * \version 0.1
+ */
 class ImportBOMPPage : public QWizardPage
 {
 Q_OBJECT

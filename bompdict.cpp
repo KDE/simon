@@ -16,11 +16,22 @@
 #include <QRegExp>
 #include <QFileInfo>
 
+/**
+ * \brief Constructor
+ * \author Peter Grasch
+ * @param path Sets the path of the dictionary (member)
+ * @param parent Parent of the object
+ */
 BOMPDict::BOMPDict(QString path, QObject* parent): Dict(parent)
 {
 	this->path = path;
 }
 
+/**
+ * \brief Loads the file from the given path
+ * \author Peter Grasch
+ * @param path If the path is empty the path set by the constructor is used
+ */
 void BOMPDict::load(QString path)
 {
 	if (path.isEmpty()) path = this->path;
@@ -44,7 +55,6 @@ void BOMPDict::load(QString path)
 	while (!line.isNull())
 	{
 		wordend = line.indexOf("\t");
-// 		qDebug() << wordend;
 		termend = line.indexOf("\t", wordend+1);
 		words << line.left(wordend);
 		terminals << line.mid(wordend, 

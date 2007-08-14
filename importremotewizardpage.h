@@ -19,6 +19,13 @@
 #include "quickdownloader.h"
 #include "xmltrainingtextlist.h"
 
+/**
+ * \class ImportRemoteWizardPage
+ * \author Peter Grasch
+ * \version 0.1
+ * \date 10.8.2007
+ * \brief Displays the remote-importPage for the Trainingtexts
+ */
 class ImportRemoteWizardPage : public QWizardPage {
 	Q_OBJECT
 	private:

@@ -22,7 +22,7 @@
  * \brief Constructor
  * \author Peter Grasch
  * Generates a new ImportDictView object and sets up the signal/slots
- * \param QWidget *parent
+ * \param parent
  * The parent of the window.
  */
 ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
@@ -45,6 +45,11 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 	connect(this, SIGNAL(currentIdChanged( int )), this, SLOT(idChanged(int)));
 }
 
+/**
+ * \brief Shows the Wizard
+ * \author Peter Grasch
+ * \todo This restarts the wizard - even if we just hid the wizard (when hiding simon)
+ */
 void ImportDictView::show()
 {
 	restart();
@@ -52,6 +57,14 @@ void ImportDictView::show()
 }
 
 
+/**
+ * \brief Creates the intro page
+ * \author Peter Grasch
+ * 
+ * This page contains a short written introduction on what is coming up
+ * 
+ * @return the created qwizardpage
+ */
 QWizardPage* ImportDictView::createIntroPage()
 {
 	QWizardPage *intro = new QWizardPage(this);
@@ -65,6 +78,16 @@ QWizardPage* ImportDictView::createIntroPage()
 	return intro;
 }
 
+/**
+ * \brief starts the importing process/restarts the wizard when triggered a certain path
+ * \author Peter Grasch
+ * 
+ * The function determines where we came from and where we want to go and reacts on it;
+ * If we, for example, come from the ImportWiktionaryPage and go to the ImportDictWorkingPage
+ * we start the import-process of the new wiktionary
+ * 
+ * @param newId the id to change to
+ */
 void ImportDictView::idChanged(int newId)
 {
 	if ((newId ==4))
@@ -84,26 +107,51 @@ void ImportDictView::idChanged(int newId)
 }
 
 
+/**
+ * \brief Creates a new ImportDictSelectSourcePage and returns it
+ * \author Peter Grasch
+ * @return the created page
+ */
 ImportDictSelectSourcePage* ImportDictView::createSelectSourcePage()
 {
 	return new ImportDictSelectSourcePage(this);
 }
 
+/**
+ * \brief Creates a new ImportBOMPPage and returns it
+ * \author Peter Grasch
+ * @return the created page
+ */
 ImportBOMPPage* ImportDictView::createImportBOMPPage() 
 {
 	return new ImportBOMPPage(this);
 }
 
+/**
+ * \brief Creates a new ImportDictWiktionaryPage and returns it
+ * \author Peter Grasch
+ * @return the created page
+ */
 ImportDictWiktionaryPage* ImportDictView::createImportWiktionaryPage()
 {
 	return new ImportDictWiktionaryPage(this);
 }
 
+/**
+ * \brief Creates a new ImportDictWorkingPage and returns it
+ * \author Peter Grasch
+ * @return the created page
+ */
 ImportDictWorkingPage* ImportDictView::createImportDictWorkingPage()
 {
 	return new ImportDictWorkingPage(this);
 }
 
+/**
+ * \brief Creates a new QWizardPage, builds the gui, and returns it
+ * \author Peter Grasch
+ * @return the created page
+ */
 QWizardPage* ImportDictView::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage(this);
@@ -125,4 +173,3 @@ QWizardPage* ImportDictView::createFinishedPage()
 ImportDictView::~ImportDictView()
 {
 }
-

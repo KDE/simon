@@ -21,7 +21,12 @@ class QIcon;
 class QSettings;
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ * \class InlineWidget
+ * \brief Provides a widget to display inline in the simon mainwindow
+ * \note Please use this instead of the QDialog class whenever feasable!
+ * \author Peter Grasch
+ * \version 0.1
+ * \date 10.8.2007
 */
 class InlineWidget : public QWidget
 {
