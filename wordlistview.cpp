@@ -14,6 +14,7 @@
 #include <QIcon>
 #include "logger.h"
 #include "wordlistview.h"
+#include "settings.h"
 
 /**
  * @brief Constructor
@@ -42,9 +43,6 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	connect(this->lwTrainingWords, SIGNAL(droppedText(QString)), this, SLOT(copyWordToTrain()));
 	connect(ui.pbAddWord, SIGNAL(clicked()), this, SIGNAL(showAddWordDialog()));
 	
-//	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(askToSave()));
-//	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(close()));
-	
 	connect(ui.pbSuggestTrain, SIGNAL(clicked()), this, SLOT(suggestTraining()));
 	connect(ui.leSearch, SIGNAL(returnPressed()), this, SLOT(filterListbyPattern()));
 	connect(ui.pbClearSearch, SIGNAL(clicked()), this, SLOT(clearSearchText()));
@@ -55,12 +53,6 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(toggleExtraWords()));
 	dirty = false;
 	hide();
-}
-
-void WordListView::closeEvent( QCloseEvent *event)
-{
-	this->askToSave();
-	QWidget::closeEvent(event);	
 }
 
 void WordListView::reloadList()
@@ -94,9 +86,17 @@ void WordListView::importDict(WordList* list)
 {
 	if (list)
 	{
-		setDirty(true);
 		wordListManager->addWords(list, true);
-		insertVocab(wordListManager->sortList(wordListManager->getWordList()));
+		
+		
+		if (!wordListManager->save(Settings::get("PathToLexicon").toString(),
+		     Settings::get("PathToVocab").toString()))
+		{	
+			QMessageBox::critical(this, tr("Fehler beim Speichern"), tr("Das Wörterbuch konnte nicht nach %1 geschrieben werden. Bitte überprüfen Sie Ihre Berechtigungen.").arg(Settings::get("model/lexicon").toString()));
+			Logger::log("[ERR] Fehler beim schreiben des Wörterbuches");
+		}
+		
+		insertVocab(wordListManager->getWordList());
 	}
 }
 

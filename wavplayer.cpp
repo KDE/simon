@@ -11,6 +11,8 @@
 //
 #include "wavplayer.h"
 #include "logger.h"
+#include <QVariant>
+#include "settings.h"
 
 /**
  * \brief Constructor
@@ -38,7 +40,7 @@ bool WavPlayer::play( QString filename )
 	progress = 0;
 	position=0;
 	
-	int device=0, bufferSize=512, nBuffers=4;
+	int bufferSize=512, nBuffers=4;
 	WAV *file = new WAV(filename); 
 	
 	this->data = file->getRawData(this->length);
@@ -46,8 +48,8 @@ bool WavPlayer::play( QString filename )
 	
 	
 	try {
-		audio = new RtAudio(device, chans, 0, 0, RTAUDIO_SINT16,
-				    file->getSampleRate(), &bufferSize, nBuffers);
+		audio = new RtAudio(Settings::get("OutputDevice").toInt(), chans, 0, 0,
+				    RTAUDIO_SINT16, file->getSampleRate(), &bufferSize, nBuffers);
 	}
 	catch (RtError &error) {
 		error.printMessage();
@@ -101,27 +103,22 @@ int WavPlayer::processWrapper(char* buffer, int bufferSize, void *play)
 void WavPlayer::increaseProgress()
 {
 	if (stopTimer)	{ 
-        progressTimer->stop(); 
-                Logger::log(tr("[INF] 1"));
+        progressTimer->stop();
         try {
             // Stop and close the stream
             //audio->abortStream();
-            Logger::log(tr("[INF] 1,5"));
             audio->stopStream();
-            Logger::log(tr("[INF] 2"));
             audio->closeStream();
-            Logger::log(tr("[INF] 3"));
             delete audio;
-            Logger::log(tr("[INF] Bin am ende vom try"));
         }
         catch (RtError &error) {
-            Logger::log(tr("[ERR] Fehler"));
+            Logger::log(tr("[ERR]")+" "+error.getMessageString());
             error.printMessage();
         }
-        
+
         delete data;
         emit finished();
-        
+
         stopTimer=false; 
         return;
     }

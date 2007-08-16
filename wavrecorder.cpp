@@ -1,4 +1,6 @@
 #include "wavrecorder.h"
+#include "settings.h"
+#include <QVariant>
 #include "logger.h"
 
 /**
@@ -37,7 +39,7 @@ bool WavRecorder::record(QString filename, short channels, int sampleRate)
 	audio = 0;
 
 	try {
-		audio = new RtAudio(0, 0, device, chans,
+		audio = new RtAudio(Settings::get("InputDevice").toInt(), 0, device, chans,
 				    RTAUDIO_SINT16, fs, &buffer_size, 8);
 	}
 	catch (RtError &error) {

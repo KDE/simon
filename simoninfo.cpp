@@ -17,6 +17,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #include "simoninfo.h"
+#include <QCoreApplication>
 
 /**
  * @brief Constructor
@@ -70,6 +71,7 @@ void SimonInfo::writeToSplash(QString status)
 {
 	this->splash->showMessage(status, Qt::AlignLeft|Qt::AlignBottom, 
 					QColor(175, 190, 200, 255));
+	QCoreApplication::processEvents();
 }
 
 
