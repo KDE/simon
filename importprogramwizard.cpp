@@ -10,7 +10,12 @@
 //
 //
 #include "importprogramwizard.h"
+#include <QLabel>
+#include <QVBoxLayout>
 
+/**
+*   @autor Susanne Tschernegg
+*/
 ImportProgramWizard::ImportProgramWizard(QWidget* parent, Qt::WindowFlags flags): QWizard(parent, flags)
 {
     this->addPage(createIntroPage());
@@ -19,47 +24,62 @@ ImportProgramWizard::ImportProgramWizard(QWidget* parent, Qt::WindowFlags flags)
     this->addPage(createImportProgramPage());
     this->addPage(createFinishedPage());
 
-	setWindowTitle(tr("Programm hinzufügen"));
+	setWindowTitle("Programm hinzufügen");
 }
 
 
 ImportProgramWizard::~ImportProgramWizard()
 {}
-    
-QWizardPage* createIntroPage()
+
+/**
+*   @autor Susanne Tschernegg
+*/
+QWizardPage* ImportProgramWizard::createIntroPage()
 {
     QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle(tr("Hinzufügen des Programmes"));
+	intro->setTitle("Hinzufügen des Programmes");
 	QLabel *label = new QLabel(intro);
-	label->setText(tr("Hier kann ein Programm den Kommandos - die Simon kennt - hinzugefügt werden."));
+	label->setText("Hier kann ein Programm den Kommandos - die Simon kennt - hinzugefügt werden.");
 	QVBoxLayout *layout = new QVBoxLayout(intro);
 	layout->addWidget(label);
 	intro->setLayout(layout);
 	
 	return intro;
 }
-        
-SelectProgramPage* createSelectProgramPage()
+
+/**
+*   @autor Susanne Tschernegg
+*/
+SelectProgramPage* ImportProgramWizard::createSelectProgramPage()
 {
     return new SelectProgramPage(this);
 }
-    
-ConfigureProgramPage* createConfigureProgramPage()
+
+/**
+*   @autor Susanne Tschernegg
+*/
+ConfigureProgramPage* ImportProgramWizard::createConfigureProgramPage()
 {
     return new ConfigureProgramPage(this);
 }
-    
-ImportProgramPage* createImportProgramPage()
+
+/**
+*   @autor Susanne Tschernegg
+*/
+ImportProgramPage* ImportProgramWizard::createImportProgramPage()
 {
     return new ImportProgramPage(this);
 }
-    
-QWizard* ImportProgramWizard::createFinishedPage()
+
+/**
+*   @autor Susanne Tschernegg
+*/
+QWizardPage* ImportProgramWizard::createFinishedPage()
 {
     QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(tr("Hinzufügen des Programmes"));
+	finished->setTitle("Hinzufügen des Programmes");
 	QLabel *label = new QLabel(finished);
-	label->setText(tr("Klicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschließen."));
+	label->setText("Klicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschließen.");
 	QVBoxLayout *layout = new QVBoxLayout(finished);
 	layout->addWidget(label);
 	finished->setLayout(layout);

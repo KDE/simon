@@ -44,7 +44,6 @@ AddWordView::AddWordView(QWidget *parent)
 	this->addPage(createWelcomePage());
 	this->addPage(createRecordPage());
 	this->addPage(createFinishedPage());
-
 	
 	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
 

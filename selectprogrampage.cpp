@@ -11,9 +11,13 @@
 //
 #include "selectprogrampage.h"
 
+/**
+*   @autor Susanne Tschernegg
+*/
+
 SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 {
-    vboxLayout = new QVBoxLayout(Form);
+    vboxLayout = new QVBoxLayout(this);
     vboxLayout->setObjectName("vboxLayout");
     
     lwCategories = new QListWidget(this);

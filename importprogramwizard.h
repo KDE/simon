@@ -17,6 +17,8 @@
 #include "configureprogrampage.h"
 #include "importprogrampage.h"
 #include "command.h"
+#include "recwidget.h"
+#include <QWizardPage>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -34,7 +36,7 @@ class ImportProgramWizard : public QWizard
 		
 	public slots:
 		
-		void finish(int done);
+		//void finish(int done);
 
 		QWizardPage* createIntroPage();
 		SelectProgramPage* createSelectProgramPage();
