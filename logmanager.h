@@ -26,7 +26,8 @@ class LogManager : public QThread
 private:
 	LogEntryList *entries;
 	bool killMe;
-
+	bool finishedLoading;
+	
 private slots:
 	void resetKillFlag()  { killMe = false; }
 
@@ -38,11 +39,12 @@ public:
 	LogEntryList* getDay(QDate day);
 	LogEntryList* getAll();
 	bool readLog();
+	bool hasFinishedReading(){return this->finishedLoading;}
 
 	void run ();
 
 public slots:
-	void stop();
+	void stop(bool free);
 
 signals:
 	void logReadFinished(int value);

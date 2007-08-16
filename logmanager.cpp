@@ -25,6 +25,7 @@
  */
 LogManager::LogManager()
 {
+	this->finishedLoading = false;
 	entries = new LogEntryList();
 	killMe=false;
 	connect(this, SIGNAL(finished()), this, SLOT(resetKillFlag()));
@@ -84,6 +85,7 @@ bool LogManager::readLog()
 
 void LogManager::run ()
 {
+	finishedLoading = false;
 	if(!this->entries)
 	{
 		this->entries = new LogEntryList;
@@ -138,6 +140,7 @@ void LogManager::run ()
 	//QMessageBox::critical(NULL,"","");
 	if (!killMe)
 	{
+		finishedLoading = true;
 		emit this->logReadFinished(1);
 	}
 	else
@@ -177,20 +180,22 @@ LogEntryList* LogManager::getDay(QDate day)
 }
 
 
-void LogManager::stop()
+
+void LogManager::stop(bool free)
 {
 	killMe=true;
+	if(free)
+		this->entries->clear();
+	
+	if((!free) && (this->isRunning ()))
+	{
+		this->wait(5000);
+		this->entries->clear();
+	}
 	this->wait(5000);
-	
-	//this->entries->clear();
-	this->entries->clear();
-	//delete(entries);
-	//QMessageBox::critical(NULL,QString::number(this->entries->count()),"");
-//	tr("Beim Auslesen der Logdatei ist ein Fen."));
-	
 	this->terminate();
 	killMe=false;
-	//delete(this->entries);
+
 }
 
 /**

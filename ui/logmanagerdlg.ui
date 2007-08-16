@@ -26,7 +26,37 @@
      </property>
      <layout class="QVBoxLayout" >
       <item>
-       <widget class="QLineEdit" name="leSearchLogs" />
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="QLineEdit" name="leSearchLogs" />
+        </item>
+        <item>
+         <widget class="QPushButton" name="pbClearSearch" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize" >
+           <size>
+            <width>16</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text" >
+           <string>&amp;x</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pbLogSearch" >
+          <property name="text" >
+           <string>Suchen</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <layout class="QGridLayout" >
@@ -48,6 +78,19 @@
         <property name="verticalSpacing" >
          <number>6</number>
         </property>
+        <item row="0" column="0" >
+         <widget class="QLabel" name="lbSearchLogsFor" >
+          <property name="maximumSize" >
+           <size>
+            <width>16777215</width>
+            <height>15</height>
+           </size>
+          </property>
+          <property name="text" >
+           <string>Suchen nach:</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="1" >
          <widget class="QCheckBox" name="cbLogError" >
           <property name="maximumSize" >
@@ -61,16 +104,10 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1" >
-         <widget class="QCheckBox" name="cbLogInfo" >
-          <property name="maximumSize" >
-           <size>
-            <width>16777215</width>
-            <height>15</height>
-           </size>
-          </property>
+        <item row="0" column="2" >
+         <widget class="QCheckBox" name="cbLogUpdate" >
           <property name="text" >
-           <string>Infos</string>
+           <string>Update</string>
           </property>
          </widget>
         </item>
@@ -87,8 +124,8 @@
           </property>
          </spacer>
         </item>
-        <item row="0" column="0" >
-         <widget class="QLabel" name="lbSearchLogsFor" >
+        <item row="1" column="1" >
+         <widget class="QCheckBox" name="cbLogInfo" >
           <property name="maximumSize" >
            <size>
             <width>16777215</width>
@@ -96,62 +133,61 @@
            </size>
           </property>
           <property name="text" >
-           <string>Suchen in:</string>
+           <string>Infos</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2" >
+         <widget class="QCheckBox" name="cbLogSettings" >
+          <property name="text" >
+           <string>Settings</string>
           </property>
          </widget>
         </item>
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="cbOnlyDay" >
-        <property name="maximumSize" >
-         <size>
-          <width>16777215</width>
-          <height>14</height>
-         </size>
+       <widget class="QGroupBox" name="gbOnlyDay" >
+        <property name="title" >
+         <string>Nur von Tag</string>
         </property>
-        <property name="text" >
-         <string>Nur vom Tag:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCalendarWidget" name="cwLogDay" >
-        <property name="enabled" >
-         <bool>false</bool>
-        </property>
-        <property name="sizePolicy" >
-         <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize" >
-         <size>
-          <width>200</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="firstDayOfWeek" >
-         <enum>Qt::Monday</enum>
-        </property>
-        <property name="gridVisible" >
+        <property name="flat" >
          <bool>true</bool>
         </property>
+        <property name="checkable" >
+         <bool>true</bool>
+        </property>
+        <property name="checked" >
+         <bool>false</bool>
+        </property>
+        <layout class="QVBoxLayout" >
+         <item>
+          <widget class="QCalendarWidget" name="cwLogDay" >
+           <property name="enabled" >
+            <bool>false</bool>
+           </property>
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize" >
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="firstDayOfWeek" >
+            <enum>Qt::Monday</enum>
+           </property>
+           <property name="gridVisible" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
-      </item>
-      <item>
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>217</width>
-          <height>16</height>
-         </size>
-        </property>
-       </spacer>
       </item>
       <item>
        <widget class="QProgressBar" name="pbLogLoad" >
@@ -161,11 +197,25 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="lbLogLoad" >
-        <property name="text" >
-         <string/>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="QLabel" name="lbLogLoad" >
+          <property name="text" >
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pbAbort" >
+          <property name="text" >
+           <string>Abbrechen</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <spacer>
@@ -238,6 +288,25 @@
    </item>
   </layout>
  </widget>
- <resources/>
- <connections/>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>pbClearSearch</sender>
+   <signal>clicked()</signal>
+   <receiver>leSearchLogs</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>149</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>90</x>
+     <y>47</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

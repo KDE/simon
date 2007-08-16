@@ -367,7 +367,7 @@
    <item>
     <widget class="QStackedWidget" name="swSettings" >
      <property name="currentIndex" >
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="page" >
       <layout class="QHBoxLayout" >
@@ -453,9 +453,9 @@
          <item row="0" column="0" >
           <widget class="QLabel" name="lbGeneralSystem" >
            <property name="text" >
-            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">&#xd;
-p, li { white-space: pre-wrap; }&#xd;
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&#xd;
+            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">&#xd;&#xd;
+p, li { white-space: pre-wrap; }&#xd;&#xd;
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&#xd;&#xd;
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Allgemein:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
            </property>
           </widget>
@@ -690,9 +690,9 @@ p, li { white-space: pre-wrap; }&#xd;
          <item row="2" column="0" >
           <widget class="QLabel" name="lbJuliusd" >
            <property name="text" >
-            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">&#xd;
-p, li { white-space: pre-wrap; }&#xd;
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&#xd;
+            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">&#xd;&#xd;
+p, li { white-space: pre-wrap; }&#xd;&#xd;
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&#xd;&#xd;
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Juliusd:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
            </property>
           </widget>
@@ -1015,9 +1015,9 @@ p, li { white-space: pre-wrap; }&#xd;
          <item row="5" column="0" >
           <widget class="QLabel" name="lbAutostart" >
            <property name="text" >
-            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">&#xd;
-p, li { white-space: pre-wrap; }&#xd;
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&#xd;
+            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">&#xd;&#xd;
+p, li { white-space: pre-wrap; }&#xd;&#xd;
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&#xd;&#xd;
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Autostart:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
            </property>
           </widget>
@@ -1025,9 +1025,9 @@ p, li { white-space: pre-wrap; }&#xd;
          <item row="8" column="0" >
           <widget class="QLabel" name="lbFiles" >
            <property name="text" >
-            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">&#xd;
-p, li { white-space: pre-wrap; }&#xd;
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&#xd;
+            <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">&#xd;&#xd;
+p, li { white-space: pre-wrap; }&#xd;&#xd;
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">&#xd;&#xd;
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-weight:600;">Dateien:&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
            </property>
           </widget>
@@ -1131,10 +1131,10 @@ p, li { white-space: pre-wrap; }&#xd;
           </size>
          </property>
          <property name="text" >
-          <string>simon verwendet für die Erkennung selbst die Open Source Spracherkennungs-engine "Julius".&#xd;
-Die Verbindung zu Julius wird über das Netzwerk aufgebaut.&#xd;
-Die Addresse zum Juliusd wird entweder mit entweder mit einem Hostnamen oder einer direkten "IP Adresse" angegeben (4x3 stellige Netzwerksidentifikationsnummer - xxx.xxx.xxx.xxx)&#xd;
-Die Port Nummer muss beim Juliusd und bei simon gleich sein.&#xd;
+          <string>simon verwendet für die Erkennung selbst die Open Source Spracherkennungs-engine "Julius".&#xd;&#xd;
+Die Verbindung zu Julius wird über das Netzwerk aufgebaut.&#xd;&#xd;
+Die Addresse zum Juliusd wird entweder mit entweder mit einem Hostnamen oder einer direkten "IP Adresse" angegeben (4x3 stellige Netzwerksidentifikationsnummer - xxx.xxx.xxx.xxx)&#xd;&#xd;
+Die Port Nummer muss beim Juliusd und bei simon gleich sein.&#xd;&#xd;
 Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal gestartet, sollte zu keinem laufenden Dämon verbunden werden können.</string>
          </property>
          <property name="wordWrap" >
@@ -1463,8 +1463,8 @@ Wenn das Häckchen "Starte juliusd wenn nötig aktiviert ist, wird juliusd lokal
           </size>
          </property>
          <property name="text" >
-          <string>Hier finden Sie alle Einstellungen zur Spracheingabe und Tonausgabe.
-
+          <string>Hier finden Sie alle Einstellungen zur Spracheingabe und Tonausgabe.&#xd;
+&#xd;
 Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen wird nach jeder Aufnahme eine Audiodatei mit Datum und Uhrzeit, sowohl wie eine erstellte Transkribtion im angegebenen Verzeichnis erstellt.</string>
          </property>
          <property name="wordWrap" >
@@ -1793,14 +1793,14 @@ Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen wird nach jeder Au
             </size>
            </property>
            <property name="text" >
-            <string>Hier können neue Kommandos hinzugefügt werden, vorhandene bearbeitet und gelöscht werden.&#xd;
-&#xd;
-Ein Programm kann aus dem Startmenü über den betreffenden Button ganz einfach in die Liste der Applikationen aufgenommen werden.&#xd;
-&#xd;
-Auch ein Ort kann einfach über die Auswahl eines Orderns importiert werden.&#xd;
-&#xd;
-Makros können ebenfalls aufgezeichnet werden. Ein Makro ist ein bestimmter Ablauf der immer wieder kehrt. (z.B.: Öffnen des Startmenüs)&#xd;
-&#xd;
+            <string>Hier können neue Kommandos hinzugefügt werden, vorhandene bearbeitet und gelöscht werden.&#xd;&#xd;
+&#xd;&#xd;
+Ein Programm kann aus dem Startmenü über den betreffenden Button ganz einfach in die Liste der Applikationen aufgenommen werden.&#xd;&#xd;
+&#xd;&#xd;
+Auch ein Ort kann einfach über die Auswahl eines Orderns importiert werden.&#xd;&#xd;
+&#xd;&#xd;
+Makros können ebenfalls aufgezeichnet werden. Ein Makro ist ein bestimmter Ablauf der immer wieder kehrt. (z.B.: Öffnen des Startmenüs)&#xd;&#xd;
+&#xd;&#xd;
 Das Schlüssel Wort gibt an welches Wort für die Befehlseingabe verwendet wird. (z.B.: Schlüsselwort:"simon"; simon www.website.at)</string>
            </property>
            <property name="wordWrap" >
@@ -1825,163 +1825,166 @@ Das Schlüssel Wort gibt an welches Wort für die Befehlseingabe verwendet wird.
          <property name="title" >
           <string>Suchen</string>
          </property>
-         <layout class="QVBoxLayout" >
-          <item>
-           <widget class="QLineEdit" name="leSearchLogs" />
-          </item>
-          <item>
-           <layout class="QGridLayout" >
-            <property name="leftMargin" >
-             <number>0</number>
-            </property>
-            <property name="topMargin" >
-             <number>0</number>
-            </property>
-            <property name="rightMargin" >
-             <number>0</number>
-            </property>
-            <property name="bottomMargin" >
-             <number>0</number>
-            </property>
-            <property name="horizontalSpacing" >
-             <number>6</number>
-            </property>
-            <property name="verticalSpacing" >
-             <number>6</number>
-            </property>
-            <item row="0" column="1" >
-             <widget class="QCheckBox" name="cbLogError" >
-              <property name="maximumSize" >
-               <size>
-                <width>16777215</width>
-                <height>15</height>
-               </size>
-              </property>
-              <property name="text" >
-               <string>Fehler</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1" >
-             <widget class="QCheckBox" name="cbLogInfo" >
-              <property name="maximumSize" >
-               <size>
-                <width>16777215</width>
-                <height>15</height>
-               </size>
-              </property>
-              <property name="text" >
-               <string>Infos</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0" >
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="0" column="0" >
-             <widget class="QLabel" name="lbSearchLogsFor" >
-              <property name="maximumSize" >
-               <size>
-                <width>16777215</width>
-                <height>15</height>
-               </size>
-              </property>
-              <property name="text" >
-               <string>Suchen in:</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="cbOnlyDay" >
-            <property name="maximumSize" >
-             <size>
-              <width>16777215</width>
-              <height>14</height>
-             </size>
-            </property>
-            <property name="text" >
-             <string>Nur vom Tag:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCalendarWidget" name="cwLogDay" >
-            <property name="enabled" >
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize" >
-             <size>
-              <width>200</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="firstDayOfWeek" >
-             <enum>Qt::Monday</enum>
-            </property>
-            <property name="gridVisible" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QProgressBar" name="pbLogLoad" >
-            <property name="value" >
-             <number>24</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="lbLogLoad" >
-            <property name="text" >
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>217</width>
-              <height>16</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
+         <widget class="QLineEdit" name="leSearchLogs" >
+          <property name="geometry" >
+           <rect>
+            <x>11</x>
+            <y>25</y>
+            <width>217</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="cbOnlyDay" >
+          <property name="geometry" >
+           <rect>
+            <x>11</x>
+            <y>100</y>
+            <width>217</width>
+            <height>14</height>
+           </rect>
+          </property>
+          <property name="maximumSize" >
+           <size>
+            <width>16777215</width>
+            <height>14</height>
+           </size>
+          </property>
+          <property name="text" >
+           <string>Nur vom Tag:</string>
+          </property>
+         </widget>
+         <widget class="QCalendarWidget" name="cwLogDay" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
+          <property name="geometry" >
+           <rect>
+            <x>11</x>
+            <y>120</y>
+            <width>200</width>
+            <height>127</height>
+           </rect>
+          </property>
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize" >
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="firstDayOfWeek" >
+           <enum>Qt::Monday</enum>
+          </property>
+          <property name="gridVisible" >
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QProgressBar" name="pbLogLoad" >
+          <property name="geometry" >
+           <rect>
+            <x>11</x>
+            <y>259</y>
+            <width>217</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <property name="value" >
+           <number>24</number>
+          </property>
+         </widget>
+         <widget class="QLabel" name="lbLogLoad" >
+          <property name="geometry" >
+           <rect>
+            <x>11</x>
+            <y>287</y>
+            <width>217</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text" >
+           <string/>
+          </property>
+         </widget>
+         <widget class="QWidget" name="" >
+          <layout class="QGridLayout" >
+           <property name="leftMargin" >
+            <number>0</number>
+           </property>
+           <property name="topMargin" >
+            <number>0</number>
+           </property>
+           <property name="rightMargin" >
+            <number>0</number>
+           </property>
+           <property name="bottomMargin" >
+            <number>0</number>
+           </property>
+           <property name="horizontalSpacing" >
+            <number>6</number>
+           </property>
+           <property name="verticalSpacing" >
+            <number>6</number>
+           </property>
+           <item row="0" column="1" >
+            <widget class="QCheckBox" name="cbLogError" >
+             <property name="maximumSize" >
+              <size>
+               <width>16777215</width>
+               <height>15</height>
+              </size>
+             </property>
+             <property name="text" >
+              <string>Fehler</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1" >
+            <widget class="QCheckBox" name="cbLogInfo" >
+             <property name="maximumSize" >
+              <size>
+               <width>16777215</width>
+               <height>15</height>
+              </size>
+             </property>
+             <property name="text" >
+              <string>Infos</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" >
+            <spacer>
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" >
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="0" >
+            <widget class="QLabel" name="lbSearchLogsFor" >
+             <property name="maximumSize" >
+              <size>
+               <width>16777215</width>
+               <height>15</height>
+              </size>
+             </property>
+             <property name="text" >
+              <string>Suchen in:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
        <item>
@@ -2053,13 +2056,13 @@ Das Schlüssel Wort gibt an welches Wort für die Befehlseingabe verwendet wird.
           </size>
          </property>
          <property name="text" >
-          <string>Hier kann das Geschehen der letzten Zeit verfolgt werden.&#xd;
-&#xd;
-Simon protokolliert im laufenden Betrieb seine Tätigkeiten um dem User einen Überblick zu verschaffen, was passiert ist.&#xd;
-&#xd;
-Hier können Sie nach bestimmten Ereignissen suchen, oder einfach einmal durch das Protokoll durchsehen.&#xd;
-Eingaben im Suchfenster werden sofort wirksam.&#xd;
-&#xd;
+          <string>Hier kann das Geschehen der letzten Zeit verfolgt werden.&#xd;&#xd;
+&#xd;&#xd;
+Simon protokolliert im laufenden Betrieb seine Tätigkeiten um dem User einen Überblick zu verschaffen, was passiert ist.&#xd;&#xd;
+&#xd;&#xd;
+Hier können Sie nach bestimmten Ereignissen suchen, oder einfach einmal durch das Protokoll durchsehen.&#xd;&#xd;
+Eingaben im Suchfenster werden sofort wirksam.&#xd;&#xd;
+&#xd;&#xd;
 Sie können sogar ihre bisherigen Aufnahmen durchsuchen, sollten Sie diese Funktion aktiviert haben.</string>
          </property>
          <property name="wordWrap" >
@@ -2213,12 +2216,12 @@ Sie können sogar ihre bisherigen Aufnahmen durchsuchen, sollten Sie diese Funkt
           </size>
          </property>
          <property name="text" >
-          <string>Dieser Menüpunkt erlaubt es Ihnen, die Einstellungen simpel und einfach zu einem früheren Stadium zurückzusetzen.&#xd;
-&#xd;
-Um zum Beispiel zum Stand vom 1.1. zurückzusetzen, wählen Sie einfach im Kalender den 1. Jänner, selektieren alle Änderungen und klicken auf "Die ausgewählten Änderungen Rückgängig machen".&#xd;
-&#xd;
-Die Suche dient als Einschränkung der Änderung.&#xd;
-&#xd;
+          <string>Dieser Menüpunkt erlaubt es Ihnen, die Einstellungen simpel und einfach zu einem früheren Stadium zurückzusetzen.&#xd;&#xd;
+&#xd;&#xd;
+Um zum Beispiel zum Stand vom 1.1. zurückzusetzen, wählen Sie einfach im Kalender den 1. Jänner, selektieren alle Änderungen und klicken auf "Die ausgewählten Änderungen Rückgängig machen".&#xd;&#xd;
+&#xd;&#xd;
+Die Suche dient als Einschränkung der Änderung.&#xd;&#xd;
+&#xd;&#xd;
 Bitte beachten sie das die immer nur die selektierten Änderungen zurückgenommen werden!</string>
          </property>
          <property name="wordWrap" >
