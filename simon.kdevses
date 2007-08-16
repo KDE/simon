@@ -1,22 +1,34 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="5" >
-  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/externalprogrammanager.cpp" >
-   <View0 Encoding="ISO 8859-15" line="51" Type="Source" />
+ <DocsAndViews NumberOfDocuments="9" >
+  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/networksettings.cpp" >
+   <View0 Encoding="ISO 8859-15" line="90" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/externalprogrammanager.h" >
-   <View0 Encoding="ISO 8859-15" line="25" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simonview.cpp" >
+   <View0 Encoding="ISO 8859-15" line="270" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/systemview.h" >
-   <View0 Encoding="ISO 8859-15" line="36" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simoncontrol.cpp" >
+   <View0 Encoding="ISO 8859-15" line="94" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/systemview.cpp" >
-   <View0 Encoding="ISO 8859-15" line="33" Type="Source" />
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simoncontrol.h" >
+   <View0 Encoding="ISO 8859-15" line="58" Type="Source" />
   </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simonview.cpp" >
-   <View0 Encoding="ISO 8859-15" line="187" Type="Source" />
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/juliuscontrol.h" >
+   <View0 Encoding="ISO 8859-15" line="46" Type="Source" />
   </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/juliuscontrol.cpp" >
+   <View0 Encoding="ISO 8859-15" line="111" Type="Source" />
+  </Doc5>
+  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/inlinewidget.h" >
+   <View0 Encoding="ISO 8859-15" line="42" Type="Source" />
+  </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/inlinewidget.cpp" >
+   <View0 Encoding="ISO 8859-15" line="23" Type="Source" />
+  </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/simon/speech2text/trunk/simonview.h" >
+   <View0 Encoding="ISO 8859-15" line="69" Type="Source" />
+  </Doc8>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>
@@ -34,10 +46,10 @@
    <subversion base="" />
   </kdevsubversion>
   <kdevvalgrind>
-   <executable path="" params="" />
-   <valgrind path="" params="" />
-   <calltree path="" params="" />
-   <kcachegrind path="" />
+   <executable path="/home/bedahr/simon/speech2text/trunk/bin/simon" params="" />
+   <valgrind path="/usr/bin/valgrind" params=" --tool=memcheck --leak-check=yes" />
+   <calltree path="/usr/bin/valgrind" params="--tool=callgrind" />
+   <kcachegrind path="/usr/bin/kcachegrind" />
   </kdevvalgrind>
  </pluginList>
 </KDevPrjSession>

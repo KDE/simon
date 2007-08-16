@@ -16,6 +16,7 @@
 #include "simoninfo.h"
 
 class QTcpSocket;
+class QTimer;
 
 /**
  *	@class JuliusControl
@@ -29,6 +30,7 @@ class JuliusControl : public QObject {
 	Q_OBJECT
 private:
 	QTcpSocket *socket; //!< QTcpSocket for communicating with the juliusd-socket
+	QTimer *timeoutWatcher;
 signals:
 	void wordRecognised(QString word);
 	void connected();
@@ -39,8 +41,10 @@ public slots:
 	void connectTo( QString server="127.0.0.1", quint16 port=4444 );
 	void connectionLost();
 	void connectedTo();
+	void errorOccured();
+	void timeoutReached();
 	bool isConnected();
-	void disconnect();
+	void disconnectFromServer();
 
 public:
 	JuliusControl();

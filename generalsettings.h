@@ -30,9 +30,6 @@ Q_OBJECT
 
 private:
 	Ui::GeneralSettingsDlg ui; //!< UI definition - made by uic from the QTDesigner .ui
-private slots:
-	void deleteAddress();
-	void addAddress();
 	
 public slots:
 	bool apply();

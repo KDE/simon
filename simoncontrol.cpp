@@ -20,6 +20,8 @@
 
 #include "simoncontrol.h"
 #include "logger.h"
+#include "settings.h"
+#include <QDebug>
 
 #define COMMANDIDENT "simon"
 
@@ -32,7 +34,7 @@
 */
 SimonControl::SimonControl() : QObject ()
 {
-	this->active=true;
+	this->active=false;
 	this->julius = new JuliusControl();
 	this->run = new RunCommand();
 	eventHandler = new EventHandler();
@@ -56,16 +58,35 @@ SimonControl::~SimonControl()
  * @brief Connects to julius
  *
  *	@author Peter Grasch
- * @todo We should make the host and the port configurable
  */
-void SimonControl::connect(QString host)
+void SimonControl::connectToJulius()
 {
-	QStringList hostport;
-	hostport=host.split(":",QString::KeepEmptyParts,Qt::CaseSensitive);
+	juliusdConnectionsToTry.clear();
+	juliusdConnectionErrors.clear();
+	QString juliusServers = Settings::get("Network/JuliusdServers").toString();
+	if (juliusServers.isEmpty()) return;
+	QStringList addresses = juliusServers.split(";", QString::SkipEmptyParts);
+	Logger::log(tr("[INF] %1 juliusd Adressen gefunden").arg(addresses.count()));
 	
+	if (addresses.count() == 0) return;
+	
+	for (int i=0; i < addresses.count(); i++)
+		juliusdConnectionsToTry.append(addresses.at(i));
+		
+	connectTo(juliusdConnectionsToTry.at(0));
+}
+
+
+/**
+ * \brief Connects to the given address/port (e.g.: localhost:4444)
+ * \author Peter Grasch
+ * @param host The host/port combination to connect to
+ */
+void SimonControl::connectTo(QString host)
+{
 	Logger::log(tr("[INF] Verbinden zu Julius auf ")+host);
-	
-    julius->connectTo(hostport[0],hostport[1].toInt());
+	QStringList address = host.split(":");
+	julius->connectTo(address[0],address[1].toInt());
 }
 
 /**
@@ -73,9 +94,9 @@ void SimonControl::connect(QString host)
  *
  *	@author Peter Grasch
  */
-void SimonControl::disconnect()
+void SimonControl::disconnectFromJulius()
 {
-	julius->disconnect();
+	julius->disconnectFromServer();
 }
 
 
@@ -105,11 +126,12 @@ void SimonControl::wordRecognised(QString word)
  * This is just a feedback function provided to react to the fact that the
  * connection to the julius socket was established
  *
- *	@author Peter Grasch
+ * @author Peter Grasch
  */
 void SimonControl::connectedToJulius()
 {
-	Logger::log("Connected to Julius");
+	Logger::log(tr("[INF]")+" "+tr("Verbunden zu julius"));
+	this->activateSimon();
 	emit connected();
 }
 
@@ -119,7 +141,7 @@ void SimonControl::connectedToJulius()
  * This is just a feedback function provided to react to the fact that the
  * connection to the julius socket was lost
  *
- *	@author Peter Grasch
+ * @author Peter Grasch
  */
 void SimonControl::disconnectedFromJulius()
 {
@@ -130,24 +152,38 @@ void SimonControl::disconnectedFromJulius()
 /**
  * @brief We want to abort connecting to julius
  * 
- *	@author Peter Grasch
+ * @author Peter Grasch
  */
 void SimonControl::abortConnecting()
 {
 	Logger::log(tr("[INF] Verbinden abgebrochen"));
-	this->julius->disconnect();
+	juliusdConnectionsToTry.clear();
+	this->julius->disconnectFromServer();
 }
 
 
 /**
  * @brief Emits the signal connetionError(QString)
  * 
- *	@author Peter Grasch
+ * The function will try to connect to the next Juliusd Address in the list if
+ * juliusdConnectionsToTry isn't empty;
+ * If it isn't it will take the first entry and try to connect to that (see the 
+ * connectTo() function); If it is, it will the error with the connectionError(error) Signal
+ * 
+ * @author Peter Grasch
  */
 void SimonControl::errorConnecting(QString error)
 {
-	Logger::log(tr("[ERR] Verbinden zu Julius fehlgeschlagen: ")+error);
-	emit connectionError(error);
+	QString currentHost = juliusdConnectionsToTry.takeAt(0);
+	Logger::log(tr("[ERR] Verbinden zu Julius (%1) fehlgeschlagen: %2").arg(currentHost).arg(error));
+	
+	juliusdConnectionErrors << QString("%1: %2").arg(currentHost).arg(error);
+	
+	if (juliusdConnectionsToTry.count() > 0)
+		connectTo(juliusdConnectionsToTry.at(0));
+	else {
+		emit connectionError(juliusdConnectionErrors.join("\n"));
+	}
 }
 
 /**

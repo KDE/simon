@@ -38,7 +38,8 @@ FORMS += ui/main.ui \
          ui/soundsettingsdlg.ui \
          ui/revertdlg.ui \
 	 ui/logmanagerdlg.ui \
-         ui/externalprogramms.ui
+         ui/externalprogramms.ui \
+         ui/networksettingsdlg.ui
 HEADERS += simonview.h \
            addwordview.h \
            simoncontrol.h \
@@ -111,7 +112,12 @@ importtrainingdirectoryworkingpage.h \
            settings.h \
            revert.h \
            logview.h \
-           externalprogrammanager.h
+           externalprogrammanager.h \
+           networksettings.h \
+           importprogramwizard.h \
+           selectprogrampage.h \
+           configureprogrampage.h \
+           importprogrampage.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -180,7 +186,12 @@ SOURCES += main.cpp \
            logger.cpp \
            revert.cpp \
            logview.cpp \
-           externalprogrammanager.cpp
+           externalprogrammanager.cpp \
+           networksettings.cpp \
+           importprogramwizard.cpp \
+           selectprogrampage.cpp \
+           configureprogrampage.cpp \
+           importprogrampage.cpp
 QT += network \
 xml 
 

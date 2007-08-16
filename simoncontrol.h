@@ -55,8 +55,8 @@ signals:
 	void disconnected();
 	void connectionError(QString error);
 public slots:
-	void connect(QString host);
-	void disconnect();
+	void connectToJulius();
+	void disconnectFromJulius();
 	void connectedToJulius();
 	void disconnectedFromJulius();
 	void wordRecognised(QString word);
@@ -68,10 +68,13 @@ private:
 	JuliusControl *julius; //!< Julius Backend
 	RunCommand *run; //!< Runs the commands
 	EventHandler *eventHandler; //!< simulates keystrokes,etc.
+	
+	QStringList juliusdConnectionsToTry;
+	QStringList juliusdConnectionErrors;
 	void initializeMic();
 	
 public:
-	
+	void connectTo(QString host);
 	bool deactivateSimon();
 	bool activateSimon();
 

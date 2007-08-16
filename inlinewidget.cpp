@@ -10,7 +10,7 @@
 //
 //
 #include "inlinewidget.h"
-#include <QDebug>
+#include <QFont>
 
 /**
  * \brief Constructor

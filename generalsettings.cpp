@@ -23,11 +23,9 @@ GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(tr("Allgemeine E
 {
 	ui.setupUi(this);
 	hide();
-	connect ( ui.pbAddAdress, SIGNAL ( clicked() ), this, SLOT ( addAddress() ) );
-	connect ( ui.pbDeleteAdress, SIGNAL ( clicked() ), this, SLOT ( deleteAddress() ) );
 	
 	//set help
-	help = tr("Hier können Sie grundlegende Einstellungen rund um Simon verändern.\n\nDazu zählen: Pfade, Sicherheitsabfragen und Verbindungseinstellungen um zu Juliusd zu verbinden.\n\nEinstellungen in diesem Modul können kritisch für die Verwendung von simon sein.\n\nsimon verwendet für die Erkennung selbst die Open Source Spracherkennungs-engine \"Julius\".\nDie Verbindung zu Julius wird über das Netzwerk aufgebaut.\nDie Addresse zum Juliusd wird entweder mit einem Hostnamen oder einer direkten \"IP Adresse\" angegeben (4x3 stellige Netzwerksidentifikationsnummer - xxx.xxx.xxx.xxx)\nDie Port Nummer muss beim Juliusd und bei simon gleich sein.\nWenn das Häckchen \"Starte juliusd wenn nötig\" aktiviert ist, wird versucht juliusd lokal zu starten, sollte zu keinem laufenden Dämon verbunden werden können.");
+	help = tr("Hier können Sie grundlegende Einstellungen rund um Simon verändern.\n\nDazu zählen: Pfade und Sicherheitsabfragen.\n\nEinstellungen in diesem Modul können kritisch für die Verwendung von simon sein.\n\nWenn das Häckchen \"Starte juliusd wenn nötig\" aktiviert ist, wird versucht juliusd lokal zu starten, sollte zu keinem laufenden Dämon verbunden werden können.");
 }
 
 
@@ -42,9 +40,8 @@ bool GeneralSettings::apply()
 	Settings::set("SimonAutostart", ui.cbStartSimonOnBoot->isChecked());
 	Settings::set("StartJuliusdWhenRequired", ui.cbStartJuliusAsNeeded->isChecked());
 	Settings::set("AskBeforeExit", ui.cbAskBeforeExit->isChecked());
+	Settings::set("AutoConnect", ui.cbAutoConnect->isChecked());
 
-	//juliusd
-	Settings::set("Network/JuliusdAddress", ui.cbAddress->currentText());
 
 	//paths
 	Settings::set("PathToCommands", ui.leCommands->text());
@@ -79,10 +76,8 @@ bool GeneralSettings::init()
 	ui.cbStartSimonOnBoot->setChecked(Settings::get("SimonAutostart").toBool());
 	ui.cbStartJuliusAsNeeded->setChecked(Settings::get("StartJuliusdWhenRequired").toBool());
 	ui.cbAskBeforeExit->setChecked(Settings::get("AskBeforeExit").toBool());
+	ui.cbAutoConnect->setChecked(Settings::get("AutoConnect").toBool());
 
-	//juliusd
-	ui.cbAddress->clear();
-	ui.cbAddress->addItem(Settings::get("Network/JuliusdAddress").toString());
 
 	//paths
 	ui.leCommands->setText(Settings::get("PathToCommands").toString());
@@ -96,37 +91,6 @@ bool GeneralSettings::init()
 
 
 
-/**
- * \brief Deletes an address from the list
- * \author Peter Grasch
- */
-void GeneralSettings::deleteAddress()
-{
-	ui.cbAddress->removeItem ( ui.cbAddress->currentIndex() );
-}
-
-
-/**
- * \brief Adds an address to the list
- * \author Peter Grasch
- */
-void GeneralSettings::addAddress()
-{
-	QString host="";
-	QString port="";
-	bool ok=false;
-	host=QInputDialog::getText ( this, tr("Neue Adresse Hinzufügen"),tr("Host:"), QLineEdit::Normal,"localhost", &ok );
-	if ( ok && !host.isEmpty() )
-	{
-		ok=false;
-		port=QInputDialog::getText ( this, tr("Neue Adresse Hinzufügen"),tr("Portnummer:"), QLineEdit::Normal, "4444",&ok );
-		if ( ok )
-		{
-			if ( !port.isEmpty() ) ui.cbAddress->addItem ( host+":"+port );
-			else ui.cbAddress->addItem ( host+":4444" );
-		}
-	}
-}
 
 
 /**

@@ -23,6 +23,7 @@
 #include "logger.h"
 #include "logview.h"
 #include "externalprogrammanager.h"
+#include "networksettings.h"
 
 
 /**
@@ -35,6 +36,7 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
 	setupUi(this);
 	registerControl(new GeneralSettings(this));
 	registerControl(new SoundSettings(this));
+	registerControl(new NetworkSettings(this));
 	registerControl(new LogView(this));
 	registerControl(new ExternalProgramManager(this));
 	registerControl(new Revert(this));
@@ -42,7 +44,6 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
 	connect(selectControl, SIGNAL(currentRowChanged(int)), this, SLOT(displayId(int)));
 	connect(pbApply, SIGNAL(clicked()), this, SLOT(apply()));
 	connect(pbReset, SIGNAL(clicked()), this, SLOT(reset()));
-
 }
 
 /**
@@ -89,12 +90,9 @@ void SystemView::displayId(int id)
 	SystemWidget *sysWidget = dynamic_cast<SystemWidget*>(controls->widget(id));
 	if (!sysWidget) return;
 	
-// 	controls->widget(id)->setVisible(false); //old is hidden
-	
 	controls->setCurrentIndex(id);
 	
 	help->setText(sysWidget->getHelp());
-// 	sysWidget->setVisible(true);
 }
 
 /**

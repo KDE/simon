@@ -23,6 +23,7 @@
 #include <QFile>
 #include <QProcess>
 #include <QLabel>
+#include <QCoreApplication>
 #include <QVariant>
 #include "settings.h"
 
@@ -210,27 +211,29 @@ QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataF
 			return NULL;
 		}
 			
-		
-		if (!QProcess::execute(Settings::get("Programs/Audio/Resample").toString()
-				   +" -to 16000 "+dataFiles[i]+" "+newFileName))
+		int ret = QProcess::execute(Settings::get("Programs/Audio/Resample").toString()
+				+" -to 16000 "+dataFiles[i]+" "+newFileName);
+		if (ret)
 		{
 			//something went wrong
 			//resample always returns ERROR - crap
-			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 resamplen. Bitte ueberpruefen Sie ob Sie das Programm \"resample\" installiert haben und es im Suchpfad liegt und ob Sie all die noetigen Berechtigungen besitzen.").arg(dataFiles[i]).arg(newFileName));
+			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 resamplen. Bitte ueberpruefen Sie ob Sie das Programm \"resample\" installiert haben und es im Suchpfad liegt und ob Sie all die noetigen Berechtigungen besitzen. (Rückgabewert %3)").arg(dataFiles[i]).arg(newFileName).arg(ret));
 			return NULL;
 		}
 		prog += 5;
 		pbMain->setValue(prog);
-		if (!QProcess::execute(Settings::get("Programs/Audio/Normalize").toString()+
-				   " "+newFileName))
+		ret = QProcess::execute(Settings::get("Programs/Audio/Normalize").toString()+
+				   " "+newFileName);
+		if (ret)
 		{
 			//something went wrong
-			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 normalisieren. Bitte ueberpruefen Sie ob Sie das Programm \"resample\" installiert haben, der Pfad richtig eingestellt ist und ob Sie all die noetigen Berechtigungen besitzen.").arg(dataFiles[i]).arg(newFileName));
+			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 normalisieren. Bitte ueberpruefen Sie ob Sie das Programm \"resample\" installiert haben, der Pfad richtig eingestellt ist und ob Sie all die noetigen Berechtigungen besitzen. (Rückgabewert %3)").arg(dataFiles[i]).arg(newFileName).arg(ret));
 			return NULL;
 		}
 		*newFiles << newFileName;
 		prog += 3;
 		pbMain->setValue(prog);
+		QCoreApplication::processEvents();
 	}
 
 	pbMain->setValue(prog);

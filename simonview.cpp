@@ -122,11 +122,12 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QPalette p(palette());
 	p.setBrush(QPalette::Background, bg);
 	setPalette(p);
-	
-	ui.lbLogo->setPixmap(QPixmap(":/images/simon.png"));
 
-	this->info->writeToSplash(tr("Verbinde zu juliusd..."));
-	connectToServer();
+	if (Settings::get("AutoConnect").toBool())
+	{
+		this->info->writeToSplash(tr("Verbinde zu juliusd..."));
+		connectToServer();
+	}
 	
 	//hiding splash again after loading
 	this->info->hideSplash();
@@ -216,7 +217,6 @@ void  SimonView::resizeEvent(QResizeEvent *event)
 void SimonView::resizeMainButtonContentsToWindow()
 {
 	float newFontSize =  (int) round( ((float) buttonMover->height())/35.3f )+7;
-		//(((float) this->width()-309)/(float) 1000)*25;
 	int iconSize = (int) round((((float)buttonMover->height())/2.5f)/4+10);
 	QSize newIconSize = QSize(iconSize, iconSize);
 	setMainButtonsIconSize(newIconSize);
@@ -249,15 +249,11 @@ void SimonView::setMainButtonsFontSize(float fontSize)
  */
 void SimonView::connectToServer()
 {
-	QString juliusAddr = Settings::get("Network/JuliusdAddress").toString();
-	if (!(juliusAddr).isEmpty())
-	{
-           ui.pbConnect->setText("Verbinde...");
-	   ui.pbConnect->setEnabled(false);
-// 	   ui.frmConnecting->setVisible(true);
-	   this->control->activateSimon();
-	   this->control->connect(juliusAddr);
-    }
+	ui.pbConnect->setText("Verbinde...");
+	ui.pbConnect->setChecked(true);
+	disconnect(ui.pbConnect, 0,0,0);
+	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(abortConnecting()));
+	this->control->connectToJulius();
 }
 
 /**
@@ -267,12 +263,12 @@ void SimonView::connectToServer()
  */
 void SimonView::connected()
 {
-	ui.pbConnect->setText(tr("Verbindung trennen"));
+	ui.pbConnect->setText(tr("Verbunden"));
 	ui.pbConnect->setEnabled(true);
+	ui.pbActivision->setEnabled(true);
 	disconnect(ui.pbConnect, 0,0,0);
-	connect(ui.pbConnect, SIGNAL(clicked()), control, SLOT(disconnect()));
+	connect(ui.pbConnect, SIGNAL(clicked()), control, SLOT(disconnectFromJulius()));
 	
-// 	ui.frmConnecting->setVisible(false);
 	SimonInfo::showMessage(tr("Verbunden zu Julius"), 3000);
 	
 	this->control->getActivitionState();
@@ -287,7 +283,8 @@ void SimonView::connected()
 void SimonView::disconnected()
 {
 	ui.pbConnect->setText(tr("Verbinden"));
-	ui.pbConnect->setEnabled(true);
+	ui.pbActivision->setEnabled(false);
+	ui.pbConnect->setChecked(false);
 	disconnect(ui.pbConnect, 0,0,0);
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
 	
@@ -307,11 +304,9 @@ void SimonView::disconnected()
 void SimonView::abortConnecting()
 {
 	ui.pbConnect->setText(tr("Verbinden"));
-	ui.pbConnect->setEnabled(true);
+	ui.pbConnect->setChecked(false);
 	disconnect(ui.pbConnect, 0,0,0);
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
-	
-// 	ui.frmConnecting->setVisible(false);
 	
 	this->control->abortConnecting();
 	this->representState();
@@ -331,16 +326,14 @@ void SimonView::abortConnecting()
 void SimonView::errorConnecting(QString error)
 {
 	ui.pbConnect->setText(tr("Verbinden"));
-	ui.pbConnect->setEnabled(true);
+	ui.pbConnect->setChecked(false);
 	disconnect(ui.pbConnect, 0,0,0);
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
-	
-// 	ui.frmConnecting->setVisible(false);
 	
 	this->control->deactivateSimon();
 	this->representState();
 	
-	QMessageBox::critical(this, tr("Kritischer Verbindungsfehler"), tr("Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte Fehlermeldung lautete:\n")+error);
+	QMessageBox::critical(this, tr("Kritischer Verbindungsfehler"), tr("Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte(n) Fehlermeldung(en) lautete(n):\n")+error);
 	Logger::log(tr("[ERR] Verbindung zu juliusd fehlgeschlagen..."));
 }
 
@@ -369,11 +362,9 @@ void SimonView::showRunDialog(bool show)
 {
 	if (show)
 	{
-// 		this->runDialog->show();
 		inlineView->registerPage(runDialog);
 		ui.pbRunProgram->setChecked(true);
 	} else {
-// 		this->runDialog->hide();
 		inlineView->unRegisterPage(runDialog);
 		ui.pbRunProgram->setChecked(false);
 	}
@@ -406,12 +397,9 @@ void SimonView::showAddWordDialog(bool show)
 void SimonView::showSystemDialog(bool show)
 {
 	if (show) {
-// 		this->systemDialog->show();
-// 		inlineView->registerPage(new SoundSettings(this));
 		inlineView->registerPage(systemDialog);
 		ui.pbSettings->setChecked(true);
 	} else {
-// 		this->systemDialog->hide();
 		inlineView->unRegisterPage(systemDialog);
 		ui.pbSettings->setChecked(false);
 	}
@@ -427,11 +415,9 @@ void SimonView::showTrainDialog(bool show)
 	if (show) {
 		ui.pbTrain->setChecked(true);
 		inlineView->registerPage(trainDialog);
-// 		this->trainDialog->show();
 	} else {
 		ui.pbTrain->setChecked(false);
 		inlineView->unRegisterPage(trainDialog);
-// 		this->trainDialog->hide();
 	}
 }
 

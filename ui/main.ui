@@ -175,7 +175,7 @@
            <string/>
           </property>
           <property name="pixmap" >
-           <pixmap resource="../simon.qrc" >:/images/simon.png</pixmap>
+           <pixmap resource="../simon.qrc" >:/images/simon_d.png</pixmap>
           </property>
           <property name="scaledContents" >
            <bool>true</bool>
@@ -759,6 +759,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pbActivision" >
+          <property name="enabled" >
+           <bool>false</bool>
+          </property>
           <property name="minimumSize" >
            <size>
             <width>130</width>
@@ -769,10 +772,10 @@
            <string>De-/aktiviert das System</string>
           </property>
           <property name="text" >
-           <string>&amp;Deaktivieren</string>
+           <string>&amp;Aktivieren</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/media-playback-pause.svg</iconset>
+           <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
           </property>
           <property name="iconSize" >
            <size>
@@ -791,7 +794,7 @@
            </size>
           </property>
           <property name="toolTip" >
-           <string>De-/aktiviert das System</string>
+           <string>Verbinde zu Julius</string>
           </property>
           <property name="text" >
            <string>Verb&amp;inden</string>
@@ -804,6 +807,9 @@
             <width>32</width>
             <height>32</height>
            </size>
+          </property>
+          <property name="checkable" >
+           <bool>true</bool>
           </property>
          </widget>
         </item>

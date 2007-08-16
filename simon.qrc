@@ -16,10 +16,13 @@
         <file>images/icons/format-text-bold.svg</file>
         <file>images/icons/gnome-settings-sound.svg</file>
         <file>images/icons/go-bottom.svg</file>
+        <file>images/icons/go-down.svg</file>
         <file>images/icons/go-next.svg</file>
         <file>images/icons/go-previous.svg</file>
         <file>images/icons/go-up.svg</file>
         <file>images/icons/gtk-undo-ltr.svg</file>
+        <file>images/icons/list-add.svg</file>
+        <file>images/icons/list-remove.svg</file>
         <file>images/icons/media-playback-pause.svg</file>
         <file>images/icons/media-playback-start.svg</file>
         <file>images/icons/media-record.svg</file>

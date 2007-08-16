@@ -12,7 +12,9 @@
 #include "juliuscontrol.h"
 #include <QByteArray>
 #include <QTcpSocket>
-
+#include <QDebug>
+#include <QTimer>
+#include "settings.h"
 /**
  *	@brief Constructor
  *	
@@ -26,9 +28,12 @@
 JuliusControl::JuliusControl()
 {
 	socket = new QTcpSocket();
+	timeoutWatcher = new QTimer(this);
+	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
+			
 	connect(socket, SIGNAL(connected()), this, SLOT(connectedTo()));
-	connect(socket, SIGNAL(disconnected()), this, SLOT(connectionLost()));
 	connect(socket, SIGNAL(readyRead()), this, SLOT(recognised()));
+	connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(errorOccured()));
 }
 
 
@@ -47,13 +52,21 @@ JuliusControl::JuliusControl()
  */
 void JuliusControl::connectTo(QString server, quint16 port)
 {
-	socket->connectToHost( server, port );
-	
-	if (!(socket->waitForConnected(5000)))
-	{
-		emit error(socket->errorString());
-		return;
+	if (socket->state() != QAbstractSocket::UnconnectedState) {
+		 socket->abort();
 	}
+	
+	socket->connectToHost( server, port );
+	timeoutWatcher->start(Settings::get("Network/Timeout").toInt());
+	
+}
+
+void JuliusControl::errorOccured()
+{
+	if (timeoutWatcher->isActive())
+		timeoutWatcher->stop();
+	
+	emit error(socket->errorString());
 }
 
 /**
@@ -68,6 +81,14 @@ bool JuliusControl::isConnected()
 	if (!socket) return false;
 	
 	return (socket->state() == QAbstractSocket::ConnectedState);
+}
+
+
+void JuliusControl::timeoutReached()
+{
+	timeoutWatcher->stop();
+	emit error(tr("Zeitüberschreitung der Anforderung (%1 ms)").arg(Settings::get("Network/Timeout").toInt()));
+	socket->abort();
 }
 
 /**
@@ -88,10 +109,15 @@ void JuliusControl::recognised()
  *	
  *	@author Peter Grasch
  */
-void JuliusControl::disconnect()
+void JuliusControl::disconnectFromServer()
 {
-	this->socket->abort();
+	if (timeoutWatcher->isActive())
+		timeoutWatcher->stop();
+	
 	this->socket->disconnectFromHost();
+	if ((socket->state() != QAbstractSocket::UnconnectedState) &&
+		     (!socket->waitForDisconnected(1000)))
+		this->socket->abort();
 }
 
 /**
@@ -103,6 +129,7 @@ void JuliusControl::disconnect()
  */
 void JuliusControl::connectionLost()
 {
+	QObject::disconnect(socket, SIGNAL(disconnected()), this, SLOT(connectionLost()));
 	emit disconnected();
 }
 
@@ -115,7 +142,9 @@ void JuliusControl::connectionLost()
  */
 void JuliusControl::connectedTo()
 {
+	timeoutWatcher->stop();
 	emit connected();
+	connect(socket, SIGNAL(disconnected()), this, SLOT(connectionLost()));
 }
 
 /**
