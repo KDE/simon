@@ -13,6 +13,16 @@
 #define SELECTPROGRAMPAGE_H
 
 #include <QWizardPage>
+#include <QVariant>
+#include <QAction>
+#include <QApplication>
+#include <QButtonGroup>
+#include <QHBoxLayout>
+#include <QListWidget>
+#include <QPushButton>
+#include <QSpacerItem>
+#include <QVBoxLayout>
+#include <QWidget>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -30,6 +40,15 @@ public:
         SelectProgramPage(QWidget* parent);
 
         ~SelectProgramPage();
+
+
+        QVBoxLayout *vboxLayout;
+        QListWidget *lwCategories;
+        QListWidget *lwPrograms;
+        QHBoxLayout *hboxLayout;
+        QSpacerItem *spacerItem;
+        QPushButton *pbAbbrechen;
+        QPushButton *pbHinzufuegen;
 
 };
 

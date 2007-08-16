@@ -13,6 +13,10 @@
 #define IMPORTPROGRAMWIZARD_H
 
 #include <QWizard>
+#include "selectprogrampage.h"
+#include "configureprogrampage.h"
+#include "importprogrampage.h"
+#include "command.h"
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -26,6 +30,21 @@
  */
 class ImportProgramWizard : public QWizard
 {
+    Q_OBJECT
+		
+	public slots:
+		
+		void finish(int done);
+
+		QWizardPage* createIntroPage();
+		SelectProgramPage* createSelectProgramPage();
+        ConfigureProgramPage* createConfigureProgramPage();
+        ImportProgramPage* createImportProgramPage();
+        QWizardPage* createFinishedPage();
+    
+   // signals:
+     //   commandCreated(Command *command);
+    
 public:
         ImportProgramWizard(QWidget* parent, Qt::WindowFlags flags);
 

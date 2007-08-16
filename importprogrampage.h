@@ -31,7 +31,7 @@ public:
 
         ~ImportProgramPage();
 
-        bool isComplete() const;
+        virtual bool isComplete() const;
 
 };
 
