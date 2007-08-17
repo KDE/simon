@@ -52,6 +52,7 @@
 #include <QPushButton>
 #include <QGridLayout>
 #include "ui_main.h"
+#include "importprogramwizard.h"
 
 class QPoint;
 class QWidget;
@@ -107,6 +108,8 @@ private:
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
 	SystemView *systemDialog; //!< Pointer on the Dialog "System"
 	VuMeter *vuMeter; //!< Does the calculation of the current input "loudness" for the 2 bars in the mainwindow
+
+    ImportProgramWizard* ipwizard;  //todo delete!!!! just for testing
 	
 
 	#ifdef ANIMATIONS
@@ -159,9 +162,6 @@ public:
 	~SimonView();
 
 	void closeEvent ( QCloseEvent * event );
-	
-
-
 };
 
 #endif

@@ -14,9 +14,10 @@
 #include <QVBoxLayout>
 
 /**
+*   \brief constructor which creats the wizardpages
 *   @autor Susanne Tschernegg
 */
-ImportProgramWizard::ImportProgramWizard(QWidget* parent, Qt::WindowFlags flags): QWizard(parent, flags)
+ImportProgramWizard::ImportProgramWizard(QWidget* parent): QWizard(parent)
 {
     this->addPage(createIntroPage());
 	this->addPage(createSelectProgramPage());
@@ -27,11 +28,15 @@ ImportProgramWizard::ImportProgramWizard(QWidget* parent, Qt::WindowFlags flags)
 	setWindowTitle("Programm hinzufügen");
 }
 
-
+/**
+*   \brief destructor
+*   @autor Susanne Tschernegg
+*/
 ImportProgramWizard::~ImportProgramWizard()
 {}
 
 /**
+*   \brief Creates the intro page
 *   @autor Susanne Tschernegg
 */
 QWizardPage* ImportProgramWizard::createIntroPage()
@@ -48,6 +53,7 @@ QWizardPage* ImportProgramWizard::createIntroPage()
 }
 
 /**
+*   \brief creates the selectprogrampage
 *   @autor Susanne Tschernegg
 */
 SelectProgramPage* ImportProgramWizard::createSelectProgramPage()
@@ -56,6 +62,7 @@ SelectProgramPage* ImportProgramWizard::createSelectProgramPage()
 }
 
 /**
+*   \brief creates the configureprogrampage
 *   @autor Susanne Tschernegg
 */
 ConfigureProgramPage* ImportProgramWizard::createConfigureProgramPage()
@@ -64,6 +71,7 @@ ConfigureProgramPage* ImportProgramWizard::createConfigureProgramPage()
 }
 
 /**
+*   \brief creates the importprogrampage
 *   @autor Susanne Tschernegg
 */
 ImportProgramPage* ImportProgramWizard::createImportProgramPage()
@@ -72,6 +80,7 @@ ImportProgramPage* ImportProgramWizard::createImportProgramPage()
 }
 
 /**
+*   \brief creates the last page
 *   @autor Susanne Tschernegg
 */
 QWizardPage* ImportProgramWizard::createFinishedPage()

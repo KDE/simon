@@ -48,6 +48,7 @@
 */
 SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 {
+    ipwizard->show();
 	if (!Logger::init())
 	{
 		QMessageBox::critical(this, tr("Fehler"), tr("Konnte die Log-Datei nicht öffnen. Bitte überprüfen Sie die Berechtigungen.."));
@@ -79,6 +80,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	inlineView->setSizePolicy(pol);
 	
 
+    //this->ipwizard = new ImportProgramWizard(this);  //todo delete!! just for testing
 	//Preloads all Dialogs
 	this->info->writeToSplash(tr("Lade \"Wort hinzufühgen\"..."));
 	this->addWordView = new AddWordView(this);
@@ -381,7 +383,8 @@ void SimonView::showAddWordDialog(bool show)
 	if (show)
 	{
 		this->addWordView->show();
-		ui.pbAddWord->setChecked(true);
+        //this->ipwizard->show();
+		ui.pbaddWord->setChecked(true);
 	} else 
 	{
 		this->addWordView->hide();

@@ -38,9 +38,7 @@ class SelectProgramPage : public QWizardPage
 {
 public:
         SelectProgramPage(QWidget* parent);
-
         ~SelectProgramPage();
-
 
         QVBoxLayout *vboxLayout;
         QListWidget *lwCategories;
@@ -49,7 +47,6 @@ public:
         QSpacerItem *spacerItem;
         QPushButton *pbAbbrechen;
         QPushButton *pbHinzufuegen;
-
 };
 
 #endif

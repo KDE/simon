@@ -12,6 +12,10 @@
 #include "selectprogrampage.h"
 
 /**
+*   \brief Constructor
+            Creates the wizardpage, where you can select a special categorie (audio, büroprogramme, etc.).
+            To this categorie you get a list of programs, which provides standardformats of this categorie.
+*
 *   @autor Susanne Tschernegg
 */
 

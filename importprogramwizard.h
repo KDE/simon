@@ -48,7 +48,7 @@ class ImportProgramWizard : public QWizard
      //   commandCreated(Command *command);
     
 public:
-        ImportProgramWizard(QWidget* parent, Qt::WindowFlags flags);
+        ImportProgramWizard(QWidget* parent=0);
 
         ~ImportProgramWizard();
 
