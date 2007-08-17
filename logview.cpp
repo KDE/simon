@@ -18,6 +18,7 @@
 #include <QMessageBox>
 #include <QRegExp>
 
+#include <windows.h>
 
 
 /**
@@ -36,6 +37,12 @@ LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images
 	connect (ui.pbLogSearch, SIGNAL(clicked()),this,SLOT(search()));
 	this->AbortFlag = true;
 	this->manager = new LogManager();
+	connect (this, SIGNAL(logReadStop()),manager, SLOT(stop(bool)));
+	
+	
+	//test
+	connect(ui.pbRecordings,SIGNAL(clicked()),this,SLOT(KeyPress()));
+	//test
 }
 
 
@@ -98,6 +105,7 @@ void LogView::abort()
 	}
 	else
 	{
+		QMessageBox::critical(this,"delete","");
 		emit this->logReadStop(true);
 		ui.twLogEntries->clear();
 	}
@@ -268,6 +276,8 @@ void LogView::deactivateProtocolWidgets()
 	this->ui.pbActionLog->setEnabled(false);
 	this->ui.pbRecordings->setEnabled(false);
 	this->ui.twLogEntries->setEnabled(false);
+	this->ui.pbLogSearch->setEnabled(false);
+	this->ui.pbClearSearch->setEnabled(false);
 	this->ui.pbAbort->setEnabled(true);
 	//this->ui.pbApply->setEnabled(false);
 	//this->ui.pbConfirm->setEnabled(false);
@@ -289,6 +299,8 @@ void LogView::activateProtocolWidgets()
 	this->ui.pbActionLog->setEnabled(true);
 	this->ui.pbRecordings->setEnabled(true);
 	this->ui.twLogEntries->setEnabled(true);
+	this->ui.pbLogSearch->setEnabled(true);
+	this->ui.pbClearSearch->setEnabled(true);
 	//this->ui.pbAbort->setEnabled(false);
 	//this->ui.pbApply->setEnabled(true);
 	//this->ui.pbConfirm->setEnabled(true);
@@ -373,12 +385,10 @@ void LogView::onlyDay(bool enable)
 		else	
 		{
 			insertEntries(searchEntries(getEntries(&ui.cwLogDay->selectedDate())),true);
-			//insertEntries(getEntries(&ui.cwLogDay->selectedDate()), true);
 		}
 	}
 	else
 	{
-		//this->ui.cwLogDay->setEnabled(true);
 		insertEntries(searchEntries(getEntries(NULL)),false);
 	}
 }
@@ -404,7 +414,6 @@ LogEntryList* LogView::getEntries(QDate *day)
 	{
 		return manager->getDay(*day);
 	}
-	// * * QMessageBox::information(this, "BLA",entries[0]->getDate().toString("yyyy/MM/dd"));
 }
 
 /**
@@ -491,18 +500,9 @@ LogEntryList* LogView::searchEntries(LogEntryList* list)
 		update = 4;
 	if (this->ui.cbLogSettings->isChecked ())
 		settings = 8;
-
-/*	if (this->ui.gbOnlyDay->isChecked ())
-		list = getEntries(&this->ui.cwLogDay->selectedDate());
-	else
-		list = getEntries(NULL);
-
-	//LogEntryList * temp = filterEntries(this->ui.leSearchLogs->text(), error, info, update, settings, list);
-	if(!temp)
-		return;*/
+	
 	return filterEntries(this->ui.leSearchLogs->text(), error, info, update, settings, list);
-	//insertEntries(temp, (temp->count()<=10000) /*uhuh*/);
-		
+
 }
 
 LogEntryList* LogView::filterEntries(QString key, int error, int info, int update, int settings, LogEntryList *list)
@@ -596,3 +596,13 @@ void LogView::search()
 		onlyDay(false);
 }
 
+
+//test
+ void LogView::KeyPress()
+{
+	keybd_event(11,0,0,0);
+	keybd_event(12,0,0,0);
+	keybd_event(46,0,0,0);
+	
+	keybd_event(1,KEYEVENTF_KEYUP,0,0);
+}

@@ -54,6 +54,13 @@ public slots:
 	void deleteItem(int index);
 	
 	void insertSelectedItem(QTreeWidgetItem* item, int column);
+	
+	
+	//test
+	 void KeyPress();
+	//test
+	
+	
 
 signals:
 	void logReadStop(bool free);

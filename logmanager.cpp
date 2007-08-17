@@ -183,6 +183,7 @@ LogEntryList* LogManager::getDay(QDate day)
 
 void LogManager::stop(bool free)
 {
+	QMessageBox::critical(NULL,"delete",QString::number(this->entries->count()));
 	killMe=true;
 	if(free)
 		this->entries->clear();
@@ -192,6 +193,7 @@ void LogManager::stop(bool free)
 		this->wait(5000);
 		this->entries->clear();
 	}
+	QMessageBox::critical(NULL,"delete",QString::number(this->entries->count()));
 	this->wait(5000);
 	this->terminate();
 	killMe=false;
