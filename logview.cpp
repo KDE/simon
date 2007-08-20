@@ -35,12 +35,8 @@ LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images
 	connect (ui.pbLogSearch, SIGNAL(clicked()),this,SLOT(search()));
 	this->AbortFlag = true;
 	this->manager = new LogManager();
-	connect (this, SIGNAL(logReadStop()),manager, SLOT(stop(bool)));
+	connect (this, SIGNAL(logReadStop(bool)),manager, SLOT(stop(bool)));
 	
-	
-	//test
-	connect(ui.pbRecordings,SIGNAL(clicked()),this,SLOT(KeyPress()));
-	//test
 }
 
 
@@ -626,25 +622,4 @@ void LogView::search()
 		onlyDay(true);
 	else
 		onlyDay(false);
-}
-
-
-//test
- void LogView::KeyPress()
-{
-	this->ui.leSearchLogs->setFocus ();
-
-	keybd_event(VK_MENU,0,0,0);
-	keybd_event(VK_F4,0,0,0);
-	
-	
-	keybd_event(66,0,0,0);
-	keybd_event(67,0,0,0);
-	keybd_event(68,0,0,0);
-	keybd_event(VK_TAB,0,0,0);
-	
-	//keybd_event(12,0,0,0);
-	//keybd_event(46,0,0,0);
-	
-	
 }

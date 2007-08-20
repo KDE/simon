@@ -33,6 +33,8 @@
 #include "systemview.h"
 #include "settings.h"
 #include <QMessageBox>
+#include <QDir>
+#include <QDebug>
 
 /**
  * @brief Constructor
@@ -49,6 +51,7 @@
 */
 SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 {
+	QDir::setCurrent(QCoreApplication::applicationDirPath()+"/..");
 	if (!Logger::init())
 	{
 		QMessageBox::critical(this, tr("Fehler"), tr("Konnte die Log-Datei nicht öffnen. Bitte überprüfen Sie die Berechtigungen.."));

@@ -72,7 +72,10 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 
     vboxLayout->addLayout(hboxLayout);
     
+//init platform dependant backends
+#ifdef __WIN32
     regMan = new RegistryManager();
+#endif
     
     //connect(lwCategories, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(test()));
     connect(lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
@@ -81,6 +84,7 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 
 void SelectProgramPage::searchForPrograms()
 {
+#ifdef __WIN32
     //zuerst die endungen suchen und dann schauen, ob es ein openwithlist gibt ... dann noch mal oben schauen, welcher perceivedtype, etc. es ist
     QMessageBox::information(this, "susitest", "bin im searchForPrograms");
     QListWidgetItem *item = lwCategories->currentItem();
@@ -95,16 +99,21 @@ void SelectProgramPage::searchForPrograms()
         lwItem = new QListWidgetItem(lwPrograms);
         lwItem->setText(progList->at(i));
     }
+#endif
 }
 
 QStringList* SelectProgramPage::getAllFormats()
 {
-    QStringList* formatList = this->regMan->getAllFormats("image");
+	QStringList* formatList = new QStringList();
+#ifdef __WIN32
+    formatList = this->regMan->getAllFormats("image");
     QString allFormats;
     for(int i=0; i<formatList->count(); i++)
     {
        allFormats += formatList->at(i);
     }
+#endif
+	return formatList;
 }
 
 SelectProgramPage::~SelectProgramPage()
