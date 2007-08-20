@@ -79,7 +79,8 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	pol.setVerticalStretch(1);
 	inlineView->setSizePolicy(pol);
 	
-    this->ipwizard = new ImportProgramWizard();  //todo delete!! just for testing
+	this->ipwizard = new ImportProgramWizard();  //todo delete!! just for testing
+
 	//Preloads all Dialogs
 	this->info->writeToSplash(tr("Lade \"Wort hinzufühgen\"..."));
 	this->addWordView = new AddWordView(this);
@@ -380,8 +381,8 @@ void SimonView::showAddWordDialog(bool show)
 {
 	if (show)
 	{
-		//this->addWordView->show();
-        this->ipwizard->show(); //todo delete !! just for testing
+		//this->addWordView->show()
+        	this->ipwizard->show(); //todo delete !! just for testing
 		//ui.pbaddWord->setChecked(true);
 	} else 
 	{

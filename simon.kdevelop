@@ -91,7 +91,7 @@
   </kdevdebugger>
   <kdevtrollproject>
     <run>
-      <mainprogram>/home/bedahr/simon/speech2text/trunk/bin/simon</mainprogram>
+      <mainprogram></mainprogram>
       <programargs></programargs>
       <directoryradio>executable</directoryradio>
       <customdirectory>/</customdirectory>
@@ -102,7 +102,7 @@
       <autokdesu>false</autokdesu>
       <globaldebugarguments></globaldebugarguments>
       <globalcwd>..</globalcwd>
-      <useglobalprogram>true</useglobalprogram>
+      <useglobalprogram>false</useglobalprogram>
       <runarguments>
         <simon/>
       </runarguments>
@@ -201,7 +201,7 @@
       <includestyle>4</includestyle>
       <designerintegration>ExternalDesigner</designerintegration>
       <qmake>/usr/bin/qmake</qmake>
-      <designer>/usr/bin/designer-qt4</designer>
+      <designer>/usr/bin/designer</designer>
       <designerpluginpaths/>
     </qt>
     <creategettersetter>

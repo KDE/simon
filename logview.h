@@ -55,10 +55,6 @@ public slots:
 	void insertSelectedItem(QTreeWidgetItem* item, int column);
 	
 	
-	//test
-	 void KeyPress();
-	//test
-	
 	
 
 signals:

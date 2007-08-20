@@ -18,8 +18,6 @@
 #include <QMessageBox>
 #include <QRegExp>
 
-#include <windows.h>
-
 
 /**
  * \brief Constrictor
