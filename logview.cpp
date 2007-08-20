@@ -17,6 +17,7 @@
 #include <QCoreApplication>
 #include <QMessageBox>
 #include <QRegExp>
+#include <QDebug>
 
 
 /**
@@ -160,104 +161,122 @@ bool LogView::reset()
 
 
 /**
- * \brief inserts a selected Item into the QTreeWidget
+ * \brief inserts a selected item into the QTreeWidget
  * clears all items in the QTreeWidget that have childs and that are not the same as the currentItem
- * if the selected item is the already filled item, the methode expands or collabses the childs
- * if the selected item is not the already filled item, the methode reads out the childs and save it into the TreeWidget
+ * if the selected item is the already filled item, the methode expands or collapses the childs
+ * if the selected item is not the already filled item, the methode reads out the childs and saves them into the TreeWidget
  * 
  * \author Phillip Goriup
- * @param item: links to the memory of the selected Item
+ * @param item links to the memory of the selected Item
  * 	      column: is the index of the clicked column of the item 
  */
 void LogView::insertSelectedItem(QTreeWidgetItem* item, int column)
 {	
-	
+// 	if ((item) && (it
 	int index = this->ui.twLogEntries->indexOfTopLevelItem(item);
 	if ((column == 0) && (!item->parent()))
 	{
 		this->ui.pbAbort->setText("Abbrechen");
 		this->AbortFlag = true;
 	
-		int i = 0;
-		QTreeWidgetItem *temp = new QTreeWidgetItem();
-		QTreeWidgetItem *garbage = new QTreeWidgetItem();
 		deactivateProtocolWidgets();
 		this->ui.pbAbort->setEnabled(false);
-		QCoreApplication::processEvents();
 		ui.lbLogLoad->setText(tr("Füge Einträge ein..."));
-		while (i<this->ui.twLogEntries->topLevelItemCount ())
-		{			
-			if (!this->ui.twLogEntries->topLevelItem(i)->childCount () == 0  && ui.twLogEntries->topLevelItem(i)->text(0) != item->text(0))
-			{	
-				garbage = this->ui.twLogEntries->takeTopLevelItem(i);
-				temp->setText(0,garbage->text (0));
-				this->ui.twLogEntries->insertTopLevelItem (i, temp) ;
-				this->ui.twLogEntries->setCurrentItem(temp);
-				delete garbage;
-			}
-			i++;
+		QCoreApplication::processEvents();
+		int i = 0;
+
+// 		QTreeWidgetItem *garbage = new QTreeWidgetItem();
+// 		while (i<this->ui.twLogEntries->topLevelItemCount ())
+// 		{
+// 			if (!this->ui.twLogEntries->topLevelItem(i)->childCount () == 0  && ui.twLogEntries->topLevelItem(i) != item)
+// 			{
+// 				garbage = this->ui.twLogEntries->takeTopLevelItem(i);
+// 				this->ui.twLogEntries->insertTopLevelItem (i, new QTreeWidgetItem(ui.twLogEntries, 
+// 						QStringList() << garbage->text(0))) ;
+// 				delete garbage;
+// 			}
+// 			i++;
+// 		}
+		//remove childs from all toplevelitems
+		for (int i=0; i < ui.twLogEntries->topLevelItemCount(); i++)
+		{
+// 			QList<QTreeWidgetItem*> childs = ui.twLogEntries->
 		}
+
+
 		this->ui.pbAbort->setEnabled(true);
 		
 		QDate day = QDate::fromString(item->text(0),"yyyy/MM/dd");
-		LogEntryList *entries  = searchEntries(manager->getDay(day));
-		if (entries->count() != 0)
-		{	
-			if (item->childCount () == 0)
-			{
-				deleteItem(index);
-				insertChilds(entries, item, index);
-			}
-			else
-			{	
-				if (this->ui.twLogEntries->isItemExpanded ( item))
-				{
-					this->ui.twLogEntries->collapseItem(item);
-					if (entries->count() != this->ui.twLogEntries->topLevelItem(index)->childCount ())
-					{
-						deleteItem(index);
-						insertChilds(entries, item, index);
-					}
-				}
-				else
-				{	
-					this->ui.twLogEntries->expandItem(item);
-					if (entries->count() != this->ui.twLogEntries->topLevelItem(index)->childCount ())
-					{
-						deleteItem(index);
-						insertChilds(entries, item, index);
-					}
-					
-				}
-			}
-		}
-		else
-		{
-			QString str = this->ui.twLogEntries->topLevelItem(index)->text(0);
-			deleteItem(index);
-			QTreeWidgetItem *temp = new QTreeWidgetItem();
-			temp->setText(0,str);
-			this->ui.twLogEntries->insertTopLevelItem ( index, temp);
-			this->ui.lbLogLoad->setText("Keine Einträge gefunden");
-			this->ui.twLogEntries->setCurrentItem(this->ui.twLogEntries->topLevelItem(index));
-		}
+		LogEntryList *temp = manager->getDay(day);
+		LogEntryList *entries  = searchEntries(temp);
+		delete entries;
+		delete temp;
+		
+
+
+
+
+// 		if (entries->count() != 0)
+// 		{	
+// 			if (item->childCount () == 0)
+// 			{
+// 				deleteItem(index);
+// 				insertChilds(entries, item, index);
+// 			}
+// 			else
+// 			{	
+// 				if (this->ui.twLogEntries->isItemExpanded ( item))
+// 				{
+// 					this->ui.twLogEntries->collapseItem(item);
+// 					if (entries->count() != this->ui.twLogEntries->topLevelItem(index)->childCount ())
+// 					{
+// 						deleteItem(index);
+// 						insertChilds(entries, item, index);
+// 					}
+// 				}
+// 				else
+// 				{	
+// 					this->ui.twLogEntries->expandItem(item);
+// 					if (entries->count() != this->ui.twLogEntries->topLevelItem(index)->childCount ())
+// 					{
+// 						deleteItem(index);
+// 						insertChilds(entries, item, index);
+// 					}
+// 					
+// 				}
+// 			}
+// 		}
+// 		else
+// 		{
+// 			QString str = this->ui.twLogEntries->topLevelItem(index)->text(0);
+// 			deleteItem(index);
+// 			QTreeWidgetItem *temp = new QTreeWidgetItem();
+// 			temp->setText(0,str);
+// 			this->ui.twLogEntries->insertTopLevelItem ( index, temp);
+// 			this->ui.lbLogLoad->setText("Keine Einträge gefunden");
+// 			this->ui.twLogEntries->setCurrentItem(this->ui.twLogEntries->topLevelItem(index));
+// 		}
+
+
+
+
 		ui.pbLogLoad->setMaximum(100);
 		ui.pbLogLoad->setValue(ui.pbLogLoad->maximum());
-		//delete(entries);
+// 		delete(entries);
 		ui.pbAbort->setText("Reload");
 		this->AbortFlag = false;
 		activateProtocolWidgets();
-	}		
+	}
 }
 
 /**
  * \brief deletes a item in the TreeWidget
  *
  * \author Phillip Goriup
- * @param index: the index of the item that should be deleted
+ * @param index the index of the item that should be deleted
  */
 void LogView::deleteItem(int index)
-{
+{ 
 	QTreeWidgetItem *garbage = new QTreeWidgetItem() ;
 	garbage = this->ui.twLogEntries->takeTopLevelItem (index); 
 	delete garbage;
@@ -287,8 +306,6 @@ void LogView::deactivateProtocolWidgets()
 	this->ui.pbLogSearch->setEnabled(false);
 	this->ui.pbClearSearch->setEnabled(false);
 	this->ui.pbAbort->setEnabled(true);
-	//this->ui.pbApply->setEnabled(false);
-	//this->ui.pbConfirm->setEnabled(false);
 }
 
 /**
@@ -309,9 +326,6 @@ void LogView::activateProtocolWidgets()
 	this->ui.twLogEntries->setEnabled(true);
 	this->ui.pbLogSearch->setEnabled(true);
 	this->ui.pbClearSearch->setEnabled(true);
-	//this->ui.pbAbort->setEnabled(false);
-	//this->ui.pbApply->setEnabled(true);
-	//this->ui.pbConfirm->setEnabled(true);
 }
 
 /**
@@ -351,7 +365,7 @@ void LogView::logReadFinished(int value)
 		ui.pbLogLoad->setMaximum(100);
 		ui.pbLogLoad->setValue(100);
 		disconnect(manager,SIGNAL(logReadFinished(int)),this,SLOT(logReadFinished(int)));
-		insertEntries(searchEntries(getEntries(NULL)),NULL);
+		insertEntries(searchEntries(getEntries(QDate())),NULL);
 	}
 }
 
@@ -368,7 +382,7 @@ void LogView::onlyDay(bool enable)
 	this->AbortFlag = true;
 	if(enable)
 	{
-		if (getEntries(&ui.cwLogDay->selectedDate())->count() ==0)
+		if (getEntries(ui.cwLogDay->selectedDate())->count() ==0)
 		{
 			this->ui.pbAbort->setText("Reload");
 			this->AbortFlag = false;
@@ -378,12 +392,14 @@ void LogView::onlyDay(bool enable)
 		}
 		else	
 		{
-			insertEntries(searchEntries(getEntries(&ui.cwLogDay->selectedDate())),true);
+			LogEntryList *temp = getEntries(ui.cwLogDay->selectedDate());
+			insertEntries(searchEntries(temp),true);
+			delete temp;
 		}
 	}
 	else
 	{
-		insertEntries(searchEntries(getEntries(NULL)),false);
+		insertEntries(searchEntries(getEntries(QDate())),false);
 	}
 }
 
@@ -391,23 +407,23 @@ void LogView::onlyDay(bool enable)
  * \brief returns a vector of entries
  *
  * \author Phillip Goriup
- * @param day: the day that should be returned
+ * @param day the day that should be returned
  *             if its NULL, all entries returns
  */
-LogEntryList* LogView::getEntries(QDate *day)
+LogEntryList* LogView::getEntries(QDate day)
 {	
 	
 	ui.pbLogLoad->setMaximum(0);
 	ui.lbLogLoad->setText(tr("Lade Einträge..."));
 	QCoreApplication::processEvents();
 	ui.twLogEntries->clear();
-	if(day == NULL)
+	if(day.isNull())
 	{
 		return manager->getAll();
 	}
 	else
 	{
-		return manager->getDay(*day);
+		return manager->getDay(day);
 	}
 }
 
@@ -424,7 +440,7 @@ void LogView::insertEntries(LogEntryList* entries, bool day)
 	this->ui.twLogEntries->clear();
 	QDate currentdate; 
 	int i = 0;
-	QTreeWidgetItem *item = new QTreeWidgetItem();
+	QTreeWidgetItem *item = 0;
 	
 	ui.pbLogLoad->setMaximum(entries->count());
 	ui.lbLogLoad->setText(tr("Füge Einträge ein..."));
@@ -487,8 +503,10 @@ LogEntryList* LogView::searchEntries(LogEntryList* list)
 	int update = 0;
 	int settings = 0;
 	QDate date;
+
 	if(!list)
-		list = new LogEntryList;
+		return new LogEntryList;
+
 	this->LogFlag = true;
 	ui.pbAbort->setText("Abbrechen");
 	this->AbortFlag = true;
@@ -504,7 +522,8 @@ LogEntryList* LogView::searchEntries(LogEntryList* list)
 	if (this->ui.cbLogSettings->isChecked ())
 		settings = 8;
 	
-	return filterEntries(this->ui.leSearchLogs->text(), error, info, update, settings, list);
+
+	return filterEntries(this->ui.leSearchLogs->text(), (error|info|update|settings), list);
 
 }
 
@@ -519,15 +538,14 @@ LogEntryList* LogView::searchEntries(LogEntryList* list)
  *             settings: decides if only settings should be taken
  *             list: the list that should filtered
  */
-LogEntryList* LogView::filterEntries(QString key, int error, int info, int update, int settings, LogEntryList *list)
+LogEntryList* LogView::filterEntries(QString key, int categories, LogEntryList *list)
 {
 	int i = 0;
  	LogEntryList *FoundEntries = new LogEntryList;
-	int searchParameter = (error | info | update | settings);
 	while (i<list->count())
 	{
-		if (((searchParameter == 0) ||  /* If there is no selection made (we want to include everything)... */
-			((searchParameter & list->at(i).getType()) != 0)) && (list->at(i).getMessage().contains(key.toLatin1())))
+		if (((categories == 0) ||  /* If there is no selection made (we want to include everything)... */
+			((categories & list->at(i).getType()) != 0)) && (list->at(i).getMessage().contains(key.toLatin1())))
 					//OR our search parameters include the type of the current entry...
 		{
 			FoundEntries->append(list->at(i));	//we add it to our found list

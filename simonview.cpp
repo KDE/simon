@@ -384,9 +384,9 @@ void SimonView::showAddWordDialog(bool show)
 {
 	if (show)
 	{
-		//this->addWordView->show()
-        	this->ipwizard->show(); //todo delete !! just for testing
-		//ui.pbaddWord->setChecked(true);
+		this->addWordView->show();
+//         	this->ipwizard->show(); //todo delete !! just for testing
+		ui.pbAddWord->setChecked(true);
 	} else 
 	{
 		this->addWordView->hide();

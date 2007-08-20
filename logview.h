@@ -38,7 +38,7 @@ public slots:
 	bool reset();
 
 	void insertEntries(LogEntryList *entries, bool day);
-	LogEntryList*  getEntries(QDate *day);
+	LogEntryList*  getEntries(QDate day);
 	void onlyDay(bool enable = true);
 	
 	void changeLogReadFlag(bool b){this->LogFlag =b;}
@@ -49,7 +49,7 @@ public slots:
 	void search();
 	LogEntryList* searchEntries(LogEntryList* list);
 	void insertChilds(LogEntryList* entries, QTreeWidgetItem* item, int index);
-	LogEntryList* filterEntries(QString key, int error, int info, int update, int settings, LogEntryList * list);
+	LogEntryList* filterEntries(QString key, int categories, LogEntryList * list);
 	void deleteItem(int index);
 	
 	void insertSelectedItem(QTreeWidgetItem* item, int column);

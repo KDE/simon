@@ -3,7 +3,7 @@
 # Subdir relative project main directory: .
 # Target is an application:  ./bin/simon
 
-unix{
+unix {
     HEADERS += runlinuxbackend.h xevents.h  
     SOURCES += xevents.cpp runlinuxbackend.cpp
     CONFIG += x11
@@ -19,7 +19,7 @@ unix{
 	-lpthread
 }
 
-win32{
+win32 {
     HEADERS += runwindowsbackend.h
     SOURCES += runwindowsbackend.cpp
     DEFINES += __WINDOWS_DS__
@@ -117,7 +117,8 @@ importtrainingdirectoryworkingpage.h \
            importprogramwizard.h \
            selectprogrampage.h \
            configureprogrampage.h \
-           importprogrampage.h
+           importprogrampage.h \
+ commandsettings.h
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -191,7 +192,8 @@ SOURCES += main.cpp \
            importprogramwizard.cpp \
            selectprogrampage.cpp \
            configureprogrampage.cpp \
-           importprogrampage.cpp
+           importprogrampage.cpp \
+ commandsettings.cpp
 QT += network \
 xml 
 

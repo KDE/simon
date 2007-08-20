@@ -212,7 +212,7 @@ QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataF
 		}
 			
 		int ret = QProcess::execute(Settings::get("Programs/Audio/Resample").toString()
-				+" -to 16000 "+dataFiles[i]+" "+newFileName);
+				+" "+dataFiles[i]+" -w -r 16000  "+newFileName + " resample");
 		if (ret)
 		{
 			//something went wrong
