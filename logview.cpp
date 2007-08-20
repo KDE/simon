@@ -22,7 +22,7 @@
 
 
 /**
- * \brief 
+ * \brief Constrictor
  *
  * \author Phillip Goriup
  */
@@ -47,18 +47,29 @@ LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images
 
 
 /**
- * \brief 
+ * \brief starts the logreading
+ * this methode is called on entering the Protocol tab
  *
  * \author Phillip Goriup
  */
 void LogView::enter()
 {
-	switchToProtocols();
+	if (!this->manager->readLog())
+	{		
+		QMessageBox::critical(this,tr("Fehler beim Auslesen des Logs"),tr("Beim Auslesen der Logdatei ist ein Fehler aufgetreten.\n\nÜberprüfen Sie ob Sie die benötigten Berechtigugnen besitzen."));
+	}
+	else
+	{
+		startLogRead();
+	}
 }
 
 /**
- * \brief 
- *
+ * \brief Handling Methode from the Button Abort/Reload
+ * handles the Button Abort/Reload and starts required  methods
+ * Abort: aborts the loading of the Logfile and the loading of the TreeWidgetItems
+ * Reload: reloads the Logfile or the TreeWidgetItems
+ * 
  * \author Phillip Goriup
  */
 void LogView::abort()
@@ -109,18 +120,10 @@ void LogView::abort()
 		emit this->logReadStop(true);
 		ui.twLogEntries->clear();
 	}
-	
-	/*if (ui.gbOnlyDay->isChecked())
-	{
-		//disconnect (ui.gbOnlyDay, SIGNAL (stateChanged(bool)), this, SLOT (onlyDay(bool)));
-		ui.gbOnlyDay->setChecked(false);
-		//ui.cwLogDay->setEnabled( false );
-		//connect (ui.cbOnlyDay, SIGNAL (stateChanged(int)), this, SLOT (onlyDay()));
-	}*/
 }
 
 /**
- * \brief 
+ * \brief destructor
  *
  * \author Phillip Goriup
  */
@@ -132,7 +135,7 @@ LogView::~LogView()
 /**
  * \brief 
  *
- * \author Phillip Goriup
+ * \author Peter Grasch
  */
 bool LogView::apply()
 {
@@ -142,7 +145,7 @@ bool LogView::apply()
 /**
  * \brief 
  *
- * \author Phillip Goriup
+ * \author Peter Grasch
  */
 bool LogView::init()
 {
@@ -154,7 +157,7 @@ bool LogView::init()
 /**
  * \brief 
  *
- * \author Phillip Goriup
+ * \author Peter Grasch
  */
 bool LogView::reset()
 {
@@ -163,9 +166,14 @@ bool LogView::reset()
 
 
 /**
- * \brief 
- *
+ * \brief inserts a selected Item into the QTreeWidget
+ * clears all items in the QTreeWidget that have childs and that are not the same as the currentItem
+ * if the selected item is the already filled item, the methode expands or collabses the childs
+ * if the selected item is not the already filled item, the methode reads out the childs and save it into the TreeWidget
+ * 
  * \author Phillip Goriup
+ * @param item: links to the memory of the selected Item
+ * 	      column: is the index of the clicked column of the item 
  */
 void LogView::insertSelectedItem(QTreeWidgetItem* item, int column)
 {	
@@ -248,6 +256,12 @@ void LogView::insertSelectedItem(QTreeWidgetItem* item, int column)
 	}		
 }
 
+/**
+ * \brief deletes a item in the TreeWidget
+ *
+ * \author Phillip Goriup
+ * @param index: the index of the item that should be deleted
+ */
 void LogView::deleteItem(int index)
 {
 	QTreeWidgetItem *garbage = new QTreeWidgetItem() ;
@@ -260,7 +274,7 @@ void LogView::deleteItem(int index)
 }
 
 /**
- * \brief 
+ * \brief deactivates the ProtocolWidgets while loading the log or the TreeWidgetItems
  *
  * \author Phillip Goriup
  */
@@ -284,7 +298,7 @@ void LogView::deactivateProtocolWidgets()
 }
 
 /**
- * \brief 
+ * \brief activates the ProtocolWidgets while loading the log or the TreeWidgetItems
  *
  * \author Phillip Goriup
  */
@@ -307,24 +321,10 @@ void LogView::activateProtocolWidgets()
 }
 
 /**
- * \brief 
+ * \brief starts the Read from the Logfile
  *
  * \author Phillip Goriup
  */
-void LogView::switchToProtocols()
-{
-	if (!this->manager->readLog())
-	{		
-		QMessageBox::critical(this,tr("Fehler beim Auslesen des Logs"),tr("Beim Auslesen der Logdatei ist ein Fehler aufgetreten.\n\nÜberprüfen Sie ob Sie die benötigten Berechtigugnen besitzen."));
-	}
-	else
-	{
-		startLogRead();
-	}
-
-}
-
-
 void LogView::startLogRead()
 {
 		this->LogFlag = true;
@@ -342,9 +342,11 @@ void LogView::startLogRead()
 }
 
 /**
- * \brief 
+ * \brief works if the Log-reading is finished
  *
  * \author Phillip Goriup
+ * @param value = 1: sends out a Message, that the logread has finished
+ *             value = 0: aborts the logread
  */
 void LogView::logReadFinished(int value)
 {
@@ -357,16 +359,14 @@ void LogView::logReadFinished(int value)
 		disconnect(manager,SIGNAL(logReadFinished(int)),this,SLOT(logReadFinished(int)));
 		insertEntries(searchEntries(getEntries(NULL)),NULL);
 	}
-/*	else
-	{
-		
-	}*/
 }
 
 /**
- * \brief 
+ * \brief decides if it should be insert only a day, or all Entries into the TreeWidget 
  *
  * \author Phillip Goriup
+ * @param enable = true: calls a methode that only insert a one day 
+ *             enable = false: calls a methode that inserts all entries
  */
 void LogView::onlyDay(bool enable)
 {
@@ -393,11 +393,12 @@ void LogView::onlyDay(bool enable)
 	}
 }
 
-
 /**
- * \brief 
+ * \brief returns a vector of entries
  *
  * \author Phillip Goriup
+ * @param day: the day that should be returned
+ *             if its NULL, all entries returns
  */
 LogEntryList* LogView::getEntries(QDate *day)
 {	
@@ -417,9 +418,12 @@ LogEntryList* LogView::getEntries(QDate *day)
 }
 
 /**
- * \brief 
+ * \brief inserts a vector of given entries into the QTreeWidtet
+ * decide if the entries includes only one day or more days
  *
  * \author Phillip Goriup
+ * @param entries: link to a memory with a list of entries
+ *             day: if its true entries includes only one day
  */
 void LogView::insertEntries(LogEntryList* entries, bool day)
 {
@@ -476,7 +480,12 @@ void LogView::insertEntries(LogEntryList* entries, bool day)
 	//ui.twLogEntries->show();
 }
 
-
+/**
+ * \brief take the given Data from the GUI and calls a methode to filter the list 
+ *
+ * \author Phillip Goriup
+ * @param list: the list that should be filtered
+ */
 LogEntryList* LogView::searchEntries(LogEntryList* list)
 {
 	int error = 0;
@@ -505,6 +514,17 @@ LogEntryList* LogView::searchEntries(LogEntryList* list)
 
 }
 
+/**
+ * \brief filters the Entries with the given parameters
+ *
+ * \author Phillip Goriup
+ * @param key: the text that should be searched in the entries
+ *             error: decides if only errors should be taken
+ *             info: decides if only infos should be taken
+ *             update: decides if only unpdates should be taken
+ *             settings: decides if only settings should be taken
+ *             list: the list that should filtered
+ */
 LogEntryList* LogView::filterEntries(QString key, int error, int info, int update, int settings, LogEntryList *list)
 {
 	int i = 0;
@@ -523,6 +543,14 @@ LogEntryList* LogView::filterEntries(QString key, int error, int info, int updat
  	return FoundEntries;
 }
 
+/**
+ * \brief inserts the given entries into the TreeWidget
+ * 
+ * \author Phillip Goriup
+ * @param entries: the list of entries
+ *             item: the selected item (item = null, if only a day should be inserted)
+ *             index: the index where the item should be inserted
+ */
 void LogView::insertChilds(LogEntryList* entries, QTreeWidgetItem* item, int index)
 {
 	QColor color;
@@ -588,6 +616,12 @@ void LogView::insertChilds(LogEntryList* entries, QTreeWidgetItem* item, int ind
 		changeLogReadFlag(true);			
 	}
 }
+
+/**
+ * \brief SLOT for the pressEnter Event, and for the search Button
+ *
+ * \author Phillip Goriup
+ */
 void LogView::search()
 {
 	if (this->ui.gbOnlyDay->isChecked())
@@ -600,9 +634,19 @@ void LogView::search()
 //test
  void LogView::KeyPress()
 {
-	keybd_event(11,0,0,0);
-	keybd_event(12,0,0,0);
-	keybd_event(46,0,0,0);
+	this->ui.leSearchLogs->setFocus ();
+
+	keybd_event(VK_MENU,0,0,0);
+	keybd_event(VK_F4,0,0,0);
 	
-	keybd_event(1,KEYEVENTF_KEYUP,0,0);
+	
+	keybd_event(66,0,0,0);
+	keybd_event(67,0,0,0);
+	keybd_event(68,0,0,0);
+	keybd_event(VK_TAB,0,0,0);
+	
+	//keybd_event(12,0,0,0);
+	//keybd_event(46,0,0,0);
+	
+	
 }

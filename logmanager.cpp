@@ -33,6 +33,12 @@ LogManager::LogManager()
 }
 
 
+
+bool LogManager::readLog()
+{	
+	return true;
+}
+
 /**
  * \brief reads the logfile, and saves the content into a vector of LogEntry
  * get the information of the loggfile by reading line by line. chops every line into
@@ -45,44 +51,6 @@ LogManager::LogManager()
  * 
  * \author Phillip Goriup, Peter Grasch
  */
-bool LogManager::readLog()
-{
-	/*this->entries.clear();
-	QFile *LogF = new QFile("log/simon.log");
-	if (!LogF->open(QIODevice::ReadOnly))
-	{
-		return false;
-	}
-	QString str, strdate, strtime;
-	QTime time;
-	QDate date;
-	int type, datestart, timestart;
-	  
-	QCoreApplication::processEvents();
-	while (!LogF->atEnd ())
-	{
-		type = 0;
-		
-		str = LogF->readLine();
-		
-		if(str.contains("[ERR]", Qt::CaseInsensitive))
-			type = type|ERR;
-		if(str.contains("[INF]", Qt::CaseInsensitive))
-			type = type|INF;
-		if(str.contains("[UPD]", Qt::CaseInsensitive))
-			type = type|UPD;
-		if(str.contains("[SET]", Qt::CaseInsensitive))
-			type = type|SET;
-		
-		this->entries.append(new LogEntry(QDate::fromString (str.mid(1,10),"yyyy/MM/dd") , 
-		QTime::fromString(str.mid(13 ,8),"hh:mm:ss"), 
-		str.remove(QRegExp("\\[.*\\]")).trimmed().toLatin1(), type));
-		
-	}	*/
-	
-	return true;
-}
-
 void LogManager::run ()
 {
 	finishedLoading = false;
@@ -180,7 +148,11 @@ LogEntryList* LogManager::getDay(QDate day)
 }
 
 
-
+/**
+ * \brief clears the memory after a abort, or a leave
+ *
+ * \author Phillip Goriup
+ */
 void LogManager::stop(bool free)
 {
 	QMessageBox::critical(NULL,"delete",QString::number(this->entries->count()));

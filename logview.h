@@ -37,7 +37,6 @@ public slots:
 	bool init();
 	bool reset();
 
-	void switchToProtocols();
 	void insertEntries(LogEntryList *entries, bool day);
 	LogEntryList*  getEntries(QDate *day);
 	void onlyDay(bool enable = true);
