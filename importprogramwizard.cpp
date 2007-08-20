@@ -12,6 +12,7 @@
 #include "importprogramwizard.h"
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QPixmap>
 
 /**
 *   \brief constructor which creats the wizardpages
@@ -25,7 +26,10 @@ ImportProgramWizard::ImportProgramWizard(QWidget* parent): QWizard(parent)
     this->addPage(createImportProgramPage());
     this->addPage(createFinishedPage());
 
+    //(connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
+    
 	setWindowTitle("Programm hinzufügen");
+    setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/importdict.png")));
 }
 
 /**
@@ -96,4 +100,8 @@ QWizardPage* ImportProgramWizard::createFinishedPage()
 	return finished;
 }
 
+void ImportProgramWizard::test()
+{
+    QMessageBox::information(this, "test", "ksdjf");    
+}
 

@@ -44,6 +44,7 @@ class ImportProgramWizard : public QWizard
         ImportProgramPage* createImportProgramPage();
         QWizardPage* createFinishedPage();
     
+        void test();
    // signals:
      //   commandCreated(Command *command);
     

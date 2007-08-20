@@ -10,6 +10,7 @@
 //
 //
 #include "selectprogrampage.h"
+#include <QMessageBox>
 
 /**
 *   \brief Constructor
@@ -58,9 +59,11 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 
     pbAbbrechen = new QPushButton(this);
     pbAbbrechen->setObjectName("pbAbbrechen");
+    pbAbbrechen->setText("Abbrechen");
     
     pbHinzufuegen = new QPushButton(this);
     pbHinzufuegen->setObjectName("pbHinzufuegen");
+    pbHinzufuegen->setText("Hinzufügen");
 
     hboxLayout->addItem(spacerItem);
     hboxLayout->addWidget(pbAbbrechen);
@@ -68,8 +71,41 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 
 
     vboxLayout->addLayout(hboxLayout);
+    
+    regMan = new RegistryManager();
+    
+    //connect(lwCategories, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(test()));
+    connect(lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
+    getAllFormats();
 }
 
+void SelectProgramPage::searchForPrograms()
+{
+    //zuerst die endungen suchen und dann schauen, ob es ein openwithlist gibt ... dann noch mal oben schauen, welcher perceivedtype, etc. es ist
+    QMessageBox::information(this, "susitest", "bin im searchForPrograms");
+    QListWidgetItem *item = lwCategories->currentItem();
+    QString categorie = item->text();
+    QString format = ".mp3";
+    QStringList* progList = regMan->getAllPrograms(format);
+    
+    lwPrograms->clear();
+    QListWidgetItem* lwItem;
+    for(int i=0; i<progList->count(); i++)
+    {
+        lwItem = new QListWidgetItem(lwPrograms);
+        lwItem->setText(progList->at(i));
+    }
+}
+
+QStringList* SelectProgramPage::getAllFormats()
+{
+    QStringList* formatList = this->regMan->getAllFormats("image");
+    QString allFormats;
+    for(int i=0; i<formatList->count(); i++)
+    {
+       allFormats += formatList->at(i);
+    }
+}
 
 SelectProgramPage::~SelectProgramPage()
 {}

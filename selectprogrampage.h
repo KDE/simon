@@ -23,6 +23,7 @@
 #include <QSpacerItem>
 #include <QVBoxLayout>
 #include <QWidget>
+#include "registrymanager.h"
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -36,9 +37,12 @@
  */
 class SelectProgramPage : public QWizardPage
 {
+    Q_OBJECT
 public:
         SelectProgramPage(QWidget* parent);
         ~SelectProgramPage();
+
+        QStringList* getAllFormats();
 
         QVBoxLayout *vboxLayout;
         QListWidget *lwCategories;
@@ -47,6 +51,11 @@ public:
         QSpacerItem *spacerItem;
         QPushButton *pbAbbrechen;
         QPushButton *pbHinzufuegen;
+
+        RegistryManager *regMan;
+
+    public slots:
+        void searchForPrograms();
 };
 
 #endif

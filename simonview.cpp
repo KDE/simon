@@ -32,6 +32,7 @@
 #include "trainingview.h"
 #include "systemview.h"
 #include "settings.h"
+#include <QMessageBox>
 
 /**
  * @brief Constructor
@@ -48,7 +49,6 @@
 */
 SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 {
-    ipwizard->show();
 	if (!Logger::init())
 	{
 		QMessageBox::critical(this, tr("Fehler"), tr("Konnte die Log-Datei nicht öffnen. Bitte überprüfen Sie die Berechtigungen.."));
@@ -79,8 +79,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	pol.setVerticalStretch(1);
 	inlineView->setSizePolicy(pol);
 	
-
-    //this->ipwizard = new ImportProgramWizard(this);  //todo delete!! just for testing
+    this->ipwizard = new ImportProgramWizard();  //todo delete!! just for testing
 	//Preloads all Dialogs
 	this->info->writeToSplash(tr("Lade \"Wort hinzufühgen\"..."));
 	this->addWordView = new AddWordView(this);
@@ -116,7 +115,6 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	setupSignalSlots();
 
-	
 	//setting Background
 	QLinearGradient bg(QPointF(1, 1), QPointF(900, 550));
 	bg.setColorAt(0, QColor(70, 120, 190));
@@ -382,9 +380,9 @@ void SimonView::showAddWordDialog(bool show)
 {
 	if (show)
 	{
-		this->addWordView->show();
-        //this->ipwizard->show();
-		ui.pbaddWord->setChecked(true);
+		//this->addWordView->show();
+        this->ipwizard->show(); //todo delete !! just for testing
+		//ui.pbaddWord->setChecked(true);
 	} else 
 	{
 		this->addWordView->hide();
