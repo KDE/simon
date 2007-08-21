@@ -20,6 +20,9 @@
 #ifdef linux
 #include "xevents.h"
 #endif
+#ifdef __WIN32
+#include "windowsevents.h"
+#endif
 
 /**
  *	@class EventHandler
@@ -31,9 +34,8 @@
  */
 class EventHandler{
 private:
-#ifdef linux
 	CoreEvents *coreEvents; //!< The event backend
-#endif
+	bool capslock; 
 public:
 	EventHandler();
 	

@@ -131,7 +131,7 @@ QStringList* RegistryManager::getAllPrograms(QString format)
 
 QStringList* RegistryManager::getAllFormats(QString categorie)
 {
-    QMessageBox::information(this, "getAllFormats - Registrymanager", "debug 1");
+    //QMessageBox::information(this, "getAllFormats - Registrymanager", "debug 1");
     QStringList *formatList = new QStringList();
     unsigned long cSubKeys = 0;
     unsigned long u = 0;

@@ -23,6 +23,7 @@
 class CoreEvents{
 public:
 	virtual void sendKey(int key)=0;
+	virtual void sendChar(char key)=0;
 	virtual void setModifierKey(int virtualKey, bool once)=0;
 	virtual void unsetModifier(int virtualKey)=0;
 	virtual ~CoreEvents() {}

@@ -16,13 +16,18 @@
  * 
  * Creates a new Event Handler
  * 
- * @author Peter Grasch
+ * @author Peter Grasch 
  */
 EventHandler::EventHandler()
 {
 #ifdef linux
 	coreEvents= (CoreEvents*) new XEvents();
 #endif
+#ifdef __WIN32
+	coreEvents= (CoreEvents*) new WindowsEvents();
+	//WindowsEvents *win = new WindowsEvents();
+#endif
+	this->capslock = false;
 }
 
 /**
@@ -38,6 +43,7 @@ EventHandler::EventHandler()
  */
 void EventHandler::sendWord(QString word)
 {
+	Sleep(1000);
 	for (int i=0; i < word.size();i++)
 	{
 		sendKey(word.at(i));
@@ -57,13 +63,20 @@ void EventHandler::sendWord(QString word)
  */
 void EventHandler::sendKey(QChar key)
 {
-#ifdef linux
-	XEvents *events = dynamic_cast<XEvents*>(coreEvents);
-	if (events)
+	char c = key.toLatin1();
+	
+	if (((c >= 'A') && (c <= 'Z'))  || ((capslock) && ((c >= 'a') && (c <= 'z'))))
 	{
-		events->sendChar(key.toAscii());
+		coreEvents->setModifierKey(VK_LSHIFT,false);
 	}
-#endif
+	if (((c >= 'A') && (c <= 'Z')))
+	{
+		c+=32;
+	}
+	
+	coreEvents->sendChar(c);
+
+	coreEvents->unsetModifier(VK_LSHIFT);
 }
 
 /**
