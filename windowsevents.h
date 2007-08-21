@@ -1,0 +1,63 @@
+//
+// 
+//
+// Description: 
+//
+//
+// Author: Phillip Goriup , (C) 2007
+//
+// Copyright: See COPYING file that comes with this distribution
+//
+//
+#ifndef WINDOWSEVENTS_H
+#define WINDOWSEVENTS_H
+
+#include "coreevents.h"
+#include <QMessageBox>
+#include <QString>
+#include <iostream>
+#include <windows.h>
+#include <QHash>
+
+const int KeyAlt = VK_MENU;
+const int KeyStrg = VK_CONTROL;
+const int KeyShift = VK_SHIFT;
+const int KeySuper = VK_LWIN;
+const int KeyAltGr = VK_RMENU;
+const int KeyCapsLock = VK_CAPITAL;
+
+
+#ifdef None
+#undef None
+#endif
+
+
+/**
+ *	@class XEvents
+ *	@brief The X11 Event Backend
+ *	
+ *	Implements CoreEvents
+ *
+ *	@version 0.1
+ *	@date 4.03.2007
+ *	@author Peter Grasch
+ */
+class WindowsEvents : public CoreEvents {
+private:
+
+	QHash <char, int> *keycodes; 
+	QHash <char, char> *shiftcodes;
+	QHash <char, char> *altgrcodes;
+
+public:
+	WindowsEvents();
+	
+	inline void sendKey(int key);
+	inline void sendChar(char key);
+	inline void setModifierKey(int virtualKey, bool once);
+	inline void unsetModifier(int virtualKey);
+	~WindowsEvents();
+
+};
+
+#endif
