@@ -52,7 +52,7 @@ public slots:
 	LogEntryList* filterEntries(QString key, int categories, LogEntryList * list);
 	void deleteItem(int index);
 	
-	void insertSelectedItem(QTreeWidgetItem* item, int column);
+	void insertSelectedItem(QTreeWidgetItem* item);
 	
 	
 	

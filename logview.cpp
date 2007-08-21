@@ -15,10 +15,8 @@
 #include <QTableWidgetItem>
 #include <QComboBox>
 #include <QCoreApplication>
-#include <QMessageBox>
 #include <QRegExp>
-#include <QDebug>
-
+#include <QMessageBox>
 
 /**
  * \brief Constrictor
@@ -28,7 +26,7 @@
 LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images/icons/text-editor.svg"), tr("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
 {
 	ui.setupUi(this);
-	connect(ui.twLogEntries,SIGNAL(itemClicked (QTreeWidgetItem* , int)),this,SLOT(insertSelectedItem(QTreeWidgetItem* , int)));
+	connect(ui.twLogEntries,SIGNAL(itemClicked (QTreeWidgetItem* , int)),this,SLOT(insertSelectedItem(QTreeWidgetItem*)));
 	connect (ui.gbOnlyDay, SIGNAL (clicked(bool)), this, SLOT (onlyDay(bool)));
 	connect ( ui.cwLogDay, SIGNAL (selectionChanged()), this, SLOT (onlyDay()));
 	connect ( ui.pbAbort, SIGNAL (clicked (bool)),this, SLOT(abort())); 
@@ -54,9 +52,7 @@ void LogView::enter()
 		QMessageBox::critical(this,tr("Fehler beim Auslesen des Logs"),tr("Beim Auslesen der Logdatei ist ein Fehler aufgetreten.\n\nÜberprüfen Sie ob Sie die benötigten Berechtigugnen besitzen."));
 	}
 	else
-	{
 		startLogRead();
-	}
 }
 
 /**
@@ -111,7 +107,6 @@ void LogView::abort()
 	}
 	else
 	{
-		QMessageBox::critical(this,"delete","");
 		emit this->logReadStop(true);
 		ui.twLogEntries->clear();
 	}
@@ -170,99 +165,66 @@ bool LogView::reset()
  * @param item links to the memory of the selected Item
  * 	      column: is the index of the clicked column of the item 
  */
-void LogView::insertSelectedItem(QTreeWidgetItem* item, int column)
-{	
-// 	if ((item) && (it
+void LogView::insertSelectedItem(QTreeWidgetItem* item)
+{
 	int index = this->ui.twLogEntries->indexOfTopLevelItem(item);
-	if ((column == 0) && (!item->parent()))
+	if (!item->parent())
 	{
 		this->ui.pbAbort->setText("Abbrechen");
 		this->AbortFlag = true;
-	
 		deactivateProtocolWidgets();
 		this->ui.pbAbort->setEnabled(false);
 		ui.lbLogLoad->setText(tr("Füge Einträge ein..."));
 		QCoreApplication::processEvents();
-		int i = 0;
 
-// 		QTreeWidgetItem *garbage = new QTreeWidgetItem();
-// 		while (i<this->ui.twLogEntries->topLevelItemCount ())
-// 		{
-// 			if (!this->ui.twLogEntries->topLevelItem(i)->childCount () == 0  && ui.twLogEntries->topLevelItem(i) != item)
-// 			{
-// 				garbage = this->ui.twLogEntries->takeTopLevelItem(i);
-// 				this->ui.twLogEntries->insertTopLevelItem (i, new QTreeWidgetItem(ui.twLogEntries, 
-// 						QStringList() << garbage->text(0))) ;
-// 				delete garbage;
-// 			}
-// 			i++;
-// 		}
 		//remove childs from all toplevelitems
 		for (int i=0; i < ui.twLogEntries->topLevelItemCount(); i++)
 		{
-// 			QList<QTreeWidgetItem*> childs = ui.twLogEntries->
+			QList<QTreeWidgetItem*> childs = ui.twLogEntries->topLevelItem(i)->takeChildren();
+			for (int j=0; j < childs.count(); j++)
+				delete childs.at(j);
 		}
 
 
 		this->ui.pbAbort->setEnabled(true);
 		
+
 		QDate day = QDate::fromString(item->text(0),"yyyy/MM/dd");
 		LogEntryList *temp = manager->getDay(day);
 		LogEntryList *entries  = searchEntries(temp);
-		delete entries;
 		delete temp;
-		
 
 
 
+		if (entries->count() != 0)
+		{	
+			if (ui.twLogEntries->isItemExpanded(item))
+				ui.twLogEntries->collapseItem(item);
+			else ui.twLogEntries->expandItem(item);
 
-// 		if (entries->count() != 0)
-// 		{	
-// 			if (item->childCount () == 0)
-// 			{
-// 				deleteItem(index);
-// 				insertChilds(entries, item, index);
-// 			}
-// 			else
-// 			{	
-// 				if (this->ui.twLogEntries->isItemExpanded ( item))
-// 				{
-// 					this->ui.twLogEntries->collapseItem(item);
-// 					if (entries->count() != this->ui.twLogEntries->topLevelItem(index)->childCount ())
-// 					{
-// 						deleteItem(index);
-// 						insertChilds(entries, item, index);
-// 					}
-// 				}
-// 				else
-// 				{	
-// 					this->ui.twLogEntries->expandItem(item);
-// 					if (entries->count() != this->ui.twLogEntries->topLevelItem(index)->childCount ())
-// 					{
-// 						deleteItem(index);
-// 						insertChilds(entries, item, index);
-// 					}
-// 					
-// 				}
-// 			}
-// 		}
-// 		else
-// 		{
-// 			QString str = this->ui.twLogEntries->topLevelItem(index)->text(0);
-// 			deleteItem(index);
-// 			QTreeWidgetItem *temp = new QTreeWidgetItem();
-// 			temp->setText(0,str);
-// 			this->ui.twLogEntries->insertTopLevelItem ( index, temp);
-// 			this->ui.lbLogLoad->setText("Keine Einträge gefunden");
-// 			this->ui.twLogEntries->setCurrentItem(this->ui.twLogEntries->topLevelItem(index));
-// 		}
-
-
-
+			if ((item->childCount () == 0)
+				|| (entries->count() != ui.twLogEntries->topLevelItem(index)->childCount ()))
+			{
+				deleteItem(index);
+				insertChilds(entries, item, index);
+			}
+		}
+		else
+		{
+			QString str = this->ui.twLogEntries->topLevelItem(index)->text(0);
+			deleteItem(index);
+			QTreeWidgetItem *temp = new QTreeWidgetItem();
+			temp->setText(0,str);
+			this->ui.twLogEntries->insertTopLevelItem ( index, temp);
+			this->ui.lbLogLoad->setText("Keine Einträge gefunden");
+			this->ui.twLogEntries->setCurrentItem(this->ui.twLogEntries->topLevelItem(index));
+		}
 
 		ui.pbLogLoad->setMaximum(100);
 		ui.pbLogLoad->setValue(ui.pbLogLoad->maximum());
-// 		delete(entries);
+
+		delete(entries);
+
 		ui.pbAbort->setText("Reload");
 		this->AbortFlag = false;
 		activateProtocolWidgets();
@@ -276,14 +238,11 @@ void LogView::insertSelectedItem(QTreeWidgetItem* item, int column)
  * @param index the index of the item that should be deleted
  */
 void LogView::deleteItem(int index)
-{ 
-	QTreeWidgetItem *garbage = new QTreeWidgetItem() ;
-	garbage = this->ui.twLogEntries->takeTopLevelItem (index); 
-	delete garbage;
-	
-	ui.lbLogLoad->setText(tr("Füge Einträge ein..."));
-	deactivateProtocolWidgets();
-	QCoreApplication::processEvents();
+{
+	QList<QTreeWidgetItem*> childs = ui.twLogEntries->topLevelItem(index)->takeChildren();
+	for (int j=0; j < childs.count(); j++)
+		delete childs.at(j);
+	delete ui.twLogEntries->takeTopLevelItem(index);
 }
 
 /**
@@ -360,12 +319,13 @@ void LogView::logReadFinished(int value)
 {
 	if(value == 1)
 	{
-		//QMessageBox::critical(this,"start entries schreiben","");
 		ui.lbLogLoad->setText(tr("Log gelesen"));
 		ui.pbLogLoad->setMaximum(100);
 		ui.pbLogLoad->setValue(100);
 		disconnect(manager,SIGNAL(logReadFinished(int)),this,SLOT(logReadFinished(int)));
-		insertEntries(searchEntries(getEntries(QDate())),NULL);
+		LogEntryList *temp = searchEntries(getEntries(QDate()));
+		insertEntries(temp,NULL);
+		delete temp;
 	}
 }
 
@@ -382,7 +342,8 @@ void LogView::onlyDay(bool enable)
 	this->AbortFlag = true;
 	if(enable)
 	{
-		if (getEntries(ui.cwLogDay->selectedDate())->count() ==0)
+		LogEntryList *list = getEntries(ui.cwLogDay->selectedDate());
+		if (list->count() ==0)
 		{
 			this->ui.pbAbort->setText("Reload");
 			this->AbortFlag = false;
@@ -390,16 +351,15 @@ void LogView::onlyDay(bool enable)
 			this->ui.pbLogLoad->setMaximum(100);
 			this->ui.pbLogLoad->setValue(100);
 		}
-		else	
-		{
-			LogEntryList *temp = getEntries(ui.cwLogDay->selectedDate());
-			insertEntries(searchEntries(temp),true);
-			delete temp;
-		}
+		else
+			insertEntries(searchEntries(list),true);
+		delete list;
 	}
 	else
 	{
-		insertEntries(searchEntries(getEntries(QDate())),false);
+		LogEntryList *temp = searchEntries(getEntries(QDate()));
+		insertEntries(temp,false);
+		delete temp;
 	}
 }
 
@@ -444,13 +404,6 @@ void LogView::insertEntries(LogEntryList* entries, bool day)
 	
 	ui.pbLogLoad->setMaximum(entries->count());
 	ui.lbLogLoad->setText(tr("Füge Einträge ein..."));
-	QCoreApplication::processEvents();
-	QColor color;
-	
-	
-	ui.pbLogLoad->setMaximum(entries->count());
-	ui.lbLogLoad->setText(tr("Füge Einträge ein..."));
-	
 	deactivateProtocolWidgets();
 	QCoreApplication::processEvents();
 	
@@ -480,14 +433,13 @@ void LogView::insertEntries(LogEntryList* entries, bool day)
 			i++;
 		}
 	}
+
 	activateProtocolWidgets();
 	ui.pbLogLoad->setMaximum(1);
 	ui.pbLogLoad->setValue(ui.pbLogLoad->maximum());
 	ui.lbLogLoad->setText(tr("Fertig"));
 	ui.pbAbort->setText("Reload");
 	this->AbortFlag = false;
-	//delete entries;
-	//ui.twLogEntries->show();
 }
 
 /**
@@ -545,7 +497,9 @@ LogEntryList* LogView::filterEntries(QString key, int categories, LogEntryList *
 	while (i<list->count())
 	{
 		if (((categories == 0) ||  /* If there is no selection made (we want to include everything)... */
-			((categories & list->at(i).getType()) != 0)) && (list->at(i).getMessage().contains(key.toLatin1())))
+				//case-insensitive search disabled out of performance consideration
+			((categories & list->at(i).getType()) != 0)) && 
+					(list->at(i).getMessage().contains(key.toLatin1())))
 					//OR our search parameters include the type of the current entry...
 		{
 			FoundEntries->append(list->at(i));	//we add it to our found list
@@ -559,9 +513,9 @@ LogEntryList* LogView::filterEntries(QString key, int categories, LogEntryList *
  * \brief inserts the given entries into the TreeWidget
  * 
  * \author Phillip Goriup
- * @param entries: the list of entries
- *             item: the selected item (item = null, if only a day should be inserted)
- *             index: the index where the item should be inserted
+ * @param entries the list of entries
+ * \param item the selected item (item = null, if only a day should be inserted)
+ * \param index the index where the item should be inserted
  */
 void LogView::insertChilds(LogEntryList* entries, QTreeWidgetItem* item, int index)
 {
@@ -625,7 +579,7 @@ void LogView::insertChilds(LogEntryList* entries, QTreeWidgetItem* item, int ind
 		tempitem->setText(0,str);
 		this->ui.twLogEntries->insertTopLevelItem (index, tempitem);
 		this->ui.twLogEntries->setCurrentItem (tempitem) ;
-		changeLogReadFlag(true);			
+		changeLogReadFlag(true);
 	}
 }
 

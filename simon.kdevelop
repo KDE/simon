@@ -143,8 +143,8 @@
   </kdevfilecreate>
   <kdevdocumentation>
     <projectdoc>
-      <docsystem></docsystem>
-      <docurl></docurl>
+      <docsystem/>
+      <docurl/>
       <usermanualurl>/home/bedahr/Daten/Projects/simon/documentation/simon/refman.out</usermanualurl>
     </projectdoc>
   </kdevdocumentation>
@@ -162,9 +162,7 @@
     <dest>/home/bedahr/Projets/simon/trunk</dest>
   </substmap>
   <kdevcppsupport>
-    <references>
-      <pcs>Qt4</pcs>
-    </references>
+    <references/>
     <codecompletion>
       <includeGlobalFunctions>true</includeGlobalFunctions>
       <includeTypes>true</includeTypes>
