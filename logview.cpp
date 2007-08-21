@@ -26,7 +26,8 @@
 LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images/icons/text-editor.svg"), tr("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
 {
 	ui.setupUi(this);
-	connect(ui.twLogEntries,SIGNAL(itemClicked (QTreeWidgetItem* , int)),this,SLOT(insertSelectedItem(QTreeWidgetItem*)));
+	connect(ui.twLogEntries,SIGNAL(itemClicked (QTreeWidgetItem* , int)), 
+		this,SLOT(insertSelectedItem(QTreeWidgetItem*)));
 	connect (ui.gbOnlyDay, SIGNAL (clicked(bool)), this, SLOT (onlyDay(bool)));
 	connect ( ui.cwLogDay, SIGNAL (selectionChanged()), this, SLOT (onlyDay()));
 	connect ( ui.pbAbort, SIGNAL (clicked (bool)),this, SLOT(abort())); 
@@ -65,34 +66,25 @@ void LogView::enter()
  */
 void LogView::abort()
 {
-	ui.pbLogLoad->setMaximum(100);
-	ui.pbLogLoad->setValue(100);
+	displayReload();
 	ui.lbLogLoad->setText("Laden Abgebrochen");
 	if (dynamic_cast<QPushButton*>(sender()))
 	{		
 		if(this->AbortFlag)
 		{
-			this->ui.pbAbort->setText("Reload");
 			this->AbortFlag = false;
 			if(this->manager->isRunning())
-			{
 				emit this->logReadStop(false);
-			}
 			else
-			{
 				changeLogReadFlag(false);
-			}
 		}
 		else
 		{
-			this->ui.pbAbort->setText("Abbrechen");
 			this->AbortFlag = true;
 			if (!this->ui.gbOnlyDay->isChecked())
 			{
 				if(!this->manager->hasFinishedReading())
-				{
 					this->startLogRead();
-				}
 				else
 				{	
 					changeLogReadFlag(true);
@@ -100,9 +92,7 @@ void LogView::abort()
 				}
 			}
 			else
-			{
 				onlyDay(true);
-			}
 		}
 	}
 	else
@@ -167,12 +157,17 @@ bool LogView::reset()
  */
 void LogView::insertSelectedItem(QTreeWidgetItem* item)
 {
+	if (ui.twLogEntries->isItemExpanded(item))
+	{
+		ui.twLogEntries->collapseItem(item);
+		return;
+	}
 	int index = this->ui.twLogEntries->indexOfTopLevelItem(item);
 	if (!item->parent())
 	{
-		this->ui.pbAbort->setText("Abbrechen");
+		displayCancel();
 		this->AbortFlag = true;
-		deactivateProtocolWidgets();
+		enableWidgets(false);
 		this->ui.pbAbort->setEnabled(false);
 		ui.lbLogLoad->setText(tr("Füge Einträge ein..."));
 		QCoreApplication::processEvents();
@@ -195,13 +190,13 @@ void LogView::insertSelectedItem(QTreeWidgetItem* item)
 		delete temp;
 
 
-
+		if (ui.twLogEntries->isItemExpanded(item))
+		{
+			ui.twLogEntries->collapseItem(item);
+			
+		}
 		if (entries->count() != 0)
-		{	
-			if (ui.twLogEntries->isItemExpanded(item))
-				ui.twLogEntries->collapseItem(item);
-			else ui.twLogEntries->expandItem(item);
-
+		{
 			if ((item->childCount () == 0)
 				|| (entries->count() != ui.twLogEntries->topLevelItem(index)->childCount ()))
 			{
@@ -220,14 +215,12 @@ void LogView::insertSelectedItem(QTreeWidgetItem* item)
 			this->ui.twLogEntries->setCurrentItem(this->ui.twLogEntries->topLevelItem(index));
 		}
 
-		ui.pbLogLoad->setMaximum(100);
-		ui.pbLogLoad->setValue(ui.pbLogLoad->maximum());
 
 		delete(entries);
 
-		ui.pbAbort->setText("Reload");
+		displayReload();
 		this->AbortFlag = false;
-		activateProtocolWidgets();
+		enableWidgets();
 	}
 }
 
@@ -245,46 +238,25 @@ void LogView::deleteItem(int index)
 	delete ui.twLogEntries->takeTopLevelItem(index);
 }
 
-/**
- * \brief deactivates the ProtocolWidgets while loading the log or the TreeWidgetItems
- *
- * \author Phillip Goriup
- */
-void LogView::deactivateProtocolWidgets()
-{
-	this->ui.leSearchLogs->setEnabled(false);
-	this->ui.cbLogError->setEnabled(false);
-	this->ui.cbLogInfo->setEnabled(false);
-	this->ui.cbLogUpdate->setEnabled(false);
-	this->ui.cbLogSettings->setEnabled(false);
-	this->ui.cwLogDay->setEnabled(true);
-	this->ui.gbOnlyDay->setEnabled(false);
-	this->ui.pbActionLog->setEnabled(false);
-	this->ui.pbRecordings->setEnabled(false);
-	this->ui.twLogEntries->setEnabled(false);
-	this->ui.pbLogSearch->setEnabled(false);
-	this->ui.pbClearSearch->setEnabled(false);
-	this->ui.pbAbort->setEnabled(true);
-}
 
 /**
- * \brief activates the ProtocolWidgets while loading the log or the TreeWidgetItems
- *
- * \author Phillip Goriup
+ * \brief Enables/disables the widgets to the given state
+ * \author Peter Grasch
+ * @param enabled Should we en- or disable them?
  */
-void LogView::activateProtocolWidgets()
+void LogView::enableWidgets(bool enabled)
 {
-	this->ui.leSearchLogs->setEnabled(true);
-	this->ui.cbLogError->setEnabled(true);
-	this->ui.cbLogInfo->setEnabled(true);
-	this->ui.cbLogUpdate->setEnabled(true);
-	this->ui.cbLogSettings->setEnabled(true);
-	this->ui.gbOnlyDay->setEnabled(true);
-	this->ui.pbActionLog->setEnabled(true);
-	this->ui.pbRecordings->setEnabled(true);
-	this->ui.twLogEntries->setEnabled(true);
-	this->ui.pbLogSearch->setEnabled(true);
-	this->ui.pbClearSearch->setEnabled(true);
+	this->ui.leSearchLogs->setEnabled(enabled);
+	this->ui.cbLogError->setEnabled(enabled);
+	this->ui.cbLogInfo->setEnabled(enabled);
+	this->ui.cbLogUpdate->setEnabled(enabled);
+	this->ui.cbLogSettings->setEnabled(enabled);
+	this->ui.gbOnlyDay->setEnabled(enabled);
+	this->ui.pbActionLog->setEnabled(enabled);
+	this->ui.pbRecordings->setEnabled(enabled);
+	this->ui.twLogEntries->setEnabled(enabled);
+	this->ui.pbLogSearch->setEnabled(enabled);
+	this->ui.pbClearSearch->setEnabled(enabled);
 }
 
 /**
@@ -294,18 +266,18 @@ void LogView::activateProtocolWidgets()
  */
 void LogView::startLogRead()
 {
-		this->LogFlag = true;
-		ui.pbAbort->setText("Abbrechen");
-		this->AbortFlag = true;
-		ui.pbLogLoad->setMaximum(0);
-		ui.lbLogLoad->setText(tr("Lese Log..."));
-		QCoreApplication::processEvents();
-	
-		deactivateProtocolWidgets();
-		disconnect(manager,0,0,0);//disconnect everything
-		connect(manager,SIGNAL(logReadFinished(int)),this,SLOT(logReadFinished(int)));
-		connect(this,SIGNAL(logReadStop(bool)),this->manager,SLOT(stop(bool)));
-		this->manager->start();
+	this->LogFlag = true;
+	displayCancel();
+	this->AbortFlag = true;
+	ui.pbLogLoad->setMaximum(0);
+	ui.lbLogLoad->setText(tr("Lese Log..."));
+	QCoreApplication::processEvents();
+
+	enableWidgets(false);
+	disconnect(manager,0,0,0);//disconnect everything
+	connect(manager,SIGNAL(logReadFinished(int)),this,SLOT(logReadFinished(int)));
+	connect(this,SIGNAL(logReadStop(bool)),this->manager,SLOT(stop(bool)));
+	this->manager->start();
 }
 
 /**
@@ -338,18 +310,16 @@ void LogView::logReadFinished(int value)
  */
 void LogView::onlyDay(bool enable)
 {
-	this->ui.pbAbort->setText("Abbrechen");
+	displayCancel();
 	this->AbortFlag = true;
 	if(enable)
 	{
 		LogEntryList *list = getEntries(ui.cwLogDay->selectedDate());
 		if (list->count() ==0)
 		{
-			this->ui.pbAbort->setText("Reload");
 			this->AbortFlag = false;
-			this->ui.lbLogLoad->setText("keine Einträge vorhanden");
-			this->ui.pbLogLoad->setMaximum(100);
-			this->ui.pbLogLoad->setValue(100);
+			displayReload();
+			this->ui.lbLogLoad->setText(tr("Keine Einträge vorhanden"));
 		}
 		else
 			insertEntries(searchEntries(list),true);
@@ -362,6 +332,22 @@ void LogView::onlyDay(bool enable)
 		delete temp;
 	}
 }
+
+void LogView::displayCancel()
+{
+	this->ui.pbAbort->setText(tr("Abbrechen"));
+	ui.pbAbort->setIcon(QIcon(":/images/icons/emblem-unreadable.svg"));
+}
+
+void LogView::displayReload()
+{
+	this->ui.pbAbort->setText(tr("Neu laden"));
+	this->ui.pbLogLoad->setMaximum(100);
+	this->ui.pbLogLoad->setValue(100);
+	ui.pbAbort->setIcon(QIcon(":/images/icons/view-refresh.svg"));
+
+}
+
 
 /**
  * \brief returns a vector of entries
@@ -393,7 +379,8 @@ LogEntryList* LogView::getEntries(QDate day)
  *
  * \author Phillip Goriup
  * @param entries: link to a memory with a list of entries
- *             day: if its true entries includes only one day
+ 
+*             day: if its true entries includes only one day
  */
 void LogView::insertEntries(LogEntryList* entries, bool day)
 {
@@ -404,7 +391,7 @@ void LogView::insertEntries(LogEntryList* entries, bool day)
 	
 	ui.pbLogLoad->setMaximum(entries->count());
 	ui.lbLogLoad->setText(tr("Füge Einträge ein..."));
-	deactivateProtocolWidgets();
+	enableWidgets(false);
 	QCoreApplication::processEvents();
 	
 	if(day)
@@ -434,11 +421,9 @@ void LogView::insertEntries(LogEntryList* entries, bool day)
 		}
 	}
 
-	activateProtocolWidgets();
-	ui.pbLogLoad->setMaximum(1);
-	ui.pbLogLoad->setValue(ui.pbLogLoad->maximum());
+	enableWidgets();
 	ui.lbLogLoad->setText(tr("Fertig"));
-	ui.pbAbort->setText("Reload");
+	displayReload();
 	this->AbortFlag = false;
 }
 
@@ -460,7 +445,7 @@ LogEntryList* LogView::searchEntries(LogEntryList* list)
 		return new LogEntryList;
 
 	this->LogFlag = true;
-	ui.pbAbort->setText("Abbrechen");
+	displayCancel();
 	this->AbortFlag = true;
 	ui.pbLogLoad->setMaximum(0);
 	ui.lbLogLoad->setText(tr("Suche Einträge"));
@@ -571,7 +556,7 @@ void LogView::insertChilds(LogEntryList* entries, QTreeWidgetItem* item, int ind
 		this->ui.twLogEntries->insertTopLevelItem ( index, item ) ;
 		this->ui.twLogEntries->setCurrentItem ( item) ;
 		this->ui.twLogEntries->expandItem(item);
-		activateProtocolWidgets();
+		enableWidgets();
 	}
 	else
 	{

@@ -37,14 +37,18 @@ public slots:
 	bool init();
 	bool reset();
 
+	void displayCancel();
+	void displayReload();
+
 	void insertEntries(LogEntryList *entries, bool day);
 	LogEntryList*  getEntries(QDate day);
 	void onlyDay(bool enable = true);
 	
 	void changeLogReadFlag(bool b){this->LogFlag =b;}
 	void logReadFinished(int value);
-	void deactivateProtocolWidgets();
-	void activateProtocolWidgets();
+
+	void enableWidgets(bool enabled=true);
+
 	void startLogRead();
 	void search();
 	LogEntryList* searchEntries(LogEntryList* list);

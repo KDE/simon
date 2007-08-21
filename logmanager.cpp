@@ -14,7 +14,6 @@
 #include <QFile>
 #include <QCoreApplication>
 #include <logger.h>
-#include <QMessageBox>
 
 
 /**
@@ -68,13 +67,10 @@ void LogManager::run ()
 	{
 		emit logReadFinished(0);
 	}
-	QString str/*, strdate, strtime*/;
-	//QTime time;
-	//QDate date;
-	int type/*, datestart, timestart*/;
+	QString str;
+	int type;
 	
 	int i = 0;
-	//Logger::log("[INF] BLAAAAAAAAAAA");
 	
 	QCoreApplication::processEvents();
 	while (!LogF->atEnd () && !killMe)
@@ -82,7 +78,6 @@ void LogManager::run ()
 		type = 0;
 		
 		str = LogF->readLine();
-		//QMessageBox::information(NULL,"",str);
 		if(str.contains("[ERR]", Qt::CaseInsensitive))
 			type = type|ERR;
 		if(str.contains("[INF]", Qt::CaseInsensitive))
@@ -91,6 +86,7 @@ void LogManager::run ()
 			type = type|UPD;
 		if(str.contains("[SET]", Qt::CaseInsensitive))
 			type = type|SET;
+
 		//MMMMMMMMMMMMUUUUUUUUUUUUUUUUUUHHHHHHHAAAAAAHHHHHHAAAAAAAA
 		QTime funzi_der_erste = QTime::fromString(str.mid(12 ,8),"hh:mm:ss");
 		QDate funzus_der_grosse = QDate::fromString(str.mid(1,10),"yyyy/MM/dd");
@@ -99,13 +95,10 @@ void LogManager::run ()
 		this->entries->append(LogEntry(funzus_der_grosse , 
 		funzi_der_erste, 
 		str.remove(QRegExp("\\[.*\\]")).trimmed().toLatin1(), type));
-		//QMessageBox::information(NULL,"",entries->at(i).getDate().toString("yyyy/MM/dd"));
-		//QMessageBox::information(NULL,"",entries->at(i).getTime().toString("hh:mm:ss"));
 		
 		i++;
 	}	
 	delete(LogF);
-	//QMessageBox::critical(NULL,"","");
 	if (!killMe)
 	{
 		finishedLoading = true;
@@ -155,7 +148,6 @@ LogEntryList* LogManager::getDay(QDate day)
  */
 void LogManager::stop(bool free)
 {
-	QMessageBox::critical(NULL,"delete",QString::number(this->entries->count()));
 	killMe=true;
 	if(free)
 		this->entries->clear();
@@ -165,7 +157,6 @@ void LogManager::stop(bool free)
 		this->wait(5000);
 		this->entries->clear();
 	}
-	QMessageBox::critical(NULL,"delete",QString::number(this->entries->count()));
 	this->wait(5000);
 	this->terminate();
 	killMe=false;

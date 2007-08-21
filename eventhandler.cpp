@@ -43,7 +43,6 @@ EventHandler::EventHandler()
  */
 void EventHandler::sendWord(QString word)
 {
-	Sleep(1000);
 	for (int i=0; i < word.size();i++)
 	{
 		sendKey(word.at(i));
@@ -67,7 +66,7 @@ void EventHandler::sendKey(QChar key)
 	
 	if (((c >= 'A') && (c <= 'Z'))  || ((capslock) && ((c >= 'a') && (c <= 'z'))))
 	{
-		coreEvents->setModifierKey(VK_LSHIFT,false);
+		coreEvents->setModifierKey(KeyShift,false);
 	}
 	if (((c >= 'A') && (c <= 'Z')))
 	{
@@ -76,7 +75,7 @@ void EventHandler::sendKey(QChar key)
 	
 	coreEvents->sendChar(c);
 
-	coreEvents->unsetModifier(VK_LSHIFT);
+	coreEvents->unsetModifier(KeyShift);
 }
 
 /**

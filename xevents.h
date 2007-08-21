@@ -29,6 +29,14 @@
 #endif
 
 
+//TODO
+const int KeyShift=0;
+const int KeyAlt=0;
+const int KeyStrg=0;
+const int KeySuper=0;
+const int KeyCapsLock=0;
+const int KeyAltGr=0;
+
 /**
  *	@class XEvents
  *	@brief The X11 Event Backend
