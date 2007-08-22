@@ -61,6 +61,8 @@ public:
 	
     ~SystemView();
 
+signals:
+    void commandsChanged();
 };
 
 #endif

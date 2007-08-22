@@ -68,6 +68,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	Logger::log(tr("[INF] Lade Einstellungen..."));
 	Settings::initSettings();
+	Logger::log(tr("[INF] Einstellungen geladen..."));
 	
 	this->info->writeToSplash(tr("Lade Programmlogik..."));
 	
@@ -82,7 +83,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	pol.setVerticalStretch(1);
 	inlineView->setSizePolicy(pol);
 	
-	this->ipwizard = new ImportProgramWizard();  //todo delete!! just for testing
+	//this->ipwizard = new ImportProgramWizard();  //todo delete!! just for testing
 
 	//Preloads all Dialogs
 	this->info->writeToSplash(tr("Lade \"Wort hinzufühgen\"..."));
@@ -90,7 +91,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->info->writeToSplash(tr("Lade \"Wortliste\"..."));
 	this->wordList = new WordListView(inlineView);
 	this->info->writeToSplash(tr("Lade \"Ausführen\"..."));
-	this->runDialog = new RunApplicationView(this);
+	this->runDialog = new RunApplicationView(control->getRunManager(), this);
 	this->info->writeToSplash(tr("Lade \"Trainieren\"..."));
 
 	this->trainDialog = new TrainingView(wordList, this);
@@ -139,6 +140,8 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	show();
 	QCoreApplication::processEvents();
 	resizeMainButtonContentsToWindow();
+    
+    connect(systemDialog, SIGNAL(commandsChanged()), runDialog, SLOT(loadCommands()));
 }
 
 /**
@@ -385,8 +388,10 @@ void SimonView::showAddWordDialog(bool show)
 	if (show)
 	{
 		this->addWordView->show();
-//         	this->ipwizard->show(); //todo delete !! just for testing
-		ui.pbAddWord->setChecked(true);
+        //if(ipwizard->currentId()==4)
+         //   ipwizard->restart();
+        //this->ipwizard->show(); //todo delete !! just for testing
+		//ui.pbaddWord->setChecked(true);
 	} else 
 	{
 		this->addWordView->hide();

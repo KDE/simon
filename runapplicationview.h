@@ -19,6 +19,7 @@
 #include <QSize>
 #include "simoninfo.h"
 #include "ui_rundialog.h"
+
 #include "runcommand.h"
 
 /**
@@ -51,8 +52,9 @@ public slots:
 	CommandList filterByCategory(int commandtype, CommandList *commlist=NULL);
 	CommandList filterByStrCategory(QString commandtype, CommandList *commlist=NULL);
 	int getCategory(QString commandtype);
+    void loadCommands();
 public:
-    RunApplicationView(QWidget *parent);
+    RunApplicationView(RunCommand *run, QWidget *parent);
 
     ~RunApplicationView();
 

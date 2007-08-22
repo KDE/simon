@@ -212,3 +212,4 @@ thread
 
 
 RESOURCES += simon.qrc
+>>>>>>> .r175

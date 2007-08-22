@@ -1,5 +1,5 @@
 #include "xmlcommand.h"
-
+#include <QMessageBox>
 
 /**
  * \brief Creates a new XMLCommand object
@@ -23,7 +23,7 @@ XMLCommand::XMLCommand(QString path):XMLDomReader(path)
  * The path to save to; Default: conf/commands.xml
  * @todo This is not yet implemented
  */
-void XMLCommand::save(QString path)
+bool XMLCommand::save(QString path)
 {
 	this->doc->clear();
 	QDomElement root = doc->createElement("commands");
@@ -40,7 +40,7 @@ void XMLCommand::save(QString path)
 		root.appendChild(command);
 	}
 	
-	XMLDomReader::save(path);
+	return (XMLDomReader::save(path)==0);   //!=0 -> false
 }
 
 
@@ -103,11 +103,11 @@ bool XMLCommand::commandExists(QString commandName)
  * @param path
  * The path to save to; If not given the path used to construct the object is used
  */
-void XMLCommand::load(QString path)
+bool XMLCommand::load(QString path)
 {
 	commandlist.clear();
 	XMLDomReader::load(path);
-	if (!this->doc) return;
+	if (!this->doc) return false;
 	
 	QDomElement root = this->doc->documentElement();
 	QDomElement command = root.firstChildElement();
@@ -122,7 +122,9 @@ void XMLCommand::load(QString path)
 		commandlist.append(new Command(name, CommandType(type.toInt()), value));
 
 		command = command.nextSiblingElement();
+     //   QMessageBox::information(0, "xmlcommand", "load");
 	}
+    return true;
 }
 
 

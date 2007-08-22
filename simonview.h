@@ -162,6 +162,9 @@ public:
 	~SimonView();
 
 	void closeEvent ( QCloseEvent * event );
+
+/*signal:
+    void commandsChanged();*/
 };
 
 #endif

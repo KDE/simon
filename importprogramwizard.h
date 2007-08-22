@@ -34,24 +34,25 @@ class ImportProgramWizard : public QWizard
 {
     Q_OBJECT
 		
-	public slots:
-		
-		//void finish(int done);
-
+	private:
 		QWizardPage* createIntroPage();
 		SelectProgramPage* createSelectProgramPage();
         ConfigureProgramPage* createConfigureProgramPage();
         ImportProgramPage* createImportProgramPage();
         QWizardPage* createFinishedPage();
     
-        void test();
-   // signals:
-     //   commandCreated(Command *command);
+        int oldId;
     
 public:
         ImportProgramWizard(QWidget* parent=0);
 
         ~ImportProgramWizard();
+
+private slots:
+    void idChanged(int newId);
+
+signals:
+   void commandCreated(Command* command);
 
 };
 

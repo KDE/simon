@@ -20,16 +20,25 @@
 */
 ImportProgramWizard::ImportProgramWizard(QWidget* parent): QWizard(parent)
 {
+    oldId=0;
     this->addPage(createIntroPage());
 	this->addPage(createSelectProgramPage());
 	this->addPage(createConfigureProgramPage());
-    this->addPage(createImportProgramPage());
+    ImportProgramPage *ipp = createImportProgramPage();
+    this->addPage(ipp);
     this->addPage(createFinishedPage());
-
+    
     //(connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
     
 	setWindowTitle("Programm hinzufügen");
     setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/importdict.png")));
+    
+    connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(idChanged(int)));
+    connect(ipp, SIGNAL(commandCreated(Command*)), this, SIGNAL(commandCreated(Command*)));
+    connect(ipp, SIGNAL(commandCreated(Command*)), this, SLOT(next()));
+    connect(this, SIGNAL(finished(int)), this, SLOT(restart()));
+    
+   // QMessageBox::information(0, "importProgramwizard","konstruktor");
 }
 
 /**
@@ -100,8 +109,35 @@ QWizardPage* ImportProgramWizard::createFinishedPage()
 	return finished;
 }
 
-void ImportProgramWizard::test()
+void ImportProgramWizard::idChanged(int newId)
 {
-    QMessageBox::information(this, "test", "ksdjf");    
-}
+    if((oldId==1) && (newId==2))
+    {
+        SelectProgramPage *spp = dynamic_cast<SelectProgramPage*>(page(1));
+        if(!spp)
+            return;
+        ConfigureProgramPage *cpp = dynamic_cast<ConfigureProgramPage*>(page(2));
+        cpp->progName = spp->getName();
+        cpp->execPath = spp->getExecPath();
+        cpp->writeInformation();
+    }
+    else if((oldId==2) && (newId==3))
+    {
+        ConfigureProgramPage *cpp = dynamic_cast<ConfigureProgramPage*>(page(2));
+        if(!cpp)
+            return;
+        ImportProgramPage *ipp = dynamic_cast<ImportProgramPage*>(page(3));
+        ipp->createCommand(cpp->progName, cpp->execPath);
+    }
+/*    else if((oldId==3) && (newId==4))
+    {
 
+    }*/
+    else if((oldId==4) && (newId==3))
+    {
+        restart();
+        next();
+    }
+    
+    oldId = newId;
+}

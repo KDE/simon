@@ -8,6 +8,7 @@
 //
 // Copyright: See COPYING file that comes with this distribution
 //
+
 //
 #include "systemview.h"
 #include "systemwidget.h"
@@ -24,6 +25,7 @@
 #include "logview.h"
 #include "externalprogrammanager.h"
 #include "networksettings.h"
+#include "commandsettings.h"
 
 
 /**
@@ -37,6 +39,8 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
 	registerControl(new GeneralSettings(this));
 	registerControl(new SoundSettings(this));
 	registerControl(new NetworkSettings(this));
+    CommandSettings *commandsSettings = new CommandSettings(this);
+    registerControl(commandsSettings);
 	registerControl(new LogView(this));
 	registerControl(new ExternalProgramManager(this));
 	registerControl(new Revert(this));
@@ -44,6 +48,8 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
 	connect(selectControl, SIGNAL(currentRowChanged(int)), this, SLOT(displayId(int)));
 	connect(pbApply, SIGNAL(clicked()), this, SLOT(apply()));
 	connect(pbReset, SIGNAL(clicked()), this, SLOT(reset()));
+    
+    connect(commandsSettings, SIGNAL(commandsChanged()), this, SIGNAL(commandsChanged()));
 }
 
 /**
@@ -158,6 +164,7 @@ void SystemView::registerControl(SystemWidget* control)
 	//DO NOT REMOVE THIS
 	QListWidgetItem *newItem = new QListWidgetItem(control->getIcon(), 
 				control->getTitle(), selectControl);
+
 }
 
 /**

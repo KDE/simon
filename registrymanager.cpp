@@ -131,7 +131,6 @@ QStringList* RegistryManager::getAllPrograms(QString format)
 
 QStringList* RegistryManager::getAllFormats(QString categorie)
 {
-    //QMessageBox::information(this, "getAllFormats - Registrymanager", "debug 1");
     QStringList *formatList = new QStringList();
     unsigned long cSubKeys = 0;
     unsigned long u = 0;
@@ -146,7 +145,6 @@ QStringList* RegistryManager::getAllFormats(QString categorie)
             return formatList;
     }
     
-    
     RegQueryInfoKey(hKey, NULL, NULL, NULL, &cSubKeys, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
     if (cSubKeys)
@@ -159,8 +157,7 @@ QStringList* RegistryManager::getAllFormats(QString categorie)
             if((QString::fromUtf16((const ushort*)achKey)).left(1)==".")
                 formatList->append(QString::fromUtf16((const ushort*)achKey));
         }
-    }
-    
+    }    
     
     if(categorie != "all")
     {
@@ -168,19 +165,67 @@ QStringList* RegistryManager::getAllFormats(QString categorie)
         unsigned long size = 1024;
         HKEY hKey2;
         
-        QStringList *formatList_copy = formatList;
-        formatList->clear();
-        for(int i=0; i<formatList_copy->count(); i++)
+        QStringList *formatListCateg = new QStringList();
+        for(int i=0; i<formatList->count(); i++)
         {
-            success = RegOpenKeyEx(HKEY_CLASSES_ROOT, (WCHAR*)formatList_copy->at(i).utf16(), 0, KEY_QUERY_VALUE, &hKey2)==ERROR_SUCCESS;
+            success = RegOpenKeyEx(HKEY_CLASSES_ROOT, (WCHAR*)formatList->at(i).utf16(), 0, KEY_QUERY_VALUE, &hKey2)==ERROR_SUCCESS;
             success = RegQueryValueEx(hKey2, L"PerceivedType", NULL, NULL, temp, &size)==ERROR_SUCCESS;
-            if(success && ((const char*)temp == categorie))
+            QString tempStr = QString::fromUtf16((const ushort*)temp);
+            if(success && (tempStr == categorie))
             {
-                formatList->append(formatList_copy->at(i));
+                formatListCateg->append(formatList->at(i));
             }
         }
+        //QMessageBox::information(0, "registrymanager", "formatlist "+QString::number(formatList->count()));
+        //QMessageBox::information(0, "registrymanager", "formatListCateg "+QString::number(formatListCateg->count()));
+        return formatListCateg;
     }
+    
     RegCloseKey(hKey);
     
     return formatList;
+}
+
+QString RegistryManager::getPath(QString exeStr)
+{
+    unsigned char temp[1024] = {""};
+        unsigned long size = 1024;
+        HKEY hKey;
+        bool noerror;
+        
+        QString strAusfuehren = "\\Applications\\" + exeStr + "\\shell\\open\\command";
+        noerror = RegOpenKeyEx(HKEY_CLASSES_ROOT, (WCHAR*)strAusfuehren.utf16(), 0, KEY_QUERY_VALUE, &hKey)==ERROR_SUCCESS;
+        if(!noerror)
+        {
+            strAusfuehren = "\\Applications\\" + exeStr + "\\shell\\edit\\command";
+            noerror = RegOpenKeyEx(HKEY_CLASSES_ROOT, (WCHAR*)strAusfuehren.utf16(), 0, KEY_QUERY_VALUE, &hKey)==ERROR_SUCCESS;
+            if(!noerror)
+            {
+                return "";
+            }
+        }
+        
+        bool success = RegQueryValueEx(hKey, L"", NULL, NULL, temp, &size)==ERROR_SUCCESS;
+        if(!success)
+        {
+            RegCloseKey(hKey);
+            return "";
+        }
+        RegCloseKey(hKey);
+        QString str = QString::fromUtf16((const ushort*)temp);
+        
+        int indexStart = str.indexOf("\"");
+        str = str.mid(indexStart, str.indexOf("\"", indexStart+1)-(indexStart-1));
+        //QMessageBox::information(0, " j " , getenv("systemroot"));
+        int startIndex = str.indexOf("%");
+        int endIndex = str.indexOf("%",startIndex+1);
+        while(startIndex>=0 && endIndex>0)
+        {
+            QString searchStr = str.mid(startIndex+1, endIndex-startIndex-1);   //z.b. systemroot
+            QString replaceStr = getenv((const char*)searchStr.toUtf8());   //z.b. c:\windows
+            str.replace(startIndex, endIndex-startIndex+1, replaceStr);
+            startIndex = str.indexOf("%");
+            endIndex = str.indexOf("%",startIndex+1);
+        }
+        return str;
 }

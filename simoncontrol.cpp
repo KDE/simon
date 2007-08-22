@@ -21,6 +21,7 @@
 #include "simoncontrol.h"
 #include "logger.h"
 #include "settings.h"
+#include <QVariant>
 #include <QDebug>
 
 #define COMMANDIDENT "simon"
@@ -36,7 +37,7 @@ SimonControl::SimonControl() : QObject ()
 {
 	this->active=false;
 	this->julius = new JuliusControl();
-	this->run = new RunCommand();
+	this->run = new RunCommand(Settings::get("PathToCommands").toString());
 	eventHandler = new EventHandler();
 	
 	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));

@@ -10,18 +10,18 @@
 //
 //
 #include "runapplicationview.h"
-
+#include "settings.h"
 
 /**
  *	@brief Constructor
  *
  *	@author Peter Grasch
  */
-RunApplicationView::RunApplicationView(QWidget *parent) : InlineWidget(tr("Ausführen"), QIcon(":/images/icons/emblem-system"), tr("Direkte ausführung von simon-Befehlen"), parent)
+RunApplicationView::RunApplicationView(RunCommand *run, QWidget *parent) : InlineWidget(tr("Ausführen"), QIcon(":/images/icons/emblem-system"), tr("Direkte ausführung von simon-Befehlen"), parent)
 {
 	ui.setupUi(this);
 	hide();
-	run = new RunCommand();
+    this->run = run;
 	ui.twPrograms->verticalHeader()->hide();
 	insertCommands ( run->getCommands() );
 	connect(ui.twPrograms, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(runCommand(QTableWidgetItem*)));
@@ -29,6 +29,8 @@ RunApplicationView::RunApplicationView(QWidget *parent) : InlineWidget(tr("Ausfü
 	connect ( ui.leSearch, SIGNAL(textEdited(QString)), this, SLOT(filterByPattern(QString)) );
 	connect ( ui.cbShow, SIGNAL(currentIndexChanged(QString)), this, SLOT(filterByPattern()) );
 	connect ( ui.pbClearSearch, SIGNAL(clicked()), this, SLOT(clearSearchText()) );
+    
+    //connect ( , SIGNAL(commandsChanged()), this, SLOT(loadCommands()));
 }
 
 
@@ -225,6 +227,15 @@ void RunApplicationView::insertCommands(CommandList list)
 		for (int j = 0; j<3; j++)
 			ui.twPrograms->item(i,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 	}
+}
+
+void RunApplicationView::loadCommands()
+{
+    ui.twPrograms->clear();
+    run = new RunCommand();
+    QString path = Settings::get("PathToCommands").toString();
+    run->readCommands(path);
+    insertCommands (run->getCommands());
 }
 
 /**

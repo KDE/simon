@@ -43,8 +43,8 @@ RunCommand::RunCommand(QString path)
 void RunCommand::readCommands(QString path)
 {
 	Logger::log(QObject::tr("[INF] Lese Befehle von ")+path);
-	XMLCommand *reader = new XMLCommand();
-	reader->load();
+	XMLCommand *reader = new XMLCommand(path);
+	reader->load(path);
 	
 	this->commandlist = reader->getCommands();
 }

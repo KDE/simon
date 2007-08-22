@@ -13,6 +13,11 @@
 #define CONFIGUREPROGRAMPAGE_H
 
 #include <QWizardPage>
+#include <QString>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QLineEdit>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -26,11 +31,28 @@
  */
 class ConfigureProgramPage : public QWizardPage
 {
+    
 public:
         ConfigureProgramPage(QWidget* parent);
 
         ~ConfigureProgramPage();
 
+        QVBoxLayout *vboxLayout;
+        QLabel *label;
+        QHBoxLayout *hboxLayoutPath;
+        QLabel *lPath;
+        QLineEdit *lePath;
+        QHBoxLayout *hboxLayoutWorkingPath;
+        QLabel *lWorkingPath;
+        QLineEdit *leWorkingPath;
+
+        void setProgName(QString name){progName = name;}
+        void setExecPath(QString path){execPath = path;}
+        void writeInformation();
+        
+//private:
+    QString progName;
+    QString execPath;
 };
 
 #endif

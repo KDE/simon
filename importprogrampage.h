@@ -13,6 +13,11 @@
 #define IMPORTPROGRAMPAGE_H
 
 #include <QWizardPage>
+#include <QLabel>
+#include <QProgressBar>
+#include <QVBoxLayout>
+#include "Command.h"
+#include "xmlcommand.h"
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -26,12 +31,24 @@
  */
 class ImportProgramPage : public QWizardPage
 {
+    Q_OBJECT
 public:
         ImportProgramPage(QWidget* parent);
 
         ~ImportProgramPage();
 
+        XMLCommand *commandLoader;
+        void createCommand(QString name, QString value);
+
+private:
+        QVBoxLayout *vboxLayout;
+        QLabel *label;
+        QProgressBar *progressbar;
+
         virtual bool isComplete() const;
+
+ signals:
+   void commandCreated(Command *command);
 
 };
 

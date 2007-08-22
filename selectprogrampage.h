@@ -51,7 +51,9 @@ public:
         SelectProgramPage(QWidget* parent);
         ~SelectProgramPage();
 
-        QStringList* getAllFormats();
+        QStringList* getAllFormats(QString format);
+        QString getExecPath();
+        QString getName();
 
         QVBoxLayout *vboxLayout;
         QListWidget *lwCategories;

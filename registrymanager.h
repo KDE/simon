@@ -32,7 +32,10 @@ public:
 
     void startProcess(QString command);
     QStringList* getAllPrograms(QString format);
+    QStringList* getAllPrograms(QStringList formats);
     QStringList* getAllFormats(QString categorie = "all");
+    QString getPath(QString exeStr);
+    
 };
 
 

@@ -81,6 +81,8 @@ public:
 	bool toggleActivition();
 	bool getActivitionState();
 
+    RunCommand* getRunManager() { return this->run; }
+
 	SimonControl();
 	
 	~SimonControl();
