@@ -74,8 +74,6 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
     vboxLayout->addWidget(lwCategories);
     vboxLayout->addWidget(lwPrograms);
     
-    regMan = new RegistryManager();
-    
     //connect(lwCategories, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(test()));
     connect(lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
     //getAllFormats();
