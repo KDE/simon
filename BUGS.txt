@@ -1,0 +1,10 @@
+BUGS:
+-----
+
+
+[YYYY/MM/DD] <classname (if known - else "unknown")>	<line number (if known)>
+		BRIEF:	<short description>
+		LEVEL: <{critical (crash), medium (performance,...), low (inconvinient)}>
+
+[2007/08/21] <LogView>	<unknown>
+	     BRIEF: Calendar widget doesn't get enabled

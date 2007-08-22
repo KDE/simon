@@ -17,6 +17,7 @@
 #include <QCoreApplication>
 #include <QRegExp>
 #include <QMessageBox>
+#include <QDebug>
 
 /**
  * \brief Constrictor
@@ -251,7 +252,11 @@ void LogView::enableWidgets(bool enabled)
 	this->ui.cbLogInfo->setEnabled(enabled);
 	this->ui.cbLogUpdate->setEnabled(enabled);
 	this->ui.cbLogSettings->setEnabled(enabled);
+
 	this->ui.gbOnlyDay->setEnabled(enabled);
+	qDebug() << ((enabled) ? "Onlyday wird enabled!" : "Onlyday wird net enabled!");
+	this->ui.cwLogDay->setEnabled(enabled && ui.gbOnlyDay->isChecked());
+
 	this->ui.pbActionLog->setEnabled(enabled);
 	this->ui.pbRecordings->setEnabled(enabled);
 	this->ui.twLogEntries->setEnabled(enabled);

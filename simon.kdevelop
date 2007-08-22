@@ -162,7 +162,9 @@
     <dest>/home/bedahr/Projets/simon/trunk</dest>
   </substmap>
   <kdevcppsupport>
-    <references/>
+    <references>
+      <pcs>Qt4</pcs>
+    </references>
     <codecompletion>
       <includeGlobalFunctions>true</includeGlobalFunctions>
       <includeTypes>true</includeTypes>
