@@ -1,0 +1,283 @@
+<ui version="4.0" >
+ <class>CommandSettingsDlg</class>
+ <widget class="QWidget" name="CommandSettingsDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>518</width>
+    <height>322</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QHBoxLayout" >
+   <item>
+    <layout class="QVBoxLayout" >
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QLabel" name="lbSearchCommand" >
+         <property name="text" >
+          <string>&amp;Suchen:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>leSearchCommand</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="leSearchCommand" >
+         <property name="toolTip" >
+          <string>Schränkt die Liste auf die Eingabe ein</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pbClearSearchCommand" >
+         <property name="maximumSize" >
+          <size>
+           <width>20</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip" >
+          <string>Zurücksetzen der Suche</string>
+         </property>
+         <property name="text" >
+          <string>&amp;x</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbShowCommand" >
+         <property name="text" >
+          <string>Anzei&amp;gen:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>cbShowCommand</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="cbShowCommand" >
+         <property name="toolTip" >
+          <string>Schränkt die Ausgabe auf gewisse Gruppen ein</string>
+         </property>
+         <item>
+          <property name="text" >
+           <string>Alles</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/system-file-manager.svg</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Programme</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Orte</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Sonderzeichen</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../simon.qrc" >:/images/icons/format-text-bold.svg</iconset>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="twCommand" >
+       <property name="alternatingRowColors" >
+        <bool>true</bool>
+       </property>
+       <property name="selectionMode" >
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior" >
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <property name="showGrid" >
+        <bool>false</bool>
+       </property>
+       <property name="gridStyle" >
+        <enum>Qt::SolidLine</enum>
+       </property>
+       <property name="sortingEnabled" >
+        <bool>false</bool>
+       </property>
+       <column>
+        <property name="text" >
+         <string>Name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text" >
+         <string>Typ</string>
+        </property>
+       </column>
+       <column>
+        <property name="text" >
+         <string>Wert</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QLabel" name="lbSchluesselWort" >
+         <property name="text" >
+          <string>Schlüssel Wort</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="leSchluesselWort" />
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" >
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="Line" name="line_2" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2" >
+         <property name="text" >
+          <string>Neu</string>
+         </property>
+         <property name="alignment" >
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_4" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbImportProgram" >
+       <property name="text" >
+        <string>Programm importieren</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbImportPlace" >
+       <property name="text" >
+        <string>Ort importieren</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbNewCommand" >
+       <property name="text" >
+        <string>Manuell</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="Line" name="line" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label" >
+         <property name="text" >
+          <string>Bearbeiten</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="line_3" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbEditCommand" >
+       <property name="text" >
+        <string>Kommando bearbeiten</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../simon.qrc" >:/images/icons/text-editor.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbDeleteCommand" >
+       <property name="text" >
+        <string>Kommando löschen</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
+ <connections/>
+</ui>
