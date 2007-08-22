@@ -116,9 +116,12 @@ importtrainingdirectoryworkingpage.h \
            networksettings.h \
            importprogramwizard.h \
            selectprogrampage.h \
+           registrymanager.h \
            configureprogrampage.h \
+	   windowsevents.h \
            importprogrampage.h \
- commandsettings.h
+	   commandsettings.h
+
 SOURCES += main.cpp \
            simonview.cpp \
 	   RtAudio.cpp \
@@ -138,6 +141,7 @@ SOURCES += main.cpp \
            dragtablewidget.cpp \
            droplistwidget.cpp \
            runapplicationview.cpp \
+           registrymanager.cpp \
            vumeter.cpp \
            eventhandler.cpp \
            wav.cpp \
@@ -192,8 +196,10 @@ SOURCES += main.cpp \
            importprogramwizard.cpp \
            selectprogrampage.cpp \
            configureprogrampage.cpp \
+	   windowsevents.cpp \
            importprogrampage.cpp \
- commandsettings.cpp
+	   commandsettings.cpp
+
 QT += network \
 xml 
 

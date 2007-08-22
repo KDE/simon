@@ -317,6 +317,7 @@ void LogView::onlyDay(bool enable)
 {
 	displayCancel();
 	this->AbortFlag = true;
+	
 	if(enable)
 	{
 		LogEntryList *list = getEntries(ui.cwLogDay->selectedDate());

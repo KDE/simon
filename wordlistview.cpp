@@ -149,11 +149,13 @@ void WordListView::markWordToTrain(Word word)
  */
 void WordListView::filterListbyPattern(QString filter)
 {
+	QMessageBox::critical(this,"","1");
 	if (filter.isEmpty()) filter = ui.leSearch->text();
 	WordList *vocab = this->wordListManager->getWordList();
 	
 	WordList *limitedVocab = new WordList();
-	
+	WordList *temp;
+
 	int i=0;
 	while (i < vocab->count())
 	{
@@ -162,7 +164,6 @@ void WordListView::filterListbyPattern(QString filter)
 		
 		i++;
 	}
-	
 	insertVocab( limitedVocab );
 }
 
@@ -174,6 +175,7 @@ void WordListView::filterListbyPattern(QString filter)
  */
 void WordListView::trainList()
 {
+	//TODO CODE CHECK 
 	if (!trainView) return;
 	trainView->trainWords(&trainingwordlist);
 	trainView->exec();
