@@ -11,7 +11,9 @@
 //
 #include "commandsettings.h"
 #include "command.h"
+#ifdef __WIN32
 #include <windows.h>
+#endif
 #include "importprogramwizard.h"
 #include "logger.h"
 #include "settings.h"

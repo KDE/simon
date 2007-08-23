@@ -14,11 +14,20 @@
 
 #include "logentry.h"
 #include <QThread>
+#include <QVector>
 
+class QDate;
+
+
+typedef QVector<QDate> Dates;
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
+ * \class LogManager
+ * \brief Manages the logfile
+ * \author Phillip Goriup
+ * \date 6.8.2007
+ * \version 0.1
+ */
 class LogManager : public QThread
 {
 	Q_OBJECT
@@ -26,7 +35,9 @@ class LogManager : public QThread
 private:
 	LogEntryList *entries;
 	bool killMe;
+	qint64 logFilesize;
 	bool finishedLoading;
+	QDate dayToGet;
 	
 private slots:
 	void resetKillFlag()  { killMe = false; }
@@ -36,18 +47,23 @@ public:
 
     ~LogManager();
 
-	LogEntryList* getDay(QDate day);
-	LogEntryList* getAll();
-	bool readLog();
-	bool hasFinishedReading(){return this->finishedLoading;}
+	bool isBusy() { return isRunning(); }
 
+
+	bool hasFinishedReading();
 	void run ();
 
 public slots:
-	void stop(bool free);
+	void getDateList();
+	void stop();
+	void getDay(QDate day=QDate());
+	void getAll();
 
 signals:
+	void done();
 	void logReadFinished(int value);
+	void foundEntries(LogEntryList* entries,bool copy);
+	void daysAvailable(Dates days);
 
 
 };

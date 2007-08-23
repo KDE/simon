@@ -143,8 +143,8 @@
   </kdevfilecreate>
   <kdevdocumentation>
     <projectdoc>
-      <docsystem/>
-      <docurl/>
+      <docsystem></docsystem>
+      <docurl></docurl>
       <usermanualurl>/home/bedahr/Daten/Projects/simon/documentation/simon/refman.out</usermanualurl>
     </projectdoc>
   </kdevdocumentation>

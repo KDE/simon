@@ -1,0 +1,18 @@
+[]
+[]		LEVEL: <{critical (crash), medium (performance,...), low (inconvinient)}>
+[]
+[]		BRIEF:	<short description>
+[]		BRIEF: Calendar widget doesnt get enabled
+[]
+-----		[-----]		-----
+BUGS:		[BUGS:]		BUGS:
+TODO:		[TODO:]		TODO:
+[2007/08/21] <LOGVIEW>		[[2007/08/21] <LogView>]		[2007/08/21] <LogView>	<unknown>
+SENT-START		[SENT-START]		sil
+SENT-END		[SENT-END]		sil
+SENT-END		[SENT-END]		sil
+SENT-START		[SENT-START]		sil
+[YYYY/MM/DD] BRIEF:		[[YYYY/MM/DD] BRIEF:]		[YYYY/MM/DD] BRIEF:
+[YYYY/MM/DD] <CLASSNAME (IF KNOWN - ELSE "UNKNOWN")>		[[YYYY/MM/DD] <classname (if known - else "unknown")>]		[YYYY/MM/DD] <classname (if known - else "unknown")>	<line number (if known)>
+SENT-START		[SENT-START]		sil
+SENT-END		[SENT-END]		sil

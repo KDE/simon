@@ -20,8 +20,8 @@ unix {
 }
 
 win32 {
-    HEADERS += runwindowsbackend.h
-    SOURCES += runwindowsbackend.cpp
+    HEADERS += runwindowsbackend.h registrymanager.h windowsevents.h
+    SOURCES += runwindowsbackend.cpp registrymanager.cpp windowsevents.cpp
     DEFINES += __WINDOWS_DS__
     LIBS += -ldsound -lwinmm -lole32
 }
@@ -32,6 +32,7 @@ FORMS += ui/main.ui \
          ui/rundialog.ui \
          ui/addword.ui \
          ui/settings.ui \
+	 ui/commandsettingsdlg.ui \
          ui/trainmain.ui \
          ui/importdict.ui \
          ui/generalsettingsdlg.ui \
@@ -116,9 +117,7 @@ importtrainingdirectoryworkingpage.h \
            networksettings.h \
            importprogramwizard.h \
            selectprogrampage.h \
-           registrymanager.h \
            configureprogrampage.h \
-	   windowsevents.h \
            importprogrampage.h \
 	   commandsettings.h
 
@@ -141,7 +140,6 @@ SOURCES += main.cpp \
            dragtablewidget.cpp \
            droplistwidget.cpp \
            runapplicationview.cpp \
-           registrymanager.cpp \
            vumeter.cpp \
            eventhandler.cpp \
            wav.cpp \
@@ -196,7 +194,6 @@ SOURCES += main.cpp \
            importprogramwizard.cpp \
            selectprogrampage.cpp \
            configureprogrampage.cpp \
-	   windowsevents.cpp \
            importprogrampage.cpp \
 	   commandsettings.cpp
 

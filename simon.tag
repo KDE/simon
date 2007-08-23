@@ -1,56 +1,117 @@
 <?xml version='1.0' encoding='ISO-8859-1' standalone='yes' ?>
 <tagfile>
   <compound kind="class">
+    <name>$CLASSNAME</name>
+    <filename>class$CLASSNAME.html</filename>
+  </compound>
+  <compound kind="class">
+    <name>AddWordIntroPage</name>
+    <filename>classAddWordIntroPage.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>AddWordIntroPage</name>
+      <anchorfile>classAddWordIntroPage.html</anchorfile>
+      <anchor>3190e28be08c286e194de8c5159fb508</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>getName</name>
+      <anchorfile>classAddWordIntroPage.html</anchorfile>
+      <anchor>61495f8c2a05eeb74f4a3282bf00e102</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~AddWordIntroPage</name>
+      <anchorfile>classAddWordIntroPage.html</anchorfile>
+      <anchor>1cd82ef74deb21e4af064c3aed9b040a</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>AddWordRecordPage</name>
+    <filename>classAddWordRecordPage.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>AddWordRecordPage</name>
+      <anchorfile>classAddWordRecordPage.html</anchorfile>
+      <anchor>e1aa711444138a60d51c6eabeccb18f2</anchor>
+      <arglist>(QWidget *parent=0)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isComplete</name>
+      <anchorfile>classAddWordRecordPage.html</anchorfile>
+      <anchor>b72675d4d57729eef5c6761c58037243</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>cleanUp</name>
+      <anchorfile>classAddWordRecordPage.html</anchorfile>
+      <anchor>bb8d7879322a1975f326dd326074aad7</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~AddWordRecordPage</name>
+      <anchorfile>classAddWordRecordPage.html</anchorfile>
+      <anchor>a5497b97dfe8b30b2f8bd882d18f2c99</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>AddWordView</name>
     <filename>classAddWordView.html</filename>
     <member kind="slot">
       <type>void</type>
-      <name>saveWord</name>
-      <anchorfile>classAddWordView.html</anchorfile>
-      <anchor>c57f1c42723c1afb3835ee357c423053</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>nextStep</name>
-      <anchorfile>classAddWordView.html</anchorfile>
-      <anchor>d64470f22a81e7ef941b160bc1f78e9d</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>prevStep</name>
-      <anchorfile>classAddWordView.html</anchorfile>
-      <anchor>1a826e442eadffc79db0e8de6c53ca59</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="slot">
-      <type>void</type>
       <name>finish</name>
       <anchorfile>classAddWordView.html</anchorfile>
-      <anchor>2f4d7f340225af6754ff700c9e5b39b0</anchor>
+      <anchor>5833706eea47be559a736e375823a74c</anchor>
+      <arglist>(int done)</arglist>
+    </member>
+    <member kind="slot">
+      <type>QWizardPage *</type>
+      <name>createWelcomePage</name>
+      <anchorfile>classAddWordView.html</anchorfile>
+      <anchor>b3e8b7cc6dabe8a189b43ebd5d942a5f</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="slot">
-      <type>void</type>
-      <name>checkReady</name>
+      <type>QWizardPage *</type>
+      <name>createRecordPage</name>
       <anchorfile>classAddWordView.html</anchorfile>
-      <anchor>d4004cde19bb06e1e5ba2d7a799fafb0</anchor>
+      <anchor>0cd99dc736772191982e4bd66b20b934</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="slot">
-      <type>void</type>
-      <name>setNotReady</name>
+      <type>QWizardPage *</type>
+      <name>createFinishedPage</name>
       <anchorfile>classAddWordView.html</anchorfile>
-      <anchor>dd5eeee0b21339013afa6df015b56901</anchor>
+      <anchor>64386d190454b2813b6dd65f02441d75</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>addedWord</name>
+      <anchorfile>classAddWordView.html</anchorfile>
+      <anchor>ab7bd9ef39495c20c89ed946ca17eb69</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>hidden</name>
+      <anchorfile>classAddWordView.html</anchorfile>
+      <anchor>7bb8b2fbe267ae6e550181cc37c00012</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>AddWordView</name>
       <anchorfile>classAddWordView.html</anchorfile>
-      <anchor>9982dfac4b5fbdda9c09fefc33b90c14</anchor>
-      <arglist>(QWidget *parent=0, Qt::WFlags flags=0)</arglist>
+      <anchor>96950e294cb5e6f31bfd62565365b8ae</anchor>
+      <arglist>(QWidget *parent=0)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -58,6 +119,106 @@
       <anchorfile>classAddWordView.html</anchorfile>
       <anchor>78308d2d8c842889fec67b78e84af029</anchor>
       <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>BOMPDict</name>
+    <filename>classBOMPDict.html</filename>
+    <base>Dict</base>
+    <member kind="signal">
+      <type>void</type>
+      <name>loaded</name>
+      <anchorfile>classBOMPDict.html</anchorfile>
+      <anchor>adbc6048fd1ad1b3a863b17918ae8d90</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BOMPDict</name>
+      <anchorfile>classBOMPDict.html</anchorfile>
+      <anchor>c9cf34ac89e684316101fb4b44af7fbb</anchor>
+      <arglist>(QString path=&quot;&quot;, QObject *parent=0)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>load</name>
+      <anchorfile>classBOMPDict.html</anchorfile>
+      <anchor>3008e0044b4fac37e1df42a13046ed3e</anchor>
+      <arglist>(QString path=&quot;&quot;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~BOMPDict</name>
+      <anchorfile>classBOMPDict.html</anchorfile>
+      <anchor>324fbba14d59e3e3b575609f41bafe0f</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Bunzip</name>
+    <filename>classBunzip.html</filename>
+    <member kind="slot">
+      <type>void</type>
+      <name>cancel</name>
+      <anchorfile>classBunzip.html</anchorfile>
+      <anchor>c0e6f112d9ccc9399bd813cb1f2517c5</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>extract</name>
+      <anchorfile>classBunzip.html</anchorfile>
+      <anchor>220489c327fe0c3dba31f630a9fb6fa0</anchor>
+      <arglist>(QString filename)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>extractingFinishing</name>
+      <anchorfile>classBunzip.html</anchorfile>
+      <anchor>436041316328df8a1594afa66ae95e3c</anchor>
+      <arglist>(int exitCode)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>extractionFinished</name>
+      <anchorfile>classBunzip.html</anchorfile>
+      <anchor>4df46010d8ba5a8d5c4d8a684dec246f</anchor>
+      <arglist>(QString filename)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>errorOccured</name>
+      <anchorfile>classBunzip.html</anchorfile>
+      <anchor>890584aaaf01b94185eb65f8d9c799ce</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>extracting</name>
+      <anchorfile>classBunzip.html</anchorfile>
+      <anchor>056cb9e72e7a27b56bd8c86d175287f3</anchor>
+      <arglist>(QString filename)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>progress</name>
+      <anchorfile>classBunzip.html</anchorfile>
+      <anchor>b64013bcac66ef37f85f6638bb88e3da</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>canceled</name>
+      <anchorfile>classBunzip.html</anchorfile>
+      <anchor>6836af12e9f0de4c1c8df47973330f5f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Bunzip</name>
+      <anchorfile>classBunzip.html</anchorfile>
+      <anchor>b5138b4ceea44f6de0c8741e3548bed8</anchor>
+      <arglist>(QObject *parent=0)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -146,6 +307,43 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>CommandSettings</name>
+    <filename>classCommandSettings.html</filename>
+    <base>SystemWidget</base>
+    <member kind="function">
+      <type></type>
+      <name>CommandSettings</name>
+      <anchorfile>classCommandSettings.html</anchorfile>
+      <anchor>76c4a1e6bd6753d043e7fa11a719bbf8</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~CommandSettings</name>
+      <anchorfile>classCommandSettings.html</anchorfile>
+      <anchor>7fc4e7a495f4aff326320da92fd129c3</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ConfigureProgramPage</name>
+    <filename>classConfigureProgramPage.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ConfigureProgramPage</name>
+      <anchorfile>classConfigureProgramPage.html</anchorfile>
+      <anchor>43375b7ca7df2a252ec3ed0b00d8a5ca</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ConfigureProgramPage</name>
+      <anchorfile>classConfigureProgramPage.html</anchorfile>
+      <anchor>d28e1bbe9ff472fe3eb93a468198421b</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>CoreEvents</name>
     <filename>classCoreEvents.html</filename>
     <member kind="function" virtualness="pure">
@@ -154,6 +352,13 @@
       <anchorfile>classCoreEvents.html</anchorfile>
       <anchor>fde4f79f8f4ffce5338a5df34a8fe90b</anchor>
       <arglist>(int key)=0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>sendChar</name>
+      <anchorfile>classCoreEvents.html</anchorfile>
+      <anchor>4ef769229baa987c52c78c0aa52a1bdd</anchor>
+      <arglist>(char key)=0</arglist>
     </member>
     <member kind="function" virtualness="pure">
       <type>virtual void</type>
@@ -180,12 +385,26 @@
   <compound kind="class">
     <name>Dict</name>
     <filename>classDict.html</filename>
+    <member kind="signal">
+      <type>void</type>
+      <name>loaded</name>
+      <anchorfile>classDict.html</anchorfile>
+      <anchor>0639d8c921d2e9270bc636871f6668cc</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>progress</name>
+      <anchorfile>classDict.html</anchorfile>
+      <anchor>046137a290779203a1cb93245b5d14aa</anchor>
+      <arglist>(int prog)</arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>Dict</name>
       <anchorfile>classDict.html</anchorfile>
-      <anchor>3772a1b20db8a4dc86cf6b9603a7ed93</anchor>
-      <arglist>()</arglist>
+      <anchor>e3a54e32280a37b5152c7728795c078b</anchor>
+      <arglist>(QObject *parent=0)</arglist>
     </member>
     <member kind="function">
       <type>QString</type>
@@ -193,6 +412,34 @@
       <anchorfile>classDict.html</anchorfile>
       <anchor>576fb771620a5e0f87dc9c6ec82af654</anchor>
       <arglist>(QString ipa)</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>load</name>
+      <anchorfile>classDict.html</anchorfile>
+      <anchor>0472a56b40a06ee08a53ac0a4954b8a4</anchor>
+      <arglist>(QString path)=0</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList</type>
+      <name>getWords</name>
+      <anchorfile>classDict.html</anchorfile>
+      <anchor>2d0f17f6ad2f737fdd264e0a63fcebfb</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList</type>
+      <name>getPronuncations</name>
+      <anchorfile>classDict.html</anchorfile>
+      <anchor>58e71662f31eef24e03afaf314d0eddb</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList</type>
+      <name>getTerminals</name>
+      <anchorfile>classDict.html</anchorfile>
+      <anchor>fed7e49fc60bf31c28c4fc0cd3f36fb7</anchor>
+      <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -376,6 +623,118 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>ExternalProgramManager</name>
+    <filename>classExternalProgramManager.html</filename>
+    <base>SystemWidget</base>
+    <member kind="slot">
+      <type>bool</type>
+      <name>apply</name>
+      <anchorfile>classExternalProgramManager.html</anchorfile>
+      <anchor>6d063196b3fc333fb550244fafa71c33</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>reset</name>
+      <anchorfile>classExternalProgramManager.html</anchorfile>
+      <anchor>292e1967b95183122d770cc7c3ad4def</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>init</name>
+      <anchorfile>classExternalProgramManager.html</anchorfile>
+      <anchor>78964ea5df359171b5600fe96835520c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ExternalProgramManager</name>
+      <anchorfile>classExternalProgramManager.html</anchorfile>
+      <anchor>130209ddef871bac532799fed8614a80</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ExternalProgramManager</name>
+      <anchorfile>classExternalProgramManager.html</anchorfile>
+      <anchor>3aa85f488fbd147093979dc03470d2d9</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>GeneralSettings</name>
+    <filename>classGeneralSettings.html</filename>
+    <base>SystemWidget</base>
+    <member kind="slot">
+      <type>bool</type>
+      <name>apply</name>
+      <anchorfile>classGeneralSettings.html</anchorfile>
+      <anchor>83f2d16fb1ecf95e82cf53600842282f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>init</name>
+      <anchorfile>classGeneralSettings.html</anchorfile>
+      <anchor>c204d7c1251d1e7532581c535e18fe8e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>reset</name>
+      <anchorfile>classGeneralSettings.html</anchorfile>
+      <anchor>643215e2b4ef6efbbf1b1f52c9357457</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>GeneralSettings</name>
+      <anchorfile>classGeneralSettings.html</anchorfile>
+      <anchor>1ae4e989c8d256df4a3f29e733735721</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~GeneralSettings</name>
+      <anchorfile>classGeneralSettings.html</anchorfile>
+      <anchor>5de8d95efec990cc8c6dfa6bbaca19d5</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ImportBOMPPage</name>
+    <filename>classImportBOMPPage.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ImportBOMPPage</name>
+      <anchorfile>classImportBOMPPage.html</anchorfile>
+      <anchor>9a6b7482df49af2e1dda5a4981b90f56</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>getFileName</name>
+      <anchorfile>classImportBOMPPage.html</anchorfile>
+      <anchor>0004dde592a3cdad7416253ca04c3930</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>nextId</name>
+      <anchorfile>classImportBOMPPage.html</anchorfile>
+      <anchor>767c1cb549534f65c13a57862011759c</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ImportBOMPPage</name>
+      <anchorfile>classImportBOMPPage.html</anchorfile>
+      <anchor>89f991dd2b7d444fff6bf298c8531d92</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>ImportDict</name>
     <filename>classImportDict.html</filename>
     <member kind="signal">
@@ -396,8 +755,8 @@
       <type>void</type>
       <name>finished</name>
       <anchorfile>classImportDict.html</anchorfile>
-      <anchor>721b5bcdd028d23d4e7f9f8d056729a1</anchor>
-      <arglist>()</arglist>
+      <anchor>f6e1b2c706b2b43b0975d9a2d245ae32</anchor>
+      <arglist>(WordList *)</arglist>
     </member>
     <member kind="signal">
       <type>void</type>
@@ -414,13 +773,6 @@
       <arglist>(QObject *parent=0)</arglist>
     </member>
     <member kind="function">
-      <type>WordList *</type>
-      <name>getWordList</name>
-      <anchorfile>classImportDict.html</anchorfile>
-      <anchor>58449b0b8676590170aef6063c1f2c09</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
       <type>void</type>
       <name>run</name>
       <anchorfile>classImportDict.html</anchorfile>
@@ -431,8 +783,8 @@
       <type>void</type>
       <name>parseWordList</name>
       <anchorfile>classImportDict.html</anchorfile>
-      <anchor>e0574fa2a486e9a019589fc25386dc33</anchor>
-      <arglist>(QString pathToDict)</arglist>
+      <anchor>3e8e6f706f9bced49b604bf0a66c326d</anchor>
+      <arglist>(QString pathToDict, int type)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -443,56 +795,95 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>ImportDictSelectSourcePage</name>
+    <filename>classImportDictSelectSourcePage.html</filename>
+    <member kind="function">
+      <type>int</type>
+      <name>getType</name>
+      <anchorfile>classImportDictSelectSourcePage.html</anchorfile>
+      <anchor>579017b15b8901f6112c9031a8b339ac</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>nextId</name>
+      <anchorfile>classImportDictSelectSourcePage.html</anchorfile>
+      <anchor>f03ea7d5f3aa6c0bd9f669c3daeddb78</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ImportDictSelectSourcePage</name>
+      <anchorfile>classImportDictSelectSourcePage.html</anchorfile>
+      <anchor>4f3da13000a04180f13b8acfa678809a</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ImportDictSelectSourcePage</name>
+      <anchorfile>classImportDictSelectSourcePage.html</anchorfile>
+      <anchor>2bcc4db4e7395ab2cf2d3fdf5830d28a</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>ImportDictView</name>
     <filename>classImportDictView.html</filename>
     <member kind="slot">
       <type>void</type>
-      <name>importDict</name>
+      <name>show</name>
       <anchorfile>classImportDictView.html</anchorfile>
-      <anchor>65aa3482572b4b9d1c8237cea891efa2</anchor>
+      <anchor>666ed5d3d362b52f93da66c7d3a349e8</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="slot">
-      <type>void</type>
-      <name>openFileDialog</name>
+      <type>QWizardPage *</type>
+      <name>createIntroPage</name>
       <anchorfile>classImportDictView.html</anchorfile>
-      <anchor>189304275dcec6168b4a6def6784f0fa</anchor>
+      <anchor>d62bd698aa96395637002d33b0a4544b</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="slot">
-      <type>void</type>
-      <name>finishedImporting</name>
+      <type>ImportDictSelectSourcePage *</type>
+      <name>createSelectSourcePage</name>
       <anchorfile>classImportDictView.html</anchorfile>
-      <anchor>9febca17ccb05c54f20117c29b98b41b</anchor>
+      <anchor>873293edc0dc88caff3eeac07c679fc7</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="slot">
-      <type>void</type>
-      <name>openingFinished</name>
+      <type>ImportBOMPPage *</type>
+      <name>createImportBOMPPage</name>
       <anchorfile>classImportDictView.html</anchorfile>
-      <anchor>5e42470b3cd63b87285f6791984021d4</anchor>
+      <anchor>b590575e965f64c4d2911503e93f5f45</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="slot">
-      <type>void</type>
-      <name>validatePath</name>
+      <type>ImportDictWiktionaryPage *</type>
+      <name>createImportWiktionaryPage</name>
       <anchorfile>classImportDictView.html</anchorfile>
-      <anchor>54989c7d6e9b3c26b0cb8463ef8b9a45</anchor>
-      <arglist>(QString path)</arglist>
+      <anchor>ae0a95d900540b7349b83161d1b0b4cd</anchor>
+      <arglist>()</arglist>
     </member>
     <member kind="slot">
-      <type>void</type>
-      <name>displayStatus</name>
+      <type>ImportDictWorkingPage *</type>
+      <name>createImportDictWorkingPage</name>
       <anchorfile>classImportDictView.html</anchorfile>
-      <anchor>f795f5cbaf6e95115807626a348b4da8</anchor>
-      <arglist>(QString status)</arglist>
+      <anchor>f87de225341f61facab24a95c9ef4d57</anchor>
+      <arglist>()</arglist>
     </member>
     <member kind="slot">
-      <type>void</type>
-      <name>displayProgress</name>
+      <type>QWizardPage *</type>
+      <name>createFinishedPage</name>
       <anchorfile>classImportDictView.html</anchorfile>
-      <anchor>d1e0957d3cc0de952afb90f07e6881bd</anchor>
-      <arglist>(int progress)</arglist>
+      <anchor>5d0f8de8d9be2cdd63af1accf2a1496d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>dictGenerated</name>
+      <anchorfile>classImportDictView.html</anchorfile>
+      <anchor>05039a3a718081c1b5f3053a16ab0d3c</anchor>
+      <arglist>(WordList *)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -502,17 +893,109 @@
       <arglist>(QWidget *parent=0)</arglist>
     </member>
     <member kind="function">
-      <type>WordList *</type>
-      <name>getList</name>
-      <anchorfile>classImportDictView.html</anchorfile>
-      <anchor>3c4502fd6b46a4878ad8de9ab6af6281</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
       <type></type>
       <name>~ImportDictView</name>
       <anchorfile>classImportDictView.html</anchorfile>
       <anchor>7a40679efb522252e8f947bfccbf4294</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ImportDictWiktionaryPage</name>
+    <filename>classImportDictWiktionaryPage.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ImportDictWiktionaryPage</name>
+      <anchorfile>classImportDictWiktionaryPage.html</anchorfile>
+      <anchor>71cdcc7ad921b447c71c4d5b68121ca7</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isComplete</name>
+      <anchorfile>classImportDictWiktionaryPage.html</anchorfile>
+      <anchor>b4144ef874872fde61d42d28643a8e02</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>getPath</name>
+      <anchorfile>classImportDictWiktionaryPage.html</anchorfile>
+      <anchor>c43f611a26da2882fe4b80d3e7d9c1a0</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ImportDictWiktionaryPage</name>
+      <anchorfile>classImportDictWiktionaryPage.html</anchorfile>
+      <anchor>f1e16a4c8f8cbe7f1a8c7c89d73a16d8</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ImportDictWorkingPage</name>
+    <filename>classImportDictWorkingPage.html</filename>
+    <member kind="slot">
+      <type>void</type>
+      <name>displayStatus</name>
+      <anchorfile>classImportDictWorkingPage.html</anchorfile>
+      <anchor>b197f84a18ef74f2f986c33303af8d0d</anchor>
+      <arglist>(QString status)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>displayProgress</name>
+      <anchorfile>classImportDictWorkingPage.html</anchorfile>
+      <anchor>b9c08d384d5eaecd1aed5addb40ae077</anchor>
+      <arglist>(int progress)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>importHADIFIX</name>
+      <anchorfile>classImportDictWorkingPage.html</anchorfile>
+      <anchor>5850f222c2c5ecd3834ed76d021e8bde</anchor>
+      <arglist>(QString path)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>importWiktionary</name>
+      <anchorfile>classImportDictWorkingPage.html</anchorfile>
+      <anchor>4cc83210031dfe9eef545b2c2d28a069</anchor>
+      <arglist>(QString url)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>unpackWikiIfNecessary</name>
+      <anchorfile>classImportDictWorkingPage.html</anchorfile>
+      <anchor>84cbf3631efd2e161fb45d23d9d3e50e</anchor>
+      <arglist>(QString file)</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>isComplete</name>
+      <anchorfile>classImportDictWorkingPage.html</anchorfile>
+      <anchor>d4ff3c5b53becd71b817e23b22ba2ff4</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>wordListImported</name>
+      <anchorfile>classImportDictWorkingPage.html</anchorfile>
+      <anchor>9e6e56c5f01e23ab0650d32370be308b</anchor>
+      <arglist>(WordList *wlist)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ImportDictWorkingPage</name>
+      <anchorfile>classImportDictWorkingPage.html</anchorfile>
+      <anchor>25d7a2db8b06de1ee4cbe207bcd5f099</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ImportDictWorkingPage</name>
+      <anchorfile>classImportDictWorkingPage.html</anchorfile>
+      <anchor>42c7fd1e94632520be6a06da7e31d141</anchor>
       <arglist>()</arglist>
     </member>
   </compound>
@@ -560,6 +1043,91 @@
       <anchorfile>classImportLocalWizardPage.html</anchorfile>
       <anchor>2570721495eaaad07a2c842178180a9c</anchor>
       <arglist>(QString name)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ImportProgramPage</name>
+    <filename>classImportProgramPage.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ImportProgramPage</name>
+      <anchorfile>classImportProgramPage.html</anchorfile>
+      <anchor>17ba36721de416c40e97a81c94d0b9e5</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ImportProgramPage</name>
+      <anchorfile>classImportProgramPage.html</anchorfile>
+      <anchor>1fda02fa7427dc9bb1e70175a1745e13</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual bool</type>
+      <name>isComplete</name>
+      <anchorfile>classImportProgramPage.html</anchorfile>
+      <anchor>29fbadda92b71e54c9eb71d8437bac67</anchor>
+      <arglist>() const</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ImportProgramWizard</name>
+    <filename>classImportProgramWizard.html</filename>
+    <member kind="slot">
+      <type>QWizardPage *</type>
+      <name>createIntroPage</name>
+      <anchorfile>classImportProgramWizard.html</anchorfile>
+      <anchor>bb67b7b7416cb35f9099394e0f7c0afd</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>SelectProgramPage *</type>
+      <name>createSelectProgramPage</name>
+      <anchorfile>classImportProgramWizard.html</anchorfile>
+      <anchor>1112d3cccbf7f7572cb77497fba954b7</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>ConfigureProgramPage *</type>
+      <name>createConfigureProgramPage</name>
+      <anchorfile>classImportProgramWizard.html</anchorfile>
+      <anchor>fa65cf1f2d0a0675f9504be8f84392d6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>ImportProgramPage *</type>
+      <name>createImportProgramPage</name>
+      <anchorfile>classImportProgramWizard.html</anchorfile>
+      <anchor>0e893b33255280fd0b5cb0be945cccdf</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>QWizardPage *</type>
+      <name>createFinishedPage</name>
+      <anchorfile>classImportProgramWizard.html</anchorfile>
+      <anchor>d38e4160596c4d69f76a4304db098c7d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>test</name>
+      <anchorfile>classImportProgramWizard.html</anchorfile>
+      <anchor>4c4d59ff5edbb29df003e82cefcd559b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ImportProgramWizard</name>
+      <anchorfile>classImportProgramWizard.html</anchorfile>
+      <anchor>a6163cd1bf754274d557b7494742a00b</anchor>
+      <arglist>(QWidget *parent=0)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ImportProgramWizard</name>
+      <anchorfile>classImportProgramWizard.html</anchorfile>
+      <anchor>cfa0424f5e1b95b3337e3395625ae1f8</anchor>
+      <arglist>()</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -612,6 +1180,95 @@
       <name>getCurrentData</name>
       <anchorfile>classImportRemoteWizardPage.html</anchorfile>
       <anchor>21e9c7ce83f70fa4b4139faf87dd8f68</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ImportTrainingDirectory</name>
+    <filename>classImportTrainingDirectory.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ImportTrainingDirectory</name>
+      <anchorfile>classImportTrainingDirectory.html</anchorfile>
+      <anchor>e0a329ab84ed2dd00c0565b08de5d69c</anchor>
+      <arglist>(QWidget *parent=0)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ImportTrainingDirectory</name>
+      <anchorfile>classImportTrainingDirectory.html</anchorfile>
+      <anchor>eadbf1c57772a040415e05a17527f876</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ImportTrainingDirectoryIntroPage</name>
+    <filename>classImportTrainingDirectoryIntroPage.html</filename>
+    <member kind="slot">
+      <type>void</type>
+      <name>setDir</name>
+      <anchorfile>classImportTrainingDirectoryIntroPage.html</anchorfile>
+      <anchor>c25a95415d1ac0d684653a825955e513</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ImportTrainingDirectoryIntroPage</name>
+      <anchorfile>classImportTrainingDirectoryIntroPage.html</anchorfile>
+      <anchor>ca485d23357ace67652c1b4c0316ef08</anchor>
+      <arglist>(QWidget *parent=0)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ImportTrainingDirectoryIntroPage</name>
+      <anchorfile>classImportTrainingDirectoryIntroPage.html</anchorfile>
+      <anchor>6a337f92b32771296601673fbdf399e6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setPathEdit</name>
+      <anchorfile>classImportTrainingDirectoryIntroPage.html</anchorfile>
+      <anchor>023d07416aeaab27d167b6cadc82d9fd</anchor>
+      <arglist>(QLineEdit *leDirectory)</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariant</type>
+      <name>getField</name>
+      <anchorfile>classImportTrainingDirectoryIntroPage.html</anchorfile>
+      <anchor>40469c13b28cdd1df27e9b33db0d8571</anchor>
+      <arglist>(QString name)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ImportTrainingDirectoryWorkingPage</name>
+    <filename>classImportTrainingDirectoryWorkingPage.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ImportTrainingDirectoryWorkingPage</name>
+      <anchorfile>classImportTrainingDirectoryWorkingPage.html</anchorfile>
+      <anchor>6c8b3da604221b28c1545313ef38cbbb</anchor>
+      <arglist>(QWidget *parent=0)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>importDir</name>
+      <anchorfile>classImportTrainingDirectoryWorkingPage.html</anchorfile>
+      <anchor>3b69fd2a74c0be932b059cfaeb20c957</anchor>
+      <arglist>(QString dir)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isComplete</name>
+      <anchorfile>classImportTrainingDirectoryWorkingPage.html</anchorfile>
+      <anchor>880e6967c15f07fff79945bc433c3a26</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~ImportTrainingDirectoryWorkingPage</name>
+      <anchorfile>classImportTrainingDirectoryWorkingPage.html</anchorfile>
+      <anchor>2b0c1bb25d737af0baaf5ad5b30def5c</anchor>
       <arglist>()</arglist>
     </member>
   </compound>
@@ -722,6 +1379,161 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>InlineWidget</name>
+    <filename>classInlineWidget.html</filename>
+    <member kind="slot">
+      <type>void</type>
+      <name>accept</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>9b9e4578b8c8d3e38d416461b1fc7b0c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>reject</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>dc8d260438226c59f1b439ce9c65289b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>close</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>959c1d289f4faa9bc5bca55403c55970</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>exec</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>5a14f7eaa43a2edf5ce33493966d93aa</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>closed</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>d1df6ca17127d3167d7a4f5c9aa3427f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>rejected</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>1ace0d17c84b7477e9d3fc8e303e9e8c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>hidden</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>c5d01c5cf97a75510adf1a4944b0dff6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>execd</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>a7ec9de3e9edfe19bc06d6a0e7b6e2f0</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>shown</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>c2179d7dfc4164b5324fdf7ecf985543</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>accepted</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>93e186376a1f276aeaf82945eb407d75</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>InlineWidget</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>14a13151a454840f88d0f2a1fd5b7ce4</anchor>
+      <arglist>(QString title, QIcon icon, QString desc, QWidget *parent=0)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~InlineWidget</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>37f7f9ede99d538fa40855157e7163d7</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setVisible</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>e5835abfe371f5aae07dbbc2173759e7</anchor>
+      <arglist>(bool visible)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>getTitle</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>c7fdeb5c228baab6124770971c88fe34</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QIcon</type>
+      <name>getIcon</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>b2455ce84035b32982bab09194ded98c</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>getDesc</name>
+      <anchorfile>classInlineWidget.html</anchorfile>
+      <anchor>e0aacab50918ebb17f86829b970965fd</anchor>
+      <arglist>() const</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>InlineWidgetView</name>
+    <filename>classInlineWidgetView.html</filename>
+    <member kind="signal">
+      <type>void</type>
+      <name>hidden</name>
+      <anchorfile>classInlineWidgetView.html</anchorfile>
+      <anchor>0dc02260d81b1697adfdb2d3d0c523e8</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>InlineWidgetView</name>
+      <anchorfile>classInlineWidgetView.html</anchorfile>
+      <anchor>0cd649946e46fb53fb50f8329fec1693</anchor>
+      <arglist>(QWidget *parent=0)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>registerPage</name>
+      <anchorfile>classInlineWidgetView.html</anchorfile>
+      <anchor>5950a1666002adfb2ad52a3ccf926e41</anchor>
+      <arglist>(InlineWidget *page)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>unRegisterPage</name>
+      <anchorfile>classInlineWidgetView.html</anchorfile>
+      <anchor>f2341f440ad85446602bae13cf571b01</anchor>
+      <arglist>(InlineWidget *page)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~InlineWidgetView</name>
+      <anchorfile>classInlineWidgetView.html</anchorfile>
+      <anchor>3ccf0ba65aea75b94c17463a5cc24a60</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>JuliusControl</name>
     <filename>classJuliusControl.html</filename>
     <member kind="slot">
@@ -753,6 +1565,20 @@
       <arglist>()</arglist>
     </member>
     <member kind="slot">
+      <type>void</type>
+      <name>errorOccured</name>
+      <anchorfile>classJuliusControl.html</anchorfile>
+      <anchor>8a4fb2089af20d5cd8737662d2fda082</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>timeoutReached</name>
+      <anchorfile>classJuliusControl.html</anchorfile>
+      <anchor>53691ab4ef05cb02d2096244449b7f8a</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
       <type>bool</type>
       <name>isConnected</name>
       <anchorfile>classJuliusControl.html</anchorfile>
@@ -761,9 +1587,9 @@
     </member>
     <member kind="slot">
       <type>void</type>
-      <name>disconnect</name>
+      <name>disconnectFromServer</name>
       <anchorfile>classJuliusControl.html</anchorfile>
-      <anchor>4a932cddda622c7cb34784b395560355</anchor>
+      <anchor>17fd87b5988fc00cb35d547d1b555be6</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="signal">
@@ -810,22 +1636,82 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>LogEntry</name>
+    <filename>classLogEntry.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>LogEntry</name>
+      <anchorfile>classLogEntry.html</anchorfile>
+      <anchor>2761024bf47ad4deca0bc62cf551f80f</anchor>
+      <arglist>(QDate date, QTime time, QByteArray message, short type)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~LogEntry</name>
+      <anchorfile>classLogEntry.html</anchorfile>
+      <anchor>e0da106e665ca859be1a30ea316cd7d2</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setTime</name>
+      <anchorfile>classLogEntry.html</anchorfile>
+      <anchor>26b773296edbf0f4ff71a0773a4203c0</anchor>
+      <arglist>(QTime time)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setDate</name>
+      <anchorfile>classLogEntry.html</anchorfile>
+      <anchor>d05b54c1d548f5412a494aebb82ca9ae</anchor>
+      <arglist>(QDate date)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setType</name>
+      <anchorfile>classLogEntry.html</anchorfile>
+      <anchor>d6703e7dea36253e40561b9e273f61f0</anchor>
+      <arglist>(int type)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMessage</name>
+      <anchorfile>classLogEntry.html</anchorfile>
+      <anchor>0af75c31e8c07b1a332506ea59882f2d</anchor>
+      <arglist>(QByteArray message)</arglist>
+    </member>
+    <member kind="function">
+      <type>QDate</type>
+      <name>getDate</name>
+      <anchorfile>classLogEntry.html</anchorfile>
+      <anchor>ef482329c21ebb4c2e89c35e54449ef9</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QTime</type>
+      <name>getTime</name>
+      <anchorfile>classLogEntry.html</anchorfile>
+      <anchor>48d8233bf1de6549cfbe5c6a58683f68</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>short</type>
+      <name>getType</name>
+      <anchorfile>classLogEntry.html</anchorfile>
+      <anchor>88df786a6f5c999d8c0d6daacf9ba7d2</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QByteArray</type>
+      <name>getMessage</name>
+      <anchorfile>classLogEntry.html</anchorfile>
+      <anchor>7a3d931fd443ac2a50612a0e7a0a099d</anchor>
+      <arglist>() const</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>Logger</name>
     <filename>classLogger.html</filename>
-    <member kind="function">
-      <type></type>
-      <name>Logger</name>
-      <anchorfile>classLogger.html</anchorfile>
-      <anchor>bc41bfb031d896170c7675fa96a6b30c</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>~Logger</name>
-      <anchorfile>classLogger.html</anchorfile>
-      <anchor>cb668a9e186a25fbaad2e4af6d1ed00a</anchor>
-      <arglist>()</arglist>
-    </member>
     <member kind="function" static="yes">
       <type>static bool</type>
       <name>init</name>
@@ -849,6 +1735,267 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>LogManager</name>
+    <filename>classLogManager.html</filename>
+    <member kind="slot">
+      <type>void</type>
+      <name>stop</name>
+      <anchorfile>classLogManager.html</anchorfile>
+      <anchor>4d579f5143186f9192443f85c72974bc</anchor>
+      <arglist>(bool free)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>logReadFinished</name>
+      <anchorfile>classLogManager.html</anchorfile>
+      <anchor>dbf0de071da382454d582fbc2343c0af</anchor>
+      <arglist>(int value)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>foundEntries</name>
+      <anchorfile>classLogManager.html</anchorfile>
+      <anchor>b70adb5c219d502b1364a83a33fa7f9a</anchor>
+      <arglist>(LogEntryList *entries, bool copy)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>LogManager</name>
+      <anchorfile>classLogManager.html</anchorfile>
+      <anchor>edab1387b9084cd125446f3b8d82861f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~LogManager</name>
+      <anchorfile>classLogManager.html</anchorfile>
+      <anchor>7e6291dd344ad467c049c39f65f6897c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isBusy</name>
+      <anchorfile>classLogManager.html</anchorfile>
+      <anchor>ea94e2ae7076d1656124bc19abb4d7b6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>getDay</name>
+      <anchorfile>classLogManager.html</anchorfile>
+      <anchor>10a670ed44a4dcbcf89b824332ea1b30</anchor>
+      <arglist>(QDate day)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>getAll</name>
+      <anchorfile>classLogManager.html</anchorfile>
+      <anchor>cf3a7acedd78f87f0952e8c353a9a426</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>hasFinishedReading</name>
+      <anchorfile>classLogManager.html</anchorfile>
+      <anchor>9baeff252a2ed7c7f675ada1655bb9c3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>run</name>
+      <anchorfile>classLogManager.html</anchorfile>
+      <anchor>4fd6e566ce63b6505ae7a13e606322f0</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>LogView</name>
+    <filename>classLogView.html</filename>
+    <base>SystemWidget</base>
+    <member kind="slot">
+      <type>bool</type>
+      <name>apply</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>c80315cdd6bbc675c48e73f8fd544827</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>init</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>9ef31c304dab37860d69779b427102c6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>reset</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>cccfd91acd453139a46a454e18e7a6f8</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>enter</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>88f457221891a11f73ab61a59b212ce2</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>readLog</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>022059cd48d550ff0b7e6b31ce2fee25</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>startLogLoad</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>36dfb616205effb9ecdab3bd80bbf867</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>viewAll</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>30194f3b3c8360cb3e24727f4397f1df</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>viewDay</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>144b5bc76b86ebc45c2e25db04641107</anchor>
+      <arglist>(QDate day)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>viewDay</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>9c0cd621ba30cb59ef2ae0ad274690b0</anchor>
+      <arglist>(QTreeWidgetItem *item)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>abort</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>992b1553eef17f99b325c9fdf0d37caa</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>reload</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>1114b6a0a16723493063d1c64d6f07c8</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>displayCancel</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>d217bc635ffcce6dccfa62419ac2bb45</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>displayReload</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>c430aca407f0eaea8c678f2fb6586e1f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>enableWidgets</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>7676a88544f36477dc32ce5d19c4ad11</anchor>
+      <arglist>(bool enabled=true)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>setStatus</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>f448eee9ea86e08a119b386d140ce6ce</anchor>
+      <arglist>(QString status)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>setProgress</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>1636c66ac7da36717ab2a69296a57731</anchor>
+      <arglist>(int progress)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>processEntries</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>ad3e0442c504c0a108682ca04ca10768</anchor>
+      <arglist>(LogEntryList *entries, bool copy=false)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>insertEntries</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>ade89b0577561d9ec658abb885974fdf</anchor>
+      <arglist>(LogEntryList *entries)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>clean</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>e7d465b51e91712acfeaec3e5be857c3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>deleteItem</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>6070df70705aa849a1c450706863463f</anchor>
+      <arglist>(int index)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>deleteItem</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>2ad7a14ab77bf433e6e5410448ea6956</anchor>
+      <arglist>(QTreeWidgetItem *item)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>deleteChilds</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>0cc734026e625d9979f67a72e630fd68</anchor>
+      <arglist>(QTreeWidgetItem *item)</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>deleteChilds</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>902e27f24c6779dd0579515be0141803</anchor>
+      <arglist>(int parentIndex)</arglist>
+    </member>
+    <member kind="slot">
+      <type>LogEntryList *</type>
+      <name>filterFor</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>81c9469bc9ce90e4e7f894c05bcce9f2</anchor>
+      <arglist>(LogEntryList *log, bool copy, const QDate day, const QString filter, const short type)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>stopLogRead</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>1f624ea75694ca8631e66694f1447852</anchor>
+      <arglist>(bool)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>LogView</name>
+      <anchorfile>classLogView.html</anchorfile>
+      <anchor>806a7e4ca3f038286152869b018b924a</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>ModelManager</name>
     <filename>classModelManager.html</filename>
     <member kind="function">
@@ -863,6 +2010,46 @@
       <name>~ModelManager</name>
       <anchorfile>classModelManager.html</anchorfile>
       <anchor>93f4eea50036cc5453014234aa921c7c</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>NetworkSettings</name>
+    <filename>classNetworkSettings.html</filename>
+    <base>SystemWidget</base>
+    <member kind="slot">
+      <type>bool</type>
+      <name>apply</name>
+      <anchorfile>classNetworkSettings.html</anchorfile>
+      <anchor>825cf57f34e83c5eab56e2b47577c40d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>reset</name>
+      <anchorfile>classNetworkSettings.html</anchorfile>
+      <anchor>48e9d4b30653631947f47f0b8afe1c8a</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>init</name>
+      <anchorfile>classNetworkSettings.html</anchorfile>
+      <anchor>74e9971ea310f1ccac0c61f256fd1908</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>NetworkSettings</name>
+      <anchorfile>classNetworkSettings.html</anchorfile>
+      <anchor>a5a52e45936759aade4421612fa592bb</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~NetworkSettings</name>
+      <anchorfile>classNetworkSettings.html</anchorfile>
+      <anchor>022c0df8dc9523eb9fec006c4bb253ce</anchor>
       <arglist>()</arglist>
     </member>
   </compound>
@@ -898,8 +2085,8 @@
       <type>bool</type>
       <name>download</name>
       <anchorfile>classQuickDownloader.html</anchorfile>
-      <anchor>d48057c94c4190b4f54ebb454cb2cf6b</anchor>
-      <arglist>(QString url)</arglist>
+      <anchor>48f981e434a8976cc52b90b03b35a9db</anchor>
+      <arglist>(QString url, QString filename=&quot;&quot;)</arglist>
     </member>
     <member kind="slot">
       <type>void</type>
@@ -955,6 +2142,73 @@
       <name>~QuickDownloader</name>
       <anchorfile>classQuickDownloader.html</anchorfile>
       <anchor>4a6c586116c2d77e6fadc5ce9c9868a1</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>QuickUnpacker</name>
+    <filename>classQuickUnpacker.html</filename>
+    <member kind="slot">
+      <type>void</type>
+      <name>unpack</name>
+      <anchorfile>classQuickUnpacker.html</anchorfile>
+      <anchor>75149090ae8460ecab8a98ddf92c16c5</anchor>
+      <arglist>(QString path)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>unpacking</name>
+      <anchorfile>classQuickUnpacker.html</anchorfile>
+      <anchor>55e691390a25b1c7935fa7be2a053c3c</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>unpackedTo</name>
+      <anchorfile>classQuickUnpacker.html</anchorfile>
+      <anchor>76cfc815e0bcbe1e1ecf1b3b2d8cbe8d</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>status</name>
+      <anchorfile>classQuickUnpacker.html</anchorfile>
+      <anchor>1918d49eb626593457083f9856a8edc9</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>progress</name>
+      <anchorfile>classQuickUnpacker.html</anchorfile>
+      <anchor>85ead6843ff78816279dcfa70e87866c</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>canceled</name>
+      <anchorfile>classQuickUnpacker.html</anchorfile>
+      <anchor>f041aa651a106fc9bb341cfa8524b399</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>error</name>
+      <anchorfile>classQuickUnpacker.html</anchorfile>
+      <anchor>734826cff78c0c3ddd902a7c276c4a18</anchor>
+      <arglist>(QString)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>QuickUnpacker</name>
+      <anchorfile>classQuickUnpacker.html</anchorfile>
+      <anchor>e114727a91878c8525a6393fd51b68ff</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~QuickUnpacker</name>
+      <anchorfile>classQuickUnpacker.html</anchorfile>
+      <anchor>61a5701ab5c3dae46be7aa3d9d93cbb8</anchor>
       <arglist>()</arglist>
     </member>
   </compound>
@@ -1103,6 +2357,89 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>RegistryManager</name>
+    <filename>classRegistryManager.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>RegistryManager</name>
+      <anchorfile>classRegistryManager.html</anchorfile>
+      <anchor>4dde08ee67a79be976df833c6bf79603</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~RegistryManager</name>
+      <anchorfile>classRegistryManager.html</anchorfile>
+      <anchor>e4a4c085d203b971dfb021e48ccba721</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>startProcess</name>
+      <anchorfile>classRegistryManager.html</anchorfile>
+      <anchor>86eae994de6c6b101fbd359e2bdd1bc4</anchor>
+      <arglist>(QString command)</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList *</type>
+      <name>getAllPrograms</name>
+      <anchorfile>classRegistryManager.html</anchorfile>
+      <anchor>2c2996b4e3f619fd4cc6402bf90239cc</anchor>
+      <arglist>(QString format)</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList *</type>
+      <name>getAllFormats</name>
+      <anchorfile>classRegistryManager.html</anchorfile>
+      <anchor>03df20f37dd1fc2b81301636b12bcef5</anchor>
+      <arglist>(QString categorie=&quot;all&quot;)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>registrymanager</name>
+    <filename>classregistrymanager.html</filename>
+  </compound>
+  <compound kind="class">
+    <name>Revert</name>
+    <filename>classRevert.html</filename>
+    <base>SystemWidget</base>
+    <member kind="slot">
+      <type>bool</type>
+      <name>init</name>
+      <anchorfile>classRevert.html</anchorfile>
+      <anchor>7d551e8a6b2a4e1ebc37f76e2e189ead</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>apply</name>
+      <anchorfile>classRevert.html</anchorfile>
+      <anchor>eea7884d57486c102ed2c27673e4bebd</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>reset</name>
+      <anchorfile>classRevert.html</anchorfile>
+      <anchor>6d9e5f9ed5b5e5e9ebd4e097d09810e5</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Revert</name>
+      <anchorfile>classRevert.html</anchorfile>
+      <anchor>83b4d63ee6f721a00d757bb9679f0e65</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~Revert</name>
+      <anchorfile>classRevert.html</anchorfile>
+      <anchor>c30be0478b8af203a3da59f9143359e0</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>RtApi</name>
     <filename>classRtApi.html</filename>
     <member kind="enumeration">
@@ -1227,12 +2564,12 @@
     </member>
     <member kind="enumvalue">
       <name>FAILURE</name>
-      <anchor>b988f69d75ee4ef5354c1c10d4822ad9b51a4532db173f4dc9202260fd08aaee</anchor>
+      <anchor>0961487803bbd8de0a36936d96aec8c5b51a4532db173f4dc9202260fd08aaee</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
       <name>SUCCESS</name>
-      <anchor>b988f69d75ee4ef5354c1c10d4822ad9653bd8f777a5f2a796cdc63aaec21c82</anchor>
+      <anchor>0961487803bbd8de0a36936d96aec8c5653bd8f777a5f2a796cdc63aaec21c82</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumeration">
@@ -2082,6 +3419,7 @@
   <compound kind="class">
     <name>RunApplicationView</name>
     <filename>classRunApplicationView.html</filename>
+    <base>InlineWidget</base>
     <member kind="slot">
       <type>void</type>
       <name>insertCommands</name>
@@ -2144,6 +3482,13 @@
       <anchorfile>classRunApplicationView.html</anchorfile>
       <anchor>6d0345a6bdd053dff222cab0dc0d04f2</anchor>
       <arglist>(QString commandtype)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>hidden</name>
+      <anchorfile>classRunApplicationView.html</anchorfile>
+      <anchor>afc0027e4d824edc6590113d965612d3</anchor>
+      <arglist>()</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -2291,6 +3636,87 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>SelectProgramPage</name>
+    <filename>classSelectProgramPage.html</filename>
+    <member kind="slot">
+      <type>void</type>
+      <name>searchForPrograms</name>
+      <anchorfile>classSelectProgramPage.html</anchorfile>
+      <anchor>040a4361aff42dba53fb553946d866b4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SelectProgramPage</name>
+      <anchorfile>classSelectProgramPage.html</anchorfile>
+      <anchor>5a04d83051e7381db9a72ca12e72e981</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~SelectProgramPage</name>
+      <anchorfile>classSelectProgramPage.html</anchorfile>
+      <anchor>27ca4b66717d21fcdeaa52de9d78b350</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>QStringList *</type>
+      <name>getAllFormats</name>
+      <anchorfile>classSelectProgramPage.html</anchorfile>
+      <anchor>8849ac4730d1aa1255a6ff734538a836</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout</name>
+      <anchorfile>classSelectProgramPage.html</anchorfile>
+      <anchor>a0302ec6435f3fcb961806984ad1da72</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QListWidget *</type>
+      <name>lwCategories</name>
+      <anchorfile>classSelectProgramPage.html</anchorfile>
+      <anchor>8d7f904d5311af28bb96ab1aef61020b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QListWidget *</type>
+      <name>lwPrograms</name>
+      <anchorfile>classSelectProgramPage.html</anchorfile>
+      <anchor>f7edbe22f2546cb9db302b741f2d1dd6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout</name>
+      <anchorfile>classSelectProgramPage.html</anchorfile>
+      <anchor>cd1fa2a668f3a884ff30dab60b3df711</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem</name>
+      <anchorfile>classSelectProgramPage.html</anchorfile>
+      <anchor>cadf685ebb6eb283a3973c64fad3bf81</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbAbbrechen</name>
+      <anchorfile>classSelectProgramPage.html</anchorfile>
+      <anchor>5c595c896ba31a469f2dba1aa11ecac0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbHinzufuegen</name>
+      <anchorfile>classSelectProgramPage.html</anchorfile>
+      <anchor>d71c359810953f87e72970940fb3b262</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>SelectSourceWizardPage</name>
     <filename>classSelectSourceWizardPage.html</filename>
     <member kind="function">
@@ -2337,90 +3763,27 @@
     </member>
   </compound>
   <compound kind="class">
-    <name>SettingsView</name>
-    <filename>classSettingsView.html</filename>
-    <member kind="slot">
-      <type>void</type>
-      <name>unsetAllTabs</name>
-      <anchorfile>classSettingsView.html</anchorfile>
-      <anchor>99cadf248f2cc973084c5b0940a4b257</anchor>
-      <arglist>()</arglist>
+    <name>Settings</name>
+    <filename>classSettings.html</filename>
+    <member kind="function" static="yes">
+      <type>static QVariant</type>
+      <name>get</name>
+      <anchorfile>classSettings.html</anchorfile>
+      <anchor>7d90d5a650c0b63efa2ab3beb4a1d444</anchor>
+      <arglist>(QString name)</arglist>
     </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>switchToSystem</name>
-      <anchorfile>classSettingsView.html</anchorfile>
-      <anchor>487f2341fc88cc925ecb1f8ca6a6e8fd</anchor>
-      <arglist>()</arglist>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>set</name>
+      <anchorfile>classSettings.html</anchorfile>
+      <anchor>10b3768fa2eb92d6aaeaf61b5d2ad1d7</anchor>
+      <arglist>(QString name, QVariant value)</arglist>
     </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>switchToSound</name>
-      <anchorfile>classSettingsView.html</anchorfile>
-      <anchor>fb1e5539f3633164962f51c7adbd9692</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>switchToCommands</name>
-      <anchorfile>classSettingsView.html</anchorfile>
-      <anchor>c6f2a13e9d2478104e74af4d0894f0b3</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>switchToProtocols</name>
-      <anchorfile>classSettingsView.html</anchorfile>
-      <anchor>03099bb326cff6322096e8b2c984545a</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>switchToHistory</name>
-      <anchorfile>classSettingsView.html</anchorfile>
-      <anchor>06799e750a0d02d63ba6fcb52e31c8a2</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>apply</name>
-      <anchorfile>classSettingsView.html</anchorfile>
-      <anchor>0547766333ed5e0e813ced6e51586736</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>refreshDeviceCapabilities</name>
-      <anchorfile>classSettingsView.html</anchorfile>
-      <anchor>69456494eda33d25958d3de8c0bed5fd</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>deleteAddress</name>
-      <anchorfile>classSettingsView.html</anchorfile>
-      <anchor>521f0784b11a75399400916e36e1d038</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>addAddress</name>
-      <anchorfile>classSettingsView.html</anchorfile>
-      <anchor>a93ec7db4400fa6a023d2c5562182f3c</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>SettingsView</name>
-      <anchorfile>classSettingsView.html</anchorfile>
-      <anchor>3aa347797fd7f79057881be84d7f4c4b</anchor>
-      <arglist>(QWidget *parent)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>~SettingsView</name>
-      <anchorfile>classSettingsView.html</anchorfile>
-      <anchor>3287e7c87008472a93bbc10fe331b6c2</anchor>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>initSettings</name>
+      <anchorfile>classSettings.html</anchorfile>
+      <anchor>65bf9c9679a474e26d507fcc6fee0aa7</anchor>
       <arglist>()</arglist>
     </member>
   </compound>
@@ -2429,16 +3792,16 @@
     <filename>classSimonControl.html</filename>
     <member kind="slot">
       <type>void</type>
-      <name>connect</name>
+      <name>connectToJulius</name>
       <anchorfile>classSimonControl.html</anchorfile>
-      <anchor>d5b1c9b9f023d41a27665878c9a70214</anchor>
-      <arglist>(QString host)</arglist>
+      <anchor>d151e1d4109ad12776fa2ea81d74542c</anchor>
+      <arglist>()</arglist>
     </member>
     <member kind="slot">
       <type>void</type>
-      <name>disconnect</name>
+      <name>disconnectFromJulius</name>
       <anchorfile>classSimonControl.html</anchorfile>
-      <anchor>eabf24aacd8a21e8a1451eeb8e32c5a4</anchor>
+      <anchor>b57945d88459fcb2b2f74893362e8594</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="slot">
@@ -2496,6 +3859,13 @@
       <anchorfile>classSimonControl.html</anchorfile>
       <anchor>82d9da51480c11e96ce83b83674bfe11</anchor>
       <arglist>(QString error)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>connectTo</name>
+      <anchorfile>classSimonControl.html</anchorfile>
+      <anchor>bb11694febb9ef70f1259156a654fc02</anchor>
+      <arglist>(QString host)</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -2677,36 +4047,36 @@
       <type>void</type>
       <name>showAddWordDialog</name>
       <anchorfile>classSimonView.html</anchorfile>
-      <anchor>917bb70e833ca8ee65baca971e2d102c</anchor>
-      <arglist>()</arglist>
+      <anchor>9d87a2b563a8591a80fbbe3d9c0b6127</anchor>
+      <arglist>(bool show=true)</arglist>
     </member>
     <member kind="slot">
       <type>void</type>
       <name>showRunDialog</name>
       <anchorfile>classSimonView.html</anchorfile>
-      <anchor>ca4a7aceec4df1902d66a35f4a6c8ddf</anchor>
-      <arglist>()</arglist>
+      <anchor>0f50dd495195786bae747475c103366b</anchor>
+      <arglist>(bool show=true)</arglist>
     </member>
     <member kind="slot">
       <type>void</type>
       <name>showTrainDialog</name>
       <anchorfile>classSimonView.html</anchorfile>
-      <anchor>21a9ef4c7b09c8ce280699167ead20a2</anchor>
-      <arglist>()</arglist>
+      <anchor>9792414ed2bc9c3d94605d2b936d9144</anchor>
+      <arglist>(bool show=true)</arglist>
     </member>
     <member kind="slot">
       <type>void</type>
       <name>showWordListDialog</name>
       <anchorfile>classSimonView.html</anchorfile>
-      <anchor>ef4246903c2aa5cf7b48db39b01ba147</anchor>
-      <arglist>()</arglist>
+      <anchor>017017f85d954ec47a2215cf45242416</anchor>
+      <arglist>(bool show=true)</arglist>
     </member>
     <member kind="slot">
       <type>void</type>
-      <name>showSettingsDialog</name>
+      <name>showSystemDialog</name>
       <anchorfile>classSimonView.html</anchorfile>
-      <anchor>268254badb0dce837cada50481fc2c61</anchor>
-      <arglist>()</arglist>
+      <anchor>6729252463c45ff33d955d9d149722e7</anchor>
+      <arglist>(bool show=true)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -2721,6 +4091,13 @@
       <anchorfile>classSimonView.html</anchorfile>
       <anchor>812f34e64284d55d66db5e48885e0f2d</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>closeEvent</name>
+      <anchorfile>classSimonView.html</anchorfile>
+      <anchor>138ad02b265e961ceb98cab9bd4cfcb0</anchor>
+      <arglist>(QCloseEvent *event)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -2816,21 +4193,180 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>SoundSettings</name>
+    <filename>classSoundSettings.html</filename>
+    <base>SystemWidget</base>
+    <member kind="slot">
+      <type>bool</type>
+      <name>init</name>
+      <anchorfile>classSoundSettings.html</anchorfile>
+      <anchor>214eaacef10ea7e00cadebea3156a8ff</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>apply</name>
+      <anchorfile>classSoundSettings.html</anchorfile>
+      <anchor>b3049ea14e4a992038976996ba9a817f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>bool</type>
+      <name>reset</name>
+      <anchorfile>classSoundSettings.html</anchorfile>
+      <anchor>28083e8c6657313d0bc7e775fe8b0e4c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SoundSettings</name>
+      <anchorfile>classSoundSettings.html</anchorfile>
+      <anchor>e6b1564a1fd4e921aba9f5bf330761af</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~SoundSettings</name>
+      <anchorfile>classSoundSettings.html</anchorfile>
+      <anchor>fdde55023223fdad35d8b0951427b948</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>SoundSettinsg</name>
+    <filename>classSoundSettinsg.html</filename>
+  </compound>
+  <compound kind="class">
+    <name>SystemView</name>
+    <filename>classSystemView.html</filename>
+    <base>InlineWidget</base>
+    <member kind="slot">
+      <type>void</type>
+      <name>apply</name>
+      <anchorfile>classSystemView.html</anchorfile>
+      <anchor>9ff85eb1b5b9566d73252e7567c0d2c2</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>reset</name>
+      <anchorfile>classSystemView.html</anchorfile>
+      <anchor>e32a7254f4b0ed7b412438db216dae1a</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SystemView</name>
+      <anchorfile>classSystemView.html</anchorfile>
+      <anchor>660a455ff7b98cb92410b0bf1cbb2eeb</anchor>
+      <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>registerControl</name>
+      <anchorfile>classSystemView.html</anchorfile>
+      <anchor>a321ce8e5ce04b9755201fe947e68ccb</anchor>
+      <arglist>(SystemWidget *control)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>deleteControl</name>
+      <anchorfile>classSystemView.html</anchorfile>
+      <anchor>1b837d94f9ad1de5d7169e349b1db2fe</anchor>
+      <arglist>(SystemWidget *control)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~SystemView</name>
+      <anchorfile>classSystemView.html</anchorfile>
+      <anchor>0091352981c1efa5498819b69698db44</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>SystemWidget</name>
+    <filename>classSystemWidget.html</filename>
+    <base>InlineWidget</base>
+    <member kind="slot" virtualness="pure">
+      <type>virtual bool</type>
+      <name>apply</name>
+      <anchorfile>classSystemWidget.html</anchorfile>
+      <anchor>76bb24313ffb5219d87f7ef7a536a0a7</anchor>
+      <arglist>()=0</arglist>
+    </member>
+    <member kind="slot" virtualness="pure">
+      <type>virtual bool</type>
+      <name>reset</name>
+      <anchorfile>classSystemWidget.html</anchorfile>
+      <anchor>267da5a55b6acc9a7abc687da58a2b0d</anchor>
+      <arglist>()=0</arglist>
+    </member>
+    <member kind="slot" virtualness="pure">
+      <type>virtual bool</type>
+      <name>init</name>
+      <anchorfile>classSystemWidget.html</anchorfile>
+      <anchor>6a97bc9127ce57623a16706a54737022</anchor>
+      <arglist>()=0</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>busy</name>
+      <anchorfile>classSystemWidget.html</anchorfile>
+      <anchor>30a4c7aad87c62900861ad5704094a1f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>idle</name>
+      <anchorfile>classSystemWidget.html</anchorfile>
+      <anchor>25848d9ea17e76b9c1de13766b49eaa1</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>SystemWidget</name>
+      <anchorfile>classSystemWidget.html</anchorfile>
+      <anchor>14f568fd3d928d1d47e65ea8d6b9e52e</anchor>
+      <arglist>(QString title, QIcon icon, QString desc, QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>getHelp</name>
+      <anchorfile>classSystemWidget.html</anchorfile>
+      <anchor>a3f7d495e23b3f265753d7d32980dcf6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~SystemWidget</name>
+      <anchorfile>classSystemWidget.html</anchorfile>
+      <anchor>da379d19f23ff7e9d3a7824f0b1546ba</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>QString</type>
+      <name>help</name>
+      <anchorfile>classSystemWidget.html</anchorfile>
+      <anchor>81b76a9c7d9788526f8f2f48639421da</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>TrainingManager</name>
     <filename>classTrainingManager.html</filename>
     <member kind="function">
       <type></type>
       <name>TrainingManager</name>
       <anchorfile>classTrainingManager.html</anchorfile>
-      <anchor>da596679dcf606009ada12e4e4464c95</anchor>
-      <arglist>(QString pathToTexts=&quot;texts/&quot;)</arglist>
+      <anchor>b4640cea0153ac30aad30df56508852e</anchor>
+      <arglist>(WordListManager *wlistmgr, QString pathToTexts=&quot;texts/&quot;)</arglist>
     </member>
     <member kind="function">
       <type>TrainingList *</type>
       <name>readTrainingTexts</name>
       <anchorfile>classTrainingManager.html</anchorfile>
-      <anchor>48a81f64ee4d0ecfca0dc495aea2a251</anchor>
-      <arglist>(QString pathToTexts=&quot;texts/&quot;)</arglist>
+      <anchor>969d20622dcf52ac5853b033c1909aa5</anchor>
+      <arglist>(QString pathToTexts=&quot;&quot;)</arglist>
     </member>
     <member kind="function">
       <type>TrainingList *</type>
@@ -2854,10 +4390,10 @@
       <arglist>(int index)</arglist>
     </member>
     <member kind="function">
-      <type>int</type>
+      <type>float</type>
       <name>calcRelevance</name>
       <anchorfile>classTrainingManager.html</anchorfile>
-      <anchor>86cb50f9e103190dccd8e12adeb4e25e</anchor>
+      <anchor>88504474fddc02f92981011db79873aa</anchor>
       <arglist>(TrainingText *text, WordList *wlist)</arglist>
     </member>
     <member kind="function">
@@ -2977,11 +4513,18 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>setRelevance</name>
+      <anchorfile>classTrainingText.html</anchorfile>
+      <anchor>e726b184bcfa19067b42a83ee724d4e0</anchor>
+      <arglist>(float relevance)</arglist>
+    </member>
+    <member kind="function">
       <type></type>
       <name>TrainingText</name>
       <anchorfile>classTrainingText.html</anchorfile>
-      <anchor>bb429323a177637522f348498f17a362</anchor>
-      <arglist>(QString name, QString path, QStringList pages, float relevance)</arglist>
+      <anchor>203dafd34b42f56edcc9e501b12f6a70</anchor>
+      <arglist>(QString name, QString path, QStringList pages)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -2994,13 +4537,7 @@
   <compound kind="class">
     <name>TrainingView</name>
     <filename>classTrainingView.html</filename>
-    <member kind="slot">
-      <type>void</type>
-      <name>switchToWordList</name>
-      <anchorfile>classTrainingView.html</anchorfile>
-      <anchor>4201ae338dc14c3eb9b4feb8a7640d5e</anchor>
-      <arglist>()</arglist>
-    </member>
+    <base>InlineWidget</base>
     <member kind="slot">
       <type>void</type>
       <name>finish</name>
@@ -3092,12 +4629,26 @@
       <anchor>99d165ab087adec1cb70632b310882c1</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>importDirectory</name>
+      <anchorfile>classTrainingView.html</anchorfile>
+      <anchor>264419ce970ca5a7dadf5c6f3e1108d6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>trainingCompleted</name>
+      <anchorfile>classTrainingView.html</anchorfile>
+      <anchor>e2e74b676d04dbccac962fbb827ed267</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>TrainingView</name>
       <anchorfile>classTrainingView.html</anchorfile>
-      <anchor>a5f6a721f79a252d198e2da58e50d1b9</anchor>
-      <arglist>(QWidget *parent=0, WordList *trainWords=NULL)</arglist>
+      <anchor>6163ed0e0bbc4198cd530002cee3d8f6</anchor>
+      <arglist>(WordListView *wordlistView, QWidget *parent=0)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -3178,13 +4729,6 @@
       <arglist>(QDialog *AddWord)</arglist>
     </member>
     <member kind="variable">
-      <type>QVBoxLayout *</type>
-      <name>vboxLayout</name>
-      <anchorfile>classUi__AddWord.html</anchorfile>
-      <anchor>f6d75f4e7958f251eb405c66a84b694d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>QStackedWidget *</type>
       <name>swMain</name>
       <anchorfile>classUi__AddWord.html</anchorfile>
@@ -3200,9 +4744,9 @@
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
-      <name>vboxLayout1</name>
+      <name>vboxLayout</name>
       <anchorfile>classUi__AddWord.html</anchorfile>
-      <anchor>dca95f23a4172746bf83c7dca0e71d86</anchor>
+      <anchor>f6d75f4e7958f251eb405c66a84b694d</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -3224,6 +4768,13 @@
       <name>leWord</name>
       <anchorfile>classUi__AddWord.html</anchorfile>
       <anchor>f1b3c5fab97d2db13c09170dcaaba19a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem</name>
+      <anchorfile>classUi__AddWord.html</anchorfile>
+      <anchor>90dffec7e2e016768fe0fa3bf3f71b51</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -3263,9 +4814,9 @@
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
-      <name>vboxLayout2</name>
+      <name>vboxLayout1</name>
       <anchorfile>classUi__AddWord.html</anchorfile>
-      <anchor>745563c8bd33906812a3f3c88cfedbbf</anchor>
+      <anchor>dca95f23a4172746bf83c7dca0e71d86</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -3333,9 +4884,9 @@
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
-      <name>vboxLayout3</name>
+      <name>vboxLayout2</name>
       <anchorfile>classUi__AddWord.html</anchorfile>
-      <anchor>f6c32a89e0b7257217aba30880c760d1</anchor>
+      <anchor>745563c8bd33906812a3f3c88cfedbbf</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -3364,6 +4915,525 @@
       <name>pbFinish</name>
       <anchorfile>classUi__AddWord.html</anchorfile>
       <anchor>ae27721e35228fc107494e8823139095</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbBg</name>
+      <anchorfile>classUi__AddWord.html</anchorfile>
+      <anchor>5c1f1e443448b8c24412bf65514a1435</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Ui_ExternalProgrammsDlg</name>
+    <filename>classUi__ExternalProgrammsDlg.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>setupUi</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>d6b0f22f10c031156fd63cd0971c6149</anchor>
+      <arglist>(QWidget *ExternalProgrammsDlg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>retranslateUi</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>bac61da3b18d47bbfb4f8e88cd58c02c</anchor>
+      <arglist>(QWidget *ExternalProgrammsDlg)</arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>6be55874005563feb70096cfd310799d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>gbHTK</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>47523dd5d4071b374e7ab15c2f9c0918</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>5de22e55d279dd6024c1b32912fb8dae</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout1</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>e47fd1572fcf06a53f74f97835c4f12b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbMakeTriHed</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>efea4c24117da1ab832f10799640c933</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbMkclscript</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>504698136c637ae8938efecc2350b962</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbPrompts2Mlf</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>596aa6378e02c8e43d52abd0ddb0cb86</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbPrompts2Wlist</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>6524a89be8b78035e03f6779c559d89b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbHDMan</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>c0db1b197582c9b37da5a13b4ddfca77</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbHLEd</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>41d76768600b812217edd06262619328</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout2</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>d0ca9af32b80a8edfdb91d5d6272bf26</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leMaketrihed</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>1127c249e670c206ba95d5a320255c6a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leMkclscript</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>782eb5b8de75f77ea18730422f994e3f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>lePrompts2Mlf</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>5d966779e00c52897f781addaef30e66</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>lePrompts2Wlist</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>19e8e43a17782fb668c160819ee97015</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leHDMan</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>9ffab9026466ea7b6a1dd7b7f1065a05</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leHLEd</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>7a0a29747defcd60879ed38d35438b05</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>e4a69c54b2c4199a24431104217eed31</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout3</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>467a43b02912ef19b73655140c52f958</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbHCopy</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>0a61d146e47f705a3f7c7e797cfb3dfa</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbHCompV</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>90f2660cfed75d5772e33cfe0d85746d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbHERest</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>77e0cd87138a4695581565ceea876491</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbHHEd</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>41f7eba9941902f7ecac1c2f57278eb6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbHVite</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>dd73381a53e640ae78dea0eff1832e1a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout4</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>98dc0a77a4eb6ab6b2f70dcb4ff5b008</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leHCopy</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>66bf82a1158b26b396b1654d4aface4b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leHCompV</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>8b4149455f9f0da69e12f1537e677336</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leHERest</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>764e0eaa042eade80f9c3054aa4694ec</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leHHEd</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>0d88aeacdf73ef5ef013d4b6116e7c8b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leHVite</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>b0e346e230317594f9409be19480f7f4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout1</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>358786cd86e2fe93263f3143daa49f61</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>groupBox</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>ca063268d16999676dc60a04f851cbe3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout2</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>5a86b5f65ef605a7cd7d16c40c88659f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout5</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>4ad169265aae6a6d03662cbdc30d0fb7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbNormalize</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>56dd018baf53afaadfd3f4a8b5a8b629</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbResample</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>b6c6efae624f3bfb70429796d7e330f0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout6</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>e3eaf063f6604df32c92292cf41cb135</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leNormalize</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>f387c4a20f1ef326d37e9b9c0bb7a3af</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leResample</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>ed4ec41f5f28dd2a7f14c5f82502d43c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>groupBox_2</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>2a08330bf86018b8e99fb8128a508812</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout7</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>aaee8338df9f6ed2097fd896c095725f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout3</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>13d5fed4fce74d2beaf5de120a19e535</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>label</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>05bf45a034bf92ab3070f923f0055773</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leBzip2</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>330689fd0d46e6e675f7978d429e7a72</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem1</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>eadfe3ca87868b9d14379da665e4f5a3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem2</name>
+      <anchorfile>classUi__ExternalProgrammsDlg.html</anchorfile>
+      <anchor>39cfee7ca467b53484cad20026a85f6c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Ui_GeneralSettingsDlg</name>
+    <filename>classUi__GeneralSettingsDlg.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>setupUi</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>3f9ab12f3e844e1287e8b576170ca6ad</anchor>
+      <arglist>(QWidget *GeneralSettingsDlg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>retranslateUi</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>62933e17304b0d773aae419161816e7b</anchor>
+      <arglist>(QWidget *GeneralSettingsDlg)</arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>8d31b8b3f065d3f272eb19eff3d54dce</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>gbGeneral</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>c3de82fdab056b25c83b9d7623f0ad1e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGridLayout *</type>
+      <name>gridLayout</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>b2897265b64b913eb828204f4f9590dd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCheckBox *</type>
+      <name>cbStartSimonOnBoot</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>0b9b88a0d01e75bb95938f0641add2e6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCheckBox *</type>
+      <name>cbStartJuliusAsNeeded</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>99df725d5b7060db50d9716b75488b66</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCheckBox *</type>
+      <name>cbAutoConnect</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>adff713575a67d8b7a1d0c7ddbe42988</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCheckBox *</type>
+      <name>cbAskBeforeExit</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>0e5c234a1817bd3f6bf1f57d7b2f3c0c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>gbPaths</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>8ad0c55b4c088c2d4a03f8958a78422f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>89a2c3a6635e8c5ee88b373be40b9832</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout1</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>ff0f442dc90c916a4881f2389376597c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbCommands_3</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>b5ece8651eded19525ea98ceb290dc68</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbLexicon</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>fed0c1800806acee77695fea909bb049</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbGrammar</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>0fd213fcdf2bf1ed60309c21cb1f62d6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbPrompts</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>932da1c7c205d483d7ec668658bd2fbe</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbVocab</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>9ad5b101fd02452ad1dfb93ec8fe78f9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout2</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>23ce772b718482ec6f623131986a7125</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leCommands</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>bfb3fa96bd767f4040be0611d53e6f68</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leLexicon</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>c2c79d3b954934bc1891aad4873fabff</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leGrammar</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>76a6858be2b1857741fe587aaa7ba920</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>lePrompts</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>71c620568c3243eccd4d34503ba56cbc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leVocab</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>7894aedcd0232d0afe3966974c568efe</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem</name>
+      <anchorfile>classUi__GeneralSettingsDlg.html</anchorfile>
+      <anchor>df4a44656627e05ed9c027fab8898944</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -3540,6 +5610,220 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>Ui_LogManagerDlg</name>
+    <filename>classUi__LogManagerDlg.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>setupUi</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>2d10d13307aed4fcb7cfdd465fd63e10</anchor>
+      <arglist>(QWidget *LogManagerDlg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>retranslateUi</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>e17f926e26948d840b49ffea783447f0</anchor>
+      <arglist>(QWidget *LogManagerDlg)</arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>caa95cbec98272d6d85085273448fdc3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>gwSearchInLogs</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>a124d1c5cb042b40282abd88c95c1e4a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>40d67dc344367b161464268fc1949f57</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout1</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>c20a6eeba3fd1fcfebe5acfc5027ba95</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leSearchLogs</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>e4909ec2127f1b9cfd468be4d7aa0b23</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbClearSearch</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>ff599c58db6db2692f850998b71177cb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbLogSearch</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>db33813f8f8dd7bc77b0e277b8a37fc9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGridLayout *</type>
+      <name>gridLayout</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>0b5c9dedfbaf5db8e82e29a7b0de464f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbSearchLogsFor</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>7d0c72e30f44e2f6a03e7fc51cfbda99</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCheckBox *</type>
+      <name>cbLogError</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>50e0916a467eb00ad4bd57b287538a66</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCheckBox *</type>
+      <name>cbLogUpdate</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>37f9c9751f17f6bbe3e1e6c7a74d3d2f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>04f9adce768efca71e3f28ed4275849a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCheckBox *</type>
+      <name>cbLogInfo</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>7277d8cd192cf98142df899565b8d0be</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCheckBox *</type>
+      <name>cbLogSettings</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>a609ff4cffd40c5f1286c53f6eb1d6ea</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>gbOnlyDay</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>5b6a0c9f8863a78e7c852a1cf0a28fc1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout1</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>b2b2eaeeb47e9932f7b24d1fceefcf13</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCalendarWidget *</type>
+      <name>cwLogDay</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>8fdad0ed5a0d0e63f4ed646bbe069a90</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QProgressBar *</type>
+      <name>pbLogLoad</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>922cd2de93d1f0d24076ed24ed1004d5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout2</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>077d779ee67131c696678e95e7cd14de</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbLogLoad</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>644755aec4de54e03ab8c39f9d4e3e7e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbAbort</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>1987b6bd2d6356e4538612bb3bf40076</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem1</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>01ab7411ff941a795c844c4acb3d46ab</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout2</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>a20aa1dca0f9796d0ddc76b1dd25fad7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>gbLogComponents</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>a47bb478373eb22cebff69ad8c0cf5c2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout3</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>33a0885c1bb1886408a42c16f1da50a3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbActionLog</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>5a8bd24c916c78c31e32fe3fdaf22f3f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbRecordings</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>25a5cc65a8cf61d02440d36468f99e9d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QTreeWidget *</type>
+      <name>twLogEntries</name>
+      <anchorfile>classUi__LogManagerDlg.html</anchorfile>
+      <anchor>187cc10119de54426c4789f2521c7eb0</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>Ui_MainWindow</name>
     <filename>classUi__MainWindow.html</filename>
     <member kind="function">
@@ -3606,10 +5890,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbConnect</name>
+      <type>QLabel *</type>
+      <name>lbLogo</name>
       <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>56e2a9004b1d4ee7db2fba6d6d3dcee1</anchor>
+      <anchor>a488cd5e51ca77db2c8a7db48097f4d4</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -3620,10 +5904,45 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QLabel *</type>
-      <name>lbLogo</name>
+      <type>QWidget *</type>
+      <name>wButtonWidget</name>
       <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>a488cd5e51ca77db2c8a7db48097f4d4</anchor>
+      <anchor>4cee7e8075f75bf4cc1b685d3c258234</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGridLayout *</type>
+      <name>gridLayout</name>
+      <anchorfile>classUi__MainWindow.html</anchorfile>
+      <anchor>525ed3c5fe0784ac502ee222fba4e205</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbAddWord</name>
+      <anchorfile>classUi__MainWindow.html</anchorfile>
+      <anchor>a55a9d131000e7a885f562159e8b4ea6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbTrain</name>
+      <anchorfile>classUi__MainWindow.html</anchorfile>
+      <anchor>debe9786ba5a6d8ebaf088d8fe6ae751</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbEditWordList</name>
+      <anchorfile>classUi__MainWindow.html</anchorfile>
+      <anchor>d0700e6dd4db5bf2b1aa21a525113dc2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbRunProgram</name>
+      <anchorfile>classUi__MainWindow.html</anchorfile>
+      <anchor>fddab549ca8e1a5662fe9ca5f3c93ee6</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -3641,174 +5960,6 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QSpacerItem *</type>
-      <name>spacerItem4</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>28d4994acfd29bb9e2780043fa38af7a</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QVBoxLayout *</type>
-      <name>vboxLayout1</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>3331cd38e502a816227773f4049f70b1</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QSpacerItem *</type>
-      <name>spacerItem5</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>787fdb4414ff7b88ab8f71790174a899</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbAddWord</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>a55a9d131000e7a885f562159e8b4ea6</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QSpacerItem *</type>
-      <name>spacerItem6</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>bf6178a22625443b41ca00f51607a4b2</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbEditWordList</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>d0700e6dd4db5bf2b1aa21a525113dc2</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QSpacerItem *</type>
-      <name>spacerItem7</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>b68e704ce322d036ac2347d5e7935f44</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QVBoxLayout *</type>
-      <name>vboxLayout2</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>66b59c46be5cc6b26d0b0b06e14320bb</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QSpacerItem *</type>
-      <name>spacerItem8</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>5934fd1d9544b5e07b71c889a8fa005c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QFrame *</type>
-      <name>frmConnecting</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>40e40a4e95a50555e849a1ed59f1215d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QVBoxLayout *</type>
-      <name>vboxLayout3</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>c715bfc8bd8ca66f880c0aa785ffbd70</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QLabel *</type>
-      <name>label</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>d9c89133780f28e6efa2ec17ceb9cff5</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QProgressBar *</type>
-      <name>progressBar</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>21cff38a2f7c1fbae6334c65bc92dd65</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbCancelConnect</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>519f422a4b8dc83eb822df22b89fef80</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QSpacerItem *</type>
-      <name>spacerItem9</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>1e681ef3a9e00e648ca06a41a80be521</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QVBoxLayout *</type>
-      <name>vboxLayout4</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>de961bc49b3a73f75a986e9ee82980f7</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QSpacerItem *</type>
-      <name>spacerItem10</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>fce0b7cf32bf336efa10f13b6b773381</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbTrain</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>debe9786ba5a6d8ebaf088d8fe6ae751</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QSpacerItem *</type>
-      <name>spacerItem11</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>f2cd6736c20a9def2046fb2ab8aea7b7</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbRunProgram</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>fddab549ca8e1a5662fe9ca5f3c93ee6</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QSpacerItem *</type>
-      <name>spacerItem12</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>52a05e38dcd7571a9e043a85d6d2383e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QSpacerItem *</type>
-      <name>spacerItem13</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>606e76fd0d56ecd8f88ff28bc7d74f72</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QSpacerItem *</type>
-      <name>spacerItem14</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>81f2c1e74f9c75264253deae5dde8388</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QHBoxLayout *</type>
-      <name>hboxLayout3</name>
-      <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>9df21ad129c0ab1c97c8d757bad28ae3</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>QPushButton *</type>
       <name>pbSettings</name>
       <anchorfile>classUi__MainWindow.html</anchorfile>
@@ -3817,9 +5968,9 @@
     </member>
     <member kind="variable">
       <type>QSpacerItem *</type>
-      <name>spacerItem15</name>
+      <name>spacerItem4</name>
       <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>738c73d005c1893dc74a33d0117c72bc</anchor>
+      <anchor>28d4994acfd29bb9e2780043fa38af7a</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -3831,6 +5982,13 @@
     </member>
     <member kind="variable">
       <type>QPushButton *</type>
+      <name>pbConnect</name>
+      <anchorfile>classUi__MainWindow.html</anchorfile>
+      <anchor>56e2a9004b1d4ee7db2fba6d6d3dcee1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
       <name>pbClose</name>
       <anchorfile>classUi__MainWindow.html</anchorfile>
       <anchor>bf3e50ae65736f775a4c0657aea684dd</anchor>
@@ -3838,9 +5996,9 @@
     </member>
     <member kind="variable">
       <type>QSpacerItem *</type>
-      <name>spacerItem16</name>
+      <name>spacerItem5</name>
       <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>e07252e043f2930a69b193d10f5fdbe6</anchor>
+      <anchor>787fdb4414ff7b88ab8f71790174a899</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -3852,9 +6010,9 @@
     </member>
     <member kind="variable">
       <type>QSpacerItem *</type>
-      <name>spacerItem17</name>
+      <name>spacerItem6</name>
       <anchorfile>classUi__MainWindow.html</anchorfile>
-      <anchor>ac39c6d02fda561831932786326fae59</anchor>
+      <anchor>bf6178a22625443b41ca00f51607a4b2</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -3866,104 +6024,350 @@
     </member>
   </compound>
   <compound kind="class">
-    <name>Ui_RunDialog</name>
-    <filename>classUi__RunDialog.html</filename>
+    <name>Ui_NetworkSettingsDlg</name>
+    <filename>classUi__NetworkSettingsDlg.html</filename>
     <member kind="function">
       <type>void</type>
       <name>setupUi</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>d12028ae8d0300e6b5f4c2a0daa3a989</anchor>
-      <arglist>(QDialog *RunDialog)</arglist>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>75627bb989451bb7cac8290f80f050db</anchor>
+      <arglist>(QWidget *NetworkSettingsDlg)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>retranslateUi</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>bcad95b8ac18d97a7331334555654930</anchor>
-      <arglist>(QDialog *RunDialog)</arglist>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>394e692fd017ebf5df66a4cf068055fc</anchor>
+      <arglist>(QWidget *NetworkSettingsDlg)</arglist>
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
       <name>vboxLayout</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>c74bb342156ed5a51db253d1939c71f2</anchor>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>acbe5d573c423c4bce2b41351a5488c6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>gbGeneral</name>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>f88aafac952df83f4b9e3b2416f6844b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGridLayout *</type>
+      <name>gridLayout</name>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>c51074bbea66cf941cff1d8280af0af1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>label</name>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>7b944efbc04cb1f084bcc1e09d34819c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpinBox *</type>
+      <name>sbTimeout</name>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>3055401d86ed3e2e0736a0bfb63679b6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>gbJulius</name>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>a81f6f343c768612eac76770d876fd18</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout1</name>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>3cc287b37b11140ae56842e56a0e1dc0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QTableWidget *</type>
+      <name>twJuliusAddresses</name>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>12701b342d63a99c7e1ff3844e0e5916</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>QHBoxLayout *</type>
       <name>hboxLayout</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>a59b2e901832cceeb6be82f573722b5a</anchor>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>efff6e1ebee84a87851e0d22ee331408</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QLabel *</type>
-      <name>lbSearch</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>72bba2d9a8f979ec3e3522ae7788412b</anchor>
+      <type>QToolButton *</type>
+      <name>tbMoveUp</name>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>e22a9971e16188d710180ab704ae143b</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QLineEdit *</type>
-      <name>leSearch</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>c9a81f890051efe3cbe62aa3acba373f</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbClearSearch</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>81dbb089b75f7c2a227e0410dfa5b3cf</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QLabel *</type>
-      <name>lbShow</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>90403cf3f85c0a424878a5a538988271</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QComboBox *</type>
-      <name>cbShow</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>0e9a634560214d6118c15d476e194d97</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QTableWidget *</type>
-      <name>twPrograms</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>1f1b30518eefa30f18645ded7c6741d9</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QHBoxLayout *</type>
-      <name>hboxLayout1</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>0628f0f5883f4e19eccbc4fa738c5095</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbBack</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>a3a9f9649ae2a2458730399ff1c4a6d5</anchor>
+      <type>QToolButton *</type>
+      <name>tbMoveDown</name>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>7ab45f1c42b74052b2280a456adee4a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>QSpacerItem *</type>
       <name>spacerItem</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>7447eeb59375558a5fea4b54d342b186</anchor>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>22775a740c425580a3928e348f9ef74b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbAddAddress</name>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>12012a3a9e288c5e58d4b6dc35ed9b3c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbDeleteAddress</name>
+      <anchorfile>classUi__NetworkSettingsDlg.html</anchorfile>
+      <anchor>2177c0f9a89b53ed8049455830e86e74</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Ui_RevertDlg</name>
+    <filename>classUi__RevertDlg.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>setupUi</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>899c7b0411b2d57246b35d9bab554217</anchor>
+      <arglist>(QWidget *RevertDlg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>retranslateUi</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>bfc8b3b7716d91c17116baaeaca5fbf7</anchor>
+      <arglist>(QWidget *RevertDlg)</arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>3b69401763bcda0c192dd51a3e7129f9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>aa7bf9467a77631e2b4505039e549d52</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>dabfce2dd255426358b32607c09a15a8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QTableWidget *</type>
+      <name>twChanges</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>e5db2de4e92dc3f68ec91d600cfd00b2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout1</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>1dc60cdee453b54f8c74c5348cb4bd17</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>gpChooseRevert</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>423f1c956c034bc42184f3ec7850e4be</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout2</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>8cfb91cf5eb2a0a23d1e4da80c2bf87e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QComboBox *</type>
+      <name>cbToRevert</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>efd41bce1f22477f5394313beac74573</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>gwSearchInChanges</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>75884e236515003e772489cde8939826</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout3</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>930815ae9177fb08f43a218ab628c73a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leSearchChanges</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>eaca5e336174bc9eb2841006fc702409</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbGoBackTill</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>35044d3d4d55f9a2a23eaee03481e4b9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCalendarWidget *</type>
+      <name>cwTimeMachineDay</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>ef1284a95010ba64b018734852455a9e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem1</name>
+      <anchorfile>classUi__RevertDlg.html</anchorfile>
+      <anchor>957011cd6966ae618521d21563a57881</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Ui_RunDlg</name>
+    <filename>classUi__RunDlg.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>setupUi</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>ab75c33159ea1f5546343afab9f2e535</anchor>
+      <arglist>(QWidget *RunDlg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>retranslateUi</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>04093928db67d8035b9491d2343c9ad6</anchor>
+      <arglist>(QWidget *RunDlg)</arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>bc77ebde10d25466f13a3fc5736ef78b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>f45e00456d0a0ca166b0a8f1f44b18af</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout1</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>842885c624873e65760c4d67b6518400</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbSearch</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>d4e9732b6c0d047affaea9453bf18c8a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leSearch</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>389f1e342cc96ad5a4b7109d8b75601f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbClearSearch</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>56ba67fa0964f2b92144003f612adc2d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbShow</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>164c5def271590d0980dc2cfa09127d9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QComboBox *</type>
+      <name>cbShow</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>3327b20f26dbbc6cf99bfa1fb6a723b2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QTableWidget *</type>
+      <name>twPrograms</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>53b7cc7b3ca8d6e2afae76b752357148</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout2</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>e60b3abd6a4ecd499595d27846cbeff3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>bfc8e88188864dec5ab4af1404c1b843</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>QPushButton *</type>
       <name>pbRun</name>
-      <anchorfile>classUi__RunDialog.html</anchorfile>
-      <anchor>a7804e321813fb63407cd6e1f182172b</anchor>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>567ba5a139cfef96567871939258c966</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem1</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>248425483c2a701b7b081ad7cb400c92</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QTextEdit *</type>
+      <name>textEdit</name>
+      <anchorfile>classUi__RunDlg.html</anchorfile>
+      <anchor>1177853b2a9e215f1e00b39aeb493701</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -5056,6 +7460,34 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout16</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>adf2b74e97507e7fbeb39c03cce07fca</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QFrame *</type>
+      <name>line_5</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>427f23eee3cb1288a1b634e7f305db0d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>label_4</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>392616c8bc137ef2c3a213d510c96d3c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QFrame *</type>
+      <name>line_6</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>1010c74860e6c66d95a237df6c29ca01</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>QPushButton *</type>
       <name>pbReloadCommands</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
@@ -5063,38 +7495,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QFrame *</type>
-      <name>line_3</name>
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout17</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>1aaf0ae3627e7f75384f0b34be6c8f58</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbEditCommand</name>
-      <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>6284e09d6aef5ce4f732384fff6e0f32</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QFrame *</type>
-      <name>line_4</name>
-      <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>e1c0989de2392cb90ff4eeae5c026650</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbNewCommand</name>
-      <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>6185a3d1a0f7adf3e64ed5043b4a4bbc</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbDeleteCommand</name>
-      <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>c3ce11aaf864363b424a57fe28790299</anchor>
+      <anchor>09243047226ea88abd73ae34aef2e683</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5102,6 +7506,20 @@
       <name>line_2</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
       <anchor>914c1deaae84ac2d00f895f82e4a9dea</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>label_2</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>5ac9133881d047b5c4caf5f96e781fc8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QFrame *</type>
+      <name>line_4</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>e1c0989de2392cb90ff4eeae5c026650</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5126,10 +7544,59 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QHBoxLayout *</type>
-      <name>hboxLayout16</name>
+      <type>QPushButton *</type>
+      <name>pbNewCommand</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>adf2b74e97507e7fbeb39c03cce07fca</anchor>
+      <anchor>6185a3d1a0f7adf3e64ed5043b4a4bbc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout18</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>deb062becaf6340bdcd5d0b028a1a91f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QFrame *</type>
+      <name>line</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>49d1df3c4ee8840346fe54c6708caac7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>label</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>c5107d077b0f9615c5a0c25e8156759e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QFrame *</type>
+      <name>line_3</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>1aaf0ae3627e7f75384f0b34be6c8f58</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbEditCommand</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>6284e09d6aef5ce4f732384fff6e0f32</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbDeleteCommand</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>c3ce11aaf864363b424a57fe28790299</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout19</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>9f962b5d9459676c76968520ad3753c6</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5155,9 +7622,9 @@
     </member>
     <member kind="variable">
       <type>QHBoxLayout *</type>
-      <name>hboxLayout17</name>
+      <name>hboxLayout20</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>09243047226ea88abd73ae34aef2e683</anchor>
+      <anchor>cb427c609a9bea2e87022ba7a5f1ba1b</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5168,17 +7635,45 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QVBoxLayout *</type>
-      <name>vboxLayout13</name>
-      <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>fe55ee31bb9433691ebc4af2a21a5860</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>QLineEdit *</type>
       <name>leSearchLogs</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
       <anchor>42abbaad5cdeef01a87289ab25b7a2a0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCheckBox *</type>
+      <name>cbOnlyDay</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>13aad1542d5ae8ef65b80c922132a546</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCalendarWidget *</type>
+      <name>cwLogDay</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>2b4ceef6b5d18061726a78e812fa4c52</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QProgressBar *</type>
+      <name>pbLogLoad</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>806fe58284e671a04c6d53b9280e0868</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbLogLoad</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>40af8dcbddaa99d82215098dc0bbd2b7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QWidget *</type>
+      <name>widget1</name>
+      <anchorfile>classUi__SettingsDialog.html</anchorfile>
+      <anchor>e03cc17eb189602329e9337b372097f3</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5217,31 +7712,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QCheckBox *</type>
-      <name>cbOnlyDay</name>
-      <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>13aad1542d5ae8ef65b80c922132a546</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QCalendarWidget *</type>
-      <name>cwLogDay</name>
-      <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>2b4ceef6b5d18061726a78e812fa4c52</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QSpacerItem *</type>
-      <name>spacerItem52</name>
-      <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>e113e13de8481579c611945ef4051b03</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>QVBoxLayout *</type>
-      <name>vboxLayout14</name>
+      <name>vboxLayout13</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>bad1eae1b5fad1fbf1ed51f9e5b6f958</anchor>
+      <anchor>fe55ee31bb9433691ebc4af2a21a5860</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5253,9 +7727,9 @@
     </member>
     <member kind="variable">
       <type>QHBoxLayout *</type>
-      <name>hboxLayout18</name>
+      <name>hboxLayout21</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>deb062becaf6340bdcd5d0b028a1a91f</anchor>
+      <anchor>f42efd53fea1402b4e91a7a06e06650e</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5302,16 +7776,16 @@
     </member>
     <member kind="variable">
       <type>QHBoxLayout *</type>
-      <name>hboxLayout19</name>
+      <name>hboxLayout22</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>9f962b5d9459676c76968520ad3753c6</anchor>
+      <anchor>dec3e2cbee6c208841b77ae53d1a23c7</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
-      <name>vboxLayout15</name>
+      <name>vboxLayout14</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>42372fa1b5170e5b2f607759261f3675</anchor>
+      <anchor>bad1eae1b5fad1fbf1ed51f9e5b6f958</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5323,9 +7797,9 @@
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
-      <name>vboxLayout16</name>
+      <name>vboxLayout15</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>4f59a243bfb127ed6f277e64ef655ebd</anchor>
+      <anchor>42372fa1b5170e5b2f607759261f3675</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5344,9 +7818,9 @@
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
-      <name>vboxLayout17</name>
+      <name>vboxLayout16</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>2a0cffa62c5049bdf0695900477b6880</anchor>
+      <anchor>4f59a243bfb127ed6f277e64ef655ebd</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5372,16 +7846,16 @@
     </member>
     <member kind="variable">
       <type>QSpacerItem *</type>
-      <name>spacerItem53</name>
+      <name>spacerItem52</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>1a08207c44f212cb9ff2e0cfc120667a</anchor>
+      <anchor>e113e13de8481579c611945ef4051b03</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
-      <name>vboxLayout18</name>
+      <name>vboxLayout17</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>05463022ade69722880cb7fc9d171e53</anchor>
+      <anchor>2a0cffa62c5049bdf0695900477b6880</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5414,9 +7888,9 @@
     </member>
     <member kind="variable">
       <type>QHBoxLayout *</type>
-      <name>hboxLayout20</name>
+      <name>hboxLayout23</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>cb427c609a9bea2e87022ba7a5f1ba1b</anchor>
+      <anchor>6cf2614af38d67e07d34f691b7a14b2a</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5428,9 +7902,9 @@
     </member>
     <member kind="variable">
       <type>QSpacerItem *</type>
-      <name>spacerItem54</name>
+      <name>spacerItem53</name>
       <anchorfile>classUi__SettingsDialog.html</anchorfile>
-      <anchor>54cfff6384c1e51ce9b0281413ff37c5</anchor>
+      <anchor>1a08207c44f212cb9ff2e0cfc120667a</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5449,21 +7923,235 @@
     </member>
   </compound>
   <compound kind="class">
+    <name>Ui_SoundSettingsDlg</name>
+    <filename>classUi__SoundSettingsDlg.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>setupUi</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>b770098ece7477ec1d5548b9552ac6ea</anchor>
+      <arglist>(QWidget *SoundSettingsDlg)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>retranslateUi</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>b11932c018ece23d1fd187ab603aa571</anchor>
+      <arglist>(QWidget *SoundSettingsDlg)</arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>29745dd525d677498afd8f79159a712d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>gbDevices</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>db7c1560ddc12010f2c6683a8714408b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>5b19ecbb34fffef700ad35e6d4a6bd2d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout1</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>07cd84b218cbaa5720afc5b0284aad92</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbInDevice</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>9f055682dcc521f904874c2efda6dde5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbOutDevice</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>f43b398a78eae6f8a39da32379540175</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbChannels</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>f99aac280e6f76f85c1993a748288dfd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbSamplerate</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>1fbfbd6441cd4933ba98751799eeb178</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout2</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>615751f9278785a083cdc4a838151c9a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QComboBox *</type>
+      <name>cbInDevice</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>5ac1dc3aeb078e2e79d8314942153c74</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QComboBox *</type>
+      <name>cbOutDevice</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>c632e40f9778ff46460ea87181a9c9eb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QComboBox *</type>
+      <name>cbChannels</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>3328d69dad852cee2ac0fb1609370d51</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QComboBox *</type>
+      <name>cbSampleRate</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>ef23efb30567182fe6cb2f417cbb9bc6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QWidget *</type>
+      <name>widget</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>0c08de5ae0aef76a5383978f961f6b70</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbDirectX</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>bbff982eb602ce4942407aa9a5ea1402</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbALSA</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>7008a875c601ea04ce4be47f3ba36da5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout1</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>ba5371f21d9fb7b349f682ca3e44ceea</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>groupBox</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>8e20639b3c2adc4e64ffc3b3b1594b85</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout3</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>d907c2e69d4825f0c1430808ae6df0fa</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>lbSaveRecordingsTo</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>7f6619cf1bc31e9947ea757afd438fdc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout2</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>de38c41a21e91880dfd943c8d5db502d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>leSaveRecordingsTo</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>c1daefa784e608bb85da6befafc0ac6d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QToolButton *</type>
+      <name>tbSelectDirForRecs</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>4f51707a6a3082970a6a51e6b786ff90</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QGroupBox *</type>
+      <name>gbCalibrate</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>1174f01ebc6bb1c0cec51e94a6c8ec42</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout4</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>e7d870d79457c118ab65e9f8e54068c5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSlider *</type>
+      <name>hsMic</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>2f10459072a89cebb56e7aebc70fd389</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbAutoCalibrate</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>8497850e72f881ff352d8571f4b607fd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpacerItem *</type>
+      <name>spacerItem</name>
+      <anchorfile>classUi__SoundSettingsDlg.html</anchorfile>
+      <anchor>c06f093aa57896b0f37aec64e2a14e6a</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
     <name>Ui_TrainMain</name>
     <filename>classUi__TrainMain.html</filename>
     <member kind="function">
       <type>void</type>
       <name>setupUi</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>d1d0bc04241c51a43d437470b58b8ccd</anchor>
-      <arglist>(QDialog *TrainMain)</arglist>
+      <anchor>fb2a6ae2b0e1c41afacde1824bd8ca17</anchor>
+      <arglist>(QWidget *TrainMain)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>retranslateUi</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>e20fb57668d5ec87d16e7eb19eb1c7e7</anchor>
-      <arglist>(QDialog *TrainMain)</arglist>
+      <anchor>39d75156917dc4ff22f0f8e047b163ed</anchor>
+      <arglist>(QWidget *TrainMain)</arglist>
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
@@ -5501,13 +8189,6 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QVBoxLayout *</type>
-      <name>vboxLayout2</name>
-      <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>6aad029e984308bb335e047482635c7b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>QPushButton *</type>
       <name>pbTrainText</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
@@ -5515,24 +8196,17 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QGridLayout *</type>
-      <name>gridLayout</name>
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>a57238b1617de9fd8871e4f0dfc8cc84</anchor>
+      <anchor>05ad7bcfd824a09967434b0c04aa3371</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>QPushButton *</type>
-      <name>pbWordList</name>
+      <name>pbDelText</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>b380149ebb3b8758508d9e0ccc34cd55</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbBack</name>
-      <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>ea6026d9a10769d870f4b8cf75727eb0</anchor>
+      <anchor>45708e1980966267ef1aeea763c68556</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5544,9 +8218,9 @@
     </member>
     <member kind="variable">
       <type>QPushButton *</type>
-      <name>pbDelText</name>
+      <name>pbImportDir</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>45708e1980966267ef1aeea763c68556</anchor>
+      <anchor>a25a36419e3f2882471c955459dc830f</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5557,10 +8231,17 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QVBoxLayout *</type>
-      <name>vboxLayout3</name>
+      <type>QHBoxLayout *</type>
+      <name>hboxLayout1</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>47b94f31bedc4a35f262ae2afe2ea374</anchor>
+      <anchor>039dc37093a9ae10aba979ace003ddc1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout2</name>
+      <anchorfile>classUi__TrainMain.html</anchorfile>
+      <anchor>6aad029e984308bb335e047482635c7b</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5572,23 +8253,9 @@
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
-      <name>vboxLayout4</name>
+      <name>vboxLayout3</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>b4c172fe8d60aa91f59128cfb49137b5</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QFrame *</type>
-      <name>frame</name>
-      <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>9a3897f345d7de29b45dead976e95843</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QVBoxLayout *</type>
-      <name>vboxLayout5</name>
-      <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>7008dd2882b780012537238e4ff5a875</anchor>
+      <anchor>47b94f31bedc4a35f262ae2afe2ea374</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5607,9 +8274,9 @@
     </member>
     <member kind="variable">
       <type>QHBoxLayout *</type>
-      <name>hboxLayout</name>
+      <name>hboxLayout2</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>05ad7bcfd824a09967434b0c04aa3371</anchor>
+      <anchor>ab97ced2e7d2db26e2db917ae4fc267b</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5620,17 +8287,17 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QHBoxLayout *</type>
-      <name>hboxLayout1</name>
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout4</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>039dc37093a9ae10aba979ace003ddc1</anchor>
+      <anchor>b4c172fe8d60aa91f59128cfb49137b5</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QTextEdit *</type>
-      <name>teRecognitionInfo</name>
+      <type>QLabel *</type>
+      <name>label</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>10447f07a8563c6213d2e35770699018</anchor>
+      <anchor>5e1a4ad8fa20454e6ce8b0c522c6b6a2</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5641,17 +8308,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QVBoxLayout *</type>
-      <name>vboxLayout6</name>
-      <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>5b5873fc99973bf45d1fc930a626ea21</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>QHBoxLayout *</type>
-      <name>hboxLayout2</name>
+      <name>hboxLayout3</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>ab97ced2e7d2db26e2db917ae4fc267b</anchor>
+      <anchor>9e625f051a232ee303ba65e4b2294ede</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5670,9 +8330,9 @@
     </member>
     <member kind="variable">
       <type>QHBoxLayout *</type>
-      <name>hboxLayout3</name>
+      <name>hboxLayout4</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>9e625f051a232ee303ba65e4b2294ede</anchor>
+      <anchor>4c8cd3610d87390546f9f5da93f2d065</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5697,6 +8357,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>QTextEdit *</type>
+      <name>textEdit</name>
+      <anchorfile>classUi__TrainMain.html</anchorfile>
+      <anchor>3d7fc376ec8961778662fb6784e77649</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>QWidget *</type>
       <name>page_2</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
@@ -5705,9 +8372,9 @@
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
-      <name>vboxLayout7</name>
+      <name>vboxLayout5</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>67ab6eba00bb7d6e638556dd2ca674e1</anchor>
+      <anchor>7008dd2882b780012537238e4ff5a875</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5719,9 +8386,9 @@
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
-      <name>vboxLayout8</name>
+      <name>vboxLayout6</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>cccf65b7ac939aae4e2c6231e6f8a1b8</anchor>
+      <anchor>5b5873fc99973bf45d1fc930a626ea21</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5747,9 +8414,9 @@
     </member>
     <member kind="variable">
       <type>QHBoxLayout *</type>
-      <name>hboxLayout4</name>
+      <name>hboxLayout5</name>
       <anchorfile>classUi__TrainMain.html</anchorfile>
-      <anchor>4c8cd3610d87390546f9f5da93f2d065</anchor>
+      <anchor>71a7beef5a56220c63b1b46164dbc02c</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5781,15 +8448,15 @@
       <type>void</type>
       <name>setupUi</name>
       <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>7eaa8f3c1198f72ba47c63609628dafc</anchor>
-      <arglist>(QDialog *WordList)</arglist>
+      <anchor>77b47219522693bef61932fd509fd98b</anchor>
+      <arglist>(QWidget *WordList)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>retranslateUi</name>
       <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>80fc5091702728b45b92f1cab182647e</anchor>
-      <arglist>(QDialog *WordList)</arglist>
+      <anchor>194113be84ff8f077584dbbdddd5c405</anchor>
+      <arglist>(QWidget *WordList)</arglist>
     </member>
     <member kind="variable">
       <type>QHBoxLayout *</type>
@@ -5814,9 +8481,9 @@
     </member>
     <member kind="variable">
       <type>QLabel *</type>
-      <name>lbSearch_2</name>
+      <name>lbVocab</name>
       <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>05506c4a15349889c0a7c5fd138d054a</anchor>
+      <anchor>3f7f7b22a91e7feec73f3c6bab9a4668</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5869,94 +8536,24 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>QVBoxLayout *</type>
-      <name>vboxLayout2</name>
+      <type>QTabWidget *</type>
+      <name>twCurrentAction</name>
       <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>c6ac2cf63fb57073772cf67b2afe9252</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QHBoxLayout *</type>
-      <name>hboxLayout2</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>19374c23a8044826dd540c90eb5d4117</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QVBoxLayout *</type>
-      <name>vboxLayout3</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>b1e6d3d792a05e6af13f53b968c9b7f4</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QLabel *</type>
-      <name>label_2</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>3b3b65ea87e0e2bd38a0013345cfdb4d</anchor>
+      <anchor>6d6aff17adfc430466dad213a3f45dbe</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>QWidget *</type>
-      <name>wTrainList</name>
+      <name>tbEditModel</name>
       <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>e3405b846c79bfe3ea5ac306a46de817</anchor>
+      <anchor>1a33d940fa02f522ff8f14638b1f53f1</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
       <type>QVBoxLayout *</type>
-      <name>vboxLayout4</name>
+      <name>vboxLayout2</name>
       <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>c78918801ab7a0b8a66947ff1dfbadae</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QFrame *</type>
-      <name>line_2</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>f06c95d56437d9742ec982abca47ecfc</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbAddToTraining</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>d5d6e9cc4df760ad9f6fcc6c2a3ab216</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbTrainList</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>abd51c1269f37823c492b95136a11d8f</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbDeleteTrainingWord</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>d5484e9792b2d729a9500fe3a19d03a0</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbSuggestTrain</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>40ebb52eb486836dc5e297ecc184c950</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QFrame *</type>
-      <name>line_4</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>987a8deb0cccdc5bf991ae6adca1688f</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbImport</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>bb6390f4dbede57698451d70d8ae34b5</anchor>
+      <anchor>c6ac2cf63fb57073772cf67b2afe9252</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5968,9 +8565,72 @@
     </member>
     <member kind="variable">
       <type>QPushButton *</type>
-      <name>pbAddWord_3</name>
+      <name>pbRemoveWord</name>
       <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>88405753621144a7eb9e523c31ec8299</anchor>
+      <anchor>f37a52b79823f748ede48142748afbe8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbImport</name>
+      <anchorfile>classUi__WordList.html</anchorfile>
+      <anchor>bb6390f4dbede57698451d70d8ae34b5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QFrame *</type>
+      <name>line_2</name>
+      <anchorfile>classUi__WordList.html</anchorfile>
+      <anchor>f06c95d56437d9742ec982abca47ecfc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QTextBrowser *</type>
+      <name>tbHelp_2</name>
+      <anchorfile>classUi__WordList.html</anchorfile>
+      <anchor>c524cde9926cb8c1118da6116232f3ca</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QWidget *</type>
+      <name>tbTrainSpecial</name>
+      <anchorfile>classUi__WordList.html</anchorfile>
+      <anchor>2c78fea4bcfc0836c8734552c54b56e8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>vboxLayout3</name>
+      <anchorfile>classUi__WordList.html</anchorfile>
+      <anchor>b1e6d3d792a05e6af13f53b968c9b7f4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbAddToTraining</name>
+      <anchorfile>classUi__WordList.html</anchorfile>
+      <anchor>d5d6e9cc4df760ad9f6fcc6c2a3ab216</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbSuggestTrain</name>
+      <anchorfile>classUi__WordList.html</anchorfile>
+      <anchor>40ebb52eb486836dc5e297ecc184c950</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbDeleteTrainingWord</name>
+      <anchorfile>classUi__WordList.html</anchorfile>
+      <anchor>d5484e9792b2d729a9500fe3a19d03a0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>pbTrainList</name>
+      <anchorfile>classUi__WordList.html</anchorfile>
+      <anchor>abd51c1269f37823c492b95136a11d8f</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -5982,37 +8642,9 @@
     </member>
     <member kind="variable">
       <type>QTextBrowser *</type>
-      <name>textBrowser</name>
+      <name>tbHelp</name>
       <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>8843966ec291ca0038039e17a556504b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QFrame *</type>
-      <name>line_3</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>dcbf9f0114b85677ca1465ae5e735281</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QHBoxLayout *</type>
-      <name>hboxLayout3</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>7bdb558707b80e5addb3368e6e87b7c8</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbBack</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>f7d0f5bca65778b497f5fa9a62130539</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>QPushButton *</type>
-      <name>pbSwitchToTraining</name>
-      <anchorfile>classUi__WordList.html</anchorfile>
-      <anchor>a8248be5f3c5ad919d9ca98af52d2cfa</anchor>
+      <anchor>58a0df74450de9c66429724c888a10a5</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -6260,20 +8892,6 @@
     <name>WiktionaryDict</name>
     <filename>classWiktionaryDict.html</filename>
     <base>Dict</base>
-    <member kind="signal">
-      <type>void</type>
-      <name>loaded</name>
-      <anchorfile>classWiktionaryDict.html</anchorfile>
-      <anchor>95ede07ec3bf8724f63e41de484f0d85</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="signal">
-      <type>void</type>
-      <name>progress</name>
-      <anchorfile>classWiktionaryDict.html</anchorfile>
-      <anchor>8c35ccaf550bebc621cabe4bf2435645</anchor>
-      <arglist>(int prog)</arglist>
-    </member>
     <member kind="function">
       <type></type>
       <name>WiktionaryDict</name>
@@ -6324,31 +8942,57 @@
       <arglist>(QString word, QString terminal, QStringList pronunciations)</arglist>
     </member>
     <member kind="function">
-      <type>QStringList</type>
-      <name>getWords</name>
-      <anchorfile>classWiktionaryDict.html</anchorfile>
-      <anchor>6a1d7824b0da1dc3acec9023d81250ee</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>QStringList</type>
-      <name>getPronuncations</name>
-      <anchorfile>classWiktionaryDict.html</anchorfile>
-      <anchor>14753585357a7ebdc68e0956bd7a4a9f</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
-      <type>QStringList</type>
-      <name>getTerminals</name>
-      <anchorfile>classWiktionaryDict.html</anchorfile>
-      <anchor>52b08c95afbd48cf80df3f0ef241d031</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="function">
       <type></type>
       <name>~WiktionaryDict</name>
       <anchorfile>classWiktionaryDict.html</anchorfile>
       <anchor>0a192bbc2357001106938f1a9b9f1039</anchor>
+      <arglist>()</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>WindowsEvents</name>
+    <filename>classWindowsEvents.html</filename>
+    <base>CoreEvents</base>
+    <member kind="function">
+      <type></type>
+      <name>WindowsEvents</name>
+      <anchorfile>classWindowsEvents.html</anchorfile>
+      <anchor>8863acd224f1828051bb2a2a17649707</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>sendKey</name>
+      <anchorfile>classWindowsEvents.html</anchorfile>
+      <anchor>8e12ee23efa872b1e20226913167ebb9</anchor>
+      <arglist>(int key)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>sendChar</name>
+      <anchorfile>classWindowsEvents.html</anchorfile>
+      <anchor>71be2ea14b03905402c289335c20edb1</anchor>
+      <arglist>(char key)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setModifierKey</name>
+      <anchorfile>classWindowsEvents.html</anchorfile>
+      <anchor>9802ad39203fca7f197b2f6c99e5537a</anchor>
+      <arglist>(int virtualKey, bool once)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>unsetModifier</name>
+      <anchorfile>classWindowsEvents.html</anchorfile>
+      <anchor>348d15caee11066710f30ad519ab8fbf</anchor>
+      <arglist>(int virtualKey)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~WindowsEvents</name>
+      <anchorfile>classWindowsEvents.html</anchorfile>
+      <anchor>572367843392b4cc2954710cca7929e5</anchor>
       <arglist>()</arglist>
     </member>
   </compound>
@@ -6422,8 +9066,15 @@
       <type>const bool</type>
       <name>operator&lt;</name>
       <anchorfile>classWord.html</anchorfile>
-      <anchor>9f933457433307266133f680bc7cd3d8</anchor>
-      <arglist>(const Word w2) const</arglist>
+      <anchor>c472b467e339367486d8c85af7253ea8</anchor>
+      <arglist>(const Word w2) const </arglist>
+    </member>
+    <member kind="function">
+      <type>const bool</type>
+      <name>operator!=</name>
+      <anchorfile>classWord.html</anchorfile>
+      <anchor>81992510d8de93fe6f5e96756bb09454</anchor>
+      <arglist>(const Word w2) const </arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -6443,13 +9094,6 @@
   <compound kind="class">
     <name>WordListManager</name>
     <filename>classWordListManager.html</filename>
-    <member kind="function">
-      <type>WordList *</type>
-      <name>getExtraWords</name>
-      <anchorfile>classWordListManager.html</anchorfile>
-      <anchor>ed48006bdb1037f3bb0fbbc9796c8179</anchor>
-      <arglist>()</arglist>
-    </member>
     <member kind="function">
       <type>WordList *</type>
       <name>removeDoubles</name>
@@ -6486,10 +9130,10 @@
       <arglist>(QString promptspath=&quot;model/prompts&quot;)</arglist>
     </member>
     <member kind="function">
-      <type>QString</type>
+      <type>QString *</type>
       <name>getTerminal</name>
       <anchorfile>classWordListManager.html</anchorfile>
-      <anchor>7556d2f5b835aed08684b8c2e2eb2fbc</anchor>
+      <anchor>e9f613e656b86f228b0c67dcf1c722f1</anchor>
       <arglist>(QString name, QString pronunciation, WordList *wlist)</arglist>
     </member>
     <member kind="function">
@@ -6517,8 +9161,8 @@
       <type>void</type>
       <name>addWords</name>
       <anchorfile>classWordListManager.html</anchorfile>
-      <anchor>0a150cfe6acc9a3bb2e08d2946643c64</anchor>
-      <arglist>(WordList *list)</arglist>
+      <anchor>2d507e3317e210f42e7eb948e282d1c8</anchor>
+      <arglist>(WordList *list, bool isSorted=false)</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -6545,6 +9189,21 @@
   <compound kind="class">
     <name>WordListView</name>
     <filename>classWordListView.html</filename>
+    <base>InlineWidget</base>
+    <member kind="slot">
+      <type>void</type>
+      <name>abortInsertion</name>
+      <anchorfile>classWordListView.html</anchorfile>
+      <anchor>18d0a24d70367ee2d1f306a76f99b7eb</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>reloadList</name>
+      <anchorfile>classWordListView.html</anchorfile>
+      <anchor>28b8c77703868c7474493cded875ae8a</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="slot">
       <type>void</type>
       <name>suggestTraining</name>
@@ -6584,21 +9243,14 @@
       <type>void</type>
       <name>importDict</name>
       <anchorfile>classWordListView.html</anchorfile>
-      <anchor>3d37440910f0dba298587bb33ba6a363</anchor>
-      <arglist>()</arglist>
+      <anchor>9ba85fdbdcdae96ae3a0498c4afff24b</anchor>
+      <arglist>(WordList *list)</arglist>
     </member>
     <member kind="slot">
       <type>void</type>
       <name>clearList</name>
       <anchorfile>classWordListView.html</anchorfile>
       <anchor>04b4fc99893c43e2b78ab4b01dfbd055</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>addWord</name>
-      <anchorfile>classWordListView.html</anchorfile>
-      <anchor>3c1293d94f87207b753a91a9d92884c3</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="slot">
@@ -6612,21 +9264,14 @@
       <type>void</type>
       <name>filterListbyPattern</name>
       <anchorfile>classWordListView.html</anchorfile>
-      <anchor>1b5683cb019b767aa3614f4f094c2ff3</anchor>
-      <arglist>(QString filter)</arglist>
+      <anchor>d648ba3a4b74512b5e9c483e25b66b63</anchor>
+      <arglist>(QString filter=&quot;&quot;)</arglist>
     </member>
     <member kind="slot">
       <type>void</type>
       <name>clearSearchText</name>
       <anchorfile>classWordListView.html</anchorfile>
       <anchor>51cdf5414f665dff323f4891cb8a22d1</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="slot">
-      <type>void</type>
-      <name>switchToGenericTraining</name>
-      <anchorfile>classWordListView.html</anchorfile>
-      <anchor>28ddc8fe1bb48e44f9f8f82afca3020d</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="slot">
@@ -6643,12 +9288,61 @@
       <anchor>b4b297176dad0b28dbc69965c7e5b857</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>show</name>
+      <anchorfile>classWordListView.html</anchorfile>
+      <anchor>4e9b3da38cd031205d1738583ee8a783</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>hide</name>
+      <anchorfile>classWordListView.html</anchorfile>
+      <anchor>e8022b2a3cd496c060cde49cff6e635f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="slot">
+      <type>void</type>
+      <name>showImportDictDialog</name>
+      <anchorfile>classWordListView.html</anchorfile>
+      <anchor>3a3f36902eb612d1e2d13d5e6275a097</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>showAddWordDialog</name>
+      <anchorfile>classWordListView.html</anchorfile>
+      <anchor>cc7511fdb24c145e167d2ddea6de1c19</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>wordlistLoaded</name>
+      <anchorfile>classWordListView.html</anchorfile>
+      <anchor>1749fb26df17f972b2b89ae35a319faf</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>WordListView</name>
       <anchorfile>classWordListView.html</anchorfile>
       <anchor>2fae706e007f45aa45df8c93ff7f1730</anchor>
       <arglist>(QWidget *parent)</arglist>
+    </member>
+    <member kind="function">
+      <type>WordListManager *</type>
+      <name>getManager</name>
+      <anchorfile>classWordListView.html</anchorfile>
+      <anchor>390bf39419487672bccb28dfc111fac4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setTrainingView</name>
+      <anchorfile>classWordListView.html</anchorfile>
+      <anchor>5df50f0313f23ebdb8a08c168979ea48</anchor>
+      <arglist>(TrainingView *trainView)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -6727,8 +9421,36 @@
       <type>void</type>
       <name>save</name>
       <anchorfile>classXMLCommand.html</anchorfile>
-      <anchor>628c827ca7adb75c6020fc72487f20a2</anchor>
-      <arglist>(CommandList commandlist, QString path=&quot;conf/commands.xml&quot;)</arglist>
+      <anchor>e64152bf08f04fa16347ee5e430d1666</anchor>
+      <arglist>(QString path=&quot;conf/commands.xml&quot;)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>replaceCommand</name>
+      <anchorfile>classXMLCommand.html</anchorfile>
+      <anchor>d64740fd913438dc588726f144442b8c</anchor>
+      <arglist>(QString commandName, Command *newCommand)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addCommand</name>
+      <anchorfile>classXMLCommand.html</anchorfile>
+      <anchor>b3eab4a7c8062c2c7a01db453ca16cab</anchor>
+      <arglist>(Command *newCommand)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>deleteCommand</name>
+      <anchorfile>classXMLCommand.html</anchorfile>
+      <anchor>08746ecdd9cb5e899c2c7aad03043281</anchor>
+      <arglist>(QString commandName)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>commandExists</name>
+      <anchorfile>classXMLCommand.html</anchorfile>
+      <anchor>54c10ace2c6c3e1232ba1657f5bd5781</anchor>
+      <arglist>(QString commandName)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -7023,10 +9745,16 @@
     <name>Ui</name>
     <filename>namespaceUi.html</filename>
     <class kind="class">Ui::AddWord</class>
+    <class kind="class">Ui::ExternalProgrammsDlg</class>
+    <class kind="class">Ui::GeneralSettingsDlg</class>
     <class kind="class">Ui::ImportView</class>
+    <class kind="class">Ui::LogManagerDlg</class>
     <class kind="class">Ui::MainWindow</class>
-    <class kind="class">Ui::RunDialog</class>
+    <class kind="class">Ui::NetworkSettingsDlg</class>
+    <class kind="class">Ui::RevertDlg</class>
+    <class kind="class">Ui::RunDlg</class>
     <class kind="class">Ui::SettingsDialog</class>
+    <class kind="class">Ui::SoundSettingsDlg</class>
     <class kind="class">Ui::TrainMain</class>
     <class kind="class">Ui::WordList</class>
   </compound>
@@ -7036,9 +9764,24 @@
     <base>Ui_AddWord</base>
   </compound>
   <compound kind="class">
+    <name>Ui::ExternalProgrammsDlg</name>
+    <filename>classUi_1_1ExternalProgrammsDlg.html</filename>
+    <base>Ui_ExternalProgrammsDlg</base>
+  </compound>
+  <compound kind="class">
+    <name>Ui::GeneralSettingsDlg</name>
+    <filename>classUi_1_1GeneralSettingsDlg.html</filename>
+    <base>Ui_GeneralSettingsDlg</base>
+  </compound>
+  <compound kind="class">
     <name>Ui::ImportView</name>
     <filename>classUi_1_1ImportView.html</filename>
     <base>Ui_ImportView</base>
+  </compound>
+  <compound kind="class">
+    <name>Ui::LogManagerDlg</name>
+    <filename>classUi_1_1LogManagerDlg.html</filename>
+    <base>Ui_LogManagerDlg</base>
   </compound>
   <compound kind="class">
     <name>Ui::MainWindow</name>
@@ -7046,14 +9789,29 @@
     <base>Ui_MainWindow</base>
   </compound>
   <compound kind="class">
-    <name>Ui::RunDialog</name>
-    <filename>classUi_1_1RunDialog.html</filename>
-    <base>Ui_RunDialog</base>
+    <name>Ui::NetworkSettingsDlg</name>
+    <filename>classUi_1_1NetworkSettingsDlg.html</filename>
+    <base>Ui_NetworkSettingsDlg</base>
+  </compound>
+  <compound kind="class">
+    <name>Ui::RevertDlg</name>
+    <filename>classUi_1_1RevertDlg.html</filename>
+    <base>Ui_RevertDlg</base>
+  </compound>
+  <compound kind="class">
+    <name>Ui::RunDlg</name>
+    <filename>classUi_1_1RunDlg.html</filename>
+    <base>Ui_RunDlg</base>
   </compound>
   <compound kind="class">
     <name>Ui::SettingsDialog</name>
     <filename>classUi_1_1SettingsDialog.html</filename>
     <base>Ui_SettingsDialog</base>
+  </compound>
+  <compound kind="class">
+    <name>Ui::SoundSettingsDlg</name>
+    <filename>classUi_1_1SoundSettingsDlg.html</filename>
+    <base>Ui_SoundSettingsDlg</base>
   </compound>
   <compound kind="class">
     <name>Ui::TrainMain</name>
@@ -7064,165 +9822,5 @@
     <name>Ui::WordList</name>
     <filename>classUi_1_1WordList.html</filename>
     <base>Ui_WordList</base>
-  </compound>
-  <compound kind="dir">
-    <name>Daten/</name>
-    <path>/home/bedahr/Daten/</path>
-    <filename>dir_75a69c984baa7e6e8be50e7ca3dbf29a.html</filename>
-    <dir>Daten/Projects/</dir>
-  </compound>
-  <compound kind="dir">
-    <name>Daten/Projects/</name>
-    <path>/home/bedahr/Daten/Projects/</path>
-    <filename>dir_bbf8db06686680272d23b3ca61529fc4.html</filename>
-    <dir>Daten/Projects/simon/</dir>
-  </compound>
-  <compound kind="dir">
-    <name>Daten/Projects/simon/</name>
-    <path>/home/bedahr/Daten/Projects/simon/</path>
-    <filename>dir_93ff0f96adb530d413f116882182f4fb.html</filename>
-    <dir>Daten/Projects/simon/trunk/</dir>
-  </compound>
-  <compound kind="dir">
-    <name>Daten/Projects/simon/trunk/</name>
-    <path>/home/bedahr/Daten/Projects/simon/trunk/</path>
-    <filename>dir_a426ca655a68ab7bac2a01c64fd326a0.html</filename>
-    <file>addwordview.cpp</file>
-    <file>addwordview.h</file>
-    <file>command.h</file>
-    <file>coreevents.h</file>
-    <file>dict.cpp</file>
-    <file>dict.h</file>
-    <file>dragtablewidget.cpp</file>
-    <file>dragtablewidget.h</file>
-    <file>droplistwidget.cpp</file>
-    <file>droplistwidget.h</file>
-    <file>eventhandler.cpp</file>
-    <file>eventhandler.h</file>
-    <file>importdict.cpp</file>
-    <file>importdict.h</file>
-    <file>importdictview.cpp</file>
-    <file>importdictview.h</file>
-    <file>importlocalwizardpage.cpp</file>
-    <file>importlocalwizardpage.h</file>
-    <file>importremotewizardpage.cpp</file>
-    <file>importremotewizardpage.h</file>
-    <file>importtrainingtexts.cpp</file>
-    <file>importtrainingtexts.h</file>
-    <file>importworkingwizardpage.cpp</file>
-    <file>importworkingwizardpage.h</file>
-    <file>juliuscontrol.cpp</file>
-    <file>juliuscontrol.h</file>
-    <file>logger.cpp</file>
-    <file>logger.h</file>
-    <file>main.cpp</file>
-    <file>moc_addwordview.cpp</file>
-    <file>moc_dict.cpp</file>
-    <file>moc_dragtablewidget.cpp</file>
-    <file>moc_droplistwidget.cpp</file>
-    <file>moc_importdict.cpp</file>
-    <file>moc_importdictview.cpp</file>
-    <file>moc_importlocalwizardpage.cpp</file>
-    <file>moc_importremotewizardpage.cpp</file>
-    <file>moc_importtrainingtexts.cpp</file>
-    <file>moc_importworkingwizardpage.cpp</file>
-    <file>moc_juliuscontrol.cpp</file>
-    <file>moc_osd.cpp</file>
-    <file>moc_quickdownloader.cpp</file>
-    <file>moc_recwidget.cpp</file>
-    <file>moc_runapplicationview.cpp</file>
-    <file>moc_selectsourcewizardpage.cpp</file>
-    <file>moc_settingsview.cpp</file>
-    <file>moc_simoncontrol.cpp</file>
-    <file>moc_simonview.cpp</file>
-    <file>moc_trainingview.cpp</file>
-    <file>moc_trayiconmanager.cpp</file>
-    <file>moc_vumeter.cpp</file>
-    <file>moc_wavplayer.cpp</file>
-    <file>moc_wavrecorder.cpp</file>
-    <file>moc_wiktionarydict.cpp</file>
-    <file>moc_wordlistview.cpp</file>
-    <file>moc_xmlreader.cpp</file>
-    <file>modelmanager.cpp</file>
-    <file>modelmanager.h</file>
-    <file>osd.cpp</file>
-    <file>osd.h</file>
-    <file>qrc_simon.cpp</file>
-    <file>quickdownloader.cpp</file>
-    <file>quickdownloader.h</file>
-    <file>recwidget.cpp</file>
-    <file>recwidget.h</file>
-    <file>RtAudio.cpp</file>
-    <file>RtAudio.h</file>
-    <file>RtError.h</file>
-    <file>runapplicationview.cpp</file>
-    <file>runapplicationview.h</file>
-    <file>runbackend.h</file>
-    <file>runcommand.cpp</file>
-    <file>runcommand.h</file>
-    <file>runlinuxbackend.cpp</file>
-    <file>runlinuxbackend.h</file>
-    <file>runwindowsbackend.cpp</file>
-    <file>runwindowsbackend.h</file>
-    <file>selectsourcewizardpage.cpp</file>
-    <file>selectsourcewizardpage.h</file>
-    <file>settingsmanager.h</file>
-    <file>settingsview.cpp</file>
-    <file>settingsview.h</file>
-    <file>simoncontrol.cpp</file>
-    <file>simoncontrol.h</file>
-    <file>simoninfo.cpp</file>
-    <file>simoninfo.h</file>
-    <file>simonview.cpp</file>
-    <file>simonview.h</file>
-    <file>soundcontrol.cpp</file>
-    <file>soundcontrol.h</file>
-    <file>sounddevice.h</file>
-    <file>trainingmanager.cpp</file>
-    <file>trainingmanager.h</file>
-    <file>trainingtext.cpp</file>
-    <file>trainingtext.h</file>
-    <file>trainingview.cpp</file>
-    <file>trainingview.h</file>
-    <file>trayiconmanager.cpp</file>
-    <file>trayiconmanager.h</file>
-    <file>ui_addword.h</file>
-    <file>ui_importdict.h</file>
-    <file>ui_main.h</file>
-    <file>ui_rundialog.h</file>
-    <file>ui_settings.h</file>
-    <file>ui_trainmain.h</file>
-    <file>ui_wordlist.h</file>
-    <file>vumeter.cpp</file>
-    <file>vumeter.h</file>
-    <file>wav.cpp</file>
-    <file>wav.h</file>
-    <file>wavplayer.cpp</file>
-    <file>wavplayer.h</file>
-    <file>wavrecorder.cpp</file>
-    <file>wavrecorder.h</file>
-    <file>wiktionarydict.cpp</file>
-    <file>wiktionarydict.h</file>
-    <file>word.h</file>
-    <file>wordlistmanager.cpp</file>
-    <file>wordlistmanager.h</file>
-    <file>wordlistview.cpp</file>
-    <file>wordlistview.h</file>
-    <file>xevents.cpp</file>
-    <file>xevents.h</file>
-    <file>xmlcommand.cpp</file>
-    <file>xmlcommand.h</file>
-    <file>xmldomreader.cpp</file>
-    <file>xmldomreader.h</file>
-    <file>xmlreader.cpp</file>
-    <file>xmlreader.h</file>
-    <file>xmlsaxreader.cpp</file>
-    <file>xmlsaxreader.h</file>
-    <file>xmlsetting.cpp</file>
-    <file>xmlsetting.h</file>
-    <file>xmltrainingtext.cpp</file>
-    <file>xmltrainingtext.h</file>
-    <file>xmltrainingtextlist.cpp</file>
-    <file>xmltrainingtextlist.h</file>
   </compound>
 </tagfile>

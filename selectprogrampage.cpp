@@ -178,8 +178,9 @@ void SelectProgramPage::searchForPrograms()
 QStringList* SelectProgramPage::getAllFormats(QString format)
 {
    //QMessageBox::information(this, "getAllFormats", "bin drin");
+    QStringList* formatList;
 #ifdef __WIN32
-    QStringList* formatList = this->regMan->getAllFormats(format);
+    formatList = this->regMan->getAllFormats(format);
     QString allFormats;
     for(int i=0; i<formatList->count(); i++)
     {

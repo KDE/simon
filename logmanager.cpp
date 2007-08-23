@@ -13,14 +13,15 @@
 #include <QRegExp>
 #include <QFile>
 #include <QCoreApplication>
-#include <logger.h>
+#include <QDebug>
+#include <QDate>
+#include "logger.h"
 
 
 /**
  * \brief Constructor
- * creating a new Instanz of LogManager
  *
- * \author Phillip Goriup
+ * \author Peter Grasch
  */
 LogManager::LogManager()
 {
@@ -32,11 +33,20 @@ LogManager::LogManager()
 }
 
 
-
-bool LogManager::readLog()
-{	
-	return true;
+/**
+ * \brief Returns true if there would no point in (re-)reading the logfile
+ * \author Peter Grasch
+ * 
+ * If this is false either the logfile changed or we never actually completely read it
+ * 
+ * @return have we finished reading the logfile?
+ */
+bool LogManager::hasFinishedReading()
+{
+	QFile logF("log/simon.log");
+	return (this->finishedLoading && (logF.size() == logFilesize));
 }
+
 
 /**
  * \brief reads the logfile, and saves the content into a vector of LogEntry
@@ -65,8 +75,9 @@ void LogManager::run ()
 	QFile *LogF = new QFile("log/simon.log");
 	if (!LogF->open(QIODevice::ReadOnly))
 	{
-		emit logReadFinished(0);
+		emit logReadFinished(1);
 	}
+	logFilesize = LogF->size();
 	QString str;
 	int type;
 	
@@ -102,11 +113,11 @@ void LogManager::run ()
 	if (!killMe)
 	{
 		finishedLoading = true;
-		emit this->logReadFinished(1);
+		emit this->logReadFinished(0);
 	}
 	else
 	{
-		emit this->logReadFinished(0);
+		emit this->logReadFinished(2);
 	}
 }
 
@@ -116,28 +127,50 @@ void LogManager::run ()
 /**
  * \brief returns entries per one day
  *
- * \param 
+ * \param day The day we want to view
  * 
  * \author Phillip Goriup
  */
-LogEntryList* LogManager::getDay(QDate day)
+void LogManager::getDay(QDate day)
 {
+	
+	if (this->isBusy()) 
+	{
+		dayToGet = day;
+		disconnect(this, SIGNAL(finished()));
+		connect(this, SIGNAL(finished()), this, SLOT(getDay()));
+		return;
+	}
+
+	if (day.isNull())
+		if (dayToGet.isNull()) return;
+		else day = dayToGet;
+
 	LogEntryList *entriesperday = new LogEntryList;
+
+	if (!this->entries || this->entries->count() == 0)
+	{
+		emit foundEntries(entriesperday,true);
+		return; //if we haven't read the logfile
+			//there is no point in filtering it afterwards
+	}
+
 	int i = 0;
 	int size = entries->count();
 	while((i<size) && (this->entries->at(i++).getDate() < day));
 	i--;
-		
 	
+	size = entries->count();
 	while((i<size) && (this->entries->at(i).getDate() == day))
 	{
-		
 		entriesperday->append(this->entries->at(i));
 		i++;
 		
 	}
 	
-	return entriesperday;
+	emit foundEntries(entriesperday,true);
+
+	dayToGet = QDate();
 }
 
 
@@ -146,31 +179,76 @@ LogEntryList* LogManager::getDay(QDate day)
  *
  * \author Phillip Goriup
  */
-void LogManager::stop(bool free)
+void LogManager::stop()
 {
+	disconnect(this, SIGNAL(finished()), 0,0);
+
 	killMe=true;
-	if(free)
-		this->entries->clear();
-	
-	if((!free) && (this->isRunning ()))
+
+	if (isRunning())
+		wait(5000);
+	if (isRunning())
+		terminate();	//make ABSOLUTELY sure
+	if (isRunning())	//that the thread WILL stop
+		wait(500);
+
+	if(!hasFinishedReading())
 	{
-		this->wait(5000);
 		this->entries->clear();
+		qDebug() << "aufgeräumt :)" << this->entries->count();
 	}
-	this->wait(5000);
-	this->terminate();
+
 	killMe=false;
 
 }
+
+
+
+/**
+ * \brief Will attempt to create a list of QDates ("Dates") and emit it using daysAvailable(Dates)
+ * \author Peter Grasch
+ */
+void LogManager::getDateList()
+{
+	if (this->isBusy()) 
+	{
+		disconnect(this, SIGNAL(finished()));
+		connect(this, SIGNAL(finished()), this, SLOT(getDateList()));
+		return;
+	}
+
+	if (!entries) {
+		emit daysAvailable(Dates());
+		return;
+	}
+	Dates daysAvail;
+	QDate currentDate;
+	for (int i=0; i < this->entries->count(); i++)
+	{
+		if (entries->at(i).getDate()!=currentDate)
+		{
+			currentDate = entries->at(i).getDate();
+			daysAvail << currentDate;
+		}
+	}
+	emit daysAvailable(daysAvail);
+}
+
 
 /**
  * \brief returns all entries
  *
  * \author Phillip Goriup
  */
-LogEntryList* LogManager::getAll()
+void LogManager::getAll()
 {
-	return this->entries;
+	if (this->isBusy()) 
+	{
+		disconnect(this, SIGNAL(finished()));
+		connect(this, SIGNAL(finished()), this, SLOT(getAll()));
+		return;
+	}
+	emit foundEntries(this->entries,false);
 }
 
 

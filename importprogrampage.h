@@ -16,7 +16,7 @@
 #include <QLabel>
 #include <QProgressBar>
 #include <QVBoxLayout>
-#include "Command.h"
+#include "command.h"
 #include "xmlcommand.h"
 
 /**

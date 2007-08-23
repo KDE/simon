@@ -354,6 +354,7 @@ void WordListView::insertVocab(WordList *vocab)
 		} else {
 			vocab->removeAt(i);
 			twVocab->setRowCount(vocab->count());
+			pgDlg->setMaximum(vocab->count());
 			i--;
 		}
 		pgDlg->setValue(++i);

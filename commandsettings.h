@@ -17,7 +17,9 @@
 #include <QMessageBox>
 #include "xmlcommand.h"
 #include <QStringList>
+#ifdef __WIN32
 #include "registrymanager.h"
+#endif
 
 class ImportProgramWizard;
 
