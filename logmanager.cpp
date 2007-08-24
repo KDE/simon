@@ -125,11 +125,15 @@ void LogManager::run ()
 
 
 /**
- * \brief returns entries per one day
+ * \brief Retrieves the entries of the given day and emits them using foundEntries()
+ * 
+ * The method will try to determine if the thread is currently running (and thus building the list)
+ * by calling isBusy() and will queue the process by connecting itself to the finished() signal of
+ * the process
  *
  * \param day The day we want to view
  * 
- * \author Phillip Goriup
+ * \author Phillip Goriup, Peter Grasch
  */
 void LogManager::getDay(QDate day)
 {
@@ -175,9 +179,9 @@ void LogManager::getDay(QDate day)
 
 
 /**
- * \brief clears the memory after a abort, or a leave
+ * \brief Frees the memory (if the entries are not clean (i.e. hasFinishedReading() returns false)
  *
- * \author Phillip Goriup
+ * \author Phillip Goriup, Peter Grasch
  */
 void LogManager::stop()
 {
@@ -193,19 +197,20 @@ void LogManager::stop()
 		wait(500);
 
 	if(!hasFinishedReading())
-	{
 		this->entries->clear();
-		qDebug() << "aufgeräumt :)" << this->entries->count();
-	}
 
 	killMe=false;
-
 }
 
 
 
 /**
  * \brief Will attempt to create a list of QDates ("Dates") and emit it using daysAvailable(Dates)
+ * 
+ * The method will try to determine if the thread is currently running (and thus building the list)
+ * by calling isBusy() and will queue the process by connecting itself to the finished() signal of
+ * the process
+ * 
  * \author Peter Grasch
  */
 void LogManager::getDateList()
@@ -236,7 +241,11 @@ void LogManager::getDateList()
 
 
 /**
- * \brief returns all entries
+ * \brief Builds a list of all entries and emits them using foundEntries()
+ * 
+ * The method will try to determine if the thread is currently running (and thus building the list)
+ * by calling isBusy() and will queue the process by connecting itself to the finished() signal of
+ * the process
  *
  * \author Phillip Goriup
  */

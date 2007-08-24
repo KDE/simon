@@ -18,14 +18,14 @@ ConfigureProgramPage::ConfigureProgramPage(QWidget* parent): QWizardPage(parent)
 
     label = new QLabel(this);
     
-    hboxLayoutPath = new QHBoxLayout(this);
+    hboxLayoutPath = new QHBoxLayout();
     lPath = new QLabel(this);
     lPath->setText("Pfad: ");
     lePath = new QLineEdit(this);
     hboxLayoutPath->addWidget(lPath);
     hboxLayoutPath->addWidget(lePath);
     
-    hboxLayoutWorkingPath = new QHBoxLayout(this);
+    hboxLayoutWorkingPath = new QHBoxLayout();
     lWorkingPath = new QLabel(this);
     lWorkingPath->setText("Arbeitspfad: ");
     leWorkingPath = new QLineEdit(this);
