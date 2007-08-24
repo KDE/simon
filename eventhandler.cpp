@@ -43,6 +43,7 @@ EventHandler::EventHandler()
  */
 void EventHandler::sendWord(QString word)
 {
+	sleep(1);
 	for (int i=0; i < word.size();i++)
 	{
 		sendKey(word.at(i));
@@ -59,20 +60,22 @@ void EventHandler::sendWord(QString word)
  * The key to send
  * 
  * @author Peter Grasch
+ * \todo Shift gets unset ALOT
  */
 void EventHandler::sendKey(QChar key)
 {
 	char c = key.toLatin1();
-	
+
 	if (((c >= 'A') && (c <= 'Z'))  || ((capslock) && ((c >= 'a') && (c <= 'z'))))
 	{
 		coreEvents->setModifierKey(KeyShift,false);
 	}
+#ifdef __WIN32	
 	if (((c >= 'A') && (c <= 'Z')))
 	{
 		c+=32;
 	}
-	
+#endif
 	coreEvents->sendChar(c);
 
 	coreEvents->unsetModifier(KeyShift);
