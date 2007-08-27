@@ -6,3 +6,6 @@ TODO:
 
 [2007/08/22] BRIEF: in System/Network the user should not be able to change the values from "Adresse" and "Port" into false Values (fe.: for the port any letters)
 		USE CASE(S): The user should know, if he changes any value, that it can´t work
+		
+[2007/08/27] BRIEF: display flags when importing from wiktionary reflecting the language
+        USE CASE(S):
