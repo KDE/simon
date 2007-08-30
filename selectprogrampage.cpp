@@ -30,8 +30,18 @@
 #define SYSTEM 8
 #define VIDEO 9
 
+/**
+*   \brief constructor
+*
+*   @autor Susanne Tschernegg
+*/
 SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 {
+    //init platform dependant backends
+#ifdef __WIN32
+    regMan = new RegistryManager();
+#endif
+    
     vboxLayout = new QVBoxLayout(this);
     vboxLayout->setObjectName("vboxLayout");
     
@@ -68,27 +78,30 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
     
     lwPrograms = new QListWidget(this);
     lwPrograms->setObjectName("lwPrograms");
-    
+            
     registerField("executable*", lwPrograms);
+
+ /*   lName = new QLabel(tr("Name"));
+    leName = new QLineEdit();
+    hboxLayout = new QHBoxLayout();
+    hboxLayout->addWidget(lName);
+    hboxLayout->addWidget(leName);*/
 
     vboxLayout->addWidget(lwCategories);
     vboxLayout->addWidget(lwPrograms);
+    //vboxLayout->addLayout(hboxLayout);
     
     //connect(lwCategories, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(test()));
     connect(lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
-    //getAllFormats();
-    
-    
-//init platform dependant backends
-#ifdef __WIN32
-    regMan = new RegistryManager();
-#endif
-    
-    //connect(lwCategories, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(test()));
-    connect(lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
+    //connect(lwPrograms, sIGNAL(itemSelectionChanged()), this, SLOT(SelectProgramPage()));
     //getAllFormats();
 }
 
+/**
+*   \brief searches for all programs, which contains the associated formats of a categorie
+*
+*   @autor Susanne Tschernegg
+*/
 void SelectProgramPage::searchForPrograms()
 {
 #ifdef __WIN32
@@ -128,13 +141,14 @@ void SelectProgramPage::searchForPrograms()
     
     lwPrograms->clear();
     QStringList* progList = new QStringList();
-    QStringList *progListForOneFormat = new QStringList();
-    bool exists = false;
+ //   QStringList *progListForOneFormat = new QStringList();
+ /*   bool exists = false;
     for(int y=0; y<formatList->count(); y++)
-    {
+    {*/
         //get all programs for one format
-        progListForOneFormat = regMan->getAllPrograms(formatList->at(y));
-        for(int z=0; z<progListForOneFormat->count(); z++)
+        //progListForOneFormat = regMan->getAllPrograms(formatList);
+    progList = regMan->getAllPrograms(formatList);
+ /*       for(int z=0; z<progListForOneFormat->count(); z++)
         {
             if(!progListForOneFormat->at(z).contains(".exe", Qt::CaseInsensitive))
                 continue;
@@ -152,7 +166,7 @@ void SelectProgramPage::searchForPrograms()
             }
             else exists = false;
         }
-    }
+    }*/
     
     QListWidgetItem* lwItem;
     QString out;
@@ -162,7 +176,7 @@ void SelectProgramPage::searchForPrograms()
     {
         lwItem = new QListWidgetItem(lwPrograms);
         
-        startIndex = progList->at(i).indexOf(".");
+        startIndex = progList->at(i).lastIndexOf(".");
         length = progList->at(i).length();
         lwItem->setData(Qt::AccessibleTextRole, progList->at(i));
         out = progList->at(i);
@@ -175,9 +189,13 @@ void SelectProgramPage::searchForPrograms()
 #endif
 }
 
+/**
+*   \brief searches for all formats of a categorie
+*
+*   @autor Susanne Tschernegg
+*/
 QStringList* SelectProgramPage::getAllFormats(QString format)
 {
-   //QMessageBox::information(this, "getAllFormats", "bin drin");
     QStringList* formatList;
 #ifdef __WIN32
     formatList = this->regMan->getAllFormats(format);
@@ -190,9 +208,19 @@ QStringList* SelectProgramPage::getAllFormats(QString format)
     return formatList;
 }
 
+/**
+*   \brief destructor
+*
+*   @autor Susanne Tschernegg
+*/
 SelectProgramPage::~SelectProgramPage()
 {}
-    
+
+/**
+*   \brief gets the whole exe-name of the program (e.g. program.exe)
+*
+*   @autor Susanne Tschernegg
+*/
 QString SelectProgramPage::getExecPath()
 {
     QString exeStr = lwPrograms->currentItem()->data(Qt::AccessibleTextRole).toString();
@@ -200,10 +228,20 @@ QString SelectProgramPage::getExecPath()
     return exeStr;
 }
 
+/**
+*   \brief gets the name of the program
+*
+*   @autor Susanne Tschernegg
+*/
 QString SelectProgramPage::getName()
 {
     return lwPrograms->currentItem()->text();
 }
+
+/*void SelectProgramPage::setDefaultName()
+{
+        
+}*/
 
 
 

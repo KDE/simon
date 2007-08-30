@@ -1,8 +1,5 @@
 <commands>
- <command type="0" name="explorer" >explorer.exe</command>
- <command type="0" name="paint" >mspaint.exe</command>
- <command type="2" name="test" >test</command>
- <command type="0" name="notepad" >notepad.exe</command>
+ <command type="0" name="iTunes" >iTunes.exe</command>
+ <command type="0" name="explorer" >iexplore.exe</command>
  <command type="0" name="wmplayer" >wmplayer.exe</command>
- <command type="0" name="iexpl" >ieplore.exe</command>
 </commands>

@@ -43,7 +43,7 @@ EventHandler::EventHandler()
  */
 void EventHandler::sendWord(QString word)
 {
-	sleep(1);
+	//sleep(1);
 	for (int i=0; i < word.size();i++)
 	{
 		sendKey(word.at(i));

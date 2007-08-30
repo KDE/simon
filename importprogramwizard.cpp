@@ -35,10 +35,8 @@ ImportProgramWizard::ImportProgramWizard(QWidget* parent): QWizard(parent)
     
     connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(idChanged(int)));
     connect(ipp, SIGNAL(commandCreated(Command*)), this, SIGNAL(commandCreated(Command*)));
-    connect(ipp, SIGNAL(commandCreated(Command*)), this, SLOT(next()));
+   // connect(ipp, SIGNAL(commandCreated(Command*)), this, SLOT(next()));
     connect(this, SIGNAL(finished(int)), this, SLOT(restart()));
-    
-   // QMessageBox::information(0, "importProgramwizard","konstruktor");
 }
 
 /**
@@ -109,8 +107,15 @@ QWizardPage* ImportProgramWizard::createFinishedPage()
 	return finished;
 }
 
+/**
+*   \brief slot: the signal is emited this class
+            if the current page changes, we will save the last pageId and the new pageId
+*   @autor Susanne Tschernegg
+*/
 void ImportProgramWizard::idChanged(int newId)
 {
+//    QMessageBox::information(this, "importprogwizard .. idchanged ANF... newID", QString::number(newId));
+//    QMessageBox::information(this, "importprogwizard .. idchanged ANF... oldID", QString::number(oldId));
     if((oldId==1) && (newId==2))
     {
         SelectProgramPage *spp = dynamic_cast<SelectProgramPage*>(page(1));
@@ -121,23 +126,40 @@ void ImportProgramWizard::idChanged(int newId)
         cpp->execPath = spp->getExecPath();
         cpp->writeInformation();
     }
-    else if((oldId==2) && (newId==3))
+    else if(((oldId==2) && (newId==3)) || ((oldId==3) && (newId==3)))
     {
+        //QMessageBox::information(this, "importprogramwizard","idChanged ... oId=2; nId=3");
         ConfigureProgramPage *cpp = dynamic_cast<ConfigureProgramPage*>(page(2));
         if(!cpp)
             return;
+        cpp->setProgName(cpp->leName->text());
+        cpp->setExecPath(cpp->lePath->text());
         ImportProgramPage *ipp = dynamic_cast<ImportProgramPage*>(page(3));
         ipp->createCommand(cpp->progName, cpp->execPath);
+        if(oldId==3)next();
     }
-/*    else if((oldId==3) && (newId==4))
-    {
-
-    }*/
     else if((oldId==4) && (newId==3))
     {
         restart();
         next();
     }
-    
     oldId = newId;
+}
+
+/**
+*   \brief slot: the signal is emited in the commandSettings.cpp (changeExistingName)
+            if the name of the commando already exists in the commandlist, a message box (called in commendSettings) will be opend and asks,
+            if the user wants to change the name of the commando
+*   @autor Susanne Tschernegg
+*/
+void ImportProgramWizard::changeName(bool change)
+{
+    if(!change)
+    {
+        done(-1);
+    }
+    else
+    {
+        back();
+    }
 }

@@ -50,6 +50,7 @@ public:
 
 private slots:
     void idChanged(int newId);
+    void changeName(bool change);
 
 signals:
    void commandCreated(Command* command);

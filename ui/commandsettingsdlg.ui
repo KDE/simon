@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>518</width>
-    <height>322</height>
+    <height>326</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -100,43 +100,6 @@
         </widget>
        </item>
       </layout>
-     </item>
-     <item>
-      <widget class="QTableWidget" name="twCommand" >
-       <property name="alternatingRowColors" >
-        <bool>true</bool>
-       </property>
-       <property name="selectionMode" >
-        <enum>QAbstractItemView::SingleSelection</enum>
-       </property>
-       <property name="selectionBehavior" >
-        <enum>QAbstractItemView::SelectRows</enum>
-       </property>
-       <property name="showGrid" >
-        <bool>false</bool>
-       </property>
-       <property name="gridStyle" >
-        <enum>Qt::SolidLine</enum>
-       </property>
-       <property name="sortingEnabled" >
-        <bool>false</bool>
-       </property>
-       <column>
-        <property name="text" >
-         <string>Name</string>
-        </property>
-       </column>
-       <column>
-        <property name="text" >
-         <string>Typ</string>
-        </property>
-       </column>
-       <column>
-        <property name="text" >
-         <string>Wert</string>
-        </property>
-       </column>
-      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" >

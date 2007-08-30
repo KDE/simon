@@ -13,16 +13,25 @@
 #define RETURNTABLEWIDGET_H
 
 #include <QTableWidget>
+#include <QKeyEvent>
+
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class ReturnTableWidget : public QTableWidget
 {
+    Q_OBJECT
 public:
-        ReturnTableWidget(QWidget* parent);
+        ReturnTableWidget(QWidget* parent=0);
 
         ~ReturnTableWidget();
+
+protected:
+    virtual void keyPressEvent(QKeyEvent *e);
+
+signals:
+    void enterPressed();
 
 };
 

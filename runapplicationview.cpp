@@ -229,6 +229,12 @@ void RunApplicationView::insertCommands(CommandList list)
 	}
 }
 
+/**
+*   \brief slot: the signal will be emited in the commandSettings.cpp
+*           it updates the whole commandList
+*
+*   @autor Susanne Tschernegg
+*/
 void RunApplicationView::loadCommands()
 {
     ui.twPrograms->clear();

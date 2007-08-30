@@ -71,13 +71,14 @@ void XMLCommand::addCommand(Command *newCommand)
 /**
  * \author Susanne Tschernegg
  */
-void XMLCommand::deleteCommand(QString commandName)
+void XMLCommand::deleteCommand(QString commandName)//, QString commandValue)
 {
 	for (int i=0; i < commandlist.size(); i++)
 	{
 		if(commandlist.at(i)->getName()==commandName)
 		{
-			commandlist.removeAt(i);
+            //if(commandlist.at(i)->getValue()==commandValue)
+			    commandlist.removeAt(i);
 		}
 	}
 }

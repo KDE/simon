@@ -36,7 +36,7 @@ public:
 
 	void replaceCommand(QString commandName, Command *newCommand);
 	void addCommand(Command *newCommand);
-	void deleteCommand(QString commandName);
+	void deleteCommand(QString commandName);//, QString commandValue);
 	bool commandExists(QString commandName);
 	
 	bool load(QString path="");

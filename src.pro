@@ -119,7 +119,8 @@ importtrainingdirectoryworkingpage.h \
            selectprogrampage.h \
            configureprogrampage.h \
            importprogrampage.h \
-	   commandsettings.h
+	   commandsettings.h \
+		returntablewidget.h
 
 SOURCES += main.cpp \
            simonview.cpp \
@@ -195,7 +196,8 @@ SOURCES += main.cpp \
            selectprogrampage.cpp \
            configureprogrampage.cpp \
            importprogrampage.cpp \
-	   commandsettings.cpp
+	   commandsettings.cpp \
+		returntablewidget.cpp
 
 QT += network \
 xml 

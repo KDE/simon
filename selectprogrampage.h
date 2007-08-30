@@ -19,8 +19,6 @@
 #include <QButtonGroup>
 #include <QHBoxLayout>
 #include <QListWidget>
-#include <QPushButton>
-#include <QSpacerItem>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -59,12 +57,13 @@ public:
         QListWidget *lwCategories;
         QListWidget *lwPrograms;
         QHBoxLayout *hboxLayout;
-        QSpacerItem *spacerItem;
-        QPushButton *pbAbbrechen;
-        QPushButton *pbHinzufuegen;
+
+       /* QLabel *lName;
+        QLineEdit *leName;*/
 
     public slots:
         void searchForPrograms();
+        //void setDefaultName();
 };
 
 #endif

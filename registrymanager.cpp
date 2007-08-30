@@ -129,6 +129,11 @@ QStringList* RegistryManager::getAllPrograms(QString format)
     return programs;
 }
 
+/**
+*   \brief get all formats of a special categorie
+*
+*   @autor Susanne Tschernegg
+*/
 QStringList* RegistryManager::getAllFormats(QString categorie)
 {
     QStringList *formatList = new QStringList();
@@ -186,6 +191,11 @@ QStringList* RegistryManager::getAllFormats(QString categorie)
     return formatList;
 }
 
+/**
+*   \brief returns the path of a program
+*
+*   @autor Susanne Tschernegg
+*/
 QString RegistryManager::getPath(QString exeStr)
 {
     unsigned char temp[1024] = {""};
@@ -228,4 +238,37 @@ QString RegistryManager::getPath(QString exeStr)
             endIndex = str.indexOf("%",startIndex+1);
         }
         return str;
+}
+
+/**
+*   \brief returns a list of programs, and each program in this list, exists only once.
+*   @autor Susanne Tschernegg
+*/
+QStringList* RegistryManager::getAllPrograms(QStringList *formats)
+{
+   QStringList* progList = new QStringList();
+    bool exists = false;
+   for(int i=0; i<formats->count(); i++)
+   {
+         QStringList *newProgs = getAllPrograms(formats->at(i));
+        for(int z=0; z<newProgs->count(); z++)
+        {
+            if(!newProgs->at(z).contains(".exe", Qt::CaseInsensitive))
+                continue;
+            for(int a=0; a<progList->count(); a++)
+            {
+                if(QString::compare(newProgs->at(z), progList->at(a), Qt::CaseInsensitive)==0)
+                {
+                    exists = true;
+                    continue;
+                }
+            }
+            if(!exists)
+            {
+                progList->append(newProgs->at(z));
+            }
+            else exists = false;
+        }
+    }
+    return progList;
 }

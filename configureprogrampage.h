@@ -39,6 +39,9 @@ public:
 
         QVBoxLayout *vboxLayout;
         QLabel *label;
+        QHBoxLayout *hboxLayoutName;
+        QLabel *lName;
+        QLineEdit *leName;
         QHBoxLayout *hboxLayoutPath;
         QLabel *lPath;
         QLineEdit *lePath;
