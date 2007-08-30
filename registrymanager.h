@@ -34,7 +34,7 @@ public:
     QStringList* getAllPrograms(QString format);
     QStringList* getAllPrograms(QStringList *formats);
     QStringList* getAllFormats(QString categorie = "all");
-    QString getPath(QString exeStr);    
+    QString getPath(QString exeStr);
 };
 
 

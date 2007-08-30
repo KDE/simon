@@ -31,7 +31,7 @@ ImportProgramWizard::ImportProgramWizard(QWidget* parent): QWizard(parent)
     //(connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
     
 	setWindowTitle("Programm hinzufügen");
-    setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/importdict.png")));
+    setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/importprogram.png")));
     
     connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(idChanged(int)));
     connect(ipp, SIGNAL(commandCreated(Command*)), this, SIGNAL(commandCreated(Command*)));
@@ -56,6 +56,7 @@ QWizardPage* ImportProgramWizard::createIntroPage()
 	intro->setTitle("Hinzufügen des Programmes");
 	QLabel *label = new QLabel(intro);
 	label->setText("Hier kann ein Programm den Kommandos - die Simon kennt - hinzugefügt werden.");
+	label->setWordWrap(true);
 	QVBoxLayout *layout = new QVBoxLayout(intro);
 	layout->addWidget(label);
 	intro->setLayout(layout);

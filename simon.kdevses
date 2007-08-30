@@ -1,40 +1,46 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="11" >
+ <DocsAndViews NumberOfDocuments="13" >
   <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutcontrol.cpp" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="152" Type="Source" />
   </Doc0>
   <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutcontrol.h" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="47" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutsettings.cpp" >
-   <View0 Encoding="" line="120" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importprogrampage.h" >
+   <View0 Encoding="" line="31" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutsettings.h" >
-   <View0 Encoding="" line="52" Type="Source" />
-  </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectshortcutbutton.cpp" >
-   <View0 Encoding="" line="131" Type="Source" />
-  </Doc4>
-  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectshortcutbutton.h" >
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importprogramwizard.h" >
    <View0 Encoding="" line="32" Type="Source" />
+  </Doc3>
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectprogrampage.h" >
+   <View0 Encoding="" line="62" Type="Source" />
+  </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectprogrampage.cpp" >
+   <View0 Encoding="" line="23" Type="Source" />
   </Doc5>
-  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutxmlreader.h" >
-   <View0 Encoding="" line="0" Type="Source" />
+  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importprogramwizard.cpp" >
+   <View0 Encoding="" line="52" Type="Source" />
   </Doc6>
-  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutxmlreader.cpp" >
-   <View0 Encoding="" Type="Source" />
+  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/desktopreader.cpp" >
+   <View0 Encoding="" line="0" Type="Source" />
   </Doc7>
-  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcut.h" >
-   <View0 Encoding="" line="56" Type="Source" />
-  </Doc8>
-  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcut.cpp" >
+  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/desktopreader.h" >
    <View0 Encoding="" line="11" Type="Source" />
+  </Doc8>
+  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/kdemanager.cpp" >
+   <View0 Encoding="" line="0" Type="Source" />
   </Doc9>
-  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/xevents.cpp" >
-   <View0 Encoding="" line="297" Type="Source" />
+  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/kdemanager.h" >
+   <View0 Encoding="" line="18" Type="Source" />
   </Doc10>
+  <Doc11 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/program.h" >
+   <View0 Encoding="" line="14" Type="Source" />
+  </Doc11>
+  <Doc12 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/registrymanager.h" >
+   <View0 Encoding="" line="28" Type="Source" />
+  </Doc12>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

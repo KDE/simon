@@ -129,7 +129,10 @@ importtrainingdirectoryworkingpage.h \
  shortcutxmlreader.h \
  shortcutsettings.h \
  selectshortcutbutton.h \
- key.h
+ key.h \
+ desktopreader.h \
+ kdemanager.h \
+ program.h
 
 SOURCES += main.cpp \
            simonview.cpp \
@@ -211,7 +214,9 @@ SOURCES += main.cpp \
  shortcutsettings.cpp \
  selectshortcutbutton.cpp \
  shortcut.cpp \
- returntablewidget.cpp
+ returntablewidget.cpp \
+ desktopreader.cpp \
+ kdemanager.cpp
 
 QT += network \
 xml 

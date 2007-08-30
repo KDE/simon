@@ -11,6 +11,7 @@
 //
 #include "selectprogrampage.h"
 #include <QMessageBox>
+#include <QSize>
 
 /**
 *   \brief Constructor
@@ -20,81 +21,85 @@
 *   @autor Susanne Tschernegg
 */
 
-#define AUDIO 1
-#define OFFICE 2
-#define DEVELOPMENT 3
-#define GRAPHIC 4
-#define INTERNET 5
-#define OTHER 6
-#define GAMES 7
-#define SYSTEM 8
-#define VIDEO 9
+
 
 /**
 *   \brief constructor
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg, Peter Grasch
 */
 SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 {
-    //init platform dependant backends
+        //init platform dependant backends
 #ifdef __WIN32
-    regMan = new RegistryManager();
+        regMan = new RegistryManager();
 #endif
-    
-    vboxLayout = new QVBoxLayout(this);
-    vboxLayout->setObjectName("vboxLayout");
-    
-    lwCategories = new QListWidget(this);
-    lwCategories->setObjectName("lwCategories");
-    
-    QListWidgetItem* itemAudio = new QListWidgetItem(lwCategories);
-    itemAudio->setText(tr("Audio"));
-    itemAudio->setData(Qt::UserRole, AUDIO);
-     QListWidgetItem* itembueroprogramme = new QListWidgetItem(lwCategories);
-    itembueroprogramme->setText(tr("Büroprogramme"));
-    itembueroprogramme->setData(Qt::UserRole, OFFICE);
-     QListWidgetItem* itemEntwicklung = new QListWidgetItem(lwCategories);
-    itemEntwicklung->setText(tr("Entwicklung"));
-    itemEntwicklung->setData(Qt::UserRole, DEVELOPMENT);
-     QListWidgetItem* itemGrafik = new QListWidgetItem(lwCategories);
-    itemGrafik->setText(tr("Grafik"));
-    itemGrafik->setData(Qt::UserRole, GRAPHIC);
-     QListWidgetItem* itemInternet = new QListWidgetItem(lwCategories);
-    itemInternet->setText(tr("Internet"));
-    itemInternet->setData(Qt::UserRole, INTERNET);
-     QListWidgetItem* itemSonstiges = new QListWidgetItem(lwCategories);
-    itemSonstiges->setText(tr("Sonstiges"));
-    itemSonstiges->setData(Qt::UserRole, OTHER);
-     QListWidgetItem* itemGames = new QListWidgetItem(lwCategories);
-    itemGames->setText(tr("Spiele"));
-    itemGames->setData(Qt::UserRole, GAMES);
-     QListWidgetItem* itemSystem = new QListWidgetItem(lwCategories);
-    itemSystem->setText(tr("System"));
-    itemSystem->setData(Qt::UserRole, SYSTEM);
-     QListWidgetItem* itemVideo = new QListWidgetItem(lwCategories);
-    itemVideo->setText(tr("Video"));
-    itemVideo->setData(Qt::UserRole, VIDEO);
-    
-    lwPrograms = new QListWidget(this);
-    lwPrograms->setObjectName("lwPrograms");
-            
-    registerField("executable*", lwPrograms);
 
- /*   lName = new QLabel(tr("Name"));
-    leName = new QLineEdit();
-    hboxLayout = new QHBoxLayout();
-    hboxLayout->addWidget(lName);
-    hboxLayout->addWidget(leName);*/
+        vboxLayout = new QVBoxLayout(this);
+        vboxLayout->setObjectName("vboxLayout");
 
-    vboxLayout->addWidget(lwCategories);
-    vboxLayout->addWidget(lwPrograms);
-    //vboxLayout->addLayout(hboxLayout);
-    
-    //connect(lwCategories, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(test()));
-    connect(lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
-    //connect(lwPrograms, sIGNAL(itemSelectionChanged()), this, SLOT(SelectProgramPage()));
-    //getAllFormats();
+        lwCategories = new QListWidget(this);
+        lwCategories->setObjectName("lwCategories");
+        lwCategories->setIconSize(QSize(24,24));
+
+        QListWidgetItem* itemAudio = new QListWidgetItem(lwCategories);
+        itemAudio->setText(tr("Audio")); //audio-x-generic.svg
+        itemAudio->setData(Qt::UserRole, AUDIO);
+        itemAudio->setIcon(QIcon(":/images/icons/audio-x-generic.svg"));
+
+        QListWidgetItem* itembueroprogramme = new QListWidgetItem(lwCategories);
+        itembueroprogramme->setText(tr("Büroprogramme")); //applications-office.svg
+        itembueroprogramme->setData(Qt::UserRole, OFFICE);
+        itembueroprogramme->setIcon(QIcon(":/images/icons/applications-office.svg"));
+
+        QListWidgetItem* itemEntwicklung = new QListWidgetItem(lwCategories);
+        itemEntwicklung->setText(tr("Entwicklung")); //applications-development.svg
+        itemEntwicklung->setData(Qt::UserRole, DEVELOPMENT);
+        itemEntwicklung->setIcon(QIcon(":/images/icons/applications-development.svg"));
+
+        QListWidgetItem* itemGrafik = new QListWidgetItem(lwCategories);
+        itemGrafik->setText(tr("Grafik")); //applications-graphics.svg
+        itemGrafik->setData(Qt::UserRole, GRAPHIC);
+        itemGrafik->setIcon(QIcon(":/images/icons/applications-graphics.svg"));
+
+        QListWidgetItem* itemInternet = new QListWidgetItem(lwCategories);
+        itemInternet->setText(tr("Internet")); //applications-internet.svg
+        itemInternet->setData(Qt::UserRole, INTERNET);
+        itemInternet->setIcon(QIcon(":/images/icons/applications-internet.svg"));
+
+        QListWidgetItem* itemSonstiges = new QListWidgetItem(lwCategories);
+        itemSonstiges->setText(tr("Sonstiges")); // applications-other.svg
+        itemSonstiges->setData(Qt::UserRole, OTHER);
+        itemSonstiges->setIcon(QIcon(":/images/icons/applications-other.svg"));
+
+        QListWidgetItem* itemGames = new QListWidgetItem(lwCategories);
+        itemGames->setText(tr("Spiele")); //applications-games.svg
+        itemGames->setData(Qt::UserRole, GAMES);
+        itemGames->setIcon(QIcon(":/images/icons/applications-games.svg"));
+
+        QListWidgetItem* itemSystem = new QListWidgetItem(lwCategories);
+        itemSystem->setText(tr("System")); //applications-system.svg
+        itemSystem->setData(Qt::UserRole, SYSTEM);
+        itemSystem->setIcon(QIcon(":/images/icons/applications-system.svg"));
+
+        QListWidgetItem* itemVideo = new QListWidgetItem(lwCategories);
+        itemVideo->setText(tr("Video"));  //applications-multimedia.svg
+        itemVideo->setData(Qt::UserRole, VIDEO);
+        itemVideo->setIcon(QIcon(":/images/icons/applications-multimedia.svg"));
+
+        lwPrograms = new QListWidget(this);
+        lwPrograms->setMaximumHeight(140);
+
+        registerField("executable*", lwPrograms);
+
+
+
+        vboxLayout->addWidget(lwCategories);
+        vboxLayout->addWidget(lwPrograms);
+
+        connect(lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
+        //connect(lwPrograms, sIGNAL(itemSelectionChanged()), this, SLOT(SelectProgramPage()));
+        //getAllFormats();
 }
 
 /**
@@ -105,87 +110,56 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 void SelectProgramPage::searchForPrograms()
 {
 #ifdef __WIN32
-    //zuerst die endungen suchen und dann schauen, ob es ein openwithlist gibt ... dann noch mal oben schauen, welcher perceivedtype, etc. es ist
-    //QMessageBox::information(this, "susitest", "bin im searchForPrograms");
-    QListWidgetItem *item = lwCategories->currentItem();
-    int categorie = item->data(Qt::UserRole).toInt();
-    
-    //get all formats from a special perceivedType
-    QStringList *formatList = new QStringList();
-    if(categorie==AUDIO)
-        formatList = this->getAllFormats("audio");
-    else if(categorie==OFFICE)
-        formatList = this->getAllFormats("text");
-    else if(categorie==DEVELOPMENT)
-        formatList = this->getAllFormats("text");
-    else if(categorie==GRAPHIC)
-        formatList = this->getAllFormats("image");
-    else if(categorie==INTERNET)
-        formatList = this->getAllFormats("");
-    else if(categorie==OTHER)
-        formatList = this->getAllFormats("all");
-    else if(categorie==GAMES)
-        formatList = this->getAllFormats("");
-    else if(categorie==SYSTEM)
-        formatList = this->getAllFormats("");
-    else if(categorie==VIDEO)
-        formatList = this->getAllFormats("video");
-    else
-        return;
-    
-  //  QString fStr;
-  //  for(int x=0; x<formatList->count(); x++)
-  //      fStr += formatList->at(x);
-  //  QMessageBox::information(this, "searchforprograms", fStr);
-   // QString format = ".mp3";
-    
-    lwPrograms->clear();
-    QStringList* progList = new QStringList();
- //   QStringList *progListForOneFormat = new QStringList();
- /*   bool exists = false;
-    for(int y=0; y<formatList->count(); y++)
-    {*/
-        //get all programs for one format
-        //progListForOneFormat = regMan->getAllPrograms(formatList);
-    progList = regMan->getAllPrograms(formatList);
- /*       for(int z=0; z<progListForOneFormat->count(); z++)
-        {
-            if(!progListForOneFormat->at(z).contains(".exe", Qt::CaseInsensitive))
-                continue;
-            for(int a=0; a<progList->count(); a++)
-            {
-                if(QString::compare(progListForOneFormat->at(z), progList->at(a), Qt::CaseInsensitive)==0)
-                {
-                    exists = true;
-                    continue;
+        //zuerst die endungen suchen und dann schauen, ob es ein openwithlist gibt ... dann noch mal oben schauen, welcher perceivedtype, etc. es ist
+        QListWidgetItem *item = lwCategories->currentItem();
+        int categorie = item->data(Qt::UserRole).toInt();
+
+        //get all formats from a special perceivedType
+        QStringList *formatList = new QStringList();
+        if (categorie==AUDIO)
+                formatList = this->getAllFormats("audio");
+        else if (categorie==OFFICE)
+                formatList = this->getAllFormats("text");
+        else if (categorie==DEVELOPMENT)
+                formatList = this->getAllFormats("text");
+        else if (categorie==GRAPHIC)
+                formatList = this->getAllFormats("image");
+        else if (categorie==INTERNET)
+                formatList = this->getAllFormats("");
+        else if (categorie==OTHER)
+                formatList = this->getAllFormats("all");
+        else if (categorie==GAMES)
+                formatList = this->getAllFormats("");
+        else if (categorie==SYSTEM)
+                formatList = this->getAllFormats("");
+        else if (categorie==VIDEO)
+                formatList = this->getAllFormats("video");
+        else
+                return;
+
+
+        lwPrograms->clear();
+        QStringList* progList = new QStringList();
+
+        progList = regMan->getAllPrograms(formatList);
+
+
+        QListWidgetItem* lwItem;
+        QString out;
+        int startIndex;
+        int length;
+        for (int i=0; i<progList->count(); i++) {
+                lwItem = new QListWidgetItem(lwPrograms);
+
+                startIndex = progList->at(i).lastIndexOf(".");
+                length = progList->at(i).length();
+                lwItem->setData(Qt::AccessibleTextRole, progList->at(i));
+                out = progList->at(i);
+                if (startIndex>=0) {
+                        out.remove(startIndex, length-startIndex);
                 }
-            }
-            if(!exists)
-            {
-                progList->append(progListForOneFormat->at(z));
-            }
-            else exists = false;
+                lwItem->setText(out);
         }
-    }*/
-    
-    QListWidgetItem* lwItem;
-    QString out;
-    int startIndex;
-    int length;
-    for(int i=0; i<progList->count(); i++)
-    {
-        lwItem = new QListWidgetItem(lwPrograms);
-        
-        startIndex = progList->at(i).lastIndexOf(".");
-        length = progList->at(i).length();
-        lwItem->setData(Qt::AccessibleTextRole, progList->at(i));
-        out = progList->at(i);
-        if(startIndex>=0)
-        {
-            out.remove(startIndex, length-startIndex);
-        }
-        lwItem->setText(out);
-    }
 #endif
 }
 
@@ -196,16 +170,15 @@ void SelectProgramPage::searchForPrograms()
 */
 QStringList* SelectProgramPage::getAllFormats(QString format)
 {
-    QStringList* formatList;
+        QStringList* formatList;
 #ifdef __WIN32
-    formatList = this->regMan->getAllFormats(format);
-    QString allFormats;
-    for(int i=0; i<formatList->count(); i++)
-    {
-       allFormats += formatList->at(i);
-    }
+        formatList = this->regMan->getAllFormats(format);
+        QString allFormats;
+        for (int i=0; i<formatList->count(); i++) {
+                allFormats += formatList->at(i);
+        }
 #endif
-    return formatList;
+        return formatList;
 }
 
 /**
@@ -223,9 +196,8 @@ SelectProgramPage::~SelectProgramPage()
 */
 QString SelectProgramPage::getExecPath()
 {
-    QString exeStr = lwPrograms->currentItem()->data(Qt::AccessibleTextRole).toString();
-    //QString path = regMan->getPath(exeStr);   //gets the whole path
-    return exeStr;
+        QString exeStr = lwPrograms->currentItem()->data(Qt::AccessibleTextRole).toString();
+        return exeStr;
 }
 
 /**
@@ -235,13 +207,5 @@ QString SelectProgramPage::getExecPath()
 */
 QString SelectProgramPage::getName()
 {
-    return lwPrograms->currentItem()->text();
+        return lwPrograms->currentItem()->text();
 }
-
-/*void SelectProgramPage::setDefaultName()
-{
-        
-}*/
-
-
-

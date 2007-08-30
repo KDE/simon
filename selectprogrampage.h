@@ -58,12 +58,9 @@ public:
         QListWidget *lwPrograms;
         QHBoxLayout *hboxLayout;
 
-       /* QLabel *lName;
-        QLineEdit *leName;*/
 
     public slots:
         void searchForPrograms();
-        //void setDefaultName();
 };
 
 #endif

@@ -3,6 +3,15 @@
         <file>images/addword.png</file>
         <file>images/alsalogo.gif</file>
         <file>images/directX.png</file>
+        <file>images/icons/applications-development.svg</file>
+        <file>images/icons/applications-games.svg</file>
+        <file>images/icons/applications-graphics.svg</file>
+        <file>images/icons/applications-internet.svg</file>
+        <file>images/icons/applications-multimedia.svg</file>
+        <file>images/icons/applications-office.svg</file>
+        <file>images/icons/applications-other.svg</file>
+        <file>images/icons/applications-system.svg</file>
+        <file>images/icons/audio-x-generic.svg</file>
         <file>images/icons/bookmark-new.svg</file>
         <file>images/icons/computer.svg</file>
         <file>images/icons/document-new.svg</file>
@@ -37,6 +46,7 @@
         <file>images/icons/window-new.svg</file>
         <file>images/importdict.png</file>
         <file>images/importfolder.png</file>
+        <file>images/importprogram.png</file>
         <file>images/importtexts.png</file>
         <file>images/osd.png</file>
         <file>images/simon.png</file>
