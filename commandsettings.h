@@ -17,6 +17,7 @@
 #include <QMessageBox>
 #include "xmlcommand.h"
 #include <QStringList>
+#include "returntablewidget.h"
 #ifdef __WIN32
 #include "registrymanager.h"
 #endif
@@ -46,7 +47,7 @@ private slots:
 	void deleteCommand();
 	void activateCb();
 	void checkAndAddCommandValues(int currRow, int currCol, int prevRow, int prevCol);
-	void editCommand();
+	void editCommand(int row = -1, int column = 0);
 	void showOnlyCommands();
     void clearSearchLineEdit();
     void searchCommandList();
@@ -54,9 +55,12 @@ private slots:
 
 public slots:
     void insertCommand(Command *command);
+    void setWidgetsDisabled();
+    void checkValuesAfterEnterPressed();
 
 private:
     Ui::CommandSettingsDlg ui;
+    ReturnTableWidget *twCommand;
 
     ImportProgramWizard* importProgramWizard;
     int commandsCount;
@@ -65,12 +69,16 @@ private:
     bool commandValueExists(QString value, int prevRow);
     bool allCommandValuesSet(int prevRow);
 
-    void addCommand(int prevRow);
+    void showAllCommands();
+
+    void deactivateCB(int prevRow);
 
     XMLCommand *commandLoader;
+    bool commandEdited;
 
 signals:
     void commandsChanged();
+    void changeExistingName(bool changeName);
 };
 
 #endif
