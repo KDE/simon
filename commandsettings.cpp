@@ -1073,3 +1073,4 @@ void CommandSettings::checkValuesAfterEnterPressed()
     deactivateCB(currRow);
     //commandEdited = false;
 }
+

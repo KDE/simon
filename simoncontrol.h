@@ -83,7 +83,7 @@ public:
 
     RunCommand* getRunManager() { return this->run; }
 
-	SimonControl();
+	SimonControl(ShortcutControl *shortcutControl);
 	
 	~SimonControl();
 

@@ -62,7 +62,6 @@ private:
 	void initializeItems();
 	void readVocab();
 	void setDirty ( bool dirty );
-	void keyPressEvent( QKeyEvent *e );
 
 signals:
 	void showAddWordDialog();

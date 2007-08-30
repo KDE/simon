@@ -26,136 +26,19 @@
 XEvents::XEvents(char* displayName)
 {
 	display = openDisplay(displayName);
-	specialkeys.insert( '!', 0x021);
-// 	specialkeys.insert( '\n', XStringToKeysym("Return"));
-	specialkeys.insert( '"', 0x022);
-	specialkeys.insert( '#', 0x023);
-	specialkeys.insert( '$', 0x024);
-	specialkeys.insert( '%', 0x025);
-	specialkeys.insert( '&', 0x026);
-	specialkeys.insert( '\'', 0x027);
-	specialkeys.insert( '(', 0x028);
-	specialkeys.insert( ')', 0x029);
-	specialkeys.insert( '*', 0x02a);
-	specialkeys.insert( '+', 0x02b);
-	specialkeys.insert( ',', 0x02c);
-	specialkeys.insert( '-', 0x02d);
-	specialkeys.insert( '.', 0x02e);
-	specialkeys.insert( '/', 0x02f);
-	specialkeys.insert( ':', 0x03a);
-	specialkeys.insert( ';', 0x03b);
-	specialkeys.insert( '<', 0x03c);
-	specialkeys.insert( '=', 0x03d);
-	specialkeys.insert( '>', 0x03e);
-	specialkeys.insert( '?', 0x03f);
-	specialkeys.insert( '@', 0x040);
-	specialkeys.insert( '[', 0x05b);
-	specialkeys.insert( '\\', 0x05c);
-	specialkeys.insert( ']', 0x05d);
-	specialkeys.insert( '^', 0x05e);
-	specialkeys.insert( '_', 0x05f);
-	specialkeys.insert( '`', 0x060);
-	specialkeys.insert( '{', 0x07b);
-	specialkeys.insert( '|', 0x07c);
-	specialkeys.insert( '}', 0x07d);
-	specialkeys.insert( '~', 0x07e);
-	specialkeys.insert( ' ', 0x0a0);
-	specialkeys.insert( '¡', 0x0a1);
-	specialkeys.insert( '¢', 0x0a2);
-	specialkeys.insert( '£', 0x0a3);
-	specialkeys.insert( '¤', 0x0a4);
-	specialkeys.insert( '¥', 0x0a5);
-	specialkeys.insert( '¦', 0x0a6);
-	specialkeys.insert( '§', 0x0a7);
-	specialkeys.insert( '¨', 0x0a8);
-	specialkeys.insert( '©', 0x0a9);
-	specialkeys.insert( 'ª', 0x0aa);
-	specialkeys.insert( '«', 0x0ab);
-	specialkeys.insert( '¬', 0x0ac);
-	specialkeys.insert( '­', 0x0ad);
-	specialkeys.insert( '®', 0x0ae);
-	specialkeys.insert( '¯', 0x0af);
-	specialkeys.insert( '°', 0x0b0);
-	specialkeys.insert( '±', 0x0b1);
-	specialkeys.insert( '²', 0x0b2);
-	specialkeys.insert( '³', 0x0b3);
-	specialkeys.insert( '´', 0x0b4);
-	specialkeys.insert( 'µ', 0x0b5);
-	specialkeys.insert( '¶', 0x0b6);
-	specialkeys.insert( '·', 0x0b7);
-	specialkeys.insert( 'ç', 0x0b8);
-	specialkeys.insert( '¹', 0x0b9);
-	specialkeys.insert( 'º', 0x0ba);
-	specialkeys.insert( '»', 0x0bb);
-	specialkeys.insert( '¼', 0x0bc);
-	specialkeys.insert( '½', 0x0bd);
-	specialkeys.insert( '¾', 0x0be);
-	specialkeys.insert( '¿', 0x0bf);
-	specialkeys.insert( 'À', 0x0c0);
-	specialkeys.insert( 'Á', 0x0c1);
-	specialkeys.insert( 'Â', 0x0c2);
-	specialkeys.insert( 'Ã', 0x0c3);
-	specialkeys.insert( 'Ä', 0x0c4);
-	specialkeys.insert( 'Å', 0x0c5);
-	specialkeys.insert( 'Æ', 0x0c6);
-	specialkeys.insert( 'Ç', 0x0c7);
-	specialkeys.insert( 'È', 0x0c8);
-	specialkeys.insert( 'É', 0x0c9);
-	specialkeys.insert( 'Ê', 0x0ca);
-	specialkeys.insert( 'Ë', 0x0cb);
-	specialkeys.insert( 'Ì', 0x0cc);
-	specialkeys.insert( 'Í', 0x0cd);
-	specialkeys.insert( 'Î', 0x0ce);
-	specialkeys.insert( 'Ï', 0x0cf);
-	specialkeys.insert( 'Ð', 0x0d0);
-	specialkeys.insert( 'Ñ', 0x0d1);
-	specialkeys.insert( 'Ò', 0x0d2);
-	specialkeys.insert( 'Ó', 0x0d3);
-	specialkeys.insert( 'Ô', 0x0d4);
-	specialkeys.insert( 'Õ', 0x0d5);
-	specialkeys.insert( 'Ö', 0x0d6);
-	specialkeys.insert( '×', 0x0d7);
-	specialkeys.insert( 'Ø', 0x0d8);
-	specialkeys.insert( 'Ù', 0x0d9);
-	specialkeys.insert( 'Ú', 0x0da);
-	specialkeys.insert( 'Û', 0x0db);
-	specialkeys.insert( 'Ü', 0x0dc);
-	specialkeys.insert( 'Ý', 0x0dd);
-	specialkeys.insert( 'Þ', 0x0de);
-	specialkeys.insert( 'ß', 0x0df);
-	specialkeys.insert( 'à', 0x0e0);
-	specialkeys.insert( 'á', 0x0e1);
-	specialkeys.insert( 'â', 0x0e2);
-	specialkeys.insert( 'ã', 0x0e3);
-	specialkeys.insert( 'ä', 0x0e4);
-	specialkeys.insert( 'å', 0x0e5);
-	specialkeys.insert( 'æ', 0x0e6);
-	specialkeys.insert( 'ç', 0x0e7);
-	specialkeys.insert( 'è', 0x0e8);
-	specialkeys.insert( 'é', 0x0e9);
-	specialkeys.insert( 'ê', 0x0ea);
-	specialkeys.insert( 'ë', 0x0eb);
-	specialkeys.insert( 'ì', 0x0ec);
-	specialkeys.insert( 'í', 0x0ed);
-	specialkeys.insert( 'î', 0x0ee);
-	specialkeys.insert( 'ï', 0x0ef);
-	specialkeys.insert( 'ð', 0x0f0);
-	specialkeys.insert( 'ñ', 0x0f1);
-	specialkeys.insert( 'ò', 0x0f2);
-	specialkeys.insert( 'ó', 0x0f3);
-	specialkeys.insert( 'ô', 0x0f4);
-	specialkeys.insert( 'õ', 0x0f5);
-	specialkeys.insert( 'ö', 0x0f6);
-	specialkeys.insert( '÷', 0x0f7);
-	specialkeys.insert( 'ø', 0x0f8);
-	specialkeys.insert( 'ù', 0x0f9);
-	specialkeys.insert( 'ú', 0x0fa);
-	specialkeys.insert( 'û', 0x0fb);
-	specialkeys.insert( 'ü', 0x0fc);
-	specialkeys.insert( 'ý', 0x0fd);
-	specialkeys.insert( 'þ', 0x0fe);
-	specialkeys.insert( 'ÿ', 0x0ff);
+	strgSet=false;
+	shiftSet=false;
+	altgrSet=false;
+	altSet=false;
+	superSet=false;
+	capsSet=false;
 
+	strgOnce=false;
+	shiftOnce=false;
+	altgrOnce=false;
+	altOnce=false;
+	superOnce=false;
+	capsOnce=false;
 }
 
 
@@ -204,25 +87,122 @@ Display* XEvents::openDisplay(char* displayName)
 	return display;
 }
 
-void XEvents::sendKey(int key)
+
+
+/**
+ * \brief Sends the given Shortcut
+ * 
+ * This will set all the given modifiers and keys and then revert to the original
+ * position (assuming the once flag is correctly interpreted)
+ * 
+ * \author Peter Grasch
+ * @param shortcut The shortcut to send
+ */
+void XEvents::sendShortcut(Shortcut shortcut)
 {
-	
+	setModifierKey(shortcut.getModifiers(), true);
+
+	int action = shortcut.getActionKeys();
+	if (action & KeyBackspace)
+		sendKeySymString("BackSpace");
+	if (action & KeyEscape)
+		sendKeySymString("Escape");
+	if (action & KeyClear)
+		sendKeySymString("Clear");
+	if (action & KeyPrintScr)
+		sendKeySymString("Sys_Req");
+	if (action & KeyPause)
+		sendKeySymString("Pause");
+	if (action & KeyUndo)
+		sendKeySymString("Undo");
+	if (action & KeyRedo)
+		sendKeySymString("Redo");
+	if (action & KeyEnter)
+		sendKeySymString("Return");
+
+	int movement = shortcut.getMovementKeys();
+	if (movement & KeyArrowLeft) sendKeySymString("Left");
+
+	if (movement & KeyArrowRight)
+		sendKeySymString("Right");
+	if (movement & KeyArrowDown)
+		sendKeySymString("Down");
+	if (movement & KeyArrowUp)
+		sendKeySymString("Up");
+	if (movement & KeyPageUp)
+		sendKeySymString("Page_Up");
+	if (movement & KeyPageDown)
+		sendKeySymString("Page_Down");
+	if (movement & KeyEnd)
+		sendKeySymString("End");
+	if (movement & KeyBegin)
+		sendKeySymString("Home");
+
+
+	int fkeys = shortcut.getFunctionKeys();
+	if (fkeys & KeyF1) sendKeySymString("F1");
+	if (fkeys & KeyF2) { sendKeySymString("F2"); }
+	if (fkeys & KeyF3) sendKeySymString("F3");
+	if (fkeys & KeyF4) sendKeySymString("F4");
+	if (fkeys & KeyF5) sendKeySymString("F5");
+	if (fkeys & KeyF6) sendKeySymString("F6");
+	if (fkeys & KeyF7) sendKeySymString("F7");
+	if (fkeys & KeyF8) sendKeySymString("F8");
+	if (fkeys & KeyF9) sendKeySymString("F9");
+	if (fkeys & KeyF10) sendKeySymString("F10");
+	if (fkeys & KeyF11) sendKeySymString("F11");
+	if (fkeys & KeyF12) sendKeySymString("F12");
+
+	char key = shortcut.getCharKey();
+	if (key != '_') pressKey(key);
+
+	unsetUnneededModifiers();
 }
 
+
+/**
+ * \brief Resolves the string to an appropriate keysym and sends it using pressKey(...)
+ * \author Peter Grasch
+ * @param keysymString The string to convert/send
+ * @see sendKey()
+ */
+void XEvents::sendKeySymString(QString keysymString)
+{
+	pressKey(XStringToKeysym(keysymString.toAscii().data()));
+}
+
+/**
+ * \brief Overloaded function; Calls sendKey(unsigned short)
+ * @param key The key will be casted to unsigned short and passed to sendKey
+ */
 void XEvents::sendChar(char key)
 {
+	sendKey((unsigned short) key);
+}
+
+/**
+ * \brief Sends the raw unicode character given by key
+ * \author Peter Grasch
+ * @param key The key to send
+ */
+void XEvents::sendKey(unsigned short key /*unicode*/)
+{
 	if (!display) return;
-	bool shiftPressed;
+
 	KeySym keyToSendLowerCase, keyToSendUpperCase;
 	KeySym keyToSend=key;
+
 	int syms;
 
 	KeySym shift=XK_Shift_L;
 
-	if (specialkeys.contains(keyToSend)) keyToSend = specialkeys.value(keyToSend);
-	else if (key=='\n') {
+	if (key=='\n') {
 		keyToSend=XStringToKeysym("Return");
+	} else 
+	if (key=='\t') {
+		keyToSend=XStringToKeysym("Tab");
 	}
+
 
 	KeyCode keyToSendcode = XKeysymToKeycode(display, keyToSend);
 	KeySym *keyToSendShifted=XGetKeyboardMapping(display, keyToSendcode, 1, &syms);
@@ -243,21 +223,28 @@ void XEvents::sendChar(char key)
 	else unsetModifier(KeyShift);
 
 	if (keyToSend==keyToSendShifted[2]) {
-// 		qDebug() << "bin da";
+		unsetModifier(KeyShift);
 		setModifierKey(KeyAltGr, true);
 	}
 	else unsetModifier(KeyAltGr);
 
-// 	qDebug() << keyToSend << (int) key << keyToSendShifted[0] << keyToSendShifted[1]
-// 			 << keyToSendShifted[2] << keyToSendShifted[3];
-	
-	XTestFakeKeyEvent(display, XKeysymToKeycode(display, keyToSend), True, 15);
-	XTestFakeKeyEvent(display, XKeysymToKeycode(display, keyToSend), False, 15);
+
+	pressKey(keyToSend);
+
+	unsetUnneededModifiers();
+}
+
+
+void XEvents::pressKey(KeySym key)
+{
+	XTestFakeKeyEvent(display, XKeysymToKeycode(display, key), True, 15);
+	XTestFakeKeyEvent(display, XKeysymToKeycode(display, key), False, 15);
 	XFlush ( display );
+}
 
 
-
-
+void XEvents::unsetUnneededModifiers()
+{
 	if (shiftOnce) {
 		shiftOnce=false;
 		unsetModifier(KeyShift);
@@ -266,7 +253,24 @@ void XEvents::sendChar(char key)
 		altgrOnce=false;
 		unsetModifier(KeyAltGr);
 	}
+	if (strgOnce) {
+		strgOnce=false;
+		unsetModifier(KeyStrg);
+	}
+	if (altOnce) {
+		altOnce=false;
+		unsetModifier(KeyAlt);
+	}
+	if (superOnce) {
+		superOnce=false;
+		unsetModifier(KeySuper);
+	}
+	if (capsOnce) {
+		capsOnce=false;
+		unsetModifier(KeyCapsLock);
+	}
 }
+
 
 /**
  * @brief Sets the modifier key
@@ -280,21 +284,44 @@ void XEvents::sendChar(char key)
  */
 void XEvents::setModifierKey(int virtualKey, bool once)
 {
-	if ((!shiftSet) && (virtualKey==KeyShift))
+	if ((!shiftSet) && (virtualKey & KeyShift))
 	{
 		XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_Shift_L), True, 5);
-		XFlush ( display );
 		shiftSet=true;
 		shiftOnce=once;
 	}
-	if ((!altgrSet) && (virtualKey==KeyAltGr))
+	if ((!altgrSet) && (virtualKey & KeyAltGr))
 	{
-// 		qDebug() << "setzte gerade in modifier";
 		XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_ISO_Level3_Shift), True, 5);
-		XFlush ( display );
 		altgrSet=true;
 		altgrOnce=once;
 	}
+	if ((!strgSet) && (virtualKey & KeyStrg))
+	{
+		XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_Control_L), True, 5);
+		strgSet=true;
+		strgOnce=once;
+	}
+	if ((!altSet) && (virtualKey & KeyAlt))
+	{
+		XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_Alt_L), True, 5);
+		altSet=true;
+		altOnce=once;
+	}
+	if ((!superSet) && (virtualKey & KeySuper))
+	{
+		XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_Super_L), True, 5);
+		superSet=true;
+		superOnce=once;
+	}
+	if ((!capsSet) && (virtualKey & KeyCapsLock))
+	{
+		XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_Caps_Lock), True, 5);
+		capsSet=true;
+		capsOnce=once;
+	}
+	
+	XFlush ( display );
 }
 
 /**
@@ -307,18 +334,37 @@ void XEvents::setModifierKey(int virtualKey, bool once)
  */
 void XEvents::unsetModifier(int virtualKey)
 {
-	if ((virtualKey==KeyShift))
+	if ((virtualKey & KeyShift))
 	{
 		XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_Shift_L), False, 5);
-		XFlush ( display );
 		shiftSet=false;
 	}
-	if ((virtualKey==KeyAltGr))
+	if ((virtualKey & KeyAltGr))
 	{
 		XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_ISO_Level3_Shift), False, 5);
-		XFlush ( display );
 		altgrSet=false;
 	}
+	if ((virtualKey & KeyStrg))
+	{
+		XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_Control_L), False, 5);
+		strgSet=false;
+	}
+	if ((virtualKey & KeyAlt))
+	{
+		XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_Alt_L), False, 5);
+		altSet=false;
+	}
+	if ((virtualKey & KeySuper))
+	{
+		XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_Super_L), False, 5);
+		superSet=false;
+	}
+	if ((virtualKey & KeyCapsLock))
+	{
+		XTestFakeKeyEvent(display, XKeysymToKeycode(display, XK_Caps_Lock), False, 5);
+		capsSet=false;
+	}
+	XFlush ( display );
 }
 
 /**

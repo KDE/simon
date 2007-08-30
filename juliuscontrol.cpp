@@ -12,6 +12,7 @@
 #include "juliuscontrol.h"
 #include <QByteArray>
 #include <QTcpSocket>
+#include <QMessageBox>
 #include <QDebug>
 #include <QTimer>
 #include "settings.h"
@@ -100,8 +101,9 @@ void JuliusControl::timeoutReached()
  */
 void JuliusControl::recognised()
 {
-	QByteArray word = socket->readAll();
-	emit wordRecognised(word);
+// 	QByteArray word = ;
+// 	QMessageBox::information(0, "Juliuscontrol", socket->readAll());
+	emit wordRecognised(QString::fromUtf8(socket->readAll()));
 }
 
 /**

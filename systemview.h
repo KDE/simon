@@ -22,6 +22,7 @@ class QStackedLayout;
 class QPushButton;
 class SystemWidget;
 class Stack;
+class ShortcutControl;
 
 /**
  \class SystemView
@@ -54,7 +55,7 @@ public slots:
 	void apply();
 	void reset();
 public:
-    SystemView(QWidget* parent);
+    SystemView(ShortcutControl *shortcutctrl, QWidget* parent);
 
 	void registerControl(SystemWidget* control);
 	void deleteControl(SystemWidget* control);

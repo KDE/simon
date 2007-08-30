@@ -16,6 +16,7 @@
 #include <QTabWidget>
 
 class InlineWidget;
+class QKeyEvent;
 
 /**
  \class InlineWidgetView
@@ -29,13 +30,17 @@ class InlineWidgetView : public QTabWidget
 Q_OBJECT
 signals:
 	void hidden();
+	void registeredPage(InlineWidget *page);
+	void unRegisteredPage(InlineWidget *page);
 private:
 	
 	void hideEvent(QHideEvent *event) { emit hidden(); return QWidget::hideEvent(event); }
 public:
     InlineWidgetView(QWidget* parent=0);
 	void registerPage(InlineWidget *page);
+	void keyPressEvent(QKeyEvent * event);
 	void unRegisterPage(InlineWidget *page);
+	void unRegisterCurrentPage();
 
     ~InlineWidgetView();
 

@@ -1,0 +1,101 @@
+<ui version="4.0" >
+ <class>ShortcutSettingsDlg</class>
+ <widget class="QWidget" name="ShortcutSettingsDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>562</width>
+    <height>368</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Tastenkürzel</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../simon.qrc" >:/images/icons/preferences-desktop-keyboard-shortcuts.svg</iconset>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="ReturnTableWidget" name="twShortcuts" >
+     <property name="alternatingRowColors" >
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode" >
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior" >
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="showGrid" >
+      <bool>true</bool>
+     </property>
+     <property name="cornerButtonEnabled" >
+      <bool>true</bool>
+     </property>
+     <property name="columnCount" >
+      <number>2</number>
+     </property>
+     <column>
+      <property name="text" >
+       <string>Auslöser</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Tastenkombination</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbAddShortcut" >
+       <property name="text" >
+        <string>Kürzel hinzufügen</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbDeleteShortcut" >
+       <property name="text" >
+        <string>Kürzel löschen</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ReturnTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>returntablewidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
+ <connections/>
+</ui>

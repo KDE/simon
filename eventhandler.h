@@ -14,7 +14,6 @@
 
 #include <QString>
 #include <QChar>
-#include <QMessageBox>
 #include "coreevents.h"
 
 #ifdef linux
@@ -23,6 +22,8 @@
 #ifdef __WIN32
 #include "windowsevents.h"
 #endif
+
+class ShortcutControl;
 
 /**
  *	@class EventHandler
@@ -35,9 +36,10 @@
 class EventHandler{
 private:
 	CoreEvents *coreEvents; //!< The event backend
+	ShortcutControl *shortcutControl;
 	bool capslock; 
 public:
-	EventHandler();
+	EventHandler(ShortcutControl *shortcutControl);
 	
 	void sendWord(QString word);
 	void sendKey(QChar key);

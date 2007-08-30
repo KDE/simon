@@ -33,12 +33,12 @@
  *
  *	@author Peter Grasch
 */
-SimonControl::SimonControl() : QObject ()
+SimonControl::SimonControl(ShortcutControl *shortcutControl) : QObject ()
 {
 	this->active=false;
 	this->julius = new JuliusControl();
 	this->run = new RunCommand(Settings::get("PathToCommands").toString());
-	eventHandler = new EventHandler();
+	eventHandler = new EventHandler(shortcutControl);
 	
 	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));
 	QObject::connect(julius, SIGNAL(disconnected()), this, SLOT(disconnectedFromJulius()));

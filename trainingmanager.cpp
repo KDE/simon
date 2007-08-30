@@ -168,7 +168,7 @@ TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 		TrainingText *newText = new TrainingText(text->getTitle(), 
 				      pathToTexts+textsrcs.at(i),
 				      text->getAllPages());
-		newText->setRelevance(calcRelevance(newText, wlistmgr->getWordList()));
+		newText->setRelevance(calcRelevance(newText));
 		trainingTexts->append(newText);
 	}
 	
@@ -252,7 +252,7 @@ TrainingText* TrainingManager::getText(int i)
  * @param wlist The wordlist as reference
  * @return An index of how well simon would recognize it - the lower the worse
  */
-float TrainingManager::calcRelevance(TrainingText *text, WordList *wlist)
+float TrainingManager::calcRelevance(TrainingText *text)
 {
 	Logger::log(QObject::tr("[INF] Berechne Nutzen des Textes ")+"\""+text->getName()+"\" ("+
 		text->getPath()+")");

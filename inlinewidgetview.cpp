@@ -14,6 +14,8 @@
 #include <QTabBar>
 #include <QPalette>
 #include <QBrush>
+#include <QMessageBox>
+#include <QKeyEvent>
 
 /**
  * \brief Constructor - inits the gui
@@ -47,6 +49,7 @@ void InlineWidgetView::registerPage(InlineWidget *page)
 	setCurrentIndex(newpage);
 	
 	if (count() > 1) tabBar()->show();
+	emit registeredPage(page);
 }
 /**
  * \brief Unregisters the given InlineWidget as a new page and hides it
@@ -61,6 +64,27 @@ void InlineWidgetView::unRegisterPage(InlineWidget *page)
 
 	if (count() < 2) tabBar()->hide();
 	if (count() == 0) hide();
+	emit unRegisteredPage(page);
+}
+
+/**
+ * \brief Unregisters the currentPage
+ * \author Peter Grasch
+ */
+void InlineWidgetView::unRegisterCurrentPage()
+{
+	if (!dynamic_cast<InlineWidget*>(currentWidget())) return;
+	unRegisterPage(dynamic_cast<InlineWidget*>(currentWidget()));
+}
+
+/**
+ * \brief Presses a key
+ * \author Peter Grasch
+ * @param event The event
+ */
+void InlineWidgetView::keyPressEvent ( QKeyEvent * event )
+{
+	if (event->key()==Qt::Key_Escape ) unRegisterCurrentPage();
 }
 
 /**

@@ -60,7 +60,7 @@ public:
 	
 	bool deleteText(int index);
 	
-	float calcRelevance(TrainingText *text, WordList *wlist);
+	float calcRelevance(TrainingText *text);
 	
 	void trainWords(WordList *words);
 	

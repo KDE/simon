@@ -156,6 +156,9 @@ public slots:
 	void showWordListDialog(bool show=true);
 	void showSystemDialog(bool show=true);
 
+	void inlineWidgetRegistered(InlineWidget *widget);
+	void inlineWidgetUnRegistered(InlineWidget *widget);
+
 public:
 	SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
 

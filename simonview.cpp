@@ -35,6 +35,7 @@
 #include <QMessageBox>
 #include <QDir>
 #include <QDebug>
+#include "shortcutcontrol.h"
 
 /**
  * @brief Constructor
@@ -72,7 +73,9 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	this->info->writeToSplash(tr("Lade Programmlogik..."));
 	
-	this->control = new SimonControl();
+	ShortcutControl *shortcutControl = new ShortcutControl();
+	
+	this->control = new SimonControl(shortcutControl);
 	this->trayManager = new TrayIconManager();
 	
 	this->trayManager->createIcon( QIcon( ":/images/tray.png" ), "Simon" );
@@ -83,13 +86,12 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	pol.setVerticalStretch(1);
 	inlineView->setSizePolicy(pol);
 	
-	//this->ipwizard = new ImportProgramWizard();  //todo delete!! just for testing
 
 	//Preloads all Dialogs
 	this->info->writeToSplash(tr("Lade \"Wort hinzufühgen\"..."));
 	this->addWordView = new AddWordView(this);
 	this->info->writeToSplash(tr("Lade \"Wortliste\"..."));
-	this->wordList = new WordListView(inlineView);
+	this->wordList = new WordListView(this);
 	this->info->writeToSplash(tr("Lade \"Ausführen\"..."));
 	this->runDialog = new RunApplicationView(control->getRunManager(), this);
 	this->info->writeToSplash(tr("Lade \"Trainieren\"..."));
@@ -98,7 +100,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->wordList->setTrainingView(trainDialog);
 
 	this->info->writeToSplash(tr("Lade \"System\"..."));
-	this->systemDialog = new SystemView(this);
+	this->systemDialog = new SystemView(shortcutControl, this);
 	
 	this->info->writeToSplash(tr("Lade Oberfläche..."));
 
@@ -181,6 +183,11 @@ void SimonView::setupSignalSlots()
 		SLOT(reloadList()));
 	
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
+
+	connect(inlineView, SIGNAL(registeredPage(InlineWidget*)), this, 
+				SLOT(inlineWidgetRegistered(InlineWidget*)));
+	connect(inlineView, SIGNAL(unRegisteredPage(InlineWidget*)), this, 
+				SLOT(inlineWidgetUnRegistered(InlineWidget*)));
 // 	connect(ui.pbCancelConnect, SIGNAL(clicked()), this, SLOT(abortConnecting()));
 	
 	
@@ -368,13 +375,8 @@ void SimonView::setLevel(int level)
 void SimonView::showRunDialog(bool show)
 {
 	if (show)
-	{
 		inlineView->registerPage(runDialog);
-		ui.pbRunProgram->setChecked(true);
-	} else {
-		inlineView->unRegisterPage(runDialog);
-		ui.pbRunProgram->setChecked(false);
-	}
+	else  inlineView->unRegisterPage(runDialog);
 }
 
 
@@ -388,15 +390,49 @@ void SimonView::showAddWordDialog(bool show)
 	if (show)
 	{
 		this->addWordView->show();
-        //if(ipwizard->currentId()==4)
-         //   ipwizard->restart();
-        //this->ipwizard->show(); //todo delete !! just for testing
-		//ui.pbaddWord->setChecked(true);
+		ui.pbAddWord->setChecked(true);
 	} else 
 	{
 		this->addWordView->hide();
 		ui.pbAddWord->setChecked(false);
 	}
+}
+
+
+/**
+ * \brief Presses the corresponding button / Gives visual feedback
+ * \author Peter Grasch
+ */
+void SimonView::inlineWidgetRegistered(InlineWidget *widget)
+{
+// 	if (widget==addWordView)
+// 		if (!ui.pbAddWord->isChecked()) ui.pbAddWord->animateClick();
+	if (widget==wordList)
+		if (!ui.pbEditWordList->isChecked()) ui.pbEditWordList->animateClick();
+	if (widget==runDialog)
+		if (!ui.pbRunProgram->isChecked()) ui.pbRunProgram->animateClick();
+	if (widget==trainDialog)
+		if (!ui.pbTrain->isChecked()) ui.pbTrain->animateClick();
+	if (widget==systemDialog)
+		if (!ui.pbSettings->isChecked()) ui.pbSettings->animateClick();
+}
+
+/**
+ * \brief Releases the corresponding button / Gives visual feedback
+ * \author Peter Grasch
+ */
+void SimonView::inlineWidgetUnRegistered(InlineWidget *widget)
+{
+// 	if (widget==addWordView)
+// 		if (ui.pbAddWord->isChecked()) ui.pbAddWord->animateClick();
+	if (widget==wordList)
+		if (ui.pbEditWordList->isChecked()) ui.pbEditWordList->animateClick();
+	if (widget==runDialog)
+		if (ui.pbRunProgram->isChecked()) ui.pbRunProgram->animateClick();
+	if (widget==trainDialog)
+		if (ui.pbTrain->isChecked()) ui.pbTrain->animateClick();
+	if (widget==systemDialog)
+		if (ui.pbSettings->isChecked()) ui.pbSettings->animateClick();
 }
 
 /**
@@ -406,13 +442,9 @@ void SimonView::showAddWordDialog(bool show)
  */
 void SimonView::showSystemDialog(bool show)
 {
-	if (show) {
+	if (show) 
 		inlineView->registerPage(systemDialog);
-		ui.pbSettings->setChecked(true);
-	} else {
-		inlineView->unRegisterPage(systemDialog);
-		ui.pbSettings->setChecked(false);
-	}
+	else inlineView->unRegisterPage(systemDialog);
 }
 
 /**
@@ -422,13 +454,9 @@ void SimonView::showSystemDialog(bool show)
  */
 void SimonView::showTrainDialog(bool show)
 {
-	if (show) {
-		ui.pbTrain->setChecked(true);
+	if (show)
 		inlineView->registerPage(trainDialog);
-	} else {
-		ui.pbTrain->setChecked(false);
-		inlineView->unRegisterPage(trainDialog);
-	}
+	else inlineView->unRegisterPage(trainDialog);
 }
 
 /**
@@ -438,15 +466,9 @@ void SimonView::showTrainDialog(bool show)
  */
 void SimonView::showWordListDialog(bool show)
 {
-	if (show) {
-// 		this->wordList->show();
+	if (show)
 		inlineView->registerPage(wordList);
-		ui.pbEditWordList->setChecked(true);
-	} else {
-		inlineView->unRegisterPage(wordList);
-// 		this->wordList->hide();
-		ui.pbEditWordList->setChecked(false);
-	}
+	else inlineView->unRegisterPage(wordList);
 }
 
 
@@ -636,7 +658,7 @@ void SimonView::closeSimon()
  * it differs if the sender is pbClose, or the CloseButton in the title bar
  * 
  * \param *event
- * just to complie with the original definition in QObject
+ * just to comply with the original definition in QObject
  * 
  *	@author Phillip Goriup, Peter Grasch
 */
@@ -646,10 +668,6 @@ void SimonView::closeEvent ( QCloseEvent * event )
 	if (sender() != ui.pbClose)
 		event->ignore();
 }
-
-
-
-
 
 /**
  * @brief Destructor

@@ -30,14 +30,6 @@
 #endif
 
 
-//TODO
-const int KeyShift=1;
-const int KeyAlt=2;
-const int KeyStrg=4;
-const int KeySuper=8;
-const int KeyCapsLock=16;
-const int KeyAltGr=32;
-
 /**
  *	@class XEvents
  *	@brief The X11 Event Backend
@@ -49,22 +41,25 @@ const int KeyAltGr=32;
  *	@author Peter Grasch
  */
 
-typedef QHash<char, int> KeyCodeList;
 class XEvents : public CoreEvents {
 private:
 	Display *display; //!< The opened Display
 
-	KeyCodeList specialkeys;
+	bool shiftSet, altgrSet, altSet, superSet, capsSet, strgSet;
+	bool shiftOnce, altgrOnce, altOnce, superOnce, capsOnce, strgOnce;
 
-	bool shiftSet, altgrSet;
-	bool shiftOnce, altgrOnce;
+	void pressKey(KeySym key);
+	void sendKeySymString(QString keysymString);
 public:
 	XEvents(char* displayName=":0.0");
 	Display* openDisplay(char* displayName);
 	
-	void sendKey(int key);
 	void sendChar(char key);
+	void sendKey(unsigned short key);
 	void setModifierKey(int virtualKey, bool once);
+	void unsetUnneededModifiers();
+	void sendShortcut(Shortcut shortcut);
+// 	void sendSpecial(int modifiers=0, int action=0, int fkeys=0, int movement=0, char key='_');
 	void unsetModifier(int virtualKey);
 	
 	~XEvents();

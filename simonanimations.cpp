@@ -185,9 +185,6 @@ void SimonView::setButtonsBusy()
 	ui.lbLogo->setMaximumWidth(167);
 	ui.lbLogo->setMaximumHeight(94);
 
-
-	
-
 	viewBusy = false;
  	setUpdatesEnabled(true);
 
@@ -195,7 +192,10 @@ void SimonView::setButtonsBusy()
 	resizeMainButtonContentsToWindow();
 
 	ui.vboxLayout->insertWidget(2, inlineView);
+
+	
 	inlineView->show();
+	inlineView->setFocus();
 
 	viewBusy = true;
 }

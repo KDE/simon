@@ -101,17 +101,6 @@ void WordListView::importDict(WordList* list)
 }
 
 /**
- * \brief Escape closes "dialog"
- * \author Peter Grasch
- * @param e 
- */
-void WordListView::keyPressEvent( QKeyEvent *e )
-{
-        if ( e->key() == Qt::Key_Escape )
-                this->close();
-}
-
-/**
  * @brief Suggest a training
  *
  * Uses the recognition rate and chooses the lowest 10
@@ -154,7 +143,6 @@ void WordListView::filterListbyPattern(QString filter)
 	WordList *vocab = this->wordListManager->getWordList();
 	
 	WordList *limitedVocab = new WordList();
-	WordList *temp;
 
 	int i=0;
 	while (i < vocab->count())

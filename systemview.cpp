@@ -26,21 +26,22 @@
 #include "externalprogrammanager.h"
 #include "networksettings.h"
 #include "commandsettings.h"
-
+#include "shortcutsettings.h"
 
 /**
  *  \author Peter Grasch
  *  \brief Constructor - inits the ui and registers the controls
  * @param parent the parent of the widget
  */
-SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/images/icons/computer.svg"), tr("Einstellungen, Protokolle, etc."), parent)
+SystemView::SystemView(ShortcutControl *shortcutctrl, QWidget* parent): InlineWidget(tr("System"), QIcon(":/images/icons/computer.svg"), tr("Einstellungen, Protokolle, etc."), parent)
 {
 	setupUi(this);
+	CommandSettings *commandsSettings = new CommandSettings(this);
 	registerControl(new GeneralSettings(this));
 	registerControl(new SoundSettings(this));
 	registerControl(new NetworkSettings(this));
-    CommandSettings *commandsSettings = new CommandSettings(this);
-    registerControl(commandsSettings);
+	registerControl(commandsSettings);
+	registerControl(new ShortcutSettings(shortcutctrl, this));
 	registerControl(new LogView(this));
 	registerControl(new ExternalProgramManager(this));
 	registerControl(new Revert(this));

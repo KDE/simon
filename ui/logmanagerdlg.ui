@@ -5,144 +5,198 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
-    <height>429</height>
+    <width>537</width>
+    <height>394</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Log Manager</string>
   </property>
-  <layout class="QHBoxLayout" >
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QTreeWidget" name="twLogEntries" >
+     <column>
+      <property name="text" >
+       <string>Datum</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Nachricht</string>
+      </property>
+     </column>
+    </widget>
+   </item>
    <item>
     <widget class="QGroupBox" name="gwSearchInLogs" >
      <property name="maximumSize" >
       <size>
-       <width>239</width>
+       <width>16777215</width>
        <height>16777215</height>
       </size>
      </property>
      <property name="title" >
       <string>Suchen</string>
      </property>
-     <layout class="QVBoxLayout" >
+     <property name="flat" >
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" >
       <item>
-       <layout class="QHBoxLayout" >
+       <layout class="QVBoxLayout" >
         <item>
-         <widget class="QLineEdit" name="leSearchLogs" />
+         <layout class="QHBoxLayout" >
+          <item>
+           <widget class="QLabel" name="lbSearchLogsFor" >
+            <property name="maximumSize" >
+             <size>
+              <width>16777215</width>
+              <height>15</height>
+             </size>
+            </property>
+            <property name="text" >
+             <string>Suche:</string>
+            </property>
+            <property name="buddy" >
+             <cstring>leSearchLogs</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="leSearchLogs" />
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbClearSearch" >
+            <property name="sizePolicy" >
+             <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize" >
+             <size>
+              <width>16</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text" >
+             <string>&amp;x</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbLogSearch" >
+            <property name="text" >
+             <string>Suchen</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="pbClearSearch" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize" >
-           <size>
-            <width>16</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text" >
-           <string>&amp;x</string>
-          </property>
-         </widget>
+         <layout class="QGridLayout" >
+          <item row="0" column="0" >
+           <widget class="QPushButton" name="pbActionLog" >
+            <property name="text" >
+             <string>Simon Aktionslog</string>
+            </property>
+            <property name="checkable" >
+             <bool>true</bool>
+            </property>
+            <property name="checked" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QCheckBox" name="cbLogError" >
+            <property name="maximumSize" >
+             <size>
+              <width>16777215</width>
+              <height>15</height>
+             </size>
+            </property>
+            <property name="text" >
+             <string>Fehler</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2" >
+           <widget class="QCheckBox" name="cbLogUpdate" >
+            <property name="text" >
+             <string>Update</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" >
+           <widget class="QPushButton" name="pbRecordings" >
+            <property name="text" >
+             <string>Aufnahmen</string>
+            </property>
+            <property name="checkable" >
+             <bool>true</bool>
+            </property>
+            <property name="checked" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QCheckBox" name="cbLogInfo" >
+            <property name="maximumSize" >
+             <size>
+              <width>16777215</width>
+              <height>15</height>
+             </size>
+            </property>
+            <property name="text" >
+             <string>Infos</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2" >
+           <widget class="QCheckBox" name="cbLogSettings" >
+            <property name="text" >
+             <string>Settings</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <widget class="QPushButton" name="pbLogSearch" >
-          <property name="text" >
-           <string>Suchen</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QGridLayout" >
-        <property name="leftMargin" >
-         <number>0</number>
-        </property>
-        <property name="topMargin" >
-         <number>0</number>
-        </property>
-        <property name="rightMargin" >
-         <number>0</number>
-        </property>
-        <property name="bottomMargin" >
-         <number>0</number>
-        </property>
-        <property name="horizontalSpacing" >
-         <number>6</number>
-        </property>
-        <property name="verticalSpacing" >
-         <number>6</number>
-        </property>
-        <item row="0" column="0" >
-         <widget class="QLabel" name="lbSearchLogsFor" >
-          <property name="maximumSize" >
-           <size>
-            <width>16777215</width>
-            <height>15</height>
-           </size>
-          </property>
-          <property name="text" >
-           <string>Suche:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" >
-         <widget class="QCheckBox" name="cbLogError" >
-          <property name="maximumSize" >
-           <size>
-            <width>16777215</width>
-            <height>15</height>
-           </size>
-          </property>
-          <property name="text" >
-           <string>Fehler</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2" >
-         <widget class="QCheckBox" name="cbLogUpdate" >
-          <property name="text" >
-           <string>Update</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" >
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" >
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="1" column="1" >
-         <widget class="QCheckBox" name="cbLogInfo" >
-          <property name="maximumSize" >
-           <size>
-            <width>16777215</width>
-            <height>15</height>
-           </size>
-          </property>
-          <property name="text" >
-           <string>Infos</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2" >
-         <widget class="QCheckBox" name="cbLogSettings" >
-          <property name="text" >
-           <string>Settings</string>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QProgressBar" name="pbLogLoad" >
+            <property name="value" >
+             <number>24</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" >
+            <item>
+             <widget class="QLabel" name="lbLogLoad" >
+              <property name="text" >
+               <string/>
+              </property>
+              <property name="wordWrap" >
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pbAbort" >
+              <property name="text" >
+               <string>Abbrechen</string>
+              </property>
+              <property name="icon" >
+               <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -189,105 +243,8 @@
         </layout>
        </widget>
       </item>
-      <item>
-       <widget class="QProgressBar" name="pbLogLoad" >
-        <property name="value" >
-         <number>24</number>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" >
-        <item>
-         <widget class="QLabel" name="lbLogLoad" >
-          <property name="text" >
-           <string/>
-          </property>
-          <property name="wordWrap" >
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pbAbort" >
-          <property name="text" >
-           <string>Abbrechen</string>
-          </property>
-          <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" >
-         <size>
-          <width>217</width>
-          <height>16</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
      </layout>
     </widget>
-   </item>
-   <item>
-    <layout class="QVBoxLayout" >
-     <item>
-      <widget class="QGroupBox" name="gbLogComponents" >
-       <property name="title" >
-        <string>Anzeigen</string>
-       </property>
-       <layout class="QHBoxLayout" >
-        <item>
-         <widget class="QPushButton" name="pbActionLog" >
-          <property name="text" >
-           <string>Simon Aktionslog</string>
-          </property>
-          <property name="checkable" >
-           <bool>true</bool>
-          </property>
-          <property name="checked" >
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pbRecordings" >
-          <property name="text" >
-           <string>Aufnahmen</string>
-          </property>
-          <property name="checkable" >
-           <bool>true</bool>
-          </property>
-          <property name="checked" >
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QTreeWidget" name="twLogEntries" >
-       <column>
-        <property name="text" >
-         <string>Datum</string>
-        </property>
-       </column>
-       <column>
-        <property name="text" >
-         <string>Nachricht</string>
-        </property>
-       </column>
-      </widget>
-     </item>
-    </layout>
    </item>
   </layout>
  </widget>

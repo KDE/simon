@@ -2,38 +2,38 @@
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
  <DocsAndViews NumberOfDocuments="11" >
-  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/logview.cpp" >
-   <View0 Encoding="" line="104" Type="Source" />
+  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutcontrol.cpp" >
+   <View0 Encoding="" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/logview.h" >
-   <View0 Encoding="" line="13" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutcontrol.h" >
+   <View0 Encoding="" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/logmanager.h" >
-   <View0 Encoding="" line="19" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutsettings.cpp" >
+   <View0 Encoding="" line="120" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/logmanager.cpp" >
-   <View0 Encoding="" line="208" Type="Source" />
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutsettings.h" >
+   <View0 Encoding="" line="52" Type="Source" />
   </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistview.h" >
-   <View0 Encoding="" line="45" Type="Source" />
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectshortcutbutton.cpp" >
+   <View0 Encoding="" line="131" Type="Source" />
   </Doc4>
-  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistview.cpp" >
-   <View0 Encoding="" line="323" Type="Source" />
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectshortcutbutton.h" >
+   <View0 Encoding="" line="32" Type="Source" />
   </Doc5>
-  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importprogrampage.h" >
-   <View0 Encoding="" line="22" Type="Source" />
+  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutxmlreader.h" >
+   <View0 Encoding="" line="0" Type="Source" />
   </Doc6>
-  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/commandsettings.h" >
-   <View0 Encoding="" line="14" Type="Source" />
+  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutxmlreader.cpp" >
+   <View0 Encoding="" Type="Source" />
   </Doc7>
-  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectprogrampage.cpp" >
-   <View0 Encoding="" line="182" Type="Source" />
+  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcut.h" >
+   <View0 Encoding="" line="56" Type="Source" />
   </Doc8>
-  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/eventhandler.h" >
-   <View0 Encoding="" line="34" Type="Source" />
+  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcut.cpp" >
+   <View0 Encoding="" line="11" Type="Source" />
   </Doc9>
-  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/commandsettings.cpp" >
-   <View0 Encoding="" line="12" Type="Source" />
+  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/xevents.cpp" >
+   <View0 Encoding="" line="297" Type="Source" />
   </Doc10>
  </DocsAndViews>
  <pluginList>

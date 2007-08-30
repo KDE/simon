@@ -1,0 +1,100 @@
+<shortcuts>
+ <shortcut name="Enter" >
+  <modifiers>2</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>512</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>_</charkey>
+ </shortcut>
+ <shortcut name="Fenster maximieren" >
+  <modifiers>32</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>@</charkey>
+ </shortcut>
+ <shortcut name="Hilfe" >
+  <modifiers>0</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>1</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>_</charkey>
+ </shortcut>
+ <shortcut name="Wort loeschen" >
+  <modifiers>4</modifiers>
+  <actionkeys>1</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>_</charkey>
+ </shortcut>
+ <shortcut name="Links" >
+  <modifiers>0</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>1</movementkeys>
+  <charkey>_</charkey>
+ </shortcut>
+ <shortcut name="Musi" >
+  <modifiers>8</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>C</charkey>
+ </shortcut>
+ <shortcut name="Zum Zeilenanfang" >
+  <modifiers>32</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>?</charkey>
+ </shortcut>
+ <shortcut name="Zum Dateianfang" >
+  <modifiers>4</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>128</movementkeys>
+  <charkey>_</charkey>
+ </shortcut>
+ <shortcut name="Zum Dateiende" >
+  <modifiers>4</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>64</movementkeys>
+  <charkey>_</charkey>
+ </shortcut>
+ <shortcut name="Letztes Wort markieren" >
+  <modifiers>5</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>1</movementkeys>
+  <charkey>_</charkey>
+ </shortcut>
+ <shortcut name="Grosses A" >
+  <modifiers>1</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>A</charkey>
+ </shortcut>
+ <shortcut name="Kleines a" >
+  <modifiers>0</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>A</charkey>
+ </shortcut>
+ <shortcut name="Oeffnen" >
+  <modifiers>4</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>O</charkey>
+ </shortcut>
+ <shortcut name="Speichern" >
+  <modifiers>4</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>S</charkey>
+ </shortcut>
+</shortcuts>

@@ -10,6 +10,8 @@
 //
 //
 #include "eventhandler.h"
+#include "shortcutcontrol.h"
+#include <QMessageBox>
 
 /**
  * @brief Constructor
@@ -18,15 +20,22 @@
  * 
  * @author Peter Grasch 
  */
-EventHandler::EventHandler()
+EventHandler::EventHandler(ShortcutControl *shortcutControl)
 {
 #ifdef linux
 	coreEvents= (CoreEvents*) new XEvents();
 #endif
 #ifdef __WIN32
 	coreEvents= (CoreEvents*) new WindowsEvents();
-	//WindowsEvents *win = new WindowsEvents();
 #endif
+	this->shortcutControl = shortcutControl;
+	if (!this->shortcutControl) this->shortcutControl = new ShortcutControl();
+	if (!this->shortcutControl->readShortcuts())
+	{
+		QMessageBox::critical(0, "Dateifehler", 
+			"Beim auslesen der Tastenkürzel ist ein Fehler aufgetreten.");
+	}
+	
 	this->capslock = false;
 }
 
@@ -43,7 +52,20 @@ EventHandler::EventHandler()
  */
 void EventHandler::sendWord(QString word)
 {
-	//sleep(1);
+	#ifdef linux
+	sleep(1);
+	#endif
+	#ifdef __WIN32
+	Sleep(1000);
+	#endif
+
+	Shortcut *test = this->shortcutControl->getShortcut(word);
+	if (test)
+	{
+		coreEvents->sendShortcut(*test);
+		return;
+	}
+
 	for (int i=0; i < word.size();i++)
 	{
 		sendKey(word.at(i));
@@ -51,7 +73,7 @@ void EventHandler::sendWord(QString word)
 }
 
 /**
- * @brief Sends a key to the XServer / DirectInput (?)
+ * @brief Sends a key to the XServer / WinAPI
  * 
  * Sends every key trough the underlying CoreEvent classes.
  * Distincts between Linux and Windows
@@ -64,7 +86,7 @@ void EventHandler::sendWord(QString word)
  */
 void EventHandler::sendKey(QChar key)
 {
-	char c = key.toLatin1();
+	unsigned short c = (unsigned short) key.unicode();
 
 	if (((c >= 'A') && (c <= 'Z'))  || ((capslock) && ((c >= 'a') && (c <= 'z'))))
 	{
@@ -76,62 +98,7 @@ void EventHandler::sendKey(QChar key)
 		c+=32;
 	}
 #endif
-	coreEvents->sendChar(c);
+	coreEvents->sendKey(c);
 
 	coreEvents->unsetModifier(KeyShift);
-}
-
-/**
- * @brief Sets a modifier key (Alt / Strg / etc.)
- *
- * @param int virtualKey
- * The keycode of the modifier
- * @param bool once
- * If set the modifier will be un-toggled after one "normal" key
- * 
- * @author Peter Grasch
- */
-void EventHandler::setModifier(int virtualKey, bool once)
-{
-	
-}
-
-/**
- * @brief Un-Sets a modifier key (Alt / Ctrl / etc.)
- *
- * @param int virtualKey
- * The keycode of the modifier
- * 
- * @author Peter Grasch
- */
-void EventHandler::unsetModifier(int virtualKey)
-{
-	
-}
-
-/**
- * @brief Sends a raw KeyCode
- *
- * @param int keycode
- * The keycode of the key to send
- * 
- * @author Peter Grasch
- */
-void EventHandler::sendKeyCode(int keycode)
-{
-	
-}
-
-/**
- * @brief Runs a command key (e.g. Ctrl+Alt+Del)
- *
- * @param int keycombination
- * The keycombination - this is not yet defined
- * @todo Define the combination structure
- * 
- * @author Peter Grasch
- */
-void EventHandler::runCommandKey(int keycombination)
-{
-	
 }

@@ -4,7 +4,7 @@
 # Target is an application:  ./bin/simon
 
 unix {
-    HEADERS += runlinuxbackend.h xevents.h  
+    HEADERS += runlinuxbackend.h xevents.h
     SOURCES += xevents.cpp runlinuxbackend.cpp
     CONFIG += x11
     DEFINES += __LINUX_ALSA__
@@ -40,7 +40,10 @@ FORMS += ui/main.ui \
          ui/revertdlg.ui \
 	 ui/logmanagerdlg.ui \
          ui/externalprogramms.ui \
-         ui/networksettingsdlg.ui
+         ui/networksettingsdlg.ui \
+ ui/shortcutsettingsdlg.ui
+
+
 HEADERS += simonview.h \
            addwordview.h \
            simoncontrol.h \
@@ -89,7 +92,7 @@ HEADERS += simonview.h \
  selectsourcewizardpage.h \
  importremotewizardpage.h \
  importworkingwizardpage.h \
- logger.h\
+ logger.h \
 importtrainingdirectory.h \
 importtrainingdirectoryintropage.h \
 importtrainingdirectoryworkingpage.h \
@@ -120,7 +123,13 @@ importtrainingdirectoryworkingpage.h \
            configureprogrampage.h \
            importprogrampage.h \
 	   commandsettings.h \
-		returntablewidget.h
+		returntablewidget.h \
+	shortcut.h \
+ shortcutcontrol.h \
+ shortcutxmlreader.h \
+ shortcutsettings.h \
+ selectshortcutbutton.h \
+ key.h
 
 SOURCES += main.cpp \
            simonview.cpp \
@@ -197,7 +206,12 @@ SOURCES += main.cpp \
            configureprogrampage.cpp \
            importprogrampage.cpp \
 	   commandsettings.cpp \
-		returntablewidget.cpp
+ shortcutcontrol.cpp \
+ shortcutxmlreader.cpp \
+ shortcutsettings.cpp \
+ selectshortcutbutton.cpp \
+ shortcut.cpp \
+ returntablewidget.cpp
 
 QT += network \
 xml 
@@ -208,6 +222,5 @@ TEMPLATE = app
 CONFIG += qt \
 warn_on \
 thread 
-
 
 RESOURCES += simon.qrc
