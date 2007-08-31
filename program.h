@@ -12,6 +12,8 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
 
+#include "programcategory.h"
+#include <QIcon>
 #include <QString>
 #include <QStringList>
 
@@ -41,7 +43,7 @@ class Program{
 private:
 	QString name, exec, description;
 	QIcon icon;
-	QStringList categories;
+	ProgramCategoryList categories;
 public:
     Program(QString name, QString exec, QString description, 
 		ProgramCategoryList categories=ProgramCategoryList(), QIcon icon=QIcon())
@@ -50,14 +52,13 @@ public:
     	this->exec = exec;
     	this->description = description;
     	this->categories = categories;
-    	this->categories = categories;
     	this->icon = icon;
     }
     
     const QString getName() const { return name; }
     const QString getExec() const { return exec; }
     const QString getDescription() const { return description; }
-    const QStringList getCategories() const { return categories; }
+    const ProgramCategoryList getCategories() const { return categories; }
 
     ~Program();
 

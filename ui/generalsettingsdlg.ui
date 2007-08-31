@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>452</width>
-    <height>298</height>
+    <height>365</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -87,6 +87,20 @@
          </widget>
         </item>
         <item>
+         <widget class="QLabel" name="label" >
+          <property name="text" >
+           <string>Programmkategorien:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2" >
+          <property name="text" >
+           <string>Shortcuts:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="lbLexicon" >
           <property name="text" >
            <string>Lexikon:</string>
@@ -134,6 +148,20 @@
          <widget class="QLineEdit" name="leCommands" >
           <property name="text" >
            <string>conf/commands.xml</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leProgramCategories" >
+          <property name="text" >
+           <string>conf/categories.xml</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="leShortcuts" >
+          <property name="text" >
+           <string>conf/shortcuts.xml</string>
           </property>
          </widget>
         </item>

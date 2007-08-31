@@ -37,10 +37,10 @@ public:
 		this->formats = formats;
 	}
 	
-	QString getName() { return name; }
-	QString getDescription() { return description; }
-	QIcon getIcon() { return icon; }
-	QStringList getFormats() { return formats; }
+	const QString getName() const { return name; }
+	const QString getDescription() const { return description; }
+	const QIcon getIcon() const { return icon; }
+	const QStringList getFormats() const { return formats; }
 
 	~ProgramCategory() {}
 

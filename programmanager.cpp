@@ -12,15 +12,23 @@
 #include "program.h"
 #include "programmanager.h"
 #include "programcategory.h"
+#include "settings.h"
+#include "categoryxmlreader.h"
+#include <QVariant>
+#include <QMessageBox>
 
 ProgramManager::ProgramManager()
 {
+	categoryReader = new CategoryXMLReader(Settings::get("PathToProgramCategories").toString());
 }
 
 
 ProgramCategoryList ProgramManager::readCategories()
 {
-	
+	categoryReader->load();
+	ProgramCategoryList *list = categoryReader->getCategoryList();
+	if (!list) return ProgramCategoryList();
+	else return *list; 
 }
 
 const Program* ProgramManager::getProgram(QString name, QString command)

@@ -12,12 +12,16 @@
 #ifndef DESKTOPREADER_H
 #define DESKTOPREADER_H
 
+#include "inireader.h"
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class DesktopReader{
+class Program;
+
+class DesktopReader : public IniReader {
 public:
-    DesktopReader();
+    DesktopReader(QString path="");
+    Program* readDesktopFile(QString path);
 
     ~DesktopReader();
 

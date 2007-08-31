@@ -135,7 +135,8 @@ importtrainingdirectoryworkingpage.h \
  program.h \
  programcategory.h \
  programmanager.h \
- categoryxmlreader.h
+ categoryxmlreader.h \
+ inireader.h
 
 SOURCES += main.cpp \
            simonview.cpp \
@@ -219,7 +220,8 @@ SOURCES += main.cpp \
  shortcut.cpp \
  returntablewidget.cpp \
  programmanager.cpp \
- categoryxmlreader.cpp
+ categoryxmlreader.cpp \
+ inireader.cpp
 
 QT += network \
 xml 

@@ -12,9 +12,12 @@
 #ifndef PROGRAMMANAGER_H
 #define PROGRAMMANAGER_H
 
+#include "program.h"
 #include "programcategory.h"
+
 class Program;
 class QString;
+class CategoryXMLReader;
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -22,6 +25,7 @@ class QString;
 class ProgramManager{
 private:
 	ProgramList *programs;
+	CategoryXMLReader *categoryReader;
 public:
 	virtual ProgramList* getPrograms(ProgramCategory category)=0;
 	ProgramCategoryList readCategories();

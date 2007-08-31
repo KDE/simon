@@ -12,20 +12,23 @@
 #ifndef CATEGORYXMLREADER_H
 #define CATEGORYXMLREADER_H
 
-#include <xmldomreader.h>
+#include "xmldomreader.h"
+#include "programcategory.h"
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class CategoryXMLReader : public XMLDomReader
 {
+private:
+	ProgramCategoryList *categoryList;
 public:
-    CategoryXMLReader(QString path, QObject* parent);
+    CategoryXMLReader(QString path, QObject* parent=0);
 
+	ProgramCategoryList* getCategoryList() { return this->categoryList; }
     ~CategoryXMLReader();
 
-    int save(QString path);
-    void load(QString path);
+    void load(QString path="");
 
 };
 

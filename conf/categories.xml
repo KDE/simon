@@ -1,0 +1,14 @@
+<categories>
+  <category name="Audio">
+    <description>Alles rund um Audio</description>
+    <icon>:/images/icons/audio-x-generic.svg</icon>
+    <formats>
+      <format>mp3</format>
+      <format>flac</format>
+      <format>ogg</format>
+      <format>wma</format>
+      <format>ac3</format>
+      <format>aac</format>
+    </formats>
+  </category>
+</categories>

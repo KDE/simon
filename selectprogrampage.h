@@ -26,6 +26,7 @@
 #include "registrymanager.h"
 #endif
 
+class ProgramManager;
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
@@ -41,6 +42,8 @@ class SelectProgramPage : public QWizardPage
     Q_OBJECT
 
 private:
+	ProgramManager *programManager;
+
 #ifdef __WIN32
         RegistryManager *regMan;
 #endif

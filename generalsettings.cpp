@@ -45,6 +45,9 @@ bool GeneralSettings::apply()
 
 	//paths
 	Settings::set("PathToCommands", ui.leCommands->text());
+	Settings::set("PathToShortcuts", ui.leShortcuts->text());
+	Settings::set("PathToProgramCategories", ui.leProgramCategories->text());
+	Settings::set("PathToCommands", ui.leCommands->text());
 	Settings::set("PathToLexicon", ui.leLexicon->text());
 	Settings::set("PathToGrammar", ui.leGrammar->text());
 	Settings::set("PathToPrompts", ui.lePrompts->text());
@@ -81,11 +84,13 @@ bool GeneralSettings::init()
 
 	//paths
 	ui.leCommands->setText(Settings::get("PathToCommands").toString());
+	ui.leShortcuts->setText(Settings::get("PathToShortcuts").toString());
+	ui.leProgramCategories->setText(Settings::get("PathToProgramCategories").toString());
 	ui.leLexicon->setText(Settings::get("PathToLexicon").toString());
 	ui.leGrammar->setText(Settings::get("PathToGrammar").toString());
 	ui.lePrompts->setText(Settings::get("PathToPrompts").toString());
 	ui.leVocab->setText(Settings::get("PathToVocab").toString());
-	
+
 	return true;
 }
 

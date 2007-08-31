@@ -12,25 +12,39 @@
 #include "selectprogrampage.h"
 #include <QMessageBox>
 #include <QSize>
+#include <QDebug>
 #include "program.h"
+#include "kdeprogrammanager.h"
+#include "programcategory.h"
 
 /**
 *   \brief Constructor
             Creates the wizardpage, where you can select a special categorie (audio, büroprogramme, etc.).
             To this categorie you get a list of programs, which provides standardformats of this categorie.
 *
-*   @autor Susanne Tschernegg
-*/
-
-
-
-/**
-*   \brief constructor
-*
-*   @author Susanne Tschernegg, Peter Grasch
+*   @author Susanne Tschernegg
 */
 SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 {
+#ifdef linux
+	this->programManager = new KDEProgramManager();
+#endif
+#ifdef __Win32
+	this->programManager = new WindowsProgramManager();
+#endif
+	ProgramCategoryList catList = programManager->readCategories();
+	for (int i=0; i < catList.count(); i++)
+	{
+		QString text = catList.at(i).getDescription()+":\n";
+		QStringList cats = catList.at(i).getFormats();
+		for (int j=0; j<cats.count(); j++)
+			text += "\n"+cats.at(j);
+
+		QMessageBox::information(this, catList.at(i).getName(), text);
+		
+	}
+	
+	
         //init platform dependant backends
 #ifdef __WIN32
         regMan = new RegistryManager();
@@ -106,7 +120,7 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 /**
 *   \brief searches for all programs, which contains the associated formats of a categorie
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 void SelectProgramPage::searchForPrograms()
 {
