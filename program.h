@@ -40,14 +40,18 @@ typedef QList<Program> ProgramList;
 class Program{
 private:
 	QString name, exec, description;
+	QIcon icon;
 	QStringList categories;
 public:
-    Program(QString name, QString exec, QString description, QStringList categories)
+    Program(QString name, QString exec, QString description, 
+		ProgramCategoryList categories=ProgramCategoryList(), QIcon icon=QIcon())
     {
     	this->name = name;
     	this->exec = exec;
     	this->description = description;
     	this->categories = categories;
+    	this->categories = categories;
+    	this->icon = icon;
     }
     
     const QString getName() const { return name; }
