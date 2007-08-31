@@ -12,6 +12,7 @@
 #include "selectprogrampage.h"
 #include <QMessageBox>
 #include <QSize>
+#include "program.h"
 
 /**
 *   \brief Constructor
@@ -44,47 +45,47 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 
         QListWidgetItem* itemAudio = new QListWidgetItem(lwCategories);
         itemAudio->setText(tr("Audio")); //audio-x-generic.svg
-        itemAudio->setData(Qt::UserRole, AUDIO);
+        itemAudio->setData(Qt::UserRole, AudioProgram);
         itemAudio->setIcon(QIcon(":/images/icons/audio-x-generic.svg"));
 
         QListWidgetItem* itembueroprogramme = new QListWidgetItem(lwCategories);
         itembueroprogramme->setText(tr("Büroprogramme")); //applications-office.svg
-        itembueroprogramme->setData(Qt::UserRole, OFFICE);
+        itembueroprogramme->setData(Qt::UserRole, OfficeProgram);
         itembueroprogramme->setIcon(QIcon(":/images/icons/applications-office.svg"));
 
         QListWidgetItem* itemEntwicklung = new QListWidgetItem(lwCategories);
         itemEntwicklung->setText(tr("Entwicklung")); //applications-development.svg
-        itemEntwicklung->setData(Qt::UserRole, DEVELOPMENT);
+        itemEntwicklung->setData(Qt::UserRole, DevelopmentProgram);
         itemEntwicklung->setIcon(QIcon(":/images/icons/applications-development.svg"));
 
         QListWidgetItem* itemGrafik = new QListWidgetItem(lwCategories);
         itemGrafik->setText(tr("Grafik")); //applications-graphics.svg
-        itemGrafik->setData(Qt::UserRole, GRAPHIC);
+        itemGrafik->setData(Qt::UserRole, GraphicProgram);
         itemGrafik->setIcon(QIcon(":/images/icons/applications-graphics.svg"));
 
         QListWidgetItem* itemInternet = new QListWidgetItem(lwCategories);
         itemInternet->setText(tr("Internet")); //applications-internet.svg
-        itemInternet->setData(Qt::UserRole, INTERNET);
+        itemInternet->setData(Qt::UserRole, InternetProgram);
         itemInternet->setIcon(QIcon(":/images/icons/applications-internet.svg"));
 
         QListWidgetItem* itemSonstiges = new QListWidgetItem(lwCategories);
         itemSonstiges->setText(tr("Sonstiges")); // applications-other.svg
-        itemSonstiges->setData(Qt::UserRole, OTHER);
+        itemSonstiges->setData(Qt::UserRole, OtherProgram);
         itemSonstiges->setIcon(QIcon(":/images/icons/applications-other.svg"));
 
         QListWidgetItem* itemGames = new QListWidgetItem(lwCategories);
         itemGames->setText(tr("Spiele")); //applications-games.svg
-        itemGames->setData(Qt::UserRole, GAMES);
+        itemGames->setData(Qt::UserRole, GamesProgram);
         itemGames->setIcon(QIcon(":/images/icons/applications-games.svg"));
 
         QListWidgetItem* itemSystem = new QListWidgetItem(lwCategories);
         itemSystem->setText(tr("System")); //applications-system.svg
-        itemSystem->setData(Qt::UserRole, SYSTEM);
+        itemSystem->setData(Qt::UserRole, SystemProgram);
         itemSystem->setIcon(QIcon(":/images/icons/applications-system.svg"));
 
         QListWidgetItem* itemVideo = new QListWidgetItem(lwCategories);
         itemVideo->setText(tr("Video"));  //applications-multimedia.svg
-        itemVideo->setData(Qt::UserRole, VIDEO);
+        itemVideo->setData(Qt::UserRole, VideoProgram);
         itemVideo->setIcon(QIcon(":/images/icons/applications-multimedia.svg"));
 
         lwPrograms = new QListWidget(this);

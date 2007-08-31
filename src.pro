@@ -4,8 +4,10 @@
 # Target is an application:  ./bin/simon
 
 unix {
-    HEADERS += runlinuxbackend.h xevents.h
-    SOURCES += xevents.cpp runlinuxbackend.cpp
+    HEADERS += runlinuxbackend.h xevents.h desktopreader.h \
+ kdeprogrammanager.h
+    SOURCES += xevents.cpp runlinuxbackend.cpp desktopreader.cpp \
+ kdeprogrammanager.cpp
     CONFIG += x11
     DEFINES += __LINUX_ALSA__
     INCLUDEPATH += /usr/include/alsa \
@@ -20,8 +22,8 @@ unix {
 }
 
 win32 {
-    HEADERS += runwindowsbackend.h registrymanager.h windowsevents.h
-    SOURCES += runwindowsbackend.cpp registrymanager.cpp windowsevents.cpp
+    HEADERS += runwindowsbackend.h registrymanager.h windowsevents.h windowsprogrammanager.h
+    SOURCES += runwindowsbackend.cpp registrymanager.cpp windowsevents.cpp windowsprogrammanager.cpp
     DEFINES += __WINDOWS_DS__
     LIBS += -ldsound -lwinmm -lole32
 }
@@ -130,9 +132,10 @@ importtrainingdirectoryworkingpage.h \
  shortcutsettings.h \
  selectshortcutbutton.h \
  key.h \
- desktopreader.h \
- kdemanager.h \
- program.h
+ program.h \
+ programcategory.h \
+ programmanager.h \
+ categoryxmlreader.h
 
 SOURCES += main.cpp \
            simonview.cpp \
@@ -215,8 +218,8 @@ SOURCES += main.cpp \
  selectshortcutbutton.cpp \
  shortcut.cpp \
  returntablewidget.cpp \
- desktopreader.cpp \
- kdemanager.cpp
+ programmanager.cpp \
+ categoryxmlreader.cpp
 
 QT += network \
 xml 
