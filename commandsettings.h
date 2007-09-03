@@ -21,8 +21,9 @@
 #ifdef __WIN32
 #include "registrymanager.h"
 #endif
-
+#include "importplacewizard.h"
 class ImportProgramWizard;
+//class ImportPlaceWizard;
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -52,17 +53,19 @@ private slots:
     void clearSearchLineEdit();
     void searchCommandList();
     void importNewProgram();
+    void importNewPlace();
 
 public slots:
     void insertCommand(Command *command);
     void setWidgetsDisabled();
-    void checkValuesAfterEnterPressed();
+    void checkValuesAfterReturnPressed();
 
 private:
     Ui::CommandSettingsDlg ui;
     ReturnTableWidget *twCommand;
 
     ImportProgramWizard* importProgramWizard;
+    ImportPlaceWizard* importPlaceWizard;
     int commandsCount;
 
     bool commandNameExists(QString name, int prevRow);

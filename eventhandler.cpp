@@ -62,7 +62,7 @@ void EventHandler::sendWord(QString word)
 	Shortcut *test = this->shortcutControl->getShortcut(word);
 	if (test)
 	{
-		coreEvents->sendShortcut(*test);
+	//	coreEvents->sendShortcut(*test);
 		return;
 	}
 
@@ -98,7 +98,7 @@ void EventHandler::sendKey(QChar key)
 		c+=32;
 	}
 #endif
-	coreEvents->sendKey(c);
+	//coreEvents->sendKey(c);
 
 	coreEvents->unsetModifier(KeyShift);
 }

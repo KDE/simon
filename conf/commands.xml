@@ -1,5 +1,10 @@
 <commands>
- <command type="0" name="iTunes" >iTunes.exe</command>
- <command type="0" name="explorer" >iexplore.exe</command>
+ <command type="2" name="asdf" >asdf</command>
+ <command type="1" name="MSPaint" >MSPaint.exe</command>
+ <command type="0" name="gre" >asdfagr</command>
+ <command type="1" name="zuzi" >ash</command>
+ <command type="1" name="Systemsteuerung" >ftp://file.htl-kaindorf.ac.at</command>
+ <command type="0" name="word" >winword.exe</command>
+ <command type="0" name="internetexplorer" >iexplore.exe</command>
  <command type="0" name="wmplayer" >wmplayer.exe</command>
 </commands>

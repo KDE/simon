@@ -31,7 +31,7 @@ protected:
     virtual void keyPressEvent(QKeyEvent *e);
 
 signals:
-    void enterPressed();
+    void returnPressed();
 
 };
 

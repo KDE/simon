@@ -46,7 +46,7 @@ private:
 	ProgramCategoryList categories;
 public:
     Program(QString name, QString exec, QString description, 
-		ProgramCategoryList categories=ProgramCategoryList(), QIcon icon=QIcon())
+		ProgramCategoryList categories=ProgramCategoryList(), QIcon &con=QIcon())
     {
     	this->name = name;
     	this->exec = exec;
@@ -60,7 +60,7 @@ public:
     const QString getDescription() const { return description; }
     const ProgramCategoryList getCategories() const { return categories; }
 
-    ~Program();
+    ~Program(){}
 
 };
 

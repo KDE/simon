@@ -101,7 +101,7 @@ QStringList* RegistryManager::getAllPrograms(QString format)
     unsigned char achKey[512] = {""};
     HKEY hKey;
     bool success;
-    
+    format.prepend(".");
     QString strFormatPath = "\\" + format + "\\OpenWithList";
     success = RegOpenKeyEx(HKEY_CLASSES_ROOT, (WCHAR*)strFormatPath.utf16(), 0, KEY_ALL_ACCESS, &hKey)==ERROR_SUCCESS;
     if(!success)
@@ -244,13 +244,13 @@ QString RegistryManager::getPath(QString exeStr)
 *   \brief returns a list of programs, and each program in this list, exists only once.
 *   @autor Susanne Tschernegg
 */
-QStringList* RegistryManager::getAllPrograms(QStringList *formats)
+QStringList* RegistryManager::getAllPrograms(const QStringList formats)
 {
    QStringList* progList = new QStringList();
     bool exists = false;
-   for(int i=0; i<formats->count(); i++)
+   for(int i=0; i<formats.count(); i++)
    {
-         QStringList *newProgs = getAllPrograms(formats->at(i));
+        QStringList *newProgs = getAllPrograms(formats.at(i));
         for(int z=0; z<newProgs->count(); z++)
         {
             if(!newProgs->at(z).contains(".exe", Qt::CaseInsensitive))

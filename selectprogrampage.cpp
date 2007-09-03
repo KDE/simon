@@ -15,7 +15,9 @@
 #include "windowsprogrammanager.h"
 #include <QDebug>
 #include "program.h"
+#ifdef linux
 #include "kdeprogrammanager.h"
+#endif
 #include "programcategory.h"
 
 /**
@@ -31,7 +33,7 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 #ifdef linux
 	this->programManager = new KDEProgramManager();
 #endif
-#ifdef __Win32
+#ifdef __WIN32
 	this->programManager = new WindowsProgramManager();
 #endif
 	ProgramCategoryList catList = programManager->readCategories();
@@ -42,8 +44,7 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 		for (int j=0; j<cats.count(); j++)
 			text += "\n"+cats.at(j);
 
-		QMessageBox::information(this, catList.at(i).getName(), text);
-		
+		//QMessageBox::information(this, catList.at(i).getName(), text);
 	}
 
         vboxLayout = new QVBoxLayout(this);
@@ -68,56 +69,6 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 }
 
 /**
-*   \brief searches for all programs, which contains the associated formats of a categorie
-*
-*   @author Susanne Tschernegg
-*/
-void SelectProgramPage::searchForPrograms()
-{
-/*#ifdef __WIN32
-        ProgramCategorie categorie;// = lwCategories->currentItem()->text();
-
-        ProgramList progList = winProgMan->getPrograms(categorie);
-
-
-        QListWidgetItem* lwItem;
-        QString out;
-        int startIndex;
-        int length;
-        for (int i=0; i<progList->count(); i++) {
-                lwItem = new QListWidgetItem(lwPrograms);
-
-                startIndex = progList->at(i).lastIndexOf(".");
-                length = progList->at(i).length();
-                lwItem->setData(Qt::AccessibleTextRole, progList->at(i));
-                out = progList->at(i);
-                if (startIndex>=0) {
-                        out.remove(startIndex, length-startIndex);
-                }
-                lwItem->setText(out);
-        }
-#endif*/
-}
-
-/**
-*   \brief searches for all formats of a categorie
-*
-*   @autor Susanne Tschernegg
-*/
-/*QStringList* SelectProgramPage::getAllFormats(QString format)
-{
-        QStringList* formatList;
-#ifdef __WIN32
-        formatList = this->regMan->getAllFormats(format);
-        QString allFormats;
-        for (int i=0; i<formatList->count(); i++) {
-                allFormats += formatList->at(i);
-        }
-#endif
-        return formatList;
-}*/
-
-/**
 *   \brief destructor
 *
 *   @autor Susanne Tschernegg
@@ -132,8 +83,8 @@ SelectProgramPage::~SelectProgramPage()
 */
 QString SelectProgramPage::getExecPath()
 {
-        QString exeStr = lwPrograms->currentItem()->data(Qt::AccessibleTextRole).toString();
-        return exeStr;
+    QString exeStr = lwPrograms->currentItem()->data(Qt::UserRole).toString();
+    return exeStr;
 }
 
 /**
@@ -143,14 +94,14 @@ QString SelectProgramPage::getExecPath()
 */
 QString SelectProgramPage::getName()
 {
-        return lwPrograms->currentItem()->text();
+    return lwPrograms->currentItem()->text();
 }
 
-void insertCategories(ProgramCategoryList categorieList)
+void SelectProgramPage::insertCategories(ProgramCategoryList categorieList)
 {
     lwCategories->clear();
     QListWidgetItem* item;
-    for(int i=0; i<categorieList.length(); i++)
+    for(int i=0; i<categorieList.count(); i++)
     {
         item = new QListWidgetItem(lwCategories);
         item->setText(categorieList.at(i).getName());
@@ -159,14 +110,34 @@ void insertCategories(ProgramCategoryList categorieList)
     }
 }
 
-void insertPrograms(ProgramList programList)
+void SelectProgramPage::insertPrograms(ProgramList *programList)
 {
     lwPrograms->clear();
     QListWidgetItem* lwItem;
-    for (int i=0; i<progList->count(); i++)
+    for (int i=0; i<programList->count(); i++)
     {
         lwItem = new QListWidgetItem(lwPrograms);
-        lwItem->setText(programList.at(i).getName());
-        lwItem->setData(QtAccessibleTextRole, programList.at(i).getExec());
+        lwItem->setText(programList->at(i).getName());
+        lwItem->setData(Qt::UserRole, programList->at(i).getExec());
+    }
+}
+
+/**
+*   \brief searches for all programs, which contains the associated formats of a categorie
+*
+*   @author Susanne Tschernegg
+*/
+void SelectProgramPage::searchForPrograms()
+{
+    QString catName = lwCategories->currentItem()->text();
+    
+    ProgramCategoryList catList = programManager->readCategories();
+    for(int i=0; i<catList.count(); i++)
+    {
+        if(catName == catList.at(i).getName())
+        {
+            insertPrograms(programManager->getPrograms(catList.at(i)));
+            break;
+        }            
     }
 }

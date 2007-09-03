@@ -27,7 +27,7 @@ private:
 	ProgramList *programs;
 	CategoryXMLReader *categoryReader;
 public:
-	virtual ProgramList* getPrograms(ProgramCategory category)=0;
+	virtual ProgramList *getPrograms(ProgramCategory category)=0;
 	ProgramCategoryList readCategories();
 	const Program* getProgram(QString name, QString command);
     ProgramManager();

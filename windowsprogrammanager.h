@@ -13,6 +13,9 @@
 #define WINDOWSPROGRAMMANAGER_H
 
 #include <programmanager.h>
+#include "program.h"
+#include "programcategory.h"
+#include "registrymanager.h"
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -23,6 +26,11 @@ public:
     WindowsProgramManager();
 
     ~WindowsProgramManager();
+
+    ProgramList* getPrograms(ProgramCategory categorie);
+
+private:
+    RegistryManager *regMan;
 
 };
 

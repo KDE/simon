@@ -86,7 +86,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	pol.setVerticalStretch(1);
 	inlineView->setSizePolicy(pol);
 	
-
+   // QMessageBox::information(this,"run simon","just to run simon ... 1");
 	//Preloads all Dialogs
 	this->info->writeToSplash(tr("Lade \"Wort hinzufühgen\"..."));
 	this->addWordView = new AddWordView(this);
@@ -94,21 +94,26 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->wordList = new WordListView(this);
 	this->info->writeToSplash(tr("Lade \"Ausführen\"..."));
 	this->runDialog = new RunApplicationView(control->getRunManager(), this);
+    //QMessageBox::information(this,"run simon","just to run simon ... 2");
 	this->info->writeToSplash(tr("Lade \"Trainieren\"..."));
+    //QMessageBox::information(this,"run simon","just to run simon ... 3");
 
 	this->trainDialog = new TrainingView(wordList, this);
 	this->wordList->setTrainingView(trainDialog);
 
+    //QMessageBox::information(this,"run simon","just to run simon ... 4");
 	this->info->writeToSplash(tr("Lade \"System\"..."));
+    //QMessageBox::information(this,"run simon","just to run simon ... 5");
 	this->systemDialog = new SystemView(shortcutControl, this);
+    //QMessageBox::information(this,"run simon","just to run simon ... 6");
 	
 	this->info->writeToSplash(tr("Lade Oberfläche..."));
-
+    //QMessageBox::information(this,"run simon","just to run simon ... 7");
 
 	this->vuMeter = new VuMeter();
 	if (vuMeter->prepare())
 		vuMeter->start();
-	
+	//QMessageBox::information(this,"run simon","just to run simon ... 8");
 	shownDialogs = 0;
 	viewBusy = false;
 	QMainWindow(parent,flags);
@@ -129,7 +134,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QPalette p(palette());
 	p.setBrush(QPalette::Background, bg);
 	setPalette(p);
-
+    //QMessageBox::information(this,"run simon","just to run simon ... 9");
 	if (Settings::get("AutoConnect").toBool())
 	{
 		this->info->writeToSplash(tr("Verbinde zu juliusd..."));
@@ -142,7 +147,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	show();
 	QCoreApplication::processEvents();
 	resizeMainButtonContentsToWindow();
-    
+    //QMessageBox::information(this,"run simon","just to run simon ... 10");
     connect(systemDialog, SIGNAL(commandsChanged()), runDialog, SLOT(loadCommands()));
 }
 

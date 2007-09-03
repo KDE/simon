@@ -123,7 +123,6 @@ bool XMLCommand::load(QString path)
 		commandlist.append(new Command(name, CommandType(type.toInt()), value));
 
 		command = command.nextSiblingElement();
-     //   QMessageBox::information(0, "xmlcommand", "load");
 	}
     return true;
 }

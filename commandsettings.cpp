@@ -16,6 +16,7 @@
 #include <windows.h>
 #endif
 #include "importprogramwizard.h"
+#include "importplacewizard.h"
 #include "logger.h"
 #include "settings.h"
 
@@ -37,7 +38,9 @@ CommandSettings::CommandSettings(QWidget* parent): SystemWidget(tr("Kommandos"),
     ui.vboxLayout->insertWidget(1, twCommand);
     
     ui.pbImportProgram->setCheckable(true);
+    ui.pbImportPlace->setCheckable(true);
     importProgramWizard = new ImportProgramWizard(this);
+    importPlaceWizard = new ImportPlaceWizard(this);
     
     help = tr("Hier können Sie Programme und Orte importieren und vorhandene Kommandos bearbeiten");
     
@@ -56,7 +59,10 @@ CommandSettings::CommandSettings(QWidget* parent): SystemWidget(tr("Kommandos"),
     connect(importProgramWizard, SIGNAL(commandCreated(Command*)), this, SLOT(insertCommand(Command*)));   
     connect(importProgramWizard, SIGNAL(finished(int)), this, SLOT(setWidgetsDisabled()));
     connect(this, SIGNAL(changeExistingName(bool)), importProgramWizard, SLOT(changeName(bool)));
-    connect(twCommand, SIGNAL(enterPressed()), this, SLOT(checkValuesAfterEnterPressed()));
+    connect(twCommand, SIGNAL(returnPressed()), this, SLOT(checkValuesAfterReturnPressed()));
+    connect(ui.leSchluesselWort, SIGNAL(textChanged(const QString &)),this,SLOT(checkValuesAfterReturnPressed()));
+    connect(ui.pbClearSearchCommand, SIGNAL(clicked()),this,SLOT(checkValuesAfterReturnPressed()));
+    connect(ui.pbImportPlace, SIGNAL(clicked()), this, SLOT(importNewPlace()));
 }
 
 /**
@@ -113,8 +119,8 @@ bool CommandSettings::apply()
     ui.leSearchCommand->clear();
     showAllCommands();
     
-    if(twCommand->rowCount()<1)
-        return false;
+/*    if(twCommand->rowCount()<1)
+        return false;*/ //13:41
     
 //    if(currRow==twCommand->rowCount()-1)
 //        return false;
@@ -264,6 +270,8 @@ void CommandSettings::deactivateAllCbs()
 void CommandSettings::editCommand(int row, int column)
 {
     //QMessageBox::information(this, "commandsettings", "editCommand");
+    if(twCommand->currentRow()<0)
+        return;
     commandEdited = true;
     if(row<0)
 	    row = twCommand->currentRow();
@@ -302,33 +310,51 @@ void CommandSettings::newCommand()
     //QMessageBox::information(this, "commandsettings", "newCommand");
   //  int currRow = -1;
    // if(twCommand->currentRow())
-    int currRow = twCommand->currentRow();
-        QMessageBox::information(this,"currRow", QString::number(currRow));
-    if(currRow>=0)
+    if(commandEdited)
     {
-        if(!allCommandValuesSet(currRow))
+        //twCommand->closePersistentEditor(twCommand->currentItem());
+        if(twCommand->currentRow()!=0)
+            twCommand->setCurrentCell(0,0);
+        else if(twCommand->rowCount()>1)
+            twCommand->setCurrentCell(1,0);
+    }
+    
+    //int currRow = twCommand->currentRow();
+    //    QMessageBox::information(this,"currRow", QString::number(currRow));
+ /*   if(currRow>=0 && commandEdited) //11:22
+    {
+        if(!allCommandValuesSet(currRow) && commandEdited)  //11:15 commandEdited
         {
+            QMessageBox::information(this,"commandsettings","im allcommandvaluesset");
             //ui.pbImportProgram->setChecked(false);
             commandEdited=true;
             return;
         }
         if(commandEdited)
         {
+            QMessageBox::information(this,"commandsettings","commandedited = TRUE");
             if(commandNameExists(twCommand->item(currRow, 0)->text(), currRow))
             {
+                QMessageBox::information(this,"commandsettings","im commandnameexists");
               //  ui.pbImportProgram->setChecked(false);
                 commandEdited=true;
                 return;
             }
             if(commandValueExists(twCommand->item(currRow, 2)->text(), currRow))
             {
+                QMessageBox::information(this,"commandsettings","im commandvalueexists");
                 //ui.pbImportProgram->setChecked(false);
                 commandEdited=true;
                 return;
             }
         }
+         QMessageBox::information(this,"commandsettings","vor deactivateallcbs");
         deactivateAllCbs();
-    }
+    }*/ //11:21
+    //twCommand->setCurrentCell(0,0);
+    if(commandEdited)
+        return;
+        //QMessageBox::information(this,"commandsettings","nach da if schleife");
     ui.leSearchCommand->clear();
     showAllCommands();
 	int rows = twCommand->rowCount();
@@ -367,13 +393,24 @@ void CommandSettings::newCommand()
 */
 void CommandSettings::deleteCommand()
 {
+    if(twCommand->currentRow()<0)
+        return;
+    int rowCount = twCommand->rowCount();
     //QMessageBox::information(this, "commandsettings", "deleteCommand");
     int currRow = twCommand->currentRow();
-    twCommand->selectRow(0);
+  //  QMessageBox::information(this,"currRow",QString::number(currRow));
+ //   QString data = twCommand->item(currRow,0)->getData(Qt::UserRole).toString();  //14:12
+    
+    if(currRow!=0)
+        twCommand->setCurrentCell(0,0);
+    else if(twCommand->rowCount()>1)
+        twCommand->setCurrentCell(1,0);  //14:09
+   // QMessageBox::information(this,"ajdlf","ajgjapewji");
+    //QMessageBox::information(this,"currRow",QString::number(currRow));
     
     if(commandEdited)
     {
-        commandEdited=false;
+        //commandEdited=false;
         return;
     }
     
@@ -383,18 +420,21 @@ void CommandSettings::deleteCommand()
         commandEdited = true;
         return;
     }*/
-    if(!twCommand->item(currRow,0))
+ /*   if(!twCommand->item(currRow,0))
         return;
     if((twCommand->item(currRow, 0)->text()==NULL)||(twCommand->item(currRow, 0)->text()==NULL)||
         (twCommand->item(currRow,0)->text().trimmed()=="")||(twCommand->item(currRow,2)->text().trimmed()==""))
     {
         commandEdited = true;
         return;
-    }
+    }*/ //14:09
     
-    if(!twCommand->item(currRow,0)->data(Qt::UserRole).isNull())
-	    commandLoader->deleteCommand(twCommand->item(currRow, 0)->data(Qt::UserRole).toString());//, ui.twCommand->item(currRow, 2)->text());
-	twCommand->removeRow(currRow);
+    if(rowCount==twCommand->rowCount())
+    {
+        if(!twCommand->item(currRow,0)->data(Qt::UserRole).isNull())
+            commandLoader->deleteCommand(twCommand->item(currRow, 0)->data(Qt::UserRole).toString());//, ui.twCommand->item(currRow, 2)->text());
+        twCommand->removeRow(currRow);
+    }
 }
 
 /**
@@ -440,10 +480,11 @@ void CommandSettings::checkAndAddCommandValues(int currRow, int currCol, int pre
         //QMessageBox::information(this,"checkAndAdd curRow",QString::number(currRow));
     if((prevCol==0) && (commandEdited))// && (ui.twCommand->item(prevRow, 0)->text()!=NULL) && ((ui.twCommand->item(prevRow,0)->text().trimmed()!="")))
     {
-        QMessageBox::information(this,"commandsettings","vor commandnameexists");
+            //QMessageBox::information(this,"commandsettings","vor commandnameexists");
         if(commandNameExists(twCommand->item(prevRow, 0)->text(),prevRow))
         {
             //if the name exists
+            ui.pbImportProgram->setChecked(false);
             commandEdited = true;
              return;
         }
@@ -455,6 +496,7 @@ void CommandSettings::checkAndAddCommandValues(int currRow, int currCol, int pre
         if(commandValueExists(twCommand->item(prevRow, 2)->text(), prevRow))
         {
             //if the command has been deleted
+            ui.pbImportProgram->setChecked(false);
             commandEdited = true;
             return;
         }
@@ -463,20 +505,21 @@ void CommandSettings::checkAndAddCommandValues(int currRow, int currCol, int pre
     //if the row hasn't been changed
 	if((currRow == prevRow))//&&(!prevRow<0))//&&(onlyItemChanged))
     {
-            QMessageBox::information(this,"checkAndAdd","currRow == prevRow");
+            //QMessageBox::information(this,"checkAndAdd","currRow == prevRow");
         //commandEdited = true;
 		return;
     }
     
-        QMessageBox::information(this,"commandsettings","vor allcommandValuesset");
+        //QMessageBox::information(this,"commandsettings","vor allcommandValuesset");
     //if the commandvalues weren't set at all
-    if(!allCommandValuesSet(prevRow))
+    if(!allCommandValuesSet(prevRow) && commandEdited)  //11:19
     {
-            QMessageBox::information(this,"commandsettings","im allcommandValuesset");
+            //QMessageBox::information(this,"commandsettings","im allcommandValuesset");
+        ui.pbImportProgram->setChecked(false);
         commandEdited = true;
         return;
     }
-        QMessageBox::information(this,"commandsettings","nach allcommandValuesset");
+        //QMessageBox::information(this,"commandsettings","nach allcommandValuesset");
     
     QString type;
  /*   if(commandEdited==false)
@@ -554,7 +597,35 @@ bool CommandSettings::reset()
 */
 void CommandSettings::showOnlyCommands()
 {   
+    if(commandEdited)   //14:42
+    {
+        if(ui.cbShowCommand->currentIndex()!=0)
+        {
+            ui.cbShowCommand->setCurrentIndex(0);   //14:43
+            return;
+        }
+        
+        if(!(twCommand->currentRow()<0))
+        {
+            int rowCount = twCommand->rowCount();
+            //QMessageBox::information(this, "commandsettings", "deleteCommand");
+            int currRow = twCommand->currentRow();
+          //  QMessageBox::information(this,"currRow",QString::number(currRow));
+         //   QString data = twCommand->item(currRow,0)->getData(Qt::UserRole).toString();  //14:12
+            
+            if(currRow!=0)
+                twCommand->setCurrentCell(0,0);
+            else if(twCommand->rowCount()>1)
+                twCommand->setCurrentCell(1,0);  //14:41
+        }
+        return;
+    }
     //QMessageBox::information(this, "commandsettings", "showOnlyCommands");
+
+    int currInd = ui.cbShowCommand->currentIndex();
+    if(currInd!=0)
+        ui.leSearchCommand->clear();
+    ui.cbShowCommand->setCurrentIndex(currInd);
     int currRow = twCommand->currentRow();
     if(currRow>=0)
     {
@@ -631,20 +702,19 @@ void CommandSettings::clearSearchLineEdit()
 void CommandSettings::searchCommandList()
 {
     //QMessageBox::information(this, "commandsettings", "searchCommandList");
-    if((ui.leSearchCommand->text()=="") && (!commandEdited))
+    //ui.cbShowCommand->setCurrentIndex(0);
+    if((ui.leSearchCommand->text()=="") && (!commandEdited)) //16:39
     {
-        showAllCommands();  //e.g. search only for places
+        //showAllCommands();  //e.g. search only for places
         CommandList allCommands = commandLoader->getCommands();
         twCommand->clearContents();
-	    twCommand->setRowCount(allCommands.count());
+	    //twCommand->setRowCount(allCommands.count());
+        twCommand->setRowCount(0);
 	    QTableWidgetItem *tmp;
+        int counter = 0;
         for(int z=0; z<allCommands.count(); z++)
         {
-            tmp = new QTableWidgetItem(allCommands.at(z)->getName());
-            tmp->setData(Qt::UserRole, allCommands.at(z)->getName());
-			twCommand->setItem(z, 0, tmp);
-			
-			CommandType ctype = allCommands.at(z)->getType();
+            CommandType ctype = allCommands.at(z)->getType();
 			QString strType;
 				
 			if (ctype ==place)
@@ -652,12 +722,32 @@ void CommandSettings::searchCommandList()
 			else if (ctype == type)
 				strType = tr("Sonderzeichen");
 			else strType = tr("Programme");
-			
-			tmp = new QTableWidgetItem(strType);
-			twCommand->setItem(z, 1, tmp);
-			
-			tmp = new QTableWidgetItem(allCommands.at(z)->getValue());
-			twCommand->setItem(z, 2, tmp);
+            
+            
+            if((ui.cbShowCommand->currentIndex()==0) || (strType==ui.cbShowCommand->currentText()))
+            {
+                counter++;
+                twCommand->setRowCount(counter);
+                
+                tmp = new QTableWidgetItem(allCommands.at(z)->getName());
+                tmp->setData(Qt::UserRole, allCommands.at(z)->getName());
+                twCommand->setItem(counter-1, 0, tmp);
+                
+                CommandType ctype = allCommands.at(z)->getType();
+                QString strType;
+                    
+                if (ctype ==place)
+                    strType = tr("Orte");
+                else if (ctype == type)
+                    strType = tr("Sonderzeichen");
+                else strType = tr("Programme");
+                
+                tmp = new QTableWidgetItem(strType);
+                twCommand->setItem(counter-1, 1, tmp);
+                
+                tmp = new QTableWidgetItem(allCommands.at(z)->getValue());
+                twCommand->setItem(counter-1, 2, tmp);
+            }
         }
         twCommand->resizeColumnToContents(1);
         return;
@@ -698,7 +788,7 @@ void CommandSettings::searchCommandList()
     }
 
         //QMessageBox::information(this, "commandsettings", "searchCommandList33");
-    showAllCommands();
+  //  showAllCommands();    //16:51
     
 	QString searchText = ui.leSearchCommand->text();
 	twCommand->clearContents();
@@ -711,27 +801,29 @@ void CommandSettings::searchCommandList()
 		QString name = commands.at(i)->getName();
 		if(name.contains(searchText,Qt::CaseInsensitive))
 		{
-			counter ++;
-			twCommand->setRowCount(counter);
-			
-			tmp = new QTableWidgetItem(commands.at(i)->getName());
-            tmp->setData(Qt::UserRole, commands.at(i)->getName());
-			twCommand->setItem(counter-1, 0, tmp);
-			
-			CommandType ctype = commands.at(i)->getType();
-			QString strType;
-				
-			if (ctype ==place)
-				strType = tr("Orte");
-			else if (ctype == type)
-				strType = tr("Sonderzeichen");
-			else strType = tr("Programme");
-			
-			tmp = new QTableWidgetItem(strType);
-			twCommand->setItem(counter-1, 1, tmp);
-			
-			tmp = new QTableWidgetItem(commands.at(i)->getValue());
-			twCommand->setItem(counter-1, 2, tmp);
+            CommandType ctype = commands.at(i)->getType();
+            QString strType;
+                
+            if (ctype ==place)
+                strType = tr("Orte");
+            else if (ctype == type)
+                strType = tr("Sonderzeichen");
+            else strType = tr("Programme");
+            if((ui.cbShowCommand->currentIndex()==0) || (strType==ui.cbShowCommand->currentText())) //16:52
+            {
+                counter ++;
+                twCommand->setRowCount(counter);
+                
+                tmp = new QTableWidgetItem(commands.at(i)->getName());
+                tmp->setData(Qt::UserRole, commands.at(i)->getName());
+                twCommand->setItem(counter-1, 0, tmp);
+                
+                tmp = new QTableWidgetItem(strType);
+                twCommand->setItem(counter-1, 1, tmp);
+                
+                tmp = new QTableWidgetItem(commands.at(i)->getValue());
+                twCommand->setItem(counter-1, 2, tmp);
+            }
 		}
 	}
         //QMessageBox::information(this, "commandsettings", "searchCommandList44");
@@ -747,7 +839,7 @@ void CommandSettings::importNewProgram()
 {
     //QMessageBox::information(this, "commandsettings", "importNewProgram");
     bool checked = ui.pbImportProgram->isChecked();
-    if(checked)
+  /*  if(checked)
     {
         int currRow = twCommand->currentRow();
         if(currRow>=0)
@@ -772,7 +864,14 @@ void CommandSettings::importNewProgram()
             }
             deactivateAllCbs();
         }
-    }
+    }*/
+    
+    twCommand->setCurrentCell(0,0);
+    if(commandEdited)
+        return;
+        //QMessageBox::information(this,"commandsettings","nach da if schleife");
+    ui.leSearchCommand->clear();
+    
     showAllCommands();
     
     ui.pbImportPlace->setDisabled(checked);
@@ -870,6 +969,7 @@ bool CommandSettings::commandNameExists(QString name, int prevRow)
                      commandLoader->deleteCommand(ui.twCommand->item(prevRow, 0)->text(), ui.twCommand->item(prevRow, 2)->text());
                  }*/
                 //ui.twCommand->editItem(ui.twCommand->item(0,0)
+                commandEdited=false;
                 twCommand->removeRow(prevRow);
             }
             else
@@ -913,6 +1013,7 @@ bool CommandSettings::commandValueExists(QString value, int prevRow)
             //return true;
         }
     }
+    // commandEdited=false;
     return false;
 }
 
@@ -946,6 +1047,7 @@ bool CommandSettings::allCommandValuesSet(int prevRow)
              }*/
             // if(ui.twCommand->currentRow()==prevRow)
               //   ui.twCommand->selectRow(-1); //doesn't work
+             commandEdited=false;
              twCommand->removeRow(prevRow);
 		 } else
 		 {
@@ -1061,16 +1163,47 @@ void CommandSettings::showAllCommands()
     ui.cbShowCommand->setCurrentIndex(0);
 }
 
-void CommandSettings::checkValuesAfterEnterPressed()
+void CommandSettings::checkValuesAfterReturnPressed()
 {
     //QMessageBox::information(this,"commandsettings","checkValuesAfterEnterPressed");
     int currRow = twCommand->currentRow();
     int currCol = twCommand->currentColumn();
-    deactivateCB(currRow);
-    twCommand->setCurrentCell(0,0);
+    //deactivateCB(currRow);
+    if(currRow!=0)      //11:30
+        twCommand->setCurrentCell(0,0);
+    else if(twCommand->rowCount()>1)    //11:30
+        twCommand->setCurrentCell(1,0);
     if(currRow<twCommand->rowCount())
         twCommand->setCurrentCell(currRow,currCol);
-    deactivateCB(currRow);
-    //commandEdited = false;
+    deactivateCB(currRow);    //11:30, 13:44
+    commandEdited = false;  //13:45
+}
+
+void CommandSettings::importNewPlace()
+{
+   // QMessageBox::information(this, "commandsettings", "importNewPlace");
+    bool checked = ui.pbImportPlace->isChecked();
+      
+    twCommand->setCurrentCell(0,0);
+    if(commandEdited)
+        return;
+    ui.leSearchCommand->clear();
+    
+    showAllCommands();
+    
+    ui.pbImportProgram->setDisabled(checked);
+    ui.pbNewCommand->setDisabled(checked);
+    ui.pbEditCommand->setDisabled(checked);
+    ui.pbDeleteCommand->setDisabled(checked);
+    ui.leSchluesselWort->setDisabled(checked);
+    ui.leSearchCommand->setDisabled(checked);
+    ui.pbClearSearchCommand->setDisabled(checked);
+    ui.cbShowCommand->setDisabled(checked);
+    twCommand->setDisabled(checked);
+    
+    if(checked)
+        importPlaceWizard->show();
+    else
+        importPlaceWizard->hide();
 }
 

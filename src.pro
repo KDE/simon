@@ -136,7 +136,12 @@ importtrainingdirectoryworkingpage.h \
  programcategory.h \
  programmanager.h \
  categoryxmlreader.h \
- inireader.h
+ inireader.h \
+ importplacewizard.h \
+ importplacepage.h \
+ localplacepage.h \
+ remoteplacepage.h \
+ chooseplacepage.h
 
 SOURCES += main.cpp \
            simonview.cpp \
@@ -221,7 +226,12 @@ SOURCES += main.cpp \
  returntablewidget.cpp \
  programmanager.cpp \
  categoryxmlreader.cpp \
- inireader.cpp
+ inireader.cpp \
+  importplacewizard.cpp \
+ importplacepage.cpp \
+ localplacepage.cpp \
+ remoteplacepage.cpp \
+ chooseplacepage.cpp
 
 QT += network \
 xml 

@@ -24,7 +24,9 @@
 
 #ifdef __WIN32
 #include "registrymanager.h"
+#include "windowsprogrammanager.h"
 #endif
+#include "programmanager.h"
 
 class ProgramManager;
 /**
@@ -42,15 +44,19 @@ class SelectProgramPage : public QWizardPage
     Q_OBJECT
 
 private:
-	ProgramManager *programManager;
+	//ProgramManager *programManager;
 
 #ifdef __WIN32
-        RegistryManager *regMan;
+        //RegistryManager *regMan;
+        WindowsProgramManager *programManager;
 #endif
 
 public:
         SelectProgramPage(QWidget* parent);
         ~SelectProgramPage();
+
+        void insertCategories(ProgramCategoryList categorieList);
+        void insertPrograms(ProgramList *programList);
 
         QStringList* getAllFormats(QString format);
         QString getExecPath();

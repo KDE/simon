@@ -10,6 +10,7 @@
 //
 //
 #include "categoryxmlreader.h"
+#include <QMessageBox>
 
 CategoryXMLReader::CategoryXMLReader(QString path, QObject* parent): XMLDomReader(path, parent)
 {
@@ -26,7 +27,7 @@ void CategoryXMLReader::load(QString path)
 	if (path.isEmpty()) path = this->path;
 	if (path.isEmpty()) return;
 	XMLDomReader::load(path);
-	
+	   
 	QDomNodeList categories = doc->elementsByTagName("category");
 
 	ProgramCategoryList *catList=new ProgramCategoryList();
