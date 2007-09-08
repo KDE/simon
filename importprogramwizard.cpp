@@ -98,9 +98,10 @@ ImportProgramPage* ImportProgramWizard::createImportProgramPage()
 QWizardPage* ImportProgramWizard::createFinishedPage()
 {
     QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle("Hinzufügen des Programmes");
+	finished->setTitle(tr("Hinzufügen des Programmes"));
 	QLabel *label = new QLabel(finished);
-	label->setText("Klicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschließen.");
+	label->setText(tr("Klicken Sie auf \"Fertigstellen\" um den Wizard abzuschließen."));
+	label->setWordWrap(true);
 	QVBoxLayout *layout = new QVBoxLayout(finished);
 	layout->addWidget(label);
 	finished->setLayout(layout);
@@ -115,7 +116,7 @@ QWizardPage* ImportProgramWizard::createFinishedPage()
 */
 void ImportProgramWizard::idChanged(int newId)
 {
-    QMessageBox::information(this, QString::number(newId), QString::number(oldId));
+//     QMessageBox::information(this, QString::number(newId), QString::number(oldId));
     if((oldId==1) && (newId==2))
     {
         SelectProgramPage *spp = dynamic_cast<SelectProgramPage*>(page(1));

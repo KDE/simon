@@ -30,6 +30,8 @@ InlineWidgetView::InlineWidgetView(QWidget* parent): QTabWidget(parent)
 	QBrush inlineBrush(QColor(255, 255, 255, 100));
 	inlineBrush.setStyle(Qt::SolidPattern);
 	inlinePalette.setBrush(QPalette::Active, QPalette::Window, inlineBrush);
+	QBrush inlineBrushInactive(QColor(255, 255, 255, 135));
+	inlinePalette.setBrush(QPalette::Inactive, QPalette::Window, inlineBrushInactive);
 	setPalette(inlinePalette);
 	setAutoFillBackground(true);
 }

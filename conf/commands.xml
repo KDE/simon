@@ -8,4 +8,6 @@
  <command type="0" name="Ark" >ark -caption "%c" %i %m %U</command>
  <command type="0" name="TaskJuggler" >TaskJugglerUI</command>
  <command type="0" name="KTip" >ktip</command>
+ <command type="0" name="KAddressBook" >kaddressbook %u</command>
+ <command type="0" name="OpenOffice.org 2.2 Impress" >ooffice -impress %U</command>
 </commands>

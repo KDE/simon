@@ -29,7 +29,7 @@ CommandSettings::CommandSettings(QWidget* parent): SystemWidget(tr("Kommandos"),
     ui.setupUi(this);
     twCommand = new ReturnTableWidget(this);
     twCommand->setColumnCount(3);
-    QStringList headerLabels;// = new QStringList();
+    QStringList headerLabels;
     headerLabels.append(tr("Name"));
     headerLabels.append(tr("Typ"));
     headerLabels.append(tr("Wert"));
