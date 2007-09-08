@@ -237,7 +237,7 @@ void RunApplicationView::insertCommands(CommandList list)
 */
 void RunApplicationView::loadCommands()
 {
-    ui.twPrograms->clear();
+    ui.twPrograms->clearContents();
     run = new RunCommand();
     QString path = Settings::get("PathToCommands").toString();
     run->readCommands(path);

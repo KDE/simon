@@ -15,11 +15,13 @@
 #include "settings.h"
 #include "categoryxmlreader.h"
 #include <QVariant>
+#include <QDebug>
 #include <QMessageBox>
 
 ProgramManager::ProgramManager()
 {
 	categoryReader = new CategoryXMLReader(Settings::get("PathToProgramCategories").toString());
+	this->programs = new ProgramList();
 }
 
 
@@ -27,8 +29,23 @@ ProgramCategoryList ProgramManager::readCategories()
 {
 	categoryReader->load();
 	ProgramCategoryList *list = categoryReader->getCategoryList();
-	if (!list) return ProgramCategoryList();
-	else return *list; 
+	if (!list) this->categories = new ProgramCategoryList();
+	else this->categories = list; 
+	return (*(this->categories));
+}
+
+ProgramCategory* ProgramManager::getCategory(QString name)
+{
+	if (!this->categories) return NULL;
+	
+	int i=0;
+	while ((i<categories->count()) && (this->categories->at(i).getName() != name))
+	{ i++; }
+	
+	if (i != categories->count())
+		return new ProgramCategory(this->categories->at(i));
+
+	return NULL;
 }
 
 const Program* ProgramManager::getProgram(QString name, QString command)

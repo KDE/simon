@@ -114,6 +114,7 @@ void SystemView::setupUi(QWidget *parent)
 	QVBoxLayout *layLeft = new QVBoxLayout(0);
 
 	selectControl->setMaximumWidth(250);
+        selectControl->setIconSize(QSize(24,24));
 	help->setMaximumWidth(250);
 	layLeft->addWidget(selectControl);
 	layLeft->addWidget(help);

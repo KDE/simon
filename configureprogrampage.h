@@ -14,10 +14,9 @@
 
 #include <QWizardPage>
 #include <QString>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QLineEdit>
+#include <QVariant>
+
+class QLabel;
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -31,31 +30,23 @@
  */
 class ConfigureProgramPage : public QWizardPage
 {
-    
+private:
+        QLabel *lbDesc;
+	
 public:
-        ConfigureProgramPage(QWidget* parent);
+	ConfigureProgramPage(QWidget* parent);
+	
+	~ConfigureProgramPage();
 
-        ~ConfigureProgramPage();
+	void setName(QString name) { setField("name", name); }
+	void setExec(QString exec) { setField("exec", exec); }
+	void setWorkingDirectory(QString workingDir) { setField("workdir", workingDir); }
 
-        QVBoxLayout *vboxLayout;
-        QLabel *label;
-        QHBoxLayout *hboxLayoutName;
-        QLabel *lName;
-        QLineEdit *leName;
-        QHBoxLayout *hboxLayoutPath;
-        QLabel *lPath;
-        QLineEdit *lePath;
-        QHBoxLayout *hboxLayoutWorkingPath;
-        QLabel *lWorkingPath;
-        QLineEdit *leWorkingPath;
+	const QString getName() { return field("name").toString(); }
+	const QString getExec() { return field("exec").toString(); }
+	const QString getWorkingDir() { return field("workdir").toString(); }
 
-        void setProgName(QString name){progName = name;}
-        void setExecPath(QString path){execPath = path;}
-        void writeInformation();
-        
-//private:
-    QString progName;
-    QString execPath;
+	void init(QString name, QString exec, QString workingDirectory);
 };
 
 #endif

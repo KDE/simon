@@ -1,14 +1,112 @@
 <categories>
-  <category name="Audio">
-    <description>Alles rund um Audio</description>
-    <icon>:/images/icons/audio-x-generic.svg</icon>
+  <category name="Utility">
+    <description>Diestprogramme</description>
+      <icon>:/images/icons/applications-accessories.svg</icon>
+      <formats />
+  </category>
+  <category name="Office">
+    <description>Büroprogramme</description>
+    <icon>:/images/icons/applications-office.svg</icon>
     <formats>
+      <format>rtf</format>
+      <format>doc</format>
+      <format>xls</format>
+      <format>ppt</format>
+      <format>dot</format>
+      <format>msg</format>
+      <format>eml</format>
+      <format>tjp</format>
+    </formats>
+  </category>
+  <category name="Development">
+    <description>Programmierung</description>
+    <icon>:/images/icons/applications-development.svg</icon>
+    <formats>
+      <format>h</format>
+      <format>cpp</format>
+      <format>c</format>
+      <format>cc</format>
+      <format>py</format>
+      <format>pl</format>
+      <format>java</format>
+      <format>kdevelop</format>
+      <format>vcproj</format>
+      <format>pro</format>
+    </formats>
+  </category>
+  <category name="Graphic">
+    <description>Grafik und Design</description>
+    <icon>:/images/icons/applications-graphics.svg</icon>
+    <formats>
+      <format>jpg</format>
+      <format>png</format>
+      <format>gif</format>
+      <format>jpeg</format>
+      <format>tiff</format>
+      <format>tga</format>
+      <format>pnm</format>
+      <format>xcf</format>
+      <format>psd</format>
+    </formats>
+  </category>
+  <category name="Internet">
+    <description>Netzwerk und Internet</description>
+    <icon>:/images/icons/applications-internet.svg</icon>
+    <formats>
+      <format>htm</format>
+      <format>html</format>
+      <format>torrent</format>
+      <format>ed2k</format>
+      <format>rss</format>
+      <format>xml</format>
+      <format>xhtml</format>
+    </formats>
+  </category>
+  <category name="All">
+    <description>Alles</description>
+    <icon>:/images/icons/applications-other.svg</icon>
+    <formats />
+  </category>
+  <category name="Games">
+    <description>Spiele</description>
+    <icon>:/images/icons/applications-games.svg</icon>
+    <formats />
+  </category>
+  <category name="System">
+    <description>System und Konfiguration</description>
+    <icon>:/images/icons/applications-system.svg</icon>
+    <formats>
+      <format>desktop</format>
+      <format>conf</format>
+      <format>xml</format>
+      <format>ini</format>
+    </formats>
+  </category>
+  <category name="Multimedia">
+    <description>Audio und Video</description>
+    <icon>:/images/icons/applications-multimedia.svg</icon>
+    <formats>
+      <format>ogg</format>
+      <format>mkv</format>
+      <format>avi</format>
+      <format>rl</format>
+      <format>rm</format>
+      <format>vob</format>
+      <format>m2v</format>
+      <format>mpg</format>
+      <format>mpeg</format>
+      <format>aac</format>
+      <format>ac3</format>
+      <format>mp4</format>
+      <format>ra</format>
+      <format>rm</format>
+      <format>m3u</format>
+      <format>pls</format>
       <format>mp3</format>
       <format>flac</format>
+      <format>m2a</format>
       <format>ogg</format>
       <format>wma</format>
-      <format>ac3</format>
-      <format>aac</format>
     </formats>
   </category>
 </categories>

@@ -10,6 +10,10 @@
 //
 //
 #include "configureprogrampage.h"
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QMessageBox>
 
 /**
 *   \brief constructor
@@ -18,49 +22,47 @@
 */
 ConfigureProgramPage::ConfigureProgramPage(QWidget* parent): QWizardPage(parent)
 {
-    vboxLayout = new QVBoxLayout(this);
-    vboxLayout->setObjectName("vboxLayout");
-
-    label = new QLabel(this);
-    
-    QHBoxLayout *hboxLayoutName = new QHBoxLayout();
-    lName = new QLabel(this);
-    lName->setText(tr("Name: "));
-    leName = new QLineEdit(this);
-    hboxLayoutName->addWidget(lName);
-    hboxLayoutName->addWidget(leName);
-    
-    hboxLayoutPath = new QHBoxLayout();
-    lPath = new QLabel(this);
-    lPath->setText(tr("Pfad: "));
-    lePath = new QLineEdit(this);
-    hboxLayoutPath->addWidget(lPath);
-    hboxLayoutPath->addWidget(lePath);
-    
-    hboxLayoutWorkingPath = new QHBoxLayout();
-    lWorkingPath = new QLabel(this);
-    lWorkingPath->setText(tr("Arbeitspfad: "));
-    leWorkingPath = new QLineEdit(this);
-    hboxLayoutWorkingPath->addWidget(lWorkingPath);
-    hboxLayoutWorkingPath->addWidget(leWorkingPath);
-    
-    vboxLayout->addWidget(label);
-    vboxLayout->addLayout(hboxLayoutName);
-    vboxLayout->addLayout(hboxLayoutPath);
-    vboxLayout->addLayout(hboxLayoutWorkingPath);
+	QVBoxLayout *vboxLayout = new QVBoxLayout(this);
+	vboxLayout->setObjectName("vboxLayout");
+	
+	lbDesc = new QLabel(this);
+	lbDesc->setWordWrap(true);
+	
+	
+	QLabel *lName = new QLabel(this);
+	lName->setText(tr("Name: "));
+	QLineEdit *leName = new QLineEdit(this);
+	QLabel *lPath = new QLabel(this);
+	lPath->setText(tr("Program: "));
+	QLineEdit *leExec = new QLineEdit(this);
+	QLabel *lWorkingPath = new QLabel(this);
+	lWorkingPath->setText(tr("Arbeitspfad: "));
+	QLineEdit *leWorkingPath = new QLineEdit(this);
+	
+	QGridLayout *confLayout = new QGridLayout();
+	confLayout->addWidget(lName, 0, 0);
+	confLayout->addWidget(leName, 0, 1);
+	confLayout->addWidget(lPath, 1, 0);
+	confLayout->addWidget(leExec, 1, 1);
+	confLayout->addWidget(lWorkingPath, 2, 0);
+	confLayout->addWidget(leWorkingPath, 2, 1);
+	
+	vboxLayout->addWidget(lbDesc);
+	vboxLayout->addLayout(confLayout);
+	
+	registerField("name*", leName);
+	registerField("exec*", leExec);
+	registerField("workdir", leWorkingPath);
 }
 
-/**
-*   \brief writes the chosen program with its values to the screen
-*
-*   @autor Susanne Tschernegg
-*/
-void ConfigureProgramPage::writeInformation()
+void ConfigureProgramPage::init(QString name, QString exec, QString workingDirectory)
 {
-    label->setText("Sie haben das Programm " + progName + " gewählt. \n\nHier können Sie nun weitere Einstellungen vornehmen.\n");
-    leName->setText(progName);
-    lePath->setText(execPath);
+	lbDesc->setText(tr("Sie haben das Programm %1 gewählt. \n\nHier können Sie nun weitere Einstellungen vornehmen.\n").arg(name));
+	setField("name", name);
+	setField("exec", exec);
+	setField("workdir", workingDirectory);
 }
+
 
 /**
 *   \brief destructor

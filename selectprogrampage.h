@@ -27,11 +27,11 @@
 #include "windowsprogrammanager.h"
 #endif
 #include "programmanager.h"
+#include "programcategory.h"
 
 class ProgramManager;
-/**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
+
+
 /**
  * \class $CLASSNAME
  * \author Peter Grasch
@@ -44,23 +44,24 @@ class SelectProgramPage : public QWizardPage
     Q_OBJECT
 
 private:
-	//ProgramManager *programManager;
+	ProgramManager *programManager;
+	ProgramCategoryList categoryList;
 
-#ifdef __WIN32
+// #ifdef __WIN32
         //RegistryManager *regMan;
-        WindowsProgramManager *programManager;
-#endif
+//         WindowsProgramManager *programManager;
+// #endif
 
 public:
         SelectProgramPage(QWidget* parent);
         ~SelectProgramPage();
 
-        void insertCategories(ProgramCategoryList categorieList);
+        void displayCategories(ProgramCategoryList categorieList);
         void insertPrograms(ProgramList *programList);
 
-        QStringList* getAllFormats(QString format);
         QString getExecPath();
         QString getName();
+	QString getWorkingDirectory();
 
         QVBoxLayout *vboxLayout;
         QListWidget *lwCategories;

@@ -39,7 +39,7 @@ ShortcutSettings::ShortcutSettings(ShortcutControl *shortcutControl, QWidget* pa
 
 	connect(ui.twShortcuts, SIGNAL(currentCellChanged(int,int,int,int)), this, 
 		SLOT(cellChanged(int,int,int, int)));
-	connect(ui.twShortcuts, SIGNAL(enterPressed()), this, SLOT(applyName()));
+	connect(ui.twShortcuts, SIGNAL(returnPressed()), this, SLOT(applyName()));
 	connect(ui.pbAddShortcut, SIGNAL(clicked()), this, SLOT(addShortcut()));
 	connect(ui.pbDeleteShortcut, SIGNAL(clicked()), this, SLOT(deleteShortcut()));
 }

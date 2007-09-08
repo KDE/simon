@@ -42,6 +42,11 @@ public:
 	const QIcon getIcon() const { return icon; }
 	const QStringList getFormats() const { return formats; }
 
+	const bool operator==(ProgramCategory c)
+	{
+		return (name == c.getName());
+	}
+
 	~ProgramCategory() {}
 
 };

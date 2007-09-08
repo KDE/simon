@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="13" >
+ <DocsAndViews NumberOfDocuments="29" >
   <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutcontrol.cpp" >
    <View0 Encoding="" Type="Source" />
   </Doc0>
@@ -29,18 +29,66 @@
   <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/desktopreader.h" >
    <View0 Encoding="" Type="Source" />
   </Doc8>
-  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/kdemanager.cpp" >
+  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/program.h" >
    <View0 Encoding="" Type="Source" />
   </Doc9>
-  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/kdemanager.h" >
+  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/registrymanager.h" >
    <View0 Encoding="" Type="Source" />
   </Doc10>
-  <Doc11 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/program.h" >
+  <Doc11 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/programcategory.h" >
    <View0 Encoding="" Type="Source" />
   </Doc11>
-  <Doc12 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/registrymanager.h" >
-   <View0 Encoding="" line="28" Type="Source" />
+  <Doc12 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/programmanager.cpp" >
+   <View0 Encoding="" Type="Source" />
   </Doc12>
+  <Doc13 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/windowsprogrammanager.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc13>
+  <Doc14 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/windowsprogrammanager.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc14>
+  <Doc15 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/categoryxmlreader.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc15>
+  <Doc16 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/categoryxmlreader.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc16>
+  <Doc17 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/kdeprogrammanager.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc17>
+  <Doc18 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/kdeprogrammanager.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc18>
+  <Doc19 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/inireader.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc19>
+  <Doc20 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/inireader.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc20>
+  <Doc21 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutxmlreader.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc21>
+  <Doc22 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/xmldomreader.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc22>
+  <Doc23 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/xmlreader.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc23>
+  <Doc24 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/generalsettings.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc24>
+  <Doc25 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/generalsettings.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc25>
+  <Doc26 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/juliuscontrol.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc26>
+  <Doc27 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/programmanager.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc27>
+  <Doc28 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wav.cpp" >
+   <View0 Encoding="" line="197" Type="Source" />
+  </Doc28>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

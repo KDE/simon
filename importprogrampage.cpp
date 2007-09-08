@@ -12,7 +12,6 @@
 #include "importprogrampage.h"
 #include "settings.h"
 #include "command.h"
-#include <QMessageBox>
 
 /**
 *   \brief constructor
@@ -33,8 +32,6 @@ ImportProgramPage::ImportProgramPage(QWidget* parent): QWizardPage(parent)
     progressbar->setMaximum(100);
     progressbar->setValue(0);
     progressbar->setValue(100);
-    //createCommand("test","testkasdjf");
-   // QMessageBox::information(0, "importProgrampage","constructor");
 }
 
 /**
@@ -60,7 +57,6 @@ bool ImportProgramPage::isComplete() const
 */
 void ImportProgramPage::createCommand(QString name, QString value)
 {
-    //QMessageBox::information(0, "importProgrampage","createCommand");
     Command *newCommand = new Command(name, CommandType(0), value);
     emit commandCreated(newCommand);
 }

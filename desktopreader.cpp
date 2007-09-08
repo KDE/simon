@@ -27,11 +27,13 @@ Program* DesktopReader::readDesktopFile(QString path)
 	QString command = getKey("Exec");
 	QString desc = getKey("GenericName");
 	QString cats = getKey("Categories");
-// 	ProgramCategories *categories = new ProgramCategories();
-	QStringList categories = cats.split(";");
+	QString workingDir = getKey("Path");
+// 	qDebug() << workingDir;
+
+	this->strCategories = cats.split(";");
+
 	
-	qDebug() << name << command << desc;
-	return new Program(name, command, desc);
+	return new Program(name, command, desc, workingDir);
 }
 
 

@@ -111,35 +111,29 @@ QWizardPage* ImportProgramWizard::createFinishedPage()
 /**
 *   \brief slot: the signal is emited this class
             if the current page changes, we will save the last pageId and the new pageId
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg, Peter Grasch
 */
 void ImportProgramWizard::idChanged(int newId)
 {
-//    QMessageBox::information(this, "importprogwizard .. idchanged ANF... newID", QString::number(newId));
-//    QMessageBox::information(this, "importprogwizard .. idchanged ANF... oldID", QString::number(oldId));
+    QMessageBox::information(this, QString::number(newId), QString::number(oldId));
     if((oldId==1) && (newId==2))
     {
         SelectProgramPage *spp = dynamic_cast<SelectProgramPage*>(page(1));
         if(!spp)
             return;
         ConfigureProgramPage *cpp = dynamic_cast<ConfigureProgramPage*>(page(2));
-        cpp->progName = spp->getName();
-        cpp->execPath = spp->getExecPath();
-        cpp->writeInformation();
+        cpp->init(spp->getName(), spp->getExecPath(), spp->getWorkingDirectory());
     }
     else if(((oldId==2) && (newId==3)) || ((oldId==3) && (newId==3)))
     {
-        //QMessageBox::information(this, "importprogramwizard","idChanged ... oId=2; nId=3");
         ConfigureProgramPage *cpp = dynamic_cast<ConfigureProgramPage*>(page(2));
         if(!cpp)
             return;
-        cpp->setProgName(cpp->leName->text());
-        cpp->setExecPath(cpp->lePath->text());
         ImportProgramPage *ipp = dynamic_cast<ImportProgramPage*>(page(3));
-        ipp->createCommand(cpp->progName, cpp->execPath);
-        if(oldId==3)next();
+        ipp->createCommand(cpp->getName(), cpp->getExec());
+        if(oldId<=newId)next();
     }
-    else if((oldId==4) && (newId==3))
+    else if((oldId==4) && (newId<oldId))
     {
         restart();
         next();

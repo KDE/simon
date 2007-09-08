@@ -24,43 +24,36 @@
  * \version 0.1
  * \date 30.8.2007
 */
-enum ProgramType {
-	AudioProgram,
-	OfficeProgram,
-	DevelopmentProgram,
-	GraphicProgram,
-	InternetProgram,
-	OtherProgram,
-	GamesProgram,
-	SystemProgram,
-	VideoProgram
-};
+
 
 class Program;
 typedef QList<Program> ProgramList;
 	
 class Program{
 private:
-	QString name, exec, description;
+	QString name, exec, description, path;
 	QIcon icon;
 	ProgramCategoryList categories;
 public:
-    Program(QString name, QString exec, QString description, 
-		ProgramCategoryList categories=ProgramCategoryList(), QIcon &con=QIcon())
+    Program(QString name, QString exec, QString description, QString path,
+		ProgramCategoryList categories=ProgramCategoryList(), QIcon icon=QIcon())
     {
     	this->name = name;
     	this->exec = exec;
+	this->path = path;
     	this->description = description;
     	this->categories = categories;
     	this->icon = icon;
     }
     
+    void setCategories(ProgramCategoryList categories) { this->categories = categories; }
     const QString getName() const { return name; }
     const QString getExec() const { return exec; }
+    const QString getPath() const { return path; }
     const QString getDescription() const { return description; }
     const ProgramCategoryList getCategories() const { return categories; }
 
-    ~Program(){}
+    ~Program() { }
 
 };
 

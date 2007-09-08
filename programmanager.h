@@ -23,12 +23,14 @@ class CategoryXMLReader;
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class ProgramManager{
-private:
+protected:
 	ProgramList *programs;
+	ProgramCategoryList *categories;
 	CategoryXMLReader *categoryReader;
 public:
 	virtual ProgramList *getPrograms(ProgramCategory category)=0;
 	ProgramCategoryList readCategories();
+	ProgramCategory* getCategory(QString name);
 	const Program* getProgram(QString name, QString command);
     ProgramManager();
 

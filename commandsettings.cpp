@@ -607,7 +607,7 @@ void CommandSettings::showOnlyCommands()
         
         if(!(twCommand->currentRow()<0))
         {
-            int rowCount = twCommand->rowCount();
+//             int rowCount = twCommand->rowCount();
             //QMessageBox::information(this, "commandsettings", "deleteCommand");
             int currRow = twCommand->currentRow();
           //  QMessageBox::information(this,"currRow",QString::number(currRow));
@@ -837,6 +837,11 @@ void CommandSettings::searchCommandList()
 */
 void CommandSettings::importNewProgram()
 {
+        importProgramWizard->show();
+        return;
+
+
+
     //QMessageBox::information(this, "commandsettings", "importNewProgram");
     bool checked = ui.pbImportProgram->isChecked();
   /*  if(checked)
@@ -884,10 +889,10 @@ void CommandSettings::importNewProgram()
     ui.cbShowCommand->setDisabled(checked);
     twCommand->setDisabled(checked);
     
-    if(checked)
-        importProgramWizard->show();
-    else
-        importProgramWizard->hide();
+//     if(checked)
+//         importProgramWizard->show();
+//     else
+//         importProgramWizard->hide();
 }
 
 /**

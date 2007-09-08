@@ -1,10 +1,11 @@
 <commands>
- <command type="2" name="asdf" >asdf</command>
- <command type="1" name="MSPaint" >MSPaint.exe</command>
- <command type="0" name="gre" >asdfagr</command>
- <command type="1" name="zuzi" >ash</command>
- <command type="1" name="Systemsteuerung" >ftp://file.htl-kaindorf.ac.at</command>
- <command type="0" name="word" >winword.exe</command>
- <command type="0" name="internetexplorer" >iexplore.exe</command>
- <command type="0" name="wmplayer" >wmplayer.exe</command>
+ <command type="0" name="Blender" >blender</command>
+ <command type="0" name="Kopete" >kopete -caption "%c" %i %m %u</command>
+ <command type="0" name="Qt Designer" >/usr/bin/designer</command>
+ <command type="0" name="KNetAttach" >knetattach</command>
+ <command type="0" name="Cache" >kcmshell cache</command>
+ <command type="0" name="Kontact" >kontact</command>
+ <command type="0" name="Ark" >ark -caption "%c" %i %m %U</command>
+ <command type="0" name="TaskJuggler" >TaskJugglerUI</command>
+ <command type="0" name="KTip" >ktip</command>
 </commands>
