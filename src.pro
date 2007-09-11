@@ -5,7 +5,7 @@
 
 unix {
     HEADERS += runlinuxbackend.h xevents.h desktopreader.h \
- kdeprogrammanager.h
+ kdeprogrammanager.h 
     SOURCES += xevents.cpp runlinuxbackend.cpp desktopreader.cpp \
  kdeprogrammanager.cpp
     CONFIG += x11
@@ -51,6 +51,7 @@ HEADERS += simonview.h \
            simoncontrol.h \
            simoninfo.h \
            wordlistview.h \
+	   screengrid.h \
            trainingview.h \
            juliuscontrol.h \
            wordlistmanager.h \
@@ -164,6 +165,7 @@ SOURCES += main.cpp \
            runapplicationview.cpp \
            vumeter.cpp \
            eventhandler.cpp \
+           screengrid.cpp \
            wav.cpp \
 		xmlreader.cpp \
            xmlcommand.cpp \

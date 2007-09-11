@@ -36,6 +36,7 @@
 #include <QDir>
 #include <QDebug>
 #include "shortcutcontrol.h"
+#include "screengrid.h"
 
 /**
  * @brief Constructor
@@ -138,7 +139,10 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	show();
 	QCoreApplication::processEvents();
 	resizeMainButtonContentsToWindow();
-    connect(systemDialog, SIGNAL(commandsChanged()), runDialog, SLOT(loadCommands()));
+	connect(systemDialog, SIGNAL(commandsChanged()), runDialog, SLOT(loadCommands()));
+
+// 	ScreenGrid *sg = new ScreenGrid();
+// 	sg->show();
 }
 
 /**
