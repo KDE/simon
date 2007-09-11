@@ -11,13 +11,18 @@
 //
 #include "desktopreader.h"
 #include "program.h"
+#include "programcategory.h"
 #include <QFile>
 #include <QStringList>
 #include <QTextStream>
+#include <QDir>
 #include <QDebug>
+#include <QProcess>
 
 DesktopReader::DesktopReader(QString path) : IniReader(path)
-{ }
+{
+	iconname = "";
+}
 
 Program* DesktopReader::readDesktopFile(QString path)
 {
@@ -28,10 +33,9 @@ Program* DesktopReader::readDesktopFile(QString path)
 	QString desc = getKey("GenericName");
 	QString cats = getKey("Categories");
 	QString workingDir = getKey("Path");
-// 	qDebug() << workingDir;
+	this->iconname = getKey("Icon");
 
 	this->strCategories = cats.split(";");
-
 	
 	return new Program(name, command, desc, workingDir);
 }

@@ -22,9 +22,11 @@ class Program;
 class DesktopReader : public IniReader {
 private:
 	QStringList strCategories;
+	QString iconname;
 public:
     DesktopReader(QString path="");
     Program* readDesktopFile(QString path);
+    QString getIconname() { return iconname; }
     QStringList getStrCategories() { return strCategories; }
 
     ~DesktopReader();

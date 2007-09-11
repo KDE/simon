@@ -1,52 +1,61 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="15" >
+ <DocsAndViews NumberOfDocuments="18" >
   <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/commandsettings.h" >
-   <View0 Encoding="" line="30" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc0>
   <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectprogrampage.h" >
-   <View0 Encoding="" line="41" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc1>
   <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectprogrampage.cpp" >
-   <View0 Encoding="" line="123" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc2>
   <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/systemview.cpp" >
-   <View0 Encoding="" line="116" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc3>
   <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/kdeprogrammanager.cpp" >
-   <View0 Encoding="" line="106" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc4>
   <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/configureprogrampage.cpp" >
-   <View0 Encoding="" line="61" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc5>
   <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importprogramwizard.cpp" >
-   <View0 Encoding="" line="94" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc6>
   <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/desktopreader.cpp" >
-   <View0 Encoding="" line="30" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc7>
   <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/runapplicationview.cpp" >
-   <View0 Encoding="" line="243" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc8>
   <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/programmanager.cpp" >
-   <View0 Encoding="" line="45" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc9>
   <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importprogrampage.h" >
-   <View0 Encoding="" line="50" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc10>
   <Doc11 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importprogrampage.cpp" >
-   <View0 Encoding="" line="57" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc11>
   <Doc12 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importprogramwizard.h" >
-   <View0 Encoding="" line="55" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc12>
   <Doc13 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/inlinewidgetview.h" >
-   <View0 Encoding="" line="27" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc13>
   <Doc14 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/inlinewidgetview.cpp" >
-   <View0 Encoding="" line="32" Type="Source" />
+   <View0 Encoding="" Type="Source" />
   </Doc14>
+  <Doc15 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/programcategory.h" >
+   <View0 Encoding="" Type="Source" />
+  </Doc15>
+  <Doc16 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/simonview.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc16>
+  <Doc17 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/program.h" >
+   <View0 Encoding="" line="14" Type="Source" />
+  </Doc17>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

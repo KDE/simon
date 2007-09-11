@@ -110,6 +110,7 @@ void SelectProgramPage::insertPrograms(ProgramList *programList)
     for (int i=0; i<programList->count(); i++)
     {
         lwItem = new QListWidgetItem(lwPrograms);
+	lwItem->setIcon(programList->at(i).getIcon());
         lwItem->setText(programList->at(i).getName());
         lwItem->setData(Qt::UserRole, programList->at(i).getExec());
         lwItem->setData(33, programList->at(i).getPath());

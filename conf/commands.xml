@@ -10,4 +10,7 @@
  <command type="0" name="KTip" >ktip</command>
  <command type="0" name="KAddressBook" >kaddressbook %u</command>
  <command type="0" name="OpenOffice.org 2.2 Impress" >ooffice -impress %U</command>
+ <command type="0" name="Proxy" >kcmshell proxy</command>
+ <command type="0" name="OpenGL" >kcmshell opengl</command>
+ <command type="0" name="Style" >kcmshell style</command>
 </commands>

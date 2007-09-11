@@ -20,10 +20,13 @@
 */
 class KDEProgramManager : public ProgramManager {
 private:
+	QStringList kdedirs;
 	QStringList kdeCategoriesToSimonCategories(QStringList kdeCategories);
 public:
 	bool loadPrograms();
-    	KDEProgramManager();
+	QString resolveIcon(QString iconname);
+	QStringList getKDEDirs();
+	KDEProgramManager();
 	ProgramList* getPrograms(ProgramCategory category);
 
     ~KDEProgramManager();

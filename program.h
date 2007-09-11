@@ -23,7 +23,7 @@
  * \author Peter Grasch
  * \version 0.1
  * \date 30.8.2007
-*/
+ */
 
 
 class Program;
@@ -47,9 +47,11 @@ public:
     }
     
     void setCategories(ProgramCategoryList categories) { this->categories = categories; }
+    void setIcon(QIcon icon) { this->icon = icon; }
     const QString getName() const { return name; }
     const QString getExec() const { return exec; }
     const QString getPath() const { return path; }
+    const QIcon getIcon() const { return icon; }
     const QString getDescription() const { return description; }
     const ProgramCategoryList getCategories() const { return categories; }
 

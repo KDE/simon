@@ -11,18 +11,47 @@
 //
 #include "kdeprogrammanager.h"
 #include <QDir>
+#include <QProcess>
 #include <QDebug>
 #include "desktopreader.h"
 
 KDEProgramManager::KDEProgramManager()
 {
+	QStringList kdedirs;
+	QStringList env = QProcess::systemEnvironment();
+	
+	int i=0;
+	while (i < env.count())
+	{
+		if (env.at(i).startsWith("KDEDIRS"))
+		{
+			QString kenv = env.at(i);
+			QString kdirs = kenv.remove("KDEDIRS=");;
+			kdedirs = kdirs.split(":");
+			break;
+
+		}
+		i++; 
+	}
+	this->kdedirs = kdedirs;
 }
 
 bool KDEProgramManager::loadPrograms()
 {
-	QStringList pathToDesktopFiles;
-	pathToDesktopFiles << "/usr/kde/3.5/share/applications";
-	pathToDesktopFiles << "/usr/share/applications/";
+	QStringList pathToDesktopFiles = getKDEDirs();
+
+	for (int i=0; i < pathToDesktopFiles.count(); i++)
+	{
+		pathToDesktopFiles.replace(i, pathToDesktopFiles.at(i)+"/share/applications/");
+		
+		if (!QDir(pathToDesktopFiles.at(i)).exists())
+		{
+			pathToDesktopFiles.removeAt(i);
+			i--;
+		}
+	}
+
+
 
 	QStringList desktopFiles = QStringList();
 	
@@ -43,7 +72,7 @@ bool KDEProgramManager::loadPrograms()
 		{
 			dirHandle->setPath(dirsToCheck.takeAt(0));
 			dirs = dirHandle->entryList(QDir::Dirs);
-			for (int i=2; i < dirs.count(); i++)
+			for (int i=2; i < dirs.count(); i++) 
 				dirsToCheck.append(dirHandle->path()+"/"+dirs[i]);
 	
 			files = dirHandle->entryList(allowedFileTypes,  QDir::Files);
@@ -67,13 +96,52 @@ bool KDEProgramManager::loadPrograms()
 				if (category) 
 					categories.append(*category);
 			}
-			
+			QString iconsrc = resolveIcon(deskReader->getIconname());
+			if (!iconsrc.isEmpty())
+				prog->setIcon(QIcon(iconsrc));
 			prog->setCategories(categories);
 			
 			this->programs->append(*prog);
 		}
 	}
 	return true;
+}
+
+QStringList KDEProgramManager::getKDEDirs()
+{
+	return this->kdedirs;
+}
+
+QString KDEProgramManager::resolveIcon(QString iconname)
+{
+	QStringList kdedirs = getKDEDirs();
+	if (kdedirs.count()==0)
+		return "";
+	
+	for (int i=0; i < kdedirs.count(); i++)
+	{
+		kdedirs.replace(i, kdedirs.at(i)+"/share/icons/");
+	}
+	QStringList tosearch;
+	while (!kdedirs.isEmpty())
+	{
+		QStringList dirList = QDir(kdedirs.at(0)).entryList();
+		
+		for (int j= 0; j < dirList.count(); j++) 
+			tosearch.append(kdedirs.at(0)+dirList.at(j)+"/16x16/apps/"+iconname+".png");
+		kdedirs.removeAt(0);
+	}
+
+	QString iconsrc;
+	for (int i=0; i < tosearch.count(); i++)
+	{
+		if (QFile::exists(tosearch.at(i)))
+		{
+			iconsrc=tosearch.at(i);
+			break;
+		}
+	}
+	return iconsrc;
 }
 
 QStringList KDEProgramManager::kdeCategoriesToSimonCategories(QStringList kdeCategories)
