@@ -14,22 +14,18 @@
 #include <QSize>
 #include <QDebug>
 #include "program.h"
-
 #ifdef linux
 #include "kdeprogrammanager.h"
 #endif
-
-#ifdef __WIN32
-#include "windowsprogrammanager.h"
-#endif
-
+#include "programcategory.h"
 
 /**
 *   \brief Constructor
-            Creates the wizardpage, where you can select a special categorie (audio, büroprogramme, etc.).
+            Creates the wizardpage, where you can select a special categorie (audio, office, etc.).
             To this categorie you get a list of programs, which provides standardformats of this categorie.
 *
-*   @author Peter Grasch, Susanne Tschernegg
+*   @autor Susanne Tschernegg, Peter Grasch
+*   @author Susanne Tschernegg
 */
 SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 {
@@ -39,13 +35,16 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 #ifdef __WIN32
 	this->programManager = new WindowsProgramManager();
 #endif
+	ProgramCategoryList catList = programManager->readCategories();
+/*	for (int i=0; i < catList.count(); i++)
+	{
+		QString text = catList.at(i).getDescription()+":\n";
+		QStringList cats = catList.at(i).getFormats();
+		for (int j=0; j<cats.count(); j++)
+			text += "\n"+cats.at(j);
 
-
-	this->categoryList = programManager->readCategories();
-	
-#ifdef linux
-	((KDEProgramManager*) programManager)->loadPrograms();
-#endif
+		//QMessageBox::information(this, catList.at(i).getName(), text);
+	}*/
 
         vboxLayout = new QVBoxLayout(this);
         vboxLayout->setObjectName("vboxLayout");
@@ -54,7 +53,7 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
         lwCategories->setObjectName("lwCategories");
         lwCategories->setIconSize(QSize(24,24));
 
-        this->displayCategories(categoryList);
+        this->insertCategories(catList);
 
         lwPrograms = new QListWidget(this);
         lwPrograms->setMaximumHeight(140);
@@ -65,59 +64,8 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
         vboxLayout->addWidget(lwPrograms);
 
         connect(lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
+        //connect(lwPrograms, SIGNAL(itemSelectionChanged()), this, SLOT(SelectProgramPage()));
 }
-
-/**
-*   \brief Asks the ProgramManager for the programs of the selected category and inserts them
-*
-*   @author Peter Grasch
-*/
-void SelectProgramPage::searchForPrograms()
-{
-	ProgramCategory *cat = 
-		programManager->getCategory(lwCategories->currentItem()->data(Qt::UserRole).toString());
-	
-	if (!cat) return; //we failed
-	
-	ProgramList *programs = programManager->getPrograms(*cat);
-	if (!programs) return;
-
-	insertPrograms(programs);
-}
-
-
-
-
-void SelectProgramPage::displayCategories(ProgramCategoryList categorieList)
-{
-    lwCategories->clear();
-    QListWidgetItem* item;
-    for(int i=0; i<categorieList.count(); i++)
-    {
-        item = new QListWidgetItem(lwCategories);
-        item->setText(categorieList.at(i).getDescription());
-        item->setToolTip(categorieList.at(i).getName());
-        item->setData(Qt::UserRole, categorieList.at(i).getName());
-        item->setIcon(categorieList.at(i).getIcon());
-    }
-    lwCategories->sortItems(Qt::AscendingOrder);
-}
-
-void SelectProgramPage::insertPrograms(ProgramList *programList)
-{
-    lwPrograms->clear();
-    QListWidgetItem* lwItem;
-    for (int i=0; i<programList->count(); i++)
-    {
-        lwItem = new QListWidgetItem(lwPrograms);
-	lwItem->setIcon(programList->at(i).getIcon());
-        lwItem->setText(programList->at(i).getName());
-        lwItem->setData(Qt::UserRole, programList->at(i).getExec());
-        lwItem->setData(33, programList->at(i).getPath());
-    }
-    lwPrograms->sortItems(Qt::AscendingOrder);
-}
-
 
 /**
 *   \brief destructor
@@ -134,8 +82,8 @@ SelectProgramPage::~SelectProgramPage()
 */
 QString SelectProgramPage::getExecPath()
 {
-        QString exeStr = lwPrograms->currentItem()->data(Qt::UserRole).toString();
-        return exeStr;
+    QString exeStr = lwPrograms->currentItem()->data(Qt::UserRole).toString();
+    return exeStr;
 }
 
 /**
@@ -145,10 +93,53 @@ QString SelectProgramPage::getExecPath()
 */
 QString SelectProgramPage::getName()
 {
-        return lwPrograms->currentItem()->text();
+    return lwPrograms->currentItem()->text();
 }
 
+void SelectProgramPage::insertCategories(ProgramCategoryList categorieList)
+{
+    lwCategories->clear();
+    QListWidgetItem* item;
+    for(int i=0; i<categorieList.count(); i++)
+    {
+        item = new QListWidgetItem(lwCategories);
+        item->setText(categorieList.at(i).getName());
+        item->setData(Qt::UserRole, categorieList.at(i).getDescription());
+        item->setIcon(categorieList.at(i).getIcon());
+    }
+}
 
+void SelectProgramPage::insertPrograms(ProgramList *programList)
+{
+    lwPrograms->clear();
+    QListWidgetItem* lwItem;
+    for (int i=0; i<programList->count(); i++)
+    {
+        lwItem = new QListWidgetItem(lwPrograms);
+        lwItem->setText(programList->at(i).getName());
+        lwItem->setData(Qt::UserRole, programList->at(i).getExec());
+    }
+}
+
+/**
+*   \brief searches for all programs, which contains the associated formats of a categorie
+*
+*   @author Susanne Tschernegg
+*/
+void SelectProgramPage::searchForPrograms()
+{
+    QString catName = lwCategories->currentItem()->text();
+    
+    ProgramCategoryList catList = programManager->readCategories();
+    for(int i=0; i<catList.count(); i++)
+    {
+        if(catName == catList.at(i).getName())
+        {
+            insertPrograms(programManager->getPrograms(catList.at(i)));
+            break;
+        }
+    }
+}
 
 QString SelectProgramPage::getWorkingDirectory()
 {

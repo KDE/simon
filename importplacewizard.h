@@ -13,9 +13,10 @@
 #define IMPORTPLACEWIZARD_H
 
 #include <QWizard>
-#include "chooseplacepage.h"
+#include "introplacepage.h"
 #include "localplacepage.h"
 #include "remoteplacepage.h"
+#include "configureplacepage.h"
 #include "importplacepage.h"
 #include "command.h"
 #include "recwidget.h"
@@ -36,10 +37,16 @@ class ImportPlaceWizard : public QWizard
     Q_OBJECT
 		
 	private:
-		QWizardPage* createIntroPage();
-		ChoosePlacePage* createChoosePlacePage();
+        IntroPlacePage* introPlacePage;
+        LocalPlacePage* localPlacePage;
+        RemotePlacePage* remotePlacePage;
+        ConfigurePlacePage* configurePlacePage;
+        ImportPlacePage* importPlacePage; 
+    
+		IntroPlacePage* createIntroPlacePage();
         LocalPlacePage* createLocalPlacePage();
         RemotePlacePage* createRemotePlacePage();
+        ConfigurePlacePage* createConfigurePlacePage();
         ImportPlacePage* createImportPlacePage();
         QWizardPage* createFinishedPage();
     
@@ -52,6 +59,8 @@ public:
 
 private slots:
     void idChanged(int newId);
+    void placePreselectionChanged();
+    void changeName(bool change);
 
 signals:
    void commandCreated(Command* command);

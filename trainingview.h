@@ -75,6 +75,9 @@ public:
 	
     ~TrainingView();
 
+    void hideSettings();
+    void setSettingsVisible();
+
 };
 
 #endif

@@ -142,7 +142,9 @@ importtrainingdirectoryworkingpage.h \
  importplacepage.h \
  localplacepage.h \
  remoteplacepage.h \
- chooseplacepage.h
+ introplacepage.h \
+ configureplacepage.h \
+ passworddlg.h
 
 SOURCES += main.cpp \
            simonview.cpp \
@@ -151,6 +153,7 @@ SOURCES += main.cpp \
            simoncontrol.cpp \
            simoninfo.cpp \
            wordlistview.cpp \
+           screengrid.cpp \
            trainingview.cpp \
            juliuscontrol.cpp \
            wordlistmanager.cpp \
@@ -165,7 +168,6 @@ SOURCES += main.cpp \
            runapplicationview.cpp \
            vumeter.cpp \
            eventhandler.cpp \
-           screengrid.cpp \
            wav.cpp \
 		xmlreader.cpp \
            xmlcommand.cpp \
@@ -215,11 +217,11 @@ SOURCES += main.cpp \
            logview.cpp \
            externalprogrammanager.cpp \
            networksettings.cpp \
+	     commandsettings.cpp \
            importprogramwizard.cpp \
            selectprogrampage.cpp \
            configureprogrampage.cpp \
            importprogrampage.cpp \
-	   commandsettings.cpp \
  shortcutcontrol.cpp \
  shortcutxmlreader.cpp \
  shortcutsettings.cpp \
@@ -233,7 +235,9 @@ SOURCES += main.cpp \
  importplacepage.cpp \
  localplacepage.cpp \
  remoteplacepage.cpp \
- chooseplacepage.cpp
+ introplacepage.cpp \
+ configureplacepage.cpp \
+ passworddlg.cpp
 
 QT += network \
 xml 

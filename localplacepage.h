@@ -15,6 +15,10 @@
 #include <QWizardPage>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QFileDialog>
 
 /**
 	@author Susanne Tschernegg
@@ -34,9 +38,19 @@ public:
 
         ~LocalPlacePage();
 
+        QString getPlacePath();
+
 private:
         QVBoxLayout *vboxLayout;
         QLabel *label;
+        QLabel *lOrdner;
+        QHBoxLayout *hboxLayout;
+        QLineEdit *leOrdner;
+        QPushButton *pbOrdner;
+        QFileDialog *dialog;
+
+private slots:
+        void openFileDialog();
 };
 
 #endif

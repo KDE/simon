@@ -56,7 +56,7 @@ public:
         SelectProgramPage(QWidget* parent);
         ~SelectProgramPage();
 
-        void displayCategories(ProgramCategoryList categorieList);
+        void insertCategories(ProgramCategoryList categorieList);
         void insertPrograms(ProgramList *programList);
 
         QString getExecPath();

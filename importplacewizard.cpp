@@ -21,11 +21,16 @@
 ImportPlaceWizard::ImportPlaceWizard(QWidget* parent): QWizard(parent)
 {
     oldId=0;
-    this->addPage(createIntroPage());
-	this->addPage(createChoosePlacePage());
-	this->addPage(createLocalPlacePage());
-    this->addPage(createRemotePlacePage());
-    this->addPage(createImportPlacePage());
+    introPlacePage = createIntroPlacePage();
+    this->addPage(introPlacePage);
+    localPlacePage = createLocalPlacePage();
+	this->addPage(localPlacePage);
+    remotePlacePage = createRemotePlacePage();
+    this->addPage(remotePlacePage);
+    configurePlacePage = createConfigurePlacePage();
+    this->addPage(configurePlacePage);
+    importPlacePage = createImportPlacePage();
+    this->addPage(importPlacePage);
     this->addPage(createFinishedPage());
     
     //(connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
@@ -34,9 +39,11 @@ ImportPlaceWizard::ImportPlaceWizard(QWidget* parent): QWizard(parent)
     setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/importprogram.png")));
     
     connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(idChanged(int)));
-    //connect(ipp, SIGNAL(commandCreated(Command*)), this, SIGNAL(commandCreated(Command*)));
-   // connect(ipp, SIGNAL(commandCreated(Command*)), this, SLOT(next()));
     connect(this, SIGNAL(finished(int)), this, SLOT(restart()));
+    
+    connect(importPlacePage, SIGNAL(commandCreated(Command*)), this, SIGNAL(commandCreated(Command*)));
+   // connect(importPlacePage, SIGNAL(commandCreated(Command*)), this, SLOT(next()));
+    connect(introPlacePage, SIGNAL(placeChanged()), this, SLOT(placePreselectionChanged()));
 }
 
 /**
@@ -50,27 +57,19 @@ ImportPlaceWizard::~ImportPlaceWizard()
 *   \brief Creates the intro page
 *   @autor Susanne Tschernegg
 */
-QWizardPage* ImportPlaceWizard::createIntroPage()
+IntroPlacePage* ImportPlaceWizard::createIntroPlacePage()
 {
-    QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle(tr("Hinzufügen des Ortes"));
+    /*QWizardPage *intro = new QWizardPage(this);
+	intro->setTitle(tr("Hinzufügen eines Ortes"));
 	QLabel *label = new QLabel(intro);
-	label->setText(tr("Hier kann ein Ort den Kommandos - die Simon kennt - hinzugefügt werden."));
+	label->setText(tr("Hier können Sie einen Ort ihren Kommandos hinzufügen, um ihn später über das Schlüsselwort Simon anzusprechen. \n\n" + 
+                            "Es wird zwischen lokalen und entfernten Orten unterschieden. Unter entfernten Orten versteht man Orte, die über das Internet erreichbar sind."));
 	label->setWordWrap(true);
 	QVBoxLayout *layout = new QVBoxLayout(intro);
 	layout->addWidget(label);
-	intro->setLayout(layout);
+	intro->setLayout(layout);*/
 	
-	return intro;
-}
-
-/**
-*   \brief creates the cooseplacepage
-*   @autor Susanne Tschernegg
-*/
-ChoosePlacePage* ImportPlaceWizard::createChoosePlacePage()
-{
-    return new ChoosePlacePage(this);
+	return new IntroPlacePage(this);
 }
 
 /**
@@ -92,6 +91,15 @@ RemotePlacePage* ImportPlaceWizard::createRemotePlacePage()
 }
 
 /**
+*   \brief creates the configurePlacePage
+*   @autor Susanne Tschernegg
+*/
+ConfigurePlacePage* ImportPlaceWizard::createConfigurePlacePage()
+{
+    return new ConfigurePlacePage(this);
+}
+
+/**
 *   \brief creates the importplacepage
 *   @autor Susanne Tschernegg
 */
@@ -107,9 +115,9 @@ ImportPlacePage* ImportPlaceWizard::createImportPlacePage()
 QWizardPage* ImportPlaceWizard::createFinishedPage()
 {
     QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(tr("Hinzufügen des Ortes"));
+	finished->setTitle(tr("Hinzufügen eines Ortes"));
 	QLabel *label = new QLabel(finished);
-	label->setText(tr("Klicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschließen."));
+	label->setText(tr("\n\nKlicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschließen."));
 	QVBoxLayout *layout = new QVBoxLayout(finished);
 	layout->addWidget(label);
 	finished->setLayout(layout);
@@ -124,9 +132,119 @@ QWizardPage* ImportPlaceWizard::createFinishedPage()
 */
 void ImportPlaceWizard::idChanged(int newId)
 {
-//    QMessageBox::information(this, "importprogwizard .. idchanged ANF... newID", QString::number(newId));
-//    QMessageBox::information(this, "importprogwizard .. idchanged ANF... oldID", QString::number(oldId));
-   // if((oldId==1) && (newId==2))
-    
-    oldId = newId;
+    //QMessageBox::information(this, "importprogwizard .. idchanged ANF... oldID", QString::number(oldId));
+    //QMessageBox::information(this, "importprogwizard .. idchanged ANF... newID", QString::number(newId));
+    if((oldId==0) && (newId==1))
+    {
+        if(introPlacePage->rbRemotePlace->isChecked())
+        {
+            oldId = newId + 1;
+            next();
+        }
+        else
+        {
+            oldId = newId;
+        }
+    }
+    else if((oldId==1) && (newId==2))
+    {
+        if(introPlacePage->rbLocalPlace->isChecked())
+        {
+            oldId = newId + 1;
+            next();
+        }
+        else
+        {
+             oldId = newId;
+        }
+    }
+    else if((oldId==2) && (newId==1))
+    {
+        oldId = newId - 1;
+        back();
+    }
+    else if((oldId==3) && (newId==2))
+    {
+        if(introPlacePage->rbLocalPlace->isChecked())
+        {
+            oldId = newId - 1;
+            back();
+        }
+        else
+        {
+             oldId = newId;
+        }
+    }
+    else if((oldId==3) && (newId==4))
+    {
+        configurePlacePage->setPlaceName();
+        configurePlacePage->setPlaceValue();
+        importPlacePage->createCommand(configurePlacePage->getPlaceName(), configurePlacePage->getPlaceValue());
+    }
+    else
+    {    
+        oldId = newId;
+    }
+    if(newId==3)
+    {
+        if(introPlacePage->rbLocalPlace->isChecked())
+        {
+            configurePlacePage->setPlaceValue(localPlacePage->getPlacePath());
+        }
+        else if(introPlacePage->rbRemotePlace->isChecked())
+        {
+            configurePlacePage->setPlaceValue(remotePlacePage->getPlacePath());
+        }
+        configurePlacePage->writeInformation();
+    }
+}
+
+/**
+*   \brief slot: for checking, which class of places where choosen ... we don't use this method yet
+*   @autor Susanne Tschernegg
+*/
+void ImportPlaceWizard::placePreselectionChanged()
+{
+    //QMessageBox::information(this,"importplacewizard","placepreselectionchanged");
+    IntroPlacePage *ipp = dynamic_cast<IntroPlacePage*>(page(0));
+    if(!ipp)
+        return;
+ /*   if(introPlacePage->rbLocalPlace->isChecked())
+    {
+        //remotePlacePage->hide();
+        remotePlacePage->close();
+       // localPlacePage->setVisible();
+        
+        //back();
+        //this->setPage(1, createLocalPlacePage());
+        //next();
+    }
+    else if(introPlacePage->rbRemotePlace->isChecked())
+    {
+        //localPlacePage->hide();
+        localPlacePage->close();
+       // remotePlacePage->setVisible();
+
+        //back();
+        //this->setPage(1, createRemotePlacePage());
+        //next();
+    }*/
+}
+
+/**
+*   \brief slot: the signal is emited in the commandSettings.cpp (changeExistingName)
+            if the name of the commando already exists in the commandlist, a message box (called in commendSettings) will be opend and asks,
+            if the user wants to change the name of the commando
+*   @autor Susanne Tschernegg
+*/
+void ImportPlaceWizard::changeName(bool change)
+{
+    if(!change)
+    {
+        done(-1);
+    }
+    else
+    {
+        back();
+    }
 }

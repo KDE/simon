@@ -19,14 +19,26 @@
 *   @autor Susanne Tschernegg
 */
 LocalPlacePage::LocalPlacePage(QWidget* parent): QWizardPage(parent)
-{
+{   
     vboxLayout = new QVBoxLayout(this);
     
     label = new QLabel(this);
-    label->setText(tr("Ort wird den Komandos hinzugefügt"));
+    label->setText(tr("\nWählen Sie jetzt einen Ordner aus!\n\n"));
     
-    //wenn da eine fehlermeldung kommt, dass falls abbrechen gedrückt wird, der wizard zur configurepage zurück geht
+    lOrdner = new QLabel(this);
+    lOrdner->setText(tr("Ordner"));
+    hboxLayout = new QHBoxLayout();
+    leOrdner = new QLineEdit(this);
+    pbOrdner = new QPushButton(this);
+    pbOrdner->setIcon(QIcon(":/images/icons/folder.svg"));
+    
     vboxLayout->addWidget(label);
+    vboxLayout->addWidget(lOrdner);
+    hboxLayout->addWidget(leOrdner);
+    hboxLayout->addWidget(pbOrdner);
+    vboxLayout->addLayout(hboxLayout);
+    
+    connect(pbOrdner, SIGNAL(clicked()), this, SLOT(openFileDialog()));
 }
 
 /**
@@ -35,3 +47,39 @@ LocalPlacePage::LocalPlacePage(QWidget* parent): QWizardPage(parent)
 */
 LocalPlacePage::~LocalPlacePage()
 {}
+
+/**
+*   \brief destructor
+*   @autor Susanne Tschernegg
+*/
+void LocalPlacePage::openFileDialog()
+{
+    dialog = new QFileDialog();
+    dialog->setFileMode(QFileDialog::DirectoryOnly);
+    QStringList fileList;
+    QString file;    
+    QDir dir;
+    dir.setPath("C:/");
+    dialog->setDirectory(dir);
+    dialog->setReadOnly(true);
+    
+   int success = dialog->exec();
+   if(success!=0)  // ! cancel
+   {
+        fileList = dialog->selectedFiles();
+        if(!fileList.isEmpty())
+        {
+            file = fileList.at(0);
+            leOrdner->setText(file);
+        }            
+   }
+}
+
+/**
+*   \brief to geht the whole path of a place
+*   @autor Susanne Tschernegg
+*/
+QString LocalPlacePage::getPlacePath()
+{
+    return leOrdner->text();
+}

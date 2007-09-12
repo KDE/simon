@@ -158,6 +158,8 @@ public slots:
 
 	void inlineWidgetRegistered(InlineWidget *widget);
 	void inlineWidgetUnRegistered(InlineWidget *widget);
+    
+    void checkSettingState();
 
 public:
 	SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
@@ -165,6 +167,10 @@ public:
 	~SimonView();
 
 	void closeEvent ( QCloseEvent * event );
+
+    bool checkPassword();
+    void hideSettings();
+    void showSettings();
 
 /*signal:
     void commandsChanged();*/

@@ -34,7 +34,7 @@ public:
 	const Program* getProgram(QString name, QString command);
     ProgramManager();
 
-    ~ProgramManager();
+    virtual ~ProgramManager();
 
 };
 

@@ -20,10 +20,10 @@
 */
 ImportPlacePage::ImportPlacePage(QWidget* parent): QWizardPage(parent)
 {
-    vboxLayout = new QVBoxLayout(this);
+    QVBoxLayout *vboxLayout = new QVBoxLayout(this);
     
     label = new QLabel(this);
-    label->setText(tr("Ort wird den Komandos hinzugefügt"));
+    label->setText(tr("Ort wird den Komandos hinzugefügt\n\n"));
     
     progressbar = new QProgressBar(this);
     
@@ -50,7 +50,7 @@ ImportPlacePage::~ImportPlacePage()
 */
 bool ImportPlacePage::isComplete() const
 {
-        return QWizardPage::isComplete();
+    return QWizardPage::isComplete();
 }
 
 /**
@@ -60,8 +60,7 @@ bool ImportPlacePage::isComplete() const
 */
 void ImportPlacePage::createCommand(QString name, QString value)
 {
-    //QMessageBox::information(0, "importProgrampage","createCommand");
-    Command *newCommand = new Command(name, CommandType(0), value);
+    //QMessageBox::information(0, "importPlacePage","createCommand");
+    Command *newCommand = new Command(name, CommandType(1), value);
     emit commandCreated(newCommand);
 }
-

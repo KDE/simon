@@ -36,7 +36,9 @@
 #include <QDir>
 #include <QDebug>
 #include "shortcutcontrol.h"
+#include "passworddlg.h"
 #include "screengrid.h"
+
 
 /**
  * @brief Constructor
@@ -107,6 +109,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	this->vuMeter = new VuMeter();
 	if (vuMeter->prepare())
 		vuMeter->start();
+
 	shownDialogs = 0;
 	viewBusy = false;
 	QMainWindow(parent,flags);
@@ -127,6 +130,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	QPalette p(palette());
 	p.setBrush(QPalette::Background, bg);
 	setPalette(p);
+
 	if (Settings::get("AutoConnect").toBool())
 	{
 		this->info->writeToSplash(tr("Verbinde zu juliusd..."));
@@ -139,10 +143,19 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	show();
 	QCoreApplication::processEvents();
 	resizeMainButtonContentsToWindow();
+
 	connect(systemDialog, SIGNAL(commandsChanged()), runDialog, SLOT(loadCommands()));
 
 // 	ScreenGrid *sg = new ScreenGrid();
 // 	sg->show();
+    
+    //switches, if the settings are shown or not
+    ui.pbKeyed->setCheckable(true);
+    hideSettings();
+    
+    Settings::set("Password", "simon"); //TODO: set the password in the "FirstRunWizard"
+    
+    connect(ui.pbKeyed, SIGNAL(clicked(bool)), this, SLOT(checkSettingState()));
 }
 
 /**
@@ -681,3 +694,97 @@ SimonView::~SimonView()
 	this->info->~ SimonInfo();
 	Logger::close();
 }
+
+/**
+ * @brief If the user wants to set any settings, he/she has to give a password to show all settings.
+ *
+ *	@autor Susanne Tschernegg
+*/
+void SimonView::checkSettingState()
+{
+    if(ui.pbKeyed->isChecked())
+    {
+        if(checkPassword())
+        {
+            showSettings();
+        }
+    }
+    else
+    {
+        hideSettings();
+    }
+}
+
+/**
+ * @brief checks the password, if it returns true, the user gaves the right password
+ *
+ *	@autor Susanne Tschernegg
+*/
+bool SimonView::checkPassword()
+{
+    PasswordDlg* dialog = new PasswordDlg(this);
+    
+    int success = dialog->exec();
+    if(!success)
+    {
+        ui.pbKeyed->setChecked(false);
+        return false;
+    }
+    QString password = Settings::get("Password").toString();
+    if(password.compare(dialog->lePassword->text())!=0)
+    {
+        int result = QMessageBox::question(this, tr("Falsches Passwort"), tr("Sie haben ein falsches Passwort eingegeben.\n\nWollen Sie das Passwort erneut eingeben?"),
+        QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+
+        if (result == QMessageBox::Yes) 
+        {
+            checkPassword();
+        }
+        else
+        {
+            ui.pbKeyed->setChecked(false);
+            return false;
+        }
+    }
+    else
+    {
+        return true;
+    }
+}
+
+/**
+ * @brief the user couldn't see the setting-widgets resp. they are disabled
+ *
+ *	@autor Susanne Tschernegg
+*/
+void SimonView::hideSettings()
+{
+    //disables the button settings in the mainwindow
+    if(ui.pbSettings->isChecked())
+        ui.pbSettings->animateClick();
+    ui.pbSettings->setDisabled(true);
+    
+    //hides the tabwidget editModel in the wordlistview
+    wordList->hideTbEditModel();
+    
+    //hides the buttons for the settings
+    trainDialog->hideSettings();
+}
+
+/**
+ * @brief to set some settings, the widgets must be shown resp. not disabled
+ *
+ *	@autor Susanne Tschernegg
+*/
+void SimonView::showSettings()
+{
+    //to set the button settings in the main not disabled
+    ui.pbSettings->setDisabled(false);
+    
+    //set the editModel tabWidget visible
+    wordList->setTbEditModelVisible();
+    
+    //sets the setting buttons visible
+    trainDialog->setSettingsVisible();
+}
+

@@ -42,6 +42,7 @@ Program(QString name, QString exec, QString description,
     QString name;
     QString exec;
     QString description = "";
+    QString path = "";  //TODO set a path for the prgram
     QIcon icon(":/images/icons/audio-x-generic.svg");
     
     //to geht the name of the program ... cuts only the .exe out of the string
@@ -59,7 +60,7 @@ Program(QString name, QString exec, QString description,
         if (startIndex>=0) {
                 name.remove(startIndex, length-startIndex);
         }
-        Program prog(name, exec, description, progCatList, icon);
+        Program prog(name, exec, description, path, progCatList, icon);
         progList->append(prog);
     }    
    return progList;

@@ -27,6 +27,7 @@
 CommandSettings::CommandSettings(QWidget* parent): SystemWidget(tr("Kommandos"), QIcon(":/images/icons/emblem-system.svg"), tr("Hier können Sie Programme und Orte importieren und vorhandene Kommandos bearbeiten"), parent)
 {
     ui.setupUi(this);
+    commandEdited = false;
     twCommand = new ReturnTableWidget(this);
     twCommand->setColumnCount(3);
     QStringList headerLabels;
@@ -63,6 +64,9 @@ CommandSettings::CommandSettings(QWidget* parent): SystemWidget(tr("Kommandos"),
     connect(ui.leSchluesselWort, SIGNAL(textChanged(const QString &)),this,SLOT(checkValuesAfterReturnPressed()));
     connect(ui.pbClearSearchCommand, SIGNAL(clicked()),this,SLOT(checkValuesAfterReturnPressed()));
     connect(ui.pbImportPlace, SIGNAL(clicked()), this, SLOT(importNewPlace()));
+    connect(importPlaceWizard, SIGNAL(commandCreated(Command*)), this, SLOT(insertCommand(Command*)));   
+    connect(importPlaceWizard, SIGNAL(finished(int)), this, SLOT(setWidgetsDisabled()));
+    connect(this, SIGNAL(changeExistingName(bool)), importPlaceWizard, SLOT(changeName(bool)));
 }
 
 /**
@@ -215,6 +219,7 @@ bool CommandSettings::init()
      //   twCommand->setCurrentCell(0,0);
     //connect ( ui.twCommand, SIGNAL (itemChanged(QTableWidgetItem *)), this, SLOT(CommandValues()));
     //connect ( ui.twCommand, SIGNAL (cellChanged(int, int)), this, SLOT(checkAndAddCommandValues()));
+    commandEdited = false;  //03.09.
     return true;
 }
 
@@ -259,6 +264,7 @@ void CommandSettings::deactivateAllCbs()
             twCommand->item(currRow,0)->setData(Qt::UserRole, twCommand->item(currRow,0)->text());
         }
     }
+    commandEdited = false;
 }
 
 
@@ -381,7 +387,7 @@ void CommandSettings::newCommand()
     //twCommand->setCurrentRow(rows);
     //twCommand->setCurrentItem(tmp);
         //QMessageBox::information(this,"warum geht des net","nach edititem(tmp)3");
-    twCommand->setCurrentCell(rows,0);  //10:33
+    twCommand->setCurrentCell(rows,0);
     twCommand->editItem(twCommand->item(rows, 0));
     commandEdited = true;
 }
@@ -404,7 +410,7 @@ void CommandSettings::deleteCommand()
     if(currRow!=0)
         twCommand->setCurrentCell(0,0);
     else if(twCommand->rowCount()>1)
-        twCommand->setCurrentCell(1,0);  //14:09
+        twCommand->setCurrentCell(1,0);
    // QMessageBox::information(this,"ajdlf","ajgjapewji");
     //QMessageBox::information(this,"currRow",QString::number(currRow));
     
@@ -435,6 +441,7 @@ void CommandSettings::deleteCommand()
             commandLoader->deleteCommand(twCommand->item(currRow, 0)->data(Qt::UserRole).toString());//, ui.twCommand->item(currRow, 2)->text());
         twCommand->removeRow(currRow);
     }
+    commandEdited = false;
 }
 
 /**
@@ -512,7 +519,7 @@ void CommandSettings::checkAndAddCommandValues(int currRow, int currCol, int pre
     
         //QMessageBox::information(this,"commandsettings","vor allcommandValuesset");
     //if the commandvalues weren't set at all
-    if(!allCommandValuesSet(prevRow) && commandEdited)  //11:19
+    if(!allCommandValuesSet(prevRow) && commandEdited)
     {
             //QMessageBox::information(this,"commandsettings","im allcommandValuesset");
         ui.pbImportProgram->setChecked(false);
@@ -587,6 +594,7 @@ bool CommandSettings::reset()
     }
 	twCommand->clearContents();
 	twCommand->setRowCount(0);
+    commandEdited = false;
     return init();
 }
 
@@ -597,11 +605,11 @@ bool CommandSettings::reset()
 */
 void CommandSettings::showOnlyCommands()
 {   
-    if(commandEdited)   //14:42
+    if(commandEdited)
     {
         if(ui.cbShowCommand->currentIndex()!=0)
         {
-            ui.cbShowCommand->setCurrentIndex(0);   //14:43
+            ui.cbShowCommand->setCurrentIndex(0);
             return;
         }
         
@@ -611,12 +619,12 @@ void CommandSettings::showOnlyCommands()
             //QMessageBox::information(this, "commandsettings", "deleteCommand");
             int currRow = twCommand->currentRow();
           //  QMessageBox::information(this,"currRow",QString::number(currRow));
-         //   QString data = twCommand->item(currRow,0)->getData(Qt::UserRole).toString();  //14:12
+         //   QString data = twCommand->item(currRow,0)->getData(Qt::UserRole).toString();
             
             if(currRow!=0)
                 twCommand->setCurrentCell(0,0);
             else if(twCommand->rowCount()>1)
-                twCommand->setCurrentCell(1,0);  //14:41
+                twCommand->setCurrentCell(1,0);
         }
         return;
     }
@@ -703,7 +711,7 @@ void CommandSettings::searchCommandList()
 {
     //QMessageBox::information(this, "commandsettings", "searchCommandList");
     //ui.cbShowCommand->setCurrentIndex(0);
-    if((ui.leSearchCommand->text()=="") && (!commandEdited)) //16:39
+    if((ui.leSearchCommand->text()=="") && (!commandEdited))
     {
         //showAllCommands();  //e.g. search only for places
         CommandList allCommands = commandLoader->getCommands();
@@ -757,14 +765,14 @@ void CommandSettings::searchCommandList()
     int prevRow = twCommand->currentRow();
         //QMessageBox::information(this, "commandsettings currrow", QString::number(prevRow)); 
     if(ui.leSearchCommand->text()!="")
-        if(twCommand->rowCount()>0 && prevRow!=0)    //08:53
+        if(twCommand->rowCount()>0 && prevRow!=0)
             twCommand->setCurrentCell(0,0);
             //twCommand->selectRow(0);
         else if(twCommand->rowCount()>1)
             twCommand->setCurrentCell(1,0);
             //twCommand->selectRow(1);
     
-/*    if(commandEdited) //08:46
+/*    if(commandEdited)
     {
         commandEdited=false;
         return;
@@ -788,7 +796,7 @@ void CommandSettings::searchCommandList()
     }
 
         //QMessageBox::information(this, "commandsettings", "searchCommandList33");
-  //  showAllCommands();    //16:51
+  //  showAllCommands();
     
 	QString searchText = ui.leSearchCommand->text();
 	twCommand->clearContents();
@@ -809,7 +817,7 @@ void CommandSettings::searchCommandList()
             else if (ctype == type)
                 strType = tr("Sonderzeichen");
             else strType = tr("Programme");
-            if((ui.cbShowCommand->currentIndex()==0) || (strType==ui.cbShowCommand->currentText())) //16:52
+            if((ui.cbShowCommand->currentIndex()==0) || (strType==ui.cbShowCommand->currentText()))
             {
                 counter ++;
                 twCommand->setRowCount(counter);
@@ -837,10 +845,8 @@ void CommandSettings::searchCommandList()
 */
 void CommandSettings::importNewProgram()
 {
-        importProgramWizard->show();
-        return;
-
-
+    //importProgramWizard->show();
+    //return;
 
     //QMessageBox::information(this, "commandsettings", "importNewProgram");
     bool checked = ui.pbImportProgram->isChecked();
@@ -889,10 +895,10 @@ void CommandSettings::importNewProgram()
     ui.cbShowCommand->setDisabled(checked);
     twCommand->setDisabled(checked);
     
-//     if(checked)
-//         importProgramWizard->show();
-//     else
-//         importProgramWizard->hide();
+     if(checked)
+         importProgramWizard->show();
+     else
+         importProgramWizard->hide();
 }
 
 /**
@@ -981,12 +987,14 @@ bool CommandSettings::commandNameExists(QString name, int prevRow)
             {
                 twCommand->selectColumn(0);
                 twCommand->selectRow(prevRow);
-                twCommand->setCurrentCell(prevRow,0);   //10:31
+                twCommand->setCurrentCell(prevRow,0);
                 twCommand->editItem(twCommand->item(prevRow, 0));
                 commandEdited=true;
-                return true;    //10:14
+                ui.pbImportProgram->setChecked(false);
+                ui.pbImportPlace->setChecked(false);
+                return true;
             }
-            //return true;      //10:14
+            //return true; 
         }
     }
     return false;
@@ -1013,12 +1021,14 @@ bool CommandSettings::commandValueExists(QString value, int prevRow)
                 twCommand->editItem(twCommand->item(prevRow, 2));
                 twCommand->setCurrentCell(prevRow,0);  //10:35
                 commandEdited=true;
+                ui.pbImportProgram->setChecked(false);
+                ui.pbImportPlace->setChecked(false);
                 return true;
              }
             //return true;
         }
     }
-    // commandEdited=false;
+    //commandEdited=false;
     return false;
 }
 
@@ -1061,6 +1071,8 @@ bool CommandSettings::allCommandValuesSet(int prevRow)
 			twCommand->editItem(twCommand->item(prevRow, 0));
             twCommand->setCurrentCell(prevRow,0);  //10:35
             commandEdited=true;
+            ui.pbImportProgram->setChecked(false);
+            ui.pbImportPlace->setChecked(false);
 		 }
 		 return false;
 	 }
@@ -1107,6 +1119,7 @@ void CommandSettings::deactivateCB(int prevRow)
             twCommand->item(prevRow,0)->setData(Qt::UserRole, twCommand->item(prevRow,0)->text());
         }
 	}
+    commandEdited = false;
 }
 
 /**
@@ -1117,8 +1130,19 @@ void CommandSettings::deactivateCB(int prevRow)
 void CommandSettings::setWidgetsDisabled()
 {
     //QMessageBox::information(this, "commandsettings", "setWidgetsDisabled");
-    ui.pbImportProgram->setChecked(false);
+/*    if(ui.pbImportProgram->isChecked())
+    {
+        importProgramWizard = new ImportProgramWizard();
+    }
+    else if(ui.pbImportPlace->isChecked())
+    {
+        importPlaceWizard = new ImportPlaceWizard();
+    }*/
     
+    ui.pbImportProgram->setChecked(false);
+    ui.pbImportPlace->setChecked(false);
+    
+    ui.pbImportProgram->setDisabled(false);
     ui.pbImportPlace->setDisabled(false);
     ui.pbNewCommand->setDisabled(false);
     ui.pbEditCommand->setDisabled(false);
@@ -1191,7 +1215,9 @@ void CommandSettings::importNewPlace()
       
     twCommand->setCurrentCell(0,0);
     if(commandEdited)
+    {
         return;
+    }
     ui.leSearchCommand->clear();
     
     showAllCommands();

@@ -85,6 +85,8 @@ public slots:
 	void show();
 	void hide();
 	void showImportDictDialog();
+    void hideTbEditModel();
+    void setTbEditModelVisible();
 
 public:
 	WordListView(QWidget *parent);

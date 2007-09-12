@@ -433,6 +433,25 @@ void WordListView::initializeItems()
 	this->readVocab();
 }
 
+/**
+ * @brief Hides the tab (editModel), until the pbKeyed Button is checked and the password where given
+ *
+ * @autor Susanne Tschernegg
+ */
+void WordListView::hideTbEditModel()
+{
+    ui.twCurrentAction->removeTab(0);
+}
+
+/**
+ * @brief Sets the tab (editModel) visible, until the pbKeyed Button is unchecked
+ *
+ * @autor Susanne Tschernegg
+ */
+void WordListView::setTbEditModelVisible()
+{
+    ui.twCurrentAction->insertTab(0,ui.tbEditModel, tr("Wortliste ändern"));
+}
 
 
 /**

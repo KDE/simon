@@ -15,6 +15,9 @@
 #include <QWizardPage>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QHBoxLayout>
 
 /**
 	@author Susanne Tschernegg
@@ -34,9 +37,21 @@ public:
 
         ~RemotePlacePage();
 
+        QString getPlacePath();
+
 private:
-        QVBoxLayout *vboxLayout;
-        QLabel *label;
+        QComboBox *cbTyp;
+        QLabel *lAdress;
+        QLineEdit *leHost;
+        QLabel *lUser;
+        QLineEdit *leUser;
+        QLabel *lPassword;
+        QLineEdit *lePassword;
+
+        void setWidgetsVisible(bool visible);
+
+private slots:
+        void writeTyp();
 };
 
 #endif

@@ -164,8 +164,7 @@ void SystemView::registerControl(SystemWidget* control)
 	//item gets automatically added to the list widget if given the parent
 	//please ignore this compiler warning and
 	//DO NOT REMOVE THIS
-	QListWidgetItem *newItem = new QListWidgetItem(control->getIcon(), 
-				control->getTitle(), selectControl);
+	QListWidgetItem *newItem = new QListWidgetItem(control->getIcon(), control->getTitle(), selectControl);
 
 }
 

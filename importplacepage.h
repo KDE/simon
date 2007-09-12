@@ -12,16 +12,15 @@
 #ifndef IMPORTPLACEPAGE_H
 #define IMPORTPLACEPAGE_H
 
+#include "configureplacepage.h"
 #include <QWizardPage>
 #include <QLabel>
-#include <QProgressBar>
+#include <QObject>
 #include <QVBoxLayout>
+#include <QProgressBar>
 #include "command.h"
-#include "xmlcommand.h"
 
-/**
-	@author Susanne Tschernegg
-*/
+
 /**
  * \class $CLASSNAME
  * \author Susanne Tschernegg
@@ -32,23 +31,22 @@
 class ImportPlacePage : public QWizardPage
 {
     Q_OBJECT
+    
+signals:
+   void commandCreated(Command*);
+    
 public:
         ImportPlacePage(QWidget* parent);
 
         ~ImportPlacePage();
 
-        XMLCommand *commandLoader;
+        QString getPlacePath();
+        bool isComplete() const;
         void createCommand(QString name, QString value);
 
 private:
-        QVBoxLayout *vboxLayout;
-        QLabel *label;
-        QProgressBar *progressbar;
-
-        virtual bool isComplete() const;
-
- signals:
-   void commandCreated(Command *command);
+    QLabel *label;
+    QProgressBar *progressbar;
 
 };
 

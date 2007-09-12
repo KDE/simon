@@ -297,4 +297,27 @@ TrainingView::~TrainingView()
 {
 }
 
+/**
+ * @brief to hide the settings
+ *
+ *	@author Susanne Tschernegg
+ */
+void TrainingView::hideSettings()
+{
+    ui.pbDelText->hide();
+    ui.pbImportText->hide();
+    ui.pbImportDir->hide();
+}
+
+/**
+ * @brief to set the settings visible
+ *
+ *	@author Susanne Tschernegg
+ */
+void TrainingView::setSettingsVisible()
+{
+    ui.pbDelText->show();
+    ui.pbImportText->show();
+    ui.pbImportDir->show();
+}
 
