@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>452</width>
-    <height>365</height>
+    <width>463</width>
+    <height>452</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -16,6 +16,45 @@
    <iconset resource="../simon.qrc" >:/images/icons/computer.svg</iconset>
   </property>
   <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QGroupBox" name="gbPassword" >
+     <property name="title" >
+      <string>Passwort</string>
+     </property>
+     <property name="flat" >
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" >
+      <item>
+       <widget class="QLabel" name="lbPassword" >
+        <property name="text" >
+         <string>Passwort:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lePassword" >
+        <property name="echoMode" >
+         <enum>QLineEdit::Password</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item>
     <widget class="QGroupBox" name="gbGeneral" >
      <property name="title" >

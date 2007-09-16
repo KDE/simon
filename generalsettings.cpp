@@ -42,6 +42,8 @@ bool GeneralSettings::apply()
 	Settings::set("AskBeforeExit", ui.cbAskBeforeExit->isChecked());
 	Settings::set("AutoConnect", ui.cbAutoConnect->isChecked());
 
+	//password
+	Settings::set("Password", ui.lePassword->text());
 
 	//paths
 	Settings::set("PathToCommands", ui.leCommands->text());
@@ -81,6 +83,8 @@ bool GeneralSettings::init()
 	ui.cbAskBeforeExit->setChecked(Settings::get("AskBeforeExit").toBool());
 	ui.cbAutoConnect->setChecked(Settings::get("AutoConnect").toBool());
 
+	//password
+	ui.lePassword->setText(Settings::get("Password").toString());
 
 	//paths
 	ui.leCommands->setText(Settings::get("PathToCommands").toString());

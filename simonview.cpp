@@ -150,7 +150,6 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
     ui.pbKeyed->setCheckable(true);
     hideSettings();
     
-    Settings::set("Password", "simon"); //TODO: set the password in the "FirstRunWizard"
     
     connect(ui.pbKeyed, SIGNAL(clicked(bool)), this, SLOT(checkSettingState()));
 }

@@ -12,6 +12,7 @@
         <file>images/icons/applications-office.svg</file>
         <file>images/icons/applications-other.svg</file>
         <file>images/icons/applications-system.svg</file>
+        <file>images/icons/table.svg</file>
         <file>images/icons/audio-x-generic.svg</file>
         <file>images/icons/bookmark-new.svg</file>
         <file>images/icons/computer.svg</file>
@@ -40,8 +41,8 @@
         <file>images/icons/preferences-desktop-keyboard-shortcuts.svg</file>
         <file>images/icons/process-stop.svg</file>
         <file>images/icons/system-file-manager.svg</file>
+        <file>images/icons/system-lock-screen.svg</file>
         <file>images/icons/system-log-out.svg</file>
-        <file>images/icons/table.svg</file>
         <file>images/icons/terminal.svg</file>
         <file>images/icons/text-editor.svg</file>
         <file>images/icons/view-refresh.svg</file>

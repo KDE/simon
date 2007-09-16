@@ -897,7 +897,13 @@
            <string/>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/directX.png</iconset>
+           <iconset resource="../simon.qrc" >:/images/icons/system-lock-screen.svg</iconset>
+          </property>
+          <property name="iconSize" >
+           <size>
+            <width>48</width>
+            <height>48</height>
+           </size>
           </property>
          </widget>
         </item>
