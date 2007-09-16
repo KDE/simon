@@ -55,6 +55,7 @@ signals:
 	void disconnected();
 	void connectionError(QString error);
 public slots:
+	void click(int x, int y);
 	void connectToJulius();
 	void disconnectFromJulius();
 	void connectedToJulius();
@@ -68,6 +69,8 @@ private:
 	JuliusControl *julius; //!< Julius Backend
 	RunCommand *run; //!< Runs the commands
 	EventHandler *eventHandler; //!< simulates keystrokes,etc.
+
+	ShortcutControl *shortcutControl;
 	
 	QStringList juliusdConnectionsToTry;
 	QStringList juliusdConnectionErrors;

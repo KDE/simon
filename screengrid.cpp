@@ -15,60 +15,126 @@
 #include <QPushButton>
 #include <QDesktopWidget>
 #include <QKeyEvent>
-#include <QMessageBox>
+#include <QCoreApplication>
+#include <QApplication>
+#include <QLabel>
 #include <QDebug>
+#include <QBrush>
+#include <QRect>
+#include <QColor>
+#include "settings.h"
 
 ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent, 
 		Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint)
 {
-	QGridLayout *test = new QGridLayout(this);
-	test->setSpacing(0);
+	buttons = new QGridLayout();
+	this->setContentsMargins(0,0,0,0);
+	buttons->setSpacing(0);
 	QSize desksize = QDesktopWidget().screenGeometry().size();
+	this->resize(desksize);
+	QCoreApplication::processEvents();
 	short btnNr=1;
+
+	QBrush transbrush(QColor(241,241,241,100));
 	for (int i=0; i < 3; i++)
 	{
 		for (int j=0; j<3; j++)
 		{
 			QPushButton *btn = new QPushButton(QString::number(btnNr), this);
-// 			btn->setFlat(true);
-			QFont f = btn->font();
-			f.setPointSize(32);
-			f.setBold(true);
-			btn->setFont(f);
+
+			QPalette pal = btn->palette();
+			pal.setBrush(QPalette::Button, transbrush);
+			btn->setPalette(pal);
+
 			btn->setMinimumHeight(desksize.height()/3);
+			btn->setMinimumWidth(1);
+			setButtonFontSize(btn);
 			connect(btn, SIGNAL(clicked()), this, SLOT(regionSelected()));
-			test->addWidget(btn, i, j);
+			buttons->addWidget(btn, i, j);
 			btnNr++;
 		}
 	}
-	this->resize(desksize);
-	this->setWindowOpacity(0.55);
+
+	
+	if (!Settings::get("Desktopgrid/RealTransparency").toBool())
+	{
+		background = new QLabel(this);
+		background->lower();
+		deskShot = makeFakeTransparency();
+		background->setPixmap(deskShot);
+		background->move(0,0);
+		background->resize(this->size());
+	} else {
+		this->setWindowOpacity(0.55);
+	}
+
+	buttons->setGeometry(geometry());
+	
+	
+	buttons->setMargin(0);
+}
+
+
+void ScreenGrid::setButtonFontSize(QPushButton *btn)
+{
+	QFont f = btn->font();
+	f.setPointSize(btn->height()/4-2);
+	btn->setFont(f);
+}
+
+QPixmap ScreenGrid::makeFakeTransparency()
+{
+	return QPixmap::grabWindow(QApplication::desktop()->winId()).copy(geometry());
+	
+	
 }
 
 void ScreenGrid::regionSelected()
 {
-// 	QMessageBox::critical(this, "sidfjsidjf", "sdijsfoij");
 	QPushButton *senderBtn = dynamic_cast<QPushButton*>(sender());
 	if (!senderBtn) return;
+
+	if ((senderBtn->width() <= 20) && (senderBtn->height() <= 20))
+	{
+		int x = this->x()+senderBtn->x()+(senderBtn->width()/2);
+		int y = this->y()+senderBtn->y()+(senderBtn->height()/2);
+		emit click(x, y);
+		return;
+	}
 	QSize btnSize = senderBtn->size();
 	QPoint pos = senderBtn->pos();
 	pos.setX(pos.x()+this->x());
 	pos.setY(pos.y()+this->y());
-	qDebug() << pos.y()+this->y();
 
 	int btnHeight = senderBtn->height()/3;
 
 	for (int i=0; i < this->children().count(); i++)
 	{
 		QPushButton *btn = dynamic_cast<QPushButton*>(children().at(i));
-		if (btn)
+		if (btn) {
+			setButtonFontSize(btn);
 			btn->setMinimumHeight(btnHeight);
+			
+		}
 	}
 
+	this->setMaximumWidth(btnSize.width());
+	this->setMaximumHeight(btnSize.height());
 
-	this->setMaximumSize(btnSize);
+	
+	buttons->setGeometry(QRect(0, 0, geometry().width(), geometry().height()));
+	
 	this->move(pos);
 	
+	repaint();
+
+	
+	if (!Settings::get("Desktopgrid/RealTransparency").toBool())
+	{
+		background->resize(size());
+		background->move(0,0);
+		background->setPixmap(deskShot.copy(geometry()));
+	}
 }
 
 void ScreenGrid::keyPressEvent(QKeyEvent *event)

@@ -25,9 +25,10 @@
 class CoreEvents{
 public:
 	virtual void sendChar(char key)=0;
-	//virtual void sendKey(unsigned short key /*unicode representation*/)=0;
+	virtual void click(int x, int y)=0;
+	virtual void sendKey(unsigned short key /*unicode representation*/)=0;
 	virtual void setModifierKey(int virtualKey, bool once)=0;
-	//virtual void sendShortcut(Shortcut shortcut)=0;
+	virtual void sendShortcut(Shortcut shortcut)=0;
 // 	virtual void sendSpecial(int modifiers=0, int action=0, int fkeys=0, 
 // 			int movement=0, char key='_')=0;
 	virtual void unsetModifier(int virtualKey)=0;

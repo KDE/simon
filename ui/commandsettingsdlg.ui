@@ -111,7 +111,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="leSchluesselWort" />
+        <widget class="QLineEdit" name="leKeyword" />
        </item>
       </layout>
      </item>

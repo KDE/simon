@@ -11,6 +11,7 @@
 //
 //
 #include "commandsettings.h"
+#include <QVariant>
 #include "command.h"
 #ifdef __WIN32
 #include <windows.h>
@@ -61,7 +62,7 @@ CommandSettings::CommandSettings(QWidget* parent): SystemWidget(tr("Kommandos"),
     connect(importProgramWizard, SIGNAL(finished(int)), this, SLOT(setWidgetsDisabled()));
     connect(this, SIGNAL(changeExistingName(bool)), importProgramWizard, SLOT(changeName(bool)));
     connect(twCommand, SIGNAL(returnPressed()), this, SLOT(checkValuesAfterReturnPressed()));
-    connect(ui.leSchluesselWort, SIGNAL(textChanged(const QString &)),this,SLOT(checkValuesAfterReturnPressed()));
+//     connect(ui.leSchluesselWort, SIGNAL(textChanged(const QString &)),this,SLOT(checkValuesAfterReturnPressed()));
     connect(ui.pbClearSearchCommand, SIGNAL(clicked()),this,SLOT(checkValuesAfterReturnPressed()));
     connect(ui.pbImportPlace, SIGNAL(clicked()), this, SLOT(importNewPlace()));
     connect(importPlaceWizard, SIGNAL(commandCreated(Command*)), this, SLOT(insertCommand(Command*)));   
@@ -170,6 +171,8 @@ bool CommandSettings::apply()
 	bool success = commandLoader->save(Settings::get("PathToCommands").toString());
     emit commandsChanged();
     commandEdited = false;
+
+	Settings::set("Commands/Keyword", ui.leKeyword->text());
     return success;
 }
 
@@ -219,6 +222,8 @@ bool CommandSettings::init()
      //   twCommand->setCurrentCell(0,0);
     //connect ( ui.twCommand, SIGNAL (itemChanged(QTableWidgetItem *)), this, SLOT(CommandValues()));
     //connect ( ui.twCommand, SIGNAL (cellChanged(int, int)), this, SLOT(checkAndAddCommandValues()));
+
+	ui.leKeyword->setText(Settings::get("Commands/Keyword").toString());
     commandEdited = false;  //03.09.
     return true;
 }
@@ -889,7 +894,7 @@ void CommandSettings::importNewProgram()
     ui.pbNewCommand->setDisabled(checked);
     ui.pbEditCommand->setDisabled(checked);
     ui.pbDeleteCommand->setDisabled(checked);
-    ui.leSchluesselWort->setDisabled(checked);
+    ui.leKeyword->setDisabled(checked);
     ui.leSearchCommand->setDisabled(checked);
     ui.pbClearSearchCommand->setDisabled(checked);
     ui.cbShowCommand->setDisabled(checked);
@@ -967,7 +972,7 @@ bool CommandSettings::commandNameExists(QString name, int prevRow)
     {
         if((i!=prevRow) && (!twCommand->item(i, 0)->data(Qt::UserRole).isNull()) && (QString::compare(name, twCommand->item(i, 0)->data(Qt::UserRole).toString(), Qt::CaseInsensitive)==0))
         {
-            int result = QMessageBox::information(this, tr("Name existiert bereits"), tr("Dieser Name wurde bereits für ein anderes Kommando verwendet!\nBitte geben Sie einen anderen Namen für dieses Kommando ein.\n\nWollen Sie das Kommando löschen? (Klickes Sie Nein, um den Namen jetzt zu ändern)"),
+            int result = QMessageBox::information(this, tr("Name existiert bereits"), tr("Dieser Name wurde bereits für ein anderes Kommando verwendet!\nBitte geben Sie einen anderen Namen für dieses Kommando ein.\n\nWollen Sie das Kommando löschen? (Klicken Sie Nein, um den Namen jetzt zu ändern)"),
                 QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
             if (result == QMessageBox::Yes)
              {
@@ -1045,7 +1050,7 @@ bool CommandSettings::allCommandValuesSet(int prevRow)
     if((twCommand->item(prevRow, 0)->text()==NULL)||(twCommand->item(prevRow, 0)->text()==NULL)||
 		(twCommand->item(prevRow,0)->text().trimmed()=="")||(twCommand->item(prevRow,2)->text().trimmed()==""))
 	{
-		int result = QMessageBox::question(this, tr("Leeres Kommandofeld"), tr("Dieses Kommando wurde nicht vollständig ausgefüllt.\nJedes Kommando muss einen Namen, Wert und Typ besitzen.\n\nWollen Sie diesen Eintrag jetzt löschen? (Klicken Sie Nein, um das Kommando jetzt zu vervollständigen)"),
+		int result = QMessageBox::question(this, tr("Leeres Kommandofeld"), tr("Dieses Kommando wurde nicht vollständig ausgef?lt.\nJedes Kommando muss einen Namen, Wert und Typ besitzen.\n\nWollen Sie diesen Eintrag jetzt löschen? (Klicken Sie Nein, um das Kommando jetzt zu vervollständigen)"),
 			QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
 
 		 if (result == QMessageBox::Yes) 
@@ -1147,7 +1152,7 @@ void CommandSettings::setWidgetsDisabled()
     ui.pbNewCommand->setDisabled(false);
     ui.pbEditCommand->setDisabled(false);
     ui.pbDeleteCommand->setDisabled(false);
-    ui.leSchluesselWort->setDisabled(false);
+    ui.leKeyword->setDisabled(false);
     ui.leSearchCommand->setDisabled(false);
     ui.pbClearSearchCommand->setDisabled(false);
     ui.cbShowCommand->setDisabled(false);
@@ -1226,7 +1231,7 @@ void CommandSettings::importNewPlace()
     ui.pbNewCommand->setDisabled(checked);
     ui.pbEditCommand->setDisabled(checked);
     ui.pbDeleteCommand->setDisabled(checked);
-    ui.leSchluesselWort->setDisabled(checked);
+    ui.leKeyword->setDisabled(checked);
     ui.leSearchCommand->setDisabled(checked);
     ui.pbClearSearchCommand->setDisabled(checked);
     ui.cbShowCommand->setDisabled(checked);

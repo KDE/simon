@@ -1,4 +1,11 @@
 <shortcuts>
+ <shortcut name="test" >
+  <modifiers>8</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>&lt;</charkey>
+ </shortcut>
  <shortcut name="Enter" >
   <modifiers>2</modifiers>
   <actionkeys>0</actionkeys>

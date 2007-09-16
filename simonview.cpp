@@ -145,9 +145,6 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	resizeMainButtonContentsToWindow();
 
 	connect(systemDialog, SIGNAL(commandsChanged()), runDialog, SLOT(loadCommands()));
-
-// 	ScreenGrid *sg = new ScreenGrid();
-// 	sg->show();
     
     //switches, if the settings are shown or not
     ui.pbKeyed->setCheckable(true);

@@ -27,6 +27,7 @@
 #include "networksettings.h"
 #include "commandsettings.h"
 #include "shortcutsettings.h"
+#include "desktopgridconfiguration.h"
 
 /**
  *  \author Peter Grasch
@@ -42,6 +43,7 @@ SystemView::SystemView(ShortcutControl *shortcutctrl, QWidget* parent): InlineWi
 	registerControl(new NetworkSettings(this));
 	registerControl(commandsSettings);
 	registerControl(new ShortcutSettings(shortcutctrl, this));
+	registerControl(new DesktopGridConfiguration(this));
 	registerControl(new LogView(this));
 	registerControl(new ExternalProgramManager(this));
 	registerControl(new Revert(this));

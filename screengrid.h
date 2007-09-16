@@ -13,7 +13,11 @@
 #define SCREENGRID_H
 
 #include <QWidget>
+// #define FAKETRANSPARENCY
 
+class QPushButton;
+class QGridLayout;
+class QLabel;
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
@@ -21,11 +25,23 @@ class ScreenGrid : public QWidget
 {
 Q_OBJECT
 
+signals:
+	void click(int x, int y);
 private slots:
 	void regionSelected();
+private:
+	QGridLayout *buttons;
+
+// #ifdef FAKETRANSPARENCY
+	QLabel *background;
+	QPixmap deskShot;
+// #endif
+
+	QPixmap makeFakeTransparency();
 public:
     ScreenGrid(QWidget* parent=0);
     void keyPressEvent(QKeyEvent *event);
+    void setButtonFontSize(QPushButton *btn);
 
     ~ScreenGrid();
 

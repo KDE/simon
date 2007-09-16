@@ -36,11 +36,11 @@ class ShortcutControl;
 class EventHandler{
 private:
 	CoreEvents *coreEvents; //!< The event backend
-	ShortcutControl *shortcutControl;
-	bool capslock; 
+	bool capslock;
 public:
-	EventHandler(ShortcutControl *shortcutControl);
-	
+	EventHandler();
+	void click(int x, int y);
+	void sendShortcut(Shortcut *shortcut);
 	void sendWord(QString word);
 	void sendKey(QChar key);
 	void setModifier(int virtualKey, bool once);

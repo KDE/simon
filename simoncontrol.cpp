@@ -23,8 +23,9 @@
 #include "settings.h"
 #include <QVariant>
 #include <QDebug>
-
-#define COMMANDIDENT "simon"
+#include <QMessageBox>
+#include "shortcutcontrol.h"
+#include "screengrid.h"
 
 /**
  * @brief Constructor
@@ -38,7 +39,17 @@ SimonControl::SimonControl(ShortcutControl *shortcutControl) : QObject ()
 	this->active=false;
 	this->julius = new JuliusControl();
 	this->run = new RunCommand(Settings::get("PathToCommands").toString());
-	eventHandler = new EventHandler(shortcutControl);
+	eventHandler = new EventHandler();
+
+	if (!shortcutControl) shortcutControl = new ShortcutControl();
+
+	this->shortcutControl = shortcutControl;
+
+	if (!this->shortcutControl->readShortcuts())
+	{
+		QMessageBox::critical(0, "Dateifehler", 
+			"Beim auslesen der Tastenkürzel ist ein Fehler aufgetreten.");
+	}
 	
 	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));
 	QObject::connect(julius, SIGNAL(disconnected()), this, SLOT(disconnectedFromJulius()));
@@ -112,13 +123,35 @@ void SimonControl::disconnectFromJulius()
  */
 void SimonControl::wordRecognised(QString word)
 {
-	if (word.indexOf(COMMANDIDENT,0,Qt::CaseInsensitive) == 0)
+	QString keyword = Settings::get("Commands/Keyword").toString();
+	if (word.indexOf(keyword,
+		0,Qt::CaseInsensitive) == 0)
 	{
-		word = word.replace(0, QString(COMMANDIDENT).length()+1,"");
+		word = word.replace(0, QString(keyword).length()+1,"");
 		SimonInfo::showMessage(word,2000);
-		run->run(word);
+	
+		if (word.startsWith(Settings::get("Desktopgrid/Trigger").toString()))
+		{
+			ScreenGrid *sg = new ScreenGrid();
+			connect(sg, SIGNAL(click(int, int)), this, SLOT(click(int, int)));
+			sg->show();
+		}
+		if (shortcutControl && (shortcutControl->nameExists(word)))
+		{
+			eventHandler->sendShortcut(shortcutControl->getShortcut(word));
+		} else 
+			run->run(word);
 	}
-	else eventHandler->sendWord(word);
+	else {
+		eventHandler->sendWord(word);
+	}
+}
+
+void SimonControl::click(int x, int y)
+{
+	if (dynamic_cast<ScreenGrid*>(sender()))
+		delete sender();
+	eventHandler->click(x,y);
 }
 
 /**

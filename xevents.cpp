@@ -159,6 +159,21 @@ void XEvents::sendShortcut(Shortcut shortcut)
 	unsetUnneededModifiers();
 }
 
+/**
+ * \brief Clicks the coordinates with a simple LMB-Click and release
+ * \author Peter Grasch
+ * @param x The x coordinate
+ * @param y The y coordinate
+ */
+void XEvents::click(int x, int y)
+{
+	//IMPLEMENT ME
+	if (!display) return;
+	XTestFakeMotionEvent(display, 0, x, y, 10);
+	XTestFakeButtonEvent(display, 1, true, 10);
+	XTestFakeButtonEvent(display, 1, false, 10);
+	XFlush(display);
+}
 
 /**
  * \brief Resolves the string to an appropriate keysym and sends it using pressKey(...)

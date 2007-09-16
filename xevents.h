@@ -54,12 +54,12 @@ public:
 	XEvents(char* displayName=":0.0");
 	Display* openDisplay(char* displayName);
 	
+	void click(int x, int y);
 	void sendChar(char key);
 	void sendKey(unsigned short key);
 	void setModifierKey(int virtualKey, bool once);
 	void unsetUnneededModifiers();
 	void sendShortcut(Shortcut shortcut);
-// 	void sendSpecial(int modifiers=0, int action=0, int fkeys=0, int movement=0, char key='_');
 	void unsetModifier(int virtualKey);
 	
 	~XEvents();

@@ -20,7 +20,7 @@
  * 
  * @author Peter Grasch 
  */
-EventHandler::EventHandler(ShortcutControl *shortcutControl)
+EventHandler::EventHandler()
 {
 #ifdef linux
 	coreEvents= (CoreEvents*) new XEvents();
@@ -28,23 +28,28 @@ EventHandler::EventHandler(ShortcutControl *shortcutControl)
 #ifdef __WIN32
 	coreEvents= (CoreEvents*) new WindowsEvents();
 #endif
-	this->shortcutControl = shortcutControl;
-	if (!this->shortcutControl) this->shortcutControl = new ShortcutControl();
-	if (!this->shortcutControl->readShortcuts())
-	{
-		QMessageBox::critical(0, "Dateifehler", 
-			"Beim auslesen der Tastenkürzel ist ein Fehler aufgetreten.");
-	}
 	
 	this->capslock = false;
 }
 
 /**
+ * \brief Tells coreEvents to click the coordinates with a simple LMB-Click and release
+ * \author Peter Grasch
+ * @param x The x coordinate
+ * @param y The y coordinate
+ */
+void EventHandler::click(int x, int y)
+{
+	if (!coreEvents) return;
+	coreEvents->click(x,y);
+}
+
+/**
  * @brief Sends a word to the underlying Core Eventhandlers
- * 
+ *
  * Splits up the word in characters and sends every single one 
  * seperate by using sendKey()
- * 
+ *
  * @param QString word
  * The word to send
  * 
@@ -59,17 +64,22 @@ void EventHandler::sendWord(QString word)
 	Sleep(1000);
 	#endif
 
-	Shortcut *test = this->shortcutControl->getShortcut(word);
-	if (test)
-	{
-	//	coreEvents->sendShortcut(*test);
-		return;
-	}
 
 	for (int i=0; i < word.size();i++)
 	{
 		sendKey(word.at(i));
 	}
+}
+
+/**
+ * \brief Sends the shortcut to the Backends
+ * \author Peter Grasch
+ * @param shortcut The shortcut to send
+ */
+void EventHandler::sendShortcut(Shortcut *shortcut)
+{
+	if (shortcut)
+		coreEvents->sendShortcut(*shortcut);
 }
 
 /**
@@ -98,7 +108,7 @@ void EventHandler::sendKey(QChar key)
 		c+=32;
 	}
 #endif
-	//coreEvents->sendKey(c);
+	coreEvents->sendKey(c);
 
 	coreEvents->unsetModifier(KeyShift);
 }

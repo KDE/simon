@@ -18,6 +18,7 @@
 #include <QDir>
 #include <QDebug>
 #include <QProcess>
+#include <QLocale>
 
 DesktopReader::DesktopReader(QString path) : IniReader(path)
 {
@@ -27,10 +28,26 @@ DesktopReader::DesktopReader(QString path) : IniReader(path)
 Program* DesktopReader::readDesktopFile(QString path)
 {
 	if (!load(path)) return NULL;
-	
-	QString name = getKey("Name");
+
+	QString locale = QLocale::system().name().remove(2,3);
+
+	QString name;
+
+	QString localename = QString("Name[%1]").arg(locale);
+	if (!getKey(localename).isEmpty())
+		name = getKey(localename);
+	else name = getKey("Name");
+
 	QString command = getKey("Exec");
-	QString desc = getKey("GenericName");
+
+	QString desc;
+	QString localeGenDesc = QString("GenericName[%1]").arg(locale);
+	if (!getKey(localename).isEmpty())
+		desc = getKey(localeGenDesc);
+	else
+		desc = getKey("GenericName");
+
+
 	QString cats = getKey("Categories");
 	QString workingDir = getKey("Path");
 	this->iconname = getKey("Icon");
