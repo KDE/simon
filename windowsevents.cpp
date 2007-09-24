@@ -134,6 +134,24 @@ void WindowsEvents::sendKey(int key)
 	keybd_event(key,0,0,0);	
 }
 
+
+
+void WindowsEvents::click(int x, int y)
+{
+	//TODO Implement me!
+}
+
+void WindowsEvents::sendKey(unsigned short key /*unicode representation*/)
+{
+
+	//TODO Implement me!
+}
+
+void WindowsEvents::sendShortcut(Shortcut shortcut)
+{
+	//TODO Implement me!
+}
+
 void WindowsEvents::sendChar(char key)
 {	
 	//QMessageBox::critical(NULL,"","");
