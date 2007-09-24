@@ -242,6 +242,15 @@ void TrainingView::cancelReading()
 }
 
 /**
+ * \brief Emits the displayMe Signal
+ * \author Peter Grasch
+ */
+void TrainingView::exec()
+{
+	emit displayMe();
+}
+
+/**
  * \brief Cancels the current Training
  * Tells the TrainingManager to abort building the new model (and to clean up)
  * It also goes back to the main list of trainingtexts

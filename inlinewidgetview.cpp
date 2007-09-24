@@ -16,6 +16,7 @@
 #include <QBrush>
 #include <QMessageBox>
 #include <QKeyEvent>
+#include <QCoreApplication>
 
 /**
  * \brief Constructor - inits the gui
@@ -44,6 +45,15 @@ InlineWidgetView::InlineWidgetView(QWidget* parent): QTabWidget(parent)
 void InlineWidgetView::registerPage(InlineWidget *page)
 {
 	if(!page) return;
+
+	for (int i=0; i < count(); i++)
+	{
+		if (widget(i) == page){
+			QCoreApplication::processEvents();
+			setCurrentIndex(i);
+			return;
+		}
+	}
 
 	int newpage = addTab(page, page->getTitle());
 	setTabIcon(newpage, page->getIcon());

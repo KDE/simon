@@ -43,6 +43,7 @@ class TrainingView : public InlineWidget {
 
 signals:
 	void trainingCompleted();
+	void displayMe();
 
 private:
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
@@ -70,7 +71,7 @@ public slots:
 	void startTraining();
 	void importDirectory();
 public:
-	
+	void exec();
     TrainingView(WordListView *wordlistView, QWidget *parent=0);
 	
     ~TrainingView();

@@ -110,7 +110,11 @@ void WordListView::importDict(WordList* list)
 void WordListView::suggestTraining()
 {
 	this->twVocab->sortItems(3);
-	for (int i=0; i<10; i++)
+	int toInsert = 10;
+	if (twVocab->rowCount() < toInsert) toInsert = twVocab->rowCount();
+
+	if (toInsert==0) QMessageBox::information(this, ("Keine Wörter in der Wortliste"), tr("Es sind nicht genügend Wörter im wörterbuch"));
+	for (int i=0; i<toInsert; i++)
 	{
 		this->twVocab->setCurrentItem(this->twVocab->item(i,0));
 		copyWordToTrain();
@@ -138,7 +142,6 @@ void WordListView::markWordToTrain(Word word)
  */
 void WordListView::filterListbyPattern(QString filter)
 {
-	QMessageBox::critical(this,"","1");
 	if (filter.isEmpty()) filter = ui.leSearch->text();
 	WordList *vocab = this->wordListManager->getWordList();
 	
@@ -163,8 +166,12 @@ void WordListView::filterListbyPattern(QString filter)
  */
 void WordListView::trainList()
 {
-	//TODO CODE CHECK 
 	if (!trainView) return;
+	if (this->trainingwordlist.count()==0)
+	{
+		QMessageBox::critical(this, tr("Keine Wörter selektiert"), tr("Bitte wählen Sie zuerst ein paar Wörter für das spezielle Training aus.\nZiehen Sie sie dazu von der großen Liste links in die kleine Liste oben rechts.\n\nWenn Sie generische Texte vorlesen wollen, gehen Sie bitte in das Allgemeine Training.\n(Der Punkt \"Trainieren\" links neben dem simon-Logo)."));
+		return;
+	}
 	trainView->trainWords(&trainingwordlist);
 	trainView->exec();
 }

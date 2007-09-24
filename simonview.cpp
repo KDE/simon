@@ -163,6 +163,8 @@ void SimonView::setupSignalSlots()
 	//Setting up Signal/Slots
 	QObject::connect(vuMeter, SIGNAL(level(int)), this, SLOT(setLevel(int)));
 	
+	QObject::connect(this->trainDialog, SIGNAL(displayMe()), this, SLOT(showTrainDialog()));
+
 	QObject::connect(ui.pbAddWord, SIGNAL(toggled(bool)), this, SLOT(showAddWordDialog(bool)));
 	QObject::connect(ui.pbEditWordList, SIGNAL(toggled(bool)), this, SLOT(showWordListDialog(bool)));
 	QObject::connect(ui.pbRunProgram, SIGNAL(toggled(bool)), this, SLOT(showRunDialog(bool)));
