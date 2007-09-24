@@ -700,7 +700,7 @@ void SimonView::checkSettingState()
 {
     if(ui.pbKeyed->isChecked())
     {
-        if(checkPassword())
+        if(!Settings::get("Passwordprotected").toBool() || checkPassword())
         {
             showSettings();
         }

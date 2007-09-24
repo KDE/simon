@@ -38,6 +38,8 @@ KDEProgramManager::KDEProgramManager()
 
 bool KDEProgramManager::loadPrograms()
 {
+
+
 	QStringList pathToDesktopFiles = getKDEDirs();
 
 	for (int i=0; i < pathToDesktopFiles.count(); i++)

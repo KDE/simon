@@ -44,7 +44,8 @@ FORMS += ui/main.ui \
          ui/externalprogramms.ui \
          ui/networksettingsdlg.ui \
  ui/shortcutsettingsdlg.ui \
- ui/desktopgridconfigurationdlg.ui
+ ui/desktopgridconfigurationdlg.ui \
+ ui/modelsettingsdlg.ui
 
 
 HEADERS += simonview.h \
@@ -146,7 +147,8 @@ importtrainingdirectoryworkingpage.h \
  passworddlg.h \
  remoteplacepage.h \
  chooseplacepage.h \
- desktopgridconfiguration.h
+ desktopgridconfiguration.h \
+ modelsettings.h
 
 
 
@@ -243,7 +245,8 @@ SOURCES += main.cpp \
  localplacepage.cpp \
  remoteplacepage.cpp \
  chooseplacepage.cpp \
- desktopgridconfiguration.cpp
+ desktopgridconfiguration.cpp \
+ modelsettings.cpp
 
 QT += network \
 xml 

@@ -43,6 +43,7 @@ bool GeneralSettings::apply()
 	Settings::set("AutoConnect", ui.cbAutoConnect->isChecked());
 
 	//password
+	Settings::set("Passwordprotected", ui.cbCheckPassword->isChecked());
 	Settings::set("Password", ui.lePassword->text());
 
 	//paths
@@ -84,6 +85,7 @@ bool GeneralSettings::init()
 	ui.cbAutoConnect->setChecked(Settings::get("AutoConnect").toBool());
 
 	//password
+	ui.cbCheckPassword->setChecked(Settings::get("Passwordprotected").toBool());
 	ui.lePassword->setText(Settings::get("Password").toString());
 
 	//paths

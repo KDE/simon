@@ -1,0 +1,13 @@
+[]		USE CASE(S): The user should know, if he changes any value, that it can?t work
+[]		USE CASE(S):
+[]
+[]
+[]
+USE CASE(S):		[USE CASE(S):]		USE CASE(S):
+-----		[-----]		-----
+TODO:		[TODO:]		TODO:
+[2007/08/22] BRIEF: IN SYSTEM/NETWORK THE USER SHOULD NOT BE ABLE TO CHANGE THE VALUES FROM "ADRESSE" AND "PORT" INTO FALSE VALUES (FE.: FOR THE PORT ANY LETTERS)		[[2007/08/22] BRIEF: in System/Network the user should not be able to change the values from "Adresse" and "Port" into false Values (fe.: for the port any letters)]		[2007/08/22] BRIEF: in System/Network the user should not be able to change the values from "Adresse" and "Port" into false Values (fe.: for the port any letters)
+[2007/08/27] BRIEF: DISPLAY FLAGS WHEN IMPORTING FROM WIKTIONARY REFLECTING THE LANGUAGE		[[2007/08/27] BRIEF: display flags when importing from wiktionary reflecting the language]		[2007/08/27] BRIEF: display flags when importing from wiktionary reflecting the language
+[YYYY/MM/DD] BRIEF:		[[YYYY/MM/DD] BRIEF:]		[YYYY/MM/DD] BRIEF:
+SENT-START		[SENT-START]		sil
+SENT-END		[SENT-END]		sil

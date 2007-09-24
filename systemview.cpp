@@ -28,6 +28,7 @@
 #include "commandsettings.h"
 #include "shortcutsettings.h"
 #include "desktopgridconfiguration.h"
+#include "modelsettings.h"
 
 /**
  *  \author Peter Grasch
@@ -39,6 +40,7 @@ SystemView::SystemView(ShortcutControl *shortcutctrl, QWidget* parent): InlineWi
 	setupUi(this);
 	CommandSettings *commandsSettings = new CommandSettings(this);
 	registerControl(new GeneralSettings(this));
+	registerControl(new ModelSettings(this));
 	registerControl(new SoundSettings(this));
 	registerControl(new NetworkSettings(this));
 	registerControl(commandsSettings);
@@ -116,6 +118,7 @@ void SystemView::setupUi(QWidget *parent)
 	QVBoxLayout *layLeft = new QVBoxLayout(0);
 
 	selectControl->setMaximumWidth(250);
+	selectControl->setMinimumHeight(260);
         selectControl->setIconSize(QSize(24,24));
 	help->setMaximumWidth(250);
 	layLeft->addWidget(selectControl);

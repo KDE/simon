@@ -210,18 +210,19 @@ QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataF
 			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht überschreiben. Bitte überprüfen Sie, ob Sie die nötigen Rechte besitzen.").arg(newFileName));
 			return NULL;
 		}
-			
-		int ret = QProcess::execute(Settings::get("Programs/Audio/Resample").toString()
-				+" "+dataFiles[i]+" -w -r 16000  "+newFileName + " resample");
+		
+		QString execStr = Settings::get("Programs/Audio/SoX").toString()
+				+" "+dataFiles[i]+" -w -c 1 -r 16000  "+newFileName + " vol 1.0 resample";
+		int ret = QProcess::execute(execStr);
 		if (ret)
 		{
 			//something went wrong
 			//resample always returns ERROR - crap
-			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 resamplen. Bitte ueberpruefen Sie ob Sie das Programm \"resample\" installiert haben und es im Suchpfad liegt und ob Sie all die noetigen Berechtigungen besitzen. (Rückgabewert %3)").arg(dataFiles[i]).arg(newFileName).arg(ret));
+			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 bearbeiten. Bitte ueberpruefen Sie ob Sie das Programm \"sox\" installiert haben, der Pfad in den Einstellungen richtig angegeben wurde und ob Sie all die nötigen Berechtigungen besitzen. (Rückgabewert %3) (Ausgefuehrtes Kommando: %4)").arg(dataFiles[i]).arg(newFileName).arg(ret).arg(execStr));
 			return NULL;
 		}
-		prog += 5;
-		pbMain->setValue(prog);
+		prog += 8;
+		pbMain->setValue(prog);/*
 		ret = QProcess::execute(Settings::get("Programs/Audio/Normalize").toString()+
 				   " "+newFileName);
 		if (ret)
@@ -232,7 +233,7 @@ QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataF
 		}
 		*newFiles << newFileName;
 		prog += 3;
-		pbMain->setValue(prog);
+		pbMain->setValue(prog);*/
 		QCoreApplication::processEvents();
 	}
 

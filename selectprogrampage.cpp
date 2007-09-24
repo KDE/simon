@@ -36,6 +36,11 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 	this->programManager = new WindowsProgramManager();
 #endif
 	ProgramCategoryList catList = programManager->readCategories();
+
+
+#ifdef linux
+	((KDEProgramManager*) this->programManager)->loadPrograms();
+#endif
 /*	for (int i=0; i < catList.count(); i++)
 	{
 		QString text = catList.at(i).getDescription()+":\n";
@@ -117,6 +122,7 @@ void SelectProgramPage::insertPrograms(ProgramList *programList)
     {
         lwItem = new QListWidgetItem(lwPrograms);
         lwItem->setText(programList->at(i).getName());
+	lwItem->setIcon(programList->at(i).getIcon());
         lwItem->setData(Qt::UserRole, programList->at(i).getExec());
     }
 }
@@ -129,13 +135,13 @@ void SelectProgramPage::insertPrograms(ProgramList *programList)
 void SelectProgramPage::searchForPrograms()
 {
     QString catName = lwCategories->currentItem()->text();
-    
     ProgramCategoryList catList = programManager->readCategories();
     for(int i=0; i<catList.count(); i++)
     {
         if(catName == catList.at(i).getName())
         {
-            insertPrograms(programManager->getPrograms(catList.at(i)));
+            ProgramList *pl = programManager->getPrograms(catList.at(i));
+            insertPrograms(pl);
             break;
         }
     }
