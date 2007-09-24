@@ -1,0 +1,173 @@
+//
+// C++ Implementation: modellsettings
+//
+// Description:
+//
+//
+// Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
+//
+// Copyright: See COPYING file that comes with this distribution
+//
+//
+#include "modelsettings.h"
+#include "settings.h"
+#include <QVariant>
+#include <QMessageBox>
+#include <QTableWidget>
+#include <QInputDialog>
+#include <QTableWidgetItem>
+
+ModelSettings::ModelSettings(QWidget* parent): SystemWidget(tr("Modelleinstellungen"), QIcon(":/images/icons/face-monkey.svg"), tr("Hier können Sie Einstellungen rund um das Sprachmodell einstellen"), parent)
+{
+	ui.setupUi(this);
+	connect(ui.pbAdd, SIGNAL(clicked()), this, SLOT(addFilter()));
+	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteFilter()));
+	connect(ui.tbUp, SIGNAL(clicked()), this, SLOT(moveUp()));
+	connect(ui.tbDown, SIGNAL(clicked()), this, SLOT(moveDown()));
+	connect(ui.twProcessingFilters, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(enableButtons()));
+}
+
+
+ModelSettings::~ModelSettings()
+{}
+
+
+
+void ModelSettings::deleteFilter()
+{
+	if (ui.twProcessingFilters->currentRow()==-1)
+	{
+		return;
+	}
+
+	ui.twProcessingFilters->removeRow(ui.twProcessingFilters->currentRow());
+	enableButtons();
+}
+
+void ModelSettings::addFilter()
+{
+	QString command="";
+	bool ok=false;
+	command=QInputDialog::getText ( this, tr("Neues Kommando hinzufügen"),tr("Vorverarbeitungskommando hinzufügen:"), QLineEdit::Normal,"", &ok );
+	if ( ok && !command.isEmpty() )
+	{
+		insertFilter(command);
+	}
+}
+
+void ModelSettings::insertFilter(QString command)
+{
+	int currRow = ui.twProcessingFilters->currentRow();
+	if (currRow == -1) currRow = 0;
+
+	ui.twProcessingFilters->insertRow(currRow);
+	
+	ui.twProcessingFilters->setItem(currRow,0, new QTableWidgetItem(command));
+	enableButtons();
+}
+
+void ModelSettings::enableButtons()
+{
+	if (ui.twProcessingFilters->currentRow() == -1)
+	{
+		ui.pbRemove->setEnabled(false);
+		ui.tbDown->setEnabled(false);
+		ui.tbUp->setEnabled(false);
+		return;
+	} else ui.pbRemove->setEnabled(true);
+
+	
+	if (ui.twProcessingFilters->rowCount()-1 > ui.twProcessingFilters->currentRow())
+		ui.tbDown->setEnabled(true);
+	else ui.tbDown->setEnabled(false);
+	
+	if (0 < ui.twProcessingFilters->currentRow())
+		ui.tbUp->setEnabled(true);
+	else ui.tbUp->setEnabled(false);
+}
+
+void ModelSettings::moveUp()
+{
+	int currentRow = ui.twProcessingFilters->currentRow();
+	if (!ui.twProcessingFilters->item(currentRow,0)) return;
+	if (!ui.twProcessingFilters->item(currentRow-1,0)) return;
+	
+	QString command = ui.twProcessingFilters->item(currentRow,0)->text();
+	
+	ui.twProcessingFilters->item(currentRow,0)->setText(
+		ui.twProcessingFilters->item(currentRow-1,0)->text());
+
+	
+	ui.twProcessingFilters->item(currentRow-1,0)->setText(command);
+	ui.twProcessingFilters->setCurrentCell(currentRow-1, 0);
+
+	enableButtons();
+}
+
+void ModelSettings::moveDown()
+{
+	int currentRow = ui.twProcessingFilters->currentRow();
+	if (!ui.twProcessingFilters->item(currentRow,0)) return;
+	if (!ui.twProcessingFilters->item(currentRow+1,0)) return;
+	
+	QString command = ui.twProcessingFilters->item(currentRow,0)->text();
+	
+	ui.twProcessingFilters->item(currentRow,0)->setText(
+		ui.twProcessingFilters->item(currentRow+1,0)->text());
+
+	
+	ui.twProcessingFilters->item(currentRow+1,0)->setText(command);
+	ui.twProcessingFilters->setCurrentCell(currentRow+1, 0);
+	
+	enableButtons();
+}
+
+
+
+bool ModelSettings::apply()
+{
+	Settings::set("Model/Samplerate", ui.sbSamplerate->value());
+	Settings::set("Model/Channels", ui.sbChannels->value());
+	
+
+	if (ui.twProcessingFilters->rowCount() == 0) return true;
+	
+	if (ui.twProcessingFilters->rowCount() == 1)
+		Settings::set("Model/ProcessingFilters", ui.twProcessingFilters->item(0,0)->text());
+
+	if (ui.twProcessingFilters->rowCount() > 1)
+	{
+		QString filters;
+		for (int i=0; i < ui.twProcessingFilters->rowCount()-1; i++)
+		{
+			filters += ui.twProcessingFilters->item(i,0)->text() + " && ";
+		}
+		filters += ui.twProcessingFilters->item(ui.twProcessingFilters->rowCount()-1,0)->text();
+		Settings::set("Model/ProcessingFilters", filters);
+	}
+
+	return true;
+}
+
+bool ModelSettings::init()
+{
+	ui.sbSamplerate->setValue(Settings::get("Model/Samplerate").toInt());
+	ui.sbChannels->setValue(Settings::get("Model/Channels").toInt());
+	QStringList filters = Settings::get("Model/ProcessingFilters").toString().split("&&");
+	
+	ui.twProcessingFilters->setRowCount(filters.count());
+	for (int i=0; i < filters.count(); i++)
+	{
+		ui.twProcessingFilters->setItem(i, 0, new QTableWidgetItem(filters.at(i)));
+	}
+	ui.twProcessingFilters->resizeColumnToContents(0);
+	enableButtons();
+
+	return true;
+}
+
+bool ModelSettings::reset()
+{
+	return init();
+}
+
