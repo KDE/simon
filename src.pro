@@ -256,6 +256,6 @@ TEMPLATE = app
 
 CONFIG += qt \
 warn_on \
-thread 
+thread
 
 RESOURCES += simon.qrc
