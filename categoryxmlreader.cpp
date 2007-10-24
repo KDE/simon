@@ -30,7 +30,7 @@ void CategoryXMLReader::load(QString path)
 	   
 	QDomNodeList categories = doc->elementsByTagName("category");
 
-	ProgramCategoryList *catList=new ProgramCategoryList();
+	ProgramCategoryList *catList=new ProgramCategoryList();;
 
 	for (int i=0; i < categories.count(); i++)
 	{

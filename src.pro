@@ -210,7 +210,6 @@ SOURCES += main.cpp \
            quickunpacker.cpp \
            logentry.cpp \
            logmanager.cpp \
-           simonanimations.cpp \
            inlinewidgetview.cpp \
            inlinewidget.cpp \
            systemview.cpp \

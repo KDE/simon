@@ -73,18 +73,6 @@ class SimonView : public QMainWindow {
 	Q_OBJECT
 
 private slots:
-	
-	#ifdef ANIMATIONS
-	void resizeButtons();
-	void startTransformToBusy();
-	void startTransformToIdle();
-	#endif
-	void inlineButtonClicked();
-	void setMainButtonsIconSize(QSize newSize);
-	void setMainButtonsFontSize(float fontSize);
-	void resizeMainButtonContentsToWindow();
-	void setButtonsBusy();
-	void setButtonsIdle();
 	void setButtonNotChecked();
 
 private:
@@ -95,8 +83,6 @@ private:
 	QPoint wordlistDlgPos;
 	QPoint trainDlgPos;
 	QPoint settingsDlgPos;
-	QWidget *buttonMover;
-	InlineWidgetView *inlineView;
 
 	Ui::MainWindow ui;	//!< Mainwindow UI definition - made by uic from the QTDesigner .ui
 	SimonControl *control; //!< Pointer to the main concept class
@@ -109,26 +95,7 @@ private:
 	SystemView *systemDialog; //!< Pointer on the Dialog "System"
 	VuMeter *vuMeter; //!< Does the calculation of the current input "loudness" for the 2 bars in the mainwindow
 
-    ImportProgramWizard* ipwizard;  //todo delete!!!! just for testing
 	
-
-	#ifdef ANIMATIONS
-	
-	bool xMoveDone, yMoveDone, wScaleDone, hScaleDone, logoScaleDone;
-	
-	QVector<QPushButton*> animatedButtons;
-	short moveYDirection, moveXDirection, logoScaleDirection;
-	float currentSizeH, currentSizeW, currentMoveX, currentMoveY, logoScaleFactor,
-		scaleXFactor, scaleYFactor;
-	QTimer *tresizeButtons;
-	QTimer *fadeIn;
-
-	void setupAnimations();
-	#endif
-	
-	bool viewShouldBeBusy();
-	bool viewBusy;
-	void resizeEvent(QResizeEvent *event);
 	void setupSignalSlots();
 
 

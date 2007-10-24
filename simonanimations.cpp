@@ -133,99 +133,101 @@ void SimonView::startTransformToIdle()
 }
 
 #endif
+// /*
+// 
+// void SimonView::inlineButtonClicked()
+// {
+// 	if (viewShouldBeBusy())
+// 	{
+// 		#ifdef ANIMATIONS
+// 		if (!viewBusy || tresizeButtons->isActive())
+// 		{
+// 			startTransformToBusy();
+// 		}
+// 		#endif
+// 		#ifndef ANIMATIONS	
+// 		if (!viewBusy)
+// 		{
+// 			setButtonsBusy();
+// 		}
+// 		#endif
+// 	} else  {
+// 		#ifdef ANIMATIONS
+// 		if (viewBusy || tresizeButtons->isActive()) {
+// 			startTransformToIdle();
+// 		}
+// 		#endif
+// 		#ifndef ANIMATIONS
+// 		if (viewBusy) {
+// 			setButtonsIdle();
+// 		}
+// 		#endif
+// 	
+// 	}
+// }*/
 
-
-void SimonView::inlineButtonClicked()
-{
-	if (viewShouldBeBusy())
-	{
-		#ifdef ANIMATIONS
-		if (!viewBusy || tresizeButtons->isActive())
-		{
-			startTransformToBusy();
-		}
-		#endif
-		#ifndef ANIMATIONS	
-		if (!viewBusy)
-		{
-			setButtonsBusy();
-		}
-		#endif
-	} else  {
-		#ifdef ANIMATIONS
-		if (viewBusy || tresizeButtons->isActive()) {
-			startTransformToIdle();
-		}
-		#endif
-		#ifndef ANIMATIONS
-		if (viewBusy) {
-			setButtonsIdle();
-		}
-		#endif
-	
-	}
-}
-
-void SimonView::setButtonsBusy()
-{
- 	setUpdatesEnabled(false);
-
-	ui.vboxLayout->removeWidget(buttonMover);
-	ui.hboxLayout1->insertWidget(0,buttonMover);
-
-	((QGridLayout*) buttonMover->layout())->setVerticalSpacing(1);
-	buttonMover->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
-	buttonMover->setMaximumWidth(this->width()-430);
-	buttonMover->setMinimumWidth(this->width()-430);
-	buttonMover->setMinimumHeight(89);
-
-	
-	ui.lbLogo->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
-	ui.lbLogo->resize(167, 94);
-	ui.lbLogo->setMaximumWidth(167);
-	ui.lbLogo->setMaximumHeight(94);
-
-	viewBusy = false;
- 	setUpdatesEnabled(true);
-
-	QCoreApplication::processEvents();
-	resizeMainButtonContentsToWindow();
-
-	ui.vboxLayout->insertWidget(2, inlineView);
-
-	
-	inlineView->show();
-	inlineView->setFocus();
-
-	viewBusy = true;
-}
-
-void SimonView::setButtonsIdle()
-{
- 	setUpdatesEnabled(false);
-// 	ui.vboxLayout->removeWidget( (QWidget*) this->inlineView);
-
-	ui.hboxLayout1->removeWidget(buttonMover);
-	ui.vboxLayout->insertWidget(2,buttonMover);
-
-	((QGridLayout*) buttonMover->layout())->setVerticalSpacing(3);
-
-	QSizePolicy pol(QSizePolicy::Expanding,QSizePolicy::Expanding);
-	pol.setVerticalStretch(1);
-	buttonMover->setSizePolicy(pol);
-	buttonMover->setMaximumWidth(16777215);
-	buttonMover->setMaximumHeight(16777215);
-	buttonMover->setMinimumWidth(0);
+// void SimonView::setButtonsBusy()
+// {
+//  	setUpdatesEnabled(false);
+// 
+// 
+// 	ui.vboxLayout->removeWidget(buttonMover);
+// 	ui.tbModules->addWidget(buttonMover);
+// 	ui.hboxLayout1->insertWidget(0,buttonMover);
+// 
+// 	((QGridLayout*) buttonMover->layout())->setVerticalSpacing(1);
+// 	buttonMover->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
+// 	buttonMover->setMaximumWidth(this->width()-430);
+// 	buttonMover->setMinimumWidth(this->width()-430);
+// 	buttonMover->setMinimumHeight(89);
+// 
+// 	
+// 	ui.lbLogo->setSizePolicy(QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed));
+// 	ui.lbLogo->resize(167, 94);
+// 	ui.lbLogo->setMaximumWidth(167);
+// 	ui.lbLogo->setMaximumHeight(94);
+// 
+// 	viewBusy = false;
+//  	setUpdatesEnabled(true);
+// 
+// 	QCoreApplication::processEvents();
+// 	resizeMainButtonContentsToWindow();
+// 
+// 	ui.vboxLayout->insertWidget(2, inlineView);
 
 	
-	ui.lbLogo->setSizePolicy(QSizePolicy(QSizePolicy::Preferred,QSizePolicy::Fixed));
-	ui.lbLogo->resize(265, 149);
-	ui.lbLogo->setMaximumWidth(16777215);
-	ui.lbLogo->setMaximumHeight(16777215);
+// 	inlineView->show();
+// 	inlineView->setFocus();
 
+// 	viewBusy = true;
+// }
 
-	viewBusy = false;
- 	setUpdatesEnabled(true);
-	QCoreApplication::processEvents();
-	resizeMainButtonContentsToWindow();
-}
+// void SimonView::setButtonsIdle()
+// {
+//  	setUpdatesEnabled(false);
+// // 	ui.vboxLayout->removeWidget( (QWidget*) this->inlineView);
+// 
+// 	ui.hboxLayout1->removeWidget(buttonMover);
+// 	ui.vboxLayout->insertWidget(2,buttonMover);
+// 
+// 	((QGridLayout*) buttonMover->layout())->setVerticalSpacing(3);
+// 
+// 	QSizePolicy pol(QSizePolicy::Expanding,QSizePolicy::Expanding);
+// 	pol.setVerticalStretch(1);
+// 	buttonMover->setSizePolicy(pol);
+// 	buttonMover->setMaximumWidth(16777215);
+// 	buttonMover->setMaximumHeight(16777215);
+// 	buttonMover->setMinimumWidth(0);
+// 
+// 	
+// 	ui.lbLogo->setSizePolicy(QSizePolicy(QSizePolicy::Preferred,QSizePolicy::Fixed));
+// 	ui.lbLogo->resize(265, 149);
+// 	ui.lbLogo->setMaximumWidth(16777215);
+// 	ui.lbLogo->setMaximumHeight(16777215);
+// 
+// 
+// // 	viewBusy = false;
+//  	setUpdatesEnabled(true);
+// 	QCoreApplication::processEvents();
+// 	resizeMainButtonContentsToWindow();
+// }

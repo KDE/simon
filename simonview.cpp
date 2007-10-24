@@ -83,11 +83,11 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	this->trayManager->createIcon( QIcon( ":/images/tray.png" ), "Simon" );
 	
-	inlineView = new InlineWidgetView(this);
-	inlineView->hide();
-	QSizePolicy pol(QSizePolicy::Expanding,QSizePolicy::Expanding);
-	pol.setVerticalStretch(1);
-	inlineView->setSizePolicy(pol);
+// 	inlineView = new InlineWidgetView(this);
+// 	inlineView->hide();
+// 	QSizePolicy pol(QSizePolicy::Expanding,QSizePolicy::Expanding);
+// 	pol.setVerticalStretch(1);
+// 	inlineView->setSizePolicy(pol);
 	
 	//Preloads all Dialogs
 	this->info->writeToSplash(tr("Lade \"Wort hinzufühgen\"..."));
@@ -111,15 +111,22 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 		vuMeter->start();
 
 	shownDialogs = 0;
-	viewBusy = false;
+// 	viewBusy = false;
 	QMainWindow(parent,flags);
 	ui.setupUi(this);
 	
+	ui.tbStatus->addWidget(ui.pbActivision);
+	ui.tbStatus->addWidget(ui.pbConnect);
+	ui.tbStatus->addWidget(ui.pbHide);
+	ui.tbStatus->addWidget(ui.pbClose);
+	ui.tbStatus->addWidget(ui.pbKeyed);
+	ui.tbLogo->addWidget(ui.lbLogo);
+	ui.tbModules->addWidget(ui.pbAddWord);
+	ui.tbModules->addWidget(ui.pbTrain);
+	ui.tbModules->addWidget(ui.pbEditWordList);
+	ui.tbModules->addWidget(ui.pbRunProgram);
+	ui.tbModules->addWidget(ui.pbSettings);
 	
-	buttonMover= ui.wButtonWidget;
-	#ifdef ANIMATIONS
-	setupAnimations();
-	#endif
 	
 	setupSignalSlots();
 
@@ -142,7 +149,6 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 
 	show();
 	QCoreApplication::processEvents();
-	resizeMainButtonContentsToWindow();
 
 	connect(systemDialog, SIGNAL(commandsChanged()), runDialog, SLOT(loadCommands()));
     
@@ -171,6 +177,16 @@ void SimonView::setupSignalSlots()
 	QObject::connect(ui.pbTrain, SIGNAL(toggled(bool)), this, SLOT(showTrainDialog(bool)));
 	QObject::connect(ui.pbSettings, SIGNAL(toggled(bool)), this, SLOT(showSystemDialog(bool)));
 	QObject::connect(addWordView, SIGNAL(hidden()), this, SLOT(setButtonNotChecked()));
+
+	QObject::connect(ui.pbAddWord, SIGNAL(toggled(bool)), this, SLOT(showAddWordDialog(bool)));
+	QObject::connect(ui.pbQuickAddWord, SIGNAL(clicked()), ui.pbAddWord, SLOT(animateClick()));
+	QObject::connect(ui.pbEditWordList, SIGNAL(toggled(bool)), this, SLOT(showWordListDialog(bool)));
+	QObject::connect(ui.pbQuickWordlist, SIGNAL(clicked()), ui.pbEditWordList, SLOT(animateClick()));
+	QObject::connect(ui.pbRunProgram, SIGNAL(toggled(bool)), this, SLOT(showRunDialog(bool)));
+	QObject::connect(ui.pbQuickRunProgram, SIGNAL(clicked()), ui.pbRunProgram, SLOT(animateClick()));
+	QObject::connect(ui.pbTrain, SIGNAL(toggled(bool)), this, SLOT(showTrainDialog(bool)));
+	QObject::connect(ui.pbQuickTrain, SIGNAL(clicked()), ui.pbTrain, SLOT(animateClick()));
+	QObject::connect(ui.pbSettings, SIGNAL(toggled(bool)), this, SLOT(showSystemDialog(bool)));
 	
 
 
@@ -180,10 +196,6 @@ void SimonView::setupSignalSlots()
 	QObject::connect(ui.pbActivision, SIGNAL(clicked()), this, SLOT(toggleActivation()));
 	QObject::connect(this->trayManager, SIGNAL(middleClicked()), this, SLOT(toggleActivation()));
 
-	QObject::connect(ui.pbEditWordList, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
-	QObject::connect(ui.pbTrain, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
-	QObject::connect(ui.pbRunProgram, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
-	QObject::connect(ui.pbSettings, SIGNAL(clicked()), this, SLOT(inlineButtonClicked()));
 
 	connect(wordList, SIGNAL(showAddWordDialog()), this, 
 		SLOT(showAddWordDialog()));
@@ -194,23 +206,15 @@ void SimonView::setupSignalSlots()
 	
 	connect(ui.pbConnect, SIGNAL(clicked()), this, SLOT(connectToServer()));
 
-	connect(inlineView, SIGNAL(registeredPage(InlineWidget*)), this, 
+	connect(ui.inlineView, SIGNAL(registeredPage(InlineWidget*)), this, 
 				SLOT(inlineWidgetRegistered(InlineWidget*)));
-	connect(inlineView, SIGNAL(unRegisteredPage(InlineWidget*)), this, 
+	connect(ui.inlineView, SIGNAL(unRegisteredPage(InlineWidget*)), this, 
 				SLOT(inlineWidgetUnRegistered(InlineWidget*)));
-// 	connect(ui.pbCancelConnect, SIGNAL(clicked()), this, SLOT(abortConnecting()));
 	
 	
 	QObject::connect(control, SIGNAL(connected()), this, SLOT(connected()));
 	QObject::connect(control, SIGNAL(disconnected()), this, SLOT(disconnected()));
 	connect(control, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
-}
-
-bool SimonView::viewShouldBeBusy()
-{
-	return (ui.pbSettings->isChecked() || 
-		ui.pbTrain->isChecked() || ui.pbEditWordList->isChecked() || 
-			ui.pbRunProgram->isChecked() );
 }
 
 void SimonView::setButtonNotChecked()
@@ -228,43 +232,6 @@ void SimonView::setButtonNotChecked()
 	}
 }
 
-void  SimonView::resizeEvent(QResizeEvent *event)
-{
-	if (viewBusy) 
-		this->setButtonsBusy();
-	else {
-		resizeMainButtonContentsToWindow();
-	}
-	QWidget::resizeEvent(event);
-}
-
-void SimonView::resizeMainButtonContentsToWindow()
-{
-	float newFontSize =  (int) round( ((float) buttonMover->height())/35.3f )+7;
-	int iconSize = (int) round((((float)buttonMover->height())/2.5f)/4+10);
-	QSize newIconSize = QSize(iconSize, iconSize);
-	setMainButtonsIconSize(newIconSize);
-	setMainButtonsFontSize(newFontSize);
-}
-
-void SimonView::setMainButtonsIconSize(QSize newSize)
-{
-	ui.pbRunProgram->setIconSize(newSize);
-	ui.pbTrain->setIconSize(newSize);
-	ui.pbEditWordList->setIconSize(newSize);
-	ui.pbAddWord->setIconSize(newSize);
-}
-
-void SimonView::setMainButtonsFontSize(float fontSize)
-{
-	QFont f = ui.pbAddWord->font();
-	f.setPointSizeF(fontSize);
-	ui.pbAddWord->setFont(f);
-	ui.pbEditWordList->setFont(f);
-	ui.pbTrain->setFont(f);
-	ui.pbRunProgram->setFont(f);
-
-}
 
 /**
  * \brief Connects to juliusd and gives appropriate status information about it
@@ -371,8 +338,8 @@ void SimonView::errorConnecting(QString error)
 void SimonView::setLevel(int level)
 {
 	level = abs(level);
-	ui.pbLevel1->setValue(level);
-	ui.pbLevel2->setValue(level);
+// 	ui.pbLevel1->setValue(level);
+// 	ui.pbLevel2->setValue(level);
 }
 
 
@@ -385,8 +352,8 @@ void SimonView::setLevel(int level)
 void SimonView::showRunDialog(bool show)
 {
 	if (show)
-		inlineView->registerPage(runDialog);
-	else  inlineView->unRegisterPage(runDialog);
+		ui.inlineView->registerPage(runDialog);
+	else  ui.inlineView->unRegisterPage(runDialog);
 }
 
 
@@ -453,8 +420,8 @@ void SimonView::inlineWidgetUnRegistered(InlineWidget *widget)
 void SimonView::showSystemDialog(bool show)
 {
 	if (show) 
-		inlineView->registerPage(systemDialog);
-	else inlineView->unRegisterPage(systemDialog);
+		ui.inlineView->registerPage(systemDialog);
+	else ui.inlineView->unRegisterPage(systemDialog);
 }
 
 /**
@@ -465,8 +432,8 @@ void SimonView::showSystemDialog(bool show)
 void SimonView::showTrainDialog(bool show)
 {
 	if (show)
-		inlineView->registerPage(trainDialog);
-	else inlineView->unRegisterPage(trainDialog);
+		ui.inlineView->registerPage(trainDialog);
+	else ui.inlineView->unRegisterPage(trainDialog);
 }
 
 /**
@@ -477,8 +444,8 @@ void SimonView::showTrainDialog(bool show)
 void SimonView::showWordListDialog(bool show)
 {
 	if (show)
-		inlineView->registerPage(wordList);
-	else inlineView->unRegisterPage(wordList);
+		ui.inlineView->registerPage(wordList);
+	else ui.inlineView->unRegisterPage(wordList);
 }
 
 
@@ -748,6 +715,7 @@ bool SimonView::checkPassword()
     {
         return true;
     }
+	return false;
 }
 
 /**
@@ -760,6 +728,7 @@ void SimonView::hideSettings()
     //disables the button settings in the mainwindow
     if(ui.pbSettings->isChecked())
         ui.pbSettings->animateClick();
+    ui.pbSettings->setVisible(false);
     ui.pbSettings->setDisabled(true);
     
     //hides the tabwidget editModel in the wordlistview
@@ -777,6 +746,7 @@ void SimonView::hideSettings()
 void SimonView::showSettings()
 {
     //to set the button settings in the main not disabled
+    ui.pbSettings->setVisible(true);
     ui.pbSettings->setDisabled(false);
     
     //set the editModel tabWidget visible
