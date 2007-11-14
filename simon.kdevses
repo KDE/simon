@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="11" >
+ <DocsAndViews NumberOfDocuments="10" >
   <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistview.cpp" >
    <View0 Encoding="" Type="Source" />
   </Doc0>
@@ -30,11 +30,8 @@
    <View0 Encoding="" Type="Source" />
   </Doc8>
   <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/simonview.h" >
-   <View0 Encoding="" Type="Source" />
+   <View0 Encoding="" line="99" Type="Source" />
   </Doc9>
-  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/simonanimations.cpp" >
-   <View0 Encoding="" line="137" Type="Source" />
-  </Doc10>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

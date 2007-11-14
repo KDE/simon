@@ -258,3 +258,4 @@ warn_on \
 thread
 
 RESOURCES += simon.qrc
+TRANSLATIONS += simon_en.ts
