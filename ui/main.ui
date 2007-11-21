@@ -381,6 +381,16 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="pbCompileModel" >
+            <property name="text" >
+             <string>Sprachmodell kompilleren</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="../simon.qrc" >:/images/icons/face-monkey.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="pbQuickAddWord" >
             <property name="maximumSize" >
              <size>

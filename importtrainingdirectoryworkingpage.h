@@ -46,8 +46,8 @@ private:
 	QString extractSaid(QString source);
 	QStringList* searchDir(QString dir);
 	QStringList* processSounds(QStringList files, QString destDir);
-	bool createPrompts(QStringList dataFiles, QString destDir);
-	bool createScp(QStringList dataFiles, QString destDir);
+	bool createPrompts(QStringList dataFiles, QString dest);
+	bool createScp(QStringList dataFiles, QString dest);
 
 public:
     ImportTrainingDirectoryWorkingPage(QWidget *parent=0);

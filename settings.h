@@ -28,6 +28,7 @@ private:
 	static QSettings *settings;
 public:
 	static QVariant get(QString name);
+	static QString getS(QString name);
 	static void set(QString name, QVariant value);
 	static void initSettings();
 

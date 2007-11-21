@@ -11,16 +11,9 @@
 //
 #ifndef WORDLISTMANAGER_H
 #define WORDLISTMANAGER_H
-#include <QList>
-#include <QFile>
-#include <QByteArray>
-#include <QMessageBox>
-#include <QtGlobal>
-#include <QTextStream>
+
 #include <QHash>
 #include "word.h"
-#include "modelmanager.h"
-
 /**
  *	@class WordListManager
  *	@brief Manages the Wordlist, the grammar definitions and the vocabulary data
@@ -30,12 +23,20 @@
  *	@author Peter Grasch
  */
 
+class QMessageBox;
+class QTextStream;
+class QString;
+class ModelManager;
+
+
 typedef QHash<QString, QString> PromptsTable;
+
 
 class WordListManager{
 
 private:
 	WordList *wordlist;	//!< Holds the wordlist
+	ModelManager *modelManager; //!< Manages the language- and acoustic model
 //	WordList *extralist;	//!< this holds the word that are not in the vocabulary (unused)
 	QString lexiconPath, vocabPath;
 	
@@ -55,6 +56,7 @@ public:
 	bool save( QString lexiconFilename="", QString vocabFilename="" );
 	WordList* sortList(WordList* list);
 
+	bool compileModel();
 	~WordListManager();
 
 };

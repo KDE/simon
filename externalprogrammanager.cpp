@@ -46,10 +46,8 @@ bool ExternalProgramManager::apply()
 	Settings::set("Programs/HTK/HHEd", ui.leHHEd->text());
 	Settings::set("Programs/HTK/HVite", ui.leHVite->text());
 	
-	Settings::set("Programs/Audio/Normalize", ui.leNormalize->text());
-	Settings::set("Programs/Audio/Resample", ui.leResample->text());
-	
 	Settings::set("Programs/Files/BZip2", ui.leBzip2->text());
+	Settings::set("Programs/Interpreter/Perl", ui.lePerl->text());
 	
 	return true;
 }
@@ -83,11 +81,8 @@ bool ExternalProgramManager::init()
 	ui.leHHEd->setText(Settings::get("Programs/HTK/HHEd").toString());
 	ui.leHVite->setText(Settings::get("Programs/HTK/HVite").toString());
 	
-	
-	ui.leNormalize->setText(Settings::get("Programs/Audio/Normalize").toString());
-	ui.leResample->setText(Settings::get("Programs/Audio/Resample").toString());
-	
 	ui.leBzip2->setText(Settings::get("Programs/Files/BZip2").toString());
+	ui.lePerl->setText(Settings::get("Programs/Interpreter/Perl").toString());
 	
 	return true;
 }

@@ -42,6 +42,18 @@ QVariant Settings::get(QString name)
 }
 
 /**
+ * \brief returns the setting-string of the given name; overloaded member function provided for conveniance
+ * \author Peter Grasch
+ * If there is no setting "name" it returns a default QVariant
+ * @param name the name of the setting
+ * @return the retrieved setting
+ */
+QString Settings::getS(QString name)
+{
+	return get(name).toString();
+}
+
+/**
  * \brief returns the setting of the given name
  * \author Peter Grasch
  * @param name The name of the setting

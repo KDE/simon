@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>446</width>
-    <height>341</height>
+    <height>394</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -168,104 +168,64 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <item>
-      <widget class="QGroupBox" name="groupBox" >
-       <property name="title" >
-        <string>Audiobearbeitung</string>
-       </property>
-       <property name="flat" >
-        <bool>true</bool>
-       </property>
+    <widget class="QGroupBox" name="gbFileProcessing" >
+     <property name="title" >
+      <string>Dateibearbeitung</string>
+     </property>
+     <property name="flat" >
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" >
+      <item>
        <layout class="QHBoxLayout" >
         <item>
-         <layout class="QVBoxLayout" >
-          <item>
-           <widget class="QLabel" name="lbNormalize" >
-            <property name="text" >
-             <string>Normalize:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="lbResample" >
-            <property name="text" >
-             <string>Resample:</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QLabel" name="lbBzip" >
+          <property name="text" >
+           <string>BZip2:</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" >
-          <item>
-           <widget class="QLineEdit" name="leNormalize" />
-          </item>
-          <item>
-           <widget class="QLineEdit" name="leResample" />
-          </item>
-         </layout>
+         <widget class="QLineEdit" name="leBzip2" >
+          <property name="text" >
+           <string/>
+          </property>
+         </widget>
         </item>
        </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox_2" >
-       <property name="title" >
-        <string>Dateibearbeitung</string>
-       </property>
-       <property name="flat" >
-        <bool>true</bool>
-       </property>
-       <layout class="QVBoxLayout" >
-        <item>
-         <layout class="QHBoxLayout" >
-          <item>
-           <widget class="QLabel" name="label" >
-            <property name="text" >
-             <string>BZip2:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="leBzip2" >
-            <property name="text" >
-             <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" >
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </widget>
-     </item>
-    </layout>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
+    <widget class="QGroupBox" name="gbInterpreter" >
+     <property name="title" >
+      <string>Interpreter</string>
      </property>
-     <property name="sizeHint" >
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
+     <property name="flat" >
+      <bool>true</bool>
      </property>
-    </spacer>
+     <layout class="QVBoxLayout" >
+      <item>
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="QLabel" name="lbPerl" >
+          <property name="text" >
+           <string>Perl:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lePerl" >
+          <property name="text" >
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>

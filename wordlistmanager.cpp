@@ -13,8 +13,13 @@
 #include "logger.h"
 #include <QObject>
 #include <QDebug>
-#include <QObject>
-#include <QDebug>
+#include <QList>
+#include <QFile>
+#include <QByteArray>
+#include <QMessageBox>
+#include <QtGlobal>
+#include <QTextStream>
+#include "modelmanager.h"
 
 /**
  * @brief Constructor
@@ -32,6 +37,12 @@ WordListManager::WordListManager ( QString lexiconPath, QString vocabPath )
 	this->vocabPath = vocabPath;
 // 	this->extralist = new WordList();
 	this->wordlist = readWordList ( lexiconPath, vocabPath );
+	this->modelManager = new ModelManager();
+}
+
+bool WordListManager::compileModel()
+{
+	return this->modelManager->compileModel();
 }
 
 
@@ -65,20 +76,18 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename )
 	Logger::log(QObject::tr("[INF] Erstelle Wörterliste unter Verwendung des Vokabulars von %1 und der derzeitig Wörterliste").arg(vocabFilename));
 	
 	WordList *saving = this->wordlist;
-// 	for (int i=0; i < extralist->count(); i++)
-// 		saving->append(this->extralist->at(i));
-	qDebug() << "fange an";
+// 	qDebug() << "fange an";
 	
 	saving->append(Word("SENT-START", QStringList("sil"), "NS_B", 0));
 	saving->append(Word("SENT-END", QStringList("sil"), "NS_E", 0));
 	
-	qDebug() << "dinger sind dabei";
+// 	qDebug() << "dinger sind dabei";
 	
 	if (lexiconFilename.isEmpty()) lexiconFilename = this->lexiconPath;
 	if (vocabFilename.isEmpty()) vocabFilename = this->vocabPath;
 	
 	
-	qDebug() << "pfade sind fertig: " << lexiconFilename << vocabFilename;
+// 	qDebug() << "pfade sind fertig: " << lexiconFilename << vocabFilename;
 	
 	Logger::log(QObject::tr("[INF] Öffnen der Ausgabedatei: %1").arg(lexiconPath));
 	
@@ -87,11 +96,11 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename )
 		Logger::log(QObject::tr("[ERR] Fehler beim öffnen der Ausgabedatei %1").arg(lexiconPath));
 		return false;
 	}
-	qDebug() << "hab geöffnet";
+// 	qDebug() << "hab geöffnet";
 	QTextStream outstream(outfile);
 	outstream.setCodec("ISO 8859-15");
 	
-	qDebug() << "hallo";
+// 	qDebug() << "hallo";
 	for (int i=0; i< saving->count(); i++)
 	{
 		for (int j=0; j<saving->at(i).getPronunciations().count(); j++)
@@ -99,7 +108,7 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename )
 				+ "\t\t[" + saving->at(i).getWord().trimmed() + "]\t\t" +
 				saving->at(i).getPronunciations().at(j)).trimmed() << "\n";
 	}
-	qDebug() << "bin fertig";
+// 	qDebug() << "bin fertig";
 	
 	Logger::log(QObject::tr("[INF] Schießen der Ausgabedatei"));
 	outfile->close();

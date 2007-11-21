@@ -13,6 +13,8 @@
 #include "logger.h"
 #include <QTemporaryFile>
 #include <QFile>
+#include "settings.h"
+#include <QVariant>
 
 /**
  * \brief Constructor
@@ -37,8 +39,8 @@ QuickDownloader::QuickDownloader(QWidget *parent) : QWidget(parent)
 bool QuickDownloader::download(QString url, QString filename)
 {
 	if (filename.isEmpty())
-		file = new QTemporaryFile("simon_tmp_download",this);
-	else file = new QFile(filename, this);
+		file = new QTemporaryFile(Settings::get("TempDir").toString()+"simon_tmp_download",this);
+	else file = new QFile(Settings::get("TempDir").toString()+filename, this);
 
 	Logger::log(tr("[INF] Lade \"%1\" zu \"%2\"").arg(url).arg(file->fileName()));
 	if (!loader || !progressDlg) return false;

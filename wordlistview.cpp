@@ -31,7 +31,8 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 
 	shownDialogs = 0;
 	abortVocabInsertion = false;
-	this->wordListManager = new WordListManager();
+	this->wordListManager = new WordListManager(Settings::get("Model/PathToLexicon").toString(),
+						Settings::get("Model/PathToVocab").toString());
 	
 	ui.setupUi(this);
 	
@@ -76,6 +77,15 @@ void WordListView::clearSearchText()
 void WordListView::showImportDictDialog()
 {
 	importDictView->show();
+}
+
+/**
+ * \brief Compiles the language model
+ * \author Peter Grasch
+ */
+void WordListView::compileModel()
+{
+	this->wordListManager->compileModel();
 }
 
 /**

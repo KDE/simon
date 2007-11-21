@@ -215,6 +215,10 @@ void SimonView::setupSignalSlots()
 	QObject::connect(control, SIGNAL(connected()), this, SLOT(connected()));
 	QObject::connect(control, SIGNAL(disconnected()), this, SLOT(disconnected()));
 	connect(control, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
+
+
+	//TODO: remove (debug count)
+	connect(ui.pbCompileModel, SIGNAL(clicked()), this->wordList, SLOT(compileModel()));
 }
 
 void SimonView::setButtonNotChecked()

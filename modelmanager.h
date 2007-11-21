@@ -12,11 +12,16 @@
 #ifndef MODELMANAGER_H
 #define MODELMANAGER_H
 
+#include <QObject>
+#include <QThread>
+#include <QProcess>
+class QProgressDialog;
+
 /**
  *	@class ModelManager
  *	@brief Manages the Acoustic-Model
  *
- *	Provides the ability to modify/recompile or otherwise maintains the
+ *	Provides the ability to modify/recompile or otherwise maintain the
  *	Acoustic model
  *
  *	@version 0.1
@@ -24,9 +29,32 @@
  *	@author Peter Grasch
  *	@todo Implementing
  */
-class ModelManager{
+class ModelManager : public QThread{
+Q_OBJECT
+signals:
+	void status(QString);
+	void error(QString);
+	void progress(int now, int total=1000);
+private:
+	QProgressDialog *processDialog;
+	QProcess *proc;
+	bool generateDirectoryStructure();
+	
+	bool generateInputFiles();
+		bool generateWlist();
+	
+private slots:
+	void setStatus(QString);
+	void displayError(QString);
+	void setProgress(int now, int max);
+public slots:
+	void cancel();
+	
 public:
-    ModelManager();
+    ModelManager(QWidget *parent=0);
+
+	void run();
+	bool compileModel();
 
     ~ModelManager();
 

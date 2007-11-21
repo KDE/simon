@@ -16,6 +16,7 @@
 #include <QTableWidget>
 #include <QInputDialog>
 #include <QTableWidgetItem>
+#include <QFileDialog>
 
 ModelSettings::ModelSettings(QWidget* parent): SystemWidget(tr("Modelleinstellungen"), QIcon(":/images/icons/face-monkey.svg"), tr("Hier können Sie Einstellungen rund um das Sprachmodell einstellen"), parent)
 {
@@ -24,6 +25,7 @@ ModelSettings::ModelSettings(QWidget* parent): SystemWidget(tr("Modelleinstellun
 	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteFilter()));
 	connect(ui.tbUp, SIGNAL(clicked()), this, SLOT(moveUp()));
 	connect(ui.tbDown, SIGNAL(clicked()), this, SLOT(moveDown()));
+	connect(ui.tbOpenSamples, SIGNAL(clicked()), this, SLOT(setSamplePath()));
 	connect(ui.twProcessingFilters, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(enableButtons()));
 }
 
@@ -146,7 +148,20 @@ bool ModelSettings::apply()
 		Settings::set("Model/ProcessingFilters", filters);
 	}
 
+	Settings::set("Model/PathToLexicon", ui.leLexicon->text());
+	Settings::set("Model/PathToGrammar", ui.leGrammar->text());
+	Settings::set("Model/PathToPrompts", ui.lePrompts->text());
+	Settings::set("Model/PathToVocab", ui.leVocab->text());
+	Settings::set("Model/PathToCodeTrain", ui.leCodeTrain->text());
+
+	Settings::set("Model/PathToSamples", ui.leSamplePath->text());
+
 	return true;
+}
+
+void ModelSettings::setSamplePath()
+{
+	ui.leSamplePath->setText(QFileDialog::getExistingDirectory(this, tr("Ordner öffnen"), ui.leSamplePath->text()));
 }
 
 bool ModelSettings::init()
@@ -162,6 +177,14 @@ bool ModelSettings::init()
 	}
 	ui.twProcessingFilters->resizeColumnToContents(0);
 	enableButtons();
+
+	ui.leLexicon->setText(Settings::get("Model/PathToLexicon").toString());
+	ui.leGrammar->setText(Settings::get("Model/PathToGrammar").toString());
+	ui.lePrompts->setText(Settings::get("Model/PathToPrompts").toString());
+	ui.leVocab->setText(Settings::get("Model/PathToVocab").toString());
+	ui.leCodeTrain->setText(Settings::get("Model/PathToCodeTrain").toString());
+
+	ui.leSamplePath->setText(Settings::get("Model/PathToSamples").toString());
 
 	return true;
 }

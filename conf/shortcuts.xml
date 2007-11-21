@@ -49,11 +49,11 @@
   <charkey>C</charkey>
  </shortcut>
  <shortcut name="Zum Zeilenanfang" >
-  <modifiers>32</modifiers>
+  <modifiers>0</modifiers>
   <actionkeys>0</actionkeys>
   <functionkeys>0</functionkeys>
-  <movementkeys>0</movementkeys>
-  <charkey>?</charkey>
+  <movementkeys>128</movementkeys>
+  <charkey>_</charkey>
  </shortcut>
  <shortcut name="Zum Dateianfang" >
   <modifiers>4</modifiers>

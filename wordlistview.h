@@ -83,6 +83,7 @@ public slots:
 	void insertVocab(WordList *vocab);
 	void askToSave();
 	void show();
+	void compileModel();
 	void hide();
 	void showImportDictDialog();
     void hideTbEditModel();

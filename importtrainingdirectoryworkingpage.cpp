@@ -24,8 +24,10 @@
 #include <QProcess>
 #include <QLabel>
 #include <QCoreApplication>
+#include <QDebug>
 #include <QVariant>
 #include "settings.h"
+#include <math.h>
 
 /**
  * \brief Constructor - creates the GUI
@@ -61,8 +63,7 @@ bool ImportTrainingDirectoryWorkingPage::importDir(QString dir)
 	prog=0;
 // 	QString destdir = QDir::currentPath()+"/tmp";
 // 	QString wavDestdir = destdir+"/wav";
-	QString destdir = "/home/bedahr/model/voxforge_tutorial_auto-0.1/voxforge/auto";
-	QString wavDestdir = "/home/bedahr/model/voxforge_tutorial_auto-0.1/voxforge/auto/train/16khz/wav";
+	QString wavDestdir = Settings::get("Model/PathToSamples").toString();
 	
 	QStringList *dataFiles = this->searchDir(dir);
 	if (!dataFiles) return error();
@@ -70,19 +71,14 @@ bool ImportTrainingDirectoryWorkingPage::importDir(QString dir)
 
 	pbMain->setMaximum((dataFiles->count()-1)*10);
 	pbMain->setValue(0);
-
-	QDir *dirHandle = new QDir();
-	dirHandle->mkpath(destdir);
-	dirHandle->mkpath(wavDestdir);
-	delete dirHandle;
 	
-	if (!createPrompts(*dataFiles, destdir)) return error();
+	if (!createPrompts(*dataFiles, Settings::get("Model/PathToPrompts").toString())) return error();
 
 // 	delete dataFiles;
 	dataFiles = processSounds(*dataFiles, wavDestdir);
 	if (!dataFiles) return error();
 
-	if(!createScp(*dataFiles, destdir)) return error();
+	if(!createScp(*dataFiles, Settings::get("Model/PathToCodeTrain").toString())) return error();
 	
 
 	completed = true;
@@ -98,12 +94,12 @@ bool ImportTrainingDirectoryWorkingPage::importDir(QString dir)
  * \author Peter Grasch
  * \see extractSaid()
  * @param dataFiles The dataFiles to include in the prompts-file
- * @param destDir The destination directory
+ * @param destDir The destination file
  * @return success
  */
-bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles, QString destDir)
+bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles, QString dest)
 {
-	QFile *prompts = new QFile(destDir+"/prompts", this);
+	QFile *prompts = new QFile(dest, this);
 	if (!prompts->open(QIODevice::WriteOnly|QIODevice::Truncate|QIODevice::Text))
 	{
 		QMessageBox::critical(this, tr("Fehler"), 
@@ -166,6 +162,9 @@ QStringList* ImportTrainingDirectoryWorkingPage::searchDir(QString dir)
 
 	QStringList allowedFileTypes;
 	allowedFileTypes << "*.wav";
+	allowedFileTypes << "*.mp3";
+	allowedFileTypes << "*.ogg";
+	allowedFileTypes << "*.flac";
 	QStringList dirs;
 	QStringList files;
 
@@ -211,30 +210,30 @@ QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataF
 			return NULL;
 		}
 		
-		QString execStr = Settings::get("Programs/Audio/SoX").toString()
-				+" "+dataFiles[i]+" -w -c 1 -r 16000  "+newFileName + " vol 1.0 resample";
-		int ret = QProcess::execute(execStr);
-		if (ret)
+		QStringList filters = Settings::get("Model/ProcessingFilters").toString().split(" && ");
+		float filterstep = 8/filters.count();
+		float filtertot=0;
+		QString filter;
+		for (int j=0; j < filters.count(); j++)
 		{
-			//something went wrong
-			//resample always returns ERROR - crap
-			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 bearbeiten. Bitte ueberpruefen Sie ob Sie das Programm \"sox\" installiert haben, der Pfad in den Einstellungen richtig angegeben wurde und ob Sie all die nötigen Berechtigungen besitzen. (Rückgabewert %3) (Ausgefuehrtes Kommando: %4)").arg(dataFiles[i]).arg(newFileName).arg(ret).arg(execStr));
-			return NULL;
+			QString execStr = filters.at(j);
+			execStr.replace("\%1", dataFiles[i]);
+			execStr.replace("\%2", newFileName);
+			execStr.replace("\%3", Settings::get("Model/SampleRate").toString());
+			execStr.replace("\%4", Settings::get("Model/Channels").toString());
+			int ret = QProcess::execute(execStr);
+			if (ret)
+			{
+				//something went wrong
+				//resample always returns ERROR - crap
+				QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 bearbeiten. Bitte ueberpruefen Sie ob Sie das Programm, installiert haben, der Pfad in den Einstellungen richtig angegeben wurde und ob Sie all die nötigen Berechtigungen besitzen. (Rückgabewert %3) (Ausgefuehrtes Kommando: %4)").arg(dataFiles[i]).arg(newFileName).arg(ret).arg(execStr));
+				return NULL;
+			}
+			filtertot = filtertot+filterstep;
+			prog += round(filtertot);
+			pbMain->setValue(prog);
+			QCoreApplication::processEvents();
 		}
-		prog += 8;
-		pbMain->setValue(prog);/*
-		ret = QProcess::execute(Settings::get("Programs/Audio/Normalize").toString()+
-				   " "+newFileName);
-		if (ret)
-		{
-			//something went wrong
-			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 normalisieren. Bitte ueberpruefen Sie ob Sie das Programm \"resample\" installiert haben, der Pfad richtig eingestellt ist und ob Sie all die noetigen Berechtigungen besitzen. (Rückgabewert %3)").arg(dataFiles[i]).arg(newFileName).arg(ret));
-			return NULL;
-		}
-		*newFiles << newFileName;
-		prog += 3;
-		pbMain->setValue(prog);*/
-		QCoreApplication::processEvents();
 	}
 
 	pbMain->setValue(prog);
@@ -247,10 +246,11 @@ QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataF
  * @param dataFiles The datafiles to process
  * @param destDir The directory where we should write the file
  * @return success
+ * \author Peter Grasch
  */
-bool ImportTrainingDirectoryWorkingPage::createScp(QStringList dataFiles, QString destDir)
+bool ImportTrainingDirectoryWorkingPage::createScp(QStringList dataFiles, QString dest)
 {
-	QFile *scp = new QFile(destDir+"/codetrain.scp", this);
+	QFile *scp = new QFile(dest, this);
 	if (!scp->open(QIODevice::WriteOnly|QIODevice::Truncate|QIODevice::Text))
 	{
 		QMessageBox::critical(this, tr("Fehler"), 
