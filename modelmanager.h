@@ -34,19 +34,64 @@ Q_OBJECT
 signals:
 	void status(QString);
 	void error(QString);
-	void progress(int now, int total=1000);
+	void progress(int now, int total=2000);
 private:
 	QProgressDialog *processDialog;
 	QProcess *proc;
+	QString tmpDir;
+
 	bool generateDirectoryStructure();
 	
 	bool generateInputFiles();
 		bool generateWlist();
+		bool makeMonophones();
+
+	bool makeTranscriptions();
+		bool generateMlf();
+
+	bool codeAudioData();
+		bool generateCodetrainScp();
+
+	bool buildHMM();
+
+		bool createMonophones();
+			bool buildHMM0();
+			bool buildHMM1();
+			bool buildHMM2();
+			bool buildHMM3();
+
+		bool fixSilenceModel();
+			bool buildHMM4();
+			bool buildHMM5();
+			bool buildHMM6();
+			bool buildHMM7();
+
+		bool realign();
+			bool makeDict1();
+			bool realignHMM7();
+			bool buildHMM8();
+			bool buildHMM9();
+
+		bool makeTriphones();
+			bool makeMkTriHed();
+			bool buildHMM10();
+			bool buildHMM11();
+			bool buildHMM12();
+
+		bool tieStates();
+			bool makeFulllist();
+			bool makeTreeHed();
+			bool buildHMM13();
+			bool buildHMM14();
+			bool buildHMM15();
 	
 private slots:
 	void setStatus(QString);
 	void displayError(QString);
 	void setProgress(int now, int max);
+
+	void logError();
+	void logInfo();
 public slots:
 	void cancel();
 	

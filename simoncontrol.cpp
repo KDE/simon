@@ -124,8 +124,7 @@ void SimonControl::disconnectFromJulius()
 void SimonControl::wordRecognised(QString word)
 {
 	QString keyword = Settings::get("Commands/Keyword").toString();
-	if (word.indexOf(keyword,
-		0,Qt::CaseInsensitive) == 0)
+	if (word.startsWith(keyword))
 	{
 		word = word.replace(0, QString(keyword).length()+1,"");
 		SimonInfo::showMessage(word,2000);

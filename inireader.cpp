@@ -42,13 +42,13 @@ bool IniReader::load(QString path)
 	{
 		QString line = ts.readLine(1024);
 		QStringList pair = line.split("=");
-		if (pair.count() != 2) 
-			Logger::log(QCoreApplication::tr("[INF] Ignoriere Zeile %1 in Datei %2: \"%3\"").arg(lineC).arg(path).arg(line));
-		 else
+		if (pair.count() == 2) 
+// 			Logger::log(QCoreApplication::tr("[INF] Ignoriere Zeile %1 in Datei %2: \"%3\"").arg(lineC).arg(path).arg(line));
 			this->document.insert(pair[0], pair[1]);
 		
 		lineC++;
 	}
+	return true;
 }
 
 QString IniReader::getKey(QString key)

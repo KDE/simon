@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>554</width>
-    <height>334</height>
+    <width>479</width>
+    <height>389</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -16,7 +16,7 @@
    <item>
     <widget class="QTabWidget" name="twMain" >
      <property name="currentIndex" >
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tbSamples" >
       <attribute name="title" >
@@ -114,6 +114,19 @@
          </property>
         </widget>
        </item>
+       <item row="4" column="1" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tbLanguageModel" >
@@ -156,9 +169,37 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="lbCodeTrain" >
+            <widget class="QLabel" name="lbWavConfig" >
              <property name="text" >
-              <string>Codetrain:</string>
+              <string>Wav-Config:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbConfig" >
+             <property name="text" >
+              <string>config:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbProto" >
+             <property name="text" >
+              <string>proto:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbHmmOut" >
+             <property name="text" >
+              <string>HMM Output:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbTiedlist" >
+             <property name="text" >
+              <string>Tiedlist:</string>
              </property>
             </widget>
            </item>
@@ -188,11 +229,125 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="leCodeTrain" >
+            <widget class="QLineEdit" name="leWavConfig" >
              <property name="text" >
-              <string>model/codetrain.scp</string>
+              <string>model/wav_config</string>
              </property>
             </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leConfig" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leProto" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leHmmOut" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leTiedlist" />
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Scripts" >
+      <attribute name="title" >
+       <string>Scripts</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <item>
+        <layout class="QHBoxLayout" >
+         <item>
+          <layout class="QVBoxLayout" >
+           <item>
+            <widget class="QLabel" name="lbMkphones0led" >
+             <property name="text" >
+              <string>mkphones0.led:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbMkphones1led" >
+             <property name="text" >
+              <string>mkphones1.led:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_3" >
+             <property name="text" >
+              <string>tree1.hed:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbGlobalDed" >
+             <property name="toolTip" >
+              <string> (global.ded, etc.)</string>
+             </property>
+             <property name="text" >
+              <string>Global.ded:</string>
+             </property>
+             <property name="wordWrap" >
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbSilHed" >
+             <property name="text" >
+              <string>sil.hed:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbMktriLed" >
+             <property name="text" >
+              <string>mktri.led:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" >
+           <item>
+            <widget class="QLineEdit" name="leMkPhones0" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leMkPhones1" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leTreeHed" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leGlobalDed" >
+             <property name="toolTip" >
+              <string> (global.ded, etc.)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leSilHed" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leMktriLed" />
            </item>
           </layout>
          </item>

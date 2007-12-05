@@ -152,9 +152,21 @@ bool ModelSettings::apply()
 	Settings::set("Model/PathToGrammar", ui.leGrammar->text());
 	Settings::set("Model/PathToPrompts", ui.lePrompts->text());
 	Settings::set("Model/PathToVocab", ui.leVocab->text());
-	Settings::set("Model/PathToCodeTrain", ui.leCodeTrain->text());
+	Settings::set("Model/PathToWavConfig", ui.leWavConfig->text());
+	Settings::set("Model/PathToConfig", ui.leConfig->text());
+	Settings::set("Model/PathToProto", ui.leProto->text());
+	Settings::set("Model/PathToTreeHed", ui.leTreeHed->text());
+
+	Settings::set("Model/PathToMkPhones0", ui.leMkPhones0->text());
+	Settings::set("Model/PathToMkPhones1", ui.leMkPhones1->text());
 
 	Settings::set("Model/PathToSamples", ui.leSamplePath->text());
+	Settings::set("Model/PathToGlobalDed", ui.leGlobalDed->text());
+	Settings::set("Model/PathToSilHed", ui.leSilHed->text());
+	Settings::set("Model/PathToMktriLed", ui.leMktriLed->text());
+
+	Settings::set("Model/PathToHmm", ui.leHmmOut->text());
+	Settings::set("Model/PathToTiedlist", ui.leTiedlist->text());
 
 	return true;
 }
@@ -182,10 +194,23 @@ bool ModelSettings::init()
 	ui.leGrammar->setText(Settings::get("Model/PathToGrammar").toString());
 	ui.lePrompts->setText(Settings::get("Model/PathToPrompts").toString());
 	ui.leVocab->setText(Settings::get("Model/PathToVocab").toString());
-	ui.leCodeTrain->setText(Settings::get("Model/PathToCodeTrain").toString());
+	ui.leWavConfig->setText(Settings::get("Model/PathToWavConfig").toString());
+
+	ui.leConfig->setText(Settings::get("Model/PathToConfig").toString());
+	ui.leProto->setText(Settings::get("Model/PathToProto").toString());
+	ui.leTreeHed->setText(Settings::get("Model/PathToTreeHed").toString());
+
+
+	ui.leMkPhones0->setText(Settings::get("Model/PathToMkPhones0").toString());
+	ui.leMkPhones1->setText(Settings::get("Model/PathToMkPhones1").toString());
 
 	ui.leSamplePath->setText(Settings::get("Model/PathToSamples").toString());
+	ui.leGlobalDed->setText(Settings::get("Model/PathToGlobalDed").toString());
+	ui.leSilHed->setText(Settings::get("Model/PathToSilHed").toString());
+	ui.leMktriLed->setText(Settings::get("Model/PathToMktriLed").toString());
 
+	ui.leHmmOut->setText(Settings::getS("Model/PathToHmm"));
+	ui.leTiedlist->setText(Settings::getS("Model/PathToTiedlist"));
 	return true;
 }
 

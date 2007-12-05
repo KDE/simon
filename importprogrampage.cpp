@@ -22,7 +22,7 @@ ImportProgramPage::ImportProgramPage(QWidget* parent): QWizardPage(parent)
     vboxLayout = new QVBoxLayout(this);
     
     label = new QLabel(this);
-    label->setText("Programm wird den Komandos hinzugefügt");
+    label->setText(tr("Programm wird den Komandos hinzugefügt"));
     
     progressbar = new QProgressBar(this);
     
