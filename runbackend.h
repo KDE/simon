@@ -28,7 +28,7 @@ class QString;
 class RunBackend{
 	
 	public:
-		virtual void run(QString command)=0;
+		virtual void run(QString command, QString workingDirectory = "")=0;
 		virtual void goTo(QString place)=0;
 		virtual ~RunBackend() {}
 };

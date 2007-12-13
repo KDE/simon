@@ -52,6 +52,7 @@ private:
 	int oldId; //!< where did we come from?
 	
 	RecWidget *recorder;
+    int recordedPages; //!< this counter will hold the recorded pages; it will change, when pages are recorded or deleted
 	
 	QString makeTextProgress(int msecs);
 public slots:
@@ -70,6 +71,11 @@ public slots:
 	void trainWords(WordList *words);
 	void startTraining();
 	void importDirectory();
+
+private slots:
+    void increaseRecordedPages();
+    void decreaseRecordedPages();
+
 public:
 	void exec();
     TrainingView(WordListView *wordlistView, QWidget *parent=0);

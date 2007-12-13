@@ -5,7 +5,7 @@
       <formats />
   </category>
   <category name="Office">
-    <description>Büroprogramme</description>
+    <description>Bueroprogramme</description>
     <icon>:/images/icons/applications-office.svg</icon>
     <formats>
       <format>rtf</format>

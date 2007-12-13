@@ -58,7 +58,7 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
         lwCategories->setObjectName("lwCategories");
         lwCategories->setIconSize(QSize(24,24));
 
-        this->insertCategories(catList);
+        this->insertCategories(programManager->readCategories());
 
         lwPrograms = new QListWidget(this);
         lwPrograms->setMaximumHeight(140);
@@ -69,7 +69,7 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
         vboxLayout->addWidget(lwPrograms);
 
         connect(lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
-        //connect(lwPrograms, SIGNAL(itemSelectionChanged()), this, SLOT(SelectProgramPage()));
+        //connect(lwPrograms, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
 }
 
 /**

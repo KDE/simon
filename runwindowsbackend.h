@@ -29,7 +29,7 @@ public:
     RunWindowsBackend();
 
     void goTo(QString place);
-    void run(QString command);
+    void run(QString command, QString workingDirectory = "");
 
     ~RunWindowsBackend();
 

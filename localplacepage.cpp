@@ -16,7 +16,7 @@
 
 /**
 *   \brief constructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 LocalPlacePage::LocalPlacePage(QWidget* parent): QWizardPage(parent)
 {   
@@ -43,14 +43,14 @@ LocalPlacePage::LocalPlacePage(QWidget* parent): QWizardPage(parent)
 
 /**
 *   \brief destructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 LocalPlacePage::~LocalPlacePage()
 {}
 
 /**
 *   \brief destructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 void LocalPlacePage::openFileDialog()
 {
@@ -77,7 +77,7 @@ void LocalPlacePage::openFileDialog()
 
 /**
 *   \brief to geht the whole path of a place
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 QString LocalPlacePage::getPlacePath()
 {

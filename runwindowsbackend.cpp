@@ -62,10 +62,10 @@ void RunWindowsBackend::goTo(QString place)
  *	The command - it will be passed to the system as-is
  *	@author Susanne Tschernegg
  */
-void RunWindowsBackend::run(QString command)
+void RunWindowsBackend::run(QString command, QString workingDirectory)
 {
    RegistryManager *rm = new RegistryManager();
-    rm->startProcess(command);
+    rm->startProcess(command, workingDirectory);
     
     //just for testing
     QStringList* programs = new QStringList();

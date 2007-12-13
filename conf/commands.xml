@@ -1,16 +1,8 @@
 <commands>
- <command type="0" name="Blender" >blender</command>
- <command type="0" name="Kopete" >kopete -caption "%c" %i %m %u</command>
- <command type="0" name="Qt Designer" >/usr/bin/designer</command>
- <command type="0" name="KNetAttach" >knetattach</command>
- <command type="0" name="Cache" >kcmshell cache</command>
- <command type="0" name="Kontact" >kontact</command>
- <command type="0" name="Ark" >ark -caption "%c" %i %m %U</command>
- <command type="0" name="TaskJuggler" >TaskJugglerUI</command>
- <command type="0" name="KTip" >ktip</command>
- <command type="0" name="KAddressBook" >kaddressbook %u</command>
- <command type="0" name="OpenOffice.org 2.2 Impress" >ooffice -impress %U</command>
- <command type="0" name="Proxy" >kcmshell proxy</command>
- <command type="0" name="OpenGL" >kcmshell opengl</command>
- <command type="0" name="Style" >kcmshell style</command>
+ <command iconPath="shell32.dll,5" type="0" name="audio" workingDirectory="C:\Dokumente und Einstellungen\Susi\Eigene Dateien\privat" >iTunes.exe</command>
+ <command iconPath="shell32.dll,14" type="0" name="audio2" workingDirectory="C:\Dokumente und Einstellungen\Susi\Eigene Dateien\privat" >iTunes.exe</command>
+ <command iconPath="shell32.dll,7" type="0" name="audio3" workingDirectory="C:\Dokumente und Einstellungen\Susi\Eigene Dateien\privat" >iTunes.exe</command>
+ <command iconPath="C:\Dokumente und Einstellungen\Susi\Eigene Dateien\privat\Eigene Bilder\bmw.bmp" type="0" name="asdf" workingDirectory="asdfasdf" >asdf</command>
+ <command iconPath="C:\Dokumente und Einstellungen\Susi\Eigene Dateien\privat\Eigene Bilder\Bilder\Other\bmw-mouse-pink-crystal-front-auc.jpg" type="0" name="hge" workingDirectory="" >rhw</command>
+ <command iconPath="C:\Dokumente und Einstellungen\Susi\Eigene Dateien\privat\Eigene Bilder\bmw.bmp" type="1" name="agewgdsga" workingDirectory="" >C:\My Downloads</command>
 </commands>

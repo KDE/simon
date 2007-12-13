@@ -57,7 +57,7 @@ public:
      */
     CommandList getCommands() { return this->commandlist; }
     void readCommands(QString path);
-    void run(QString commandName);
+    void run(QString commandName, QString workingDirectory = "");
 
     ~RunCommand();
 

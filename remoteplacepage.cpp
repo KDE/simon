@@ -98,7 +98,10 @@ void RemotePlacePage::writeTyp()
     else
     {
         setWidgetsVisible(true);
-        lAdress->setText(cbTyp->currentText()+"://"+leUser->text()+":"+lePassword->text()+"@"+leHost->text());
+        if(leUser->text()!="" && lePassword->text()!="" && leHost->text()!="")
+            lAdress->setText(cbTyp->currentText()+"://"+leUser->text()+":"+lePassword->text()+"@"+leHost->text());
+        else
+            lAdress->setText(cbTyp->currentText()+"://"+leHost->text());
         
     }
 }

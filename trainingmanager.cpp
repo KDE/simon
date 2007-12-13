@@ -27,7 +27,7 @@ TrainingManager::TrainingManager(WordListManager *wlistmgr, QString pathToTexts)
 
 /**
  * \brief Aborts the rebuilding of the language model and cleans up
- * \author Peter Grasch
+ * \author Peter Grasch, Susanne Tschernegg
  */
 void TrainingManager::abortTraining()
 {

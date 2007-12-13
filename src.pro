@@ -19,6 +19,7 @@ unix {
 	-lXtst \
 	-lasound \
 	-lpthread
+TARGET = ./bin/simon
 }
 
 win32 {
@@ -26,6 +27,7 @@ win32 {
     SOURCES += runwindowsbackend.cpp registrymanager.cpp windowsevents.cpp windowsprogrammanager.cpp
     DEFINES += __WINDOWS_DS__
     LIBS += -ldsound -lwinmm -lole32
+TARGET = ../bin/simon
 }
 
 
@@ -148,7 +150,10 @@ importtrainingdirectoryworkingpage.h \
  remoteplacepage.h \
  chooseplacepage.h \
  desktopgridconfiguration.h \
- modelsettings.h
+ modelsettings.h \
+ icondialog.h \
+ windowsresourcehandler.h \
+ iconbutton.h
 
 
 
@@ -245,12 +250,14 @@ SOURCES += main.cpp \
  remoteplacepage.cpp \
  chooseplacepage.cpp \
  desktopgridconfiguration.cpp \
- modelsettings.cpp
+ modelsettings.cpp \
+ icondialog.cpp \
+ windowsresourcehandler.cpp \
+ iconbutton.cpp
 
 QT += network \
 xml 
 
-TARGET = ./bin/simon
 TEMPLATE = app
 
 CONFIG += qt \

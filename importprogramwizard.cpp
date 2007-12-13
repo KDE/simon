@@ -66,7 +66,7 @@ QWizardPage* ImportProgramWizard::createIntroPage()
 
 /**
 *   \brief creates the selectprogrampage
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 SelectProgramPage* ImportProgramWizard::createSelectProgramPage()
 {
@@ -75,7 +75,7 @@ SelectProgramPage* ImportProgramWizard::createSelectProgramPage()
 
 /**
 *   \brief creates the configureprogrampage
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ConfigureProgramPage* ImportProgramWizard::createConfigureProgramPage()
 {
@@ -84,7 +84,7 @@ ConfigureProgramPage* ImportProgramWizard::createConfigureProgramPage()
 
 /**
 *   \brief creates the importprogrampage
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ImportProgramPage* ImportProgramWizard::createImportProgramPage()
 {
@@ -93,7 +93,7 @@ ImportProgramPage* ImportProgramWizard::createImportProgramPage()
 
 /**
 *   \brief creates the last page
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 QWizardPage* ImportProgramWizard::createFinishedPage()
 {

@@ -61,7 +61,7 @@ public:
 
         QString getExecPath();
         QString getName();
-	QString getWorkingDirectory();
+	    QString getWorkingDirectory();
 
         QVBoxLayout *vboxLayout;
         QListWidget *lwCategories;

@@ -34,9 +34,11 @@ bool XMLCommand::save(QString path)
 		QDomElement command = doc->createElement("command");
 		command.setAttribute("type", QString::number(commandlist.at(i)->getType()));
 		command.setAttribute("name", commandlist.at(i)->getName());
+        command.setAttribute("iconPath", commandlist.at(i)->getIconPath());
+        command.setAttribute("workingDirectory", commandlist.at(i)->getWorkingDirectory());
 		QDomText commandValue = doc->createTextNode(commandlist.at(i)->getValue());
 		command.appendChild(commandValue);
-		
+
 		root.appendChild(command);
 	}
 	
@@ -109,18 +111,18 @@ bool XMLCommand::load(QString path)
 	commandlist.clear();
 	XMLDomReader::load(path);
 	if (!this->doc) return false;
-	
 	QDomElement root = this->doc->documentElement();
 	QDomElement command = root.firstChildElement();
-	
 	while(!command.isNull())
 	{
 		QString name = command.attribute("name");
 		QString type = command.attribute("type");
 		QString value = command.text().trimmed();
+        QString iconPath = command.attribute("iconPath");
+        QString workingDirectory = command.attribute("workingDirectory");
 		
 			
-		commandlist.append(new Command(name, CommandType(type.toInt()), value));
+		commandlist.append(new Command(name, CommandType(type.toInt()), value, iconPath, workingDirectory));
 
 		command = command.nextSiblingElement();
 	}

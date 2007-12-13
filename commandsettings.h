@@ -23,7 +23,13 @@
 #endif
 #include "importplacewizard.h"
 class ImportProgramWizard;
+class QIcon;
 //class ImportPlaceWizard;
+
+#include "qwindowsstyle.h"
+#include <QPixmap>
+
+#include "iconbutton.h"
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -59,6 +65,7 @@ public slots:
     void insertCommand(Command *command);
     void setWidgetsDisabled();
     void checkValuesAfterReturnPressed();
+    void changeIcon(QString resourceId);
 
 private:
     Ui::CommandSettingsDlg ui;
@@ -78,6 +85,9 @@ private:
 
     XMLCommand *commandLoader;
     bool commandEdited;
+    QIcon getIconFromResource(QString resourceId);
+    QString getTypeName(CommandType ctype);
+    int getTypeNumber(QString commandName);
 
 signals:
     void commandsChanged();

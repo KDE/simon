@@ -38,9 +38,9 @@ RegistryManager::~RegistryManager()
 *
 * @autor Susanne Tschernegg
 */
-void RegistryManager::startProcess(QString command)
+void RegistryManager::startProcess(QString command, QString workingDirectory)
 {
-      if(QFile::exists(command))
+    if(QFile::exists(command))
         QProcess::startDetached(command);
     else
     {
@@ -82,8 +82,10 @@ void RegistryManager::startProcess(QString command)
             str.replace(startIndex, endIndex-startIndex+1, replaceStr);
             startIndex = str.indexOf("%");
             endIndex = str.indexOf("%",startIndex+1);
-        } 
-        QProcess::startDetached(str);
+        }
+        QProcess *process = new QProcess();
+        process->setWorkingDirectory(workingDirectory);    //sets the workingdirectory
+        process->startDetached(str);
     }   
 }
 

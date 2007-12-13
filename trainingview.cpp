@@ -29,14 +29,15 @@ TrainingView::TrainingView(WordListView *wordlistView, QWidget *parent)
 	
 	connect(ui.pbTrainText, SIGNAL(clicked()), this, SLOT(trainSelected()));
 	
+    ui.pbPrevPage->setEnabled(false);
 	connect (ui.pbNextPage, SIGNAL(clicked()), this, SLOT(nextPage()));
 	connect (ui.pbPrevPage, SIGNAL(clicked()), this, SLOT(prevPage()));
 	
 	connect(ui.pbCancelTraining, SIGNAL(clicked()), this, SLOT(cancelTraining()));
 	connect(ui.pbFinish, SIGNAL(clicked()), this, SLOT(finish()));
 	connect(ui.pbImportText, SIGNAL(clicked()), this, SLOT(importTexts()));
-		connect (ui.pbBackToMain, SIGNAL(clicked()), this, SLOT(cancelReading()));
-		connect (ui.pbDelText, SIGNAL(clicked()), this, SLOT(deleteSelected()));
+    connect (ui.pbBackToMain, SIGNAL(clicked()), this, SLOT(cancelReading()));
+    connect (ui.pbDelText, SIGNAL(clicked()), this, SLOT(deleteSelected()));
 	connect(ui.pbImportDir, SIGNAL(clicked()), this, SLOT(importDirectory()));	
 	
 	currentPage=0;
@@ -45,7 +46,7 @@ TrainingView::TrainingView(WordListView *wordlistView, QWidget *parent)
 	
 	loadList(); // we load the list of avalible trainingtexts despite we probably won't
 	// use it when given a special training program
-	
+    
 }
 
 
@@ -91,6 +92,7 @@ void TrainingView::trainWords(WordList* words)
  */
 void TrainingView::trainSelected()
 {
+    recordedPages = 0;
 	if (ui.twTrainingWords->selectedItems().isEmpty())
 	{
 		QMessageBox::information(this,tr("Nichts ausgewählt"),tr("Bitte selektieren Sie zuerst einen Text aus der Liste."));
@@ -162,7 +164,7 @@ void TrainingView::finish()
  * \brief Adapts the components to the content of the page given
  * Gets the content of the page and displays it in the label;
  * Displays the pageNumber in the progressbar and the groupbox-title
- * \author Peter Grasch
+ * \author Peter Grasch, Susanne Tschernegg
  * \param int page
  * The page to use
  * \note all information is retrieved from this->trainMgr
@@ -174,6 +176,10 @@ void TrainingView::fetchPage(int page)
 	
 	recorder = new RecWidget( tr("Seite: %1").arg(page+1),
 				  tr("sample%1.wav").arg(page+1), ui.wRecTexts);
+
+    connect(recorder, SIGNAL(recordingFinished()), this, SLOT(increaseRecordedPages()));
+    connect(recorder, SIGNAL(sampleDeleted()), this, SLOT(decreaseRecordedPages()));
+    
 	ui.wRecTexts->layout()->addWidget(recorder);
 	
 	ui.gbPage->setTitle(tr("Seite: %1/%2").arg(page+1).arg(trainMgr->getPageCount()));
@@ -182,13 +188,32 @@ void TrainingView::fetchPage(int page)
 
 /**
  * \brief Jumps to the previous page in the pile
- * \author Peter Grasch
+ * \author Peter Grasch, Susanne Tschernegg
  */
 void TrainingView::prevPage()
 {
 	if (currentPage>0)
+    {
+        if(currentPage==1)
+            ui.pbPrevPage->setEnabled(false);
+        else if(ui.pbPrevPage->isEnabled()==false)
+            ui.pbPrevPage->setEnabled(true);
 		currentPage--;
-	else return;
+    }
+	else
+    {   
+        ui.pbPrevPage->setEnabled(false);
+        //return;
+    }
+    int max = trainMgr->getPageCount()-1;
+    if(currentPage < max)
+    {
+        ui.pbNextPage->setEnabled(true);
+    }
+    else
+    {
+        ui.pbNextPage->setEnabled(false);
+    }
 	resetRecorder();
 	fetchPage(currentPage);
 }
@@ -216,14 +241,28 @@ void TrainingView::resetRecorder()
 
 /**
  * \brief Jumps to the next page in the pile
- * \author Peter Grasch
+ * \author Peter Grasch, Susanne Tschernegg
  */
 void TrainingView::nextPage()
 {
 	int max = trainMgr->getPageCount()-1;
 	if (currentPage < max)
+    {
+        if(currentPage==max-1)
+            ui.pbNextPage->setEnabled(false);
+        else if(ui.pbNextPage->isEnabled()==false)
+            ui.pbNextPage->setEnabled(true);
 		currentPage++;
-	else return;
+    }
+	else
+    {
+        ui.pbNextPage->setEnabled(false);
+        //return;
+    }
+    if(currentPage > 0)
+    {
+        ui.pbPrevPage->setEnabled(true);
+    }
 	resetRecorder();
 	fetchPage(currentPage);
 }
@@ -328,5 +367,34 @@ void TrainingView::setSettingsVisible()
     ui.pbDelText->show();
     ui.pbImportText->show();
     ui.pbImportDir->show();
+}
+
+/**
+ * @brief
+ *
+ *	@author Susanne Tschernegg
+ */
+void TrainingView::increaseRecordedPages()
+{
+    QMessageBox::information(this,"askdgkdfdsk ","trainingsview incrase");
+    int max = trainMgr->getPageCount();
+    QMessageBox::information(this,"ajksddasf", qvariant_cast<QString>(max));
+    recordedPages++;
+    QMessageBox::information(this,"ajksddasf", qvariant_cast<QString>(recordedPages));
+    if(recordedPages==max)
+        ui.pbFinish->setEnabled(true);
+}
+
+/**
+ * @brief
+ *
+ *	@author Susanne Tschernegg
+ */
+void TrainingView::decreaseRecordedPages()
+{
+    int max = trainMgr->getPageCount();
+    if(recordedPages==max)
+        ui.pbFinish->setEnabled(false);
+    recordedPages--;
 }
 

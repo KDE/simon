@@ -201,7 +201,7 @@ void ImportPlaceWizard::idChanged(int newId)
 
 /**
 *   \brief slot: for checking, which class of places where choosen ... we don't use this method yet
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 void ImportPlaceWizard::placePreselectionChanged()
 {

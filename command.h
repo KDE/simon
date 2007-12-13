@@ -13,6 +13,7 @@
 #define COMMAND_H
 #include <QList>
 #include <QString>
+#include <QMessageBox>
 
 /**
  *	@class Command
@@ -47,22 +48,28 @@ private:
 	QString name; //!< The name of the command - this is used to call the command and is unique
 	CommandType type; //!< the type of command
 	QString value; //!< The command itself
+    QString workingDirectory;   //!< The Path, where the command get started.
+    QString iconPath; //!< The icon of a command.
 
 public:
 	
     /**
     * @brief Constructor
     * 
-    *	@author Peter Grasch
+    *	@author Peter Grasch, Susanne Tschernegg
     *	@param QString name
     *	@param CommandType type
     *	@param QString value
+    *   @param QString iconPath
+    *   @param QString workingDirectory
     */
-    Command(QString name, CommandType type, QString value)
+    Command(QString name, CommandType type, QString value, QString iconPath = "", QString workingDirectory="")
     {
-	this->name = name;
-	this->type = type;
-	this->value = value;
+        this->name = name;
+        this->type = type;
+        this->value = value;
+        this->iconPath = iconPath;
+        this->workingDirectory = workingDirectory;
     }
 
     /**
@@ -92,6 +99,24 @@ public:
     */
     QString getValue() {return this->value; }
 
+    /**
+    * @brief Returns the WorkingDirectory
+    *
+    * @author Susanne Tschernegg
+    * @return QString
+    * This returns the actual working directory. Must not be set.
+    */
+    QString getWorkingDirectory() {return this->workingDirectory;}
+    
+    /**
+    * @brief Returns the Icon of this command.
+    *
+    * @author Susanne Tscherneg
+    * @return QIcon
+    * Returns the Path of the Icon, which was chosen for this command.
+    */
+    QString getIconPath() {return this->iconPath;}
+    
     ~Command();
 
 };

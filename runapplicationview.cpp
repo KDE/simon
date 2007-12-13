@@ -11,6 +11,10 @@
 //
 #include "runapplicationview.h"
 #include "settings.h"
+#include <QMessageBox>
+#include <QIcon>
+#include "windowsresourcehandler.h"
+#include "iconbutton.h"
 
 /**
  *	@brief Constructor
@@ -63,7 +67,8 @@ void RunApplicationView::clearSearchText()
  */
 void RunApplicationView::runCommand(QTableWidgetItem* command)
 {
-	QString name = ui.twPrograms->item(command->row(), 0)->text();
+    
+	QString name = ui.twPrograms->item(command->row(), 1)->text();
 	SimonInfo::showMessage(name, 2500);
 	this->run->run(name);
 }
@@ -196,7 +201,7 @@ void RunApplicationView::runSelectedCommand()
 /**
  *	@brief inserts the given Commands in the QTableWidget
  *
- *	@author Peter Grasch
+ *	@author Peter Grasch, Susanne Tschernegg
  */
 void RunApplicationView::insertCommands(CommandList list)
 {
@@ -204,9 +209,31 @@ void RunApplicationView::insertCommands(CommandList list)
 	int type;
 	QString strtype;
 	ui.twPrograms->setRowCount(list.count());
-	for (i=0; i<list.count(); i++)
+    //ui.twPrograms->setItem(i,0, new QTableWidgetItem(QIcon(list.at(i)->getIconPath()),""));
+	
+    for (i=0; i<list.count(); i++)
 	{
-		ui.twPrograms->setItem(i, 0, new QTableWidgetItem(list.at(i)->getName()));
+        QString resourceId = list.at(i)->getIconPath();
+        
+        QIcon icon;
+        if(resourceId.contains(QRegExp(".dll,\n*")))
+        {
+            QStringList iconResources = resourceId.split(",");
+            WindowsResourceHandler *windowsResourceHandler = new WindowsResourceHandler();
+            icon = windowsResourceHandler->retrieveIcon(iconResources.at(0), iconResources.at(1).toInt());
+        }
+        else
+        {
+            QPixmap pixmap(resourceId);
+            icon.addPixmap(pixmap);
+        }
+        
+        QTableWidgetItem *item = new QTableWidgetItem();
+        item->setIcon(icon);
+        
+        ui.twPrograms->setItem(i, 0, item);
+        
+		ui.twPrograms->setItem(i, 1, new QTableWidgetItem(list.at(i)->getName()));
 		
 		type = list.at(i)->getType();
 		switch (type)
@@ -222,9 +249,10 @@ void RunApplicationView::insertCommands(CommandList list)
 				break;
 		}
 		
-		ui.twPrograms->setItem(i, 1, new QTableWidgetItem(strtype));
-		ui.twPrograms->setItem(i, 2, new QTableWidgetItem(list.at(i)->getValue()));
-		for (int j = 0; j<3; j++)
+		ui.twPrograms->setItem(i, 2, new QTableWidgetItem(strtype));
+		ui.twPrograms->setItem(i, 3, new QTableWidgetItem(list.at(i)->getValue()));
+        ui.twPrograms->setItem(i, 4, new QTableWidgetItem(list.at(i)->getWorkingDirectory()));
+		for (int j = 1; j<5; j++)
 			ui.twPrograms->item(i,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 	}
 }
@@ -233,7 +261,7 @@ void RunApplicationView::insertCommands(CommandList list)
 *   \brief slot: the signal will be emited in the commandSettings.cpp
 *           it updates the whole commandList
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 void RunApplicationView::loadCommands()
 {
@@ -252,5 +280,6 @@ void RunApplicationView::loadCommands()
 RunApplicationView::~RunApplicationView()
 {
 }
+
 
 

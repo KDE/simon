@@ -59,7 +59,7 @@ void RunCommand::readCommands(QString path)
  *	Name of the command
  *	@author Peter Grasch
  */
-void RunCommand::run(QString commandName)
+void RunCommand::run(QString commandName, QString workingDirectory)
 {
 	//execute the command
 	int i=0;
@@ -79,7 +79,7 @@ void RunCommand::run(QString commandName)
 #endif
 #ifdef __WIN32
 		RunWindowsBackend *win = (RunWindowsBackend*) this->runner;
-		win->run(command);
+		win->run(command, workingDirectory);
 #endif
 	}
 	

@@ -30,7 +30,7 @@ public:
     
     ~RegistryManager();
 
-    void startProcess(QString command);
+    void startProcess(QString command, QString workingDirectory="");
     QStringList* getAllPrograms(QString format);
     QStringList* getAllPrograms(const QStringList formats);
     QStringList* getAllFormats(QString categorie = "all");
