@@ -24,7 +24,6 @@
 #include <QProcess>
 #include <QLabel>
 #include <QCoreApplication>
-#include <QDebug>
 #include <QVariant>
 #include "settings.h"
 #include <math.h>

@@ -17,6 +17,7 @@
 #include <QVariant>
 
 class QLabel;
+class IconButton;
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -32,6 +33,7 @@ class ConfigureProgramPage : public QWizardPage
 {
 private:
         QLabel *lbDesc;
+	IconButton *iconBtn;
 	
 public:
 	ConfigureProgramPage(QWidget* parent);
@@ -41,12 +43,14 @@ public:
 	void setName(QString name) { setField("name", name); }
 	void setExec(QString exec) { setField("exec", exec); }
 	void setWorkingDirectory(QString workingDir) { setField("workdir", workingDir); }
+	
 
+	const QString getIcon();
 	const QString getName() { return field("name").toString(); }
 	const QString getExec() { return field("exec").toString(); }
 	const QString getWorkingDir() { return field("workdir").toString(); }
 
-	void init(QString name, QString exec, QString workingDirectory);
+	void init(QString iconsrc, QString name, QString exec, QString workingDirectory);
 };
 
 #endif

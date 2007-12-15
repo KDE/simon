@@ -40,7 +40,7 @@
 
 
 class QWizardPage;
-
+class WordListManager;
 class AddWordView : public QWizard
 {
 	Q_OBJECT
@@ -48,6 +48,7 @@ class AddWordView : public QWizard
 	private:
 		RecWidget *rec1;
 		RecWidget *rec2;
+		WordListManager *wordlistMgr;
 		void hideEvent(QHideEvent *event) { 
 			emit hidden(); return QWidget::hideEvent(event); }
 	
@@ -65,7 +66,7 @@ class AddWordView : public QWizard
 		
 		
 	public:
-		AddWordView(QWidget *parent=0);
+		AddWordView(QWidget *parent, WordListManager *wordlistMgr);
 		~AddWordView()
 		{
 		}

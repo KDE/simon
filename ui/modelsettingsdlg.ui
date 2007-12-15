@@ -16,7 +16,7 @@
    <item>
     <widget class="QTabWidget" name="twMain" >
      <property name="currentIndex" >
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tbSamples" >
       <attribute name="title" >
@@ -252,6 +252,53 @@
         </layout>
        </item>
        <item>
+        <widget class="Line" name="line" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <item>
+          <layout class="QVBoxLayout" >
+           <item>
+            <widget class="QLabel" name="lbShadowLexicon" >
+             <property name="text" >
+              <string>Schatten-Lexikon</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbShadowVocab" >
+             <property name="text" >
+              <string>Schatten-Vokabular:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" >
+           <item>
+            <widget class="QLineEdit" name="leShadowLexicon" >
+             <property name="toolTip" >
+              <string>Das Schattenlexikon beinhaltet unbenutzte Wörter</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leShadowVocab" >
+             <property name="toolTip" >
+              <string>Das Schattenlexikon beinhaltet unbenutzte Wörter</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
         <spacer>
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
@@ -259,7 +306,7 @@
          <property name="sizeHint" >
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>20</height>
           </size>
          </property>
         </spacer>

@@ -15,7 +15,6 @@
 #include <QCoreApplication>
 
 #include <QMessageBox>
-#include <QDebug>
 #include <QVariant>
 #include <QProgressDialog>
 
@@ -323,8 +322,6 @@ bool ModelManager::tieStates()
 	emit status(tr("Erstelle triphone..."));
 	
 
-// HDMan -A -D -T 1 -b sp -n fulllist -g /home/bedahr/Daten/Schule/5bdh/PRE/simon/Beispiel/auto/auto/scripts/input_files/global.ded  dict-tri /home/bedahr/Daten/Schule/5bdh/PRE/simon/Beispiel/auto/lexicon/voxforge_lexicon                     
-	qDebug() << Settings::getS("Programs/HTK/HDMan")+" -A -D -T 1 -b sp -n "+tmpDir+"fulllist -g "+Settings::getS("Model/PathToGlobalDed")+" "+tmpDir+"dict-tri "+Settings::getS("Model/PathToLexicon");
 	if ((proc->execute(Settings::getS("Programs/HTK/HDMan")+" -A -D -T 1 -b sp -n "+tmpDir+"fulllist -g "+Settings::getS("Model/PathToGlobalDed")+" "+tmpDir+"dict-tri "+Settings::getS("Model/PathToLexicon")) != 0))
 	{
 		emit error(tr("Konnte Triphone nicht binden. Bitte überprüfen Sie den Pfad zu HDMan (%1), global.ded (%2) und dem Lexikon (%3).").arg(Settings::getS("Programs/HTK/HDMan")).arg(Settings::getS("Model/PathToGlobalDed")).arg(Settings::getS("Model/PahtToLexicon")));
@@ -470,13 +467,11 @@ bool ModelManager::buildHMM()
 	//TODO: Make a Backup!
 	emit status(tr("Übernehme Modell..."));
 
-// 	qDebug() << "Übernehme1" << Settings::getS("Model/PathToHmm") << Settings::getS("Model/PathToTiedlist");
 	if (QFile::exists(Settings::getS("Model/PathToHmm")))
 		if (!QFile::remove(Settings::getS("Model/PathToHmm"))) return false;
 	if (!QFile::copy(tmpDir+"hmm15/hmmdefs", Settings::getS("Model/PathToHmm")))
 		return false;
 
-// 	qDebug() << "Übernehme1";
 	if (QFile::exists(Settings::getS("Model/PathToTiedlist")))
 		if (!QFile::remove(Settings::getS("Model/PathToTiedlist"))) return false;
 	if (!QFile::copy(tmpDir+"tiedlist", Settings::getS("Model/PathToTiedlist")))

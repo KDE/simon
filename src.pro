@@ -23,8 +23,9 @@ TARGET = ./bin/simon
 }
 
 win32 {
-    HEADERS += runwindowsbackend.h registrymanager.h windowsevents.h windowsprogrammanager.h
-    SOURCES += runwindowsbackend.cpp registrymanager.cpp windowsevents.cpp windowsprogrammanager.cpp
+    HEADERS += runwindowsbackend.h registrymanager.h windowsevents.h windowsprogrammanager.h windowsresourcehandler.h 
+    SOURCES += runwindowsbackend.cpp registrymanager.cpp windowsevents.cpp windowsprogrammanager.cpp  windowsresourcehandler.cpp 
+ 
     DEFINES += __WINDOWS_DS__
     LIBS += -ldsound -lwinmm -lole32
 TARGET = ../bin/simon
@@ -47,7 +48,9 @@ FORMS += ui/main.ui \
          ui/networksettingsdlg.ui \
  ui/shortcutsettingsdlg.ui \
  ui/desktopgridconfigurationdlg.ui \
- ui/modelsettingsdlg.ui
+ ui/modelsettingsdlg.ui \
+ ui/recwidget.ui \
+ ui/removeword.ui
 
 
 HEADERS += simonview.h \
@@ -151,8 +154,8 @@ importtrainingdirectoryworkingpage.h \
  chooseplacepage.h \
  desktopgridconfiguration.h \
  modelsettings.h \
+ deleteworddialog.h \
  icondialog.h \
- windowsresourcehandler.h \
  iconbutton.h
 
 
@@ -251,8 +254,8 @@ SOURCES += main.cpp \
  chooseplacepage.cpp \
  desktopgridconfiguration.cpp \
  modelsettings.cpp \
+ deleteworddialog.cpp \
  icondialog.cpp \
- windowsresourcehandler.cpp \
  iconbutton.cpp
 
 QT += network \

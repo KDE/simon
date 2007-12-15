@@ -18,7 +18,6 @@
 #include <QCoreApplication>
 #include <QApplication>
 #include <QLabel>
-#include <QDebug>
 #include <QBrush>
 #include <QRect>
 #include <QColor>

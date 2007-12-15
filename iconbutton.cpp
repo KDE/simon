@@ -1,8 +1,3 @@
-    //simonIconButton abgeleitet von QToolButton ...
-    //iconname, get ... //name dem commandloader übergeben und dort auf dem objekt zwischenspeichern
-    //icondialog anzeigen
-    //signal: iconselected(QString ...)
-    
 //
 // C++ Implementation: iconbutton
 //
@@ -18,18 +13,19 @@
 
 #include <QMessageBox>
 
+#ifdef __WIN32
 #include "windowsresourcehandler.h"
+#endif
 
 /**
 *   \brief constructor, which creates a new iconDialog
 *   @author Susanne Tschernegg
 */
-IconButton::IconButton(QWidget *parent): QToolButton(parent)
+IconButton::IconButton ( QWidget *parent ) : QToolButton ( parent )
 {
-    iconName = "";
-    iconDialog = new IconDialog();
-   // connect(this, SIGNAL(clicked()), this, SLOT(changeIcon()));
-    connect(iconDialog, SIGNAL(iconSelected(QString)), this, SLOT(iconSelected(QString)));
+	iconName = "";
+	iconDialog = new IconDialog();
+	connect ( this, SIGNAL ( clicked() ), this, SLOT ( changeIcon() ) );
 }
 
 /**
@@ -39,39 +35,34 @@ IconButton::IconButton(QWidget *parent): QToolButton(parent)
 */
 void IconButton::changeIcon()
 {
-  /*  int currRow = twCommand->currentRow();
-    QToolButton *pbIcon = dynamic_cast<QToolButton*>(twCommand->cellWidget(currRow,0));
-    if(!pbIcon)
-    {
-        //QMessageBox::information(this,"commandsettings::changeIcon","!pbIcon");
-        return;
-    }*/
-    
-    //simonIconButton abgeleitet von QToolButton ...
-    //iconname, get ... //name dem commandloader übergeben und dort auf dem objekt zwischenspeichern
-    //icondialog anzeigen
-    //signal: iconselected(QString ...)
-    iconDialog = new IconDialog(this);
-    iconDialog->showIcons(getIconName());
-    int success = iconDialog->exec();
-    
-    if(success)
-    {
-        QString resourceId = iconDialog->getIcon();
-        
-        QIcon icon;
-        if(resourceId.contains(QRegExp(".dll,\n*")))
-        {    
-            QStringList iconResources = resourceId.split(",");      
-            WindowsResourceHandler *windowsResourceHandler = new WindowsResourceHandler();
-            icon = windowsResourceHandler->retrieveIcon(iconResources.at(0), iconResources.at(1).toInt());
-        }
-        else
-        {
-            QPixmap pixmap(resourceId);
-            icon.addPixmap(pixmap);
-        }
-        setIconName(resourceId);
-        setIcon(icon);
-    }
+	iconDialog = new IconDialog ( this );
+	iconDialog->showIcons ( getIconName() );
+
+	int success = iconDialog->exec();
+
+	if ( success )
+	{
+		QString resourceId = iconDialog->getIcon();
+
+		QIcon icon;
+#ifdef __WIN32
+		if ( resourceId.contains ( QRegExp ( ".dll,\n*" ) ) )
+		{
+			QStringList iconResources = resourceId.split ( "," );
+			WindowsResourceHandler *windowsResourceHandler = new WindowsResourceHandler();
+			icon = windowsResourceHandler->retrieveIcon ( iconResources.at ( 0 ), iconResources.at ( 1 ).toInt() );
+		}
+		else
+		{
+			QPixmap pixmap ( resourceId );
+			icon.addPixmap ( pixmap );
+		}
+#endif
+#ifndef __WIN32
+		QPixmap pixmap ( resourceId );
+		icon.addPixmap ( pixmap );
+#endif
+		setIconName ( resourceId );
+		setIcon ( icon );
+	}
 }

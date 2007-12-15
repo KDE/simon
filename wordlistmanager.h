@@ -13,6 +13,7 @@
 #define WORDLISTMANAGER_H
 
 #include <QHash>
+#include <QThread>
 #include "word.h"
 /**
  *	@class WordListManager
@@ -32,27 +33,33 @@ class ModelManager;
 typedef QHash<QString, QString> PromptsTable;
 
 
-class WordListManager{
+class WordListManager : public QThread {
 
+Q_OBJECT
+signals:
+	void wordlistChanged();
 private:
 	WordList *wordlist;	//!< Holds the wordlist
 	ModelManager *modelManager; //!< Manages the language- and acoustic model
-//	WordList *extralist;	//!< this holds the word that are not in the vocabulary (unused)
-	QString lexiconPath, vocabPath;
-	
-public:
-// 	WordList* getExtraWords() { return extralist; }
+	WordList *shadowList;	//!< this holds the word that are not in the vocabulary (unused)
 	
 	WordList* removeDoubles(WordList *in);
-	WordListManager(QString lexiconPath="model/lexicon", QString vocabPath="model/model.voca");
-	WordList* readWordList(QString lexiconpath="model/lexicon", QString vocabpath="model/model.voca", QString promptspath="model/prompts");
-	WordList* readVocab(QString vocabpath="model/model.voca");
-	PromptsTable* readPrompts(QString promptspath="model/prompts");
+	WordList* readWordList(QString lexiconpath, QString vocabpath, QString promptspath);
+	WordList* readVocab(QString vocabpath);
 	QString* getTerminal(QString name, QString pronunciation, WordList *wlist);
+
+public:
+	void run();
+
+	WordListManager();
+
+	Word getWord(int id) { return wordlist->at(id); }
+
+	PromptsTable* readPrompts(QString pathToPrompts);
 	int getProbability(QString name, PromptsTable *promptsTable);
-	void trainList();
 	WordList* getWordList() { return wordlist; }
-	void addWords(WordList *list, bool isSorted=false);
+	WordList* getShadowList() { return shadowList; }
+	void addWords(WordList *list, bool isSorted=false, bool shadow=false);
 	bool save( QString lexiconFilename="", QString vocabFilename="" );
 	WordList* sortList(WordList* list);
 

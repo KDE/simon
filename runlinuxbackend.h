@@ -32,7 +32,7 @@ public:
     RunLinuxBackend();
     
     void goTo(QString place);
-    void run(QString command);
+    void run(QString command, QString workingDir);
 
     ~RunLinuxBackend();
 

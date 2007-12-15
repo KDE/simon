@@ -11,7 +11,6 @@
 //
 #include "logger.h"
 #include <QCoreApplication>
-#include <QDebug>
 #include "xevents.h"
 /**
  * @brief Constructor

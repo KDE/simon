@@ -15,7 +15,6 @@
 #include "settings.h"
 #include "categoryxmlreader.h"
 #include <QVariant>
-#include <QDebug>
 #include <QMessageBox>
 
 ProgramManager::ProgramManager()

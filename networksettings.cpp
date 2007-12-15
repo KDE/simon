@@ -14,8 +14,9 @@
 #include <QInputDialog>
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <QDebug>
 #include <QLineEdit>
+#include <QSslSocket>
+#include <QSslCipher>
 #include "settings.h"
 
 /**
@@ -23,7 +24,7 @@
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(tr("Netzwerkeinstellungen"), QIcon(":/images/icons/network-receive.svg"), tr("Hier können Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
+NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(tr("Juliusd"), QIcon(":/images/icons/network-receive.svg"), tr("Hier können Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
 {
 	ui.setupUi(this);
 	hide();
@@ -77,6 +78,15 @@ bool NetworkSettings::apply()
 	}
 	Settings::set("Network/JuliusdServers", juliusServers);
 	Settings::set("Network/Timeout", ui.sbTimeout->value());
+
+	Settings::set("Juliusd/Username", ui.leUser->text());
+	Settings::set("Juliusd/Password", ui.lePass->text());
+
+	Settings::set("Juliusd/Encrypted", ui.gbEncryption->isChecked());
+	Settings::set("Juliusd/Cipher", ui.cbCipher->currentText());
+	Settings::set("Juliusd/Cert", ui.leCert->text());
+	Settings::set("Juliusd/ContiniueOnWarning", ui.cbIgnoreWarnings->isChecked());
+
 	return true;
 }
 
@@ -108,6 +118,34 @@ bool NetworkSettings::init()
 				end-portstart-1).toInt());
 		juliusServers = juliusServers.mid(end+1);
 	}
+
+	ui.leUser->setText(Settings::getS("Juliusd/Username"));
+	ui.lePass->setText(Settings::getS("Juliusd/Password"));
+
+
+	ui.cbIgnoreWarnings->setChecked(Settings::get("Juliusd/ContiniueOnWarning").toBool());
+
+	ui.gbEncryption->setChecked(Settings::get("Juliusd/Encrypted").toBool());
+
+	QString selectedCipher = Settings::getS("Juliusd/Cipher");
+	int selectedIndex=0;
+	QList<QSslCipher> ciphers = QSslSocket::supportedCiphers();
+	QStringList cipherStrs;
+	QString cipherName;
+	for (int i=0; i < ciphers.count(); i++)
+	{
+		cipherName = ciphers[i].name();
+		if (cipherName == selectedCipher)
+			selectedIndex =i;
+		cipherStrs << cipherName;
+	}
+
+	ui.cbCipher->clear();
+	ui.cbCipher->addItems(cipherStrs);
+	ui.cbCipher->setCurrentIndex(selectedIndex);
+
+
+	ui.leCert->setText(Settings::getS("Juliusd/Cert"));
 	
 	return true;
 }

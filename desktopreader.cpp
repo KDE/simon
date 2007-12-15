@@ -16,7 +16,6 @@
 #include <QStringList>
 #include <QTextStream>
 #include <QDir>
-#include <QDebug>
 #include <QProcess>
 #include <QLocale>
 

@@ -53,8 +53,6 @@ private:
 	bool dirty; //!< Determines if we changed the model since the last save
 	Ui::WordList ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	WordList trainingwordlist;  //!< Holds all the words that are scheduled for training
-	DragTableWidget *twVocab; //!< A QTableWidget that holds all vocabulary
-	DropListWidget *lwTrainingWords;  //!< QListWidget that displays the words scheduled for training
 	WordListManager *wordListManager; //!< Concept class
 	ImportDictView *importDictView; //!< Provides the Interface to import a dictionary
 	TrainingView *trainView; //!< Single trainingview is used for the special training
@@ -74,6 +72,7 @@ public slots:
 	void markWordToTrain( Word word );
 	void copyWordToTrain();
 	void deleteTrainingWord();
+	void deleteSelectedWord();
 	void trainList();
 	void importDict(WordList* list);
 	void clearList();

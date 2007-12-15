@@ -14,7 +14,6 @@
 #include <QLabel>
 #include <QRadioButton>
 #include <QVariant>
-#include <QDebug>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 

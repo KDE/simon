@@ -19,7 +19,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QVBoxLayout>
-#include <QDebug>
 #include <QListWidgetItem>
 #include <QHBoxLayout>
 #include <QIcon>

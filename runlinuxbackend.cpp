@@ -45,9 +45,18 @@ void RunLinuxBackend::goTo(QString place)
  *	The command - it will be passed to the system as-is
  *	@author Peter Grasch
  */
-void RunLinuxBackend::run(QString command)
+void RunLinuxBackend::run(QString command, QString workingDir)
 {
-	QProcess::startDetached  (command);
+	QString executable;
+	QStringList args;
+	if (command.contains(" "))
+	{
+		executable = command.left(command.indexOf(" "));
+		command.remove(executable);
+		args = command.split(" ", QString::SkipEmptyParts);
+	} else executable = command;
+
+	QProcess::startDetached  (executable, args, workingDir);
 }
 
 

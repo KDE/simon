@@ -12,7 +12,6 @@
 #include "shortcutcontrol.h"
 #include <QList>
 #include "shortcut.h"
-#include <QDebug>
 #include <QVariant>
 #include "shortcutxmlreader.h"
 #include "settings.h"

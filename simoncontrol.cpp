@@ -22,7 +22,6 @@
 #include "logger.h"
 #include "settings.h"
 #include <QVariant>
-#include <QDebug>
 #include <QMessageBox>
 #include "shortcutcontrol.h"
 #include "screengrid.h"
@@ -53,7 +52,33 @@ SimonControl::SimonControl(ShortcutControl *shortcutControl) : QObject ()
 	
 	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));
 	QObject::connect(julius, SIGNAL(disconnected()), this, SLOT(disconnectedFromJulius()));
-	QObject::connect(julius, SIGNAL(error(QString)), this, SLOT(errorConnecting(QString)));
+	QObject::connect(julius, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
+
+	QObject::connect(julius, SIGNAL(error(QString,bool)), this, SLOT(juliusError(QString,bool)));
+	QObject::connect(julius, SIGNAL(warning(QString)), this, SLOT(juliusWarning(QString)));
+	QObject::connect(julius, SIGNAL(loggedIn()), this, SLOT(loggedIn()));
+}
+
+void SimonControl::loggedIn()
+{
+	SimonInfo::showMessage(tr("Benutzer authentifiziert"), 1500);
+}
+
+void SimonControl::juliusError(QString error, bool skippable)
+{
+	if (skippable)
+		error += "\n\n"+tr("Sie können dies ignorieren, indem Sie die Option \"Warnungen ignorieren\" In den Netzwerkeinstellungen aktivieren");
+
+	QMessageBox::critical(0, tr("Julius Fehler"), error);
+
+	Logger::log(tr("[ERR] Julius Fehler: %1, Überspringbar: %2").arg(error).arg(skippable ? tr("Ja") : tr("Nein")));
+}
+
+void SimonControl::juliusWarning(QString warning)
+{
+	Logger::log(tr("[INF] Julius Warning: %1").arg(warning));
+
+	SimonInfo::showMessage(tr("Julius: %1").arg(warning), 5000);
 }
 
 /**

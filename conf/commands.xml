@@ -1,8 +1,5 @@
 <commands>
- <command iconPath="shell32.dll,5" type="0" name="audio" workingDirectory="C:\Dokumente und Einstellungen\Susi\Eigene Dateien\privat" >iTunes.exe</command>
- <command iconPath="shell32.dll,14" type="0" name="audio2" workingDirectory="C:\Dokumente und Einstellungen\Susi\Eigene Dateien\privat" >iTunes.exe</command>
- <command iconPath="shell32.dll,7" type="0" name="audio3" workingDirectory="C:\Dokumente und Einstellungen\Susi\Eigene Dateien\privat" >iTunes.exe</command>
- <command iconPath="C:\Dokumente und Einstellungen\Susi\Eigene Dateien\privat\Eigene Bilder\bmw.bmp" type="0" name="asdf" workingDirectory="asdfasdf" >asdf</command>
- <command iconPath="C:\Dokumente und Einstellungen\Susi\Eigene Dateien\privat\Eigene Bilder\Bilder\Other\bmw-mouse-pink-crystal-front-auc.jpg" type="0" name="hge" workingDirectory="" >rhw</command>
- <command iconPath="C:\Dokumente und Einstellungen\Susi\Eigene Dateien\privat\Eigene Bilder\bmw.bmp" type="1" name="agewgdsga" workingDirectory="" >C:\My Downloads</command>
+ <command iconPath="/usr/share/icons/hicolor/16x16/apps/k3b.png" type="0" name="K3b" workingDirectory="" >k3b %U</command>
+ <command iconPath="/usr/share/icons/hicolor/16x16/apps/kmplayer.png" type="0" name="KMPlayer" workingDirectory="" >kmplayer -caption "%c" %i %m %U</command>
+ <command iconPath="/usr/kde/3.5/share/icons/crystalsvg/16x16/filesystems/folder_crystal.png" type="1" name="KDE-Ordner" workingDirectory="" >/home/bedahr/kde</command>
 </commands>

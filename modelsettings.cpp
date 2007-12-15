@@ -168,6 +168,10 @@ bool ModelSettings::apply()
 	Settings::set("Model/PathToHmm", ui.leHmmOut->text());
 	Settings::set("Model/PathToTiedlist", ui.leTiedlist->text());
 
+
+	Settings::set("Model/PathToShadowLexicon", ui.leShadowLexicon->text());
+	Settings::set("Model/PathToShadowVocab", ui.leShadowVocab->text());
+
 	return true;
 }
 
@@ -211,6 +215,9 @@ bool ModelSettings::init()
 
 	ui.leHmmOut->setText(Settings::getS("Model/PathToHmm"));
 	ui.leTiedlist->setText(Settings::getS("Model/PathToTiedlist"));
+
+	ui.leShadowLexicon->setText(Settings::getS("Model/PathToShadowLexicon"));
+	ui.leShadowVocab->setText(Settings::getS("Model/PathToShadowVocab"));
 	return true;
 }
 

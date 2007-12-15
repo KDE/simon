@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>657</width>
+    <width>633</width>
     <height>416</height>
    </rect>
   </property>
@@ -75,17 +75,42 @@
       </layout>
      </item>
      <item>
-      <widget class="QWidget" native="1" name="wList" >
-       <layout class="QVBoxLayout" />
+      <widget class="DragTableWidget" name="twVocab" >
+       <property name="selectionMode" >
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior" >
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <column>
+        <property name="text" >
+         <string>Wort</string>
+        </property>
+       </column>
+       <column>
+        <property name="text" >
+         <string>Sam-Pa</string>
+        </property>
+       </column>
+       <column>
+        <property name="text" >
+         <string>Kategorie</string>
+        </property>
+       </column>
+       <column>
+        <property name="text" >
+         <string>Erkennungsrate</string>
+        </property>
+       </column>
       </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="cbShowCompleteLexicon" >
        <property name="enabled" >
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="text" >
-        <string>Zeige auch Wörter an, die nicht verwendete werden</string>
+        <string>Zeige auch unverwendete Wörter an (Schattenlexikon)</string>
        </property>
       </widget>
      </item>
@@ -183,6 +208,9 @@ p, li { white-space: pre-wrap; }
       </attribute>
       <layout class="QVBoxLayout" >
        <item>
+        <widget class="DropListWidget" name="lwTrainingWords" />
+       </item>
+       <item>
         <widget class="QPushButton" name="pbAddToTraining" >
          <property name="toolTip" >
           <string>Fügt das in der Liste links selektierte Wort in die Liste der zu trainierenden Wörter (oben) ein</string>
@@ -264,6 +292,18 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DragTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>dragtablewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DropListWidget</class>
+   <extends>QListWidget</extends>
+   <header>droplistwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../simon.qrc" />
  </resources>

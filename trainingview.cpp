@@ -28,6 +28,7 @@ TrainingView::TrainingView(WordListView *wordlistView, QWidget *parent)
  	this->hide();
 	
 	connect(ui.pbTrainText, SIGNAL(clicked()), this, SLOT(trainSelected()));
+	connect(ui.twTrainingWords, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(trainSelected()));
 	
     ui.pbPrevPage->setEnabled(false);
 	connect (ui.pbNextPage, SIGNAL(clicked()), this, SLOT(nextPage()));
@@ -203,7 +204,6 @@ void TrainingView::prevPage()
 	else
     {   
         ui.pbPrevPage->setEnabled(false);
-        //return;
     }
     int max = trainMgr->getPageCount()-1;
     if(currentPage < max)
@@ -257,7 +257,6 @@ void TrainingView::nextPage()
 	else
     {
         ui.pbNextPage->setEnabled(false);
-        //return;
     }
     if(currentPage > 0)
     {
@@ -332,6 +331,10 @@ void TrainingView::loadList()
 		ui.twTrainingWords->setItem(i, 0, new QTableWidgetItem(list->at(i)->getName()));
 		ui.twTrainingWords->setItem(i, 1, new QTableWidgetItem(QString::number(list->at(i)->getPageCount())));
 		ui.twTrainingWords->setItem(i, 2, new QTableWidgetItem(QString::number(list->at(i)->getRelevance())));
+		
+		//make them readonly
+		for (int j = 0; j<3; j++)
+			ui.twTrainingWords->item(i,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 	}
 	ui.twTrainingWords->resizeColumnToContents(0);
 }

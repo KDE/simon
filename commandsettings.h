@@ -65,7 +65,6 @@ public slots:
     void insertCommand(Command *command);
     void setWidgetsDisabled();
     void checkValuesAfterReturnPressed();
-    void changeIcon(QString resourceId);
 
 private:
     Ui::CommandSettingsDlg ui;

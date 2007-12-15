@@ -75,7 +75,7 @@ void RunCommand::run(QString commandName, QString workingDirectory)
 		Logger::log(QObject::tr("[INF] Ausführen des Befehls: ")+command);
 #ifdef linux
 		RunLinuxBackend *lin = (RunLinuxBackend*) this->runner;
-		lin->run(command);
+		lin->run(command, workingDirectory);
 #endif
 #ifdef __WIN32
 		RunWindowsBackend *win = (RunWindowsBackend*) this->runner;

@@ -13,7 +13,6 @@
 #include <QRegExp>
 #include <QFile>
 #include <QCoreApplication>
-#include <QDebug>
 #include <QDate>
 #include "logger.h"
 

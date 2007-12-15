@@ -55,9 +55,9 @@ bool ImportProgramPage::isComplete() const
 *
 *   @autor Susanne Tschernegg
 */
-void ImportProgramPage::createCommand(QString name, QString value)
+void ImportProgramPage::createCommand(QString icon, QString name, QString value, QString workingDir)
 {
-    Command *newCommand = new Command(name, CommandType(0), value);
+    Command *newCommand = new Command(name, CommandType(0), value, icon, workingDir);
     emit commandCreated(newCommand);
 }
 

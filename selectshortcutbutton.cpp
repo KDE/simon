@@ -10,7 +10,6 @@
 //
 //
 #include "selectshortcutbutton.h"
-#include <QDebug>
 #include "shortcut.h"
 
 

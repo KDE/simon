@@ -12,7 +12,6 @@
 #include "shortcutsettings.h"
 #include <QCoreApplication>
 #include <QMessageBox>
-#include <QDebug>
 #include <QTimer>
 #include <QTableWidgetSelectionRange>
 #include "shortcut.h"

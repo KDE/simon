@@ -12,7 +12,6 @@
 #include "wordlistmanager.h"
 #include "logger.h"
 #include <QObject>
-#include <QDebug>
 #include <QList>
 #include <QFile>
 #include <QByteArray>
@@ -20,6 +19,7 @@
 #include <QtGlobal>
 #include <QTextStream>
 #include "modelmanager.h"
+#include "settings.h"
 
 /**
  * @brief Constructor
@@ -30,19 +30,25 @@
  * @param QString path
  * Sets the path (member) to the given string
  */
-WordListManager::WordListManager ( QString lexiconPath, QString vocabPath )
+WordListManager::WordListManager ( ) : QThread()
 {
-	this->wordlist = new WordList();
-	this->lexiconPath = lexiconPath;
-	this->vocabPath = vocabPath;
-// 	this->extralist = new WordList();
-	this->wordlist = readWordList ( lexiconPath, vocabPath );
+	this->wordlist = readWordList ( Settings::getS("Model/PathToLexicon"), Settings::getS("Model/PathToVocab"), Settings::getS("Model/PathToPrompts") );
+	start();
 	this->modelManager = new ModelManager();
 }
 
 bool WordListManager::compileModel()
 {
 	return this->modelManager->compileModel();
+}
+
+/**
+ * \brief Starts the importing of the shadow-Model in a new thread
+ * \author Peter Grasch
+ */
+void WordListManager::run()
+{
+	this->shadowList = readWordList(Settings::getS("Model/PathToShadowLexicon"), Settings::getS("Model/PathToShadowVocab"), Settings::getS("Model/PathToPrompts"));
 }
 
 
@@ -73,43 +79,32 @@ WordList* WordListManager::sortList(WordList* list)
 bool WordListManager::save ( QString lexiconFilename, QString vocabFilename )
 {
 	Logger::log(QObject::tr("[INF] Speichere Wörterliste"));
-	Logger::log(QObject::tr("[INF] Erstelle Wörterliste unter Verwendung des Vokabulars von %1 und der derzeitig Wörterliste").arg(vocabFilename));
 	
 	WordList *saving = this->wordlist;
-// 	qDebug() << "fange an";
 	
-	saving->append(Word("SENT-START", QStringList("sil"), "NS_B", 0));
-	saving->append(Word("SENT-END", QStringList("sil"), "NS_E", 0));
+	saving->append(Word("SENT-START", "sil", "NS_B", 0));
+	saving->append(Word("SENT-END", "sil", "NS_E", 0));
 	
-// 	qDebug() << "dinger sind dabei";
+	if (lexiconFilename.isEmpty()) lexiconFilename = Settings::getS("Model/PathToLexicon");
+	if (vocabFilename.isEmpty()) vocabFilename = Settings::getS("Model/PathToVocab");
 	
-	if (lexiconFilename.isEmpty()) lexiconFilename = this->lexiconPath;
-	if (vocabFilename.isEmpty()) vocabFilename = this->vocabPath;
+	Logger::log(QObject::tr("[INF] Öffnen der Ausgabedatei: %1").arg(lexiconFilename));
 	
-	
-// 	qDebug() << "pfade sind fertig: " << lexiconFilename << vocabFilename;
-	
-	Logger::log(QObject::tr("[INF] Öffnen der Ausgabedatei: %1").arg(lexiconPath));
-	
-	QFile *outfile = new QFile(lexiconPath);
+	QFile *outfile = new QFile(lexiconFilename);
 	if (!outfile->open(QIODevice::WriteOnly)) {
-		Logger::log(QObject::tr("[ERR] Fehler beim öffnen der Ausgabedatei %1").arg(lexiconPath));
+		Logger::log(QObject::tr("[ERR] Fehler beim öffnen der Ausgabedatei %1").arg(lexiconFilename));
 		return false;
 	}
-// 	qDebug() << "hab geöffnet";
 	QTextStream outstream(outfile);
 	outstream.setCodec("ISO 8859-15");
 	
-// 	qDebug() << "hallo";
 	for (int i=0; i< saving->count(); i++)
 	{
-		for (int j=0; j<saving->at(i).getPronunciations().count(); j++)
-			outstream << QString(saving->at(i).getWord().trimmed().toUpper() 
+		outstream << QString(saving->at(i).getWord().trimmed().toUpper() 
 				+ "\t\t[" + saving->at(i).getWord().trimmed() + "]\t\t" +
-				saving->at(i).getPronunciations().at(j)).trimmed() << "\n";
+				saving->at(i).getPronunciation()).trimmed() << "\n";
 	}
-// 	qDebug() << "bin fertig";
-	
+
 	Logger::log(QObject::tr("[INF] Schießen der Ausgabedatei"));
 	outfile->close();
 	
@@ -131,10 +126,10 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename )
 WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QString promptspath )
 {
 	Logger::log (QObject::tr("[INF] Lesen der Wörterliste bestehend aus "));
-	Logger::log(QObject::tr("[INF] \t\tLexikon: %1,").arg(lexiconPath));
-	Logger::log(QObject::tr("[INF] \t\tVocabular: %1,").arg(vocabPath));
+	Logger::log(QObject::tr("[INF] \t\tLexikon: %1,").arg(lexiconpath));
+	Logger::log(QObject::tr("[INF] \t\tVocabular: %1,").arg(vocabpath));
 	Logger::log(QObject::tr("[INF] \t\tPrompts: %1").arg(promptspath));
-	
+
 	WordList *wordlist = new WordList();
 	//read the vocab
 	WordList *vocablist = readVocab(vocabpath);
@@ -142,7 +137,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 	PromptsTable *promptsTable = readPrompts(promptspath);
 
 	//opening
-	Logger::log(QObject::tr("[INF] Öffnen des Lexikons von: %1").arg(lexiconPath));
+	Logger::log(QObject::tr("[INF] Öffnen des Lexikons von: %1").arg(lexiconpath));
 	QFile *lexicon = new QFile ( lexiconpath );
 	
 	if ( !lexicon->open ( QFile::ReadOnly ) || !vocablist || !promptsTable) return false;
@@ -178,7 +173,7 @@ WordList* WordListManager::removeDoubles(WordList *in)
 {
 	if (!in) return NULL;
 	
-	Logger::log(QObject::tr("[INF] Leeren der Wörterliste"));
+	Logger::log(QObject::tr("[INF] Entfernen der doppelten Einträge"));
 	
 	for (int i=0; i < in->count(); i++)
 	{
@@ -186,15 +181,7 @@ WordList* WordListManager::removeDoubles(WordList *in)
 		{
 			if (in->at(i).getWord() == in->at(j).getWord())
 			{
-				for (int k=0; k < in->at(i).getPronunciations().count(); k++)
-				{
-					Word w = in->at(i);
-					w.delPronunciation(w.getPronunciations().at(k));
-				}
-				if (in->at(j).getPronunciations().count() == 0)
-				{
-					in->removeAt(j);
-				}
+				in->removeAt(j);
 			}
 		}
 	}
@@ -219,10 +206,10 @@ QString* WordListManager::getTerminal(QString name, QString pronunciation, WordL
 	int i=0, wordcount = wlist->count();
 	QString uppername = name.toUpper();
 	while ((i < wordcount) && (wlist->at( i ).getWord().toUpper() != uppername) && 
-			( (* wlist->at( i ).getPronunciation(0)) != pronunciation))
+			( wlist->at( i ).getPronunciation() != pronunciation))
 	{ i++; };
 	if ((i<wordcount) && (wlist->at(i).getWord().toUpper() == uppername) && 
-			( (* wlist->at( i ).getPronunciation(0)) != pronunciation))
+			( wlist->at( i ).getPronunciation() != pronunciation))
 	{
 		//Because vocabs have just one pronunciation for each entry
 		return  new QString(((wlist->at( i ).getTerminal())));
@@ -237,13 +224,17 @@ QString* WordListManager::getTerminal(QString name, QString pronunciation, WordL
  * Tries to omit duplicates...
  * \author Peter Grasch
  * \param WordList *list
- * List of words to add (DANGER: this pointer might be invalid after calling this function!)
+ * List of words to add (DANGER: this pointer is invalid after calling this function!)
  */
-void WordListManager::addWords(WordList *list, bool isSorted)
+void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 {
 	if (!isSorted)
 		list = sortList(list);
-// 
+
+	WordList *target;
+	if (shadow) target = this->shadowList;
+	else target = this->wordlist;
+
 	Logger::log(QObject::tr("[INF] Hinzufügen von %1 Wörtern in die Wörterliste").arg(list->count()));
 
 	int i=0;
@@ -251,12 +242,12 @@ void WordListManager::addWords(WordList *list, bool isSorted)
 
 	if (list->count() < wordlist->count())
 	{
-		main=this->wordlist;
+		main=target;
 		newList = list;
 	} else
 	{
 		main= list;
-		newList = this->wordlist;
+		newList = target;
 	}
 	int wordcount = main->count();
 	
@@ -274,10 +265,14 @@ void WordListManager::addWords(WordList *list, bool isSorted)
 		newList->removeAt(0); //remove the double
 	}
 	
-	this->wordlist = main;
+	target = main;
 	delete newList;
+// 	if (list) delete list;
 
 	Logger::log(QObject::tr("[INF] Die Wortliste beinhaltet jetzt %1 Wörter").arg(wordlist->count()));
+	this->save();
+
+	emit wordlistChanged();
 }
 
 /**

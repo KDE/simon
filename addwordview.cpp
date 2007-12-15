@@ -25,6 +25,7 @@
 #include "logger.h"
 #include "addwordintropage.h"
 #include "addwordrecordpage.h"
+#include "wordlistmanager.h"
 
 /**
  * @brief Constructor
@@ -38,9 +39,10 @@
  * @param Qt::Wflags f
  * Qt Windowflags - default 0
 */
-AddWordView::AddWordView(QWidget *parent)
+AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr)
 	: QWizard (parent)
 {
+	this->wordlistMgr = wordlistMgr;
 	this->addPage(createWelcomePage());
 	this->addPage(createRecordPage());
 	this->addPage(createFinishedPage());
@@ -109,6 +111,10 @@ void AddWordView::finish(int done)
 	Logger::log(tr("[INF] Neues Wort lautet: ")+word);
 	//finishs up
 	
+	WordList *list = new WordList();
+	list->append(Word("NEUES WORT", "", "Nomen", 2));
+	wordlistMgr->addWords(list, true /*sorted*/, false /*shadowed*/);
+
 	//cleaning up
 	Logger::log(tr("[INF] Wort hinzugefügt: ")+word);
 	emit addedWord();

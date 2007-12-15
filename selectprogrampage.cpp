@@ -12,7 +12,6 @@
 #include "selectprogrampage.h"
 #include <QMessageBox>
 #include <QSize>
-#include <QDebug>
 #include "program.h"
 #ifdef linux
 #include "kdeprogrammanager.h"
@@ -92,6 +91,16 @@ QString SelectProgramPage::getExecPath()
 }
 
 /**
+*   \brief gets the iconsrc of the program
+*
+*   @author Peter Grasch
+*/
+QString SelectProgramPage::getIcon()
+{
+    return lwPrograms->currentItem()->data(Qt::UserRole+1).toString();
+}
+
+/**
 *   \brief gets the name of the program
 *
 *   @autor Susanne Tschernegg
@@ -124,6 +133,8 @@ void SelectProgramPage::insertPrograms(ProgramList *programList)
         lwItem->setText(programList->at(i).getName());
 	lwItem->setIcon(programList->at(i).getIcon());
         lwItem->setData(Qt::UserRole, programList->at(i).getExec());
+        lwItem->setData(Qt::UserRole+1, programList->at(i).getIconPath());
+        lwItem->setData(Qt::UserRole+2, programList->at(i).getPath());
     }
 }
 
@@ -149,5 +160,5 @@ void SelectProgramPage::searchForPrograms()
 
 QString SelectProgramPage::getWorkingDirectory()
 {
-	return lwPrograms->currentItem()->data(33).toString();
+	return lwPrograms->currentItem()->data(Qt::UserRole+2).toString();
 }

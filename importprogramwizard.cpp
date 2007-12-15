@@ -116,14 +116,13 @@ QWizardPage* ImportProgramWizard::createFinishedPage()
 */
 void ImportProgramWizard::idChanged(int newId)
 {
-//     QMessageBox::information(this, QString::number(newId), QString::number(oldId));
     if((oldId==1) && (newId==2))
     {
         SelectProgramPage *spp = dynamic_cast<SelectProgramPage*>(page(1));
         if(!spp)
             return;
         ConfigureProgramPage *cpp = dynamic_cast<ConfigureProgramPage*>(page(2));
-        cpp->init(spp->getName(), spp->getExecPath(), spp->getWorkingDirectory());
+        cpp->init(spp->getIcon(), spp->getName(), spp->getExecPath(), spp->getWorkingDirectory());
     }
     else if(((oldId==2) && (newId==3)) || ((oldId==3) && (newId==3)))
     {
@@ -131,7 +130,7 @@ void ImportProgramWizard::idChanged(int newId)
         if(!cpp)
             return;
         ImportProgramPage *ipp = dynamic_cast<ImportProgramPage*>(page(3));
-        ipp->createCommand(cpp->getName(), cpp->getExec());
+        ipp->createCommand(cpp->getIcon(), cpp->getName(), cpp->getExec(), cpp->getWorkingDir());
         if(oldId<=newId)next();
     }
     else if((oldId==4) && (newId<oldId))

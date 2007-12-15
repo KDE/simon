@@ -38,7 +38,7 @@ public:
         ~ImportProgramPage();
 
         XMLCommand *commandLoader;
-        void createCommand(QString name, QString value);
+        void createCommand(QString icon, QString name, QString value, QString workingDir);
 
 private:
         QVBoxLayout *vboxLayout;

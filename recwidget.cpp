@@ -1,4 +1,5 @@
 #include "recwidget.h"
+#include "logger.h"
 
 
 /**
@@ -12,22 +13,28 @@
  * @param QWidget *parent
  * The parent of the object
  */
-RecWidget::RecWidget(QString name, QString filename, QWidget *parent) : QGroupBox(parent)
+RecWidget::RecWidget(QString name, QString filename, QWidget *parent) : QWidget(parent)
 {	
 	this->filename = filename;
-	this->setTitle(name);
 	
 	rec = new WavRecorder(this);
 	play = new WavPlayer(this);
 	
-	setupWidgets();
-	setupLayout();
+	ui.setupUi(this);
+	ui.leRecognisedText->setVisible(false);
+	ui.lbRecognisedText->setVisible(false);
+	ui.gb->setTitle(name);
 	
 	if (QFile::exists(filename))
 	{
-		pbRecord->setEnabled(false);
-		pbPlay->setEnabled(true);
-		pbDelete->setEnabled(true);
+		ui.pbRecord->setEnabled(false);
+		ui.pbPlay->setEnabled(true);
+		ui.pbDelete->setEnabled(true);
+	} else 
+	{
+		ui.pbRecord->setEnabled(true);
+		ui.pbPlay->setEnabled(false);
+		ui.pbDelete->setEnabled(false);
 	}
 	
 	setupSignalsSlots();
@@ -41,17 +48,17 @@ RecWidget::RecWidget(QString name, QString filename, QWidget *parent) : QGroupBo
 void RecWidget::setupSignalsSlots()
 {
 	//Enable / Disable
-	connect(pbRecord, SIGNAL(toggled(bool)), pbPlay, SLOT(setDisabled(bool)));
-	connect(pbRecord, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
-	connect(pbRecord, SIGNAL(toggled(bool)), pbRecord, SLOT(setEnabled(bool)));
-	connect(pbPlay, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
-	connect(pbDelete, SIGNAL(clicked(bool)), pbRecord, SLOT(setDisabled(bool)));
-	connect(pbDelete, SIGNAL(clicked(bool)), pbPlay, SLOT(setEnabled(bool)));
-	connect(pbDelete, SIGNAL(clicked(bool)), pbDelete, SLOT(setEnabled(bool)));
+	connect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbPlay, SLOT(setDisabled(bool)));
+	connect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbDelete, SLOT(setDisabled(bool)));
+	connect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbRecord, SLOT(setEnabled(bool)));
+	connect(ui.pbPlay, SIGNAL(toggled(bool)), ui.pbDelete, SLOT(setDisabled(bool)));
+	connect(ui.pbDelete, SIGNAL(clicked(bool)), ui.pbRecord, SLOT(setDisabled(bool)));
+	connect(ui.pbDelete, SIGNAL(clicked(bool)), ui.pbPlay, SLOT(setEnabled(bool)));
+	connect(ui.pbDelete, SIGNAL(clicked(bool)), ui.pbDelete, SLOT(setEnabled(bool)));
 	
-	connect(pbRecord, SIGNAL(clicked()), this, SLOT(record()));
-	connect(pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
-	connect(pbDelete, SIGNAL(clicked()), this, SLOT(deleteSample()));
+	connect(ui.pbRecord, SIGNAL(clicked()), this, SLOT(record()));
+	connect(ui.pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
+	connect(ui.pbDelete, SIGNAL(clicked()), this, SLOT(deleteSample()));
 	
 	connect(rec, SIGNAL(currentProgress(int)), this, SIGNAL(progress(int)));
 	connect(play, SIGNAL(currentProgress(int)), this, SIGNAL(progress(int)));
@@ -74,7 +81,7 @@ void RecWidget::setupSignalsSlots()
  */
 void RecWidget::displayPosition(int msecs)
 {
-	hsProgress->setValue(msecs);
+	ui.hsProgress->setValue(msecs);
 }
 
 /**
@@ -88,8 +95,8 @@ void RecWidget::displayRecordingProgress(int msecs)
 {
  	QString textprog = QString("%1").arg((int) msecs/10, 4, 10, QChar('0'));
 	textprog.insert(textprog.length()-2, ':');
-	lbProgress->setText("00:00 / "+textprog);
-	hsProgress->setMaximum(msecs);
+	ui.lbProgress->setText("00:00 / "+textprog);
+	ui.hsProgress->setMaximum(msecs);
 }
 
 /**
@@ -103,7 +110,7 @@ void RecWidget::displayPlaybackProgress(int msecs)
  	QString textprog = QString("%1").arg(QString::number(msecs/10), 4, QChar('0'));
 	textprog.insert(2, ':');
 	
-	lbProgress->setText(lbProgress->text().replace(0,5, textprog));
+	ui.lbProgress->setText(ui.lbProgress->text().replace(0,5, textprog));
 }
 
 
@@ -115,23 +122,26 @@ void RecWidget::record()
 {
 	if (!rec->record(this->filename, 2, 44100))
 	{
-		disconnect(pbRecord, SIGNAL(toggled(bool)), pbPlay, SLOT(setDisabled(bool)));
-		disconnect(pbRecord, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
-		disconnect(pbRecord, SIGNAL(toggled(bool)), pbRecord, SLOT(setEnabled(bool)));
+		disconnect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbPlay, SLOT(setDisabled(bool)));
+		disconnect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbDelete, SLOT(setDisabled(bool)));
+		disconnect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbRecord, SLOT(setEnabled(bool)));
 		
-		pbRecord->toggle();
+		ui.pbRecord->toggle();
 		
-		connect(pbRecord, SIGNAL(toggled(bool)), pbPlay, SLOT(setDisabled(bool)));
-		connect(pbRecord, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
-		connect(pbRecord, SIGNAL(toggled(bool)), pbRecord, SLOT(setEnabled(bool)));
+		connect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbPlay, SLOT(setDisabled(bool)));
+		connect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbDelete, SLOT(setDisabled(bool)));
+		connect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbRecord, SLOT(setEnabled(bool)));
 	}else {
-		disconnect(pbRecord, SIGNAL(clicked()), this, SLOT(record()));
-		connect(pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
+		disconnect(ui.pbRecord, SIGNAL(clicked()), this, SLOT(record()));
+		connect(ui.pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
+		ui.leRecognisedText->setVisible(true);
+		ui.leRecognisedText->clear();
+		ui.lbRecognisedText->setVisible(true);
+		ui.leRecognisedText->setFocus(Qt::OtherFocusReason);
 	}
 	emit recording();
 }
 
-#include "logger.h"
 
 /**
  * \brief Finishes up the playback
@@ -139,9 +149,10 @@ void RecWidget::record()
  */
 void RecWidget::finishPlayback()
 {
-	disconnect(pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
-	pbPlay->setChecked(false);
-	connect(pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
+	
+	disconnect(ui.pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
+	ui.pbPlay->setChecked(false);
+	connect(ui.pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
 	emit playbackFinished();
 }
 
@@ -152,10 +163,12 @@ void RecWidget::finishPlayback()
 void RecWidget::stopRecording()
 {
 	if (!rec->finish()) 
-		QMessageBox::critical(this, tr("Aufnehmen fehlgeschlagen"), QString(tr("Abschlieöen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!")).arg(this->filename));
+		QMessageBox::critical(this, tr("Aufnehmen fehlgeschlagen"), QString(tr("Abschließen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!")).arg(this->filename));
 	
-	disconnect(pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
-	connect(pbRecord, SIGNAL(clicked()), this, SLOT(record()));
+	ui.leRecognisedText->setVisible(false);
+	ui.lbRecognisedText->setVisible(false);
+	disconnect(ui.pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
+	connect(ui.pbRecord, SIGNAL(clicked()), this, SLOT(record()));
 	emit recordingFinished();
 }
 
@@ -176,10 +189,10 @@ void RecWidget::playback()
 {
 	if (play->play(this->filename))
 	{
-		disconnect(pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
-		connect(pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
+		disconnect(ui.pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
+		connect(ui.pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
 		emit playing();
-	} else pbPlay->setChecked(false);
+	} else ui.pbPlay->setChecked(false);
 }
 
 /**
@@ -190,63 +203,16 @@ void RecWidget::deleteSample()
 {
 	if(QFile::remove(this->filename))
 	{
-		hsProgress->setValue(0);
-		lbProgress->setText("00:00 / 00:00");
-		pbDelete->setEnabled(false);
-		pbRecord->setEnabled(true);
-		pbPlay->setEnabled(false);
+		ui.hsProgress->setValue(0);
+		ui.lbProgress->setText("00:00 / 00:00");
+		ui.pbDelete->setEnabled(false);
+		ui.pbRecord->setEnabled(true);
+		ui.pbPlay->setEnabled(false);
 		emit sampleDeleted();
 	} else QMessageBox::critical(this, tr("Fehler beim Löschen"), 
 			QString(tr("Konnte die Datei %1 nicht entfernen")).arg(this->filename));
 }
 
-
-/**
- * \brief Sets up the GUI Widgets
- * \author Peter Grasch
- * \see setupLayout() setupSignalsSlots()
- */
-void RecWidget::setupWidgets()
-{
-	pbRecord = new QPushButton(QIcon(":/images/icons/media-record.svg"), tr("Aufnehmen"), 
-				   this);
-	pbPlay = new QPushButton(QIcon(":/images/icons/media-playback-start.svg"), tr("Abspielen"),
-				 this);
-	pbDelete = new QPushButton(QIcon( ":/images/icons/emblem-unreadable.svg"), tr("Löschen"),
-				   this);
-	
-	hsProgress = new QSlider(Qt::Horizontal, this);
-	hsProgress->setValue(0);
-	hsProgress->setMaximum(0);
-	lbProgress = new QLabel("00:00 / 00:00", this);
-	
-	pbRecord->setCheckable(true);
-	pbPlay->setCheckable(true);
-	pbPlay->setEnabled(false);
-	pbDelete->setEnabled(false);
-}
-
-/**
- * \brief Sets up the Layouts of the GUI Widgets
- * \author Peter Grasch
- * \see setupWidgets() setupSignalsSlots()
- */
-void RecWidget::setupLayout()
-{
-	QVBoxLayout *thisLayout = new QVBoxLayout(this);
-	QHBoxLayout *lay1 = new QHBoxLayout();
-	QHBoxLayout *lay2 = new QHBoxLayout();
-	
-	lay1->addWidget(pbRecord);
-	lay1->addWidget(pbPlay);
-	lay1->addWidget(pbDelete);
-	
-	lay2->addWidget(hsProgress);
-	lay2->addWidget(lbProgress);
-	
-	thisLayout->insertLayout(0, lay1);
-	thisLayout->insertLayout(1, lay2);
-}
 
 
 /**
@@ -255,11 +221,11 @@ void RecWidget::setupLayout()
  */
 RecWidget::~RecWidget()
 {
-	delete pbRecord;
-	delete pbPlay;
-	delete pbDelete;
-	delete hsProgress;
-	delete lbProgress;
+// 	delete ui.pbRecord;
+// 	delete ui.pbPlay;
+// 	delete ui.pbDelete;
+// 	delete ui.hsProgress;
+// 	delete ui.lbProgress;
 	delete play;
  	delete rec;
 }

@@ -31,12 +31,12 @@ typedef QList<Program> ProgramList;
 	
 class Program{
 private:
-	QString name, exec, description, path;
+	QString name, exec, description, path, iconPath;
 	QIcon icon;
 	ProgramCategoryList categories;
 public:
     Program(QString name, QString exec, QString description, QString path,
-		ProgramCategoryList categories=ProgramCategoryList(), QIcon icon=QIcon())
+		ProgramCategoryList categories=ProgramCategoryList(), QIcon icon=QIcon(), QString iconPath="")
     {
     	this->name = name;
     	this->exec = exec;
@@ -44,13 +44,15 @@ public:
     	this->description = description;
     	this->categories = categories;
     	this->icon = icon;
+	this->iconPath = iconPath;
     }
     
     void setCategories(ProgramCategoryList categories) { this->categories = categories; }
-    void setIcon(QIcon icon) { this->icon = icon; }
+    void setIcon(QIcon icon, QString src) { this->icon = icon; this->iconPath = src; }
     const QString getName() const { return name; }
     const QString getExec() const { return exec; }
     const QString getPath() const { return path; }
+    const QString getIconPath() const { return iconPath; }
     const QIcon getIcon() const { return icon; }
     const QString getDescription() const { return description; }
     const ProgramCategoryList getCategories() const { return categories; }

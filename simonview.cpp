@@ -34,7 +34,6 @@
 #include "settings.h"
 #include <QMessageBox>
 #include <QDir>
-#include <QDebug>
 #include "shortcutcontrol.h"
 #include "passworddlg.h"
 #include "screengrid.h"
@@ -83,17 +82,12 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	this->trayManager->createIcon( QIcon( ":/images/tray.png" ), "Simon" );
 	
-// 	inlineView = new InlineWidgetView(this);
-// 	inlineView->hide();
-// 	QSizePolicy pol(QSizePolicy::Expanding,QSizePolicy::Expanding);
-// 	pol.setVerticalStretch(1);
-// 	inlineView->setSizePolicy(pol);
 	
 	//Preloads all Dialogs
-	this->info->writeToSplash(tr("Lade \"Wort hinzufühgen\"..."));
-	this->addWordView = new AddWordView(this);
 	this->info->writeToSplash(tr("Lade \"Wortliste\"..."));
 	this->wordList = new WordListView(this);
+	this->info->writeToSplash(tr("Lade \"Wort hinzufügen\"..."));
+	this->addWordView = new AddWordView(this, wordList->getManager());
 	this->info->writeToSplash(tr("Lade \"Ausführen\"..."));
 	this->runDialog = new RunApplicationView(control->getRunManager(), this);
 	this->info->writeToSplash(tr("Lade \"Trainieren\"..."));

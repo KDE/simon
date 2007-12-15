@@ -13,7 +13,11 @@
 #include "settings.h"
 #include <QMessageBox>
 #include <QIcon>
+
+#ifdef __WIN32
 #include "windowsresourcehandler.h"
+#endif
+
 #include "iconbutton.h"
 
 /**
@@ -25,7 +29,7 @@ RunApplicationView::RunApplicationView(RunCommand *run, QWidget *parent) : Inlin
 {
 	ui.setupUi(this);
 	hide();
-    this->run = run;
+	this->run = run;
 	ui.twPrograms->verticalHeader()->hide();
 	insertCommands ( run->getCommands() );
 	connect(ui.twPrograms, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(runCommand(QTableWidgetItem*)));
@@ -68,7 +72,7 @@ void RunApplicationView::clearSearchText()
 void RunApplicationView::runCommand(QTableWidgetItem* command)
 {
     
-	QString name = ui.twPrograms->item(command->row(), 1)->text();
+	QString name = ui.twPrograms->item(command->row(), 0)->text();
 	SimonInfo::showMessage(name, 2500);
 	this->run->run(name);
 }
@@ -216,6 +220,7 @@ void RunApplicationView::insertCommands(CommandList list)
         QString resourceId = list.at(i)->getIconPath();
         
         QIcon icon;
+	#ifdef __WIN32
         if(resourceId.contains(QRegExp(".dll,\n*")))
         {
             QStringList iconResources = resourceId.split(",");
@@ -227,13 +232,14 @@ void RunApplicationView::insertCommands(CommandList list)
             QPixmap pixmap(resourceId);
             icon.addPixmap(pixmap);
         }
+	#endif
+	#ifndef __WIN32
+	QPixmap pixmap(resourceId);
+	icon.addPixmap(pixmap);
+	#endif
         
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setIcon(icon);
         
-        ui.twPrograms->setItem(i, 0, item);
-        
-		ui.twPrograms->setItem(i, 1, new QTableWidgetItem(list.at(i)->getName()));
+		ui.twPrograms->setItem(i, 0, new QTableWidgetItem(icon, list.at(i)->getName()));
 		
 		type = list.at(i)->getType();
 		switch (type)
@@ -249,10 +255,10 @@ void RunApplicationView::insertCommands(CommandList list)
 				break;
 		}
 		
-		ui.twPrograms->setItem(i, 2, new QTableWidgetItem(strtype));
-		ui.twPrograms->setItem(i, 3, new QTableWidgetItem(list.at(i)->getValue()));
-        ui.twPrograms->setItem(i, 4, new QTableWidgetItem(list.at(i)->getWorkingDirectory()));
-		for (int j = 1; j<5; j++)
+		ui.twPrograms->setItem(i, 1, new QTableWidgetItem(strtype));
+		ui.twPrograms->setItem(i, 2, new QTableWidgetItem(list.at(i)->getValue()));
+        ui.twPrograms->setItem(i, 3, new QTableWidgetItem(list.at(i)->getWorkingDirectory()));
+		for (int j = 0; j<4; j++)
 			ui.twPrograms->item(i,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 	}
 }
@@ -270,6 +276,8 @@ void RunApplicationView::loadCommands()
     QString path = Settings::get("PathToCommands").toString();
     run->readCommands(path);
     insertCommands (run->getCommands());
+
+    ui.twPrograms->resizeColumnsToContents();
 }
 
 /**

@@ -14,6 +14,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
+#include "iconbutton.h"
 
 /**
 *   \brief constructor
@@ -29,6 +30,9 @@ ConfigureProgramPage::ConfigureProgramPage(QWidget* parent): QWizardPage(parent)
 	lbDesc->setWordWrap(true);
 	
 	
+	QLabel *lIcon= new QLabel(this);
+	lIcon->setText(tr("Icon: "));
+	iconBtn = new IconButton(this);
 	QLabel *lName = new QLabel(this);
 	lName->setText(tr("Name: "));
 	QLineEdit *leName = new QLineEdit(this);
@@ -40,12 +44,14 @@ ConfigureProgramPage::ConfigureProgramPage(QWidget* parent): QWizardPage(parent)
 	QLineEdit *leWorkingPath = new QLineEdit(this);
 	
 	QGridLayout *confLayout = new QGridLayout();
-	confLayout->addWidget(lName, 0, 0);
-	confLayout->addWidget(leName, 0, 1);
-	confLayout->addWidget(lPath, 1, 0);
-	confLayout->addWidget(leExec, 1, 1);
-	confLayout->addWidget(lWorkingPath, 2, 0);
-	confLayout->addWidget(leWorkingPath, 2, 1);
+	confLayout->addWidget(lIcon, 0, 0);
+	confLayout->addWidget(iconBtn, 0, 1);
+	confLayout->addWidget(lName, 1, 0);
+	confLayout->addWidget(leName, 1, 1);
+	confLayout->addWidget(lPath, 2, 0);
+	confLayout->addWidget(leExec, 2, 1);
+	confLayout->addWidget(lWorkingPath, 3, 0);
+	confLayout->addWidget(leWorkingPath, 3, 1);
 	
 	vboxLayout->addWidget(lbDesc);
 	vboxLayout->addLayout(confLayout);
@@ -55,9 +61,16 @@ ConfigureProgramPage::ConfigureProgramPage(QWidget* parent): QWizardPage(parent)
 	registerField("workdir", leWorkingPath);
 }
 
-void ConfigureProgramPage::init(QString name, QString exec, QString workingDirectory)
+const QString ConfigureProgramPage::getIcon()
+{
+	return iconBtn->getIconName();
+}
+
+void ConfigureProgramPage::init(QString iconsrc, QString name, QString exec, QString workingDirectory)
 {
 	lbDesc->setText(tr("Sie haben das Programm %1 gewählt. \n\nHier können Sie nun weitere Einstellungen vornehmen.\n").arg(name));
+	iconBtn->setIconName(iconsrc);
+	iconBtn->setIcon(QIcon(iconsrc));
 	setField("name", name);
 	setField("exec", exec);
 	setField("workdir", workingDirectory);

@@ -217,7 +217,6 @@ void WiktionaryDict::insertWords(QString word, QString terminal, QStringList pro
 		int found = processFoundIPA(pronunciations.at(prons));
 		for (int i=0; i < found; i++)
 		{
-// 			qDebug() << word;
 			words.append(word.trimmed());
 			terminals.append(terminal);
 		}

@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>438</width>
-    <height>311</height>
+    <width>428</width>
+    <height>431</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -26,22 +26,40 @@
      </property>
      <layout class="QGridLayout" >
       <item row="0" column="0" >
-       <widget class="QLabel" name="label" >
+       <widget class="QLabel" name="lbUsername" >
         <property name="text" >
-         <string>Timeout (Millisekunden):</string>
+         <string>Benutzername:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="QSpinBox" name="sbTimeout" >
-        <property name="minimum" >
-         <number>500</number>
+       <widget class="QLineEdit" name="leUser" />
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="lbPassword" >
+        <property name="text" >
+         <string>Passwort:</string>
         </property>
-        <property name="maximum" >
-         <number>60000</number>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLineEdit" name="lePass" >
+        <property name="echoMode" >
+         <enum>QLineEdit::Password</enum>
         </property>
-        <property name="value" >
-         <number>5000</number>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="lbIgnoreWarnings" >
+        <property name="text" >
+         <string>Warnungen ignorieren:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="QCheckBox" name="cbIgnoreWarnings" >
+        <property name="text" >
+         <string>Ignorieren (Nicht empfohlen)</string>
         </property>
        </widget>
       </item>
@@ -49,14 +67,76 @@
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="gbEncryption" >
+     <property name="title" >
+      <string>Verschlüsselung</string>
+     </property>
+     <property name="flat" >
+      <bool>true</bool>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
+     </property>
+     <property name="checked" >
+      <bool>false</bool>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="lbCipher" >
+        <property name="text" >
+         <string>Allgorithmus:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QComboBox" name="cbCipher" />
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="lbCert" >
+        <property name="text" >
+         <string>Zertifikat (.pem):</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLineEdit" name="leCert" />
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="gbJulius" >
      <property name="title" >
-      <string>Juliusd</string>
+      <string>Netzwerk</string>
      </property>
      <property name="flat" >
       <bool>true</bool>
      </property>
      <layout class="QVBoxLayout" >
+      <item>
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="QLabel" name="lbTimeout" >
+          <property name="text" >
+           <string>Timeout (Millisekunden):</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="sbTimeout" >
+          <property name="minimum" >
+           <number>500</number>
+          </property>
+          <property name="maximum" >
+           <number>60000</number>
+          </property>
+          <property name="value" >
+           <number>5000</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
       <item>
        <widget class="QTableWidget" name="twJuliusAddresses" >
         <property name="alternatingRowColors" >

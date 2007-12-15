@@ -63,6 +63,10 @@ public slots:
 	void wordRecognised(QString word);
 	void abortConnecting();
 	void errorConnecting(QString error);
+private slots:
+	void juliusError(QString error,bool skippable);
+	void juliusWarning(QString warning);
+	void loggedIn();
 private:
 	bool active; //!< Is active?
 	SoundControl *mic; //!< Mic Handle

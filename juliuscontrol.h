@@ -9,14 +9,18 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
+
 #ifndef JULIUSCONTROL_H
 #define JULIUSCONTROL_H
+
 
 #include <QObject>
 #include "simoninfo.h"
 
-class QTcpSocket;
+class QSslSocket;
 class QTimer;
+
+const qint8 protocolVersion=1;
 
 /**
  *	@class JuliusControl
@@ -29,15 +33,39 @@ class QTimer;
 class JuliusControl : public QObject {
 	Q_OBJECT
 private:
-	QTcpSocket *socket; //!< QTcpSocket for communicating with the juliusd-socket
+	QSslSocket *socket; //!< QSslSocket for communicating with the juliusd-socket
 	QTimer *timeoutWatcher;
 signals:
-	void wordRecognised(QString word);
+	/*--------------------connection--------------------*/
 	void connected();
 	void disconnected();
-	void error(QString error);
+
+	/*
+	  Errors are ALWAYS fatal.
+	  This signal will only be emitted when an error occurs that _aborts_ the current process.
+	
+	  BUT, there might be some errors that can be skipped, altough it is not recommended.
+	  Those errors can be skipped by setting the corresponding Setting in the juliusd-configuration.
+	  If the error is technically not fatal, but is made fatal by setting this configuration item to "false".
+	*/
+	void error(QString errStr, bool skippable=false);
+	void connectionError(QString errStr);
+	void warning(QString);
+
+	/*-----------------user management-----------------*/
+	void loggedIn();
+	
+
+
+	/*------------------recognition---------------------*/
+	void wordRecognised(QString word);
+	
 public slots:
-	void recognised();
+	void messageReceived();
+	
+	void recognised(QString);
+	
+	
 	void connectTo( QString server="127.0.0.1", quint16 port=4444 );
 	void connectionLost();
 	void connectedTo();
@@ -45,6 +73,7 @@ public slots:
 	void timeoutReached();
 	bool isConnected();
 	void disconnectFromServer();
+	void login();
 
 public:
 	JuliusControl();

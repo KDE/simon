@@ -47,7 +47,6 @@ public:
 
     QString getIconName(){return iconName;}
     void setIconName(QString iconName){this->iconName = iconName;}
-    //QIcon loadIcon(QString file, int resourceId);
 
 private slots:
     void changeIcon();

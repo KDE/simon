@@ -34,7 +34,7 @@ typedef QList<Word> WordList; //!< QList from Word
 class Word{
 	
 	QString word; //!< Saves the represented word
-	QStringList pronunciations; //!< Saves all valid pronunciations of the word in Sam-Pa
+	QString pronunciation; //!< Saves all valid pronunciations of the word in Sam-Pa
 	QString terminal; //!< Category of the word
 	int probability; //!< Probability
 	
@@ -44,107 +44,24 @@ public:
 	* @brief Constructor
 	*
 	* This is the constructor of the Word class.
-	* It features the pronunciations of the word as a QStringList
-	* which is passed on to the member
 	*
 	* @author Peter Grasch
 	* @param QString word
 	* Contains the written word
-	* @param QStringList pronunciations
-	* A List of pronunciations - each an individual pronounciation of the word
+	* @param QString pronunciation
+	* The sampa notation of the pronunciation
 	* @param QString terminal
 	* Terminal the word belongs to
 	* @param int probability
 	* Recognition probability
 	* 
 	*/
-	Word(QString word, QStringList pronunciations, QString terminal=NULL, int probability=NULL)
+	Word(QString word, QString pronunciation, QString terminal=NULL, int probability=NULL)
 	{
 		this->word = word;
-		this->pronunciations = pronunciations;
+		this->pronunciation = pronunciation;
 		this->terminal = terminal;
 		this->probability = probability;
-	}
-	
-	/**
-	 * @brief Constructor
-	 *
-	 * This is the constructor of the Word class.
-	 * It features the pronunciations of the word as a QString
-	 * This, overloaded, constructor is intended to be used in such
-	 * cases where there is only one pronounciation of the word or the
-	 * using class does not know QStringList
-	 *
-	 * @author Peter Grasch
-	 * @param QString word
-	 * Contains the written word
-	 * @param QString pronounciation
-	 * Sam-Pa pronounciation
-	 * @param QString terminal
-	 * Terminal the word belongs to
-	 * @param int probability
-	 * Recognition probability
-	 * 
-	 */
-	Word(QString word, QString pronounciation, QString terminal=NULL, int probability=NULL)
-	{
-		this->word = word;
-		this->pronunciations = QStringList();
-		this->pronunciations << pronounciation;
-		this->terminal = terminal;
-		this->probability = probability;
-	}
-
-	/**
-	 * @brief Adding a new Pronunciations
-	 *
-	 * Adds a new Pronunciations to the word
-	 *
-	 * @author Peter Grasch
-	 * @param QString pronounciation
-	 * The new pronounciation
-	 * @todo Maybe check if the Pronunciations is already stored?
-	 * 
-	 */	
-	void addPronunciation (QString pronounciation)
-	{
-		this->pronunciations.append(pronounciation);
-	}
-	
-	/**
-	 * @brief Deletes a pronounciation
-	 *
-	 * Searches for the given pattern in the QStringList and passes it on to the
-	 * overloaded delPronunciations (int) function which actually deletes the item
-	 *
-	 * @author Peter Grasch
-	 * @see delPronunciations (int i)
-	 * @param QString pronounciation
-	 * The pronounciation to delete
-	 * 
-	 */
-	void delPronunciation ( QString pronounciation )
-	{
-		//get index of the pattern
-		//call the delPronunciations-function again - this time with the index
-		//as paramter
-		this->delPronunciation( this->pronunciations.indexOf(pronounciation) );
-	}
-	
-	/**
-	 * @brief Deletes a pronounciation
-	 *
-	 * Deletes the pronounciation i
-	 *
-	 * @author Peter Grasch
-	 * @see delPronunciations (int i)
-	 * @param QString pronounciation
-	 * The index of the pronounciation to delete
-	 * 
-	 */
-	void delPronunciation ( int i )
-	{
-		this->pronunciations.removeAt( i );
 	}
 
 	/**
@@ -162,40 +79,17 @@ public:
 		return this->word;
 	}
 	
-	
 	/**
-	 * @brief Getter-Method: Pronunciations
-	 *
-	 * Returns a pointer of the pronounciation[i] of the word
-	 * If there is no pronounciation i - NULL is returned
+	 * @brief Getter-Method: Pronunciation
 	 *
 	 * @author Peter Grasch
-	 * @param int i
-	 * Index of the pronounciation
-	 * @return QString*
-	 * Contains the pronounciation i
-	 * 
-	 */
-	const QString* getPronunciation ( int i ) const
-	{
-		if (this->pronunciations.count() > i)
-			return &(this->pronunciations.at( i ));
-		else return NULL;
-	}
-	
-	/**
-	 * @brief Getter-Method: Pronunciations
-	 *
-	 * Returns a QStringList Object of all the pronunciations
-	 *
-	 * @author Peter Grasch
-	 * @return QStringList
+	 * @return QString
 	 * Contains the pronunciations of the word
 	 * 
 	 */
-	QStringList getPronunciations() const
+	QString getPronunciation() const
 	{
-		return this->pronunciations;
+		return this->pronunciation;
 	}
 	
 	/**
@@ -229,19 +123,9 @@ public:
 	
 	const bool operator!=(const Word w2) const
 	{
-		if ((getWord() != w2.getWord()) || (getTerminal() != w2.getTerminal()))
+		if ((getWord() != w2.getWord()) || (getTerminal() != w2.getTerminal()) || (getPronunciation() != w2.getPronunciation()))
 			return true;
-
-		if (getPronunciations().size() != w2.getPronunciations().size()) return true;
 		
-		int i=0;
-		
-		while ( i < getPronunciations().size())
-		{
-			if (getPronunciations().at(i) != w2.getPronunciations().at(i))
-				return true;
-			 i++;
-		}
 		return false;
 	}
 

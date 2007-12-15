@@ -66,7 +66,7 @@ OSD::OSD(QString message, int timeout, int alignment)
 /**
  * @brief Overwritten paintEvent
  *
- * Overloads the Widgets paint-Functio to draw the background-Pixmap
+ * Overloads the Widgets paint-Function to draw the background-Pixmap
  *
  * @author Peter Grasch
  */

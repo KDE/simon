@@ -25,6 +25,7 @@
 #include <QFile>
 #include <QChar>
 #include "wavrecorder.h"
+#include "ui_recwidget.h"
 #include "wavplayer.h"
 
 /**
@@ -36,7 +37,7 @@
  * \author Peter Grasch
  * \date 26.05.2007
  */
-class RecWidget : public QGroupBox {
+class RecWidget : public QWidget {
 	Q_OBJECT
 
 signals:
@@ -50,19 +51,12 @@ signals:
 	void playbackFinished();
 
 private:
-	QGroupBox *container;
-	QPushButton *pbRecord;
-	QPushButton *pbPlay;
-	QPushButton *pbDelete;
-	QSlider *hsProgress;
-	QLabel *lbProgress;
+	Ui::RecWidgetUi ui;
 	
 	QString filename;
 	WavRecorder *rec;
 	WavPlayer *play;
 	
-	void setupLayout();
-	void setupWidgets();
 	void setupSignalsSlots();
 
 public slots:

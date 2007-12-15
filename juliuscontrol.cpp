@@ -11,10 +11,12 @@
 //
 #include "juliuscontrol.h"
 #include <QByteArray>
-#include <QTcpSocket>
+#include <QSslSocket>
 #include <QMessageBox>
-#include <QDebug>
 #include <QTimer>
+#include <QFile>
+#include <QDataStream>
+#include <QCryptographicHash>
 #include "settings.h"
 /**
  *	@brief Constructor
@@ -28,12 +30,13 @@
  */
 JuliusControl::JuliusControl()
 {
-	socket = new QTcpSocket();
+	socket = new QSslSocket();
 	timeoutWatcher = new QTimer(this);
 	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
 			
+// 	connect(socket, SIGNAL(encrypted()), this, SLOT(connectedTo()));
 	connect(socket, SIGNAL(connected()), this, SLOT(connectedTo()));
-	connect(socket, SIGNAL(readyRead()), this, SLOT(recognised()));
+	connect(socket, SIGNAL(readyRead()), this, SLOT(messageReceived()));
 	connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(errorOccured()));
 }
 
@@ -57,7 +60,13 @@ void JuliusControl::connectTo(QString server, quint16 port)
 		 socket->abort();
 	}
 	
-	socket->connectToHost( server, port );
+	if (Settings::get("Juliusd/Encrypted").toBool())
+	{
+		socket->setCiphers(Settings::getS("Juliusd/Cipher"));
+		socket->setPrivateKey(Settings::getS("Juliusd/Cert"), QSsl::Rsa, QSsl::Pem);
+		socket->connectToHostEncrypted( server, port );
+	} else 
+		socket->connectToHost( server, port );
 	timeoutWatcher->start(Settings::get("Network/Timeout").toInt());
 	
 }
@@ -67,7 +76,7 @@ void JuliusControl::errorOccured()
 	if (timeoutWatcher->isActive())
 		timeoutWatcher->stop();
 	
-	emit error(socket->errorString());
+	emit connectionError(socket->errorString());
 }
 
 /**
@@ -93,17 +102,72 @@ void JuliusControl::timeoutReached()
 }
 
 /**
- *	@brief A word has been recognised
+ *	@brief Process the request
  *	
- *	Reads the new data from the socket and tells all others about it
+ *	Reads the new data from the socket and processes it
  *	
  *	@author Peter Grasch
  */
-void JuliusControl::recognised()
+void JuliusControl::messageReceived()
 {
-// 	QByteArray word = ;
-// 	QMessageBox::information(0, "Juliuscontrol", socket->readAll());
-	emit wordRecognised(QString::fromUtf8(socket->readAll()));
+	QByteArray msgByte = socket->readAll();
+	
+	QDataStream msg(&msgByte, QIODevice::ReadOnly);
+
+	qint32 type;
+	msg >> type;
+	switch (type)
+	{
+		case 1:
+			/* login accepted */
+			emit loggedIn();
+			break;
+		case 2:
+			/* user / pass rejected */
+			emit error(tr("Benutzername oder Passwort falsch."));
+			this->disconnectFromServer();
+			break;
+		
+		case 3:
+			/* no pass specified */
+			emit error(tr("Kein Passwort angegeben. Aus Sicherheitsgründen muss ein Passwort festgelegt werden"));
+			break;
+		
+		case 4:
+			/* login rejected, because the version is known to NOT be supported */
+			emit error(tr("Version nicht unterstützt"));
+			break;
+		case 5:
+			/* login accepted, but the version is not known to be supported */
+			QString reason=tr("Version möglicherweise nicht Unterstützt");
+			if (Settings::get("Juliusd/ContiniueOnWarning").toBool())
+			{
+				emit warning(reason);
+				emit loggedIn();
+			} else emit error(reason,true);
+			break;
+		
+// 		case 1:
+// 			/* login accepted */
+// 			emit loggedIn();
+// 			break;
+// 		case 1:
+// 			/* login accepted */
+// 			emit loggedIn();
+// 			break;
+	}
+}
+
+/**
+ *	@brief A word has been recognised
+ *	
+ *	emits the signal wordRecognised
+ *	
+ *	@author Peter Grasch
+ */
+void JuliusControl::recognised(QString sequence)
+{
+	emit wordRecognised(sequence);
 }
 
 /**
@@ -145,10 +209,27 @@ void JuliusControl::connectionLost()
 void JuliusControl::connectedTo()
 {
 	timeoutWatcher->stop();
+
 	emit connected();
 	connect(socket, SIGNAL(disconnected()), this, SLOT(connectionLost()));
+
+	login();
 }
 
+void JuliusControl::login()
+{
+	QString user = Settings::getS("Juliusd/Username");
+	QString pass = Settings::getS("Juliusd/Password");
+
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+
+	out << qint32(0 /*login*/) << user << pass << protocolVersion;
+
+	out.device()->seek(0);
+
+	socket->write(toWrite);
+}
 /**
  *	@brief Destructor
  *	

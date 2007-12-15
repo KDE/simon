@@ -11,7 +11,6 @@
 //
 #include "shortcut.h"
 #include <QCoreApplication>
-#include <QDebug>
 
 /**
  * \brief Returns a text like "Strg + A" which describes the shortcut

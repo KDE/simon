@@ -10,6 +10,7 @@
 //
 //
 #include "trainingmanager.h"
+#include "settings.h"
 #include "logger.h"
 #include <QObject>
 
@@ -22,7 +23,7 @@ TrainingManager::TrainingManager(WordListManager *wlistmgr, QString pathToTexts)
 {
 	filename = pathToTexts;
 	this->wlistmgr = wlistmgr;
-	this->promptsTable = wlistmgr->readPrompts();
+	this->promptsTable = wlistmgr->readPrompts(Settings::getS("Model/PathToPrompts"));
 }
 
 /**

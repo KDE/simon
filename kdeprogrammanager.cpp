@@ -12,7 +12,6 @@
 #include "kdeprogrammanager.h"
 #include <QDir>
 #include <QProcess>
-#include <QDebug>
 #include "desktopreader.h"
 
 KDEProgramManager::KDEProgramManager()
@@ -38,8 +37,6 @@ KDEProgramManager::KDEProgramManager()
 
 bool KDEProgramManager::loadPrograms()
 {
-
-
 	QStringList pathToDesktopFiles = getKDEDirs();
 
 	for (int i=0; i < pathToDesktopFiles.count(); i++)
@@ -100,7 +97,7 @@ bool KDEProgramManager::loadPrograms()
 			}
 			QString iconsrc = resolveIcon(deskReader->getIconname());
 			if (!iconsrc.isEmpty())
-				prog->setIcon(QIcon(iconsrc));
+				prog->setIcon(QIcon(iconsrc), iconsrc);
 			prog->setCategories(categories);
 			
 			this->programs->append(*prog);

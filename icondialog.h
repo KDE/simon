@@ -37,8 +37,10 @@ class IconDialog : public QDialog
 
 
 private:
+#ifdef __WIN32
     QListView *iconView;
     QStandardItemModel *model;
+#endif
     QString resourceIdStr;
     QLineEdit *leFromFile;
     QPushButton *pbFromFile;
@@ -49,12 +51,13 @@ public:
 
     void showIcons(QString currentIcon = "");
     QString getIcon(){return resourceIdStr;}
-    //QIcon loadIcon(QString file, int resourceId);
 
 private slots:
     void safeIconInformation();
+#ifdef __WIN32
     void enableSystemIcons();
     void enableLineEdit();
+#endif
     void openFileDialog();
 
 signals:
