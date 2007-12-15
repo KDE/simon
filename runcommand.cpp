@@ -59,7 +59,7 @@ void RunCommand::readCommands(QString path)
  *	Name of the command
  *	@author Peter Grasch
  */
-void RunCommand::run(QString commandName, QString workingDirectory)
+void RunCommand::run(QString commandName)
 {
 	//execute the command
 	int i=0;
@@ -69,17 +69,18 @@ void RunCommand::run(QString commandName, QString workingDirectory)
 	if (i == commandlist.size()) return;
 	
 	QString command = commandlist.at(i)->getValue();
+	QString workingDir = commandlist.at(i)->getWorkingDirectory();
 	
 	if (commandlist.at(i)->getType() == exec)
 	{
 		Logger::log(QObject::tr("[INF] Ausführen des Befehls: ")+command);
 #ifdef linux
 		RunLinuxBackend *lin = (RunLinuxBackend*) this->runner;
-		lin->run(command, workingDirectory);
+		lin->run(command, workingDir);
 #endif
 #ifdef __WIN32
 		RunWindowsBackend *win = (RunWindowsBackend*) this->runner;
-		win->run(command, workingDirectory);
+		win->run(command, workingDir);
 #endif
 	}
 	

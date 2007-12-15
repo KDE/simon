@@ -2,4 +2,5 @@
  <command iconPath="/usr/share/icons/hicolor/16x16/apps/k3b.png" type="0" name="K3b" workingDirectory="" >k3b %U</command>
  <command iconPath="/usr/share/icons/hicolor/16x16/apps/kmplayer.png" type="0" name="KMPlayer" workingDirectory="" >kmplayer -caption "%c" %i %m %U</command>
  <command iconPath="/usr/kde/3.5/share/icons/crystalsvg/16x16/filesystems/folder_crystal.png" type="1" name="KDE-Ordner" workingDirectory="" >/home/bedahr/kde</command>
+ <command iconPath="" type="0" name="Test" workingDirectory="/home/bedahr/Daten/Schule" >pwd</command>
 </commands>

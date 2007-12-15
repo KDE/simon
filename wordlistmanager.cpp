@@ -19,6 +19,7 @@
 #include <QtGlobal>
 #include <QTextStream>
 #include "modelmanager.h"
+#include "simoninfo.h"
 #include "settings.h"
 
 /**
@@ -70,11 +71,16 @@ WordList* WordListManager::sortList(WordList* list)
 
 WordList* WordListManager::getShadowList()
 {
-	
-
 	//if the thread is still running we are obviously not ready to give out the shadowdict
+	//wait till we are finished
 	if (isRunning())
+	{
+		SimonInfo::showMessage(tr("Bitte warten Sie während das Schatten-Wörterbuch lädt..."),1000);
+		QCoreApplication::processEvents();
+		//this is actually bug-using as we just set any kind of timeout (the gui thread will be
+		//blocked until the importing is done anyway...
 		wait();
+	}
 	
 	return shadowList;
 }
