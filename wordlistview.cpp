@@ -221,7 +221,7 @@ void WordListView::toggleExtraWords()
 {
 	clearList();
 	ui.leSearch->setText("");
-	if (ui.cbShowCompleteLexicon->checkState() == Qt::Checked)
+	if (ui.cbShowCompleteLexicon->isChecked())
 	{
 		insertVocab(this->wordListManager->getWordList());
 		insertVocab(this->wordListManager->getShadowList());
@@ -313,7 +313,18 @@ void WordListView::deleteSelectedWord()
 	DeleteWordDialog *del = new DeleteWordDialog(this);
 	int wordId = ui.twVocab->item(ui.twVocab->currentRow(),0)->data(Qt::UserRole).toInt();
 	
-	del->exec(this->wordListManager->getWord(wordId));
+	if (del->exec(this->wordListManager->getWord(wordId)))
+	{
+		//delete the word
+		if (del->getDeletionType() == DeleteWordDialog::MoveToShadow)
+		{
+			qDebug("Move to shadow...");
+		}
+		if (del->getDeletionType() == DeleteWordDialog::RemoveCompletely)
+		{
+			qDebug("Remove completely...");
+		}
+	}
 }
 
 /**
@@ -450,6 +461,7 @@ void WordListView::hideTbEditModel()
 void WordListView::setTbEditModelVisible()
 {
     ui.twCurrentAction->insertTab(0,ui.tbEditModel, tr("Wortliste ändern"));
+    ui.twCurrentAction->setCurrentIndex(0);
 }
 
 

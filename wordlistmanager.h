@@ -58,7 +58,7 @@ public:
 	PromptsTable* readPrompts(QString pathToPrompts);
 	int getProbability(QString name, PromptsTable *promptsTable);
 	WordList* getWordList() { return wordlist; }
-	WordList* getShadowList() { return shadowList; }
+	WordList* getShadowList();
 	void addWords(WordList *list, bool isSorted=false, bool shadow=false);
 	bool save( QString lexiconFilename="", QString vocabFilename="" );
 	WordList* sortList(WordList* list);

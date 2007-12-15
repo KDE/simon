@@ -66,7 +66,18 @@ WordList* WordListManager::sortList(WordList* list)
 	qSort(list->begin(), list->end());
 	return list;
 }
-		
+
+
+WordList* WordListManager::getShadowList()
+{
+	
+
+	//if the thread is still running we are obviously not ready to give out the shadowdict
+	if (isRunning())
+		wait();
+	
+	return shadowList;
+}
 
 /**
  * \brief Saves the current WordList (member)
@@ -232,7 +243,7 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 		list = sortList(list);
 
 	WordList *target;
-	if (shadow) target = this->shadowList;
+	if (shadow) target = getShadowList();
 	else target = this->wordlist;
 
 	Logger::log(QObject::tr("[INF] Hinzufügen von %1 Wörtern in die Wörterliste").arg(list->count()));
