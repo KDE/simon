@@ -29,7 +29,6 @@
  *	@version 0.1
  *	@date 08.01.2006
  *	@author Peter Grasch
- *	@todo Adding the word to the model
 */
  
 #ifndef ADDWORDVIEW_H
@@ -40,6 +39,8 @@
 
 
 class QWizardPage;
+class AddWordResolvePage;
+class AddWordIntroPage;
 class WordListManager;
 class AddWordView : public QWizard
 {
@@ -48,6 +49,9 @@ class AddWordView : public QWizard
 	private:
 		RecWidget *rec1;
 		RecWidget *rec2;
+		int prevId;
+		AddWordResolvePage *resolvePage;
+		AddWordIntroPage *welcomePage;
 		WordListManager *wordlistMgr;
 		void hideEvent(QHideEvent *event) { 
 			emit hidden(); return QWidget::hideEvent(event); }
@@ -59,9 +63,11 @@ class AddWordView : public QWizard
 	public slots:
 		
 		void finish(int done);
+		void idChanged(int newId);
 
-		QWizardPage* createWelcomePage();
+		AddWordIntroPage* createWelcomePage();
 		QWizardPage* createRecordPage();
+		AddWordResolvePage* createResolvePage();
 		QWizardPage* createFinishedPage();
 		
 		

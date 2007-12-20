@@ -24,6 +24,9 @@
  The WizardPage of the AddWordView-Wizard that manages the recordings;
  Uses two Recwidgets and the QT-Mechanism to ensure that you can't 
  continiue without both recordings done.
+
+ Trys to determine useful sentences by using the grammarmanager and
+ let the user record them
 */
 class AddWordRecordPage : public QWizardPage
 {

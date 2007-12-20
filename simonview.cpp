@@ -82,23 +82,26 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	this->trayManager->createIcon( QIcon( ":/images/tray.png" ), "Simon" );
 	
-	
 	//Preloads all Dialogs
+	this->info->writeToSplash(tr("Lade \"Trainieren\"..."));
+	this->trainDialog = new TrainingView(this);
 	this->info->writeToSplash(tr("Lade \"Wortliste\"..."));
-	this->wordList = new WordListView(this);
+	this->wordList = new WordListView(trainDialog, this);
+
 	this->info->writeToSplash(tr("Lade \"Wort hinzufügen\"..."));
 	this->addWordView = new AddWordView(this, wordList->getManager());
 	this->info->writeToSplash(tr("Lade \"Ausführen\"..."));
 	this->runDialog = new RunApplicationView(control->getRunManager(), this);
-	this->info->writeToSplash(tr("Lade \"Trainieren\"..."));
 
-	this->trainDialog = new TrainingView(wordList, this);
-	this->wordList->setTrainingView(trainDialog);
+
+
+
 
 	this->info->writeToSplash(tr("Lade \"System\"..."));
 	this->systemDialog = new SystemView(shortcutControl, this);
 	
 	this->info->writeToSplash(tr("Lade Oberfläche..."));
+
 
 	this->vuMeter = new VuMeter();
 	if (vuMeter->prepare())
@@ -211,7 +214,6 @@ void SimonView::setupSignalSlots()
 	connect(control, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
 
 
-	//TODO: remove (debug count)
 	connect(ui.pbCompileModel, SIGNAL(clicked()), this->wordList, SLOT(compileModel()));
 }
 
@@ -453,7 +455,6 @@ void SimonView::showWordListDialog(bool show)
  * Hides the main window and sends it to the system tray.
  *
  *	@author Peter Grasch
- * @todo For now this function only handles the main program - the dialogs should be hidden too
  *
 */
 void SimonView::hideSimon()
@@ -503,7 +504,6 @@ void SimonView::hideSimon()
  * Shows the Main Window after it was hidden at first
  *
  *	@author Peter Grasch
- * @todo For now this function only handles the main program - the dialogs should be shown again too
  *
  */
 void SimonView::showSimon()
@@ -615,7 +615,6 @@ void SimonView::toggleVisibility()
  * Closes the whole program and kills all dialogs associated with it
  *
  * @author Peter Grasch
- * @todo For now this function only handles the main program and the tray icon
  *
 */
 void SimonView::closeSimon()

@@ -71,6 +71,7 @@ public slots:
 	void trainWords(WordList *words);
 	void startTraining();
 	void importDirectory();
+	TrainingManager* getManager() { return trainMgr; }
 
 private slots:
     void increaseRecordedPages();
@@ -78,7 +79,7 @@ private slots:
 
 public:
 	void exec();
-    TrainingView(WordListView *wordlistView, QWidget *parent=0);
+    TrainingView(QWidget *parent=0);
 	
     ~TrainingView();
 

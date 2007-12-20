@@ -25,20 +25,18 @@
  *
  * @author Peter Grasch
  */
-WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"), 
+WordListView::WordListView(TrainingView *trainView, QWidget *parent) : InlineWidget(tr("Wortliste"), 
 	QIcon(":/images/icons/format-justify-fill.svg"), 
 	tr("Betrachten und bearbeiten der Wortliste"), parent)
 {
 
 	shownDialogs = 0;
 	abortVocabInsertion = false;
-	this->wordListManager = new WordListManager();
 	
 	ui.setupUi(this);
 
 	ui.twVocab->verticalHeader()->hide();
 	
-	this->initializeItems();
 	importDictView = new ImportDictView(this);
 	
 	connect(ui.pbAddToTraining, SIGNAL(clicked()), this, SLOT(copyWordToTrain()));
@@ -56,10 +54,26 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	
 	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(toggleExtraWords()));
 
+	this->trainView = trainView; 
+	this->wordListManager = new WordListManager(trainView->getManager());
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(reloadList()));
+	connect(this->wordListManager, SIGNAL(shadowListChanged()), this, SLOT(reloadList()));
+	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(askForRebuild()));
+	this->initializeItems();
+
 	dirty = false;
 	hide();
 }
+
+
+void WordListView::askForRebuild()
+{
+	//we changed the wordlist
+	//we should thus recompile the model
+	if (QMessageBox::question(this, tr("Übernehmen"), tr("Um die Änderung zu übernehmen, muss das Sprachmodell neu generiert werden.\n\nWollen Sie es jetzt neu generieren?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+					wordListManager->compileModel();
+}
+
 
 void WordListView::reloadList()
 {
@@ -81,6 +95,7 @@ void WordListView::clearSearchText()
 
 void WordListView::showImportDictDialog()
 {
+	importDictView->restart();
 	importDictView->show();
 }
 
@@ -102,15 +117,6 @@ void WordListView::importDict(WordList* list)
 	if (list)
 	{
 		wordListManager->addWords(list, true,true);
-		
-		
-// 		if (!wordListManager->save())
-// 		{	
-// 			QMessageBox::critical(this, tr("Fehler beim Speichern"), tr("Das Wörterbuch konnte nicht nach %1 geschrieben werden. Bitte überprüfen Sie Ihre Berechtigungen.").arg(Settings::get("Model/PathToLexicon").toString()));
-// 			Logger::log("[ERR] Fehler beim schreiben des Wörterbuches");
-// 		}
-		
-// 		insertVocab(wordListManager->getWordList());
 	}
 }
 
@@ -170,6 +176,21 @@ void WordListView::filterListbyPattern(QString filter)
 		i++;
 	}
 	insertVocab( limitedVocab );
+	
+	if (ui.cbShowCompleteLexicon->isChecked())
+	{
+		vocab = this->wordListManager->getShadowList();
+		limitedVocab->clear();
+		i=0;
+		while (i < vocab->count())
+		{
+			if (vocab->at(i).getWord().contains(filter, Qt::CaseInsensitive))
+				limitedVocab->append(vocab->at(i));
+			
+			i++;
+		}
+		insertVocab( limitedVocab );
+	}
 }
 
 /**
@@ -311,18 +332,36 @@ void WordListView::askToSave()
 void WordListView::deleteSelectedWord()
 {
 	DeleteWordDialog *del = new DeleteWordDialog(this);
-	int wordId = ui.twVocab->item(ui.twVocab->currentRow(),0)->data(Qt::UserRole).toInt();
+
+	int row = ui.twVocab->currentRow();
+	QString word = ui.twVocab->item(row,0)->text();
+	QString pronunciation = ui.twVocab->item(row,1)->text();
+	QString terminal = ui.twVocab->item(row,2)->text();
 	
-	if (del->exec(this->wordListManager->getWord(wordId)))
+	bool isShadowed=false;
+	bool success = false;
+
+	Word *w = this->wordListManager->getWord(word, pronunciation, terminal, isShadowed);
+	if (!w)
+	{
+		qDebug() << "WTF?";
+		return; //word not found?!
+	}
+	
+	if (del->exec(*w, isShadowed))
 	{
 		//delete the word
 		if (del->getDeletionType() == DeleteWordDialog::MoveToShadow)
 		{
-			qDebug("Move to shadow...");
+			success = wordListManager->moveToShadow(w);
 		}
 		if (del->getDeletionType() == DeleteWordDialog::RemoveCompletely)
 		{
 			qDebug("Remove completely...");
+			if (!wordListManager->deleteCompletely(w, isShadowed))
+				QMessageBox::critical(this, tr("Fehler beim Löschen"), tr("Das Wort konnte nicht komplett gelöscht werden.\n\nBitte überprüfen Sie die Pfade der Dateien: prompts, codetrain.scp, Pfad der Samples, dict, shadow-dict, voca"));
+			else 
+				success = true;
 		}
 	}
 }
@@ -336,14 +375,19 @@ void WordListView::deleteSelectedWord()
 void WordListView::readVocab()
 {
 	WordList *vocab = this->wordListManager->getWordList();
-	
 	if (!vocab)
 	{
 		QMessageBox::critical(0, tr("Lesefehler"), tr("Konnte benötigte Dateien nicht einlesen. Bitte überprüfen Sie die Einstellungen und stellen Sie sicher das sie die nötigen Leserechte haben."));
-		return;
+	} else 	insertVocab( vocab );
+
+	if (ui.cbShowCompleteLexicon->isChecked())
+	{
+		WordList *shadow = this->wordListManager->getShadowList();
+		if (shadow)
+		{
+			insertVocab( shadow );
+		}
 	}
-	
-	insertVocab( vocab );
 }
 
 /**
@@ -366,14 +410,12 @@ void WordListView::insertVocab(WordList *vocab)
         int i=0;
 	int limit=1000;
 	
-	
 	ui.twVocab->setRowCount(vocab->count());
 	while ((!abortVocabInsertion) && (i<vocab->count()) && (i<limit))
 	{
 		if (!vocab->at(i).getWord().isEmpty())
 		{
 			QTableWidgetItem *wordName = new QTableWidgetItem(vocab->at(i).getWord());
-			wordName->setData(Qt::UserRole, i);
 			ui.twVocab->setItem(i, 0, wordName);
 			ui.twVocab->setItem(i, 1, new QTableWidgetItem(vocab->at(i).getPronunciation()));
 			ui.twVocab->setItem(i, 2, new QTableWidgetItem(vocab->at(i).getTerminal()));

@@ -32,7 +32,7 @@
  *	@author Peter Grasch
  *	
  *	@todo For now the format header is pretty much hardcoded to 44100 Hz, stereo, 16bit Little Endian
- *	@todo We use a single buffer that we resize every time; If it gets too large to handle we get "skippy" recordings (after about 10 seconds)
+ *	@todo We use a single buffer that we resize every time; If it gets too large to handle we get "skippy" recordings
  */
 class WAV{
 private:

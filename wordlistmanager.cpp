@@ -22,6 +22,8 @@
 #include "simoninfo.h"
 #include "settings.h"
 
+#include <QDebug>
+
 /**
  * @brief Constructor
  *
@@ -31,11 +33,13 @@
  * @param QString path
  * Sets the path (member) to the given string
  */
-WordListManager::WordListManager ( ) : QThread()
+WordListManager::WordListManager ( TrainingManager *trainManager ) : QThread()
 {
-	this->wordlist = readWordList ( Settings::getS("Model/PathToLexicon"), Settings::getS("Model/PathToVocab"), Settings::getS("Model/PathToPrompts") );
-	start();
+	this->wordlist = readWordList ( Settings::getS("Model/PathToLexicon"), Settings::getS("Model/PathToVocab"), Settings::getS("Model/PathToPrompts"), this->activeTerminals );
+	mainDirty = false;
 	this->modelManager = new ModelManager();
+	this->trainManager = trainManager;
+	start();
 }
 
 bool WordListManager::compileModel()
@@ -49,7 +53,8 @@ bool WordListManager::compileModel()
  */
 void WordListManager::run()
 {
-	this->shadowList = readWordList(Settings::getS("Model/PathToShadowLexicon"), Settings::getS("Model/PathToShadowVocab"), Settings::getS("Model/PathToPrompts"));
+	shadowDirty = false;
+	this->shadowList = readWordList(Settings::getS("Model/PathToShadowLexicon"), Settings::getS("Model/PathToShadowVocab"), Settings::getS("Model/PathToPrompts"), this->shadowTerminals);
 }
 
 
@@ -93,18 +98,38 @@ WordList* WordListManager::getShadowList()
  * \return bool
  * Saving successful?
  */
-bool WordListManager::save ( QString lexiconFilename, QString vocabFilename )
+bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
+			     QString shadowLexiconFilename, QString shadowVocabFilename )
 {
 	Logger::log(QObject::tr("[INF] Speichere Wörterliste"));
 	
-	WordList *saving = this->wordlist;
+	//save wordlist
+	if (mainDirty)	//we changed the wordlist
+	{
+		if (lexiconFilename.isEmpty()) lexiconFilename = Settings::getS("Model/PathToLexicon");
+		if (vocabFilename.isEmpty()) vocabFilename = Settings::getS("Model/PathToVocab");
+		saveWordList(this->getWordList(), lexiconFilename, vocabFilename);
+		emit wordlistChanged();
+		mainDirty=false;
+	}
 	
-	saving->append(Word("SENT-START", "sil", "NS_B", 0));
-	saving->append(Word("SENT-END", "sil", "NS_E", 0));
+	//shadowlist
+	if (shadowDirty) //we changed the shadowDict
+	{
+		if (shadowLexiconFilename.isEmpty()) shadowLexiconFilename = Settings::getS("Model/PathToShadowLexicon");
+		if (shadowVocabFilename.isEmpty()) shadowVocabFilename = Settings::getS("Model/PathToShadowVocab");
+		saveWordList(this->getShadowList(), shadowLexiconFilename, shadowVocabFilename);
+		emit shadowListChanged();
+		shadowDirty=false;
+	}
 	
-	if (lexiconFilename.isEmpty()) lexiconFilename = Settings::getS("Model/PathToLexicon");
-	if (vocabFilename.isEmpty()) vocabFilename = Settings::getS("Model/PathToVocab");
 	
+	return true;
+}
+
+
+bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QString vocabFilename)
+{
 	Logger::log(QObject::tr("[INF] Öffnen der Ausgabedatei: %1").arg(lexiconFilename));
 	
 	QFile *outfile = new QFile(lexiconFilename);
@@ -115,16 +140,27 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename )
 	QTextStream outstream(outfile);
 	outstream.setCodec("ISO 8859-15");
 	
-	for (int i=0; i< saving->count(); i++)
+	int i=0;
+	int count = list->count();
+	while ((i<count)&&(list->at(i).getWord().toUpper() < "SENT-END"))
 	{
-		outstream << QString(saving->at(i).getWord().trimmed().toUpper() 
-				+ "\t\t[" + saving->at(i).getWord().trimmed() + "]\t\t" +
-				saving->at(i).getPronunciation()).trimmed() << "\n";
+		outstream << QString(list->at(i).getWord().toUpper() 
+				+ "\t\t[" + list->at(i).getWord() + "]\t\t" +
+				list->at(i).getPronunciation()) << "\n";
+		i++;
+	}
+	outstream << "SENT-END\t\t[]\t\tsil\n";
+	outstream << "SENT-START\t\t[]\t\tsil\n";
+	while (i<count)
+	{
+		outstream << QString(list->at(i).getWord().toUpper() 
+				+ "\t\t[" + list->at(i).getWord() + "]\t\t" +
+				list->at(i).getPronunciation()) << "\n";
+		i++;
 	}
 
 	Logger::log(QObject::tr("[INF] Schießen der Ausgabedatei"));
 	outfile->close();
-	
 	return true;
 }
 
@@ -135,12 +171,17 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename )
  *
  * @author Peter Grasch
  *
- * @param QString path
+ * @param lexiconpath
  * Path to the lexicon
- * @return Wordlist*
- * The parsed WordList
+ * \param vocabpath
+ * Path to the vocabulary
+ * \param promptspath
+ * Path to the prompts file
+ * \param terminals
+ * Pointer to the terminallist to fill
+ * @return  The parsed WordList
  */
-WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QString promptspath )
+WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QString promptspath, QStringList &terminals )
 {
 	Logger::log (QObject::tr("[INF] Lesen der Wörterliste bestehend aus "));
 	Logger::log(QObject::tr("[INF] \t\tLexikon: %1,").arg(lexiconpath));
@@ -151,13 +192,16 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 	//read the vocab
 	WordList *vocablist = readVocab(vocabpath);
 	//read the prompts
-	PromptsTable *promptsTable = readPrompts(promptspath);
+// 	TrainingManager *trainManager = new TrainingManager();
+	PromptsTable *promptsTable = /*& (trainManager->promptsList); */ trainManager->getPrompts();
+// 	PromptsTable *
 
 	//opening
 	Logger::log(QObject::tr("[INF] Öffnen des Lexikons von: %1").arg(lexiconpath));
 	QFile *lexicon = new QFile ( lexiconpath );
 	
 	if ( !lexicon->open ( QFile::ReadOnly ) || !vocablist || !promptsTable) return false;
+	
 	
 	QString line, name, output, pronunciation, term, *termtmp;
 	int wordend, outend, probability;
@@ -172,8 +216,9 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 		
 		termtmp = getTerminal( name, pronunciation, vocablist );
 		term = (termtmp) ? *termtmp : "Unbekannt";
+		if (!terminals.contains(term)) terminals.append(term);
 		
-		probability = getProbability( name, promptsTable );
+		probability = this->trainManager->getProbability( name, promptsTable );
 
 		//creates and appends the word to the wordlist
 		wordlist->append(Word(output, pronunciation, term, probability));
@@ -205,6 +250,78 @@ WordList* WordListManager::removeDoubles(WordList *in)
 	return in;
 }
 
+Word* WordListManager::getWord(QString word, QString pronunciation, QString terminal, bool &isShadowed)
+{
+	isShadowed = false;
+	for (int i=0; i < wordlist->count(); i++)
+	{
+		if ((wordlist->at(i).getWord() == word) && (wordlist->at(i).getPronunciation() == pronunciation) && (wordlist->at(i).getTerminal() == terminal))
+			return (Word*) &(wordlist->at(i));
+	}
+	isShadowed = true;
+	for (int i=0; i < shadowList->count(); i++)
+	{
+		if ((shadowList->at(i).getWord() == word) && (shadowList->at(i).getPronunciation() == pronunciation) && (shadowList->at(i).getTerminal() == terminal))
+			return (Word*) &(shadowList->at(i));
+	}
+	return 0;
+}
+
+bool WordListManager::moveToShadow(Word *w)
+{
+	int i=0;
+	this->trainManager->deleteWord(w);
+	while (i < wordlist->count())
+	{
+		if (&(wordlist->at(i)) == w)
+		{
+			shadowList->append(wordlist->takeAt(i));
+			shadowDirty = mainDirty = true;
+			break;
+		}
+		i++;
+	}
+	return save();
+}
+
+bool WordListManager::deleteCompletely(Word *w, bool shadowed)
+{
+	//search for every sample that has the word in it and remove it
+	//delete the entry in
+	//	dict--------------------
+	//	shadowdict--------------
+	//	voca
+	//	prompts-----------------
+	
+	//TODO: Implement deletion
+
+	if (!shadowed)
+	{
+		this->trainManager->deleteWord(w); //if the word is shadowed we can't have any
+		WordList *main = getWordList();
+		for (int i=0; i < main->count(); i++)
+			if (&(main->at(i)) == w)
+			{
+				main->removeAt(i);
+				mainDirty=true;
+				break; //is unique
+			}
+		//training samples
+	}
+	else 
+	{
+		WordList *shadow = getShadowList();
+		for (int i=0; i < shadow->count(); i++)
+			if (&(shadow->at(i)) == w)
+			{
+				shadow->removeAt(i);
+				shadowDirty=true;
+				break; //is unique
+			}
+	}
+	
+	return save();
+}
 
 /**
  * \brief Returns the Terminal of the name & pronunciation (it is pulled out of the wlist)
@@ -222,17 +339,114 @@ QString* WordListManager::getTerminal(QString name, QString pronunciation, WordL
 {
 	int i=0, wordcount = wlist->count();
 	QString uppername = name.toUpper();
+	
 	while ((i < wordcount) && (wlist->at( i ).getWord().toUpper() != uppername) && 
 			( wlist->at( i ).getPronunciation() != pronunciation))
-	{ i++; };
+	{ i++; }
 	if ((i<wordcount) && (wlist->at(i).getWord().toUpper() == uppername) && 
-			( wlist->at( i ).getPronunciation() != pronunciation))
+			( wlist->at( i ).getPronunciation() == pronunciation))
 	{
-		//Because vocabs have just one pronunciation for each entry
+		//we found the word!
 		return  new QString(((wlist->at( i ).getTerminal())));
 	}
 	// there was no result
 	return NULL;
+}
+
+/**
+ * \brief Returns a random wordname using this terminal
+ * @param terminal The terminal of the word
+ * @author Peter Grasch
+ * @return Wordname
+ */
+QString WordListManager::getRandomWord(QString terminal)
+{
+	WordList *main = getWordList();
+	int start = qrand()%main->count();
+	int i=start;
+	while (i<main->count())
+	{
+		if (main->at(i).getTerminal()==terminal)
+			return main->at(i).getWord();
+		i++;
+	}
+	//we didn't find anything till now
+	//start again at the beginning and go till the point we started last time
+	i=0;
+	while (i<start)
+	{
+		if (main->at(i).getTerminal()==terminal)
+			return main->at(i).getWord();
+		i++;
+	}
+	
+	//still didn't find anything?
+	//move on to the shadowlist
+	WordList *shadowList = getShadowList();
+	
+	start = qrand()%shadowList->count();
+	i=start;
+	while (i<shadowList->count())
+	{
+		if (shadowList->at(i).getTerminal()==terminal)
+			return shadowList->at(i).getWord();
+		i++;
+	}
+	//we didn't find anything till now
+	//start again at the beginning and go till the point we started last time
+	i=0;
+	while (i<start)
+	{
+		if (shadowList->at(i).getTerminal()==terminal)
+			return shadowList->at(i).getWord();
+		i++;
+	}
+	return terminal; //we couldn't find a word - return what we got
+}
+
+QStringList WordListManager::getTerminals(bool includeShadow)
+{
+	QStringList terminals;
+	
+	//main
+	terminals << this->activeTerminals;
+	if (includeShadow && (getShadowList() /* to wait if the thread is running */))
+	{
+		for (int i=0; i < shadowTerminals.count(); i++)
+			if (!terminals.contains(shadowTerminals.at(i)))
+				terminals.append(shadowTerminals.at(i));
+	}
+	terminals.sort();
+	return terminals;
+}
+
+WordList* WordListManager::getWords(QString word, bool includeShadow)
+{
+	WordList* main = getWordList();
+	WordList* found = new WordList();
+	int i=0;
+	QString toSearch = word.toUpper();
+	//main
+	while (i<main->count())
+	{
+		if (main->at(i).getWord().toUpper()==toSearch)
+			found->append(main->at(i));
+		i++;
+	}
+	if (!includeShadow)
+		return found;
+	WordList* shadow = getShadowList();
+// 	//shadow
+	i=0;
+	while (i<shadow->count())
+	{
+		if (shadow->at(i).getWord().toUpper()==toSearch)
+		{
+			found->append(shadow->at(i));
+		}
+		i++;
+	}
+	return found;
 }
 
 /**
@@ -241,7 +455,7 @@ QString* WordListManager::getTerminal(QString name, QString pronunciation, WordL
  * Tries to omit duplicates...
  * \author Peter Grasch
  * \param WordList *list
- * List of words to add (DANGER: this pointer is invalid after calling this function!)
+ * List of words to add (DANGER: this pointer may be invalid after calling this function!)
  */
 void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 {
@@ -287,67 +501,11 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 // 	if (list) delete list;
 
 	Logger::log(QObject::tr("[INF] Die Wortliste beinhaltet jetzt %1 Wörter").arg(wordlist->count()));
+	
+	if (shadow) shadowDirty=true;
+	else mainDirty=true;
+	
 	this->save();
-
-	emit wordlistChanged();
-}
-
-/**
- * \brief Returns the probability of the name (it is pulled out of the promptsTable)
- * \author Peter Grasch
- * \param QString wordname
- * Name of the word
- * \param PromptsTable
- * Promptsfile
- * \return int
- * Probability to recognize; The higher the more likly simon will recognize this word correctly
- */
-int WordListManager::getProbability(QString wordname, PromptsTable *promptsTable)
-{
-	QStringList prompts = promptsTable->values();
-	int prob=0;
-	int i=0;
-	QString line;
-	while (i<prompts.count())
-	{
-		prob += prompts.at(i).count(wordname);
-		i++;
-	}
-	return prob;
-}
-
-/**
- * \brief Builds and returns the promptstable by parsing the file at the given path
- * \author Peter Grasch
- * \param QString promptspath
- * The path to the prompts file
- * \return PromptsTable*
- * The table
- */
-PromptsTable* WordListManager::readPrompts(QString promptspath)
-{
-	Logger::log(QObject::tr("[INF] Parse Promptsdatei von %1").arg(promptspath));
-	PromptsTable *promptsTable = new PromptsTable();
-	
-	QFile *prompts = new QFile ( promptspath );
-	prompts->open ( QFile::ReadOnly );
-	if ( !prompts->isReadable() ) return false;
-	
-	QString label;
-	QString prompt;
-	QString line;
-	int labelend;
-	while ( !prompts->atEnd() ) //for each line that was successfully read
-	{
-		line = prompts->readLine(1024);
-		labelend = line.indexOf(" ");
-		label = line.left(labelend);
-		prompt = line.mid(labelend).trimmed();
-
-		promptsTable->insert( label, prompt );
-	}
-	
-	return promptsTable;
 }
 
 /**
@@ -376,11 +534,13 @@ WordList* WordListManager::readVocab(QString vocabpath)
 	while ( !vocab->atEnd() ) //for each line that was successfully read
 	{
 		line =vocab->readLine(1024);
+		if (line.trimmed().isEmpty()) continue;
 		
 		if (line.startsWith("%")) 
 		{
 			//The Line is the Definition of the terminal
 			terminal = line.mid(2).trimmed();
+			continue;
 		}
 		
 		//parsing the line

@@ -12,38 +12,37 @@
 #include <QHBoxLayout>
 #include "trainingview.h"
 #include "importtrainingdirectory.h"
+#include "settings.h"
 
 
 /**
- * \brief Construcotr - inits the Gui
+ * \brief Constructor - inits the Gui
  * \author Peter Grasch
- * @param wordlistView The WordlistView used as a reference for relevance calculations
  * @param parent The parent of the widget
  */
-TrainingView::TrainingView(WordListView *wordlistView, QWidget *parent)
+TrainingView::TrainingView(QWidget *parent)
 	 : InlineWidget(tr("Training"), QIcon(":/images/icons/document-properties.svg"), 
 	   tr("Trainieren des Sprachmodells"), parent)
 {
 	ui.setupUi(this);
- 	this->hide();
+	this->hide();
 	
 	connect(ui.pbTrainText, SIGNAL(clicked()), this, SLOT(trainSelected()));
 	connect(ui.twTrainingWords, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(trainSelected()));
 	
-    ui.pbPrevPage->setEnabled(false);
+	ui.pbPrevPage->setEnabled(false);
 	connect (ui.pbNextPage, SIGNAL(clicked()), this, SLOT(nextPage()));
 	connect (ui.pbPrevPage, SIGNAL(clicked()), this, SLOT(prevPage()));
 	
 	connect(ui.pbCancelTraining, SIGNAL(clicked()), this, SLOT(cancelTraining()));
 	connect(ui.pbFinish, SIGNAL(clicked()), this, SLOT(finish()));
 	connect(ui.pbImportText, SIGNAL(clicked()), this, SLOT(importTexts()));
-    connect (ui.pbBackToMain, SIGNAL(clicked()), this, SLOT(cancelReading()));
-    connect (ui.pbDelText, SIGNAL(clicked()), this, SLOT(deleteSelected()));
+	connect (ui.pbBackToMain, SIGNAL(clicked()), this, SLOT(cancelReading()));
+	connect (ui.pbDelText, SIGNAL(clicked()), this, SLOT(deleteSelected()));
 	connect(ui.pbImportDir, SIGNAL(clicked()), this, SLOT(importDirectory()));	
 	
 	currentPage=0;
-//	this->wordlistView = wordlistView;
-	trainMgr = new TrainingManager(wordlistView->getManager());
+	trainMgr = new TrainingManager();
 	
 	loadList(); // we load the list of avalible trainingtexts despite we probably won't
 	// use it when given a special training program

@@ -11,7 +11,6 @@ class QProcess;
  * \brief Extracts *.bz2 / *.bzip2 files
  * \author Peter Grasch
  * \note This uses the programm bzip2 which might not be installed
- * \todo somehow provide progress feedback
  * \version 0.1
  * \date 10.08.2007
  */

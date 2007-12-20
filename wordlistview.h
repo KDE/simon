@@ -68,6 +68,7 @@ signals:
 public slots:
 	void abortInsertion() { abortVocabInsertion = true; }
 	void reloadList();
+	void askForRebuild();
 	void suggestTraining();
 	void markWordToTrain( Word word );
 	void copyWordToTrain();
@@ -89,9 +90,8 @@ public slots:
     void setTbEditModelVisible();
 
 public:
-	WordListView(QWidget *parent);
+	WordListView(TrainingView *trainView, QWidget *parent);
 	WordListManager* getManager() { return wordListManager; }
-	void setTrainingView(TrainingView *trainView) { this->trainView = trainView; }
 	~WordListView();
 
 };

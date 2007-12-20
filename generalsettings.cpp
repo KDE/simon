@@ -52,6 +52,7 @@ bool GeneralSettings::apply()
 	Settings::set("PathToProgramCategories", ui.leProgramCategories->text());
 	Settings::set("PathToCommands", ui.leCommands->text());
 	Settings::set("TempDir", ui.leTempDir->text());
+	Settings::set("PathToTexts", ui.lePathToTexts->text());
 
 	return true;
 }
@@ -90,6 +91,7 @@ bool GeneralSettings::init()
 	ui.leShortcuts->setText(Settings::get("PathToShortcuts").toString());
 	ui.leProgramCategories->setText(Settings::get("PathToProgramCategories").toString());
 	ui.leTempDir->setText(Settings::get("TempDir").toString());
+	ui.lePathToTexts->setText(Settings::get("PathToTexts").toString());
 
 	return true;
 }

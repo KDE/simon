@@ -28,9 +28,8 @@
  *	sets the Palette of the Widget to simon-Colors
  *
  * @author Peter Grasch
- * @todo Ignores the alignment-argument for now
  */
-OSD::OSD(QString message, int timeout, int alignment)
+OSD::OSD(QString message, int timeout)
 	: QWidget(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint)
 {
 	Logger::log(tr("[INF] ")+message);
@@ -63,6 +62,18 @@ OSD::OSD(QString message, int timeout, int alignment)
 	show();
 }
 
+
+
+/**
+ * \brief Closes the info on mouse-press
+ * @param event The mousevent to comply with qts definition
+ */
+void OSD::mouseReleaseEvent(QMouseEvent *event)
+{
+	QWidget::mouseReleaseEvent(event);
+	close();
+}
+
 /**
  * @brief Overwritten paintEvent
  *
@@ -75,6 +86,7 @@ void OSD::paintEvent( QPaintEvent *e )
 	QPainter painter(this);
 	QPixmap bg = QPixmap(":/images/osd.png");
 	painter.drawPixmap(0,0,bg);
+	QWidget::paintEvent(e);
 }
 
 /**

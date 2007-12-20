@@ -21,7 +21,6 @@ XMLCommand::XMLCommand(QString path):XMLDomReader(path)
  * The list of commands
  * @param path
  * The path to save to; Default: conf/commands.xml
- * @todo This is not yet implemented
  */
 bool XMLCommand::save(QString path)
 {

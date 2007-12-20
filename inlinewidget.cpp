@@ -40,7 +40,6 @@ InlineWidget::~InlineWidget()
 
 /**
  * \brief Accept the InlineWidget
- * \todo implement dialog like functionality
  * \author Peter Grasch
  */
 void InlineWidget::accept()
@@ -50,7 +49,6 @@ void InlineWidget::accept()
 
 /**
  * \brief Rejects the "dialog
- * \todo implement dialog like functionality
  * \author Peter Grasch
  */
 void InlineWidget::reject()
@@ -85,11 +83,11 @@ void InlineWidget::setVisible(bool visible)
 /**
  * \brief "Executes" the "dialog"
  * \author Peter Grasch
- * \todo implement dialog-like functionality
  * @return accepted or rejected?
  */
 bool InlineWidget::exec()
 {
 	emit execd();
 	QWidget::show();
+	return true;
 }

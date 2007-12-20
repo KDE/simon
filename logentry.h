@@ -36,7 +36,6 @@ private:
 	QTime time;
 	QDate date;
 	QByteArray message;
-	//todo
 	short type;
 
 public:

@@ -45,8 +45,7 @@ XEvents::XEvents(char* displayName)
  * @brief Opens the Display and returns the handle
  *
  * @param int keycombination
- * The keycombination - this is not yet defined
- * @todo Define the combination structure
+ * The keycombination
  * 
  * @author Peter Grasch
  */

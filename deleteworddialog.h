@@ -38,7 +38,7 @@ RemoveCompletely		= 0x01
 
     DeleteWordDialog(QWidget* parent=0, Qt::WindowFlags f=0);
 
-	int exec(Word word);
+	int exec(Word word, bool isShadowed);
 
 	DeletionType getDeletionType()
 	{

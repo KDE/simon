@@ -60,8 +60,6 @@ ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *
 bool ImportTrainingDirectoryWorkingPage::importDir(QString dir)
 {
 	prog=0;
-// 	QString destdir = QDir::currentPath()+"/tmp";
-// 	QString wavDestdir = destdir+"/wav";
 	QString wavDestdir = Settings::get("Model/PathToSamples").toString();
 	
 	QStringList *dataFiles = this->searchDir(dir);
@@ -76,8 +74,6 @@ bool ImportTrainingDirectoryWorkingPage::importDir(QString dir)
 // 	delete dataFiles;
 	dataFiles = processSounds(*dataFiles, wavDestdir);
 	if (!dataFiles) return error();
-
-	if(!createScp(*dataFiles, Settings::get("Model/PathToCodeTrain").toString())) return error();
 	
 
 	completed = true;
@@ -239,40 +235,3 @@ QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataF
 	
 	return newFiles;
 }
-
-/**
- * \brief Creates the codetrain.scp with the dataFiles in the destDir
- * @param dataFiles The datafiles to process
- * @param destDir The directory where we should write the file
- * @return success
- * \author Peter Grasch
- */
-bool ImportTrainingDirectoryWorkingPage::createScp(QStringList dataFiles, QString dest)
-{
-	QFile *scp = new QFile(dest, this);
-	if (!scp->open(QIODevice::WriteOnly|QIODevice::Truncate|QIODevice::Text))
-	{
-		QMessageBox::critical(this, tr("Fehler"), 
-			tr("Beim öffnen der Ausgabedateien ist ein Fehler aufgetreten."));
-		return false;
-	}
-	
-	QTextStream *scpStream = new QTextStream(scp);
-	scpStream->setCodec("UTF-8");
-	QFileInfo fileInfo;
-	QString fileName;
-	
-	for (int i=0; i <dataFiles.count(); i++)
-	{
-		fileInfo.setFile(dataFiles[i]);
-		fileName = fileInfo.fileName();
-		(*scpStream) << dataFiles[i] << " " << "interim_files/mfcc/" 
-				<< fileName.left(fileName.lastIndexOf(".")) << ".mfc" << endl;
-		
-		pbMain->setValue(++prog);
-	}
-	scpStream->flush();
-	scp->close();
-	return true;
-}
-

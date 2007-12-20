@@ -48,12 +48,10 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 /**
  * \brief Shows the Wizard
  * \author Peter Grasch
- * \todo This restarts the wizard - even if we just hid the wizard (when hiding simon)
  */
 void ImportDictView::show()
 {
-	restart();
-	QWidget::show();
+	QWizard::show();
 }
 
 

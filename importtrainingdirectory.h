@@ -36,8 +36,6 @@ class ImportTrainingDirectoryWorkingPage;
 
 
   Extends QWizard;
-
-  \todo The source/dest-dir should be configurable
   
 */
 class ImportTrainingDirectory : public QWizard {

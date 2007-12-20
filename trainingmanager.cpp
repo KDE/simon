@@ -12,6 +12,8 @@
 #include "trainingmanager.h"
 #include "settings.h"
 #include "logger.h"
+#include "wordlistmanager.h"
+#include "math.h"
 #include <QObject>
 
 /**
@@ -19,11 +21,123 @@
  *
  *	@author Peter Grasch
  */
-TrainingManager::TrainingManager(WordListManager *wlistmgr, QString pathToTexts)
+TrainingManager::TrainingManager()
+// 	:promptsList(/**readPrompts(Settings::getS("Model/PathToPrompts"))*/)
 {
-	filename = pathToTexts;
-	this->wlistmgr = wlistmgr;
-	this->promptsTable = wlistmgr->readPrompts(Settings::getS("Model/PathToPrompts"));
+	filename = Settings::getS("PathToTexts");
+	//this->promptsList = readPrompts(Settings::getS("Model/PathToPrompts"));
+}
+
+bool TrainingManager::deleteWord(Word *w)
+{
+	QString wordToDelete = w->getWord().toUpper();
+	qDebug() << "Delete: " << wordToDelete;
+	
+	//TODO: For now we delete every word with the same name
+	//For the future we should implement a lookup which tries to resolve the pronunciation using the samples
+	//and looking up if this is the selected word
+	QStringList sampleFileNames = promptsList.keys();
+// 	QStringList samplesToDelete;
+	for (int i=0; i < this->promptsList.count(); i++)
+	{
+		QString filename = sampleFileNames[i];
+		QStringList promptWords = promptsList.value(filename).split(" ");
+		for (int j=0; j < promptWords.count(); j++)
+		{
+			if (promptWords[j].toUpper() == wordToDelete)
+			{
+// 				samplesToDelete << filename;
+// 				promptsList.remove(filename);
+				qDebug() << "aufrufen mit " << filename;
+				if (!deletePrompt(filename)) return false;
+			}
+		}
+	}
+	
+// 	for (int i=0; i < samplesToDelete.count(); i++) qDebug() <<samplesToDelete[i];
+	return true;
+}
+
+bool TrainingManager::deletePrompt(QString key)
+{
+// 	int index = promptsList.keys().indexOf(key);
+	qDebug() << "loesche " << key;
+	promptsList.remove(key);
+	
+	//removes the sample
+	qDebug() << "Remove: " << Settings::getS("Model/PathToSamples")+"/"+key+".wav";
+	QFile::remove(Settings::getS("Model/PathToSamples")+"/"+key+".wav");
+	return savePrompts();
+}
+
+bool TrainingManager::savePrompts()
+{
+	QFile prompts(Settings::getS("Model/PathToPrompts"));
+	if (!prompts.open(QIODevice::WriteOnly)) return false;
+	
+	QStringList samples = this->promptsList.keys();
+	
+	for (int i=0; i <samples.count(); i++)
+		prompts.write(samples[i].toLatin1()+" "+promptsList.value(samples[i]).toLatin1()+"\n");
+	
+	prompts.close();
+	return true;
+}
+
+PromptsTable* TrainingManager::getPrompts() /*const*/
+{
+// 	this->promptsList = new PromptsTable;
+// 	return new PromptsTable();
+// 	qDebug() << NULL;
+// 	qDebug() << "Wenn das geht geht das auch?";
+// 	qDebug() << currentText;
+// 	sleep(1000000000);
+// 	promptsList.insert("test", "dubi");
+// 	qDebug() << "geht";
+// 	return this->promptsList;
+// FIXME: The above causes a segfault. Why? No idea...
+//	But, simon segfaults whenever I try to access any member variables from here
+//	Howere, I can set the promptsList member to be a new PromptsList() but NOT
+//	to the value returned by readPrompts
+//	doing this in the constructor works fine...
+// 	return &promptsList;
+	return readPrompts(Settings::getS("Model/PathToPrompts"));
+// 	return new PromptsTable();
+}
+
+
+/**
+ * \brief Builds and returns the promptstable by parsing the file at the given path
+ * \author Peter Grasch
+ * \param QString promptspath
+ * The path to the prompts file
+ * \return PromptsTable*
+ * The table
+ */
+PromptsTable* TrainingManager::readPrompts(QString promptspath)
+{
+	Logger::log(QObject::tr("[INF] Parse Promptsdatei von %1").arg(promptspath));
+	PromptsTable *promptsTable = new PromptsTable();
+	
+	QFile *prompts = new QFile ( promptspath );
+	prompts->open ( QFile::ReadOnly );
+	if ( !prompts->isReadable() ) return new PromptsTable();
+	
+	QString label;
+	QString prompt;
+	QString line;
+	int labelend;
+	while ( !prompts->atEnd() ) //for each line that was successfully read
+	{
+		line = prompts->readLine(1024);
+		labelend = line.indexOf(" ");
+		label = line.left(labelend);
+		prompt = line.mid(labelend).trimmed();
+
+		promptsTable->insert( label, prompt );
+	}
+	Logger::log(QCoreApplication::tr("[INF] %1 Prompts gelesen").arg(promptsTable->count()));
+	return promptsTable;
 }
 
 /**
@@ -279,12 +393,37 @@ float TrainingManager::calcRelevance(TrainingText *text)
 		for (int j=0; j<words.count(); j++)
 		{
 			wordCount++;
-			probability += wlistmgr->getProbability(words.at(j), this->promptsTable);
+			probability += getProbability(words.at(j), &(this->promptsList));
 		}
 	}
 	if (wordCount > 0)
 		return round(probability/wordCount);
 	else return 0;
+}
+
+
+/**
+ * \brief Returns the probability of the name (it is pulled out of the promptsTable)
+ * \author Peter Grasch
+ * \param QString wordname
+ * Name of the word
+ * \param PromptsTable
+ * Promptsfile
+ * \return int
+ * Probability to recognize; The higher the more likly simon will recognize this word correctly
+ */
+int TrainingManager::getProbability(QString wordname, PromptsTable *promptsTable)
+{
+	QStringList prompts = promptsTable->values();
+	int prob=0;
+	int i=0;
+	QString line;
+	while (i<prompts.count())
+	{
+		prob += prompts.at(i).count(wordname);
+		i++;
+	}
+	return prob;
 }
 
 /**

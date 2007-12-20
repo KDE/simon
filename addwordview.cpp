@@ -25,6 +25,7 @@
 #include "logger.h"
 #include "addwordintropage.h"
 #include "addwordrecordpage.h"
+#include "addwordresolvepage.h"
 #include "wordlistmanager.h"
 
 /**
@@ -42,15 +43,30 @@
 AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr)
 	: QWizard (parent)
 {
+	prevId=0;
 	this->wordlistMgr = wordlistMgr;
-	this->addPage(createWelcomePage());
+	this->welcomePage = createWelcomePage();
+	resolvePage = createResolvePage();
+	this->addPage((QWizardPage*) welcomePage);
+	this->addPage(resolvePage);
+
 	this->addPage(createRecordPage());
 	this->addPage(createFinishedPage());
 	
 	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
+	connect(this, SIGNAL(currentIdChanged( int )), this, SLOT(idChanged(int)));
 
 	setWindowTitle(tr("Wort hinzufügen"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/addword.png")));
+}
+
+void AddWordView::idChanged(int newId)
+{
+	if ((newId == 1))
+	{
+		resolvePage->init(welcomePage->getName());
+	}
+	prevId = newId;
 }
 
 /**
@@ -58,7 +74,7 @@ AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr)
  * \author Peter Grasch
  * @return the QWizardPage
  */
-QWizardPage* AddWordView::createWelcomePage()
+AddWordIntroPage* AddWordView::createWelcomePage()
 {
 	return new AddWordIntroPage(this);
 }
@@ -71,6 +87,16 @@ QWizardPage* AddWordView::createWelcomePage()
 QWizardPage* AddWordView::createRecordPage()
 {
 	return new AddWordRecordPage(this);
+}
+
+/**
+ * \brief Creates the recordpage
+ * \author Peter Grasch
+ * @return the QWizardPage
+ */
+AddWordResolvePage* AddWordView::createResolvePage()
+{
+	return new AddWordResolvePage(wordlistMgr, this);
 }
 
 
@@ -102,7 +128,7 @@ QWizardPage* AddWordView::createFinishedPage()
  */
 void AddWordView::finish(int done)
 {
-	((AddWordRecordPage*) this->page(1))->cleanUp();
+	((AddWordRecordPage*) this->page(2))->cleanUp();
 	if (!done) return;
 	
 	QString word = ((AddWordIntroPage*) this->page(0))->getName();
@@ -112,8 +138,12 @@ void AddWordView::finish(int done)
 	//finishs up
 	
 	WordList *list = new WordList();
-	list->append(Word("NEUES WORT", "", "Nomen", 2));
+
+	list->append(Word(resolvePage->getName(), resolvePage->getPronunciation(), resolvePage->getTerminal(), 2 /* 2 recordings */));
+
 	wordlistMgr->addWords(list, true /*sorted*/, false /*shadowed*/);
+
+	//TODO: Process recordings
 
 	//cleaning up
 	Logger::log(tr("[INF] Wort hinzugefügt: ")+word);

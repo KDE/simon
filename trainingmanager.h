@@ -13,11 +13,13 @@
 #define TRAININGMANAGER_H
 
 #include <QDir>
-#include "math.h"
+#include <QHash>
 #include "trainingtext.h"
 #include "xmltrainingtext.h"
 #include "word.h"
-#include "wordlistmanager.h"
+#include <QDebug>
+#include <QMessageBox>
+class WordListManager;
 
 /**
  *	@class TrainingManager
@@ -26,19 +28,25 @@
  *	@version 0.1
  *	@date 23.01.2006
  *	@author Peter Grasch
- *	@todo Implementing
  */
+typedef QHash<QString, QString> PromptsTable;
 class TrainingManager{
 private:
 	TrainingList *trainingTexts;
 	TrainingText *currentText;
-	PromptsTable *promptsTable;
-	WordListManager *wlistmgr;
 	QString filename;
 public:
-	TrainingManager(WordListManager *wlistmgr, QString pathToTexts="texts/");
+	PromptsTable promptsList;
+	TrainingManager();
 
+	int getProbability(QString name, PromptsTable *promptsTable);
 	TrainingList* readTrainingTexts(QString pathToTexts="");
+	PromptsTable* readPrompts(QString pathToPrompts);
+	PromptsTable* getPrompts() /*const*/;
+
+	bool deleteWord(Word *w);
+	bool deletePrompt(QString key);
+	bool savePrompts();
 	
 	/**
 	 * @brief Getter method for the QList of training texts

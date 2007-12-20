@@ -19,16 +19,16 @@ unix {
 	-lXtst \
 	-lasound \
 	-lpthread
-TARGET = ./bin/simon
+    TARGET = ./bin/simon
 }
 
 win32 {
     HEADERS += runwindowsbackend.h registrymanager.h windowsevents.h windowsprogrammanager.h windowsresourcehandler.h 
     SOURCES += runwindowsbackend.cpp registrymanager.cpp windowsevents.cpp windowsprogrammanager.cpp  windowsresourcehandler.cpp 
- 
+
     DEFINES += __WINDOWS_DS__
     LIBS += -ldsound -lwinmm -lole32
-TARGET = ../bin/simon
+    TARGET = ../bin/simon
 }
 
 
@@ -50,7 +50,8 @@ FORMS += ui/main.ui \
  ui/desktopgridconfigurationdlg.ui \
  ui/modelsettingsdlg.ui \
  ui/recwidget.ui \
- ui/removeword.ui
+ ui/removeword.ui \
+ ui/resolvewordpage.ui
 
 
 HEADERS += simonview.h \
@@ -156,7 +157,9 @@ importtrainingdirectoryworkingpage.h \
  modelsettings.h \
  deleteworddialog.h \
  icondialog.h \
- iconbutton.h
+ iconbutton.h \
+ addwordresolvepage.h \
+ grammarmanager.h
 
 
 
@@ -256,7 +259,9 @@ SOURCES += main.cpp \
  modelsettings.cpp \
  deleteworddialog.cpp \
  icondialog.cpp \
- iconbutton.cpp
+ iconbutton.cpp \
+ addwordresolvepage.cpp \
+ grammarmanager.cpp
 
 QT += network \
 xml 

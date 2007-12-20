@@ -31,9 +31,8 @@ class QProgressBar;
  * Normalisation and resampling is done with external programs
  * (resample and normalize-audio)
  * 
- * \todo Fix the normalising/resampling (espacially for windows!)
- * 
  * Extends QWizardpage;
+ * \todo Testing
  */
 class ImportTrainingDirectoryWorkingPage : public QWizardPage{
 private:
@@ -47,7 +46,6 @@ private:
 	QStringList* searchDir(QString dir);
 	QStringList* processSounds(QStringList files, QString destDir);
 	bool createPrompts(QStringList dataFiles, QString dest);
-	bool createScp(QStringList dataFiles, QString dest);
 
 public:
     ImportTrainingDirectoryWorkingPage(QWidget *parent=0);

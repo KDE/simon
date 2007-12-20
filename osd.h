@@ -33,16 +33,18 @@
  *	@version 0.1
  *	@date 23.01.2006
  *	@author Peter Grasch
- *	@todo Maybe implement to close the message when clicking on it
  */
+class QMouseEvent;
 class OSD : public QWidget
 {
 	Q_OBJECT
 private:
 	QTimer *timer;
 	QLabel *message;
+
+	void mouseReleaseEvent(QMouseEvent *event);
 public:
-	OSD(QString message, int timeout, int alignment=Qt::AlignBottom);
+	OSD(QString message, int timeout);
 	void paintEvent(QPaintEvent *e);
 	
 
