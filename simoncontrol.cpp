@@ -146,7 +146,7 @@ void SimonControl::disconnectFromJulius()
  *	@param QString word
  *	the recognised word
  */
-void SimonControl::wordRecognised(QString word)
+void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 {
 	QString keyword = Settings::get("Commands/Keyword").toString();
 	if (word.startsWith(keyword))
@@ -287,7 +287,7 @@ bool SimonControl::getActivitionState()
 bool SimonControl::deactivateSimon()
 {
 	this->active=false;
-	QObject::disconnect( this->julius, SIGNAL(wordRecognised(QString)), this, SLOT(wordRecognised(QString)));
+	disconnect( this->julius, SIGNAL(recognised(QString,QString,QString)), this, SLOT(wordRecognised(QString,QString,QString)));
 	Logger::log(tr("[INF] Simon deaktiviert"));
 	return this->active;
 }
@@ -317,7 +317,8 @@ bool SimonControl::toggleActivition()
 bool SimonControl::activateSimon()
 {
 	this->active=true;
-	QObject::connect(julius, SIGNAL(wordRecognised(QString)), this, SLOT(wordRecognised(QString)));
+
+	QObject::connect(julius, SIGNAL(recognised(QString,QString,QString)), this, SLOT(wordRecognised(QString,QString,QString)));
 		
 	Logger::log(tr("[INF] Simon aktiviert"));
 	return this->active;

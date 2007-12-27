@@ -267,6 +267,12 @@ bool TrainingManager::deleteText(int index)
 TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 {
 	if (pathToTexts.isEmpty()) pathToTexts=this->filename;
+
+	if (pathToTexts.isEmpty())
+	{
+		QMessageBox::critical(0, QCoreApplication::tr("Fehler beim Auslesen der Trainingstexte"), QCoreApplication::tr("Der Pfad zu den Trainingstexten ist nicht richtig konfiguriert. (Er ist leer)\n\nBitte setzen Sie einen korrekten Pfad in den Einstellungen."));
+		return new TrainingList();
+	}
 	Logger::log(QObject::tr("[INF] Lesen der Trainingtexte von \"")+pathToTexts+"\"");
 	QDir *textdir = new QDir(pathToTexts);
 	if (!textdir || !textdir->exists()) return NULL;

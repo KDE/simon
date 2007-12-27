@@ -283,7 +283,7 @@ SOURCES += main.cpp \
  icondialog.cpp \
  iconbutton.cpp \
  addwordresolvepage.cpp \
- grammarmanager.cpp
+ grammarmanager.cpp 
 
 
 

@@ -122,7 +122,7 @@ QList<int>* SoundControl::getSamplerate ( QString id )
 			{
 				QList<int>* temp= new QList<int>();
 
-				for ( int i=0; i<info.sampleRates.size();i++ )
+				for ( unsigned int i=0; i<info.sampleRates.size();i++ )
 				{
 					temp->append ( info.sampleRates.at ( i ) );
 				}

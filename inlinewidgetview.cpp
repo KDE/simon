@@ -49,7 +49,7 @@ void InlineWidgetView::registerPage(InlineWidget *page)
 
 
 	connect(this, SIGNAL(guiAction(QString)), page, SLOT(doAction(QString)));
-	connect(this,SIGNAL(guiAction(QString)), page,SIGNAL(guiAction(QString)));
+// 	connect(this,SIGNAL(guiAction(QString)), page,SIGNAL(guiAction(QString)));
 	
 	
 	for (int i=0; i < count(); i++)

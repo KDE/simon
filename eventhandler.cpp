@@ -23,7 +23,7 @@
 EventHandler::EventHandler()
 {
 #ifdef linux
-	coreEvents= (CoreEvents*) new XEvents();
+	this->coreEvents= (CoreEvents*) new XEvents();
 #endif
 #ifdef __WIN32
 	coreEvents= (CoreEvents*) new WindowsEvents();

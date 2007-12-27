@@ -357,7 +357,7 @@ void LogView::processEntries(LogEntryList *entries, bool copy)
  */
 void LogView::selectDay(QDate day)
 {
-	QTreeWidgetItem *toSelect;
+	QTreeWidgetItem *toSelect=0;
 	QString strDate = day.toString("yyyy/MM/dd");
 	for (int i=0; i < ui.twLogEntries->topLevelItemCount(); i++)
 	{
@@ -427,7 +427,7 @@ void LogView::insertEntries(LogEntryList *entries)
 	//in that case we most probably want to open it as it is the only possible reaction
 	//to that scenario;
 
-	QTreeWidgetItem *top;
+	QTreeWidgetItem *top=0;
 	
 	int i=0;
 	QCoreApplication::processEvents();

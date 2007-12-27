@@ -54,17 +54,13 @@ signals:
 
 	/*-----------------user management-----------------*/
 	void loggedIn();
+	void recognised(QString, QString sampa, QString samparaw);
 	
 
 
-	/*------------------recognition---------------------*/
-	void wordRecognised(QString word);
 	
 public slots:
 	void messageReceived();
-	
-	void recognised(QString);
-	
 	
 	void connectTo( QString server="127.0.0.1", quint16 port=4444 );
 	void connectionLost();
@@ -74,6 +70,9 @@ public slots:
 	bool isConnected();
 	void disconnectFromServer();
 	void login();
+
+private slots:
+	void sendRequest (qint32 request);
 
 public:
 	JuliusControl();

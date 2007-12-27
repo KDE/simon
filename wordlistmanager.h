@@ -36,6 +36,7 @@ signals:
 	void wordlistChanged();
 	void shadowListChanged();
 private:
+	bool isTemp;
 	WordList *wordlist;	//!< Holds the wordlist
 	ModelManager *modelManager; //!< Manages the language- and acoustic model
 	WordList *shadowList;	//!< this holds the word that are not in the vocabulary (unused)
@@ -51,6 +52,7 @@ private:
 	QString* getTerminal(QString name, QString pronunciation, WordList *wlist);
 
 public:
+	void safelyInit();
 	void run();
 
 	WordListManager(TrainingManager *trainManager);

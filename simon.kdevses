@@ -1,39 +1,41 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="8" >
-  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/addwordresolvepage.h" >
-   <View0 Encoding="" line="0" Type="Source" />
+ <DocsAndViews NumberOfDocuments="10" >
+  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/trainingmanager.cpp" >
+   <View0 Encoding="" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/addwordresolvepage.cpp" >
-   <View0 Encoding="" line="37" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.cpp" >
+   <View0 Encoding="" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.cpp" >
-   <View0 Encoding="" line="409" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/trainingmanager.h" >
+   <View0 Encoding="" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/grammarmanager.h" >
-   <View0 Encoding="" line="0" Type="Source" />
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/simonview.cpp" >
+   <View0 Encoding="" Type="Source" />
   </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/grammarmanager.cpp" >
-   <View0 Encoding="" line="86" Type="Source" />
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/soundcontrol.h" >
+   <View0 Encoding="" Type="Source" />
   </Doc4>
-  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistview.cpp" >
-   <View0 Encoding="" line="390" Type="Source" />
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/modelmanager.cpp" >
+   <View0 Encoding="" Type="Source" />
   </Doc5>
-  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.h" >
-   <View0 Encoding="" line="42" Type="Source" />
+  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/juliuscontrol.cpp" >
+   <View0 Encoding="" Type="Source" />
   </Doc6>
-  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistview.h" >
-   <View0 Encoding="" line="77" Type="Source" />
+  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/juliuscontrol.h" >
+   <View0 Encoding="" Type="Source" />
   </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/simoncontrol.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc8>
+  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/simoncontrol.h" >
+   <View0 Encoding="" line="62" Type="Source" />
+  </Doc9>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>
-   <breakpointList>
-    <breakpoint0 location="/home/bedahr/Daten/simon/source/trunk/simonview.cpp:88" type="1" tracingFormatString="" traceFormatStringEnabled="0" condition="" tracingEnabled="0" enabled="1" >
-     <tracedExpressions/>
-    </breakpoint0>
-   </breakpointList>
+   <breakpointList/>
    <showInternalCommands value="0" />
   </kdevdebugger>
   <kdevastyle>

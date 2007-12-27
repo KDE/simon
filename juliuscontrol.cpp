@@ -119,55 +119,74 @@ void JuliusControl::messageReceived()
 	switch (type)
 	{
 		case 1:
+		{
 			/* login accepted */
 			emit loggedIn();
+
+			//start recognition
+			sendRequest (100 /*start recognition*/);
+		}
 			break;
 		case 2:
+		{
 			/* user / pass rejected */
 			emit error(tr("Benutzername oder Passwort falsch."));
 			this->disconnectFromServer();
+		}
 			break;
 		
 		case 3:
+		{
 			/* no pass specified */
 			emit error(tr("Kein Passwort angegeben. Aus Sicherheitsgründen muss ein Passwort festgelegt werden"));
+		}
 			break;
 		
 		case 4:
+		{
 			/* login rejected, because the version is known to NOT be supported */
 			emit error(tr("Version nicht unterstützt"));
+		}
 			break;
 		case 5:
+		{
 			/* login accepted, but the version is not known to be supported */
 			QString reason=tr("Version möglicherweise nicht Unterstützt");
 			if (Settings::get("Juliusd/ContiniueOnWarning").toBool())
 			{
 				emit warning(reason);
+				sendRequest (100 /*start recognition*/);
 				emit loggedIn();
 			} else emit error(reason,true);
+		}
 			break;
-		
-// 		case 1:
-// 			/* login accepted */
-// 			emit loggedIn();
-// 			break;
-// 		case 1:
-// 			/* login accepted */
-// 			emit loggedIn();
-// 			break;
+
+
+		case 20000:
+		{
+			/* word recognized */
+// 			qDebug() << test;
+			QString word, sampa, samparaw;
+			msg >> word;
+			msg >> sampa;
+			msg >> samparaw;
+			emit recognised(word, sampa, samparaw);
+		}
+			break;
 	}
 }
 
 /**
- *	@brief A word has been recognised
- *	
- *	emits the signal wordRecognised
- *	
- *	@author Peter Grasch
+ * \brief Sends a simple request identified by the request id
+ * \author Peter Grasch
+ * @param request The request to send
  */
-void JuliusControl::recognised(QString sequence)
+void JuliusControl::sendRequest(qint32 request)
 {
-	emit wordRecognised(sequence);
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << request;
+	socket->write(toWrite);
 }
 
 /**

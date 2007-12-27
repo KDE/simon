@@ -62,7 +62,7 @@ public slots:
 	void disconnectFromJulius();
 	void connectedToJulius();
 	void disconnectedFromJulius();
-	void wordRecognised(QString word);
+	void wordRecognised(QString word,QString sampa,QString samparaw);
 	void abortConnecting();
 	void errorConnecting(QString error);
 private slots:

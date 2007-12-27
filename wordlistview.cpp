@@ -223,7 +223,7 @@ void WordListView::trainList()
 	if (!trainView) return;
 	if (this->trainingwordlist.count()==0)
 	{
-		QMessageBox::critical(this, tr("Keine Wörter selektiert"), tr("Bitte wählen Sie zuerst ein paar Wörter für das spezielle Training aus.\nZiehen Sie sie dazu von der großen Liste links in die kleine Liste oben rechts.\n\nWenn Sie generische Texte vorlesen wollen, gehen Sie bitte in das Allgemeine Training.\n(Der Punkt \"Trainieren\" links neben dem simon-Logo)."));
+		QMessageBox::critical(this, tr("Keine Wörter selektiert"), tr("Bitte wählen Sie zuerst ein paar Wörter für das spezielle Training aus.\nZiehen Sie sie dazu von der großen Liste links in die kleine Liste oben rechts.\n\nWenn Sie generische Texte vorlesen wollen, gehen Sie bitte zum Allgemeine Training.\n(Der Punkt \"Trainieren\" ist in der \"Globale Aktion\"-Toolbar)."));
 		return;
 	}
 	trainView->trainWords(&trainingwordlist);
@@ -350,9 +350,15 @@ void WordListView::askToSave()
  */
 void WordListView::deleteSelectedWord()
 {
+	int row = ui.twVocab->currentRow();
+	if (row == -1) //none selected
+	{
+		QMessageBox::information(this, tr("Nichts ausgewählt"), tr("Bitte selektieren Sie ein Wort"));
+		return;
+	}
+
 	DeleteWordDialog *del = new DeleteWordDialog(this);
 
-	int row = ui.twVocab->currentRow();
 	QString word = ui.twVocab->item(row,0)->text();
 	QString pronunciation = ui.twVocab->item(row,1)->text();
 	QString terminal = ui.twVocab->item(row,2)->text();
@@ -396,7 +402,8 @@ void WordListView::readVocab()
 	WordList *vocab = this->wordListManager->getWordList();
 	if (!vocab)
 	{
-		QMessageBox::critical(0, tr("Lesefehler"), tr("Konnte benötigte Dateien nicht einlesen. Bitte überprüfen Sie die Einstellungen und stellen Sie sicher das sie die nötigen Leserechte haben."));
+		QMessageBox::critical(0, tr("Lesefehler"), tr("Konnte benötigte Dateien für die Wortliste nicht einlesen. Bitte überprüfen Sie die Pfade zu den Vocab- und Lexikon-Dateien und stellen Sie sicher das sie die nötigen Leserechte haben.\n\nDie Wortliste wird leer im RAM erstellt. Änderungen werden NICHT dauerhaft gespeichert."));
+		wordListManager->safelyInit();
 	} else 	insertVocab( vocab );
 
 	if (ui.cbShowCompleteLexicon->isChecked())

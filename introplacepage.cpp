@@ -49,5 +49,3 @@ IntroPlacePage::IntroPlacePage(QWidget* parent): QWizardPage(parent)
 */
 IntroPlacePage::~IntroPlacePage()
 {}
-
-    

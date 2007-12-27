@@ -36,7 +36,7 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 	ui.setupUi ( this );
 	
 	guessChildTriggers(this);
-	
+
 	//iconButton = new IconButton();
 	commandEdited = false;
 	twCommand = new SimonTableWidget ( this );
@@ -98,7 +98,6 @@ bool CommandSettings::apply()
 {
 	Logger::log ( tr ( "[INF] Speichere Kommandos..." ) );
 
-	int currRow = 0;
 	QString type;
 	Command *newCommand;
 	for ( int i=0; i<twCommand->rowCount(); i++ )

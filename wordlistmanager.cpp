@@ -40,6 +40,7 @@ WordListManager::WordListManager ( TrainingManager *trainManager ) : QThread()
 	this->modelManager = new ModelManager();
 	this->trainManager = trainManager;
 	start();
+	isTemp = false;
 }
 
 bool WordListManager::compileModel()
@@ -101,6 +102,10 @@ WordList* WordListManager::getShadowList()
 bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 			     QString shadowLexiconFilename, QString shadowVocabFilename )
 {
+	if (isTemp){
+		QMessageBox::warning(0, tr("Temporäre Änderungen"), tr("Sie verändern eine temporäre Wordliste.\n\nDie Änderungen werden nicht gespeichert. Bitte konfigurieren Sie einen korrekten Pfad in den Einstellungen und starten Sie simon neu um eine dauerhafte Wortliste zu benutzen."));
+	}
+
 	Logger::log(QObject::tr("[INF] Speichere Wörterliste"));
 	
 	//save wordlist
@@ -128,6 +133,15 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 }
 
 
+/**
+ * \brief Saves the given wordlist to the given files
+ * \author Peter Grasch
+ * \todo implement vocab-saving 
+ * @param list The list to save
+ * @param lexiconFilename The lexicon to write to
+ * @param vocabFilename The vocabfile to write to
+ * @return Success
+ */
 bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QString vocabFilename)
 {
 	Logger::log(QObject::tr("[INF] Öffnen der Ausgabedatei: %1").arg(lexiconFilename));
@@ -162,6 +176,17 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	Logger::log(QObject::tr("[INF] Schießen der Ausgabedatei"));
 	outfile->close();
 	return true;
+}
+
+/**
+ * \brief Inits the lists to empty lists
+ * \author Peter Grasch
+ */
+void WordListManager::safelyInit()
+{
+	this->wordlist = new WordList();
+	this->shadowList = new WordList();
+	isTemp = true;
 }
 
 /**
@@ -427,25 +452,27 @@ WordList* WordListManager::getWords(QString word, bool includeShadow)
 	int i=0;
 	QString toSearch = word.toUpper();
 	//main
-	while (i<main->count())
-	{
-		if (main->at(i).getWord().toUpper()==toSearch)
-			found->append(main->at(i));
-		i++;
-	}
+	if (main)
+		while (i<main->count())
+		{
+			if (main->at(i).getWord().toUpper()==toSearch)
+				found->append(main->at(i));
+			i++;
+		}
 	if (!includeShadow)
 		return found;
 	WordList* shadow = getShadowList();
 // 	//shadow
 	i=0;
-	while (i<shadow->count())
-	{
-		if (shadow->at(i).getWord().toUpper()==toSearch)
+	if (shadow)
+		while (i<shadow->count())
 		{
-			found->append(shadow->at(i));
+			if (shadow->at(i).getWord().toUpper()==toSearch)
+			{
+				found->append(shadow->at(i));
+			}
+			i++;
 		}
-		i++;
-	}
 	return found;
 }
 
@@ -471,7 +498,7 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 	int i=0;
 	WordList *main, *newList;
 
-	if (list->count() < wordlist->count())
+	if (list->count() < target->count())
 	{
 		main=target;
 		newList = list;
@@ -482,7 +509,6 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 	}
 	int wordcount = main->count();
 	
-	
 	while (newList->count() >0)
 	{
 		Word tmp=newList->at(0);
@@ -492,13 +518,13 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 		{
 			main->insert(i, tmp);
 			wordcount++;
-		}
-		newList->removeAt(0); //remove the double
+		} else newList->removeAt(0); //remove the double
 	}
-	
-	target = main;
+
 	delete newList;
-// 	if (list) delete list;
+
+	if (shadow) this->shadowList = main;
+	else this->wordlist = main;
 
 	Logger::log(QObject::tr("[INF] Die Wortliste beinhaltet jetzt %1 Wörter").arg(wordlist->count()));
 	

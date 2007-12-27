@@ -40,7 +40,6 @@
 SystemView::SystemView(ShortcutControl *shortcutctrl, QWidget* parent): InlineWidget(tr("System"), QIcon(":/images/icons/computer.svg"), tr("Einstellungen, Protokolle, etc."), parent)
 {
 	setupUi(this);
-	
 	CommandSettings *commandsSettings = new CommandSettings(this);
 	registerControl(new GeneralSettings(this));
 	registerControl(new ModelSettings(this));
@@ -78,6 +77,7 @@ void SystemView::apply()
 			if (!currentControl->apply())
 				Logger::log("[ERR] "+tr("Konnte Änderungen in \"%1\" nicht speichern.").arg(currentControl->getTitle()));
 	}
+	SimonInfo::showMessage(tr("Einstellungen übernommen"),3000);
 }
 
 /**
@@ -103,7 +103,6 @@ void SystemView::reset()
  */
 void SystemView::displayId(int id)
 {
-	
 	if (id == -1) return; //none selected
 	
 	SystemWidget *sysWidget = dynamic_cast<SystemWidget*>(controls->widget(id));
