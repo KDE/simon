@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>526</width>
-    <height>291</height>
+    <width>496</width>
+    <height>301</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -32,12 +32,18 @@
           <property name="text" >
            <string>Eingabe Gerät:</string>
           </property>
+          <property name="buddy" >
+           <cstring>cbInDevice</cstring>
+          </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="lbOutDevice" >
           <property name="text" >
            <string>Ausgabe Gerät:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>cbOutDevice</cstring>
           </property>
          </widget>
         </item>
@@ -46,12 +52,18 @@
           <property name="text" >
            <string>Kanäle:</string>
           </property>
+          <property name="buddy" >
+           <cstring>cbChannels</cstring>
+          </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="lbSamplerate" >
           <property name="text" >
            <string>Samplerate:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>cbSampleRate</cstring>
           </property>
          </widget>
         </item>
@@ -60,7 +72,7 @@
       <item>
        <layout class="QVBoxLayout" >
         <item>
-         <widget class="QComboBox" name="cbInDevice" >
+         <widget class="SimonComboBox" name="cbInDevice" >
           <item>
            <property name="text" >
             <string>Default</string>
@@ -69,7 +81,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="cbOutDevice" >
+         <widget class="SimonComboBox" name="cbOutDevice" >
           <item>
            <property name="text" >
             <string>Default</string>
@@ -78,7 +90,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="cbChannels" >
+         <widget class="SimonComboBox" name="cbChannels" >
           <property name="currentIndex" >
            <number>0</number>
           </property>
@@ -90,7 +102,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="cbSampleRate" />
+         <widget class="SimonComboBox" name="cbSampleRate" />
         </item>
        </layout>
       </item>
@@ -157,7 +169,7 @@
    <item>
     <layout class="QHBoxLayout" >
      <item>
-      <widget class="QGroupBox" name="groupBox" >
+      <widget class="SimonGroupBox" name="groupBox" >
        <property name="title" >
         <string>Alle Aufnahmen speichern</string>
        </property>
@@ -218,17 +230,31 @@
        </property>
        <layout class="QVBoxLayout" >
         <item>
-         <widget class="QSlider" name="hsMic" >
-          <property name="value" >
-           <number>68</number>
-          </property>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="tickInterval" >
-           <number>0</number>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" >
+          <item>
+           <widget class="QLabel" name="lbAdjuster" >
+            <property name="text" >
+             <string>Regler</string>
+            </property>
+            <property name="buddy" >
+             <cstring>hsMic</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="SimonSlider" name="hsMic" >
+            <property name="value" >
+             <number>68</number>
+            </property>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="tickInterval" >
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QPushButton" name="pbAutoCalibrate" >
@@ -249,14 +275,32 @@
      </property>
      <property name="sizeHint" >
       <size>
-       <width>20</width>
-       <height>40</height>
+       <width>477</width>
+       <height>16</height>
       </size>
      </property>
     </spacer>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonComboBox</class>
+   <extends>QComboBox</extends>
+   <header>simoncombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SimonGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>simongroupbox.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SimonSlider</class>
+   <extends>QSlider</extends>
+   <header>simonslider.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../simon.qrc" />
  </resources>

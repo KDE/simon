@@ -26,6 +26,8 @@ LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images
 {
 	ui.setupUi(this);
 
+	guessChildTriggers(this);
+	
 	clickedDate = QDate();
 	connect (ui.gbOnlyDay, SIGNAL (toggled (bool)), ui.cwLogDay, SLOT (setEnabled(bool)));
 

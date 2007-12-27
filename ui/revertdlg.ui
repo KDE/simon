@@ -115,10 +115,13 @@
           <property name="text" >
            <string>Zurückgehen bis:</string>
           </property>
+          <property name="buddy" >
+           <cstring>cwTimeMachineDay</cstring>
+          </property>
          </widget>
         </item>
         <item>
-         <widget class="QCalendarWidget" name="cwTimeMachineDay" >
+         <widget class="SimonCalendarWidget" name="cwTimeMachineDay" >
           <property name="enabled" >
            <bool>true</bool>
           </property>
@@ -162,6 +165,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonCalendarWidget</class>
+   <extends>QCalendarWidget</extends>
+   <header>simoncalendarwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../simon.qrc" />
  </resources>

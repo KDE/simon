@@ -21,6 +21,7 @@
 SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellungen"), QIcon(":/images/icons/gnome-settings-sound.svg"), tr("Konfigurieren Sie hier ihre Audiogeräte und legen Einstellungen für dessen Verwendung fest"), parent)
 {
 	ui.setupUi(this);
+	guessChildTriggers(this);
 	hide();
 	//set help
 	help = tr("Hier finden Sie alle Einstellungen zur Spracheingabe und Tonausgabe.\n\nWenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen, wird nach jeder Aufnahme eine Audiodatei mit Datum und Uhrzeit, sowie die erkannte Transkribtion im angegebenen Verzeichnis erstellt.\nBitte bedenken Sie, das dies sehr viel Platz in Anspruch nimmt.");

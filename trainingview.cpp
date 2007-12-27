@@ -25,6 +25,7 @@ TrainingView::TrainingView(QWidget *parent)
 	   tr("Trainieren des Sprachmodells"), parent)
 {
 	ui.setupUi(this);
+ 	guessChildTriggers((QObject*)this);
 	this->hide();
 	
 	connect(ui.pbTrainText, SIGNAL(clicked()), this, SLOT(trainSelected()));

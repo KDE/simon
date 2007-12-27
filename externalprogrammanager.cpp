@@ -23,6 +23,7 @@
 ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(tr("Externe Programme"), QIcon(":/images/icons/emblem-system.svg"), tr("Externe Programme verwalten"), parent)
 {
 	ui.setupUi(this);
+	guessChildTriggers(this);
 	hide();
 }
 

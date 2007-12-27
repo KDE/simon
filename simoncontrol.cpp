@@ -154,18 +154,27 @@ void SimonControl::wordRecognised(QString word)
 		word = word.replace(0, QString(keyword).length()+1,"");
 		SimonInfo::showMessage(word,2000);
 	
-		if (word.startsWith(Settings::get("Desktopgrid/Trigger").toString()))
+		
+		//cutting simon away from the string
+		word = word.replace(0,5,"");
+		//QMessageBox::critical(NULL,"Commands",Settings::get("Commands/Keyword").toString());
+		//QMessageBox::critical(NULL,"GRID",Settings::get("Desktopgrid/Trigger").toString());
+		
+		/*if (word.startsWith(Settings::get("Desktopgrid/Trigger").toString()))
 		{
 			ScreenGrid *sg = new ScreenGrid();
 			connect(sg, SIGNAL(click(int, int)), this, SLOT(click(int, int)));
 			sg->show();
-		}
+		}*/
 		if (shortcutControl && (shortcutControl->nameExists(word)))
 		{
 			eventHandler->sendShortcut(shortcutControl->getShortcut(word));
 		} else 
 			run->run(word);
+		
+		emit guiAction(word);
 	}
+
 	else {
 		eventHandler->sendWord(word);
 	}

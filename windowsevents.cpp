@@ -131,6 +131,7 @@ WindowsEvents::WindowsEvents()
 
 void WindowsEvents::sendKey(int key)
 {
+	Sleep(100);
 	keybd_event(key,0,0,0);	
 }
 

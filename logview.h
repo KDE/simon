@@ -84,6 +84,7 @@ public slots:
 			const QDate day, const QString filter, const short type);
 
 	
+
 signals:
 	void stopLogRead();
 	

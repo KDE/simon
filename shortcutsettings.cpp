@@ -32,6 +32,8 @@ ShortcutSettings::ShortcutSettings(ShortcutControl *shortcutControl, QWidget* pa
 	this->shortcutControl = shortcutControl;
 	this->shortcutList = new ShortcutList();
 	ui.setupUi(this);
+	
+	guessChildTriggers(this);
 
 	this->oldRow = ui.twShortcuts->currentRow();
 	justChanged = false;

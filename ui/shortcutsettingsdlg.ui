@@ -17,7 +17,17 @@
   </property>
   <layout class="QVBoxLayout" >
    <item>
-    <widget class="ReturnTableWidget" name="twShortcuts" >
+    <widget class="QLabel" name="lbShortCuts" >
+     <property name="text" >
+      <string>Shortcuts:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>twShortcuts</cstring>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="SimonTableWidget" name="twShortcuts" >
      <property name="alternatingRowColors" >
       <bool>true</bool>
      </property>
@@ -89,9 +99,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ReturnTableWidget</class>
+   <class>SimonTableWidget</class>
    <extends>QTableWidget</extends>
-   <header>returntablewidget.h</header>
+   <header>simontablewidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>

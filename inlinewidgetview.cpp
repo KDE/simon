@@ -37,6 +37,7 @@ InlineWidgetView::InlineWidgetView(QWidget* parent): QTabWidget(parent)
 	setAutoFillBackground(true);
 }
 
+
 /**
  * \brief Registers the given InlineWidget as a new page and displays it
  * \author Peter Grasch
@@ -46,6 +47,11 @@ void InlineWidgetView::registerPage(InlineWidget *page)
 {
 	if(!page) return;
 
+
+	connect(this, SIGNAL(guiAction(QString)), page, SLOT(doAction(QString)));
+	connect(this,SIGNAL(guiAction(QString)), page,SIGNAL(guiAction(QString)));
+	
+	
 	for (int i=0; i < count(); i++)
 	{
 		if (widget(i) == page){
@@ -54,6 +60,7 @@ void InlineWidgetView::registerPage(InlineWidget *page)
 			return;
 		}
 	}
+
 
 	int newpage = addTab(page, page->getTitle());
 	setTabIcon(newpage, page->getIcon());
@@ -106,5 +113,3 @@ void InlineWidgetView::keyPressEvent ( QKeyEvent * event )
 InlineWidgetView::~InlineWidgetView()
 {
 }
-
-

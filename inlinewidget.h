@@ -16,6 +16,9 @@
 #include <QObject>
 #include <QIcon>
 
+#include "simonwidget.h"
+#include "simoncontrol.h"
+
 class QString;
 class QIcon;
 class QSettings;
@@ -28,13 +31,15 @@ class QSettings;
  * \version 0.1
  * \date 10.8.2007
 */
-class InlineWidget : public QWidget
+class InlineWidget : public QWidget, public SimonWidget
 {
 Q_OBJECT
 
 private:
 	QString title, desc;
 	QIcon icon;
+	GuiEvents *guievents;
+	//SimonControl *control;
 
 signals:
 	void closed();
@@ -45,21 +50,27 @@ signals:
 	void accepted();
 
 public:
-    InlineWidget(QString title, QIcon icon, QString desc, QWidget* parent=0);
-
-    ~InlineWidget();
+	InlineWidget(QString title, QIcon icon, QString desc, QWidget* parent=0);
+		
+	~InlineWidget();
 
 	void setVisible(bool visible);
 
 	QString getTitle() const {return title; }
 	QIcon getIcon() const { return icon; }
 	QString getDesc() const { return desc; }
+	bool isShown();
 
 public slots:
-    void accept();
-    void reject();
-    bool close();
-    bool exec();
+	void accept();
+	void reject();
+	bool close();
+	bool exec();
+
+	void registerControl(QString trigger, QObject* receiver, const char* slot);
+	void doAction(QString action);
+
+	QObjectList getChildren(QObject *current);
 
 };
 

@@ -12,6 +12,7 @@
 #include "selectprogrampage.h"
 #include <QMessageBox>
 #include <QSize>
+
 #include "program.h"
 #ifdef linux
 #include "kdeprogrammanager.h"
@@ -100,6 +101,7 @@ QString SelectProgramPage::getIcon()
     return lwPrograms->currentItem()->data(Qt::UserRole+1).toString();
 }
 
+
 /**
 *   \brief gets the name of the program
 *
@@ -162,3 +164,4 @@ QString SelectProgramPage::getWorkingDirectory()
 {
 	return lwPrograms->currentItem()->data(Qt::UserRole+2).toString();
 }
+

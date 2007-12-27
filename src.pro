@@ -35,8 +35,6 @@ win32 {
 FORMS += ui/main.ui \
          ui/wordlist.ui \
          ui/rundialog.ui \
-         ui/addword.ui \
-         ui/settings.ui \
 	 ui/commandsettingsdlg.ui \
          ui/trainmain.ui \
          ui/importdict.ui \
@@ -133,14 +131,25 @@ importtrainingdirectoryworkingpage.h \
            selectprogrampage.h \
            configureprogrampage.h \
            importprogrampage.h \
+           guievents.h \
+	   simonwizard.h \
+	   simonwidget.h \
+	   simonmainwindow.h \
+	   simoncombobox.h \
+	   simonspinbox.h \
+	   simonlistwidget.h \
 	   commandsettings.h \
-		returntablewidget.h \
-	shortcut.h \
- shortcutcontrol.h \
- shortcutxmlreader.h \
- shortcutsettings.h \
- selectshortcutbutton.h \
- key.h \
+	   shortcut.h \
+	   shortcutcontrol.h \
+	   shortcutxmlreader.h \
+	   shortcutsettings.h \
+	   selectshortcutbutton.h \
+	   key.h \
+	   simontablewidget.h \
+	   simontabwidget.h \
+	   simongroupbox.h \
+	   simoncalendarwidget.h \
+	   simonslider.h \
  program.h \
  programcategory.h \
  programmanager.h \
@@ -155,6 +164,7 @@ importtrainingdirectoryworkingpage.h \
  chooseplacepage.h \
  desktopgridconfiguration.h \
  modelsettings.h \
+ simonlineedit.h \
  deleteworddialog.h \
  icondialog.h \
  iconbutton.h \
@@ -231,6 +241,7 @@ SOURCES += main.cpp \
            logger.cpp \
            revert.cpp \
            logview.cpp \
+           guievents.cpp \
            externalprogrammanager.cpp \
            networksettings.cpp \
            importprogramwizard.cpp \
@@ -238,12 +249,22 @@ SOURCES += main.cpp \
            configureprogrampage.cpp \
            importprogrampage.cpp \
 	   commandsettings.cpp \
- shortcutcontrol.cpp \
- shortcutxmlreader.cpp \
- shortcutsettings.cpp \
- selectshortcutbutton.cpp \
- shortcut.cpp \
- returntablewidget.cpp \
+	   simonwizard.cpp \
+	   simonmainwindow.cpp \
+	   simonwidget.cpp \
+	   simoncombobox.cpp \
+	   simonspinbox.cpp \
+	   simonlistwidget.cpp \
+	   shortcutcontrol.cpp \
+	   shortcutxmlreader.cpp \
+	   shortcutsettings.cpp \
+	   selectshortcutbutton.cpp \
+	   shortcut.cpp \
+	   simontablewidget.cpp \
+	   simontabwidget.cpp \
+	   simongroupbox.cpp \
+	   simoncalendarwidget.cpp \
+	   simonslider.cpp \
  programmanager.cpp \
  categoryxmlreader.cpp \
  introplacepage.cpp \
@@ -257,11 +278,15 @@ SOURCES += main.cpp \
  chooseplacepage.cpp \
  desktopgridconfiguration.cpp \
  modelsettings.cpp \
+ simonlineedit.cpp \
  deleteworddialog.cpp \
  icondialog.cpp \
  iconbutton.cpp \
  addwordresolvepage.cpp \
  grammarmanager.cpp
+
+
+
 
 QT += network \
 xml 

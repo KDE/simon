@@ -17,7 +17,7 @@
 #include <QMessageBox>
 #include "xmlcommand.h"
 #include <QStringList>
-#include "returntablewidget.h"
+#include "simontablewidget.h"
 #ifdef __WIN32
 #include "registrymanager.h"
 #endif
@@ -68,7 +68,7 @@ public slots:
 
 private:
     Ui::CommandSettingsDlg ui;
-    ReturnTableWidget *twCommand;
+    SimonTableWidget *twCommand;
 
     ImportProgramWizard* importProgramWizard;
     ImportPlaceWizard* importPlaceWizard;

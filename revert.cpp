@@ -19,6 +19,7 @@
 Revert::Revert(QWidget *parent) : SystemWidget(tr("Zurücksetzen"), QIcon(":/images/icons/gtk-undo-ltr.svg"), tr("Stellen Sie einen vorherigen Zeitpunkt des Systems wieder her"), parent)
 {
 	ui.setupUi(this);
+	guessChildTriggers(this);
 	hide();
 
 	//set help

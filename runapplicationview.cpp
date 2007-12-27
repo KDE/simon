@@ -28,6 +28,7 @@
 RunApplicationView::RunApplicationView(RunCommand *run, QWidget *parent) : InlineWidget(tr("Ausführen"), QIcon(":/images/icons/emblem-system"), tr("Direkte ausführung von simon-Befehlen"), parent)
 {
 	ui.setupUi(this);
+	guessChildTriggers((QObject*)this);
 	hide();
 	this->run = run;
 	ui.twPrograms->verticalHeader()->hide();
@@ -39,6 +40,13 @@ RunApplicationView::RunApplicationView(RunCommand *run, QWidget *parent) : Inlin
 	connect ( ui.pbClearSearch, SIGNAL(clicked()), this, SLOT(clearSearchText()) );
     
     //connect ( , SIGNAL(commandsChanged()), this, SLOT(loadCommands()));
+	
+	registerControl("leere Suche", ui.pbClearSearch, SLOT(animateClick()));
+	/*registerControl("Trainieren", ui.pbTrain, SLOT(animateClick()));
+	registerControl("Wortliste", ui.pbEditWordList, SLOT(animateClick()));
+	registerControl("Ausführen", ui.pbRunProgram, SLOT(animateClick()));
+	registerControl("System", ui.pbSettings, SLOT(animateClick()));*/
+		
 }
 
 

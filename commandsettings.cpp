@@ -34,9 +34,12 @@
 CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Kommandos" ), QIcon ( ":/images/icons/emblem-system.svg" ), tr ( "Hier können Sie Programme und Orte importieren und vorhandene Kommandos bearbeiten" ), parent )
 {
 	ui.setupUi ( this );
+	
+	guessChildTriggers(this);
+	
 	//iconButton = new IconButton();
 	commandEdited = false;
-	twCommand = new ReturnTableWidget ( this );
+	twCommand = new SimonTableWidget ( this );
 	twCommand->setColumnCount ( 5 );
 	QStringList headerLabels;
 	headerLabels.append ( tr ( "Icon" ) );

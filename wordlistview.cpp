@@ -38,7 +38,7 @@ WordListView::WordListView(TrainingView *trainView, QWidget *parent) : InlineWid
 	ui.twVocab->verticalHeader()->hide();
 	
 	importDictView = new ImportDictView(this);
-	
+	guessChildTriggers(this);
 	connect(ui.pbAddToTraining, SIGNAL(clicked()), this, SLOT(copyWordToTrain()));
 	connect(ui.pbDeleteTrainingWord, SIGNAL(clicked()), this, SLOT(deleteTrainingWord()));
 	connect(ui.lwTrainingWords, SIGNAL(droppedText(QString)), this, SLOT(copyWordToTrain()));
@@ -62,7 +62,26 @@ WordListView::WordListView(TrainingView *trainView, QWidget *parent) : InlineWid
 	this->initializeItems();
 
 	dirty = false;
+	
 	hide();
+	
+	
+	
+	//guessChildTriggers();
+	
+	/*registerControl("Suche", ui.leSearch, SLOT(setFocus()));
+	registerControl("suchen", ui.leSearch, SLOT(returnPressed()));
+	registerControl("leere Suche", ui.pbClearSearch, SLOT(animateClick()));
+	
+	registerControl("Wechsle Tab", ui.twCurrentAction, SLOT(setCurrentIndex(ui.twCurrentAction->count()-ui.twCurrentAction->currentIndex())));
+	
+	registerControl("Neues Wort hinzufügen", ui.pbAddWord, SLOT(animateClick()));
+	registerControl("Importiere Wörterbuch", ui.pbImport, SLOT(animateClick()));
+	registerControl("zum Training hinzufügen", ui.pbAddToTraining, SLOT(animateClick()));
+	registerControl("Trainingsprogramm vorschlagen", ui.pbSuggestTrain, SLOT(animateClick()));
+	registerControl("Wort aus Liste löschen", ui.pbDeleteTrainingWord, SLOT(animateClick()));
+	registerControl("Trainieren", ui.pbTrainList, SLOT(animateClick()));*/
+	
 }
 
 

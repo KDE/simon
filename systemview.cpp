@@ -8,13 +8,14 @@
 //
 // Copyright: See COPYING file that comes with this distribution
 //
-
 //
+#include "simonlistwidget.h"
 #include "systemview.h"
 #include "systemwidget.h"
 #include <QTextEdit>
 #include <QListWidget>
 #include <QListWidgetItem>
+#include <QSize>
 #include <QStackedLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -29,6 +30,7 @@
 #include "shortcutsettings.h"
 #include "desktopgridconfiguration.h"
 #include "modelsettings.h"
+#include <QMessageBox>
 
 /**
  *  \author Peter Grasch
@@ -38,6 +40,7 @@
 SystemView::SystemView(ShortcutControl *shortcutctrl, QWidget* parent): InlineWidget(tr("System"), QIcon(":/images/icons/computer.svg"), tr("Einstellungen, Protokolle, etc."), parent)
 {
 	setupUi(this);
+	
 	CommandSettings *commandsSettings = new CommandSettings(this);
 	registerControl(new GeneralSettings(this));
 	registerControl(new ModelSettings(this));
@@ -54,7 +57,11 @@ SystemView::SystemView(ShortcutControl *shortcutctrl, QWidget* parent): InlineWi
 	connect(pbApply, SIGNAL(clicked()), this, SLOT(apply()));
 	connect(pbReset, SIGNAL(clicked()), this, SLOT(reset()));
     
-    connect(commandsSettings, SIGNAL(commandsChanged()), this, SIGNAL(commandsChanged()));
+	selectControl->setIconSize(QSize(22,22));
+	
+	connect(commandsSettings, SIGNAL(commandsChanged()), this, SIGNAL(commandsChanged()));
+	
+	guessChildTriggers((QObject*)this);
 }
 
 /**
@@ -96,13 +103,12 @@ void SystemView::reset()
  */
 void SystemView::displayId(int id)
 {
+	
 	if (id == -1) return; //none selected
 	
 	SystemWidget *sysWidget = dynamic_cast<SystemWidget*>(controls->widget(id));
 	if (!sysWidget) return;
-	
 	controls->setCurrentIndex(id);
-	
 	help->setText(sysWidget->getHelp());
 }
 
@@ -114,15 +120,19 @@ void SystemView::displayId(int id)
 void SystemView::setupUi(QWidget *parent)
 {
 	help = new QTextEdit(parent);
-	selectControl = new QListWidget(parent);
+	selectControl = new SimonListWidget(parent);
 	QVBoxLayout *layLeft = new QVBoxLayout(0);
-
+	menueHeader = new QLabel("Menü",parent);
+	menueHeader->setBuddy(selectControl);
 	selectControl->setMaximumWidth(250);
-	selectControl->setMinimumHeight(260);
-        selectControl->setIconSize(QSize(24,24));
+	
 	help->setMaximumWidth(250);
+	layLeft->addWidget(menueHeader);
 	layLeft->addWidget(selectControl);
 	layLeft->addWidget(help);
+	
+	
+	
 	
 	pbApply = new QPushButton(QIcon(":/images/icons/document-save.svg"),
 				  tr("Übernehmen"), parent);
@@ -159,6 +169,7 @@ void SystemView::setupUi(QWidget *parent)
 void SystemView::registerControl(SystemWidget* control)
 {
 	controls->addWidget(control);
+	connect(this, SIGNAL(guiAction(QString)), control, SLOT(doAction(QString)));
 	if (!control->init())
 	{
 		//something went wrong
@@ -185,5 +196,4 @@ void SystemView::deleteControl(SystemWidget* control)
 SystemView::~SystemView()
 {
 }
-
 

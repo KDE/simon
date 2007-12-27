@@ -30,11 +30,14 @@
  *	@date 08.01.2006
  *	@author Peter Grasch
 */
- 
+
+
 #ifndef ADDWORDVIEW_H
 #define ADDWORDVIEW_H
 
 #include <QWizard>
+//#include "simonwizard.h"
+
 #include "recwidget.h"
 
 

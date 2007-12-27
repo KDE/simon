@@ -13,6 +13,7 @@
 #define SYSTEMVIEW_H
 
 #include "inlinewidget.h"
+#include "simonlistwidget.h"
 
 
 class QListWidget;
@@ -22,6 +23,7 @@ class QStackedLayout;
 class QPushButton;
 class SystemWidget;
 class Stack;
+class QLineEdit;
 class ShortcutControl;
 
 /**
@@ -45,7 +47,9 @@ private slots:
 	void displayId(int id);
 
 private:
-	QListWidget *selectControl;
+	QLabel *menueHeader;
+	SimonListWidget *selectControl;
+	QLineEdit *selectMenue;
 	QTextEdit *help;
 	QPushButton *pbApply, *pbReset;//, *pbOk;
 	QStackedLayout *controls;
@@ -63,7 +67,9 @@ public:
     ~SystemView();
 
 signals:
-    void commandsChanged();
+	void guiAction(QString);
+	void commandsChanged();
+
 };
 
 #endif

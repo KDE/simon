@@ -1,3 +1,4 @@
+
 /***************************************************************************
  *   Copyright (C) 2006 by Peter Grasch   *
  *   bedahr@gmx.net   *
@@ -53,6 +54,7 @@
  * 
 */
 SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
+	:SimonMainWindow(parent, flags)
 {
 	QDir::setCurrent(QCoreApplication::applicationDirPath()+"/..");
 	if (!Logger::init())
@@ -82,7 +84,17 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	
 	this->trayManager->createIcon( QIcon( ":/images/tray.png" ), "Simon" );
 	
+
+
+	shownDialogs = 0;
+	
+	QMainWindow(parent,flags);
+	ui.setupUi(this);
 	//Preloads all Dialogs
+	guessChildTriggers((QObject*)this);
+
+	
+	
 	this->info->writeToSplash(tr("Lade \"Trainieren\"..."));
 	this->trainDialog = new TrainingView(this);
 	this->info->writeToSplash(tr("Lade \"Wortliste\"..."));
@@ -107,10 +119,7 @@ SimonView::SimonView(QWidget *parent, Qt::WFlags flags)
 	if (vuMeter->prepare())
 		vuMeter->start();
 
-	shownDialogs = 0;
-// 	viewBusy = false;
-	QMainWindow(parent,flags);
-	ui.setupUi(this);
+	
 	
 	ui.tbStatus->addWidget(ui.pbActivision);
 	ui.tbStatus->addWidget(ui.pbConnect);
@@ -165,7 +174,8 @@ void SimonView::setupSignalSlots()
 {
 	//Setting up Signal/Slots
 	QObject::connect(vuMeter, SIGNAL(level(int)), this, SLOT(setLevel(int)));
-	
+	QObject::connect(control,SIGNAL(guiAction(QString)), ui.inlineView,SIGNAL(guiAction(QString)));
+	connect(control, SIGNAL(guiAction(QString)), this, SLOT(doAction(QString)));
 	QObject::connect(this->trainDialog, SIGNAL(displayMe()), this, SLOT(showTrainDialog()));
 
 	QObject::connect(ui.pbAddWord, SIGNAL(toggled(bool)), this, SLOT(showAddWordDialog(bool)));
@@ -175,18 +185,11 @@ void SimonView::setupSignalSlots()
 	QObject::connect(ui.pbSettings, SIGNAL(toggled(bool)), this, SLOT(showSystemDialog(bool)));
 	QObject::connect(addWordView, SIGNAL(hidden()), this, SLOT(setButtonNotChecked()));
 
-	QObject::connect(ui.pbAddWord, SIGNAL(toggled(bool)), this, SLOT(showAddWordDialog(bool)));
 	QObject::connect(ui.pbQuickAddWord, SIGNAL(clicked()), ui.pbAddWord, SLOT(animateClick()));
-	QObject::connect(ui.pbEditWordList, SIGNAL(toggled(bool)), this, SLOT(showWordListDialog(bool)));
 	QObject::connect(ui.pbQuickWordlist, SIGNAL(clicked()), ui.pbEditWordList, SLOT(animateClick()));
-	QObject::connect(ui.pbRunProgram, SIGNAL(toggled(bool)), this, SLOT(showRunDialog(bool)));
 	QObject::connect(ui.pbQuickRunProgram, SIGNAL(clicked()), ui.pbRunProgram, SLOT(animateClick()));
-	QObject::connect(ui.pbTrain, SIGNAL(toggled(bool)), this, SLOT(showTrainDialog(bool)));
 	QObject::connect(ui.pbQuickTrain, SIGNAL(clicked()), ui.pbTrain, SLOT(animateClick()));
-	QObject::connect(ui.pbSettings, SIGNAL(toggled(bool)), this, SLOT(showSystemDialog(bool)));
 	
-
-
 	QObject::connect(ui.pbHide, SIGNAL(clicked()), this, SLOT(hideSimon()));
 	QObject::connect(ui.pbClose, SIGNAL(clicked()), this, SLOT(closeSimon()));
 	QObject::connect(this->trayManager, SIGNAL(clicked()), this, SLOT(toggleVisibility()));
@@ -207,6 +210,7 @@ void SimonView::setupSignalSlots()
 				SLOT(inlineWidgetRegistered(InlineWidget*)));
 	connect(ui.inlineView, SIGNAL(unRegisteredPage(InlineWidget*)), this, 
 				SLOT(inlineWidgetUnRegistered(InlineWidget*)));
+	
 	
 	
 	QObject::connect(control, SIGNAL(connected()), this, SLOT(connected()));

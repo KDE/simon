@@ -19,12 +19,14 @@
 #include <windows.h>
 #include <QHash>
 
+
 /*const int KeyAlt = VK_MENU;
 const int KeyStrg = VK_CONTROL;
 const int KeyShift = VK_SHIFT;
 const int KeySuper = VK_LWIN;
 const int KeyAltGr = VK_RMENU;
 const int KeyCapsLock = VK_CAPITAL;*/
+
 
 
 #ifdef None

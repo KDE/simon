@@ -46,13 +46,14 @@
 
 #include <QMainWindow>
 
-
+#include <QHash>
 #include <QSettings>
 #include <QVector>
 #include <QPushButton>
 #include <QGridLayout>
 #include "ui_main.h"
 #include "importprogramwizard.h"
+#include "simonmainwindow.h"
 
 class QPoint;
 class QWidget;
@@ -68,14 +69,23 @@ class TrayIconManager;
 class RunApplicationView;
 class SystemView;
 
-class SimonView : public QMainWindow {
+
+typedef QHash<QObject*,  const char*> ActionIdent;
+
+class SimonView : public SimonMainWindow    {
 	
 	Q_OBJECT
 
+/*signals:
+	void sendControl(SimonControl* control);*/
+	
+	
 private slots:
 	void setButtonNotChecked();
 
 private:
+	
+
 	int shownDialogs;
 	QPoint currentPos;
 	QPoint runDlgPos;
@@ -95,13 +105,23 @@ private:
 	SystemView *systemDialog; //!< Pointer on the Dialog "System"
 	VuMeter *vuMeter; //!< Does the calculation of the current input "loudness" for the 2 bars in the mainwindow
 
+    
+	/*GuiAction *guiItems;
+	actionValues *realAction;*/
 	
+
 	void setupSignalSlots();
 
 
 public slots:
+
+
+	/*void doAction(QString action);
+	void registerControl(QString trigger, QObject* receiver, const char* slot);*/
+
+
 	void setLevel(int level);
-	
+
 	
 	void toggleVisibility();
 	void hideSimon();
@@ -122,6 +142,7 @@ public slots:
 	void showTrainDialog(bool show=true);
 	void showWordListDialog(bool show=true);
 	void showSystemDialog(bool show=true);
+	
 
 	void inlineWidgetRegistered(InlineWidget *widget);
 	void inlineWidgetUnRegistered(InlineWidget *widget);

@@ -18,7 +18,7 @@
 *   \brief constructor which creats the wizardpages
 *   @autor Susanne Tschernegg
 */
-ImportProgramWizard::ImportProgramWizard(QWidget* parent): QWizard(parent)
+ImportProgramWizard::ImportProgramWizard(QWidget* parent): SimonWizard(parent)
 {
     oldId=0;
     this->addPage(createIntroPage());

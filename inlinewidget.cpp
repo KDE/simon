@@ -26,7 +26,38 @@ InlineWidget::InlineWidget(QString title, QIcon icon, QString desc, QWidget* par
 	this->title = title;
 	this->icon = icon;
 	this->desc = desc;
+	guievents = new GuiEvents;
 }
+
+
+void InlineWidget::registerControl(QString trigger, QObject* receiver, const char* slot)
+{
+	//QMessageBox::critical(NULL,trigger,"INLINEWIDGET");
+	guievents->registerControl(trigger, receiver, slot);
+}
+
+
+void InlineWidget::doAction(QString action)
+{
+	if(isShown())
+	{
+		guievents->doAction(action,(QObject*)this);
+	}
+}
+
+QObjectList InlineWidget::getChildren(QObject *current)
+{
+	return current->children();
+}
+
+
+bool InlineWidget::isShown()
+{
+	if (this->isVisible())
+		return true;
+	return false;
+}
+
 
 
 /**

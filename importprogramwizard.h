@@ -9,10 +9,16 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
+
+
+
+
 #ifndef IMPORTPROGRAMWIZARD_H
 #define IMPORTPROGRAMWIZARD_H
 
-#include <QWizard>
+
+#include "simonwizard.h"
+
 #include "selectprogrampage.h"
 #include "configureprogrampage.h"
 #include "importprogrampage.h"
@@ -30,17 +36,17 @@
  * \version 0.1
  * \brief
  */
-class ImportProgramWizard : public QWizard
+class ImportProgramWizard : public SimonWizard
 {
-    Q_OBJECT
+	Q_OBJECT
 		
-	private:
-		QWizardPage* createIntroPage();
-		SelectProgramPage* createSelectProgramPage();
+private:
+	QWizardPage* createIntroPage();
+	SelectProgramPage* createSelectProgramPage();
         ConfigureProgramPage* createConfigureProgramPage();
         ImportProgramPage* createImportProgramPage();
         QWizardPage* createFinishedPage();
-    
+
         int oldId;
     
 public:

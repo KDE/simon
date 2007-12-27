@@ -19,6 +19,7 @@
 #include <QSslCipher>
 #include "settings.h"
 
+
 /**
  * \brief Constructor - inits the help text and the gui
  * \author Peter Grasch
@@ -27,6 +28,8 @@
 NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(tr("Juliusd"), QIcon(":/images/icons/network-receive.svg"), tr("Hier können Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
 {
 	ui.setupUi(this);
+	
+	
 	hide();
 	
 	help = "simon verwendet für die Erkennung selbst die Open Source Spracherkennungs-engine \"Julius\".\nDie Verbindung zu Julius wird über das Netzwerk aufgebaut.\nDie Addresse zum Juliusd wird entweder mit einem Hostnamen oder einer direkten \"IP Adresse\" angegeben (4x3 stellige Netzwerksidentifikationsnummer - xxx.xxx.xxx.xxx)\nDie Port Nummer muss beim Juliusd und bei simon gleich sein.\n";
@@ -37,6 +40,8 @@ NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(tr("Juliusd"), Q
 	connect ( ui.tbMoveDown, SIGNAL ( clicked() ), this, SLOT ( moveDown() ) );
 	
 	connect( ui.twJuliusAddresses, SIGNAL(itemSelectionChanged()), this, SLOT(enableButtons()));
+	
+	guessChildTriggers(this);
 }
 
 
@@ -68,6 +73,7 @@ void NetworkSettings::enableButtons()
  */
 bool NetworkSettings::apply()
 {
+	
 	//juliusd
 // 	Settings::set("Network/JuliusdAddress", ui.cbAddress->currentText());
 	QString juliusServers;

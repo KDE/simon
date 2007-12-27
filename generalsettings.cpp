@@ -22,6 +22,7 @@
 GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(tr("Allgemeine Einstellungen"), QIcon(":/images/icons/computer.svg"), tr("Grundlegende Einstellungen rund um Simon"), parent)
 {
 	ui.setupUi(this);
+	guessChildTriggers(this);
 	hide();
 	
 	//set help

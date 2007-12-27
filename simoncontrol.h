@@ -54,6 +54,8 @@ signals:
 	void connected();
 	void disconnected();
 	void connectionError(QString error);
+	void guiAction(QString action);
+	
 public slots:
 	void click(int x, int y);
 	void connectToJulius();
