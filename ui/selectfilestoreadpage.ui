@@ -1,0 +1,100 @@
+<ui version="4.0" >
+ <class>SelectFilesPage</class>
+ <widget class="QWidget" name="SelectFilesPage" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>480</width>
+    <height>345</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QLabel" name="lbUnknownDesc" >
+     <property name="text" >
+      <string>Wenn das folgende Feld gesetzt ist, werden auch Sätze deren Grammatikalischen Komponenten nicht komplett bekannt sind importiert (die Sätze beinhalten dann "Unbekannt"e Komponenten)
+(Wörter die nicht im Wörterbuch vorkommen oder mehr als eine Bedeutung haben können werden trozdem ignoriert)</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbIncludeUnknown" >
+     <property name="text" >
+      <string>Auch unbekannte Konstrukte importieren</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lbListDesc" >
+     <property name="text" >
+      <string>Bitte fügen Sie alle Texte die Sie analysieren lassen möchten in die Liste ein.
+Es werden nur Textdateien (*.txt) unterstützt.</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="leFiles" />
+   </item>
+   <item>
+    <widget class="QListWidget" name="lwFiles" />
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbAddFile" >
+       <property name="enabled" >
+        <bool>true</bool>
+       </property>
+       <property name="text" >
+        <string>Hinzufügen</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../simon.qrc" >:/images/icons/edit-add.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbDeleteFile" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="text" >
+        <string>Entfernen</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../simon.qrc" >:/images/icons/list-remove.svg</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
+ <connections/>
+</ui>

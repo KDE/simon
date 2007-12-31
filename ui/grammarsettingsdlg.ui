@@ -1,0 +1,177 @@
+<ui version="4.0" >
+ <class>GrammarSettingsDlg</class>
+ <widget class="QWidget" name="GrammarSettingsDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>540</width>
+    <height>274</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Grammatik Einstellungen</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../simon.qrc" >:/images/icons/signature.svg</iconset>
+  </property>
+  <layout class="QGridLayout" >
+   <item rowspan="2" row="0" column="0" >
+    <widget class="QTabWidget" name="twMain" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tbSents" >
+      <attribute name="title" >
+       <string>Satzkonstrukte</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QTableWidget" name="twSentences" >
+         <property name="selectionMode" >
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <column>
+          <property name="text" >
+           <string>Satzstruktur</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" >
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbAddSentence" >
+           <property name="enabled" >
+            <bool>true</bool>
+           </property>
+           <property name="text" >
+            <string>Hinzufügen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/edit-add.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbDeleteSentence" >
+           <property name="enabled" >
+            <bool>false</bool>
+           </property>
+           <property name="text" >
+            <string>Entfernen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../simon.qrc" >:/images/icons/list-remove.svg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tbTerminals" >
+      <attribute name="title" >
+       <string>Terminale</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QTableWidget" name="twTerminals" >
+         <column>
+          <property name="text" >
+           <string>Terminal</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label" >
+         <property name="font" >
+          <font>
+           <pointsize>9</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text" >
+          <string>Terminale werden direkt aus den vorhandenen Satzkonstrukten  ausgelesen und sind hier nur extra angeführt um zusätzliche Übersicht zu gewährleisten.</string>
+         </property>
+         <property name="wordWrap" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QGroupBox" name="gbImport" >
+     <property name="title" >
+      <string>Bearbeiten</string>
+     </property>
+     <property name="flat" >
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" >
+      <item>
+       <widget class="QPushButton" name="pbImportTexts" >
+        <property name="toolTip" >
+         <string>Importieren Sie persönliche Texte um die verwendete Grammatik zu analysieren</string>
+        </property>
+        <property name="text" >
+         <string>Textimport</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../simon.qrc" >:/images/icons/document-open.svg</iconset>
+        </property>
+        <property name="checkable" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbMerge" >
+        <property name="text" >
+         <string>Terminale verbinden</string>
+        </property>
+        <property name="checkable" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../simon.qrc" />
+ </resources>
+ <connections/>
+</ui>

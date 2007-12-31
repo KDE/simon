@@ -1,0 +1,125 @@
+<ui version="4.0" >
+ <class>MergeTerminalsSelectTerminalsPage</class>
+ <widget class="QWidget" name="MergeTerminalsSelectTerminalsPage" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>422</width>
+    <height>326</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QLabel" name="lbDesc" >
+     <property name="text" >
+      <string>Bitte wählen Sie die beiden Terminale aus den Listen aus und vergeben Sie einen (gemeinsamen) Namen.</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QLabel" name="lbNewTerminal" >
+       <property name="text" >
+        <string>Neuer Terminal-Name:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leNewTerminal" />
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QSplitter" name="splitter" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QWidget" name="" >
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QLabel" name="lbTerminalA" >
+         <property name="text" >
+          <string>Terminal A:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>lwA</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="SimonListWidget" name="lwA" />
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="" >
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QLabel" name="lbTerminalB" >
+         <property name="text" >
+          <string>Terminal B:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>lwB</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="SimonListWidget" name="lwB" />
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbIncludeShadow" >
+     <property name="text" >
+      <string>Schattenlexikon einbeziehen</string>
+     </property>
+     <property name="checked" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbIncludeGrammar" >
+     <property name="text" >
+      <string>Grammatik anpassen</string>
+     </property>
+     <property name="checked" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonListWidget</class>
+   <extends>QListWidget</extends>
+   <header>simonlistwidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
