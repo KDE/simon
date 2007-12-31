@@ -25,6 +25,7 @@ class SystemWidget;
 class Stack;
 class QLineEdit;
 class ShortcutControl;
+class GrammarManager;
 
 /**
  \class SystemView
@@ -34,11 +35,12 @@ Container for all the SystemWidgets;
 
 Does all the basic stuff:
 	* Manages its widgets
-	* Maybe Password Protection later on...
 	* etc.
 
 	@author Peter Grasch <bedahr@gmx.net>
 */
+#include "ui_systemviewdlg.h"
+
 class SystemView : public InlineWidget
 {
 Q_OBJECT
@@ -47,19 +49,16 @@ private slots:
 	void displayId(int id);
 
 private:
-	QLabel *menueHeader;
-	SimonListWidget *selectControl;
-	QLineEdit *selectMenue;
-	QTextEdit *help;
-	QPushButton *pbApply, *pbReset;//, *pbOk;
-	QStackedLayout *controls;
+	Ui::SystemViewDlg ui;
+
+// 	QPushButton *pbApply, *pbReset;//, *pbOk;
 	void setupUi(QWidget *parent);
 
 public slots:
 	void apply();
 	void reset();
 public:
-    SystemView(ShortcutControl *shortcutctrl, QWidget* parent);
+    SystemView(ShortcutControl *shortcutctrl, GrammarManager *grammarManager, QWidget* parent);
 
 	void registerControl(SystemWidget* control);
 	void deleteControl(SystemWidget* control);

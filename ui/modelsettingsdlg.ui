@@ -481,7 +481,7 @@
                 <string>Hinzufügen</string>
                </property>
                <property name="icon" >
-                <iconset resource="../simon.qrc" >:/images/icons/list-add.svg</iconset>
+                <iconset resource="../simon.qrc" >:/images/icons/edit-add.svg</iconset>
                </property>
               </widget>
              </item>

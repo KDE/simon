@@ -10,7 +10,13 @@ class SimonListWidget : public QListWidget
 {	
 	
 	Q_OBJECT
-	
+
+	/**
+	 * \brief Define the current text as a property for use in wizards
+	 * \author Peter Grasch
+	*/
+	Q_PROPERTY(QString currentText READ currentText)
+
 private:
 	
 	QLineEdit *line;
@@ -24,6 +30,17 @@ public:
 	void keyPressEvent ( QKeyEvent * event );
 	void controlRedFlag();
 	void showAllEntries();
+
+	/**
+	 * \brief Quick access function to retrieve the currently selected text
+	 * \author Peter Grasch
+	 * @return The currently selected text (or a new QString()) object if there is none selected
+	 */
+	QString currentText() { 
+		QListWidgetItem *selected = currentItem();
+		if (!selected) return QString();
+		return currentItem()->text();
+	}
 
 public slots:
 	void showLineEdit();

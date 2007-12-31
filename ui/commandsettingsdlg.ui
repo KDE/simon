@@ -77,9 +77,6 @@
           <property name="text" >
            <string>Programme</string>
           </property>
-          <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
-          </property>
          </item>
          <item>
           <property name="text" >
@@ -211,7 +208,7 @@
         <string>Kommando bearbeiten</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/text-editor.svg</iconset>
+        <iconset resource="../simon.qrc" >:/images/icons/edit.svg</iconset>
        </property>
       </widget>
      </item>
@@ -221,7 +218,7 @@
         <string>Kommando löschen</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+        <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
        </property>
       </widget>
      </item>

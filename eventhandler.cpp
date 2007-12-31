@@ -100,7 +100,7 @@ void EventHandler::sendKey(QChar key)
 
 	if (((c >= 'A') && (c <= 'Z'))  || ((capslock) && ((c >= 'a') && (c <= 'z'))))
 	{
-		//coreEvents->setModifierKey(KeyShift,false);
+		coreEvents->setModifierKey(KeyShift,false);
 	}
 #ifdef __WIN32	
 	if (((c >= 'A') && (c <= 'Z')))
@@ -108,7 +108,7 @@ void EventHandler::sendKey(QChar key)
 		c+=32;
 	}
 #endif
-	//coreEvents->sendKey(c);
+	coreEvents->sendKey(c);
 
 	coreEvents->unsetModifier(KeyShift);
 }

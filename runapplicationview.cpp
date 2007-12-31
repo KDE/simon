@@ -25,7 +25,7 @@
  *
  *	@author Peter Grasch
  */
-RunApplicationView::RunApplicationView(RunCommand *run, QWidget *parent) : InlineWidget(tr("Ausführen"), QIcon(":/images/icons/emblem-system"), tr("Direkte ausführung von simon-Befehlen"), parent)
+RunApplicationView::RunApplicationView(RunCommand *run, QWidget *parent) : InlineWidget(tr("Ausführen"), QIcon(":/images/icons/system-run.svg"), tr("Direkte ausführung von simon-Befehlen"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers((QObject*)this);
@@ -38,15 +38,9 @@ RunApplicationView::RunApplicationView(RunCommand *run, QWidget *parent) : Inlin
 	connect ( ui.leSearch, SIGNAL(textEdited(QString)), this, SLOT(filterByPattern(QString)) );
 	connect ( ui.cbShow, SIGNAL(currentIndexChanged(QString)), this, SLOT(filterByPattern()) );
 	connect ( ui.pbClearSearch, SIGNAL(clicked()), this, SLOT(clearSearchText()) );
-    
-    //connect ( , SIGNAL(commandsChanged()), this, SLOT(loadCommands()));
+
 	
 	registerControl("leere Suche", ui.pbClearSearch, SLOT(animateClick()));
-	/*registerControl("Trainieren", ui.pbTrain, SLOT(animateClick()));
-	registerControl("Wortliste", ui.pbEditWordList, SLOT(animateClick()));
-	registerControl("Ausführen", ui.pbRunProgram, SLOT(animateClick()));
-	registerControl("System", ui.pbSettings, SLOT(animateClick()));*/
-		
 }
 
 

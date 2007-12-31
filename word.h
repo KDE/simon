@@ -104,6 +104,17 @@ public:
 	{
 		return this->terminal;
 	}
+
+
+	/**
+	 * \brief Setter-Method: terminals
+	 * \author Peter Grasch
+	 * @param terminal The (new) terminal of the word
+	 */
+	void setTerminal(QString terminal)
+	{
+		this->terminal = terminal;
+	}
 	
 	/**
 	 * \brief Determines if a word is "smaller" than the other

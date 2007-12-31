@@ -15,19 +15,19 @@ BUGS:
 [2007/08/21] <WordListView> <161>
 		BRIEF: segemetation fault on a click on the [x] Button and when enter is pressed while the focus is in the lineedit 
 		LEVEL: critical
-		STATUS: unconfirmed
+		STATUS: confirmed on windows
 
 [2007/08/21] <WordListView> <123 - 126>
 		BRIEF: a click on "Trainingsprog. vorschlagen" figure 10 MessageBoxes
 		LEVEL: low
-		STATUS: unconfirmed
+		STATUS: fixed
 
 [2007/08/21] <WordListView>
 		BRIEF: a klick on "Trainieren" triggers a "segmentation fault"
 		LEVEL: critical
-		STATUS: unconfirmed
+		STATUS: fixed
 
 [2007/08/22] <unknown>
 		BRIEF: MessageBoc while starting the programm
 		LEVEL: low
-		STATUS: unconfirmed
+		STATUS: fixed

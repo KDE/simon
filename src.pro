@@ -49,7 +49,14 @@ FORMS += ui/main.ui \
  ui/modelsettingsdlg.ui \
  ui/recwidget.ui \
  ui/removeword.ui \
- ui/resolvewordpage.ui
+ ui/resolvewordpage.ui \
+ ui/grammarsettingsdlg.ui \
+ ui/selectfilestoreadpage.ui \
+ ui/importgrammarworkingpage.ui \
+ ui/systemviewdlg.ui \
+ ui/passwordsettingsdlg.ui \
+ ui/mergeterminalsselectpage.ui \
+ ui/mergeterminalsworkingpage.ui
 
 
 HEADERS += simonview.h \
@@ -169,7 +176,17 @@ importtrainingdirectoryworkingpage.h \
  icondialog.h \
  iconbutton.h \
  addwordresolvepage.h \
- grammarmanager.h
+ grammarmanager.h \
+ grammarsettings.h \
+ importgrammarwizard.h \
+ importgrammarselectfilespage.h \
+ importgrammarworkingpage.h \
+ importgrammar.h \
+ passwordsettings.h \
+ mergeterminalswizard.h \
+ mergeterminalsselectterminalspage.h \
+ mergeterminalsworkingpage.h \
+ mergeterminals.h
 
 
 
@@ -283,7 +300,17 @@ SOURCES += main.cpp \
  icondialog.cpp \
  iconbutton.cpp \
  addwordresolvepage.cpp \
- grammarmanager.cpp 
+ grammarmanager.cpp  \
+ grammarsettings.cpp \
+ importgrammarwizard.cpp \
+ importgrammarselectfilespage.cpp \
+ importgrammarworkingpage.cpp \
+ importgrammar.cpp \
+ passwordsettings.cpp \
+ mergeterminalswizard.cpp \
+ mergeterminalsselectterminalspage.cpp \
+ mergeterminalsworkingpage.cpp \
+ mergeterminals.cpp
 
 
 

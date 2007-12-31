@@ -56,6 +56,7 @@ WordListView::WordListView(TrainingView *trainView, QWidget *parent) : InlineWid
 
 	this->trainView = trainView; 
 	this->wordListManager = new WordListManager(trainView->getManager());
+	connect(this->wordListManager, SIGNAL(tempWarning()), this, SLOT(warnAboutTempWordList()));
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(reloadList()));
 	connect(this->wordListManager, SIGNAL(shadowListChanged()), this, SLOT(reloadList()));
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(askForRebuild()));
@@ -272,6 +273,15 @@ void WordListView::toggleExtraWords()
 
 
 /**
+ * \brief Warns about changing a temporary wordlist (when the path is not correctly configured)
+ * \author Peter Grasch
+ */
+void WordListView::warnAboutTempWordList()
+{
+	QMessageBox::warning(0, tr("Temporäre Änderungen"), tr("Sie verändern eine temporäre Wordliste.\n\nDie Änderungen werden nicht gespeichert. Bitte konfigurieren Sie einen korrekten Pfad in den Einstellungen und starten Sie simon neu um eine dauerhafte Wortliste zu benutzen."));
+}
+
+/**
  * \brief Clears the VocabList
  * \author Peter Grasch
  */
@@ -434,7 +444,7 @@ void WordListView::insertVocab(WordList *vocab)
 	connect(pgDlg, SIGNAL(canceled()), this, SLOT(abortInsertion()));
 
         int i=0;
-	int limit=1000;
+	int limit=Settings::get("Performance/MaxDisplayedWords").toInt();
 	
 	ui.twVocab->setRowCount(vocab->count());
 	while ((!abortVocabInsertion) && (i<vocab->count()) && (i<limit))

@@ -29,7 +29,9 @@
 #include "commandsettings.h"
 #include "shortcutsettings.h"
 #include "desktopgridconfiguration.h"
+#include "passwordsettings.h"
 #include "modelsettings.h"
+#include "grammarsettings.h"
 #include <QMessageBox>
 
 /**
@@ -37,12 +39,15 @@
  *  \brief Constructor - inits the ui and registers the controls
  * @param parent the parent of the widget
  */
-SystemView::SystemView(ShortcutControl *shortcutctrl, QWidget* parent): InlineWidget(tr("System"), QIcon(":/images/icons/computer.svg"), tr("Einstellungen, Protokolle, etc."), parent)
+SystemView::SystemView(ShortcutControl *shortcutctrl, GrammarManager *grammarManager, QWidget* parent): InlineWidget(tr("System"), QIcon(":/images/icons/computer.svg"), tr("Einstellungen, Protokolle, etc."), parent)
 {
-	setupUi(this);
+	ui.setupUi(this);
+	hide();
 	CommandSettings *commandsSettings = new CommandSettings(this);
 	registerControl(new GeneralSettings(this));
+	registerControl(new PasswordSettings(this));
 	registerControl(new ModelSettings(this));
+	registerControl(new GrammarSettings(this, grammarManager));
 	registerControl(new SoundSettings(this));
 	registerControl(new NetworkSettings(this));
 	registerControl(commandsSettings);
@@ -52,11 +57,11 @@ SystemView::SystemView(ShortcutControl *shortcutctrl, QWidget* parent): InlineWi
 	registerControl(new ExternalProgramManager(this));
 	registerControl(new Revert(this));
 
-	connect(selectControl, SIGNAL(currentRowChanged(int)), this, SLOT(displayId(int)));
-	connect(pbApply, SIGNAL(clicked()), this, SLOT(apply()));
-	connect(pbReset, SIGNAL(clicked()), this, SLOT(reset()));
-    
-	selectControl->setIconSize(QSize(22,22));
+	connect(ui.lwMenu, SIGNAL(currentRowChanged(int)), this, SLOT(displayId(int)));
+	connect(ui.pbApply, SIGNAL(clicked()), this, SLOT(apply()));
+	connect(ui.pbReset, SIGNAL(clicked()), this, SLOT(reset()));
+
+	ui.lwMenu->setIconSize(QSize(22,22));
 	
 	connect(commandsSettings, SIGNAL(commandsChanged()), this, SIGNAL(commandsChanged()));
 	
@@ -70,9 +75,9 @@ SystemView::SystemView(ShortcutControl *shortcutctrl, QWidget* parent): InlineWi
 void SystemView::apply()
 {
 	SystemWidget *currentControl;
-	for (int i=0; i < controls->count(); i++)
+	for (int i=0; i < ui.swControls->count(); i++)
 	{
-		currentControl = dynamic_cast<SystemWidget*>(controls->widget(i));
+		currentControl = dynamic_cast<SystemWidget*>(ui.swControls->widget(i));
 		if (currentControl)
 			if (!currentControl->apply())
 				Logger::log("[ERR] "+tr("Konnte Änderungen in \"%1\" nicht speichern.").arg(currentControl->getTitle()));
@@ -87,9 +92,9 @@ void SystemView::apply()
 void SystemView::reset()
 {
 	SystemWidget *currentControl;
-	for (int i=0; i < controls->count(); i++)
+	for (int i=0; i < ui.swControls->count(); i++)
 	{
-		currentControl = dynamic_cast<SystemWidget*>(controls->widget(i));
+		currentControl = dynamic_cast<SystemWidget*>(ui.swControls->widget(i));
 		if (currentControl)
 			if (!currentControl->reset())
 				Logger::log("[ERR] "+tr("Konnte Änderungen in \"%1\" nicht zurücknehmen.").arg(currentControl->getTitle()));
@@ -105,59 +110,10 @@ void SystemView::displayId(int id)
 {
 	if (id == -1) return; //none selected
 	
-	SystemWidget *sysWidget = dynamic_cast<SystemWidget*>(controls->widget(id));
+	ui.swControls->setCurrentIndex(id+1);
+	SystemWidget *sysWidget = dynamic_cast<SystemWidget*>(ui.swControls->widget(id));
 	if (!sysWidget) return;
-	controls->setCurrentIndex(id);
-	help->setText(sysWidget->getHelp());
-}
-
-/**
- * \brief Sets up the ui
- * \author Peter Grasch
- * @param parent the parent of the widgets
- */
-void SystemView::setupUi(QWidget *parent)
-{
-	help = new QTextEdit(parent);
-	selectControl = new SimonListWidget(parent);
-	QVBoxLayout *layLeft = new QVBoxLayout(0);
-	menueHeader = new QLabel("Menü",parent);
-	menueHeader->setBuddy(selectControl);
-	selectControl->setMaximumWidth(250);
-	
-	help->setMaximumWidth(250);
-	layLeft->addWidget(menueHeader);
-	layLeft->addWidget(selectControl);
-	layLeft->addWidget(help);
-	
-	
-	
-	
-	pbApply = new QPushButton(QIcon(":/images/icons/document-save.svg"),
-				  tr("Übernehmen"), parent);
-	pbReset = new QPushButton(QIcon(":/images/icons/gtk-undo-ltr.svg"), 
-				  tr("Zurücksetzen"), parent);
-	
-	QHBoxLayout *buttonsLay = new QHBoxLayout();
-	buttonsLay->addWidget(pbReset);
-	buttonsLay->addWidget(pbApply);
-	
-	layLeft->addLayout(buttonsLay);
-
-	
-	QHBoxLayout *layout = new QHBoxLayout(parent);
-	controls = new QStackedLayout();
-	QVBoxLayout *controlLay = new QVBoxLayout();
-	controlLay->addLayout(controls);
-	controlLay->addStretch();
-	
-
-	help->setReadOnly(true);
-
-	layout->addLayout(layLeft);
-	layout->addLayout(controlLay);
-	setLayout(layout);
-	hide();
+	ui.tbHelp->setText(sysWidget->getHelp());
 }
 
 /**
@@ -167,7 +123,7 @@ void SystemView::setupUi(QWidget *parent)
  */
 void SystemView::registerControl(SystemWidget* control)
 {
-	controls->addWidget(control);
+	ui.swControls->addWidget(control);
 	connect(this, SIGNAL(guiAction(QString)), control, SLOT(doAction(QString)));
 	if (!control->init())
 	{
@@ -179,8 +135,7 @@ void SystemView::registerControl(SystemWidget* control)
 	//item gets automatically added to the list widget if given the parent
 	//please ignore this compiler warning and
 	//DO NOT REMOVE THIS
-	QListWidgetItem *newItem = new QListWidgetItem(control->getIcon(), control->getTitle(), selectControl);
-
+	QListWidgetItem *newItem = new QListWidgetItem(control->getIcon(), control->getTitle(), ui.lwMenu);
 }
 
 /**
@@ -189,7 +144,7 @@ void SystemView::registerControl(SystemWidget* control)
  */
 void SystemView::deleteControl(SystemWidget* control)
 {
-	controls->removeWidget(control);
+	ui.swControls->removeWidget(control);
 }
 
 SystemView::~SystemView()

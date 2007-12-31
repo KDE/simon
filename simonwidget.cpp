@@ -177,7 +177,7 @@ QString SimonWidget::editChildKeys(QString oldKey)
 		return oldKey.remove(oldKey.indexOf(">"),1); 
 	else
 		return oldKey;*/
-	//WTF? /\
+	//WTF?
 	
 	oldKey.remove("&");
 	oldKey.remove(":");

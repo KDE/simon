@@ -13,7 +13,7 @@
    <string>Zurücksetzen</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../simon.qrc" >:/images/icons/gtk-undo-ltr.svg</iconset>
+   <iconset resource="../simon.qrc" >:/images/icons/edit-undo.svg</iconset>
   </property>
   <layout class="QHBoxLayout" >
    <item>

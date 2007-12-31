@@ -16,7 +16,7 @@
  * \author Peter Grasch
  * @param parent the parent of the object
  */
-Revert::Revert(QWidget *parent) : SystemWidget(tr("Zurücksetzen"), QIcon(":/images/icons/gtk-undo-ltr.svg"), tr("Stellen Sie einen vorherigen Zeitpunkt des Systems wieder her"), parent)
+Revert::Revert(QWidget *parent) : SystemWidget(tr("Zurücksetzen"), QIcon(":/images/icons/edit-undo.svg"), tr("Stellen Sie einen vorherigen Zeitpunkt des Systems wieder her"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers(this);

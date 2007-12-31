@@ -41,13 +41,13 @@
  * Qt Windowflags - default 0
 */
 
-AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr)
+AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr, GrammarManager *grammarManager)
 	: QWizard (parent)
 {
 	prevId=0;
 	this->wordlistMgr = wordlistMgr;
 	this->welcomePage = createWelcomePage();
-	resolvePage = createResolvePage();
+	resolvePage = createResolvePage(grammarManager);
 	this->addPage((QWizardPage*) welcomePage);
 	this->addPage(resolvePage);
 
@@ -95,9 +95,9 @@ QWizardPage* AddWordView::createRecordPage()
  * \author Peter Grasch
  * @return the QWizardPage
  */
-AddWordResolvePage* AddWordView::createResolvePage()
+AddWordResolvePage* AddWordView::createResolvePage(GrammarManager *grammarManager)
 {
-	return new AddWordResolvePage(wordlistMgr, this);
+	return new AddWordResolvePage(wordlistMgr, grammarManager, this);
 }
 
 

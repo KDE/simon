@@ -1,15 +1,15 @@
 <shortcuts>
  <shortcut name="test" >
-  <modifiers>8</modifiers>
+  <modifiers>5</modifiers>
   <actionkeys>0</actionkeys>
   <functionkeys>0</functionkeys>
   <movementkeys>0</movementkeys>
-  <charkey>&lt;</charkey>
+  <charkey>S</charkey>
  </shortcut>
  <shortcut name="Enter" >
-  <modifiers>2</modifiers>
-  <actionkeys>0</actionkeys>
-  <functionkeys>512</functionkeys>
+  <modifiers>0</modifiers>
+  <actionkeys>128</actionkeys>
+  <functionkeys>0</functionkeys>
   <movementkeys>0</movementkeys>
   <charkey>_</charkey>
  </shortcut>

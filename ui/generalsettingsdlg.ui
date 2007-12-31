@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>499</width>
-    <height>368</height>
+    <height>456</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,76 +17,37 @@
   </property>
   <layout class="QVBoxLayout" >
    <item>
-    <widget class="QGroupBox" name="gbPassword" >
+    <widget class="QGroupBox" name="gbPerformance" >
      <property name="title" >
-      <string>Passwortschutz</string>
+      <string>Geschwindigkeit</string>
      </property>
      <property name="flat" >
       <bool>true</bool>
      </property>
-     <layout class="QHBoxLayout" >
-      <item>
-       <widget class="QCheckBox" name="cbCheckPassword" >
-        <property name="enabled" >
-         <bool>true</bool>
-        </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label" >
         <property name="text" >
-         <string>Aktivieren</string>
-        </property>
-        <property name="checked" >
-         <bool>true</bool>
+         <string>Maximal gleichzeitig angezeigte Wörter:
+(Wortliste)</string>
         </property>
        </widget>
       </item>
-      <item>
-       <spacer>
-        <property name="orientation" >
-         <enum>Qt::Horizontal</enum>
+      <item row="0" column="1" >
+       <widget class="QSpinBox" name="sbMaxSimultaniouslyShownWords" >
+        <property name="minimum" >
+         <number>1</number>
         </property>
-        <property name="sizeHint" >
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
+        <property name="maximum" >
+         <number>100000</number>
         </property>
-       </spacer>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" >
-        <item>
-         <widget class="QLabel" name="lbPassword" >
-          <property name="enabled" >
-           <bool>true</bool>
-          </property>
-          <property name="text" >
-           <string>Passwort:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" >
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="lePassword" >
-          <property name="enabled" >
-           <bool>true</bool>
-          </property>
-          <property name="echoMode" >
-           <enum>QLineEdit::Password</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
+        <property name="singleStep" >
+         <number>10</number>
+        </property>
+        <property name="value" >
+         <number>1000</number>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -236,8 +197,8 @@
      </property>
      <property name="sizeHint" >
       <size>
-       <width>20</width>
-       <height>40</height>
+       <width>481</width>
+       <height>16</height>
       </size>
      </property>
     </spacer>
@@ -247,38 +208,5 @@
  <resources>
   <include location="../simon.qrc" />
  </resources>
- <connections>
-  <connection>
-   <sender>cbCheckPassword</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lePassword</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>99</x>
-     <y>46</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>285</x>
-     <y>70</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cbCheckPassword</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lbPassword</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>126</x>
-     <y>50</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>62</x>
-     <y>69</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

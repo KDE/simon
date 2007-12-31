@@ -17,11 +17,12 @@
 #include <QHeaderView>
 #include <QMessageBox>
 
-AddWordResolvePage::AddWordResolvePage(WordListManager *wordListManager, QWidget* parent): QWizardPage(parent)
+AddWordResolvePage::AddWordResolvePage(WordListManager *wordListManager, GrammarManager *grammarManager,
+	QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
 	ui.twSuggestions->verticalHeader()->hide();
-	this->grammarManager = new GrammarManager(wordListManager);
+	this->grammarManager = grammarManager;
 	grammarManager->load();
 	this->wordListManager = wordListManager;
 	connect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));

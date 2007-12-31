@@ -25,7 +25,7 @@
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(tr("Juliusd"), QIcon(":/images/icons/network-receive.svg"), tr("Hier können Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
+NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(tr("Juliusd"), QIcon(":/images/icons/network.svg"), tr("Hier können Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
 {
 	ui.setupUi(this);
 	
@@ -88,7 +88,7 @@ bool NetworkSettings::apply()
 	Settings::set("Juliusd/Username", ui.leUser->text());
 	Settings::set("Juliusd/Password", ui.lePass->text());
 
-	Settings::set("Juliusd/Encrypted", ui.gbEncryption->isChecked());
+	Settings::set("Juliusd/Encrypted", ui.cbUseEncryption->isChecked());
 	Settings::set("Juliusd/Cipher", ui.cbCipher->currentText());
 	Settings::set("Juliusd/Cert", ui.leCert->text());
 	Settings::set("Juliusd/ContiniueOnWarning", ui.cbIgnoreWarnings->isChecked());
@@ -131,7 +131,7 @@ bool NetworkSettings::init()
 
 	ui.cbIgnoreWarnings->setChecked(Settings::get("Juliusd/ContiniueOnWarning").toBool());
 
-	ui.gbEncryption->setChecked(Settings::get("Juliusd/Encrypted").toBool());
+	ui.cbUseEncryption->setChecked(Settings::get("Juliusd/Encrypted").toBool());
 
 	QString selectedCipher = Settings::getS("Juliusd/Cipher");
 	int selectedIndex=0;

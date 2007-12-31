@@ -31,7 +31,7 @@
 *   \brief constructor
 *   @author Susanne Tschernegg
 */
-CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Kommandos" ), QIcon ( ":/images/icons/emblem-system.svg" ), tr ( "Hier können Sie Programme und Orte importieren und vorhandene Kommandos bearbeiten" ), parent )
+CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Kommandos" ), QIcon ( ":/images/icons/system-run.svg" ), tr ( "Hier können Sie Programme und Orte importieren und vorhandene Kommandos bearbeiten" ), parent )
 {
 	ui.setupUi ( this );
 	
@@ -244,7 +244,7 @@ void CommandSettings::editCommand ( int row, int column )
 	{
 		QString typeStr = twCommand->item ( row,2 )->text();
 		QComboBox *cbType = new QComboBox();
-		cbType->addItem ( QIcon ( ":/images/icons/emblem-system.svg" ),QApplication::translate ( "RunDialog", "Programme", 0, QApplication::UnicodeUTF8 ) );
+		cbType->addItem ( QIcon ( ":/images/icons/system-run.svg" ),QApplication::translate ( "RunDialog", "Programme", 0, QApplication::UnicodeUTF8 ) );
 		cbType->addItem ( QIcon ( ":/images/icons/folder.svg" ), QApplication::translate ( "RunDialog", "Orte", 0, QApplication::UnicodeUTF8 ) );
 		cbType->addItem ( QIcon ( ":/images/icons/format-text-bold.svg" ),QApplication::translate ( "RunDialog", "Sonderzeichen", 0, QApplication::UnicodeUTF8 ) );
 		int posCb = getTypeNumber ( typeStr );
@@ -295,7 +295,7 @@ void CommandSettings::newCommand()
 	twCommand->setItem ( rows, 1, tmp );
 
 	QComboBox *cbType = new QComboBox ( twCommand );
-	cbType->addItem ( QIcon ( ":/images/icons/emblem-system.svg" ),QApplication::translate ( "RunDialog", "Programme", 0, QApplication::UnicodeUTF8 ) );
+	cbType->addItem ( QIcon ( ":/images/icons/system-run.svg" ),QApplication::translate ( "RunDialog", "Programme", 0, QApplication::UnicodeUTF8 ) );
 	cbType->addItem ( QIcon ( ":/images/icons/folder.svg" ), QApplication::translate ( "RunDialog", "Orte", 0, QApplication::UnicodeUTF8 ) );
 	cbType->addItem ( QIcon ( ":/images/icons/format-text-bold.svg" ),QApplication::translate ( "RunDialog", "Sonderzeichen", 0, QApplication::UnicodeUTF8 ) );
 
@@ -346,7 +346,7 @@ void CommandSettings::deleteCommand()
 void CommandSettings::activateCb()
 {
 	QComboBox *cbType = new QComboBox();
-	cbType->addItem ( QIcon ( ":/images/icons/emblem-system.svg" ),QApplication::translate ( "RunDialog", "Programme", 0, QApplication::UnicodeUTF8 ) );
+	cbType->addItem ( QIcon ( ":/images/icons/system-run.svg" ),QApplication::translate ( "RunDialog", "Programme", 0, QApplication::UnicodeUTF8 ) );
 	cbType->addItem ( QIcon ( ":/images/icons/folder.svg" ), QApplication::translate ( "RunDialog", "Orte", 0, QApplication::UnicodeUTF8 ) );
 	cbType->addItem ( QIcon ( ":/images/icons/format-text-bold.svg" ),QApplication::translate ( "RunDialog", "Sonderzeichen", 0, QApplication::UnicodeUTF8 ) );
 	twCommand->setCellWidget ( twCommand->currentRow(), 2, cbType );

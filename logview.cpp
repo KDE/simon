@@ -22,7 +22,7 @@
  * \author Peter Grasch
  * @param parent Parent of the systemwidget
  */
-LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images/icons/text-editor.svg"), tr("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
+LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images/icons/utilities-log-viewer.svg"), tr("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
 {
 	ui.setupUi(this);
 
@@ -671,7 +671,7 @@ void LogView::displayCancel()
 {
 	enableWidgets(false);
 	this->ui.pbAbort->setText(tr("Abbrechen"));
-	ui.pbAbort->setIcon(QIcon(":/images/icons/emblem-unreadable.svg"));
+	ui.pbAbort->setIcon(QIcon(":/images/icons/process-stop.svg"));
 	disconnect(ui.pbAbort, SIGNAL(clicked()), this, SLOT(reload()));
 	connect(ui.pbAbort, SIGNAL(clicked()), this, SLOT(abort()));
 }

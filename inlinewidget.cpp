@@ -39,6 +39,7 @@ void InlineWidget::registerControl(QString trigger, QObject* receiver, const cha
 
 void InlineWidget::doAction(QString action)
 {
+	qDebug() << "Mache: " << action;
 	if(isShown())
 	{
 		guievents->doAction(action,(QObject*)this);

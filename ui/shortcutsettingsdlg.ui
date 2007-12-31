@@ -13,7 +13,7 @@
    <string>Tastenkürzel</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../simon.qrc" >:/images/icons/preferences-desktop-keyboard-shortcuts.svg</iconset>
+   <iconset resource="../simon.qrc" >:/images/icons/configure-shortcuts.svg</iconset>
   </property>
   <layout class="QVBoxLayout" >
    <item>

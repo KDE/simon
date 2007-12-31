@@ -15,11 +15,9 @@
 #include <QList>
 #include <QFile>
 #include <QByteArray>
-#include <QMessageBox>
 #include <QtGlobal>
 #include <QTextStream>
 #include "modelmanager.h"
-#include "simoninfo.h"
 #include "settings.h"
 
 #include <QDebug>
@@ -81,8 +79,15 @@ WordList* WordListManager::getShadowList()
 	//wait till we are finished
 	if (isRunning())
 	{
-		SimonInfo::showMessage(tr("Bitte warten Sie während das Schatten-Wörterbuch lädt..."),1000);
-		QCoreApplication::processEvents();
+//FIXME: We can't show this directly!
+//	If this method is called by a different thread (this WILL happen),
+//	we would create the simonInfo object (which contains gui-widgets) in that
+//	threads context
+//	This will result in an async-error from xlib (you can't have different threads painting the gui)
+//	and therefore result in a crash;
+//	
+// 		SimonInfo::showMessage(tr("Bitte warten Sie während das Schatten-Wörterbuch lädt..."),1000);
+// 		QCoreApplication::processEvents();
 		//this is actually bug-using as we just set any kind of timeout (the gui thread will be
 		//blocked until the importing is done anyway...
 		wait();
@@ -103,7 +108,7 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 			     QString shadowLexiconFilename, QString shadowVocabFilename )
 {
 	if (isTemp){
-		QMessageBox::warning(0, tr("Temporäre Änderungen"), tr("Sie verändern eine temporäre Wordliste.\n\nDie Änderungen werden nicht gespeichert. Bitte konfigurieren Sie einen korrekten Pfad in den Einstellungen und starten Sie simon neu um eine dauerhafte Wortliste zu benutzen."));
+		emit tempWarning();
 	}
 
 	Logger::log(QObject::tr("[INF] Speichere Wörterliste"));
@@ -136,7 +141,7 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 /**
  * \brief Saves the given wordlist to the given files
  * \author Peter Grasch
- * \todo implement vocab-saving 
+ * \todo implement vocab-saving
  * @param list The list to save
  * @param lexiconFilename The lexicon to write to
  * @param vocabFilename The vocabfile to write to
@@ -153,28 +158,77 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	}
 	QTextStream outstream(outfile);
 	outstream.setCodec("ISO 8859-15");
+
+
+	QFile *vocabFile = new QFile(vocabFilename);
+	if (!vocabFile->open(QIODevice::WriteOnly)) {
+		Logger::log(QObject::tr("[ERR] Fehler beim öffnen der Ausgabedatei %1").arg(vocabFilename));
+		return false;
+	}
+	QTextStream vocab(vocabFile);
+	vocab.setCodec("ISO 8859-15");
+
+	//print internal sentence structure
+	// 	% NS_B
+	// 	<s>	sil
+	// 
+	// 	% NS_E
+	// 	</s>	sil
+	vocab << "% NS_B\n<s>\tsil\n";
+	vocab << "% NS_E\n</s>\tsil\n";
+
+	vocab << "% " << tr("Unbekannt") << "\n";
+
+	QHash<QString /*terminalName*/, Word /*words*/> vocabulary;
 	
 	int i=0;
 	int count = list->count();
 	while ((i<count)&&(list->at(i).getWord().toUpper() < "SENT-END"))
 	{
-		outstream << QString(list->at(i).getWord().toUpper() 
-				+ "\t\t[" + list->at(i).getWord() + "]\t\t" +
-				list->at(i).getPronunciation()) << "\n";
+		Word w = list->at(i);
+		outstream << QString(w.getWord().toUpper() 
+				+ "\t\t[" + w.getWord() + "]\t\t" +
+				w.getPronunciation()) << "\n";
+
+		if (w.getTerminal() != tr("Unbekannt"))
+			vocabulary.insertMulti(w.getTerminal(), w);
+		else vocab << w.getWord() << "\t" << w.getPronunciation() << "\n";
 		i++;
 	}
 	outstream << "SENT-END\t\t[]\t\tsil\n";
 	outstream << "SENT-START\t\t[]\t\tsil\n";
 	while (i<count)
 	{
-		outstream << QString(list->at(i).getWord().toUpper() 
-				+ "\t\t[" + list->at(i).getWord() + "]\t\t" +
-				list->at(i).getPronunciation()) << "\n";
+		Word w = list->at(i);
+		outstream << QString(w.getWord().toUpper() 
+				+ "\t\t[" + w.getWord() + "]\t\t" +
+				w.getPronunciation()) << "\n";
+
+		if (w.getTerminal() != tr("Unbekannt"))
+			vocabulary.insertMulti(w.getTerminal(), w);
+		else vocab << w.getWord() << "\t" << w.getPronunciation() << "\n";
 		i++;
+	}
+
+	QStringList terminals = vocabulary.keys();
+	QStringList distinctTerminals;
+	for (int i=0; i < terminals.count(); i++)
+		if (!distinctTerminals.contains(terminals[i]))
+			distinctTerminals << terminals[i];
+
+	for (int i=0; i < distinctTerminals.count(); i++)
+	{
+		vocab << "% " << distinctTerminals[i] << "\n";
+		for (int j=0; j < vocabulary.values(distinctTerminals[i]).count(); j++)
+		{
+			Word w = vocabulary.values(distinctTerminals[i]).at(j);
+			vocab << w.getWord() << "\t" << w.getPronunciation() << "\n";
+		}
 	}
 
 	Logger::log(QObject::tr("[INF] Schießen der Ausgabedatei"));
 	outfile->close();
+	vocabFile->close();
 	return true;
 }
 
@@ -240,7 +294,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 		pronunciation = line.mid(outend+1).trimmed();
 		
 		termtmp = getTerminal( name, pronunciation, vocablist );
-		term = (termtmp) ? *termtmp : "Unbekannt";
+		term = (termtmp) ? *termtmp : tr("Unbekannt");
 		if (!terminals.contains(term)) terminals.append(term);
 		
 		probability = this->trainManager->getProbability( name, promptsTable );
@@ -476,6 +530,41 @@ WordList* WordListManager::getWords(QString word, bool includeShadow)
 	return found;
 }
 
+void WordListManager::renameTerminal(QString from, QString to, bool includeShadow)
+{
+	if (to == from) return;
+	WordList *main = getWordList();
+	int i=0;
+	while (i < main->count())
+	{
+		if (main->at(i).getTerminal()==from)
+		{
+			//discard the const-qualifier
+			Word w = ((Word) main->at(i));
+			w.setTerminal(to);
+			main->replace(i, w);
+			mainDirty = true;
+		}
+		i++;
+	}
+	if (!includeShadow) return;
+
+	//shadow
+	WordList *shadow = getShadowList();
+	i=0;
+	while (i < shadow->count())
+	{
+		if (shadow->at(i).getTerminal()==from)
+		{
+			Word w = ((Word) shadow->at(i));
+			w.setTerminal(to);
+			shadow->replace(i, w);
+			shadowDirty = true;
+		}
+		i++;
+	}
+}
+
 /**
  * \brief Adds the words to the local wordlist
  * Inserts the words into the current list (alphabetically)
@@ -491,7 +580,7 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 
 	WordList *target;
 	if (shadow) target = getShadowList();
-	else target = this->wordlist;
+	else target = getWordList();
 
 	Logger::log(QObject::tr("[INF] Hinzufügen von %1 Wörtern in die Wörterliste").arg(list->count()));
 
@@ -550,12 +639,40 @@ WordList* WordListManager::readVocab(QString vocabpath)
 	QFile *vocab = new QFile ( vocabpath );
 	vocab->open ( QFile::ReadOnly );
 	if ( !vocab->isReadable() ) return false;
+
 	
 	QString line;
 	QString name;
 	QString pronunciation;
 	QString terminal;
 	int foundPos;
+
+
+	//performance optimizing-----------------------
+	//skip to the first terminal AFTER % Unbekannt
+	QString unknown = "% "+tr("Unbekannt");
+	while (!vocab->atEnd() && (line.trimmed() != unknown))
+	{ line = vocab->readLine(1024); }
+
+	//if there still is something go to the next line (the line after % Unbekannt)
+	if (!vocab->atEnd()) 
+	{
+		line = vocab->readLine(1024);
+	
+		//skip till the next terminal definition (the one after % Unbekannt)
+		while (!vocab->atEnd() && (!line.startsWith("% ")))
+		{ line = vocab->readLine(1024);  }
+		
+		//set the terminal to this one if there is one (i.e. the file was not over)
+		if (!vocab->atEnd())
+			terminal = line.mid(2).trimmed();
+	} else //maybe there is no % Unbekannt?
+	{	//search whole file...
+		vocab->seek(0);
+	}
+		//snip-----------------------------------------
+	
+
 
 	while ( !vocab->atEnd() ) //for each line that was successfully read
 	{

@@ -64,6 +64,9 @@ private:
 signals:
 	void showAddWordDialog();
 	void wordlistLoaded();
+
+private slots:
+	void warnAboutTempWordList();
 	
 public slots:
 	void abortInsertion() { abortVocabInsertion = true; }

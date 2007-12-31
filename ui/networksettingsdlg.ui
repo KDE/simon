@@ -5,118 +5,116 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>428</width>
-    <height>431</height>
+    <width>435</width>
+    <height>422</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Network</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../simon.qrc" >:/images/icons/network-receive.svg</iconset>
+   <iconset/>
   </property>
-  <layout class="QVBoxLayout" >
-   <item>
-    <widget class="QGroupBox" name="gbGeneral" >
-     <property name="title" >
-      <string>Allgemein</string>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
+    <widget class="QLabel" name="lbIgnoreWarnings" >
+     <property name="text" >
+      <string>Warnungen ignorieren:</string>
      </property>
-     <property name="flat" >
-      <bool>true</bool>
-     </property>
-     <layout class="QGridLayout" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="lbUsername" >
-        <property name="text" >
-         <string>Benutzername:</string>
-        </property>
-        <property name="buddy" >
-         <cstring>leUser</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <widget class="QLineEdit" name="leUser" />
-      </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="lbPassword" >
-        <property name="text" >
-         <string>Passwort:</string>
-        </property>
-        <property name="buddy" >
-         <cstring>lePass</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QLineEdit" name="lePass" >
-        <property name="echoMode" >
-         <enum>QLineEdit::Password</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" >
-       <widget class="QLabel" name="lbIgnoreWarnings" >
-        <property name="text" >
-         <string>Warnungen ignorieren:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" >
-       <widget class="QCheckBox" name="cbIgnoreWarnings" >
-        <property name="text" >
-         <string>Ignorieren (Nicht empfohlen)</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </item>
-   <item>
-    <widget class="QGroupBox" name="gbEncryption" >
-     <property name="title" >
-      <string>Verschlüsselung</string>
+   <item row="0" column="1" >
+    <widget class="QCheckBox" name="cbIgnoreWarnings" >
+     <property name="text" >
+      <string>Ignorieren (Nicht empfohlen)</string>
      </property>
-     <property name="flat" >
-      <bool>true</bool>
-     </property>
-     <property name="checkable" >
-      <bool>true</bool>
-     </property>
-     <property name="checked" >
-      <bool>false</bool>
-     </property>
-     <layout class="QGridLayout" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="lbCipher" >
-        <property name="text" >
-         <string>Allgorithmus:</string>
-        </property>
-        <property name="buddy" >
-         <cstring>cbCipher</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <widget class="QComboBox" name="cbCipher" />
-      </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="lbCert" >
-        <property name="text" >
-         <string>Zertifikat (.pem):</string>
-        </property>
-        <property name="buddy" >
-         <cstring>leCert</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QLineEdit" name="leCert" />
-      </item>
-     </layout>
     </widget>
    </item>
-   <item>
+   <item row="1" column="0" colspan="2" >
+    <widget class="QTabWidget" name="twNetwork" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tbUser" >
+      <attribute name="title" >
+       <string>Benutzername</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QLabel" name="lbUsername" >
+         <property name="text" >
+          <string>Benutzername:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>leUser</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QLineEdit" name="leUser" />
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="lbPassword" >
+         <property name="text" >
+          <string>Passwort:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>lePass</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QLineEdit" name="lePass" >
+         <property name="echoMode" >
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tbEncryption" >
+      <attribute name="title" >
+       <string>Verschlüsselung</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" colspan="2" >
+        <widget class="QCheckBox" name="cbUseEncryption" >
+         <property name="text" >
+          <string>Verschlüsselung verwenden</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="lbCipher" >
+         <property name="text" >
+          <string>Allgorithmus:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>cbCipher</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QComboBox" name="cbCipher" />
+       </item>
+       <item row="2" column="0" >
+        <widget class="QLabel" name="lbCert" >
+         <property name="text" >
+          <string>Zertifikat (.pem):</string>
+         </property>
+         <property name="buddy" >
+          <cstring>leCert</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" >
+        <widget class="QLineEdit" name="leCert" />
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2" >
     <widget class="QGroupBox" name="gbJulius" >
      <property name="title" >
       <string>Netzwerk</string>
@@ -232,7 +230,7 @@
            <string>Hinzufügen</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/list-add.svg</iconset>
+           <iconset resource="../simon.qrc" >:/images/icons/edit-add.svg</iconset>
           </property>
          </widget>
         </item>
@@ -259,5 +257,70 @@
  <resources>
   <include location="../simon.qrc" />
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>cbUseEncryption</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbCipher</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>66</x>
+     <y>97</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>65</x>
+     <y>104</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbUseEncryption</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbCert</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>100</x>
+     <y>97</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>89</x>
+     <y>134</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbUseEncryption</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cbCipher</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>204</x>
+     <y>97</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>206</x>
+     <y>104</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbUseEncryption</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leCert</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>157</x>
+     <y>97</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>172</x>
+     <y>134</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

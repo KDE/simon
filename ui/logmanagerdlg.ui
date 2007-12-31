@@ -89,6 +89,9 @@
             <property name="text" >
              <string>Suchen</string>
             </property>
+            <property name="icon" >
+             <iconset resource="../simon.qrc" >:/images/icons/system-search.svg</iconset>
+            </property>
            </widget>
           </item>
          </layout>
@@ -190,7 +193,7 @@
                <string>Abbrechen</string>
               </property>
               <property name="icon" >
-               <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+               <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
               </property>
              </widget>
             </item>

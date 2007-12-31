@@ -13,7 +13,7 @@
    <string>Ausführen</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+   <iconset/>
   </property>
   <layout class="QHBoxLayout" >
    <item>
@@ -81,7 +81,7 @@
            <string>Programme</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+           <iconset resource="../simon.qrc" >:/images/icons/applications-other.svg</iconset>
           </property>
          </item>
          <item>
@@ -170,7 +170,7 @@
           <string>&amp;Ausführen</string>
          </property>
          <property name="icon" >
-          <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+          <iconset resource="../simon.qrc" >:/images/icons/system-run.svg</iconset>
          </property>
          <property name="default" >
           <bool>true</bool>
@@ -205,19 +205,19 @@
      <property name="html" >
       <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Hier können Sie vorhandene Kommandos ausführen.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Kommandos umfassen vier wesentliche Varianten:&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">* Programme&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">* Orte&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">* Sonderzeichen&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">* Makros&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Programme repräsentiere auszuführende Befehle, Orte können Ordner oder sogar Internet-Links beinhalten. Sonderzeichen sind Wörter oder Zeichen die durch Spezielle-Simon-Wörter ("Keywords") verdeckt sind: z.B.: das Wort "Beistrich" das normalerweise durch das Zeichen "," verdeckt wäre.&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Makros können hier nicht direkt ausgeführt werden; Sie beinhalten spezielle Maus/Tastaturkombinationen um Nicht-Simonfähige Programme zu unterstützen.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Um neue Kommandos zum System hinzuzufügen, benutzen Sie bitte das Systemmenü.&lt;/p>&lt;/body>&lt;/html></string>
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Hier können Sie vorhandene Kommandos ausführen.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Kommandos umfassen vier wesentliche Varianten:&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">* Programme&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">* Orte&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">* Sonderzeichen&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">* Makros&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Programme repräsentiere auszuführende Befehle, Orte können Ordner oder sogar Internet-Links beinhalten. Sonderzeichen sind Wörter oder Zeichen die durch Spezielle-Simon-Wörter ("Keywords") verdeckt sind: z.B.: das Wort "Beistrich" das normalerweise durch das Zeichen "," verdeckt wäre.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Makros können hier nicht direkt ausgeführt werden; Sie beinhalten spezielle Maus/Tastaturkombinationen um Nicht-Simonfähige Programme zu unterstützen.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Um neue Kommandos zum System hinzuzufügen, benutzen Sie bitte das Systemmenü.&lt;/p>&lt;/body>&lt;/html></string>
      </property>
     </widget>
    </item>

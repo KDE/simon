@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>301</width>
-    <height>104</height>
+    <width>317</width>
+    <height>110</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -65,7 +65,7 @@
            <string>Löschen</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</iconset>
+           <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
           </property>
          </widget>
         </item>

@@ -20,7 +20,7 @@
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(tr("Externe Programme"), QIcon(":/images/icons/emblem-system.svg"), tr("Externe Programme verwalten"), parent)
+ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(tr("Externe Programme"), QIcon(":/images/icons/applications-other.svg"), tr("Externe Programme verwalten"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers(this);
@@ -48,7 +48,6 @@ bool ExternalProgramManager::apply()
 	Settings::set("Programs/HTK/HVite", ui.leHVite->text());
 	
 	Settings::set("Programs/Files/BZip2", ui.leBzip2->text());
-	Settings::set("Programs/Interpreter/Perl", ui.lePerl->text());
 	
 	return true;
 }
@@ -83,7 +82,6 @@ bool ExternalProgramManager::init()
 	ui.leHVite->setText(Settings::get("Programs/HTK/HVite").toString());
 	
 	ui.leBzip2->setText(Settings::get("Programs/Files/BZip2").toString());
-	ui.lePerl->setText(Settings::get("Programs/Interpreter/Perl").toString());
 	
 	return true;
 }

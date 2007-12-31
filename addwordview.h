@@ -43,6 +43,7 @@
 
 class QWizardPage;
 class AddWordResolvePage;
+class GrammarManager;
 class AddWordIntroPage;
 class WordListManager;
 class AddWordView : public QWizard
@@ -70,12 +71,12 @@ class AddWordView : public QWizard
 
 		AddWordIntroPage* createWelcomePage();
 		QWizardPage* createRecordPage();
-		AddWordResolvePage* createResolvePage();
+		AddWordResolvePage* createResolvePage(GrammarManager *grammarManager);
 		QWizardPage* createFinishedPage();
 		
 		
 	public:
-		AddWordView(QWidget *parent, WordListManager *wordlistMgr);
+		AddWordView(QWidget *parent, WordListManager *wordlistMgr, GrammarManager *grammarManager);
 		~AddWordView()
 		{
 		}

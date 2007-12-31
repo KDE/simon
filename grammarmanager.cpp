@@ -46,6 +46,20 @@ bool GrammarManager::load()
 	return true;
 }
 
+void GrammarManager::renameTerminal(QString terminal, QString newName)
+{
+	terminal.replace(".", "\\.");
+	terminal.replace("-", "\\-");
+	terminal.replace("!", "\\!");
+	terminal.replace("?", "\\?");
+	terminal.replace("*", "\\*");
+	terminal.replace("\\", "\\\\");
+	terminal.replace("^", "\\^");
+	terminal.replace("$", "\\$");
+	this->structures.replaceInStrings(QRegExp("^"+terminal+"$"), newName);
+	
+}
+
 QStringList GrammarManager::getExamples(QString word, QString terminal, int count)
 {
 	QStringList grammarStructures = getStructures(terminal);
@@ -129,6 +143,11 @@ bool GrammarManager::save()
 	grammar.close();
 	
 	return true;
+}
+
+void GrammarManager::setStructures(QStringList structures)
+{
+	this->structures = structures;
 }
 
 GrammarManager::~GrammarManager()

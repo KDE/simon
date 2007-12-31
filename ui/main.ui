@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>793</width>
-    <height>573</height>
+    <width>800</width>
+    <height>670</height>
    </rect>
   </property>
   <property name="palette" >
@@ -144,7 +144,7 @@
          <string>Wort &amp;hinzufügen</string>
         </property>
         <property name="icon" >
-         <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
+         <iconset resource="../simon.qrc" >:/images/icons/edit-add.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -166,7 +166,7 @@
          <string>System</string>
         </property>
         <property name="icon" >
-         <iconset resource="../simon.qrc" >:/images/icons/computer.svg</iconset>
+         <iconset resource="../simon.qrc" >:/images/icons/preferences-system.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -188,7 +188,7 @@
          <string>&amp;Trainieren</string>
         </property>
         <property name="icon" >
-         <iconset resource="../simon.qrc" >:/images/icons/document-properties.svg</iconset>
+         <iconset resource="../simon.qrc" >:/images/icons/kvoctrain.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -210,7 +210,7 @@
          <string>&amp;Ausführen</string>
         </property>
         <property name="icon" >
-         <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+         <iconset resource="../simon.qrc" >:/images/icons/system-run.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -276,6 +276,19 @@
         <item>
          <layout class="QVBoxLayout" >
           <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QLabel" name="lbWelcomeHeading" >
             <property name="font" >
              <font>
@@ -333,6 +346,19 @@ p, li { white-space: pre-wrap; }
              <bool>true</bool>
             </property>
            </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </item>
@@ -399,7 +425,13 @@ p, li { white-space: pre-wrap; }
              <string>Sprachmodell kompilleren</string>
             </property>
             <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/face-monkey.svg</iconset>
+             <iconset resource="../simon.qrc" >:/images/icons/applications-education-language.svg</iconset>
+            </property>
+            <property name="iconSize" >
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -459,7 +491,7 @@ p, li { white-space: pre-wrap; }
              <string>Ausführen</string>
             </property>
             <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/emblem-system.svg</iconset>
+             <iconset resource="../simon.qrc" >:/images/icons/system-run.svg</iconset>
             </property>
             <property name="iconSize" >
              <size>
@@ -530,7 +562,7 @@ p, li { white-space: pre-wrap; }
          <string>Verb&amp;inden</string>
         </property>
         <property name="icon" >
-         <iconset resource="../simon.qrc" >:/images/icons/network-receive.svg</iconset>
+         <iconset resource="../simon.qrc" >:/images/icons/connect-no.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -596,7 +628,7 @@ p, li { white-space: pre-wrap; }
          <string>Systemverwaltungsmodus</string>
         </property>
         <property name="icon" >
-         <iconset resource="../simon.qrc" >:/images/icons/system-lock-screen.svg</iconset>
+         <iconset resource="../simon.qrc" >:/images/icons/lock.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>

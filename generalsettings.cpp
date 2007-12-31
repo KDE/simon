@@ -37,15 +37,13 @@ GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(tr("Allgemeine E
  */
 bool GeneralSettings::apply()
 {
+	//performance:
+	Settings::set("Performance/MaxDisplayedWords", ui.sbMaxSimultaniouslyShownWords->value());
 	//general
 	Settings::set("SimonAutostart", ui.cbStartSimonOnBoot->isChecked());
 	Settings::set("StartJuliusdWhenRequired", ui.cbStartJuliusAsNeeded->isChecked());
 	Settings::set("AskBeforeExit", ui.cbAskBeforeExit->isChecked());
 	Settings::set("AutoConnect", ui.cbAutoConnect->isChecked());
-
-	//password
-	Settings::set("Passwordprotected", ui.cbCheckPassword->isChecked());
-	Settings::set("Password", ui.lePassword->text());
 
 	//paths
 	Settings::set("PathToCommands", ui.leCommands->text());
@@ -77,15 +75,15 @@ bool GeneralSettings::reset()
  */
 bool GeneralSettings::init()
 {
+	//performance
+	ui.sbMaxSimultaniouslyShownWords->setValue(Settings::get("Performance/MaxDisplayedWords").toInt());
+
 	//general
 	ui.cbStartSimonOnBoot->setChecked(Settings::get("SimonAutostart").toBool());
 	ui.cbStartJuliusAsNeeded->setChecked(Settings::get("StartJuliusdWhenRequired").toBool());
 	ui.cbAskBeforeExit->setChecked(Settings::get("AskBeforeExit").toBool());
 	ui.cbAutoConnect->setChecked(Settings::get("AutoConnect").toBool());
 
-	//password
-	ui.cbCheckPassword->setChecked(Settings::get("Passwordprotected").toBool());
-	ui.lePassword->setText(Settings::get("Password").toString());
 
 	//paths
 	ui.leCommands->setText(Settings::get("PathToCommands").toString());

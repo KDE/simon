@@ -18,7 +18,7 @@
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellungen"), QIcon(":/images/icons/gnome-settings-sound.svg"), tr("Konfigurieren Sie hier ihre Audiogeräte und legen Einstellungen für dessen Verwendung fest"), parent)
+SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellungen"), QIcon(":/images/icons/preferences-desktop-sound.svg"), tr("Konfigurieren Sie hier ihre Audiogeräte und legen Einstellungen für dessen Verwendung fest"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers(this);

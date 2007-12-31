@@ -13,7 +13,7 @@
    <string>Soundeinstellungen</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../simon.qrc" >:/images/icons/gnome-settings-sound.svg</iconset>
+   <iconset resource="../simon.qrc" >:/images/icons/preferences-desktop-sound.svg</iconset>
   </property>
   <layout class="QVBoxLayout" >
    <item>

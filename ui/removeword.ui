@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>536</width>
+    <width>522</width>
     <height>433</height>
    </rect>
   </property>
@@ -52,7 +52,7 @@
         <string/>
        </property>
        <property name="pixmap" >
-        <pixmap resource="../simon.qrc" >:/images/icons/emblem-unreadable.svg</pixmap>
+        <pixmap resource="../simon.qrc" >:/images/icons/process-stop.svg</pixmap>
        </property>
        <property name="scaledContents" >
         <bool>false</bool>

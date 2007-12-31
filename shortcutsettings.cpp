@@ -25,7 +25,7 @@
  * @param parent The parent of the Systemwidget
  */
 ShortcutSettings::ShortcutSettings(ShortcutControl *shortcutControl, QWidget* parent): 
-	SystemWidget(tr("Tastenkürzel"), QIcon(":/images/icons/preferences-desktop-keyboard-shortcuts.svg"), 
+	SystemWidget(tr("Tastenkürzel"), QIcon(":/images/icons/configure-shortcuts.svg"), 
 	tr("Hier können Sie Shortcuts konfigurieren die von simon als Reaktion auf ein Schlüsselwort ausgelöst werden"), parent)
 {
 	Shortcut::initKeys();

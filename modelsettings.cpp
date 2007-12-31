@@ -18,7 +18,7 @@
 #include <QTableWidgetItem>
 #include <QFileDialog>
 
-ModelSettings::ModelSettings(QWidget* parent): SystemWidget(tr("Modelleinstellungen"), QIcon(":/images/icons/face-monkey.svg"), tr("Hier können Sie Einstellungen rund um das Sprachmodell einstellen"), parent)
+ModelSettings::ModelSettings(QWidget* parent): SystemWidget(tr("Modelleinstellungen"), QIcon(":/images/icons/applications-education-language.svg"), tr("Hier können Sie Einstellungen rund um das Sprachmodell einstellen"), parent)
 {
 	ui.setupUi(this);
 	connect(ui.pbAdd, SIGNAL(clicked()), this, SLOT(addFilter()));
@@ -184,7 +184,7 @@ bool ModelSettings::init()
 {
 	ui.sbSamplerate->setValue(Settings::get("Model/Samplerate").toInt());
 	ui.sbChannels->setValue(Settings::get("Model/Channels").toInt());
-	QStringList filters = Settings::get("Model/ProcessingFilters").toString().split("&&");
+	QStringList filters = Settings::get("Model/ProcessingFilters").toString().split("&&", QString::SkipEmptyParts);
 	
 	ui.twProcessingFilters->setRowCount(filters.count());
 	for (int i=0; i < filters.count(); i++)

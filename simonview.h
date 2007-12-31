@@ -68,6 +68,7 @@ class AddWordView;
 class TrayIconManager;
 class RunApplicationView;
 class SystemView;
+class QAction;
 
 
 typedef QHash<QObject*,  const char*> ActionIdent;
@@ -84,7 +85,20 @@ private slots:
 	void setButtonNotChecked();
 
 private:
-	
+	QAction *settingsToolButton; /** This represents the "action" button on the toolbar
+					We need this to call setVisible() on the button because
+					this will only work on the representing action;
+					We create the action when adding the button to the toolbar by calling
+					addWidget() which returns the QAction handle representing the 
+					toolbar-button;
+					This is then stored in this member for use in the methods 
+						* showSettings()
+						* hideSettings()
+					where we show / hide (resp.) the "System" button by hiding its 
+					QAction handle;
+				     */
+					
+
 
 	int shownDialogs;
 	QPoint currentPos;

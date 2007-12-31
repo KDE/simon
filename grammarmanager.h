@@ -30,6 +30,15 @@ public:
 
 	QStringList getStructures(QString terminal);
 	QStringList getTerminals();
+
+	void setStructures(QStringList structures);
+
+	void renameTerminal(QString terminal, QString newName);
+
+	WordListManager* getWordListManager() { return this->wordlistManager; }
+
+
+	QStringList getAllStructures() { return structures; }
 	QStringList getExamples(QString word, QString terminal, int count=2);
 
     ~GrammarManager();

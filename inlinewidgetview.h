@@ -33,7 +33,7 @@ signals:
 	void hidden();
 
 	void guiAction(QString);
-
+	
 	void registeredPage(InlineWidget *page);
 	void unRegisteredPage(InlineWidget *page);
 

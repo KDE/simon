@@ -35,6 +35,7 @@ Q_OBJECT
 signals:
 	void wordlistChanged();
 	void shadowListChanged();
+	void tempWarning();
 private:
 	bool isTemp;
 	WordList *wordlist;	//!< Holds the wordlist
@@ -69,10 +70,13 @@ public:
 
 	WordList* getWords(QString word, bool includeShadow=true);
 	void addWords(WordList *list, bool isSorted=false, bool shadow=false);
-	bool save( QString lexiconFilename="", QString vocabFilename="", QString shadowLexiconFilename="", QString shadowVocabFilename="" );
+	bool save( QString lexiconFilename="", QString vocabFilename="", QString shadowLexiconFilename="",
+			 QString shadowVocabFilename="" );
 	bool moveToShadow(Word *w);
 	bool deleteCompletely(Word *w, bool shadowed);
 	WordList* sortList(WordList* list);
+
+	void renameTerminal(QString from, QString to, bool includeShadow);
 
 	bool compileModel();
 	~WordListManager();
