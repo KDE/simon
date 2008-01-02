@@ -30,6 +30,10 @@ BOMPDict::BOMPDict(QString path, QObject* parent): Dict(parent)
 /**
  * \brief Loads the file from the given path
  * \author Peter Grasch
+ * 
+ * \todo Document
+ * WARNING: This function assumes the system-charset to be ISO-8859-1 and WILL destroy special characters if it isn't
+ * 
  * @param path If the path is empty the path set by the constructor is used
  */
 void BOMPDict::load(QString path)

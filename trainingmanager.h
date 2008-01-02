@@ -19,6 +19,7 @@
 #include "word.h"
 #include <QDebug>
 #include <QMessageBox>
+#include <QMutex>
 class WordListManager;
 
 /**
@@ -35,14 +36,15 @@ private:
 	TrainingList *trainingTexts;
 	TrainingText *currentText;
 	QString filename;
+	QMutex promptsLock;
 public:
-	PromptsTable promptsList;
+	PromptsTable *promptsTable;
 	TrainingManager();
 
 	int getProbability(QString name, PromptsTable *promptsTable);
 	TrainingList* readTrainingTexts(QString pathToTexts="");
 	PromptsTable* readPrompts(QString pathToPrompts);
-	PromptsTable* getPrompts() /*const*/;
+	PromptsTable* getPrompts();
 
 	bool deleteWord(Word *w);
 	bool deletePrompt(QString key);

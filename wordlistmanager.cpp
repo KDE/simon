@@ -33,12 +33,17 @@
  */
 WordListManager::WordListManager ( TrainingManager *trainManager ) : QThread()
 {
-	this->wordlist = readWordList ( Settings::getS("Model/PathToLexicon"), Settings::getS("Model/PathToVocab"), Settings::getS("Model/PathToPrompts"), this->activeTerminals );
-	mainDirty = false;
 	this->modelManager = new ModelManager();
 	this->trainManager = trainManager;
-	start();
 	isTemp = false;
+
+	this->trainManager->getPrompts();
+	wordListLock.lock();
+	mainDirty = false;
+	this->wordlist = readWordList ( Settings::getS("Model/PathToLexicon"), Settings::getS("Model/PathToVocab"), Settings::getS("Model/PathToPrompts"), this->activeTerminals );
+	wordListLock.unlock();
+
+	start();
 }
 
 bool WordListManager::compileModel()
@@ -52,8 +57,10 @@ bool WordListManager::compileModel()
  */
 void WordListManager::run()
 {
+	shadowLock.lock();
 	shadowDirty = false;
 	this->shadowList = readWordList(Settings::getS("Model/PathToShadowLexicon"), Settings::getS("Model/PathToShadowVocab"), Settings::getS("Model/PathToPrompts"), this->shadowTerminals);
+	shadowLock.unlock();
 }
 
 
@@ -114,6 +121,7 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 	Logger::log(QObject::tr("[INF] Speichere Wörterliste"));
 	
 	//save wordlist
+	wordListLock.lock();
 	if (mainDirty)	//we changed the wordlist
 	{
 		if (lexiconFilename.isEmpty()) lexiconFilename = Settings::getS("Model/PathToLexicon");
@@ -122,8 +130,10 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 		emit wordlistChanged();
 		mainDirty=false;
 	}
+	wordListLock.unlock();
 	
 	//shadowlist
+	shadowLock.lock();
 	if (shadowDirty) //we changed the shadowDict
 	{
 		if (shadowLexiconFilename.isEmpty()) shadowLexiconFilename = Settings::getS("Model/PathToShadowLexicon");
@@ -132,6 +142,7 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 		emit shadowListChanged();
 		shadowDirty=false;
 	}
+	shadowLock.unlock();
 	
 	
 	return true;
@@ -272,7 +283,8 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 	WordList *vocablist = readVocab(vocabpath);
 	//read the prompts
 // 	TrainingManager *trainManager = new TrainingManager();
-	PromptsTable *promptsTable = /*& (trainManager->promptsList); */ trainManager->getPrompts();
+
+	PromptsTable *promptsTable = trainManager->getPrompts();
 // 	PromptsTable *
 
 	//opening
@@ -332,34 +344,50 @@ WordList* WordListManager::removeDoubles(WordList *in)
 Word* WordListManager::getWord(QString word, QString pronunciation, QString terminal, bool &isShadowed)
 {
 	isShadowed = false;
+	wordListLock.lock();
 	for (int i=0; i < wordlist->count(); i++)
 	{
 		if ((wordlist->at(i).getWord() == word) && (wordlist->at(i).getPronunciation() == pronunciation) && (wordlist->at(i).getTerminal() == terminal))
 			return (Word*) &(wordlist->at(i));
 	}
+	wordListLock.unlock();
+
 	isShadowed = true;
+	shadowLock.lock();
 	for (int i=0; i < shadowList->count(); i++)
 	{
 		if ((shadowList->at(i).getWord() == word) && (shadowList->at(i).getPronunciation() == pronunciation) && (shadowList->at(i).getTerminal() == terminal))
 			return (Word*) &(shadowList->at(i));
 	}
+	shadowLock.unlock();
 	return 0;
 }
 
+/**
+ * \brief Moves the given word to the shadowlist
+ * \author Peter Grasch
+ * \todo THEORETICALLY this code (we must lock the shadowlist AND the main wordlist) might yield to a deadlock
+ * @param w The given word
+ * @return success (i.e. the file is not found)
+ */
 bool WordListManager::moveToShadow(Word *w)
 {
 	int i=0;
 	this->trainManager->deleteWord(w);
+	shadowLock.lock();
 	while (i < wordlist->count())
 	{
 		if (&(wordlist->at(i)) == w)
 		{
+			wordListLock.lock();
 			shadowList->append(wordlist->takeAt(i));
+			wordListLock.unlock();
 			shadowDirty = mainDirty = true;
 			break;
 		}
 		i++;
 	}
+	shadowLock.unlock();
 	return save();
 }
 
@@ -367,16 +395,19 @@ bool WordListManager::deleteCompletely(Word *w, bool shadowed)
 {
 	//search for every sample that has the word in it and remove it
 	//delete the entry in
-	//	dict--------------------
-	//	shadowdict--------------
+	//	dict
+	//	shadowdict
 	//	voca
-	//	prompts-----------------
+	//	prompts
 	
 	//TODO: Implement deletion
 
+
+	
 	if (!shadowed)
 	{
 		this->trainManager->deleteWord(w); //if the word is shadowed we can't have any
+		wordListLock.lock();
 		WordList *main = getWordList();
 		for (int i=0; i < main->count(); i++)
 			if (&(main->at(i)) == w)
@@ -385,10 +416,13 @@ bool WordListManager::deleteCompletely(Word *w, bool shadowed)
 				mainDirty=true;
 				break; //is unique
 			}
+
+		wordListLock.unlock();
 		//training samples
 	}
 	else 
 	{
+		shadowLock.lock();
 		WordList *shadow = getShadowList();
 		for (int i=0; i < shadow->count(); i++)
 			if (&(shadow->at(i)) == w)
@@ -397,6 +431,7 @@ bool WordListManager::deleteCompletely(Word *w, bool shadowed)
 				shadowDirty=true;
 				break; //is unique
 			}
+		shadowLock.unlock();
 	}
 	
 	return save();
@@ -441,6 +476,7 @@ QString* WordListManager::getTerminal(QString name, QString pronunciation, WordL
 QString WordListManager::getRandomWord(QString terminal)
 {
 	WordList *main = getWordList();
+	wordListLock.lock();
 	int start = qrand()%main->count();
 	int i=start;
 	while (i<main->count())
@@ -458,7 +494,10 @@ QString WordListManager::getRandomWord(QString terminal)
 			return main->at(i).getWord();
 		i++;
 	}
+	wordListLock.unlock();
 	
+
+	shadowLock.lock();
 	//still didn't find anything?
 	//move on to the shadowlist
 	WordList *shadowList = getShadowList();
@@ -480,6 +519,8 @@ QString WordListManager::getRandomWord(QString terminal)
 			return shadowList->at(i).getWord();
 		i++;
 	}
+	shadowLock.unlock();
+
 	return terminal; //we couldn't find a word - return what we got
 }
 
@@ -489,11 +530,14 @@ QStringList WordListManager::getTerminals(bool includeShadow)
 	
 	//main
 	terminals << this->activeTerminals;
-	if (includeShadow && (getShadowList() /* to wait if the thread is running */))
+	if (includeShadow)
 	{
+		shadowLock.lock();
+		getShadowList(); /* to wait if the thread is running */
 		for (int i=0; i < shadowTerminals.count(); i++)
 			if (!terminals.contains(shadowTerminals.at(i)))
 				terminals.append(shadowTerminals.at(i));
+		shadowLock.unlock();
 	}
 	terminals.sort();
 	return terminals;
@@ -501,10 +545,12 @@ QStringList WordListManager::getTerminals(bool includeShadow)
 
 WordList* WordListManager::getWords(QString word, bool includeShadow)
 {
-	WordList* main = getWordList();
 	WordList* found = new WordList();
 	int i=0;
 	QString toSearch = word.toUpper();
+
+	wordListLock.lock();
+	WordList* main = getWordList();
 	//main
 	if (main)
 		while (i<main->count())
@@ -513,11 +559,13 @@ WordList* WordListManager::getWords(QString word, bool includeShadow)
 				found->append(main->at(i));
 			i++;
 		}
+	wordListLock.unlock();
 	if (!includeShadow)
 		return found;
-	WordList* shadow = getShadowList();
-// 	//shadow
+	
 	i=0;
+	shadowLock.lock();
+	WordList* shadow = getShadowList();
 	if (shadow)
 		while (i<shadow->count())
 		{
@@ -527,14 +575,16 @@ WordList* WordListManager::getWords(QString word, bool includeShadow)
 			}
 			i++;
 		}
+	shadowLock.unlock();
 	return found;
 }
 
 void WordListManager::renameTerminal(QString from, QString to, bool includeShadow)
 {
 	if (to == from) return;
-	WordList *main = getWordList();
 	int i=0;
+	wordListLock.lock();
+	WordList *main = getWordList();
 	while (i < main->count())
 	{
 		if (main->at(i).getTerminal()==from)
@@ -547,11 +597,14 @@ void WordListManager::renameTerminal(QString from, QString to, bool includeShado
 		}
 		i++;
 	}
+	wordListLock.unlock();
+
 	if (!includeShadow) return;
 
 	//shadow
-	WordList *shadow = getShadowList();
 	i=0;
+	shadowLock.lock();
+	WordList *shadow = getShadowList();
 	while (i < shadow->count())
 	{
 		if (shadow->at(i).getTerminal()==from)
@@ -563,6 +616,7 @@ void WordListManager::renameTerminal(QString from, QString to, bool includeShado
 		}
 		i++;
 	}
+	shadowLock.unlock();
 }
 
 /**
@@ -579,8 +633,15 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 		list = sortList(list);
 
 	WordList *target;
-	if (shadow) target = getShadowList();
-	else target = getWordList();
+	if (shadow)
+	{
+		shadowLock.lock();
+		 target = getShadowList();
+	} else {
+		wordListLock.lock();
+		target = getWordList();
+	}
+		
 
 	Logger::log(QObject::tr("[INF] Hinzufügen von %1 Wörtern in die Wörterliste").arg(list->count()));
 
@@ -612,13 +673,17 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 
 	delete newList;
 
-	if (shadow) this->shadowList = main;
-	else this->wordlist = main;
+	if (shadow) {
+		this->shadowList = main;
+		shadowDirty=true;
+		shadowLock.unlock();
+	} else {
+		this->wordlist = main;
+		mainDirty=true;
+		wordListLock.unlock();
+	}
 
 	Logger::log(QObject::tr("[INF] Die Wortliste beinhaltet jetzt %1 Wörter").arg(wordlist->count()));
-	
-	if (shadow) shadowDirty=true;
-	else mainDirty=true;
 	
 	this->save();
 }

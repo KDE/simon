@@ -13,6 +13,7 @@
 #define WORDLISTMANAGER_H
 
 #include <QThread>
+#include <QMutex>
 #include "word.h"
 #include "trainingmanager.h"
 /**
@@ -23,7 +24,6 @@
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-
 class QMessageBox;
 class QTextStream;
 class QString;
@@ -38,6 +38,9 @@ signals:
 	void tempWarning();
 private:
 	bool isTemp;
+	QMutex wordListLock;
+	QMutex shadowLock;
+
 	WordList *wordlist;	//!< Holds the wordlist
 	ModelManager *modelManager; //!< Manages the language- and acoustic model
 	WordList *shadowList;	//!< this holds the word that are not in the vocabulary (unused)

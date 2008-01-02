@@ -29,7 +29,6 @@ WordListView::WordListView(TrainingView *trainView, QWidget *parent) : InlineWid
 	QIcon(":/images/icons/format-justify-fill.svg"), 
 	tr("Betrachten und bearbeiten der Wortliste"), parent)
 {
-
 	shownDialogs = 0;
 	abortVocabInsertion = false;
 	

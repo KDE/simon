@@ -1,7 +1,7 @@
 //
 // C++ Implementation: mergeterminalworkingpage
 //
-// Description: 
+// Description:
 //
 //
 // Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
@@ -15,16 +15,16 @@
 #include "mergeterminals.h"
 #include <QDebug>
 
-MergeTerminalsWorkingPage::MergeTerminalsWorkingPage(GrammarManager *grammarManager, WordListManager *wordListManager, QWidget* parent): QWizardPage(parent)
+MergeTerminalsWorkingPage::MergeTerminalsWorkingPage ( GrammarManager *grammarManager, WordListManager *wordListManager, QWidget* parent ) : QWizardPage ( parent )
 {
-	ui.setupUi(this);
+	ui.setupUi ( this );
 
-	this->mergeTerminals = new MergeTerminals(wordListManager, grammarManager, this);
-	connect(mergeTerminals, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
-	connect(mergeTerminals, SIGNAL(done()), this, SLOT(finished()));
-	connect(mergeTerminals, SIGNAL(progress(int, int)), this, SLOT(displayProgress(int, int)));
+	this->mergeTerminals = new MergeTerminals ( wordListManager, grammarManager, this );
+	connect ( mergeTerminals, SIGNAL ( status ( QString ) ), this, SLOT ( displayStatus ( QString ) ) );
+	connect ( mergeTerminals, SIGNAL ( done() ), this, SLOT ( finished() ) );
+	connect ( mergeTerminals, SIGNAL ( progress ( int, int ) ), this, SLOT ( displayProgress ( int, int ) ) );
 
-	setTitle(tr("Verbinde..."));
+	setTitle ( tr ( "Verbinde..." ) );
 }
 
 void MergeTerminalsWorkingPage::finished()
@@ -37,24 +37,24 @@ void MergeTerminalsWorkingPage::finished()
 void MergeTerminalsWorkingPage::initializePage()
 {
 	complete = false;
-	mergeTerminals->setTerminalA(field("terminalA").toString());
-	mergeTerminals->setTerminalB(field("terminalB").toString());
-	mergeTerminals->setNewName(field("newName").toString());
-	mergeTerminals->setIncludeShadow(field("includeShadow").toBool());
+	mergeTerminals->setTerminalA ( field ( "terminalA" ).toString() );
+	mergeTerminals->setTerminalB ( field ( "terminalB" ).toString() );
+	mergeTerminals->setNewName ( field ( "newName" ).toString() );
+	mergeTerminals->setIncludeShadow ( field ( "includeShadow" ).toBool() );
 	mergeTerminals->start();
 }
 
 
-void MergeTerminalsWorkingPage::displayProgress(int progress, int max)
+void MergeTerminalsWorkingPage::displayProgress ( int progress, int max )
 {
-	ui.pbProgress->setMaximum(max);
-	ui.pbProgress->setValue(progress);
+	ui.pbProgress->setMaximum ( max );
+	ui.pbProgress->setValue ( progress );
 	QCoreApplication::processEvents();
 }
 
-void MergeTerminalsWorkingPage::displayStatus(QString status)
+void MergeTerminalsWorkingPage::displayStatus ( QString status )
 {
-	ui.lbStatus->setText(status);
+	ui.lbStatus->setText ( status );
 	QCoreApplication::processEvents();
 }
 

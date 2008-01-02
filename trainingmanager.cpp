@@ -22,37 +22,39 @@
  *	@author Peter Grasch
  */
 TrainingManager::TrainingManager()
-// 	:promptsList(/**readPrompts(Settings::getS("Model/PathToPrompts"))*/)
 {
 	filename = Settings::getS("PathToTexts");
-	//this->promptsList = readPrompts(Settings::getS("Model/PathToPrompts"));
+	promptsLock.lock();
+	this->promptsTable = readPrompts(Settings::getS("Model/PathToPrompts"));
+	promptsLock.unlock();
 }
 
 bool TrainingManager::deleteWord(Word *w)
 {
 	QString wordToDelete = w->getWord().toUpper();
-	qDebug() << "Delete: " << wordToDelete;
 	
+	promptsLock.lock();
 	//TODO: For now we delete every word with the same name
 	//For the future we should implement a lookup which tries to resolve the pronunciation using the samples
 	//and looking up if this is the selected word
-	QStringList sampleFileNames = promptsList.keys();
+	QStringList sampleFileNames = promptsTable->keys();
 // 	QStringList samplesToDelete;
-	for (int i=0; i < this->promptsList.count(); i++)
+	for (int i=0; i < this->promptsTable->count(); i++)
 	{
 		QString filename = sampleFileNames[i];
-		QStringList promptWords = promptsList.value(filename).split(" ");
+		QStringList promptWords = promptsTable->value(filename).split(" ");
 		for (int j=0; j < promptWords.count(); j++)
 		{
 			if (promptWords[j].toUpper() == wordToDelete)
 			{
 // 				samplesToDelete << filename;
-// 				promptsList.remove(filename);
+// 				promptsTable->remove(filename);
 				qDebug() << "aufrufen mit " << filename;
 				if (!deletePrompt(filename)) return false;
 			}
 		}
 	}
+	promptsLock.unlock();
 	
 // 	for (int i=0; i < samplesToDelete.count(); i++) qDebug() <<samplesToDelete[i];
 	return true;
@@ -60,9 +62,11 @@ bool TrainingManager::deleteWord(Word *w)
 
 bool TrainingManager::deletePrompt(QString key)
 {
-// 	int index = promptsList.keys().indexOf(key);
+// 	int index = promptsTable->keys().indexOf(key);
 	qDebug() << "loesche " << key;
-	promptsList.remove(key);
+	promptsLock.lock();
+	promptsTable->remove(key);
+	promptsLock.unlock();
 	
 	//removes the sample
 	qDebug() << "Remove: " << Settings::getS("Model/PathToSamples")+"/"+key+".wav";
@@ -75,34 +79,20 @@ bool TrainingManager::savePrompts()
 	QFile prompts(Settings::getS("Model/PathToPrompts"));
 	if (!prompts.open(QIODevice::WriteOnly)) return false;
 	
-	QStringList samples = this->promptsList.keys();
+	promptsLock.lock();
+	QStringList samples = this->promptsTable->keys();
 	
 	for (int i=0; i <samples.count(); i++)
-		prompts.write(samples[i].toLatin1()+" "+promptsList.value(samples[i]).toLatin1()+"\n");
+		prompts.write(samples[i].toLatin1()+" "+promptsTable->value(samples[i]).toLatin1()+"\n");
+	promptsLock.unlock();
 	
 	prompts.close();
 	return true;
 }
 
-PromptsTable* TrainingManager::getPrompts() /*const*/
+PromptsTable* TrainingManager::getPrompts()
 {
-// 	this->promptsList = new PromptsTable;
-// 	return new PromptsTable();
-// 	qDebug() << NULL;
-// 	qDebug() << "Wenn das geht geht das auch?";
-// 	qDebug() << currentText;
-// 	sleep(1000000000);
-// 	promptsList.insert("test", "dubi");
-// 	qDebug() << "geht";
-// 	return this->promptsList;
-// FIXME: The above causes a segfault. Why? No idea...
-//	But, simon segfaults whenever I try to access any member variables from here
-//	Howere, I can set the promptsList member to be a new PromptsList() but NOT
-//	to the value returned by readPrompts
-//	doing this in the constructor works fine...
-// 	return &promptsList;
-	return readPrompts(Settings::getS("Model/PathToPrompts"));
-// 	return new PromptsTable();
+	return this->promptsTable;
 }
 
 
@@ -399,7 +389,9 @@ float TrainingManager::calcRelevance(TrainingText *text)
 		for (int j=0; j<words.count(); j++)
 		{
 			wordCount++;
-			probability += getProbability(words.at(j), &(this->promptsList));
+			promptsLock.lock();
+			probability += getProbability(words.at(j), this->promptsTable);
+			promptsLock.unlock();
 		}
 	}
 	if (wordCount > 0)

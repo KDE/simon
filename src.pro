@@ -186,7 +186,8 @@ importtrainingdirectoryworkingpage.h \
  mergeterminalswizard.h \
  mergeterminalsselectterminalspage.h \
  mergeterminalsworkingpage.h \
- mergeterminals.h
+ mergeterminals.h \
+ firstrunwizard.h
 
 
 
@@ -310,7 +311,8 @@ SOURCES += main.cpp \
  mergeterminalswizard.cpp \
  mergeterminalsselectterminalspage.cpp \
  mergeterminalsworkingpage.cpp \
- mergeterminals.cpp
+ mergeterminals.cpp \
+ firstrunwizard.cpp
 
 
 

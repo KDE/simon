@@ -39,6 +39,7 @@
 #include "passworddlg.h"
 #include "grammarmanager.h"
 #include "screengrid.h"
+#include "firstrunwizard.h"
 
 
 /**
@@ -66,6 +67,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	Logger::log ( tr ( "[INF] Starte simon..." ) );
 
+
 	this->info = new SimonInfo();
 
 	//showing splash
@@ -74,6 +76,15 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	Logger::log ( tr ( "[INF] Lade Einstellungen..." ) );
 	Settings::initSettings();
+
+	Settings::set("ConfigDone", false);
+	if (!Settings::get("ConfigDone").toBool())
+	{
+		FirstRunWizard *firstRunWizard = new FirstRunWizard(this);
+		firstRunWizard->exec();
+		Settings::set("ConfigDone", true);
+	}
+
 	Logger::log ( tr ( "[INF] Einstellungen geladen..." ) );
 
 	this->info->writeToSplash ( tr ( "Lade Programmlogik..." ) );

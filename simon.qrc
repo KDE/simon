@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/" >
         <file>images/addword.png</file>
+        <file>images/firstrun.png</file>
         <file>images/alsalogo.gif</file>
         <file>images/directX.png</file>
         <file>images/icons/accessories-text-editor.svg</file>
