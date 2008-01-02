@@ -81,8 +81,8 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	if (!Settings::get("ConfigDone").toBool())
 	{
 		FirstRunWizard *firstRunWizard = new FirstRunWizard(this);
-		firstRunWizard->exec();
-		Settings::set("ConfigDone", true);
+		if (firstRunWizard->exec())
+			Settings::set("ConfigDone", true);
 	}
 
 	Logger::log ( tr ( "[INF] Einstellungen geladen..." ) );

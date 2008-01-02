@@ -35,10 +35,6 @@ ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(tr
  */
 bool ExternalProgramManager::apply()
 {
-	Settings::set("Programs/HTK/maketrihed", ui.leMaketrihed->text());
-	Settings::set("Programs/HTK/mkclscript", ui.leMkclscript->text());
-	Settings::set("Programs/HTK/prompts2mlf", ui.lePrompts2Mlf->text());
-	Settings::set("Programs/HTK/prompts2wlist", ui.lePrompts2Wlist->text());
 	Settings::set("Programs/HTK/HDMan", ui.leHDMan->text());
 	Settings::set("Programs/HTK/HLEd", ui.leHLEd->text());
 	Settings::set("Programs/HTK/HCopy", ui.leHCopy->text());
@@ -69,10 +65,6 @@ bool ExternalProgramManager::reset()
  */
 bool ExternalProgramManager::init()
 {
-	ui.leMaketrihed->setText(Settings::get("Programs/HTK/maketrihed").toString());
-	ui.leMkclscript->setText(Settings::get("Programs/HTK/mkclscript").toString());
-	ui.lePrompts2Mlf->setText(Settings::get("Programs/HTK/prompts2mlf").toString());
-	ui.lePrompts2Wlist->setText(Settings::get("Programs/HTK/prompts2wlist").toString());
 	ui.leHDMan->setText(Settings::get("Programs/HTK/HDMan").toString());
 	ui.leHLEd->setText(Settings::get("Programs/HTK/HLEd").toString());
 	ui.leHCopy->setText(Settings::get("Programs/HTK/HCopy").toString());
