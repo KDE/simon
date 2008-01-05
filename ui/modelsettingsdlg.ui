@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>479</width>
-    <height>389</height>
+    <width>520</width>
+    <height>347</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -129,9 +129,91 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tbOutput" >
+      <attribute name="title" >
+       <string>Ausgabeort</string>
+      </attribute>
+      <layout class="QVBoxLayout" >
+       <item>
+        <layout class="QHBoxLayout" >
+         <item>
+          <layout class="QVBoxLayout" >
+           <item>
+            <widget class="QLabel" name="lbHmmOut" >
+             <property name="text" >
+              <string>HMM Output:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbTiedlist" >
+             <property name="text" >
+              <string>Tiedlist:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label" >
+             <property name="text" >
+              <string>dfa:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbDict" >
+             <property name="text" >
+              <string>dict:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" >
+           <item>
+            <widget class="QLineEdit" name="leHmmOut" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leTiedlist" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leDfa" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leDict" />
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbOutputDesc" >
+         <property name="text" >
+          <string>Hier können leere oder nicht vorhandene Dateien angegeben werden. Sie werden von simon beim generieren des Sprachmodells überschrieben</string>
+         </property>
+         <property name="wordWrap" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="tbLanguageModel" >
       <attribute name="title" >
-       <string>Sprachmodell</string>
+       <string>Personenbezogen</string>
       </attribute>
       <layout class="QVBoxLayout" >
        <item>
@@ -149,16 +231,6 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="lbGrammar" >
-             <property name="text" >
-              <string>Grammatik:</string>
-             </property>
-             <property name="buddy" >
-              <cstring>leGrammar</cstring>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QLabel" name="lbVocab" >
              <property name="text" >
               <string>Vokabular:</string>
@@ -169,37 +241,40 @@
             </widget>
            </item>
            <item>
+            <widget class="QLabel" name="lbGrammar" >
+             <property name="text" >
+              <string>Grammatik:</string>
+             </property>
+             <property name="buddy" >
+              <cstring>leGrammar</cstring>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbShadowLexicon" >
+             <property name="text" >
+              <string>Schatten-Lexikon</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbShadowVocab" >
+             <property name="text" >
+              <string>Schatten-Vokabular:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_3" >
+             <property name="text" >
+              <string>tree1.hed:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QLabel" name="lbWavConfig" >
              <property name="text" >
               <string>Wav-Config:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="lbConfig" >
-             <property name="text" >
-              <string>config:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="lbProto" >
-             <property name="text" >
-              <string>proto:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="lbHmmOut" >
-             <property name="text" >
-              <string>HMM Output:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="lbTiedlist" >
-             <property name="text" >
-              <string>Tiedlist:</string>
              </property>
             </widget>
            </item>
@@ -215,13 +290,6 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="leGrammar" >
-             <property name="text" >
-              <string>model/model.grammar</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QLineEdit" name="leVocab" >
              <property name="text" >
               <string>model/model.voca</string>
@@ -229,57 +297,12 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="leWavConfig" >
+            <widget class="QLineEdit" name="leGrammar" >
              <property name="text" >
-              <string>model/wav_config</string>
+              <string>model/model.grammar</string>
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QLineEdit" name="leConfig" />
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leProto" />
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leHmmOut" />
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leTiedlist" />
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="Line" name="line" >
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" >
-         <item>
-          <layout class="QVBoxLayout" >
-           <item>
-            <widget class="QLabel" name="lbShadowLexicon" >
-             <property name="text" >
-              <string>Schatten-Lexikon</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="lbShadowVocab" >
-             <property name="text" >
-              <string>Schatten-Vokabular:</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" >
            <item>
             <widget class="QLineEdit" name="leShadowLexicon" >
              <property name="toolTip" >
@@ -294,28 +317,36 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QLineEdit" name="leTreeHed" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leWavConfig" >
+             <property name="text" >
+              <string>model/wav_config</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
         </layout>
        </item>
        <item>
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
+        <widget class="QLabel" name="label_2" >
+         <property name="text" >
+          <string>Im Falle der Wav-Config empfiehlt es sich allerdings eine Standard-config zu benutzen und diese nur (falls notwendig) anzupassen.
+Die tree1.hed weist Unterschiede quasi nur zwischen verschiedenen Sprachen oder extremen Dialekten auf.</string>
          </property>
-         <property name="sizeHint" >
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
+         <property name="wordWrap" >
+          <bool>true</bool>
          </property>
-        </spacer>
+        </widget>
        </item>
       </layout>
      </widget>
      <widget class="QWidget" name="Scripts" >
       <attribute name="title" >
-       <string>Scripts</string>
+       <string>Modellskripte</string>
       </attribute>
       <layout class="QVBoxLayout" >
        <item>
@@ -333,13 +364,6 @@
             <widget class="QLabel" name="lbMkphones1led" >
              <property name="text" >
               <string>mkphones1.led:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_3" >
-             <property name="text" >
-              <string>tree1.hed:</string>
              </property>
             </widget>
            </item>
@@ -370,6 +394,20 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QLabel" name="lbConfig" >
+             <property name="text" >
+              <string>config:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbProto" >
+             <property name="text" >
+              <string>proto:</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
          <item>
@@ -379,9 +417,6 @@
            </item>
            <item>
             <widget class="QLineEdit" name="leMkPhones1" />
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leTreeHed" />
            </item>
            <item>
             <widget class="QLineEdit" name="leGlobalDed" >
@@ -395,6 +430,12 @@
            </item>
            <item>
             <widget class="QLineEdit" name="leMktriLed" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leConfig" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leProto" />
            </item>
           </layout>
          </item>

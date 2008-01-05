@@ -163,6 +163,8 @@ bool ModelSettings::isComplete()
 			!ui.leHmmOut->text().isEmpty() && 
 			!ui.leTiedlist->text().isEmpty() && 
 			!ui.leShadowLexicon->text().isEmpty() && 
+			!ui.leDict->text().isEmpty() && 
+			!ui.leDfa->text().isEmpty() && 
 			!ui.leShadowVocab->text().isEmpty());
 }
 
@@ -213,6 +215,10 @@ bool ModelSettings::apply()
 	Settings::set("Model/PathToShadowLexicon", ui.leShadowLexicon->text());
 	Settings::set("Model/PathToShadowVocab", ui.leShadowVocab->text());
 
+
+	Settings::set("Model/PathToDict", ui.leDict->text());
+	Settings::set("Model/PathToDfa", ui.leDfa->text());
+
 	return true;
 }
 
@@ -259,6 +265,9 @@ bool ModelSettings::init()
 
 	ui.leShadowLexicon->setText(Settings::getS("Model/PathToShadowLexicon"));
 	ui.leShadowVocab->setText(Settings::getS("Model/PathToShadowVocab"));
+
+	ui.leDict->setText(Settings::getS("Model/PathToDict"));
+	ui.leDfa->setText(Settings::getS("Model/PathToDfa"));
 	return true;
 }
 

@@ -14,20 +14,14 @@
 
 #include "simonwizard.h"
 
-enum FirstRunWizardPages {
-	IntroPage=0,
-	CheckList=1,
-	ExternalPrograms=2,
-	ModelDescription=3,
-	SelectSource=4,
-	ModelSettings=5
-};
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class QWizardPage;
 class FirstRunWizard : public SimonWizard
 {
+
+
 private:
 	QWizardPage *createIntroPage();
 	QWizardPage *createCheckList();
@@ -37,9 +31,23 @@ private:
 
 	QWizardPage *createLanguageModelDescription();
 	QWizardPage *createLanguageModelSelectSource();
+	QWizardPage *createNewModelDescription();
+	QWizardPage *createModelSettings();
 
 	QWizardPage *createFinishedPage();
 public:
+
+enum FirstRunWizardPages {
+	IntroPage = 0,
+	CheckList = 1,
+	ExternalPrograms = 2,
+	ModelDescription = 3,
+	SelectSource = 4,
+	NewModelDescription = 5,
+	ModelSettingsPage = 6,
+	ImportDictionary = 7
+};
+
     FirstRunWizard(QWidget* parent);
 
     ~FirstRunWizard();
