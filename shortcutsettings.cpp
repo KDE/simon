@@ -269,6 +269,16 @@ void ShortcutSettings::insertShortcut(Shortcut *shortcut)
 
 
 /**
+ * \brief There are no mandatory fields - always return true
+ * \author Peter Grasch
+ * @return true
+ */
+bool ShortcutSettings::isComplete()
+{
+	return true;
+}
+
+/**
  * \brief Applys the list of commands
  * \author Peter Grasch
  * @return Success

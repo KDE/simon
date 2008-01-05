@@ -352,6 +352,18 @@ void CommandSettings::activateCb()
 	twCommand->setCellWidget ( twCommand->currentRow(), 2, cbType );
 }
 
+
+/**
+ * \brief Determines if the page is completely configured
+ * 
+ * \author Peter Grasch
+ * @return true, if we set a magic word
+ */
+bool CommandSettings::isComplete()
+{
+	return !(ui.leKeyword->text().isEmpty());
+}
+
 /**
 * \brief writes the type - which was chosen bevor in the combobox - in plaintext out
 *

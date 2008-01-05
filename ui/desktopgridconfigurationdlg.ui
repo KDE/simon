@@ -19,7 +19,7 @@
       <string>Allgemeines</string>
      </property>
      <property name="flat" >
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <layout class="QHBoxLayout" >
       <item>
@@ -54,7 +54,7 @@
       <string>Technisches</string>
      </property>
      <property name="flat" >
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <layout class="QVBoxLayout" >
       <item>

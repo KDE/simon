@@ -47,7 +47,7 @@ private:
 
 public:
         ShortcutSettings(ShortcutControl *shortcutControl, QWidget* parent);
-
+	bool isComplete();
         ~ShortcutSettings() { }
 
 private slots:

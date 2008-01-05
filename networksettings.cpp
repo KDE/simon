@@ -40,6 +40,7 @@ NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(tr("Juliusd"), Q
 	connect ( ui.tbMoveDown, SIGNAL ( clicked() ), this, SLOT ( moveDown() ) );
 	
 	connect( ui.twJuliusAddresses, SIGNAL(itemSelectionChanged()), this, SLOT(enableButtons()));
+	connect( ui.twJuliusAddresses, SIGNAL(cellChanged(int, int)), this, SIGNAL(changed()));
 	
 	guessChildTriggers(this);
 }
@@ -64,6 +65,16 @@ void NetworkSettings::enableButtons()
 		ui.tbMoveDown->setEnabled(false);
 		ui.pbDeleteAddress->setEnabled(false);
 	}
+}
+
+/**
+ * \brief Returns true if there is at least one address configured
+ * \author Peter Grasch
+ * @return True, if we have one juliusd host
+ */
+bool NetworkSettings::isComplete()
+{
+	return (ui.twJuliusAddresses->rowCount() > 0);
 }
 
 /**

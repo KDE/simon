@@ -39,6 +39,7 @@ public slots:
     bool apply();
     bool init();
     bool reset();
+    bool isComplete();
 
 };
 

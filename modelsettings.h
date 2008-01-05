@@ -36,6 +36,7 @@ public slots:
         bool apply();
         bool init();
         bool reset();
+	bool isComplete();
 public:
         ModelSettings(QWidget* parent);
 

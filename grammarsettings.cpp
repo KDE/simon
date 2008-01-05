@@ -36,6 +36,9 @@ GrammarSettings::GrammarSettings(QWidget* parent, GrammarManager *grammarManager
 	
 	connect(ui.pbImportTexts, SIGNAL(toggled(bool)), this, SLOT(showImportWizard(bool)));
 	connect(ui.pbMerge, SIGNAL(toggled(bool)), this, SLOT(showMergeWizard(bool)));
+
+	connect(ui.twSentences, SIGNAL(cellChanged(int, int)), this, SIGNAL(changed()));
+	connect(ui.twTerminals, SIGNAL(cellChanged(int, int)), this, SIGNAL(changed()));
 }
 
 void GrammarSettings::mergeGrammar(QStringList grammar)
@@ -103,6 +106,15 @@ void GrammarSettings::sentenceSelectionChanged(int row, int col, int oldrow, int
 			ui.twSentences->removeRow(oldrow);
 	}
 	if (row != -1) ui.pbDeleteSentence->setEnabled(true);
+}
+
+/**
+ * \brief Returns if true if we filled out the required fields
+ * @return always true - there are no mandatory fields here
+ */
+bool GrammarSettings::isComplete()
+{
+	return true;
 }
 
 void GrammarSettings::deleteSelectedSentence()

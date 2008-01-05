@@ -37,6 +37,7 @@ public slots:
 	bool reset();
 public:
     GeneralSettings(QWidget* parent);
+	bool isComplete();
 
     ~GeneralSettings();
 

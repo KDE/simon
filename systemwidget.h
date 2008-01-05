@@ -29,6 +29,7 @@ class SystemWidget : public InlineWidget
 signals:
 	void busy();
 	void idle();
+	void changed();
 
 protected:
 	QString help;
@@ -37,6 +38,7 @@ public slots:
 	virtual bool apply()=0;
 	virtual bool reset()=0;
 	virtual bool init()=0;
+	virtual bool isComplete()=0;
 	
 public:
     SystemWidget(QString title, QIcon icon, QString desc, QWidget *parent);

@@ -67,7 +67,7 @@
         <string>Auswahl</string>
        </property>
        <property name="flat" >
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <layout class="QVBoxLayout" >
         <item>
@@ -104,7 +104,7 @@
         <string>Suchen</string>
        </property>
        <property name="flat" >
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <layout class="QVBoxLayout" >
         <item>

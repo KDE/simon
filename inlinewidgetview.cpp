@@ -25,16 +25,16 @@
  */
 InlineWidgetView::InlineWidgetView(QWidget* parent): QTabWidget(parent)
 {
-	setAutoFillBackground(false);
+// 	setAutoFillBackground(false);
 	tabBar()->hide();
-	QPalette inlinePalette;
-	QBrush inlineBrush(QColor(255, 255, 255, 100));
-	inlineBrush.setStyle(Qt::SolidPattern);
-	inlinePalette.setBrush(QPalette::Active, QPalette::Window, inlineBrush);
-	QBrush inlineBrushInactive(QColor(255, 255, 255, 135));
-	inlinePalette.setBrush(QPalette::Inactive, QPalette::Window, inlineBrushInactive);
-	setPalette(inlinePalette);
-	setAutoFillBackground(true);
+// 	QPalette inlinePalette;
+// 	QBrush inlineBrush(QColor(236, 236, 236, 255));
+// 	inlineBrush.setStyle(Qt::SolidPattern);
+// 	inlinePalette.setBrush(QPalette::Active, QPalette::Window, inlineBrush);
+// 	QBrush inlineBrushInactive(QColor(236, 236, 236, 255));
+// 	inlinePalette.setBrush(QPalette::Inactive, QPalette::Window, inlineBrushInactive);
+// 	setPalette(inlinePalette);
+// 	setAutoFillBackground(true);
 }
 
 

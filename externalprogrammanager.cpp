@@ -25,6 +25,32 @@ ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(tr
 	ui.setupUi(this);
 	guessChildTriggers(this);
 	hide();
+
+	connect(ui.leHDMan, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leHLEd, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leHCopy, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leHCompV, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leHERest, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leHVite, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leBzip2, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leHHEd, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+}
+
+/**
+ * \brief Returns true if all fields are filled out
+ * \author Peter Grasch
+ * @return True, if all mandatory fields are filled out
+ */
+bool ExternalProgramManager::isComplete()
+{
+	return (!(ui.leHDMan->text().isEmpty()) && 
+		!(ui.leHLEd->text().isEmpty()) && 
+		!(ui.leHCopy->text().isEmpty()) && 
+		!(ui.leHCompV->text().isEmpty()) && 
+		!(ui.leHERest->text().isEmpty()) && 
+		!(ui.leHVite->text().isEmpty()) && 
+		!(ui.leBzip2->text().isEmpty()) && 
+		!(ui.leHHEd->text().isEmpty()));
 }
 
 

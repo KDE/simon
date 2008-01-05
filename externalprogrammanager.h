@@ -33,7 +33,7 @@ public slots:
 	bool init();
 public:
     ExternalProgramManager(QWidget* parent);
-
+	bool isComplete();
     ~ExternalProgramManager();
 
 };

@@ -27,6 +27,25 @@ ModelSettings::ModelSettings(QWidget* parent): SystemWidget(tr("Modelleinstellun
 	connect(ui.tbDown, SIGNAL(clicked()), this, SLOT(moveDown()));
 	connect(ui.tbOpenSamples, SIGNAL(clicked()), this, SLOT(setSamplePath()));
 	connect(ui.twProcessingFilters, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(enableButtons()));
+	
+	connect(ui.leLexicon, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leGrammar, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.lePrompts, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leVocab, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leWavConfig, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leConfig, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leProto, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leTreeHed, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leMkPhones0, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leMkPhones1, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leSamplePath, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leGlobalDed, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leSilHed, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leMktriLed, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leHmmOut, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leTiedlist, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leShadowLexicon, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leShadowVocab, SIGNAL(editingFinished()), this, SIGNAL(changed()));
 }
 
 
@@ -124,6 +143,28 @@ void ModelSettings::moveDown()
 	enableButtons();
 }
 
+
+bool ModelSettings::isComplete()
+{
+	return (!ui.leLexicon->text().isEmpty() && 
+			!ui.leGrammar->text().isEmpty() && 
+			!ui.lePrompts->text().isEmpty() && 
+			!ui.leVocab->text().isEmpty() && 
+			!ui.leWavConfig->text().isEmpty() && 
+			!ui.leConfig->text().isEmpty() && 
+			!ui.leProto->text().isEmpty() && 
+			!ui.leTreeHed->text().isEmpty() && 
+			!ui.leMkPhones0->text().isEmpty() && 
+			!ui.leMkPhones1->text().isEmpty() && 
+			!ui.leSamplePath->text().isEmpty() && 
+			!ui.leGlobalDed->text().isEmpty() && 
+			!ui.leSilHed->text().isEmpty() && 
+			!ui.leMktriLed->text().isEmpty() && 
+			!ui.leHmmOut->text().isEmpty() && 
+			!ui.leTiedlist->text().isEmpty() && 
+			!ui.leShadowLexicon->text().isEmpty() && 
+			!ui.leShadowVocab->text().isEmpty());
+}
 
 
 bool ModelSettings::apply()

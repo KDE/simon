@@ -22,7 +22,7 @@
       <string>HTK Programme</string>
      </property>
      <property name="flat" >
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <layout class="QHBoxLayout" >
       <item>
@@ -154,7 +154,7 @@
       <string>Dateibearbeitung</string>
      </property>
      <property name="flat" >
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <layout class="QHBoxLayout" >
       <item>

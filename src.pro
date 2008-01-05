@@ -56,7 +56,8 @@ FORMS += ui/main.ui \
  ui/systemviewdlg.ui \
  ui/passwordsettingsdlg.ui \
  ui/mergeterminalsselectpage.ui \
- ui/mergeterminalsworkingpage.ui
+ ui/mergeterminalsworkingpage.ui \
+ ui/selectlanguagemodelsource.ui
 
 
 HEADERS += simonview.h \
@@ -187,7 +188,9 @@ importtrainingdirectoryworkingpage.h \
  mergeterminalsselectterminalspage.h \
  mergeterminalsworkingpage.h \
  mergeterminals.h \
- firstrunwizard.h
+ firstrunwizard.h \
+ systemwidgetpage.h \
+ selectlanguagemodelsourcepage.h
 
 
 
@@ -312,7 +315,9 @@ SOURCES += main.cpp \
  mergeterminalsselectterminalspage.cpp \
  mergeterminalsworkingpage.cpp \
  mergeterminals.cpp \
- firstrunwizard.cpp
+ firstrunwizard.cpp \
+ systemwidgetpage.cpp \
+ selectlanguagemodelsourcepage.cpp
 
 
 

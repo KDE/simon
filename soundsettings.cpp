@@ -39,6 +39,12 @@ SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellung
 	
 	
 	connect ( ui.cbInDevice, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( refreshDeviceCapabilities() ) );
+
+	connect ( ui.cbInDevice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
+	connect ( ui.cbOutDevice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
+	connect ( ui.cbChannels, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
+	connect ( ui.cbSampleRate, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
+	connect ( ui.hsMic, SIGNAL(sliderMoved(int)), this, SIGNAL(changed()));
 }
 
 /**
@@ -104,6 +110,16 @@ void SoundSettings::refreshDeviceCapabilities()
 	}
 }
 
+
+/**
+ * \brief As there _must_ be an audio device selected  it might as well be the correct one - return true
+ * \author Peter Grasch
+ * @return always true
+ */
+bool SoundSettings::isComplete()
+{
+	return true;
+}
 
 /**
  * \brief Applys the changes

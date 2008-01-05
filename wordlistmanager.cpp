@@ -475,14 +475,17 @@ QString* WordListManager::getTerminal(QString name, QString pronunciation, WordL
  */
 QString WordListManager::getRandomWord(QString terminal)
 {
-	WordList *main = getWordList();
 	wordListLock.lock();
+	WordList *main = getWordList();
 	int start = qrand()%main->count();
 	int i=start;
 	while (i<main->count())
 	{
 		if (main->at(i).getTerminal()==terminal)
+		{
+			wordListLock.unlock();
 			return main->at(i).getWord();
+		}
 		i++;
 	}
 	//we didn't find anything till now
@@ -491,7 +494,10 @@ QString WordListManager::getRandomWord(QString terminal)
 	while (i<start)
 	{
 		if (main->at(i).getTerminal()==terminal)
+		{
+			wordListLock.unlock();
 			return main->at(i).getWord();
+		}
 		i++;
 	}
 	wordListLock.unlock();
@@ -507,7 +513,10 @@ QString WordListManager::getRandomWord(QString terminal)
 	while (i<shadowList->count())
 	{
 		if (shadowList->at(i).getTerminal()==terminal)
+		{
+			shadowLock.unlock();
 			return shadowList->at(i).getWord();
+		}
 		i++;
 	}
 	//we didn't find anything till now
@@ -516,7 +525,10 @@ QString WordListManager::getRandomWord(QString terminal)
 	while (i<start)
 	{
 		if (shadowList->at(i).getTerminal()==terminal)
+		{
+			shadowLock.unlock();
 			return shadowList->at(i).getWord();
+		}
 		i++;
 	}
 	shadowLock.unlock();
@@ -540,6 +552,8 @@ QStringList WordListManager::getTerminals(bool includeShadow)
 		shadowLock.unlock();
 	}
 	terminals.sort();
+
+
 	return terminals;
 }
 

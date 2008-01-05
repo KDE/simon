@@ -29,6 +29,7 @@ public slots:
 	bool init();
 	bool apply();
 	bool reset();
+	bool isComplete() { return true; }
 public:
     Revert(QWidget *parent);
 

@@ -178,6 +178,16 @@ void LogView::logReadFinished(int code)
 	//code is != 0 when we aborted the process
 }
 
+
+/**
+ * \brief Returns always true
+ * @return True - there are now configuration options
+ */
+bool LogView::isComplete()
+{
+	return true;
+}
+
 /**
  * \brief Aborts
  * \author Peter Grasch

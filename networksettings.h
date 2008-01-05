@@ -42,7 +42,7 @@ public slots:
 	
 public:
         NetworkSettings(QWidget* parent);
-
+	bool isComplete();
         ~NetworkSettings();
 
 };

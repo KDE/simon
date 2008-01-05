@@ -1,7 +1,7 @@
 //
 // C++ Interface: commandsettings
 //
-// Description: 
+// Description:
 //
 //
 // Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
@@ -36,61 +36,62 @@ class QIcon;
 */
 class CommandSettings : public SystemWidget
 {
-    Q_OBJECT
-public:
-    CommandSettings(QWidget* parent);
-    ~CommandSettings();
+		Q_OBJECT
+	public:
+		CommandSettings ( QWidget* parent );
+		~CommandSettings();
 
 
-    //void editCommands();
+		//void editCommands();
 
-    bool init();
-    bool apply();
-    bool reset();
-    void deactivateAllCbs();
+		bool init();
+		bool apply();
+		bool reset();
+		bool isComplete();
+		void deactivateAllCbs();
 
-private slots:
-	void newCommand();
-	void deleteCommand();
-	void activateCb();
-	void checkAndAddCommandValues(int currRow, int currCol, int prevRow, int prevCol);
-	void editCommand(int row = -1, int column = 0);
-	void showOnlyCommands();
-    void clearSearchLineEdit();
-    void searchCommandList();
-    void importNewProgram();
-    void importNewPlace();
+	private slots:
+		void newCommand();
+		void deleteCommand();
+		void activateCb();
+		void checkAndAddCommandValues ( int currRow, int currCol, int prevRow, int prevCol );
+		void editCommand ( int row = -1, int column = 0 );
+		void showOnlyCommands();
+		void clearSearchLineEdit();
+		void searchCommandList();
+		void importNewProgram();
+		void importNewPlace();
 
-public slots:
-    void insertCommand(Command *command);
-    void setWidgetsDisabled();
-    void checkValuesAfterReturnPressed();
+	public slots:
+		void insertCommand ( Command *command );
+		void setWidgetsDisabled();
+		void checkValuesAfterReturnPressed();
 
-private:
-    Ui::CommandSettingsDlg ui;
-    SimonTableWidget *twCommand;
+	private:
+		Ui::CommandSettingsDlg ui;
+		SimonTableWidget *twCommand;
 
-    ImportProgramWizard* importProgramWizard;
-    ImportPlaceWizard* importPlaceWizard;
-    int commandsCount;
+		ImportProgramWizard* importProgramWizard;
+		ImportPlaceWizard* importPlaceWizard;
+		int commandsCount;
 
-    bool commandNameExists(QString name, int prevRow);
-    bool commandValueExists(QString value, int prevRow);
-    bool allCommandValuesSet(int prevRow);
+		bool commandNameExists ( QString name, int prevRow );
+		bool commandValueExists ( QString value, int prevRow );
+		bool allCommandValuesSet ( int prevRow );
 
-    void showAllCommands();
+		void showAllCommands();
 
-    void deactivateCB(int prevRow);
+		void deactivateCB ( int prevRow );
 
-    XMLCommand *commandLoader;
-    bool commandEdited;
-    QIcon getIconFromResource(QString resourceId);
-    QString getTypeName(CommandType ctype);
-    int getTypeNumber(QString commandName);
+		XMLCommand *commandLoader;
+		bool commandEdited;
+		QIcon getIconFromResource ( QString resourceId );
+		QString getTypeName ( CommandType ctype );
+		int getTypeNumber ( QString commandName );
 
-signals:
-    void commandsChanged();
-    void changeExistingName(bool changeName);
+	signals:
+		void commandsChanged();
+		void changeExistingName ( bool changeName );
 };
 
 #endif

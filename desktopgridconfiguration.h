@@ -30,6 +30,7 @@ public slots:
 public:
         DesktopGridConfiguration(QWidget* parent);
 
+	bool isComplete();
 
         ~DesktopGridConfiguration();
 

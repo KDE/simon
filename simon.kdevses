@@ -1,85 +1,28 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="26" >
-  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/grammarmanager.cpp" >
-   <View0 Encoding="" line="56" Type="Source" />
+ <DocsAndViews NumberOfDocuments="7" >
+  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/simonview.cpp" >
+   <View0 Encoding="" line="81" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/grammarmanager.h" >
-   <View0 Encoding="" line="28" Type="Source" />
-  </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/grammarsettings.h" >
-   <View0 Encoding="" line="22" Type="Source" />
-  </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importgrammarwizard.h" >
-   <View0 Encoding="" line="24" Type="Source" />
-  </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importgrammarselectfilespage.h" >
-   <View0 Encoding="" line="31" Type="Source" />
-  </Doc4>
-  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importgrammarselectfilespage.cpp" >
-   <View0 Encoding="" line="26" Type="Source" />
-  </Doc5>
-  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importgrammarworkingpage.cpp" >
-   <View0 Encoding="" line="54" Type="Source" />
-  </Doc6>
-  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importgrammarworkingpage.h" >
-   <View0 Encoding="" line="25" Type="Source" />
-  </Doc7>
-  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importgrammar.cpp" >
-   <View0 Encoding="" line="98" Type="Source" />
-  </Doc8>
-  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importgrammar.h" >
-   <View0 Encoding="" line="29" Type="Source" />
-  </Doc9>
-  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/eventhandler.h" >
-   <View0 Encoding="" line="24" Type="Source" />
-  </Doc10>
-  <Doc11 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/systemview.cpp" >
-   <View0 Encoding="" line="46" Type="Source" />
-  </Doc11>
-  <Doc12 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/mergeterminalswizard.cpp" >
-   <View0 Encoding="" line="47" Type="Source" />
-  </Doc12>
-  <Doc13 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/mergeterminalswizard.h" >
-   <View0 Encoding="" line="33" Type="Source" />
-  </Doc13>
-  <Doc14 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/mergeterminalsselectterminalspage.cpp" >
-   <View0 Encoding="" line="27" Type="Source" />
-  </Doc14>
-  <Doc15 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/mergeterminalsselectterminalspage.h" >
-   <View0 Encoding="" line="20" Type="Source" />
-  </Doc15>
-  <Doc16 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/mergeterminalsworkingpage.h" >
+  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/firstrunwizard.cpp" >
    <View0 Encoding="" line="38" Type="Source" />
-  </Doc16>
-  <Doc17 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/mergeterminalsworkingpage.cpp" >
-   <View0 Encoding="" line="33" Type="Source" />
-  </Doc17>
-  <Doc18 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/mergeterminals.cpp" >
-   <View0 Encoding="" line="40" Type="Source" />
-  </Doc18>
-  <Doc19 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/mergeterminals.h" >
-   <View0 Encoding="" line="39" Type="Source" />
-  </Doc19>
-  <Doc20 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.h" >
+  </Doc1>
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/firstrunwizard.h" >
    <View0 Encoding="" line="37" Type="Source" />
-  </Doc20>
-  <Doc21 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.cpp" >
-   <View0 Encoding="" line="227" Type="Source" />
-  </Doc21>
-  <Doc22 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/word.h" >
-   <View0 Encoding="" line="111" Type="Source" />
-  </Doc22>
-  <Doc23 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistview.h" >
-   <View0 Encoding="" line="51" Type="Source" />
-  </Doc23>
-  <Doc24 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistview.cpp" >
-   <View0 Encoding="" line="46" Type="Source" />
-  </Doc24>
-  <Doc25 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/grammarsettings.cpp" >
-   <View0 Encoding="" line="100" Type="Source" />
-  </Doc25>
+  </Doc2>
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/systemwidgetpage.cpp" >
+   <View0 Encoding="" line="22" Type="Source" />
+  </Doc3>
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/systemwidgetpage.h" >
+   <View0 Encoding="" line="30" Type="Source" />
+  </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectlanguagemodelsourcepage.cpp" >
+   <View0 Encoding="" line="24" Type="Source" />
+  </Doc5>
+  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectlanguagemodelsourcepage.h" >
+   <View0 Encoding="" line="27" Type="Source" />
+  </Doc6>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

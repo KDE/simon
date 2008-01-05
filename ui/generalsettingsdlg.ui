@@ -22,7 +22,7 @@
       <string>Geschwindigkeit</string>
      </property>
      <property name="flat" >
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <layout class="QGridLayout" >
       <item row="0" column="0" >
@@ -58,7 +58,7 @@
       <string>Allgemein</string>
      </property>
      <property name="flat" >
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <layout class="QGridLayout" >
       <item row="0" column="0" >
@@ -107,7 +107,7 @@
       <string>Pfade</string>
      </property>
      <property name="flat" >
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <layout class="QHBoxLayout" >
       <item>

@@ -45,6 +45,7 @@ public slots:
 	bool init();
 	bool apply();
 	bool reset();
+	bool isComplete();
 public:
     GrammarSettings(QWidget* parent, GrammarManager *grammarManager);
 

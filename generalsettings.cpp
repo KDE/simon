@@ -24,11 +24,35 @@ GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(tr("Allgemeine E
 	ui.setupUi(this);
 	guessChildTriggers(this);
 	hide();
-	
+
+
+	connect(ui.cbStartSimonOnBoot, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
+	connect(ui.cbStartJuliusAsNeeded, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
+	connect(ui.cbAskBeforeExit, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
+	connect(ui.cbAutoConnect, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
+
+	connect(ui.leCommands, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leShortcuts, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leProgramCategories, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leTempDir, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.lePathToTexts, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+
 	//set help
 	help = tr("Hier können Sie grundlegende Einstellungen rund um Simon verändern.\n\nDazu zählen: Pfade und Sicherheitsabfragen.\n\nEinstellungen in diesem Modul können kritisch für die Verwendung von simon sein.\n\nWenn das Häckchen \"Starte juliusd wenn nötig\" aktiviert ist, wird versucht juliusd lokal zu starten, sollte zu keinem laufenden Dämon verbunden werden können.");
 }
 
+/**
+ * \brief Determines if the page is completely configured
+ * 
+ * \author Peter Grasch
+ * @return if we are done here
+ */
+bool GeneralSettings::isComplete()
+{
+	return ((!ui.leCommands->text().isEmpty()) && (!ui.leShortcuts->text().isEmpty()) && 
+			(!ui.leProgramCategories->text().isEmpty()) &&  (!ui.leTempDir->text().isEmpty()) && 
+			(!ui.lePathToTexts->text().isEmpty()));
+}
 
 /**
  * \brief Applys the changed settings
@@ -49,7 +73,6 @@ bool GeneralSettings::apply()
 	Settings::set("PathToCommands", ui.leCommands->text());
 	Settings::set("PathToShortcuts", ui.leShortcuts->text());
 	Settings::set("PathToProgramCategories", ui.leProgramCategories->text());
-	Settings::set("PathToCommands", ui.leCommands->text());
 	Settings::set("TempDir", ui.leTempDir->text());
 	Settings::set("PathToTexts", ui.lePathToTexts->text());
 

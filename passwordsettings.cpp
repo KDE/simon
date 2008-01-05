@@ -22,6 +22,10 @@ PasswordSettings::PasswordSettings(QWidget* parent): SystemWidget(tr("Passwort-S
 	connect(ui.lePassword2, SIGNAL(textChanged(QString)), this, SLOT(unsetHashed()));
 	connect(ui.pbResetPassword, SIGNAL(toggled(bool)), this, SLOT(resetButtonClicked(bool)));
 
+
+	connect(ui.cbCheckPassword, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
+	connect(ui.lePassword, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.lePassword2, SIGNAL(editingFinished()), this, SIGNAL(changed()));
 }
 
 void PasswordSettings::checkPassword()
@@ -79,13 +83,18 @@ bool PasswordSettings::apply()
 	return true;
 }
 
+bool PasswordSettings::isComplete()
+{
+	return (!ui.cbCheckPassword->isChecked() || ((checkIfPasswordsSane()) && (!ui.lePassword->text().isEmpty())));
+}
+
 bool PasswordSettings::init()
 {
 	//password
 	ui.cbCheckPassword->setChecked(Settings::get("Passwordprotected").toBool());
-	this->originalHash = Settings::get("Password").toString();
-	ui.lePassword->setText(Settings::get("Password").toString());
-	ui.lePassword2->setText(Settings::get("Password").toString());
+	originalHash = Settings::get("Password").toString();
+	ui.lePassword->setText(originalHash);
+	ui.lePassword2->setText(originalHash);
 	isHashed = true;
 	return true;
 }

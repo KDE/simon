@@ -77,11 +77,11 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	Logger::log ( tr ( "[INF] Lade Einstellungen..." ) );
 	Settings::initSettings();
 
-	Settings::set("ConfigDone", false);
+// 	Settings::set("ConfigDone", false);
 	if (!Settings::get("ConfigDone").toBool())
 	{
 		FirstRunWizard *firstRunWizard = new FirstRunWizard(this);
-		if (firstRunWizard->exec())
+		if (firstRunWizard->exec() || (QMessageBox::question(this, tr("Konfiguration abbrechen"), tr("Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.\n\nWollen Sie den Assistenten beim nächsten Start wieder anzeigen?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::No))
 			Settings::set("ConfigDone", true);
 	}
 
@@ -152,12 +152,12 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	setupSignalSlots();
 
 	//setting Background
-	QLinearGradient bg ( QPointF ( 1, 1 ), QPointF ( 900, 550 ) );
-	bg.setColorAt ( 0, QColor ( 70, 120, 190 ) );
-	bg.setColorAt ( 1, QColor ( 25, 60, 130 ) );
-	QPalette p ( palette() );
-	p.setBrush ( QPalette::Background, bg );
-	setPalette ( p );
+// 	QLinearGradient bg ( QPointF ( 1, 1 ), QPointF ( 900, 550 ) );
+// 	bg.setColorAt ( 0, QColor ( 70, 120, 190 ) );
+// 	bg.setColorAt ( 1, QColor ( 25, 60, 130 ) );
+// 	QPalette p ( palette() );
+// 	p.setBrush ( QPalette::Background, bg );
+// 	setPalette ( p );
 
 	if ( Settings::get ( "AutoConnect" ).toBool() )
 	{

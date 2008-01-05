@@ -34,20 +34,30 @@ AddWordResolvePage::AddWordResolvePage(WordListManager *wordListManager, Grammar
 
 void AddWordResolvePage::init(QString word)
 {
+	qDebug() << "here";
 	ui.cbType->clear();
+	qDebug() << "here2";
 	QStringList terminals = wordListManager->getTerminals();
+	qDebug() << "here2.5";
+// 	qDebug() << terminals;
 	ui.cbType->addItems(terminals);
+	qDebug() << "here3";
 	ui.leWord->setText(word);
 	ui.leSampa->clear();
 
+	qDebug() << "here4";
 	WordList* similar = wordListManager->getWords(word, true /*include shadow*/);
+	qDebug() << "here5";
 	displayWords(similar);
 }
 
 void AddWordResolvePage::createExamples()
 {
+	qDebug() << "examples1";
 	QString terminal = ui.cbType->currentText();
+	qDebug() << "examples2";
 	QStringList examples = grammarManager->getExamples(ui.leWord->text(), terminal,2);
+	qDebug() << "examples3";
 	
 	if (examples.count() >= 2) 
 	{

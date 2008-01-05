@@ -18,9 +18,20 @@ DesktopGridConfiguration::DesktopGridConfiguration(QWidget* parent): SystemWidge
 	help = "simon kann, wenn Sie keinen composite fähigen Desktop benutzen, Transparenz simmulieren.\n\nBenutzen Sie einen composite fähigen Desktop wie z.B.: \nLinux: Beryl/Compiz/Kwin (>= KDE 4.0)\nMicrosoft Windows: Windows 2000/XP/Vista\n\nsollten Sie hier ja sagen.\n\nWenn das Gitter dann nicht transparent angezeigt werden sollte, sagen Sie hier bitte nein.";
 
 	ui.setupUi(this);
+	connect(ui.leTrigger, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.cbRealTransparency, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
 }
 
 
+/**
+ * \brief Are we done configuring?
+ * \author Peter Grasch
+ * @return True, if the trigger is set
+ */
+bool DesktopGridConfiguration::isComplete()
+{
+	return !ui.leTrigger->text().isEmpty();
+}
 
 bool DesktopGridConfiguration::apply()
 {

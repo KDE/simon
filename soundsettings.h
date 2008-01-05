@@ -40,7 +40,7 @@ public slots:
 	bool reset();
 public:
     SoundSettings(QWidget* parent);
-
+	bool isComplete();
     ~SoundSettings();
 
 };
