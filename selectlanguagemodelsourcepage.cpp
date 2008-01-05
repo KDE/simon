@@ -36,9 +36,9 @@ int SelectLanguageModelSourcePage::nextId() const
 {
 	if (ui.rbNewModel->isChecked())
 	{
-		return FirstRunWizard::ModelSettingsPage;
-	} else
 		return FirstRunWizard::NewModelDescription;
+	} else
+		return FirstRunWizard::ModelSettingsPage;
 }
 
 

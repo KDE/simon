@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>520</width>
-    <height>347</height>
+    <width>523</width>
+    <height>310</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -20,7 +20,7 @@
      </property>
      <widget class="QWidget" name="tbSamples" >
       <attribute name="title" >
-       <string>Sprechproben</string>
+       <string>Trainingsdaten</string>
       </attribute>
       <layout class="QGridLayout" >
        <item row="0" column="0" >
@@ -131,7 +131,7 @@
      </widget>
      <widget class="QWidget" name="tbOutput" >
       <attribute name="title" >
-       <string>Ausgabeort</string>
+       <string>Ausgabe</string>
       </attribute>
       <layout class="QVBoxLayout" >
        <item>
@@ -334,8 +334,7 @@
        <item>
         <widget class="QLabel" name="label_2" >
          <property name="text" >
-          <string>Im Falle der Wav-Config empfiehlt es sich allerdings eine Standard-config zu benutzen und diese nur (falls notwendig) anzupassen.
-Die tree1.hed weist Unterschiede quasi nur zwischen verschiedenen Sprachen oder extremen Dialekten auf.</string>
+          <string>Im Falle der Wav-Config empfiehlt es sich allerdings eine Standard-Version zu benutzen und diese nur (falls nötig) anzupassen. Die tree1.hed weist nur Unterschiede zwischen verschiedenen Sprachen oder Dialekten auf.</string>
          </property>
          <property name="wordWrap" >
           <bool>true</bool>
@@ -454,6 +453,16 @@ Die tree1.hed weist Unterschiede quasi nur zwischen verschiedenen Sprachen oder 
          </property>
         </spacer>
        </item>
+       <item>
+        <widget class="QLabel" name="label_5" >
+         <property name="text" >
+          <string>&lt;b>Sie können die meisten dieser Dateien aus einem aktuellen Voxforge-Snapshot entnehmen. (&lt;a href="http://www.voxforge.org">Voxforge Homepage&lt;/a>)&lt;/b></string>
+         </property>
+         <property name="wordWrap" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab_2" >
@@ -474,6 +483,12 @@ Die tree1.hed weist Unterschiede quasi nur zwischen verschiedenen Sprachen oder 
           <layout class="QVBoxLayout" >
            <item>
             <widget class="QTableWidget" name="twProcessingFilters" >
+             <property name="minimumSize" >
+              <size>
+               <width>0</width>
+               <height>100</height>
+              </size>
+             </property>
              <column>
               <property name="text" >
                <string>Befehl</string>
