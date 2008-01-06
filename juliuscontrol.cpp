@@ -165,7 +165,6 @@ void JuliusControl::messageReceived()
 		case 20000:
 		{
 			/* word recognized */
-// 			qDebug() << test;
 			QString word, sampa, samparaw;
 			msg >> word;
 			msg >> sampa;

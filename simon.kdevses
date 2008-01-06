@@ -1,28 +1,64 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="7" >
+ <DocsAndViews NumberOfDocuments="19" >
   <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/simonview.cpp" >
-   <View0 Encoding="" line="81" Type="Source" />
+   <View0 Encoding="" line="109" Type="Source" />
   </Doc0>
   <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/firstrunwizard.cpp" >
-   <View0 Encoding="" line="38" Type="Source" />
+   <View0 Encoding="" line="77" Type="Source" />
   </Doc1>
   <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/firstrunwizard.h" >
-   <View0 Encoding="" line="37" Type="Source" />
+   <View0 Encoding="" line="3" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/systemwidgetpage.cpp" >
-   <View0 Encoding="" line="22" Type="Source" />
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectlanguagemodelsourcepage.cpp" >
+   <View0 Encoding="" line="21" Type="Source" />
   </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/systemwidgetpage.h" >
-   <View0 Encoding="" line="30" Type="Source" />
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectlanguagemodelsourcepage.h" >
+   <View0 Encoding="" line="5" Type="Source" />
   </Doc4>
-  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectlanguagemodelsourcepage.cpp" >
-   <View0 Encoding="" line="24" Type="Source" />
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importdictwiktionarypage.cpp" >
+   <View0 Encoding="" line="66" Type="Source" />
   </Doc5>
-  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/selectlanguagemodelsourcepage.h" >
-   <View0 Encoding="" line="27" Type="Source" />
+  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importdictworkingpage.cpp" >
+   <View0 Encoding="" line="148" Type="Source" />
   </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importdictwiktionarypage.h" >
+   <View0 Encoding="" line="24" Type="Source" />
+  </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/simonlistwidget.h" >
+   <View0 Encoding="" line="41" Type="Source" />
+  </Doc8>
+  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/firstrunimportgrammarworkingpage.cpp" >
+   <View0 Encoding="" line="13" Type="Source" />
+  </Doc9>
+  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/firstrunimportgrammarworkingpage.h" >
+   <View0 Encoding="" line="15" Type="Source" />
+  </Doc10>
+  <Doc11 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importgrammarworkingpage.cpp" >
+   <View0 Encoding="" line="23" Type="Source" />
+  </Doc11>
+  <Doc12 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importgrammarworkingpage.h" >
+   <View0 Encoding="" line="20" Type="Source" />
+  </Doc12>
+  <Doc13 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/firstruncreatedictionarypage.cpp" >
+   <View0 Encoding="" line="36" Type="Source" />
+  </Doc13>
+  <Doc14 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/firstruncreatedictionarypage.h" >
+   <View0 Encoding="" line="27" Type="Source" />
+  </Doc14>
+  <Doc15 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importgrammarselectfilespage.cpp" >
+   <View0 Encoding="" line="14" Type="Source" />
+  </Doc15>
+  <Doc16 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/firstrunmodelsettings.cpp" >
+   <View0 Encoding="" line="16" Type="Source" />
+  </Doc16>
+  <Doc17 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistview.cpp" >
+   <View0 Encoding="" line="70" Type="Source" />
+  </Doc17>
+  <Doc18 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.cpp" >
+   <View0 Encoding="" line="137" Type="Source" />
+  </Doc18>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

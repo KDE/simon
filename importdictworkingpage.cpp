@@ -12,6 +12,7 @@
 #include "importdictworkingpage.h"
 #include <QLabel>
 #include <QProgressBar>
+#include <QVariant>
 #include <QVBoxLayout>
 #include "bunzip.h"
 #include "quickdownloader.h"
@@ -132,6 +133,25 @@ void ImportDictWorkingPage::displayStatus(QString status)
 void ImportDictWorkingPage::displayProgress(int progress)
 {
 	pbMain->setValue(progress);
+}
+
+#include <QDebug>
+/**
+ * \brief Starts the importing progress
+ * \author Peter Grasch
+ */
+void ImportDictWorkingPage::initializePage()
+{
+	if (field("hadifix").toBool())
+		importHADIFIX(field("bompFileName").toString());
+	else 
+	{
+		QString path;
+		if (field("importWikiLocal").toBool()) path = field("wikiFileName").toString();
+		if (field("importWikiRemote").toBool()) path = field("wikiRemoteURL").toString();
+
+		importWiktionary(path);
+	}
 }
 
 /**

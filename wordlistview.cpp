@@ -69,19 +69,6 @@ WordListView::WordListView(TrainingView *trainView, QWidget *parent) : InlineWid
 	
 	//guessChildTriggers();
 	
-	/*registerControl("Suche", ui.leSearch, SLOT(setFocus()));
-	registerControl("suchen", ui.leSearch, SLOT(returnPressed()));
-	registerControl("leere Suche", ui.pbClearSearch, SLOT(animateClick()));
-	
-	registerControl("Wechsle Tab", ui.twCurrentAction, SLOT(setCurrentIndex(ui.twCurrentAction->count()-ui.twCurrentAction->currentIndex())));
-	
-	registerControl("Neues Wort hinzufügen", ui.pbAddWord, SLOT(animateClick()));
-	registerControl("Importiere Wörterbuch", ui.pbImport, SLOT(animateClick()));
-	registerControl("zum Training hinzufügen", ui.pbAddToTraining, SLOT(animateClick()));
-	registerControl("Trainingsprogramm vorschlagen", ui.pbSuggestTrain, SLOT(animateClick()));
-	registerControl("Wort aus Liste löschen", ui.pbDeleteTrainingWord, SLOT(animateClick()));
-	registerControl("Trainieren", ui.pbTrainList, SLOT(animateClick()));*/
-	
 }
 
 

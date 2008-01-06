@@ -62,7 +62,6 @@ void GrammarManager::renameTerminal(QString terminal, QString newName)
 
 QStringList GrammarManager::getExamples(QString word, QString terminal, int count)
 {
-	qDebug() << "gram!";
 	QStringList grammarStructures = getStructures(terminal);
 
 	if (grammarStructures.count()==0)
@@ -74,10 +73,8 @@ QStringList GrammarManager::getExamples(QString word, QString terminal, int coun
 	QStringList chosen;
 	QString curTerminal;
 	bool alreadyUsed=false;
-	qDebug() << "gram 1";
 	for (int i=0; i < count; i++)
 	{
-		qDebug() << "gram 2 " << i;
 		QString sentence = grammarStructures.at(qrand()%grammarStructures.count());
 	
 		QStringList terminals = sentence.split(" ");
@@ -88,35 +85,24 @@ QStringList GrammarManager::getExamples(QString word, QString terminal, int coun
 		//"demonstrate in action"
 		//this is ensured by the alreadyUsed variable which holds if the word was already replaced
 		//if it is set the occurance of the terminal is used just like any other
-		qDebug() << terminals;
-		qDebug() << terminal;
 		for (int j=0; j < terminals.count(); j++)
 		{
 			
-			qDebug() << "gram 3" << i << j;
 			curTerminal = terminals[j];
-			qDebug() << "gram 4" << i << j;
 			if ((curTerminal == terminal) && (!alreadyUsed))
 			{
-				qDebug() << "gram 5" << i << j;
 				terminals.replace(j, word);
-				qDebug() << "gram 6" << i << j;
 				alreadyUsed = true;
-				qDebug() << "gram 6.5" << i << j;
 			} else
 			{
 				
-				qDebug() << "gram 7" << i << j;
 				terminals.replace(j, wordlistManager->getRandomWord(terminals[j]));
 			}
-			
-			qDebug() << "gram 8" << i << j;
 		}
 		
 		chosen << terminals.join(" ").trimmed();
 		alreadyUsed=false;
 	}
-	qDebug() << "gram end";
 	return chosen;
 }
 

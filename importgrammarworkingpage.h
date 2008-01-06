@@ -39,6 +39,7 @@ private slots:
 public:
     ImportGrammarWorkingPage(WordListManager *wordListManager, QWidget* parent);
 
+	void setWordListManager(WordListManager*);
 	bool isComplete() { return completed; }
     ~ImportGrammarWorkingPage();
 

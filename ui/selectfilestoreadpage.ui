@@ -34,8 +34,7 @@
    <item>
     <widget class="QLabel" name="lbListDesc" >
      <property name="text" >
-      <string>Bitte fügen Sie alle Texte die Sie analysieren lassen möchten in die Liste ein.
-Es werden nur Textdateien (*.txt) unterstützt.</string>
+      <string>Textdateien (*.txt):</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>

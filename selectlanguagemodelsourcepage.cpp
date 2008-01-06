@@ -18,6 +18,9 @@ SelectLanguageModelSourcePage::SelectLanguageModelSourcePage(QWidget* parent): Q
 	ui.setupUi(this);
 	connect(ui.rbNewModel, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
 	connect(ui.rbOpenModel, SIGNAL(toggled(bool)), this, SLOT(updateInfo()));
+
+	registerField("newModel", ui.rbNewModel);
+
 	updateInfo();
 }
 

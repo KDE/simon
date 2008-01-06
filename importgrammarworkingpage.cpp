@@ -19,12 +19,12 @@ ImportGrammarWorkingPage::ImportGrammarWorkingPage(WordListManager *wordListMana
 	completed=false;
 	setTitle(tr("Analyse läuft..."));
 	ui.setupUi(this);
-	this->grammarImporter = new ImportGrammar(wordListManager,this);
-	connect(grammarImporter, SIGNAL(status(QString)), this, SLOT(printStatus(QString)));
-	connect(grammarImporter, SIGNAL(fileProgress(int, int)), this, SLOT(displayFileProgress(int, int)));
-	connect(grammarImporter, SIGNAL(allProgress(int, int)), this, SLOT(displayWholeProgress(int, int)));
-	connect(grammarImporter, SIGNAL(grammarCreated(QStringList)), this, SIGNAL(grammarCreated(QStringList)));
 	this->wordListManager = wordListManager;
+}
+
+void ImportGrammarWorkingPage::setWordListManager(WordListManager *wordlistManager)
+{
+	this->wordListManager = wordlistManager;
 }
 
 void ImportGrammarWorkingPage::printStatus(QString status)
@@ -49,6 +49,15 @@ void ImportGrammarWorkingPage::displayWholeProgress(int progress, int max)
 
 void ImportGrammarWorkingPage::initializePage()
 {
+	if (!this->wordListManager) return;
+
+	grammarImporter = new ImportGrammar(wordListManager,this);
+	connect(grammarImporter, SIGNAL(status(QString)), this, SLOT(printStatus(QString)));
+	connect(grammarImporter, SIGNAL(fileProgress(int, int)), this, SLOT(displayFileProgress(int, int)));
+	connect(grammarImporter, SIGNAL(allProgress(int, int)), this, SLOT(displayWholeProgress(int, int)));
+	connect(grammarImporter, SIGNAL(grammarCreated(QStringList)), this, SIGNAL(grammarCreated(QStringList)));
+
+
 	QStringList files = field("files").toString().split("||");
 	
 	grammarImporter->setFiles(files);

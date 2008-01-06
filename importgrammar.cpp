@@ -52,7 +52,7 @@ QStringList ImportGrammar::readFile(QString path)
 	// this is a test?
 	// this is a test!?
 	// this is a test?!...!
-	// this is a test - or is it (is recognised as two seperate sentences: this is a test; or is it)
+	// this is a test - or is it? (is recognised as two seperate sentences: this is a test; or is it)
 	// he said: Test
 	QRegExp sentenceStoppers = QRegExp("((\\.|\\?|\\!|:)(\\.|\\?|\\!)*| )-*( |$|\\n)");
 

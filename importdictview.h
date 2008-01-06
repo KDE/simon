@@ -35,8 +35,6 @@ private:
 	
 signals:
 	void dictGenerated(WordList*);
-private slots:
-	void idChanged(int id);
 public slots:
 	void show();
 	QWizardPage* createIntroPage();
@@ -50,6 +48,12 @@ public slots:
 
 
 public:
+	enum ImportDictWizardPages {
+		IntroPage=0,
+		SelectTypePage=1,
+		BompPage=2,
+		WiktionaryPage=3
+	};
     ImportDictView(QWidget *parent=0);
     ~ImportDictView();
 

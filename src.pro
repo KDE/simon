@@ -190,7 +190,12 @@ importtrainingdirectoryworkingpage.h \
  mergeterminals.h \
  firstrunwizard.h \
  systemwidgetpage.h \
- selectlanguagemodelsourcepage.h
+ selectlanguagemodelsourcepage.h \
+ firstrunimportdictselectsourcepage.h \
+ firstrunmodelsettings.h \
+ firstrunimportbomppage.h \
+ firstrunimportgrammarworkingpage.h \
+ firstruncreatedictionarypage.h
 
 
 
@@ -317,7 +322,10 @@ SOURCES += main.cpp \
  mergeterminals.cpp \
  firstrunwizard.cpp \
  systemwidgetpage.cpp \
- selectlanguagemodelsourcepage.cpp
+ selectlanguagemodelsourcepage.cpp \
+ firstrunmodelsettings.cpp \
+ firstrunimportgrammarworkingpage.cpp \
+ firstruncreatedictionarypage.cpp
 
 
 

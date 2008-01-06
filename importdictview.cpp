@@ -40,9 +40,6 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 	addPage(createFinishedPage());
 	setWindowTitle(tr("Importiere Wörterbuch"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/importdict.png"));
-	
-	
-	connect(this, SIGNAL(currentIdChanged( int )), this, SLOT(idChanged(int)));
 }
 
 /**
@@ -76,33 +73,6 @@ QWizardPage* ImportDictView::createIntroPage()
 	return intro;
 }
 
-/**
- * \brief starts the importing process/restarts the wizard when triggered a certain path
- * \author Peter Grasch
- * 
- * The function determines where we came from and where we want to go and reacts on it;
- * If we, for example, come from the ImportWiktionaryPage and go to the ImportDictWorkingPage
- * we start the import-process of the new wiktionary
- * 
- * @param newId the id to change to
- */
-void ImportDictView::idChanged(int newId)
-{
-	if ((newId ==4))
-	{
-		if ((prevId <4))
-		{
-			if (((ImportDictSelectSourcePage*)page(1))->getType() == HADIFIXBOMP)
-			{
-				((ImportDictWorkingPage*) page(4))->importHADIFIX(
-					((ImportBOMPPage*) page(2))->getFileName());
-			} else ((ImportDictWorkingPage*) page(4))->importWiktionary(
-					((ImportDictWiktionaryPage*) page(3))->getPath());
-		}
-		else restart();
-	}
-	prevId = newId;
-}
 
 
 /**

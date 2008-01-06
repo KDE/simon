@@ -14,7 +14,7 @@
 
 #include <QWizardPage>
 
-class QListWidget;
+class SimonListWidget;
 class QLineEdit;
 class QPushButton;
 class QLabel;
@@ -31,7 +31,7 @@ class ImportDictWiktionaryPage : public QWizardPage
 Q_OBJECT
 
 private:
-	QListWidget *remoteList;
+	SimonListWidget *remoteList;
 	QLineEdit *leWikiPath;
 	QPushButton *pbWikiSelectFolder;
 	QLabel *lbWikiPath;
@@ -46,7 +46,6 @@ private slots:
 public:
     ImportDictWiktionaryPage(QWidget* parent);
 	bool isComplete() const;
-    QString getPath();
 
     ~ImportDictWiktionaryPage();
 

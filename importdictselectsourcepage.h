@@ -12,9 +12,6 @@
 #ifndef IMPORTDICTSELECTSOURCEPAGE_H
 #define IMPORTDICTSELECTSOURCEPAGE_H
 
-#define HADIFIXBOMP 1
-#define WIKTIONARY 2
-
 #include <QWizardPage>
 
 /**
@@ -27,7 +24,6 @@
 class ImportDictSelectSourcePage : public QWizardPage
 {
 public:
-	int getType();
 	int nextId() const;
     ImportDictSelectSourcePage(QWidget* parent);
 

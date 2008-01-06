@@ -152,7 +152,7 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 /**
  * \brief Saves the given wordlist to the given files
  * \author Peter Grasch
- * \todo implement vocab-saving
+ * \todo Vocab saving is the SLOWEST thing ever (one bomp-dict-saving takes over 5 minutes)
  * @param list The list to save
  * @param lexiconFilename The lexicon to write to
  * @param vocabFilename The vocabfile to write to

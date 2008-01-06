@@ -50,6 +50,7 @@ public slots:
 
 	bool isComplete() const;
 public:
+	void initializePage();
     ImportDictWorkingPage(QWidget* parent);
 
     ~ImportDictWorkingPage();

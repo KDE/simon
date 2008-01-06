@@ -39,7 +39,7 @@ ImportBOMPPage::ImportBOMPPage(QWidget* parent): QWizardPage(parent)
 	QPushButton *pbOpenFile = new QPushButton(this);
 	pbOpenFile->setIcon(QIcon(":/images/icons/document-open.svg"));
 	QLineEdit *leFile = new QLineEdit(this);
-	registerField(tr("fileName*"), leFile);
+	registerField(tr("bompFileName*"), leFile);
 	fileLay->addWidget(lbFile);
 	fileLay->addWidget(leFile);
 	fileLay->addWidget(pbOpenFile);
@@ -62,7 +62,7 @@ void ImportBOMPPage::setFile()
 	QStringList files = QFileDialog::getOpenFileNames(this, tr("Zu importierende Textdateien öffnen"), QDir::currentPath(), tr("Textdateien (*.txt)"));
 	if (files.count() == 0) return;
 
-	setField(tr("fileName"), files.at(0));
+	setField(tr("bompFileName"), files.at(0));
 }
 
 

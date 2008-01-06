@@ -23,9 +23,8 @@ SystemWidgetPage::SystemWidgetPage(QWidget *parent)
 
 void SystemWidgetPage::setChild(SystemWidget *child)
 {
-	connect (child, SIGNAL(changed()), this, SIGNAL(completeChanged()));
-	
 	child->init();
+	connect (child, SIGNAL(changed()), this, SIGNAL(completeChanged()));
 	this->child = child;
 	setTitle(child->getTitle());
 

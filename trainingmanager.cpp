@@ -49,7 +49,6 @@ bool TrainingManager::deleteWord(Word *w)
 			{
 // 				samplesToDelete << filename;
 // 				promptsTable->remove(filename);
-				qDebug() << "aufrufen mit " << filename;
 				if (!deletePrompt(filename)) return false;
 			}
 		}
@@ -63,13 +62,11 @@ bool TrainingManager::deleteWord(Word *w)
 bool TrainingManager::deletePrompt(QString key)
 {
 // 	int index = promptsTable->keys().indexOf(key);
-	qDebug() << "loesche " << key;
 	promptsLock.lock();
 	promptsTable->remove(key);
 	promptsLock.unlock();
 	
 	//removes the sample
-	qDebug() << "Remove: " << Settings::getS("Model/PathToSamples")+"/"+key+".wav";
 	QFile::remove(Settings::getS("Model/PathToSamples")+"/"+key+".wav");
 	return savePrompts();
 }

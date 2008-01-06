@@ -19,7 +19,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QVBoxLayout>
-#include <QListWidgetItem>
+#include "simonlistwidget.h"
 #include <QHBoxLayout>
 #include <QIcon>
 #include "quickdownloader.h"
@@ -60,13 +60,15 @@ ImportDictWiktionaryPage::ImportDictWiktionaryPage(QWidget* parent): QWizardPage
 	lay->addWidget(importLocal);
 	lay->addLayout(fileLay);
 	lay->addWidget(importRemote);
-	this->remoteList = new QListWidget(this);
+	this->remoteList = new SimonListWidget(this);
 	remoteList->setMinimumHeight(100);
 	remoteList->setMaximumHeight(153);
 	lay->addWidget(remoteList);
 	this->setLayout(lay);
-	registerField("importLocal", importLocal, "checked", SIGNAL(toggled(bool)));
-	registerField("importRemote", importRemote, "checked", SIGNAL(toggled(bool)));
+	registerField("importWikiLocal", importLocal);
+	registerField("importWikiRemote", importRemote);
+	registerField("wikiRemoteURL", remoteList, "currentUserData",
+			 SIGNAL(currentIndexChanged(int)));
 
 	setTitle(tr("Importiere Wiktionary Wörterbuch"));
 	
@@ -165,25 +167,10 @@ void ImportDictWiktionaryPage::loadList()
  */
 bool ImportDictWiktionaryPage::isComplete() const
 {
-	if (field("importLocal").toBool())
+	if (field("importWikiLocal").toBool())
 	{
 		return !field("wikiFileName").toString().isEmpty();
 	} else return !remoteList->selectedItems().isEmpty();
-}
-
-/**
- * \brief Returns the path to the wiki if we selected local import - else the link to it
- * \author Peter Grasch
- * @return the path to the wiki
- */
-QString ImportDictWiktionaryPage::getPath()
-{
-	if (field("importLocal").toBool())
-	{
-		return field("wikiFileName").toString();
-	} else {
-		return remoteList->selectedItems().at(0)->data(Qt::UserRole).toString();
-	}
 }
 
 /**

@@ -15,10 +15,35 @@
 #include "externalprogrammanager.h"
 #include "systemwidgetpage.h"
 #include "selectlanguagemodelsourcepage.h"
-#include "modelsettings.h"
+
+#include "firstrunmodelsettings.h"
+#include "firstruncreatedictionarypage.h"
+
+#include "firstrunimportdictselectsourcepage.h"
+#include "firstrunimportbomppage.h"
+#include "importdictwiktionarypage.h"
+#include "importdictworkingpage.h"
+
+
+#include "importgrammarselectfilespage.h"
+#include "firstrunimportgrammarworkingpage.h"
+
+#include "grammarmanager.h"
+#include "grammarsettings.h"
+
+#include "wordlistmanager.h"
+#include "trainingmanager.h"
+
+#include "soundsettings.h"
+#include "networksettings.h"
+#include "passwordsettings.h"
+
 
 FirstRunWizard::FirstRunWizard(QWidget* parent): SimonWizard(parent)
 {
+	this->wordListManager=0;
+	this->trainingManager=0;
+
 	setWindowTitle(tr("simon Erstkonfiguration"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/firstrun.png"));
 	addPage(createIntroPage());
@@ -28,7 +53,187 @@ FirstRunWizard::FirstRunWizard(QWidget* parent): SimonWizard(parent)
 	addPage(createLanguageModelSelectSource());
 	addPage(createNewModelDescription());
 	addPage(createModelSettings());
+
+	addPage(createCreateDictionaryPage());
+
+	addPage(createImportDictSelectTypePage());
+	addPage(createImportDictBOMPPage());
+	addPage(createImportDictWiktionaryPage());
+	addPage(createImportDictWorkingPage());
+
+	addPage(createGrammarDescriptionPage());
+	addPage(createSelectFilesPage());
+	addPage(createGrammarWorkingPage());
+	addPage(createGrammarSettings());
+
+	addPage(createSoundSettingsPage());
+
+	addPage(createPasswordDescriptionPage());
+	addPage(createPasswordSettingsPage());
+
+	addPage(createJuliusdDescriptionPage());
+	addPage(createJuliusdSettingsPage());
+
 	addPage(createFinishedPage());
+}
+
+void FirstRunWizard::setWordListManager(WordListManager *wordListManager)
+{
+	if (this->wordListManager) delete this->wordListManager;
+
+	this->wordListManager = wordListManager;
+	this->firstRunImportGrammarWorkingPage->setWordListManager(wordListManager);
+	connect(importDictWorkingPage, SIGNAL(wordListImported(WordList*)), this, SLOT(importDict(WordList*)));
+
+	this->grammarManager = new GrammarManager(wordListManager);
+	GrammarSettings *grammarSettings = new GrammarSettings(grammarSettingsPage, grammarManager);
+	grammarSettingsPage->setChild(grammarSettings);
+	
+}
+
+void FirstRunWizard::mergeGrammarStructure(QStringList structures)
+{
+	QStringList newStructs = grammarManager->getAllStructures();
+	for (int i=0; i < newStructs.count(); i++)
+		if (!structures.contains(newStructs[i]))
+			structures << newStructs[i];
+}
+
+void FirstRunWizard::importDict(WordList *words)
+{
+	if (this->wordListManager)
+	{
+		this->wordListManager->addWords(words, true, true);
+	}
+}
+
+void FirstRunWizard::setTrainingManager(TrainingManager *trainingManager)
+{
+	if (this->trainingManager) delete this->trainingManager;
+
+	this->trainingManager = trainingManager;
+}
+
+QWizardPage* FirstRunWizard::createCreateDictionaryPage()
+{
+	FirstRunCreateDictionaryPage *page = new FirstRunCreateDictionaryPage(this);
+	connect(page, SIGNAL(wordListManagerCreated(WordListManager*)), this, SLOT(setWordListManager(WordListManager*)));
+	connect(page, SIGNAL(trainingManagerCreated(TrainingManager*)), this, SLOT(setTrainingManager(TrainingManager*)));
+	connect(page, SIGNAL(done()), this, SLOT(next()));
+	return page;
+}
+
+
+QWizardPage* FirstRunWizard::createImportDictSelectTypePage()
+{
+	return (QWizardPage*) new FirstRunImportDictSelectSourcePage(this);
+}
+
+QWizardPage* FirstRunWizard::createImportDictBOMPPage()
+{
+	return (QWizardPage*) new FirstRunImportBOMPPage(this);
+}
+
+QWizardPage* FirstRunWizard::createImportDictWiktionaryPage()
+{
+	return (QWizardPage*) new ImportDictWiktionaryPage(this);
+}
+
+QWizardPage* FirstRunWizard::createImportDictWorkingPage()
+{
+	this->importDictWorkingPage = new ImportDictWorkingPage(this);
+	return (QWizardPage*) importDictWorkingPage;
+}
+
+
+QWizardPage* FirstRunWizard::createGrammarDescriptionPage()
+{
+	QWizardPage *description = new QWizardPage(this);
+	QHBoxLayout *lay = new QHBoxLayout(description);
+	QLabel *desc = new QLabel(description);
+	lay->addWidget(desc);
+	description->setLayout(lay);
+
+	desc->setWordWrap(true);
+	description->setTitle(tr("Die Grammatik"));
+	desc->setText(tr("<html><head /><body><p>Sie haben nun ein (Schatten-) Wörterbuch und ein (Schatten-) Vokabular (wenn das importierte Wörterbuch diese Informationen zur Verfügung gestellt hat) importiert (Sie können jetzt zurückgehen und noch ein Wörterbuch importieren, wenn Sie möchten - Sie können aber dies aber auch nach Abschluss' dieses Assistenten jederzeit in der \"Wortliste\" nachholen).</p><p>Es fehlt nun für ihr persönliches Sprachmodell noch die Grammatik und die Trainingsdaten.</p><p>Im nächsten Schritt werden wir anhand von von Ihnen geschriebenen Textdateien Ihren Grammatikalischen Stil ermitteln.</p></body></html>"));
+
+	return description;
+}
+
+
+
+QWizardPage* FirstRunWizard::createSoundSettingsPage()
+{
+	SystemWidgetPage *sound = new SystemWidgetPage(this);
+	sound->setChild(new SoundSettings(sound));
+	return sound;
+}
+
+QWizardPage* FirstRunWizard::createPasswordDescriptionPage()
+{
+	QWizardPage *description = new QWizardPage(this);
+	QHBoxLayout *lay = new QHBoxLayout(description);
+	QLabel *desc = new QLabel(description);
+	lay->addWidget(desc);
+	description->setLayout(lay);
+
+	desc->setWordWrap(true);
+	description->setTitle(tr("Über den Passwortschutz"));
+	desc->setText(tr("<html><head /><body><p>simon unterscheidet generell zwischen normaler Benutzung (dies umfasst das Trainieren, Hinzufügen von Wörtern, durchsuchen der Wortliste, etc.) und einem \"Systemverwaltungsmodus\". Dieser umfasst zum Beispiel die Systemeinstellungen.</p><p>Der Systemverwaltungsmodus kann mit einem Passwort gegen unlauteren Zugriff gesperrt werden. </p></body></html>"));
+
+	return description;
+}
+
+QWizardPage* FirstRunWizard::createPasswordSettingsPage()
+{
+	SystemWidgetPage *passpg = new SystemWidgetPage(this);
+	passpg->setChild(new PasswordSettings(this));
+	return passpg;
+}
+
+QWizardPage* FirstRunWizard::createJuliusdDescriptionPage()
+{
+	QWizardPage *description = new QWizardPage(this);
+	QHBoxLayout *lay = new QHBoxLayout(description);
+	QLabel *desc = new QLabel(description);
+	lay->addWidget(desc);
+	description->setLayout(lay);
+
+	desc->setWordWrap(true);
+	description->setTitle(tr("Über Juliusd"));
+	desc->setText(tr("<html><head /><body><p>Das simon-System besteht eigentlich aus zwei Teilen:</p><ul><li>simon (client; Dieses Programm)<li>juliusd (server, verwaltet julius)</ul><p>Der juliusd kann beliebig viele simon-clients gleichzeitig bedienen.</p><p>Meist wird der Juliusd auf einem zentralen Server ausgeführt werden, zu dem alle Clients verbinden. Es ist jedoch eine Einzelinstallation möglich. Starten Sie dafür Juliusd lokal und geben auf der nächsten Seite als Adresse ihre Loopbackadresse (meist 127.0.0.1 / localhost) und den konfigurierten Port (standardmäsig 4444) an.</p><p>Nähere Informationen zu Juliusd finden Sie im Handbuch</p></body></html>"));
+
+	return description;
+}
+
+QWizardPage* FirstRunWizard::createJuliusdSettingsPage()
+{
+	SystemWidgetPage *julius = new SystemWidgetPage(this);
+	julius->setChild(new NetworkSettings(julius));
+	return julius;
+}
+
+QWizardPage* FirstRunWizard::createSelectFilesPage()
+{
+	return new ImportGrammarSelectFilesPage(this);
+}
+
+QWizardPage* FirstRunWizard::createGrammarWorkingPage()
+{
+	this->firstRunImportGrammarWorkingPage = new FirstRunImportGrammarWorkingPage(this);
+
+	connect(firstRunImportGrammarWorkingPage, SIGNAL(grammarCreated(QStringList)), 
+		this, SLOT(mergeGrammarStructure(QStringList)));
+	
+	return (QWizardPage*) firstRunImportGrammarWorkingPage;
+}
+
+QWizardPage* FirstRunWizard::createGrammarSettings()
+{
+	grammarSettingsPage = new SystemWidgetPage(this);
+	return (QWizardPage*) grammarSettingsPage;
+	
 }
 
 QWizardPage* FirstRunWizard::createLanguageModelDescription()
@@ -97,9 +302,7 @@ QWizardPage* FirstRunWizard::createNewModelDescription()
 
 QWizardPage* FirstRunWizard::createModelSettings()
 {
-	SystemWidgetPage *page = new SystemWidgetPage(this);
-	page->setChild(new ModelSettings(page));
-	return (QWizardPage*) page;
+	return (QWizardPage*) new FirstRunModelSettings(this);
 }
 
 
@@ -125,7 +328,7 @@ QWizardPage* FirstRunWizard::createFinishedPage()
 
 	desc->setWordWrap(true);
 	finished->setTitle(tr("Konfiguration abgeschlossen"));
-	desc->setText(tr("Die Konfiguration von simon ist hiermit abgeschlossen.\n\nSie können alle Einstellungen im System-Menü bearbeiten."));
+	desc->setText(tr("Die Konfiguration von simon ist hiermit abgeschlossen.\n\nSie können alle Einstellungen im System-Menü bearbeiten.\n\nSollten Sie soeben ein neues Sprachmodell erstellt haben, müssen Sie diese vor der ersten Verwendung trainieren. Selektieren Sie hierzu den Menüpunkt \"Training\".\n\nViel Spaß mit simon!"));
 
 	return finished;
 }

@@ -165,7 +165,6 @@ void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 			eventHandler->sendShortcut(shortcutControl->getShortcut(word));
 		} else 
 			run->run(word);
-		qDebug() << "Schicke: " << word;
 		emit guiAction(word);
 	}
 
