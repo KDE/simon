@@ -25,8 +25,9 @@
         <file>images/icons/media-playback-pause.svg</file>
         <file>images/icons/media-playback-start.svg</file>
         <file>images/icons/media-record.svg</file>
+        <file>images/icons/process-stop.svg</file>
+        <file>images/icons/system-log-out.svg</file>
         <file>images/icons/view-refresh.svg</file>
         <file>images/icons/window-new.svg</file>
-        <file>images/icons/process-stop.svg</file>
     </qresource>
 </RCC>
