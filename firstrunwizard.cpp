@@ -45,7 +45,7 @@ FirstRunWizard::FirstRunWizard(QWidget* parent): SimonWizard(parent)
 	this->trainingManager=0;
 
 	setWindowTitle(tr("simon Erstkonfiguration"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/firstrun.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/firstrun.png"));
 	addPage(createIntroPage());
 	addPage(createCheckList());
 	addPage(createExternalProgramsPage());
@@ -87,16 +87,19 @@ void FirstRunWizard::setWordListManager(WordListManager *wordListManager)
 
 	this->grammarManager = new GrammarManager(wordListManager);
 	GrammarSettings *grammarSettings = new GrammarSettings(grammarSettingsPage, grammarManager);
+	connect(firstRunImportGrammarWorkingPage, SIGNAL(grammarCreated(QStringList)), 
+		grammarSettings, SLOT(mergeGrammar(QStringList)));
+
 	grammarSettingsPage->setChild(grammarSettings);
-	
 }
 
 void FirstRunWizard::mergeGrammarStructure(QStringList structures)
 {
-	QStringList newStructs = grammarManager->getAllStructures();
-	for (int i=0; i < newStructs.count(); i++)
-		if (!structures.contains(newStructs[i]))
-			structures << newStructs[i];
+// 	QStringList newStructs = grammarManager->getAllStructures();
+// 	for (int i=0; i < newStructs.count(); i++)
+// 		if (!structures.contains(newStructs[i]))
+// 			structures << newStructs[i];
+// 	grammarSettingsPage->mergeGrammar(structures);
 }
 
 void FirstRunWizard::importDict(WordList *words)

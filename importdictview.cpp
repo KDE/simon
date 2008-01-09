@@ -39,7 +39,7 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 
 	addPage(createFinishedPage());
 	setWindowTitle(tr("Importiere Wörterbuch"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/importdict.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importdict.png"));
 }
 
 /**

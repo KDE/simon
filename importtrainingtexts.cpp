@@ -49,7 +49,7 @@ ImportTrainingTexts::ImportTrainingTexts(QWidget *parent) : QWizard(parent)
 	
 	this->addPage(createFinishedPage());
 	setWindowTitle(tr("Trainingstext importieren"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/importtexts.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importtexts.png"));
 	prevId = 0;
 	
 }

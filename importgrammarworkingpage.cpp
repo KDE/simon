@@ -50,6 +50,8 @@ void ImportGrammarWorkingPage::displayWholeProgress(int progress, int max)
 void ImportGrammarWorkingPage::initializePage()
 {
 	if (!this->wordListManager) return;
+	completed=false;
+	emit completeChanged();
 
 	grammarImporter = new ImportGrammar(wordListManager,this);
 	connect(grammarImporter, SIGNAL(status(QString)), this, SLOT(printStatus(QString)));

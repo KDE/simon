@@ -31,7 +31,7 @@
 ImportTrainingDirectory::ImportTrainingDirectory(QWidget *parent) : QWizard(parent)
 {
 	setWindowTitle(tr("Importiere Trainingsdaten von Ordner"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/importfolder.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importfolder.png"));
 
  	addPage(createIntroPage());
 	addPage(createWorkingPage());

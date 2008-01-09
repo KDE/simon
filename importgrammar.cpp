@@ -127,10 +127,28 @@ QStringList ImportGrammar::importFile(QString path)
 				wordTerminals = terminals(lookupResult);
 			}
 			
-			if (wordTerminals.count()!=1)
-				everyWordSure = false;
-			else
-				words.replace(j, wordTerminals[0]);
+			if (wordTerminals.count() != 1)
+			{
+				if (includeUnknown)
+					words.replace(j, tr("Unbekannt"));
+				else 
+					everyWordSure = false;
+			} else 
+					words.replace(j, wordTerminals[0]);
+			/*
+			if (includeUnknown)
+			{
+				if (wordTerminals.count() != 1)
+					words.replace(j, tr("Unbekannt"));
+				else 
+					words.replace(j, wordTerminals[0]);
+			} else {
+				if (wordTerminals.count() != 1)
+					everyWordSure = false;
+				else 
+					words.replace(j, wordTerminals[0]);
+			}*/
+
 				
 			delete lookupResult;
 		}

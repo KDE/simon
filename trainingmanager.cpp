@@ -387,7 +387,7 @@ float TrainingManager::calcRelevance(TrainingText *text)
 		{
 			wordCount++;
 			promptsLock.lock();
-			probability += getProbability(words.at(j), this->promptsTable);
+			probability += getProbability(words.at(j));
 			promptsLock.unlock();
 		}
 	}
@@ -402,12 +402,10 @@ float TrainingManager::calcRelevance(TrainingText *text)
  * \author Peter Grasch
  * \param QString wordname
  * Name of the word
- * \param PromptsTable
- * Promptsfile
  * \return int
  * Probability to recognize; The higher the more likly simon will recognize this word correctly
  */
-int TrainingManager::getProbability(QString wordname, PromptsTable *promptsTable)
+int TrainingManager::getProbability(QString wordname)
 {
 	QStringList prompts = promptsTable->values();
 	int prob=0;

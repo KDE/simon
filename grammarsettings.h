@@ -33,6 +33,9 @@ private:
 
 	QStringList getCurrentStructures();
 	void insertSentences(QStringList sentences);
+	QStringList getCurrentTerminals();
+	void insertTerminals(QStringList newTerms);
+
 
 private slots:
 	void sentenceSelectionChanged(int row, int col, int oldrow, int oldcol);
@@ -40,12 +43,12 @@ private slots:
 	void addSentence();
 	void showImportWizard(bool show);
 	void showMergeWizard(bool show);
-	void mergeGrammar(QStringList);
 public slots:
 	bool init();
 	bool apply();
 	bool reset();
 	bool isComplete();
+	void mergeGrammar(QStringList);
 public:
     GrammarSettings(QWidget* parent, GrammarManager *grammarManager);
 

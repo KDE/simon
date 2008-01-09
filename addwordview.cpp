@@ -58,7 +58,7 @@ AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr, GrammarM
 	connect(this, SIGNAL(currentIdChanged( int )), this, SLOT(idChanged(int)));
 
 	setWindowTitle(tr("Wort hinzufügen"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/addword.png")));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/banners/addword.png")));
 }
 
 void AddWordView::idChanged(int newId)

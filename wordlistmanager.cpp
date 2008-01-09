@@ -152,7 +152,6 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 /**
  * \brief Saves the given wordlist to the given files
  * \author Peter Grasch
- * \todo Vocab saving is the SLOWEST thing ever (one bomp-dict-saving takes over 5 minutes)
  * @param list The list to save
  * @param lexiconFilename The lexicon to write to
  * @param vocabFilename The vocabfile to write to
@@ -194,51 +193,52 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	
 	int i=0;
 	int count = list->count();
-	while ((i<count)&&(list->at(i).getWord().toUpper() < "SENT-END"))
-	{
-		Word w = list->at(i);
-		outstream << QString(w.getWord().toUpper() 
-				+ "\t\t[" + w.getWord() + "]\t\t" +
-				w.getPronunciation()) << "\n";
-
-		if (w.getTerminal() != tr("Unbekannt"))
-			vocabulary.insertMulti(w.getTerminal(), w);
-		else vocab << w.getWord() << "\t" << w.getPronunciation() << "\n";
-		i++;
-	}
-	outstream << "SENT-END\t\t[]\t\tsil\n";
-	outstream << "SENT-START\t\t[]\t\tsil\n";
+	bool sentWritten = false; //performance
 	while (i<count)
 	{
 		Word w = list->at(i);
-		outstream << QString(w.getWord().toUpper() 
-				+ "\t\t[" + w.getWord() + "]\t\t" +
-				w.getPronunciation()) << "\n";
+		QString wordStr = w.getWord();
+		QString upperWord = wordStr.toUpper();
 
-		if (w.getTerminal() != tr("Unbekannt"))
-			vocabulary.insertMulti(w.getTerminal(), w);
-		else vocab << w.getWord() << "\t" << w.getPronunciation() << "\n";
+		if (!sentWritten && (upperWord >= "SENT-END"))
+		{
+			outstream << "SENT-END\t\t[]\t\tsil\n";
+			outstream << "SENT-START\t\t[]\t\tsil\n";
+			sentWritten = true;
+		}
+
+		QString wordPron = w.getPronunciation();
+		QString wordTerm = w.getTerminal();
+
+		outstream << upperWord << "\t\t[" << wordStr << "]\t\t" <<
+				wordPron << "\n";
+
+		vocabulary.insertMulti(wordTerm, w);
 		i++;
 	}
+	outfile->close();
 
 	QStringList terminals = vocabulary.keys();
 	QStringList distinctTerminals;
-	for (int i=0; i < terminals.count(); i++)
-		if (!distinctTerminals.contains(terminals[i]))
-			distinctTerminals << terminals[i];
+	while (terminals.count())
+		if (!distinctTerminals.contains(terminals[0]))
+			distinctTerminals << terminals.takeAt(0);
+		else terminals.removeAt(0);
 
+	
 	for (int i=0; i < distinctTerminals.count(); i++)
 	{
 		vocab << "% " << distinctTerminals[i] << "\n";
-		for (int j=0; j < vocabulary.values(distinctTerminals[i]).count(); j++)
+		WordList currentWordList = vocabulary.values(distinctTerminals[i]);
+		int wordCount = currentWordList.count();
+		for (int j=0; j < wordCount; j++)
 		{
-			Word w = vocabulary.values(distinctTerminals[i]).at(j);
+			Word w = currentWordList.at(j);
 			vocab << w.getWord() << "\t" << w.getPronunciation() << "\n";
 		}
 	}
 
 	Logger::log(QObject::tr("[INF] Schießen der Ausgabedatei"));
-	outfile->close();
 	vocabFile->close();
 	return true;
 }
@@ -269,6 +269,7 @@ void WordListManager::safelyInit()
  * Path to the prompts file
  * \param terminals
  * Pointer to the terminallist to fill
+ * \todo this is terribly slow with a large vocab file
  * @return  The parsed WordList
  */
 WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QString promptspath, QStringList &terminals )
@@ -280,20 +281,43 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 
 	WordList *wordlist = new WordList();
 	//read the vocab
-	WordList *vocablist = readVocab(vocabpath);
-	//read the prompts
-// 	TrainingManager *trainManager = new TrainingManager();
+// 	WordList *vocablist = readVocab(vocabpath);
 
 	PromptsTable *promptsTable = trainManager->getPrompts();
-// 	PromptsTable *
 
 	//opening
 	Logger::log(QObject::tr("[INF] Öffnen des Lexikons von: %1").arg(lexiconpath));
 	QFile *lexicon = new QFile ( lexiconpath );
 	
-	if ( !lexicon->open ( QFile::ReadOnly ) || !vocablist || !promptsTable) return false;
+	QFile vocab(vocabpath);
+	if ( !lexicon->open ( QFile::ReadOnly ) || !vocab.open(QFile::ReadOnly) || !promptsTable) return false;
 	
-	
+
+	QString line, term, word;
+	QString pronunciation;
+	int splitter;
+	while (!vocab.atEnd())
+	{
+		line = QString(vocab.readLine(1024)).trimmed();
+		if (line.startsWith("% "))
+		{
+			//its a new terminal!
+			term = line.mid(2).trimmed();
+			//strip multiple definitions
+			if (!terminals.contains(term)) terminals.append(term);
+		} else
+		{
+			//read the word
+			splitter = line.indexOf("\t");
+			word = line.left(splitter).trimmed();
+			if (word.isEmpty()) continue;
+			pronunciation = line.mid(splitter).trimmed();
+			
+			wordlist->append(Word(word, pronunciation, term, trainManager->getProbability(word.toUpper())));
+		}
+	}
+
+/*
 	QString line, name, output, pronunciation, term, *termtmp;
 	int wordend, outend, probability;
 	while (!lexicon->atEnd())
@@ -314,7 +338,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 		//creates and appends the word to the wordlist
 		wordlist->append(Word(output, pronunciation, term, probability));
 		
-	}
+	}*/
 
 
 	Logger::log(QObject::tr("[INF] Wörterliste erstellt"));
@@ -546,10 +570,12 @@ QStringList WordListManager::getTerminals(bool includeShadow)
 	{
 		shadowLock.lock();
 		getShadowList(); /* to wait if the thread is running */
+		shadowLock.unlock();
+
+		//merge the list
 		for (int i=0; i < shadowTerminals.count(); i++)
 			if (!terminals.contains(shadowTerminals.at(i)))
 				terminals.append(shadowTerminals.at(i));
-		shadowLock.unlock();
 	}
 	terminals.sort();
 
@@ -727,29 +753,18 @@ WordList* WordListManager::readVocab(QString vocabpath)
 	int foundPos;
 
 
-	//performance optimizing-----------------------
-	//skip to the first terminal AFTER % Unbekannt
-	QString unknown = "% "+tr("Unbekannt");
-	while (!vocab->atEnd() && (line.trimmed() != unknown))
-	{ line = vocab->readLine(1024); }
-
-	//if there still is something go to the next line (the line after % Unbekannt)
 	if (!vocab->atEnd()) 
 	{
 		line = vocab->readLine(1024);
 	
-		//skip till the next terminal definition (the one after % Unbekannt)
+		//skip till the next terminal definition
 		while (!vocab->atEnd() && (!line.startsWith("% ")))
 		{ line = vocab->readLine(1024);  }
 		
 		//set the terminal to this one if there is one (i.e. the file was not over)
 		if (!vocab->atEnd())
 			terminal = line.mid(2).trimmed();
-	} else //maybe there is no % Unbekannt?
-	{	//search whole file...
-		vocab->seek(0);
 	}
-		//snip-----------------------------------------
 	
 
 

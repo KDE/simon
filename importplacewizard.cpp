@@ -36,7 +36,7 @@ ImportPlaceWizard::ImportPlaceWizard(QWidget* parent): QWizard(parent)
     //(connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
     
 	setWindowTitle(tr("Ort hinzufügen"));
-    setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/importprogram.png")));
+    setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/banners/importprogram.png")));
     
     connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(idChanged(int)));
     connect(this, SIGNAL(finished(int)), this, SLOT(restart()));

@@ -21,7 +21,7 @@
 MergeTerminalsWizard::MergeTerminalsWizard(GrammarManager *grammarManager, QWidget* parent): SimonWizard(parent)
 {
 	setWindowTitle(tr("Terminale verbinden"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/merge.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/merge.png"));
 	this->grammarManager = grammarManager;
 	addPage(createIntroPage());
 	addPage(createSelectTerminalsPage());

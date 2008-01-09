@@ -41,6 +41,8 @@ GrammarSettings::GrammarSettings(QWidget* parent, GrammarManager *grammarManager
 	connect(ui.twTerminals, SIGNAL(cellChanged(int, int)), this, SIGNAL(changed()));
 }
 
+
+
 void GrammarSettings::mergeGrammar(QStringList grammar)
 {
 	QStringList toInsert;
@@ -52,6 +54,46 @@ void GrammarSettings::mergeGrammar(QStringList grammar)
 			toInsert << grammar[i];
 	}
 	insertSentences(toInsert);
+	
+	QStringList terminals = getCurrentTerminals();
+	QString sent;
+	QStringList newTerms;
+	for (int i=0; i < grammar.count(); i++)
+	{
+		QStringList termtemp = grammar.at(i).split(" ");
+		for (int j=0; j < termtemp.count(); j++)
+		{
+			if (!terminals.contains(termtemp[j])) newTerms << termtemp[j];
+		}
+	}
+	this->insertTerminals(newTerms);
+}
+
+void GrammarSettings::insertTerminals(QStringList newTerms)
+{
+	int curCount = ui.twTerminals->rowCount();
+	int newCount = curCount+newTerms.count();
+	ui.twTerminals->setRowCount(newCount);
+	for (int i=curCount; i < newCount; i++)
+	{
+		ui.twTerminals->setItem(i, 0, new QTableWidgetItem(newTerms[i-curCount]));
+	}
+}
+
+QStringList GrammarSettings::getCurrentTerminals()
+{
+	QStringList terms;
+	QString sent;
+	for (int i=0; i < ui.twSentences->rowCount(); i++)
+	{
+		sent = ui.twSentences->item(i,0)->text();
+		QStringList termtemp = sent.split(" ");
+		for (int j=0; j < termtemp.count(); j++)
+		{
+			if (!terms.contains(termtemp[j])) terms << termtemp[j];
+		}
+	}
+	return terms;
 }
 
 void GrammarSettings::insertSentences(QStringList sentences)

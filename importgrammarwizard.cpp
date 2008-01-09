@@ -19,7 +19,7 @@
 ImportGrammarWizard::ImportGrammarWizard(WordListManager *wordListManager, QWidget* parent): SimonWizard(parent)
 {
 	setWindowTitle(tr("Grammatikstrukturen Importieren"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/importgrammar.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importgrammar.png"));
 	addPage(createIntroPage());
 	addPage(createSelectFilesPage());
 	addPage(createWorkingPage(wordListManager));

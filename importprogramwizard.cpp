@@ -31,7 +31,7 @@ ImportProgramWizard::ImportProgramWizard(QWidget* parent): SimonWizard(parent)
     //(connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
     
 	setWindowTitle("Programm hinzufügen");
-    setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/importprogram.png")));
+    setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/banners/importprogram.png")));
     
     connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(idChanged(int)));
     connect(ipp, SIGNAL(commandCreated(Command*)), this, SIGNAL(commandCreated(Command*)));

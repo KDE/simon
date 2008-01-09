@@ -339,5 +339,5 @@ CONFIG += qt \
 warn_on \
 thread
 
-RESOURCES += simon.qrc
+RESOURCES += banners.qrc others.qrc action_icons.qrc application_icons.qrc category_icons.qrc other_icons.qrc
 TRANSLATIONS += simon_en.ts

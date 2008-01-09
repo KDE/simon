@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/" >
+        <file>images/alsalogo.gif</file>
+        <file>images/directX.png</file>
+        <file>images/osd.png</file>
+        <file>images/simon.png</file>
+        <file>images/simon_d.png</file>
+        <file>images/smalllogo.png</file>
+        <file>images/splash.png</file>
+        <file>images/tray.png</file>
+        <file>images/tray_d.png</file>
+    </qresource>
+</RCC>

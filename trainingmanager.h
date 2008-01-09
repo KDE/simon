@@ -41,7 +41,7 @@ public:
 	PromptsTable *promptsTable;
 	TrainingManager();
 
-	int getProbability(QString name, PromptsTable *promptsTable);
+	int getProbability(QString name);
 	TrainingList* readTrainingTexts(QString pathToTexts="");
 	PromptsTable* readPrompts(QString pathToPrompts);
 	PromptsTable* getPrompts();
