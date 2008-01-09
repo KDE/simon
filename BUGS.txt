@@ -31,3 +31,8 @@ BUGS:
 		BRIEF: MessageBoc while starting the programm
 		LEVEL: low
 		STATUS: fixed
+
+[2008/01/09] <desktopgrid>
+		BRIEF: simon <text> (send with julius) opens the grid (if the keyword isn´t set)
+		LEVEL: low
+		STATUS: unconfirmed
