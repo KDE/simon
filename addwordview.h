@@ -80,6 +80,7 @@ class AddWordView : public QWizard
 		~AddWordView()
 		{
 		}
+        void createWord(QString word);
 };
 
 #endif

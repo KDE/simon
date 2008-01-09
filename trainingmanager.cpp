@@ -12,21 +12,32 @@
 #include "trainingmanager.h"
 #include "settings.h"
 #include "logger.h"
+#include "settings.h"
 #include "wordlistmanager.h"
 #include "math.h"
 #include <QObject>
+#include "addwordview.h"
 
 /**
  * @brief Constructor
  *
  *	@author Peter Grasch
  */
-TrainingManager::TrainingManager()
+TrainingManager::TrainingManager(AddWordView *addWordView)
 {
+
 	filename = Settings::getS("PathToTexts");
 	promptsLock.lock();
 	this->promptsTable = readPrompts(Settings::getS("Model/PathToPrompts"));
 	promptsLock.unlock();
+    sampleHash = new QHash<QString, QString>();
+    addWordView = addWordView;
+  
+}
+
+void TrainingManager::setWordListManager(WordListManager *wlistmgr)
+{
+    this->wlistmgr = wlistmgr;
 }
 
 bool TrainingManager::deleteWord(Word *w)
@@ -81,6 +92,10 @@ bool TrainingManager::savePrompts()
 	
 	for (int i=0; i <samples.count(); i++)
 		prompts.write(samples[i].toLatin1()+" "+promptsTable->value(samples[i]).toLatin1()+"\n");
+    
+    
+    
+    
 	promptsLock.unlock();
 	
 	prompts.close();
@@ -129,7 +144,7 @@ PromptsTable* TrainingManager::readPrompts(QString promptspath)
 
 /**
  * \brief Aborts the rebuilding of the language model and cleans up
- * \author Peter Grasch, Susanne Tschernegg
+ * \author Peter Grasch
  */
 void TrainingManager::abortTraining()
 {
@@ -271,10 +286,10 @@ TrainingList* TrainingManager::readTrainingTexts(QString pathToTexts)
 	trainingTexts = new TrainingList();
 	for (int i=0; i < textsrcs.count(); i++)
 	{
-		XMLTrainingText *text = new XMLTrainingText( pathToTexts+textsrcs.at(i) );
-		text->load();
+		XMLTrainingText *text = new XMLTrainingText( pathToTexts+"/"+textsrcs.at(i) );
+		text->load(pathToTexts+"/"+textsrcs.at(i));
 		TrainingText *newText = new TrainingText(text->getTitle(), 
-				      pathToTexts+textsrcs.at(i),
+				      pathToTexts+"/"+textsrcs.at(i),
 				      text->getAllPages());
 		newText->setRelevance(calcRelevance(newText));
 		trainingTexts->append(newText);
@@ -296,7 +311,60 @@ bool TrainingManager::trainText(int i)
 {
 	Logger::log(QObject::tr("[INF] Training Text: \"")+getText(i)->getName()+"\"");
 	this->currentText = getText(i);
+    bool allWordsInDict = allWordsExisting();
+    if(!allWordsInDict)
+        return false;
+    QString textName = getTextName();
+    textName.replace(QString(" "), QString("_"));
+    QString time = qvariant_cast<QString>(QTime::currentTime());
+    time.replace(QString(":"), QString("-"));
+    
+    for(int i=0; i<getPageCount(); i++)
+    {
+        QString hashKey = QString::number(i+1);
+        sampleHash->insert(hashKey, (textName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time));
+    }
 	return (currentText != NULL);
+}
+
+/**
+ * \brief chechs if all words in the dict
+ * \author Susanne Tschernegg
+ */
+bool TrainingManager::allWordsExisting()
+{
+
+    for(int x=0; x<getPageCount(); x++)
+    {
+        QStringList strList = getPage(x).split(" ");
+        for(int y=0; y<strList.size(); y++)
+        {
+            QString word = strList.at(y);
+            word.trimmed();
+            word.remove(".");
+            word.remove(",");
+            word.remove("(");
+            word.remove(")");
+            word.remove("?");
+            word.remove("!");
+            word.remove("\"");
+            word.remove("/");
+            word.remove("\\");
+            word.remove("[");
+            word.remove("]");
+            WordList* words = wlistmgr->getWords(word, false);
+            if(words==NULL)
+            {
+                //AddWordView *addWordView = new AddWordView(0, wlistmgr, );
+                //addWordView->createWord(word);
+                //addwordview, von simonview übergeben
+                addWordView->show();
+                addWordView->createWord(word);
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 /**
@@ -356,6 +424,7 @@ TrainingText* TrainingManager::getText(int i)
 
 /**
  * \brief Calculates the relevance of the given text with the given wordlist
+ * \author Peter Grasch, Susanne Tschernegg
  * @param text The text to check
  * @param wlist The wordlist as reference
  * @return An index of how well simon would recognize it - the lower the worse
@@ -382,6 +451,7 @@ float TrainingManager::calcRelevance(TrainingText *text)
 		currPage.remove("]");
 		
 		words = currPage.split(" ");
+        //wlistmgr->addWords(words);
  		
 		for (int j=0; j<words.count(); j++)
 		{
@@ -394,6 +464,38 @@ float TrainingManager::calcRelevance(TrainingText *text)
 	if (wordCount > 0)
 		return round(probability/wordCount);
 	else return 0;
+}
+
+/**
+ * @brief compiles the model
+ *
+ *	@author Susanne Tschernegg
+ */
+void TrainingManager::setupTrainingSession()
+{
+    //for (int i=1; i < getPageCount()+1; i++)
+    //{
+        //QList<QFile> files = f.findChildren(
+        
+        //QDir dir(Settings::getS("Model/PathToSamples")); 
+        /*QDir dir("C:/Dokumente und Einstellungen/Susi/Eigene Dateien/schule/diplomarbeit/Diplomarbeit/trunk"); 
+        QStringList list = dir.entryList(QDir::Files);
+        QString textName = getTextName();
+        textName.replace(QString(" "), QString("_"));
+        
+        QStringList filteredList = list.filter(QRegExp(QString(textName+"_S"+QString::number(i)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_.wav")));*/
+        //QStringList filteredList = list.filter(QRegExp(".wav"));
+        
+        /*for ( int j=0; j<filteredList.size(); j++)
+        {
+            QString fileName = filteredList.at(j);
+            fileName.remove(QString(".wav"), Qt::CaseInsensitive);
+            QString line =  fileName + " " + getPage(i);    //filename + text
+            wlistmgr->writePrompts(line);
+        }*/
+    //}
+    addSamples(sampleHash);
+    bool success = wlistmgr->compileModel();
 }
 
 
@@ -417,6 +519,23 @@ int TrainingManager::getProbability(QString wordname)
 		i++;
 	}
 	return prob;
+}
+
+/**
+ * @brief Adds the Samples to the prompts-file.
+ *
+ *	@author Susanne Tschernegg
+ */
+void TrainingManager::addSamples(QHash<QString, QString> *hash)
+{
+    QHashIterator<QString, QString> hIterator(*hash);
+    hIterator.toFront();
+    while (hIterator.hasNext())
+    {
+        hIterator.next();
+        wlistmgr->writePrompts(hIterator.value() + " " + getPage(hIterator.key().toInt()-1));
+    }
+    hash->clear();
 }
 
 /**

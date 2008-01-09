@@ -15,6 +15,7 @@
 #include <QWizardPage>
 #include <QVariant>
 
+class QLineEdit;
 /**
  \class AddWordIntroPage
  \author Peter Grasch
@@ -28,9 +29,12 @@
 */
 class AddWordIntroPage : public QWizardPage
 {
+private:
+    QLineEdit *leName;
 public:
     AddWordIntroPage(QWidget* parent);
 	QString getName() { return field("name").toString(); }
+    void setName(QString word);
     ~AddWordIntroPage() {}
 
 };

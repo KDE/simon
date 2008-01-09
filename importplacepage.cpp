@@ -16,7 +16,7 @@
 
 /**
 *   \brief constructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ImportPlacePage::ImportPlacePage(QWidget* parent): QWizardPage(parent)
 {
@@ -39,14 +39,14 @@ ImportPlacePage::ImportPlacePage(QWidget* parent): QWizardPage(parent)
 
 /**
 *   \brief destructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ImportPlacePage::~ImportPlacePage()
 {}
 
 /**
 *   \brief 
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 bool ImportPlacePage::isComplete() const
 {
@@ -56,7 +56,7 @@ bool ImportPlacePage::isComplete() const
 /**
 *   \brief emits a the signal "commandCreated(newCommand)", when this page is the current page
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 void ImportPlacePage::createCommand(QString name, QString value)
 {

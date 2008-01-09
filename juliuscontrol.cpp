@@ -11,7 +11,7 @@
 //
 #include "juliuscontrol.h"
 #include <QByteArray>
-#include <QSslSocket>
+#include <QTcpSocket>
 #include <QMessageBox>
 #include <QTimer>
 #include <QFile>
@@ -30,7 +30,7 @@
  */
 JuliusControl::JuliusControl()
 {
-	socket = new QSslSocket();
+	socket = new QTcpSocket();
 	timeoutWatcher = new QTimer(this);
 	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
 			
@@ -62,9 +62,9 @@ void JuliusControl::connectTo(QString server, quint16 port)
 	
 	if (Settings::get("Juliusd/Encrypted").toBool())
 	{
-		socket->setCiphers(Settings::getS("Juliusd/Cipher"));
-		socket->setPrivateKey(Settings::getS("Juliusd/Cert"), QSsl::Rsa, QSsl::Pem);
-		socket->connectToHostEncrypted( server, port );
+		//socket->setCiphers(Settings::getS("Juliusd/Cipher"));
+		//socket->setPrivateKey(Settings::getS("Juliusd/Cert"), QSsl::Rsa, QSsl::Pem);
+		socket->connectToHost/*Encrypted*/( server, port );
 	} else 
 		socket->connectToHost( server, port );
 	timeoutWatcher->start(Settings::get("Network/Timeout").toInt());

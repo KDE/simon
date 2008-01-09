@@ -39,7 +39,7 @@
 #include "passwordsettings.h"
 
 
-FirstRunWizard::FirstRunWizard(QWidget* parent): SimonWizard(parent)
+FirstRunWizard::FirstRunWizard(AddWordView *addWordView, QWidget* parent): SimonWizard(parent)
 {
 	this->wordListManager=0;
 	this->trainingManager=0;
@@ -75,6 +75,8 @@ FirstRunWizard::FirstRunWizard(QWidget* parent): SimonWizard(parent)
 	addPage(createJuliusdSettingsPage());
 
 	addPage(createFinishedPage());
+    
+    this->addWordView = addWordView;
 }
 
 void FirstRunWizard::setWordListManager(WordListManager *wordListManager)
@@ -119,7 +121,7 @@ void FirstRunWizard::setTrainingManager(TrainingManager *trainingManager)
 
 QWizardPage* FirstRunWizard::createCreateDictionaryPage()
 {
-	FirstRunCreateDictionaryPage *page = new FirstRunCreateDictionaryPage(this);
+	FirstRunCreateDictionaryPage *page = new FirstRunCreateDictionaryPage(addWordView, this);
 	connect(page, SIGNAL(wordListManagerCreated(WordListManager*)), this, SLOT(setWordListManager(WordListManager*)));
 	connect(page, SIGNAL(trainingManagerCreated(TrainingManager*)), this, SLOT(setTrainingManager(TrainingManager*)));
 	connect(page, SIGNAL(done()), this, SLOT(next()));

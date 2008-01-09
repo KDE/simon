@@ -99,6 +99,9 @@
       </layout>
      </item>
      <item>
+      <widget class="SimonTableWidget" name="twCommand" />
+     </item>
+     <item>
       <layout class="QHBoxLayout" >
        <item>
         <widget class="QLabel" name="lbSchluesselWort" >
@@ -178,6 +181,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="pbSpecialCharacter" >
+       <property name="text" >
+        <string>Sonderzeichen</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../simon.qrc" >:/images/icons/format-text-bold.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QHBoxLayout" >
        <item>
         <widget class="Line" name="line" >
@@ -239,6 +252,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>simontablewidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../simon.qrc" />
  </resources>

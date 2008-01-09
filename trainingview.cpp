@@ -13,6 +13,8 @@
 #include "trainingview.h"
 #include "importtrainingdirectory.h"
 #include "settings.h"
+#include <QHash>
+#include "settings.h"
 
 
 /**
@@ -20,14 +22,14 @@
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-TrainingView::TrainingView(QWidget *parent)
+TrainingView::TrainingView(AddWordView *addWordView, QWidget *parent)
 	 : InlineWidget(tr("Training"), QIcon(":/images/icons/document-properties.svg"), 
 	   tr("Trainieren des Sprachmodells"), parent)
 {
 	ui.setupUi(this);
- 	guessChildTriggers((QObject*)this);
+    guessChildTriggers((QObject*)this);
 	this->hide();
-	
+    
 	connect(ui.pbTrainText, SIGNAL(clicked()), this, SLOT(trainSelected()));
 	connect(ui.twTrainingWords, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(trainSelected()));
 	
@@ -41,13 +43,17 @@ TrainingView::TrainingView(QWidget *parent)
 	connect (ui.pbBackToMain, SIGNAL(clicked()), this, SLOT(cancelReading()));
 	connect (ui.pbDelText, SIGNAL(clicked()), this, SLOT(deleteSelected()));
 	connect(ui.pbImportDir, SIGNAL(clicked()), this, SLOT(importDirectory()));	
-	
+
 	currentPage=0;
-	trainMgr = new TrainingManager();
-	
+    
+    trainMgr = new TrainingManager(addWordView);
+}
+
+void TrainingView::setWordListManager(WordListManager *wlistmgr)
+{
+    trainMgr->setWordListManager(wlistmgr);
 	loadList(); // we load the list of avalible trainingtexts despite we probably won't
 	// use it when given a special training program
-    
 }
 
 
@@ -155,8 +161,8 @@ void TrainingView::finish()
 
 	//finishing up
 
-	//trainMgr->setupTrainingSession();
-
+	trainMgr->setupTrainingSession();
+    
 	//done
 	emit trainingCompleted();
 }
@@ -173,10 +179,11 @@ void TrainingView::finish()
 void TrainingView::fetchPage(int page)
 {
 	ui.lbPage->setText( this->trainMgr->getPage(page) );
-	
-	
+    
+    QString value = trainMgr->getSampleHash()->value(QString::number(page+1))+".wav";
 	recorder = new RecWidget( tr("Seite: %1").arg(page+1),
-				  tr("sample%1.wav").arg(page+1), ui.wRecTexts);
+				  value, ui.wRecTexts);   //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
+
 
     connect(recorder, SIGNAL(recordingFinished()), this, SLOT(increaseRecordedPages()));
     connect(recorder, SIGNAL(sampleDeleted()), this, SLOT(decreaseRecordedPages()));
@@ -269,11 +276,12 @@ void TrainingView::nextPage()
 
 /**
  * \brief Stops the training of a specific text and switches back to the overview
- * \author Peter Grasch
+ * \author Peter Grasch, Susanne Tschernegg
  * \todo cleaning up temp. stuff
  */
 void TrainingView::cancelReading()
 {
+    cleanUpTrainingSamples();
 	ui.swAction->setCurrentIndex(0);
 	delete recorder;
 	setWindowTitle(tr("Training"));
@@ -292,23 +300,45 @@ void TrainingView::exec()
  * \brief Cancels the current Training
  * Tells the TrainingManager to abort building the new model (and to clean up)
  * It also goes back to the main list of trainingtexts
- * \author Peter Grasch
+ * \author Peter Grasch, Susanne Tschernegg
  */
 void TrainingView::cancelTraining()
 {
 	this->trainMgr->pauseTraining();
 	if (QMessageBox::question(this, tr("Wollen Sie wirklich abbrechen?"), tr("Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhöhen.\n\nWollen Sie wirklich abbrechen?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
 	{
-		this->trainMgr->abortTraining();
-		ui.swAction->setCurrentIndex(0);
-		
-		//cleaning up
-		for (int i=0; i < trainMgr->getPageCount(); i++)
-		{
-			QFile f(QString("rec")+QString::number(currentPage)+QString(".wav"));
-			f.remove();
-		}
+		cleanUpTrainingSamples();
 	} else this->trainMgr->resumeTraining();
+}
+
+/**
+ * @brief cleans up the saved Trainingfiles, because they are no longer needed
+ *
+ *	@author Peter Grasch, Susanne Tschernegg
+*/
+void TrainingView::cleanUpTrainingSamples()
+{
+    this->trainMgr->abortTraining();
+    ui.swAction->setCurrentIndex(0);
+    
+    //cleaning up
+    for (int i=1; i < trainMgr->getPageCount()+1; i++)
+    {
+        QDir dir(Settings::getS("Model/PathToSamples"));
+        //QStringList list = dir.entryList(QDir::Files);
+        /*QString textName = trainMgr->getTextName();
+        textName.replace(QString(" "), QString("_"));
+        QStringList filteredList = list.filter(QRegExp(QString(textName+"_S"+QString::number(i)+"_"+QString(qvariant_cast<QString>(QDate::currentDate()))+"_*.wav")));*/
+        QHashIterator<QString, QString> hIterator(*trainMgr->getSampleHash());
+        while (hIterator.hasNext())
+        {
+            hIterator.next();
+            QFile f(hIterator.value());
+            if(f.exists())
+                f.remove();
+        }
+        trainMgr->getSampleHash()->clear();
+    }
 }
 
 /**
@@ -379,11 +409,8 @@ void TrainingView::setSettingsVisible()
  */
 void TrainingView::increaseRecordedPages()
 {
-    QMessageBox::information(this,"askdgkdfdsk ","trainingsview incrase");
     int max = trainMgr->getPageCount();
-    QMessageBox::information(this,"ajksddasf", qvariant_cast<QString>(max));
     recordedPages++;
-    QMessageBox::information(this,"ajksddasf", qvariant_cast<QString>(recordedPages));
     if(recordedPages==max)
         ui.pbFinish->setEnabled(true);
 }
@@ -400,4 +427,3 @@ void TrainingView::decreaseRecordedPages()
         ui.pbFinish->setEnabled(false);
     recordedPages--;
 }
-

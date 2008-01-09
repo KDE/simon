@@ -16,7 +16,7 @@
 
 /**
 *   \brief constructor which creats the wizardpages
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ImportPlaceWizard::ImportPlaceWizard(QWidget* parent): QWizard(parent)
 {
@@ -48,14 +48,14 @@ ImportPlaceWizard::ImportPlaceWizard(QWidget* parent): QWizard(parent)
 
 /**
 *   \brief destructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ImportPlaceWizard::~ImportPlaceWizard()
 {}
 
 /**
 *   \brief Creates the intro page
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 IntroPlacePage* ImportPlaceWizard::createIntroPlacePage()
 {
@@ -74,7 +74,7 @@ IntroPlacePage* ImportPlaceWizard::createIntroPlacePage()
 
 /**
 *   \brief creates the localplacepage
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 LocalPlacePage* ImportPlaceWizard::createLocalPlacePage()
 {
@@ -83,7 +83,7 @@ LocalPlacePage* ImportPlaceWizard::createLocalPlacePage()
 
 /**
 *   \brief creates the remoteplacepage
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 RemotePlacePage* ImportPlaceWizard::createRemotePlacePage()
 {
@@ -92,7 +92,7 @@ RemotePlacePage* ImportPlaceWizard::createRemotePlacePage()
 
 /**
 *   \brief creates the configurePlacePage
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ConfigurePlacePage* ImportPlaceWizard::createConfigurePlacePage()
 {
@@ -101,7 +101,7 @@ ConfigurePlacePage* ImportPlaceWizard::createConfigurePlacePage()
 
 /**
 *   \brief creates the importplacepage
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ImportPlacePage* ImportPlaceWizard::createImportPlacePage()
 {
@@ -110,7 +110,7 @@ ImportPlacePage* ImportPlaceWizard::createImportPlacePage()
 
 /**
 *   \brief creates the last page
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 QWizardPage* ImportPlaceWizard::createFinishedPage()
 {
@@ -128,7 +128,7 @@ QWizardPage* ImportPlaceWizard::createFinishedPage()
 /**
 *   \brief slot: the signal is emited this class
             if the current page changes, we will save the last pageId and the new pageId
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 void ImportPlaceWizard::idChanged(int newId)
 {
@@ -235,7 +235,7 @@ void ImportPlaceWizard::placePreselectionChanged()
 *   \brief slot: the signal is emited in the commandSettings.cpp (changeExistingName)
             if the name of the commando already exists in the commandlist, a message box (called in commendSettings) will be opend and asks,
             if the user wants to change the name of the commando
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 void ImportPlaceWizard::changeName(bool change)
 {

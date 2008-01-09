@@ -91,10 +91,12 @@ public slots:
 	void showImportDictDialog();
     void hideTbEditModel();
     void setTbEditModelVisible();
+    
+    WordListManager* getManager(){return wordListManager;}
 
 public:
 	WordListView(TrainingView *trainView, QWidget *parent);
-	WordListManager* getManager() { return wordListManager; }
+	WordListManager* getWordListManager() { return wordListManager; }
 	~WordListView();
 
 };

@@ -17,9 +17,11 @@
 #include "trainingtext.h"
 #include "xmltrainingtext.h"
 #include "word.h"
+#include <QHash>
 #include <QDebug>
 #include <QMessageBox>
 #include <QMutex>
+class AddWordView;
 class WordListManager;
 
 /**
@@ -35,14 +37,20 @@ class TrainingManager{
 private:
 	TrainingList *trainingTexts;
 	TrainingText *currentText;
+    WordListManager *wlistmgr;
 	QString filename;
+    QHash<QString, QString> *sampleHash;
 	QMutex promptsLock;
+    AddWordView *addWordView;
 public:
 	PromptsTable *promptsTable;
-	TrainingManager();
+	TrainingManager(AddWordView *addWordView);
+
+    QHash<QString, QString>* getSampleHash(){return sampleHash;}
+	int getProbability(QString name, PromptsTable *promptsTable);
+	TrainingList* readTrainingTexts(QString pathToTexts="texts");
 
 	int getProbability(QString name);
-	TrainingList* readTrainingTexts(QString pathToTexts="");
 	PromptsTable* readPrompts(QString pathToPrompts);
 	PromptsTable* getPrompts();
 
@@ -83,6 +91,13 @@ public:
 	QString getPage(int i);
 	QString getTextName();
 	TrainingText* getText(int i);
+    
+    void setupTrainingSession();
+    bool allWordsExisting();
+    
+    void setWordListManager(WordListManager *wlistmgr);
+    
+    void addSamples(QHash<QString, QString> *hash);
 
 	~TrainingManager();
 

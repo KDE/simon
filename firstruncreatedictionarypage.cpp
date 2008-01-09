@@ -15,14 +15,15 @@
 #include "wordlistmanager.h"
 #include "trainingmanager.h"
 
-FirstRunCreateDictionaryPage::FirstRunCreateDictionaryPage(QWidget* parent): QWizardPage(parent)
+FirstRunCreateDictionaryPage::FirstRunCreateDictionaryPage(AddWordView* addWordView, QWidget* parent): QWizardPage(parent)
 {
 	this->setTitle(tr("Lese Konfiguration..."));
+    this->addWordView = addWordView;
 }
 
 void FirstRunCreateDictionaryPage::initializePage()
 {
-	TrainingManager *trainingManager = new TrainingManager();
+	TrainingManager *trainingManager = new TrainingManager(addWordView);
 	WordListManager *wordListManager = new WordListManager(trainingManager);
 
 	emit trainingManagerCreated(trainingManager);

@@ -288,7 +288,6 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 	//opening
 	Logger::log(QObject::tr("[INF] Öffnen des Lexikons von: %1").arg(lexiconpath));
 	QFile *lexicon = new QFile ( lexiconpath );
-	
 	QFile vocab(vocabpath);
 	if ( !lexicon->open ( QFile::ReadOnly ) || !vocab.open(QFile::ReadOnly) || !promptsTable) return false;
 	
@@ -337,9 +336,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 
 		//creates and appends the word to the wordlist
 		wordlist->append(Word(output, pronunciation, term, probability));
-		
 	}*/
-
 
 	Logger::log(QObject::tr("[INF] Wörterliste erstellt"));
 	return wordlist;
@@ -590,15 +587,18 @@ WordList* WordListManager::getWords(QString word, bool includeShadow)
 	QString toSearch = word.toUpper();
 
 	wordListLock.lock();
+    
 	WordList* main = getWordList();
 	//main
 	if (main)
+    {
 		while (i<main->count())
 		{
 			if (main->at(i).getWord().toUpper()==toSearch)
 				found->append(main->at(i));
 			i++;
 		}
+    }
 	wordListLock.unlock();
 	if (!includeShadow)
 		return found;
@@ -790,6 +790,56 @@ WordList* WordListManager::readVocab(QString vocabpath)
 	}
 	
 	return vocablist;
+}
+
+/**
+ * \brief adds the new samples to the prompts
+ * \author Susanne Tschernegg
+ */
+ void WordListManager::writePrompts(QString line, QString promptspath)
+{
+    QFile *prompts = new QFile ( promptspath );
+	prompts->open ( QIODevice::Append );
+	//if ( !prompts->isWritable() ) return;
+	
+    QTextStream out(prompts);
+    out << line << "\n";
+    prompts->close();
+    readPrompts();
+}
+
+/**
+ * \brief Builds and returns the promptstable by parsing the file at the given path
+ * \author Peter Grasch
+ * \param QString promptspath
+ * The path to the prompts file
+ * \return PromptsTable*
+ * The table
+ */
+PromptsTable* WordListManager::readPrompts(QString promptspath)
+{
+	Logger::log(QObject::tr("[INF] Parse Promptsdatei von %1").arg(promptspath));
+	PromptsTable *promptsTable = new PromptsTable();
+	
+	QFile *prompts = new QFile ( promptspath );
+	prompts->open ( QFile::ReadOnly );
+	if ( !prompts->isReadable() ) return false;
+	
+	QString label;
+	QString prompt;
+	QString line;
+	int labelend;
+	while ( !prompts->atEnd() ) //for each line that was successfully read
+	{
+		line = prompts->readLine(1024);
+		labelend = line.indexOf(" ");
+		label = line.left(labelend);
+		prompt = line.mid(labelend).trimmed();
+
+		promptsTable->insert( label, prompt );
+	}
+	
+	return promptsTable;
 }
 
 /**

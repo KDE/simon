@@ -13,6 +13,7 @@
 #define FIRSTRUNCREATEDICTIONARYPAGE_H
 
 #include <QWizardPage>
+#include "addwordview.h"
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -27,9 +28,12 @@ signals:
 	void trainingManagerCreated(TrainingManager*);
 	void done();
 public:
-    FirstRunCreateDictionaryPage(QWidget* parent);
+    FirstRunCreateDictionaryPage(AddWordView* addWordView, QWidget* parent);
 	void initializePage();
     ~FirstRunCreateDictionaryPage();
+
+private:
+    AddWordView* addWordView;
 
 };
 

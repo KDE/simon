@@ -62,10 +62,10 @@ int XMLTrainingText::getPageCount()
 
 void XMLTrainingText::load(QString path)
 {
-     XMLDomReader::load(path);
+    XMLDomReader::load(path);
 	QDomElement root = doc->documentElement();
-	
 	this->title = root.attribute("title");
+	
 	QDomElement newnode = root.firstChildElement();
 	
 	QDomElement page = root.firstChild().toElement();

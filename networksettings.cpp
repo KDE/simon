@@ -146,16 +146,17 @@ bool NetworkSettings::init()
 
 	QString selectedCipher = Settings::getS("Juliusd/Cipher");
 	int selectedIndex=0;
-	QList<QSslCipher> ciphers = QSslSocket::supportedCiphers();
+	//QList<QSslCipher> ciphers = QSslSocket::supportedCiphers();
 	QStringList cipherStrs;
 	QString cipherName;
-	for (int i=0; i < ciphers.count(); i++)
-	{
-		cipherName = ciphers[i].name();
-		if (cipherName == selectedCipher)
-			selectedIndex =i;
-		cipherStrs << cipherName;
-	}
+	//for (int i=0; i < ciphers.count(); i++)
+	//{
+	//	cipherName = ciphers[i].name();
+	//	if (cipherName == selectedCipher)
+	//		selectedIndex =i;
+	//	cipherStrs << cipherName;
+	//
+    //}
 
 	ui.cbCipher->clear();
 	ui.cbCipher->addItems(cipherStrs);

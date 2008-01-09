@@ -152,3 +152,15 @@ void AddWordView::finish(int done)
 	
 	restart();
 }
+
+/**
+ * \brief Shows the addWordView with a given word
+ *          this method is used in the trainingmanager
+ * \author Susanne Tschernegg
+ */
+void AddWordView::createWord(QString word)
+{
+    welcomePage->setName(word);
+    resolvePage->init(welcomePage->getName());
+    prevId = 1;
+}

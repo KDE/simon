@@ -10,6 +10,7 @@
 //
 //
 #include "xmldomreader.h"
+#include <QMessageBox>
 
 /**
  * \brief Constructor
@@ -53,7 +54,8 @@ int XMLDomReader::save(QString path)
  */
 void XMLDomReader::load(QString path)
 {
-	if (path.isEmpty()) path = this->path;
+	if (path.isEmpty())
+        path = this->path;
 	doc= new QDomDocument();
 	QFile file(path);
 	if(!file.open(QIODevice::ReadOnly))

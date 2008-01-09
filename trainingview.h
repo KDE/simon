@@ -25,6 +25,7 @@
 #include "recwidget.h"
 #include "ui_trainmain.h"
 #include "inlinewidget.h"
+#include "wordlistmanager.h"
 
 
 class WordListView;
@@ -64,7 +65,7 @@ public slots:
 	void prevPage();
 	void loadList();
 	void cancelReading();
-	void cancelTraining();
+    void cancelTraining();
 	void resetRecorder();
 	void deleteSelected();
 	void fetchPage(int page);
@@ -79,12 +80,15 @@ private slots:
 
 public:
 	void exec();
-    TrainingView(QWidget *parent=0);
+    TrainingView(AddWordView *addWordView, QWidget *parent=0);
 	
     ~TrainingView();
 
     void hideSettings();
     void setSettingsVisible();
+    void cleanUpTrainingSamples();
+
+    void setWordListManager(WordListManager *wlistmgr);
 
 };
 

@@ -67,8 +67,8 @@ class CommandSettings : public SystemWidget
 		void setWidgetsDisabled();
 		void checkValuesAfterReturnPressed();
 
-	private:
-		Ui::CommandSettingsDlg ui;
+private:
+    Ui::CommandSettingsDlg ui;
 		SimonTableWidget *twCommand;
 
 		ImportProgramWizard* importProgramWizard;

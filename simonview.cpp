@@ -80,7 +80,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	//Settings::set("ConfigDone", false);
 	if (!Settings::get("ConfigDone").toBool())
 	{
-		FirstRunWizard *firstRunWizard = new FirstRunWizard(this);
+		FirstRunWizard *firstRunWizard = new FirstRunWizard(addWordView, this);
 		if (firstRunWizard->exec() || (QMessageBox::question(this, tr("Konfiguration abbrechen"), tr("Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.\n\nWollen Sie den Assistenten beim nächsten Start wieder anzeigen?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::No))
 			Settings::set("ConfigDone", true);
 	}
@@ -96,21 +96,22 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	this->trayManager->createIcon ( QIcon ( ":/images/tray.png" ), "Simon" );
 
-
-
 	shownDialogs = 0;
 
 	QMainWindow ( parent,flags );
-	ui.setupUi ( this );
 
+	ui.setupUi ( this );
+    
 	//Preloads all Dialogs
 	guessChildTriggers ( ( QObject* ) this );
 
+    this->info->writeToSplash ( tr ( "Lade \"Trainieren\"..." ) );
+	this->trainDialog = new TrainingView ( addWordView, this );
 
-	this->info->writeToSplash ( tr ( "Lade \"Trainieren\"..." ) );
-	this->trainDialog = new TrainingView ( this );
 	this->info->writeToSplash ( tr ( "Lade \"Wortliste\"..." ) );
 	this->wordList = new WordListView ( trainDialog, this );
+
+    this->trainDialog->setWordListManager(wordList->getWordListManager());
 
 	this->info->writeToSplash ( tr ( "Lade \"Wort hinzufügen\"..." ) );
 	GrammarManager *grammarManager = new GrammarManager(wordList->getManager());
@@ -234,6 +235,8 @@ void SimonView::setupSignalSlots()
 
 
 	connect ( ui.pbCompileModel, SIGNAL ( clicked() ), this->wordList, SLOT ( compileModel() ) );
+    
+    connect(ui.pbClose, SIGNAL(clicked()), trainDialog, SLOT(cancelTraining()));
 }
 
 void SimonView::setButtonNotChecked()

@@ -29,7 +29,7 @@ AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 	label->setText(tr("Mit Hilfe dieses Assistenten koennen Sie neue Wörter zum\nSprachmodell hinzufügen. Geben Sie hierzu\nbitte den Namen des Wortes an\nund bestätigen Sie mit \"Weiter\":\n\n"));
 	QLabel *lbName = new QLabel(this);
 	lbName->setText(tr("Neues Wort:"));
-	QLineEdit *leName = new QLineEdit(this);
+	leName = new QLineEdit(this);
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	QHBoxLayout *loName = new QHBoxLayout();
 	loName->addWidget(lbName);
@@ -42,5 +42,13 @@ AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 	setLayout(layout);
 }
 
+/**
+ * \brief writes a word in the lineedit
+ * \author Susanne Tschernegg
+ */
+void AddWordIntroPage::setName(QString word)
+{
+    leName->setText(word);
+}
 
 

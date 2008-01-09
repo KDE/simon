@@ -39,17 +39,16 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 
 	//iconButton = new IconButton();
 	commandEdited = false;
-	twCommand = new SimonTableWidget ( this );
-	twCommand->setColumnCount ( 5 );
+	ui.twCommand->setColumnCount ( 5 );
 	QStringList headerLabels;
 	headerLabels.append ( tr ( "Icon" ) );
 	headerLabels.append ( tr ( "Name" ) );
 	headerLabels.append ( tr ( "Typ" ) );
 	headerLabels.append ( tr ( "Wert" ) );
 	headerLabels.append ( tr ( "Arbeitspfad" ) );
-	twCommand->setHorizontalHeaderLabels ( headerLabels );
+	ui.twCommand->setHorizontalHeaderLabels ( headerLabels );
 
-	ui.vboxLayout->insertWidget ( 1, twCommand );
+	ui.vboxLayout->insertWidget ( 1, ui.twCommand );
 
 	ui.pbImportProgram->setCheckable ( true );
 	ui.pbImportPlace->setCheckable ( true );
@@ -60,9 +59,10 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 
 	//connects
 	connect ( ui.pbNewCommand, SIGNAL ( clicked() ), this, SLOT ( newCommand() ) );
-	connect ( twCommand, SIGNAL ( currentCellChanged ( int,int,int,int ) ), this, SLOT ( checkAndAddCommandValues ( int,int,int,int ) ) );
+    connect (ui.pbSpecialCharacter, SIGNAL(clicked()), this, SLOT (newCommand()));
+	connect ( ui.twCommand, SIGNAL ( currentCellChanged ( int,int,int,int ) ), this, SLOT ( checkAndAddCommandValues ( int,int,int,int ) ) );
 	connect ( ui.pbDeleteCommand, SIGNAL ( clicked() ), this, SLOT ( deleteCommand() ) );
-	connect ( twCommand, SIGNAL ( cellDoubleClicked ( int, int ) ), this, SLOT ( editCommand ( int, int ) ) );
+	connect ( ui.twCommand, SIGNAL ( cellDoubleClicked ( int, int ) ), this, SLOT ( editCommand ( int, int ) ) );
 	connect ( ui.pbEditCommand, SIGNAL ( clicked() ), this, SLOT ( editCommand() ) );
 	connect ( ui.cbShowCommand, SIGNAL ( currentIndexChanged ( const QString & ) ), this, SLOT ( showOnlyCommands() ) );
 	connect ( ui.pbClearSearchCommand, SIGNAL ( clicked() ), this, SLOT ( clearSearchLineEdit() ) );
@@ -72,13 +72,13 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 	connect ( importProgramWizard, SIGNAL ( commandCreated ( Command* ) ), this, SLOT ( insertCommand ( Command* ) ) );
 	connect ( importProgramWizard, SIGNAL ( finished ( int ) ), this, SLOT ( setWidgetsDisabled() ) );
 	connect ( this, SIGNAL ( changeExistingName ( bool ) ), importProgramWizard, SLOT ( changeName ( bool ) ) );
-	connect ( twCommand, SIGNAL ( returnPressed() ), this, SLOT ( checkValuesAfterReturnPressed() ) );
+	connect ( ui.twCommand, SIGNAL ( returnPressed() ), this, SLOT ( checkValuesAfterReturnPressed() ) );
 	connect ( ui.pbClearSearchCommand, SIGNAL ( clicked() ),this,SLOT ( checkValuesAfterReturnPressed() ) );
 	connect ( ui.pbImportPlace, SIGNAL ( clicked() ), this, SLOT ( importNewPlace() ) );
 	connect ( importPlaceWizard, SIGNAL ( commandCreated ( Command* ) ), this, SLOT ( insertCommand ( Command* ) ) );
 	connect ( importPlaceWizard, SIGNAL ( finished ( int ) ), this, SLOT ( setWidgetsDisabled() ) );
 	connect ( this, SIGNAL ( changeExistingName ( bool ) ), importPlaceWizard, SLOT ( changeName ( bool ) ) );
-	twCommand->resizeColumnToContents ( 2 );
+	ui.twCommand->resizeColumnToContents ( 2 );
 }
 
 /**
@@ -100,33 +100,33 @@ bool CommandSettings::apply()
 
 	QString type;
 	Command *newCommand;
-	for ( int i=0; i<twCommand->rowCount(); i++ )
+	for ( int i=0; i<ui.twCommand->rowCount(); i++ )
 	{
-		type = twCommand->item ( i,2 )->text();
+		type = ui.twCommand->item ( i,2 )->text();
 		int typeInt = getTypeNumber ( type );
 
 		QString iconResources = "";
-		if ( dynamic_cast<IconButton*> ( twCommand->cellWidget ( i,0 ) ) )
+		if ( dynamic_cast<IconButton*> ( ui.twCommand->cellWidget ( i,0 ) ) )
 		{
-			IconButton *iconButton = dynamic_cast<IconButton*> ( twCommand->cellWidget ( i,0 ) );
+			IconButton *iconButton = dynamic_cast<IconButton*> ( ui.twCommand->cellWidget ( i,0 ) );
 			iconResources = iconButton->getIconName();
 		}
 
 		//creates a new command or replaces it
 		//Command(QString name, CommandType type, QString value, QString iconPath = "", QString workingDirectory="")
-		newCommand = new Command ( twCommand->item ( i,1 )->text(), CommandType ( typeInt ), twCommand->item ( i,3 )->text(), iconResources, twCommand->item ( i,4 )->text() );
+		newCommand = new Command ( ui.twCommand->item ( i,1 )->text(), CommandType ( typeInt ), ui.twCommand->item ( i,3 )->text(), iconResources, ui.twCommand->item ( i,4 )->text() );
 
-		if ( ( !twCommand->item ( i,1 )->data ( Qt::UserRole ).isNull() ) && ( commandLoader->commandExists ( twCommand->item ( i,1 )->data ( Qt::UserRole ).toString() ) ) )
+		if ( ( !ui.twCommand->item ( i,1 )->data ( Qt::UserRole ).isNull() ) && ( commandLoader->commandExists ( ui.twCommand->item ( i,1 )->data ( Qt::UserRole ).toString() ) ) )
 		{
 			//replaces the old command
-			commandLoader->replaceCommand ( twCommand->item ( i,1 )->data ( Qt::UserRole ).toString(), newCommand );
-			twCommand->item ( i,1 )->setData ( Qt::UserRole, twCommand->item ( i,1 )->text() );
+			commandLoader->replaceCommand ( ui.twCommand->item ( i,1 )->data ( Qt::UserRole ).toString(), newCommand );
+			ui.twCommand->item ( i,1 )->setData ( Qt::UserRole, ui.twCommand->item ( i,1 )->text() );
 		}
 		else
 		{
 			//creates a new command
 			commandLoader->addCommand ( newCommand );
-			twCommand->item ( i,1 )->setData ( Qt::UserRole, twCommand->item ( i,1 )->text() );
+			ui.twCommand->item ( i,1 )->setData ( Qt::UserRole, ui.twCommand->item ( i,1 )->text() );
 		}
 	}
 
@@ -146,7 +146,7 @@ bool CommandSettings::init()
 	Logger::log ( tr ( "[INF] Importiere Kommandos von " ) +path );
 	if ( !commandLoader->load ( path ) ) { return false;}
 	CommandList commands = commandLoader->getCommands();
-	twCommand->setRowCount ( commands.count() );
+	ui.twCommand->setRowCount ( commands.count() );
 	QTableWidgetItem *tmp;
 	ui.cbShowCommand->setCurrentIndex ( 0 );
 	ui.leSearchCommand->clear();
@@ -161,26 +161,26 @@ bool CommandSettings::init()
 		iconButton->setIcon ( icon );
 		iconButton->setIconName ( resourceId );
 
-		twCommand->setCellWidget ( i, 0, iconButton );
+		ui.twCommand->setCellWidget ( i, 0, iconButton );
 
 		tmp = new QTableWidgetItem ( commands.at ( i )->getName() );
 		tmp->setData ( Qt::UserRole, commands.at ( i )->getName() );
-		twCommand->setItem ( i, 1, tmp );
+		ui.twCommand->setItem ( i, 1, tmp );
 
 		CommandType ctype = commands.at ( i )->getType();
 		QString strType = getTypeName ( ctype );
 
-		twCommand->setItem ( i, 2, new QTableWidgetItem ( strType ) );
-		twCommand->resizeColumnToContents ( 2 );
+		ui.twCommand->setItem ( i, 2, new QTableWidgetItem ( strType ) );
+		ui.twCommand->resizeColumnToContents ( 2 );
 
-		twCommand->setItem ( i, 3, new QTableWidgetItem ( commands.at ( i )->getValue() ) );
+		ui.twCommand->setItem ( i, 3, new QTableWidgetItem ( commands.at ( i )->getValue() ) );
 
-		twCommand->setItem ( i, 4, new QTableWidgetItem ( commands.at ( i )->getWorkingDirectory() ) );
+		ui.twCommand->setItem ( i, 4, new QTableWidgetItem ( commands.at ( i )->getWorkingDirectory() ) );
 	}
 	commandsCount = commands.count();
 
 	ui.leKeyword->setText ( Settings::get ( "Commands/Keyword" ).toString() );
-	twCommand->resizeColumnsToContents();
+	ui.twCommand->resizeColumnsToContents();
 	commandEdited = false;
 	return true;
 }
@@ -193,32 +193,32 @@ bool CommandSettings::init()
 void CommandSettings::deactivateAllCbs()
 {
 	QWidget *tmpWidget = new QWidget();
-	tmpWidget = twCommand->cellWidget ( twCommand->currentRow(), 1 );
+	tmpWidget = ui.twCommand->cellWidget ( ui.twCommand->currentRow(), 1 );
 	if ( tmpWidget!=NULL )
 	{
 		QComboBox *cbType = ( QComboBox* ) tmpWidget;
 		QString type = cbType->itemText ( cbType->currentIndex() );
 		QTableWidgetItem *tmp = new QTableWidgetItem();
 		tmp->setText ( type );
-		twCommand->removeCellWidget ( twCommand->currentRow(), 1 );
-		twCommand->setItem ( twCommand->currentRow(), 1, tmp );
+		ui.twCommand->removeCellWidget ( ui.twCommand->currentRow(), 1 );
+		ui.twCommand->setItem ( ui.twCommand->currentRow(), 1, tmp );
 
 		int typeInt = getTypeNumber ( type );
 
-		int currRow = twCommand->currentRow();
+		int currRow = ui.twCommand->currentRow();
 
 		//creates a new command resp. replaces it
-		Command *newCommand = new Command ( twCommand->item ( currRow,1 )->text(), CommandType ( typeInt ), twCommand->item ( currRow,3 )->text() );
-		if ( ( !twCommand->item ( currRow,1 )->data ( Qt::UserRole ).isNull() ) && ( commandLoader->commandExists ( twCommand->item ( currRow,1 )->data ( Qt::UserRole ).toString() ) ) )
+		Command *newCommand = new Command ( ui.twCommand->item ( currRow,1 )->text(), CommandType ( typeInt ), ui.twCommand->item ( currRow,3 )->text() );
+		if ( ( !ui.twCommand->item ( currRow,1 )->data ( Qt::UserRole ).isNull() ) && ( commandLoader->commandExists ( ui.twCommand->item ( currRow,1 )->data ( Qt::UserRole ).toString() ) ) )
 		{
 			//replaces the old command
-			commandLoader->replaceCommand ( twCommand->item ( currRow,1 )->data ( Qt::UserRole ).toString(), newCommand );
-			twCommand->item ( currRow,1 )->setData ( Qt::UserRole, twCommand->item ( currRow,1 )->text() );
+			commandLoader->replaceCommand ( ui.twCommand->item ( currRow,1 )->data ( Qt::UserRole ).toString(), newCommand );
+			ui.twCommand->item ( currRow,1 )->setData ( Qt::UserRole, ui.twCommand->item ( currRow,1 )->text() );
 		}
 		else
 		{
 			commandLoader->addCommand ( newCommand );
-			twCommand->item ( currRow,1 )->setData ( Qt::UserRole, twCommand->item ( currRow,1 )->text() );
+			ui.twCommand->item ( currRow,1 )->setData ( Qt::UserRole, ui.twCommand->item ( currRow,1 )->text() );
 		}
 	}
 	commandEdited = false;
@@ -232,17 +232,17 @@ void CommandSettings::deactivateAllCbs()
 */
 void CommandSettings::editCommand ( int row, int column )
 {
-	if ( twCommand->currentRow() <0 )
+	if ( ui.twCommand->currentRow() <0 )
 		return;
 	commandEdited = true;
 	if ( row<0 )
-		row = twCommand->currentRow();
+		row = ui.twCommand->currentRow();
 
 	QWidget *tmpWidget = new QWidget();
-	tmpWidget = twCommand->cellWidget ( row, 2 );
+	tmpWidget = ui.twCommand->cellWidget ( row, 2 );
 	if ( tmpWidget==NULL )
 	{
-		QString typeStr = twCommand->item ( row,2 )->text();
+		QString typeStr = ui.twCommand->item ( row,2 )->text();
 		QComboBox *cbType = new QComboBox();
 		cbType->addItem ( QIcon ( ":/images/icons/system-run.svg" ),QApplication::translate ( "RunDialog", "Programme", 0, QApplication::UnicodeUTF8 ) );
 		cbType->addItem ( QIcon ( ":/images/icons/folder.svg" ), QApplication::translate ( "RunDialog", "Orte", 0, QApplication::UnicodeUTF8 ) );
@@ -250,10 +250,10 @@ void CommandSettings::editCommand ( int row, int column )
 		int posCb = getTypeNumber ( typeStr );
 
 		cbType->setCurrentIndex ( posCb );
-		twCommand->setCellWidget ( row, 2, cbType );
+		ui.twCommand->setCellWidget ( row, 2, cbType );
 	}
-	twCommand->setCurrentCell ( row,column );
-	twCommand->editItem ( twCommand->item ( row, column ) );
+	ui.twCommand->setCurrentCell ( row,column );
+	ui.twCommand->editItem ( ui.twCommand->item ( row, column ) );
 }
 
 /**
@@ -265,19 +265,19 @@ void CommandSettings::newCommand()
 {
 	if ( commandEdited )
 	{
-		if ( twCommand->currentRow() !=0 )
-			twCommand->setCurrentCell ( 0,0 );
-		else if ( twCommand->rowCount() >1 )
-			twCommand->setCurrentCell ( 1,0 );
+		if ( ui.twCommand->currentRow() !=0 )
+			ui.twCommand->setCurrentCell ( 0,0 );
+		else if ( ui.twCommand->rowCount() >1 )
+			ui.twCommand->setCurrentCell ( 1,0 );
 	}
 
 	if ( commandEdited )
 		return;
 	ui.leSearchCommand->clear();
 	showAllCommands();
-	int rows = twCommand->rowCount();
-	twCommand->setRowCount ( rows );
-	twCommand->insertRow ( rows );
+	int rows = ui.twCommand->rowCount();
+	ui.twCommand->setRowCount ( rows );
+	ui.twCommand->insertRow ( rows );
 
 	IconButton *iconButton = new IconButton ( this );
 
@@ -289,21 +289,21 @@ void CommandSettings::newCommand()
 	iconButton->setIconName ( "shell32.dll,12" );
 #endif
 
-	twCommand->setCellWidget ( rows, 0, iconButton );
+	ui.twCommand->setCellWidget ( rows, 0, iconButton );
 
 	QTableWidgetItem *tmp = new QTableWidgetItem();
-	twCommand->setItem ( rows, 1, tmp );
+	ui.twCommand->setItem ( rows, 1, tmp );
 
-	QComboBox *cbType = new QComboBox ( twCommand );
+	QComboBox *cbType = new QComboBox ( ui.twCommand );
 	cbType->addItem ( QIcon ( ":/images/icons/system-run.svg" ),QApplication::translate ( "RunDialog", "Programme", 0, QApplication::UnicodeUTF8 ) );
 	cbType->addItem ( QIcon ( ":/images/icons/folder.svg" ), QApplication::translate ( "RunDialog", "Orte", 0, QApplication::UnicodeUTF8 ) );
 	cbType->addItem ( QIcon ( ":/images/icons/format-text-bold.svg" ),QApplication::translate ( "RunDialog", "Sonderzeichen", 0, QApplication::UnicodeUTF8 ) );
 
-	twCommand->setCellWidget ( rows, 2, cbType );
-	twCommand->setItem ( rows, 3, new QTableWidgetItem() );
-	twCommand->setItem ( rows, 4, new QTableWidgetItem() );
-	twCommand->setCurrentCell ( rows,1 );
-	twCommand->editItem ( twCommand->item ( rows, 1 ) );
+	ui.twCommand->setCellWidget ( rows, 2, cbType );
+	ui.twCommand->setItem ( rows, 3, new QTableWidgetItem() );
+	ui.twCommand->setItem ( rows, 4, new QTableWidgetItem() );
+	ui.twCommand->setCurrentCell ( rows,1 );
+	ui.twCommand->editItem ( ui.twCommand->item ( rows, 1 ) );
 	commandEdited = true;
 }
 
@@ -314,26 +314,26 @@ void CommandSettings::newCommand()
 */
 void CommandSettings::deleteCommand()
 {
-	if ( twCommand->currentRow() <0 )
+	if ( ui.twCommand->currentRow() <0 )
 		return;
-	int rowCount = twCommand->rowCount();
-	int currRow = twCommand->currentRow();
+	int rowCount = ui.twCommand->rowCount();
+	int currRow = ui.twCommand->currentRow();
 
 	if ( currRow!=0 )
-		twCommand->setCurrentCell ( 0,0 );
-	else if ( twCommand->rowCount() >1 )
-		twCommand->setCurrentCell ( 1,0 );
+		ui.twCommand->setCurrentCell ( 0,0 );
+	else if ( ui.twCommand->rowCount() >1 )
+		ui.twCommand->setCurrentCell ( 1,0 );
 
 	if ( commandEdited )
 	{
 		return;
 	}
 
-	if ( rowCount==twCommand->rowCount() )
+	if ( rowCount==ui.twCommand->rowCount() )
 	{
-		if ( !twCommand->item ( currRow,1 )->data ( Qt::UserRole ).isNull() )
-			commandLoader->deleteCommand ( twCommand->item ( currRow, 1 )->data ( Qt::UserRole ).toString() );//, ui.twCommand->item(currRow, 2)->text());
-		twCommand->removeRow ( currRow );
+		if ( !ui.twCommand->item ( currRow,1 )->data ( Qt::UserRole ).isNull() )
+			commandLoader->deleteCommand ( ui.twCommand->item ( currRow, 1 )->data ( Qt::UserRole ).toString() );//, ui.ui.twCommand->item(currRow, 2)->text());
+		ui.twCommand->removeRow ( currRow );
 	}
 	commandEdited = false;
 }
@@ -349,7 +349,7 @@ void CommandSettings::activateCb()
 	cbType->addItem ( QIcon ( ":/images/icons/system-run.svg" ),QApplication::translate ( "RunDialog", "Programme", 0, QApplication::UnicodeUTF8 ) );
 	cbType->addItem ( QIcon ( ":/images/icons/folder.svg" ), QApplication::translate ( "RunDialog", "Orte", 0, QApplication::UnicodeUTF8 ) );
 	cbType->addItem ( QIcon ( ":/images/icons/format-text-bold.svg" ),QApplication::translate ( "RunDialog", "Sonderzeichen", 0, QApplication::UnicodeUTF8 ) );
-	twCommand->setCellWidget ( twCommand->currentRow(), 2, cbType );
+	ui.twCommand->setCellWidget ( ui.twCommand->currentRow(), 2, cbType );
 }
 
 
@@ -374,9 +374,9 @@ void CommandSettings::checkAndAddCommandValues ( int currRow, int currCol, int p
 	if ( prevRow < 0 )
 		return;
 
-	if ( ( prevCol==1 ) && ( commandEdited ) ) // && (ui.twCommand->item(prevRow, 0)->text()!=NULL) && ((ui.twCommand->item(prevRow,0)->text().trimmed()!="")))
+	if ( ( prevCol==1 ) && ( commandEdited ) ) // && (ui.ui.twCommand->item(prevRow, 0)->text()!=NULL) && ((ui.ui.twCommand->item(prevRow,0)->text().trimmed()!="")))
 	{
-		if ( commandNameExists ( twCommand->item ( prevRow, 1 )->text(),prevRow ) )
+		if ( commandNameExists ( ui.twCommand->item ( prevRow, 1 )->text(),prevRow ) )
 		{
 			//if the name exists
 			ui.pbImportProgram->setChecked ( false );
@@ -386,9 +386,9 @@ void CommandSettings::checkAndAddCommandValues ( int currRow, int currCol, int p
 	}
 
 	//if the column value was selected
-	else if ( ( prevCol==3 ) && ( commandEdited ) ) // && (ui.twCommand->item(prevRow, 2)->text()!=NULL) && ((ui.twCommand->item(prevRow,2)->text().trimmed()!="")))
+	else if ( ( prevCol==3 ) && ( commandEdited ) ) // && (ui.ui.twCommand->item(prevRow, 2)->text()!=NULL) && ((ui.ui.twCommand->item(prevRow,2)->text().trimmed()!="")))
 	{
-		if ( commandValueExists ( twCommand->item ( prevRow, 3 )->text(), prevRow ) )
+		if ( commandValueExists ( ui.twCommand->item ( prevRow, 3 )->text(), prevRow ) )
 		{
 			//if the command has been deleted
 			ui.pbImportProgram->setChecked ( false );
@@ -421,8 +421,8 @@ void CommandSettings::checkAndAddCommandValues ( int currRow, int currCol, int p
 */
 bool CommandSettings::reset()
 {
-	disconnect ( twCommand, SIGNAL ( itemChanged ( QTableWidgetItem * ) ), this, SLOT ( checkAndAddCommandValues() ) );
-	int currRow = twCommand->currentRow();
+	disconnect ( ui.twCommand, SIGNAL ( itemChanged ( QTableWidgetItem * ) ), this, SLOT ( checkAndAddCommandValues() ) );
+	int currRow = ui.twCommand->currentRow();
 	if ( currRow>=0 )
 	{
 		if ( !allCommandValuesSet ( currRow ) )
@@ -432,12 +432,12 @@ bool CommandSettings::reset()
 		}
 		if ( commandEdited )
 		{
-			if ( commandNameExists ( twCommand->item ( currRow, 1 )->text(), currRow ) )
+			if ( commandNameExists ( ui.twCommand->item ( currRow, 1 )->text(), currRow ) )
 			{
 				ui.pbImportProgram->setChecked ( false );
 				return false;
 			}
-			if ( commandValueExists ( twCommand->item ( currRow, 3 )->text(), currRow ) )
+			if ( commandValueExists ( ui.twCommand->item ( currRow, 3 )->text(), currRow ) )
 			{
 				ui.pbImportProgram->setChecked ( false );
 				return false;
@@ -445,8 +445,8 @@ bool CommandSettings::reset()
 		}
 		//deactivateAllCbs();
 	}
-	twCommand->clearContents();
-	twCommand->setRowCount ( 0 );
+	ui.twCommand->clearContents();
+	ui.twCommand->setRowCount ( 0 );
 	commandEdited = false;
 	return init();
 }
@@ -466,14 +466,14 @@ void CommandSettings::showOnlyCommands()
 			return;
 		}
 
-		if ( ! ( twCommand->currentRow() <0 ) )
+		if ( ! ( ui.twCommand->currentRow() <0 ) )
 		{
-			int currRow = twCommand->currentRow();
+			int currRow = ui.twCommand->currentRow();
 
 			if ( currRow!=0 )
-				twCommand->setCurrentCell ( 0,0 );
-			else if ( twCommand->rowCount() >1 )
-				twCommand->setCurrentCell ( 1,0 );
+				ui.twCommand->setCurrentCell ( 0,0 );
+			else if ( ui.twCommand->rowCount() >1 )
+				ui.twCommand->setCurrentCell ( 1,0 );
 		}
 		return;
 	}
@@ -482,7 +482,7 @@ void CommandSettings::showOnlyCommands()
 	if ( currInd!=0 )
 		ui.leSearchCommand->clear();
 	ui.cbShowCommand->setCurrentIndex ( currInd );
-	int currRow = twCommand->currentRow();
+	int currRow = ui.twCommand->currentRow();
 	if ( currRow>=0 )
 	{
 		if ( !allCommandValuesSet ( currRow ) )
@@ -491,11 +491,11 @@ void CommandSettings::showOnlyCommands()
 		}
 		if ( commandEdited )
 		{
-			if ( commandNameExists ( twCommand->item ( currRow, 1 )->text(), currRow ) )
+			if ( commandNameExists ( ui.twCommand->item ( currRow, 1 )->text(), currRow ) )
 			{
 				return;
 			}
-			if ( commandValueExists ( twCommand->item ( currRow, 3 )->text(), currRow ) )
+			if ( commandValueExists ( ui.twCommand->item ( currRow, 3 )->text(), currRow ) )
 			{
 				return;
 			}
@@ -504,8 +504,8 @@ void CommandSettings::showOnlyCommands()
 	}
 
 	QString currType = ui.cbShowCommand->currentText();
-	twCommand->clearContents();
-	twCommand->setRowCount ( 0 );
+	ui.twCommand->clearContents();
+	ui.twCommand->setRowCount ( 0 );
 	QTableWidgetItem *tmp;
 	CommandList commands = commandLoader->getCommands();
 	int counter = 0;
@@ -517,7 +517,7 @@ void CommandSettings::showOnlyCommands()
 		if ( ( strType==currType ) || ( currType=="Alles" ) )
 		{
 			counter ++;
-			twCommand->setRowCount ( counter );
+			ui.twCommand->setRowCount ( counter );
 
 			QString resourceId = commands.at ( i )->getIconPath();
 
@@ -527,20 +527,20 @@ void CommandSettings::showOnlyCommands()
 			iconButton->setIcon ( icon );
 			iconButton->setIconName ( resourceId );
 
-			twCommand->setCellWidget ( counter-1, 0, iconButton );
+			ui.twCommand->setCellWidget ( counter-1, 0, iconButton );
 
 			tmp = new QTableWidgetItem ( commands.at ( i )->getName() );
 			tmp->setData ( Qt::UserRole, commands.at ( i )->getName() );
-			twCommand->setItem ( counter-1, 1, tmp );
+			ui.twCommand->setItem ( counter-1, 1, tmp );
 
 			tmp = new QTableWidgetItem ( strType );
-			twCommand->setItem ( counter-1, 2, tmp );
+			ui.twCommand->setItem ( counter-1, 2, tmp );
 
 			tmp = new QTableWidgetItem ( commands.at ( i )->getValue() );
-			twCommand->setItem ( counter-1, 3, tmp );
+			ui.twCommand->setItem ( counter-1, 3, tmp );
 		}
 	}
-	twCommand->resizeColumnToContents ( 2 );
+	ui.twCommand->resizeColumnToContents ( 2 );
 }
 
 /**
@@ -563,8 +563,8 @@ void CommandSettings::searchCommandList()
 	if ( ( ui.leSearchCommand->text() =="" ) && ( !commandEdited ) )
 	{
 		CommandList allCommands = commandLoader->getCommands();
-		twCommand->clearContents();
-		twCommand->setRowCount ( 0 );
+		ui.twCommand->clearContents();
+		ui.twCommand->setRowCount ( 0 );
 		QTableWidgetItem *tmp;
 		int counter = 0;
 		for ( int z=0; z<allCommands.count(); z++ )
@@ -575,7 +575,7 @@ void CommandSettings::searchCommandList()
 			if ( ( ui.cbShowCommand->currentIndex() ==0 ) || ( strType==ui.cbShowCommand->currentText() ) )
 			{
 				counter++;
-				twCommand->setRowCount ( counter );
+				ui.twCommand->setRowCount ( counter );
 
 				QString resourceId = allCommands.at ( z )->getIconPath();
 
@@ -585,46 +585,46 @@ void CommandSettings::searchCommandList()
 				iconButton->setIcon ( icon );
 				iconButton->setIconName ( resourceId );
 
-				twCommand->setCellWidget ( counter-1, 0, iconButton );
+				ui.twCommand->setCellWidget ( counter-1, 0, iconButton );
 
 				tmp = new QTableWidgetItem ( allCommands.at ( z )->getName() );
 				tmp->setData ( Qt::UserRole, allCommands.at ( z )->getName() );
-				twCommand->setItem ( counter-1, 1, tmp );
+				ui.twCommand->setItem ( counter-1, 1, tmp );
 
 				CommandType ctype = allCommands.at ( z )->getType();
 				QString strType = getTypeName ( ctype );
 
 				tmp = new QTableWidgetItem ( strType );
-				twCommand->setItem ( counter-1, 2, tmp );
+				ui.twCommand->setItem ( counter-1, 2, tmp );
 
 				tmp = new QTableWidgetItem ( allCommands.at ( z )->getValue() );
-				twCommand->setItem ( counter-1, 3, tmp );
+				ui.twCommand->setItem ( counter-1, 3, tmp );
 			}
 		}
-		twCommand->resizeColumnToContents ( 1 );
+		ui.twCommand->resizeColumnToContents ( 1 );
 		return;
 	}
 
-	int prevRow = twCommand->currentRow();
+	int prevRow = ui.twCommand->currentRow();
 
 	if ( ui.leSearchCommand->text() !="" )
-		if ( twCommand->rowCount() >0 && prevRow!=0 )
-			twCommand->setCurrentCell ( 1,0 );
+		if ( ui.twCommand->rowCount() >0 && prevRow!=0 )
+			ui.twCommand->setCurrentCell ( 1,0 );
 
-		else if ( twCommand->rowCount() >1 )
-			twCommand->setCurrentCell ( 0,0 );
+		else if ( ui.twCommand->rowCount() >1 )
+			ui.twCommand->setCurrentCell ( 0,0 );
 
-	if ( !twCommand->item ( prevRow,1 ) )
+	if ( !ui.twCommand->item ( prevRow,1 ) )
 	{
-		if ( !prevRow>=twCommand->rowCount() )
+		if ( !prevRow>=ui.twCommand->rowCount() )
 		{
 			return;
 		}
 	}
 	else
 	{
-		if ( ( twCommand->item ( prevRow, 1 )->text() ==NULL ) || ( twCommand->item ( prevRow, 1 )->text() ==NULL ) ||
-		        ( twCommand->item ( prevRow,1 )->text().trimmed() =="" ) || ( twCommand->item ( prevRow,3 )->text().trimmed() =="" ) )
+		if ( ( ui.twCommand->item ( prevRow, 1 )->text() ==NULL ) || ( ui.twCommand->item ( prevRow, 1 )->text() ==NULL ) ||
+		        ( ui.twCommand->item ( prevRow,1 )->text().trimmed() =="" ) || ( ui.twCommand->item ( prevRow,3 )->text().trimmed() =="" ) )
 		{
 			commandEdited = true;
 			ui.leSearchCommand->clear();
@@ -633,8 +633,8 @@ void CommandSettings::searchCommandList()
 	}
 
 	QString searchText = ui.leSearchCommand->text();
-	twCommand->clearContents();
-	twCommand->setRowCount ( 0 );
+	ui.twCommand->clearContents();
+	ui.twCommand->setRowCount ( 0 );
 	QTableWidgetItem *tmp;
 	CommandList commands = commandLoader->getCommands();
 	int counter = 0;
@@ -649,7 +649,7 @@ void CommandSettings::searchCommandList()
 			if ( ( ui.cbShowCommand->currentIndex() ==0 ) || ( strType==ui.cbShowCommand->currentText() ) )
 			{
 				counter ++;
-				twCommand->setRowCount ( counter );
+				ui.twCommand->setRowCount ( counter );
 
 				QString resourceId = commands.at ( i )->getIconPath();
 
@@ -659,21 +659,21 @@ void CommandSettings::searchCommandList()
 				iconButton->setIcon ( icon );
 				iconButton->setIconName ( resourceId );
 
-				twCommand->setCellWidget ( counter-1, 0, iconButton );
+				ui.twCommand->setCellWidget ( counter-1, 0, iconButton );
 
 				tmp = new QTableWidgetItem ( commands.at ( i )->getName() );
 				tmp->setData ( Qt::UserRole, commands.at ( i )->getName() );
-				twCommand->setItem ( counter-1, 1, tmp );
+				ui.twCommand->setItem ( counter-1, 1, tmp );
 
 				tmp = new QTableWidgetItem ( strType );
-				twCommand->setItem ( counter-1, 2, tmp );
+				ui.twCommand->setItem ( counter-1, 2, tmp );
 
 				tmp = new QTableWidgetItem ( commands.at ( i )->getValue() );
-				twCommand->setItem ( counter-1, 3, tmp );
+				ui.twCommand->setItem ( counter-1, 3, tmp );
 			}
 		}
 	}
-	twCommand->resizeColumnToContents ( 2 );
+	ui.twCommand->resizeColumnToContents ( 2 );
 }
 
 /**
@@ -685,7 +685,7 @@ void CommandSettings::importNewProgram()
 {
 	bool checked = ui.pbImportProgram->isChecked();
 
-	twCommand->setCurrentCell ( 0,0 );
+	ui.twCommand->setCurrentCell ( 0,0 );
 	if ( commandEdited )
 		return;
 
@@ -701,10 +701,13 @@ void CommandSettings::importNewProgram()
 	ui.leSearchCommand->setDisabled ( checked );
 	ui.pbClearSearchCommand->setDisabled ( checked );
 	ui.cbShowCommand->setDisabled ( checked );
-	twCommand->setDisabled ( checked );
+	ui.twCommand->setDisabled ( checked );
 
 	if ( checked )
+    {
+        importProgramWizard = new ImportProgramWizard(this);
 		importProgramWizard->show();
+    }
 	else
 		importProgramWizard->hide();
 }
@@ -716,8 +719,8 @@ void CommandSettings::importNewProgram()
 */
 void CommandSettings::insertCommand ( Command* command )
 {
-	int rows = twCommand->rowCount();
-	twCommand->insertRow ( rows );
+	int rows = ui.twCommand->rowCount();
+	ui.twCommand->insertRow ( rows );
 
 	IconButton *iconButton = new IconButton ( this );
 #ifdef __WIN32
@@ -734,39 +737,39 @@ void CommandSettings::insertCommand ( Command* command )
 	iconButton->setIconName(iconsrc);
 	iconButton->setIcon(QIcon(iconsrc));
 #endif
-	twCommand->setCellWidget ( rows, 0, iconButton );
+	ui.twCommand->setCellWidget ( rows, 0, iconButton );
 
 	QTableWidgetItem *tmp = new QTableWidgetItem ( command->getName() );
 	tmp->setData ( Qt::UserRole, command->getName() );
-	twCommand->setItem ( rows, 1, tmp );
+	ui.twCommand->setItem ( rows, 1, tmp );
 
 	CommandType ctype = command->getType();
 	QString strType = getTypeName ( ctype );
 
-	twCommand->setItem ( rows, 2, new	QTableWidgetItem ( strType ) );
+	ui.twCommand->setItem ( rows, 2, new	QTableWidgetItem ( strType ) );
 
-	twCommand->setItem ( rows, 3, new QTableWidgetItem ( command->getValue() ) );
+	ui.twCommand->setItem ( rows, 3, new QTableWidgetItem ( command->getValue() ) );
 
-	twCommand->setItem ( rows, 4, new QTableWidgetItem ( "" ) );
+	ui.twCommand->setItem ( rows, 4, new QTableWidgetItem ( "" ) );
 
-	for ( int i=0; i<twCommand->rowCount(); i++ )
+	for ( int i=0; i<ui.twCommand->rowCount(); i++ )
 	{
-		if ( ( i!=rows ) && ( QString::compare ( command->getName(), twCommand->item ( i, 1 )->text(), Qt::CaseInsensitive ) ==0 ) )
+		if ( ( i!=rows ) && ( QString::compare ( command->getName(), ui.twCommand->item ( i, 1 )->text(), Qt::CaseInsensitive ) ==0 ) )
 		{
 			int result = QMessageBox::information ( this, tr ( "Name existiert bereits" ), tr ( "Dieser Name wurde bereits für ein anderes Kommando verwendet!\nBitte ändern Sie den Namen des neuen Kommandos.\n\nWollen Sie den Wizard nun verlassen? (Klicken Sie Nein, um den Namen zu ändern!" ),
 			                                        QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel );
 			if ( result == QMessageBox::Yes )
 			{
-				if ( !twCommand->item ( rows, 1 )->data ( Qt::UserRole ).isNull() )
-					commandLoader->deleteCommand ( twCommand->item ( rows, 1 )->data ( Qt::UserRole ).toString() );
-				twCommand->removeRow ( rows );
+				if ( !ui.twCommand->item ( rows, 1 )->data ( Qt::UserRole ).isNull() )
+					commandLoader->deleteCommand ( ui.twCommand->item ( rows, 1 )->data ( Qt::UserRole ).toString() );
+				ui.twCommand->removeRow ( rows );
 				emit changeExistingName ( false );
 			}
 			else
 			{
-				if ( !twCommand->item ( rows, 1 )->data ( Qt::UserRole ).isNull() )
-					commandLoader->deleteCommand ( twCommand->item ( rows, 1 )->data ( Qt::UserRole ).toString() );
-				twCommand->removeRow ( rows );
+				if ( !ui.twCommand->item ( rows, 1 )->data ( Qt::UserRole ).isNull() )
+					commandLoader->deleteCommand ( ui.twCommand->item ( rows, 1 )->data ( Qt::UserRole ).toString() );
+				ui.twCommand->removeRow ( rows );
 				emit changeExistingName ( true );
 			}
 		}
@@ -781,27 +784,27 @@ void CommandSettings::insertCommand ( Command* command )
 */
 bool CommandSettings::commandNameExists ( QString name, int prevRow )
 {
-	for ( int i=0; i<twCommand->rowCount(); i++ )
+	for ( int i=0; i<ui.twCommand->rowCount(); i++ )
 	{
-		if ( ( i!=prevRow ) && ( !twCommand->item ( i, 1 )->data ( Qt::UserRole ).isNull() ) && ( QString::compare ( name, twCommand->item ( i, 1 )->data ( Qt::UserRole ).toString(), Qt::CaseInsensitive ) ==0 ) )
+		if ( ( i!=prevRow ) && ( !ui.twCommand->item ( i, 1 )->data ( Qt::UserRole ).isNull() ) && ( QString::compare ( name, ui.twCommand->item ( i, 1 )->data ( Qt::UserRole ).toString(), Qt::CaseInsensitive ) ==0 ) )
 		{
 			int result = QMessageBox::information ( this, tr ( "Name existiert bereits" ), tr ( "Dieser Name wurde bereits für ein anderes Kommando verwendet!\nBitte geben Sie einen anderen Namen für dieses Kommando ein.\n\nWollen Sie das Kommando löschen? (Klicken Sie Nein, um den Namen jetzt zu ändern)" ),
 			                                        QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel );
 			if ( result == QMessageBox::Yes )
 			{
-				if ( !twCommand->item ( prevRow, 0 )->data ( Qt::UserRole ).isNull() )
+				if ( !ui.twCommand->item ( prevRow, 0 )->data ( Qt::UserRole ).isNull() )
 				{
-					commandLoader->deleteCommand ( twCommand->item ( prevRow, 1 )->data ( Qt::UserRole ).toString() );
+					commandLoader->deleteCommand ( ui.twCommand->item ( prevRow, 1 )->data ( Qt::UserRole ).toString() );
 				}
 				commandEdited=false;
-				twCommand->removeRow ( prevRow );
+				ui.twCommand->removeRow ( prevRow );
 			}
 			else
 			{
-				twCommand->selectColumn ( 1 );
-				twCommand->selectRow ( prevRow );
-				twCommand->setCurrentCell ( prevRow,1 );
-				twCommand->editItem ( twCommand->item ( prevRow,1 ) );
+				ui.twCommand->selectColumn ( 1 );
+				ui.twCommand->selectRow ( prevRow );
+				ui.twCommand->setCurrentCell ( prevRow,1 );
+				ui.twCommand->editItem ( ui.twCommand->item ( prevRow,1 ) );
 				commandEdited=true;
 				ui.pbImportProgram->setChecked ( false );
 				ui.pbImportPlace->setChecked ( false );
@@ -819,18 +822,18 @@ bool CommandSettings::commandNameExists ( QString name, int prevRow )
 */
 bool CommandSettings::commandValueExists ( QString value, int prevRow )
 {
-	for ( int i=0; i<twCommand->rowCount(); i++ )
+	for ( int i=0; i<ui.twCommand->rowCount(); i++ )
 	{
-		if ( ( i!=prevRow ) && ( QString::compare ( value, twCommand->item ( i, 3 )->text(), Qt::CaseInsensitive ) ==0 ) )
+		if ( ( i!=prevRow ) && ( QString::compare ( value, ui.twCommand->item ( i, 3 )->text(), Qt::CaseInsensitive ) ==0 ) )
 		{
 			int result = QMessageBox::critical ( this, tr ( "Wert existiert bereits" ), tr ( "Dieser Wert existiert bereits!\n\nWollen Sie den Wert jetzt ändern? (Klickes Sie Nein, um den Wert jetzt zu behalten)" ),
 			                                     QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel );
 			if ( result == QMessageBox::Yes )
 			{
-				twCommand->selectColumn ( 3 );
-				twCommand->selectRow ( prevRow );
-				twCommand->editItem ( twCommand->item ( prevRow, 3 ) );
-				twCommand->setCurrentCell ( prevRow,1 );
+				ui.twCommand->selectColumn ( 3 );
+				ui.twCommand->selectRow ( prevRow );
+				ui.twCommand->editItem ( ui.twCommand->item ( prevRow, 3 ) );
+				ui.twCommand->setCurrentCell ( prevRow,1 );
 				commandEdited=true;
 				ui.pbImportProgram->setChecked ( false );
 				ui.pbImportPlace->setChecked ( false );
@@ -848,30 +851,30 @@ bool CommandSettings::commandValueExists ( QString value, int prevRow )
 */
 bool CommandSettings::allCommandValuesSet ( int prevRow )
 {
-	if ( prevRow>=twCommand->rowCount() || prevRow<0 )
+	if ( prevRow>=ui.twCommand->rowCount() || prevRow<0 )
 		return true;
-	if ( ( twCommand->item ( prevRow, 1 )->text() ==NULL ) || ( twCommand->item ( prevRow, 1 )->text() ==NULL ) ||
-	        ( twCommand->item ( prevRow,1 )->text().trimmed() =="" ) || ( twCommand->item ( prevRow,3 )->text().trimmed() =="" ) )
+	if ( ( ui.twCommand->item ( prevRow, 1 )->text() ==NULL ) || ( ui.twCommand->item ( prevRow, 1 )->text() ==NULL ) ||
+	        ( ui.twCommand->item ( prevRow,1 )->text().trimmed() =="" ) || ( ui.twCommand->item ( prevRow,3 )->text().trimmed() =="" ) )
 	{
 		int result = QMessageBox::question ( this, tr ( "Leeres Kommandofeld" ), tr ( "Dieses Kommando wurde nicht vollständig ausgef?lt.\nJedes Kommando muss einen Namen, Wert und Typ besitzen.\n\nWollen Sie diesen Eintrag jetzt löschen? (Klicken Sie Nein, um das Kommando jetzt zu vervollständigen)" ),
 		                                     QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel );
 
 		if ( result == QMessageBox::Yes )
 		{
-			if ( ( !twCommand->item ( prevRow, 1 )->data ( Qt::UserRole ).isNull() ) && ( ( twCommand->item ( prevRow, 0 )->data ( Qt::UserRole ).toString().trimmed() !="" ) ) )
+			if ( ( !ui.twCommand->item ( prevRow, 1 )->data ( Qt::UserRole ).isNull() ) && ( ( ui.twCommand->item ( prevRow, 0 )->data ( Qt::UserRole ).toString().trimmed() !="" ) ) )
 			{
 				//deletes the command by the data
-				commandLoader->deleteCommand ( twCommand->item ( prevRow, 1 )->data ( Qt::UserRole ).toString() );
+				commandLoader->deleteCommand ( ui.twCommand->item ( prevRow, 1 )->data ( Qt::UserRole ).toString() );
 			}
 			commandEdited=false;
-			twCommand->removeRow ( prevRow );
+			ui.twCommand->removeRow ( prevRow );
 		}
 		else
 		{
-			twCommand->selectColumn ( 1 );
-			twCommand->selectRow ( prevRow );
-			twCommand->editItem ( twCommand->item ( prevRow, 1 ) );
-			twCommand->setCurrentCell ( prevRow,1 );
+			ui.twCommand->selectColumn ( 1 );
+			ui.twCommand->selectRow ( prevRow );
+			ui.twCommand->editItem ( ui.twCommand->item ( prevRow, 1 ) );
+			ui.twCommand->setCurrentCell ( prevRow,1 );
 			commandEdited=true;
 			ui.pbImportProgram->setChecked ( false );
 			ui.pbImportPlace->setChecked ( false );
@@ -889,30 +892,30 @@ bool CommandSettings::allCommandValuesSet ( int prevRow )
 void CommandSettings::deactivateCB ( int prevRow )
 {
 	QWidget *tmpWidget = new QWidget();
-	tmpWidget = twCommand->cellWidget ( prevRow, 2 );
+	tmpWidget = ui.twCommand->cellWidget ( prevRow, 2 );
 	if ( tmpWidget!=NULL )
 	{
 		QComboBox *cbType = ( QComboBox* ) tmpWidget;
 		QString type = cbType->itemText ( cbType->currentIndex() );
 		QTableWidgetItem *tmp = new QTableWidgetItem();
 		tmp->setText ( type );
-		twCommand->removeCellWidget ( prevRow, 2 );
-		twCommand->setItem ( prevRow, 2, tmp );
+		ui.twCommand->removeCellWidget ( prevRow, 2 );
+		ui.twCommand->setItem ( prevRow, 2, tmp );
 
 		int typeInt = getTypeNumber ( type );
 
 		//creates esp. replaces a command
-		Command *newCommand = new Command ( twCommand->item ( prevRow,1 )->text(), CommandType ( typeInt ), twCommand->item ( prevRow,3 )->text() );
-		if ( ( !twCommand->item ( prevRow,1 )->data ( Qt::UserRole ).isNull() ) && ( commandLoader->commandExists ( twCommand->item ( prevRow,1 )->data ( Qt::UserRole ).toString() ) ) )
+		Command *newCommand = new Command ( ui.twCommand->item ( prevRow,1 )->text(), CommandType ( typeInt ), ui.twCommand->item ( prevRow,3 )->text() );
+		if ( ( !ui.twCommand->item ( prevRow,1 )->data ( Qt::UserRole ).isNull() ) && ( commandLoader->commandExists ( ui.twCommand->item ( prevRow,1 )->data ( Qt::UserRole ).toString() ) ) )
 		{
 			//replaces the command
-			commandLoader->replaceCommand ( twCommand->item ( prevRow,1 )->data ( Qt::UserRole ).toString(), newCommand );
-			twCommand->item ( prevRow,1 )->setData ( Qt::UserRole, twCommand->item ( prevRow,1 )->text() );
+			commandLoader->replaceCommand ( ui.twCommand->item ( prevRow,1 )->data ( Qt::UserRole ).toString(), newCommand );
+			ui.twCommand->item ( prevRow,1 )->setData ( Qt::UserRole, ui.twCommand->item ( prevRow,1 )->text() );
 		}
 		else
 		{
 			commandLoader->addCommand ( newCommand );
-			twCommand->item ( prevRow,1 )->setData ( Qt::UserRole, twCommand->item ( prevRow,1 )->text() );
+			ui.twCommand->item ( prevRow,1 )->setData ( Qt::UserRole, ui.twCommand->item ( prevRow,1 )->text() );
 		}
 	}
 	commandEdited = false;
@@ -937,7 +940,7 @@ void CommandSettings::setWidgetsDisabled()
 	ui.leSearchCommand->setDisabled ( false );
 	ui.pbClearSearchCommand->setDisabled ( false );
 	ui.cbShowCommand->setDisabled ( false );
-	twCommand->setDisabled ( false );
+	ui.twCommand->setDisabled ( false );
 }
 
 /**
@@ -957,14 +960,14 @@ void CommandSettings::showAllCommands()
 */
 void CommandSettings::checkValuesAfterReturnPressed()
 {
-	int currRow = twCommand->currentRow();
-	int currCol = twCommand->currentColumn();
+	int currRow = ui.twCommand->currentRow();
+	int currCol = ui.twCommand->currentColumn();
 	if ( currRow!=0 )
-		twCommand->setCurrentCell ( 0,0 );
-	else if ( twCommand->rowCount() >1 )
-		twCommand->setCurrentCell ( 1,0 );
-	if ( currRow<twCommand->rowCount() )
-		twCommand->setCurrentCell ( currRow,currCol );
+		ui.twCommand->setCurrentCell ( 0,0 );
+	else if ( ui.twCommand->rowCount() >1 )
+		ui.twCommand->setCurrentCell ( 1,0 );
+	if ( currRow<ui.twCommand->rowCount() )
+		ui.twCommand->setCurrentCell ( currRow,currCol );
 	deactivateCB ( currRow );
 	commandEdited = false;
 }
@@ -977,7 +980,7 @@ void CommandSettings::checkValuesAfterReturnPressed()
 void CommandSettings::importNewPlace()
 {
 	bool checked = ui.pbImportPlace->isChecked();
-	twCommand->setCurrentCell ( 0,0 );
+	ui.twCommand->setCurrentCell ( 0,0 );
 	if ( commandEdited )
 	{
 		return;
@@ -994,10 +997,13 @@ void CommandSettings::importNewPlace()
 	ui.leSearchCommand->setDisabled ( checked );
 	ui.pbClearSearchCommand->setDisabled ( checked );
 	ui.cbShowCommand->setDisabled ( checked );
-	twCommand->setDisabled ( checked );
+	ui.twCommand->setDisabled ( checked );
 
 	if ( checked )
+    {
+        importPlaceWizard = new ImportPlaceWizard(this);
 		importPlaceWizard->show();
+    }
 	else
 		importPlaceWizard->hide();
 }

@@ -30,6 +30,7 @@
 class XMLDomReader : public XMLReader {
 protected:
 	QDomDocument *doc;
+    QString path;
 public:
 	XMLDomReader(QString path, QObject* parent=0);
 

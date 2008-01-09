@@ -14,6 +14,7 @@
 
 #include "simonwizard.h"
 #include "word.h"
+#include "addwordview.h"
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -43,6 +44,7 @@ private:
 	FirstRunImportGrammarWorkingPage *firstRunImportGrammarWorkingPage;
 	ImportDictWorkingPage *importDictWorkingPage;
 	SystemWidgetPage *grammarSettingsPage;
+    AddWordView *addWordView;
 
 	QWizardPage *createIntroPage();
 	QWizardPage *createCheckList();
@@ -104,7 +106,7 @@ enum FirstRunWizardPages {
 	FinishedPage = 21
 };
 
-    FirstRunWizard(QWidget* parent);
+    FirstRunWizard(AddWordView *addwordView, QWidget* parent);
 
     ~FirstRunWizard();
 

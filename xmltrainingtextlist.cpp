@@ -11,6 +11,7 @@
 //
 #include "xmltrainingtextlist.h"
 #include "logger.h"
+#include <QMessageBox>
 
 /**
  * \brief Constructor
@@ -44,7 +45,7 @@ void XMLTrainingTextList::load(QString path)
 	QDomElement text = root.firstChildElement();
 	while(!text.isNull()) 
 	{
-		trainingtexts.insert(text.attribute("name"), text.attribute("url"));
+		trainingtexts.insert(text.attribute("name"), text.attribute("url"));        
 		text = text.nextSiblingElement();
 	}
 }
