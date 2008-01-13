@@ -13,6 +13,7 @@
 #include "importgrammarwizard.h"
 #include "grammarmanager.h"
 #include "mergeterminalswizard.h"
+#include "renameterminalwizard.h"
 #include <QTableWidgetItem>
 #include <QMessageBox>
 
@@ -23,6 +24,9 @@ GrammarSettings::GrammarSettings(QWidget* parent, GrammarManager *grammarManager
 	this->grammarManager = grammarManager;
 
 	this->importGrammarWizard = new ImportGrammarWizard(grammarManager->getWordListManager(), this);
+
+	this->renameTerminalWizard = new RenameTerminalWizard(this, 
+			grammarManager->getWordListManager(), grammarManager);
 	connect(importGrammarWizard, SIGNAL(grammarCreated(QStringList)), this, SLOT(mergeGrammar(QStringList)));
 	
 	connect(importGrammarWizard, SIGNAL(finished(int)), ui.pbImportTexts, SLOT(animateClick()));
@@ -36,11 +40,34 @@ GrammarSettings::GrammarSettings(QWidget* parent, GrammarManager *grammarManager
 	
 	connect(ui.pbImportTexts, SIGNAL(toggled(bool)), this, SLOT(showImportWizard(bool)));
 	connect(ui.pbMerge, SIGNAL(toggled(bool)), this, SLOT(showMergeWizard(bool)));
+	connect(mergeTerminalsWizard, SIGNAL(finished(int)), ui.pbMerge, SLOT(animateClick()));
+	connect(renameTerminalWizard, SIGNAL(finished(int)), ui.pbRename, SLOT(animateClick()));
+
+	connect(mergeTerminalsWizard, SIGNAL(finished(int)), this, SLOT(reset()));
+	connect(renameTerminalWizard, SIGNAL(finished(int)), this, SLOT(reset()));
 
 	connect(ui.twSentences, SIGNAL(cellChanged(int, int)), this, SIGNAL(changed()));
 	connect(ui.twTerminals, SIGNAL(cellChanged(int, int)), this, SIGNAL(changed()));
+	
+	connect (ui.pbRename, SIGNAL(toggled(bool)), this, SLOT(showRenameWizard(bool)));
 }
 
+void GrammarSettings::askForSave()
+{
+	if (QMessageBox::question(this, tr("Grammatik speichern"), tr("Sie möchten eine Aktion ausführen, die eine gespeicherte Grammatik benötigt.\n\nWenn Sie Ihre aktuellen Änderungen beibehalten möchten, müssen Sie jetzt Ihre Grammatik speichern.(Ansonsten wird mit der zuletzt gespeicherten Grammatik weitergearbeitet)\n\nWollen Sie das jetzt tun?"), QMessageBox::Yes| QMessageBox::No) == QMessageBox::Yes)
+		apply();
+}
+
+void GrammarSettings::showRenameWizard(bool show)
+{
+	if (show)
+	{
+		askForSave();
+		this->renameTerminalWizard->restart();
+		this->renameTerminalWizard->show();
+	}else this->renameTerminalWizard->hide();
+	
+}
 
 
 void GrammarSettings::mergeGrammar(QStringList grammar)
@@ -56,17 +83,9 @@ void GrammarSettings::mergeGrammar(QStringList grammar)
 	insertSentences(toInsert);
 	
 	QStringList terminals = getCurrentTerminals();
-	QString sent;
-	QStringList newTerms;
-	for (int i=0; i < grammar.count(); i++)
-	{
-		QStringList termtemp = grammar.at(i).split(" ");
-		for (int j=0; j < termtemp.count(); j++)
-		{
-			if (!terminals.contains(termtemp[j])) newTerms << termtemp[j];
-		}
-	}
-	this->insertTerminals(newTerms);
+	ui.twTerminals->clearContents();
+	ui.twTerminals->setRowCount(0);
+	this->insertTerminals(terminals);
 }
 
 void GrammarSettings::insertTerminals(QStringList newTerms)
@@ -128,6 +147,7 @@ void GrammarSettings::showImportWizard(bool show)
 void GrammarSettings::showMergeWizard(bool show)
 {
 	if (show) {	
+		askForSave();
 		mergeTerminalsWizard->restart();
 		mergeTerminalsWizard->show();
 	} else mergeTerminalsWizard->hide();

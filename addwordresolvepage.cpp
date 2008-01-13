@@ -30,10 +30,16 @@ AddWordResolvePage::AddWordResolvePage(WordListManager *wordListManager, Grammar
 	connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(createExamples()));
 	connect(ui.leWord, SIGNAL(returnPressed()), this, SLOT(createExamples()));
 	connect(ui.pbReGuess, SIGNAL(clicked()), this, SLOT(createExamples()));
+	registerField("wordExample1*", ui.leExample1);
+	registerField("wordExample2*", ui.leExample2);
+	registerField("wordName*", ui.leWord);
+	registerField("wordPronunciation*", ui.leSampa);
+	registerField("wordTerminal*", ui.cbType, "currentText", SIGNAL(currentIndexChanged(int)));
 }
 
-void AddWordResolvePage::init(QString word)
+void AddWordResolvePage::initializePage()
 {
+	QString word = field("wordNameIntro").toString();
 	ui.cbType->clear();
 	QStringList terminals = wordListManager->getTerminals();
 	ui.cbType->addItems(terminals);
@@ -51,14 +57,14 @@ void AddWordResolvePage::createExamples()
 	
 	if (examples.count() >= 2) 
 	{
-		ui.lbExample1->setText(examples[0]);
-		ui.lbExample2->setText(examples[1]);
+		ui.leExample1->setText(examples[0]);
+		ui.leExample2->setText(examples[1]);
 	} else 
 	{
 		//error
 		QString error = tr("Konnte Worttyp nicht grammatikalisch auflösen.");
-		ui.lbExample1->setText(error);
-		ui.lbExample2->setText(error);
+		ui.leExample1->setText(error);
+		ui.leExample2->setText(error);
 	}
 }
 

@@ -57,7 +57,11 @@ FORMS += ui/main.ui \
  ui/passwordsettingsdlg.ui \
  ui/mergeterminalsselectpage.ui \
  ui/mergeterminalsworkingpage.ui \
- ui/selectlanguagemodelsource.ui
+ ui/selectlanguagemodelsource.ui \
+ ui/renameterminalselectparameterspage.ui \
+ ui/renameterminalworkingpage.ui \
+ ui/configuretriggerspage.ui \
+ ui/definiedefaultvaluesdlg.ui
 
 
 HEADERS += simonview.h \
@@ -195,7 +199,13 @@ importtrainingdirectoryworkingpage.h \
  firstrunmodelsettings.h \
  firstrunimportbomppage.h \
  firstrunimportgrammarworkingpage.h \
- firstruncreatedictionarypage.h
+ firstruncreatedictionarypage.h \
+ renameterminalwizard.h \
+ renameterminalselectparameterspage.h \
+ renameterminalworkingpage.h \
+ renameterminal.h \
+ configuretriggerspage.h \
+ definedefaultvaluespage.h
 
 
 
@@ -325,7 +335,13 @@ SOURCES += main.cpp \
  selectlanguagemodelsourcepage.cpp \
  firstrunmodelsettings.cpp \
  firstrunimportgrammarworkingpage.cpp \
- firstruncreatedictionarypage.cpp
+ firstruncreatedictionarypage.cpp \
+ renameterminalwizard.cpp \
+ renameterminalselectparameterspage.cpp \
+ renameterminalworkingpage.cpp \
+ renameterminal.cpp \
+ configuretriggerspage.cpp \
+ definedefaultvaluespage.cpp
 
 
 

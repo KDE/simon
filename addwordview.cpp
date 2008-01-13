@@ -41,11 +41,12 @@
  * Qt Windowflags - default 0
 */
 
-AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr, GrammarManager *grammarManager)
+AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr, TrainingManager *trainManager, GrammarManager *grammarManager)
 	: QWizard (parent)
 {
 	prevId=0;
 	this->wordlistMgr = wordlistMgr;
+	this->trainManager = trainManager;
 	this->welcomePage = createWelcomePage();
 	resolvePage = createResolvePage(grammarManager);
 	this->addPage((QWizardPage*) welcomePage);
@@ -55,19 +56,9 @@ AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr, GrammarM
 	this->addPage(createFinishedPage());
 	
 	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
-	connect(this, SIGNAL(currentIdChanged( int )), this, SLOT(idChanged(int)));
 
 	setWindowTitle(tr("Wort hinzufügen"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/banners/addword.png")));
-}
-
-void AddWordView::idChanged(int newId)
-{
-	if ((newId == 1))
-	{
-		resolvePage->init(welcomePage->getName());
-	}
-	prevId = newId;
 }
 
 /**
@@ -129,10 +120,9 @@ QWizardPage* AddWordView::createFinishedPage()
  */
 void AddWordView::finish(int done)
 {
-	((AddWordRecordPage*) this->page(2))->cleanUp();
 	if (!done) return;
 	
-	QString word = ((AddWordIntroPage*) this->page(0))->getName();
+	QString word = field("wordName").toString();
 	
 	Logger::log(tr("[INF] Füge neues Wort zum Modell hinzu..."));
 	Logger::log(tr("[INF] Neues Wort lautet: ")+word);
@@ -140,16 +130,20 @@ void AddWordView::finish(int done)
 	
 	WordList *list = new WordList();
 
-	list->append(Word(resolvePage->getName(), resolvePage->getPronunciation(), resolvePage->getTerminal(), 2 /* 2 recordings */));
+	list->append(Word(word, field("wordPronunciation").toString(),
+			 field("wordTerminal").toString(), 2 /* 2 recordings */));
 
 	wordlistMgr->addWords(list, true /*sorted*/, false /*shadowed*/);
 
 	//TODO: Process recordings
+	qDebug() << this->trainManager;
+	
 
 	//cleaning up
 	Logger::log(tr("[INF] Wort hinzugefügt: ")+word);
 	emit addedWord();
 	
+	((AddWordRecordPage*) this->page(2))->cleanUp();
 	restart();
 }
 
@@ -160,7 +154,8 @@ void AddWordView::finish(int done)
  */
 void AddWordView::createWord(QString word)
 {
-    welcomePage->setName(word);
-    resolvePage->init(welcomePage->getName());
-    prevId = 1;
+//     welcomePage->setName(word);
+	setField("wordNameIntro", word);
+//     resolvePage->init(welcomePage->getName());
+//     prevId = 1;
 }

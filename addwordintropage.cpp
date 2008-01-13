@@ -36,7 +36,7 @@ AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 	loName->addWidget(leName);
 
 	layout->addWidget(label);
-	registerField(tr("name*"), leName);
+	registerField(tr("wordNameIntro*"), leName);
 	layout->addLayout(loName);
 	
 	setLayout(layout);

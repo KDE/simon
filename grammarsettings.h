@@ -21,12 +21,14 @@
 class GrammarManager;
 class ImportGrammarWizard;
 class MergeTerminalsWizard;
+class RenameTerminalWizard;
 
 class GrammarSettings : public SystemWidget
 {
 Q_OBJECT
 private:
 	ImportGrammarWizard *importGrammarWizard;
+	RenameTerminalWizard *renameTerminalWizard;
 	MergeTerminalsWizard *mergeTerminalsWizard;
 	Ui::GrammarSettingsDlg ui;
 	GrammarManager *grammarManager;
@@ -40,9 +42,11 @@ private:
 private slots:
 	void sentenceSelectionChanged(int row, int col, int oldrow, int oldcol);
 	void deleteSelectedSentence();
+	void showRenameWizard(bool show);
 	void addSentence();
 	void showImportWizard(bool show);
 	void showMergeWizard(bool show);
+	void askForSave();
 public slots:
 	bool init();
 	bool apply();

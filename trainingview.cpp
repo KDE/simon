@@ -36,8 +36,6 @@ TrainingView::TrainingView(AddWordView *addWordView, QWidget *parent)
 	ui.pbPrevPage->setEnabled(false);
 	connect (ui.pbNextPage, SIGNAL(clicked()), this, SLOT(nextPage()));
 	connect (ui.pbPrevPage, SIGNAL(clicked()), this, SLOT(prevPage()));
-	
-	connect(ui.pbCancelTraining, SIGNAL(clicked()), this, SLOT(cancelTraining()));
 	connect(ui.pbFinish, SIGNAL(clicked()), this, SLOT(finish()));
 	connect(ui.pbImportText, SIGNAL(clicked()), this, SLOT(importTexts()));
 	connect (ui.pbBackToMain, SIGNAL(clicked()), this, SLOT(cancelReading()));
@@ -154,7 +152,7 @@ void TrainingView::importDirectory()
 void TrainingView::finish()
 {
 	ui.swAction->setCurrentIndex(2);
-	ui.pbCompileModel->setValue(0);
+// 	ui.pbCompileModel->setValue(0);
 
 	//training...
 

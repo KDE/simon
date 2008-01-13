@@ -39,7 +39,7 @@ public:
 	const QString getTerminal() { return ui.cbType->currentText(); }
 
 
-	void init(QString word);
+	void initializePage();
 	void displayWords(WordList *words);
 
     ~AddWordResolvePage();

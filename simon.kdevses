@@ -1,16 +1,25 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="3" >
-  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/firstrunwizard.cpp" >
+ <DocsAndViews NumberOfDocuments="6" >
+  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/configuretriggerspage.h" >
    <View0 Encoding="" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/grammarsettings.cpp" >
-   <View0 Encoding="" line="71" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/firstrunwizard.cpp" >
+   <View0 Encoding="" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/grammarsettings.h" >
-   <View0 Encoding="" line="10" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/firstrunwizard.h" >
+   <View0 Encoding="" Type="Source" />
   </Doc2>
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/configuretriggerspage.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc3>
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/definedefaultvaluespage.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/definedefaultvaluespage.h" >
+   <View0 Encoding="" line="17" Type="Source" />
+  </Doc5>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

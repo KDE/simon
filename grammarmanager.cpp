@@ -56,8 +56,11 @@ void GrammarManager::renameTerminal(QString terminal, QString newName)
 	terminal.replace("\\", "\\\\");
 	terminal.replace("^", "\\^");
 	terminal.replace("$", "\\$");
-	this->structures.replaceInStrings(QRegExp("^"+terminal+"$"), newName);
-	
+
+	structures.replaceInStrings(QRegExp("^"+terminal+"$"), newName);
+	structures.replaceInStrings(QRegExp(" "+terminal+"$"), " "+newName);
+	structures.replaceInStrings(QRegExp("^"+terminal+" "), newName+" ");
+	structures.replaceInStrings(QRegExp(" "+terminal+" "), " "+newName+" ");
 }
 
 QStringList GrammarManager::getExamples(QString word, QString terminal, int count)

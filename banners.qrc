@@ -2,6 +2,7 @@
     <qresource prefix="/" >
         <file>images/banners/addword.png</file>
         <file>images/banners/firstrun.png</file>
+        <file>images/banners/editterminal.png</file>
         <file>images/banners/importdict.png</file>
         <file>images/banners/importfolder.png</file>
         <file>images/banners/importgrammar.png</file>

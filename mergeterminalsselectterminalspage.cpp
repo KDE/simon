@@ -28,6 +28,8 @@ void MergeTerminalsSelectTerminalsPage::initializePage()
 {
 	QStringList availableTerminals;
 	availableTerminals = wordListManager->getTerminals(true);
+	ui.lwA->clear();
+	ui.lwB->clear();
 	ui.lwA->addItems(availableTerminals);
 	ui.lwB->addItems(availableTerminals);
 }

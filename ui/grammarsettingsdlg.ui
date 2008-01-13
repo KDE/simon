@@ -13,7 +13,7 @@
    <string>Grammatik Einstellungen</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../simon.qrc" >:/images/icons/signature.svg</iconset>
+   <iconset/>
   </property>
   <layout class="QGridLayout" >
    <item rowspan="2" row="0" column="0" >
@@ -62,7 +62,7 @@
             <string>Hinzufügen</string>
            </property>
            <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/edit-add.svg</iconset>
+            <iconset resource="../action_icons.qrc" >:/images/icons/edit-add.svg</iconset>
            </property>
           </widget>
          </item>
@@ -75,7 +75,7 @@
             <string>Entfernen</string>
            </property>
            <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/list-remove.svg</iconset>
+            <iconset resource="../action_icons.qrc" >:/images/icons/list-remove.svg</iconset>
            </property>
           </widget>
          </item>
@@ -90,6 +90,9 @@
       <layout class="QVBoxLayout" >
        <item>
         <widget class="QTableWidget" name="twTerminals" >
+         <property name="selectionBehavior" >
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
          <column>
           <property name="text" >
            <string>Terminal</string>
@@ -135,7 +138,20 @@
          <string>Textimport</string>
         </property>
         <property name="icon" >
-         <iconset resource="../simon.qrc" >:/images/icons/document-open.svg</iconset>
+         <iconset resource="../action_icons.qrc" >:/images/icons/document-open.svg</iconset>
+        </property>
+        <property name="checkable" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbRename" >
+        <property name="text" >
+         <string>Terminal umbenennen</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../action_icons.qrc" >:/images/icons/document-properties.svg</iconset>
         </property>
         <property name="checkable" >
          <bool>true</bool>
@@ -146,6 +162,9 @@
        <widget class="QPushButton" name="pbMerge" >
         <property name="text" >
          <string>Terminale verbinden</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../action_icons.qrc" >:/images/icons/arrow-down-double.svg</iconset>
         </property>
         <property name="checkable" >
          <bool>true</bool>
@@ -172,6 +191,7 @@
  </widget>
  <resources>
   <include location="../simon.qrc" />
+  <include location="../action_icons.qrc" />
  </resources>
  <connections/>
 </ui>

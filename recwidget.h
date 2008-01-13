@@ -62,7 +62,9 @@ private:
 public slots:
 	void record();
 	void stopRecording();
-	
+
+	void setTitle(QString newTitle);
+
 	void playback();
 	void stopPlayback();
 	void finishPlayback();

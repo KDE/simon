@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/" >
+        <file>images/icons/arrow-down-double.svg</file>
         <file>images/icons/bookmark-new.svg</file>
         <file>images/icons/configure-shortcuts.svg</file>
         <file>images/icons/connect-no.svg</file>

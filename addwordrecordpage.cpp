@@ -24,9 +24,9 @@ AddWordRecordPage::AddWordRecordPage(QWidget *parent)
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	QLabel *desc = new QLabel(this);
 	desc->setText(tr("Bitte nehmen Sie nun das hinzuzufügende Wort zweimal auf.\n\nBitte achten Sie darauf, das Wort deutlich, aber natürlich\nauszusprechen und vermeiden Sie Hintergrundgeräusche.\n"));
-	rec1 = new RecWidget(tr("Aufnahme 1"), "1.wav", this);
-	rec2 = new RecWidget(tr("Aufnahme 2"), "2.wav", this);
 	lay->addWidget(desc);
+	rec1 = new RecWidget(tr("1: %1").arg(field("wordExample1").toString()), "1.wav", this);
+	rec2 = new RecWidget(tr("2: %1").arg(field("wordExample2").toString()), "2.wav", this);
 	lay->addWidget(rec1);
 	lay->addWidget(rec2);
 	
@@ -34,6 +34,12 @@ AddWordRecordPage::AddWordRecordPage(QWidget *parent)
 	connect(rec2, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));
 	connect(rec1, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
 	connect(rec2, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
+}
+
+void AddWordRecordPage::initializePage()
+{
+	rec1->setTitle(field("wordExample1").toString());
+	rec2->setTitle(field("wordExample2").toString());
 }
 
 /**

@@ -30,6 +30,7 @@ public:
     ImportGrammarSelectFilesPage(QWidget* parent);
 
 	QStringList getFiles();
+	void cleanupPage();
     ~ImportGrammarSelectFilesPage();
 
 };

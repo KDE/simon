@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>317</width>
-    <height>110</height>
+    <width>414</width>
+    <height>142</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -39,7 +39,7 @@
            <string>Aufnehmen</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/media-record.svg</iconset>
+           <iconset resource="../action_icons.qrc" >:/images/icons/media-record.svg</iconset>
           </property>
           <property name="checkable" >
            <bool>true</bool>
@@ -52,7 +52,7 @@
            <string>Abspielen</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/media-playback-start.svg</iconset>
+           <iconset resource="../action_icons.qrc" >:/images/icons/media-playback-start.svg</iconset>
           </property>
           <property name="checkable" >
            <bool>true</bool>
@@ -65,7 +65,7 @@
            <string>Löschen</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
+           <iconset resource="../action_icons.qrc" >:/images/icons/list-remove.svg</iconset>
           </property>
          </widget>
         </item>
@@ -110,6 +110,7 @@
  </widget>
  <resources>
   <include location="../simon.qrc" />
+  <include location="../action_icons.qrc" />
  </resources>
  <connections/>
 </ui>

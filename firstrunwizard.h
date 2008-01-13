@@ -78,6 +78,10 @@ private:
 	QWizardPage* createJuliusdDescriptionPage();
 	QWizardPage* createJuliusdSettingsPage();
 
+
+	QWizardPage* createConfigureTriggersPage();
+	QWizardPage* createDefineDefaultValuesPage();
+
 	QWizardPage *createFinishedPage();
 public:
 

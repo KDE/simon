@@ -28,6 +28,11 @@ ImportGrammarSelectFilesPage::ImportGrammarSelectFilesPage(QWidget* parent): QWi
 	registerField("includeUnknown", ui.cbIncludeUnknown);
 }
 
+void ImportGrammarSelectFilesPage::cleanupPage()
+{
+	ui.lwFiles->clear();
+}
+
 void ImportGrammarSelectFilesPage::addFile()
 {
 	QStringList files = QFileDialog::getOpenFileNames(this, tr("Datei(en) auswählen"), ".", tr("Textdateien")+" (*.txt)");

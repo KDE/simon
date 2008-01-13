@@ -84,6 +84,18 @@ void RecWidget::displayPosition(int msecs)
 	ui.hsProgress->setValue(msecs);
 }
 
+
+/**
+ * \brief Sets the widgets title to the given title
+ * \author Peter Grasch
+ * @param newTitle The new title
+ */
+void RecWidget::setTitle(QString newTitle)
+{
+	ui.gb->setTitle(newTitle);
+}
+
+
 /**
  * \brief Displays the given progress in recording
  * \author Peter Grasch
@@ -165,6 +177,7 @@ void RecWidget::stopRecording()
 	if (!rec->finish()) 
 		QMessageBox::critical(this, tr("Aufnehmen fehlgeschlagen"), QString(tr("Abschließen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!")).arg(this->filename));
 	
+	ui.hsProgress->setValue(0);
 	ui.leRecognisedText->setVisible(false);
 	ui.lbRecognisedText->setVisible(false);
 	disconnect(ui.pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));

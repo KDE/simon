@@ -103,7 +103,7 @@ p, li { white-space: pre-wrap; }
         <string>Zurücksetzen</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/edit-undo.svg</iconset>
+        <iconset resource="../action_icons.qrc" >:/images/icons/edit-undo.svg</iconset>
        </property>
       </widget>
      </item>
@@ -126,7 +126,7 @@ p, li { white-space: pre-wrap; }
         <string>Übernehmen</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/dialog-ok-apply.svg</iconset>
+        <iconset resource="../action_icons.qrc" >:/images/icons/dialog-ok-apply.svg</iconset>
        </property>
       </widget>
      </item>
@@ -143,6 +143,7 @@ p, li { white-space: pre-wrap; }
  </customwidgets>
  <resources>
   <include location="../simon.qrc" />
+  <include location="../action_icons.qrc" />
  </resources>
  <connections/>
 </ui>

@@ -70,12 +70,15 @@
            <string>Alles</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/system-file-manager.svg</iconset>
+           <iconset resource="../action_icons.qrc" >:/images/icons/view-refresh.svg</iconset>
           </property>
          </item>
          <item>
           <property name="text" >
            <string>Programme</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../application_icons.qrc" >:/images/icons/applications-system.svg</iconset>
           </property>
          </item>
          <item>
@@ -83,7 +86,7 @@
            <string>Orte</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
+           <iconset resource="../category_icons.qrc" >:/images/icons/computer.svg</iconset>
           </property>
          </item>
          <item>
@@ -91,7 +94,7 @@
            <string>Sonderzeichen</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/format-text-bold.svg</iconset>
+           <iconset resource="../action_icons.qrc" >:/images/icons/format-text-bold.svg</iconset>
           </property>
          </item>
         </widget>
@@ -156,7 +159,7 @@
         <string>Programm importieren</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+        <iconset resource="../action_icons.qrc" >:/images/icons/document-open.svg</iconset>
        </property>
       </widget>
      </item>
@@ -166,7 +169,7 @@
         <string>Ort importieren</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+        <iconset resource="../action_icons.qrc" >:/images/icons/document-import.svg</iconset>
        </property>
       </widget>
      </item>
@@ -176,7 +179,7 @@
         <string>Manuell</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
+        <iconset resource="../action_icons.qrc" >:/images/icons/document-properties.svg</iconset>
        </property>
       </widget>
      </item>
@@ -186,7 +189,7 @@
         <string>Sonderzeichen</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/format-text-bold.svg</iconset>
+        <iconset resource="../action_icons.qrc" >:/images/icons/format-text-bold.svg</iconset>
        </property>
       </widget>
      </item>
@@ -221,7 +224,7 @@
         <string>Kommando bearbeiten</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/edit.svg</iconset>
+        <iconset resource="../action_icons.qrc" >:/images/icons/edit.svg</iconset>
        </property>
       </widget>
      </item>
@@ -231,7 +234,7 @@
         <string>Kommando löschen</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
+        <iconset resource="../action_icons.qrc" >:/images/icons/list-remove.svg</iconset>
        </property>
       </widget>
      </item>
@@ -260,7 +263,11 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../simon.qrc" />
+  <include location="../action_icons.qrc" />
+  <include location="../category_icons.qrc" />
+  <include location="../other_icons.qrc" />
+  <include location="../application_icons.qrc" />
+  <include location="../others.qrc" />
  </resources>
  <connections/>
 </ui>

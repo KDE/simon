@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>670</height>
+    <width>804</width>
+    <height>616</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -21,139 +21,266 @@
   <widget class="QWidget" name="centralwidget" >
    <layout class="QVBoxLayout" >
     <item>
-     <widget class="QLabel" name="lbLogo" >
-      <property name="sizePolicy" >
-       <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+     <layout class="QHBoxLayout" >
+      <property name="spacing" >
+       <number>0</number>
       </property>
-      <property name="maximumSize" >
-       <size>
-        <width>100</width>
-        <height>60</height>
-       </size>
-      </property>
-      <property name="text" >
-       <string/>
-      </property>
-      <property name="pixmap" >
-       <pixmap resource="../others.qrc" >:/images/simon.png</pixmap>
-      </property>
-      <property name="scaledContents" >
-       <bool>true</bool>
-      </property>
-     </widget>
+      <item>
+       <widget class="QLabel" name="lbLogo" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize" >
+         <size>
+          <width>100</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string/>
+        </property>
+        <property name="pixmap" >
+         <pixmap resource="../others.qrc" >:/images/simon.png</pixmap>
+        </property>
+        <property name="scaledContents" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="pbAddWord" >
+        <property name="text" >
+         <string>Wort &amp;hinzufügen</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../action_icons.qrc" >:/images/icons/edit-add.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="shortcut" >
+         <string>Ctrl+S</string>
+        </property>
+        <property name="checkable" >
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="pbTrain" >
+        <property name="text" >
+         <string>&amp;Trainieren</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../other_icons.qrc" >:/images/icons/kvoctrain.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="checkable" >
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="pbEditWordList" >
+        <property name="text" >
+         <string>Wort&amp;liste</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../action_icons.qrc" >:/images/icons/format-justify-fill.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="checkable" >
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="pbRunProgram" >
+        <property name="text" >
+         <string>&amp;Ausführen</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../other_icons.qrc" >:/images/icons/system-run.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="checkable" >
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="pbSettings" >
+        <property name="text" >
+         <string>System</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../category_icons.qrc" >:/images/icons/preferences-system.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="checkable" >
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
-     <widget class="QToolButton" name="pbAddWord" >
-      <property name="text" >
-       <string>Wort &amp;hinzufügen</string>
+     <layout class="QHBoxLayout" >
+      <property name="spacing" >
+       <number>0</number>
       </property>
-      <property name="icon" >
-       <iconset resource="../action_icons.qrc" >:/images/icons/edit-add.svg</iconset>
-      </property>
-      <property name="iconSize" >
-       <size>
-        <width>24</width>
-        <height>24</height>
-       </size>
-      </property>
-      <property name="checkable" >
-       <bool>true</bool>
-      </property>
-      <property name="toolButtonStyle" >
-       <enum>Qt::ToolButtonTextUnderIcon</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QToolButton" name="pbTrain" >
-      <property name="text" >
-       <string>&amp;Trainieren</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../other_icons.qrc" >:/images/icons/kvoctrain.svg</iconset>
-      </property>
-      <property name="iconSize" >
-       <size>
-        <width>24</width>
-        <height>24</height>
-       </size>
-      </property>
-      <property name="checkable" >
-       <bool>true</bool>
-      </property>
-      <property name="toolButtonStyle" >
-       <enum>Qt::ToolButtonTextUnderIcon</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QToolButton" name="pbEditWordList" >
-      <property name="text" >
-       <string>Wort&amp;liste</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../action_icons.qrc" >:/images/icons/format-justify-fill.svg</iconset>
-      </property>
-      <property name="iconSize" >
-       <size>
-        <width>24</width>
-        <height>24</height>
-       </size>
-      </property>
-      <property name="checkable" >
-       <bool>true</bool>
-      </property>
-      <property name="toolButtonStyle" >
-       <enum>Qt::ToolButtonTextUnderIcon</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QToolButton" name="pbRunProgram" >
-      <property name="text" >
-       <string>&amp;Ausführen</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../other_icons.qrc" >:/images/icons/system-run.svg</iconset>
-      </property>
-      <property name="iconSize" >
-       <size>
-        <width>24</width>
-        <height>24</height>
-       </size>
-      </property>
-      <property name="checkable" >
-       <bool>true</bool>
-      </property>
-      <property name="toolButtonStyle" >
-       <enum>Qt::ToolButtonTextUnderIcon</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QToolButton" name="pbSettings" >
-      <property name="text" >
-       <string>System</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../category_icons.qrc" >:/images/icons/preferences-system.svg</iconset>
-      </property>
-      <property name="iconSize" >
-       <size>
-        <width>24</width>
-        <height>24</height>
-       </size>
-      </property>
-      <property name="checkable" >
-       <bool>true</bool>
-      </property>
-      <property name="toolButtonStyle" >
-       <enum>Qt::ToolButtonTextUnderIcon</enum>
-      </property>
-     </widget>
+      <item>
+       <widget class="QToolButton" name="pbActivision" >
+        <property name="enabled" >
+         <bool>false</bool>
+        </property>
+        <property name="text" >
+         <string>&amp;Aktivieren</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../action_icons.qrc" >:/images/icons/media-playback-start.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="pbConnect" >
+        <property name="enabled" >
+         <bool>true</bool>
+        </property>
+        <property name="text" >
+         <string>Verb&amp;inden</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../action_icons.qrc" >:/images/icons/connect-no.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="pbHide" >
+        <property name="enabled" >
+         <bool>true</bool>
+        </property>
+        <property name="text" >
+         <string>&amp;Verstecken</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../action_icons.qrc" >:/images/icons/go-bottom.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="pbKeyed" >
+        <property name="enabled" >
+         <bool>true</bool>
+        </property>
+        <property name="text" >
+         <string>Systemverwaltungsmodus</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../action_icons.qrc" >:/images/icons/lock.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="pbClose" >
+        <property name="enabled" >
+         <bool>true</bool>
+        </property>
+        <property name="text" >
+         <string>&amp;Beenden</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../action_icons.qrc" >:/images/icons/system-log-out.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="InlineWidgetView" name="inlineView" >
@@ -425,116 +552,6 @@ p, li { white-space: pre-wrap; }
         </item>
        </layout>
       </widget>
-     </widget>
-    </item>
-    <item>
-     <widget class="QToolButton" name="pbActivision" >
-      <property name="enabled" >
-       <bool>false</bool>
-      </property>
-      <property name="text" >
-       <string>&amp;Aktivieren</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../action_icons.qrc" >:/images/icons/media-playback-start.svg</iconset>
-      </property>
-      <property name="iconSize" >
-       <size>
-        <width>24</width>
-        <height>24</height>
-       </size>
-      </property>
-      <property name="toolButtonStyle" >
-       <enum>Qt::ToolButtonTextBesideIcon</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QToolButton" name="pbKeyed" >
-      <property name="enabled" >
-       <bool>true</bool>
-      </property>
-      <property name="text" >
-       <string>Systemverwaltungsmodus</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../action_icons.qrc" >:/images/icons/lock.svg</iconset>
-      </property>
-      <property name="iconSize" >
-       <size>
-        <width>24</width>
-        <height>24</height>
-       </size>
-      </property>
-      <property name="toolButtonStyle" >
-       <enum>Qt::ToolButtonTextBesideIcon</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QToolButton" name="pbHide" >
-      <property name="enabled" >
-       <bool>true</bool>
-      </property>
-      <property name="text" >
-       <string>&amp;Verstecken</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../action_icons.qrc" >:/images/icons/go-bottom.svg</iconset>
-      </property>
-      <property name="iconSize" >
-       <size>
-        <width>24</width>
-        <height>24</height>
-       </size>
-      </property>
-      <property name="toolButtonStyle" >
-       <enum>Qt::ToolButtonTextBesideIcon</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QToolButton" name="pbConnect" >
-      <property name="enabled" >
-       <bool>true</bool>
-      </property>
-      <property name="text" >
-       <string>Verb&amp;inden</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../action_icons.qrc" >:/images/icons/connect-no.svg</iconset>
-      </property>
-      <property name="iconSize" >
-       <size>
-        <width>24</width>
-        <height>24</height>
-       </size>
-      </property>
-      <property name="toolButtonStyle" >
-       <enum>Qt::ToolButtonTextBesideIcon</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QToolButton" name="pbClose" >
-      <property name="enabled" >
-       <bool>true</bool>
-      </property>
-      <property name="text" >
-       <string>&amp;Beenden</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../action_icons.qrc" >:/images/icons/system-log-out.svg</iconset>
-      </property>
-      <property name="iconSize" >
-       <size>
-        <width>24</width>
-        <height>24</height>
-       </size>
-      </property>
-      <property name="toolButtonStyle" >
-       <enum>Qt::ToolButtonTextBesideIcon</enum>
-      </property>
      </widget>
     </item>
    </layout>

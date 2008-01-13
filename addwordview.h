@@ -46,6 +46,7 @@ class AddWordResolvePage;
 class GrammarManager;
 class AddWordIntroPage;
 class WordListManager;
+class TrainingManager;
 class AddWordView : public QWizard
 {
 	Q_OBJECT
@@ -53,6 +54,7 @@ class AddWordView : public QWizard
 	private:
 		RecWidget *rec1;
 		RecWidget *rec2;
+		TrainingManager *trainManager;
 		int prevId;
 		AddWordResolvePage *resolvePage;
 		AddWordIntroPage *welcomePage;
@@ -67,7 +69,6 @@ class AddWordView : public QWizard
 	public slots:
 		
 		void finish(int done);
-		void idChanged(int newId);
 
 		AddWordIntroPage* createWelcomePage();
 		QWizardPage* createRecordPage();
@@ -76,7 +77,7 @@ class AddWordView : public QWizard
 		
 		
 	public:
-		AddWordView(QWidget *parent, WordListManager *wordlistMgr, GrammarManager *grammarManager);
+		AddWordView(QWidget *parent, WordListManager *wordlistMgr, TrainingManager *trainManager, GrammarManager *grammarManager);
 		~AddWordView()
 		{
 		}

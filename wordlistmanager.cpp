@@ -187,7 +187,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	vocab << "% NS_B\n<s>\tsil\n";
 	vocab << "% NS_E\n</s>\tsil\n";
 
-	vocab << "% " << tr("Unbekannt") << "\n";
+// 	vocab << "% " << tr("Unbekannt") << "\n";
 
 	QHash<QString /*terminalName*/, Word /*words*/> vocabulary;
 	
@@ -311,32 +311,13 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 			word = line.left(splitter).trimmed();
 			if (word.isEmpty()) continue;
 			pronunciation = line.mid(splitter).trimmed();
+			if (pronunciation == "sil") continue;
 			
 			wordlist->append(Word(word, pronunciation, term, trainManager->getProbability(word.toUpper())));
 		}
 	}
-
-/*
-	QString line, name, output, pronunciation, term, *termtmp;
-	int wordend, outend, probability;
-	while (!lexicon->atEnd())
-	{
-		line = lexicon->readLine(1024);
-		wordend = line.indexOf("[");
-		outend = line.indexOf("]");
-		name = line.left(wordend).trimmed();
-		output = line.mid(wordend+1, outend-wordend-1);
-		pronunciation = line.mid(outend+1).trimmed();
-		
-		termtmp = getTerminal( name, pronunciation, vocablist );
-		term = (termtmp) ? *termtmp : tr("Unbekannt");
-		if (!terminals.contains(term)) terminals.append(term);
-		
-		probability = this->trainManager->getProbability( name, promptsTable );
-
-		//creates and appends the word to the wordlist
-		wordlist->append(Word(output, pronunciation, term, probability));
-	}*/
+	//TODO read words from lexicon (which don't have a terminal-definition yet)
+	wordlist = this->sortList(wordlist);
 
 	Logger::log(QObject::tr("[INF] Wörterliste erstellt"));
 	return wordlist;
@@ -638,6 +619,7 @@ void WordListManager::renameTerminal(QString from, QString to, bool includeShado
 		i++;
 	}
 	wordListLock.unlock();
+	activeTerminals.replaceInStrings(QRegExp("^"+from+"$"), to);
 
 	if (!includeShadow) return;
 
@@ -657,6 +639,7 @@ void WordListManager::renameTerminal(QString from, QString to, bool includeShado
 		i++;
 	}
 	shadowLock.unlock();
+	shadowTerminals.replaceInStrings(QRegExp("^"+from+"$"), to);
 }
 
 /**

@@ -23,7 +23,7 @@
  <shortcut name="Hilfe" >
   <modifiers>0</modifiers>
   <actionkeys>0</actionkeys>
-  <functionkeys>1</functionkeys>
+  <functionkeys>8</functionkeys>
   <movementkeys>0</movementkeys>
   <charkey>_</charkey>
  </shortcut>
@@ -42,11 +42,11 @@
   <charkey>_</charkey>
  </shortcut>
  <shortcut name="Musi" >
-  <modifiers>8</modifiers>
+  <modifiers>4</modifiers>
   <actionkeys>0</actionkeys>
   <functionkeys>0</functionkeys>
   <movementkeys>0</movementkeys>
-  <charkey>C</charkey>
+  <charkey>X</charkey>
  </shortcut>
  <shortcut name="Zum Zeilenanfang" >
   <modifiers>0</modifiers>

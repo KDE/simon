@@ -37,6 +37,8 @@
 #include "soundsettings.h"
 #include "networksettings.h"
 #include "passwordsettings.h"
+#include "configuretriggerspage.h"
+#include "definedefaultvaluespage.h"
 
 
 FirstRunWizard::FirstRunWizard(AddWordView *addWordView, QWidget* parent): SimonWizard(parent)
@@ -74,9 +76,17 @@ FirstRunWizard::FirstRunWizard(AddWordView *addWordView, QWidget* parent): Simon
 	addPage(createJuliusdDescriptionPage());
 	addPage(createJuliusdSettingsPage());
 
+	addPage(createConfigureTriggersPage());
+	addPage(createDefineDefaultValuesPage());
+
 	addPage(createFinishedPage());
     
     this->addWordView = addWordView;
+}
+
+QWizardPage* FirstRunWizard::createConfigureTriggersPage()
+{
+	return new ConfigureTriggersPage(this);
 }
 
 void FirstRunWizard::setWordListManager(WordListManager *wordListManager)
@@ -88,6 +98,7 @@ void FirstRunWizard::setWordListManager(WordListManager *wordListManager)
 	connect(importDictWorkingPage, SIGNAL(wordListImported(WordList*)), this, SLOT(importDict(WordList*)));
 
 	this->grammarManager = new GrammarManager(wordListManager);
+	grammarManager->load();
 	GrammarSettings *grammarSettings = new GrammarSettings(grammarSettingsPage, grammarManager);
 	connect(firstRunImportGrammarWorkingPage, SIGNAL(grammarCreated(QStringList)), 
 		grammarSettings, SLOT(mergeGrammar(QStringList)));
@@ -101,7 +112,8 @@ void FirstRunWizard::mergeGrammarStructure(QStringList structures)
 // 	for (int i=0; i < newStructs.count(); i++)
 // 		if (!structures.contains(newStructs[i]))
 // 			structures << newStructs[i];
-// 	grammarSettingsPage->mergeGrammar(structures);
+// 	
+// 	grammarSettingsPage->getmergeGrammar(structures);
 }
 
 void FirstRunWizard::importDict(WordList *words)
@@ -110,6 +122,14 @@ void FirstRunWizard::importDict(WordList *words)
 	{
 		this->wordListManager->addWords(words, true, true);
 	}
+}
+
+
+QWizardPage* FirstRunWizard::createDefineDefaultValuesPage()
+{
+	DefineDefaultValuesPage *page = new DefineDefaultValuesPage(this);
+	connect(page, SIGNAL(done()), this, SLOT(next()));
+	return page;
 }
 
 void FirstRunWizard::setTrainingManager(TrainingManager *trainingManager)

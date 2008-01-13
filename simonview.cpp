@@ -77,7 +77,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	Logger::log ( tr ( "[INF] Lade Einstellungen..." ) );
 	Settings::initSettings();
 
-	//Settings::set("ConfigDone", false);
+	Settings::set("ConfigDone", false);
 	if (!Settings::get("ConfigDone").toBool())
 	{
 		FirstRunWizard *firstRunWizard = new FirstRunWizard(addWordView, this);
@@ -102,6 +102,11 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	ui.setupUi ( this );
     
+// 	QVBoxLayout *layout = new QVBoxLayout(this);
+// 	layout->addWidget(ui.inlineView);
+// 	setLayout(layout);
+
+
 	//Preloads all Dialogs
 	guessChildTriggers ( ( QObject* ) this );
 
@@ -116,12 +121,9 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	this->info->writeToSplash ( tr ( "Lade \"Wort hinzufügen\"..." ) );
 	GrammarManager *grammarManager = new GrammarManager(wordList->getManager());
 
-	this->addWordView = new AddWordView ( this, wordList->getManager(), grammarManager );
+	this->addWordView = new AddWordView ( this, wordList->getManager(), trainDialog->getManager(), grammarManager );
 	this->info->writeToSplash ( tr ( "Lade \"Ausführen\"..." ) );
 	this->runDialog = new RunApplicationView ( control->getRunManager(), this );
-
-
-
 
 
 	this->info->writeToSplash ( tr ( "Lade \"System\"..." ) );
@@ -139,8 +141,8 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	ui.tbStatus->addWidget ( ui.pbActivision );
 	ui.tbStatus->addWidget ( ui.pbConnect );
 	ui.tbStatus->addWidget ( ui.pbHide );
-	ui.tbStatus->addWidget ( ui.pbClose );
 	ui.tbStatus->addWidget ( ui.pbKeyed );
+	ui.tbStatus->addWidget ( ui.pbClose );
 	ui.tbLogo->addWidget ( ui.lbLogo );
 	ui.tbModules->addWidget ( ui.pbAddWord );
 	ui.tbModules->addWidget ( ui.pbTrain );
