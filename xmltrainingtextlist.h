@@ -24,6 +24,7 @@
  * \date 3.06.07
 */
 class XMLTrainingTextList : public XMLDomReader {
+Q_OBJECT
 private:
 	QHash<QString,QString> trainingtexts;
 public:

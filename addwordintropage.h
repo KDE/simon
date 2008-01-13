@@ -29,6 +29,7 @@ class QLineEdit;
 */
 class AddWordIntroPage : public QWizardPage
 {
+Q_OBJECT
 private:
     QLineEdit *leName;
 public:

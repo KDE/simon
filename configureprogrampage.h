@@ -31,6 +31,7 @@ class IconButton;
  */
 class ConfigureProgramPage : public QWizardPage
 {
+Q_OBJECT
 private:
         QLabel *lbDesc;
 	IconButton *iconBtn;

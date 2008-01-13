@@ -23,7 +23,7 @@ class GrammarManager;
 
 class RenameTerminalWizard : public SimonWizard
 {
-
+Q_OBJECT
 private:
 	QWizardPage *createIntroPage();
 	QWizardPage *createSelectParametersPage(WordListManager *wordListManager);

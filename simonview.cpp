@@ -77,7 +77,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	Logger::log ( tr ( "[INF] Lade Einstellungen..." ) );
 	Settings::initSettings();
 
-	Settings::set("ConfigDone", false);
+// 	Settings::set("ConfigDone", false);
 	if (!Settings::get("ConfigDone").toBool())
 	{
 		FirstRunWizard *firstRunWizard = new FirstRunWizard(addWordView, this);

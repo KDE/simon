@@ -23,6 +23,7 @@
 */
 class ImportDictSelectSourcePage : public QWizardPage
 {
+Q_OBJECT
 public:
 	int nextId() const;
     ImportDictSelectSourcePage(QWidget* parent);

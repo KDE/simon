@@ -35,6 +35,7 @@ class QProgressBar;
  * \todo Testing
  */
 class ImportTrainingDirectoryWorkingPage : public QWizardPage{
+Q_OBJECT
 private:
 	QProgressBar *pbMain;
 	bool completed;

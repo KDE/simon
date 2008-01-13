@@ -22,6 +22,7 @@
 class WordListManager;
 class MergeTerminalsSelectTerminalsPage : public QWizardPage
 {
+Q_OBJECT
 private:
 	WordListManager *wordListManager;
 	Ui::MergeTerminalsSelectTerminalsPage ui;
