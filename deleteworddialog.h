@@ -45,8 +45,6 @@ RemoveCompletely		= 0x01
 		return (ui.rbShadow->isChecked()) ? MoveToShadow : RemoveCompletely;
 	}
 
-    ~DeleteWordDialog();
-
 };
 
 #endif

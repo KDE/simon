@@ -19,12 +19,10 @@
 class QLabel;
 class IconButton;
 
-/**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
+
 /**
  * \class $CLASSNAME
- * \author Peter Grasch
+ * \author 
  * \date
  * \version 0.1
  * \brief

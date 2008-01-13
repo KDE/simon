@@ -11,12 +11,12 @@
 //
 #include "firstrunimportgrammarworkingpage.h"
 
+/**
+ * \brief Empty constructor - calls the constructor of ImportGrammarWorkingPage with a NULL-Wordlistmanager and the given parent
+ * \author Peter Grasch
+ * @param parent The parent of the page
+ */
 FirstRunImportGrammarWorkingPage::FirstRunImportGrammarWorkingPage(QWidget* parent): ImportGrammarWorkingPage(NULL, parent)
-{
-}
-
-
-FirstRunImportGrammarWorkingPage::~FirstRunImportGrammarWorkingPage()
 {
 }
 

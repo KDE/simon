@@ -13,6 +13,11 @@
 #include "settings.h"
 #include <QCoreApplication>
 
+/**
+ * \brief Constructor - sets up the ui
+ * \author Peter Grasch
+ * @param parent Sets the parent to the given parent
+ */
 DefineDefaultValuesPage::DefineDefaultValuesPage ( QWidget* parent ) : QWizardPage ( parent )
 {
 	setTitle("Setze Standardwerte...");
@@ -21,10 +26,11 @@ DefineDefaultValuesPage::DefineDefaultValuesPage ( QWidget* parent ) : QWizardPa
 }
 
 
-DefineDefaultValuesPage::~DefineDefaultValuesPage()
-{ }
-
-
+/**
+ * \brief Retruns the member complete
+ * \author Peter Grasch
+ * @return this is set if all values are set
+ */
 bool DefineDefaultValuesPage::isComplete() const
 {
 	return this->complete;
@@ -47,6 +53,10 @@ bool DefineDefaultValuesPage::checkAndSet(QString option, QVariant value)
 	return false;
 }
 
+/**
+ * \brief Initializes the values with default settings (if they are not already set)
+ * \author Peter Grasch
+ */
 void DefineDefaultValuesPage::initializePage()
 {
 	this->complete=false;

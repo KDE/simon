@@ -15,15 +15,15 @@
 #include <importgrammarworkingpage.h>
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class FirstRunImportGrammarWorkingPage
+ \author Peter Grasch
+ \version 0.1
+ \date 9.1.2008
 */
 class FirstRunImportGrammarWorkingPage : public ImportGrammarWorkingPage
 {
 public:
     FirstRunImportGrammarWorkingPage(QWidget* parent);
-
-
-    ~FirstRunImportGrammarWorkingPage();
 
 };
 

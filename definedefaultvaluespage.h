@@ -17,7 +17,11 @@
 
 #include "ui_definiedefaultvaluesdlg.h"
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class DefineDefaultValuesPage
+ \brief Defines default values for crucial settings
+ \version 0.1
+ \date 13.1.2008
+ \author Peter Grasch
 */
 class DefineDefaultValuesPage : public QWizardPage
 {
@@ -29,8 +33,6 @@ private:
 	Ui::DefineDefaultValuesDlg ui;
 public:
     DefineDefaultValuesPage(QWidget* parent);
-
-    ~DefineDefaultValuesPage();
 
 	bool checkAndSet(QString option, QVariant value);
     bool isComplete() const;

@@ -32,7 +32,7 @@ class AddWordRecordPage : public QWizardPage
 {
 Q_OBJECT
 private:
-	RecWidget *rec1, *rec2; ///<! The 
+	RecWidget *rec1, *rec2; ///<! The recwidgets
 public:
     void initializePage();
     AddWordRecordPage(QWidget *parent=0);

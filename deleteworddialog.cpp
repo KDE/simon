@@ -12,11 +12,23 @@
 #include "deleteworddialog.h"
 #include "word.h"
 
+/**
+ * \brief Constructor
+ * \author Peter Grasch
+ * @param parent The parent of the dialog
+ * @param f Window flags
+ */
 DeleteWordDialog::DeleteWordDialog(QWidget* parent, Qt::WindowFlags f): QDialog(parent, f)
 {
 	ui.setupUi(this);
 }
 
+/**
+ * \brief Executes the dialog
+ * @param word The word to delete
+ * @param isShadowed Returns true if the word is in the shadow lexicon
+ * @return False, if the dialog is aborted
+ */
 int DeleteWordDialog::exec(Word word, bool isShadowed)
 {
 	ui.lbName->setText(word.getWord());
@@ -35,9 +47,3 @@ int DeleteWordDialog::exec(Word word, bool isShadowed)
 	}
 	return QDialog::exec();
 }
-
-DeleteWordDialog::~DeleteWordDialog()
-{
-}
-
-

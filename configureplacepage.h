@@ -19,9 +19,7 @@
 #include <QHBoxLayout>
 #include <QLineEdit>
 
-/**
-	@author Susanne Tschernegg
-*/
+
 /**
  * \class $CLASSNAME
  * \author Susanne Tschernegg

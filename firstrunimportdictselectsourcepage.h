@@ -16,7 +16,11 @@
 #include "firstrunwizard.h"
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class FirstRunImportDictSelectSourcePage
+ \date 6.1.2008
+ \version 0.1
+ \author Peter Grasch
+ \brief Overwrites the ImportDictSelectSourcePages nextId() to return the appropriate ids
 */
 class FirstRunImportDictSelectSourcePage : public ImportDictSelectSourcePage
 {
@@ -24,6 +28,11 @@ public:
     FirstRunImportDictSelectSourcePage(QWidget* parent) 
 		: ImportDictSelectSourcePage (parent) {}
 
+    /**
+     * \brief Returns either the id of the bomp- or the wiktionarypage depending on what the user selected
+     * \author Peter Grasch
+     * @return The id of the next page
+     */
     int nextId() const {
 		if (field("hadifix").toBool())
 		{

@@ -16,7 +16,11 @@
 #include "programcategory.h"
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class CategoryXMLReader
+ \author Peter Grasch
+ \version 0.1
+ \date 31.8.2007
+ \brief Reads the programcategories from the xml file
 */
 class CategoryXMLReader : public XMLDomReader
 {
@@ -26,7 +30,6 @@ public:
     CategoryXMLReader(QString path, QObject* parent=0);
 
 	ProgramCategoryList* getCategoryList() { return this->categoryList; }
-    ~CategoryXMLReader();
 
     void load(QString path="");
 

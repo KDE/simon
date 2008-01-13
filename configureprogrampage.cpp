@@ -19,7 +19,7 @@
 /**
 *   \brief constructor
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ConfigureProgramPage::ConfigureProgramPage(QWidget* parent): QWizardPage(parent)
 {
@@ -80,7 +80,7 @@ void ConfigureProgramPage::init(QString iconsrc, QString name, QString exec, QSt
 /**
 *   \brief destructor
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ConfigureProgramPage::~ConfigureProgramPage()
 {}

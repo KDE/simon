@@ -16,7 +16,11 @@
 #include "addwordview.h"
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class FirstRunCreateDictionaryPage
+ \author Peter Grasch
+ \version 0.1
+ \date 9.1.2008
+ \brief Creates a WordListManager and a TrainingManager and publishes them
 */
 class WordListManager;
 class TrainingManager;
@@ -30,7 +34,6 @@ signals:
 public:
     FirstRunCreateDictionaryPage(AddWordView* addWordView, QWidget* parent);
 	void initializePage();
-    ~FirstRunCreateDictionaryPage();
 
 private:
     AddWordView* addWordView;

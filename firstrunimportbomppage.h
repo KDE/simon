@@ -16,13 +16,22 @@
 #include "firstrunwizard.h"
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class FirstRunImportBOMPPage
+ \brief Overwrites the ImportBOMPPages nextId method to return the DictionaryWorkingPage of the FirstRunWizard
+ \author Peter Grasch
+ \date 6.1.2008
+ \version 0.1
 */
 class FirstRunImportBOMPPage : public ImportBOMPPage
 {
 public:
     FirstRunImportBOMPPage(QWidget* parent) : ImportBOMPPage(parent) {}
 
+	/**
+	 * \brief Returns FirstRunWizard::DictionaryWorkingPage
+	 * \author Peter Grasch
+	 * @return FirstRunWizard::DictionaryWorkingPage
+	 */
 	int nextId() const
 	{ return FirstRunWizard::DictionaryWorkingPage; }
 

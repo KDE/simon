@@ -17,9 +17,6 @@
 #include <QVBoxLayout>
 
 /**
-	@author Susanne Tschernegg
-*/
-/**
  * \class $CLASSNAME
  * \author Susanne Tschernegg
  * \date

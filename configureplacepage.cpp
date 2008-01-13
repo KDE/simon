@@ -15,7 +15,7 @@
 /**
 *   \brief constructor
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ConfigurePlacePage::ConfigurePlacePage(QWidget* parent): QWizardPage(parent)
 {
@@ -49,7 +49,7 @@ ConfigurePlacePage::ConfigurePlacePage(QWidget* parent): QWizardPage(parent)
 /**
 *   \brief writes the chosen program with its values to the screen
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 void ConfigurePlacePage::writeInformation()
 {
@@ -61,7 +61,7 @@ void ConfigurePlacePage::writeInformation()
 /**
 *   \brief destructor
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ConfigurePlacePage::~ConfigurePlacePage()
 {}
@@ -69,7 +69,7 @@ ConfigurePlacePage::~ConfigurePlacePage()
 /**
 *   \brief to set the place value
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 void ConfigurePlacePage::setPlaceValue()
 {
@@ -79,7 +79,7 @@ void ConfigurePlacePage::setPlaceValue()
 /**
 *   \brief to set the place name
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 void ConfigurePlacePage::setPlaceName()
 {

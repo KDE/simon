@@ -16,7 +16,7 @@
 
 /**
 *   \brief constructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ChoosePlacePage::ChoosePlacePage(QWidget* parent): QWizardPage(parent)
 {
@@ -31,7 +31,7 @@ ChoosePlacePage::ChoosePlacePage(QWidget* parent): QWizardPage(parent)
 
 /**
 *   \brief destructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ChoosePlacePage::~ChoosePlacePage()
 {}

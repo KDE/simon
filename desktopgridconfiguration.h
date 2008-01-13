@@ -16,7 +16,11 @@
 #include "ui_desktopgridconfigurationdlg.h"
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class DesktopGridConfiguration
+ \author Peter Grasch
+ \version 0.1
+ \date 16.9.2007
+ \brief Configures the desktopgrid
 */
 class DesktopGridConfiguration : public SystemWidget
 {
@@ -31,8 +35,6 @@ public:
         DesktopGridConfiguration(QWidget* parent);
 
 	bool isComplete();
-
-        ~DesktopGridConfiguration();
 
 };
 

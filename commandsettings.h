@@ -31,9 +31,8 @@ class QIcon;
 
 #include "iconbutton.h"
 
-/**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
+
+
 class CommandSettings : public SystemWidget
 {
 		Q_OBJECT
@@ -67,8 +66,8 @@ class CommandSettings : public SystemWidget
 		void setWidgetsDisabled();
 		void checkValuesAfterReturnPressed();
 
-private:
-    Ui::CommandSettingsDlg ui;
+	private:
+		Ui::CommandSettingsDlg ui;
 		SimonTableWidget *twCommand;
 
 		ImportProgramWizard* importProgramWizard;

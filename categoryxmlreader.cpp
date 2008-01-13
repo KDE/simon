@@ -12,16 +12,23 @@
 #include "categoryxmlreader.h"
 #include <QMessageBox>
 
+/**
+ * \brief Constructor - initializes the XMLDomReader with the paths
+ * \author Peter Grasch
+ * @param path The path of the file
+ * @param parent Set the parent to the given parent
+ */
 CategoryXMLReader::CategoryXMLReader(QString path, QObject* parent): XMLDomReader(path, parent)
 {
 	this->categoryList = new ProgramCategoryList();
 }
 
 
-CategoryXMLReader::~CategoryXMLReader()
-{}
-
-
+/**
+ * \brief Parses the category xml file
+ * \author Peter Grasch
+ * @param path If the path is empty the path given to initialize the object is used; if it is still empty we return
+ */
 void CategoryXMLReader::load(QString path)
 {
 	if (path.isEmpty()) path = this->path;

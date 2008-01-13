@@ -19,11 +19,22 @@
 #include <QProcess>
 #include <QLocale>
 
+/**
+ * \brief Constructor
+ * \author Peter Grasch
+ * @param path The path to initialize the inireader with
+ */
 DesktopReader::DesktopReader(QString path) : IniReader(path)
 {
 	iconname = "";
 }
 
+/**
+ * \brief Reads the desktopfile from the given path
+ * \author Peter Grasch
+ * @param path The path of the desktopfile
+ * @return The read program
+ */
 Program* DesktopReader::readDesktopFile(QString path)
 {
 	if (!load(path)) return NULL;
@@ -55,10 +66,3 @@ Program* DesktopReader::readDesktopFile(QString path)
 	
 	return new Program(name, command, desc, workingDir);
 }
-
-
-DesktopReader::~DesktopReader()
-{
-}
-
-

@@ -34,8 +34,8 @@
 CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Kommandos" ), QIcon ( ":/images/icons/system-run.svg" ), tr ( "Hier können Sie Programme und Orte importieren und vorhandene Kommandos bearbeiten" ), parent )
 {
 	ui.setupUi ( this );
-	
-	guessChildTriggers(this);
+
+	guessChildTriggers ( this );
 
 	//iconButton = new IconButton();
 	commandEdited = false;
@@ -59,7 +59,7 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 
 	//connects
 	connect ( ui.pbNewCommand, SIGNAL ( clicked() ), this, SLOT ( newCommand() ) );
-    connect (ui.pbSpecialCharacter, SIGNAL(clicked()), this, SLOT (newCommand()));
+	connect ( ui.pbSpecialCharacter, SIGNAL ( clicked() ), this, SLOT ( newCommand() ) );
 	connect ( ui.twCommand, SIGNAL ( currentCellChanged ( int,int,int,int ) ), this, SLOT ( checkAndAddCommandValues ( int,int,int,int ) ) );
 	connect ( ui.pbDeleteCommand, SIGNAL ( clicked() ), this, SLOT ( deleteCommand() ) );
 	connect ( ui.twCommand, SIGNAL ( cellDoubleClicked ( int, int ) ), this, SLOT ( editCommand ( int, int ) ) );
@@ -355,13 +355,13 @@ void CommandSettings::activateCb()
 
 /**
  * \brief Determines if the page is completely configured
- * 
+ *
  * \author Peter Grasch
  * @return true, if we set a magic word
  */
 bool CommandSettings::isComplete()
 {
-	return !(ui.leKeyword->text().isEmpty());
+	return ! ( ui.leKeyword->text().isEmpty() );
 }
 
 /**
@@ -704,10 +704,10 @@ void CommandSettings::importNewProgram()
 	ui.twCommand->setDisabled ( checked );
 
 	if ( checked )
-    {
-        importProgramWizard = new ImportProgramWizard(this);
+	{
+		importProgramWizard = new ImportProgramWizard ( this );
 		importProgramWizard->show();
-    }
+	}
 	else
 		importProgramWizard->hide();
 }
@@ -734,8 +734,8 @@ void CommandSettings::insertCommand ( Command* command )
 #ifndef __WIN32
 	//there might be an icon set
 	QString iconsrc = command->getIconPath();
-	iconButton->setIconName(iconsrc);
-	iconButton->setIcon(QIcon(iconsrc));
+	iconButton->setIconName ( iconsrc );
+	iconButton->setIcon ( QIcon ( iconsrc ) );
 #endif
 	ui.twCommand->setCellWidget ( rows, 0, iconButton );
 
@@ -1000,10 +1000,10 @@ void CommandSettings::importNewPlace()
 	ui.twCommand->setDisabled ( checked );
 
 	if ( checked )
-    {
-        importPlaceWizard = new ImportPlaceWizard(this);
+	{
+		importPlaceWizard = new ImportPlaceWizard ( this );
 		importPlaceWizard->show();
-    }
+	}
 	else
 		importPlaceWizard->hide();
 }

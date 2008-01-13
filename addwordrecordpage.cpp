@@ -36,6 +36,10 @@ AddWordRecordPage::AddWordRecordPage(QWidget *parent)
 	connect(rec2, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
 }
 
+/**
+ * \brief Sets the recwidgets-titles to the examples of the previous page (pulled out of the fields wordExamples1,2)
+ * \author Peter Grasch
+ */
 void AddWordRecordPage::initializePage()
 {
 	rec1->setTitle(field("wordExample1").toString());

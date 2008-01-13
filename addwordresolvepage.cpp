@@ -17,6 +17,12 @@
 #include <QHeaderView>
 #include <QMessageBox>
 
+/**
+ * \brief Constructor - initializes the members with the given parameters and sets up the gui
+ * @param wordListManager The member to the given wordlistmanager; it is not yet used
+ * @param grammarManager The member to the given grammarManager; it is not yet used
+ * @param parent Initializes the QWizardPage with the given parent
+ */
 AddWordResolvePage::AddWordResolvePage(WordListManager *wordListManager, GrammarManager *grammarManager,
 	QWidget* parent): QWizardPage(parent)
 {
@@ -37,6 +43,13 @@ AddWordResolvePage::AddWordResolvePage(WordListManager *wordListManager, Grammar
 	registerField("wordTerminal*", ui.cbType, "currentText", SIGNAL(currentIndexChanged(int)));
 }
 
+/**
+ * \brief Initializes the Page with the wordname from the intro page (pulled out of the "wordNameIntro" field)
+ * 
+ * This uses the wordListManager to get similar words so it'd better initialized when using this
+ * 
+ * \author Peter Grasch
+ */
 void AddWordResolvePage::initializePage()
 {
 	QString word = field("wordNameIntro").toString();
@@ -50,6 +63,10 @@ void AddWordResolvePage::initializePage()
 	displayWords(similar);
 }
 
+/**
+ * \brief Creates two examples utilizing the grammarManger and sets the lineedit to the found examples
+ * \author Peter Grasch 
+ */
 void AddWordResolvePage::createExamples()
 {
 	QString terminal = ui.cbType->currentText();
@@ -68,6 +85,10 @@ void AddWordResolvePage::createExamples()
 	}
 }
 
+/**
+ * \brief Sets the input fields to the values selected in the tablewidget
+ * \author Peter Grasch
+ */
 void AddWordResolvePage::suggest()
 {
 	int row = ui.twSuggestions->currentRow();
@@ -82,6 +103,11 @@ void AddWordResolvePage::suggest()
 	}
 }
 
+/**
+ * \brief Displays the words in the suggest-tablewidget to select
+ * \author Peter Grasch
+ * @param words The words to display
+ */
 void AddWordResolvePage::displayWords(WordList *words)
 {
 	int i=0;
@@ -109,10 +135,6 @@ void AddWordResolvePage::displayWords(WordList *words)
 		ui.twSuggestions->selectRow(0);
 	}
 	setUpdatesEnabled(true);
-}
-
-AddWordResolvePage::~AddWordResolvePage()
-{
 }
 
 

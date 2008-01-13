@@ -29,8 +29,6 @@ public:
     QString getIconname() { return iconname; }
     QStringList getStrCategories() { return strCategories; }
 
-    ~DesktopReader();
-
 };
 
 #endif

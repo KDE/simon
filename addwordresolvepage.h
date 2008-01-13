@@ -16,7 +16,11 @@
 #include "ui_resolvewordpage.h"
 #include "word.h"
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+	\class AddWordResolvePage
+	\version 0.1
+	\brief Displays a few suggestions and let the user select the terminal and the pronunciation of the new word
+	\date 20.12.2007
+	@author Peter Grasch
 */
 class WordListManager;
 class GrammarManager;
@@ -41,8 +45,6 @@ public:
 
 	void initializePage();
 	void displayWords(WordList *words);
-
-    ~AddWordResolvePage();
 
 };
 

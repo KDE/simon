@@ -15,7 +15,11 @@
 #include <QWizardPage>
 #include "ui_configuretriggerspage.h"
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class ConfigureTriggersPage
+ \brief Configures the triggers of the commands and the desktopgrid
+ \date 13.1.2008
+ \version 0.1
+ \author Peter Grasch
 */
 class ConfigureTriggersPage : public QWizardPage
 {
@@ -27,8 +31,6 @@ public:
 	void initializePage();
 	bool isComplete() const;
 	bool validatePage();
-
-    ~ConfigureTriggersPage();
 
 };
 
