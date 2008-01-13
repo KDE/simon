@@ -41,6 +41,12 @@
 #include "definedefaultvaluespage.h"
 
 
+/**
+ * \brief Constructor - adds all the pages and initializes the wordlistmanager and trainingmanager with NULL
+ * \author Peter Grasch
+ * @param addWordView The AddWordView to pass on 
+ * @param parent Parent of the wizard
+ */
 FirstRunWizard::FirstRunWizard(AddWordView *addWordView, QWidget* parent): SimonWizard(parent)
 {
 	this->wordListManager=0;
@@ -84,11 +90,28 @@ FirstRunWizard::FirstRunWizard(AddWordView *addWordView, QWidget* parent): Simon
     this->addWordView = addWordView;
 }
 
+/**
+ * \brief Creates the wizardpage to configure the action triggers
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createConfigureTriggersPage()
 {
 	return new ConfigureTriggersPage(this);
 }
 
+/**
+ * \brief Sets the WordListManager to use to the given one;
+ * 
+ * If we already set a WLM. we delete it.
+ * 
+ * Passes on the given WordListManager to:
+ * 	* FirstRunImportGrammarWorkingPage
+ *
+ * Creates a new GrammarSettings and sets the grammarSettingsPages child to the newly generated GrammarSettings object
+ *
+ * @param wordListManager 
+ */
 void FirstRunWizard::setWordListManager(WordListManager *wordListManager)
 {
 	if (this->wordListManager) delete this->wordListManager;
@@ -106,16 +129,14 @@ void FirstRunWizard::setWordListManager(WordListManager *wordListManager)
 	grammarSettingsPage->setChild(grammarSettings);
 }
 
-void FirstRunWizard::mergeGrammarStructure(QStringList structures)
-{
-// 	QStringList newStructs = grammarManager->getAllStructures();
-// 	for (int i=0; i < newStructs.count(); i++)
-// 		if (!structures.contains(newStructs[i]))
-// 			structures << newStructs[i];
-// 	
-// 	grammarSettingsPage->getmergeGrammar(structures);
-}
-
+/**
+ * \brief Imports the given WordList
+ * \author Peter Grasch
+ * 
+ * Adds the (sorted) list of words to the shadowlist
+ * 
+ * @param words The words to add - THEY HAVE TO BE SORTED! If in doubt, use qSort()
+ */
 void FirstRunWizard::importDict(WordList *words)
 {
 	if (this->wordListManager)
@@ -125,6 +146,11 @@ void FirstRunWizard::importDict(WordList *words)
 }
 
 
+/**
+ * \brief Creates the wizardpage to configure the define default values
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createDefineDefaultValuesPage()
 {
 	DefineDefaultValuesPage *page = new DefineDefaultValuesPage(this);
@@ -132,6 +158,15 @@ QWizardPage* FirstRunWizard::createDefineDefaultValuesPage()
 	return page;
 }
 
+
+/**
+ * \brief Sets the Trainingmanager to the given one
+ * 
+ * If there is already a TrainingManager set, it is deleted and replaced.
+ * 
+ * \author Peter Grasch
+ * @param trainingManager The Trainingmanager to set to
+ */
 void FirstRunWizard::setTrainingManager(TrainingManager *trainingManager)
 {
 	if (this->trainingManager) delete this->trainingManager;
@@ -139,6 +174,12 @@ void FirstRunWizard::setTrainingManager(TrainingManager *trainingManager)
 	this->trainingManager = trainingManager;
 }
 
+
+/**
+ * \brief Creates the wizardpage to create the WordListManager and TrainingManager with the newly set configuration
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createCreateDictionaryPage()
 {
 	FirstRunCreateDictionaryPage *page = new FirstRunCreateDictionaryPage(addWordView, this);
@@ -149,21 +190,41 @@ QWizardPage* FirstRunWizard::createCreateDictionaryPage()
 }
 
 
+/**
+ * \brief Creates the wizardpage to select the type of the dictionary to import
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createImportDictSelectTypePage()
 {
 	return (QWizardPage*) new FirstRunImportDictSelectSourcePage(this);
 }
 
+/**
+ * \brief Creates the wizardpage to import a bomp dictionary
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createImportDictBOMPPage()
 {
 	return (QWizardPage*) new FirstRunImportBOMPPage(this);
 }
 
+/**
+ * \brief Creates the importwiktionarypage
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createImportDictWiktionaryPage()
 {
 	return (QWizardPage*) new ImportDictWiktionaryPage(this);
 }
 
+/**
+ * \brief Creates the wizardpage to configure import the dictionary (the working-page)
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createImportDictWorkingPage()
 {
 	this->importDictWorkingPage = new ImportDictWorkingPage(this);
@@ -171,6 +232,11 @@ QWizardPage* FirstRunWizard::createImportDictWorkingPage()
 }
 
 
+/**
+ * \brief Creates the wizardpage to display some information about the grammar-settings-page that is about to be shown
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createGrammarDescriptionPage()
 {
 	QWizardPage *description = new QWizardPage(this);
@@ -188,6 +254,11 @@ QWizardPage* FirstRunWizard::createGrammarDescriptionPage()
 
 
 
+/**
+ * \brief Creates the wizardpage to configure the sound
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createSoundSettingsPage()
 {
 	SystemWidgetPage *sound = new SystemWidgetPage(this);
@@ -195,6 +266,11 @@ QWizardPage* FirstRunWizard::createSoundSettingsPage()
 	return sound;
 }
 
+/**
+ * \brief Creates the wizardpage to display some information about the password configuration
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createPasswordDescriptionPage()
 {
 	QWizardPage *description = new QWizardPage(this);
@@ -210,6 +286,11 @@ QWizardPage* FirstRunWizard::createPasswordDescriptionPage()
 	return description;
 }
 
+/**
+ * \brief Creates the wizardpage to configure the password
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createPasswordSettingsPage()
 {
 	SystemWidgetPage *passpg = new SystemWidgetPage(this);
@@ -217,6 +298,11 @@ QWizardPage* FirstRunWizard::createPasswordSettingsPage()
 	return passpg;
 }
 
+/**
+ * \brief Creates the wizardpage to display some information about juliusd
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createJuliusdDescriptionPage()
 {
 	QWizardPage *description = new QWizardPage(this);
@@ -232,6 +318,11 @@ QWizardPage* FirstRunWizard::createJuliusdDescriptionPage()
 	return description;
 }
 
+/**
+ * \brief Creates the wizardpage to configure juliusd
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createJuliusdSettingsPage()
 {
 	SystemWidgetPage *julius = new SystemWidgetPage(this);
@@ -239,11 +330,22 @@ QWizardPage* FirstRunWizard::createJuliusdSettingsPage()
 	return julius;
 }
 
+
+/**
+ * \brief Creates the wizardpage to select the files to read for the gramamr-import
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createSelectFilesPage()
 {
 	return new ImportGrammarSelectFilesPage(this);
 }
 
+/**
+ * \brief Creates the wizardpage to import the grammar (workingpage)
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createGrammarWorkingPage()
 {
 	this->firstRunImportGrammarWorkingPage = new FirstRunImportGrammarWorkingPage(this);
@@ -254,6 +356,11 @@ QWizardPage* FirstRunWizard::createGrammarWorkingPage()
 	return (QWizardPage*) firstRunImportGrammarWorkingPage;
 }
 
+/**
+ * \brief Creates the wizardpage to configure the grammar
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createGrammarSettings()
 {
 	grammarSettingsPage = new SystemWidgetPage(this);
@@ -261,6 +368,11 @@ QWizardPage* FirstRunWizard::createGrammarSettings()
 	
 }
 
+/**
+ * \brief Creates the wizardpage to display how to configure the language model
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createLanguageModelDescription()
 {
 	QWizardPage *description = new QWizardPage(this);
@@ -276,6 +388,11 @@ QWizardPage* FirstRunWizard::createLanguageModelDescription()
 	return description;
 }
 
+/**
+ * \brief Creates the wizardpage to introduce the user to simon
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createIntroPage()
 {
 	QWizardPage *intro = new QWizardPage(this);
@@ -291,6 +408,11 @@ QWizardPage* FirstRunWizard::createIntroPage()
 	return intro;
 }
 
+/**
+ * \brief Creates the wizardpage to display the checklist of programs / files the user needs for simon
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createCheckList()
 {
 	QWizardPage *checklist = new QWizardPage(this);
@@ -308,7 +430,11 @@ QWizardPage* FirstRunWizard::createCheckList()
 }
 
 
-
+/**
+ * \brief Creates the wizardpage to inform the user about the creation process of a new language model
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createNewModelDescription()
 {
 	QWizardPage *newModel = new QWizardPage(this);
@@ -325,12 +451,22 @@ QWizardPage* FirstRunWizard::createNewModelDescription()
 	return newModel;
 }
 
+/**
+ * \brief Creates the wizardpage to create the modelsettings
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createModelSettings()
 {
 	return (QWizardPage*) new FirstRunModelSettings(this);
 }
 
 
+/**
+ * \brief Creates the wizardpage to configure the external programs
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createExternalProgramsPage()
 {
 	SystemWidgetPage *page = new SystemWidgetPage(this);
@@ -338,11 +474,22 @@ QWizardPage* FirstRunWizard::createExternalProgramsPage()
 	return (QWizardPage*) page;
 }
 
+/**
+ * \brief Creates the wizardpage to select the source of the language model
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createLanguageModelSelectSource()
 {
 	return (QWizardPage*) new SelectLanguageModelSourcePage(this);
 }
 
+
+/**
+ * \brief Creates the wizardpage to gratulate the user for configuring simon
+ * \author Peter Grasch
+ * @return The page
+ */
 QWizardPage* FirstRunWizard::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage(this);
@@ -359,6 +506,10 @@ QWizardPage* FirstRunWizard::createFinishedPage()
 }
 
 
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 FirstRunWizard::~FirstRunWizard()
 {
 }

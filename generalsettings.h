@@ -21,7 +21,7 @@
  \version 0.1
  \date 12.08.2007
 
- Used to control the genernal system settings (like paths to the language model, etc.)
+ \brief Used to control the genernal system settings (like paths to the language model, etc.)
 
 */
 class GeneralSettings : public SystemWidget

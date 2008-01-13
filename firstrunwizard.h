@@ -17,7 +17,11 @@
 #include "addwordview.h"
 
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class FirstRunWizard
+ \author Peter Grasch
+ \version 0.1
+ \date 2.1.2008
+ \brief "Setup" replacement - does all the nescessairy configuration to use simon
 */
 class QWizardPage;
 class WordListManager;
@@ -35,7 +39,6 @@ private slots:
 	void setWordListManager(WordListManager*);
 	void setTrainingManager(TrainingManager*);
 	void importDict(WordList *);
-	void mergeGrammarStructure(QStringList structures);
 
 private:
 	WordListManager *wordListManager;
