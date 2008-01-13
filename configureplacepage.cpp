@@ -16,6 +16,7 @@
 *   \brief constructor
 *
 *   @author Susanne Tschernegg
+*   @param QWidget *parent
 */
 ConfigurePlacePage::ConfigurePlacePage(QWidget* parent): QWizardPage(parent)
 {

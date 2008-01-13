@@ -18,6 +18,7 @@
 #include <QRadioButton>
 #include <QLineEdit>
 #include <QFileDialog>
+#include <QMessageBox>
 
 #ifdef __WIN32
 #include <windows.h>
@@ -31,6 +32,7 @@
 /**
 *   \brief constructor which creates the dialog
 *   @author Susanne Tschernegg
+*   @param QWidget *parent
 */
 IconDialog::IconDialog ( QWidget *parent ) : QDialog ( parent )
 {
@@ -40,9 +42,10 @@ IconDialog::IconDialog ( QWidget *parent ) : QDialog ( parent )
 	vbLayout->addWidget ( new QLabel ( tr ( "Wählen Sie ein beliebiges Icon und bestätigen Sie mit ok.\n" ) ) );
 
 #ifdef __WIN32
-	QRadioButton *rbIconFromFile = new QRadioButton ( "Icon from file", this );
+	rbIconFromFile = new QRadioButton ( "Icon from file", this );
+    rbIconFromFile->setChecked(true);
 	QHBoxLayout *hbRbLayout = new QHBoxLayout();
-	QRadioButton *rbIconView = new QRadioButton ( "Systemicons", this );
+	rbIconView = new QRadioButton ( "Systemicons", this );
 	hbRbLayout->addWidget ( rbIconView );
 
 	hbRbLayout->addWidget ( rbIconFromFile );
@@ -54,8 +57,8 @@ IconDialog::IconDialog ( QWidget *parent ) : QDialog ( parent )
 	pbFromFile->setIcon ( QIcon ( ":/images/icons/folder.svg" ) );
 	QHBoxLayout *hbFileLayout = new QHBoxLayout();
 #ifdef __WIN32
-	leFromFile->setEnabled ( false );
-	pbFromFile->setEnabled ( false );
+	leFromFile->setEnabled ( true );
+	pbFromFile->setEnabled ( true );
 #endif
 
 	vbLayout->addLayout ( hbFileLayout );
@@ -91,8 +94,8 @@ IconDialog::IconDialog ( QWidget *parent ) : QDialog ( parent )
 	connect ( pbCancel, SIGNAL ( clicked() ), this, SLOT ( reject() ) );
 
 #ifdef __WIN32
-	connect ( rbIconView, SIGNAL ( clicked() ), this, SLOT ( enableSystemIcons() ) );
-	connect ( rbIconFromFile, SIGNAL ( clicked() ), this, SLOT ( enableLineEdit() ) );
+	connect ( rbIconView, SIGNAL ( toggled(bool) ), this, SLOT ( enableSystemIcons() ) );
+	connect ( rbIconFromFile, SIGNAL ( toggled(bool) ), this, SLOT ( enableLineEdit() ) );
 #endif
 
 	connect ( pbFromFile, SIGNAL ( clicked() ), this, SLOT ( openFileDialog() ) );
@@ -101,6 +104,8 @@ IconDialog::IconDialog ( QWidget *parent ) : QDialog ( parent )
 /**
 *   \brief This method puts the icons into a QStandardView.
 *   @author Susanne Tschernegg
+*   @param QString currentIcon
+*       holds the resourceId of the current icon
 */
 void IconDialog::showIcons ( QString currentIcon )
 {
@@ -159,7 +164,10 @@ void IconDialog::safeIconInformation()
 	accept();
 }
 
-
+/**
+*   \brief This method is only in windows avaliable and enables the view of the system-icons.
+*   @author Susanne Tschernegg
+*/
 #ifdef __WIN32
 void IconDialog::enableSystemIcons()
 {
@@ -169,6 +177,10 @@ void IconDialog::enableSystemIcons()
 	pbFromFile->setEnabled ( false );
 }
 
+/**
+*   \brief This method is only in windows avaliable and enables the lineedit, where the chosen place would be written down.
+*   @author Susanne Tschernegg
+*/
 void IconDialog::enableLineEdit()
 {
 	iconView->setEnabled ( false );
@@ -178,7 +190,7 @@ void IconDialog::enableLineEdit()
 #endif
 
 /**
-*   \brief openFileDialog
+*   \brief Creates a filedialog to choose a place on the computer, where you have a picture with a specific datatype.
 *   @author Susanne Tschernegg
 */
 void IconDialog::openFileDialog()

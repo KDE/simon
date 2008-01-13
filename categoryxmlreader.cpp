@@ -11,6 +11,8 @@
 //
 #include "categoryxmlreader.h"
 #include <QMessageBox>
+#include <QVariant>
+#include "settings.h"
 
 /**
  * \brief Constructor - initializes the XMLDomReader with the paths
@@ -32,7 +34,8 @@ CategoryXMLReader::CategoryXMLReader(QString path, QObject* parent): XMLDomReade
 void CategoryXMLReader::load(QString path)
 {
 	if (path.isEmpty()) path = this->path;
-	if (path.isEmpty()) return;
+	if (path.isEmpty()) path = Settings::get ( "PathToProgramCategories" ).toString();
+
     XMLDomReader::load(path);
 	QDomNodeList categories = doc->elementsByTagName("category");
     

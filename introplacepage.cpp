@@ -19,7 +19,8 @@
 
 /**
 *   \brief constructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @param QWidget* parent
 */
 IntroPlacePage::IntroPlacePage(QWidget* parent): QWizardPage(parent)
 {
@@ -45,7 +46,7 @@ IntroPlacePage::IntroPlacePage(QWidget* parent): QWizardPage(parent)
 
 /**
 *   \brief destructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 IntroPlacePage::~IntroPlacePage()
 {}

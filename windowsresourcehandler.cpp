@@ -32,6 +32,12 @@ WindowsResourceHandler::WindowsResourceHandler()
 /**
 *   \brief This method retrievs the chosen icon from the library
 *   @author Susanne Tschernegg
+*   @param QString file
+*       holds the file, where the icon is saved ("shell32.dll", etc.)
+*   @param int resourceId
+*       holds the id of a special icon (the 3rd icon in the dll)
+*   @return QIcon
+*       returns a icon from the dll
 */
 QIcon WindowsResourceHandler::retrieveIcon(QString file, int resourceId)
 {

@@ -25,17 +25,13 @@ class QIcon;
 /**
  * \class $CLASSNAME
  * \author Susanne Tschernegg
- * \date
+ * \date 13.12.2007
  * \version 0.1
- * \brief
+ * \brief This button is included at the commandsettings, where the user can choose a icon. There the iconDialog will be called.
  */
 class IconButton : public QToolButton
 {
     Q_OBJECT
-        //simonIconButton abgeleitet von QToolButton ...
-    //iconname, get ... //name dem commandloader übergeben und dort auf dem objekt zwischenspeichern
-    //icondialog anzeigen
-    //signal: iconselected(QString ...)
     
 private:
     QString iconName;

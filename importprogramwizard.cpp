@@ -16,7 +16,8 @@
 
 /**
 *   \brief constructor which creats the wizardpages
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @param QWidget *parent
 */
 ImportProgramWizard::ImportProgramWizard(QWidget* parent): SimonWizard(parent)
 {
@@ -41,14 +42,16 @@ ImportProgramWizard::ImportProgramWizard(QWidget* parent): SimonWizard(parent)
 
 /**
 *   \brief destructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ImportProgramWizard::~ImportProgramWizard()
 {}
 
 /**
 *   \brief Creates the intro page
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @return QWizardPage*
+*       returns the introPage of this wizard
 */
 QWizardPage* ImportProgramWizard::createIntroPage()
 {
@@ -67,6 +70,8 @@ QWizardPage* ImportProgramWizard::createIntroPage()
 /**
 *   \brief creates the selectprogrampage
 *   @author Susanne Tschernegg
+*   @return SelectProgramPage*
+*       returns a new initialized SelectProgramPage
 */
 SelectProgramPage* ImportProgramWizard::createSelectProgramPage()
 {
@@ -76,6 +81,8 @@ SelectProgramPage* ImportProgramWizard::createSelectProgramPage()
 /**
 *   \brief creates the configureprogrampage
 *   @author Susanne Tschernegg
+*   @return ConfigureProgramPage*
+*       returns a new initialized ConfigureProgramPage
 */
 ConfigureProgramPage* ImportProgramWizard::createConfigureProgramPage()
 {
@@ -85,6 +92,8 @@ ConfigureProgramPage* ImportProgramWizard::createConfigureProgramPage()
 /**
 *   \brief creates the importprogrampage
 *   @author Susanne Tschernegg
+*   @return ImportProgramPage*
+*       returns a new initialized ImportProgramPage
 */
 ImportProgramPage* ImportProgramWizard::createImportProgramPage()
 {
@@ -94,6 +103,8 @@ ImportProgramPage* ImportProgramWizard::createImportProgramPage()
 /**
 *   \brief creates the last page
 *   @author Susanne Tschernegg
+*   @return QWizardPage*
+*       returns a new initialized finish-WizardPage
 */
 QWizardPage* ImportProgramWizard::createFinishedPage()
 {
@@ -113,6 +124,8 @@ QWizardPage* ImportProgramWizard::createFinishedPage()
 *   \brief slot: the signal is emited this class
             if the current page changes, we will save the last pageId and the new pageId
 *   @author Susanne Tschernegg, Peter Grasch
+*   @param int newId
+*       holds the id of the current wizardpage
 */
 void ImportProgramWizard::idChanged(int newId)
 {
@@ -145,7 +158,9 @@ void ImportProgramWizard::idChanged(int newId)
 *   \brief slot: the signal is emited in the commandSettings.cpp (changeExistingName)
             if the name of the commando already exists in the commandlist, a message box (called in commendSettings) will be opend and asks,
             if the user wants to change the name of the commando
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @param bool change
+*       holds wheater the name has changed or not
 */
 void ImportProgramWizard::changeName(bool change)
 {

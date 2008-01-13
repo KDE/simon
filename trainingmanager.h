@@ -21,7 +21,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QMutex>
-class AddWordView;
+#include "addwordview.h"
 class WordListManager;
 
 /**
@@ -44,7 +44,7 @@ private:
     AddWordView *addWordView;
 public:
 	PromptsTable *promptsTable;
-	TrainingManager(AddWordView *addWordView);
+	TrainingManager();
 
     QHash<QString, QString>* getSampleHash(){return sampleHash;}
 	int getProbability(QString name, PromptsTable *promptsTable);
@@ -94,10 +94,9 @@ public:
     
     void setupTrainingSession();
     bool allWordsExisting();
-    
     void setWordListManager(WordListManager *wlistmgr);
-    
     void addSamples(QHash<QString, QString> *hash);
+    void setAddWordView(AddWordView *addWordView);
 
 	~TrainingManager();
 

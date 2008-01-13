@@ -15,13 +15,12 @@
 #include <QString>
 
 /**
-    \class registrymanager.h
-    
-    \author Susanne Tschernegg
-    
-    This class is to access the registry of Windows. So you can get Information about something like commands to execute them.
-    
-*/
+ * \class $CLASSNAME
+ * \author Susanne Tschernegg
+ * \date 20.08.2007
+ * \version 0.1
+ * \brief This class is to access the registry of Windows. So you can get Information about something like commands to execute them.
+ */
 class RegistryManager
 {
     

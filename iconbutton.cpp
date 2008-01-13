@@ -20,6 +20,7 @@
 /**
 *   \brief constructor, which creates a new iconDialog
 *   @author Susanne Tschernegg
+*   @param QWidget *parent
 */
 IconButton::IconButton ( QWidget *parent ) : QToolButton ( parent )
 {
@@ -36,7 +37,7 @@ IconButton::IconButton ( QWidget *parent ) : QToolButton ( parent )
 void IconButton::changeIcon()
 {
 	iconDialog = new IconDialog ( this );
-	iconDialog->showIcons ( getIconName() );
+	iconDialog->showIcons ();// getIconName() );
 
 	int success = iconDialog->exec();
 

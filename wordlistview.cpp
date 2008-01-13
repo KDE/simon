@@ -71,7 +71,6 @@ WordListView::WordListView(TrainingView *trainView, QWidget *parent) : InlineWid
 	
 }
 
-
 void WordListView::askForRebuild()
 {
 	//we changed the wordlist
@@ -510,7 +509,7 @@ void WordListView::initializeItems()
 /**
  * @brief Hides the tab (editModel), until the pbKeyed Button is checked and the password where given
  *
- * @autor Susanne Tschernegg
+ * @author Susanne Tschernegg
  */
 void WordListView::hideTbEditModel()
 {
@@ -520,7 +519,7 @@ void WordListView::hideTbEditModel()
 /**
  * @brief Sets the tab (editModel) visible, until the pbKeyed Button is unchecked
  *
- * @autor Susanne Tschernegg
+ * @author Susanne Tschernegg
  */
 void WordListView::setTbEditModelVisible()
 {

@@ -17,6 +17,7 @@
 /**
 *   \brief constructor
 *   @author Susanne Tschernegg
+*   @param QWidget *parent
 */
 LocalPlacePage::LocalPlacePage(QWidget* parent): QWizardPage(parent)
 {   
@@ -49,7 +50,7 @@ LocalPlacePage::~LocalPlacePage()
 {}
 
 /**
-*   \brief destructor
+*   \brief Creates a filedialog, to choose a place on the computer.
 *   @author Susanne Tschernegg
 */
 void LocalPlacePage::openFileDialog()
@@ -78,6 +79,8 @@ void LocalPlacePage::openFileDialog()
 /**
 *   \brief to geht the whole path of a place
 *   @author Susanne Tschernegg
+*   @return QString
+*       returns the path to the place
 */
 QString LocalPlacePage::getPlacePath()
 {

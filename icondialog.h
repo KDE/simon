@@ -20,6 +20,7 @@ class QListView;
 class QIcon;
 class QLineEdit;
 class QPushButton;
+class QRadioButton;
 
 /**
 	@author Susanne Tschernegg
@@ -27,19 +28,20 @@ class QPushButton;
 /**
  * \class $CLASSNAME
  * \author Susanne Tschernegg
- * \date
+ * \date 13.12.2007
  * \version 0.1
- * \brief
+ * \brief This dialog is called, when the iconbutton is clicked. The user can choose an icon from a local file or a system-icon.
  */
 class IconDialog : public QDialog
 {
     Q_OBJECT
 
-
 private:
 #ifdef __WIN32
     QListView *iconView;
     QStandardItemModel *model;
+    QRadioButton *rbIconFromFile;
+    QRadioButton *rbIconView;
 #endif
     QString resourceIdStr;
     QLineEdit *leFromFile;

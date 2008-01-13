@@ -26,6 +26,7 @@
 #include "ui_trainmain.h"
 #include "inlinewidget.h"
 #include "wordlistmanager.h"
+#include "addwordview.h"
 
 
 class WordListView;
@@ -51,6 +52,9 @@ private:
 	TrainingManager *trainMgr;
 	int currentPage; //!< when we train a text this will hold the page we are on
 	int oldId; //!< where did we come from?
+
+    AddWordView *addWordView;
+    
 	
 	RecWidget *recorder;
     int recordedPages; //!< this counter will hold the recorded pages; it will change, when pages are recorded or deleted
@@ -80,7 +84,7 @@ private slots:
 
 public:
 	void exec();
-    TrainingView(AddWordView *addWordView, QWidget *parent=0);
+    TrainingView(QWidget *parent=0);
 	
     ~TrainingView();
 
@@ -88,6 +92,7 @@ public:
     void setSettingsVisible();
     void cleanUpTrainingSamples();
 
+    void setAddWordView(AddWordView* addWordView);
     void setWordListManager(WordListManager *wlistmgr);
 
 };

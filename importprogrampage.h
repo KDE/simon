@@ -25,9 +25,9 @@
 /**
  * \class $CLASSNAME
  * \author Peter Grasch
- * \date
+ * \date 16.08.2007
  * \version 0.1
- * \brief
+ * \brief This page creates a new command and adds it to the commandlist.
  */
 class ImportProgramPage : public QWizardPage
 {

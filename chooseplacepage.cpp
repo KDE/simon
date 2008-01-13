@@ -17,6 +17,7 @@
 /**
 *   \brief constructor
 *   @author Susanne Tschernegg
+*   @param QWidget *parent
 */
 ChoosePlacePage::ChoosePlacePage(QWidget* parent): QWizardPage(parent)
 {

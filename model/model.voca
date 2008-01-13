@@ -1,76 +1,10 @@
 % NS_B
 <s>	sil
-
 % NS_E
 </s>	sil
-
-% Abkürzung
-
-
-% Grußformel
-
-
-% Interjektion
-
-
-% Partizip
-
-
-% Zahl
-EINE 	aI n @
-ZWEI 	t s v aI
-DREI  	d R aI
-VIER  	f i: 6
-FÜNF 	f Y n f
-SECHS 	z E k s
-SIEBEN 	z i: b @ n
-ACHT 	a x t
-NEUN 	n OY n
-ZEHN 	t s e: n
-
-% Konjunktion
-ABER	a: b 6
-
-% Partikel
-ABER	a: b 6
-
-% Adverb
-ABER	a: b 6
-ANSCHEINEND	a n S aI n @ n t
-ABSOLUT	a p z o: l u: t
-ABSOLUTE	a p z o: l u: t @
-ALSO	a l z o:
-
-% Pronomen
-ALLES	a l @ s
-ANDERE	a n d @ R @
-
-% Subjunktion
-ALS	a l s
-ALSO	a l z o:
-
-% Adjektiv
-ABSOLUT		a p z o: l u: t
-ABSOLUTE	a p z o: l u: t @
-ANERKANNT	a n E R k a n t
-ANSTRENGENDE	a n S t R E N @ n d e:
-
-% Präposition
-AN	a n
-
-% Artikel
-DER	d e: 6
-DES	d E s
-DEM	d e: m
-DEN	d e: n
-DIE	d i:
-DAS	d a s
-EIN	aI n
-EINE	aI n @
-EINES	aI n @ s
-
+% Unbekannt
 % Verb
-ANRUFEN		a n g @ R u: f @ n
+ANRUFEN	a n g @ R u: f @ n
 ANGESCHRIEN	a n g @ S R i: n
 BIN	b I n
 BIST	b I s t
@@ -85,8 +19,27 @@ SEI	z aI
 SEID	z aI t
 SEIEN	z aI E n
 SEIEND	z aI E n t
-
-
+% Präposition
+AN	a n
+% Konjunktion
+ABER	a: b 6
+% Zahl
+EINE	aI n @
+ZWEI	t s v aI
+DREI	d R aI
+VIER	f i: 6
+FÜNF	f Y n f
+SECHS	z E k s
+SIEBEN	z i: b @ n
+ACHT	a x t
+NEUN	n OY n
+ZEHN	t s e: n
+% NS_B
+<s>	sil
+<s>	sil
+% NS_E
+</s>	sil
+</s>	sil
 % Nomen
 ICH	I C
 DU	d u:
@@ -95,9 +48,41 @@ SIE	z i:
 ES	E s
 SIMON	z aI m o: n
 TEST	t E s t
-MAGARITHA 	m a g a R I t h a:
-TONNO 		t o: n o:
-THUNFISCH 	t u: n f I S
-HAWAII 		h a v aI
+MAGARITHA	m a g a R I t h a:
+TONNO	t o: n o:
+THUNFISCH	t u: n f I S
+HAWAII	h a v aI
 ALPHABET	a l f a b e: t
 ARBEIT	a R b aI t
+% Adjektiv
+ABSOLUT	a p z o: l u: t
+ABSOLUTE	a p z o: l u: t @
+ANERKANNT	a n E R k a n t
+ANSTRENGENDE	a n S t R E N @ n d e:
+% Subjunktion
+ALS	a l s
+ALSO	a l z o:
+% Abkürzung
+kleine	kleine
+glücklich	
+% Artikel
+DER	d e: 6
+DES	d E s
+DEM	d e: m
+DEN	d e: n
+DIE	d i:
+DAS	d a s
+EIN	aI n
+EINE	aI n @
+EINES	aI n @ s
+% Pronomen
+ALLES	a l @ s
+ANDERE	a n d @ R @
+% Partikel
+ABER	a: b 6
+% Adverb
+ABER	a: b 6
+ANSCHEINEND	a n S aI n @ n t
+ABSOLUT	a p z o: l u: t
+ABSOLUTE	a p z o: l u: t @
+ALSO	a l z o:

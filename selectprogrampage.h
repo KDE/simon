@@ -35,9 +35,9 @@ class ProgramManager;
 /**
  * \class $CLASSNAME
  * \author Peter Grasch
- * \date
+ * \date 16.08.2007
  * \version 0.1
- * \brief
+ * \brief This is a page of the ImportProgramWizard. The user must choose a category, to display the corresponding programs, where he also must choose one to continue.
  */
 class SelectProgramPage : public QWizardPage
 {

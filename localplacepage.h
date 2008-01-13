@@ -26,9 +26,9 @@
 /**
  * \class $CLASSNAME
  * \author Susanne Tschernegg
- * \date
+ * \date 03.09.2007
  * \version 0.1
- * \brief
+ * \brief At this page the user can choose a directory at his computer to add this to the commandlist. Therefor a filedialog will be called.
  */
 class LocalPlacePage : public QWizardPage
 {

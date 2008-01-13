@@ -21,9 +21,9 @@ class QString;
 /**
  * \class $CLASSNAME
  * \author Susanne Tschernegg
- * \date
+ * \date 13.12.2007
  * \version 0.1
- * \brief
+ * \brief This class handles the resources of windows. For example, it retrievs a specific icon from a library.
  */
 class WindowsResourceHandler
 {

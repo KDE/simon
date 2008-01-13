@@ -19,24 +19,28 @@
 
 /**
 * \brief Constructor
-* @autor Susanne Tschernegg
+* @author Susanne Tschernegg
 */
 RegistryManager::RegistryManager()
 {}
     
 /**
 * \brief Destructor
-* @autor Susanne Tschernegg
+* @author Susanne Tschernegg
 */
 RegistryManager::~RegistryManager()
 {}
 
 /**
 * \brief Watches first out, if the comment is the final comment, including the path to the exe-datafile.
-    If it exists, the process will be started.
-    Otherwise it reads the path of the exe-datafile out of the registry and starts it - if the command exists.
+*    If it exists, the process will be started.
+*    Otherwise it reads the path of the exe-datafile out of the registry and starts it - if the command exists.
 *
-* @autor Susanne Tschernegg
+* @author Susanne Tschernegg
+* @param QString command
+*       holds the name of the command
+* @param QString workingDirectory
+*       holds the workingdirectory
 */
 void RegistryManager::startProcess(QString command, QString workingDirectory)
 {
@@ -72,7 +76,6 @@ void RegistryManager::startProcess(QString command, QString workingDirectory)
         
         int indexStart = str.indexOf("\"");
         str = str.mid(indexStart, str.indexOf("\"", indexStart+1)-(indexStart-1));
-        //QMessageBox::information(0, " j " , getenv("systemroot"));
         int startIndex = str.indexOf("%");
         int endIndex = str.indexOf("%",startIndex+1);
         while(startIndex>=0 && endIndex>0)
@@ -92,7 +95,11 @@ void RegistryManager::startProcess(QString command, QString workingDirectory)
 /**
 * \brief This method returns all programs, which provides a specific format.
 *
-* @autor Susanne Tschernegg
+* @author Susanne Tschernegg
+* @param QString format
+*   holds the format of the programs, which should be returned
+* @return QStringList*
+*   returns a list of all programms with the specified format
 */
 QStringList* RegistryManager::getAllPrograms(QString format)
 {
@@ -134,7 +141,11 @@ QStringList* RegistryManager::getAllPrograms(QString format)
 /**
 *   \brief get all formats of a special categorie
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @param QString categorie
+*       holds the name of a given category
+*   @return QStringList*
+*       returns a list with all formats of this category
 */
 QStringList* RegistryManager::getAllFormats(QString categorie)
 {
@@ -183,8 +194,6 @@ QStringList* RegistryManager::getAllFormats(QString categorie)
                 formatListCateg->append(formatList->at(i));
             }
         }
-        //QMessageBox::information(0, "registrymanager", "formatlist "+QString::number(formatList->count()));
-        //QMessageBox::information(0, "registrymanager", "formatListCateg "+QString::number(formatListCateg->count()));
         return formatListCateg;
     }
     
@@ -196,7 +205,11 @@ QStringList* RegistryManager::getAllFormats(QString categorie)
 /**
 *   \brief returns the path of a program
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @param QString exeStr
+*       holds the .exe of a program
+*   @return QString
+*       returns the path to the .exe of the program
 */
 QString RegistryManager::getPath(QString exeStr)
 {
@@ -228,7 +241,6 @@ QString RegistryManager::getPath(QString exeStr)
         
         int indexStart = str.indexOf("\"");
         str = str.mid(indexStart, str.indexOf("\"", indexStart+1)-(indexStart-1));
-        //QMessageBox::information(0, " j " , getenv("systemroot"));
         int startIndex = str.indexOf("%");
         int endIndex = str.indexOf("%",startIndex+1);
         while(startIndex>=0 && endIndex>0)
@@ -244,7 +256,11 @@ QString RegistryManager::getPath(QString exeStr)
 
 /**
 *   \brief returns a list of programs, and each program in this list, exists only once.
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @param QStringList formats
+*       holds different formats like ".jpg",".xls", etc.
+*   @return QStringList*
+*       returns a list of all programms, which provides at least one format of the list
 */
 QStringList* RegistryManager::getAllPrograms(const QStringList formats)
 {

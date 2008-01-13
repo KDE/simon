@@ -111,7 +111,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	guessChildTriggers ( ( QObject* ) this );
 
     this->info->writeToSplash ( tr ( "Lade \"Trainieren\"..." ) );
-	this->trainDialog = new TrainingView ( addWordView, this );
+	this->trainDialog = new TrainingView (this );
 
 	this->info->writeToSplash ( tr ( "Lade \"Wortliste\"..." ) );
 	this->wordList = new WordListView ( trainDialog, this );
@@ -124,7 +124,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	this->addWordView = new AddWordView ( this, wordList->getManager(), trainDialog->getManager(), grammarManager );
 	this->info->writeToSplash ( tr ( "Lade \"Ausführen\"..." ) );
 	this->runDialog = new RunApplicationView ( control->getRunManager(), this );
-
 
 	this->info->writeToSplash ( tr ( "Lade \"System\"..." ) );
 	this->systemDialog = new SystemView ( shortcutControl, grammarManager, this );
@@ -182,6 +181,8 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 
 	connect ( ui.pbKeyed, SIGNAL ( clicked ( bool ) ), this, SLOT ( checkSettingState() ) );
+    
+    this->trainDialog->setAddWordView(addWordView);
 }
 
 /**
@@ -695,7 +696,7 @@ SimonView::~SimonView()
 /**
  * @brief If the user wants to set any settings, he/she has to give a password to show all settings.
  *
- *	@autor Susanne Tschernegg
+ *	@author Susanne Tschernegg
 */
 void SimonView::checkSettingState()
 {
@@ -715,7 +716,9 @@ void SimonView::checkSettingState()
 /**
  * @brief checks the password, if it returns true, the user gaves the right password
  *
- *	@autor Susanne Tschernegg
+ *	@author Susanne Tschernegg
+ *  @return bool
+ *      returns wheter the password is correct or not
 */
 bool SimonView::checkPassword()
 {
@@ -758,7 +761,7 @@ bool SimonView::checkPassword()
 /**
  * @brief the user couldn't see the setting-widgets resp. they are disabled
  *
- *	@autor Susanne Tschernegg
+ *	@author Susanne Tschernegg
 */
 void SimonView::hideSettings()
 {
@@ -779,7 +782,7 @@ void SimonView::hideSettings()
 /**
  * @brief to set some settings, the widgets must be shown resp. not disabled
  *
- *	@autor Susanne Tschernegg
+ *	@author Susanne Tschernegg
 */
 void SimonView::showSettings()
 {

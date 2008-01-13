@@ -17,9 +17,10 @@
 #include "iconbutton.h"
 
 /**
-*   \brief constructor
+*   \brief constructor. Creates the GUI
 *
 *   @author Susanne Tschernegg
+*   @param QWidget *parent
 */
 ConfigureProgramPage::ConfigureProgramPage(QWidget* parent): QWizardPage(parent)
 {
@@ -61,11 +62,21 @@ ConfigureProgramPage::ConfigureProgramPage(QWidget* parent): QWizardPage(parent)
 	registerField("workdir", leWorkingPath);
 }
 
+/**
+*   \brief Returns the icon of the chosen program
+*
+*   @author Susanne Tschernegg
+*/
 const QString ConfigureProgramPage::getIcon()
 {
 	return iconBtn->getIconName();
 }
 
+/**
+*   \brief Initializes the configureProgramPage with the data of the pages before.
+*
+*   @author Susanne Tschernegg
+*/
 void ConfigureProgramPage::init(QString iconsrc, QString name, QString exec, QString workingDirectory)
 {
 	lbDesc->setText(tr("Sie haben das Programm %1 gewählt. \n\nHier können Sie nun weitere Einstellungen vornehmen.\n").arg(name));

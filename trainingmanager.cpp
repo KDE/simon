@@ -17,24 +17,30 @@
 #include "math.h"
 #include <QObject>
 #include "addwordview.h"
+#include <QStringList>
+#include <QString>
 
 /**
  * @brief Constructor
  *
  *	@author Peter Grasch
  */
-TrainingManager::TrainingManager(AddWordView *addWordView)
+TrainingManager::TrainingManager()
 {
-
 	filename = Settings::getS("PathToTexts");
 	promptsLock.lock();
 	this->promptsTable = readPrompts(Settings::getS("Model/PathToPrompts"));
 	promptsLock.unlock();
     sampleHash = new QHash<QString, QString>();
-    addWordView = addWordView;
+    //this->addWordView = addWordView;
   
 }
 
+void TrainingManager::setAddWordView(AddWordView *addWordView)
+{
+    this->addWordView = addWordView;
+}
+    
 void TrainingManager::setWordListManager(WordListManager *wlistmgr)
 {
     this->wlistmgr = wlistmgr;
@@ -328,12 +334,14 @@ bool TrainingManager::trainText(int i)
 }
 
 /**
- * \brief chechs if all words in the dict
+ * \brief chechs if all words in the dict. If there some words missing in the dict, the addwordview dialog will be shown.
  * \author Susanne Tschernegg
+ * @return bool
+ *      returns wheter all words are in the dict or not
  */
 bool TrainingManager::allWordsExisting()
 {
-
+    QStringList strListAllWords;
     for(int x=0; x<getPageCount(); x++)
     {
         QStringList strList = getPage(x).split(" ");
@@ -353,17 +361,33 @@ bool TrainingManager::allWordsExisting()
             word.remove("[");
             word.remove("]");
             WordList* words = wlistmgr->getWords(word, false);
-            if(words==NULL)
+            if(words->isEmpty())
             {
-                //AddWordView *addWordView = new AddWordView(0, wlistmgr, );
-                //addWordView->createWord(word);
-                //addwordview, von simonview übergeben
-                addWordView->show();
-                addWordView->createWord(word);
-                return false;
+                bool wordExistingInList = false;
+                for(int z=0; z<strListAllWords.count(); z++)
+                    if(strListAllWords.at(z)==word)
+                    {
+                        wordExistingInList = true;
+                        break;
+                    }
+                if(!wordExistingInList)
+                    strListAllWords.append(word);
             }
         }
     }
+    
+    //tells the user, which words aren't in the dict
+    QString allWords;
+    for(int i=0; i<strListAllWords.count(); i++)
+    {
+        if(allWords.isEmpty())
+            allWords = strListAllWords.at(i);
+        allWords += ", " + strListAllWords.at(i);
+        //addWordView->show();
+        //addWordView->createWord(strList.at(i));    
+    }
+    //QMessageBox::critical(0, tr("Trainingstext"), tr("Der zu trainierende Text enthält unbekannte Wörter. Diese sind: %1").arg(allWords));
+    QMessageBox::critical(0, "Trainingstext", QString("Der zu trainierende Text enthält unbekannte Wörter. Diese sind: %1").arg(allWords));
     return true;
 }
 
@@ -525,6 +549,8 @@ int TrainingManager::getProbability(QString wordname)
  * @brief Adds the Samples to the prompts-file.
  *
  *	@author Susanne Tschernegg
+ *  @param QHash<QString, QString> *hash
+ *      holds the pagenumber as text and the name of a text with the correspondenting sentence and the time and date, when the training has begun
  */
 void TrainingManager::addSamples(QHash<QString, QString> *hash)
 {

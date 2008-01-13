@@ -25,9 +25,9 @@
 /**
  * \class $CLASSNAME
  * \author Susanne Tschernegg
- * \date
+ * \date 03.09.2007
  * \version 0.1
- * \brief
+ * \brief This is a page of the importPlaceWizard. There the user can define the name and values of a remote place.
  */
 class RemotePlacePage : public QWizardPage
 {

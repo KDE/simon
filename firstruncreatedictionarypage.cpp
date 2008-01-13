@@ -36,9 +36,10 @@ FirstRunCreateDictionaryPage::FirstRunCreateDictionaryPage(AddWordView* addWordV
  */
 void FirstRunCreateDictionaryPage::initializePage()
 {
-	TrainingManager *trainingManager = new TrainingManager(addWordView);
+	TrainingManager *trainingManager = new TrainingManager();
+    trainingManager->setAddWordView(addWordView);
 	WordListManager *wordListManager = new WordListManager(trainingManager);
-
+    
 	emit trainingManagerCreated(trainingManager);
 	emit wordListManagerCreated(wordListManager);
 	emit done();

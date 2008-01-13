@@ -29,7 +29,13 @@
 
 /**
 *   \brief constructor
+*       Initializes the * boolean variable "commandEdited" false. It would be true, if a user changes a command.
+*                       * names of the columns
+*                       * an ImportPlaceWizard
+*                       * an ImportProgramWizard
+*       and sets the connects for the widgets.
 *   @author Susanne Tschernegg
+*   @param QWidget *parent
 */
 CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Kommandos" ), QIcon ( ":/images/icons/system-run.svg" ), tr ( "Hier können Sie Programme und Orte importieren und vorhandene Kommandos bearbeiten" ), parent )
 {
@@ -86,13 +92,13 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 *   @author Susanne Tschernegg
 */
 CommandSettings::~CommandSettings()
-{
-
-}
+{}
 
 /**
 *   \brief saves all commands. New created commands will be appended to the commandlist and existing commands will be updated.
 *   @author Susanne Tschernegg
+*   @return bool
+*       returns if this method succeed
 */
 bool CommandSettings::apply()
 {
@@ -139,6 +145,8 @@ bool CommandSettings::apply()
 /**
  * \brief Loads the commands from the corresponding XML file and inserts them into the list for configuring the available comamnds
  * \author Peter Grasch, Tschernegg Susanne
+ *  @return bool
+ *      returns wheter the method succeeds or not
  */
 bool CommandSettings::init()
 {
@@ -186,8 +194,8 @@ bool CommandSettings::init()
 }
 
 /**
-*   \brief if any commandline has still a combobox to choose a type for the command, the combobox will be deleted and
-        writes the type as plain text instead in the cell.
+*   \brief If any commandline has a combobox to choose a type for the command, the combobox will be deleted and
+*        the type will be written as plain text in the cell.
 *   @author Susanne Tschernegg
 */
 void CommandSettings::deactivateAllCbs()
@@ -229,6 +237,10 @@ void CommandSettings::deactivateAllCbs()
 * \brief The TreeWidgetItem will be modified, to change the values. The type of a command can be chosen from a ComboBox.
 *
 *\author SusanneTschernegg
+*   @param int row
+*       holds the row from the tablewidgetitem, which where selected
+*   @param int column
+*       holds the column from the tablewidgetitem, which where selected
 */
 void CommandSettings::editCommand ( int row, int column )
 {
@@ -339,7 +351,7 @@ void CommandSettings::deleteCommand()
 }
 
 /**
-* \brief to activate the combobox with different types of a command
+* \brief to activate the combobox with different types of a command, so that de user can choose one existing type for the command
 *
 * \author Susanne Tschernegg
 */
@@ -365,7 +377,7 @@ bool CommandSettings::isComplete()
 }
 
 /**
-* \brief writes the type - which was chosen bevor in the combobox - in plaintext out
+* \brief Writes the type - which was chosen bevor in the combobox - in plaintext out. Before this, the command will be checked, if there are any invalid commands in the list.
 *
 * \author Susanne Tschernegg
 */
@@ -418,6 +430,8 @@ void CommandSettings::checkAndAddCommandValues ( int currRow, int currCol, int p
 * \brief reloads the commands
 *
 * \author Susanne Tschernegg
+*   @return bool
+*       returns true, if the method init() succeed otherwise false
 */
 bool CommandSettings::reset()
 {
@@ -452,7 +466,7 @@ bool CommandSettings::reset()
 }
 
 /**
-* \brief shows only the commands, which have the selected type of the combobox cbShowCommand
+* \brief Shows only the commands, which have the selected type of the combobox cbShowCommand.
 *
 * \author Susanne Tschernegg
 */
@@ -554,7 +568,7 @@ void CommandSettings::clearSearchLineEdit()
 }
 
 /**
-* \brief searches for commands which includes the text and the chosen type
+* \brief Searches for commands which includes the text and the chosen type.
 *
 * \author Susanne Tschernegg
 */
@@ -677,7 +691,7 @@ void CommandSettings::searchCommandList()
 }
 
 /**
-* \brief to open the importprogramwizard
+* \brief to open the importprogramwizard (show or hides it)
 *
 * \author Susanne Tschernegg
 */
@@ -704,18 +718,21 @@ void CommandSettings::importNewProgram()
 	ui.twCommand->setDisabled ( checked );
 
 	if ( checked )
-	{
-		importProgramWizard = new ImportProgramWizard ( this );
+    {
+        //importProgramWizard = new ImportProgramWizard(this);
 		importProgramWizard->show();
-	}
+    }
 	else
 		importProgramWizard->hide();
 }
 
 /**
-* \brief slot: the signal will be emited in the ImportProgramPage
+* \brief slot: the signal will be emited in the ImportProgramPage or ImportPlacePage, after a command were created.
 *
 * \author Susanne Tschernegg, Peter Grasch
+*
+*   @param Command *command
+*       command, which should be inserted in the commandlist
 */
 void CommandSettings::insertCommand ( Command* command )
 {
@@ -778,9 +795,16 @@ void CommandSettings::insertCommand ( Command* command )
 
 
 /**
-* \brief if a commandname already exists, a messagebox will be opend and you can either change the name or the command will be deleted.
+* \brief If a commandname already exists, a messagebox will be opend and you can either change the name or the command will be deleted.
 *
 * \author Susanne Tschernegg
+*
+*   @param QString name
+*       the name of the command
+*   @param int prevRow
+*       the previous row
+*   @return bool
+*       returns true if the name of the command already exists, otherwise false
 */
 bool CommandSettings::commandNameExists ( QString name, int prevRow )
 {
@@ -816,9 +840,16 @@ bool CommandSettings::commandNameExists ( QString name, int prevRow )
 }
 
 /**
-* \brief if the value of an command already exists, the users attention will be called and the user can change the value or the command will be deleted.
+* \brief If the value of an command already exists, the users attention will be called and the user can change the value or the command will be deleted.
 *
 * \author Susanne Tschernegg
+*
+*   @param QString value
+*       holds the value of the command
+*   @param int prevRow
+*       previous row
+*   @return bool
+*       returns true when the value of an command already exists otherwise false
 */
 bool CommandSettings::commandValueExists ( QString value, int prevRow )
 {
@@ -845,9 +876,13 @@ bool CommandSettings::commandValueExists ( QString value, int prevRow )
 }
 
 /**
-* \brief checks, whether all values of a comment were set, or if the value isn't reasonable.
+* \brief Checks, whether all values of a comment were set, or if the value isn't reasonable.
 *
 * \author Susanne Tschernegg
+*   @param int prevRow
+*       holds the previous row
+*   @return bool
+*       returns if all values of an command are valid
 */
 bool CommandSettings::allCommandValuesSet ( int prevRow )
 {
@@ -885,9 +920,11 @@ bool CommandSettings::allCommandValuesSet ( int prevRow )
 }
 
 /**
-* \brief deletes the combobox and writes instead the type as plain text into the cell.
+* \brief Deletes the combobox and writes instead the type as plain text into the cell.
 *
 * \author Susanne Tschernegg
+*   @param int prevRow
+*       holds the previous row
 */
 void CommandSettings::deactivateCB ( int prevRow )
 {
@@ -954,7 +991,7 @@ void CommandSettings::showAllCommands()
 }
 
 /**
-* \brief s
+* \brief Checks if every command value is valid.
 *
 * \author Susanne Tschernegg
 */
@@ -973,7 +1010,7 @@ void CommandSettings::checkValuesAfterReturnPressed()
 }
 
 /**
-* \brief
+* \brief Shows or hides the importNewPlace-Wizard depending on wheter it is shown yet or not.
 *
 * \author Susanne Tschernegg
 */
@@ -1000,18 +1037,22 @@ void CommandSettings::importNewPlace()
 	ui.twCommand->setDisabled ( checked );
 
 	if ( checked )
-	{
-		importPlaceWizard = new ImportPlaceWizard ( this );
+    {
+        //importPlaceWizard = new ImportPlaceWizard(this);
 		importPlaceWizard->show();
-	}
+    }
 	else
 		importPlaceWizard->hide();
 }
 
 /**
-* \brief
+* \brief Returns the icon from the given resourceId.
 *
 * \author Susanne Tschernegg
+*   @param QString resourceId
+*       holds the name of the resource
+*   @return QIcon
+*       icon from the resourceId
 */
 QIcon CommandSettings::getIconFromResource ( QString resourceId )
 {
@@ -1037,9 +1078,13 @@ QIcon CommandSettings::getIconFromResource ( QString resourceId )
 }
 
 /**
-* \brief
+* \brief Returns the name of the given type.
 *
 * \author Susanne Tschernegg
+*   @param CommandType ctype
+*       type of an command
+*   @return QString
+*       returns the name of the given type
 */
 QString CommandSettings::getTypeName ( CommandType ctype )
 {
@@ -1053,9 +1098,13 @@ QString CommandSettings::getTypeName ( CommandType ctype )
 }
 
 /**
-* \brief
+* \brief Returns the number of the given typename.
 *
 * \author Susanne Tschernegg
+*   @param QString commandName
+*       holds the name of the command
+*   @return int
+*       returns the number of the given typename
 */
 int CommandSettings::getTypeNumber ( QString commandName )
 {

@@ -17,16 +17,32 @@
 #endif
 #include <QMessageBox>
 
+
+/**
+*   \brief constructor. initalizes the registrymanager
+*   @author Susanne Tschernegg
+*/
 WindowsProgramManager::WindowsProgramManager(): ProgramManager()
 {
     regMan = new RegistryManager();
 }
 
-
+/**
+*   \brief destructor
+*   @author Susanne Tschernegg
+*/
 WindowsProgramManager::~WindowsProgramManager()
 {
 }
 
+/**
+*   \brief lists all programms of a specified categorie
+*   @author Susanne Tschernegg
+*   @param ProgramCategory categorie
+*       holds a program-category like "office", "games", etc.
+*   @return ProgramList*
+*       returns a list of programs, which are added to a special categorie
+*/
 ProgramList* WindowsProgramManager::getPrograms(ProgramCategory categorie)
 {
     //first the registry manager searches for the endings and looks, if there is a "openwithlist" directory and looks for the perceivedtype.
@@ -42,7 +58,7 @@ Program(QString name, QString exec, QString description,
     QString name;
     QString exec;
     QString description = "";
-    QString path = "";  //TODO set a path for the prgram
+    QString path = "";  //TODO set a path for the program
     QIcon icon(":/images/icons/audio-x-generic.svg");
     
     //to geht the name of the program ... cuts only the .exe out of the string

@@ -19,9 +19,9 @@
 /**
  * \class $CLASSNAME
  * \author Susanne Tschernegg
- * \date
+ * \date 03.09.2007
  * \version 0.1
- * \brief
+ * \brief This class is a wizardpage where you can choose to import a remoteplace or a localplace. It is used in the ImportPlaceWizard.
  */
 class ChoosePlacePage : public QWizardPage
 {

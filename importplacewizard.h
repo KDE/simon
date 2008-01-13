@@ -28,9 +28,9 @@
 /**
  * \class $CLASSNAME
  * \author Susanne Tschernegg
- * \date
+ * \date 03.09.2007
  * \version 0.1
- * \brief
+ * \brief With this wizard the user can add a local or a remote place to the commands.
  */
 class ImportPlaceWizard : public QWizard
 {

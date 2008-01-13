@@ -58,9 +58,11 @@ void RunWindowsBackend::goTo(QString place)
 /**
  *	@brief Runs the command
  *	
- *	@param QString command
- *	The command - it will be passed to the system as-is
  *	@author Susanne Tschernegg
+ *	@param QString command
+ *	     command - it will be passed to the system as-is
+ *  @param QString workingDirectory
+ *      holds the workingdirectory
  */
 void RunWindowsBackend::run(QString command, QString workingDirectory)
 {
@@ -70,8 +72,6 @@ void RunWindowsBackend::run(QString command, QString workingDirectory)
     //just for testing
     QStringList* programs = new QStringList();
     programs = rm->getAllPrograms(".mp3");
-    //for(int i=0; i<programs->size(); i++)
-    //    QMessageBox::information(0, "progs", QString::number(i+1) + ": " + programs->at(i));
 }
 
 

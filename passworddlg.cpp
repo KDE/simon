@@ -18,7 +18,8 @@
 
 /**
 *   \brief constructor which creats the dialog
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @param QWidget *parent
 */
 PasswordDlg::PasswordDlg(QWidget *parent): QDialog(parent)
 {
@@ -51,7 +52,7 @@ PasswordDlg::PasswordDlg(QWidget *parent): QDialog(parent)
 
 /**
 *   \brief destructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 //PasswordDlg::~PasswordDlg()
 //{}

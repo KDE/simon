@@ -21,6 +21,7 @@ XMLCommand::XMLCommand(QString path):XMLDomReader(path)
  * The list of commands
  * @param path
  * The path to save to; Default: conf/commands.xml
+ * @return returns, if the command were saved or not
  */
 bool XMLCommand::save(QString path)
 {
@@ -48,6 +49,10 @@ bool XMLCommand::save(QString path)
 /**
  * \brief Replaces a command of the commandlist (member) identified by <commandName> with the new command supplied by <newCommand>
  * \author Susanne Tschernegg
+ * @param QString commandName
+ *      holds the name of the command
+ * @param Command *newCommand
+ *      is an object of a command
  */
 void XMLCommand::replaceCommand(QString commandName, Command *newCommand)
 {
@@ -61,8 +66,10 @@ void XMLCommand::replaceCommand(QString commandName, Command *newCommand)
 }
 
 /**
- * \brief Replaces a command of the commandlist (member) identified by <commandName> with the new command supplied by <newCommand>
+ * \brief Adds a command to the commandlist (member)
  * \author Susanne Tschernegg
+ * @param Command *newCommand
+ *      is an object of a command
  */
 void XMLCommand::addCommand(Command *newCommand)
 {
@@ -70,7 +77,10 @@ void XMLCommand::addCommand(Command *newCommand)
 }
 
 /**
+ * \brief deletes a command from the commandlist.
  * \author Susanne Tschernegg
+ * @param QString commandName
+ *      is an object of a command
  */
 void XMLCommand::deleteCommand(QString commandName)//, QString commandValue)
 {
@@ -84,6 +94,14 @@ void XMLCommand::deleteCommand(QString commandName)//, QString commandValue)
 	}
 }
 
+/**
+ * \brief returns wheater the command exists or not
+ * \author Susanne Tschernegg
+ * @param QString commandName
+ *      holds the name of the command
+ * @return bool
+ *      if the command exists, this method will return true, otherwise it returns false
+ */
 bool XMLCommand::commandExists(QString commandName)
 {
 	for (int i=0; i < commandlist.size(); i++)

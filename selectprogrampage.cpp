@@ -24,8 +24,8 @@
             Creates the wizardpage, where you can select a special categorie (audio, office, etc.).
             To this categorie you get a list of programs, which provides standardformats of this categorie.
 *
-*   @autor Susanne Tschernegg, Peter Grasch
-*   @author Susanne Tschernegg
+*   @author Susanne Tschernegg, Peter Grasch
+*   @param QWidget *parent
 */
 SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 {
@@ -75,7 +75,7 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 /**
 *   \brief destructor
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 SelectProgramPage::~SelectProgramPage()
 {}
@@ -83,7 +83,9 @@ SelectProgramPage::~SelectProgramPage()
 /**
 *   \brief gets the whole exe-name of the program (e.g. program.exe)
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @return QStirng
+*       returns the name of the .exe file
 */
 QString SelectProgramPage::getExecPath()
 {
@@ -105,13 +107,22 @@ QString SelectProgramPage::getIcon()
 /**
 *   \brief gets the name of the program
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @return QString
+*       returns the name of the program
 */
 QString SelectProgramPage::getName()
 {
     return lwPrograms->currentItem()->text();
 }
 
+/**
+*   \brief inserts the different categories, which were listed in the categorieList.
+*
+*   @author Susanne Tschernegg
+*   @param ProgramCategoryList categorieList
+*       holds the categories, which where read out of a xml-file
+*/
 void SelectProgramPage::insertCategories(ProgramCategoryList categorieList)
 {
     lwCategories->clear();
@@ -125,6 +136,13 @@ void SelectProgramPage::insertCategories(ProgramCategoryList categorieList)
     }
 }
 
+/**
+*   \brief inserts all given programms in a list
+*
+*   @author Susanne Tschernegg+
+*   @param ProgramList *programList
+*       is a list, which holds all programms of a specified category
+*/
 void SelectProgramPage::insertPrograms(ProgramList *programList)
 {
     lwPrograms->clear();
@@ -141,7 +159,7 @@ void SelectProgramPage::insertPrograms(ProgramList *programList)
 }
 
 /**
-*   \brief searches for all programs, which contains the associated formats of a categorie
+*   \brief searches for all programs, which contains the associated formats of a category
 *
 *   @author Susanne Tschernegg
 */
@@ -160,6 +178,13 @@ void SelectProgramPage::searchForPrograms()
     }
 }
 
+/**
+*   \brief returns the workingdirectory, which the user set
+*
+*   @author Susanne Tschernegg
+*   @return QString
+*       returns the workingdirectory
+*/
 QString SelectProgramPage::getWorkingDirectory()
 {
 	return lwPrograms->currentItem()->data(Qt::UserRole+2).toString();

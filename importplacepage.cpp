@@ -17,6 +17,7 @@
 /**
 *   \brief constructor
 *   @author Susanne Tschernegg
+*   @param QWidget* parent
 */
 ImportPlacePage::ImportPlacePage(QWidget* parent): QWizardPage(parent)
 {
@@ -27,14 +28,11 @@ ImportPlacePage::ImportPlacePage(QWidget* parent): QWizardPage(parent)
     
     progressbar = new QProgressBar(this);
     
-    //wenn da eine fehlermeldung kommt, dass falls abbrechen gedrückt wird, der wizard zur configurepage zurück geht
     vboxLayout->addWidget(label);
     vboxLayout->addWidget(progressbar);
     progressbar->setMaximum(100);
     progressbar->setValue(0);
     progressbar->setValue(100);
-    //createCommand("test","testkasdjf");
-   // QMessageBox::information(0, "importProgrampage","constructor");
 }
 
 /**
@@ -45,8 +43,10 @@ ImportPlacePage::~ImportPlacePage()
 {}
 
 /**
-*   \brief 
+*   \brief Returns, wheter the importPlacePage is complete or not.
 *   @author Susanne Tschernegg
+*   @return bool
+*       if the importPlacePage is complete, it will return true, otherwise false
 */
 bool ImportPlacePage::isComplete() const
 {
@@ -54,13 +54,16 @@ bool ImportPlacePage::isComplete() const
 }
 
 /**
-*   \brief emits a the signal "commandCreated(newCommand)", when this page is the current page
+*   \brief emits a the signal "commandCreated(newCommand)", when this page is the current page; it creates a net command
 *
 *   @author Susanne Tschernegg
+*   @param QString name
+*       holds the name of the new command
+*   @param QString value
+*       holds the value of the new command
 */
 void ImportPlacePage::createCommand(QString name, QString value)
 {
-    //QMessageBox::information(0, "importPlacePage","createCommand");
     Command *newCommand = new Command(name, CommandType(1), value);
     emit commandCreated(newCommand);
 }

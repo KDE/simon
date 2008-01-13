@@ -15,7 +15,8 @@
 
 /**
 *   \brief constructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @param QWidget* parent
 */
 ImportProgramPage::ImportProgramPage(QWidget* parent): QWizardPage(parent)
 {
@@ -26,7 +27,6 @@ ImportProgramPage::ImportProgramPage(QWidget* parent): QWizardPage(parent)
     
     progressbar = new QProgressBar(this);
     
-    //wenn da eine fehlermeldung kommt, dass falls abbrechen gedrückt wird, der wizard zur configurepage zurück geht
     vboxLayout->addWidget(label);
     vboxLayout->addWidget(progressbar);
     progressbar->setMaximum(100);
@@ -36,14 +36,16 @@ ImportProgramPage::ImportProgramPage(QWidget* parent): QWizardPage(parent)
 
 /**
 *   \brief destructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 ImportProgramPage::~ImportProgramPage()
 {}
 
 /**
-*   \brief 
-*   @autor Susanne Tschernegg
+*   \brief returns, wheter the importProgramPage is completed or not.
+*   @author Susanne Tschernegg
+*   @return bool
+*       returns wheter the ImportProgramPage was finished or not
 */
 bool ImportProgramPage::isComplete() const
 {
@@ -53,7 +55,15 @@ bool ImportProgramPage::isComplete() const
 /**
 *   \brief emits a the signal "commandCreated(newCommand)", when this page is the current page
 *
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @param QString icon
+*       holds the resource of the icon for the command
+*   @param QString name
+*       holds the name of the command
+*   @param QString value
+*       holds the value of the command
+*   @param QString workingDir
+*       holds the working directory of the command
 */
 void ImportProgramPage::createCommand(QString icon, QString name, QString value, QString workingDir)
 {

@@ -17,6 +17,7 @@
 /**
 *   \brief constructor which creats the wizardpages
 *   @author Susanne Tschernegg
+*   @param QWidget *parent
 */
 ImportPlaceWizard::ImportPlaceWizard(QWidget* parent): QWizard(parent)
 {
@@ -33,7 +34,7 @@ ImportPlaceWizard::ImportPlaceWizard(QWidget* parent): QWizard(parent)
     this->addPage(importPlacePage);
     this->addPage(createFinishedPage());
     
-    //(connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
+    connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
     
 	setWindowTitle(tr("Ort hinzufügen"));
     setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/banners/importprogram.png")));
@@ -56,6 +57,8 @@ ImportPlaceWizard::~ImportPlaceWizard()
 /**
 *   \brief Creates the intro page
 *   @author Susanne Tschernegg
+*   @return IntroPlacePage*
+*       returns the new initialized IntroPlacePage
 */
 IntroPlacePage* ImportPlaceWizard::createIntroPlacePage()
 {
@@ -75,6 +78,8 @@ IntroPlacePage* ImportPlaceWizard::createIntroPlacePage()
 /**
 *   \brief creates the localplacepage
 *   @author Susanne Tschernegg
+*   @return LocalPlacePage*
+*       returns the new initialized LocalPlacePage
 */
 LocalPlacePage* ImportPlaceWizard::createLocalPlacePage()
 {
@@ -84,6 +89,8 @@ LocalPlacePage* ImportPlaceWizard::createLocalPlacePage()
 /**
 *   \brief creates the remoteplacepage
 *   @author Susanne Tschernegg
+*   @return RemotePlacePage*
+*       returns the new initialized RemotePlacePage
 */
 RemotePlacePage* ImportPlaceWizard::createRemotePlacePage()
 {
@@ -93,6 +100,8 @@ RemotePlacePage* ImportPlaceWizard::createRemotePlacePage()
 /**
 *   \brief creates the configurePlacePage
 *   @author Susanne Tschernegg
+*   @return ConfigurePlacePage*
+*       returns the new initialized ConfigurePlacePage
 */
 ConfigurePlacePage* ImportPlaceWizard::createConfigurePlacePage()
 {
@@ -102,6 +111,8 @@ ConfigurePlacePage* ImportPlaceWizard::createConfigurePlacePage()
 /**
 *   \brief creates the importplacepage
 *   @author Susanne Tschernegg
+*   @return ImportPlacePage*
+*       returns the new initialized ImportPlacePage
 */
 ImportPlacePage* ImportPlaceWizard::createImportPlacePage()
 {
@@ -111,6 +122,8 @@ ImportPlacePage* ImportPlaceWizard::createImportPlacePage()
 /**
 *   \brief creates the last page
 *   @author Susanne Tschernegg
+*   @return QWizardPage*
+*       returns a new WizardPage 
 */
 QWizardPage* ImportPlaceWizard::createFinishedPage()
 {
@@ -129,11 +142,11 @@ QWizardPage* ImportPlaceWizard::createFinishedPage()
 *   \brief slot: the signal is emited this class
             if the current page changes, we will save the last pageId and the new pageId
 *   @author Susanne Tschernegg
+*   @param int newId
+*       holds the Id of the current page
 */
 void ImportPlaceWizard::idChanged(int newId)
 {
-    //QMessageBox::information(this, "importprogwizard .. idchanged ANF... oldID", QString::number(oldId));
-    //QMessageBox::information(this, "importprogwizard .. idchanged ANF... newID", QString::number(newId));
     if((oldId==0) && (newId==1))
     {
         if(introPlacePage->rbRemotePlace->isChecked())
@@ -205,7 +218,6 @@ void ImportPlaceWizard::idChanged(int newId)
 */
 void ImportPlaceWizard::placePreselectionChanged()
 {
-    //QMessageBox::information(this,"importplacewizard","placepreselectionchanged");
     IntroPlacePage *ipp = dynamic_cast<IntroPlacePage*>(page(0));
     if(!ipp)
         return;
@@ -236,6 +248,8 @@ void ImportPlaceWizard::placePreselectionChanged()
             if the name of the commando already exists in the commandlist, a message box (called in commendSettings) will be opend and asks,
             if the user wants to change the name of the commando
 *   @author Susanne Tschernegg
+*   @param bool change
+*       holds, if the placename changed or not
 */
 void ImportPlaceWizard::changeName(bool change)
 {

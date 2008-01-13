@@ -23,9 +23,9 @@
 /**
  * \class $CLASSNAME
  * \author Susanne Tschernegg
- * \date
+ * \date 12.09.2007
  * \version 0.1
- * \brief
+ * \brief The priviously settings where listed here (name and value). The user can afterwards change this settings and also set a workingdirectory.
  */
 class ConfigurePlacePage : public QWizardPage
 {

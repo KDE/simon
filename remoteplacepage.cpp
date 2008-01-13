@@ -15,8 +15,9 @@
 #include <QMessageBox>
 
 /**
-*   \brief constructor
-*   @autor Susanne Tschernegg
+*   \brief constructor. creates the widgets and connects
+*   @author Susanne Tschernegg
+*   @param QWidget *parent
 */
 RemotePlacePage::RemotePlacePage ( QWidget* parent ) : QWizardPage ( parent )
 {
@@ -79,14 +80,14 @@ RemotePlacePage::RemotePlacePage ( QWidget* parent ) : QWizardPage ( parent )
 
 /**
 *   \brief destructor
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 RemotePlacePage::~RemotePlacePage()
 {}
 
 /**
 *   \brief This method writes the type to the adresslabel, if the type of the place changes or if the text of any lineEdit changes.
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
 */
 void RemotePlacePage::writeTyp()
 {
@@ -109,7 +110,9 @@ void RemotePlacePage::writeTyp()
 
 /**
 *   \brief to geht the whole path of the place
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @return QString
+*       returns the path of the place
 */
 QString RemotePlacePage::getPlacePath()
 {
@@ -118,7 +121,9 @@ QString RemotePlacePage::getPlacePath()
 
 /**
 *   \brief It asks for the vixible state of the widgets, which depents on the type of the place. It will be called, after the type of the remoteplace changes.
-*   @autor Susanne Tschernegg
+*   @author Susanne Tschernegg
+*   @param bool visible
+*       holds wheater the widgets are visible or not
 */
 void RemotePlacePage::setWidgetsVisible ( bool visible )
 {

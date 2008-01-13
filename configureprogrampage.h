@@ -23,15 +23,15 @@ class IconButton;
 /**
  * \class $CLASSNAME
  * \author 
- * \date
+ * \date 16.08.2007
  * \version 0.1
- * \brief
+ * \brief At this page the user can define a name for the program.
  */
 class ConfigureProgramPage : public QWizardPage
 {
 Q_OBJECT
 private:
-        QLabel *lbDesc;
+    QLabel *lbDesc;
 	IconButton *iconBtn;
 	
 public:

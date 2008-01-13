@@ -25,9 +25,10 @@ class QVBoxLayout;
 /**
  * \class $CLASSNAME
  * \author Susanne Tschernegg
- * \date
+ * \date 12.09.2007
  * \version 0.1
- * \brief
+ * \brief This is the first page of the ImportPlacePage, which only includes a text and the user can choose, if he wants to create a localplace-command or
+ *          a remoteplace-command.
  */
 class IntroPlacePage : public QWizardPage
 {

@@ -22,8 +22,8 @@
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-TrainingView::TrainingView(AddWordView *addWordView, QWidget *parent)
-	 : InlineWidget(tr("Training"), QIcon(":/images/icons/document-properties.svg"), 
+TrainingView::TrainingView(QWidget *parent) 
+     : InlineWidget(tr("Training"), QIcon(":/images/icons/document-properties.svg"), 
 	   tr("Trainieren des Sprachmodells"), parent)
 {
 	ui.setupUi(this);
@@ -36,17 +36,37 @@ TrainingView::TrainingView(AddWordView *addWordView, QWidget *parent)
 	ui.pbPrevPage->setEnabled(false);
 	connect (ui.pbNextPage, SIGNAL(clicked()), this, SLOT(nextPage()));
 	connect (ui.pbPrevPage, SIGNAL(clicked()), this, SLOT(prevPage()));
+	
 	connect(ui.pbFinish, SIGNAL(clicked()), this, SLOT(finish()));
 	connect(ui.pbImportText, SIGNAL(clicked()), this, SLOT(importTexts()));
 	connect (ui.pbBackToMain, SIGNAL(clicked()), this, SLOT(cancelReading()));
 	connect (ui.pbDelText, SIGNAL(clicked()), this, SLOT(deleteSelected()));
 	connect(ui.pbImportDir, SIGNAL(clicked()), this, SLOT(importDirectory()));	
 
-	currentPage=0;
-    
-    trainMgr = new TrainingManager(addWordView);
+	currentPage=0;   
+
+    trainMgr = new TrainingManager();
+
 }
 
+/**
+ * \brief Sets a valid object of the addwordview.
+ * \author Susanne Tschernegg
+ * @param AddWordView* addWordView
+ *      holds an object of the addwordview
+ */
+void TrainingView::setAddWordView(AddWordView* addWordView)
+{
+    this->addWordView = addWordView;
+    trainMgr->setAddWordView(addWordView);
+}
+
+/**
+ * \brief Sets a valid object of the wordlistmanager.
+ * \author Susanne Tschernegg
+ * @param WordListManager *wlistmgr
+ *      holds an object of the wordlistmanager
+ */
 void TrainingView::setWordListManager(WordListManager *wlistmgr)
 {
     trainMgr->setWordListManager(wlistmgr);
@@ -401,7 +421,7 @@ void TrainingView::setSettingsVisible()
 }
 
 /**
- * @brief
+ * @brief increases the recorded pages. if the recordedpages the same as the maximum of pages, the finish-butten will be enabled.
  *
  *	@author Susanne Tschernegg
  */
@@ -414,7 +434,7 @@ void TrainingView::increaseRecordedPages()
 }
 
 /**
- * @brief
+ * @brief decreases the recorded pages. if the recordedpages were before the same as the maximum of pages, the finish-butten will be enabled.
  *
  *	@author Susanne Tschernegg
  */
@@ -423,5 +443,4 @@ void TrainingView::decreaseRecordedPages()
     int max = trainMgr->getPageCount();
     if(recordedPages==max)
         ui.pbFinish->setEnabled(false);
-    recordedPages--;
 }

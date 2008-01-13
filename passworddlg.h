@@ -21,9 +21,9 @@ class QLineEdit;
 /**
  * \class $CLASSNAME
  * \author Susanne Tschernegg
- * \date
+ * \date 12.09.2007
  * \version 0.1
- * \brief
+ * \brief If the user has blocked the settings with a password, this dialog will be called to enter the password and to change the settings.
  */
 class PasswordDlg : public QDialog
 {

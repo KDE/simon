@@ -29,7 +29,6 @@
 #include "inlinewidget.h"
 
 
-
 class TrainingView;
 class QPoint;
 

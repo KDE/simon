@@ -31,7 +31,16 @@ class QIcon;
 
 #include "iconbutton.h"
 
-
+/**
+ * \class $CLASSNAME
+ * \author Peter Grasch <bedahr@gmx.net>
+ * \date 20.08.2007
+ * \version 0.1
+ * \brief This class holdes self-defined commends, which are programs, places, additional character or macros.
+ *      Commands have a name, which identifies the command. Furthermore there is the type of the command (which are above listed).
+ *      It also has a value. Commands can also have an Icon, which is placed on an IconButton.
+ *      Commands are first read out of a xml-file. The user could change this list. For Example: insert, delete, change etc. commands
+ */
 
 class CommandSettings : public SystemWidget
 {
@@ -83,7 +92,7 @@ class CommandSettings : public SystemWidget
 		void deactivateCB ( int prevRow );
 
 		XMLCommand *commandLoader;
-		bool commandEdited;
+		bool commandEdited; //!< shows, if a command is edited or not.
 		QIcon getIconFromResource ( QString resourceId );
 		QString getTypeName ( CommandType ctype );
 		int getTypeNumber ( QString commandName );
