@@ -36,6 +36,8 @@ signals:
 	void wordlistChanged();
 	void shadowListChanged();
 	void tempWarning();
+	void wordListCouldntBeLoaded();
+	void shadowListCouldntBeLoaded();
 private:
 	bool isTemp;
 	QMutex wordListLock;

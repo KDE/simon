@@ -66,6 +66,7 @@ signals:
 
 private slots:
 	void warnAboutTempWordList();
+	void complainAboutPaths();
 	
 public slots:
 	void abortInsertion() { abortVocabInsertion = true; }

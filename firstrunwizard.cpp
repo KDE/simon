@@ -349,9 +349,6 @@ QWizardPage* FirstRunWizard::createSelectFilesPage()
 QWizardPage* FirstRunWizard::createGrammarWorkingPage()
 {
 	this->firstRunImportGrammarWorkingPage = new FirstRunImportGrammarWorkingPage(this);
-
-	connect(firstRunImportGrammarWorkingPage, SIGNAL(grammarCreated(QStringList)), 
-		this, SLOT(mergeGrammarStructure(QStringList)));
 	
 	return (QWizardPage*) firstRunImportGrammarWorkingPage;
 }

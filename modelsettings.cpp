@@ -175,22 +175,6 @@ bool ModelSettings::apply()
 	Settings::set("Model/Channels", ui.sbChannels->value());
 	
 
-	if (ui.twProcessingFilters->rowCount() == 0) return true;
-	
-	if (ui.twProcessingFilters->rowCount() == 1)
-		Settings::set("Model/ProcessingFilters", ui.twProcessingFilters->item(0,0)->text());
-
-	if (ui.twProcessingFilters->rowCount() > 1)
-	{
-		QString filters;
-		for (int i=0; i < ui.twProcessingFilters->rowCount()-1; i++)
-		{
-			filters += ui.twProcessingFilters->item(i,0)->text() + " && ";
-		}
-		filters += ui.twProcessingFilters->item(ui.twProcessingFilters->rowCount()-1,0)->text();
-		Settings::set("Model/ProcessingFilters", filters);
-	}
-
 	Settings::set("Model/PathToLexicon", ui.leLexicon->text());
 	Settings::set("Model/PathToGrammar", ui.leGrammar->text());
 	Settings::set("Model/PathToPrompts", ui.lePrompts->text());
@@ -218,6 +202,22 @@ bool ModelSettings::apply()
 
 	Settings::set("Model/PathToDict", ui.leDict->text());
 	Settings::set("Model/PathToDfa", ui.leDfa->text());
+
+	if (ui.twProcessingFilters->rowCount() == 0) return true;
+	
+	if (ui.twProcessingFilters->rowCount() == 1)
+		Settings::set("Model/ProcessingFilters", ui.twProcessingFilters->item(0,0)->text());
+
+	if (ui.twProcessingFilters->rowCount() > 1)
+	{
+		QString filters;
+		for (int i=0; i < ui.twProcessingFilters->rowCount()-1; i++)
+		{
+			filters += ui.twProcessingFilters->item(i,0)->text() + " && ";
+		}
+		filters += ui.twProcessingFilters->item(ui.twProcessingFilters->rowCount()-1,0)->text();
+		Settings::set("Model/ProcessingFilters", filters);
+	}
 
 	return true;
 }

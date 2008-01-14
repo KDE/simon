@@ -13,7 +13,7 @@
    <string>Form</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../simon.qrc" >:/images/icons/applications-other.svg</iconset>
+   <iconset/>
   </property>
   <layout class="QVBoxLayout" >
    <item>
@@ -160,7 +160,7 @@
       <item>
        <widget class="QLabel" name="lbBzip2" >
         <property name="text" >
-         <string>Resample:</string>
+         <string>Bzip2:</string>
         </property>
         <property name="buddy" >
          <cstring>leBzip2</cstring>

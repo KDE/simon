@@ -41,8 +41,6 @@ public:
 	QStringList getAllStructures() { return structures; }
 	QStringList getExamples(QString word, QString terminal, int count=2);
 
-    ~GrammarManager();
-
 };
 
 #endif

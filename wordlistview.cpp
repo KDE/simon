@@ -57,6 +57,10 @@ WordListView::WordListView(TrainingView *trainView, QWidget *parent) : InlineWid
 	this->wordListManager = new WordListManager(trainView->getManager());
 	connect(this->wordListManager, SIGNAL(tempWarning()), this, SLOT(warnAboutTempWordList()));
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(reloadList()));
+	connect(this->wordListManager, SIGNAL(shadowListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
+
+	connect(this->wordListManager, SIGNAL(wordListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
+	
 	connect(this->wordListManager, SIGNAL(shadowListChanged()), this, SLOT(reloadList()));
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(askForRebuild()));
 	this->initializeItems();
@@ -386,6 +390,12 @@ void WordListView::deleteSelectedWord()
 	}
 }
 
+
+void WordListView::complainAboutPaths()
+{
+	QMessageBox::critical(0, tr("Lesefehler"), tr("Konnte benötigte Dateien für die Wortliste nicht einlesen. Bitte überprüfen Sie die Pfade zu den Vocab- und Lexikon-Dateien und stellen Sie sicher das sie die nötigen Leserechte haben.\n\nDie Wortliste wird leer im RAM erstellt. Änderungen werden NICHT dauerhaft gespeichert."));
+}
+
 /**
  * @brief Asks the WordListManager for the whole Vocabulary and sends it to insertVocab
  *
@@ -395,11 +405,7 @@ void WordListView::deleteSelectedWord()
 void WordListView::readVocab()
 {
 	WordList *vocab = this->wordListManager->getWordList();
-	if (!vocab)
-	{
-		QMessageBox::critical(0, tr("Lesefehler"), tr("Konnte benötigte Dateien für die Wortliste nicht einlesen. Bitte überprüfen Sie die Pfade zu den Vocab- und Lexikon-Dateien und stellen Sie sicher das sie die nötigen Leserechte haben.\n\nDie Wortliste wird leer im RAM erstellt. Änderungen werden NICHT dauerhaft gespeichert."));
-		wordListManager->safelyInit();
-	} else 	insertVocab( vocab );
+	if (vocab) insertVocab( vocab );
 
 	if (ui.cbShowCompleteLexicon->isChecked())
 	{

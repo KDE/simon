@@ -41,6 +41,11 @@ WordListManager::WordListManager ( TrainingManager *trainManager ) : QThread()
 	wordListLock.lock();
 	mainDirty = false;
 	this->wordlist = readWordList ( Settings::getS("Model/PathToLexicon"), Settings::getS("Model/PathToVocab"), Settings::getS("Model/PathToPrompts"), this->activeTerminals );
+	if (!wordlist) {
+		this->wordlist = new WordList();
+		emit wordListCouldntBeLoaded();
+	}
+	
 	wordListLock.unlock();
 
 	start();
@@ -60,6 +65,11 @@ void WordListManager::run()
 	shadowLock.lock();
 	shadowDirty = false;
 	this->shadowList = readWordList(Settings::getS("Model/PathToShadowLexicon"), Settings::getS("Model/PathToShadowVocab"), Settings::getS("Model/PathToPrompts"), this->shadowTerminals);
+	if (!shadowList)
+	{
+		this->shadowList = new WordList();
+		emit shadowListCouldntBeLoaded();
+	}
 	shadowLock.unlock();
 }
 

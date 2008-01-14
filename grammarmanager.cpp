@@ -17,11 +17,21 @@
 #include <QCoreApplication>
 #include <QMessageBox>
 
+/**
+ * \brief Constructor
+ * \author Peter Grasch
+ * @param wordlistManager Initializes the member
+ */
 GrammarManager::GrammarManager(WordListManager *wordlistManager)
 {
 	this->wordlistManager = wordlistManager;
 }
 
+/**
+ * \brief Loads the structures from the file
+ * \author Peter Grasch
+ * @return Successs
+ */
 bool GrammarManager::load()
 {
 	structures.clear();
@@ -46,6 +56,11 @@ bool GrammarManager::load()
 	return true;
 }
 
+/**
+ * \brief Renames the terminal to the given, new name
+ * @param terminal The terminal to renmae
+ * @param newName The new name
+ */
 void GrammarManager::renameTerminal(QString terminal, QString newName)
 {
 	terminal.replace(".", "\\.");
@@ -63,6 +78,14 @@ void GrammarManager::renameTerminal(QString terminal, QString newName)
 	structures.replaceInStrings(QRegExp(" "+terminal+" "), " "+newName+" ");
 }
 
+/**
+ * \brief Get Examples for the word of the specified terminal
+ * \author Peter Grasch
+ * @param word The word to look for examples for
+ * @param terminal The terminal of the word
+ * @param count How many examples do we want?
+ * @return Examples
+ */
 QStringList GrammarManager::getExamples(QString word, QString terminal, int count)
 {
 	QStringList grammarStructures = getStructures(terminal);
@@ -109,6 +132,11 @@ QStringList GrammarManager::getExamples(QString word, QString terminal, int coun
 	return chosen;
 }
 
+/**
+ * \brief Returns all terminals contained in the grammar
+ * \author Peter Grasch
+ * @return The terminals
+ */
 QStringList GrammarManager::getTerminals()
 {
 	QStringList out;
@@ -124,6 +152,12 @@ QStringList GrammarManager::getTerminals()
 	return out;
 }
 
+/**
+ * \brief Returns structures using the specified terminal
+ * \author Peter Grasch
+ * @param terminal The terminal to lok for
+ * @return The structures
+ */
 QStringList GrammarManager::getStructures(QString terminal)
 {
 	QStringList matching;
@@ -136,6 +170,11 @@ QStringList GrammarManager::getStructures(QString terminal)
 	return matching;
 }
 
+/**
+ * \brief Saves the structures
+ * \author Peter Grasch
+ * @return success
+ */
 bool GrammarManager::save()
 {
 	QString path =Settings::getS("Model/PathToGrammar");
@@ -152,13 +191,12 @@ bool GrammarManager::save()
 	return true;
 }
 
+/**
+ * \brief Sets the structures to the given structures
+ * @param structures The structures to set to
+ */
 void GrammarManager::setStructures(QStringList structures)
 {
 	this->structures = structures;
 }
-
-GrammarManager::~GrammarManager()
-{
-}
-
 
