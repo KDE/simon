@@ -71,6 +71,9 @@ bool ExternalProgramManager::apply()
 	
 	Settings::set("Programs/Files/BZip2", ui.leBzip2->text());
 	
+	Settings::set("Programs/Julius/mkfa", ui.leMkfa->text());
+	Settings::set("Programs/Julius/dfa_minimize", ui.leDfaMinimize->text());
+	
 	return true;
 }
 
@@ -100,6 +103,9 @@ bool ExternalProgramManager::init()
 	ui.leHVite->setText(Settings::get("Programs/HTK/HVite").toString());
 	
 	ui.leBzip2->setText(Settings::get("Programs/Files/BZip2").toString());
+
+	ui.leMkfa->setText(Settings::get("Programs/Julius/mkfa").toString());
+	ui.leDfaMinimize->setText(Settings::get("Programs/Julius/dfa_minimize").toString());
 	
 	return true;
 }

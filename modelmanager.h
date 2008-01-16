@@ -83,6 +83,10 @@ private:
 			bool buildHMM13();
 			bool buildHMM14();
 			bool buildHMM15();
+
+	bool makeDfa();
+		bool generateReverseGrammar();
+		bool generateTempVoca();
 	
 private slots:
 	void setStatus(QString);

@@ -29,6 +29,125 @@ ModelManager::ModelManager(QWidget *parent) : QThread(parent)
 	processDialog->setWindowTitle(tr("Generiere Sprachmodell..."));
 }
 
+
+bool ModelManager::makeDfa()
+{
+	QString mkfa = Settings::getS("Programs/Julius/mkfa");
+	QString dfaMinimize= Settings::getS("Programs/Julius/dfa_minimize");
+	
+	if (!generateReverseGrammar())
+	{
+		emit error(tr("Konnte Umkehr-Grammatik nicht erstellen.\n\nBitte überprüfen Sie die Pfade zur Grammatikdatei (%1).").arg(Settings::getS("Model/PathToGrammar")));
+		return false;
+	}
+
+	if (!generateTempVoca())
+	{
+		emit error(tr("Konnte Temporäre Vokabeln nicht erstellen.\n\nBitte überprüfen Sie die Pfade zur Vokabulardatei (%1).").arg(Settings::getS("Model/PathToVocab")));
+		return false;
+	}
+	
+}
+
+
+bool ModelManager::generateTempVoca()
+{
+	QString vocabPath = Settings::getS("Model/PathToVocab");
+	QFile vocab(vocabPath);
+	
+	QString prefix = vocab.fileName(); //when vocab is e.g. all.voca prefix is all
+	prefix = prefix.left(prefix.lastIndexOf("."));
+
+	if (!vocab.open(QFile::ReadOnly)) return false;
+	QFile tmpVocab(tmpDir+"tempvoca");
+	if (!tmpVocab.open(QFile::WriteOnly)) return false;
+	
+	QFile term(tmpDir+"term");
+	if (!term.open(QFile::WriteOnly)) return false;
+	
+	QString vocabEntry;
+	
+	int termid=0, n1=0, n2=0;
+	while (!vocab.atEnd())
+	{
+		vocabEntry = vocab.readLine(1024);
+		vocabEntry.remove(QRegExp("\r+$"));
+		vocabEntry.remove(QRegExp("#.*"));
+		if (vocabEntry.trimmed().isEmpty()) continue;
+		
+		if (vocabEntry.startsWith("%"))
+		{
+			tmpVocab.write("#"+prefix.toLatin1()+"\n");
+		
+			term.write(termid+"\t"+prefix.toLatin1()+"\n");
+			termid++;
+			n1++;
+		} else
+			n2++;
+		
+	}
+	
+// 	$n1 = 0;
+// 	$n2 = 0;
+// 	$termid = 0;
+// 	while (<VOCA>) {
+// 		if (/^%[ \t]*([A-Za-z0-9_]*)/) {
+// 			if ($CRLF == 1) {
+// 				printf(TMPVOCA "\#%s\r\n", $1);
+// 			} else {
+// 				printf(TMPVOCA "\#%s\n", $1);
+// 			}
+// 			if ($make_term == 1) {
+// 				if ($CRLF == 1) {
+// 					printf(GTERM "%d\t%s\r\n",$termid, $1);
+// 				} else {
+// 					printf(GTERM "%d\t%s\n",$termid, $1);
+// 				}
+// 				$termid++;
+// 			}
+// 			$n1++;
+// 		} else {
+// 			$n2++;
+// 		}
+// 	}
+// 	close(VOCA);
+// 	close(TMPVOCA);
+
+}
+
+bool ModelManager::generateReverseGrammar()
+{
+	QFile grammar(Settings::getS("Model/PathToGrammar"));
+	if (!grammar.open(QFile::ReadOnly)) return false;
+
+	QFile reverseGrammar(tmpDir+"reverseGrammar");
+	if (!reverseGrammar.open(QFile::WriteOnly)) return false;
+
+	QString reverseGrammarEntry;
+	QStringList parts;
+	QString grammarEntry;
+	QStringList terminals;
+
+	while (!grammar.atEnd())
+	{
+		grammarEntry = grammar.readLine(1024);
+		grammarEntry.remove(QRegExp("\r+$"));
+		grammarEntry.remove(QRegExp("#.*"));
+		if (grammarEntry.trimmed().isEmpty()) continue;
+		
+		parts = grammarEntry.split(QRegExp("\\:"));
+		
+		reverseGrammarEntry = parts[0]+": ";
+		terminals = parts[1].split(" ");
+		for (int i=terminals.count()-1; i > 0; i--)
+			reverseGrammarEntry += terminals[i];
+		
+		reverseGrammar.write(reverseGrammarEntry.toLatin1()+"\n");
+	}
+	reverseGrammar.close();
+	grammar.close();
+}
+
 void ModelManager::cancel()
 {
 	

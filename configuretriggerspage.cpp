@@ -22,6 +22,9 @@ ConfigureTriggersPage::ConfigureTriggersPage(QWidget *parent)
 {
 	setTitle("Triggerkonfiguration");
 	ui.setupUi(this);
+
+	connect(ui.leMainTrigger, SIGNAL(editingFinished()), this, SIGNAL(completeChanged()));
+	connect(ui.leDesktopgridTrigger, SIGNAL(editingFinished()), this, SIGNAL(completeChanged()));
 }
 
 /**
