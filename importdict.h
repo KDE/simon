@@ -14,6 +14,7 @@
 
 #define HADIFIXBOMP 1
 #define WIKTIONARY 2
+#define LEXICON 3
 
 #include "word.h"
 #include <QThread>

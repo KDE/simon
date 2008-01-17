@@ -21,7 +21,8 @@
 
 #include "firstrunimportdictselectsourcepage.h"
 #include "firstrunimportbomppage.h"
-#include "importdictwiktionarypage.h"
+#include "importlexiconpage.h"
+#include "firstrunimportdictwiktionarypage.h"
 #include "importdictworkingpage.h"
 
 
@@ -67,6 +68,7 @@ FirstRunWizard::FirstRunWizard(AddWordView *addWordView, QWidget* parent): Simon
 	addPage(createImportDictSelectTypePage());
 	addPage(createImportDictBOMPPage());
 	addPage(createImportDictWiktionaryPage());
+	addPage(createImportDictLexiconPage());
 	addPage(createImportDictWorkingPage());
 
 	addPage(createGrammarDescriptionPage());
@@ -217,7 +219,17 @@ QWizardPage* FirstRunWizard::createImportDictBOMPPage()
  */
 QWizardPage* FirstRunWizard::createImportDictWiktionaryPage()
 {
-	return (QWizardPage*) new ImportDictWiktionaryPage(this);
+	return (QWizardPage*) new FirstRunImportDictWiktionaryPage(this);
+}
+
+/**
+ * \brief Creates the importlexiconpage
+ * \author Peter Grasch
+ * @return The page
+ */
+QWizardPage* FirstRunWizard::createImportDictLexiconPage()
+{
+	return (QWizardPage*) new ImportLexiconPage(this);
 }
 
 /**

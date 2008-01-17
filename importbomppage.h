@@ -13,8 +13,7 @@
 #define IMPORTBOMPPAGE_H
 
 #include <QWizardPage>
-#include <QVariant>
-
+#include "importdictview.h"
 class QString;
 
 /**
@@ -33,7 +32,7 @@ private slots:
 	
 public:
     ImportBOMPPage(QWidget* parent);
-	int nextId() const { return 4; }
+	int nextId() const { return ImportDictView::WorkingPage; }
 
     ~ImportBOMPPage();
 

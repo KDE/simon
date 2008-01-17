@@ -34,6 +34,8 @@ ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(tr
 	connect(ui.leHVite, SIGNAL(editingFinished()), this, SIGNAL(changed()));
 	connect(ui.leBzip2, SIGNAL(editingFinished()), this, SIGNAL(changed()));
 	connect(ui.leHHEd, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leMkfa, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leDfaMinimize, SIGNAL(editingFinished()), this, SIGNAL(changed()));
 }
 
 /**
@@ -50,7 +52,9 @@ bool ExternalProgramManager::isComplete()
 		!(ui.leHERest->text().isEmpty()) && 
 		!(ui.leHVite->text().isEmpty()) && 
 		!(ui.leBzip2->text().isEmpty()) && 
-		!(ui.leHHEd->text().isEmpty()));
+		!(ui.leHHEd->text().isEmpty()) &&  
+		!(ui.leMkfa->text().isEmpty()) &&  
+		!(ui.leDfaMinimize->text().isEmpty()));
 }
 
 

@@ -48,6 +48,8 @@ ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent): QWizardPage(paren
 	connect(import, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
 	connect(import, SIGNAL(progress(int)), this, SLOT(displayProgress(int)));
 	connect(import, SIGNAL(finished(WordList*)), this, SIGNAL(wordListImported(WordList*)));
+
+	connect(import, SIGNAL(finished(WordList*)), this, SLOT(setCompleted()));
 }
 
 
@@ -63,6 +65,23 @@ bool ImportDictWorkingPage::isComplete() const
 }
 
 
+
+/**
+ * \brief Imports a lexicon
+ * @param path the path to the lexicon dict.
+ * \author Peter Grasch
+ */
+void ImportDictWorkingPage::importLexicon(QString path)
+{
+	ready=false;
+	completeChanged();
+	
+	displayStatus(tr("Importiere Lexicon-Wörterbuch %1...").arg(path));
+	pbMain->setMaximum(1000);
+	
+	import->parseWordList(path, 3);
+}
+
 /**
  * \brief Tells the ImportDict class to imoprt the hadifix dict from the given path
  * @param path the path to the hadifix dict.
@@ -76,8 +95,6 @@ void ImportDictWorkingPage::importHADIFIX(QString path)
 	pbMain->setMaximum(1000);
 	
 	import->parseWordList(path, 1);
-
-	connect(import, SIGNAL(finished(WordList*)), this, SLOT(setCompleted()));
 }
 
 /**
@@ -144,14 +161,15 @@ void ImportDictWorkingPage::initializePage()
 {
 	if (field("hadifix").toBool())
 		importHADIFIX(field("bompFileName").toString());
-	else 
+	else if (field("wiktionary").toBool())
 	{
 		QString path;
 		if (field("importWikiLocal").toBool()) path = field("wikiFileName").toString();
 		if (field("importWikiRemote").toBool()) path = field("wikiRemoteURL").toString();
 
 		importWiktionary(path);
-	}
+	} else
+		importLexicon(field("lexiconFilename").toString());
 }
 
 /**

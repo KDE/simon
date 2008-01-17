@@ -37,7 +37,9 @@ public:
 		if (field("hadifix").toBool())
 		{
 			return FirstRunWizard::DictionaryBOMPPage;
-		} else return FirstRunWizard::DictionaryWiktionaryPage;
+		} else if (field("wiktionary").toBool()) 
+			return FirstRunWizard::DictionaryWiktionaryPage;
+		else return FirstRunWizard::DictionaryLexiconPage;
     }
 
 };

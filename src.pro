@@ -61,7 +61,8 @@ FORMS += ui/main.ui \
  ui/renameterminalselectparameterspage.ui \
  ui/renameterminalworkingpage.ui \
  ui/configuretriggerspage.ui \
- ui/definiedefaultvaluesdlg.ui
+ ui/definiedefaultvaluesdlg.ui \
+ ui/importdictlexiconpage.ui
 
 
 HEADERS += simonview.h \
@@ -205,7 +206,10 @@ importtrainingdirectoryworkingpage.h \
  renameterminalworkingpage.h \
  renameterminal.h \
  configuretriggerspage.h \
- definedefaultvaluespage.h
+ definedefaultvaluespage.h \
+ importlexiconpage.h \
+ lexicondict.h \
+ firstrunimportdictwiktionarypage.h
 
 
 
@@ -341,7 +345,10 @@ SOURCES += main.cpp \
  renameterminalworkingpage.cpp \
  renameterminal.cpp \
  configuretriggerspage.cpp \
- definedefaultvaluespage.cpp
+ definedefaultvaluespage.cpp \
+ importlexiconpage.cpp \
+ lexicondict.cpp \
+ firstrunimportdictwiktionarypage.cpp
 
 
 

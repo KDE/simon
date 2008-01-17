@@ -1,0 +1,87 @@
+<ui version="4.0" >
+ <class>ImportDictLexiconPage</class>
+ <widget class="QWidget" name="ImportDictLexiconPage" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QLabel" name="lbDesc" >
+     <property name="text" >
+      <string>Wenn Sie bereits ein von vorigen simon Versionen, oder von Hand generiertes Lexicon besitzen, können Sie hier den Pfad zu dieser Datei eingeben und es wird zu ihrem aktuellen simon Lexicon hinzugefügt.
+
+Bitte beachten Sie, dass diese Lexica keine Grammatikdefinitionen besitzen.</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType" >
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
+     <item>
+      <widget class="QLabel" name="lbFile" >
+       <property name="text" >
+        <string>Datei:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lePath" />
+     </item>
+     <item>
+      <widget class="QToolButton" name="tbOpenFile" >
+       <property name="text" >
+        <string>...</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="../action_icons.qrc" >:/images/icons/document-open.svg</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../action_icons.qrc" />
+ </resources>
+ <connections/>
+</ui>

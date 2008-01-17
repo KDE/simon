@@ -12,6 +12,8 @@
 #include "importdict.h"
 #include "logger.h"
 #include "bompdict.h"
+#include "lexicondict.h"
+#include <QDebug>
 
 /**
  * \brief Constructor
@@ -46,9 +48,11 @@ void ImportDict::run()
 	
 	emit progress(10);
 	Dict *dict;
+	qDebug() << type;
 	if (type == WIKTIONARY)
 		dict = new WiktionaryDict(pathToDict);
-	else dict = new BOMPDict(pathToDict);
+	else if (type == HADIFIXBOMP) dict = new BOMPDict(pathToDict);
+	else if (type == LEXICON) dict = new LexiconDict(pathToDict);
 	
 	connect(dict, SIGNAL(loaded()), this, SLOT(openingFinished()));
 	connect(dict, SIGNAL(progress(int)), this, SLOT(loadProgress(int)));
@@ -70,8 +74,11 @@ void ImportDict::run()
 					QString(terminals.at(i)), 0 ) );
 		emit progress((int) ((((double) i)/((double)words.count())) *40+800));
 	}
-	emit status(tr("Sortiere Wörterbuch..."));
-	qSort(vocablist->begin(), vocablist->end());
+	if (type != LEXICON)
+	{
+		emit status(tr("Sortiere Wörterbuch..."));
+		qSort(vocablist->begin(), vocablist->end());
+	}
 	
 	
 	emit progress(1000);

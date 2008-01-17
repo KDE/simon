@@ -17,6 +17,7 @@
 #include <QMessageBox>
 #include <QVariant>
 #include <QProgressDialog>
+#include <QDebug>
 
 ModelManager::ModelManager(QWidget *parent) : QThread(parent)
 {
@@ -30,23 +31,42 @@ ModelManager::ModelManager(QWidget *parent) : QThread(parent)
 }
 
 
-bool ModelManager::makeDfa()
-{
-	QString mkfa = Settings::getS("Programs/Julius/mkfa");
-	QString dfaMinimize= Settings::getS("Programs/Julius/dfa_minimize");
-	
+bool ModelManager::compileGrammar()
+{	
+	emit status(tr("Generiere Umkehr-Grammatik..."));
 	if (!generateReverseGrammar())
 	{
 		emit error(tr("Konnte Umkehr-Grammatik nicht erstellen.\n\nBitte überprüfen Sie die Pfade zur Grammatikdatei (%1).").arg(Settings::getS("Model/PathToGrammar")));
 		return false;
 	}
+	
+	emit progress(2050);
 
+	emit status(tr("Generiere temporäre Vokabeln..."));
 	if (!generateTempVoca())
 	{
 		emit error(tr("Konnte Temporäre Vokabeln nicht erstellen.\n\nBitte überprüfen Sie die Pfade zur Vokabulardatei (%1).").arg(Settings::getS("Model/PathToVocab")));
 		return false;
 	}
+	emit progress(2100);
+
+	emit status(tr("Generiere DFA..."));
+	if (!makeDfa())
+	{
+		emit error(tr("Konnte dfa nicht generieren.\n\nBitte überprüfen Sie die Pfade zur dfa und dfa_minimize Datei (%1, %2).").arg(Settings::getS("Programs/Julius/mkfa")).arg(Settings::getS("Programs/Julius/dfa_minimize")));
+		return false;
+	}
+	emit progress(2250);
 	
+	emit status(tr("Generiere Grammatikalisches Wörterbuch..."));
+	if (!generateDict())
+	{
+		emit error(tr("Konnte das grammatikalische Wörterbuch nicht generieren. \nBitte überprüfen Sie die Pfade zur Vocabeldatei und zum grammatikalischen Wörterbuch selbst. (%1, %2).").arg(Settings::getS("Model/PathToVoca")).arg(Settings::getS("Model/PathToDict")));
+		return false;
+	}
+	emit progress(2299);
+	
+	return true;
 }
 
 
@@ -55,8 +75,7 @@ bool ModelManager::generateTempVoca()
 	QString vocabPath = Settings::getS("Model/PathToVocab");
 	QFile vocab(vocabPath);
 	
-	QString prefix = vocab.fileName(); //when vocab is e.g. all.voca prefix is all
-	prefix = prefix.left(prefix.lastIndexOf("."));
+	QString terminal;
 
 	if (!vocab.open(QFile::ReadOnly)) return false;
 	QFile tmpVocab(tmpDir+"tempvoca");
@@ -67,7 +86,7 @@ bool ModelManager::generateTempVoca()
 	
 	QString vocabEntry;
 	
-	int termid=0, n1=0, n2=0;
+	int termid=0;
 	while (!vocab.atEnd())
 	{
 		vocabEntry = vocab.readLine(1024);
@@ -77,42 +96,33 @@ bool ModelManager::generateTempVoca()
 		
 		if (vocabEntry.startsWith("%"))
 		{
-			tmpVocab.write("#"+prefix.toLatin1()+"\n");
+			terminal = vocabEntry.mid(1).trimmed();
+			tmpVocab.write("#"+terminal.toLatin1()+"\n");
 		
-			term.write(termid+"\t"+prefix.toLatin1()+"\n");
+			term.write(termid+"\t"+terminal.toLatin1()+"\n");
 			termid++;
-			n1++;
-		} else
-			n2++;
+		}
 		
 	}
-	
-// 	$n1 = 0;
-// 	$n2 = 0;
-// 	$termid = 0;
-// 	while (<VOCA>) {
-// 		if (/^%[ \t]*([A-Za-z0-9_]*)/) {
-// 			if ($CRLF == 1) {
-// 				printf(TMPVOCA "\#%s\r\n", $1);
-// 			} else {
-// 				printf(TMPVOCA "\#%s\n", $1);
-// 			}
-// 			if ($make_term == 1) {
-// 				if ($CRLF == 1) {
-// 					printf(GTERM "%d\t%s\r\n",$termid, $1);
-// 				} else {
-// 					printf(GTERM "%d\t%s\n",$termid, $1);
-// 				}
-// 				$termid++;
-// 			}
-// 			$n1++;
-// 		} else {
-// 			$n2++;
-// 		}
-// 	}
-// 	close(VOCA);
-// 	close(TMPVOCA);
+	vocab.close();
+	tmpVocab.close();
+	term.close();
+	return true;
+}
 
+bool ModelManager::makeDfa()
+{
+	QString mkfa = Settings::getS("Programs/Julius/mkfa");
+	QString dfaMinimize= Settings::getS("Programs/Julius/dfa_minimize");
+	
+	QString execStr = mkfa+" -e1 -fg "+tmpDir+"reverseGrammar -fv "+tmpDir+"tempvoca -fo "+tmpDir+"dfaTemp.tmp -fh "+tmpDir+"dfaTemp.h";
+	if (QProcess::execute(execStr)!= 0) 
+		return false;
+
+	if (QProcess::execute(dfaMinimize+" "+tmpDir+"dfaTemp.tmp -o "+Settings::getS("Model/PathToDfa"))!= 0) 
+		return false;
+
+	return true;	
 }
 
 bool ModelManager::generateReverseGrammar()
@@ -139,13 +149,50 @@ bool ModelManager::generateReverseGrammar()
 		
 		reverseGrammarEntry = parts[0]+": ";
 		terminals = parts[1].split(" ");
-		for (int i=terminals.count()-1; i > 0; i--)
-			reverseGrammarEntry += terminals[i];
+		for (int i=terminals.count()-1; i >= 0; i--)
+			reverseGrammarEntry += terminals[i].trimmed()+" ";
 		
 		reverseGrammar.write(reverseGrammarEntry.toLatin1()+"\n");
 	}
 	reverseGrammar.close();
 	grammar.close();
+	return true;
+}
+
+bool ModelManager::generateDict()
+{
+	int nowId = -1;
+	QFile vocab(Settings::getS("Model/PathToVocab"));
+	if (!vocab.open(QFile::ReadOnly)) return false;
+	QFile dict(Settings::getS("Model/PathToDict"));
+	if (!dict.open(QFile::WriteOnly)) return false;
+	QString vocabEntry;
+	QStringList entryPart;
+	
+	while (!vocab.atEnd())
+	{
+		vocabEntry = vocab.readLine(1024);
+		vocabEntry.remove(QRegExp("\r+$"));
+		vocabEntry.remove(QRegExp("#.*"));
+		if (vocabEntry.trimmed().isEmpty()) continue;
+		
+		if (vocabEntry.startsWith("%"))
+		{
+			nowId++;
+			continue;
+		} else
+		{
+			entryPart = vocabEntry.split(QRegExp("[\t ]*"), 
+					QString::SkipEmptyParts);
+			if (entryPart.count() < 2) continue;
+			
+			dict.write(QString::number(nowId).toLatin1()+"\t"+"["+entryPart[0].toLatin1()+"]"+entryPart[1].toLatin1());
+		}
+	}
+	
+	vocab.close();
+	dict.close();
+	return true;
 }
 
 void ModelManager::cancel()
@@ -279,9 +326,10 @@ void ModelManager::run()
 	if (!makeTranscriptions()) return;
 	if (!codeAudioData()) return;
 	if (!buildHMM()) return;
+	if (!compileGrammar()) return;
 	
 	emit status(tr("Abgeschlossen"));
-	emit progress(2000);
+	emit progress(2300);
 }
 
 bool ModelManager::generateInputFiles()
@@ -314,6 +362,7 @@ bool ModelManager::generateInputFiles()
 bool ModelManager::makeTranscriptions()
 {
 	//mlf
+	qDebug() << "hier";
 	emit status(tr("Erstelle Master Label File..."));
 	if (!generateMlf())
 	{
@@ -322,6 +371,7 @@ bool ModelManager::makeTranscriptions()
 	}
 	emit progress(55);
 
+	qDebug() << "hier2";
 	
 	if ((proc->execute(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -l \"*\" -d "+tmpDir+"/dict -i "+tmpDir+"/phones0.mlf "+Settings::getS("Model/PathToMkPhones0")+" "+tmpDir+"/words.mlf") != 0) || (proc->execute(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -l \"*\" -d "+tmpDir+"/dict -i "+tmpDir+"/phones1.mlf "+Settings::getS("Model/PathToMkPhones1")+" "+tmpDir+"/words.mlf") != 0) )
 	{
@@ -337,7 +387,7 @@ bool ModelManager::createMonophones()
 	emit status(tr("Erstelle hmm0..."));
 	if (!buildHMM0())
 	{
-		emit error(tr("Fehler beim Generieren des HMM0. Bitte überprüfen Sie den Pfad zu HCompV (%1), der config (%2) und des Prototypen (%3)").arg(Settings::getS("Programs/HTK/HCompV")).arg(Settings::getS("Model/PathToConfig")).arg(Settings::getS("Model/PathToProto")));
+		emit error(tr("Fehler beim Generieren des HMM0. \n\nBitte überprüfen Sie, ob ausreichend Trainingsmaterial vorhanden ist.\n\nSollten Sie sicher sein, das Modell wurde ausreichend trainiert, überprüfen Sie bitte den Pfad zu HCompV (%1), der config (%2) und des Prototypen (%3).").arg(Settings::getS("Programs/HTK/HCompV")).arg(Settings::getS("Model/PathToConfig")).arg(Settings::getS("Model/PathToProto")));
 		return false;
 	}
 	emit progress(550);
@@ -953,6 +1003,7 @@ bool ModelManager::generateMlf()
 	while (!promptsFile.atEnd())
 	{
 		line = promptsFile.readLine(3000);
+		if (line.trimmed().isEmpty()) continue;
 		lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
 		QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\""; //ditch the file-id
 		mlf.write(labFile.toLatin1()+"\n");

@@ -2,87 +2,82 @@
 <s>	sil
 % NS_E
 </s>	sil
-% Unbekannt
+% NOM
+Test	tEst
+% Subjunktion
+ALSO	a l z o:
+ALS	a l s
 % Verb
+WÄRE	v E: R @
+WAR	v a: 6
+SIND	z I n t
+SEIEND	z aI E n t
+SEIEND	z aI E n t
+SEIEN	z aI E n
+SEID	z aI t
+SEID	z aI t
+SEI	z aI
+IST	I s t
+GEWESEN	g @ v e: z @ n
+BIST	b I s t
+BIN	b I n
 ANRUFEN	a n g @ R u: f @ n
 ANGESCHRIEN	a n g @ S R i: n
-BIN	b I n
-BIST	b I s t
-IST	I s t
-SIND	z I n t
-SEID	z aI t
-WAR	v a: 6
-SEIEND	z aI E n t
-GEWESEN	g @ v e: z @ n
-WÄRE	v E: R @
-SEI	z aI
-SEID	z aI t
-SEIEN	z aI E n
-SEIEND	z aI E n t
-% Präposition
-AN	a n
-% Konjunktion
-ABER	a: b 6
 % Zahl
-EINE	aI n @
 ZWEI	t s v aI
-DREI	d R aI
-VIER	f i: 6
-FÜNF	f Y n f
-SECHS	z E k s
-SIEBEN	z i: b @ n
-ACHT	a x t
-NEUN	n OY n
 ZEHN	t s e: n
-% NS_B
-<s>	sil
-<s>	sil
-% NS_E
-</s>	sil
-</s>	sil
-% Nomen
-ICH	I C
-DU	d u:
-ER	e: 6
-SIE	z i:
-ES	E s
-SIMON	z aI m o: n
-TEST	t E s t
-MAGARITHA	m a g a R I t h a:
-TONNO	t o: n o:
-THUNFISCH	t u: n f I S
-HAWAII	h a v aI
-ALPHABET	a l f a b e: t
-ARBEIT	a R b aI t
+VIER	f i: 6
+SIEBEN	z i: b @ n
+SECHS	z E k s
+NEUN	n OY n
+FÜNF	f Y n f
+EINE	aI n @
+DREI	d R aI
+ACHT	a x t
 % Adjektiv
-ABSOLUT	a p z o: l u: t
-ABSOLUTE	a p z o: l u: t @
-ANERKANNT	a n E R k a n t
 ANSTRENGENDE	a n S t R E N @ n d e:
-% Subjunktion
-ALS	a l s
-ALSO	a l z o:
+ANERKANNT	a n E R k a n t
+ABSOLUTE	a p z o: l u: t @
+ABSOLUT	a p z o: l u: t
 % Abkürzung
 kleine	kleine
-glücklich	
+glücklich	glücklich
 % Artikel
-DER	d e: 6
-DES	d E s
-DEM	d e: m
-DEN	d e: n
-DIE	d i:
-DAS	d a s
-EIN	aI n
-EINE	aI n @
 EINES	aI n @ s
+EINE	aI n @
+EIN	aI n
+DIE	d i:
+DES	d E s
+DER	d e: 6
+DEN	d e: n
+DEM	d e: m
+DAS	d a s
 % Pronomen
-ALLES	a l @ s
 ANDERE	a n d @ R @
+ALLES	a l @ s
+% Adverb
+ANSCHEINEND	a n S aI n @ n t
+ALSO	a l z o:
+ABSOLUTE	a p z o: l u: t @
+ABSOLUT	a p z o: l u: t
+ABER	a: b 6
 % Partikel
 ABER	a: b 6
-% Adverb
+% Präposition
+AN	a n
+% Nomen
+TONNO	t o: n o:
+THUNFISCH	t u: n f I S
+TEST	t E s t
+SIMON	z aI m o: n
+SIE	z i:
+MAGARITHA	m a g a R I t h a:
+ICH	I C
+HAWAII	h a v aI
+ES	E s
+ER	e: 6
+DU	d u:
+ARBEIT	a R b aI t
+ALPHABET	a l f a b e: t
+% Konjunktion
 ABER	a: b 6
-ANSCHEINEND	a n S aI n @ n t
-ABSOLUT	a p z o: l u: t
-ABSOLUTE	a p z o: l u: t @
-ALSO	a l z o:

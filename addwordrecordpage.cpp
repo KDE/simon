@@ -10,6 +10,9 @@
 //
 //
 #include "addwordrecordpage.h"
+#include "settings.h"
+#include <QDate>
+#include <QTime>
 
 /**
  * \brief Constructor - also creates the GUI Elements
@@ -25,8 +28,19 @@ AddWordRecordPage::AddWordRecordPage(QWidget *parent)
 	QLabel *desc = new QLabel(this);
 	desc->setText(tr("Bitte nehmen Sie nun das hinzuzufügende Wort zweimal auf.\n\nBitte achten Sie darauf, das Wort deutlich, aber natürlich\nauszusprechen und vermeiden Sie Hintergrundgeräusche.\n"));
 	lay->addWidget(desc);
-	rec1 = new RecWidget(tr("1: %1").arg(field("wordExample1").toString()), "1.wav", this);
-	rec2 = new RecWidget(tr("2: %1").arg(field("wordExample2").toString()), "2.wav", this);
+
+	QString example1=field("wordExample1").toString();
+	QString example2=field("wordExample2").toString();
+
+	QString dateTime = QDate::currentDate().toString ( "yyyy-MM-dd" ) +"_"+QTime::currentTime().toString("hh-mm-ss");
+
+	QString filename1=example1.replace(" ", "_")+ "_"+dateTime;
+	QString filename2=example2.replace(" ", "_")+ "_"+dateTime;
+
+	emit recordingNamesGenerated(filename1, filename2);
+
+	rec1 = new RecWidget(tr("1: %1").arg(example1), Settings::getS("TempDir")+"/"+filename1+".wav", this);
+	rec2 = new RecWidget(tr("2: %1").arg(example2), Settings::getS("TempDir")+"/"+filename2+".wav", this);
 	lay->addWidget(rec1);
 	lay->addWidget(rec2);
 	

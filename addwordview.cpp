@@ -23,6 +23,7 @@
 #include <QMessageBox>
 #include <QLineEdit>
 #include "logger.h"
+#include "settings.h"
 #include "addwordintropage.h"
 #include "addwordrecordpage.h"
 #include "addwordresolvepage.h"
@@ -58,7 +59,7 @@ AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr, Training
 	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
 
 	setWindowTitle(tr("Wort hinzufügen"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/banners/addword.png")));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/addword.png"));
 }
 
 /**
@@ -78,7 +79,9 @@ AddWordIntroPage* AddWordView::createWelcomePage()
  */
 QWizardPage* AddWordView::createRecordPage()
 {
-	return new AddWordRecordPage(this);
+	AddWordRecordPage *add = new AddWordRecordPage(this);
+	connect(add, SIGNAL(recordingNamesGenerated(QString,QString)), this, SLOT(setRecordingNames(QString, QString)));
+	return add;
 }
 
 /**
@@ -133,11 +136,12 @@ void AddWordView::finish(int done)
 	list->append(Word(word, field("wordPronunciation").toString(),
 			 field("wordTerminal").toString(), 2 /* 2 recordings */));
 
-	wordlistMgr->addWords(list, true /*sorted*/, false /*shadowed*/);
-
-	//TODO: Process recordings
-	qDebug() << this->trainManager;
+	QHash<QString,QString> samples;
 	
+	samples.insert(recordingName1, field("wordExample1").toString());
+	samples.insert(recordingName2, field("wordExample2").toString());
+	this->trainManager->addSamples(&samples);
+	wordlistMgr->addWords(list, true /*sorted*/, false /*shadowed*/);
 
 	//cleaning up
 	Logger::log(tr("[INF] Wort hinzugefügt: ")+word);
@@ -145,6 +149,12 @@ void AddWordView::finish(int done)
 	
 	((AddWordRecordPage*) this->page(2))->cleanUp();
 	restart();
+}
+
+void AddWordView::setRecordingNames(QString name1, QString name2)
+{
+	this->recordingName1 = name1;
+	this->recordingName2 = name2;
 }
 
 /**

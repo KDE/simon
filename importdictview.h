@@ -43,6 +43,8 @@ public slots:
 	ImportBOMPPage* createImportBOMPPage();
 	ImportDictWiktionaryPage*
 		createImportWiktionaryPage();
+
+	QWizardPage* createImportLexiconPage();
 	ImportDictWorkingPage* createImportDictWorkingPage();
 	QWizardPage* createFinishedPage();
 
@@ -52,7 +54,10 @@ public:
 		IntroPage=0,
 		SelectTypePage=1,
 		BompPage=2,
-		WiktionaryPage=3
+		WiktionaryPage=3,
+		LexiconPage=4,
+		WorkingPage=5,
+		FinishedPage=6
 	};
     ImportDictView(QWidget *parent=0);
     ~ImportDictView();

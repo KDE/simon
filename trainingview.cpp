@@ -89,9 +89,6 @@ void TrainingView::deleteSelected()
 		return;
 	}
 	int currentIndex = ui.twTrainingWords->currentRow();
-	if (!(this->trainMgr->trainText(currentIndex))) return;
-	
-	
 	if (QMessageBox::question(this, tr("Wollen Sie den ausgewählten Text wirklich löschen?"), tr("Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
 		this->trainMgr->deleteText(currentIndex);
 	
@@ -115,6 +112,7 @@ void TrainingView::trainWords(WordList* words)
  * \brief Starts the training of the selected text
  * \author Peter Grasch
  */
+#include <QDebug>
 void TrainingView::trainSelected()
 {
     recordedPages = 0;
@@ -123,7 +121,7 @@ void TrainingView::trainSelected()
 		QMessageBox::information(this,tr("Nichts ausgewählt"),tr("Bitte selektieren Sie zuerst einen Text aus der Liste."));
 		return;
 	}
-    bool success = this-trainMgr->trainText(ui.twTrainingWords->currentRow());
+  	bool success = trainMgr->trainText(ui.twTrainingWords->currentRow());
 	if (!(success))
         return;
 
@@ -180,7 +178,7 @@ void TrainingView::finish()
 
 	//finishing up
 
-	trainMgr->setupTrainingSession();
+	trainMgr->finishTrainingSession();
     
 	//done
 	emit trainingCompleted();
@@ -199,7 +197,7 @@ void TrainingView::fetchPage(int page)
 {
 	ui.lbPage->setText( this->trainMgr->getPage(page) );
     
-    QString value = trainMgr->getSampleHash()->value(QString::number(page+1))+".wav";
+    QString value = Settings::getS("Model/PathToSamples")+"/"+trainMgr->getSampleHash()->value(QString::number(page+1))+".wav";
 	recorder = new RecWidget( tr("Seite: %1").arg(page+1),
 				  value, ui.wRecTexts);   //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
 
@@ -323,11 +321,10 @@ void TrainingView::exec()
  */
 void TrainingView::cancelTraining()
 {
-	this->trainMgr->pauseTraining();
 	if (QMessageBox::question(this, tr("Wollen Sie wirklich abbrechen?"), tr("Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhöhen.\n\nWollen Sie wirklich abbrechen?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
 	{
 		cleanUpTrainingSamples();
-	} else this->trainMgr->resumeTraining();
+	}
 }
 
 /**
@@ -337,7 +334,6 @@ void TrainingView::cancelTraining()
 */
 void TrainingView::cleanUpTrainingSamples()
 {
-    this->trainMgr->abortTraining();
     ui.swAction->setCurrentIndex(0);
     
     //cleaning up

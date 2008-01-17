@@ -65,6 +65,7 @@ private:
 	QWizardPage *createImportDictSelectTypePage();
 	QWizardPage *createImportDictBOMPPage();
 	QWizardPage *createImportDictWiktionaryPage();
+	QWizardPage *createImportDictLexiconPage();
 	QWizardPage *createImportDictWorkingPage();
 
 	QWizardPage *createGrammarDescriptionPage();
@@ -100,17 +101,18 @@ enum FirstRunWizardPages {
 	DictionarySelectTypePage = 8,
 	DictionaryBOMPPage = 9,
 	DictionaryWiktionaryPage = 10,
-	DictionaryWorkingPage = 11,
-	GrammarDescriptionPage = 12,
-	GrammarSelectFilesPage = 13,
-	GrammarWorkingPage = 14,
-	GrammarSettingsPage = 15,
-	SoundSettingsPage = 16,
-	PasswordDescriptionPage = 17,
-	PasswordSettingsPage = 18,
-	JuliusdDescriptionPage = 19,
-	JuliusdSettingsPage= 20,
-	FinishedPage = 21
+	DictionaryLexiconPage = 11,
+	DictionaryWorkingPage = 12,
+	GrammarDescriptionPage = 13,
+	GrammarSelectFilesPage = 14,
+	GrammarWorkingPage = 15,
+	GrammarSettingsPage = 16,
+	SoundSettingsPage = 17,
+	PasswordDescriptionPage = 18,
+	PasswordSettingsPage = 19,
+	JuliusdDescriptionPage = 20,
+	JuliusdSettingsPage= 21,
+	FinishedPage = 22
 };
 
     FirstRunWizard(AddWordView *addwordView, QWidget* parent);

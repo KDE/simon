@@ -238,8 +238,6 @@ void SimonView::setupSignalSlots()
 
 
 	connect ( ui.pbCompileModel, SIGNAL ( clicked() ), this->wordList, SLOT ( compileModel() ) );
-    
-    connect(ui.pbClose, SIGNAL(clicked()), trainDialog, SLOT(cancelTraining()));
 }
 
 void SimonView::setButtonNotChecked()
@@ -658,7 +656,6 @@ void SimonView::closeSimon()
 	if ( ( !Settings::get ( "AskBeforeExit" ).toBool() ) || ( QMessageBox::question ( this, tr ( "Wirklich beenden?" ), tr ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?" ),QMessageBox::Yes|QMessageBox::No,QMessageBox::No ) == QMessageBox::Yes ) )
 	{
 		close();
-		this->~ SimonView();
 	}
 }
 

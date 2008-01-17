@@ -33,13 +33,16 @@ ImportDictSelectSourcePage::ImportDictSelectSourcePage(QWidget* parent): QWizard
 	
 	QRadioButton *hadifixBOMP=new QRadioButton(tr("HADIFIX-BOMP"), this);
 	QRadioButton *wiktionary = new QRadioButton(tr("Wiktionary Wörterbuch"), this);
+	QRadioButton *lexicon = new QRadioButton(tr("simon kompatibles Lexicon"), this);
 	
 	registerField("hadifix", hadifixBOMP, "checked", SIGNAL(toggled(bool)));
 	registerField("wiktionary", wiktionary, "checked", SIGNAL(toggled(bool)));
+	registerField("lexicon", lexicon, "checked", SIGNAL(toggled(bool)));
 
 	lay->addWidget(desc);
 	lay->addWidget(hadifixBOMP);
 	lay->addWidget(wiktionary);
+	lay->addWidget(lexicon);
 	setLayout(lay);
 
 	hadifixBOMP->setChecked(true);
@@ -52,9 +55,15 @@ ImportDictSelectSourcePage::ImportDictSelectSourcePage(QWidget* parent): QWizard
 int ImportDictSelectSourcePage::nextId() const
 {
 	if (field("hadifix").toBool())
-	{
 		return ImportDictView::BompPage;
-	} else return ImportDictView::WiktionaryPage;
+
+	if (field("wiktionary").toBool())
+		return ImportDictView::WiktionaryPage;
+
+	if (field("lexicon").toBool())
+		return ImportDictView::LexiconPage;
+
+	return ImportDictView::FinishedPage;
 }
 
 /**

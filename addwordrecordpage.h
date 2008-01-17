@@ -31,6 +31,8 @@
 class AddWordRecordPage : public QWizardPage
 {
 Q_OBJECT
+signals:
+	void recordingNamesGenerated(QString,QString);
 private:
 	RecWidget *rec1, *rec2; ///<! The recwidgets
 public:

@@ -54,6 +54,7 @@ class AddWordView : public QWizard
 	private:
 		RecWidget *rec1;
 		RecWidget *rec2;
+		QString recordingName1, recordingName2;
 		TrainingManager *trainManager;
 		int prevId;
 		AddWordResolvePage *resolvePage;
@@ -66,6 +67,10 @@ class AddWordView : public QWizard
 		void addedWord();
 		void hidden();
 		
+	private slots:
+		void setRecordingNames(QString name1, QString name2);
+		
+
 	public slots:
 		
 		void finish(int done);

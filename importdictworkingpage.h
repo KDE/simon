@@ -45,6 +45,7 @@ public slots:
 	
 	void importHADIFIX(QString path);
 	void importWiktionary(QString url);
+	void importLexicon(QString path);
 
 	void unpackWikiIfNecessary(QString file);
 

@@ -13,6 +13,7 @@
 #define IMPORTDICTWIKTIONARYPAGE_H
 
 #include <QWizardPage>
+#include "importdictview.h"
 
 class SimonListWidget;
 class QLineEdit;
@@ -46,6 +47,7 @@ private slots:
 public:
     ImportDictWiktionaryPage(QWidget* parent);
 	bool isComplete() const;
+	virtual int nextId() const { return ImportDictView::WorkingPage; }
 
     ~ImportDictWiktionaryPage();
 

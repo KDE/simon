@@ -24,16 +24,17 @@
 #endif
 
 #include <iostream>
-#include <simonview.h>
+#include <QDebug>
+#include "simonview.h"
 
 
 int main(int argc, char *argv[])
 {
 	QApplication app(argc,argv);
-	QString locale = QLocale::system().name();
+	QString locale = QLocale::system().name().left(2);
 
 	QTranslator translator;
-	translator.load(QString("simon_") + locale);
+	translator.load(QString("simon_%1").arg(locale));
 	app.installTranslator(&translator);
 
 	SimonView *pv = new SimonView();

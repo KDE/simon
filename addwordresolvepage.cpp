@@ -79,7 +79,8 @@ void AddWordResolvePage::createExamples()
 	} else 
 	{
 		//error
-		QString error = tr("Konnte Worttyp nicht grammatikalisch auflösen.");
+// 		QString error = tr("Konnte Worttyp nicht grammatikalisch auflösen.");
+		QString error = ui.leWord->text();
 		ui.leExample1->setText(error);
 		ui.leExample2->setText(error);
 	}
