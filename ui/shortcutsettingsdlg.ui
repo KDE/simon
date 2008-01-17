@@ -13,13 +13,13 @@
    <string>Tastenkürzel</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../simon.qrc" >:/images/icons/configure-shortcuts.svg</iconset>
+   <iconset/>
   </property>
   <layout class="QVBoxLayout" >
    <item>
     <widget class="QLabel" name="lbShortCuts" >
      <property name="text" >
-      <string>Shortcuts:</string>
+      <string>Shortcuts</string>
      </property>
      <property name="buddy" >
       <cstring>twShortcuts</cstring>
@@ -79,7 +79,7 @@
         <string>Kürzel hinzufügen</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
+        <iconset/>
        </property>
       </widget>
      </item>
@@ -89,7 +89,7 @@
         <string>Kürzel löschen</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
+        <iconset/>
        </property>
       </widget>
      </item>

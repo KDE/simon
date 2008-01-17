@@ -17,7 +17,7 @@ SimonListWidget::SimonListWidget( QWidget * parent ) : QListWidget(parent)
 	this->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff);
 	this->redFlag = true;
 	connect(line,SIGNAL(textChanged(QString)),this,SLOT(filterEntries(QString)));
-	connect(line,SIGNAL(returnPressed () ),this,SLOT(selectItem()));
+	//connect(line,SIGNAL(returnPressed () ),this,SLOT(selectItem()));
 }
 
 SimonListWidget::~SimonListWidget()
@@ -31,9 +31,6 @@ void SimonListWidget::showLineEdit()
 	this->line->clear();
 	line->show();
 	line->setFocus () ;
-	/*QMessageBox::information(this,QString::number(line->width()),QString::number(line->height()));
-	QMessageBox::information(this,QString::number(this->width()),QString::number(this->height()));
-	QMessageBox::information(this,QString::number(this->width() - line->width()-10),QString::number(this->height() - line->height()-10));*/
 }
 
 void SimonListWidget::moveLineEdit()
@@ -61,6 +58,7 @@ void SimonListWidget::selectItem()
 		if (!this->item(i)->isHidden())
 		{	
 			this->setCurrentItem(this->item(i));
+			scrollToItem (this->item(i), QAbstractItemView::PositionAtCenter);
 			showAllEntries();
 			this->line->hide();
 			this->setFocus();
@@ -133,6 +131,13 @@ void SimonListWidget::showAllEntries()
 
 void SimonListWidget::keyPressEvent ( QKeyEvent * event )
 {
+	
+	if (event->key()==Qt::Key_Return && !this->line->isHidden())        //i have no notion, why i have to add 1 to the e->key(), that it gaves the same value as Qt::Key_Enter
+	{
+		this->selectItem();
+		return;
+	}
+	
 	//QString gugu = event->text();
 	//QMessageBox::information(this,"",event->text());
 	char c;
@@ -141,13 +146,11 @@ void SimonListWidget::keyPressEvent ( QKeyEvent * event )
 	//QMessageBox::information(this,"","GO GO GO");
 	if(!((c<=126) && (c>=33)))
 	{	
-		//QMessageBox::information(this,"","letter ignore");
 		return;
 	}	
 	// 65 122
 	if(c == '\n')
 	{
-		//QMessageBox::information(this,"","enter ignore");
 		return;
 	}
 	if(this->line->isHidden())

@@ -33,7 +33,7 @@
    <item>
     <widget class="QTabWidget" name="twNetwork" >
      <property name="currentIndex" >
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tbUser" >
       <attribute name="title" >
@@ -178,7 +178,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QTableWidget" name="twJuliusAddresses" >
+        <widget class="SimonTableWidget" name="twJuliusAddresses" >
          <property name="alternatingRowColors" >
           <bool>true</bool>
          </property>
@@ -211,7 +211,7 @@
             <string>...</string>
            </property>
            <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/go-up.svg</iconset>
+            <iconset/>
            </property>
           </widget>
          </item>
@@ -224,7 +224,7 @@
             <string>...</string>
            </property>
            <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/go-down.svg</iconset>
+            <iconset/>
            </property>
           </widget>
          </item>
@@ -250,7 +250,7 @@
             <string>Hinzufügen</string>
            </property>
            <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/edit-add.svg</iconset>
+            <iconset/>
            </property>
           </widget>
          </item>
@@ -263,7 +263,7 @@
             <string>Entfernen</string>
            </property>
            <property name="icon" >
-            <iconset resource="../simon.qrc" >:/images/icons/list-remove.svg</iconset>
+            <iconset/>
            </property>
           </widget>
          </item>
@@ -275,6 +275,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>simontablewidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../simon.qrc" />
  </resources>

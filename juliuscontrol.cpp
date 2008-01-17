@@ -113,7 +113,7 @@ void JuliusControl::messageReceived()
 	QByteArray msgByte = socket->readAll();
 	
 	QDataStream msg(&msgByte, QIODevice::ReadOnly);
-
+	
 	qint32 type;
 	msg >> type;
 	switch (type)

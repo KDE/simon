@@ -59,6 +59,7 @@ void GuiEvents::doAction(QString action, QObject * parentItem)
 	{
 		return;
 	}
+	//connects to the slot that is saved in the QHash with the given parameters
 	connect(this, SIGNAL(dummy(QString)), guiItems->value(key)->receiver, guiItems->value(key)->slot);
 	emit this->dummy(action);
 	disconnect(this, SIGNAL(dummy(QString)),0,0);

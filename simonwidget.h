@@ -26,7 +26,7 @@
 class SimonWidget{
 	
 private:
-	GuiEvents *guievents;
+	
 	QVector <QString> specialcharacter;
 	/*virtual const QObjectList & children () const
 	{
@@ -36,10 +36,11 @@ private:
 	}*/
 	virtual QObjectList getChildren(QObject *current)
 	{
-		QMessageBox::critical(NULL,"","schit");
 		QObjectList temp;
 		return temp;
 	}
+	protected: 
+	GuiEvents *guievents;
 
 public:
 	virtual void doAction(QString action) = 0;

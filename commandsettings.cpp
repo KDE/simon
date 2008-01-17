@@ -45,6 +45,7 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 
 	//iconButton = new IconButton();
 	commandEdited = false;
+
 	ui.twCommand->setColumnCount ( 5 );
 	QStringList headerLabels;
 	headerLabels.append ( tr ( "Icon" ) );

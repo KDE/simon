@@ -14,16 +14,13 @@
 #include "windowsevents.h"
 #include <QMessageBox>
 #include <ctype.h>
+#include <qDebug>
 
 
 /**
  * @brief Constructor
- * 
- * Opens the display (member)
- *
- * @param char* displayName
- * The name of the display to open
- * 
+ * saves the keys and the corresponding hex-values into a hash
+ * saves the special character and there parent keys into a hash
  * @author Phillip Goriup
  */
 WindowsEvents::WindowsEvents()
@@ -126,36 +123,177 @@ WindowsEvents::WindowsEvents()
 	altgrcodes->insert('~','+');
 	altgrcodes->insert('|','<');
 	altgrcodes->insert('µ','m');
+	
+	this->specialcodes = new QHash <int,char>();
+	specialcodes->insert(8364,'e');
+	
+	this->modloger = 0;
 }
 
-
+/**
+ * @brief press the key at the keyboard
+ *
+ * @param 
+ * int key: saves the int value of the requested key
+ * 
+ * @author Phillip Goriup
+ */
 void WindowsEvents::sendKey(int key)
-{
-	Sleep(100);
+{	
+	Sleep(50);
 	keybd_event(key,0,0,0);	
 }
 
-
-
+/**
+ * @brief simulates a mouseclick at the requested coordinates
+ *
+ * @param int x, int y
+ * int x,y: coordinates on the display, where the mouseclick should be simulated
+ * 
+ * 
+ * 
+ * @author Phillip Goriup
+ */
 void WindowsEvents::click(int x, int y)
-{
-	//TODO Implement me!
+{	
+	const long nScreenWidth = ::GetSystemMetrics(SM_CXSCREEN);
+	const long nScreenHeight = ::GetSystemMetrics(SM_CYSCREEN);
+	int xsolution = nScreenWidth;
+	int ysolution = nScreenHeight;
+	
+	//windows API devides the screen into 65535*65535
+	int clickx = x * 65535 / xsolution;
+	int clicky = y * 65535 / ysolution;
+	
+	qDebug() << "Auflösung"<< "X: " <<  nScreenWidth << "Y:" << nScreenHeight;
+	
+	mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE,clickx,clicky,0,0);
+
+	mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
+	mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
 }
 
+/**
+ * @brief if it is a special character from an german keyboard, the parent key will be safed, and the modifier will be pressed
+ *
+ * @param unsigned shord key
+ * unsigned shord key: the requested key as a unsigned short
+ * 
+ * @author Phillip Goriup
+ */
 void WindowsEvents::sendKey(unsigned short key /*unicode representation*/)
 {
-
-	//TODO Implement me!
+	int keyint = key;
+	qDebug() << "CHARTESTVALUE: " << key;
+	if (specialcodes->contains(keyint))
+	{
+		setModifierKey(VK_RMENU,false);
+		key = specialcodes->value(keyint);
+	}
+	sendChar(key);
 }
 
+//TODO
+/**
+ * @brief 
+ *
+ * @param Shortcut shortcut
+ * 
+ * 
+ * @author Phillip Goriup
+ */
 void WindowsEvents::sendShortcut(Shortcut shortcut)
 {
-	//TODO Implement me!
+	
+	//setModifierKey(shortcut.getModifiers(), true);
+	int modifier = shortcut.getModifiers();
+	if (modifier & KeyShift)
+	{	
+		setModifierKey(VK_SHIFT, true);
+		qDebug() << "SHIFT PRESSED";
+	}
+	if (modifier & KeyAlt)
+		setModifierKey(VK_MENU, true);
+	if (modifier & KeyStrg)
+	{
+		setModifierKey(VK_CONTROL, true);
+		qDebug() << "STRG PRESSED";
+	}
+	if (modifier & KeySuper)
+		setModifierKey(VK_LWIN, true);
+	if (modifier & KeyCapsLock)
+		setModifierKey(VK_CAPITAL, true);
+	if (modifier & KeyAltGr)
+		setModifierKey(VK_RMENU, true);
+
+	
+	int action = shortcut.getActionKeys();
+	if (action & KeyBackspace)
+		sendKey(VK_BACK);
+	if (action & KeyEscape)
+		sendKey(VK_ESCAPE);
+	if (action & KeyClear)
+		sendKey(VK_OEM_CLEAR);
+	if (action & KeyPrintScr)
+		sendKey(VK_PRINT);
+	if (action & KeyPause)
+		sendKey(VK_PAUSE);
+	/*if (action & KeyUndo)
+		sendKey("Undo");
+	if (action & KeyRedo)
+		sendKey("Redo");*/ //KEYS??
+	if (action & KeyEnter)
+		sendKey(VK_RETURN);
+
+	int movement = shortcut.getMovementKeys();
+	if (movement & KeyArrowLeft) 
+		sendKey(VK_LEFT);
+	if (movement & KeyArrowRight)
+		sendKey(VK_RIGHT);
+	if (movement & KeyArrowDown)
+		sendKey(VK_DOWN);
+	if (movement & KeyArrowUp)
+		sendKey(VK_UP);
+	if (movement & KeyPageUp)
+		sendKey(VK_PRIOR);
+	if (movement & KeyPageDown)
+		sendKey(VK_NEXT);
+	if (movement & KeyEnd)
+		sendKey(VK_END);
+	if (movement & KeyBegin)
+		sendKey(VK_HOME);
+	
+	int fkeys = shortcut.getFunctionKeys();
+	if (fkeys & KeyF1) sendKey(VK_F1);
+	if (fkeys & KeyF2) sendKey(VK_F2);
+	if (fkeys & KeyF3) sendKey(VK_F3);
+	if (fkeys & KeyF4) sendKey(VK_F4);
+	if (fkeys & KeyF5) sendKey(VK_F5);
+	if (fkeys & KeyF6) sendKey(VK_F6);
+	if (fkeys & KeyF7) sendKey(VK_F7);
+	if (fkeys & KeyF8) sendKey(VK_F8);
+	if (fkeys & KeyF9) sendKey(VK_F9);
+	if (fkeys & KeyF10) sendKey(VK_F10);
+	if (fkeys & KeyF11) sendKey(VK_F11);
+	if (fkeys & KeyF12) sendKey(VK_F12);
+	
+	char key = shortcut.getCharKey();
+	key = key + 32;
+	this->sendKey(this->keycodes->value(key));
+
+	unsetUnneededModifiers();
 }
 
+/**
+ * @brief 
+ *
+ * @param int virtualKey
+ * 
+ * 
+ * @author Phillip Goriup
+ */
 void WindowsEvents::sendChar(char key)
 {	
-	//QMessageBox::critical(NULL,"","");
 	if (shiftcodes->contains(key))
 	{ 	
 		key = shiftcodes->value(key);
@@ -171,7 +309,6 @@ void WindowsEvents::sendChar(char key)
 	unsetModifier(VK_RMENU);
 }
 
-
 /**
  * @brief
  *
@@ -181,7 +318,12 @@ void WindowsEvents::sendChar(char key)
  */
 void WindowsEvents::setModifierKey(int virtualKey, bool once)
 {
-	keybd_event(virtualKey,0,0,0);
+	if (once)
+	{
+		keybd_event(virtualKey,0,0,0);
+	}
+	else
+		keybd_event(virtualKey,0,0,0);
 }
 
 /**
@@ -198,6 +340,24 @@ void WindowsEvents::unsetModifier(int virtualKey)
 }
 
 /**
+ * @brief 
+ *
+ * @param int virtualKey
+ * 
+ * 
+ * @author Phillip Goriup
+ */
+void WindowsEvents::unsetUnneededModifiers()
+{
+		unsetModifier(VK_SHIFT);
+		unsetModifier(VK_MENU);
+		unsetModifier(VK_CONTROL);
+		unsetModifier(VK_LWIN);
+		unsetModifier(VK_CAPITAL);
+		unsetModifier(VK_RMENU);
+}
+
+/**
  * @brief Destructor
  *
  * 
@@ -207,5 +367,6 @@ void WindowsEvents::unsetModifier(int virtualKey)
 WindowsEvents::~WindowsEvents()
 {
 }
+
 
 

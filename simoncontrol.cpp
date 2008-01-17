@@ -149,10 +149,12 @@ void SimonControl::disconnectFromJulius()
 void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 {
 	QString keyword = Settings::get("Commands/Keyword").toString();
+	qDebug() << word;
+	qDebug() << Settings::get("Commands/Keyword").toString();
+	
 	if (word.startsWith(keyword))
 	{
 		word = word.replace(0, QString(keyword).length()+1,"");
-		SimonInfo::showMessage(word,2000);
 		
 		if (word.startsWith(Settings::get("Desktopgrid/Trigger").toString()))
 		{

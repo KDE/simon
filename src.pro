@@ -354,7 +354,8 @@ TEMPLATE = app
 
 CONFIG += qt \
 warn_on \
-thread
+thread \
+console
 
 RESOURCES += banners.qrc others.qrc action_icons.qrc application_icons.qrc category_icons.qrc other_icons.qrc
 TRANSLATIONS += simon_en.ts

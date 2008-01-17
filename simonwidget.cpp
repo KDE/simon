@@ -17,6 +17,7 @@
 #include "simoncalendarwidget.h"
 #include "simonslider.h"
 #include <QCoreApplication>
+#include <QDebug>
 
 
 void SimonWidget::guessChildTriggers(QObject *current) 
@@ -27,7 +28,7 @@ void SimonWidget::guessChildTriggers(QObject *current)
 	QObjectList childList = getChildren(current);
 	QString text = "";
 	int i = 0;
-	//QMessageBox::information(0, current->objectName(), QString("count is %1").arg(childList.count()));
+
 	while((i <childList.count()) && (childList.count() != 0))
 	{	
 		QObjectList temp = QObjectList();
@@ -41,7 +42,7 @@ void SimonWidget::guessChildTriggers(QObject *current)
 		{
 			text = dynamic_cast<QAbstractButton*>(childList.at(i))->text();
 			text = editChildKeys(text);
-			//QMessageBox::critical(NULL,"",text);
+			
 			registerControl(text, childList.at(i), SLOT(animateClick()));
 		}
 		//TODO
@@ -52,7 +53,7 @@ void SimonWidget::guessChildTriggers(QObject *current)
 			{
 				text = dynamic_cast<SimonTabWidget*>(childList.at(i))->tabText(j);
 				text = editChildKeys(text);
-				//QMessageBox::critical(NULL,text,"tabw");
+				
 				registerControl(text, childList.at(i), SLOT(setTab(QString)));
 				j++;
 			}
@@ -67,13 +68,13 @@ void SimonWidget::guessChildTriggers(QObject *current)
 		{
 			text = dynamic_cast<SimonGroupBox*>(childList.at(i))->title();
 			text = editChildKeys(text);
-			//QMessageBox::critical(NULL,text,"gb");
+			
 			registerControl(text, childList.at(i), SLOT(changeCheckState()));
 		}
 		
 		i++;
 		//if (text != "")
-		//QMessageBox::critical(NULL,text,text);
+		
 	}
 }
 
@@ -123,7 +124,9 @@ void SimonWidget::registerBuddy(QLabel* label)
 			QString str = temp->horizontalHeaderItem (i)->text();
 			str = text + " " + str;
 			registerControl(str,label->buddy(),SLOT(initLineEdit(QString)));
+			qDebug() << str << label->buddy()->objectName();
 		}
+		
 		
 		
 	}

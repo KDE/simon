@@ -17,7 +17,8 @@
 #include <QMessageBox>
 #include "xmlcommand.h"
 #include <QStringList>
-#include "simontablewidget.h"
+//#include "simontablewidget.h"
+#include <QTableWidget>
 #ifdef __WIN32
 #include "registrymanager.h"
 #endif
@@ -77,7 +78,7 @@ class CommandSettings : public SystemWidget
 
 	private:
 		Ui::CommandSettingsDlg ui;
-		SimonTableWidget *twCommand;
+		QTableWidget *twCommand;
 
 		ImportProgramWizard* importProgramWizard;
 		ImportPlaceWizard* importPlaceWizard;

@@ -12,6 +12,7 @@
 #include "eventhandler.h"
 #include "shortcutcontrol.h"
 #include <QMessageBox>
+#include <qDebug>
 
 /**
  * @brief Constructor
@@ -41,7 +42,7 @@ EventHandler::EventHandler()
 void EventHandler::click(int x, int y)
 {
 	if (!coreEvents) return;
-	//coreEvents->click(x,y);
+		coreEvents->click(x,y);
 }
 
 /**
@@ -64,7 +65,6 @@ void EventHandler::sendWord(QString word)
 	Sleep(1000);
 	#endif
 
-
 	for (int i=0; i < word.size();i++)
 	{
 		sendKey(word.at(i));
@@ -78,8 +78,8 @@ void EventHandler::sendWord(QString word)
  */
 void EventHandler::sendShortcut(Shortcut *shortcut)
 {
-	//if (shortcut)
-	//	coreEvents->sendShortcut(*shortcut);
+	if (shortcut)
+		coreEvents->sendShortcut(*shortcut);
 }
 
 /**
@@ -106,6 +106,7 @@ void EventHandler::sendKey(QChar key)
 	if (((c >= 'A') && (c <= 'Z')))
 	{
 		c+=32;
+		coreEvents->setModifierKey(VK_LSHIFT,false);
 	}
 #endif
 	coreEvents->sendKey(c);

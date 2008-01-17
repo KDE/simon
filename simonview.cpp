@@ -40,6 +40,7 @@
 #include "grammarmanager.h"
 #include "screengrid.h"
 #include "firstrunwizard.h"
+#include <QDebug>
 
 
 /**
@@ -64,10 +65,10 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 		QMessageBox::critical ( this, tr ( "Fehler" ), tr ( "Konnte die Log-Datei nicht öffnen. Bitte überprüfen Sie die Berechtigungen.." ) );
 		exit ( 1 );
 	}
-
+	
 	Logger::log ( tr ( "[INF] Starte simon..." ) );
 
-
+	
 	this->info = new SimonInfo();
 
 	//showing splash
@@ -77,7 +78,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	Logger::log ( tr ( "[INF] Lade Einstellungen..." ) );
 	Settings::initSettings();
 
-	Settings::set("ConfigDone", false);
+	//Settings::set("ConfigDone", false);
 	if (!Settings::get("ConfigDone").toBool())
 	{
 		FirstRunWizard *firstRunWizard = new FirstRunWizard(addWordView, this);
@@ -90,14 +91,13 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	this->info->writeToSplash ( tr ( "Lade Programmlogik..." ) );
 
 	ShortcutControl *shortcutControl = new ShortcutControl();
-
 	this->control = new SimonControl ( shortcutControl );
 	this->trayManager = new TrayIconManager();
 
 	this->trayManager->createIcon ( QIcon ( ":/images/tray.png" ), "Simon" );
 
-	shownDialogs = 0;
 
+	shownDialogs = 0;
 	QMainWindow ( parent,flags );
 
 	ui.setupUi ( this );
@@ -120,7 +120,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	this->info->writeToSplash ( tr ( "Lade \"Wort hinzufügen\"..." ) );
 	GrammarManager *grammarManager = new GrammarManager(wordList->getManager());
-
+	
 	this->addWordView = new AddWordView ( this, wordList->getManager(), trainDialog->getManager(), grammarManager );
 	this->info->writeToSplash ( tr ( "Lade \"Ausführen\"..." ) );
 	this->runDialog = new RunApplicationView ( control->getRunManager(), this );

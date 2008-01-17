@@ -26,12 +26,12 @@
  * \version 
  * \date 
 */
-class SimonMainWindow : public QMainWindow,  public virtual SimonWidget
+class SimonMainWindow : public QMainWindow,  public  SimonWidget
 {
 Q_OBJECT
 
 private:
-	GuiEvents *guievents;
+	//GuiEvents *guievents;
 
 signals:
 
