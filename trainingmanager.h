@@ -39,7 +39,7 @@ private:
 	TrainingText *currentText;
     WordListManager *wlistmgr;
 	QString filename;
-    QHash<QString, QString> *sampleHash;
+    QHash<QString, QString> *sampleHash;    //<! sampleHash("SampleName","Text");
 	QMutex promptsLock;
     AddWordView *addWordView;
 public:
@@ -97,6 +97,8 @@ public:
     void setWordListManager(WordListManager *wlistmgr);
     void addSamples(QHash<QString, QString> *hash);
     void setAddWordView(AddWordView *addWordView);
+    
+    void writePrompts(QString text);
 
 	~TrainingManager();
 

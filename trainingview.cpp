@@ -123,9 +123,10 @@ void TrainingView::trainSelected()
 		QMessageBox::information(this,tr("Nichts ausgewählt"),tr("Bitte selektieren Sie zuerst einen Text aus der Liste."));
 		return;
 	}
-	
-	if (!(this-trainMgr->trainText(ui.twTrainingWords->currentRow()))) return;
-	
+    bool success = this-trainMgr->trainText(ui.twTrainingWords->currentRow());
+	if (!(success))
+        return;
+
 	startTraining();
 }
 

@@ -42,10 +42,10 @@ IconDialog::IconDialog ( QWidget *parent ) : QDialog ( parent )
 	vbLayout->addWidget ( new QLabel ( tr ( "Wählen Sie ein beliebiges Icon und bestätigen Sie mit ok.\n" ) ) );
 
 #ifdef __WIN32
-	rbIconFromFile = new QRadioButton ( "Icon from file", this );
+	rbIconFromFile = new QRadioButton ( "Icon from file");
     rbIconFromFile->setChecked(true);
 	QHBoxLayout *hbRbLayout = new QHBoxLayout();
-	rbIconView = new QRadioButton ( "Systemicons", this );
+	rbIconView = new QRadioButton ( "Systemicons");
 	hbRbLayout->addWidget ( rbIconView );
 
 	hbRbLayout->addWidget ( rbIconFromFile );
@@ -90,13 +90,13 @@ IconDialog::IconDialog ( QWidget *parent ) : QDialog ( parent )
 
 	setLayout ( vbLayout );
 
-	connect ( pbOk, SIGNAL ( clicked() ), this, SLOT ( safeIconInformation() ) );
-	connect ( pbCancel, SIGNAL ( clicked() ), this, SLOT ( reject() ) );
-
 #ifdef __WIN32
 	connect ( rbIconView, SIGNAL ( toggled(bool) ), this, SLOT ( enableSystemIcons() ) );
 	connect ( rbIconFromFile, SIGNAL ( toggled(bool) ), this, SLOT ( enableLineEdit() ) );
 #endif
+
+	connect ( pbOk, SIGNAL ( clicked() ), this, SLOT ( safeIconInformation() ) );
+	connect ( pbCancel, SIGNAL ( clicked() ), this, SLOT ( reject() ) );
 
 	connect ( pbFromFile, SIGNAL ( clicked() ), this, SLOT ( openFileDialog() ) );
 }

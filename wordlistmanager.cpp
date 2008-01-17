@@ -786,22 +786,6 @@ WordList* WordListManager::readVocab(QString vocabpath)
 }
 
 /**
- * \brief adds the new samples to the prompts
- * \author Susanne Tschernegg
- */
- void WordListManager::writePrompts(QString line, QString promptspath)
-{
-    QFile *prompts = new QFile ( promptspath );
-	prompts->open ( QIODevice::Append );
-	//if ( !prompts->isWritable() ) return;
-	
-    QTextStream out(prompts);
-    out << line << "\n";
-    prompts->close();
-    readPrompts();
-}
-
-/**
  * \brief Builds and returns the promptstable by parsing the file at the given path
  * \author Peter Grasch
  * \param QString promptspath

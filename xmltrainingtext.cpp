@@ -74,6 +74,7 @@ void XMLTrainingText::load(QString path)
 		QDomElement text = page.firstChildElement();
 		
 		QString textcontent = text.text();
+        QMessageBox::information(0,"TrainingManager::readTrainingTexts(QString pathToTexts)",QString(textcontent.toUtf8()));
 		pages.append(textcontent.trimmed());
 		page = page.nextSiblingElement();
 	}

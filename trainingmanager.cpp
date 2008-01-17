@@ -19,6 +19,7 @@
 #include "addwordview.h"
 #include <QStringList>
 #include <QString>
+#include <QMessageBox>
 
 /**
  * @brief Constructor
@@ -33,7 +34,6 @@ TrainingManager::TrainingManager()
 	promptsLock.unlock();
     sampleHash = new QHash<QString, QString>();
     //this->addWordView = addWordView;
-  
 }
 
 void TrainingManager::setAddWordView(AddWordView *addWordView)
@@ -327,8 +327,7 @@ bool TrainingManager::trainText(int i)
     
     for(int i=0; i<getPageCount(); i++)
     {
-        QString hashKey = QString::number(i+1);
-        sampleHash->insert(hashKey, (textName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time));
+        sampleHash->insert((textName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), getPage(i+1));
     }
 	return (currentText != NULL);
 }
@@ -368,27 +367,27 @@ bool TrainingManager::allWordsExisting()
                     if(strListAllWords.at(z)==word)
                     {
                         wordExistingInList = true;
-                        break;
                     }
                 if(!wordExistingInList)
                     strListAllWords.append(word);
             }
         }
     }
-    
+    if(strListAllWords.count()==0)
+        return true;
     //tells the user, which words aren't in the dict
     QString allWords;
     for(int i=0; i<strListAllWords.count(); i++)
     {
         if(allWords.isEmpty())
             allWords = strListAllWords.at(i);
-        allWords += ", " + strListAllWords.at(i);
+        allWords += "\n\t" + strListAllWords.at(i);
         //addWordView->show();
         //addWordView->createWord(strList.at(i));    
     }
     //QMessageBox::critical(0, tr("Trainingstext"), tr("Der zu trainierende Text enthält unbekannte Wörter. Diese sind: %1").arg(allWords));
     QMessageBox::critical(0, "Trainingstext", QString("Der zu trainierende Text enthält unbekannte Wörter. Diese sind: %1").arg(allWords));
-    return true;
+    return false;
 }
 
 /**
@@ -559,9 +558,26 @@ void TrainingManager::addSamples(QHash<QString, QString> *hash)
     while (hIterator.hasNext())
     {
         hIterator.next();
-        wlistmgr->writePrompts(hIterator.value() + " " + getPage(hIterator.key().toInt()-1));
+        writePrompts(hIterator.key() + " " + hIterator.value());
     }
     hash->clear();
+}
+
+/**
+ * \brief adds the new samples to the prompts
+ * \author Susanne Tschernegg
+ */
+ void TrainingManager::writePrompts(QString text)
+{
+    
+    QFile *prompts = new QFile ( Settings::getS("Model/PathToPrompts") );
+	prompts->open ( QIODevice::Append );
+	//if ( !prompts->isWritable() ) return;
+	
+    QTextStream out(prompts);
+    out << text << "\n";
+    prompts->close();
+    promptsTable = readPrompts(Settings::getS("Model/PathToPrompts"));
 }
 
 /**

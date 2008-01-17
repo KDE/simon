@@ -80,8 +80,10 @@ public:
 			 QString shadowVocabFilename="" );
 	bool moveToShadow(Word *w);
 	bool deleteCompletely(Word *w, bool shadowed);
+
 	WordList* sortList(WordList* list);
     void writePrompts(QString line, QString promptspath="model/prompts");
+
     PromptsTable* readPrompts(QString promptspath="model/prompts");
 
 	void renameTerminal(QString from, QString to, bool includeShadow);
