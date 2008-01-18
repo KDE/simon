@@ -47,7 +47,7 @@ class TrainingManager
 		PromptsTable *promptsTable;
 		TrainingManager();
 
-		QHash<QString, QString>* getSampleHash() {return sampleHash;}
+		QHash<QString, QString> *getSampleHash() {return sampleHash;}
 		int getProbability ( QString name, PromptsTable *promptsTable );
 		TrainingList* readTrainingTexts ( QString pathToTexts="texts" );
 

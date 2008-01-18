@@ -283,23 +283,21 @@ TrainingList* TrainingManager::readTrainingTexts ( QString pathToTexts )
 #include <QDebug>
 bool TrainingManager::trainText ( int i )
 {
-	Logger::log ( QObject::tr ( "[INF] Training Text: \"" ) +getText ( i )->getName() +"\"" );
-	this->currentText = getText ( i );
-	bool allWordsInDict = allWordsExisting();
-	if ( !allWordsInDict )
-	{
-		return false;
-	}
-
-	QString textName = getTextName();
-	textName.replace ( QString ( " " ), QString ( "_" ) );
-	QString time = qvariant_cast<QString> ( QTime::currentTime() );
-	time.replace ( QString ( ":" ), QString ( "-" ) );
-	for ( int i=0; i<getPageCount(); i++ )
-	{
-		sampleHash->insert ( ( textName+"_S"+QString::number ( i+1 ) +"_"+QDate::currentDate().toString ( "yyyy-MM-dd" ) +"_"+time ), getPage ( i ) );
-	}
-	return ( currentText != NULL );
+	Logger::log(QObject::tr("[INF] Training Text: \"")+getText(i)->getName()+"\"");
+	this->currentText = getText(i);
+    bool allWordsInDict = allWordsExisting();
+    if(!allWordsInDict)
+        return false;
+    QString textName = getTextName();
+    textName.replace(QString(" "), QString("_"));
+    QString time = qvariant_cast<QString>(QTime::currentTime());
+    time.replace(QString(":"), QString("-"));
+    
+    for(int i=0; i<getPageCount(); i++)
+    {
+        sampleHash->insert((textName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), getPage(i));
+    }
+	return (currentText != NULL);
 }
 
 /**
@@ -504,8 +502,8 @@ void TrainingManager::addSamples ( QHash<QString, QString> *hash )
 	hIterator.toFront();
 	while ( hIterator.hasNext() )
 	{
-		hIterator.next();
 		writePrompts ( hIterator.key() + " " + hIterator.value() );
+        hIterator.next();
 	}
 	hash->clear();
 }

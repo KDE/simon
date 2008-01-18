@@ -15,6 +15,7 @@
 #include "settings.h"
 #include <QHash>
 #include "settings.h"
+#include <QHashIterator>
 
 
 /**
@@ -89,6 +90,7 @@ void TrainingView::deleteSelected()
 		return;
 	}
 	int currentIndex = ui.twTrainingWords->currentRow();
+
 	if (QMessageBox::question(this, tr("Wollen Sie den ausgewählten Text wirklich löschen?"), tr("Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
 		this->trainMgr->deleteText(currentIndex);
 	
@@ -197,10 +199,24 @@ void TrainingView::fetchPage(int page)
 {
 	ui.lbPage->setText( this->trainMgr->getPage(page) );
     
-    QString value = Settings::getS("Model/PathToSamples")+"/"+trainMgr->getSampleHash()->value(QString::number(page+1))+".wav";
+    QHashIterator<QString, QString> hIterator ( *trainMgr->getSampleHash() );
+	hIterator.toFront();
+    QString keyStr;
+    int i = 0;
+	while ( hIterator.hasNext() )
+	{
+        if(i==page)
+        {
+            keyStr = hIterator.value();
+            break;
+        }
+	    i++;
+        hIterator.next();
+	}
+    
+    QString value = Settings::getS("Model/PathToSamples")+"/"+keyStr;
 	recorder = new RecWidget( tr("Seite: %1").arg(page+1),
 				  value, ui.wRecTexts);   //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
-
 
     connect(recorder, SIGNAL(recordingFinished()), this, SLOT(increaseRecordedPages()));
     connect(recorder, SIGNAL(sampleDeleted()), this, SLOT(decreaseRecordedPages()));
