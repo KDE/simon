@@ -1,7 +1,7 @@
 //
 // C++ Implementation: trainingview
 //
-// Description: 
+// Description:
 //
 //
 // Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
@@ -23,30 +23,30 @@
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-TrainingView::TrainingView(QWidget *parent) 
-     : InlineWidget(tr("Training"), QIcon(":/images/icons/document-properties.svg"), 
-	   tr("Trainieren des Sprachmodells"), parent)
+TrainingView::TrainingView ( QWidget *parent )
+		: InlineWidget ( tr ( "Training" ), QIcon ( ":/images/icons/document-properties.svg" ),
+		                 tr ( "Trainieren des Sprachmodells" ), parent )
 {
-	ui.setupUi(this);
-    guessChildTriggers((QObject*)this);
+	ui.setupUi ( this );
+	guessChildTriggers ( ( QObject* ) this );
 	this->hide();
-    
-	connect(ui.pbTrainText, SIGNAL(clicked()), this, SLOT(trainSelected()));
-	connect(ui.twTrainingWords, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(trainSelected()));
-	
-	ui.pbPrevPage->setEnabled(false);
-	connect (ui.pbNextPage, SIGNAL(clicked()), this, SLOT(nextPage()));
-	connect (ui.pbPrevPage, SIGNAL(clicked()), this, SLOT(prevPage()));
-	
-	connect(ui.pbFinish, SIGNAL(clicked()), this, SLOT(finish()));
-	connect(ui.pbImportText, SIGNAL(clicked()), this, SLOT(importTexts()));
-	connect (ui.pbBackToMain, SIGNAL(clicked()), this, SLOT(cancelReading()));
-	connect (ui.pbDelText, SIGNAL(clicked()), this, SLOT(deleteSelected()));
-	connect(ui.pbImportDir, SIGNAL(clicked()), this, SLOT(importDirectory()));	
 
-	currentPage=0;   
+	connect ( ui.pbTrainText, SIGNAL ( clicked() ), this, SLOT ( trainSelected() ) );
+	connect ( ui.twTrainingWords, SIGNAL ( cellDoubleClicked ( int,int ) ), this, SLOT ( trainSelected() ) );
 
-    trainMgr = new TrainingManager();
+	ui.pbPrevPage->setEnabled ( false );
+	connect ( ui.pbNextPage, SIGNAL ( clicked() ), this, SLOT ( nextPage() ) );
+	connect ( ui.pbPrevPage, SIGNAL ( clicked() ), this, SLOT ( prevPage() ) );
+
+	connect ( ui.pbFinish, SIGNAL ( clicked() ), this, SLOT ( finish() ) );
+	connect ( ui.pbImportText, SIGNAL ( clicked() ), this, SLOT ( importTexts() ) );
+	connect ( ui.pbBackToMain, SIGNAL ( clicked() ), this, SLOT ( cancelReading() ) );
+	connect ( ui.pbDelText, SIGNAL ( clicked() ), this, SLOT ( deleteSelected() ) );
+	connect ( ui.pbImportDir, SIGNAL ( clicked() ), this, SLOT ( importDirectory() ) );
+
+	currentPage=0;
+
+	trainMgr = new TrainingManager();
 
 }
 
@@ -56,10 +56,10 @@ TrainingView::TrainingView(QWidget *parent)
  * @param AddWordView* addWordView
  *      holds an object of the addwordview
  */
-void TrainingView::setAddWordView(AddWordView* addWordView)
+void TrainingView::setAddWordView ( AddWordView* addWordView )
 {
-    this->addWordView = addWordView;
-    trainMgr->setAddWordView(addWordView);
+	this->addWordView = addWordView;
+	trainMgr->setAddWordView ( addWordView );
 }
 
 /**
@@ -68,9 +68,9 @@ void TrainingView::setAddWordView(AddWordView* addWordView)
  * @param WordListManager *wlistmgr
  *      holds an object of the wordlistmanager
  */
-void TrainingView::setWordListManager(WordListManager *wlistmgr)
+void TrainingView::setWordListManager ( WordListManager *wlistmgr )
 {
-    trainMgr->setWordListManager(wlistmgr);
+	trainMgr->setWordListManager ( wlistmgr );
 	loadList(); // we load the list of avalible trainingtexts despite we probably won't
 	// use it when given a special training program
 }
@@ -78,22 +78,22 @@ void TrainingView::setWordListManager(WordListManager *wlistmgr)
 
 /**
  * \brief Deletes the selected text from the harddisc
- * 
+ *
  * Asks the user for confirmation befor the irreversible deletion
  * \author Peter Grasch
  */
 void TrainingView::deleteSelected()
 {
-	if (ui.twTrainingWords->selectedItems().isEmpty())
+	if ( ui.twTrainingWords->selectedItems().isEmpty() )
 	{
-		QMessageBox::information(this,tr("Nichts ausgewählt"),tr("Bitte selektieren Sie zuerst einen Text aus der Liste."));
+		QMessageBox::information ( this,tr ( "Nichts ausgewählt" ),tr ( "Bitte selektieren Sie zuerst einen Text aus der Liste." ) );
 		return;
 	}
 	int currentIndex = ui.twTrainingWords->currentRow();
 
-	if (QMessageBox::question(this, tr("Wollen Sie den ausgewählten Text wirklich löschen?"), tr("Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
-		this->trainMgr->deleteText(currentIndex);
-	
+	if ( QMessageBox::question ( this, tr ( "Wollen Sie den ausgewählten Text wirklich löschen?" ), tr ( "Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?" ), QMessageBox::Yes|QMessageBox::No ) ==QMessageBox::Yes )
+		this->trainMgr->deleteText ( currentIndex );
+
 	loadList();
 }
 
@@ -101,12 +101,12 @@ void TrainingView::deleteSelected()
  * \brief Starts a special training with the given words
  * \author Peter Grasch
  */
-void TrainingView::trainWords(WordList* words)
+void TrainingView::trainWords ( WordList* words )
 {
-	if (!words) return;
-	
-	this->trainMgr->trainWords(words);
-	
+	if ( !words ) return;
+
+	this->trainMgr->trainWords ( words );
+
 	startTraining();
 }
 
@@ -117,22 +117,22 @@ void TrainingView::trainWords(WordList* words)
 #include <QDebug>
 void TrainingView::trainSelected()
 {
-    recordedPages = 0;
-	if (ui.twTrainingWords->selectedItems().isEmpty())
+	recordedPages = 0;
+	if ( ui.twTrainingWords->selectedItems().isEmpty() )
 	{
-		QMessageBox::information(this,tr("Nichts ausgewählt"),tr("Bitte selektieren Sie zuerst einen Text aus der Liste."));
+		QMessageBox::information ( this,tr ( "Nichts ausgewählt" ),tr ( "Bitte selektieren Sie zuerst einen Text aus der Liste." ) );
 		return;
 	}
-  	bool success = trainMgr->trainText(ui.twTrainingWords->currentRow());
-	if (!(success))
-        return;
+	bool success = trainMgr->trainText ( ui.twTrainingWords->currentRow() );
+	if ( ! ( success ) )
+		return;
 
 	startTraining();
 }
 
 /**
  * \brief Starts the training of the currently used text in the TrainingManager
- * 
+ *
  * Trains a text or a special Training Programm;
  * All the needed data is fetched from the concept class;
  * This ensures that the behaviour from the specialized training is not different from
@@ -141,16 +141,16 @@ void TrainingView::trainSelected()
  */
 void TrainingView::startTraining()
 {
-	ui.swAction->setCurrentIndex(1);
-	setWindowTitle(tr("Training - ")+trainMgr->getTextName());
-	
+	ui.swAction->setCurrentIndex ( 1 );
+	setWindowTitle ( tr ( "Training - " ) +trainMgr->getTextName() );
+
 	int count = trainMgr->getPageCount();
-	ui.pbPages->setMaximum(count-1);
-	
-	ui.pbFinish->setEnabled(false);
+	ui.pbPages->setMaximum ( count-1 );
+
+	ui.pbFinish->setEnabled ( false );
 	this->currentPage=0;
-	
-	fetchPage(currentPage);
+
+	fetchPage ( currentPage );
 }
 
 /**
@@ -159,20 +159,20 @@ void TrainingView::startTraining()
  */
 void TrainingView::importDirectory()
 {
-	ImportTrainingDirectory *importDir = new 
-		ImportTrainingDirectory(this);
+	ImportTrainingDirectory *importDir = new
+	ImportTrainingDirectory ( this );
 	importDir->show();
-	
+
 }
 
 /**
  * \brief Trains the model with the gathered data
- * 
+ *
  * \author Peter Grasch
  */
 void TrainingView::finish()
 {
-	ui.swAction->setCurrentIndex(2);
+	ui.swAction->setCurrentIndex ( 2 );
 // 	ui.pbCompileModel->setValue(0);
 
 	//training...
@@ -181,7 +181,7 @@ void TrainingView::finish()
 	//finishing up
 
 	trainMgr->finishTrainingSession();
-    
+
 	//done
 	emit trainingCompleted();
 }
@@ -195,36 +195,35 @@ void TrainingView::finish()
  * The page to use
  * \note all information is retrieved from this->trainMgr
  */
-void TrainingView::fetchPage(int page)
+void TrainingView::fetchPage ( int page )
 {
-	ui.lbPage->setText( this->trainMgr->getPage(page) );
-    
-    QHashIterator<QString, QString> hIterator ( *trainMgr->getSampleHash() );
+	ui.lbPage->setText ( this->trainMgr->getPage ( page ) );
+	QHashIterator<QString, QString> hIterator ( *trainMgr->getSampleHash() );
 	hIterator.toFront();
-    QString keyStr;
-    int i = 0;
+	QString keyStr;
+	int i = 0;
 	while ( hIterator.hasNext() )
 	{
-        if(i==page)
-        {
-            keyStr = hIterator.value();
-            break;
-        }
-	    i++;
-        hIterator.next();
+		hIterator.next();
+		if ( i==page )
+		{
+			keyStr = hIterator.value();
+			break;
+		}
+		i++;
 	}
-    
-    QString value = Settings::getS("Model/PathToSamples")+"/"+keyStr;
-	recorder = new RecWidget( tr("Seite: %1").arg(page+1),
-				  value, ui.wRecTexts);   //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
 
-    connect(recorder, SIGNAL(recordingFinished()), this, SLOT(increaseRecordedPages()));
-    connect(recorder, SIGNAL(sampleDeleted()), this, SLOT(decreaseRecordedPages()));
-    
-	ui.wRecTexts->layout()->addWidget(recorder);
-	
-	ui.gbPage->setTitle(tr("Seite: %1/%2").arg(page+1).arg(trainMgr->getPageCount()));
-	ui.pbPages->setValue(page);
+	QString value = Settings::getS ( "Model/PathToSamples" ) +"/"+keyStr;
+	recorder = new RecWidget ( tr ( "Seite: %1" ).arg ( page+1 ),
+	                           value, ui.wRecTexts );  //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
+
+	connect ( recorder, SIGNAL ( recordingFinished() ), this, SLOT ( increaseRecordedPages() ) );
+	connect ( recorder, SIGNAL ( sampleDeleted() ), this, SLOT ( decreaseRecordedPages() ) );
+
+	ui.wRecTexts->layout()->addWidget ( recorder );
+
+	ui.gbPage->setTitle ( tr ( "Seite: %1/%2" ).arg ( page+1 ).arg ( trainMgr->getPageCount() ) );
+	ui.pbPages->setValue ( page );
 }
 
 /**
@@ -233,29 +232,29 @@ void TrainingView::fetchPage(int page)
  */
 void TrainingView::prevPage()
 {
-	if (currentPage>0)
-    {
-        if(currentPage==1)
-            ui.pbPrevPage->setEnabled(false);
-        else if(ui.pbPrevPage->isEnabled()==false)
-            ui.pbPrevPage->setEnabled(true);
+	if ( currentPage>0 )
+	{
+		if ( currentPage==1 )
+			ui.pbPrevPage->setEnabled ( false );
+		else if ( ui.pbPrevPage->isEnabled() ==false )
+			ui.pbPrevPage->setEnabled ( true );
 		currentPage--;
-    }
+	}
 	else
-    {   
-        ui.pbPrevPage->setEnabled(false);
-    }
-    int max = trainMgr->getPageCount()-1;
-    if(currentPage < max)
-    {
-        ui.pbNextPage->setEnabled(true);
-    }
-    else
-    {
-        ui.pbNextPage->setEnabled(false);
-    }
+	{
+		ui.pbPrevPage->setEnabled ( false );
+	}
+	int max = trainMgr->getPageCount()-1;
+	if ( currentPage < max )
+	{
+		ui.pbNextPage->setEnabled ( true );
+	}
+	else
+	{
+		ui.pbNextPage->setEnabled ( false );
+	}
 	resetRecorder();
-	fetchPage(currentPage);
+	fetchPage ( currentPage );
 }
 
 /**
@@ -266,7 +265,7 @@ void TrainingView::importTexts()
 {
 	ImportTrainingTexts *import = new ImportTrainingTexts();
 	import->start();
-	connect(import, SIGNAL(finished(int)), this, SLOT(loadList()));
+	connect ( import, SIGNAL ( finished ( int ) ), this, SLOT ( loadList() ) );
 }
 
 /**
@@ -275,7 +274,7 @@ void TrainingView::importTexts()
  */
 void TrainingView::resetRecorder()
 {
-	ui.wRecTexts->layout()->removeWidget(recorder);
+	ui.wRecTexts->layout()->removeWidget ( recorder );
 	delete recorder;
 }
 
@@ -286,24 +285,24 @@ void TrainingView::resetRecorder()
 void TrainingView::nextPage()
 {
 	int max = trainMgr->getPageCount()-1;
-	if (currentPage < max)
-    {
-        if(currentPage==max-1)
-            ui.pbNextPage->setEnabled(false);
-        else if(ui.pbNextPage->isEnabled()==false)
-            ui.pbNextPage->setEnabled(true);
+	if ( currentPage < max )
+	{
+		if ( currentPage==max-1 )
+			ui.pbNextPage->setEnabled ( false );
+		else if ( ui.pbNextPage->isEnabled() ==false )
+			ui.pbNextPage->setEnabled ( true );
 		currentPage++;
-    }
+	}
 	else
-    {
-        ui.pbNextPage->setEnabled(false);
-    }
-    if(currentPage > 0)
-    {
-        ui.pbPrevPage->setEnabled(true);
-    }
+	{
+		ui.pbNextPage->setEnabled ( false );
+	}
+	if ( currentPage > 0 )
+	{
+		ui.pbPrevPage->setEnabled ( true );
+	}
 	resetRecorder();
-	fetchPage(currentPage);
+	fetchPage ( currentPage );
 }
 
 
@@ -314,10 +313,10 @@ void TrainingView::nextPage()
  */
 void TrainingView::cancelReading()
 {
-    cleanUpTrainingSamples();
-	ui.swAction->setCurrentIndex(0);
+	cleanUpTrainingSamples();
+	ui.swAction->setCurrentIndex ( 0 );
 	delete recorder;
-	setWindowTitle(tr("Training"));
+	setWindowTitle ( tr ( "Training" ) );
 }
 
 /**
@@ -337,7 +336,7 @@ void TrainingView::exec()
  */
 void TrainingView::cancelTraining()
 {
-	if (QMessageBox::question(this, tr("Wollen Sie wirklich abbrechen?"), tr("Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhöhen.\n\nWollen Sie wirklich abbrechen?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+	if ( QMessageBox::question ( this, tr ( "Wollen Sie wirklich abbrechen?" ), tr ( "Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhöhen.\n\nWollen Sie wirklich abbrechen?" ), QMessageBox::Yes|QMessageBox::No ) ==QMessageBox::Yes )
 	{
 		cleanUpTrainingSamples();
 	}
@@ -350,31 +349,31 @@ void TrainingView::cancelTraining()
 */
 void TrainingView::cleanUpTrainingSamples()
 {
-    ui.swAction->setCurrentIndex(0);
-    
-    //cleaning up
-    for (int i=1; i < trainMgr->getPageCount()+1; i++)
-    {
-        QDir dir(Settings::getS("Model/PathToSamples"));
-        //QStringList list = dir.entryList(QDir::Files);
-        /*QString textName = trainMgr->getTextName();
-        textName.replace(QString(" "), QString("_"));
-        QStringList filteredList = list.filter(QRegExp(QString(textName+"_S"+QString::number(i)+"_"+QString(qvariant_cast<QString>(QDate::currentDate()))+"_*.wav")));*/
-        QHashIterator<QString, QString> hIterator(*trainMgr->getSampleHash());
-        while (hIterator.hasNext())
-        {
-            hIterator.next();
-            QFile f(hIterator.value());
-            if(f.exists())
-                f.remove();
-        }
-        trainMgr->getSampleHash()->clear();
-    }
+	ui.swAction->setCurrentIndex ( 0 );
+
+	//cleaning up
+	for ( int i=1; i < trainMgr->getPageCount() +1; i++ )
+	{
+		QDir dir ( Settings::getS ( "Model/PathToSamples" ) );
+		//QStringList list = dir.entryList(QDir::Files);
+		/*QString textName = trainMgr->getTextName();
+		textName.replace(QString(" "), QString("_"));
+		QStringList filteredList = list.filter(QRegExp(QString(textName+"_S"+QString::number(i)+"_"+QString(qvariant_cast<QString>(QDate::currentDate()))+"_*.wav")));*/
+		QHashIterator<QString, QString> hIterator ( *trainMgr->getSampleHash() );
+		while ( hIterator.hasNext() )
+		{
+			hIterator.next();
+			QFile f ( hIterator.value() );
+			if ( f.exists() )
+				f.remove();
+		}
+		trainMgr->getSampleHash()->clear();
+	}
 }
 
 /**
  * @brief Loads the List of known Trainingtexts
- * 
+ *
  * Asks the TrainingManager for the list and inserts it into the list
  *
  *	@author Peter Grasch
@@ -383,21 +382,21 @@ void TrainingView::loadList()
 {
 	TrainingList *list = this->trainMgr->readTrainingTexts();
 
-	if (!list) return;
-	
-	ui.twTrainingWords->setRowCount(list->count());
-	
-	for (int i=0; i<list->count(); i++)
+	if ( !list ) return;
+
+	ui.twTrainingWords->setRowCount ( list->count() );
+
+	for ( int i=0; i<list->count(); i++ )
 	{
-		ui.twTrainingWords->setItem(i, 0, new QTableWidgetItem(list->at(i)->getName()));
-		ui.twTrainingWords->setItem(i, 1, new QTableWidgetItem(QString::number(list->at(i)->getPageCount())));
-		ui.twTrainingWords->setItem(i, 2, new QTableWidgetItem(QString::number(list->at(i)->getRelevance())));
-		
+		ui.twTrainingWords->setItem ( i, 0, new QTableWidgetItem ( list->at ( i )->getName() ) );
+		ui.twTrainingWords->setItem ( i, 1, new QTableWidgetItem ( QString::number ( list->at ( i )->getPageCount() ) ) );
+		ui.twTrainingWords->setItem ( i, 2, new QTableWidgetItem ( QString::number ( list->at ( i )->getRelevance() ) ) );
+
 		//make them readonly
-		for (int j = 0; j<3; j++)
-			ui.twTrainingWords->item(i,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+		for ( int j = 0; j<3; j++ )
+			ui.twTrainingWords->item ( i,j )->setFlags ( Qt::ItemIsSelectable|Qt::ItemIsEnabled );
 	}
-	ui.twTrainingWords->resizeColumnToContents(0);
+	ui.twTrainingWords->resizeColumnToContents ( 0 );
 }
 
 /**
@@ -416,9 +415,9 @@ TrainingView::~TrainingView()
  */
 void TrainingView::hideSettings()
 {
-    ui.pbDelText->hide();
-    ui.pbImportText->hide();
-    ui.pbImportDir->hide();
+	ui.pbDelText->hide();
+	ui.pbImportText->hide();
+	ui.pbImportDir->hide();
 }
 
 /**
@@ -428,9 +427,9 @@ void TrainingView::hideSettings()
  */
 void TrainingView::setSettingsVisible()
 {
-    ui.pbDelText->show();
-    ui.pbImportText->show();
-    ui.pbImportDir->show();
+	ui.pbDelText->show();
+	ui.pbImportText->show();
+	ui.pbImportDir->show();
 }
 
 /**
@@ -440,10 +439,10 @@ void TrainingView::setSettingsVisible()
  */
 void TrainingView::increaseRecordedPages()
 {
-    int max = trainMgr->getPageCount();
-    recordedPages++;
-    if(recordedPages==max)
-        ui.pbFinish->setEnabled(true);
+	int max = trainMgr->getPageCount();
+	recordedPages++;
+	if ( recordedPages==max )
+		ui.pbFinish->setEnabled ( true );
 }
 
 /**
@@ -453,7 +452,7 @@ void TrainingView::increaseRecordedPages()
  */
 void TrainingView::decreaseRecordedPages()
 {
-    int max = trainMgr->getPageCount();
-    if(recordedPages==max)
-        ui.pbFinish->setEnabled(false);
+	int max = trainMgr->getPageCount();
+	if ( recordedPages==max )
+		ui.pbFinish->setEnabled ( false );
 }

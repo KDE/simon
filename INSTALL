@@ -1,24 +1,38 @@
-Requirements:
--------------------
-qt >= 4.3
-alsa (only linux)
-X11 (only linux)
-directx sdk (only windows)
+------------------------------------------------------
+simon-0.1-alpha-1
+Documentation: INSTALL INSTRUCTIONS
+------------------------------------------------------
 
 
-Installation:
--------------------
-This is a qt4 project so you have to run qmake to get a Makefile.
 
-Run: 
-qmake 
-to build your Makefile
+0. Requirements
+---------------
 
-Then you can run
-make
-from your project directory to compile the code.
+To successfully compile simon you need:
+qt >= 4.3.* (there have been reported problems with qt-4.3.1)
 
-The executable will be called "simon" and should be in ./bin or ./release/bin/.
+Linux:
+	alsa-dev
+	x11-dev
+WIN32:
+	DirectX SDK
 
 
-Have fun!
+
+
+1. Compilation
+--------------
+
+To compile this version just issue:
+
+$ qmake 
+$ make
+
+The binary will be put in the bin/ subdirectory (altough that might vary depending on your compiler - possible other locations include release/bin and debug/bin).
+
+
+
+2. Configuration
+--------------
+
+When first running simon it will prompt for some essential configuration. Simon ships with some defaults located in the model/ directory.

@@ -502,8 +502,8 @@ void TrainingManager::addSamples ( QHash<QString, QString> *hash )
 	hIterator.toFront();
 	while ( hIterator.hasNext() )
 	{
+        	hIterator.next();
 		writePrompts ( hIterator.key() + " " + hIterator.value() );
-        hIterator.next();
 	}
 	hash->clear();
 }
