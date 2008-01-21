@@ -83,7 +83,7 @@ void TrayIconManager::triggered( QSystemTrayIcon::ActivationReason reason)
  */
 TrayIconManager::~TrayIconManager()
 {
-	this->icon->~ QSystemTrayIcon();
+	delete this->icon;
 }
 
 
