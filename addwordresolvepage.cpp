@@ -52,15 +52,24 @@ AddWordResolvePage::AddWordResolvePage(WordListManager *wordListManager, Grammar
  */
 void AddWordResolvePage::initializePage()
 {
+	qDebug() << 1;
 	QString word = field("wordNameIntro").toString();
+	qDebug() << 2;
 	ui.cbType->clear();
+	qDebug() << 3;
 	QStringList terminals = wordListManager->getTerminals();
+	qDebug() << 4;
 	ui.cbType->addItems(terminals);
+	qDebug() << 5;
 	ui.leWord->setText(word);
+	qDebug() << 6;
 	ui.leSampa->clear();
+	qDebug() << 7;
 
 	WordList* similar = wordListManager->getWords(word, true /*include shadow*/);
+	qDebug() << 8;
 	displayWords(similar);
+	qDebug() << 9;
 }
 
 /**
@@ -69,6 +78,8 @@ void AddWordResolvePage::initializePage()
  */
 void AddWordResolvePage::createExamples()
 {
+	if (ui.cbType->currentIndex() == -1) return;
+	
 	QString terminal = ui.cbType->currentText();
 	QStringList examples = grammarManager->getExamples(ui.leWord->text(), terminal,2);
 	
@@ -79,7 +90,6 @@ void AddWordResolvePage::createExamples()
 	} else 
 	{
 		//error
-// 		QString error = tr("Konnte Worttyp nicht grammatikalisch auflösen.");
 		QString error = ui.leWord->text();
 		ui.leExample1->setText(error);
 		ui.leExample2->setText(error);
@@ -93,6 +103,8 @@ void AddWordResolvePage::createExamples()
 void AddWordResolvePage::suggest()
 {
 	int row = ui.twSuggestions->currentRow();
+	if (!ui.twSuggestions->item(row,0)) return;
+
 	ui.leWord->setText(ui.twSuggestions->item(row,0)->text());
 	ui.leSampa->setText(ui.twSuggestions->item(row,1)->text());
 	

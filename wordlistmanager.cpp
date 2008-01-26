@@ -355,24 +355,34 @@ WordList* WordListManager::removeDoubles(WordList *in)
 
 Word* WordListManager::getWord(QString word, QString pronunciation, QString terminal, bool &isShadowed)
 {
+	Word *w=NULL;
 	isShadowed = false;
 	wordListLock.lock();
 	for (int i=0; i < wordlist->count(); i++)
 	{
 		if ((wordlist->at(i).getWord() == word) && (wordlist->at(i).getPronunciation() == pronunciation) && (wordlist->at(i).getTerminal() == terminal))
-			return (Word*) &(wordlist->at(i));
+		{
+			w = (Word*) &(wordlist->at(i));
+			break;
+		}
 	}
 	wordListLock.unlock();
+	if (w)
+		return w;
 
 	isShadowed = true;
 	shadowLock.lock();
 	for (int i=0; i < shadowList->count(); i++)
 	{
 		if ((shadowList->at(i).getWord() == word) && (shadowList->at(i).getPronunciation() == pronunciation) && (shadowList->at(i).getTerminal() == terminal))
-			return (Word*) &(shadowList->at(i));
+		{
+			w = (Word*) &(shadowList->at(i));
+			break;
+		}
 	}
 	shadowLock.unlock();
-	return 0;
+
+	return w;
 }
 
 /**
@@ -411,11 +421,7 @@ bool WordListManager::deleteCompletely(Word *w, bool shadowed)
 	//	shadowdict
 	//	voca
 	//	prompts
-	
-	//TODO: Implement deletion
 
-
-	
 	if (!shadowed)
 	{
 		this->trainManager->deleteWord(w); //if the word is shadowed we can't have any
