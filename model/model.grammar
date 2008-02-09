@@ -1,2 +1,5 @@
 S:NS_B Keyword Noun NS_E
 S:NS_B Noun Verb Article Adjective Noun NS_E
+S:NS_B Zahl VRB NS_E
+S:NS_B ART:PRO NOM Verb NEG:NOM:QAV QPV NS_E
+S:NS_B Artikel Verb Artikel Numen NS_E

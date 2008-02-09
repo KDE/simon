@@ -9,6 +9,7 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
+
 #include "importworkingwizardpage.h"
 #include "logger.h"
 #include <QObject>
@@ -20,6 +21,7 @@
 #include <QTextStream>
 #include "xmltrainingtext.h"
 #include "importlocalwizardpage.h"
+#include "settings.h"
 #include "xmltrainingtextlist.h"
 
 
@@ -52,7 +54,6 @@ void ImportWorkingWizardPage::startImport(QString path)
 }
 
 
-
 /**
  * \brief Processes the text at the given path 
  * \author Peter Grasch
@@ -61,7 +62,7 @@ void ImportWorkingWizardPage::startImport(QString path)
 void ImportWorkingWizardPage::processText(QString path)
 {
 	QFileInfo fi = QFileInfo(path);
-	QFile::copy(path, "texts/"+fi.fileName());
+	QFile::copy(path, Settings::getS("PathToTexts")+"/"+fi.fileName());
 	QFile::remove(path);
 	
 	wizard()->next();
@@ -111,10 +112,13 @@ void ImportWorkingWizardPage::parseFile(QString path)
 	file.close();
 	
 	QFileInfo fi = QFileInfo(path);
-	XMLTrainingText *text = new XMLTrainingText("texts/"+fi.fileName().left(fi.fileName().lastIndexOf("."))+".xml");
+
+
+	QString xmlPath = Settings::getS("PathToTexts")+"/"+fi.fileName().left(fi.fileName().lastIndexOf("."))+".xml";
+	XMLTrainingText *text = new XMLTrainingText(xmlPath);
 	text->setTitle(((ImportLocalWizardPage*)wizard()->page(2))->getField("Textname").toString());
 	text->addPages(sents);
-	text->save();
+	text->save(xmlPath);
 	
 	wizard()->next();
 }

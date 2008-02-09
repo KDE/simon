@@ -78,11 +78,12 @@ void AddWordResolvePage::initializePage()
  */
 void AddWordResolvePage::createExamples()
 {
+	return; //FIXME
 	if (ui.cbType->currentIndex() == -1) return;
 	
 	QString terminal = ui.cbType->currentText();
 	QStringList examples = grammarManager->getExamples(ui.leWord->text(), terminal,2);
-	
+
 	if (examples.count() >= 2) 
 	{
 		ui.leExample1->setText(examples[0]);
@@ -109,6 +110,7 @@ void AddWordResolvePage::suggest()
 	ui.leSampa->setText(ui.twSuggestions->item(row,1)->text());
 	
 	QString terminal = ui.twSuggestions->item(row,2)->text();
+
 	for (int i=0; i < ui.cbType->count(); i++)
 	{
 		if(ui.cbType->itemText(i) == terminal)
@@ -139,14 +141,13 @@ void AddWordResolvePage::displayWords(WordList *words)
 			ui.twSuggestions->item(i,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 		i++;
 	}
-	ui.twSuggestions->setRowCount(i);
 	ui.twSuggestions->resizeColumnsToContents();
 
-	if (i > 0)
-	{
-		//select the first suggestion
-		ui.twSuggestions->selectRow(0);
-	}
+// 	if (i > 0)
+// 	{
+// 		//select the first suggestion
+// 		ui.twSuggestions->selectRow(0);
+// 	}
 	setUpdatesEnabled(true);
 }
 

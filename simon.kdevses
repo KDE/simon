@@ -1,16 +1,31 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="3" >
+ <DocsAndViews NumberOfDocuments="8" >
   <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/trainingmanager.cpp" >
    <View0 Encoding="" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/trainingview.cpp" >
+  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/addwordresolvepage.cpp" >
    <View0 Encoding="" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/trayiconmanager.cpp" >
-   <View0 Encoding="" line="64" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.cpp" >
+   <View0 Encoding="" Type="Source" />
   </Doc2>
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistview.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc3>
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wiktionarydict.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/trainingview.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc5>
+  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importtrainingtexts.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importworkingwizardpage.cpp" >
+   <View0 Encoding="" line="16" Type="Source" />
+  </Doc7>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

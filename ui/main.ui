@@ -15,6 +15,12 @@
   <property name="windowIcon" >
    <iconset>../../../../../../../:/images/tray.png</iconset>
   </property>
+  <property name="accessibleName" >
+   <string>simon</string>
+  </property>
+  <property name="accessibleDescription" >
+   <string>simon Hauptfenster</string>
+  </property>
   <property name="toolButtonStyle" >
    <enum>Qt::ToolButtonTextUnderIcon</enum>
   </property>
@@ -52,6 +58,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="pbAddWord" >
+        <property name="accessibleName" >
+         <string>Wort hinzufügen</string>
+        </property>
+        <property name="accessibleDescription" >
+         <string>Hier kann ein neues Wort hinzugefügt werden</string>
+        </property>
         <property name="text" >
          <string>Wort &amp;hinzufügen</string>
         </property>
@@ -77,6 +89,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="pbTrain" >
+        <property name="accessibleName" >
+         <string>Trainieren</string>
+        </property>
+        <property name="accessibleDescription" >
+         <string>Trainieren des Sprachmodells</string>
+        </property>
         <property name="text" >
          <string>&amp;Trainieren</string>
         </property>
@@ -99,6 +117,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="pbEditWordList" >
+        <property name="accessibleName" >
+         <string>Wortliste</string>
+        </property>
+        <property name="accessibleDescription" >
+         <string>Übersicht über das verwendete Vokabular</string>
+        </property>
         <property name="text" >
          <string>Wort&amp;liste</string>
         </property>
@@ -121,6 +145,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="pbRunProgram" >
+        <property name="accessibleName" >
+         <string>Ausführen</string>
+        </property>
+        <property name="accessibleDescription" >
+         <string>Ausführen von definierten Aktionen</string>
+        </property>
         <property name="text" >
          <string>&amp;Ausführen</string>
         </property>
@@ -143,6 +173,12 @@
       </item>
       <item>
        <widget class="QToolButton" name="pbSettings" >
+        <property name="accessibleName" >
+         <string>System</string>
+        </property>
+        <property name="accessibleDescription" >
+         <string>Einstellungen und Konfiguration</string>
+        </property>
         <property name="text" >
          <string>System</string>
         </property>
@@ -175,6 +211,12 @@
         <property name="enabled" >
          <bool>false</bool>
         </property>
+        <property name="accessibleName" >
+         <string>Aktiviert simon</string>
+        </property>
+        <property name="accessibleDescription" >
+         <string>Wechselt zwischen Aktiv / Inaktiv ohne die Verbindung zu trennen</string>
+        </property>
         <property name="text" >
          <string>&amp;Aktivieren</string>
         </property>
@@ -196,6 +238,12 @@
        <widget class="QToolButton" name="pbConnect" >
         <property name="enabled" >
          <bool>true</bool>
+        </property>
+        <property name="accessibleName" >
+         <string>Verbinden</string>
+        </property>
+        <property name="accessibleDescription" >
+         <string>Verbindet zu Juliusd</string>
         </property>
         <property name="text" >
          <string>Verb&amp;inden</string>
@@ -219,6 +267,12 @@
         <property name="enabled" >
          <bool>true</bool>
         </property>
+        <property name="accessibleName" >
+         <string>Verstecken</string>
+        </property>
+        <property name="accessibleDescription" >
+         <string>Versteckt das simon-Hauptfenster</string>
+        </property>
         <property name="text" >
          <string>&amp;Verstecken</string>
         </property>
@@ -241,6 +295,12 @@
         <property name="enabled" >
          <bool>true</bool>
         </property>
+        <property name="accessibleName" >
+         <string>Systemverwaltungsmodus</string>
+        </property>
+        <property name="accessibleDescription" >
+         <string>Wechselt zwischen den Administrations / Benutzer-Modu</string>
+        </property>
         <property name="text" >
          <string>Systemverwaltungsmodus</string>
         </property>
@@ -262,6 +322,12 @@
        <widget class="QToolButton" name="pbClose" >
         <property name="enabled" >
          <bool>true</bool>
+        </property>
+        <property name="accessibleName" >
+         <string>Beenden</string>
+        </property>
+        <property name="accessibleDescription" >
+         <string>Beendet simon</string>
         </property>
         <property name="text" >
          <string>&amp;Beenden</string>
