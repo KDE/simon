@@ -19,7 +19,7 @@ unix {
 	-lXtst \
 	-lasound \
 	-lpthread
-    TARGET = ./bin/simon
+    TARGET = simon
 }
 
 win32 {
@@ -28,7 +28,7 @@ win32 {
 
     DEFINES += __WINDOWS_DS__
     LIBS += -ldsound -lwinmm -lole32
-    TARGET = ../bin/simon
+    TARGET = ../simon
 }
 
 
