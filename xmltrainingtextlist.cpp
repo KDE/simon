@@ -33,10 +33,11 @@ XMLTrainingTextList::XMLTrainingTextList(QString path) : XMLDomReader(path)
  * @param path 
  * Path to the list - default NULL
  */
-void XMLTrainingTextList::load(QString path)
+bool XMLTrainingTextList::load(QString path)
 {
+	if (path.isEmpty()) path = this->path;
 	Logger::log(tr("Laden einer Liste von Trainingstexten von %1").arg(path));
-	XMLDomReader::load(path);
+	if (!XMLDomReader::load(path)) return false;
 	
 	trainingtexts.clear();
 	
@@ -45,9 +46,10 @@ void XMLTrainingTextList::load(QString path)
 	QDomElement text = root.firstChildElement();
 	while(!text.isNull()) 
 	{
-		trainingtexts.insert(text.attribute("name"), text.attribute("url"));        
+		trainingtexts.insert(text.attribute("name"), text.attribute("url"));
 		text = text.nextSiblingElement();
 	}
+	return true;
 }
 
 /**

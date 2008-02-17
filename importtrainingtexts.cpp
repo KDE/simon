@@ -262,10 +262,7 @@ void ImportTrainingTexts::idChanged(int id)
 		return;
 	}
 	
-	if (id==3) //remote
-	{
-		((ImportRemoteWizardPage*) page(id))->fetchList();
-	} else if (id == 4) //working
+	if (id == 4) //working
 	{
 		if (!((ImportLocalWizardPage*)page(2))->getField("Filename")
 				     .toString().isEmpty())

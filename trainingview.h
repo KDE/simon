@@ -48,14 +48,12 @@ signals:
 	void displayMe();
 
 private:
+	static TrainingView *instance;
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	TrainingManager *trainMgr;
 	int currentPage; //!< when we train a text this will hold the page we are on
 	int oldId; //!< where did we come from?
 
-    AddWordView *addWordView;
-    
-	
 	RecWidget *recorder;
     int recordedPages; //!< this counter will hold the recorded pages; it will change, when pages are recorded or deleted
 	
@@ -83,6 +81,10 @@ private slots:
     void decreaseRecordedPages();
 
 public:
+	static TrainingView* getInstance(){
+		if (!instance) instance = new TrainingView();
+		return instance;
+	}
 	void exec();
     TrainingView(QWidget *parent=0);
 	
@@ -91,9 +93,6 @@ public:
     void hideSettings();
     void setSettingsVisible();
     void cleanUpTrainingSamples();
-
-    void setAddWordView(AddWordView* addWordView);
-    void setWordListManager(WordListManager *wlistmgr);
 
 };
 

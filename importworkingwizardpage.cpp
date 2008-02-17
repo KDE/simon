@@ -53,7 +53,6 @@ void ImportWorkingWizardPage::startImport(QString path)
 	}
 }
 
-
 /**
  * \brief Processes the text at the given path 
  * \author Peter Grasch
@@ -64,6 +63,11 @@ void ImportWorkingWizardPage::processText(QString path)
 	QFileInfo fi = QFileInfo(path);
 	QFile::copy(path, Settings::getS("PathToTexts")+"/"+fi.fileName());
 	QFile::remove(path);
+
+	
+	QuickDownloader *down = qobject_cast<QuickDownloader*>(sender());
+	if (down) down->deleteLater();
+	else qDebug() << "dutz";
 	
 	wizard()->next();
 }
@@ -119,6 +123,7 @@ void ImportWorkingWizardPage::parseFile(QString path)
 	text->setTitle(((ImportLocalWizardPage*)wizard()->page(2))->getField("Textname").toString());
 	text->addPages(sents);
 	text->save(xmlPath);
+	delete text;
 	
 	wizard()->next();
 }

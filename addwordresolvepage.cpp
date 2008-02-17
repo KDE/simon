@@ -17,6 +17,8 @@
 #include <QHeaderView>
 #include <QMessageBox>
 
+
+
 /**
  * \brief Constructor - initializes the members with the given parameters and sets up the gui
  * @param wordListManager The member to the given wordlistmanager; it is not yet used
@@ -52,7 +54,6 @@ AddWordResolvePage::AddWordResolvePage(WordListManager *wordListManager, Grammar
  */
 void AddWordResolvePage::initializePage()
 {
-	qDebug() << 1;
 	QString word = field("wordNameIntro").toString();
 	qDebug() << 2;
 	ui.cbType->clear();

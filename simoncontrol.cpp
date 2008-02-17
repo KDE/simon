@@ -37,7 +37,7 @@ SimonControl::SimonControl(ShortcutControl *shortcutControl) : QObject ()
 {
 	this->active=false;
 	this->julius = new JuliusControl();
-	this->run = new RunCommand(Settings::get("PathToCommands").toString());
+	this->run = new RunCommand();
 	eventHandler = new EventHandler();
 
 	if (!shortcutControl) shortcutControl = new ShortcutControl();

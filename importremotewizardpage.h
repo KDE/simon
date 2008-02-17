@@ -19,6 +19,7 @@
 #include "quickdownloader.h"
 #include "xmltrainingtextlist.h"
 
+class QuickDownloader;
 /**
  * \class ImportRemoteWizardPage
  * \author Peter Grasch
@@ -30,11 +31,12 @@ class ImportRemoteWizardPage : public QWizardPage {
 	Q_OBJECT
 	private:
 		QListWidget *list;
-	public slots:
-		void fetchList();
+		QuickDownloader *downloader;
+	private slots:
 		void importList(QString path);
 		
 	public:
+		void initializePage();
 		ImportRemoteWizardPage(QWidget* parent);
 		void setList(QListWidget* list) { this->list = list; }
 		void registerField(const QString & name, QWidget * widget, 

@@ -59,6 +59,8 @@ public:
         void insertCategories(ProgramCategoryList categorieList);
         void insertPrograms(ProgramList *programList);
 
+	void initializePage();
+
         QString getExecPath();
         QString getName();
         QString getIcon();

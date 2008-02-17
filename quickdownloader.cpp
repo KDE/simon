@@ -26,6 +26,13 @@ QuickDownloader::QuickDownloader(QWidget *parent) : QWidget(parent)
 {
 	this->loader = new QHttp();
 	this->progressDlg = new QProgressDialog(this);
+	this->file = 0;
+}
+
+void QuickDownloader::destroyFile()
+{
+	delete file;
+	file = 0;
 }
 
 /**
@@ -36,11 +43,28 @@ QuickDownloader::QuickDownloader(QWidget *parent) : QWidget(parent)
  * @return bool
  * if there is an error this is set to false
  */
+#include <QDebug>
 bool QuickDownloader::download(QString url, QString filename)
 {
+	if (loader && (loader->state() != QHttp::Unconnected))
+	{
+		loader->abort();
+		loader->close();
+	}
+
+	if (file)
+		destroyFile();
+
+
 	if (filename.isEmpty())
-		file = new QTemporaryFile(Settings::get("TempDir").toString()+"simon_tmp_download",this);
-	else file = new QFile(Settings::get("TempDir").toString()+filename, this);
+		file = new QTemporaryFile(Settings::getS("TempDir")+"/"+"simon_tmp_download",this);
+	else {
+		QFileInfo f(filename);
+		if (!f.isAbsolute())
+			filename = Settings::getS("TempDir")+"/"+filename;
+
+		file = new QFile(filename, this);
+	}
 
 	Logger::log(tr("[INF] Lade \"%1\" zu \"%2\"").arg(url).arg(file->fileName()));
 	if (!loader || !progressDlg) return false;
@@ -79,7 +103,6 @@ bool QuickDownloader::download(QString url, QString filename)
 				.arg(file->fileName()).arg(file->errorString()));
 		return false;
 	}
-	this->filename = file->fileName();
 	
 	this->request = loader->get(urlD.path(), file);
 	
@@ -101,7 +124,7 @@ void QuickDownloader::readResponse(const QHttpResponseHeader header)
 							 .arg(header.reasonPhrase()));
 		Logger::log(tr("[INF] Download fehlgeschlagen: %1.").arg(header.reasonPhrase()));
 		aborting = true;
-		progressDlg->hide();
+		progressDlg->close();
 		loader->abort();
 		return;
 	}
@@ -115,6 +138,7 @@ void QuickDownloader::cancelDownload()
 {
 	Logger::log(tr("[INF] Download zurückgesetzt"));
 	aborting = true;
+	progressDlg->close();
 	loader->abort();
 }
 
@@ -149,15 +173,15 @@ void QuickDownloader::requestFinished(int id, bool error)
 	}
 	
 	if ((id == this->request) && (aborting == false)) {
-		Logger::log(tr("[INF] Download abgeschlossen: \"")+filename+"\"");
+		Logger::log(tr("[INF] Download abgeschlossen: \"")+file->fileName()+"\"");
 		if (file)
 			file->close();
 		progressDlg->hide();
-		emit downloadFinished(filename);
+		emit downloadFinished(file->fileName());
 	}
 	if (aborting)
 	{
-		Logger::log(tr("[INF] Download abgebrochen: \"")+filename+"\"");
+		Logger::log(tr("[INF] Download abgebrochen: \"")+file->fileName()+"\"");
 		if (file) {
 			file->close();
 			file->remove();
@@ -174,9 +198,13 @@ void QuickDownloader::requestFinished(int id, bool error)
  */
 QuickDownloader::~QuickDownloader()
 {
-	delete progressDlg;
-	delete loader;
-	delete file;
+	if (loader)
+		loader->deleteLater();
+
+	if (file) this->destroyFile();
+	
+	if (progressDlg)
+		progressDlg->deleteLater();
 }
 
 

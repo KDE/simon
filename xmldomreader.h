@@ -34,9 +34,9 @@ protected:
 public:
 	XMLDomReader(QString path, QObject* parent=0);
 
-	int save(QString path="");
+	bool save(QString path="");
 	
-	void load(QString path="");
+	bool load(QString path="");
 	
     ~XMLDomReader();
 

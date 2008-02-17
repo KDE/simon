@@ -36,20 +36,19 @@ typedef QHash<QString, QString> PromptsTable;
 class TrainingManager
 {
 	private:
+		static TrainingManager *instance;
 		TrainingList *trainingTexts;
 		TrainingText *currentText;
-		WordListManager *wlistmgr;
-		QString filename;
 		QHash<QString, QString> *sampleHash;    //<! sampleHash("SampleName","Text");
 		QMutex promptsLock;
-		AddWordView *addWordView;
 	public:
+		static TrainingManager* getInstance();
 		PromptsTable *promptsTable;
 		TrainingManager();
 
 		QHash<QString, QString> *getSampleHash() {return sampleHash;}
 		int getProbability ( QString name, PromptsTable *promptsTable );
-		TrainingList* readTrainingTexts ( QString pathToTexts="texts" );
+		TrainingList* readTrainingTexts ();
 
 		int getProbability ( QString name );
 		PromptsTable* readPrompts ( QString pathToPrompts );
@@ -91,9 +90,7 @@ class TrainingManager
 
 		void finishTrainingSession();
 		bool allWordsExisting();
-		void setWordListManager ( WordListManager *wlistmgr );
 		void addSamples ( QHash<QString, QString> *hash );
-		void setAddWordView ( AddWordView *addWordView );
 
 		void writePrompts ( QString text );
 

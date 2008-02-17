@@ -45,10 +45,17 @@ class RunCommand{
 private:
 	CommandList commandlist;
 	RunBackend* runner;
+	QString filename;
 	bool desprate;
+	static RunCommand *instance;
 public:
-    RunCommand(QString path="commands.xml");
+    RunCommand();
 
+	static RunCommand* getInstance()
+	{
+		if (!instance) instance = new RunCommand();
+		return instance;
+	}
      /**
      *	@brief Returns the commandlist (member)
      *
@@ -56,7 +63,16 @@ public:
      *	@return CommandList
      */
     CommandList getCommands() { return this->commandlist; }
-    void readCommands(QString path);
+    bool readCommands(QString path);
+
+	void replaceCommand(QString commandName, Command *newCommand);
+	void addCommand(Command *newCommand);
+	void deleteCommand(QString commandName);
+	bool commandExists(QString commandName);
+
+	bool init(QString path);
+	bool save(QString path="");
+
     void run(QString commandName);
 
     ~RunCommand();

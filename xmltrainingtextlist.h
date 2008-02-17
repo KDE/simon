@@ -29,7 +29,7 @@ private:
 	QHash<QString,QString> trainingtexts;
 public:
     XMLTrainingTextList(QString path);
-    void load(QString path="");
+    bool load(QString path="");
     
     QHash<QString,QString> getTrainingTextList() { return trainingtexts; }
 

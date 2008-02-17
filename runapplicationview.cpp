@@ -269,14 +269,14 @@ void RunApplicationView::insertCommands(CommandList list)
 *   \brief slot: the signal will be emited in the commandSettings.cpp
 *           it updates the whole commandList
 *
-*   @author Susanne Tschernegg
+*   @author Susanne Tschernegg, Peter Grasch
 */
 void RunApplicationView::loadCommands()
 {
     ui.twPrograms->clearContents();
     run = new RunCommand();
     QString path = Settings::get("PathToCommands").toString();
-    run->readCommands(path);
+    run->init(path);
     insertCommands (run->getCommands());
 
     ui.twPrograms->resizeColumnsToContents();

@@ -52,6 +52,8 @@ class AddWordView : public QWizard
 	Q_OBJECT
 
 	private:
+		static AddWordView *instance;
+		
 		RecWidget *rec1;
 		RecWidget *rec2;
 		QString recordingName1, recordingName2;
@@ -60,6 +62,7 @@ class AddWordView : public QWizard
 		AddWordResolvePage *resolvePage;
 		AddWordIntroPage *welcomePage;
 		WordListManager *wordlistMgr;
+		
 		void hideEvent(QHideEvent *event) { 
 			emit hidden(); return QWidget::hideEvent(event); }
 	
@@ -82,6 +85,7 @@ class AddWordView : public QWizard
 		
 		
 	public:
+		static AddWordView* getInstance();
 		AddWordView(QWidget *parent, WordListManager *wordlistMgr, TrainingManager *trainManager, GrammarManager *grammarManager);
 		~AddWordView()
 		{

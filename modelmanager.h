@@ -35,6 +35,7 @@ signals:
 	void error(QString);
 	void progress(int now, int total=2000);
 private:
+	static ModelManager* instance;
 	QProgressDialog *processDialog;
 	QProcess *proc;
 	QString tmpDir;
@@ -101,10 +102,17 @@ public slots:
 	void cancel();
 	
 public:
+	static ModelManager* getInstance() {
+		if (!instance) instance = new ModelManager();
+		return instance;
+	}
+	static bool compileModel() {
+		return ModelManager::getInstance()->startCompilation();
+	}
     ModelManager(QWidget *parent=0);
 
 	void run();
-	bool compileModel();
+	bool startCompilation();
 
     ~ModelManager();
 

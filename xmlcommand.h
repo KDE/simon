@@ -33,15 +33,12 @@ public:
 	XMLCommand(QString path="conf/commands.xml");
 	
 	bool save(QString path="conf/commands.xml");
-
-	void replaceCommand(QString commandName, Command *newCommand);
-	void addCommand(Command *newCommand);
-	void deleteCommand(QString commandName);//, QString commandValue);
-	bool commandExists(QString commandName);
 	
 	bool load(QString path="");
 	
 	CommandList getCommands();
+	void setCommands(CommandList commands) 
+	{ this->commandlist = commands; }
 	
 	~XMLCommand();
 };

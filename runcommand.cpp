@@ -12,6 +12,9 @@
 #include "runcommand.h"
 #include "logger.h"
 #include <QObject>
+#include <QMessageBox>
+
+RunCommand* RunCommand::instance;
 /**
  *	@brief Constructor
  *	
@@ -19,7 +22,7 @@
  *
  *	@author Peter Grasch
  */
-RunCommand::RunCommand(QString path)
+RunCommand::RunCommand()
 {
 	#ifdef linux
 	this->runner = new RunLinuxBackend();
@@ -28,8 +31,35 @@ RunCommand::RunCommand(QString path)
 	#ifdef __WIN32
 	this->runner = new RunWindowsBackend();
 	#endif
-	
-	readCommands(path);
+}
+
+/**
+ * \brief Reads the config file if, and ONLY if, there are no commands yet (kind of a read-once)
+ * @return 
+ */
+bool RunCommand::init(QString path)
+{
+	if (commandlist.isEmpty())
+		return readCommands(path);
+	else return true;
+}
+
+bool RunCommand::save(QString path)
+{
+	if (path.isEmpty()) path = filename;
+	Logger::log(QObject::tr("[INF] Schreibe Befehle nach ")+path);
+	XMLCommand *saver = new XMLCommand(path);
+	saver->setCommands(commandlist);
+	if (!saver->save(path))
+	{
+		Logger::log(QObject::tr("[ERR] Konnte Befehle nicht schreiben"));
+		QMessageBox::critical(0, QObject::tr("Konnte Kommandos nicht speichern"), 
+				QObject::tr("Konnte Kommandos nicht nach %1 speichern").arg(path));
+		delete saver;
+		return false;
+	}
+	delete saver;
+	return true;
 }
 
 /**
@@ -38,15 +68,23 @@ RunCommand::RunCommand(QString path)
  *	@param QString path
  *	The path of the file which contains the commands
  *	@author Peter Grasch
- *	@note Waiting for the XML Reader before implementing any function
  */
-void RunCommand::readCommands(QString path)
+bool RunCommand::readCommands(QString path)
 {
 	Logger::log(QObject::tr("[INF] Lese Befehle von ")+path);
+	this->filename = path;
 	XMLCommand *reader = new XMLCommand(path);
-	reader->load(path);
-	
+	if (!reader->load(path))
+	{
+		Logger::log(QObject::tr("[ERR] Konnte Befehle nicht öffnen"));
+		QMessageBox::critical(0, QObject::tr("Konnte Kommandos nicht laden"), QObject::tr("Konnte Kommandos vom konfigurierten Pfad %1 nicht einlesen").arg(path));
+		delete reader;
+		return false;
+	}
 	this->commandlist = reader->getCommands();
+
+	delete reader;
+	return true;
 }
 
 /**
@@ -97,6 +135,79 @@ void RunCommand::run(QString commandName)
 #endif
 	}
 }
+
+
+
+
+
+/**
+ * \brief Replaces a command of the commandlist (member) identified by <commandName> with the new command supplied by <newCommand>
+ * \author Susanne Tschernegg
+ * @param QString commandName
+ *      holds the name of the command
+ * @param Command *newCommand
+ *      is an object of a command
+ */
+void RunCommand::replaceCommand(QString commandName, Command *newCommand)
+{
+	for (int i=0; i < commandlist.size(); i++)
+	{
+		if(commandlist.at(i)->getName()==commandName)
+		{
+			commandlist.replace(i, newCommand);
+		}
+	}
+}
+
+/**
+ * \brief Adds a command to the commandlist (member)
+ * \author Susanne Tschernegg
+ * @param Command *newCommand
+ *      is an object of a command
+ */
+void RunCommand::addCommand(Command *newCommand)
+{
+	commandlist.append(newCommand);
+}
+
+/**
+ * \brief deletes a command from the commandlist.
+ * \author Susanne Tschernegg
+ * @param QString commandName
+ *      is an object of a command
+ */
+void RunCommand::deleteCommand(QString commandName)//, QString commandValue)
+{
+	for (int i=0; i < commandlist.size(); i++)
+	{
+		if(commandlist.at(i)->getName()==commandName)
+		{
+			    commandlist.removeAt(i);
+		}
+	}
+}
+
+/**
+ * \brief returns wheater the command exists or not
+ * \author Susanne Tschernegg
+ * @param QString commandName
+ *      holds the name of the command
+ * @return bool
+ *      if the command exists, this method will return true, otherwise it returns false
+ */
+bool RunCommand::commandExists(QString commandName)
+{
+	for (int i=0; i < commandlist.size(); i++)
+	{
+		if(commandlist.at(i)->getName()==commandName)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+
 
 /**
  *	@brief Destructor

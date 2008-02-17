@@ -142,7 +142,6 @@ p, li { white-space: pre-wrap; }
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../simon.qrc" />
   <include location="../action_icons.qrc" />
  </resources>
  <connections/>

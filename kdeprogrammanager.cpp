@@ -25,7 +25,7 @@ KDEProgramManager::KDEProgramManager()
 		if (env.at(i).startsWith("KDEDIRS"))
 		{
 			QString kenv = env.at(i);
-			QString kdirs = kenv.remove("KDEDIRS=");;
+			QString kdirs = kenv.remove("KDEDIRS=");
 			kdedirs = kdirs.split(":");
 			break;
 
@@ -37,6 +37,8 @@ KDEProgramManager::KDEProgramManager()
 
 bool KDEProgramManager::loadPrograms()
 {
+	this->programs->clear();
+
 	QStringList pathToDesktopFiles = getKDEDirs();
 
 	for (int i=0; i < pathToDesktopFiles.count(); i++)
@@ -79,13 +81,13 @@ bool KDEProgramManager::loadPrograms()
 				desktopFiles.append(dirHandle->path()+"/"+files[i]);
 		}
 	}
-	DesktopReader *deskReader = new DesktopReader();
+	DesktopReader deskReader;
 	for (int i=0; i < desktopFiles.count(); i++)
 	{
-		Program *prog = deskReader->readDesktopFile(desktopFiles.at(i));
+		Program *prog = deskReader.readDesktopFile(desktopFiles.at(i));
 		
 		if (prog) {
-			QStringList strCats = kdeCategoriesToSimonCategories(deskReader->getStrCategories());
+			QStringList strCats = kdeCategoriesToSimonCategories(deskReader.getStrCategories());
 
 			ProgramCategoryList categories;
 			
@@ -95,7 +97,7 @@ bool KDEProgramManager::loadPrograms()
 				if (category) 
 					categories.append(*category);
 			}
-			QString iconsrc = resolveIcon(deskReader->getIconname());
+			QString iconsrc = resolveIcon(deskReader.getIconname());
 			if (!iconsrc.isEmpty())
 				prog->setIcon(QIcon(iconsrc), iconsrc);
 			prog->setCategories(categories);

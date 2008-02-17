@@ -129,13 +129,12 @@ void SystemView::registerControl(SystemWidget* control)
 	{
 		//something went wrong
 		Logger::log("[ERR] "+tr("Konnte %1 nicht initiieren").arg(control->getTitle()));
-		return;
+		QMessageBox::critical(this, tr("Schwerwiegender Fehler aufgetreten"), tr("Es ist ein Schwerwiegender Fehler aufgetreten.\n\nEs konnten nicht alle Elemente der Konfiguration initalisiert werden. Dies ist meist auf eine fehlerhaft Konfiguration zurückzuführen.\n\nBitte kontrollieren Sie ihre Einstellungen (vor allem im Bezug auf mögliche vorangegangene Fehlermeldungen) und starten sie simon danach neu."));
 	}
 	
 	//item gets automatically added to the list widget if given the parent
-	//please ignore this compiler warning and
 	//DO NOT REMOVE THIS
-	QListWidgetItem *newItem = new QListWidgetItem(control->getIcon(), control->getTitle(), ui.lwMenu);
+	new QListWidgetItem(control->getIcon(), control->getTitle(), ui.lwMenu);
 }
 
 /**

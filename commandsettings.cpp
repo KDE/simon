@@ -20,6 +20,7 @@
 #include "importprogramwizard.h"
 #include "importplacewizard.h"
 #include "logger.h"
+#include "runcommand.h"
 #include "settings.h"
 #include <QLibrary>
 #include "icondialog.h"
@@ -43,7 +44,6 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 
 	guessChildTriggers ( this );
 
-	//iconButton = new IconButton();
 	commandEdited = false;
 
 	ui.twCommand->setColumnCount ( 5 );
@@ -61,6 +61,7 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 	ui.pbImportPlace->setCheckable ( true );
 	importProgramWizard = new ImportProgramWizard ( this );
 	importPlaceWizard = new ImportPlaceWizard ( this );
+	commandBackend = RunCommand::getInstance();
 
 	help = tr ( "Hier können Sie Programme und Orte importieren und vorhandene Kommandos bearbeiten" );
 
@@ -75,7 +76,7 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 	connect ( ui.pbClearSearchCommand, SIGNAL ( clicked() ), this, SLOT ( clearSearchLineEdit() ) );
 	connect ( ui.leSearchCommand, SIGNAL ( textChanged ( const QString & ) ), this, SLOT ( searchCommandList() ) );
 	connect ( ui.pbImportProgram, SIGNAL ( clicked() ), this, SLOT ( importNewProgram() ) );
-	commandLoader = new XMLCommand ( "conf/commands.xml" );
+
 	connect ( importProgramWizard, SIGNAL ( commandCreated ( Command* ) ), this, SLOT ( insertCommand ( Command* ) ) );
 	connect ( importProgramWizard, SIGNAL ( finished ( int ) ), this, SLOT ( setWidgetsDisabled() ) );
 	connect ( this, SIGNAL ( changeExistingName ( bool ) ), importProgramWizard, SLOT ( changeName ( bool ) ) );
@@ -123,21 +124,20 @@ bool CommandSettings::apply()
 		//Command(QString name, CommandType type, QString value, QString iconPath = "", QString workingDirectory="")
 		newCommand = new Command ( ui.twCommand->item ( i,1 )->text(), CommandType ( typeInt ), ui.twCommand->item ( i,3 )->text(), iconResources, ui.twCommand->item ( i,4 )->text() );
 
-		if ( ( !ui.twCommand->item ( i,1 )->data ( Qt::UserRole ).isNull() ) && ( commandLoader->commandExists ( ui.twCommand->item ( i,1 )->data ( Qt::UserRole ).toString() ) ) )
+		if ( ( !ui.twCommand->item ( i,1 )->data ( Qt::UserRole ).isNull() ) && ( commandBackend->commandExists ( ui.twCommand->item ( i,1 )->data ( Qt::UserRole ).toString() ) ) )
 		{
 			//replaces the old command
-			commandLoader->replaceCommand ( ui.twCommand->item ( i,1 )->data ( Qt::UserRole ).toString(), newCommand );
+			commandBackend->replaceCommand ( ui.twCommand->item ( i,1 )->data ( Qt::UserRole ).toString(), newCommand );
 			ui.twCommand->item ( i,1 )->setData ( Qt::UserRole, ui.twCommand->item ( i,1 )->text() );
 		}
 		else
 		{
 			//creates a new command
-			commandLoader->addCommand ( newCommand );
+			commandBackend->addCommand ( newCommand );
 			ui.twCommand->item ( i,1 )->setData ( Qt::UserRole, ui.twCommand->item ( i,1 )->text() );
 		}
 	}
-
-	bool success = commandLoader->save ( Settings::get ( "PathToCommands" ).toString() );
+	bool success = commandBackend->save ( Settings::get ( "PathToCommands" ).toString() );
 	emit commandsChanged();
 	Settings::set ( "Commands/Keyword", ui.leKeyword->text() );
 	return success;
@@ -153,8 +153,10 @@ bool CommandSettings::init()
 {
 	QString path = Settings::get ( "PathToCommands" ).toString();
 	Logger::log ( tr ( "[INF] Importiere Kommandos von " ) +path );
-	if ( !commandLoader->load ( path ) ) { return false;}
-	CommandList commands = commandLoader->getCommands();
+	
+	if ( !commandBackend->init( path ) ) { return false;}
+	
+	CommandList commands = commandBackend->getCommands();
 	ui.twCommand->setRowCount ( commands.count() );
 	QTableWidgetItem *tmp;
 	ui.cbShowCommand->setCurrentIndex ( 0 );
@@ -218,15 +220,15 @@ void CommandSettings::deactivateAllCbs()
 
 		//creates a new command resp. replaces it
 		Command *newCommand = new Command ( ui.twCommand->item ( currRow,1 )->text(), CommandType ( typeInt ), ui.twCommand->item ( currRow,3 )->text() );
-		if ( ( !ui.twCommand->item ( currRow,1 )->data ( Qt::UserRole ).isNull() ) && ( commandLoader->commandExists ( ui.twCommand->item ( currRow,1 )->data ( Qt::UserRole ).toString() ) ) )
+		if ( ( !ui.twCommand->item ( currRow,1 )->data ( Qt::UserRole ).isNull() ) && ( commandBackend->commandExists ( ui.twCommand->item ( currRow,1 )->data ( Qt::UserRole ).toString() ) ) )
 		{
 			//replaces the old command
-			commandLoader->replaceCommand ( ui.twCommand->item ( currRow,1 )->data ( Qt::UserRole ).toString(), newCommand );
+			commandBackend->replaceCommand ( ui.twCommand->item ( currRow,1 )->data ( Qt::UserRole ).toString(), newCommand );
 			ui.twCommand->item ( currRow,1 )->setData ( Qt::UserRole, ui.twCommand->item ( currRow,1 )->text() );
 		}
 		else
 		{
-			commandLoader->addCommand ( newCommand );
+			commandBackend->addCommand ( newCommand );
 			ui.twCommand->item ( currRow,1 )->setData ( Qt::UserRole, ui.twCommand->item ( currRow,1 )->text() );
 		}
 	}
@@ -345,7 +347,7 @@ void CommandSettings::deleteCommand()
 	if ( rowCount==ui.twCommand->rowCount() )
 	{
 		if ( !ui.twCommand->item ( currRow,1 )->data ( Qt::UserRole ).isNull() )
-			commandLoader->deleteCommand ( ui.twCommand->item ( currRow, 1 )->data ( Qt::UserRole ).toString() );//, ui.ui.twCommand->item(currRow, 2)->text());
+			commandBackend->deleteCommand ( ui.twCommand->item ( currRow, 1 )->data ( Qt::UserRole ).toString() );//, ui.ui.twCommand->item(currRow, 2)->text());
 		ui.twCommand->removeRow ( currRow );
 	}
 	commandEdited = false;
@@ -436,7 +438,7 @@ void CommandSettings::checkAndAddCommandValues ( int currRow, int currCol, int p
 */
 bool CommandSettings::reset()
 {
-	disconnect ( ui.twCommand, SIGNAL ( itemChanged ( QTableWidgetItem * ) ), this, SLOT ( checkAndAddCommandValues() ) );
+// 	disconnect ( ui.twCommand, SIGNAL ( itemChanged ( QTableWidgetItem * ) ), this, SLOT ( checkAndAddCommandValues() ) );
 	int currRow = ui.twCommand->currentRow();
 	if ( currRow>=0 )
 	{
@@ -522,7 +524,7 @@ void CommandSettings::showOnlyCommands()
 	ui.twCommand->clearContents();
 	ui.twCommand->setRowCount ( 0 );
 	QTableWidgetItem *tmp;
-	CommandList commands = commandLoader->getCommands();
+	CommandList commands = commandBackend->getCommands();
 	int counter = 0;
 	for ( int i=0; i < commands.count(); i++ )
 	{
@@ -577,7 +579,7 @@ void CommandSettings::searchCommandList()
 {
 	if ( ( ui.leSearchCommand->text() =="" ) && ( !commandEdited ) )
 	{
-		CommandList allCommands = commandLoader->getCommands();
+		CommandList allCommands = commandBackend->getCommands();
 		ui.twCommand->clearContents();
 		ui.twCommand->setRowCount ( 0 );
 		QTableWidgetItem *tmp;
@@ -651,7 +653,7 @@ void CommandSettings::searchCommandList()
 	ui.twCommand->clearContents();
 	ui.twCommand->setRowCount ( 0 );
 	QTableWidgetItem *tmp;
-	CommandList commands = commandLoader->getCommands();
+	CommandList commands = commandBackend->getCommands();
 	int counter = 0;
 	for ( int i=0; i < commands.count(); i++ )
 	{
@@ -719,10 +721,10 @@ void CommandSettings::importNewProgram()
 	ui.twCommand->setDisabled ( checked );
 
 	if ( checked )
-    {
-        //importProgramWizard = new ImportProgramWizard(this);
+	{
+		//importProgramWizard = new ImportProgramWizard(this);
 		importProgramWizard->show();
-    }
+	}
 	else
 		importProgramWizard->hide();
 }
@@ -779,14 +781,14 @@ void CommandSettings::insertCommand ( Command* command )
 			if ( result == QMessageBox::Yes )
 			{
 				if ( !ui.twCommand->item ( rows, 1 )->data ( Qt::UserRole ).isNull() )
-					commandLoader->deleteCommand ( ui.twCommand->item ( rows, 1 )->data ( Qt::UserRole ).toString() );
+					commandBackend->deleteCommand ( ui.twCommand->item ( rows, 1 )->data ( Qt::UserRole ).toString() );
 				ui.twCommand->removeRow ( rows );
 				emit changeExistingName ( false );
 			}
 			else
 			{
 				if ( !ui.twCommand->item ( rows, 1 )->data ( Qt::UserRole ).isNull() )
-					commandLoader->deleteCommand ( ui.twCommand->item ( rows, 1 )->data ( Qt::UserRole ).toString() );
+					commandBackend->deleteCommand ( ui.twCommand->item ( rows, 1 )->data ( Qt::UserRole ).toString() );
 				ui.twCommand->removeRow ( rows );
 				emit changeExistingName ( true );
 			}
@@ -819,7 +821,7 @@ bool CommandSettings::commandNameExists ( QString name, int prevRow )
 			{
 				if ( !ui.twCommand->item ( prevRow, 0 )->data ( Qt::UserRole ).isNull() )
 				{
-					commandLoader->deleteCommand ( ui.twCommand->item ( prevRow, 1 )->data ( Qt::UserRole ).toString() );
+					commandBackend->deleteCommand ( ui.twCommand->item ( prevRow, 1 )->data ( Qt::UserRole ).toString() );
 				}
 				commandEdited=false;
 				ui.twCommand->removeRow ( prevRow );
@@ -900,7 +902,7 @@ bool CommandSettings::allCommandValuesSet ( int prevRow )
 			if ( ( !ui.twCommand->item ( prevRow, 1 )->data ( Qt::UserRole ).isNull() ) && ( ( ui.twCommand->item ( prevRow, 0 )->data ( Qt::UserRole ).toString().trimmed() !="" ) ) )
 			{
 				//deletes the command by the data
-				commandLoader->deleteCommand ( ui.twCommand->item ( prevRow, 1 )->data ( Qt::UserRole ).toString() );
+				commandBackend->deleteCommand ( ui.twCommand->item ( prevRow, 1 )->data ( Qt::UserRole ).toString() );
 			}
 			commandEdited=false;
 			ui.twCommand->removeRow ( prevRow );
@@ -944,15 +946,15 @@ void CommandSettings::deactivateCB ( int prevRow )
 
 		//creates esp. replaces a command
 		Command *newCommand = new Command ( ui.twCommand->item ( prevRow,1 )->text(), CommandType ( typeInt ), ui.twCommand->item ( prevRow,3 )->text() );
-		if ( ( !ui.twCommand->item ( prevRow,1 )->data ( Qt::UserRole ).isNull() ) && ( commandLoader->commandExists ( ui.twCommand->item ( prevRow,1 )->data ( Qt::UserRole ).toString() ) ) )
+		if ( ( !ui.twCommand->item ( prevRow,1 )->data ( Qt::UserRole ).isNull() ) && ( commandBackend->commandExists ( ui.twCommand->item ( prevRow,1 )->data ( Qt::UserRole ).toString() ) ) )
 		{
 			//replaces the command
-			commandLoader->replaceCommand ( ui.twCommand->item ( prevRow,1 )->data ( Qt::UserRole ).toString(), newCommand );
+			commandBackend->replaceCommand ( ui.twCommand->item ( prevRow,1 )->data ( Qt::UserRole ).toString(), newCommand );
 			ui.twCommand->item ( prevRow,1 )->setData ( Qt::UserRole, ui.twCommand->item ( prevRow,1 )->text() );
 		}
 		else
 		{
-			commandLoader->addCommand ( newCommand );
+			commandBackend->addCommand ( newCommand );
 			ui.twCommand->item ( prevRow,1 )->setData ( Qt::UserRole, ui.twCommand->item ( prevRow,1 )->text() );
 		}
 	}
@@ -1038,10 +1040,10 @@ void CommandSettings::importNewPlace()
 	ui.twCommand->setDisabled ( checked );
 
 	if ( checked )
-    {
-        //importPlaceWizard = new ImportPlaceWizard(this);
+	{
+		//importPlaceWizard = new ImportPlaceWizard(this);
 		importPlaceWizard->show();
-    }
+	}
 	else
 		importPlaceWizard->hide();
 }

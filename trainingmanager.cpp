@@ -14,12 +14,16 @@
 #include "logger.h"
 #include "settings.h"
 #include "wordlistmanager.h"
+#include "modelmanager.h"
 #include "math.h"
 #include <QObject>
 #include "addwordview.h"
 #include <QStringList>
 #include <QString>
 #include <QMessageBox>
+
+
+TrainingManager* TrainingManager::instance;
 
 /**
  * @brief Constructor
@@ -28,22 +32,17 @@
  */
 TrainingManager::TrainingManager()
 {
-	filename = Settings::getS ( "PathToTexts" );
 	promptsLock.lock();
 	this->promptsTable = readPrompts ( Settings::getS ( "Model/PathToPrompts" ) );
 	promptsLock.unlock();
 	sampleHash = new QHash<QString, QString>();
-	//this->addWordView = addWordView;
 }
 
-void TrainingManager::setAddWordView ( AddWordView *addWordView )
+TrainingManager* TrainingManager::getInstance()
 {
-	this->addWordView = addWordView;
-}
-
-void TrainingManager::setWordListManager ( WordListManager *wlistmgr )
-{
-	this->wlistmgr = wlistmgr;
+	if (!instance)
+		instance = new TrainingManager();
+	return instance;
 }
 
 bool TrainingManager::deleteWord ( Word *w )
@@ -55,7 +54,6 @@ bool TrainingManager::deleteWord ( Word *w )
 	//For the future we should implement a lookup which tries to resolve the pronunciation using the samples
 	//and looking up if this is the selected word
 	QStringList sampleFileNames = promptsTable->keys();
-// 	QStringList samplesToDelete;
 	for ( int i=0; i < this->promptsTable->count(); i++ )
 	{
 		QString filename = sampleFileNames[i];
@@ -64,15 +62,12 @@ bool TrainingManager::deleteWord ( Word *w )
 		{
 			if ( promptWords[j].toUpper() == wordToDelete )
 			{
-// 				samplesToDelete << filename;
-// 				promptsTable->remove(filename);
 				if ( !deletePrompt ( filename ) ) return false;
 			}
 		}
 	}
 	promptsLock.unlock();
 
-// 	for (int i=0; i < samplesToDelete.count(); i++) qDebug() <<samplesToDelete[i];
 	return true;
 }
 
@@ -239,9 +234,9 @@ bool TrainingManager::deleteText ( int index )
  * @return TrainingList*
  * The TrainingList (member)
  */
-TrainingList* TrainingManager::readTrainingTexts ( QString pathToTexts )
+TrainingList* TrainingManager::readTrainingTexts ()
 {
-	if ( pathToTexts.isEmpty() ) pathToTexts=this->filename;
+	QString pathToTexts = Settings::getS ( "PathToTexts" );
 
 	if ( pathToTexts.isEmpty() )
 	{
@@ -250,7 +245,10 @@ TrainingList* TrainingManager::readTrainingTexts ( QString pathToTexts )
 	}
 	Logger::log ( QObject::tr ( "[INF] Lesen der Trainingtexte von \"" ) +pathToTexts+"\"" );
 	QDir *textdir = new QDir ( pathToTexts );
-	if ( !textdir || !textdir->exists() ) return NULL;
+	if ( !textdir || !textdir->exists() ) {
+		QMessageBox::critical ( 0, QCoreApplication::tr ( "Fehler beim Auslesen der Trainingstexte" ), QCoreApplication::tr ( "Der Pfad zu den Trainingstexten ist nicht richtig konfiguriert. (Der Ordner existiert nicht)\n\nBitte setzen Sie einen korrekten Pfad in den Einstellungen." ) );
+		return NULL;
+	}
 	QStringList filter;
 	textdir->setFilter ( QDir::Files|QDir::Readable );
 
@@ -266,6 +264,7 @@ TrainingList* TrainingManager::readTrainingTexts ( QString pathToTexts )
 		        text->getAllPages() );
 		newText->setRelevance ( calcRelevance ( newText ) );
 		trainingTexts->append ( newText );
+		delete text;
 	}
 
 	return trainingTexts;
@@ -280,7 +279,6 @@ TrainingList* TrainingManager::readTrainingTexts ( QString pathToTexts )
  * \return bool
  * Success?
  */
-#include <QDebug>
 bool TrainingManager::trainText ( int i )
 {
 	Logger::log(QObject::tr("[INF] Training Text: \"")+getText(i)->getName()+"\"");
@@ -327,7 +325,7 @@ bool TrainingManager::allWordsExisting()
 			word.remove ( "\\" );
 			word.remove ( "[" );
 			word.remove ( "]" );
-			WordList* words = wlistmgr->getWords ( word, false );
+			WordList* words = WordListManager::getInstance()->getWords ( word, false );
 			if ( words->isEmpty() )
 			{
 				bool wordExistingInList = false;
@@ -463,7 +461,7 @@ float TrainingManager::calcRelevance ( TrainingText *text )
 void TrainingManager::finishTrainingSession()
 {
 	addSamples ( sampleHash );
-	wlistmgr->compileModel();
+	ModelManager::compileModel();
 }
 
 

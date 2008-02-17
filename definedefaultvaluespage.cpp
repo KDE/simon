@@ -87,6 +87,8 @@ void DefineDefaultValuesPage::initializePage()
 	ui.pbProgress->setValue(10);
 	checkAndSet("Performance/MaxDisplayedWords", 500);
 	ui.pbProgress->setValue(11);
+	checkAndSet("PathToTextOnlineUpdate", "http://simon.pytalhost.org/texts/list.xml");
+	ui.pbProgress->setValue(12);
 
 
 	QWizardPage::initializePage();

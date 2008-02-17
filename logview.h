@@ -81,7 +81,7 @@ public slots:
 	void deleteChilds(QTreeWidgetItem *item);
 	void deleteChilds(int parentIndex);
 	LogEntryList* filterFor(LogEntryList* log, bool copy,
-			const QDate day, const QString filter, const short type);
+				const QString filter, const short type);
 
 	
 

@@ -29,6 +29,7 @@
 #include "trayiconmanager.h"
 #include "vumeter.h"
 #include "soundsettings.h"
+#include "modelmanager.h"
 #include "trainingview.h"
 #include "systemview.h"
 #include "settings.h"
@@ -96,32 +97,24 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	this->trayManager->createIcon ( QIcon ( ":/images/tray.png" ), "Simon" );
 
-
 	shownDialogs = 0;
 	QMainWindow ( parent,flags );
 
 	ui.setupUi ( this );
-    
-// 	QVBoxLayout *layout = new QVBoxLayout(this);
-// 	layout->addWidget(ui.inlineView);
-// 	setLayout(layout);
-
 
 	//Preloads all Dialogs
 	guessChildTriggers ( ( QObject* ) this );
 
     this->info->writeToSplash ( tr ( "Lade \"Trainieren\"..." ) );
-	this->trainDialog = new TrainingView (this );
+	this->trainDialog = TrainingView::getInstance ();
 
 	this->info->writeToSplash ( tr ( "Lade \"Wortliste\"..." ) );
-	this->wordList = new WordListView ( trainDialog, this );
-
-    this->trainDialog->setWordListManager(wordList->getWordListManager());
+	this->wordList = new WordListView ( this );
 
 	this->info->writeToSplash ( tr ( "Lade \"Wort hinzufügen\"..." ) );
-	GrammarManager *grammarManager = new GrammarManager(wordList->getManager());
+	GrammarManager *grammarManager = GrammarManager::getInstance();
 	
-	this->addWordView = new AddWordView ( this, wordList->getManager(), trainDialog->getManager(), grammarManager );
+	this->addWordView = AddWordView::getInstance();
 	this->info->writeToSplash ( tr ( "Lade \"Ausführen\"..." ) );
 	this->runDialog = new RunApplicationView ( control->getRunManager(), this );
 
@@ -138,11 +131,13 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 
 	ui.tbStatus->addWidget ( ui.pbActivision );
-	ui.tbStatus->addWidget ( ui.pbConnect );
+// 	ui.tbStatus->addWidget ( ui.pbConnect );
 	ui.tbStatus->addWidget ( ui.pbHide );
 	ui.tbStatus->addWidget ( ui.pbKeyed );
 	ui.tbStatus->addWidget ( ui.pbClose );
 	ui.tbLogo->addWidget ( ui.lbLogo );
+	ui.tbLogo->addWidget ( ui.frmConnectionStatus );
+// 	ui.tbLogo->addWidget ( ui.pbConnect );
 	ui.tbModules->addWidget ( ui.pbAddWord );
 	ui.tbModules->addWidget ( ui.pbTrain );
 	ui.tbModules->addWidget ( ui.pbEditWordList );
@@ -153,13 +148,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	setupSignalSlots();
 
-	//setting Background
-// 	QLinearGradient bg ( QPointF ( 1, 1 ), QPointF ( 900, 550 ) );
-// 	bg.setColorAt ( 0, QColor ( 70, 120, 190 ) );
-// 	bg.setColorAt ( 1, QColor ( 25, 60, 130 ) );
-// 	QPalette p ( palette() );
-// 	p.setBrush ( QPalette::Background, bg );
-// 	setPalette ( p );
 
 	if ( Settings::get ( "AutoConnect" ).toBool() )
 	{
@@ -176,13 +164,9 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	connect ( systemDialog, SIGNAL ( commandsChanged() ), runDialog, SLOT ( loadCommands() ) );
 
 	//switches, if the settings are shown or not
-	ui.pbKeyed->setCheckable ( true );
 	hideSettings();
 
-
 	connect ( ui.pbKeyed, SIGNAL ( clicked ( bool ) ), this, SLOT ( checkSettingState() ) );
-    
-    this->trainDialog->setAddWordView(addWordView);
 }
 
 /**
@@ -237,7 +221,12 @@ void SimonView::setupSignalSlots()
 	connect ( control, SIGNAL ( connectionError ( QString ) ), this, SLOT ( errorConnecting ( QString ) ) );
 
 
-	connect ( ui.pbCompileModel, SIGNAL ( clicked() ), this->wordList, SLOT ( compileModel() ) );
+	connect ( ui.pbCompileModel, SIGNAL ( clicked() ), this, SLOT ( compileModel() ) );
+}
+
+void SimonView::compileModel()
+{
+	ModelManager::compileModel();
 }
 
 void SimonView::setButtonNotChecked()
@@ -286,7 +275,8 @@ void SimonView::connectToServer()
  */
 void SimonView::connected()
 {
-	ui.pbConnect->setText ( tr ( "Verbunden" ) );
+	ui.pbConnect->setText ( tr ( "Trennen" ) );
+	ui.lbTextConnectionStatus->setText(tr("Verbunden"));
 	ui.pbConnect->setEnabled ( true );
 	ui.pbActivision->setEnabled ( true );
 	disconnect ( ui.pbConnect, 0,0,0 );
@@ -306,6 +296,7 @@ void SimonView::connected()
 void SimonView::disconnected()
 {
 	ui.pbConnect->setText ( tr ( "Verbinden" ) );
+	ui.lbTextConnectionStatus->setText(tr("Nicht Verbunden"));
 	ui.pbActivision->setEnabled ( false );
 	ui.pbConnect->setChecked ( false );
 	disconnect ( ui.pbConnect, 0,0,0 );

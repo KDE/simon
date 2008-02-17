@@ -13,7 +13,7 @@
    <string>Wortliste</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../simon.qrc" >:/images/icons/format-justify-fill.svg</iconset>
+   <iconset resource="../action_icons.qrc" >:/images/icons/format-justify-fill.svg</iconset>
   </property>
   <layout class="QHBoxLayout" >
    <item>
@@ -147,7 +147,7 @@
              <string>&amp;Neues Wort hinzufügen</string>
             </property>
             <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/document-new.svg</iconset>
+             <iconset resource="../action_icons.qrc" >:/images/icons/document-new.svg</iconset>
             </property>
            </widget>
           </item>
@@ -160,7 +160,7 @@
              <string>Wort &amp;löschen</string>
             </property>
             <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
+             <iconset resource="../action_icons.qrc" >:/images/icons/process-stop.svg</iconset>
             </property>
            </widget>
           </item>
@@ -173,7 +173,7 @@
              <string>Importiere Wörterbuch</string>
             </property>
             <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/document-open.svg</iconset>
+             <iconset resource="../action_icons.qrc" >:/images/icons/document-open.svg</iconset>
             </property>
            </widget>
           </item>
@@ -223,7 +223,7 @@ p, li { white-space: pre-wrap; }
              <string>Zum Training &amp;hinzufügen</string>
             </property>
             <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/go-up.svg</iconset>
+             <iconset resource="../action_icons.qrc" >:/images/icons/go-up.svg</iconset>
             </property>
            </widget>
           </item>
@@ -236,7 +236,7 @@ p, li { white-space: pre-wrap; }
              <string>Trainingsprog. &amp;vorschlagen</string>
             </property>
             <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/bookmark-new.svg</iconset>
+             <iconset resource="../action_icons.qrc" >:/images/icons/bookmark-new.svg</iconset>
             </property>
            </widget>
           </item>
@@ -249,7 +249,7 @@ p, li { white-space: pre-wrap; }
              <string>Wort aus Liste &amp;löschen</string>
             </property>
             <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/list-remove.svg</iconset>
+             <iconset resource="../action_icons.qrc" >:/images/icons/list-remove.svg</iconset>
             </property>
            </widget>
           </item>
@@ -267,7 +267,7 @@ p, li { white-space: pre-wrap; }
              <string>&amp;Trainieren</string>
             </property>
             <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/go-next.svg</iconset>
+             <iconset resource="../action_icons.qrc" >:/images/icons/go-next.svg</iconset>
             </property>
            </widget>
           </item>
@@ -312,7 +312,7 @@ p, li { white-space: pre-wrap; }
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../simon.qrc" />
+  <include location="../action_icons.qrc" />
  </resources>
  <connections/>
 </ui>

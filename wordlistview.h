@@ -54,7 +54,6 @@ private:
 	WordList trainingwordlist;  //!< Holds all the words that are scheduled for training
 	WordListManager *wordListManager; //!< Concept class
 	ImportDictView *importDictView; //!< Provides the Interface to import a dictionary
-	TrainingView *trainView; //!< Single trainingview is used for the special training
 	
 	void initializeItems();
 	void readVocab();
@@ -86,7 +85,6 @@ public slots:
 	void insertVocab(WordList *vocab);
 	void askToSave();
 	void show();
-	void compileModel();
 	void hide();
 	void showImportDictDialog();
     void hideTbEditModel();
@@ -95,8 +93,8 @@ public slots:
     WordListManager* getManager(){return wordListManager;}
 
 public:
-	WordListView(TrainingView *trainView, QWidget *parent);
-	WordListManager* getWordListManager() { return wordListManager; }
+	WordListView(QWidget *parent);
+	
 	~WordListView();
 
 };

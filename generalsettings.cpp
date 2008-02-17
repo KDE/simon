@@ -76,6 +76,8 @@ bool GeneralSettings::apply()
 	Settings::set("TempDir", ui.leTempDir->text());
 	Settings::set("PathToTexts", ui.lePathToTexts->text());
 
+	Settings::set("PathToTextOnlineUpdate", ui.leTextUpdateURL->text());
+
 	return true;
 }
 
@@ -114,6 +116,8 @@ bool GeneralSettings::init()
 	ui.leProgramCategories->setText(Settings::get("PathToProgramCategories").toString());
 	ui.leTempDir->setText(Settings::get("TempDir").toString());
 	ui.lePathToTexts->setText(Settings::get("PathToTexts").toString());
+
+	ui.leTextUpdateURL->setText(Settings::getS("PathToTextOnlineUpdate"));
 
 	return true;
 }

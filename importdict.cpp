@@ -47,12 +47,13 @@ void ImportDict::run()
 	emit status(tr("Öffne Wörterbuch..."));
 	
 	emit progress(10);
-	Dict *dict;
-	qDebug() << type;
+	Dict *dict=0;
 	if (type == WIKTIONARY)
 		dict = new WiktionaryDict(pathToDict);
 	else if (type == HADIFIXBOMP) dict = new BOMPDict(pathToDict);
 	else if (type == LEXICON) dict = new LexiconDict(pathToDict);
+
+	if (!dict) return;
 	
 	connect(dict, SIGNAL(loaded()), this, SLOT(openingFinished()));
 	connect(dict, SIGNAL(progress(int)), this, SLOT(loadProgress(int)));

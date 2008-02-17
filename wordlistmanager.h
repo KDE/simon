@@ -39,30 +39,31 @@ signals:
 	void wordListCouldntBeLoaded();
 	void shadowListCouldntBeLoaded();
 private:
+	static WordListManager *instance;
+
 	bool isTemp;
 	QMutex wordListLock;
 	QMutex shadowLock;
 
 	WordList *wordlist;	//!< Holds the wordlist
-	ModelManager *modelManager; //!< Manages the language- and acoustic model
 	WordList *shadowList;	//!< this holds the word that are not in the vocabulary (unused)
 	QStringList activeTerminals; //!< Cache for the terminals
 	QStringList shadowTerminals; //!< Cache for the terminals
-	TrainingManager *trainManager;
 
 	bool mainDirty, shadowDirty;
 	
 	WordList* removeDoubles(WordList *in);
-	//WordListManager(QString lexiconPath="model/lexicon", QString vocabPath="model/model.voca");
 	WordList* readWordList(QString lexiconpath, QString vocabpath, QString promptspath, QStringList &terminals);
 	WordList* readVocab(QString vocabpath);
 	QString* getTerminal(QString name, QString pronunciation, WordList *wlist);
 
 public:
+	static WordListManager* getInstance();
+
 	void safelyInit();
 	void run();
 
-	WordListManager(TrainingManager *trainManager);
+	WordListManager();
 
 	Word* getWord(QString word, QString pronunciation, QString terminal, bool &isShadowed);
 
@@ -87,8 +88,6 @@ public:
     PromptsTable* readPrompts(QString promptspath="model/prompts");
 
 	void renameTerminal(QString from, QString to, bool includeShadow);
-
-	bool compileModel();
 	~WordListManager();
 
 };

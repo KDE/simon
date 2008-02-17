@@ -13,7 +13,7 @@
    <string>Soundeinstellungen</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../simon.qrc" >:/images/icons/preferences-desktop-sound.svg</iconset>
+   <iconset resource="../category_icons.qrc" >:/images/icons/preferences-desktop-sound.svg</iconset>
   </property>
   <layout class="QVBoxLayout" >
    <item>
@@ -139,7 +139,7 @@
           <string/>
          </property>
          <property name="pixmap" >
-          <pixmap resource="../simon.qrc" >:/images/directX.png</pixmap>
+          <pixmap resource="../others.qrc" >:/images/directX.png</pixmap>
          </property>
         </widget>
         <widget class="QLabel" name="lbALSA" >
@@ -155,7 +155,7 @@
           <string/>
          </property>
          <property name="pixmap" >
-          <pixmap resource="../simon.qrc" >:/images/alsalogo.gif</pixmap>
+          <pixmap resource="../others.qrc" >:/images/alsalogo.gif</pixmap>
          </property>
          <property name="scaledContents" >
           <bool>true</bool>
@@ -211,7 +211,7 @@
              <string>...</string>
             </property>
             <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
+             <iconset resource="../other_icons.qrc" >:/images/icons/folder.svg</iconset>
             </property>
            </widget>
           </item>
@@ -302,7 +302,9 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../simon.qrc" />
+  <include location="../others.qrc" />
+  <include location="../other_icons.qrc" />
+  <include location="../category_icons.qrc" />
  </resources>
  <connections/>
 </ui>

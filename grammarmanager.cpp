@@ -17,6 +17,10 @@
 #include <QCoreApplication>
 #include <QMessageBox>
 
+
+
+GrammarManager* GrammarManager::instance;
+
 /**
  * \brief Constructor
  * \author Peter Grasch
@@ -25,6 +29,13 @@
 GrammarManager::GrammarManager(WordListManager *wordlistManager)
 {
 	this->wordlistManager = wordlistManager;
+}
+
+GrammarManager * GrammarManager::getInstance()
+{
+	if (!instance)
+		instance = new GrammarManager(WordListManager::getInstance());
+	return instance;
 }
 
 /**

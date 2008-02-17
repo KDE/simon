@@ -12,6 +12,7 @@
 #include "selectprogrampage.h"
 #include <QMessageBox>
 #include <QSize>
+#include <QDebug>
 
 #include "program.h"
 #ifdef linux
@@ -35,21 +36,7 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 #ifdef __WIN32
 	this->programManager = new WindowsProgramManager();
 #endif
-	ProgramCategoryList catList = programManager->readCategories();
 
-
-#ifdef linux
-	((KDEProgramManager*) this->programManager)->loadPrograms();
-#endif
-/*	for (int i=0; i < catList.count(); i++)
-	{
-		QString text = catList.at(i).getDescription()+":\n";
-		QStringList cats = catList.at(i).getFormats();
-		for (int j=0; j<cats.count(); j++)
-			text += "\n"+cats.at(j);
-
-		//QMessageBox::information(this, catList.at(i).getName(), text);
-	}*/
 
         vboxLayout = new QVBoxLayout(this);
         vboxLayout->setObjectName("vboxLayout");
@@ -57,8 +44,6 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
         lwCategories = new QListWidget(this);
         lwCategories->setObjectName("lwCategories");
         lwCategories->setIconSize(QSize(24,24));
-
-        this->insertCategories(programManager->readCategories());
 
         lwPrograms = new QListWidget(this);
         lwPrograms->setMaximumHeight(140);
@@ -69,7 +54,24 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
         vboxLayout->addWidget(lwPrograms);
 
         connect(lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
-        //connect(lwPrograms, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
+}
+
+/**
+ * \brief Initializes the page (under linux this loads the list of programs)
+ * \author Peter Grasch
+ */
+void SelectProgramPage::initializePage()
+{
+	ProgramCategoryList list = programManager->readCategories();
+	if (list.isEmpty()) 
+		QMessageBox::critical(this, tr("Konnte keine Programmkategorien finden"), tr("Konnte keine Programmkategorien finden.\n\nMöglicherweise ist der Pfad zur categories.xml falsch gesetzt."));
+	else {
+		this->insertCategories(list);
+		#ifdef linux
+			((KDEProgramManager*) this->programManager)->loadPrograms();
+		#endif
+	}
+
 }
 
 /**

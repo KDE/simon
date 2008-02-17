@@ -71,7 +71,7 @@
         <string>Hinzufügen</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/edit-add.svg</iconset>
+        <iconset resource="../action_icons.qrc" >:/images/icons/edit-add.svg</iconset>
        </property>
       </widget>
      </item>
@@ -84,7 +84,7 @@
         <string>Entfernen</string>
        </property>
        <property name="icon" >
-        <iconset resource="../simon.qrc" >:/images/icons/list-remove.svg</iconset>
+        <iconset resource="../action_icons.qrc" >:/images/icons/list-remove.svg</iconset>
        </property>
       </widget>
      </item>
@@ -93,7 +93,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../simon.qrc" />
+  <include location="../action_icons.qrc" />
  </resources>
  <connections/>
 </ui>

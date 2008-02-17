@@ -73,7 +73,7 @@
            <string>Alles</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/system-file-manager.svg</iconset>
+           <iconset resource="../other_icons.qrc" >:/images/icons/system-file-manager.svg</iconset>
           </property>
          </item>
          <item>
@@ -81,7 +81,7 @@
            <string>Programme</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/applications-other.svg</iconset>
+           <iconset resource="../category_icons.qrc" >:/images/icons/applications-other.svg</iconset>
           </property>
          </item>
          <item>
@@ -89,7 +89,7 @@
            <string>Orte</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/folder.svg</iconset>
+           <iconset resource="../other_icons.qrc" >:/images/icons/folder.svg</iconset>
           </property>
          </item>
          <item>
@@ -97,7 +97,7 @@
            <string>Sonderzeichen</string>
           </property>
           <property name="icon" >
-           <iconset resource="../simon.qrc" >:/images/icons/format-text-bold.svg</iconset>
+           <iconset resource="../action_icons.qrc" >:/images/icons/format-text-bold.svg</iconset>
           </property>
          </item>
         </widget>
@@ -170,7 +170,7 @@
           <string>&amp;Ausführen</string>
          </property>
          <property name="icon" >
-          <iconset resource="../simon.qrc" >:/images/icons/system-run.svg</iconset>
+          <iconset resource="../other_icons.qrc" >:/images/icons/system-run.svg</iconset>
          </property>
          <property name="default" >
           <bool>true</bool>
@@ -224,7 +224,9 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <resources>
-  <include location="../simon.qrc" />
+  <include location="../other_icons.qrc" />
+  <include location="../action_icons.qrc" />
+  <include location="../category_icons.qrc" />
  </resources>
  <connections/>
 </ui>

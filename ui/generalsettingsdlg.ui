@@ -13,7 +13,7 @@
    <string>Allgemeine Einstellungen</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../simon.qrc" >:/images/icons/computer.svg</iconset>
+   <iconset resource="../other_icons.qrc" >:/images/icons/computer.svg</iconset>
   </property>
   <layout class="QVBoxLayout" >
    <item>
@@ -150,6 +150,13 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QLabel" name="label_2" >
+          <property name="text" >
+           <string>Textdownload-URL:</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -185,6 +192,9 @@
         <item>
          <widget class="QLineEdit" name="lePathToTexts" />
         </item>
+        <item>
+         <widget class="QLineEdit" name="leTextUpdateURL" />
+        </item>
        </layout>
       </item>
      </layout>
@@ -206,7 +216,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../simon.qrc" />
+  <include location="../other_icons.qrc" />
  </resources>
  <connections/>
 </ui>

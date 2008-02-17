@@ -37,7 +37,7 @@
                <string/>
               </property>
               <property name="icon" >
-               <iconset resource="../simon.qrc" >:/images/icons/document-open.svg</iconset>
+               <iconset resource="../action_icons.qrc" >:/images/icons/document-open.svg</iconset>
               </property>
              </widget>
             </item>
@@ -175,7 +175,7 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <resources>
-  <include location="../simon.qrc" />
+  <include location="../action_icons.qrc" />
  </resources>
  <connections/>
 </ui>

@@ -22,6 +22,9 @@
 
 #include <QDebug>
 
+
+WordListManager* WordListManager::instance;
+
 /**
  * @brief Constructor
  *
@@ -31,13 +34,11 @@
  * @param QString path
  * Sets the path (member) to the given string
  */
-WordListManager::WordListManager ( TrainingManager *trainManager ) : QThread()
+WordListManager::WordListManager () : QThread()
 {
-	this->modelManager = new ModelManager();
-	this->trainManager = trainManager;
 	isTemp = false;
 
-	this->trainManager->getPrompts();
+// 	this->trainManager->getPrompts();
 	wordListLock.lock();
 	mainDirty = false;
 	this->wordlist = readWordList ( Settings::getS("Model/PathToLexicon"), Settings::getS("Model/PathToVocab"), Settings::getS("Model/PathToPrompts"), this->activeTerminals );
@@ -51,9 +52,13 @@ WordListManager::WordListManager ( TrainingManager *trainManager ) : QThread()
 	start();
 }
 
-bool WordListManager::compileModel()
+WordListManager* WordListManager::getInstance()
 {
-	return this->modelManager->compileModel();
+	if (!instance)
+	{
+		instance = new WordListManager();
+	}
+	return instance;
 }
 
 /**
@@ -291,9 +296,9 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 
 	WordList *wordlist = new WordList();
 	//read the vocab
-// 	WordList *vocablist = readVocab(vocabpath);
+	TrainingManager *trainManager = TrainingManager::getInstance();
 
-	PromptsTable *promptsTable = trainManager->getPrompts();
+	PromptsTable *promptsTable = TrainingManager::getInstance()->getPrompts();
 
 	//opening
 	Logger::log(QObject::tr("[INF] Öffnen des Lexikons von: %1").arg(lexiconpath));
@@ -395,7 +400,7 @@ Word* WordListManager::getWord(QString word, QString pronunciation, QString term
 bool WordListManager::moveToShadow(Word *w)
 {
 	int i=0;
-	this->trainManager->deleteWord(w);
+	TrainingManager::getInstance()->deleteWord(w);
 	shadowLock.lock();
 	while (i < wordlist->count())
 	{
@@ -424,7 +429,7 @@ bool WordListManager::deleteCompletely(Word *w, bool shadowed)
 
 	if (!shadowed)
 	{
-		this->trainManager->deleteWord(w); //if the word is shadowed we can't have any
+		TrainingManager::getInstance()->deleteWord(w); //if the word is shadowed we can't have any
 		wordListLock.lock();
 		WordList *main = getWordList();
 		for (int i=0; i < main->count(); i++)

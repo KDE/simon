@@ -15,7 +15,6 @@
 #include "systemwidget.h"
 #include "ui_commandsettingsdlg.h"
 #include <QMessageBox>
-#include "xmlcommand.h"
 #include <QStringList>
 //#include "simontablewidget.h"
 #include <QTableWidget>
@@ -31,6 +30,7 @@ class QIcon;
 #include <QPixmap>
 
 #include "iconbutton.h"
+class RunCommand;
 
 /**
  * \class $CLASSNAME
@@ -92,7 +92,8 @@ class CommandSettings : public SystemWidget
 
 		void deactivateCB ( int prevRow );
 
-		XMLCommand *commandLoader;
+		RunCommand *commandBackend;
+
 		bool commandEdited; //!< shows, if a command is edited or not.
 		QIcon getIconFromResource ( QString resourceId );
 		QString getTypeName ( CommandType ctype );

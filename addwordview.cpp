@@ -27,7 +27,11 @@
 #include "addwordintropage.h"
 #include "addwordrecordpage.h"
 #include "addwordresolvepage.h"
+#include "grammarmanager.h"
 #include "wordlistmanager.h"
+
+
+AddWordView* AddWordView::instance;
 
 /**
  * @brief Constructor
@@ -61,6 +65,18 @@ AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr, Training
 	setWindowTitle(tr("Wort hinzufügen"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/addword.png"));
 }
+
+
+AddWordView* AddWordView::getInstance()
+{
+	if (!instance)
+		instance = new AddWordView(0, WordListManager::getInstance(),
+				TrainingManager::getInstance(),
+				GrammarManager::getInstance());
+	
+	return instance;
+}
+
 
 /**
  * \brief Creates the welcomepage

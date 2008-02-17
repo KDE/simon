@@ -22,6 +22,7 @@
  */
 XMLDomReader::XMLDomReader(QString path, QObject* parent) : XMLReader(path, parent)
 {
+	this->doc = 0;
 }
 
 /**
@@ -30,18 +31,18 @@ XMLDomReader::XMLDomReader(QString path, QObject* parent) : XMLReader(path, pare
  * \param QString path
  * If no path is given, we use the path given in the path-member
  */
-int XMLDomReader::save(QString path)
+bool XMLDomReader::save(QString path)
 {
 	if (path.isEmpty()) path = this->path;
 	QFile file(path);
 	if(!file.open(QIODevice::WriteOnly ) )
-		return -1;
+		return false;
 	QTextStream ts(&file);
 	ts << doc->toString(); 
 	emit(written());
 	file.close();
 	emit(closed());
-	return 0;
+	return true;
 }
 
 
@@ -52,21 +53,23 @@ int XMLDomReader::save(QString path)
  * \param QString path
  * If no path is given, we use the path given in the path-member
  */
-void XMLDomReader::load(QString path)
+bool XMLDomReader::load(QString path)
 {
 	if (path.isEmpty())
         path = this->path;
 	doc= new QDomDocument();
 	QFile file(path);
 	if(!file.open(QIODevice::ReadOnly))
-		return;
+		return false;
+
 	if(!doc->setContent(&file))
 	{
 		file.close();
-		return;
+		return false;
 	}
 	file.close();
 	emit (loaded());
+	return true;
 }
 
 /**

@@ -90,7 +90,7 @@
              <string>Suchen</string>
             </property>
             <property name="icon" >
-             <iconset resource="../simon.qrc" >:/images/icons/system-search.svg</iconset>
+             <iconset resource="../other_icons.qrc" >:/images/icons/system-search.svg</iconset>
             </property>
            </widget>
           </item>
@@ -193,7 +193,7 @@
                <string>Abbrechen</string>
               </property>
               <property name="icon" >
-               <iconset resource="../simon.qrc" >:/images/icons/process-stop.svg</iconset>
+               <iconset resource="../action_icons.qrc" >:/images/icons/process-stop.svg</iconset>
               </property>
              </widget>
             </item>
@@ -275,7 +275,8 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../simon.qrc" />
+  <include location="../action_icons.qrc" />
+  <include location="../other_icons.qrc" />
  </resources>
  <connections>
   <connection>

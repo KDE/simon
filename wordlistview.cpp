@@ -16,6 +16,7 @@
 #include "wordlistview.h"
 #include "settings.h"
 #include "deleteworddialog.h"
+#include "modelmanager.h"
 
 /**
  * @brief Constructor
@@ -25,7 +26,7 @@
  *
  * @author Peter Grasch
  */
-WordListView::WordListView(TrainingView *trainView, QWidget *parent) : InlineWidget(tr("Wortliste"), 
+WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"), 
 	QIcon(":/images/icons/format-justify-fill.svg"), 
 	tr("Betrachten und bearbeiten der Wortliste"), parent)
 {
@@ -52,9 +53,7 @@ WordListView::WordListView(TrainingView *trainView, QWidget *parent) : InlineWid
 	connect(importDictView, SIGNAL(dictGenerated(WordList*)), this, SLOT(importDict(WordList*)));
 	
 	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(toggleExtraWords()));
-
-	this->trainView = trainView; 
-	this->wordListManager = new WordListManager(trainView->getManager());
+	this->wordListManager = new WordListManager();
 	connect(this->wordListManager, SIGNAL(tempWarning()), this, SLOT(warnAboutTempWordList()));
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(reloadList()));
 	connect(this->wordListManager, SIGNAL(shadowListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
@@ -80,7 +79,7 @@ void WordListView::askForRebuild()
 	//we changed the wordlist
 	//we should thus recompile the model
 	if (QMessageBox::question(this, tr("Übernehmen"), tr("Um die Änderung zu übernehmen, muss das Sprachmodell neu generiert werden.\n\nWollen Sie es jetzt neu generieren?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
-					wordListManager->compileModel();
+					ModelManager::compileModel();
 }
 
 
@@ -106,15 +105,6 @@ void WordListView::showImportDictDialog()
 {
 	importDictView->restart();
 	importDictView->show();
-}
-
-/**
- * \brief Compiles the language model
- * \author Peter Grasch
- */
-void WordListView::compileModel()
-{
-	this->wordListManager->compileModel();
 }
 
 /**
@@ -210,6 +200,7 @@ void WordListView::filterListbyPattern(QString filter)
  */
 void WordListView::trainList()
 {
+	TrainingView *trainView = TrainingView::getInstance();
 	if (!trainView) return;
 	if (this->trainingwordlist.count()==0)
 	{
@@ -368,7 +359,6 @@ void WordListView::deleteSelectedWord()
 	Word *w = this->wordListManager->getWord(word, pronunciation, terminal, isShadowed);
 	if (!w)
 	{
-		qDebug() << "WTF?";
 		return; //word not found?!
 	}
 	
@@ -381,7 +371,6 @@ void WordListView::deleteSelectedWord()
 		}
 		if (del->getDeletionType() == DeleteWordDialog::RemoveCompletely)
 		{
-			qDebug("Remove completely...");
 			if (!wordListManager->deleteCompletely(w, isShadowed))
 				QMessageBox::critical(this, tr("Fehler beim Löschen"), tr("Das Wort konnte nicht komplett gelöscht werden.\n\nBitte überprüfen Sie die Pfade der Dateien: prompts, codetrain.scp, Pfad der Samples, dict, shadow-dict, voca"));
 			else 

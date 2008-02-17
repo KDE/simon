@@ -18,6 +18,8 @@
 #include <QHashIterator>
 
 
+TrainingView* TrainingView::instance;
+
 /**
  * \brief Constructor - inits the Gui
  * \author Peter Grasch
@@ -46,33 +48,8 @@ TrainingView::TrainingView ( QWidget *parent )
 
 	currentPage=0;
 
-	trainMgr = new TrainingManager();
-
-}
-
-/**
- * \brief Sets a valid object of the addwordview.
- * \author Susanne Tschernegg
- * @param AddWordView* addWordView
- *      holds an object of the addwordview
- */
-void TrainingView::setAddWordView ( AddWordView* addWordView )
-{
-	this->addWordView = addWordView;
-	trainMgr->setAddWordView ( addWordView );
-}
-
-/**
- * \brief Sets a valid object of the wordlistmanager.
- * \author Susanne Tschernegg
- * @param WordListManager *wlistmgr
- *      holds an object of the wordlistmanager
- */
-void TrainingView::setWordListManager ( WordListManager *wlistmgr )
-{
-	trainMgr->setWordListManager ( wlistmgr );
-	loadList(); // we load the list of avalible trainingtexts despite we probably won't
-	// use it when given a special training program
+	trainMgr = TrainingManager::getInstance();
+	loadList();
 }
 
 
@@ -114,7 +91,6 @@ void TrainingView::trainWords ( WordList* words )
  * \brief Starts the training of the selected text
  * \author Peter Grasch
  */
-#include <QDebug>
 void TrainingView::trainSelected()
 {
 	recordedPages = 0;

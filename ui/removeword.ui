@@ -52,7 +52,7 @@
         <string/>
        </property>
        <property name="pixmap" >
-        <pixmap resource="../simon.qrc" >:/images/icons/process-stop.svg</pixmap>
+        <pixmap resource="../action_icons.qrc" >:/images/icons/process-stop.svg</pixmap>
        </property>
        <property name="scaledContents" >
         <bool>false</bool>
@@ -265,7 +265,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../simon.qrc" />
+  <include location="../action_icons.qrc" />
  </resources>
  <connections>
   <connection>

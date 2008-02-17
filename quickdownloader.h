@@ -41,11 +41,9 @@ signals:
 
 private:
 	QProgressDialog *progressDlg;
-	QString filename;
 	QHttp *loader;
 	int request;
 	bool aborting;
-// 	QTemporaryFile *file;
 	QFile *file;
 	
 private slots:
@@ -59,6 +57,7 @@ public slots:
 
 public:
     QuickDownloader(QWidget *parent=0);
+	void destroyFile();
 
     ~QuickDownloader();
 

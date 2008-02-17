@@ -19,6 +19,10 @@
 #include <QProgressDialog>
 #include <QDebug>
 
+
+ModelManager* ModelManager::instance;
+
+
 ModelManager::ModelManager(QWidget *parent) : QThread(parent)
 {
 	processDialog = new QProgressDialog();
@@ -217,7 +221,7 @@ void ModelManager::displayError(QString error)
 	processDialog->hide();
 }
 
-bool ModelManager::compileModel()
+bool ModelManager::startCompilation()
 {
 	if (isRunning()) return false;
 	

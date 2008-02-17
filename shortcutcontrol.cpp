@@ -15,7 +15,7 @@
 #include <QVariant>
 #include "shortcutxmlreader.h"
 #include "settings.h"
-
+#include <QDebug>
 /**
  * \brief Constructor
  * \author Peter Grasch
@@ -23,7 +23,7 @@
 ShortcutControl::ShortcutControl()
 {
 	shortcuts = new ShortcutList();
-	shortcutXMLReader=new ShortcutXMLReader(Settings::get("General/PathToShortcuts").toString());
+	shortcutXMLReader=new ShortcutXMLReader(Settings::get("PathToShortcuts").toString());
 }
 
 /**

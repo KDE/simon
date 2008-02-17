@@ -11,14 +11,17 @@
 //
 #include "importremotewizardpage.h"
 #include "logger.h"
-
+#include "settings.h"
+#include <QDebug>
 
 /**
  * \brief Constructor
  * @param parent Sets the parent of the page to the given parent
  */
 ImportRemoteWizardPage::ImportRemoteWizardPage(QWidget *parent) : QWizardPage(parent)
-{}
+{
+
+}
 
 /**
  * \brief Wrapper for the registerField function
@@ -38,35 +41,37 @@ void ImportRemoteWizardPage::registerField(const QString &name, QWidget *widget,
  * \brief Fetches the list of trainingtexts using the QuickDownloader
  * \author Peter Grasch
  */
-void ImportRemoteWizardPage::fetchList()
+void ImportRemoteWizardPage::initializePage()
 {
-	QuickDownloader *downloader = new QuickDownloader(this);
+	downloader = new QuickDownloader(this);
 
 	Logger::log(tr("[INF] Abrufen der Liste von verfügbaren Trainingstexten"));
 	
 	connect (downloader, SIGNAL(downloadFinished(QString)), this, SLOT(importList(QString)));
-	downloader->download("http://simon.pytalhost.org/texts/list.xml");
+	downloader->download(Settings::getS("PathToTextOnlineUpdate"));
 }
 
 /**
  * \brief Imports the xml list of available trainingtexts from the given path
  * \author Peter Grasch
- * @param path the path to importfrom
+ * @param path the path to import from
  * \see fetchList()
  */
 void ImportRemoteWizardPage::importList(QString path)
 {
 	XMLTrainingTextList *tlist = new XMLTrainingTextList(path);
-	tlist->load();
+	if (!tlist->load(path))
+		QMessageBox::critical(this, tr("Konnte Datei nicht öffnen"), tr("Konnte Liste der Texte nicht öffnen.\n\nMöglicherweise ist der URL falsch konfiguriert oder beim Download ist ein Fehler aufgetreten."));
 	QHash<QString, QString> textlist = tlist->getTrainingTextList();
-
-	QListWidgetItem *item;
 	list->clear();
 	for (int i=0; i < textlist.count(); i++)
 	{
+		QListWidgetItem *item;
 		item = new QListWidgetItem(list);
 		item->setText(textlist.keys().at(i));
 		item->setData(Qt::UserRole, textlist.values().at(i));
 		list->addItem(item);
 	}
+	delete tlist;
+	downloader->deleteLater();
 }

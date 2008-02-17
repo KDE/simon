@@ -22,8 +22,11 @@ class GrammarManager{
 private:
 	QStringList structures;
 	WordListManager *wordlistManager;
+	static GrammarManager *instance;
 public:
     GrammarManager(WordListManager*);
+
+	static GrammarManager* getInstance();
 
 	bool load();
 	bool save();

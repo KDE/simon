@@ -225,8 +225,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../simon.qrc" />
- </resources>
+ <resources/>
  <connections/>
 </ui>

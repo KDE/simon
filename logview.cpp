@@ -344,7 +344,7 @@ void LogView::processEntries(LogEntryList *entries, bool copy)
 
 
 	LogEntryList *filtered = 
-		filterFor( entries, copy, day, ui.leSearchLogs->text(), (error|info|update|settings));
+		filterFor( entries, copy, ui.leSearchLogs->text(), (error|info|update|settings));
 
 	insertEntries(filtered);
 
@@ -636,7 +636,7 @@ void LogView::deleteChilds(int parentIndex)
  * @return The filtered list
  */
 LogEntryList* LogView::filterFor(LogEntryList* log, bool copy, 
-				const QDate day, const QString filter, const short type)
+				const QString filter, const short type)
 {
 	if (!log) new LogEntryList();
 
