@@ -22,7 +22,6 @@
 #include <QMessageBox>
 #include <QMutex>
 #include "addwordview.h"
-class WordListManager;
 
 /**
  *	@class TrainingManager

@@ -44,7 +44,7 @@ OSD::OSD(QString message, int timeout)
 	y=(tmp->height())-130;
 	
 	this->setGeometry(x, y,250,60);
-	connect(this->timer, SIGNAL(timeout()), this, SLOT(close()));
+	connect(this->timer, SIGNAL(timeout()), this, SLOT(deleteLater()));
 	
 	QPalette pal = palette();
 	pal.setColor(QPalette::WindowText, QColor(175, 190, 200, 255));

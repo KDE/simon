@@ -21,18 +21,14 @@
 
 /**
  * \brief Constructor - initializes the members with the given parameters and sets up the gui
- * @param wordListManager The member to the given wordlistmanager; it is not yet used
- * @param grammarManager The member to the given grammarManager; it is not yet used
  * @param parent Initializes the QWizardPage with the given parent
  */
-AddWordResolvePage::AddWordResolvePage(WordListManager *wordListManager, GrammarManager *grammarManager,
-	QWidget* parent): QWizardPage(parent)
+AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
 	ui.twSuggestions->verticalHeader()->hide();
-	this->grammarManager = grammarManager;
-	grammarManager->load();
-	this->wordListManager = wordListManager;
+	this->grammarManager = GrammarManager::getInstance();
+	this->wordListManager = WordListManager::getInstance();
 	connect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
 	connect(ui.cbType, SIGNAL(currentIndexChanged(int)), this, SLOT(createExamples()));
 	connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(createExamples()));

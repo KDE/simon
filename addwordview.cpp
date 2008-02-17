@@ -46,14 +46,12 @@ AddWordView* AddWordView::instance;
  * Qt Windowflags - default 0
 */
 
-AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr, TrainingManager *trainManager, GrammarManager *grammarManager)
+AddWordView::AddWordView(QWidget *parent)
 	: QWizard (parent)
 {
 	prevId=0;
-	this->wordlistMgr = wordlistMgr;
-	this->trainManager = trainManager;
 	this->welcomePage = createWelcomePage();
-	resolvePage = createResolvePage(grammarManager);
+	resolvePage = createResolvePage();
 	this->addPage((QWizardPage*) welcomePage);
 	this->addPage(resolvePage);
 
@@ -70,9 +68,7 @@ AddWordView::AddWordView(QWidget *parent, WordListManager *wordlistMgr, Training
 AddWordView* AddWordView::getInstance()
 {
 	if (!instance)
-		instance = new AddWordView(0, WordListManager::getInstance(),
-				TrainingManager::getInstance(),
-				GrammarManager::getInstance());
+		instance = new AddWordView(0);
 	
 	return instance;
 }
@@ -105,9 +101,9 @@ QWizardPage* AddWordView::createRecordPage()
  * \author Peter Grasch
  * @return the QWizardPage
  */
-AddWordResolvePage* AddWordView::createResolvePage(GrammarManager *grammarManager)
+AddWordResolvePage* AddWordView::createResolvePage()
 {
-	return new AddWordResolvePage(wordlistMgr, grammarManager, this);
+	return new AddWordResolvePage(this);
 }
 
 
@@ -141,6 +137,8 @@ void AddWordView::finish(int done)
 {
 	if (!done) return;
 	
+	WordListManager *wordlistMgr = WordListManager::getInstance();
+	TrainingManager *trainManager = TrainingManager::getInstance();
 	QString word = field("wordName").toString();
 	
 	Logger::log(tr("[INF] Füge neues Wort zum Modell hinzu..."));
@@ -156,7 +154,7 @@ void AddWordView::finish(int done)
 	
 	samples.insert(recordingName1, field("wordExample1").toString());
 	samples.insert(recordingName2, field("wordExample2").toString());
-	this->trainManager->addSamples(&samples);
+	trainManager->addSamples(&samples);
 	wordlistMgr->addWords(list, true /*sorted*/, false /*shadowed*/);
 
 	//cleaning up

@@ -21,8 +21,6 @@
 #define PROJECTVIEW_H
 
 
-// #define ANIMATIONS
-
 /**
  *	@class SimonView
  *	@brief The Main UI Class
@@ -36,10 +34,6 @@
 */
 
 #define sAddWordView 		1
-#define sTrainMain 		2
-#define sWordListView 		4
-#define sRunApplicationView 	8
-#define sSystemView	 	16
 
 
 #include "wordlistview.h"
@@ -118,26 +112,12 @@ private:
 	RunApplicationView *runDialog; //!< Pointer on the Dialog "RunCommand"
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
 	SystemView *systemDialog; //!< Pointer on the Dialog "System"
-	VuMeter *vuMeter; //!< Does the calculation of the current input "loudness" for the 2 bars in the mainwindow
 
-    
-	/*GuiAction *guiItems;
-	actionValues *realAction;*/
-	
 
 	void setupSignalSlots();
 
 
 public slots:
-
-
-	/*void doAction(QString action);
-	void registerControl(QString trigger, QObject* receiver, const char* slot);*/
-
-
-	void setLevel(int level);
-
-	
 	void toggleVisibility();
 	void hideSimon();
 	void showSimon();

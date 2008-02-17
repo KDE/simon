@@ -53,7 +53,7 @@ public slots:
 	int getCategory(QString commandtype);
     void loadCommands();
 public:
-    RunApplicationView(RunCommand *run, QWidget *parent);
+    RunApplicationView(QWidget *parent);
 
     ~RunApplicationView();
 

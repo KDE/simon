@@ -723,8 +723,6 @@ void LogView::enableWidgets(bool enabled)
 	this->ui.gbOnlyDay->setEnabled(enabled);
 	this->ui.cwLogDay->setEnabled(enabled && ui.gbOnlyDay->isChecked());
 
-	this->ui.pbActionLog->setEnabled(enabled);
-	this->ui.pbRecordings->setEnabled(enabled);
 	this->ui.twLogEntries->setEnabled(enabled);
 	this->ui.pbLogSearch->setEnabled(enabled);
 	this->ui.pbClearSearch->setEnabled(enabled);

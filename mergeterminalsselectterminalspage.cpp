@@ -12,10 +12,9 @@
 #include "mergeterminalsselectterminalspage.h"
 #include "wordlistmanager.h"
 
-MergeTerminalsSelectTerminalsPage::MergeTerminalsSelectTerminalsPage(WordListManager *wordListManager, QWidget* parent): QWizardPage(parent)
+MergeTerminalsSelectTerminalsPage::MergeTerminalsSelectTerminalsPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
-	this->wordListManager = wordListManager;
 	setTitle(tr("Terminale auswählen"));
 	registerField("newName*", ui.leNewTerminal);
 	registerField("terminalA*", ui.lwA, "currentText", SIGNAL(currentTextChanged(QString)));
@@ -27,7 +26,7 @@ MergeTerminalsSelectTerminalsPage::MergeTerminalsSelectTerminalsPage(WordListMan
 void MergeTerminalsSelectTerminalsPage::initializePage()
 {
 	QStringList availableTerminals;
-	availableTerminals = wordListManager->getTerminals(true);
+	availableTerminals = WordListManager::getInstance()->getTerminals(true);
 	ui.lwA->clear();
 	ui.lwB->clear();
 	ui.lwA->addItems(availableTerminals);

@@ -15,11 +15,11 @@
 #include "grammarmanager.h"
 #include <QTimer>
 
-RenameTerminalWorkingPage::RenameTerminalWorkingPage(QWidget *parent, WordListManager *wordListManager, GrammarManager *grammarManager)
+RenameTerminalWorkingPage::RenameTerminalWorkingPage(QWidget *parent)
  : QWizardPage(parent)
 {
 	complete = false;
-	renameTerminal = new RenameTerminal(this, wordListManager, grammarManager);
+	renameTerminal = new RenameTerminal(this);
 	connect(renameTerminal, SIGNAL(progress(int)), this, SLOT(displayProgress(int)));
 	connect(renameTerminal, SIGNAL(done()), this, SLOT(finish()));
 	ui.setupUi(this);

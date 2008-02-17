@@ -18,25 +18,25 @@
 #include "wordlistmanager.h"
 #include "grammarmanager.h"
 
-RenameTerminalWizard::RenameTerminalWizard(QWidget* parent, WordListManager *wordListManager, GrammarManager *grammarManager): SimonWizard(parent)
+RenameTerminalWizard::RenameTerminalWizard(QWidget* parent): SimonWizard(parent)
 {
 	setWindowTitle(tr("Terminal umbenennen"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/editterminal.png"));
 	addPage(createIntroPage());
-	addPage(createSelectParametersPage(wordListManager));
-	addPage(createWorkingPage(wordListManager, grammarManager));
+	addPage(createSelectParametersPage());
+	addPage(createWorkingPage());
 	addPage(createFinishedPage());
 }
 
 
-QWizardPage* RenameTerminalWizard::createSelectParametersPage(WordListManager *wordListManager)
+QWizardPage* RenameTerminalWizard::createSelectParametersPage()
 {
-	return  new RenameTerminalSelectParametersPage(this, wordListManager);
+	return  new RenameTerminalSelectParametersPage(this);
 }
 
-QWizardPage* RenameTerminalWizard::createWorkingPage(WordListManager *wordListManager, GrammarManager *grammarManager)
+QWizardPage* RenameTerminalWizard::createWorkingPage()
 {
-	RenameTerminalWorkingPage *work =  new RenameTerminalWorkingPage(this, wordListManager, grammarManager);
+	RenameTerminalWorkingPage *work =  new RenameTerminalWorkingPage(this);
 	connect(work, SIGNAL(done()), this, SLOT(next()));
 	return work;
 }

@@ -58,7 +58,7 @@ public slots:
 	void apply();
 	void reset();
 public:
-    SystemView(ShortcutControl *shortcutctrl, GrammarManager *grammarManager, QWidget* parent);
+    SystemView(QWidget* parent);
 
 	void registerControl(SystemWidget* control);
 	void deleteControl(SystemWidget* control);

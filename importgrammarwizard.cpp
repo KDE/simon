@@ -16,13 +16,13 @@
 #include "importgrammarselectfilespage.h"
 #include "importgrammarworkingpage.h"
 
-ImportGrammarWizard::ImportGrammarWizard(WordListManager *wordListManager, QWidget* parent): SimonWizard(parent)
+ImportGrammarWizard::ImportGrammarWizard(QWidget* parent): SimonWizard(parent)
 {
 	setWindowTitle(tr("Grammatikstrukturen Importieren"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importgrammar.png"));
 	addPage(createIntroPage());
 	addPage(createSelectFilesPage());
-	addPage(createWorkingPage(wordListManager));
+	addPage(createWorkingPage());
 	addPage(createFinishedPage());
 }
 
@@ -47,9 +47,9 @@ QWizardPage* ImportGrammarWizard::createSelectFilesPage()
 }
 
 
-QWizardPage* ImportGrammarWizard::createWorkingPage(WordListManager *wordListManager)
+QWizardPage* ImportGrammarWizard::createWorkingPage()
 {
-	ImportGrammarWorkingPage *working = new ImportGrammarWorkingPage(wordListManager, this);
+	ImportGrammarWorkingPage *working = new ImportGrammarWorkingPage(this);
 	connect(working, SIGNAL(grammarCreated(QStringList)), this, SIGNAL(grammarCreated(QStringList)));
 	connect(working, SIGNAL(grammarCreated(QStringList)), this, SLOT(next()));
 	return working;

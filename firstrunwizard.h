@@ -47,7 +47,7 @@ private:
 	FirstRunImportGrammarWorkingPage *firstRunImportGrammarWorkingPage;
 	ImportDictWorkingPage *importDictWorkingPage;
 	SystemWidgetPage *grammarSettingsPage;
-    AddWordView *addWordView;
+	AddWordView *addWordView;
 
 	QWizardPage *createIntroPage();
 	QWizardPage *createCheckList();
@@ -115,7 +115,7 @@ enum FirstRunWizardPages {
 	FinishedPage = 22
 };
 
-    FirstRunWizard(AddWordView *addwordView, QWidget* parent);
+    FirstRunWizard(QWidget* parent);
 
     ~FirstRunWizard();
 

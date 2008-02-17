@@ -21,17 +21,18 @@
  */
 ImportDict::ImportDict(QObject *parent) : QThread(parent)
 {
-	
+	deleteFileWhenDone=false;
 }
 
 /**
  * \brief Parses the wordlist of an existing wiktioray wordlist
  * \author Peter Grasch
  */
-void ImportDict::parseWordList(QString pathToDict, int type)
+void ImportDict::parseWordList(QString pathToDict, int type, bool deleteFileWhenDone)
 {
 	this->pathToDict = pathToDict;
 	this->type = type;
+	this->deleteFileWhenDone = deleteFileWhenDone;
 	start(QThread::IdlePriority);
 }
 
@@ -86,6 +87,13 @@ void ImportDict::run()
 	emit status(tr("Wörterbuch wird verteilt..."));
 	
 	Logger::log(tr("[UPT] ")+QString::number(words.count())+" "+tr("Wörter aus dem lexikon")+" \""+pathToDict+"\""+tr(" importiert"));
+
+	if (deleteFileWhenDone)
+	{
+		Logger::log(tr("[INF]")+" "+tr("Lösche Eingabedatei"));
+		
+		QFile::remove(this->pathToDict);
+	}
 	emit finished(vocablist);
 }
 

@@ -18,7 +18,6 @@
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class WordListManager;
 class ImportGrammar;
 class ImportGrammarWorkingPage : public QWizardPage
 {
@@ -28,7 +27,6 @@ signals:
 private:
 	bool completed;
 	Ui::ImportGrammarWorkingPage ui;
-	WordListManager *wordListManager;
 	ImportGrammar *grammarImporter;
 
 private slots:
@@ -37,9 +35,8 @@ private slots:
 	void displayFileProgress(int progress, int max);
 	void displayWholeProgress(int progress, int max);
 public:
-    ImportGrammarWorkingPage(WordListManager *wordListManager, QWidget* parent);
+    ImportGrammarWorkingPage(QWidget* parent);
 
-	void setWordListManager(WordListManager*);
 	bool isComplete() { return completed; }
     ~ImportGrammarWorkingPage();
 

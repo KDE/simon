@@ -17,7 +17,6 @@
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class WordListManager;
 class GrammarManager;
 
 class MergeTerminals : public QThread
@@ -29,8 +28,6 @@ class MergeTerminals : public QThread
 		void done();
 	private:
 		QString newName, terminalA, terminalB;
-		WordListManager *wordListManager;
-		GrammarManager *grammarManager;
 		bool includeShadow, includeGrammar;
 	public:
 		void run();
@@ -41,7 +38,7 @@ class MergeTerminals : public QThread
 		void setIncludeShadow ( bool includeShadow ) { this->includeShadow= includeShadow; }
 		void setIncludeGrammar ( bool includeGrammar) { this->includeGrammar= includeGrammar; }
 
-		MergeTerminals ( WordListManager *wordListManager, GrammarManager *grammarManager, QObject* parent );
+		MergeTerminals ( QObject* parent );
 
 		~MergeTerminals();
 

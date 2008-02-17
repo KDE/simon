@@ -12,9 +12,8 @@
 #include "importgrammar.h"
 #include "wordlistmanager.h"
 
-ImportGrammar::ImportGrammar(WordListManager *wordListManager, QObject* parent): QThread(parent)
+ImportGrammar::ImportGrammar(QObject* parent): QThread(parent)
 {
-	this->wordListManager = wordListManager;
 }
 
 void ImportGrammar::run()
@@ -97,6 +96,7 @@ QStringList ImportGrammar::importFile(QString path)
 	emit fileProgress(0, structures.count());
 
 	WordList* lookupResult;
+	WordListManager *wordListManager = WordListManager::getInstance();
 	QString currentSentence;
 	int progress=0;
 	int max=structures.count();

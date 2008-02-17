@@ -31,6 +31,7 @@ class ImportDictWorkingPage : public QWizardPage
 	Q_OBJECT
 signals:
 	void wordListImported(WordList* wlist);
+	void failed();
 private:
 	QProgressBar *pbMain;
 	ImportDict *import; //!< Underlying concept class

@@ -21,10 +21,9 @@
  * @param addWordView The member will be set to the given AddWordView;
  * @param parent The parent to set the QWizardPage to
  */
-FirstRunCreateDictionaryPage::FirstRunCreateDictionaryPage(AddWordView* addWordView, QWidget* parent): QWizardPage(parent)
+FirstRunCreateDictionaryPage::FirstRunCreateDictionaryPage(QWidget* parent): QWizardPage(parent)
 {
 	this->setTitle(tr("Lese Konfiguration..."));
-    this->addWordView = addWordView;
 }
 
 /**
@@ -36,9 +35,9 @@ FirstRunCreateDictionaryPage::FirstRunCreateDictionaryPage(AddWordView* addWordV
  */
 void FirstRunCreateDictionaryPage::initializePage()
 {
-	TrainingManager *trainingManager = new TrainingManager();
-	WordListManager *wordListManager = new WordListManager();
-    
+	TrainingManager *trainingManager = TrainingManager::getInstance();
+	WordListManager *wordListManager = WordListManager::getInstance();
+
 	emit trainingManagerCreated(trainingManager);
 	emit wordListManagerCreated(wordListManager);
 	emit done();

@@ -25,15 +25,12 @@ class QWizardPage;
 class MergeTerminalsWizard : public SimonWizard
 {
 private:
-	GrammarManager *grammarManager;
-	WordListManager *wordListManager;
-	
 	QWizardPage* createIntroPage();
 	QWizardPage* createSelectTerminalsPage();
 	QWizardPage* createWorkingPage();
 	QWizardPage* createFinishedPage();
 public:
-    MergeTerminalsWizard(GrammarManager *grammarManager, QWidget* parent);
+    MergeTerminalsWizard(QWidget* parent);
 
     ~MergeTerminalsWizard();
 

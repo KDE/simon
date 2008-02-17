@@ -140,6 +140,9 @@ void ImportDictWiktionaryPage::importList(QString list)
 		
 		wikiStart = txtList.indexOf(pattern);
 	}
+	QuickDownloader *downloader = qobject_cast<QuickDownloader*>(sender());
+	if (!downloader) return;
+	downloader->deleteLater();
 }
 
 /**

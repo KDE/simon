@@ -57,11 +57,9 @@ class AddWordView : public QWizard
 		RecWidget *rec1;
 		RecWidget *rec2;
 		QString recordingName1, recordingName2;
-		TrainingManager *trainManager;
 		int prevId;
 		AddWordResolvePage *resolvePage;
 		AddWordIntroPage *welcomePage;
-		WordListManager *wordlistMgr;
 		
 		void hideEvent(QHideEvent *event) { 
 			emit hidden(); return QWidget::hideEvent(event); }
@@ -80,13 +78,13 @@ class AddWordView : public QWizard
 
 		AddWordIntroPage* createWelcomePage();
 		QWizardPage* createRecordPage();
-		AddWordResolvePage* createResolvePage(GrammarManager *grammarManager);
+		AddWordResolvePage* createResolvePage();
 		QWizardPage* createFinishedPage();
 		
 		
 	public:
 		static AddWordView* getInstance();
-		AddWordView(QWidget *parent, WordListManager *wordlistMgr, TrainingManager *trainManager, GrammarManager *grammarManager);
+		AddWordView(QWidget *parent);
 		~AddWordView()
 		{
 		}

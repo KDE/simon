@@ -86,7 +86,6 @@ HEADERS += simonview.h \
            droplistwidget.h \
            runapplicationview.h \
            runbackend.h \
-           vumeter.h \
            xmlreader.h \
            eventhandler.h \
            coreevents.h \
@@ -230,7 +229,6 @@ SOURCES += main.cpp \
            dragtablewidget.cpp \
            droplistwidget.cpp \
            runapplicationview.cpp \
-           vumeter.cpp \
            eventhandler.cpp \
            screengrid.cpp \
            wav.cpp \

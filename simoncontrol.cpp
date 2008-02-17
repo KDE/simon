@@ -33,22 +33,15 @@
  *
  *	@author Peter Grasch
 */
-SimonControl::SimonControl(ShortcutControl *shortcutControl) : QObject ()
+SimonControl::SimonControl() : QObject ()
 {
 	this->active=false;
 	this->julius = new JuliusControl();
 	this->run = new RunCommand();
 	eventHandler = new EventHandler();
 
-	if (!shortcutControl) shortcutControl = new ShortcutControl();
+	this->shortcutControl = ShortcutControl::getInstance();
 
-	this->shortcutControl = shortcutControl;
-
-	if (!this->shortcutControl->readShortcuts())
-	{
-		QMessageBox::critical(0, "Dateifehler", 
-			"Beim auslesen der Tastenkürzel ist ein Fehler aufgetreten.");
-	}
 	
 	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));
 	QObject::connect(julius, SIGNAL(disconnected()), this, SLOT(disconnectedFromJulius()));

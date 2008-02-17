@@ -18,11 +18,10 @@
 #include <QLabel>
 #include <QHBoxLayout>
 
-MergeTerminalsWizard::MergeTerminalsWizard(GrammarManager *grammarManager, QWidget* parent): SimonWizard(parent)
+MergeTerminalsWizard::MergeTerminalsWizard(QWidget* parent): SimonWizard(parent)
 {
 	setWindowTitle(tr("Terminale verbinden"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/merge.png"));
-	this->grammarManager = grammarManager;
 	addPage(createIntroPage());
 	addPage(createSelectTerminalsPage());
 	addPage(createWorkingPage());
@@ -46,12 +45,12 @@ QWizardPage* MergeTerminalsWizard::createIntroPage()
 
 QWizardPage* MergeTerminalsWizard::createSelectTerminalsPage()
 {
-	return new MergeTerminalsSelectTerminalsPage(grammarManager->getWordListManager(), this);
+	return new MergeTerminalsSelectTerminalsPage(this);
 }
 
 QWizardPage* MergeTerminalsWizard::createWorkingPage()
 {
-	MergeTerminalsWorkingPage *working = new MergeTerminalsWorkingPage(grammarManager, grammarManager->getWordListManager(), this);
+	MergeTerminalsWorkingPage *working = new MergeTerminalsWorkingPage(this);
 	connect(working, SIGNAL(done()), this, SLOT(next()));
 	return working;
 }

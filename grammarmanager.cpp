@@ -26,15 +26,16 @@ GrammarManager* GrammarManager::instance;
  * \author Peter Grasch
  * @param wordlistManager Initializes the member
  */
-GrammarManager::GrammarManager(WordListManager *wordlistManager)
+GrammarManager::GrammarManager()
 {
-	this->wordlistManager = wordlistManager;
+	this->wordlistManager = WordListManager::getInstance();
+	load();
 }
 
 GrammarManager * GrammarManager::getInstance()
 {
 	if (!instance)
-		instance = new GrammarManager(WordListManager::getInstance());
+		instance = new GrammarManager();
 	return instance;
 }
 
@@ -45,6 +46,7 @@ GrammarManager * GrammarManager::getInstance()
  */
 bool GrammarManager::load()
 {
+	qDebug() << "LOADING GRAMMAR";
 	structures.clear();
 	
 	QString path =Settings::getS("Model/PathToGrammar");

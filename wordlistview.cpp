@@ -53,7 +53,7 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	connect(importDictView, SIGNAL(dictGenerated(WordList*)), this, SLOT(importDict(WordList*)));
 	
 	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(toggleExtraWords()));
-	this->wordListManager = new WordListManager();
+	this->wordListManager = WordListManager::getInstance();
 	connect(this->wordListManager, SIGNAL(tempWarning()), this, SLOT(warnAboutTempWordList()));
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(reloadList()));
 	connect(this->wordListManager, SIGNAL(shadowListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
@@ -455,7 +455,7 @@ void WordListView::insertVocab(WordList *vocab)
 		pgDlg->setValue(++i);
 	}
 	ui.twVocab->setRowCount(i);
-	pgDlg->hide();
+	pgDlg->deleteLater();
 	emit wordlistLoaded();
 }
 

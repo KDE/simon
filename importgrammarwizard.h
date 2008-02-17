@@ -24,11 +24,11 @@ Q_OBJECT
 signals:
 	void grammarCreated(QStringList);
 public:
-    ImportGrammarWizard(WordListManager *wordListManager, QWidget* parent);
+    ImportGrammarWizard(QWidget* parent);
 
 	QWizardPage* createIntroPage();
 	QWizardPage* createSelectFilesPage();
-	QWizardPage* createWorkingPage(WordListManager *wordListManager);
+	QWizardPage* createWorkingPage();
 	QWizardPage* createFinishedPage();
 
     ~ImportGrammarWizard();

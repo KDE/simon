@@ -25,12 +25,12 @@
  *
  *	@author Peter Grasch
  */
-RunApplicationView::RunApplicationView(RunCommand *run, QWidget *parent) : InlineWidget(tr("Ausführen"), QIcon(":/images/icons/system-run.svg"), tr("Direkte ausführung von simon-Befehlen"), parent)
+RunApplicationView::RunApplicationView(QWidget *parent) : InlineWidget(tr("Ausführen"), QIcon(":/images/icons/system-run.svg"), tr("Direkte ausführung von simon-Befehlen"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers((QObject*)this);
 	hide();
-	this->run = run;
+	this->run = RunCommand::getInstance();
 	ui.twPrograms->verticalHeader()->hide();
 	insertCommands ( run->getCommands() );
 	connect(ui.twPrograms, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(runCommand(QTableWidgetItem*)));

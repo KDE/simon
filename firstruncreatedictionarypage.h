@@ -32,7 +32,7 @@ signals:
 	void trainingManagerCreated(TrainingManager*);
 	void done();
 public:
-    FirstRunCreateDictionaryPage(AddWordView* addWordView, QWidget* parent);
+    FirstRunCreateDictionaryPage(QWidget* parent);
 	void initializePage();
 
 private:

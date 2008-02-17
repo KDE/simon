@@ -54,7 +54,7 @@ public slots:
 	bool isComplete();
 	void mergeGrammar(QStringList);
 public:
-    GrammarSettings(QWidget* parent, GrammarManager *grammarManager);
+    GrammarSettings(QWidget* parent);
 
     ~GrammarSettings();
 

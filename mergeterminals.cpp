@@ -13,10 +13,8 @@
 #include "wordlistmanager.h"
 #include "grammarmanager.h"
 
-MergeTerminals::MergeTerminals(WordListManager *wordListManager, GrammarManager *grammarManager, QObject* parent): QThread(parent)
+MergeTerminals::MergeTerminals(QObject* parent): QThread(parent)
 {
-	this->wordListManager = wordListManager;
-	this->grammarManager = grammarManager;
 }
 
 void MergeTerminals::run()
@@ -24,11 +22,13 @@ void MergeTerminals::run()
 	emit status(tr("Bearbeite Wörter des Terminals %1").arg(this->terminalA));
 	emit progress(0,100);
 
+	GrammarManager *grammarManager = GrammarManager::getInstance();
+	WordListManager *wordListManager = WordListManager::getInstance();
+
 	wordListManager->renameTerminal(terminalA, newName, includeShadow);
 
 	emit status(tr("Bearbeite Wörter des Terminals %1").arg(this->terminalB));
 	emit progress(45,100);
-
 
 	wordListManager->renameTerminal(terminalB, newName, includeShadow);
 

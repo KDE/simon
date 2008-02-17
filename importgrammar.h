@@ -34,13 +34,12 @@ signals:
 private:
 	QStringList files;
 	bool includeUnknown;
-	WordListManager *wordListManager;
 	QStringList importFile(QString path);
 	QStringList terminals(WordList *in);
 	QStringList readFile(QString path);
 
 public:
-    ImportGrammar(WordListManager *wordListManager, QObject* parent);
+    ImportGrammar(QObject* parent);
 
 	void run();
 	void setFiles(QStringList files) { this->files = files; }

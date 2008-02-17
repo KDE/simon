@@ -27,14 +27,12 @@
 #include "simoninfo.h"
 #include "runapplicationview.h"
 #include "trayiconmanager.h"
-#include "vumeter.h"
 #include "soundsettings.h"
 #include "modelmanager.h"
 #include "trainingview.h"
 #include "systemview.h"
 #include "settings.h"
 #include <QMessageBox>
-#include <QCryptographicHash>
 #include <QDir>
 #include "shortcutcontrol.h"
 #include "passworddlg.h"
@@ -79,23 +77,22 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	Logger::log ( tr ( "[INF] Lade Einstellungen..." ) );
 	Settings::initSettings();
 
-	//Settings::set("ConfigDone", false);
+// 	Settings::set("ConfigDone", false);
 	if (!Settings::get("ConfigDone").toBool())
 	{
-		FirstRunWizard *firstRunWizard = new FirstRunWizard(addWordView, this);
+		FirstRunWizard *firstRunWizard = new FirstRunWizard(this);
 		if (firstRunWizard->exec() || (QMessageBox::question(this, tr("Konfiguration abbrechen"), tr("Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.\n\nWollen Sie den Assistenten beim nächsten Start wieder anzeigen?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::No))
 			Settings::set("ConfigDone", true);
+		delete firstRunWizard;
 	}
 
 	Logger::log ( tr ( "[INF] Einstellungen geladen..." ) );
 
 	this->info->writeToSplash ( tr ( "Lade Programmlogik..." ) );
 
-	ShortcutControl *shortcutControl = new ShortcutControl();
-	this->control = new SimonControl ( shortcutControl );
+	this->control = new SimonControl ();
 	this->trayManager = new TrayIconManager();
-
-	this->trayManager->createIcon ( QIcon ( ":/images/tray.png" ), "Simon" );
+	this->trayManager->createIcon ( QIcon ( ":/images/tray_d.png" ), "Simon" );
 
 	shownDialogs = 0;
 	QMainWindow ( parent,flags );
@@ -105,39 +102,29 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	//Preloads all Dialogs
 	guessChildTriggers ( ( QObject* ) this );
 
-    this->info->writeToSplash ( tr ( "Lade \"Trainieren\"..." ) );
+	this->info->writeToSplash ( tr ( "Lade \"Trainieren\"..." ) );
 	this->trainDialog = TrainingView::getInstance ();
 
 	this->info->writeToSplash ( tr ( "Lade \"Wortliste\"..." ) );
 	this->wordList = new WordListView ( this );
 
 	this->info->writeToSplash ( tr ( "Lade \"Wort hinzufügen\"..." ) );
-	GrammarManager *grammarManager = GrammarManager::getInstance();
-	
 	this->addWordView = AddWordView::getInstance();
+
 	this->info->writeToSplash ( tr ( "Lade \"Ausführen\"..." ) );
-	this->runDialog = new RunApplicationView ( control->getRunManager(), this );
+	this->runDialog = new RunApplicationView ( this );
 
 	this->info->writeToSplash ( tr ( "Lade \"System\"..." ) );
-	this->systemDialog = new SystemView ( shortcutControl, grammarManager, this );
+	this->systemDialog = new SystemView ( this );
 
 	this->info->writeToSplash ( tr ( "Lade Oberfläche..." ) );
 
-
-	this->vuMeter = new VuMeter();
-	if ( vuMeter->prepare() )
-		vuMeter->start();
-
-
-
 	ui.tbStatus->addWidget ( ui.pbActivision );
-// 	ui.tbStatus->addWidget ( ui.pbConnect );
 	ui.tbStatus->addWidget ( ui.pbHide );
 	ui.tbStatus->addWidget ( ui.pbKeyed );
 	ui.tbStatus->addWidget ( ui.pbClose );
 	ui.tbLogo->addWidget ( ui.lbLogo );
 	ui.tbLogo->addWidget ( ui.frmConnectionStatus );
-// 	ui.tbLogo->addWidget ( ui.pbConnect );
 	ui.tbModules->addWidget ( ui.pbAddWord );
 	ui.tbModules->addWidget ( ui.pbTrain );
 	ui.tbModules->addWidget ( ui.pbEditWordList );
@@ -176,7 +163,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 void SimonView::setupSignalSlots()
 {
 	//Setting up Signal/Slots
-	QObject::connect ( vuMeter, SIGNAL ( level ( int ) ), this, SLOT ( setLevel ( int ) ) );
 	QObject::connect ( control,SIGNAL ( guiAction ( QString ) ), ui.inlineView,SIGNAL ( guiAction ( QString ) ) );
 	connect ( control, SIGNAL ( guiAction ( QString ) ), this, SLOT ( doAction ( QString ) ) );
 	QObject::connect ( this->trainDialog, SIGNAL ( displayMe() ), this, SLOT ( showTrainDialog() ) );
@@ -354,20 +340,6 @@ void SimonView::errorConnecting ( QString error )
 
 
 /**
- * \brief Sets the vumeter to the given level
- *
- * @author Peter Grasch
- */
-void SimonView::setLevel ( int level )
-{
-	level = abs ( level );
-// 	ui.pbLevel1->setValue(level);
-// 	ui.pbLevel2->setValue(level);
-}
-
-
-
-/**
  * @brief Shows the Run Dialog
  *
  * @author Peter Grasch
@@ -492,32 +464,6 @@ void SimonView::hideSimon()
 		addWordDlgPos = addWordView->pos();
 		this->addWordView->hide();
 	}
-	if ( this->trainDialog->isVisible() )
-	{
-		this->shownDialogs = shownDialogs | sTrainMain;
-		trainDlgPos = trainDialog->pos();
-		this->trainDialog->hide();
-	}
-	if ( this->wordList->isVisible() )
-	{
-		this->shownDialogs = shownDialogs | sWordListView;
-		wordlistDlgPos = wordList->pos();
-		this->wordList->hide();
-	}
-	if ( this->runDialog->isVisible() )
-	{
-		this->shownDialogs = shownDialogs |
-		                     sRunApplicationView;
-		runDlgPos = runDialog->pos();
-		this->runDialog->hide();
-	}
-	if ( this->systemDialog->isVisible() )
-	{
-		this->shownDialogs = shownDialogs |
-		                     sSystemView;
-		settingsDlgPos = systemDialog->pos();
-		this->systemDialog->hide();
-	}
 	hide();
 }
 
@@ -538,30 +484,6 @@ void SimonView::showSimon()
 	{
 		addWordView->show();
 		addWordView->move ( addWordDlgPos );
-	}
-
-	if ( shownDialogs & sTrainMain )
-	{
-		trainDialog->show();
-		trainDialog->move ( trainDlgPos );
-	}
-
-	if ( shownDialogs & sRunApplicationView )
-	{
-		runDialog->show();
-		runDialog->move ( runDlgPos );
-	}
-
-	if ( shownDialogs & sWordListView )
-	{
-		wordList->show();
-		wordList->move ( wordlistDlgPos );
-	}
-
-	if ( shownDialogs & sSystemView )
-	{
-		systemDialog->show();
-		systemDialog->move ( settingsDlgPos );
 	}
 }
 

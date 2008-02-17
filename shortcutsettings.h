@@ -46,7 +46,7 @@ private:
 	bool nameExists(QString newName, int rowToExclude=-1);
 
 public:
-        ShortcutSettings(ShortcutControl *shortcutControl, QWidget* parent);
+        ShortcutSettings(QWidget* parent);
 	bool isComplete();
         ~ShortcutSettings() { }
 

@@ -24,7 +24,7 @@ private:
 	WordListManager *wordlistManager;
 	static GrammarManager *instance;
 public:
-    GrammarManager(WordListManager*);
+    GrammarManager();
 
 	static GrammarManager* getInstance();
 
@@ -37,8 +37,6 @@ public:
 	void setStructures(QStringList structures);
 
 	void renameTerminal(QString terminal, QString newName);
-
-	WordListManager* getWordListManager() { return this->wordlistManager; }
 
 
 	QStringList getAllStructures() { return structures; }

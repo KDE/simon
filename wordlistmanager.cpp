@@ -38,7 +38,6 @@ WordListManager::WordListManager () : QThread()
 {
 	isTemp = false;
 
-// 	this->trainManager->getPrompts();
 	wordListLock.lock();
 	mainDirty = false;
 	this->wordlist = readWordList ( Settings::getS("Model/PathToLexicon"), Settings::getS("Model/PathToVocab"), Settings::getS("Model/PathToPrompts"), this->activeTerminals );
@@ -49,7 +48,7 @@ WordListManager::WordListManager () : QThread()
 	
 	wordListLock.unlock();
 
-	start();
+	start(QThread::IdlePriority);
 }
 
 WordListManager* WordListManager::getInstance()
@@ -420,7 +419,7 @@ bool WordListManager::moveToShadow(Word *w)
 
 bool WordListManager::deleteCompletely(Word *w, bool shadowed)
 {
-	//search for every sample that has the word in it and remove it
+	//search for every sample that has the word in it and removeAt it
 	//delete the entry in
 	//	dict
 	//	shadowdict
@@ -689,6 +688,20 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 
 	Logger::log(QObject::tr("[INF] Hinzufügen von %1 Wörtern in die Wörterliste").arg(list->count()));
 
+	if (shadow)
+	{
+		for (int i=0; i < list->count(); i++)
+		{
+			if (!shadowTerminals.contains(list->at(i).getTerminal()))
+				shadowTerminals<< list->at(i).getTerminal();
+		}
+	}else
+		for (int i=0; i < list->count(); i++)
+		{
+			if (!activeTerminals.contains(list->at(i).getTerminal()))
+				activeTerminals << list->at(i).getTerminal();
+		}
+
 	int i=0;
 	WordList *main, *newList;
 
@@ -712,7 +725,7 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 		{
 			main->insert(i, tmp);
 			wordcount++;
-		} else newList->removeAt(0); //remove the double
+		} else newList->removeAt(0); //removeAt the double
 	}
 
 	delete newList;

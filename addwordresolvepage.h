@@ -36,7 +36,7 @@ private slots:
 	void suggest();
 	void createExamples();
 public:
-    AddWordResolvePage(WordListManager *wordListManager, GrammarManager *grammarManager, QWidget* parent=0);
+    AddWordResolvePage(QWidget* parent=0);
 
 	const QString getPronunciation() { return ui.leSampa->text(); }
 	const QString getName() { return ui.leWord->text(); }

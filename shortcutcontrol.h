@@ -26,9 +26,14 @@ class ShortcutControl{
 private:
 	ShortcutList *shortcuts;
 	ShortcutXMLReader *shortcutXMLReader;
-	
+	static ShortcutControl *instance;
 public:
 	ShortcutControl();
+	static ShortcutControl* getInstance()
+	{
+		if (!instance) instance = new ShortcutControl();
+		return instance;
+	}
 
 	bool readShortcuts();
 	void clearShortcutList();

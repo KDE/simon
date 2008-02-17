@@ -13,12 +13,8 @@
 #include "wordlistmanager.h"
 #include "grammarmanager.h"
 
-RenameTerminal::RenameTerminal(QObject* parent, WordListManager* wordListManager, 
-	GrammarManager* grammarManager): QThread(parent)
-{
-	this->wordListManager = wordListManager;
-	this->grammarManager = grammarManager;
-}
+RenameTerminal::RenameTerminal(QObject* parent): QThread(parent)
+{}
 
 
 RenameTerminal::~RenameTerminal()
@@ -30,13 +26,15 @@ void RenameTerminal::run()
 {
 	emit progress(0);
 
-	this->wordListManager->renameTerminal(oldName, newName, includeShadow);
-	this->wordListManager->save();
+	WordListManager *wordListManager = WordListManager::getInstance();
+	GrammarManager *grammarManager = GrammarManager::getInstance();
+	wordListManager->renameTerminal(oldName, newName, includeShadow);
+	wordListManager->save();
 	emit progress(80);
 	if (includeGrammar)
 	{
-		this->grammarManager->renameTerminal(oldName, newName);
-		this->grammarManager->save();
+		grammarManager->renameTerminal(oldName, newName);
+		grammarManager->save();
 	}
 
 	emit progress(100);

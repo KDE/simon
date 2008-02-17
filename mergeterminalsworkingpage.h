@@ -17,8 +17,6 @@
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class WordListManager;
-class GrammarManager;
 class MergeTerminals;
 class MergeTerminalsWorkingPage : public QWizardPage
 {
@@ -35,7 +33,7 @@ private slots:
 	void finished();
 
 public:
-    MergeTerminalsWorkingPage(GrammarManager *grammarManager, WordListManager *wordListManager, QWidget* parent);
+    MergeTerminalsWorkingPage(QWidget* parent);
 	bool isComplete() { return this->complete; }
 	void initializePage();
     ~MergeTerminalsWorkingPage();

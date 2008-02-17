@@ -14,17 +14,11 @@
 #include "importgrammar.h"
 #include <QFile>
 
-ImportGrammarWorkingPage::ImportGrammarWorkingPage(WordListManager *wordListManager, QWidget* parent): QWizardPage(parent)
+ImportGrammarWorkingPage::ImportGrammarWorkingPage(QWidget* parent): QWizardPage(parent)
 {
 	completed=false;
 	setTitle(tr("Analyse läuft..."));
 	ui.setupUi(this);
-	this->wordListManager = wordListManager;
-}
-
-void ImportGrammarWorkingPage::setWordListManager(WordListManager *wordlistManager)
-{
-	this->wordListManager = wordlistManager;
 }
 
 void ImportGrammarWorkingPage::printStatus(QString status)
@@ -49,11 +43,10 @@ void ImportGrammarWorkingPage::displayWholeProgress(int progress, int max)
 
 void ImportGrammarWorkingPage::initializePage()
 {
-	if (!this->wordListManager) return;
 	completed=false;
 	emit completeChanged();
 
-	grammarImporter = new ImportGrammar(wordListManager,this);
+	grammarImporter = new ImportGrammar(this);
 	connect(grammarImporter, SIGNAL(status(QString)), this, SLOT(printStatus(QString)));
 	connect(grammarImporter, SIGNAL(fileProgress(int, int)), this, SLOT(displayFileProgress(int, int)));
 	connect(grammarImporter, SIGNAL(allProgress(int, int)), this, SLOT(displayWholeProgress(int, int)));

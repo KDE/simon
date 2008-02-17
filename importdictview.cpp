@@ -37,6 +37,8 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 	addPage(createImportLexiconPage());
 	ImportDictWorkingPage *workingPage = createImportDictWorkingPage();
 	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SIGNAL(dictGenerated(WordList*)));
+	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SLOT(next()));
+	connect(workingPage, SIGNAL(failed()), this, SLOT(back()));
 	addPage(workingPage);
 
 	addPage(createFinishedPage());

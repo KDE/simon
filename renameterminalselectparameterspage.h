@@ -17,14 +17,12 @@
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class WordListManager;
 class RenameTerminalSelectParametersPage : public QWizardPage
 {
 private:
 	Ui::RenameTerminalSelectParametersDlg ui;
-	WordListManager *wordListManager;
 public:
-    RenameTerminalSelectParametersPage(QWidget *parent, WordListManager *wordListManager);
+    RenameTerminalSelectParametersPage(QWidget *parent);
     void initializePage();
 
     ~RenameTerminalSelectParametersPage();

@@ -109,6 +109,8 @@ void ImportDictWorkingPage::importWiktionary(QString url)
 		pbMain->setMaximum(0);
 		displayStatus(tr("Lade Wörterbuch herunter..."));
 		QuickDownloader *loader = new QuickDownloader(this);
+		connect(loader, SIGNAL(aborted()), this, SIGNAL(failed()));
+		connect(loader, SIGNAL(errorOccured(QString)), this, SIGNAL(failed()));
 		connect(loader, SIGNAL(downloadFinished(QString)), this, 
 				SLOT(unpackWikiIfNecessary(QString)));
 		loader->download(url, "wiki_tmp.bz2");
@@ -130,6 +132,9 @@ void ImportDictWorkingPage::unpackWikiIfNecessary(QString file)
 		connect(unpacker, SIGNAL(unpackedTo(QString)), this, 
 			SLOT(importWiktionaryFile(QString)));
 	} else importWiktionaryFile(file);
+
+	QuickDownloader *dl = qobject_cast<QuickDownloader*>(sender());
+	if (dl) dl->deleteLater();
 }
 
 /**
@@ -152,7 +157,6 @@ void ImportDictWorkingPage::displayProgress(int progress)
 	pbMain->setValue(progress);
 }
 
-#include <QDebug>
 /**
  * \brief Starts the importing progress
  * \author Peter Grasch
@@ -178,12 +182,13 @@ void ImportDictWorkingPage::initializePage()
  */
 void ImportDictWorkingPage::importWiktionaryFile(QString path)
 {
+	QuickUnpacker *qu = qobject_cast<QuickUnpacker*>(sender());
+	if (qu) qu->deleteLater();
 	displayStatus(tr("Importiere Wiktionary-Wörterbuch %1...").arg(path));
 	pbMain->setMaximum(1000);
 	
 	import->parseWordList(path, 2);
-
-	setCompleted();
+	
 }
 
 /**

@@ -17,8 +17,6 @@
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class GrammarManager;
-class WordListManager;
 class RenameTerminal : public QThread
 {
 Q_OBJECT
@@ -26,12 +24,10 @@ signals:
 	void progress(int);
 	void done();
 private:
-	WordListManager *wordListManager;
-	GrammarManager *grammarManager;
 	QString oldName, newName;
 	bool includeShadow, includeGrammar;
 public:
-    RenameTerminal(QObject* parent, WordListManager*, GrammarManager*);
+    RenameTerminal(QObject* parent);
 	void setOldName(QString old) { oldName = old; }
 	void setNewName(QString newName) { this->newName = newName; }
 	void setIncludeShadow (bool includeShadow) 

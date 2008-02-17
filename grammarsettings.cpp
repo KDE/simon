@@ -17,16 +17,15 @@
 #include <QTableWidgetItem>
 #include <QMessageBox>
 
-GrammarSettings::GrammarSettings(QWidget* parent, GrammarManager *grammarManager): SystemWidget(tr("Grammatikeinstellungen"), QIcon(":/images/icons/signature.svg"), tr("Grammatik bearbeiten"), parent)
+GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(tr("Grammatikeinstellungen"), QIcon(":/images/icons/signature.svg"), tr("Grammatik bearbeiten"), parent)
 {
 	ui.setupUi(this);
 	help = tr("Hier können Sie die Grammatikkonstrukte die von simon erkannt werden anpassen.");
-	this->grammarManager = grammarManager;
+	this->grammarManager = GrammarManager::getInstance();
 
-	this->importGrammarWizard = new ImportGrammarWizard(grammarManager->getWordListManager(), this);
+	this->importGrammarWizard = new ImportGrammarWizard(this);
 
-	this->renameTerminalWizard = new RenameTerminalWizard(this, 
-			grammarManager->getWordListManager(), grammarManager);
+	this->renameTerminalWizard = new RenameTerminalWizard(this);
 	connect(importGrammarWizard, SIGNAL(grammarCreated(QStringList)), this, SLOT(mergeGrammar(QStringList)));
 	
 	connect(importGrammarWizard, SIGNAL(finished(int)), ui.pbImportTexts, SLOT(animateClick()));
@@ -36,7 +35,7 @@ GrammarSettings::GrammarSettings(QWidget* parent, GrammarManager *grammarManager
 	connect(ui.pbDeleteSentence, SIGNAL(clicked()), this, SLOT(deleteSelectedSentence()));
 	
 	
-	this->mergeTerminalsWizard = new MergeTerminalsWizard(grammarManager, this);
+	this->mergeTerminalsWizard = new MergeTerminalsWizard(this);
 	
 	connect(ui.pbImportTexts, SIGNAL(toggled(bool)), this, SLOT(showImportWizard(bool)));
 	connect(ui.pbMerge, SIGNAL(toggled(bool)), this, SLOT(showMergeWizard(bool)));

@@ -10,12 +10,13 @@
 //
 //
 #include "shortcutcontrol.h"
-#include <QList>
 #include "shortcut.h"
-#include <QVariant>
+#include <QMessageBox>
 #include "shortcutxmlreader.h"
 #include "settings.h"
-#include <QDebug>
+
+ShortcutControl* ShortcutControl::instance;
+
 /**
  * \brief Constructor
  * \author Peter Grasch
@@ -23,7 +24,10 @@
 ShortcutControl::ShortcutControl()
 {
 	shortcuts = new ShortcutList();
-	shortcutXMLReader=new ShortcutXMLReader(Settings::get("PathToShortcuts").toString());
+	shortcutXMLReader=new ShortcutXMLReader(Settings::getS("PathToShortcuts"));
+	if (!readShortcuts())
+		QMessageBox::critical(0, "Dateifehler", 
+			"Beim auslesen der Tastenkürzel ist ein Fehler aufgetreten.");
 }
 
 /**

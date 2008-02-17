@@ -17,8 +17,6 @@
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class GrammarManager;
-class WordListManager;
 class RenameTerminal;
 class RenameTerminalWorkingPage : public QWizardPage
 {
@@ -34,7 +32,7 @@ private:
 	RenameTerminal *renameTerminal;
 
 public:
-    RenameTerminalWorkingPage(QWidget *parent, WordListManager*, GrammarManager*);
+    RenameTerminalWorkingPage(QWidget *parent);
 
 	void initializePage();
 	bool isComplete() { return this->complete; }

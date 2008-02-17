@@ -39,7 +39,7 @@
  *  \brief Constructor - inits the ui and registers the controls
  * @param parent the parent of the widget
  */
-SystemView::SystemView(ShortcutControl *shortcutctrl, GrammarManager *grammarManager, QWidget* parent): InlineWidget(tr("System"), QIcon(":/images/icons/computer.svg"), tr("Einstellungen, Protokolle, etc."), parent)
+SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/images/icons/computer.svg"), tr("Einstellungen, Protokolle, etc."), parent)
 {
 	ui.setupUi(this);
 	hide();
@@ -47,11 +47,11 @@ SystemView::SystemView(ShortcutControl *shortcutctrl, GrammarManager *grammarMan
 	registerControl(new GeneralSettings(this));
 	registerControl(new PasswordSettings(this));
 	registerControl(new ModelSettings(this));
-	registerControl(new GrammarSettings(this, grammarManager));
+	registerControl(new GrammarSettings(this));
 	registerControl(new SoundSettings(this));
 	registerControl(new NetworkSettings(this));
 	registerControl(commandsSettings);
-	registerControl(new ShortcutSettings(shortcutctrl, this));
+	registerControl(new ShortcutSettings(this));
 	registerControl(new DesktopGridConfiguration(this));
 	registerControl(new LogView(this));
 	registerControl(new ExternalProgramManager(this));

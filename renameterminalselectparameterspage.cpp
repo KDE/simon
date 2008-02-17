@@ -12,10 +12,9 @@
 #include "renameterminalselectparameterspage.h"
 #include "wordlistmanager.h"
 
-RenameTerminalSelectParametersPage::RenameTerminalSelectParametersPage(QWidget *parent, WordListManager *wordListManager)
+RenameTerminalSelectParametersPage::RenameTerminalSelectParametersPage(QWidget *parent)
  : QWizardPage(parent)
 {
-	this->wordListManager = wordListManager;
 	ui.setupUi(this);
 	registerField("renameNewName*",ui.leNewName);
 	registerField("renameTerminal*",ui.lwTerminal, "currentText", SIGNAL(currentRowChanged(int)));
@@ -26,7 +25,7 @@ RenameTerminalSelectParametersPage::RenameTerminalSelectParametersPage(QWidget *
 void RenameTerminalSelectParametersPage::initializePage()
 {
 	QStringList availableTerminals;
-	availableTerminals = wordListManager->getTerminals(true);
+	availableTerminals = WordListManager::getInstance()->getTerminals(true);
 	ui.lwTerminal->clear();
 	ui.lwTerminal->addItems(availableTerminals);
 	

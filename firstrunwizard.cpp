@@ -48,10 +48,11 @@
  * @param addWordView The AddWordView to pass on 
  * @param parent Parent of the wizard
  */
-FirstRunWizard::FirstRunWizard(AddWordView *addWordView, QWidget* parent): SimonWizard(parent)
+FirstRunWizard::FirstRunWizard(QWidget* parent): SimonWizard(parent)
 {
 	this->wordListManager=0;
 	this->trainingManager=0;
+	this->grammarManager=0;
 
 	setWindowTitle(tr("simon Erstkonfiguration"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/firstrun.png"));
@@ -88,8 +89,6 @@ FirstRunWizard::FirstRunWizard(AddWordView *addWordView, QWidget* parent): Simon
 	addPage(createDefineDefaultValuesPage());
 
 	addPage(createFinishedPage());
-    
-    this->addWordView = addWordView;
 }
 
 /**
@@ -119,12 +118,12 @@ void FirstRunWizard::setWordListManager(WordListManager *wordListManager)
 	if (this->wordListManager) delete this->wordListManager;
 
 	this->wordListManager = wordListManager;
-	this->firstRunImportGrammarWorkingPage->setWordListManager(wordListManager);
+	
 	connect(importDictWorkingPage, SIGNAL(wordListImported(WordList*)), this, SLOT(importDict(WordList*)));
 
-	this->grammarManager = new GrammarManager(wordListManager);
-	grammarManager->load();
-	GrammarSettings *grammarSettings = new GrammarSettings(grammarSettingsPage, grammarManager);
+	this->grammarManager = GrammarManager::getInstance();
+	
+	GrammarSettings *grammarSettings = new GrammarSettings(grammarSettingsPage);
 	connect(firstRunImportGrammarWorkingPage, SIGNAL(grammarCreated(QStringList)), 
 		grammarSettings, SLOT(mergeGrammar(QStringList)));
 
@@ -184,7 +183,7 @@ void FirstRunWizard::setTrainingManager(TrainingManager *trainingManager)
  */
 QWizardPage* FirstRunWizard::createCreateDictionaryPage()
 {
-	FirstRunCreateDictionaryPage *page = new FirstRunCreateDictionaryPage(addWordView, this);
+	FirstRunCreateDictionaryPage *page = new FirstRunCreateDictionaryPage(this);
 	connect(page, SIGNAL(wordListManagerCreated(WordListManager*)), this, SLOT(setWordListManager(WordListManager*)));
 	connect(page, SIGNAL(trainingManagerCreated(TrainingManager*)), this, SLOT(setTrainingManager(TrainingManager*)));
 	connect(page, SIGNAL(done()), this, SLOT(next()));
@@ -521,6 +520,12 @@ QWizardPage* FirstRunWizard::createFinishedPage()
  */
 FirstRunWizard::~FirstRunWizard()
 {
+	if (wordListManager) wordListManager->deleteLater();
+	if (trainingManager) delete trainingManager;
+	if (grammarManager) delete grammarManager;
+	if (firstRunImportGrammarWorkingPage) firstRunImportGrammarWorkingPage->deleteLater();
+	if (importDictWorkingPage) importDictWorkingPage->deleteLater();
+	if (grammarSettingsPage) grammarSettingsPage->deleteLater();
 }
 
 

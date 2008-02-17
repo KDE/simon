@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>537</width>
+    <width>564</width>
     <height>394</height>
    </rect>
   </property>
@@ -43,8 +43,8 @@
      </property>
      <layout class="QHBoxLayout" >
       <item>
-       <layout class="QVBoxLayout" >
-        <item>
+       <layout class="QGridLayout" >
+        <item row="0" column="0" colspan="2" >
          <layout class="QHBoxLayout" >
           <item>
            <widget class="QLabel" name="lbSearchLogsFor" >
@@ -96,110 +96,72 @@
           </item>
          </layout>
         </item>
-        <item>
-         <layout class="QGridLayout" >
-          <item row="0" column="0" >
-           <widget class="QPushButton" name="pbActionLog" >
-            <property name="text" >
-             <string>Simon Aktionslog</string>
-            </property>
-            <property name="checkable" >
-             <bool>true</bool>
-            </property>
-            <property name="checked" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" >
-           <widget class="QCheckBox" name="cbLogError" >
-            <property name="maximumSize" >
-             <size>
-              <width>16777215</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="text" >
-             <string>Fehler</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2" >
-           <widget class="QCheckBox" name="cbLogUpdate" >
-            <property name="text" >
-             <string>Update</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0" >
-           <widget class="QPushButton" name="pbRecordings" >
-            <property name="text" >
-             <string>Aufnahmen</string>
-            </property>
-            <property name="checkable" >
-             <bool>true</bool>
-            </property>
-            <property name="checked" >
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" >
-           <widget class="QCheckBox" name="cbLogInfo" >
-            <property name="maximumSize" >
-             <size>
-              <width>16777215</width>
-              <height>15</height>
-             </size>
-            </property>
-            <property name="text" >
-             <string>Infos</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2" >
-           <widget class="QCheckBox" name="cbLogSettings" >
-            <property name="text" >
-             <string>Settings</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+        <item row="1" column="0" >
+         <widget class="QCheckBox" name="cbLogError" >
+          <property name="maximumSize" >
+           <size>
+            <width>16777215</width>
+            <height>15</height>
+           </size>
+          </property>
+          <property name="text" >
+           <string>Fehler</string>
+          </property>
+         </widget>
         </item>
-        <item>
-         <layout class="QVBoxLayout" >
-          <item>
-           <widget class="QProgressBar" name="pbLogLoad" >
-            <property name="value" >
-             <number>24</number>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" >
-            <item>
-             <widget class="QLabel" name="lbLogLoad" >
-              <property name="text" >
-               <string/>
-              </property>
-              <property name="wordWrap" >
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pbAbort" >
-              <property name="text" >
-               <string>Abbrechen</string>
-              </property>
-              <property name="icon" >
-               <iconset resource="../action_icons.qrc" >:/images/icons/process-stop.svg</iconset>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
+        <item row="1" column="1" >
+         <widget class="QCheckBox" name="cbLogUpdate" >
+          <property name="text" >
+           <string>Update</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" >
+         <widget class="QCheckBox" name="cbLogInfo" >
+          <property name="maximumSize" >
+           <size>
+            <width>16777215</width>
+            <height>15</height>
+           </size>
+          </property>
+          <property name="text" >
+           <string>Infos</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1" >
+         <widget class="QCheckBox" name="cbLogSettings" >
+          <property name="text" >
+           <string>Settings</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="2" >
+         <widget class="QProgressBar" name="pbLogLoad" >
+          <property name="value" >
+           <number>24</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" >
+         <widget class="QLabel" name="lbLogLoad" >
+          <property name="text" >
+           <string/>
+          </property>
+          <property name="wordWrap" >
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1" >
+         <widget class="QPushButton" name="pbAbort" >
+          <property name="text" >
+           <string>Abbrechen</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../action_icons.qrc" >:/images/icons/process-stop.svg</iconset>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

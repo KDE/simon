@@ -18,20 +18,17 @@
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class QWizardPage;
-class WordListManager;
-class GrammarManager;
 
 class RenameTerminalWizard : public SimonWizard
 {
 Q_OBJECT
 private:
 	QWizardPage *createIntroPage();
-	QWizardPage *createSelectParametersPage(WordListManager *wordListManager);
-	QWizardPage *createWorkingPage(WordListManager*, GrammarManager*);
+	QWizardPage *createSelectParametersPage();
+	QWizardPage *createWorkingPage();
 	QWizardPage *createFinishedPage();
 public:
-    RenameTerminalWizard(QWidget* parent, WordListManager *wordListManager, 
-		GrammarManager *grammarManager);
+    RenameTerminalWizard(QWidget* parent);
 
     ~RenameTerminalWizard();
 

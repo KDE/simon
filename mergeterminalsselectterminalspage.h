@@ -19,15 +19,13 @@
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class WordListManager;
 class MergeTerminalsSelectTerminalsPage : public QWizardPage
 {
 Q_OBJECT
 private:
-	WordListManager *wordListManager;
 	Ui::MergeTerminalsSelectTerminalsPage ui;
 public:
-    MergeTerminalsSelectTerminalsPage(WordListManager *wordListManager, QWidget* parent);
+    MergeTerminalsSelectTerminalsPage(QWidget* parent);
 
 	void initializePage();
 
