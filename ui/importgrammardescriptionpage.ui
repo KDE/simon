@@ -1,12 +1,12 @@
 <ui version="4.0" >
- <class>DefineDefaultValuesDlg</class>
- <widget class="QWidget" name="DefineDefaultValuesDlg" >
+ <class>ImportGrammarDescriptionPg</class>
+ <widget class="QWidget" name="ImportGrammarDescriptionPg" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>453</width>
+    <height>335</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -16,7 +16,14 @@
    <item>
     <widget class="QLabel" name="label" >
      <property name="text" >
-      <string>Fülle Konfiguration mit Standard-Werten...</string>
+      <string>Sie haben nun ein (Schatten-) Wörterbuch und ein (Schatten-) Vokabular (wenn das importierte Wörterbuch diese Informationen zur Verfügung gestellt hat) importiert (Sie können jetzt zurückgehen und noch ein Wörterbuch importieren, wenn Sie möchten - Sie können aber dies aber auch nach Abschluss' dieses Assistenten jederzeit in der "Wortliste" nachholen).
+
+Es fehlt nun für ihr persönliches Sprachmodell noch die Grammatik und die Trainingsdaten.
+
+Im nächsten Schritt werden wir anhand von von Ihnen geschriebenen Textdateien Ihren Grammatikalischen Stil ermitteln.</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -34,12 +41,9 @@
     </spacer>
    </item>
    <item>
-    <widget class="QProgressBar" name="pbProgress" >
-     <property name="maximum" >
-      <number>46</number>
-     </property>
-     <property name="value" >
-      <number>0</number>
+    <widget class="QCheckBox" name="cbSkip" >
+     <property name="text" >
+      <string>Diesen Schritt überspringen (nicht empfohlen)</string>
      </property>
     </widget>
    </item>

@@ -23,7 +23,6 @@ SystemWidgetPage::SystemWidgetPage(QWidget *parent)
 
 void SystemWidgetPage::setChild(SystemWidget *child)
 {
-	child->init();
 	connect (child, SIGNAL(changed()), this, SIGNAL(completeChanged()));
 	this->child = child;
 	setTitle(child->getTitle());
@@ -32,6 +31,11 @@ void SystemWidgetPage::setChild(SystemWidget *child)
 	lay->addWidget(child);
 	this->setLayout(lay);
 	child->show();
+}
+
+void SystemWidgetPage::initializePage()
+{
+	child->init();
 }
 
 /**

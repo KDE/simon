@@ -25,22 +25,14 @@
 class FirstRunImportDictSelectSourcePage : public ImportDictSelectSourcePage
 {
 public:
-    FirstRunImportDictSelectSourcePage(QWidget* parent) 
-		: ImportDictSelectSourcePage (parent) {}
+    FirstRunImportDictSelectSourcePage(QWidget* parent) ;
 
     /**
      * \brief Returns either the id of the bomp- or the wiktionarypage depending on what the user selected
      * \author Peter Grasch
      * @return The id of the next page
      */
-    int nextId() const {
-		if (field("hadifix").toBool())
-		{
-			return FirstRunWizard::DictionaryBOMPPage;
-		} else if (field("wiktionary").toBool()) 
-			return FirstRunWizard::DictionaryWiktionaryPage;
-		else return FirstRunWizard::DictionaryLexiconPage;
-    }
+    int nextId() const;
 
 };
 

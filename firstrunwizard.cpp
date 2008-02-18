@@ -26,6 +26,7 @@
 #include "importdictworkingpage.h"
 
 
+#include "firstrunimportgrammardescriptionpage.h"
 #include "importgrammarselectfilespage.h"
 #include "firstrunimportgrammarworkingpage.h"
 
@@ -57,6 +58,7 @@ FirstRunWizard::FirstRunWizard(QWidget* parent): SimonWizard(parent)
 	setWindowTitle(tr("simon Erstkonfiguration"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/firstrun.png"));
 	addPage(createIntroPage());
+	addPage(createDefineDefaultValuesPage());
 	addPage(createCheckList());
 	addPage(createExternalProgramsPage());
 	addPage(createLanguageModelDescription());
@@ -86,7 +88,6 @@ FirstRunWizard::FirstRunWizard(QWidget* parent): SimonWizard(parent)
 	addPage(createJuliusdSettingsPage());
 
 	addPage(createConfigureTriggersPage());
-	addPage(createDefineDefaultValuesPage());
 
 	addPage(createFinishedPage());
 }
@@ -144,6 +145,7 @@ void FirstRunWizard::importDict(WordList *words)
 	{
 		this->wordListManager->addWords(words, true, true);
 	}
+	next();
 }
 
 
@@ -250,17 +252,7 @@ QWizardPage* FirstRunWizard::createImportDictWorkingPage()
  */
 QWizardPage* FirstRunWizard::createGrammarDescriptionPage()
 {
-	QWizardPage *description = new QWizardPage(this);
-	QHBoxLayout *lay = new QHBoxLayout(description);
-	QLabel *desc = new QLabel(description);
-	lay->addWidget(desc);
-	description->setLayout(lay);
-
-	desc->setWordWrap(true);
-	description->setTitle(tr("Die Grammatik"));
-	desc->setText(tr("<html><head /><body><p>Sie haben nun ein (Schatten-) Wörterbuch und ein (Schatten-) Vokabular (wenn das importierte Wörterbuch diese Informationen zur Verfügung gestellt hat) importiert (Sie können jetzt zurückgehen und noch ein Wörterbuch importieren, wenn Sie möchten - Sie können aber dies aber auch nach Abschluss' dieses Assistenten jederzeit in der \"Wortliste\" nachholen).</p><p>Es fehlt nun für ihr persönliches Sprachmodell noch die Grammatik und die Trainingsdaten.</p><p>Im nächsten Schritt werden wir anhand von von Ihnen geschriebenen Textdateien Ihren Grammatikalischen Stil ermitteln.</p></body></html>"));
-
-	return description;
+	return new FirstRunImportGrammarDescriptionPage(this);
 }
 
 
@@ -520,9 +512,6 @@ QWizardPage* FirstRunWizard::createFinishedPage()
  */
 FirstRunWizard::~FirstRunWizard()
 {
-	if (wordListManager) wordListManager->deleteLater();
-	if (trainingManager) delete trainingManager;
-	if (grammarManager) delete grammarManager;
 	if (firstRunImportGrammarWorkingPage) firstRunImportGrammarWorkingPage->deleteLater();
 	if (importDictWorkingPage) importDictWorkingPage->deleteLater();
 	if (grammarSettingsPage) grammarSettingsPage->deleteLater();

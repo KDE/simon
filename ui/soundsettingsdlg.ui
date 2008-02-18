@@ -167,108 +167,6 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <item>
-      <widget class="SimonGroupBox" name="groupBox" >
-       <property name="title" >
-        <string>Alle Aufnahmen speichern</string>
-       </property>
-       <property name="flat" >
-        <bool>false</bool>
-       </property>
-       <property name="checkable" >
-        <bool>true</bool>
-       </property>
-       <property name="checked" >
-        <bool>false</bool>
-       </property>
-       <layout class="QVBoxLayout" >
-        <item>
-         <widget class="QLabel" name="lbSaveRecordingsTo" >
-          <property name="enabled" >
-           <bool>false</bool>
-          </property>
-          <property name="text" >
-           <string>Speicherort:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" >
-          <item>
-           <widget class="QLineEdit" name="leSaveRecordingsTo" >
-            <property name="enabled" >
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="tbSelectDirForRecs" >
-            <property name="enabled" >
-             <bool>false</bool>
-            </property>
-            <property name="text" >
-             <string>...</string>
-            </property>
-            <property name="icon" >
-             <iconset resource="../other_icons.qrc" >:/images/icons/folder.svg</iconset>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="gbCalibrate" >
-       <property name="title" >
-        <string>Mikrofon-Lautstärke</string>
-       </property>
-       <property name="flat" >
-        <bool>false</bool>
-       </property>
-       <layout class="QVBoxLayout" >
-        <item>
-         <layout class="QHBoxLayout" >
-          <item>
-           <widget class="QLabel" name="lbAdjuster" >
-            <property name="text" >
-             <string>Regler</string>
-            </property>
-            <property name="buddy" >
-             <cstring>hsMic</cstring>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="SimonSlider" name="hsMic" >
-            <property name="value" >
-             <number>68</number>
-            </property>
-            <property name="orientation" >
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="tickInterval" >
-             <number>0</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pbAutoCalibrate" >
-          <property name="text" >
-           <string>Autokalibrierung</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -288,17 +186,6 @@
    <class>SimonComboBox</class>
    <extends>QComboBox</extends>
    <header>simoncombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>SimonGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>simongroupbox.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>SimonSlider</class>
-   <extends>QSlider</extends>
-   <header>simonslider.h</header>
   </customwidget>
  </customwidgets>
  <resources>

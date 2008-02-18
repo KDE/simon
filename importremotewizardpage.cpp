@@ -48,7 +48,7 @@ void ImportRemoteWizardPage::initializePage()
 	Logger::log(tr("[INF] Abrufen der Liste von verfügbaren Trainingstexten"));
 	
 	connect (downloader, SIGNAL(downloadFinished(QString)), this, SLOT(importList(QString)));
-	downloader->download(Settings::getS("PathToTextOnlineUpdate"));
+	downloader->download(Settings::getS("Internet/TextOnlineUpdate"));
 }
 
 /**

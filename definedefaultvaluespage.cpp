@@ -12,6 +12,7 @@
 #include "definedefaultvaluespage.h"
 #include "settings.h"
 #include <QCoreApplication>
+#include <QTimer>
 
 /**
  * \brief Constructor - sets up the ui
@@ -23,6 +24,7 @@ DefineDefaultValuesPage::DefineDefaultValuesPage ( QWidget* parent ) : QWizardPa
 	setTitle("Setze Standardwerte...");
 	this->complete=false;
 	ui.setupUi(this);
+	this->currentProgress=0;
 }
 
 
@@ -45,12 +47,15 @@ bool DefineDefaultValuesPage::isComplete() const
  */
 bool DefineDefaultValuesPage::checkAndSet(QString option, QVariant value)
 {
+	bool changed=false;
 	if (Settings::get(option).isNull())
 	{
 		Settings::set(option, value);
-		return true;
+		changed = true;
 	}
-	return false;
+	ui.pbProgress->setValue(++currentProgress);
+	QCoreApplication::processEvents();
+	return changed;
 }
 
 /**
@@ -59,6 +64,8 @@ bool DefineDefaultValuesPage::checkAndSet(QString option, QVariant value)
  */
 void DefineDefaultValuesPage::initializePage()
 {
+	QWizardPage::initializePage();
+
 	this->complete=false;
 
 	QString applicationPath = QCoreApplication::applicationDirPath()+"/";
@@ -66,35 +73,55 @@ void DefineDefaultValuesPage::initializePage()
 	ui.pbProgress->setValue(0);
 	
 	checkAndSet("AskBeforeExit", true);
-	ui.pbProgress->setValue(1);
-	checkAndSet("AutoConnect", true);
-	ui.pbProgress->setValue(2);
 	checkAndSet("PathToCommands", applicationPath+"conf/commands.xml");
-	ui.pbProgress->setValue(3);
 	checkAndSet("PathToProgramCategories", applicationPath+"conf/categories.xml");
-	ui.pbProgress->setValue(4);
 	checkAndSet("PathToShortcuts", applicationPath+"conf/shortcuts.xml");
-	ui.pbProgress->setValue(5);
 	checkAndSet("PathToTexts", applicationPath+"texts/");
-	ui.pbProgress->setValue(6);
-	checkAndSet("SimonAutostart", true);
-	ui.pbProgress->setValue(7);
-	checkAndSet("StartJuliusdWhenRequired", false);
-	ui.pbProgress->setValue(8);
+	checkAndSet("SimonAutostart", false);
 	checkAndSet("TempDir", applicationPath+"tmp/");
-	ui.pbProgress->setValue(9);
 	checkAndSet("Desktopgrid/RealTransparency", false);
-	ui.pbProgress->setValue(10);
 	checkAndSet("Performance/MaxDisplayedWords", 500);
-	ui.pbProgress->setValue(11);
-	checkAndSet("PathToTextOnlineUpdate", "http://simon.pytalhost.org/texts/list.xml");
-	ui.pbProgress->setValue(12);
-
-
-	QWizardPage::initializePage();
+	checkAndSet("Model/Samplerate", 16000);
+	checkAndSet("Model/Channels", 1);
+	checkAndSet("Model/PathToLexicon", applicationPath+"model/lexicon");
+	checkAndSet("Model/PathToGrammar", applicationPath+"model/model.grammar");
+	checkAndSet("Model/PathToPrompts", applicationPath+"model/prompts");
+	checkAndSet("Model/PathToVocab", applicationPath+"model/model.voca");
+	checkAndSet("Model/PathToWavConfig", applicationPath+"model/wav_config");
+	checkAndSet("Model/PathToConfig", applicationPath+"model/scripts/config");
+	checkAndSet("Model/PathToProto", applicationPath+"model/scripts/proto");
+	checkAndSet("Model/PathToTreeHed", applicationPath+"model/tree1.hed");
+	checkAndSet("Model/PathToMkPhones0", applicationPath+"model/mkphones0.led");
+	checkAndSet("Model/PathToMkPhones1", applicationPath+"model/mkphones1.led");
+	checkAndSet("Model/PathToSamples", applicationPath+"model/training.data");
+	checkAndSet("Model/PathToGlobalDed", applicationPath+"model/scripts/global.ded");
+	checkAndSet("Model/PathToSilHed", applicationPath+"model/scripts/sil.hed");
+	checkAndSet("Model/PathToMktriLed", applicationPath+"model/mktri.led");
+	checkAndSet("Model/PathToHmm", applicationPath+"model/hmmdefs");
+	checkAndSet("Model/PathToTiedlist", applicationPath+"model/tiedlist");
+	checkAndSet("Model/PathToShadowLexicon", applicationPath+"model/shadowlexicon");
+	checkAndSet("Model/PathToShadowVocab", applicationPath+"model/shadow.voca");
+	checkAndSet("Model/PathToDict", applicationPath+"model/model.dict");
+	checkAndSet("Model/PathToDfa", applicationPath+"model/model.dfa");
+	checkAndSet("Programs/HTK/HDMan", "HDMan");
+	checkAndSet("Programs/HTK/HLEd", "HLEd");
+	checkAndSet("Programs/HTK/HCopy", "HCopy");
+	checkAndSet("Programs/HTK/HCompV", "HCompV");
+	checkAndSet("Programs/HTK/HERest", "HERest");
+	checkAndSet("Programs/HTK/HHEd", "HHEd");
+	checkAndSet("Programs/HTK/HVite", "HVite");
+	checkAndSet("Programs/Files/BZip2", "bzip2");
+	checkAndSet("Programs/Julius/mkfa", "mkfa");
+	checkAndSet("Programs/Julius/dfa_minimize", "dfa_minimize");
+	checkAndSet("Juliusd/AutoConnect", false);
+	checkAndSet("Network/Timeout", 3000);
+	checkAndSet("Internet/TextOnlineUpdate", "http://simon.pytalhost.org/texts/list.xml");
+	checkAndSet("Internet/WikiDumpOverview", "http://download.wikimedia.org/backup-index.html");
+	checkAndSet("Internet/WikiDumpPrefix", "http://download.wikimedia.org/");
+	checkAndSet("Internet/WikiDumpPostfix", "-pages-articles.xml.bz2");
 
 
 	complete = true;
-	emit done();
+	QTimer::singleShot(100, this, SIGNAL(done()));
 }
 

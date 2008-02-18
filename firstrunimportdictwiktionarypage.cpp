@@ -11,6 +11,8 @@
 //
 #include "firstrunimportdictwiktionarypage.h"
 #include "firstrunwizard.h"
+#include <QRadioButton>
+#include <QLayout>
 
 /**
  * \brief Constructor
@@ -18,8 +20,7 @@
  * @param parent The parent of the object
  */
 FirstRunImportDictWiktionaryPage::FirstRunImportDictWiktionaryPage(QWidget* parent): ImportDictWiktionaryPage(parent)
-{
-}
+{}
 
 
 /**

@@ -409,7 +409,7 @@ Word* WordListManager::getWord(QString word, QString pronunciation, QString term
 /**
  * \brief Moves the given word to the shadowlist
  * \author Peter Grasch
- * \todo THEORETICALLY this code (we must lock the shadowlist AND the main wordlist) might yield to a deadlock
+ * \warning THEORETICALLY this code (we must lock the shadowlist AND the main wordlist) might yield to a deadlock
  * @param w The given word
  * @return success (i.e. the file is not found); (this may also be false due to an error when deleting the prompts for the word!)
  */
@@ -437,7 +437,7 @@ bool WordListManager::moveToShadow(Word *w)
 
 bool WordListManager::deleteCompletely(Word *w, bool shadowed)
 {
-	//search for every sample that has the word in it and removeAt it
+	//search for every sample that has the word in it and remove it
 	//delete the entry in
 	//	dict
 	//	shadowdict

@@ -44,7 +44,6 @@ SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellung
 	connect ( ui.cbOutDevice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
 	connect ( ui.cbChannels, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
 	connect ( ui.cbSampleRate, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
-	connect ( ui.hsMic, SIGNAL(sliderMoved(int)), this, SIGNAL(changed()));
 }
 
 /**
@@ -81,8 +80,6 @@ bool SoundSettings::init()
 	ui.cbChannels->setCurrentIndex(ui.cbChannels->findData(Settings::get("Sound/Channels")));
 	ui.cbSampleRate->setCurrentIndex(ui.cbSampleRate->findText(
 					Settings::get("Sound/Samplerate").toString()));
-	
-	ui.hsMic->setValue(Settings::get("Sound/InputVolume").toInt());
 	return true;
 }
 
@@ -133,8 +130,7 @@ bool SoundSettings::apply()
 		      ui.cbOutDevice->currentIndex()));
 	Settings::set("Sound/Channels", ui.cbChannels->itemData(ui.cbChannels->currentIndex()));
 	Settings::set("Sound/Samplerate", ui.cbSampleRate->currentText());
-	Settings::set("Sound/InputVolume", ui.hsMic->value());
-	
+
 	return true;
 }
 

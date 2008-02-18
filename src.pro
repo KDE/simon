@@ -38,7 +38,6 @@ FORMS += ui/main.ui \
          ui/importdict.ui \
          ui/generalsettingsdlg.ui \
          ui/soundsettingsdlg.ui \
-         ui/revertdlg.ui \
 	 ui/logmanagerdlg.ui \
          ui/externalprogramms.ui \
          ui/networksettingsdlg.ui \
@@ -60,7 +59,9 @@ FORMS += ui/main.ui \
  ui/renameterminalworkingpage.ui \
  ui/configuretriggerspage.ui \
  ui/definiedefaultvaluesdlg.ui \
- ui/importdictlexiconpage.ui
+ ui/importdictlexiconpage.ui \
+ ui/importgrammardescriptionpage.ui \
+ ui/internetextensiondlg.ui
 
 
 HEADERS += simonview.h \
@@ -132,7 +133,6 @@ importtrainingdirectoryworkingpage.h \
            generalsettings.h \
            soundsettings.h \
            settings.h \
-           revert.h \
            logview.h \
            externalprogrammanager.h \
            networksettings.h \
@@ -204,7 +204,9 @@ importtrainingdirectoryworkingpage.h \
  definedefaultvaluespage.h \
  importlexiconpage.h \
  lexicondict.h \
- firstrunimportdictwiktionarypage.h
+ firstrunimportdictwiktionarypage.h \
+ firstrunimportgrammardescriptionpage.h \
+ internetextensionsettings.h
 
 
 
@@ -272,7 +274,6 @@ SOURCES += main.cpp \
            soundsettings.cpp \
            settings.cpp \
            logger.cpp \
-           revert.cpp \
            logview.cpp \
            guievents.cpp \
            externalprogrammanager.cpp \
@@ -340,7 +341,10 @@ SOURCES += main.cpp \
  definedefaultvaluespage.cpp \
  importlexiconpage.cpp \
  lexicondict.cpp \
- firstrunimportdictwiktionarypage.cpp
+ firstrunimportdictwiktionarypage.cpp \
+ firstrunimportdictselectsourcepage.cpp \
+ firstrunimportgrammardescriptionpage.cpp \
+ internetextensionsettings.cpp
 
 
 

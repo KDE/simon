@@ -30,6 +30,7 @@ signals:
 	void done();
 private:
 	bool complete;
+	int currentProgress;
 	Ui::DefineDefaultValuesDlg ui;
 public:
     DefineDefaultValuesPage(QWidget* parent);

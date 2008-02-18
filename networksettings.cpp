@@ -25,7 +25,7 @@
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(tr("Juliusd"), QIcon(":/images/icons/network.svg"), tr("Hier können Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
+NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(tr("Juliusd"), QIcon(":/images/icons/connect-no.svg"), tr("Hier können Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
 {
 	ui.setupUi(this);
 	
@@ -41,6 +41,7 @@ NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(tr("Juliusd"), Q
 	
 	connect( ui.twJuliusAddresses, SIGNAL(itemSelectionChanged()), this, SLOT(enableButtons()));
 	connect( ui.twJuliusAddresses, SIGNAL(cellChanged(int, int)), this, SIGNAL(changed()));
+	connect(ui.cbAutoConnect, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
 	
 	guessChildTriggers(this);
 }
@@ -74,7 +75,9 @@ void NetworkSettings::enableButtons()
  */
 bool NetworkSettings::isComplete()
 {
-	return (ui.twJuliusAddresses->rowCount() > 0);
+	return (ui.twJuliusAddresses->rowCount() > 0) && 
+		(!ui.leUser->text().isEmpty()) && 
+		(!ui.lePass->text().isEmpty());
 }
 
 /**
@@ -103,6 +106,7 @@ bool NetworkSettings::apply()
 	Settings::set("Juliusd/Cipher", ui.cbCipher->currentText());
 	Settings::set("Juliusd/Cert", ui.leCert->text());
 	Settings::set("Juliusd/ContiniueOnWarning", ui.cbIgnoreWarnings->isChecked());
+	Settings::set("Juliusd/AutoConnect", ui.cbAutoConnect->isChecked());
 
 	return true;
 }
@@ -138,6 +142,7 @@ bool NetworkSettings::init()
 
 	ui.leUser->setText(Settings::getS("Juliusd/Username"));
 	ui.lePass->setText(Settings::getS("Juliusd/Password"));
+	ui.cbAutoConnect->setChecked(Settings::get("Juliusd/AutoConnect").toBool());
 
 
 	ui.cbIgnoreWarnings->setChecked(Settings::get("Juliusd/ContiniueOnWarning").toBool());

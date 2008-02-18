@@ -14,6 +14,7 @@
 
 #include <QWizardPage>
 
+class QRadioButton;
 /**
  * \class ImportDictSelectSourcePage
  * \brief Displays a WizardPage to let the user select the type of dict. to import
@@ -24,6 +25,8 @@
 class ImportDictSelectSourcePage : public QWizardPage
 {
 Q_OBJECT
+protected:
+	QRadioButton *none;
 public:
 	int nextId() const;
     ImportDictSelectSourcePage(QWidget* parent);

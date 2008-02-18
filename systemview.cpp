@@ -14,7 +14,6 @@
 #include "systemwidget.h"
 #include "generalsettings.h"
 #include "soundsettings.h"
-#include "revert.h"
 #include "logger.h"
 #include "logview.h"
 #include "externalprogrammanager.h"
@@ -25,6 +24,7 @@
 #include "passwordsettings.h"
 #include "modelsettings.h"
 #include "grammarsettings.h"
+#include "internetextensionsettings.h"
 #include "simoninfo.h"
 #include <QMessageBox>
 
@@ -39,6 +39,7 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
 	hide();
 	CommandSettings *commandsSettings = new CommandSettings(this);
 	registerControl(new GeneralSettings(this));
+	registerControl(new InternetExtensionSettings(this));
 	registerControl(new PasswordSettings(this));
 	registerControl(new ModelSettings(this));
 	registerControl(new GrammarSettings(this));
@@ -49,7 +50,6 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
 	registerControl(new DesktopGridConfiguration(this));
 	registerControl(new LogView(this));
 	registerControl(new ExternalProgramManager(this));
-	registerControl(new Revert(this));
 
 	connect(ui.lwMenu, SIGNAL(currentRowChanged(int)), this, SLOT(displayId(int)));
 	connect(ui.pbApply, SIGNAL(clicked()), this, SLOT(apply()));

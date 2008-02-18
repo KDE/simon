@@ -33,13 +33,13 @@
        <item row="0" column="1" >
         <widget class="QSpinBox" name="sbSamplerate" >
          <property name="minimum" >
-          <number>32000</number>
+          <number>8000</number>
          </property>
          <property name="maximum" >
           <number>128000</number>
          </property>
          <property name="value" >
-          <number>44100</number>
+          <number>16000</number>
          </property>
         </widget>
        </item>

@@ -142,7 +142,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	setupSignalSlots();
 
 
-	if ( Settings::get ( "AutoConnect" ).toBool() )
+	if ( Settings::get ( "Juliusd/AutoConnect" ).toBool() )
 	{
 		this->info->writeToSplash ( tr ( "Verbinde zu juliusd..." ) );
 		connectToServer();

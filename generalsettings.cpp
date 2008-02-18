@@ -27,9 +27,7 @@ GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(tr("Allgemeine E
 
 
 	connect(ui.cbStartSimonOnBoot, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
-	connect(ui.cbStartJuliusAsNeeded, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
 	connect(ui.cbAskBeforeExit, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
-	connect(ui.cbAutoConnect, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
 
 	connect(ui.leCommands, SIGNAL(editingFinished()), this, SIGNAL(changed()));
 	connect(ui.leShortcuts, SIGNAL(editingFinished()), this, SIGNAL(changed()));
@@ -65,9 +63,7 @@ bool GeneralSettings::apply()
 	Settings::set("Performance/MaxDisplayedWords", ui.sbMaxSimultaniouslyShownWords->value());
 	//general
 	Settings::set("SimonAutostart", ui.cbStartSimonOnBoot->isChecked());
-	Settings::set("StartJuliusdWhenRequired", ui.cbStartJuliusAsNeeded->isChecked());
 	Settings::set("AskBeforeExit", ui.cbAskBeforeExit->isChecked());
-	Settings::set("AutoConnect", ui.cbAutoConnect->isChecked());
 
 	//paths
 	Settings::set("PathToCommands", ui.leCommands->text());
@@ -75,8 +71,6 @@ bool GeneralSettings::apply()
 	Settings::set("PathToProgramCategories", ui.leProgramCategories->text());
 	Settings::set("TempDir", ui.leTempDir->text());
 	Settings::set("PathToTexts", ui.lePathToTexts->text());
-
-	Settings::set("PathToTextOnlineUpdate", ui.leTextUpdateURL->text());
 
 	return true;
 }
@@ -105,9 +99,7 @@ bool GeneralSettings::init()
 
 	//general
 	ui.cbStartSimonOnBoot->setChecked(Settings::get("SimonAutostart").toBool());
-	ui.cbStartJuliusAsNeeded->setChecked(Settings::get("StartJuliusdWhenRequired").toBool());
 	ui.cbAskBeforeExit->setChecked(Settings::get("AskBeforeExit").toBool());
-	ui.cbAutoConnect->setChecked(Settings::get("AutoConnect").toBool());
 
 
 	//paths
@@ -116,8 +108,6 @@ bool GeneralSettings::init()
 	ui.leProgramCategories->setText(Settings::get("PathToProgramCategories").toString());
 	ui.leTempDir->setText(Settings::get("TempDir").toString());
 	ui.lePathToTexts->setText(Settings::get("PathToTexts").toString());
-
-	ui.leTextUpdateURL->setText(Settings::getS("PathToTextOnlineUpdate"));
 
 	return true;
 }

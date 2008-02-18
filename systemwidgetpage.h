@@ -26,6 +26,7 @@ private:
 public:
     SystemWidgetPage(QWidget *parent);
 	void setChild(SystemWidget *child);
+	void initializePage();
 
 	bool isComplete() const;
 	bool validatePage();

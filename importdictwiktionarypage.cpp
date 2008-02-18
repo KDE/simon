@@ -23,6 +23,7 @@
 #include <QMessageBox>
 #include <QHBoxLayout>
 #include <QIcon>
+#include "settings.h"
 #include "quickdownloader.h"
 
 /**
@@ -131,7 +132,7 @@ void ImportDictWiktionaryPage::importList(QString list)
 		wikiName = txtList.mid(wikiStart+29, 12);
 		date = wikiUrl.mid(wikiUrl.indexOf("/")+1);
 		wikiUrl = 
-			"http://download.wikimedia.org/"+wikiUrl+"/"+wikiName+"-"+date+"-pages-articles.xml.bz2";
+			Settings::getS("Internet/WikiDumpPrefix")+wikiUrl+"/"+wikiName+"-"+date+Settings::getS("Internet/WikiDumpPostfix");
 		
 		txtList = txtList.mid(wikiStart+40);
 
@@ -158,7 +159,7 @@ void ImportDictWiktionaryPage::loadList()
 	QuickDownloader *qDownloader = new QuickDownloader(this);
 	connect(qDownloader, SIGNAL(downloadFinished(QString)), this, SLOT(importList(QString)));
 
-	QString url = "http://download.wikimedia.org/backup-index.html";
+	QString url = Settings::getS("Internet/WikiDumpOverview");
 	if (!qDownloader->download(url))
 		QMessageBox::critical(this, tr("Fehler beim Herunterladen"), tr("Konnte ")+url+tr(" nicht herunterladen."));
 	
