@@ -9,9 +9,22 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include "logger.h"
+#include <QHash>
 #include <QCoreApplication>
+#include <QMessageBox>
 #include "xevents.h"
+#include "logger.h"
+
+
+#include <X11/Xlibint.h>
+#include <X11/Xutil.h>
+#include <X11/cursorfont.h>
+#include <X11/extensions/XTest.h>
+
+#ifdef None
+#undef None
+#endif
+
 /**
  * @brief Constructor
  * 

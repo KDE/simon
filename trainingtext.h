@@ -14,7 +14,6 @@
 
 #include <QList>
 #include <QStringList>
-#include <QString>
 /**
  *	@class TrainingText
  *	@brief Convenient class to be used as a container to hold all theinformation for one text

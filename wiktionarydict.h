@@ -12,19 +12,15 @@
 #ifndef WIKTIONARYDICT_H
 #define WIKTIONARYDICT_H
 
-#include "xmlsaxreader.h"
-#include <QStringList>
-#include <QString>
-#include <QFile>
 #include <QXmlDefaultHandler>
 #include "dict.h"
-#include <QRegExp>
-#include <math.h>
 
 
 #define WDNONE 0
 #define WDWORD 1
 #define WDTEXT 2
+
+class XMLSAXReader;
 
 /**
  * \class WiktionaryDict

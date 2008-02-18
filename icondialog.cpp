@@ -19,14 +19,13 @@
 #include <QLineEdit>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QStandardItemModel>
+#include <QString>
 
 #ifdef __WIN32
 #include <windows.h>
 #include "windowsresourcehandler.h"
-#include "qwindowsstyle.h"
 #endif
-
-#include <QLibrary>
 
 
 /**

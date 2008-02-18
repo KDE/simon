@@ -12,19 +12,15 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#include <QTextStream>
-#include <QFile>
-#include <QDateTime>
-#include <QDir>
-#include <QFileInfo>
+#include <QString>
 /**
  \class Logger
  \author Peter Grasch
  \brief Logs messages to the logfile with static functions
 */
 
-
-
+class QTextStream;
+class QFile;
 
 class Logger{
 private:
@@ -40,20 +36,7 @@ public:
 	 * @return 
 	 * success
 	 */
-	static bool init(QString path="log/simon.log")
-	{
-		QFileInfo fInfo;
-		fInfo.setFile(path);
-		
-		QDir *dir = new QDir(fInfo.absolutePath());
-		if ((!dir->exists()) && (!dir->mkpath(path)))
-			return false;
-		
-		logF = new QFile(path);
-		if (!logF->open(QIODevice::WriteOnly|QIODevice::Append)) return false;
-		Logger::logFile = new QTextStream(logF);
-		return true;
-	}
+	static bool init(QString path="log/simon.log");
 	
 	/**
 	 * \brief Logs the given string to the file (adds a timecode)
@@ -61,19 +44,13 @@ public:
 	 * @param message 
 	 * The message to log
 	 */
-	static void log(QString message)
-	{
-		*(Logger::logFile) << QDateTime::currentDateTime().toString("[yyyy/MM/dd hh:mm:ss] ") << message << endl;
-	}
+	static void log(QString message);
 	
 	/**
 	 *        \brief Closes and flushes the buffer
 	 *        \author Peter Grasch
 	 */
-	static void close()
-	{
-		(Logger::logFile)->flush();
-	}
+	static void close();
 	
 
 };

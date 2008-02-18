@@ -20,6 +20,8 @@
 #ifndef SIMONVIEW_H
 #define SIMONVIEW_H
 
+#include <QString>
+
 /**
  *	@class SimonInfo
  *	@brief Helper class providing convenient methods on how to display short infos on the screen
@@ -32,22 +34,15 @@
  *	@date 10.01.2006
  *	@author Peter Grasch
 */
+class QWidget;
 
-#include <QMainWindow>
-#include <QPlastiqueStyle>
-#include <QPixmap>
-#include <QMenu>
-#include <QAction>
-#include <QMessageBox>
-#include "osd.h"
-
+class QSplashScreen;
 
 class SimonInfo {
 	
 private:
 	QSplashScreen *splash;  //!< Splashscreen-Pointer
-	QWidget *parent;  //!< provides a pointer to the parenting object of the Splashscreen
-
+	QWidget *parent;
 
 public:
 	SimonInfo(QWidget *parent = 0);

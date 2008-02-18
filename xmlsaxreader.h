@@ -13,11 +13,10 @@
 #define XMLSAXREADER_H
 
 #include <QObject>
-#include <QFile>
-#include <QXmlInputSource>
-#include <QXmlDefaultHandler>
-#include <QXmlSimpleReader>
 #include "xmlreader.h"
+
+class QXmlDefaultHandler;
+
 /**
 	\class XMLSAXReader
 	

@@ -11,7 +11,6 @@
 //
 #include "eventhandler.h"
 #include "shortcutcontrol.h"
-#include <QMessageBox>
 
 /**
  * @brief Constructor

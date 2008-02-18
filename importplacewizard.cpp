@@ -13,6 +13,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QPixmap>
+#include <QRadioButton>
 
 /**
 *   \brief constructor which creats the wizardpages

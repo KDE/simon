@@ -13,11 +13,10 @@
 #define INTROPLACEPAGE_H
 
 #include <QWizardPage>
-#include <QRadioButton>
 
 class QLabel;
 class QVBoxLayout;
-//class QRadioButton;
+class QRadioButton;
 
 /**
 	@author Susanne Tschernegg

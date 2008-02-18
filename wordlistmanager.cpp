@@ -19,9 +19,8 @@
 #include <QTextStream>
 #include "modelmanager.h"
 #include "settings.h"
-
+#include <QMessageBox>
 #include <QDebug>
-
 
 WordListManager* WordListManager::instance;
 
@@ -37,6 +36,9 @@ WordListManager* WordListManager::instance;
 WordListManager::WordListManager () : QThread()
 {
 	isTemp = false;
+	connect(this, SIGNAL(wordListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
+	connect(this, SIGNAL(shadowListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
+	connect(this, SIGNAL(tempWarning()), this, SLOT(warnAboutTempWordList()));
 
 	wordListLock.lock();
 	mainDirty = false;
@@ -47,8 +49,23 @@ WordListManager::WordListManager () : QThread()
 	}
 	
 	wordListLock.unlock();
-
 	start(QThread::IdlePriority);
+}
+
+
+
+/**
+ * \brief Warns about changing a temporary wordlist (when the path is not correctly configured)
+ * \author Peter Grasch
+ */
+void WordListManager::warnAboutTempWordList()
+{
+	QMessageBox::warning(0, tr("Temporäre Änderungen"), tr("Sie verändern eine temporäre Wordliste.\n\nDie Änderungen werden nicht gespeichert. Bitte konfigurieren Sie einen korrekten Pfad in den Einstellungen und starten Sie simon neu um eine dauerhafte Wortliste zu benutzen."));
+}
+
+void WordListManager::complainAboutPaths()
+{
+	QMessageBox::critical(0, tr("Lesefehler"), tr("Konnte benötigte Dateien für die Wortliste nicht einlesen. Bitte überprüfen Sie die Pfade zu den Vocab- und Lexikon-Dateien und stellen Sie sicher das sie die nötigen Leserechte haben.\n\nDie Wortliste wird leer im RAM erstellt. Änderungen werden NICHT dauerhaft gespeichert."));
 }
 
 WordListManager* WordListManager::getInstance()

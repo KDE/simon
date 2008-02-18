@@ -4,8 +4,7 @@
 #define SIMONSLIDER_H
 
 #include <QSlider>
-#include <QLineEdit>
-#include <QLabel>
+class QLineEdit;
 
 class SimonSlider : public QSlider
 {	
@@ -13,7 +12,6 @@ class SimonSlider : public QSlider
 	Q_OBJECT
 	
 private:
-	//QLabel lbPlusMinus;
 	QLineEdit *lePlusMinus;
 	
 	

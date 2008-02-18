@@ -12,16 +12,7 @@
 #ifndef OSD_H
 #define OSD_H
 
-#include <QSplashScreen>
-#include <QString>
-#include <QPainter>
-#include <QPixmap>
-#include <QTimer>
-#include <QLabel>
-#include <QPalette>
-#include <QApplication>
-#include <QDesktopWidget>
-#include <QMouseEvent>
+#include <QWidget>
 
 /**
  *	@class OSD
@@ -35,6 +26,8 @@
  *	@author Peter Grasch
  */
 class QMouseEvent;
+class QTimer;
+class QLabel;
 class OSD : public QWidget
 {
 	Q_OBJECT

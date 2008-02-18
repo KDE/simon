@@ -10,10 +10,8 @@
 //
 //
 #include "firstruncreatedictionarypage.h"
-#include <QHBoxLayout>
-#include <QLabel>
-#include "wordlistmanager.h"
 #include "trainingmanager.h"
+#include "wordlistmanager.h"
 
 /**
  * \brief Constructor

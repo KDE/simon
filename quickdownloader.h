@@ -13,15 +13,13 @@
 #define QUICKDOWNLOADER_H
 
 #include <QWidget>
-#include <QProgressDialog>
-#include <QHttp>
-#include <QUrl>
-#include <QHttpResponseHeader>
-#include <QMessageBox>
-#include <QFileInfo>
 
 
 class QFile;
+class QUrl;
+class QHttp;
+class QHttpResponseHeader;
+class QProgressDialog;
 
 /**
  * \class QuickDownloader

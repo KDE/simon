@@ -13,11 +13,11 @@
 #define SELECTSHORTCUTBUTTON_H
 
 #include <QPushButton>
-#include <QKeyEvent>
 #include <QList>
 
 
 class Shortcut;
+class QKeyEvent;
 
 /**
  * \class SelectShortcutButton

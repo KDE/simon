@@ -12,7 +12,12 @@
 #include "localplacepage.h"
 #include "settings.h"
 #include "command.h"
-#include <QMessageBox>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QFileDialog>
 
 /**
 *   \brief constructor

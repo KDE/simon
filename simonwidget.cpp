@@ -17,7 +17,6 @@
 #include "simoncalendarwidget.h"
 #include "simonslider.h"
 #include <QCoreApplication>
-#include <QDebug>
 
 
 void SimonWidget::guessChildTriggers(QObject *current) 
@@ -124,7 +123,7 @@ void SimonWidget::registerBuddy(QLabel* label)
 			QString str = temp->horizontalHeaderItem (i)->text();
 			str = text + " " + str;
 			registerControl(str,label->buddy(),SLOT(initLineEdit(QString)));
-			qDebug() << str << label->buddy()->objectName();
+// 			qDebug() << str << label->buddy()->objectName();
 		}
 		
 		

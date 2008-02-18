@@ -13,6 +13,12 @@
 #include "settings.h"
 #include <QMessageBox>
 #include <QIcon>
+#include <QWidget>
+#include <QTableWidgetItem>
+#include <QHeaderView>
+#include <QSize>
+#include "simoninfo.h"
+#include "runcommand.h"
 
 #ifdef __WIN32
 #include "windowsresourcehandler.h"

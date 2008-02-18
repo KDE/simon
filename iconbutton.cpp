@@ -11,7 +11,7 @@
 //
 #include "iconbutton.h"
 
-#include <QMessageBox>
+#include "icondialog.h"
 
 #ifdef __WIN32
 #include "windowsresourcehandler.h"

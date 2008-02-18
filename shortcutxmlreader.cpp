@@ -10,7 +10,7 @@
 //
 //
 #include "shortcutxmlreader.h"
-
+#include <QDomDocument>
 /**
  * \brief Constructor
  * \author Peter Grasch

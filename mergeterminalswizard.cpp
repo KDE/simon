@@ -13,7 +13,6 @@
 #include "mergeterminalsselectterminalspage.h"
 #include "mergeterminalsworkingpage.h"
 #include "grammarmanager.h"
-#include "wordlistmanager.h"
 #include <QWizardPage>
 #include <QLabel>
 #include <QHBoxLayout>

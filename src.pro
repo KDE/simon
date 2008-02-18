@@ -82,8 +82,8 @@ HEADERS += simonview.h \
 	   RtAudio.h \
 	   RtError.h \
            osd.h \
-           dragtablewidget.h \
-           droplistwidget.h \
+	   dragtablewidget.h \
+	   droplistwidget.h \
            runapplicationview.h \
            runbackend.h \
            xmlreader.h \
@@ -92,7 +92,6 @@ HEADERS += simonview.h \
            wav.h \
            xmlcommand.h \
            xmltrainingtext.h \
-           xmlsetting.h \
            wavrecorder.h \
            wavplayer.h \
 	   sounddevice.h \
@@ -171,7 +170,6 @@ importtrainingdirectoryworkingpage.h \
  introplacepage.h \
  passworddlg.h \
  remoteplacepage.h \
- chooseplacepage.h \
  desktopgridconfiguration.h \
  modelsettings.h \
  simonlineedit.h \
@@ -226,8 +224,6 @@ SOURCES += main.cpp \
            trainingtext.cpp \
            trayiconmanager.cpp \
            osd.cpp \
-           dragtablewidget.cpp \
-           droplistwidget.cpp \
            runapplicationview.cpp \
            eventhandler.cpp \
            screengrid.cpp \
@@ -235,7 +231,6 @@ SOURCES += main.cpp \
 		xmlreader.cpp \
            xmlcommand.cpp \
            xmltrainingtext.cpp \
-           xmlsetting.cpp \
            wavrecorder.cpp \
            wavplayer.cpp \
            soundcontrol.cpp \
@@ -271,6 +266,8 @@ SOURCES += main.cpp \
            inlinewidget.cpp \
            systemview.cpp \
            systemwidget.cpp \
+	   dragtablewidget.cpp \
+	   droplistwidget.cpp \
            generalsettings.cpp \
            soundsettings.cpp \
            settings.cpp \
@@ -311,7 +308,6 @@ SOURCES += main.cpp \
  importplacepage.cpp \
  localplacepage.cpp \
  remoteplacepage.cpp \
- chooseplacepage.cpp \
  desktopgridconfiguration.cpp \
  modelsettings.cpp \
  simonlineedit.cpp \

@@ -9,13 +9,23 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include <QHBoxLayout>
+#include <QDir>
 #include "trainingview.h"
 #include "importtrainingdirectory.h"
 #include "settings.h"
 #include <QHash>
 #include "settings.h"
 #include <QHashIterator>
+#include <QWidget>
+#include <QString>
+#include <QTableWidget>
+#include <QHeaderView>
+#include "trainingtext.h"
+#include "trainingmanager.h"
+#include "trainingtext.h"
+#include "importtrainingtexts.h"
+#include "recwidget.h"
+#include "addwordview.h"
 
 
 TrainingView* TrainingView::instance;

@@ -14,7 +14,6 @@
 
 #include "simonwizard.h"
 #include "word.h"
-#include "addwordview.h"
 
 /**
  \class FirstRunWizard
@@ -29,6 +28,8 @@ class TrainingManager;
 class FirstRunImportGrammarWorkingPage;
 class ImportDictWorkingPage;
 class SystemWidgetPage;
+class AddWordView;
+class GrammarManager;
 
 class FirstRunWizard : public SimonWizard
 {

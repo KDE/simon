@@ -12,15 +12,10 @@
 #ifndef WAVPLAYER_H
 #define WAVPLAYER_H
 
-#include <QThread>
-#include <QMessageBox>
-#include <QTimer>
-#include "simoninfo.h"
-#include "wav.h"
-#include "RtError.h"
-#include "RtAudio.h"
-#include <stdio.h>
-#include <iostream>
+#include <QObject>
+
+class QTimer;
+class RtAudio;
 
 /**
 	\class WavPlayer
@@ -53,7 +48,7 @@ public:
 	long getPosition() { return this->position; }
 	void setPosition(long position) { this->position = position; }
 	int getLength() { return this->length; }
-    WavPlayer(QWidget *parent=0);
+    WavPlayer(QObject *parent=0);
     bool play(QString filename);
     ~WavPlayer();
 public slots:

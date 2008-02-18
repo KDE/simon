@@ -12,8 +12,6 @@
 #ifndef RUNLINUXBACKEND_H
 #define RUNLINUXBACKEND_H
 
-#include <QDesktopServices>
-#include <QUrl>
 #include "runbackend.h"
 
 

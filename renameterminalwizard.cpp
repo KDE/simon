@@ -15,7 +15,6 @@
 #include <QHBoxLayout>
 #include "renameterminalselectparameterspage.h"
 #include "renameterminalworkingpage.h"
-#include "wordlistmanager.h"
 #include "grammarmanager.h"
 
 RenameTerminalWizard::RenameTerminalWizard(QWidget* parent): SimonWizard(parent)

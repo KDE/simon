@@ -13,7 +13,6 @@
 #define SCREENGRID_H
 
 #include <QWidget>
-// #define FAKETRANSPARENCY
 
 class QPushButton;
 class QGridLayout;

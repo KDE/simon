@@ -17,7 +17,9 @@
 #include <QMessageBox>
 #include <QVariant>
 #include <QProgressDialog>
-#include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QProcess>
 
 
 ModelManager* ModelManager::instance;
@@ -366,7 +368,6 @@ bool ModelManager::generateInputFiles()
 bool ModelManager::makeTranscriptions()
 {
 	//mlf
-	qDebug() << "hier";
 	emit status(tr("Erstelle Master Label File..."));
 	if (!generateMlf())
 	{
@@ -374,8 +375,6 @@ bool ModelManager::makeTranscriptions()
 		return false;
 	}
 	emit progress(55);
-
-	qDebug() << "hier2";
 	
 	if ((proc->execute(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -l \"*\" -d "+tmpDir+"/dict -i "+tmpDir+"/phones0.mlf "+Settings::getS("Model/PathToMkPhones0")+" "+tmpDir+"/words.mlf") != 0) || (proc->execute(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -l \"*\" -d "+tmpDir+"/dict -i "+tmpDir+"/phones1.mlf "+Settings::getS("Model/PathToMkPhones1")+" "+tmpDir+"/words.mlf") != 0) )
 	{

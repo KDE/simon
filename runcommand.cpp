@@ -9,10 +9,16 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
+
 #include "runcommand.h"
 #include "logger.h"
-#include <QObject>
-#include <QMessageBox>
+#ifdef linux
+#include "runlinuxbackend.h"
+#endif
+#ifdef __WIN32
+#include "runwindowsbackend.h"
+#endif
+#include "xmlcommand.h"
 
 RunCommand* RunCommand::instance;
 /**

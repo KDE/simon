@@ -14,6 +14,7 @@
 #include "logger.h"
 #include <QObject>
 #include <QString>
+#include <QVariant>
 #include <QWidget>
 #include "quickdownloader.h"
 #include <QFile>
@@ -67,7 +68,6 @@ void ImportWorkingWizardPage::processText(QString path)
 	
 	QuickDownloader *down = qobject_cast<QuickDownloader*>(sender());
 	if (down) down->deleteLater();
-	else qDebug() << "dutz";
 	
 	wizard()->next();
 }
@@ -120,7 +120,7 @@ void ImportWorkingWizardPage::parseFile(QString path)
 
 	QString xmlPath = Settings::getS("PathToTexts")+"/"+fi.fileName().left(fi.fileName().lastIndexOf("."))+".xml";
 	XMLTrainingText *text = new XMLTrainingText(xmlPath);
-	text->setTitle(((ImportLocalWizardPage*)wizard()->page(2))->getField("Textname").toString());
+	text->setTitle(field("Textname").toString());
 	text->addPages(sents);
 	text->save(xmlPath);
 	delete text;

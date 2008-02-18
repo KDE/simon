@@ -10,6 +10,8 @@
 //
 //
 #include "trainingmanager.h"
+#include <QFile>
+#include <QDir>
 #include "settings.h"
 #include "logger.h"
 #include "settings.h"
@@ -17,6 +19,10 @@
 #include "modelmanager.h"
 #include "math.h"
 #include <QObject>
+#include <QDate>
+#include <QTextStream>
+#include "xmltrainingtext.h"
+#include <QTime>
 #include "addwordview.h"
 #include <QStringList>
 #include <QString>

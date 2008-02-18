@@ -10,6 +10,10 @@
 //
 //
 #include "xmlsaxreader.h"
+#include <QFile>
+#include <QXmlInputSource>
+#include <QXmlDefaultHandler>
+#include <QXmlSimpleReader>
 
 /**
  * \brief Constructor

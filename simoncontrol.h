@@ -33,19 +33,17 @@
  *	@author Peter Grasch
 */
 
-#include <QMessageBox>
 #include <QObject>
-#include "simoninfo.h"
-#include "addwordview.h"
-#include "soundcontrol.h"
-#include "runcommand.h"
-#include "eventhandler.h"
-#include "juliuscontrol.h"
 #include <QStringList>
 
 
 class QSettings;
 class QVariant;
+class SoundControl;
+class JuliusControl;
+class RunCommand;
+class EventHandler;
+class ShortcutControl;
 
 class SimonControl : public QObject {
 	Q_OBJECT

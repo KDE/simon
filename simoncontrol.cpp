@@ -25,6 +25,11 @@
 #include <QMessageBox>
 #include "shortcutcontrol.h"
 #include "screengrid.h"
+#include "soundcontrol.h"
+#include "juliuscontrol.h"
+#include "runcommand.h"
+#include "eventhandler.h"
+#include "shortcutcontrol.h"
 
 /**
  * @brief Constructor
@@ -142,8 +147,8 @@ void SimonControl::disconnectFromJulius()
 void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 {
 	QString keyword = Settings::get("Commands/Keyword").toString();
-	qDebug() << word;
-	qDebug() << Settings::get("Commands/Keyword").toString();
+// 	qDebug() << word;
+// 	qDebug() << Settings::get("Commands/Keyword").toString();
 	
 	if (word.startsWith(keyword))
 	{

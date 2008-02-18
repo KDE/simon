@@ -10,7 +10,6 @@
 //
 //
 #include "importgrammarworkingpage.h"
-#include "wordlistmanager.h"
 #include "importgrammar.h"
 #include <QFile>
 

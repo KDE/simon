@@ -13,11 +13,11 @@
 #define REMOTEPLACEPAGE_H
 
 #include <QWizardPage>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QLineEdit>
-#include <QComboBox>
-#include <QHBoxLayout>
+class QComboBox;
+class QLabel;
+class QLineEdit;
+class QLabel;
+class QLineEdit;
 
 /**
 	@author Susanne Tschernegg

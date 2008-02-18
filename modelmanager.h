@@ -12,9 +12,8 @@
 #ifndef MODELMANAGER_H
 #define MODELMANAGER_H
 
-#include <QObject>
 #include <QThread>
-#include <QProcess>
+class QProcess;
 class QProgressDialog;
 
 /**

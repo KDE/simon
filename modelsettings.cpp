@@ -12,7 +12,6 @@
 #include "modelsettings.h"
 #include "settings.h"
 #include <QVariant>
-#include <QMessageBox>
 #include <QTableWidget>
 #include <QInputDialog>
 #include <QTableWidgetItem>

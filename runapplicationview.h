@@ -13,15 +13,10 @@
 #define RUNAPPLICATIONVIEW_H
 
 #include "inlinewidget.h"
-#include <QWidget>
-#include <QTableWidgetItem>
-#include <QHeaderView>
-#include <QSize>
-#include "simoninfo.h"
+#include "command.h"
 #include "ui_rundialog.h"
 
-#include "runcommand.h"
-
+class RunCommand;
 /**
  *	@class RunApplicationView
  *	@brief Provides a graphical frontend to run commands and perform 

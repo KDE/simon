@@ -12,7 +12,6 @@
 #ifndef WORD_H
 #define WORD_H
 #include <QString>
-#include <QStringList>
 #include <QList>
 
 /**

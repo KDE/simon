@@ -12,7 +12,7 @@
 #ifndef IMPORTGRAMMARWIZARD_H
 #define IMPORTGRAMMARWIZARD_H
 
-#include <simonwizard.h>
+#include "simonwizard.h"
 class QWizardPage;
 
 /**

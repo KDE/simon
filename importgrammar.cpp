@@ -11,6 +11,7 @@
 //
 #include "importgrammar.h"
 #include "wordlistmanager.h"
+#include <QFile>
 
 ImportGrammar::ImportGrammar(QObject* parent): QThread(parent)
 {

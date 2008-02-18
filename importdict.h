@@ -18,7 +18,6 @@
 
 #include "word.h"
 #include <QThread>
-#include "wiktionarydict.h"
 
 /**
  *	\class ImportDict

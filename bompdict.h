@@ -12,7 +12,7 @@
 #ifndef BOMPDICT_H
 #define BOMPDICT_H
 
-#include <dict.h>
+#include "dict.h"
 
 class QString;
 

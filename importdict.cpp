@@ -13,7 +13,7 @@
 #include "logger.h"
 #include "bompdict.h"
 #include "lexicondict.h"
-#include <QDebug>
+#include "wiktionarydict.h"
 
 /**
  * \brief Constructor

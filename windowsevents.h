@@ -13,9 +13,7 @@
 #define WINDOWSEVENTS_H
 
 #include "coreevents.h"
-#include <QMessageBox>
 #include <QString>
-#include <iostream>
 #include <windows.h>
 #include <QHash>
 
@@ -26,13 +24,6 @@ const int KeyShift = VK_SHIFT;
 const int KeySuper = VK_LWIN;
 const int KeyAltGr = VK_RMENU;
 const int KeyCapsLock = VK_CAPITAL;*/
-
-
-
-#ifdef None
-#undef None
-#endif
-
 
 /**
  *	@class XEvents

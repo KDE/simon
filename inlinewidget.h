@@ -13,11 +13,9 @@
 #define INLINEWIDGET_H
 
 #include <QWidget>
-#include <QObject>
 #include <QIcon>
 
 #include "simonwidget.h"
-#include "simoncontrol.h"
 
 class QString;
 class QIcon;

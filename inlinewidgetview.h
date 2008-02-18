@@ -12,9 +12,7 @@
 #ifndef INLINEWIDGETVIEW_H
 #define INLINEWIDGETVIEW_H
 
-#include <QWidget>
 #include <QTabWidget>
-#include <QHash>
 
 class InlineWidget;
 class QKeyEvent;

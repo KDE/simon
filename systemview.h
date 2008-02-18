@@ -13,9 +13,6 @@
 #define SYSTEMVIEW_H
 
 #include "inlinewidget.h"
-#include "simonlistwidget.h"
-
-
 class QListWidget;
 class QTextEdit;
 class QHBoxLayout;

@@ -12,7 +12,6 @@
 #ifndef QUICKUNPACKER_H
 #define QUICKUNPACKER_H
 
-#include "bunzip.h"
 #include <QWidget>
 
 /**
@@ -27,6 +26,7 @@
 class QProgressDialog;
 class QString;
 class QObject;
+class Bunzip;
 
 class QuickUnpacker : public QWidget
 {

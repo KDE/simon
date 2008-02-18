@@ -11,7 +11,7 @@
 //
 #include "xmltrainingtextlist.h"
 #include "logger.h"
-#include <QMessageBox>
+#include <QDomDocument>
 
 /**
  * \brief Constructor

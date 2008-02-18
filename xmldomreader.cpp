@@ -10,7 +10,11 @@
 //
 //
 #include "xmldomreader.h"
-#include <QMessageBox>
+#include <QObject>
+#include <QDomDocument>
+#include <QFile>
+#include <QIODevice>
+#include <QTextStream>
 
 /**
  * \brief Constructor

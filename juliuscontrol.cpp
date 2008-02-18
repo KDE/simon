@@ -12,9 +12,9 @@
 #include "juliuscontrol.h"
 #include <QByteArray>
 #include <QTcpSocket>
-#include <QMessageBox>
 #include <QTimer>
 #include <QFile>
+#include <QVariant>
 #include <QDataStream>
 #include <QCryptographicHash>
 #include "settings.h"

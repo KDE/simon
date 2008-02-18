@@ -20,6 +20,7 @@
 #include <QTextStream>
 #include <QVBoxLayout>
 #include "simonlistwidget.h"
+#include <QMessageBox>
 #include <QHBoxLayout>
 #include <QIcon>
 #include "quickdownloader.h"

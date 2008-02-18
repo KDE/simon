@@ -10,9 +10,10 @@
 //
 //
 #include "inireader.h"
-#include <QVariant>
 #include <QFile>
 #include <QCoreApplication>
+#include <QStringList>
+#include <QTextStream>
 #include "logger.h"
 
 IniReader::IniReader(QString path)

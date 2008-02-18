@@ -12,13 +12,9 @@
 #ifndef XMLDOMREADER_H
 #define XMLDOMREADER_H
 
-#include <QObject>
-#include <QDomDocument>
-#include <QFile>
-#include <QIODevice>
-#include <QTextStream>
 #include "xmlreader.h"
 
+class QDomDocument;
 /**
 	\class XMLDomReader
 	

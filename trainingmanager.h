@@ -12,16 +12,12 @@
 #ifndef TRAININGMANAGER_H
 #define TRAININGMANAGER_H
 
-#include <QDir>
-#include <QHash>
-#include "trainingtext.h"
-#include "xmltrainingtext.h"
 #include "word.h"
 #include <QHash>
-#include <QDebug>
-#include <QMessageBox>
 #include <QMutex>
-#include "addwordview.h"
+#include "trainingtext.h"
+
+class AddWordView;
 
 /**
  *	@class TrainingManager

@@ -18,11 +18,10 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 #include "simonview.h"
+#include <QDir>
 #include "inlinewidgetview.h"
 #include "logger.h"
 #include <QPixmap>
-#include <QPalette>
-#include <QLinearGradient>
 #include "simoncontrol.h"
 #include "simoninfo.h"
 #include "runapplicationview.h"
@@ -33,13 +32,20 @@
 #include "systemview.h"
 #include "settings.h"
 #include <QMessageBox>
-#include <QDir>
 #include "shortcutcontrol.h"
 #include "passworddlg.h"
 #include "grammarmanager.h"
 #include "screengrid.h"
 #include "firstrunwizard.h"
-#include <QDebug>
+#include <QCryptographicHash>
+#include "wordlistview.h"
+#include "addwordview.h"
+
+
+
+
+// #warning Why? Oh Why...
+// #undef Unsorted
 
 
 /**

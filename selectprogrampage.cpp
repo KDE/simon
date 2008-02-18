@@ -11,14 +11,24 @@
 //
 #include "selectprogrampage.h"
 #include <QMessageBox>
-#include <QSize>
-#include <QDebug>
-
-#include "program.h"
 #ifdef linux
 #include "kdeprogrammanager.h"
 #endif
-#include "programcategory.h"
+
+
+#include <QVariant>
+#include <QAction>
+#include <QApplication>
+#include <QButtonGroup>
+#include <QHBoxLayout>
+#include <QListWidget>
+#include <QVBoxLayout>
+#include <QWidget>
+
+#ifdef __WIN32
+#include "registrymanager.h"
+#include "windowsprogrammanager.h"
+#endif
 
 /**
 *   \brief Constructor

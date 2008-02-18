@@ -10,10 +10,8 @@
 //
 //
 #include "mergeterminalsworkingpage.h"
-#include "wordlistmanager.h"
 #include "grammarmanager.h"
 #include "mergeterminals.h"
-#include <QDebug>
 
 MergeTerminalsWorkingPage::MergeTerminalsWorkingPage (QWidget* parent ) : QWizardPage ( parent )
 {

@@ -11,6 +11,7 @@
 //
 #include "selectsourcewizardpage.h"
 
+#include <QRadioButton>
 
 /**
  * \brief Constructor

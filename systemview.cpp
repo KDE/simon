@@ -12,13 +12,6 @@
 #include "simonlistwidget.h"
 #include "systemview.h"
 #include "systemwidget.h"
-#include <QTextEdit>
-#include <QListWidget>
-#include <QListWidgetItem>
-#include <QSize>
-#include <QStackedLayout>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
 #include "generalsettings.h"
 #include "soundsettings.h"
 #include "revert.h"
@@ -32,6 +25,7 @@
 #include "passwordsettings.h"
 #include "modelsettings.h"
 #include "grammarsettings.h"
+#include "simoninfo.h"
 #include <QMessageBox>
 
 /**

@@ -21,7 +21,6 @@
 #define GUIEVENTS_H
 
 #include <QObject>
-#include <QVector>
 #include <QHash>
 #include <QMessageBox>
 

@@ -11,7 +11,7 @@
 //
 #include "selectshortcutbutton.h"
 #include "shortcut.h"
-
+#include <QKeyEvent>
 
 /**
  * \brief Constructor

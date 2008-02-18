@@ -11,6 +11,16 @@
 //
 #include "osd.h"
 #include "logger.h"
+#include <QSplashScreen>
+#include <QString>
+#include <QPainter>
+#include <QPixmap>
+#include <QTimer>
+#include <QLabel>
+#include <QPalette>
+#include <QApplication>
+#include <QDesktopWidget>
+#include <QMouseEvent>
 
 /**
  * @brief Constructor

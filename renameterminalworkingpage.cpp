@@ -10,10 +10,8 @@
 //
 //
 #include "renameterminalworkingpage.h"
-#include "wordlistmanager.h"
 #include "renameterminal.h"
 #include "grammarmanager.h"
-#include <QTimer>
 
 RenameTerminalWorkingPage::RenameTerminalWorkingPage(QWidget *parent)
  : QWizardPage(parent)

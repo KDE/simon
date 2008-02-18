@@ -12,7 +12,7 @@
 #include "importremotewizardpage.h"
 #include "logger.h"
 #include "settings.h"
-#include <QDebug>
+#include <QMessageBox>
 
 /**
  * \brief Constructor

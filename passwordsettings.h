@@ -12,7 +12,7 @@
 #ifndef PASSWORDSETTINGS_H
 #define PASSWORDSETTINGS_H
 
-#include <systemwidget.h>
+#include "systemwidget.h"
 #include "ui_passwordsettingsdlg.h"
 /**
 	@author Peter Grasch <bedahr@gmx.net>

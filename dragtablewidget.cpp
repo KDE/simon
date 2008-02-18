@@ -10,8 +10,7 @@
 //
 //
 #include "dragtablewidget.h"
-#include "logger.h"
-
+#include <QApplication>
 
 /**
  * @brief Constructor
@@ -90,7 +89,6 @@ void DragTableWidget::startDrag()
 {
 	QDrag *drag = new QDrag ( this );
 	QMimeData *mimeData = new QMimeData();
-	Logger::log(QString::number(this->rowCount()));
 	if(this->currentItem())
 	{
 		QString currentItem( this->item(this->currentRow(),0)->text() );

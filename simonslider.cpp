@@ -3,7 +3,7 @@
 #include <QColor>
 #include <QBrush>
 #include <QPalette>
-
+#include <QLineEdit>
 
 
 

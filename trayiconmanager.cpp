@@ -10,6 +10,8 @@
 //
 //
 #include "trayiconmanager.h"
+#include <QSystemTrayIcon>
+#include <QMenu>
 #include "logger.h"
 
 /**

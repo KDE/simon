@@ -13,9 +13,8 @@
 #define RETURNTABLEWIDGET_H
 
 #include <QTableWidget>
-#include <QKeyEvent>
 
-
+class QKeyEvent;
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */

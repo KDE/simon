@@ -13,8 +13,7 @@
 #define SELECTSOURCEWIZARDPAGE_H
 
 #include <QWizardPage>
-#include <QRadioButton>
-
+class QRadioButton;
 /**
  * \class SelectSourceWizardPage
  * \author Peter Grasch

@@ -26,11 +26,10 @@
 */
 
 #include <QObject>
-#include <QTimer>
-#include "wav.h"
-#include "RtError.h"
-#include "RtAudio.h"
-#include <stdio.h>
+
+class WAV;
+class QTimer;
+class RtAudio;
 
 class WavRecorder : public QObject {
 	Q_OBJECT
@@ -51,7 +50,7 @@ public slots:
 public:
 	WAV* getWav() { return wavData; }
 	int getChannels() { return chans; }
-	WavRecorder(QWidget *parent=0);
+	WavRecorder(QObject *parent=0);
 	bool finish();
     	bool record(QString filename, short channels, int sampleRate);
     

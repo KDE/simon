@@ -10,7 +10,7 @@
 //
 //
 #include "categoryxmlreader.h"
-#include <QMessageBox>
+#include <QDomDocument>
 #include <QVariant>
 #include "settings.h"
 

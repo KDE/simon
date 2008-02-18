@@ -4,9 +4,9 @@
 #define SIMONWIZAR_H
 
 #include <QWizard>
-#include "simoncontrol.h"
 
 /*typedef QHash<QObject*,  const char*> ActionIdent;*/
+class SimonControl;
 
 class SimonWizard : public QWizard
 {

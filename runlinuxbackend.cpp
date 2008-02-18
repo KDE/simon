@@ -12,6 +12,8 @@
 #include "runlinuxbackend.h"
 
 #include <QProcess>
+#include <QDesktopServices>
+#include <QUrl>
 
 /**
  *	@brief Constructor

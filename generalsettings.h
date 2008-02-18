@@ -12,7 +12,7 @@
 #ifndef GENERALSETTINGS_H
 #define GENERALSETTINGS_H
 
-#include <systemwidget.h>
+#include "systemwidget.h"
 #include "ui_generalsettingsdlg.h"
 
 /**

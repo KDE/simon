@@ -13,13 +13,17 @@
 #include "logger.h"
 #include <QVariant>
 #include "settings.h"
+#include <QTimer>
+#include "wav.h"
+#include "RtError.h"
+#include "RtAudio.h"
 
 /**
  * \brief Constructor
  * \author Peter Grasch
  * \todo Fix the hardcoded stereo
  */
-WavPlayer::WavPlayer(QWidget *parent) : QObject(parent)
+WavPlayer::WavPlayer(QObject *parent) : QObject(parent)
 {
 	stopTimer = false;
 	progressTimer = new QTimer();

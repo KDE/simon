@@ -1,6 +1,18 @@
 #include "recwidget.h"
 #include "logger.h"
-
+#include <QGroupBox>
+#include <QLabel>
+#include <QPushButton>
+#include <QSlider>
+#include <QString>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QIcon>
+#include <QMessageBox>
+#include <QFile>
+#include <QChar>
+#include "wavrecorder.h"
+#include "wavplayer.h"
 
 /**
  * \brief Constructor
@@ -39,6 +51,17 @@ RecWidget::RecWidget(QString name, QString filename, QWidget *parent) : QWidget(
 	
 	setupSignalsSlots();
 	
+}
+
+
+/**
+ * \brief Returns true if there is a file at the assigned filename
+ * \author Peter Grasch
+ * @return File exists?
+ */
+bool RecWidget::hasRecordingReady()
+{
+	return QFile::exists(this->filename);
 }
 
 /**

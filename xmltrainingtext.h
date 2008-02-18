@@ -1,12 +1,7 @@
 #ifndef XMLDOCUMENT_H
 #define XMLDOCUMENT_H
 #include "xmldomreader.h"
-#include <QList>
-#include <QString>
-#include <QtXml>
-#include <QDomNode>
-#include <QDomDocument>
-#include <QMessageBox>
+#include <QStringList>
 
 /**
  *  @class XMLTrainingText

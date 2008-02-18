@@ -13,10 +13,12 @@
 #include <QWizardPage>
 #include <QLabel>
 #include <QListWidget>
+#include <QLineEdit>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QProgressBar>
+#include <QRadioButton>
 #include <QPushButton>
 #include "quickdownloader.h"
 #include "xmltrainingtextlist.h"
@@ -124,44 +126,6 @@ QWizardPage* ImportTrainingTexts::createRemoteImportPage()
 QWizardPage* ImportTrainingTexts::createLocalImportPage()
 {
 	ImportLocalWizardPage *localImport = new ImportLocalWizardPage(this);
-	localImport->setTitle(tr("Importieren aus Textdatei"));
-	QLabel *label = new QLabel(localImport);
-	label->setText(tr("Hier können Sie Textdateien importieren. Sollte ihr Text in\neinem anderen Format (z.B.: einem Word Dokument)\nvorliegen, kännen Sie ihn in der spezifischen Applikation\nöffnen, als Text speichern und diese Datei hier angeben.\n\nBitte wählen Sie nun die Datei aus die Sie gerne\nimportieren möchten:"));
-	
-	QVBoxLayout *layout = new QVBoxLayout(localImport);
-	
-	QGridLayout *glInput = new QGridLayout();
-	
-	QHBoxLayout *fileLay = new QHBoxLayout();
-	QLabel *lbPath = new QLabel();
-	lbPath->setText("Datei:");
-	QLineEdit* lePath = new QLineEdit(localImport);
-	lePath->setReadOnly(true);
-	QPushButton *pbSelectPath = new QPushButton(localImport);
-	pbSelectPath->setIcon(QIcon(":/images/icons/document-open.svg"));
-	
-	fileLay->addWidget(lePath);
-	fileLay->addWidget(pbSelectPath);
-	
-	QLabel *lbName = new QLabel(localImport);
-	lbName->setText(tr("Name des Textes: "));
-	QLineEdit *leName = new QLineEdit(localImport);
-	
-	glInput->addWidget(lbName, 0,0);
-	glInput->addWidget(leName, 0,1);
-	
-	glInput->addWidget(lbPath, 1,0);
-	glInput->addLayout(fileLay, 1,1);
-	
-	layout->addWidget(label);
-	layout->addLayout(glInput);
-	
-	localImport->setLayout(layout);
-	localImport->setPathEdit(lePath);
-	connect(pbSelectPath, SIGNAL(clicked()), localImport, SLOT(setLocalSourceFile()));
-	
-	localImport->registerField("Filename*", lePath);
-	localImport->registerField("Textname*", leName);
 	
 	return localImport;
 }
@@ -264,10 +228,9 @@ void ImportTrainingTexts::idChanged(int id)
 	
 	if (id == 4) //working
 	{
-		if (!((ImportLocalWizardPage*)page(2))->getField("Filename")
-				     .toString().isEmpty())
+		if (!field("Filename").toString().isEmpty())
 			((ImportWorkingWizardPage*)currentPage())->startImport(
-		  	   ((ImportLocalWizardPage*)page(2))->getField("Filename").toString());
+		  	   field("Filename").toString());
 		else ((ImportWorkingWizardPage*)currentPage())->startImport(
 		       ((ImportRemoteWizardPage*)page(3))->getCurrentData());
 	}

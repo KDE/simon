@@ -12,7 +12,11 @@
 #include "remoteplacepage.h"
 #include "settings.h"
 #include "command.h"
-#include <QMessageBox>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QHBoxLayout>
 
 /**
 *   \brief constructor. creates the widgets and connects

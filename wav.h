@@ -13,11 +13,6 @@
 #define WAV_H
 
 #include <QString>
-#include <QDataStream>
-#include <QFile>
-#include <iostream>
-#include <QMessageBox>
-
 
 
 /**

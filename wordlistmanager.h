@@ -57,6 +57,10 @@ private:
 	WordList* readVocab(QString vocabpath);
 	QString* getTerminal(QString name, QString pronunciation, WordList *wlist);
 
+private slots:
+	void complainAboutPaths();
+	void warnAboutTempWordList();
+
 public:
 	static WordListManager* getInstance();
 

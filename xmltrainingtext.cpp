@@ -1,11 +1,7 @@
 #include "xmltrainingtext.h"
-/**
- *  @class XMLTrainingText.cpp
- *  
- *  @version 0.1
- *  @date 17.03.2007
- *  @author Christoph Kirschner
- */
+#include <QDomDocument>
+
+
 
 XMLTrainingText::XMLTrainingText(QString path):XMLDomReader(path)
 {

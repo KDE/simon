@@ -1,5 +1,13 @@
 #include "xmlcommand.h"
-#include <QMessageBox>
+
+#include <QtXml>
+#include <QString>
+#include <QList>
+#include <QFile>
+#include <QIODevice>
+#include <QStringList>
+#include <QDomNode>
+#include <QDomDocument>
 
 /**
  * \brief Creates a new XMLCommand object

@@ -13,7 +13,7 @@
 #define RUNBACKEND_H
 
 
-class QString;
+#include <QString>
 
 /**
 	@interface RunBackend

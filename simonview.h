@@ -34,19 +34,7 @@
 */
 
 #define sAddWordView 		1
-
-
-#include "wordlistview.h"
-
-#include <QMainWindow>
-
-#include <QHash>
-#include <QSettings>
-#include <QVector>
-#include <QPushButton>
-#include <QGridLayout>
 #include "ui_main.h"
-#include "importprogramwizard.h"
 #include "simonmainwindow.h"
 
 class QPoint;
@@ -63,6 +51,7 @@ class TrayIconManager;
 class RunApplicationView;
 class SystemView;
 class QAction;
+class WordListView;
 
 
 typedef QHash<QObject*,  const char*> ActionIdent;
@@ -70,10 +59,6 @@ typedef QHash<QObject*,  const char*> ActionIdent;
 class SimonView : public SimonMainWindow    {
 	
 	Q_OBJECT
-
-/*signals:
-	void sendControl(SimonControl* control);*/
-	
 	
 private slots:
 	void setButtonNotChecked();
@@ -155,8 +140,6 @@ public:
     void hideSettings();
     void showSettings();
 
-/*signal:
-    void commandsChanged();*/
 };
 
 #endif

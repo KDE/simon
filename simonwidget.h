@@ -12,9 +12,7 @@
 #ifndef SIMONWIDGET_H
 #define SIMONWIDGET_H
 
-#include <guievents.h>
-#include <QMessageBox>
-#include <QDebug>
+#include "guievents.h"
 /**
  *	@class SimonWidget
  *	@brief Abstract class defining the methods that a EventBackend has to support
@@ -37,7 +35,7 @@ private:
 	virtual QObjectList getChildren(QObject *current)
 	{
 		QObjectList temp;
-		qDebug() << current;
+		current->deleteLater();
 		return temp;
 	}
 	protected: 

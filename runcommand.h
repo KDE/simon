@@ -13,20 +13,8 @@
 #define RUNCOMMAND_H
 
 #include "command.h"
-#include "runbackend.h"
 
-#ifdef linux
-#include "runlinuxbackend.h"
-#endif
-#ifdef __WIN32
-#include "runwindowsbackend.h"
-#endif
-#include <QString>
-#include <QMessageBox>
-#include <iostream>
-#include "simoninfo.h"
-#include "xmlcommand.h"
-
+class RunBackend;
 
 /**
  *	@class RunCommand

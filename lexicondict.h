@@ -12,7 +12,7 @@
 #ifndef LEXICONDICT_H
 #define LEXICONDICT_H
 
-#include <dict.h>
+#include "dict.h"
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>

@@ -14,9 +14,6 @@
 
 #include <QObject>
 #include <QSystemTrayIcon>
-#include <QMenu>
-#include <QMessageBox>
-
 
 /**
  *	@class TrayIconManager

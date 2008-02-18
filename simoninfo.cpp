@@ -18,6 +18,9 @@
  ***************************************************************************/
 #include "simoninfo.h"
 #include <QCoreApplication>
+#include <QPixmap>
+#include <QSplashScreen>
+#include "osd.h"
 
 /**
  * @brief Constructor
@@ -89,8 +92,7 @@ void SimonInfo::writeToSplash(QString status)
 void SimonInfo::showMessage(QString message, short time)
 {
 	//show an "OSD"-like Message
-	//this is just for demonstration purposes
-	OSD *osd = new OSD(message, time);
+	new OSD(message, time);
 }
 
 
@@ -107,6 +109,7 @@ void SimonInfo::showMessage(QString message, short time)
 void SimonInfo::hideSplash()
 {
 	this->splash->finish(this->parent);
+	splash->deleteLater();
 }
 
 

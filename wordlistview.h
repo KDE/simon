@@ -14,23 +14,16 @@
 
 #define sImportDict 	32
 
-#include <QTableWidget>
-#include <QHeaderView>
-#include <QString>
+
 #include "word.h"
-#include "wordlistmanager.h"
-#include "dragtablewidget.h"
-#include "droplistwidget.h"
-#include <QMessageBox>
-#include <QTimer>
-#include "importdictview.h"
-#include "trainingview.h"
 #include "ui_wordlist.h"
 #include "inlinewidget.h"
 
 
 class TrainingView;
 class QPoint;
+class ImportDictView;
+class WordListManager;
 
 /**
  *	@class WordListView
@@ -63,10 +56,6 @@ signals:
 	void showAddWordDialog();
 	void wordlistLoaded();
 
-private slots:
-	void warnAboutTempWordList();
-	void complainAboutPaths();
-	
 public slots:
 	void abortInsertion() { abortVocabInsertion = true; }
 	void reloadList();

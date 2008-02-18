@@ -19,13 +19,13 @@
  ***************************************************************************/
 
 
+#include "simonview.h"
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-
-#include <iostream>
-#include <QDebug>
-#include "simonview.h"
+#include <QTranslator>
+#include <QLocale>
 
 
 int main(int argc, char *argv[])

@@ -42,16 +42,16 @@ class ImportPlaceWizard : public QWizard
         RemotePlacePage* remotePlacePage;
         ConfigurePlacePage* configurePlacePage;
         ImportPlacePage* importPlacePage; 
-    
-		IntroPlacePage* createIntroPlacePage();
+
+	IntroPlacePage* createIntroPlacePage();
         LocalPlacePage* createLocalPlacePage();
         RemotePlacePage* createRemotePlacePage();
         ConfigurePlacePage* createConfigurePlacePage();
         ImportPlacePage* createImportPlacePage();
         QWizardPage* createFinishedPage();
-    
+
         int oldId;
-    
+
 public:
         ImportPlaceWizard(QWidget* parent=0);
 

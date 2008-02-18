@@ -15,9 +15,8 @@
 #include <QToolButton>
 #include <QString>
 
-#include "icondialog.h"
-
 class QIcon;
+class IconDialog;
 
 /**
 	@author Susanne Tschernegg

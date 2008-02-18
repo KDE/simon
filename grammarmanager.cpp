@@ -13,9 +13,8 @@
 #include "logger.h"
 #include "settings.h"
 #include "wordlistmanager.h"
-#include <QDebug>
+#include <QFile>
 #include <QCoreApplication>
-#include <QMessageBox>
 
 
 
@@ -46,7 +45,6 @@ GrammarManager * GrammarManager::getInstance()
  */
 bool GrammarManager::load()
 {
-	qDebug() << "LOADING GRAMMAR";
 	structures.clear();
 	
 	QString path =Settings::getS("Model/PathToGrammar");

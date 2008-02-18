@@ -13,7 +13,6 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
-#include <QDebug>
 
 LexiconDict::LexiconDict(QString path, QObject* parent): Dict(parent)
 {

@@ -15,6 +15,7 @@
 #include <QMessageBox>
 #include <QString>
 #include "logger.h"
+#include "bunzip.h"
 
 /**
  * \brief Constructor

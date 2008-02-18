@@ -1,13 +1,5 @@
 #ifndef XMLCOMMAND_H
 #define XMLCOMMAND_H
-#include <QtXml>
-#include <QString>
-#include <QList>
-#include <QFile>
-#include <QIODevice>
-#include <QStringList>
-#include <QDomNode>
-#include <QDomDocument>
 #include "command.h"
 #include "xmldomreader.h"
 

@@ -9,6 +9,13 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
+#include <QTableWidget>
+#include <QHeaderView>
+#include <QString>
+#include "wordlistmanager.h"
+#include <QMessageBox>
+#include "importdictview.h"
+#include "trainingview.h"
 #include <QProgressDialog>
 #include <QCoreApplication>
 #include <QIcon>
@@ -53,12 +60,9 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	connect(importDictView, SIGNAL(dictGenerated(WordList*)), this, SLOT(importDict(WordList*)));
 	
 	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(toggleExtraWords()));
-	this->wordListManager = WordListManager::getInstance();
-	connect(this->wordListManager, SIGNAL(tempWarning()), this, SLOT(warnAboutTempWordList()));
-	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(reloadList()));
-	connect(this->wordListManager, SIGNAL(shadowListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
 
-	connect(this->wordListManager, SIGNAL(wordListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
+	this->wordListManager = WordListManager::getInstance();
+	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(reloadList()));
 	
 	connect(this->wordListManager, SIGNAL(shadowListChanged()), this, SLOT(reloadList()));
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(askForRebuild()));
@@ -67,11 +71,6 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	dirty = false;
 	
 	hide();
-	
-	
-	
-	//guessChildTriggers();
-	
 }
 
 void WordListView::askForRebuild()
@@ -253,15 +252,6 @@ void WordListView::toggleExtraWords()
 
 
 /**
- * \brief Warns about changing a temporary wordlist (when the path is not correctly configured)
- * \author Peter Grasch
- */
-void WordListView::warnAboutTempWordList()
-{
-	QMessageBox::warning(0, tr("Temporäre Änderungen"), tr("Sie verändern eine temporäre Wordliste.\n\nDie Änderungen werden nicht gespeichert. Bitte konfigurieren Sie einen korrekten Pfad in den Einstellungen und starten Sie simon neu um eine dauerhafte Wortliste zu benutzen."));
-}
-
-/**
  * \brief Clears the VocabList
  * \author Peter Grasch
  */
@@ -377,12 +367,6 @@ void WordListView::deleteSelectedWord()
 				success = true;
 		}
 	}
-}
-
-
-void WordListView::complainAboutPaths()
-{
-	QMessageBox::critical(0, tr("Lesefehler"), tr("Konnte benötigte Dateien für die Wortliste nicht einlesen. Bitte überprüfen Sie die Pfade zu den Vocab- und Lexikon-Dateien und stellen Sie sicher das sie die nötigen Leserechte haben.\n\nDie Wortliste wird leer im RAM erstellt. Änderungen werden NICHT dauerhaft gespeichert."));
 }
 
 /**

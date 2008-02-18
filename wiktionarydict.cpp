@@ -11,6 +11,13 @@
 //
 #include "wiktionarydict.h"
 
+#include "xmlsaxreader.h"
+#include <QStringList>
+#include <QString>
+#include <QFile>
+#include <QRegExp>
+#include <math.h>
+
 /**
  * \brief Constructor
  * \author Peter Grasch

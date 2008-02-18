@@ -13,23 +13,13 @@
 #define SELECTPROGRAMPAGE_H
 
 #include <QWizardPage>
-#include <QVariant>
-#include <QAction>
-#include <QApplication>
-#include <QButtonGroup>
-#include <QHBoxLayout>
-#include <QListWidget>
-#include <QVBoxLayout>
-#include <QWidget>
-
-#ifdef __WIN32
-#include "registrymanager.h"
-#include "windowsprogrammanager.h"
-#endif
-#include "programmanager.h"
 #include "programcategory.h"
+#include "program.h"
 
 class ProgramManager;
+class QListWidget;
+class QHBoxLayout;
+class QVBoxLayout;
 
 
 /**
@@ -46,11 +36,6 @@ class SelectProgramPage : public QWizardPage
 private:
 	ProgramManager *programManager;
 	ProgramCategoryList categoryList;
-
-// #ifdef __WIN32
-        //RegistryManager *regMan;
-//         WindowsProgramManager *programManager;
-// #endif
 
 public:
         SelectProgramPage(QWidget* parent);

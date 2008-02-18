@@ -13,22 +13,13 @@
 #define XEVENTS_H
 
 #include "coreevents.h"
-#include <QMessageBox>
 #include <QString>
-#include <iostream>
 
-#include <X11/Xlibint.h>
+
+// class Display;
 #include <X11/Xlib.h>
-#include <X11/Xutil.h>
-#include <X11/cursorfont.h>
-#include <X11/keysymdef.h>
 #include <X11/keysym.h>
-#include <X11/extensions/XTest.h>
-#include <QHash>
-#ifdef None
-#undef None
-#endif
-
+#include <X11/keysymdef.h>
 
 /**
  *	@class XEvents

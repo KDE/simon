@@ -12,21 +12,10 @@
 #ifndef RECWIDGET_H
 #define RECWIDGET_H
 
-#include <QWidget>
-#include <QGroupBox>
-#include <QLabel>
-#include <QPushButton>
-#include <QSlider>
-#include <QString>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QIcon>
-#include <QMessageBox>
-#include <QFile>
-#include <QChar>
-#include "wavrecorder.h"
 #include "ui_recwidget.h"
-#include "wavplayer.h"
+#include <QWidget>
+class WavRecorder;
+class WavPlayer;
 
 /**
  * \class RecWidget
@@ -77,7 +66,7 @@ public slots:
 public:
     RecWidget(QString name, QString filename, QWidget *parent=0);
     
-    bool hasRecordingReady() { return QFile::exists(this->filename); }
+    bool hasRecordingReady();
 
     ~RecWidget();
 

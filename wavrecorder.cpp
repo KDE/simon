@@ -1,12 +1,16 @@
 #include "wavrecorder.h"
 #include "settings.h"
 #include <QVariant>
+#include "RtError.h"
+#include "RtAudio.h"
 #include "logger.h"
+#include <QTimer>
+#include "wav.h"
 
 /**
  * \brief Constructor
  */
-WavRecorder::WavRecorder(QWidget *parent) : QObject(parent)
+WavRecorder::WavRecorder(QObject *parent) : QObject(parent)
 {
 	
 }

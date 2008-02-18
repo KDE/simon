@@ -13,12 +13,13 @@
 #define LOCALPLACEPAGE_H
 
 #include <QWizardPage>
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QFileDialog>
+
+class QVBoxLayout;
+class QLabel;
+class QHBoxLayout;
+class QLineEdit;
+class QPushButton;
+class QFileDialog;
 
 /**
 	@author Susanne Tschernegg

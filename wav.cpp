@@ -12,6 +12,9 @@
 #include "wav.h"
 #include "logger.h"
 #include <QObject>
+#include <QDataStream>
+#include <QFile>
+
 
 /**
  *	@brief Constructor

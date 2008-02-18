@@ -15,6 +15,12 @@
 #include <QFile>
 #include "settings.h"
 #include <QVariant>
+#include <QProgressDialog>
+#include <QHttp>
+#include <QUrl>
+#include <QHttpResponseHeader>
+#include <QMessageBox>
+#include <QFileInfo>
 
 /**
  * \brief Constructor
@@ -43,7 +49,6 @@ void QuickDownloader::destroyFile()
  * @return bool
  * if there is an error this is set to false
  */
-#include <QDebug>
 bool QuickDownloader::download(QString url, QString filename)
 {
 	if (loader && (loader->state() != QHttp::Unconnected))

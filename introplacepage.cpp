@@ -13,7 +13,7 @@
 #include "settings.h"
 #include "command.h"
 #include <QMessageBox>
-//#include <QRadioButton>
+#include <QRadioButton>
 #include <QVBoxLayout>
 #include <QLabel>
 

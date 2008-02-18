@@ -13,14 +13,13 @@
 #define  ICONDIALOG_H
 
 #include <QDialog>
-#include <QStandardItemModel>
-#include <QString>
 
 class QListView;
 class QIcon;
 class QLineEdit;
 class QPushButton;
 class QRadioButton;
+class QStandardItemModel;
 
 /**
 	@author Susanne Tschernegg

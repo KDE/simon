@@ -14,7 +14,6 @@
 #include "windowsevents.h"
 #include <QMessageBox>
 #include <ctype.h>
-#include <qDebug>
 
 
 /**
@@ -184,7 +183,7 @@ void WindowsEvents::click(int x, int y)
 void WindowsEvents::sendKey(unsigned short key /*unicode representation*/)
 {
 	int keyint = key;
-	qDebug() << "CHARTESTVALUE: " << key;
+// 	qDebug() << "CHARTESTVALUE: " << key;
 	if (specialcodes->contains(keyint))
 	{
 		setModifierKey(VK_RMENU,false);
@@ -210,14 +209,14 @@ void WindowsEvents::sendShortcut(Shortcut shortcut)
 	if (modifier & KeyShift)
 	{	
 		setModifierKey(VK_SHIFT, true);
-		qDebug() << "SHIFT PRESSED";
+// 		qDebug() << "SHIFT PRESSED";
 	}
 	if (modifier & KeyAlt)
 		setModifierKey(VK_MENU, true);
 	if (modifier & KeyStrg)
 	{
 		setModifierKey(VK_CONTROL, true);
-		qDebug() << "STRG PRESSED";
+// 		qDebug() << "STRG PRESSED";
 	}
 	if (modifier & KeySuper)
 		setModifierKey(VK_LWIN, true);

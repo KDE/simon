@@ -33,13 +33,13 @@
 #include "grammarsettings.h"
 
 #include "wordlistmanager.h"
-#include "trainingmanager.h"
 
 #include "soundsettings.h"
 #include "networksettings.h"
 #include "passwordsettings.h"
 #include "configuretriggerspage.h"
 #include "definedefaultvaluespage.h"
+#include "addwordview.h"
 
 
 /**

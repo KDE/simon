@@ -12,25 +12,14 @@
 #ifndef TRAININGVIEW_H
 #define TRAININGVIEW_H
 
-#include <QDialog>
-#include <QWidget>
-#include <QString>
-#include <QTableWidget>
-#include <QHeaderView>
-#include "trainingtext.h"
-#include "trainingmanager.h"
-#include "wordlistview.h"
-#include "trainingtext.h"
-#include "importtrainingtexts.h"
-#include "recwidget.h"
-#include "ui_trainmain.h"
 #include "inlinewidget.h"
-#include "wordlistmanager.h"
-#include "addwordview.h"
-
+#include "ui_trainmain.h"
+#include "word.h"
 
 class WordListView;
 class ImportTrainingDirectory;
+class TrainingManager;
+class RecWidget;
 
 /**
  *	@class TrainingView
