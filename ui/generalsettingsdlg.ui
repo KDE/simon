@@ -17,6 +17,16 @@
   </property>
   <layout class="QVBoxLayout" >
    <item>
+    <widget class="QPushButton" name="pbShowFirstRunWizard" >
+     <property name="text" >
+      <string>Einrichtungsassistent beim nächsten Start wieder anzeigen</string>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="gbPerformance" >
      <property name="title" >
       <string>Geschwindigkeit</string>

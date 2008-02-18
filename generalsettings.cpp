@@ -72,6 +72,8 @@ bool GeneralSettings::apply()
 	Settings::set("TempDir", ui.leTempDir->text());
 	Settings::set("PathToTexts", ui.lePathToTexts->text());
 
+	Settings::set("ConfigDone", !ui.pbShowFirstRunWizard->isChecked());
+
 	return true;
 }
 
@@ -94,6 +96,8 @@ bool GeneralSettings::reset()
  */
 bool GeneralSettings::init()
 {
+	ui.pbShowFirstRunWizard->setChecked(!Settings::get("ConfigDone").toBool());
+
 	//performance
 	ui.sbMaxSimultaniouslyShownWords->setValue(Settings::get("Performance/MaxDisplayedWords").toInt());
 
