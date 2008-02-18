@@ -347,8 +347,8 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 			wordlist->append(Word(word, pronunciation, term, trainManager->getProbability(word.toUpper())));
 		}
 	}
-	//TODO read words from lexicon (which don't have a terminal-definition yet)
 	wordlist = this->sortList(wordlist);
+	//TODO read words from lexicon (which don't have a terminal-definition yet)
 
 	Logger::log(QObject::tr("[INF] Wörterliste erstellt"));
 	return wordlist;
@@ -411,25 +411,26 @@ Word* WordListManager::getWord(QString word, QString pronunciation, QString term
  * \author Peter Grasch
  * \todo THEORETICALLY this code (we must lock the shadowlist AND the main wordlist) might yield to a deadlock
  * @param w The given word
- * @return success (i.e. the file is not found)
+ * @return success (i.e. the file is not found); (this may also be false due to an error when deleting the prompts for the word!)
  */
 bool WordListManager::moveToShadow(Word *w)
 {
 	int i=0;
-	TrainingManager::getInstance()->deleteWord(w);
+	if (!TrainingManager::getInstance()->deleteWord(w))
+		return false;
 	shadowLock.lock();
+	wordListLock.lock();
 	while (i < wordlist->count())
 	{
 		if (&(wordlist->at(i)) == w)
 		{
-			wordListLock.lock();
 			shadowList->append(wordlist->takeAt(i));
-			wordListLock.unlock();
 			shadowDirty = mainDirty = true;
 			break;
 		}
 		i++;
 	}
+	wordListLock.unlock();
 	shadowLock.unlock();
 	return save();
 }

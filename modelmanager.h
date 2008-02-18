@@ -38,6 +38,8 @@ private:
 	QProgressDialog *processDialog;
 	QProcess *proc;
 	QString tmpDir;
+	QString lastOutput;
+	QString lastError;
 
 	bool generateDirectoryStructure();
 	

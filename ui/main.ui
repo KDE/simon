@@ -66,13 +66,13 @@
           <number>0</number>
          </property>
          <property name="leftMargin" >
-          <number>0</number>
+          <number>6</number>
          </property>
          <property name="topMargin" >
           <number>0</number>
          </property>
          <property name="rightMargin" >
-          <number>0</number>
+          <number>6</number>
          </property>
          <property name="bottomMargin" >
           <number>0</number>
@@ -97,6 +97,12 @@
           <widget class="QToolButton" name="pbConnect" >
            <property name="enabled" >
             <bool>true</bool>
+           </property>
+           <property name="sizePolicy" >
+            <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
            <property name="accessibleName" >
             <string>Verbinden</string>

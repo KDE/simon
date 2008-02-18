@@ -35,13 +35,13 @@ private:
 private slots:
 	void suggest();
 	void createExamples();
+	void addTerminal();
 public:
     AddWordResolvePage(QWidget* parent=0);
 
 	const QString getPronunciation() { return ui.leSampa->text(); }
 	const QString getName() { return ui.leWord->text(); }
 	const QString getTerminal() { return ui.cbType->currentText(); }
-
 
 	void initializePage();
 	void displayWords(WordList *words);

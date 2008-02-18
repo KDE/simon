@@ -122,10 +122,14 @@ bool ModelManager::makeDfa()
 	QString dfaMinimize= Settings::getS("Programs/Julius/dfa_minimize");
 	
 	QString execStr = mkfa+" -e1 -fg "+tmpDir+"reverseGrammar -fv "+tmpDir+"tempvoca -fo "+tmpDir+"dfaTemp.tmp -fh "+tmpDir+"dfaTemp.h";
-	if (QProcess::execute(execStr)!= 0) 
+	proc->start(execStr);
+	proc->waitForFinished(-1);
+	if (proc->exitCode() != 0) 
 		return false;
 
-	if (QProcess::execute(dfaMinimize+" "+tmpDir+"dfaTemp.tmp -o "+Settings::getS("Model/PathToDfa"))!= 0) 
+	proc->start(dfaMinimize+" "+tmpDir+"dfaTemp.tmp -o "+Settings::getS("Model/PathToDfa"));
+	proc->waitForFinished(-1);
+	if (proc->exitCode()!= 0) 
 		return false;
 
 	return true;	
@@ -219,7 +223,7 @@ void ModelManager::setProgress(int now, int max)
 
 void ModelManager::displayError(QString error)
 {
-	QMessageBox::critical(0, tr("Fehler"), tr("Beim Kompilieren des Modells ist ein Fehler aufgetreten:\n\n%1").arg(error));
+	QMessageBox::critical(0, tr("Fehler"), tr("Beim Kompilieren des Modells ist ein Fehler aufgetreten:\n\n%1\n\nLetzter Output:\n%2\n\nFehlermeldung:\n%3").arg(error).arg(lastOutput).arg(lastError));
 	processDialog->hide();
 }
 
@@ -264,8 +268,9 @@ bool ModelManager::codeAudioData()
 	QString codetrainPath = tmpDir+"/codetrain.scp";
 
 	//TODO: implement some sort of caching (maybe with an file/hash combination?)
-	if (!proc->execute(Settings::getS("Programs/HTK/HCopy")+" -A -D -T 1 -C "+Settings::getS("Model/PathToWavConfig")+
-			" -S "+codetrainPath)==0)
+	proc->start(Settings::getS("Programs/HTK/HCopy")+" -A -D -T 1 -C "+Settings::getS("Model/PathToWavConfig")+" -S "+codetrainPath);
+	proc->waitForFinished(-1);
+	if (!proc->exitCode()==0)
 	{
 		emit error(tr("Fehler beim kodieren der samples! Bitte überprüfen Sie den Pfad zu HCopy (%1) und der wav config (%2)").arg(Settings::getS("Programs/HTK/HCopy")).arg(Settings::getS("Model/PathToWavConfig")));
 		return false;
@@ -376,7 +381,17 @@ bool ModelManager::makeTranscriptions()
 	}
 	emit progress(55);
 	
-	if ((proc->execute(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -l \"*\" -d "+tmpDir+"/dict -i "+tmpDir+"/phones0.mlf "+Settings::getS("Model/PathToMkPhones0")+" "+tmpDir+"/words.mlf") != 0) || (proc->execute(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -l \"*\" -d "+tmpDir+"/dict -i "+tmpDir+"/phones1.mlf "+Settings::getS("Model/PathToMkPhones1")+" "+tmpDir+"/words.mlf") != 0) )
+	
+	proc->start(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -l \"*\" -d "+tmpDir+"/dict -i "+tmpDir+"/phones0.mlf "+Settings::getS("Model/PathToMkPhones0")+" "+tmpDir+"/words.mlf");
+	proc->waitForFinished(-1);
+	if (proc->exitCode() ==0)
+	{
+		proc->start(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -l \"*\" -d "+tmpDir+"/dict -i "+tmpDir+"/phones1.mlf "+Settings::getS("Model/PathToMkPhones1")+" "+tmpDir+"/words.mlf");
+		proc->waitForFinished(-1);
+	}
+	
+	
+	if (proc->exitCode() != 0)
 	{
 		emit error(tr("Erstellen der Transcriptions files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Dateien mkphones0.led und mkphones1.led richtig angegeben haben. (%1, %2)").arg(Settings::getS("Model/PathToMkPhones0")).arg(Settings::getS("Model/PathToMkPhones1")));
 		return false;
@@ -493,8 +508,9 @@ bool ModelManager::tieStates()
 {
 	emit status(tr("Erstelle triphone..."));
 	
-
-	if ((proc->execute(Settings::getS("Programs/HTK/HDMan")+" -A -D -T 1 -b sp -n "+tmpDir+"fulllist -g "+Settings::getS("Model/PathToGlobalDed")+" "+tmpDir+"dict-tri "+Settings::getS("Model/PathToLexicon")) != 0))
+	proc->start(Settings::getS("Programs/HTK/HDMan")+" -A -D -T 1 -b sp -n "+tmpDir+"fulllist -g "+Settings::getS("Model/PathToGlobalDed")+" "+tmpDir+"dict-tri "+Settings::getS("Model/PathToLexicon"));
+	proc->waitForFinished(-1);
+	if ((proc->exitCode() != 0))
 	{
 		emit error(tr("Konnte Triphone nicht binden. Bitte überprüfen Sie den Pfad zu HDMan (%1), global.ded (%2) und dem Lexikon (%3).").arg(Settings::getS("Programs/HTK/HDMan")).arg(Settings::getS("Model/PathToGlobalDed")).arg(Settings::getS("Model/PahtToLexicon")));
 		return false;
@@ -547,21 +563,25 @@ bool ModelManager::tieStates()
 
 bool ModelManager::buildHMM13()
 {
-	return (proc->execute(Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm12/macros -H "+tmpDir+"hmm12/hmmdefs -M "+tmpDir+"hmm13 "+tmpDir+"tree.hed "+tmpDir+"triphones1")==0);
+	proc->start(Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm12/macros -H "+tmpDir+"hmm12/hmmdefs -M "+tmpDir+"hmm13 "+tmpDir+"tree.hed "+tmpDir+"triphones1");
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 
 bool ModelManager::buildHMM14()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -s "+tmpDir+"stats -S "+tmpDir+"train.scp -H "+tmpDir+"hmm13/macros -H "+tmpDir+"hmm13/hmmdefs -M "+tmpDir+"hmm14 "+tmpDir+"tiedlist")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -s "+tmpDir+"stats -S "+tmpDir+"train.scp -H "+tmpDir+"hmm13/macros -H "+tmpDir+"hmm13/hmmdefs -M "+tmpDir+"hmm14 "+tmpDir+"tiedlist");
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 
 bool ModelManager::buildHMM15()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -s "+tmpDir+"stats -S "+tmpDir+"train.scp -H "+tmpDir+"hmm14/macros -H "+tmpDir+"hmm14/hmmdefs -M "+tmpDir+"hmm15 "+tmpDir+"tiedlist")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -s "+tmpDir+"stats -S "+tmpDir+"train.scp -H "+tmpDir+"hmm14/macros -H "+tmpDir+"hmm14/hmmdefs -M "+tmpDir+"hmm15 "+tmpDir+"tiedlist");
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 bool ModelManager::makeFulllist()
@@ -655,7 +675,9 @@ bool ModelManager::buildHMM()
 bool ModelManager::makeTriphones()
 {
 	emit status(tr("Erstelle triphone..."));
-	if ((proc->execute(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -n "+tmpDir+"/triphones1 -l * -i "+tmpDir+"/wintri.mlf "+Settings::getS("Model/PathToMktriLed")+" "+tmpDir+"/aligned.mlf") != 0))
+	proc->start(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -n "+tmpDir+"/triphones1 -l * -i "+tmpDir+"/wintri.mlf "+Settings::getS("Model/PathToMktriLed")+" "+tmpDir+"/aligned.mlf");
+	proc->waitForFinished(-1);
+	if ((proc->exitCode() != 0))
 	{
 		emit error(tr("Erstellen der Triphone files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Datei mktri.led richtig angegeben haben (%1) und überprüfen Sie den Pfad zu HLEd (%2)").arg(Settings::getS("Model/PathToMktriLed")).arg(Settings::getS("Programs/HTK/HLEd")));
 		return false;
@@ -700,22 +722,27 @@ bool ModelManager::makeTriphones()
 
 bool ModelManager::buildHMM12()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -s "+tmpDir+"stats -S "+tmpDir+"train.scp -H "+tmpDir+"hmm11/macros -H "+tmpDir+"hmm11/hmmdefs -M "+tmpDir+"hmm12 "+tmpDir+"triphones1")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -s "+tmpDir+"stats -S "+tmpDir+"train.scp -H "+tmpDir+"hmm11/macros -H "+tmpDir+"hmm11/hmmdefs -M "+tmpDir+"hmm12 "+tmpDir+"triphones1");
+	
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 
 bool ModelManager::buildHMM11()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm10/macros -H "+tmpDir+"hmm10/hmmdefs -M "+tmpDir+"hmm11 "+tmpDir+"triphones1")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm10/macros -H "+tmpDir+"hmm10/hmmdefs -M "+tmpDir+"hmm11 "+tmpDir+"triphones1");
+	
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 
 bool ModelManager::buildHMM10()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm9/macros -H "+tmpDir+"hmm9/hmmdefs -M "+tmpDir+"hmm10 "+tmpDir+"mktri.hed "+tmpDir+"monophones1")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm9/macros -H "+tmpDir+"hmm9/hmmdefs -M "+tmpDir+"hmm10 "+tmpDir+"mktri.hed "+tmpDir+"monophones1");
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 
@@ -745,21 +772,26 @@ bool ModelManager::makeMkTriHed()
 
 bool ModelManager::buildHMM9()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"aligned.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm8/macros -H "+tmpDir+"hmm8/hmmdefs -M "+tmpDir+"hmm9 "+tmpDir+"monophones1")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"aligned.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm8/macros -H "+tmpDir+"hmm8/hmmdefs -M "+tmpDir+"hmm9 "+tmpDir+"monophones1");
+	
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 
 bool ModelManager::buildHMM8()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"aligned.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm7/macros -H "+tmpDir+"hmm7/hmmdefs -M "+tmpDir+"hmm8 "+tmpDir+"monophones1")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"aligned.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm7/macros -H "+tmpDir+"hmm7/hmmdefs -M "+tmpDir+"hmm8 "+tmpDir+"monophones1");
+	
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 bool ModelManager::realignHMM7()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HVite")+" -A -D -T 1 -l *  -o SWT -b silence -C "+Settings::getS("Model/PathToConfig")+" -H "+tmpDir+"hmm7/macros -H "+tmpDir+"hmm7/hmmdefs -i "+tmpDir+"aligned.mlf -m -t 250.0 150.0 1000.0 -y lab -a -I "+tmpDir+"words.mlf -S "+tmpDir+"train.scp "+tmpDir+"dict1 "+tmpDir+"monophones1")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HVite")+" -A -D -T 1 -l *  -o SWT -b silence -C "+Settings::getS("Model/PathToConfig")+" -H "+tmpDir+"hmm7/macros -H "+tmpDir+"hmm7/hmmdefs -i "+tmpDir+"aligned.mlf -m -t 250.0 150.0 1000.0 -y lab -a -I "+tmpDir+"words.mlf -S "+tmpDir+"train.scp "+tmpDir+"dict1 "+tmpDir+"monophones1");
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 bool ModelManager::makeDict1()
@@ -776,20 +808,23 @@ bool ModelManager::makeDict1()
 
 bool ModelManager::buildHMM7()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones1.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm6/macros -H "+tmpDir+"hmm6/hmmdefs -M "+tmpDir+"hmm7 "+tmpDir+"monophones1")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones1.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm6/macros -H "+tmpDir+"hmm6/hmmdefs -M "+tmpDir+"hmm7 "+tmpDir+"monophones1");
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 bool ModelManager::buildHMM6()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones1.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm5/macros -H "+tmpDir+"hmm5/hmmdefs -M "+tmpDir+"hmm6 "+tmpDir+"monophones1")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones1.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm5/macros -H "+tmpDir+"hmm5/hmmdefs -M "+tmpDir+"hmm6 "+tmpDir+"monophones1");
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 bool ModelManager::buildHMM5()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm4/macros -H "+tmpDir+"hmm4/hmmdefs -M "+tmpDir+"hmm5 "+Settings::getS("Model/PathToSilHed")+" "+tmpDir+"monophones1")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm4/macros -H "+tmpDir+"hmm4/hmmdefs -M "+tmpDir+"hmm5 "+Settings::getS("Model/PathToSilHed")+" "+tmpDir+"monophones1");
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 bool ModelManager::buildHMM4()
@@ -837,25 +872,30 @@ bool ModelManager::buildHMM4()
 
 bool ModelManager::buildHMM3()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones0.mlf -t 250.0 150.0 1000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm2/macros -H "+tmpDir+"hmm2/hmmdefs -M "+tmpDir+"hmm3 "+tmpDir+"monophones0")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones0.mlf -t 250.0 150.0 1000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm2/macros -H "+tmpDir+"hmm2/hmmdefs -M "+tmpDir+"hmm3 "+tmpDir+"monophones0");
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 bool ModelManager::buildHMM2()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones0.mlf -t 250.0 150.0 1000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm1/macros -H "+tmpDir+"hmm1/hmmdefs -M "+tmpDir+"hmm2 "+tmpDir+"monophones0")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones0.mlf -t 250.0 150.0 1000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm1/macros -H "+tmpDir+"hmm1/hmmdefs -M "+tmpDir+"hmm2 "+tmpDir+"monophones0");
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 bool ModelManager::buildHMM1()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones0.mlf -t 250.0 150.0 1000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm0/macros -H "+tmpDir+"hmm0/hmmdefs -M "+tmpDir+"hmm1 "+tmpDir+"monophones0")==0) return false;
-	return true;
+	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones0.mlf -t 250.0 150.0 1000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm0/macros -H "+tmpDir+"hmm0/hmmdefs -M "+tmpDir+"hmm1 "+tmpDir+"monophones0");
+	proc->waitForFinished(-1);
+	return (proc->exitCode()==0);
 }
 
 bool ModelManager::buildHMM0()
 {
-	if (!proc->execute(Settings::getS("Programs/HTK/HCompV")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -f 0.01 -m -S "+tmpDir+"train.scp -M "+tmpDir+"hmm0 "+Settings::getS("Model/PathToProto"))==0) return false;
+	proc->start(Settings::getS("Programs/HTK/HCompV")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -f 0.01 -m -S "+tmpDir+"train.scp -M "+tmpDir+"hmm0 "+Settings::getS("Model/PathToProto"));
+	proc->waitForFinished(-1);
+	if (proc->exitCode()!=0) return false;
 
 	QString protoBody="";
 	QString protoHead="";
@@ -915,7 +955,9 @@ bool ModelManager::buildHMM0()
 bool ModelManager::makeMonophones()
 {
 	//make monophones1
-	if (proc->execute(Settings::getS("Programs/HTK/HDMan")+" -A -D -T 1 -m -w "+tmpDir+"/wlist -g "+Settings::getS("Model/PathToGlobalDed")+" -n "+tmpDir+"/monophones1 -i "+tmpDir+"/dict "+Settings::getS("Model/PathToLexicon"))!=0) return false;
+	proc->start(Settings::getS("Programs/HTK/HDMan")+" -A -D -T 1 -m -w "+tmpDir+"/wlist -g "+Settings::getS("Model/PathToGlobalDed")+" -n "+tmpDir+"/monophones1 -i "+tmpDir+"/dict "+Settings::getS("Model/PathToLexicon"));
+	proc->waitForFinished(-1);
+	if (proc->exitStatus()!=0) return false;
 
 	//make monophones0
 	//ditch the "sp" phoneme
@@ -941,12 +983,14 @@ bool ModelManager::makeMonophones()
 
 void ModelManager::logInfo()
 {
-	Logger::log(tr("[INF]")+" "+proc->readAllStandardOutput());
+	lastOutput = proc->readAllStandardOutput();
+	Logger::log(tr("[INF]")+" "+lastOutput);
 }
 
 void ModelManager::logError()
 {
-	Logger::log(tr("[ERR]")+" "+proc->readAllStandardError());
+	lastError = proc->readAllStandardError();
+	Logger::log(tr("[ERR]")+" "+lastError);
 }
 
 bool ModelManager::generateWlist()

@@ -15,7 +15,7 @@
 #include <QDebug>
 #include <QtGlobal>
 #include <QHeaderView>
-#include <QMessageBox>
+#include <QInputDialog>
 
 
 
@@ -34,11 +34,25 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
 	connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(createExamples()));
 	connect(ui.leWord, SIGNAL(returnPressed()), this, SLOT(createExamples()));
 	connect(ui.pbReGuess, SIGNAL(clicked()), this, SLOT(createExamples()));
+	connect(ui.tbAddTerminal, SIGNAL(clicked()), this, SLOT(addTerminal()));
 	registerField("wordExample1*", ui.leExample1);
 	registerField("wordExample2*", ui.leExample2);
 	registerField("wordName*", ui.leWord);
 	registerField("wordPronunciation*", ui.leSampa);
 	registerField("wordTerminal*", ui.cbType, "currentText", SIGNAL(currentIndexChanged(int)));
+}
+
+/**
+ * \brief Queries the User for the new name and adds the terminal to the list
+ * \author Peter Grasch
+ */
+void AddWordResolvePage::addTerminal()
+{
+	QString newTerminal = QInputDialog::getText(this, tr("Terminal hinzufügen"), tr("Sie sind im Begriff einen neuen Terminal hinzuzufügen.\n\nBitte geben Sie den neuen Namen des Terminals an:"));
+
+	if (newTerminal.isEmpty()) return;
+
+	ui.cbType->addItem(newTerminal);
 }
 
 /**
@@ -53,9 +67,13 @@ void AddWordResolvePage::initializePage()
 	QString word = field("wordNameIntro").toString();
 	qDebug() << 2;
 	ui.cbType->clear();
+	ui.leSampa->clear();
 	qDebug() << 3;
 	QStringList terminals = wordListManager->getTerminals();
 	qDebug() << 4;
+	terminals.removeAll("NS_E"); //remove sentence structures
+	terminals.removeAll("NS_B");
+	qDebug() << 4.5;
 	ui.cbType->addItems(terminals);
 	qDebug() << 5;
 	ui.leWord->setText(word);
@@ -75,7 +93,6 @@ void AddWordResolvePage::initializePage()
  */
 void AddWordResolvePage::createExamples()
 {
-	return; //FIXME
 	if (ui.cbType->currentIndex() == -1) return;
 	
 	QString terminal = ui.cbType->currentText();
@@ -140,11 +157,11 @@ void AddWordResolvePage::displayWords(WordList *words)
 	}
 	ui.twSuggestions->resizeColumnsToContents();
 
-// 	if (i > 0)
-// 	{
-// 		//select the first suggestion
-// 		ui.twSuggestions->selectRow(0);
-// 	}
+	if (i > 0)
+	{
+		//select the first suggestion
+		ui.twSuggestions->selectRow(0);
+	}
 	setUpdatesEnabled(true);
 }
 

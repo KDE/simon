@@ -60,15 +60,22 @@ bool TrainingManager::deleteWord ( Word *w )
 	//For the future we should implement a lookup which tries to resolve the pronunciation using the samples
 	//and looking up if this is the selected word
 	QStringList sampleFileNames = promptsTable->keys();
+	bool sampleAlreadyDeleted;
 	for ( int i=0; i < this->promptsTable->count(); i++ )
 	{
 		QString filename = sampleFileNames[i];
 		QStringList promptWords = promptsTable->value ( filename ).split ( " " );
-		for ( int j=0; j < promptWords.count(); j++ )
+		sampleAlreadyDeleted = false;
+		for ( int j=0; j < promptWords.count() && !sampleAlreadyDeleted; j++ )
 		{
 			if ( promptWords[j].toUpper() == wordToDelete )
 			{
-				if ( !deletePrompt ( filename ) ) return false;
+				if ( !deletePrompt ( filename ) )
+				{
+					promptsLock.unlock();
+					return false;
+				}
+				sampleAlreadyDeleted = true;
 			}
 		}
 	}
@@ -77,33 +84,38 @@ bool TrainingManager::deleteWord ( Word *w )
 	return true;
 }
 
+/**
+ * \brief Deletes the prompt corresponding to the key
+ * \author Peter Grasch
+ * \WARNING The calling function is responsible for locking the promptslock-mutex!
+ * @param key The key to delete
+ * @return success
+ */
 bool TrainingManager::deletePrompt ( QString key )
 {
 // 	int index = promptsTable->keys().indexOf(key);
-	promptsLock.lock();
 	promptsTable->remove ( key );
-	promptsLock.unlock();
 
 	//removes the sample
-	QFile::remove ( Settings::getS ( "Model/PathToSamples" ) +"/"+key+".wav" );
+	if (!QFile::remove ( Settings::getS ( "Model/PathToSamples" ) +"/"+key+".wav" )) return false;
 	return savePrompts();
 }
 
+/**
+ * \brief Saves the current promptstable
+ * \author Peter Grasch
+ * \WARNING The calling function is responsible for locking the promptslock-mutex!
+ * @return Success
+ */
 bool TrainingManager::savePrompts()
 {
 	QFile prompts ( Settings::getS ( "Model/PathToPrompts" ) );
 	if ( !prompts.open ( QIODevice::WriteOnly ) ) return false;
 
-	promptsLock.lock();
 	QStringList samples = this->promptsTable->keys();
 
 	for ( int i=0; i <samples.count(); i++ )
 		prompts.write ( samples[i].toLatin1() +" "+promptsTable->value ( samples[i] ).toLatin1() +"\n" );
-
-
-
-
-	promptsLock.unlock();
 
 	prompts.close();
 	return true;

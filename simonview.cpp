@@ -64,7 +64,7 @@
 SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 		:SimonMainWindow ( parent, flags )
 {
-	QDir::setCurrent ( QCoreApplication::applicationDirPath() +"/.." );
+	QDir::setCurrent ( QCoreApplication::applicationDirPath() );
 	if ( !Logger::init() )
 	{
 		QMessageBox::critical ( this, tr ( "Fehler" ), tr ( "Konnte die Log-Datei nicht öffnen. Bitte überprüfen Sie die Berechtigungen.." ) );
