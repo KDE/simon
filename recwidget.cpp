@@ -155,7 +155,7 @@ void RecWidget::displayPlaybackProgress(int msecs)
  */
 void RecWidget::record()
 {
-	if (!rec->record(this->filename, 2, 44100))
+	if (!rec->record(this->filename))
 	{
 		disconnect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbPlay, SLOT(setDisabled(bool)));
 		disconnect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbDelete, SLOT(setDisabled(bool)));

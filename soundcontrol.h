@@ -20,7 +20,7 @@
 
 /**
  *	@class SoundControl
- *	@brief [DEPRCATED] The SoundControl provides a layer to the SoundBackends
+ *	@brief The SoundControl provides a layer to the SoundBackends
  *
  *	The SoundControl controls the sound-backends to provide a Control-Point
  *	to communicate with the individual backends without losing the benefit
@@ -29,7 +29,6 @@
  *	@version 0.1
  *	@date 23.01.2006
  *	@author Peter Grasch
- *	@todo Implementing all Volume related stuff
  */
 class SoundControl{
 private:
@@ -38,10 +37,6 @@ private:
 public:
 	SoundDeviceList* getInputDevices();
 	SoundDeviceList* getOutputDevices();
-	QList<int>* getSamplerate(QString id);
-	int getChannel(QString id);
-	int getVolume();
-	void setVolume(int percent);
     SoundControl();
 
     ~SoundControl();

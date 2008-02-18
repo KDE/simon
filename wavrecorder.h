@@ -26,6 +26,7 @@
 */
 
 #include <QObject>
+#include "RtAudio.h"
 
 class WAV;
 class QTimer;
@@ -36,23 +37,23 @@ class WavRecorder : public QObject {
 private:
 	WAV *wavData;
 	QTimer *progressTimer;
-	int progress;
 	RtAudio *audio;
 	int chans;
-	
-	static int processWrapper(char *buffer, int bufferSize, void* rec);
 
 signals:
 	void currentProgress(int msecs);
-public slots:
-	void increaseProgress();
 	
 public:
+// int processData( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
+// 	    double streamTime, RtAudioStreamStatus status, void *userData );
+// 	int processData( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
+// 		 double streamTime, RtAudioStreamStatus status, void *userData );
 	WAV* getWav() { return wavData; }
 	int getChannels() { return chans; }
 	WavRecorder(QObject *parent=0);
 	bool finish();
-    	bool record(QString filename, short channels, int sampleRate);
+    	bool record(QString filename);
+    	void publishTime(double time);
     
 
     ~WavRecorder();

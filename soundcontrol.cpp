@@ -14,6 +14,7 @@
 #include "simoninfo.h"
 #include "logger.h"
 #include <QObject>
+#include <QDebug>
 /**
  *	@brief Constructor
  *
@@ -23,43 +24,9 @@
  */
 SoundControl::SoundControl()
 {
-	try
-	{
-		audio = new RtAudio();
-	}
-	catch ( RtError &error )
-	{
-		error.printMessage();
-		exit ( EXIT_FAILURE );
-	}
 }
 
 
-
-/**
- *	@brief Returns the current volume in percent
- *
- *	@author Peter Grasch
- *	@return int
- *	volume in percent
-*/
-int SoundControl::getVolume()
-{
-	return 0;
-}
-
-/**
- *	@brief Sets the volume in percent
- *
- *	@author Peter Grasch
- *	@param int percent
- *	volume in percent
-*/
-
-
-void SoundControl::setVolume ( int percent )
-{
-}
 
 /**
  *	@brief Sets the volume in percent
@@ -73,106 +40,40 @@ SoundDeviceList* SoundControl::getOutputDevices()
 {
 	Logger::log(QObject::tr("[INF] Bekommen einer Liste mit den verfügbaren devices"));
 	SoundDeviceList *sdl= new SoundDeviceList();
-
+	RtAudio audio;
+	
 	// Determine the number of devices available
-	int devices = audio->getDeviceCount();
-
+	unsigned int devices = audio.getDeviceCount();
+	
 	// Scan through devices for various capabilities
-	RtAudioDeviceInfo info;
-	for ( int i=1; i<=devices; i++ )
+	RtAudio::DeviceInfo info;
+	for ( unsigned int i=0; i<devices; i++ )
 	{
-
-		try
+		try {
+			info = audio.getDeviceInfo ( i );
+		} catch (RtError &e)
 		{
-			info = audio->getDeviceInfo ( i );
-			if ( info.outputChannels>0 )
-			{
-				sdl->append ( SoundDevice ( QString::number ( i ),QString ( info.name.c_str() ) ) );
-			}
+// 			e.printMessage();
 		}
-		catch ( RtError &error )
+	
+		if ( info.probed == true )
 		{
-			error.printMessage();
-			break;
+			if (info.outputChannels > 0)
+			{
+				QList<int> supportedChannels;
+				QList<int> sampleRates;
+				for (unsigned int j=1; j <= info.inputChannels; j++)
+				{
+					supportedChannels << j;
+				}
+				for (unsigned int j=0; j < info.sampleRates.size(); j++)
+					sampleRates << info.sampleRates[j];
+				sdl->append(SoundDevice(i, info.name.c_str(), supportedChannels, sampleRates));
+			}
 		}
 	}
 
 	return sdl;
-}
-
-/**
- * \brief Gets the available samplerates of the device given by id
- * \author Gigerl Martin
- * @param id the id of the device
- * @return The possible samplerates for that device
- */
-QList<int>* SoundControl::getSamplerate ( QString id )
-{
-	Logger::log(QObject::tr("[INF] Bestimmen der Samplerate des device \"")+id+"\"");
-	// Determine the number of devices available
-	int devices = audio->getDeviceCount();
-	// Scan through devices for various capabilities
-	RtAudioDeviceInfo info;
-	for ( int i=1; i<=devices; i++ )
-	{
-		try
-		{
-			info = audio->getDeviceInfo ( i );
-			if ( QString ( info.name.c_str() ) ==id )
-			{
-				QList<int>* temp= new QList<int>();
-
-				for ( unsigned int i=0; i<info.sampleRates.size();i++ )
-				{
-					temp->append ( info.sampleRates.at ( i ) );
-				}
-				return temp;
-
-
-			}
-		}
-		catch ( RtError &error )
-		{
-			error.printMessage();
-			break;
-		}
-	}
-	return NULL;
-}
-
-
-/**
- * \brief Gets the available channels for the device identified by the given id
- * @param id the id of the device
- * @author Gigerl Martin
- * @return Available channels
- */
-int SoundControl::getChannel ( QString id )
-{
-	Logger::log(QObject::tr("[INF] Zurückgeben verfügbarer Kanäle des device \"")+id+"\"");
-	// Determine the number of devices available
-	int devices = audio->getDeviceCount();
-	// Scan through devices for various capabilities
-	RtAudioDeviceInfo info;
-	for ( int i=1; i<=devices; i++ )
-	{
-		try
-		{
-			info = audio->getDeviceInfo ( i );
-			if ( QString ( info.name.c_str() ) ==id )
-			{
-				return info.inputChannels;
-
-			}
-		}
-		catch ( RtError &error )
-		{
-			error.printMessage();
-			break;
-		}
-	}
-	return 0;
-
 }
 
 
@@ -185,30 +86,39 @@ SoundDeviceList* SoundControl::getInputDevices()
 {
 	Logger::log(QObject::tr("[INF] Bekommen einer Liste mit den verfügbaren Input-devices"));
 	SoundDeviceList *sdl= new SoundDeviceList();
-
+	RtAudio audio;
+	
 	// Determine the number of devices available
-	int devices = audio->getDeviceCount();
-
+	unsigned int devices = audio.getDeviceCount();
+	
 	// Scan through devices for various capabilities
-	RtAudioDeviceInfo info;
-	for ( int i=1; i<=devices; i++ )
+	RtAudio::DeviceInfo info;
+	for ( unsigned int i=0; i<devices; i++ )
 	{
-		try
+		try {
+			info = audio.getDeviceInfo ( i );
+		} catch (RtError &e)
 		{
-			info = audio->getDeviceInfo ( i );
-			if ( info.inputChannels>0 )
+// 			e.printMessage();
+		}
+	
+		if ( info.probed == true )
+		{
+			if (info.inputChannels > 0)
 			{
-				sdl->append ( SoundDevice ( QString::number ( i ),QString ( info.name.c_str() ) ) );
+			// Print, for example, the maximum number of output channels for each device
+				QList<int> supportedChannels;
+				QList<int> sampleRates;
+				for (unsigned int j=1; j <= info.inputChannels; j++)
+				{
+					supportedChannels << j;
+				}
+				for (unsigned int j=0; j < info.sampleRates.size(); j++)
+					sampleRates << info.sampleRates[j];
+				sdl->append(SoundDevice(i, info.name.c_str(), supportedChannels, sampleRates));
 			}
 		}
-		catch ( RtError &error )
-		{
-			error.printMessage();
-			break;
-		}
 	}
-
-
 	return sdl;
 
 }
@@ -220,7 +130,5 @@ SoundDeviceList* SoundControl::getInputDevices()
 */
 SoundControl::~SoundControl()
 {
-// 	delete this->soundbackend;
-// 	delete in_audio;
-// 	delete out_audio;
+	delete audio;
 }

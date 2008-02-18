@@ -33,26 +33,29 @@ private:
 	
 	int length;
 	int chans;
-	int progress;
-	long position;
+	long wavPosition;
 	bool stopTimer;
 	RtAudio *audio;
-	
-	static int processWrapper(char *buffer, int bufferSize, void* play);
+
+
 signals:
 	void currentProgress(int);
 	void finished();
 public:
 	char* getData() { return this->data; }
 	int getChannels() { return chans; }
-	long getPosition() { return this->position; }
-	void setPosition(long position) { this->position = position; }
+
+	long getWavPosition() { return this->wavPosition; }
+
 	int getLength() { return this->length; }
+	void addSamplesToCounter(long samples) { this->wavPosition += samples; }
     WavPlayer(QObject *parent=0);
     bool play(QString filename);
     ~WavPlayer();
+private slots:
+	void closeStream();
 public slots:
-	void increaseProgress();
+    	void publishTime(double time);
 	void stop();
 	
 

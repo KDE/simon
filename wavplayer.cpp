@@ -14,6 +14,8 @@
 #include <QVariant>
 #include "settings.h"
 #include <QTimer>
+#include <QObject>
+#include <QDebug>
 #include "wav.h"
 #include "RtError.h"
 #include "RtAudio.h"
@@ -25,12 +27,40 @@
  */
 WavPlayer::WavPlayer(QObject *parent) : QObject(parent)
 {
-	stopTimer = false;
-	progressTimer = new QTimer();
-	connect(progressTimer, SIGNAL(timeout()), this, SLOT(increaseProgress()));
-	audio = new RtAudio();
-	position=0;
-	chans=1;
+	audio =0;
+}
+
+
+int process( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
+		 double streamTime, RtAudioStreamStatus status, void *userData )
+{
+	if ( status )
+		qDebug() << QObject::tr("Bufferunterlauf!");
+
+	WavPlayer *play = (WavPlayer*) userData;
+	if (!play) return 1;
+
+	long position = play->getWavPosition();
+	int samplesToWrite = nBufferFrames*play->getChannels()*sizeof(short);
+	if (play->getLength()<(position+samplesToWrite))
+	{
+		play->stop();
+		return 1;
+	}
+	play->addSamplesToCounter(samplesToWrite);
+	play->publishTime(streamTime);
+	
+	char* data = play->getData();
+	outputBuffer =(char*)  memcpy(outputBuffer, data+position, samplesToWrite);
+
+	return 0;
+}
+
+
+
+void WavPlayer::publishTime(double time)
+{
+	emit currentProgress(time*1000);
 }
 
 
@@ -41,57 +71,60 @@ WavPlayer::WavPlayer(QObject *parent) : QObject(parent)
 bool WavPlayer::play( QString filename )
 {
 	Logger::log(tr("[INF] Abspielen von %1").arg(filename)); 
-	progress = 0;
-	position=0;
-	
-	int bufferSize=512, nBuffers=4;
+	wavPosition = 0;
+	if (audio) delete audio;
+	audio = new RtAudio();
+
 	WAV *file = new WAV(filename); 
-	
 	this->data = file->getRawData(this->length);
 	if (length==0) return false;
-	
-	
-	try {
-		audio = new RtAudio(Settings::get("OutputDevice").toInt(), chans, 0, 0,
-				    RTAUDIO_SINT16, file->getSampleRate(), &bufferSize, nBuffers);
-	}
-	catch (RtError &error) {
-		error.printMessage();
-		return false;
-	}
 
+
+	RtAudio::StreamParameters parameters;
+	parameters.deviceId = Settings::get("Sound/OutputDevice").toInt();
+	parameters.nChannels = this->chans = Settings::get("Sound/ChannelsOut").toInt();
+	parameters.firstChannel = 0;
+	unsigned int sampleRate = Settings::get("Sound/SamplerateOut").toInt();
+	unsigned int bufferFrames = 256; // 256 sample frames
 	try {
-		audio->setStreamCallback(&processWrapper, (void*) this);
+		audio->openStream( &parameters, NULL, RTAUDIO_SINT16,
+				    sampleRate, &bufferFrames, &process, (void *) this );
+		
+		stopTimer = false;
+		progressTimer = new QTimer();
+		connect(progressTimer, SIGNAL(timeout()), this, SLOT(closeStream()));
+		progressTimer->start(100);
+		
 		audio->startStream();
 	}
-	catch (RtError &error) {
-		error.printMessage();
-		delete audio;
-	}
-	progressTimer->start(100);
-	
+	catch ( RtError& e ) {
+		e.printMessage();
+		return false;
+  	}
+
 	return true;
 }
 
 
-int WavPlayer::processWrapper(char* buffer, int bufferSize, void *play)
-{
-	char* data = ((WavPlayer*) play)->getData();
-	
-	long position = ((WavPlayer*) play)->getPosition();
-	int channels = ((WavPlayer*) play)->getChannels();
-	long realBufferLength = bufferSize*channels*sizeof(signed short);
-	
-	if (((WavPlayer*) play)->getLength() <= position+realBufferLength)
-	{
-		((WavPlayer*) play)->stop();
-		return 1;
-	}
-	
-	buffer =(char*)  memcpy(buffer, data+position, realBufferLength);
-	((WavPlayer*) play)->setPosition(position+realBufferLength);
-	return 0;
-}
+
+// int WavPlayer::processWrapper(char* buffer, int bufferSize, void *play)
+// {
+// 	char* data = ((WavPlayer*) play)->getData();
+// 	
+// 	long position = ((WavPlayer*) play)->getPosition();
+// 	int channels = ((WavPlayer*) play)->getChannels();
+// 	long realBufferLength = bufferSize*channels*sizeof(signed short);
+// 	
+// 	if (((WavPlayer*) play)->getLength() <= position+realBufferLength)
+// 	{
+// 		((WavPlayer*) play)->stop();
+// 		return 1;
+// 	}
+// 	
+// 	buffer =(char*)  memcpy(buffer, data+position, realBufferLength);
+// 	((WavPlayer*) play)->setPosition(position+realBufferLength);
+// 	return 0;
+// }
 
 /**
  * \brief Increases the progress by 100 msecs
@@ -104,30 +137,34 @@ int WavPlayer::processWrapper(char* buffer, int bufferSize, void *play)
  * 
  * \author Peter Grasch
  */
-void WavPlayer::increaseProgress()
+void WavPlayer::closeStream()
 {
-	if (stopTimer)	{ 
-        progressTimer->stop();
-        try {
-            // Stop and close the stream
-            //audio->abortStream();
-            audio->stopStream();
-            audio->closeStream();
-            delete audio;
-        }
-        catch (RtError &error) {
-            Logger::log(tr("[ERR]")+" "+error.getMessageString());
-            error.printMessage();
-        }
-
-        delete data;
-        emit finished();
-
-        stopTimer=false; 
-        return;
-    }
-	progress+=100;
-	emit currentProgress(progress);
+	if ( stopTimer )
+	{
+		qDebug() << "stoppe alles!";
+		progressTimer->stop();
+		try
+		{
+			// Stop and close the stream
+			//audio->abortStream();
+			audio->stopStream();
+			audio->closeStream();
+			delete audio;
+			audio =0;
+		}
+		catch ( RtError &error )
+		{
+	//             Logger::log(tr("[ERR]")+" "+error.getMessageString());
+			error.printMessage();
+		}
+	
+		delete data;
+		data = 0;
+		emit finished();
+	
+		stopTimer=false;
+		return;
+	}
 }
 
 /**
@@ -137,6 +174,7 @@ void WavPlayer::increaseProgress()
  */
 void WavPlayer::stop()
 {
+	qDebug() << "HIER!";
 	stopTimer = true; // to work around the issue that you can't stop the timer from a different thread
 	//which would be the case if we would stop it here (this is called from the callback thread)
     //this also triggers the closing of the stream as we can't stop it here because it would still be open

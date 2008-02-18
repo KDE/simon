@@ -12,6 +12,7 @@
 #include "soundsettings.h"
 #include "soundcontrol.h"
 #include "settings.h"
+#include <QDebug>
 
 /**
  * \brief Constructor - inits the help text and the gui
@@ -37,13 +38,15 @@ SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellung
 	ui.lbALSA->setVisible ( false );
 #endif
 	
-	
-	connect ( ui.cbInDevice, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( refreshDeviceCapabilities() ) );
+	connect ( ui.cbInDevice, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshDeviceCapabilitiesIn()));
+	connect ( ui.cbOutDevice, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshDeviceCapabilitiesOut()));
 
 	connect ( ui.cbInDevice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
 	connect ( ui.cbOutDevice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
-	connect ( ui.cbChannels, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
-	connect ( ui.cbSampleRate, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
+	connect ( ui.cbChannelsIn, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
+	connect ( ui.cbSampleRateIn, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
+	connect ( ui.cbChannelsOut, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
+	connect ( ui.cbSampleRateOut, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
 }
 
 /**
@@ -53,58 +56,76 @@ SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellung
  */
 bool SoundSettings::init()
 {
-	SoundDeviceList *sd=sc->getInputDevices();
+	this->in = sc->getInputDevices();
+	
 	ui.cbInDevice->clear();
-	QString defindevice=Settings::get ( "Sound/InputDevice" ).toString();
-	for ( int i=0; i<sd->count(); i++ )
+	int defindevice=Settings::get ( "Sound/InputDevice" ).toInt();
+	for ( int i=0; i<in->count(); i++ )
 	{
-		QString deviceid= ( ( SoundDevice ) sd->at ( i ) ).getDeviceID();
-		ui.cbInDevice->addItem ( ( ( SoundDevice ) sd->at ( i ) ).getName(),deviceid );
+		int deviceid= ( ( SoundDevice ) in->at ( i ) ).getDeviceID();
+		ui.cbInDevice->addItem ( ( ( SoundDevice ) in->at ( i ) ).getName(),deviceid );
 
 		if (deviceid==defindevice) 
 			ui.cbInDevice->setCurrentIndex(i);
 	}
 
-	sd=sc->getOutputDevices();
+
+	out =sc->getOutputDevices();
 	ui.cbOutDevice->clear();
-	QString defoutdevice=Settings::get ( "Sound/OutputDevice" ).toString();
-	for ( int i=0; i<sd->count(); i++ )
+	int defoutdevice=Settings::get ( "Sound/OutputDevice" ).toInt();
+	for ( int i=0; i<out->count(); i++ )
 	{
-		QString deviceid= ( ( SoundDevice ) sd->at ( i ) ).getDeviceID();
-		ui.cbOutDevice->addItem ( ( ( SoundDevice ) sd->at ( i ) ).getName(),deviceid );
+		int deviceid= ( ( SoundDevice ) out->at ( i ) ).getDeviceID();
+		ui.cbOutDevice->addItem ( ( ( SoundDevice ) out->at ( i ) ).getName(),deviceid );
 
 		if ( deviceid ==defoutdevice ) 
 			ui.cbOutDevice->setCurrentIndex ( i );
 	}
 
-	ui.cbChannels->setCurrentIndex(ui.cbChannels->findData(Settings::get("Sound/Channels")));
-	ui.cbSampleRate->setCurrentIndex(ui.cbSampleRate->findText(
-					Settings::get("Sound/Samplerate").toString()));
+	ui.cbChannelsIn->setCurrentIndex(ui.cbChannelsIn->findData(Settings::get("Sound/ChannelsIn")));
+	ui.cbSampleRateIn->setCurrentIndex(ui.cbSampleRateIn->findText(
+					Settings::get("Sound/SamplerateIn").toString()));
+	ui.cbChannelsOut->setCurrentIndex(ui.cbChannelsOut->findData(Settings::get("Sound/ChannelsOut")));
+	ui.cbSampleRateOut->setCurrentIndex(ui.cbSampleRateOut->findText(
+					Settings::get("Sound/SamplerateOut").toString()));
 	return true;
 }
 
-/**
- * \brief Refreshes the capabilities of the available devices
- * \author Peter Grasch
- */
-void SoundSettings::refreshDeviceCapabilities()
+void SoundSettings::refresh(SoundDevice sd, QComboBox *cbChannels, QComboBox *sampleRates)
 {
-	ui.cbChannels->clear();
-	ui.cbSampleRate->clear();
-	if ( sc->getChannel ( ui.cbInDevice->currentText() ) >1 ) 
-		ui.cbChannels->addItem ( "Stereo", 2 );
+	cbChannels->clear();
+	sampleRates->clear();
 
-	if ( sc->getChannel ( ui.cbInDevice->currentText() ) >0 ) 
-		ui.cbChannels->addItem ( "Mono", 1 );
-
-	QList<int>* samplerates;
-	samplerates=sc->getSamplerate ( ui.cbInDevice->currentText() );
-	if ( !samplerates ) return;
-	qSort ( samplerates->begin(), samplerates->end(),  qGreater<int>() );
-	for ( int i=0; i<samplerates->count(); i++ )
+	QList<int> channels = sd.getChannels();
+	QList<int> samplerate = sd.getSamplerates();
+	for (int i=0; i < channels.count(); i++)
 	{
-		ui.cbSampleRate->addItem ( QString::number ( samplerates->at ( i ) ) );
+		QString channelstr;
+		if (channels[i] == 1)
+			channelstr = "Mono";
+		else if (channels[i] == 2)
+			channelstr = "Stereo";
+		else channelstr = QString::number(channels[i]);
+
+		cbChannels->addItem(channelstr, channels[i]);
 	}
+	for (int i=0; i < samplerate.count(); i++)
+	{
+		sampleRates->addItem(QString::number(samplerate[i]));
+	}
+}
+
+void SoundSettings::refreshDeviceCapabilitiesIn()
+{
+	if ((ui.cbInDevice->currentIndex() == -1) || !in) return;
+
+	refresh(in->at(ui.cbInDevice->currentIndex()), ui.cbChannelsIn, ui.cbSampleRateIn);
+}
+
+void SoundSettings::refreshDeviceCapabilitiesOut()
+{
+	if (!out || (ui.cbOutDevice->currentIndex() == -1)) return;
+	refresh(out->at(ui.cbOutDevice->currentIndex()), ui.cbChannelsOut, ui.cbSampleRateOut);
 }
 
 
@@ -128,8 +149,10 @@ bool SoundSettings::apply()
 	Settings::set("Sound/InputDevice", ui.cbInDevice->itemData(ui.cbInDevice->currentIndex()));
 	Settings::set("Sound/OutputDevice", ui.cbOutDevice->itemData(
 		      ui.cbOutDevice->currentIndex()));
-	Settings::set("Sound/Channels", ui.cbChannels->itemData(ui.cbChannels->currentIndex()));
-	Settings::set("Sound/Samplerate", ui.cbSampleRate->currentText());
+	Settings::set("Sound/ChannelsIn", ui.cbChannelsIn->itemData(ui.cbChannelsIn->currentIndex()));
+	Settings::set("Sound/SamplerateIn", ui.cbSampleRateIn->currentText());
+	Settings::set("Sound/ChannelsOut", ui.cbChannelsOut->itemData(ui.cbChannelsOut->currentIndex()));
+	Settings::set("Sound/SamplerateOut", ui.cbSampleRateOut->currentText());
 
 	return true;
 }

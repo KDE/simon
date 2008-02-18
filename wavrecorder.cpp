@@ -2,9 +2,10 @@
 #include "settings.h"
 #include <QVariant>
 #include "RtError.h"
-#include "RtAudio.h"
 #include "logger.h"
 #include <QTimer>
+#include <QDebug>
+#include <QObject>
 #include "wav.h"
 
 /**
@@ -12,7 +13,23 @@
  */
 WavRecorder::WavRecorder(QObject *parent) : QObject(parent)
 {
-	
+	audio = 0;
+}
+
+int processData( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
+		 double streamTime, RtAudioStreamStatus status, void *userData )
+{
+	if ( status )
+		qDebug() << QObject::tr("Bufferüberlauf!");
+
+	WavRecorder *rec = (WavRecorder*) userData;
+	if (!rec) return 1;
+
+	WAV *wav = rec->getWav();
+	wav->addData((char*) inputBuffer, sizeof(signed short)*nBufferFrames*rec->getChannels());
+	rec->publishTime(streamTime);
+
+	return 0;
 }
 
 /**
@@ -25,47 +42,36 @@ WavRecorder::WavRecorder(QObject *parent) : QObject(parent)
  * \param int sampleRate
  * The samplerate of the file
  */
-bool WavRecorder::record(QString filename, short channels, int sampleRate)
+bool WavRecorder::record(QString filename)
 {
-	Logger::log(tr("[INF] Aufnehmen: %1 Kanäle, samplerate: %2 Hz) zu %3").arg(channels).arg(sampleRate).arg(filename));
-	
+	if (audio) delete audio;
+	audio = new RtAudio();
+	RtAudio::StreamParameters parameters;
+
+	parameters.deviceId = Settings::get("Sound/InputDevice").toInt();
+	parameters.nChannels = this->chans = Settings::get("Sound/ChannelsIn").toInt();
+	parameters.firstChannel = 0;
+	unsigned int sampleRate = Settings::get("Sound/SamplerateIn").toInt();
+	unsigned int bufferFrames = 256; // 256 sample frames
+
 	wavData = new WAV(filename, sampleRate);
-	
-	progress=0;
-	progressTimer = new QTimer();
-	connect(progressTimer, SIGNAL(timeout()), this, SLOT(increaseProgress()));
-	progressTimer->start(100);
-	
-	int fs=44100, buffer_size=512, device = 0;
-	chans=1;
-	//long frames, counter = 0;
-	signed short *buffer;
-	audio = 0;
 
 	try {
-		audio = new RtAudio(Settings::get("InputDevice").toInt(), 0, device, chans,
-				    RTAUDIO_SINT16, fs, &buffer_size, 8);
-	}
-	catch (RtError &error) {
-		error.printMessage();
-		exit(EXIT_FAILURE);
-	}
-
-	try {
-		buffer = (signed short *) audio->getStreamBuffer();
+		audio->openStream( NULL, &parameters, RTAUDIO_SINT16,
+				   sampleRate, &bufferFrames, &processData, (void*) this, NULL );
 		audio->startStream();
 	}
-	catch (RtError &error) {
-		error.printMessage();
-		audio->closeStream();
-		delete audio;
+	catch ( RtError& e ) {
+		e.printMessage();
 		return false;
 	}
-	
-	audio->setStreamCallback(&processWrapper, (void*) this);
-	audio->startStream();
-	
 	return true;
+}
+
+
+void WavRecorder::publishTime(double time)
+{
+	emit currentProgress(time*1000);
 }
 
 /**
@@ -84,25 +90,13 @@ bool WavRecorder::finish()
 		error.printMessage();
 	}
 	delete audio;
+	audio = 0;
 	
-	progressTimer->stop();
 	if (! wavData->writeFile()) return false;
 	
 	delete wavData;
+	wavData = 0;
 	return true;
-}
-
-/**
- * \brief Increases the progress by 100 msecs
- * 
- * emits the currentProgress signal
- * 
- * \author Peter Grasch
- */
-void WavRecorder::increaseProgress()
-{
-	progress+=100;
-	emit currentProgress(progress);
 }
 
 /**
@@ -116,13 +110,15 @@ void WavRecorder::increaseProgress()
  * @return int
  * always 0
  */
-int WavRecorder::processWrapper(char* buffer, int bufferSize, void *rec)
-{
-	WAV *wavFile = ((WavRecorder*) rec)->getWav();
-	wavFile->addData((char*) buffer, sizeof(signed short)*
-			((bufferSize*((WavRecorder*) rec)->getChannels())));
-	return 0;
-}
+// int WavRecorder::processWrapper(void *output, char *buffer, int bufferSize, double streamTime, RtAudioStreamStatus status, void* rec)
+// {
+// 	qDebug() << streamTime;
+// 	qDebug() << status;
+// 	WAV *wavFile = ((WavRecorder*) rec)->getWav();
+// 	wavFile->addData((char*) buffer, sizeof(signed short)*
+// 			((bufferSize*((WavRecorder*) rec)->getChannels())));
+// 	return 0;
+// }
 
 
 /**

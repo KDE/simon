@@ -13,6 +13,7 @@
 #define SOUNDSETTINGS_H
 
 #include "systemwidget.h"
+#include "sounddevice.h"
 #include "ui_soundsettingsdlg.h"
 
 class SoundControl;
@@ -30,9 +31,14 @@ Q_OBJECT
 private:
 	Ui::SoundSettingsDlg ui; //!< UI definition - made by uic from the QTDesigner .ui
 	SoundControl *sc;
+	SoundDeviceList *in;
+	SoundDeviceList *out;
+
+	void refresh(SoundDevice sd, QComboBox *cbChannels, QComboBox *sampleRates);
 
 private slots:
-	void refreshDeviceCapabilities();
+	void refreshDeviceCapabilitiesIn();
+	void refreshDeviceCapabilitiesOut();
 	
 public slots:
 	bool init();

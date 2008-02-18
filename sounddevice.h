@@ -28,23 +28,29 @@ typedef QList<SoundDevice> SoundDeviceList;
 
 /**
  * \class SoundDevice
- * \author Gigerl Martin
+ * \author Gigerl Martin, Peter Grasch
  * \brief A simple class to store all the information representing a sounddevice
  * \version 0.1
  */
 class SoundDevice
 {
 	private:
-		QString deviceID;
+		int deviceID;
 		QString name;
+		QList<int> channels;
+		QList<int> samplerates;
 	public:
-		SoundDevice ( QString deviceID, QString name )
+		SoundDevice ( int deviceID, QString name, QList<int> channels, QList<int> samplerates )
 		{
 			this->deviceID=deviceID;
 			this->name=name;
+			this->channels = channels;
+			this->samplerates = samplerates;
 		}
-		QString getDeviceID() {return this->deviceID;}
+		int getDeviceID() {return this->deviceID;}
 		QString getName() {return this->name;}
+		QList<int> getChannels() {return this->channels;}
+		QList<int> getSamplerates() {return this->samplerates;}
 		~SoundDevice()    { }
 };
 
