@@ -164,7 +164,7 @@ void WindowsEvents::click(int x, int y)
 	int clickx = x * 65535 / xsolution;
 	int clicky = y * 65535 / ysolution;
 	
-	qDebug() << "Auflösung"<< "X: " <<  nScreenWidth << "Y:" << nScreenHeight;
+//	qDebug() << "Auflösung"<< "X: " <<  nScreenWidth << "Y:" << nScreenHeight;
 	
 	mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE,clickx,clicky,0,0);
 
