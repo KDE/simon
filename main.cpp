@@ -34,13 +34,12 @@ int main(int argc, char *argv[])
 	QString locale = QLocale::system().name().left(2);
 
 	QTranslator translator;
+
 	translator.load(QString("simon_%1").arg(locale));
+
 	app.installTranslator(&translator);
 
 	SimonView *pv = new SimonView();
-	#ifdef __WIN32
-	app.setStyle(new QPlastiqueStyle());
-	#endif
 	pv->show();
 	return app.exec();
 }
