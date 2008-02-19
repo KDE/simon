@@ -18,7 +18,6 @@
 #include <QProgressDialog>
 #include <QHttp>
 #include <QUrl>
-#include <QHttpResponseHeader>
 #include <QMessageBox>
 #include <QFileInfo>
 
