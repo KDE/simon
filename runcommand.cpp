@@ -102,15 +102,16 @@ bool RunCommand::readCommands(QString path)
  *	@param QString name
  *	Name of the command
  *	@author Peter Grasch
+ *	@return True if we executed something
  */
-void RunCommand::run(QString commandName)
+bool RunCommand::run(QString commandName)
 {
 	//execute the command
 	int i=0;
 	while ((i < commandlist.size()) && (commandlist.at(i)->getName() != commandName.trimmed()))
 		i++;
 	
-	if (i == commandlist.size()) return;
+	if (i == commandlist.size()) return false;
 	
 	QString command = commandlist.at(i)->getValue();
 	QString workingDir = commandlist.at(i)->getWorkingDirectory();
@@ -140,6 +141,7 @@ void RunCommand::run(QString commandName)
 		win->goTo(command);
 #endif
 	}
+	return true;
 }
 
 

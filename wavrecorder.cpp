@@ -4,7 +4,6 @@
 #include "RtError.h"
 #include "logger.h"
 #include <QTimer>
-#include <QDebug>
 #include <QObject>
 #include "wav.h"
 
@@ -19,8 +18,8 @@ WavRecorder::WavRecorder(QObject *parent) : QObject(parent)
 int processData( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
 		 double streamTime, RtAudioStreamStatus status, void *userData )
 {
-	if ( status )
-		qDebug() << QObject::tr("Bufferüberlauf!");
+// 	if ( status )
+// 		qDebug() << QObject::tr("Bufferüberlauf!");
 
 	WavRecorder *rec = (WavRecorder*) userData;
 	if (!rec) return 1;

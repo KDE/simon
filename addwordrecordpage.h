@@ -12,6 +12,7 @@
 #ifndef ADDWORDRECORDPAGE_H
 #define ADDWORDRECORDPAGE_H
 
+#include <QVBoxLayout>
 #include <QWizardPage>
 #include "recwidget.h"
 
@@ -35,6 +36,8 @@ signals:
 	void recordingNamesGenerated(QString,QString);
 private:
 	RecWidget *rec1, *rec2; ///<! The recwidgets
+	QVBoxLayout *lay;
+	QString getSamplesDir();
 public:
     void initializePage();
     AddWordRecordPage(QWidget *parent=0);

@@ -19,8 +19,11 @@
 */
 class InternetExtensionSettings : public SystemWidget
 {
+Q_OBJECT
 private:
 	Ui::InternetExtensionDlg ui;
+private slots:
+	void makeExample();
 public:
     InternetExtensionSettings(QWidget* parent);
 

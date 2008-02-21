@@ -1,9 +1,11 @@
 unix {
     HEADERS += runlinuxbackend.h xevents.h desktopreader.h \
+ dbusbackend.h \
  kdeprogrammanager.h 
     SOURCES += xevents.cpp runlinuxbackend.cpp desktopreader.cpp \
+ dbusbackend.cpp \
  kdeprogrammanager.cpp
-    CONFIG += x11
+    CONFIG += x11 qdbus
     DEFINES += __LINUX_ALSA__
     INCLUDEPATH += /usr/include/alsa \
 		/usr/X11R6/include
@@ -18,8 +20,8 @@ unix {
 }
 
 win32 {
-    HEADERS += runwindowsbackend.h registrymanager.h windowsevents.h windowsprogrammanager.h windowsresourcehandler.h 
-    SOURCES += runwindowsbackend.cpp registrymanager.cpp windowsevents.cpp windowsprogrammanager.cpp  windowsresourcehandler.cpp 
+    HEADERS += runwindowsbackend.h registrymanager.h windowsevents.h windowsprogrammanager.h windowsresourcehandler.h msaabackend.h
+    SOURCES += runwindowsbackend.cpp registrymanager.cpp windowsevents.cpp windowsprogrammanager.cpp  windowsresourcehandler.cpp msaabackend.cpp
 
     DEFINES += __WINDOWS_DS__
     LIBS += -ldsound -lwinmm -lole32
@@ -206,7 +208,12 @@ importtrainingdirectoryworkingpage.h \
  lexicondict.h \
  firstrunimportdictwiktionarypage.h \
  firstrunimportgrammardescriptionpage.h \
- internetextensionsettings.h
+ internetextensionsettings.h \
+ postprocessing.h \
+ atbackend.h \
+ atwatcher.h \
+ atobject.h \
+ ato.h
 
 
 
@@ -344,7 +351,10 @@ SOURCES += main.cpp \
  firstrunimportdictwiktionarypage.cpp \
  firstrunimportdictselectsourcepage.cpp \
  firstrunimportgrammardescriptionpage.cpp \
- internetextensionsettings.cpp
+ internetextensionsettings.cpp \
+ postprocessing.cpp \
+ atwatcher.cpp \
+ atobject.cpp
 
 
 
@@ -356,6 +366,7 @@ ssl
 TEMPLATE = app
 
 CONFIG += qt \
+debug \
 warn_on \
 thread \
 console

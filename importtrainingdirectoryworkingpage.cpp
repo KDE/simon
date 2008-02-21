@@ -16,17 +16,19 @@
 #include <QHBoxLayout>
 #include <QProgressBar>
 #include <QVBoxLayout>
+#include "trainingmanager.h"
 #include <QMessageBox>
 #include <QFileInfo>
-#include <QRegExp>
-#include <QTextStream>
 #include <QFile>
-#include <QProcess>
+#include <QDate>
+#include <QTime>
+#include <QVariant>
 #include <QLabel>
 #include <QCoreApplication>
 #include <QVariant>
 #include "settings.h"
-#include <math.h>
+#include <QDebug>
+#include "postprocessing.h"
 
 /**
  * \brief Constructor - creates the GUI
@@ -49,37 +51,50 @@ ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *
 	lay->addWidget(lbMain);
 	lay->addWidget(pbMain);
 	setLayout(lay);
+
+	this->pp = new PostProcessing();
+}
+
+ImportTrainingDirectoryWorkingPage::~ImportTrainingDirectoryWorkingPage()
+{
+	delete pp;
 }
 
 /**
  * \brief Starts the importing process and calls all the other methods
  * \author Peter Grasch
- * @param dir The directory to import
- * @return success
  */
-bool ImportTrainingDirectoryWorkingPage::importDir(QString dir)
+void ImportTrainingDirectoryWorkingPage::initializePage()
 {
+	completed = false;
 	prog=0;
-	QString wavDestdir = Settings::get("Model/PathToSamples").toString();
+	QString dir = field("directory").toString();
+	
+	QString wavDestdir = Settings::getS("Model/PathToSamples")+"/import";
+
+	QDir d(wavDestdir);
+	if (!d.exists())
+		if (!d.mkpath(wavDestdir))
+		{
+			QMessageBox::critical(this, tr("Fehler"), tr("Konnte Ausgabeordner %1 nicht erstellen").arg(wavDestdir));
+		}
 	
 	QStringList *dataFiles = this->searchDir(dir);
 	if (!dataFiles) return error();
 	
 
-	pbMain->setMaximum((dataFiles->count()-1)*10);
+	pbMain->setMaximum(dataFiles->count());
 	pbMain->setValue(0);
-	
-	if (!createPrompts(*dataFiles, Settings::get("Model/PathToPrompts").toString())) return error();
 
-// 	delete dataFiles;
 	dataFiles = processSounds(*dataFiles, wavDestdir);
 	if (!dataFiles) return error();
+	
+	if (!createPrompts(*dataFiles)) return error();
 	
 
 	completed = true;
 
-	completeChanged();
-	return true;
+	emit completeChanged();
 }
 
 
@@ -92,33 +107,26 @@ bool ImportTrainingDirectoryWorkingPage::importDir(QString dir)
  * @param destDir The destination file
  * @return success
  */
-bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles, QString dest)
+bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles)
 {
-	QFile *prompts = new QFile(dest, this);
-	if (!prompts->open(QIODevice::WriteOnly|QIODevice::Truncate|QIODevice::Text))
-	{
-		QMessageBox::critical(this, tr("Fehler"), 
-			tr("Beim Öffnen der Ausgabe-Dateie \"prompts\" ist ein Fehler aufgetreten."));
-		return false;
-	}
-	QTextStream *promptsStream = new QTextStream(prompts);
-	promptsStream->setCodec("UTF-8");
-
-	QFileInfo fileInfo;
-	QString said, fileName;
+	TrainingManager *train = TrainingManager::getInstance();
 	
+
+	PromptsTable *prompts = new PromptsTable();
+	QFileInfo fileInfo;
+	QString fileName, said;
+
 	for (int i=0; i <dataFiles.count(); i++)
 	{
 		fileInfo.setFile(dataFiles[i]);
 		fileName = fileInfo.fileName();
 
 		said = extractSaid(fileName);
-		(*promptsStream) << "*/" << fileName.left(fileName.lastIndexOf(".")) << " " << said << endl;
-		
-		pbMain->setValue(++prog);
+		prompts->insert(fileName.left(fileName.lastIndexOf(".")), said);
 	}
-	promptsStream->flush();
-	prompts->close();
+	train->addSamples(prompts);
+	train->savePrompts();
+	delete prompts;
 	return true;
 }
 
@@ -136,9 +144,9 @@ bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles, QS
 QString ImportTrainingDirectoryWorkingPage::extractSaid(QString source)
 {
 	QString said = source.left(source.lastIndexOf("."));
-	said.remove(QRegExp("([0-9]|\\.|\\(|\\)|\\[|\\])"));
+	said.remove(QRegExp("([0-9]|\\.|\\(|\\)|\\[|\\]|\\-)"));
 	said.replace("_", " ");
-	return said.toUpper();
+	return said.trimmed();
 }
 
 /**
@@ -195,43 +203,21 @@ QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataF
 	
 	for (int i=0; i < dataFiles.count(); i++)
 	{
-		//resample
 		fInfo.setFile(dataFiles[i]);
-		newFileName = destDir+"/"+fInfo.fileName();
-		
-		if (QFile::exists(newFileName) && (!QFile::remove(newFileName)))
+		QString dateTime = QDate::currentDate().toString ( "yyyy-MM-dd" ) +"_"+QTime::currentTime().toString("hh-mm-ss");
+		newFileName = destDir+"/"+fInfo.fileName().left(fInfo.fileName().lastIndexOf(".")).replace(" ", "_")+"_"+dateTime+"_.wav";
+
+
+		if (!pp->process(dataFiles[i], newFileName))
 		{
-			QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht überschreiben. Bitte überprüfen Sie, ob Sie die nötigen Rechte besitzen.").arg(newFileName));
+			QMessageBox::critical(this, tr("Fehler"), tr("Konnte Tondaten nicht verarbeiten"));
 			return NULL;
 		}
-		
-		QStringList filters = Settings::get("Model/ProcessingFilters").toString().split(" && ");
-		float filterstep = 8/filters.count();
-		float filtertot=0;
-		QString filter;
-		for (int j=0; j < filters.count(); j++)
-		{
-			QString execStr = filters.at(j);
-			execStr.replace("\%1", dataFiles[i]);
-			execStr.replace("\%2", newFileName);
-			execStr.replace("\%3", Settings::get("Model/SampleRate").toString());
-			execStr.replace("\%4", Settings::get("Model/Channels").toString());
-			int ret = QProcess::execute(execStr);
-			if (ret)
-			{
-				//something went wrong
-				//resample always returns ERROR - crap
-				QMessageBox::critical(this, tr("Fehler"), tr("Konnte %1 nicht nach %2 bearbeiten. Bitte ueberpruefen Sie ob Sie das Programm, installiert haben, der Pfad in den Einstellungen richtig angegeben wurde und ob Sie all die nötigen Berechtigungen besitzen. (Rückgabewert %3) (Ausgefuehrtes Kommando: %4)").arg(dataFiles[i]).arg(newFileName).arg(ret).arg(execStr));
-				return NULL;
-			}
-			filtertot = filtertot+filterstep;
-			prog += round(filtertot);
-			pbMain->setValue(prog);
-			QCoreApplication::processEvents();
-		}
+		newFiles->append(newFileName);
+		pbMain->setValue(++prog);
+		QCoreApplication::processEvents();
 	}
 
-	pbMain->setValue(prog);
 	
 	return newFiles;
 }

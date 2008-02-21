@@ -458,6 +458,13 @@
       </attribute>
       <layout class="QVBoxLayout" >
        <item>
+        <widget class="QCheckBox" name="cbProcessInternal" >
+         <property name="text" >
+          <string>Auch simon-interne Aufnahmen nachbearbeiten</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="lbProcessinglist" >
          <property name="text" >
           <string>Bearbeitungsliste:</string>

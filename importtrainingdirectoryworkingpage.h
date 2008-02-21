@@ -15,6 +15,7 @@
 #include <QWizardPage>
 
 class QProgressBar;
+class PostProcessing;
 
 /**
  * \class ImportTrainingDirectoryWorkingPage
@@ -38,22 +39,24 @@ class ImportTrainingDirectoryWorkingPage : public QWizardPage{
 Q_OBJECT
 private:
 	QProgressBar *pbMain;
+	PostProcessing *pp;
 	bool completed;
 	int prog;
 	
-	bool error() { completed = false; return false; }
+	void error() { completed = false; }
 	
 	QString extractSaid(QString source);
 	QStringList* searchDir(QString dir);
 	QStringList* processSounds(QStringList files, QString destDir);
-	bool createPrompts(QStringList dataFiles, QString dest);
+	bool createPrompts(QStringList dataFiles);
 
 public:
     ImportTrainingDirectoryWorkingPage(QWidget *parent=0);
 	bool importDir(QString dir);
 	bool isComplete() { return completed; }
+	void initializePage();
 
-    ~ImportTrainingDirectoryWorkingPage() {}
+    ~ImportTrainingDirectoryWorkingPage();
 
 };
 

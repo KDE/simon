@@ -15,9 +15,13 @@
 
 InternetExtensionSettings::InternetExtensionSettings(QWidget* parent): SystemWidget(tr("Internet-Erweiterungen"), QIcon(":/images/icons/network.svg"), tr("Konfigurieren der URLS der Erweiterungs-Downloads"), parent)
 {
-
 	help = tr("Hier können Sie URLS konfigurieren, um simon mit optionale Komponenten aus dem Internet zu erweitern");
 	ui.setupUi(this);
+
+	connect(ui.leWikiPrefix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
+	connect(ui.leWikiPostfix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
+
+	makeExample();
 }
 
 
@@ -42,6 +46,15 @@ bool InternetExtensionSettings::init()
 	ui.leWikiPrefix->setText(Settings::getS("Internet/WikiDumpPrefix"));
 	ui.leWikiPostfix->setText(Settings::getS("Internet/WikiDumpPostfix"));
 	return true;
+}
+
+void InternetExtensionSettings::makeExample()
+{
+	QString example;
+	example += ui.leWikiPrefix->text();
+	example += "xxwiktionary/xxxxxxxx";
+	example += ui.leWikiPostfix->text();
+	ui.lbExample->setText(example);
 }
 
 bool InternetExtensionSettings::isComplete()

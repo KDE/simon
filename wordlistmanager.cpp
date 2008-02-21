@@ -20,7 +20,6 @@
 #include "modelmanager.h"
 #include "settings.h"
 #include <QMessageBox>
-#include <QDebug>
 
 WordListManager* WordListManager::instance;
 
@@ -198,7 +197,8 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 		return false;
 	}
 	QTextStream outstream(outfile);
-	outstream.setCodec("ISO 8859-15");
+	//TODO Test encoding
+// 	outstream.setCodec("ISO 8859-15");
 
 
 	QFile *vocabFile = new QFile(vocabFilename);
@@ -207,7 +207,8 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 		return false;
 	}
 	QTextStream vocab(vocabFile);
-	vocab.setCodec("ISO 8859-15");
+	//TODO Test encoding
+// 	vocab.setCodec("ISO 8859-15");
 
 	//print internal sentence structure
 	// 	% NS_B
@@ -229,6 +230,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	{
 		Word w = list->at(i);
 		QString wordStr = w.getWord();
+		//TODO: Test naming
 		QString upperWord = wordStr.toUpper();
 
 		if (!sentWritten && (upperWord >= "SENT-END"))
@@ -241,7 +243,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 		QString wordPron = w.getPronunciation();
 		QString wordTerm = w.getTerminal();
 
-		outstream << upperWord << "\t\t[" << wordStr << "]\t\t" <<
+		outstream << upperWord /*wordStr*/ << "\t\t[" << wordStr << "]\t\t" <<
 				wordPron << "\n";
 
 		vocabulary.insertMulti(wordTerm, w);

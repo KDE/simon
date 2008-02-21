@@ -36,35 +36,7 @@ ImportTrainingDirectory::ImportTrainingDirectory(QWidget *parent) : QWizard(pare
  	addPage(createIntroPage());
 	addPage(createWorkingPage());
 	addPage(createFinishedPage());
-	connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(idChanged(int)));
 	prevId=0;
-}
-
-/**
- * \brief Slot to react on changing the page
- * 
- * Restarts the wizard if we want to go back from finished->working;
- * Starts the importing if we go from intro->working
- * 
- * @param id newId
- */
-void ImportTrainingDirectory::idChanged(int id)
-{
-	if (id == 1)
-	{
-		if (prevId==2)
-			restart();
-		else 
-		{
-			QCoreApplication::processEvents();
-			((ImportTrainingDirectoryWorkingPage*)
-				page(1))->importDir(
-					((ImportTrainingDirectoryIntroPage*) 
-					page(0))->getField("directory").toString());
-		}
-	}
-	
-	prevId = id;
 }
 
 

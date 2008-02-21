@@ -37,8 +37,13 @@ class EventHandler{
 private:
 	CoreEvents *coreEvents; //!< The event backend
 	bool capslock;
+	static EventHandler *instance;
 public:
 	EventHandler();
+	static EventHandler* getInstance() {
+		if (!instance) instance = new EventHandler();
+		return instance;
+	}
 	void click(int x, int y);
 	void sendShortcut(Shortcut *shortcut);
 	void sendWord(QString word);

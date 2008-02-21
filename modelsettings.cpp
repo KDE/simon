@@ -202,6 +202,9 @@ bool ModelSettings::apply()
 	Settings::set("Model/PathToDict", ui.leDict->text());
 	Settings::set("Model/PathToDfa", ui.leDfa->text());
 
+
+	Settings::set("Model/ProcessInternal", ui.cbProcessInternal->isChecked());
+
 	if (ui.twProcessingFilters->rowCount() == 0) return true;
 	
 	if (ui.twProcessingFilters->rowCount() == 1)
@@ -230,6 +233,9 @@ bool ModelSettings::init()
 {
 	ui.sbSamplerate->setValue(Settings::get("Model/Samplerate").toInt());
 	ui.sbChannels->setValue(Settings::get("Model/Channels").toInt());
+
+	ui.cbProcessInternal->setChecked(Settings::get("Model/ProcessInternal").toBool());
+
 	QStringList filters = Settings::get("Model/ProcessingFilters").toString().split("&&", QString::SkipEmptyParts);
 	
 	ui.twProcessingFilters->setRowCount(filters.count());

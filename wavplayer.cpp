@@ -15,7 +15,7 @@
 #include "settings.h"
 #include <QTimer>
 #include <QObject>
-#include <QDebug>
+// #include <QDebug>
 #include "wav.h"
 #include "RtError.h"
 #include "RtAudio.h"
@@ -34,8 +34,8 @@ WavPlayer::WavPlayer(QObject *parent) : QObject(parent)
 int process( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
 		 double streamTime, RtAudioStreamStatus status, void *userData )
 {
-	if ( status )
-		qDebug() << QObject::tr("Bufferunterlauf!");
+// 	if ( status )
+// 		qDebug() << QObject::tr("Bufferunterlauf!");
 
 	WavPlayer *play = (WavPlayer*) userData;
 	if (!play) return 1;
@@ -141,7 +141,6 @@ void WavPlayer::closeStream()
 {
 	if ( stopTimer )
 	{
-		qDebug() << "stoppe alles!";
 		progressTimer->stop();
 		try
 		{
@@ -174,7 +173,6 @@ void WavPlayer::closeStream()
  */
 void WavPlayer::stop()
 {
-	qDebug() << "HIER!";
 	stopTimer = true; // to work around the issue that you can't stop the timer from a different thread
 	//which would be the case if we would stop it here (this is called from the callback thread)
     //this also triggers the closing of the stream as we can't stop it here because it would still be open

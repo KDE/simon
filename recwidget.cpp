@@ -13,6 +13,7 @@
 #include <QChar>
 #include "wavrecorder.h"
 #include "wavplayer.h"
+#include "settings.h"
 
 /**
  * \brief Constructor
@@ -155,7 +156,10 @@ void RecWidget::displayPlaybackProgress(int msecs)
  */
 void RecWidget::record()
 {
-	if (!rec->record(this->filename))
+	QString fName = this->filename;
+	if (Settings::get("Model/ProcessInternal").toBool())
+		fName += "_tmp";
+	if (!rec->record(fName))
 	{
 		disconnect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbPlay, SLOT(setDisabled(bool)));
 		disconnect(ui.pbRecord, SIGNAL(toggled(bool)), ui.pbDelete, SLOT(setDisabled(bool)));
@@ -197,8 +201,17 @@ void RecWidget::finishPlayback()
  */
 void RecWidget::stopRecording()
 {
-	if (!rec->finish()) 
-		QMessageBox::critical(this, tr("Aufnehmen fehlgeschlagen"), QString(tr("Abschließen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!")).arg(this->filename));
+	QString fName = this->filename;
+	if (Settings::get("Model/ProcessInternal").toBool())
+		fName += "_tmp";
+
+	if (!rec->finish())
+		QMessageBox::critical(this, tr("Aufnehmen fehlgeschlagen"), QString(tr("Abschließen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!")).arg(fName));
+		
+	if (Settings::get("Model/ProcessInternal").toBool())
+		if (!QFile::copy(fName, filename) || !QFile::remove(fName))
+			QMessageBox::critical(this, tr("Verarbeiten fehlgeschlagen"), QString(tr("Konnte Datei %1 nicht nach %2 verschieben.")).arg(fName).arg(filename));
+	
 	
 	ui.hsProgress->setValue(0);
 	ui.leRecognisedText->setVisible(false);

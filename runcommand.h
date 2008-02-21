@@ -61,7 +61,7 @@ public:
 	bool init(QString path);
 	bool save(QString path="");
 
-    void run(QString commandName);
+    bool run(QString commandName);
 
     ~RunCommand();
 

@@ -37,45 +37,49 @@
      <property name="title" >
       <string>Wiktionary-Import</string>
      </property>
-     <layout class="QGridLayout" >
-      <item row="0" column="0" >
-       <widget class="QLabel" name="lbDumpOverview" >
-        <property name="text" >
-         <string>Dump Übersicht:</string>
-        </property>
-       </widget>
+     <layout class="QVBoxLayout" >
+      <item>
+       <layout class="QGridLayout" >
+        <item row="0" column="0" >
+         <widget class="QLabel" name="lbDumpOverview" >
+          <property name="text" >
+           <string>Dump Übersicht:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" >
+         <widget class="QLineEdit" name="leWikiDumpUrls" />
+        </item>
+        <item row="1" column="0" >
+         <widget class="QLabel" name="lbDumpPrefix" >
+          <property name="text" >
+           <string>Dump Prefix:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" >
+         <widget class="QLineEdit" name="leWikiPrefix" />
+        </item>
+        <item row="2" column="0" >
+         <widget class="QLabel" name="lbDumpPostfix" >
+          <property name="text" >
+           <string>Dump Postfix:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1" >
+         <widget class="QLineEdit" name="leWikiPostfix" />
+        </item>
+       </layout>
       </item>
-      <item row="0" column="1" >
-       <widget class="QLineEdit" name="leWikiDumpUrls" />
-      </item>
-      <item row="1" column="0" >
-       <widget class="QLabel" name="lbDumpPrefix" >
-        <property name="text" >
-         <string>Dump Prefix:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="QLineEdit" name="leWikiPrefix" />
-      </item>
-      <item row="2" column="0" >
-       <widget class="QLabel" name="lbDumpPostfix" >
-        <property name="text" >
-         <string>Dump Postfix:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" >
-       <widget class="QLineEdit" name="leWikiPostfix" />
-      </item>
-      <item row="3" column="0" >
+      <item>
        <widget class="QLabel" name="lbExample" >
         <property name="text" >
          <string>Beispiel:</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="0" colspan="2" >
+      <item>
        <widget class="QLabel" name="lbExampleURL" >
         <property name="text" >
          <string/>
@@ -93,7 +97,7 @@
      <property name="sizeHint" >
       <size>
        <width>20</width>
-       <height>40</height>
+       <height>61</height>
       </size>
      </property>
     </spacer>

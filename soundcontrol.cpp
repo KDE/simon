@@ -62,7 +62,7 @@ SoundDeviceList* SoundControl::getOutputDevices()
 			{
 				QList<int> supportedChannels;
 				QList<int> sampleRates;
-				for (unsigned int j=1; j <= info.inputChannels; j++)
+				for (unsigned int j=1; j <= info.outputChannels; j++)
 				{
 					supportedChannels << j;
 				}

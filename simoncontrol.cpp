@@ -28,6 +28,7 @@
 #include "soundcontrol.h"
 #include "juliuscontrol.h"
 #include "runcommand.h"
+#include "atwatcher.h"
 #include "eventhandler.h"
 #include "shortcutcontrol.h"
 
@@ -43,9 +44,11 @@ SimonControl::SimonControl() : QObject ()
 	this->active=false;
 	this->julius = new JuliusControl();
 	this->run = new RunCommand();
-	eventHandler = new EventHandler();
+	eventHandler = EventHandler::getInstance();
 
 	this->shortcutControl = ShortcutControl::getInstance();
+
+	this->atWatcher = new ATWatcher(this);
 
 	
 	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));
@@ -163,9 +166,9 @@ void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 		if (shortcutControl && (shortcutControl->nameExists(word)))
 		{
 			eventHandler->sendShortcut(shortcutControl->getShortcut(word));
-		} else 
-			run->run(word);
-		emit guiAction(word);
+		} else if (!atWatcher->trigger(word))
+			if (!run->run(word))
+				emit guiAction(word);
 	}
 
 	else {

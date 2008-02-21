@@ -118,6 +118,9 @@ bool TrainingManager::savePrompts()
 		prompts.write ( samples[i].toLatin1() +" "+promptsTable->value ( samples[i] ).toLatin1() +"\n" );
 
 	prompts.close();
+
+	if (QMessageBox::question(0, QCoreApplication::tr("Trainingsdaten geändert"), QCoreApplication::tr("Die Trainingsdaten wurden geändert.\n\nWollen Sie das Sprachmodell jetzt neu kompilieren?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+		ModelManager::compileModel();
 	return true;
 }
 
@@ -479,7 +482,7 @@ float TrainingManager::calcRelevance ( TrainingText *text )
 void TrainingManager::finishTrainingSession()
 {
 	addSamples ( sampleHash );
-	ModelManager::compileModel();
+	this->savePrompts();
 }
 
 

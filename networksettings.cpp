@@ -105,7 +105,7 @@ bool NetworkSettings::apply()
 	Settings::set("Juliusd/Encrypted", ui.cbUseEncryption->isChecked());
 	Settings::set("Juliusd/Cipher", ui.cbCipher->currentText());
 	Settings::set("Juliusd/Cert", ui.leCert->text());
-	Settings::set("Juliusd/ContiniueOnWarning", ui.cbIgnoreWarnings->isChecked());
+	Settings::set("Juliusd/ContinueOnWarning", ui.cbIgnoreWarnings->isChecked());
 	Settings::set("Juliusd/AutoConnect", ui.cbAutoConnect->isChecked());
 
 	return true;
@@ -145,7 +145,7 @@ bool NetworkSettings::init()
 	ui.cbAutoConnect->setChecked(Settings::get("Juliusd/AutoConnect").toBool());
 
 
-	ui.cbIgnoreWarnings->setChecked(Settings::get("Juliusd/ContiniueOnWarning").toBool());
+	ui.cbIgnoreWarnings->setChecked(Settings::get("Juliusd/ContinueOnWarning").toBool());
 
 	ui.cbUseEncryption->setChecked(Settings::get("Juliusd/Encrypted").toBool());
 

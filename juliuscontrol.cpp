@@ -152,7 +152,7 @@ void JuliusControl::messageReceived()
 		{
 			/* login accepted, but the version is not known to be supported */
 			QString reason=tr("Version möglicherweise nicht unterstützt");
-			if (Settings::get("Juliusd/ContiniueOnWarning").toBool())
+			if (Settings::get("Juliusd/ContinueOnWarning").toBool())
 			{
 				emit warning(reason);
 				sendRequest (100 /*start recognition*/);

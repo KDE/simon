@@ -12,6 +12,8 @@
 #include "eventhandler.h"
 #include "shortcutcontrol.h"
 
+
+EventHandler* EventHandler::instance;
 /**
  * @brief Constructor
  * 

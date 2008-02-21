@@ -43,6 +43,7 @@ class SoundControl;
 class JuliusControl;
 class RunCommand;
 class EventHandler;
+class ATWatcher;
 class ShortcutControl;
 
 class SimonControl : public QObject {
@@ -73,6 +74,7 @@ private:
 	JuliusControl *julius; //!< Julius Backend
 	RunCommand *run; //!< Runs the commands
 	EventHandler *eventHandler; //!< simulates keystrokes,etc.
+	ATWatcher *atWatcher; //!< Monitors / Reads the GUIs of running applications
 
 	ShortcutControl *shortcutControl;
 	

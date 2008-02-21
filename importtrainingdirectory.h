@@ -40,8 +40,7 @@ class ImportTrainingDirectoryWorkingPage;
 */
 class ImportTrainingDirectory : public QWizard {
 	Q_OBJECT
-private slots:
-	void idChanged(int id);
+
 private:
 	int prevId;
 	ImportTrainingDirectoryIntroPage* createIntroPage();
