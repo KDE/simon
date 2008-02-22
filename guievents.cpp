@@ -31,11 +31,6 @@ void GuiEvents::registerControl(QString trigger, QObject* receiver, const char* 
 	guiItems->insert(key, realAction);
 }
 
-//includes for the Sleep Funktione without sleep the feature doesn´t worku 
-#include <stdlib.h>
-#include <windows.h>
-using namespace std; 
-//_______
 
 #include <qDebug>
 void GuiEvents::doAction(QString action, QObject * parentItem)
@@ -85,7 +80,6 @@ void GuiEvents::doAction(QString action, QObject * parentItem)
 	{
 		return;
 	}
-	//Sleep(500);
 	QCoreApplication::processEvents();
 	//connects to the slot that is saved in the QHash with the given parameters
 	connect(this, SIGNAL(dummy(QString)), guiItems->value(key)->receiver, guiItems->value(key)->slot);
