@@ -31,7 +31,7 @@ class SimonMainWindow : public QMainWindow,  public  SimonWidget
 Q_OBJECT
 
 private:
-	//GuiEvents *guievents;
+	GuiEvents *guievents;
 
 signals:
 

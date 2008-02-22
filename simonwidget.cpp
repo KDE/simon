@@ -36,7 +36,7 @@ void SimonWidget::guessChildTriggers(QObject *current)
 		{
 			guessChildTriggers(childList.at(i));
 		}
-		
+	//QAbstractButton
 		if ((dynamic_cast<QAbstractButton*>(childList.at(i))) || (dynamic_cast<QCheckBox*>(childList.at(i))))
 		{
 			text = dynamic_cast<QAbstractButton*>(childList.at(i))->text();
@@ -44,7 +44,7 @@ void SimonWidget::guessChildTriggers(QObject *current)
 			
 			registerControl(text, childList.at(i), SLOT(animateClick()));
 		}
-		//TODO
+	//SimonTabWidget
 		if (dynamic_cast<SimonTabWidget*>(childList.at(i)))
 		{
 			int j = 0;
@@ -52,27 +52,24 @@ void SimonWidget::guessChildTriggers(QObject *current)
 			{
 				text = dynamic_cast<SimonTabWidget*>(childList.at(i))->tabText(j);
 				text = editChildKeys(text);
-				
 				registerControl(text, childList.at(i), SLOT(setTab(QString)));
 				j++;
 			}
 		}
+	//QLabel
 		if (dynamic_cast<QLabel*>(childList.at(i)))
 		{
 			registerBuddy(dynamic_cast<QLabel*>(childList.at(i)));
 		}
-		
-		//todo
+	//SimonGroupBox
 		if (dynamic_cast<SimonGroupBox*>(childList.at(i)))
 		{
 			text = dynamic_cast<SimonGroupBox*>(childList.at(i))->title();
 			text = editChildKeys(text);
-			
 			registerControl(text, childList.at(i), SLOT(changeCheckState()));
 		}
 		
 		i++;
-		//if (text != "")
 		
 	}
 }
@@ -85,35 +82,29 @@ void SimonWidget::registerBuddy(QLabel* label)
 	text = label->text();
 	
 	text = editChildKeys(text);
-	
-	//TODO____________________________
-	/*if(text == "Shortcuts")
-		registerControl(text,label->buddy(),SLOT(showLineEdit()));*/
-	//___________________________________
-	
-	
+//QLineEdit
 	if (dynamic_cast<QLineEdit*>(label->buddy()))
 	{
 		registerControl(text,label->buddy(),SLOT(setFocus()));
 	}
-	
+//SimonListWidget
 	if (dynamic_cast<SimonListWidget*>(label->buddy()))
 	{
 		registerControl(text,label->buddy(),SLOT(showLineEdit()));
 	}
-	
+//SimonComboBox
 	if (dynamic_cast<SimonComboBox*>(label->buddy()))
 	{
 		registerControl(text,label->buddy(),SLOT(schowPopUp()));
 	}
-	
+//SimonSpinBox
 	if (dynamic_cast<SimonSpinBox*>(label->buddy()))
 	{
 		registerControl(text,label->buddy(),SLOT(setFocus()));
 		registerControl(text+" up",label->buddy(),SLOT(changeValue(QString)));
 		registerControl(text+" down",label->buddy(),SLOT(changeValue(QString)));
 	}
-	
+//SimonTableWidget
 	if (dynamic_cast<SimonTableWidget*>(label->buddy()))
 	{
 		SimonTableWidget * temp = dynamic_cast<SimonTableWidget*>(label->buddy());
@@ -123,38 +114,21 @@ void SimonWidget::registerBuddy(QLabel* label)
 			QString str = temp->horizontalHeaderItem (i)->text();
 			str = text + " " + str;
 			registerControl(str,label->buddy(),SLOT(initLineEdit(QString)));
-// 			qDebug() << str << label->buddy()->objectName();
 		}
-		
-		
-		
 	}
-	
+//SimonCalendarWidget
 	if (dynamic_cast<SimonCalendarWidget*>(label->buddy()))
 	{
 		QString extendedtext;
 		extendedtext = text+" nächster Monat";
-		registerControl(extendedtext,label->buddy(),SLOT(showNextMonth()));
-		//QMessageBox::information(NULL,label->buddy()->objectName(),extendedtext);
-		extendedtext = text+" vorheriger Monat";
-		registerControl(extendedtext,label->buddy(),SLOT(showPreviousMonth()));
-		//QMessageBox::information(NULL,"",extendedtext);
 		extendedtext = text + " Tag ";
-		//QMessageBox::information(NULL,"",extendedtext);
 		registerControl(extendedtext,label->buddy(),SLOT(setDate(QString)));
 		extendedtext = text + " Monat ";
-		//QMessageBox::information(NULL,"",extendedtext);
 		registerControl(extendedtext,label->buddy(),SLOT(setDate(QString)));
 		extendedtext = text + " Jahr ";
 		registerControl(extendedtext,label->buddy(),SLOT(setDate(QString)));
-		//todo...regexp
-		//registerControl(text,label->buddy(),SLOT());
-		//setCurrentDate(int,int)
-		
-		//todo...regexp
-		//registerControl(text,label->buddy(),SLOT());
-		//simon Kalender <zahl>
 	}
+//SimonSlider
 	if (dynamic_cast<SimonSlider*>(label->buddy()))
 	{
 		registerControl(text,label->buddy(),SLOT(changeValue()));
@@ -167,20 +141,6 @@ void SimonWidget::registerBuddy(QLabel* label)
 
 QString SimonWidget::editChildKeys(QString oldKey)
 {	
-	/*if (oldKey.contains("&"))
-		return oldKey.remove(oldKey.indexOf("&"),1); 
-	if (oldKey.contains(":"))
-		return oldKey.remove(oldKey.indexOf(":"),1); 
-	if (oldKey.contains("("))
-		return oldKey.remove(oldKey.indexOf("("),1); 
-	if (oldKey.contains(")"))
-		return oldKey.remove(oldKey.indexOf(")"),1); 
-	if (oldKey.contains("<"))
-		return oldKey.remove(oldKey.indexOf(">"),1); 
-	else
-		return oldKey;*/
-	//WTF?
-	
 	oldKey.remove("&");
 	oldKey.remove(":");
 	oldKey.remove("(");

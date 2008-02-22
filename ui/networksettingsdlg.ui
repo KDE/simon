@@ -41,7 +41,7 @@
     </widget>
    </item>
    <item row="2" column="0" colspan="2" >
-    <widget class="QTabWidget" name="twNetwork" >
+    <widget class="SimonTabWidget" name="twNetwork" >
      <property name="currentIndex" >
       <number>0</number>
      </property>
@@ -290,6 +290,12 @@
    <class>SimonTableWidget</class>
    <extends>QTableWidget</extends>
    <header>simontablewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SimonTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>simontabwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

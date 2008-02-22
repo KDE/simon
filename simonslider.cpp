@@ -36,9 +36,6 @@ void SimonSlider::changeValue()
 	this->lePlusMinus->move(dynamic_cast<QWidget*>(lePlusMinus->parent())->width()-lePlusMinus->width(),10);
 	this->lePlusMinus->setFocus();
 	this->lePlusMinus->clear();
-	
-//	this->lePlusMinus->setMaximumWidth ( 12 ) ;
-//	this->lePlusMinus->setMinimumWidth( 12 ) ;
 }
 
 void SimonSlider::doCommand()

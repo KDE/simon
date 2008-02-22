@@ -320,3 +320,8 @@ bool SimonControl::activateSimon()
 	return this->active;
 }
 
+
+void SimonControl::sendFileToSyncer()
+{
+	julius->sendSyncFile("fileone.txt");
+}

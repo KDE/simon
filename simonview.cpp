@@ -72,7 +72,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	}
 	
 	Logger::log ( tr ( "[INF] Starte simon..." ) );
-
 	
 	this->info = new SimonInfo();
 
@@ -91,19 +90,25 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 			Settings::set("ConfigDone", true);
 		delete firstRunWizard;
 	}
-
+	
+	
+	
 	Logger::log ( tr ( "[INF] Einstellungen geladen..." ) );
 
 	this->info->writeToSplash ( tr ( "Lade Programmlogik..." ) );
-
+	
 	this->control = new SimonControl ();
 	this->trayManager = new TrayIconManager();
 	this->trayManager->createIcon ( QIcon ( ":/images/tray_d.png" ), "Simon" );
+
+
+	this->trayManager->createIcon ( QIcon ( ":/images/tray.png" ), "Simon" );
 
 	shownDialogs = 0;
 	QMainWindow ( parent,flags );
 
 	ui.setupUi ( this );
+
 
 	//Preloads all Dialogs
 	guessChildTriggers ( ( QObject* ) this );
@@ -190,6 +195,10 @@ void SimonView::setupSignalSlots()
 	QObject::connect ( this->trayManager, SIGNAL ( clicked() ), this, SLOT ( toggleVisibility() ) );
 	QObject::connect ( ui.pbActivision, SIGNAL ( clicked() ), this, SLOT ( toggleActivation() ) );
 	QObject::connect ( this->trayManager, SIGNAL ( middleClicked() ), this, SLOT ( toggleActivation() ) );
+	
+	//TextSync
+	QObject::connect(ui.pbSyncTest, SIGNAL(clicked()),control, SLOT(sendFileToSyncer()));
+	//______
 
 
 	connect ( wordList, SIGNAL ( showAddWordDialog() ), this,

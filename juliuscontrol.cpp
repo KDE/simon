@@ -18,6 +18,10 @@
 #include <QDataStream>
 #include <QCryptographicHash>
 #include "settings.h"
+#include <QStringList>
+
+#include <qDebug>
+
 /**
  *	@brief Constructor
  *	
@@ -101,6 +105,9 @@ void JuliusControl::timeoutReached()
 	socket->abort();
 }
 
+
+#include <QMessageBox>
+
 /**
  *	@brief Process the request
  *	
@@ -112,10 +119,13 @@ void JuliusControl::messageReceived()
 {
 	QByteArray msgByte = socket->readAll();
 	
+	
+	
 	QDataStream msg(&msgByte, QIODevice::ReadOnly);
 	
 	qint32 type;
 	msg >> type;
+	
 	switch (type)
 	{
 		case 1:
@@ -172,6 +182,51 @@ void JuliusControl::messageReceived()
 			emit recognised(word, sampa, samparaw);
 		}
 			break;
+		//TextSync the data of the syncprocess is here aviable
+		case 99990:
+		{
+			QString timestamp;
+			QString text;
+			QString filename;
+			int count;
+
+			msg >> filename;
+
+			msg >> count;
+			
+			QFile *datafile = new QFile(filename);
+			QFile *stampfile = new QFile("shadow"+filename);
+			
+			if(!datafile->open(QIODevice::WriteOnly))
+			{
+				QMessageBox::critical(NULL,"Fehler","Fehler beim lesen der Daten-Datei");
+			}
+			if(!stampfile->open(QIODevice::WriteOnly))
+			{
+				QMessageBox::critical(NULL,"Fehler","Fehler beim lesen der Shadow-Datei");
+			}
+
+			
+			QByteArray data, stamp;
+			
+			for (int i = 0; i<count; ++i)
+			{
+				msg >> text >> timestamp;
+				data.append(text);
+				stamp.append(timestamp);
+				stamp.append("\n");
+				qDebug() << "Client bekommt: " <<text << " : " << timestamp;
+			}
+			datafile->flush();
+			datafile->write(data);
+			datafile->close();
+			stampfile->flush();
+			stampfile->write(stamp);
+			stampfile->close();
+			
+		}
+			break;
+		//_______
 	}
 }
 
@@ -248,6 +303,63 @@ void JuliusControl::login()
 
 	socket->write(toWrite);
 }
+
+
+//TextSync / just a testdata is send to the mergeprocess
+void JuliusControl::sendSyncFile(QString filename)
+{
+	
+	QByteArray block;
+	QDataStream out(&block, QIODevice::WriteOnly);
+
+	out << qint32(99990);
+	
+	
+	QFile *file = new QFile(filename);
+	
+	out << filename;
+	
+	QFile *datafile = new QFile(filename);
+	QFile *stampfile = new QFile("shadow"+filename);
+	
+	if(!datafile->open(QIODevice::ReadOnly))
+	{
+		QMessageBox::critical(NULL,"Fehler","Fehler beim lesen der Daten-Datei");
+	}
+	if(!stampfile->open(QIODevice::ReadOnly))
+	{
+		QMessageBox::critical(NULL,"Fehler","Fehler beim lesen der Shadow-Datei");
+	}
+
+	QByteArray datareader, stampreader;
+
+	int i = 0;
+
+#include <qDebug>
+
+	while(!datafile->atEnd())
+	{
+		datareader = datafile->readLine();
+		stampreader = stampfile->readLine();
+		stampreader = stampreader.remove(23,2);
+		
+		QString data(datareader);
+		QString stamp(stampreader);
+		out  << data << stamp;
+		++i;
+	}
+	
+	//marks the end of the file
+	out << QString("[file_end]") << QString("0000.00.00-00:00:00:000");
+	
+	out.device()->seek(0);
+
+	socket->write(block);
+}
+//_____
+
+
+
 /**
  *	@brief Destructor
  *	

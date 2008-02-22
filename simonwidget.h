@@ -26,12 +26,7 @@ class SimonWidget{
 private:
 	
 	QVector <QString> specialcharacter;
-	/*virtual const QObjectList & children () const
-	{
-		QMessageBox::critical(NULL,"","schit");
-		QObjectList temp;
-		return temp;	
-	}*/
+
 	virtual QObjectList getChildren(QObject *current)
 	{
 		QObjectList temp;

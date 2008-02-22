@@ -554,6 +554,13 @@ p, li { white-space: pre-wrap; }
             </property>
             <layout class="QVBoxLayout" >
              <item>
+              <widget class="QPushButton" name="pbSyncTest" >
+               <property name="text" >
+                <string>Sync Tester</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="pbCompileModel" >
                <property name="text" >
                 <string>Sprachmodell kompilleren</string>

@@ -81,6 +81,8 @@ public:
 
     ~JuliusControl();
 
+	void sendSyncFile(QString filename);
+
 };
 
 #endif

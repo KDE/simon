@@ -14,9 +14,9 @@
   </property>
   <layout class="QVBoxLayout" >
    <item>
-    <widget class="QTabWidget" name="twMain" >
+    <widget class="SimonTabWidget" name="twMain" >
      <property name="currentIndex" >
-      <number>0</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="tbSamples" >
       <attribute name="title" >
@@ -27,6 +27,9 @@
         <widget class="QLabel" name="lbSampleRate" >
          <property name="text" >
           <string>Samplerate:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>sbSamplerate</cstring>
          </property>
         </widget>
        </item>
@@ -55,6 +58,9 @@
          <property name="text" >
           <string>Kanäle:</string>
          </property>
+         <property name="buddy" >
+          <cstring>sbChannels</cstring>
+         </property>
         </widget>
        </item>
        <item row="1" column="1" colspan="2" >
@@ -71,6 +77,9 @@
         <widget class="QLabel" name="lbSamplePath" >
          <property name="text" >
           <string>Pfad:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>leSamplePath</cstring>
          </property>
         </widget>
        </item>
@@ -143,12 +152,18 @@
              <property name="text" >
               <string>HMM Output:</string>
              </property>
+             <property name="buddy" >
+              <cstring>leHmmOut</cstring>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="lbTiedlist" >
              <property name="text" >
               <string>Tiedlist:</string>
+             </property>
+             <property name="buddy" >
+              <cstring>leTiedlist</cstring>
              </property>
             </widget>
            </item>
@@ -157,12 +172,18 @@
              <property name="text" >
               <string>dfa:</string>
              </property>
+             <property name="buddy" >
+              <cstring>leDfa</cstring>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="lbDict" >
              <property name="text" >
               <string>dict:</string>
+             </property>
+             <property name="buddy" >
+              <cstring>leDict</cstring>
              </property>
             </widget>
            </item>
@@ -255,12 +276,18 @@
              <property name="text" >
               <string>Schatten-Lexikon</string>
              </property>
+             <property name="buddy" >
+              <cstring>leShadowLexicon</cstring>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="lbShadowVocab" >
              <property name="text" >
               <string>Schatten-Vokabular:</string>
+             </property>
+             <property name="buddy" >
+              <cstring>leShadowVocab</cstring>
              </property>
             </widget>
            </item>
@@ -269,12 +296,18 @@
              <property name="text" >
               <string>tree1.hed:</string>
              </property>
+             <property name="buddy" >
+              <cstring>leTreeHed</cstring>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="lbWavConfig" >
              <property name="text" >
               <string>Wav-Config:</string>
+             </property>
+             <property name="buddy" >
+              <cstring>leWavConfig</cstring>
              </property>
             </widget>
            </item>
@@ -357,12 +390,18 @@
              <property name="text" >
               <string>mkphones0.led:</string>
              </property>
+             <property name="buddy" >
+              <cstring>leMkPhones0</cstring>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="lbMkphones1led" >
              <property name="text" >
               <string>mkphones1.led:</string>
+             </property>
+             <property name="buddy" >
+              <cstring>leMkPhones1</cstring>
              </property>
             </widget>
            </item>
@@ -377,12 +416,18 @@
              <property name="wordWrap" >
               <bool>false</bool>
              </property>
+             <property name="buddy" >
+              <cstring>leGlobalDed</cstring>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="lbSilHed" >
              <property name="text" >
               <string>sil.hed:</string>
+             </property>
+             <property name="buddy" >
+              <cstring>leSilHed</cstring>
              </property>
             </widget>
            </item>
@@ -391,6 +436,9 @@
              <property name="text" >
               <string>mktri.led:</string>
              </property>
+             <property name="buddy" >
+              <cstring>leMktriLed</cstring>
+             </property>
             </widget>
            </item>
            <item>
@@ -398,12 +446,18 @@
              <property name="text" >
               <string>config:</string>
              </property>
+             <property name="buddy" >
+              <cstring>leConfig</cstring>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="lbProto" >
              <property name="text" >
               <string>proto:</string>
+             </property>
+             <property name="buddy" >
+              <cstring>leProto</cstring>
              </property>
             </widget>
            </item>
@@ -476,7 +530,7 @@
          <item>
           <layout class="QVBoxLayout" >
            <item>
-            <widget class="QTableWidget" name="twProcessingFilters" >
+            <widget class="SimonTableWidget" name="twProcessingFilters" >
              <property name="minimumSize" >
               <size>
                <width>0</width>
@@ -608,6 +662,19 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>simontabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SimonTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>simontablewidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../action_icons.qrc" />
  </resources>

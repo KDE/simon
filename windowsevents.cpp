@@ -164,8 +164,6 @@ void WindowsEvents::click(int x, int y)
 	int clickx = x * 65535 / xsolution;
 	int clicky = y * 65535 / ysolution;
 	
-//	qDebug() << "Auflösung"<< "X: " <<  nScreenWidth << "Y:" << nScreenHeight;
-	
 	mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE,clickx,clicky,0,0);
 
 	mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
@@ -183,7 +181,6 @@ void WindowsEvents::click(int x, int y)
 void WindowsEvents::sendKey(unsigned short key /*unicode representation*/)
 {
 	int keyint = key;
-// 	qDebug() << "CHARTESTVALUE: " << key;
 	if (specialcodes->contains(keyint))
 	{
 		setModifierKey(VK_RMENU,false);
@@ -192,7 +189,6 @@ void WindowsEvents::sendKey(unsigned short key /*unicode representation*/)
 	sendChar(key);
 }
 
-//TODO
 /**
  * @brief 
  *
@@ -204,19 +200,16 @@ void WindowsEvents::sendKey(unsigned short key /*unicode representation*/)
 void WindowsEvents::sendShortcut(Shortcut shortcut)
 {
 	
-	//setModifierKey(shortcut.getModifiers(), true);
 	int modifier = shortcut.getModifiers();
 	if (modifier & KeyShift)
 	{	
 		setModifierKey(VK_SHIFT, true);
-// 		qDebug() << "SHIFT PRESSED";
 	}
 	if (modifier & KeyAlt)
 		setModifierKey(VK_MENU, true);
 	if (modifier & KeyStrg)
 	{
 		setModifierKey(VK_CONTROL, true);
-// 		qDebug() << "STRG PRESSED";
 	}
 	if (modifier & KeySuper)
 		setModifierKey(VK_LWIN, true);
@@ -237,10 +230,6 @@ void WindowsEvents::sendShortcut(Shortcut shortcut)
 		sendKey(VK_PRINT);
 	if (action & KeyPause)
 		sendKey(VK_PAUSE);
-	/*if (action & KeyUndo)
-		sendKey("Undo");
-	if (action & KeyRedo)
-		sendKey("Redo");*/ //KEYS??
 	if (action & KeyEnter)
 		sendKey(VK_RETURN);
 

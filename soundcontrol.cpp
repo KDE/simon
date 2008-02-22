@@ -45,9 +45,10 @@ SoundDeviceList* SoundControl::getOutputDevices()
 	// Determine the number of devices available
 	unsigned int devices = audio.getDeviceCount();
 	
+	
 	// Scan through devices for various capabilities
 	RtAudio::DeviceInfo info;
-	for ( unsigned int i=0; i<devices; i++ )
+	for ( unsigned int i=0; i<devices+1; i++ )
 	{
 		try {
 			info = audio.getDeviceInfo ( i );
@@ -93,17 +94,20 @@ SoundDeviceList* SoundControl::getInputDevices()
 	
 	// Scan through devices for various capabilities
 	RtAudio::DeviceInfo info;
-	for ( unsigned int i=0; i<devices; i++ )
+	for ( unsigned int i=0; i<devices+1; i++ )
 	{
 		try {
 			info = audio.getDeviceInfo ( i );
 		} catch (RtError &e)
 		{
-// 			e.printMessage();
+			e.printMessage();
 		}
 	
 		if ( info.probed == true )
 		{
+			qDebug() << "Name: " << info.name.c_str();
+			qDebug() << "Input: " << info.inputChannels;
+			qDebug() << "Output: " << info.outputChannels;
 			if (info.inputChannels > 0)
 			{
 			// Print, for example, the maximum number of output channels for each device

@@ -64,6 +64,11 @@ public slots:
 	void wordRecognised(QString word,QString sampa,QString samparaw);
 	void abortConnecting();
 	void errorConnecting(QString error);
+
+	//TextSync
+	void sendFileToSyncer();
+	//_______
+
 private slots:
 	void juliusError(QString error,bool skippable);
 	void juliusWarning(QString warning);
@@ -89,6 +94,7 @@ public:
 
 	bool toggleActivition();
 	bool getActivitionState();
+	
 
 	SimonControl();
 	

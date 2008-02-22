@@ -35,16 +35,15 @@ void SimonListWidget::showLineEdit()
 
 void SimonListWidget::moveLineEdit()
 {
-	//QMessageBox::information(this,"","");
 	line->move(this->width() - line->width()-10,this->height() - line->height()-10);
-	//QCoreApplication::processEvents();
-	//line->move(this->width() - line->width()-10,this->height() - line->height()-10);
 }
+
 
 void SimonListWidget::resizeEvent ( QResizeEvent * event )
 {
 	this->moveLineEdit();
 }
+
 
 void SimonListWidget::selectItem()
 {
@@ -72,11 +71,9 @@ void SimonListWidget::filterEntries(QString text)
 	int i = 0;
 	this->redFlag = true;
 	
-	//setUpdatesEnabled (false) ;
 	if (text == "")
 	{
 		this->redFlag = false;	
-		//this->setCurrentItem(this->item(0));
 		controlRedFlag();
 		showAllEntries();
 		return;
@@ -85,7 +82,6 @@ void SimonListWidget::filterEntries(QString text)
 	{
 		if(this->item(i)->text().startsWith(text, Qt::CaseInsensitive))
 		{
-			//this->setCurrentItem(this->item(i)+1);
 			this->item(i)->setHidden(false);
 			//return;
 			this->redFlag = false;
@@ -96,7 +92,6 @@ void SimonListWidget::filterEntries(QString text)
 		}
 	}
 	controlRedFlag();
-	//setUpdatesEnabled (true);
 }
 
 void SimonListWidget::controlRedFlag()
@@ -138,17 +133,14 @@ void SimonListWidget::keyPressEvent ( QKeyEvent * event )
 		return;
 	}
 	
-	//QString gugu = event->text();
-	//QMessageBox::information(this,"",event->text());
+
 	char c;
 	QByteArray array = event->text().toLatin1();
 	c = *array.data();
-	//QMessageBox::information(this,"","GO GO GO");
 	if(!((c<=126) && (c>=33)))
 	{	
 		return;
 	}	
-	// 65 122
 	if(c == '\n')
 	{
 		return;
