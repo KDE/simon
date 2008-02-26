@@ -115,8 +115,8 @@ HEADERS += simonview.h \
 	   recwidget.h \
  quickdownloader.h \
  xmltrainingtextlist.h \
- importtrainingtextremoteplacepage.h \
- importtrainingtextlocalplacepage.h \
+ importtrainingtextremotepage.h \
+ importtrainingtextlocalpage.h \
  importtrainingtextselectsourcepage.h \
  importtrainingtextworkingpage.h \
  logger.h \
@@ -260,8 +260,8 @@ SOURCES += main.cpp \
 	   recwidget.cpp \
  quickdownloader.cpp \
  xmltrainingtextlist.cpp \
- importtrainingtextremoteplacepage.cpp \
- importtrainingtextlocalplacepage.cpp \
+ importtrainingtextremotepage.cpp \
+ importtrainingtextlocalpage.cpp \
  importtrainingtextselectsourcepage.cpp \
  importtrainingtextworkingpage.cpp \
  importtrainingdirectory.cpp \

@@ -23,10 +23,10 @@
 #include <QFileDialog>
 #include "quickdownloader.h"
 #include "xmltrainingtextlist.h"
-#include "importlocalwizardpage.h"
-#include "importremotewizardpage.h"
-#include "importworkingwizardpage.h"
-#include "selectsourcewizardpage.h"
+#include "importtrainingtextlocalpage.h"
+#include "importtrainingtextremotepage.h"
+#include "importtrainingtextworkingpage.h"
+#include "importtrainingtextselectsourcepage.h"
 #include "xmltrainingtext.h"
 
 
@@ -100,7 +100,7 @@ QWizardPage* ImportTrainingTexts::createIntroPage()
  */
 QWizardPage* ImportTrainingTexts::createRemoteImportPage()
 {
-	ImportRemoteWizardPage *remoteImport = new ImportRemoteWizardPage(this);
+	ImportTrainingTextRemotePage *remoteImport = new ImportTrainingTextRemotePage(this);
 	
 	
 	return remoteImport;
@@ -113,7 +113,7 @@ QWizardPage* ImportTrainingTexts::createRemoteImportPage()
  */
 QWizardPage* ImportTrainingTexts::createLocalImportPage()
 {
-	ImportLocalWizardPage *localImport = new ImportLocalWizardPage(this);
+	ImportTrainingTextLocalPage *localImport = new ImportTrainingTextLocalPage(this);
 	
 	return localImport;
 }
@@ -129,7 +129,7 @@ QWizardPage* ImportTrainingTexts::createLocalImportPage()
  */
 QWizardPage* ImportTrainingTexts::createSourcePage()
 {
-	SelectSourceWizardPage *source = new SelectSourceWizardPage(this);
+	ImportTrainingTextSelectSourcePage *source = new ImportTrainingTextSelectSourcePage(this);
 	return source;
 }
 
@@ -140,7 +140,7 @@ QWizardPage* ImportTrainingTexts::createSourcePage()
  */
 QWizardPage* ImportTrainingTexts::createWorkingPage()
 {
-	ImportWorkingWizardPage *working= new ImportWorkingWizardPage(this);
+	ImportTrainingTextWorkingPage *working= new ImportTrainingTextWorkingPage(this);
 	return working;
 }
 

@@ -32,7 +32,6 @@ void GuiEvents::registerControl(QString trigger, QObject* receiver, const char* 
 }
 
 
-#include <qDebug>
 void GuiEvents::doAction(QString action, QObject * parentItem)
 {
 	QRegExp expression("Kalender *");
@@ -59,12 +58,12 @@ void GuiEvents::doAction(QString action, QObject * parentItem)
 			
 			int count = list.at(list.count()-1).count();
 			
-			qDebug() << count << " ; " << list.at(list.count()-1);
+// 			qDebug() << count << " ; " << list.at(list.count()-1);
 			
 			QString temp = action;  
 			temp = temp.remove(action.count()-count,count);
 			temp = temp.trimmed();
-			qDebug() << action.count()-count << " : " << temp << " == " << keyList.at(i)->trigger;
+// 			qDebug() << action.count()-count << " : " << temp << " == " << keyList.at(i)->trigger;
 			if(temp == keyList.at(i)->trigger)
 			{
 				key = keyList.at(i);

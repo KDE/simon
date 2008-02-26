@@ -9,7 +9,7 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include "selectsourcewizardpage.h"
+#include "importtrainingtextselectsourcepage.h"
 
 #include <QRadioButton>
 

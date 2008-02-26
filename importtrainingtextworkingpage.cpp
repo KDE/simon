@@ -10,7 +10,7 @@
 //
 //
 
-#include "importworkingwizardpage.h"
+#include "importtrainingtextworkingpage.h"
 #include "logger.h"
 #include <QObject>
 #include <QString>
@@ -21,7 +21,7 @@
 #include <QFileInfo>
 #include <QTextStream>
 #include "xmltrainingtext.h"
-#include "importlocalwizardpage.h"
+#include "importtrainingtextlocalpage.h"
 #include "settings.h"
 #include "xmltrainingtextlist.h"
 
@@ -31,7 +31,7 @@
  * \author Peter Grasch
  * @param parent sets the parent to the given parent
  */
-ImportWorkingWizardPage::ImportWorkingWizardPage(QWidget *parent) : QWizardPage(parent)
+ImportTrainingTextWorkingPage::ImportTrainingTextWorkingPage(QWidget *parent) : QWizardPage(parent)
 {
 	setTitle(tr("Text wird hinzugefügt"));
 	ui.setupUi(this);
@@ -42,7 +42,7 @@ ImportWorkingWizardPage::ImportWorkingWizardPage(QWidget *parent) : QWizardPage(
  * @param path The path to import from (this can be a url too)
  * \author Peter Grasch
  */
-void ImportWorkingWizardPage::startImport(QString path)
+void ImportTrainingTextWorkingPage::startImport(QString path)
 {
 	if (path.startsWith("http"))
 	{
@@ -58,7 +58,7 @@ void ImportWorkingWizardPage::startImport(QString path)
 }
 
 
-void ImportWorkingWizardPage::initializePage()
+void ImportTrainingTextWorkingPage::initializePage()
 {
 	ui.pbProgress->setMaximum(0);
 	if (field("importTrainingTextLocal").toBool())
@@ -73,7 +73,7 @@ void ImportWorkingWizardPage::initializePage()
  * \author Peter Grasch
  * @param path the path to the new text
  */
-void ImportWorkingWizardPage::processText(QString path)
+void ImportTrainingTextWorkingPage::processText(QString path)
 {
 	QFileInfo fi = QFileInfo(path);
 	QFile::copy(path, Settings::getS("PathToTexts")+"/"+fi.fileName());
@@ -91,7 +91,7 @@ void ImportWorkingWizardPage::processText(QString path)
  * @param path Path to the textfile
  * @author Peter Grasch
  */
-void ImportWorkingWizardPage::parseFile(QString path)
+void ImportTrainingTextWorkingPage::parseFile(QString path)
 {
 	ui.pbProgress->setMaximum(1);
 	ui.pbProgress->setValue(0);

@@ -20,8 +20,6 @@
 #include "settings.h"
 #include <QStringList>
 
-#include <qDebug>
-
 /**
  *	@brief Constructor
  *	
@@ -315,7 +313,7 @@ void JuliusControl::sendSyncFile(QString filename)
 	out << qint32(99990);
 	
 	
-	QFile *file = new QFile(filename);
+// 	QFile *file = new QFile(filename);
 	
 	out << filename;
 	
@@ -334,8 +332,6 @@ void JuliusControl::sendSyncFile(QString filename)
 	QByteArray datareader, stampreader;
 
 	int i = 0;
-
-#include <qDebug>
 
 	while(!datafile->atEnd())
 	{

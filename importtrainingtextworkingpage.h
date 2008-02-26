@@ -9,8 +9,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#ifndef IMPORTWORKINGWIZARDPAGE_H
-#define IMPORTWORKINGWIZARDPAGE_H
+#ifndef IMPORTTRAININGTEXTWORKINGPAGE_H
+#define IMPORTTRAININGTEXTWORKINGPAGE_H
 
 #include <QWizardPage>
 #include "ui_importtrainingtextworkingpage.h"
@@ -18,12 +18,12 @@ class QString;
 class QWidget;
 
 /**
- * \class ImportWorkingWizardPage
+ * \class ImportTrainingTextWorkingPage
  * \brief Imports the given trainingstext
  * \author Peter Grasch
  * \version 0.1
  */
-class ImportWorkingWizardPage : public QWizardPage {
+class ImportTrainingTextWorkingPage : public QWizardPage {
 	Q_OBJECT 
 	private:
 		Ui::ImportTextWorkingPage ui;
@@ -34,7 +34,7 @@ class ImportWorkingWizardPage : public QWizardPage {
 
 		void initializePage();
 	public:
-		ImportWorkingWizardPage(QWidget* parent);
+		ImportTrainingTextWorkingPage(QWidget* parent);
 };
 
 #endif
