@@ -9,7 +9,7 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include "importremotewizardpage.h"
+#include "importtrainingtextremotepage.h"
 #include "logger.h"
 #include "settings.h"
 #include <QMessageBox>
@@ -18,7 +18,7 @@
  * \brief Constructor
  * @param parent Sets the parent of the page to the given parent
  */
-ImportRemoteWizardPage::ImportRemoteWizardPage(QWidget *parent) : QWizardPage(parent)
+ImportTrainingTextRemotePage::ImportTrainingTextRemotePage(QWidget *parent) : QWizardPage(parent)
 {
 	setTitle(tr("Importieren aus dem Internet"));
 	ui.setupUi(this);
@@ -29,7 +29,7 @@ ImportRemoteWizardPage::ImportRemoteWizardPage(QWidget *parent) : QWizardPage(pa
  * \brief Fetches the list of trainingtexts using the QuickDownloader
  * \author Peter Grasch
  */
-void ImportRemoteWizardPage::initializePage()
+void ImportTrainingTextRemotePage::initializePage()
 {
 	downloader = new QuickDownloader(this);
 
@@ -45,7 +45,7 @@ void ImportRemoteWizardPage::initializePage()
  * @param path the path to import from
  * \see fetchList()
  */
-void ImportRemoteWizardPage::importList(QString path)
+void ImportTrainingTextRemotePage::importList(QString path)
 {
 	XMLTrainingTextList *tlist = new XMLTrainingTextList(path);
 	if (!tlist->load(path))
@@ -64,6 +64,6 @@ void ImportRemoteWizardPage::importList(QString path)
 	downloader->deleteLater();
 }
 
-ImportRemoteWizardPage::~ImportRemoteWizardPage()
+ImportTrainingTextRemotePage::~ImportTrainingTextRemotePage()
 {
 }

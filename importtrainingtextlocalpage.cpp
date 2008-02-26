@@ -9,7 +9,7 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include "importlocalwizardpage.h"
+#include "importtrainingtextlocalpage.h"
 
 #include <QLineEdit>
 #include <QVariant>
@@ -27,7 +27,7 @@
  * @param parent 
  * Parent of the wizardpage
  */
-ImportLocalWizardPage::ImportLocalWizardPage(QWidget *parent) : QWizardPage(parent)
+ImportTrainingTextLocalPage::ImportTrainingTextLocalPage(QWidget *parent) : QWizardPage(parent)
 {
 	ui.setupUi(this);
 	setTitle(tr("Importieren aus Textdatei"));
@@ -44,7 +44,7 @@ ImportLocalWizardPage::ImportLocalWizardPage(QWidget *parent) : QWizardPage(pare
  * Shows a dialog that prompts the user to open a Textfile 
  * (Filter: *.txt)
  */
-void ImportLocalWizardPage::setLocalSourceFile()
+void ImportTrainingTextLocalPage::setLocalSourceFile()
 {
 
 	QStringList files = QFileDialog::getOpenFileNames(this, tr("Zu importierende Textdateien öffnen"), QDir::currentPath(), tr("Textdateien (*.txt)"));

@@ -22,13 +22,13 @@
 
 class QuickDownloader;
 /**
- * \class ImportRemoteWizardPage
+ * \class ImportTrainingTextRemotePage
  * \author Peter Grasch
  * \version 0.1
  * \date 10.8.2007
  * \brief Displays the remote-importPage for the Trainingtexts
  */
-class ImportRemoteWizardPage : public QWizardPage {
+class ImportTrainingTextRemotePage : public QWizardPage {
 	Q_OBJECT
 	private:
 		QuickDownloader *downloader;
@@ -38,11 +38,11 @@ class ImportRemoteWizardPage : public QWizardPage {
 		
 	public:
 		void initializePage();
-		ImportRemoteWizardPage(QWidget* parent);
+		ImportTrainingTextRemotePage(QWidget* parent);
 		int nextId() const {
 			return 4;
 		}
-        ~ImportRemoteWizardPage();
+        ~ImportTrainingTextRemotePage();
 };
 
 #endif
