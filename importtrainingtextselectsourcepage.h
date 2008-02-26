@@ -9,8 +9,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#ifndef SELECTSOURCEWIZARDPAGE_H
-#define SELECTSOURCEWIZARDPAGE_H
+#ifndef IMPORTTRAININGTEXTSELECTSOURCEWIZARDPAGE_H
+#define IMPORTTRAININGTEXTSELECTSOURCEWIZARDPAGE_H
 
 #include <QWizardPage>
 #include "ui_importtrainingtextselectsourcepage.h"
