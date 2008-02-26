@@ -37,6 +37,7 @@ public slots:
 	void extractingFinishing(int exitCode);
 public:
     Bunzip(QObject *parent=0);
+    ~Bunzip();
 
 
 };

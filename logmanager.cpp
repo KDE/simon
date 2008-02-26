@@ -268,6 +268,7 @@ void LogManager::getAll()
 LogManager::~LogManager()
 {
 	this->entries->clear();
+    delete entries;
 }
 
 

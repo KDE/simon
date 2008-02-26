@@ -19,25 +19,23 @@
 *   @author Susanne Tschernegg
 *   @param QWidget *parent
 */
-ImportProgramWizard::ImportProgramWizard(QWidget* parent): SimonWizard(parent)
+ImportProgramWizard::ImportProgramWizard ( QWidget* parent ) : SimonWizard ( parent )
 {
-    oldId=0;
-    this->addPage(createIntroPage());
-	this->addPage(createSelectProgramPage());
-	this->addPage(createConfigureProgramPage());
-    ImportProgramPage *ipp = createImportProgramPage();
-    this->addPage(ipp);
-    this->addPage(createFinishedPage());
-    
-    //(connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
-    
-	setWindowTitle("Programm hinzufügen");
-    setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/banners/importprogram.png")));
-    
-    connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(idChanged(int)));
-    connect(ipp, SIGNAL(commandCreated(Command*)), this, SIGNAL(commandCreated(Command*)));
-   // connect(ipp, SIGNAL(commandCreated(Command*)), this, SLOT(next()));
-    connect(this, SIGNAL(finished(int)), this, SLOT(restart()));
+	oldId=0;
+	this->addPage ( createIntroPage() );
+	this->addPage ( createSelectProgramPage() );
+	this->addPage ( createConfigureProgramPage() );
+	ImportProgramPage *ipp = createImportProgramPage();
+	this->addPage ( ipp );
+	this->addPage ( createFinishedPage() );
+
+	setWindowTitle ( "Programm hinzufügen" );
+	setPixmap ( QWizard::WatermarkPixmap, QPixmap ( tr ( ":/images/banners/importprogram.png" ) ) );
+
+	connect ( this, SIGNAL ( currentIdChanged ( int ) ), this, SLOT ( idChanged ( int ) ) );
+	connect ( ipp, SIGNAL ( commandCreated ( Command* ) ), this, SIGNAL ( commandCreated ( Command* ) ) );
+	connect(ipp, SIGNAL(commandCreated(Command*)), this, SLOT(next()));
+	connect ( this, SIGNAL ( finished ( int ) ), this, SLOT ( restart() ) );
 }
 
 /**
@@ -55,15 +53,15 @@ ImportProgramWizard::~ImportProgramWizard()
 */
 QWizardPage* ImportProgramWizard::createIntroPage()
 {
-    QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle("Hinzufügen des Programmes");
-	QLabel *label = new QLabel(intro);
-	label->setText("Hier kann ein Programm den Kommandos - die Simon kennt - hinzugefügt werden.");
-	label->setWordWrap(true);
-	QVBoxLayout *layout = new QVBoxLayout(intro);
-	layout->addWidget(label);
-	intro->setLayout(layout);
-	
+	QWizardPage *intro = new QWizardPage ( this );
+	intro->setTitle ( "Hinzufügen des Programmes" );
+	QLabel *label = new QLabel ( intro );
+	label->setText ( "Hier kann ein Programm den Kommandos - die Simon kennt - hinzugefügt werden." );
+	label->setWordWrap ( true );
+	QVBoxLayout *layout = new QVBoxLayout ( intro );
+	layout->addWidget ( label );
+	intro->setLayout ( layout );
+
 	return intro;
 }
 
@@ -75,7 +73,7 @@ QWizardPage* ImportProgramWizard::createIntroPage()
 */
 SelectProgramPage* ImportProgramWizard::createSelectProgramPage()
 {
-    return new SelectProgramPage(this);
+	return new SelectProgramPage ( this );
 }
 
 /**
@@ -86,7 +84,7 @@ SelectProgramPage* ImportProgramWizard::createSelectProgramPage()
 */
 ConfigureProgramPage* ImportProgramWizard::createConfigureProgramPage()
 {
-    return new ConfigureProgramPage(this);
+	return new ConfigureProgramPage ( this );
 }
 
 /**
@@ -97,7 +95,7 @@ ConfigureProgramPage* ImportProgramWizard::createConfigureProgramPage()
 */
 ImportProgramPage* ImportProgramWizard::createImportProgramPage()
 {
-    return new ImportProgramPage(this);
+	return new ImportProgramPage ( this );
 }
 
 /**
@@ -108,17 +106,18 @@ ImportProgramPage* ImportProgramWizard::createImportProgramPage()
 */
 QWizardPage* ImportProgramWizard::createFinishedPage()
 {
-    QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(tr("Hinzufügen des Programmes"));
-	QLabel *label = new QLabel(finished);
-	label->setText(tr("Klicken Sie auf \"Fertigstellen\" um den Wizard abzuschließen."));
-	label->setWordWrap(true);
-	QVBoxLayout *layout = new QVBoxLayout(finished);
-	layout->addWidget(label);
-	finished->setLayout(layout);
-	
+	QWizardPage *finished = new QWizardPage ( this );
+	finished->setTitle ( tr ( "Hinzufügen des Programmes" ) );
+	QLabel *label = new QLabel ( finished );
+	label->setText ( tr ( "Klicken Sie auf \"Fertigstellen\" um den Wizard abzuschließen." ) );
+	label->setWordWrap ( true );
+	QVBoxLayout *layout = new QVBoxLayout ( finished );
+	layout->addWidget ( label );
+	finished->setLayout ( layout );
+
 	return finished;
 }
+
 
 /**
 *   \brief slot: the signal is emited this class
@@ -127,31 +126,31 @@ QWizardPage* ImportProgramWizard::createFinishedPage()
 *   @param int newId
 *       holds the id of the current wizardpage
 */
-void ImportProgramWizard::idChanged(int newId)
+void ImportProgramWizard::idChanged ( int newId )
 {
-    if((oldId==1) && (newId==2))
-    {
-        SelectProgramPage *spp = dynamic_cast<SelectProgramPage*>(page(1));
-        if(!spp)
-            return;
-        ConfigureProgramPage *cpp = dynamic_cast<ConfigureProgramPage*>(page(2));
-        cpp->init(spp->getIcon(), spp->getName(), spp->getExecPath(), spp->getWorkingDirectory());
-    }
-    else if(((oldId==2) && (newId==3)) || ((oldId==3) && (newId==3)))
-    {
-        ConfigureProgramPage *cpp = dynamic_cast<ConfigureProgramPage*>(page(2));
-        if(!cpp)
-            return;
-        ImportProgramPage *ipp = dynamic_cast<ImportProgramPage*>(page(3));
-        ipp->createCommand(cpp->getIcon(), cpp->getName(), cpp->getExec(), cpp->getWorkingDir());
-        if(oldId<=newId)next();
-    }
-    else if((oldId==4) && (newId<oldId))
-    {
-        restart();
-        next();
-    }
-    oldId = newId;
+	if ( ( oldId==1 ) && ( newId==2 ) )
+	{
+		SelectProgramPage *spp = dynamic_cast<SelectProgramPage*> ( page ( 1 ) );
+		if ( !spp )
+			return;
+		ConfigureProgramPage *cpp = dynamic_cast<ConfigureProgramPage*> ( page ( 2 ) );
+		cpp->init ( spp->getIcon(), spp->getName(), spp->getExecPath(), spp->getWorkingDirectory() );
+	}
+	else if ( ( ( oldId==2 ) && ( newId==3 ) ) || ( ( oldId==3 ) && ( newId==3 ) ) )
+	{
+		ConfigureProgramPage *cpp = dynamic_cast<ConfigureProgramPage*> ( page ( 2 ) );
+		if ( !cpp )
+			return;
+		ImportProgramPage *ipp = dynamic_cast<ImportProgramPage*> ( page ( 3 ) );
+		ipp->createCommand ( cpp->getIcon(), cpp->getName(), cpp->getExec(), cpp->getWorkingDir() );
+		if ( oldId<=newId ) next();
+	}
+	else if ( ( oldId==4 ) && ( newId<oldId ) )
+	{
+		restart();
+		next();
+	}
+	oldId = newId;
 }
 
 /**
@@ -162,14 +161,14 @@ void ImportProgramWizard::idChanged(int newId)
 *   @param bool change
 *       holds wheater the name has changed or not
 */
-void ImportProgramWizard::changeName(bool change)
+void ImportProgramWizard::changeName ( bool change )
 {
-    if(!change)
-    {
-        done(-1);
-    }
-    else
-    {
-        back();
-    }
+	if ( !change )
+	{
+		done ( -1 );
+	}
+	else
+	{
+		back();
+	}
 }

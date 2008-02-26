@@ -32,7 +32,10 @@
  * @param parent sets the parent to the given parent
  */
 ImportWorkingWizardPage::ImportWorkingWizardPage(QWidget *parent) : QWizardPage(parent)
-{ }
+{
+	setTitle(tr("Text wird hinzugefügt"));
+	ui.setupUi(this);
+}
 
 /**
  * \brief Sets the path to the given Path
@@ -53,6 +56,17 @@ void ImportWorkingWizardPage::startImport(QString path)
 		parseFile(path);
 	}
 }
+
+
+void ImportWorkingWizardPage::initializePage()
+{
+	ui.pbProgress->setMaximum(0);
+	if (field("importTrainingTextLocal").toBool())
+	{
+		startImport(field("importTrainingTextLFilename").toString());
+	} else startImport(field("textDownloadURL").toString());
+}
+
 
 /**
  * \brief Processes the text at the given path 
@@ -79,6 +93,8 @@ void ImportWorkingWizardPage::processText(QString path)
  */
 void ImportWorkingWizardPage::parseFile(QString path)
 {
+	ui.pbProgress->setMaximum(1);
+	ui.pbProgress->setValue(0);
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly))
 		return;
@@ -120,10 +136,10 @@ void ImportWorkingWizardPage::parseFile(QString path)
 
 	QString xmlPath = Settings::getS("PathToTexts")+"/"+fi.fileName().left(fi.fileName().lastIndexOf("."))+".xml";
 	XMLTrainingText *text = new XMLTrainingText(xmlPath);
-	text->setTitle(field("Textname").toString());
+	text->setTitle(field("importTrainingTextLTextname").toString());
 	text->addPages(sents);
 	text->save(xmlPath);
 	delete text;
-	
-	wizard()->next();
+	ui.pbProgress->setValue(1);
+// 	wizard()->next();
 }

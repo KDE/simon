@@ -18,8 +18,12 @@
  * \author Peter Grasch
  * @param parent the parent of the qwizardpage
  */
-SelectSourceWizardPage::SelectSourceWizardPage(QWidget *parent) : QWizardPage(parent)
-{ }
+ImportTrainingTextSelectSourcePage::ImportTrainingTextSelectSourcePage(QWidget *parent) : QWizardPage(parent)
+{
+	ui.setupUi(this);
+	setTitle(tr("Auswahl der Quelle"));
+	registerField("importTrainingTextLocal", ui.rbLocal);
+}
 
 /**
  * \brief The next id of the wizard
@@ -27,12 +31,16 @@ SelectSourceWizardPage::SelectSourceWizardPage(QWidget *parent) : QWizardPage(pa
  * If local: 2, else 3
  * @return 
  */
-int SelectSourceWizardPage::nextId() const
+int ImportTrainingTextSelectSourcePage::nextId() const
 {
-	if (this->local->isChecked())
+	if (ui.rbLocal->isChecked())
 	{
 		return 2;
 	} else {
 		return 3;
 	}
+}
+
+ImportTrainingTextSelectSourcePage::~ImportTrainingTextSelectSourcePage()
+{
 }

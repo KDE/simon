@@ -49,12 +49,13 @@ private:
 	ImportDictView *importDictView; //!< Provides the Interface to import a dictionary
 	
 	void initializeItems();
-	void readVocab();
 	void setDirty ( bool dirty );
 
 signals:
-	void showAddWordDialog();
 	void wordlistLoaded();
+
+private slots:
+	void readVocab();
 
 public slots:
 	void abortInsertion() { abortVocabInsertion = true; }
@@ -72,7 +73,6 @@ public slots:
 	void filterListbyPattern(QString filter="");
 	void clearSearchText();
 	void insertVocab(WordList *vocab);
-	void askToSave();
 	void show();
 	void hide();
 	void showImportDictDialog();

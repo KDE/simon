@@ -28,7 +28,7 @@ class QWizardPage;
  * \version 0.1
 */
 class ImportTrainingTexts : public QWizard{
-	
+
 	Q_OBJECT
 private:
 	QFileDialog *fd;
@@ -48,9 +48,6 @@ public:
     QWizardPage* createFinishedPage();
 
     ~ImportTrainingTexts();
-
-public slots:
-	void idChanged(int id);
 
 };
 

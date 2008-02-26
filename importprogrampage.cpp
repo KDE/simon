@@ -39,7 +39,11 @@ ImportProgramPage::ImportProgramPage(QWidget* parent): QWizardPage(parent)
 *   @author Susanne Tschernegg
 */
 ImportProgramPage::~ImportProgramPage()
-{}
+{
+    vboxLayout->deleteLater();
+    label->deleteLater();
+    progressbar->deleteLater();
+}
 
 /**
 *   \brief returns, wheter the importProgramPage is completed or not.

@@ -110,5 +110,6 @@ void QuickUnpacker::errorOccured(QString err)
  */
 QuickUnpacker::~QuickUnpacker()
 {
-	
+    prog->deleteLater();
+    bunzip->deleteLater();
 }

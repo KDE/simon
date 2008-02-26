@@ -24,7 +24,8 @@ class QRadioButton;
 */
 class ImportDictSelectSourcePage : public QWizardPage
 {
-Q_OBJECT
+    Q_OBJECT
+    
 protected:
 	QRadioButton *none;
 public:

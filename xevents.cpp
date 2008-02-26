@@ -178,7 +178,6 @@ void XEvents::sendShortcut(Shortcut shortcut)
  */
 void XEvents::click(int x, int y)
 {
-	//IMPLEMENT ME
 	if (!display) return;
 	XTestFakeMotionEvent(display, 0, x, y, 10);
 	XTestFakeButtonEvent(display, 1, true, 10);
@@ -402,6 +401,7 @@ void XEvents::unsetModifier(int virtualKey)
  */
 XEvents::~XEvents()
 {
+    delete display;
 }
 
 

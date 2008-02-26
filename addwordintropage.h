@@ -29,7 +29,8 @@ class QLineEdit;
 */
 class AddWordIntroPage : public QWizardPage
 {
-Q_OBJECT
+    Q_OBJECT
+    
 public:
     AddWordIntroPage(QWidget* parent);
 	QString getName() { return field("name").toString(); }

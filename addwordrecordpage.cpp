@@ -32,11 +32,8 @@ AddWordRecordPage::AddWordRecordPage(QWidget *parent)
 	lay->addWidget(desc);
 
 
-	//dummys - the real widgets will be created once we know the files
-	rec1 = new RecWidget("", "dummy.wav", this);
-	rec2 = new RecWidget("", "dummy.wav", this);
-	lay->addWidget(rec1);
-	lay->addWidget(rec2);
+	rec1 = 0;
+	rec2 = 0;
 }
 
 QString AddWordRecordPage::getSamplesDir()
@@ -57,10 +54,17 @@ QString AddWordRecordPage::getSamplesDir()
  */
 void AddWordRecordPage::initializePage()
 {
-	lay->removeWidget(rec1);
-	lay->removeWidget(rec2);
-	rec1->deleteLater();
-	rec2->deleteLater();
+	rec1 = new RecWidget("hallo", "sodifj.wav", this);
+	if (rec1)
+	{
+		lay->removeWidget(rec1);
+		rec1->deleteLater();
+	}
+	if (rec2)
+	{
+		lay->removeWidget(rec2);
+		rec2->deleteLater();
+	}
 	QString example1=field("wordExample1").toString();
 	QString example2=field("wordExample2").toString();
 	QString dateTime = QDate::currentDate().toString ( "yyyy-MM-dd" ) +"_"+QTime::currentTime().toString("hh-mm-ss");

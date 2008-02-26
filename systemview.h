@@ -48,7 +48,6 @@ private slots:
 private:
 	Ui::SystemViewDlg ui;
 
-// 	QPushButton *pbApply, *pbReset;//, *pbOk;
 	void setupUi(QWidget *parent);
 
 public slots:

@@ -66,6 +66,7 @@ void ImportDict::run()
 	QStringList words = dict->getWords();
 	QStringList terminals = dict->getTerminals();
 	QStringList pronunciations = dict->getPronuncations();
+    dict->deleteLater();
 	
 	WordList* vocablist = new WordList();
 	

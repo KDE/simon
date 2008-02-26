@@ -76,7 +76,9 @@ void BOMPDict::load(QString path)
 				((double)maxProg)))*1000));
 		line = dictStream->readLine(1000);
 	}
+    delete dictStream;
 	dict->close();
+    dict->deleteLater();
 }
 
 

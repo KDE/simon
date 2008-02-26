@@ -48,8 +48,7 @@ SimonControl::SimonControl() : QObject ()
 
 	this->shortcutControl = ShortcutControl::getInstance();
 
-	this->atWatcher = new ATWatcher(this);
-
+	this->atWatcher = ATWatcher::getInstance();
 	
 	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));
 	QObject::connect(julius, SIGNAL(disconnected()), this, SLOT(disconnectedFromJulius()));
@@ -89,7 +88,10 @@ void SimonControl::juliusWarning(QString warning)
  */
 SimonControl::~SimonControl()
 {
-	
+    delete mic;
+    julius->deleteLater();
+    delete run;
+    delete eventHandler;
 }
 
 /**
@@ -150,8 +152,6 @@ void SimonControl::disconnectFromJulius()
 void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 {
 	QString keyword = Settings::get("Commands/Keyword").toString();
-// 	qDebug() << word;
-// 	qDebug() << Settings::get("Commands/Keyword").toString();
 	
 	if (word.startsWith(keyword))
 	{
@@ -320,8 +320,8 @@ bool SimonControl::activateSimon()
 	return this->active;
 }
 
-
 void SimonControl::sendFileToSyncer()
 {
 	julius->sendSyncFile("fileone.txt");
 }
+

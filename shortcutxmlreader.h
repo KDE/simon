@@ -37,7 +37,7 @@ public:
 
     bool save(QString path="");
 
-    ~ShortcutXMLReader() { }
+    ~ShortcutXMLReader();
 
 };
 

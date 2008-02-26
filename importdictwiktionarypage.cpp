@@ -202,6 +202,10 @@ void ImportDictWiktionaryPage::setFile()
  */
 ImportDictWiktionaryPage::~ImportDictWiktionaryPage()
 {
+	remoteList->deleteLater();
+	leWikiPath->deleteLater();
+	pbWikiSelectFolder->deleteLater();
+	lbWikiPath->deleteLater();
 }
 
 

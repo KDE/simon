@@ -33,7 +33,7 @@ public slots:
 public:
 	ImportTrainingDirectoryIntroPage(QWidget *parent=0);
 
-	~ImportTrainingDirectoryIntroPage() { }
+	~ImportTrainingDirectoryIntroPage();
 	void setPathEdit(QLineEdit *leDirectory) { this->leDirectory = leDirectory; }
 	QVariant getField(QString name) { return field(name);}
 

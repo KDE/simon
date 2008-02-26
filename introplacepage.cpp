@@ -49,4 +49,8 @@ IntroPlacePage::IntroPlacePage(QWidget* parent): QWizardPage(parent)
 *   @author Susanne Tschernegg
 */
 IntroPlacePage::~IntroPlacePage()
-{}
+{
+    vboxLayout->deleteLater();
+    rbRemotePlace->deleteLater();
+}
+

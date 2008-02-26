@@ -82,5 +82,5 @@ bool XMLDomReader::load(QString path)
  */
 XMLDomReader::~XMLDomReader()
 {
-	
+	delete doc;
 }

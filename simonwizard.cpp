@@ -16,7 +16,7 @@ SimonWizard::SimonWizard(QWidget* parent): QWizard(parent)
 
 SimonWizard::~SimonWizard()
 {
-	
+	delete control;
 }
 /*
 void SimonWizard::registerControl(QString trigger, QObject* receiver, const char* slot)

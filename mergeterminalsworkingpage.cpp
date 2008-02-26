@@ -59,6 +59,7 @@ void MergeTerminalsWorkingPage::displayStatus ( QString status )
 
 MergeTerminalsWorkingPage::~MergeTerminalsWorkingPage()
 {
+    mergeTerminals->deleteLater();
 }
 
 

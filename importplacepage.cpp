@@ -40,7 +40,10 @@ ImportPlacePage::ImportPlacePage(QWidget* parent): QWizardPage(parent)
 *   @author Susanne Tschernegg
 */
 ImportPlacePage::~ImportPlacePage()
-{}
+{
+    label->deleteLater();
+    progressbar->deleteLater();
+}
 
 /**
 *   \brief Returns, wheter the importPlacePage is complete or not.

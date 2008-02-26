@@ -20,6 +20,7 @@
 #include <QProgressBar>
 #include <QRadioButton>
 #include <QPushButton>
+#include <QFileDialog>
 #include "quickdownloader.h"
 #include "xmltrainingtextlist.h"
 #include "importlocalwizardpage.h"
@@ -41,8 +42,6 @@ ImportTrainingTexts::ImportTrainingTexts(QWidget *parent) : QWizard(parent)
 	QWizardPage *local = createLocalImportPage();
 	QWizardPage *remote = createRemoteImportPage();
 	QWizardPage *working = createWorkingPage();
-	
-	connect(this, SIGNAL(currentIdChanged(int)), this, SLOT(idChanged(int)));
 	
 	this->addPage(source);
 	this->addPage(local);
@@ -72,6 +71,7 @@ void ImportTrainingTexts::start()
  */
 ImportTrainingTexts::~ImportTrainingTexts()
 {
+    delete fd;
 }
 
 
@@ -101,18 +101,6 @@ QWizardPage* ImportTrainingTexts::createIntroPage()
 QWizardPage* ImportTrainingTexts::createRemoteImportPage()
 {
 	ImportRemoteWizardPage *remoteImport = new ImportRemoteWizardPage(this);
-	remoteImport->setTitle(tr("Importieren aus dem Internet"));
-	QLabel *label = new QLabel(remoteImport);
-	label->setWordWrap(true);
-	label->setText(tr("Hier können Sie Texte life aus dem Internet importieren.\n\nBitte haben Sie einen Moment Geduld während die Liste der verfügbaren Texte geladen wird.\n\nSobald die Liste vollständig geladen wurde, wählen Sie bitte einen Text aus der Liste und bestätigen Sie mit weiter."));
-	
-	QListWidget *textList = new QListWidget(remoteImport);
-	
-	QVBoxLayout *layout = new QVBoxLayout(remoteImport);
-	layout->addWidget(label);
-	layout->addWidget(textList);
-	remoteImport->setLayout(layout);
-	remoteImport->setList(textList);
 	
 	
 	return remoteImport;
@@ -142,35 +130,6 @@ QWizardPage* ImportTrainingTexts::createLocalImportPage()
 QWizardPage* ImportTrainingTexts::createSourcePage()
 {
 	SelectSourceWizardPage *source = new SelectSourceWizardPage(this);
-	
-	source->setTitle(tr("Auswahl der Quelle"));
-	QLabel *label = new QLabel(source);
-	label->setText(tr("Sie können Texte aus lokalen Textdateien importieren\noder simon-kompatible Texte aus dem Internet laden.\n\nBitte wählen Sie die gewünschte Quelle aus:\n"));
-	
-	QRadioButton *local = new QRadioButton(source);
-	local->setText(tr("Lokale Textdatei"));
-	local->setChecked(true);
-	
-	QLabel *localHelp = new QLabel(source);
-	localHelp->setText(tr("Wählen Sie diese Option wenn Sie einen Text, den\nSie gerne mit in Verbindung mit simon verwenden\nmöchten, gespeichert haben.\n"));
-	
-	QRadioButton *remote = new QRadioButton(source);
-	remote->setText(tr("Aus dem Internet laden"));
-	
-	QLabel *remoteHelp = new QLabel(source);
-	remoteHelp->setText("Wenn Sie diese Option wählen wird zuerst eine\nListe der vorhandenen Texte aus dem Internet\ngeladen aus welcher Sie sich dann einen Text\naussuchen und importieren kännen.");
-	
-	QVBoxLayout *layout = new QVBoxLayout(source);
-	layout->addWidget(label);
-	layout->addWidget(local);
-	layout->addWidget(localHelp);
-	layout->addWidget(remote);
-	layout->addWidget(remoteHelp);
-	source->setLayout(layout);
-	
-	source->setLocal(local);
-	source->setRemote(remote);
-	
 	return source;
 }
 
@@ -182,18 +141,6 @@ QWizardPage* ImportTrainingTexts::createSourcePage()
 QWizardPage* ImportTrainingTexts::createWorkingPage()
 {
 	ImportWorkingWizardPage *working= new ImportWorkingWizardPage(this);
-	working->setTitle(tr("Text wird hinzugefügt"));
-	QLabel *label = new QLabel(working);
-	label->setText(tr("Der gewählte Text wird hinzugefügt.\n\nBitte haben Sie etwas Geduld.\n"));
-	QProgressBar *progress = new QProgressBar(working);
-	progress->setMaximum(0);
-	progress->setValue(0);
-	
-	QVBoxLayout *layout = new QVBoxLayout(working);
-	layout->addWidget(label);
-	layout->addWidget(progress);
-	working->setLayout(layout);
-	
 	return working;
 }
 
@@ -212,28 +159,5 @@ QWizardPage* ImportTrainingTexts::createFinishedPage()
 	finished->setLayout(layout);
 	
 	return finished;
-}
-
-
-/**
- * \brief To react on changing the page
- * @param id The new id
- */
-void ImportTrainingTexts::idChanged(int id)
-{
-	if (id < prevId) {
-		prevId = id;
-		return;
-	}
-	
-	if (id == 4) //working
-	{
-		if (!field("Filename").toString().isEmpty())
-			((ImportWorkingWizardPage*)currentPage())->startImport(
-		  	   field("Filename").toString());
-		else ((ImportWorkingWizardPage*)currentPage())->startImport(
-		       ((ImportRemoteWizardPage*)page(3))->getCurrentData());
-	}
-	prevId = id;
 }
 

@@ -40,6 +40,7 @@ TrainingView::TrainingView ( QWidget *parent )
 		                 tr ( "Trainieren des Sprachmodells" ), parent )
 {
 	ui.setupUi ( this );
+	recorder=0;
 	guessChildTriggers ( ( QObject* ) this );
 	this->hide();
 
@@ -57,7 +58,7 @@ TrainingView::TrainingView ( QWidget *parent )
 	connect ( ui.pbImportDir, SIGNAL ( clicked() ), this, SLOT ( importDirectory() ) );
 
 	currentPage=0;
-
+	import = new ImportTrainingTexts();;
 	trainMgr = TrainingManager::getInstance();
 	loadList();
 }
@@ -110,8 +111,11 @@ void TrainingView::trainSelected()
 		return;
 	}
 	bool success = trainMgr->trainText ( ui.twTrainingWords->currentRow() );
-	if ( ! ( success ) )
+	if ( !success )
+	{
+		QMessageBox::critical(this, tr("Konnte Training nicht starten"), tr("Konnte Training nicht starten.\n\nDer Text konnte nicht geladen werden."));
 		return;
+	}
 
 	startTraining();
 }
@@ -145,8 +149,7 @@ void TrainingView::startTraining()
  */
 void TrainingView::importDirectory()
 {
-	ImportTrainingDirectory *importDir = new
-	ImportTrainingDirectory ( this );
+	ImportTrainingDirectory *importDir = new ImportTrainingDirectory ( this );
 	importDir->show();
 
 }
@@ -200,6 +203,7 @@ void TrainingView::fetchPage ( int page )
 	}
 
 	QString value = Settings::getS ( "Model/PathToSamples" ) +"/"+keyStr;
+	resetRecorder();
 	recorder = new RecWidget ( tr ( "Seite: %1" ).arg ( page+1 ),
 	                           value, ui.wRecTexts );  //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
 
@@ -249,7 +253,8 @@ void TrainingView::prevPage()
  */
 void TrainingView::importTexts()
 {
-	ImportTrainingTexts *import = new ImportTrainingTexts();
+	if (import->isVisible()) return;
+	import->restart();
 	import->start();
 	connect ( import, SIGNAL ( finished ( int ) ), this, SLOT ( loadList() ) );
 }
@@ -260,8 +265,11 @@ void TrainingView::importTexts()
  */
 void TrainingView::resetRecorder()
 {
+	if (!recorder) return;
+
 	ui.wRecTexts->layout()->removeWidget ( recorder );
 	delete recorder;
+	recorder=0;
 }
 
 /**
@@ -301,7 +309,7 @@ void TrainingView::cancelReading()
 {
 	cleanUpTrainingSamples();
 	ui.swAction->setCurrentIndex ( 0 );
-	delete recorder;
+	resetRecorder();
 	setWindowTitle ( tr ( "Training" ) );
 }
 
@@ -383,6 +391,8 @@ void TrainingView::loadList()
 			ui.twTrainingWords->item ( i,j )->setFlags ( Qt::ItemIsSelectable|Qt::ItemIsEnabled );
 	}
 	ui.twTrainingWords->resizeColumnToContents ( 0 );
+	//list does not need to be deleted
+	//it is a member variable of the underlying concept class and will be scheduled for deletion ones we destroy it
 }
 
 /**
@@ -392,6 +402,8 @@ void TrainingView::loadList()
  */
 TrainingView::~TrainingView()
 {
+    recorder->deleteLater();
+    import->deleteLater();
 }
 
 /**

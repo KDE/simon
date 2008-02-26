@@ -90,7 +90,9 @@ void SelectProgramPage::initializePage()
 *   @author Susanne Tschernegg
 */
 SelectProgramPage::~SelectProgramPage()
-{}
+{
+    delete programManager;
+}
 
 /**
 *   \brief gets the whole exe-name of the program (e.g. program.exe)
@@ -185,6 +187,7 @@ void SelectProgramPage::searchForPrograms()
         {
             ProgramList *pl = programManager->getPrograms(catList.at(i));
             insertPrograms(pl);
+	    delete pl;
             break;
         }
     }

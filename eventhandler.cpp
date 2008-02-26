@@ -113,3 +113,8 @@ void EventHandler::sendKey(QChar key)
 
 	coreEvents->unsetModifier(KeyShift);
 }
+
+EventHandler::~EventHandler()
+{
+    delete coreEvents;
+}

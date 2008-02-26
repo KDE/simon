@@ -29,14 +29,12 @@
 #include "RtAudio.h"
 
 class WAV;
-class QTimer;
 class RtAudio;
 
 class WavRecorder : public QObject {
 	Q_OBJECT
 private:
 	WAV *wavData;
-	QTimer *progressTimer;
 	RtAudio *audio;
 	int chans;
 

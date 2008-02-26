@@ -38,7 +38,7 @@ private:
     
 public:
     IconButton(QWidget *parent = 0);
-    ~IconButton(){}
+    ~IconButton();
 
     QString getIconName(){return iconName;}
     void setIconName(QString iconName){this->iconName = iconName;}

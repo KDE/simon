@@ -3,7 +3,6 @@
 #include <QVariant>
 #include "RtError.h"
 #include "logger.h"
-#include <QTimer>
 #include <QObject>
 #include "wav.h"
 
@@ -13,6 +12,7 @@
 WavRecorder::WavRecorder(QObject *parent) : QObject(parent)
 {
 	audio = 0;
+	wavData=0;
 }
 
 int processData( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
@@ -43,7 +43,10 @@ int processData( void *outputBuffer, void *inputBuffer, unsigned int nBufferFram
  */
 bool WavRecorder::record(QString filename)
 {
-	if (audio) delete audio;
+	if (audio) {
+		delete audio;
+		audio =0;
+	}
 	audio = new RtAudio();
 	RtAudio::StreamParameters parameters;
 
@@ -125,6 +128,8 @@ bool WavRecorder::finish()
  */
 WavRecorder::~WavRecorder()
 {
+    if (wavData) delete wavData;
+    if (audio) delete audio;
 }
 
 

@@ -20,21 +20,9 @@
  */
 ImportRemoteWizardPage::ImportRemoteWizardPage(QWidget *parent) : QWizardPage(parent)
 {
-
-}
-
-/**
- * \brief Wrapper for the registerField function
- * \author Peter Grasch
- * @param name name of the field
- * @param widget widget to represent it
- * @param property the property to watch
- * @param changedSignal the signal to watch
- */
-void ImportRemoteWizardPage::registerField(const QString &name, QWidget *widget, const char* 
-		property, const char* changedSignal)
-{
-	QWizardPage::registerField(name, widget, property, changedSignal);
+	setTitle(tr("Importieren aus dem Internet"));
+	ui.setupUi(this);
+	registerField("textDownloadURL*", ui.lwTexts, "currentUserData", SIGNAL(currentRowChanged(int)));
 }
 
 /**
@@ -63,15 +51,19 @@ void ImportRemoteWizardPage::importList(QString path)
 	if (!tlist->load(path))
 		QMessageBox::critical(this, tr("Konnte Datei nicht öffnen"), tr("Konnte Liste der Texte nicht öffnen.\n\nMöglicherweise ist der URL falsch konfiguriert oder beim Download ist ein Fehler aufgetreten."));
 	QHash<QString, QString> textlist = tlist->getTrainingTextList();
-	list->clear();
+	ui.lwTexts->clear();
 	for (int i=0; i < textlist.count(); i++)
 	{
 		QListWidgetItem *item;
-		item = new QListWidgetItem(list);
+		item = new QListWidgetItem(ui.lwTexts);
 		item->setText(textlist.keys().at(i));
 		item->setData(Qt::UserRole, textlist.values().at(i));
-		list->addItem(item);
+		ui.lwTexts->addItem(item);
 	}
 	delete tlist;
 	downloader->deleteLater();
+}
+
+ImportRemoteWizardPage::~ImportRemoteWizardPage()
+{
 }

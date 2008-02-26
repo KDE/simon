@@ -295,6 +295,7 @@ void RunApplicationView::loadCommands()
  */
 RunApplicationView::~RunApplicationView()
 {
+    delete run;
 }
 
 

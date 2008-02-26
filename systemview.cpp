@@ -25,6 +25,7 @@
 #include "modelsettings.h"
 #include "grammarsettings.h"
 #include "internetextensionsettings.h"
+#include "atsettings.h"
 #include "simoninfo.h"
 #include <QMessageBox>
 
@@ -46,6 +47,7 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
 	registerControl(new SoundSettings(this));
 	registerControl(new NetworkSettings(this));
 	registerControl(commandsSettings);
+	registerControl(new ATSettings(this));
 	registerControl(new ShortcutSettings(this));
 	registerControl(new DesktopGridConfiguration(this));
 	registerControl(new LogView(this));
@@ -66,11 +68,13 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
  * \brief Tells all the controls to apply the changes
  * \author Peter Grasch
  */
+#include <QDebug>
 void SystemView::apply()
 {
 	SystemWidget *currentControl;
 	for (int i=0; i < ui.swControls->count(); i++)
 	{
+		qDebug() << "in schleife " << i;
 		currentControl = dynamic_cast<SystemWidget*>(ui.swControls->widget(i));
 		if (currentControl)
 			if (!currentControl->apply())
@@ -127,7 +131,6 @@ void SystemView::registerControl(SystemWidget* control)
 	}
 	
 	//item gets automatically added to the list widget if given the parent
-	//DO NOT REMOVE THIS
 	new QListWidgetItem(control->getIcon(), control->getTitle(), ui.lwMenu);
 }
 

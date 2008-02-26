@@ -13,7 +13,7 @@
    <string>simon</string>
   </property>
   <property name="windowIcon" >
-   <iconset>../../../../../../../:/images/tray.png</iconset>
+   <iconset>:/images/tray.png</iconset>
   </property>
   <property name="accessibleName" >
    <string>simon</string>

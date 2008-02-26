@@ -197,6 +197,9 @@ void ImportDictWorkingPage::importWiktionaryFile(QString path)
  */
 ImportDictWorkingPage::~ImportDictWorkingPage()
 {
+    pbMain->deleteLater();
+    import->deleteLater();
+    lbStatus->deleteLater();
 }
 
 

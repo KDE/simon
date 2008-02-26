@@ -91,6 +91,7 @@ signals:
 public:
     LogView(QWidget* parent);
     bool isComplete();
+    ~LogView();
 
 };
 

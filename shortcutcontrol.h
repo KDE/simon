@@ -50,7 +50,7 @@ public:
 	int removeShortcut(Shortcut shortcut);
 	bool replaceShortcut(Shortcut oldShortcut, Shortcut newShortcut);
 	
-	~ShortcutControl() { }
+	~ShortcutControl();
 
 };
 

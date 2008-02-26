@@ -23,7 +23,16 @@
  * @param parent Parent of the object
  */
 Bunzip::Bunzip(QObject *parent) : QObject(parent)
-{ }
+{ 
+	proc = new QProcess(this);
+	connect(proc, SIGNAL(finished( int )), this, SLOT(extractingFinishing(int)));
+	connect(proc, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
+}
+
+Bunzip::~Bunzip()
+{
+    proc->deleteLater();
+}
 
 /**
  * \brief Extracts the given filename
@@ -47,9 +56,6 @@ void Bunzip::extract(QString filename)
 {
 	
 	emit extracting(filename);
-	proc = new QProcess(this);
-	connect(proc, SIGNAL(finished( int )), this, SLOT(extractingFinishing(int)));
-	connect(proc, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
 	
 	this->filename = filename;
 	if (QFile::exists(this->filename.remove(QRegExp(".bz2$")))) 
@@ -97,4 +103,5 @@ void Bunzip::extractingFinishing(int code)
 		QString extFile = this->filename.remove(QRegExp(".bz2$"));
 		emit extractionFinished(extFile);
 	}
+    
 }

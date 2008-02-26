@@ -120,6 +120,8 @@ void SimonInfo::hideSplash()
 */
 SimonInfo::~SimonInfo()
 {
+    splash->deleteLater();
+    parent->deleteLater();
 }
 
 

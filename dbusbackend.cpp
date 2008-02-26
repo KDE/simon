@@ -17,7 +17,7 @@
 #include "atobject.h"
 #include "settings.h"
 
-// Q_DECLARE_METATYPE(ATOLocation)
+#include <QDebug>
 
 DBusBackend::DBusBackend(QObject* parent): ATBackend(parent)
 {
@@ -29,6 +29,7 @@ DBusBackend::DBusBackend(QObject* parent): ATBackend(parent)
 
 void DBusBackend::startMonitoring()
 {
+	if (iface) return; //already running
 	stopMonitoring();
 	
 	iface = QDBusConnection::sessionBus().interface();
@@ -55,19 +56,14 @@ void DBusBackend::startMonitoring()
 
 void DBusBackend::stopMonitoring()
 {
-	if (iface) {
-		disconnect(iface,0,0,0);
+	if (iface)
 		iface->deleteLater();
-		iface =0;
-	}
 }
 
 bool DBusBackend::processServices(QStringList services)
 {
 	for (int i=0; i < services.count(); i++)
 	{
-		//TODO: hardcoded mainwindow
-		//make fake root-element
 		QString service = services[i];
 		ATObject *root = readGui(service);
 		if (root)
@@ -89,15 +85,18 @@ ATObject* DBusBackend::readGui(QString service)
 	menus.clear();
 	ignoredSubmenue=0;
 
-	ATObject *root = new ATObject(0, service, "MainWindow");
+	ATObject *root = new ATObject(0, service, "Application");
 	
 	QStringList windows = getAccessibleWindowNames(service);
 	for (int i=0; i < windows.count(); i++)
 		parseObject(service, "/org/freedesktop/accessibility/"+windows[i], root);
 	
-	if (ignoredSubmenue != 0) {
-		QMessageBox::critical(0, tr("Ignorierte Menüs"), tr("%1 Submenüs wurden ignoriert;\n\n(Submenüs sind derzeit nicht unterstützt)").arg(ignoredSubmenue));
-	}
+
+
+	//TODO: submenues werden ignoriert
+// 	if (ignoredSubmenue != 0) {
+// 		QMessageBox::critical(0, tr("Ignorierte Menüs"), tr("%1 Submenüs wurden ignoriert;\n\n(Submenüs sind derzeit nicht unterstützt)").arg(ignoredSubmenue));
+// 	}
 	if (root->children().count()==0) return 0;
 	return root;
 }

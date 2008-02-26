@@ -126,6 +126,8 @@ void IconDialog::showIcons ( QString currentIcon )
 		}
 		WindowsResourceHandler *windowsResourceHandler = new WindowsResourceHandler();
 		QIcon icon = windowsResourceHandler->retrieveIcon ( "shell32.dll",x );
+	        delete windowsResourceHandler;
+
 
 		QStandardItem *item = new QStandardItem();
 		item->setIcon ( icon );
@@ -157,6 +159,7 @@ void IconDialog::safeIconInformation()
 		int resourceId = item->data().toInt();
 		resourceIdStr = "shell32.dll,"+qvariant_cast<QString> ( resourceId );
 		//setIconName(resourceIdStr);
+         delete item;
 		emit iconSelected ( resourceIdStr );
 	}
 #endif
@@ -216,5 +219,18 @@ void IconDialog::openFileDialog()
 			leFromFile->setText ( file );
 		}
 	}
+     dialog->deleteLater();
+}
+
+IconDialog::~IconDialog()
+{
+    #ifdef __WIN32
+    iconView->deleteLater();
+    model->deleteLater();
+    rbIconFromFile->deleteLater();
+    rbIconView->deleteLater();
+    #endif
+    leFromFile->deleteLater();
+    pbFromFile->deleteLater();
 }
 

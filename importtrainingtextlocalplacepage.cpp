@@ -52,7 +52,15 @@ LocalPlacePage::LocalPlacePage(QWidget* parent): QWizardPage(parent)
 *   @author Susanne Tschernegg
 */
 LocalPlacePage::~LocalPlacePage()
-{}
+{
+    vboxLayout->deleteLater();
+    label->deleteLater();
+    lOrdner->deleteLater();
+    hboxLayout->deleteLater();
+    leOrdner->deleteLater();
+    pbOrdner->deleteLater();
+    dialog->deleteLater();
+}
 
 /**
 *   \brief Creates a filedialog, to choose a place on the computer.

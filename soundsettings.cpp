@@ -173,6 +173,9 @@ bool SoundSettings::reset()
  */
 SoundSettings::~SoundSettings()
 {
+    delete sc;
+    delete in;
+    delete out;
 }
 
 

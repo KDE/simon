@@ -27,7 +27,7 @@ SimonSlider::SimonSlider( QWidget * parent ) : QSlider(parent)
 
 SimonSlider::~SimonSlider()
 {
-	
+	lePlusMinus->deleteLater();
 }
 
 void SimonSlider::changeValue()

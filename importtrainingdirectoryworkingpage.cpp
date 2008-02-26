@@ -55,10 +55,6 @@ ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *
 	this->pp = new PostProcessing();
 }
 
-ImportTrainingDirectoryWorkingPage::~ImportTrainingDirectoryWorkingPage()
-{
-	delete pp;
-}
 
 /**
  * \brief Starts the importing process and calls all the other methods
@@ -220,4 +216,10 @@ QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataF
 
 	
 	return newFiles;
+}
+
+ImportTrainingDirectoryWorkingPage::~ImportTrainingDirectoryWorkingPage()
+{
+	delete pp;
+    pbMain->deleteLater();
 }

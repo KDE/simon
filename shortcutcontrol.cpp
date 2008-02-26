@@ -50,7 +50,6 @@ bool ShortcutControl::readShortcuts()
  */
 void ShortcutControl::save()
 {
-	delete shortcutXMLReader->getShortcuts();
 	shortcutXMLReader->setShortcuts(this->shortcuts);
 	shortcutXMLReader->save();
 }
@@ -179,4 +178,9 @@ bool ShortcutControl::replaceShortcut(Shortcut oldShortcut, Shortcut newShortcut
 	return true;
 }
 
+ShortcutControl::~ShortcutControl()
+{
+    delete shortcuts;
+    shortcutXMLReader->deleteLater();
+}
 

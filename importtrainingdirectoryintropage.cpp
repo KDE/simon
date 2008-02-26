@@ -60,3 +60,8 @@ void ImportTrainingDirectoryIntroPage::setDir()
 	QString dir = QFileDialog::getExistingDirectory(this, tr("Trainingsdaten-Ordner"));
 	leDirectory->setText(dir);
 }
+
+ImportTrainingDirectoryIntroPage::~ImportTrainingDirectoryIntroPage()
+{
+    leDirectory->deleteLater();
+}

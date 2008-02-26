@@ -36,7 +36,8 @@ class PostProcessing;
  * \todo Testing
  */
 class ImportTrainingDirectoryWorkingPage : public QWizardPage{
-Q_OBJECT
+    Q_OBJECT
+    
 private:
 	QProgressBar *pbMain;
 	PostProcessing *pp;

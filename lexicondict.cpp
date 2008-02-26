@@ -65,6 +65,8 @@ void LexiconDict::load(QString path)
 		line = dictStream->readLine(1000);
 	}
 	dict->close();
+    dict->deleteLater();
+    delete dictStream;
 }
 
 LexiconDict::~LexiconDict()

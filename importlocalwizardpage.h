@@ -13,6 +13,7 @@
 #define IMPORTLOCALWIZARDPAGE_H
 
 #include <QWizardPage>
+#include "ui_importtrainingtextlocalpage.h"
 
 /**
  * \class ImportLocalWizardPage
@@ -24,6 +25,8 @@
  */
 class ImportLocalWizardPage : public QWizardPage {
 	Q_OBJECT
+	private:
+		Ui::ImportTrainingTextLocalPage ui;
 	public slots:
 		void setLocalSourceFile();
 	public:

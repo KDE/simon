@@ -145,6 +145,10 @@ void ScreenGrid::keyPressEvent(QKeyEvent *event)
 
 ScreenGrid::~ScreenGrid()
 {
+    buttons->deleteLater();
+    // #ifdef FAKETRANSPARENCY
+	background->deleteLater();
+    // #endif
 }
 
 

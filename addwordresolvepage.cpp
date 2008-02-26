@@ -12,7 +12,6 @@
 #include "addwordresolvepage.h"
 #include "wordlistmanager.h"
 #include "grammarmanager.h"
-#include <QDebug>
 #include <QtGlobal>
 #include <QHeaderView>
 #include <QInputDialog>
@@ -65,26 +64,19 @@ void AddWordResolvePage::addTerminal()
 void AddWordResolvePage::initializePage()
 {
 	QString word = field("wordNameIntro").toString();
-	qDebug() << 2;
 	ui.cbType->clear();
 	ui.leSampa->clear();
-	qDebug() << 3;
 	QStringList terminals = wordListManager->getTerminals();
-	qDebug() << 4;
 	terminals.removeAll("NS_E"); //remove sentence structures
 	terminals.removeAll("NS_B");
-	qDebug() << 4.5;
 	ui.cbType->addItems(terminals);
-	qDebug() << 5;
 	ui.leWord->setText(word);
-	qDebug() << 6;
 	ui.leSampa->clear();
-	qDebug() << 7;
 
 	WordList* similar = wordListManager->getWords(word, true /*include shadow*/);
-	qDebug() << 8;
 	displayWords(similar);
-	qDebug() << 9;
+
+	delete similar;
 }
 
 /**

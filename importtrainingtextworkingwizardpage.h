@@ -13,6 +13,7 @@
 #define IMPORTWORKINGWIZARDPAGE_H
 
 #include <QWizardPage>
+#include "ui_importtrainingtextworkingpage.h"
 class QString;
 class QWidget;
 
@@ -24,10 +25,14 @@ class QWidget;
  */
 class ImportWorkingWizardPage : public QWizardPage {
 	Q_OBJECT 
+	private:
+		Ui::ImportTextWorkingPage ui;
 	public slots:
 		void startImport(QString path);
 		void processText(QString path);
 		void parseFile(QString path);
+
+		void initializePage();
 	public:
 		ImportWorkingWizardPage(QWidget* parent);
 };

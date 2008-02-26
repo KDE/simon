@@ -768,3 +768,8 @@ bool LogView::init()
 	connect(this, SIGNAL(hidden()), this, SLOT(abort()));
 	return true;
 }
+
+LogView::~LogView()
+{
+    manager->deleteLater();
+}

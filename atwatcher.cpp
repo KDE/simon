@@ -11,6 +11,7 @@
 //
 #include "atwatcher.h"
 #include "atobject.h"
+#include "settings.h"
 
 #ifdef linux
 #include "dbusbackend.h"
@@ -22,6 +23,9 @@
 
 #include <QStack>
 #include <QDebug>
+#include <QVariant>
+
+ATWatcher* ATWatcher::instance;
 
 
 ATWatcher::ATWatcher ( QObject* parent ) : QObject ( parent )
@@ -38,7 +42,19 @@ ATWatcher::ATWatcher ( QObject* parent ) : QObject ( parent )
 	connect(backend, SIGNAL(objectFound(ATObject*)), this, SLOT(addObject(ATObject*)));
 	connect(backend, SIGNAL(objectFocused(ATObject*)), this, SLOT(translateFocusToWindow(ATObject*)));
 	connect(backend, SIGNAL(objectDeleted(ATObject*)), this, SLOT(deleteObject(ATObject*)));
-	backend->startMonitoring();
+
+	applySettings();
+}
+
+/**
+ * \brief Starts / stops the monitoring according to the defined settings
+ * \author Peter Grasch
+ */
+void ATWatcher::applySettings()
+{
+	if (Settings::get("GuiRecognition/SupportAT").toBool())
+		backend->startMonitoring();
+	else backend->stopMonitoring();
 }
 
 /**
@@ -117,9 +133,9 @@ bool ATWatcher::trigger(QString triggerString)
 	return false;
 }
 
-
 ATWatcher::~ATWatcher()
 {
+	qDebug() << "ARGH!!! someone is killing me!";
 	backend->deleteLater();
 }
 

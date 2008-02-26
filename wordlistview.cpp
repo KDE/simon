@@ -49,7 +49,6 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	connect(ui.pbAddToTraining, SIGNAL(clicked()), this, SLOT(copyWordToTrain()));
 	connect(ui.pbDeleteTrainingWord, SIGNAL(clicked()), this, SLOT(deleteTrainingWord()));
 	connect(ui.lwTrainingWords, SIGNAL(droppedText(QString)), this, SLOT(copyWordToTrain()));
-	connect(ui.pbAddWord, SIGNAL(clicked()), this, SIGNAL(showAddWordDialog()));
 	
 	connect(ui.pbSuggestTrain, SIGNAL(clicked()), this, SLOT(suggestTraining()));
 	connect(ui.pbRemoveWord, SIGNAL(clicked()), this, SLOT(deleteSelectedWord()));
@@ -96,7 +95,7 @@ void WordListView::reloadList()
 void WordListView::clearSearchText()
 {
 	ui.leSearch->setText("");
-	filterListbyPattern("");
+	readVocab();
 	ui.leSearch->setFocus();
 }
 
@@ -161,34 +160,12 @@ void WordListView::markWordToTrain(Word word)
 void WordListView::filterListbyPattern(QString filter)
 {
 	if (filter.isEmpty()) filter = ui.leSearch->text();
-	WordList *vocab = this->wordListManager->getWordList();
+	if (filter.isEmpty()) this->readVocab();
 	
-	WordList *limitedVocab = new WordList();
+	WordList *limitedVocab = wordListManager->getWords(ui.leSearch->text(), ui.cbShowCompleteLexicon->isChecked());
 
-	int i=0;
-	while (i < vocab->count())
-	{
-		if (vocab->at(i).getWord().contains(filter, Qt::CaseInsensitive))
-			limitedVocab->append(vocab->at(i));
-		
-		i++;
-	}
 	insertVocab( limitedVocab );
-	
-	if (ui.cbShowCompleteLexicon->isChecked())
-	{
-		vocab = this->wordListManager->getShadowList();
-		limitedVocab->clear();
-		i=0;
-		while (i < vocab->count())
-		{
-			if (vocab->at(i).getWord().contains(filter, Qt::CaseInsensitive))
-				limitedVocab->append(vocab->at(i));
-			
-			i++;
-		}
-		insertVocab( limitedVocab );
-	}
+	delete limitedVocab;
 }
 
 /**
@@ -257,6 +234,7 @@ void WordListView::toggleExtraWords()
  */
 void WordListView::clearList()
 {
+	ui.twVocab->clearContents();
 	ui.twVocab->setRowCount(0);
 }
 
@@ -295,28 +273,6 @@ void WordListView::hide()
 	}
 	
 	QWidget::hide();
-}
-
-/**
- * \brief Asks the user if he wants to save
- * \author Peter Grasch
- */
-void WordListView::askToSave()
-{
-	if (!dirty) return;
-	
-	if (QMessageBox::question(this, tr("Änderungen speichern"), tr("Sie haben das Sprachmodell verändert. Möchten Sie die Änderungen speichern?"), QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
-	{
-		//save the dict
-		QString filename = "test.out";
-		if (this->wordListManager->save(filename))
-			setDirty(false);
-		else 
-		{	
-			QMessageBox::critical(this, tr("Fehler beim Speichern"), tr("Das Wörterbuch konnte nicht nach %1 geschrieben werden. Bitte überprüfen Sie Ihre Berechtigungen.").arg(filename));
-			Logger::log("[ERR] Fehler beim schreiben des Wörterbuches");
-		}
-	}
 }
 
 
@@ -367,6 +323,8 @@ void WordListView::deleteSelectedWord()
 				success = true;
 		}
 	}
+	delete w;
+	del->deleteLater();
 }
 
 /**
@@ -379,6 +337,7 @@ void WordListView::readVocab()
 {
 	WordList *vocab = this->wordListManager->getWordList();
 	if (vocab) insertVocab( vocab );
+// 	delete vocab;
 
 	if (ui.cbShowCompleteLexicon->isChecked())
 	{
@@ -387,6 +346,7 @@ void WordListView::readVocab()
 		{
 			insertVocab( shadow );
 		}
+// 		delete shadow;
 	}
 }
 
@@ -401,15 +361,15 @@ void WordListView::readVocab()
 void WordListView::insertVocab(WordList *vocab)
 {
 	abortVocabInsertion=false;
-	ui.twVocab->setRowCount(vocab->count());
+        int i=0;
+	int limit=Settings::get("Performance/MaxDisplayedWords").toInt();
 	QProgressDialog *pgDlg = new QProgressDialog(tr("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Wörterbuch nicht!)"), tr("Abbrechen"), 0, 
-			((vocab->count() < 1000) ? vocab->count() : 1000), this);
+			((vocab->count() < limit) ? vocab->count() : limit), this);
 
 	connect(pgDlg, SIGNAL(canceled()), this, SLOT(abortInsertion()));
 
-        int i=0;
-	int limit=Settings::get("Performance/MaxDisplayedWords").toInt();
 	
+	clearList();
 	ui.twVocab->setRowCount(vocab->count());
 	while ((!abortVocabInsertion) && (i<vocab->count()) && (i<limit))
 	{
@@ -481,7 +441,6 @@ void WordListView::deleteTrainingWord()
  */
 void WordListView::initializeItems()
 {
-
 	this->readVocab();
 }
 
@@ -516,4 +475,5 @@ void WordListView::setTbEditModelVisible()
  */
 WordListView::~WordListView()
 {
+    importDictView->deleteLater();
 }

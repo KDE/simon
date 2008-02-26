@@ -54,8 +54,6 @@ class AddWordView : public QWizard
 	private:
 		static AddWordView *instance;
 		
-		RecWidget *rec1;
-		RecWidget *rec2;
 		QString recordingName1, recordingName2;
 		int prevId;
 		AddWordResolvePage *resolvePage;
@@ -85,9 +83,8 @@ class AddWordView : public QWizard
 	public:
 		static AddWordView* getInstance();
 		AddWordView(QWidget *parent);
-		~AddWordView()
-		{
-		}
+		~AddWordView();
+    
         void createWord(QString word);
 };
 

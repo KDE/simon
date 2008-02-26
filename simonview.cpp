@@ -200,9 +200,6 @@ void SimonView::setupSignalSlots()
 	QObject::connect(ui.pbSyncTest, SIGNAL(clicked()),control, SLOT(sendFileToSyncer()));
 	//______
 
-
-	connect ( wordList, SIGNAL ( showAddWordDialog() ), this,
-	          SLOT ( showAddWordDialog() ) );
 	connect ( addWordView, SIGNAL ( addedWord() ), wordList,
 	          SLOT ( reloadList() ) );
 	connect ( trainDialog, SIGNAL ( trainingCompleted() ), wordList,

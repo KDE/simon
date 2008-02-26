@@ -52,6 +52,7 @@ void IconButton::changeIcon()
 			QStringList iconResources = resourceId.split ( "," );
 			WindowsResourceHandler *windowsResourceHandler = new WindowsResourceHandler();
 			icon = windowsResourceHandler->retrieveIcon ( iconResources.at ( 0 ), iconResources.at ( 1 ).toInt() );
+	             delete windowsResourceHandler;
 		}
 		else
 		{
@@ -66,4 +67,11 @@ void IconButton::changeIcon()
 		setIconName ( resourceId );
 		setIcon ( icon );
 	}
+}
+
+
+ 
+IconButton::~IconButton()
+{
+    iconDialog->deleteLater();
 }

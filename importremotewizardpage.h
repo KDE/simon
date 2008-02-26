@@ -18,6 +18,7 @@
 #include <QListWidget>
 #include "quickdownloader.h"
 #include "xmltrainingtextlist.h"
+#include "ui_importtrainingtextremotepage.h"
 
 class QuickDownloader;
 /**
@@ -30,25 +31,18 @@ class QuickDownloader;
 class ImportRemoteWizardPage : public QWizardPage {
 	Q_OBJECT
 	private:
-		QListWidget *list;
 		QuickDownloader *downloader;
+		Ui::ImportRemotePage ui;
 	private slots:
 		void importList(QString path);
 		
 	public:
 		void initializePage();
 		ImportRemoteWizardPage(QWidget* parent);
-		void setList(QListWidget* list) { this->list = list; }
-		void registerField(const QString & name, QWidget * widget, 
-				   const char * property = 0, const char * changedSignal = 0 );
 		int nextId() const {
-			return 4; 
+			return 4;
 		}
-		QString getCurrentData() { 
-			if (list && list->currentItem())
-				return list->currentItem()->data(Qt::UserRole).toString(); 
-			else return "";
-		}
+        ~ImportRemoteWizardPage();
 };
 
 #endif

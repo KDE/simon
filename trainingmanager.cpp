@@ -27,6 +27,7 @@
 #include <QStringList>
 #include <QString>
 #include <QMessageBox>
+#include <QDebug>
 
 
 TrainingManager* TrainingManager::instance;
@@ -38,6 +39,7 @@ TrainingManager* TrainingManager::instance;
  */
 TrainingManager::TrainingManager()
 {
+	trainingTexts = 0;
 	promptsLock.lock();
 	this->promptsTable = readPrompts ( Settings::getS ( "Model/PathToPrompts" ) );
 	promptsLock.unlock();
@@ -268,6 +270,7 @@ TrainingList* TrainingManager::readTrainingTexts ()
 	QDir *textdir = new QDir ( pathToTexts );
 	if ( !textdir || !textdir->exists() ) {
 		QMessageBox::critical ( 0, QCoreApplication::tr ( "Fehler beim Auslesen der Trainingstexte" ), QCoreApplication::tr ( "Der Pfad zu den Trainingstexten ist nicht richtig konfiguriert. (Der Ordner existiert nicht)\n\nBitte setzen Sie einen korrekten Pfad in den Einstellungen." ) );
+		delete textdir;
 		return NULL;
 	}
 	QStringList filter;
@@ -275,6 +278,11 @@ TrainingList* TrainingManager::readTrainingTexts ()
 
 	QStringList textsrcs = textdir->entryList();
 
+	if (trainingTexts) {
+		delete trainingTexts;
+		trainingTexts=0;
+	}
+	
 	trainingTexts = new TrainingList();
 	for ( int i=0; i < textsrcs.count(); i++ )
 	{
@@ -287,7 +295,8 @@ TrainingList* TrainingManager::readTrainingTexts ()
 		trainingTexts->append ( newText );
 		delete text;
 	}
-
+	delete textdir;
+	
 	return trainingTexts;
 }
 
@@ -302,11 +311,17 @@ TrainingList* TrainingManager::readTrainingTexts ()
  */
 bool TrainingManager::trainText ( int i )
 {
-	Logger::log(QObject::tr("[INF] Training Text: \"")+getText(i)->getName()+"\"");
 	this->currentText = getText(i);
-    bool allWordsInDict = allWordsExisting();
+	
+	if (!currentText) {
+		qDebug() << -3;
+		return false;
+	}
+	
+	Logger::log(QObject::tr("[INF] Training Text: \"")+currentText->getName()+"\"");
+	bool allWordsInDict = allWordsExisting();
     if(!allWordsInDict)
-        return false;
+	    return false;
     QString textName = getTextName();
     textName.replace(QString(" "), QString("_"));
     QString time = qvariant_cast<QString>(QTime::currentTime());
@@ -351,13 +366,16 @@ bool TrainingManager::allWordsExisting()
 			{
 				bool wordExistingInList = false;
 				for ( int z=0; z<strListAllWords.count(); z++ )
+				{
 					if ( strListAllWords.at ( z ) ==word )
 					{
 						wordExistingInList = true;
 					}
+				}
 				if ( !wordExistingInList )
 					strListAllWords.append ( word );
 			}
+			delete words;
 		}
 	}
 	if ( strListAllWords.count() ==0 )
@@ -370,7 +388,6 @@ bool TrainingManager::allWordsExisting()
 		//addWordView->show();
 		//addWordView->createWord(strList.at(i));
 	}
-	//QMessageBox::critical(0, tr("Trainingstext"), tr("Der zu trainierende Text enthält unbekannte Wörter. Diese sind: %1").arg(allWords));
 	QMessageBox::critical ( 0, "Trainingstext", QCoreApplication::tr ( "Der zu trainierende Text enthält unbekannte Wörter. Diese sind: %1" ).arg ( allWords ) );
 	return false;
 }
@@ -423,7 +440,8 @@ QString TrainingManager::getTextName()
  */
 TrainingText* TrainingManager::getText ( int i )
 {
-	if ( this->trainingTexts )
+	readTrainingTexts();
+	if ( this->trainingTexts && (trainingTexts->count() > i))
 		return this->trainingTexts->at ( i );
 	else return NULL;
 }
@@ -534,12 +552,13 @@ void TrainingManager::addSamples ( QHash<QString, QString> *hash )
 void TrainingManager::writePrompts ( QString text )
 {
 	QFile *prompts = new QFile ( Settings::getS ( "Model/PathToPrompts" ) );
-	prompts->open ( QIODevice::Append );
-	//if ( !prompts->isWritable() ) return;
+	if ( !prompts->open ( QIODevice::Append ) ) return;
+	//prompts->isWritable()
 
 	QTextStream out ( prompts );
 	out << text << "\n";
 	prompts->close();
+	prompts->deleteLater();
 	promptsTable = readPrompts ( Settings::getS ( "Model/PathToPrompts" ) );
 }
 
@@ -550,6 +569,8 @@ void TrainingManager::writePrompts ( QString text )
  */
 TrainingManager::~TrainingManager()
 {
+    delete trainingTexts;
+    delete currentText;
 }
 
 

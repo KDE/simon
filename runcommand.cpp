@@ -224,6 +224,7 @@ bool RunCommand::commandExists(QString commandName)
  */
 RunCommand::~RunCommand()
 {
+    delete runner;
 }
 
 

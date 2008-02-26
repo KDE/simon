@@ -28,9 +28,10 @@ win32 {
     TARGET = ../simon
 }
 
+TRANSLATIONS += simon_en.ts simon_tob.ts
+
 OBJECTS_DIR = buildtmp
 MOC_DIR = buildtmp
-
 
 FORMS += ui/main.ui \
          ui/wordlist.ui \
@@ -63,7 +64,12 @@ FORMS += ui/main.ui \
  ui/definiedefaultvaluesdlg.ui \
  ui/importdictlexiconpage.ui \
  ui/importgrammardescriptionpage.ui \
- ui/internetextensiondlg.ui
+ ui/internetextensiondlg.ui \
+ ui/atsettings.ui \
+ ui/importtrainingtextremotepage.ui \
+ ui/importtrainingtextworkingpage.ui \
+ ui/importtrainingtextselectsourcepage.ui \
+ ui/importtrainingtextlocalpage.ui
 
 
 HEADERS += simonview.h \
@@ -109,10 +115,10 @@ HEADERS += simonview.h \
 	   recwidget.h \
  quickdownloader.h \
  xmltrainingtextlist.h \
- importlocalwizardpage.h \
- selectsourcewizardpage.h \
- importremotewizardpage.h \
- importworkingwizardpage.h \
+ importtrainingtextremoteplacepage.h \
+ importtrainingtextlocalplacepage.h \
+ importtrainingtextselectsourcepage.h \
+ importtrainingtextworkingpage.h \
  logger.h \
 importtrainingdirectory.h \
 importtrainingdirectoryintropage.h \
@@ -213,7 +219,8 @@ importtrainingdirectoryworkingpage.h \
  atbackend.h \
  atwatcher.h \
  atobject.h \
- ato.h
+ ato.h \
+ atsettings.h
 
 
 
@@ -253,10 +260,10 @@ SOURCES += main.cpp \
 	   recwidget.cpp \
  quickdownloader.cpp \
  xmltrainingtextlist.cpp \
- importlocalwizardpage.cpp \
- selectsourcewizardpage.cpp \
- importremotewizardpage.cpp \
- importworkingwizardpage.cpp \
+ importtrainingtextremoteplacepage.cpp \
+ importtrainingtextlocalplacepage.cpp \
+ importtrainingtextselectsourcepage.cpp \
+ importtrainingtextworkingpage.cpp \
  importtrainingdirectory.cpp \
  importtrainingdirectoryintropage.cpp \
  importtrainingdirectoryworkingpage.cpp \
@@ -354,7 +361,8 @@ SOURCES += main.cpp \
  internetextensionsettings.cpp \
  postprocessing.cpp \
  atwatcher.cpp \
- atobject.cpp
+ atobject.cpp \
+ atsettings.cpp
 
 
 
@@ -372,4 +380,3 @@ thread \
 console
 
 RESOURCES += banners.qrc others.qrc action_icons.qrc application_icons.qrc category_icons.qrc other_icons.qrc
-TRANSLATIONS += simon_en.ts

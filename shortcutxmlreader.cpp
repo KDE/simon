@@ -92,6 +92,10 @@ ShortcutList* ShortcutXMLReader::getShortcuts()
  */
 void ShortcutXMLReader::setShortcuts(ShortcutList *shortcuts)
 {
+	if (this->shortcuts) {
+		delete this->shortcuts;
+		this->shortcuts = 0;
+	}
 	this->shortcuts = new ShortcutList(*shortcuts);
 }
 
@@ -109,7 +113,11 @@ bool ShortcutXMLReader::save(QString path)
 	if (path.isEmpty()) path = this->path;
 	if (!shortcuts) return false;
 	
-	
+	if (doc) {
+		delete doc;
+		doc = 0;
+	}
+
 	doc = new QDomDocument();
 	
 	QDomElement root = doc->createElement("shortcuts");
@@ -148,4 +156,9 @@ bool ShortcutXMLReader::save(QString path)
 	doc->appendChild(root);
 	XMLDomReader::save(path);
 	return true;
+}
+
+ShortcutXMLReader::~ShortcutXMLReader()
+{
+    if (shortcuts) delete shortcuts;
 }

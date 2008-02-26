@@ -367,6 +367,8 @@ void JuliusControl::sendSyncFile(QString filename)
  */
 JuliusControl::~JuliusControl()
 {
+    socket->deleteLater();
+    timeoutWatcher->deleteLater();
 }
 
 

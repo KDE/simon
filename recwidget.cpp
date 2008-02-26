@@ -262,19 +262,12 @@ void RecWidget::deleteSample()
 			QString(tr("Konnte die Datei %1 nicht entfernen")).arg(this->filename));
 }
 
-
-
 /**
  * \brief Destructor
  * \author Peter Grasch
  */
 RecWidget::~RecWidget()
 {
-// 	delete ui.pbRecord;
-// 	delete ui.pbPlay;
-// 	delete ui.pbDelete;
-// 	delete ui.hsProgress;
-// 	delete ui.lbProgress;
 	delete play;
  	delete rec;
 }

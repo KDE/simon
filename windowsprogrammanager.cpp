@@ -33,6 +33,7 @@ WindowsProgramManager::WindowsProgramManager(): ProgramManager()
 */
 WindowsProgramManager::~WindowsProgramManager()
 {
+    delete regMan;
 }
 
 /**
@@ -78,6 +79,7 @@ Program(QString name, QString exec, QString description,
         }
         Program prog(name, exec, description, path, progCatList, icon);
         progList->append(prog);
-    }    
+    }
+    delete progNameList;
    return progList;
 }

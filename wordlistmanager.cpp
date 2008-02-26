@@ -194,6 +194,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	QFile *outfile = new QFile(lexiconFilename);
 	if (!outfile->open(QIODevice::WriteOnly)) {
 		Logger::log(QObject::tr("[ERR] Fehler beim öffnen der Ausgabedatei %1").arg(lexiconFilename));
+		outfile->deleteLater();
 		return false;
 	}
 	QTextStream outstream(outfile);
@@ -204,6 +205,9 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	QFile *vocabFile = new QFile(vocabFilename);
 	if (!vocabFile->open(QIODevice::WriteOnly)) {
 		Logger::log(QObject::tr("[ERR] Fehler beim öffnen der Ausgabedatei %1").arg(vocabFilename));
+		outfile->close();
+		outfile->deleteLater();
+		vocabFile->deleteLater();
 		return false;
 	}
 	QTextStream vocab(vocabFile);
@@ -250,6 +254,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 		i++;
 	}
 	outfile->close();
+	outfile->deleteLater();
 
 	QStringList terminals = vocabulary.keys();
 	QStringList distinctTerminals;
@@ -273,6 +278,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 
 	Logger::log(QObject::tr("[INF] Schießen der Ausgabedatei"));
 	vocabFile->close();
+	vocabFile->deleteLater();
 	return true;
 }
 
@@ -316,15 +322,12 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 	//read the vocab
 	TrainingManager *trainManager = TrainingManager::getInstance();
 
-	PromptsTable *promptsTable = TrainingManager::getInstance()->getPrompts();
+	PromptsTable *promptsTable = TrainingManager::getInstance()->getPrompts();	
 
-	//opening
-	Logger::log(QObject::tr("[INF] Öffnen des Lexikons von: %1").arg(lexiconpath));
-	QFile *lexicon = new QFile ( lexiconpath );
 	QFile vocab(vocabpath);
-	if ( !lexicon->open ( QFile::ReadOnly ) || !vocab.open(QFile::ReadOnly) || !promptsTable) return false;
-	
-
+	if ( !vocab.open(QFile::ReadOnly) || !promptsTable) {
+		return false;
+	}
 	QString line, term, word;
 	QString pronunciation;
 	int splitter;
@@ -351,6 +354,15 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 	}
 	wordlist = this->sortList(wordlist);
 	//TODO read words from lexicon (which don't have a terminal-definition yet)
+// 	Logger::log(QObject::tr("[INF] Öffnen des Lexikons von: %1").arg(lexiconpath));
+// 	QFile *lexicon = new QFile ( lexiconpath );
+// 	QFile vocab(vocabpath);
+// 	if ( !lexicon->open ( QFile::ReadOnly ) || !vocab.open(QFile::ReadOnly) || !promptsTable) {
+// 		lexicon->/*delete*/Later();
+// 		return false;
+// 	}
+// 	lexicon->close();
+// 	lexicon->deleteLater();
 
 	Logger::log(QObject::tr("[INF] Wörterliste erstellt"));
 	return wordlist;
@@ -612,14 +624,16 @@ WordList* WordListManager::getWords(QString word, bool includeShadow)
 	WordList* main = getWordList();
 	//main
 	if (main)
-    {
+	{
 		while (i<main->count())
 		{
 			if (main->at(i).getWord().toUpper()==toSearch)
+			{
 				found->append(main->at(i));
+			}
 			i++;
 		}
-    }
+	}
 	wordListLock.unlock();
 	if (!includeShadow)
 		return found;
@@ -825,7 +839,9 @@ WordList* WordListManager::readVocab(QString vocabpath)
 		//creates and appends the word to the wordlist
 		vocablist->append ( Word(name, pronunciation, terminal, 0 ) );
 	}
-	
+	vocab->close();
+	vocab->deleteLater();
+
 	return vocablist;
 }
 
@@ -859,6 +875,8 @@ PromptsTable* WordListManager::readPrompts(QString promptspath)
 
 		promptsTable->insert( label, prompt );
 	}
+	prompts->close();
+	prompts->deleteLater();
 	
 	return promptsTable;
 }
@@ -868,4 +886,7 @@ PromptsTable* WordListManager::readPrompts(QString promptspath)
  * \author Peter Grasch
  */
 WordListManager::~WordListManager()
-{}
+{
+    delete wordlist;
+    delete shadowList;
+}

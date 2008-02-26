@@ -13,28 +13,24 @@
 #define SELECTSOURCEWIZARDPAGE_H
 
 #include <QWizardPage>
+#include "ui_importtrainingtextselectsourcepage.h"
 class QRadioButton;
 /**
- * \class SelectSourceWizardPage
+ * \class ImportTrainingTextSelectSourcePage
  * \author Peter Grasch
  * \version 0.1
  * \brief Selects the type of text to import: local or remote
  */
-class SelectSourceWizardPage :  public QWizardPage {
+class ImportTrainingTextSelectSourcePage :  public QWizardPage {
 	Q_OBJECT
 
 	private:
-		QRadioButton *local;
-		QRadioButton *remote;
+		Ui::ImportTrainingTextSelectSourcePage ui;
 	
 	public:
-		SelectSourceWizardPage(QWidget* parent);
+		ImportTrainingTextSelectSourcePage(QWidget* parent);
+        	~ImportTrainingTextSelectSourcePage();
 		int nextId() const;
-		QRadioButton* getLocal() const { return local; }
-		QRadioButton* getRemote() const { return remote; }
-		
-		void setLocal(QRadioButton *local) { this->local = local; }
-		void setRemote(QRadioButton *remote) { this->remote = remote; }
 };
 
 #endif

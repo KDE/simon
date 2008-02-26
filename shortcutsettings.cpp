@@ -351,3 +351,8 @@ bool ShortcutSettings::reset()
 	ui.twShortcuts->setCurrentCell(-1,0);
 	return init();
 }
+
+ShortcutSettings::~ShortcutSettings()
+{
+    delete shortcutList;
+}

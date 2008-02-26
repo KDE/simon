@@ -165,6 +165,13 @@ void AddWordView::finish(int done)
 	restart();
 }
 
+
+AddWordView::~AddWordView()
+{
+    resolvePage->deleteLater();
+    welcomePage->deleteLater();
+}
+
 void AddWordView::setRecordingNames(QString name1, QString name2)
 {
 	this->recordingName1 = name1;

@@ -364,6 +364,7 @@ void WiktionaryDict::load(QString path)
  */
 WiktionaryDict::~WiktionaryDict()
 {
+	reader->deleteLater();
 }
 
 

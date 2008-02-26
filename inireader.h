@@ -22,7 +22,6 @@ class QVariant;
 */
 class IniReader{
 private:
-	QFile *file;
 	QHash<QString, QString> document;
 protected:
 	QString path;

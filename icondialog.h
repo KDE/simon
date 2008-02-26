@@ -48,7 +48,7 @@ private:
     
 public:
     IconDialog(QWidget *parent = 0);
-    ~IconDialog(){}
+    ~IconDialog();
 
     void showIcons(QString currentIcon = "");
     QString getIcon(){return resourceIdStr;}

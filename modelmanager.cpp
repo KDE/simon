@@ -1065,6 +1065,8 @@ bool ModelManager::generateMlf()
 
 ModelManager::~ModelManager()
 {
+    processDialog->deleteLater();
+    proc->deleteLater();
 }
 
 

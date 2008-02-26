@@ -23,7 +23,6 @@
  */
 AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 {
-	
 	setTitle(tr("Hinzufügen eines neuen Wortes"));
 	QLabel *label = new QLabel(this);
 	label->setText(tr("Mit Hilfe dieses Assistenten koennen Sie neue Wörter zum\nSprachmodell hinzufügen. Geben Sie hierzu\nbitte den Namen des Wortes an\nund bestätigen Sie mit \"Weiter\":\n\n"));

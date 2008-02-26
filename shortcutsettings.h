@@ -48,7 +48,7 @@ private:
 public:
         ShortcutSettings(QWidget* parent);
 	bool isComplete();
-        ~ShortcutSettings() { }
+        ~ShortcutSettings();
 
 private slots:
 	void cellChanged(int newrow, int newcolumn, int oldrow, int oldcolumn);

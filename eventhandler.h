@@ -40,6 +40,7 @@ private:
 	static EventHandler *instance;
 public:
 	EventHandler();
+       ~EventHandler();
 	static EventHandler* getInstance() {
 		if (!instance) instance = new EventHandler();
 		return instance;

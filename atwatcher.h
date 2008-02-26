@@ -30,6 +30,7 @@ class ATWatcher : public QObject
 		ATObject *focusedApplication; //!< holds a pointer to the currently selected app.
 		ATObject *focusedWindow; //!< holds a pointer to the currently opened window
 		QList<ATObject*> applications;
+		static ATWatcher *instance;
 		
 	private slots:
 		void addObject(ATObject *newObject);
@@ -38,7 +39,12 @@ class ATWatcher : public QObject
 	public slots:
 		bool trigger(QString word);
 	public:
-		ATWatcher ( QObject* parent );
+		ATWatcher ( QObject* parent=0 );
+		void applySettings();
+		static ATWatcher* getInstance() {
+			if (!instance) instance = new ATWatcher();
+			return instance;
+		}
 
 		~ATWatcher();
 

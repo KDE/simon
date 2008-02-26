@@ -105,6 +105,8 @@ void OSD::paintEvent( QPaintEvent *e )
  */
 OSD::~OSD()
 {
+    timer->deleteLater();
+    message->deleteLater();
 }
 
 

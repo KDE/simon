@@ -31,10 +31,8 @@ private slots:
 private:
 	QGridLayout *buttons;
 
-// #ifdef FAKETRANSPARENCY
 	QLabel *background;
 	QPixmap deskShot;
-// #endif
 
 	QPixmap makeFakeTransparency();
 public:

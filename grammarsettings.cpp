@@ -247,6 +247,9 @@ bool GrammarSettings::reset()
 
 GrammarSettings::~GrammarSettings()
 {
+    importGrammarWizard->deleteLater();
+    renameTerminalWizard->deleteLater();
+    mergeTerminalsWizard->deleteLater();
 }
 
 

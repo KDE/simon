@@ -87,7 +87,15 @@ RemotePlacePage::RemotePlacePage ( QWidget* parent ) : QWizardPage ( parent )
 *   @author Susanne Tschernegg
 */
 RemotePlacePage::~RemotePlacePage()
-{}
+{
+    cbTyp->deleteLater();
+    lAdress->deleteLater();
+    leHost->deleteLater();
+    lUser->deleteLater();
+    leUser->deleteLater();
+    lPassword->deleteLater();
+    lePassword->deleteLater();
+}
 
 /**
 *   \brief This method writes the type to the adresslabel, if the type of the place changes or if the text of any lineEdit changes.

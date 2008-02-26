@@ -20,7 +20,7 @@
  */
 DesktopGridConfiguration::DesktopGridConfiguration(QWidget* parent): SystemWidget(tr("Desktop-Gitter"), QIcon(":/images/icons/table.svg"), tr("Konfigurieren Sie das Gitter das die Mausdrücke-Simmulation erleichtert"), parent)
 {
-	help = "simon kann, wenn Sie keinen composite fähigen Desktop benutzen, Transparenz simmulieren.\n\nBenutzen Sie einen composite fähigen Desktop wie z.B.: \nLinux: Beryl/Compiz/Kwin (>= KDE 4.0)\nMicrosoft Windows: Windows 2000/XP/Vista\n\nsollten Sie hier ja sagen.\n\nWenn das Gitter dann nicht transparent angezeigt werden sollte, sagen Sie hier bitte nein.";
+	help = tr("simon kann, wenn Sie keinen composite fähigen Desktop benutzen, Transparenz simmulieren.\n\nBenutzen Sie einen composite fähigen Desktop wie z.B.: \nLinux: Beryl/Compiz/Kwin (>= KDE 4.0)\nMicrosoft Windows: Windows 2000/XP/Vista\n\nsollten Sie hier ja sagen.\n\nWenn das Gitter dann nicht transparent angezeigt werden sollte, sagen Sie hier bitte nein.");
 
 	ui.setupUi(this);
 	connect(ui.leTrigger, SIGNAL(editingFinished()), this, SIGNAL(changed()));

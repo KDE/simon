@@ -28,6 +28,9 @@
 WavPlayer::WavPlayer(QObject *parent) : QObject(parent)
 {
 	audio =0;
+	data = 0;
+	progressTimer = new QTimer();
+	connect(progressTimer, SIGNAL(timeout()), this, SLOT(closeStream()));
 }
 
 
@@ -72,7 +75,10 @@ bool WavPlayer::play( QString filename )
 {
 	Logger::log(tr("[INF] Abspielen von %1").arg(filename)); 
 	wavPosition = 0;
-	if (audio) delete audio;
+	if (audio) {
+		delete audio;
+		audio =0;
+	}
 	audio = new RtAudio();
 
 	WAV *file = new WAV(filename); 
@@ -91,8 +97,6 @@ bool WavPlayer::play( QString filename )
 				    sampleRate, &bufferFrames, &process, (void *) this );
 		
 		stopTimer = false;
-		progressTimer = new QTimer();
-		connect(progressTimer, SIGNAL(timeout()), this, SLOT(closeStream()));
 		progressTimer->start(100);
 		
 		audio->startStream();
@@ -187,6 +191,9 @@ void WavPlayer::stop()
  */
 WavPlayer::~WavPlayer()
 {
+    progressTimer->deleteLater();
+    if (data) delete data;
+    if (audio) delete audio;
 }
 
 
