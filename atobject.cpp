@@ -22,6 +22,9 @@ ATObject::ATObject ( ATObject* parent, QString nam, QString cName, QString desc 
 
 void ATObject::addMenu(ATOMenu* menu)
 {
+// 	QMessageBox::critical(0, "sodfij", menu->title);
+// 	for (int i=0; i < menu->actions.count(); i++)
+// 		QMessageBox::information(0, "sodfij", menu->actions[i]->title);
 	this->menuList.append(menu);
 }
 

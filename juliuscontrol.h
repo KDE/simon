@@ -20,7 +20,7 @@
 class QTcpSocket;
 class QTimer;
 
-const qint8 protocolVersion=1;
+const qint8 protocolVersion=0;
 
 /**
  *	@class JuliusControl

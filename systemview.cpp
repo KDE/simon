@@ -68,13 +68,11 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
  * \brief Tells all the controls to apply the changes
  * \author Peter Grasch
  */
-#include <QDebug>
 void SystemView::apply()
 {
 	SystemWidget *currentControl;
 	for (int i=0; i < ui.swControls->count(); i++)
 	{
-		qDebug() << "in schleife " << i;
 		currentControl = dynamic_cast<SystemWidget*>(ui.swControls->widget(i));
 		if (currentControl)
 			if (!currentControl->apply())

@@ -300,7 +300,7 @@ void WordListView::deleteSelectedWord()
 	QString terminal = ui.twVocab->item(row,2)->text();
 	
 	bool isShadowed=false;
-	bool success = false;
+	bool success = true;
 
 	Word *w = this->wordListManager->getWord(word, pronunciation, terminal, isShadowed);
 	if (!w)
@@ -317,13 +317,13 @@ void WordListView::deleteSelectedWord()
 		}
 		if (del->getDeletionType() == DeleteWordDialog::RemoveCompletely)
 		{
-			if (!wordListManager->deleteCompletely(w, isShadowed))
-				QMessageBox::critical(this, tr("Fehler beim Löschen"), tr("Das Wort konnte nicht komplett gelöscht werden.\n\nBitte überprüfen Sie die Pfade der Dateien: prompts, codetrain.scp, Pfad der Samples, dict, shadow-dict, voca"));
-			else 
-				success = true;
+			success = wordListManager->deleteCompletely(w, isShadowed);
 		}
+		
+		if (!success)
+			QMessageBox::critical(this, tr("Fehler beim Löschen"), tr("Das Wort konnte nicht komplett gelöscht werden.\n\nBitte überprüfen Sie die Pfade der Dateien: prompts, codetrain.scp, Pfad der Samples, dict, shadow-dict, voca"));
 	}
-	delete w;
+	//do not delete w as it is a pointer to its wordlistmanager-representation
 	del->deleteLater();
 }
 

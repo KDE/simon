@@ -308,7 +308,6 @@ void WordListManager::safelyInit()
  * Path to the prompts file
  * \param terminals
  * Pointer to the terminallist to fill
- * \todo this is terribly slow with a large vocab file
  * @return  The parsed WordList
  */
 WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QString promptspath, QStringList &terminals )
@@ -353,7 +352,6 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 		}
 	}
 	wordlist = this->sortList(wordlist);
-	//TODO read words from lexicon (which don't have a terminal-definition yet)
 // 	Logger::log(QObject::tr("[INF] Öffnen des Lexikons von: %1").arg(lexiconpath));
 // 	QFile *lexicon = new QFile ( lexiconpath );
 // 	QFile vocab(vocabpath);
@@ -430,6 +428,7 @@ Word* WordListManager::getWord(QString word, QString pronunciation, QString term
 bool WordListManager::moveToShadow(Word *w)
 {
 	int i=0;
+	if (!w) return false;
 	if (!TrainingManager::getInstance()->deleteWord(w))
 		return false;
 	shadowLock.lock();
@@ -451,6 +450,7 @@ bool WordListManager::moveToShadow(Word *w)
 
 bool WordListManager::deleteCompletely(Word *w, bool shadowed)
 {
+	if (!w) return false;
 	//search for every sample that has the word in it and remove it
 	//delete the entry in
 	//	dict

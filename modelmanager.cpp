@@ -723,7 +723,7 @@ bool ModelManager::makeTriphones()
 bool ModelManager::buildHMM12()
 {
 	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -s "+tmpDir+"stats -S "+tmpDir+"train.scp -H "+tmpDir+"hmm11/macros -H "+tmpDir+"hmm11/hmmdefs -M "+tmpDir+"hmm12 "+tmpDir+"triphones1");
-	
+
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }

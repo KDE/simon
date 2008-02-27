@@ -15,7 +15,6 @@
 #include "settings.h"
 #include <QTimer>
 #include <QObject>
-// #include <QDebug>
 #include "wav.h"
 #include "RtError.h"
 #include "RtAudio.h"
@@ -37,9 +36,6 @@ WavPlayer::WavPlayer(QObject *parent) : QObject(parent)
 int process( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
 		 double streamTime, RtAudioStreamStatus status, void *userData )
 {
-// 	if ( status )
-// 		qDebug() << QObject::tr("Bufferunterlauf!");
-
 	WavPlayer *play = (WavPlayer*) userData;
 	if (!play) return 1;
 

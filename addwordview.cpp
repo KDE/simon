@@ -160,8 +160,6 @@ void AddWordView::finish(int done)
 	//cleaning up
 	Logger::log(tr("[INF] Wort hinzugefügt: ")+word);
 	emit addedWord();
-	
-	((AddWordRecordPage*) this->page(2))->cleanUp();
 	restart();
 }
 

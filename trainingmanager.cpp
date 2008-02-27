@@ -27,7 +27,6 @@
 #include <QStringList>
 #include <QString>
 #include <QMessageBox>
-#include <QDebug>
 
 
 TrainingManager* TrainingManager::instance;
@@ -53,6 +52,8 @@ TrainingManager* TrainingManager::getInstance()
 	return instance;
 }
 
+#include <QDebug>
+
 bool TrainingManager::deleteWord ( Word *w )
 {
 	QString wordToDelete = w->getWord().toUpper();
@@ -74,6 +75,7 @@ bool TrainingManager::deleteWord ( Word *w )
 			{
 				if ( !deletePrompt ( filename ) )
 				{
+					qDebug() << "couldnt delete prompt " << filename;
 					promptsLock.unlock();
 					return false;
 				}
@@ -99,6 +101,7 @@ bool TrainingManager::deletePrompt ( QString key )
 	promptsTable->remove ( key );
 
 	//removes the sample
+	qDebug() << "removing " << Settings::getS ( "Model/PathToSamples" ) +"/"+key+".wav";
 	if (!QFile::remove ( Settings::getS ( "Model/PathToSamples" ) +"/"+key+".wav" )) return false;
 	return savePrompts();
 }
@@ -314,7 +317,6 @@ bool TrainingManager::trainText ( int i )
 	this->currentText = getText(i);
 	
 	if (!currentText) {
-		qDebug() << -3;
 		return false;
 	}
 	

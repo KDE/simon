@@ -25,6 +25,9 @@ DBusBackend::DBusBackend(QObject* parent): ATBackend(parent)
 	qDBusRegisterMetaType<ATOPosition>();
 
 	iface =0;
+	currentWindow=0;
+	
+	this->finalClasses = buildFinalClasses();
 }
 
 void DBusBackend::startMonitoring()
@@ -80,12 +83,11 @@ bool DBusBackend::processServices(QStringList services)
  */
 ATObject* DBusBackend::readGui(QString service)
 {
-	this->finalClasses = buildFinalClasses();
-	qDeleteAll(menus.begin(), menus.end());
-	menus.clear();
 	ignoredSubmenue=0;
 
 	ATObject *root = new ATObject(0, service, "Application");
+	this->currentRoot=root;
+	this->currentWindow=0;
 	
 	QStringList windows = getAccessibleWindowNames(service);
 	for (int i=0; i < windows.count(); i++)
@@ -224,7 +226,6 @@ ATOLocation DBusBackend::getLocation(QString service, QString path, bool absolut
 		location.y = pos.y;
 		
 	}
-	qDebug() << "X: " << location.x;
 	return location;
 }
 
@@ -251,11 +252,11 @@ QStringList DBusBackend::getMenuNames(QString service, QString path)
 
 void DBusBackend::handleMenuBar(QString service, QString path)
 {
-	//this ATOMenu is
+	//this Menu is
 	//
-			// |File|   |Settings|   |Help|
-	if (!currentParent) return;
-			
+	// |File|   |Settings|   |Help|
+	
+	if (!currentWindow) return;
 	ATOMenu *thisMenu = new ATOMenu;
 	thisMenu->type=MenuBar;
 	thisMenu->geometry = getLocation(service,path, true);
@@ -269,11 +270,9 @@ void DBusBackend::handleMenuBar(QString service, QString path)
 		thisMenu->actions.append(MenuEntry);
 	}
 	currentActionIndex=0;
-			
-	currentParent->addMenu(thisMenu);
-			
+	
+	currentWindow->addMenu(thisMenu);
 	currentMenu = thisMenu;
-	menus.append(thisMenu);
 }
 
 void DBusBackend::handleMenuEntry(QString service, QString path)
@@ -318,15 +317,34 @@ void DBusBackend::handleMenuEntry(QString service, QString path)
 
 ATObjectList* DBusBackend::parseObject(QString service, QString path, ATObject *parent)
 {
+// 	qDebug() << 1;
 	bool qtWorkArounds = Settings::get("GuiRecognition/QtWorkarounds").toBool();
+// 	qDebug() << 2;
 	
 	ATObjectList* objects = new ATObjectList();
+// 	qDebug() << 3;
 	QString thisClassName = getClassName(service, path);
+// 	qDebug() << 4;
 	
-	if (thisClassName == "QRubberBand") //skip that
-		return objects;
-	
+// 	qDebug() << 5;
 	QString thisName;
+	
+// 	qDebug() << 13;
+	thisName = getName(service, path);
+// 	qDebug() << 14;
+	
+	ATObject* thisObject = new ATObject(parent,
+				thisName, 
+				thisClassName, 
+    				getDescription(service, path));
+	
+	ATOLocation loc = this->getLocation(service, path, true /*false*/ );
+	thisObject->setGeometry(loc.x, loc.y, loc.width, loc.height);
+	
+	if (parent==currentRoot) currentWindow = thisObject;
+	objects->append(thisObject);
+	
+	
 	if (qtWorkArounds)
 	{
 		if ((thisClassName == "QMenuBar") || (thisClassName=="KMenuBar"))
@@ -340,49 +358,51 @@ ATObjectList* DBusBackend::parseObject(QString service, QString path, ATObject *
 			return objects;
 		}
 	}
-	
-	thisName = getName(service, path);
-	
-	ATObject* thisObject = new ATObject(parent,
-				thisName, 
-				thisClassName, 
-    				getDescription(service, path));
-	
-	ATOLocation loc = this->getLocation(service, path, true /*false*/ );
-	thisObject->setGeometry(loc.x, loc.y, loc.width, loc.height);
-	
-	if (!parent) currentParent = thisObject;
-	objects->append(thisObject);
 
 	if (qtWorkArounds && 
 		finalClasses.contains(thisClassName))
 		return objects;
 
+// 	qDebug() << 20;
 
 	QDBusInterface introspect(service, path,
-			"org.freedesktop.DBus.Introspectable");
+				  "org.freedesktop.DBus.Introspectable");
+// 	qDebug() << 21;
 	QDBusReply<QString> exportedObjects = introspect.call("Introspect");
+// 	qDebug() << 22;
 
 	QDomDocument doc;
+// 	qDebug() << 23;
 	doc.setContent(exportedObjects);
+// 	qDebug() << 24;
 
 	QDomElement elem = doc.documentElement();
+// 	qDebug() << 25;
 
 	if (!elem.isNull()) 
 		elem = elem.firstChildElement("node");
+// 	qDebug() << 26;
 
 	QString name;
+// 	qDebug() << 27;
 	while (!elem.isNull())
 	{
+// 		qDebug() << 28;
 		name = elem.attribute("name");
+// 		qDebug() << 29;
 		if (!elem.isNull())
 		{
+			qDebug() << 30;
 			ATObjectList* childs = parseObject(service, path+"/"+name, thisObject);
+			qDebug() << 31;
 			for (int i=0; i<childs->count(); i++)
 				objects->append(childs->at(i));
 		}
+// 		qDebug() << 32;
 		elem = elem.nextSiblingElement("node");
+// 		qDebug() << 33;
 	}
+// 	qDebug() << 34;
 	return objects;
 }
 
@@ -391,7 +411,11 @@ QStringList DBusBackend::buildFinalClasses()
 	QStringList final;
 	if (Settings::get("GuiRecognition/QtWorkarounds").toBool())
 	{
+		final << "QListView";
 		final << "QListWidget";
+		final << "QTableView";
+		final << "QTableWidget";
+		final << "QRubberBand";
 	}
 	return final;
 }
@@ -490,6 +514,7 @@ void DBusBackend::execute(QString service, QString window, QString action)
 
 DBusBackend::~DBusBackend()
 {
+	qDebug() << "ARGH!";
 }
 
 

@@ -14,7 +14,6 @@
 #include "simoninfo.h"
 #include "logger.h"
 #include <QObject>
-#include <QDebug>
 /**
  *	@brief Constructor
  *
@@ -105,9 +104,6 @@ SoundDeviceList* SoundControl::getInputDevices()
 	
 		if ( info.probed == true )
 		{
-			qDebug() << "Name: " << info.name.c_str();
-			qDebug() << "Input: " << info.inputChannels;
-			qDebug() << "Output: " << info.outputChannels;
 			if (info.inputChannels > 0)
 			{
 			// Print, for example, the maximum number of output channels for each device

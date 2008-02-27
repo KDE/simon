@@ -12,7 +12,6 @@
 #include "soundsettings.h"
 #include "soundcontrol.h"
 #include "settings.h"
-#include <QDebug>
 
 /**
  * \brief Constructor - inits the help text and the gui

@@ -38,7 +38,7 @@ AddWordRecordPage::AddWordRecordPage(QWidget *parent)
 
 QString AddWordRecordPage::getSamplesDir()
 {
-	QString sampleDir = Settings::getS("Model/PathToSamples")+"/add";
+	QString sampleDir = Settings::getS("Model/PathToSamples");
 	QDir dir(sampleDir);
 	if (!dir.exists())
 		if (dir.mkpath(sampleDir))
@@ -54,7 +54,6 @@ QString AddWordRecordPage::getSamplesDir()
  */
 void AddWordRecordPage::initializePage()
 {
-	rec1 = new RecWidget("hallo", "sodifj.wav", this);
 	if (rec1)
 	{
 		lay->removeWidget(rec1);
@@ -78,8 +77,8 @@ void AddWordRecordPage::initializePage()
 		return;
 	}
 
-	rec1 = new RecWidget(tr("1: %1").arg(example1), Settings::getS("Model/PathToSamples")+"/add/"+filename1+".wav", this);
-	rec2 = new RecWidget(tr("2: %1").arg(example2), Settings::getS("Model/PathToSamples")+"/add/"+filename2+".wav", this);
+	rec1 = new RecWidget(tr("1: %1").arg(example1), Settings::getS("Model/PathToSamples")+"/"+filename1+".wav", this);
+	rec2 = new RecWidget(tr("2: %1").arg(example2), Settings::getS("Model/PathToSamples")+"/"+filename2+".wav", this);
 
 	
 	connect(rec1, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));
@@ -91,18 +90,6 @@ void AddWordRecordPage::initializePage()
 	lay->addWidget(rec2);
 }
 
-/**
- * \brief Cleans up and removes the samples
- * \author Peter Grasch
- */
-void AddWordRecordPage::cleanUp()
-{
-	if (rec1->hasRecordingReady())
-		rec1->deleteSample();
-	if (rec2->hasRecordingReady())
-		rec2->deleteSample();
-}
-
 
 /**
  * \brief Destructor; Calls cleanUp()
@@ -111,7 +98,9 @@ void AddWordRecordPage::cleanUp()
  */
 AddWordRecordPage::~AddWordRecordPage()
 {
-	cleanUp();
+	if (rec1) rec1->deleteLater();
+	if (rec2) rec2->deleteLater();
+	if (lay) delete lay;
 }
 
 

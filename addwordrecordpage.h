@@ -44,7 +44,6 @@ public:
     AddWordRecordPage(QWidget *parent=0);
     bool isComplete() const 
     { return rec1 && rec2 && rec1->hasRecordingReady() && rec2->hasRecordingReady(); }
-    void cleanUp();
 
     ~AddWordRecordPage();
 

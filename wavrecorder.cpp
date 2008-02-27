@@ -18,8 +18,6 @@ WavRecorder::WavRecorder(QObject *parent) : QObject(parent)
 int processData( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
 		 double streamTime, RtAudioStreamStatus status, void *userData )
 {
-// 	if ( status )
-// 		qDebug() << QObject::tr("Bufferüberlauf!");
 
 	WavRecorder *rec = (WavRecorder*) userData;
 	if (!rec) return 1;

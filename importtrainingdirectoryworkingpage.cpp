@@ -27,7 +27,6 @@
 #include <QCoreApplication>
 #include <QVariant>
 #include "settings.h"
-#include <QDebug>
 #include "postprocessing.h"
 
 /**
@@ -66,7 +65,7 @@ void ImportTrainingDirectoryWorkingPage::initializePage()
 	prog=0;
 	QString dir = field("directory").toString();
 	
-	QString wavDestdir = Settings::getS("Model/PathToSamples")+"/import";
+	QString wavDestdir = Settings::getS("Model/PathToSamples")+"/";
 
 	QDir d(wavDestdir);
 	if (!d.exists())

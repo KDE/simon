@@ -91,7 +91,7 @@ void ATWatcher::addObject(ATObject *newObject)
 {
 	qDebug() << "Adding new object: " << newObject;
 
-	applications.append(newObject);
+// 	applications.append(newObject);
 }
 
 void ATWatcher::deleteObject(ATObject *oldObject)
@@ -125,6 +125,29 @@ bool ATWatcher::trigger(QString triggerString)
 			current->trigger();
 			return true;
 		}
+		
+		QList<ATOMenu*> menuList = current->getMenuList();
+		while (menuList.count()>0)
+		{
+			ATOMenu *menu = menuList.takeAt(0);
+			if (!menu) continue;
+// 			qDebug() << "vor abfrage";
+			if (menu->title == triggerString)
+			{
+// 				qDebug() << "in abfrage";
+				qDebug() << "FOUND IT! It is a menu!";
+				return true;
+			} else 
+				qDebug() << "war nix"<<menu->title;
+			ATOMenu *submenu;
+// 			qDebug() << "subi";
+			QList<ATOMenu*> submenus = menu->actions;
+// 			qDebug() << "go";
+			foreach (submenu, submenus)
+				menuList.append(submenu);
+// 			qDebug() << "nach subi";
+		}
+		
 		QObjectList childs = current->children();
 		for (int i=0; i < childs.count(); i++)
 			objectsToSearch.push((ATObject*) childs.at(i));
@@ -135,7 +158,6 @@ bool ATWatcher::trigger(QString triggerString)
 
 ATWatcher::~ATWatcher()
 {
-	qDebug() << "ARGH!!! someone is killing me!";
 	backend->deleteLater();
 }
 

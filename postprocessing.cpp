@@ -17,8 +17,6 @@
 #include <QProgressDialog>
 #include <QObject>
 
-#include <QDebug>
-
 PostProcessing::PostProcessing()
 {
 }

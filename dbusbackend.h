@@ -40,8 +40,7 @@ class DBusBackend : public ATBackend
 		QDBusConnectionInterface *iface;
 		int currentActionIndex;
 		int ignoredSubmenue;
-		QList<ATOMenu*> menus;
-		ATObject *currentParent;
+		ATObject *currentWindow, *currentRoot;
 		QStringList finalClasses; // classes which childs should not be inspected
 					  // -> Quirks-Modus
 		
