@@ -29,15 +29,19 @@ private:
 	Ui::ImportGrammarWorkingPage ui;
 	ImportGrammar *grammarImporter;
 
+public slots:
+	void cancel();
+
 private slots:
 	void initializePage();
 	void printStatus(QString);
 	void displayFileProgress(int progress, int max);
 	void displayWholeProgress(int progress, int max);
+	void setComplete() { this->completed = true; emit completeChanged(); }
 public:
     ImportGrammarWorkingPage(QWidget* parent);
 
-	bool isComplete() { return completed; }
+	bool isComplete() const { return completed; }
     ~ImportGrammarWorkingPage();
 
 };

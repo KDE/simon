@@ -51,6 +51,7 @@ void ImportGrammarWorkingPage::initializePage()
 	connect(grammarImporter, SIGNAL(fileProgress(int, int)), this, SLOT(displayFileProgress(int, int)));
 	connect(grammarImporter, SIGNAL(allProgress(int, int)), this, SLOT(displayWholeProgress(int, int)));
 	connect(grammarImporter, SIGNAL(grammarCreated(QStringList)), this, SIGNAL(grammarCreated(QStringList)));
+	connect(grammarImporter, SIGNAL(grammarCreated(QStringList)), this, SLOT(setComplete()));
 
 
 	QStringList files = field("files").toString().split("||");
@@ -58,6 +59,12 @@ void ImportGrammarWorkingPage::initializePage()
 	grammarImporter->setFiles(files);
 	grammarImporter->setIncludeUnknown(field("includeUnknown").toBool());
 	grammarImporter->start();
+}
+
+void ImportGrammarWorkingPage::cancel()
+{
+	if (grammarImporter->isRunning())
+		grammarImporter->terminate();
 }
 
 
