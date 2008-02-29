@@ -13,8 +13,6 @@
 #define SOUNDCONTROL_H
 
 #include "sounddevice.h"
-#include "RtAudio.h"
-#include "RtError.h"
 #include <QList>
 
 
@@ -31,8 +29,6 @@
  *	@author Peter Grasch
  */
 class SoundControl{
-private:
-	RtAudio *audio;
 
 public:
 	SoundDeviceList* getInputDevices();

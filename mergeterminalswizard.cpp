@@ -17,7 +17,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 
-MergeTerminalsWizard::MergeTerminalsWizard(QWidget* parent): SimonWizard(parent)
+MergeTerminalsWizard::MergeTerminalsWizard(QWidget* parent): QWizard(parent)
 {
 	setWindowTitle(tr("Terminale verbinden"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/merge.png"));

@@ -59,7 +59,8 @@ bool SystemWidgetPage::isComplete() const
 
 SystemWidgetPage::~SystemWidgetPage()
 {
-	child->deleteLater();
+	if (child)
+		child->deleteLater();
 }
 
 

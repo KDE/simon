@@ -27,6 +27,7 @@
 #include <QStringList>
 #include <QString>
 #include <QMessageBox>
+#include <QDebug>
 
 
 TrainingManager* TrainingManager::instance;
@@ -52,9 +53,17 @@ TrainingManager* TrainingManager::getInstance()
 	return instance;
 }
 
-#include <QDebug>
 
-bool TrainingManager::deleteWord ( Word *w )
+/**
+ * \brief Deletes the samples containing the given word
+ * \author Peter Grasch
+ * This will normally be used to delete a word from the language model (because no sample can contain a word
+ * not in the model)
+ * @param w The word to remove
+ * @param recompiledLater If this flag is set, we will not prompt the user to recompile the model
+ * @return Success
+ */
+bool TrainingManager::deleteWord ( Word *w, bool recompiledLater )
 {
 	QString wordToDelete = w->getWord().toUpper();
 
@@ -75,7 +84,6 @@ bool TrainingManager::deleteWord ( Word *w )
 			{
 				if ( !deletePrompt ( filename ) )
 				{
-					qDebug() << "couldnt delete prompt " << filename;
 					promptsLock.unlock();
 					return false;
 				}
@@ -84,8 +92,7 @@ bool TrainingManager::deleteWord ( Word *w )
 		}
 	}
 	promptsLock.unlock();
-
-	return true;
+	return savePrompts(recompiledLater);
 }
 
 /**
@@ -99,11 +106,10 @@ bool TrainingManager::deletePrompt ( QString key )
 {
 // 	int index = promptsTable->keys().indexOf(key);
 	promptsTable->remove ( key );
-
+	QMessageBox::critical(0, "DELETING!", key);
+	return true;
 	//removes the sample
-	qDebug() << "removing " << Settings::getS ( "Model/PathToSamples" ) +"/"+key+".wav";
-	if (!QFile::remove ( Settings::getS ( "Model/PathToSamples" ) +"/"+key+".wav" )) return false;
-	return savePrompts();
+	return QFile::remove ( Settings::getS ( "Model/PathToSamples" ) +"/"+key+".wav" );
 }
 
 /**
@@ -112,7 +118,7 @@ bool TrainingManager::deletePrompt ( QString key )
  * \WARNING The calling function is responsible for locking the promptslock-mutex!
  * @return Success
  */
-bool TrainingManager::savePrompts()
+bool TrainingManager::savePrompts(bool recompiledLater)
 {
 	QFile prompts ( Settings::getS ( "Model/PathToPrompts" ) );
 	if ( !prompts.open ( QIODevice::WriteOnly ) ) return false;
@@ -123,6 +129,9 @@ bool TrainingManager::savePrompts()
 		prompts.write ( samples[i].toLatin1() +" "+promptsTable->value ( samples[i] ).toLatin1() +"\n" );
 
 	prompts.close();
+
+	if (recompiledLater) return true;
+
 
 	if (QMessageBox::question(0, QCoreApplication::tr("Trainingsdaten geändert"), QCoreApplication::tr("Die Trainingsdaten wurden geändert.\n\nWollen Sie das Sprachmodell jetzt neu kompilieren?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
 		ModelManager::compileModel();
@@ -512,7 +521,7 @@ void TrainingManager::finishTrainingSession()
  * \param QString wordname
  * Name of the word
  * \return int
- * Probability to recognize; The higher the more likly simon will recognize this word correctly
+ * Probability to recognize; The higher the more likely simon will recognize this word correctly
  */
 int TrainingManager::getProbability ( QString wordname )
 {
@@ -522,7 +531,11 @@ int TrainingManager::getProbability ( QString wordname )
 	QString line;
 	while ( i<prompts.count() )
 	{
-		prob += prompts.at ( i ).count ( wordname );
+		line =  prompts.at ( i );
+		//faster as QRegExps
+		prob += line.count (" "+wordname+" " );
+		prob += (line.startsWith(wordname+" ")) ? 1 : 0;
+		prob += (line.endsWith(" "+wordname)) ? 1 : 0;
 		i++;
 	}
 	return prob;

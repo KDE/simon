@@ -63,7 +63,7 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	this->wordListManager = WordListManager::getInstance();
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(reloadList()));
 	
-	connect(this->wordListManager, SIGNAL(shadowListChanged()), this, SLOT(reloadList()));
+	connect(this->wordListManager, SIGNAL(shadowListChanged()), this, SLOT(reloadShadowList()));
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(askForRebuild()));
 	this->initializeItems();
 
@@ -77,14 +77,36 @@ void WordListView::askForRebuild()
 	//we changed the wordlist
 	//we should thus recompile the model
 	if (QMessageBox::question(this, tr("Übernehmen"), tr("Um die Änderung zu übernehmen, muss das Sprachmodell neu generiert werden.\n\nWollen Sie es jetzt neu generieren?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
-					ModelManager::compileModel();
+			ModelManager::compileModel();
 }
 
 
+/**
+ * \brief Reloads the wordlist
+ * \author Peter Grasch
+ * \note Respects filters (by calling filterListbyPattern())
+ */
 void WordListView::reloadList()
 {
 	this->clearList();
-	readVocab();
+	filterListbyPattern(); //this will take care of the currently active filter
+	// if there is none set, we will just load the list with loadList
+}
+
+
+/**
+ * \brief Reloads the wordlist if the shadowlist is displayed
+ * \author Peter Grasch
+ * \note Respects filters (by calling filterListbyPattern())
+ */
+void WordListView::reloadShadowList()
+{
+	//if the shadowlist is not even shown - why bother?
+	if (!ui.cbShowCompleteLexicon->isChecked()) return
+
+	//else, reload
+	filterListbyPattern(); //this will take care of the currently active filter
+	// if there is none set, we will just load the list with loadList
 }
 
 /**
@@ -159,10 +181,12 @@ void WordListView::markWordToTrain(Word word)
  */
 void WordListView::filterListbyPattern(QString filter)
 {
-	if (filter.isEmpty()) filter = ui.leSearch->text();
+	if (filter.isEmpty()) filter = ui.leSearch->text().trimmed();
 	if (filter.isEmpty()) this->readVocab();
 	
-	WordList *limitedVocab = wordListManager->getWords(ui.leSearch->text(), ui.cbShowCompleteLexicon->isChecked());
+	WordList *limitedVocab = wordListManager->getWords(ui.leSearch->text(), ui.cbShowCompleteLexicon->isChecked(), true);
+
+	clearList();
 
 	insertVocab( limitedVocab );
 	delete limitedVocab;
@@ -337,7 +361,6 @@ void WordListView::readVocab()
 {
 	WordList *vocab = this->wordListManager->getWordList();
 	if (vocab) insertVocab( vocab );
-// 	delete vocab;
 
 	if (ui.cbShowCompleteLexicon->isChecked())
 	{
@@ -346,7 +369,6 @@ void WordListView::readVocab()
 		{
 			insertVocab( shadow );
 		}
-// 		delete shadow;
 	}
 }
 
@@ -361,6 +383,8 @@ void WordListView::readVocab()
 void WordListView::insertVocab(WordList *vocab)
 {
 	abortVocabInsertion=false;
+	int startAmount=ui.twVocab->rowCount();
+	int currentRow = startAmount;
         int i=0;
 	int limit=Settings::get("Performance/MaxDisplayedWords").toInt();
 	QProgressDialog *pgDlg = new QProgressDialog(tr("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Wörterbuch nicht!)"), tr("Abbrechen"), 0, 
@@ -368,17 +392,15 @@ void WordListView::insertVocab(WordList *vocab)
 
 	connect(pgDlg, SIGNAL(canceled()), this, SLOT(abortInsertion()));
 
-	
-	clearList();
-	ui.twVocab->setRowCount(vocab->count());
+	ui.twVocab->setRowCount(startAmount+vocab->count());
 	while ((!abortVocabInsertion) && (i<vocab->count()) && (i<limit))
 	{
 		if (!vocab->at(i).getWord().isEmpty())
 		{
 			QTableWidgetItem *wordName = new QTableWidgetItem(vocab->at(i).getWord());
-			ui.twVocab->setItem(i, 0, wordName);
-			ui.twVocab->setItem(i, 1, new QTableWidgetItem(vocab->at(i).getPronunciation()));
-			ui.twVocab->setItem(i, 2, new QTableWidgetItem(vocab->at(i).getTerminal()));
+			ui.twVocab->setItem(currentRow, 0, wordName);
+			ui.twVocab->setItem(currentRow, 1, new QTableWidgetItem(vocab->at(i).getPronunciation()));
+			ui.twVocab->setItem(currentRow, 2, new QTableWidgetItem(vocab->at(i).getTerminal()));
 			
 			QTableWidgetItem *prob = new QTableWidgetItem(QString().setNum(vocab->at(i).getPropability()));
 			if (vocab->at(i).getPropability() == 0)
@@ -386,18 +408,21 @@ void WordListView::insertVocab(WordList *vocab)
 			else 
 				if (vocab->at(i).getPropability() < 2)
 					prob->setBackgroundColor( QColor( 241, 134, 134 ) );
-			ui.twVocab->setItem(i, 3, prob);
+			ui.twVocab->setItem(currentRow, 3, prob);
 			
 	
 			for (int j = 0; j<4; j++)
-				ui.twVocab->item(i,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+				ui.twVocab->item(currentRow,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 		} else {
 			vocab->removeAt(i);
 			pgDlg->setMaximum(vocab->count());
 			i--;
 		}
-		pgDlg->setValue(++i);
+		i++;
+		currentRow++;
+		if ((i % 50)==0) pgDlg->setValue(i);
 	}
+	pgDlg->setValue(i);
 	ui.twVocab->setRowCount(i);
 	pgDlg->deleteLater();
 	emit wordlistLoaded();

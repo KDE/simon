@@ -49,9 +49,9 @@ class TrainingManager
 		PromptsTable* readPrompts ( QString pathToPrompts );
 		PromptsTable* getPrompts();
 
-		bool deleteWord ( Word *w );
+		bool deleteWord ( Word *w, bool recompiledLater=false );
 		bool deletePrompt ( QString key );
-		bool savePrompts();
+		bool savePrompts(bool recompiledLater=false);
 
 		/**
 		 * @brief Getter method for the QList of training texts

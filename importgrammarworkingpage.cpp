@@ -15,6 +15,7 @@
 
 ImportGrammarWorkingPage::ImportGrammarWorkingPage(QWidget* parent): QWizardPage(parent)
 {
+	grammarImporter=0;
 	completed=false;
 	setTitle(tr("Analyse läuft..."));
 	ui.setupUi(this);
@@ -62,7 +63,7 @@ void ImportGrammarWorkingPage::initializePage()
 
 ImportGrammarWorkingPage::~ImportGrammarWorkingPage()
 {
-    grammarImporter->deleteLater();
+	if (grammarImporter) grammarImporter->deleteLater();
 }
 
 

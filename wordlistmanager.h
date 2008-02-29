@@ -53,7 +53,7 @@ private:
 	bool mainDirty, shadowDirty;
 	
 	WordList* removeDoubles(WordList *in);
-	WordList* readWordList(QString lexiconpath, QString vocabpath, QString promptspath, QStringList &terminals);
+	WordList* readWordList(QString lexiconpath, QString vocabpath, QString promptspath, QStringList &terminals, bool isShadowlist=false);
 	WordList* readVocab(QString vocabpath);
 	QString* getTerminal(QString name, QString pronunciation, WordList *wlist);
 
@@ -69,7 +69,6 @@ public:
 
 	WordListManager();
 
-	Word* getWord(QString word, QString pronunciation, QString terminal, bool &isShadowed);
 
 	bool saveWordList(WordList *list, QString lexiconFilename, QString vocabFilename);
 
@@ -79,7 +78,12 @@ public:
 
 	QString getRandomWord(QString terminal);
 
-	WordList* getWords(QString word, bool includeShadow=true);
+	WordList* getWords(QString word, bool includeShadow=true, bool fuzzy=false);
+
+	Word* getWord(QString word, QString pronunciation, QString terminal, bool &isShadowed);
+	int getWordIndex(WordList *list, bool &found, QString word, QString pronunciation="", QString terminal="");
+
+	WordList* getWordsByTerminal(QString terminal, bool includeShadow=false);
 	void addWords(WordList *list, bool isSorted=false, bool shadow=false);
 	bool save( QString lexiconFilename="", QString vocabFilename="", QString shadowLexiconFilename="",
 			 QString shadowVocabFilename="" );

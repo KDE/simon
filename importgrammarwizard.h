@@ -12,13 +12,13 @@
 #ifndef IMPORTGRAMMARWIZARD_H
 #define IMPORTGRAMMARWIZARD_H
 
-#include "simonwizard.h"
+#include <QWizard>
 class QWizardPage;
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class ImportGrammarWizard : public SimonWizard
+class ImportGrammarWizard : public QWizard
 {
 Q_OBJECT
 signals:

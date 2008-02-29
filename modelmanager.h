@@ -32,7 +32,7 @@ Q_OBJECT
 signals:
 	void status(QString);
 	void error(QString);
-	void progress(int now, int total=2000);
+	void progress(int now, int total=2300);
 private:
 	static ModelManager* instance;
 	QProgressDialog *processDialog;
@@ -88,7 +88,8 @@ private:
 
 	bool compileGrammar();
 		bool generateReverseGrammar();
-		bool generateTempVoca();
+		bool makeSimpleVocab();
+		bool makeTempVocab();
 		bool makeDfa();
 		bool generateDict();
 	

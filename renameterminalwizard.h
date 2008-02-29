@@ -12,14 +12,14 @@
 #ifndef RENAMETERMINALWIZARD_H
 #define RENAMETERMINALWIZARD_H
 
-#include "simonwizard.h"
+#include <QWizard>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class QWizardPage;
 
-class RenameTerminalWizard : public SimonWizard
+class RenameTerminalWizard : public QWizard
 {
 Q_OBJECT
 private:

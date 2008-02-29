@@ -32,15 +32,15 @@ Hude	hu:d@
 übers	?y:b@rs
 übern	?y:b@rn
 überm	?y:b@rm
-Zwecks	tsvEks
 zwecks	tsvEks
+Zwecks	tsvEks
 zusamt	tsuzamt
 zur	tsu:r
 zum	tsUm
 zugunsten	tsugUnst@n
 zufolge	tsufOlg@
-wegen	ve:g@n
 Wegen	ve:g@n
+wegen	ve:g@n
 vors	fo:rs
 von	fOn
 vom	fOm
@@ -64,6 +64,7 @@ nebst	ne:pst
 mittelst	mIt@lst
 mitsamt	mItzamt
 längsseits	lENszaIts
+jedesmal	j e: d @ s m a: l
 infolge	?InfOlg@
 in	?In
 im	?Im
@@ -90,8 +91,8 @@ beim	baIm
 am	?am
 % INJ
 ätsch	?E:tS
-zuck	tsUk
 Zuck	tsUk
+zuck	tsUk
 zack	tsak
 Weidmannsheil	vaItmans,haIl
 voila	v<oala
@@ -104,13 +105,13 @@ tschüß	tSYs
 tsching	tSIN
 tschau	tSaU
 Trott	trOt
-Trara	trara:
 trara	trara:
-trapp	trap
+Trara	trara:
 Trapp	trap
+trapp	trap
 tralla	trala:
-topp	tOp
 Topp	tOp
+topp	tOp
 Ticktack	tIk,tak
 Tick	tIk
 taratata	taratata:
@@ -1247,8 +1248,8 @@ Tamerlan	ta:m@rla:n
 Tamara	tama:ra:
 Taman	tama:n
 Tamale	tama:l@
-talje	talj@
 Talje	talj@
+talje	talj@
 Takyre	taki:r@
 Takyr	ta:kIr
 Tajana	tatja:na:
@@ -1268,8 +1269,8 @@ Tabes	ta:bEs
 Tabari	ta:bari:
 Sütterlin	zYt@rli:n
 Südwester	zy:tvEst@r
-Südsüdost	zy:tzy:t?Ost
 Südsüdost	,zy:t,zy:t?Ost
+Südsüdost	zy:tzy:t?Ost
 Südostasien	zy:t?Ost?a:z<i@n
 Südkorea	zy:tkore:a:
 Südjemen	zy:tje:m@n
@@ -1444,8 +1445,8 @@ Sophia	zofia:
 Sony	so:ni:
 Sonja	zOnja:
 Somolana	zomola:na:
-somnambule	zOmnambu:l@
 Somnambule	zOmnambu:l@
+somnambule	zOmnambu:l@
 Somata	zo:mata:
 Somalia	zoma:l<ia:
 Solveig	zOlvaIk
@@ -1685,8 +1686,8 @@ Schönberg	S2:nbErk
 Schwyz	Svi:ts
 Schwerin	Sveri:n
 Schwenkarm	SvENk,?arm
-Schwende	SvEnd@
 schwende	SvEnd@
+Schwende	SvEnd@
 Schurf	SUrf
 Schumann	Su:man
 Schulze	Su:ltsE
@@ -1990,8 +1991,8 @@ Prag	pra:k
 Potsdam	pOtsdam
 Potiphar	po:tifar
 Pothinus	poti:nUs
-possessive	pOsEsi:v@
 Possessive	pOsEsi:v@
+possessive	pOsEsi:v@
 Portos	pOrto:s
 Portele	pOrt@l@
 Poros	po:rOs
@@ -6144,8 +6145,8 @@ Anorthosit	?anOrtozIt
 Anochin	?anOxIn
 Anny	?Eni:
 Annunziata	?anUnts<ia:ta:
-anno	?ano:
 Anno	?ano:
+anno	?ano:
 Annius	?an<iUs
 Annina	?ani:na:
 Annette	?anEt@
@@ -6442,12 +6443,11 @@ Abakan	?abaka:n
 Abaka	?aba:ka:
 Aargau	?a:rgaU
 Aarau	?a:raU
-aalst	?a:lst
 Aalst	?a:lst
+aalst	?a:lst
 % NEG
 jawohl	javo:l
 % NOM
-Test	tEst
 Üppigkeit	?YpICkaIt
 Ührlein	?y:rlaIn
 Ührchen	?y:rC@n
@@ -6495,8 +6495,8 @@ Test	tEst
 Übertölpelung	?y:b@rt9lp@lUN
 Übertäubung	?y:b@rtOYbUN
 Überträger	?y:b@rtrE:g@r
-übertritt	?y:b@rtrIt
 Übertritt	?y:b@rtrIt
+übertritt	?y:b@rtrIt
 Übertriebenheit	?y:b@rtri:b@nhaIt
 Übertretungsfall	?y:b@rtre:tUNs,fal
 Übertretung	?y:b@rtre:tUN
@@ -6717,8 +6717,8 @@ Test	tEst
 Überbringung	?y:b@rbrINUN
 Überbringerin	?y:b@rbrIN@rIn
 Überbringer	?y:b@rbrIN@r
-Überblicke	?y:b@rblIk@
 überblicke	?y:b@rblIk@
+Überblicke	?y:b@rblIk@
 Überblick	?y:b@rblIk
 Überblendung	?y:b@rblEndUN
 Überbleibsel	?y:b@rblaIps@l
@@ -7252,6 +7252,7 @@ Zwergin	tsvErgIn
 Zwerges	tsvErg@s
 Zwergen	tsvErg@n
 Zwerge	tsvErg@
+Zwerge	ts v E r g @
 Zwerg	tsvErk
 Zwerchfells	tsvErCfEls
 Zwerchfellen	tsvErCfEl@n
@@ -7694,8 +7695,8 @@ Zollstelle	tsOl,StEl@
 Zolls	tsOls
 Zollfahndung	tsOl,fa:ndUN
 Zolles	tsOl@s
-zolle	tsOl@
 Zolle	tsOl@
+zolle	tsOl@
 Zollamts	tsOl,?amts
 Zollamtes	tsOl,?amt@s
 Zollamte	tsOl,?amt@
@@ -8153,8 +8154,8 @@ Zielfernrohre	tsi:l,fErn,ro:r@
 Zielfernrohr	tsi:l,fErn,ro:r
 Zieles	tsi:l@s
 Zieler	tsi:l@r
-Ziele	tsi:l@
 ziele	tsi:l@
+Ziele	tsi:l@
 Zielbands	tsi:l,bants
 Zielbandes	tsi:l,band@s
 Zielbande	tsi:l,band@
@@ -8219,8 +8220,8 @@ Zeugma	tsOYgma:
 Zeuginnen	tsOYgIn@n
 Zeugin	tsOYgIn
 Zeuges	tsOYg@s
-Zeuge	tsOYg@
 zeuge	tsOYg@
+Zeuge	tsOYg@
 Zeug	tsOYk
 Zettels	tsEt@ls
 Zettelkasten	tsEt@l,kast@n
@@ -8772,8 +8773,8 @@ Zedernholzes	tse:d@rn,hOlts@s
 Zedernholze	tse:d@rn,hOlts@
 Zedernholz	tse:d@rn,hOlts
 Zeder	tse:d@r
-zecke	tsEk@
 Zecke	tsEk@
+zecke	tsEk@
 Zechstein	tsECStaIn
 Zechprellers	tsECprEl@rs
 Zechprellern	tsECprEl@rn
@@ -8998,8 +8999,8 @@ Zagheit	tsa:khaIt
 Zaghaftigkeit	tsa:k,haftICkaIt
 Zackenlinien	tsak@n,li:ni@n
 Zackenlinie	tsak@n,li:ni@
-zacke	tsak@
 Zacke	tsak@
+zacke	tsak@
 Z	tsEt
 Yucca	jUka:
 Ypsilons	?YpsilOns
@@ -9542,8 +9543,8 @@ Wigwams	vIkvams
 Wigwam	vIkvam
 Wiesels	vi:z@ls
 Wiesel	vi:z@l
-wiese	vi:z@
 Wiese	vi:z@
+wiese	vi:z@
 Wieschen	vi:sC@n
 Wiederverheiratung	vi:d@rfEr,haIratUN
 Wiederkunft	vi:d@rkUnft
@@ -9579,8 +9580,8 @@ Wiederaufbereitungsanlage	vi:d@r?aUfb@,raItUNs,?anla:g@
 Wiederaufbereitung	vi:d@r?aUfb@,raItUN
 Wiederaufbaus	vi:d@r?aUfbaUs
 Wiederaufbaues	vi:d@r?aUfbaU@s
-wiederaufbaue	vi:d@r?aUfbaU@
 Wiederaufbaue	vi:d@r?aUfbaU@
+wiederaufbaue	vi:d@r?aUfbaU@
 Wiederaufbau	vi:d@r?aUfbaU
 Wiedehopfs	vi:d@hOpfs
 Wiedehopfes	vi:d@hOpf@s
@@ -9605,8 +9606,8 @@ Widerrufung	vid@rru:fUN
 Widerrufs	vi:d@r,ru:fs
 Widerruflichkeit	vi:d@r,ru:flICkaIt
 Widerrufes	vi:d@r,ru:f@s
-widerrufe	vi:d@r,ru:f@
 Widerrufe	vi:d@r,ru:f@
+widerrufe	vi:d@r,ru:f@
 Widerruf	vi:d@r,ru:f
 Widerling	vi:d@rlIN
 Widerlichkeiten	vi:d@rlICkaIt@n
@@ -9734,15 +9735,15 @@ Werbespot	vErb@spOt
 Werbers	vErb@rs
 Werbern	vErb@rn
 Werber	vErb@r
-Werbe	vErb@
 werbe	vErb@
+Werbe	vErb@
 Wendungen	vEndUN@n
 Wendung	vEndUN
 Wendigkeit	vEndICkaIt
 Wendeln	vEnd@ln
 Wendel	vEnd@l
-wende	vEnd@
 Wende	vEnd@
+wende	vEnd@
 Weltwirtschaftskrisen	vEltvIrtSafts,kri:z@n
 Weltwirtschaftskrise	vEltvIrtSafts,kri:z@
 Welturaufführung	vElt?u:r,?aUffy:rUN
@@ -9827,8 +9828,8 @@ Weiterverkaufes	vaIt@rfEr,kaUf@s
 Weiterverkaufe	vaIt@rfEr,kaUf@
 Weiterverkauf	vaIt@rfEr,kaUf
 Weiterung	vaIt@rUN
-Weiterfahrt	vaIt@r,fa:rt
 weiterfahrt	vaIt@r,fa:rt
+Weiterfahrt	vaIt@r,fa:rt
 Weisungen	vaIzUN@n
 Weisung	vaIzUN
 Weißung	vaIsUN
@@ -9844,8 +9845,8 @@ Weisern	vaIz@rn
 Weins	vaIns
 Weinkönigin	vaIn,k2:nigIn
 Weines	vaIn@s
-Weine	vaIn@
 weine	vaIn@
+Weine	vaIn@
 Wein	vaIn
 Weilchens	vaIlC@ns
 Weilchen	vaIlC@n
@@ -9859,8 +9860,8 @@ Weihnacht	vaInaxt
 Weihers	vaI@rs
 Weihern	vaI@rn
 Weiher	vaI@r
-Weihe	vaI@
 weihe	vaI@
+Weihe	vaI@
 Weih	vaI
 Weigerungen	vaIg@rUN@n
 Weigerung	vaIg@rUN
@@ -9875,8 +9876,8 @@ Weidlingen	vaItlIN@n
 Weidlinge	vaItlIN@
 Weidling	vaItlIN
 Weidelgras	vaId@l,gra:s
-weide	vaId@
 Weide	vaId@
+weide	vaId@
 Weichlings	vaIClINs
 Weichlingen	vaIClIN@n
 Weichlinge	vaIClIN@
@@ -9905,8 +9906,8 @@ Wehrlosigkeit	ve:r,lo:zICkaIt
 Wehrhaftigkeit	ve:rhaftICkaIt
 Wehres	ve:r@s
 Wehrersatzbehörde	ve:r?Er,zatsb@,h9rd@
-wehre	ve:r@
 Wehre	ve:r@
+wehre	ve:r@
 Wehrdienstverweigerers	ve:r,di:nstfEr,vaIg@r@rs
 Wehrdienstverweigerern	ve:r,di:nstfEr,vaIg@r@rn
 Wehrdienstverweigerer	ve:r,di:nstfEr,vaIg@r@r
@@ -10658,8 +10659,8 @@ Visums	vi:zUms
 Visum	vi:zUm
 Viskosität	vIskozitE:t
 Viskosimeter	vIskozime:t@r
-viskose	vIsko:z@
 Viskose	vIsko:z@
+viskose	vIsko:z@
 Visiten	vizi:t@n
 Visite	vizi:t@
 Visitatoren	vizitato:r@n
@@ -11054,8 +11055,8 @@ Vertrauens	fErtraU@ns
 Vertragstreue	fErtra:ks,trOY@
 Vertrags	fErtra:ks
 Vertrages	fErtra:g@s
-Vertrage	fErtra:g@
 vertrage	fErtra:g@
+Vertrage	fErtra:g@
 Vertrag	fErtra:k
 Vertoskop	vErtosko:p
 Vertonungen	fErto:nUN@n
@@ -11191,8 +11192,8 @@ Versicherungsamt	fErzIC@rUNs,?amt
 Versicherungen	fErzIC@rUN@n
 Versicherung	fErzIC@rUN
 versicherten	fErzIC@rt@n
-Versicherte	fErzIC@rt@
 versicherte	fErzIC@rt@
+Versicherte	fErzIC@rt@
 Versicherers	fErzIC@r@rs
 Versicherern	fErzIC@r@rn
 Versicherer	fErzIC@r@r
@@ -11209,8 +11210,8 @@ Versendung	fErzEndUN
 Versen	fErz@n
 Verselbständigung	fErzElp,StEndIgUN
 Versehrter	fErze:rt@r
-versehrten	fErze:rt@n
 Versehrten	fErze:rt@n
+versehrten	fErze:rt@n
 versehrte	fErze:rt@
 Versehrte	fErze:rt@
 Versehens	fErze:@ns
@@ -11640,8 +11641,8 @@ Vergleichungen	fErglaICUN@n
 Vergleichung	fErglaICUN
 Vergleichs	fErglaICs
 Vergleiches	fErglaIC@s
-Vergleiche	fErglaIC@
 vergleiche	fErglaIC@
+Vergleiche	fErglaIC@
 Vergleich	fErglaIC
 Verglasungen	fErgla:zUN@n
 Verglasung	fErgla:zUN
@@ -12094,8 +12095,8 @@ Variationen	var<iats<io:n@n
 Variation	var<iats<io:n
 Varianten	var<iant@n
 Variante	var<iant@
-variable	var<ia:bl@
 Variable	var<ia:bl@
+variable	var<ia:bl@
 Variabilitäten	va:r<iabilitE:t@n
 Variabilität	va:r<iabilitE:t
 Varia	va:ria:
@@ -12472,8 +12473,8 @@ Unterhaltes	?Unt@rhalt@s
 Unterhalters	?Unt@rhalt@rs
 Unterhaltern	?Unt@rhalt@rn
 Unterhalter	?Unt@rhalt@r
-unterhalte	?Unt@rhalt@
 Unterhalte	?Unt@rhalt@
+unterhalte	?Unt@rhalt@
 Unterhalt	?Unt@rhalt
 Untergrundorganisationen	?Unt@r,grUnt?Organiza,ts<io:n@n
 Untergrundorganisation	?Unt@r,grUnt?Organiza,ts<io:n
@@ -12900,8 +12901,8 @@ Umseglungen	?Umze:glUN@n
 Umseglung	?Umze:glUN
 Umsegelungen	?Umze:g@lUN@n
 Umsegelung	?Umze:g@lUN
-Umschweife	?UmSvaIf@
 umschweife	?UmSvaIf@
+Umschweife	?UmSvaIf@
 Umschreibungen	?UmSraIbUN@n
 Umschreibung	?UmSraIbUN
 Umschlingungen	?UmSlINUN@n
@@ -12931,8 +12932,8 @@ Ummantelung	?Ummant@lUN
 Umkreisungen	?UmkraIzUN@n
 Umkreisung	?UmkraIzUN
 Umkreises	?UmkraIz@s
-umkreise	?UmkraIz@
 Umkreise	?UmkraIz@
+umkreise	?UmkraIz@
 Umkreis	?UmkraIs
 Umklammerungen	?Umklam@rUN@n
 Umklammerung	?Umklam@rUN
@@ -13162,8 +13163,8 @@ Tuthornes	tu:t,hOrn@s
 Tuthorne	tu:t,hOrn@
 Tuthorn	tu:t,hOrn
 Tutelen	tu:t,?e:lEn
-tute	tu:t@
 Tute	tu:t@
+tute	tu:t@
 Tuschs	tUSs
 Tuschmalerei	tUSma:l@raI
 Tusches	tUS@s
@@ -13496,8 +13497,8 @@ Tropfe	trOpf@
 Tropf	trOpf
 Tropenpflanzen	tro:p@n,pflants@n
 Tropenpflanze	tro:p@n,pflants@
-Tropenmedizin	tro:p@nmedi,tsi:n
 Tropenmedizin	tro:p@nmeditsi:n
+Tropenmedizin	tro:p@nmedi,tsi:n
 Tropenkrankheiten	tro:p@n,kraNkhaIt@n
 Tropenkrankheit	tro:p@n,kraNkhaIt
 Tropenkollers	tro:p@n,kOl@rs
@@ -13553,8 +13554,8 @@ Troika	tro:ika
 Trogs	tro:ks
 Troges	tro:g@s
 Troge	tro:g@
-Trog	tro:k
 trog	tro:k
+Trog	tro:k
 Troddel	trOd@l
 Trochäus	troxE:Us
 Trochäen	troxE:@n
@@ -13694,8 +13695,8 @@ Trimmes	trIm@s
 Trimmers	trIm@rs
 Trimmern	trIm@rn
 Trimmer	trIm@r
-Trimme	trIm@
 trimme	trIm@
+Trimme	trIm@
 Trimm	trIm
 Trimeter	tri:met@r
 Trimesters	trimEst@rs
@@ -13733,10 +13734,10 @@ Trieblebens	tri:p,le:b@ns
 Triebleben	tri:p,le:b@n
 Triebhaftigkeit	tri:p,haftICkaIt
 Triebes	tri:b@s
-Triebe	tri:b@
 triebe	tri:b@
-Trieb	tri:p
+Triebe	tri:b@
 trieb	tri:p
+Trieb	tri:p
 Tricktracks	trIktraks
 Tricktrack	trIktrak
 Trickserei	trIks@raI
@@ -13796,8 +13797,8 @@ Treuegelöbnis	trOY@g@,l2:pnIs
 Treueeid	trOY@,?aIt
 Treuebruch	trOY@,brUx
 Treuebekenntnis	trOY@b@,kEntnIs
-treue	trOY@
 Treue	trOY@
+treue	trOY@
 Tretschlittens	tre:t,SlIt@ns
 Tretschlitten	tre:t,SlIt@n
 Tretrads	tre:t,ra:ts
@@ -14052,8 +14053,8 @@ Transits	tranzi:ts
 Transitoriums	tranzito:riUms
 Transitorium	tranzito:riUm
 Transitorien	tranzito:ri@n
-Transitiven	tranziti:v@n
 transitiven	tranziti:v@n
+Transitiven	tranziti:v@n
 Transition	tranzits<io:n
 Transites	tranzi:t@s
 Transiten	tranzi:t@n
@@ -14222,8 +14223,8 @@ Trabern	tra:b@rn
 Traberbahnen	tra:b@r,ba:n@n
 Traberbahn	tra:b@r,ba:n
 Traber	tra:b@r
-trabe	tra:b@
 Trabe	tra:b@
+trabe	tra:b@
 Trabanten	trabant@n
 Trabant	trabant
 Trab	tra:p
@@ -14498,8 +14499,8 @@ Timokratie	timokrati:
 Timing	taImIN
 Timidität	timiditE:t
 Timerecorder	taImrI,kO:d@r
-Time	taIm
 time	taIm
+Time	taIm
 Timbres	tE~:br@s
 Timbre	tE~:br@
 Tilgungen	tIlgUN@n
@@ -14530,8 +14531,8 @@ Tiefstapeleien	ti:fStap@,laI@n
 Tiefstapelei	ti:fStap@,laI
 Tics	tIks
 Tickets	tIk@ts
-ticket	tIk@t
 Ticket	tIk@t
+ticket	tIk@t
 Ticker	tIk@r
 Tic	tIk
 Tiaren	ti?a:r@n
@@ -15406,8 +15407,8 @@ Tanzunterricht	tants,?Unt@rICt
 Tanzes	tants@s
 Tanzereien	tants@raI@n
 Tanzerei	tants@raI
-tanze	tants@
 Tanze	tants@
+tanze	tants@
 Tanz	tants
 Tantiemen	ta~t<iE:m@n
 Tantieme	ta~t<iE:m@
@@ -15422,8 +15423,8 @@ Tantal	tantal
 Tanns	tans
 Tannicht	tanICt
 Tannes	tan@s
-Tanne	tan@
 tanne	tan@
+Tanne	tan@
 Tann	tan
 Tanks	taNks
 Tankred	taNkre:t
@@ -16341,8 +16342,8 @@ Strohes	Stro:@s
 Strohe	Stro:@
 Stroh	Stro:
 Striptease	strIpti:s
-strippe	StrIp@
 Strippe	StrIp@
+strippe	StrIp@
 Strip	strIp
 Stringenz	StrINgEnts
 String	strIN
@@ -16412,8 +16413,8 @@ Streichers	StraIC@rs
 Streichern	StraIC@rn
 Streicher	StraIC@r
 Streicheleinheiten	StraIC@l,?aInhaIt@n
-Streiche	StraIC@
 streiche	StraIC@
+Streiche	StraIC@
 Streich	StraIC
 Street	stri:t
 Streckungen	StrEkUN@n
@@ -16451,8 +16452,8 @@ Strategien	Strategi:@n
 Strategie	Strategi:
 Strategen	Strate:g@n
 Stratege	Strate:g@
-Straßen	Stra:s@n
 Strassen	Stra:s@n
+Straßen	Stra:s@n
 Strasse	Stra:s@
 Straße	Stra:s@
 Straß	Stras
@@ -16639,8 +16640,8 @@ Stockung	StOkUN
 Stocks	StOks
 Stockrose	StOk,ro:z@
 Stockes	StOk@s
-Stocke	StOk@
 stocke	StOk@
+Stocke	StOk@
 Stock	StOk
 stock	StOk
 Stochers	StOx@rs
@@ -16948,8 +16949,8 @@ Stelzvogel	StElts,fo:g@l
 Stelzfusses	StElts,fu:s@s
 Stelzfusse	StElts,fu:s@
 Stelzfuß	StElts,fu:s
-stelze	StElts@
 Stelze	StElts@
+stelze	StElts@
 Stellwerk	StEl,vErk
 Stellvertretungen	StElfEr,tre:tUN@n
 Stellvertretung	StElfEr,tre:tUN
@@ -17009,8 +17010,8 @@ Steigerungen	StaIg@rUN@n
 Steigerung	StaIg@rUN
 Steigers	StaIg@rs
 Steiger	StaIg@r
-Steige	StaIg@
 steige	StaIg@
+Steige	StaIg@
 Steig	StaIk
 Steifung	StaIfUN
 Steifigkeit	StaIfICkaIt
@@ -17223,8 +17224,8 @@ Startes	Start@s
 Starters	Start@rs
 Startern	Start@rn
 Starter	Start@r
-Starte	Start@
 starte	Start@
+Starte	Start@
 Startautomatiken	Start?aUto,ma:tIk@n
 Startautomatik	Start?aUto,ma:tIk
 Start	Start
@@ -17236,8 +17237,8 @@ Starrsinne	Star,zIn@
 Starrsinn	Star,zIn
 Starrheit	StarhaIt
 starren	Star@n
-Starre	Star@
 starre	Star@
+Starre	Star@
 Starost	starOst
 Starlets	sta:rlEts
 Starlet	sta:rlEt
@@ -17311,8 +17312,8 @@ Stammfrüchtler	Stam,frYCtl@r
 Stammes	Stam@s
 Stammeinlagen	Stam,?aInla:g@n
 Stammeinlage	Stam,?aInla:g@
-stamme	Stam@
 Stamme	Stam@
+stamme	Stam@
 Stammaktien	Stam,?aktsi@n
 Stammaktie	Stam,?aktsi@
 Stamm	Stam
@@ -17347,8 +17348,8 @@ Stainer	StaIn@r
 Stahls	Sta:ls
 Stahles	Sta:l@s
 Stahle	Sta:l@
-stahl	Sta:l
 Stahl	Sta:l
+stahl	Sta:l
 Stagsegels	Sta:k,ze:gls
 Stagsegeln	Sta:k,ze:gln
 Stagsegel	Sta:k,ze:gl
@@ -17891,8 +17892,8 @@ Spießertum	Spi:s@rtu:m
 Spiessern	Spi:s@rn
 Spießerin	Spi:s@rIn
 Spiesser	Spi:s@r
-Spiess	Spi:s
 Spieß	Spi:s
+Spiess	Spi:s
 Spies	Spi:s
 Spiers	Spi:rs
 Spierlings	Spi:rlINs
@@ -17915,8 +17916,8 @@ Spielerin	Spi:l@rIn
 Spielereien	Spi:l@raI@n
 Spielerei	Spi:l@raI
 Spieler	Spi:l@r
-spiele	Spi:l@
 Spiele	Spi:l@
+spiele	Spi:l@
 Spiel	Spi:l
 Spiekers	Spi:k@rs
 Spiekern	Spi:k@rn
@@ -17929,8 +17930,8 @@ Spiegelei	Spi:g@laI
 Spiegel	Spi:g@l
 Spicks	SpIks
 Spickes	SpIk@s
-Spicken	SpIk@n
 spicken	SpIk@n
+Spicken	SpIk@n
 Spicke	SpIk@
 Spick	SpIk
 Sphärometer	sfErome:t@r
@@ -18198,8 +18199,8 @@ Sparterie	Spart@ri:
 sparten	Spart@n
 Sparten	Spart@n
 Spartein	Sparte?i:n
-sparte	Spart@
 Sparte	Spart@
+sparte	Spart@
 Spartaners	Sparta:n@rs
 Spartanern	Sparta:n@rn
 Spartaner	Sparta:n@r
@@ -18581,8 +18582,8 @@ Sohns	zo:ns
 Sohnes	zo:n@s
 Sohne	zo:n@
 Sohn	zo:n
-sohle	zo:l@
 Sohle	zo:l@
+sohle	zo:l@
 Software	sOft<uE:r
 Softie	sOfti:
 Softenings	sOft@nINs
@@ -18836,8 +18837,8 @@ Sixpack	sIkspEk
 Sitzungen	zItsUN@n
 Sitzung	zItsUN
 Sitzes	zIts@s
-Sitze	zIts@
 sitze	zIts@
+Sitze	zIts@
 Sitz	zIts
 situativen	zituati:v@n
 Situationen	zituats<io:n@n
@@ -19598,10 +19599,10 @@ Selbstverleugnung	zElpstfEr,lOYgnUN
 Selbstlosigkeit	zElpstlo:zICkaIt
 Selbstlernerin	zElpst,lErn@rIn
 Selbstgespräch	zElpstg@,SprEC
-Selbstfinanzierungen	zElpstfinantsi:rUN@n
 Selbstfinanzierungen	zElpstfinan,tsi:rUN@n
-Selbstfinanzierung	zElpstfinan,tsi:rUN
+Selbstfinanzierungen	zElpstfinantsi:rUN@n
 Selbstfinanzierung	zElpstfinantsi:rUN
+Selbstfinanzierung	zElpstfinan,tsi:rUN
 Selbstbeobachtung	zElpstb@,?obaxtUN
 Selachier	zelaxi@r
 Sekurität	zekuritE:t
@@ -19674,8 +19675,8 @@ Sekans	ze:kans
 Seitenstraße	zaIt@nStra:s@
 Seitennumerierungen	zaIt@nnUm@ri:rUN@n
 Seitennumerierungen	zaIt@nnUm@,ri:rUN@n
-Seitennumerierung	zaIt@nnUm@ri:rUN
 Seitennumerierung	zaIt@nnUm@,ri:rUN
+Seitennumerierung	zaIt@nnUm@ri:rUN
 Seite	zaIt@
 Seismos	zaIsmOs
 Seismologie	zaIsmologi:
@@ -19819,14 +19820,14 @@ Sedimente	zedimEnt@
 Sedimentation	ze:dimEntats<io:n
 Sediment	zedimEnt
 Sedativum	zedati:vUm
-Sedativen	zedati:v@n
 sedativen	zedati:v@n
+Sedativen	zedati:v@n
 Sedativa	zedati:va:
 Seda	ze:da:
 SED	?Es?e:de:
 Security	s@kju:rIti:
-Sechzigstel	zECtsICst@l
 sechzigstel	zECtsICst@l
+Sechzigstel	zECtsICst@l
 Sechzigerin	zECtsIg@rIn
 Sechszylinders	zEkstsy,lInd@rs
 Sechszylindern	zEkstsy,lInd@rn
@@ -19943,8 +19944,8 @@ Schwundes	SvUnd@s
 Schwunde	SvUnd@
 Schwund	SvUnt
 Schwulsts	SvUlsts
-schwulst	SvUlst
 Schwulst	SvUlst
+schwulst	SvUlst
 Schwulität	SvulitE:t
 Schwof	Svo:f
 Schwitzwasser	SvIts,vas@r
@@ -20049,8 +20050,8 @@ Schwerts	Sve:rts
 Schwertern	Sve:rt@rn
 Schwert	Sve:rt
 Schwermütigkeit	Sve:r,my:tICkaIt
-schwerkranker	Sve:r,kraNk@r
 Schwerkranker	Sve:r,kraNk@r
+schwerkranker	Sve:r,kraNk@r
 Schwerkranken	Sve:r,kraNk@n
 schwerkranken	Sve:r,kraNk@n
 Schwerkranke	Sve:r,kraNk@
@@ -20737,8 +20738,8 @@ Schnäbelchen	SnE:b@lC@n
 Schnute	Snu:t@
 Schnurrigkeiten	SnUrICkaIt@n
 Schnurrigkeit	SnUrICkaIt
-Schnurre	SnUr@
 schnurre	SnUr@
+Schnurre	SnUr@
 Schnurrbarts	SnUrba:rts
 Schnurrbartes	SnUrba:rt@s
 Schnurrbarte	SnUrba:rt@
@@ -20812,8 +20813,8 @@ Schnee	Sne:
 Schnecken	SnEk@n
 Schnecke	SnEk@
 Schnauzes	SnaUts@s
-schnauze	SnaUts@
 Schnauze	SnaUts@
+schnauze	SnaUts@
 Schnauz	SnaUts
 Schnatz	Snats
 Schnatterliesen	Snat@r,li:z@n
@@ -20897,12 +20898,12 @@ Schmok	Smo:k
 Schmock	SmOk
 Schmitz	SmIts
 Schmisses	SmIs@s
-schmissen	SmIs@n
 Schmissen	SmIs@n
+schmissen	SmIs@n
 schmisse	SmIs@
 Schmisse	SmIs@
-Schmiß	SmIs
 schmiß	SmIs
+Schmiß	SmIs
 Schmirgels	SmIrg@ls
 Schmirgel	SmIrg@l
 Schminkstifts	SmINk,StIfts
@@ -20910,8 +20911,8 @@ Schminkstiftes	SmINk,StIft@s
 Schminkstiften	SmINk,StIft@n
 Schminkstifte	SmINk,StIft@
 Schminkstift	SmINk,StIft
-Schminke	SmINk@
 schminke	SmINk@
+Schminke	SmINk@
 Schmieröl	Smi:r,?2:l
 Schmierzettel	Smi:r,tsEt@l
 Schmierungen	Smi:rUN@n
@@ -20997,8 +20998,8 @@ Schmerzensgeldern	SmErts@ns,gEld@rn
 Schmerzensgelder	SmErts@ns,gEld@r
 Schmerzensgelde	SmErts@ns,gEld@
 Schmerzensgeld	SmErts@ns,gElt
-Schmerze	SmErts@
 schmerze	SmErts@
+Schmerze	SmErts@
 Schmerz	SmErts
 Schmerlings	SmErlINs
 Schmerlingen	SmErlIN@n
@@ -21095,8 +21096,8 @@ Schluckers	SlUk@rs
 Schluckern	SlUk@rn
 Schlucker	SlUk@r
 Schluckens	SlUk@ns
-Schlucke	SlUk@
 schlucke	SlUk@
+Schlucke	SlUk@
 Schluck	SlUk
 Schluchzers	SlUxts@rs
 Schluchzern	SlUxts@rn
@@ -21116,8 +21117,8 @@ Schlosserei	SlOs@raI
 Schlosser	SlOs@r
 Schloß	SlOs
 Schlitzes	SlIts@s
-Schlitze	SlIts@
 schlitze	SlIts@
+Schlitze	SlIts@
 Schlitz	SlIts
 Schlittschuhs	SlIt,Su:s
 Schlittschuhes	SlIt,Su:@s
@@ -21173,8 +21174,8 @@ Schleppern	SlEp@rn
 Schlepperfahrer	SlEp@r,fa:r@r
 Schlepperei	SlEp@raI
 Schlepper	SlEp@r
-Schleppe	SlEp@
 schleppe	SlEp@
+Schleppe	SlEp@
 Schlepp	SlEp
 Schlenker	SlENk@r
 Schlendrians	SlEndria:ns
@@ -21218,8 +21219,8 @@ Schleifern	SlaIf@rn
 Schleifereien	SlaIf@raI@n
 Schleiferei	SlaIf@raI
 Schleifer	SlaIf@r
-schleife	SlaIf@
 Schleife	SlaIf@
+schleife	SlaIf@
 Schleifbank	SlaIf,baNk
 Schleifbands	SlaIf,bants
 Schleifbandes	SlaIf,band@s
@@ -21360,8 +21361,8 @@ Schirmung	SIrmUN
 Schirms	SIrms
 Schirmling	SIrmlIN
 Schirmes	SIrm@s
-schirme	SIrm@
 Schirme	SIrm@
+schirme	SIrm@
 Schirm	SIrm
 Schippers	SIp@rs
 Schipper	SIp@r
@@ -21385,8 +21386,8 @@ Schimpfs	SImpfs
 Schimpfes	SImpf@s
 Schimpfereien	SImpf@raI@n
 Schimpferei	SImpf@raI
-Schimpfe	SImpf@
 schimpfe	SImpf@
+Schimpfe	SImpf@
 Schimpf	SImpf
 Schimpansen	SImpanz@n
 Schimpanse	SImpanz@
@@ -21549,8 +21550,8 @@ Scheltwortes	SElt,vOrt@s
 Scheltworten	SElt,vOrt@n
 Scheltworte	SElt,vOrt@
 Scheltwort	SElt,vOrt
-Schelte	SElt@
 schelte	SElt@
+Schelte	SElt@
 Schelms	SElms
 Schelmes	SElm@s
 Schelmereien	SElm@raI@n
@@ -21585,8 +21586,8 @@ Scheißkerl	SaIs,kErl
 Scheißhaus	SaIs,haUs
 Scheissern	SaIs@rn
 Scheißerei	SaIs@raI
-Scheisser	SaIs@r
 Scheißer	SaIs@r
+Scheisser	SaIs@r
 Scheißdreck	SaIs,drEk
 Scheißding	SaIs,dIN
 Scheißangst	SaIs,?aNst
@@ -21595,8 +21596,8 @@ Scheinwesens	SaIn,ve:s@ns
 Scheinwesen	SaIn,ve:s@n
 Scheins	SaIns
 Scheines	SaIn@s
-scheine	SaIn@
 Scheine	SaIn@
+scheine	SaIn@
 Schein	SaIn
 Scheiks	SaIks
 Scheik	SaIk
@@ -21608,8 +21609,8 @@ Scheidewegen	SaId@,ve:g@n
 Scheidewege	SaId@,ve:g@
 Scheideweg	SaId@,ve:k
 Scheider	SaId@r
-Scheide	SaId@
 scheide	SaId@
+Scheide	SaId@
 Scheichs	SaICs
 Scheiches	SaIC@s
 Scheichen	SaIC@n
@@ -21647,8 +21648,8 @@ Schaufler	SaUfl@r
 Schaufel	SaUf@l
 Schauers	SaU@rs
 Schauernähe	SaU@rnE:@
-Schauer	SaU@r
 schauer	SaU@r
+Schauer	SaU@r
 Schauders	SaUd@rs
 Schauder	SaUd@r
 Schaub	SaUp
@@ -21675,8 +21676,8 @@ Scharrers	Sar@rs
 Scharrern	Sar@rn
 Scharrer	Sar@r
 Scharrens	Sar@ns
-scharre	Sar@
 Scharre	Sar@
+scharre	Sar@
 Scharpie	Sarpi:
 Scharniers	Sarni:rs
 Scharnieres	Sarni:r@s
@@ -22292,8 +22293,8 @@ Sadebaum	za:d@baUm
 Sadduzäer	zadutsE:r
 Sacks	zaks
 Sackes	zak@s
-Sacke	zak@
 sacke	zak@
+Sacke	zak@
 Sack	zak
 Sachverständigengutachten	zaxfEr,StEndIg@n,gu:t?axt@n
 Sachse	zaks@
@@ -22542,8 +22543,8 @@ Russin	rUsIn
 Russes	ru:s@s
 Russen	rUs@n
 Russe	rUs@
-Russ	rUs
 Ruß	ru:s
+Russ	rUs
 Rupturen	rUptu:r@n
 Ruptur	rUptu:r
 Ruppigkeiten	rUpICkaIt@n
@@ -22615,8 +22616,8 @@ Rufes	ru:f@s
 Rufers	ru:f@rs
 Rufern	ru:f@rn
 Rufer	ru:f@r
-Rufe	ru:f@
 rufe	ru:f@
+Rufe	ru:f@
 Ruf	ru:f
 Rudrers	ru:dr@rs
 Rudrern	ru:dr@rn
@@ -22726,8 +22727,8 @@ Rosts	rOsts
 Rostra	rOstra:
 Rostock	rOstOk
 Rostes	rOst@s
-roste	rOst@
 Roste	rOst@
+roste	rOst@
 Rost	rOst
 Rosses	rOs@s
 Rossen	rOs@n
@@ -23006,13 +23007,13 @@ Risten	rIst@n
 Riste	rIst@
 Rist	rIst
 Risses	rIs@s
-Rissen	rIs@n
 rissen	rIs@n
+Rissen	rIs@n
 rißen	rIs@n
-risse	rIs@
 Risse	rIs@
-riß	rIs
+risse	rIs@
 Riß	rIs
+riß	rIs
 Rispen	rIsp@n
 Rispe	rIsp@
 Rispchens	rIspC@ns
@@ -23030,14 +23031,14 @@ Ripse	rIpz@
 Rips	rIps
 Rippleins	rIplaIns
 Ripplein	rIplaIn
-Rippe	rIp@
 rippe	rIp@
+Rippe	rIp@
 Rippchen	rIpC@n
 Riposten	ripOst@n
 Riposte	ripOst@
 Ripienstimme	rip<ie:n,StIm@
-Ripieno	rip<ie:no
 ripieno	rip<ie:no
+Ripieno	rip<ie:no
 Ripienist	rip<ienIst
 Rinnstein	rIn,StaIn
 Rinnsals	rInza:ls
@@ -23909,10 +23910,10 @@ Reitwege	raIt,ve:g@
 Reitweg	raIt,ve:k
 Reitturniers	raIttUrni:rs
 Reitturniers	raIttUr,ni:rs
-Reitturnieres	raIttUrni:r@s
 Reitturnieres	raIttUr,ni:r@s
-Reitturnieren	raIttUr,ni:r@n
+Reitturnieres	raIttUrni:r@s
 Reitturnieren	raIttUrni:r@n
+Reitturnieren	raIttUr,ni:r@n
 Reitturniere	raIttUr,ni:r@
 Reitturniere	raIttUrni:r@
 Reitturnier	raIttUrni:r
@@ -23971,8 +23972,8 @@ Reißleine	raIs,laIn@
 Reißfestigkeit	raIs,fEstICkaIt
 Reißfeder	raIs,fe:d@r
 Reissern	raIs@rn
-Reisser	raIs@r
 Reißer	raIs@r
+Reisser	raIs@r
 Reißbrett	raIs,brEt
 Reißaus	raIs?aUs
 Reiß	raIs
@@ -24181,8 +24182,8 @@ Reformierungen	refOrmi:rUN@n
 Reformierung	refOrmi:rUN
 reformierter	refOrmi:rt@r
 Reformierter	refOrmi:rt@r
-Reformierte	refOrmi:rt@
 reformierte	refOrmi:rt@
+Reformierte	refOrmi:rt@
 Reformen	refOrm@n
 Reformators	refOrma:to:rs
 Reformatorin	refOrmatorIn
@@ -24262,8 +24263,8 @@ Redintegration	rEt?Integrats<io:n
 Redingote	rEdE~gOt
 Redereien	re:d@raI@n
 Rederei	re:d@raI
-rede	re:d@
 Rede	re:d@
+rede	re:d@
 Redaktors	redakto:rs
 Redaktoren	redakto:r@n
 Redaktor	redakto:r
@@ -24344,12 +24345,12 @@ Realisierung	realizi:rUN
 Realisierbarkeit	realizi:rba:rkaIt
 Realisationen	realizats<io:n@n
 Realisation	realizats<io:n
-Realgymnasiums	rea:lgYm,na:z<iUms
 Realgymnasiums	rea:lgYmna:z<iUms
-Realgymnasium	rea:lgYm,na:z<iUm
+Realgymnasiums	rea:lgYm,na:z<iUms
 Realgymnasium	rea:lgYmna:z<iUm
-Realgymnasien	rea:lgYmna:z<i@n
+Realgymnasium	rea:lgYm,na:z<iUm
 Realgymnasien	rea:lgYm,na:z<i@n
+Realgymnasien	rea:lgYmna:z<i@n
 realen	rea:l@n
 Realen	rea:l@n
 Reaktors	reakto:rs
@@ -24379,11 +24380,11 @@ Rausches	raUS@s
 Rauschers	raUS@rs
 Rauschern	raUS@rn
 Rauscher	raUS@r
-Rausche	raUS@
 rausche	raUS@
+Rausche	raUS@
 Rausch	raUS
-Raupe	raUp@
 raupe	raUp@
+Raupe	raUp@
 Raumtextilien	raUmtEks,ti:li@n
 Raumfahrtbehörde	raUmfa:rtb@,h9rd@
 Rauhereien	raU@raI@n
@@ -24410,8 +24411,8 @@ Raucher	raUx@r
 rauche	raUx@
 Raubs	raUps
 Raubes	raUb@s
-Raube	raUb@
 raube	raUb@
+Raube	raUb@
 Raub	raUp
 Rattler	ratl@r
 Ratten	rat@n
@@ -24453,8 +24454,8 @@ Rasterung	rast@rUN
 Rasters	rast@rs
 Rastern	rast@rn
 Raster	rast@r
-Raste	rast@
 raste	rast@
+Raste	rast@
 rast	rast
 Rast	rast
 Rassist	rasIst
@@ -24520,8 +24521,8 @@ Raptussen	raptUs@n
 Raptusse	raptUs@
 Raptus	raptUs
 Rapses	rapz@s
-Rapse	rapz@
 rapse	rapz@
+Rapse	rapz@
 Raps	raps
 Rapports	rapOrts
 Rapporten	rapOrt@n
@@ -24577,8 +24578,8 @@ Rammler	raml@r
 Rammes	ram@s
 Rammeleien	ram@laI@n
 Rammelei	ram@laI
-ramme	ram@
 Ramme	ram@
+ramme	ram@
 Ramm	ram
 Ramasan	ramaza:n
 Ramakrischna	ramakrISna:
@@ -24859,8 +24860,8 @@ Quetschkommode	kvEtSkO,mo:d@
 Quetschkartoffeln	kvEtSkar,tOf@ln
 Quetschfalte	kvEtS,falt@
 Quetscher	kvEtS@r
-quetsche	kvEtS@
 Quetsche	kvEtS@
+quetsche	kvEtS@
 Querulationen	kverulats<io:n@n
 Querulation	kverulats<io:n
 Querulanten	kverulant@n
@@ -24873,8 +24874,8 @@ Quengelei	kvEN@laI
 Quendel	kvEnd@l
 Quempas	kvEmpas
 Quellentext	kvEl@n,tEkst
-quelle	kvEl@
 Quelle	kvEl@
+quelle	kvEl@
 Quell	kvEl
 Quecksilbers	kvEkzIlb@rs
 Quecksilber	kvEkzIlb@r
@@ -24902,8 +24903,8 @@ Quarze	kva:rts@
 Quarz	kva:rts
 Quarts	kvarts
 Quartole	kvarto:l@
-Quarto	kvarto:
 quarto	kvarto:
+Quarto	kvarto:
 Quartiers	kvarti:rs
 Quartieres	kvarti:r@s
 Quartieren	kvarti:r@n
@@ -25090,8 +25091,8 @@ Puzzlespielen	paz@l,Spi:l@n
 Puzzlespiele	paz@l,Spi:l@
 Puzzlespiel	paz@l,Spi:l
 Puzzles	paz@ls
-puzzle	paz@l
 Puzzle	paz@l
+puzzle	paz@l
 Putzes	pUts@s
 Putzers	pUts@rs
 Putzern	pUts@rn
@@ -25148,8 +25149,8 @@ Purgation	pUrgats<io:n
 Purganzien	pUrgants<i@n
 Purgans	pUrgans
 Pups	pu:ps
-puppe	pUp@
 Puppe	pUp@
+puppe	pUp@
 Pupinspule	pupi:n,Spu:l@
 Pupillen	pupIl@n
 Pupille	pupIl@
@@ -25195,8 +25196,8 @@ Pumpes	pUmp@s
 Pumpernickels	pUmp@rnIk@ls
 Pumpernickeln	pUmp@rnIk@ln
 Pumpernickel	pUmp@rnIk@l
-Pumpe	pUmp@
 pumpe	pUmp@
+Pumpe	pUmp@
 Pump	pUmp
 Pummels	pUm@ls
 Pummeln	pUm@ln
@@ -26213,8 +26214,8 @@ Poseuren	poz2:r@n
 Poseure	poz2:r@
 Poseur	poz2:r
 Poseidon	pozaIdOn
-pose	po:z@
 Pose	po:z@
+pose	po:z@
 Posaunisten	pozaUnIst@n
 Posaunist	pozaUnIst
 posaune	pozaUn@
@@ -26238,8 +26239,8 @@ Porto	pOrto:
 Portionen	pOrts<io:n@n
 Portion	pOrts<io:n
 Portiers	pOrti:@rs
-Portiere	pOrt<iE:r@
 portiere	pOrt<iE:r@
+Portiere	pOrt<iE:r@
 Portier	pOrt<ie:
 Portia	pOrts<ia:
 Porti	pOrti:
@@ -26550,8 +26551,8 @@ Pochs	pOxs
 Pochetten	pOSEt@n
 Pochette	pOSEt@
 Poches	pOx@s
-poche	pOx@
 Poche	pOx@
+poche	pOx@
 Poch	pOx
 Poccetta	pOtSEta:
 Po	po:
@@ -26607,11 +26608,11 @@ Pluralis	plura:lIs
 Pluraliatantum	plural<iatantUm
 Pluraletantums	pluraletantUms
 Pluraletantum	pluraletantUm
-plurales	plura:l@s
 Plurales	plura:l@s
+plurales	plura:l@s
 pluraler	plura:l@r
-Pluralen	plura:l@n
 pluralen	plura:l@n
+Pluralen	plura:l@n
 Plurale	plura:l@
 plurale	plura:l@
 Plural	plura:l
@@ -26626,8 +26627,8 @@ Plunder	plUnd@r
 Plumpuddings	plUm,pUdINs
 Plumpudding	plUm,pUdIN
 Plumpses	plUmpz@s
-Plumpse	plUmpz@
 plumpse	plUmpz@
+Plumpse	plUmpz@
 Plumps	plUmps
 Plumpheit	plUmphaIt
 Plumeaus	plymo:s
@@ -26720,8 +26721,8 @@ Plauderer	plaUd@r@r
 Plaudereien	plaUd@raI@n
 Plauderei	plaUd@raI
 Platzes	plats@s
-platze	plats@
 Platze	plats@
+platze	plats@
 Platz	plats
 Plattheiten	plathaIt@n
 Plattheit	plathaIt
@@ -26926,8 +26927,8 @@ Pilaren	pila:r@n
 Pilar	pila:r
 Pikör	pik2:r
 Piktogramm	pIktogram
-pikte	pIkt@
 Pikte	pIkt@
+pikte	pIkt@
 Piksieben	pi:kzi:b@n
 Pikrinsäure	pikri:nzOYr@
 Pikrat	pikra:t
@@ -27515,8 +27516,8 @@ Pfad	pfa:t
 Petzers	pEts@rs
 Petzern	pEts@rn
 Petzer	pEts@r
-petze	pEts@
 Petze	pEts@
+petze	pEts@
 Petz	pEts
 Petunie	petu:n<i@
 Petting	pEtIN
@@ -27942,8 +27943,8 @@ Pavillon	paviljO~:
 Pavian	pa:v<ia:n
 Pavane	pava:n@
 Pauspapier	paUspa,pi:r
-Pause	paUz@
 pause	paUz@
+Pause	paUz@
 Pauschen	paUS@n
 Pausche	paUS@
 Pauschbetrag	paUSb@,tra:k
@@ -28096,8 +28097,8 @@ Passus	pasUs
 Passung	pasUN
 Passivum	pasi:vUm
 Passivität	pasivitE:t
-passiven	pasi:v@n
 Passiven	pasi:v@n
+passiven	pasi:v@n
 Passionen	pas<io:n@n
 Passion	pas<io:n
 Passierscheins	pasi:r,SaIns
@@ -28629,8 +28630,8 @@ Packerin	pak@rIn
 Packereien	pak@raI@n
 Packerei	pak@raI
 Packer	pak@r
-packe	pak@
 Packe	pak@
+packe	pak@
 Package	pEkItS
 Pack	pak
 Pachulke	paxUlk@
@@ -29172,8 +29173,8 @@ Ochsereien	?Oks@raI@n
 Ochserei	?Oks@raI
 Ochsenschwanzsuppen	?Oks@nSvants,zUp@n
 Ochsenschwanzsuppe	?Oks@nSvants,zUp@
-Ochse	?Oks@
 ochse	?Oks@
+Ochse	?Oks@
 Ochlokratie	?Oxlokrati:
 Obus	?o:bUs
 Obturatoren	?Opturato:r@n
@@ -29227,8 +29228,8 @@ Objektivität	?OpjEktivitE:t
 Objektivismus	?OpjEktivIsmUs
 Objektivierungen	?OpjEktivi:rUN@n
 Objektivierung	?OpjEktifi:rUN
-Objektiven	?OpjEkti:v@n
 objektiven	?OpjEkti:v@n
+Objektiven	?OpjEkti:v@n
 Objektivationen	?OpjEktivats<io:n@n
 Objektivation	?OpjEktivats<io:n
 Objekten	?OpjEkt@n
@@ -29242,8 +29243,8 @@ Oberstaatsanwalts	?ob@rSta:ts,?anvalts
 Oberstaatsanwaltes	?ob@rSta:ts,?anvalt@s
 Oberstaatsanwalte	?ob@rSta:ts,?anvalt@
 Oberstaatsanwalt	?ob@rSta:ts,?anvalt
-Oberst	?o:b@rst
 oberst	?o:b@rst
+Oberst	?o:b@rst
 Obers	?o:b@rs
 Oberrealschulen	?o:b@rre,alSu:l@n
 Oberrealschule	?o:b@rre,alSu:l@
@@ -29463,8 +29464,8 @@ Notare	nota:r@
 Notar	nota:r
 Notabilitäten	no:tabilitE:t@n
 Notabilität	no:tabilitE:t
-notabenes	notabe:n@s
 Notabenes	notabe:n@s
+notabenes	notabe:n@s
 notabenen	notabe:n@n
 Notabenen	notabe:n@n
 Notabene	notabe:n@
@@ -29503,18 +29504,18 @@ Nords	nOrts
 Nordostens	nOrt?Ost@ns
 Nordostens	nOrt?Ost@ns
 Nordosten	nOrt?Ost@n
-Nordnordwesten	nOrtnOrtvEst@n
 Nordnordwesten	,nOrt,nOrtvEst@n
+Nordnordwesten	nOrtnOrtvEst@n
 Nordnordweste	nOrtnOrtvEst@
 Nordnordweste	,nOrt,nOrtvEst@
 Nordnordwest	nOrtnOrtvEst
 Nordnordwest	,nOrt,nOrtvEst
-Nordnordosten	,nOrt,nOrt?Ost@n
 Nordnordosten	nOrtnOrt?Ost@n
-Nordnordoste	nOrtnOrt?Ost@
+Nordnordosten	,nOrt,nOrt?Ost@n
 Nordnordoste	,nOrt,nOrt?Ost@
-Nordnordost	nOrtnOrt?Ost
+Nordnordoste	nOrtnOrt?Ost@
 Nordnordost	,nOrt,nOrt?Ost
+Nordnordost	nOrtnOrt?Ost
 Nordistik	nOrdIstIk
 Nordes	nOrd@s
 Norderney	nOrd@rnaI
@@ -29788,8 +29789,8 @@ Neuerung	nOY@rUN
 Netzschkau	nEtSkaU
 Netzflügler	nEts,fly:gl@r
 Netzes	nEts@s
-Netze	nEts@
 netze	nEts@
+Netze	nEts@
 Netz	nEts
 Nettigkeiten	nEtICkaIt@n
 Nettigkeit	nEtICkaIt
@@ -29922,8 +29923,8 @@ Nehmern	ne:m@rn
 Nehmer	ne:m@r
 negroider	negro?i:d@r
 Negroider	negro?i:d@r
-negroiden	negro?i:d@n
 Negroiden	negro?i:d@n
+negroiden	negro?i:d@n
 Negroide	negro?i:d@
 negroide	negro?i:d@
 Negrito	negri:to:
@@ -29936,8 +29937,8 @@ Negern	ne:g@rn
 Negerinnen	ne:g@rIn@n
 Negerin	ne:g@rIn
 Neger	ne:g@r
-Negativen	negati:v@n
 negativen	negati:v@n
+Negativen	negati:v@n
 Negationen	negats<io:n@n
 Negation	negats<io:n
 Neffen	nEf@n
@@ -30105,8 +30106,8 @@ Narkomanie	narkomani:
 Narden	nard@n
 Narde	nard@
 Narbung	narbUN
-Narbe	narb@
 narbe	narb@
+Narbe	narb@
 Nappas	napas
 Nappa	napa
 Napoleons	napo:leOns
@@ -30131,8 +30132,8 @@ Naivität	naivitE:t
 Naiven	na?i:v@n
 naiven	na?i:v@n
 Nairobi	nairo:bi:
-Naht	na:t
 naht	na:t
+Naht	na:t
 Nahrungen	na:rUN@n
 Nahrung	na:rUN
 Nagers	na:g@rs
@@ -30407,8 +30408,8 @@ Musselinen	mUs@li:n@n
 Musseline	mUs@li:n@
 Musselin	mUs@li:n
 Mußehe	mUse:@
-Muße	mu:s@
 Musse	mu:s@
+Muße	mu:s@
 Muslims	mUslIms
 Muslimin	mUsli:mIn
 Muslime	mUsli:m@
@@ -30710,8 +30711,8 @@ Morelle	morEl@
 Mords	mOrts
 Mordes	mOrd@s
 Mordent	mOrdEnt
-Morde	mOrd@
 morde	mOrd@
+Morde	mOrd@
 Mord	mOrt
 Morcheln	mOrC@ln
 Morchel	mOrC@l
@@ -30729,8 +30730,8 @@ Moralisten	moralIst@n
 Moralist	moralIst
 Moralismus	moralIsmUs
 Mopses	mOpz@s
-mopse	mOpz@
 Mopse	mOpz@
+mopse	mOpz@
 Mops	mOps
 Mopeds	mo:pEts
 Moped	mo:pEt
@@ -31099,8 +31100,8 @@ Mitteilsamkeit	mIttaIlza:mkaIt
 Mitte	mIt@
 Mittagen	mIta:g@n
 Mittage	mIta:g@
-Mittag	mIta:k
 mittag	mIta:k
+Mittag	mIta:k
 Mitropa	mitro:pa:
 Mitren	mi:tr@n
 Mitranes	mitra:nEs
@@ -31238,8 +31239,8 @@ Minorennität	mi:norEnitE:t
 Minoren	mino:r@n
 Minorat	minora:t
 Minor	mi:no:r
-minne	mIn@
 Minne	mIn@
+minne	mIn@
 Minks	mINks
 Minken	mINk@n
 Minke	mINk@
@@ -31323,8 +31324,8 @@ Mimesis	mi:mezIs
 Mimesie	mimezi:
 Mimesen	mime:z@n
 Mimese	mime:z@
-mime	mi:m@
 Mime	mi:m@
+mime	mi:m@
 Milzen	mIlts@n
 Milz	mIlts
 Milliradian	mIlirad<ia:n
@@ -32103,6 +32104,7 @@ Mausoleums	maUzole:Ums
 Mausoleum	maUzole:Um
 Mausoleen	maUzole:@n
 Mauserungen	maUz@rUN@n
+Mausi	m aU s i
 Mauserung	maUz@rUN
 Mausers	maUz@rs
 Mauser	maUz@r
@@ -32202,8 +32204,8 @@ Mastaba	mastaba:
 Mast	mast
 Maßnahme	ma:sna:m@
 Maßlosigkeit	ma:slo:zICkaIt
-Massiven	masi:v@n
 massiven	masi:v@n
+Massiven	masi:v@n
 Massicot	masiko:
 Masseuse	mas2:z@
 Masseurs	mas2:rs
@@ -32327,8 +32329,8 @@ Marke	mark@
 Markasit	markazIt
 Mark	mark
 marinen	mari:n@n
-Marine	mari:n@
 marine	mari:n@
+Marine	mari:n@
 Marinaden	marina:d@n
 Marinade	marina:d@
 Marimba	marImba:
@@ -32633,8 +32635,8 @@ Mahnbrief	ma:n,bri:f
 Mahn	ma:n
 Mahls	ma:ls
 Mahles	ma:l@s
-mahle	ma:l@
 Mahle	ma:l@
+mahle	ma:l@
 Mahl	ma:l
 Mahd	ma:t
 Mahatma	maha:tma:
@@ -33005,8 +33007,8 @@ Luderjan	lu:d@r,ja:n
 Luder	lu:d@r
 Lude	lu:d@
 Luchses	lUkz@s
-luchse	lUkz@
 Luchse	lUkz@
+luchse	lUkz@
 Luchs	lUks
 Luch	lUx
 Loyalität	l<oajalitE:t
@@ -33031,8 +33033,8 @@ Lotsenbootes	lo:tz@n,bo:t@s
 Lotsenbooten	lo:tz@n,bo:t@n
 Lotsenboote	lo:tz@n,bo:t@
 Lotsenboot	lo:tz@n,bo:t
-Lotse	lo:ts@
 lotse	lo:ts@
+Lotse	lo:ts@
 Lots	lo:ts
 Lotosblumen	lo:tOsblu:m@n
 Lotosblume	lo:tOsblu:m@
@@ -33106,8 +33108,8 @@ Loipe	lOYp@
 Lohnvereinbarung	lo:nfEr,?aInbarUN
 Lohns	lo:ns
 Lohnes	lo:n@s
-lohne	lo:n@
 Lohne	lo:n@
+lohne	lo:n@
 Lohn	lo:n
 Lohgerber	lo:,gErb@r
 Lohe	lo:@
@@ -33136,8 +33138,8 @@ Logierbesuch	loZi:rb@,zu:x
 Logging	lOgIN
 Loggia	lOdZa:
 Logger	lOg@r
-logge	lOg@
 Logge	lOg@
+logge	lOg@
 Loges	lOg@s
 Logements	loZ@ma~:s
 Logement	loZ@ma~:
@@ -33316,8 +33318,8 @@ Lineatur	lineatu:r
 Lineament	lineamEnt
 Line	laIn
 Linderung	lInd@rUN
-linde	lInd@
 Linde	lInd@
+linde	lInd@
 Limousinen	limuzi:n@n
 Limousine	limuzi:n@
 Limonen	limo:n@n
@@ -33648,8 +33650,8 @@ Leopard	leopart
 Leonberg	leonbErk
 lenze	lEnts@
 Lentos	lEnto:s
-lento	lEnto:
 Lento	lEnto:
+lento	lEnto:
 Lentizelle	lEntitsEl@
 Lenti	lEnti:
 lentando	lEntando:
@@ -33940,8 +33942,8 @@ Legitimationen	le:gitimats<io:n@n
 Legitimation	le:gitimats<io:n
 Legislaturen	legIslatu:r@n
 Legislatur	legIslatu:r
-Legislativen	legIslati:v@n
 legislativen	legIslati:v@n
+Legislativen	legIslati:v@n
 Legionen	leg<io:n@n
 Legion	leg<io:n
 Legierung	legi:rUN
@@ -34037,8 +34039,8 @@ Lawrencium	lOrEnts<iUm
 Lawinen	lavi:n@n
 Lawine	lavi:n@
 Lavendels	lavEnd@ls
-lavendel	lavEnd@l
 Lavendel	lavEnd@l
+lavendel	lavEnd@l
 Laven	la:v@n
 Lavastroms	lava,Stro:ms
 Lavastromes	lava,Stro:m@s
@@ -34071,8 +34073,8 @@ launen	laUn@n
 Laune	laUn@
 Launch	lO:ntS
 Lauheit	laUhaIt
-Lauge	laUg@
 lauge	laUg@
+Lauge	laUg@
 Laufereien	laUf@raI@n
 Lauferei	laUf@raI
 laues	lOYs
@@ -34204,8 +34206,8 @@ Landesamtes	land@s,?amt@s
 Landesamte	land@s,?amt@
 Landesamt	land@s,?amt
 Landes	land@s
-lande	land@
 Lande	land@
+lande	land@
 Landbesitzes	lantb@,zits@s
 Landbesitze	lantb@,zits@
 Landbesitz	lantb@,zits
@@ -34873,8 +34875,8 @@ Kriegerdenkmalen	kri:g@r,dENkma:l@n
 Kriegerdenkmale	kri:g@r,dENkma:l@
 Kriegerdenkmal	kri:g@r,dENkma:l
 Krieger	kri:g@r
-Kriege	kri:g@
 kriege	kri:g@
+Kriege	kri:g@
 Krieg	kri:k
 Kriechtiers	kri:C,ti:rs
 Kriechtieres	kri:C,ti:r@s
@@ -34989,8 +34991,8 @@ Kratzes	krats@s
 Kratzers	krats@rs
 Kratzern	krats@rn
 Kratzer	krats@r
-Kratze	krats@
 kratze	krats@
+Kratze	krats@
 Kratz	krats
 Kratts	krats
 Krattes	krat@s
@@ -35027,8 +35029,8 @@ Krampfadern	krampf,?a:d@rn
 Krampfader	krampf,?a:d@r
 Krampf	krampf
 Krampens	kramp@ns
-krampe	kramp@
 Krampe	kramp@
+krampe	kramp@
 Krames	kra:m@s
 Krame	kra:m@
 Kram	kra:m
@@ -35058,12 +35060,12 @@ Kracher	krax@r
 Krachens	krax@ns
 Krache	krax@
 Krach	krax
-krabbe	krab@
 Krabbe	krab@
+krabbe	krab@
 Koupon	kupON
 Kotzens	kOts@ns
-Kotze	kOts@
 kotze	kOts@
+Kotze	kOts@
 Kots	ko:ts
 Kotillon	kOtIljO~
 Kotierungen	koti:rUN@n
@@ -35160,8 +35162,8 @@ Korrektors	kOrEkto:rs
 Korrektorin	kOrEkto:rIn
 Korrektoren	kOrEkto:r@n
 Korrektor	kOrEkto:r
-korrektiven	kOrEkti:v@n
 Korrektiven	kOrEkti:v@n
+korrektiven	kOrEkti:v@n
 Korrektionen	kOrEkts<io:n@n
 Korrektion	kOrEkts<io:n
 Korrektheit	kOrEkthaIt
@@ -35588,8 +35590,8 @@ Konservatorien	kOnzErvato:ri@n
 Konservatoren	kOnzErva:to:r@n
 Konservator	kOnzErva:to:r
 Konservativismus	kOnzErvativIsmUs
-Konservativen	kOnzErvati:v@n
 konservativen	kOnzErvati:v@n
+Konservativen	kOnzErvati:v@n
 Konservatismus	kOnzErvatIsmUs
 Konsequenzen	kOnzekvEnts@n
 Konsequenz	kOnzekvEnts
@@ -35774,8 +35776,8 @@ Konditionalsatze	kOndits<ional,zats@
 Konditionalsatz	kOndits<ional,zats
 Konditionalismus	kOndits<ionalIsmUs
 Konditionalis	kOndits<iona:lIs
-Konditionales	kOndits<iona:le:s
 konditionales	kOndits<iona:le:s
+Konditionales	kOndits<iona:le:s
 Konditionalen	kOndits<iona:l@n
 konditionalen	kOndits<iona:l@n
 Kondition	kOndits<io:n
@@ -36106,8 +36108,8 @@ Kollektivum	kOlEkti:vUm
 Kollektivität	kOlEktivitE:t
 Kollektivismus	kOlEktivIsmUs
 Kollektivierung	kOlEktivi:rUN
-Kollektiven	kOlEkti:v@n
 kollektiven	kOlEkti:v@n
+Kollektiven	kOlEkti:v@n
 Kollektiva	kOlEkti:va:
 Kollektionen	kOlEkts<io:n@n
 Kollektion	kOlEkts<io:n
@@ -36349,8 +36351,8 @@ Knuff	knUf
 Knudseneffekt	knu:z@n?E,fEkt
 Knowhow	no:haU
 Knotens	kno:t@ns
-knote	kno:t@
 Knote	kno:t@
+knote	kno:t@
 Knospe	knOsp@
 Knorr	knOr
 Knorpels	knOrp@ls
@@ -36408,8 +36410,8 @@ Knieaufschwung	kni:,?aUfSvUN
 Knie	kni:
 Knicks	knIks
 Knickes	knIk@s
-Knicke	knIk@
 knicke	knIk@
+Knicke	knIk@
 Knick	knIk
 Knetmasse	kne:t,mas@
 Knetmaschine	kne:tma,Si:n@
@@ -36501,8 +36503,8 @@ Kläger	klE:g@r
 Kläffer	klEf@r
 Klymene	klyme:n@
 Klydonograph	klydonogra:f
-Kluppe	klUp@
 kluppe	klUp@
+Kluppe	klUp@
 Klunker	klUNk@r
 Kluniazenser	klun<iatsEnz@r
 Klumps	klUmps
@@ -36657,8 +36659,8 @@ Kleids	klaIts
 Kleides	klaId@s
 Kleidern	klaId@rn
 Kleider	klaId@r
-kleide	klaId@
 Kleide	klaId@
+kleide	klaId@
 Kleidchens	klaItC@ns
 Kleidchen	klaItC@n
 Kleid	klaIt
@@ -36707,8 +36709,8 @@ Klatschs	klatSs
 Klatsches	klatS@s
 Klatschereien	klatS@raI@n
 Klatscherei	klatS@raI
-klatsche	klatS@
 Klatsche	klatS@
+klatsche	klatS@
 Klatsch	klatS
 Klassizität	klasitsitE:t
 Klassizismus	klasitsIsmUs
@@ -36725,8 +36727,8 @@ Klassierung	klasi:rUN
 Klassen	klas@n
 Klassement	klasma~:
 Klasseläufer	klase,lOYf@r
-Klasse	klas@
 klasse	klas@
+Klasse	klas@
 Klarinettisten	klarinEtIst@n
 Klarinettist	klarinEtIst
 Klarinetten	klarinEt@n
@@ -37028,8 +37030,8 @@ Kerkern	kErk@rn
 Kerker	kErk@r
 Kerbels	kErb@ls
 Kerbel	kErb@l
-kerbe	kErb@
 Kerbe	kErb@
+kerbe	kErb@
 Keratophyr	keratofy:r
 Keratitis	kerati:tIs
 Keratins	kerati:ns
@@ -37130,8 +37132,8 @@ Keilern	kaIl@rn
 Keilereien	kaIl@raI@n
 Keilerei	kaIl@raI
 Keiler	kaIl@r
-Keile	kaIl@
 keile	kaIl@
+Keile	kaIl@
 Keil	kaIl
 Keifereien	kaIf@raI@n
 Keiferei	kaIf@raI
@@ -37242,8 +37244,8 @@ Kaugummis	kaU,gUmi:s
 Kaugummi	kaU,gUmi:
 Kauffahrteischiff	kaUffa:rtaI,SIf
 kaufe	kaUf@
-kaue	kaU@
 Kaue	kaU@
+kaue	kaU@
 Katzen	kats@n
 Katze	kats@
 Katzbuckelei	katsbUk@,laI
@@ -37379,8 +37381,8 @@ Kassierern	kasi:r@rn
 Kassiererinnen	kasi:r@rIn@n
 Kassiererin	kasi:r@rIn
 Kassierer	kasi:r@r
-Kassiere	kas<ie:@
 kassiere	kas<ie:@
+Kassiere	kas<ie:@
 Kassier	kas<ie:
 Kassie	kas<i@
 Kassiber	kasi:b@r
@@ -38107,8 +38109,8 @@ Kadavergehorsames	kada:v@rg@,hOrza:m@s
 Kadavergehorsame	kada:v@rg@,hOrza:m@
 Kadavergehorsam	kada:v@rg@,hOrza:m
 Kadaver	kada:v@r
-Kacke	kak@
 kacke	kak@
+Kacke	kak@
 Kachexie	kaxEksi:
 Kachel	kax@l
 Kabylei	kabylaI
@@ -38352,8 +38354,8 @@ Jockeys	dZOke:s
 Jockey	dZOke:
 Jochs	jOxs
 Joches	jOx@s
-Joche	jOx@
 joche	jOx@
+Joche	jOx@
 Joch	jOx
 Jobsiade	jOps<ia:d@
 Jobsharing	dZOp,SE:rIN
@@ -38489,8 +38491,8 @@ Itinerare	?itinera:r@
 Itinerar	?itinera:r
 Iteration	?iterats<io:n
 Items	?aItEms
-Item	?aItEm
 item	?i:tEm
+Item	?aItEm
 Italiker	?ita:lik@r
 Italiens	?ita:l<i@ns
 Italiener	?ital<ie:n@r
@@ -38697,8 +38699,8 @@ Introitus	?Intro:itUs
 Introduktionen	?IntrodUkts<io:n@n
 Introduktion	?IntrodUkts<io:n
 Intrinsicfactor	?IntrInsIk,fEkt@r
-intransitiven	?Intranziti:v@n
 Intransitiven	?Intranziti:v@n
+intransitiven	?Intranziti:v@n
 Intransitiva	?Intranziti:va:
 Intransigenz	?IntranzigEnts
 Intraden	?Intra:d@n
@@ -38780,8 +38782,8 @@ Internierung	?Int@rni:rUN
 Internierte	?Int@rni:rt@
 internierte	?Int@rni:rt@
 Internet	?Int@rnEt
-internen	?IntErn@n
 Internen	?IntErn@n
+internen	?IntErn@n
 Internats	?Int@rna:ts
 Internationalität	?Int@rnats<ionalitE:t
 Internationalismus	?Int@rnats<ionalIsmUs
@@ -38906,8 +38908,8 @@ Instrumentalisten	?InstrumEntalIst@n
 Instrumentalist	?InstrumEntalIst
 Instrumentalismus	?InstrumEntalIsmUs
 Instrumentalis	?InstrumEnta:lIs
-instrumentales	?InstrumEnta:le:s
 Instrumentales	?InstrumEnta:le:s
+instrumentales	?InstrumEnta:le:s
 instrumentalen	?InstrumEnta:l@n
 Instrument	?InstrumEnt
 Instruktors	?InstrUkto:rs
@@ -39415,8 +39417,8 @@ Improvisation	?Improvizats<io:n
 Impromptus	?E~prO~ty:s
 Impromptu	?E~prO~ty:
 Imprimaturs	?Imprima:tUrs
-Imprimatur	?Imprima:tUr
 imprimatur	?Imprimatu:r
+Imprimatur	?Imprima:tUr
 Impressums	?ImprEsUms
 Impressum	?ImprEsUm
 Impressionisten	?ImprEs<ionIst@n
@@ -39607,11 +39609,11 @@ ignorantes	?Ignorant@s
 ignoranter	?Ignorant@r
 Ignorantentums	?Ignorant@ntu:ms
 Ignorantentum	?Ignorant@ntu:m
-Ignoranten	?Ignorant@n
 ignoranten	?Ignorant@n
+Ignoranten	?Ignorant@n
 ignorante	?Ignorant@
-ignorant	?Ignorant
 Ignorant	?Ignorant
+ignorant	?Ignorant
 Iglus	?i:glu:s
 Iglu	?i:glu:
 Igels	?i:g@ls
@@ -40007,8 +40009,8 @@ Hundsfotte	hUntsfOt@
 Hundsfott	hUntsfOt
 Hunds	hUnts
 Hundes	hUnd@s
-hundertstel	hUnd@rtst@l
 Hundertstel	hUnd@rtst@l
+hundertstel	hUnd@rtst@l
 hundertste	hUnd@rtst@
 Hundertmarkschein	hUnd@rtmark,SaIn
 Hundertjahrfeiern	hUnd@rtja:r,faI@rn
@@ -40059,8 +40061,8 @@ Hufe	hu:f@
 Huf	hu:f
 Huerta	<uErta:
 Hudelei	hu:d@laI
-Hucke	hUk@
 hucke	hUk@
+Hucke	hUk@
 Huchen	hu:x@n
 Hub	hu:p
 Hoyer	hOY@r
@@ -40098,8 +40100,8 @@ Hortonolith	hOrtonolIt
 Hortnerin	hOrtn@rIn
 Hortes	hOrt@s
 Hortensie	hOrtEnz<i@
-horte	hOrt@
 Horte	hOrt@
+horte	hOrt@
 Hort	hOrt
 Horrors	hOro:rs
 Horror	hOro:r
@@ -40442,8 +40444,8 @@ Hexoden	hEkso:d@n
 Hexode	hEkso:d@
 Hexereien	hEks@raI@n
 Hexerei	hEks@raI
-Hexe	hEks@
 hexe	hEks@
+Hexe	hEks@
 Hexan	hEksa:n
 Hexameters	hEksa:met@rs
 Hexametern	hEksa:met@rn
@@ -40590,12 +40592,12 @@ Herden	he:rd@n
 Herde	he:rd@
 Herd	he:rt
 Herbsts	hErpsts
-herbst	hErpst
 Herbst	hErpst
+herbst	hErpst
 Herbizid	hErbitsi:t
 Herbheit	hErphaIt
-Herberge	hErbErg@
 herberge	hErbErg@
+Herberge	hErbErg@
 Herbariums	hErba:riUms
 Herbarium	hErba:riUm
 Herbarien	hErba:ri@n
@@ -40885,6 +40887,7 @@ Heften	hEft@n
 Hefte	hEft@
 Heftchens	hEftC@ns
 Heftchen	hEftC@n
+Heft	h E f t
 Heft	hEft
 Hefen	he:f@n
 Hefe	he:f@
@@ -41234,8 +41237,8 @@ Hagiograph	hag<iogra:f
 Hages	ha:g@s
 Hagerkeit	ha:g@rkaIt
 Hagens	ha:g@ns
-hagen	ha:g@n
 Hagen	ha:g@n
+hagen	ha:g@n
 Hagels	ha:g@ls
 Hagel	ha:g@l
 Hag	ha:k
@@ -41506,6 +41509,7 @@ Großtuerei	gro:stu:@raI
 Großteil	gro:staIl
 Großstädter	gro:s,StEt@r
 Großspurigkeit	gro:s,Spu:rICkaIt
+Großriese	g R o: s R i: z @
 Grossist	grOsIst
 Großherzogin	gro:s,hErtso:gIn
 Großherzigkeit	gro:s,hErtsICkaIt
@@ -41517,8 +41521,8 @@ Groove	gru:f
 Groom	gru:m
 Grolls	grOls
 Grolles	grOl@s
-grolle	grOl@
 Grolle	grOl@
+grolle	grOl@
 Groll	grOl
 Grog	grOk
 Grobschmieds	gro:p,Smi:ts
@@ -41945,8 +41949,8 @@ Globetrotters	glo:b@trOt@rs
 Globetrottern	glo:b@trOt@rn
 Globetrotter	glo:b@trOt@r
 Globalstrategie	globa:lStrate,gi:
-glitsche	glItS@
 Glitsche	glItS@
+glitsche	glItS@
 Glimmstengel	glIm,StEN@l
 Glimmers	glIm@rs
 Glimmer	glIm@r
@@ -41975,8 +41979,8 @@ Gleitfluge	glaIt,flu:g@
 Gleitflug	glaIt,flu:k
 gleite	glaIt@
 Gleitbauweise	glaIt,baU,vaIz@
-Gleit	glaIt
 gleit	glaIt
+Gleit	glaIt
 Gleises	glaIz@s
 Gleise	glaIz@
 Gleisdreiecks	glaIs,draI,?Eks
@@ -42091,8 +42095,8 @@ Gig	gIk
 Gifts	gIfts
 Giftigkeit	gIftICkaIt
 Giftes	gIft@s
-Gifte	gIft@
 gifte	gIft@
+Gifte	gIft@
 Gift	gIft
 Gießkanne	gi:s,kan@
 Gießform	gi:s,fOrm
@@ -42679,8 +42683,8 @@ Genörgel	g@n9rg@l
 Genée	Z@ne:
 Genusses	g@nUs@s
 Genusse	ge:nUs@
-Genuss	g@nUs
 Genuß	g@nUs
+Genuss	g@nUs
 Genus	ge:nUs
 Genugtuungen	g@nu:ktuUN@n
 Genugtuung	g@nu:ktuUN
@@ -43327,8 +43331,8 @@ Gastrollen	gast,rOl@n
 Gastrolle	gast,rOl@
 Gastritis	gastri:tIs
 Gastlichkeit	gastlICkaIt
-Gast	gast
 gast	gast
+Gast	gast
 Gassen	ga:s@n
 Gasse	gas@
 Gaspacho	gaspatSo:
@@ -43697,8 +43701,8 @@ Funkern	fUNk@rn
 Funkerin	fUNk@rIn
 Funker	fUNk@r
 Funkens	fUNk@ns
-Funke	fUNk@
 funke	fUNk@
+Funke	fUNk@
 Funk	fUNk
 Fungus	fUNgUs
 Funeralien	funera:l<i@n
@@ -43873,8 +43877,8 @@ Friedenstaube	fri:d@ns,taUb@
 Friedensnobelpreis	fri:d@nsno,bEl,praIs
 Friedens	fri:d@ns
 Friedel	fri:d@l
-friede	fri:d@
 Friede	fri:d@
+friede	fri:d@
 Fried	fri:t
 Frevlers	fre:fl@rs
 Frevlern	fre:fl@rn
@@ -44036,8 +44040,8 @@ Fortschrittlichkeit	fOrt,SrItlICkaIt
 Fortsatz	fOrt,zats
 Fortpflanzung	fOrt,pflantsUN
 Fortissimos	fOrtIsimo:s
-Fortissimo	fOrtIsimo:
 fortissimo	fOrtIsimo:
+Fortissimo	fOrtIsimo:
 Fortissimi	fOrtIsimi:
 Fortis	fOrtIs
 Fortifikationen	fOrtifikats<io:n@n
@@ -44076,8 +44080,8 @@ Forschung	fOrSUN
 Forschers	fOrS@rs
 Forschern	fOrS@rn
 Forscherin	fOrS@rIn
-Forscher	fOrS@r
 forscher	fOrS@r
+Forscher	fOrS@r
 Formyl	fOrmy:l
 Formungen	fOrmUN@n
 Formung	fOrmUN
@@ -44523,8 +44527,8 @@ Fischern	fIS@rn
 Fischereien	fIS@raI@n
 Fischerei	fIS@raI
 Fischer	fIS@r
-fische	fIS@
 Fische	fIS@
+fische	fIS@
 Fischart	fIS,?a:rt
 Fisch	fIS
 Fis	fIs
@@ -44931,8 +44935,8 @@ Fellah	fEla:
 Fellachen	fElax@n
 Fellache	fElax@
 Fell	fEl
-Felge	fElg@
 felge	fElg@
+Felge	fElg@
 Feldwegs	fElt,ve:ks
 Feldweges	fElt,ve:g@s
 Feldwegen	fElt,ve:g@n
@@ -45173,8 +45177,8 @@ Fanklub	fE:n,klUp
 Fangs	faNs
 Fango	faNgo:
 Fanges	faN@s
-fange	faN@
 Fange	faN@
+fange	faN@
 Fang	faN
 Fanfaren	fanfa:r@n
 Fanfare	fanfa:r@
@@ -45636,8 +45640,8 @@ Exempel	?EksEmp@l
 Exekutors	?Ekseku:to:rs
 Exekutoren	?Eksekuto:r@n
 Exekutor	?Ekseku:to:r
-Exekutiven	?Eksekuti:v@n
 exekutiven	?Eksekuti:v@n
+Exekutiven	?Eksekuti:v@n
 Exekutionen	?Eksekuts<io:n@n
 Exekution	?Eksekuts<io:n
 Exeget	?Eksege:t
@@ -46071,8 +46075,8 @@ Erntedankfestes	?Ernt@daNk,fEst@s
 Erntedankfesten	?Ernt@daNk,fEst@n
 Erntedankfeste	?Ernt@daNk,fEst@
 Erntedankfest	?Ernt@daNk,fEst
-ernte	?Ernt@
 Ernte	?Ernt@
+ernte	?Ernt@
 Ernsthaftigkeit	?ErnsthaftICkaIt
 Erniedrigungen	?Erni:drIgUN@n
 Erniedrigung	?Erni:drIgUN
@@ -46275,8 +46279,8 @@ Erdgases	?e:rt,ga:z@s
 Erdgasen	?e:rt,ga:z@n
 Erdgase	?e:rt,ga:z@
 Erdgas	?e:rt,ga:s
-erde	?e:rd@
 Erde	?e:rd@
+erde	?e:rd@
 Erdbeertorte	?e:rtbe:r,tOrt@
 Erdbeermarmelade	?e:rtbe:rmarm@,la:d@
 Erdbeerkonfitüre	?e:rt,be:rkOnfi,ty:r@
@@ -46860,8 +46864,8 @@ Empfangsteil	?EmpfaNs,taIl
 Empfangschefin	?EmpfaNs,SEfIn
 Empfangs	?EmpfaNs
 Empfanges	?EmpfaN@s
-empfange	?EmpfaN@
 Empfange	?EmpfaN@
+empfange	?EmpfaN@
 Empfang	?EmpfaN
 Empereur	?a~p@r2:r
 Emotionen	?emots<io:n@n
@@ -47598,8 +47602,8 @@ Durchforstungen	dUrCfOrstUN@n
 Durchforstung	dUrCfOrstUN
 Durchdringung	dUrCdrINUN
 durativen	durati:v@n
-Durative	du:rati:v@
 durative	du:rati:v@
+Durative	du:rati:v@
 Dur	du:r
 Duplizität	duplitsitE:t
 Duplikats	duplika:ts
@@ -47647,8 +47651,8 @@ Duktus	dUktUs
 Duktilität	dUktilitE:t
 Duis	dy:s
 Dufts	dUfts
-duftes	dUft@s
 Duftes	dUft@s
+duftes	dUft@s
 dufter	dUft@r
 duften	dUft@n
 Duft	dUft
@@ -47795,8 +47799,8 @@ Drehers	dre:@rs
 Drehern	dre:@rn
 Dreherin	dre:@rIn
 Dreher	dre:@r
-drehe	dre:@
 Drehe	dre:@
+drehe	dre:@
 Dreh	dre:
 Dredge	drEdZ@
 Drecks	drEks
@@ -48228,8 +48232,8 @@ Direktoraten	dirEktora:t@n
 Direktorate	dirEktora:t@
 Direktorat	dirEktora:t
 Direktor	dirEkto:r
-Direktiven	dirEkti:v@n
 direktiven	dirEkti:v@n
+Direktiven	dirEkti:v@n
 Direktionen	dirEkts<io:n@n
 Direktion	dirEkts<io:n
 Direktheiten	dirEkthaIt@n
@@ -49032,11 +49036,11 @@ Delirium	deli:riUm
 Delir	deli:r
 delinquentes	delINkvEnt@s
 delinquenter	delINkvEnt@r
-delinquenten	delINkvEnt@n
 Delinquenten	delINkvEnt@n
+delinquenten	delINkvEnt@n
 delinquente	delINkvEnt@
-Delinquent	delINkvEnt
 delinquent	delINkvEnt
+Delinquent	delINkvEnt
 Delineation	de:lineats<io:n
 Delikts	delIkts
 Deliktes	delIkt@s
@@ -49205,8 +49209,8 @@ Definition	definits<io:n
 Defiliermarsch	defili:r,marS
 Defilee	defile:
 Defibrillator	defibrIla:to:r
-defensiven	defEnzi:v@n
 Defensiven	defEnzi:v@n
+defensiven	defEnzi:v@n
 Defektivum	defEkti:vUm
 Defektiva	defEkti:va:
 Defaitismus	defEtIsmUs
@@ -49224,8 +49228,8 @@ Decks	dEks
 Deckes	dEk@s
 Deckels	dEk@ls
 Deckel	dEk@l
-decke	dEk@
 Decke	dEk@
+decke	dEk@
 Deckchen	dEkC@n
 Deck	dEk
 Dechseln	dEks@ln
@@ -49409,6 +49413,7 @@ Dachel	daxEl
 Dache	dax@
 Dachdeckerin	dax,dEk@rIn
 Dach	dax
+Dach	d a x
 D	de:
 Cölestin	ts2lEsti:n
 Cäsium	tsE:s<iUm
@@ -49450,8 +49455,8 @@ Croupon	krupO~:
 Croupier	krup<ie:
 Croquis	kroki:
 Crew	kru:
-Crescendo	krESEndo:
 crescendo	krESEndo:
+Crescendo	krESEndo:
 Crescendi	krESEndi:
 Creek	kri:k
 Credo	kre:do:
@@ -50708,8 +50713,8 @@ Brasseletts	bras@lEts
 Brasseletten	bras@lEt@n
 Brasselette	bras@lEt@
 Brasselett	bras@lEt
-brasse	bras@
 Brasse	bras@
+brasse	bras@
 Brasils	brazi:ls
 Brasilin	brazili:n
 Brasilianers	brazil<ia:n@rs
@@ -50876,8 +50881,8 @@ Borid	bori:t
 Borgs	bOrks
 Borgis	bOrgIs
 Borges	bOrg@s
-Borge	bOrg@
 borge	bOrg@
+Borge	bOrg@
 Borg	bOrk
 Boretsch	bo:rEtS
 Boreas	bo:reas
@@ -50938,8 +50943,8 @@ Bombers	bOmb@rs
 Bombern	bOmb@rn
 Bomber	bOmb@r
 Bombenleger	bOmb@n,le:g@r
-bomben	bOmb@n
 Bomben	bOmb@n
+bomben	bOmb@n
 Bombe	bOmb@
 Bombasts	bOmbasts
 Bombastes	bOmbast@s
@@ -50990,8 +50995,8 @@ Bohrer	bo:r@r
 Bohners	bo:n@rs
 Bohner	bo:n@r
 Bohnensuppe	bo:n@n,zUp@
-bohne	bo:n@
 Bohne	bo:n@
+bohne	bo:n@
 Bohlen	bo:l@n
 Bohle	bo:l@
 Bohemien	boem<iE~:
@@ -51062,8 +51067,8 @@ Blutes	blu:t@s
 Bluters	blu:t@rs
 Blutern	blu:t@rn
 Bluter	blu:t@r
-Blute	blu:t@
 blute	blu:t@
+Blute	blu:t@
 Blutadern	blu:t,?a:d@rn
 Blutader	blu:t,?a:d@r
 Blut	blu:t
@@ -51121,8 +51126,8 @@ Blindheit	blInthaIt
 Blinddarmoperation	blInt,darm?Op@ra,ts<io:n
 Blicks	blIks
 Blickes	blIk@s
-blicke	blIk@
 Blicke	blIk@
+blicke	blIk@
 Blick	blIk
 Bleuels	blOY@ls
 Bleueln	blOY@ln
@@ -51424,8 +51429,8 @@ Bildhauerei	bIlthaU@raI
 Bildes	bIld@s
 Bildern	bIld@rn
 Bilder	bIld@r
-Bilde	bIld@
 bilde	bIld@
+Bilde	bIld@
 Bild	bIlt
 Bilch	bIlC
 Bilanzierung	bilantsi:rUN
@@ -51476,8 +51481,8 @@ bien	b<iE~:
 Biegungen	bi:gUN@n
 Biegung	bi:gUN
 Bieger	bi:g@r
-Biege	bi:g@
 biege	bi:g@
+Biege	bi:g@
 Biederkeit	bi:d@rkaIt
 Bidets	bide:s
 Bidet	bide:
@@ -51620,6 +51625,7 @@ Bettlägerigkeit	bEt,lE:g@rICkaIt
 Bettlers	bEtl@rs
 Bettlern	bEtl@rn
 Bettler	bEtl@r
+Betten	b E t @ n
 Betteleien	bEt@laI@n
 Bettelei	bEt@laI
 Bettel	bEt@l
@@ -51837,8 +51843,8 @@ Beschleunigungen	b@SlOYnIgUN@n
 Beschleunigung	b@SlOYnIgUN
 Beschleuniger	b@SlOYnIg@r
 Beschlags	b@Sla:ks
-Beschlagnahme	b@Sla:k,na:m@
 beschlagnahme	b@Sla:k,na:m@
+Beschlagnahme	b@Sla:k,na:m@
 Beschlages	b@Sla:g@s
 Beschlagenheit	b@Sla:g@nhaIt
 Beschlage	b@Sla:g@
@@ -51933,8 +51939,8 @@ berghoch	bErkho:x
 Bergfried	bErk,fri:t
 Bergeslast	bErg@s,last
 Berges	bErg@s
-berge	bErg@
 Berge	bErg@
+berge	bErg@
 Bergamotte	bErgamOt@
 Bergabhang	bErk?ap,haN
 Berg	bErk
@@ -52620,8 +52626,8 @@ Basaren	baza:r@n
 Basare	baza:r@
 Basar	baza:r
 Basalts	bazalts
-Basalt	bazalt
 basalt	bazalt
+Basalt	bazalt
 Barège	barE:Z@
 Barytons	baritOns
 Barytonen	baritOn@n
@@ -52736,8 +52742,8 @@ Bannerträger	ban@r,trE:g@r
 Banners	ban@rs
 Bannern	ban@rn
 Banner	ban@r
-banne	ban@
 Banne	ban@
+banne	ban@
 Bann	ban
 Bankwesens	baNk,ve:s@ns
 Bankwesen	baNk,ve:s@n
@@ -53326,8 +53332,8 @@ Ausmerglung	?aUsmErklUN
 Ausmergelung	?aUsmErg@lUN
 Ausmasses	?aUsma:s@s
 Ausmassen	?aUsma:s@n
-Ausmaße	?aUsma:s@
 Ausmasse	?aUsma:s@
+Ausmaße	?aUsma:s@
 Ausmaß	?aUsma:s
 Ausleihungen	?aUslaIhUN@n
 Ausleihung	?aUslaIhUN
@@ -53392,6 +53398,7 @@ ausgleiche	?aUsglaIC@
 Ausgleich	?aUsglaIC
 Ausgiebigkeit	?aUsgi:bICkaIt
 Ausgereiftheit	?aUsg@,raIfthaIt
+ausgepustet	aU s g e: p u: s t @ t
 Ausgeprägtheit	?aUsg@,prEkthaIt
 Ausgehverbots	?aUsge:fEr,bo:ts
 Ausgehverbotes	?aUsge:fEr,bo:t@s
@@ -53633,8 +53640,8 @@ Audienzen	?aUd<iEnts@n
 Audienz	?aUd<iEnts
 Aucuba	?aUku:ba:
 Auberginen	?obErZi:n@n
-Aubergine	?obErZi:n@
 aubergine	?obErZi:n@
+Aubergine	?obErZi:n@
 Aubade	?oba:d@
 Atzungen	?atsUN@n
 Atzung	?atsUN
@@ -54080,8 +54087,8 @@ Arrondissement	?arO~dis@ma~:
 Arrondierungen	?arOndi:rUN@n
 Arrondierung	?arOndi:rUN
 Arroganz	?arogants
-arrivierte	?arivi:rt@
 Arrivierte	?arivi:rt@
+arrivierte	?arivi:rt@
 Arrhythmie	?arYtmi:
 Arretierungen	?areti:rUN@n
 Arretierung	?areti:rUN
@@ -54103,8 +54110,8 @@ Arrangement	?araNZ@ma~:
 Arrak	?arak
 Arpeggios	?arpEdZo:s
 Arpeggione	?arpEdZo:n@
-arpeggio	?arpEdZo:
 Arpeggio	?arpEdZo:
+arpeggio	?arpEdZo:
 Arpeggien	?arpEdZ<i@n
 Arpeggiaturen	?arpEdZatu:r@n
 Arpeggiatur	?arpEdZatu:r
@@ -54179,8 +54186,8 @@ Aristokratie	?a:rIstokrati:
 Aristokraten	?arIstokra:t@n
 Aristokrat	?arIstokra:t
 Ariosos	?ar<io:zos
-arioso	?ar<io:zo
 Arioso	?ar<io:zo
+arioso	?ar<io:zo
 Ariosi	?ar<io:zi:
 Arions	?ari:Ons
 Arion	?ari:On
@@ -54401,8 +54408,8 @@ Apsis	?apsIs
 Apsiden	?apzi:d@n
 Apside	?apzi:d@
 Apriorismus	?apriorIsmUs
-apriori	?aprio:ri
 Apriori	?aprio:ri
+apriori	?aprio:ri
 Aprils	?aprIls
 Aprilen	?aprIl@n
 Aprile	?aprIl@
@@ -54764,8 +54771,8 @@ Anthropogenie	?antropogeni:
 Anthrazits	?antratsIts
 Anthraziten	?antratsIt@n
 Anthrazite	?antratsIt@
-Anthrazit	?antratsIt
 anthrazit	?antratsIt
+Anthrazit	?antratsIt
 Anthrazens	?antratse:ns
 Anthrazenen	?antratse:n@n
 Anthrazene	?antratse:n@
@@ -55139,8 +55146,8 @@ Andesit	?andezIt
 Andesin	?andezi:n
 Anden	?and@n
 Andauung	?andaUUN
-andantino	?andanti:no:
 Andantino	?andanti:no:
+andantino	?andanti:no:
 Andantini	?andanti:ni:
 Andantes	?andant@s
 andante	?andant@
@@ -55534,8 +55541,8 @@ Alterchens	?alt@rC@ns
 Alterchen	?alt@rC@n
 Alterationen	?alterats<io:n@n
 Alteration	?alterats<io:n
-alter	?alt@r
 Alter	?alt@r
+alter	?alt@r
 Alteisenmann	?alt?aIz@n,man
 Alteisenhändler	?alt?aIz@n,hEndl@r
 Altbundespräsident	?altbUnd@sprEzi,dEnt
@@ -55697,8 +55704,8 @@ Alleinganges	?alaIngaN@s
 Alleingange	?alaIngaN@
 Alleingang	?alaIngaN
 Allegros	?ale:gro:s
-Allegro	?ale:gro:
 allegro	?ale:gro:
+Allegro	?ale:gro:
 Allegri	?ale:gri:
 Allegrettos	?alegrEto:s
 Allegretto	?alegrEto:
@@ -56996,8 +57003,8 @@ Aare	?a:r@
 Aar	?a:r
 Aals	?a:ls
 Aales	?a:l@s
-aale	?a:l@
 Aale	?a:l@
+aale	?a:l@
 Aal	?a:l
 Aachen	?a:x@n
 % NUM
@@ -57011,8 +57018,8 @@ unzähligemal	?UntsE:lIg@,ma:l
 Tausendstel	taUz@ntst@l
 siebzigstel	zi:ptsICst@l
 Siebzigstel	zi:ptsICst@l
-Siebziger	zi:ptsIg@r
 siebziger	zi:ptsIg@r
+Siebziger	zi:ptsIg@r
 siebtel	zi:pt@l
 siebte	zi:pt@
 siebenziger	zi:b@ntsIg@r
@@ -57051,11 +57058,11 @@ achteinhalb	?axt?aIn,halp
 You	ju:
 wir	vi:r
 this	sIs
-Sie	zi:
 sie	zi:
+Sie	zi:
 ihrs	?i:rs
-Ihr	?i:r
 ihr	?i:r
+Ihr	?i:r
 ich	?IC
 Es	?Es
 es	?Es
@@ -57149,8 +57156,8 @@ zwatzeligsten	tsvats@lICst@n
 zwatzeligstem	tsvats@lICst@m
 zwatzeligste	tsvats@lICst@
 zwatzeligst	tsvats@lICst
-zwanzigstel	tsvantsICst@l
 Zwanzigstel	tsvantsICst@l
+zwanzigstel	tsvantsICst@l
 zwanghaftes	tsvaNhaft@s
 zwanghafter	tsvaNhaft@r
 zwanghaften	tsvaNhaft@n
@@ -57463,8 +57470,8 @@ zentralerer	tsEntra:l@r@r
 zentraleren	tsEntra:l@r@n
 zentralerem	tsEntra:l@r@m
 zentralere	tsEntra:l@r@
-Zentrale	tsEntra:l@
 zentrale	tsEntra:l@
+Zentrale	tsEntra:l@
 zentralafrikanischstes	tsEntral?afri,ka:nISst@s
 zentralafrikanischster	tsEntral?afri,ka:nISst@r
 zentralafrikanischsten	tsEntral?afri,ka:nISst@n
@@ -62271,8 +62278,8 @@ transparenterer	transparEnt@r@r
 transparenteren	transparEnt@r@n
 transparenterem	transparEnt@r@m
 transparentere	transparEnt@r@
-Transitives	tranziti:v@s
 transitives	tranziti:v@s
+Transitives	tranziti:v@s
 transitiver	tranziti:v@r
 transitivem	tranziti:v@m
 Transitive	tranziti:v@
@@ -64524,8 +64531,8 @@ Sedatives	zedati:v@s
 sedatives	zedati:v@s
 sedativer	zedati:v@r
 sedativem	zedati:v@m
-Sedative	zedati:v@
 sedative	zedati:v@
+Sedative	zedati:v@
 sechshundertstes	zEks,hUnd@rtst@s
 sechshundertster	zEks,hUnd@rtst@r
 sechshundertsten	zEks,hUnd@rtst@n
@@ -64535,8 +64542,8 @@ schwulstes	Svu:lst@s
 schwulster	Svu:lst@r
 schwulsten	Svu:lst@n
 schwulstem	Svu:lst@m
-Schwulste	Svu:lst@
 schwulste	Svu:lst@
+Schwulste	Svu:lst@
 schwuleres	Svu:l@r@s
 schwulerer	Svu:l@r@r
 schwuleren	Svu:l@r@n
@@ -66276,8 +66283,8 @@ rechthaberischeren	rECt,ha:b@rIS@r@n
 rechthaberischerem	rECt,ha:b@rIS@r@m
 rechthaberischere	rECt,ha:b@rIS@r@
 rechtfertigende	rECtfErtIg@nd@
-Rechte	rECt@
 rechte	rECt@
+Rechte	rECt@
 rebeltest	re:b@lt@st
 realstes	rea:lst@s
 realster	rea:lst@r
@@ -68072,8 +68079,8 @@ obigem	?ObIg@m
 obige	?ObIg@
 oberstes	?o:b@rst@s
 oberster	?o:b@rst@r
-Obersten	?o:b@rst@n
 obersten	?o:b@rst@n
+Obersten	?o:b@rst@n
 oberstem	?o:b@rst@m
 oberflächlichste	?o:b@r,flEClICst@
 oberflächlichere	?o:b@r,flEClIC@r@
@@ -71724,8 +71731,8 @@ inniglichere	?InIklIC@r@
 innerer	?In@r@r
 inneren	?In@r@n
 innerem	?In@r@m
-Innere	?In@r@
 innere	?In@r@
+Innere	?In@r@
 inkurables	?Inkura:bl@s
 inkurabler	?Inkura:bl@r
 inkurablen	?Inkura:bl@n
@@ -72245,8 +72252,8 @@ illiberalerer	?Ilib@ra:l@r@r
 illiberaleren	?Ilib@ra:l@r@n
 illiberalerem	?Ilib@ra:l@r@m
 illiberalere	?Ilib@ra:l@r@
-Ihrige	?i:rIg@
 ihrige	?i:rIg@
+Ihrige	?i:rIg@
 ideologischstes	?ideolo:gISst@s
 ideologischster	?ideolo:gISst@r
 ideologischsten	?ideolo:gISst@n
@@ -72654,8 +72661,8 @@ herbster	hErpst@r
 Herbsten	hErpst@n
 herbsten	hErpst@n
 herbstem	hErpst@m
-Herbste	hErpst@
 herbste	hErpst@
+Herbste	hErpst@
 herberes	hErb@r@s
 herberer	hErb@r@r
 herberen	hErb@r@n
@@ -73635,8 +73642,8 @@ frühsten	fry:st@n
 frühste	fry:st@
 frühestes	fry:@st@s
 frühesten	fry:@st@n
-Früheste	fry:@st@
 früheste	fry:@st@
+Früheste	fry:@st@
 früheres	fry:@r@s
 früherer	fry:@r@r
 früheren	fry:@r@n
@@ -76817,8 +76824,8 @@ blonderer	blOnd@r@r
 blonderen	blOnd@r@n
 blonderem	blOnd@r@m
 blondere	blOnd@r@
-Blonde	blOnd@
 blonde	blOnd@
+Blonde	blOnd@
 blockigstes	blOkICst@s
 blockigster	blOkICst@r
 blockigsten	blOkICst@n
@@ -77185,8 +77192,8 @@ besorgniserregenderer	b@zOrknis?Er,re:g@nd@r@r
 besorgniserregenderen	b@zOrknis?Er,re:g@nd@r@n
 besorgniserregenderem	b@zOrknis?Er,re:g@nd@r@m
 besorgniserregendere	b@zOrknis?Er,re:g@nd@r@
-besonderes	b@zOnd@r@s
 Besonderes	b@zOnd@r@s
+besonderes	b@zOnd@r@s
 beschwerlichstes	b@Sve:rlICst@s
 beschwerlichster	b@Sve:rlICst@r
 beschwerlichsten	b@Sve:rlICst@n
@@ -79094,8 +79101,8 @@ umstandshalber	?UmStants,halb@r
 umhin	?UmhIn
 umeinander	?Um?aInand@r
 Ultra	?Ultra:
-ultimo	?Ultimo:
 Ultimo	?Ultimo:
+ultimo	?Ultimo:
 törichterweise	t2:rICt@r,vaIz@
 tri	tri:
 treppauf	trEp?aUf
@@ -79105,8 +79112,8 @@ tausendstens	taUz@ntst@ns
 talaufwärts	ta:l?aUfvErts
 talabwärts	ta:l?apvErts
 tagsüber	ta:ks?y:b@r
-Tags	ta:ks
 tags	ta:ks
+Tags	ta:ks
 tagein	ta:k?aIn
 tagaus	ta:k?aUs
 südwärts	zy:tvErts
@@ -79130,8 +79137,8 @@ sovielmal	zo:,fi:l,ma:l
 sonstwohin	zOnstvo:,hIn
 sonntags	zOnta:ks
 Sonntags	zOnta:ks
-Sonnabends	zOn,?a:b@nts
 sonnabends	zOn,?a:b@nts
+Sonnabends	zOn,?a:b@nts
 sonders	zOnd@rs
 sonach	zona:x
 sommers	zOm@rs
@@ -79240,8 +79247,8 @@ nebenan	ne:b@n?an
 natürlicherweise	naty:rlIC@r,vaIz@
 nachts	naxts
 nacht	naxt
-Nachmittags	na:x,mIta:ks
 nachmittags	na:x,mIta:ks
+Nachmittags	na:x,mIta:ks
 nachmals	na:xma:ls
 nachher	na:xhe:r
 mütterlicherseits	mYt@rlIC@r,zaIts
@@ -79252,17 +79259,17 @@ morgen	mOrg@n
 montags	mo:nta:ks
 Montags	mo:nta:ks
 mitunter	mIt?Unt@r
-Mittwochs	mItvOxs
 mittwochs	mItvOxs
-mittsommers	mItzOm@rs
+Mittwochs	mItvOxs
 Mittsommers	mItzOm@rs
+mittsommers	mItzOm@rs
 mittschiffs	mItSIfs
 mittlerweile	mItl@rvaIl@
 mitternachts	mIt@r,naxts
 mitteninne	mIt@n,?In@
 mittendurch	mIt@n,dUrC
-Mittags	mIta:ks
 mittags	mIta:ks
+Mittags	mIta:ks
 mitsammen	mItzam@n
 mitnichten	mItnICt@n
 mithin	mIthIn
@@ -79679,16 +79686,16 @@ saurer	zaUr@r
 saure	zaUr@
 sauere	zOYr@
 sa4uere	zOYr@
-russischer	rUsIS@r
 Russischer	rUsIS@r
+russischer	rUsIS@r
 Russischen	rUsIS@n
 russischen	rUsIS@n
 Russischem	rUsIS@m
 russischem	rUsIS@m
 rentable	rEnta:bl@
 praktikable	praktika:bl@
-Portable	pOrta:bl@
 portable	pOrta:bl@
+Portable	pOrta:bl@
 pleite	plaIt@
 passable	pasa:bl@
 Oberste	?o:b@rst@
@@ -79702,13 +79709,13 @@ midi	mi:di
 mehr	me:r
 maxi	maksi:
 logo	lo:go:
-Linke	lINk@
 linke	lINk@
+Linke	lINk@
 kommende	kOm@nd@
 komfortable	kOmfOrta:bl@
 kleinst	klaInst
-italienisches	?ital<ie:nIS@s
 Italienisches	?ital<ie:nIS@s
+italienisches	?ital<ie:nIS@s
 hoher	ho:@r
 hohe	ho:@
 heuten	hOYt@n
@@ -80220,8 +80227,8 @@ ziviler	tsivi:l@r
 zivilen	tsivi:l@n
 zivilem	tsivi:l@m
 zivile	tsivi:l@
-Zivil	tsivi:l
 zivil	tsivi:l
+Zivil	tsivi:l
 zittriges	tsItrIg@s
 zittrigeres	tsItrIg@r@s
 zittrigerer	tsItrIg@r@r
@@ -80275,13 +80282,13 @@ zirkulär	tsIrkulE:r
 zirkulierend	tsIrkuli:r@nt
 zirkulares	tsIrkula:r@s
 zirkularer	tsIrkula:r@r
-zirkularen	tsIrkula:r@n
 Zirkularen	tsIrkula:r@n
+zirkularen	tsIrkula:r@n
 zirkularem	tsIrkula:r@m
-Zirkulare	tsIrkula:r@
 zirkulare	tsIrkula:r@
-zirkular	tsIrkula:r
+Zirkulare	tsIrkula:r@
 Zirkular	tsIrkula:r
+zirkular	tsIrkula:r
 zipfliges	tsIpflIg@s
 zipfligeres	tsIpflIg@r@s
 zipfligerer	tsIpflIg@r@r
@@ -80569,8 +80576,8 @@ zederner	tse:d@rn@r
 zedernen	tse:d@rn@n
 zedernem	tse:d@rn@m
 zederne	tse:d@rn@
-zedern	tse:d@rn
 Zedern	tse:d@rn
+zedern	tse:d@rn
 zeckend	tsEk@nt
 zausiges	tsaUzIg@s
 zausigeres	tsaUzIg@r@s
@@ -80958,8 +80965,8 @@ willkommener	vIlkOm@n@r
 willkommenen	vIlkOm@n@n
 willkommenem	vIlkOm@n@m
 willkommene	vIlkOm@n@
-Willkommen	vIlkOm@n
 willkommen	vIlkOm@n
+Willkommen	vIlkOm@n
 willigeres	vIlIg@r@s
 willigerer	vIlIg@r@r
 willigeren	vIlIg@r@n
@@ -80976,8 +80983,8 @@ willentliche	vIl@ntlIC@
 willentlich	vIl@ntlIC
 wilhelminisch	vIlhElmi:nIS
 wildwüchsig	vIlt,vy:ksIC
-wildes	vIld@s
 Wildes	vIld@s
+wildes	vIld@s
 wilder	vIld@r
 wilden	vIld@n
 wildem	vIld@m
@@ -81133,8 +81140,8 @@ welker	vElk@r
 welken	vElk@n
 welkem	vElk@m
 welke	vElk@
-welk	vElk
 Welk	vElk
+welk	vElk
 weitverzweigtes	vaItfEr,tsvaIkt@s
 weitverzweigter	vaItfEr,tsvaIkt@r
 weitverzweigten	vaItfEr,tsvaIkt@n
@@ -81272,8 +81279,8 @@ watschelig	va:tS@lIC
 waterproof	vO:t@r,pru:f
 Waterkant	va:t@rkant
 watend	va:t@nt
-Wassertreten	vas@r,tre:t@n
 wassertreten	vas@r,tre:t@n
+Wassertreten	vas@r,tre:t@n
 wasserhell	vas@rhEl
 wassergenetzt	vas@rg@,nEtst
 wassergekühlt	vas@rg@,ky:lt
@@ -81302,8 +81309,8 @@ wandalisch	vanda:lIS
 waltend	valt@nt
 wallonisches	valo:nIS@s
 wallonischer	valo:nIS@r
-Wallonischen	valo:nIS@n
 wallonischen	valo:nIS@n
+Wallonischen	valo:nIS@n
 wallonischem	valo:nIS@m
 wallonisch	valo:nIS
 wallend	val@nt
@@ -81321,8 +81328,8 @@ wahrscheinlicher	va:rSaInlIC@r
 wahrscheinlichen	va:rSaInlIC@n
 wahrscheinlichem	va:rSaInlIC@m
 wahrscheinliche	va:rSaInlIC@
-Wahrscheinlich	va:rSaInlIC
 wahrscheinlich	va:rSaInlIC
+Wahrscheinlich	va:rSaInlIC
 wahrheitsliebendes	va:rhaIts,li:b@nd@s
 wahrheitsliebender	va:rhaIts,li:b@nd@r
 wahrheitsliebenden	va:rhaIts,li:b@nd@n
@@ -81568,8 +81575,8 @@ vokaler	voka:l@r
 Vokalen	voka:l@n
 vokalen	voka:l@n
 vokalem	voka:l@m
-vokale	voka:l@
 Vokale	voka:l@
+vokale	voka:l@
 Vokal	voka:l
 vokal	voka:l
 vogtländisch	fo:ktlEndIS
@@ -81776,12 +81783,12 @@ vielfarbige	fi:l,farbIg@
 vielfarbig	fi:l,farbIC
 vielfaches	fi:lfax@s
 Vielfaches	fi:lfax@s
-vielfacher	fi:lfax@r
 Vielfacher	fi:lfax@r
-vielfachen	fi:lfax@n
+vielfacher	fi:lfax@r
 Vielfachen	fi:lfax@n
-vielfachem	fi:lfax@m
+vielfachen	fi:lfax@n
 Vielfachem	fi:lfax@m
+vielfachem	fi:lfax@m
 vielfach	fi:lfax
 vielerlei	fil@r,laI
 vieleckiges	fi:l,?EkIg@s
@@ -82207,8 +82214,8 @@ venerabel	venera:b@l
 Veltliner	fEltli:n@r
 Velares	vela:r@s
 Velare	vela:r@
-Velar	vela:r
 velar	vela:r
+Velar	vela:r
 vektorielles	vEktor<iEl@s
 vektorieller	vEktor<iEl@r
 vektoriellen	vEktor<iEl@n
@@ -82588,15 +82595,15 @@ unwesentlichen	?Unve:z@ntlIC@n
 unwesentlichem	?Unve:z@ntlIC@m
 unwesentliche	?Unve:z@ntlIC@
 unwesentlich	?Unve:z@ntlIC
-unwertes	?Unve:rt@s
 Unwertes	?Unve:rt@s
+unwertes	?Unve:rt@s
 unwerter	?Unve:rt@r
 unwerten	?Unve:rt@n
 unwertem	?Unve:rt@m
-unwerte	?Unve:rt@
 Unwerte	?Unve:rt@
-Unwert	?Unve:rt
+unwerte	?Unve:rt@
 unwert	?Unve:rt
+Unwert	?Unve:rt
 unweigerliches	?UnvaIg@rlIC@s
 unweigerlicher	?UnvaIg@rlIC@r
 unweigerlichen	?UnvaIg@rlIC@n
@@ -83105,8 +83112,8 @@ untertreibend	?Unt@rtraIb@nt
 untertitelnd	?Unt@rti:t@lnt
 untertaner	?Unt@rta:n@r
 Untertanen	?Unt@rta:n@n
-untertan	?Unt@rta:n
 Untertan	?Unt@rta:n
+untertan	?Unt@rta:n
 untersuchend	?Unt@rzu:x@nt
 unterstützend	?Unt@rStYts@nt
 unterstreichend	?Unt@rStraIC@nt
@@ -83520,8 +83527,8 @@ unredigierte	?Unredi,gi:rt@
 unredigiert	?Unredi,gi:rt
 Unrechtstat	?UnrECts,ta:t
 unrechtmäßigerweise	?UnrECt,mE:sIg@r,vaIz@
-Unrechtes	?UnrECt@s
 unrechtes	?UnrECt@s
+Unrechtes	?UnrECt@s
 unrechter	?UnrECt@r
 unrechten	?UnrECt@n
 unrechtem	?UnrECt@m
@@ -83996,8 +84003,8 @@ unigefärbt	?unig@,fErpt
 uniformierend	?unifOrmi:r@nt
 uniformes	?unifOrm@s
 uniformer	?unifOrm@r
-Uniformen	?unifOrm@n
 uniformen	?unifOrm@n
+Uniformen	?unifOrm@n
 uniformem	?unifOrm@m
 uniforme	?unifOrm@
 uniform	?unifOrm
@@ -84147,8 +84154,8 @@ ungesunden	?Ung@,zUnd@n
 ungesundem	?Ung@,zUnd@m
 ungesunde	?Ung@,zUnd@
 ungesund	?Ung@,zUnt
-Ungestüm	?Ung@,Sty:m
 ungestüm	?Ung@Sty:m
+Ungestüm	?Ung@,Sty:m
 ungestört	?Ung@,St2:rt
 ungestraftes	?Ung@,Stra:ft@s
 ungestrafter	?Ung@,Stra:ft@r
@@ -84403,15 +84410,15 @@ ungekochtem	?Ung@,kOxt@m
 ungekochte	?Ung@,kOxt@
 ungekocht	?Ung@,kOxt
 ungehörig	?Ung@,h2:rIC
-ungehorsames	?Ung@,hOrza:m@s
 Ungehorsames	?Ung@,hOrza:m@s
+ungehorsames	?Ung@,hOrza:m@s
 ungehorsamer	?Ung@,hOrza:m@r
 ungehorsamen	?Ung@,hOrza:m@n
 ungehorsamem	?Ung@,hOrza:m@m
 ungehorsame	?Ung@,hOrza:m@
 Ungehorsame	?Ung@,hOrza:m@
-ungehorsam	?Ung@,hOrza:m
 Ungehorsam	?Ung@,hOrza:m
+ungehorsam	?Ung@,hOrza:m
 ungehobeltes	?Ung@,ho:b@lt@s
 ungehobelter	?Ung@,ho:b@lt@r
 ungehobelten	?Ung@,ho:b@lt@n
@@ -84429,8 +84436,8 @@ ungeheueres	?Ung@hOYr@s
 ungeheuerer	?Ung@hOYr@r
 ungeheuerem	?Ung@hOYr@m
 ungeheuere	?Ung@,hOYr@
-Ungeheuer	?Ung@,hOY@r
 ungeheuer	?Ung@hOY@r
+Ungeheuer	?Ung@,hOY@r
 ungehemmtes	?Ung@,hEmt@s
 ungehemmter	?Ung@,hEmt@r
 ungehemmten	?Ung@,hEmt@n
@@ -85924,8 +85931,8 @@ ultramontanen	?Ultramonta:n@n
 ultramontanem	?Ultramonta:n@m
 ultramontane	?Ultramonta:n@
 ultramontan	?Ultramonta:n
-ultramarin	?Ultramari:n
 Ultramarin	?Ultramari:n
+ultramarin	?Ultramari:n
 ultimativ	?Ultimati:f
 ukrainisches	?ukraInIS@s
 ukrainischer	?ukraInIS@r
@@ -86244,10 +86251,10 @@ traversierend	travErzi:r@nt
 traverses	travErz@s
 traverser	travErz@r
 traversem	travErz@m
-traverse	travErz@
 Traverse	travErz@
-Travers	travErs
+traverse	travErz@
 travers	travErs
+Travers	travErs
 trautes	traUt@s
 trauter	traUt@r
 trautem	traUt@m
@@ -86353,8 +86360,8 @@ transitorischen	tranzito:rIS@n
 transitorischem	tranzito:rIS@m
 transitorische	tranzito:rIS@
 transitorisch	tranzito:rIS
-transitiv	tranziti:f
 Transitiv	tranziti:f
+transitiv	tranziti:f
 transitierend	tranziti:r@nt
 transistorisierend	tranzIstorizi:r@nt
 transistorierend	tranzIstori:r@nt
@@ -86753,8 +86760,8 @@ testamentarischen	tEstamEnta:rIS@n
 testamentarischem	tEstamEnta:rIS@m
 testamentarische	tEstamEnta:rIS@
 testamentarisch	tEstamEnta:rIS
-tertiär	tErts<iE:r
 Tertiär	tErts<iE:r
+tertiär	tErts<iE:r
 tertian	tErts<ia:n
 Tertiaer	tErts<iE:r
 territoriales	tEritor<ia:l@s
@@ -86870,13 +86877,13 @@ technologische	tECnolo:gIS@
 technologisch	tECnolo:gIS
 technisierend	tECnizi:r@nt
 technisches	tECnIS@s
-Technischer	tECnIS@r
 technischer	tECnIS@r
+Technischer	tECnIS@r
 technischen	tECnIS@n
 technischem	tECnIS@m
 technische	tECnIS@
-Technisch	tECnIS
 technisch	tECnIS
+Technisch	tECnIS
 technifizierend	tECnifitsi:r@nt
 teakenes	ti:k@n@s
 teakener	ti:k@n@r
@@ -87112,8 +87119,8 @@ taftener	taft@n@r
 taftenen	taft@n@n
 taftenem	taft@n@m
 taftene	taft@n@
-taften	taft@n
 Taften	taft@n
+taften	taft@n
 tafelförmig	taf@l,f9rmIC
 tacitetisches	tatsite:tIS@s
 tacitetischer	tatsite:tIS@r
@@ -87137,8 +87144,8 @@ tabellarischem	tabEla:rIS@m
 tabellarische	tabEla:rIS@
 tabellarisch	tabEla:rIS
 süßsauer	zy:s,zaU@r
-Süß	zy:s
 süß	zy:s
+Süß	zy:s
 süperb	zypErp
 sündlos	zYntlo:s
 sündig	zYndIC
@@ -87230,8 +87237,8 @@ synoptisch	zynOptIS
 synonymisch	zynony:mIS
 synonymes	zynony:m@s
 synonymer	zynony:m@r
-Synonymen	zynony:m@n
 synonymen	zynony:m@n
+Synonymen	zynony:m@n
 synonymem	zynony:m@m
 Synonyme	zynony:m@
 synonyme	zynony:m@
@@ -87246,8 +87253,8 @@ synodisch	zyno:dIS
 synodales	zynoda:l@s
 Synodales	zynoda:l@s
 synodaler	zynoda:l@r
-Synodalen	zynoda:l@n
 synodalen	zynoda:l@n
+Synodalen	zynoda:l@n
 synodalem	zynoda:l@m
 synodal	zynoda:l
 synkretisch	zYnkre:tIS
@@ -87552,12 +87559,12 @@ strukturaler	,StrUktura:l@r
 strukturaler	StrUktura:l@r
 strukturalen	StrUktura:l@n
 strukturalen	,StrUktura:l@n
-strukturalem	,StrUktura:l@m
 strukturalem	StrUktura:l@m
-strukturale	StrUktura:l@
+strukturalem	,StrUktura:l@m
 strukturale	,StrUktura:l@
-struktural	,StrUktura:l
+strukturale	StrUktura:l@
 struktural	StrUktura:l
+struktural	,StrUktura:l
 strubbliges	StrUblIg@s
 strubbligeres	StrUblIg@r@s
 strubbligerer	StrUblIg@r@r
@@ -87731,10 +87738,10 @@ stolzes	StOlts@s
 stolzer	StOlts@r
 stolzen	StOlts@n
 stolzem	StOlts@m
-stolze	StOlts@
 Stolze	StOlts@
-stolz	StOlts
+stolze	StOlts@
 Stolz	StOlts
+stolz	StOlts
 stolpriges	StOlprIg@s
 stolprigeres	StOlprIg@r@s
 stolprigerer	StOlprIg@r@r
@@ -87819,8 +87826,8 @@ stilisierend	Stilizi:r@nt
 stigmatisierend	stIgmatizi:r@nt
 stiftengehend	StIft@n,ge:@nt
 stieslig	Sti:slIC
-stieres	Sti:r@s
 Stieres	Sti:r@s
+stieres	Sti:r@s
 stierer	Sti:r@r
 stierem	Sti:r@m
 stiere	Sti:r@
@@ -88190,6 +88197,7 @@ splendid	splEndi:t
 spitzend	SpIts@nt
 spitzelnd	SpIts@lnt
 spitze	SpIts@
+spitze	S p I ts @
 spitzbübisch	SpIts,by:bIS
 spirituös	Spiritu2:s
 spirituoses	Spirituo:z@s
@@ -88207,8 +88215,8 @@ spirituell	Spirit<uEl
 spiritualisierend	Spiritualizi:r@nt
 spirituales	Spirit<ua:l@s
 spiritualer	Spirit<ua:l@r
-Spiritualen	spIrItjU@l@n
 spiritualen	Spirit<ua:l@n
+Spiritualen	spIrItjU@l@n
 spiritualem	Spirit<ua:l@m
 spirituale	Spirit<ua:l@
 Spiritual	spIrItjU@l
@@ -88294,8 +88302,8 @@ spedierend	Spedi:r@nt
 spazierend	Spatsi:r@nt
 Spates	Spa:t@s
 spatend	Spa:t@nt
-spate	Spa:t@
 Spate	Spa:t@
+spate	Spa:t@
 Spat	Spa:t
 spastisches	spastIS@s
 spastischer	spastIS@r
@@ -88408,8 +88416,8 @@ sowjetrussische	zOvjEt,rUsIS@
 sowjetrussisch	zOvjEt,rUsIS
 sowjetische	zOvjEtIS@
 sowjetisch	sOvjEtIS
-Souverän	suv@rE:n
 souverän	suv@rE:n
+Souverän	suv@rE:n
 southern	sas@rn
 South	saUs
 soutachierend	zutaSi:r@nt
@@ -88503,8 +88511,8 @@ somnolent	zOmnolEnt
 Somnambules	zOmnambu:l@s
 somnambules	zOmnambu:l@s
 somnambuler	zOmnambu:l@r
-Somnambulen	zOmnambu:l@n
 somnambulen	zOmnambu:l@n
+Somnambulen	zOmnambu:l@n
 somnambulem	zOmnambu:l@m
 somnambul	zOmnambu:l
 somatogenes	zomatoge:n@s
@@ -88609,8 +88617,8 @@ smaragdener	smarakd@n@r
 smaragdenen	smarakd@n@n
 smaragdenem	smarakd@n@m
 smaragdene	smarakd@n@
-Smaragden	smarakd@n
 smaragden	smarakd@n
+Smaragden	smarakd@n
 slowenisches	slove:nIS@s
 slowenischer	slove:nIS@r
 slowenischen	slove:nIS@n
@@ -89139,11 +89147,11 @@ sekretierend	zekreti:r@nt
 sekretes	zekre:t@s
 Sekretes	zekre:t@s
 sekreter	zekre:t@r
-Sekreten	zekre:t@n
 sekreten	zekre:t@n
+Sekreten	zekre:t@n
 sekretem	zekre:t@m
-sekrete	zekre:t@
 Sekrete	zekre:t@
+sekrete	zekre:t@
 Sekret	zekre:t
 sekret	zekre:t
 seitheriges	zaIthe:rIg@s
@@ -89183,8 +89191,8 @@ seidener	zaId@n@r
 seidenen	zaId@n@n
 seidenem	zaId@n@m
 seidene	zaId@n@
-seiden	zaId@n
 Seiden	zaId@n
+seiden	zaId@n
 seichtes	zaICt@s
 seichter	zaICt@r
 seichtem	zaICt@m
@@ -89233,8 +89241,8 @@ seelische	ze:lIS@
 seelisch	ze:lIS
 sedimentär	zedimEntE:r
 sedimentierend	zedimEnti:r@nt
-sedativ	zedati:f
 Sedativ	zedati:f
+sedativ	zedati:f
 sechszylindriges	zEkstsy,lIndrIg@s
 sechszylindriger	zEkstsy,lIndrIg@r
 sechszylindrigen	zEkstsy,lIndrIg@n
@@ -89380,8 +89388,8 @@ schwefelfarbener	Sve:f@l,farb@n@r
 schwefelfarbenen	Sve:f@l,farb@n@n
 schwefelfarbenem	Sve:f@l,farb@n@m
 schwefelfarbene	Sve:f@l,farb@n@
-Schwefelfarben	Sve:f@l,farb@n
 schwefelfarben	Sve:f@l,farb@n
+Schwefelfarben	Sve:f@l,farb@n
 schwedisches	Sve:dIS@s
 schwedischer	Sve:dIS@r
 schwedischen	Sve:dIS@n
@@ -89400,8 +89408,8 @@ schwartig	Sva:rtIC
 schwappend	Svap@nt
 Schwankes	SvaNk@s
 schwankend	SvaNk@nt
-schwanke	SvaNk@
 Schwanke	SvaNk@
+schwanke	SvaNk@
 Schwank	SvaNk
 schwangeres	SvaN@r@s
 schwangerer	SvaN@r@r
@@ -89502,8 +89510,8 @@ schuldigen	SUldIg@n
 schuldigem	SUldIg@m
 schuldige	SUldIg@
 schuldig	SUldIC
-Schuldhaft	SUlthaft
 schuldhaft	SUlthaft
+Schuldhaft	SUlthaft
 schuldend	SUld@nt
 schulde	SUld@
 schuldbeladenes	SUltb@,la:d@n@s
@@ -89556,8 +89564,8 @@ schroffer	SrOf@r
 schroffen	SrOf@n
 schroffem	SrOf@m
 schroffe	SrOf@
-schroff	SrOf
 Schroff	SrOf
+schroff	SrOf
 schrilles	SrIl@s
 schriller	SrIl@r
 schrillen	SrIl@n
@@ -90142,15 +90150,15 @@ scharlachfarbener	Sarlax,farb@n@r
 scharlachfarbenen	Sarlax,farb@n@n
 scharlachfarbenem	Sarlax,farb@n@m
 scharlachfarbene	Sarlax,farb@n@
-scharlachfarben	Sarlax,farb@n
 Scharlachfarben	Sarlax,farb@n
+scharlachfarben	Sarlax,farb@n
 scharlachenes	Sarlax@n@s
 scharlachener	Sarlax@n@r
 scharlachenen	Sarlax@n@n
 scharlachenem	Sarlax@n@m
 scharlachene	Sarlax@n@
-Scharlachen	Sarlax@n
 scharlachen	Sarlax@n
+Scharlachen	Sarlax@n
 schanghaiend	SaNhaI@nt
 schandhaft	Santhaft
 schandbares	Santba:r@s
@@ -90281,8 +90289,8 @@ sandfarbenem	zant,farb@n@m
 sandfarbene	zant,farb@n@
 sandfarben	zant,farb@n
 Samtes	za:mt@s
-samten	zamt@n
 Samten	zamt@n
+samten	zamt@n
 sammelnd	zam@lnt
 samaritanisches	zamarita:nIS@s
 samaritanischer	zamarita:nIS@r
@@ -90506,8 +90514,8 @@ royaler	r<oaja:l@r
 royalen	r<oaja:l@n
 royalem	r<oaja:l@m
 royale	r<oaja:l@
-royal	r<oaja:l
 Royal	r<oaja:l
+royal	r<oaja:l
 routiniertes	rutini:rt@s
 routinierter	rutini:rt@r
 routinierten	rutini:rt@n
@@ -90965,8 +90973,8 @@ rekapituliertes	re:kapituli:rt@s
 rekapitulierend	re:kapituli:r@nt
 reitend	raIt@nt
 reißfest	raIs,fEst
-reisig	raIzIC
 Reisig	raIzIC
+reisig	raIzIC
 reisend	raIz@nt
 reinsilbernes	raInzIlb@rn@s
 reinsilberner	raInzIlb@rn@r
@@ -91059,8 +91067,8 @@ regalierend	regali:r@nt
 refundierend	refUndi:r@nt
 refraktär	refraktE:r
 refraktometrisch	refraktome:trIS
-Reformiertes	refOrmi:rt@s
 reformiertes	refOrmi:rt@s
+Reformiertes	refOrmi:rt@s
 reformiertem	refOrmi:rt@m
 reformierend	refOrmi:r@nt
 reformerisches	refOrm@rIS@s
@@ -92870,8 +92878,8 @@ pastoralem	pastora:l@m
 pastorale	pastora:l@
 pastoral	pastora:l
 pasteurisierend	past2rizi:r@nt
-pastellfarben	pastEl,farb@n
 Pastellfarben	pastEl,farb@n
+pastellfarben	pastEl,farb@n
 pastellenes	pastEl@n@s
 pastellener	pastEl@n@r
 pastellenen	pastEl@n@n
@@ -93157,8 +93165,8 @@ organisiertem	?Organizi:rt@m
 organisiert	?Organizi:rt
 organisierend	?Organizi:r@nt
 organisatorische	?Organiza:to:rIS@
-Organisatorisch	?Organizato:rIS
 organisatorisch	?Organizato:rIS
+Organisatorisch	?Organizato:rIS
 oreal	?ore?a:l
 ordnend	?Ordn@nt
 ordinär	?OrdinE:r
@@ -93287,8 +93295,8 @@ okkultem	?OkUlt@m
 okkulte	?OkUlt@
 okkult	?OkUlt
 okkasionell	?Okaz<ionEl
-Okay	?okEI
 okay	?okEI
+Okay	?okEI
 ohrfeigend	?o:r,faIg@nt
 ohnegleichen	?o:n@glaIC@n
 offiziös	?Ofits<i2:s
@@ -93564,8 +93572,8 @@ ninivitischen	ninivi:tIS@n
 ninivitischem	ninivi:tIS@m
 ninivitische	ninivi:tIS@
 ninivitisch	ninivi:tIS
-nimmersatt	nIm@r,zat
 Nimmersatt	nIm@r,zat
+nimmersatt	nIm@r,zat
 nikotinarmes	nikoti:n,?a:rm@s
 nikotinarmer	nikoti:n,?a:rm@r
 nikotinarmen	nikoti:n,?a:rm@n
@@ -94875,8 +94883,8 @@ maritimer	mariti:m@r
 maritimen	mariti:m@n
 maritimem	mariti:m@m
 maritime	mariti:m@
-maritim	mariti:m
 Maritim	mariti:m
+maritim	mariti:m
 marines	mari:n@s
 mariner	mari:n@r
 marinem	mari:n@m
@@ -95245,8 +95253,8 @@ lobesam	lo:b@za:m
 lobend	lo:b@nt
 lizenzierend	litsEntsi:r@nt
 livid	livi:t
-live	laIf
 Live	laIf
+live	laIf
 liturgisches	litUrgIS@s
 liturgischer	litUrgIS@r
 liturgischen	litUrgIS@n
@@ -95483,8 +95491,8 @@ letzten	lEtst@n
 letztemal	lEtst@ma:l
 letztem	lEtst@m
 letzte	lEtst@
-Letzt	lEtst
 letzt	lEtst
+Letzt	lEtst
 lettisches	lEtIS@s
 lettischer	lEtIS@r
 lettischen	lEtIS@n
@@ -96262,10 +96270,10 @@ krauses	kraUz@s
 krauser	kraUz@r
 krausend	kraUz@nt
 krausem	kraUz@m
-krause	kraUz@
 Krause	kraUz@
-kraus	kraUs
+krause	kraUz@
 Kraus	kraUs
+kraus	kraUs
 kraulend	kraUl@nt
 kratzig	kratsIC
 kratzend	krats@nt
@@ -96918,8 +96926,8 @@ knolligeren	knOlIg@r@n
 knolligerem	knOlIg@r@m
 knolligere	knOlIg@r@
 knollig	knOlIC
-knockout	,nOk?aUt
 knockout	nOk?aUt
+knockout	,nOk?aUt
 knochig	knOxIC
 knochentrocken	,knOx@ntrOk@n
 knittrig	knItrIC
@@ -97195,8 +97203,8 @@ kieferner	ki:f@rn@r
 kiefernen	ki:f@rn@n
 kiefernem	ki:f@rn@m
 kieferne	ki:f@rn@
-Kiefern	ki:f@rn
 kiefern	ki:f@rn
+Kiefern	ki:f@rn
 kidnappend	kItnEp@nt
 kickend	kIk@nt
 khartwelisch	kartve:lIS
@@ -97268,8 +97276,8 @@ kauderwelscher	kaUd@r,vElS@r
 kauderwelschen	kaUd@r,vElS@n
 kauderwelschem	kaUd@r,vElS@m
 kauderwelsche	kaUd@r,vElS@
-Kauderwelsch	kaUd@r,vElS
 kauderwelsch	kaUd@r,vElS
+Kauderwelsch	kaUd@r,vElS
 kattend	kat@nt
 katonisch	kato:nIS
 katodisch	kato:dIS
@@ -97544,8 +97552,8 @@ italischen	?ita:lIS@n
 italischem	?ita:lIS@m
 italische	?ita:lIS@
 italisch	?ita:lIS
-Italienisch	?ital<ie:nIS
 italienisch	?ital<ie:nIS
+Italienisch	?ital<ie:nIS
 isthmisch	?IstmIS
 israelisches	?Israe:lIS@s
 israelischer	?Israe:lIS@r
@@ -97678,8 +97686,8 @@ intrazellularem	?IntratsElula:r@m
 intrazellulare	?IntratsElula:r@
 intrazellular	?IntratsElula:r
 intravenös	?Intraven2:s
-Intransitiv	?Intranziti:f
 intransitiv	?Intranziti:f
+Intransitiv	?Intranziti:f
 intransigentes	?IntranzigEnt@s
 intransigenter	?IntranzigEnt@r
 intransigenten	?IntranzigEnt@n
@@ -97914,8 +97922,8 @@ insistente	?InzIstEnt@
 insistent	?InzIstEnt
 insipid	?Inzipi:t
 inserierend	?Inzeri:r@nt
-insektizide	?InzEktitsi:d@
 Insektizide	?InzEktitsi:d@
+insektizide	?InzEktitsi:d@
 inquisitorische	?Inkvizi:to:rIS@
 inquisitorisch	?Inkvizito:rIS
 inquirierend	?Inkviri:r@nt
@@ -98115,8 +98123,8 @@ indopazifischen	?Indopatsi:fIS@n
 indopazifischem	?Indopatsi:fIS@m
 indopazifische	?Indopatsi:fIS@
 indopazifisch	?Indopatsi:fIS
-Indonesisch	?Indone:zIS
 indonesisch	?Indone:zIS
+Indonesisch	?Indone:zIS
 indolentes	?IndolEnt@s
 indolenter	?IndolEnt@r
 indolenten	?IndolEnt@n
@@ -99167,8 +99175,8 @@ heftig	hEftIC
 heftelnd	hEft@lnt
 hefig	he:fIC
 hechelnd	hEC@lnt
-hebräisch	hebrE:IS
 Hebräisch	hebrE:IS
+hebräisch	hebrE:IS
 hebend	he:b@nt
 heavy	hEvi:
 havarierend	havari:r@nt
@@ -99482,8 +99490,8 @@ griechischer	gri:CIS@r
 griechischen	gri:CIS@n
 griechischem	gri:CIS@m
 griechische	gri:CIS@
-griechisch	gri:CIS
 Griechisch	gri:CIS
+griechisch	gri:CIS
 greulich	grOYlIC
 grenzüberschreitend	grEnts,?y:b@rSraIt@nt
 grenzend	grEnts@nt
@@ -100078,8 +100086,8 @@ gebuchtete	g@bUxt@t@
 gebuchtet	g@bUxt@t
 gebräuchlich	g@brOYClIC
 gebrutzelt	g@brUts@lt
-geboten	g@bo:t@n
 Geboten	g@bo:t@n
+geboten	g@bo:t@n
 geborenes	g@bo:r@n@s
 geborener	g@bo:r@n@r
 geborenen	g@bo:r@n@n
@@ -100285,8 +100293,8 @@ früher	fry:@r
 frühen	fry:@n
 frühem	fry:@m
 frühe	fry:@
-Früh	fry:
 früh	fry:
+Früh	fry:
 fröstelig	fr9st@lIC
 frömmelnd	fr9m@lnt
 fröhlich	fr2:lIC
@@ -100692,8 +100700,8 @@ fingerbreiter	fIN@r,braIt@r
 fingerbreiten	fIN@r,braIt@n
 fingerbreitem	fIN@r,braIt@m
 fingerbreite	fIN@r,braIt@
-Fingerbreit	fIN@r,braIt
 fingerbreit	fIN@r,braIt
+Fingerbreit	fIN@r,braIt
 findiges	fIndIg@s
 findigeres	fIndIg@r@s
 findigerer	fIndIg@r@r
@@ -101473,8 +101481,8 @@ erlener	?Erl@n@r
 erlenen	?Erl@n@n
 erlenem	?Erl@n@m
 erlene	?Erl@n@
-erlen	?Erl@n
 Erlen	?Erl@n
+erlen	?Erl@n
 erlauchtes	?ErlaUxt@s
 erlauchter	?ErlaUxt@r
 erlauchten	?ErlaUxt@n
@@ -101721,8 +101729,8 @@ englischer	?ENlIS@r
 englischen	?ENlIS@n
 englischem	?ENlIS@m
 englische	?ENlIS@
-englisch	?ENlIS
 Englisch	?ENlIS
+englisch	?ENlIS
 enges	?EN@s
 enger	?EN@r
 engen	?EN@n
@@ -102038,8 +102046,8 @@ einzelner	?aInts@ln@r
 einzelnen	?aInts@ln@n
 einzelnem	?aInts@ln@m
 einzelne	?aInts@ln@
-einzeln	?aInts@ln
 Einzeln	?aInts@ln
+einzeln	?aInts@ln
 einwöchigen	?aInv9CIg@n
 einwöchige	?aInv9CIg@
 einwöchig	?aInv9CIC
@@ -103134,8 +103142,8 @@ chirographisch	Cirogra:fIS
 chiro	Ci:ro:
 chinesischen	Cine:zIS@n
 chinesische	Cine:zIS@
-chinesisch	Cine:zIS
 Chinesisch	Cine:zIS
+chinesisch	Cine:zIS
 chilenisch	tSile:nIS
 chic	SIk
 cherubinisches	Cerubi:nIS@s
@@ -103590,11 +103598,13 @@ bituminös	bitumin2:s
 bituminierend	bitumini:r@nt
 bitumig	bitu:mIC
 bitterlich	bIt@rlIC
+bitter	b I t @ r
 bitter	bIt@r
 bittend	bIt@nt
 bissig	bIsIC
 bissel	bIs@l
 bißchen	bIsC@n
+bißchen	b I s C @ n
 bisheriges	bIshe:rIg@s
 bisheriger	bIshe:rIg@r
 bisherigen	bIshe:rIg@n
@@ -104259,8 +104269,8 @@ beaufsichtigend	b@?aUfzICtIg@nt
 beanstandend	b@?anStand@nt
 beabsichtigend	b@?apzICtIg@nt
 bazillär	batsIlE:r
-bayrisch	baIrIS
 Bayrisch	baIrIS
+bayrisch	baIrIS
 bayerische	baI@rIS@
 bayerisch	baI@rIS
 bausparend	baU,Spa:r@nt
@@ -104274,8 +104284,8 @@ batteriebetriebenen	bat@ri:b@,tri:b@n@n
 batteriebetriebenem	bat@ri:b@,tri:b@n@m
 batteriebetriebene	bat@ri:b@,tri:b@n@
 batteriebetrieben	bat@ri:b@,tri:b@n
-batisten	batIst@n
 Batisten	batIst@n
+batisten	batIst@n
 batavisch	bata:vIS
 Basten	bast@n
 basten	bast@n
@@ -105500,8 +105510,8 @@ animoser	?animo:z@r
 animosen	?animo:z@n
 animosem	?animo:z@m
 animose	?animo:z@
-animos	?animo:s
 Animos	?animo:s
+animos	?animo:s
 animierend	?animi:r@nt
 animalisches	?anima:lIS@s
 animalischer	?anima:lIS@r
@@ -106728,8 +106738,8 @@ während	vE:r@nt
 zugut	tsugu:t
 up	?ap
 un	?Un
-Trans	trans
 trans	trans
+Trans	trans
 Staffel	Staf@l
 seits	zaIts
 Seil	zaIl
@@ -106771,6 +106781,7 @@ mußte	mUst@
 mussen	mUs@n
 mochten	mOxt@n
 magst	ma:kst
+magst	m a: k s t
 ließen	li:s@n
 ließ	li:s
 konnte	kOnt@
@@ -106782,8 +106793,8 @@ darfst	darfst
 darf	darf
 blieben	bli:b@n
 blieb	bli:p
-bleiben	blaIb@n
 Bleiben	blaIb@n
+bleiben	blaIb@n
 % VES
 wärt	vE:rt
 wären	vE:r@n
@@ -106973,8 +106984,8 @@ wird	vIrt
 übernahmen	?y:b@rna:m@n
 übernahm	?y:b@rna:m
 übernachtet	?y:b@rnaxt@t
-Übernachten	?y:b@rnaxt@n
 übernachten	?y:b@rnaxt@n
+Übernachten	?y:b@rnaxt@n
 übermüdet	?y:b@rmy:d@t
 übermüden	?y:b@rmy:d@n
 übermästen	?y:b@rmEst@n
@@ -107017,8 +107028,8 @@ wird	vIrt
 überhängte	?y:b@rhENt@
 überhängen	?y:b@rhEN@n
 überholt	?y:b@rho:lt
-überholen	?y:b@rho:l@n
 Überholen	?y:b@rho:l@n
+überholen	?y:b@rho:l@n
 überhoben	?y:b@rho:b@n
 überhitzt	?y:b@rhItst
 überhitzen	?y:b@rhIts@n
@@ -107068,8 +107079,8 @@ wird	vIrt
 übererfüllen	?y:b@r?Er,fYl@n
 übereinstimmt	?y:b@r?aInStImt
 übereinstimmen	?y:b@r?aInStIm@n
-Übereinkommen	?y:b@r?aIn,kOm@n
 übereinkommen	?y:b@r?aInkOm@n
+Übereinkommen	?y:b@r?aIn,kOm@n
 übereinanderschlagen	?y:b@r?aInand@r,Sla:g@n
 übereinandermachen	?y:b@r?aInand@r,max@n
 übereinanderliegen	?y:b@r?aInand@r,li:g@n
@@ -107212,13 +107223,13 @@ zwickt	tsvIkt
 zwickst	tsvIkst
 zwicket	tsvIk@t
 zwickest	tsvIk@st
-zwicken	tsvIk@n
 Zwicken	tsvIk@n
+zwicken	tsvIk@n
 zwicke	tsvIk@
 zwick	tsvIk
 zweigte	tsvaICt@
-Zweigen	tsvaIg@n
 zweigen	tsvaIg@n
+Zweigen	tsvaIg@n
 zwangt	tsvaNt
 zwangst	tsvaNst
 zwangen	tsvaN@n
@@ -107396,8 +107407,8 @@ zubereitet	tsu:b@raIt@t
 zubereitest	tsu:b@raIt@st
 zubereiten	tsu:b@raIt@n
 zubereite	tsu:b@raIt@
-zotteln	tsOt@ln
 Zotteln	tsOt@ln
+zotteln	tsOt@ln
 Zoten	tso:t@n
 zoomtet	zu:mt@t
 zoomtest	zu:mt@st
@@ -107521,8 +107532,8 @@ zigeunerten	tsigOYn@rt@n
 zigeunerte	tsigOYn@rt@
 zigeunert	tsigOYn@rt
 zigeunerst	tsigOYn@rst
-Zigeunern	tsigOYn@rn
 zigeunern	tsigOYn@rn
+Zigeunern	tsigOYn@rn
 zigeunere	tsigOYn@r@
 zieptet	tsi:pt@t
 zieptest	tsi:pt@st
@@ -107551,8 +107562,8 @@ zielte	tsi:lt@
 zielst	tsi:lst
 zielet	tsi:l@t
 zielest	tsi:l@st
-Zielen	tsi:l@n
 zielen	tsi:l@n
+Zielen	tsi:l@n
 zieht	tsi:t
 ziehst	tsi:st
 ziehet	tsi:@t
@@ -107575,8 +107586,8 @@ zeugt	tsOYkt
 zeugst	tsOYkst
 zeuget	tsOYg@t
 zeugest	tsOYg@st
-Zeugen	tsOYg@n
 zeugen	tsOYg@n
+Zeugen	tsOYg@n
 zettle	tsEtl@
 zetteltet	tsEt@lt@t
 zettelten	tsEt@lt@n
@@ -108151,8 +108162,8 @@ zentrifugieret	tsEntrifugi:r@t
 zentrifugierest	tsEntrifugi:r@st
 zentrifugieren	tsEntrifugi:r@n
 zentrifugiere	tsEntrifugi:r@
-Zentrifugen	tsEntri,fu:g@n
 zentrifugen	tsEntri,fu:g@n
+Zentrifugen	tsEntri,fu:g@n
 zentriertet	tsEntri:rt@t
 zentriertest	tsEntri:rt@st
 zentrierten	tsEntri:rt@n
@@ -108237,8 +108248,8 @@ zeichneten	tsaICn@t@n
 zeichnete	tsaICn@t@
 zeichnet	tsaICn@t
 zeichnest	tsaICn@st
-Zeichnen	tsaICn@n
 zeichnen	tsaICn@n
+Zeichnen	tsaICn@n
 zeichne	tsaICn@
 zehrtet	tse:rt@t
 zehrtest	tse:rt@st
@@ -108292,8 +108303,8 @@ zauberten	tsaUb@rt@n
 zauberte	tsaUb@rt@
 zaubert	tsaUb@rt
 zauberst	tsaUb@rst
-zaubern	tsaUb@rn
 Zaubern	tsaUb@rn
+zaubern	tsaUb@rn
 zaubere	tsaUb@r@
 zasern	tsa:z@rn
 zapple	tsapl@
@@ -108397,8 +108408,8 @@ wuchten	vUxt@n
 wuchst	vu:kst
 wuchset	vu:ks@t
 wuchsest	vu:ks@st
-wuchsen	vu:ks@n
 Wuchsen	vu:ks@n
+wuchsen	vu:ks@n
 wuchertet	vu:x@rt@t
 wucherten	vu:x@rt@n
 wucherte	vu:x@rt@
@@ -108466,10 +108477,10 @@ wisst	vIst
 wißt	vIst
 wisset	vIs@t
 wissest	vIs@st
-wißen	vIs@n
-Wißen	vIs@n
-Wissen	vIs@n
 wissen	vIs@n
+Wissen	vIs@n
+Wißen	vIs@n
+wißen	vIs@n
 wisse	vIs@
 wisple	vIspl@
 wispertet	vIsp@rt@t
@@ -108493,10 +108504,10 @@ wischt	vISt
 wischst	vISst
 wischet	vIS@t
 wischest	vIS@st
-wischen	vIS@n
 Wischen	vIS@n
-Wische	vIS@
+wischen	vIS@n
 wische	vIS@
+Wische	vIS@
 Wisch	vIS
 wirtschaftetet	vIrtSaft@t@t
 wirtschaftetest	vIrtSaft@t@st
@@ -108504,8 +108515,8 @@ wirtschafteten	vIrtSaft@t@n
 wirtschaftete	vIrtSaft@t@
 wirtschaftet	vIrtSaft@t
 wirtschaftest	vIrtSaft@st
-wirtschaften	vIrtSaft@n
 Wirtschaften	vIrtSaft@n
+wirtschaften	vIrtSaft@n
 wirtschafte	vIrtSaft@
 wirrst	vIrst
 wirren	vIr@n
@@ -108539,11 +108550,11 @@ wipperten	vIp@rt@n
 wipperte	vIp@rt@
 wippert	vIp@rt
 wipperst	vIp@rst
-wippern	vIp@rn
 Wippern	vIp@rn
+wippern	vIp@rn
 wippere	vIp@r@
-wippen	vIp@n
 Wippen	vIp@n
+wippen	vIp@n
 wippe	vIp@
 Wippe	vIp@
 wintertet	vInt@rt@t
@@ -108551,8 +108562,8 @@ winterten	vInt@rt@n
 winterte	vInt@rt@
 wintert	vInt@rt
 winterst	vInt@rst
-wintern	vInt@rn
 Wintern	vInt@rn
+wintern	vInt@rn
 wintere	vInt@r@
 winsle	vInzl@
 winseltet	vInz@lt@t
@@ -108627,8 +108638,8 @@ wiest	vi:st
 wiesle	vi:zl@
 wieset	vi:z@t
 wiesest	vi:z@st
-wiesen	vi:z@n
 Wiesen	vi:z@n
+wiesen	vi:z@n
 wieseltet	vi:z@lt@t
 wieselten	vi:z@lt@n
 wieselte	vi:z@lt@
@@ -108790,8 +108801,8 @@ widerte	vi:d@rt@
 widert	vi:d@rt
 widerstreitet	vi:d@rStraIt@t
 widerstreitest	vi:d@rStraIt@st
-Widerstreiten	vid@rStraIt@n
 widerstreiten	vi:d@rStraIt@n
+Widerstreiten	vid@rStraIt@n
 widerstreite	vi:d@rStraIt@
 widerstrebtet	vi:d@rStre:pt@t
 widerstrebtest	vi:d@rStre:pt@st
@@ -108801,8 +108812,8 @@ widerstrebt	vi:d@rStre:pt
 widerstrebst	vi:d@rStre:pst
 widerstrebet	vi:d@rStre:b@t
 widerstrebest	vi:d@rStre:b@st
-Widerstreben	vi:d@rStre:b@n
 widerstreben	vi:d@rStre:b@n
+Widerstreben	vi:d@rStre:b@n
 widerstrebe	vi:d@rStre:b@
 widersteht	vi:d@rSte:t
 widerstehst	vi:d@rSte:st
@@ -108908,8 +108919,8 @@ werkt	vErkt
 werkst	vErkst
 werket	vErk@t
 werkest	vErk@st
-werken	vErk@n
 Werken	vErk@n
+werken	vErk@n
 werkeltet	vErk@lt@t
 werkelten	vErk@lt@n
 werkelte	vErk@lt@
@@ -108931,8 +108942,8 @@ wendeten	vEnd@t@n
 wendete	vEnd@t@
 wendet	vEnd@t
 wendest	vEnd@st
-wenden	vEnd@n
 Wenden	vEnd@n
+wenden	vEnd@n
 welschtet	vElSt@t
 welschtest	vElSt@st
 welschst	vElSst
@@ -108991,8 +109002,8 @@ weiterarbeitest	vaIt@r,?arbaIt@st
 weiterarbeiten	vaIt@r,?arbaIt@n
 weiterarbeite	vaIt@r,?arbaIt@
 weist	vaIst
-weißt	vaIst
 weisst	vaIst
+weißt	vaIst
 weißeln	vaIs@ln
 weismachtet	vaIsmaxt@t
 weismachtest	vaIsmaxt@st
@@ -109006,8 +109017,8 @@ weismachen	vaIsmax@n
 weismache	vaIsmax@
 weiset	vaIz@t
 weisest	vaIz@st
-weisen	vaIz@n
 Weisen	vaIz@n
+weisen	vaIz@n
 weintet	vaInt@t
 weintest	vaInt@st
 weinten	vaInt@n
@@ -109016,8 +109027,8 @@ weint	vaInt
 weinst	vaInst
 weinet	vaIn@t
 weinest	vaIn@st
-weinen	vaIn@n
 Weinen	vaIn@n
+weinen	vaIn@n
 weiltet	vaIlt@t
 weiltest	vaIlt@st
 weilten	vaIlt@n
@@ -109026,8 +109037,8 @@ weilt	vaIlt
 weilst	vaIlst
 weilet	vaIl@t
 weilest	vaIl@st
-Weilen	vaIl@n
 weilen	vaIl@n
+Weilen	vaIl@n
 weile	vaIl@
 Weile	vaIl@
 weihtet	vaIt@t
@@ -109038,8 +109049,8 @@ weiht	vaIt
 weihst	vaIst
 weihet	vaI@t
 weihest	vaI@st
-Weihen	vaI@n
 weihen	vaI@n
+Weihen	vaI@n
 weigertet	vaIg@rt@t
 weigerten	vaIg@rt@n
 weigerte	vaIg@rt@
@@ -109064,8 +109075,8 @@ wehrt	ve:rt
 wehrst	ve:rst
 wehret	ve:r@t
 wehrest	ve:r@st
-wehren	ve:r@n
 Wehren	ve:r@n
+wehren	ve:r@n
 wegsein	vEk,zaIn
 wegschicktet	vEk,SIkt@t
 wegschicktest	vEk,SIkt@st
@@ -109144,8 +109155,8 @@ wartet	vart@t
 wartest	vart@st
 warten	vart@n
 Warten	vart@n
-Warte	vart@
 warte	vart@
+Warte	vart@
 warpen	varp@n
 warntet	varnt@t
 warntest	varnt@st
@@ -109236,8 +109247,8 @@ walkt	valkt
 walkst	valkst
 walket	valk@t
 walkest	valk@st
-Walken	valk@n
 walken	valk@n
+Walken	valk@n
 wahrtet	va:rt@t
 wahrtest	va:rt@st
 wahrst	va:rst
@@ -109355,8 +109366,8 @@ vorherbestimmen	fo:rhe:rb@,StIm@n
 vorherbestimme	fo:rhe:rb@,StIm@
 vorherberechnen	fo:rhe:rb@,rECn@n
 Vorhaut	fo:rhaUt
-vorhandensein	fo:rhand@n,zaIn
 Vorhandensein	fo:rhand@n,zaIn
+vorhandensein	fo:rhand@n,zaIn
 Vorhaben	fo:rha:b@n
 vorfertigtet	fo:rfErtIkt@t
 vorfertigtest	fo:rfErtIkt@st
@@ -109381,8 +109392,8 @@ vorbereiteten	fo:rb@,raIt@t@n
 vorbereitete	fo:rb@,raIt@t@
 vorbereitet	fo:rb@,raIt@t
 vorbereitest	fo:rb@,raIt@st
-vorbereiten	fo:rb@,raIt@n
 Vorbereiten	fo:rb@,raIt@n
+vorbereiten	fo:rb@,raIt@n
 vorbereite	fo:rb@,raIt@
 vorbeisein	forbaI,zaIn
 vorbeigehn	forbaI,ge:n
@@ -109502,8 +109513,8 @@ volontiert	volO~ti:rt
 volontierst	volO~ti:rst
 volontieret	volO~ti:r@t
 volontierest	volO~ti:r@st
-Volontieren	volO~ti:r@n
 volontieren	volO~ti:r@n
+Volontieren	volO~ti:r@n
 volontiere	volO~ti:r@
 vollzieht	fOltsi:t
 vollziehst	fOltsi:st
@@ -109569,8 +109580,8 @@ visiert	vizi:rt
 visierst	vizi:rst
 visieret	vizi:r@t
 visierest	vizi:r@st
-Visieren	vizi:r@n
 visieren	vizi:r@n
+Visieren	vizi:r@n
 vinkuliertet	vINkuli:rt@t
 vinkuliertest	vINkuli:rt@st
 vinkulierten	vINkuli:rt@n
@@ -109629,8 +109640,8 @@ vesperten	fEsp@rt@n
 vesperte	fEsp@rt@
 vespert	fEsp@rt
 vesperst	fEsp@rst
-Vespern	fEsp@rn
 vespern	fEsp@rn
+Vespern	fEsp@rn
 vespere	fEsp@r@
 verübeln	fEr?y:b@ln
 veröffentlichen	fEr?9f@ntlIC@n
@@ -110181,8 +110192,8 @@ verleumde	fErlOYmd@
 verletztet	fErlEtst@t
 verletztest	fErlEtst@st
 verletzten	fErlEtst@n
-Verletzte	fErlEtst@
 verletzte	fErlEtst@
+Verletzte	fErlEtst@
 verletzet	fErlEts@t
 verletzest	fErlEts@st
 verletzen	fErlEts@n
@@ -110339,8 +110350,8 @@ verherrlichet	fErhErlIC@t
 verherrlichest	fErhErlIC@st
 verherrlichen	fErhErlIC@n
 verherrliche	fErhErlIC@
-verheißt	fErhaIst
 verheisst	fErhaIst
+verheißt	fErhaIst
 verheißen	fErhaIs@n
 verheiltet	fErhaIlt@t
 verheiltest	fErhaIlt@st
@@ -110410,8 +110421,8 @@ vergleicht	fErglaICt
 vergleichst	fErglaICst
 vergleichet	fErglaIC@t
 vergleichest	fErglaIC@st
-vergleichen	fErglaIC@n
 Vergleichen	fErglaIC@n
+vergleichen	fErglaIC@n
 vergißt	fErgIst
 vergiß	fErgIs
 vergilbt	fErgIlpt
@@ -110774,8 +110785,8 @@ verbreiterten	fErbraIt@rt@n
 verbreiterte	fErbraIt@rt@
 verbreitert	fErbraIt@rt
 verbreiterst	fErbraIt@rst
-verbreitern	fErbraIt@rn
 Verbreitern	fErbraIt@rn
+verbreitern	fErbraIt@rn
 verbreitere	fErbraIt@r@
 verbreiten	fErbraIt@n
 verbreite	fErbraIt@
@@ -111052,8 +111063,8 @@ urkundeten	?u:r,kUnd@t@n
 urkundete	?u:r,kUnd@t@
 urkundet	?u:r,kUnd@t
 urkundest	?u:r,kUnd@st
-urkunden	?u:r,kUnd@n
 Urkunden	?u:r,kUnd@n
+urkunden	?u:r,kUnd@n
 urkunde	?u:r,kUnd@
 uriniertet	?urini:rt@t
 uriniertest	?urini:rt@st
@@ -111244,8 +111255,8 @@ unterrichteten	?Unt@rrICt@t@n
 unterrichtete	?Unt@rrICt@t@
 unterrichtet	?Unt@rrICt@t
 unterrichtest	?Unt@rrICt@st
-Unterrichten	?Unt@rrICt@n
 unterrichten	?Unt@rrICt@n
+Unterrichten	?Unt@rrICt@n
 unterredetet	?Unt@rre:d@t@t
 unterredetest	?Unt@rre:d@t@st
 unterredeten	?Unt@rre:d@t@n
@@ -111385,8 +111396,8 @@ unterfasse	?Unt@rfas@
 unterfangt	?Unt@rfaNt
 unterfanget	?Unt@rfaN@t
 unterfangest	?Unt@rfaN@st
-Unterfangen	?Unt@rfaN@n
 unterfangen	?Unt@rfaN@n
+Unterfangen	?Unt@rfaN@n
 unterfange	?Unt@rfaN@
 unterfahrt	?Unt@rfa:rt
 unterfahret	?Unt@rfa:r@t
@@ -111442,8 +111453,8 @@ unterbieten	?Unt@rbi:t@n
 unterbiete	?Unt@rbi:t@
 unterbautet	?Unt@rbaUt@t
 unterbautest	?Unt@rbaUt@st
-unterbauten	?Unt@rbaUt@n
 Unterbauten	?Unt@rbaUt@n
+unterbauten	?Unt@rbaUt@n
 unterbaute	?Unt@rbaUt@
 unterbaut	?Unt@rbaUt
 unterbaust	?Unt@rbaUst
@@ -111856,8 +111867,8 @@ umkreiste	?UmkraIst@
 umkreist	?UmkraIst
 umkreiset	?UmkraIz@t
 umkreisest	?UmkraIz@st
-Umkreisen	?UmkraIz@n
 umkreisen	?UmkraIz@n
+Umkreisen	?UmkraIz@n
 umklammertet	?Umklam@rt@t
 umklammerten	?Umklam@rt@n
 umklammerte	?Umklam@rt@
@@ -112067,16 +112078,16 @@ twisteten	t<uIst@t@n
 twistete	t<uIst@t@
 twistet	t<uIst@t
 twistest	t<uIst@st
-twisten	t<uIst@n
 Twisten	t<uIst@n
+twisten	t<uIst@n
 tutetet	tu:t@t@t
 tutetest	tu:t@t@st
 tuteten	tu:t@t@n
 tutete	tu:t@t@
 tutet	tu:t@t
 tutest	tu:t@st
-Tuten	tu:t@n
 tuten	tu:t@n
+Tuten	tu:t@n
 tuschle	tUSl@
 tuschiertet	tUSi:rt@t
 tuschiertest	tUSi:rt@st
@@ -112109,8 +112120,8 @@ turnt	tUrnt
 turnst	tUrnst
 turnet	tUrn@t
 turnest	tUrn@st
-Turnen	tUrn@n
 turnen	tUrn@n
+Turnen	tUrn@n
 turne	tUrn@
 turkisiertet	tUrkizi:rt@t
 turkisiertest	tUrkizi:rt@st
@@ -112133,18 +112144,18 @@ tunkt	tUNkt
 tunkst	tUNkst
 tunket	tUNk@t
 tunkest	tUNk@st
-Tunken	tUNk@n
 tunken	tUNk@n
-Tun	tu:n
+Tunken	tUNk@n
 tun	tu:n
+Tun	tu:n
 tummle	tUml@
 tummeltet	tUm@lt@t
 tummelten	tUm@lt@n
 tummelte	tUm@lt@
 tummelt	tUm@lt
 tummelst	tUm@lst
-Tummeln	tUm@ln
 tummeln	tUm@ln
+Tummeln	tUm@ln
 tuckertet	tak@rt@t
 tuckerten	tak@rt@n
 tuckerte	tak@rt@
@@ -112214,8 +112225,8 @@ trottelt	trOt@lt
 trottelst	trOt@lst
 trotteln	trOt@ln
 Trotteln	trOt@ln
-trotte	trOt@
 Trotte	trOt@
+trotte	trOt@
 trogt	tro:kt
 trogst	tro:kst
 trogen	tro:g@n
@@ -112238,8 +112249,8 @@ triumphierest	triUmfi:r@st
 triumphieren	triUmfi:r@n
 triumphiere	triUmfi:r@
 trittst	trItst
-Tritten	trIt@n
 tritten	trIt@n
+Tritten	trIt@n
 tripple	trIpl@
 trippeltet	trIp@lt@t
 trippelten	trIp@lt@n
@@ -112251,8 +112262,8 @@ trinkt	trINkt
 trinkst	trINkst
 trinket	trINk@t
 trinkest	trINk@st
-trinken	trINk@n
 Trinken	trINk@n
+trinken	trINk@n
 trinke	trINk@
 trink	trINk
 trimmtet	trImt@t
@@ -112269,8 +112280,8 @@ trillerten	trIl@rt@n
 trillerte	trIl@rt@
 trillert	trIl@rt
 trillerst	trIl@rst
-Trillern	trIl@rn
 trillern	trIl@rn
+Trillern	trIl@rn
 trillere	trIl@r@
 Triften	trIft@n
 trifft	trIft
@@ -112382,14 +112393,14 @@ tremolieret	tremoli:r@t
 tremolierest	tremoli:r@st
 tremolieren	tremoli:r@n
 tremoliere	tremoli:r@
-treideln	traId@ln
 Treideln	traId@ln
+treideln	traId@ln
 treibt	traIpt
 treibst	traIpst
 treibet	traIb@t
 treibest	traIb@st
-treiben	traIb@n
 Treiben	traIb@n
+treiben	traIb@n
 Treffen	trEf@n
 travestiertet	travEsti:rt@t
 travestiertest	travEsti:rt@st
@@ -112678,8 +112689,8 @@ trachtetest	traxt@t@st
 trachteten	traxt@t@n
 trachtete	traxt@t@
 trachtest	traxt@st
-trachten	traxt@n
 Trachten	traxt@n
+trachten	traxt@n
 trabtet	tra:pt@t
 trabtest	tra:pt@st
 trabten	tra:pt@n
@@ -112815,8 +112826,8 @@ titelten	ti:t@lt@n
 titelte	ti:t@lt@
 titelt	ti:t@lt
 titelst	ti:t@lst
-titeln	ti:t@ln
 Titeln	ti:t@ln
+titeln	ti:t@ln
 tippt	tIpt
 tipple	tIpl@
 tippeltet	tIp@lt@t
@@ -112885,8 +112896,8 @@ tickte	tIkt@
 tickt	tIkt
 tickst	tIkst
 tickest	tIk@st
-ticken	tIk@n
 Ticken	tIk@n
+ticken	tIk@n
 ticke	tIk@
 thorieren	tori:r@n
 therapiertet	terapi:rt@t
@@ -113024,15 +113035,15 @@ tempelten	tEmp@lt@n
 tempelte	tEmp@lt@
 tempelt	tEmp@lt
 tempelst	tEmp@lst
-Tempeln	tEmp@ln
 tempeln	tEmp@ln
+Tempeln	tEmp@ln
 tellertet	tEl@rt@t
 tellerten	tEl@rt@n
 tellerte	tEl@rt@
 tellert	tEl@rt
 tellerst	tEl@rst
-tellern	tEl@rn
 Tellern	tEl@rn
+tellern	tEl@rn
 tellere	tEl@r@
 telegraphierte	telegrafi:rt@
 telegraphieren	telegrafi:r@n
@@ -113064,8 +113075,8 @@ teilte	taIlt@
 teilst	taIlst
 teilet	taIl@t
 teilest	taIl@st
-Teilen	taIl@n
 teilen	taIl@n
+Teilen	taIl@n
 technisiertet	tECnizi:rt@t
 technisiertest	tECnizi:rt@st
 technisierten	tECnizi:rt@n
@@ -113133,8 +113144,8 @@ taufet	taUf@t
 taufest	taUf@st
 Taufen	taUf@n
 taufen	taUf@n
-Taufe	taUf@
 taufe	taUf@
+Taufe	taUf@
 tauchtet	taUxt@t
 tauchtest	taUxt@st
 tauchten	taUxt@n
@@ -113143,8 +113154,8 @@ taucht	taUxt
 tauchst	taUxst
 tauchet	taUx@t
 tauchest	taUx@st
-Tauchen	taUx@n
 tauchen	taUx@n
+Tauchen	taUx@n
 tauche	taUx@
 tauchaluminieren	taUx?alumi,ni:r@n
 tatschtet	tatSt@t
@@ -113235,8 +113246,8 @@ tanzte	tantst@
 tanzt	tantst
 tanzet	tants@t
 tanzest	tants@st
-tanzen	tants@n
 Tanzen	tants@n
+tanzen	tants@n
 tanntet	tant@t
 tanntest	tant@st
 tannten	tant@n
@@ -113255,8 +113266,8 @@ tannieren	tani:r@n
 tanniere	tani:r@
 tannet	tan@t
 tannest	tan@st
-Tannen	tan@n
 tannen	tan@n
+Tannen	tan@n
 tanktet	taNkt@t
 tanktest	taNkt@st
 tankten	taNkt@n
@@ -113570,10 +113581,10 @@ suchte	zu:xt@
 suchst	zu:xst
 suchet	zu:x@t
 suchest	zu:x@st
-suchen	zu:x@n
 Suchen	zu:x@n
-Suche	zu:x@
+suchen	zu:x@n
 suche	zu:x@
+Suche	zu:x@
 subventioniertet	zUpvEnts<ioni:rt@t
 subventioniertest	zUpvEnts<ioni:rt@st
 subventionierten	zUpvEnts<ioni:rt@n
@@ -113674,8 +113685,8 @@ Stör	St2:r
 stöpseln	St9ps@ln
 stöhnte	St2:nt@
 stöhnt	St2:nt
-Stöhnen	St2:n@n
 stöhnen	St2:n@n
+Stöhnen	St2:n@n
 stöckeln	St9k@ln
 stöbern	St2:b@rn
 stäupen	StOYp@n
@@ -113690,8 +113701,8 @@ stupste	StUpst@
 stupst	StUpst
 stupset	StUps@t
 stupsest	StUps@st
-stupsen	StUps@n
 Stupsen	StUps@n
+stupsen	StUps@n
 stuprieren	stupri:r@n
 stupftet	StUpft@t
 stupftest	StUpft@st
@@ -113807,10 +113818,10 @@ streune	StrOYn@
 streuet	StrOY@t
 streuest	StrOY@st
 streuen	StrOY@n
-Stressen	StrEs@n
 stressen	StrEs@n
-stresse	StrEs@
+Stressen	StrEs@n
 Stresse	StrEs@
+stresse	StrEs@
 streitet	StraIt@t
 streitest	StraIt@st
 streiten	StraIt@n
@@ -113829,8 +113840,8 @@ streichst	StraICst
 streichle	StraICl@
 streichet	StraIC@t
 streichest	StraIC@st
-Streichen	StraIC@n
 streichen	StraIC@n
+Streichen	StraIC@n
 streicheltet	StraIC@lt@t
 streichelten	StraIC@lt@n
 streichelte	StraIC@lt@
@@ -113846,8 +113857,8 @@ strebt	Stre:pt
 strebst	Stre:pst
 strebet	Stre:b@t
 strebest	Stre:b@st
-Streben	Stre:b@n
 streben	Stre:b@n
+Streben	Stre:b@n
 Strebe	Stre:b@
 strebe	Stre:b@
 strauchle	StraUxl@
@@ -113909,8 +113920,8 @@ strahlt	Stra:lt
 strahlst	Stra:lst
 strahlet	Stra:l@t
 strahlest	Stra:l@st
-Strahlen	Stra:l@n
 strahlen	Stra:l@n
+Strahlen	Stra:l@n
 straftet	Stra:ft@t
 straftest	Stra:ft@st
 straften	Stra:ft@n
@@ -113925,8 +113936,8 @@ straffest	Straf@st
 straffen	Straf@n
 strafet	Stra:f@t
 strafest	Stra:f@st
-strafen	Stra:f@n
 Strafen	Stra:f@n
+strafen	Stra:f@n
 Strafe	Stra:f@
 strafe	Stra:f@
 stottertet	StOt@rt@t
@@ -113936,8 +113947,8 @@ stottert	StOt@rt
 stotterst	StOt@rst
 stottern	StOt@rn
 stottere	StOt@r@
-stoßt	Sto:st
 stosst	Sto:st
+stoßt	Sto:st
 stoßen	Sto:s@n
 stornieren	StOrni:r@n
 stopptet	StOpt@t
@@ -113964,8 +113975,8 @@ stolperten	StOlp@rt@n
 stolperte	StOlp@rt@
 stolpert	StOlp@rt
 stolperst	StOlp@rst
-Stolpern	StOlp@rn
 stolpern	StOlp@rn
+Stolpern	StOlp@rn
 stolpere	StOlp@r@
 stocktet	StOkt@t
 stocktest	StOkt@st
@@ -114093,8 +114104,8 @@ stichelten	StIC@lt@n
 stichelte	StIC@lt@
 stichelt	StIC@lt
 stichelst	StIC@lst
-Sticheln	StIC@ln
 sticheln	StIC@ln
+Sticheln	StIC@ln
 stibitztet	StibItst@t
 stibitztest	StibItst@st
 stibitzten	StibItst@n
@@ -114152,8 +114163,8 @@ stenographierest	Stenografi:r@st
 stenographieren	Stenografi:r@n
 stenographiere	Stenografi:r@
 stenografieren	Stenografi:r@n
-Stengeln	StEN@ln
 stengeln	StEN@ln
+Stengeln	StEN@ln
 stemmtet	StEmt@t
 stemmtest	StEmt@st
 stemmten	StEmt@n
@@ -114171,16 +114182,16 @@ stelzte	StEltst@
 stelzt	StEltst
 stelzet	StElts@t
 stelzest	StElts@st
-Stelzen	StElts@n
 stelzen	StElts@n
+Stelzen	StElts@n
 steiniget	StaInIg@t
 steinigest	StaInIg@st
 steigt	StaICt
 steigst	StaIkst
 steiget	StaIg@t
 steigest	StaIg@st
-steigen	StaIg@n
 Steigen	StaIg@n
+steigen	StaIg@n
 steht	Ste:t
 stehst	Ste:st
 stehn	Ste:n
@@ -114191,14 +114202,14 @@ stehlen	Ste:l@n
 stehle	Ste:l@
 stehet	Ste:@t
 stehest	Ste:@st
-stehen	Ste:@n
 Stehen	Ste:@n
+stehen	Ste:@n
 stehe	Ste:@
 stecht	StECt
 stechet	StEC@t
 stechest	StEC@st
-Stechen	StEC@n
 stechen	StEC@n
+Stechen	StEC@n
 steche	StEC@
 stautet	StaUt@t
 stautest	StaUt@st
@@ -114221,8 +114232,8 @@ stauet	StaU@t
 stauest	StaU@st
 Stauen	StaU@n
 stauen	StaU@n
-Stauden	StaUd@n
 stauden	StaUd@n
+Stauden	StaUd@n
 stauchtet	StaUxt@t
 stauchtest	StaUxt@st
 stauchten	StaUxt@n
@@ -114241,8 +114252,8 @@ staubt	StaUpt
 staubst	StaUpst
 staubet	StaUb@t
 staubest	StaUb@st
-stauben	StaUb@n
 Stauben	StaUb@n
+stauben	StaUb@n
 statuiertet	statu?i:rt@t
 statuiertest	statu?i:rt@st
 statuierten	statu?i:rt@n
@@ -114292,10 +114303,10 @@ stapft	Stapft
 stapfst	Stapfst
 stapfet	Stapf@t
 stapfest	Stapf@st
-stapfen	Stapf@n
 Stapfen	Stapf@n
-stapfe	Stapf@
+stapfen	Stapf@n
 Stapfe	Stapf@
+stapfe	Stapf@
 stanztet	Stantst@t
 stanztest	Stantst@st
 stanzten	Stantst@n
@@ -114303,10 +114314,10 @@ stanzte	Stantst@
 stanzt	Stantst
 stanzet	Stants@t
 stanzest	Stants@st
-Stanzen	Stants@n
 stanzen	Stants@n
-stanze	Stants@
+Stanzen	Stants@n
 Stanze	Stants@
+stanze	Stants@
 Stank	StaNk
 standardisiertet	Standardizi:rt@t
 standardisiertest	Standardizi:rt@st
@@ -114391,8 +114402,8 @@ staffelten	Staf@lt@n
 staffelte	Staf@lt@
 staffelt	Staf@lt
 staffelst	Staf@lst
-staffeln	Staf@ln
 Staffeln	Staf@ln
+staffeln	Staf@ln
 Stadtverordneten	StatfEr,?Ordn@t@n
 stacht	Sta:xt
 stachst	Sta:xst
@@ -114439,8 +114450,8 @@ spurteten	SpUrt@t@n
 spurtete	SpUrt@t@
 spurtet	SpUrt@t
 spurtest	SpUrt@st
-Spurten	SpUrt@n
 spurten	SpUrt@n
+Spurten	SpUrt@n
 spurte	SpUrt@
 spurt	SpUrt
 Spurt	SpUrt
@@ -114461,18 +114472,18 @@ sprudelten	Spru:d@lt@n
 sprudelte	Spru:d@lt@
 sprudelt	Spru:d@lt
 sprudelst	Spru:d@lst
-Sprudeln	Spru:d@ln
 sprudeln	Spru:d@ln
+Sprudeln	Spru:d@ln
 sproßt	SprOst
-Sproß	SprOs
 sproß	SprOs
+Sproß	SprOs
 sprochen	SprOx@n
 springt	SprINt
 springst	SprINst
 springet	SprIN@t
 springest	SprIN@st
-springen	SprIN@n
 Springen	SprIN@n
+springen	SprIN@n
 springe	SprIN@
 Spring	SprIN
 spriesst	Spri:st
@@ -114486,8 +114497,8 @@ sprenkelten	SprENk@lt@n
 sprenkelte	SprENk@lt@
 sprenkelt	SprENk@lt
 sprenkelst	SprENk@lst
-sprenkeln	SprENk@ln
 Sprenkeln	SprENk@ln
+sprenkeln	SprENk@ln
 sprengtet	SprENt@t
 sprengtest	SprENt@st
 sprengten	SprENt@n
@@ -114504,8 +114515,8 @@ spreizte	SpraItst@
 spreizt	SpraItst
 spreizet	SpraIts@t
 spreizest	SpraIts@st
-Spreizen	SpraIts@n
 spreizen	SpraIts@n
+Spreizen	SpraIts@n
 spreitetet	SpraIt@t@t
 spreitetest	SpraIt@t@st
 spreiteten	SpraIt@t@n
@@ -114582,10 +114593,10 @@ spinnt	SpInt
 spinnst	SpInst
 spinnet	SpIn@t
 spinnest	SpIn@st
-spinnen	SpIn@n
 Spinnen	SpIn@n
-spinne	SpIn@
+spinnen	SpIn@n
 Spinne	SpIn@
+spinne	SpIn@
 spiesst	Spi:st
 spießen	Spi:s@n
 Spiessen	Spi:s@n
@@ -114638,8 +114649,8 @@ spendeten	SpEnd@t@n
 spendete	SpEnd@t@
 spendet	SpEnd@t
 spendest	SpEnd@st
-spenden	SpEnd@n
 Spenden	SpEnd@n
+spenden	SpEnd@n
 spekuliertet	Spekuli:rt@t
 spekuliertest	Spekuli:rt@st
 spekulierten	Spekuli:rt@n
@@ -114656,8 +114667,8 @@ spektakelten	SpEkta:k@lt@n
 spektakelte	SpEkta:k@lt@
 spektakelt	SpEkta:k@lt
 spektakelst	SpEkta:k@lst
-spektakeln	SpEkta:k@ln
 Spektakeln	SpEkta:k@ln
+spektakeln	SpEkta:k@ln
 speit	SpaIt
 speist	SpaIst
 Speise	SpaIz@
@@ -114712,8 +114723,8 @@ spartieren	Sparti:r@n
 spartiere	Sparti:r@
 spartet	Spa:rt@t
 spartest	Spa:rt@st
-Spart	Spart
 spart	Spart
+Spart	Spart
 sparst	Spa:rst
 sparrtet	Spart@t
 sparrtest	Spart@st
@@ -114729,8 +114740,8 @@ sparest	Spa:r@st
 sparen	Spa:r@n
 spantet	Spa:nt@t
 spantest	Spa:nt@st
-Spanten	Spant@n
 spanten	Spant@n
+Spanten	Spant@n
 spante	Spa:nt@
 spant	Spant
 Spant	Spant
@@ -114743,12 +114754,12 @@ spannt	Spant
 spannst	Spanst
 spannet	Span@t
 spannest	Span@st
-Spannen	Span@n
 spannen	Span@n
-spanne	Span@
+Spannen	Span@n
 Spanne	Span@
-spann	Span
+spanne	Span@
 Spann	Span
+spann	Span
 spanet	Spa:n@t
 spanest	Spa:n@st
 spanen	Spa:n@n
@@ -114844,8 +114855,8 @@ sommerten	zOm@rt@n
 sommerte	zOm@rt@
 sommert	zOm@rt
 sommerst	zOm@rst
-sommern	zOm@rn
 Sommern	zOm@rn
+sommern	zOm@rn
 sommere	zOm@r@
 solviertet	zOlvi:rt@t
 solviertest	zOlvi:rt@st
@@ -114962,8 +114973,8 @@ skelettieret	skelEti:r@t
 skelettierest	skelEti:r@st
 skelettieren	skelEti:r@n
 skelettiere	skelEti:r@
-Skaten	skEIt@n
 skaten	skEIt@n
+Skaten	skEIt@n
 skartiertet	skarti:rt@t
 skartiertest	skarti:rt@st
 skartierten	skarti:rt@n
@@ -115046,8 +115057,8 @@ sinterten	zInt@rt@n
 sinterte	zInt@rt@
 sintert	zInt@rt
 sinterst	zInt@rst
-Sintern	zInt@rn
 sintern	zInt@rn
+Sintern	zInt@rn
 sintere	zInt@r@
 sinnieren	zIni:r@n
 sinkt	zINkt
@@ -115089,8 +115100,8 @@ simpelten	zImp@lt@n
 simpelte	zImp@lt@
 simpelt	zImp@lt
 simpelst	zImp@lst
-Simpeln	zImp@ln
 simpeln	zImp@ln
+Simpeln	zImp@ln
 silizieren	zilitsi:r@n
 silifiziertet	zilifitsi:rt@t
 silifiziertest	zilifitsi:rt@st
@@ -115325,8 +115336,8 @@ sennt	zEnt
 sennst	zEnst
 sennet	zEn@t
 sennest	zEn@st
-sennen	zEn@n
 Sennen	zEn@n
+sennen	zEn@n
 senktet	zENkt@t
 senktest	zENkt@st
 senkten	zENkt@n
@@ -115347,8 +115358,8 @@ sengt	zENt
 sengst	zENst
 senget	zEN@t
 sengest	zEN@st
-Sengen	zEN@n
 sengen	zEN@n
+Sengen	zEN@n
 sendetet	zEnd@t@t
 sendetest	zEnd@t@st
 sendeten	zEnd@t@n
@@ -115399,8 +115410,8 @@ sekretierest	zekreti:r@st
 sekretieren	zekreti:r@n
 sekretiere	zekreti:r@
 sekkieren	zEki:r@n
-Seiten	zaIt@n
 seiten	zaIt@n
+Seiten	zaIt@n
 seihen	zaI@n
 seigern	zaIg@rn
 seichtet	zaICt@t
@@ -115493,8 +115504,8 @@ schwitzte	SvItst@
 schwitzt	SvItst
 schwitzet	SvIts@t
 schwitzest	SvIts@st
-Schwitzen	SvIts@n
 schwitzen	SvIts@n
+Schwitzen	SvIts@n
 schwitze	SvIts@
 Schwitze	SvIts@
 schwirrtet	SvIrt@t
@@ -115525,8 +115536,8 @@ schwindelten	SvInd@lt@n
 schwindelte	SvInd@lt@
 schwindelt	SvInd@lt
 schwindelst	SvInd@lst
-schwindeln	SvInd@ln
 Schwindeln	SvInd@ln
+schwindeln	SvInd@ln
 schwimmt	SvImt
 schwimmst	SvImst
 schwimmet	SvIm@t
@@ -115555,8 +115566,8 @@ schwendeten	SvEnd@t@n
 schwendete	SvEnd@t@
 schwendet	SvEnd@t
 schwendest	SvEnd@st
-Schwenden	SvEnd@n
 schwenden	SvEnd@n
+Schwenden	SvEnd@n
 schweltet	Sve:lt@t
 schweltest	Sve:lt@st
 schwelten	Sve:lt@n
@@ -115638,8 +115649,8 @@ schwand	Svant
 schwammt	Svamt
 schwammst	Svamst
 schwammen	Svam@n
-Schwalben	Svalb@n
 schwalben	Svalb@n
+Schwalben	Svalb@n
 Schwaigen	SvaIg@n
 schwafle	Svafl@
 schwafeltet	Svaf@lt@t
@@ -115664,8 +115675,8 @@ schwabberten	Svab@rt@n
 schwabberte	Svab@rt@
 schwabbert	Svab@rt
 schwabberst	Svab@rst
-schwabbern	Svab@rn
 Schwabbern	Svab@rn
+schwabbern	Svab@rn
 schwabbere	Svab@r@
 schwabbeltet	Svab@lt@t
 schwabbelten	Svab@lt@n
@@ -115744,8 +115755,8 @@ schulterten	SUlt@rt@n
 schulterte	SUlt@rt@
 schultert	SUlt@rt
 schulterst	SUlt@rst
-Schultern	SUlt@rn
 schultern	SUlt@rn
+Schultern	SUlt@rn
 schultere	SUlt@r@
 schulten	Su:lt@n
 schulte	Su:lt@
@@ -115791,8 +115802,8 @@ schubste	SUpst@
 schubst	SUpst
 schubset	SUps@t
 schubsest	SUps@st
-Schubsen	SUps@n
 schubsen	SUps@n
+Schubsen	SUps@n
 schubbtet	SUpt@t
 schubbtest	SUpt@st
 schubbten	SUpt@n
@@ -115817,8 +115828,8 @@ schrumpfet	SrUmpf@t
 schrumpfest	SrUmpf@st
 schrumpfen	SrUmpf@n
 schrumpfe	SrUmpf@
-schrumpeln	SrUmp@ln
 Schrumpeln	SrUmp@ln
+schrumpeln	SrUmp@ln
 schrubbtet	SrUpt@t
 schrubbtest	SrUpt@st
 schrubbten	SrUpt@n
@@ -115850,8 +115861,8 @@ schriebet	Sri:b@t
 schriebest	Sri:b@st
 schrieben	Sri:b@n
 schriebe	Sri:b@
-Schrieb	Sri:p
 schrieb	Sri:p
+Schrieb	Sri:p
 schrie	Sri:
 schreitet	SraIt@t
 schreitest	SraIt@st
@@ -115875,8 +115886,8 @@ schraubt	SraUpt
 schraubst	SraUpst
 schraubet	SraUb@t
 schraubest	SraUb@st
-schrauben	SraUb@n
 Schrauben	SraUb@n
+schrauben	SraUb@n
 Schramme	Sram@
 Schragen	Sra:g@n
 schraffiertet	Srafi:rt@t
@@ -115905,8 +115916,8 @@ schoppt	SOpt
 schoppst	SOpst
 schoppet	SOp@t
 schoppest	SOp@st
-schoppen	SOp@n
 Schoppen	SOp@n
+schoppen	SOp@n
 schoppe	SOp@
 schontet	So:nt@t
 schontest	So:nt@st
@@ -115962,8 +115973,8 @@ schnurrt	SnUrt
 schnurrst	SnUrst
 schnurret	SnUr@t
 schnurrest	SnUr@st
-schnurren	SnUr@n
 Schnurren	SnUr@n
+schnurren	SnUr@n
 schnuppertet	SnUp@rt@t
 schnupperten	SnUp@rt@n
 schnupperte	SnUp@rt@
@@ -115995,8 +116006,8 @@ schnitzen	SnIts@n
 schnitze	SnIts@
 Schnitten	SnIt@n
 Schnitte	SnIt@
-Schnitt	SnIt
 schnitt	SnIt
+Schnitt	SnIt
 schnipsen	SnIps@n
 schnipseln	SnIps@ln
 schnippen	SnIp@n
@@ -116022,11 +116033,11 @@ schneiderten	SnaId@rt@n
 schneiderte	SnaId@rt@
 schneidert	SnaId@rt
 schneiderst	SnaId@rst
-Schneidern	SnaId@rn
 schneidern	SnaId@rn
+Schneidern	SnaId@rn
 schneidere	SnaId@r@
-Schneiden	SnaId@n
 schneiden	SnaId@n
+Schneiden	SnaId@n
 Schneide	SnaId@
 schneide	SnaId@
 Schneid	SnaIt
@@ -116037,8 +116048,8 @@ schnauzte	SnaUtst@
 schnauzt	SnaUtst
 schnauzet	SnaUts@t
 schnauzest	SnaUts@st
-Schnauzen	SnaUts@n
 schnauzen	SnaUts@n
+Schnauzen	SnaUts@n
 schnauftet	SnaUft@t
 schnauftest	SnaUft@st
 schnauften	SnaUft@n
@@ -116170,8 +116181,8 @@ schminkt	SmINkt
 schminkst	SmINkst
 schminket	SmINk@t
 schminkest	SmINk@st
-schminken	SmINk@n
 Schminken	SmINk@n
+schminken	SmINk@n
 schmilzt	SmIltst
 schmiertet	Smi:rt@t
 schmiertest	Smi:rt@st
@@ -116181,8 +116192,8 @@ schmiert	Smi:rt
 schmierst	Smi:rst
 schmieret	Smi:r@t
 schmierest	Smi:r@st
-schmieren	Smi:r@n
 Schmieren	Smi:r@n
+schmieren	Smi:r@n
 schmiegtet	Smi:kt@t
 schmiegtest	Smi:kt@st
 schmiegten	Smi:kt@n
@@ -116199,8 +116210,8 @@ schmiedeten	Smi:d@t@n
 schmiedete	Smi:d@t@
 schmiedet	Smi:d@t
 schmiedest	Smi:d@st
-Schmieden	Smi:d@n
 schmieden	Smi:d@n
+Schmieden	Smi:d@n
 schmettertet	SmEt@rt@t
 schmetterten	SmEt@rt@n
 schmetterte	SmEt@rt@
@@ -116215,8 +116226,8 @@ schmerzte	SmErtst@
 schmerzt	SmErtst
 schmerzet	SmErts@t
 schmerzest	SmErts@st
-schmerzen	SmErts@n
 Schmerzen	SmErts@n
+schmerzen	SmErts@n
 schmeisst	SmaIst
 schmeißen	SmaIs@n
 schmeiße	SmaIs@
@@ -116314,8 +116325,8 @@ schlotterst	SlOt@rst
 schlottern	SlOt@rn
 schlottere	SlOt@r@
 schlosst	SlOst
-schloßen	SlOs@n
 Schlossen	SlOs@n
+schloßen	SlOs@n
 Schlosse	SlOs@
 schloß	SlOs
 schloff	SlOf
@@ -116370,8 +116381,8 @@ schlichte	SlICt@
 schlichst	SlICst
 schlichet	SlIC@t
 schlichest	SlIC@st
-Schlichen	SlIC@n
 schlichen	SlIC@n
+Schlichen	SlIC@n
 schlich	SlIC
 schleustet	SlOYzt@t
 schleustest	SlOYzt@st
@@ -116390,8 +116401,8 @@ schleppt	SlEpt
 schleppst	SlEpst
 schleppet	SlEp@t
 schleppest	SlEp@st
-Schleppen	SlEp@n
 schleppen	SlEp@n
+Schleppen	SlEp@n
 schlenzen	SlEnts@n
 schlenkertet	SlENk@rt@t
 schlenkerten	SlENk@rt@n
@@ -116428,16 +116439,16 @@ schleift	SlaIft
 schleifst	SlaIfst
 schleifet	SlaIf@t
 schleifest	SlaIf@st
-schleifen	SlaIf@n
 Schleifen	SlaIf@n
-schleiern	SlaI@rn
+schleifen	SlaIf@n
 Schleiern	SlaI@rn
+schleiern	SlaI@rn
 schleicht	SlaICt
 schleichst	SlaICst
 schleichet	SlaIC@t
 schleichest	SlaIC@st
-schleichen	SlaIC@n
 Schleichen	SlaIC@n
+schleichen	SlaIC@n
 schlechterstellen	SlECt@r,StEl@n
 schlappst	Slapst
 schlappen	Slap@n
@@ -116448,8 +116459,8 @@ schlagen	Sla:g@n
 schlaft	Sla:ft
 schlafet	Sla:f@t
 schlafest	Sla:f@st
-Schlafen	Sla:f@n
 schlafen	Sla:f@n
+Schlafen	Sla:f@n
 schlacktet	Slakt@t
 schlacktest	Slakt@st
 schlackst	Slakst
@@ -116470,8 +116481,8 @@ schlachteten	Slaxt@t@n
 schlachtete	Slaxt@t@
 schlachtet	Slaxt@t
 schlachtest	Slaxt@st
-schlachten	Slaxt@n
 Schlachten	Slaxt@n
+schlachten	Slaxt@n
 schlabbertet	Slab@rt@t
 schlabberten	Slab@rt@n
 schlabberte	Slab@rt@
@@ -116497,8 +116508,8 @@ schirmt	SIrmt
 schirmst	SIrmst
 schirmet	SIrm@t
 schirmest	SIrm@st
-schirmen	SIrm@n
 Schirmen	SIrm@n
+schirmen	SIrm@n
 schipptet	SIpt@t
 schipptest	SIpt@st
 schippten	SIpt@n
@@ -116512,11 +116523,11 @@ schipperten	SIp@rt@n
 schipperte	SIp@rt@
 schippert	SIp@rt
 schipperst	SIp@rst
-schippern	SIp@rn
 Schippern	SIp@rn
+schippern	SIp@rn
 schippere	SIp@r@
-Schippen	SIp@n
 schippen	SIp@n
+Schippen	SIp@n
 schindetet	SInd@t@t
 schindetest	SInd@t@st
 schindeten	SInd@t@n
@@ -116533,8 +116544,8 @@ schimpft	SImpft
 schimpfst	SImpfst
 schimpfet	SImpf@t
 schimpfest	SImpf@st
-schimpfen	SImpf@n
 Schimpfen	SImpf@n
+schimpfen	SImpf@n
 schimmertet	SIm@rt@t
 schimmerten	SIm@rt@n
 schimmerte	SIm@rt@
@@ -116608,8 +116619,8 @@ schieferten	Si:f@rt@n
 schieferte	Si:f@rt@
 schiefert	Si:f@rt
 schieferst	Si:f@rst
-schiefern	Si:f@rn
 Schiefern	Si:f@rn
+schiefern	Si:f@rn
 schiefere	Si:f@r@
 schied	Si:t
 schiebt	Si:pt
@@ -116653,8 +116664,8 @@ scheucht	SOYCt
 scheuchst	SOYCst
 scheuchet	SOYC@t
 scheuchest	SOYC@st
-Scheuchen	SOYC@n
 scheuchen	SOYC@n
+Scheuchen	SOYC@n
 schesen	Se:s@n
 scherwenzeln	SErvEnts@ln
 Scherwenzeln	SErvEnts@ln
@@ -116676,8 +116687,8 @@ schenkt	SENkt
 schenkst	SENkst
 schenket	SENk@t
 schenkest	SENk@st
-schenken	SENk@n
 Schenken	SENk@n
+schenken	SENk@n
 schematisiertet	Sematizi:rt@t
 schematisiertest	Sematizi:rt@st
 schematisierten	Sematizi:rt@n
@@ -116690,20 +116701,20 @@ schematisieren	Sematizi:r@n
 schematisiere	Sematizi:r@
 scheltet	SElt@t
 scheltest	SElt@st
-schelten	SElt@n
 Schelten	SElt@n
+schelten	SElt@n
 scheisst	SaIst
 scheißen	SaIs@n
 scheint	SaInt
 scheinst	SaInst
 scheinet	SaIn@t
 scheinest	SaIn@st
-scheinen	SaIn@n
 Scheinen	SaIn@n
+scheinen	SaIn@n
 scheidet	SaId@t
 scheidest	SaId@st
-scheiden	SaId@n
 Scheiden	SaId@n
+scheiden	SaId@n
 scheffle	SEfl@
 scheffeltet	SEf@lt@t
 scheffelten	SEf@lt@n
@@ -116735,8 +116746,8 @@ schauerten	SaU@rt@n
 schauerte	SaU@rt@
 schauert	SaU@rt
 schauerst	SaU@rst
-schauern	SaU@rn
 Schauern	SaU@rn
+schauern	SaU@rn
 schauere	SaU@r@
 schauen	SaU@n
 Schauen	SaU@n
@@ -116776,8 +116787,8 @@ scharwenzelten	SarvEnts@lt@n
 scharwenzelte	SarvEnts@lt@
 scharwenzelt	SarvEnts@lt
 scharwenzelst	SarvEnts@lst
-Scharwenzeln	SarvEnts@ln
 scharwenzeln	SarvEnts@ln
+Scharwenzeln	SarvEnts@ln
 scharrtet	Sart@t
 scharrtest	Sart@st
 scharrten	Sart@n
@@ -116799,8 +116810,8 @@ scharrest	Sar@st
 scharren	Sar@n
 scharmützeln	SarmYts@ln
 scharmutzieren	Sarmutsi:r@n
-schanzen	Sants@n
 Schanzen	Sants@n
+schanzen	Sants@n
 schanghaitet	SaNhaIt@t
 schanghaitest	SaNhaIt@st
 schanghaiten	SaNhaIt@n
@@ -116854,8 +116865,8 @@ schafft	Saft
 schaffst	Safst
 schaffet	Saf@t
 schaffest	Saf@st
-schaffen	Saf@n
 Schaffen	Saf@n
+schaffen	Saf@n
 schaffe	Saf@
 schachtle	Saxtl@
 schachten	Saxt@n
@@ -116864,8 +116875,8 @@ schachtelten	Saxt@lt@n
 schachtelte	Saxt@lt@
 schachtelt	Saxt@lt
 schachtelst	Saxt@lst
-Schachteln	Saxt@ln
 schachteln	Saxt@ln
+Schachteln	Saxt@ln
 schabtet	Sa:pt@t
 schabtest	Sa:pt@st
 schabten	Sa:pt@n
@@ -116885,8 +116896,8 @@ schablonisiere	Sablonizi:r@
 schablonieren	Sabloni:r@n
 schabet	Sa:b@t
 schabest	Sa:b@st
-schaben	Sa:b@n
 Schaben	Sa:b@n
+schaben	Sa:b@n
 sautieren	zoti:r@n
 Sause	zaUz@
 saunieren	zaUni:r@n
@@ -117024,8 +117035,8 @@ sagt	za:kt
 sagst	za:kst
 saget	za:g@t
 sagest	za:g@st
-sagen	za:g@n
 Sagen	za:g@n
+sagen	za:g@n
 sacktet	zakt@t
 sacktest	zakt@st
 sackten	zakt@n
@@ -117079,8 +117090,8 @@ rückenschwimmen	rYk@n,SvIm@n
 rückdatieren	rYkda,ti:r@n
 rötten	r9t@n
 röteln	r2:t@ln
-röntgen	r9ntg@n
 Röntgen	r9ntg@n
+röntgen	r9ntg@n
 röcheln	r9C@ln
 räuspern	rOYsp@rn
 Räumten	rOYmt@n
@@ -117104,8 +117115,8 @@ rutscht	rUtSt
 rutschst	rUtSst
 rutschet	rUtS@t
 rutschest	rUtS@st
-rutschen	rUtS@n
 Rutschen	rUtS@n
+rutschen	rUtS@n
 rupftet	rUpft@t
 rupftest	rUpft@st
 rupften	rUpft@n
@@ -117122,8 +117133,8 @@ runzelten	rUnts@lt@n
 runzelte	rUnts@lt@
 runzelt	rUnts@lt
 runzelst	rUnts@lst
-Runzeln	rUnts@ln
 runzeln	rUnts@ln
+Runzeln	rUnts@ln
 runksen	rUNks@n
 rundst	rUndst
 rundetet	rUnd@t@t
@@ -117174,8 +117185,8 @@ ruft	ru:ft
 rufst	ru:fst
 rufet	ru:f@t
 rufest	ru:f@st
-rufen	ru:f@n
 Rufen	ru:f@n
+rufen	ru:f@n
 ruckst	rUkst
 rucksen	rUks@n
 rubriziertet	rubritsi:rt@t
@@ -117222,8 +117233,8 @@ rosteten	rOst@t@n
 rostete	rOst@t@
 rostet	rOst@t
 rostest	rOst@st
-Rosten	rOst@n
 rosten	rOst@n
+Rosten	rOst@n
 romantisiertet	romantizi:rt@t
 romantisiertest	romantizi:rt@st
 romantisierten	romantizi:rt@n
@@ -117316,8 +117327,8 @@ rippt	rIpt
 rippst	rIpst
 rippet	rIp@t
 rippest	rIp@st
-rippen	rIp@n
 Rippen	rIp@n
+rippen	rIp@n
 rippeln	rIp@ln
 ripostieren	ripOsti:r@n
 ringle	rINl@
@@ -117344,8 +117355,8 @@ riffelten	rIf@lt@n
 riffelte	rIf@lt@
 riffelt	rIf@lt
 riffelst	rIf@lst
-Riffeln	rIf@ln
 riffeln	rIf@ln
+Riffeln	rIf@ln
 rietst	ri:tst
 rietet	ri:t@t
 rietest	ri:t@st
@@ -117805,8 +117816,8 @@ rentiert	rEnti:rt
 rentierst	rEnti:rst
 rentieret	rEnti:r@t
 rentierest	rEnti:r@st
-rentieren	rEnti:r@n
 Rentieren	rEnti:r@n
+rentieren	rEnti:r@n
 rentiere	rEnti:r@
 renoviertet	renovi:rt@t
 renoviertest	renovi:rt@st
@@ -118045,8 +118056,8 @@ rekelten	re:k@lt@n
 rekelte	re:k@lt@
 rekelt	re:k@lt
 rekelst	re:k@lst
-rekeln	re:k@ln
 Rekeln	re:k@ln
+rekeln	re:k@ln
 rekapituliertet	re:kapituli:rt@t
 rekapituliertest	re:kapituli:rt@st
 rekapitulierten	re:kapituli:rt@n
@@ -118095,16 +118106,16 @@ reiherten	raI@rt@n
 reiherte	raI@rt@
 reihert	raI@rt
 reiherst	raI@rst
-reihern	raI@rn
 Reihern	raI@rn
+reihern	raI@rn
 reihere	raI@r@
 reiftet	raIft@t
 reiftest	raIft@st
 reifst	raIfst
 reifet	raIf@t
 reifest	raIf@st
-Reifen	raIf@n
 reifen	raIf@n
+Reifen	raIf@n
 reibt	raIpt
 reibst	raIpst
 reibet	raIb@t
@@ -118166,8 +118177,8 @@ regiert	regi:rt
 regierst	regi:rst
 regieret	regi:r@t
 regierest	regi:r@st
-regieren	regi:r@n
 Regieren	regi:r@n
+regieren	regi:r@n
 regiere	regi:r@
 regeneriertet	regeneri:rt@t
 regeneriertest	regeneri:rt@st
@@ -118278,8 +118289,8 @@ redeten	re:d@t@n
 redete	re:d@t@
 redet	re:d@t
 redest	re:d@st
-Reden	re:d@n
 reden	re:d@n
+Reden	re:d@n
 rechtsein	rECt,zaIn
 rechtfertigtet	rECtfErtIkt@t
 rechtfertigtest	rECtfErtIkt@st
@@ -118400,8 +118411,8 @@ raupt	raUpt
 raupst	raUpst
 raupet	raUp@t
 raupest	raUp@st
-Raupen	raUp@n
 raupen	raUp@n
+Raupen	raUp@n
 rauntet	raUnt@t
 rauntest	raUnt@st
 raunten	raUnt@n
@@ -118517,8 +118528,8 @@ rapste	rapst@
 rapst	rapst
 rapset	raps@t
 rapsest	raps@st
-rapsen	raps@n
 Rapsen	raps@n
+rapsen	raps@n
 rapportiertet	rapOrti:rt@t
 rapportiertest	rapOrti:rt@st
 rapportierten	rapOrti:rt@n
@@ -118586,8 +118597,8 @@ rammst	ramst
 rammle	raml@
 rammet	ram@t
 rammest	ram@st
-Rammen	ram@n
 rammen	ram@n
+Rammen	ram@n
 rammeltet	ram@lt@t
 rammelten	ram@lt@n
 rammelte	ram@lt@
@@ -118682,8 +118693,8 @@ rackerten	rak@rt@n
 rackerte	rak@rt@
 rackert	rak@rt
 rackerst	rak@rst
-rackern	rak@rn
 Rackern	rak@rn
+rackern	rak@rn
 rackere	rak@r@
 rabattiertet	rabati:rt@t
 rabattiertest	rabati:rt@st
@@ -118793,8 +118804,8 @@ quellt	kvElt
 quellst	kvElst
 quellet	kvEl@t
 quellest	kvEl@st
-quellen	kvEl@n
 Quellen	kvEl@n
+quellen	kvEl@n
 quatschtet	kvatSt@t
 quatschtest	kvatSt@st
 quatschst	kvatSst
@@ -118892,8 +118903,8 @@ putzte	pUtst@
 putzt	pUtst
 putzet	pUts@t
 putzest	pUts@st
-putzen	pUts@n
 Putzen	pUts@n
+putzen	pUts@n
 Putten	pUt@n
 pustetet	pu:st@t@t
 pustetest	pu:st@t@st
@@ -118945,8 +118956,8 @@ puppt	pUpt
 puppst	pUpst
 puppet	pUp@t
 puppest	pUp@st
-puppen	pUp@n
 Puppen	pUp@n
+puppen	pUp@n
 pupet	pup@t
 pupest	pup@st
 pupen	pup@n
@@ -118986,8 +118997,8 @@ pumpt	pUmpt
 pumpst	pUmpst
 pumpet	pUmp@t
 pumpest	pUmp@st
-Pumpen	pUmp@n
 pumpen	pUmp@n
+Pumpen	pUmp@n
 pulvertet	pUlv@rt@t
 pulverten	pUlv@rt@n
 pulverte	pUlv@rt@
@@ -119524,8 +119535,8 @@ prelle	prEl@
 preist	praIst
 preiset	praIz@t
 preisest	praIz@st
-preisen	praIz@n
 Preisen	praIz@n
+preisen	praIz@n
 predigtet	pre:dIkt@t
 predigtest	pre:dIkt@st
 predigten	pre:dICt@n
@@ -119560,8 +119571,8 @@ prangt	praNt
 prangst	praNst
 pranget	praN@t
 prangest	praN@st
-prangern	praN@rn
 Prangern	praN@rn
+prangern	praN@rn
 prangen	praN@n
 prange	praN@
 pralltet	pralt@t
@@ -119647,8 +119658,8 @@ posteten	pOst@t@n
 postete	pOst@t@
 postet	po:zt@t
 postest	po:zt@st
-posten	pOst@n
 Posten	pOst@n
+posten	pOst@n
 poste	po:st@
 positioniertet	pozits<ioni:rt@t
 positioniertest	pozits<ioni:rt@st
@@ -119683,8 +119694,8 @@ posaunt	pozaUnt
 posaunst	pozaUnst
 posaunet	pozaUn@t
 posaunest	pozaUn@st
-Posaunen	pozaUn@n
 posaunen	pozaUn@n
+Posaunen	pozaUn@n
 posamentieren	pozamEnti:r@n
 porträtieren	pOrtrEti:r@n
 portraitieren	pOrtrEti:r@n
@@ -119706,8 +119717,8 @@ portiert	pOrti:rt
 portierst	pOrti:rst
 portieret	pOrti:r@t
 portierest	pOrti:r@st
-Portieren	pOrti:r@n
 portieren	pOrti:r@n
+Portieren	pOrti:r@n
 popularisiertet	po:pularizi:rt@t
 popularisiertest	po:pularizi:rt@st
 popularisierten	po:pularizi:rt@n
@@ -119854,8 +119865,8 @@ plumpstet	plUmpst@t
 plumpstest	plUmpst@st
 plumpset	plUmps@t
 plumpsest	plUmps@st
-Plumpsen	plUmps@n
 plumpsen	plUmps@n
+Plumpsen	plUmps@n
 pludertet	plu:d@rt@t
 pluderten	plu:d@rt@n
 pluderte	plu:d@rt@
@@ -119945,8 +119956,8 @@ plantet	pla:nt@t
 plantest	pla:nt@st
 planst	pla:nst
 planschen	planS@n
-planken	plaNk@n
 Planken	plaNk@n
+planken	plaNk@n
 planiertet	plani:rt@t
 planiertest	plani:rt@st
 planierten	plani:rt@n
@@ -119989,8 +120000,8 @@ plagiiere	plagi?i:r@
 plagieren	plagi:r@n
 plaget	pla:g@t
 plagest	pla:g@st
-Plagen	pla:g@n
 plagen	pla:g@n
+Plagen	pla:g@n
 placken	plak@n
 placiertet	platsi:rt@t
 placiertest	platsi:rt@st
@@ -120032,8 +120043,8 @@ pillieren	pIli:r@n
 pilieren	pili:r@n
 piktet	pIkt@t
 piktest	pIkt@st
-Pikten	pIkt@n
 pikten	pIkt@n
+Pikten	pIkt@n
 pikt	pIkt
 pikst	pIkst
 piksen	pi:ks@n
@@ -120144,11 +120155,11 @@ pfropft	pfrOpft
 pfropfst	pfrOpfst
 pfropfet	pfrOpf@t
 pfropfest	pfrOpf@st
-Pfropfen	pfrOpf@n
 pfropfen	pfrOpf@n
+Pfropfen	pfrOpf@n
 pflücken	pflYk@n
-Pflichten	pflICt@n
 pflichten	pflICt@n
+Pflichten	pflICt@n
 pflegtet	pfle:kt@t
 pflegtest	pfle:kt@st
 pflegten	pfle:kt@n
@@ -120163,8 +120174,8 @@ pflasterten	pflast@rt@n
 pflasterte	pflast@rt@
 pflastert	pflast@rt
 pflasterst	pflast@rst
-pflastern	pflast@rn
 Pflastern	pflast@rn
+pflastern	pflast@rn
 pflastere	pflast@r@
 pfeffertet	pfEf@rt@t
 pfefferten	pfEf@rt@n
@@ -120326,8 +120337,8 @@ pennt	pEnt
 pennst	pEnst
 pennet	pEn@t
 pennest	pEn@st
-Pennen	pEn@n
 pennen	pEn@n
+Pennen	pEn@n
 penetriertet	penetri:rt@t
 penetriertest	penetri:rt@st
 penetrierten	penetri:rt@n
@@ -120344,8 +120355,8 @@ pendelten	pEnd@lt@n
 pendelte	pEnd@lt@
 pendelt	pEnd@lt
 pendelst	pEnd@lst
-pendeln	pEnd@ln
 Pendeln	pEnd@ln
+pendeln	pEnd@ln
 pelltet	pElt@t
 pelltest	pElt@st
 pellten	pElt@n
@@ -120355,8 +120366,8 @@ pellst	pElst
 pelletieren	pEl@ti:r@n
 pellet	pEl@t
 pellest	pEl@st
-pellen	pEl@n
 Pellen	pEl@n
+pellen	pEl@n
 pekzieren	pEktsi:r@n
 peitschtet	paItSt@t
 peitschtest	paItSt@st
@@ -120366,8 +120377,8 @@ peitscht	paItSt
 peitschst	paItSst
 peitschet	paItS@t
 peitschest	paItS@st
-peitschen	paItS@n
 Peitschen	paItS@n
+peitschen	paItS@n
 peinigtet	paInIkt@t
 peinigtest	paInIkt@st
 peinigten	paInICt@n
@@ -120415,8 +120426,8 @@ pausieren	paUzi:r@n
 pausiere	paUzi:r@
 pauset	paUz@t
 pausest	paUz@st
-pausen	paUz@n
 Pausen	paUz@n
+pausen	paUz@n
 pauschaliertet	paUSali:rt@t
 pauschaliertest	paUSali:rt@st
 pauschalierten	paUSali:rt@n
@@ -120435,8 +120446,8 @@ paukt	paUkt
 paukst	paUkst
 pauket	paUk@t
 paukest	paUk@st
-Pauken	paUk@n
 pauken	paUk@n
+Pauken	paUk@n
 patztet	patst@t
 patztest	patst@st
 patzten	patst@n
@@ -120686,8 +120697,8 @@ panzerten	pants@rt@n
 panzerte	pants@rt@
 panzert	pants@rt
 panzerst	pants@rst
-Panzern	pants@rn
 panzern	pants@rn
+Panzern	pants@rn
 panzere	pants@r@
 pantschen	pantS@n
 panschtet	panSt@t
@@ -120759,16 +120770,16 @@ packt	pakt
 packst	pakst
 packet	pak@t
 packest	pak@st
-Packen	pak@n
 packen	pak@n
+Packen	pak@n
 pachtetet	paxt@t@t
 pachtetest	paxt@t@st
 pachteten	paxt@t@n
 pachtete	paxt@t@
 pachtet	paxt@t
 pachtest	paxt@st
-pachten	paxt@n
 Pachten	paxt@n
+pachten	paxt@n
 ozonisieren	?otsonizi:r@n
 oxydiertet	?Oksydi:rt@t
 oxydiertest	?Oksydi:rt@st
@@ -120854,8 +120865,8 @@ orderten	?Ord@rt@n
 orderte	?Ord@rt@
 ordert	?Ord@rt
 orderst	?Ord@rst
-Ordern	?Ord@rn
 ordern	?Ord@rn
+Ordern	?Ord@rn
 ordere	?Ord@r@
 orchestriertet	?OrkEstri:rt@t
 orchestriertest	?OrkEstri:rt@st
@@ -120873,8 +120884,8 @@ orakelten	?ora:k@lt@n
 orakelte	?ora:k@lt@
 orakelt	?ora:k@lt
 orakelst	?ora:k@lst
-Orakeln	?ora:k@ln
 orakeln	?ora:k@ln
+Orakeln	?ora:k@ln
 optimiertet	?Optimi:rt@t
 optimiertest	?Optimi:rt@st
 optimierten	?Optimi:rt@n
@@ -121071,8 +121082,8 @@ nummerten	nUm@rt@n
 nummerte	nUm@rt@
 nummert	nUm@rt
 nummerst	nUm@rst
-Nummern	nUm@rn
 nummern	nUm@rn
+Nummern	nUm@rn
 nummere	nUm@r@
 numeriertet	numeri:rt@t
 numeriertest	numeri:rt@st
@@ -121109,8 +121120,8 @@ nudelten	nu:d@lt@n
 nudelte	nu:d@lt@
 nudelt	nu:d@lt
 nudelst	nu:d@lst
-Nudeln	nu:d@ln
 nudeln	nu:d@ln
+Nudeln	nu:d@ln
 nuddle	nUdl@
 nuddeltet	nUd@lt@t
 nuddelten	nUd@lt@n
@@ -121340,16 +121351,16 @@ netzte	nEtst@
 netzt	nEtst
 netzet	nEts@t
 netzest	nEts@st
-netzen	nEts@n
 Netzen	nEts@n
+netzen	nEts@n
 nestle	nEstl@
 nesteltet	nEst@lt@t
 nestelten	nEst@lt@n
 nestelte	nEst@lt@
 nestelt	nEst@lt
 nestelst	nEst@lst
-nesteln	nEst@ln
 Nesteln	nEst@ln
+nesteln	nEst@ln
 nenntet	nEnt@t
 nenntest	nEnt@st
 nennten	nEnt@n
@@ -121521,8 +121532,8 @@ nagelten	na:g@lt@n
 nagelte	na:g@lt@
 nagelt	na:g@lt
 nagelst	na:g@lst
-nageln	na:g@ln
 Nageln	na:g@ln
+nageln	na:g@ln
 nage	na:g@
 nachzuahmen	na:xtsu:,?a:m@n
 nachweisst	na:x,vaIst
@@ -121573,8 +121584,8 @@ nachahmen	na:x?a:m@n
 nachahme	na:x?a:m@
 müßigen	my:sIg@n
 Münden	mYnd@n
-mühen	my:@n
 Mühen	my:@n
+mühen	my:@n
 mörteln	m9rt@ln
 mörsern	m9rz@rn
 möbliert	m2bli:rt
@@ -121711,11 +121722,11 @@ muffelten	mUf@lt@n
 muffelte	mUf@lt@
 muffelt	mUf@lt
 muffelst	mUf@lst
-Muffeln	mUf@ln
 muffeln	mUf@ln
+Muffeln	mUf@ln
 muckst	mUkst
-Mucksen	mUks@n
 mucksen	mUks@n
+Mucksen	mUks@n
 moussiertet	mUsi:rt@t
 moussiertest	mUsi:rt@st
 moussierten	mUsi:rt@n
@@ -121770,8 +121781,8 @@ morste	mOrst@
 morst	mOrst
 morset	mOrz@t
 morsest	mOrz@st
-Morsen	mOrz@n
 morsen	mOrz@n
+Morsen	mOrz@n
 morse	mOrz@
 mordetet	mOrd@t@t
 mordetest	mOrd@t@st
@@ -121936,8 +121947,8 @@ moderieret	moderi:r@t
 moderierest	moderi:r@st
 moderieren	moderi:r@n
 moderiere	moderi:r@
-modeln	mo:d@ln
 Modeln	mo:d@ln
+modeln	mo:d@ln
 modelliertet	modEli:rt@t
 modelliertest	modEli:rt@st
 modellierten	modEli:rt@n
@@ -121971,8 +121982,8 @@ mixe	mIks@
 mitstenografieren	mItStenogra,fi:r@n
 mitsein	mItzaIn
 mitschicken	mItSIk@n
-mitempfinden	mItEm,pfInd@n
 Mitempfinden	mItEm,pfInd@n
+mitempfinden	mItEm,pfInd@n
 mitansehen	mIt?anze:@n
 mißtrauen	mIstraU@n
 misstet	mIst@t
@@ -121982,8 +121993,8 @@ misste	mIst@
 mißt	mIst
 misst	mIst
 mißlungen	mIslUN@n
-mißlingen	mIslIN@n
 Mißlingen	mIslIN@n
+mißlingen	mIslIN@n
 mißlang	mIslaN
 missioniertet	mIs<ioni:rt@t
 missioniertest	mIs<ioni:rt@st
@@ -122149,8 +122160,8 @@ metallisiere	metalizi:r@
 messt	mEst
 messet	mEs@t
 messest	mEs@st
-messen	mEs@n
 Messen	mEs@n
+messen	mEs@n
 merktet	mErkt@t
 merktest	mErkt@st
 merkten	mErkt@n
@@ -122344,8 +122355,8 @@ matschtest	matSt@st
 matschst	matSst
 matschet	matS@t
 matschest	matS@st
-matschen	matS@n
 Matschen	matS@n
+matschen	matS@n
 materialisiertet	mater<ializi:rt@t
 materialisiertest	mater<ializi:rt@st
 materialisierten	mater<ializi:rt@n
@@ -122401,8 +122412,8 @@ maschineschreibt	maSi:n@,SraIpt
 maschineschreibst	maSi:n@,SraIpst
 maschineschreibet	maSi:n@,SraIb@t
 maschineschreibest	maSi:n@,SraIb@st
-maschineschreiben	maSi:n@,SraIb@n
 Maschineschreiben	maSi:n@,SraIb@n
+maschineschreiben	maSi:n@,SraIb@n
 maschineschreibe	maSi:n@,SraIb@
 martertet	mart@rt@t
 marterten	mart@rt@n
@@ -122766,16 +122777,16 @@ lotste	lo:tst@
 lotst	lo:tst
 lotset	lo:ts@t
 lotsest	lo:ts@st
-lotsen	lo:ts@n
 Lotsen	lo:ts@n
+lotsen	lo:ts@n
 lotetet	lo:t@t@t
 lotetest	lo:t@t@st
 loteten	lo:t@t@n
 lotete	lo:t@t@
 lotet	lo:t@t
 lotest	lo:t@st
-loten	lo:t@n
 Loten	lo:t@n
+loten	lo:t@n
 loswerdet	lo:s,ve:rd@t
 loswerdest	lo:s,ve:rd@st
 loswerden	lo:s,ve:rd@n
@@ -122867,8 +122878,8 @@ lohnst	lo:nst
 lohnet	lo:n@t
 lohnest	lo:n@st
 lohnen	lo:n@n
-lohen	lo:@n
 Lohen	lo:@n
+lohen	lo:@n
 logiertet	loZi:rt@t
 logiertest	loZi:rt@st
 logierten	loZi:rt@n
@@ -122931,8 +122942,8 @@ lobt	lo:pt
 lobst	lo:pst
 lobet	lo:b@t
 lobest	lo:b@st
-Loben	lo:b@n
 loben	lo:b@n
+Loben	lo:b@n
 lobben	lOb@n
 lizenziertet	litsEntsi:rt@t
 lizenziertest	litsEntsi:rt@st
@@ -122961,8 +122972,8 @@ listeten	lIst@t@n
 listete	lIst@t@
 listet	lIst@t
 listest	lIst@st
-listen	lIst@n
 Listen	lIst@n
+listen	lIst@n
 lisple	lIspl@
 lispeltet	lIsp@lt@t
 lispelten	lIsp@lt@n
@@ -122988,8 +122999,8 @@ linste	lInst@
 linst	lInst
 linset	lInz@t
 linsest	lInz@st
-Linsen	lInz@n
 linsen	lInz@n
+Linsen	lInz@n
 liniiertet	lini?i:rt@t
 liniiertest	lini?i:rt@st
 liniierten	lini?i:rt@n
@@ -123144,8 +123155,8 @@ lernt	lErnt
 lernst	lErnst
 lernet	lErn@t
 lernest	lErn@st
-lernen	lErn@n
 Lernen	lErn@n
+lernen	lErn@n
 lenztet	lEntst@t
 lenztest	lEntst@st
 lenzet	lEnts@t
@@ -123184,15 +123195,15 @@ leiht	laIt
 leihst	laIst
 leihet	laI@t
 leihest	laI@st
-leihen	laI@n
 Leihen	laI@n
+leihen	laI@n
 leiertet	laI@rt@t
 leierten	laI@rt@n
 leierte	laI@rt@
 leiert	laI@rt
 leierst	laI@rst
-leiern	laI@rn
 Leiern	laI@rn
+leiern	laI@rn
 leiere	laI@r@
 leidst	laIdst
 leidsein	laItzaIn
@@ -123224,8 +123235,8 @@ lehnte	le:nt@
 lehnst	le:nst
 lehnet	le:n@t
 lehnest	le:n@st
-lehnen	le:n@n
 Lehnen	le:n@n
+lehnen	le:n@n
 legtet	le:kt@t
 legtest	le:kt@st
 legten	le:kt@n
@@ -123277,8 +123288,8 @@ lecktest	lEkt@st
 leckst	lEkst
 lecket	lEk@t
 leckest	lEk@st
-lecken	lEk@n
 Lecken	lEk@n
+lecken	lEk@n
 lechztet	lECtst@t
 lechztest	lECtst@st
 lechzten	lECtst@n
@@ -123308,8 +123319,8 @@ lauteten	laUt@t@n
 lautete	laUt@t@
 lautet	laUt@t
 lautest	laUt@st
-Lauten	laUt@n
 lauten	laUt@n
+Lauten	laUt@n
 lauschtet	laUSt@t
 lauschtest	laUSt@st
 lauschten	laUSt@n
@@ -123327,8 +123338,8 @@ laugt	laUkt
 laugst	laUkst
 lauget	laUg@t
 laugest	laUg@st
-laugen	laUg@n
 Laugen	laUg@n
+laugen	laUg@n
 lauertet	laU@rt@t
 lauerten	laU@rt@n
 lauerte	laU@rt@
@@ -123345,8 +123356,8 @@ lastete	last@t@
 lastet	la:zt@t
 lastest	la:zt@st
 Laster	la:st@r
-Lasten	last@n
 lasten	last@n
+Lasten	last@n
 laste	la:st@
 lasst	la:zst
 lasieren	lazi:r@n
@@ -123404,8 +123415,8 @@ lahmest	la:m@st
 lahmen	la:m@n
 lagt	la:kt
 lagst	la:kst
-lagen	la:g@n
 Lagen	la:g@n
+lagen	la:g@n
 lag	la:k
 lackiertet	laki:rt@t
 lackiertest	laki:rt@st
@@ -123479,8 +123490,8 @@ kücheln	kYC@ln
 Kübeln	ky:b@ln
 kübeln	ky:b@ln
 körpern	k9rp@rn
-köpfen	k9pf@n
 Köpfen	k9pf@n
+köpfen	k9pf@n
 köcheln	k9C@ln
 käsen	kE:z@n
 kämpfen	kEmpf@n
@@ -123508,8 +123519,8 @@ kutschieret	kUtSi:r@t
 kutschierest	kUtSi:r@st
 kutschieren	kUtSi:r@n
 kutschiere	kUtSi:r@
-kutschen	kUtS@n
 Kutschen	kUtS@n
+kutschen	kUtS@n
 kuschtet	kUSt@t
 kuschtest	kUSt@st
 kuschten	kUSt@n
@@ -123554,8 +123565,8 @@ kundschafteten	kUntSaft@t@n
 kundschaftete	kUntSaft@t@
 kundschaftet	kUntSaft@t
 kundschaftest	kUntSaft@st
-Kundschaften	kUntSaft@n
 kundschaften	kUntSaft@n
+Kundschaften	kUntSaft@n
 kundschafte	kUntSaft@
 kumuliertet	kumuli:rt@t
 kumuliertest	kumuli:rt@st
@@ -123679,8 +123690,8 @@ kringelten	krIN@lt@n
 kringelte	krIN@lt@
 kringelt	krIN@lt
 kringelst	krIN@lst
-kringeln	krIN@ln
 Kringeln	krIN@ln
+kringeln	krIN@ln
 kriminalisiertet	kriminalizi:rt@t
 kriminalisiertest	kriminalizi:rt@st
 kriminalisierten	kriminalizi:rt@n
@@ -123763,8 +123774,8 @@ krempelten	krEmp@lt@n
 krempelte	krEmp@lt@
 krempelt	krEmp@lt
 krempelst	krEmp@lst
-Krempeln	krEmp@ln
 krempeln	krEmp@ln
+Krempeln	krEmp@ln
 kremiertet	kremi:rt@t
 kremiertest	kremi:rt@st
 kremierten	kremi:rt@n
@@ -123802,8 +123813,8 @@ kreideten	kraId@t@n
 kreidete	kraId@t@
 kreidet	kraId@t
 kreidest	kraId@st
-Kreiden	kraId@n
 kreiden	kraId@n
+Kreiden	kraId@n
 kreditiertet	krediti:rt@t
 kreditiertest	krediti:rt@st
 kreditierten	krediti:rt@n
@@ -123825,8 +123836,8 @@ kraxeln	kraks@ln
 krautet	kraUt@t
 krautest	kraUt@st
 krauten	kraUt@n
-kraute	kraUt@
 Kraute	kraUt@
+kraute	kraUt@
 kraustet	kraUzt@t
 kraustest	kraUzt@st
 krausten	kraUst@n
@@ -123881,8 +123892,8 @@ kracht	kraxt
 krachst	kraxst
 krachet	krax@t
 krachest	krax@st
-Krachen	krax@n
 krachen	krax@n
+Krachen	krax@n
 krache	krax@
 krach	krax
 krabbtet	krapt@t
@@ -123894,8 +123905,8 @@ krabbst	krapst
 krabble	krabl@
 krabbet	krab@t
 krabbest	krab@st
-krabben	krab@n
 Krabben	krab@n
+krabben	krab@n
 krabbeltet	krab@lt@t
 krabbelten	krab@lt@n
 krabbelte	krab@lt@
@@ -124745,8 +124756,8 @@ kollerten	kOl@rt@n
 kollerte	kOl@rt@
 kollert	kOl@rt
 kollerst	kOl@rst
-kollern	kOl@rn
 Kollern	kOl@rn
+kollern	kOl@rn
 kollere	kOl@r@
 kollektiviertet	kOlEktivi:rt@t
 kollektiviertest	kOlEktivi:rt@st
@@ -125006,8 +125017,8 @@ knackste	knakst@
 knackst	knakst
 knackset	knaks@t
 knacksest	knaks@st
-knacksen	knaks@n
 Knacksen	knaks@n
+knacksen	knaks@n
 knacket	knak@t
 knackest	knak@st
 knacken	knak@n
@@ -125031,8 +125042,8 @@ kluppt	klUpt
 kluppst	klUpst
 kluppet	klUp@t
 kluppest	klUp@st
-Kluppen	klUp@n
 kluppen	klUp@n
+Kluppen	klUp@n
 klopptet	klOpt@t
 klopptest	klOpt@st
 kloppten	klOpt@n
@@ -125118,8 +125129,8 @@ klimmt	klImt
 klimmst	klImst
 klimmet	klIm@t
 klimmest	klIm@st
-Klimmen	klIm@n
 klimmen	klIm@n
+Klimmen	klIm@n
 klimatisiertet	klimatizi:rt@t
 klimatisiertest	klimatizi:rt@st
 klimatisierten	klimatizi:rt@n
@@ -125128,8 +125139,8 @@ klimatisiert	klimatizi:rt
 klimatisierst	klimatizi:rst
 klimatisieret	klimatizi:r@t
 klimatisierest	klimatizi:r@st
-Klimatisieren	klimatizi:r@n
 klimatisieren	klimatizi:r@n
+Klimatisieren	klimatizi:r@n
 klimatisiere	klimatizi:r@
 klieren	kli:r@n
 klicktet	klIkt@t
@@ -125207,8 +125218,8 @@ kleckten	klEkt@n
 kleckte	klEkt@
 kleckt	klEkt
 kleckst	klEkst
-Klecksen	klEks@n
 klecksen	klEks@n
+Klecksen	klEks@n
 klecket	klEk@t
 kleckest	klEk@st
 kleckertet	klEk@rt@t
@@ -125284,8 +125295,8 @@ klarierest	klari:r@st
 klarieren	klari:r@n
 klariere	klari:r@
 klapste	klapst@
-Klapsen	klaps@n
 klapsen	klaps@n
+Klapsen	klaps@n
 klangst	klaNst
 Klampfen	klampf@n
 klammertet	klam@rt@t
@@ -125293,8 +125304,8 @@ klammerten	klam@rt@n
 klammerte	klam@rt@
 klammert	klam@rt
 klammerst	klam@rst
-Klammern	klam@rn
 klammern	klam@rn
+Klammern	klam@rn
 klammere	klam@r@
 klagtet	kla:kt@t
 klagtest	kla:kt@st
@@ -125304,8 +125315,8 @@ klagt	kla:kt
 klagst	kla:kst
 klaget	kla:g@t
 klagest	kla:g@st
-Klagen	kla:g@n
 klagen	kla:g@n
+Klagen	kla:g@n
 klaftertet	klaft@rt@t
 klafterten	klaft@rt@n
 klafterte	klaft@rt@
@@ -125463,8 +125474,8 @@ kehret	ke:r@t
 kehrest	ke:r@st
 Kehren	ke:r@n
 kehren	ke:r@n
-kehlen	ke:l@n
 Kehlen	ke:l@n
+kehlen	ke:l@n
 keckern	kEk@rn
 keckere	kEk@r@
 Kebsen	ke:ps@n
@@ -125836,8 +125847,8 @@ jungtest	jUNt@st
 jungst	jUNst
 junget	jUN@t
 jungest	jUN@st
-Jungen	jUN@n
 jungen	jUN@n
+Jungen	jUN@n
 judiziertet	juditsi:rt@t
 judiziertest	juditsi:rt@st
 judizierten	juditsi:rt@n
@@ -125897,8 +125908,8 @@ jodelten	jo:d@lt@n
 jodelte	jo:d@lt@
 jodelt	jo:d@lt
 jodelst	jo:d@lst
-Jodeln	jo:d@ln
 jodeln	jo:d@ln
+Jodeln	jo:d@ln
 jochtet	jOxt@t
 jochtest	jOxt@st
 jochten	jOxt@n
@@ -125947,8 +125958,8 @@ jauchzet	jaUxts@t
 jauchzest	jaUxts@st
 jauchzen	jaUxts@n
 jauchze	jaUxts@
-Jauchen	jaUx@n
 jauchen	jaUx@n
+Jauchen	jaUx@n
 japsen	japs@n
 jammertet	jam@rt@t
 jammerten	jam@rt@n
@@ -125962,8 +125973,8 @@ jagtest	ja:kt@st
 jagten	ja:kt@n
 jagte	ja:kt@
 jagt	ja:kt
-jagst	jakst
 Jagst	jakst
+jagst	jakst
 jaget	ja:g@t
 jagest	ja:g@st
 jagen	ja:g@n
@@ -125991,8 +126002,8 @@ irritieren	?Iriti:r@n
 irritiere	?Iriti:r@
 Irrewerden	?Ir@,ve:rd@n
 irrewerden	?Ir@,ve:rd@n
-Irresein	?Ir@,zaIn
 irresein	?Ir@,zaIn
+Irresein	?Ir@,zaIn
 irremachtet	?Ir@,maxt@t
 irremachtest	?Ir@,maxt@st
 irremachten	?Ir@,maxt@n
@@ -126534,8 +126545,8 @@ infiltrierest	?InfIltri:r@st
 infiltrieren	?InfIltri:r@n
 infiltriere	?InfIltri:r@
 infamieren	?Infami:r@n
-Ineinandergreifen	?In?aInand@r,graIf@n
 ineinandergreifen	?In?aInand@r,graIf@n
+Ineinandergreifen	?In?aInand@r,graIf@n
 induziertet	?Indutsi:rt@t
 induziertest	?Indutsi:rt@st
 induzierten	?Indutsi:rt@n
@@ -126819,8 +126830,8 @@ höre	h2:r@
 hör	h2:r
 hökern	h2:k@rn
 höhlen	h2:l@n
-höhen	h2:@n
 Höhen	h2:@n
+höhen	h2:@n
 häufen	hOYf@n
 häufeln	hOYf@ln
 hätscheln	hE:tS@ln
@@ -126833,8 +126844,8 @@ hängen	hEN@n
 händigen	hEndIg@n
 hältst	hEltst
 hält	hElt
-Hälften	hElft@n
 hälften	hElft@n
+Hälften	hElft@n
 häkeln	hE:k@ln
 häckseln	hEkz@ln
 häckeln	hEk@ln
@@ -126946,8 +126957,8 @@ horteten	hOrt@t@n
 hortete	hOrt@t@
 hortet	hOrt@t
 hortest	hOrt@st
-Horten	hOrt@n
 horten	hOrt@n
+Horten	hOrt@n
 horchtet	hOrCt@t
 horchtest	hOrCt@st
 horchten	hOrCt@n
@@ -127043,8 +127054,8 @@ hobelten	ho:b@lt@n
 hobelte	ho:b@lt@
 hobelt	ho:b@lt
 hobelst	ho:b@lst
-Hobeln	ho:b@ln
 hobeln	ho:b@ln
+Hobeln	ho:b@ln
 hob	ho:p
 historisieren	hIstorizi:r@n
 hisstet	hIst@t
@@ -127236,8 +127247,8 @@ hexte	hEkst@
 hext	hEkst
 hexet	hEks@t
 hexest	hEks@st
-hexen	hEks@n
 Hexen	hEks@n
+hexen	hEks@n
 heultet	hOYlt@t
 heultest	hOYlt@st
 heulten	hOYlt@n
@@ -127263,8 +127274,8 @@ hetzte	hEtst@
 hetzt	hEtst
 hetzet	hEts@t
 hetzest	hEts@st
-Hetzen	hEts@n
 hetzen	hEts@n
+Hetzen	hEts@n
 herüberziehen	hEry:b@r,tsi:@n
 herüberreichen	hEry:b@r,raIC@n
 herüberlaufen	hEry:b@r,laUf@n
@@ -127440,8 +127451,8 @@ hellseht	hEl,ze:t
 hellsehst	hEl,ze:st
 hellsehet	hEl,ze:@t
 hellsehest	hEl,ze:@st
-Hellsehen	hEl,ze:@n
 hellsehen	hEl,ze:@n
+Hellsehen	hEl,ze:@n
 hellsehe	hEl,ze:@
 helft	hElft
 helfet	hElf@t
@@ -127502,10 +127513,10 @@ heftelten	hEft@lt@n
 heftelte	hEft@lt@
 heftelt	hEft@lt
 heftelst	hEft@lst
-hefteln	hEft@ln
 Hefteln	hEft@ln
-Hechten	hECt@n
+hefteln	hEft@ln
 hechten	hECt@n
+Hechten	hECt@n
 hechle	hECl@
 hecheltet	hEC@lt@t
 hechelten	hEC@lt@n
@@ -127629,8 +127640,8 @@ hantelten	hant@lt@n
 hantelte	hant@lt@
 hantelt	hant@lt
 hantelst	hant@lst
-hanteln	hant@ln
 Hanteln	hant@ln
+hanteln	hant@ln
 hangen	haN@n
 hangeln	haN@ln
 handle	handl@
@@ -127639,8 +127650,8 @@ handlangerten	hant,laN@rt@n
 handlangerte	hant,laN@rt@
 handlangert	hant,laN@rt
 handlangerst	hant,laN@rst
-Handlangern	hant,laN@rn
 handlangern	hant,laN@rn
+Handlangern	hant,laN@rn
 handlangere	hant,laN@r@
 handikappen	hEndIkEp@n
 handeltet	hand@lt@t
@@ -127654,8 +127665,8 @@ hamsterten	hamst@rt@n
 hamsterte	hamst@rt@
 hamstert	hamst@rt
 hamsterst	hamst@rst
-Hamstern	hamst@rn
 hamstern	hamst@rn
+Hamstern	hamst@rn
 hamstere	hamst@r@
 haltet	halt@t
 haltest	halt@st
@@ -127713,8 +127724,8 @@ hafteten	haft@t@n
 haftete	haft@t@
 haftet	haft@t
 haftest	haft@st
-Haften	haft@n
 haften	haft@n
+Haften	haft@n
 hadertet	ha:d@rt@t
 haderten	ha:d@rt@n
 haderte	ha:d@rt@
@@ -127756,8 +127767,8 @@ gurgelten	gUrg@lt@n
 gurgelte	gUrg@lt@
 gurgelt	gUrg@lt
 gurgelst	gUrg@lst
-Gurgeln	gUrg@ln
 gurgeln	gUrg@ln
+Gurgeln	gUrg@ln
 gummieren	gUIni:r@n
 guillotinieren	gIljotini:r@n
 gucktet	gUkt@t
@@ -127771,8 +127782,8 @@ guckest	gUk@st
 gucken	gUk@n
 gucke	gUk@
 gründet	grYnd@t
-Gründen	grYnd@n
 gründen	grYnd@n
+Gründen	grYnd@n
 gründeln	grYnd@ln
 grübeln	gry:b@ln
 grölen	gr2:l@n
@@ -127812,8 +127823,8 @@ grundiere	grUndi:r@
 grummeln	grUm@ln
 grubt	gru:pt
 grubst	gru:pst
-Gruben	gru:b@n
 gruben	gru:b@n
+Gruben	gru:b@n
 grub	gru:p
 grolltet	grOlt@t
 grolltest	grOlt@st
@@ -127831,8 +127842,8 @@ grinste	grInst@
 grinst	grInst
 grinset	grInz@t
 grinsest	grInz@st
-Grinsen	grInz@n
 grinsen	grInz@n
+Grinsen	grInz@n
 grinse	grInz@
 grimmst	grImst
 grimmen	grIm@n
@@ -127851,8 +127862,8 @@ grifft	grIft
 griffst	grIfst
 griffet	grIf@t
 griffest	grIf@st
-griffen	grIf@n
 Griffen	grIf@n
+griffen	grIf@n
 grießeln	gri:s@ln
 grieseln	gri:z@ln
 grienen	gri:n@n
@@ -127898,8 +127909,8 @@ graulen	graUl@n
 graule	graUl@
 grauet	graU@t
 grauest	graU@st
-grauen	graU@n
 Grauen	graU@n
+grauen	graU@n
 gratuliertet	gratuli:rt@t
 gratuliertest	gratuli:rt@st
 gratulierten	gratuli:rt@n
@@ -127991,8 +128002,8 @@ goßt	gOst
 gosset	gOs@t
 gossest	gOs@st
 gossen	gOs@n
-goß	gOs
 goss	gOs
+goß	gOs
 gor	go:r
 Gondeln	gOnd@ln
 gondeln	gOnd@ln
@@ -128064,8 +128075,8 @@ glitscht	glItSt
 glitschst	glItSst
 glitschet	glItS@t
 glitschest	glItS@st
-Glitschen	glItS@n
 glitschen	glItS@n
+Glitschen	glItS@n
 glimmtet	glImt@t
 glimmtest	glImt@st
 glimmten	glImt@n
@@ -128097,10 +128108,10 @@ gleitet	glaIt@t
 gleitest	glaIt@st
 gleiten	glaIt@n
 gleisst	glaIzst
-gleißen	glaIs@n
 Gleißen	glaIs@n
-gleisen	glaIz@n
+gleißen	glaIs@n
 Gleisen	glaIz@n
+gleisen	glaIz@n
 glaubtet	glaUpt@t
 glaubtest	glaUpt@st
 glaubten	glaUpt@n
@@ -128158,10 +128169,10 @@ giftete	gIft@t@
 giftest	gIft@st
 giften	gIft@n
 Giften	gIft@n
-gießt	gi:st
 giesst	gi:st
-Gießen	gi:s@n
+gießt	gi:st
 gießen	gi:s@n
+Gießen	gi:s@n
 giepern	gi:p@rn
 gienen	gi:n@n
 gicksen	gIks@n
@@ -128183,16 +128194,16 @@ gewrungen	g@vrUN@n
 geworfen	g@vOrf@n
 gewoben	g@vo:b@n
 gewittert	g@vIt@rt
-Gewittern	g@vIt@rn
 gewittern	g@vIt@rn
+Gewittern	g@vIt@rn
 gewinnt	g@vInt
 gewinnst	g@vInst
 gewinnet	g@vIn@t
 gewinnest	g@vIn@st
 gewinnen	g@vIn@n
 Gewinnen	g@vIn@n
-Gewichten	g@vICt@n
 gewichten	g@vICt@n
+Gewichten	g@vICt@n
 Gewichte	g@vICt@
 gewann	g@van
 gewalkt	g@valkt
@@ -128243,8 +128254,8 @@ gestalteten	g@Stalt@t@n
 gestaltete	g@Stalt@t@
 gestaltet	g@Stalt@t
 gestaltest	g@Stalt@st
-Gestalten	g@Stalt@n
 gestalten	g@Stalt@n
+Gestalten	g@Stalt@n
 gespreizt	g@SpraItst
 gespornt	g@SpOrnt
 gesponnen	g@SpOn@n
@@ -128310,8 +128321,8 @@ genügen	g@ny:g@n
 genötigt	g@n2:tICt
 genugsein	g@nu:k,zaIn
 genoß	g@nOs
-geniesst	g@ni:st
 genießt	g@ni:st
+geniesst	g@ni:st
 genießet	g@ni:s@t
 genießen	g@ni:s@n
 genieße	g@ni:s@
@@ -128366,8 +128377,8 @@ gelockt	g@lOkt
 gellen	gEl@n
 gelitten	g@lIt@n
 gelingt	g@lINt
-gelingen	g@lIN@n
 Gelingen	g@lIN@n
+gelingen	g@lIN@n
 gelinge	g@lIN@
 geliertet	Zeli:rt@t
 geliertest	Zeli:rt@st
@@ -128456,8 +128467,8 @@ geborensein	g@bo:r@n,zaIn
 Gebisse	g@bIs@
 gebettet	g@be:tt@t
 gebetet	ge:b@t@t
-gebeten	g@be:t@n
 Gebeten	g@be:t@n
+gebeten	g@be:t@n
 gebest	ge:b@st
 geben	ge:b@n
 gebe	ge:b@
@@ -128481,14 +128492,14 @@ gatteten	gat@t@n
 gattete	gat@t@
 gattet	gat@t
 gattest	gat@st
-Gatten	gat@n
 gatten	gat@n
+Gatten	gat@n
 gastieren	gasti:r@n
 gastet	ga:zt@t
 gastest	ga:zt@st
 gasten	ga:st@n
-Gaste	ga:st@
 gaste	ga:st@
+Gaste	ga:st@
 gaset	ga:z@t
 gasest	ga:z@st
 gasen	ga:z@n
@@ -128608,8 +128619,8 @@ fälteln	fElt@ln
 fälschen	fElS@n
 fällt	fElt
 fällst	fElst
-Fällen	fEl@n
 fällen	fEl@n
+Fällen	fEl@n
 fährt	fE:rt
 fährst	fE:rst
 Fähren	fE:r@n
@@ -128645,8 +128656,8 @@ fuselten	fu:z@lt@n
 fuselte	fu:z@lt@
 fuselt	fu:z@lt
 fuselst	fu:z@lst
-fuseln	fu:z@ln
 Fuseln	fu:z@ln
+fuseln	fu:z@ln
 fuschtet	fUSt@t
 fuschtest	fUSt@st
 fuschten	fUSt@n
@@ -128678,8 +128689,8 @@ funkst	fUNkst
 funkle	fUNkl@
 funket	fUNk@t
 funkest	fUNk@st
-funken	fUNk@n
 Funken	fUNk@n
+funken	fUNk@n
 funkeltet	fUNk@lt@t
 funkelten	fUNk@lt@n
 funkelte	fUNk@lt@
@@ -128723,8 +128734,8 @@ fummelte	fUm@lt@
 fummelt	fUm@lt
 fummelst	fUm@lst
 fummeln	fUm@ln
-Fuhrwerken	fu:r,vErk@n
 fuhrwerken	fu:r,vErk@n
+Fuhrwerken	fu:r,vErk@n
 fuhr	fu:r
 fugieren	fugi:r@n
 fuchtle	fUxtl@
@@ -128770,8 +128781,8 @@ frottierest	frOti:r@st
 frottieren	frOti:r@n
 frottiere	frOti:r@
 fror	fro:r
-fronen	fro:n@n
 Fronen	fro:n@n
+fronen	fro:n@n
 frondieren	frO~di:r@n
 Fronden	frO~:d@n
 frohlocktet	frolOkt@t
@@ -128784,8 +128795,8 @@ frohlocket	frolOk@t
 frohlockest	frolOk@st
 frohlocken	frolOk@n
 frohlocke	frolOk@
-fritten	frIt@n
 Fritten	frIt@n
+fritten	frIt@n
 fritiertet	friti:rt@t
 fritiertest	friti:rt@st
 fritierten	friti:rt@n
@@ -128837,8 +128848,8 @@ frevelten	fre:f@lt@n
 frevelte	fre:f@lt@
 frevelt	fre:f@lt
 frevelst	fre:f@lst
-Freveln	fre:f@ln
 freveln	fre:f@ln
+Freveln	fre:f@ln
 freutet	frOYt@t
 freutest	frOYt@st
 freuten	frOYt@n
@@ -128888,8 +128899,8 @@ franste	franst@
 franst	franst
 franset	franz@t
 fransest	franz@st
-Fransen	franz@n
 fransen	franz@n
+Fransen	franz@n
 frankiertet	fraNki:rt@t
 frankiertest	fraNki:rt@st
 frankierten	fraNki:rt@n
@@ -128996,8 +129007,8 @@ formatiert	fOrmati:rt
 formatierst	fOrmati:rst
 formatieret	fOrmati:r@t
 formatierest	fOrmati:r@st
-formatieren	fOrmati:r@n
 Formatieren	fOrmati:r@n
+formatieren	fOrmati:r@n
 formatiere	fOrmati:r@
 formalisiertet	fOrmalizi:rt@t
 formalisiertest	fOrmalizi:rt@st
@@ -129031,8 +129042,8 @@ folterten	fOlt@rt@n
 folterte	fOlt@rt@
 foltert	fOlt@rt
 folterst	fOlt@rst
-Foltern	fOlt@rn
 foltern	fOlt@rn
+Foltern	fOlt@rn
 foltere	fOlt@r@
 foliiertet	folii:rt@t
 foliiertest	folii:rt@st
@@ -129059,8 +129070,8 @@ folgert	fOlg@rt
 folgerst	fOlg@rst
 folgern	fOlg@rn
 folgere	fOlg@r@
-folgen	fOlg@n
 Folgen	fOlg@n
+folgen	fOlg@n
 fokussiertet	fokUsi:rt@t
 fokussiertest	fokUsi:rt@st
 fokussierten	fokUsi:rt@n
@@ -129074,8 +129085,8 @@ fokussiere	fokUsi:r@
 flüsterten	flYst@rt@n
 flüsterte	flYst@rt@
 flüstert	flYst@rt
-Flüstern	flYst@rn
 flüstern	flYst@rn
+Flüstern	flYst@rn
 flügeln	fly:g@ln
 flüchten	flYCt@n
 flötengehen	fl2:t@n,ge:@n
@@ -129087,8 +129098,8 @@ fluteten	flu:t@t@n
 flutete	flu:t@t@
 flutet	flu:t@t
 flutest	flu:t@st
-Fluten	flu:t@n
 fluten	flu:t@n
+Fluten	flu:t@n
 flushen	flaS@n
 fluorieren	fluori:r@n
 fluoresziertet	fluorEstsi:rt@t
@@ -129116,8 +129127,8 @@ fluktuiert	flUktu?i:rt
 fluktuierst	flUktu?i:rst
 fluktuieret	flUktu?i:r@t
 fluktuierest	flUktu?i:r@st
-fluktuieren	flUktu?i:r@n
 Fluktuieren	flUktu?i:r@n
+fluktuieren	flUktu?i:r@n
 fluktuiere	flUktu?i:r@
 flucht	flu:xt
 fluchen	flu:xn
@@ -129168,8 +129179,8 @@ flockt	flOkt
 flockst	flOkst
 flocket	flOk@t
 flockest	flOk@st
-flocken	flOk@n
 Flocken	flOk@n
+flocken	flOk@n
 flocht	flOxt
 floaten	floUt@n
 flitztet	flItst@t
@@ -129342,8 +129353,8 @@ fischt	fISt
 fischst	fISst
 fischet	fIS@t
 fischest	fIS@st
-Fischen	fIS@n
 fischen	fIS@n
+Fischen	fIS@n
 firnissen	fIrnIs@n
 firmtet	fIrmt@t
 firmtest	fIrmt@st
@@ -129360,8 +129371,8 @@ firmieren	fIrmi:r@n
 firmiere	fIrmi:r@
 firmet	fIrm@t
 firmest	fIrm@st
-Firmen	fIrm@n
 firmen	fIrm@n
+Firmen	fIrm@n
 firmeln	fIrm@ln
 finstertet	fInst@rt@t
 finsterten	fInst@rt@n
@@ -129495,8 +129506,8 @@ fiedelten	fi:d@lt@n
 fiedelte	fi:d@lt@
 fiedelt	fi:d@lt
 fiedelst	fi:d@lst
-fiedeln	fi:d@ln
 Fiedeln	fi:d@ln
+fiedeln	fi:d@ln
 fiebern	fi:b@rn
 Fiebern	fi:b@rn
 ficktet	fIkt@t
@@ -129606,8 +129617,8 @@ fermentieret	fErmEnti:r@t
 fermentierest	fErmEnti:r@st
 fermentieren	fErmEnti:r@n
 fermentiere	fErmEnti:r@
-ferkeln	fErk@ln
 Ferkeln	fErk@ln
+ferkeln	fErk@ln
 fensterln	fEnst@rln
 feminiertet	femini:rt@t
 feminiertest	femini:rt@st
@@ -129756,8 +129767,8 @@ faserten	fa:z@rt@n
 faserte	fa:z@rt@
 fasert	fa:z@rt
 faserst	fa:z@rst
-fasern	fa:z@rn
 Fasern	fa:z@rn
+fasern	fa:z@rn
 fasere	fa:z@r@
 fasen	fa:z@n
 faseltet	fa:z@lt@t
@@ -129892,8 +129903,8 @@ fabelten	fa:b@lt@n
 fabelte	fa:b@lt@
 fabelt	fa:b@lt
 fabelst	fa:b@lst
-Fabeln	fa:b@ln
 fabeln	fa:b@ln
+Fabeln	fa:b@ln
 exzipieren	?Ekstsipi:r@n
 exzerpieren	?EkstsErpi:r@n
 extravagieren	?Ekstravagi:r@n
@@ -130463,8 +130474,8 @@ ernteten	?Ernt@t@n
 erntete	?Ernt@t@
 erntet	?Ernt@t
 erntest	?Ernt@st
-Ernten	?Ernt@n
 ernten	?Ernt@n
+Ernten	?Ernt@n
 erniedrigtet	?Erni:drIkt@t
 erniedrigtest	?Erni:drIkt@st
 erniedrigten	?Erni:drICt@n
@@ -131377,8 +131388,8 @@ einsenke	?aInzEnk@
 einseht	?aInze:t
 einsehet	?aInze:@t
 einsehest	?aInze:@st
-einsehen	?aInze:@n
 Einsehen	?aInze:@n
+einsehen	?aInze:@n
 einsehe	?aInze:@
 einschätzen	?aInSEts@n
 einschreibt	?aInSraIpt
@@ -131528,8 +131539,8 @@ ehrt	?e:rt
 ehrst	?e:rst
 ehret	?e:r@t
 ehrest	?e:r@st
-ehren	?e:r@n
 Ehren	?e:r@n
+ehren	?e:r@n
 egreniertet	?egreni:rt@t
 egreniertest	?egreni:rt@st
 egrenierten	?egreni:rt@n
@@ -131664,8 +131675,8 @@ duselte	du:z@lt@
 duselt	du:z@lt
 duselst	du:z@lst
 duseln	du:z@ln
-Duschen	du:S@n
 duschen	du:S@n
+Duschen	du:S@n
 durchwobt	dUrCvo:pt
 durchwobst	dUrCvo:pst
 durchwoben	dUrCvo:b@n
@@ -132065,8 +132076,8 @@ doppeltet	dOp@lt@t
 doppelten	dOp@lt@n
 doppelte	dOp@lt@
 doppelst	dOp@lst
-Doppeln	dOp@ln
 doppeln	dOp@ln
+Doppeln	dOp@ln
 dopen	do:p@n
 Donnern	dOn@rn
 donnern	dOn@rn
@@ -132369,8 +132380,8 @@ dienest	di:n@st
 dienen	di:n@n
 diene	di:n@
 Dien	di,?e:n
-Dielen	di:l@n
 dielen	di:l@n
+Dielen	di:l@n
 dichtst	dICtst
 dichtetet	dICt@t@t
 dichtetest	dICt@t@st
@@ -132826,8 +132837,8 @@ dekapieren	dekapi:r@n
 dekantieren	dekanti:r@n
 dejeunieren	deZ2ni:r@n
 deifizieren	de:ifitsi:r@n
-Deichseln	daIks@ln
 deichseln	daIks@ln
+Deichseln	daIks@ln
 dehydriert	dehydri:rt
 dehydrieren	dehydri:r@n
 dehydratisieren	de:hydratizi:r@n
@@ -133053,8 +133064,8 @@ dauerten	daU@rt@n
 dauerte	daU@rt@
 dauert	daU@rt
 dauerst	daU@rst
-Dauern	daU@rn
 dauern	daU@rn
+Dauern	daU@rn
 dauere	daU@r@
 datiertet	dati:rt@t
 datiertest	dati:rt@st
@@ -133521,8 +133532,8 @@ buhlt	bu:lt
 buhlst	bu:lst
 buhlet	bu:l@t
 buhlest	bu:l@st
-buhlen	bu:l@n
 Buhlen	bu:l@n
+buhlen	bu:l@n
 buhet	bu:@t
 buhest	bu:@st
 buhen	bu:@n
@@ -133546,8 +133557,8 @@ budgetieret	bydZeti:r@t
 budgetierest	bydZeti:r@st
 budgetieren	bydZeti:r@n
 budgetiere	bydZeti:r@
-buckeln	bUk@ln
 Buckeln	bUk@ln
+buckeln	bUk@ln
 bucht	bu:xt
 buchstabiertet	bu:xStabi:rt@t
 buchstabiertest	bu:xStabi:rt@st
@@ -133711,10 +133722,10 @@ breiteten	braIt@t@n
 breitete	braIt@t@
 breitet	braIt@t
 breitest	braIt@st
-Breiten	braIt@n
 breiten	braIt@n
-brecht	brECt
+Breiten	braIt@n
 Brecht	brECt
+brecht	brECt
 brechet	brEC@t
 brechest	brEC@st
 brechen	brEC@n
@@ -133769,8 +133780,8 @@ brachtest	braxt@st
 brachten	braxt@n
 brachte	braxt@
 bracht	braxt
-Brachen	bra:xen
 brachen	bra:xen
+Brachen	bra:xen
 brabble	brabl@
 brabbeltet	brab@lt@t
 brabbelten	brab@lt@n
@@ -133795,8 +133806,8 @@ boxte	bOkst@
 boxt	bOkst
 boxet	bOks@t
 boxest	bOks@st
-Boxen	bOks@n
 boxen	bOks@n
+Boxen	bOks@n
 botst	bo:tst
 botanisiertet	botanizi:rt@t
 botanisiertest	botanizi:rt@st
@@ -133914,8 +133925,8 @@ bohnerst	bo:n@rst
 Bohnern	bo:n@rn
 bohnern	bo:n@rn
 bohnere	bo:n@r@
-bohnen	bo:n@n
 Bohnen	bo:n@n
+bohnen	bo:n@n
 bodmetet	bo:dm@t@t
 bodmetest	bo:dm@t@st
 bodmeten	bo:dm@t@n
@@ -133987,8 +133998,8 @@ blitzte	blItst@
 blitzt	blItst
 blitzet	blIts@t
 blitzest	blIts@st
-Blitzen	blIts@n
 blitzen	blIts@n
+Blitzen	blIts@n
 blinzle	blIntsl@
 blinzeltet	blInts@lt@t
 blinzelten	blInts@lt@n
@@ -134047,8 +134058,8 @@ blendeten	blEnd@t@n
 blendete	blEnd@t@
 blendet	blEnd@t
 blendest	blEnd@st
-blenden	blEnd@n
 Blenden	blEnd@n
+blenden	blEnd@n
 blecktet	blEkt@t
 blecktest	blEkt@st
 bleckten	blEkt@n
@@ -134148,8 +134159,8 @@ bituminiere	bitumini:r@
 bitumieren	bitumi:r@n
 bittet	bIt@t
 bittest	bIt@st
-Bitten	bIt@n
 bitten	bIt@n
+Bitten	bIt@n
 bißt	bIst
 biß	bIs
 bischtet	bIsCt@t
@@ -134166,8 +134177,8 @@ birgt	bIrkt
 birgst	bIrkst
 bindet	bInd@t
 bindest	bInd@st
-Binden	bInd@n
 binden	bInd@n
+Binden	bInd@n
 bimstet	bImzt@t
 bimstest	bImzt@st
 bimsten	bImst@n
@@ -134182,8 +134193,8 @@ bimmelten	bIm@lt@n
 bimmelte	bIm@lt@
 bimmelt	bIm@lt
 bimmelst	bIm@lst
-bimmeln	bIm@ln
 Bimmeln	bIm@ln
+bimmeln	bIm@ln
 billigtet	bIlIkt@t
 billigtest	bIlIkt@st
 billigten	bIlICt@n
@@ -134383,8 +134394,8 @@ beugt	bOYkt
 beugst	bOYkst
 beuget	bOYg@t
 beugest	bOYg@st
-Beugen	bOYg@n
 beugen	bOYg@n
+Beugen	bOYg@n
 Beuchen	bOYC@n
 beuchen	bOYC@n
 betütern	b@ty:t@rn
@@ -134503,8 +134514,8 @@ bessere	bEs@r@
 besprecht	b@SprECt
 besprechet	b@SprEC@t
 besprechest	b@SprEC@st
-besprechen	b@SprEC@n
 Besprechen	b@SprEC@n
+besprechen	b@SprEC@n
 bespreche	b@SprEC@
 besinnt	b@zInt
 besinnst	b@zInst
@@ -134646,8 +134657,8 @@ berichtigen	b@rICtIg@n
 bergt	bErkt
 berget	bErg@t
 bergest	bErg@st
-Bergen	bErg@n
 bergen	bErg@n
+Bergen	bErg@n
 bereitsein	b@raIt,zaIn
 bereiterklärt	b@raIt?Er,klE:rt
 bereiterklären	b@raIt?Er,klE:r@n
@@ -134919,8 +134930,8 @@ beichteten	baICt@t@n
 beichtete	baICt@t@
 beichtet	baICt@t
 beichtest	baICt@st
-Beichten	baICt@n
 beichten	baICt@n
+Beichten	baICt@n
 beibringt	baIbrINt
 beibringst	baIbrINst
 beibringet	baIbrIN@t
@@ -135320,8 +135331,8 @@ bannt	bant
 bannst	banst
 bannet	ban@t
 bannest	ban@st
-bannen	ban@n
 Bannen	ban@n
+bannen	ban@n
 bankrottieren	baNkrOti:r@n
 bankettieren	baNkEti:r@n
 bangtet	baNt@t
@@ -135858,8 +135869,8 @@ ausdifferenzieret	?aUsdIf@rEn,tsi:r@t
 ausdifferenzierest	?aUsdIf@rEn,tsi:r@st
 ausdifferenzieren	?aUsdIf@rEn,tsi:r@n
 ausdifferenziere	?aUsdIf@rEn,tsi:r@
-Auschecken	?aUstSEk@n
 auschecken	?aUstSEk@n
+Auschecken	?aUstSEk@n
 ausbürgern	?aUsbYrg@rn
 ausbuchtetet	?aUsbUxt@t@t
 ausbuchtetest	?aUsbUxt@t@st
@@ -135943,8 +135954,8 @@ aufwachen	?aUfvax@n
 aufwache	?aUfvax@
 auftretet	?aUftre:t@t
 auftretest	?aUftre:t@st
-auftreten	?aUftre:t@n
 Auftreten	?aUftre:t@n
+auftreten	?aUftre:t@n
 auftrete	?aUftre:t@
 auftopptet	?aUftOpt@t
 auftopptest	?aUftOpt@st
@@ -135987,8 +135998,8 @@ aufsein	?aUfzaIn
 aufseht	?aUfze:t
 aufsehet	?aUfze:@t
 aufsehest	?aUfze:@st
-aufsehen	?aUfze:@n
 Aufsehen	?aUfze:@n
+aufsehen	?aUfze:@n
 aufsehe	?aUfze:@
 aufribble	?aUfrIbl@
 aufribbeltet	?aUfrIb@lt@t
@@ -136043,8 +136054,8 @@ aufprallt	?aUfpralt
 aufprallst	?aUfpralst
 aufprallet	?aUfpral@t
 aufprallest	?aUfpral@st
-Aufprallen	?aUfpral@n
 aufprallen	?aUfpral@n
+Aufprallen	?aUfpral@n
 aufpralle	?aUfpral@
 aufpopptet	?aUfpOpt@t
 aufpopptest	?aUfpOpt@st
@@ -136200,8 +136211,8 @@ auffrischt	?aUffrISt
 auffrischst	?aUffrISst
 auffrischet	?aUffrIS@t
 auffrischest	?aUffrIS@st
-Auffrischen	?aUffrIS@n
 auffrischen	?aUffrIS@n
+Auffrischen	?aUffrIS@n
 auffrische	?aUffrIS@
 aufeinanderpralltet	?aUf?aInand@r,pralt@t
 aufeinanderpralltest	?aUf?aInand@r,pralt@st
@@ -136402,8 +136413,8 @@ arrondieren	?arOndi:r@n
 arrondiere	?arOndi:r@
 arriviertet	?arivi:rt@t
 arriviertest	?arivi:rt@st
-arrivierten	?arivi:rt@n
 Arrivierten	?arivi:rt@n
+arrivierten	?arivi:rt@n
 arrivierst	?arivi:rst
 arrivieret	?arivi:r@t
 arrivierest	?arivi:r@st
@@ -136638,8 +136649,8 @@ anzeigt	?antsaICt
 anzeigst	?antsaIkst
 anzeiget	?antsaIg@t
 anzeigest	?antsaIg@st
-Anzeigen	?antsaIg@n
 anzeigen	?antsaIg@n
+Anzeigen	?antsaIg@n
 anzeige	?antsaIg@
 anturntet	?ant2:rnt@t
 anturntest	?ant2:rnt@st
@@ -136743,8 +136754,8 @@ ansucht	?anzu:xt
 ansuchst	?anzu:xst
 ansuchet	?anzu:x@t
 ansuchest	?anzu:x@st
-Ansuchen	?anzu:x@n
 ansuchen	?anzu:x@n
+Ansuchen	?anzu:x@n
 ansuche	?anzu:x@
 anstrengtet	?anStrENt@t
 anstrengtest	?anStrENt@st
@@ -136787,8 +136798,8 @@ ansein	?anzaIn
 anseht	?anze:t
 ansehet	?anze:@t
 ansehest	?anze:@st
-ansehen	?anze:@n
 Ansehen	?anze:@n
+ansehen	?anze:@n
 ansehe	?anze:@
 ansegle	?anze:gl@
 ansegeltet	?anze:g@lt@t
@@ -136932,8 +136943,8 @@ anlernet	?anlErn@t
 anlernest	?anlErn@st
 anlernen	?anlErn@n
 anlerne	?anlErn@
-Anleihen	?anlaI@n
 anleihen	?anlaI@n
+Anleihen	?anlaI@n
 anlehntet	?anle:nt@t
 anlehntest	?anle:nt@st
 anlehnten	?anle:nt@n
@@ -137610,8 +137621,8 @@ ahnt	?a:nt
 ahnst	?a:nst
 ahnet	?a:n@t
 ahnest	?a:n@st
-Ahnen	?a:n@n
 ahnen	?a:n@n
+Ahnen	?a:n@n
 ahndetet	?a:nd@t@t
 ahndetest	?a:nd@t@st
 ahndeten	?a:nd@t@n
@@ -138081,8 +138092,8 @@ abprallt	?appralt
 abprallst	?appralst
 abprallet	?appral@t
 abprallest	?appral@st
-Abprallen	?appral@n
 abprallen	?appral@n
+Abprallen	?appral@n
 abpralle	?appral@
 abphotographiertet	?apfotogra,fi:rt@t
 abphotographiertest	?apfotogra,fi:rt@st
@@ -138330,8 +138341,8 @@ aalte	?a:lt@
 aalt	?a:lt
 aalet	?a:l@t
 aalest	?a:l@st
-Aalen	?a:l@n
 aalen	?a:l@n
+Aalen	?a:l@n
 % NOM:PRO:QAV
 Selbst	zElpst
 Mehr	me:r
@@ -138519,13 +138530,13 @@ dürfen	dYrf@n
 zwölfeinhalb	tsv9lf?aIn,halp
 Zweier	tsvaI@r
 zweieinhalb	tsvaI?aIn,halp
-Zwei	tsvaI
 zwei	tsvaI
+Zwei	tsvaI
 zwanzig	tsvantsIC
-zehn	tse:n
 Zehn	tse:n
-Vierzig	fIrtsIC
+zehn	tse:n
 vierzig	fIrtsIC
+Vierzig	fIrtsIC
 vierzehn	fIrtse:n
 viereinhalb	fi:r?aIn,halp
 Vier	fi:r
@@ -138535,16 +138546,16 @@ solche	zOlC@
 siebzig	zi:ptsIC
 siebentausend	zi:b@ntaUz@nt
 siebenhundert	zi:b@nhUnd@rt
-sechzig	zECtsIC
 Sechzig	zECtsIC
+sechzig	zECtsIC
 sechzehn	zECtse:n
-sechstel	zEkst@l
 Sechstel	zEkst@l
-Sechste	zEkst@
+sechstel	zEkst@l
 sechste	zEkst@
+Sechste	zEkst@
 sechseinhalb	zEks?aIn,halp
-Sechs	zEks
 sechs	zEks
+Sechs	zEks
 neunzig	nOYntsIC
 neunte	nOYnt@
 neun	nOYn
@@ -138597,8 +138608,8 @@ russische	rUsIS@
 Russische	rUsIS@
 Prestige	prEsti:S
 Neugeborene	nOYg@,bo:r@n@
-Neuerer	nOY@r@r
 neuerer	nOY@r@r
+Neuerer	nOY@r@r
 N	?En
 Mobile	mo:bil@
 Miserere	mizere:r@
@@ -138610,16 +138621,16 @@ Lyoneser	lione:z@r
 Legende	legEnd@
 Landauer	landaU@r
 Körperbehinderte	k9rp@rbe,hInd@rt@
-Konstante	kOnstant@
 konstante	kOnstant@
+Konstante	kOnstant@
 Konservative	kOnzErvati:v@
 konservative	kOnzErvati:v@
 Kasseler	kas@l@r
 Intrige	?Intri:g@
 internationale	?Int@rnats<iona:l@
 Internationale	?Int@rnats<iona:l@
-Intellektuelle	?IntElEktu?El@
 intellektuelle	?IntElEktu?El@
+Intellektuelle	?IntElEktu?El@
 Hälfte	hElft@
 Hybride	hYbri:d@
 Hunderttausende	hUnd@rt,taUz@nd@
@@ -138628,8 +138639,8 @@ Harem	ha:rEm
 Hallenser	halEnz@r
 Glück	glYk
 Geächtete	g@?ECt@t@
-gewissen	g@vIs@n
 Gewissen	g@vIs@n
+gewissen	g@vIs@n
 Geschworene	g@Svo:r@n@
 Geräucherte	g@rOYC@rt@
 Genever	Z@ne:v@r
@@ -138666,8 +138677,8 @@ Irene	?ire:n@
 Irena	?ire:na:
 % NUM:QPV
 zwölft	tsv9lft
-Zwölf	tsv9lf
 zwölf	tsv9lf
+Zwölf	tsv9lf
 tausendmal	taUz@ntma:l
 fünfeinhalb	fYnf?aInhalp
 eineinhalb	?aIn?aIn,halp
@@ -138740,8 +138751,8 @@ Potential	potEnts<ia:l
 Possessiv	pOsEsi:f
 Positiv	po:ziti:f
 Ponceau	pO~so:
-Pliozän	pliotsE:n
 pliozän	pliotsE:n
+Pliozän	pliotsE:n
 Pleite	plaIt@
 Pleistozän	plaIstotsE:n
 Platt	plat
@@ -138832,8 +138843,8 @@ Kratogen	kratoge:n
 Krapp	krap
 Korrelat	kOrela:t
 Korrektiv	kOrEkti:f
-Korallen	koral@n
 korallen	koral@n
+Korallen	koral@n
 Kontrakt	kOntrakt
 Kontingent	kOntINgEnt
 Konsonant	kOnzonant
@@ -139027,8 +139038,8 @@ Muß	mUs
 Magen	ma:g@n
 Bleibe	blaIb@
 % ADD:MOD:QAV
-mitten	mIt@n
 Mitten	mIt@n
+mitten	mIt@n
 % NUM:VRB
 sieben	zi:b@n
 Sieben	zi:b@n
@@ -139052,8 +139063,8 @@ Spreng	SprEN
 Sperr	SpEr
 Schütze	SYts@
 Schwimm	SvIm
-Schmiere	Smi:r@
 schmiere	Smi:r@
+Schmiere	Smi:r@
 Schlinge	SlIN@
 schlinge	SlIN@
 Schließe	Sli:s@
@@ -139061,8 +139072,8 @@ Schliesse	Sli:s@
 schlief	Sli:f
 Schlief	Sli:f
 Schlich	SlIC
-schleuse	SlOYz@
 Schleuse	SlOYz@
+schleuse	SlOYz@
 schleiche	SlaIC@
 Schleiche	SlaIC@
 Schlag	Sla:k
@@ -139073,8 +139084,8 @@ schiene	Si:n@
 Schere	Se:r@
 Schenk	SENk
 Schelle	SEl@
-Scheiße	SaIs@
 Scheisse	SaIs@
+Scheiße	SaIs@
 Schatten	Sat@n
 Scharren	Sar@n
 schabe	Sa:b@
@@ -139083,19 +139094,19 @@ Sang	zaN
 Sand	zant
 Sammel	zam@l
 Samen	za:m@n
-sahne	za:n@
 Sahne	za:n@
+sahne	za:n@
 sage	za:g@
 Sage	za:g@
 Rüge	ry:g@
 Rücken	rYk@n
 Räumte	rOYmt@
 Rupfen	rUpf@n
-Ruhe	ru:@
 ruhe	ru:@
+Ruhe	ru:@
 Rolle	rOl@
-ritt	rIt
 Ritt	rIt
+ritt	rIt
 Rinne	rIn@
 Riet	ri:t
 Riemen	ri:m@n
@@ -139103,12 +139114,12 @@ Riefe	ri:f@
 Rennen	rEn@n
 Reißen	raIs@n
 Reissen	raIs@n
-Reise	raIz@
 reise	raIz@
+Reise	raIz@
 Reinemachen	raIn@,max@n
 Reihe	raI@
-reibe	raIb@
 Reibe	raIb@
+reibe	raIb@
 Registrier	regIstri:r
 Regel	re:g@l
 Rechnen	rECn@n
@@ -139118,32 +139129,32 @@ Raufe	raUf@
 Ranzen	rants@n
 Rang	raN
 Rahmen	ra:m@n
-puste	pu:st@
 Puste	pu:st@
+puste	pu:st@
 Punzen	pUnts@n
 Prüf	pry:f
-prostituierte	prostitu?i:rt@
 Prostituierte	prostitu?i:rt@
+prostituierte	prostitu?i:rt@
 Pricken	prIk@n
 predigt	pre:dICt
 Predigt	pre:dICt
 Planeten	plane:t@n
 planet	plane:t
 Planet	plane:t
-plage	pla:g@
 Plage	pla:g@
+plage	pla:g@
 Pirsch	pIrS
-Pflege	pfle:g@
 pflege	pfle:g@
+Pflege	pfle:g@
 Pflanze	pflants@
 Pfiff	pfIf
 Pfeife	pfaIf@
-penne	pEn@
 Penne	pEn@
+penne	pEn@
 peitsche	paItS@
 Peitsche	paItS@
-Pass	pas
 Paß	pas
+Pass	pas
 Noppen	nOp@n
 Neige	naIg@
 neige	naIg@
@@ -139161,18 +139172,18 @@ messe	mEs@
 melde	mEld@
 Melde	mEld@
 Make	mEIk
-macht	maxt
 Macht	maxt
+macht	maxt
 mache	max@
 Mache	max@
 Logen	lo:Z@n
 Log	lOk
-locke	lOk@
 Locke	lOk@
+locke	lOk@
 Liege	li:g@
 Leuchte	lOYCt@
-lese	le:z@
 Lese	le:z@
+lese	le:z@
 Lenk	lENk
 Leiste	laIst@
 leiste	laIst@
@@ -139191,12 +139202,12 @@ Laken	la:k@n
 Lager	la:g@r
 Lade	la:d@
 Lachen	lax@n
-Lache	lax@
 lache	lax@
+Lache	lax@
 Krähe	krE:@
 Kreuz	krOYts
-Kreide	kraId@
 kreide	kraId@
+Kreide	kraId@
 Krampen	kramp@n
 Kragen	kra:g@n
 Kotzen	kOts@n
@@ -139209,27 +139220,27 @@ Kniff	knIf
 Kneipe	knaIp@
 Kloben	klo:b@n
 Klinge	klIN@
-klemme	klEm@
 Klemme	klEm@
+klemme	klEm@
 Klebe	kle:b@
 Klaue	klaU@
 Klappe	klap@
 Klang	klaN
 Klageweg	kla:g@,ve:k
-klage	kla:g@
 Klage	kla:g@
+klage	kla:g@
 Kippe	kIp@
 Kette	kEt@
-kehre	ke:r@
 Kehre	ke:r@
+kehre	ke:r@
 Kauf	kaUf
-karte	kart@
 Karte	kart@
+karte	kart@
 Kappe	kap@
 Jagen	ja:g@n
 Inkrafttreten	?Inkraft,tre:t@n
-illustrierte	?IlUstri:rt@
 Illustrierte	?IlUstri:rt@
+illustrierte	?IlUstri:rt@
 Hülle	hYl@
 Härte	hErt@
 Hupe	hu:p@
@@ -139300,8 +139311,8 @@ Fetzen	fEts@n
 Fasen	fa:z@n
 Falte	falt@
 Fall	fal
-Fahrt	fa:rt
 fahrt	fa:rt
+Fahrt	fa:rt
 Esse	?Es@
 esse	?Es@
 Erweis	?ErvaIs
@@ -139315,30 +139326,30 @@ Erhalt	?Erhalt
 Ergötzen	?Erg9ts@n
 Ergehen	?Erge:@n
 Erbrechen	?ErbrEC@n
-Erbe	?Erb@
 erbe	?Erb@
+Erbe	?Erb@
 Erbarmen	?Erbarm@n
 Erachten	?Er?axt@n
 Entzücken	?EnttsYk@n
 Entkommen	?EntkOm@n
 Einstieg	?aInSti:k
-eile	?aIl@
 Eile	?aIl@
+eile	?aIl@
 Eiche	?aIC@
 eiche	?aIC@
 Ehre	?e:r@
 ehre	?e:r@
-egge	?Eg@
 Egge	?Eg@
+egge	?Eg@
 Dusche	du:S@
 Drängen	drEN@n
 Druck	drUk
 Drasch	draS
-dienst	di:nst
 Dienst	di:nst
+dienst	di:nst
 Denk	dENk
-Delegierte	delegi:rt@
 delegierte	delegi:rt@
+Delegierte	delegi:rt@
 Dank	daNk
 Crash	krES
 Come	kam
@@ -139356,14 +139367,14 @@ Brieschen	bri:sC@n
 Brenn	brEn
 Bremse	brEmz@
 Brems	brEms
-Breche	brEC@
 breche	brEC@
+Breche	brEC@
 Brech	brEC
 Braut	braUt
 Bote	bo:t@
 Borsten	bOrst@n
-blase	bla:z@
 Blase	bla:z@
+blase	bla:z@
 binde	bInd@
 Binde	bInd@
 Biesen	bi:z@n
@@ -139405,10 +139416,11 @@ Austritt	?aUstrIt
 Ausstieg	?aUsSti:k
 Aufstieg	?aUfSti:k
 Antwort	?antvOrt
+Antwort	a n t v O r t
 Anstieg	?anSti:k
 Anken	?aNk@n
-Alliierte	?ali?i:rt@
 alliierte	?ali?i:rt@
+Alliierte	?ali?i:rt@
 abknapsen	?apknaps@n
 % NAM:VRB
 Jochen	jOx@n
@@ -139427,8 +139439,8 @@ pink	pINk
 % NAM:KNJ:SBJ
 Oder	?o:d@r
 % QPV:VRB:VRB
-Zwirnen	tsvIrn@n
 zwirnen	tsvIrn@n
+Zwirnen	tsvIrn@n
 zerfahren	tsErfa:r@n
 verwachsen	fErvaks@n
 vermessen	fErmEs@n
@@ -139446,8 +139458,8 @@ erworben	?ErvOrb@n
 erfahren	?Erfa:r@n
 durchwachsen	dUrC,vaks@n
 besonnen	b@zOn@n
-Bescheiden	b@SaId@n
 bescheiden	b@SaId@n
+Bescheiden	b@SaId@n
 % MOD:ART:NOM:PRO
 nichts	nICts
 % ART:NOM:PRO:QAV
@@ -139490,10 +139502,10 @@ salve	zalve:
 rentablere	rEnta:bl@,re:
 Re	re:
 Puff	pUf
-prost	pro:st
 Prost	pro:st
-prosit	pro:zIt
+prost	pro:st
 Prosit	pro:zIt
+prosit	pro:zIt
 praktikablere	praktika:bl@,re:
 plumps	plUmps
 plauz	plaUts
@@ -139501,14 +139513,14 @@ platsch	platS
 Piep	pi:p
 piep	pi:p
 pfui	pfUI
-patsch	patS
 Patsch	patS
+patsch	patS
 passablere	pasa:bl@,re:
 papperlapapp	pap@rlapap
 miau	miaU
 marsch	marS
-Larifari	larifa:ri:
 larifari	larifa:ri:
+Larifari	larifa:ri:
 kuckuck	kUkUk
 komfortablere	kOmfOrta:bl@,re:
 knack	knak
@@ -139521,16 +139533,16 @@ kikeriki	kik@riki:
 innerere	?In@r@,re:
 I	?i:
 husch	hUS
-hurra	hUra:
 Hurra	hUra:
-huch	hu:x
+hurra	hUra:
 Huch	hUx
+huch	hu:x
 horrido	hOrido:
 Hopp	hOp
 hopp	hOp
 Hokuspokus	ho:kUs,po:kUs
-Hallo	halo:
 hallo	halo:
+Hallo	halo:
 fiat	fi:at
 dunklere	dUNkl@,re:
 deleatur	dele?a:tu:r
@@ -139538,8 +139550,8 @@ Buff	bUf
 bravo	bra:vo:
 Bimbam	bIm,bam
 basta	basta:
-Au	?aU
 au	?aU
+Au	?aU
 Apport	?apOrt
 Amen	?a:mEn
 amen	?a:m@n
@@ -139552,8 +139564,8 @@ zögern	ts2:g@rn
 zwang	tsvaN
 Zahl	tsa:l
 wurzeln	vUrts@ln
-Vorhersagen	fo:rhe:r,za:g@n
 vorhersagen	fo:rhe:r,za:g@n
+Vorhersagen	fo:rhe:r,za:g@n
 Versprechen	fErSprEC@n
 versorgen	fErzOrg@n
 Vernehmen	fErne:m@n
@@ -139567,21 +139579,21 @@ schützen	SYts@n
 schlitten	SlIt@n
 scannen	skEn@n
 rücken	rYk@n
-renten	rEnt@n
 Renten	rEnt@n
+renten	rEnt@n
 own	?o:n
-nerven	nErf@n
 Nerven	nErf@n
+nerven	nErf@n
 laden	la:d@n
 klang	klaN
 floß	flOs
 drang	draN
-dingen	dIN@n
 Dingen	dIN@n
-Buchen	bu:x@n
+dingen	dIN@n
 buchen	bu:x@n
-Bahnen	ba:n@n
+Buchen	bu:x@n
 bahnen	ba:n@n
+Bahnen	ba:n@n
 antworten	?antvOrt@n
 % INJ:QAN
 Quivive	kivi:f
@@ -139634,8 +139646,8 @@ genormt	g@nOrmt
 gelaufen	g@laUf@n
 geblieben	g@bli:b@n
 gebleicht	g@blaICt
-Gebissen	g@bIs@n
 gebißen	g@bIs@n
+Gebissen	g@bIs@n
 geballt	g@balt
 gangen	gaN@n
 führt	fy:rt
@@ -139846,22 +139858,22 @@ derentwillen	de:r@ntvIl@n
 äußern	?OYs@rn
 zügeln	tsy:g@ln
 zwingen	tsvIN@n
-zweifeln	tsvaIf@ln
 Zweifeln	tsvaIf@ln
-zirkeln	tsIrk@ln
+zweifeln	tsvaIf@ln
 Zirkeln	tsIrk@ln
+zirkeln	tsIrk@ln
 zimmern	tsIm@rn
 Zimmern	tsIm@rn
 zerfließen	tsErfli:s@n
 zechen	tsEC@n
 zahlen	tsa:l@n
-wundern	vUnd@rn
 Wundern	vUnd@rn
+wundern	vUnd@rn
 Wogen	vo:g@n
 wogen	vo:g@n
 wirbeln	vIrb@ln
-Wickeln	vIk@ln
 wickeln	vIk@ln
+Wickeln	vIk@ln
 wetten	vEt@n
 werten	ve:rt@n
 Wellen	vEl@n
@@ -139870,8 +139882,8 @@ weichen	vaIC@n
 wehen	ve:@n
 wedeln	ve:d@ln
 Wedeln	ve:d@ln
-wechseln	vEks@ln
 Wechseln	vEks@ln
+wechseln	vEks@ln
 wagen	va:g@n
 vögeln	f2:g@ln
 Vierteln	fIrt@ln
@@ -139886,24 +139898,24 @@ unternehmen	?Unt@rne:m@n
 unken	?UNk@n
 umschließen	?UmSli:s@n
 trüffeln	trYf@ln
-Tränken	trENk@n
 tränken	trENk@n
+Tränken	trENk@n
 trompeten	trOmpe:t@n
 Trompeten	trOmpe:t@n
 Trommeln	trOm@ln
 trommeln	trOm@ln
-tischlern	tISl@rn
 Tischlern	tISl@rn
+tischlern	tISl@rn
 tippen	tIp@n
 testen	tEst@n
 Testen	tEst@n
 taten	ta:t@n
-Tasten	tast@n
 tasten	tast@n
-tafeln	ta:f@ln
+Tasten	tast@n
 Tafeln	ta:f@ln
-tadeln	ta:d@ln
+tafeln	ta:f@ln
 Tadeln	ta:d@ln
+tadeln	ta:d@ln
 säbeln	zE:b@ln
 Summen	zUm@n
 summen	zUm@n
@@ -139911,42 +139923,42 @@ stürmen	StYrm@n
 stürben	StYrb@n
 stählen	StE:l@n
 stufen	Stu:f@n
-Strudeln	Stru:d@ln
 strudeln	Stru:d@ln
+Strudeln	Stru:d@ln
 strecken	StrEk@n
-stoppeln	StOp@ln
 Stoppeln	StOp@ln
+stoppeln	StOp@ln
 stopfen	StOpf@n
 stimmen	StIm@n
 stiften	StIft@n
 Stiften	StIft@n
-stieren	Sti:r@n
 Stieren	Sti:r@n
-Stiefeln	Sti:f@ln
+stieren	Sti:r@n
 stiefeln	Sti:f@ln
+Stiefeln	Sti:f@ln
 stieben	Sti:b@n
 Steuern	StOY@rn
 steuern	StOY@rn
 steppen	StEp@n
-Stempeln	StEmp@ln
 stempeln	StEmp@ln
+Stempeln	StEmp@ln
 Stellen	StEl@n
 stellen	StEl@n
-Steigern	StaIg@rn
 steigern	StaIg@rn
+Steigern	StaIg@rn
 stecken	StEk@n
 stapeln	Sta:p@ln
 Stapeln	Sta:p@ln
-Staken	Sta:k@n
 staken	Sta:k@n
-stacheln	Stax@ln
+Staken	Sta:k@n
 Stacheln	Stax@ln
+stacheln	Stax@ln
 spülen	Spy:l@n
 spulen	Spu:l@n
 Sprossen	SprOs@n
 sprossen	SprOs@n
-Spritzen	SprIts@n
 spritzen	SprIts@n
+Spritzen	SprIts@n
 spiegeln	Spi:g@ln
 Spiegeln	Spi:g@ln
 sperren	SpEr@n
@@ -139954,8 +139966,8 @@ speisen	SpaIz@n
 Speichern	SpaIC@rn
 speichern	SpaIC@rn
 spalten	Spalt@n
-Sonnen	zOn@n
 sonnen	zOn@n
+Sonnen	zOn@n
 siegeln	zi:g@ln
 Siegeln	zi:g@ln
 sicheln	zIC@ln
@@ -139964,17 +139976,17 @@ seilen	zaIl@n
 seifen	zaIf@n
 Seifen	zaIf@n
 sehnen	ze:n@n
-segeln	ze:g@ln
 Segeln	ze:g@ln
+segeln	ze:g@ln
 schwächen	SvEC@n
 Schwingen	SvIN@n
 schwingen	SvIN@n
-schwemmen	SvEm@n
 Schwemmen	SvEm@n
+schwemmen	SvEm@n
 schwellen	SvEl@n
 schrammen	Sram@n
-schossen	SOs@n
 Schossen	SOs@n
+schossen	SOs@n
 schnitzeln	SnIts@ln
 Schnitzeln	SnIts@ln
 schnallen	Snal@n
@@ -139982,33 +139994,33 @@ schließen	Sli:s@n
 schlichten	SlICt@n
 Schleudern	SlOYd@rn
 schleudern	SlOYd@rn
-schimmeln	SIm@ln
 Schimmeln	SIm@ln
+schimmeln	SIm@ln
 schießen	Si:s@n
 schienen	Si:n@n
 schielen	Si:l@n
 scheren	Se:r@n
 schellen	SEl@n
 scheitern	SaIt@rn
-scheiteln	SaIt@ln
 Scheiteln	SaIt@ln
+scheiteln	SaIt@ln
 schaukeln	SaUk@ln
 Schaukeln	SaUk@ln
 schaden	Sa:d@n
-salben	zalb@n
 Salben	zalb@n
+salben	zalb@n
 rösten	r2:st@n
 räumen	rOYm@n
 rudern	ru:d@rn
 Rotten	rOt@n
 rotten	rOt@n
-rollern	rOl@rn
 Rollern	rOl@rn
+rollern	rOl@rn
 rollen	rOl@n
 robben	rOb@n
 Robben	rOb@n
-Rinnen	rIn@n
 rinnen	rIn@n
+Rinnen	rIn@n
 ringen	rIN@n
 riefen	ri:f@n
 reihen	raI@n
@@ -140025,76 +140037,76 @@ prügeln	pry:g@ln
 proben	pro:b@n
 Pressen	prEs@n
 pressen	prEs@n
-polstern	pOlst@rn
 Polstern	pOlst@rn
-Pinseln	pInz@ln
+polstern	pOlst@rn
 pinseln	pInz@ln
-Pilgern	pIlg@rn
+Pinseln	pInz@ln
 pilgern	pIlg@rn
+Pilgern	pIlg@rn
 pflanzen	pflants@n
 pfeifen	pfaIf@n
 Paddeln	pad@ln
 paddeln	pad@ln
 paaren	pa:r@n
-Opfern	?Opf@rn
 opfern	?Opf@rn
+Opfern	?Opf@rn
 nähern	nE:@rn
 nutzen	nUts@n
-Nadeln	na:d@ln
 nadeln	na:d@ln
+Nadeln	na:d@ln
 münzen	mYnts@n
-murmeln	mUrm@ln
 Murmeln	mUrm@ln
+murmeln	mUrm@ln
 mucken	mUk@n
 mißfallen	mIsfal@n
 mieten	mi:t@n
 mengen	mEN@n
 meistern	maIst@rn
 Meistern	maIst@rn
-mauern	maU@rn
 Mauern	maU@rn
+mauern	maU@rn
 lümmeln	lYm@ln
 löffeln	l9f@ln
 löchern	l9C@rn
 lächeln	lEC@ln
 liegen	li:g@n
-leuchten	lOYCt@n
 Leuchten	lOYCt@n
+leuchten	lOYCt@n
 leisten	laIst@n
 Lastkraftwagen	last,kraft,va:g@n
 lagern	la:g@rn
 Lagern	la:g@rn
 kören	k2:r@n
 ködern	k2:d@rn
-Kurven	kUrv@n
 kurven	kUrv@n
-Kuppeln	kUp@ln
+Kurven	kUrv@n
 kuppeln	kUp@ln
+Kuppeln	kUp@ln
 Kugeln	ku:g@ln
 kugeln	ku:g@ln
 krümeln	kry:m@ln
 krähen	krE:@n
-Kreisen	kraIz@n
 kreisen	kraIz@n
-kreiseln	kraIz@ln
+Kreisen	kraIz@n
 Kreiseln	kraIz@ln
+kreiseln	kraIz@ln
 krebsen	kre:ps@n
 Krebsen	kre:ps@n
 krallen	kral@n
 Krallen	kral@n
 Kosten	kOst@n
 kosten	kOst@n
-koppeln	kOp@ln
 Koppeln	kOp@ln
+koppeln	kOp@ln
 knüppeln	knYp@ln
-Knospen	knOsp@n
 knospen	knOsp@n
+Knospen	knOsp@n
 knieten	kni:t@n
 Knien	kni:@n
 knien	kni:@n
 kneipen	knaIp@n
-knebeln	kne:b@ln
 Knebeln	kne:b@ln
+knebeln	kne:b@ln
 Knarren	knar@n
 knarren	knar@n
 klingen	klIN@n
@@ -140102,12 +140114,12 @@ klingeln	klIN@ln
 Klingeln	klIN@ln
 kleben	kle:b@n
 klauen	klaU@n
-klappern	klap@rn
 Klappern	klap@rn
+klappern	klap@rn
 klappen	klap@n
 kippen	kIp@n
-Keulen	kOYl@n
 keulen	kOYl@n
+Keulen	kOYl@n
 ketten	kEt@n
 kellnern	kEln@rn
 Kellnern	kEln@rn
@@ -140115,12 +140127,12 @@ kegeln	ke:g@ln
 karren	kar@n
 kappen	kap@n
 Kappen	kap@n
-Kanten	kant@n
 kanten	kant@n
-kacheln	kax@ln
+Kanten	kant@n
 Kacheln	kax@ln
-Kabeln	ka:b@ln
+kacheln	kax@ln
 kabeln	ka:b@ln
+Kabeln	ka:b@ln
 Irren	?Ir@n
 irren	?Ir@n
 hüllen	hYl@n
@@ -140134,8 +140146,8 @@ himmeln	hIm@ln
 Himmeln	hIm@ln
 Haushalten	haUs,halt@n
 haushalten	haUs,halt@n
-Harken	hark@n
 harken	hark@n
+Harken	hark@n
 hacken	hak@n
 graupeln	graUp@ln
 gipfeln	gIpf@ln
@@ -140143,70 +140155,70 @@ Gipfeln	gIpf@ln
 gelangen	g@laN@n
 gelandet	g@land@t
 geigen	gaIg@n
-Gabeln	ga:b@ln
 gabeln	ga:b@ln
+Gabeln	ga:b@ln
 füllen	fYl@n
 führen	fy:r@n
 fächern	fEC@rn
-furchen	fUrC@n
 Furchen	fUrC@n
+furchen	fUrC@n
 fräsen	frE:z@n
 fressen	frEs@n
 Frankreichen	fraNk,raIC@n
 fragen	fra:g@n
 fließen	fli:s@n
 flicken	flIk@n
-flegeln	fle:g@ln
 Flegeln	fle:g@ln
+flegeln	fle:g@ln
 flanken	flaNk@n
-flammen	flam@n
 Flammen	flam@n
+flammen	flam@n
 flaggen	flag@n
 fisteln	fIst@ln
 Fisteln	fIst@ln
-Fingern	fIN@rn
 fingern	fIN@rn
+Fingern	fIN@rn
 fetten	fEt@n
 Fesseln	fEs@ln
 fesseln	fEs@ln
 feilen	faIl@n
 feiern	faI@rn
 Feiern	faI@rn
-federn	fe:d@rn
 Federn	fe:d@rn
+federn	fe:d@rn
 falten	falt@n
-fackeln	fak@ln
 Fackeln	fak@ln
+fackeln	fak@ln
 erbeten	?Erbe:t@n
 entsetzen	?EntzEts@n
 entfremden	?EntfrEmd@n
 enden	?End@n
 einigen	?aInIg@n
 drängen	drEN@n
-Drosseln	drOs@ln
 drosseln	drOs@ln
+Drosseln	drOs@ln
 dritteln	drIt@ln
 dasein	da:zaIn
 bürsten	bYrst@n
 bündeln	bYnd@ln
 bügeln	by:g@ln
-Buddeln	bUd@ln
 buddeln	bUd@ln
+Buddeln	bUd@ln
 bremsen	brEmz@n
-brauen	braU@n
 Brauen	braU@n
+brauen	braU@n
 braten	bra:t@n
 bluffen	blUf@n
 blasen	bla:z@n
 Beuteln	bOYt@ln
 beuteln	bOYt@ln
-Beulen	bOYl@n
 beulen	bOYl@n
-betten	bEt@n
+Beulen	bOYl@n
 Betten	bEt@n
+betten	bEt@n
 betreten	b@tre:t@n
-Berlinern	bErli:n@rn
 berlinern	bErli:n@rn
+Berlinern	bErli:n@rn
 Bechern	bEC@rn
 bechern	bEC@rn
 backen	bak@n
@@ -140313,8 +140325,8 @@ näher	nE:@r
 müßig	my:sIC
 mobil	mobi:l
 mies	mi:s
-Locker	lOk@r
 locker	lOk@r
+Locker	lOk@r
 lieb	li:p
 leid	laIt
 leicht	laICt
@@ -140570,8 +140582,8 @@ verdattert	fErdat@rt
 verdammt	fErdamt
 verbreitet	fErbraIt@t
 verbraucht	fErbraUxt
-Verboten	fErbo:t@n
 verboten	fErbo:t@n
+Verboten	fErbo:t@n
 verbohrt	fErbo:rt
 verblieben	fErbli:b@n
 verblichen	fErblIC@n
@@ -140584,8 +140596,8 @@ unvorhergesehen	?Unfo:rhe:rg@,ze:@n
 unvoreingenommen	?Unfo:r?aIng@,nOm@n
 unverdorben	?UnfEr,dOrb@n
 untersetzt	?Unt@rzEtst
-Unterschieden	?Unt@rSi:d@n
 unterschieden	?Unt@rSi:d@n
+Unterschieden	?Unt@rSi:d@n
 unternehmend	?Unt@rne:m@nt
 untergeordnet	?Unt@rg@,?Ordn@t
 untergeben	?Unt@r,ge:b@n
@@ -140659,8 +140671,8 @@ loden	lo:d@n
 livriert	livri:rt
 liegend	li:g@nt
 leitend	laIt@nt
-ledern	le:d@rn
 Ledern	le:d@rn
+ledern	le:d@rn
 laufend	laUf@nt
 langgestreckt	laNg@,StrEkt
 lang	laN
@@ -140835,8 +140847,8 @@ Filzen	fIlts@n
 filiert	fili:rt
 ferngesteuert	fErng@,StOY@rt
 ferngelenkt	fErng@,lENkt
-fasst	fast
 faßt	fast
+fasst	fast
 fahrend	fa:r@nt
 extrovertiert	?EkstrovErti:rt
 extern	?EkstErn
@@ -140886,8 +140898,8 @@ deplaciert	deplasi:rt
 darauffolgend	daraUffOlg@nt
 couragiert	kuraZi:rt
 bète	bE:t
-bronzen	brO~:s@n
 Bronzen	brO~:s@n
+bronzen	brO~:s@n
 brennend	brEn@nt
 brechend	brEC@nt
 brannt	brant
@@ -140929,8 +140941,8 @@ besagt	b@za:kt
 berühmt	b@ry:mt
 berücksichtigt	b@rYkzICtICt
 beruhigend	b@ru:Ig@nt
-berufen	b@ru:f@n
 Berufen	b@ru:f@n
+berufen	b@ru:f@n
 beritten	b@rIt@n
 berechtigt	b@rECtICt
 benötigt	b@n2:tICt
@@ -141042,6 +141054,137 @@ abgeblaßt	?apg@blast
 abfallend	?apfal@nt
 % QPN:VRB
 äußere	?OYs@r@
+% Unbekannt
+überquert	y: b @ r k v e: @ t
+überhört	y: b @ r h oeh R t
+Ärger	E R g @ R
+Zwerg	ts v E R k
+zuzuhören	ts u: ts u: h oeh: R @ n
+zusammen	ts u z a m @ n
+Ziegenbock	ts i: g @ n b O k
+wusste	v U s t @
+woher	v o h e: R
+Wette	v E t @
+werden	v e: R d @ n
+Welt	v E l t
+weise	v aI z @
+Wackelzahln	v a k @ l ts a: l n
+wachte	v a x t @
+wach	v a x
+vorzeigen	f o: r ts aI g @ n
+verärgert	f E R E R g @ R t
+verstehen	f E R S t e: n
+verstehe	f E R S t e: @
+vergisst	f E R g I s t
+unruhig	U n R u: I C
+ums	U m s
+tönte	t oeh: n t @
+tut	t u: t
+turnen	t U R n @ n
+träume	t R OY m @
+trug	t R u: k
+trommelt	t R O m @ l t
+traurig	t R aU R I C
+Teller	t E l @ R
+stützte	S t Y ts t @
+stark	S t a R k
+spuckte	S p U k t @
+spitzte	S p I ts t @
+Sorgen	z O R g @ n
+Sorge	z O R g @
+soll	z O l
+sogar	z o g a: R
+schüttet	S Y t @
+schönen	S oeh: n
+schwieg	S v i: k
+Schwanz	S v a n ts
+schwaf	S v a: f
+schummelt	S U m @ l t
+Schreibzeug	S R aI b ts OY k
+scharf	S a R f
+schaffen	S a f @ n
+saß	z a: s
+San	s a n
+rutschte	R U t S t @
+rund	R U n t
+recht	R E C t
+pausen	p aU z @ n
+Papagei	p a p a: g aI
+neun	n OY n
+neues	n OY @ s
+Neinguar	n aI n g u a: R
+nassen	n a s @ n
+Mund	m U n t
+meistens	m aI s t @ s
+meist	m aI s t
+Mathe	m a t @
+Mamagei	m a m a: g aI
+Los	l o: s
+links	l I N k s
+langweiligen	l a N v aI l I g @ n
+langweilig	l a N v aI l I C
+Langeweile	l a N @ v aI l @
+köpfte	k oe pf t @
+Korb	k O R p
+Jaguar	j a: g u a: R
+ihm	i: m
+Hänse	h E n z @
+Hut	h u: t
+Himbeermarmelade	h I m b e: R m a R m @ l a: d @
+Himbeeren	h I m b e: R @ n
+hief	h i: p
+herein	h E R aI n
+heimich	h aI m I C
+Hefte	h E f t @
+Haferbrei	h a: f @ R b R aI
+Haar	h a: R
+Güte	g y: t @
+Grete	g R e: t @
+glaub	g l aU b
+gewaschen	g @ v a S @ n
+Gesicht	g @ z I C t
+gerade	g @ R a: d @
+genug	g @ n u: k
+gemeinsam	g @ m aI n z a: m
+gehen	g e: @ n
+geben	g e: b @ n
+Garten	g a R t @ n
+Futter	f U t @ R
+fraßen	f R a: s @ n
+Flugzeug	f l u: k ts OY k
+fiel	f i: l
+Fenstergras	f E n s t @ R g R a: s
+Fensterglas	f E n s t @ R g l a: s
+erwachsen	E R v a k s @ n
+einschlafen	aI n S l a: f @ n
+eigentlich	aI g @ n t l I C
+Efiede	E f i: d @
+draußen	d R aU s @ n
+deutsch	d OY t S
+dauert	d aU @ R t
+dabei	d a b aI
+Bäume	b OY m @
+brummelte	b R U m @ l t @
+Braunbären	b R aU n b E: R @ n
+bleiben	b l aI b @ n
+bisher	b I s h e: R
+Besuch	b @ z u: x
+besser	b E s @ R
+bemerkt	b @ m E R k t
+beleidigt	b @ l aI d i C t
+bekommen	b @ k O m @ n
+beinahe	b aI n a: h @
+Bauch	b aU x
+Backenzahn	b a k @ n ts a: n
+Aß	a: s
+altes	a l t @ s
+alten	a l t @ n
+also	a l z o:
+allein	a l aI n
+abhob	a p h o: b
+abba	a p a:
+ab	a p
+a	a:
 % KNJ:SBJ
 und	?Unt
 sowie	zovi:
@@ -141056,13 +141199,13 @@ züchtige	tsYCtIg@
 vermischen	fErmIS@n
 verflüchtigen	fErflYCtIg@n
 veranschaulichen	fEr?anSaUlIC@n
-reformierten	refOrmi:rt@n
 Reformierten	refOrmi:rt@n
+reformierten	refOrmi:rt@n
 rechten	rECt@n
 mindere	mInd@r@
 erblichen	?ErblIC@n
-delegierten	delegi:rt@n
 Delegierten	delegi:rt@n
+delegierten	delegi:rt@n
 beschuldigten	b@SUldICt@n
 Beschuldigten	b@SUldICt@n
 % ART:PRO:QAN:VRB
@@ -141362,8 +141505,8 @@ darum	darUm
 da	da:
 % QAV:QPV:TME
 zugegen	tsuge:g@n
-wohl	vo:l
 Wohl	vo:l
+wohl	vo:l
 vorweg	forvEk
 rund	rUnt
 rein	raIn
@@ -141511,8 +141654,8 @@ Loden	lo:d@n
 Geschehen	g@Se:@n
 Drang	draN
 Care	kE:r
-bete	be:t@
 Bete	be:t@
+bete	be:t@
 Bedacht	b@daxt
 % NOM:QAN:VRB
 Verwundeten	fErvUnd@t@n
@@ -141525,8 +141668,8 @@ Verbündeten	fErbYnd@t@n
 Verbündete	fErbYnd@t@
 unterzeichneten	?Unt@rtsaICn@t@n
 Unterzeichneten	?Unt@rtsaICn@t@n
-Unterzeichnete	?Unt@rtsaICn@t@
 unterzeichnete	?Unt@rtsaICn@t@
+Unterzeichnete	?Unt@rtsaICn@t@
 Schwäche	SvEC@
 Schweißen	SvaIs@n
 Menge	mEN@
@@ -141568,8 +141711,8 @@ Dings	dINs
 samt	zamt
 pro	pro:
 mittels	mIt@ls
-mangels	maN@ls
 Mangels	maN@ls
+mangels	maN@ls
 kontra	kOntra:
 Ante	?ant@
 Anbetracht	?anb@,traxt
@@ -141648,8 +141791,8 @@ einschließlich	?aInSli:slIC
 eingedenk	?aIng@,dENk
 bezüglich	b@tsy:klIC
 anläßlich	?anlEslIC
-Achtern	?axt@rn
 achtern	?axt@rn
+Achtern	?axt@rn
 abzüglich	?aptsy:klIC
 abschläglich	?apSlE:klIC
 % ADD:SBJ
@@ -141689,8 +141832,8 @@ derlei	de:rlaI
 % MOD:QPV
 keinerlei	kaIn@rlaI
 % ADD:TME
-Zwischen	tsvIS@n
 zwischen	tsvIS@n
+Zwischen	tsvIS@n
 vor	fo:r
 neben	ne:b@n
 längs	lENs
@@ -141698,8 +141841,8 @@ gegen	ge:g@n
 durch	dUrC
 Durch	dUrC
 % ADD:NOM:SBJ
-Ob	?Op
 ob	?Op
+Ob	?Op
 % ADD:VEM
 willen	vIl@n
 % ADD:NOM:QPV

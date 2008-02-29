@@ -17,7 +17,7 @@
 #include "renameterminalworkingpage.h"
 #include "grammarmanager.h"
 
-RenameTerminalWizard::RenameTerminalWizard(QWidget* parent): SimonWizard(parent)
+RenameTerminalWizard::RenameTerminalWizard(QWidget* parent): QWizard(parent)
 {
 	setWindowTitle(tr("Terminal umbenennen"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/editterminal.png"));

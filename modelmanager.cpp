@@ -20,6 +20,9 @@
 #include <QDir>
 #include <QFile>
 #include <QProcess>
+#include <QDebug>
+#include "wordlistmanager.h"
+#include "grammarmanager.h"
 
 
 ModelManager* ModelManager::instance;
@@ -38,7 +41,7 @@ ModelManager::ModelManager(QWidget *parent) : QThread(parent)
 
 
 bool ModelManager::compileGrammar()
-{	
+{
 	emit status(tr("Generiere Umkehr-Grammatik..."));
 	if (!generateReverseGrammar())
 	{
@@ -47,14 +50,23 @@ bool ModelManager::compileGrammar()
 	}
 	
 	emit progress(2050);
+	emit status(tr("Entferne unverwendete Vokabeln..."));
+	if (!makeSimpleVocab())
+	{
+		emit error(tr("Konnte simple Vokabeln nicht erstellen.\n\nBitte überprüfen Sie ob der die Wortliste richtig geladen wurde."));
+		return false;
+	}
+	emit progress(2090);
+	
 
 	emit status(tr("Generiere temporäre Vokabeln..."));
-	if (!generateTempVoca())
+	if (!makeTempVocab())
 	{
 		emit error(tr("Konnte Temporäre Vokabeln nicht erstellen.\n\nBitte überprüfen Sie die Pfade zur Vokabulardatei (%1).").arg(Settings::getS("Model/PathToVocab")));
 		return false;
 	}
 	emit progress(2100);
+	
 
 	emit status(tr("Generiere DFA..."));
 	if (!makeDfa())
@@ -67,7 +79,7 @@ bool ModelManager::compileGrammar()
 	emit status(tr("Generiere Grammatikalisches Wörterbuch..."));
 	if (!generateDict())
 	{
-		emit error(tr("Konnte das grammatikalische Wörterbuch nicht generieren. \nBitte überprüfen Sie die Pfade zur Vocabeldatei und zum grammatikalischen Wörterbuch selbst. (%1, %2).").arg(Settings::getS("Model/PathToVoca")).arg(Settings::getS("Model/PathToDict")));
+		emit error(tr("Konnte das grammatikalische Wörterbuch nicht generieren. \nBitte überprüfen Sie die Pfade zur Ausgabedatei. (%1).").arg(Settings::getS("Model/PathToDict")));
 		return false;
 	}
 	emit progress(2299);
@@ -75,45 +87,68 @@ bool ModelManager::compileGrammar()
 	return true;
 }
 
-
-bool ModelManager::generateTempVoca()
+bool ModelManager::makeTempVocab()
 {
-	QString vocabPath = Settings::getS("Model/PathToVocab");
-	QFile vocab(vocabPath);
-	
+	QString vocabPath = tmpDir+"simpleVocab";
+	QFile vocab ( vocabPath );
+
 	QString terminal;
 
-	if (!vocab.open(QFile::ReadOnly)) return false;
-	QFile tmpVocab(tmpDir+"tempvoca");
-	if (!tmpVocab.open(QFile::WriteOnly)) return false;
-	
-	QFile term(tmpDir+"term");
-	if (!term.open(QFile::WriteOnly)) return false;
-	
+	if ( !vocab.open ( QFile::ReadOnly ) ) return false;
+	QFile tmpVocab ( tmpDir+"tempvoca" );
+	if ( !tmpVocab.open ( QFile::WriteOnly ) ) return false;
+
+	QFile term ( tmpDir+"term" );
+	if ( !term.open ( QFile::WriteOnly ) ) return false;
+
 	QString vocabEntry;
-	
+
 	int termid=0;
-	while (!vocab.atEnd())
+	while ( !vocab.atEnd() )
 	{
-		vocabEntry = vocab.readLine(1024);
-		vocabEntry.remove(QRegExp("\r+$"));
-		vocabEntry.remove(QRegExp("#.*"));
-		if (vocabEntry.trimmed().isEmpty()) continue;
-		
-		if (vocabEntry.startsWith("%"))
+		vocabEntry = vocab.readLine ( 1024 );
+		vocabEntry.remove ( QRegExp ( "\r+$" ) );
+		vocabEntry.remove ( QRegExp ( "#.*" ) );
+		if ( vocabEntry.trimmed().isEmpty() ) continue;
+		if ( vocabEntry.startsWith ( "%" ) )
 		{
-			terminal = vocabEntry.mid(1).trimmed();
-			tmpVocab.write("#"+terminal.toLatin1()+"\n");
-		
-			term.write(termid+"\t"+terminal.toLatin1()+"\n");
+			terminal = vocabEntry.mid ( 1 ).trimmed();
+			tmpVocab.write ( "#"+terminal.toLatin1() +"\n" );
+
+			term.write ( termid+"\t"+terminal.toLatin1() +"\n" );
 			termid++;
 		}
-		
+
 	}
 	vocab.close();
 	tmpVocab.close();
 	term.close();
 	return true;
+}
+
+bool ModelManager::makeSimpleVocab()
+{
+	WordListManager *wlistman = WordListManager::getInstance();
+	QStringList usedTerminals = GrammarManager::getInstance()->getTerminals();
+
+	WordList *simpleList = new WordList();
+	for (int i=0; i < usedTerminals.count(); i++)
+	{
+		WordList *tempList = wlistman->getWordsByTerminal(usedTerminals[i]);
+		for (int j=0; j < tempList->count(); j++)
+		{
+			Word currentW = tempList->at(j);
+			currentW.setTerminal(currentW.getTerminal().remove(":"));
+			simpleList->append(tempList->at(j));
+		}
+		delete tempList;
+	
+	}
+	
+	bool succ = wlistman->saveWordList(simpleList, tmpDir+"simpleLexicon", tmpDir+"simpleVocab");
+	
+	delete simpleList;
+	return succ;
 }
 
 bool ModelManager::makeDfa()
@@ -144,10 +179,10 @@ bool ModelManager::generateReverseGrammar()
 	if (!reverseGrammar.open(QFile::WriteOnly)) return false;
 
 	QString reverseGrammarEntry;
-	QStringList parts;
 	QString grammarEntry;
 	QStringList terminals;
-
+	QString identifier;
+	
 	while (!grammar.atEnd())
 	{
 		grammarEntry = grammar.readLine(1024);
@@ -155,12 +190,16 @@ bool ModelManager::generateReverseGrammar()
 		grammarEntry.remove(QRegExp("#.*"));
 		if (grammarEntry.trimmed().isEmpty()) continue;
 		
-		parts = grammarEntry.split(QRegExp("\\:"));
+		int splitter =grammarEntry.indexOf(QRegExp("\\:"));
 		
-		reverseGrammarEntry = parts[0]+": ";
-		terminals = parts[1].split(" ");
+		if (splitter == -1) continue;
+		
+		identifier = grammarEntry.left(splitter);
+		
+		reverseGrammarEntry = identifier+": ";
+		terminals = grammarEntry.mid(splitter+1).split(" ");
 		for (int i=terminals.count()-1; i >= 0; i--)
-			reverseGrammarEntry += terminals[i].trimmed()+" ";
+			reverseGrammarEntry += terminals[i].remove(":").trimmed()+" ";
 		
 		reverseGrammar.write(reverseGrammarEntry.toLatin1()+"\n");
 	}
@@ -172,7 +211,7 @@ bool ModelManager::generateReverseGrammar()
 bool ModelManager::generateDict()
 {
 	int nowId = -1;
-	QFile vocab(Settings::getS("Model/PathToVocab"));
+	QFile vocab(tmpDir+"simpleVocab");
 	if (!vocab.open(QFile::ReadOnly)) return false;
 	QFile dict(Settings::getS("Model/PathToDict"));
 	if (!dict.open(QFile::WriteOnly)) return false;
@@ -184,7 +223,8 @@ bool ModelManager::generateDict()
 		vocabEntry = vocab.readLine(1024);
 		vocabEntry.remove(QRegExp("\r+$"));
 		vocabEntry.remove(QRegExp("#.*"));
-		if (vocabEntry.trimmed().isEmpty()) continue;
+		vocabEntry = vocabEntry.trimmed();
+		if (vocabEntry.isEmpty()) continue;
 		
 		if (vocabEntry.startsWith("%"))
 		{
@@ -192,11 +232,10 @@ bool ModelManager::generateDict()
 			continue;
 		} else
 		{
-			entryPart = vocabEntry.split(QRegExp("[\t ]*"), 
-					QString::SkipEmptyParts);
-			if (entryPart.count() < 2) continue;
+			int splitter = vocabEntry.indexOf("\t");
+			if (splitter == -1) continue;
 			
-			dict.write(QString::number(nowId).toLatin1()+"\t"+"["+entryPart[0].toLatin1()+"]"+entryPart[1].toLatin1());
+			dict.write(QString(QString::number(nowId)+"\t"+"["+vocabEntry.left(splitter)+"]\t"+vocabEntry.mid(splitter).trimmed()+"\n").toLatin1());
 		}
 	}
 	
@@ -223,8 +262,8 @@ void ModelManager::setProgress(int now, int max)
 
 void ModelManager::displayError(QString error)
 {
-	QMessageBox::critical(0, tr("Fehler"), tr("Beim Kompilieren des Modells ist ein Fehler aufgetreten:\n\n%1\n\nLetzter Output:\n%2\n\nFehlermeldung:\n%3").arg(error).arg(lastOutput).arg(lastError));
-	processDialog->hide();
+	QMessageBox::critical(0, tr("Fehler"), tr("Beim Kompilieren des Modells ist ein Fehler aufgetreten:\n\n%1\n\nLetzter Output:\n...%2\n\nFehlermeldung:\n...%3").arg(error).arg(lastOutput.right(600)).arg(lastError.right(600)));
+	processDialog->close();
 }
 
 bool ModelManager::startCompilation()
@@ -320,7 +359,7 @@ void ModelManager::run()
 {
 	Logger::log(tr("[INF] Modell wird generiert..."));
 	emit status(tr("Vorbereitung"));
-	emit progress(0,2000);
+	emit progress(0,2300);
 	
 	proc = new QProcess();
 	connect(proc, SIGNAL(readyReadStandardError()), this, SLOT(logError()));
@@ -333,6 +372,7 @@ void ModelManager::run()
 	}
 	emit progress(2);
 	this->tmpDir = Settings::getS("TempDir")+"/modeltmp/";
+	proc->setWorkingDirectory(tmpDir);
 	if (!generateInputFiles()) return;
 	if (!makeTranscriptions()) return;
 	if (!codeAudioData()) return;
@@ -340,7 +380,7 @@ void ModelManager::run()
 	if (!compileGrammar()) return;
 	
 	emit status(tr("Abgeschlossen"));
-	emit progress(2300);
+	emit progress(2300, 2300);
 }
 
 bool ModelManager::generateInputFiles()
@@ -412,21 +452,21 @@ bool ModelManager::createMonophones()
 	emit status(tr("Erstelle hmm1..."));
 	if (!buildHMM1())
 	{
-		emit error(tr("Fehler beim Generieren des HMM1. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		emit error(tr("Fehler beim Generieren des HMM1. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(800);
 	emit status(tr("Erstelle hmm2..."));
 	if (!buildHMM2())
 	{
-		emit error(tr("Fehler beim Generieren des HMM2. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		emit error(tr("Fehler beim Generieren des HMM2. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(850);
 	emit status(tr("Erstelle hmm3..."));
 	if (!buildHMM3())
 	{
-		emit error(tr("Fehler beim Generieren des HMM3. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		emit error(tr("Fehler beim Generieren des HMM3. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(900);
@@ -564,6 +604,7 @@ bool ModelManager::tieStates()
 bool ModelManager::buildHMM13()
 {
 	proc->start(Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm12/macros -H "+tmpDir+"hmm12/hmmdefs -M "+tmpDir+"hmm13 "+tmpDir+"tree.hed "+tmpDir+"triphones1");
+	qDebug() << Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm12/macros -H "+tmpDir+"hmm12/hmmdefs -M "+tmpDir+"hmm13 "+tmpDir+"tree.hed "+tmpDir+"triphones1";
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
@@ -782,7 +823,6 @@ bool ModelManager::buildHMM9()
 bool ModelManager::buildHMM8()
 {
 	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"aligned.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm7/macros -H "+tmpDir+"hmm7/hmmdefs -M "+tmpDir+"hmm8 "+tmpDir+"monophones1");
-	
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }

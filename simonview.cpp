@@ -43,11 +43,6 @@
 
 
 
-
-// #warning Why? Oh Why...
-// #undef Unsorted
-
-
 /**
  * @brief Constructor
  *
@@ -82,13 +77,13 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	Logger::log ( tr ( "[INF] Lade Einstellungen..." ) );
 	Settings::initSettings();
 
-// 	Settings::set("ConfigDone", false);
+	Settings::set("ConfigDone", false);
 	if (!Settings::get("ConfigDone").toBool())
 	{
 		FirstRunWizard *firstRunWizard = new FirstRunWizard(this);
 		if (firstRunWizard->exec() || (QMessageBox::question(this, tr("Konfiguration abbrechen"), tr("Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.\n\nWollen Sie den Assistenten beim nächsten Start wieder anzeigen?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::No))
 			Settings::set("ConfigDone", true);
-		delete firstRunWizard;
+		firstRunWizard->deleteLater();
 	}
 	
 	
@@ -106,7 +101,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	shownDialogs = 0;
 	QMainWindow ( parent,flags );
-
+	qApp->setQuitOnLastWindowClosed(false);
 	ui.setupUi ( this );
 
 
@@ -581,6 +576,7 @@ void SimonView::closeSimon()
 	if ( ( !Settings::get ( "AskBeforeExit" ).toBool() ) || ( QMessageBox::question ( this, tr ( "Wirklich beenden?" ), tr ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?" ),QMessageBox::Yes|QMessageBox::No,QMessageBox::No ) == QMessageBox::Yes ) )
 	{
 		close();
+		qApp->quit();
 	}
 }
 

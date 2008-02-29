@@ -12,7 +12,7 @@
 #ifndef MERGETERMINALSWIZARD_H
 #define MERGETERMINALSWIZARD_H
 
-#include "simonwizard.h"
+#include <QWizard>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -22,7 +22,7 @@ class WordListManager;
 
 class QWizardPage;
 
-class MergeTerminalsWizard : public SimonWizard
+class MergeTerminalsWizard : public QWizard
 {
 private:
 	QWizardPage* createIntroPage();

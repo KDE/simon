@@ -17,7 +17,6 @@
 #define IMPORTPROGRAMWIZARD_H
 
 
-#include "simonwizard.h"
 
 #include "selectprogrampage.h"
 #include "configureprogrampage.h"
@@ -25,6 +24,7 @@
 #include "command.h"
 #include "recwidget.h"
 #include <QWizardPage>
+#include <QWizard>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -37,7 +37,7 @@
  * \brief This wizard is used to add a existing program to the commands. The Wizard will find out the programs, which are installed on the computer.
   *         The programs are also devided into categories like "office", "games", resp.
  */
-class ImportProgramWizard : public SimonWizard
+class ImportProgramWizard : public QWizard
 {
 	Q_OBJECT
 		

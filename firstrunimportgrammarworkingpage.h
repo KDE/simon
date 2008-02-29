@@ -12,7 +12,7 @@
 #ifndef FIRSTRUNIMPORTGRAMMARWORKINGPAGE_H
 #define FIRSTRUNIMPORTGRAMMARWORKINGPAGE_H
 
-#include <importgrammarworkingpage.h>
+#include "importgrammarworkingpage.h"
 
 /**
  \class FirstRunImportGrammarWorkingPage

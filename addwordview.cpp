@@ -138,7 +138,6 @@ void AddWordView::finish(int done)
 	if (!done) return;
 	
 	WordListManager *wordlistMgr = WordListManager::getInstance();
-	TrainingManager *trainManager = TrainingManager::getInstance();
 	QString word = field("wordName").toString();
 	
 	Logger::log(tr("[INF] Füge neues Wort zum Modell hinzu..."));
@@ -150,11 +149,13 @@ void AddWordView::finish(int done)
 	list->append(Word(word, field("wordPronunciation").toString(),
 			 field("wordTerminal").toString(), 2 /* 2 recordings */));
 
-	QHash<QString,QString> samples;
-	
-	samples.insert(recordingName1, field("wordExample1").toString());
-	samples.insert(recordingName2, field("wordExample2").toString());
-	trainManager->addSamples(&samples);
+// 	Training stuff deactivated for now
+// 	TrainingManager *trainManager = TrainingManager::getInstance();
+// 	QHash<QString,QString> samples;
+// 	samples.insert(recordingName1, field("wordExample1").toString());
+// 	samples.insert(recordingName2, field("wordExample2").toString());
+// 	trainManager->addSamples(&samples);
+
 	wordlistMgr->addWords(list, true /*sorted*/, false /*shadowed*/);
 
 	//cleaning up

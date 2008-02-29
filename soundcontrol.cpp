@@ -13,6 +13,8 @@
 #include <string.h>
 #include "simoninfo.h"
 #include "logger.h"
+#include "RtAudio.h"
+#include "RtError.h"
 #include <QObject>
 /**
  *	@brief Constructor
@@ -130,5 +132,4 @@ SoundDeviceList* SoundControl::getInputDevices()
 */
 SoundControl::~SoundControl()
 {
-	delete audio;
 }

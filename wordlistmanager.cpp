@@ -52,6 +52,38 @@ WordListManager::WordListManager () : QThread()
 }
 
 
+/**
+ * \brief Returns the whole list of words using the specified terminal
+ * @param terminal The terminal to look for
+ * @param includeShadow Should we also look in the shadowdict?
+ * @return The wordlist
+ */
+WordList* WordListManager::getWordsByTerminal(QString terminal, bool includeShadow)
+{
+	wordListLock.lock();
+	WordList *list = getWordList();
+	WordList *out = new WordList();
+	for (int i=0; i < list->count(); i++)
+	{
+		if (list->at(i).getTerminal()==terminal)
+			out->append(list->at(i));
+	}
+	wordListLock.unlock();
+	if (!includeShadow) return out;
+	
+	shadowLock.lock();
+	list = getShadowList();
+	for (int i=0; i < list->count(); i++)
+	{
+		if (list->at(i).getTerminal()==terminal)
+			out->append(list->at(i));
+	}
+	shadowLock.unlock();
+	
+	return out;
+}
+
+
 
 /**
  * \brief Warns about changing a temporary wordlist (when the path is not correctly configured)
@@ -84,7 +116,7 @@ void WordListManager::run()
 {
 	shadowLock.lock();
 	shadowDirty = false;
-	this->shadowList = readWordList(Settings::getS("Model/PathToShadowLexicon"), Settings::getS("Model/PathToShadowVocab"), Settings::getS("Model/PathToPrompts"), this->shadowTerminals);
+	this->shadowList = readWordList(Settings::getS("Model/PathToShadowLexicon"), Settings::getS("Model/PathToShadowVocab"), Settings::getS("Model/PathToPrompts"), this->shadowTerminals, true);
 	if (!shadowList)
 	{
 		this->shadowList = new WordList();
@@ -138,12 +170,14 @@ WordList* WordListManager::getShadowList()
  * \author Peter Grasch
  * \param QString filename
  * If not provided we default on the filename we used to open the file
+ * \warning If both lists are changed, we will ONLY emit the wordlistChanged signal
  * \return bool
  * Saving successful?
  */
 bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 			     QString shadowLexiconFilename, QString shadowVocabFilename )
 {
+	bool wlistChanged = false, slistChanged = false;
 	if (isTemp){
 		emit tempWarning();
 	}
@@ -157,7 +191,7 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 		if (lexiconFilename.isEmpty()) lexiconFilename = Settings::getS("Model/PathToLexicon");
 		if (vocabFilename.isEmpty()) vocabFilename = Settings::getS("Model/PathToVocab");
 		saveWordList(this->getWordList(), lexiconFilename, vocabFilename);
-		emit wordlistChanged();
+		wlistChanged = true;
 		mainDirty=false;
 	}
 	wordListLock.unlock();
@@ -169,12 +203,13 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 		if (shadowLexiconFilename.isEmpty()) shadowLexiconFilename = Settings::getS("Model/PathToShadowLexicon");
 		if (shadowVocabFilename.isEmpty()) shadowVocabFilename = Settings::getS("Model/PathToShadowVocab");
 		saveWordList(this->getShadowList(), shadowLexiconFilename, shadowVocabFilename);
-		emit shadowListChanged();
+		slistChanged = true;
 		shadowDirty=false;
 	}
 	shadowLock.unlock();
 	
-	
+	if (wlistChanged) emit wordlistChanged();
+	else if (slistChanged) emit shadowListChanged();
 	return true;
 }
 
@@ -283,6 +318,88 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 }
 
 /**
+ * \brief Binary search for finding the word
+ * @param list The list to search
+ * @param found Did we find something?
+ * @param word The name of the word
+ * @param pronunciation SAMPA pronunciation
+ * @param terminal The terminal of the word
+ * @note This is incredible fast :)
+ * @return The index of the found word this is set to the nearest hit if not found (see parameter: found)
+ */
+int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QString pronunciation, QString terminal)
+{
+	if (!list || (list->count()==0))
+	{
+		found = false;
+		return -1;
+	}
+	word = word.toUpper();
+	
+	int currentSearchStart = list->count()/2; //make use of integer division
+	//if count() == 1, currentSearchStart = 0,5 = 0 instead of 1 when using round
+	//(which would be out of bounds)
+	
+	int currentMinValue = 0;
+	int currentMaxValue = list->count();
+	Word *currentWord;
+	QString currentWordName, currentWordPronunciation, currentWordTerminal;
+	int modificator=0;
+	while (true)
+	{
+		currentWord = (Word*) &(list->at(currentSearchStart));
+		currentWordName = currentWord->getWord().toUpper();
+		currentWordPronunciation = currentWord->getPronunciation();
+		currentWordTerminal = currentWord->getTerminal();
+		
+		if ((currentWordName==word)
+			&& ((pronunciation.isEmpty() || currentWordPronunciation == pronunciation)
+			&& (terminal.isEmpty() || currentWordTerminal == terminal)))
+		{
+			//we found the exact word
+			found = true;
+			return currentSearchStart;
+		} else if ((currentWordName < word) || 
+			((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation < pronunciation)
+			|| (!terminal.isEmpty() && currentWordTerminal < terminal))))
+		{
+			currentMinValue = currentSearchStart;
+			modificator = (currentMaxValue - currentMinValue)/2;
+		} else if ((currentWordName > word) || 
+			((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation > pronunciation)
+			|| (!terminal.isEmpty() && currentWordTerminal > terminal))))
+		{
+			currentMaxValue = currentSearchStart;
+			modificator = (currentMaxValue - currentMinValue)/(-2);
+		}
+		
+		
+		if (modificator == 0) {
+			//stagnating search
+			//do a incremental search over the left over items
+			int i=currentMinValue;
+			while ((i < currentMaxValue) && ((currentWordName < word) || 
+						     ((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation < pronunciation)
+						     || (!terminal.isEmpty() && currentWordTerminal < terminal)))))
+			{
+				i++;
+			}
+			if ((list->at(i).getWord().toUpper()==word)
+							&& ((pronunciation.isEmpty() || list->at(i).getPronunciation() == pronunciation)
+							&& (terminal.isEmpty() || list->at(i).getTerminal() == terminal)))
+			{
+				found = true;
+			} else found = false;
+			return i;
+		}
+		currentSearchStart += modificator;
+	}
+	
+	found = false;
+	return currentSearchStart;
+}
+
+/**
  * \brief Inits the lists to empty lists
  * \author Peter Grasch
  */
@@ -308,9 +425,11 @@ void WordListManager::safelyInit()
  * Path to the prompts file
  * \param terminals
  * Pointer to the terminallist to fill
+ * \param isShadowlist
+ * Points out if this is a shadowlist - then we skip the recognition-check (it will always return 0)
  * @return  The parsed WordList
  */
-WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QString promptspath, QStringList &terminals )
+WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QString promptspath, QStringList &terminals, bool isShadowlist )
 {
 	Logger::log (QObject::tr("[INF] Lesen der Wörterliste bestehend aus "));
 	Logger::log(QObject::tr("[INF] \t\tLexikon: %1,").arg(lexiconpath));
@@ -337,6 +456,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 		{
 			//its a new terminal!
 			term = line.mid(2).trimmed();
+// 			term = term.replace(":", "_");
 			//strip multiple definitions
 			if (!terminals.contains(term)) terminals.append(term);
 		} else
@@ -348,7 +468,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 			pronunciation = line.mid(splitter).trimmed();
 			if (pronunciation == "sil") continue;
 			
-			wordlist->append(Word(word, pronunciation, term, trainManager->getProbability(word.toUpper())));
+			wordlist->append(Word(word, pronunciation, term, (isShadowlist) ? 0 : trainManager->getProbability(word.toUpper())));
 		}
 	}
 	wordlist = this->sortList(wordlist);
@@ -386,18 +506,26 @@ WordList* WordListManager::removeDoubles(WordList *in)
 	return in;
 }
 
+/**
+ * \brief Gets the given word and returns a pointer to it (NULL if not found)
+ * \note Uses the _fast_ binary search of getWordIndex()
+ * @param word Name of the word
+ * @param pronunciation Pronunciation of the word
+ * @param terminal The terminal of the word
+ * @param isShadowed If the word is shadowed (reference parameter)
+ * @return The word (null if not found)
+ */
 Word* WordListManager::getWord(QString word, QString pronunciation, QString terminal, bool &isShadowed)
 {
 	Word *w=NULL;
 	isShadowed = false;
 	wordListLock.lock();
-	for (int i=0; i < wordlist->count(); i++)
+	bool found;
+	WordList *wList = getWordList();
+	int wIndex = getWordIndex(wList, found, word, pronunciation, terminal);
+	if (found)
 	{
-		if ((wordlist->at(i).getWord() == word) && (wordlist->at(i).getPronunciation() == pronunciation) && (wordlist->at(i).getTerminal() == terminal))
-		{
-			w = (Word*) &(wordlist->at(i));
-			break;
-		}
+		w = (Word*) &(wList->at(wIndex));
 	}
 	wordListLock.unlock();
 	if (w)
@@ -405,13 +533,11 @@ Word* WordListManager::getWord(QString word, QString pronunciation, QString term
 
 	isShadowed = true;
 	shadowLock.lock();
-	for (int i=0; i < shadowList->count(); i++)
+	wList = getShadowList();
+	wIndex = getWordIndex(wList, found, word, pronunciation, terminal);
+	if (found)
 	{
-		if ((shadowList->at(i).getWord() == word) && (shadowList->at(i).getPronunciation() == pronunciation) && (shadowList->at(i).getTerminal() == terminal))
-		{
-			w = (Word*) &(shadowList->at(i));
-			break;
-		}
+		w = (Word*) &(wList->at(wIndex));
 	}
 	shadowLock.unlock();
 
@@ -422,6 +548,7 @@ Word* WordListManager::getWord(QString word, QString pronunciation, QString term
  * \brief Moves the given word to the shadowlist
  * \author Peter Grasch
  * \warning THEORETICALLY this code (we must lock the shadowlist AND the main wordlist) might yield to a deadlock
+ * \note uses binary search to determine where exactly to insert the new (old) word
  * @param w The given word
  * @return success (i.e. the file is not found); (this may also be false due to an error when deleting the prompts for the word!)
  */
@@ -429,7 +556,7 @@ bool WordListManager::moveToShadow(Word *w)
 {
 	int i=0;
 	if (!w) return false;
-	if (!TrainingManager::getInstance()->deleteWord(w))
+	if (!TrainingManager::getInstance()->deleteWord(w, true))
 		return false;
 	shadowLock.lock();
 	wordListLock.lock();
@@ -437,7 +564,15 @@ bool WordListManager::moveToShadow(Word *w)
 	{
 		if (&(wordlist->at(i)) == w)
 		{
-			shadowList->append(wordlist->takeAt(i));
+			Word w = wordlist->takeAt(i);
+			w.setProbability(0);
+			bool found;
+			int index = getWordIndex(shadowList, found, w.getWord(), w.getPronunciation(), w.getTerminal());
+			if (found) {
+				QMessageBox::information(0, tr("Duplikat erkannt"), tr("Dieses Wort existiert bereits im Schattenwörterbuch.\n\nEs wird nicht nocheinmal eingefügt"));
+			} else
+				shadowList->insert(index, w);
+				
 			shadowDirty = mainDirty = true;
 			break;
 		}
@@ -613,7 +748,7 @@ QStringList WordListManager::getTerminals(bool includeShadow)
 	return terminals;
 }
 
-WordList* WordListManager::getWords(QString word, bool includeShadow)
+WordList* WordListManager::getWords(QString word, bool includeShadow, bool fuzzy)
 {
 	WordList* found = new WordList();
 	int i=0;
@@ -627,7 +762,8 @@ WordList* WordListManager::getWords(QString word, bool includeShadow)
 	{
 		while (i<main->count())
 		{
-			if (main->at(i).getWord().toUpper()==toSearch)
+			if ((!fuzzy && (main->at(i).getWord().toUpper()==toSearch)) ||
+				(fuzzy && (main->at(i).getWord().toUpper().contains(toSearch))))
 			{
 				found->append(main->at(i));
 			}
@@ -644,7 +780,8 @@ WordList* WordListManager::getWords(QString word, bool includeShadow)
 	if (shadow)
 		while (i<shadow->count())
 		{
-			if (shadow->at(i).getWord().toUpper()==toSearch)
+			if ((!fuzzy && (shadow->at(i).getWord().toUpper()==toSearch))|| 
+				(fuzzy && (shadow->at(i).getWord().toUpper().contains(toSearch))))
 			{
 				found->append(shadow->at(i));
 			}
@@ -700,6 +837,12 @@ void WordListManager::renameTerminal(QString from, QString to, bool includeShado
  * \brief Adds the words to the local wordlist
  * Inserts the words into the current list (alphabetically)
  * Tries to omit duplicates...
+ * 
+ * This actually doesn't use binary search to look up the correct position where to insert the new words,
+ * but rather a "smart" linear search:
+ *  * We know that both the wordlists are sorted and start from the previous insertion spot
+ * This is in the common case (large new voc; small oldvoc;) even faster.
+ * 
  * \author Peter Grasch
  * \param WordList *list
  * List of words to add (DANGER: this pointer may be invalid after calling this function!)

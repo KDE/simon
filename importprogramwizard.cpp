@@ -19,7 +19,7 @@
 *   @author Susanne Tschernegg
 *   @param QWidget *parent
 */
-ImportProgramWizard::ImportProgramWizard ( QWidget* parent ) : SimonWizard ( parent )
+ImportProgramWizard::ImportProgramWizard ( QWidget* parent ) : QWizard ( parent )
 {
 	oldId=0;
 	this->addPage ( createIntroPage() );

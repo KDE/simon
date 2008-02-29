@@ -19,7 +19,6 @@
 #include "trainingmanager.h"
 #include <QMessageBox>
 #include <QFileInfo>
-#include <QFile>
 #include <QDate>
 #include <QTime>
 #include <QVariant>
@@ -117,7 +116,7 @@ bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles)
 		fileName = fileInfo.fileName();
 
 		said = extractSaid(fileName);
-		prompts->insert(fileName.left(fileName.lastIndexOf(".")), said);
+		prompts->insert(fileName.left(fileName.lastIndexOf(".")), said.toUpper());
 	}
 	train->addSamples(prompts);
 	train->savePrompts();
@@ -200,7 +199,7 @@ QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataF
 	{
 		fInfo.setFile(dataFiles[i]);
 		QString dateTime = QDate::currentDate().toString ( "yyyy-MM-dd" ) +"_"+QTime::currentTime().toString("hh-mm-ss");
-		newFileName = destDir+"/"+fInfo.fileName().left(fInfo.fileName().lastIndexOf(".")).replace(" ", "_")+"_"+dateTime+"_.wav";
+		newFileName = destDir+"/"+fInfo.fileName().left(fInfo.fileName().lastIndexOf(".")).replace(" ", "_")+"_"+dateTime+".wav";
 
 
 		if (!pp->process(dataFiles[i], newFileName))

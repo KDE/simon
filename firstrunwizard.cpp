@@ -49,11 +49,15 @@
  * @param addWordView The AddWordView to pass on 
  * @param parent Parent of the wizard
  */
-FirstRunWizard::FirstRunWizard(QWidget* parent): SimonWizard(parent)
+FirstRunWizard::FirstRunWizard(QWidget* parent): QWizard(parent)
 {
 	this->wordListManager=0;
 	this->trainingManager=0;
 	this->grammarManager=0;
+	firstRunImportGrammarWorkingPage=0;
+	importDictWorkingPage=0;
+	grammarSettingsPage=0;
+
 
 	setWindowTitle(tr("simon Erstkonfiguration"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/firstrun.png"));

@@ -90,6 +90,13 @@ public:
 	{
 		return this->pronunciation;
 	}
+
+	/**
+	 * \brief Sets the probability to the given probability
+	 * \author Peter Grasch
+	 * @param newProbability 
+	 */
+	void setProbability(int newProbability) { this->probability=newProbability; }
 	
 	/**
 	 * @brief Getter-Method: terminal

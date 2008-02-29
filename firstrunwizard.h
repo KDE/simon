@@ -12,7 +12,7 @@
 #ifndef FIRSTRUNWIZARD_H
 #define FIRSTRUNWIZARD_H
 
-#include "simonwizard.h"
+#include <QWizard>
 #include "word.h"
 
 /**
@@ -31,7 +31,7 @@ class SystemWidgetPage;
 class AddWordView;
 class GrammarManager;
 
-class FirstRunWizard : public SimonWizard
+class FirstRunWizard : public QWizard
 {
 
 Q_OBJECT

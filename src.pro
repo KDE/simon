@@ -149,7 +149,6 @@ importtrainingdirectoryworkingpage.h \
            configureprogrampage.h \
            importprogrampage.h \
            guievents.h \
-	   simonwizard.h \
 	   simonwidget.h \
 	   simonmainwindow.h \
 	   simoncombobox.h \
@@ -297,7 +296,6 @@ SOURCES += main.cpp \
            configureprogrampage.cpp \
            importprogrampage.cpp \
 	   commandsettings.cpp \
-	   simonwizard.cpp \
 	   simonmainwindow.cpp \
 	   simonwidget.cpp \
 	   simoncombobox.cpp \

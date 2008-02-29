@@ -27,6 +27,8 @@ SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellung
 	help = tr("Hier finden Sie alle Einstellungen zur Spracheingabe und Tonausgabe.\n\nWenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen, wird nach jeder Aufnahme eine Audiodatei mit Datum und Uhrzeit, sowie die erkannte Transkribtion im angegebenen Verzeichnis erstellt.\nBitte bedenken Sie, das dies sehr viel Platz in Anspruch nimmt.");
 	
 	this->sc= new SoundControl();
+	this->in = 0;
+	this->out = 0;
 	
 #ifdef linux
 	ui.lbDirectX->setVisible ( false );
@@ -172,9 +174,9 @@ bool SoundSettings::reset()
  */
 SoundSettings::~SoundSettings()
 {
-    delete sc;
-    delete in;
-    delete out;
+	if (sc) delete sc;
+	if (in) delete in;
+	if (out) delete out;
 }
 
 

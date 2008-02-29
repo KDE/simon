@@ -16,7 +16,7 @@
 #include "importgrammarselectfilespage.h"
 #include "importgrammarworkingpage.h"
 
-ImportGrammarWizard::ImportGrammarWizard(QWidget* parent): SimonWizard(parent)
+ImportGrammarWizard::ImportGrammarWizard(QWidget* parent): QWizard(parent)
 {
 	setWindowTitle(tr("Grammatikstrukturen Importieren"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importgrammar.png"));
