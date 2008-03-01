@@ -12,6 +12,7 @@
 #include "atwatcher.h"
 #include "atobject.h"
 #include "settings.h"
+#include "ato.h"
 
 #ifdef linux
 #include "dbusbackend.h"

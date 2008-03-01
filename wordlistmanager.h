@@ -78,7 +78,13 @@ public:
 
 	QString getRandomWord(QString terminal);
 
-	WordList* getWords(QString word, bool includeShadow=true, bool fuzzy=false);
+	WordList* getShadowedWords(QString word, bool fuzzy=false);
+	WordList* getMainstreamWords(QString word, bool fuzzy=false);
+	WordList* searchForWords(WordList *list, QString word, bool fuzzy=false);
+	
+	WordList* getWords(QString word, bool includeShadow, bool fuzzy=false, bool keepDoubles=false);
+
+	WordList* mergeLists(WordList *a, WordList *b, bool keepDoubles=true);
 
 	Word* getWord(QString word, QString pronunciation, QString terminal, bool &isShadowed);
 	int getWordIndex(WordList *list, bool &found, QString word, QString pronunciation="", QString terminal="");

@@ -53,6 +53,14 @@ ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent): QWizardPage(paren
 }
 
 
+/**
+ * \brief Aborts the process
+ * \author Peter Grasch
+ */
+void ImportDictWorkingPage::abort()
+{
+	import->deleteDict();
+}
 
 /**
  * \brief Returns true if we completed the wizard
@@ -197,9 +205,9 @@ void ImportDictWorkingPage::importWiktionaryFile(QString path)
  */
 ImportDictWorkingPage::~ImportDictWorkingPage()
 {
-    pbMain->deleteLater();
-    import->deleteLater();
-    lbStatus->deleteLater();
+    if (pbMain) pbMain->deleteLater();
+    if (import) import->deleteLater();
+    if (lbStatus) lbStatus->deleteLater();
 }
 
 

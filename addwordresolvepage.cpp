@@ -73,10 +73,17 @@ void AddWordResolvePage::initializePage()
 	ui.leWord->setText(word);
 	ui.leSampa->clear();
 
-	WordList* similar = wordListManager->getWords(word, true /*include shadow*/);
+	WordList* similar = wordListManager->getWords(word, true, false, false);
 	displayWords(similar);
-
 	delete similar;
+	
+// 	WordList* similar = wordListManager->getShadowedWords(word);
+// 	displayWords(similar);
+// 	delete similar;
+// 	similar = wordListManager->getMainstreamWords(word);
+// 	displayWords(similar);
+// 	delete similar;
+
 }
 
 /**

@@ -18,6 +18,7 @@ bool Logger::init(QString path)
 	QDir *dir = new QDir(fInfo.absolutePath());
 	if ((!dir->exists()) && (!dir->mkpath(path)))
 		return false;
+	delete dir;
 	
 	logF = new QFile(path);
 	if (!logF->open(QIODevice::WriteOnly|QIODevice::Append)) return false;
@@ -34,4 +35,5 @@ void Logger::log(QString message)
 void Logger::close()
 {
 	(Logger::logFile)->flush();
+	delete (Logger::logFile);
 }

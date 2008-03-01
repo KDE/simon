@@ -59,7 +59,10 @@ void CategoryXMLReader::load(QString path)
 		catList->append(ProgramCategory(name, desc, icon, formats));
 	}
 
-	if (this->categoryList) delete this->categoryList;
+	if (this->categoryList) {
+		delete this->categoryList;
+		this->categoryList=0;
+	}
 
 	this->categoryList = catList;
 }

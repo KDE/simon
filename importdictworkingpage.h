@@ -41,6 +41,7 @@ private slots:
 	void importWiktionaryFile(QString path);
 	void setCompleted() { ready=true; emit completeChanged(); }
 public slots:
+	void abort();
 	void displayStatus(QString status);
 	void displayProgress(int progress);
 	

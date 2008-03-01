@@ -748,45 +748,113 @@ QStringList WordListManager::getTerminals(bool includeShadow)
 	return terminals;
 }
 
-WordList* WordListManager::getWords(QString word, bool includeShadow, bool fuzzy)
-{
-	WordList* found = new WordList();
-	int i=0;
-	QString toSearch = word.toUpper();
 
-	wordListLock.lock();
-    
-	WordList* main = getWordList();
-	//main
-	if (main)
+
+
+/**
+ * \brief Merges the lists
+ * \warning The input pointer might become invalid after calling this function
+ * @param a List a
+ * @param b List b
+ * @return The merged list
+ */
+WordList* WordListManager::mergeLists(WordList *a, WordList *b, bool keepDoubles)
+{
+	if (!a) return b;
+	if (!b) return a;
+	
+
+	WordList *target;
+	WordList *source;
+	
+	if (a->count() > b->count()) // a bigger than b
 	{
-		while (i<main->count())
+		target = a;
+		source = b;
+	} else {
+		target = b;
+		source = a;
+	}
+	
+	int wCount = source->count();
+	for (int i=0; i < wCount; i++)
+	{
+		bool found;
+		Word currentWord = source->at(i);
+		int index = getWordIndex(target, found, currentWord.getWord(), currentWord.getPronunciation(),
+					 currentWord.getTerminal());
+		if (keepDoubles || !found)
+			target->insert(index, currentWord);
+	}
+	
+	delete source;
+	return target;
+}
+
+
+WordList* WordListManager::getWords(QString word, bool includeShadow, bool fuzzy, bool keepDoubles)
+{
+	WordList *out;
+	
+	out = getMainstreamWords(word, fuzzy);
+	
+	if (!includeShadow) return out;
+
+	return this->mergeLists(getShadowedWords(word, fuzzy), out, keepDoubles);
+}
+
+
+WordList* WordListManager::searchForWords(WordList *list, QString word, bool fuzzy)
+{
+	bool found;
+	WordList *out = new WordList();
+	if (!list) return out;
+	
+	if (!fuzzy)		// great! we can perform a binary search
+	{
+		int indexOfWord = getWordIndex(list, found, word);
+		if (!found) return out;
+		
+		//go up and down around the found index and add all matching words
+		int i=indexOfWord;
+		while ((i > 0) && (list->at(i).getWord().toUpper() == word.toUpper()))
 		{
-			if ((!fuzzy && (main->at(i).getWord().toUpper()==toSearch)) ||
-				(fuzzy && (main->at(i).getWord().toUpper().contains(toSearch))))
+			out->append(list->at(i));
+			i--;
+		}
+		i=indexOfWord+1;
+		while ((i < list->count()) && (list->at(i).getWord().toUpper() == word.toUpper()))
+		{
+			out->append(list->at(i));
+			i++;
+		}
+	} else { //nope - incremental only :(
+		int i=0;
+		while(i < list->count())
+		{
+			if (list->at(i).getWord().contains(word, Qt::CaseInsensitive))
 			{
-				found->append(main->at(i));
+				out->append(list->at(i));
 			}
 			i++;
 		}
 	}
-	wordListLock.unlock();
-	if (!includeShadow)
-		return found;
 	
-	i=0;
+	return out;
+}
+
+WordList* WordListManager::getMainstreamWords(QString word, bool fuzzy)
+{
+	wordListLock.lock();
+	WordList* found = searchForWords(getWordList(), word, fuzzy);
+	wordListLock.unlock();
+	return found;
+}
+
+WordList* WordListManager::getShadowedWords(QString word, bool fuzzy)
+{
 	shadowLock.lock();
-	WordList* shadow = getShadowList();
-	if (shadow)
-		while (i<shadow->count())
-		{
-			if ((!fuzzy && (shadow->at(i).getWord().toUpper()==toSearch))|| 
-				(fuzzy && (shadow->at(i).getWord().toUpper().contains(toSearch))))
-			{
-				found->append(shadow->at(i));
-			}
-			i++;
-		}
+	WordList* found = searchForWords(getShadowList(), word, fuzzy);
 	shadowLock.unlock();
 	return found;
 }

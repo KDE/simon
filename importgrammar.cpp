@@ -119,12 +119,12 @@ QStringList ImportGrammar::importFile(QString path)
 		bool everyWordSure=true;
 		for (int j=0; (j < words.count()) && everyWordSure; j++)
 		{
-			lookupResult = wordListManager->getWords(words[j],false /*first - quick lookup*/);
+			lookupResult = wordListManager->getMainstreamWords(words[j] /*first - quick lookup*/);
 			
 			QStringList wordTerminals=terminals(lookupResult);
 			if (wordTerminals.count()==0)
 			{
-				lookupResult = wordListManager->getWords(words[j],true /*extensive lookup*/);
+				lookupResult = wordListManager->getShadowedWords(words[j] /*extensive lookup*/);
 				wordTerminals = terminals(lookupResult);
 			}
 			

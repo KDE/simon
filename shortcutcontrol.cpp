@@ -73,6 +73,7 @@ void ShortcutControl::clearShortcutList()
  */
 void ShortcutControl::setShortcuts(ShortcutList *newShortcuts)
 {
+	if (this->shortcuts) delete this->shortcuts;
 	this->shortcuts = newShortcuts;
 }
 
@@ -180,7 +181,7 @@ bool ShortcutControl::replaceShortcut(Shortcut oldShortcut, Shortcut newShortcut
 
 ShortcutControl::~ShortcutControl()
 {
-    delete shortcuts;
     shortcutXMLReader->deleteLater();
+    delete shortcuts;
 }
 

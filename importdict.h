@@ -19,6 +19,8 @@
 #include "word.h"
 #include <QThread>
 
+class Dict;
+
 /**
  *	\class ImportDict
  *	\brief The ImportDict class provides the functions to import e.g. Wiktionary dicts
@@ -31,6 +33,7 @@ Q_OBJECT
 private:
 	QString pathToDict; //!< the path to the dictionary
 	int type;
+	Dict *dict;
 	bool deleteFileWhenDone;
 signals:
 	void status(QString);
@@ -40,6 +43,8 @@ signals:
 private slots:
 	void loadProgress(int prog);
 	void openingFinished();
+public slots:
+	void deleteDict();
 public:
     ImportDict(QObject *parent=0);
     void run();

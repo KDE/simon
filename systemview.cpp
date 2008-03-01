@@ -143,5 +143,9 @@ void SystemView::deleteControl(SystemWidget* control)
 
 SystemView::~SystemView()
 {
+	for (int i=0; i < ui.swControls->count(); i++)
+	{
+		ui.swControls->widget(i)->deleteLater();
+	}
 }
 

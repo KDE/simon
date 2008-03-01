@@ -27,7 +27,6 @@
 #include <QStringList>
 #include <QString>
 #include <QMessageBox>
-#include <QDebug>
 
 
 TrainingManager* TrainingManager::instance;
@@ -345,6 +344,7 @@ bool TrainingManager::trainText ( int i )
 	return (currentText != NULL);
 }
 
+
 /**
  * \brief chechs if all words in the dict. If there some words missing in the dict, the addwordview dialog will be shown.
  * \author Susanne Tschernegg
@@ -372,7 +372,7 @@ bool TrainingManager::allWordsExisting()
 			word.remove ( "\\" );
 			word.remove ( "[" );
 			word.remove ( "]" );
-			WordList* words = WordListManager::getInstance()->getWords ( word, false );
+			WordList* words = WordListManager::getInstance()->getMainstreamWords( word );
 			if ( words->isEmpty() )
 			{
 				bool wordExistingInList = false;

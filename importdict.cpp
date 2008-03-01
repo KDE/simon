@@ -21,6 +21,7 @@
  */
 ImportDict::ImportDict(QObject *parent) : QThread(parent)
 {
+	dict=0;
 	deleteFileWhenDone=false;
 }
 
@@ -48,7 +49,7 @@ void ImportDict::run()
 	emit status(tr("Öffne Wörterbuch..."));
 	
 	emit progress(10);
-	Dict *dict=0;
+	if (dict) dict->deleteLater();
 	if (type == WIKTIONARY)
 		dict = new WiktionaryDict(pathToDict);
 	else if (type == HADIFIXBOMP) dict = new BOMPDict(pathToDict);
@@ -66,7 +67,7 @@ void ImportDict::run()
 	QStringList words = dict->getWords();
 	QStringList terminals = dict->getTerminals();
 	QStringList pronunciations = dict->getPronuncations();
-    dict->deleteLater();
+	dict->deleteLater();
 	
 	WordList* vocablist = new WordList();
 	
@@ -112,6 +113,19 @@ void ImportDict::loadProgress(int prog)
 }
 
 /**
+ * \brief Deletes the dict
+ * \author Peter Grasch
+ */
+void ImportDict::deleteDict()
+{
+	if (isRunning()) terminate();
+	if (wait(2000))
+		if (dict) {
+			dict->deleteLater();
+		}
+}
+
+/**
  * \brief Finished opening the file
  * Emits opened()
  * \author Peter Grasch
@@ -127,6 +141,7 @@ void ImportDict::openingFinished()
  */
 ImportDict::~ImportDict()
 {
+	if (dict) dict->deleteLater();
 }
 
 

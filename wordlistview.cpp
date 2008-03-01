@@ -58,7 +58,7 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(showImportDictDialog()));
 	connect(importDictView, SIGNAL(dictGenerated(WordList*)), this, SLOT(importDict(WordList*)));
 	
-	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(toggleExtraWords()));
+	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(filterListbyPattern()));
 
 	this->wordListManager = WordListManager::getInstance();
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(reloadList()));
@@ -184,10 +184,10 @@ void WordListView::filterListbyPattern(QString filter)
 	if (filter.isEmpty()) filter = ui.leSearch->text().trimmed();
 	if (filter.isEmpty()) this->readVocab();
 	
-	WordList *limitedVocab = wordListManager->getWords(ui.leSearch->text(), ui.cbShowCompleteLexicon->isChecked(), true);
-
 	clearList();
 
+	WordList* limitedVocab = wordListManager->getWords(filter, ui.cbShowCompleteLexicon->isChecked(), 
+				true, true /* display words twice which are in the active AND the shadowdict*/);
 	insertVocab( limitedVocab );
 	delete limitedVocab;
 }
@@ -237,19 +237,6 @@ void WordListView::copyWordToTrain()
 	ui.lwTrainingWords->addItem(word);
 }
 
-
-void WordListView::toggleExtraWords()
-{
-	clearList();
-	ui.leSearch->setText("");
-	if (ui.cbShowCompleteLexicon->isChecked())
-	{
-		insertVocab(this->wordListManager->getWordList());
-		insertVocab(this->wordListManager->getShadowList());
-	} else {
-		insertVocab(this->wordListManager->getWordList());
-	}
-}
 
 
 /**

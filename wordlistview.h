@@ -70,17 +70,16 @@ public slots:
 	void trainList();
 	void importDict(WordList* list);
 	void clearList();
-	void toggleExtraWords();
 	void filterListbyPattern(QString filter="");
 	void clearSearchText();
 	void insertVocab(WordList *vocab);
 	void show();
 	void hide();
 	void showImportDictDialog();
-    void hideTbEditModel();
-    void setTbEditModelVisible();
-    
-    WordListManager* getManager(){return wordListManager;}
+	void hideTbEditModel();
+	void setTbEditModelVisible();
+
+	WordListManager* getManager(){return wordListManager;}
 
 public:
 	WordListView(QWidget *parent);

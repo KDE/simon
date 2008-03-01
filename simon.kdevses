@@ -1,56 +1,33 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="15" >
-  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/dbusbackend.cpp" >
-   <View0 Encoding="ISO 8859-15" line="388" Type="Source" />
+ <DocsAndViews NumberOfDocuments="6" >
+  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutxmlreader.cpp" >
+   <View0 Encoding="ISO 8859-15" line="22" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/atwatcher.cpp" >
-   <View0 Encoding="ISO 8859-15" line="0" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/bompdict.cpp" >
+   <View0 Encoding="ISO 8859-15" line="88" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.cpp" >
-   <View0 Encoding="ISO 8859-15" line="365" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/dict.cpp" >
+   <View0 Encoding="ISO 8859-15" line="294" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistview.cpp" >
-   <View0 Encoding="ISO 8859-15" line="174" Type="Source" />
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importdictworkingpage.cpp" >
+   <View0 Encoding="ISO 8859-15" line="61" Type="Source" />
   </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importtrainingdirectoryworkingpage.cpp" >
-   <View0 Encoding="ISO 8859-15" line="122" Type="Source" />
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importdict.cpp" >
+   <View0 Encoding="ISO 8859-15" line="124" Type="Source" />
   </Doc4>
-  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/postprocessing.cpp" >
-   <View0 Encoding="ISO 8859-15" line="62" Type="Source" />
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importtrainingdirectoryworkingpage.cpp" >
+   <View0 Encoding="ISO 8859-15" line="159" Type="Source" />
   </Doc5>
-  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/modelmanager.cpp" >
-   <View0 Encoding="ISO 8859-15" line="201" Type="Source" />
-  </Doc6>
-  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/addwordview.cpp" >
-   <View0 Encoding="ISO 8859-15" line="187" Type="Source" />
-  </Doc7>
-  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/addwordrecordpage.cpp" >
-   <View0 Encoding="ISO 8859-15" line="18" Type="Source" />
-  </Doc8>
-  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/addwordrecordpage.h" >
-   <View0 Encoding="ISO 8859-15" line="31" Type="Source" />
-  </Doc9>
-  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.h" >
-   <View0 Encoding="ISO 8859-15" line="83" Type="Source" />
-  </Doc10>
-  <Doc11 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/modelmanager.h" >
-   <View0 Encoding="ISO 8859-15" line="34" Type="Source" />
-  </Doc11>
-  <Doc12 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/simonview.cpp" >
-   <View0 Encoding="ISO 8859-15" line="605" Type="Source" />
-  </Doc12>
-  <Doc13 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistview.h" >
-   <View0 Encoding="ISO 8859-15" line="62" Type="Source" />
-  </Doc13>
-  <Doc14 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/word.h" >
-   <View0 Encoding="ISO 8859-15" line="136" Type="Source" />
-  </Doc14>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>
-   <breakpointList/>
+   <breakpointList>
+    <breakpoint0 location="/home/bedahr/Daten/simon/source/trunk/importdictworkingpage.cpp:62" type="1" tracingFormatString="" traceFormatStringEnabled="0" condition="" tracingEnabled="0" enabled="1" >
+     <tracedExpressions/>
+    </breakpoint0>
+   </breakpointList>
    <showInternalCommands value="0" />
   </kdevdebugger>
   <kdevastyle>
@@ -64,8 +41,8 @@
    <subversion base="" />
   </kdevsubversion>
   <kdevvalgrind>
-   <executable path="" params="" />
-   <valgrind path="" params="" />
+   <executable path="/home/bedahr/Daten/simon/source/trunk/simon" params="" />
+   <valgrind path="/usr/bin/valgrind" params=" --tool=memcheck --leak-check=yes" />
    <calltree path="" params="" />
    <kcachegrind path="" />
   </kdevvalgrind>
