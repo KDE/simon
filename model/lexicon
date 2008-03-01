@@ -1,5 +1,5 @@
 ABENDS		[abends]		a: b @ n ts
-ABER		[aber]		a: b @ R
+ABER		[aber]		a: b @ r
 ACHTEN		[Achten]		a x t @ n
 AH		[ah]		a:
 ALL		[all]		a l
@@ -81,7 +81,7 @@ DIESEN		[diesen]		d i: z @ n
 DIESES		[dieses]		d i: z @ s
 DIR		[dir]		d i: R
 DOCH		[doch]		d O x
-DREI		[drei]		d R aI
+DREI		[Drei]		d r aI
 DRÜCKTEN		[drückten]		d r Y k t @ n
 DU		[du]		d u:
 DURCHS		[durchs]		d U R C s
@@ -248,6 +248,7 @@ HINTER		[hinter]		h I n t @ r
 HINTERS		[hinters]		h I n t @ r s
 HOCH		[hoch]		h o: x
 HOFFE		[hoffe]		h O f @
+HOLZ		[Holz]		h O l ts
 HUNGER		[Hunger]		h U N @ r
 HÄNDE		[Hände]		h E n d @
 HÄT		[hät]		h E t

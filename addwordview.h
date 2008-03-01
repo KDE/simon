@@ -68,6 +68,7 @@ class AddWordView : public QWizard
 		
 	private slots:
 		void setRecordingNames(QString name1, QString name2);
+		void askToAddWord(QString word);
 		
 
 	public slots:

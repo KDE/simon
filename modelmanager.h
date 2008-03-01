@@ -33,8 +33,10 @@ signals:
 	void status(QString);
 	void error(QString);
 	void progress(int now, int total=2300);
+	void missingWord(QString);
 private:
 	static ModelManager* instance;
+	bool errorAlreadyFetched;
 	QProgressDialog *processDialog;
 	QProcess *proc;
 	QString tmpDir;

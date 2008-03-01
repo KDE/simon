@@ -410,7 +410,6 @@ Ei	aI
 durchs	d U R C s
 du	d u:
 drückten	d r Y k t @ n
-drei	d R aI
 doch	d O x
 dir	d i: R
 diesen	d i: z @ n
@@ -466,7 +465,6 @@ alles	a l @ s
 alle	a l @
 all	a l
 ah	a:
-aber	a: b @ R
 abends	a: b @ n ts
 % ADD
 Radfahrer	r a: t f a: r @ r
@@ -521,6 +519,8 @@ bravo	b r a: v o:
 hinter	h I n t @ r
 % MOD:QAV
 etwa	E t v a
+% KNJ:MOD:NOM:QAV:QPV
+aber	a: b @ r
 % NOM
 Wünsche	v Y n S @
 Wunsch	v U n S
@@ -638,11 +638,14 @@ haben	h a: b @ n
 % ADD:NOM:SBJ
 ob	O p
 % NOM:QPV
+Holz	h O l ts
 Arm	a r m
 % INJ:NOM:QPV
 schade	S a: d @
 % NUM:QAN
 Zehn	ts e: n
+% NOM:NUM:QAN
+Drei	d r aI
 % QPV:TME
 richtig	r I C t I C
 lieb	l i: p

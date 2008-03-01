@@ -29,6 +29,7 @@
 #include "addwordresolvepage.h"
 #include "grammarmanager.h"
 #include "wordlistmanager.h"
+#include "modelmanager.h"
 
 
 AddWordView* AddWordView::instance;
@@ -59,6 +60,7 @@ AddWordView::AddWordView(QWidget *parent)
 	this->addPage(createFinishedPage());
 	
 	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
+	connect(ModelManager::getInstance(), SIGNAL(missingWord(QString)), this, SLOT(askToAddWord(QString)));
 
 	setWindowTitle(tr("Wort hinzufügen"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/addword.png"));
@@ -164,6 +166,14 @@ void AddWordView::finish(int done)
 	restart();
 }
 
+void AddWordView::askToAddWord(QString word)
+{
+	if (QMessageBox::question(this, tr("Wort hinzufügen"), tr("Es wurde erkannt, dass das Wort \"%1\" im Sprachmodell fehlt.\n\nWollen Sie es jetzt hinzufügen?").arg(word), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+	{
+		createWord(word);
+	}
+}
+
 
 AddWordView::~AddWordView()
 {
@@ -180,12 +190,20 @@ void AddWordView::setRecordingNames(QString name1, QString name2)
 /**
  * \brief Shows the addWordView with a given word
  *          this method is used in the trainingmanager
- * \author Susanne Tschernegg
+ * \author Susanne Tschernegg, Peter Grasch
  */
 void AddWordView::createWord(QString word)
 {
 //     welcomePage->setName(word);
+	if (isVisible())
+	{
+		if (QMessageBox::question(this, tr("Wort hinzufügen Abbrechen?"), tr("Es wurde erkannt, dass gerade ein Wort hinzugefügt wird.\n\nWollen Sie das aktuelle Hinzufügen abbrechen?"), QMessageBox::Yes|QMessageBox::No) != QMessageBox::Yes)
+			return;
+	}
+	restart();
+	show();
 	setField("wordNameIntro", word);
+	next(); //continue to page 2
 //     resolvePage->init(welcomePage->getName());
 //     prevId = 1;
 }

@@ -16,7 +16,7 @@
    <item>
     <widget class="SimonTabWidget" name="twMain" >
      <property name="currentIndex" >
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tbSamples" >
       <attribute name="title" >

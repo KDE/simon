@@ -30,6 +30,7 @@ ModelManager* ModelManager::instance;
 
 ModelManager::ModelManager(QWidget *parent) : QThread(parent)
 {
+	errorAlreadyFetched=false;
 	processDialog = new QProgressDialog();
 	connect(processDialog, SIGNAL(canceled()), this, SLOT(terminate()));
 	connect(this, SIGNAL(status(QString)), this, SLOT(setStatus(QString)));
@@ -357,6 +358,7 @@ bool ModelManager::generateCodetrainScp()
 
 void ModelManager::run()
 {
+	errorAlreadyFetched=false;
 	Logger::log(tr("[INF] Modell wird generiert..."));
 	emit status(tr("Vorbereitung"));
 	emit progress(0,2300);
@@ -433,7 +435,24 @@ bool ModelManager::makeTranscriptions()
 	
 	if (proc->exitCode() != 0)
 	{
-		emit error(tr("Erstellen der Transcriptions files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Dateien mkphones0.led und mkphones1.led richtig angegeben haben. (%1, %2)").arg(Settings::getS("Model/PathToMkPhones0")).arg(Settings::getS("Model/PathToMkPhones1")));
+		if (lastError.isEmpty()) //make _sure_ we got the error string
+		{
+			lastError = proc->readAllStandardError();
+			errorAlreadyFetched=true;
+		}
+		QString err = lastError.trimmed();
+		if (err.startsWith(("ERROR [+1232]"))) //word missing
+		{
+			int wordstart = 44; //ERROR [+1232] NumParts: Cannot find word 
+			QString word = lastError.mid(wordstart, lastError.indexOf(" ", wordstart)-wordstart);
+			qDebug() << "Missing word: " << word;
+			
+			//this error ONLY occurs when there are samples for the word but the word itself is not recorded
+			//so - RECORD THE WORD!
+			emit missingWord(word);
+			this->processDialog->close();
+		} else
+			emit error(tr("Erstellen der Transcriptions files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Dateien mkphones0.led und mkphones1.led richtig angegeben haben. (%1, %2)").arg(Settings::getS("Model/PathToMkPhones0")).arg(Settings::getS("Model/PathToMkPhones1")));
 		return false;
 	}
 	emit progress(155);
@@ -1029,7 +1048,8 @@ void ModelManager::logInfo()
 
 void ModelManager::logError()
 {
-	lastError = proc->readAllStandardError();
+	if (errorAlreadyFetched) errorAlreadyFetched = false;
+	else lastError = proc->readAllStandardError();
 	Logger::log(tr("[ERR]")+" "+lastError);
 }
 
