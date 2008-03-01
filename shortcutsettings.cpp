@@ -285,7 +285,7 @@ bool ShortcutSettings::isComplete()
  */
 bool ShortcutSettings::apply()
 {
-	shortcutControl->clearShortcutList();
+// 	shortcutControl->clearShortcutList();
 	shortcutControl->setShortcuts(new ShortcutList(*shortcutList));
 	shortcutControl->save();
 	

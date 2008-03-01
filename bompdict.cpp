@@ -14,6 +14,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QRegExp>
+#include <QDebug>
 #include <QFileInfo>
 
 /**
@@ -53,23 +54,55 @@ void BOMPDict::load(QString path)
 	dictStream->setCodec("ISO-8859-1");
 	emit loaded();
 	
-	QString line, xsp;
+	QString line, xsp, terminal;
 	int wordend, termend;
 	line = dictStream->readLine(1000);
+	
+	int maxPhonemeSize;
+	if (allowedPhonemes.size() > 0)
+		maxPhonemeSize = allowedPhonemes[0].count();
+	
+	QString filteredXsp;
+	int phonemeIndex=0;
+	QString xspFertig;
+	QString currentPhoneme;
+	
 	while (!line.isNull())
 	{
 		wordend = line.indexOf("\t");
 		termend = line.indexOf("\t", wordend+1);
 		words << line.left(wordend);
-		terminals << line.mid(wordend, 
+		terminals <<  line.mid(wordend, 
 				termend-wordend).trimmed();
+
 		xsp = line.mid(termend).trimmed();
 		
- 		xsp.remove(QRegExp("^'*?*"));
+		xsp.remove(QRegExp("^'*?*"));
 		xsp.remove("'");
+		xsp.remove("?");
 		xsp.remove("|");
+		xsp.remove(",");
+
+		filteredXsp = xsp;
+		//filter xsp through 'sampa sieve'
+		phonemeIndex=0;
+		xspFertig = currentPhoneme = "";
 		
-		pronunciations << xsp;
+		while ((!filteredXsp.isEmpty()) && (allowedPhonemes.count() > phonemeIndex))
+		{
+			currentPhoneme = allowedPhonemes[phonemeIndex++];
+			if (filteredXsp.indexOf(currentPhoneme)==0)
+			{
+				xspFertig += " "+currentPhoneme;
+				filteredXsp.remove(0, currentPhoneme.count()); //remove phoneme at start
+				phonemeIndex=0;
+			}
+		}
+		
+		if (filteredXsp.isEmpty()) //found everything
+		{
+			pronunciations << xspFertig.trimmed();
+		} else pronunciations << xsp;
 		
 		currentProg += line.length();
 		emit progress((int) (((((double)currentProg) / 

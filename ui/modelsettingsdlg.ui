@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>523</width>
-    <height>300</height>
+    <height>330</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -16,7 +16,7 @@
    <item>
     <widget class="SimonTabWidget" name="twMain" >
      <property name="currentIndex" >
-      <number>4</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tbSamples" >
       <attribute name="title" >
@@ -461,6 +461,13 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QLabel" name="label_6" >
+             <property name="text" >
+              <string>Monophones:</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
          <item>
@@ -489,6 +496,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="leProto" />
+           </item>
+           <item>
+            <widget class="QLineEdit" name="leMonophones" />
            </item>
           </layout>
          </item>

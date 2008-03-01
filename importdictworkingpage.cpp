@@ -30,8 +30,8 @@ ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent): QWizardPage(paren
 	
 	setTitle(tr("Importiere Wörterbuch..."));
 	QLabel *desc = new QLabel(this);
-	desc->setText(tr("Importiere das Wörterbuch... Je nach dessen Art und Größe kann das einige Zeit dauern.\n\nBitte haben Sie etwas Geduld...\n\n"));
 	desc->setWordWrap(true);
+	desc->setText(tr("Importiere das Wörterbuch... Je nach dessen Art und Größe kann das einige Zeit dauern.\n\nBitte haben Sie etwas Geduld...\n\n"));
 	lbStatus = new QLabel(this);
 	
 	pbMain = new QProgressBar(this);

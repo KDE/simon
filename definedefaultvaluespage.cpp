@@ -103,6 +103,7 @@ void DefineDefaultValuesPage::initializePage()
 	checkAndSet("Model/PathToShadowVocab", applicationPath+"model/shadow.voca");
 	checkAndSet("Model/PathToDict", applicationPath+"model/model.dict");
 	checkAndSet("Model/PathToDfa", applicationPath+"model/model.dfa");
+	checkAndSet("Model/PathToPhonemes", "model/phonemes");
 	checkAndSet("Programs/HTK/HDMan", "HDMan");
 	checkAndSet("Programs/HTK/HLEd", "HLEd");
 	checkAndSet("Programs/HTK/HCopy", "HCopy");
@@ -119,7 +120,6 @@ void DefineDefaultValuesPage::initializePage()
 	checkAndSet("Internet/WikiDumpOverview", "http://download.wikimedia.org/backup-index.html");
 	checkAndSet("Internet/WikiDumpPrefix", "http://download.wikimedia.org/");
 	checkAndSet("Internet/WikiDumpPostfix", "-pages-articles.xml.bz2");
-
 
 	complete = true;
 	QTimer::singleShot(100, this, SIGNAL(done()));

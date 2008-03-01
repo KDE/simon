@@ -190,6 +190,7 @@ bool ModelSettings::apply()
 	Settings::set("Model/PathToGlobalDed", ui.leGlobalDed->text());
 	Settings::set("Model/PathToSilHed", ui.leSilHed->text());
 	Settings::set("Model/PathToMktriLed", ui.leMktriLed->text());
+	Settings::set("Model/PathToPhonemes", ui.leMonophones->text());
 
 	Settings::set("Model/PathToHmm", ui.leHmmOut->text());
 	Settings::set("Model/PathToTiedlist", ui.leTiedlist->text());
@@ -273,6 +274,8 @@ bool ModelSettings::init()
 
 	ui.leDict->setText(Settings::getS("Model/PathToDict"));
 	ui.leDfa->setText(Settings::getS("Model/PathToDfa"));
+
+	ui.leMonophones->setText(Settings::getS("Model/PathToPhonemes"));
 	return true;
 }
 

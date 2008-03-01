@@ -1,3 +1,1 @@
-<commands>
- <command iconPath="/usr/share/icons/hicolor/16x16/apps/ktorrent.png" type="0" name="KTorrent" workingDirectory="" >ktorrent %i %m -caption "%c" %u</command>
-</commands>
+<commands/>

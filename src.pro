@@ -219,7 +219,8 @@ importtrainingdirectoryworkingpage.h \
  atwatcher.h \
  atobject.h \
  ato.h \
- atsettings.h
+ atsettings.h \
+ phonememanager.h
 
 
 
@@ -360,7 +361,8 @@ SOURCES += main.cpp \
  postprocessing.cpp \
  atwatcher.cpp \
  atobject.cpp \
- atsettings.cpp
+ atsettings.cpp \
+ phonememanager.cpp
 
 
 

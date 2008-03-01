@@ -39,10 +39,15 @@ signals:
 	void loaded();
 	void progress(int prog);
 protected:
-	QHash<int, QString> phonemes, modifiers;
+	QHash<int, QString> translationLookup, modifiers;
+	QStringList allowedPhonemes;
+
 	QStringList words;
 	QStringList pronunciations;
 	QStringList terminals;
+
+	void buildAllowedPhonemes();
+	void buildTranslationTables();
 public:
     Dict(QObject *parent=0);
 	QString ipaToXSampa(QString ipa);
