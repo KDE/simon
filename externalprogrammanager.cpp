@@ -36,6 +36,8 @@ ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(tr
 	connect(ui.leHHEd, SIGNAL(editingFinished()), this, SIGNAL(changed()));
 	connect(ui.leMkfa, SIGNAL(editingFinished()), this, SIGNAL(changed()));
 	connect(ui.leDfaMinimize, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+
+	help = tr("Setzen Sie Pfade zu den externen Programmen, die simon erweitern.");
 }
 
 /**

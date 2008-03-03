@@ -18,6 +18,7 @@
 ATSettings::ATSettings(QWidget* parent): SystemWidget(tr("AT-Einstellungen"), QIcon(":/images/icons/system-search.svg"), tr("Konfigurieren der AT Integration, die es erlaubt andere Programme einfach zu bedienen"), parent)
 {
 	ui.setupUi(this);
+	help = tr("Konfigurieren Sie die AT-Integration, mit der sich simon in fremde Programme integriert.");
 }
 
 

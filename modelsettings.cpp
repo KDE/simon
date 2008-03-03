@@ -45,6 +45,8 @@ ModelSettings::ModelSettings(QWidget* parent): SystemWidget(tr("Modelleinstellun
 	connect(ui.leTiedlist, SIGNAL(editingFinished()), this, SIGNAL(changed()));
 	connect(ui.leShadowLexicon, SIGNAL(editingFinished()), this, SIGNAL(changed()));
 	connect(ui.leShadowVocab, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+
+	help = tr("Hier können Sie Pfade zu den Sprachmodell-Dateien festlegen und Nachbearbeitungs-Ketten konfigurieren.\n\nAchtung: Unbedachte Änderungen in diesem Modul können die Funktionsfähigkeit von simon negativ beeinflussen");
 }
 
 

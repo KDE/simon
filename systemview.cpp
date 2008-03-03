@@ -105,8 +105,8 @@ void SystemView::reset()
 void SystemView::displayId(int id)
 {
 	if (id == -1) return; //none selected
-	
-	ui.swControls->setCurrentIndex(id+1);
+	id++; //skip the "Welcome page"
+	ui.swControls->setCurrentIndex(id);
 	SystemWidget *sysWidget = dynamic_cast<SystemWidget*>(ui.swControls->widget(id));
 	if (!sysWidget) return;
 	ui.tbHelp->setText(sysWidget->getHelp());

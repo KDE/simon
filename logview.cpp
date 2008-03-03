@@ -51,6 +51,8 @@ LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images
 
 	ui.gbOnlyDay->setObjectName("gbOnlyDay");
 	ui.twLogEntries->setObjectName("twLogEntries");
+
+	help = tr("simon speichert im normalen Betrieb viele Loginformationen die im Nachhinein helfen können, Probleme nachzuvollziehen");
 }
 
 

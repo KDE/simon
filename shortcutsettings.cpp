@@ -43,6 +43,8 @@ ShortcutSettings::ShortcutSettings(QWidget* parent):
 	connect(ui.twShortcuts, SIGNAL(returnPressed()), this, SLOT(applyName()));
 	connect(ui.pbAddShortcut, SIGNAL(clicked()), this, SLOT(addShortcut()));
 	connect(ui.pbDeleteShortcut, SIGNAL(clicked()), this, SLOT(deleteShortcut()));
+
+	help = tr("Verbinden Sie spezielle Tastenkombinationen mit einem simon-Schlüsselwort und lassen Sie simon damit shortcuts ausführen!");
 }
 
 
