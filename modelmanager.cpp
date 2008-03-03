@@ -114,6 +114,7 @@ bool ModelManager::makeTempVocab()
 		if ( vocabEntry.startsWith ( "%" ) )
 		{
 			terminal = vocabEntry.mid ( 1 ).trimmed();
+			terminal = terminal.remove(":");
 			tmpVocab.write ( "#"+terminal.toLatin1() +"\n" );
 
 			term.write ( termid+"\t"+terminal.toLatin1() +"\n" );
@@ -435,28 +436,55 @@ bool ModelManager::makeTranscriptions()
 	
 	if (proc->exitCode() != 0)
 	{
-		if (lastError.isEmpty()) //make _sure_ we got the error string
-		{
-			lastError = proc->readAllStandardError();
-			errorAlreadyFetched=true;
-		}
-		QString err = lastError.trimmed();
-		if (err.startsWith(("ERROR [+1232]"))) //word missing
-		{
-			int wordstart = 44; //ERROR [+1232] NumParts: Cannot find word 
-			QString word = lastError.mid(wordstart, lastError.indexOf(" ", wordstart)-wordstart);
-			qDebug() << "Missing word: " << word;
-			
-			//this error ONLY occurs when there are samples for the word but the word itself is not recorded
-			//so - RECORD THE WORD!
-			emit missingWord(word);
-			this->processDialog->close();
-		} else
+		if (!processError())
 			emit error(tr("Erstellen der Transcriptions files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Dateien mkphones0.led und mkphones1.led richtig angegeben haben. (%1, %2)").arg(Settings::getS("Model/PathToMkPhones0")).arg(Settings::getS("Model/PathToMkPhones1")));
 		return false;
 	}
 	emit progress(155);
 	return true;
+}
+
+
+/**
+ * \brief Processes an error (reacts on it some way)
+ * \author Peter Grasch
+ * @return If this is true we knew what to do; if this is false you'd better throw an error message
+ */
+bool ModelManager::processError()
+{
+	if (lastError.isEmpty()) //make _sure_ we got the error string
+	{
+		lastError = QString(lastError+"\n"+proc->readAllStandardError()).right(600);
+		errorAlreadyFetched=true;
+	}
+	QString err = lastError.trimmed();
+	if (err.startsWith(("ERROR [+1232]"))) //word missing
+	{
+		int wordstart = 44; //ERROR [+1232] NumParts: Cannot find word 
+		QString word = lastError.mid(wordstart, lastError.indexOf(" ", wordstart)-wordstart);
+		
+		//this error ONLY occurs when there are samples for the word but the word itself is not recorded
+		//so - RECORD THE WORD!
+		emit missingWord(word);
+		this->processDialog->close();
+		lastError="";
+		return true;
+	} else
+	if (err.startsWith("ERROR [+6510]"))  //sample without prompts-entry
+	{ //LOpen: Unable to open label file /path/to/missing-sample.lab
+		err = err.mid(48); //err.left(err.indexOf("\n"));
+		err = err.left(err.indexOf("\n"));
+		QString label = err.mid(48);
+		label = label.mid(label.lastIndexOf("/"));
+
+		QString filename = Settings::getS("Model/PathToSamples")+"/"+label.left(label.count()-4)+".wav";
+		
+		emit sampleWithoutWord(filename);
+		this->processDialog->close();
+		lastError="";
+		return true;
+	}
+	return false;
 }
 
 bool ModelManager::createMonophones()
@@ -471,7 +499,8 @@ bool ModelManager::createMonophones()
 	emit status(tr("Erstelle hmm1..."));
 	if (!buildHMM1())
 	{
-		emit error(tr("Fehler beim Generieren des HMM1. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		if (!processError())
+			emit error(tr("Fehler beim Generieren des HMM1. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(800);
@@ -623,7 +652,6 @@ bool ModelManager::tieStates()
 bool ModelManager::buildHMM13()
 {
 	proc->start(Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm12/macros -H "+tmpDir+"hmm12/hmmdefs -M "+tmpDir+"hmm13 "+tmpDir+"tree.hed "+tmpDir+"triphones1");
-	qDebug() << Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm12/macros -H "+tmpDir+"hmm12/hmmdefs -M "+tmpDir+"hmm13 "+tmpDir+"tree.hed "+tmpDir+"triphones1";
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
@@ -946,6 +974,7 @@ bool ModelManager::buildHMM2()
 bool ModelManager::buildHMM1()
 {
 	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones0.mlf -t 250.0 150.0 1000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm0/macros -H "+tmpDir+"hmm0/hmmdefs -M "+tmpDir+"hmm1 "+tmpDir+"monophones0");
+// 	qDebug() << Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones0.mlf -t 250.0 150.0 1000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm0/macros -H "+tmpDir+"hmm0/hmmdefs -M "+tmpDir+"hmm1 "+tmpDir+"monophones0";
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
@@ -1049,7 +1078,7 @@ void ModelManager::logInfo()
 void ModelManager::logError()
 {
 	if (errorAlreadyFetched) errorAlreadyFetched = false;
-	else lastError = proc->readAllStandardError();
+	else lastError = QString(lastError+"\n"+proc->readAllStandardError()).right(6000);
 	Logger::log(tr("[ERR]")+" "+lastError);
 }
 

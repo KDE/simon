@@ -28,18 +28,21 @@ class AddWordView;
  *	@author Peter Grasch
  */
 typedef QHash<QString, QString> PromptsTable;
-class TrainingManager
+class TrainingManager : public QObject
 {
+Q_OBJECT
 	private:
 		static TrainingManager *instance;
 		TrainingList *trainingTexts;
 		TrainingText *currentText;
 		QHash<QString, QString> *sampleHash;    //<! sampleHash("SampleName","Text");
 		QMutex promptsLock;
+	private slots:
+		void askDeleteLonelySample(QString);
 	public:
 		static TrainingManager* getInstance();
 		PromptsTable *promptsTable;
-		TrainingManager();
+		TrainingManager(QObject *parent=0);
 
 		QHash<QString, QString> *getSampleHash() {return sampleHash;}
 		int getProbability ( QString name, PromptsTable *promptsTable );

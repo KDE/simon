@@ -36,6 +36,7 @@ private slots:
 	void suggest();
 	void createExamples();
 	void addTerminal();
+	void fetchSimilar();
 public:
     AddWordResolvePage(QWidget* parent=0);
 

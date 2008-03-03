@@ -15,6 +15,7 @@
 #include <QtGlobal>
 #include <QHeaderView>
 #include <QInputDialog>
+#include <QMessageBox>
 
 
 
@@ -28,12 +29,15 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
 	ui.twSuggestions->verticalHeader()->hide();
 	this->grammarManager = GrammarManager::getInstance();
 	this->wordListManager = WordListManager::getInstance();
-	connect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
 	connect(ui.cbType, SIGNAL(currentIndexChanged(int)), this, SLOT(createExamples()));
 	connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(createExamples()));
 	connect(ui.leWord, SIGNAL(returnPressed()), this, SLOT(createExamples()));
 	connect(ui.pbReGuess, SIGNAL(clicked()), this, SLOT(createExamples()));
 	connect(ui.tbAddTerminal, SIGNAL(clicked()), this, SLOT(addTerminal()));
+	
+	connect (ui.cbFuzzySearch, SIGNAL(toggled(bool)), this, SLOT(fetchSimilar()));
+	connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(fetchSimilar()));
+	
 	registerField("wordExample1*", ui.leExample1);
 	registerField("wordExample2*", ui.leExample2);
 	registerField("wordName*", ui.leWord);
@@ -73,19 +77,29 @@ void AddWordResolvePage::initializePage()
 	ui.leWord->setText(word);
 	ui.leSampa->clear();
 
-	WordList* similar = wordListManager->getWords(word, true, false, false);
-	displayWords(similar);
-	delete similar;
-	
-// 	WordList* similar = wordListManager->getShadowedWords(word);
-// 	displayWords(similar);
-// 	delete similar;
-// 	similar = wordListManager->getMainstreamWords(word);
-// 	displayWords(similar);
-// 	delete similar;
+	fetchSimilar();
 
 }
 
+void AddWordResolvePage::fetchSimilar()
+{
+	disconnect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
+	WordList* similar = wordListManager->getWords(ui.leWord->text(), true, ui.cbFuzzySearch->isChecked(), false);
+	displayWords(similar);
+	connect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
+	
+	if (ui.twSuggestions->rowCount() > 0)
+	{
+		//select the first suggestion
+		if (!ui.cbFuzzySearch->isChecked())
+			ui.twSuggestions->selectRow(0);
+	} else {
+		//set unbekannt
+	}
+	
+	delete similar;
+	
+}
 /**
  * \brief Creates two examples utilizing the grammarManger and sets the lineedit to the found examples
  * \author Peter Grasch 
@@ -155,12 +169,6 @@ void AddWordResolvePage::displayWords(WordList *words)
 		i++;
 	}
 	ui.twSuggestions->resizeColumnsToContents();
-
-	if (i > 0)
-	{
-		//select the first suggestion
-		ui.twSuggestions->selectRow(0);
-	}
 	setUpdatesEnabled(true);
 }
 

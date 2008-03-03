@@ -103,6 +103,13 @@
          </column>
         </widget>
        </item>
+       <item>
+        <widget class="QCheckBox" name="cbFuzzySearch" >
+         <property name="text" >
+          <string>Auch ähnliche Wörter anzeigen</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab_2" >

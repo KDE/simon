@@ -36,13 +36,14 @@ TrainingManager* TrainingManager::instance;
  *
  *	@author Peter Grasch
  */
-TrainingManager::TrainingManager()
+TrainingManager::TrainingManager(QObject *parent) : QObject(parent)
 {
 	trainingTexts = 0;
 	promptsLock.lock();
 	this->promptsTable = readPrompts ( Settings::getS ( "Model/PathToPrompts" ) );
 	promptsLock.unlock();
 	sampleHash = new QHash<QString, QString>();
+	connect(ModelManager::getInstance(), SIGNAL(sampleWithoutWord(QString)), this, SLOT(askDeleteLonelySample(QString)));
 }
 
 TrainingManager* TrainingManager::getInstance()
@@ -52,6 +53,21 @@ TrainingManager* TrainingManager::getInstance()
 	return instance;
 }
 
+/**
+ * \brief Asks to delete the sample which has no entry in the prompts-table
+ * \author Peter Grasch
+ * @param  sample The sample to delte
+ */
+
+void TrainingManager::askDeleteLonelySample(QString sample)
+{
+	if (QMessageBox::question(0, tr("Herrenloses Sample"), tr("Die Datei %1 hat keine Transkription.\n\nWollen Sie sie löschen?").arg(sample),QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+	{
+		if (!QFile::remove(sample))
+			QMessageBox::critical(0, tr("Löschen fehlgeschlagen"), tr("Das Löschen des Samples ist fehlgeschlagen"));
+		else ModelManager::compileModel(); //start again
+	}
+}
 
 /**
  * \brief Deletes the samples containing the given word

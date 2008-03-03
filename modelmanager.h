@@ -34,6 +34,7 @@ signals:
 	void error(QString);
 	void progress(int now, int total=2300);
 	void missingWord(QString);
+	void sampleWithoutWord(QString);
 private:
 	static ModelManager* instance;
 	bool errorAlreadyFetched;
@@ -42,6 +43,9 @@ private:
 	QString tmpDir;
 	QString lastOutput;
 	QString lastError;
+
+
+	bool processError();
 
 	bool generateDirectoryStructure();
 	
