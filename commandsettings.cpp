@@ -151,11 +151,6 @@ bool CommandSettings::apply()
  */
 bool CommandSettings::init()
 {
-	QString path = Settings::get ( "PathToCommands" ).toString();
-	Logger::log ( tr ( "[INF] Importiere Kommandos von " ) +path );
-	
-	if ( !commandBackend->init( path ) ) { return false;}
-	
 	CommandList commands = commandBackend->getCommands();
 	ui.twCommand->setRowCount ( commands.count() );
 	QTableWidgetItem *tmp;

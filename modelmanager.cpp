@@ -20,7 +20,6 @@
 #include <QDir>
 #include <QFile>
 #include <QProcess>
-#include <QDebug>
 #include "wordlistmanager.h"
 #include "grammarmanager.h"
 

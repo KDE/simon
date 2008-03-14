@@ -19,6 +19,8 @@
 #include "runwindowsbackend.h"
 #endif
 #include "xmlcommand.h"
+#include "settings.h"
+#include <QCoreApplication>
 
 RunCommand* RunCommand::instance;
 /**
@@ -37,11 +39,15 @@ RunCommand::RunCommand()
 	#ifdef __WIN32
 	this->runner = new RunWindowsBackend();
 	#endif
+
+	QString path = Settings::getS("PathToCommands");
+	Logger::log ( QCoreApplication::tr ( "[INF] Importiere Kommandos von " ) +path );
+	init(path);
 }
 
 /**
  * \brief Reads the config file if, and ONLY if, there are no commands yet (kind of a read-once)
- * @return 
+ * @return success
  */
 bool RunCommand::init(QString path)
 {
@@ -50,9 +56,24 @@ bool RunCommand::init(QString path)
 	else return true;
 }
 
+/**
+ * \brief Reloads the list
+ * \author Peter Grasch
+ * @param path The path to load from (if none is given we will reload the file we 'inited' from)
+ * @see init()
+ * @return success
+ */
+bool RunCommand::reload(QString path)
+{
+	if (path.isEmpty()) path = filename;
+	if (path.isEmpty()) return false;
+	return readCommands(path);
+}
+
 bool RunCommand::save(QString path)
 {
 	if (path.isEmpty()) path = filename;
+	if (path.isEmpty()) return false;
 	Logger::log(QObject::tr("[INF] Schreibe Befehle nach ")+path);
 	XMLCommand *saver = new XMLCommand(path);
 	saver->setCommands(commandlist);

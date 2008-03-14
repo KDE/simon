@@ -59,6 +59,7 @@ public:
 	bool commandExists(QString commandName);
 
 	bool init(QString path);
+	bool reload(QString path="");
 	bool save(QString path="");
 
     bool run(QString commandName);

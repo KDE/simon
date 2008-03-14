@@ -14,7 +14,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QRegExp>
-#include <QDebug>
 #include <QFileInfo>
 
 /**

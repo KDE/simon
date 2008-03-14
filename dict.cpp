@@ -12,7 +12,6 @@
 #include "dict.h"
 #include "settings.h"
 #include <QFile>
-#include <QDebug>
 
 /**
  * \brief Constructor
@@ -304,7 +303,6 @@ void Dict::buildAllowedPhonemes()
 		}
 		--max;
 	}
-// 	qDebug() << allowedPhonemes;
 	
 	phon.close();
 }

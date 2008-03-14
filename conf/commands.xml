@@ -1,1 +1,3 @@
-<commands/>
+<commands>
+ <command iconPath="/usr/kde/3.5/share/icons/crystalsvg/16x16/apps/bell.png" type="0" name="Signalton" workingDirectory="" >kcmshell bell</command>
+</commands>

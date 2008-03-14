@@ -99,27 +99,6 @@ bool WavRecorder::finish()
 	return true;
 }
 
-/**
- * \brief Callback function that sends the gathered data to the WAV class
- * @param buffer
- * The buffer to process
- * @param bufferSize 
- * Buffersize
- * @param rec
- * The object who gathered the data - this is used to get the WAV object and the channels 
- * @return int
- * always 0
- */
-// int WavRecorder::processWrapper(void *output, char *buffer, int bufferSize, double streamTime, RtAudioStreamStatus status, void* rec)
-// {
-// 	qDebug() << streamTime;
-// 	qDebug() << status;
-// 	WAV *wavFile = ((WavRecorder*) rec)->getWav();
-// 	wavFile->addData((char*) buffer, sizeof(signed short)*
-// 			((bufferSize*((WavRecorder*) rec)->getChannels())));
-// 	return 0;
-// }
-
 
 /**
  * \brief Destructor

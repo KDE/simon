@@ -43,7 +43,7 @@ SimonControl::SimonControl() : QObject ()
 {
 	this->active=false;
 	this->julius = new JuliusControl();
-	this->run = new RunCommand();
+	this->run = RunCommand::getInstance();
 	eventHandler = EventHandler::getInstance();
 
 	this->shortcutControl = ShortcutControl::getInstance();
@@ -90,7 +90,6 @@ SimonControl::~SimonControl()
 {
     delete mic;
     julius->deleteLater();
-    delete run;
     delete eventHandler;
 }
 

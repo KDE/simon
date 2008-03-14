@@ -19,6 +19,7 @@
 #include <QCryptographicHash>
 #include "settings.h"
 #include <QStringList>
+#include <QMessageBox>
 
 /**
  *	@brief Constructor
@@ -103,8 +104,6 @@ void JuliusControl::timeoutReached()
 	socket->abort();
 }
 
-
-#include <QMessageBox>
 
 /**
  *	@brief Process the request

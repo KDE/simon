@@ -12,6 +12,7 @@
 #include "generalsettings.h"
 #include <QInputDialog>
 #include <QVariant>
+#include <QSettings>
 #include "settings.h"
 
 /**
@@ -73,6 +74,20 @@ bool GeneralSettings::apply()
 	Settings::set("PathToTexts", ui.lePathToTexts->text());
 
 	Settings::set("ConfigDone", !ui.pbShowFirstRunWizard->isChecked());
+
+
+// #ifdef __WIN32
+// 	QSettings settings;
+// 	settings.setPath("Microsoft", "Windows", QSettings::UserScope);
+// 	if (ui.cbStartSimonOnBoot->isChecked()) {
+// 		// Want to start on boot up
+// 		QString appPath = qApp->applicationFilePath();
+// 		settings.writeEntry("/CurrentVersion/Run/simon.exe", appPath);
+// 	} else {
+// 		// Do not want to start on boot up
+// 		settings.removeEntry("/CurrentVersion/Run/simon.exe");
+// 	}
+// #endif
 
 	return true;
 }

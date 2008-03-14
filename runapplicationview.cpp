@@ -215,42 +215,42 @@ void RunApplicationView::runSelectedCommand()
  *
  *	@author Peter Grasch, Susanne Tschernegg
  */
-void RunApplicationView::insertCommands(CommandList list)
+void RunApplicationView::insertCommands ( CommandList list )
 {
 	int i=0;
 	int type;
 	QString strtype;
-	ui.twPrograms->setRowCount(list.count());
-    //ui.twPrograms->setItem(i,0, new QTableWidgetItem(QIcon(list.at(i)->getIconPath()),""));
-	
-    for (i=0; i<list.count(); i++)
+	ui.twPrograms->setRowCount ( list.count() );
+	//ui.twPrograms->setItem(i,0, new QTableWidgetItem(QIcon(list.at(i)->getIconPath()),""));
+
+	for ( i=0; i<list.count(); i++ )
 	{
-        QString resourceId = list.at(i)->getIconPath();
-        
-        QIcon icon;
-	#ifdef __WIN32
-        if(resourceId.contains(QRegExp(".dll,\n*")))
-        {
-            QStringList iconResources = resourceId.split(",");
-            WindowsResourceHandler *windowsResourceHandler = new WindowsResourceHandler();
-            icon = windowsResourceHandler->retrieveIcon(iconResources.at(0), iconResources.at(1).toInt());
-        }
-        else
-        {
-            QPixmap pixmap(resourceId);
-            icon.addPixmap(pixmap);
-        }
-	#endif
-	#ifndef __WIN32
-	QPixmap pixmap(resourceId);
-	icon.addPixmap(pixmap);
-	#endif
-        
-        
-		ui.twPrograms->setItem(i, 0, new QTableWidgetItem(icon, list.at(i)->getName()));
-		
-		type = list.at(i)->getType();
-		switch (type)
+		QString resourceId = list.at ( i )->getIconPath();
+
+		QIcon icon;
+#ifdef __WIN32
+		if ( resourceId.contains ( QRegExp ( ".dll,\n*" ) ) )
+		{
+			QStringList iconResources = resourceId.split ( "," );
+			WindowsResourceHandler *windowsResourceHandler = new WindowsResourceHandler();
+			icon = windowsResourceHandler->retrieveIcon ( iconResources.at ( 0 ), iconResources.at ( 1 ).toInt() );
+		}
+		else
+		{
+			QPixmap pixmap ( resourceId );
+			icon.addPixmap ( pixmap );
+		}
+#endif
+#ifndef __WIN32
+		QPixmap pixmap ( resourceId );
+		icon.addPixmap ( pixmap );
+#endif
+
+
+		ui.twPrograms->setItem ( i, 0, new QTableWidgetItem ( icon, list.at ( i )->getName() ) );
+
+		type = list.at ( i )->getType();
+		switch ( type )
 		{
 			case 0:
 				strtype = "Ausführen";
@@ -262,13 +262,14 @@ void RunApplicationView::insertCommands(CommandList list)
 				strtype = "Sonderzeichen";
 				break;
 		}
-		
-		ui.twPrograms->setItem(i, 1, new QTableWidgetItem(strtype));
-		ui.twPrograms->setItem(i, 2, new QTableWidgetItem(list.at(i)->getValue()));
-        ui.twPrograms->setItem(i, 3, new QTableWidgetItem(list.at(i)->getWorkingDirectory()));
-		for (int j = 0; j<4; j++)
-			ui.twPrograms->item(i,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+
+		ui.twPrograms->setItem ( i, 1, new QTableWidgetItem ( strtype ) );
+		ui.twPrograms->setItem ( i, 2, new QTableWidgetItem ( list.at ( i )->getValue() ) );
+		ui.twPrograms->setItem ( i, 3, new QTableWidgetItem ( list.at ( i )->getWorkingDirectory() ) );
+		for ( int j = 0; j<4; j++ )
+			ui.twPrograms->item ( i,j )->setFlags ( Qt::ItemIsSelectable|Qt::ItemIsEnabled );
 	}
+	ui.twPrograms->resizeColumnsToContents();
 }
 
 /**
@@ -280,12 +281,9 @@ void RunApplicationView::insertCommands(CommandList list)
 void RunApplicationView::loadCommands()
 {
     ui.twPrograms->clearContents();
-    run = new RunCommand();
-    QString path = Settings::get("PathToCommands").toString();
-    run->init(path);
+    run = RunCommand::getInstance();
+    run->reload();
     insertCommands (run->getCommands());
-
-    ui.twPrograms->resizeColumnsToContents();
 }
 
 /**
