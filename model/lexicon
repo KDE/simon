@@ -1,4 +1,5 @@
 ABENDS		[abends]		a: b @ n ts
+ABENDS		[Abends]		adf
 ABER		[aber]		a: b @ r
 ACHTEN		[Achten]		a x t @ n
 AH		[ah]		a:
@@ -16,6 +17,7 @@ ANSTEHEN		[anstehen]		a n S t e: @ n
 ANTWORTEN		[antworten]		a n t v O r t @ n
 APPLAUS		[Applaus]		a p l aU s
 ARM		[Arm]		a r m
+ASDF		[asdf]		asdf
 AUCH		[auch]		aU x
 AUF		[auf]		aU f
 AUFRECHT		[aufrecht]		aU f r E C t
@@ -51,6 +53,7 @@ BUCH		[Buch]		b u: x
 BUS		[Bus]		b U s
 BUSFAHRER		[Busfahrer]		b U s f a: r @ r
 CLOWN		[Clown]		k l aU n
+D		[d]		gh
 DA		[da]		d a:
 DACHTE		[dachte]		d a x t @
 DACKEL		[Dackel]		d a k @ l
@@ -138,10 +141,12 @@ FENSTER		[Fenster]		f E n s t @ R
 FERIENZEIT		[Ferienzeit]		f e: R i @ n ts aI t
 FEST		[fest]		f E s t
 FESTE		[Feste]		f E s t @
+FLAUSCHIG		[flauschig]		asdf
 FRAG		[frag]		f r a: g
 FRAGT		[fragt]		f r a: g t
 FRAGTE		[fragte]		f r a: g t @
 FRESSEN		[fressen]		f r E s @ n
+FREUE		[freue]		rtzhujkl
 FREUEN		[freuen]		f R OY @ n
 FREUND		[freund]		f r OY n t
 FREUNDE		[Freunde]		f R OY n t @
@@ -455,6 +460,7 @@ SCHWER		[schwer]		S v e: R
 SCHWIMM		[schwimm]		S v I m
 SCHWIMMWESTEN		[Schwimmwesten]		S v I m v E s t @ n
 SCHÜLER		[Schüler]		S y: l @ r
+SDF		[sdf]		asdf
 SEHEN		[sehen]		z e: @ n
 SEHN		[sehn]		z e: n
 SEHR		[sehr]		z e: R
@@ -519,6 +525,7 @@ TANTE		[Tante]		t a n t @
 TANZT		[tanzt]		t a n ts t
 TANZTEN		[tanzten]		t a n ts t @ n
 TATSÄCHLICH		[tatsächlich]		t a: t z E C l I C
+TEST		[test]		asdf
 TIEF		[tief]		t i: f
 TISCH		[Tisch]		t I S
 TORTE		[Torte]		t O R t @
@@ -621,6 +628,7 @@ ZUPFTE		[zupfte]		ts U pf t @
 ZUR		[zur]		ts u: R
 ZURÜCK		[zurück]		ts u R Y k
 ZWEI		[zwei]		ts v aI
+ZÄHLTE		[zählte]		asdf
 ÖFFNETE		[öffnete]		oe f n @ t @
 ÜBEN		[üben]		y: b @ n
 ÜBER		[über]		y: b @ r

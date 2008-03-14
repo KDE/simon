@@ -363,7 +363,7 @@ bool TrainingManager::trainText ( int i )
 
 /**
  * \brief chechs if all words in the dict. If there some words missing in the dict, the addwordview dialog will be shown.
- * \author Susanne Tschernegg
+ * \author Susanne Tschernegg, Peter Grasch
  * @return bool
  *      returns wheter all words are in the dict or not
  */
@@ -407,15 +407,9 @@ bool TrainingManager::allWordsExisting()
 	}
 	if ( strListAllWords.count() ==0 )
 		return true;
-	//tells the user, which words aren't in the dict
-	QString allWords;
-	for ( int i=0; i<strListAllWords.count(); i++ )
-	{
-		allWords += "\n\t" + strListAllWords.at ( i );
-		//addWordView->show();
-		//addWordView->createWord(strList.at(i));
-	}
-	QMessageBox::critical ( 0, "Trainingstext", QCoreApplication::tr ( "Der zu trainierende Text enthält unbekannte Wörter. Diese sind: %1" ).arg ( allWords ) );
+	
+	
+	emit addMissingWords(strListAllWords); // tell addwordview what the hell is going on
 	return false;
 }
 

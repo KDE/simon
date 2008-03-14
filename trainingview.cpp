@@ -20,6 +20,7 @@
 #include <QString>
 #include <QTableWidget>
 #include <QHeaderView>
+#include "simoninfo.h"
 #include "trainingtext.h"
 #include "trainingmanager.h"
 #include "trainingtext.h"
@@ -113,7 +114,8 @@ void TrainingView::trainSelected()
 	bool success = trainMgr->trainText ( ui.twTrainingWords->currentRow() );
 	if ( !success )
 	{
-		QMessageBox::critical(this, tr("Konnte Training nicht starten"), tr("Konnte Training nicht starten.\n\nDer Text konnte nicht geladen werden."));
+// 		QMessageBox::critical(this, tr("Konnte Training nicht starten"), tr("Konnte Training nicht starten.\n\nDer Text konnte nicht geladen werden."));
+		SimonInfo::showMessage(tr("Konnte Training nicht starten"), 2000); // show passive notification
 		return;
 	}
 

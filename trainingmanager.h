@@ -39,6 +39,8 @@ Q_OBJECT
 		QMutex promptsLock;
 	private slots:
 		void askDeleteLonelySample(QString);
+	signals:
+		void addMissingWords(QStringList words);
 	public:
 		static TrainingManager* getInstance();
 		PromptsTable *promptsTable;

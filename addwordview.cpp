@@ -20,6 +20,7 @@
  
 #include "addwordview.h"
 #include <QWizardPage>
+#include <QDebug>
 #include <QMessageBox>
 #include <QLineEdit>
 #include "logger.h"
@@ -51,6 +52,8 @@ AddWordView::AddWordView(QWidget *parent)
 	: QWizard (parent)
 {
 	prevId=0;
+	listToAdd = new WordList();
+	promptsToAdd = new QHash<QString,QString>();
 	this->welcomePage = createWelcomePage();
 	resolvePage = createResolvePage();
 	this->addPage((QWizardPage*) welcomePage);
@@ -60,12 +63,29 @@ AddWordView::AddWordView(QWidget *parent)
 	this->addPage(createFinishedPage());
 	
 	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
+	connect(this, SIGNAL(rejected()), this, SLOT(cleanUp()));
 	connect(ModelManager::getInstance(), SIGNAL(missingWord(QString)), this, SLOT(askToAddWord(QString)));
+	connect(TrainingManager::getInstance(), SIGNAL(addMissingWords(QStringList)), this, SLOT(askToAddWords(QStringList)));
 
 	setWindowTitle(tr("Wort hinzufügen"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/addword.png"));
 }
 
+
+void AddWordView::cleanUp()
+{
+	wordsToAdd.clear();
+	if (!listToAdd->isEmpty())
+	{
+		if (QMessageBox::question(this, tr("Bisherige Wörter hinzufügen"), tr("Wollen Sie die bisher fertig beschriebenen Wörter dieses Durchlaufes hinzufügen?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+			commitList();
+		else 
+		{
+			listToAdd->clear();
+			promptsToAdd->clear();
+		}
+	}
+}
 
 AddWordView* AddWordView::getInstance()
 {
@@ -139,31 +159,43 @@ void AddWordView::finish(int done)
 {
 	if (!done) return;
 	
-	WordListManager *wordlistMgr = WordListManager::getInstance();
 	QString word = field("wordName").toString();
 	
 	Logger::log(tr("[INF] Füge neues Wort zum Modell hinzu..."));
 	Logger::log(tr("[INF] Neues Wort lautet: ")+word);
-	//finishs up
 	
-	WordList *list = new WordList();
+	listToAdd->append(Word(word, field("wordPronunciation").toString(),
+		     field("wordTerminal").toString(), 2 /* 2 recordings */));
+	promptsToAdd->insert(recordingName1, field("wordExample1").toString());
+	promptsToAdd->insert(recordingName2, field("wordExample2").toString());
+	
+	if (wordsToAdd.count() > 0)
+	{
+		//multiple words
+		createWord(wordsToAdd.takeAt(0));
+	} else {
+		commitList();
+		restart();
+	}
 
-	list->append(Word(word, field("wordPronunciation").toString(),
-			 field("wordTerminal").toString(), 2 /* 2 recordings */));
-
-// 	Training stuff deactivated for now
-// 	TrainingManager *trainManager = TrainingManager::getInstance();
-// 	QHash<QString,QString> samples;
-// 	samples.insert(recordingName1, field("wordExample1").toString());
-// 	samples.insert(recordingName2, field("wordExample2").toString());
-// 	trainManager->addSamples(&samples);
-
-	wordlistMgr->addWords(list, true /*sorted*/, false /*shadowed*/);
 
 	//cleaning up
 	Logger::log(tr("[INF] Wort hinzugefügt: ")+word);
 	emit addedWord();
-	restart();
+}
+
+
+/**
+ * \brief Adds the list of words to the wordlistmanager
+ */
+void AddWordView::commitList()
+{
+	//we can't know for certain if this will be sorted when we add multiple words at once
+	WordListManager::getInstance()->addWords(listToAdd, false /*sorted*/, false /*shadowed*/);
+	listToAdd = new WordList();
+	// 	Training stuff deactivated for now
+// 	TrainingManager::getInstance()->addSamples(promptsToAdd);
+	promptsToAdd->clear();
 }
 
 void AddWordView::askToAddWord(QString word)
@@ -174,6 +206,29 @@ void AddWordView::askToAddWord(QString word)
 	}
 }
 
+/**
+ * \brief Asks the user if he wants to add the given list of words and will then start the wizard cycling over and over until all words are added
+ * \author Susanne Tschernegg, Peter Grasch
+ * @param words The words to add
+ */
+void AddWordView::askToAddWords(QStringList words)
+{
+	if (words.count() == 0) return;
+	
+	//tells the user, which words aren't in the dict
+	QString allWords = words.join(", ");
+// 	for ( int i=0; i<words.count(); i++ )
+// 	{
+// 		allWords += words.at ( i )+", ";
+// 	}
+// 	allWords = allWords.left(allWords.size()-2);
+
+	if (QMessageBox::question ( 0, tr("Fehlende Wörter"), tr ( "Der zu trainierende Text enthält unbekannte Wörter. Diese sind:\n%1\n\nWollen Sie diese Wörter jetzt hinzufügen?").arg ( allWords ),QMessageBox::Yes|QMessageBox::No ) == QMessageBox::Yes)
+	{
+		wordsToAdd << words;
+		createWord(wordsToAdd.takeAt(0));
+	}
+}
 
 AddWordView::~AddWordView()
 {
@@ -194,7 +249,6 @@ void AddWordView::setRecordingNames(QString name1, QString name2)
  */
 void AddWordView::createWord(QString word)
 {
-//     welcomePage->setName(word);
 	if (isVisible())
 	{
 		if (QMessageBox::question(this, tr("Wort hinzufügen Abbrechen?"), tr("Es wurde erkannt, dass gerade ein Wort hinzugefügt wird.\n\nWollen Sie das aktuelle Hinzufügen abbrechen?"), QMessageBox::Yes|QMessageBox::No) != QMessageBox::Yes)
@@ -204,6 +258,4 @@ void AddWordView::createWord(QString word)
 	show();
 	setField("wordNameIntro", word);
 	next(); //continue to page 2
-//     resolvePage->init(welcomePage->getName());
-//     prevId = 1;
 }

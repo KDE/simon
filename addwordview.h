@@ -36,9 +36,9 @@
 #define ADDWORDVIEW_H
 
 #include <QWizard>
-//#include "simonwizard.h"
-
+#include <QStringList>
 #include "recwidget.h"
+#include "word.h"
 
 
 class QWizardPage;
@@ -47,6 +47,7 @@ class GrammarManager;
 class AddWordIntroPage;
 class WordListManager;
 class TrainingManager;
+
 class AddWordView : public QWizard
 {
 	Q_OBJECT
@@ -55,12 +56,17 @@ class AddWordView : public QWizard
 		static AddWordView *instance;
 		
 		QString recordingName1, recordingName2;
+		QStringList wordsToAdd;
 		int prevId;
 		AddWordResolvePage *resolvePage;
 		AddWordIntroPage *welcomePage;
+		WordList *listToAdd;
+		QHash<QString,QString> *promptsToAdd;
 		
 		void hideEvent(QHideEvent *event) { 
 			emit hidden(); return QWidget::hideEvent(event); }
+
+		void commitList();
 	
 	signals:
 		void addedWord();
@@ -69,7 +75,8 @@ class AddWordView : public QWizard
 	private slots:
 		void setRecordingNames(QString name1, QString name2);
 		void askToAddWord(QString word);
-		
+		void askToAddWords(QStringList words);
+		void cleanUp();
 
 	public slots:
 		
