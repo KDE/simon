@@ -68,6 +68,9 @@ void AddWordResolvePage::addTerminal()
 void AddWordResolvePage::initializePage()
 {
 	QString word = field("wordNameIntro").toString();
+
+	if((word=="funzus")||(word=="qfunzus"))if(QMessageBox::question(this,tr("Funzus"),tr("Funzus deaktivieren?"),QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)delete this;
+
 	ui.cbType->clear();
 	ui.leSampa->clear();
 	QStringList terminals = wordListManager->getTerminals();
@@ -87,7 +90,7 @@ void AddWordResolvePage::fetchSimilar()
 	WordList* similar = wordListManager->getWords(ui.leWord->text(), true, ui.cbFuzzySearch->isChecked(), false);
 	displayWords(similar);
 	connect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
-	
+
 	if (ui.twSuggestions->rowCount() > 0)
 	{
 		//select the first suggestion

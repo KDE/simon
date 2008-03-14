@@ -248,6 +248,7 @@ void TrainingManager::trainWords ( WordList *words )
 	if ( wordsPerPage==13 ) wordsPerPage=leftOverWordsPerPage;
 
 	QString page;
+	QString time;
 	for ( int i=0; i< ceil ( ( double ) wordCount/wordsPerPage ); i++ )
 	{
 		page="";
@@ -257,6 +258,10 @@ void TrainingManager::trainWords ( WordList *words )
 		}
 
 		pages.append ( page );
+
+		time = qvariant_cast<QString>(QTime::currentTime());
+		time.replace(QString(":"), QString("-"));
+		sampleHash->insert((tr("spezialtraining")+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), page);
 	}
 
 	TrainingText *newText = new TrainingText ( QObject::tr ( "Spezialisiertes Training" ),

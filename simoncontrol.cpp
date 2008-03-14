@@ -168,9 +168,7 @@ void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 		} else if (!atWatcher->trigger(word))
 			if (!run->run(word))
 				emit guiAction(word);
-	}
-
-	else {
+	} else {
 		eventHandler->sendWord(word);
 	}
 }

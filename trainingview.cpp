@@ -105,7 +105,6 @@ void TrainingView::trainWords ( WordList* words )
  */
 void TrainingView::trainSelected()
 {
-	recordedPages = 0;
 	if ( ui.twTrainingWords->selectedItems().isEmpty() )
 	{
 		QMessageBox::information ( this,tr ( "Nichts ausgewählt" ),tr ( "Bitte selektieren Sie zuerst einen Text aus der Liste." ) );
@@ -141,6 +140,7 @@ void TrainingView::startTraining()
 
 	ui.pbFinish->setEnabled ( false );
 	this->currentPage=0;
+	recordedPages = 0;
 
 	fetchPage ( currentPage );
 }
@@ -164,7 +164,6 @@ void TrainingView::importDirectory()
 void TrainingView::finish()
 {
 	ui.swAction->setCurrentIndex ( 2 );
-// 	ui.pbCompileModel->setValue(0);
 
 	//training...
 
@@ -189,25 +188,15 @@ void TrainingView::finish()
 void TrainingView::fetchPage ( int page )
 {
 	ui.lbPage->setText ( this->trainMgr->getPage ( page ) );
-	QHashIterator<QString, QString> hIterator ( *trainMgr->getSampleHash() );
-	hIterator.toFront();
 	QString keyStr;
-	int i = 0;
-	while ( hIterator.hasNext() )
-	{
-		hIterator.next();
-		if ( i==page )
-		{
-			keyStr = hIterator.value();
-			break;
-		}
-		i++;
-	}
+	QStringList samplenames = trainMgr->getSampleHash()->keys();
+	if (samplenames.count() < page) return;
+	keyStr = samplenames.at(page);
 
-	QString value = Settings::getS ( "Model/PathToSamples" ) +"/"+keyStr;
+	QString filename = Settings::getS ( "Model/PathToSamples" ) +"/"+keyStr+".wav";
 	resetRecorder();
 	recorder = new RecWidget ( tr ( "Seite: %1" ).arg ( page+1 ),
-	                           value, ui.wRecTexts );  //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
+	                           filename, ui.wRecTexts );  //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
 
 	connect ( recorder, SIGNAL ( recordingFinished() ), this, SLOT ( increaseRecordedPages() ) );
 	connect ( recorder, SIGNAL ( sampleDeleted() ), this, SLOT ( decreaseRecordedPages() ) );
@@ -435,12 +424,12 @@ void TrainingView::setSettingsVisible()
 /**
  * @brief increases the recorded pages. if the recordedpages the same as the maximum of pages, the finish-butten will be enabled.
  *
- *	@author Susanne Tschernegg
+ * @author Susanne Tschernegg, Peter Grasch
  */
 void TrainingView::increaseRecordedPages()
 {
 	int max = trainMgr->getPageCount();
-	recordedPages++;
+	++recordedPages;
 	if ( recordedPages==max )
 		ui.pbFinish->setEnabled ( true );
 }
@@ -448,11 +437,12 @@ void TrainingView::increaseRecordedPages()
 /**
  * @brief decreases the recorded pages. if the recordedpages were before the same as the maximum of pages, the finish-butten will be enabled.
  *
- *	@author Susanne Tschernegg
+ *	@author Susanne Tschernegg, Peter Grasch
  */
 void TrainingView::decreaseRecordedPages()
 {
 	int max = trainMgr->getPageCount();
-	if ( recordedPages==max )
+	--recordedPages;
+	if ( recordedPages<max )
 		ui.pbFinish->setEnabled ( false );
 }
