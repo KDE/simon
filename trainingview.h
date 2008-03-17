@@ -49,6 +49,10 @@ private:
     int recordedPages; //!< this counter will hold the recorded pages; it will change, when pages are recorded or deleted
 	
 	QString makeTextProgress(int msecs);
+
+protected:
+	TrainingView(QWidget *parent=0);
+
 public slots:
 	void finish();
 	void importTexts();
@@ -77,13 +81,12 @@ public:
 		return instance;
 	}
 	void exec();
-    TrainingView(QWidget *parent=0);
 	
-    ~TrainingView();
-
-    void hideSettings();
-    void setSettingsVisible();
-    void cleanUpTrainingSamples();
+	~TrainingView();
+	
+	void hideSettings();
+	void setSettingsVisible();
+	void cleanUpTrainingSamples();
 
 };
 

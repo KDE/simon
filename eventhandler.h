@@ -38,8 +38,9 @@ private:
 	CoreEvents *coreEvents; //!< The event backend
 	bool capslock;
 	static EventHandler *instance;
-public:
+protected:
 	EventHandler();
+public:
        ~EventHandler();
 	static EventHandler* getInstance() {
 		if (!instance) instance = new EventHandler();

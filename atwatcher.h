@@ -38,8 +38,11 @@ class ATWatcher : public QObject
 		void translateFocusToWindow(ATObject* selectedObject);
 	public slots:
 		bool trigger(QString word);
-	public:
+
+	protected:
 		ATWatcher ( QObject* parent=0 );
+
+	public:
 		void applySettings();
 		static ATWatcher* getInstance() {
 			if (!instance) instance = new ATWatcher();

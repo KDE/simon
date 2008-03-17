@@ -41,10 +41,13 @@ Q_OBJECT
 		void askDeleteLonelySample(QString);
 	signals:
 		void addMissingWords(QStringList words);
+
+	protected:
+		TrainingManager(QObject *parent=0);
+
 	public:
 		static TrainingManager* getInstance();
 		PromptsTable *promptsTable;
-		TrainingManager(QObject *parent=0);
 
 		QHash<QString, QString> *getSampleHash() {return sampleHash;}
 		int getProbability ( QString name, PromptsTable *promptsTable );

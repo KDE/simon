@@ -261,7 +261,7 @@ void TrainingManager::trainWords ( WordList *words )
 
 		time = qvariant_cast<QString>(QTime::currentTime());
 		time.replace(QString(":"), QString("-"));
-		sampleHash->insert((tr("spezialtraining")+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), page);
+		sampleHash->insert((tr("spezialtraining")+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), page.toUpper());
 	}
 
 	TrainingText *newText = new TrainingText ( QObject::tr ( "Spezialisiertes Training" ),

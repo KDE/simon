@@ -108,6 +108,9 @@ private slots:
 	void logInfo();
 public slots:
 	void cancel();
+
+protected:
+    ModelManager(QWidget *parent=0);
 	
 public:
 	static ModelManager* getInstance() {
@@ -117,7 +120,6 @@ public:
 	static bool compileModel() {
 		return ModelManager::getInstance()->startCompilation();
 	}
-    ModelManager(QWidget *parent=0);
 
 	void run();
 	bool startCompilation();

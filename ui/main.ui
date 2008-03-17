@@ -13,7 +13,7 @@
    <string>simon</string>
   </property>
   <property name="windowIcon" >
-   <iconset>:/images/tray.png</iconset>
+   <iconset>../../../../../../../:/images/tray.png</iconset>
   </property>
   <property name="accessibleName" >
    <string>simon</string>
@@ -553,29 +553,6 @@ p, li { white-space: pre-wrap; }
              <string>Kurzwahl</string>
             </property>
             <layout class="QVBoxLayout" >
-             <item>
-              <widget class="QPushButton" name="pbSyncTest" >
-               <property name="text" >
-                <string>Sync Tester</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pbCompileModel" >
-               <property name="text" >
-                <string>Sprachmodell kompilleren</string>
-               </property>
-               <property name="icon" >
-                <iconset/>
-               </property>
-               <property name="iconSize" >
-                <size>
-                 <width>24</width>
-                 <height>24</height>
-                </size>
-               </property>
-              </widget>
-             </item>
              <item>
               <widget class="QPushButton" name="pbQuickAddWord" >
                <property name="maximumSize" >

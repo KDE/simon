@@ -192,7 +192,7 @@ void SimonView::setupSignalSlots()
 	QObject::connect ( this->trayManager, SIGNAL ( middleClicked() ), this, SLOT ( toggleActivation() ) );
 	
 	//TextSync
-	QObject::connect(ui.pbSyncTest, SIGNAL(clicked()),control, SLOT(sendFileToSyncer()));
+//	QObject::connect(ui.pbSyncTest, SIGNAL(clicked()),control, SLOT(sendFileToSyncer()));
 	//______
 
 	connect ( addWordView, SIGNAL ( addedWord() ), wordList,
@@ -214,7 +214,7 @@ void SimonView::setupSignalSlots()
 	connect ( control, SIGNAL ( connectionError ( QString ) ), this, SLOT ( errorConnecting ( QString ) ) );
 
 
-	connect ( ui.pbCompileModel, SIGNAL ( clicked() ), this, SLOT ( compileModel() ) );
+//	connect ( ui.pbCompileModel, SIGNAL ( clicked() ), this, SLOT ( compileModel() ) );
 }
 
 void SimonView::compileModel()

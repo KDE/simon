@@ -36,8 +36,10 @@ private:
 	QString filename;
 	bool desprate;
 	static RunCommand *instance;
+
+protected:
+	RunCommand();
 public:
-    RunCommand();
 
 	static RunCommand* getInstance()
 	{

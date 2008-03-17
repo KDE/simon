@@ -61,13 +61,14 @@ private slots:
 	void complainAboutPaths();
 	void warnAboutTempWordList();
 
+protected:
+	WordListManager();
+
 public:
 	static WordListManager* getInstance();
 
 	void safelyInit();
 	void run();
-
-	WordListManager();
 
 
 	bool saveWordList(WordList *list, QString lexiconFilename, QString vocabFilename);

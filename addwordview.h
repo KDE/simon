@@ -87,10 +87,11 @@ class AddWordView : public QWizard
 		AddWordResolvePage* createResolvePage();
 		QWizardPage* createFinishedPage();
 		
-		
+	protected:
+		AddWordView(QWidget *parent);
+
 	public:
 		static AddWordView* getInstance();
-		AddWordView(QWidget *parent);
 		~AddWordView();
     
         void createWord(QString word);

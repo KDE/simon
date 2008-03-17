@@ -27,8 +27,11 @@ private:
 	ShortcutList *shortcuts;
 	ShortcutXMLReader *shortcutXMLReader;
 	static ShortcutControl *instance;
-public:
+
+protected:
 	ShortcutControl();
+
+public:
 	static ShortcutControl* getInstance()
 	{
 		if (!instance) instance = new ShortcutControl();

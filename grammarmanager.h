@@ -23,8 +23,11 @@ private:
 	QStringList structures;
 	WordListManager *wordlistManager;
 	static GrammarManager *instance;
+
+protected:
+	GrammarManager();
+
 public:
-    GrammarManager();
 
 	static GrammarManager* getInstance();
 
