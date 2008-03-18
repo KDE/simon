@@ -33,10 +33,10 @@
 #-gramlist file
 
 #### (3) Classic way to specify a grammar.
--dfa /home/bedahr/Daten/simon/source/trunk/model/model.dfa
--v /home/bedahr/Daten/simon/source/trunk/model/model.dict
-#-dfa /home/bedahr/Daten/Schule/4bdh/PRE/simon/Beispiel/auto/auto/all.dfa
-#-v /home/bedahr/Daten/Schule/4bdh/PRE/simon/Beispiel/auto/auto/all.dict
+-dfa /path/to/model/model.dfa
+-v /path/to/model/model.dict
+#-dfa /home/bedahr/Daten/simon/source/trunk/model/model.dfa
+#-v /home/bedahr/Daten/simon/source/trunk/model/model.dict
 
 #### If you want to clear previously specified grammars, use this at the
 #### point.
@@ -47,10 +47,10 @@
 ##
 # support ascii hmmdefs or binary format (converted by "mkbinhmm")
 # format (ascii/binary) will be automatically detected
--h /home/bedahr/Daten/simon/source/trunk/model/hmmdefs
+-h /path/to/model/hmmdefs
 
 ## triphone model needs HMMList that maps logical triphone to physical ones.
--hlist /home/bedahr/Daten/simon/source/trunk/model/tiedlist
+-hlist /path/to/model/tiedlist
 
 ######################################################################
 #### Multiple grammar recognition
