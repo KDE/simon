@@ -266,8 +266,8 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	int sentEndIndex = getWordIndex(list, foundSentEnd, "SENT-END", "sil");
 	if (!foundSentEnd)
 	{
-		list->insert(sentEndIndex, Word("SENT-END", "sil", "deleteme"));
 		list->insert(sentEndIndex, Word("SENT-START", "sil", "deleteme"));
+		list->insert(sentEndIndex, Word("SENT-END", "sil", "deleteme"));
 	}
 	//write lexicon
 	int count = list->count();
