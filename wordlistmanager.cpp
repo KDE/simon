@@ -292,6 +292,9 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	outfile->close();
 	outfile->deleteLater();
 
+	//remove sent-start and sent-end
+	list->removeAt(sentEndIndex);
+	list->removeAt(sentEndIndex);
 	distinctTerminals.removeAll("deleteme");
 	
 	for (int i=0; i < distinctTerminals.count(); i++)
