@@ -297,6 +297,11 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 		if (!distinctTerminals.contains(wordTerm)) distinctTerminals.append(wordTerm);
 		i++;
 	}
+	if (!sentWritten)
+	{
+		outstream << "SENT-END\t\t[]\t\tsil\n";
+		outstream << "SENT-START\t\t[]\t\tsil\n";
+	}
 	outfile->close();
 	outfile->deleteLater();
 
