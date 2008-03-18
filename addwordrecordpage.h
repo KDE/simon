@@ -44,7 +44,7 @@ public:
     AddWordRecordPage(QWidget *parent=0);
     bool isComplete() const 
     {
-	return true;
+// 	return true;
 	//make recordings mandatory
 	return rec1 && rec2 && rec1->hasRecordingReady() && rec2->hasRecordingReady(); 
     }

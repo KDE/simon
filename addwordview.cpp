@@ -165,8 +165,8 @@ void AddWordView::finish(int done)
 	
 	listToAdd->append(Word(word, field("wordPronunciation").toString(),
 		     field("wordTerminal").toString(), 2 /* 2 recordings */));
-	promptsToAdd->insert(recordingName1, field("wordExample1").toString());
-	promptsToAdd->insert(recordingName2, field("wordExample2").toString());
+	promptsToAdd->insert(recordingName1, field("wordExample1").toString().toUpper());
+	promptsToAdd->insert(recordingName2, field("wordExample2").toString().toUpper());
 	
 	if (wordsToAdd.count() > 0)
 	{
