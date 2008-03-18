@@ -65,14 +65,13 @@ void BOMPDict::load(QString path)
 	int phonemeIndex=0;
 	QString xspFertig;
 	QString currentPhoneme;
-	
+	QString currentTerminal;
+	QString currentFinalXsp;
+	QString currentWord;
 	while (!line.isNull())
 	{
 		wordend = line.indexOf("\t");
 		termend = line.indexOf("\t", wordend+1);
-		words << line.left(wordend);
-		terminals <<  line.mid(wordend, 
-				termend-wordend).trimmed();
 
 		xsp = line.mid(termend).trimmed();
 		
@@ -100,9 +99,21 @@ void BOMPDict::load(QString path)
 		
 		if (filteredXsp.isEmpty()) //found everything
 		{
-			pronunciations << xspFertig.trimmed();
-		} else pronunciations << xsp;
+			currentFinalXsp = xspFertig.trimmed();
+		} else currentFinalXsp = xsp;
 		
+		currentWord = line.left(wordend);
+		currentTerminal = line.mid(wordend, 
+				termend-wordend).trimmed();
+
+		QStringList currentTerminals = currentTerminal.split(":", QString::SkipEmptyParts);
+		for (int k=0; k < currentTerminals.count(); k++)
+		{
+			words << currentWord;
+			terminals << currentTerminals[k];
+			pronunciations << currentFinalXsp;
+		}
+
 		currentProg += line.length();
 		emit progress((int) (((((double)currentProg) / 
 				((double)maxProg)))*1000));
