@@ -97,7 +97,7 @@ void GrammarManager::renameTerminal(QString terminal, QString newName)
  * @param count How many examples do we want?
  * @return Examples
  */
-QStringList GrammarManager::getExamples(QString word, QString terminal, int count)
+QStringList GrammarManager::getExamples(QString word, QString terminal, int count, bool includeShadow)
 {
 	QStringList grammarStructures = getStructures(terminal);
 
@@ -110,19 +110,22 @@ QStringList GrammarManager::getExamples(QString word, QString terminal, int coun
 	QStringList chosen;
 	QString curTerminal;
 	bool alreadyUsed=false;
-	for (int i=0; i < count; i++)
+	bool badWord=false;
+	int chosenSentenceId;
+	for (int i=0; (i < count) && (grammarStructures.count() > 0); i++)
 	{
-		QString sentence = grammarStructures.at(qrand()%grammarStructures.count());
+		chosenSentenceId = qrand()%grammarStructures.count();
+		QString sentence = grammarStructures.at(chosenSentenceId);
 	
 		QStringList terminals = sentence.split(" ");
 		
-		
+		badWord = false;
 		//find random words for this terminals:
 		//replace the first occurance of the words terminal with the actual word we are trying to
 		//"demonstrate in action"
 		//this is ensured by the alreadyUsed variable which holds if the word was already replaced
 		//if it is set the occurance of the terminal is used just like any other
-		for (int j=0; j < terminals.count(); j++)
+		for (int j=0; !badWord && (j < terminals.count()); j++)
 		{
 			
 			curTerminal = terminals[j];
@@ -132,12 +135,21 @@ QStringList GrammarManager::getExamples(QString word, QString terminal, int coun
 				alreadyUsed = true;
 			} else
 			{
+				QString exampleWord =wordlistManager->getRandomWord(terminals[j], includeShadow);
+				if (exampleWord.isEmpty())
+				{
+					badWord = true;
+				} else terminals.replace(j, exampleWord);
 				
-				terminals.replace(j, wordlistManager->getRandomWord(terminals[j]));
 			}
 		}
-		
-		chosen << terminals.join(" ").trimmed();
+		if (badWord) 
+		{
+			grammarStructures.removeAt(chosenSentenceId);
+			i--;
+		}
+		else
+			chosen << terminals.join(" ").trimmed();
 		alreadyUsed=false;
 	}
 	return chosen;

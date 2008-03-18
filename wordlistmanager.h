@@ -77,7 +77,7 @@ public:
 	WordList* getShadowList();
 	QStringList getTerminals(bool includeShadow=true);
 
-	QString getRandomWord(QString terminal);
+	QString getRandomWord(QString terminal, bool includeShadow=true);
 
 	WordList* getShadowedWords(QString word, bool fuzzy=false);
 	WordList* getMainstreamWords(QString word, bool fuzzy=false);

@@ -34,6 +34,7 @@ private:
 	char *waveData;  //!< here we store the audio data
 	int length; //!< this is needed as there seems to be no way to determine the length of an array
 	int samplerate; //!< the samplerate of the file
+	int channels;
 	QString filename; //!< Filename
 	
 	void writeHeader(QDataStream *dstream);
@@ -41,14 +42,16 @@ private:
 	void writeDataChunk(QDataStream *dstream);
 	void importDataFromFile(QString filename);
 	int retrieveSampleRate();
+	int retrieveChannels();
 	
 public:
-    WAV(QString filename, int samplerate=0);
+    WAV(QString filename,int channels=0, int samplerate=0);
 
 	char* getRawData(int& data);
     void addData(char* data, int length);
     bool writeFile(QString filename="");
     int getSampleRate() { return samplerate; }
+    int getChannels() { return channels; }
     ~WAV();
 
 };

@@ -43,7 +43,7 @@ public:
 
 
 	QStringList getAllStructures() { return structures; }
-	QStringList getExamples(QString word, QString terminal, int count=2);
+	QStringList getExamples(QString word, QString terminal, int count=2, bool includeShadow=false);
 
 };
 

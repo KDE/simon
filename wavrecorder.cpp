@@ -54,7 +54,7 @@ bool WavRecorder::record(QString filename)
 	unsigned int sampleRate = Settings::get("Sound/SamplerateIn").toInt();
 	unsigned int bufferFrames = 256; // 256 sample frames
 
-	wavData = new WAV(filename, sampleRate);
+	wavData = new WAV(filename, chans, sampleRate);
 
 	try {
 		audio->openStream( NULL, &parameters, RTAUDIO_SINT16,

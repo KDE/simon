@@ -20,7 +20,7 @@
 #include "modelmanager.h"
 #include "settings.h"
 #include <QMessageBox>
-// #include <QDebug>
+#include <QDebug>
 
 WordListManager* WordListManager::instance;
 
@@ -375,7 +375,7 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 		
 		
 		if (modificator == 0) {
-// 			qDebug() << "Stagnating";
+			qDebug() << "Stagnating";
 			//stagnating search
 			//do a incremental search over the left over items
 			int i=currentMinValue;
@@ -391,12 +391,12 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 			{
 				found = true;
 			} else found = false;
-// 			qDebug() << i;
+			qDebug() << i;
 			return i;
 		}
 		currentSearchStart += modificator;
 	}
-// 	qDebug() << "done" << currentSearchStart;
+	qDebug() << "done" << currentSearchStart;
 	found = false;
 	return currentSearchStart;
 }
@@ -663,10 +663,11 @@ QString* WordListManager::getTerminal(QString name, QString pronunciation, WordL
 /**
  * \brief Returns a random wordname using this terminal
  * @param terminal The terminal of the word
+ * @param includeShadow Should we also look in the shadowdict?
  * @author Peter Grasch
  * @return Wordname
  */
-QString WordListManager::getRandomWord(QString terminal)
+QString WordListManager::getRandomWord(QString terminal, bool includeShadow)
 {
 	wordListLock.lock();
 	WordList *main = getWordList();
@@ -699,7 +700,8 @@ QString WordListManager::getRandomWord(QString terminal)
 		}
 	}
 	wordListLock.unlock();
-		
+	
+	if (!includeShadow) return "";
 	
 	shadowLock.lock();
 	//still didn't find anything?
@@ -734,7 +736,7 @@ QString WordListManager::getRandomWord(QString terminal)
 	}
 	shadowLock.unlock();
 	
-	return terminal; //we couldn't find a word - return what we got
+	return ""; //we couldn't find a word - return what we got
 }
 	
 QStringList WordListManager::getTerminals(bool includeShadow)
@@ -973,16 +975,24 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 	}
 	int wordcount = main->count();
 	
-	while (newList->count() >0)
+	while ((newList->count() >0) && (i < wordcount))
 	{
 		Word tmp=newList->at(0);
-		while ((i<wordcount-1) && (main->at(i) < tmp))
+		while ((i<wordcount) && (main->at(i) < tmp))
 		{ i++; }
-		if (main->at(i) != tmp) //no doubles
+		if (i!=wordcount) 
 		{
-			main->insert(i, tmp);
-			wordcount++;
-		} else newList->removeAt(0); //removeAt the double
+			if (main->at(i) != tmp) //no doubles
+			{
+				main->insert(i, tmp);
+				wordcount++;
+			} else newList->removeAt(0); //removeAt the double
+		}
+	}
+	while (newList->count() > 0)
+	{
+		main->append(newList->takeAt(0));
+		wordcount++;
 	}
 
 	delete newList;

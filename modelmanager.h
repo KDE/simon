@@ -37,7 +37,7 @@ signals:
 	void sampleWithoutWord(QString);
 private:
 	static ModelManager* instance;
-	bool errorAlreadyFetched;
+	bool errorIsBeingProcessed;
 	QProgressDialog *processDialog;
 	QProcess *proc;
 	QString tmpDir;
@@ -45,7 +45,6 @@ private:
 	QString lastError;
 
 
-	bool processError();
 
 	bool generateDirectoryStructure();
 	
@@ -103,9 +102,8 @@ private slots:
 	void setStatus(QString);
 	void displayError(QString);
 	void setProgress(int now, int max);
-
-	void logError();
 	void logInfo();
+	bool processError();
 public slots:
 	void cancel();
 

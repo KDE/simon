@@ -189,12 +189,13 @@ void AddWordView::finish(int done)
  */
 void AddWordView::commitList()
 {
-	//we can't know for certain if this will be sorted when we add multiple words at once
-	WordListManager::getInstance()->addWords(listToAdd, false /*sorted*/, false /*shadowed*/);
-	listToAdd = new WordList();
 	// 	Training stuff deactivated for now
 	TrainingManager::getInstance()->addSamples(promptsToAdd);
 	promptsToAdd->clear();
+
+	//we can't know for certain if this will be sorted when we add multiple words at once
+	WordListManager::getInstance()->addWords(listToAdd, false /*sorted*/, false /*shadowed*/);
+	listToAdd = new WordList();
 }
 
 void AddWordView::askToAddWord(QString word)

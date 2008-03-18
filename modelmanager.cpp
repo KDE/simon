@@ -15,6 +15,7 @@
 #include <QCoreApplication>
 
 #include <QMessageBox>
+#include <QDebug>
 #include <QVariant>
 #include <QProgressDialog>
 #include <QDir>
@@ -29,7 +30,7 @@ ModelManager* ModelManager::instance;
 
 ModelManager::ModelManager(QWidget *parent) : QThread(parent)
 {
-	errorAlreadyFetched=false;
+	errorIsBeingProcessed=false;
 	processDialog = new QProgressDialog();
 	connect(processDialog, SIGNAL(canceled()), this, SLOT(terminate()));
 	connect(this, SIGNAL(status(QString)), this, SLOT(setStatus(QString)));
@@ -270,7 +271,7 @@ void ModelManager::displayError(QString error)
 bool ModelManager::startCompilation()
 {
 	if (isRunning()) return false;
-	
+	lastError="";
 	processDialog->show();
 	start();
 	return true;
@@ -358,13 +359,13 @@ bool ModelManager::generateCodetrainScp()
 
 void ModelManager::run()
 {
-	errorAlreadyFetched=false;
+	errorIsBeingProcessed=false;
 	Logger::log(tr("[INF] Modell wird generiert..."));
 	emit status(tr("Vorbereitung"));
 	emit progress(0,2300);
 	
 	proc = new QProcess();
-	connect(proc, SIGNAL(readyReadStandardError()), this, SLOT(logError()));
+	connect(proc, SIGNAL(readyReadStandardError()), this, SLOT(processError()));
 	connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(logInfo()));
 	
 	if (!generateDirectoryStructure())
@@ -435,8 +436,9 @@ bool ModelManager::makeTranscriptions()
 	
 	if (proc->exitCode() != 0)
 	{
-		if (!processError())
+		if (!errorIsBeingProcessed)
 			emit error(tr("Erstellen der Transcriptions files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Dateien mkphones0.led und mkphones1.led richtig angegeben haben. (%1, %2)").arg(Settings::getS("Model/PathToMkPhones0")).arg(Settings::getS("Model/PathToMkPhones1")));
+		else errorIsBeingProcessed = false; // reset flag
 		return false;
 	}
 	emit progress(155);
@@ -451,38 +453,45 @@ bool ModelManager::makeTranscriptions()
  */
 bool ModelManager::processError()
 {
-	if (lastError.isEmpty()) //make _sure_ we got the error string
-	{
-		lastError = QString(lastError+"\n"+proc->readAllStandardError()).right(600);
-		errorAlreadyFetched=true;
-	}
+	lastError = QString(lastError+"\n"+proc->readAllStandardError()).right(400);
+	
+	Logger::log(tr("[ERR]")+" "+lastError);
+	
 	QString err = lastError.trimmed();
-	if (err.startsWith(("ERROR [+1232]"))) //word missing
-	{
-		int wordstart = 44; //ERROR [+1232] NumParts: Cannot find word 
-		QString word = lastError.mid(wordstart, lastError.indexOf(" ", wordstart)-wordstart);
-		
-		//this error ONLY occurs when there are samples for the word but the word itself is not recorded
-		//so - RECORD THE WORD!
-		emit missingWord(word);
-		this->processDialog->close();
-		lastError="";
-		return true;
-	} else
-	if (err.startsWith("ERROR [+6510]"))  //sample without prompts-entry
-	{ //LOpen: Unable to open label file /path/to/missing-sample.lab
-		err = err.mid(48); //err.left(err.indexOf("\n"));
-		err = err.left(err.indexOf("\n"));
-		QString label = err.mid(48);
-		label = label.mid(label.lastIndexOf("/"));
+	qDebug() << err;
+	if (!errorIsBeingProcessed)
 
-		QString filename = Settings::getS("Model/PathToSamples")+"/"+label.left(label.count()-4)+".wav";
-		
-		emit sampleWithoutWord(filename);
-		this->processDialog->close();
-		lastError="";
-		return true;
-	}
+		if (err.startsWith(("ERROR [+1232]"))) //word missing
+		{
+			errorIsBeingProcessed=true;
+			qDebug() << "HIER!";
+			//ERROR [+1232]  NumParts: Cannot find word DARAUFFOLGEND in dictionary
+			int wordstart = 45;
+			QString word = lastError.mid(wordstart, lastError.indexOf(" ", wordstart)-wordstart);
+			
+			//this error ONLY occurs when there are samples for the word but the word itself is not recorded
+			//so - RECORD THE WORD!
+			emit missingWord(word);
+			this->processDialog->close();
+		} else
+		if (err.startsWith("ERROR [+6510]"))  //sample without prompts-entry
+		{ //LOpen: Unable to open label file /path/to/missing-sample.lab
+			err = err.mid(48); //err.left(err.indexOf("\n"));
+			err = err.left(err.indexOf("\n"));
+			QString label = err.mid(48);
+			label = label.mid(label.lastIndexOf("/"));
+			QString sampleName = label.left(label.count()-4);
+			if (!sampleName.isEmpty())
+			{
+				errorIsBeingProcessed=true;
+	
+				QString filename = Settings::getS("Model/PathToSamples")+"/"+sampleName+".wav";
+				
+				emit sampleWithoutWord(filename);
+				this->processDialog->close();
+			} else errorIsBeingProcessed=false;
+		}
+
 	return false;
 }
 
@@ -498,8 +507,9 @@ bool ModelManager::createMonophones()
 	emit status(tr("Erstelle hmm1..."));
 	if (!buildHMM1())
 	{
-		if (!processError())
+		if (!errorIsBeingProcessed)
 			emit error(tr("Fehler beim Generieren des HMM1. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		else errorIsBeingProcessed = false;
 		return false;
 	}
 	emit progress(800);
@@ -1072,13 +1082,6 @@ void ModelManager::logInfo()
 {
 	lastOutput = proc->readAllStandardOutput();
 	Logger::log(tr("[INF]")+" "+lastOutput);
-}
-
-void ModelManager::logError()
-{
-	if (errorAlreadyFetched) errorAlreadyFetched = false;
-	else lastError = QString(lastError+"\n"+proc->readAllStandardError()).right(6000);
-	Logger::log(tr("[ERR]")+" "+lastError);
 }
 
 bool ModelManager::generateWlist()

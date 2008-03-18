@@ -84,9 +84,11 @@ bool WavPlayer::play( QString filename )
 
 	RtAudio::StreamParameters parameters;
 	parameters.deviceId = Settings::get("Sound/OutputDevice").toInt();
-	parameters.nChannels = this->chans = Settings::get("Sound/ChannelsOut").toInt();
+// 	parameters.nChannels = this->chans = Settings::get("Sound/ChannelsOut").toInt();
+	parameters.nChannels = this->chans = file->getChannels();
 	parameters.firstChannel = 0;
-	unsigned int sampleRate = Settings::get("Sound/SamplerateOut").toInt();
+	unsigned int sampleRate = file->getSampleRate();
+// 	unsigned int sampleRate = Settings::get("Sound/SamplerateOut").toInt();
 	unsigned int bufferFrames = 256; // 256 sample frames
 	try {
 		audio->openStream( &parameters, NULL, RTAUDIO_SINT16,

@@ -140,6 +140,7 @@ bool TrainingManager::savePrompts(bool recompiledLater)
 	for ( int i=0; i <samples.count(); i++ )
 		prompts.write ( samples[i].toLatin1() +" "+promptsTable->value ( samples[i] ).toLatin1() +"\n" );
 
+	prompts.write("\n"); //add enter on last line
 	prompts.close();
 
 	if (recompiledLater) return true;
@@ -180,6 +181,7 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 	while ( !prompts->atEnd() ) //for each line that was successfully read
 	{
 		line = prompts->readLine ( 1024 );
+		if (line.trimmed().isEmpty()) continue;
 		labelend = line.indexOf ( " " );
 		label = line.left ( labelend );
 		prompt = line.mid ( labelend ).trimmed();

@@ -28,10 +28,11 @@
  *	The samplerate of the file - this has to be specified when we create a new file; When we want to open an existing file, we can omit the pramater and it will be read from the file at <filename>
  *	
  */
-WAV::WAV(QString filename, int samplerate)
+WAV::WAV(QString filename, int channels, int samplerate)
 {
 	length = 0;
 	this->filename = filename;
+	this->channels = channels;
 	this->samplerate = samplerate; //the samplerate /has/ to be initialized - even if it is initialized with 0
 	// that way we know (for example in the retrieveSampleRate() function, that we have a new file and that the
 	// file at <filename> may not be current/even existing
@@ -41,8 +42,9 @@ WAV::WAV(QString filename, int samplerate)
 	if (samplerate == 0)
 	{
 		Logger::log(QObject::tr("[INF] Öffne WAV Datei: %1").arg(filename));
-		this->samplerate = this->retrieveSampleRate();
 		this->importDataFromFile(filename);
+		this->samplerate = this->retrieveSampleRate();
+		this->channels = this->retrieveChannels();
 	} else {
 		Logger::log(QObject::tr("[INF] Erstelle neue WAV Datei: %1").arg(filename));
 	}
@@ -131,6 +133,33 @@ int WAV::retrieveSampleRate()
 	
 }
 
+
+#include <QDebug>
+int WAV::retrieveChannels()
+{
+	if (this->channels == 0)
+	{
+		//this is no new file
+		QFile wavFile(filename);
+		wavFile.open(QIODevice::ReadOnly);
+		QDataStream *dstream = new QDataStream(&wavFile);
+		
+		dstream->setByteOrder( QDataStream::LittleEndian );
+		
+		dstream->skipRawData( 22 ); //we have to skip 22 bytes of other information before we reach the channels
+		
+		quint16 channels;
+		dstream->readRawData( (char*) &channels, 2); //2 byte samplerate, 16bit
+		qDebug() << channels;
+		
+		dstream->unsetDevice();
+		wavFile.close();
+		
+		return (int) channels;
+		
+	} else return this->channels;
+	
+}
 
 
 /**
@@ -234,8 +263,8 @@ void WAV::writeDataChunk(QDataStream *dstream)
 void WAV::writeFormat(QDataStream *dstream)
 {
 	dstream->writeRawData("fmt ",4);
-	*dstream << (quint32) 0x10 << (quint16) 0x01 << (quint16) 0x01 <<
-			(quint32) 44100 << (quint32) 44100 << (quint16) 4 << (quint16) 16;
+	*dstream << (quint32) 0x10 << (quint16) 0x01 << (quint16) channels <<
+			(quint32) samplerate << (quint32) channels*samplerate << (quint16) 4 << (quint16) 16;
 }
 
 /**
