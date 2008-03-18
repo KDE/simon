@@ -258,27 +258,27 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	vocab << "% NS_B\n<s>\tsil\n";
 	vocab << "% NS_E\n</s>\tsil\n";
 
-// 	vocab << "% " << tr("Unbekannt") << "\n";
-
 	QHash<QString /*terminalName*/, Word /*words*/> vocabulary;
 	
 	int i=0;
+
+	bool foundSentEnd=false;
+	int sentEndIndex = getWordIndex(list, foundSentEnd, "SENT-END", "sil");
+	if (!foundSentEnd)
+	{
+		list->insert(sentEndIndex, Word("SENT-END", "sil", "deleteme"));
+		list->insert(sentEndIndex, Word("SENT-START", "sil", "deleteme"));
+	}
+	//write lexicon
 	int count = list->count();
-	bool sentWritten = false; //performance
+	
+	QStringList distinctTerminals;
 	while (i<count)
 	{
 		Word w = list->at(i);
 		QString wordStr = w.getWord();
 		//TODO: Test naming
 		QString upperWord = wordStr.toUpper();
-
-		if (!sentWritten && (upperWord >= "SENT-END"))
-		{
-			outstream << "SENT-END\t\t[]\t\tsil\n";
-			outstream << "SENT-START\t\t[]\t\tsil\n";
-			sentWritten = true;
-		}
-
 		QString wordPron = w.getPronunciation();
 		QString wordTerm = w.getTerminal();
 
@@ -286,18 +286,13 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 				wordPron << "\n";
 
 		vocabulary.insertMulti(wordTerm, w);
+		if (!distinctTerminals.contains(wordTerm)) distinctTerminals.append(wordTerm);
 		i++;
 	}
 	outfile->close();
 	outfile->deleteLater();
 
-	QStringList terminals = vocabulary.keys();
-	QStringList distinctTerminals;
-	while (terminals.count())
-		if (!distinctTerminals.contains(terminals[0]))
-			distinctTerminals << terminals.takeAt(0);
-		else terminals.removeAt(0);
-
+	distinctTerminals.removeAll("deleteme");
 	
 	for (int i=0; i < distinctTerminals.count(); i++)
 	{
@@ -449,26 +444,28 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 	QString line, term, word;
 	QString pronunciation;
 	int splitter;
+
+	//skip NS_E and NS_B
+	for (int i=0; (i < 4) && (!vocab.atEnd()); i++)
+		vocab.readLine(1025);
+
 	while (!vocab.atEnd())
 	{
 		line = QString(vocab.readLine(1024)).trimmed();
-		if (line.startsWith("% "))
-		{
-			//its a new terminal!
-			term = line.mid(2).trimmed();
-// 			term = term.replace(":", "_");
-			//strip multiple definitions
-			if (!terminals.contains(term)) terminals.append(term);
-		} else
+		if (!line.startsWith("% "))
 		{
 			//read the word
 			splitter = line.indexOf("\t");
 			word = line.left(splitter).trimmed();
 			if (word.isEmpty()) continue;
 			pronunciation = line.mid(splitter).trimmed();
-			if (pronunciation == "sil") continue;
-			
 			wordlist->append(Word(word, pronunciation, term, (isShadowlist) ? 0 : trainManager->getProbability(word.toUpper())));
+		} else
+		{
+			//its a new terminal!
+			term = line.mid(2).trimmed();
+			//strip multiple definitions
+			if (!terminals.contains(term)) terminals.append(term);
 		}
 	}
 	wordlist = this->sortList(wordlist);

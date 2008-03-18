@@ -1,10 +1,37 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="1" >
-  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/modelmanager.cpp" >
-   <View0 Encoding="ISO 8859-15" line="1044" Type="Source" />
+ <DocsAndViews NumberOfDocuments="10" >
+  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/addwordview.h" >
+   <View0 Encoding="" line="55" Type="Source" />
   </Doc0>
+  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/atwatcher.h" >
+   <View0 Encoding="" line="40" Type="Source" />
+  </Doc1>
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/dbusbackend.h" >
+   <View0 Encoding="" line="28" Type="Source" />
+  </Doc2>
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/grammarmanager.h" >
+   <View0 Encoding="" line="28" Type="Source" />
+  </Doc3>
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/modelmanager.h" >
+   <View0 Encoding="" line="111" Type="Source" />
+  </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/runcommand.h" >
+   <View0 Encoding="" line="38" Type="Source" />
+  </Doc5>
+  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/shortcutcontrol.h" >
+   <View0 Encoding="" line="32" Type="Source" />
+  </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/trainingmanager.h" >
+   <View0 Encoding="" line="46" Type="Source" />
+  </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/trainingview.h" >
+   <View0 Encoding="" line="54" Type="Source" />
+  </Doc8>
+  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.h" >
+   <View0 Encoding="" line="65" Type="Source" />
+  </Doc9>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

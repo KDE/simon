@@ -1,1 +1,9 @@
-<shortcuts/>
+<shortcuts>
+ <shortcut name="test" >
+  <modifiers>2</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>2</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>_</charkey>
+ </shortcut>
+</shortcuts>

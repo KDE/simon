@@ -91,12 +91,12 @@ void DefineDefaultValuesPage::initializePage()
 	checkAndSet("Model/PathToConfig", applicationPath+"model/scripts/config");
 	checkAndSet("Model/PathToProto", applicationPath+"model/scripts/proto");
 	checkAndSet("Model/PathToTreeHed", applicationPath+"model/tree1.hed");
-	checkAndSet("Model/PathToMkPhones0", applicationPath+"model/mkphones0.led");
-	checkAndSet("Model/PathToMkPhones1", applicationPath+"model/mkphones1.led");
+	checkAndSet("Model/PathToMkPhones0", applicationPath+"model/scripts/mkphones0.led");
+	checkAndSet("Model/PathToMkPhones1", applicationPath+"model/scripts/mkphones1.led");
 	checkAndSet("Model/PathToSamples", applicationPath+"model/training.data");
 	checkAndSet("Model/PathToGlobalDed", applicationPath+"model/scripts/global.ded");
 	checkAndSet("Model/PathToSilHed", applicationPath+"model/scripts/sil.hed");
-	checkAndSet("Model/PathToMktriLed", applicationPath+"model/mktri.led");
+	checkAndSet("Model/PathToMktriLed", applicationPath+"model/scripts/mktri.led");
 	checkAndSet("Model/PathToHmm", applicationPath+"model/hmmdefs");
 	checkAndSet("Model/PathToTiedlist", applicationPath+"model/tiedlist");
 	checkAndSet("Model/PathToShadowLexicon", applicationPath+"model/shadowlexicon");
