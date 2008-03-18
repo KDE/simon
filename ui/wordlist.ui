@@ -129,7 +129,7 @@
        </size>
       </property>
       <property name="currentIndex" >
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tbEditModel" >
        <attribute name="title" >
@@ -233,7 +233,7 @@ p, li { white-space: pre-wrap; }
              <string>Löscht das Wort aus der Liste der zu trainierenden Wörter</string>
             </property>
             <property name="text" >
-             <string>Wort aus Liste &amp;löschen</string>
+             <string>Wort aus Training &amp;löschen</string>
             </property>
             <property name="icon" >
              <iconset resource="../action_icons.qrc" >:/images/icons/list-remove.svg</iconset>
