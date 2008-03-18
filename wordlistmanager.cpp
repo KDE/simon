@@ -330,8 +330,9 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 	if (!list || (list->count()==0))
 	{
 		found = false;
-		return -1;
+		return 0;
 	}
+
 	word = word.toUpper();
 	
 	int currentSearchStart = list->count()/2; //make use of integer division
@@ -339,7 +340,7 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 	//(which would be out of bounds)
 	
 	int currentMinValue = 0;
-	int currentMaxValue = list->count();
+	int currentMaxValue = list->count()-1;
 	Word *currentWord;
 	QString currentWordName, currentWordPronunciation, currentWordTerminal;
 	int modificator=0;
