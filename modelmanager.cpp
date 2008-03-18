@@ -270,9 +270,9 @@ void ModelManager::displayError(QString error)
 
 bool ModelManager::startCompilation()
 {
+	processDialog->show();
 	if (isRunning()) return false;
 	lastError="";
-	processDialog->show();
 	start();
 	return true;
 }

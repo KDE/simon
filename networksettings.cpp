@@ -42,6 +42,8 @@ NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(tr("Juliusd"), Q
 	connect( ui.twJuliusAddresses, SIGNAL(itemSelectionChanged()), this, SLOT(enableButtons()));
 	connect( ui.twJuliusAddresses, SIGNAL(cellChanged(int, int)), this, SIGNAL(changed()));
 	connect(ui.cbAutoConnect, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
+	connect(ui.leUser, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.lePass, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
 	
 	guessChildTriggers(this);
 }

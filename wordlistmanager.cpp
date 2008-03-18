@@ -263,15 +263,16 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	
 	int i=0;
 
-	bool foundSentEnd=false;
-	int sentEndIndex = getWordIndex(list, foundSentEnd, "SENT-END", "sil");
-	if (!foundSentEnd)
-	{
-		list->insert(sentEndIndex, Word("SENT-START", "sil", "deleteme"));
-		list->insert(sentEndIndex, Word("SENT-END", "sil", "deleteme"));
-	}
+// 	bool foundSentEnd=false;
+// 	int sentEndIndex = getWordIndex(list, foundSentEnd, "SENT-END", "sil");
+// 	if (!foundSentEnd)
+// 	{
+// 		list->insert(sentEndIndex, Word("SENT-START", "sil", "deleteme"));
+// 		list->insert(sentEndIndex, Word("SENT-END", "sil", "deleteme"));
+// 	}
 	//write lexicon
 	int count = list->count();
+	bool sentWritten = false;
 	
 	QStringList distinctTerminals;
 	while (i<count)
@@ -283,6 +284,12 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 		QString wordPron = w.getPronunciation();
 		QString wordTerm = w.getTerminal();
 
+		if (!sentWritten && (upperWord >= "SENT-END"))
+		{
+			outstream << "SENT-END\t\t[]\t\tsil\n";
+			outstream << "SENT-START\t\t[]\t\tsil\n";
+			sentWritten=true;
+		}
 		outstream << upperWord /*wordStr*/ << "\t\t[" << wordStr << "]\t\t" <<
 				wordPron << "\n";
 
@@ -294,9 +301,9 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	outfile->deleteLater();
 
 	//remove sent-start and sent-end
-	list->removeAt(sentEndIndex);
-	list->removeAt(sentEndIndex);
-	distinctTerminals.removeAll("deleteme");
+// 	list->removeAt(sentEndIndex);
+// 	list->removeAt(sentEndIndex);
+// 	distinctTerminals.removeAll("deleteme");
 	
 	for (int i=0; i < distinctTerminals.count(); i++)
 	{

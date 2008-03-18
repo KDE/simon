@@ -116,10 +116,14 @@ void DefineDefaultValuesPage::initializePage()
 	checkAndSet("Programs/Julius/dfa_minimize", "dfa_minimize");
 	checkAndSet("Juliusd/AutoConnect", false);
 	checkAndSet("Network/Timeout", 3000);
+	checkAndSet("Network/JuliusdServers", "localhost:4444;");
+	checkAndSet("Commands/Keyword", "simon");
+	checkAndSet("Desktopgrid/Trigger", "Desktopgitter");
 	checkAndSet("Internet/TextOnlineUpdate", "http://simon.pytalhost.org/texts/list.xml");
 	checkAndSet("Internet/WikiDumpOverview", "http://download.wikimedia.org/backup-index.html");
 	checkAndSet("Internet/WikiDumpPrefix", "http://download.wikimedia.org/");
 	checkAndSet("Internet/WikiDumpPostfix", "-pages-articles.xml.bz2");
+
 
 	complete = true;
 	QTimer::singleShot(100, this, SIGNAL(done()));
