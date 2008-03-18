@@ -55,6 +55,7 @@ TrainingView::TrainingView ( QWidget *parent )
 	connect ( ui.pbFinish, SIGNAL ( clicked() ), this, SLOT ( finish() ) );
 	connect ( ui.pbImportText, SIGNAL ( clicked() ), this, SLOT ( importTexts() ) );
 	connect ( ui.pbBackToMain, SIGNAL ( clicked() ), this, SLOT ( cancelReading() ) );
+	connect ( ui.pbBackToMain2, SIGNAL ( clicked() ), this, SLOT ( backToMain() ) );
 	connect ( ui.pbDelText, SIGNAL ( clicked() ), this, SLOT ( deleteSelected() ) );
 	connect ( ui.pbImportDir, SIGNAL ( clicked() ), this, SLOT ( importDirectory() ) );
 
@@ -85,6 +86,7 @@ void TrainingView::deleteSelected()
 
 	loadList();
 }
+
 
 /**
  * \brief Starts a special training with the given words
@@ -299,8 +301,14 @@ void TrainingView::nextPage()
 void TrainingView::cancelReading()
 {
 	cleanUpTrainingSamples();
-	ui.swAction->setCurrentIndex ( 0 );
+	backToMain();
+}
+
+
+void TrainingView::backToMain()
+{
 	resetRecorder();
+	ui.swAction->setCurrentIndex ( 0 );
 	setWindowTitle ( tr ( "Training" ) );
 }
 

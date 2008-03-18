@@ -64,6 +64,7 @@ public slots:
 	void cancelReading();
     void cancelTraining();
 	void resetRecorder();
+	void backToMain();
 	void deleteSelected();
 	void fetchPage(int page);
 	void trainWords(WordList *words);

@@ -663,65 +663,73 @@ QString WordListManager::getRandomWord(QString terminal)
 {
 	wordListLock.lock();
 	WordList *main = getWordList();
-	int start = qrand()%main->count();
-	int i=start;
-	while (i<main->count())
+	int start;
+	int i;
+	if (main->count() > 0)
 	{
-		if (main->at(i).getTerminal()==terminal)
+		start = qrand()%main->count();
+		i=start;
+		while (i<main->count())
 		{
-			wordListLock.unlock();
-			return main->at(i).getWord();
+			if (main->at(i).getTerminal()==terminal)
+			{
+				wordListLock.unlock();
+				return main->at(i).getWord();
+			}
+			i++;
 		}
-		i++;
-	}
-	//we didn't find anything till now
-	//start again at the beginning and go till the point we started last time
-	i=0;
-	while (i<start)
-	{
-		if (main->at(i).getTerminal()==terminal)
+		//we didn't find anything till now
+		//start again at the beginning and go till the point we started last time
+		i=0;
+		while (i<start)
 		{
-			wordListLock.unlock();
-			return main->at(i).getWord();
+			if (main->at(i).getTerminal()==terminal)
+			{
+				wordListLock.unlock();
+				return main->at(i).getWord();
+			}
+			i++;
 		}
-		i++;
 	}
 	wordListLock.unlock();
+		
 	
-
 	shadowLock.lock();
 	//still didn't find anything?
 	//move on to the shadowlist
 	WordList *shadowList = getShadowList();
 	
-	start = qrand()%shadowList->count();
-	i=start;
-	while (i<shadowList->count())
+	if (shadowList->count() > 0)
 	{
-		if (shadowList->at(i).getTerminal()==terminal)
+		start = qrand()%shadowList->count();
+		i=start;
+		while (i<shadowList->count())
 		{
-			shadowLock.unlock();
-			return shadowList->at(i).getWord();
+			if (shadowList->at(i).getTerminal()==terminal)
+			{
+				shadowLock.unlock();
+				return shadowList->at(i).getWord();
+			}
+			i++;
 		}
-		i++;
-	}
-	//we didn't find anything till now
-	//start again at the beginning and go till the point we started last time
-	i=0;
-	while (i<start)
-	{
-		if (shadowList->at(i).getTerminal()==terminal)
+		//we didn't find anything till now
+		//start again at the beginning and go till the point we started last time
+		i=0;
+		while (i<start)
 		{
-			shadowLock.unlock();
-			return shadowList->at(i).getWord();
+			if (shadowList->at(i).getTerminal()==terminal)
+			{
+				shadowLock.unlock();
+				return shadowList->at(i).getWord();
+			}
+			i++;
 		}
-		i++;
 	}
 	shadowLock.unlock();
-
+	
 	return terminal; //we couldn't find a word - return what we got
 }
-
+	
 QStringList WordListManager::getTerminals(bool includeShadow)
 {
 	QStringList terminals;

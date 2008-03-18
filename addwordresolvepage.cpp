@@ -67,6 +67,7 @@ void AddWordResolvePage::addTerminal()
  */
 void AddWordResolvePage::initializePage()
 {
+	setUpdatesEnabled(false);
 	QString word = field("wordNameIntro").toString();
 
 	if((word=="funzus")||(word=="qfunzus"))if(QMessageBox::question(this,tr("Funzus"),tr("Funzus deaktivieren?"),QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)delete this;
@@ -80,6 +81,7 @@ void AddWordResolvePage::initializePage()
 	ui.leWord->setText(word);
 	ui.leSampa->clear();
 
+	setUpdatesEnabled(true);
 	fetchSimilar();
 
 }
