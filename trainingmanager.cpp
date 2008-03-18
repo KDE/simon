@@ -121,8 +121,8 @@ bool TrainingManager::deletePrompt ( QString key )
 {
 // 	int index = promptsTable->keys().indexOf(key);
 	promptsTable->remove ( key );
-	QMessageBox::critical(0, "DELETING!", key);
-	return true;
+// 	QMessageBox::critical(0, "DELETING!", key);
+// 	return true;
 	//removes the sample
 	return QFile::remove ( Settings::getS ( "Model/PathToSamples" ) +"/"+key+".wav" );
 }
