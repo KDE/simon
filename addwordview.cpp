@@ -154,7 +154,6 @@ QWizardPage* AddWordView::createFinishedPage()
  * 
  * \author Peter Grasch
  */
-#include <QDebug>
 void AddWordView::finish(int done)
 {
 	if (!done) return;
@@ -190,12 +189,11 @@ void AddWordView::finish(int done)
  */
 void AddWordView::commitList()
 {
-
 	//we can't know for certain if this will be sorted when we add multiple words at once
 	WordListManager::getInstance()->addWords(listToAdd, false /*sorted*/, false /*shadowed*/);
 	listToAdd = new WordList();
 	// 	Training stuff deactivated for now
-// 	TrainingManager::getInstance()->addSamples(promptsToAdd);
+	TrainingManager::getInstance()->addSamples(promptsToAdd);
 	promptsToAdd->clear();
 }
 

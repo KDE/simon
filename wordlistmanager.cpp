@@ -20,6 +20,7 @@
 #include "modelmanager.h"
 #include "settings.h"
 #include <QMessageBox>
+// #include <QDebug>
 
 WordListManager* WordListManager::instance;
 
@@ -340,7 +341,7 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 	//(which would be out of bounds)
 	
 	int currentMinValue = 0;
-	int currentMaxValue = list->count()-1;
+	int currentMaxValue = list->count();
 	Word *currentWord;
 	QString currentWordName, currentWordPronunciation, currentWordTerminal;
 	int modificator=0;
@@ -374,6 +375,7 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 		
 		
 		if (modificator == 0) {
+// 			qDebug() << "Stagnating";
 			//stagnating search
 			//do a incremental search over the left over items
 			int i=currentMinValue;
@@ -383,17 +385,18 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 			{
 				i++;
 			}
-			if ((list->at(i).getWord().toUpper()==word)
+			if ((i<list->count()) && (list->at(i).getWord().toUpper()==word)
 							&& ((pronunciation.isEmpty() || list->at(i).getPronunciation() == pronunciation)
 							&& (terminal.isEmpty() || list->at(i).getTerminal() == terminal)))
 			{
 				found = true;
 			} else found = false;
+// 			qDebug() << i;
 			return i;
 		}
 		currentSearchStart += modificator;
 	}
-	
+// 	qDebug() << "done" << currentSearchStart;
 	found = false;
 	return currentSearchStart;
 }
