@@ -16,6 +16,7 @@
 #include <QWidget>
 class WavRecorder;
 class WavPlayer;
+class PostProcessing;
 
 /**
  * \class RecWidget
@@ -45,6 +46,7 @@ private:
 	QString filename;
 	WavRecorder *rec;
 	WavPlayer *play;
+	PostProcessing *postProc;
 	
 	void setupSignalsSlots();
 

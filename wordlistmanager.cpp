@@ -387,7 +387,6 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 		
 		
 		if (modificator == 0) {
-			qDebug() << "Stagnating";
 			//stagnating search
 			//do a incremental search over the left over items
 			int i=currentMinValue;
@@ -403,12 +402,10 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 			{
 				found = true;
 			} else found = false;
-			qDebug() << i;
 			return i;
 		}
 		currentSearchStart += modificator;
 	}
-	qDebug() << "done" << currentSearchStart;
 	found = false;
 	return currentSearchStart;
 }

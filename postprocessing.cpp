@@ -16,6 +16,7 @@
 #include <QFile>
 #include <QProgressDialog>
 #include <QObject>
+#include <QDebug>
 
 PostProcessing::PostProcessing()
 {
@@ -47,6 +48,7 @@ bool PostProcessing::process(QString in, QString out, bool deleteIn)
 		execStr.replace("\%2", out);
 		execStr.replace("\%3", Settings::getS("Model/SampleRate"));
 		execStr.replace("\%4", Settings::getS("Model/Channels"));
+		qDebug() << execStr;
 		int ret = QProcess::execute(execStr);
 		if (ret)
 		{

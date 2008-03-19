@@ -1,25 +1,40 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="6" >
-  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.h" >
-   <View0 Encoding="" line="65" Type="Source" />
+ <DocsAndViews NumberOfDocuments="11" >
+  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/modelmanager.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.cpp" >
-   <View0 Encoding="ISO 8859-15" line="370" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/modelmanager.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc1>
-  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/addwordview.cpp" >
-   <View0 Encoding="ISO 8859-15" line="168" Type="Source" />
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc2>
-  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/trainingview.cpp" >
-   <View0 Encoding="ISO 8859-15" line="58" Type="Source" />
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wav.h" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc3>
-  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/trainingmanager.cpp" >
-   <View0 Encoding="ISO 8859-15" line="120" Type="Source" />
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wav.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc4>
-  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/addwordrecordpage.h" >
-   <View0 Encoding="ISO 8859-15" line="46" Type="Source" />
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wavrecorder.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
   </Doc5>
+  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wavplayer.cpp" >
+   <View0 Encoding="" Type="Source" />
+  </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/trainingmanager.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/definedefaultvaluespage.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc8>
+  <Doc9 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/networksettings.cpp" >
+   <View0 Encoding="ISO 8859-15" Type="Source" />
+  </Doc9>
+  <Doc10 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/networksettings.h" >
+   <View0 Encoding="ISO 8859-15" line="44" Type="Source" />
+  </Doc10>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>
@@ -35,7 +50,11 @@
    <AStyle IndentPreprocessors="0" FillCount="4" PadParenthesesOut="1" IndentNamespaces="1" IndentLabels="1" Fill="Tabs" MaxStatement="40" Brackets="Break" MinConditional="-1" IndentBrackets="0" PadParenthesesUn="1" BlockBreak="0" KeepStatements="1" KeepBlocks="1" BlockIfElse="0" IndentSwitches="1" PadOperators="0" FStyle="UserDefined" IndentCases="0" FillEmptyLines="0" BracketsCloseHeaders="0" BlockBreakAll="0" PadParenthesesIn="1" IndentClasses="1" IndentBlocks="0" FillForce="0" />
   </kdevastyle>
   <kdevbookmarks>
-   <bookmarks/>
+   <bookmarks>
+    <bookmark url="/home/bedahr/Daten/simon/source/trunk/wav.cpp" >
+     <mark line="263" />
+    </bookmark>
+   </bookmarks>
   </kdevbookmarks>
   <kdevsubversion>
    <subversion base="" />

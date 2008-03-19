@@ -13,6 +13,7 @@
 #include <QChar>
 #include "wavrecorder.h"
 #include "wavplayer.h"
+#include "postprocessing.h"
 #include "settings.h"
 
 /**
@@ -32,6 +33,8 @@ RecWidget::RecWidget(QString name, QString filename, QWidget *parent) : QWidget(
 	
 	rec = new WavRecorder(this);
 	play = new WavPlayer(this);
+
+	postProc = new PostProcessing();
 	
 	ui.setupUi(this);
 	ui.leRecognisedText->setVisible(false);
@@ -209,7 +212,8 @@ void RecWidget::stopRecording()
 		QMessageBox::critical(this, tr("Aufnehmen fehlgeschlagen"), QString(tr("Abschließen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!")).arg(fName));
 		
 	if (Settings::get("Model/ProcessInternal").toBool())
-		if (!QFile::copy(fName, filename) || !QFile::remove(fName))
+// 		if (!QFile::copy(fName, filename) || !QFile::remove(fName))
+		if (postProc->process(fName, filename, true))
 			QMessageBox::critical(this, tr("Verarbeiten fehlgeschlagen"), QString(tr("Konnte Datei %1 nicht nach %2 verschieben.")).arg(fName).arg(filename));
 	
 	
