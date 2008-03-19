@@ -33,7 +33,6 @@ class PostProcessing;
  * (resample and normalize-audio)
  * 
  * Extends QWizardpage;
- * \todo Testing
  */
 class ImportTrainingDirectoryWorkingPage : public QWizardPage{
     Q_OBJECT

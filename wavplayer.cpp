@@ -22,7 +22,6 @@
 /**
  * \brief Constructor
  * \author Peter Grasch
- * \todo Fix the hardcoded stereo
  */
 WavPlayer::WavPlayer(QObject *parent) : QObject(parent)
 {

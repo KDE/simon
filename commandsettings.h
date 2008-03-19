@@ -33,7 +33,7 @@ class QIcon;
 class RunCommand;
 
 /**
- * \class $CLASSNAME
+ * \class CommandSettings
  * \author Peter Grasch <bedahr@gmx.net>
  * \date 20.08.2007
  * \version 0.1

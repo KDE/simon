@@ -18,11 +18,9 @@ class QLabel;
 class QVBoxLayout;
 class QRadioButton;
 
+
 /**
-	@author Susanne Tschernegg
-*/
-/**
- * \class $CLASSNAME
+ * \class IntroPlacePage
  * \author Susanne Tschernegg
  * \date 12.09.2007
  * \version 0.1

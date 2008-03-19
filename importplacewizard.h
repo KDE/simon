@@ -22,11 +22,9 @@
 #include "recwidget.h"
 #include <QWizardPage>
 
+
 /**
-	@author Susanne Tschernegg
-*/
-/**
- * \class $CLASSNAME
+ * \class ImportPlaceWizard
  * \author Susanne Tschernegg
  * \date 03.09.2007
  * \version 0.1

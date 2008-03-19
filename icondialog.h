@@ -25,7 +25,7 @@ class QStandardItemModel;
 	@author Susanne Tschernegg
 */
 /**
- * \class $CLASSNAME
+ * \class IconDialog
  * \author Susanne Tschernegg
  * \date 13.12.2007
  * \version 0.1

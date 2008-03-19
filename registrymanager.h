@@ -15,7 +15,7 @@
 #include <QString>
 
 /**
- * \class $CLASSNAME
+ * \class RegistryManager
  * \author Susanne Tschernegg
  * \date 20.08.2007
  * \version 0.1

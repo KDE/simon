@@ -19,7 +19,7 @@ class QString;
 	@author Susanne Tschernegg
 */
 /**
- * \class $CLASSNAME
+ * \class WindowsResourceHandler
  * \author Susanne Tschernegg
  * \date 13.12.2007
  * \version 0.1

@@ -23,7 +23,7 @@ class QLineEdit;
 	@author Susanne Tschernegg
 */
 /**
- * \class $CLASSNAME
+ * \class RemotePlacePage
  * \author Susanne Tschernegg
  * \date 03.09.2007
  * \version 0.1

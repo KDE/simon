@@ -19,7 +19,7 @@ class QLineEdit;
 	@author Susanne Tschernegg
 */
 /**
- * \class $CLASSNAME
+ * \class PasswordDlg
  * \author Susanne Tschernegg
  * \date 12.09.2007
  * \version 0.1

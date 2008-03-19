@@ -18,8 +18,8 @@
 #include "registrymanager.h"
 
 /**
- * \class $CLASSNAME
- * \author Peter Grasch <bedahr@gmx.net>
+ * \class WindowsProgramManager
+ * \author Susanne Tschernegg
  * \date 31.08.2007
  * \version 0.1
  * \brief This class handles the programs in Windows. There you can get programs, which are currently installed on the computer (for this, the registryManager is needed).

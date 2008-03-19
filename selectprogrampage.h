@@ -23,7 +23,7 @@ class QVBoxLayout;
 
 
 /**
- * \class $CLASSNAME
+ * \class SelectProgramPage
  * \author Peter Grasch
  * \date 16.08.2007
  * \version 0.1

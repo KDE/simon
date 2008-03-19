@@ -22,7 +22,7 @@ class IconDialog;
 	@author Susanne Tschernegg
 */
 /**
- * \class $CLASSNAME
+ * \class IconButton
  * \author Susanne Tschernegg
  * \date 13.12.2007
  * \version 0.1

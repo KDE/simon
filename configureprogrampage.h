@@ -21,7 +21,7 @@ class IconButton;
 
 
 /**
- * \class $CLASSNAME
+ * \class ConfigureProgramPage
  * \author 
  * \date 16.08.2007
  * \version 0.1

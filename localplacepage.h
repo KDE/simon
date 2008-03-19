@@ -21,11 +21,9 @@ class QLineEdit;
 class QPushButton;
 class QFileDialog;
 
+
 /**
-	@author Susanne Tschernegg
-*/
-/**
- * \class $CLASSNAME
+ * \class LocalPlacePage
  * \author Susanne Tschernegg
  * \date 03.09.2007
  * \version 0.1

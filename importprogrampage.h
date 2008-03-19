@@ -23,7 +23,7 @@
 	@author Peter Grasch <bedahr@gmx.net>
 */
 /**
- * \class $CLASSNAME
+ * \class ImportProgramPage
  * \author Peter Grasch
  * \date 16.08.2007
  * \version 0.1

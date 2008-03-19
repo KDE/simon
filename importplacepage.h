@@ -22,7 +22,7 @@
 
 
 /**
- * \class $CLASSNAME
+ * \class ImportPlacePage
  * \author Susanne Tschernegg
  * \date 03.09.2007
  * \version 0.1
