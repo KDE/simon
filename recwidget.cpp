@@ -213,8 +213,8 @@ void RecWidget::stopRecording()
 		
 	if (Settings::get("Model/ProcessInternal").toBool())
 // 		if (!QFile::copy(fName, filename) || !QFile::remove(fName))
-		if (postProc->process(fName, filename, true))
-			QMessageBox::critical(this, tr("Verarbeiten fehlgeschlagen"), QString(tr("Konnte Datei %1 nicht nach %2 verschieben.")).arg(fName).arg(filename));
+		if (!postProc->process(fName, filename, true))
+			QMessageBox::critical(this, tr("Verarbeiten fehlgeschlagen"), QString(tr("Nachbearbeitung fehlgeschlagen")).arg(fName).arg(filename));
 	
 	
 	ui.hsProgress->setValue(0);
