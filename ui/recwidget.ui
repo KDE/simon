@@ -97,7 +97,7 @@
         <item>
          <widget class="QLabel" name="lbProgress" >
           <property name="text" >
-           <string/>
+           <string>00:00 / 00:00</string>
           </property>
          </widget>
         </item>

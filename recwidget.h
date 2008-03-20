@@ -32,9 +32,7 @@ class RecWidget : public QWidget {
 
 signals:
 	void playing();
-	void playBackStopped();
 	void recording();
-	void recordingStopped();
 	void sampleDeleted();
 	void progress(int);
 	void recordingFinished();

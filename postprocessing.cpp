@@ -15,8 +15,8 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QProgressDialog>
+#include <QCoreApplication>
 #include <QObject>
-// #include <QDebug>
 
 PostProcessing::PostProcessing()
 {
@@ -30,7 +30,7 @@ PostProcessing::PostProcessing()
  */
 bool PostProcessing::process(QString in, QString out, bool deleteIn)
 {
-// 	QProgressDialog *progDialog = new QProgressDialog(QObject::tr("Filter werden angewendet..."), QObject::tr("Abbrechen"), 0, 1);
+	QProgressDialog *progDialog = new QProgressDialog(QObject::tr("Filter werden angewendet..."), QObject::tr("Abbrechen"), 0, 1);
 	if (QFile::exists(out) && (!QFile::remove(out)))
 	{
 		QMessageBox::critical(0, QObject::tr("Fehler"), QObject::tr("Konnte %1 nicht überschreiben. Bitte überprüfen Sie, ob Sie die nötigen Rechte besitzen.").arg(out));
@@ -39,16 +39,15 @@ bool PostProcessing::process(QString in, QString out, bool deleteIn)
 	
 	QStringList filters = Settings::getS("Model/ProcessingFilters").split(" && ", QString::SkipEmptyParts);
 	QString filter;
-// 	progDialog->setMaximum(filter.count()+1);
+	progDialog->setMaximum(filter.count()+1);
+	QCoreApplication::processEvents();
 	for (int j=0; j < filters.count(); j++)
 	{
-// 		progDialog->setValue(j+1);
 		QString execStr = filters.at(j);
 		execStr.replace("\%1", in);
 		execStr.replace("\%2", out);
 		execStr.replace("\%3", Settings::getS("Model/SampleRate"));
 		execStr.replace("\%4", Settings::getS("Model/Channels"));
-// 		qDebug() << execStr;
 		int ret = QProcess::execute(execStr);
 		if (ret)
 		{
@@ -56,6 +55,8 @@ bool PostProcessing::process(QString in, QString out, bool deleteIn)
 			QMessageBox::critical(0, QObject::tr("Fehler"), QObject::tr("Konnte %1 nicht nach %2 bearbeiten.\n\nBitte ueberpruefen Sie ob Sie das Programm, installiert haben, der Pfad in den Einstellungen richtig angegeben wurde und ob Sie all die nötigen Berechtigungen besitzen. (Rückgabewert %3) (Ausgefuehrtes Kommando: %4)").arg(in).arg(out).arg(ret).arg(execStr));
 			return NULL;
 		}
+		progDialog->setValue(j+1);
+		QCoreApplication::processEvents();
 	}
 
 	if (!QFile::exists(out)) //if there are no filters or they don't copy it to the output
@@ -73,9 +74,10 @@ bool PostProcessing::process(QString in, QString out, bool deleteIn)
 			QMessageBox::critical(0, QObject::tr("Fehler"), QObject::tr("Konnte %1 nicht löschen").arg(in));
 		}
 
-// 	progDialog->setValue(progDialog->maximum());
-// 	progDialog->close();
-// 	progDialog->deleteLater();
+	QCoreApplication::processEvents();
+	progDialog->setValue(progDialog->maximum());
+	progDialog->close();
+	progDialog->deleteLater();
 
 	return true;
 }
