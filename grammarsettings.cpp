@@ -16,6 +16,7 @@
 #include "renameterminalwizard.h"
 #include <QTableWidgetItem>
 #include <QMessageBox>
+#include <QDebug>
 
 GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(tr("Grammatikeinstellungen"), QIcon(":/images/icons/signature.svg"), tr("Grammatik bearbeiten"), parent)
 {
@@ -26,9 +27,9 @@ GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(tr("Grammatikein
 	this->importGrammarWizard = new ImportGrammarWizard(this);
 
 	this->renameTerminalWizard = new RenameTerminalWizard(this);
-	connect(importGrammarWizard, SIGNAL(grammarCreated(QStringList)), this, SLOT(mergeGrammar(QStringList)));
-	
-	connect(importGrammarWizard, SIGNAL(finished(int)), ui.pbImportTexts, SLOT(animateClick()));
+
+// 	connect(importGrammarWizard, SIGNAL(grammarCreated(QStringList)), this, SLOT(mergeGrammar(QStringList)));
+// 	connect(importGrammarWizard, SIGNAL(finished(int)), ui.pbImportTexts, SLOT(toggle()));
 		
 	connect(ui.twSentences, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(sentenceSelectionChanged(int, int, int, int)));
 	connect(ui.pbAddSentence, SIGNAL(clicked()), this, SLOT(addSentence()));

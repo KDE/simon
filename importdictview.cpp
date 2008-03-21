@@ -79,7 +79,7 @@ QWizardPage* ImportDictView::createIntroPage()
 	QWizardPage *intro = new QWizardPage(this);
 	intro->setTitle(tr("Wörterbuch importieren"));
 	QLabel *lbIntro = new QLabel(intro);
-	lbIntro->setText(tr("Dieser Assistent wird Ihnen dabei helfen, ein neues\nWörterbuch zu importieren.\n\nEin Wörterbuch beinhaltet Informationen über die\nbekannten Wörter wie zum Beispiel wie Sie geschrieben\nwerden und wie sie ausgesprochen werden.\n\nDas Wörterbuch ist deshalb ein wichtiger Bestandteil\nvon simon.\n\nBitte wählen Sie Ihre Quellen sorgfältig und achten Sie\ndarauf nur hochqualitatives Material zu verwenden."));
+	lbIntro->setText(tr("Dieser Assistent wird Ihnen dabei helfen, ein neues\nWörterbuch zu importieren.\n\nEin Wörterbuch beinhaltet Informationen über die\nbekannten Wörter wie zum Beispiel wie Sie geschrieben\nwerden und wie sie ausgesprochen werden.\n\nDas Wörterbuch ist deshalb ein wichtiger Bestandteil\nvon simon.\n\nWir empfehlen ein BOMP Wörterbuch aufgrund dessen hohen Qualitätsstandards.\n\nBitte wählen Sie Ihre Quellen sorgfältig und achten Sie\ndarauf nur hochqualitatives Material zu verwenden."));
 
 	QVBoxLayout *lay = new QVBoxLayout(intro);
 	lay->addWidget(lbIntro);
