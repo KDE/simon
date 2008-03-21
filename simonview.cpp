@@ -127,6 +127,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	ui.tbStatus->addWidget ( ui.pbActivision );
 	ui.tbStatus->addWidget ( ui.pbHide );
+	ui.tbStatus->addWidget ( ui.pbCompileModel );
 	ui.tbStatus->addWidget ( ui.pbKeyed );
 	ui.tbStatus->addWidget ( ui.pbClose );
 	ui.tbLogo->addWidget ( ui.lbLogo );
@@ -180,10 +181,10 @@ void SimonView::setupSignalSlots()
 	QObject::connect ( ui.pbSettings, SIGNAL ( toggled ( bool ) ), this, SLOT ( showSystemDialog ( bool ) ) );
 	QObject::connect ( addWordView, SIGNAL ( hidden() ), this, SLOT ( setButtonNotChecked() ) );
 
-	QObject::connect ( ui.pbQuickAddWord, SIGNAL ( clicked() ), ui.pbAddWord, SLOT ( animateClick() ) );
-	QObject::connect ( ui.pbQuickWordlist, SIGNAL ( clicked() ), ui.pbEditWordList, SLOT ( animateClick() ) );
-	QObject::connect ( ui.pbQuickRunProgram, SIGNAL ( clicked() ), ui.pbRunProgram, SLOT ( animateClick() ) );
-	QObject::connect ( ui.pbQuickTrain, SIGNAL ( clicked() ), ui.pbTrain, SLOT ( animateClick() ) );
+// 	QObject::connect ( ui.pbQuickAddWord, SIGNAL ( clicked() ), ui.pbAddWord, SLOT ( animateClick() ) );
+// 	QObject::connect ( ui.pbQuickWordlist, SIGNAL ( clicked() ), ui.pbEditWordList, SLOT ( animateClick() ) );
+// 	QObject::connect ( ui.pbQuickRunProgram, SIGNAL ( clicked() ), ui.pbRunProgram, SLOT ( animateClick() ) );
+// 	QObject::connect ( ui.pbQuickTrain, SIGNAL ( clicked() ), ui.pbTrain, SLOT ( animateClick() ) );
 
 	QObject::connect ( ui.pbHide, SIGNAL ( clicked() ), this, SLOT ( hideSimon() ) );
 	QObject::connect ( ui.pbClose, SIGNAL ( clicked() ), this, SLOT ( closeSimon() ) );

@@ -37,7 +37,7 @@ TrainingView* TrainingView::instance;
  * @param parent The parent of the widget
  */
 TrainingView::TrainingView ( QWidget *parent )
-		: InlineWidget ( tr ( "Training" ), QIcon ( ":/images/icons/document-properties.svg" ),
+		: InlineWidget ( tr ( "Training" ), QIcon ( ":/images/icons/kvoctrain.svg" ),
 		                 tr ( "Trainieren des Sprachmodells" ), parent )
 {
 	ui.setupUi ( this );

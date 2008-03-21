@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>803</width>
-    <height>623</height>
+    <width>799</width>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -334,6 +334,25 @@
        </widget>
       </item>
       <item>
+       <widget class="QToolButton" name="pbCompileModel" >
+        <property name="text" >
+         <string>Sprachmodell generieren</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="../action_icons.qrc" >:/images/icons/go-next.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonTextBesideIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QToolButton" name="pbKeyed" >
         <property name="enabled" >
          <bool>true</bool>
@@ -398,7 +417,10 @@
      <widget class="InlineWidgetView" name="inlineView" >
       <widget class="QWidget" name="tbWelcome" >
        <attribute name="title" >
-        <string>Willkommen</string>
+        <string>Start</string>
+       </attribute>
+       <attribute name="icon" >
+        <iconset resource="../others.qrc" >:/images/tray.png</iconset>
        </attribute>
        <layout class="QHBoxLayout" >
         <item>
@@ -455,17 +477,17 @@
             <property name="text" >
              <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Hier können Sie ihr Sprachmodell erweitern, um die Erkennungsrate zu verbessern, neue Kommandos oder Makros hinzufügen oder Einstellungen ändern.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Kurzum: Hier können Sie simon konfigurieren und erweitern.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sollten Sie zu irgendeiner Zeit Hilfe bei der Benutzung von simon benötigen, können Sie mit den Worten &lt;span style=" font-weight:600;">simon Hilfe&lt;/span> (oder den entsprechenden Knopf in der Leiste) eine kleine Hilfe zum aktuellen Punkt anzeigen.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bitte beachten Sie, dass sie für einige Funktionen (die die Funktionsfähigkeit von simon beeinträchtigen könnten) simon-Systemverwaltungsrechte benötigen. Dies kann unter Umständen mit einem Passwort verifiziert werden.&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Gesetzt den Fall, dass Sie auf solche Optionen Zugriff haben möchten, wählen Sie bitte den Punkt &lt;span style=" font-weight:600;">Systemverwaltungsmodus&lt;/span>.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Es wird empfohlen vor jeder schwerwiegenden Änderung eine Sicherung der aktuellen Daten durchzuführen. Wie das funktioniert, lesen Sie bitte im Handbuch nach.&lt;/p>&lt;/body>&lt;/html></string>
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Hier können Sie ihr Sprachmodell erweitern, um die Erkennungsrate zu verbessern, neue Kommandos oder Makros hinzufügen oder Einstellungen ändern.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Kurzum: Hier können Sie simon konfigurieren und erweitern.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Benutzen Sie die Elemente der Werkzeugleiste um Wörter hinzuzufügen, ein Training zu starten, Kommandos auszuführen oder die Wortliste durchzusehen.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Bitte beachten Sie, dass sie für einige Funktionen (die die Funktionsfähigkeit von simon beeinträchtigen könnten) simon-Systemverwaltungsrechte benötigen. Dies kann unter Umständen mit einem Passwort verifiziert werden.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Gesetzt den Fall, dass Sie auf solche Optionen Zugriff haben möchten, wählen Sie bitte den Punkt &lt;span style=" font-weight:600;">Systemverwaltungsmodus&lt;/span>.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Es wird empfohlen vor jeder schwerwiegenden Änderung eine Sicherung der aktuellen Daten durchzuführen. Wie das funktioniert, lesen Sie bitte im Handbuch nach.&lt;/p>&lt;/body>&lt;/html></string>
             </property>
             <property name="alignment" >
              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -491,6 +513,19 @@ p, li { white-space: pre-wrap; }
          </layout>
         </item>
         <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <widget class="Line" name="line" >
           <property name="orientation" >
            <enum>Qt::Vertical</enum>
@@ -498,41 +533,46 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="lbWelcomeLogo" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
           </property>
-          <property name="maximumSize" >
+          <property name="sizeHint" >
            <size>
-            <width>265</width>
-            <height>149</height>
+            <width>40</width>
+            <height>20</height>
            </size>
           </property>
-          <property name="text" >
-           <string/>
-          </property>
-          <property name="pixmap" >
-           <pixmap/>
-          </property>
-          <property name="scaledContents" >
-           <bool>true</bool>
-          </property>
-         </widget>
+         </spacer>
         </item>
         <item>
          <layout class="QVBoxLayout" >
           <item>
-           <widget class="QLabel" name="label" >
-            <property name="text" >
-             <string/>
-            </property>
-            <property name="pixmap" >
-             <pixmap resource="../others.qrc" >:/images/simon.png</pixmap>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" >
+            <item>
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="label" >
+              <property name="text" >
+               <string/>
+              </property>
+              <property name="pixmap" >
+               <pixmap resource="../others.qrc" >:/images/simon.png</pixmap>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
            <spacer>
@@ -548,122 +588,28 @@ p, li { white-space: pre-wrap; }
            </spacer>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox" >
-            <property name="title" >
-             <string>Kurzwahl</string>
+           <widget class="QLabel" name="lbWelcomeDesc_2" >
+            <property name="text" >
+             <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">simon befindet sich unter ständiger Weiterentwicklung und unterläuft ständiger Tests und Verbesserungen.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Deshalb überprüfen Sie bitte die simon-Homepage unter http://simon-listens.org regelmäsig auf Updates um von den neuesten Funktionen zu profitieren!&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Dokumentation finden Sie in unserem Wiki unter http://www.cyber-byte.at/wiki/index.php/Main_Page.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Für persönliche Supportanfragen wenden Sie sich bitte an support@simon-listens.org. Wir freuen uns Ihre Fragen zu beantworten!&lt;/p>&lt;/body>&lt;/html></string>
             </property>
-            <layout class="QVBoxLayout" >
-             <item>
-              <widget class="QPushButton" name="pbQuickAddWord" >
-               <property name="maximumSize" >
-                <size>
-                 <width>265</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text" >
-                <string>Wort hinzufügen</string>
-               </property>
-               <property name="icon" >
-                <iconset/>
-               </property>
-               <property name="iconSize" >
-                <size>
-                 <width>24</width>
-                 <height>24</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pbQuickTrain" >
-               <property name="maximumSize" >
-                <size>
-                 <width>265</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text" >
-                <string>Trainieren</string>
-               </property>
-               <property name="icon" >
-                <iconset/>
-               </property>
-               <property name="iconSize" >
-                <size>
-                 <width>24</width>
-                 <height>24</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pbQuickRunProgram" >
-               <property name="maximumSize" >
-                <size>
-                 <width>265</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text" >
-                <string>Ausführen</string>
-               </property>
-               <property name="icon" >
-                <iconset/>
-               </property>
-               <property name="iconSize" >
-                <size>
-                 <width>24</width>
-                 <height>24</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pbQuickWordlist" >
-               <property name="maximumSize" >
-                <size>
-                 <width>265</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text" >
-                <string>Wortliste</string>
-               </property>
-               <property name="icon" >
-                <iconset/>
-               </property>
-               <property name="iconSize" >
-                <size>
-                 <width>24</width>
-                 <height>24</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pbCompileModel" >
-               <property name="maximumSize" >
-                <size>
-                 <width>265</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text" >
-                <string>Sprachmodell generieren</string>
-               </property>
-               <property name="icon" >
-                <iconset/>
-               </property>
-               <property name="iconSize" >
-                <size>
-                 <width>24</width>
-                 <height>24</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            <property name="alignment" >
+             <set>Qt::AlignBottom|Qt::AlignJustify</set>
+            </property>
+            <property name="wordWrap" >
+             <bool>true</bool>
+            </property>
+            <property name="openExternalLinks" >
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
          </layout>
