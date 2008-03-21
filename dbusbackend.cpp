@@ -317,7 +317,7 @@ void DBusBackend::handleMenuEntry(QString service, QString path)
 
 ATObjectList* DBusBackend::parseObject(QString service, QString path, ATObject *parent)
 {
-	bool qtWorkArounds = Settings::get("GuiRecognition/QtWorkarounds").toBool();
+	bool qtWorkArounds = Settings::getB("GuiRecognition/QtWorkarounds");
 	
 	ATObjectList* objects = new ATObjectList();
 	QString thisClassName = getClassName(service, path);
@@ -383,7 +383,7 @@ ATObjectList* DBusBackend::parseObject(QString service, QString path, ATObject *
 QStringList DBusBackend::buildFinalClasses()
 {
 	QStringList final;
-	if (Settings::get("GuiRecognition/QtWorkarounds").toBool())
+	if (Settings::getB("GuiRecognition/QtWorkarounds"))
 	{
 		final << "QListView";
 		final << "QListWidget";

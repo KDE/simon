@@ -373,7 +373,7 @@ void WordListView::insertVocab(WordList *vocab)
 	int startAmount=ui.twVocab->rowCount();
 	int currentRow = startAmount;
         int i=0;
-	int limit=Settings::get("Performance/MaxDisplayedWords").toInt();
+	int limit=Settings::getI("Performance/MaxDisplayedWords");
 	QProgressDialog *pgDlg = new QProgressDialog(tr("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Wörterbuch nicht!)"), tr("Abbrechen"), 0, 
 			((vocab->count() < limit) ? vocab->count() : limit), this);
 

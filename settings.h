@@ -20,7 +20,7 @@ class QVariant;
  * \author Peter Grasch
  * \date 12.08.2007
  * \version 0.1
- * \brief Provides a convient way to store and retrieve settings
+ * \brief Provides a convinient way to store and retrieve settings
  * \note Uses QSettings
 */
 class Settings{
@@ -28,7 +28,10 @@ private:
 	static QSettings *settings;
 public:
 	static QVariant get(QString name);
-	static QString getS(QString name);
+	static QString 	getS(QString name);
+	static int 	getI(QString name);
+	static bool 	getB(QString name);
+
 	static void set(QString name, QVariant value);
 	static void initSettings();
 

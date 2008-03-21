@@ -10,7 +10,6 @@
 //
 //
 #include "firstrunmodelsettings.h"
-#include <QVariant>
 #include "firstrunwizard.h"
 #include "modelsettings.h"
 

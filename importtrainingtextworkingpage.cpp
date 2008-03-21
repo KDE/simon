@@ -14,7 +14,6 @@
 #include "logger.h"
 #include <QObject>
 #include <QString>
-#include <QVariant>
 #include <QWidget>
 #include "quickdownloader.h"
 #include <QFile>

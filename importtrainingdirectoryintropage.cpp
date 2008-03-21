@@ -31,7 +31,7 @@ ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *pare
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	
 	QLabel *lbIntroText = new QLabel(this);
-	lbIntroText->setText(tr("Willkommen beim Importieren von Trainingsdaten aus\neinem Ordner.\n\nAuf diese Weise koennen Sie vorhandene Trainingsdaten\nsimpel und leicht in simon uebernehmen.\n\nBitte waehlen Sie den Ordner aus, der die Trainingsdaten\n(im Wave-Format, 16bit,16khz, mono) enthaelt:\n\n"));
+	lbIntroText->setText(tr("Willkommen beim Importieren von Trainingsdaten aus\neinem Ordner.\n\nAuf diese Weise koennen Sie vorhandene Trainingsdaten\nsimpel und leicht in simon uebernehmen.\n\nBitte waehlen Sie den Ordner aus, der die Trainingsdaten\nenthaelt:\n\n"));
 	lay->addWidget(lbIntroText);
 	
 	

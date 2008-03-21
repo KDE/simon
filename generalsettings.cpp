@@ -11,7 +11,6 @@
 //
 #include "generalsettings.h"
 #include <QInputDialog>
-#include <QVariant>
 #include <QSettings>
 #include "settings.h"
 
@@ -111,22 +110,22 @@ bool GeneralSettings::reset()
  */
 bool GeneralSettings::init()
 {
-	ui.pbShowFirstRunWizard->setChecked(!Settings::get("ConfigDone").toBool());
+	ui.pbShowFirstRunWizard->setChecked(!Settings::getB("ConfigDone"));
 
 	//performance
-	ui.sbMaxSimultaniouslyShownWords->setValue(Settings::get("Performance/MaxDisplayedWords").toInt());
+	ui.sbMaxSimultaniouslyShownWords->setValue(Settings::getI("Performance/MaxDisplayedWords"));
 
 	//general
-	ui.cbStartSimonOnBoot->setChecked(Settings::get("SimonAutostart").toBool());
-	ui.cbAskBeforeExit->setChecked(Settings::get("AskBeforeExit").toBool());
+	ui.cbStartSimonOnBoot->setChecked(Settings::getB("SimonAutostart"));
+	ui.cbAskBeforeExit->setChecked(Settings::getB("AskBeforeExit"));
 
 
 	//paths
-	ui.leCommands->setText(Settings::get("PathToCommands").toString());
-	ui.leShortcuts->setText(Settings::get("PathToShortcuts").toString());
-	ui.leProgramCategories->setText(Settings::get("PathToProgramCategories").toString());
-	ui.leTempDir->setText(Settings::get("TempDir").toString());
-	ui.lePathToTexts->setText(Settings::get("PathToTexts").toString());
+	ui.leCommands->setText(Settings::getS("PathToCommands"));
+	ui.leShortcuts->setText(Settings::getS("PathToShortcuts"));
+	ui.leProgramCategories->setText(Settings::getS("PathToProgramCategories"));
+	ui.leTempDir->setText(Settings::getS("TempDir"));
+	ui.lePathToTexts->setText(Settings::getS("PathToTexts"));
 
 	return true;
 }

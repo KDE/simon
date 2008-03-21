@@ -16,7 +16,6 @@
 
 #include <QMessageBox>
 #include <QDebug>
-#include <QVariant>
 #include <QProgressDialog>
 #include <QDir>
 #include <QFile>
@@ -280,7 +279,7 @@ bool ModelManager::startCompilation()
 bool ModelManager::generateDirectoryStructure()
 {
 	bool success=true;
-	QDir dir(Settings::get("TempDir").toString());
+	QDir dir(Settings::getS("TempDir"));
 	//remove if it exists
 	
 	if (!dir.exists("modeltmp"))

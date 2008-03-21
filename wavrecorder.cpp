@@ -1,6 +1,5 @@
 #include "wavrecorder.h"
 #include "settings.h"
-#include <QVariant>
 #include "RtError.h"
 #include "logger.h"
 #include <QObject>
@@ -48,10 +47,10 @@ bool WavRecorder::record(QString filename)
 	audio = new RtAudio();
 	RtAudio::StreamParameters parameters;
 
-	parameters.deviceId = Settings::get("Sound/InputDevice").toInt();
-	parameters.nChannels = this->chans = Settings::get("Sound/ChannelsIn").toInt();
+	parameters.deviceId = Settings::getI("Sound/InputDevice");
+	parameters.nChannels = this->chans = Settings::getI("Sound/ChannelsIn");
 	parameters.firstChannel = 0;
-	unsigned int sampleRate = Settings::get("Sound/SamplerateIn").toInt();
+	unsigned int sampleRate = Settings::getI("Sound/SamplerateIn");
 	unsigned int bufferFrames = 256; // 256 sample frames
 
 	wavData = new WAV(filename, chans, sampleRate);

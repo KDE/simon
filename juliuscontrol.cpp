@@ -14,7 +14,6 @@
 #include <QTcpSocket>
 #include <QTimer>
 #include <QFile>
-#include <QVariant>
 #include <QDataStream>
 #include <QCryptographicHash>
 #include "settings.h"
@@ -63,14 +62,14 @@ void JuliusControl::connectTo(QString server, quint16 port)
 		 socket->abort();
 	}
 	
-	if (Settings::get("Juliusd/Encrypted").toBool())
+	if (Settings::getB("Juliusd/Encrypted"))
 	{
 		//socket->setCiphers(Settings::getS("Juliusd/Cipher"));
 		//socket->setPrivateKey(Settings::getS("Juliusd/Cert"), QSsl::Rsa, QSsl::Pem);
 		socket->connectToHost/*Encrypted*/( server, port );
 	} else 
 		socket->connectToHost( server, port );
-	timeoutWatcher->start(Settings::get("Network/Timeout").toInt());
+	timeoutWatcher->start(Settings::getI("Network/Timeout"));
 	
 }
 
@@ -100,7 +99,7 @@ bool JuliusControl::isConnected()
 void JuliusControl::timeoutReached()
 {
 	timeoutWatcher->stop();
-	emit error(tr("Zeitüberschreitung der Anforderung (%1 ms)").arg(Settings::get("Network/Timeout").toInt()));
+	emit error(tr("Zeitüberschreitung der Anforderung (%1 ms)").arg(Settings::getI("Network/Timeout")));
 	socket->abort();
 }
 
@@ -159,7 +158,7 @@ void JuliusControl::messageReceived()
 		{
 			/* login accepted, but the version is not known to be supported */
 			QString reason=tr("Version möglicherweise nicht unterstützt");
-			if (Settings::get("Juliusd/ContinueOnWarning").toBool())
+			if (Settings::getB("Juliusd/ContinueOnWarning"))
 			{
 				emit warning(reason);
 				sendRequest (100 /*start recognition*/);

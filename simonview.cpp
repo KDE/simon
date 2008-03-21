@@ -78,7 +78,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	Settings::initSettings();
 
 // 	Settings::set("ConfigDone", false);
-	if (!Settings::get("ConfigDone").toBool())
+	if (!Settings::getB("ConfigDone"))
 	{
 		FirstRunWizard *firstRunWizard = new FirstRunWizard(this);
 		if (firstRunWizard->exec() || (QMessageBox::question(this, tr("Konfiguration abbrechen"), tr("Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.\n\nWollen Sie den Assistenten beim nächsten Start wieder anzeigen?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::No))
@@ -142,7 +142,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	setupSignalSlots();
 
 
-	if ( Settings::get ( "Juliusd/AutoConnect" ).toBool() )
+	if ( Settings::getB ( "Juliusd/AutoConnect" ) )
 	{
 		this->info->writeToSplash ( tr ( "Verbinde zu juliusd..." ) );
 		connectToServer();
@@ -573,7 +573,7 @@ void SimonView::toggleVisibility()
 */
 void SimonView::closeSimon()
 {
-	if ( ( !Settings::get ( "AskBeforeExit" ).toBool() ) || ( QMessageBox::question ( this, tr ( "Wirklich beenden?" ), tr ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?" ),QMessageBox::Yes|QMessageBox::No,QMessageBox::No ) == QMessageBox::Yes ) )
+	if ( ( !Settings::getB ( "AskBeforeExit" ) ) || ( QMessageBox::question ( this, tr ( "Wirklich beenden?" ), tr ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?" ),QMessageBox::Yes|QMessageBox::No,QMessageBox::No ) == QMessageBox::Yes ) )
 	{
 		close();
 		qApp->quit();
@@ -620,7 +620,7 @@ void SimonView::checkSettingState()
 {
 	if ( ui.pbKeyed->isChecked() )
 	{
-		if ( !Settings::get ( "Passwordprotected" ).toBool() || checkPassword() )
+		if ( !Settings::getB ( "Passwordprotected" ) || checkPassword() )
 		{
 			showSettings();
 		}
@@ -648,7 +648,7 @@ bool SimonView::checkPassword()
 		ui.pbKeyed->setChecked ( false );
 		return false;
 	}
-	QString password = Settings::get ( "Password" ).toString();
+	QString password = Settings::getS ( "Password" );
 
 	QCryptographicHash *hasher = new QCryptographicHash(QCryptographicHash::Md5);
 	hasher->addData(dialog->lePassword->text().toLatin1());

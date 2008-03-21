@@ -13,9 +13,9 @@
 #include "importdictview.h"
 #include <QLabel>
 #include <QRadioButton>
-#include <QVariant>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QVariant>
 
 /**
  * \brief Constructor - Inits the gui

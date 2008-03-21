@@ -12,7 +12,6 @@
 #include "importtrainingtextlocalpage.h"
 
 #include <QLineEdit>
-#include <QVariant>
 #include <QFileDialog>
 #include <QLabel>
 #include <QHBoxLayout>

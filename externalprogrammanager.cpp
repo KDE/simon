@@ -100,18 +100,18 @@ bool ExternalProgramManager::reset()
  */
 bool ExternalProgramManager::init()
 {
-	ui.leHDMan->setText(Settings::get("Programs/HTK/HDMan").toString());
-	ui.leHLEd->setText(Settings::get("Programs/HTK/HLEd").toString());
-	ui.leHCopy->setText(Settings::get("Programs/HTK/HCopy").toString());
-	ui.leHCompV->setText(Settings::get("Programs/HTK/HCompV").toString());
-	ui.leHERest->setText(Settings::get("Programs/HTK/HERest").toString());
-	ui.leHHEd->setText(Settings::get("Programs/HTK/HHEd").toString());
-	ui.leHVite->setText(Settings::get("Programs/HTK/HVite").toString());
+	ui.leHDMan->setText(Settings::getS("Programs/HTK/HDMan"));
+	ui.leHLEd->setText(Settings::getS("Programs/HTK/HLEd"));
+	ui.leHCopy->setText(Settings::getS("Programs/HTK/HCopy"));
+	ui.leHCompV->setText(Settings::getS("Programs/HTK/HCompV"));
+	ui.leHERest->setText(Settings::getS("Programs/HTK/HERest"));
+	ui.leHHEd->setText(Settings::getS("Programs/HTK/HHEd"));
+	ui.leHVite->setText(Settings::getS("Programs/HTK/HVite"));
 	
-	ui.leBzip2->setText(Settings::get("Programs/Files/BZip2").toString());
+	ui.leBzip2->setText(Settings::getS("Programs/Files/BZip2"));
 
-	ui.leMkfa->setText(Settings::get("Programs/Julius/mkfa").toString());
-	ui.leDfaMinimize->setText(Settings::get("Programs/Julius/dfa_minimize").toString());
+	ui.leMkfa->setText(Settings::getS("Programs/Julius/mkfa"));
+	ui.leDfaMinimize->setText(Settings::getS("Programs/Julius/dfa_minimize"));
 	
 	return true;
 }

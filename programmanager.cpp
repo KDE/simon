@@ -14,12 +14,11 @@
 #include "programcategory.h"
 #include "settings.h"
 #include "categoryxmlreader.h"
-#include <QVariant>
 #include <QMessageBox>
 
 ProgramManager::ProgramManager()
 {
-	categoryReader = new CategoryXMLReader(Settings::get("PathToProgramCategories").toString());
+	categoryReader = new CategoryXMLReader(Settings::getS("PathToProgramCategories"));
 	this->programs = new ProgramList();
 }
 

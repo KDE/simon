@@ -55,7 +55,7 @@ ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent,
 	}
 
 	
-	if (!Settings::get("Desktopgrid/RealTransparency").toBool())
+	if (!Settings::getB("Desktopgrid/RealTransparency"))
 	{
 		background = new QLabel(this);
 		background->lower();
@@ -128,7 +128,7 @@ void ScreenGrid::regionSelected()
 	repaint();
 
 	
-	if (!Settings::get("Desktopgrid/RealTransparency").toBool())
+	if (!Settings::getB("Desktopgrid/RealTransparency"))
 	{
 		background->resize(size());
 		background->move(0,0);

@@ -24,7 +24,6 @@
 
 #include <QStack>
 #include <QDebug>
-#include <QVariant>
 
 ATWatcher* ATWatcher::instance;
 
@@ -53,7 +52,7 @@ ATWatcher::ATWatcher ( QObject* parent ) : QObject ( parent )
  */
 void ATWatcher::applySettings()
 {
-	if (Settings::get("GuiRecognition/SupportAT").toBool())
+	if (Settings::getB("GuiRecognition/SupportAT"))
 		backend->startMonitoring();
 	else backend->stopMonitoring();
 }

@@ -21,7 +21,6 @@
 #include <QFileInfo>
 #include <QDate>
 #include <QTime>
-#include <QVariant>
 #include <QLabel>
 #include <QCoreApplication>
 #include <QVariant>

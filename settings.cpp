@@ -42,7 +42,7 @@ QVariant Settings::get(QString name)
 }
 
 /**
- * \brief returns the setting-string of the given name; overloaded member function provided for conveniance
+ * \brief returns the setting-string of the given name; overloaded member function provided for convenience
  * \author Peter Grasch
  * If there is no setting "name" it returns a default QVariant
  * @param name the name of the setting
@@ -51,6 +51,30 @@ QVariant Settings::get(QString name)
 QString Settings::getS(QString name)
 {
 	return get(name).toString();
+}
+
+/**
+ * \brief returns the setting-int of the given name; overloaded member function provided for convenience
+ * \author Peter Grasch
+ * If there is no setting "name" it returns a default QVariant
+ * @param name the name of the setting
+ * @return the retrieved setting
+ */
+int Settings::getI(QString name)
+{
+	return get(name).toInt();
+}
+
+/**
+ * \brief returns the setting-bool of the given name; overloaded member function provided for convenience
+ * \author Peter Grasch
+ * If there is no setting "name" it returns a default QVariant
+ * @param name the name of the setting
+ * @return the retrieved setting
+ */
+bool Settings::getB(QString name)
+{
+	return get(name).toBool();
 }
 
 /**

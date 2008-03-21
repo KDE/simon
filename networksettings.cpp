@@ -121,7 +121,7 @@ bool NetworkSettings::apply()
  */
 bool NetworkSettings::init()
 {
-	ui.sbTimeout->setValue(Settings::get("Network/Timeout").toInt());
+	ui.sbTimeout->setValue(Settings::getI("Network/Timeout"));
 	
 	QTableWidgetItem *header1 = new QTableWidgetItem(tr("Adresse"));
 	ui.twJuliusAddresses->setHorizontalHeaderItem(0, header1);
@@ -130,7 +130,7 @@ bool NetworkSettings::init()
 
 	
 	//juliusd
-	QString juliusServers=Settings::get("Network/JuliusdServers").toString();
+	QString juliusServers=Settings::getS("Network/JuliusdServers");
 	if (juliusServers.isEmpty()) return true;
 	
 	while (juliusServers.contains(";"))
@@ -144,12 +144,12 @@ bool NetworkSettings::init()
 
 	ui.leUser->setText(Settings::getS("Juliusd/Username"));
 	ui.lePass->setText(Settings::getS("Juliusd/Password"));
-	ui.cbAutoConnect->setChecked(Settings::get("Juliusd/AutoConnect").toBool());
+	ui.cbAutoConnect->setChecked(Settings::getB("Juliusd/AutoConnect"));
 
 
-	ui.cbIgnoreWarnings->setChecked(Settings::get("Juliusd/ContinueOnWarning").toBool());
+	ui.cbIgnoreWarnings->setChecked(Settings::getB("Juliusd/ContinueOnWarning"));
 
-	ui.cbUseEncryption->setChecked(Settings::get("Juliusd/Encrypted").toBool());
+	ui.cbUseEncryption->setChecked(Settings::getB("Juliusd/Encrypted"));
 
 	QString selectedCipher = Settings::getS("Juliusd/Cipher");
 	int selectedIndex=0;

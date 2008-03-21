@@ -11,7 +11,6 @@
 //
 #include "desktopgridconfiguration.h"
 #include "settings.h"
-#include <QVariant>
 
 /**
  * \brief Constructor
@@ -67,7 +66,7 @@ bool DesktopGridConfiguration::reset()
  */
 bool DesktopGridConfiguration::init()
 {
-	ui.leTrigger->setText(Settings::get("Desktopgrid/Trigger").toString());
-	ui.cbRealTransparency->setChecked(Settings::get("Desktopgrid/RealTransparency").toBool());
+	ui.leTrigger->setText(Settings::getS("Desktopgrid/Trigger"));
+	ui.cbRealTransparency->setChecked(Settings::getB("Desktopgrid/RealTransparency"));
 	return true;
 }

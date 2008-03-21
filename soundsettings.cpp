@@ -60,7 +60,7 @@ bool SoundSettings::init()
 	this->in = sc->getInputDevices();
 	
 	ui.cbInDevice->clear();
-	int defindevice=Settings::get ( "Sound/InputDevice" ).toInt();
+	int defindevice=Settings::getI ( "Sound/InputDevice" );
 	for ( int i=0; i<in->count(); i++ )
 	{
 		int deviceid= ( ( SoundDevice ) in->at ( i ) ).getDeviceID();
@@ -73,7 +73,7 @@ bool SoundSettings::init()
 
 	out =sc->getOutputDevices();
 	ui.cbOutDevice->clear();
-	int defoutdevice=Settings::get ( "Sound/OutputDevice" ).toInt();
+	int defoutdevice=Settings::getI ( "Sound/OutputDevice" );
 	for ( int i=0; i<out->count(); i++ )
 	{
 		int deviceid= ( ( SoundDevice ) out->at ( i ) ).getDeviceID();
@@ -85,10 +85,10 @@ bool SoundSettings::init()
 
 	ui.cbChannelsIn->setCurrentIndex(ui.cbChannelsIn->findData(Settings::get("Sound/ChannelsIn")));
 	ui.cbSampleRateIn->setCurrentIndex(ui.cbSampleRateIn->findText(
-					Settings::get("Sound/SamplerateIn").toString()));
+					Settings::getS("Sound/SamplerateIn")));
 	ui.cbChannelsOut->setCurrentIndex(ui.cbChannelsOut->findData(Settings::get("Sound/ChannelsOut")));
 	ui.cbSampleRateOut->setCurrentIndex(ui.cbSampleRateOut->findText(
-					Settings::get("Sound/SamplerateOut").toString()));
+					Settings::getS("Sound/SamplerateOut")));
 	return true;
 }
 

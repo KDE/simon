@@ -11,7 +11,6 @@
 //
 #include "modelsettings.h"
 #include "settings.h"
-#include <QVariant>
 #include <QTableWidget>
 #include <QInputDialog>
 #include <QTableWidgetItem>
@@ -234,12 +233,12 @@ void ModelSettings::setSamplePath()
 
 bool ModelSettings::init()
 {
-	ui.sbSamplerate->setValue(Settings::get("Model/Samplerate").toInt());
-	ui.sbChannels->setValue(Settings::get("Model/Channels").toInt());
+	ui.sbSamplerate->setValue(Settings::getI("Model/Samplerate"));
+	ui.sbChannels->setValue(Settings::getI("Model/Channels"));
 
-	ui.cbProcessInternal->setChecked(Settings::get("Model/ProcessInternal").toBool());
+	ui.cbProcessInternal->setChecked(Settings::getB("Model/ProcessInternal"));
 
-	QStringList filters = Settings::get("Model/ProcessingFilters").toString().split("&&", QString::SkipEmptyParts);
+	QStringList filters = Settings::getS("Model/ProcessingFilters").split("&&", QString::SkipEmptyParts);
 	
 	ui.twProcessingFilters->setRowCount(filters.count());
 	for (int i=0; i < filters.count(); i++)
@@ -249,24 +248,24 @@ bool ModelSettings::init()
 	ui.twProcessingFilters->resizeColumnToContents(0);
 	enableButtons();
 
-	ui.leLexicon->setText(Settings::get("Model/PathToLexicon").toString());
-	ui.leGrammar->setText(Settings::get("Model/PathToGrammar").toString());
-	ui.lePrompts->setText(Settings::get("Model/PathToPrompts").toString());
-	ui.leVocab->setText(Settings::get("Model/PathToVocab").toString());
-	ui.leWavConfig->setText(Settings::get("Model/PathToWavConfig").toString());
+	ui.leLexicon->setText(Settings::getS("Model/PathToLexicon"));
+	ui.leGrammar->setText(Settings::getS("Model/PathToGrammar"));
+	ui.lePrompts->setText(Settings::getS("Model/PathToPrompts"));
+	ui.leVocab->setText(Settings::getS("Model/PathToVocab"));
+	ui.leWavConfig->setText(Settings::getS("Model/PathToWavConfig"));
 
-	ui.leConfig->setText(Settings::get("Model/PathToConfig").toString());
-	ui.leProto->setText(Settings::get("Model/PathToProto").toString());
-	ui.leTreeHed->setText(Settings::get("Model/PathToTreeHed").toString());
+	ui.leConfig->setText(Settings::getS("Model/PathToConfig"));
+	ui.leProto->setText(Settings::getS("Model/PathToProto"));
+	ui.leTreeHed->setText(Settings::getS("Model/PathToTreeHed"));
 
 
-	ui.leMkPhones0->setText(Settings::get("Model/PathToMkPhones0").toString());
-	ui.leMkPhones1->setText(Settings::get("Model/PathToMkPhones1").toString());
+	ui.leMkPhones0->setText(Settings::getS("Model/PathToMkPhones0"));
+	ui.leMkPhones1->setText(Settings::getS("Model/PathToMkPhones1"));
 
-	ui.leSamplePath->setText(Settings::get("Model/PathToSamples").toString());
-	ui.leGlobalDed->setText(Settings::get("Model/PathToGlobalDed").toString());
-	ui.leSilHed->setText(Settings::get("Model/PathToSilHed").toString());
-	ui.leMktriLed->setText(Settings::get("Model/PathToMktriLed").toString());
+	ui.leSamplePath->setText(Settings::getS("Model/PathToSamples"));
+	ui.leGlobalDed->setText(Settings::getS("Model/PathToGlobalDed"));
+	ui.leSilHed->setText(Settings::getS("Model/PathToSilHed"));
+	ui.leMktriLed->setText(Settings::getS("Model/PathToMktriLed"));
 
 	ui.leHmmOut->setText(Settings::getS("Model/PathToHmm"));
 	ui.leTiedlist->setText(Settings::getS("Model/PathToTiedlist"));

@@ -14,8 +14,7 @@ unix {
 	-L/usr/lib/alsa-lib \
 	-lX11 \
 	-lXtst \
-	-lasound \
-	-lpthread
+	-lasound
     TARGET = simon
 }
 

@@ -22,7 +22,7 @@ class IconButton;
 
 /**
  * \class ConfigureProgramPage
- * \author 
+ * \author Susanne Tschernegg
  * \date 16.08.2007
  * \version 0.1
  * \brief At this page the user can define a name for the program.

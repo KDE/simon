@@ -16,7 +16,6 @@
 #endif
 
 
-#include <QVariant>
 #include <QAction>
 #include <QApplication>
 #include <QButtonGroup>

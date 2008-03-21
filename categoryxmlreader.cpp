@@ -11,7 +11,6 @@
 //
 #include "categoryxmlreader.h"
 #include <QDomDocument>
-#include <QVariant>
 #include "settings.h"
 
 /**
@@ -34,7 +33,7 @@ CategoryXMLReader::CategoryXMLReader(QString path, QObject* parent): XMLDomReade
 void CategoryXMLReader::load(QString path)
 {
 	if (path.isEmpty()) path = this->path;
-	if (path.isEmpty()) path = Settings::get ( "PathToProgramCategories" ).toString();
+	if (path.isEmpty()) path = Settings::getS ( "PathToProgramCategories" );
 
     XMLDomReader::load(path);
 	QDomNodeList categories = doc->elementsByTagName("category");

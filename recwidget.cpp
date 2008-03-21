@@ -160,7 +160,7 @@ void RecWidget::displayPlaybackProgress(int msecs)
 void RecWidget::record()
 {
 	QString fName = this->filename;
-	if (Settings::get("Model/ProcessInternal").toBool())
+	if (Settings::getB("Model/ProcessInternal"))
 		fName += "_tmp";
 	if (!rec->record(fName))
 	{
@@ -205,13 +205,13 @@ void RecWidget::finishPlayback()
 void RecWidget::stopRecording()
 {
 	QString fName = this->filename;
-	if (Settings::get("Model/ProcessInternal").toBool())
+	if (Settings::getB("Model/ProcessInternal"))
 		fName += "_tmp";
 
 	if (!rec->finish())
 		QMessageBox::critical(this, tr("Aufnehmen fehlgeschlagen"), QString(tr("Abschließen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!")).arg(fName));
 		
-	if (Settings::get("Model/ProcessInternal").toBool())
+	if (Settings::getB("Model/ProcessInternal"))
 // 		if (!QFile::copy(fName, filename) || !QFile::remove(fName))
 		if (!postProc->process(fName, filename, true))
 			QMessageBox::critical(this, tr("Verarbeiten fehlgeschlagen"), QString(tr("Nachbearbeitung fehlgeschlagen")).arg(fName).arg(filename));

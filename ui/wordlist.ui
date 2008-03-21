@@ -129,7 +129,7 @@
        </size>
       </property>
       <property name="currentIndex" >
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tbEditModel" >
        <attribute name="title" >
@@ -179,11 +179,9 @@ p, li { white-space: pre-wrap; }
 &lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Das ist die Hauptansicht für alle Aktionen rund um das Spachmodell.&lt;/p>
 &lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Der Knopf "&lt;span style=" font-weight:600;">Neues Wort hinzufügen&lt;/span>"&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">öffnet einen Assistenten, der Ihnen&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">helfen wird ein neues Wort hinzuzufügen.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Mit einem Klick auf &lt;span style=" font-weight:600;">"Wort löschen"&lt;/span> können Sie das ausgewählte Wort in das Schattenlexikon verschieben oder komplett entfernen.&lt;/p>
 &lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Mit Hilfe des &lt;span style=" font-weight:600;">"Importiere Wörterbuch"&lt;/span> Knopfes können Sie auch andere Wörterbücher importieren.&lt;/p>&lt;/body>&lt;/html></string>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Mit Hilfe des &lt;span style=" font-weight:600;">"Importiere Wörterbuch"&lt;/span> Knopfes können Sie auch andere Wörterbücher wie das Wiktionary oder das BOMP-Wörterbücher importieren.&lt;/p>&lt;/body>&lt;/html></string>
             </property>
            </widget>
           </item>

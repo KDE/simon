@@ -21,7 +21,6 @@
 #include "simoncontrol.h"
 #include "logger.h"
 #include "settings.h"
-#include <QVariant>
 #include <QMessageBox>
 #include "shortcutcontrol.h"
 #include "screengrid.h"
@@ -102,7 +101,7 @@ void SimonControl::connectToJulius()
 {
 	juliusdConnectionsToTry.clear();
 	juliusdConnectionErrors.clear();
-	QString juliusServers = Settings::get("Network/JuliusdServers").toString();
+	QString juliusServers = Settings::getS("Network/JuliusdServers");
 	if (juliusServers.isEmpty()) return;
 	QStringList addresses = juliusServers.split(";", QString::SkipEmptyParts);
 	Logger::log(tr("[INF] %1 juliusd Adressen gefunden").arg(addresses.count()));
@@ -150,13 +149,13 @@ void SimonControl::disconnectFromJulius()
  */
 void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 {
-	QString keyword = Settings::get("Commands/Keyword").toString();
+	QString keyword = Settings::getS("Commands/Keyword");
 	
 	if (word.startsWith(keyword))
 	{
 		word = word.replace(0, QString(keyword).length()+1,"");
 		
-		if (word.startsWith(Settings::get("Desktopgrid/Trigger").toString()))
+		if (word.startsWith(Settings::getS("Desktopgrid/Trigger")))
 		{
 			ScreenGrid *sg = new ScreenGrid();
 			connect(sg, SIGNAL(click(int, int)), this, SLOT(click(int, int)));

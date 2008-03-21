@@ -12,7 +12,6 @@
 #include "atsettings.h"
 #include "settings.h"
 #include "atwatcher.h"
-#include <QVariant>
 
 
 ATSettings::ATSettings(QWidget* parent): SystemWidget(tr("AT-Einstellungen"), QIcon(":/images/icons/system-search.svg"), tr("Konfigurieren der AT Integration, die es erlaubt andere Programme einfach zu bedienen"), parent)
@@ -38,9 +37,9 @@ bool ATSettings::apply()
 
 bool ATSettings::init()
 {
-	ui.cbATIntegration->setChecked(Settings::get("GuiRecognition/SupportAT").toBool());
-	ui.cbQtWorkarounds->setChecked(Settings::get("GuiRecognition/QtWorkarounds").toBool());
-	ui.cbQtMenu->setChecked(Settings::get("GuiRecognition/QtMenuSupport").toBool());
+	ui.cbATIntegration->setChecked(Settings::getB("GuiRecognition/SupportAT"));
+	ui.cbQtWorkarounds->setChecked(Settings::getB("GuiRecognition/QtWorkarounds"));
+	ui.cbQtMenu->setChecked(Settings::getB("GuiRecognition/QtMenuSupport"));
 	return true;
 }
 

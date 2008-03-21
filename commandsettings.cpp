@@ -137,7 +137,7 @@ bool CommandSettings::apply()
 			ui.twCommand->item ( i,1 )->setData ( Qt::UserRole, ui.twCommand->item ( i,1 )->text() );
 		}
 	}
-	bool success = commandBackend->save ( Settings::get ( "PathToCommands" ).toString() );
+	bool success = commandBackend->save ( Settings::getS ( "PathToCommands" ) );
 	emit commandsChanged();
 	Settings::set ( "Commands/Keyword", ui.leKeyword->text() );
 	return success;
@@ -185,7 +185,7 @@ bool CommandSettings::init()
 	}
 	commandsCount = commands.count();
 
-	ui.leKeyword->setText ( Settings::get ( "Commands/Keyword" ).toString() );
+	ui.leKeyword->setText ( Settings::getS ( "Commands/Keyword" ) );
 	ui.twCommand->resizeColumnsToContents();
 	commandEdited = false;
 	return true;

@@ -91,8 +91,8 @@ bool PasswordSettings::isComplete()
 bool PasswordSettings::init()
 {
 	//password
-	ui.cbCheckPassword->setChecked(Settings::get("Passwordprotected").toBool());
-	originalHash = Settings::get("Password").toString();
+	ui.cbCheckPassword->setChecked(Settings::getB("Passwordprotected"));
+	originalHash = Settings::getS("Password");
 	ui.lePassword->setText(originalHash);
 	ui.lePassword2->setText(originalHash);
 	isHashed = true;
