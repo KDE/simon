@@ -64,7 +64,7 @@ bool SoundSettings::init()
 	for ( int i=0; i<in->count(); i++ )
 	{
 		int deviceid= ( ( SoundDevice ) in->at ( i ) ).getDeviceID();
-		ui.cbInDevice->addItem ( ( ( SoundDevice ) in->at ( i ) ).getName(),deviceid );
+		ui.cbInDevice->addItem (in->at(i).getName(),deviceid );
 
 		if (deviceid==defindevice) 
 			ui.cbInDevice->setCurrentIndex(i);
@@ -77,7 +77,7 @@ bool SoundSettings::init()
 	for ( int i=0; i<out->count(); i++ )
 	{
 		int deviceid= ( ( SoundDevice ) out->at ( i ) ).getDeviceID();
-		ui.cbOutDevice->addItem ( ( ( SoundDevice ) out->at ( i ) ).getName(),deviceid );
+		ui.cbOutDevice->addItem (out->at(i).getName(),deviceid );
 
 		if ( deviceid ==defoutdevice ) 
 			ui.cbOutDevice->setCurrentIndex ( i );

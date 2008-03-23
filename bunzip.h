@@ -1,7 +1,7 @@
 #ifndef BUNZIP_H
 #define BUNZIP_H
 
- #include <QObject>
+ #include "compression.h"
 
 class QString;
 class QProcess;
@@ -14,27 +14,19 @@ class QProcess;
  * \version 0.1
  * \date 10.08.2007
  */
-class Bunzip : public QObject {
+class Bunzip : public Compression {
 Q_OBJECT
-
-signals:
-	void extractionFinished(QString filename);
-	void errorOccured(QString);
-	void extracting(QString filename);
-	void progress(int);
-	void canceled();
-
 private:
 	QProcess *proc;
 	QString filename;
 
 private slots:
 	void readError();
+	void extractingFinishing(int exitCode);
 
 public slots:
 	void cancel();
 	void extract(QString filename);
-	void extractingFinishing(int exitCode);
 public:
     Bunzip(QObject *parent=0);
     ~Bunzip();

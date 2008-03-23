@@ -24,6 +24,7 @@
  */
 QuickUnpacker::QuickUnpacker(QWidget* parent): QWidget(parent)
 {
+	compression = 0;
 }
 
 /**
@@ -37,14 +38,16 @@ void QuickUnpacker::unpack(QString path)
 	prog->show();
 	
 	Logger::log(tr("Extrahiere BZIP2 komprimierte Datei ")+path);
-	bunzip = new Bunzip(this);
-	connect(bunzip, SIGNAL(progress(int)), this, SLOT(setProgress(int)));
-	connect(bunzip, SIGNAL(errorOccured(QString)), this, SLOT(errorOccured(QString)));
-	connect(bunzip, SIGNAL(extractionFinished(QString)), this, SLOT(unpacked(QString)));
+
+	if (compression) compression->deleteLater();
+
+	compression = new Bunzip(this);
+	connect(compression, SIGNAL(progress(int)), this, SLOT(setProgress(int)));
+	connect(compression, SIGNAL(errorOccured(QString)), this, SLOT(errorOccured(QString)));
+	connect(compression, SIGNAL(extractionFinished(QString)), this, SLOT(unpacked(QString)));
 	connect(prog, SIGNAL(canceled()), this, SLOT(cancel()));
-	connect(bunzip, SIGNAL(canceled()), prog, SLOT(cancel()));
-	connect(bunzip, SIGNAL(canceled()), this, SIGNAL(canceled()));
-	bunzip->extract(path);
+	connect(compression, SIGNAL(canceled()), this, SIGNAL(canceled()));
+	compression->extract(path);
 	
 }
 
@@ -78,7 +81,7 @@ void QuickUnpacker::setStatus(QString status)
 void QuickUnpacker::cancel()
 {
 	emit status(tr("Abbrechen..."));
-	bunzip->cancel();
+	compression->cancel();
 }
 
 /**
@@ -111,5 +114,5 @@ void QuickUnpacker::errorOccured(QString err)
 QuickUnpacker::~QuickUnpacker()
 {
     prog->deleteLater();
-    bunzip->deleteLater();
+    compression->deleteLater();
 }

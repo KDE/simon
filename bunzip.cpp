@@ -22,11 +22,12 @@
  * \author Peter Grasch
  * @param parent Parent of the object
  */
-Bunzip::Bunzip(QObject *parent) : QObject(parent)
+Bunzip::Bunzip(QObject *parent) : Compression(parent)
 { 
 	proc = new QProcess(this);
 	connect(proc, SIGNAL(finished( int )), this, SLOT(extractingFinishing(int)));
 	connect(proc, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
+// 	connect(compression, SIGNAL(canceled()), prog, SLOT(cancel()));
 }
 
 Bunzip::~Bunzip()

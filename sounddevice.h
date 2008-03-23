@@ -47,10 +47,10 @@ class SoundDevice
 			this->channels = channels;
 			this->samplerates = samplerates;
 		}
-		int getDeviceID() {return this->deviceID;}
-		QString getName() {return this->name;}
-		QList<int> getChannels() {return this->channels;}
-		QList<int> getSamplerates() {return this->samplerates;}
+		int getDeviceID() const {return this->deviceID;}
+		QString getName() const {return this->name;}
+		QList<int> getChannels() const {return this->channels;}
+		QList<int> getSamplerates() const {return this->samplerates;}
 		~SoundDevice()    { }
 };
 

@@ -218,7 +218,8 @@ importtrainingdirectoryworkingpage.h \
  atwatcher.h \
  atobject.h \
  ato.h \
- atsettings.h 
+ atsettings.h  \
+ compression.h
 
 
 

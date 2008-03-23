@@ -26,7 +26,7 @@
 class QProgressDialog;
 class QString;
 class QObject;
-class Bunzip;
+class Compression;
 
 class QuickUnpacker : public QWidget
 {
@@ -51,7 +51,7 @@ public slots:
 	void unpack(QString path);
 private:
 	QProgressDialog *prog;
-	Bunzip *bunzip;
+	Compression *compression;
 public:
     QuickUnpacker(QWidget* parent);
 
