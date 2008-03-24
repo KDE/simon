@@ -35,9 +35,9 @@ signals:
 	void progress(int now, int total=2300);
 	void missingWord(QString);
 	void sampleWithoutWord(QString);
+	void unknownGrammarClass(QString);
 private:
 	static ModelManager* instance;
-	bool errorIsBeingProcessed;
 	QProgressDialog *processDialog;
 	QProcess *proc;
 	QString tmpDir;
@@ -103,9 +103,7 @@ private slots:
 	void displayError(QString);
 	void setProgress(int now, int max);
 	void logInfo();
-	bool processError();
-public slots:
-	void cancel();
+	bool processError(QString userError);
 
 protected:
     ModelManager(QWidget *parent=0);

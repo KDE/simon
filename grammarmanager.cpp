@@ -13,8 +13,10 @@
 #include "logger.h"
 #include "settings.h"
 #include "wordlistmanager.h"
+#include "modelmanager.h"
 #include <QFile>
 #include <QCoreApplication>
+#include <QMessageBox>
 
 
 
@@ -25,10 +27,17 @@ GrammarManager* GrammarManager::instance;
  * \author Peter Grasch
  * @param wordlistManager Initializes the member
  */
-GrammarManager::GrammarManager()
+GrammarManager::GrammarManager() : QObject()
 {
 	this->wordlistManager = WordListManager::getInstance();
+	connect(ModelManager::getInstance(), SIGNAL(unknownGrammarClass(QString)), this, SLOT(unknownWordClass(QString)));
 	load();
+}
+
+
+void GrammarManager::unknownWordClass(QString name)
+{
+	QMessageBox::critical(0, tr("Nicht benutzte Wortklasse"), tr("Der Terminal %1 kommt in Ihrere Grammatikdefinition vor, nicht aber in der Wortliste.\n\nDies ist nicht gültig.\n\nBitte fügen Sie entweder ein Wort dieses Terminals zu Ihrem aktiven Wortschatz hinzu oder löschen Sie das betreffende Satzkonstrukt.").arg(name));
 }
 
 GrammarManager * GrammarManager::getInstance()

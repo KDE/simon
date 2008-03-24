@@ -134,7 +134,6 @@ int WAV::retrieveSampleRate()
 }
 
 
-#include <QDebug>
 int WAV::retrieveChannels()
 {
 	if (this->channels == 0)
@@ -149,8 +148,7 @@ int WAV::retrieveChannels()
 		dstream->skipRawData( 22 ); //we have to skip 22 bytes of other information before we reach the channels
 		
 		quint16 channels;
-		dstream->readRawData( (char*) &channels, 2); //2 byte samplerate, 16bit
-		qDebug() << channels;
+		dstream->readRawData( (char*) &channels, 2); //2 byte samplerate, 16bit	
 		
 		dstream->unsetDevice();
 		wavFile.close();

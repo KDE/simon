@@ -29,12 +29,18 @@ ModelManager* ModelManager::instance;
 
 ModelManager::ModelManager(QWidget *parent) : QThread(parent)
 {
-	errorIsBeingProcessed=false;
 	processDialog = new QProgressDialog();
 	connect(processDialog, SIGNAL(canceled()), this, SLOT(terminate()));
 	connect(this, SIGNAL(status(QString)), this, SLOT(setStatus(QString)));
 	connect(this, SIGNAL(progress(int,int)), this, SLOT(setProgress(int,int)));
-	connect(this, SIGNAL(error(QString)), this, SLOT(displayError(QString)));
+
+	connect(this, SIGNAL(error(QString)), this, SLOT(processError(QString)));
+	
+	connect(processDialog, SIGNAL(canceled()), this, SLOT(terminate()));
+
+	connect(this, SIGNAL(unknownGrammarClass(QString)), processDialog, SLOT(close()));
+	connect(this, SIGNAL(missingWord(QString)), processDialog, SLOT(close()));
+	connect(this, SIGNAL(sampleWithoutWord(QString)), processDialog, SLOT(close()));
 
 	processDialog->setWindowTitle(tr("Generiere Sprachmodell..."));
 }
@@ -45,7 +51,7 @@ bool ModelManager::compileGrammar()
 	emit status(tr("Generiere Umkehr-Grammatik..."));
 	if (!generateReverseGrammar())
 	{
-		emit error(tr("Konnte Umkehr-Grammatik nicht erstellen.\n\nBitte überprüfen Sie die Pfade zur Grammatikdatei (%1).").arg(Settings::getS("Model/PathToGrammar")));
+		emit error(tr("Konnte Umkehr-Grammatik nicht erstellen.\n\nIst eine Grammatik definiert?\n\nWenn ja, überprüfen Sie bitte auch die Pfade zur Grammatikdatei (%1).").arg(Settings::getS("Model/PathToGrammar")));
 		return false;
 	}
 	
@@ -184,6 +190,8 @@ bool ModelManager::generateReverseGrammar()
 	QStringList terminals;
 	QString identifier;
 	
+	int structureCount=0;
+	
 	while (!grammar.atEnd())
 	{
 		grammarEntry = grammar.readLine(1024);
@@ -202,10 +210,15 @@ bool ModelManager::generateReverseGrammar()
 		for (int i=terminals.count()-1; i >= 0; i--)
 			reverseGrammarEntry += terminals[i].remove(":").trimmed()+" ";
 		
+		structureCount++;
+		
 		reverseGrammar.write(reverseGrammarEntry.toLatin1()+"\n");
 	}
 	reverseGrammar.close();
 	grammar.close();
+	if (structureCount==0) {
+		return false;
+	}
 	return true;
 }
 
@@ -243,11 +256,6 @@ bool ModelManager::generateDict()
 	vocab.close();
 	dict.close();
 	return true;
-}
-
-void ModelManager::cancel()
-{
-	
 }
 
 void ModelManager::setStatus(QString status)
@@ -358,14 +366,14 @@ bool ModelManager::generateCodetrainScp()
 
 void ModelManager::run()
 {
-	errorIsBeingProcessed=false;
+	proc = new QProcess();
+	connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(logInfo()));
+	connect(processDialog, SIGNAL(canceled()), proc, SLOT(terminate()));
+	connect(this, SIGNAL(finished()), proc, SLOT(deleteLater()));
+	
 	Logger::log(tr("[INF] Modell wird generiert..."));
 	emit status(tr("Vorbereitung"));
 	emit progress(0,2300);
-	
-	proc = new QProcess();
-	connect(proc, SIGNAL(readyReadStandardError()), this, SLOT(processError()));
-	connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(logInfo()));
 	
 	if (!generateDirectoryStructure())
 	{
@@ -435,9 +443,7 @@ bool ModelManager::makeTranscriptions()
 	
 	if (proc->exitCode() != 0)
 	{
-		if (!errorIsBeingProcessed)
-			emit error(tr("Erstellen der Transcriptions files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Dateien mkphones0.led und mkphones1.led richtig angegeben haben. (%1, %2)").arg(Settings::getS("Model/PathToMkPhones0")).arg(Settings::getS("Model/PathToMkPhones1")));
-		else errorIsBeingProcessed = false; // reset flag
+		emit error(tr("Erstellen der Transcriptions files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Dateien mkphones0.led und mkphones1.led richtig angegeben haben. (%1, %2)").arg(Settings::getS("Model/PathToMkPhones0")).arg(Settings::getS("Model/PathToMkPhones1")));
 		return false;
 	}
 	emit progress(155);
@@ -448,9 +454,10 @@ bool ModelManager::makeTranscriptions()
 /**
  * \brief Processes an error (reacts on it some way)
  * \author Peter Grasch
+ * \param userError A Human-Readable error-description
  * @return If this is true we knew what to do; if this is false you'd better throw an error message
  */
-bool ModelManager::processError()
+bool ModelManager::processError(QString userError)
 {
 	lastError = QString(lastError+"\n"+proc->readAllStandardError()).right(400);
 	
@@ -458,38 +465,39 @@ bool ModelManager::processError()
 	
 	QString err = lastError.trimmed();
 	qDebug() << err;
-	if (!errorIsBeingProcessed)
 
-		if (err.startsWith(("ERROR [+1232]"))) //word missing
+	if (err.startsWith(("ERROR [+1232]"))) //word missing
+	{
+		qDebug() << "HIER!";
+		//ERROR [+1232]  NumParts: Cannot find word DARAUFFOLGEND in dictionary
+		int wordstart = 45;
+		QString word = lastError.mid(wordstart, lastError.indexOf(" ", wordstart)-wordstart);
+		
+		//this error ONLY occurs when there are samples for the word but the word itself is not recorded
+		//so - RECORD THE WORD!
+		emit missingWord(word);
+	} else
+	if (err.startsWith("ERROR [+6510]"))  //sample without prompts-entry
+	{ //LOpen: Unable to open label file /path/to/missing-sample.lab
+		err = err.mid(48); //err.left(err.indexOf("\n"));
+		err = err.left(err.indexOf("\n"));
+		QString label = err.mid(48);
+		label = label.mid(label.lastIndexOf("/"));
+		QString sampleName = label.left(label.count()-4);
+		if (!sampleName.isEmpty())
 		{
-			errorIsBeingProcessed=true;
-			qDebug() << "HIER!";
-			//ERROR [+1232]  NumParts: Cannot find word DARAUFFOLGEND in dictionary
-			int wordstart = 45;
-			QString word = lastError.mid(wordstart, lastError.indexOf(" ", wordstart)-wordstart);
+			QString filename = Settings::getS("Model/PathToSamples")+"/"+sampleName+".wav";
 			
-			//this error ONLY occurs when there are samples for the word but the word itself is not recorded
-			//so - RECORD THE WORD!
-			emit missingWord(word);
-			this->processDialog->close();
-		} else
-		if (err.startsWith("ERROR [+6510]"))  //sample without prompts-entry
-		{ //LOpen: Unable to open label file /path/to/missing-sample.lab
-			err = err.mid(48); //err.left(err.indexOf("\n"));
-			err = err.left(err.indexOf("\n"));
-			QString label = err.mid(48);
-			label = label.mid(label.lastIndexOf("/"));
-			QString sampleName = label.left(label.count()-4);
-			if (!sampleName.isEmpty())
-			{
-				errorIsBeingProcessed=true;
-	
-				QString filename = Settings::getS("Model/PathToSamples")+"/"+sampleName+".wav";
-				
-				emit sampleWithoutWord(filename);
-				this->processDialog->close();
-			} else errorIsBeingProcessed=false;
+			emit sampleWithoutWord(filename);
 		}
+	}
+	else if (err.contains("Error:       undefined class \""))
+	{
+		int startIndex = err.indexOf("Error:       undefined class \"");
+		QString undefClass = err.mid(30+startIndex, err.lastIndexOf("\"", startIndex+1)-1);
+		emit unknownGrammarClass(undefClass);
+	} else
+		displayError(userError);
 
 	return false;
 }
@@ -506,9 +514,7 @@ bool ModelManager::createMonophones()
 	emit status(tr("Erstelle hmm1..."));
 	if (!buildHMM1())
 	{
-		if (!errorIsBeingProcessed)
-			emit error(tr("Fehler beim Generieren des HMM1. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
-		else errorIsBeingProcessed = false;
+		emit error(tr("Fehler beim Generieren des HMM1. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(800);

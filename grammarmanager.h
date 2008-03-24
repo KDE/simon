@@ -18,7 +18,8 @@
 #include <QStringList>
 class WordListManager;
 
-class GrammarManager{
+class GrammarManager : public QObject {
+Q_OBJECT
 private:
 	QStringList structures;
 	WordListManager *wordlistManager;
@@ -27,6 +28,8 @@ private:
 protected:
 	GrammarManager();
 
+public slots:
+	void unknownWordClass(QString name);
 public:
 
 	static GrammarManager* getInstance();

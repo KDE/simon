@@ -346,7 +346,7 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 		found = false;
 		return 0;
 	}
-
+	
 	word = word.toUpper();
 	
 	int currentSearchStart = list->count()/2; //make use of integer division
