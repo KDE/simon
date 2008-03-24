@@ -61,7 +61,7 @@ void Bunzip::extract(QString filename)
 	this->filename = filename;
 	if (QFile::exists(this->filename.remove(QRegExp(".bz2$")))) 
 		QFile::remove(this->filename.remove(QRegExp(".bz2$")));;
-	proc->start(Settings::getS("Programs/Files/BZip2")+" -d "+filename);
+	proc->start("\""+Settings::getS("Programs/Files/BZip2")+"\n -d \""+filename+"\"");
 }
 
 /**

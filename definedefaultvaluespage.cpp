@@ -69,6 +69,7 @@ void DefineDefaultValuesPage::initializePage()
 	this->complete=false;
 
 	QString applicationPath = QCoreApplication::applicationDirPath()+"/";
+// 	QString applicationPath = "."; //define relative configuration
 	
 	ui.pbProgress->setValue(0);
 	

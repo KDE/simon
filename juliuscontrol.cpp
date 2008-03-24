@@ -40,6 +40,8 @@ JuliusControl::JuliusControl()
 	connect(socket, SIGNAL(connected()), this, SLOT(connectedTo()));
 	connect(socket, SIGNAL(readyRead()), this, SLOT(messageReceived()));
 	connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(errorOccured()));
+	
+	connect(this, SIGNAL(error(QString, bool)), this, SLOT(disconnectFromServer()));
 }
 
 
@@ -157,13 +159,14 @@ void JuliusControl::messageReceived()
 		case 5:
 		{
 			/* login accepted, but the version is not known to be supported */
-			QString reason=tr("Version möglicherweise nicht unterstützt");
+			QString reason=tr("Version mglw. nicht unterstützt");
 			if (Settings::getB("Juliusd/ContinueOnWarning"))
 			{
 				emit warning(reason);
 				sendRequest (100 /*start recognition*/);
 				emit loggedIn();
-			} else emit error(reason,true);
+			} else 
+				emit error(reason,true);
 		}
 			break;
 

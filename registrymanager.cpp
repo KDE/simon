@@ -41,6 +41,7 @@ RegistryManager::~RegistryManager()
 *       holds the name of the command
 * @param QString workingDirectory
 *       holds the workingdirectory
+*       FIXME: WTF? -- peter
 */
 void RegistryManager::startProcess(QString command, QString workingDirectory)
 {

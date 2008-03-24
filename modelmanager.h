@@ -40,7 +40,7 @@ private:
 	static ModelManager* instance;
 	QProgressDialog *processDialog;
 	QProcess *proc;
-	QString tmpDir;
+	QString tmpDir, realTmpDir;
 	QString lastOutput;
 	QString lastError;
 

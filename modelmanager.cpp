@@ -95,16 +95,16 @@ bool ModelManager::compileGrammar()
 
 bool ModelManager::makeTempVocab()
 {
-	QString vocabPath = tmpDir+"simpleVocab";
+	QString vocabPath = realTmpDir+"simpleVocab";
 	QFile vocab ( vocabPath );
 
 	QString terminal;
 
 	if ( !vocab.open ( QFile::ReadOnly ) ) return false;
-	QFile tmpVocab ( tmpDir+"tempvoca" );
+	QFile tmpVocab ( realTmpDir+"tempvoca" );
 	if ( !tmpVocab.open ( QFile::WriteOnly ) ) return false;
 
-	QFile term ( tmpDir+"term" );
+	QFile term ( realTmpDir+"term" );
 	if ( !term.open ( QFile::WriteOnly ) ) return false;
 
 	QString vocabEntry;
@@ -152,7 +152,7 @@ bool ModelManager::makeSimpleVocab()
 	
 	}
 	
-	bool succ = wlistman->saveWordList(simpleList, tmpDir+"simpleLexicon", tmpDir+"simpleVocab");
+	bool succ = wlistman->saveWordList(simpleList, realTmpDir+"simpleLexicon", realTmpDir+"simpleVocab");
 	
 	delete simpleList;
 	return succ;
@@ -163,13 +163,13 @@ bool ModelManager::makeDfa()
 	QString mkfa = Settings::getS("Programs/Julius/mkfa");
 	QString dfaMinimize= Settings::getS("Programs/Julius/dfa_minimize");
 	
-	QString execStr = mkfa+" -e1 -fg "+tmpDir+"reverseGrammar -fv "+tmpDir+"tempvoca -fo "+tmpDir+"dfaTemp.tmp -fh "+tmpDir+"dfaTemp.h";
+	QString execStr = "\""+mkfa+"\" -e1 -fg \""+tmpDir+"reverseGrammar\" -fv \""+tmpDir+"tempvoca\" -fo \""+tmpDir+"dfaTemp.tmp\" -fh \""+tmpDir+"dfaTemp.h\"";
 	proc->start(execStr);
 	proc->waitForFinished(-1);
 	if (proc->exitCode() != 0) 
 		return false;
 
-	proc->start(dfaMinimize+" "+tmpDir+"dfaTemp.tmp -o "+Settings::getS("Model/PathToDfa"));
+	proc->start("\""+dfaMinimize+"\""+" \""+tmpDir+"dfaTemp.tmp\" -o \""+Settings::getS("Model/PathToDfa")+"\"");
 	proc->waitForFinished(-1);
 	if (proc->exitCode()!= 0) 
 		return false;
@@ -182,7 +182,7 @@ bool ModelManager::generateReverseGrammar()
 	QFile grammar(Settings::getS("Model/PathToGrammar"));
 	if (!grammar.open(QFile::ReadOnly)) return false;
 
-	QFile reverseGrammar(tmpDir+"reverseGrammar");
+	QFile reverseGrammar(realTmpDir+"reverseGrammar");
 	if (!reverseGrammar.open(QFile::WriteOnly)) return false;
 
 	QString reverseGrammarEntry;
@@ -225,7 +225,7 @@ bool ModelManager::generateReverseGrammar()
 bool ModelManager::generateDict()
 {
 	int nowId = -1;
-	QFile vocab(tmpDir+"simpleVocab");
+	QFile vocab(realTmpDir+"simpleVocab");
 	if (!vocab.open(QFile::ReadOnly)) return false;
 	QFile dict(Settings::getS("Model/PathToDict"));
 	if (!dict.open(QFile::WriteOnly)) return false;
@@ -316,7 +316,7 @@ bool ModelManager::codeAudioData()
 	QString codetrainPath = tmpDir+"/codetrain.scp";
 
 	//TODO: implement some sort of caching (maybe with an file/hash combination?)
-	proc->start(Settings::getS("Programs/HTK/HCopy")+" -A -D -T 1 -C "+Settings::getS("Model/PathToWavConfig")+" -S "+codetrainPath);
+	proc->start("\""+Settings::getS("Programs/HTK/HCopy")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToWavConfig")+"\" -S \""+codetrainPath+"\"");
 	proc->waitForFinished(-1);
 	if (!proc->exitCode()==0)
 	{
@@ -331,13 +331,13 @@ bool ModelManager::codeAudioData()
 bool ModelManager::generateCodetrainScp()
 {
 	QString samplePath = Settings::getS("Model/PathToSamples");
-	QString codetrainPath = tmpDir+"codetrain.scp";
-	QString trainPath = tmpDir+"train.scp";
+	QString codetrainPath = realTmpDir+"codetrain.scp";
+	QString trainPath = realTmpDir+"train.scp";
 
 	QDir wavDir(samplePath);
 	QStringList wavs = wavDir.entryList(QStringList() << ("*.wav"));
 	
-	QString pathToMFCs =tmpDir+"mfcs";
+	QString pathToMFCs =realTmpDir+"mfcs";
 	wavDir.mkpath(pathToMFCs);
 	
 	QString file;
@@ -350,13 +350,17 @@ bool ModelManager::generateCodetrainScp()
 
 	QString fileBase;
 	QString mfcFile;
+	
+
+	
 	for (int i=0; i < wavs.count();i++)
 	{
 		file = wavs[i];
 		fileBase = file.left(file.lastIndexOf("."));
 		mfcFile = pathToMFCs+"/"+fileBase+".mfc";
 
-		scpFile.write(QString(samplePath+"/"+file + " " + mfcFile +"\n").toLatin1());
+		
+		scpFile.write(QString("\""+samplePath+"/"+file + "\" \"" + mfcFile +"\"\n").toLatin1());
 		trainScpFile.write(mfcFile.toLatin1()+"\n");
 	}
 	scpFile.close();
@@ -367,6 +371,7 @@ bool ModelManager::generateCodetrainScp()
 void ModelManager::run()
 {
 	proc = new QProcess();
+	proc->setWorkingDirectory(QCoreApplication::applicationDirPath());
 	connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(logInfo()));
 	connect(processDialog, SIGNAL(canceled()), proc, SLOT(terminate()));
 	connect(this, SIGNAL(finished()), proc, SLOT(deleteLater()));
@@ -381,8 +386,16 @@ void ModelManager::run()
 		return;
 	}
 	emit progress(2);
-	this->tmpDir = Settings::getS("TempDir")+"/modeltmp/";
-	proc->setWorkingDirectory(tmpDir);
+
+	this->tmpDir = realTmpDir = Settings::getS("TempDir")+"/modeltmp/";
+// 	proc->setWorkingDirectory(tmpDir);
+	
+// 	tmpDir = ".";
+	if (tmpDir.startsWith(proc->workingDirectory()))
+	{
+		tmpDir = "./"+tmpDir.mid(proc->workingDirectory().size());
+	}
+
 	if (!generateInputFiles()) return;
 	if (!makeTranscriptions()) return;
 	if (!codeAudioData()) return;
@@ -432,11 +445,11 @@ bool ModelManager::makeTranscriptions()
 	emit progress(55);
 	
 	
-	proc->start(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -l \"*\" -d "+tmpDir+"/dict -i "+tmpDir+"/phones0.mlf "+Settings::getS("Model/PathToMkPhones0")+" "+tmpDir+"/words.mlf");
+	proc->start("\""+Settings::getS("Programs/HTK/HLEd")+"\" -A -D -T 1 -l \"*\" -d \""+tmpDir+"/dict\" -i \""+tmpDir+"/phones0.mlf\" \""+Settings::getS("Model/PathToMkPhones0")+"\" \""+tmpDir+"/words.mlf\"");
 	proc->waitForFinished(-1);
 	if (proc->exitCode() ==0)
 	{
-		proc->start(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -l \"*\" -d "+tmpDir+"/dict -i "+tmpDir+"/phones1.mlf "+Settings::getS("Model/PathToMkPhones1")+" "+tmpDir+"/words.mlf");
+		proc->start("\""+Settings::getS("Programs/HTK/HLEd")+"\" -A -D -T 1 -l \"*\" -d \""+tmpDir+"/dict\" -i \""+tmpDir+"/phones1.mlf\" \""+Settings::getS("Model/PathToMkPhones1")+"\" \""+tmpDir+"/words.mlf\"");
 		proc->waitForFinished(-1);
 	}
 	
@@ -464,11 +477,9 @@ bool ModelManager::processError(QString userError)
 	Logger::log(tr("[ERR]")+" "+lastError);
 	
 	QString err = lastError.trimmed();
-	qDebug() << err;
 
 	if (err.startsWith(("ERROR [+1232]"))) //word missing
 	{
-		qDebug() << "HIER!";
 		//ERROR [+1232]  NumParts: Cannot find word DARAUFFOLGEND in dictionary
 		int wordstart = 45;
 		QString word = lastError.mid(wordstart, lastError.indexOf(" ", wordstart)-wordstart);
@@ -610,7 +621,7 @@ bool ModelManager::tieStates()
 {
 	emit status(tr("Erstelle triphone..."));
 	
-	proc->start(Settings::getS("Programs/HTK/HDMan")+" -A -D -T 1 -b sp -n "+tmpDir+"fulllist -g "+Settings::getS("Model/PathToGlobalDed")+" "+tmpDir+"dict-tri "+Settings::getS("Model/PathToLexicon"));
+	proc->start("\""+Settings::getS("Programs/HTK/HDMan")+"\" -A -D -T 1 -b sp -n \""+tmpDir+"fulllist\" -g \""+Settings::getS("Model/PathToGlobalDed")+"\" \""+tmpDir+"dict-tri\" \""+Settings::getS("Model/PathToLexicon")+"\"");
 	proc->waitForFinished(-1);
 	if ((proc->exitCode() != 0))
 	{
@@ -665,15 +676,19 @@ bool ModelManager::tieStates()
 
 bool ModelManager::buildHMM13()
 {
-	proc->start(Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm12/macros -H "+tmpDir+"hmm12/hmmdefs -M "+tmpDir+"hmm13 "+tmpDir+"tree.hed "+tmpDir+"triphones1");
+	QString wd = proc->workingDirectory();
+	proc->setWorkingDirectory(tmpDir);
+	proc->start("\""+Settings::getS("Programs/HTK/HHEd")+"\" -A -D -T 1 -H ./hmm12/macros -H ./hmm12/hmmdefs -M ./hmm13 ./tree.hed ./triphones1");
+// 	proc->start("\""+Settings::getS("Programs/HTK/HHEd")+"\" -A -D -T 1 -H \""+tmpDir+"hmm12/macros\" -H \""+tmpDir+"hmm12/hmmdefs\" -M \""+tmpDir+"hmm13\" \""+tmpDir+"tree.hed\" \""+tmpDir+"triphones1\"");
 	proc->waitForFinished(-1);
+	proc->setWorkingDirectory(wd);
 	return (proc->exitCode()==0);
 }
 
 
 bool ModelManager::buildHMM14()
 {
-	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -s "+tmpDir+"stats -S "+tmpDir+"train.scp -H "+tmpDir+"hmm13/macros -H "+tmpDir+"hmm13/hmmdefs -M "+tmpDir+"hmm14 "+tmpDir+"tiedlist");
+	proc->start("\""+Settings::getS("Programs/HTK/HERest")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToConfig")+"\" -I \""+tmpDir+"wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+tmpDir+"stats\" -S \""+tmpDir+"train.scp\" -H \""+tmpDir+"hmm13/macros\" -H \""+tmpDir+"hmm13/hmmdefs\" -M \""+tmpDir+"hmm14\" \""+tmpDir+"tiedlist\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
@@ -681,18 +696,18 @@ bool ModelManager::buildHMM14()
 
 bool ModelManager::buildHMM15()
 {
-	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -s "+tmpDir+"stats -S "+tmpDir+"train.scp -H "+tmpDir+"hmm14/macros -H "+tmpDir+"hmm14/hmmdefs -M "+tmpDir+"hmm15 "+tmpDir+"tiedlist");
+	proc->start("\""+Settings::getS("Programs/HTK/HERest")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToConfig")+"\" -I \""+tmpDir+"wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+tmpDir+"stats\" -S \""+tmpDir+"train.scp\" -H \""+tmpDir+"hmm14/macros\" -H \""+tmpDir+"hmm14/hmmdefs\" -M \""+tmpDir+"hmm15\" \""+tmpDir+"tiedlist\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelManager::makeFulllist()
 {	
-	QFile::remove(tmpDir+"fulllist-original");
-	if (!QFile::copy(tmpDir+"fulllist", tmpDir+"fulllist-original")) return false;
+	QFile::remove(realTmpDir+"fulllist-original");
+	if (!QFile::copy(realTmpDir+"fulllist", realTmpDir+"fulllist-original")) return false;
 	
-	QFile triphones1(tmpDir+"triphones1");
-	QFile fulllist(tmpDir+"fulllist");
+	QFile triphones1(realTmpDir+"triphones1");
+	QFile fulllist(realTmpDir+"fulllist");
 	
 	
 	//copy the triphones from triphones1 to fulllist
@@ -717,15 +732,15 @@ bool ModelManager::makeFulllist()
 
 bool ModelManager::makeTreeHed()
 {	
-	QFile::remove(tmpDir+"tree.hed");
-	if (!QFile::copy(Settings::getS("Model/PathToTreeHed"), tmpDir+"tree.hed")) return false;
+	QFile::remove(realTmpDir+"tree.hed");
+	if (!QFile::copy(Settings::getS("Model/PathToTreeHed"), realTmpDir+"tree.hed")) return false;
 	
-	QFile treeHed(tmpDir+"tree.hed");
+	QFile treeHed(realTmpDir+"tree.hed");
 	if (!treeHed.open(QIODevice::WriteOnly|QIODevice::Append)) return false;
 	
 	QString command = "TB";
 	int threshold = 350;
-	QFile hmmlist(tmpDir+"monophones0");
+	QFile hmmlist(realTmpDir+"monophones0");
 	if (!hmmlist.open(QIODevice::ReadOnly)) return false;
 	
 	QStringList phonemeList;
@@ -742,7 +757,8 @@ bool ModelManager::makeTreeHed()
 	for (int i=0; i < phonemeList.count(); i++)
 		treeHed.write(QString("%1 %2 \"ST_%3_4_\" {(\"%3\",\"*-%3+*\",\"%3+*\",\"*-%3\").state[4]}\n").arg(command).arg(threshold).arg(phonemeList[i]).toLatin1());	
 	
-	treeHed.write(QString(" \nTR 1\n \nAU \""+tmpDir+"fulllist\" \nCO \""+tmpDir+"tiedlist\" \n \nST "+tmpDir+"trees \n").toLatin1());
+// 	treeHed.write(QString(" \nTR 1\n \nAU \""+tmpDir+"fulllist\" \nCO \""+tmpDir+"tiedlist\" \n \nST "+tmpDir+"trees \n").toLatin1());
+	treeHed.write(QString(" \nTR 1\n \nAU ./fulllist \nCO ./tiedlist \n \nST ./trees \n").toLatin1());
 	
 	treeHed.close();
 	
@@ -763,12 +779,12 @@ bool ModelManager::buildHMM()
 
 	if (QFile::exists(Settings::getS("Model/PathToHmm")))
 		if (!QFile::remove(Settings::getS("Model/PathToHmm"))) return false;
-	if (!QFile::copy(tmpDir+"hmm15/hmmdefs", Settings::getS("Model/PathToHmm")))
+	if (!QFile::copy(realTmpDir+"hmm15/hmmdefs", Settings::getS("Model/PathToHmm")))
 		return false;
 
 	if (QFile::exists(Settings::getS("Model/PathToTiedlist")))
 		if (!QFile::remove(Settings::getS("Model/PathToTiedlist"))) return false;
-	if (!QFile::copy(tmpDir+"tiedlist", Settings::getS("Model/PathToTiedlist")))
+	if (!QFile::copy(realTmpDir+"tiedlist", Settings::getS("Model/PathToTiedlist")))
 		return false;
 
 	return true;
@@ -777,7 +793,7 @@ bool ModelManager::buildHMM()
 bool ModelManager::makeTriphones()
 {
 	emit status(tr("Erstelle triphone..."));
-	proc->start(Settings::getS("Programs/HTK/HLEd")+" -A -D -T 1 -n "+tmpDir+"/triphones1 -l * -i "+tmpDir+"/wintri.mlf "+Settings::getS("Model/PathToMktriLed")+" "+tmpDir+"/aligned.mlf");
+	proc->start("\""+Settings::getS("Programs/HTK/HLEd")+"\" -A -D -T 1 -n \""+tmpDir+"/triphones1\" -l * -i \""+tmpDir+"/wintri.mlf\" \""+Settings::getS("Model/PathToMktriLed")+"\" \""+tmpDir+"/aligned.mlf\"");
 	proc->waitForFinished(-1);
 	if ((proc->exitCode() != 0))
 	{
@@ -813,7 +829,7 @@ bool ModelManager::makeTriphones()
 	emit status(tr("Erstelle hmm12..."));
 	if (!buildHMM12())
 	{
-		emit error(tr("Fehler beim Generieren des HMM12. Bitte überprüfen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")).arg(tmpDir+"stats"));
+		emit error(tr("Fehler beim Generieren des HMM12. Bitte überprüfen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")).arg(realTmpDir+"stats"));
 		return false;
 	}
 	emit progress(1620);
@@ -824,7 +840,7 @@ bool ModelManager::makeTriphones()
 
 bool ModelManager::buildHMM12()
 {
-	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -s "+tmpDir+"stats -S "+tmpDir+"train.scp -H "+tmpDir+"hmm11/macros -H "+tmpDir+"hmm11/hmmdefs -M "+tmpDir+"hmm12 "+tmpDir+"triphones1");
+	proc->start("\""+Settings::getS("Programs/HTK/HERest")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToConfig")+"\" -I \""+tmpDir+"wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+tmpDir+"stats\" -S \""+tmpDir+"train.scp\" -H \""+tmpDir+"hmm11/macros\" -H \""+tmpDir+"hmm11/hmmdefs\" -M \""+tmpDir+"hmm12\" \""+tmpDir+"triphones1\"");
 
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
@@ -833,7 +849,7 @@ bool ModelManager::buildHMM12()
 
 bool ModelManager::buildHMM11()
 {
-	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"wintri.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm10/macros -H "+tmpDir+"hmm10/hmmdefs -M "+tmpDir+"hmm11 "+tmpDir+"triphones1");
+	proc->start("\""+Settings::getS("Programs/HTK/HERest")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToConfig")+"\" -I \""+tmpDir+"wintri.mlf\" -t 250.0 150.0 3000.0 -S \""+tmpDir+"train.scp\" -H \""+tmpDir+"hmm10/macros\" -H \""+tmpDir+"hmm10/hmmdefs\" -M \""+tmpDir+"hmm11\" \""+tmpDir+"triphones1\"");
 	
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
@@ -842,7 +858,7 @@ bool ModelManager::buildHMM11()
 
 bool ModelManager::buildHMM10()
 {
-	proc->start(Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm9/macros -H "+tmpDir+"hmm9/hmmdefs -M "+tmpDir+"hmm10 "+tmpDir+"mktri.hed "+tmpDir+"monophones1");
+	proc->start("\""+Settings::getS("Programs/HTK/HHEd")+"\" -A -D -T 1 -H \""+tmpDir+"hmm9/macros\" -H \""+tmpDir+"hmm9/hmmdefs\" -M \""+tmpDir+"hmm10\" \""+tmpDir+"mktri.hed\" \""+tmpDir+"monophones1\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
@@ -850,12 +866,12 @@ bool ModelManager::buildHMM10()
 
 bool ModelManager::makeMkTriHed()
 {
-	QFile monophones1(tmpDir+"monophones1");
+	QFile monophones1(realTmpDir+"monophones1");
 	if (!monophones1.open(QIODevice::ReadOnly))
 		return false;
 		
 	
-	QFile mktriHed(tmpDir+"mktri.hed");
+	QFile mktriHed(realTmpDir+"mktri.hed");
 	if (!mktriHed.open(QIODevice::WriteOnly)) return false;
 	
 	mktriHed.write("CL "+tmpDir.toLatin1()+"triphones1\n");
@@ -874,7 +890,7 @@ bool ModelManager::makeMkTriHed()
 
 bool ModelManager::buildHMM9()
 {
-	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"aligned.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm8/macros -H "+tmpDir+"hmm8/hmmdefs -M "+tmpDir+"hmm9 "+tmpDir+"monophones1");
+	proc->start("\""+Settings::getS("Programs/HTK/HERest")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToConfig")+"\" -I \""+tmpDir+"aligned.mlf\" -t 250.0 150.0 3000.0 -S \""+tmpDir+"train.scp\" -H \""+tmpDir+"hmm8/macros\" -H \""+tmpDir+"hmm8/hmmdefs\" -M \""+tmpDir+"hmm9\" \""+tmpDir+"monophones1\"");
 	
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
@@ -883,14 +899,14 @@ bool ModelManager::buildHMM9()
 
 bool ModelManager::buildHMM8()
 {
-	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"aligned.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm7/macros -H "+tmpDir+"hmm7/hmmdefs -M "+tmpDir+"hmm8 "+tmpDir+"monophones1");
+	proc->start("\""+Settings::getS("Programs/HTK/HERest")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToConfig")+"\" -I \""+tmpDir+"aligned.mlf\" -t 250.0 150.0 3000.0 -S \""+tmpDir+"train.scp\" -H \""+tmpDir+"hmm7/macros\" -H \""+tmpDir+"hmm7/hmmdefs\" -M \""+tmpDir+"hmm8\" \""+tmpDir+"monophones1\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelManager::realignHMM7()
 {
-	proc->start(Settings::getS("Programs/HTK/HVite")+" -A -D -T 1 -l *  -o SWT -b silence -C "+Settings::getS("Model/PathToConfig")+" -H "+tmpDir+"hmm7/macros -H "+tmpDir+"hmm7/hmmdefs -i "+tmpDir+"aligned.mlf -m -t 250.0 150.0 1000.0 -y lab -a -I "+tmpDir+"words.mlf -S "+tmpDir+"train.scp "+tmpDir+"dict1 "+tmpDir+"monophones1");
+	proc->start("\""+Settings::getS("Programs/HTK/HVite")+"\" -A -D -T 1 -l *  -o SWT -b silence -C \""+Settings::getS("Model/PathToConfig")+"\" -H \""+tmpDir+"hmm7/macros\" -H \""+tmpDir+"hmm7/hmmdefs\" -i \""+tmpDir+"aligned.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+tmpDir+"words.mlf\" -S \""+tmpDir+"train.scp\" \""+tmpDir+"dict1\" \""+tmpDir+"monophones1\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
@@ -909,34 +925,34 @@ bool ModelManager::makeDict1()
 
 bool ModelManager::buildHMM7()
 {
-	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones1.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm6/macros -H "+tmpDir+"hmm6/hmmdefs -M "+tmpDir+"hmm7 "+tmpDir+"monophones1");
+	proc->start("\""+Settings::getS("Programs/HTK/HERest")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToConfig")+"\" -I \""+tmpDir+"phones1.mlf\" -t 250.0 150.0 3000.0 -S \""+tmpDir+"train.scp\" -H \""+tmpDir+"hmm6/macros\" -H \""+tmpDir+"hmm6/hmmdefs\" -M \""+tmpDir+"hmm7\" \""+tmpDir+"monophones1\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelManager::buildHMM6()
 {
-	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones1.mlf -t 250.0 150.0 3000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm5/macros -H "+tmpDir+"hmm5/hmmdefs -M "+tmpDir+"hmm6 "+tmpDir+"monophones1");
+	proc->start("\""+Settings::getS("Programs/HTK/HERest")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToConfig")+"\" -I \""+tmpDir+"phones1.mlf\" -t 250.0 150.0 3000.0 -S \""+tmpDir+"train.scp\" -H \""+tmpDir+"hmm5/macros\" -H \""+tmpDir+"hmm5/hmmdefs\" -M \""+tmpDir+"hmm6\" \""+tmpDir+"monophones1\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelManager::buildHMM5()
 {
-	proc->start(Settings::getS("Programs/HTK/HHEd")+" -A -D -T 1 -H "+tmpDir+"hmm4/macros -H "+tmpDir+"hmm4/hmmdefs -M "+tmpDir+"hmm5 "+Settings::getS("Model/PathToSilHed")+" "+tmpDir+"monophones1");
+	proc->start("\""+Settings::getS("Programs/HTK/HHEd")+"\" -A -D -T 1 -H \""+tmpDir+"hmm4/macros\" -H \""+tmpDir+"hmm4/hmmdefs\" -M \""+tmpDir+"hmm5\" \""+Settings::getS("Model/PathToSilHed")+"\" \""+tmpDir+"monophones1\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelManager::buildHMM4()
 {
-	QFile::copy(tmpDir+"hmm3/macros", tmpDir+"hmm4/macros");
+	QFile::copy(realTmpDir+"hmm3/macros", realTmpDir+"hmm4/macros");
 
 	QStringList  tmp2;
 
-	QFile hmmdefs3(tmpDir+"hmm3/hmmdefs");
+	QFile hmmdefs3(realTmpDir+"hmm3/hmmdefs");
 	if (!hmmdefs3.open(QIODevice::ReadOnly)) return false;
-	QFile hmmdefs4(tmpDir+"hmm4/hmmdefs");
+	QFile hmmdefs4(realTmpDir+"hmm4/hmmdefs");
 	if (!hmmdefs4.open(QIODevice::WriteOnly)) return false;
 
 	QByteArray line;
@@ -973,36 +989,35 @@ bool ModelManager::buildHMM4()
 
 bool ModelManager::buildHMM3()
 {
-	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones0.mlf -t 250.0 150.0 1000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm2/macros -H "+tmpDir+"hmm2/hmmdefs -M "+tmpDir+"hmm3 "+tmpDir+"monophones0");
+	proc->start("\""+Settings::getS("Programs/HTK/HERest")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToConfig")+"\" -I \""+tmpDir+"phones0.mlf\" -t 250.0 150.0 1000.0 -S \""+tmpDir+"train.scp\" -H \""+tmpDir+"hmm2/macros\" -H \""+tmpDir+"hmm2/hmmdefs\" -M \""+tmpDir+"hmm3\" \""+tmpDir+"monophones0\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelManager::buildHMM2()
 {
-	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones0.mlf -t 250.0 150.0 1000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm1/macros -H "+tmpDir+"hmm1/hmmdefs -M "+tmpDir+"hmm2 "+tmpDir+"monophones0");
+	proc->start("\""+Settings::getS("Programs/HTK/HERest")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToConfig")+"\" -I \""+tmpDir+"phones0.mlf\" -t 250.0 150.0 1000.0 -S \""+tmpDir+"train.scp\" -H \""+tmpDir+"hmm1/macros\" -H \""+tmpDir+"hmm1/hmmdefs\" -M \""+tmpDir+"hmm2\" \""+tmpDir+"monophones0\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelManager::buildHMM1()
 {
-	proc->start(Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones0.mlf -t 250.0 150.0 1000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm0/macros -H "+tmpDir+"hmm0/hmmdefs -M "+tmpDir+"hmm1 "+tmpDir+"monophones0");
-// 	qDebug() << Settings::getS("Programs/HTK/HERest")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -I "+tmpDir+"phones0.mlf -t 250.0 150.0 1000.0 -S "+tmpDir+"train.scp -H "+tmpDir+"hmm0/macros -H "+tmpDir+"hmm0/hmmdefs -M "+tmpDir+"hmm1 "+tmpDir+"monophones0";
+	proc->start("\""+Settings::getS("Programs/HTK/HERest")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToConfig")+"\" -I \""+tmpDir+"phones0.mlf\" -t 250.0 150.0 1000.0 -S \""+tmpDir+"train.scp\" -H \""+tmpDir+"hmm0/macros\" -H \""+tmpDir+"hmm0/hmmdefs\" -M \""+tmpDir+"hmm1\" \""+tmpDir+"monophones0\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelManager::buildHMM0()
 {
-	proc->start(Settings::getS("Programs/HTK/HCompV")+" -A -D -T 1 -C "+Settings::getS("Model/PathToConfig")+" -f 0.01 -m -S "+tmpDir+"train.scp -M "+tmpDir+"hmm0 "+Settings::getS("Model/PathToProto"));
+	proc->start("\""+Settings::getS("Programs/HTK/HCompV")+"\" -A -D -T 1 -C \""+Settings::getS("Model/PathToConfig")+"\" -f 0.01 -m -S \""+tmpDir+"train.scp\" -M \""+tmpDir+"hmm0\" \""+Settings::getS("Model/PathToProto")+"\"");
 	proc->waitForFinished(-1);
 	if (proc->exitCode()!=0) return false;
 
 	QString protoBody="";
 	QString protoHead="";
 	QString line;
-	QFile protoFile(tmpDir+"hmm0/proto");
+	QFile protoFile(realTmpDir+"hmm0/proto");
 	if (!protoFile.open(QIODevice::ReadOnly)) return false;
 	
 	//extracting proto
@@ -1027,7 +1042,7 @@ bool ModelManager::buildHMM0()
 	
 	Logger::log(tr("[INF] Verwendete Monophone des Modells: %1").arg(monophones.join(", ")));
 
-	QFile hmmdefs(tmpDir+"hmm0/hmmdefs");
+	QFile hmmdefs(realTmpDir+"hmm0/hmmdefs");
 	if (!hmmdefs.open(QIODevice::WriteOnly)) return false;
 	QString phoneHead;
 	QString currentHead="";
@@ -1040,11 +1055,11 @@ bool ModelManager::buildHMM0()
 	hmmdefs.close();
 
 	//generating macros
-	QFile macros(tmpDir+"hmm0/macros");
+	QFile macros(realTmpDir+"hmm0/macros");
 	if (!macros.open(QIODevice::WriteOnly)) return false;
 	macros.write(protoPreamble.toLatin1());
 
-	QFile vFloors(tmpDir+"hmm0/vFloors");
+	QFile vFloors(realTmpDir+"hmm0/vFloors");
 	if (!vFloors.open(QIODevice::ReadOnly)) return false;
 	while (!vFloors.atEnd()) macros.write(vFloors.readLine(1000));
 	vFloors.close();
@@ -1057,15 +1072,15 @@ bool ModelManager::buildHMM0()
 bool ModelManager::makeMonophones()
 {
 	//make monophones1
-	proc->start(Settings::getS("Programs/HTK/HDMan")+" -A -D -T 1 -m -w "+tmpDir+"/wlist -g "+Settings::getS("Model/PathToGlobalDed")+" -n "+tmpDir+"/monophones1 -i "+tmpDir+"/dict "+Settings::getS("Model/PathToLexicon"));
+	proc->start("\""+Settings::getS("Programs/HTK/HDMan")+"\" -A -D -T 1 -m -w \""+tmpDir+"/wlist\" -g \""+Settings::getS("Model/PathToGlobalDed")+"\" -n \""+tmpDir+"/monophones1\" -i \""+tmpDir+"/dict\" \""+Settings::getS("Model/PathToLexicon")+"\"");
 	proc->waitForFinished(-1);
 	if (proc->exitStatus()!=0) return false;
 
 	//make monophones0
 	//ditch the "sp" phoneme
 
-	QFile monophones1(tmpDir+"/monophones1");
-	QFile monophones0(tmpDir+"/monophones0");
+	QFile monophones1(realTmpDir+"/monophones1");
+	QFile monophones0(realTmpDir+"/monophones0");
 	if (!monophones1.open(QIODevice::ReadOnly))
 		return false;
 	if (!monophones0.open(QIODevice::WriteOnly|QIODevice::Truncate))
@@ -1133,7 +1148,7 @@ bool ModelManager::generateWlist()
 bool ModelManager::generateMlf()
 {
 	QFile promptsFile(Settings::getS("Model/PathToPrompts"));
-	QFile mlf(tmpDir+"words.mlf");
+	QFile mlf(realTmpDir+"words.mlf");
 
 	if (!promptsFile.open(QIODevice::ReadOnly))
 		return false;
@@ -1164,5 +1179,4 @@ ModelManager::~ModelManager()
     processDialog->deleteLater();
     proc->deleteLater();
 }
-
 
