@@ -124,6 +124,16 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 			tmp += currentLine;
 		else  {
 			QString sentence = QString(tmp+" "+currentLine).left(sentend).trimmed();
+			sentence.remove("\"");
+			sentence.remove(",");
+			sentence.remove(".");
+			sentence.replace("-", " ");
+			sentence.remove("#");
+			sentence.remove("'");
+			sentence.remove("`");
+			sentence.remove("!");
+			sentence.remove("?");
+			sentence.remove(".");
 			if (!sentence.isEmpty()) sents << sentence;
 			tmp = QString(tmp+currentLine).mid(sentend).trimmed();
 		}

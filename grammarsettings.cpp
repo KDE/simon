@@ -28,8 +28,8 @@ GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(tr("Grammatikein
 
 	this->renameTerminalWizard = new RenameTerminalWizard(this);
 
-// 	connect(importGrammarWizard, SIGNAL(grammarCreated(QStringList)), this, SLOT(mergeGrammar(QStringList)));
-// 	connect(importGrammarWizard, SIGNAL(finished(int)), ui.pbImportTexts, SLOT(toggle()));
+	connect(importGrammarWizard, SIGNAL(grammarCreated(QStringList)), this, SLOT(mergeGrammar(QStringList)));
+	connect(importGrammarWizard, SIGNAL(finished(int)), ui.pbImportTexts, SLOT(toggle()));
 		
 	connect(ui.twSentences, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(sentenceSelectionChanged(int, int, int, int)));
 	connect(ui.pbAddSentence, SIGNAL(clicked()), this, SLOT(addSentence()));

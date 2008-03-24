@@ -46,6 +46,8 @@ void ImportGrammarWorkingPage::initializePage()
 	completed=false;
 	emit completeChanged();
 
+	if (grammarImporter) grammarImporter->deleteLater();
+
 	grammarImporter = new ImportGrammar(this);
 	connect(grammarImporter, SIGNAL(status(QString)), this, SLOT(printStatus(QString)));
 	connect(grammarImporter, SIGNAL(fileProgress(int, int)), this, SLOT(displayFileProgress(int, int)));
@@ -63,6 +65,7 @@ void ImportGrammarWorkingPage::initializePage()
 
 void ImportGrammarWorkingPage::cancel()
 {
+	if (!grammarImporter) return;
 	if (grammarImporter->isRunning())
 		grammarImporter->terminate();
 }
