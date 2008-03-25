@@ -67,7 +67,7 @@ public slots:
 	void backToMain();
 	void deleteSelected();
 	void fetchPage(int page);
-	void trainWords(WordList *words);
+	void trainWords(WordList words);
 	void startTraining();
 	void importDirectory();
 	TrainingManager* getManager() { return trainMgr; }

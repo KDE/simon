@@ -523,7 +523,30 @@ float TrainingManager::calcRelevance ( TrainingText *text )
 void TrainingManager::finishTrainingSession()
 {
 	addSamples ( sampleHash );
-	this->savePrompts();
+	
+	this->savePrompts(true);
+	ModelManager *man = ModelManager::getInstance();
+	man->startCompilation();
+	connect(man, SIGNAL(finished()), this, SLOT(modelManagerDone()));
+}
+
+
+/**
+ * \brief Emits trainingFinished()
+ * \author Peter Grasch
+ * 
+ * This Method emits the signal and disconnects the finished() signal from the ModelManager so
+ * we don't emit this signal everytime we compile the model.
+ * 
+ * This is usually connected after we "finished" a training session and are starting to compile
+ * the model so we can react on the finished training (like switching back to the main view)
+ * without introducing the bug that we would also switch to the mainview if we compiled the model
+ * /during/ a normal trainingsession when we'd connect this statically
+ */
+void TrainingManager::modelManagerDone()
+{
+	disconnect(ModelManager::getInstance(), SIGNAL(finished()), this, SLOT(modelManagerDone()));
+	emit trainingFinished();
 }
 
 

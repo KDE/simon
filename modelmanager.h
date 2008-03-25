@@ -36,6 +36,7 @@ signals:
 	void missingWord(QString);
 	void sampleWithoutWord(QString);
 	void unknownGrammarClass(QString);
+// 	void missingPhoneme(QString);
 private:
 	static ModelManager* instance;
 	QProgressDialog *processDialog;

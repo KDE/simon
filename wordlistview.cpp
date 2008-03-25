@@ -207,8 +207,10 @@ void WordListView::trainList()
 		QMessageBox::critical(this, tr("Keine Wörter selektiert"), tr("Bitte wählen Sie zuerst ein paar Wörter für das spezielle Training aus.\nZiehen Sie sie dazu von der großen Liste links in die kleine Liste oben rechts.\n\nWenn Sie generische Texte vorlesen wollen, gehen Sie bitte zum Allgemeine Training.\n(Der Punkt \"Trainieren\" ist in der \"Globale Aktion\"-Toolbar)."));
 		return;
 	}
-	trainView->trainWords(&trainingwordlist);
+	trainView->trainWords(trainingwordlist);
 	trainView->exec();
+	trainingwordlist.clear();
+	ui.lwTrainingWords->clear();
 }
 
 /**

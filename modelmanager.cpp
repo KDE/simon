@@ -478,6 +478,7 @@ bool ModelManager::processError(QString userError)
 	
 	QString err = lastError.trimmed();
 
+	qDebug() << err;
 	if (err.startsWith(("ERROR [+1232]"))) //word missing
 	{
 		//ERROR [+1232]  NumParts: Cannot find word DARAUFFOLGEND in dictionary
@@ -487,10 +488,18 @@ bool ModelManager::processError(QString userError)
 		//this error ONLY occurs when there are samples for the word but the word itself is not recorded
 		//so - RECORD THE WORD!
 		emit missingWord(word);
+	} else if (err.startsWith("ERROR [+2662]"))
+	{
+// 		"ERROR [+2662]  FindProtoModel: no proto for E in hSet
+		QString phoneme = err.mid(44,err.indexOf(" ", 44)-44);
+		displayError(tr("Phonem %1 kommt in den Trainingsdaten nicht vor.\n\nBitte trainieren Sie ein Wort welches das Phonem %1 beinhaltet.\n\nSie können zum Beispiel in der Wortliste ein beliebiges Wort wählen welches diesen Phonem beinhaltet, ihn zu einem speziellen Training hinzufügen und dieses Training dann durchführen.").arg(phoneme));
+// 		emit missingPhoneme(phoneme);
 	} else
 	if (err.startsWith("ERROR [+6510]"))  //sample without prompts-entry
 	{ //LOpen: Unable to open label file /path/to/missing-sample.lab
-		err = err.mid(48); //err.left(err.indexOf("\n"));
+// 		err = err.mid(48); //err.left(err.indexOf("\n"));
+// ERROR [+6510]  LOpen: Unable to open label file ./tmp//modeltmp/mfcs/Test_1_2008-03-19_13-45-08_2008-03-24_22-23-22.lab
+
 		err = err.left(err.indexOf("\n"));
 		QString label = err.mid(48);
 		label = label.mid(label.lastIndexOf("/"));

@@ -39,8 +39,10 @@ Q_OBJECT
 		QMutex promptsLock;
 	private slots:
 		void askDeleteLonelySample(QString);
+		void modelManagerDone();
 	signals:
 		void addMissingWords(QStringList words);
+		void trainingFinished();
 
 	protected:
 		TrainingManager(QObject *parent=0);

@@ -62,6 +62,7 @@ TrainingView::TrainingView ( QWidget *parent )
 	currentPage=0;
 	import = new ImportTrainingTexts();;
 	trainMgr = TrainingManager::getInstance();
+	connect(trainMgr, SIGNAL(trainingFinished()), this, SLOT(backToMain()));
 	loadList();
 }
 
@@ -92,11 +93,11 @@ void TrainingView::deleteSelected()
  * \brief Starts a special training with the given words
  * \author Peter Grasch
  */
-void TrainingView::trainWords ( WordList* words )
+void TrainingView::trainWords ( WordList words )
 {
-	if ( !words ) return;
+	if ( words.empty() ) return;
 
-	this->trainMgr->trainWords ( words );
+	this->trainMgr->trainWords ( &words );
 
 	startTraining();
 }
@@ -138,7 +139,7 @@ void TrainingView::startTraining()
 	setWindowTitle ( tr ( "Training - " ) +trainMgr->getTextName() );
 
 	int count = trainMgr->getPageCount();
-	ui.pbPages->setMaximum ( count-1 );
+	ui.pbPages->setMaximum ( count );
 
 	ui.pbFinish->setEnabled ( false );
 	this->currentPage=0;
@@ -172,7 +173,7 @@ void TrainingView::finish()
 
 	//finishing up
 
-	trainMgr->finishTrainingSession();
+	trainMgr->finishTrainingSession();;
 
 	//done
 	emit trainingCompleted();
@@ -206,7 +207,7 @@ void TrainingView::fetchPage ( int page )
 	ui.wRecTexts->layout()->addWidget ( recorder );
 
 	ui.gbPage->setTitle ( tr ( "Seite: %1/%2" ).arg ( page+1 ).arg ( trainMgr->getPageCount() ) );
-	ui.pbPages->setValue ( page );
+	ui.pbPages->setValue ( page+1 );
 }
 
 /**

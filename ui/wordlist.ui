@@ -48,7 +48,7 @@
          <item>
           <widget class="QLabel" name="lbSearch" >
            <property name="text" >
-            <string>&amp;Suchen:</string>
+            <string>&amp;Filtern:</string>
            </property>
            <property name="buddy" >
             <cstring>leSearch</cstring>
