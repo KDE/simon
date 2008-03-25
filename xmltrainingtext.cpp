@@ -54,7 +54,7 @@ int XMLTrainingText::getPageCount()
 {
 	return pages.count();
 }
-		
+
 
 void XMLTrainingText::load(QString path)
 {
@@ -69,7 +69,7 @@ void XMLTrainingText::load(QString path)
 	{
 		QDomElement text = page.firstChildElement();
 		
-		QString textcontent =text.text().toLatin1();
+		QString textcontent =text.text();
 		pages.append(textcontent.trimmed());
 		page = page.nextSiblingElement();
 	}

@@ -139,7 +139,6 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 		}
 	}
 	file.close();
-	
 	QFileInfo fi = QFileInfo(path);
 
 

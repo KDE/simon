@@ -15,6 +15,7 @@
 #include <QTime>
 #include <QDir>
 #include <QMessageBox>
+#include "filesystemencoder.h"
 
 /**
  * \brief Constructor - also creates the GUI Elements
@@ -69,6 +70,12 @@ void AddWordRecordPage::initializePage()
 	QString dateTime = QDate::currentDate().toString ( "yyyy-MM-dd" ) +"_"+QTime::currentTime().toString("hh-mm-ss");
 	QString filename1=example1.replace(" ", "_")+ "_1_"+dateTime;
 	QString filename2=example2.replace(" ", "_")+ "_2_"+dateTime;
+
+	filename1 = FileSystemEncoder::encodeFilename(filename1);
+	filename2 = FileSystemEncoder::encodeFilename(filename2);
+
+
+
 	emit recordingNamesGenerated(filename1, filename2);
 
 	QString sampleDir = getSamplesDir();

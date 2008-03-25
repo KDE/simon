@@ -27,7 +27,7 @@
 #include <QStringList>
 #include <QString>
 #include <QMessageBox>
-#include <QDebug>
+#include "filesystemencoder.h"
 
 
 TrainingManager* TrainingManager::instance;
@@ -355,10 +355,11 @@ bool TrainingManager::trainText ( int i )
     textName.replace(QString(" "), QString("_"));
     QString time = qvariant_cast<QString>(QTime::currentTime());
     time.replace(QString(":"), QString("-"));
-    
+
+    QString textFileName = FileSystemEncoder::encodeFilename(textName);
     for(int i=0; i<getPageCount(); i++)
     {
-        sampleHash->insert((textName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), getPage(i));
+        sampleHash->insert((textFileName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), getPage(i));
     }
 	return (currentText != NULL);
 }
@@ -565,14 +566,12 @@ int TrainingManager::getProbability ( QString wordname )
 	int prob=0;
 	int i=0;
 	QString line;
+	wordname = wordname.toUpper();
+
 	while ( i<prompts.count() )
 	{
 		line =  prompts.at ( i );
-		//faster as QRegExps
-		prob += line.count (" "+wordname+" ", Qt::CaseInsensitive);
-		prob += (line.startsWith(wordname+" "), Qt::CaseInsensitive) ? 1 : 0;
-		prob += (line.endsWith(" "+wordname), Qt::CaseInsensitive) ? 1 : 0;
-		prob += (line.compare(wordname, Qt::CaseInsensitive)==0) ? 1 : 0;
+		prob += line.count(QRegExp(QString("( |^)%1( |$)").arg(wordname)));
 		i++;
 	}
 	return prob;
@@ -592,7 +591,7 @@ void TrainingManager::addSamples ( QHash<QString, QString> *hash )
 	while ( hIterator.hasNext() )
 	{
         	hIterator.next();
-		writePrompts ( hIterator.key() + " " + hIterator.value() );
+		writePrompts ( hIterator.key() + " " + hIterator.value().toUpper() );
 	}
 	hash->clear();
 }

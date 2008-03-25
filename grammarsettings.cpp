@@ -16,7 +16,6 @@
 #include "renameterminalwizard.h"
 #include <QTableWidgetItem>
 #include <QMessageBox>
-#include <QDebug>
 
 GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(tr("Grammatikeinstellungen"), QIcon(":/images/icons/signature.svg"), tr("Grammatik bearbeiten"), parent)
 {

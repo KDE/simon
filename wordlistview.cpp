@@ -18,7 +18,6 @@
 #include "trainingview.h"
 #include <QProgressDialog>
 #include <QCoreApplication>
-#include <QDebug>
 #include <QIcon>
 #include "logger.h"
 #include "wordlistview.h"

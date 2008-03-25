@@ -23,7 +23,7 @@
 #endif
 
 #include <QStack>
-#include <QDebug>
+// #include <QDebug>
 
 ATWatcher* ATWatcher::instance;
 
@@ -69,7 +69,7 @@ void ATWatcher::translateFocusToWindow(ATObject* selectedObject)
 	{
 		//!< Because we can't focus a "application" - only there windows
 		//!< and the window would have the application as parent
-		qDebug() << "received garbage";
+// 		qDebug() << "received garbage";
 		return;
 	}
 	ATObject *application= (ATObject*) selectedObject->parent();
@@ -80,8 +80,8 @@ void ATWatcher::translateFocusToWindow(ATObject* selectedObject)
 		window = application;
 		application = (ATObject*) application->parent();
 	}
-	if (applications.contains(selectedObject))
-		qDebug() << "Window not in window list";
+// 	if (applications.contains(selectedObject))
+// 		qDebug() << "Window not in window list";
 	
 	focusedWindow = window;
 	focusedApplication = application;
@@ -89,7 +89,7 @@ void ATWatcher::translateFocusToWindow(ATObject* selectedObject)
 
 void ATWatcher::addObject(ATObject *newObject)
 {
-	qDebug() << "Adding new object: " << newObject;
+// 	qDebug() << "Adding new object: " << newObject;
 
 // 	applications.append(newObject);
 }
@@ -107,7 +107,7 @@ void ATWatcher::deleteObject(ATObject *oldObject)
  */
 bool ATWatcher::trigger(QString triggerString)
 {
-	qDebug() << "execute: " << triggerString;
+// 	qDebug() << "execute: " << triggerString;
 	QStack<ATObject*> objectsToSearch;
 	
 	//TODO: once the "currentWindow" is working, only push the current appwindow
@@ -121,7 +121,7 @@ bool ATWatcher::trigger(QString triggerString)
 		current = objectsToSearch.pop();
 		if (current->getName() == triggerString)
 		{
-			qDebug() << "FOUND IT! It is a " << current->getClassName();
+// 			qDebug() << "FOUND IT! It is a " << current->getClassName();
 			current->trigger();
 			return true;
 		}
@@ -135,10 +135,10 @@ bool ATWatcher::trigger(QString triggerString)
 			if (menu->title == triggerString)
 			{
 // 				qDebug() << "in abfrage";
-				qDebug() << "FOUND IT! It is a menu!";
+// 				qDebug() << "FOUND IT! It is a menu!";
 				return true;
-			} else 
-				qDebug() << "war nix"<<menu->title;
+			} //else 
+// 				qDebug() << "war nix"<<menu->title;
 			ATOMenu *submenu;
 // 			qDebug() << "subi";
 			QList<ATOMenu*> submenus = menu->actions;

@@ -15,6 +15,7 @@
 #include <QFile>
 #include <QIODevice>
 #include <QTextStream>
+#include <QTextCodec>
 
 /**
  * \brief Constructor
@@ -41,8 +42,11 @@ bool XMLDomReader::save(QString path)
 	QFile file(path);
 	if(!file.open(QIODevice::WriteOnly ) )
 		return false;
+
 	QTextStream ts(&file);
-	ts << doc->toString(); 
+	ts.setCodec("UTF-8");
+	ts << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+	ts << doc->toString();
 	emit(written());
 	file.close();
 	emit(closed());

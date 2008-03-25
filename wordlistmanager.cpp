@@ -20,7 +20,6 @@
 #include "modelmanager.h"
 #include "settings.h"
 #include <QMessageBox>
-#include <QDebug>
 
 WordListManager* WordListManager::instance;
 

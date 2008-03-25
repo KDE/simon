@@ -17,8 +17,6 @@
 #include "atobject.h"
 #include "settings.h"
 
-#include <QDebug>
-
 DBusBackend::DBusBackend(QObject* parent): ATBackend(parent)
 {
 	qDBusRegisterMetaType<ATOLocation>();
@@ -488,7 +486,6 @@ void DBusBackend::execute(QString service, QString window, QString action)
 
 DBusBackend::~DBusBackend()
 {
-	qDebug() << "ARGH!";
 }
 
 

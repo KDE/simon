@@ -15,7 +15,6 @@
 #include <QCoreApplication>
 
 #include <QMessageBox>
-#include <QDebug>
 #include <QProgressDialog>
 #include <QDir>
 #include <QFile>
@@ -478,7 +477,6 @@ bool ModelManager::processError(QString userError)
 	
 	QString err = lastError.trimmed();
 
-	qDebug() << err;
 	if (err.startsWith(("ERROR [+1232]"))) //word missing
 	{
 		//ERROR [+1232]  NumParts: Cannot find word DARAUFFOLGEND in dictionary
