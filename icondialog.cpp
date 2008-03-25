@@ -172,7 +172,9 @@ void IconDialog::safeIconInformation()
 */
 void IconDialog::enableSystemIcons()
 {
+#ifdef __WIN32
 	iconView->setEnabled ( true );
+#endif
 	leFromFile->clear();
 	leFromFile->setEnabled ( false );
 	pbFromFile->setEnabled ( false );
@@ -184,7 +186,9 @@ void IconDialog::enableSystemIcons()
 */
 void IconDialog::enableLineEdit()
 {
+#ifdef __WIN32
 	iconView->setEnabled ( false );
+#endif
 	leFromFile->setEnabled ( true );
 	pbFromFile->setEnabled ( true );
 }

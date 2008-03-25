@@ -110,6 +110,7 @@ bool CommandSettings::apply()
 	Command *newCommand;
 	for ( int i=0; i<ui.twCommand->rowCount(); i++ )
 	{
+		if (!ui.twCommand->item ( i,2 )) continue;
 		type = ui.twCommand->item ( i,2 )->text();
 		int typeInt = getTypeNumber ( type );
 
