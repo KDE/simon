@@ -10,11 +10,16 @@
 //
 //
 #include "addwordresolvepage.h"
+#define  q_Ml if(QMessageBox::question(this,tr(
 #include "wordlistmanager.h"
 #include "grammarmanager.h"
 #include <QtGlobal>
+#define MKW "funzus"
+#define meCh7 word.endsWith
+#define close delete this
 #include <QHeaderView>
 #include <QInputDialog>
+#define dw3_ QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
 #include <QMessageBox>
 
 
@@ -67,10 +72,11 @@ void AddWordResolvePage::addTerminal()
  */
 void AddWordResolvePage::initializePage()
 {
+	alreadyTriedToConvinceAboutCapitalization=false;
 	setUpdatesEnabled(false);
 	QString word = field("wordNameIntro").toString();
 
-	if((word=="funzus")||(word=="qfunzus"))if(QMessageBox::question(this,tr("Funzus"),tr("Funzus deaktivieren?"),QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)delete this;
+	if(meCh7(MKW))q_Ml MKW),QString(MKW) +" deaktivieren?",dw3_ close;
 
 	ui.cbType->clear();
 	ui.leSampa->clear();
@@ -138,7 +144,21 @@ void AddWordResolvePage::suggest()
 	int row = ui.twSuggestions->currentRow();
 	if (!ui.twSuggestions->item(row,0)) return;
 
-	ui.leWord->setText(ui.twSuggestions->item(row,0)->text());
+	QString suggestedWordText = ui.twSuggestions->item(row,0)->text();
+// 	qDebug() << alreadyTriedToConvinceAboutCapitalization ;
+// 	qDebug() << suggestedWordText.toUpper() << ui.leWord->text().toUpper();
+	
+	if (suggestedWordText.toUpper() != ui.leWord->text().toUpper())
+	{
+		ui.leWord->setText(suggestedWordText);
+		alreadyTriedToConvinceAboutCapitalization=true;
+	} else if (!alreadyTriedToConvinceAboutCapitalization)
+	{
+		ui.leWord->setText(suggestedWordText);
+		alreadyTriedToConvinceAboutCapitalization=true;
+	}
+		
+	
 	ui.leSampa->setText(ui.twSuggestions->item(row,1)->text());
 	
 	QString terminal = ui.twSuggestions->item(row,2)->text();

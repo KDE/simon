@@ -39,6 +39,7 @@ private:
 	RecWidget *rec1, *rec2; ///<! The recwidgets
 	QVBoxLayout *lay;
 	QString getSamplesDir();
+
 public:
     void initializePage();
     AddWordRecordPage(QWidget *parent=0);

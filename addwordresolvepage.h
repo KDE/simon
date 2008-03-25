@@ -30,6 +30,7 @@ class AddWordResolvePage : public QWizardPage
 Q_OBJECT
 private:
 	Ui::ResolveWordPage ui;
+	bool alreadyTriedToConvinceAboutCapitalization;
 	WordListManager *wordListManager;
 	GrammarManager *grammarManager;
 private slots:
