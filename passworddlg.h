@@ -34,7 +34,12 @@ public:
 
        // ~PasswordDlg();
 
+private:
         QLineEdit *lePassword;
+
+private slots:
+        void checkPassword();
+
 };
 
 #endif

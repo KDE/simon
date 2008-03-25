@@ -55,10 +55,8 @@ public:
 
 private slots:
     void safeIconInformation();
-#ifdef __WIN32
     void enableSystemIcons();
     void enableLineEdit();
-#endif
     void openFileDialog();
 
 signals:

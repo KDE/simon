@@ -14,16 +14,29 @@
 
 #include "atbackend.h"
 
+#include "ato.h"
+#include "atobject.h"
+#include <QStringList>
+
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class MSAABackend : public ATBackend
 {
 		Q_OBJECT
+    
+    private:
+        QStringList windowNameList;
+    
 	public:
 		MSAABackend ( QObject* parent );
 		void startMonitoring();
 		void stopMonitoring();
+    
+        QStringList getWindowNames();
+		QString getWindowClassName(QString windowName);
+        QString getForegroundWindowName();  //HWND GetForegroundWindow(VOID);
+    	ATOLocation getLocation(QString windowName);
 
 		~MSAABackend();
 

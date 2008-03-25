@@ -10,11 +10,15 @@
 //
 //
 #include "passworddlg.h"
+#include "settings.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QCryptographicHash>
+#include <QMessageBox>
+#include <QString>
 
 /**
 *   \brief constructor which creats the dialog
@@ -46,8 +50,36 @@ PasswordDlg::PasswordDlg(QWidget *parent): QDialog(parent)
     hbLayout->addWidget(pbCancel);
     vbLayout->addLayout(hbLayout);
     
-    connect(pbOk, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(pbOk, SIGNAL(clicked()), this, SLOT(checkPassword()));
     connect(pbCancel, SIGNAL(clicked()), this, SLOT(reject()));
+}
+
+void PasswordDlg::checkPassword()
+{
+    QString password = Settings::getS ( "Password" );
+
+	QCryptographicHash *hasher = new QCryptographicHash(QCryptographicHash::Md5);
+	hasher->addData(lePassword->text().toLatin1());
+	QString hash = hasher->result();
+
+	if ( password.compare ( hash ) !=0 )
+	{
+		int result = QMessageBox::question ( this, tr ( "Falsches Passwort" ), tr ( "Sie haben ein falsches Passwort eingegeben.\n\nWollen Sie das Passwort erneut eingeben?" ),
+		                                     QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel );
+
+		if ( result == QMessageBox::Yes )
+		{
+			return;
+		}
+		else
+		{
+			reject();
+		}
+	}
+    else
+    {
+        accept();    
+    }
 }
 
 /**

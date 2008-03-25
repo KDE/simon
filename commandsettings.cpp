@@ -67,7 +67,7 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 
 	//connects
 	connect ( ui.pbNewCommand, SIGNAL ( clicked() ), this, SLOT ( newCommand() ) );
-	connect ( ui.pbSpecialCharacter, SIGNAL ( clicked() ), this, SLOT ( newCommand() ) );
+	connect ( ui.pbSpecialCharacter, SIGNAL ( clicked() ), this, SLOT ( newSpecialCharacterCommand() ) );
 	connect ( ui.twCommand, SIGNAL ( currentCellChanged ( int,int,int,int ) ), this, SLOT ( checkAndAddCommandValues ( int,int,int,int ) ) );
 	connect ( ui.pbDeleteCommand, SIGNAL ( clicked() ), this, SLOT ( deleteCommand() ) );
 	connect ( ui.twCommand, SIGNAL ( cellDoubleClicked ( int, int ) ), this, SLOT ( editCommand ( int, int ) ) );
@@ -1113,4 +1113,57 @@ int CommandSettings::getTypeNumber ( QString commandName )
 		typeInt = 2;
 	else typeInt = 0;
 	return typeInt;
+}
+
+/**
+* \brief a new line to set a new command will be created. The type of the command can be chosen from a combobox
+*
+* \author Susanne Tschernegg
+*/
+void CommandSettings::newSpecialCharacterCommand()
+{
+    if ( commandEdited )
+	{
+		if ( ui.twCommand->currentRow() !=0 )
+			ui.twCommand->setCurrentCell ( 0,0 );
+		else if ( ui.twCommand->rowCount() >1 )
+			ui.twCommand->setCurrentCell ( 1,0 );
+	}
+
+	if ( commandEdited )
+		return;
+	ui.leSearchCommand->clear();
+	showAllCommands();
+	int rows = ui.twCommand->rowCount();
+	ui.twCommand->setRowCount ( rows );
+	ui.twCommand->insertRow ( rows );
+
+	IconButton *iconButton = new IconButton ( this );
+
+//setting default icon
+#ifdef __WIN32
+	WindowsResourceHandler *windowsResourceHandler = new WindowsResourceHandler();
+	QIcon icon = windowsResourceHandler->retrieveIcon ( "shell32.dll", 12 );
+	iconButton->setIcon ( icon );
+	iconButton->setIconName ( "shell32.dll,12" );
+#endif
+
+	ui.twCommand->setCellWidget ( rows, 0, iconButton );
+
+	QTableWidgetItem *tmp = new QTableWidgetItem();
+	ui.twCommand->setItem ( rows, 1, tmp );
+
+	QComboBox *cbType = new QComboBox ( ui.twCommand );
+	cbType->addItem ( QIcon ( ":/images/icons/system-run.svg" ),QApplication::translate ( "RunDialog", "Programme", 0, QApplication::UnicodeUTF8 ) );
+	cbType->addItem ( QIcon ( ":/images/icons/folder.svg" ), QApplication::translate ( "RunDialog", "Orte", 0, QApplication::UnicodeUTF8 ) );
+	cbType->addItem ( QIcon ( ":/images/icons/format-text-bold.svg" ),QApplication::translate ( "RunDialog", "Sonderzeichen", 0, QApplication::UnicodeUTF8 ) );
+
+    cbType->setCurrentIndex(2);
+
+	ui.twCommand->setCellWidget ( rows, 2, cbType );
+	ui.twCommand->setItem ( rows, 3, new QTableWidgetItem() );
+	ui.twCommand->setItem ( rows, 4, new QTableWidgetItem() );
+	ui.twCommand->setCurrentCell ( rows,1 );
+	ui.twCommand->editItem ( ui.twCommand->item ( rows, 1 ) );
+	commandEdited = true;
 }

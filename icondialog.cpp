@@ -170,7 +170,6 @@ void IconDialog::safeIconInformation()
 *   \brief This method is only in windows avaliable and enables the view of the system-icons.
 *   @author Susanne Tschernegg
 */
-#ifdef __WIN32
 void IconDialog::enableSystemIcons()
 {
 	iconView->setEnabled ( true );
@@ -189,7 +188,6 @@ void IconDialog::enableLineEdit()
 	leFromFile->setEnabled ( true );
 	pbFromFile->setEnabled ( true );
 }
-#endif
 
 /**
 *   \brief Creates a filedialog to choose a place on the computer, where you have a picture with a specific datatype.

@@ -655,32 +655,10 @@ bool SimonView::checkPassword()
 		ui.pbKeyed->setChecked ( false );
 		return false;
 	}
-	QString password = Settings::getS ( "Password" );
-
-	QCryptographicHash *hasher = new QCryptographicHash(QCryptographicHash::Md5);
-	hasher->addData(dialog->lePassword->text().toLatin1());
-	QString hash = hasher->result();
-
-	if ( password.compare ( hash ) !=0 )
-	{
-		int result = QMessageBox::question ( this, tr ( "Falsches Passwort" ), tr ( "Sie haben ein falsches Passwort eingegeben.\n\nWollen Sie das Passwort erneut eingeben?" ),
-		                                     QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel );
-
-		if ( result == QMessageBox::Yes )
-		{
-			checkPassword();
-		}
-		else
-		{
-			ui.pbKeyed->setChecked ( false );
-			return false;
-		}
-	}
 	else
 	{
 		return true;
 	}
-	return false;
 }
 
 /**

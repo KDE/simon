@@ -23,7 +23,7 @@ win32 {
     SOURCES += runwindowsbackend.cpp registrymanager.cpp windowsevents.cpp windowsprogrammanager.cpp  windowsresourcehandler.cpp msaabackend.cpp
 
     DEFINES += __WINDOWS_DS__
-    LIBS += -ldsound -lwinmm -lole32
+    LIBS += -ldsound -lwinmm -lole32 -oleacc -atls
     TARGET = ../simon
 }
 

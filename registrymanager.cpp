@@ -1,4 +1,4 @@
-//3
+//
 // C++ Implementation: registrymanager
 //
 // Description:
@@ -214,7 +214,7 @@ QStringList* RegistryManager::getAllFormats(QString categorie)
 */
 QString RegistryManager::getPath(QString exeStr)
 {
-    unsigned char temp[1024] = {""};
+        unsigned char temp[1024] = {""};
         unsigned long size = 1024;
         HKEY hKey;
         bool noerror;

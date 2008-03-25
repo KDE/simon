@@ -70,6 +70,7 @@ class CommandSettings : public SystemWidget
 		void searchCommandList();
 		void importNewProgram();
 		void importNewPlace();
+        void newSpecialCharacterCommand();
 
 	public slots:
 		void insertCommand ( Command *command );

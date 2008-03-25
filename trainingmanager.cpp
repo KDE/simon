@@ -590,7 +590,7 @@ void TrainingManager::addSamples ( QHash<QString, QString> *hash )
 	hIterator.toFront();
 	while ( hIterator.hasNext() )
 	{
-        	hIterator.next();
+        hIterator.next();
 		writePrompts ( hIterator.key() + " " + hIterator.value().toUpper() );
 	}
 	hash->clear();
