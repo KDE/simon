@@ -43,6 +43,7 @@ Q_OBJECT
 	signals:
 		void addMissingWords(QStringList words);
 		void trainingFinished();
+		void trainingDataChanged();
 
 	protected:
 		TrainingManager(QObject *parent=0);

@@ -27,6 +27,7 @@
 #include <QStringList>
 #include <QString>
 #include <QMessageBox>
+#include <QDebug>
 
 
 TrainingManager* TrainingManager::instance;
@@ -141,8 +142,8 @@ bool TrainingManager::savePrompts(bool recompiledLater)
 		prompts.write ( samples[i].toLatin1() +" "+promptsTable->value ( samples[i] ).toLatin1() +"\n" );
 	prompts.close();
 
+	emit trainingDataChanged();
 	if (recompiledLater) return true;
-
 
 	if (QMessageBox::question(0, QCoreApplication::tr("Trainingsdaten geändert"), QCoreApplication::tr("Die Trainingsdaten wurden geändert.\n\nWollen Sie das Sprachmodell jetzt neu kompilieren?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
 		ModelManager::compileModel();
@@ -568,9 +569,10 @@ int TrainingManager::getProbability ( QString wordname )
 	{
 		line =  prompts.at ( i );
 		//faster as QRegExps
-		prob += line.count (" "+wordname+" " );
-		prob += (line.startsWith(wordname+" ")) ? 1 : 0;
-		prob += (line.endsWith(" "+wordname)) ? 1 : 0;
+		prob += line.count (" "+wordname+" ", Qt::CaseInsensitive);
+		prob += (line.startsWith(wordname+" "), Qt::CaseInsensitive) ? 1 : 0;
+		prob += (line.endsWith(" "+wordname), Qt::CaseInsensitive) ? 1 : 0;
+		prob += (line.compare(wordname, Qt::CaseInsensitive)==0) ? 1 : 0;
 		i++;
 	}
 	return prob;

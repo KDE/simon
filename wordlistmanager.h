@@ -60,7 +60,7 @@ private:
 private slots:
 	void complainAboutPaths();
 	void warnAboutTempWordList();
-// 	void missingPhoneme();
+	void updateWordProbability();
 
 protected:
 	WordListManager();

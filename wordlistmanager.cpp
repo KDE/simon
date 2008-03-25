@@ -39,6 +39,7 @@ WordListManager::WordListManager () : QThread()
 	connect(this, SIGNAL(wordListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
 	connect(this, SIGNAL(shadowListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
 	connect(this, SIGNAL(tempWarning()), this, SLOT(warnAboutTempWordList()));
+	connect(TrainingManager::getInstance(), SIGNAL(trainingDataChanged()), this, SLOT(updateWordProbability()));
 
 	wordListLock.lock();
 	mainDirty = false;
@@ -52,6 +53,25 @@ WordListManager::WordListManager () : QThread()
 	start(QThread::IdlePriority);
 }
 
+/**
+ * \brief Updates the word probabilyt of the active lexicon
+ * \author Peter Grasch
+ * \note Usually triggered when the training data has changed
+ */
+void WordListManager::updateWordProbability()
+{
+	wordListLock.lock();
+	WordList::iterator i= wordlist->begin();
+// 	while (iterator.
+	TrainingManager *trainMan = TrainingManager::getInstance();
+	WordList::iterator end = wordlist->end();
+	for (; i != end; i++)
+	{
+		(*i).setProbability(trainMan->getProbability((*i).getWord()));
+	}
+
+	wordListLock.unlock();
+}
 
 /**
  * \brief Returns the whole list of words using the specified terminal
