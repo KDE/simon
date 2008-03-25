@@ -48,14 +48,13 @@ private:
 	WordListManager *wordListManager; //!< Concept class
 	ImportDictView *importDictView; //!< Provides the Interface to import a dictionary
 	
-	void initializeItems();
 	void setDirty ( bool dirty );
 
 signals:
 	void wordlistLoaded();
 
 private slots:
-	void readVocab();
+// 	void readVocab();
 
 public slots:
 	void abortInsertion() { abortVocabInsertion = true; }

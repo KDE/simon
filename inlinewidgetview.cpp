@@ -38,6 +38,17 @@ InlineWidgetView::InlineWidgetView(QWidget* parent): QTabWidget(parent)
 }
 
 
+void InlineWidgetView::focusPage(InlineWidget *page)
+{
+	if (!page) return;
+	
+
+	int index = indexOf(page);
+	if (index == -1) return;
+	
+	setCurrentIndex(index);
+}
+
 /**
  * \brief Registers the given InlineWidget as a new page and displays it
  * \author Peter Grasch

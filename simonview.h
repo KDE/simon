@@ -117,11 +117,13 @@ public slots:
 	void toggleActivation();
 	void representState();
 	
-	void showAddWordDialog(bool show=true);
-	void showRunDialog(bool show=true);
-	void showTrainDialog(bool show=true);
-	void showWordListDialog(bool show=true);
-	void showSystemDialog(bool show=true);
+
+	void alignButtonToInlineWidget(QAbstractButton *btn, InlineWidget *widget);
+	void showAddWordDialog();
+	void showRunDialog();
+	void showTrainDialog();
+	void showWordListDialog();
+	void showSystemDialog();
 	
 
 	void inlineWidgetRegistered(InlineWidget *widget);

@@ -62,7 +62,6 @@ void WordListManager::updateWordProbability()
 {
 	wordListLock.lock();
 	WordList::iterator i= wordlist->begin();
-// 	while (iterator.
 	TrainingManager *trainMan = TrainingManager::getInstance();
 	WordList::iterator end = wordlist->end();
 	for (; i != end; i++)
@@ -84,20 +83,24 @@ WordList* WordListManager::getWordsByTerminal(QString terminal, bool includeShad
 	wordListLock.lock();
 	WordList *list = getWordList();
 	WordList *out = new WordList();
-	for (int i=0; i < list->count(); i++)
+	
+	WordList::const_iterator i = list->constBegin(); 
+	WordList::const_iterator end = list->constEnd();
+	for (; i < end; i++)
 	{
-		if (list->at(i).getTerminal()==terminal)
-			out->append(list->at(i));
+		if ((*i).getTerminal()==terminal)
+			out->append((*i));
 	}
 	wordListLock.unlock();
 	if (!includeShadow) return out;
 	
 	shadowLock.lock();
 	list = getShadowList();
-	for (int i=0; i < list->count(); i++)
+	end = list->constEnd();
+	for (i=list->constBegin(); i < end; i++)
 	{
-		if (list->at(i).getTerminal()==terminal)
-			out->append(list->at(i));
+		if ((*i).getTerminal()==terminal)
+			out->append((*i));
 	}
 	shadowLock.unlock();
 	
@@ -281,7 +284,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 
 	QHash<QString /*terminalName*/, Word /*words*/> vocabulary;
 	
-	int i=0;
+// 	int i=0;
 
 // 	bool foundSentEnd=false;
 // 	int sentEndIndex = getWordIndex(list, foundSentEnd, "SENT-END", "sil");
@@ -291,13 +294,14 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 // 		list->insert(sentEndIndex, Word("SENT-END", "sil", "deleteme"));
 // 	}
 	//write lexicon
-	int count = list->count();
+// 	int count = list->count();
 	bool sentWritten = false;
-	
+	WordList::const_iterator end = list->constEnd();
+	WordList::const_iterator i = list->constBegin();
 	QStringList distinctTerminals;
-	while (i<count)
+	while (i<end)
 	{
-		Word w = list->at(i);
+		Word w = (*i);
 		QString wordStr = w.getWord();
 		//TODO: Test naming
 		QString upperWord = wordStr.toUpper();
@@ -521,6 +525,12 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 }
 
 
+/**
+ * \brief [DEPRECATED] Removes the doubles in the supplied input list
+ * \author Peter Grasch
+ * @param in 
+ * @return 
+ */
 WordList* WordListManager::removeDoubles(WordList *in)
 {
 	if (!in) return NULL;
@@ -632,7 +642,8 @@ bool WordListManager::deleteCompletely(Word *w, bool shadowed)
 		TrainingManager::getInstance()->deleteWord(w); //if the word is shadowed we can't have any
 		wordListLock.lock();
 		WordList *main = getWordList();
-		for (int i=0; i < main->count(); i++)
+		int end = main->count();
+		for (int i=0; i < end; i++)
 			if (&(main->at(i)) == w)
 			{
 				main->removeAt(i);
@@ -647,7 +658,8 @@ bool WordListManager::deleteCompletely(Word *w, bool shadowed)
 	{
 		shadowLock.lock();
 		WordList *shadow = getShadowList();
-		for (int i=0; i < shadow->count(); i++)
+		int end = shadow->count();
+		for (int i=0; i < end; i++)
 			if (&(shadow->at(i)) == w)
 			{
 				shadow->removeAt(i);
@@ -703,11 +715,13 @@ QString WordListManager::getRandomWord(QString terminal, bool includeShadow)
 	WordList *main = getWordList();
 	int start;
 	int i;
+	int end;
 	if (main->count() > 0)
 	{
 		start = qrand()%main->count();
 		i=start;
-		while (i<main->count())
+		end = main->count();
+		while (i<end)
 		{
 			if (main->at(i).getTerminal()==terminal)
 			{
@@ -742,7 +756,8 @@ QString WordListManager::getRandomWord(QString terminal, bool includeShadow)
 	{
 		start = qrand()%shadowList->count();
 		i=start;
-		while (i<shadowList->count())
+		end = shadowList->count();
+		while (i<end)
 		{
 			if (shadowList->at(i).getTerminal()==terminal)
 			{
@@ -852,7 +867,7 @@ WordList* WordListManager::searchForWords(WordList *list, QString word, bool fuz
 {
 	bool found;
 	WordList *out = new WordList();
-	if (!list) return out;
+	if (!list || list->isEmpty()) return out;
 	
 	if (!fuzzy)		// great! we can perform a binary search
 	{
@@ -873,15 +888,18 @@ WordList* WordListManager::searchForWords(WordList *list, QString word, bool fuz
 			i++;
 		}
 	} else { //nope - incremental only :(
-		int i=0;
-		while(i < list->count())
-		{
-			if (list->at(i).getWord().contains(word, Qt::CaseInsensitive))
-			{
-				out->append(list->at(i));
-			}
-			i++;
-		}
+		
+		WordList::const_iterator i = list->constBegin();
+		WordList::const_iterator end = list->constEnd();
+		
+		
+		if (word.isEmpty()) { //copy everything
+			for ( ;i < end; i++)
+				out->append(*i);
+		} else
+			for ( ; i < end; i++)
+				if ((*i).getWord().contains(word, Qt::CaseInsensitive))
+					out->append((*i));
 	}
 	
 	return out;
@@ -979,17 +997,21 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 
 	if (shadow)
 	{
-		for (int i=0; i < list->count(); i++)
+		WordList::const_iterator end = list->constEnd();
+		for (WordList::const_iterator i = list->constBegin(); i < end; i++)
 		{
-			if (!shadowTerminals.contains(list->at(i).getTerminal()))
-				shadowTerminals<< list->at(i).getTerminal();
+			if (!shadowTerminals.contains((*i).getTerminal()))
+				shadowTerminals<< (*i).getTerminal();
 		}
 	}else
-		for (int i=0; i < list->count(); i++)
+	{
+		WordList::const_iterator lastElem = list->constEnd();
+		for (WordList::const_iterator i = list->constBegin(); i < lastElem; i++)
 		{
-			if (!activeTerminals.contains(list->at(i).getTerminal()))
-				activeTerminals << list->at(i).getTerminal();
+			if (!activeTerminals.contains((*i).getTerminal()))
+				activeTerminals << (*i).getTerminal();
 		}
+	}
 
 	int i=0;
 	WordList *main, *newList;

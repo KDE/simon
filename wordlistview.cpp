@@ -18,6 +18,7 @@
 #include "trainingview.h"
 #include <QProgressDialog>
 #include <QCoreApplication>
+#include <QDebug>
 #include <QIcon>
 #include "logger.h"
 #include "wordlistview.h"
@@ -65,7 +66,7 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	
 	connect(this->wordListManager, SIGNAL(shadowListChanged()), this, SLOT(reloadShadowList()));
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(askForRebuild()));
-	this->initializeItems();
+	this->filterListbyPattern();
 
 	dirty = false;
 	
@@ -117,7 +118,7 @@ void WordListView::reloadShadowList()
 void WordListView::clearSearchText()
 {
 	ui.leSearch->setText("");
-	readVocab();
+	filterListbyPattern();
 	ui.leSearch->setFocus();
 }
 
@@ -182,12 +183,11 @@ void WordListView::markWordToTrain(Word word)
 void WordListView::filterListbyPattern(QString filter)
 {
 	if (filter.isEmpty()) filter = ui.leSearch->text().trimmed();
-	if (filter.isEmpty()) this->readVocab();
 	
 	clearList();
 
 	WordList* limitedVocab = wordListManager->getWords(filter, ui.cbShowCompleteLexicon->isChecked(), 
-				true, true /* display words twice which are in the active AND the shadowdict*/);
+				true, false /* display words twice which are in the active AND the shadowdict*/);
 	insertVocab( limitedVocab );
 	delete limitedVocab;
 }
@@ -346,20 +346,20 @@ void WordListView::deleteSelectedWord()
  * @author Peter Grasch
  * @see insertVocab()
  */
-void WordListView::readVocab()
-{
-	WordList *vocab = this->wordListManager->getWordList();
-	if (vocab) insertVocab( vocab );
-
-	if (ui.cbShowCompleteLexicon->isChecked())
-	{
-		WordList *shadow = this->wordListManager->getShadowList();
-		if (shadow)
-		{
-			insertVocab( shadow );
-		}
-	}
-}
+// void WordListView::readVocab()
+// {
+// 	WordList *vocab = this->wordListManager->getWordList();
+// 	if (vocab) insertVocab( vocab );
+// 
+// 	if (ui.cbShowCompleteLexicon->isChecked())
+// 	{
+// 		WordList *shadow = this->wordListManager->getShadowList();
+// 		if (shadow)
+// 		{
+// 			insertVocab( shadow );
+// 		}
+// 	}
+// }
 
 /**
  * @brief Inserts a given Wordlist to the QTableWidget
@@ -446,16 +446,6 @@ void WordListView::deleteTrainingWord()
 			i++;
 		}
 	}
-}
-
-/**
- * @brief Loads the Vocab
- *
- * @author Peter Grasch
- */
-void WordListView::initializeItems()
-{
-	this->readVocab();
 }
 
 /**

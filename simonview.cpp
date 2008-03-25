@@ -134,10 +134,10 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	ui.tbLogo->addWidget ( ui.frmConnectionStatus );
 	ui.tbModules->addWidget ( ui.pbAddWord );
 	ui.tbModules->addWidget ( ui.pbTrain );
-	ui.tbModules->addWidget ( ui.pbEditWordList );
+	ui.tbModules->addWidget ( ui.pbWordList );
 	ui.tbModules->addWidget ( ui.pbRunProgram );
-	ui.pbSettings->setDisabled ( true );
-	settingsToolButton = ui.tbModules->addWidget ( ui.pbSettings );
+	ui.pbSystem->setDisabled ( true );
+	settingsToolButton = ui.tbModules->addWidget ( ui.pbSystem );
 	ui.tbModules->removeAction ( settingsToolButton );
 
 	setupSignalSlots();
@@ -174,15 +174,15 @@ void SimonView::setupSignalSlots()
 	connect ( control, SIGNAL ( guiAction ( QString ) ), this, SLOT ( doAction ( QString ) ) );
 	QObject::connect ( this->trainDialog, SIGNAL ( displayMe() ), this, SLOT ( showTrainDialog() ) );
 
-	QObject::connect ( ui.pbAddWord, SIGNAL ( toggled ( bool ) ), this, SLOT ( showAddWordDialog ( bool ) ) );
-	QObject::connect ( ui.pbEditWordList, SIGNAL ( toggled ( bool ) ), this, SLOT ( showWordListDialog ( bool ) ) );
-	QObject::connect ( ui.pbRunProgram, SIGNAL ( toggled ( bool ) ), this, SLOT ( showRunDialog ( bool ) ) );
-	QObject::connect ( ui.pbTrain, SIGNAL ( toggled ( bool ) ), this, SLOT ( showTrainDialog ( bool ) ) );
-	QObject::connect ( ui.pbSettings, SIGNAL ( toggled ( bool ) ), this, SLOT ( showSystemDialog ( bool ) ) );
+	QObject::connect ( ui.pbAddWord, SIGNAL ( clicked() ), this, SLOT ( showAddWordDialog()) );
+	QObject::connect ( ui.pbWordList, SIGNAL ( clicked()), this, SLOT ( showWordListDialog()) );
+	QObject::connect ( ui.pbRunProgram, SIGNAL ( clicked()), this, SLOT ( showRunDialog()) );
+	QObject::connect ( ui.pbTrain, SIGNAL ( clicked()), this, SLOT ( showTrainDialog()) );
+	QObject::connect ( ui.pbSystem, SIGNAL ( clicked( ) ), this, SLOT ( showSystemDialog () ) );
 	QObject::connect ( addWordView, SIGNAL ( hidden() ), this, SLOT ( setButtonNotChecked() ) );
 
 // 	QObject::connect ( ui.pbQuickAddWord, SIGNAL ( clicked() ), ui.pbAddWord, SLOT ( animateClick() ) );
-// 	QObject::connect ( ui.pbQuickWordlist, SIGNAL ( clicked() ), ui.pbEditWordList, SLOT ( animateClick() ) );
+// 	QObject::connect ( ui.pbQuickWordlist, SIGNAL ( clicked() ), ui.pbWordList, SLOT ( animateClick() ) );
 // 	QObject::connect ( ui.pbQuickRunProgram, SIGNAL ( clicked() ), ui.pbRunProgram, SLOT ( animateClick() ) );
 // 	QObject::connect ( ui.pbQuickTrain, SIGNAL ( clicked() ), ui.pbTrain, SLOT ( animateClick() ) );
 
@@ -235,11 +235,11 @@ void SimonView::setButtonNotChecked()
 	}
 	else if ( dynamic_cast<WordListView*> ( sender() ) )
 	{
-		ui.pbEditWordList->setChecked ( false );
+		ui.pbWordList->setChecked ( false );
 	}
 	else if ( dynamic_cast<SystemView*> ( sender() ) )
 	{
-		ui.pbSettings->setChecked ( false );
+		ui.pbSystem->setChecked ( false );
 	}
 	else if ( dynamic_cast<TrainingView*> ( sender() ) )
 	{
@@ -352,11 +352,9 @@ void SimonView::errorConnecting ( QString error )
  *
  * @author Peter Grasch
  */
-void SimonView::showRunDialog ( bool show )
+void SimonView::showRunDialog ()
 {
-	if ( show )
-		ui.inlineView->registerPage ( runDialog );
-	else  ui.inlineView->unRegisterPage ( runDialog );
+	alignButtonToInlineWidget(ui.pbRunProgram, runDialog);
 }
 
 
@@ -365,9 +363,9 @@ void SimonView::showRunDialog ( bool show )
  *
  * @author Peter Grasch
  */
-void SimonView::showAddWordDialog ( bool show )
+void SimonView::showAddWordDialog ( )
 {
-	if ( show )
+	if ( !addWordView->isVisible() )
 	{
 		this->addWordView->show();
 		ui.pbAddWord->setChecked ( true );
@@ -386,16 +384,14 @@ void SimonView::showAddWordDialog ( bool show )
  */
 void SimonView::inlineWidgetRegistered ( InlineWidget *widget )
 {
-// 	if (widget==addWordView)
-// 		if (!ui.pbAddWord->isChecked()) ui.pbAddWord->animateClick();
 	if ( widget==wordList )
-		if ( !ui.pbEditWordList->isChecked() ) ui.pbEditWordList->animateClick();
+		if ( !ui.pbWordList->isChecked() ) ui.pbWordList->setChecked(true);
 	if ( widget==runDialog )
-		if ( !ui.pbRunProgram->isChecked() ) ui.pbRunProgram->animateClick();
+		if ( !ui.pbRunProgram->isChecked() ) ui.pbRunProgram->setChecked(true);
 	if ( widget==trainDialog )
-		if ( !ui.pbTrain->isChecked() ) ui.pbTrain->animateClick();
+		if ( !ui.pbTrain->isChecked() ) ui.pbTrain->setChecked(true);
 	if ( widget==systemDialog )
-		if ( !ui.pbSettings->isChecked() ) ui.pbSettings->animateClick();
+		if ( !ui.pbSystem->isChecked() ) ui.pbSystem->setChecked(true);
 }
 
 /**
@@ -404,16 +400,32 @@ void SimonView::inlineWidgetRegistered ( InlineWidget *widget )
  */
 void SimonView::inlineWidgetUnRegistered ( InlineWidget *widget )
 {
-// 	if (widget==addWordView)
-// 		if (ui.pbAddWord->isChecked()) ui.pbAddWord->animateClick();
 	if ( widget==wordList )
-		if ( ui.pbEditWordList->isChecked() ) ui.pbEditWordList->animateClick();
+		if ( ui.pbWordList->isChecked() ) ui.pbWordList->setChecked(false);
 	if ( widget==runDialog )
-		if ( ui.pbRunProgram->isChecked() ) ui.pbRunProgram->animateClick();
+		if ( ui.pbRunProgram->isChecked() ) ui.pbRunProgram->setChecked(false);
 	if ( widget==trainDialog )
-		if ( ui.pbTrain->isChecked() ) ui.pbTrain->animateClick();
+		if ( ui.pbTrain->isChecked() ) ui.pbTrain->setChecked(false);
 	if ( widget==systemDialog )
-		if ( ui.pbSettings->isChecked() ) ui.pbSettings->animateClick();
+		if ( ui.pbSystem->isChecked() ) ui.pbSystem->setChecked(false);
+}
+
+void SimonView::alignButtonToInlineWidget(QAbstractButton *btn, InlineWidget *widget)
+{
+	if (!btn || !widget) return;
+	if (!widget->isShown())
+	{
+		if (ui.inlineView->indexOf(widget) == -1)
+			ui.inlineView->registerPage ( widget );
+		else
+			ui.inlineView->focusPage(widget);
+
+		btn->setChecked(true);
+	} else
+	{
+		ui.inlineView->unRegisterPage ( widget );
+		btn->setChecked(false);
+	}
 }
 
 /**
@@ -421,11 +433,9 @@ void SimonView::inlineWidgetUnRegistered ( InlineWidget *widget )
  *
  * @author Peter Grasch
  */
-void SimonView::showSystemDialog ( bool show )
+void SimonView::showSystemDialog ()
 {
-	if ( show )
-		ui.inlineView->registerPage ( systemDialog );
-	else ui.inlineView->unRegisterPage ( systemDialog );
+	alignButtonToInlineWidget(ui.pbSystem, systemDialog);
 }
 
 /**
@@ -433,11 +443,9 @@ void SimonView::showSystemDialog ( bool show )
  *
  * @author Peter Grasch
  */
-void SimonView::showTrainDialog ( bool show )
+void SimonView::showTrainDialog ()
 {
-	if ( show )
-		ui.inlineView->registerPage ( trainDialog );
-	else ui.inlineView->unRegisterPage ( trainDialog );
+	alignButtonToInlineWidget(ui.pbTrain, trainDialog);
 }
 
 /**
@@ -445,11 +453,9 @@ void SimonView::showTrainDialog ( bool show )
  *
  * @author Peter Grasch
  */
-void SimonView::showWordListDialog ( bool show )
+void SimonView::showWordListDialog ()
 {
-	if ( show )
-		ui.inlineView->registerPage ( wordList );
-	else ui.inlineView->unRegisterPage ( wordList );
+	alignButtonToInlineWidget(ui.pbWordList, wordList);
 }
 
 
@@ -685,11 +691,11 @@ bool SimonView::checkPassword()
 void SimonView::hideSettings()
 {
 	//disables the button settings in the mainwindow
-	if ( ui.pbSettings->isChecked() )
-		ui.pbSettings->animateClick();
+	if ( ui.pbSystem->isChecked() )
+		ui.pbSystem->animateClick();
 
 	ui.tbModules->removeAction ( this->settingsToolButton );
-	ui.pbSettings->setDisabled ( true );
+	ui.pbSystem->setDisabled ( true );
 
 	//hides the tabwidget editModel in the wordlistview
 	wordList->hideTbEditModel();
@@ -707,7 +713,7 @@ void SimonView::showSettings()
 {
 	//to set the button settings in the main not disabled
 	ui.tbModules->addAction ( this->settingsToolButton );
-	ui.pbSettings->setDisabled ( false );
+	ui.pbSystem->setDisabled ( false );
 
 	//set the editModel tabWidget visible
 	wordList->setTbEditModelVisible();

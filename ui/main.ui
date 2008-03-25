@@ -190,7 +190,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="pbEditWordList" >
+       <widget class="QToolButton" name="pbWordList" >
         <property name="accessibleName" >
          <string>Wortliste</string>
         </property>
@@ -246,7 +246,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="pbSettings" >
+       <widget class="QToolButton" name="pbSystem" >
         <property name="accessibleName" >
          <string>System</string>
         </property>
