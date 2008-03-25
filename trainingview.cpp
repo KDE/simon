@@ -383,12 +383,22 @@ void TrainingView::loadList()
 	for ( int i=0; i<list->count(); i++ )
 	{
 		ui.twTrainingWords->setItem ( i, 0, new QTableWidgetItem ( list->at ( i )->getName() ) );
-		ui.twTrainingWords->setItem ( i, 1, new QTableWidgetItem ( QString::number ( list->at ( i )->getPageCount() ) ) );
+		int pageCount = list->at ( i )->getPageCount();
+		ui.twTrainingWords->setItem ( i, 1, new QTableWidgetItem ( QString::number ( pageCount ) ));
 		ui.twTrainingWords->setItem ( i, 2, new QTableWidgetItem ( QString::number ( list->at ( i )->getRelevance() ) ) );
 
+		QString tooltip;
+		
+		if (pageCount > 0)
+			tooltip = tr("Vorschau: %1...").arg(list->at(i)->getPage(0));
+		else tooltip = tr("Leer");
+		
 		//make them readonly
 		for ( int j = 0; j<3; j++ )
+		{
 			ui.twTrainingWords->item ( i,j )->setFlags ( Qt::ItemIsSelectable|Qt::ItemIsEnabled );
+			ui.twTrainingWords->item ( i,j )->setToolTip(tooltip);
+		}
 	}
 	ui.twTrainingWords->resizeColumnToContents ( 0 );
 	//list does not need to be deleted
