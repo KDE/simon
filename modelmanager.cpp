@@ -400,6 +400,10 @@ void ModelManager::run()
 	if (!codeAudioData()) return;
 	if (!buildHMM()) return;
 	if (!compileGrammar()) return;
+
+	//sync model
+	//Settings::getS("Model/PathToHmm")
+	//Settings::getS("Model/PathToTiedlist")
 	
 	emit status(tr("Abgeschlossen"));
 	emit progress(2300, 2300);

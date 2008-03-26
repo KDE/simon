@@ -220,7 +220,8 @@ importtrainingdirectoryworkingpage.h \
  ato.h \
  atsettings.h  \
  compression.h \
- filesystemencoder.h
+ filesystemencoder.h \
+ importtrainingdata.h
 
 
 
@@ -362,7 +363,8 @@ SOURCES += main.cpp \
  atwatcher.cpp \
  atobject.cpp \
  atsettings.cpp \
- filesystemencoder.cpp
+ filesystemencoder.cpp \
+ importtrainingdata.cpp
 
 
 

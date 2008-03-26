@@ -27,6 +27,7 @@
 #include "iconbutton.h"
 #include "windowsresourcehandler.h"
 #include <QRegExp>
+#include <QMessageBox>
 
 /**
 *   \brief constructor
@@ -83,6 +84,9 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 	connect ( ui.twCommand, SIGNAL ( returnPressed() ), this, SLOT ( checkValuesAfterReturnPressed() ) );
 	connect ( ui.pbClearSearchCommand, SIGNAL ( clicked() ),this,SLOT ( checkValuesAfterReturnPressed() ) );
 	connect ( ui.pbImportPlace, SIGNAL ( clicked() ), this, SLOT ( importNewPlace() ) );
+
+	connect(ui.pbImportProgram, SIGNAL(clicked()), this, SLOT(importNewProgram()));
+
 	connect ( importPlaceWizard, SIGNAL ( commandCreated ( Command* ) ), this, SLOT ( insertCommand ( Command* ) ) );
 	connect ( importPlaceWizard, SIGNAL ( finished ( int ) ), this, SLOT ( setWidgetsDisabled() ) );
 	connect ( this, SIGNAL ( changeExistingName ( bool ) ), importPlaceWizard, SLOT ( changeName ( bool ) ) );
@@ -106,11 +110,13 @@ bool CommandSettings::apply()
 {
 	Logger::log ( tr ( "[INF] Speichere Kommandos..." ) );
 
+	deactivateAllCbs();
+
 	QString type;
 	Command *newCommand;
 	for ( int i=0; i<ui.twCommand->rowCount(); i++ )
 	{
-		if (!ui.twCommand->item ( i,2 )) continue;
+// 		if (!ui.twCommand->item ( i,2 )) continue;
 		type = ui.twCommand->item ( i,2 )->text();
 		int typeInt = getTypeNumber ( type );
 
@@ -200,15 +206,15 @@ bool CommandSettings::init()
 void CommandSettings::deactivateAllCbs()
 {
 	QWidget *tmpWidget = new QWidget();
-	tmpWidget = ui.twCommand->cellWidget ( ui.twCommand->currentRow(), 1 );
+	tmpWidget = ui.twCommand->cellWidget ( ui.twCommand->currentRow(), 2 );
 	if ( tmpWidget!=NULL )
 	{
 		QComboBox *cbType = ( QComboBox* ) tmpWidget;
 		QString type = cbType->itemText ( cbType->currentIndex() );
 		QTableWidgetItem *tmp = new QTableWidgetItem();
 		tmp->setText ( type );
-		ui.twCommand->removeCellWidget ( ui.twCommand->currentRow(), 1 );
-		ui.twCommand->setItem ( ui.twCommand->currentRow(), 1, tmp );
+		ui.twCommand->removeCellWidget ( ui.twCommand->currentRow(), 2 );
+		ui.twCommand->setItem ( ui.twCommand->currentRow(), 2, tmp );
 
 		int typeInt = getTypeNumber ( type );
 

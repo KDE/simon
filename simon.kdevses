@@ -1,13 +1,34 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE KDevPrjSession>
 <KDevPrjSession>
- <DocsAndViews NumberOfDocuments="2" >
-  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source%20leer/trunk/modelmanager.cpp" >
-   <View0 Encoding="ISO 8859-15" line="482" Type="Source" />
+ <DocsAndViews NumberOfDocuments="9" >
+  <Doc0 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/icondialog.cpp" >
+   <View0 Encoding="" line="175" Type="Source" />
   </Doc0>
-  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source%20leer/trunk/modelmanager.h" >
-   <View0 Encoding="ISO 8859-15" line="42" Type="Source" />
+  <Doc1 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/addwordresolvepage.cpp" >
+   <View0 Encoding="ISO 8859-15" line="72" Type="Source" />
   </Doc1>
+  <Doc2 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importtrainingdirectoryworkingpage.cpp" >
+   <View0 Encoding="" line="17" Type="Source" />
+  </Doc2>
+  <Doc3 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importtrainingdata.cpp" >
+   <View0 Encoding="" line="132" Type="Source" />
+  </Doc3>
+  <Doc4 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importtrainingdata.h" >
+   <View0 Encoding="" line="30" Type="Source" />
+  </Doc4>
+  <Doc5 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importtrainingdirectoryworkingpage.h" >
+   <View0 Encoding="" line="55" Type="Source" />
+  </Doc5>
+  <Doc6 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/importtrainingdirectory.cpp" >
+   <View0 Encoding="ISO 8859-15" line="75" Type="Source" />
+  </Doc6>
+  <Doc7 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/wordlistmanager.cpp" >
+   <View0 Encoding="ISO 8859-15" line="40" Type="Source" />
+  </Doc7>
+  <Doc8 NumberOfViews="1" URL="file:///home/bedahr/Daten/simon/source/trunk/trainingmanager.cpp" >
+   <View0 Encoding="ISO 8859-15" line="144" Type="Source" />
+  </Doc8>
  </DocsAndViews>
  <pluginList>
   <kdevdebugger>

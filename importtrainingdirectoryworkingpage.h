@@ -14,8 +14,10 @@
 
 #include <QWizardPage>
 
+class QLabel;
 class QProgressBar;
-class PostProcessing;
+class ImportTrainingData;
+
 
 /**
  * \class ImportTrainingDirectoryWorkingPage
@@ -36,24 +38,27 @@ class PostProcessing;
  */
 class ImportTrainingDirectoryWorkingPage : public QWizardPage{
     Q_OBJECT
-    
+
+signals:
+	void done();
 private:
 	QProgressBar *pbMain;
-	PostProcessing *pp;
+	QLabel *lbStatus;
+	ImportTrainingData *importer;
 	bool completed;
 	int prog;
 	
 	void error() { completed = false; }
-	
-	QString extractSaid(QString source);
-	QStringList* searchDir(QString dir);
-	QStringList* processSounds(QStringList files, QString destDir);
-	bool createPrompts(QStringList dataFiles);
 
+private slots:
+	void setComplete();
+	void displayProgress(int now, int max);
+	void displayStatus(QString status);
+	void displayError(QString error);
 public:
     ImportTrainingDirectoryWorkingPage(QWidget *parent=0);
 	bool importDir(QString dir);
-	bool isComplete() { return completed; }
+	bool isComplete() const { return completed; }
 	void initializePage();
 
     ~ImportTrainingDirectoryWorkingPage();

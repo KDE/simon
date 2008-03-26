@@ -11,21 +11,16 @@
 //
 #include "importtrainingdirectoryworkingpage.h"
 #include <QPushButton>
-#include <QDir>
-#include <QPushButton>
 #include <QHBoxLayout>
 #include <QProgressBar>
 #include <QVBoxLayout>
-#include "trainingmanager.h"
 #include <QMessageBox>
 #include <QFileInfo>
-#include <QDate>
-#include <QTime>
 #include <QLabel>
 #include <QCoreApplication>
 #include <QVariant>
-#include "settings.h"
-#include "postprocessing.h"
+#include "importtrainingdata.h"
+#include "modelmanager.h"
 
 /**
  * \brief Constructor - creates the GUI
@@ -41,17 +36,48 @@ ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	QLabel *lbMain = new QLabel(this);
 	lbMain->setText(tr("Der angegebene Ordner wird verarbeit.\nSie können den Fortschritt mit dem Fortschrittsbalken\nüberprüfen.\n\nBitte haben Sie einen Moment Geduld.\n\n"));
+	lbStatus = new QLabel(this);
 	
 	pbMain = new QProgressBar(this);
 	pbMain->setMaximum(0);
 
 	lay->addWidget(lbMain);
 	lay->addWidget(pbMain);
+	lay->addWidget(lbStatus);
 	setLayout(lay);
 
-	this->pp = new PostProcessing();
+	importer = new ImportTrainingData(this);
+	connect(importer, SIGNAL(done()), this, SLOT(setComplete()));
+	connect(importer, SIGNAL(progress(int, int)), this, SLOT(displayProgress(int, int)));
+	connect(importer, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
 }
 
+void ImportTrainingDirectoryWorkingPage::displayProgress(int now, int max)
+{
+	if (max != -1)
+		this->pbMain->setMaximum(max);
+	pbMain->setValue(now);
+}
+
+void ImportTrainingDirectoryWorkingPage::displayStatus(QString status)
+{
+	lbStatus->setText(status);
+}
+
+void ImportTrainingDirectoryWorkingPage::displayError(QString error)
+{
+	QMessageBox::critical(this, tr("Fehler"), error);
+}
+
+void ImportTrainingDirectoryWorkingPage::setComplete()
+{
+	completed = true;
+	emit completeChanged();
+
+	if (QMessageBox::question(this, tr("Änderungen anwenden"), tr("Soll das Sprachmodell mit diesen neuen Daten neu kompiliert werden?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+		ModelManager::compileModel();
+	emit done();
+}
 
 /**
  * \brief Starts the importing process and calls all the other methods
@@ -60,163 +86,12 @@ ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *
 void ImportTrainingDirectoryWorkingPage::initializePage()
 {
 	completed = false;
-	prog=0;
-	QString dir = field("directory").toString();
-	
-	QString wavDestdir = Settings::getS("Model/PathToSamples")+"/";
-
-	QDir d(wavDestdir);
-	if (!d.exists())
-		if (!d.mkpath(wavDestdir))
-		{
-			QMessageBox::critical(this, tr("Fehler"), tr("Konnte Ausgabeordner %1 nicht erstellen").arg(wavDestdir));
-		}
-	
-	QStringList *dataFiles = this->searchDir(dir);
-	if (!dataFiles) return error();
-	
-
-	pbMain->setMaximum(dataFiles->count());
-	pbMain->setValue(0);
-
-	dataFiles = processSounds(*dataFiles, wavDestdir);
-	if (!dataFiles) return error();
-	
-	if (!createPrompts(*dataFiles)) return error();
-	
-
-	completed = true;
-
 	emit completeChanged();
-}
-
-
-/**
- * \brief Creates the promptsfile from the given stringlist
- * Using extractSaid()
- * \author Peter Grasch
- * \see extractSaid()
- * @param dataFiles The dataFiles to include in the prompts-file
- * @param destDir The destination file
- * @return success
- */
-bool ImportTrainingDirectoryWorkingPage::createPrompts(QStringList dataFiles)
-{
-	TrainingManager *train = TrainingManager::getInstance();
 	
-
-	PromptsTable *prompts = new PromptsTable();
-	QFileInfo fileInfo;
-	QString fileName, said;
-
-	for (int i=0; i <dataFiles.count(); i++)
-	{
-		fileInfo.setFile(dataFiles[i]);
-		fileName = fileInfo.fileName();
-
-		said = extractSaid(fileName);
-		prompts->insert(fileName.left(fileName.lastIndexOf(".")), said.toUpper());
-	}
-	train->addSamples(prompts);
-	train->savePrompts();
-	delete prompts;
-	return true;
-}
-
-
-/**
- * \brief Extracts the information that has been said out of the source
- * 
- * Returns the cleaned fielname without the extension and in uppercase
- * 
- * \author Peter Grasch
- * 
- * @param source The string to parse
- * @return cleaned string
- */
-QString ImportTrainingDirectoryWorkingPage::extractSaid(QString source)
-{
-	QString said = source.left(source.lastIndexOf("."));
-	said.remove(QRegExp("([0-9]|\\.|\\(|\\)|\\[|\\]|\\-)"));
-	said.replace("_", " ");
-	return said.trimmed();
-}
-
-/**
- * \brief Walks the given dir. recursively and returns all ,wav files
- * @param dir The dir to walk
- * @return All files found
- */
-QStringList* ImportTrainingDirectoryWorkingPage::searchDir(QString dir)
-{
-	QDir *dirHandle = new QDir(dir);
-	if ((!dirHandle) || (!dirHandle->isReadable())) return NULL;
-
-	QStringList dirsToCheck;
-	QStringList *dataFiles = new QStringList();
-	dirsToCheck<<dir;
-
-	QStringList allowedFileTypes;
-	allowedFileTypes << "*.wav";
-	allowedFileTypes << "*.mp3";
-	allowedFileTypes << "*.ogg";
-	allowedFileTypes << "*.flac";
-	QStringList dirs;
-	QStringList files;
-
-	while (!dirsToCheck.isEmpty())
-	{
-		dirHandle->setPath(dirsToCheck.takeAt(0));
-		dirs = dirHandle->entryList(QDir::Dirs);
-		for (int i=2; i < dirs.count(); i++)
-			dirsToCheck.append(dirHandle->path()+"/"+dirs[i]);
-
-		files = dirHandle->entryList(allowedFileTypes,  QDir::Files);
-		for (int i=0; i < files.count(); i++)
-			dataFiles->append(dirHandle->path()+"/"+files[i]);
-	}
-	return dataFiles;
-}
-
-/**
- * \brief Process the sound files from given in the list to the destDir
- * 
- * Resamples the audio to 16khz and normalizes it afterwards.
- * 
- * @param dataFiles The given datafiles
- * @param destDir The destination directory
- * @return the datafiles - if not successful it returns NULL
- */
-QStringList* ImportTrainingDirectoryWorkingPage::processSounds(QStringList dataFiles, 
-		QString destDir)
-{
-	QString newFileName;
-	QFileInfo fInfo;
-	QStringList *newFiles = new QStringList();
-	
-	for (int i=0; i < dataFiles.count(); i++)
-	{
-		fInfo.setFile(dataFiles[i]);
-		QString dateTime = QDate::currentDate().toString ( "yyyy-MM-dd" ) +"_"+QTime::currentTime().toString("hh-mm-ss");
-		newFileName = destDir+"/"+fInfo.fileName().left(fInfo.fileName().lastIndexOf(".")).replace(" ", "_")+"_"+dateTime+".wav";
-
-
-		if (!pp->process(dataFiles[i], newFileName))
-		{
-			QMessageBox::critical(this, tr("Fehler"), tr("Konnte Tondaten nicht verarbeiten"));
-			return NULL;
-		}
-		newFiles->append(newFileName);
-		pbMain->setValue(++prog);
-		QCoreApplication::processEvents();
-	}
-
-	
-	return newFiles;
+	importer->import(field("directory").toString());
 }
 
 ImportTrainingDirectoryWorkingPage::~ImportTrainingDirectoryWorkingPage()
 {
-	delete pp;
     pbMain->deleteLater();
 }

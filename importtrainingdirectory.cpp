@@ -58,7 +58,10 @@ ImportTrainingDirectoryIntroPage* ImportTrainingDirectory::createIntroPage()
  */
 ImportTrainingDirectoryWorkingPage* ImportTrainingDirectory::createWorkingPage()
 {
-	return new ImportTrainingDirectoryWorkingPage(this);
+	
+	ImportTrainingDirectoryWorkingPage *page = new ImportTrainingDirectoryWorkingPage(this);
+	connect(page, SIGNAL(done()), this, SLOT(next()));
+	return  page;
 }
 
 /**
@@ -70,7 +73,7 @@ QWizardPage* ImportTrainingDirectory::createFinishedPage()
 	QWizardPage *intro = new QWizardPage(this);
 	intro->setTitle(tr("Importieren des Ordners abgeschlossen"));
 	QLabel *label = new QLabel(intro);
-	label->setText(tr("Die Dateien aus dem Ordner wurden nun imporitert.\n\nVielen dank, dass Sie sich die Zeit genommen haben\num simon zu verbessern."));
+	label->setText(tr("Die Dateien aus dem Ordner wurden nun importiert.\n\nVielen dank, dass Sie sich die Zeit genommen haben\num simon zu verbessern."));
 	QVBoxLayout *layout = new QVBoxLayout(intro);
 	layout->addWidget(label);
 	intro->setLayout(layout);
