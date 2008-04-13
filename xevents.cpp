@@ -79,8 +79,8 @@ Display* XEvents::openDisplay(char* displayName)
 
 	//check wether the XTest extension is installed
 	if ( !XTestQueryExtension(display, &Event, &Error, &Major, &Minor) ) {
-		Logger::log("CRITICAL: Display "+QString(displayName)+" does not support XTest");
-		QMessageBox::critical(0,"Fehler","Der X-Server unterstützt die \"XTest\" nicht - bitte kontaktieren sie die simon-Entwickler. (Display: \""+QString(DisplayString(display)) + "\")");
+		Logger::log("[ERR] Display "+QString(displayName)+" unterstützt XTest nicht");
+		QMessageBox::critical(0,"Fehler","Der X-Server unterstützt die \"XTest\" nicht - bitte installieren Sie diese. (Display: \""+QString(DisplayString(display)) + "\")");
 
 		XCloseDisplay(display);
 		return NULL;
@@ -89,11 +89,11 @@ Display* XEvents::openDisplay(char* displayName)
 
 	//The following should be logged somewhere... Interresting for debugging purposes...
 	//We'll do that once we have the logging classes...
-	Logger::log(QCoreApplication::tr("[INF] Test für Server \"%1\" ist Version %2.%3").arg(QString(DisplayString(display))).arg(Major).arg(Minor));
+	Logger::log(QCoreApplication::tr("[INF] XTest für Server \"%1\" ist Version %2.%3").arg(QString(DisplayString(display))).arg(Major).arg(Minor));
 
-	Logger::log(QCoreApplication::tr("[INF] Aufnahme der display Kontrolle"));
+	Logger::log(QCoreApplication::tr("[INF] Aufnahme der Display-Kontrolle"));
 	XTestGrabControl( display, True ); 
-	Logger::log(QCoreApplication::tr("[INF] Syncronisiere Display"));
+	Logger::log(QCoreApplication::tr("[INF] Synchronisiere Display"));
 	XSync( display,True ); 
 	return display;
 }

@@ -29,6 +29,26 @@ void Settings::initSettings()
 	settings->sync();
 }
 
+
+/**
+ * \brief Checks if the value is already set (it is not null) and sets it if it isn't
+ *
+ * @param option The setting to change
+ * @param value The new value
+ * \return true, if we changed anything
+ */
+bool Settings::checkAndSet(QString option, QVariant value)
+{
+	bool changed=false;
+	if (Settings::get(option).isNull())
+	{
+		Settings::set(option, value);
+		changed = true;
+	}
+	return changed;
+}
+
+
 /**
  * \brief returns the setting of the given name
  * \author Peter Grasch

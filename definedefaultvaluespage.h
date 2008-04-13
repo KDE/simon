@@ -35,7 +35,6 @@ private:
 public:
     DefineDefaultValuesPage(QWidget* parent);
 
-	bool checkAndSet(QString option, QVariant value);
     bool isComplete() const;
     void initializePage();
 

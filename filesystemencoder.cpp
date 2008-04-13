@@ -25,6 +25,7 @@ QString FileSystemEncoder::encodeFilename(QString in)
 	in.replace("Ü", "%Ue");
 	in.replace("Ä", "%Ae");
 	in.replace("Ö", "%Oe");
+	in.replace("ß", "%Sz");
 	return in;
 }
 
@@ -36,11 +37,12 @@ QString FileSystemEncoder::encodeFilename(QString in)
  */
 QString FileSystemEncoder::decodeFilename(QString  in)
 {
-	in.replace("u@e", "%ue");
-	in.replace("a@e", "%ae");
-	in.replace("o@e", "%oe");
-	in.replace("A@e", "%Ae");
-	in.replace("O@e", "%Oe");
-	in.replace("U@e", "%Ue");
+	in.replace("%ue", "ü");
+	in.replace("%ae", "ä");
+	in.replace("%oe", "ö");
+	in.replace("%Ae", "Ä");
+	in.replace("%Oe", "Ö");
+	in.replace("%Ue", "Ü");
+	in.replace("%Sz", "ß");
 	return in;
 }

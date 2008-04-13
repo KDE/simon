@@ -862,7 +862,7 @@ bool CommandSettings::commandValueExists ( QString value, int prevRow )
 	{
 		if ( ( i!=prevRow ) && ( QString::compare ( value, ui.twCommand->item ( i, 3 )->text(), Qt::CaseInsensitive ) ==0 ) )
 		{
-			int result = QMessageBox::critical ( this, tr ( "Wert existiert bereits" ), tr ( "Dieser Wert existiert bereits!\n\nWollen Sie den Wert jetzt ändern? (Klickes Sie Nein, um den Wert jetzt zu behalten)" ),
+			int result = QMessageBox::critical ( this, tr ( "Wert existiert bereits" ), tr ( "Dieser Wert existiert bereits!\n\nWollen Sie den Wert jetzt ändern? (Klicken Sie Nein, um den Wert jetzt zu behalten)" ),
 			                                     QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel );
 			if ( result == QMessageBox::Yes )
 			{

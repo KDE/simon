@@ -370,8 +370,10 @@ SOURCES += main.cpp \
 
 
 QT += network \
-xml \
-ssl
+xml
+
+QT += ssl
+
 
 TEMPLATE = app
 

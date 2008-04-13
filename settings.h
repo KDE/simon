@@ -31,6 +31,7 @@ public:
 	static QString 	getS(QString name);
 	static int 	getI(QString name);
 	static bool 	getB(QString name);
+	static bool 	checkAndSet(QString option, QVariant value);
 
 	static void set(QString name, QVariant value);
 	static void initSettings();
