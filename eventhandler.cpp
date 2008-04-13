@@ -58,12 +58,12 @@ void EventHandler::click(int x, int y)
  */
 void EventHandler::sendWord(QString word)
 {
-	#ifdef linux
+	/*#ifdef linux
 	sleep(1);
 	#endif
 	#ifdef __WIN32
 	Sleep(1000);
-	#endif
+	#endif*/
 
 	for (int i=0; i < word.size();i++)
 	{
