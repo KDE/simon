@@ -5,15 +5,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
-    <height>593</height>
+    <width>839</width>
+    <height>696</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>simon</string>
   </property>
   <property name="windowIcon" >
-   <iconset>../../../../../../../:/images/tray.png</iconset>
+   <iconset>
+    <normaloff>../../../../../../../:/images/tray.png</normaloff>../../../../../../../:/images/tray.png</iconset>
   </property>
   <property name="accessibleName" >
    <string>simon</string>
@@ -25,6 +26,14 @@
    <enum>Qt::ToolButtonTextUnderIcon</enum>
   </property>
   <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>15</y>
+     <width>839</width>
+     <height>666</height>
+    </rect>
+   </property>
    <layout class="QVBoxLayout" >
     <item>
      <layout class="QHBoxLayout" >
@@ -114,7 +123,8 @@
             <string>Verb&amp;inden</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >:/images/icons/connect-no.svg</iconset>
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/connect-no.svg</normaloff>:/images/icons/connect-no.svg</iconset>
            </property>
            <property name="iconSize" >
             <size>
@@ -142,7 +152,8 @@
          <string>Wort &amp;hinzufügen</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >:/images/icons/edit-add.svg</iconset>
+         <iconset resource="../action_icons.qrc" >
+          <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -173,7 +184,8 @@
          <string>&amp;Trainieren</string>
         </property>
         <property name="icon" >
-         <iconset resource="../other_icons.qrc" >:/images/icons/kvoctrain.svg</iconset>
+         <iconset resource="../other_icons.qrc" >
+          <normaloff>:/images/icons/kvoctrain.svg</normaloff>:/images/icons/kvoctrain.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -201,7 +213,8 @@
          <string>Wort&amp;liste</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >:/images/icons/format-justify-fill.svg</iconset>
+         <iconset resource="../action_icons.qrc" >
+          <normaloff>:/images/icons/format-justify-fill.svg</normaloff>:/images/icons/format-justify-fill.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -229,7 +242,8 @@
          <string>&amp;Ausführen</string>
         </property>
         <property name="icon" >
-         <iconset resource="../other_icons.qrc" >:/images/icons/system-run.svg</iconset>
+         <iconset resource="../other_icons.qrc" >
+          <normaloff>:/images/icons/system-run.svg</normaloff>:/images/icons/system-run.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -257,7 +271,8 @@
          <string>System</string>
         </property>
         <property name="icon" >
-         <iconset resource="../category_icons.qrc" >:/images/icons/preferences-system.svg</iconset>
+         <iconset resource="../category_icons.qrc" >
+          <normaloff>:/images/icons/preferences-system.svg</normaloff>:/images/icons/preferences-system.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -292,7 +307,8 @@
          <string>&amp;Aktivieren</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >:/images/icons/media-playback-start.svg</iconset>
+         <iconset resource="../action_icons.qrc" >
+          <normaloff>:/images/icons/media-playback-start.svg</normaloff>:/images/icons/media-playback-start.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -320,7 +336,8 @@
          <string>&amp;Verstecken</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >:/images/icons/go-bottom.svg</iconset>
+         <iconset resource="../action_icons.qrc" >
+          <normaloff>:/images/icons/go-bottom.svg</normaloff>:/images/icons/go-bottom.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -339,7 +356,8 @@
          <string>Sprachmodell generieren</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >:/images/icons/go-next.svg</iconset>
+         <iconset resource="../action_icons.qrc" >
+          <normaloff>:/images/icons/go-next.svg</normaloff>:/images/icons/go-next.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -367,7 +385,8 @@
          <string>Systemverwaltungsmodus</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >:/images/icons/lock.svg</iconset>
+         <iconset resource="../action_icons.qrc" >
+          <normaloff>:/images/icons/lock.svg</normaloff>:/images/icons/lock.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -398,7 +417,8 @@
          <string>&amp;Beenden</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >:/images/icons/system-log-out.svg</iconset>
+         <iconset resource="../action_icons.qrc" >
+          <normaloff>:/images/icons/system-log-out.svg</normaloff>:/images/icons/system-log-out.svg</iconset>
         </property>
         <property name="iconSize" >
          <size>
@@ -415,212 +435,62 @@
     </item>
     <item>
      <widget class="InlineWidgetView" name="inlineView" >
+      <property name="tabPosition" >
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="tabShape" >
+       <enum>QTabWidget::Rounded</enum>
+      </property>
       <widget class="QWidget" name="tbWelcome" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>817</width>
+         <height>496</height>
+        </rect>
+       </property>
        <attribute name="title" >
         <string>Start</string>
        </attribute>
        <attribute name="icon" >
-        <iconset resource="../others.qrc" >:/images/tray.png</iconset>
+        <iconset resource="../others.qrc" >
+         <normaloff>:/images/tray.png</normaloff>:/images/tray.png</iconset>
        </attribute>
-       <layout class="QHBoxLayout" >
+       <layout class="QVBoxLayout" name="verticalLayout_2" >
         <item>
-         <layout class="QVBoxLayout" >
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QLabel" name="lbWelcomeHeading" >
-            <property name="font" >
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="frameShape" >
-             <enum>QFrame::NoFrame</enum>
-            </property>
-            <property name="frameShadow" >
-             <enum>QFrame::Sunken</enum>
-            </property>
-            <property name="text" >
-             <string>Herzlich Willkommen bei simon!</string>
-            </property>
-            <property name="alignment" >
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QLabel" name="lbWelcomeDesc" >
-            <property name="text" >
-             <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Hier können Sie ihr Sprachmodell erweitern, um die Erkennungsrate zu verbessern, neue Kommandos oder Makros hinzufügen oder Einstellungen ändern.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Kurzum: Hier können Sie simon konfigurieren und erweitern.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Benutzen Sie die Elemente der Werkzeugleiste um Wörter hinzuzufügen, ein Training zu starten, Kommandos auszuführen oder die Wortliste durchzusehen.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Bitte beachten Sie, dass sie für einige Funktionen (die die Funktionsfähigkeit von simon beeinträchtigen könnten) simon-Systemverwaltungsrechte benötigen. Dies kann unter Umständen mit einem Passwort verifiziert werden.&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Gesetzt den Fall, dass Sie auf solche Optionen Zugriff haben möchten, wählen Sie bitte den Punkt &lt;span style=" font-weight:600;">Systemverwaltungsmodus&lt;/span>.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Es wird empfohlen vor jeder schwerwiegenden Änderung eine Sicherung der aktuellen Daten durchzuführen. Wie das funktioniert, lesen Sie bitte im Handbuch nach.&lt;/p>&lt;/body>&lt;/html></string>
-            </property>
-            <property name="alignment" >
-             <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-            </property>
-            <property name="wordWrap" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
+         <widget class="QLabel" name="lbWelcomeDesc" >
+          <property name="text" >
+           <string/>
           </property>
-          <property name="sizeHint" >
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
+          <property name="pixmap" >
+           <pixmap resource="../banners.qrc" >:/images/home.png</pixmap>
           </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="Line" name="line" >
-          <property name="orientation" >
-           <enum>Qt::Vertical</enum>
+          <property name="alignment" >
+           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+          </property>
+          <property name="wordWrap" >
+           <bool>true</bool>
           </property>
          </widget>
-        </item>
-        <item>
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" >
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" >
-          <item>
-           <layout class="QHBoxLayout" >
-            <item>
-             <spacer>
-              <property name="orientation" >
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" >
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="label" >
-              <property name="text" >
-               <string/>
-              </property>
-              <property name="pixmap" >
-               <pixmap resource="../others.qrc" >:/images/simon.png</pixmap>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <spacer>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" >
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QLabel" name="lbWelcomeDesc_2" >
-            <property name="text" >
-             <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">simon befindet sich unter ständiger Weiterentwicklung und unterläuft ständiger Tests und Verbesserungen.&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Deshalb überprüfen Sie bitte die simon-Homepage unter http://simon-listens.org regelmäsig auf Updates um von den neuesten Funktionen zu profitieren!&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Dokumentation finden Sie in unserem Wiki unter http://www.cyber-byte.at/wiki/index.php/Main_Page.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Für persönliche Supportanfragen wenden Sie sich bitte an support@simon-listens.org. Wir freuen uns Ihre Fragen zu beantworten!&lt;/p>&lt;/body>&lt;/html></string>
-            </property>
-            <property name="alignment" >
-             <set>Qt::AlignBottom|Qt::AlignJustify</set>
-            </property>
-            <property name="wordWrap" >
-             <bool>true</bool>
-            </property>
-            <property name="openExternalLinks" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </item>
        </layout>
       </widget>
      </widget>
     </item>
    </layout>
+   <zorder>inlineView</zorder>
+   <zorder>lbWelcomeDesc</zorder>
   </widget>
   <widget class="QToolBar" name="tbStatus" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>681</y>
+     <width>839</width>
+     <height>15</height>
+    </rect>
+   </property>
    <property name="windowTitle" >
     <string>Globale Aktionen</string>
    </property>
@@ -635,6 +505,14 @@ p, li { white-space: pre-wrap; }
    </attribute>
   </widget>
   <widget class="QToolBar" name="tbLogo" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>15</width>
+     <height>15</height>
+    </rect>
+   </property>
    <property name="windowTitle" >
     <string>Logo</string>
    </property>
@@ -649,6 +527,14 @@ p, li { white-space: pre-wrap; }
    </attribute>
   </widget>
   <widget class="QToolBar" name="tbModules" >
+   <property name="geometry" >
+    <rect>
+     <x>15</x>
+     <y>0</y>
+     <width>824</width>
+     <height>15</height>
+    </rect>
+   </property>
    <property name="windowTitle" >
     <string>Module</string>
    </property>
