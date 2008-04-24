@@ -359,7 +359,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
  * \param word The name of the word
  * \param pronunciation SAMPA pronunciation
  * \param terminal The terminal of the word
- * \note This is incredible fast :)
+ * \note This is incredibly fast :)
  * \return The index of the found word; this is set to the nearest hit if the word is not found (see parameter: found)
  */
 int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QString pronunciation, QString terminal)
