@@ -20,6 +20,7 @@
 */
 class ATSettings : public SystemWidget
 {
+Q_OBJECT
 private:
 	Ui::ATSettingsDlg ui;
 public:

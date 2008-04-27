@@ -638,7 +638,7 @@ bool WordListManager::deleteCompletely(Word *w, bool shadowed)
 
 	if (!shadowed)
 	{
-		TrainingManager::getInstance()->deleteWord(w); //if the word is shadowed we can't have any
+		TrainingManager::getInstance()->deleteWord(w,true); //if the word is shadowed we can't have any
 		wordListLock.lock();
 		WordList *main = getWordList();
 		int end = main->count();

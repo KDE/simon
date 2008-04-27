@@ -100,8 +100,6 @@ void DragTableWidget::startDrag()
 	
 		drag->start(Qt::MoveAction);
 	}
-    drag->deleteLater();
-    mimeData->deleteLater();
 }
 
 

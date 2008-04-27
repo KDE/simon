@@ -13,7 +13,8 @@
    <string>Wortliste</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../action_icons.qrc" >:/images/icons/format-justify-fill.svg</iconset>
+   <iconset resource="../action_icons.qrc" >
+    <normaloff>:/images/icons/format-justify-fill.svg</normaloff>:/images/icons/format-justify-fill.svg</iconset>
   </property>
   <layout class="QHBoxLayout" >
    <item>
@@ -37,7 +38,7 @@
            <property name="orientation" >
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" >
+           <property name="sizeHint" stdset="0" >
             <size>
              <width>40</width>
              <height>20</height>
@@ -48,7 +49,7 @@
          <item>
           <widget class="QLabel" name="lbSearch" >
            <property name="text" >
-            <string>&amp;Filtern:</string>
+            <string>Fi&amp;ltern:</string>
            </property>
            <property name="buddy" >
             <cstring>leSearch</cstring>
@@ -67,7 +68,7 @@
             </size>
            </property>
            <property name="toolTip" >
-            <string>Setzt die Sucheingabe zurück</string>
+            <string>Setzt die Sucheingabe zur�ck</string>
            </property>
            <property name="text" >
             <string>&amp;x</string>
@@ -129,11 +130,19 @@
        </size>
       </property>
       <property name="currentIndex" >
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tbEditModel" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>305</width>
+         <height>587</height>
+        </rect>
+       </property>
        <attribute name="title" >
-        <string>Wortliste ändern</string>
+        <string>Wortliste &amp;Ändern</string>
        </attribute>
        <layout class="QVBoxLayout" >
         <item>
@@ -141,26 +150,28 @@
           <item>
            <widget class="QPushButton" name="pbRemoveWord" >
             <property name="toolTip" >
-             <string>Löscht das Wort komplett aus dem Sprachmodell</string>
+             <string>L�scht das Wort komplett aus dem Sprachmodell</string>
             </property>
             <property name="text" >
              <string>Wort &amp;löschen</string>
             </property>
             <property name="icon" >
-             <iconset resource="../action_icons.qrc" >:/images/icons/process-stop.svg</iconset>
+             <iconset resource="../action_icons.qrc" >
+              <normaloff>:/images/icons/process-stop.svg</normaloff>:/images/icons/process-stop.svg</iconset>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="pbImport" >
             <property name="toolTip" >
-             <string>Importiert ein vorhandenes Wörterbuch</string>
+             <string>Importiert ein vorhandenes W�rterbuch</string>
             </property>
             <property name="text" >
              <string>Importiere Wörterbuch</string>
             </property>
             <property name="icon" >
-             <iconset resource="../action_icons.qrc" >:/images/icons/document-open.svg</iconset>
+             <iconset resource="../action_icons.qrc" >
+              <normaloff>:/images/icons/document-open.svg</normaloff>:/images/icons/document-open.svg</iconset>
             </property>
            </widget>
           </item>
@@ -174,7 +185,8 @@
           <item>
            <widget class="QTextBrowser" name="tbHelp_2" >
             <property name="html" >
-             <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+             <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
 &lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Das ist die Hauptansicht für alle Aktionen rund um das Spachmodell.&lt;/p>
@@ -190,8 +202,16 @@ p, li { white-space: pre-wrap; }
        </layout>
       </widget>
       <widget class="QWidget" name="tbSpecialTraining" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>305</width>
+         <height>587</height>
+        </rect>
+       </property>
        <attribute name="title" >
-        <string>Spezielles Training</string>
+        <string>Spe&amp;zielles Training</string>
        </attribute>
        <layout class="QVBoxLayout" >
         <item>
@@ -202,39 +222,42 @@ p, li { white-space: pre-wrap; }
           <item>
            <widget class="QPushButton" name="pbAddToTraining" >
             <property name="toolTip" >
-             <string>Fügt das in der Liste links selektierte Wort in die Liste der zu trainierenden Wörter (oben) ein</string>
+             <string>F�gt das in der Liste links selektierte Wort in die Liste der zu trainierenden W�rter (oben) ein</string>
             </property>
             <property name="text" >
              <string>Zum Training &amp;hinzufügen</string>
             </property>
             <property name="icon" >
-             <iconset resource="../action_icons.qrc" >:/images/icons/go-up.svg</iconset>
+             <iconset resource="../action_icons.qrc" >
+              <normaloff>:/images/icons/go-up.svg</normaloff>:/images/icons/go-up.svg</iconset>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="pbSuggestTrain" >
             <property name="toolTip" >
-             <string>Schlägt automatisch ein Training vor das die schwächsten 10 Wörter trainiert.</string>
+             <string>Schl�gt automatisch ein Training vor das die schw�chsten 10 W�rter trainiert.</string>
             </property>
             <property name="text" >
              <string>Trainingsprog. &amp;vorschlagen</string>
             </property>
             <property name="icon" >
-             <iconset resource="../action_icons.qrc" >:/images/icons/bookmark-new.svg</iconset>
+             <iconset resource="../action_icons.qrc" >
+              <normaloff>:/images/icons/bookmark-new.svg</normaloff>:/images/icons/bookmark-new.svg</iconset>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="pbDeleteTrainingWord" >
             <property name="toolTip" >
-             <string>Löscht das Wort aus der Liste der zu trainierenden Wörter</string>
+             <string>L�scht das Wort aus der Liste der zu trainierenden W�rter</string>
             </property>
             <property name="text" >
              <string>Wort aus Training &amp;löschen</string>
             </property>
             <property name="icon" >
-             <iconset resource="../action_icons.qrc" >:/images/icons/list-remove.svg</iconset>
+             <iconset resource="../action_icons.qrc" >
+              <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
             </property>
            </widget>
           </item>
@@ -246,13 +269,14 @@ p, li { white-space: pre-wrap; }
              </font>
             </property>
             <property name="toolTip" >
-             <string>Trainiert die Liste der Wörter</string>
+             <string>Trainiert die Liste der W�rter</string>
             </property>
             <property name="text" >
              <string>&amp;Trainieren</string>
             </property>
             <property name="icon" >
-             <iconset resource="../action_icons.qrc" >:/images/icons/go-next.svg</iconset>
+             <iconset resource="../action_icons.qrc" >
+              <normaloff>:/images/icons/go-next.svg</normaloff>:/images/icons/go-next.svg</iconset>
             </property>
            </widget>
           </item>
@@ -266,7 +290,8 @@ p, li { white-space: pre-wrap; }
           <item>
            <widget class="QTextBrowser" name="tbHelp" >
             <property name="html" >
-             <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+             <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
 &lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Um einzelne Wörter zu trainieren, markiere das Wort in der Tabelle links und ziehe es in das Feld oben in der Mitte. (Oder drücke den Knopf &lt;span style=" font-weight:600;">"Zum Training hinzufügen"&lt;/span>)&lt;/p>

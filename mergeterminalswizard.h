@@ -24,6 +24,7 @@ class QWizardPage;
 
 class MergeTerminalsWizard : public QWizard
 {
+Q_OBJECT
 private:
 	QWizardPage* createIntroPage();
 	QWizardPage* createSelectTerminalsPage();
