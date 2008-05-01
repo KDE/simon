@@ -28,6 +28,7 @@
 #include "atsettings.h"
 #include "simoninfo.h"
 #include <QMessageBox>
+#include <QDebug>
 
 /**
  *  \author Peter Grasch
@@ -70,6 +71,8 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
  */
 void SystemView::apply()
 {
+    QMessageBox::information(this, "systemview - apply", "speichern");
+    qDebug() << "apply in the systemView";
 	SystemWidget *currentControl;
 	for (int i=0; i < ui.swControls->count(); i++)
 	{

@@ -27,7 +27,10 @@
 #include "iconbutton.h"
 #include "windowsresourcehandler.h"
 #include <QRegExp>
+#include <QDebug>
 #include <QMessageBox>
+#include <QStyle>
+#include "addNewCommandDialog.h"
 
 /**
 *   \brief constructor
@@ -69,10 +72,10 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 	//connects
 	connect ( ui.pbNewCommand, SIGNAL ( clicked() ), this, SLOT ( newCommand() ) );
 	connect ( ui.pbSpecialCharacter, SIGNAL ( clicked() ), this, SLOT ( newSpecialCharacterCommand() ) );
-	connect ( ui.twCommand, SIGNAL ( currentCellChanged ( int,int,int,int ) ), this, SLOT ( checkAndAddCommandValues ( int,int,int,int ) ) );
+	//connect ( ui.twCommand, SIGNAL ( currentCellChanged ( int,int,int,int ) ), this, SLOT ( checkAndAddCommandValues ( int,int,int,int ) ) );
 	connect ( ui.pbDeleteCommand, SIGNAL ( clicked() ), this, SLOT ( deleteCommand() ) );
-	connect ( ui.twCommand, SIGNAL ( cellDoubleClicked ( int, int ) ), this, SLOT ( editCommand ( int, int ) ) );
-	connect ( ui.pbEditCommand, SIGNAL ( clicked() ), this, SLOT ( editCommand() ) );
+	//connect ( ui.twCommand, SIGNAL ( cellDoubleClicked ( int, int ) ), this, SLOT ( editCommand ( int, int ) ) );
+	//connect ( ui.pbEditCommand, SIGNAL ( clicked() ), this, SLOT ( editCommand() ) );
 	connect ( ui.cbShowCommand, SIGNAL ( currentIndexChanged ( const QString & ) ), this, SLOT ( showOnlyCommands() ) );
 	connect ( ui.pbClearSearchCommand, SIGNAL ( clicked() ), this, SLOT ( clearSearchLineEdit() ) );
 	connect ( ui.leSearchCommand, SIGNAL ( textChanged ( const QString & ) ), this, SLOT ( searchCommandList() ) );
@@ -81,8 +84,8 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 	connect ( importProgramWizard, SIGNAL ( commandCreated ( Command* ) ), this, SLOT ( insertCommand ( Command* ) ) );
 	connect ( importProgramWizard, SIGNAL ( finished ( int ) ), this, SLOT ( setWidgetsDisabled() ) );
 	connect ( this, SIGNAL ( changeExistingName ( bool ) ), importProgramWizard, SLOT ( changeName ( bool ) ) );
-	connect ( ui.twCommand, SIGNAL ( returnPressed() ), this, SLOT ( checkValuesAfterReturnPressed() ) );
-	connect ( ui.pbClearSearchCommand, SIGNAL ( clicked() ),this,SLOT ( checkValuesAfterReturnPressed() ) );
+	//connect ( ui.twCommand, SIGNAL ( returnPressed() ), this, SLOT ( checkValuesAfterReturnPressed() ) );
+	//connect ( ui.pbClearSearchCommand, SIGNAL ( clicked() ),this,SLOT ( checkValuesAfterReturnPressed() ) );
 	connect ( ui.pbImportPlace, SIGNAL ( clicked() ), this, SLOT ( importNewPlace() ) );
 
 	connect(ui.pbImportProgram, SIGNAL(clicked()), this, SLOT(importNewProgram()));
@@ -91,6 +94,7 @@ CommandSettings::CommandSettings ( QWidget* parent ) : SystemWidget ( tr ( "Komm
 	connect ( importPlaceWizard, SIGNAL ( finished ( int ) ), this, SLOT ( setWidgetsDisabled() ) );
 	connect ( this, SIGNAL ( changeExistingName ( bool ) ), importPlaceWizard, SLOT ( changeName ( bool ) ) );
 	ui.twCommand->resizeColumnToContents ( 2 );
+    //ui.twCommand->setStyle(QStyle::State_ReadOnly);
 }
 
 /**
@@ -109,8 +113,8 @@ CommandSettings::~CommandSettings()
 bool CommandSettings::apply()
 {
 	Logger::log ( tr ( "[INF] Speichere Kommandos..." ) );
-
-	deactivateAllCbs();
+    deactivateAllCbs();
+	//deactivateAllCbs();
 
 	QString type;
 	Command *newCommand;
@@ -127,7 +131,7 @@ bool CommandSettings::apply()
 			iconResources = iconButton->getIconName();
 		}
 
-		//creates a new command or replaces it
+        //creates a new command or replaces it
 		//Command(QString name, CommandType type, QString value, QString iconPath = "", QString workingDirectory="")
 		newCommand = new Command ( ui.twCommand->item ( i,1 )->text(), CommandType ( typeInt ), ui.twCommand->item ( i,3 )->text(), iconResources, ui.twCommand->item ( i,4 )->text() );
 
@@ -144,6 +148,7 @@ bool CommandSettings::apply()
 			ui.twCommand->item ( i,1 )->setData ( Qt::UserRole, ui.twCommand->item ( i,1 )->text() );
 		}
 	}
+
 	bool success = commandBackend->save ( Settings::getS ( "PathToCommands" ) );
 	emit commandsChanged();
 	Settings::set ( "Commands/Keyword", ui.leKeyword->text() );
@@ -280,7 +285,16 @@ void CommandSettings::editCommand ( int row, int column )
 */
 void CommandSettings::newCommand()
 {
-	if ( commandEdited )
+    AddNewCommandDialog *addNewCommand = new AddNewCommandDialog();
+    
+    int success = addNewCommand->exec();
+
+	if ( success )
+	{
+        
+    }
+    
+/*	if ( commandEdited )
 	{
 		if ( ui.twCommand->currentRow() !=0 )
 			ui.twCommand->setCurrentCell ( 0,0 );
@@ -321,7 +335,8 @@ void CommandSettings::newCommand()
 	ui.twCommand->setItem ( rows, 4, new QTableWidgetItem() );
 	ui.twCommand->setCurrentCell ( rows,1 );
 	ui.twCommand->editItem ( ui.twCommand->item ( rows, 1 ) );
-	commandEdited = true;
+	commandEdited = true;*/
+    
 }
 
 /**
