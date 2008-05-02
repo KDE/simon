@@ -35,16 +35,16 @@
 */
 IconDialog::IconDialog ( QWidget *parent ) : QDialog ( parent )
 {
-	setWindowTitle ( tr ( "Change Icon" ) );
+	setWindowTitle ( tr ( "Symbol wechseln" ) );
 
 	QVBoxLayout *vbLayout = new QVBoxLayout();
-	vbLayout->addWidget ( new QLabel ( tr ( "Wählen Sie ein beliebiges Icon und bestätigen Sie mit ok.\n" ) ) );
+	vbLayout->addWidget ( new QLabel ( tr ( "Wählen Sie ein beliebiges Symbol und bestätigen Sie mit OK.\n" ) ) );
 
 #ifdef __WIN32
-	rbIconFromFile = new QRadioButton ( "Icon from file");
+	rbIconFromFile = new QRadioButton ( "Symbol von Datei");
     rbIconFromFile->setChecked(true);
 	QHBoxLayout *hbRbLayout = new QHBoxLayout();
-	rbIconView = new QRadioButton ( "Systemicons");
+	rbIconView = new QRadioButton ( "Systemsymbole");
 	hbRbLayout->addWidget ( rbIconView );
 
 	hbRbLayout->addWidget ( rbIconFromFile );
