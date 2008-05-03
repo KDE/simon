@@ -68,8 +68,7 @@ FORMS += ui/main.ui \
  ui/importtrainingtextremotepage.ui \
  ui/importtrainingtextworkingpage.ui \
  ui/importtrainingtextselectsourcepage.ui \
- ui/importtrainingtextlocalpage.ui \
- ui/addnewcommanddialog.ui
+ ui/importtrainingtextlocalpage.ui 
 
 
 HEADERS += simonview.h \
@@ -222,8 +221,7 @@ importtrainingdirectoryworkingpage.h \
  atsettings.h  \
  compression.h \
  filesystemencoder.h \
- importtrainingdata.h \
- addnewcommanddialog.h
+ importtrainingdata.h 
 
 
 
@@ -366,8 +364,7 @@ SOURCES += main.cpp \
  atobject.cpp \
  atsettings.cpp \
  filesystemencoder.cpp \
- importtrainingdata.cpp \
- addnewcommanddialog.cpp
+ importtrainingdata.cpp
 
 
 

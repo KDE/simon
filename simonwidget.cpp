@@ -28,7 +28,7 @@ void SimonWidget::guessChildTriggers(QObject *current)
 	QString text = "";
 	int i = 0;
 
-	while((i <childList.count()) && (childList.count() != 0))
+	while((i <childList.count()))
 	{	
 		QObjectList temp = QObjectList();
 		temp = getChildren(childList.at(i));

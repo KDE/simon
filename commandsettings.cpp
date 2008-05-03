@@ -30,7 +30,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QStyle>
-#include "addNewCommandDialog.h"
+//#include "addNewCommandDialog.h"
 
 /**
 *   \brief constructor
@@ -285,7 +285,7 @@ void CommandSettings::editCommand ( int row, int column )
 */
 void CommandSettings::newCommand()
 {
-    AddNewCommandDialog *addNewCommand = new AddNewCommandDialog();
+/*    AddNewCommandDialog *addNewCommand = new AddNewCommandDialog();
     
     int success = addNewCommand->exec();
 
@@ -293,8 +293,9 @@ void CommandSettings::newCommand()
 	{
         
     }
+    */
     
-/*	if ( commandEdited )
+	if ( commandEdited )
 	{
 		if ( ui.twCommand->currentRow() !=0 )
 			ui.twCommand->setCurrentCell ( 0,0 );
@@ -335,7 +336,7 @@ void CommandSettings::newCommand()
 	ui.twCommand->setItem ( rows, 4, new QTableWidgetItem() );
 	ui.twCommand->setCurrentCell ( rows,1 );
 	ui.twCommand->editItem ( ui.twCommand->item ( rows, 1 ) );
-	commandEdited = true;*/
+	commandEdited = true;
     
 }
 
