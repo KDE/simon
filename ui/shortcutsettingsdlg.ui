@@ -13,13 +13,15 @@
    <string>Tastenkürzel</string>
   </property>
   <property name="windowIcon" >
-   <iconset/>
+   <iconset>
+    <normaloff/>
+   </iconset>
   </property>
   <layout class="QVBoxLayout" >
    <item>
     <widget class="QLabel" name="lbShortCuts" >
      <property name="text" >
-      <string>Shortcuts</string>
+      <string>Tastenkürzel:</string>
      </property>
      <property name="buddy" >
       <cstring>twShortcuts</cstring>
@@ -65,7 +67,7 @@
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>40</width>
          <height>20</height>
@@ -79,7 +81,9 @@
         <string>Kürzel hinzufügen</string>
        </property>
        <property name="icon" >
-        <iconset/>
+        <iconset>
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>
@@ -89,7 +93,9 @@
         <string>Kürzel löschen</string>
        </property>
        <property name="icon" >
-        <iconset/>
+        <iconset>
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>
@@ -104,6 +110,6 @@
    <header>simontablewidget.h</header>
   </customwidget>
  </customwidgets>
- <resources />
+ <resources/>
  <connections/>
 </ui>

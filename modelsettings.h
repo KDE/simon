@@ -30,7 +30,6 @@ private slots:
 	void enableButtons();
 	void moveUp();
 	void moveDown();
-	void setSamplePath();
 
 public slots:
         bool apply();

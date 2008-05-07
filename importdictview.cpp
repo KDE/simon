@@ -127,7 +127,7 @@ ImportDictWiktionaryPage* ImportDictView::createImportWiktionaryPage()
 ImportDictWorkingPage* ImportDictView::createImportDictWorkingPage()
 {
 	ImportDictWorkingPage *page = new ImportDictWorkingPage(this);
-	connect(button(QWizard::CancelButton), SIGNAL(clicked()), page, SLOT(abort()));
+	connect(this, SIGNAL(rejected()), page, SLOT(abort()));
 	return page;
 }
 

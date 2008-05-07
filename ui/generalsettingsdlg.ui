@@ -13,7 +13,8 @@
    <string>Allgemeine Einstellungen</string>
   </property>
   <property name="windowIcon" >
-   <iconset resource="../other_icons.qrc" >:/images/icons/computer.svg</iconset>
+   <iconset resource="../other_icons.qrc" >
+    <normaloff>:/images/icons/computer.svg</normaloff>:/images/icons/computer.svg</iconset>
   </property>
   <layout class="QVBoxLayout" >
    <item>
@@ -145,35 +146,35 @@
       <item>
        <layout class="QVBoxLayout" >
         <item>
-         <widget class="QLineEdit" name="leCommands" >
+         <widget class="SimonFileSelector" name="leCommands" >
           <property name="text" >
            <string>conf/commands.xml</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="leProgramCategories" >
+         <widget class="SimonFileSelector" name="leProgramCategories" >
           <property name="text" >
            <string>conf/categories.xml</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="leShortcuts" >
+         <widget class="SimonFileSelector" name="leShortcuts" >
           <property name="text" >
            <string>conf/shortcuts.xml</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="leTempDir" >
+         <widget class="SimonDirSelector" name="leTempDir" >
           <property name="text" >
            <string>tmp/</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lePathToTexts" />
+         <widget class="SimonDirSelector" name="lePathToTexts" />
         </item>
        </layout>
       </item>
@@ -185,7 +186,7 @@
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>481</width>
        <height>16</height>
@@ -195,6 +196,21 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonFileSelector</class>
+   <extends>QLineEdit</extends>
+   <header>simonfileselector.h</header>
+   <slots>
+    <signal>urlChanged()</signal>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>SimonDirSelector</class>
+   <extends>QLineEdit</extends>
+   <header>simondirselector.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../other_icons.qrc" />
  </resources>

@@ -13,7 +13,9 @@
    <string>Form</string>
   </property>
   <property name="windowIcon" >
-   <iconset/>
+   <iconset>
+    <normaloff/>
+   </iconset>
   </property>
   <layout class="QGridLayout" >
    <item row="0" column="0" colspan="2" >
@@ -72,16 +74,20 @@
       <item>
        <layout class="QVBoxLayout" >
         <item>
-         <widget class="QLineEdit" name="leHDMan" />
+         <widget class="SimonFileSelector" name="leHDMan" >
+          <property name="text" >
+           <string/>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="leHLEd" />
+         <widget class="SimonFileSelector" name="leHLEd" />
         </item>
         <item>
-         <widget class="QLineEdit" name="leHCopy" />
+         <widget class="SimonFileSelector" name="leHCopy" />
         </item>
         <item>
-         <widget class="QLineEdit" name="leHCompV" />
+         <widget class="SimonFileSelector" name="leHCompV" />
         </item>
        </layout>
       </item>
@@ -90,7 +96,7 @@
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeHint" >
+        <property name="sizeHint" stdset="0" >
          <size>
           <width>20</width>
           <height>150</height>
@@ -135,13 +141,13 @@
       <item>
        <layout class="QVBoxLayout" >
         <item>
-         <widget class="QLineEdit" name="leHERest" />
+         <widget class="SimonFileSelector" name="leHERest" />
         </item>
         <item>
-         <widget class="QLineEdit" name="leHHEd" />
+         <widget class="SimonFileSelector" name="leHHEd" />
         </item>
         <item>
-         <widget class="QLineEdit" name="leHVite" />
+         <widget class="SimonFileSelector" name="leHVite" />
         </item>
        </layout>
       </item>
@@ -168,7 +174,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="leBzip2" >
+       <widget class="SimonFileSelector" name="leBzip2" >
         <property name="text" >
          <string/>
         </property>
@@ -197,14 +203,14 @@
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="QLineEdit" name="leMkfa" >
+       <widget class="SimonFileSelector" name="leMkfa" >
         <property name="text" >
          <string/>
         </property>
        </widget>
       </item>
       <item row="1" column="1" >
-       <widget class="QLineEdit" name="leDfaMinimize" >
+       <widget class="SimonFileSelector" name="leDfaMinimize" >
         <property name="text" >
          <string/>
         </property>
@@ -225,6 +231,16 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonFileSelector</class>
+   <extends>QLineEdit</extends>
+   <header>simonfileselector.h</header>
+   <slots>
+    <signal>urlChanged()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

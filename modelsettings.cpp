@@ -14,7 +14,6 @@
 #include <QTableWidget>
 #include <QInputDialog>
 #include <QTableWidgetItem>
-#include <QFileDialog>
 
 ModelSettings::ModelSettings(QWidget* parent): SystemWidget(tr("Modelleinstellungen"), QIcon(":/images/icons/applications-education-language.svg"), tr("Hier können Sie Einstellungen rund um das Sprachmodell einstellen"), parent)
 {
@@ -23,7 +22,6 @@ ModelSettings::ModelSettings(QWidget* parent): SystemWidget(tr("Modelleinstellun
 	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteFilter()));
 	connect(ui.tbUp, SIGNAL(clicked()), this, SLOT(moveUp()));
 	connect(ui.tbDown, SIGNAL(clicked()), this, SLOT(moveDown()));
-	connect(ui.tbOpenSamples, SIGNAL(clicked()), this, SLOT(setSamplePath()));
 	connect(ui.twProcessingFilters, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(enableButtons()));
 	
 	connect(ui.leLexicon, SIGNAL(editingFinished()), this, SIGNAL(changed()));
@@ -226,10 +224,7 @@ bool ModelSettings::apply()
 	return true;
 }
 
-void ModelSettings::setSamplePath()
-{
-	ui.leSamplePath->setText(QFileDialog::getExistingDirectory(this, tr("Ordner öffnen"), ui.leSamplePath->text()));
-}
+
 
 bool ModelSettings::init()
 {

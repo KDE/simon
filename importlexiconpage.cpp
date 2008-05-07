@@ -10,21 +10,14 @@
 //
 //
 #include "importlexiconpage.h"
-#include <QFileDialog>
 
 ImportLexiconPage::ImportLexiconPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
 	setTitle(tr("Lexikon auswählen"));
 	registerField("lexiconFilename", ui.lePath);
-	connect(ui.tbOpenFile, SIGNAL(clicked()), this, SLOT(selectFile()));
 }
 
-
-void ImportLexiconPage::selectFile()
-{
-	ui.lePath->setText(QFileDialog::getOpenFileName(this, tr("Lexikon öffnen")));
-}
 
 ImportLexiconPage::~ImportLexiconPage()
 {

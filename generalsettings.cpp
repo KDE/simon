@@ -29,11 +29,11 @@ GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(tr("Allgemeine E
 	connect(ui.cbStartSimonOnBoot, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
 	connect(ui.cbAskBeforeExit, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
 
-	connect(ui.leCommands, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.leShortcuts, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.leProgramCategories, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.leTempDir, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.lePathToTexts, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leCommands, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.leShortcuts, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.leProgramCategories, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.leTempDir, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.lePathToTexts, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
 
 	//set help
 	help = tr("Hier können Sie grundlegende Einstellungen rund um Simon verändern.\n\nDazu zählen: Pfade und Sicherheitsabfragen.\n\nEinstellungen in diesem Modul können kritisch für die Verwendung von simon sein.\n\nWenn das Häckchen \"Starte juliusd wenn nötig\" aktiviert ist, wird versucht juliusd lokal zu starten, sollte zu keinem laufenden Dämon verbunden werden können.");

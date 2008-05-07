@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>653</width>
+    <width>666</width>
     <height>437</height>
    </rect>
   </property>
@@ -13,7 +13,9 @@
    <string>Training</string>
   </property>
   <property name="windowIcon" >
-   <iconset/>
+   <iconset>
+    <normaloff/>
+   </iconset>
   </property>
   <layout class="QVBoxLayout" >
    <item>
@@ -28,6 +30,14 @@
       <number>0</number>
      </property>
      <widget class="QWidget" name="page" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>658</width>
+        <height>429</height>
+       </rect>
+      </property>
       <layout class="QVBoxLayout" >
        <item>
         <widget class="QTableWidget" name="twTrainingWords" >
@@ -72,7 +82,8 @@
           <string>   (Markierten Text &amp;vorlesen (trainieren</string>
          </property>
          <property name="icon" >
-          <iconset resource="../action_icons.qrc" >:/images/icons/go-next.svg</iconset>
+          <iconset resource="../action_icons.qrc" >
+           <normaloff>:/images/icons/go-next.svg</normaloff>:/images/icons/go-next.svg</iconset>
          </property>
          <property name="iconSize" >
           <size>
@@ -93,7 +104,8 @@
             <string>  Markierten Text &amp;löschen</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >:/images/icons/list-remove.svg</iconset>
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
            </property>
           </widget>
          </item>
@@ -106,7 +118,8 @@
             <string>  Text &amp;importieren</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >:/images/icons/document-import.svg</iconset>
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/document-import.svg</normaloff>:/images/icons/document-import.svg</iconset>
            </property>
           </widget>
          </item>
@@ -119,7 +132,8 @@
             <string>Trainingsdaten Importieren</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >:/images/icons/document-open.svg</iconset>
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/document-open.svg</normaloff>:/images/icons/document-open.svg</iconset>
            </property>
           </widget>
          </item>
@@ -128,22 +142,21 @@
       </layout>
      </widget>
      <widget class="QWidget" name="page_3" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>658</width>
+        <height>429</height>
+       </rect>
+      </property>
       <layout class="QHBoxLayout" >
        <item>
         <layout class="QVBoxLayout" >
          <property name="spacing" >
           <number>6</number>
          </property>
-         <property name="leftMargin" >
-          <number>0</number>
-         </property>
-         <property name="topMargin" >
-          <number>0</number>
-         </property>
-         <property name="rightMargin" >
-          <number>0</number>
-         </property>
-         <property name="bottomMargin" >
+         <property name="margin" >
           <number>0</number>
          </property>
          <item>
@@ -192,7 +205,7 @@
                </palette>
               </property>
               <property name="autoFillBackground" >
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <property name="frameShape" >
                <enum>QFrame::StyledPanel</enum>
@@ -282,7 +295,7 @@
                   <enum>Qt::LeftToRight</enum>
                  </property>
                  <property name="autoFillBackground" >
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                  <property name="frameShape" >
                   <enum>QFrame::StyledPanel</enum>
@@ -327,16 +340,7 @@
            <property name="spacing" >
             <number>6</number>
            </property>
-           <property name="leftMargin" >
-            <number>0</number>
-           </property>
-           <property name="topMargin" >
-            <number>0</number>
-           </property>
-           <property name="rightMargin" >
-            <number>0</number>
-           </property>
-           <property name="bottomMargin" >
+           <property name="margin" >
             <number>0</number>
            </property>
            <item>
@@ -351,7 +355,8 @@
               <string>&amp;Vorige Seite</string>
              </property>
              <property name="icon" >
-              <iconset resource="../action_icons.qrc" >:/images/icons/go-previous.svg</iconset>
+              <iconset resource="../action_icons.qrc" >
+               <normaloff>:/images/icons/go-previous.svg</normaloff>:/images/icons/go-previous.svg</iconset>
              </property>
              <property name="iconSize" >
               <size>
@@ -373,7 +378,8 @@
               <string>&amp;Nächste Seite</string>
              </property>
              <property name="icon" >
-              <iconset resource="../action_icons.qrc" >:/images/icons/go-next.svg</iconset>
+              <iconset resource="../action_icons.qrc" >
+               <normaloff>:/images/icons/go-next.svg</normaloff>:/images/icons/go-next.svg</iconset>
              </property>
              <property name="iconSize" >
               <size>
@@ -390,16 +396,7 @@
            <property name="spacing" >
             <number>6</number>
            </property>
-           <property name="leftMargin" >
-            <number>0</number>
-           </property>
-           <property name="topMargin" >
-            <number>0</number>
-           </property>
-           <property name="rightMargin" >
-            <number>0</number>
-           </property>
-           <property name="bottomMargin" >
+           <property name="margin" >
             <number>0</number>
            </property>
            <item>
@@ -411,7 +408,8 @@
               <string>&amp;Abbrechen</string>
              </property>
              <property name="icon" >
-              <iconset resource="../action_icons.qrc" >:/images/icons/dialog-cancel.svg</iconset>
+              <iconset resource="../action_icons.qrc" >
+               <normaloff>:/images/icons/dialog-cancel.svg</normaloff>:/images/icons/dialog-cancel.svg</iconset>
              </property>
             </widget>
            </item>
@@ -434,7 +432,8 @@
               <string>&amp;Fertigstellen</string>
              </property>
              <property name="icon" >
-              <iconset resource="../action_icons.qrc" >:/images/icons/dialog-ok-apply.svg</iconset>
+              <iconset resource="../action_icons.qrc" >
+               <normaloff>:/images/icons/dialog-ok-apply.svg</normaloff>:/images/icons/dialog-ok-apply.svg</iconset>
              </property>
             </widget>
            </item>
@@ -454,7 +453,8 @@
           <bool>true</bool>
          </property>
          <property name="html" >
-          <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+          <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
 &lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Bitte nehmen Sie nun Seite für Seite des Textes auf. &lt;/p>
@@ -469,6 +469,14 @@ p, li { white-space: pre-wrap; }
       </layout>
      </widget>
      <widget class="QWidget" name="page_2" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>658</width>
+        <height>429</height>
+       </rect>
+      </property>
       <layout class="QVBoxLayout" >
        <item>
         <widget class="QGroupBox" name="gbCurrentlyTraining" >

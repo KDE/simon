@@ -37,8 +37,9 @@ FORMS += ui/main.ui \
          ui/rundialog.ui \
 	 ui/commandsettingsdlg.ui \
          ui/trainmain.ui \
-         ui/importdict.ui \
          ui/generalsettingsdlg.ui \
+	 ui/importbomppage.ui \
+	 ui/importwiktionarypage.ui \
          ui/soundsettingsdlg.ui \
 	 ui/logmanagerdlg.ui \
          ui/externalprogramms.ui \
@@ -76,6 +77,9 @@ HEADERS += simonview.h \
            simoncontrol.h \
            simoninfo.h \
            wordlistview.h \
+ simonfilesystemselector.h \
+ simondirselector.h \
+ simonfileselector.cpp \
 	   screengrid.h \
            trainingview.h \
            juliuscontrol.h \
@@ -364,6 +368,9 @@ SOURCES += main.cpp \
  atobject.cpp \
  atsettings.cpp \
  filesystemencoder.cpp \
+ simonfilesystemselector.cpp \
+ simondirselector.cpp \
+ simonfileselector.cpp \
  importtrainingdata.cpp
 
 

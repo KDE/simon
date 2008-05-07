@@ -14,6 +14,7 @@
 
 #include <QWizardPage>
 #include "importdictview.h"
+#include "ui_importbomppage.h"
 class QString;
 
 /**
@@ -25,11 +26,7 @@ class QString;
  */
 class ImportBOMPPage : public QWizardPage
 {
-Q_OBJECT
-
-private slots:
-    void setFile();
-	
+	Ui::ImportBOMPDlg ui;
 public:
     ImportBOMPPage(QWidget* parent);
 	int nextId() const { return ImportDictView::WorkingPage; }

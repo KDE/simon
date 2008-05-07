@@ -14,6 +14,7 @@
 
 #include <QWizardPage>
 #include "importdictview.h"
+#include "ui_importwiktionarypage.h"
 
 class SimonListWidget;
 class QLineEdit;
@@ -36,12 +37,12 @@ private:
 	QLineEdit *leWikiPath;
 	QPushButton *pbWikiSelectFolder;
 	QLabel *lbWikiPath;
+	Ui::ImportWiktionaryDlg ui;
 	
 private slots:
     void resambleImportLocal(bool isTru);
     void loadList();
     void importList(QString list);
-    void setFile();
 
 
 public:

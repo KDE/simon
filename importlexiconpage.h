@@ -19,11 +19,8 @@
 */
 class ImportLexiconPage : public QWizardPage
 {
-Q_OBJECT
 private:
 	Ui::ImportDictLexiconPage ui;
-private slots:
-	void selectFile();
 public:
     ImportLexiconPage(QWidget* parent);
 

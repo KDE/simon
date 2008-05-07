@@ -33,51 +33,20 @@
  */
 ImportDictWiktionaryPage::ImportDictWiktionaryPage(QWidget* parent): QWizardPage(parent)
 {
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	QLabel *lbDesc = new QLabel (this);
-	lbDesc->setText(tr("Das Wiktionary ist ein freies Wörterbuch der Wikimedia foundation und veröffentlicht Dumps seiner Datenbank die frei heruntergeladen werden können."));
-	lbDesc->setWordWrap(true);
-	
-	
-	QHBoxLayout *fileLay = new QHBoxLayout();
-	lbWikiPath = new QLabel(this);
-	lbWikiPath->setText(tr("Wiktionary-Dump:"));
-	
-	QRadioButton *importLocal = new QRadioButton(tr("Lokale Datei"), this);
-	importLocal->setChecked(true);
-	
-	pbWikiSelectFolder = new QPushButton(this);
-	pbWikiSelectFolder->setIcon(QIcon(":/images/icons/document-open.svg"));
-	leWikiPath = new QLineEdit(this);
-	registerField("wikiFileName*", leWikiPath);
-	fileLay->addWidget(lbWikiPath);
-	fileLay->addWidget(leWikiPath);
-	fileLay->addWidget(pbWikiSelectFolder);
-	
-	connect(pbWikiSelectFolder, SIGNAL(clicked()), this, SLOT(setFile()));
-	
-	QRadioButton *importRemote = new QRadioButton(tr("Direkt Herunterladen"), this);
+	ui.setupUi(this);
+	registerField("wikiFileName*", ui.leWikiPath, "currentUrl", SIGNAL(urlChanged(QString)));
 
-	lay->addWidget(lbDesc);
-	lay->addWidget(importLocal);
-	lay->addLayout(fileLay);
-	lay->addWidget(importRemote);
-	this->remoteList = new SimonListWidget(this);
-	remoteList->setMinimumHeight(100);
-	remoteList->setMaximumHeight(153);
-	lay->addWidget(remoteList);
-	this->setLayout(lay);
-	registerField("importWikiLocal", importLocal);
-	registerField("importWikiRemote", importRemote);
-	registerField("wikiRemoteURL", remoteList, "currentUserData",
+	registerField("importWikiLocal", ui.rbImportLocal);
+	registerField("importWikiRemote", ui.rbImportRemote);
+	registerField("wikiRemoteURL", ui.lwRemoteList, "currentUserData",
 			 SIGNAL(currentIndexChanged(int)));
 
 	setTitle(tr("Importiere Wiktionary Wörterbuch"));
 	
-	connect(importLocal, SIGNAL(toggled(bool)), this, SLOT(resambleImportLocal(bool)));
-	connect(importLocal, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
-	connect(leWikiPath, SIGNAL(textChanged( const QString& )), this, SIGNAL(completeChanged()));
-	connect(remoteList, SIGNAL(itemSelectionChanged()), this, SIGNAL(completeChanged()));
+	connect(ui.rbImportLocal, SIGNAL(toggled(bool)), this, SLOT(resambleImportLocal(bool)));
+	connect(ui.rbImportLocal, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
+	connect(ui.leWikiPath, SIGNAL(urlChanged(QString)), this, SIGNAL(completeChanged()));
+	connect(ui.lwRemoteList, SIGNAL(itemSelectionChanged()), this, SIGNAL(completeChanged()));
 }
 
 
@@ -90,18 +59,16 @@ void ImportDictWiktionaryPage::resambleImportLocal(bool isTrue)
 {
 	if (!isTrue)
 	{
-		lbWikiPath->setEnabled(false);
-		leWikiPath->setEnabled(false);
-		pbWikiSelectFolder->setEnabled(false);
-		remoteList->setEnabled(true);
+		ui.leWikiPath->setEnabled(false);
+		ui.leWikiPath->setEnabled(false);
+		ui.lwRemoteList->setEnabled(true);
 		
 		loadList();
 	} else
 	{
-		lbWikiPath->setEnabled(true);
-		leWikiPath->setEnabled(true);
-		pbWikiSelectFolder->setEnabled(true);
-		remoteList->setEnabled(false);
+		ui.leWikiPath->setEnabled(true);
+		ui.leWikiPath->setEnabled(true);
+		ui.lwRemoteList->setEnabled(false);
 	}
 }
 
@@ -113,7 +80,7 @@ void ImportDictWiktionaryPage::resambleImportLocal(bool isTrue)
  */
 void ImportDictWiktionaryPage::importList(QString list)
 {
-	remoteList->clear();
+	ui.lwRemoteList->clear();
 	QFile listFile(list);
 	if (!listFile.open(QIODevice::ReadOnly)) return;
 	QTextStream *txtStream = new QTextStream(&listFile);
@@ -136,9 +103,9 @@ void ImportDictWiktionaryPage::importList(QString list)
 		
 		txtList = txtList.mid(wikiStart+40);
 
-		tmp = new QListWidgetItem(wikiName, remoteList);
+		tmp = new QListWidgetItem(wikiName, ui.lwRemoteList);
 		tmp->setData(Qt::UserRole, wikiUrl);
-		this->remoteList->addItem(tmp);
+		ui.lwRemoteList->addItem(tmp);
 		
 		wikiStart = txtList.indexOf(pattern);
 	}
@@ -175,24 +142,7 @@ bool ImportDictWiktionaryPage::isComplete() const
 	if (field("importWikiLocal").toBool())
 	{
 		return !field("wikiFileName").toString().isEmpty();
-	} else return !remoteList->selectedItems().isEmpty();
-}
-
-/**
- * \brief Set the filename to a filename the user can enter with a filedialog
- * \author Peter Grasch
- */
-void ImportDictWiktionaryPage::setFile()
-{
-	QFileDialog *dlg = new QFileDialog(this, tr("Zu importierende Textdatei öffnen"), QDir::currentPath());
-	QStringList filters;
-	filters << tr("Textdateien (%1)").arg("*.xml");
-	filters << tr("BZip2 Komprimierte Dateien (%1)").arg("*.xml.bz2");
-	dlg->setFilters(filters);
-	if(!dlg->exec()) return;
-	
-	
-	setField("wikiFileName", dlg->selectedFiles().at(0));
+	} else return !ui.lwRemoteList->selectedItems().isEmpty();
 }
 
 
@@ -202,10 +152,6 @@ void ImportDictWiktionaryPage::setFile()
  */
 ImportDictWiktionaryPage::~ImportDictWiktionaryPage()
 {
-	remoteList->deleteLater();
-	leWikiPath->deleteLater();
-	pbWikiSelectFolder->deleteLater();
-	lbWikiPath->deleteLater();
 }
 
 

@@ -31,7 +31,8 @@ class Word;
 typedef QList<Word> WordList; //!< QList from Word
 
 class Word{
-	
+
+private:
 	QString word; //!< Saves the represented word
 	QString pronunciation; //!< Saves all valid pronunciations of the word in Sam-Pa
 	QString terminal; //!< Category of the word

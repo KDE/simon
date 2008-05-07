@@ -26,16 +26,16 @@ ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(tr
 	guessChildTriggers(this);
 	hide();
 
-	connect(ui.leHDMan, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.leHLEd, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.leHCopy, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.leHCompV, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.leHERest, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.leHVite, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.leBzip2, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.leHHEd, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.leMkfa, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.leDfaMinimize, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.leHDMan, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.leHLEd, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.leHCopy, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.leHCompV, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.leHERest, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.leHVite, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.leBzip2, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.leHHEd, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.leMkfa, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.leDfaMinimize, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
 
 	help = tr("Setzen Sie Pfade zu den externen Programmen, die simon erweitern.");
 }

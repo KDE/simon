@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>523</width>
-    <height>330</height>
+    <height>348</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -19,10 +19,18 @@
       <number>0</number>
      </property>
      <widget class="QWidget" name="tbSamples" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>503</width>
+        <height>301</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Trainingsdaten</string>
       </attribute>
-      <layout class="QGridLayout" >
+      <layout class="QGridLayout" name="gridLayout" >
        <item row="0" column="0" >
         <widget class="QLabel" name="lbSampleRate" >
          <property name="text" >
@@ -83,18 +91,8 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1" >
-        <widget class="QLineEdit" name="leSamplePath" />
-       </item>
-       <item row="2" column="2" >
-        <widget class="QToolButton" name="tbOpenSamples" >
-         <property name="text" >
-          <string>...</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="../action_icons.qrc" >:/images/icons/document-open.svg</iconset>
-         </property>
-        </widget>
+       <item row="2" column="1" colspan="2" >
+        <widget class="SimonDirSelector" name="leSamplePath" />
        </item>
        <item row="3" column="0" >
         <widget class="QLabel" name="lbPrompts" >
@@ -106,20 +104,10 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="1" >
-        <widget class="QLineEdit" name="lePrompts" >
+       <item row="3" column="1" colspan="2" >
+        <widget class="SimonFileSelector" name="lePrompts" >
          <property name="text" >
           <string>model/prompts</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2" >
-        <widget class="QToolButton" name="tbOpenPrompts" >
-         <property name="text" >
-          <string>...</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="../action_icons.qrc" >:/images/icons/document-open.svg</iconset>
          </property>
         </widget>
        </item>
@@ -128,7 +116,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -139,6 +127,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tbOutput" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>503</width>
+        <height>301</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Ausgabe</string>
       </attribute>
@@ -192,16 +188,16 @@
          <item>
           <layout class="QVBoxLayout" >
            <item>
-            <widget class="QLineEdit" name="leHmmOut" />
+            <widget class="SimonFileSelector" name="leHmmOut" />
            </item>
            <item>
-            <widget class="QLineEdit" name="leTiedlist" />
+            <widget class="SimonFileSelector" name="leTiedlist" />
            </item>
            <item>
-            <widget class="QLineEdit" name="leDfa" />
+            <widget class="SimonFileSelector" name="leDfa" />
            </item>
            <item>
-            <widget class="QLineEdit" name="leDict" />
+            <widget class="SimonFileSelector" name="leDict" />
            </item>
           </layout>
          </item>
@@ -212,7 +208,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -233,6 +229,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tbLanguageModel" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>503</width>
+        <height>301</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Personenbezogen</string>
       </attribute>
@@ -316,45 +320,45 @@
          <item>
           <layout class="QVBoxLayout" >
            <item>
-            <widget class="QLineEdit" name="leLexicon" >
+            <widget class="SimonFileSelector" name="leLexicon" >
              <property name="text" >
               <string>model/lexicon</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="leVocab" >
+            <widget class="SimonFileSelector" name="leVocab" >
              <property name="text" >
               <string>model/model.voca</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="leGrammar" >
+            <widget class="SimonFileSelector" name="leGrammar" >
              <property name="text" >
               <string>model/model.grammar</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="leShadowLexicon" >
+            <widget class="SimonFileSelector" name="leShadowLexicon" >
              <property name="toolTip" >
               <string>Das Schattenlexikon beinhaltet unbenutzte Wörter</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="leShadowVocab" >
+            <widget class="SimonFileSelector" name="leShadowVocab" >
              <property name="toolTip" >
               <string>Das Schattenlexikon beinhaltet unbenutzte Wörter</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="leTreeHed" />
+            <widget class="SimonFileSelector" name="leTreeHed" />
            </item>
            <item>
-            <widget class="QLineEdit" name="leWavConfig" >
+            <widget class="SimonFileSelector" name="leWavConfig" >
              <property name="text" >
               <string>model/wav_config</string>
              </property>
@@ -377,6 +381,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="Scripts" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>503</width>
+        <height>301</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Modellskripte</string>
       </attribute>
@@ -473,32 +485,32 @@
          <item>
           <layout class="QVBoxLayout" >
            <item>
-            <widget class="QLineEdit" name="leMkPhones0" />
+            <widget class="SimonFileSelector" name="leMkPhones0" />
            </item>
            <item>
-            <widget class="QLineEdit" name="leMkPhones1" />
+            <widget class="SimonFileSelector" name="leMkPhones1" />
            </item>
            <item>
-            <widget class="QLineEdit" name="leGlobalDed" >
+            <widget class="SimonFileSelector" name="leGlobalDed" >
              <property name="toolTip" >
               <string> (global.ded, etc.)</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="leSilHed" />
+            <widget class="SimonFileSelector" name="leSilHed" />
            </item>
            <item>
-            <widget class="QLineEdit" name="leMktriLed" />
+            <widget class="SimonFileSelector" name="leMktriLed" />
            </item>
            <item>
-            <widget class="QLineEdit" name="leConfig" />
+            <widget class="SimonFileSelector" name="leConfig" />
            </item>
            <item>
-            <widget class="QLineEdit" name="leProto" />
+            <widget class="SimonFileSelector" name="leProto" />
            </item>
            <item>
-            <widget class="QLineEdit" name="leMonophones" />
+            <widget class="SimonFileSelector" name="leMonophones" />
            </item>
           </layout>
          </item>
@@ -517,6 +529,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tab_2" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>503</width>
+        <height>301</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Nachbearbeitung</string>
       </attribute>
@@ -562,7 +582,8 @@
                 <string>...</string>
                </property>
                <property name="icon" >
-                <iconset resource="../action_icons.qrc" >:/images/icons/go-up.svg</iconset>
+                <iconset resource="../action_icons.qrc" >
+                 <normaloff>:/images/icons/go-up.svg</normaloff>:/images/icons/go-up.svg</iconset>
                </property>
               </widget>
              </item>
@@ -572,7 +593,8 @@
                 <string>...</string>
                </property>
                <property name="icon" >
-                <iconset resource="../action_icons.qrc" >:/images/icons/go-down.svg</iconset>
+                <iconset resource="../action_icons.qrc" >
+                 <normaloff>:/images/icons/go-down.svg</normaloff>:/images/icons/go-down.svg</iconset>
                </property>
               </widget>
              </item>
@@ -581,7 +603,7 @@
                <property name="orientation" >
                 <enum>Qt::Horizontal</enum>
                </property>
-               <property name="sizeHint" >
+               <property name="sizeHint" stdset="0" >
                 <size>
                  <width>40</width>
                  <height>20</height>
@@ -595,7 +617,8 @@
                 <string>Hinzufügen</string>
                </property>
                <property name="icon" >
-                <iconset resource="../action_icons.qrc" >:/images/icons/edit-add.svg</iconset>
+                <iconset resource="../action_icons.qrc" >
+                 <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
                </property>
               </widget>
              </item>
@@ -605,7 +628,8 @@
                 <string>Entfernen</string>
                </property>
                <property name="icon" >
-                <iconset resource="../action_icons.qrc" >:/images/icons/list-remove.svg</iconset>
+                <iconset resource="../action_icons.qrc" >
+                 <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
                </property>
               </widget>
              </item>
@@ -641,7 +665,7 @@ p, li { white-space: pre-wrap; }
              <property name="orientation" >
               <enum>Qt::Vertical</enum>
              </property>
-             <property name="sizeHint" >
+             <property name="sizeHint" stdset="0" >
               <size>
                <width>20</width>
                <height>40</height>
@@ -674,15 +698,28 @@ p, li { white-space: pre-wrap; }
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SimonTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>simontabwidget.h</header>
-   <container>1</container>
+   <class>SimonFileSelector</class>
+   <extends>QLineEdit</extends>
+   <header>simonfileselector.h</header>
+   <slots>
+    <signal>urlChanged()</signal>
+   </slots>
   </customwidget>
   <customwidget>
    <class>SimonTableWidget</class>
    <extends>QTableWidget</extends>
    <header>simontablewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SimonDirSelector</class>
+   <extends>QLineEdit</extends>
+   <header>simondirselector.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SimonTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>simontabwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

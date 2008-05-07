@@ -13,7 +13,9 @@
    <string>Network</string>
   </property>
   <property name="windowIcon" >
-   <iconset/>
+   <iconset>
+    <normaloff/>
+   </iconset>
   </property>
   <layout class="QGridLayout" >
    <item row="0" column="0" colspan="2" >
@@ -43,9 +45,17 @@
    <item row="2" column="0" colspan="2" >
     <widget class="SimonTabWidget" name="twNetwork" >
      <property name="currentIndex" >
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tbUser" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>410</width>
+        <height>227</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Benutzername</string>
       </attribute>
@@ -85,7 +95,7 @@
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -96,6 +106,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tbNet" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>410</width>
+        <height>227</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Netzwerk</string>
       </attribute>
@@ -168,7 +186,8 @@
             <string>...</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >:/images/icons/go-up.svg</iconset>
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/go-up.svg</normaloff>:/images/icons/go-up.svg</iconset>
            </property>
           </widget>
          </item>
@@ -181,7 +200,8 @@
             <string>...</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >:/images/icons/go-down.svg</iconset>
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/go-down.svg</normaloff>:/images/icons/go-down.svg</iconset>
            </property>
           </widget>
          </item>
@@ -190,7 +210,7 @@
            <property name="orientation" >
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" >
+           <property name="sizeHint" stdset="0" >
             <size>
              <width>40</width>
              <height>20</height>
@@ -207,7 +227,8 @@
             <string>Hinzufügen</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >:/images/icons/edit-add.svg</iconset>
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
            </property>
           </widget>
          </item>
@@ -220,7 +241,8 @@
             <string>Entfernen</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >:/images/icons/list-remove.svg</iconset>
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
            </property>
           </widget>
          </item>
@@ -229,6 +251,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tbEncryption" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>410</width>
+        <height>227</height>
+       </rect>
+      </property>
       <attribute name="title" >
        <string>Verschlüsselung</string>
       </attribute>
@@ -264,14 +294,14 @@
         </widget>
        </item>
        <item row="2" column="1" >
-        <widget class="QLineEdit" name="leCert" />
+        <widget class="SimonFileSelector" name="leCert" />
        </item>
        <item row="3" column="1" >
         <spacer>
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" >
+         <property name="sizeHint" stdset="0" >
           <size>
            <width>20</width>
            <height>40</height>
@@ -286,6 +316,14 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>SimonFileSelector</class>
+   <extends>QLineEdit</extends>
+   <header>simonfileselector.h</header>
+   <slots>
+    <signal>urlChanged()</signal>
+   </slots>
+  </customwidget>
   <customwidget>
    <class>SimonTableWidget</class>
    <extends>QTableWidget</extends>

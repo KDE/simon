@@ -24,11 +24,8 @@
  * Extends QWizardpage; Uses the QT-Mandatory-field mechanism
  */
 class ImportTrainingTextLocalPage : public QWizardPage {
-	Q_OBJECT
 	private:
 		Ui::ImportTrainingTextLocalPage ui;
-	public slots:
-		void setLocalSourceFile();
 	public:
 		ImportTrainingTextLocalPage(QWidget* parent);
 		int nextId() const {

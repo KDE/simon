@@ -10,8 +10,6 @@ class SimonLineEdit : public QLineEdit
 	
 	Q_OBJECT
 	
-private:
-	
 	
 public:
 	SimonLineEdit( QWidget * parent  = 0);
