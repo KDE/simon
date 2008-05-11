@@ -1,0 +1,40 @@
+[2008/05/11 22:35:11] [INF] Starte simon...
+[2008/05/11 22:35:11] [INF] Zeige Splashscreen...
+[2008/05/11 22:35:11] [INF] Lade Einstellungen...
+[2008/05/11 22:35:11] [INF] Einstellungen geladen...
+[2008/05/11 22:35:11] [INF] Importiere Kommandos von /home/bedahr/Daten/simon/source/trunk/confdev/commands.xml
+[2008/05/11 22:35:11] [INF] Lese Befehle von /home/bedahr/Daten/simon/source/trunk/confdev/commands.xml
+[2008/05/11 22:35:11] [INF] Initialisiere XML Datei "/home/bedahr/Daten/simon/source/trunk/confdev/commands.xml"
+[2008/05/11 22:35:11] [INF] Öffne display ":0.0"
+[2008/05/11 22:35:11] [INF] XTest für Server ":0.0" ist Version 2.2
+[2008/05/11 22:35:11] [INF] Aufnahme der Display-Kontrolle
+[2008/05/11 22:35:11] [INF] Synchronisiere Display
+[2008/05/11 22:35:11] [INF] Initialisiere XML Datei "/home/bedahr/Daten/simon/source/trunk/confdev/shortcuts.xml"
+[2008/05/11 22:35:11] [INF] Erstelle systray icon(Simon)
+[2008/05/11 22:35:11] [INF] Erstelle systray icon(Simon)
+[2008/05/11 22:35:12] [INF] Parse Promptsdatei von /home/bedahr/Daten/simon/source/trunk/modeldev/prompts
+[2008/05/11 22:35:12] [INF] 0 Prompts gelesen
+[2008/05/11 22:35:12] [INF] Lesen der Trainingtexte von "/home/bedahr/Daten/simon/source/trunk/texts/"
+[2008/05/11 22:35:12] [INF] Initialisiere XML Datei "/home/bedahr/Daten/simon/source/trunk/texts//prompts1.xml"
+[2008/05/11 22:35:12] [INF] Berechne Nutzen des Textes "Beispieltext 1" (/home/bedahr/Daten/simon/source/trunk/texts//prompts1.xml)
+[2008/05/11 22:35:12] [INF] Initialisiere XML Datei "/home/bedahr/Daten/simon/source/trunk/texts//prompts2.xml"
+[2008/05/11 22:35:12] [INF] Berechne Nutzen des Textes "Beispieltext 2" (/home/bedahr/Daten/simon/source/trunk/texts//prompts2.xml)
+[2008/05/11 22:35:12] [INF] Initialisiere XML Datei "/home/bedahr/Daten/simon/source/trunk/texts//prompts3.xml"
+[2008/05/11 22:35:12] [INF] Berechne Nutzen des Textes "Beispieltext 3" (/home/bedahr/Daten/simon/source/trunk/texts//prompts3.xml)
+[2008/05/11 22:35:12] [INF] Lesen der Wörterliste bestehend aus 
+[2008/05/11 22:35:12] [INF] 		Lexikon: /home/bedahr/Daten/simon/source/trunk/modeldev/lexicon,
+[2008/05/11 22:35:12] [INF] 		Vocabular: /home/bedahr/Daten/simon/source/trunk/modeldev/model.voca,
+[2008/05/11 22:35:12] [INF] 		Prompts: /home/bedahr/Daten/simon/source/trunk/modeldev/prompts
+[2008/05/11 22:35:12] [INF] Sortiere eine Liste mit 0 Wörtern
+[2008/05/11 22:35:12] [INF] Wörterliste erstellt
+[2008/05/11 22:35:12] [INF] Lesen der Wörterliste bestehend aus 
+[2008/05/11 22:35:12] [INF] 		Lexikon: /home/bedahr/Daten/simon/source/trunk/modeldev/shadowlexicon,
+[2008/05/11 22:35:12] [INF] 		Vocabular: /home/bedahr/Daten/simon/source/trunk/modeldev/shadow.voca,
+[2008/05/11 22:35:12] [INF] 		Prompts: /home/bedahr/Daten/simon/source/trunk/modeldev/prompts
+[2008/05/11 22:35:12] [INF] Sortiere eine Liste mit 0 Wörtern
+[2008/05/11 22:35:12] [INF] Wörterliste erstellt
+[2008/05/11 22:35:12] [INF] Lade Grammatik von /home/bedahr/Daten/simon/source/trunk/modeldev/model.grammar
+[2008/05/11 22:35:13] [INF] Initialisiere XML Datei "/home/bedahr/Daten/simon/source/trunk/confdev/categories.xml"
+[2008/05/11 22:35:14] [INF] Bekommen einer Liste mit den verfügbaren Input-devices
+[2008/05/11 22:35:14] [INF] Bekommen einer Liste mit den verfügbaren devices
+[2008/05/11 22:35:14] [INF] Habe 1Kommandos gefunden

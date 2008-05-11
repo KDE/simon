@@ -1,0 +1,22 @@
+//
+// C++ Implementation: SimonDirSelector
+//
+// Description: 
+//
+//
+// Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
+//
+// Copyright: See COPYING file that comes with this distribution
+//
+//
+
+#include "simondirselector.h"
+#include "simonfilesystemselector.h"
+
+
+
+SimonDirSelector::SimonDirSelector(QWidget *parent) : SimonFileSystemSelector("", QObject::tr("Ordner auswählen"), 
+						".", 0, "", QFileDialog::DirectoryOnly, parent)
+{
+	
+}

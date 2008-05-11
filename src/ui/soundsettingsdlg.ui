@@ -1,0 +1,237 @@
+<ui version="4.0" >
+ <class>SoundSettingsDlg</class>
+ <widget class="QWidget" name="SoundSettingsDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>496</width>
+    <height>380</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Soundeinstellungen</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../category_icons.qrc" >:/images/icons/preferences-desktop-sound.svg</iconset>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QGroupBox" name="gbDevices" >
+     <property name="title" >
+      <string>Geräte</string>
+     </property>
+     <property name="flat" >
+      <bool>false</bool>
+     </property>
+     <layout class="QHBoxLayout" >
+      <item>
+       <layout class="QVBoxLayout" >
+        <item>
+         <layout class="QHBoxLayout" >
+          <item>
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="QLabel" name="lbInDevice" >
+              <property name="text" >
+               <string>Eingabe Gerät:</string>
+              </property>
+              <property name="buddy" >
+               <cstring>cbInDevice</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbChannels" >
+              <property name="text" >
+               <string>Kanäle:</string>
+              </property>
+              <property name="buddy" >
+               <cstring>cbChannelsIn</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbSamplerate" >
+              <property name="text" >
+               <string>Samplerate:</string>
+              </property>
+              <property name="buddy" >
+               <cstring>cbSampleRateIn</cstring>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="SimonComboBox" name="cbInDevice" />
+            </item>
+            <item>
+             <widget class="SimonComboBox" name="cbChannelsIn" >
+              <property name="currentIndex" >
+               <number>-1</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SimonComboBox" name="cbSampleRateIn" />
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line" >
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" >
+          <item>
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="QLabel" name="lbOutDevice" >
+              <property name="text" >
+               <string>Ausgabe Gerät:</string>
+              </property>
+              <property name="buddy" >
+               <cstring>cbOutDevice</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbChannels_2" >
+              <property name="text" >
+               <string>Kanäle:</string>
+              </property>
+              <property name="buddy" >
+               <cstring>cbChannelsIn</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lbSamplerate_2" >
+              <property name="text" >
+               <string>Samplerate:</string>
+              </property>
+              <property name="buddy" >
+               <cstring>cbSampleRateIn</cstring>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" >
+            <item>
+             <widget class="SimonComboBox" name="cbOutDevice" />
+            </item>
+            <item>
+             <widget class="SimonComboBox" name="cbChannelsOut" >
+              <property name="currentIndex" >
+               <number>-1</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SimonComboBox" name="cbSampleRateOut" />
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QWidget" native="1" name="widget" >
+        <property name="minimumSize" >
+         <size>
+          <width>159</width>
+          <height>129</height>
+         </size>
+        </property>
+        <property name="maximumSize" >
+         <size>
+          <width>159</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <widget class="QLabel" name="lbDirectX" >
+         <property name="geometry" >
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>163</width>
+           <height>129</height>
+          </rect>
+         </property>
+         <property name="maximumSize" >
+          <size>
+           <width>169</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text" >
+          <string/>
+         </property>
+         <property name="pixmap" >
+          <pixmap resource="../others.qrc" >:/images/directX.png</pixmap>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lbALSA" >
+         <property name="geometry" >
+          <rect>
+           <x>24</x>
+           <y>2</y>
+           <width>113</width>
+           <height>113</height>
+          </rect>
+         </property>
+         <property name="text" >
+          <string/>
+         </property>
+         <property name="pixmap" >
+          <pixmap resource="../others.qrc" >:/images/alsalogo.gif</pixmap>
+         </property>
+         <property name="scaledContents" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>478</width>
+       <height>61</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonComboBox</class>
+   <extends>QComboBox</extends>
+   <header>simoncombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../others.qrc" />
+  <include location="../other_icons.qrc" />
+  <include location="../category_icons.qrc" />
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,218 @@
+<ui version="4.0" >
+ <class>GeneralSettingsDlg</class>
+ <widget class="QWidget" name="GeneralSettingsDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>499</width>
+    <height>456</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Allgemeine Einstellungen</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../other_icons.qrc" >
+    <normaloff>:/images/icons/computer.svg</normaloff>:/images/icons/computer.svg</iconset>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QPushButton" name="pbShowFirstRunWizard" >
+     <property name="text" >
+      <string>Einrichtungsassistent beim nächsten Start wieder anzeigen</string>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbPerformance" >
+     <property name="title" >
+      <string>Geschwindigkeit</string>
+     </property>
+     <property name="flat" >
+      <bool>false</bool>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="label" >
+        <property name="text" >
+         <string>Maximal gleichzeitig angezeigte Wörter:
+(Wortliste)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QSpinBox" name="sbMaxSimultaniouslyShownWords" >
+        <property name="minimum" >
+         <number>1</number>
+        </property>
+        <property name="maximum" >
+         <number>100000</number>
+        </property>
+        <property name="singleStep" >
+         <number>10</number>
+        </property>
+        <property name="value" >
+         <number>1000</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbGeneral" >
+     <property name="title" >
+      <string>Allgemein</string>
+     </property>
+     <property name="flat" >
+      <bool>false</bool>
+     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QCheckBox" name="cbStartSimonOnBoot" >
+        <property name="text" >
+         <string>Starte simon bei Systemstart</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QCheckBox" name="cbAskBeforeExit" >
+        <property name="text" >
+         <string>Nachfragen vor dem Beenden</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gbPaths" >
+     <property name="title" >
+      <string>Pfade</string>
+     </property>
+     <property name="flat" >
+      <bool>false</bool>
+     </property>
+     <layout class="QHBoxLayout" >
+      <item>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="QLabel" name="lbCommands" >
+          <property name="text" >
+           <string>Kommandos:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>leCommands</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbCategories" >
+          <property name="text" >
+           <string>Programmkategorien:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbShortcuts" >
+          <property name="text" >
+           <string>Shortcuts:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbTempDir" >
+          <property name="text" >
+           <string>Temporärer Ordner:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbPathToTexts" >
+          <property name="text" >
+           <string>Pfad der Trainingstexte:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" >
+        <item>
+         <widget class="SimonFileSelector" name="leCommands" >
+          <property name="text" >
+           <string>conf/commands.xml</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SimonFileSelector" name="leProgramCategories" >
+          <property name="text" >
+           <string>conf/categories.xml</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SimonFileSelector" name="leShortcuts" >
+          <property name="text" >
+           <string>conf/shortcuts.xml</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SimonDirSelector" name="leTempDir" >
+          <property name="text" >
+           <string>tmp/</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SimonDirSelector" name="lePathToTexts" />
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>481</width>
+       <height>16</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonFileSelector</class>
+   <extends>QLineEdit</extends>
+   <header>simonfileselector.h</header>
+   <slots>
+    <signal>urlChanged()</signal>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>SimonDirSelector</class>
+   <extends>QLineEdit</extends>
+   <header>simondirselector.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../other_icons.qrc" />
+ </resources>
+ <connections/>
+</ui>
