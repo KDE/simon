@@ -1,4 +1,2 @@
-<commands>
- <command iconPath="shell32.dll,12" type="0" name="iTunes" workingDirectory="C:/Dokumente und Einstellungen/Susi/" >iTunes.exe</command>
- <command iconPath="shell32.dll,12" type="1" name="Susi" workingDirectory="" >C:/Dokumente und Einstellungen/Susi/</command>
-</commands>
+<?xml version="1.0" encoding="UTF-8"?>
+<commands />
