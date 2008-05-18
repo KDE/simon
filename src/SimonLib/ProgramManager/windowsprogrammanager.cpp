@@ -12,9 +12,9 @@
 #include "windowsprogrammanager.h"
 #include "program.h"
 
-#ifdef _WIN32
-    #include "windows.h"
-#endif
+#include "windows.h"
+
+#include "../WindowsLib/registrymanager.h"
 #include <QMessageBox>
 
 

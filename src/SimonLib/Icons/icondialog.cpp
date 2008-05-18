@@ -23,8 +23,7 @@
 #include <QString>
 
 #ifdef __WIN32
-#include <windows.h>
-#include "windowsresourcehandler.h"
+#include "../WindowsLib/windowsresourcehandler.h"
 #endif
 
 

@@ -14,7 +14,7 @@
 #include "icondialog.h"
 
 #ifdef __WIN32
-#include "windowsresourcehandler.h"
+#include "../WindowsLib/windowsresourcehandler.h"
 #endif
 
 /**

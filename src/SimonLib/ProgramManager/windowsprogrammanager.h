@@ -12,11 +12,11 @@
 #ifndef WINDOWSPROGRAMMANAGER_H
 #define WINDOWSPROGRAMMANAGER_H
 
-#include <programmanager.h>
+#include "programmanager.h"
 #include "program.h"
 #include "programcategory.h"
-#include "registrymanager.h"
 
+class RegistryManager;
 /**
  * \class WindowsProgramManager
  * \author Susanne Tschernegg
