@@ -57,7 +57,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="leSearch" />
+          <widget class="QLineEdit" name="leSearch" >
+           <property name="text" >
+            <string/>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pbClearSearch" >
@@ -311,12 +315,12 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>DragTableWidget</class>
    <extends>QTableWidget</extends>
-   <header>ModelManagement/WordList/dragtablewidget.h</header>
+   <header>../ModelManagement/WordList/dragtablewidget.h</header>
   </customwidget>
   <customwidget>
    <class>DropListWidget</class>
    <extends>QListWidget</extends>
-   <header>ModelManagement/WordList/droplistwidget.h</header>
+   <header>../ModelManagement/WordList/droplistwidget.h</header>
   </customwidget>
   <customwidget>
    <class>SimonTabWidget</class>

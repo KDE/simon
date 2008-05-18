@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="en">
-<defaultcodec></defaultcodec>
 <context>
     <name>@default</name>
     <message>
         <location filename="addwordresolvepage.cpp" line="16"/>
         <source>wordlistmanager.hgrammarmanager.h</source>
-        <translation>wordlistmanager.hgrammarmanager.h</translation>
+        <translation type="obsolete">wordlistmanager.hgrammarmanager.h</translation>
     </message>
     <message>
         <location filename="addwordresolvepage.cpp" line="59"/>
         <source>Terminal hinzuf&#xfc;gen</source>
-        <translation>Add terminal</translation>
+        <translation type="obsolete">Add terminal</translation>
     </message>
     <message>
         <location filename="addwordresolvepage.cpp" line="59"/>
         <source>Sie sind im Begriff einen neuen Terminal hinzuzuf&#xfc;gen.
 
 Bitte geben Sie den neuen Namen des Terminals an:</source>
-        <translation>You are about to add a new terminal.
+        <translation type="obsolete">You are about to add a new terminal.
 
 Please specify the name of this terminal:</translation>
     </message>
@@ -28,17 +27,17 @@ Please specify the name of this terminal:</translation>
     <message>
         <location filename="atsettings.cpp" line="17"/>
         <source>AT-Einstellungen</source>
-        <translation>AT-Settings</translation>
+        <translation type="obsolete">AT-Settings</translation>
     </message>
     <message>
         <location filename="atsettings.cpp" line="17"/>
         <source>Konfigurieren der AT Integration, die es erlaubt andere Programme einfach zu bedienen</source>
-        <translation>Configure the AT-Integration, which allows you to control other programs with simon</translation>
+        <translation type="obsolete">Configure the AT-Integration, which allows you to control other programs with simon</translation>
     </message>
     <message>
         <location filename="atsettings.cpp" line="20"/>
         <source>Konfigurieren Sie die AT-Integration, mit der sich simon in fremde Programme integriert.</source>
-        <translation>Configure AT-Integration, which allows simon to interact with other programs efficiently.</translation>
+        <translation type="obsolete">Configure AT-Integration, which allows simon to interact with other programs efficiently.</translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -46,27 +45,27 @@ Please specify the name of this terminal:</translation>
     <message>
         <location filename="ui/atsettings.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message>
         <location filename="ui/atsettings.ui" line="19"/>
         <source>AT-Integration aktivieren</source>
-        <translation>Activate AT-Integration</translation>
+        <translation type="obsolete">Activate AT-Integration</translation>
     </message>
     <message>
         <location filename="ui/atsettings.ui" line="26"/>
         <source>Workarounds</source>
-        <translation>Workarounds</translation>
+        <translation type="obsolete">Workarounds</translation>
     </message>
     <message>
         <location filename="ui/atsettings.ui" line="32"/>
         <source>Qt4-Spezifische Workarounds</source>
-        <translation>Qt4-specific workarounds</translation>
+        <translation type="obsolete">Qt4-specific workarounds</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/atsettings.ui" line="57"/>
         <source>Menü-Unterstützung (Experimentell)</source>
-        <translation>Menu-Support (experimental)</translation>
+        <translation type="obsolete">Menu-Support (experimental)</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/atsettings.ui" line="66"/>
@@ -74,7 +73,7 @@ Please specify the name of this terminal:</translation>
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Die hier konfigurierbaren &quot;Workarounds&quot; aktivieren einen Modus, der die GUI nicht 1:1 ausliest und speichert, sondern beim Auslesen beachtet, das z.B. Scrollbalken, etc. automatisch hinzugefügt werden.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;These workarounds take affect when parsing the GUI of applications. They take special widgets into consideration (e.g. scroll-bars) and adjust the parsing accordingly.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;These workarounds take affect when parsing the GUI of applications. They take special widgets into consideration (e.g. scroll-bars) and adjust the parsing accordingly.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -193,7 +192,7 @@ After that you can use the word list manager to control and if required delete t
     <message>
         <location filename="addwordintropage.cpp" line="26"/>
         <source>Hinzuf&#xfc;gen eines neuen Wortes</source>
-        <translation>Add new word</translation>
+        <translation type="obsolete">Add new word</translation>
     </message>
     <message>
         <location filename="addwordintropage.cpp" line="28"/>
@@ -203,14 +202,14 @@ bitte den Namen des Wortes an
 und best&#xe4;tigen Sie mit &quot;Weiter&quot;:
 
 </source>
-        <translation>By this assistant you can add new words to the language model.
+        <translation type="obsolete">By this assistant you can add new words to the language model.
 Just enter the name of the word and click the &quot;Continue&quot;-Button:
 </translation>
     </message>
     <message>
         <location filename="addwordintropage.cpp" line="30"/>
         <source>Neues Wort:</source>
-        <translation>New word:</translation>
+        <translation type="obsolete">New word:</translation>
     </message>
     <message>
         <location filename="addwordintropage.cpp" line="39"/>
@@ -220,7 +219,7 @@ Just enter the name of the word and click the &quot;Continue&quot;-Button:
     <message>
         <location filename="addwordintropage.cpp" line="38"/>
         <source>wordNameIntro*</source>
-        <translation>wordNameIntro*</translation>
+        <translation type="obsolete">wordNameIntro*</translation>
     </message>
 </context>
 <context>
@@ -228,7 +227,7 @@ Just enter the name of the word and click the &quot;Continue&quot;-Button:
     <message>
         <location filename="addwordrecordpage.cpp" line="29"/>
         <source>Aufnehmen des Wortes</source>
-        <translation>Record the word</translation>
+        <translation type="obsolete">Record the word</translation>
     </message>
     <message>
         <location filename="addwordrecordpage.cpp" line="32"/>
@@ -237,7 +236,7 @@ Just enter the name of the word and click the &quot;Continue&quot;-Button:
 Bitte achten Sie darauf, das Wort deutlich, aber nat&#xfc;rlich
 auszusprechen und vermeiden Sie Hintergrundger&#xe4;usche.
 </source>
-        <translation>Please record the word, that should now be added two times.
+        <translation type="obsolete">Please record the word, that should now be added two times.
 
 Please make sure, that you speak the word clearly, but 
 naturally and avoid background noise.</translation>
@@ -255,24 +254,24 @@ naturally and avoid background noise.</translation>
     <message>
         <location filename="addwordrecordpage.cpp" line="87"/>
         <source>1: %1</source>
-        <translation>1: %1</translation>
+        <translation type="obsolete">1: %1</translation>
     </message>
     <message>
         <location filename="addwordrecordpage.cpp" line="88"/>
         <source>2: %1</source>
-        <translation>2: %1</translation>
+        <translation type="obsolete">2: %1</translation>
     </message>
     <message>
         <location filename="addwordrecordpage.cpp" line="83"/>
         <source>Konnte Pfad nicht anlegen</source>
-        <translation>Couldn&apos;t create path</translation>
+        <translation type="obsolete">Couldn&apos;t create path</translation>
     </message>
     <message>
         <location filename="addwordrecordpage.cpp" line="83"/>
         <source>Konnte Pfad nicht erstellen.
 
 Bitte &#xfc;berpr&#xfc;fen Sie Ihre Schreibrechte im konfigurierten Sample-Pfad</source>
-        <translation>Couldn&apos;t create path.
+        <translation type="obsolete">Couldn&apos;t create path.
 
 Please check permissions</translation>
     </message>
@@ -290,7 +289,7 @@ Please check permissions</translation>
     <message>
         <location filename="addwordview.cpp" line="203"/>
         <source>Wort hinzuf&#xfc;gen</source>
-        <translation>Add word</translation>
+        <translation type="obsolete">Add word</translation>
     </message>
     <message>
         <location filename="addwordview.cpp" line="61"/>
@@ -300,7 +299,7 @@ Please check permissions</translation>
     <message>
         <location filename="addwordview.cpp" line="139"/>
         <source>Hinzuf&#xfc;gen des Wortes</source>
-        <translation>Add the word</translation>
+        <translation type="obsolete">Add the word</translation>
     </message>
     <message>
         <location filename="addwordview.cpp" line="141"/>
@@ -313,7 +312,7 @@ Hintergrundger&#xe4;uschen beeintr&#xe4;chtigt werden.
 
 Klicken Sie auf &quot;Fertigstellen&quot; um den Wizard 
 abzuschlie&#xdf;en.</source>
-        <translation>All requiered informations are collected.
+        <translation type="obsolete">All requiered informations are collected.
 
 Simon is now able to learn the new word.
 Please control before you affirm here,
@@ -325,41 +324,41 @@ Click on the &quot;Finish&quot;-Button to close the wizard.
     <message>
         <location filename="addwordview.cpp" line="163"/>
         <source>[INF] F&#xfc;ge neues Wort zum Modell hinzu...</source>
-        <translation>[INF] Add new word to the language model...</translation>
+        <translation type="obsolete">[INF] Add new word to the language model...</translation>
     </message>
     <message>
         <location filename="addwordview.cpp" line="164"/>
         <source>[INF] Neues Wort lautet: </source>
-        <translation>[INF] The new word reads as follows:</translation>
+        <translation type="obsolete">[INF] The new word reads as follows:</translation>
     </message>
     <message>
         <location filename="addwordview.cpp" line="182"/>
         <source>[INF] Wort hinzugef&#xfc;gt: </source>
-        <translation>[INF] Word added:</translation>
+        <translation type="obsolete">[INF] Word added:</translation>
     </message>
     <message>
         <location filename="addwordview.cpp" line="79"/>
         <source>Bisherige W&#xf6;rter hinzuf&#xfc;gen</source>
-        <translation>Add collected words.</translation>
+        <translation type="obsolete">Add collected words.</translation>
     </message>
     <message>
         <location filename="addwordview.cpp" line="79"/>
         <source>Wollen Sie die bisher fertig beschriebenen W&#xf6;rter dieses Durchlaufes hinzuf&#xfc;gen?</source>
-        <translation>Do you want to add the already completely specified words?</translation>
+        <translation type="obsolete">Do you want to add the already completely specified words?</translation>
     </message>
     <message>
         <location filename="addwordview.cpp" line="203"/>
         <source>Es wurde erkannt, dass das Wort &quot;%1&quot; im Sprachmodell fehlt.
 
 Wollen Sie es jetzt hinzuf&#xfc;gen?</source>
-        <translation>The word &quot;%1&quot; is probably missing.
+        <translation type="obsolete">The word &quot;%1&quot; is probably missing.
 
 Do you want to add it now?</translation>
     </message>
     <message>
         <location filename="addwordview.cpp" line="226"/>
         <source>Fehlende W&#xf6;rter</source>
-        <translation>Missing words</translation>
+        <translation type="obsolete">Missing words</translation>
     </message>
     <message>
         <location filename="addwordview.cpp" line="226"/>
@@ -367,7 +366,7 @@ Do you want to add it now?</translation>
 %1
 
 Wollen Sie diese W&#xf6;rter jetzt hinzuf&#xfc;gen?</source>
-        <translation>The selected trainingstext contains unknown words. These are:
+        <translation type="obsolete">The selected trainingstext contains unknown words. These are:
 %1
 
 Do you want to add these words now?</translation>
@@ -375,14 +374,14 @@ Do you want to add these words now?</translation>
     <message>
         <location filename="addwordview.cpp" line="254"/>
         <source>Wort hinzuf&#xfc;gen Abbrechen?</source>
-        <translation>Abort adding word?</translation>
+        <translation type="obsolete">Abort adding word?</translation>
     </message>
     <message>
         <location filename="addwordview.cpp" line="254"/>
         <source>Es wurde erkannt, dass gerade ein Wort hinzugef&#xfc;gt wird.
 
 Wollen Sie das aktuelle Hinzuf&#xfc;gen abbrechen?</source>
-        <translation>A is currently being added.
+        <translation type="obsolete">A is currently being added.
 
 Do you want to abort this operation?</translation>
     </message>
@@ -396,7 +395,7 @@ Do you want to abort this operation?</translation>
 Bitte &#xfc;berpr&#xfc;fen Sie ob Sie das Paket &quot;bzip2&quot; installiert haben und der Pfad richtig gesetzt ist(%1).
 
 (R&#xfc;ckgabewert %2)</source>
-        <translation>There is an error occured while extracting.
+        <translation type="obsolete">There is an error occured while extracting.
 
 Please check if the package &quot;bzip2&quot; is installed and the path is setted correctly(%1).
 
@@ -405,7 +404,7 @@ Please check if the package &quot;bzip2&quot; is installed and the path is sette
     <message>
         <location filename="bunzip.cpp" line="102"/>
         <source>[ERR] Programm &quot;bzip2 -d&quot; gab nicht %1 zur&#xfc;ck</source>
-        <translation>[ERR] Programm &quot;bzip2 -d&quot; didn&apos;t give %1 back</translation>
+        <translation type="obsolete">[ERR] Programm &quot;bzip2 -d&quot; didn&apos;t give %1 back</translation>
     </message>
 </context>
 <context>
@@ -421,32 +420,32 @@ Please check if the package &quot;bzip2&quot; is installed and the path is sette
     <message>
         <location filename="commandsettings.cpp" line="42"/>
         <source>Kommandos</source>
-        <translation>Commands</translation>
+        <translation type="obsolete">Commands</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="67"/>
         <source>Hier k&#xf6;nnen Sie Programme und Orte importieren und vorhandene Kommandos bearbeiten</source>
-        <translation>Here you can import programms and locations and edit existing commands</translation>
+        <translation type="obsolete">Here you can import programms and locations and edit existing commands</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="53"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation type="obsolete">Name</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="54"/>
         <source>Typ</source>
-        <translation>Type</translation>
+        <translation type="obsolete">Type</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="55"/>
         <source>Wert</source>
-        <translation>Value</translation>
+        <translation type="obsolete">Value</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="111"/>
         <source>[INF] Speichere Kommandos...</source>
-        <translation>[INF]Saving commands...</translation>
+        <translation type="obsolete">[INF]Saving commands...</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="154"/>
@@ -456,32 +455,32 @@ Please check if the package &quot;bzip2&quot; is installed and the path is sette
     <message>
         <location filename="commandsettings.cpp" line="166"/>
         <source>[INF] Habe </source>
-        <translation>[INF] Have </translation>
+        <translation type="obsolete">[INF] Have </translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="166"/>
         <source>Kommandos gefunden</source>
-        <translation>Found commands</translation>
+        <translation type="obsolete">Found commands</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="1098"/>
         <source>Orte</source>
-        <translation>Places</translation>
+        <translation type="obsolete">Places</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="1100"/>
         <source>Sonderzeichen</source>
-        <translation>Special characters</translation>
+        <translation type="obsolete">Special characters</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="1101"/>
         <source>Programme</source>
-        <translation>Programs</translation>
+        <translation type="obsolete">Programs</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="820"/>
         <source>Name existiert bereits</source>
-        <translation>Name already exists</translation>
+        <translation type="obsolete">Name already exists</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="781"/>
@@ -489,7 +488,7 @@ Please check if the package &quot;bzip2&quot; is installed and the path is sette
 Bitte &#xe4;ndern Sie den Namen des neuen Kommandos.
 
 Wollen Sie den Wizard nun verlassen? (Klicken Sie Nein, um den Namen zu &#xe4;ndern!</source>
-        <translation>This name was already been used for another command!
+        <translation type="obsolete">This name was already been used for another command!
 Please change the name of the new command.
 
 Do you want to exit the wizard now? (Click &quot;no&quot; to change the name!</translation>
@@ -500,7 +499,7 @@ Do you want to exit the wizard now? (Click &quot;no&quot; to change the name!</t
 Bitte geben Sie einen anderen Namen f&#xfc;r dieses Kommando ein.
 
 Wollen Sie das Kommando l&#xf6;schen? (Klicken Sie Nein, um den Namen jetzt zu &#xe4;ndern)</source>
-        <translation>This name already exists for another command!
+        <translation type="obsolete">This name already exists for another command!
 Please type another name for this command.
 
 Do you want to delete this command? (Klick &quot;no&quot;, to change the name now)</translation>
@@ -508,7 +507,7 @@ Do you want to delete this command? (Klick &quot;no&quot;, to change the name no
     <message>
         <location filename="commandsettings.cpp" line="865"/>
         <source>Wert existiert bereits</source>
-        <translation>This value already exists</translation>
+        <translation type="obsolete">This value already exists</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="860"/>
@@ -522,7 +521,7 @@ Do you want to change the value now? (Click &quot;no&quot; to hold this value)</
     <message>
         <location filename="commandsettings.cpp" line="899"/>
         <source>Leeres Kommandofeld</source>
-        <translation>Empty command-field</translation>
+        <translation type="obsolete">Empty command-field</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="899"/>
@@ -530,7 +529,7 @@ Do you want to change the value now? (Click &quot;no&quot; to hold this value)</
 Jedes Kommando muss einen Namen, Wert und Typ besitzen.
 
 Wollen Sie diesen Eintrag jetzt l&#xf6;schen? (Klicken Sie Nein, um das Kommando jetzt zu vervollst&#xe4;ndigen)</source>
-        <translation>This command wasn&apos;t filled out completely.
+        <translation type="obsolete">This command wasn&apos;t filled out completely.
 Every command must have a name, a value and a type.
 
 Do you want to delete this entry? (Click &quot;no&quot; to complete the command now)</translation>
@@ -538,19 +537,19 @@ Do you want to delete this entry? (Click &quot;no&quot; to complete the command 
     <message>
         <location filename="commandsettings.cpp" line="52"/>
         <source>Icon</source>
-        <translation>Icon</translation>
+        <translation type="obsolete">Icon</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="56"/>
         <source>Arbeitspfad</source>
-        <translation>Workpath</translation>
+        <translation type="obsolete">Workpath</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="865"/>
         <source>Dieser Wert existiert bereits!
 
 Wollen Sie den Wert jetzt &#xe4;ndern? (Klicken Sie Nein, um den Wert jetzt zu behalten)</source>
-        <translation>This value already exists. Do you want to change it now? (Click no to keep it)</translation>
+        <translation type="obsolete">This value already exists. Do you want to change it now? (Click no to keep it)</translation>
     </message>
 </context>
 <context>
@@ -558,97 +557,97 @@ Wollen Sie den Wert jetzt &#xe4;ndern? (Klicken Sie Nein, um den Wert jetzt zu b
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="23"/>
         <source>&amp;Suchen:</source>
-        <translation>&amp;Search:</translation>
+        <translation type="obsolete">&amp;Search:</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/commandsettingsdlg.ui" line="33"/>
         <source>Schränkt die Liste auf die Eingabe ein</source>
-        <translation>Reduces the list on the entry</translation>
+        <translation type="obsolete">Reduces the list on the entry</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/commandsettingsdlg.ui" line="46"/>
         <source>Zurücksetzen der Suche</source>
-        <translation>Reset of the searching</translation>
+        <translation type="obsolete">Reset of the searching</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="49"/>
         <source>&amp;x</source>
-        <translation>&amp;x</translation>
+        <translation type="obsolete">&amp;x</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="56"/>
         <source>Anzei&amp;gen:</source>
-        <translation>Sh&amp;ow:</translation>
+        <translation type="obsolete">Sh&amp;ow:</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/commandsettingsdlg.ui" line="66"/>
         <source>Schränkt die Ausgabe auf gewisse Gruppen ein</source>
-        <translation>Reduces the output on a certain group</translation>
+        <translation type="obsolete">Reduces the output on a certain group</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="70"/>
         <source>Alles</source>
-        <translation>All</translation>
+        <translation type="obsolete">All</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="78"/>
         <source>Programme</source>
-        <translation>Programs</translation>
+        <translation type="obsolete">Programs</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="86"/>
         <source>Orte</source>
-        <translation>Places</translation>
+        <translation type="obsolete">Places</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="189"/>
         <source>Sonderzeichen</source>
-        <translation>Special characters</translation>
+        <translation type="obsolete">Special characters</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/commandsettingsdlg.ui" line="112"/>
         <source>Schlüssel Wort</source>
-        <translation>Keyword</translation>
+        <translation type="obsolete">Keyword</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="140"/>
         <source>Neu</source>
-        <translation>New</translation>
+        <translation type="obsolete">New</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="159"/>
         <source>Programm importieren</source>
-        <translation>Import program</translation>
+        <translation type="obsolete">Import program</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="169"/>
         <source>Ort importieren</source>
-        <translation>Import a place</translation>
+        <translation type="obsolete">Import a place</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="179"/>
         <source>Manuell</source>
-        <translation>manuel</translation>
+        <translation type="obsolete">manuel</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="208"/>
         <source>Bearbeiten</source>
-        <translation>Edit</translation>
+        <translation type="obsolete">Edit</translation>
     </message>
     <message>
         <location filename="ui/commandsettingsdlg.ui" line="224"/>
         <source>Kommando bearbeiten</source>
-        <translation>Edit commands</translation>
+        <translation type="obsolete">Edit commands</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/commandsettingsdlg.ui" line="234"/>
         <source>Kommando löschen</source>
-        <translation>Delete command</translation>
+        <translation type="obsolete">Delete command</translation>
     </message>
 </context>
 <context>
@@ -656,12 +655,12 @@ Wollen Sie den Wert jetzt &#xe4;ndern? (Klicken Sie Nein, um den Wert jetzt zu b
     <message>
         <location filename="configureplacepage.cpp" line="30"/>
         <source>Name: </source>
-        <translation>Name: </translation>
+        <translation type="obsolete">Name: </translation>
     </message>
     <message>
         <location filename="configureplacepage.cpp" line="37"/>
         <source>Pfad: </source>
-        <translation>Path: </translation>
+        <translation type="obsolete">Path: </translation>
     </message>
     <message>
         <location filename="configureplacepage.cpp" line="57"/>
@@ -669,7 +668,7 @@ Wollen Sie den Wert jetzt &#xe4;ndern? (Klicken Sie Nein, um den Wert jetzt zu b
 
 Hier k&#xf6;nnen Sie falls n&#xf6;tig die Werte &#xe4;ndern.
 </source>
-        <translation>You have choosen a location with the values, which are listed below. 
+        <translation type="obsolete">You have choosen a location with the values, which are listed below. 
 
 Here you can edit the values if necessary.
 </translation>
@@ -680,17 +679,17 @@ Here you can edit the values if necessary.
     <message>
         <location filename="configureprogrampage.cpp" line="38"/>
         <source>Name: </source>
-        <translation>Name: </translation>
+        <translation type="obsolete">Name: </translation>
     </message>
     <message>
         <location filename="configureprogrampage.cpp" line="41"/>
         <source>Program: </source>
-        <translation>Program: </translation>
+        <translation type="obsolete">Program: </translation>
     </message>
     <message>
         <location filename="configureprogrampage.cpp" line="44"/>
         <source>Arbeitspfad: </source>
-        <translation>Working path: </translation>
+        <translation type="obsolete">Working path: </translation>
     </message>
     <message>
         <location filename="configureprogrampage.cpp" line="82"/>
@@ -698,14 +697,14 @@ Here you can edit the values if necessary.
 
 Hier k&#xf6;nnen Sie nun weitere Einstellungen vornehmen.
 </source>
-        <translation>You have choosen the program %1. 
+        <translation type="obsolete">You have choosen the program %1. 
 
 Here you can make the additional settings.</translation>
     </message>
     <message>
         <location filename="configureprogrampage.cpp" line="35"/>
         <source>Icon: </source>
-        <translation>Icon: </translation>
+        <translation type="obsolete">Icon: </translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -713,7 +712,7 @@ Here you can make the additional settings.</translation>
     <message>
         <location filename="ui/configuretriggerspage.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/configuretriggerspage.ui" line="19"/>
@@ -722,7 +721,7 @@ Here you can make the additional settings.</translation>
 Diese Schlüsselwörter geben an, dass das nachfolgende Wort ein Kommando oder eine Aktion repräsentiert, und nicht geschrieben sondern ausgeführt werden soll.
 
 Diese Wörter werden in simon &quot;Trigger&quot; genannt.</source>
-        <translation>Simon has certain keywords, which cause special actions.
+        <translation type="obsolete">Simon has certain keywords, which cause special actions.
 
 This keywords declare, that the following word is a command or an action, und shouldn&apos;t be written, but executed.
 
@@ -731,22 +730,22 @@ These words are called &quot;trigger&quot; in simon.</translation>
     <message>
         <location filename="ui/configuretriggerspage.ui" line="48"/>
         <source>Haupt-Trigger:</source>
-        <translation>Main-Trigger:</translation>
+        <translation type="obsolete">Main-Trigger:</translation>
     </message>
     <message>
         <location filename="ui/configuretriggerspage.ui" line="60"/>
         <source>Der Haupttrigger zeigt Kommandos an.</source>
-        <translation>The main trigger shows commands.</translation>
+        <translation type="obsolete">The main trigger shows commands.</translation>
     </message>
     <message>
         <location filename="ui/configuretriggerspage.ui" line="85"/>
         <source>Desktopgitter-Trigger:</source>
-        <translation>Desktopgrid-Trigger:</translation>
+        <translation type="obsolete">Desktopgrid-Trigger:</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/configuretriggerspage.ui" line="97"/>
         <source>Der Desktopgitter-Trigger gibt an, bei welchem Schlüsselwort das Desktopgitter angezeigt werden soll.</source>
-        <translation>The desktopgrid-trigger declares the keyword to show the desktopgrid.</translation>
+        <translation type="obsolete">The desktopgrid-trigger declares the keyword to show the desktopgrid.</translation>
     </message>
 </context>
 <context>
@@ -754,29 +753,29 @@ These words are called &quot;trigger&quot; in simon.</translation>
     <message>
         <location filename="dbusbackend.cpp" line="51"/>
         <source>Konnte Liste nicht empfangen</source>
-        <translation>Couldn&apos;t get list</translation>
+        <translation type="obsolete">Couldn&apos;t get list</translation>
     </message>
     <message>
         <location filename="dbusbackend.cpp" line="51"/>
         <source>Konnte Liste der verf&#xfc;gbaren DBus Services nicht empfangen</source>
-        <translation>Couldn&apos;t get list of available DBus services.</translation>
+        <translation type="obsolete">Couldn&apos;t get list of available DBus services.</translation>
     </message>
     <message>
         <location filename="dbusbackend.cpp" line="121"/>
         <source>Konnte %1 nicht aufl&#xf6;sen...</source>
-        <translation>Couldn&apos;t resolve %1...</translation>
+        <translation type="obsolete">Couldn&apos;t resolve %1...</translation>
     </message>
     <message>
         <location filename="dbusbackend.cpp" line="312"/>
         <source>Jackpot!</source>
-        <translation>Jackpot!</translation>
+        <translation type="obsolete">Jackpot!</translation>
     </message>
     <message>
         <location filename="dbusbackend.cpp" line="312"/>
         <source>You encountered an IMPOSSIBLE error!
 
 Have a cookie!</source>
-        <translation>You have ancountered an IMPOSSIBLE error!
+        <translation type="obsolete">You have ancountered an IMPOSSIBLE error!
 
 Have a cookie!</translation>
     </message>
@@ -786,12 +785,12 @@ Have a cookie!</translation>
     <message>
         <location filename="ui/definiedefaultvaluesdlg.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/definiedefaultvaluesdlg.ui" line="19"/>
         <source>Fülle Konfiguration mit Standard-Werten...</source>
-        <translation>Filling configuration with standard values...</translation>
+        <translation type="obsolete">Filling configuration with standard values...</translation>
     </message>
 </context>
 <context>
@@ -799,12 +798,12 @@ Have a cookie!</translation>
     <message>
         <location filename="desktopgridconfiguration.cpp" line="20"/>
         <source>Desktop-Gitter</source>
-        <translation>Desktop-grid</translation>
+        <translation type="obsolete">Desktop-grid</translation>
     </message>
     <message>
         <location filename="desktopgridconfiguration.cpp" line="20"/>
         <source>Konfigurieren Sie das Gitter das die Mausdr&#xfc;cke-Simmulation erleichtert</source>
-        <translation>Config the grid, which simplifies the mouseclick-simulation</translation>
+        <translation type="obsolete">Config the grid, which simplifies the mouseclick-simulation</translation>
     </message>
     <message>
         <location filename="desktopgridconfiguration.cpp" line="22"/>
@@ -817,7 +816,7 @@ Microsoft Windows: Windows 2000/XP/Vista
 sollten Sie hier ja sagen.
 
 Wenn das Gitter dann nicht transparent angezeigt werden sollte, sagen Sie hier bitte nein.</source>
-        <translation>If you have a composite-able Desktop, simon is able to simulate transperency.
+        <translation type="obsolete">If you have a composite-able Desktop, simon is able to simulate transperency.
 
 If you use a composite-able Desktop such as.: 
 Linux: Beryl/Compiz/Kwin (&gt;= KDE 4.0)
@@ -833,27 +832,135 @@ If the grid should not be displayed transparent, you should click &quot;No&quot;
     <message>
         <location filename="ui/desktopgridconfigurationdlg.ui" line="13"/>
         <source>Desktopgitter</source>
-        <translation>Desktop-Grid</translation>
+        <translation type="obsolete">Desktop-Grid</translation>
     </message>
     <message>
         <location filename="ui/desktopgridconfigurationdlg.ui" line="19"/>
         <source>Allgemeines</source>
-        <translation>General</translation>
+        <translation type="obsolete">General</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/desktopgridconfigurationdlg.ui" line="28"/>
         <source>Auslöser:</source>
-        <translation>Triggers:</translation>
+        <translation type="obsolete">Triggers:</translation>
     </message>
     <message>
         <location filename="ui/desktopgridconfigurationdlg.ui" line="54"/>
         <source>Technisches</source>
-        <translation>Technical</translation>
+        <translation type="obsolete">Technical</translation>
     </message>
     <message>
         <location filename="ui/desktopgridconfigurationdlg.ui" line="63"/>
         <source>&quot;Echte&quot; Transparenz verwenden</source>
-        <translation>Use &quot;real&quot; transparency </translation>
+        <translation type="obsolete">Use &quot;real&quot; transparency </translation>
+    </message>
+</context>
+<context>
+    <name>DlgModifyCommands</name>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="13"/>
+        <source>Kommando: konqueror</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Commands/modifycommands.ui" line="25"/>
+        <source>Name (Auslöser):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="191"/>
+        <source>konqueror</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="77"/>
+        <source>Typ:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="85"/>
+        <source>Program</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="94"/>
+        <source>Ort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Commands/modifycommands.ui" line="103"/>
+        <source>Tastenkürzel</source>
+        <translation type="unfinished">Shortcut</translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="112"/>
+        <source>Sonderzeichen</source>
+        <translation type="unfinished">Special characters</translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="155"/>
+        <source>Programm importieren</source>
+        <translation type="unfinished">Import program</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Commands/modifycommands.ui" line="158"/>
+        <source>Hier können Sie installierte Programme automatisch importieren. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="253"/>
+        <source>Manuell</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Commands/modifycommands.ui" line="259"/>
+        <source>Notwendigen Parameter händisch konfigurieren.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Commands/modifycommands.ui" line="181"/>
+        <source>Ausführbare Datei:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="201"/>
+        <source>Arbeitspfad:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="211"/>
+        <source>/home/bedahr/Daten</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="243"/>
+        <source>Ort importieren</source>
+        <translation type="unfinished">Import a place</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Commands/modifycommands.ui" line="246"/>
+        <source>Dieser Assistent kann Ihnen helfen, lokale und entfernte Orte mit Kommandos zu verknüpfen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="269"/>
+        <source>Ort:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="279"/>
+        <source>/home/bedahr/Test</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Commands/modifycommands.ui" line="313"/>
+        <source>Tastenkürzel:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/modifycommands.ui" line="354"/>
+        <source>Assozierter Text:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -861,61 +968,61 @@ If the grid should not be displayed transparent, you should click &quot;No&quot;
     <message>
         <location filename="ui/removeword.ui" line="13"/>
         <source>Wort Entfernen</source>
-        <translation>Remove word</translation>
+        <translation type="obsolete">Remove word</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/removeword.ui" line="27"/>
         <source>Sie haben ein Wort zum Löschen ausgewählt.
 
 &quot;Löschen&quot; eines Wortes kann in simon zwei Bedeutungen haben.</source>
-        <translation>You have chosen a word to delete.
+        <translation type="obsolete">You have chosen a word to delete.
 
 &quot;Deleting&quot; a word can have two meanings.</translation>
     </message>
     <message>
         <location filename="ui/removeword.ui" line="113"/>
         <source>Name:</source>
-        <translation>Name:</translation>
+        <translation type="obsolete">Name:</translation>
     </message>
     <message>
         <location filename="ui/removeword.ui" line="120"/>
         <source>Aussprache:</source>
-        <translation>Pronunciation</translation>
+        <translation type="obsolete">Pronunciation</translation>
     </message>
     <message>
         <location filename="ui/removeword.ui" line="127"/>
         <source>Terminal:</source>
-        <translation>Terminal:</translation>
+        <translation type="obsolete">Terminal:</translation>
     </message>
     <message>
         <location filename="ui/removeword.ui" line="134"/>
         <source>Erkennungsrate:</source>
-        <translation>Recognition rate:</translation>
+        <translation type="obsolete">Recognition rate:</translation>
     </message>
     <message>
         <location filename="ui/removeword.ui" line="162"/>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="obsolete">TextLabel</translation>
     </message>
     <message>
         <location filename="ui/removeword.ui" line="187"/>
         <source>Das Wort aus dem aktiven Wortschatz entfernen</source>
-        <translation>Delete word from the active vocabulary</translation>
+        <translation type="obsolete">Delete word from the active vocabulary</translation>
     </message>
     <message>
         <location filename="ui/removeword.ui" line="215"/>
         <source>Das Wort bleibt weiter gespeichert, wird allerdings bei der Erkennung nicht mehr in Betracht gezogen.  Alle Trainings- und Sprachsamples die das Wort beihnalten werden entfernt.</source>
-        <translation>The word stays saved, but it will not be considered for the recognition.  All trainings- and speechsamples, which contain the word will be removed.</translation>
+        <translation type="obsolete">The word stays saved, but it will not be considered for the recognition.  All trainings- and speechsamples, which contain the word will be removed.</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/removeword.ui" line="227"/>
         <source>Das Wort unwiederruflich löschen</source>
-        <translation>The word will be deleted completely</translation>
+        <translation type="obsolete">The word will be deleted completely</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/removeword.ui" line="252"/>
         <source>Das unwiederrufliche Löschen entfernt das Wort aus dem aktiven- und dem Schattenlexikon und entfernt alle Trainings- und Sprachsamples die das Wort betreffen.</source>
-        <translation>The unrecallable deleting removes the word from the active and the shadow-dict and also removes all trainings- and speechsamples, which involve the word.</translation>
+        <translation type="obsolete">The unrecallable deleting removes the word from the active and the shadow-dict and also removes all trainings- and speechsamples, which involve the word.</translation>
     </message>
 </context>
 <context>
@@ -923,7 +1030,7 @@ If the grid should not be displayed transparent, you should click &quot;No&quot;
     <message>
         <location filename="dragtablewidget.cpp" line="99"/>
         <source>Ziehe das Wort in die Liste rechts um es zu trainieren</source>
-        <translation>Pull the word in the right list to train it</translation>
+        <translation type="obsolete">Pull the word in the right list to train it</translation>
     </message>
 </context>
 <context>
@@ -931,23 +1038,23 @@ If the grid should not be displayed transparent, you should click &quot;No&quot;
     <message>
         <location filename="droplistwidget.cpp" line="57"/>
         <source>text/plain</source>
-        <translation>text/plain</translation>
+        <translation type="obsolete">text/plain</translation>
     </message>
 </context>
 <context>
     <name>ExternalProgramManager</name>
     <message>
-        <location filename="externalprogrammanager.cpp" line="23"/>
+        <location filename="GeneralConfiguration/externalprogrammanager.cpp" line="23"/>
         <source>Externe Programme</source>
         <translation>Extern programs</translation>
     </message>
     <message>
-        <location filename="externalprogrammanager.cpp" line="23"/>
+        <location filename="GeneralConfiguration/externalprogrammanager.cpp" line="23"/>
         <source>Externe Programme verwalten</source>
         <translation>Administrate extern programs</translation>
     </message>
     <message>
-        <location filename="externalprogrammanager.cpp" line="40"/>
+        <location filename="GeneralConfiguration/externalprogrammanager.cpp" line="40"/>
         <source>Setzen Sie Pfade zu den externen Programmen, die simon erweitern.</source>
         <translation>Set the path to external programs.</translation>
     </message>
@@ -955,12 +1062,12 @@ If the grid should not be displayed transparent, you should click &quot;No&quot;
 <context>
     <name>ExternalProgrammsDlg</name>
     <message>
-        <location filename="ui/externalprogramms.ui" line="13"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="13"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="22"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="24"/>
         <source>HTK Programme</source>
         <translation>HTK programms</translation>
     </message>
@@ -985,37 +1092,37 @@ If the grid should not be displayed transparent, you should click &quot;No&quot;
         <translation type="obsolete">prompts2wlist:</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="33"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="35"/>
         <source>HDMan:</source>
         <translation>HDMan:</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="43"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="45"/>
         <source>HLEd:</source>
         <translation>HLEd:</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="53"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="55"/>
         <source>HCopy:</source>
         <translation>HCopy:</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="63"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="65"/>
         <source>HCompV:</source>
         <translation>HCompV:</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="106"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="112"/>
         <source>HERest:</source>
         <translation>HERest:</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="116"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="122"/>
         <source>HHEd:</source>
         <translation>HHEd:</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="126"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="132"/>
         <source>HVite:</source>
         <translation>HVite:</translation>
     </message>
@@ -1035,7 +1142,7 @@ If the grid should not be displayed transparent, you should click &quot;No&quot;
         <translation type="obsolete">Resample:</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="154"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="160"/>
         <source>Dateibearbeitung</source>
         <translation>file handling</translation>
     </message>
@@ -1055,22 +1162,22 @@ If the grid should not be displayed transparent, you should click &quot;No&quot;
         <translation type="obsolete">Perl:</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="163"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="169"/>
         <source>Bzip2:</source>
         <translation>Bzip2:</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="183"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="189"/>
         <source>Julius</source>
         <translation>Julius</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="192"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="198"/>
         <source>mkfa:</source>
         <translation>mkfa:</translation>
     </message>
     <message>
-        <location filename="ui/externalprogramms.ui" line="216"/>
+        <location filename="GeneralConfiguration/externalprogramms.ui" line="222"/>
         <source>dfa_minimize:</source>
         <translation>dfa_minimize:</translation>
     </message>
@@ -1080,7 +1187,7 @@ If the grid should not be displayed transparent, you should click &quot;No&quot;
     <message>
         <location filename="firstruncreatedictionarypage.cpp" line="24"/>
         <source>Lese Konfiguration...</source>
-        <translation>Reading konfiguration...</translation>
+        <translation type="obsolete">Reading konfiguration...</translation>
     </message>
 </context>
 <context>
@@ -1088,7 +1195,7 @@ If the grid should not be displayed transparent, you should click &quot;No&quot;
     <message>
         <location filename="firstrunimportgrammardescriptionpage.cpp" line="18"/>
         <source>Grammatik</source>
-        <translation>Grammar</translation>
+        <translation type="obsolete">Grammar</translation>
     </message>
 </context>
 <context>
@@ -1096,12 +1203,12 @@ If the grid should not be displayed transparent, you should click &quot;No&quot;
     <message>
         <location filename="firstrunwizard.cpp" line="62"/>
         <source>simon Erstkonfiguration</source>
-        <translation>simon initial configuration</translation>
+        <translation type="obsolete">simon initial configuration</translation>
     </message>
     <message>
         <location filename="firstrunwizard.cpp" line="409"/>
         <source>Willkommen bei simon</source>
-        <translation>Welcome to simon</translation>
+        <translation type="obsolete">Welcome to simon</translation>
     </message>
     <message>
         <location filename="firstrunwizard.cpp" line="410"/>
@@ -1110,7 +1217,7 @@ If the grid should not be displayed transparent, you should click &quot;No&quot;
 Alle Einstellungen die Sie in diesem Assistenten treffen k&#xf6;nnen sp&#xe4;ter &#xfc;ber das Systemmen&#xfc; wieder ge&#xe4;ndert werden. Bitte beachten Sie, das die Einstellungen hier essientiell f&#xfc;r die Funktionst&#xfc;chtigkeit von simon sind.
 
 Sollten Sie sich bei einigen Punkten nicht sicher sein, sehen Sie bitte im Handbuch nach oder fragen Sie gegebenenfalls ihren Systemadministrator.</source>
-        <translation>This assistent will help you to configure simon
+        <translation type="obsolete">This assistent will help you to configure simon
 
 All settings, which are setted in this assistent, can be edited later in the system menu. Please consider, that the settings here are essential for the functionality of simon.
 
@@ -1119,7 +1226,7 @@ If you are not sure in some points, please have a look at the handbook or ask th
     <message>
         <location filename="firstrunwizard.cpp" line="506"/>
         <source>Konfiguration abgeschlossen</source>
-        <translation>Configuration completed</translation>
+        <translation type="obsolete">Configuration completed</translation>
     </message>
     <message>
         <location filename="firstrunwizard.cpp" line="49"/>
@@ -1143,37 +1250,37 @@ You can edit all settings in the system menu.</translation>
     <message>
         <location filename="firstrunwizard.cpp" line="290"/>
         <source>&#xdc;ber den Passwortschutz</source>
-        <translation>About the password protection</translation>
+        <translation type="obsolete">About the password protection</translation>
     </message>
     <message>
         <location filename="firstrunwizard.cpp" line="291"/>
         <source>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;simon unterscheidet generell zwischen normaler Benutzung (dies umfasst das Trainieren, Hinzuf&#xfc;gen von W&#xf6;rtern, durchsuchen der Wortliste, etc.) und einem &quot;Systemverwaltungsmodus&quot;. Dieser umfasst zum Beispiel die Systemeinstellungen.&lt;/p&gt;&lt;p&gt;Der Systemverwaltungsmodus kann mit einem Passwort gegen unlauteren Zugriff gesperrt werden. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;Simon differentiates generally between normal use (which is the training, add new words, browse through the wordlist, and so on) and a systemadministrationmode. This mode includes for example the system settings.&lt;/p&gt;&lt;p&gt;The systemadministrationmode can be blocked by a password. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;Simon differentiates generally between normal use (which is the training, add new words, browse through the wordlist, and so on) and a systemadministrationmode. This mode includes for example the system settings.&lt;/p&gt;&lt;p&gt;The systemadministrationmode can be blocked by a password. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="firstrunwizard.cpp" line="322"/>
         <source>&#xdc;ber Juliusd</source>
-        <translation>About juliusd</translation>
+        <translation type="obsolete">About juliusd</translation>
     </message>
     <message>
         <location filename="firstrunwizard.cpp" line="323"/>
         <source>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;Das simon-System besteht eigentlich aus zwei Teilen:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;simon (client; Dieses Programm)&lt;li&gt;juliusd (server, verwaltet julius)&lt;/ul&gt;&lt;p&gt;Der juliusd kann beliebig viele simon-clients gleichzeitig bedienen.&lt;/p&gt;&lt;p&gt;Meist wird der Juliusd auf einem zentralen Server ausgef&#xfc;hrt werden, zu dem alle Clients verbinden. Es ist jedoch eine Einzelinstallation m&#xf6;glich. Starten Sie daf&#xfc;r Juliusd lokal und geben auf der n&#xe4;chsten Seite als Adresse ihre Loopbackadresse (meist 127.0.0.1 / localhost) und den konfigurierten Port (standardm&#xe4;sig 4444) an.&lt;/p&gt;&lt;p&gt;N&#xe4;here Informationen zu Juliusd finden Sie im Handbuch&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;The simon system consists of two parts:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;simon (client; this programm)&lt;li&gt;juliusd (server, manages julius)&lt;/ul&gt;&lt;p&gt;The juliusd is able to handle as many simon-clients as you wish.&lt;/p&gt;&lt;p&gt;Most commonly juliusd is executed on a central server, to which all clients connect. But a single installation is also possible. For this you have to start juliusd local and enter your loopbackadress at the next page (most commonly 127.0.0.1 / localhost) and configure the port (as standard 4444).&lt;/p&gt;&lt;p&gt;You find more information about simon in the handbook.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;The simon system consists of two parts:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;simon (client; this programm)&lt;li&gt;juliusd (server, manages julius)&lt;/ul&gt;&lt;p&gt;The juliusd is able to handle as many simon-clients as you wish.&lt;/p&gt;&lt;p&gt;Most commonly juliusd is executed on a central server, to which all clients connect. But a single installation is also possible. For this you have to start juliusd local and enter your loopbackadress at the next page (most commonly 127.0.0.1 / localhost) and configure the port (as standard 4444).&lt;/p&gt;&lt;p&gt;You find more information about simon in the handbook.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="firstrunwizard.cpp" line="389"/>
         <source>Das Sprachmodell</source>
-        <translation>The speech model</translation>
+        <translation type="obsolete">The speech model</translation>
     </message>
     <message>
         <location filename="firstrunwizard.cpp" line="390"/>
         <source>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;Sie ben&#xf6;tigen die folgenden Einzelteile:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;(Schatten-) W&#xf6;rterbuch, (Schatten-) Vokabeln, Grammatik und Trainingsdaten (pfad, prompts, wav_config)&lt;br /&gt;Personenbezogen&lt;li&gt;Sprachskripte (tree1.hed)&lt;br /&gt;Sprachbezogen&lt;li&gt;Modellskripte (sil.hed, config, proto, mkphones0.led und -1.led, global.ded, mktri.led)&lt;br /&gt;Generell&lt;/ul&gt;&lt;p&gt;Aus diesen Eingabedaten werden dann folgende Dateien erstellt:&lt;ul&gt;&lt;li&gt;hmmdefs&lt;br /&gt;Beinhaltet eine technische Repr&#xe4;sentation der Stimme&lt;li&gt;tiedlist&lt;br /&gt;Eine Liste der verwendeten Lautkombinationen&lt;li&gt;dict / dfa&lt;br /&gt;Eine von julian lesbare Form der Grammatik&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;You need the following components:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;(Shadow-)dict, (Shadow-)vocabulary, grammar and the training data (pfad, prompts, wav_config)&lt;br /&gt;User dependet&lt;li&gt;speech scripts (tree1.hed)&lt;br /&gt;Speech dependet&lt;li&gt;model scripts (sil.hed, config, proto, mkphones0.led and -1.led, global.ded, mktri.led)&lt;br /&gt;General&lt;/ul&gt;&lt;p&gt;Out of this input data the following files will be build:&lt;ul&gt;&lt;li&gt;hmmdefs&lt;br /&gt;Contains a technical representation of the voice&lt;li&gt;tiedlist&lt;br /&gt;A list with the used sound combinations&lt;li&gt;dict / dfa&lt;br /&gt;A form of the grammar, which is readble for julian&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;You need the following components:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;(Shadow-)dict, (Shadow-)vocabulary, grammar and the training data (pfad, prompts, wav_config)&lt;br /&gt;User dependet&lt;li&gt;speech scripts (tree1.hed)&lt;br /&gt;Speech dependet&lt;li&gt;model scripts (sil.hed, config, proto, mkphones0.led and -1.led, global.ded, mktri.led)&lt;br /&gt;General&lt;/ul&gt;&lt;p&gt;Out of this input data the following files will be build:&lt;ul&gt;&lt;li&gt;hmmdefs&lt;br /&gt;Contains a technical representation of the voice&lt;li&gt;tiedlist&lt;br /&gt;A list with the used sound combinations&lt;li&gt;dict / dfa&lt;br /&gt;A form of the grammar, which is readble for julian&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="firstrunwizard.cpp" line="430"/>
         <source>Checkliste</source>
-        <translation>checklist</translation>
+        <translation type="obsolete">checklist</translation>
     </message>
     <message>
         <location filename="firstrunwizard.cpp" line="424"/>
@@ -1183,7 +1290,7 @@ You can edit all settings in the system menu.</translation>
     <message>
         <location filename="firstrunwizard.cpp" line="452"/>
         <source>Neues Sprachmodell</source>
-        <translation>New speech model</translation>
+        <translation type="obsolete">New speech model</translation>
     </message>
     <message>
         <location filename="firstrunwizard.cpp" line="446"/>
@@ -1199,7 +1306,7 @@ Sie k&#xf6;nnen alle Einstellungen im System-Men&#xfc; bearbeiten.
 Sollten Sie soeben ein neues Sprachmodell erstellt haben, m&#xfc;ssen Sie diese vor der ersten Verwendung trainieren. Selektieren Sie hierzu den Men&#xfc;punkt &quot;Training&quot;.
 
 Viel Spa&#xdf; mit simon!</source>
-        <translation>The configuration of simon is now finished.
+        <translation type="obsolete">The configuration of simon is now finished.
 
 You can edit all settings in the system menue.
 
@@ -1210,7 +1317,7 @@ Have fun with simon!</translation>
     <message>
         <location filename="firstrunwizard.cpp" line="431"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Um simon erfolgreich zu benutzen werden einige externe Programme und Dateien ben&#xf6;tigt.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;HTK Toolkit&lt;br /&gt;(Erh&#xe4;ltlich von der &lt;a href=&quot;http://htk.eng.cam.ac.uk/&quot;&gt;Universit&#xe4;t Cambridge&lt;/a&gt;)&lt;li&gt;Julius&lt;br /&gt;(Erh&#xe4;ltlich von der offiziellen &lt;a href=&quot;http://julius.sourceforge.jp/en/&quot;&gt;Julius Homepage&lt;/a&gt;)&lt;li&gt;BZip2&lt;br /&gt;(Erh&#xe4;ltlich von der &lt;a href=&quot;http://www.bzip.org/&quot;&gt;Homepage&lt;/a&gt;)&lt;li&gt;Diverse Sprachmodell Skripte und Konfigurationsdateien&lt;br /&gt;F&#xfc;r die Englische Sprache erhalten Sie die Dateien zum Beispiel vom GPL Sprachmodell voxforge (&lt;a href=&quot;http://www.voxforge.org&quot;&gt;Voxforge Homepage&lt;/a&gt;). Wenn sie selbst ein Sprachmodell erstellen wollen, k&#xf6;nnen Sie einfach die mit simon ausgelieferten Default-Dateien verwenden (sie sind als Standardwerte in den Modelleinstellungen ausgew&#xe4;hlt). Im Zweifelsfall wenden Sie sich bitte an den simon support (&lt;a href=&quot;mailto:support@simon-listens.org&quot;&gt;support@simon-listens.org&lt;/a&gt;) oder besuchen Sie das &lt;a href=&quot;http://www.simon-listens.org/wiki/&quot;&gt;Wiki&lt;/a&gt; (im Aufbau)&lt;/ul&gt;&lt;p&gt;Bitte installieren Sie diese, bevor Sie hier fortfahren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For simon to work correctly you will need some external programs.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;HTK Toolkit&lt;br /&gt;(Downloadable from the homepage of &lt;a href=&quot;http://htk.eng.cam.ac.uk/&quot;&gt;Universität Cambridge&lt;/a&gt;)&lt;li&gt;Julius&lt;br /&gt;(Availible at &lt;a href=&quot;http://julius.sourceforge.jp/en/&quot;&gt;Julius Homepage&lt;/a&gt;)&lt;li&gt;BZip2&lt;br /&gt;(Availible at &lt;a href=&quot;http://www.bzip.org/&quot;&gt;BZip2s Homepage&lt;/a&gt;)&lt;li&gt;Some model scripts and configuration files.&lt;br /&gt;
+        <translation type="obsolete">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For simon to work correctly you will need some external programs.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;HTK Toolkit&lt;br /&gt;(Downloadable from the homepage of &lt;a href=&quot;http://htk.eng.cam.ac.uk/&quot;&gt;Universität Cambridge&lt;/a&gt;)&lt;li&gt;Julius&lt;br /&gt;(Availible at &lt;a href=&quot;http://julius.sourceforge.jp/en/&quot;&gt;Julius Homepage&lt;/a&gt;)&lt;li&gt;BZip2&lt;br /&gt;(Availible at &lt;a href=&quot;http://www.bzip.org/&quot;&gt;BZip2s Homepage&lt;/a&gt;)&lt;li&gt;Some model scripts and configuration files.&lt;br /&gt;
 For the english language the needed modelfiles are available from a GPL model from voxforge (&lt;a href=&quot;http://www.voxforge.org&quot;&gt;Voxforge Homepage&lt;/a&gt;). 
 If you want to create your own language model, you can use the supplied default-files (just keep the default settings).
 In case of doubt, please contact the simon support (&lt;a href=&quot;mailto:support@simon-listens.org&quot;&gt;support@simon-listens.org&lt;/a&gt;) or visit our project &lt;a href=&quot;http://www.simon-listens.org/wiki/&quot;&gt;wiki&lt;/a&gt; (work in progress)&lt;/ul&gt;&lt;p&gt;Please install the neede programs (see above) befor continuing.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -1218,23 +1325,23 @@ In case of doubt, please contact the simon support (&lt;a href=&quot;mailto:supp
     <message>
         <location filename="firstrunwizard.cpp" line="453"/>
         <source>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;Sie haben ausgew&#xe4;hlt ein neues Sprachmodell zu erstellen.&lt;/p&gt;&lt;p&gt;Von den folgenden Dateien finden sie Standard-Dateien im model-Ordner.&lt;/p&gt;&lt;p&gt;F&#xfc;r den n&#xe4;chsten Schritt brauchen Sie g&#xfc;ltige, teilweise Ihrer Sprache entsprechenden, Exemplare der Dateien:&lt;br /&gt;wav_config (wenn Sie simon zum Training verwenden k&#xf6;nnen Sie bedenkenlos die voxforge-Version der Datei verwenden), tree1.hed (diese Datei muss auf Ihre Sprache, in diesem Fall Deutsch, angepasst sein), config, proto, mkphones0.led, mkphones1.led, global.ded, mktri.led&lt;br /&gt;&lt;b&gt;Sie k&#xf6;nnen die meisten dieser Dateien aus einem aktuellen Voxforge-Snapshot entnehmen. (&lt;a href=&quot;http://www.voxforge.org&quot;&gt;Voxforge Homepage&lt;/a&gt;)&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Au&#xdf;erdem ben&#xf6;tigen Sie &lt;i&gt;leere&lt;/i&gt; prompts, lexicon, shadow-lexicon, vocab, shadow-vocab und grammar Dateien, die Sie im n&#xe4;chsten Schritt angeben m&#xfc;ssen.&lt;/p&gt;&lt;p&gt;Eine ausf&#xfc;hrliche Anleitung finden Sie im &lt;a href=&quot;http://www.cyber-byte.at/wiki/index.php?title=Initial_Configuration&quot;&gt;Wiki&lt;/a&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;You have inidcated that you want to create a new speech-/language-model.&lt;/p&gt;&lt;p&gt;&quot;Empty&quot; default-files of the following parts of a speech-/language-model can be found in the model-folder.&lt;/p&gt;&lt;p&gt;To create a functioning speec-/language you need the following files:&lt;br /&gt;wav_config, tree1.hed (this file &lt;i&gt;should&lt;/i&gt; be modified to the used language), config, proto, mkphones0.led, mkphones1.led, global.ded, mktri.led&lt;/p&gt;&lt;p&gt;You also need &lt;i&gt;empty&lt;/i&gt; files for prompts, lexicon, shadow-lexicon, vocab, shadow-vocab und grammar. Default values are fine.&lt;/p&gt;&lt;p&gt;A detailed tutorial can be found in the &lt;a href=&quot;http://www.cyber-byte.at/wiki/index.php?title=Initial_Configuration&quot;&gt;Project Wiki&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;You have inidcated that you want to create a new speech-/language-model.&lt;/p&gt;&lt;p&gt;&quot;Empty&quot; default-files of the following parts of a speech-/language-model can be found in the model-folder.&lt;/p&gt;&lt;p&gt;To create a functioning speec-/language you need the following files:&lt;br /&gt;wav_config, tree1.hed (this file &lt;i&gt;should&lt;/i&gt; be modified to the used language), config, proto, mkphones0.led, mkphones1.led, global.ded, mktri.led&lt;/p&gt;&lt;p&gt;You also need &lt;i&gt;empty&lt;/i&gt; files for prompts, lexicon, shadow-lexicon, vocab, shadow-vocab und grammar. Default values are fine.&lt;/p&gt;&lt;p&gt;A detailed tutorial can be found in the &lt;a href=&quot;http://www.cyber-byte.at/wiki/index.php?title=Initial_Configuration&quot;&gt;Project Wiki&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
     <name>GeneralSettings</name>
     <message>
-        <location filename="generalsettings.cpp" line="22"/>
+        <location filename="GeneralConfiguration/generalsettings.cpp" line="21"/>
         <source>Allgemeine Einstellungen</source>
         <translation>Gerneral settings</translation>
     </message>
     <message>
-        <location filename="generalsettings.cpp" line="22"/>
+        <location filename="GeneralConfiguration/generalsettings.cpp" line="21"/>
         <source>Grundlegende Einstellungen rund um Simon</source>
         <translation>Basic settings around simon</translation>
     </message>
     <message>
-        <location filename="generalsettings.cpp" line="39"/>
+        <location filename="GeneralConfiguration/generalsettings.cpp" line="38"/>
         <source>Hier k&#xf6;nnen Sie grundlegende Einstellungen rund um Simon ver&#xe4;ndern.
 
 Dazu z&#xe4;hlen: Pfade und Sicherheitsabfragen.
@@ -1254,7 +1361,7 @@ If the thick &quot;start juliusd if necessary&quot; is activ, it will be tried t
 <context>
     <name>GeneralSettingsDlg</name>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="13"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="13"/>
         <source>Allgemeine Einstellungen</source>
         <translation>General Settings</translation>
     </message>
@@ -1274,12 +1381,12 @@ If the thick &quot;start juliusd if necessary&quot; is activ, it will be tried t
         <translation type="obsolete">Password:</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="68"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="69"/>
         <source>Allgemein</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="77"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="78"/>
         <source>Starte simon bei Systemstart</source>
         <translation>Start simon on bootup</translation>
     </message>
@@ -1289,27 +1396,27 @@ If the thick &quot;start juliusd if necessary&quot; is activ, it will be tried t
         <translation type="obsolete">Connect when simon is started</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="87"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="88"/>
         <source>Nachfragen vor dem Beenden</source>
         <translation>Ask before quit</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="97"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="98"/>
         <source>Pfade</source>
         <translation>Paths</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="108"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="109"/>
         <source>Kommandos:</source>
         <translation>Commands:</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="118"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="119"/>
         <source>Programmkategorien:</source>
         <translation>Program categories:</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="125"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="126"/>
         <source>Shortcuts:</source>
         <translation>Shortcuts:</translation>
     </message>
@@ -1334,17 +1441,17 @@ If the thick &quot;start juliusd if necessary&quot; is activ, it will be tried t
         <translation type="obsolete">Vocabulary:</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="150"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="151"/>
         <source>conf/commands.xml</source>
         <translation>conf/commands.xml</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="157"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="158"/>
         <source>conf/categories.xml</source>
         <translation>conf/categories.xml</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="164"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="165"/>
         <source>conf/shortcuts.xml</source>
         <translation>conf/shortcuts.xml</translation>
     </message>
@@ -1369,34 +1476,34 @@ If the thick &quot;start juliusd if necessary&quot; is activ, it will be tried t
         <translation type="obsolete">model/model.voca</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/generalsettingsdlg.ui" line="132"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="133"/>
         <source>Temporärer Ordner:</source>
         <translation>Temporary folder:</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="171"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="172"/>
         <source>tmp/</source>
         <translation>tmp/</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="32"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="33"/>
         <source>Geschwindigkeit</source>
         <translation>Speed</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/generalsettingsdlg.ui" line="41"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="42"/>
         <source>Maximal gleichzeitig angezeigte Wörter:
 (Wortliste)</source>
         <translation>Maximal shown words at once:
 (word list)</translation>
     </message>
     <message>
-        <location filename="ui/generalsettingsdlg.ui" line="139"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="140"/>
         <source>Pfad der Trainingstexte:</source>
         <translation>Path of the trainings text:</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/generalsettingsdlg.ui" line="22"/>
+        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="23"/>
         <source>Einrichtungsassistent beim nächsten Start wieder anzeigen</source>
         <translation>Show the first-run-wizard at the next start</translation>
     </message>
@@ -1406,7 +1513,7 @@ If the thick &quot;start juliusd if necessary&quot; is activ, it will be tried t
     <message>
         <location filename="grammarmanager.cpp" line="40"/>
         <source>Nicht benutzte Wortklasse</source>
-        <translation>Unused terminal</translation>
+        <translation type="obsolete">Unused terminal</translation>
     </message>
     <message>
         <location filename="grammarmanager.cpp" line="40"/>
@@ -1415,7 +1522,7 @@ If the thick &quot;start juliusd if necessary&quot; is activ, it will be tried t
 Dies ist nicht g&#xfc;ltig.
 
 Bitte f&#xfc;gen Sie entweder ein Wort dieses Terminals zu Ihrem aktiven Wortschatz hinzu oder l&#xf6;schen Sie das betreffende Satzkonstrukt.</source>
-        <translation>The terminal %1 is used in your grammardefinition, but no word in your wordlist uses it.
+        <translation type="obsolete">The terminal %1 is used in your grammardefinition, but no word in your wordlist uses it.
 
 This is not supported.
 
@@ -1427,36 +1534,36 @@ Please add a word using the terminal, or remove the sentencestructure.</translat
     <message>
         <location filename="grammarsettings.cpp" line="20"/>
         <source>Grammatikeinstellungen</source>
-        <translation>Grammar settings</translation>
+        <translation type="obsolete">Grammar settings</translation>
     </message>
     <message>
         <location filename="grammarsettings.cpp" line="20"/>
         <source>Grammatik bearbeiten</source>
-        <translation>Edit grammar</translation>
+        <translation type="obsolete">Edit grammar</translation>
     </message>
     <message>
         <location filename="grammarsettings.cpp" line="23"/>
         <source>Hier k&#xf6;nnen Sie die Grammatikkonstrukte die von simon erkannt werden anpassen.</source>
-        <translation>Here you can costumize the grammar constructs wich are recognized from simon.</translation>
+        <translation type="obsolete">Here you can costumize the grammar constructs wich are recognized from simon.</translation>
     </message>
     <message>
         <location filename="grammarsettings.cpp" line="159"/>
         <source>Leerer Satz</source>
-        <translation>Empty sentence</translation>
+        <translation type="obsolete">Empty sentence</translation>
     </message>
     <message>
         <location filename="grammarsettings.cpp" line="159"/>
         <source>Wollen Sie den leeren Satz l&#xf6;schen?
 
 (Es gibt keine leeren S&#xe4;tze)</source>
-        <translation>Do you want to delete the empty sentence?
+        <translation type="obsolete">Do you want to delete the empty sentence?
 
 (There are no empty sentences)</translation>
     </message>
     <message>
         <location filename="grammarsettings.cpp" line="184"/>
         <source>Selektiereten Satz l&#xf6;schen</source>
-        <translation>Delete selected sentence</translation>
+        <translation type="obsolete">Delete selected sentence</translation>
     </message>
     <message>
         <location filename="grammarsettings.cpp" line="184"/>
@@ -1465,7 +1572,7 @@ Please add a word using the terminal, or remove the sentencestructure.</translat
 &quot;%1&quot;
 
 wirklich l&#xf6;schen?</source>
-        <translation>Do you really want to delete the sentence
+        <translation type="obsolete">Do you really want to delete the sentence
 
 &quot;%1&quot;
 
@@ -1474,7 +1581,7 @@ wirklich l&#xf6;schen?</source>
     <message>
         <location filename="grammarsettings.cpp" line="56"/>
         <source>Grammatik speichern</source>
-        <translation>Save grammar</translation>
+        <translation type="obsolete">Save grammar</translation>
     </message>
     <message>
         <location filename="grammarsettings.cpp" line="56"/>
@@ -1483,7 +1590,7 @@ wirklich l&#xf6;schen?</source>
 Wenn Sie Ihre aktuellen &#xc4;nderungen beibehalten m&#xf6;chten, m&#xfc;ssen Sie jetzt Ihre Grammatik speichern.(Ansonsten wird mit der zuletzt gespeicherten Grammatik weitergearbeitet)
 
 Wollen Sie das jetzt tun?</source>
-        <translation>You want to execute an action, which needs a saved grammar.
+        <translation type="obsolete">You want to execute an action, which needs a saved grammar.
 
 If you want to hold the actual changes, you have to save your grammar now. (Otherwise simon works with the last saved grammar)
 
@@ -1495,67 +1602,67 @@ Would you like to do this now?</translation>
     <message>
         <location filename="ui/grammarsettingsdlg.ui" line="13"/>
         <source>Grammatik Einstellungen</source>
-        <translation>Grammar settings</translation>
+        <translation type="obsolete">Grammar settings</translation>
     </message>
     <message>
         <location filename="ui/grammarsettingsdlg.ui" line="26"/>
         <source>Satzkonstrukte</source>
-        <translation>Sentence constructs</translation>
+        <translation type="obsolete">Sentence constructs</translation>
     </message>
     <message>
         <location filename="ui/grammarsettingsdlg.ui" line="36"/>
         <source>Satzstruktur</source>
-        <translation>Structure of the sentence</translation>
+        <translation type="obsolete">Structure of the sentence</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/grammarsettingsdlg.ui" line="62"/>
         <source>Hinzufügen</source>
-        <translation>Add</translation>
+        <translation type="obsolete">Add</translation>
     </message>
     <message>
         <location filename="ui/grammarsettingsdlg.ui" line="75"/>
         <source>Entfernen</source>
-        <translation>Remove</translation>
+        <translation type="obsolete">Remove</translation>
     </message>
     <message>
         <location filename="ui/grammarsettingsdlg.ui" line="88"/>
         <source>Terminale</source>
-        <translation>Terminals</translation>
+        <translation type="obsolete">Terminals</translation>
     </message>
     <message>
         <location filename="ui/grammarsettingsdlg.ui" line="98"/>
         <source>Terminal</source>
-        <translation>Terminal</translation>
+        <translation type="obsolete">Terminal</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/grammarsettingsdlg.ui" line="112"/>
         <source>Terminale werden direkt aus den vorhandenen Satzkonstrukten  ausgelesen und sind hier nur extra angeführt um zusätzliche Übersicht zu gewährleisten.</source>
-        <translation>Terminals are readed out directly from the available sentence constructs. For a better view they are listed here again.</translation>
+        <translation type="obsolete">Terminals are readed out directly from the available sentence constructs. For a better view they are listed here again.</translation>
     </message>
     <message>
         <location filename="ui/grammarsettingsdlg.ui" line="126"/>
         <source>Bearbeiten</source>
-        <translation>Edit</translation>
+        <translation type="obsolete">Edit</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/grammarsettingsdlg.ui" line="135"/>
         <source>Importieren Sie persönliche Texte um die verwendete Grammatik zu analysieren</source>
-        <translation>Import personal texts to analyze the used grammar</translation>
+        <translation type="obsolete">Import personal texts to analyze the used grammar</translation>
     </message>
     <message>
         <location filename="ui/grammarsettingsdlg.ui" line="138"/>
         <source>Textimport</source>
-        <translation>Textimport</translation>
+        <translation type="obsolete">Textimport</translation>
     </message>
     <message>
         <location filename="ui/grammarsettingsdlg.ui" line="164"/>
         <source>Terminale verbinden</source>
-        <translation>Connect terminals</translation>
+        <translation type="obsolete">Connect terminals</translation>
     </message>
     <message>
         <location filename="ui/grammarsettingsdlg.ui" line="151"/>
         <source>Terminal umbenennen</source>
-        <translation>Rename terminal</translation>
+        <translation type="obsolete">Rename terminal</translation>
     </message>
 </context>
 <context>
@@ -1563,29 +1670,29 @@ Would you like to do this now?</translation>
     <message>
         <location filename="icondialog.cpp" line="38"/>
         <source>Change Icon</source>
-        <translation>Change Icon</translation>
+        <translation type="obsolete">Change Icon</translation>
     </message>
     <message>
         <location filename="icondialog.cpp" line="41"/>
         <source>W&#xe4;hlen Sie ein beliebiges Icon und best&#xe4;tigen Sie mit ok.
 </source>
-        <translation>Choose any desired Icon and confirm with ok.
+        <translation type="obsolete">Choose any desired Icon and confirm with ok.
 </translation>
     </message>
     <message>
         <location filename="icondialog.cpp" line="81"/>
         <source>Ok</source>
-        <translation>Ok</translation>
+        <translation type="obsolete">Ok</translation>
     </message>
     <message>
         <location filename="icondialog.cpp" line="84"/>
         <source>Abbrechen</source>
-        <translation>Cancel</translation>
+        <translation type="obsolete">Cancel</translation>
     </message>
     <message>
         <location filename="icondialog.cpp" line="211"/>
         <source>Bilder</source>
-        <translation>Pictures</translation>
+        <translation type="obsolete">Pictures</translation>
     </message>
 </context>
 <context>
@@ -1593,37 +1700,37 @@ Would you like to do this now?</translation>
     <message>
         <location filename="importbomppage.cpp" line="32"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;Das BOMP W&#xf6;rterbuch ist ein von der Universit&#xe4;t Bonn entwickeltes, frei erh&#xe4;tliches, W&#xf6;rterbuch. Der Download ist gratis, muss aber per e-Mail angefragt werden.&lt;/p&gt;&lt;p&gt;N&#xe4;heres finden Sie hier:&lt;br/&gt;&lt;a href=http://www.ikp.uni-bonn.de/dt/forsch/phonetik/bomp/LIESMICH.html&gt;http://www.ikp.uni-bonn.de/dt/forsch/phonetik/bomp/LIESMICH.html&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Simon kann die &lt;b&gt;HADIFIX&lt;/b&gt; Version des W&#xf6;rterbuchs importieren. Bitte w&#xe4;hlen Sie die (extrahierte) aus und best&#xe4;tigen Sie mit weiter:&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;The BOMP dictionary is a free dictionary, which has been developed from an university in Bonn.The download is free, but you have to ask per E-mail.&lt;/p&gt;&lt;p&gt;Here you find more:&lt;br/&gt;&lt;a href=http://www.ikp.uni-bonn.de/dt/forsch/phonetik/bomp/LIESMICH.html&gt;http://www.ikp.uni-bonn.de/dt/forsch/phonetik/bomp/LIESMICH.html&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Simon is able to &lt;b&gt;HADIFIX&lt;/b&gt;import the version of the dictionary.Pleas chose the extracted version and confirm with &quot;Continue&quot;:&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;The BOMP dictionary is a free dictionary, which has been developed from an university in Bonn.The download is free, but you have to ask per E-mail.&lt;/p&gt;&lt;p&gt;Here you find more:&lt;br/&gt;&lt;a href=http://www.ikp.uni-bonn.de/dt/forsch/phonetik/bomp/LIESMICH.html&gt;http://www.ikp.uni-bonn.de/dt/forsch/phonetik/bomp/LIESMICH.html&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Simon is able to &lt;b&gt;HADIFIX&lt;/b&gt;import the version of the dictionary.Pleas chose the extracted version and confirm with &quot;Continue&quot;:&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="importbomppage.cpp" line="38"/>
         <source>HADIFIX-BOMP:</source>
-        <translation>HADIFIX-BOMP:</translation>
+        <translation type="obsolete">HADIFIX-BOMP:</translation>
     </message>
     <message>
         <location filename="importbomppage.cpp" line="43"/>
         <source>bompFileName*</source>
-        <translation>bompFileName*</translation>
+        <translation type="obsolete">bompFileName*</translation>
     </message>
     <message>
         <location filename="importbomppage.cpp" line="54"/>
         <source>Importiere BOMP W&#xf6;rterbuch</source>
-        <translation>Import BOMP dictionary</translation>
+        <translation type="obsolete">Import BOMP dictionary</translation>
     </message>
     <message>
         <location filename="importbomppage.cpp" line="63"/>
         <source>Zu importierende Textdateien &#xf6;ffnen</source>
-        <translation>Open textfile to import</translation>
+        <translation type="obsolete">Open textfile to import</translation>
     </message>
     <message>
         <location filename="importbomppage.cpp" line="63"/>
         <source>Textdateien (*.txt)</source>
-        <translation>Text files (*.txt)</translation>
+        <translation type="obsolete">Text files (*.txt)</translation>
     </message>
     <message>
         <location filename="importbomppage.cpp" line="66"/>
         <source>bompFileName</source>
-        <translation>bompFileName</translation>
+        <translation type="obsolete">bompFileName</translation>
     </message>
 </context>
 <context>
@@ -1631,57 +1738,57 @@ Would you like to do this now?</translation>
     <message>
         <location filename="importdict.cpp" line="48"/>
         <source>[INF] &#xd6;ffne Lexikon</source>
-        <translation>[INF] open lexicon</translation>
+        <translation type="obsolete">[INF] open lexicon</translation>
     </message>
     <message>
         <location filename="importdict.cpp" line="49"/>
         <source>&#xd6;ffne W&#xf6;rterbuch...</source>
-        <translation>Open dictionary...</translation>
+        <translation type="obsolete">Open dictionary...</translation>
     </message>
     <message>
         <location filename="importdict.cpp" line="63"/>
         <source>Verarbeite W&#xf6;rterbuch...</source>
-        <translation>Handle dictionary...</translation>
+        <translation type="obsolete">Handle dictionary...</translation>
     </message>
     <message>
         <location filename="importdict.cpp" line="66"/>
         <source>Erstelle Liste...</source>
-        <translation>Build list...</translation>
+        <translation type="obsolete">Build list...</translation>
     </message>
     <message>
         <location filename="importdict.cpp" line="83"/>
         <source>Sortiere W&#xf6;rterbuch...</source>
-        <translation>Sort dictionary...</translation>
+        <translation type="obsolete">Sort dictionary...</translation>
     </message>
     <message>
         <location filename="importdict.cpp" line="89"/>
         <source>W&#xf6;rterbuch wird verteilt...</source>
-        <translation>Dictionary allocating...</translation>
+        <translation type="obsolete">Dictionary allocating...</translation>
     </message>
     <message>
         <location filename="importdict.cpp" line="91"/>
         <source>[UPT] </source>
-        <translation>[UPT] </translation>
+        <translation type="obsolete">[UPT] </translation>
     </message>
     <message>
         <location filename="importdict.cpp" line="91"/>
         <source>W&#xf6;rter aus dem lexikon</source>
-        <translation>Words from the lexicon</translation>
+        <translation type="obsolete">Words from the lexicon</translation>
     </message>
     <message>
         <location filename="importdict.cpp" line="91"/>
         <source> importiert</source>
-        <translation> imported</translation>
+        <translation type="obsolete"> imported</translation>
     </message>
     <message>
         <location filename="importdict.cpp" line="95"/>
         <source>[INF]</source>
-        <translation>[INF]</translation>
+        <translation type="obsolete">[INF]</translation>
     </message>
     <message>
         <location filename="importdict.cpp" line="95"/>
         <source>L&#xf6;sche Eingabedatei</source>
-        <translation>Delete inputfile</translation>
+        <translation type="obsolete">Delete inputfile</translation>
     </message>
 </context>
 <context>
@@ -1689,26 +1796,26 @@ Would you like to do this now?</translation>
     <message>
         <location filename="ui/importdictlexiconpage.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/importdictlexiconpage.ui" line="19"/>
         <source>Wenn Sie bereits ein von vorigen simon Versionen, oder von Hand generiertes Lexicon besitzen, können Sie hier den Pfad zu dieser Datei eingeben und es wird zu ihrem aktuellen simon Lexicon hinzugefügt.
 
 Bitte beachten Sie, dass diese Lexica keine Grammatikdefinitionen besitzen.</source>
-        <translation>If you already have a lexicon from previous versions of simon you can import it here. It will be added to the current model.
+        <translation type="obsolete">If you already have a lexicon from previous versions of simon you can import it here. It will be added to the current model.
 
 Please note, that this lexicon does not provide any grammatical information.</translation>
     </message>
     <message>
         <location filename="ui/importdictlexiconpage.ui" line="49"/>
         <source>Datei:</source>
-        <translation>File:</translation>
+        <translation type="obsolete">File:</translation>
     </message>
     <message>
         <location filename="ui/importdictlexiconpage.ui" line="59"/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="obsolete">...</translation>
     </message>
 </context>
 <context>
@@ -1716,7 +1823,7 @@ Please note, that this lexicon does not provide any grammatical information.</tr
     <message>
         <location filename="importdictselectsourcepage.cpp" line="27"/>
         <source>W&#xf6;rterbuch Typ ausw&#xe4;hlen</source>
-        <translation>Choose the type of the dictionary</translation>
+        <translation type="obsolete">Choose the type of the dictionary</translation>
     </message>
     <message>
         <location filename="importdictselectsourcepage.cpp" line="31"/>
@@ -1724,29 +1831,29 @@ Please note, that this lexicon does not provide any grammatical information.</tr
 
 Bitte selektieren Sie welchen Typ von W&#xf6;rterbuch Sie importieren m&#xf6;chten:
 </source>
-        <translation>Simon is able to import two different types of dictionaries: HADIFIX-BOMP dictionaries and Wiktionary-Dumps.
+        <translation type="obsolete">Simon is able to import two different types of dictionaries: HADIFIX-BOMP dictionaries and Wiktionary-Dumps.
 
 Please select the type of dictionary you want to import:</translation>
     </message>
     <message>
         <location filename="importdictselectsourcepage.cpp" line="34"/>
         <source>HADIFIX-BOMP</source>
-        <translation>HADIFIX-BOMP</translation>
+        <translation type="obsolete">HADIFIX-BOMP</translation>
     </message>
     <message>
         <location filename="importdictselectsourcepage.cpp" line="35"/>
         <source>Wiktionary W&#xf6;rterbuch</source>
-        <translation>Wiktionary dictionary</translation>
+        <translation type="obsolete">Wiktionary dictionary</translation>
     </message>
     <message>
         <location filename="importdictselectsourcepage.cpp" line="36"/>
         <source>simon kompatibles Lexicon</source>
-        <translation>simon-compatible lexicon</translation>
+        <translation type="obsolete">simon-compatible lexicon</translation>
     </message>
     <message>
         <location filename="importdictselectsourcepage.cpp" line="37"/>
         <source>Keines (&#xdc;berspringt diesen Schritt)</source>
-        <translation>None (skips this step)</translation>
+        <translation type="obsolete">None (skips this step)</translation>
     </message>
 </context>
 <context>
@@ -1754,12 +1861,12 @@ Please select the type of dictionary you want to import:</translation>
     <message>
         <location filename="importdictview.cpp" line="45"/>
         <source>Importiere W&#xf6;rterbuch</source>
-        <translation>Import dictionary</translation>
+        <translation type="obsolete">Import dictionary</translation>
     </message>
     <message>
         <location filename="importdictview.cpp" line="80"/>
         <source>W&#xf6;rterbuch importieren</source>
-        <translation>Import dictionary</translation>
+        <translation type="obsolete">Import dictionary</translation>
     </message>
     <message>
         <location filename="importdictview.cpp" line="68"/>
@@ -1788,7 +1895,7 @@ only use high qualitiy material.</translation>
     <message>
         <location filename="importdictview.cpp" line="142"/>
         <source>W&#xf6;rterbuch importiert</source>
-        <translation>Dictionary imported</translation>
+        <translation type="obsolete">Dictionary imported</translation>
     </message>
     <message>
         <location filename="importdictview.cpp" line="144"/>
@@ -1799,7 +1906,7 @@ Das noch einige Zeit dauern, w&#xe4;hrenddessen ist simon aber bereits voll eins
 Das neue W&#xf6;rterbuch wird in sp&#xe4;testenens einigen Minuten voll aktiviert sein.
 
 Vielen Dank, dass Sie simon verbessert haben.</source>
-        <translation>The dictionary has been imported succesfully und will be adopted now.
+        <translation type="obsolete">The dictionary has been imported succesfully und will be adopted now.
 
 That can take a little bit of time, in the meanwhile simon is completely operational and the adjustment happens in the background.
 
@@ -1823,7 +1930,7 @@ Wir empfehlen ein BOMP W&#xf6;rterbuch aufgrund dessen hohen Qualit&#xe4;tsstand
 
 Bitte w&#xe4;hlen Sie Ihre Quellen sorgf&#xe4;ltig und achten Sie
 darauf nur hochqualitatives Material zu verwenden.</source>
-        <translation>This assistant will help you to import a lexicon.
+        <translation type="obsolete">This assistant will help you to import a lexicon.
 
 A lexicon contains information about known words. For example its pronunciation and its spelling.
 
@@ -1835,57 +1942,57 @@ The simon-team recommends the use of high-quality dictionaries to ensure the qua
     <message>
         <location filename="importdictwiktionarypage.cpp" line="38"/>
         <source>Das Wiktionary ist ein freies W&#xf6;rterbuch der Wikimedia foundation und ver&#xf6;ffentlicht Dumps seiner Datenbank die frei heruntergeladen werden k&#xf6;nnen.</source>
-        <translation>The wiktionary is a free dictionary from the wikimedia foundation and publicize dumps from his database, which can be downladed free.</translation>
+        <translation type="obsolete">The wiktionary is a free dictionary from the wikimedia foundation and publicize dumps from his database, which can be downladed free.</translation>
     </message>
     <message>
         <location filename="importdictwiktionarypage.cpp" line="44"/>
         <source>Wiktionary-Dump:</source>
-        <translation>Wiktionary-dump:</translation>
+        <translation type="obsolete">Wiktionary-dump:</translation>
     </message>
     <message>
         <location filename="importdictwiktionarypage.cpp" line="46"/>
         <source>Lokale Datei</source>
-        <translation>Local file</translation>
+        <translation type="obsolete">Local file</translation>
     </message>
     <message>
         <location filename="importdictwiktionarypage.cpp" line="59"/>
         <source>Direkt Herunterladen</source>
-        <translation>Download directly</translation>
+        <translation type="obsolete">Download directly</translation>
     </message>
     <message>
         <location filename="importdictwiktionarypage.cpp" line="75"/>
         <source>Importiere Wiktionary W&#xf6;rterbuch</source>
-        <translation>Import wiktionary dictionary</translation>
+        <translation type="obsolete">Import wiktionary dictionary</translation>
     </message>
     <message>
         <location filename="importdictwiktionarypage.cpp" line="164"/>
         <source>Fehler beim Herunterladen</source>
-        <translation>Error while downloading</translation>
+        <translation type="obsolete">Error while downloading</translation>
     </message>
     <message>
         <location filename="importdictwiktionarypage.cpp" line="164"/>
         <source>Konnte </source>
-        <translation>Could </translation>
+        <translation type="obsolete">Could </translation>
     </message>
     <message>
         <location filename="importdictwiktionarypage.cpp" line="164"/>
         <source> nicht herunterladen.</source>
-        <translation> not download.</translation>
+        <translation type="obsolete"> not download.</translation>
     </message>
     <message>
         <location filename="importdictwiktionarypage.cpp" line="187"/>
         <source>Zu importierende Textdatei &#xf6;ffnen</source>
-        <translation>Textfile open, which is to import</translation>
+        <translation type="obsolete">Textfile open, which is to import</translation>
     </message>
     <message>
         <location filename="importdictwiktionarypage.cpp" line="189"/>
         <source>Textdateien (%1)</source>
-        <translation>textfiles (%1)</translation>
+        <translation type="obsolete">textfiles (%1)</translation>
     </message>
     <message>
         <location filename="importdictwiktionarypage.cpp" line="190"/>
         <source>BZip2 Komprimierte Dateien (%1)</source>
-        <translation>BZip2 compressed files (%1)</translation>
+        <translation type="obsolete">BZip2 compressed files (%1)</translation>
     </message>
 </context>
 <context>
@@ -1893,7 +2000,7 @@ The simon-team recommends the use of high-quality dictionaries to ensure the qua
     <message>
         <location filename="importdictworkingpage.cpp" line="31"/>
         <source>Importiere W&#xf6;rterbuch...</source>
-        <translation>Import dictionary...</translation>
+        <translation type="obsolete">Import dictionary...</translation>
     </message>
     <message>
         <location filename="importdictworkingpage.cpp" line="34"/>
@@ -1902,7 +2009,7 @@ The simon-team recommends the use of high-quality dictionaries to ensure the qua
 Bitte haben Sie etwas Geduld...
 
 </source>
-        <translation>Import the dictionary...Depending on its size and type this could take a while.
+        <translation type="obsolete">Import the dictionary...Depending on its size and type this could take a while.
 
 Please wait...
 
@@ -1911,22 +2018,22 @@ Please wait...
     <message>
         <location filename="importdictworkingpage.cpp" line="102"/>
         <source>Importiere Hadifix-W&#xf6;rterbuch %1...</source>
-        <translation>Import Hadifix-dictionary %1...</translation>
+        <translation type="obsolete">Import Hadifix-dictionary %1...</translation>
     </message>
     <message>
         <location filename="importdictworkingpage.cpp" line="118"/>
         <source>Lade W&#xf6;rterbuch herunter...</source>
-        <translation>Downloading dictionary...</translation>
+        <translation type="obsolete">Downloading dictionary...</translation>
     </message>
     <message>
         <location filename="importdictworkingpage.cpp" line="195"/>
         <source>Importiere Wiktionary-W&#xf6;rterbuch %1...</source>
-        <translation>Import Wiktionary-dictionary %1...</translation>
+        <translation type="obsolete">Import Wiktionary-dictionary %1...</translation>
     </message>
     <message>
         <location filename="importdictworkingpage.cpp" line="87"/>
         <source>Importiere Lexicon-W&#xf6;rterbuch %1...</source>
-        <translation>Importing lexicon-dictionary %1...</translation>
+        <translation type="obsolete">Importing lexicon-dictionary %1...</translation>
     </message>
 </context>
 <context>
@@ -1934,27 +2041,27 @@ Please wait...
     <message>
         <location filename="importgrammar.cpp" line="40"/>
         <source>&#xd6;ffne Datei...</source>
-        <translation>Open file...</translation>
+        <translation type="obsolete">Open file...</translation>
     </message>
     <message>
         <location filename="importgrammar.cpp" line="46"/>
         <source>Lese Datei...</source>
-        <translation>Read file...</translation>
+        <translation type="obsolete">Read file...</translation>
     </message>
     <message>
         <location filename="importgrammar.cpp" line="96"/>
         <source>Verarbeite...</source>
-        <translation>Handling...</translation>
+        <translation type="obsolete">Handling...</translation>
     </message>
     <message>
         <location filename="importgrammar.cpp" line="164"/>
         <source>Fertig</source>
-        <translation>Ready</translation>
+        <translation type="obsolete">Ready</translation>
     </message>
     <message>
         <location filename="importgrammar.cpp" line="177"/>
         <source>Unbekannt</source>
-        <translation>Unknown</translation>
+        <translation type="obsolete">Unknown</translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -1962,7 +2069,7 @@ Please wait...
     <message>
         <location filename="ui/importgrammardescriptionpage.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/importgrammardescriptionpage.ui" line="19"/>
@@ -1971,14 +2078,14 @@ Please wait...
 Es fehlt nun für ihr persönliches Sprachmodell noch die Grammatik und die Trainingsdaten.
 
 Im nächsten Schritt werden wir anhand von von Ihnen geschriebenen Textdateien Ihren Grammatikalischen Stil ermitteln.</source>
-        <translation>You now have imported a shadow-lexicon and a shadow-vocabular (if the imported lexicon provided this information). If you wish to import another lexicon, you can now go back and start over (this can also be done in the &quot;Wordlist&quot; after finishing this wizard.
+        <translation type="obsolete">You now have imported a shadow-lexicon and a shadow-vocabular (if the imported lexicon provided this information). If you wish to import another lexicon, you can now go back and start over (this can also be done in the &quot;Wordlist&quot; after finishing this wizard.
 Now, the only things missing are a valid grammar and some training-data.
 The next step will analyze your grammar by using text-files written by you.</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/importgrammardescriptionpage.ui" line="46"/>
         <source>Diesen Schritt überspringen (nicht empfohlen)</source>
-        <translation>Skip this step (not recommended)</translation>
+        <translation type="obsolete">Skip this step (not recommended)</translation>
     </message>
 </context>
 <context>
@@ -1991,17 +2098,17 @@ The next step will analyze your grammar by using text-files written by you.</tra
     <message>
         <location filename="importgrammarselectfilespage.cpp" line="38"/>
         <source>Datei(en) ausw&#xe4;hlen</source>
-        <translation>Choose file(s)</translation>
+        <translation type="obsolete">Choose file(s)</translation>
     </message>
     <message>
         <location filename="importgrammarselectfilespage.cpp" line="38"/>
         <source>Textdateien</source>
-        <translation>Text files</translation>
+        <translation type="obsolete">Text files</translation>
     </message>
     <message>
         <location filename="importgrammarselectfilespage.cpp" line="19"/>
         <source>Eingabedateien</source>
-        <translation>Input files</translation>
+        <translation type="obsolete">Input files</translation>
     </message>
 </context>
 <context>
@@ -2009,12 +2116,12 @@ The next step will analyze your grammar by using text-files written by you.</tra
     <message>
         <location filename="importgrammarwizard.cpp" line="21"/>
         <source>Grammatikstrukturen Importieren</source>
-        <translation>Import grammar structures</translation>
+        <translation type="obsolete">Import grammar structures</translation>
     </message>
     <message>
         <location filename="importgrammarwizard.cpp" line="38"/>
         <source>Willkommen zum Importieren der Grammatik</source>
-        <translation>Welcome to the import of the grammar</translation>
+        <translation type="obsolete">Welcome to the import of the grammar</translation>
     </message>
     <message>
         <location filename="importgrammarwizard.cpp" line="39"/>
@@ -2023,7 +2130,7 @@ The next step will analyze your grammar by using text-files written by you.</tra
 Dazu werden die einzelnen W&#xf6;rter mit Hilfe der Wortliste in ihre grammatikalischen Kategorien (&quot;Terminale&quot;) aufgel&#xf6;st und anhand dieser die Satzkonstrukte kreiert.
 
 Bitte &#xfc;berpr&#xfc;fen Sie die Wortliste auf Korrektheit bevor Sie diesen Assistenten ausf&#xfc;hren.</source>
-        <translation>This assistent allows you, to choose as many text files as you wish, from which a grammar profile will be built.
+        <translation type="obsolete">This assistent allows you, to choose as many text files as you wish, from which a grammar profile will be built.
 
 Therefor each word will be broken up in its grammatically category (&quot;terminal&quot;) by the help of the wordlist. On the basis of this terminals sentece constructs will be build.
 
@@ -2032,7 +2139,7 @@ Please prove the wordlist on correctness before you execute this assistant.</tra
     <message>
         <location filename="importgrammarwizard.cpp" line="68"/>
         <source>Import abgeschlossen</source>
-        <translation>Import completed</translation>
+        <translation type="obsolete">Import completed</translation>
     </message>
     <message>
         <location filename="importgrammarwizard.cpp" line="69"/>
@@ -2041,7 +2148,7 @@ Please prove the wordlist on correctness before you execute this assistant.</tra
 Bitte &#xfc;berpr&#xfc;fen Sie die importierten Strukturen noch auf offensichtliche Fehler.
 
 Vielen Dank dass Sie simon verbessert haben!</source>
-        <translation>The files were imported succesfully.
+        <translation type="obsolete">The files were imported succesfully.
 
 Please prove the imported structures on errors.
 
@@ -2053,12 +2160,12 @@ Thank you for improving simon!</translation>
     <message>
         <location filename="importgrammarworkingpage.cpp" line="20"/>
         <source>Analyse l&#xe4;uft...</source>
-        <translation>Analysis is running...</translation>
+        <translation type="obsolete">Analysis is running...</translation>
     </message>
     <message>
         <location filename="ui/importgrammarworkingpage.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/importgrammarworkingpage.ui" line="19"/>
@@ -2067,7 +2174,7 @@ Thank you for improving simon!</translation>
 Dies kann je nach Umfang der Texte und der Wortliste einige Zeit dauern.
 
 Bitte beachten Sie das die Wörter mit Hilfe der Wortliste aufgelöst werden. Wörter die nicht in der Wortliste vorkommen, können nicht aufgelöst werden und die Sätze in denen sie vorkommen können nicht interpretiert werden.</source>
-        <translation>The texts will be analyzed.
+        <translation type="obsolete">The texts will be analyzed.
 
 Depending on the texts and the word list, it can take a few minutes.
 
@@ -2076,17 +2183,17 @@ Please consider, that the words will be resolved by the help of the wordlist. Wo
     <message>
         <location filename="ui/importgrammarworkingpage.ui" line="46"/>
         <source>Gesamt:</source>
-        <translation>Total:</translation>
+        <translation type="obsolete">Total:</translation>
     </message>
     <message>
         <location filename="ui/importgrammarworkingpage.ui" line="60"/>
         <source>Datei:</source>
-        <translation>File:</translation>
+        <translation type="obsolete">File:</translation>
     </message>
     <message>
         <location filename="ui/importgrammarworkingpage.ui" line="79"/>
         <source>Warten...</source>
-        <translation>Wait...</translation>
+        <translation type="obsolete">Wait...</translation>
     </message>
 </context>
 <context>
@@ -2094,12 +2201,12 @@ Please consider, that the words will be resolved by the help of the wordlist. Wo
     <message>
         <location filename="importlexiconpage.cpp" line="18"/>
         <source>Lexikon ausw&#xe4;hlen</source>
-        <translation>Select lexicon</translation>
+        <translation type="obsolete">Select lexicon</translation>
     </message>
     <message>
         <location filename="importlexiconpage.cpp" line="26"/>
         <source>Lexikon &#xf6;ffnen</source>
-        <translation>Open lexicon</translation>
+        <translation type="obsolete">Open lexicon</translation>
     </message>
 </context>
 <context>
@@ -2122,7 +2229,7 @@ Please consider, that the words will be resolved by the help of the wordlist. Wo
         <source>Ort wird den Komandos hinzugef&#xfc;gt
 
 </source>
-        <translation>Location will be added to the commands
+        <translation type="obsolete">Location will be added to the commands
 
 </translation>
     </message>
@@ -2132,17 +2239,17 @@ Please consider, that the words will be resolved by the help of the wordlist. Wo
     <message>
         <location filename="importplacewizard.cpp" line="38"/>
         <source>Ort hinzuf&#xfc;gen</source>
-        <translation>Add location</translation>
+        <translation type="obsolete">Add location</translation>
     </message>
     <message>
         <location filename="importplacewizard.cpp" line="39"/>
         <source>:/images/banners/importprogram.png</source>
-        <translation>:/images/banners/importprogram.png</translation>
+        <translation type="obsolete">:/images/banners/importprogram.png</translation>
     </message>
     <message>
         <location filename="importplacewizard.cpp" line="130"/>
         <source>Hinzuf&#xfc;gen eines Ortes</source>
-        <translation>Add location</translation>
+        <translation type="obsolete">Add location</translation>
     </message>
     <message>
         <location filename="importplacewizard.cpp" line="132"/>
@@ -2150,7 +2257,7 @@ Please consider, that the words will be resolved by the help of the wordlist. Wo
 
 Klicken Sie auf &quot;Fertigstellen&quot; um den Wizard 
 abzuschlie&#xdf;en.</source>
-        <translation>
+        <translation type="obsolete">
 
 Click on &quot;Finish&quot; to close the wizard .
 </translation>
@@ -2161,7 +2268,7 @@ Click on &quot;Finish&quot; to close the wizard .
     <message>
         <location filename="importprogrampage.cpp" line="26"/>
         <source>Programm wird den Komandos hinzugef&#xfc;gt</source>
-        <translation>Programm will be added to the commands</translation>
+        <translation type="obsolete">Programm will be added to the commands</translation>
     </message>
 </context>
 <context>
@@ -2174,17 +2281,17 @@ Click on &quot;Finish&quot; to close the wizard .
     <message>
         <location filename="importprogramwizard.cpp" line="110"/>
         <source>Hinzuf&#xfc;gen des Programmes</source>
-        <translation>Add a program</translation>
+        <translation type="obsolete">Add a program</translation>
     </message>
     <message>
         <location filename="importprogramwizard.cpp" line="112"/>
         <source>Klicken Sie auf &quot;Fertigstellen&quot; um den Wizard abzuschlie&#xdf;en.</source>
-        <translation>Click on &quot;Finish&quot; to close the wizard.</translation>
+        <translation type="obsolete">Click on &quot;Finish&quot; to close the wizard.</translation>
     </message>
     <message>
         <location filename="importprogramwizard.cpp" line="33"/>
         <source>:/images/banners/importprogram.png</source>
-        <translation>:/images/banners/importprogram.png</translation>
+        <translation type="obsolete">:/images/banners/importprogram.png</translation>
     </message>
 </context>
 <context>
@@ -2192,16 +2299,7 @@ Click on &quot;Finish&quot; to close the wizard .
     <message>
         <location filename="ui/importtrainingtextremotepage.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/importtrainingtextremotepage.ui" line="19"/>
-        <source>Hier können Sie Texte life aus dem Internet importieren.
-
-Bitte haben Sie einen Moment Geduld während die Liste der verfügbaren Texte geladen wird.
-
-Sobald die Liste vollständig geladen wurde, wählen Sie bitte einen Text aus der Liste und bestätigen Sie mit weiter.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Form</translation>
     </message>
 </context>
 <context>
@@ -2217,48 +2315,15 @@ Sobald die Liste vollständig geladen wurde, wählen Sie bitte einen Text aus de
     <message>
         <location filename="ui/importtrainingtextworkingpage.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/importtrainingtextworkingpage.ui" line="19"/>
-        <source>Der gewählte Text wird hinzugefügt.
-
-Bitte haben Sie etwas Geduld.
-</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Form</translation>
     </message>
 </context>
 <context>
     <name>ImportTrainingData</name>
     <message>
-        <location filename="importtrainingdata.cpp" line="31"/>
-        <source>Durchsuche Ordner...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="importtrainingdata.cpp" line="38"/>
-        <source>Konnte Ausgabeordner %1 nicht erstellen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="importtrainingdata.cpp" line="46"/>
-        <source>Importiere %1 Dateien...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="importtrainingdata.cpp" line="52"/>
-        <source>Erstelle automatische Transkription...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="importtrainingdata.cpp" line="55"/>
         <source>Fertig</source>
-        <translation type="unfinished">Ready</translation>
-    </message>
-    <message>
-        <location filename="importtrainingdata.cpp" line="182"/>
-        <source>Konnte Tondaten nicht verarbeiten</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Ready</translation>
     </message>
 </context>
 <context>
@@ -2266,12 +2331,12 @@ Bitte haben Sie etwas Geduld.
     <message>
         <location filename="importtrainingdirectory.cpp" line="33"/>
         <source>Importiere Trainingsdaten von Ordner</source>
-        <translation>Import trainings-data from the folder</translation>
+        <translation type="obsolete">Import trainings-data from the folder</translation>
     </message>
     <message>
         <location filename="importtrainingdirectory.cpp" line="74"/>
         <source>Importieren des Ordners abgeschlossen</source>
-        <translation>Import of the folder completed</translation>
+        <translation type="obsolete">Import of the folder completed</translation>
     </message>
     <message>
         <location filename="importtrainingdirectory.cpp" line="101"/>
@@ -2283,21 +2348,13 @@ um simon zu verbessern.</source>
 
 Thank you, for taking the time to improve simon.</translation>
     </message>
-    <message>
-        <location filename="importtrainingdirectory.cpp" line="76"/>
-        <source>Die Dateien aus dem Ordner wurden nun importiert.
-
-Vielen dank, dass Sie sich die Zeit genommen haben
-um simon zu verbessern.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ImportTrainingDirectoryIntroPage</name>
     <message>
         <location filename="importtrainingdirectoryintropage.cpp" line="30"/>
         <source>Trainingsdaten aus Ordner importieren</source>
-        <translation>Import traindata from folder</translation>
+        <translation type="obsolete">Import traindata from folder</translation>
     </message>
     <message>
         <location filename="importtrainingdirectoryintropage.cpp" line="34"/>
@@ -2311,7 +2368,7 @@ Bitte waehlen Sie den Ordner aus, der die Trainingsdaten
 enthaelt:
 
 </source>
-        <translation type="unfinished">Welcome to the import from the traindata out of
+        <translation type="obsolete">Welcome to the import from the traindata out of
 a folder.
 
 In this way you&apos;r able to take over existing traindata
@@ -2325,7 +2382,7 @@ Please choose the folder, which includes the traindata
     <message>
         <location filename="importtrainingdirectoryintropage.cpp" line="60"/>
         <source>Trainingsdaten-Ordner</source>
-        <translation>Traindata-folder</translation>
+        <translation type="obsolete">Traindata-folder</translation>
     </message>
 </context>
 <context>
@@ -2333,7 +2390,7 @@ Please choose the folder, which includes the traindata
     <message>
         <location filename="importtrainingdirectoryworkingpage.cpp" line="33"/>
         <source>Verarbeite Ordner...</source>
-        <translation>Handle folder...</translation>
+        <translation type="obsolete">Handle folder...</translation>
     </message>
     <message>
         <location filename="importtrainingdirectoryworkingpage.cpp" line="38"/>
@@ -2344,7 +2401,7 @@ Sie k&#xf6;nnen den Fortschritt mit dem Fortschrittsbalken
 Bitte haben Sie einen Moment Geduld.
 
 </source>
-        <translation>The declared folder is in process.
+        <translation type="obsolete">The declared folder is in process.
 You can prove the progress at the progressbar.
 
 Please wait a moment.
@@ -2354,7 +2411,7 @@ Please wait a moment.
     <message>
         <location filename="importtrainingdirectoryworkingpage.cpp" line="69"/>
         <source>Fehler</source>
-        <translation>Error</translation>
+        <translation type="obsolete">Error</translation>
     </message>
     <message>
         <location filename="importtrainingdirectoryworkingpage.cpp" line="101"/>
@@ -2381,64 +2438,28 @@ Please wait a moment.
         <source>Konnte %1 nicht nach %2 bearbeiten. Bitte ueberpruefen Sie ob Sie das Programm, installiert haben, der Pfad in den Einstellungen richtig angegeben wurde und ob Sie all die n&#xf6;tigen Berechtigungen besitzen. (R&#xfc;ckgabewert %3) (Ausgefuehrtes Kommando: %4)</source>
         <translation type="obsolete">Couldn&apos;t adapt %1 to %2. Please prove, if you have installed the program, if the path is entered correctly and if you have the necessary rights. (return value %3) (executed command: %4)</translation>
     </message>
-    <message>
-        <location filename="importtrainingdirectoryworkingpage.cpp" line="77"/>
-        <source>&#xc4;nderungen anwenden</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="importtrainingdirectoryworkingpage.cpp" line="77"/>
-        <source>Soll das Sprachmodell mit diesen neuen Daten neu kompiliert werden?</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ImportTrainingTextLocalPage</name>
     <message>
         <location filename="importtrainingtextlocalpage.cpp" line="32"/>
         <source>Importieren aus Textdatei</source>
-        <translation type="unfinished">Import from textfile</translation>
-    </message>
-    <message>
-        <location filename="importtrainingtextlocalpage.cpp" line="49"/>
-        <source>Zu importierende Textdateien &#xf6;ffnen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="importtrainingtextlocalpage.cpp" line="49"/>
-        <source>Textdateien (*.txt)</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Import from textfile</translation>
     </message>
     <message>
         <location filename="ui/importtrainingtextlocalpage.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/importtrainingtextlocalpage.ui" line="19"/>
-        <source>Hier können Sie Textdateien importieren. Sollte ihr Text in
-einem anderen Format (z.B.: einem Word Dokument)
-vorliegen, kännen Sie ihn in der spezifischen Applikation
-öffnen, als Text speichern und diese Datei hier angeben.
-
-Bitte wählen Sie nun die Datei aus die Sie gerne
-importieren möchten:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ui/importtrainingtextlocalpage.ui" line="50"/>
-        <source>Name des Textes:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message>
         <location filename="ui/importtrainingtextlocalpage.ui" line="60"/>
         <source>Datei:</source>
-        <translation type="unfinished">File:</translation>
+        <translation type="obsolete">File:</translation>
     </message>
     <message>
         <location filename="ui/importtrainingtextlocalpage.ui" line="72"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation type="obsolete">...</translation>
     </message>
 </context>
 <context>
@@ -2446,24 +2467,12 @@ importieren möchten:</source>
     <message>
         <location filename="importtrainingtextremotepage.cpp" line="23"/>
         <source>Importieren aus dem Internet</source>
-        <translation type="unfinished">Import from the internet</translation>
+        <translation type="obsolete">Import from the internet</translation>
     </message>
     <message>
         <location filename="importtrainingtextremotepage.cpp" line="36"/>
         <source>[INF] Abrufen der Liste von verf&#xfc;gbaren Trainingstexten</source>
-        <translation type="unfinished">[INF] Call the list of the available trainings-texts</translation>
-    </message>
-    <message>
-        <location filename="importtrainingtextremotepage.cpp" line="52"/>
-        <source>Konnte Datei nicht &#xf6;ffnen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="importtrainingtextremotepage.cpp" line="52"/>
-        <source>Konnte Liste der Texte nicht &#xf6;ffnen.
-
-M&#xf6;glicherweise ist der URL falsch konfiguriert oder beim Download ist ein Fehler aufgetreten.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">[INF] Call the list of the available trainings-texts</translation>
     </message>
 </context>
 <context>
@@ -2471,47 +2480,22 @@ M&#xf6;glicherweise ist der URL falsch konfiguriert oder beim Download ist ein F
     <message>
         <location filename="importtrainingtextselectsourcepage.cpp" line="24"/>
         <source>Auswahl der Quelle</source>
-        <translation type="unfinished">Choosing the source</translation>
+        <translation type="obsolete">Choosing the source</translation>
     </message>
     <message>
         <location filename="ui/importtrainingtextselectsourcepage.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished">Form</translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/importtrainingtextselectsourcepage.ui" line="19"/>
-        <source>Sie können Texte aus lokalen Textdateien importieren
-oder simon-kompatible Texte aus dem Internet laden.
-
-Bitte wählen Sie die gewünschte Quelle aus:
-</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message>
         <location filename="ui/importtrainingtextselectsourcepage.ui" line="33"/>
         <source>Lokale Textdatei</source>
-        <translation type="unfinished">Local textfile</translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/importtrainingtextselectsourcepage.ui" line="43"/>
-        <source>Wählen Sie diese Option wenn Sie einen Text, den
-Sie gerne mit in Verbindung mit simon verwenden
-möchten, gespeichert haben.
-</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Local textfile</translation>
     </message>
     <message>
         <location filename="ui/importtrainingtextselectsourcepage.ui" line="56"/>
         <source>Aus dem Internet laden</source>
-        <translation type="unfinished">Load from the internet</translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/importtrainingtextselectsourcepage.ui" line="63"/>
-        <source>Wenn Sie diese Option wählen wird zuerst eine
-Liste der vorhandenen Texte aus dem Internet
-geladen aus welcher Sie sich dann einen Text
-aussuchen und importieren kännen.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Load from the internet</translation>
     </message>
 </context>
 <context>
@@ -2519,7 +2503,7 @@ aussuchen und importieren kännen.</source>
     <message>
         <location filename="importtrainingtextworkingpage.cpp" line="35"/>
         <source>Text wird hinzugef&#xfc;gt</source>
-        <translation type="unfinished">Add text</translation>
+        <translation type="obsolete">Add text</translation>
     </message>
 </context>
 <context>
@@ -2527,12 +2511,12 @@ aussuchen und importieren kännen.</source>
     <message>
         <location filename="importtrainingtexts.cpp" line="52"/>
         <source>Trainingstext importieren</source>
-        <translation>Import text to train</translation>
+        <translation type="obsolete">Import text to train</translation>
     </message>
     <message>
         <location filename="importtrainingtexts.cpp" line="86"/>
         <source>Importieren eines neuen Trainingstextes</source>
-        <translation>Import a new text to train</translation>
+        <translation type="obsolete">Import a new text to train</translation>
     </message>
     <message>
         <location filename="importtrainingtexts.cpp" line="88"/>
@@ -2540,7 +2524,7 @@ aussuchen und importieren kännen.</source>
  aus dem Internet oder aus lokalen Dateien importieren.
 
 So wird das Trainieren von simon nie langweilig!</source>
-        <translation>With the aid of this assistant you can import new
+        <translation type="obsolete">With the aid of this assistant you can import new
 text to train from the internet or out of local files.
 
 That&apos;s the reason, why there is never any boredom when training simon!</translation>
@@ -2647,7 +2631,7 @@ Please wait a moment.
     <message>
         <location filename="importtrainingtexts.cpp" line="154"/>
         <source>Text hinzugef&#xfc;gt</source>
-        <translation>Text added</translation>
+        <translation type="obsolete">Text added</translation>
     </message>
     <message>
         <location filename="importtrainingtexts.cpp" line="156"/>
@@ -2657,7 +2641,7 @@ Er wird nun neben allen anderen Texten in Ihrem
 Trainingsdialog gelistet.
 
 Vielen Dank und viel Spa&#xdf; mit dem neuen Text!</source>
-        <translation>Now you have added a new text.
+        <translation type="obsolete">Now you have added a new text.
 
 This text will be listed now with all your other texts
 in the training-dialog.
@@ -2670,38 +2654,38 @@ Thank a and have a lot of fun with the new text!</translation>
     <message encoding="UTF-8">
         <location filename="ui/importdict.ui" line="13"/>
         <source>Wörterbuch importieren</source>
-        <translation>Import dictionary</translation>
+        <translation type="obsolete">Import dictionary</translation>
     </message>
     <message>
         <location filename="ui/importdict.ui" line="26"/>
         <source>Quelle</source>
-        <translation>Source</translation>
+        <translation type="obsolete">Source</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/importdict.ui" line="49"/>
         <source>Derzeit werden nur Wiktionary (http://www.wiktionary.org) kompatible Wörterbücher unterstützt.
 Sie finden Versionen davon zum Downlod hier: http://download.wikimedia.org/dewiktionary/latest/</source>
-        <translation>At the moment there are only dictionarys provided, which are compatible with Wictionary (http://www.wiktionary.org)</translation>
+        <translation type="obsolete">At the moment there are only dictionarys provided, which are compatible with Wictionary (http://www.wiktionary.org)</translation>
     </message>
     <message>
         <location filename="ui/importdict.ui" line="80"/>
         <source>Abbrechen</source>
-        <translation>Cancel</translation>
+        <translation type="obsolete">Cancel</translation>
     </message>
     <message>
         <location filename="ui/importdict.ui" line="90"/>
         <source>Importieren</source>
-        <translation>Import</translation>
+        <translation type="obsolete">Import</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/importdict.ui" line="106"/>
         <source>Importiere Wörterbuch</source>
-        <translation>Import dictionary</translation>
+        <translation type="obsolete">Import dictionary</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/importdict.ui" line="138"/>
         <source>Importiere Wörterbuch...</source>
-        <translation>Import dictionary...</translation>
+        <translation type="obsolete">Import dictionary...</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/importdict.ui" line="158"/>
@@ -2709,48 +2693,48 @@ Sie finden Versionen davon zum Downlod hier: http://download.wikimedia.org/dewik
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-style:italic;&quot;&gt;Das importieren eines Wörterbuches kann je nach dessen Größe sehr lange dauern. Bitte haben Sie etwas Geduld und unterbrechen Sie den Vorgang nicht.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-style:italic;&quot;&gt;The import of a dictionary can take a long time, depending on its size. Please have a little patience and do not interrupt this process.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-style:italic;&quot;&gt;The import of a dictionary can take a long time, depending on its size. Please have a little patience and do not interrupt this process.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
     <name>InternetExtensionDlg</name>
     <message>
-        <location filename="ui/internetextensiondlg.ui" line="13"/>
+        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="13"/>
         <source>Form</source>
         <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <location filename="ui/internetextensiondlg.ui" line="19"/>
+        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="19"/>
         <source>Texte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/internetextensiondlg.ui" line="25"/>
+        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="25"/>
         <source>Textdownload-URL:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/internetextensiondlg.ui" line="38"/>
+        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="38"/>
         <source>Wiktionary-Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/internetextensiondlg.ui" line="46"/>
+        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="46"/>
         <source>Dump Übersicht:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/internetextensiondlg.ui" line="56"/>
+        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="56"/>
         <source>Dump Prefix:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/internetextensiondlg.ui" line="66"/>
+        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="66"/>
         <source>Dump Postfix:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/internetextensiondlg.ui" line="78"/>
+        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="78"/>
         <source>Beispiel:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2758,17 +2742,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>InternetExtensionSettings</name>
     <message>
-        <location filename="internetextensionsettings.cpp" line="16"/>
+        <location filename="GeneralConfiguration/internetextensionsettings.cpp" line="16"/>
         <source>Internet-Erweiterungen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="internetextensionsettings.cpp" line="16"/>
+        <location filename="GeneralConfiguration/internetextensionsettings.cpp" line="16"/>
         <source>Konfigurieren der URLS der Erweiterungs-Downloads</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="internetextensionsettings.cpp" line="18"/>
+        <location filename="GeneralConfiguration/internetextensionsettings.cpp" line="18"/>
         <source>Hier k&#xf6;nnen Sie URLS konfigurieren, um simon mit optionale Komponenten aus dem Internet zu erweitern</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2778,7 +2762,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="introplacepage.cpp" line="28"/>
         <source>Hinzuf&#xfc;gen eines Ortes</source>
-        <translation>Add location</translation>
+        <translation type="obsolete">Add location</translation>
     </message>
     <message>
         <location filename="introplacepage.cpp" line="30"/>
@@ -2787,7 +2771,7 @@ p, li { white-space: pre-wrap; }
 Es wird zwischen lokalen und entfernten Orten unterschieden. Unter entfernten Orten versteht man Orte, die &#xfc;ber das Internet erreichbar sind.
 
 </source>
-        <translation>Here you can add a location to your commands, to respond it later with the aid of the keyword simon. 
+        <translation type="obsolete">Here you can add a location to your commands, to respond it later with the aid of the keyword simon. 
 
 There is a difference between local locations and remote locations. Remote locations are locations which are reachable over the internet.
 
@@ -2796,33 +2780,33 @@ There is a difference between local locations and remote locations. Remote locat
     <message>
         <location filename="introplacepage.cpp" line="34"/>
         <source>Lokaler Ort</source>
-        <translation>Local location</translation>
+        <translation type="obsolete">Local location</translation>
     </message>
     <message>
         <location filename="introplacepage.cpp" line="37"/>
         <source>Entfernter Ort</source>
-        <translation>Remote Location</translation>
+        <translation type="obsolete">Remote Location</translation>
     </message>
 </context>
 <context>
     <name>JuliusControl</name>
     <message>
-        <location filename="juliuscontrol.cpp" line="104"/>
+        <location filename="RecognitionControl/juliuscontrol.cpp" line="105"/>
         <source>Zeit&#xfc;berschreitung der Anforderung (%1 ms)</source>
         <translation>Timeout of the request (%1 ms)</translation>
     </message>
     <message>
-        <location filename="juliuscontrol.cpp" line="141"/>
+        <location filename="RecognitionControl/juliuscontrol.cpp" line="142"/>
         <source>Benutzername oder Passwort falsch.</source>
         <translation>Username or password is false.</translation>
     </message>
     <message>
-        <location filename="juliuscontrol.cpp" line="149"/>
+        <location filename="RecognitionControl/juliuscontrol.cpp" line="150"/>
         <source>Kein Passwort angegeben. Aus Sicherheitsgr&#xfc;nden muss ein Passwort festgelegt werden</source>
         <translation>No password given. For reasons of safety you have to set a password</translation>
     </message>
     <message>
-        <location filename="juliuscontrol.cpp" line="156"/>
+        <location filename="RecognitionControl/juliuscontrol.cpp" line="157"/>
         <source>Version nicht unterst&#xfc;tzt</source>
         <translation>Verson not supported</translation>
     </message>
@@ -2832,7 +2816,7 @@ There is a difference between local locations and remote locations. Remote locat
         <translation type="obsolete">This version perhaps is not supported</translation>
     </message>
     <message>
-        <location filename="juliuscontrol.cpp" line="162"/>
+        <location filename="RecognitionControl/juliuscontrol.cpp" line="163"/>
         <source>Version mglw. nicht unterst&#xfc;tzt</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2842,22 +2826,22 @@ There is a difference between local locations and remote locations. Remote locat
     <message>
         <location filename="ui/selectlanguagemodelsource.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/selectlanguagemodelsource.ui" line="19"/>
         <source>Sie können entweder ein neues Sprachmodell generieren, oder ein bereits vorhandes in simon aufnehmen.</source>
-        <translation>You can either generate a new speech model, or you can use an already existing speech model.</translation>
+        <translation type="obsolete">You can either generate a new speech model, or you can use an already existing speech model.</translation>
     </message>
     <message>
         <location filename="ui/selectlanguagemodelsource.ui" line="29"/>
         <source>Neues Sprachmodell erstellen</source>
-        <translation>Create a new speech model</translation>
+        <translation type="obsolete">Create a new speech model</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/selectlanguagemodelsource.ui" line="39"/>
         <source>Vorhandenes Sprachmodell öffnen</source>
-        <translation>Open an existing speech model</translation>
+        <translation type="obsolete">Open an existing speech model</translation>
     </message>
 </context>
 <context>
@@ -2865,7 +2849,7 @@ There is a difference between local locations and remote locations. Remote locat
     <message>
         <location filename="lexicondict.cpp" line="37"/>
         <source>Unbekannt</source>
-        <translation type="unfinished">Unknown</translation>
+        <translation type="obsolete">Unknown</translation>
     </message>
 </context>
 <context>
@@ -2876,7 +2860,7 @@ There is a difference between local locations and remote locations. Remote locat
 W&#xe4;hlen Sie jetzt einen Ordner aus!
 
 </source>
-        <translation>
+        <translation type="obsolete">
 Chose a folder now!
 
 </translation>
@@ -2884,38 +2868,38 @@ Chose a folder now!
     <message>
         <location filename="localplacepage.cpp" line="35"/>
         <source>Ordner</source>
-        <translation>Folder</translation>
+        <translation type="obsolete">Folder</translation>
     </message>
 </context>
 <context>
     <name>LogManagerDlg</name>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="13"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="13"/>
         <source>Log Manager</source>
         <translation>Log Manager</translation>
     </message>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="20"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="20"/>
         <source>Datum</source>
         <translation>Date</translation>
     </message>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="25"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="25"/>
         <source>Nachricht</source>
         <translation>Message</translation>
     </message>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="90"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="90"/>
         <source>Suchen</source>
         <translation>Search</translation>
     </message>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="58"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="58"/>
         <source>Suche:</source>
         <translation>Search:</translation>
     </message>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="83"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="83"/>
         <source>&amp;x</source>
         <translation>&amp;x</translation>
     </message>
@@ -2925,12 +2909,12 @@ Chose a folder now!
         <translation type="obsolete">Simon actionlog</translation>
     </message>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="108"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="108"/>
         <source>Fehler</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="115"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="115"/>
         <source>Update</source>
         <translation>Update</translation>
     </message>
@@ -2940,27 +2924,27 @@ Chose a folder now!
         <translation type="obsolete">Records</translation>
     </message>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="128"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="128"/>
         <source>Infos</source>
         <translation>Infos</translation>
     </message>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="135"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="135"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="159"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="159"/>
         <source>Abbrechen</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="171"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="171"/>
         <source>Nur von Tag</source>
         <translation>Only from the day</translation>
     </message>
     <message>
-        <location filename="ui/logmanagerdlg.ui" line="186"/>
+        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="186"/>
         <source>Kalender</source>
         <translation>Calender</translation>
     </message>
@@ -2968,62 +2952,62 @@ Chose a folder now!
 <context>
     <name>LogView</name>
     <message>
-        <location filename="logview.cpp" line="25"/>
+        <location filename="GeneralConfiguration/logview.cpp" line="25"/>
         <source>Protokoll</source>
         <translation>Protocol</translation>
     </message>
     <message>
-        <location filename="logview.cpp" line="25"/>
+        <location filename="GeneralConfiguration/logview.cpp" line="25"/>
         <source>Hier k&#xf6;nnen Sie die letzten Aktionen von simon &#xfc;berpr&#xfc;fen</source>
         <translation>Here you can prove the last actions from simon</translation>
     </message>
     <message>
-        <location filename="logview.cpp" line="78"/>
+        <location filename="GeneralConfiguration/logview.cpp" line="78"/>
         <source>Lade &#xdc;bersicht</source>
         <translation>Load overview</translation>
     </message>
     <message>
-        <location filename="logview.cpp" line="98"/>
+        <location filename="GeneralConfiguration/logview.cpp" line="98"/>
         <source>Lade Tag %1</source>
         <translation>Load day %1</translation>
     </message>
     <message>
-        <location filename="logview.cpp" line="118"/>
+        <location filename="GeneralConfiguration/logview.cpp" line="118"/>
         <source>Lese Datei...</source>
         <translation>Read file...</translation>
     </message>
     <message>
-        <location filename="logview.cpp" line="142"/>
+        <location filename="GeneralConfiguration/logview.cpp" line="142"/>
         <source>Lade Log...</source>
         <translation>Load log...</translation>
     </message>
     <message>
-        <location filename="logview.cpp" line="433"/>
+        <location filename="GeneralConfiguration/logview.cpp" line="433"/>
         <source>Trage Eintr&#xe4;ge ein...</source>
         <translation>Enter entries...</translation>
     </message>
     <message>
-        <location filename="logview.cpp" line="649"/>
+        <location filename="GeneralConfiguration/logview.cpp" line="649"/>
         <source>Filtere Liste...</source>
         <translation>Filter list...</translation>
     </message>
     <message>
-        <location filename="logview.cpp" line="685"/>
+        <location filename="GeneralConfiguration/logview.cpp" line="685"/>
         <source>Abbrechen</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="logview.cpp" line="697"/>
+        <location filename="GeneralConfiguration/logview.cpp" line="697"/>
         <source>Fertig</source>
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="logview.cpp" line="700"/>
+        <location filename="GeneralConfiguration/logview.cpp" line="700"/>
         <source>Neu laden</source>
         <translation>Load new</translation>
     </message>
     <message>
-        <location filename="logview.cpp" line="55"/>
+        <location filename="GeneralConfiguration/logview.cpp" line="55"/>
         <source>simon speichert im normalen Betrieb viele Loginformationen die im Nachhinein helfen k&#xf6;nnen, Probleme nachzuvollziehen</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3031,12 +3015,12 @@ Chose a folder now!
 <context encoding="UTF-8">
     <name>MainWindow</name>
     <message>
-        <location filename="ui/main.ui" line="20"/>
+        <location filename="main.ui" line="20"/>
         <source>simon</source>
         <translation>simon</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="117"/>
+        <location filename="main.ui" line="117"/>
         <source>Verbinden</source>
         <translation type="unfinished">connect</translation>
     </message>
@@ -3111,7 +3095,7 @@ Chose a folder now!
         <translation type="obsolete">&amp;Disable</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="414"/>
+        <location filename="main.ui" line="414"/>
         <source>Beendet simon</source>
         <translation type="unfinished">Quits simon</translation>
     </message>
@@ -3131,27 +3115,27 @@ Chose a folder now!
         <translation type="obsolete">&amp;Hide</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/main.ui" line="152"/>
+        <location filename="main.ui" line="152"/>
         <source>Wort &amp;hinzufügen</source>
         <translation>Add &amp;word</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="271"/>
+        <location filename="main.ui" line="271"/>
         <source>System</source>
         <translation>System</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="184"/>
+        <location filename="main.ui" line="184"/>
         <source>&amp;Trainieren</source>
         <translation>&amp;Train</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/main.ui" line="242"/>
+        <location filename="main.ui" line="242"/>
         <source>&amp;Ausführen</source>
         <translation>&amp;Execute</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="213"/>
+        <location filename="main.ui" line="213"/>
         <source>Wort&amp;liste</source>
         <translation>word&amp;list</translation>
     </message>
@@ -3191,62 +3175,62 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Kurzwahl:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/main.ui" line="146"/>
+        <location filename="main.ui" line="146"/>
         <source>Wort hinzufügen</source>
         <translation>Add Word</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="178"/>
+        <location filename="main.ui" line="178"/>
         <source>Trainieren</source>
         <translation>Train</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/main.ui" line="236"/>
+        <location filename="main.ui" line="236"/>
         <source>Ausführen</source>
         <translation>Execute</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="207"/>
+        <location filename="main.ui" line="207"/>
         <source>Wortliste</source>
         <translation>Wordlist</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="307"/>
+        <location filename="main.ui" line="307"/>
         <source>&amp;Aktivieren</source>
         <translation>&amp;Activate</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="123"/>
+        <location filename="main.ui" line="123"/>
         <source>Verb&amp;inden</source>
         <translation>con&amp;nect</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="417"/>
+        <location filename="main.ui" line="417"/>
         <source>&amp;Beenden</source>
         <translation>&amp;Close</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="336"/>
+        <location filename="main.ui" line="336"/>
         <source>&amp;Verstecken</source>
         <translation>&amp;Hide</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="385"/>
+        <location filename="main.ui" line="385"/>
         <source>Systemverwaltungsmodus</source>
         <translation>Systemadministrationmode</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="495"/>
+        <location filename="main.ui" line="495"/>
         <source>Globale Aktionen</source>
         <translation>global actions</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="517"/>
+        <location filename="main.ui" line="517"/>
         <source>Logo</source>
         <translation>Logo</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="539"/>
+        <location filename="main.ui" line="539"/>
         <source>Module</source>
         <translation>Modules</translation>
     </message>
@@ -3256,87 +3240,87 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Compile speech model</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="165"/>
+        <location filename="main.ui" line="165"/>
         <source>Ctrl+S</source>
         <translation>Crtl+S</translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="23"/>
+        <location filename="main.ui" line="23"/>
         <source>simon Hauptfenster</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="98"/>
+        <location filename="main.ui" line="98"/>
         <source>Nicht Verbunden</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="120"/>
+        <location filename="main.ui" line="120"/>
         <source>Verbindet zu Juliusd</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/main.ui" line="149"/>
+        <location filename="main.ui" line="149"/>
         <source>Hier kann ein neues Wort hinzugefügt werden</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="181"/>
+        <location filename="main.ui" line="181"/>
         <source>Trainieren des Sprachmodells</source>
         <translation type="unfinished">Train the speech model</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/main.ui" line="210"/>
+        <location filename="main.ui" line="210"/>
         <source>Übersicht über das verwendete Vokabular</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/main.ui" line="239"/>
+        <location filename="main.ui" line="239"/>
         <source>Ausführen von definierten Aktionen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="268"/>
+        <location filename="main.ui" line="268"/>
         <source>Einstellungen und Konfiguration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="301"/>
+        <location filename="main.ui" line="301"/>
         <source>Aktiviert simon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="304"/>
+        <location filename="main.ui" line="304"/>
         <source>Wechselt zwischen Aktiv / Inaktiv ohne die Verbindung zu trennen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="330"/>
+        <location filename="main.ui" line="330"/>
         <source>Verstecken</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="333"/>
+        <location filename="main.ui" line="333"/>
         <source>Versteckt das simon-Hauptfenster</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="356"/>
+        <location filename="main.ui" line="356"/>
         <source>Sprachmodell generieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="382"/>
+        <location filename="main.ui" line="382"/>
         <source>Wechselt zwischen den Administrations / Benutzer-Modu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="411"/>
+        <location filename="main.ui" line="411"/>
         <source>Beenden</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main.ui" line="454"/>
+        <location filename="main.ui" line="454"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3346,17 +3330,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="mergeterminals.cpp" line="30"/>
         <source>Bearbeite W&#xf6;rter des Terminals %1</source>
-        <translation>Handle words of the terminals %1</translation>
+        <translation type="obsolete">Handle words of the terminals %1</translation>
     </message>
     <message>
         <location filename="mergeterminals.cpp" line="37"/>
         <source>Passe Grammatik an</source>
-        <translation>Match grammar</translation>
+        <translation type="obsolete">Match grammar</translation>
     </message>
     <message>
         <location filename="mergeterminals.cpp" line="44"/>
         <source>Fertig</source>
-        <translation>Ready</translation>
+        <translation type="obsolete">Ready</translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -3364,42 +3348,42 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="mergeterminalsselectterminalspage.cpp" line="18"/>
         <source>Terminale ausw&#xe4;hlen</source>
-        <translation>Choose terminals</translation>
+        <translation type="obsolete">Choose terminals</translation>
     </message>
     <message>
         <location filename="ui/mergeterminalsselectpage.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/mergeterminalsselectpage.ui" line="19"/>
         <source>Bitte wählen Sie die beiden Terminale aus den Listen aus und vergeben Sie einen (gemeinsamen) Namen.</source>
-        <translation>Please choose the two terminals from the lists and give them a jointly name.</translation>
+        <translation type="obsolete">Please choose the two terminals from the lists and give them a jointly name.</translation>
     </message>
     <message>
         <location filename="ui/mergeterminalsselectpage.ui" line="31"/>
         <source>Neuer Terminal-Name:</source>
-        <translation>New Terminal name:</translation>
+        <translation type="obsolete">New Terminal name:</translation>
     </message>
     <message>
         <location filename="ui/mergeterminalsselectpage.ui" line="50"/>
         <source>Terminal A:</source>
-        <translation>Terminal A:</translation>
+        <translation type="obsolete">Terminal A:</translation>
     </message>
     <message>
         <location filename="ui/mergeterminalsselectpage.ui" line="67"/>
         <source>Terminal B:</source>
-        <translation>Terminal B:</translation>
+        <translation type="obsolete">Terminal B:</translation>
     </message>
     <message>
         <location filename="ui/mergeterminalsselectpage.ui" line="84"/>
         <source>Schattenlexikon einbeziehen</source>
-        <translation>Include shadowdict </translation>
+        <translation type="obsolete">Include shadowdict </translation>
     </message>
     <message>
         <location filename="ui/mergeterminalsselectpage.ui" line="94"/>
         <source>Grammatik anpassen</source>
-        <translation>Match grammar</translation>
+        <translation type="obsolete">Match grammar</translation>
     </message>
 </context>
 <context>
@@ -3407,33 +3391,33 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="mergeterminalswizard.cpp" line="22"/>
         <source>Terminale verbinden</source>
-        <translation>Connect terminals</translation>
+        <translation type="obsolete">Connect terminals</translation>
     </message>
     <message>
         <location filename="mergeterminalswizard.cpp" line="39"/>
         <source>Willkommen zum Verbinden mehrerere Terminale</source>
-        <translation>Welcome to the connection of several terminals</translation>
+        <translation type="obsolete">Welcome to the connection of several terminals</translation>
     </message>
     <message>
         <location filename="mergeterminalswizard.cpp" line="40"/>
         <source>Dieser Assistent wird Ihnen erlauben, zwei verschiedene Terminale zu einem zusammenzufassen.
 
 Dies erm&#xf6;glicht es, die Grammatik sauber zu halten und gro&#xdf;e Gruppen von W&#xf6;rtern gleichzeitig grammatikalisch einzuf&#xfc;gen. (Wenn zum Beispiel durch das Importieren eines W&#xf6;rterbuches anders benannte Terminale hinzugef&#xfc;gt wurden, die auf andere, bestehende Wortgruppen gebunden werden sollen).</source>
-        <translation type="unfinished">This assistant allows you, to merge two different terminals to one terminal.
+        <translation type="obsolete">This assistant allows you, to merge two different terminals to one terminal.
 
 This enables, to keep the grammar clean</translation>
     </message>
     <message>
         <location filename="mergeterminalswizard.cpp" line="66"/>
         <source>Import abgeschlossen</source>
-        <translation>Import completed</translation>
+        <translation type="obsolete">Import completed</translation>
     </message>
     <message>
         <location filename="mergeterminalswizard.cpp" line="67"/>
         <source>Die Terminale wurden verbunden.
 
 Vielen Dank, dass Sie simon verbessert haben.</source>
-        <translation>The terminals are connected.
+        <translation type="obsolete">The terminals are connected.
 
 Thank you for improving simon.</translation>
     </message>
@@ -3443,37 +3427,37 @@ Thank you for improving simon.</translation>
     <message>
         <location filename="mergeterminalsworkingpage.cpp" line="25"/>
         <source>Verbinde...</source>
-        <translation>connect...</translation>
+        <translation type="obsolete">connect...</translation>
     </message>
     <message>
         <location filename="ui/mergeterminalsworkingpage.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/mergeterminalsworkingpage.ui" line="19"/>
         <source>Die gewählten Terminale werden jetzt zu dem neuen, gemeinsamen Terminal verbunden.
 
 Dies kann einige Zeit in Anspruch nehmen.</source>
-        <translation>The chosen terminals will be connected to a new, jointly terminal.
+        <translation type="obsolete">The chosen terminals will be connected to a new, jointly terminal.
 
 This can take a few minutes.</translation>
     </message>
     <message>
         <location filename="ui/mergeterminalsworkingpage.ui" line="56"/>
         <source>TextLabel</source>
-        <translation>TextLabel</translation>
+        <translation type="obsolete">TextLabel</translation>
     </message>
 </context>
 <context>
     <name>ModelManager</name>
     <message>
-        <location filename="modelmanager.cpp" line="44"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="45"/>
         <source>Generiere Sprachmodell...</source>
         <translation>Generate speech model...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="273"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="274"/>
         <source>Fehler</source>
         <translation>Error</translation>
     </message>
@@ -3487,72 +3471,72 @@ This can take a few minutes.</translation>
 %1</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="305"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="306"/>
         <source>Kodiere Audiodaten...</source>
         <translation>Encode audio data...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="310"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="311"/>
         <source>Konnte CodeTrain-Datei nicht erstellen.</source>
         <translation>Couldn&apos;t build the CodeTrain-file.</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="322"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="323"/>
         <source>Fehler beim kodieren der samples! Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HCopy (%1) und der wav config (%2)</source>
         <translation>Error while encoding the samples! Please prove the path to HCopy (%1) and to the wac config (%2)</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="378"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="379"/>
         <source>[INF] Modell wird generiert...</source>
         <translation>[INF] generating the model...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="379"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="380"/>
         <source>Vorbereitung</source>
         <translation>Preparation</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="384"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="385"/>
         <source>Fehler beim Erstellen der Ordnerstruktur. Bitte &#xfc;berpr&#xfc;fen Sie die Berechtigungen f&#xfc;r den Tempor&#xe4;ren Ordner (%1)</source>
         <translation>An Error occured while building the folder structure. Please prove the rights for the temporary folder (%1)</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="408"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="409"/>
         <source>Abgeschlossen</source>
         <translation>Finished</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="414"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="415"/>
         <source>Generiere Wordliste...</source>
         <translation>Generating word list...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="419"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="420"/>
         <source>Erstellen der Wordliste fehlgeschlagen. Bitte &#xfc;berpr&#xfc;fen Sie die Berechtigungen f&#xfc;r den Tempor&#xe4;ren Pfad (%1) und ob die Prompts-File richtig gesetzt ist (%2)</source>
         <translation>Building of the word list failde. Please prove the rights for the temorary path (%1) and if the prompts file is setted rightly (%2)</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="425"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="426"/>
         <source>Erstelle Monophone...</source>
         <translation>Building monophones...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="430"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="431"/>
         <source>Erstellen der Monophone fehlgeschlagen. Bitte &#xfc;berpr&#xfc;fen Sie ob das Programm HDMan richtig eingerichtet ist und der Pfad zum Lexikon richtig konfiguriert wurde (%1), und diese alle verwendeten W&#xf6;rter beinhaltet.</source>
         <translation>Building of the monophones failed. Please prove if the program HDMan is installed correctly and the path to the dictionary has been configured rightly (%1), and the here used words are contained.</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="442"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="443"/>
         <source>Erstelle Master Label File...</source>
         <translation>Building master label file...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="445"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="446"/>
         <source>Erstellen der Master Label File fehlgeschlagen. Bitte &#xfc;berpr&#xfc;fen Sie, ob die prompts-Datei (%1)</source>
         <translation>Building of the master label file failed. Please prove if the prompts file (%1)</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="462"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="463"/>
         <source>Erstellen der Transcriptions files fehlgeschlagen. Bitte &#xfc;berpr&#xfc;fen Sie ob Sie den Pfad f&#xfc;r die Dateien mkphones0.led und mkphones1.led richtig angegeben haben. (%1, %2)</source>
         <translation>Building of the transcriptions files failed. Please prove if you have entered the paths for the files mkphones0.led and mkphones1.led correctly. (%1, %2)</translation>
     </message>
@@ -3567,32 +3551,32 @@ This can take a few minutes.</translation>
         <translation type="obsolete">Error while generating the HMM1. Please prove the path to HERest (%1) and the config (%2</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="1054"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="1055"/>
         <source>[INF] Verwendete Monophone des Modells: %1</source>
         <translation>[INF] Unsing monophones of the model: %1</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="1115"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="1116"/>
         <source>[INF]</source>
         <translation>[INF]</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="480"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="481"/>
         <source>[ERR]</source>
         <translation>[ERR]</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="529"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="530"/>
         <source>Erstelle hmm0...</source>
         <translation>Build hmm0...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="536"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="537"/>
         <source>Erstelle hmm1...</source>
         <translation>Build hmm1...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="543"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="544"/>
         <source>Erstelle hmm2...</source>
         <translation>Build hmm2...</translation>
     </message>
@@ -3602,7 +3586,7 @@ This can take a few minutes.</translation>
         <translation type="obsolete">Error while generating the HMM1. Please prove the path to HERest (%1) and the config (%2 </translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="550"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="551"/>
         <source>Erstelle hmm3...</source>
         <translation>Build hmm3...</translation>
     </message>
@@ -3612,192 +3596,192 @@ This can take a few minutes.</translation>
         <translation type="obsolete">Error while generating the HMM1. Please prove the path to HERest (%1) and the config (%2</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="562"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="563"/>
         <source>Erstelle Pausenmodell (hmm4)...</source>
         <translation>Build sp-model (hmm4)...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="565"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="566"/>
         <source>Fehler beim Generieren des HMM4. Bitte &#xfc;berpr&#xfc;fen Sie das HMM3</source>
         <translation>Error when building HMM4. Please prove the HMM3</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="569"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="570"/>
         <source>Erstelle hmm5...</source>
         <translation>Build hmm5...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="572"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="573"/>
         <source>Fehler beim Generieren des HMM5. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HHEd (%1) und  des Silence-Modells (%2)</source>
         <translation>Error while generating the HMM5. Please prove the path to HHed (%1) and  the silence model(%2</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="576"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="577"/>
         <source>Erstelle hmm6...</source>
         <translation>Build hmm6...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="579"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="580"/>
         <source>Fehler beim Generieren des HMM6. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2</source>
         <translation>Error while generating the HMM1. Please prove the path to HERest (%1) and the config (%2</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="583"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="584"/>
         <source>Erstelle hmm7...</source>
         <translation>Build hmm7...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="586"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="587"/>
         <source>Fehler beim Generieren des HMM7. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2</source>
         <translation>Error while generating the HMM1. Please prove the path to HERest (%1) and the config (%2</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="596"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="597"/>
         <source>Erstellte dict1...</source>
         <translation>Build dict1...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="599"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="600"/>
         <source>Fehler beim erstellen des dict1</source>
         <translation>Error while building dict1</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="604"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="605"/>
         <source>Hmm7 neu ausrichten...</source>
         <translation>Realign hmm7...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="607"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="608"/>
         <source>Konnte HMM7 nicht neu ausrichten. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HVite (%1), der config (%2) und das HMM7.</source>
         <translation>Couldn&apos;t realign HMM7. Please prove the path to the HVite (%1), the config (%2) and the HMM7.</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="612"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="613"/>
         <source>Erstelle hmm8...</source>
         <translation>Build hmm8...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="615"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="616"/>
         <source>Fehler beim Generieren des HMM8. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2</source>
         <translation>Error while generating the HMM1. Please prove the path to HERest (%1) and the config (%2</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="620"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="621"/>
         <source>Erstelle hmm9...</source>
         <translation>Build hmm9...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="623"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="624"/>
         <source>Fehler beim Generieren des HMM9. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2</source>
         <translation>Error while generating the HMM1. Please prove the path to HERest (%1) and the config (%2</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="806"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="807"/>
         <source>Erstelle triphone...</source>
         <translation>Build triphones...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="639"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="640"/>
         <source>Konnte Triphone nicht binden. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HDMan (%1), global.ded (%2) und dem Lexikon (%3).</source>
         <translation>Couldn&apos;t bind triphones. Please prove the path to HDMan (%1), global.ded (%2) and the lexicon (%3).</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="644"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="645"/>
         <source>Erstelle Liste der Triphone...</source>
         <translation>Building list of the triphones...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="647"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="648"/>
         <source>Konnte Liste der Triphone nicht erstellen.</source>
         <translation>Couldn&apos;t build list of the triphones.</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="651"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="652"/>
         <source>Erstelle tree.hed...</source>
         <translation>Build tree.hed...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="654"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="655"/>
         <source>Konnte tree.hed nicht erstellen.</source>
         <translation>Couldn&apos;t build tree.hed.</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="659"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="660"/>
         <source>Erstelle hmm13...</source>
         <translation>Build hmm13...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="662"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="663"/>
         <source>Fehler beim Generieren des HMM13. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HHEd (%1).</source>
         <translation>Error while generating the HMM13. Please prove the path to HHEd (%1).</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="668"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="669"/>
         <source>Erstelle hmm14...</source>
         <translation>Build hmm14...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="671"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="672"/>
         <source>Fehler beim Generieren des HMM14. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)</source>
         <translation>Error while generating HMM14. Please prove the path to HERest (%1), to the config (%2), and the stats file (%3)</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="676"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="677"/>
         <source>Erstelle hmm15...</source>
         <translation>Build hmm15...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="679"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="680"/>
         <source>Fehler beim Generieren des HMM15. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)</source>
         <translation>Error while generating HMM15. Please prove the path to HERest (%1), to the config (%2) and the stats file (%3)</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="789"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="790"/>
         <source>&#xdc;bernehme Modell...</source>
         <translation>Take over the model...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="811"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="812"/>
         <source>Erstellen der Triphone files fehlgeschlagen. Bitte &#xfc;berpr&#xfc;fen Sie ob Sie den Pfad f&#xfc;r die Datei mktri.led richtig angegeben haben (%1) und &#xfc;berpr&#xfc;fen Sie den Pfad zu HLEd (%2)</source>
         <translation>Builing of the triphone files failed. Please prove, if you have declared the path for the file mktrie.led correctly (%1) and prove the path to HLEd (%2)</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="816"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="817"/>
         <source>Erstelle mktri.hed...</source>
         <translation>Build mktri.hed...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="819"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="820"/>
         <source>Fehler beim generieren der mktri.hed</source>
         <translation>Error while generating the mktri.hed</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="824"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="825"/>
         <source>Erstelle hmm10...</source>
         <translation>Build hmm10...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="827"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="828"/>
         <source>Fehler beim Generieren des HMM10. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HHEd (%1).</source>
         <translation>Error while generating HMM10. Please prove the path to HHed (%1).</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="832"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="833"/>
         <source>Erstelle hmm11...</source>
         <translation>Build hmm11...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="835"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="836"/>
         <source>Fehler beim Generieren des HMM11. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2)</source>
         <translation>Error while generating HMM11. Please prove the path to HERes (%1) and the config (%2)</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="840"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="841"/>
         <source>Erstelle hmm12...</source>
         <translation>Build hmm12...</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="843"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="844"/>
         <source>Fehler beim Generieren des HMM12. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)</source>
         <translation>Error while generating HMM12. Please prove the path to HERest (%1), the config (%2) and the stats file (%3)</translation>
     </message>
@@ -3811,7 +3795,7 @@ Bitte &#xfc;berpr&#xfc;fen Sie die Pfade zur Grammatikdatei (%1).</source>
 Please proof the paths to the grammar file (%1).</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="70"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="71"/>
         <source>Konnte Tempor&#xe4;re Vokabeln nicht erstellen.
 
 Bitte &#xfc;berpr&#xfc;fen Sie die Pfade zur Vokabulardatei (%1).</source>
@@ -3820,12 +3804,12 @@ Bitte &#xfc;berpr&#xfc;fen Sie die Pfade zur Vokabulardatei (%1).</source>
 Please proof the paths to the vocabulary file (%1).</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="50"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="51"/>
         <source>Generiere Umkehr-Grammatik...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="53"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="54"/>
         <source>Konnte Umkehr-Grammatik nicht erstellen.
 
 Ist eine Grammatik definiert?
@@ -3834,47 +3818,47 @@ Wenn ja, &#xfc;berpr&#xfc;fen Sie bitte auch die Pfade zur Grammatikdatei (%1).<
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="58"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="59"/>
         <source>Entferne unverwendete Vokabeln...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="61"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="62"/>
         <source>Konnte simple Vokabeln nicht erstellen.
 
 Bitte &#xfc;berpr&#xfc;fen Sie ob der die Wortliste richtig geladen wurde.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="67"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="68"/>
         <source>Generiere tempor&#xe4;re Vokabeln...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="76"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="77"/>
         <source>Generiere DFA...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="79"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="80"/>
         <source>Konnte dfa nicht generieren.
 
 Bitte &#xfc;berpr&#xfc;fen Sie die Pfade zur dfa und dfa_minimize Datei (%1, %2).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="84"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="85"/>
         <source>Generiere Grammatikalisches W&#xf6;rterbuch...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="87"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="88"/>
         <source>Konnte das grammatikalische W&#xf6;rterbuch nicht generieren. 
 Bitte &#xfc;berpr&#xfc;fen Sie die Pfade zur Ausgabedatei. (%1).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="497"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="498"/>
         <source>Phonem %1 kommt in den Trainingsdaten nicht vor.
 
 Bitte trainieren Sie ein Wort welches das Phonem %1 beinhaltet.
@@ -3883,7 +3867,7 @@ Sie k&#xf6;nnen zum Beispiel in der Wortliste ein beliebiges Wort w&#xe4;hlen we
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="532"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="533"/>
         <source>Fehler beim Generieren des HMM0. 
 
 Bitte &#xfc;berpr&#xfc;fen Sie, ob ausreichend Trainingsmaterial vorhanden ist.
@@ -3892,22 +3876,22 @@ Sollten Sie sicher sein, das Modell wurde ausreichend trainiert, &#xfc;berpr&#xf
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="539"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="540"/>
         <source>Fehler beim Generieren des HMM1. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2)</source>
         <translation type="unfinished">Error while generating HMM11. Please prove the path to HERes (%1) and the config (%2) {1.?} {1)?} {2)?}</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="546"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="547"/>
         <source>Fehler beim Generieren des HMM2. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2)</source>
         <translation type="unfinished">Error while generating HMM11. Please prove the path to HERes (%1) and the config (%2) {2.?} {1)?} {2)?}</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="553"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="554"/>
         <source>Fehler beim Generieren des HMM3. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2)</source>
         <translation type="unfinished">Error while generating HMM11. Please prove the path to HERes (%1) and the config (%2) {3.?} {1)?} {2)?}</translation>
     </message>
     <message>
-        <location filename="modelmanager.cpp" line="273"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="274"/>
         <source>Beim Kompilieren des Modells ist ein Fehler aufgetreten:
 
 %1
@@ -3923,32 +3907,32 @@ Fehlermeldung:
 <context>
     <name>ModelSettings</name>
     <message>
-        <location filename="modelsettings.cpp" line="19"/>
+        <location filename="ModelManagement/modelsettings.cpp" line="18"/>
         <source>Modelleinstellungen</source>
         <translation>Modelsettings</translation>
     </message>
     <message>
-        <location filename="modelsettings.cpp" line="19"/>
+        <location filename="ModelManagement/modelsettings.cpp" line="18"/>
         <source>Hier k&#xf6;nnen Sie Einstellungen rund um das Sprachmodell einstellen</source>
         <translation>Here you can edit the settings around the speech model</translation>
     </message>
     <message>
-        <location filename="modelsettings.cpp" line="72"/>
+        <location filename="ModelManagement/modelsettings.cpp" line="70"/>
         <source>Neues Kommando hinzuf&#xfc;gen</source>
         <translation>Add new command</translation>
     </message>
     <message>
-        <location filename="modelsettings.cpp" line="72"/>
+        <location filename="ModelManagement/modelsettings.cpp" line="70"/>
         <source>Vorverarbeitungskommando hinzuf&#xfc;gen:</source>
         <translation>Add preprocessingcommand:</translation>
     </message>
     <message>
         <location filename="modelsettings.cpp" line="231"/>
         <source>Ordner &#xf6;ffnen</source>
-        <translation>Open folder</translation>
+        <translation type="obsolete">Open folder</translation>
     </message>
     <message>
-        <location filename="modelsettings.cpp" line="48"/>
+        <location filename="ModelManagement/modelsettings.cpp" line="46"/>
         <source>Hier k&#xf6;nnen Sie Pfade zu den Sprachmodell-Dateien festlegen und Nachbearbeitungs-Ketten konfigurieren.
 
 Achtung: Unbedachte &#xc4;nderungen in diesem Modul k&#xf6;nnen die Funktionsf&#xe4;higkeit von simon negativ beeinflussen</source>
@@ -3958,52 +3942,52 @@ Achtung: Unbedachte &#xc4;nderungen in diesem Modul k&#xf6;nnen die Funktionsf&#
 <context>
     <name>ModelSettingsDlg</name>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="13"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="13"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="29"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="37"/>
         <source>Samplerate:</source>
         <translation>Samplerate:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="52"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="60"/>
         <source>Hz</source>
         <translation>Ht</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/modelsettingsdlg.ui" line="59"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="67"/>
         <source>Kanäle:</source>
         <translation>Channels:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="534"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="554"/>
         <source>Bearbeitungsliste:</source>
         <translation>manipulationlist:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="552"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="572"/>
         <source>Befehl</source>
         <translation>command</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="572"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="593"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/modelsettingsdlg.ui" line="595"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="617"/>
         <source>Hinzufügen</source>
         <translation>Add</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="605"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="628"/>
         <source>Entfernen</source>
         <translation>Remove</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/modelsettingsdlg.ui" line="621"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="645"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -4016,7 +4000,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;key:&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600; font-style:italic;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;%1:&lt;span style=&quot; font-weight:400;&quot;&gt; Inputfilename&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;%2:&lt;/span&gt; Outputfilename&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;%3:&lt;/span&gt; Samplerate&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;%4:&lt;/span&gt; channels&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="655"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="679"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -4029,17 +4013,17 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Samples</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="79"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="87"/>
         <source>Pfad:</source>
         <translation>Path: </translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="102"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="100"/>
         <source>Prompts:</source>
         <translation>Prompts:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="112"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="110"/>
         <source>model/prompts</source>
         <translation>model/prompts</translation>
     </message>
@@ -4049,77 +4033,77 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Speech model</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="247"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="251"/>
         <source>Lexikon:</source>
         <translation>Lexicon:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="267"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="271"/>
         <source>Grammatik:</source>
         <translation>Grammar:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="257"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="261"/>
         <source>Vokabular:</source>
         <translation>Vocabulary:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="307"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="311"/>
         <source>Wav-Config:</source>
         <translation>Wav-Config:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="391"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="403"/>
         <source>mkphones0.led:</source>
         <translation>mkphoes0.led:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="401"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="413"/>
         <source>mkphones1.led:</source>
         <translation>mkphones1.led:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="447"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="459"/>
         <source>config:</source>
         <translation>config:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="457"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="469"/>
         <source>proto:</source>
         <translation>proto:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="297"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="301"/>
         <source>tree1.hed:</source>
         <translation>tree1.hed:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="321"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="325"/>
         <source>model/lexicon</source>
         <translation>model/lexicon</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="335"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="339"/>
         <source>model/model.grammar</source>
         <translation>model/model.grammar</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="328"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="332"/>
         <source>model/model.voca</source>
         <translation>model/model.voca</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="359"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="363"/>
         <source>model/wav_config</source>
         <translation>model/wav_config</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="521"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="541"/>
         <source>Nachbearbeitung</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="484"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="496"/>
         <source> (global.ded, etc.)</source>
         <translation> (global. ded, etc.)</translation>
     </message>
@@ -4129,27 +4113,27 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Path of the HDMan scripts:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="153"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="149"/>
         <source>HMM Output:</source>
         <translation>HMM Output:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="163"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="159"/>
         <source>Tiedlist:</source>
         <translation>Tiedlist:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="277"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="281"/>
         <source>Schatten-Lexikon</source>
         <translation>Shadowdict</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="287"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="291"/>
         <source>Schatten-Vokabular:</source>
         <translation>Shadow vocabulary:</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/modelsettingsdlg.ui" line="349"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="353"/>
         <source>Das Schattenlexikon beinhaltet unbenutzte Wörter</source>
         <translation>The shadowdict contains unused words</translation>
     </message>
@@ -4159,72 +4143,72 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Scripts</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="414"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="426"/>
         <source>Global.ded:</source>
         <translation>Global.ded:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="427"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="439"/>
         <source>sil.hed:</source>
         <translation>sil.hed</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="437"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="449"/>
         <source>mktri.led:</source>
         <translation>mktri.led:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="23"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="31"/>
         <source>Trainingsdaten</source>
         <translation>Training data</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="143"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="139"/>
         <source>Ausgabe</source>
         <translation>Output</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="173"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="169"/>
         <source>dfa:</source>
         <translation>dfa:</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="183"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="179"/>
         <source>dict:</source>
         <translation>dict:</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/modelsettingsdlg.ui" line="226"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="222"/>
         <source>Hier können leere oder nicht vorhandene Dateien angegeben werden. Sie werden von simon beim generieren des Sprachmodells überschrieben</source>
         <translation>Here you can enter empty or not existing files. This files will be overwritten when simon generates the speech model.</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="237"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="241"/>
         <source>Personenbezogen</source>
         <translation>user dependet</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/modelsettingsdlg.ui" line="370"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="374"/>
         <source>Im Falle der Wav-Config empfiehlt es sich allerdings eine Standard-Version zu benutzen und diese nur (falls nötig) anzupassen. Die tree1.hed weist nur Unterschiede zwischen verschiedenen Sprachen oder Dialekten auf.</source>
         <translation>In the case of a wav-config it is adviseable to use a standard version and costomize this (if necessary). The tree1.hed exhibits only differences bewteen different languages and accents.</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="381"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="393"/>
         <source>Modellskripte</source>
         <translation>Model scripts</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/modelsettingsdlg.ui" line="510"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="522"/>
         <source>&lt;b&gt;Sie können die meisten dieser Dateien aus einem aktuellen Voxforge-Snapshot entnehmen. (&lt;a href=&quot;http://www.voxforge.org&quot;&gt;Voxforge Homepage&lt;/a&gt;)&lt;/b&gt;</source>
         <translation>&lt;b&gt;You can find the most of this files in the actual Voxforge-Snapshot (&lt;a href=&quot;http://www.voxforge.org&quot;&gt;Voxforge Homepage&lt;/a&gt;)&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="467"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="479"/>
         <source>Monophones:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/modelsettingsdlg.ui" line="527"/>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="547"/>
         <source>Auch simon-interne Aufnahmen nachbearbeiten</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4237,37 +4221,37 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Network settings</translation>
     </message>
     <message>
-        <location filename="networksettings.cpp" line="28"/>
+        <location filename="GeneralConfiguration/networksettings.cpp" line="28"/>
         <source>Hier k&#xf6;nnen Sie Adressen zu anderen Teilen des Programmes konfigurieren</source>
         <translation>Here you can config adresses to other parts of the program</translation>
     </message>
     <message>
-        <location filename="networksettings.cpp" line="126"/>
+        <location filename="GeneralConfiguration/networksettings.cpp" line="126"/>
         <source>Adresse</source>
         <translation>adress</translation>
     </message>
     <message>
-        <location filename="networksettings.cpp" line="128"/>
+        <location filename="GeneralConfiguration/networksettings.cpp" line="128"/>
         <source>Port</source>
         <translation>port</translation>
     </message>
     <message>
-        <location filename="networksettings.cpp" line="269"/>
+        <location filename="GeneralConfiguration/networksettings.cpp" line="269"/>
         <source>Neue Adresse Hinzuf&#xfc;gen</source>
         <translation>Add new addres</translation>
     </message>
     <message>
-        <location filename="networksettings.cpp" line="265"/>
+        <location filename="GeneralConfiguration/networksettings.cpp" line="265"/>
         <source>Host:</source>
         <translation>host:</translation>
     </message>
     <message>
-        <location filename="networksettings.cpp" line="269"/>
+        <location filename="GeneralConfiguration/networksettings.cpp" line="269"/>
         <source>Portnummer:</source>
         <translation>Portnumber:</translation>
     </message>
     <message>
-        <location filename="networksettings.cpp" line="28"/>
+        <location filename="GeneralConfiguration/networksettings.cpp" line="28"/>
         <source>Juliusd</source>
         <translation>Juliusd</translation>
     </message>
@@ -4275,17 +4259,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>NetworkSettingsDlg</name>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="13"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="13"/>
         <source>Network</source>
         <translation>Network</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="22"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="36"/>
         <source>Allgemein</source>
-        <translation type="obsolete">General</translation>
+        <translation type="unfinished">General</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="108"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="136"/>
         <source>Timeout (Millisekunden):</source>
         <translation>Timeout (milliseconds):</translation>
     </message>
@@ -4295,62 +4279,62 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Juliusd</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="150"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="178"/>
         <source>Adresse</source>
         <translation>Adress</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="155"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="183"/>
         <source>Port</source>
         <translation>Port</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="181"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="210"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/networksettingsdlg.ui" line="207"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="237"/>
         <source>Hinzufügen</source>
         <translation>Add</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="220"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="251"/>
         <source>Entfernen</source>
         <translation>Remove</translation>
     </message>
     <message>
         <location filename="ui/networksettingsdlg.ui" line="32"/>
         <source>Warnungen ignorieren:</source>
-        <translation>Ignor warnings:</translation>
+        <translation type="obsolete">Ignor warnings:</translation>
     </message>
     <message>
         <location filename="ui/networksettingsdlg.ui" line="39"/>
         <source>Ignorieren (Nicht empfohlen)</source>
-        <translation>Ignor (not recommended)</translation>
+        <translation type="obsolete">Ignor (not recommended)</translation>
     </message>
     <message>
         <location filename="ui/networksettingsdlg.ui" line="50"/>
         <source>Benutzername</source>
-        <translation>Username</translation>
+        <translation type="obsolete">Username</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="56"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="62"/>
         <source>Benutzername:</source>
         <translation>Username:</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="69"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="75"/>
         <source>Passwort:</source>
         <translation>Password:</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/networksettingsdlg.ui" line="233"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="273"/>
         <source>Verschlüsselung</source>
         <translation>Encryption</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/networksettingsdlg.ui" line="239"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="279"/>
         <source>Verschlüsselung verwenden</source>
         <translation>Use encryption</translation>
     </message>
@@ -4360,28 +4344,38 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Algorithm:</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="259"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="299"/>
         <source>Zertifikat (.pem):</source>
         <translation>Certificate (.pem):</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="100"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="128"/>
         <source>Netzwerk</source>
         <translation>Network</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="130"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="158"/>
         <source>Hosts</source>
         <translation>Hosts</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="22"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="42"/>
         <source>Beim simon-Start verbinden</source>
         <translation type="unfinished">Connect when simon is started</translation>
     </message>
     <message>
-        <location filename="ui/networksettingsdlg.ui" line="246"/>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="286"/>
         <source>Algorithmus:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="55"/>
+        <source>&quot;Kiosk&quot; Modus (In Arbeit)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="105"/>
+        <source>Warnungen ignorieren (Nicht empfohlen)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4390,7 +4384,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="osd.cpp" line="45"/>
         <source>[INF] </source>
-        <translation>[INF] </translation>
+        <translation type="obsolete">[INF] </translation>
     </message>
 </context>
 <context>
@@ -4398,7 +4392,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="passworddlg.cpp" line="30"/>
         <source>Settingspasswort</source>
-        <translation>Settingspassword</translation>
+        <translation type="obsolete">Settingspassword</translation>
     </message>
     <message>
         <location filename="passworddlg.cpp" line="33"/>
@@ -4407,7 +4401,7 @@ um alle Settings anzuzeigen.
 
 Password:
 </source>
-        <translation>Please enter your password here, 
+        <translation type="obsolete">Please enter your password here, 
 to view all settings.
 
 Password:
@@ -4416,24 +4410,24 @@ Password:
     <message>
         <location filename="passworddlg.cpp" line="43"/>
         <source>Ok</source>
-        <translation>Ok</translation>
+        <translation type="obsolete">Ok</translation>
     </message>
     <message>
         <location filename="passworddlg.cpp" line="47"/>
         <source>Abbrechen</source>
-        <translation>Cancel</translation>
+        <translation type="obsolete">Cancel</translation>
     </message>
     <message>
         <location filename="passworddlg.cpp" line="67"/>
         <source>Falsches Passwort</source>
-        <translation type="unfinished">Incorrect password</translation>
+        <translation type="obsolete">Incorrect password</translation>
     </message>
     <message>
         <location filename="passworddlg.cpp" line="67"/>
         <source>Sie haben ein falsches Passwort eingegeben.
 
 Wollen Sie das Passwort erneut eingeben?</source>
-        <translation type="unfinished">You have entered an incorrect password.
+        <translation type="obsolete">You have entered an incorrect password.
 
 Would you likt to enter the password again?</translation>
     </message>
@@ -4441,27 +4435,27 @@ Would you likt to enter the password again?</translation>
 <context>
     <name>PasswordSettings</name>
     <message>
-        <location filename="passwordsettings.cpp" line="16"/>
+        <location filename="GeneralConfiguration/passwordsettings.cpp" line="16"/>
         <source>Passwort-Sicherung</source>
         <translation>Password protection</translation>
     </message>
     <message>
-        <location filename="passwordsettings.cpp" line="16"/>
+        <location filename="GeneralConfiguration/passwordsettings.cpp" line="16"/>
         <source>Sichern Sie simons Systemeinstellungen mit einem Passwort</source>
         <translation>Protect simons system setting with a password</translation>
     </message>
     <message>
-        <location filename="passwordsettings.cpp" line="19"/>
+        <location filename="GeneralConfiguration/passwordsettings.cpp" line="19"/>
         <source>Wenn der Passwortschutz deaktiviert ist, muss nur auf den Knopf &quot;Systemverwaltungsmodus&quot; geklickt werden, damit alle (System-) Optionen angezeigt werden.</source>
         <translation>If the password protection is deactivated, you just have to click on Systemadministrationmode to view all system options.</translation>
     </message>
     <message>
-        <location filename="passwordsettings.cpp" line="34"/>
+        <location filename="GeneralConfiguration/passwordsettings.cpp" line="34"/>
         <source>Passwortschutz</source>
         <translation>Password protection</translation>
     </message>
     <message>
-        <location filename="passwordsettings.cpp" line="34"/>
+        <location filename="GeneralConfiguration/passwordsettings.cpp" line="34"/>
         <source>Die eingegebenen Passw&#xf6;rter des simon-Passwortschutz&apos; stimmen nicht &#xfc;berein.
 
 Bitte geben Sie sie erneut ein.</source>
@@ -4473,32 +4467,32 @@ Please enter the password again.</translation>
 <context>
     <name>PasswordSettingsDlg</name>
     <message>
-        <location filename="ui/passwordsettingsdlg.ui" line="13"/>
+        <location filename="GeneralConfiguration/passwordsettingsdlg.ui" line="13"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="ui/passwordsettingsdlg.ui" line="25"/>
+        <location filename="GeneralConfiguration/passwordsettingsdlg.ui" line="25"/>
         <source>Passwortschutz aktivieren</source>
         <translation>Activate password protection</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/passwordsettingsdlg.ui" line="35"/>
+        <location filename="GeneralConfiguration/passwordsettingsdlg.ui" line="35"/>
         <source>Passwort ändern</source>
         <translation>Change password</translation>
     </message>
     <message>
-        <location filename="ui/passwordsettingsdlg.ui" line="45"/>
+        <location filename="GeneralConfiguration/passwordsettingsdlg.ui" line="45"/>
         <source>Passworteingabe</source>
         <translation>Password entry</translation>
     </message>
     <message>
-        <location filename="ui/passwordsettingsdlg.ui" line="57"/>
+        <location filename="GeneralConfiguration/passwordsettingsdlg.ui" line="57"/>
         <source>Passwort:</source>
         <translation>Password:</translation>
     </message>
     <message>
-        <location filename="ui/passwordsettingsdlg.ui" line="77"/>
+        <location filename="GeneralConfiguration/passwordsettingsdlg.ui" line="77"/>
         <source>Passwort wiederholen:</source>
         <translation>Repeat password:</translation>
     </message>
@@ -4513,12 +4507,12 @@ Please enter the password again.</translation>
     <message>
         <location filename="inireader.cpp" line="30"/>
         <source>[ERR] Kein Dateiname angegeben - konnte INI Datei nicht lesen</source>
-        <translation>[ERR] No filename given - couldn&apos; read INI-file</translation>
+        <translation type="obsolete">[ERR] No filename given - couldn&apos; read INI-file</translation>
     </message>
     <message>
         <location filename="inireader.cpp" line="36"/>
         <source>[ERR] Konnte INI-Datei %1 nicht zum lesen &#xf6;ffnen</source>
-        <translation>[ERR] Couldn&apos;t open INI-file %1 to read</translation>
+        <translation type="obsolete">[ERR] Couldn&apos;t open INI-file %1 to read</translation>
     </message>
     <message>
         <location filename="inireader.cpp" line="46"/>
@@ -4528,172 +4522,172 @@ Please enter the password again.</translation>
     <message>
         <location filename="shortcut.cpp" line="135"/>
         <source>Enter</source>
-        <translation>Enter</translation>
+        <translation type="obsolete">Enter</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="136"/>
         <source>Esc</source>
-        <translation>Esc</translation>
+        <translation type="obsolete">Esc</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="137"/>
         <source>Pause</source>
-        <translation>break</translation>
+        <translation type="obsolete">break</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="138"/>
         <source>Druck</source>
-        <translation>Print</translation>
+        <translation type="obsolete">Print</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="139"/>
         <source>L&#xf6;schen</source>
-        <translation>Delete</translation>
+        <translation type="obsolete">Delete</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="141"/>
         <source>&lt;-</source>
-        <translation>&lt;-</translation>
+        <translation type="obsolete">&lt;-</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="142"/>
         <source>-&gt;</source>
-        <translation>-&gt;</translation>
+        <translation type="obsolete">-&gt;</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="143"/>
         <source>/\</source>
-        <translation>/\</translation>
+        <translation type="obsolete">/\</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="144"/>
         <source>\/</source>
-        <translation>\/</translation>
+        <translation type="obsolete">\/</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="145"/>
         <source>Ende</source>
-        <translation>End</translation>
+        <translation type="obsolete">End</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="146"/>
         <source>Pos1</source>
-        <translation>Pos1</translation>
+        <translation type="obsolete">Pos1</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="147"/>
         <source>Bild /\</source>
-        <translation>Page /\</translation>
+        <translation type="obsolete">Page /\</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="148"/>
         <source>Bild \/</source>
-        <translation>Page \/</translation>
+        <translation type="obsolete">Page \/</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="150"/>
         <source>F1</source>
-        <translation>F1</translation>
+        <translation type="obsolete">F1</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="151"/>
         <source>F2</source>
-        <translation>F2</translation>
+        <translation type="obsolete">F2</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="152"/>
         <source>F3</source>
-        <translation>F3</translation>
+        <translation type="obsolete">F3</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="153"/>
         <source>F4</source>
-        <translation>F4</translation>
+        <translation type="obsolete">F4</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="154"/>
         <source>F5</source>
-        <translation>F5</translation>
+        <translation type="obsolete">F5</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="155"/>
         <source>F6</source>
-        <translation>F6</translation>
+        <translation type="obsolete">F6</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="156"/>
         <source>F7</source>
-        <translation>F7</translation>
+        <translation type="obsolete">F7</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="157"/>
         <source>F8</source>
-        <translation>F8</translation>
+        <translation type="obsolete">F8</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="158"/>
         <source>F9</source>
-        <translation>F9</translation>
+        <translation type="obsolete">F9</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="159"/>
         <source>F10</source>
-        <translation>F10</translation>
+        <translation type="obsolete">F10</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="160"/>
         <source>F11</source>
-        <translation>F11</translation>
+        <translation type="obsolete">F11</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="161"/>
         <source>F12</source>
-        <translation>F12</translation>
+        <translation type="obsolete">F12</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="164"/>
         <source>Shift</source>
-        <translation>Shift</translation>
+        <translation type="obsolete">Shift</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="165"/>
         <source>Strg</source>
-        <translation>Strg</translation>
+        <translation type="obsolete">Strg</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="166"/>
         <source>Alt</source>
-        <translation>Alt</translation>
+        <translation type="obsolete">Alt</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="167"/>
         <source>(AltGr)</source>
-        <translation>(AltGr)</translation>
+        <translation type="obsolete">(AltGr)</translation>
     </message>
     <message>
         <location filename="shortcut.cpp" line="168"/>
         <source>Super</source>
-        <translation>Super</translation>
+        <translation type="obsolete">Super</translation>
     </message>
     <message>
         <location filename="xevents.cpp" line="70"/>
         <source>[INF] &#xd6;ffne display &quot;%1&quot;</source>
-        <translation>[INF] open display &quot;%1&quot;</translation>
+        <translation type="obsolete">[INF] open display &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="xevents.cpp" line="75"/>
         <source>[ERR] Fehler beim &#xf6;ffnen des display &quot;%1&quot;</source>
-        <translation>[ERR] Error when opend the display &quot;%1&quot;</translation>
+        <translation type="obsolete">[ERR] Error when opend the display &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="xevents.cpp" line="76"/>
         <source>Error</source>
-        <translation>Error</translation>
+        <translation type="obsolete">Error</translation>
     </message>
     <message>
         <location filename="xevents.cpp" line="76"/>
         <source>Konnte Display nicht &#xf6;ffnen. Bitte &#xfc;berpr&#xfc;fen Sie ihre Konfiguration und / oder setzen Sie sich mit den simon-Entwickler in Verbindung. (Display: &quot;</source>
-        <translation>Couldn&apos;t open display. Please prove the configuration and / or get in contact withl the simon-developers. (Display: &quot;</translation>
+        <translation type="obsolete">Couldn&apos;t open display. Please prove the configuration and / or get in contact withl the simon-developers. (Display: &quot;</translation>
     </message>
     <message>
         <location filename="xevents.cpp" line="79"/>
@@ -4713,70 +4707,36 @@ Please enter the password again.</translation>
     <message>
         <location filename="grammarmanager.cpp" line="60"/>
         <source>[INF] Lade Grammatik von %1</source>
-        <translation>[INF] Loading grammar from %1</translation>
+        <translation type="obsolete">[INF] Loading grammar from %1</translation>
     </message>
     <message>
         <location filename="grammarmanager.cpp" line="213"/>
         <source>[INF] Speichere Grammatik nach %1</source>
-        <translation>[INF] Saving grammar to %1</translation>
+        <translation type="obsolete">[INF] Saving grammar to %1</translation>
     </message>
     <message>
         <location filename="trainingmanager.cpp" line="190"/>
         <source>[INF] %1 Prompts gelesen</source>
-        <translation>[INF] %1 prompts readed</translation>
+        <translation type="obsolete">[INF] %1 prompts readed</translation>
     </message>
     <message>
         <location filename="trainingmanager.cpp" line="302"/>
         <source>Fehler beim Auslesen der Trainingstexte</source>
-        <translation>Error while readout the training texts</translation>
+        <translation type="obsolete">Error while readout the training texts</translation>
     </message>
     <message>
         <location filename="trainingmanager.cpp" line="296"/>
         <source>Der Pfad zu den Trainingstexten ist nicht richtig konfiguriert. (Er ist leer)
 
 Bitte setzen Sie einen korrekten Pfad in den Einstellungen.</source>
-        <translation>The path to the trainings text is not configured correctly. (It is empty)
+        <translation type="obsolete">The path to the trainings text is not configured correctly. (It is empty)
 
 Please got to the settings and set the correct pat.</translation>
     </message>
     <message>
-        <location filename="runcommand.cpp" line="44"/>
+        <location filename="Commands/runcommand.cpp" line="45"/>
         <source>[INF] Importiere Kommandos von </source>
         <translation type="unfinished">[INF] Import commands from </translation>
-    </message>
-    <message>
-        <location filename="trainingmanager.cpp" line="148"/>
-        <source>Trainingsdaten ge&#xe4;ndert</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="trainingmanager.cpp" line="148"/>
-        <source>Die Trainingsdaten wurden ge&#xe4;ndert.
-
-Wollen Sie das Sprachmodell jetzt neu kompilieren?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="trainingmanager.cpp" line="302"/>
-        <source>Der Pfad zu den Trainingstexten ist nicht richtig konfiguriert. (Der Ordner existiert nicht)
-
-Bitte setzen Sie einen korrekten Pfad in den Einstellungen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="xevents.cpp" line="92"/>
-        <source>[INF] XTest f&#xfc;r Server &quot;%1&quot; ist Version %2.%3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="xevents.cpp" line="94"/>
-        <source>[INF] Aufnahme der Display-Kontrolle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="xevents.cpp" line="96"/>
-        <source>[INF] Synchronisiere Display</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4784,37 +4744,37 @@ Bitte setzen Sie einen korrekten Pfad in den Einstellungen.</source>
     <message>
         <location filename="importtrainingtextworkingpage.cpp" line="48"/>
         <source>[INF] Starte Remote Import von &quot;</source>
-        <translation>[INF] Start remote inport from &quot;</translation>
+        <translation type="obsolete">[INF] Start remote inport from &quot;</translation>
     </message>
     <message>
         <location filename="importtrainingtextworkingpage.cpp" line="54"/>
         <source>&quot;</source>
-        <translation>&quot;</translation>
+        <translation type="obsolete">&quot;</translation>
     </message>
     <message>
         <location filename="importtrainingtextworkingpage.cpp" line="54"/>
         <source>[INF] Starte Lokalen Import von&quot;</source>
-        <translation>[INF] start local import from&quot;</translation>
+        <translation type="obsolete">[INF] start local import from&quot;</translation>
     </message>
     <message>
-        <location filename="runcommand.cpp" line="101"/>
+        <location filename="Commands/runcommand.cpp" line="102"/>
         <source>[INF] Lese Befehle von </source>
         <translation>[INF] read commands from </translation>
     </message>
     <message>
-        <location filename="runcommand.cpp" line="142"/>
+        <location filename="Commands/runcommand.cpp" line="143"/>
         <source>[INF] Ausf&#xfc;hren des Befehls: </source>
         <translation>[INF] Execute command: </translation>
     </message>
     <message>
-        <location filename="runcommand.cpp" line="155"/>
+        <location filename="Commands/runcommand.cpp" line="156"/>
         <source>[INF] &#xf6;ffne Ort: </source>
         <translation>[INF] open location: </translation>
     </message>
     <message>
         <location filename="soundcontrol.cpp" line="42"/>
         <source>[INF] Bekommen einer Liste mit den verf&#xfc;gbaren devices</source>
-        <translation>[INF] Getting a list with the available devices</translation>
+        <translation type="obsolete">[INF] Getting a list with the available devices</translation>
     </message>
     <message>
         <location filename="soundcontrol.cpp" line="111"/>
@@ -4829,67 +4789,62 @@ Bitte setzen Sie einen korrekten Pfad in den Einstellungen.</source>
     <message>
         <location filename="soundcontrol.cpp" line="89"/>
         <source>[INF] Bekommen einer Liste mit den verf&#xfc;gbaren Input-devices</source>
-        <translation>[INF] Get a list with the available Input-devices</translation>
+        <translation type="obsolete">[INF] Get a list with the available Input-devices</translation>
     </message>
     <message>
         <location filename="trainingmanager.cpp" line="202"/>
         <source>[INF] Starten eines  on-the-fly Trainings mit %1 W&#xf6;rter</source>
-        <translation>[INF] Start a  on-the-fly training with %1 words</translation>
+        <translation type="obsolete">[INF] Start a  on-the-fly training with %1 words</translation>
     </message>
     <message>
         <location filename="trainingmanager.cpp" line="265"/>
         <source>Spezialisiertes Training</source>
-        <translation>Special training</translation>
+        <translation type="obsolete">Special training</translation>
     </message>
     <message>
         <location filename="trainingmanager.cpp" line="279"/>
         <source>[INF] L&#xf6;schen von &quot;%1&quot; von &quot;%2&quot;</source>
-        <translation>[INF] Delete &quot;%1&quot; from &quot;%2&quot;</translation>
+        <translation type="obsolete">[INF] Delete &quot;%1&quot; from &quot;%2&quot;</translation>
     </message>
     <message>
         <location filename="trainingmanager.cpp" line="299"/>
         <source>[INF] Lesen der Trainingtexte von &quot;</source>
-        <translation>[INF] Read traintexts from &quot;</translation>
+        <translation type="obsolete">[INF] Read traintexts from &quot;</translation>
     </message>
     <message>
         <location filename="trainingmanager.cpp" line="350"/>
         <source>[INF] Training Text: &quot;</source>
-        <translation>[INF] trainingstext: &quot;</translation>
+        <translation type="obsolete">[INF] trainingstext: &quot;</translation>
     </message>
     <message>
         <location filename="trainingmanager.cpp" line="485"/>
         <source>[INF] Berechne Nutzen des Textes </source>
-        <translation>[INF] Calculate relevance of the text </translation>
+        <translation type="obsolete">[INF] Calculate relevance of the text </translation>
     </message>
     <message>
         <location filename="wav.cpp" line="44"/>
         <source>[INF] &#xd6;ffne WAV Datei: %1</source>
-        <translation>[INF] Open WAV file: %1</translation>
+        <translation type="obsolete">[INF] Open WAV file: %1</translation>
     </message>
     <message>
         <location filename="wav.cpp" line="49"/>
         <source>[INF] Erstelle neue WAV Datei: %1</source>
-        <translation>[INF] Build new WAV file: %1</translation>
-    </message>
-    <message>
-        <location filename="wav.cpp" line="79"/>
-        <source>Importieren des existierenden Daten Datei. Fortsetzen mit einer Lehren Datei.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">[INF] Build new WAV file: %1</translation>
     </message>
     <message>
         <location filename="wav.cpp" line="175"/>
         <source>Writing WAV file to &quot;%1&quot;</source>
-        <translation>Writing WAV file to &quot;%1&quot;</translation>
+        <translation type="obsolete">Writing WAV file to &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="162"/>
         <source>[INF] Sortiere eine Liste mit %1 W&#xf6;rtern</source>
-        <translation>[INF] Sort a list with %1 words</translation>
+        <translation type="obsolete">[INF] Sort a list with %1 words</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="208"/>
         <source>[INF] Speichere W&#xf6;rterliste</source>
-        <translation>[INF] Saving wordlist</translation>
+        <translation type="obsolete">[INF] Saving wordlist</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="76"/>
@@ -4899,37 +4854,37 @@ Bitte setzen Sie einen korrekten Pfad in den Einstellungen.</source>
     <message>
         <location filename="wordlistmanager.cpp" line="250"/>
         <source>[INF] &#xd6;ffnen der Ausgabedatei: %1</source>
-        <translation>[INF] Open the outputfile: %1</translation>
+        <translation type="obsolete">[INF] Open the outputfile: %1</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="265"/>
         <source>[ERR] Fehler beim &#xf6;ffnen der Ausgabedatei %1</source>
-        <translation>[ERR] Error when opening outputfile %1</translation>
+        <translation type="obsolete">[ERR] Error when opening outputfile %1</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="348"/>
         <source>[INF] Schie&#xdf;en der Ausgabedatei</source>
-        <translation>[INF] Closing the outputfile</translation>
+        <translation type="obsolete">[INF] Closing the outputfile</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="469"/>
         <source>[INF] Lesen der W&#xf6;rterliste bestehend aus </source>
-        <translation>[INF] Reading the wordlist consisting of </translation>
+        <translation type="obsolete">[INF] Reading the wordlist consisting of </translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="470"/>
         <source>[INF] <byte value="x9"/><byte value="x9"/>Lexikon: %1,</source>
-        <translation>[INF] <byte value="x9"/>Lexicon: %1,</translation>
+        <translation type="obsolete">[INF] <byte value="x9"/>Lexicon: %1,</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="471"/>
         <source>[INF] <byte value="x9"/><byte value="x9"/>Vocabular: %1,</source>
-        <translation>[INF] <byte value="x9"/>Vocabular: %1,</translation>
+        <translation type="obsolete">[INF] <byte value="x9"/>Vocabular: %1,</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="472"/>
         <source>[INF] <byte value="x9"/><byte value="x9"/>Prompts: %1</source>
-        <translation>[INF] <byte value="x9"/>Prompts: %1</translation>
+        <translation type="obsolete">[INF] <byte value="x9"/>Prompts: %1</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="299"/>
@@ -4939,7 +4894,7 @@ Bitte setzen Sie einen korrekten Pfad in den Einstellungen.</source>
     <message>
         <location filename="wordlistmanager.cpp" line="522"/>
         <source>[INF] W&#xf6;rterliste erstellt</source>
-        <translation>[INF] wordlist created</translation>
+        <translation type="obsolete">[INF] wordlist created</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="181"/>
@@ -4949,22 +4904,22 @@ Bitte setzen Sie einen korrekten Pfad in den Einstellungen.</source>
     <message>
         <location filename="wordlistmanager.cpp" line="995"/>
         <source>[INF] Hinzuf&#xfc;gen von %1 W&#xf6;rtern in die W&#xf6;rterliste</source>
-        <translation>[INF] Adding %1 words into the wordlist</translation>
+        <translation type="obsolete">[INF] Adding %1 words into the wordlist</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="1061"/>
         <source>[INF] Die Wortliste beinhaltet jetzt %1 W&#xf6;rter</source>
-        <translation>[INF] The wordlist now contains %1 words</translation>
+        <translation type="obsolete">[INF] The wordlist now contains %1 words</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="1142"/>
         <source>[INF] Parse Promptsdatei von %1</source>
-        <translation>[INF] Parse promtsfile from %1</translation>
+        <translation type="obsolete">[INF] Parse promtsfile from %1</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="1076"/>
         <source>[INF] Lese Vokabular von %1</source>
-        <translation>[INF] Reading vocabulary from %1</translation>
+        <translation type="obsolete">[INF] Reading vocabulary from %1</translation>
     </message>
     <message>
         <location filename="xmlsetting.cpp" line="31"/>
@@ -4979,77 +4934,55 @@ Bitte setzen Sie einen korrekten Pfad in den Einstellungen.</source>
     <message>
         <location filename="wordlistmanager.cpp" line="537"/>
         <source>[INF] Entfernen der doppelten Eintr&#xe4;ge</source>
-        <translation>[INF] Deleting the multiple entries</translation>
-    </message>
-    <message>
-        <location filename="postprocessing.cpp" line="33"/>
-        <source>Filter werden angewendet...</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">[INF] Deleting the multiple entries</translation>
     </message>
     <message>
         <location filename="postprocessing.cpp" line="33"/>
         <source>Abbrechen</source>
-        <translation type="unfinished">Cancel</translation>
+        <translation type="obsolete">Cancel</translation>
     </message>
     <message>
         <location filename="postprocessing.cpp" line="74"/>
         <source>Fehler</source>
-        <translation type="unfinished">Error</translation>
+        <translation type="obsolete">Error</translation>
     </message>
     <message>
         <location filename="postprocessing.cpp" line="36"/>
         <source>Konnte %1 nicht &#xfc;berschreiben. Bitte &#xfc;berpr&#xfc;fen Sie, ob Sie die n&#xf6;tigen Rechte besitzen.</source>
-        <translation type="unfinished">Couldn&apos;t overwrite %1. Please prove, if you have got the necessary rights.</translation>
+        <translation type="obsolete">Couldn&apos;t overwrite %1. Please prove, if you have got the necessary rights.</translation>
     </message>
     <message>
-        <location filename="postprocessing.cpp" line="55"/>
-        <source>Konnte %1 nicht nach %2 bearbeiten.
-
-Bitte ueberpruefen Sie ob Sie das Programm, installiert haben, der Pfad in den Einstellungen richtig angegeben wurde und ob Sie all die n&#xf6;tigen Berechtigungen besitzen. (R&#xfc;ckgabewert %3) (Ausgefuehrtes Kommando: %4)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="postprocessing.cpp" line="66"/>
-        <source>Konnte %1 nicht nach %2 kopieren. Bitte &#xfc;berpr&#xfc;fen Sie ihre Berechtigungen auf den Zielort</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="postprocessing.cpp" line="74"/>
-        <source>Konnte %1 nicht l&#xf6;schen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="runcommand.cpp" line="77"/>
+        <location filename="Commands/runcommand.cpp" line="78"/>
         <source>[INF] Schreibe Befehle nach </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="runcommand.cpp" line="82"/>
+        <location filename="Commands/runcommand.cpp" line="83"/>
         <source>[ERR] Konnte Befehle nicht schreiben</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="runcommand.cpp" line="83"/>
+        <location filename="Commands/runcommand.cpp" line="84"/>
         <source>Konnte Kommandos nicht speichern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="runcommand.cpp" line="84"/>
+        <location filename="Commands/runcommand.cpp" line="85"/>
         <source>Konnte Kommandos nicht nach %1 speichern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="runcommand.cpp" line="106"/>
+        <location filename="Commands/runcommand.cpp" line="107"/>
         <source>[ERR] Konnte Befehle nicht &#xf6;ffnen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="runcommand.cpp" line="107"/>
+        <location filename="Commands/runcommand.cpp" line="108"/>
         <source>Konnte Kommandos nicht laden</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="runcommand.cpp" line="107"/>
+        <location filename="Commands/runcommand.cpp" line="108"/>
         <source>Konnte Kommandos vom konfigurierten Pfad %1 nicht einlesen</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5059,12 +4992,12 @@ Bitte ueberpruefen Sie ob Sie das Programm, installiert haben, der Pfad in den E
     <message>
         <location filename="quickdownloader.cpp" line="105"/>
         <source>Fehler beim &#xd6;ffnen</source>
-        <translation>Openingerror</translation>
+        <translation type="obsolete">Openingerror</translation>
     </message>
     <message>
         <location filename="quickdownloader.cpp" line="126"/>
         <source>HTTP</source>
-        <translation>HTTP</translation>
+        <translation type="obsolete">HTTP</translation>
     </message>
     <message>
         <location filename="quickdownloader.cpp" line="94"/>
@@ -5074,54 +5007,54 @@ Bitte ueberpruefen Sie ob Sie das Programm, installiert haben, der Pfad in den E
     <message>
         <location filename="quickdownloader.cpp" line="73"/>
         <source>[INF] Lade &quot;%1&quot; zu &quot;%2&quot;</source>
-        <translation>[INF] Loading &quot;%1&quot; to &quot;%2&quot;</translation>
+        <translation type="obsolete">[INF] Loading &quot;%1&quot; to &quot;%2&quot;</translation>
     </message>
     <message>
         <location filename="quickdownloader.cpp" line="95"/>
         <source>Lade </source>
-        <translation>Loading </translation>
+        <translation type="obsolete">Loading </translation>
     </message>
     <message>
         <location filename="quickdownloader.cpp" line="106"/>
         <source>Konnte die tempor&#xe4;re Datei (%1) nicht &#xf6;ffnen:
 %2</source>
-        <translation>Couldn&apos;t open the temporary file (%1):
+        <translation type="obsolete">Couldn&apos;t open the temporary file (%1):
 %2</translation>
     </message>
     <message>
         <location filename="quickdownloader.cpp" line="124"/>
         <source>[INF] Erhaltene HTTP Antwort: &quot;</source>
-        <translation>[INF] Received HTTP answer: &quot;</translation>
+        <translation type="obsolete">[INF] Received HTTP answer: &quot;</translation>
     </message>
     <message>
         <location filename="quickdownloader.cpp" line="128"/>
         <source>Download fehlgeschlagen: %1.</source>
-        <translation>Download failed: %1.</translation>
+        <translation type="obsolete">Download failed: %1.</translation>
     </message>
     <message>
         <location filename="quickdownloader.cpp" line="129"/>
         <source>[INF] Download fehlgeschlagen: %1.</source>
-        <translation>[INF] Download failed: %1.</translation>
+        <translation type="obsolete">[INF] Download failed: %1.</translation>
     </message>
     <message>
         <location filename="quickdownloader.cpp" line="143"/>
         <source>[INF] Download zur&#xfc;ckgesetzt</source>
-        <translation>[INF] Download reseted</translation>
+        <translation type="obsolete">[INF] Download reseted</translation>
     </message>
     <message>
         <location filename="quickdownloader.cpp" line="175"/>
         <source>[ERR] Fehler beim Download aufgetreten: &quot;</source>
-        <translation>[ERR] Error occured while downloading: &quot;</translation>
+        <translation type="obsolete">[ERR] Error occured while downloading: &quot;</translation>
     </message>
     <message>
         <location filename="quickdownloader.cpp" line="180"/>
         <source>[INF] Download abgeschlossen: &quot;</source>
-        <translation>[INF] Download complete: &quot;</translation>
+        <translation type="obsolete">[INF] Download complete: &quot;</translation>
     </message>
     <message>
         <location filename="quickdownloader.cpp" line="188"/>
         <source>[INF] Download abgebrochen: &quot;</source>
-        <translation>[INF] Download canceled: &quot;</translation>
+        <translation type="obsolete">[INF] Download canceled: &quot;</translation>
     </message>
 </context>
 <context>
@@ -5129,47 +5062,47 @@ Bitte ueberpruefen Sie ob Sie das Programm, installiert haben, der Pfad in den E
     <message>
         <location filename="quickunpacker.cpp" line="37"/>
         <source>Extrahiere</source>
-        <translation>Extracting</translation>
+        <translation type="obsolete">Extracting</translation>
     </message>
     <message>
         <location filename="quickunpacker.cpp" line="37"/>
         <source>Abbrechen</source>
-        <translation>Cancel</translation>
+        <translation type="obsolete">Cancel</translation>
     </message>
     <message>
         <location filename="quickunpacker.cpp" line="40"/>
         <source>Extrahiere BZIP2 komprimierte Datei </source>
-        <translation>Extracting BZIP2 compressed file </translation>
+        <translation type="obsolete">Extracting BZIP2 compressed file </translation>
     </message>
     <message>
         <location filename="quickunpacker.cpp" line="61"/>
         <source>BZIP2 Datei erfolgreich nach %1 extrahiert</source>
-        <translation>BZIP2 file successfully to %1 extracted</translation>
+        <translation type="obsolete">BZIP2 file successfully to %1 extracted</translation>
     </message>
     <message>
         <location filename="quickunpacker.cpp" line="73"/>
         <source>[INF] </source>
-        <translation>[INF] </translation>
+        <translation type="obsolete">[INF] </translation>
     </message>
     <message>
         <location filename="quickunpacker.cpp" line="83"/>
         <source>Abbrechen...</source>
-        <translation>Cancel...</translation>
+        <translation type="obsolete">Cancel...</translation>
     </message>
     <message>
         <location filename="quickunpacker.cpp" line="104"/>
         <source>[ERR] Fehler beim Entpacken</source>
-        <translation>[ERR] Error occured while unpacking</translation>
+        <translation type="obsolete">[ERR] Error occured while unpacking</translation>
     </message>
     <message>
         <location filename="quickunpacker.cpp" line="105"/>
         <source>Fehler beim Entpacken</source>
-        <translation>Error occured while unpacking</translation>
+        <translation type="obsolete">Error occured while unpacking</translation>
     </message>
     <message>
         <location filename="quickunpacker.cpp" line="105"/>
         <source>Beim Entpacken ist ein Fehler aufgetreten: %1</source>
-        <translation>Error occured while unpacking: %1</translation>
+        <translation type="obsolete">Error occured while unpacking: %1</translation>
     </message>
 </context>
 <context>
@@ -5177,7 +5110,7 @@ Bitte ueberpruefen Sie ob Sie das Programm, installiert haben, der Pfad in den E
     <message>
         <location filename="recwidget.cpp" line="212"/>
         <source>Aufnehmen fehlgeschlagen</source>
-        <translation>Recording failed</translation>
+        <translation type="obsolete">Recording failed</translation>
     </message>
     <message>
         <location filename="recwidget.cpp" line="155"/>
@@ -5191,12 +5124,12 @@ Tip: Prove, if you have the necessary rights to write on %1!</translation>
     <message>
         <location filename="recwidget.cpp" line="265"/>
         <source>Fehler beim L&#xf6;schen</source>
-        <translation>Error while deleting</translation>
+        <translation type="obsolete">Error while deleting</translation>
     </message>
     <message>
         <location filename="recwidget.cpp" line="266"/>
         <source>Konnte die Datei %1 nicht entfernen</source>
-        <translation>Couldn&apos;t remove file %1</translation>
+        <translation type="obsolete">Couldn&apos;t remove file %1</translation>
     </message>
     <message>
         <location filename="recwidget.cpp" line="211"/>
@@ -5218,19 +5151,9 @@ Tip: Prove, if you have the necessary rights to write on %1!</translation>
         <source>Abschlie&#xdf;en der Aufnahme fehlgeschlagen. M&#xf6;glicherweise ist die Aufnahme fehlerhaft.
 
 Tip: &#xfc;berpr&#xfc;fen Sie ob Sie die n&#xf6;tigen Berechtigungen besitzen um auf %1 schreiben zu d&#xfc;rfen!</source>
-        <translation>Concluding of the recording failed. Perhaps the recording is erroneous.
+        <translation type="obsolete">Concluding of the recording failed. Perhaps the recording is erroneous.
 
 Tip: Prove, if you have the necessary rights to right on %1!</translation>
-    </message>
-    <message>
-        <location filename="recwidget.cpp" line="217"/>
-        <source>Verarbeiten fehlgeschlagen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="recwidget.cpp" line="217"/>
-        <source>Nachbearbeitung fehlgeschlagen</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5238,32 +5161,27 @@ Tip: Prove, if you have the necessary rights to right on %1!</translation>
     <message>
         <location filename="ui/recwidget.ui" line="13"/>
         <source>Aufnahme</source>
-        <translation>Record</translation>
+        <translation type="obsolete">Record</translation>
     </message>
     <message>
         <location filename="ui/recwidget.ui" line="39"/>
         <source>Aufnehmen</source>
-        <translation>Recording</translation>
+        <translation type="obsolete">Recording</translation>
     </message>
     <message>
         <location filename="ui/recwidget.ui" line="52"/>
         <source>Abspielen</source>
-        <translation>Play-back</translation>
+        <translation type="obsolete">Play-back</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/recwidget.ui" line="65"/>
         <source>Löschen</source>
-        <translation>Delete</translation>
+        <translation type="obsolete">Delete</translation>
     </message>
     <message>
         <location filename="ui/recwidget.ui" line="79"/>
         <source>Erkannter Text:</source>
-        <translation>Recognized text:</translation>
-    </message>
-    <message>
-        <location filename="ui/recwidget.ui" line="100"/>
-        <source>00:00 / 00:00</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Recognized text:</translation>
     </message>
 </context>
 <context>
@@ -5271,27 +5189,27 @@ Tip: Prove, if you have the necessary rights to right on %1!</translation>
     <message>
         <location filename="remoteplacepage.cpp" line="31"/>
         <source>W&#xe4;hlen Sie bitte den Typ des Ortes aus und geben Sie anschlie&#xdf;end den Rest der URL ein.</source>
-        <translation>Please chose the type of the location and then enter the rest of the URL.</translation>
+        <translation type="obsolete">Please chose the type of the location and then enter the rest of the URL.</translation>
     </message>
     <message>
         <location filename="remoteplacepage.cpp" line="36"/>
         <source>Typ:</source>
-        <translation>Type:</translation>
+        <translation type="obsolete">Type:</translation>
     </message>
     <message>
         <location filename="remoteplacepage.cpp" line="58"/>
         <source>User: </source>
-        <translation>User: </translation>
+        <translation type="obsolete">User: </translation>
     </message>
     <message>
         <location filename="remoteplacepage.cpp" line="65"/>
         <source>Passwort: </source>
-        <translation>Password: </translation>
+        <translation type="obsolete">Password: </translation>
     </message>
     <message>
         <location filename="remoteplacepage.cpp" line="51"/>
         <source>Host: </source>
-        <translation>Host: </translation>
+        <translation type="obsolete">Host: </translation>
     </message>
 </context>
 <context>
@@ -5299,27 +5217,27 @@ Tip: Prove, if you have the necessary rights to right on %1!</translation>
     <message>
         <location filename="ui/renameterminalselectparameterspage.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message>
         <location filename="ui/renameterminalselectparameterspage.ui" line="21"/>
         <source>Neuer Name:</source>
-        <translation>New name:</translation>
+        <translation type="obsolete">New name:</translation>
     </message>
     <message>
         <location filename="ui/renameterminalselectparameterspage.ui" line="36"/>
         <source>Terminal A:</source>
-        <translation>Terminal A:</translation>
+        <translation type="obsolete">Terminal A:</translation>
     </message>
     <message>
         <location filename="ui/renameterminalselectparameterspage.ui" line="49"/>
         <source>Schattenlexikon einbeziehen</source>
-        <translation>Include shadowdict </translation>
+        <translation type="obsolete">Include shadowdict </translation>
     </message>
     <message>
         <location filename="ui/renameterminalselectparameterspage.ui" line="59"/>
         <source>Grammatik anpassen</source>
-        <translation>Match grammar</translation>
+        <translation type="obsolete">Match grammar</translation>
     </message>
 </context>
 <context>
@@ -5327,12 +5245,12 @@ Tip: Prove, if you have the necessary rights to right on %1!</translation>
     <message>
         <location filename="renameterminalwizard.cpp" line="22"/>
         <source>Terminal umbenennen</source>
-        <translation>Rename terminal</translation>
+        <translation type="obsolete">Rename terminal</translation>
     </message>
     <message>
         <location filename="renameterminalwizard.cpp" line="53"/>
         <source>Willkommen zum Umbenennen eines Terminals</source>
-        <translation>Welcome to the renaming of a terminal</translation>
+        <translation type="obsolete">Welcome to the renaming of a terminal</translation>
     </message>
     <message>
         <location filename="renameterminalwizard.cpp" line="54"/>
@@ -5341,7 +5259,7 @@ Tip: Prove, if you have the necessary rights to right on %1!</translation>
 Sie k&#xf6;nnen dabei konfigurieren, ob Sie all diese Bereiche in die Aktion einbeziehen m&#xf6;chten.
 
 Wenn Sie mehrere Terminale zusammenf&#xfc;gen wollen, benutzen Sie bitte den &quot;Terminal verbinden&quot;-Wizard. Er bietet Ihnen ebenfalls die M&#xf6;glichkeit, dem verbundenen Terminal einen neuen Nahmen zu verleihen.</source>
-        <translation>This assitant allows you, to rename an existing termial of the grammar and the wordlist.
+        <translation type="obsolete">This assitant allows you, to rename an existing termial of the grammar and the wordlist.
 
 You can configure, if you want to involve all these sections into this action.
 
@@ -5350,14 +5268,14 @@ If you want to merge more terminals than one, please use the &quot;merge termina
     <message>
         <location filename="renameterminalwizard.cpp" line="68"/>
         <source>Unbenennen Abgeschlossen</source>
-        <translation>Renaming completed</translation>
+        <translation type="obsolete">Renaming completed</translation>
     </message>
     <message>
         <location filename="renameterminalwizard.cpp" line="69"/>
         <source>Der Terminal wurde erfolgreich umbenannt.
 
 Vielen Dank, dass Sie simon verbessert haben.</source>
-        <translation>The terminal has been renamed successfully.
+        <translation type="obsolete">The terminal has been renamed successfully.
 
 Thank you for improving simon.</translation>
     </message>
@@ -5367,19 +5285,19 @@ Thank you for improving simon.</translation>
     <message>
         <location filename="renameterminalworkingpage.cpp" line="24"/>
         <source>Benenne Terminal um...</source>
-        <translation>Rename terminal...</translation>
+        <translation type="obsolete">Rename terminal...</translation>
     </message>
     <message>
         <location filename="ui/renameterminalworkingpage.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message>
         <location filename="ui/renameterminalworkingpage.ui" line="19"/>
         <source>Der Text wird jetzt umbenannt.
 
 Je nach Parametern kann dies einige Zeit in Anspruch nehmen.</source>
-        <translation>The text will be renamed now.
+        <translation type="obsolete">The text will be renamed now.
 
 Depending on the parameters it can take a while.</translation>
     </message>
@@ -5389,12 +5307,12 @@ Depending on the parameters it can take a while.</translation>
     <message>
         <location filename="ui/resolvewordpage.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message>
         <location filename="ui/resolvewordpage.ui" line="19"/>
         <source>Wort:</source>
-        <translation>Word:</translation>
+        <translation type="obsolete">Word:</translation>
     </message>
     <message>
         <location filename="ui/resolvewordpage.ui" line="29"/>
@@ -5409,37 +5327,37 @@ Depending on the parameters it can take a while.</translation>
     <message encoding="UTF-8">
         <location filename="ui/resolvewordpage.ui" line="67"/>
         <source>Ähnliche Wörter</source>
-        <translation>Similar words</translation>
+        <translation type="obsolete">Similar words</translation>
     </message>
     <message>
         <location filename="ui/resolvewordpage.ui" line="86"/>
         <source>Wort</source>
-        <translation>Word</translation>
+        <translation type="obsolete">Word</translation>
     </message>
     <message>
         <location filename="ui/resolvewordpage.ui" line="91"/>
         <source>Betonung</source>
-        <translation>accentuation</translation>
+        <translation type="obsolete">accentuation</translation>
     </message>
     <message>
         <location filename="ui/resolvewordpage.ui" line="96"/>
         <source>Typ</source>
-        <translation>Type</translation>
+        <translation type="obsolete">Type</translation>
     </message>
     <message>
         <location filename="ui/resolvewordpage.ui" line="101"/>
         <source>Erkennungsrate</source>
-        <translation>Recognition rate</translation>
+        <translation type="obsolete">Recognition rate</translation>
     </message>
     <message>
         <location filename="ui/resolvewordpage.ui" line="117"/>
         <source>Beispiele</source>
-        <translation>Examples</translation>
+        <translation type="obsolete">Examples</translation>
     </message>
     <message>
         <location filename="ui/resolvewordpage.ui" line="135"/>
         <source>1:</source>
-        <translation>1:</translation>
+        <translation type="obsolete">1:</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/resolvewordpage.ui" line="150"/>
@@ -5449,32 +5367,22 @@ Depending on the parameters it can take a while.</translation>
     <message>
         <location filename="ui/resolvewordpage.ui" line="154"/>
         <source>2:</source>
-        <translation>2:</translation>
+        <translation type="obsolete">2:</translation>
     </message>
     <message>
         <location filename="ui/resolvewordpage.ui" line="176"/>
         <source>Neu Raten</source>
-        <translation>Guess new</translation>
+        <translation type="obsolete">Guess new</translation>
     </message>
     <message>
         <location filename="ui/resolvewordpage.ui" line="29"/>
         <source>Terminal:</source>
-        <translation type="unfinished">Terminal:</translation>
+        <translation type="obsolete">Terminal:</translation>
     </message>
     <message>
         <location filename="ui/resolvewordpage.ui" line="41"/>
         <source>...</source>
-        <translation type="unfinished">...</translation>
-    </message>
-    <message>
-        <location filename="ui/resolvewordpage.ui" line="53"/>
-        <source>SAMPA:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/resolvewordpage.ui" line="109"/>
-        <source>Auch ähnliche Wörter anzeigen</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">...</translation>
     </message>
 </context>
 <context>
@@ -5558,14 +5466,44 @@ Please consider that only the selected modifications will be reseted!</translati
 <context>
     <name>RunApplicationView</name>
     <message>
-        <location filename="runapplicationview.cpp" line="34"/>
+        <location filename="Commands/runapplicationview.cpp" line="34"/>
         <source>Ausf&#xfc;hren</source>
         <translation>Execute</translation>
     </message>
     <message>
-        <location filename="runapplicationview.cpp" line="34"/>
+        <location filename="Commands/runapplicationview.cpp" line="34"/>
         <source>Direkte ausf&#xfc;hrung von simon-Befehlen</source>
         <translation>Direct executing of simon commands</translation>
+    </message>
+    <message>
+        <location filename="Commands/runapplicationview.cpp" line="48"/>
+        <source>Leere Suche</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/runapplicationview.cpp" line="74"/>
+        <source>F&#xfc;ge Kommando hinzu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/runapplicationview.cpp" line="87"/>
+        <source>Jetz sollt i dann was machen...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/runapplicationview.cpp" line="85"/>
+        <source>Kommando l&#xf6;schen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/runapplicationview.cpp" line="85"/>
+        <source>Wollen Sie das ausgew&#xe4;hlte Kommando wirklich unwiederruflich l&#xf6;schen?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/runapplicationview.cpp" line="87"/>
+        <source>Kommando puttmachen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -5613,17 +5551,17 @@ Please consider that only the selected modifications will be reseted!</translati
     <message>
         <location filename="commandsettings.cpp" line="1164"/>
         <source>Programme</source>
-        <translation>Programs</translation>
+        <translation type="obsolete">Programs</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="1165"/>
         <source>Orte</source>
-        <translation>Places</translation>
+        <translation type="obsolete">Places</translation>
     </message>
     <message>
         <location filename="commandsettings.cpp" line="1166"/>
         <source>Sonderzeichen</source>
-        <translation>Special characters</translation>
+        <translation type="obsolete">Special characters</translation>
     </message>
     <message>
         <location filename="ui/rundialog.ui" line="127"/>
@@ -5664,59 +5602,59 @@ Please consider that only the selected modifications will be reseted!</translati
 <context encoding="UTF-8">
     <name>RunDlg</name>
     <message encoding="UTF-8">
-        <location filename="ui/rundialog.ui" line="13"/>
+        <location filename="Commands/rundialog.ui" line="136"/>
         <source>Ausführen</source>
         <translation>Execute</translation>
     </message>
     <message>
         <location filename="ui/rundialog.ui" line="26"/>
         <source>&amp;Suchen:</source>
-        <translation>&amp;Search:</translation>
+        <translation type="obsolete">&amp;Search:</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/rundialog.ui" line="36"/>
+        <location filename="Commands/rundialog.ui" line="43"/>
         <source>Schränkt die Liste auf die Eingabe ein</source>
         <translation>REduces the list on the input</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/rundialog.ui" line="49"/>
+        <location filename="Commands/rundialog.ui" line="56"/>
         <source>Zurücksetzen der Suche</source>
         <translation>Reset of the searching</translation>
     </message>
     <message>
-        <location filename="ui/rundialog.ui" line="52"/>
+        <location filename="Commands/rundialog.ui" line="59"/>
         <source>&amp;x</source>
         <translation>&amp;x</translation>
     </message>
     <message>
         <location filename="ui/rundialog.ui" line="59"/>
         <source>Anzei&amp;gen:</source>
-        <translation>Sh&amp;ow:</translation>
+        <translation type="obsolete">Sh&amp;ow:</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/rundialog.ui" line="69"/>
         <source>Schränkt die Ausgabe auf gewisse Gruppen ein</source>
-        <translation>Reduces the output on a certain group</translation>
+        <translation type="obsolete">Reduces the output on a certain group</translation>
     </message>
     <message>
         <location filename="ui/rundialog.ui" line="73"/>
         <source>Alles</source>
-        <translation>All</translation>
+        <translation type="obsolete">All</translation>
     </message>
     <message>
-        <location filename="ui/rundialog.ui" line="81"/>
+        <location filename="Commands/rundialog.ui" line="74"/>
         <source>Programme</source>
         <translation>Programs</translation>
     </message>
     <message>
-        <location filename="ui/rundialog.ui" line="89"/>
+        <location filename="Commands/rundialog.ui" line="92"/>
         <source>Orte</source>
         <translation>Places</translation>
     </message>
     <message>
         <location filename="ui/rundialog.ui" line="97"/>
         <source>Sonderzeichen</source>
-        <translation>Special characters</translation>
+        <translation type="obsolete">Special characters</translation>
     </message>
     <message>
         <location filename="ui/rundialog.ui" line="129"/>
@@ -5726,20 +5664,20 @@ Please consider that only the selected modifications will be reseted!</translati
     <message>
         <location filename="ui/rundialog.ui" line="134"/>
         <source>Typ</source>
-        <translation>Type</translation>
+        <translation type="obsolete">Type</translation>
     </message>
     <message>
         <location filename="ui/rundialog.ui" line="139"/>
         <source>Wert</source>
-        <translation>Value</translation>
+        <translation type="obsolete">Value</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/rundialog.ui" line="167"/>
+        <location filename="Commands/rundialog.ui" line="359"/>
         <source>Führt das selektierte Kommando aus</source>
         <translation>Executes the selected command</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/rundialog.ui" line="170"/>
+        <location filename="Commands/rundialog.ui" line="362"/>
         <source>&amp;Ausführen</source>
         <translation>&amp;Execute</translation>
     </message>
@@ -5765,12 +5703,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="ui/rundialog.ui" line="129"/>
         <source>Kommando</source>
-        <translation>command</translation>
+        <translation type="obsolete">command</translation>
     </message>
     <message>
         <location filename="ui/rundialog.ui" line="144"/>
         <source>Arbeitspfad</source>
-        <translation>Workpath</translation>
+        <translation type="obsolete">Workpath</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/rundialog.ui" line="206"/>
@@ -5789,7 +5727,97 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Makros können hier nicht direkt ausgeführt werden; Sie beinhalten spezielle Maus/Tastaturkombinationen um Nicht-Simonfähige Programme zu unterstützen.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Um neue Kommandos zum System hinzuzufügen, benutzen Sie bitte das Systemmenü.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Here you can execute existing commands.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;A command can be from one of the following categories:&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;* Programs&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;* Places&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;* Special characters&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;* Macros&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Programs are executable commands, Locations can be folders or even internet links. Special characters are words, which are covert from special simon words (Keywords). For example: the word &quot;comma&quot; is normally covert from the character &quot;,&quot;.&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Macros cannot be executed here directly; They contain special Mouse/keyboardcombinations, to provide programs, which are not simon-able.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;To add new commands to the system, please use the system menu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Here you can execute existing commands.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;A command can be from one of the following categories:&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;* Programs&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;* Places&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;* Special characters&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;* Macros&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Programs are executable commands, Locations can be folders or even internet links. Special characters are words, which are covert from special simon words (Keywords). For example: the word &quot;comma&quot; is normally covert from the character &quot;,&quot;.&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Macros cannot be executed here directly; They contain special Mouse/keyboardcombinations, to provide programs, which are not simon-able.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;To add new commands to the system, please use the system menu.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="33"/>
+        <source>&amp;Filtern:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="69"/>
+        <source>Kommandos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="82"/>
+        <source>Konqueror</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="100"/>
+        <source>Eigene Dateien</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="109"/>
+        <source>Google</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Commands/rundialog.ui" line="119"/>
+        <source>Tastenkürzel</source>
+        <translation type="unfinished">Shortcut</translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="127"/>
+        <source>Speichern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="146"/>
+        <source>Textmakros</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="154"/>
+        <source>simon</source>
+        <translation type="unfinished">simon</translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="169"/>
+        <source>Neues Kommando</source>
+        <translation type="unfinished">New command</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Commands/rundialog.ui" line="183"/>
+        <source>Aktivitäten importieren</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="222"/>
+        <source>Programm: Konqueror</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Commands/rundialog.ui" line="290"/>
+        <source>Ausführbare Datei:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="297"/>
+        <source>konqueror</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="307"/>
+        <source>Arbeitspfad:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="314"/>
+        <source>/home/bedahr/Daten</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Commands/rundialog.ui" line="424"/>
+        <source>Bearbeiten</source>
+        <translation type="unfinished">Edit</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Commands/rundialog.ui" line="435"/>
+        <source>Löschen</source>
+        <translation type="unfinished">Delete</translation>
     </message>
 </context>
 <context>
@@ -5797,19 +5825,19 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="ui/selectfilestoreadpage.ui" line="13"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="obsolete">Form</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/selectfilestoreadpage.ui" line="19"/>
         <source>Wenn das folgende Feld gesetzt ist, werden auch Sätze deren Grammatikalischen Komponenten nicht komplett bekannt sind importiert (die Sätze beinhalten dann &quot;Unbekannt&quot;e Komponenten)
 (Wörter die nicht im Wörterbuch vorkommen oder mehr als eine Bedeutung haben können werden trozdem ignoriert)</source>
-        <translation>If the following Box is setted, sentences whose grammatically components aren&apos;t known completely will be importet too (then the sentences contain &quot;unknown&quot; components)
+        <translation type="obsolete">If the following Box is setted, sentences whose grammatically components aren&apos;t known completely will be importet too (then the sentences contain &quot;unknown&quot; components)
 (Words, which are not in the dictionary or have more than one meaning will be ingored)</translation>
     </message>
     <message>
         <location filename="ui/selectfilestoreadpage.ui" line="30"/>
         <source>Auch unbekannte Konstrukte importieren</source>
-        <translation>Import unknown constructs too</translation>
+        <translation type="obsolete">Import unknown constructs too</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/selectfilestoreadpage.ui" line="37"/>
@@ -5821,17 +5849,17 @@ Only text files (*.txt) are supported.</translation>
     <message encoding="UTF-8">
         <location filename="ui/selectfilestoreadpage.ui" line="71"/>
         <source>Hinzufügen</source>
-        <translation>Add</translation>
+        <translation type="obsolete">Add</translation>
     </message>
     <message>
         <location filename="ui/selectfilestoreadpage.ui" line="84"/>
         <source>Entfernen</source>
-        <translation>Remove</translation>
+        <translation type="obsolete">Remove</translation>
     </message>
     <message>
         <location filename="ui/selectfilestoreadpage.ui" line="37"/>
         <source>Textdateien (*.txt):</source>
-        <translation>textfiles (*.txt):</translation>
+        <translation type="obsolete">textfiles (*.txt):</translation>
     </message>
 </context>
 <context>
@@ -5839,35 +5867,23 @@ Only text files (*.txt) are supported.</translation>
     <message>
         <location filename="selectlanguagemodelsourcepage.cpp" line="31"/>
         <source>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;Wenn Sie ein neues Sprachmodell generieren werden Sie aufgefordert werden:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Pfade zu den ben&#xf6;tigten Dateien zu setzen.&lt;li&gt;Ein W&#xf6;rterbuch zu importieren (meist aus dem Internet)&lt;li&gt;Grammatikdefinitionen zu erstellen (auch diese k&#xf6;nnen aus pers&#xf6;nlichen Texten importiert werden&lt;/ul&gt;&lt;p&gt;Das schlie&#xdf;t das erste erstellen des Sprachmodelles einmal ab. Damit das Modell einsatzf&#xe4;hig ist, m&#xfc;ssen noch W&#xf6;rter zum aktiven Sprachschatz hinzugef&#xfc;gt werden und das Modell trainiert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;When you generate a new speech model, you will be asked:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;for the paths to the needed files.&lt;li&gt;to import a dictionary (most commonly from the internet)&lt;li&gt;to create grammar definitions (which can be imported out of personal texts.&lt;/ul&gt;&lt;p&gt;This completes the first building of the speech model. To get a speech model, which is fit for use, you have to add words to the active vocabulary and the model has to be trained.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;p&gt;When you generate a new speech model, you will be asked:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;for the paths to the needed files.&lt;li&gt;to import a dictionary (most commonly from the internet)&lt;li&gt;to create grammar definitions (which can be imported out of personal texts.&lt;/ul&gt;&lt;p&gt;This completes the first building of the speech model. To get a speech model, which is fit for use, you have to add words to the active vocabulary and the model has to be trained.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="selectlanguagemodelsourcepage.cpp" line="34"/>
         <source>Wenn Sie ein vorhandenes Sprachmodell mit simon verwenden wollen, ist die Prozedur denkbar einfach. Sie werden mit der Konfigurationsseite des Modells konfrontiert, wo nur mehr die n&#xf6;tigen Pfade zu den Dateien konfiguriert werden m&#xfc;ssen.</source>
-        <translation>If you want to use an existing speech model, is the procedure imaginably easy. You will be confronted with the configuration page of the model, where you just have to configure the needed paths to the files.</translation>
+        <translation type="obsolete">If you want to use an existing speech model, is the procedure imaginably easy. You will be confronted with the configuration page of the model, where you just have to configure the needed paths to the files.</translation>
     </message>
 </context>
 <context>
     <name>SelectProgramPage</name>
-    <message>
-        <location filename="selectprogrampage.cpp" line="76"/>
-        <source>Konnte keine Programmkategorien finden</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="selectprogrampage.cpp" line="76"/>
-        <source>Konnte keine Programmkategorien finden.
-
-M&#xf6;glicherweise ist der Pfad zur categories.xml falsch gesetzt.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SelectShortcutButton</name>
     <message>
         <location filename="selectshortcutbutton.cpp" line="147"/>
         <source>%1 + %2</source>
-        <translation>%1 + %2</translation>
+        <translation type="obsolete">%1 + %2</translation>
     </message>
 </context>
 <context>
@@ -6432,55 +6448,50 @@ Bitte beachten sie das die immer nur die selektierten Änderungen zurückgenomme
     <message>
         <location filename="shortcutsettings.cpp" line="28"/>
         <source>Tastenk&#xfc;rzel</source>
-        <translation>Shortcut</translation>
+        <translation type="obsolete">Shortcut</translation>
     </message>
     <message>
         <location filename="shortcutsettings.cpp" line="29"/>
         <source>Hier k&#xf6;nnen Sie Shortcuts konfigurieren die von simon als Reaktion auf ein Schl&#xfc;sselwort ausgel&#xf6;st werden</source>
-        <translation>Here you can configure shortcuts, which will be triggered from simon as a reaction on a keyword</translation>
+        <translation type="obsolete">Here you can configure shortcuts, which will be triggered from simon as a reaction on a keyword</translation>
     </message>
     <message>
         <location filename="shortcutsettings.cpp" line="82"/>
         <source>Nichts ausgew&#xe4;hlt</source>
-        <translation>Not chosen</translation>
+        <translation type="obsolete">Not chosen</translation>
     </message>
     <message>
         <location filename="shortcutsettings.cpp" line="82"/>
         <source>Bitte selektieren Sie eine Tastenkombination aus der Liste um sie zu l&#xf6;schen.</source>
-        <translation>Please select a shortcut from the list, to delete it.</translation>
+        <translation type="obsolete">Please select a shortcut from the list, to delete it.</translation>
     </message>
     <message>
         <location filename="shortcutsettings.cpp" line="173"/>
         <source>Bereits vorhanden</source>
-        <translation>already exists</translation>
+        <translation type="obsolete">already exists</translation>
     </message>
     <message>
         <location filename="shortcutsettings.cpp" line="173"/>
         <source>Ein K&#xfc;rzel mit dem Namen &quot;%1&quot; ist bereits vergeben. Sie k&#xf6;nnen nicht mehrere K&#xfc;rzel mit dem selben Namen einf&#xfc;gen.
 
 Wollen Sie dieses K&#xfc;rzel l&#xf6;schen?</source>
-        <translation>A shortcut with the name &quot;%1&quot; already exists. Your&apos;e not allowed to insert more than one shortcut with the same name.
+        <translation type="obsolete">A shortcut with the name &quot;%1&quot; already exists. Your&apos;e not allowed to insert more than one shortcut with the same name.
 
 Would you like to delete this shortcut?</translation>
     </message>
     <message>
         <location filename="shortcutsettings.cpp" line="177"/>
         <source>Leerer Name</source>
-        <translation>Empty name</translation>
+        <translation type="obsolete">Empty name</translation>
     </message>
     <message>
         <location filename="shortcutsettings.cpp" line="177"/>
         <source>Das K&#xfc;rzel hat keinen Namen.
 
 Der Name ist der &quot;Ausl&#xf6;ser&quot; der Kombination. Bitte definieren Sie einen Namen.</source>
-        <translation>The shortcut has no name.
+        <translation type="obsolete">The shortcut has no name.
 
 The name is the trigger of this shortcut. Please define a name.</translation>
-    </message>
-    <message>
-        <location filename="shortcutsettings.cpp" line="47"/>
-        <source>Verbinden Sie spezielle Tastenkombinationen mit einem simon-Schl&#xfc;sselwort und lassen Sie simon damit shortcuts ausf&#xfc;hren!</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -6488,32 +6499,32 @@ The name is the trigger of this shortcut. Please define a name.</translation>
     <message encoding="UTF-8">
         <location filename="ui/shortcutsettingsdlg.ui" line="13"/>
         <source>Tastenkürzel</source>
-        <translation>Shortcut</translation>
+        <translation type="obsolete">Shortcut</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/shortcutsettingsdlg.ui" line="51"/>
         <source>Auslöser</source>
-        <translation>Trigger</translation>
+        <translation type="obsolete">Trigger</translation>
     </message>
     <message>
         <location filename="ui/shortcutsettingsdlg.ui" line="56"/>
         <source>Tastenkombination</source>
-        <translation>Shortcut</translation>
+        <translation type="obsolete">Shortcut</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/shortcutsettingsdlg.ui" line="79"/>
         <source>Kürzel hinzufügen</source>
-        <translation>Add Shortcut</translation>
+        <translation type="obsolete">Add Shortcut</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/shortcutsettingsdlg.ui" line="89"/>
         <source>Kürzel löschen</source>
-        <translation>Delete shortcut</translation>
+        <translation type="obsolete">Delete shortcut</translation>
     </message>
     <message>
         <location filename="ui/shortcutsettingsdlg.ui" line="22"/>
         <source>Shortcuts</source>
-        <translation type="unfinished">Shortcuts:</translation>
+        <translation type="obsolete">Shortcuts:</translation>
     </message>
 </context>
 <context>
@@ -6521,22 +6532,22 @@ The name is the trigger of this shortcut. Please define a name.</translation>
     <message>
         <location filename="simoncalendarwidget.cpp" line="25"/>
         <source>Tag</source>
-        <translation>Day</translation>
+        <translation type="obsolete">Day</translation>
     </message>
     <message>
         <location filename="simoncalendarwidget.cpp" line="27"/>
         <source>Monat</source>
-        <translation>Month</translation>
+        <translation type="obsolete">Month</translation>
     </message>
     <message>
         <location filename="simoncalendarwidget.cpp" line="29"/>
         <source>Jahr</source>
-        <translation>Year</translation>
+        <translation type="obsolete">Year</translation>
     </message>
     <message>
         <location filename="simoncalendarwidget.cpp" line="95"/>
         <source>Falscher Befehl</source>
-        <translation>False command</translation>
+        <translation type="obsolete">False command</translation>
     </message>
     <message>
         <location filename="simoncalendarwidget.cpp" line="74"/>
@@ -6544,7 +6555,7 @@ The name is the trigger of this shortcut. Please define a name.</translation>
 Bitte f&#xfc;hren Sie den Befehl mit einem anderen Tag nochmal aus.
 
 Es wurde der erste des Monats als Default Datum gew&#xe4;hlt</source>
-        <translation>The wanted Day isn&apos;t existing in this month.
+        <translation type="obsolete">The wanted Day isn&apos;t existing in this month.
 Please try it with another day agein.
 
 The first day of the month is chosen as default date.</translation>
@@ -6553,30 +6564,30 @@ The first day of the month is chosen as default date.</translation>
         <location filename="simoncalendarwidget.cpp" line="95"/>
         <source>Der gew&#xfc;nschte Monat existiert nicht.
 Bitte widerholen Sie ihren Befehl mit einem anderen Wert</source>
-        <translation>The wanted month isn&apos;t existing.
+        <translation type="obsolete">The wanted month isn&apos;t existing.
 Please try it with another value</translation>
     </message>
     <message>
         <location filename="simoncalendarwidget.cpp" line="113"/>
         <source>Das von Ihnen gew&#xfc;nschte Jahr ist: </source>
-        <translation>The wanted Year is: </translation>
+        <translation type="obsolete">The wanted Year is: </translation>
     </message>
     <message>
         <location filename="simoncalendarwidget.cpp" line="113"/>
         <source>
 Wollen sie wirklich dieses Jahr anzeigen?</source>
-        <translation>
+        <translation type="obsolete">
 Do you really want to show this Year?</translation>
     </message>
     <message>
         <location filename="simoncalendarwidget.cpp" line="114"/>
         <source>Information</source>
-        <translation>Information</translation>
+        <translation type="obsolete">Information</translation>
     </message>
     <message>
         <location filename="simoncalendarwidget.cpp" line="132"/>
         <source>H&#xe4;&#xe4;&#xe4;&#xe4;&#xe4;&#xe4;-Befehl...</source>
-        <translation>Hääääää-command...</translation>
+        <translation type="obsolete">Hääääää-command...</translation>
     </message>
     <message>
         <location filename="simoncalendarwidget.cpp" line="132"/>
@@ -6585,7 +6596,7 @@ Bitte f&#xfc;hren sie den Befehl erneut aus, mit einem Jahr zw.
 -4714 &amp; +8000
 
 Der Programmierer dankt</source>
-        <translation>Your wanted value overruns the min/max value.
+        <translation type="obsolete">Your wanted value overruns the min/max value.
 Please try it again with a year between
 -4714 and +8000
 
@@ -6605,37 +6616,37 @@ The programmer thanks</translation>
         <translation>[INF] Connect with julius on </translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="192"/>
+        <location filename="simoncontrol.cpp" line="190"/>
         <source>[INF]</source>
         <translation>[INF]</translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="192"/>
+        <location filename="simoncontrol.cpp" line="190"/>
         <source>Verbunden zu julius</source>
         <translation>Connected to julius</translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="207"/>
+        <location filename="simoncontrol.cpp" line="205"/>
         <source>[INF] Verbindung von Julius getrennt</source>
         <translation>[INF] Disconnected from Julius</translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="218"/>
+        <location filename="simoncontrol.cpp" line="216"/>
         <source>[INF] Verbinden abgebrochen</source>
         <translation>[INF] Connection cancelled</translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="237"/>
+        <location filename="simoncontrol.cpp" line="235"/>
         <source>[ERR] Verbinden zu Julius (%1) fehlgeschlagen: %2</source>
         <translation>[ERR] Connecting to Julius (%1) failed: %2</translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="283"/>
+        <location filename="simoncontrol.cpp" line="281"/>
         <source>[INF] Simon deaktiviert</source>
         <translation>[INF] Simon deactivated</translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="315"/>
+        <location filename="simoncontrol.cpp" line="313"/>
         <source>[INF] Simon aktiviert</source>
         <translation>[INF] Simon activated</translation>
     </message>
@@ -6683,37 +6694,37 @@ The programmer thanks</translation>
 <context>
     <name>SimonView</name>
     <message>
-        <location filename="simonview.cpp" line="65"/>
+        <location filename="simonview.cpp" line="63"/>
         <source>Fehler</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="65"/>
+        <location filename="simonview.cpp" line="63"/>
         <source>Konnte die Log-Datei nicht &#xf6;ffnen. Bitte &#xfc;berpr&#xfc;fen Sie die Berechtigungen..</source>
         <translation>Couldn&apos;t open log-file. Please prove your authorization..</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="69"/>
+        <location filename="simonview.cpp" line="67"/>
         <source>[INF] Starte simon...</source>
         <translation>[INF] Starting simon...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="74"/>
+        <location filename="simonview.cpp" line="72"/>
         <source>[INF] Zeige Splashscreen...</source>
         <translation>[INF] View splashscreen...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="77"/>
+        <location filename="simonview.cpp" line="75"/>
         <source>[INF] Lade Einstellungen...</source>
         <translation>[INF] Load settings...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="91"/>
+        <location filename="simonview.cpp" line="89"/>
         <source>[INF] Einstellungen geladen...</source>
         <translation>[INF] Settings loaded...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="93"/>
+        <location filename="simonview.cpp" line="91"/>
         <source>Lade Programmlogik...</source>
         <translation>Loading programmlogic...</translation>
     </message>
@@ -6723,62 +6734,62 @@ The programmer thanks</translation>
         <translation type="obsolete">Loading &quot;Add word&quot;...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="114"/>
+        <location filename="simonview.cpp" line="112"/>
         <source>Lade &quot;Wortliste&quot;...</source>
         <translation>Loading &quot;wordlist&quot;...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="120"/>
+        <location filename="simonview.cpp" line="118"/>
         <source>Lade &quot;Ausf&#xfc;hren&quot;...</source>
         <translation>Loading &quot;Execute&quot;...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="111"/>
+        <location filename="simonview.cpp" line="109"/>
         <source>Lade &quot;Trainieren&quot;...</source>
         <translation>Loading &quot;train&quot;...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="123"/>
+        <location filename="simonview.cpp" line="121"/>
         <source>Lade &quot;System&quot;...</source>
         <translation>Loading &quot;System&quot;...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="126"/>
+        <location filename="simonview.cpp" line="124"/>
         <source>Lade Oberfl&#xe4;che...</source>
         <translation>Loading interface...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="148"/>
+        <location filename="simonview.cpp" line="146"/>
         <source>Verbinde zu juliusd...</source>
         <translation>Connecting to juliusd...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="273"/>
+        <location filename="simonview.cpp" line="271"/>
         <source>Verbunden</source>
         <translation>Connected</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="279"/>
+        <location filename="simonview.cpp" line="277"/>
         <source>Verbunden zu Julius</source>
         <translation>Connected to julius</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="336"/>
+        <location filename="simonview.cpp" line="334"/>
         <source>Verbinden</source>
         <translation>connecting</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="299"/>
+        <location filename="simonview.cpp" line="297"/>
         <source>Verbindung zu Julius verloren</source>
         <translation>Connection to julius lost</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="344"/>
+        <location filename="simonview.cpp" line="342"/>
         <source>Kritischer Verbindungsfehler</source>
         <translation>Critical connectionerror</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="344"/>
+        <location filename="simonview.cpp" line="342"/>
         <source>Die Verbindung zum juliusd Erkennungsd&#xe4;mon konnte nicht aufgenommen werden.
 
 Bitte &#xfc;berpr&#xfc;fen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.
@@ -6793,37 +6804,37 @@ The exact Errormessages are:
 </translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="345"/>
+        <location filename="simonview.cpp" line="343"/>
         <source>[ERR] Verbindung zu juliusd fehlgeschlagen...</source>
         <translation>[ERR] Connection tu juliusd failed...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="533"/>
+        <location filename="simonview.cpp" line="531"/>
         <source>Deaktivieren</source>
         <translation>Deactivate</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="544"/>
+        <location filename="simonview.cpp" line="542"/>
         <source>Aktivieren</source>
         <translation>Activate</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="547"/>
+        <location filename="simonview.cpp" line="545"/>
         <source>simon wurde deaktiviert</source>
         <translation>simon has been deactivated</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="549"/>
+        <location filename="simonview.cpp" line="547"/>
         <source>Simon - Deaktiviert</source>
         <translation>Simon - deactivated</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="583"/>
+        <location filename="simonview.cpp" line="581"/>
         <source>Wirklich beenden?</source>
         <translation>Exit?</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="583"/>
+        <location filename="simonview.cpp" line="581"/>
         <source>Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos k&#xf6;nnen mehr benutzt werden.
 
 Wollen Sie wirklich beenden?</source>
@@ -6832,7 +6843,7 @@ Wollen Sie wirklich beenden?</source>
 Would you really like to exit?</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="614"/>
+        <location filename="simonview.cpp" line="612"/>
         <source>[INF] Beenden...</source>
         <translation>[INF] End...</translation>
     </message>
@@ -6851,17 +6862,17 @@ Wollen Sie das Passwort erneut eingeben?</source>
 Would you likt to enter the password again?</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="117"/>
+        <location filename="simonview.cpp" line="115"/>
         <source>Lade &quot;Wort hinzuf&#xfc;gen&quot;...</source>
         <translation>Loading &quot;Add Word&quot;...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="84"/>
+        <location filename="simonview.cpp" line="82"/>
         <source>Konfiguration abbrechen</source>
         <translation>Cancel configuration</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="84"/>
+        <location filename="simonview.cpp" line="82"/>
         <source>Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.
 
 Wollen Sie den Assistenten beim n&#xe4;chsten Start wieder anzeigen?</source>
@@ -6870,12 +6881,12 @@ Wollen Sie den Assistenten beim n&#xe4;chsten Start wieder anzeigen?</source>
 Do you want to show the assistant again at the next start?</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="272"/>
+        <location filename="simonview.cpp" line="270"/>
         <source>Trennen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="293"/>
+        <location filename="simonview.cpp" line="291"/>
         <source>Nicht Verbunden</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6883,17 +6894,17 @@ Do you want to show the assistant again at the next start?</translation>
 <context>
     <name>SoundSettings</name>
     <message>
-        <location filename="soundsettings.cpp" line="21"/>
+        <location filename="GeneralConfiguration/soundsettings.cpp" line="21"/>
         <source>Soundeinstellungen</source>
         <translation>Soundsettings</translation>
     </message>
     <message>
-        <location filename="soundsettings.cpp" line="21"/>
+        <location filename="GeneralConfiguration/soundsettings.cpp" line="21"/>
         <source>Konfigurieren Sie hier ihre Audioger&#xe4;te und legen Einstellungen f&#xfc;r dessen Verwendung fest</source>
         <translation>Config your Audio devices here und set the settings for their usage</translation>
     </message>
     <message>
-        <location filename="soundsettings.cpp" line="27"/>
+        <location filename="GeneralConfiguration/soundsettings.cpp" line="27"/>
         <source>Hier finden Sie alle Einstellungen zur Spracheingabe und Tonausgabe.
 
 Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen, wird nach jeder Aufnahme eine Audiodatei mit Datum und Uhrzeit, sowie die erkannte Transkribtion im angegebenen Verzeichnis erstellt.
@@ -6907,32 +6918,32 @@ Please keep in mind, that this needs a lot of free disk space.</translation>
 <context>
     <name>SoundSettingsDlg</name>
     <message>
-        <location filename="ui/soundsettingsdlg.ui" line="13"/>
+        <location filename="GeneralConfiguration/soundsettingsdlg.ui" line="13"/>
         <source>Soundeinstellungen</source>
         <translation>Soundsettings</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/soundsettingsdlg.ui" line="22"/>
+        <location filename="GeneralConfiguration/soundsettingsdlg.ui" line="22"/>
         <source>Geräte</source>
         <translation>Devices</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/soundsettingsdlg.ui" line="37"/>
+        <location filename="GeneralConfiguration/soundsettingsdlg.ui" line="37"/>
         <source>Eingabe Gerät:</source>
         <translation>Input device:</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/soundsettingsdlg.ui" line="99"/>
+        <location filename="GeneralConfiguration/soundsettingsdlg.ui" line="99"/>
         <source>Ausgabe Gerät:</source>
         <translation>Output device:</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/soundsettingsdlg.ui" line="109"/>
+        <location filename="GeneralConfiguration/soundsettingsdlg.ui" line="109"/>
         <source>Kanäle:</source>
         <translation>Channels:</translation>
     </message>
     <message>
-        <location filename="ui/soundsettingsdlg.ui" line="119"/>
+        <location filename="GeneralConfiguration/soundsettingsdlg.ui" line="119"/>
         <source>Samplerate:</source>
         <translation>Samplerate:</translation>
     </message>
@@ -6980,22 +6991,22 @@ Please keep in mind, that this needs a lot of free disk space.</translation>
 <context>
     <name>SystemView</name>
     <message>
-        <location filename="systemview.cpp" line="37"/>
+        <location filename="GeneralConfiguration/systemview.cpp" line="37"/>
         <source>System</source>
         <translation>System</translation>
     </message>
     <message>
-        <location filename="systemview.cpp" line="37"/>
+        <location filename="GeneralConfiguration/systemview.cpp" line="37"/>
         <source>Einstellungen, Protokolle, etc.</source>
         <translation>Settings, Protocolls, and so on.</translation>
     </message>
     <message>
-        <location filename="systemview.cpp" line="79"/>
+        <location filename="GeneralConfiguration/systemview.cpp" line="76"/>
         <source>Konnte &#xc4;nderungen in &quot;%1&quot; nicht speichern.</source>
         <translation>Couldn&apos;t save modification in &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="systemview.cpp" line="96"/>
+        <location filename="GeneralConfiguration/systemview.cpp" line="93"/>
         <source>Konnte &#xc4;nderungen in &quot;%1&quot; nicht zur&#xfc;cknehmen.</source>
         <translation>Couldn&apos;t take back modifications in &quot;%1&quot;.</translation>
     </message>
@@ -7010,22 +7021,22 @@ Please keep in mind, that this needs a lot of free disk space.</translation>
         <translation type="obsolete">Reset</translation>
     </message>
     <message>
-        <location filename="systemview.cpp" line="127"/>
+        <location filename="GeneralConfiguration/systemview.cpp" line="124"/>
         <source>Konnte %1 nicht initiieren</source>
         <translation>Couldn&apos;t initiate %1</translation>
     </message>
     <message>
-        <location filename="systemview.cpp" line="81"/>
+        <location filename="GeneralConfiguration/systemview.cpp" line="78"/>
         <source>Einstellungen &#xfc;bernommen</source>
         <translation>Settings assumed</translation>
     </message>
     <message>
-        <location filename="systemview.cpp" line="128"/>
+        <location filename="GeneralConfiguration/systemview.cpp" line="125"/>
         <source>Schwerwiegender Fehler aufgetreten</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="systemview.cpp" line="128"/>
+        <location filename="GeneralConfiguration/systemview.cpp" line="125"/>
         <source>Es ist ein Schwerwiegender Fehler aufgetreten.
 
 Es konnten nicht alle Elemente der Konfiguration initalisiert werden. Dies ist meist auf eine fehlerhaft Konfiguration zur&#xfc;ckzuf&#xfc;hren.
@@ -7037,17 +7048,17 @@ Bitte kontrollieren Sie ihre Einstellungen (vor allem im Bezug auf m&#xf6;gliche
 <context encoding="UTF-8">
     <name>SystemViewDlg</name>
     <message>
-        <location filename="ui/systemviewdlg.ui" line="13"/>
+        <location filename="GeneralConfiguration/systemviewdlg.ui" line="13"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/systemviewdlg.ui" line="26"/>
+        <location filename="GeneralConfiguration/systemviewdlg.ui" line="26"/>
         <source>Menü:</source>
         <translation>Menu:</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/systemviewdlg.ui" line="74"/>
+        <location filename="GeneralConfiguration/systemviewdlg.ui" line="74"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -7063,17 +7074,17 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/systemviewdlg.ui" line="103"/>
+        <location filename="GeneralConfiguration/systemviewdlg.ui" line="103"/>
         <source>Zurücksetzen</source>
         <translation>Reset</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="ui/systemviewdlg.ui" line="149"/>
+        <location filename="GeneralConfiguration/systemviewdlg.ui" line="149"/>
         <source>Übernehmen</source>
         <translation>Assume</translation>
     </message>
     <message>
-        <location filename="ui/systemviewdlg.ui" line="126"/>
+        <location filename="GeneralConfiguration/systemviewdlg.ui" line="126"/>
         <source>Build: 0.1-alpha-2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7083,27 +7094,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="ui/trainmain.ui" line="13"/>
         <source>Training</source>
-        <translation>Training</translation>
+        <translation type="obsolete">Training</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="42"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation type="obsolete">Name</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="47"/>
         <source>Seiten</source>
-        <translation>Pages</translation>
+        <translation type="obsolete">Pages</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="52"/>
         <source>Relevanz</source>
-        <translation>Relevance</translation>
+        <translation type="obsolete">Relevance</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="367"/>
         <source>Startet das Training des selektierten Textes.</source>
-        <translation>Starts the training with the selected text.</translation>
+        <translation type="obsolete">Starts the training with the selected text.</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="74"/>
@@ -7123,7 +7134,7 @@ p, li { white-space: pre-wrap; }
     <message encoding="UTF-8">
         <location filename="ui/trainmain.ui" line="408"/>
         <source>Schließt den Dialog</source>
-        <translation>Closes the dialog</translation>
+        <translation type="obsolete">Closes the dialog</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/trainmain.ui" line="126"/>
@@ -7133,7 +7144,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="ui/trainmain.ui" line="116"/>
         <source>Importiert neue Texte aus dem Internet oder aus Dateien</source>
-        <translation>Imports new texts from the Internet or from files</translation>
+        <translation type="obsolete">Imports new texts from the Internet or from files</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="139"/>
@@ -7143,52 +7154,52 @@ p, li { white-space: pre-wrap; }
     <message encoding="UTF-8">
         <location filename="ui/trainmain.ui" line="90"/>
         <source>Löschen des markierten Textes aus dem System</source>
-        <translation>Deletes the marked text from the system</translation>
+        <translation type="obsolete">Deletes the marked text from the system</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/trainmain.ui" line="93"/>
         <source>  Markierten Text &amp;löschen</source>
-        <translation>Delete the marked &amp;text</translation>
+        <translation type="obsolete">Delete the marked &amp;text</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="152"/>
         <source>Seite: </source>
-        <translation>Page:</translation>
+        <translation type="obsolete">Page:</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="222"/>
         <source>Erkannter Text</source>
-        <translation>Recognized Text</translation>
+        <translation type="obsolete">Recognized Text</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/trainmain.ui" line="312"/>
         <source>Hinweis: Die Erkennung die hierfür verwendet ist, profitiert noch nicht vom gerade laufenden Training.</source>
-        <translation>Note: the recognition which is used here, does not yet profit from the current train.</translation>
+        <translation type="obsolete">Note: the recognition which is used here, does not yet profit from the current train.</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="351"/>
         <source>&amp;Vorige Seite</source>
-        <translation>&amp;Previous Page</translation>
+        <translation type="obsolete">&amp;Previous Page</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/trainmain.ui" line="373"/>
         <source>&amp;Nächste Seite</source>
-        <translation>&amp;Next Page</translation>
+        <translation type="obsolete">&amp;Next Page</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="411"/>
         <source>&amp;Abbrechen</source>
-        <translation>&amp;Cancel</translation>
+        <translation type="obsolete">&amp;Cancel</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="434"/>
         <source>&amp;Fertigstellen</source>
-        <translation>&amp;Finish</translation>
+        <translation type="obsolete">&amp;Finish</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="476"/>
         <source>Trainiere Sprachmodell</source>
-        <translation>Train the speech model</translation>
+        <translation type="obsolete">Train the speech model</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="515"/>
@@ -7198,17 +7209,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="ui/trainmain.ui" line="72"/>
         <source>   (Markierten Text &amp;vorlesen (trainieren</source>
-        <translation>   (Read the selected &amp;text (train</translation>
+        <translation type="obsolete">   (Read the selected &amp;text (train</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="106"/>
         <source>  Text &amp;importieren</source>
-        <translation>  Import &amp;text</translation>
+        <translation type="obsolete">  Import &amp;text</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="119"/>
         <source>Trainingsdaten Importieren</source>
-        <translation>Import train data</translation>
+        <translation type="obsolete">Import train data</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/trainmain.ui" line="457"/>
@@ -7221,7 +7232,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Wenn Sie alle Seiten aufgenommen haben wird der Knopf &quot;Fertigstellen&quot; verfügbar sein und das Sprachmodell mit den gesammelten Daten neu berechnen.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Bitte achten Sie darauf alle Aufnahmen ohne Hintergrundgeräusche aufzunehmen, halten Sie sich genau an den angezeigten Text und versuchen Sie möglichst deutlich aber natürlich zu sprechen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Please record page for page of the text now. &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;You can go back to a previous page everytime and no data will get lost.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;When you have finished all pages you can click on the button &quot;Finish&quot; and the speech model will be generated new with the new data.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Please consider that there is no background noise on the recordings. Adhere exact to the shown text and try to speak preferably clearly and naturally.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Please record page for page of the text now. &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;You can go back to a previous page everytime and no data will get lost.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;When you have finished all pages you can click on the button &quot;Finish&quot; and the speech model will be generated new with the new data.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Please consider that there is no background noise on the recordings. Adhere exact to the shown text and try to speak preferably clearly and naturally.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/trainmain.ui" line="482"/>
@@ -7234,7 +7245,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Das Modell wird nun neu erstellt. Dies kann, je nach Menge und Qualität der Trainingsdaten und Ihrer Rechenleistung, einige Zeit in Anspruch nehmen.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Bitte beachten Sie, dass wenn Sie diesen Vorgang jetzt abbrechen, die bisher in dieser Trainingseinheit gesammelten Daten die Erkennungsrate &lt;span style=&quot; font-style:italic;&quot;&gt;nicht&lt;/span&gt; weiter verbessern.&lt;/p&gt;&lt;br /&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The speech model will be trained with the data, which was provided from you.&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Thank you, for taking the time to improve the speech model.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The model will be built new now. That could take a few minutes.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Please keep in mind, that if you cancel now, nevertheless the collected data up to now &lt;span style=&quot; font-style:italic;&quot;&gt;nicht&lt;/span&gt;  improves the recognition rate.&lt;/p&gt;&lt;br /&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The speech model will be trained with the data, which was provided from you.&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Thank you, for taking the time to improve the speech model.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The model will be built new now. That could take a few minutes.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Please keep in mind, that if you cancel now, nevertheless the collected data up to now &lt;span style=&quot; font-style:italic;&quot;&gt;nicht&lt;/span&gt;  improves the recognition rate.&lt;/p&gt;&lt;br /&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="ui/trainmain.ui" line="505"/>
@@ -7242,85 +7253,53 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:italic;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;(Re-) Generiere Sprachmodell...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:italic;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;(Re-) Generate speechmodell...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/trainmain.ui" line="515"/>
-        <source>Zurück</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:italic;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;(Re-) Generate speechmodell...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
     <name>TrainingManager</name>
-    <message>
-        <location filename="trainingmanager.cpp" line="65"/>
-        <source>Herrenloses Sample</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="trainingmanager.cpp" line="65"/>
-        <source>Die Datei %1 hat keine Transkription.
-
-Wollen Sie sie l&#xf6;schen?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="trainingmanager.cpp" line="68"/>
-        <source>L&#xf6;schen fehlgeschlagen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="trainingmanager.cpp" line="68"/>
-        <source>Das L&#xf6;schen des Samples ist fehlgeschlagen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="trainingmanager.cpp" line="262"/>
-        <source>spezialtraining</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>TrainingView</name>
     <message>
         <location filename="trainingview.cpp" line="139"/>
         <source>Training - </source>
-        <translation>Training -</translation>
+        <translation type="obsolete">Training -</translation>
     </message>
     <message>
         <location filename="trainingview.cpp" line="313"/>
         <source>Training</source>
-        <translation>Training</translation>
+        <translation type="obsolete">Training</translation>
     </message>
     <message>
         <location filename="trainingview.cpp" line="41"/>
         <source>Trainieren des Sprachmodells</source>
-        <translation>Train the speech model</translation>
+        <translation type="obsolete">Train the speech model</translation>
     </message>
     <message>
         <location filename="trainingview.cpp" line="113"/>
         <source>Nichts ausgew&#xe4;hlt</source>
-        <translation>Nothing chosen</translation>
+        <translation type="obsolete">Nothing chosen</translation>
     </message>
     <message>
         <location filename="trainingview.cpp" line="113"/>
         <source>Bitte selektieren Sie zuerst einen Text aus der Liste.</source>
-        <translation>Please select a text from the list first.</translation>
+        <translation type="obsolete">Please select a text from the list first.</translation>
     </message>
     <message>
         <location filename="trainingview.cpp" line="85"/>
         <source>Wollen Sie den ausgew&#xe4;hlten Text wirklich l&#xf6;schen?</source>
-        <translation>Do you really want to delete the selected text?</translation>
+        <translation type="obsolete">Do you really want to delete the selected text?</translation>
     </message>
     <message>
         <location filename="trainingview.cpp" line="85"/>
         <source>Wenn Sie hier mit &quot;Ja&quot; best&#xe4;tigen, wird der ausgew&#xe4;hlte Text unwiderbringlich von der Festplatte gel&#xf6;scht. Wollen Sie den ausgew&#xe4;hlten Text wirklich l&#xf6;schen?</source>
-        <translation>If you accept with &quot;Yes&quot;, the selected text will be completely removed from your hard disk. Do you really want to delete the selected text?</translation>
+        <translation type="obsolete">If you accept with &quot;Yes&quot;, the selected text will be completely removed from your hard disk. Do you really want to delete the selected text?</translation>
     </message>
     <message>
         <location filename="trainingview.cpp" line="201"/>
         <source>Seite: %1</source>
-        <translation>Page: %1</translation>
+        <translation type="obsolete">Page: %1</translation>
     </message>
     <message>
         <location filename="trainingview.cpp" line="179"/>
@@ -7330,35 +7309,20 @@ Wollen Sie sie l&#xf6;schen?</source>
     <message>
         <location filename="trainingview.cpp" line="209"/>
         <source>Seite: %1/%2</source>
-        <translation>Page: %1/%2</translation>
+        <translation type="obsolete">Page: %1/%2</translation>
     </message>
     <message>
         <location filename="trainingview.cpp" line="333"/>
         <source>Wollen Sie wirklich abbrechen?</source>
-        <translation>Do you really want to cancel?</translation>
+        <translation type="obsolete">Do you really want to cancel?</translation>
     </message>
     <message>
         <location filename="trainingview.cpp" line="333"/>
         <source>Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erh&#xf6;hen.
 
 Wollen Sie wirklich abbrechen?</source>
-        <translation>If you cancel, the model won&apos;t profit from the current training and the accuracy will not improve.
+        <translation type="obsolete">If you cancel, the model won&apos;t profit from the current training and the accuracy will not improve.
 Do you really want to cancel?</translation>
-    </message>
-    <message>
-        <location filename="trainingview.cpp" line="120"/>
-        <source>Konnte Training nicht starten</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="trainingview.cpp" line="393"/>
-        <source>Vorschau: %1...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="trainingview.cpp" line="394"/>
-        <source>Leer</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7366,7 +7330,7 @@ Do you really want to cancel?</translation>
     <message>
         <location filename="trayiconmanager.cpp" line="45"/>
         <source>[INF] Erstelle systray icon(%1)</source>
-        <translation>[INF] create systray icon(%1)</translation>
+        <translation type="obsolete">[INF] create systray icon(%1)</translation>
     </message>
 </context>
 <context>
@@ -7374,7 +7338,7 @@ Do you really want to cancel?</translation>
     <message>
         <location filename="wavplayer.cpp" line="70"/>
         <source>[INF] Abspielen von %1</source>
-        <translation>[INF] Play back %1</translation>
+        <translation type="obsolete">[INF] Play back %1</translation>
     </message>
     <message>
         <location filename="wavplayer.cpp" line="115"/>
@@ -7400,7 +7364,7 @@ Do you really want to cancel?</translation>
     <message>
         <location filename="ui/wordlist.ui" line="32"/>
         <source>Vokabular:</source>
-        <translation>Vocabular:</translation>
+        <translation type="obsolete">Vocabular:</translation>
     </message>
     <message>
         <location filename="ui/wordlist.ui" line="51"/>
@@ -7420,7 +7384,7 @@ Do you really want to cancel?</translation>
     <message>
         <location filename="ui/wordlist.ui" line="74"/>
         <source>&amp;x</source>
-        <translation>&amp;x</translation>
+        <translation type="obsolete">&amp;x</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/wordlist.ui" line="88"/>
@@ -7440,7 +7404,7 @@ Do you really want to cancel?</translation>
     <message encoding="UTF-8">
         <location filename="ui/wordlist.ui" line="228"/>
         <source>Zum Training &amp;hinzufügen</source>
-        <translation>Add to &amp;training</translation>
+        <translation type="obsolete">Add to &amp;training</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/wordlist.ui" line="264"/>
@@ -7450,7 +7414,7 @@ Do you really want to cancel?</translation>
     <message>
         <location filename="ui/wordlist.ui" line="275"/>
         <source>&amp;Trainieren</source>
-        <translation>&amp;Train</translation>
+        <translation type="obsolete">&amp;Train</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/wordlist.ui" line="246"/>
@@ -7470,12 +7434,12 @@ Do you really want to cancel?</translation>
     <message>
         <location filename="ui/wordlist.ui" line="242"/>
         <source>Trainingsprog. &amp;vorschlagen</source>
-        <translation>Propose &amp;training program</translation>
+        <translation type="obsolete">Propose &amp;training program</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/wordlist.ui" line="170"/>
         <source>Importiere Wörterbuch</source>
-        <translation>Import dictionary</translation>
+        <translation type="obsolete">Import dictionary</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/wordlist.ui" line="144"/>
@@ -7495,7 +7459,7 @@ Do you really want to cancel?</translation>
     <message encoding="UTF-8">
         <location filename="ui/wordlist.ui" line="156"/>
         <source>Wort &amp;löschen</source>
-        <translation>Delete &amp;word</translation>
+        <translation type="obsolete">Delete &amp;word</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/wordlist.ui" line="305"/>
@@ -7510,7 +7474,7 @@ Do you really want to cancel?</translation>
     <message>
         <location filename="ui/wordlist.ui" line="93"/>
         <source>Wort</source>
-        <translation>Word</translation>
+        <translation type="obsolete">Word</translation>
     </message>
     <message>
         <location filename="ui/wordlist.ui" line="97"/>
@@ -7520,17 +7484,17 @@ Do you really want to cancel?</translation>
     <message>
         <location filename="ui/wordlist.ui" line="103"/>
         <source>Kategorie</source>
-        <translation>Category</translation>
+        <translation type="obsolete">Category</translation>
     </message>
     <message>
         <location filename="ui/wordlist.ui" line="108"/>
         <source>Erkennungsrate</source>
-        <translation>Recognition rate</translation>
+        <translation type="obsolete">Recognition rate</translation>
     </message>
     <message>
         <location filename="ui/wordlist.ui" line="13"/>
         <source>Wortliste</source>
-        <translation>Wordlist</translation>
+        <translation type="obsolete">Wordlist</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/wordlist.ui" line="136"/>
@@ -7569,7 +7533,7 @@ p, li { white-space: pre-wrap; }
     <message encoding="UTF-8">
         <location filename="ui/wordlist.ui" line="119"/>
         <source>Zeige auch unverwendete Wörter an (Schattenlexikon)</source>
-        <translation>Show also unused words (shadowdict)</translation>
+        <translation type="obsolete">Show also unused words (shadowdict)</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="ui/wordlist.ui" line="190"/>
@@ -7595,90 +7559,6 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&quot;Trainingsprogramm vorschlagen&quot; &lt;/span&gt;selektiert automatisch zehn Wörter die noch Verbesserungspotential besitzen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Select a word in the table in the left and drag it to the box at the top of the middle to train it several. (Or click the button &lt;span style=&quot; font-weight:600;&quot;&gt;&quot;Add to the training&quot;&lt;/span&gt;)&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&quot;Propose training program&quot; &lt;/span&gt;selects automatically ten words, which need to be trained.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
-    <message>
-        <location filename="ui/wordlist.ui" line="52"/>
-        <source>Fi&amp;ltern:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/wordlist.ui" line="71"/>
-        <source>Setzt die Sucheingabe zur�ck</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ui/wordlist.ui" line="98"/>
-        <source>SAMPA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/wordlist.ui" line="145"/>
-        <source>Wortliste &amp;Ändern</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/wordlist.ui" line="153"/>
-        <source>L�scht das Wort komplett aus dem Sprachmodell</source>
-        <translation></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/wordlist.ui" line="167"/>
-        <source>Importiert ein vorhandenes W�rterbuch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/wordlist.ui" line="188"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Das ist die Hauptansicht für alle Aktionen rund um das Spachmodell.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Mit einem Klick auf &lt;span style=&quot; font-weight:600;&quot;&gt;&quot;Wort löschen&quot;&lt;/span&gt; können Sie das ausgewählte Wort in das Schattenlexikon verschieben oder komplett entfernen.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Mit Hilfe des &lt;span style=&quot; font-weight:600;&quot;&gt;&quot;Importiere Wörterbuch&quot;&lt;/span&gt; Knopfes können Sie auch andere Wörterbücher wie das Wiktionary oder das BOMP-Wörterbücher importieren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ui/wordlist.ui" line="214"/>
-        <source>Spe&amp;zielles Training</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/wordlist.ui" line="225"/>
-        <source>F�gt das in der Liste links selektierte Wort in die Liste der zu trainierenden W�rter (oben) ein</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/wordlist.ui" line="239"/>
-        <source>Schl�gt automatisch ein Training vor das die schw�chsten 10 W�rter trainiert.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/wordlist.ui" line="253"/>
-        <source>L�scht das Wort aus der Liste der zu trainierenden W�rter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/wordlist.ui" line="256"/>
-        <source>Wort aus Training &amp;löschen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/wordlist.ui" line="272"/>
-        <source>Trainiert die Liste der W�rter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="ui/wordlist.ui" line="293"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;Um einzelne Wörter zu trainieren, markiere das Wort in der Tabelle links und ziehe es in das Feld oben in der Mitte. (Oder drücke den Knopf &lt;span style=&quot; font-weight:600;&quot;&gt;&quot;Zum Training hinzufügen&quot;&lt;/span&gt;)&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;&quot;Trainingsprogramm vorschlagen&quot; &lt;/span&gt;selektiert automatisch zehn Wörter die noch Verbesserungspotential besitzen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>WordListManager</name>
@@ -7690,42 +7570,42 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="wordlistmanager.cpp" line="117"/>
         <source>Tempor&#xe4;re &#xc4;nderungen</source>
-        <translation>Temporary changes</translation>
+        <translation type="obsolete">Temporary changes</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="117"/>
         <source>Sie ver&#xe4;ndern eine tempor&#xe4;re Wordliste.
 
 Die &#xc4;nderungen werden nicht gespeichert. Bitte konfigurieren Sie einen korrekten Pfad in den Einstellungen und starten Sie simon neu um eine dauerhafte Wortliste zu benutzen.</source>
-        <translation>You are modifying a temporary wordlist.
+        <translation type="obsolete">You are modifying a temporary wordlist.
 
 The changes will not be saved. Please configure a correct path in the settings and start simon again to use a permanent wordlist.</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="122"/>
         <source>Lesefehler</source>
-        <translation>Reading error</translation>
+        <translation type="obsolete">Reading error</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="122"/>
         <source>Konnte ben&#xf6;tigte Dateien f&#xfc;r die Wortliste nicht einlesen. Bitte &#xfc;berpr&#xfc;fen Sie die Pfade zu den Vocab- und Lexikon-Dateien und stellen Sie sicher das sie die n&#xf6;tigen Leserechte haben.
 
 Die Wortliste wird leer im RAM erstellt. &#xc4;nderungen werden NICHT dauerhaft gespeichert.</source>
-        <translation>Couldn&apos;t read the needed files for the wordlist. Please check the paths to the vocab- and lexicon-files and make sure that you have the necessary rights to access them.
+        <translation type="obsolete">Couldn&apos;t read the needed files for the wordlist. Please check the paths to the vocab- and lexicon-files and make sure that you have the necessary rights to access them.
 
 An empty wordlist will be created. All changes will NOT be saved.</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="615"/>
         <source>Duplikat erkannt</source>
-        <translation>Duplicate detected</translation>
+        <translation type="obsolete">Duplicate detected</translation>
     </message>
     <message>
         <location filename="wordlistmanager.cpp" line="615"/>
         <source>Dieses Wort existiert bereits im Schattenw&#xf6;rterbuch.
 
 Es wird nicht nocheinmal eingef&#xfc;gt</source>
-        <translation>This word already exists in the shadow-lexicon.
+        <translation type="obsolete">This word already exists in the shadow-lexicon.
 
 It will not be added again.</translation>
     </message>
@@ -7735,12 +7615,12 @@ It will not be added again.</translation>
     <message>
         <location filename="wordlistview.cpp" line="264"/>
         <source>Wortliste</source>
-        <translation>Wordlist</translation>
+        <translation type="obsolete">Wordlist</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="38"/>
         <source>Betrachten und bearbeiten der Wortliste</source>
-        <translation>View and modify the wordlist</translation>
+        <translation type="obsolete">View and modify the wordlist</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="335"/>
@@ -7755,12 +7635,12 @@ It will not be added again.</translation>
     <message>
         <location filename="wordlistview.cpp" line="155"/>
         <source>Es sind nicht gen&#xfc;gend W&#xf6;rter im w&#xf6;rterbuch</source>
-        <translation>There are not enough words in the dictionary</translation>
+        <translation type="obsolete">There are not enough words in the dictionary</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="206"/>
         <source>Keine W&#xf6;rter selektiert</source>
-        <translation>No words selected</translation>
+        <translation type="obsolete">No words selected</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="182"/>
@@ -7778,17 +7658,17 @@ If you want to read a generic text, please go to the general train.
     <message>
         <location filename="wordlistview.cpp" line="304"/>
         <source>Nichts ausgew&#xe4;hlt</source>
-        <translation>Nothing selected</translation>
+        <translation type="obsolete">Nothing selected</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="227"/>
         <source>Bitte selektieren Sie zuerst ein Wort aus der Liste links</source>
-        <translation>Please select a word from the left list first</translation>
+        <translation type="obsolete">Please select a word from the left list first</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="263"/>
         <source>Wortliste - Ungesicherte &#xc4;nderungen</source>
-        <translation>Wordlist - unsaved modifications</translation>
+        <translation type="obsolete">Wordlist - unsaved modifications</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="327"/>
@@ -7814,30 +7694,30 @@ If you want to read a generic text, please go to the general train.
         <location filename="wordlistview.cpp" line="378"/>
         <source>Lade Wortliste zur Anzeige...
 (Ein Abbruch beeinflusst das intern verwendete W&#xf6;rterbuch nicht!)</source>
-        <translation>Loading wordlist to the view...
+        <translation type="obsolete">Loading wordlist to the view...
 (If you cancel, this will not manipulate the intern used dictionary!)</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="378"/>
         <source>Abbrechen</source>
-        <translation>Cancel</translation>
+        <translation type="obsolete">Cancel</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="467"/>
         <source>Wortliste &#xe4;ndern</source>
-        <translation>Modify wordlist</translation>
+        <translation type="obsolete">Modify wordlist</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="79"/>
         <source>&#xdc;bernehmen</source>
-        <translation>Assume</translation>
+        <translation type="obsolete">Assume</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="79"/>
         <source>Um die &#xc4;nderung zu &#xfc;bernehmen, muss das Sprachmodell neu generiert werden.
 
 Wollen Sie es jetzt neu generieren?</source>
-        <translation>To assume the changes, the speech model has to be generated new.
+        <translation type="obsolete">To assume the changes, the speech model has to be generated new.
 
 Do you want to generate the speech model now?</translation>
     </message>
@@ -7848,7 +7728,7 @@ Ziehen Sie sie dazu von der gro&#xdf;en Liste links in die kleine Liste oben rec
 
 Wenn Sie generische Texte vorlesen wollen, gehen Sie bitte zum Allgemeine Training.
 (Der Punkt &quot;Trainieren&quot; ist in der &quot;Globale Aktion&quot;-Toolbar).</source>
-        <translation>Please choose some words for the special training first.
+        <translation type="obsolete">Please choose some words for the special training first.
 Drag the words from the big list on the left to the small list on the right for this.
 
 If you want to read generic texts, go to the general training please.
@@ -7871,19 +7751,19 @@ The changes will not be saved. Please configure a correctly path in the settings
     <message>
         <location filename="wordlistview.cpp" line="304"/>
         <source>Bitte selektieren Sie ein Wort</source>
-        <translation>Please select a word</translation>
+        <translation type="obsolete">Please select a word</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="336"/>
         <source>Fehler beim L&#xf6;schen</source>
-        <translation>Error while deleting</translation>
+        <translation type="obsolete">Error while deleting</translation>
     </message>
     <message>
         <location filename="wordlistview.cpp" line="336"/>
         <source>Das Wort konnte nicht komplett gel&#xf6;scht werden.
 
 Bitte &#xfc;berpr&#xfc;fen Sie die Pfade der Dateien: prompts, codetrain.scp, Pfad der Samples, dict, shadow-dict, voca</source>
-        <translation>The word couldn&apos;t be deleted completely.
+        <translation type="obsolete">The word couldn&apos;t be deleted completely.
 
 Please prove the paths of the files: prompts, codetrain.scp, path of the samples, dict, shadow-dict, voca</translation>
     </message>
@@ -7902,7 +7782,7 @@ The word list will be built empty in the RAM. Changes will NOT be saved durably.
     <message>
         <location filename="xmlreader.cpp" line="11"/>
         <source>[INF] Initialisiere XML Datei &quot;%1&quot;</source>
-        <translation>[INF] Initialise xml-file &quot;%1&quot;</translation>
+        <translation type="obsolete">[INF] Initialise xml-file &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -7910,7 +7790,7 @@ The word list will be built empty in the RAM. Changes will NOT be saved durably.
     <message>
         <location filename="xmltrainingtextlist.cpp" line="39"/>
         <source>Laden einer Liste von Trainingstexten von %1</source>
-        <translation>Loading of a list with the train texts from %1</translation>
+        <translation type="obsolete">Loading of a list with the train texts from %1</translation>
     </message>
 </context>
 </TS>

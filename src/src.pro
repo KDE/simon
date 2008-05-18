@@ -1,4 +1,10 @@
+win32{
+TARGET=../../simon.exe
+}
+!win32{
 TARGET=../simon
+}
+
 TRANSLATIONS += simon_en.ts simon_tob.ts
 
 OBJECTS_DIR = buildtmp
@@ -10,7 +16,6 @@ QT += network xml
 TEMPLATE = app
 
 CONFIG += qt \
-	  debug \
 	  warn_on \
 	  thread
 
