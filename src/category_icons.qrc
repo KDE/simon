@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/" >
+        <file>images/icons/accessories-text-editor.svg</file>
+        <file>images/icons/audio-x-generic.svg</file>
+        <file>images/icons/computer.svg</file>
+        <file>images/icons/network.svg</file>
+        <file>images/icons/preferences-desktop-sound.svg</file>
+        <file>images/icons/utilities-log-viewer.svg</file>
+        <file>images/icons/preferences-system.svg</file>
+    </qresource>
+</RCC>

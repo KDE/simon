@@ -1,0 +1,545 @@
+<ui version="4.0" >
+ <class>DlgModifyCommands</class>
+ <widget class="QDialog" name="DlgModifyCommands" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>401</width>
+    <height>338</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Kommando: konqueror</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" >
+   <item row="0" column="0" >
+    <widget class="QLabel" name="label_15" >
+     <property name="font" >
+      <font>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text" >
+      <string>Name (Auslöser):</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QLineEdit" name="lineEdit_3" >
+     <property name="text" >
+      <string>konqueror</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2" >
+    <spacer name="horizontalSpacer" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>33</width>
+       <height>27</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item rowspan="2" row="0" column="3" >
+    <widget class="SelectShortcutButton" name="pbIcon" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize" >
+      <size>
+       <width>48</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="text" >
+      <string/>
+     </property>
+     <property name="iconSize" >
+      <size>
+       <width>64</width>
+       <height>64</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Typ:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <widget class="QComboBox" name="comboBox" >
+     <item>
+      <property name="text" >
+       <string>Program</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../application_icons.qrc" >
+        <normaloff>:/images/icons/applications-system.svg</normaloff>:/images/icons/applications-system.svg</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Ort</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../category_icons.qrc" >
+        <normaloff>:/images/icons/computer.svg</normaloff>:/images/icons/computer.svg</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Tastenkürzel</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../action_icons.qrc" >
+        <normaloff>:/images/icons/configure-shortcuts.svg</normaloff>:/images/icons/configure-shortcuts.svg</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Sonderzeichen</string>
+      </property>
+      <property name="icon" >
+       <iconset resource="../action_icons.qrc" >
+        <normaloff>:/images/icons/format-text-bold.svg</normaloff>:/images/icons/format-text-bold.svg</iconset>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="1" >
+    <spacer name="verticalSpacer" >
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType" >
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="0" colspan="4" >
+    <widget class="QStackedWidget" name="stackedWidget" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="page" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>393</width>
+        <height>200</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2" >
+       <item row="0" column="0" colspan="2" >
+        <widget class="QCommandLinkButton" name="commandLinkButton" >
+         <property name="text" >
+          <string>Programm importieren</string>
+         </property>
+         <property name="description" >
+          <string>Hier können Sie installierte Programme automatisch importieren. </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2" >
+        <widget class="QCommandLinkButton" name="commandLinkButton_2" >
+         <property name="text" >
+          <string>Manuell</string>
+         </property>
+         <property name="checkable" >
+          <bool>true</bool>
+         </property>
+         <property name="description" >
+          <string>Notwendigen Parameter händisch konfigurieren.</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" >
+        <widget class="QLabel" name="label_12" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="text" >
+          <string>Ausführbare Datei:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" >
+        <widget class="SimonFileSelector" name="lineEdit_2" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="text" >
+          <string>konqueror</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" >
+        <widget class="QLabel" name="label_13" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="text" >
+          <string>Arbeitspfad:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" >
+        <widget class="SimonDirSelector" name="lineEdit" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="text" >
+          <string>/home/bedahr/Daten</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1" >
+        <spacer name="verticalSpacer_2" >
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_2" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>393</width>
+        <height>200</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3" >
+       <item row="0" column="0" colspan="2" >
+        <widget class="QCommandLinkButton" name="commandLinkButton_4" >
+         <property name="text" >
+          <string>Ort importieren</string>
+         </property>
+         <property name="description" >
+          <string>Dieser Assistent kann Ihnen helfen, lokale und entfernte Orte mit Kommandos zu verknüpfen.</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2" >
+        <widget class="QCommandLinkButton" name="commandLinkButton_3" >
+         <property name="text" >
+          <string>Manuell</string>
+         </property>
+         <property name="checkable" >
+          <bool>true</bool>
+         </property>
+         <property name="description" >
+          <string>Notwendigen Parameter händisch konfigurieren.</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" >
+        <widget class="QLabel" name="label_14" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="text" >
+          <string>Ort:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" >
+        <widget class="SimonFileSelector" name="lineEdit_4" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="text" >
+          <string>/home/bedahr/Test</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" >
+        <spacer name="verticalSpacer_3" >
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Seite" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>393</width>
+        <height>200</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout" >
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout" >
+         <item>
+          <widget class="QLabel" name="label_2" >
+           <property name="text" >
+            <string>Tastenkürzel:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="SelectShortcutButton" name="pushButton" >
+           <property name="text" >
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_4" >
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Seite_2" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>393</width>
+        <height>205</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2" >
+       <item>
+        <widget class="QLabel" name="label_3" >
+         <property name="text" >
+          <string>Assozierter Text:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="plainTextEdit" />
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="4" >
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonFileSelector</class>
+   <extends>QLineEdit</extends>
+   <header>simonfileselector.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SimonDirSelector</class>
+   <extends>QLineEdit</extends>
+   <header>simondirselector.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SelectShortcutButton</class>
+   <extends>QPushButton</extends>
+   <header>../SimonLib/ShortcutButton/selectshortcutbutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../category_icons.qrc" />
+  <include location="../application_icons.qrc" />
+  <include location="../action_icons.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>DlgModifyCommands</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>DlgModifyCommands</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>stackedWidget</receiver>
+   <slot>setCurrentIndex(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>233</x>
+     <y>53</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>247</x>
+     <y>99</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>commandLinkButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineEdit_2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>140</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>158</x>
+     <y>228</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>commandLinkButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>83</x>
+     <y>185</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>150</x>
+     <y>261</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>commandLinkButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>label_12</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>44</x>
+     <y>198</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>46</x>
+     <y>231</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>commandLinkButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>label_13</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>64</x>
+     <y>180</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>74</x>
+     <y>273</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>commandLinkButton_3</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineEdit_4</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>200</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>201</x>
+     <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>commandLinkButton_3</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>label_14</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>93</x>
+     <y>177</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>18</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

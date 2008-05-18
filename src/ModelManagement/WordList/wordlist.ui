@@ -1,0 +1,332 @@
+<ui version="4.0" >
+ <class>WordList</class>
+ <widget class="QWidget" name="WordList" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>775</width>
+    <height>634</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Wortliste</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../../action_icons.qrc" >
+    <normaloff>:/images/icons/format-justify-fill.svg</normaloff>:/images/icons/format-justify-fill.svg</iconset>
+  </property>
+  <layout class="QHBoxLayout" >
+   <item>
+    <widget class="QSplitter" name="splitter" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QWidget" name="layoutWidget" >
+      <layout class="QVBoxLayout" >
+       <item>
+        <layout class="QHBoxLayout" >
+         <item>
+          <widget class="QLabel" name="lbVocab" >
+           <property name="text" >
+            <string>Vokabular:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbSearch" >
+           <property name="text" >
+            <string>Fi&amp;ltern:</string>
+           </property>
+           <property name="buddy" >
+            <cstring>leSearch</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="leSearch" />
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbClearSearch" >
+           <property name="maximumSize" >
+            <size>
+             <width>19</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="toolTip" >
+            <string>Setzt die Sucheingabe zur�ck</string>
+           </property>
+           <property name="text" >
+            <string>&amp;x</string>
+           </property>
+           <property name="autoDefault" >
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="DragTableWidget" name="twVocab" >
+         <property name="selectionMode" >
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior" >
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <column>
+          <property name="text" >
+           <string>Wort</string>
+          </property>
+         </column>
+         <column>
+          <property name="text" >
+           <string>SAMPA</string>
+          </property>
+         </column>
+         <column>
+          <property name="text" >
+           <string>Kategorie</string>
+          </property>
+         </column>
+         <column>
+          <property name="text" >
+           <string>Erkennungsrate</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbShowCompleteLexicon" >
+         <property name="enabled" >
+          <bool>true</bool>
+         </property>
+         <property name="text" >
+          <string>Zeige auch unverwendete Wörter an (Schattenlexikon)</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="SimonTabWidget" name="twCurrentAction" >
+      <property name="maximumSize" >
+       <size>
+        <width>16777215</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="currentIndex" >
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="tbEditModel" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>288</width>
+         <height>585</height>
+        </rect>
+       </property>
+       <attribute name="title" >
+        <string>Wortliste &amp;Ändern</string>
+       </attribute>
+       <layout class="QVBoxLayout" >
+        <item>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QPushButton" name="pbRemoveWord" >
+            <property name="toolTip" >
+             <string>L�scht das Wort komplett aus dem Sprachmodell</string>
+            </property>
+            <property name="text" >
+             <string>Selektiertes Wort &amp;löschen</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="../../action_icons.qrc" >
+              <normaloff>:/images/icons/process-stop.svg</normaloff>:/images/icons/process-stop.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbImport" >
+            <property name="toolTip" >
+             <string>Importiert ein vorhandenes W�rterbuch</string>
+            </property>
+            <property name="text" >
+             <string>Importiere Wörterbuch</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="../../action_icons.qrc" >
+              <normaloff>:/images/icons/document-open.svg</normaloff>:/images/icons/document-open.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line_2" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextBrowser" name="tbHelp_2" >
+            <property name="html" >
+             <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Verdana'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Mit einem Klick auf &lt;span style=" font-weight:600;">"Wort löschen"&lt;/span> können Sie das ausgewählte Wort in das Schattenlexikon verschieben oder komplett entfernen.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Mit Hilfe des &lt;span style=" font-weight:600;">"Importiere Wörterbuch"&lt;/span> Knopfes können Sie auch andere Wörterbücher wie das Wiktionary oder das BOMP-Wörterbücher importieren.&lt;/p>&lt;/body>&lt;/html></string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tbSpecialTraining" >
+       <property name="geometry" >
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>288</width>
+         <height>585</height>
+        </rect>
+       </property>
+       <attribute name="title" >
+        <string>Spe&amp;zielles Training</string>
+       </attribute>
+       <layout class="QVBoxLayout" >
+        <item>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="DropListWidget" name="lwTrainingWords" />
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbAddToTraining" >
+            <property name="toolTip" >
+             <string>F�gt das in der Liste links selektierte Wort in die Liste der zu trainierenden W�rter (oben) ein</string>
+            </property>
+            <property name="text" >
+             <string>Zum Training &amp;hinzufügen</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="../../action_icons.qrc" >
+              <normaloff>:/images/icons/go-up.svg</normaloff>:/images/icons/go-up.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbSuggestTrain" >
+            <property name="toolTip" >
+             <string>Schl�gt automatisch ein Training vor das die schw�chsten 10 W�rter trainiert.</string>
+            </property>
+            <property name="text" >
+             <string>Trainingsprog. &amp;vorschlagen</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="../../action_icons.qrc" >
+              <normaloff>:/images/icons/bookmark-new.svg</normaloff>:/images/icons/bookmark-new.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbDeleteTrainingWord" >
+            <property name="toolTip" >
+             <string>L�scht das Wort aus der Liste der zu trainierenden W�rter</string>
+            </property>
+            <property name="text" >
+             <string>Wort aus Training &amp;löschen</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="../../action_icons.qrc" >
+              <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pbTrainList" >
+            <property name="font" >
+             <font>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="toolTip" >
+             <string>Trainiert die Liste der W�rter</string>
+            </property>
+            <property name="text" >
+             <string>&amp;Trainieren</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="../../action_icons.qrc" >
+              <normaloff>:/images/icons/go-next.svg</normaloff>:/images/icons/go-next.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextBrowser" name="tbHelp" >
+            <property name="html" >
+             <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Verdana'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Um einzelne Wörter zu trainieren, markiere das Wort in der Tabelle links und ziehe es in das Feld oben in der Mitte. (Oder drücke den Knopf &lt;span style=" font-weight:600;">"Zum Training hinzufügen"&lt;/span>)&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">&lt;span style=" font-weight:600;">"Trainingsprogramm vorschlagen" &lt;/span>selektiert automatisch zehn Wörter die noch Verbesserungspotential besitzen&lt;/p>&lt;/body>&lt;/html></string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DragTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>ModelManagement/WordList/dragtablewidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DropListWidget</class>
+   <extends>QListWidget</extends>
+   <header>ModelManagement/WordList/droplistwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SimonTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>simontabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../../action_icons.qrc" />
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,457 @@
+<ui version="4.0" >
+ <class>RunDlg</class>
+ <widget class="QWidget" name="RunDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>816</width>
+    <height>482</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Ausführen</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset>
+    <normaloff/>
+   </iconset>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_4" >
+   <item>
+    <widget class="QSplitter" name="splitter" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QWidget" name="" >
+      <layout class="QVBoxLayout" name="verticalLayout_2" >
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4" >
+         <item>
+          <widget class="QLabel" name="lbSearch" >
+           <property name="text" >
+            <string>&amp;Filtern:</string>
+           </property>
+           <property name="buddy" >
+            <cstring>leSearch</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="leSearch" >
+           <property name="toolTip" >
+            <string>Schränkt die Liste auf die Eingabe ein</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbClearSearch" >
+           <property name="maximumSize" >
+            <size>
+             <width>25</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="toolTip" >
+            <string>Zurücksetzen der Suche</string>
+           </property>
+           <property name="text" >
+            <string>&amp;x</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QTreeWidget" name="treeWidget" >
+         <column>
+          <property name="text" >
+           <string>Kommandos</string>
+          </property>
+         </column>
+         <item>
+          <property name="text" >
+           <string>Programme</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../other_icons.qrc" >
+            <normaloff>:/images/icons/system-run.svg</normaloff>:/images/icons/system-run.svg</iconset>
+          </property>
+          <item>
+           <property name="text" >
+            <string>Konqueror</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../category_icons.qrc" >
+             <normaloff>:/images/icons/network.svg</normaloff>:/images/icons/network.svg</iconset>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Orte</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../other_icons.qrc" >
+            <normaloff>:/images/icons/folder.svg</normaloff>:/images/icons/folder.svg</iconset>
+          </property>
+          <item>
+           <property name="text" >
+            <string>Eigene Dateien</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../other_icons.qrc" >
+             <normaloff>:/images/icons/folder.svg</normaloff>:/images/icons/folder.svg</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Google</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../category_icons.qrc" >
+             <normaloff>:/images/icons/network.svg</normaloff>:/images/icons/network.svg</iconset>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Tastenkürzel</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../action_icons.qrc" >
+            <normaloff>:/images/icons/configure-shortcuts.svg</normaloff>:/images/icons/configure-shortcuts.svg</iconset>
+          </property>
+          <item>
+           <property name="text" >
+            <string>Speichern</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/document-save.svg</normaloff>:/images/icons/document-save.svg</iconset>
+           </property>
+          </item>
+          <item>
+           <property name="text" >
+            <string>Ausführen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../other_icons.qrc" >
+             <normaloff>:/images/icons/system-run.svg</normaloff>:/images/icons/system-run.svg</iconset>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text" >
+           <string>Textmakros</string>
+          </property>
+          <property name="icon" >
+           <iconset resource="../action_icons.qrc" >
+            <normaloff>:/images/icons/format-text-bold.svg</normaloff>:/images/icons/format-text-bold.svg</iconset>
+          </property>
+          <item>
+           <property name="text" >
+            <string>simon</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/format-text-bold.svg</normaloff>:/images/icons/format-text-bold.svg</iconset>
+           </property>
+          </item>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5" >
+         <item>
+          <widget class="QPushButton" name="pbNewCommand" >
+           <property name="text" >
+            <string>Neues Kommando</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton" >
+           <property name="enabled" >
+            <bool>false</bool>
+           </property>
+           <property name="text" >
+            <string>Aktivitäten importieren</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/arrow-down-double.svg</normaloff>:/images/icons/arrow-down-double.svg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QFrame" name="frame" >
+      <property name="frameShape" >
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow" >
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3" >
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout" >
+         <property name="leftMargin" >
+          <number>10</number>
+         </property>
+         <property name="topMargin" >
+          <number>10</number>
+         </property>
+         <property name="rightMargin" >
+          <number>10</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_11" >
+           <property name="font" >
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Programm: Konqueror</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbIcon" >
+           <property name="maximumSize" >
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+           <property name="text" >
+            <string/>
+           </property>
+           <property name="pixmap" >
+            <pixmap resource="../category_icons.qrc" >:/images/icons/network.svg</pixmap>
+           </property>
+           <property name="scaledContents" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3" >
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType" >
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="gridLayout" >
+         <property name="leftMargin" >
+          <number>10</number>
+         </property>
+         <property name="horizontalSpacing" >
+          <number>11</number>
+         </property>
+         <property name="verticalSpacing" >
+          <number>15</number>
+         </property>
+         <item row="0" column="0" >
+          <widget class="QLabel" name="label_8" >
+           <property name="text" >
+            <string>Ausführbare Datei:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" >
+          <widget class="QLabel" name="label_7" >
+           <property name="text" >
+            <string>konqueror</string>
+           </property>
+           <property name="openExternalLinks" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" >
+          <widget class="QLabel" name="label_10" >
+           <property name="text" >
+            <string>Arbeitspfad:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" >
+          <widget class="QLabel" name="label_9" >
+           <property name="text" >
+            <string>/home/bedahr/Daten</string>
+           </property>
+           <property name="openExternalLinks" >
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout" >
+         <item>
+          <spacer name="verticalSpacer" >
+           <property name="orientation" >
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType" >
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0" >
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2" >
+           <item>
+            <spacer name="horizontalSpacer_2" >
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0" >
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pbRun" >
+             <property name="toolTip" >
+              <string>Führt das selektierte Kommando aus</string>
+             </property>
+             <property name="text" >
+              <string>&amp;Ausführen</string>
+             </property>
+             <property name="icon" >
+              <iconset resource="../other_icons.qrc" >
+               <normaloff>:/images/icons/system-run.svg</normaloff>:/images/icons/system-run.svg</iconset>
+             </property>
+             <property name="default" >
+              <bool>true</bool>
+             </property>
+             <property name="flat" >
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_3" >
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0" >
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2" >
+           <property name="orientation" >
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0" >
+            <size>
+             <width>20</width>
+             <height>50</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3" >
+         <item>
+          <spacer name="horizontalSpacer" >
+           <property name="orientation" >
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0" >
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbEditCommand" >
+           <property name="text" >
+            <string>Bearbeiten</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/edit.svg</normaloff>:/images/icons/edit.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pbDeleteCommand" >
+           <property name="text" >
+            <string>Löschen</string>
+           </property>
+           <property name="icon" >
+            <iconset resource="../action_icons.qrc" >
+             <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../other_icons.qrc" />
+  <include location="../action_icons.qrc" />
+  <include location="../category_icons.qrc" />
+ </resources>
+ <connections/>
+</ui>

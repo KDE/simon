@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/" >
+        <file>images/icons/applications-accessories.svg</file>
+        <file>images/icons/applications-development.svg</file>
+        <file>images/icons/applications-education-language.svg</file>
+        <file>images/icons/applications-games.svg</file>
+        <file>images/icons/applications-graphics.svg</file>
+        <file>images/icons/applications-internet.svg</file>
+        <file>images/icons/applications-multimedia.svg</file>
+        <file>images/icons/applications-office.svg</file>
+        <file>images/icons/applications-other.svg</file>
+        <file>images/icons/applications-system.svg</file>
+    </qresource>
+</RCC>

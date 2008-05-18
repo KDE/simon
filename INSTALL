@@ -9,7 +9,7 @@ Documentation: INSTALL INSTRUCTIONS
 ---------------
 
 To successfully compile simon you need:
-qt >= 4.3.* (there have been reported problems with qt-4.3.1)
+qt >= 4.3.3 (4.4.0 recommended)
 
 Linux:
 	alsa-dev
@@ -25,14 +25,23 @@ WIN32:
 
 To compile this version just issue:
 
+$ cd src
 $ qmake 
 $ make
 
-The binary will be put in the bin/ subdirectory (altough that might vary depending on your compiler - possible other locations include release/bin and debug/bin).
+The executable should be named "simon" and reside in this very directory :) (not in the src/ subdir)
 
 
 
 2. Configuration
---------------
+----------------
 
-When first running simon it will prompt for some essential configuration. Simon ships with some defaults located in the model/ directory.
+When starting simon the first time you will go thourgh a kind of "setup" procedure. Just follow the instructions and simon should be ready to go!
+
+
+3. Support
+----------
+
+If you find a bug please contact us over the sourceforge project site (bugtracker):
+http://sourceforg.net/projects/speech2text
+
