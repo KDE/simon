@@ -32,6 +32,7 @@ CommandPreviewWidget::CommandPreviewWidget(QWidget *parent) : QWidget(parent)
 	ui.setupUi(this);
 	
 	connect(ui.pbTrigger, SIGNAL(clicked()), this, SLOT(trigger()));
+	hide();
 }
 
 void CommandPreviewWidget::trigger()
@@ -42,7 +43,10 @@ void CommandPreviewWidget::trigger()
 void CommandPreviewWidget::updateCommand(const QModelIndex &commandIdx)
 {
 	Command *command = static_cast<Command*>(commandIdx.internalPointer());
-	if (!command) return;
+	if (!command) {
+		hide();
+		return;
+	} else show();
 
 	ui.lbIcon->setPixmap(command->getIcon().pixmap(64,64));
 	ui.lbName->setText(command->getTrigger());
