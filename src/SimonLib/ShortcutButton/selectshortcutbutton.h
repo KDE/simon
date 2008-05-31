@@ -41,7 +41,6 @@ private:
 	QList<int> selectedKeys;
 	char charKey, charKey_backup;
 
-	QString name;
 	int keyPressCounter;
 
 	int modifierKeys, actionKeys, functionKeys, movementKeys;
@@ -53,13 +52,13 @@ private:
 	void keyPressEvent(QKeyEvent *event);
 	void keyReleaseEvent(QKeyEvent *event);
 	void displayKeys();
-	Shortcut* getShortcut();
 
 private slots:
 	void grabKeys(bool start);
 public:
-    SelectShortcutButton(QString name, QString text="", QWidget *parent=0);
     SelectShortcutButton(QWidget *parent=0);
+	Shortcut* getShortcut();
+	void setShortcut(const Shortcut *shortcut);
 
 
     ~SelectShortcutButton() {}

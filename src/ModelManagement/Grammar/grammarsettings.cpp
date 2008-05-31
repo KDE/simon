@@ -21,7 +21,6 @@ GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(tr("Grammatikein
 {
 	ui.setupUi(this);
 	help = tr("Hier können Sie die Grammatikkonstrukte die von simon erkannt werden anpassen.");
-	this->grammarManager = GrammarManager::getInstance();
 
 	this->importGrammarWizard = new ImportGrammarWizard(this);
 
@@ -194,6 +193,7 @@ QStringList GrammarSettings::getCurrentStructures()
 
 bool GrammarSettings::apply()
 {
+	GrammarManager *grammarManager = GrammarManager::getInstance();
 	QStringList sentences = getCurrentStructures();
 	grammarManager->setStructures(sentences);
 	grammarManager->save();
@@ -202,6 +202,8 @@ bool GrammarSettings::apply()
 
 bool GrammarSettings::init()
 {
+	ui.twSentences->setRowCount(0);
+	GrammarManager *grammarManager = GrammarManager::getInstance();
 	QStringList terminals = grammarManager->getTerminals();
 
 	QStringList sentences = grammarManager->getAllStructures();

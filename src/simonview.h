@@ -48,7 +48,7 @@ class TrainingView;
 class VuMeter;
 class AddWordView;
 class TrayIconManager;
-class RunApplicationView;
+class RunCommandView;
 class SystemView;
 class QAction;
 class WordListView;
@@ -94,7 +94,7 @@ private:
 	TrayIconManager *trayManager; //!< Handles the TrayIcon
 	AddWordView *addWordView; //!< Pointer on the Dialog "Add Word to Language model"
 	WordListView *wordList; //!< Pointer on the Dialog "WordList"
-	RunApplicationView *runDialog; //!< Pointer on the Dialog "RunCommand"
+	RunCommandView *runDialog; //!< Pointer on the Dialog "RunCommand"
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
 	SystemView *systemDialog; //!< Pointer on the Dialog "System"
 

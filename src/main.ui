@@ -29,9 +29,9 @@
    <property name="geometry" >
     <rect>
      <x>0</x>
-     <y>15</y>
+     <y>12</y>
      <width>839</width>
-     <height>666</height>
+     <height>672</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" >
@@ -55,7 +55,7 @@
          <string/>
         </property>
         <property name="pixmap" >
-         <pixmap resource="../others.qrc" >:/images/simon_d.png</pixmap>
+         <pixmap resource="others.qrc" >:/images/simon_d.png</pixmap>
         </property>
         <property name="scaledContents" >
          <bool>true</bool>
@@ -123,7 +123,7 @@
             <string>Verb&amp;inden</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >
+            <iconset resource="action_icons.qrc" >
              <normaloff>:/images/icons/connect-no.svg</normaloff>:/images/icons/connect-no.svg</iconset>
            </property>
            <property name="iconSize" >
@@ -152,7 +152,7 @@
          <string>Wort &amp;hinzufügen</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >
+         <iconset resource="action_icons.qrc" >
           <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
         </property>
         <property name="iconSize" >
@@ -184,7 +184,7 @@
          <string>&amp;Trainieren</string>
         </property>
         <property name="icon" >
-         <iconset resource="../other_icons.qrc" >
+         <iconset resource="other_icons.qrc" >
           <normaloff>:/images/icons/kvoctrain.svg</normaloff>:/images/icons/kvoctrain.svg</iconset>
         </property>
         <property name="iconSize" >
@@ -213,7 +213,7 @@
          <string>Wort&amp;liste</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >
+         <iconset resource="action_icons.qrc" >
           <normaloff>:/images/icons/format-justify-fill.svg</normaloff>:/images/icons/format-justify-fill.svg</iconset>
         </property>
         <property name="iconSize" >
@@ -239,10 +239,10 @@
          <string>Ausführen von definierten Aktionen</string>
         </property>
         <property name="text" >
-         <string>&amp;Ausführen</string>
+         <string>Kommandos</string>
         </property>
         <property name="icon" >
-         <iconset resource="../other_icons.qrc" >
+         <iconset resource="other_icons.qrc" >
           <normaloff>:/images/icons/system-run.svg</normaloff>:/images/icons/system-run.svg</iconset>
         </property>
         <property name="iconSize" >
@@ -271,7 +271,7 @@
          <string>System</string>
         </property>
         <property name="icon" >
-         <iconset resource="../category_icons.qrc" >
+         <iconset resource="category_icons.qrc" >
           <normaloff>:/images/icons/preferences-system.svg</normaloff>:/images/icons/preferences-system.svg</iconset>
         </property>
         <property name="iconSize" >
@@ -307,7 +307,7 @@
          <string>&amp;Aktivieren</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >
+         <iconset resource="action_icons.qrc" >
           <normaloff>:/images/icons/media-playback-start.svg</normaloff>:/images/icons/media-playback-start.svg</iconset>
         </property>
         <property name="iconSize" >
@@ -336,7 +336,7 @@
          <string>&amp;Verstecken</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >
+         <iconset resource="action_icons.qrc" >
           <normaloff>:/images/icons/go-bottom.svg</normaloff>:/images/icons/go-bottom.svg</iconset>
         </property>
         <property name="iconSize" >
@@ -356,7 +356,7 @@
          <string>Sprachmodell generieren</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >
+         <iconset resource="action_icons.qrc" >
           <normaloff>:/images/icons/go-next.svg</normaloff>:/images/icons/go-next.svg</iconset>
         </property>
         <property name="iconSize" >
@@ -385,7 +385,7 @@
          <string>Systemverwaltungsmodus</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >
+         <iconset resource="action_icons.qrc" >
           <normaloff>:/images/icons/lock.svg</normaloff>:/images/icons/lock.svg</iconset>
         </property>
         <property name="iconSize" >
@@ -417,7 +417,7 @@
          <string>&amp;Beenden</string>
         </property>
         <property name="icon" >
-         <iconset resource="../action_icons.qrc" >
+         <iconset resource="action_icons.qrc" >
           <normaloff>:/images/icons/system-log-out.svg</normaloff>:/images/icons/system-log-out.svg</iconset>
         </property>
         <property name="iconSize" >
@@ -446,15 +446,15 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>817</width>
-         <height>496</height>
+         <width>819</width>
+         <height>516</height>
         </rect>
        </property>
        <attribute name="title" >
         <string>Start</string>
        </attribute>
        <attribute name="icon" >
-        <iconset resource="../others.qrc" >
+        <iconset resource="others.qrc" >
          <normaloff>:/images/tray.png</normaloff>:/images/tray.png</iconset>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2" >
@@ -464,7 +464,7 @@
            <string/>
           </property>
           <property name="pixmap" >
-           <pixmap resource="../banners.qrc" >:/images/home.png</pixmap>
+           <pixmap resource="banners.qrc" >:/images/home.png</pixmap>
           </property>
           <property name="alignment" >
            <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -479,16 +479,14 @@
      </widget>
     </item>
    </layout>
-   <zorder>inlineView</zorder>
-   <zorder>lbWelcomeDesc</zorder>
   </widget>
   <widget class="QToolBar" name="tbStatus" >
    <property name="geometry" >
     <rect>
      <x>0</x>
-     <y>681</y>
+     <y>684</y>
      <width>839</width>
-     <height>15</height>
+     <height>12</height>
     </rect>
    </property>
    <property name="windowTitle" >
@@ -509,8 +507,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>15</width>
-     <height>15</height>
+     <width>10</width>
+     <height>12</height>
     </rect>
    </property>
    <property name="windowTitle" >
@@ -529,10 +527,10 @@
   <widget class="QToolBar" name="tbModules" >
    <property name="geometry" >
     <rect>
-     <x>15</x>
+     <x>10</x>
      <y>0</y>
-     <width>824</width>
-     <height>15</height>
+     <width>829</width>
+     <height>12</height>
     </rect>
    </property>
    <property name="windowTitle" >
@@ -564,12 +562,12 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../action_icons.qrc" />
-  <include location="../application_icons.qrc" />
-  <include location="../banners.qrc" />
-  <include location="../category_icons.qrc" />
-  <include location="../other_icons.qrc" />
-  <include location="../others.qrc" />
+  <include location="action_icons.qrc" />
+  <include location="application_icons.qrc" />
+  <include location="banners.qrc" />
+  <include location="category_icons.qrc" />
+  <include location="other_icons.qrc" />
+  <include location="others.qrc" />
  </resources>
  <connections/>
 </ui>

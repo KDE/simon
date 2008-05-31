@@ -10,7 +10,7 @@
 //
 //
 #include "iconbutton.h"
-
+#include <QSize>
 #include "icondialog.h"
 
 #ifdef __WIN32
@@ -24,6 +24,7 @@
 */
 IconButton::IconButton ( QWidget *parent ) : QToolButton ( parent )
 {
+	setIconSize(QSize(48,48));
 	iconName = "";
 	iconDialog = new IconDialog();
 	connect ( this, SIGNAL ( clicked() ), this, SLOT ( changeIcon() ) );
@@ -44,32 +45,34 @@ void IconButton::changeIcon()
 	if ( success )
 	{
 		QString resourceId = iconDialog->getIcon();
-
-		QIcon icon;
-#ifdef __WIN32
-		if ( resourceId.contains ( QRegExp ( ".dll,\n*" ) ) )
-		{
-			QStringList iconResources = resourceId.split ( "," );
-			WindowsResourceHandler *windowsResourceHandler = new WindowsResourceHandler();
-			icon = windowsResourceHandler->retrieveIcon ( iconResources.at ( 0 ), iconResources.at ( 1 ).toInt() );
-	             delete windowsResourceHandler;
-		}
-		else
-		{
-			QPixmap pixmap ( resourceId );
-			icon.addPixmap ( pixmap );
-		}
-#endif
-#ifndef __WIN32
-		QPixmap pixmap ( resourceId );
-		icon.addPixmap ( pixmap );
-#endif
-		setIconName ( resourceId );
-		setIcon ( icon );
+		setIconFromResource(resourceId);
 	}
 }
 
-
+void IconButton::setIconFromResource(QString resourceId)
+{
+	QIcon icon;
+#ifdef __WIN32
+	if ( resourceId.contains ( QRegExp ( ".dll,\n*" ) ) )
+	{
+		QStringList iconResources = resourceId.split ( "," );
+		WindowsResourceHandler *windowsResourceHandler = new WindowsResourceHandler();
+		icon = windowsResourceHandler->retrieveIcon ( iconResources.at ( 0 ), iconResources.at ( 1 ).toInt() );
+		delete windowsResourceHandler;
+	}
+	else
+	{
+		QPixmap pixmap ( resourceId );
+		icon.addPixmap ( pixmap );
+	}
+#endif
+#ifndef __WIN32
+	QPixmap pixmap ( resourceId );
+	icon.addPixmap ( pixmap );
+#endif
+	setIconName ( resourceId );
+	setIcon ( icon );
+}
  
 IconButton::~IconButton()
 {

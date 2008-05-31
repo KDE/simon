@@ -20,16 +20,14 @@
 
 #include "simoncontrol.h"
 #include <QMessageBox>
+#include <QDebug>
 #include "SimonLib/Logging/logger.h"
 #include "SimonLib/Settings/settings.h"
+#include "SimonLib/EventSimulation/shortcut.h"
 #include "SimonLib/SimonInfo/simoninfo.h"
 #include "SimonLib/Sound/soundcontrol.h"
-#include "Commands/Runners/Shortcuts/shortcutcontrol.h"
-#include "Commands/Runners/DesktopGrid/screengrid.h"
 #include "RecognitionControl/juliuscontrol.h"
-#include "Commands/runcommand.h"
-#include "Commands/Runners/ATIntegration/atwatcher.h"
-#include "Commands/Runners/EventSimulation/eventhandler.h"
+#include "Actions/actionmanager.h"
 
 /**
  * @brief Constructor
@@ -40,14 +38,17 @@
 */
 SimonControl::SimonControl() : QObject ()
 {
+	Shortcut::initKeys();
+
 	this->active=false;
 	this->julius = new JuliusControl();
-	this->run = RunCommand::getInstance();
-	eventHandler = EventHandler::getInstance();
+	this->actionManager = ActionManager::getInstance();
+// 	eventHandler = EventHandler::getInstance();
 
-	this->shortcutControl = ShortcutControl::getInstance();
+// 	this->shortcutControl = ShortcutControl::getInstance();
 
-	this->atWatcher = ATWatcher::getInstance();
+// 	this->atWatcher = ATWatcher::getInstance();
+	QObject::connect(actionManager, SIGNAL(guiAction(QString)), this, SIGNAL(guiAction(QString)));
 	
 	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));
 	QObject::connect(julius, SIGNAL(disconnected()), this, SLOT(disconnectedFromJulius()));
@@ -87,9 +88,8 @@ void SimonControl::juliusWarning(QString warning)
  */
 SimonControl::~SimonControl()
 {
-    delete mic;
     julius->deleteLater();
-    delete eventHandler;
+//     delete eventHandler;
 }
 
 /**
@@ -149,32 +149,29 @@ void SimonControl::disconnectFromJulius()
  */
 void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 {
-	QString keyword = Settings::getS("Commands/Keyword");
-	
-	if (word.startsWith(keyword))
-	{
-		word = word.replace(0, QString(keyword).length()+1,"");
-		
-		if (word.startsWith(Settings::getS("Desktopgrid/Trigger")))
-		{
-			ScreenGrid *sg = new ScreenGrid();
-			connect(sg, SIGNAL(click(int, int)), this, SLOT(click(int, int)));
-			sg->show();
-		}
-		if (shortcutControl && (shortcutControl->nameExists(word)))
-		{
-			eventHandler->sendShortcut(shortcutControl->getShortcut(word));
-		} else if (!atWatcher->trigger(word))
-			if (!run->run(word))
-				emit guiAction(word);
-	} else {
-		eventHandler->sendWord(word);
-	}
-}
-
-void SimonControl::click(int x, int y)
-{
-	eventHandler->click(x,y);
+	qDebug() << "SimonControl::wordRecognised()";
+	actionManager->process(word);
+// 	QString keyword = Settings::getS("Commands/Keyword");
+// 	
+// 	if (word.startsWith(keyword))
+// 	{
+// 		word = word.replace(0, QString(keyword).length()+1,"");
+// 		
+// 		if (word.startsWith(Settings::getS("Desktopgrid/Trigger")))
+// 		{
+// 			ScreenGrid *sg = new ScreenGrid();
+// 			connect(sg, SIGNAL(click(int, int)), this, SLOT(click(int, int)));
+// 			sg->show();
+// 		}
+// 		if (shortcutControl && (shortcutControl->nameExists(word)))
+// 		{
+// 			eventHandler->sendShortcut(shortcutControl->getShortcut(word));
+// 		} else if (!atWatcher->trigger(word))
+// 			if (!run->run(word))
+// 				emit guiAction(word);
+// 	} else {
+// 		eventHandler->sendWord(word);
+// 	}
 }
 
 /**
@@ -241,18 +238,6 @@ void SimonControl::errorConnecting(QString error)
 	else {
 		emit connectionError(juliusdConnectionErrors.join("\n"));
 	}
-}
-
-/**
- * @brief Sets basic Parameters for the Sound-System
- *
- * Uses the SoundControl control handle to initialize the primary sound card
- *
- *	@author Peter Grasch
- */
-void SimonControl::initializeMic()
-{
-	
 }
 
 

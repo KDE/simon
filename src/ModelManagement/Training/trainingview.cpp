@@ -416,9 +416,9 @@ TrainingView::~TrainingView()
 /**
  * @brief to hide the settings
  *
- *	@author Susanne Tschernegg
+ *	@author Susanne Tschernegg, Peter Grasch
  */
-void TrainingView::hideSettings()
+void TrainingView::setSettingsHidden()
 {
 	ui.pbDelText->hide();
 	ui.pbImportText->hide();

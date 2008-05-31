@@ -22,7 +22,6 @@ class GrammarManager : public QObject {
 Q_OBJECT
 private:
 	QStringList structures;
-	WordListManager *wordlistManager;
 	static GrammarManager *instance;
 
 protected:

@@ -1,0 +1,558 @@
+<ui version="4.0" >
+ <class>SelectPlaceDlg</class>
+ <widget class="QWidget" name="SelectPlaceDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>437</width>
+    <height>405</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2" >
+   <item>
+    <widget class="QRadioButton" name="rbLocalPlace" >
+     <property name="text" >
+      <string>Lokaler Ort</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout" >
+     <item>
+      <spacer name="horizontalSpacer" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0" >
+        <size>
+         <width>19</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="SimonDirSelector" name="leLocalUrl" />
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbRemotePlace" >
+     <property name="text" >
+      <string>Entfernter Ort</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3" >
+     <item>
+      <spacer name="horizontalSpacer_2" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0" >
+        <size>
+         <width>16</width>
+         <height>17</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout" >
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2" >
+         <item>
+          <widget class="QLabel" name="lbRemoteUrl" >
+           <property name="text" >
+            <string>URL:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="leRemoteUrl" >
+           <property name="text" >
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="gbRemoteHelp" >
+         <property name="title" >
+          <string>Hilfe</string>
+         </property>
+         <property name="flat" >
+          <bool>true</bool>
+         </property>
+         <property name="checkable" >
+          <bool>true</bool>
+         </property>
+         <property name="checked" >
+          <bool>true</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout" >
+          <item row="0" column="0" >
+           <widget class="QLabel" name="lbProtocol" >
+            <property name="text" >
+             <string>Protokoll:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QComboBox" name="cbProtocol" >
+            <property name="editable" >
+             <bool>true</bool>
+            </property>
+            <item>
+             <property name="text" >
+              <string>http</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>https</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>ftp</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>sftp</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>smb</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="2" >
+           <widget class="QCheckBox" name="cbAuthentification" >
+            <property name="text" >
+             <string>Authentifizierung</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0" >
+           <widget class="QLabel" name="lbUser" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="text" >
+             <string>Benutzer:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1" >
+           <widget class="QLineEdit" name="leUser" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0" >
+           <widget class="QLabel" name="lbPassword" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="text" >
+             <string>Passwort:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1" >
+           <widget class="QLineEdit" name="lePass" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="echoMode" >
+             <enum>QLineEdit::Password</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="lbHost" >
+            <property name="text" >
+             <string>Host:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QLineEdit" name="leHost" />
+          </item>
+          <item row="2" column="0" >
+           <widget class="QLabel" name="lbPath" >
+            <property name="text" >
+             <string>Pfad:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1" >
+           <widget class="QLineEdit" name="lePath" />
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer" >
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonDirSelector</class>
+   <extends>QLineEdit</extends>
+   <header>simondirselector.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>rbLocalPlace</tabstop>
+  <tabstop>leLocalUrl</tabstop>
+  <tabstop>rbRemotePlace</tabstop>
+  <tabstop>leRemoteUrl</tabstop>
+  <tabstop>gbRemoteHelp</tabstop>
+  <tabstop>cbProtocol</tabstop>
+  <tabstop>leHost</tabstop>
+  <tabstop>lePath</tabstop>
+  <tabstop>cbAuthentification</tabstop>
+  <tabstop>leUser</tabstop>
+  <tabstop>lePass</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>rbLocalPlace</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leLocalUrl</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>78</x>
+     <y>28</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>97</x>
+     <y>55</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbAuthentification</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leUser</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>103</x>
+     <y>294</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>161</x>
+     <y>317</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbAuthentification</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lePass</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>168</x>
+     <y>289</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>188</x>
+     <y>353</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbAuthentification</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbUser</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>110</x>
+     <y>299</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>100</x>
+     <y>317</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbAuthentification</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbPassword</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>75</x>
+     <y>298</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>77</x>
+     <y>356</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbRemoteHelp</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbProtocol</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>74</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>120</x>
+     <y>202</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbRemoteHelp</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cbProtocol</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>209</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>352</x>
+     <y>202</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbRemoteHelp</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cbAuthentification</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>306</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>303</x>
+     <y>285</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbRemoteHelp</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leUser</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>338</x>
+     <y>224</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>329</x>
+     <y>318</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbRemoteHelp</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lePass</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>252</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>285</x>
+     <y>362</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbRemoteHelp</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbUser</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>45</x>
+     <y>248</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>77</x>
+     <y>321</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbRemoteHelp</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbPassword</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>49</x>
+     <y>341</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>105</x>
+     <y>359</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbRemotePlace</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbRemoteUrl</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>85</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>60</x>
+     <y>134</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbRemotePlace</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leRemoteUrl</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>131</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>248</x>
+     <y>134</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbRemotePlace</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>gbRemoteHelp</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>118</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>141</x>
+     <y>212</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbRemoteHelp</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leHost</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>197</x>
+     <y>150</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>206</x>
+     <y>217</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbRemoteHelp</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbHost</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>157</x>
+     <y>153</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>56</x>
+     <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbRemoteHelp</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lePath</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>396</x>
+     <y>157</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>392</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbRemoteHelp</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbPath</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>34</x>
+     <y>256</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>62</x>
+     <y>256</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

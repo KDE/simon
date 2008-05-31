@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>666</width>
+    <width>711</width>
     <height>437</height>
    </rect>
   </property>
@@ -34,7 +34,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>658</width>
+        <width>703</width>
         <height>429</height>
        </rect>
       </property>
@@ -82,7 +82,7 @@
           <string>   (Markierten Text &amp;vorlesen (trainieren</string>
          </property>
          <property name="icon" >
-          <iconset resource="../action_icons.qrc" >
+          <iconset resource="../../action_icons.qrc" >
            <normaloff>:/images/icons/go-next.svg</normaloff>:/images/icons/go-next.svg</iconset>
          </property>
          <property name="iconSize" >
@@ -104,7 +104,7 @@
             <string>  Markierten Text &amp;löschen</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >
+            <iconset resource="../../action_icons.qrc" >
              <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
            </property>
           </widget>
@@ -118,7 +118,7 @@
             <string>  Text &amp;importieren</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >
+            <iconset resource="../../action_icons.qrc" >
              <normaloff>:/images/icons/document-import.svg</normaloff>:/images/icons/document-import.svg</iconset>
            </property>
           </widget>
@@ -132,7 +132,7 @@
             <string>Trainingsdaten Importieren</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >
+            <iconset resource="../../action_icons.qrc" >
              <normaloff>:/images/icons/document-open.svg</normaloff>:/images/icons/document-open.svg</iconset>
            </property>
           </widget>
@@ -146,7 +146,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>658</width>
+        <width>703</width>
         <height>429</height>
        </rect>
       </property>
@@ -210,6 +210,12 @@
               <property name="frameShape" >
                <enum>QFrame::StyledPanel</enum>
               </property>
+              <property name="frameShadow" >
+               <enum>QFrame::Plain</enum>
+              </property>
+              <property name="lineWidth" >
+               <number>1</number>
+              </property>
               <property name="text" >
                <string/>
               </property>
@@ -218,122 +224,48 @@
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QWidget" native="1" name="wRecTexts" >
-              <property name="minimumSize" >
-               <size>
-                <width>345</width>
-                <height>100</height>
-               </size>
-              </property>
-              <layout class="QHBoxLayout" />
-             </widget>
-            </item>
-            <item>
-             <widget class="QGroupBox" name="pgRecogniced" >
-              <property name="title" >
-               <string>Erkannter Text</string>
-              </property>
-              <property name="flat" >
-               <bool>false</bool>
-              </property>
-              <property name="checkable" >
-               <bool>false</bool>
-              </property>
-              <property name="checked" >
-               <bool>false</bool>
-              </property>
-              <layout class="QVBoxLayout" >
-               <item>
-                <widget class="QLabel" name="label" >
-                 <property name="palette" >
-                  <palette>
-                   <active>
-                    <colorrole role="Window" >
-                     <brush brushstyle="SolidPattern" >
-                      <color alpha="255" >
-                       <red>255</red>
-                       <green>255</green>
-                       <blue>255</blue>
-                      </color>
-                     </brush>
-                    </colorrole>
-                   </active>
-                   <inactive>
-                    <colorrole role="Window" >
-                     <brush brushstyle="SolidPattern" >
-                      <color alpha="255" >
-                       <red>255</red>
-                       <green>255</green>
-                       <blue>255</blue>
-                      </color>
-                     </brush>
-                    </colorrole>
-                   </inactive>
-                   <disabled>
-                    <colorrole role="Window" >
-                     <brush brushstyle="SolidPattern" >
-                      <color alpha="255" >
-                       <red>255</red>
-                       <green>255</green>
-                       <blue>255</blue>
-                      </color>
-                     </brush>
-                    </colorrole>
-                   </disabled>
-                  </palette>
-                 </property>
-                 <property name="font" >
-                  <font>
-                   <italic>true</italic>
-                   <strikeout>false</strikeout>
-                   <stylestrategy>PreferAntialias</stylestrategy>
-                   <kerning>true</kerning>
-                  </font>
-                 </property>
-                 <property name="layoutDirection" >
-                  <enum>Qt::LeftToRight</enum>
-                 </property>
-                 <property name="autoFillBackground" >
-                  <bool>false</bool>
-                 </property>
-                 <property name="frameShape" >
-                  <enum>QFrame::StyledPanel</enum>
-                 </property>
-                 <property name="frameShadow" >
-                  <enum>QFrame::Sunken</enum>
-                 </property>
-                 <property name="text" >
-                  <string/>
-                 </property>
-                 <property name="alignment" >
-                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                 </property>
-                 <property name="wordWrap" >
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="lbRecognitionInfo" >
-                 <property name="font" >
-                  <font>
-                   <pointsize>7</pointsize>
-                  </font>
-                 </property>
-                 <property name="text" >
-                  <string>Hinweis: Die Erkennung die hierfür verwendet ist, profitiert noch nicht vom gerade laufenden Training.</string>
-                 </property>
-                 <property name="wordWrap" >
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
            </layout>
           </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2" >
+           <property name="orientation" >
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType" >
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0" >
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QWidget" native="1" name="wRecTexts" >
+           <property name="minimumSize" >
+            <size>
+             <width>345</width>
+             <height>100</height>
+            </size>
+           </property>
+           <layout class="QHBoxLayout" />
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer" >
+           <property name="orientation" >
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0" >
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
          <item>
           <layout class="QHBoxLayout" >
@@ -355,7 +287,7 @@
               <string>&amp;Vorige Seite</string>
              </property>
              <property name="icon" >
-              <iconset resource="../action_icons.qrc" >
+              <iconset resource="../../action_icons.qrc" >
                <normaloff>:/images/icons/go-previous.svg</normaloff>:/images/icons/go-previous.svg</iconset>
              </property>
              <property name="iconSize" >
@@ -378,7 +310,7 @@
               <string>&amp;Nächste Seite</string>
              </property>
              <property name="icon" >
-              <iconset resource="../action_icons.qrc" >
+              <iconset resource="../../action_icons.qrc" >
                <normaloff>:/images/icons/go-next.svg</normaloff>:/images/icons/go-next.svg</iconset>
              </property>
              <property name="iconSize" >
@@ -408,7 +340,7 @@
               <string>&amp;Abbrechen</string>
              </property>
              <property name="icon" >
-              <iconset resource="../action_icons.qrc" >
+              <iconset resource="../../action_icons.qrc" >
                <normaloff>:/images/icons/dialog-cancel.svg</normaloff>:/images/icons/dialog-cancel.svg</iconset>
              </property>
             </widget>
@@ -432,7 +364,7 @@
               <string>&amp;Fertigstellen</string>
              </property>
              <property name="icon" >
-              <iconset resource="../action_icons.qrc" >
+              <iconset resource="../../action_icons.qrc" >
                <normaloff>:/images/icons/dialog-ok-apply.svg</normaloff>:/images/icons/dialog-ok-apply.svg</iconset>
              </property>
             </widget>
@@ -456,13 +388,13 @@
           <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
 &lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Bitte nehmen Sie nun Seite für Seite des Textes auf. &lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Sie können jederzeit zu einer vorigen Seite zurückgehen, es gehen dabei keine Daten verloren.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Wenn Sie alle Seiten aufgenommen haben wird der Knopf "Fertigstellen" verfügbar sein und das Sprachmodell mit den gesammelten Daten neu berechnen.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Bitte achten Sie darauf alle Aufnahmen ohne Hintergrundgeräusche aufzunehmen, halten Sie sich genau an den angezeigten Text und versuchen Sie möglichst deutlich aber natürlich zu sprechen.&lt;/p>&lt;/body>&lt;/html></string>
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Verdana'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Bitte nehmen Sie nun Seite für Seite des Textes auf. &lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Sie können jederzeit zu einer vorigen Seite zurückgehen, es gehen dabei keine Daten verloren.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Wenn Sie alle Seiten aufgenommen haben wird der Knopf "Fertigstellen" verfügbar sein und das Sprachmodell mit den gesammelten Daten neu berechnen.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Bitte achten Sie darauf alle Aufnahmen ohne Hintergrundgeräusche aufzunehmen, halten Sie sich genau an den angezeigten Text und versuchen Sie möglichst deutlich aber natürlich zu sprechen.&lt;/p>&lt;/body>&lt;/html></string>
          </property>
         </widget>
        </item>
@@ -534,7 +466,7 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <resources>
-  <include location="../action_icons.qrc" />
+  <include location="../../action_icons.qrc" />
  </resources>
  <connections/>
 </ui>

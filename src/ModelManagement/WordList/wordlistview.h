@@ -42,7 +42,6 @@ private:
 	QPoint importDictPos;
 	
 	bool abortVocabInsertion;
-	bool dirty; //!< Determines if we changed the model since the last save
 	Ui::WordList ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	WordList trainingwordlist;  //!< Holds all the words that are scheduled for training
 	WordListManager *wordListManager; //!< Concept class
@@ -53,8 +52,6 @@ private:
 signals:
 	void wordlistLoaded();
 
-private slots:
-// 	void readVocab();
 
 public slots:
 	void abortInsertion() { abortVocabInsertion = true; }
@@ -70,13 +67,13 @@ public slots:
 	void importDict(WordList* list);
 	void clearList();
 	void filterListbyPattern(QString filter="");
-	void clearSearchText();
 	void insertVocab(WordList *vocab);
 	void show();
 	void hide();
 	void showImportDictDialog();
-	void hideTbEditModel();
-	void setTbEditModelVisible();
+
+	void setSettingsVisible();
+	void setSettingsHidden();
 
 	WordListManager* getManager(){return wordListManager;}
 

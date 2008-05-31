@@ -11,35 +11,24 @@
 //
 #include "selectshortcutbutton.h"
 #include <QKeyEvent>
-#include "../../Commands/Runners/Shortcuts/shortcut.h"
+#include "../EventSimulation/shortcut.h"
+
+/**
+ * \warning this class is fugly
+ */
 
 /**
  * \brief Constructor
  * \author Peter Grasch
- * @param name The name of the Shortcut
- * @param text The text to display on the button
- * @param parent The parent of the button
- */
-SelectShortcutButton::SelectShortcutButton(QString name, QString text, QWidget *parent)
- : QPushButton(text, parent)
-{
-	keyPressCounter=0;
-	reset();
-	setCheckable(true);
-	this->name = name;
-	connect(this, SIGNAL(toggled(bool)), this, SLOT(grabKeys(bool)));
-}
-/**
- * \brief Constructor
- * \author Peter Grasch
- * @param name The name of the Shortcut
- * @param text The text to display on the button
  * @param parent The parent of the button
  */
 SelectShortcutButton::SelectShortcutButton(QWidget *parent)
  : QPushButton(parent)
 {
-	SelectShortcutButton("", "", parent);
+	reset();
+	setCheckable(true);
+	connect(this, SIGNAL(toggled(bool)), this, SLOT(grabKeys(bool)));
+	keyPressCounter=0;
 }
 
 
@@ -55,7 +44,8 @@ void SelectShortcutButton::grabKeys(bool start)
 		return;
 	}
 
-	grabKeyboard();
+	if (start)
+		grabKeyboard();
 	
 	modifierKeys_backup = modifierKeys;
 	actionKeys_backup = actionKeys;
@@ -75,7 +65,7 @@ void SelectShortcutButton::reset()
 {
 	selectedKeys.clear();
 	resetShortcutKeys();
-	charKey='_';
+	charKey='\0';
 }
 
 /**
@@ -113,6 +103,16 @@ void SelectShortcutButton::keyPressEvent(QKeyEvent *event)
 	} else 
 		if (!selectedKeys.contains(event->key())) selectedKeys.append(event->key());
 
+	displayKeys();
+}
+
+void SelectShortcutButton::setShortcut(const Shortcut *shortcut)
+{
+	modifierKeys = shortcut->getModifiers();
+	actionKeys = shortcut->getActionKeys();
+	functionKeys = shortcut->getFunctionKeys();
+	movementKeys = shortcut->getMovementKeys();
+	charKey = shortcut->getCharKey();
 	displayKeys();
 }
 
@@ -160,7 +160,7 @@ void SelectShortcutButton::displayKeys()
 			else text = newkey;
 	}
 
-	if (charKey != '_')
+	if (charKey != '\0')
 	{
 		if (!text.isEmpty())
 			text += "+ "+QString(QChar(charKey));
@@ -180,9 +180,9 @@ void SelectShortcutButton::displayKeys()
  */
 Shortcut* SelectShortcutButton::getShortcut()
 {
-	if ((this->modifierKeys==0) && (this->actionKeys == 0) && (this->functionKeys==0) && (this->movementKeys==0) && (this->charKey=='_'))
-		return new Shortcut(this->name, this->modifierKeys_backup, this->actionKeys_backup, this->functionKeys_backup, this->movementKeys_backup, this->charKey_backup);
-	else return new Shortcut(this->name, this->modifierKeys, this->actionKeys, this->functionKeys, this->movementKeys, this->charKey);
+	if ((this->modifierKeys==0) && (this->actionKeys == 0) && (this->functionKeys==0) && (this->movementKeys==0) && (this->charKey=='\0'))
+		return new Shortcut(this->modifierKeys_backup, this->actionKeys_backup, this->functionKeys_backup, this->movementKeys_backup, this->charKey_backup);
+	else return new Shortcut(this->modifierKeys, this->actionKeys, this->functionKeys, this->movementKeys, this->charKey);
 }
 
 /**

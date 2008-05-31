@@ -25,11 +25,9 @@ GrammarManager* GrammarManager::instance;
 /**
  * \brief Constructor
  * \author Peter Grasch
- * @param wordlistManager Initializes the member
  */
 GrammarManager::GrammarManager() : QObject()
 {
-	this->wordlistManager = WordListManager::getInstance();
 	connect(ModelManager::getInstance(), SIGNAL(unknownGrammarClass(QString)), this, SLOT(unknownWordClass(QString)));
 	load();
 }
@@ -144,7 +142,7 @@ QStringList GrammarManager::getExamples(QString word, QString terminal, int coun
 				alreadyUsed = true;
 			} else
 			{
-				QString exampleWord =wordlistManager->getRandomWord(terminals[j], includeShadow);
+				QString exampleWord =WordListManager::getInstance()->getRandomWord(terminals[j], includeShadow);
 				if (exampleWord.isEmpty())
 				{
 					badWord = true;

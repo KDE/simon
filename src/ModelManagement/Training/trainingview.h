@@ -85,7 +85,7 @@ public:
 	
 	~TrainingView();
 	
-	void hideSettings();
+	void setSettingsHidden();
 	void setSettingsVisible();
 	void cleanUpTrainingSamples();
 

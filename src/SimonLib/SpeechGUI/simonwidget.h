@@ -15,7 +15,6 @@
 #include "guievents.h"
 /**
  *	@class SimonWidget
- *	@brief Abstract class defining the methods that a EventBackend has to support
  *
  *	@version 0.1
  *	@date 4.03.2007

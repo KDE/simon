@@ -31,7 +31,6 @@ private:
 	RenameTerminalWizard *renameTerminalWizard;
 	MergeTerminalsWizard *mergeTerminalsWizard;
 	Ui::GrammarSettingsDlg ui;
-	GrammarManager *grammarManager;
 
 	QStringList getCurrentStructures();
 	void insertSentences(QStringList sentences);

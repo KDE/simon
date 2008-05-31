@@ -21,7 +21,6 @@
 
 void SimonWidget::guessChildTriggers(QObject *current) 
 {
-	
 	QCoreApplication::processEvents();
 	
 	QObjectList childList = getChildren(current);
@@ -37,7 +36,7 @@ void SimonWidget::guessChildTriggers(QObject *current)
 			guessChildTriggers(childList.at(i));
 		}
 	//QAbstractButton
-		if ((dynamic_cast<QAbstractButton*>(childList.at(i))) || (dynamic_cast<QCheckBox*>(childList.at(i))))
+		if ((dynamic_cast<QAbstractButton*>(childList.at(i))))
 		{
 			text = dynamic_cast<QAbstractButton*>(childList.at(i))->text();
 			text = editChildKeys(text);

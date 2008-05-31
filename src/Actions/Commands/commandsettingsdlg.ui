@@ -1,0 +1,526 @@
+<ui version="4.0" >
+ <class>CommandSettingsDlg</class>
+ <widget class="QWidget" name="CommandSettingsDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>430</width>
+    <height>563</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2" >
+   <item row="0" column="0" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Globaler Trigger:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="QLineEdit" name="leTrigger" />
+   </item>
+   <item row="1" column="0" colspan="2" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>Verfügbare Kommandos:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2" >
+    <widget class="QScrollArea" name="saCommandoSettings" >
+     <property name="widgetResizable" >
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>397</width>
+        <height>663</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout" >
+       <item>
+        <widget class="QGroupBox" name="gbExe" >
+         <property name="title" >
+          <string>Ausführbare Dateien</string>
+         </property>
+         <property name="flat" >
+          <bool>true</bool>
+         </property>
+         <property name="checkable" >
+          <bool>true</bool>
+         </property>
+         <layout class="QFormLayout" name="formLayout" >
+          <item row="0" column="1" >
+           <widget class="SimonFileSelector" name="leCommands" >
+            <property name="text" >
+             <string>conf/commands.xml</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" >
+           <widget class="QLabel" name="lbCommands" >
+            <property name="text" >
+             <string>Konfigurationsdatei:</string>
+            </property>
+            <property name="buddy" >
+             <cstring>leCommands</cstring>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="gbPlace" >
+         <property name="title" >
+          <string>Orte</string>
+         </property>
+         <property name="flat" >
+          <bool>true</bool>
+         </property>
+         <property name="checkable" >
+          <bool>true</bool>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout" >
+          <item>
+           <widget class="QLabel" name="lbPlaces" >
+            <property name="text" >
+             <string>Konfigurationsdatei:</string>
+            </property>
+            <property name="buddy" >
+             <cstring>leCommands</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="SimonFileSelector" name="lePlace" >
+            <property name="text" >
+             <string>conf/commands.xml</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="gbTextMacro" >
+         <property name="title" >
+          <string>Text-Makro</string>
+         </property>
+         <property name="flat" >
+          <bool>true</bool>
+         </property>
+         <property name="checkable" >
+          <bool>true</bool>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2" >
+          <item>
+           <widget class="QLabel" name="lbTextMacro" >
+            <property name="text" >
+             <string>Konfigurationsdatei:</string>
+            </property>
+            <property name="buddy" >
+             <cstring>leCommands</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="SimonFileSelector" name="leTextMacro" >
+            <property name="text" >
+             <string>conf/commands.xml</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="gbShortcut" >
+         <property name="title" >
+          <string>Tastenkürzel</string>
+         </property>
+         <property name="flat" >
+          <bool>true</bool>
+         </property>
+         <property name="checkable" >
+          <bool>true</bool>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_3" >
+          <item>
+           <widget class="QLabel" name="lbShortcuts" >
+            <property name="text" >
+             <string>Konfigurationsdatei:</string>
+            </property>
+            <property name="buddy" >
+             <cstring>leCommands</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="SimonFileSelector" name="leShortcut" >
+            <property name="text" >
+             <string>conf/commands.xml</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="gbDesktopGrid" >
+         <property name="title" >
+          <string>Desktopgitter</string>
+         </property>
+         <property name="flat" >
+          <bool>true</bool>
+         </property>
+         <property name="checkable" >
+          <bool>true</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout" >
+          <item row="0" column="0" >
+           <widget class="QLabel" name="lbDesktopGridTrigger" >
+            <property name="text" >
+             <string>Auslöser:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QLineEdit" name="leDesktopGridTrigger" />
+          </item>
+          <item row="1" column="0" colspan="2" >
+           <widget class="QCheckBox" name="cbDesktopGridRealTransparency" >
+            <property name="text" >
+             <string>"Echte" Transparenz verwenden</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="gbATIntegration" >
+         <property name="title" >
+          <string>ATIntegration (EXPERIMENTELL)</string>
+         </property>
+         <property name="flat" >
+          <bool>true</bool>
+         </property>
+         <property name="checkable" >
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2" >
+          <item>
+           <widget class="QCheckBox" name="cbATIntegrationQtWorkarounds" >
+            <property name="text" >
+             <string>Qt4-Spezifische Workarounds</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="_2" >
+            <item>
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType" >
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0" >
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="cbATIntegrationQtMenu" >
+              <property name="text" >
+               <string>Menü-Unterstützung (Experimentell)</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbATIntegrationWorkaroundDesc" >
+            <property name="text" >
+             <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-style:italic;">Die hier konfigurierbaren "Workarounds" aktivieren einen Modus, der die GUI nicht 1:1 ausliest und speichert, sondern beim Auslesen beachtet, das z.B. Scrollbalken, etc. automatisch hinzugefügt werden.&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+            </property>
+            <property name="wordWrap" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer" >
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SimonFileSelector</class>
+   <extends>QLineEdit</extends>
+   <header>simonfileselector.h</header>
+   <slots>
+    <signal>urlChanged()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>gbExe</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbCommands</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>253</x>
+     <y>-93</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>151</x>
+     <y>-50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbExe</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leCommands</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>237</x>
+     <y>-89</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>254</x>
+     <y>-53</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbPlace</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbPlaces</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>109</x>
+     <y>-20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>100</x>
+     <y>19</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbPlace</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lePlace</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>185</x>
+     <y>-20</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>209</x>
+     <y>18</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbTextMacro</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbTextMacro</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>104</x>
+     <y>62</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>92</x>
+     <y>101</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbTextMacro</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leTextMacro</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>304</x>
+     <y>65</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>301</x>
+     <y>98</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbShortcut</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbShortcuts</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>150</x>
+     <y>176</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>99</x>
+     <y>201</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbShortcut</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leShortcut</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>219</x>
+     <y>157</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>218</x>
+     <y>194</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbDesktopGrid</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbDesktopGridTrigger</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>77</x>
+     <y>251</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>76</x>
+     <y>268</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbDesktopGrid</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leDesktopGridTrigger</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>320</x>
+     <y>251</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>315</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbDesktopGrid</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cbDesktopGridRealTransparency</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>266</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>238</x>
+     <y>305</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbATIntegration</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cbATIntegrationQtWorkarounds</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>141</x>
+     <y>355</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>118</x>
+     <y>381</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbATIntegration</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cbATIntegrationQtMenu</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>172</x>
+     <y>358</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>156</x>
+     <y>408</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gbATIntegration</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lbATIntegrationWorkaroundDesc</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>217</x>
+     <y>357</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>159</x>
+     <y>442</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

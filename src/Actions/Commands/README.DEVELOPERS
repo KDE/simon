@@ -1,0 +1,6 @@
+A command consist of its Command-Subclass and a CommandManager-Subclass (and most likely methods to store the configuration of the commands; XML recommended).
+
+The Command-Subclass provides all the information that describes the command, whilst the -Manager-Subclass has to implement commands like save() / load() / etc.
+The CommandManager provides a default-trigger method (virtual) which goes through the commandlist (member) and triggers the command with the matching trigger.
+
+Each Command-Subsystem can overwrite this to its liking.

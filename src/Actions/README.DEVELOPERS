@@ -1,0 +1,17 @@
+DEFINITION:
+-----------
+
+Every reaction of simon that is triggered by speech input is an "action".
+
++--------------+-------------------+
+|    Action    |     Command       |
++--------------+-------------------+
+| Typing       | Shortcuts         |
+| SpeechGUI*   | Executables       |
+|              | Places            |
+|              | Textmacros        |
+|              | ATIntegration     |
+|              |                   |
++--------------+-------------------+
+
+* Implementation constraints...

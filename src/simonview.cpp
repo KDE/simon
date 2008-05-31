@@ -24,18 +24,18 @@
 
 #include "simonview.h"
 #include "inlinewidgetview.h"
-#include "GeneralConfiguration/systemview.h"
+#include "Configuration/systemview.h"
 #include "SimonLib/Logging/logger.h"
 #include "simoncontrol.h"
 
 #include "SimonLib/SimonInfo/simoninfo.h"
-#include "Commands/runapplicationview.h"
+#include "Actions/runcommandview.h"
 #include "SimonLib/TrayIcon/trayiconmanager.h"
 #include "ModelManagement/modelmanager.h"
 #include "ModelManagement/Training/trainingview.h"
 #include "SimonLib/Settings/settings.h"
 #include "SimonLib/PasswordDialog/passworddlg.h"
-#include "GeneralConfiguration/FirstRun/firstrunwizard.h"
+#include "Configuration/FirstRun/firstrunwizard.h"
 #include "ModelManagement/WordList/wordlistview.h"
 #include "ModelManagement/WordList/AddWord/addwordview.h"
 
@@ -116,7 +116,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	this->addWordView = AddWordView::getInstance();
 
 	this->info->writeToSplash ( tr ( "Lade \"Ausführen\"..." ) );
-	this->runDialog = new RunApplicationView ( this );
+	this->runDialog = new RunCommandView ( this );
 
 	this->info->writeToSplash ( tr ( "Lade \"System\"..." ) );
 	this->systemDialog = new SystemView ( this );
@@ -152,7 +152,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	show();
 	QCoreApplication::processEvents();
-
 	connect ( systemDialog, SIGNAL ( commandsChanged() ), runDialog, SLOT ( loadCommands() ) );
 
 	//switches, if the settings are shown or not
@@ -227,7 +226,7 @@ void SimonView::setButtonNotChecked()
 	{
 		ui.pbAddWord->setChecked ( false );
 	}
-	else if ( dynamic_cast<RunApplicationView*> ( sender() ) )
+	else if ( dynamic_cast<RunCommandView*> ( sender() ) )
 	{
 		ui.pbRunProgram->setChecked ( false );
 	}
@@ -673,11 +672,10 @@ void SimonView::hideSettings()
 	ui.tbModules->removeAction ( this->settingsToolButton );
 	ui.pbSystem->setDisabled ( true );
 
-	//hides the tabwidget editModel in the wordlistview
-	wordList->hideTbEditModel();
 
-	//hides the buttons for the settings
-	trainDialog->hideSettings();
+
+	wordList->setSettingsHidden();
+	trainDialog->setSettingsHidden();
 	runDialog->setSettingsHidden();
 }
 
@@ -692,12 +690,10 @@ void SimonView::showSettings()
 	ui.tbModules->addAction ( this->settingsToolButton );
 	ui.pbSystem->setDisabled ( false );
 
-	//set the editModel tabWidget visible
-	wordList->setTbEditModelVisible();
 
 	//sets the setting buttons visible
 	trainDialog->setSettingsVisible();
-
+	wordList->setSettingsVisible();
 	runDialog->setSettingsVisible();
 }
 

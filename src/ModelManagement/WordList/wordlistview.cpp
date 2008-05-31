@@ -53,7 +53,7 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	connect(ui.pbSuggestTrain, SIGNAL(clicked()), this, SLOT(suggestTraining()));
 	connect(ui.pbRemoveWord, SIGNAL(clicked()), this, SLOT(deleteSelectedWord()));
 	connect(ui.leSearch, SIGNAL(returnPressed()), this, SLOT(filterListbyPattern()));
-	connect(ui.pbClearSearch, SIGNAL(clicked()), this, SLOT(clearSearchText()));
+	connect(ui.leSearch, SIGNAL(editingFinished()), this, SLOT(filterListbyPattern()));
 	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(showImportDictDialog()));
 	connect(importDictView, SIGNAL(dictGenerated(WordList*)), this, SLOT(importDict(WordList*)));
@@ -66,8 +66,6 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	connect(this->wordListManager, SIGNAL(shadowListChanged()), this, SLOT(reloadShadowList()));
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(askForRebuild()));
 	this->filterListbyPattern();
-
-	dirty = false;
 	
 	hide();
 }
@@ -107,18 +105,6 @@ void WordListView::reloadShadowList()
 	//else, reload
 	filterListbyPattern(); //this will take care of the currently active filter
 	// if there is none set, we will just load the list with loadList
-}
-
-/**
- * @brief Clears the Search-field
- *
- * @author Peter Grasch
- */
-void WordListView::clearSearchText()
-{
-	ui.leSearch->setText("");
-	filterListbyPattern();
-	ui.leSearch->setFocus();
 }
 
 void WordListView::showImportDictDialog()
@@ -250,20 +236,6 @@ void WordListView::clearList()
 	ui.twVocab->setRowCount(0);
 }
 
-/**
- * \brief Sets the Member and lets the user know about it
- * \author Peter Grasch
- * \param bool dirty
- */
-void WordListView::setDirty(bool dirty)
-{
-	this->dirty = dirty;
-	if (dirty)
-	{
-		setWindowTitle(tr("Wortliste - Ungesicherte Änderungen"));
-	} else setWindowTitle(tr("Wortliste"));
-}
-
 void WordListView::show()
 {
 	if (sImportDict & shownDialogs)
@@ -339,26 +311,6 @@ void WordListView::deleteSelectedWord()
 	del->deleteLater();
 }
 
-/**
- * @brief Asks the WordListManager for the whole Vocabulary and sends it to insertVocab
- *
- * @author Peter Grasch
- * @see insertVocab()
- */
-// void WordListView::readVocab()
-// {
-// 	WordList *vocab = this->wordListManager->getWordList();
-// 	if (vocab) insertVocab( vocab );
-// 
-// 	if (ui.cbShowCompleteLexicon->isChecked())
-// 	{
-// 		WordList *shadow = this->wordListManager->getShadowList();
-// 		if (shadow)
-// 		{
-// 			insertVocab( shadow );
-// 		}
-// 	}
-// }
 
 /**
  * @brief Inserts a given Wordlist to the QTableWidget
@@ -412,6 +364,7 @@ void WordListView::insertVocab(WordList *vocab)
 	}
 	pgDlg->setValue(i);
 	ui.twVocab->setRowCount(i);
+	ui.twVocab->resizeColumnsToContents();
 	pgDlg->deleteLater();
 	emit wordlistLoaded();
 }
@@ -447,25 +400,15 @@ void WordListView::deleteTrainingWord()
 	}
 }
 
-/**
- * @brief Hides the tab (editModel), until the pbKeyed Button is checked and the password where given
- *
- * @author Susanne Tschernegg
- */
-void WordListView::hideTbEditModel()
+
+void WordListView::setSettingsVisible()
 {
-    ui.twCurrentAction->removeTab(0);
+	ui.wgSettings->show();
 }
 
-/**
- * @brief Sets the tab (editModel) visible, until the pbKeyed Button is unchecked
- *
- * @author Susanne Tschernegg
- */
-void WordListView::setTbEditModelVisible()
+void WordListView::setSettingsHidden()
 {
-    ui.twCurrentAction->insertTab(0,ui.tbEditModel, tr("Wortliste ändern"));
-    ui.twCurrentAction->setCurrentIndex(0);
+	ui.wgSettings->hide();
 }
 
 

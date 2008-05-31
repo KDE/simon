@@ -17,6 +17,7 @@ TEMPLATE = app
 
 CONFIG += qt \
 	  warn_on \
+	  debug \
 	  thread
 
 RESOURCES += banners.qrc \
@@ -56,13 +57,8 @@ SOURCES += 	main.cpp \
 HEADERS += 	simonview.h \
 		simoncontrol.h
 
-SUBDIRS += 	Commands \
-		GeneralConfiguration \
-		ModelManagement \
-		RecognitionControl \
-		SimonLib
-include(Commands/Commands.pri)
-include(GeneralConfiguration/GeneralConfiguration.pri)
+include(Actions/Actions.pri)
+include(Configuration/Configuration.pri)
 include(ModelManagement/ModelManagement.pri)
 include(RecognitionControl/RecognitionControl.pri)
 include(SimonLib/SimonLib.pri)
