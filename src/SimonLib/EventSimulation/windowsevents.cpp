@@ -9,7 +9,7 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include "../../../SimonLib/Logging/logger.h"
+#include "../Logging/logger.h"
 #include <QCoreApplication>
 #include "windowsevents.h"
 #include <QMessageBox>
@@ -197,80 +197,80 @@ void WindowsEvents::sendKey(unsigned short key /*unicode representation*/)
  * 
  * @author Phillip Goriup
  */
-// void WindowsEvents::sendShortcut(Shortcut shortcut)
-// {
-// 	
-// 	int modifier = shortcut.getModifiers();
-// 	if (modifier & KeyShift)
-// 	{	
-// 		setModifierKey(VK_SHIFT, true);
-// 	}
-// 	if (modifier & KeyAlt)
-// 		setModifierKey(VK_MENU, true);
-// 	if (modifier & KeyStrg)
-// 	{
-// 		setModifierKey(VK_CONTROL, true);
-// 	}
-// 	if (modifier & KeySuper)
-// 		setModifierKey(VK_LWIN, true);
-// 	if (modifier & KeyCapsLock)
-// 		setModifierKey(VK_CAPITAL, true);
-// 	if (modifier & KeyAltGr)
-// 		setModifierKey(VK_RMENU, true);
-// 
-// 	
-// 	int action = shortcut.getActionKeys();
-// 	if (action & KeyBackspace)
-// 		sendKey(VK_BACK);
-// 	if (action & KeyEscape)
-// 		sendKey(VK_ESCAPE);
-// 	if (action & KeyClear)
-// 		sendKey(VK_OEM_CLEAR);
-// 	if (action & KeyPrintScr)
-// 		sendKey(VK_PRINT);
-// 	if (action & KeyPause)
-// 		sendKey(VK_PAUSE);
-// 	if (action & KeyEnter)
-// 		sendKey(VK_RETURN);
-// 
-// 	int movement = shortcut.getMovementKeys();
-// 	if (movement & KeyArrowLeft) 
-// 		sendKey(VK_LEFT);
-// 	if (movement & KeyArrowRight)
-// 		sendKey(VK_RIGHT);
-// 	if (movement & KeyArrowDown)
-// 		sendKey(VK_DOWN);
-// 	if (movement & KeyArrowUp)
-// 		sendKey(VK_UP);
-// 	if (movement & KeyPageUp)
-// 		sendKey(VK_PRIOR);
-// 	if (movement & KeyPageDown)
-// 		sendKey(VK_NEXT);
-// 	if (movement & KeyEnd)
-// 		sendKey(VK_END);
-// 	if (movement & KeyBegin)
-// 		sendKey(VK_HOME);
-// 	
-// 	int fkeys = shortcut.getFunctionKeys();
-// 	if (fkeys & KeyF1) sendKey(VK_F1);
-// 	if (fkeys & KeyF2) sendKey(VK_F2);
-// 	if (fkeys & KeyF3) sendKey(VK_F3);
-// 	if (fkeys & KeyF4) sendKey(VK_F4);
-// 	if (fkeys & KeyF5) sendKey(VK_F5);
-// 	if (fkeys & KeyF6) sendKey(VK_F6);
-// 	if (fkeys & KeyF7) sendKey(VK_F7);
-// 	if (fkeys & KeyF8) sendKey(VK_F8);
-// 	if (fkeys & KeyF9) sendKey(VK_F9);
-// 	if (fkeys & KeyF10) sendKey(VK_F10);
-// 	if (fkeys & KeyF11) sendKey(VK_F11);
-// 	if (fkeys & KeyF12) sendKey(VK_F12);
-// 	
-// 	char key = shortcut.getCharKey();
-// 	key = key + 32;
-// 	this->sendKey(this->keycodes->value(key));
-// 
-// 	unsetUnneededModifiers();
-// }
+void WindowsEvents::sendShortcut(Shortcut shortcut)
+{
+	
+	int modifier = shortcut.getModifiers();
+	if (modifier & KeyShift)
+	{	
+		setModifierKey(VK_SHIFT, true);
+	}
+	if (modifier & KeyAlt)
+ 		setModifierKey(VK_MENU, true);
+ 	if (modifier & KeyStrg)
+	{
+ 		setModifierKey(VK_CONTROL, true);
+ 	}
+ 	if (modifier & KeySuper)
+ 		setModifierKey(VK_LWIN, true);
+ 	if (modifier & KeyCapsLock)
+ 		setModifierKey(VK_CAPITAL, true);
+ 	if (modifier & KeyAltGr)
+ 		setModifierKey(VK_RMENU, true);
+ 
+ 	
+ 	int action = shortcut.getActionKeys();
+ 	if (action & KeyBackspace)
+ 		sendKey(VK_BACK);
+ 	if (action & KeyEscape)
+ 		sendKey(VK_ESCAPE);
+ 	if (action & KeyClear)
+ 		sendKey(VK_OEM_CLEAR);
+ 	if (action & KeyPrintScr)
+ 		sendKey(VK_PRINT);
+ 	if (action & KeyPause)
+ 		sendKey(VK_PAUSE);
+ 	if (action & KeyEnter)
+ 		sendKey(VK_RETURN);
+ 
+ 	int movement = shortcut.getMovementKeys();
+ 	if (movement & KeyArrowLeft) 
+ 		sendKey(VK_LEFT);
+ 	if (movement & KeyArrowRight)
+ 		sendKey(VK_RIGHT);
+ 	if (movement & KeyArrowDown)
+ 		sendKey(VK_DOWN);
+ 	if (movement & KeyArrowUp)
+ 		sendKey(VK_UP);
+ 	if (movement & KeyPageUp)
+ 		sendKey(VK_PRIOR);
+ 	if (movement & KeyPageDown)
+ 		sendKey(VK_NEXT);
+ 	if (movement & KeyEnd)
+ 		sendKey(VK_END);
+ 	if (movement & KeyBegin)
+ 		sendKey(VK_HOME);
+ 	
+ 	int fkeys = shortcut.getFunctionKeys();
+ 	if (fkeys & KeyF1) sendKey(VK_F1);
+ 	if (fkeys & KeyF2) sendKey(VK_F2);
+ 	if (fkeys & KeyF3) sendKey(VK_F3);
+ 	if (fkeys & KeyF4) sendKey(VK_F4);
+ 	if (fkeys & KeyF5) sendKey(VK_F5);
+ 	if (fkeys & KeyF6) sendKey(VK_F6);
+ 	if (fkeys & KeyF7) sendKey(VK_F7);
+ 	if (fkeys & KeyF8) sendKey(VK_F8);
+ 	if (fkeys & KeyF9) sendKey(VK_F9);
+ 	if (fkeys & KeyF10) sendKey(VK_F10);
+ 	if (fkeys & KeyF11) sendKey(VK_F11);
+ 	if (fkeys & KeyF12) sendKey(VK_F12);
+ 	
+ 	char key = shortcut.getCharKey();
+ 	key = key + 32;
+ 	this->sendKey(this->keycodes->value(key));
+ 
+ 	unsetUnneededModifiers();
+}
 
 /**
  * @brief 

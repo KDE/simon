@@ -48,7 +48,7 @@ public:
 	WindowsEvents();
 	void click(int x, int y);
 	void sendKey(unsigned short key /*unicode representation*/);
-// 	void sendShortcut(Shortcut shortcut);
+ 	void sendShortcut(Shortcut shortcut);
 
 	inline void sendKey(int key);
 	inline void sendChar(char key);
