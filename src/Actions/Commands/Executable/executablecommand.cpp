@@ -52,7 +52,7 @@ bool ExecutableCommand::triggerPrivate()
 	#ifdef __WIN32
 	RegistryManager *rm = new RegistryManager();
 	rm->startProcess(exe, workingDirectory.toString());
-	rm->deleteLater();
+	delete rm;
 	#endif
 
 	return true;
