@@ -1,184 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1">
 <context>
-    <name>@default</name>
-</context>
-<context>
-    <name>ATSettings</name>
+    <name>ActionManager</name>
+    <message>
+        <location filename="Actions/actionmanager.cpp" line="73"/>
+        <source>Initialisieren fehlgeschlagen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/actionmanager.cpp" line="73"/>
+        <source>Konnte Kommandomanager &quot;%1&quot; nicht initialisieren.
+
+Bitte &#xfc;berpr&#xfc;fen Sie seine Konfiguration.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/actionmanager.cpp" line="95"/>
+        <source>Trigger vergeben</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/actionmanager.cpp" line="95"/>
+        <source>Der Trigger &quot;%1&quot; ist bereits vergeben.
+
+Wollen Sie das Kommando, welches den Trigger %1 verwendet, l&#xf6;schen?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/actionmanager.cpp" line="124"/>
+        <source>Nicht hinzugef&#xfc;gt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/actionmanager.cpp" line="124"/>
+        <source>Konnte das Kommando &quot;%1&quot; nicht hinzuf&#xfc;gen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/actionmanager.cpp" line="144"/>
+        <source>Kommando l&#xf6;schen fehlgeschlagne</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/actionmanager.cpp" line="144"/>
+        <source>Kommando konnte nicht gel&#xf6;scht werden.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context encoding="UTF-8">
-    <name>ATSettingsDlg</name>
-</context>
-<context>
-    <name>AddWordIntroPage</name>
-</context>
-<context>
-    <name>AddWordRecordPage</name>
-</context>
-<context>
-    <name>AddWordView</name>
-</context>
-<context>
-    <name>Bunzip</name>
-</context>
-<context>
-    <name>CommandSettings</name>
-</context>
-<context>
-    <name>CommandSettingsDlg</name>
-</context>
-<context>
-    <name>ConfigurePlacePage</name>
-</context>
-<context>
-    <name>ConfigureProgramPage</name>
-</context>
-<context encoding="UTF-8">
-    <name>ConfigureTriggersPage</name>
-</context>
-<context>
-    <name>DBusBackend</name>
-</context>
-<context>
-    <name>DefineDefaultValuesDlg</name>
-</context>
-<context>
-    <name>DesktopGridConfiguration</name>
-</context>
-<context>
-    <name>DesktopGridConfigurationDlg</name>
+    <name>CommandPreviewDlg</name>
+    <message>
+        <location filename="Actions/commandpreviewwidget.ui" line="13"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/commandpreviewwidget.ui" line="99"/>
+        <source>Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Actions/commandpreviewwidget.ui" line="139"/>
+        <source>Auslösen</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgModifyCommands</name>
     <message>
-        <location filename="Commands/modifycommands.ui" line="13"/>
-        <source>Kommando: konqueror</source>
+        <location filename="Actions/modifycommands.ui" line="13"/>
+        <source>Kommando</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="Commands/modifycommands.ui" line="25"/>
+        <location filename="Actions/modifycommands.ui" line="25"/>
         <source>Name (Auslöser):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/modifycommands.ui" line="191"/>
-        <source>konqueror</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/modifycommands.ui" line="77"/>
+        <location filename="Actions/modifycommands.ui" line="77"/>
         <source>Typ:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/modifycommands.ui" line="85"/>
+        <location filename="Actions/modifycommands.ui" line="85"/>
         <source>Program</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/modifycommands.ui" line="94"/>
+        <location filename="Actions/modifycommands.ui" line="94"/>
         <source>Ort</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="Commands/modifycommands.ui" line="103"/>
+        <location filename="Actions/modifycommands.ui" line="103"/>
         <source>Tastenkürzel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/modifycommands.ui" line="112"/>
-        <source>Sonderzeichen</source>
+        <location filename="Actions/modifycommands.ui" line="112"/>
+        <source>Text-Makro</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/modifycommands.ui" line="155"/>
+        <location filename="Actions/modifycommands.ui" line="155"/>
         <source>Programm importieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="Commands/modifycommands.ui" line="158"/>
+        <location filename="Actions/modifycommands.ui" line="158"/>
         <source>Hier können Sie installierte Programme automatisch importieren. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/modifycommands.ui" line="253"/>
+        <location filename="Actions/modifycommands.ui" line="253"/>
         <source>Manuell</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="Commands/modifycommands.ui" line="259"/>
+        <location filename="Actions/modifycommands.ui" line="259"/>
         <source>Notwendigen Parameter händisch konfigurieren.</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="Commands/modifycommands.ui" line="181"/>
+        <location filename="Actions/modifycommands.ui" line="181"/>
         <source>Ausführbare Datei:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/modifycommands.ui" line="201"/>
+        <location filename="Actions/modifycommands.ui" line="201"/>
         <source>Arbeitspfad:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/modifycommands.ui" line="211"/>
-        <source>/home/bedahr/Daten</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/modifycommands.ui" line="243"/>
+        <location filename="Actions/modifycommands.ui" line="243"/>
         <source>Ort importieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="Commands/modifycommands.ui" line="246"/>
+        <location filename="Actions/modifycommands.ui" line="246"/>
         <source>Dieser Assistent kann Ihnen helfen, lokale und entfernte Orte mit Kommandos zu verknüpfen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/modifycommands.ui" line="269"/>
+        <location filename="Actions/modifycommands.ui" line="269"/>
         <source>Ort:</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="Commands/modifycommands.ui" line="279"/>
-        <source>/home/bedahr/Test</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message encoding="UTF-8">
-        <location filename="Commands/modifycommands.ui" line="313"/>
+        <location filename="Actions/modifycommands.ui" line="313"/>
         <source>Tastenkürzel:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/modifycommands.ui" line="354"/>
+        <location filename="Actions/modifycommands.ui" line="357"/>
         <source>Assozierter Text:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>DlgRemoveWord</name>
-</context>
-<context>
-    <name>DragTableWidget</name>
-</context>
-<context>
-    <name>DropListWidget</name>
-</context>
-<context>
     <name>ExternalProgramManager</name>
     <message>
-        <location filename="GeneralConfiguration/externalprogrammanager.cpp" line="23"/>
+        <location filename="Configuration/externalprogrammanager.cpp" line="23"/>
         <source>Externe Programme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogrammanager.cpp" line="23"/>
+        <location filename="Configuration/externalprogrammanager.cpp" line="23"/>
         <source>Externe Programme verwalten</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogrammanager.cpp" line="40"/>
+        <location filename="Configuration/externalprogrammanager.cpp" line="40"/>
         <source>Setzen Sie Pfade zu den externen Programmen, die simon erweitern.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -186,99 +179,90 @@
 <context>
     <name>ExternalProgrammsDlg</name>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="13"/>
+        <location filename="Configuration/externalprogramms.ui" line="13"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="24"/>
+        <location filename="Configuration/externalprogramms.ui" line="24"/>
         <source>HTK Programme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="35"/>
+        <location filename="Configuration/externalprogramms.ui" line="35"/>
         <source>HDMan:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="45"/>
+        <location filename="Configuration/externalprogramms.ui" line="45"/>
         <source>HLEd:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="55"/>
+        <location filename="Configuration/externalprogramms.ui" line="55"/>
         <source>HCopy:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="65"/>
+        <location filename="Configuration/externalprogramms.ui" line="65"/>
         <source>HCompV:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="112"/>
+        <location filename="Configuration/externalprogramms.ui" line="112"/>
         <source>HERest:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="122"/>
+        <location filename="Configuration/externalprogramms.ui" line="122"/>
         <source>HHEd:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="132"/>
+        <location filename="Configuration/externalprogramms.ui" line="132"/>
         <source>HVite:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="160"/>
+        <location filename="Configuration/externalprogramms.ui" line="160"/>
         <source>Dateibearbeitung</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="169"/>
+        <location filename="Configuration/externalprogramms.ui" line="169"/>
         <source>Bzip2:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="189"/>
+        <location filename="Configuration/externalprogramms.ui" line="189"/>
         <source>Julius</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="198"/>
+        <location filename="Configuration/externalprogramms.ui" line="198"/>
         <source>mkfa:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/externalprogramms.ui" line="222"/>
+        <location filename="Configuration/externalprogramms.ui" line="222"/>
         <source>dfa_minimize:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>FirstRunCreateDictionaryPage</name>
-</context>
-<context>
-    <name>FirstRunImportGrammarDescriptionPage</name>
-</context>
-<context>
-    <name>FirstRunWizard</name>
-</context>
-<context>
     <name>GeneralSettings</name>
     <message>
-        <location filename="GeneralConfiguration/generalsettings.cpp" line="21"/>
+        <location filename="Configuration/generalsettings.cpp" line="21"/>
         <source>Allgemeine Einstellungen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/generalsettings.cpp" line="21"/>
+        <location filename="Configuration/generalsettings.cpp" line="21"/>
         <source>Grundlegende Einstellungen rund um Simon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/generalsettings.cpp" line="38"/>
+        <location filename="Configuration/generalsettings.cpp" line="36"/>
         <source>Hier k&#xf6;nnen Sie grundlegende Einstellungen rund um Simon ver&#xe4;ndern.
 
 Dazu z&#xe4;hlen: Pfade und Sicherheitsabfragen.
@@ -292,230 +276,111 @@ Wenn das H&#xe4;ckchen &quot;Starte juliusd wenn n&#xf6;tig&quot; aktiviert ist,
 <context>
     <name>GeneralSettingsDlg</name>
     <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="13"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="13"/>
         <source>Allgemeine Einstellungen</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="23"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="23"/>
         <source>Einrichtungsassistent beim nächsten Start wieder anzeigen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="33"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="33"/>
         <source>Geschwindigkeit</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="42"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="42"/>
         <source>Maximal gleichzeitig angezeigte Wörter:
 (Wortliste)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="69"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="69"/>
         <source>Allgemein</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="78"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="78"/>
         <source>Starte simon bei Systemstart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="88"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="88"/>
         <source>Nachfragen vor dem Beenden</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="98"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="98"/>
         <source>Pfade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="109"/>
-        <source>Kommandos:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="119"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="109"/>
         <source>Programmkategorien:</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="126"/>
-        <source>Shortcuts:</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="133"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="116"/>
         <source>Temporärer Ordner:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="140"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="123"/>
         <source>Pfad der Trainingstexte:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="151"/>
-        <source>conf/commands.xml</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="158"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="134"/>
         <source>conf/categories.xml</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="165"/>
-        <source>conf/shortcuts.xml</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/generalsettingsdlg.ui" line="172"/>
+        <location filename="Configuration/generalsettingsdlg.ui" line="141"/>
         <source>tmp/</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>GrammarManager</name>
-</context>
-<context>
-    <name>GrammarSettings</name>
-</context>
-<context>
-    <name>GrammarSettingsDlg</name>
-</context>
-<context>
-    <name>IconDialog</name>
-</context>
-<context>
-    <name>ImportBOMPPage</name>
-</context>
-<context>
-    <name>ImportDict</name>
-</context>
-<context>
-    <name>ImportDictLexiconPage</name>
-</context>
-<context>
-    <name>ImportDictSelectSourcePage</name>
-</context>
-<context>
-    <name>ImportDictView</name>
-</context>
-<context>
-    <name>ImportDictWiktionaryPage</name>
-</context>
-<context>
-    <name>ImportDictWorkingPage</name>
-</context>
-<context>
-    <name>ImportGrammar</name>
-</context>
-<context encoding="UTF-8">
-    <name>ImportGrammarDescriptionPg</name>
-</context>
-<context>
-    <name>ImportGrammarSelectFilesPage</name>
-</context>
-<context>
-    <name>ImportGrammarWizard</name>
-</context>
-<context>
-    <name>ImportGrammarWorkingPage</name>
-</context>
-<context>
-    <name>ImportLexiconPage</name>
-</context>
-<context>
-    <name>ImportPlacePage</name>
-</context>
-<context>
-    <name>ImportPlaceWizard</name>
-</context>
-<context>
-    <name>ImportProgramPage</name>
-</context>
-<context>
-    <name>ImportProgramWizard</name>
-</context>
-<context>
-    <name>ImportRemotePage</name>
-</context>
-<context encoding="UTF-8">
-    <name>ImportTextWorkingPage</name>
-</context>
-<context>
-    <name>ImportTrainingData</name>
-</context>
-<context>
-    <name>ImportTrainingDirectory</name>
-</context>
-<context>
-    <name>ImportTrainingDirectoryIntroPage</name>
-</context>
-<context>
-    <name>ImportTrainingDirectoryWorkingPage</name>
-</context>
-<context>
-    <name>ImportTrainingTextLocalPage</name>
-</context>
-<context>
-    <name>ImportTrainingTextRemotePage</name>
-</context>
-<context>
-    <name>ImportTrainingTextSelectSourcePage</name>
-</context>
-<context>
-    <name>ImportTrainingTextWorkingPage</name>
-</context>
-<context>
-    <name>ImportTrainingTexts</name>
-</context>
-<context encoding="UTF-8">
-    <name>ImportView</name>
-</context>
-<context>
     <name>InternetExtensionDlg</name>
     <message>
-        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="13"/>
+        <location filename="Configuration/internetextensiondlg.ui" line="13"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="19"/>
+        <location filename="Configuration/internetextensiondlg.ui" line="19"/>
         <source>Texte</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="25"/>
+        <location filename="Configuration/internetextensiondlg.ui" line="25"/>
         <source>Textdownload-URL:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="38"/>
+        <location filename="Configuration/internetextensiondlg.ui" line="38"/>
         <source>Wiktionary-Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="46"/>
+        <location filename="Configuration/internetextensiondlg.ui" line="46"/>
         <source>Dump Übersicht:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="56"/>
+        <location filename="Configuration/internetextensiondlg.ui" line="56"/>
         <source>Dump Prefix:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="66"/>
+        <location filename="Configuration/internetextensiondlg.ui" line="66"/>
         <source>Dump Postfix:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/internetextensiondlg.ui" line="78"/>
+        <location filename="Configuration/internetextensiondlg.ui" line="78"/>
         <source>Beispiel:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -523,23 +388,20 @@ Wenn das H&#xe4;ckchen &quot;Starte juliusd wenn n&#xf6;tig&quot; aktiviert ist,
 <context>
     <name>InternetExtensionSettings</name>
     <message>
-        <location filename="GeneralConfiguration/internetextensionsettings.cpp" line="16"/>
+        <location filename="Configuration/internetextensionsettings.cpp" line="16"/>
         <source>Internet-Erweiterungen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/internetextensionsettings.cpp" line="16"/>
+        <location filename="Configuration/internetextensionsettings.cpp" line="16"/>
         <source>Konfigurieren der URLS der Erweiterungs-Downloads</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/internetextensionsettings.cpp" line="18"/>
+        <location filename="Configuration/internetextensionsettings.cpp" line="18"/>
         <source>Hier k&#xf6;nnen Sie URLS konfigurieren, um simon mit optionale Komponenten aus dem Internet zu erweitern</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>IntroPlacePage</name>
 </context>
 <context>
     <name>JuliusControl</name>
@@ -570,78 +432,69 @@ Wenn das H&#xe4;ckchen &quot;Starte juliusd wenn n&#xf6;tig&quot; aktiviert ist,
     </message>
 </context>
 <context>
-    <name>LanguageModelSourcePg</name>
-</context>
-<context>
-    <name>LexiconDict</name>
-</context>
-<context>
-    <name>LocalPlacePage</name>
-</context>
-<context>
     <name>LogManagerDlg</name>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="13"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="13"/>
         <source>Log Manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="20"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="20"/>
         <source>Datum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="25"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="25"/>
         <source>Nachricht</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="90"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="90"/>
         <source>Suchen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="58"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="58"/>
         <source>Suche:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="83"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="83"/>
         <source>&amp;x</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="108"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="108"/>
         <source>Fehler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="115"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="115"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="128"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="128"/>
         <source>Infos</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="135"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="135"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="159"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="159"/>
         <source>Abbrechen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="171"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="171"/>
         <source>Nur von Tag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logmanagerdlg.ui" line="186"/>
+        <location filename="Configuration/logmanagerdlg.ui" line="186"/>
         <source>Kalender</source>
         <translation type="unfinished"></translation>
     </message>
@@ -649,62 +502,62 @@ Wenn das H&#xe4;ckchen &quot;Starte juliusd wenn n&#xf6;tig&quot; aktiviert ist,
 <context>
     <name>LogView</name>
     <message>
-        <location filename="GeneralConfiguration/logview.cpp" line="25"/>
+        <location filename="Configuration/logview.cpp" line="25"/>
         <source>Protokoll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logview.cpp" line="25"/>
+        <location filename="Configuration/logview.cpp" line="25"/>
         <source>Hier k&#xf6;nnen Sie die letzten Aktionen von simon &#xfc;berpr&#xfc;fen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logview.cpp" line="55"/>
+        <location filename="Configuration/logview.cpp" line="55"/>
         <source>simon speichert im normalen Betrieb viele Loginformationen die im Nachhinein helfen k&#xf6;nnen, Probleme nachzuvollziehen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logview.cpp" line="78"/>
+        <location filename="Configuration/logview.cpp" line="78"/>
         <source>Lade &#xdc;bersicht</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logview.cpp" line="98"/>
+        <location filename="Configuration/logview.cpp" line="98"/>
         <source>Lade Tag %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logview.cpp" line="118"/>
+        <location filename="Configuration/logview.cpp" line="118"/>
         <source>Lese Datei...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logview.cpp" line="142"/>
+        <location filename="Configuration/logview.cpp" line="142"/>
         <source>Lade Log...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logview.cpp" line="433"/>
+        <location filename="Configuration/logview.cpp" line="433"/>
         <source>Trage Eintr&#xe4;ge ein...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logview.cpp" line="649"/>
+        <location filename="Configuration/logview.cpp" line="649"/>
         <source>Filtere Liste...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logview.cpp" line="685"/>
+        <location filename="Configuration/logview.cpp" line="685"/>
         <source>Abbrechen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logview.cpp" line="697"/>
+        <location filename="Configuration/logview.cpp" line="697"/>
         <source>Fertig</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/logview.cpp" line="700"/>
+        <location filename="Configuration/logview.cpp" line="700"/>
         <source>Neu laden</source>
         <translation type="unfinished"></translation>
     </message>
@@ -801,11 +654,6 @@ Wenn das H&#xe4;ckchen &quot;Starte juliusd wenn n&#xf6;tig&quot; aktiviert ist,
         <source>Ausführen von definierten Aktionen</source>
         <translation type="unfinished"></translation>
     </message>
-    <message encoding="UTF-8">
-        <location filename="main.ui" line="242"/>
-        <source>&amp;Ausführen</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="main.ui" line="271"/>
         <source>System</source>
@@ -882,32 +730,25 @@ Wenn das H&#xe4;ckchen &quot;Starte juliusd wenn n&#xf6;tig&quot; aktiviert ist,
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="495"/>
+        <location filename="main.ui" line="493"/>
         <source>Globale Aktionen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="517"/>
+        <location filename="main.ui" line="515"/>
         <source>Logo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="539"/>
+        <location filename="main.ui" line="537"/>
         <source>Module</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>MergeTerminals</name>
-</context>
-<context encoding="UTF-8">
-    <name>MergeTerminalsSelectTerminalsPage</name>
-</context>
-<context>
-    <name>MergeTerminalsWizard</name>
-</context>
-<context encoding="UTF-8">
-    <name>MergeTerminalsWorkingPage</name>
+    <message>
+        <location filename="main.ui" line="242"/>
+        <source>Kommandos</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ModelManager</name>
@@ -1387,11 +1228,6 @@ Achtung: Unbedachte &#xc4;nderungen in diesem Modul k&#xf6;nnen die Funktionsf&#
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelsettingsdlg.ui" line="593"/>
-        <source>...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="ModelManagement/modelsettingsdlg.ui" line="100"/>
         <source>Prompts:</source>
         <translation type="unfinished"></translation>
@@ -1576,6 +1412,11 @@ Achtung: Unbedachte &#xc4;nderungen in diesem Modul k&#xf6;nnen die Funktionsf&#
         <source>Befehl</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="ModelManagement/modelsettingsdlg.ui" line="593"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message encoding="UTF-8">
         <location filename="ModelManagement/modelsettingsdlg.ui" line="617"/>
         <source>Hinzufügen</source>
@@ -1611,37 +1452,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>NetworkSettings</name>
     <message>
-        <location filename="GeneralConfiguration/networksettings.cpp" line="28"/>
+        <location filename="Configuration/networksettings.cpp" line="28"/>
         <source>Juliusd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/networksettings.cpp" line="28"/>
+        <location filename="Configuration/networksettings.cpp" line="28"/>
         <source>Hier k&#xf6;nnen Sie Adressen zu anderen Teilen des Programmes konfigurieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/networksettings.cpp" line="126"/>
+        <location filename="Configuration/networksettings.cpp" line="126"/>
         <source>Adresse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/networksettings.cpp" line="128"/>
+        <location filename="Configuration/networksettings.cpp" line="128"/>
         <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/networksettings.cpp" line="269"/>
+        <location filename="Configuration/networksettings.cpp" line="269"/>
         <source>Neue Adresse Hinzuf&#xfc;gen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/networksettings.cpp" line="265"/>
+        <location filename="Configuration/networksettings.cpp" line="265"/>
         <source>Host:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/networksettings.cpp" line="269"/>
+        <location filename="Configuration/networksettings.cpp" line="269"/>
         <source>Portnummer:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1649,131 +1490,138 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>NetworkSettingsDlg</name>
     <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="13"/>
+        <location filename="Configuration/networksettingsdlg.ui" line="13"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="42"/>
-        <source>Beim simon-Start verbinden</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="62"/>
-        <source>Benutzername:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="75"/>
-        <source>Passwort:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="128"/>
-        <source>Netzwerk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="136"/>
-        <source>Timeout (Millisekunden):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="158"/>
-        <source>Hosts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="178"/>
-        <source>Adresse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="183"/>
-        <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="210"/>
-        <source>...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="237"/>
-        <source>Hinzufügen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="251"/>
-        <source>Entfernen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="273"/>
-        <source>Verschlüsselung</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="279"/>
-        <source>Verschlüsselung verwenden</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="286"/>
-        <source>Algorithmus:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="299"/>
-        <source>Zertifikat (.pem):</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="36"/>
+        <location filename="Configuration/networksettingsdlg.ui" line="36"/>
         <source>Allgemein</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="55"/>
+        <location filename="Configuration/networksettingsdlg.ui" line="42"/>
+        <source>Beim simon-Start verbinden</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Configuration/networksettingsdlg.ui" line="55"/>
         <source>&quot;Kiosk&quot; Modus (In Arbeit)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/networksettingsdlg.ui" line="105"/>
+        <location filename="Configuration/networksettingsdlg.ui" line="62"/>
+        <source>Benutzername:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Configuration/networksettingsdlg.ui" line="75"/>
+        <source>Passwort:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Configuration/networksettingsdlg.ui" line="105"/>
         <source>Warnungen ignorieren (Nicht empfohlen)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Configuration/networksettingsdlg.ui" line="128"/>
+        <source>Netzwerk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Configuration/networksettingsdlg.ui" line="136"/>
+        <source>Timeout (Millisekunden):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Configuration/networksettingsdlg.ui" line="158"/>
+        <source>Hosts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Configuration/networksettingsdlg.ui" line="178"/>
+        <source>Adresse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Configuration/networksettingsdlg.ui" line="183"/>
+        <source>Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Configuration/networksettingsdlg.ui" line="210"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Configuration/networksettingsdlg.ui" line="237"/>
+        <source>Hinzufügen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Configuration/networksettingsdlg.ui" line="251"/>
+        <source>Entfernen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Configuration/networksettingsdlg.ui" line="273"/>
+        <source>Verschlüsselung</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Configuration/networksettingsdlg.ui" line="279"/>
+        <source>Verschlüsselung verwenden</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Configuration/networksettingsdlg.ui" line="286"/>
+        <source>Algorithmus:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Configuration/networksettingsdlg.ui" line="299"/>
+        <source>Zertifikat (.pem):</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>OSD</name>
-</context>
-<context>
-    <name>PasswordDlg</name>
+    <name>NewCommand</name>
+    <message>
+        <location filename="Actions/newcommand.cpp" line="91"/>
+        <source>Kommando: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/newcommand.cpp" line="92"/>
+        <source>Kommando</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PasswordSettings</name>
     <message>
-        <location filename="GeneralConfiguration/passwordsettings.cpp" line="16"/>
+        <location filename="Configuration/passwordsettings.cpp" line="16"/>
         <source>Passwort-Sicherung</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/passwordsettings.cpp" line="16"/>
+        <location filename="Configuration/passwordsettings.cpp" line="16"/>
         <source>Sichern Sie simons Systemeinstellungen mit einem Passwort</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/passwordsettings.cpp" line="19"/>
+        <location filename="Configuration/passwordsettings.cpp" line="19"/>
         <source>Wenn der Passwortschutz deaktiviert ist, muss nur auf den Knopf &quot;Systemverwaltungsmodus&quot; geklickt werden, damit alle (System-) Optionen angezeigt werden.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/passwordsettings.cpp" line="34"/>
+        <location filename="Configuration/passwordsettings.cpp" line="34"/>
         <source>Passwortschutz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/passwordsettings.cpp" line="34"/>
+        <location filename="Configuration/passwordsettings.cpp" line="34"/>
         <source>Die eingegebenen Passw&#xf6;rter des simon-Passwortschutz&apos; stimmen nicht &#xfc;berein.
 
 Bitte geben Sie sie erneut ein.</source>
@@ -1783,363 +1631,166 @@ Bitte geben Sie sie erneut ein.</source>
 <context>
     <name>PasswordSettingsDlg</name>
     <message>
-        <location filename="GeneralConfiguration/passwordsettingsdlg.ui" line="13"/>
+        <location filename="Configuration/passwordsettingsdlg.ui" line="13"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/passwordsettingsdlg.ui" line="25"/>
+        <location filename="Configuration/passwordsettingsdlg.ui" line="25"/>
         <source>Passwortschutz aktivieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/passwordsettingsdlg.ui" line="35"/>
+        <location filename="Configuration/passwordsettingsdlg.ui" line="35"/>
         <source>Passwort ändern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/passwordsettingsdlg.ui" line="45"/>
+        <location filename="Configuration/passwordsettingsdlg.ui" line="45"/>
         <source>Passworteingabe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/passwordsettingsdlg.ui" line="57"/>
+        <location filename="Configuration/passwordsettingsdlg.ui" line="57"/>
         <source>Passwort:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/passwordsettingsdlg.ui" line="77"/>
+        <location filename="Configuration/passwordsettingsdlg.ui" line="77"/>
         <source>Passwort wiederholen:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>QCoreApplication</name>
+    <name>RunCommandView</name>
     <message>
-        <location filename="Commands/runcommand.cpp" line="45"/>
-        <source>[INF] Importiere Kommandos von </source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>QObject</name>
-    <message>
-        <location filename="Commands/runcommand.cpp" line="78"/>
-        <source>[INF] Schreibe Befehle nach </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runcommand.cpp" line="83"/>
-        <source>[ERR] Konnte Befehle nicht schreiben</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runcommand.cpp" line="84"/>
-        <source>Konnte Kommandos nicht speichern</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runcommand.cpp" line="85"/>
-        <source>Konnte Kommandos nicht nach %1 speichern</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runcommand.cpp" line="102"/>
-        <source>[INF] Lese Befehle von </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runcommand.cpp" line="107"/>
-        <source>[ERR] Konnte Befehle nicht &#xf6;ffnen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runcommand.cpp" line="108"/>
-        <source>Konnte Kommandos nicht laden</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runcommand.cpp" line="108"/>
-        <source>Konnte Kommandos vom konfigurierten Pfad %1 nicht einlesen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runcommand.cpp" line="143"/>
-        <source>[INF] Ausf&#xfc;hren des Befehls: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runcommand.cpp" line="156"/>
-        <source>[INF] &#xf6;ffne Ort: </source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>QuickDownloader</name>
-</context>
-<context>
-    <name>QuickUnpacker</name>
-</context>
-<context>
-    <name>RecWidget</name>
-</context>
-<context>
-    <name>RecWidgetUi</name>
-</context>
-<context>
-    <name>RemotePlacePage</name>
-</context>
-<context>
-    <name>RenameTerminalSelectParametersDlg</name>
-</context>
-<context>
-    <name>RenameTerminalWizard</name>
-</context>
-<context>
-    <name>RenameTerminalWorkingPage</name>
-</context>
-<context>
-    <name>ResolveWordPage</name>
-</context>
-<context>
-    <name>RunApplicationView</name>
-    <message>
-        <location filename="Commands/runapplicationview.cpp" line="34"/>
-        <source>Ausf&#xfc;hren</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runapplicationview.cpp" line="34"/>
-        <source>Direkte ausf&#xfc;hrung von simon-Befehlen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runapplicationview.cpp" line="48"/>
-        <source>Leere Suche</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runapplicationview.cpp" line="74"/>
-        <source>F&#xfc;ge Kommando hinzu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runapplicationview.cpp" line="87"/>
-        <source>Jetz sollt i dann was machen...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runapplicationview.cpp" line="85"/>
-        <source>Kommando l&#xf6;schen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runapplicationview.cpp" line="85"/>
-        <source>Wollen Sie das ausgew&#xe4;hlte Kommando wirklich unwiederruflich l&#xf6;schen?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/runapplicationview.cpp" line="87"/>
-        <source>Kommando puttmachen</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>RunDialog</name>
-</context>
-<context encoding="UTF-8">
-    <name>RunDlg</name>
-    <message encoding="UTF-8">
-        <location filename="Commands/rundialog.ui" line="136"/>
-        <source>Ausführen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="Commands/rundialog.ui" line="43"/>
-        <source>Schränkt die Liste auf die Eingabe ein</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="Commands/rundialog.ui" line="56"/>
-        <source>Zurücksetzen der Suche</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/rundialog.ui" line="59"/>
-        <source>&amp;x</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/rundialog.ui" line="74"/>
-        <source>Programme</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/rundialog.ui" line="92"/>
-        <source>Orte</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="Commands/rundialog.ui" line="359"/>
-        <source>Führt das selektierte Kommando aus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="Commands/rundialog.ui" line="362"/>
-        <source>&amp;Ausführen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/rundialog.ui" line="33"/>
-        <source>&amp;Filtern:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/rundialog.ui" line="69"/>
+        <location filename="Actions/runcommandview.cpp" line="37"/>
         <source>Kommandos</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/rundialog.ui" line="82"/>
-        <source>Konqueror</source>
+        <location filename="Actions/runcommandview.cpp" line="37"/>
+        <source>Direkte ausf&#xfc;hrung von simon-Befehlen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/rundialog.ui" line="100"/>
-        <source>Eigene Dateien</source>
+        <location filename="Actions/runcommandview.cpp" line="59"/>
+        <source>Leere Suche</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/rundialog.ui" line="109"/>
-        <source>Google</source>
+        <location filename="Actions/runcommandview.cpp" line="151"/>
+        <source>Kommando ausw&#xe4;hlen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/runcommandview.cpp" line="151"/>
+        <source>Bitte w&#xe4;hlen Sie zuerst ein Kommando aus der Liste aus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/runcommandview.cpp" line="177"/>
+        <source>Kommando l&#xf6;schen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/runcommandview.cpp" line="177"/>
+        <source>Wollen Sie das ausgew&#xe4;hlte Kommando wirklich unwiederruflich l&#xf6;schen?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RunDlg</name>
+    <message encoding="UTF-8">
+        <location filename="Actions/rundialog.ui" line="13"/>
+        <source>Ausführen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Actions/rundialog.ui" line="26"/>
+        <source>&amp;Filtern:</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="Commands/rundialog.ui" line="119"/>
-        <source>Tastenkürzel</source>
+        <location filename="Actions/rundialog.ui" line="36"/>
+        <source>Schränkt die Liste auf die Eingabe ein</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="Actions/rundialog.ui" line="49"/>
+        <source>Zurücksetzen der Suche</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/rundialog.ui" line="127"/>
-        <source>Speichern</source>
+        <location filename="Actions/rundialog.ui" line="52"/>
+        <source>&amp;x</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/rundialog.ui" line="146"/>
-        <source>Textmakros</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/rundialog.ui" line="154"/>
-        <source>simon</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/rundialog.ui" line="169"/>
+        <location filename="Actions/rundialog.ui" line="83"/>
         <source>Neues Kommando</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="Actions/rundialog.ui" line="97"/>
+        <source>In Entwicklung...</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message encoding="UTF-8">
-        <location filename="Commands/rundialog.ui" line="183"/>
+        <location filename="Actions/rundialog.ui" line="100"/>
         <source>Aktivitäten importieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Commands/rundialog.ui" line="222"/>
-        <source>Programm: Konqueror</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="Commands/rundialog.ui" line="290"/>
-        <source>Ausführbare Datei:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/rundialog.ui" line="297"/>
-        <source>konqueror</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/rundialog.ui" line="307"/>
-        <source>Arbeitspfad:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/rundialog.ui" line="314"/>
-        <source>/home/bedahr/Daten</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Commands/rundialog.ui" line="424"/>
+        <location filename="Actions/rundialog.ui" line="127"/>
         <source>Bearbeiten</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="Commands/rundialog.ui" line="435"/>
+        <location filename="Actions/rundialog.ui" line="141"/>
         <source>Löschen</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>SelectFilesPage</name>
-</context>
-<context>
-    <name>SelectLanguageModelSourcePage</name>
-</context>
-<context>
-    <name>SelectProgramPage</name>
-</context>
-<context>
-    <name>SelectShortcutButton</name>
-</context>
-<context>
-    <name>ShortcutSettings</name>
-</context>
-<context encoding="UTF-8">
-    <name>ShortcutSettingsDlg</name>
-</context>
-<context>
-    <name>SimonCalendarWidget</name>
-</context>
-<context>
     <name>SimonControl</name>
     <message>
-        <location filename="simoncontrol.cpp" line="63"/>
+        <location filename="simoncontrol.cpp" line="64"/>
         <source>Benutzer authentifiziert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="69"/>
+        <location filename="simoncontrol.cpp" line="70"/>
         <source>Sie k&#xf6;nnen dies ignorieren, indem Sie die Option &quot;Warnungen ignorieren&quot; In den Netzwerkeinstellungen aktivieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="71"/>
+        <location filename="simoncontrol.cpp" line="72"/>
         <source>Julius Fehler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="73"/>
+        <location filename="simoncontrol.cpp" line="74"/>
         <source>[ERR] Julius Fehler: %1, &#xdc;berspringbar: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="73"/>
+        <location filename="simoncontrol.cpp" line="74"/>
         <source>Ja</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="73"/>
+        <location filename="simoncontrol.cpp" line="74"/>
         <source>Nein</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="78"/>
+        <location filename="simoncontrol.cpp" line="79"/>
         <source>[INF] Julius Warning: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="80"/>
+        <location filename="simoncontrol.cpp" line="81"/>
         <source>Julius: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2154,37 +1805,37 @@ Bitte geben Sie sie erneut ein.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="190"/>
+        <location filename="simoncontrol.cpp" line="187"/>
         <source>[INF]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="190"/>
+        <location filename="simoncontrol.cpp" line="187"/>
         <source>Verbunden zu julius</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="205"/>
+        <location filename="simoncontrol.cpp" line="202"/>
         <source>[INF] Verbindung von Julius getrennt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="216"/>
+        <location filename="simoncontrol.cpp" line="213"/>
         <source>[INF] Verbinden abgebrochen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="235"/>
+        <location filename="simoncontrol.cpp" line="232"/>
         <source>[ERR] Verbinden zu Julius (%1) fehlgeschlagen: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="281"/>
+        <location filename="simoncontrol.cpp" line="266"/>
         <source>[INF] Simon deaktiviert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simoncontrol.cpp" line="313"/>
+        <location filename="simoncontrol.cpp" line="298"/>
         <source>[INF] Simon aktiviert</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2274,42 +1925,42 @@ Wollen Sie den Assistenten beim n&#xe4;chsten Start wieder anzeigen?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="270"/>
+        <location filename="simonview.cpp" line="269"/>
         <source>Trennen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="271"/>
+        <location filename="simonview.cpp" line="270"/>
         <source>Verbunden</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="277"/>
+        <location filename="simonview.cpp" line="276"/>
         <source>Verbunden zu Julius</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="334"/>
+        <location filename="simonview.cpp" line="333"/>
         <source>Verbinden</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="291"/>
+        <location filename="simonview.cpp" line="290"/>
         <source>Nicht Verbunden</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="297"/>
+        <location filename="simonview.cpp" line="296"/>
         <source>Verbindung zu Julius verloren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="342"/>
+        <location filename="simonview.cpp" line="341"/>
         <source>Kritischer Verbindungsfehler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="342"/>
+        <location filename="simonview.cpp" line="341"/>
         <source>Die Verbindung zum juliusd Erkennungsd&#xe4;mon konnte nicht aufgenommen werden.
 
 Bitte &#xfc;berpr&#xfc;fen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.
@@ -2319,44 +1970,44 @@ Die exakte(n) Fehlermeldung(en) lautete(n):
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="343"/>
+        <location filename="simonview.cpp" line="342"/>
         <source>[ERR] Verbindung zu juliusd fehlgeschlagen...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="531"/>
+        <location filename="simonview.cpp" line="530"/>
         <source>Deaktivieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="542"/>
+        <location filename="simonview.cpp" line="541"/>
         <source>Aktivieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="545"/>
+        <location filename="simonview.cpp" line="544"/>
         <source>simon wurde deaktiviert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="547"/>
+        <location filename="simonview.cpp" line="546"/>
         <source>Simon - Deaktiviert</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="581"/>
+        <location filename="simonview.cpp" line="580"/>
         <source>Wirklich beenden?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="581"/>
+        <location filename="simonview.cpp" line="580"/>
         <source>Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos k&#xf6;nnen mehr benutzt werden.
 
 Wollen Sie wirklich beenden?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="612"/>
+        <location filename="simonview.cpp" line="611"/>
         <source>[INF] Beenden...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2364,17 +2015,17 @@ Wollen Sie wirklich beenden?</source>
 <context>
     <name>SoundSettings</name>
     <message>
-        <location filename="GeneralConfiguration/soundsettings.cpp" line="21"/>
+        <location filename="Configuration/soundsettings.cpp" line="21"/>
         <source>Soundeinstellungen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/soundsettings.cpp" line="21"/>
+        <location filename="Configuration/soundsettings.cpp" line="21"/>
         <source>Konfigurieren Sie hier ihre Audioger&#xe4;te und legen Einstellungen f&#xfc;r dessen Verwendung fest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/soundsettings.cpp" line="27"/>
+        <location filename="Configuration/soundsettings.cpp" line="27"/>
         <source>Hier finden Sie alle Einstellungen zur Spracheingabe und Tonausgabe.
 
 Wenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen, wird nach jeder Aufnahme eine Audiodatei mit Datum und Uhrzeit, sowie die erkannte Transkribtion im angegebenen Verzeichnis erstellt.
@@ -2385,32 +2036,32 @@ Bitte bedenken Sie, das dies sehr viel Platz in Anspruch nimmt.</source>
 <context encoding="UTF-8">
     <name>SoundSettingsDlg</name>
     <message>
-        <location filename="GeneralConfiguration/soundsettingsdlg.ui" line="13"/>
+        <location filename="Configuration/soundsettingsdlg.ui" line="13"/>
         <source>Soundeinstellungen</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/soundsettingsdlg.ui" line="22"/>
+        <location filename="Configuration/soundsettingsdlg.ui" line="22"/>
         <source>Geräte</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/soundsettingsdlg.ui" line="37"/>
+        <location filename="Configuration/soundsettingsdlg.ui" line="37"/>
         <source>Eingabe Gerät:</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/soundsettingsdlg.ui" line="109"/>
+        <location filename="Configuration/soundsettingsdlg.ui" line="109"/>
         <source>Kanäle:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/soundsettingsdlg.ui" line="119"/>
+        <location filename="Configuration/soundsettingsdlg.ui" line="119"/>
         <source>Samplerate:</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/soundsettingsdlg.ui" line="99"/>
+        <location filename="Configuration/soundsettingsdlg.ui" line="99"/>
         <source>Ausgabe Gerät:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2418,42 +2069,42 @@ Bitte bedenken Sie, das dies sehr viel Platz in Anspruch nimmt.</source>
 <context>
     <name>SystemView</name>
     <message>
-        <location filename="GeneralConfiguration/systemview.cpp" line="37"/>
+        <location filename="Configuration/systemview.cpp" line="36"/>
         <source>System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/systemview.cpp" line="37"/>
+        <location filename="Configuration/systemview.cpp" line="36"/>
         <source>Einstellungen, Protokolle, etc.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/systemview.cpp" line="76"/>
+        <location filename="Configuration/systemview.cpp" line="72"/>
         <source>Konnte &#xc4;nderungen in &quot;%1&quot; nicht speichern.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/systemview.cpp" line="78"/>
+        <location filename="Configuration/systemview.cpp" line="74"/>
         <source>Einstellungen &#xfc;bernommen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/systemview.cpp" line="93"/>
+        <location filename="Configuration/systemview.cpp" line="89"/>
         <source>Konnte &#xc4;nderungen in &quot;%1&quot; nicht zur&#xfc;cknehmen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/systemview.cpp" line="124"/>
+        <location filename="Configuration/systemview.cpp" line="120"/>
         <source>Konnte %1 nicht initiieren</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/systemview.cpp" line="125"/>
+        <location filename="Configuration/systemview.cpp" line="121"/>
         <source>Schwerwiegender Fehler aufgetreten</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/systemview.cpp" line="125"/>
+        <location filename="Configuration/systemview.cpp" line="121"/>
         <source>Es ist ein Schwerwiegender Fehler aufgetreten.
 
 Es konnten nicht alle Elemente der Konfiguration initalisiert werden. Dies ist meist auf eine fehlerhaft Konfiguration zur&#xfc;ckzuf&#xfc;hren.
@@ -2465,17 +2116,17 @@ Bitte kontrollieren Sie ihre Einstellungen (vor allem im Bezug auf m&#xf6;gliche
 <context encoding="UTF-8">
     <name>SystemViewDlg</name>
     <message>
-        <location filename="GeneralConfiguration/systemviewdlg.ui" line="13"/>
+        <location filename="Configuration/systemviewdlg.ui" line="13"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/systemviewdlg.ui" line="26"/>
+        <location filename="Configuration/systemviewdlg.ui" line="26"/>
         <source>Menü:</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/systemviewdlg.ui" line="74"/>
+        <location filename="Configuration/systemviewdlg.ui" line="88"/>
         <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -2491,49 +2142,19 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/systemviewdlg.ui" line="103"/>
+        <location filename="Configuration/systemviewdlg.ui" line="117"/>
         <source>Zurücksetzen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralConfiguration/systemviewdlg.ui" line="126"/>
+        <location filename="Configuration/systemviewdlg.ui" line="141"/>
         <source>Build: 0.1-alpha-2</source>
         <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="GeneralConfiguration/systemviewdlg.ui" line="149"/>
+        <location filename="Configuration/systemviewdlg.ui" line="164"/>
         <source>Übernehmen</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>TrainMain</name>
-</context>
-<context>
-    <name>TrainingManager</name>
-</context>
-<context>
-    <name>TrainingView</name>
-</context>
-<context>
-    <name>TrayIconManager</name>
-</context>
-<context>
-    <name>WavPlayer</name>
-</context>
-<context>
-    <name>WordList</name>
-</context>
-<context>
-    <name>WordListManager</name>
-</context>
-<context>
-    <name>WordListView</name>
-</context>
-<context>
-    <name>XMLReader</name>
-</context>
-<context>
-    <name>XMLTrainingTextList</name>
 </context>
 </TS>

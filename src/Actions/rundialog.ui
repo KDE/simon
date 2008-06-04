@@ -19,43 +19,6 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4" >
-     <item>
-      <widget class="QLabel" name="lbSearch" >
-       <property name="text" >
-        <string>&amp;Filtern:</string>
-       </property>
-       <property name="buddy" >
-        <cstring>leSearch</cstring>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="leSearch" >
-       <property name="toolTip" >
-        <string>Schränkt die Liste auf die Eingabe ein</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pbClearSearch" >
-       <property name="maximumSize" >
-        <size>
-         <width>25</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="toolTip" >
-        <string>Zurücksetzen der Suche</string>
-       </property>
-       <property name="text" >
-        <string>&amp;x</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
     <widget class="QColumnView" name="cvCommands" >
      <property name="verticalScrollBarPolicy" >
       <enum>Qt::ScrollBarAsNeeded</enum>

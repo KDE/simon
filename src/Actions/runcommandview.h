@@ -36,7 +36,6 @@ private:
 
 private slots:
 	void addCommand();
-	void filterByPattern(QString filter="");
 	void deleteCommand();
 	void editCommand();
 	void reflectSelectionStatus(QModelIndex index);

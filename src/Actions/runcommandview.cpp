@@ -47,8 +47,6 @@ RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(tr("Kommandos"), 
 	setSettingsHidden();
 	hide();
 
-	connect ( ui.leSearch, SIGNAL(textChanged(QString)), this, SLOT(filterByPattern(QString)) );
-	connect ( ui.pbClearSearch, SIGNAL(clicked()), ui.leSearch, SLOT(clear()) );
 	connect ( ui.pbNewCommand, SIGNAL(clicked()), this, SLOT(addCommand()));
 	connect ( ui.pbEditCommand, SIGNAL(clicked()), this, SLOT(editCommand()));
 	connect ( ui.pbDeleteCommand, SIGNAL(clicked()), this, SLOT(deleteCommand()));
@@ -56,8 +54,6 @@ RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(tr("Kommandos"), 
 	connect(ui.cvCommands, SIGNAL(activated(QModelIndex)), this, SLOT(reflectSelectionStatus(QModelIndex)));
 	connect(ui.cvCommands, SIGNAL(clicked(QModelIndex)), this, SLOT(reflectSelectionStatus(QModelIndex)));
 
-	registerControl(tr("Leere Suche"), ui.pbClearSearch, SLOT(animateClick()));
-	
 	QList<int> colWidths;
 	colWidths << 230 << 230 << 340;
 	ui.cvCommands->setColumnWidths(colWidths);
@@ -98,32 +94,6 @@ void RunCommandView::addCommand()
 	}
 }
 
-
-
-/**
- *	@brief Filters the List of commands (search) by the given string
- *	
- *	@author Peter Grasch
- *	@param QString filter
- *	The filter (case insensetive)
- */
-void RunCommandView::filterByPattern(QString filter)
-{
-// 	CommandList commands;
-// 	if (!commlist)
-// 		commands = run->getCommands();
-// 	else commands = *commlist;
-// 	
-// 	for (int i = 0; i < commands.size(); i++)
-// 	{
-// 		if (commands.at(i)->getName().toUpper().indexOf( filter.toUpper(), Qt::CaseInsensitive ) == -1) {
-// 			commands.removeAt(i);
-// 			--i;
-// 		}
-// 	}
-// 	commands =  filterByCategory(getCategory( ui.cbShow->currentText() ), &commands);
-// 	insertCommands( commands );
-}
 
 
 

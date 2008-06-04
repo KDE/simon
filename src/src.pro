@@ -5,7 +5,6 @@ TARGET=../../simon.exe
 TARGET=../simon
 }
 
-TRANSLATIONS += simon_en.ts simon_tob.ts
 
 OBJECTS_DIR = buildtmp
 MOC_DIR = buildtmp
@@ -46,6 +45,8 @@ win32 {
     DEFINES += __WINDOWS_DS__
     LIBS += -ldsound -lwinmm -lole32 -oleacc -atls
 }
+
+TRANSLATIONS += simon_en.ts simon_tob.ts
 
 INCLUDEPATH += 	SimonLib/SpeechGUI
 
