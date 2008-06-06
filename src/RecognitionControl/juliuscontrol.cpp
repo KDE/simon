@@ -11,7 +11,7 @@
 //
 #include "juliuscontrol.h"
 #include <QByteArray>
-#include <QTcpSocket>
+#include <QSslSocket>
 #include <QTimer>
 #include <QFile>
 #include <QDataStream>
@@ -33,14 +33,13 @@
  */
 JuliusControl::JuliusControl()
 {
-	socket = new QTcpSocket();
+	socket = new QSslSocket();
 	timeoutWatcher = new QTimer(this);
 	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
 			
-// 	connect(socket, SIGNAL(encrypted()), this, SLOT(connectedTo()));
-	connect(socket, SIGNAL(connected()), this, SLOT(connectedTo()));
 	connect(socket, SIGNAL(readyRead()), this, SLOT(messageReceived()));
 	connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(errorOccured()));
+	connect(socket, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(errorOccured()));
 	
 	connect(this, SIGNAL(error(QString, bool)), this, SLOT(disconnectFromServer()));
 }
@@ -65,13 +64,20 @@ void JuliusControl::connectTo(QString server, quint16 port)
 		 socket->abort();
 	}
 	
+	disconnect(socket, SIGNAL(encrypted()), 0, 0);
+	disconnect(socket, SIGNAL(connected()), 0, 0);
+
 	if (Settings::getB("Juliusd/Encrypted"))
 	{
-		//socket->setCiphers(Settings::getS("Juliusd/Cipher"));
-		//socket->setPrivateKey(Settings::getS("Juliusd/Cert"), QSsl::Rsa, QSsl::Pem);
-		socket->connectToHost/*Encrypted*/( server, port );
-	} else 
+		socket->setProtocol(QSsl::TlsV1);
+// 		socket->setCiphers(Settings::getS("Juliusd/Cipher"));
+// 		socket->setPrivateKey(Settings::getS("Juliusd/Cert"), QSsl::Rsa, QSsl::Pem);
+		connect(socket, SIGNAL(encrypted()), this, SLOT(connectedTo()));
+		socket->connectToHostEncrypted( server, port );
+	} else {
+		connect(socket, SIGNAL(connected()), this, SLOT(connectedTo()));
 		socket->connectToHost( server, port );
+	}
 	timeoutWatcher->start(Settings::getI("Network/Timeout"));
 	
 }
@@ -81,6 +87,15 @@ void JuliusControl::errorOccured()
 	if (timeoutWatcher->isActive())
 		timeoutWatcher->stop();
 	
+	QList<QSslError> errors = socket->sslErrors();
+	if ((errors.count() == 1) && (errors[0].error() == QSslError::SelfSignedCertificate) && (Settings::getB("Juliusd/Encrypted")))
+	{
+		if (QMessageBox::question(0, tr("Selbst-Signiertes Zertifikat"), tr("Das Zertifikat der Gegenstelle ist selbst-signiert und nicht vertrauenswürdig.\n\nWollen Sie die Verbindung trozdem fortsetzen?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+		{
+			socket->ignoreSslErrors();
+			return;
+		}
+	}
 	emit connectionError(socket->errorString());
 }
 

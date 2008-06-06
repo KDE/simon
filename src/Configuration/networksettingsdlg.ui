@@ -29,32 +29,25 @@
         <x>0</x>
         <y>0</y>
         <width>410</width>
-        <height>281</height>
+        <height>279</height>
        </rect>
       </property>
       <attribute name="title" >
        <string>Allgemein</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout" >
-       <item row="0" column="0" colspan="2" >
-        <widget class="QCheckBox" name="cbAutoConnect" >
-         <property name="text" >
-          <string>Beim simon-Start verbinden</string>
+       <item row="5" column="0" colspan="2" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
          </property>
-         <property name="tristate" >
-          <bool>false</bool>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
          </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="2" >
-        <widget class="QCheckBox" name="cbKiosk" >
-         <property name="enabled" >
-          <bool>false</bool>
-         </property>
-         <property name="text" >
-          <string>"Kiosk" Modus (In Arbeit)</string>
-         </property>
-        </widget>
+        </spacer>
        </item>
        <item row="3" column="0" >
         <widget class="QLabel" name="lbUsername" >
@@ -86,18 +79,25 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="0" colspan="2" >
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
+       <item row="2" column="0" colspan="2" >
+        <widget class="QCheckBox" name="cbKiosk" >
+         <property name="enabled" >
+          <bool>false</bool>
          </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
+         <property name="text" >
+          <string>"Kiosk" Modus (In Arbeit)</string>
          </property>
-        </spacer>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2" >
+        <widget class="QCheckBox" name="cbAutoConnect" >
+         <property name="text" >
+          <string>Beim simon-Start verbinden</string>
+         </property>
+         <property name="tristate" >
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
        <item row="1" column="0" colspan="2" >
         <widget class="QCheckBox" name="cbIgnoreWarnings" >
@@ -107,13 +107,6 @@
         </widget>
        </item>
       </layout>
-      <zorder>lbUsername</zorder>
-      <zorder>leUser</zorder>
-      <zorder>lbPassword</zorder>
-      <zorder>lePass</zorder>
-      <zorder>cbKiosk</zorder>
-      <zorder>cbAutoConnect</zorder>
-      <zorder>cbIgnoreWarnings</zorder>
      </widget>
      <widget class="QWidget" name="tbNet" >
       <property name="geometry" >
@@ -121,13 +114,20 @@
         <x>0</x>
         <y>0</y>
         <width>410</width>
-        <height>281</height>
+        <height>279</height>
        </rect>
       </property>
       <attribute name="title" >
        <string>Netzwerk</string>
       </attribute>
       <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QCheckBox" name="cbUseEncryption" >
+         <property name="text" >
+          <string>Verschlüsselung verwenden</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <layout class="QHBoxLayout" >
          <item>
@@ -260,80 +260,11 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tbEncryption" >
-      <property name="geometry" >
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>410</width>
-        <height>281</height>
-       </rect>
-      </property>
-      <attribute name="title" >
-       <string>Verschlüsselung</string>
-      </attribute>
-      <layout class="QGridLayout" >
-       <item row="0" column="0" colspan="2" >
-        <widget class="QCheckBox" name="cbUseEncryption" >
-         <property name="text" >
-          <string>Verschlüsselung verwenden</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="lbCipher" >
-         <property name="text" >
-          <string>Algorithmus:</string>
-         </property>
-         <property name="buddy" >
-          <cstring>cbCipher</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1" >
-        <widget class="QComboBox" name="cbCipher" />
-       </item>
-       <item row="2" column="0" >
-        <widget class="QLabel" name="lbCert" >
-         <property name="text" >
-          <string>Zertifikat (.pem):</string>
-         </property>
-         <property name="buddy" >
-          <cstring>leCert</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1" >
-        <widget class="SimonFileSelector" name="leCert" />
-       </item>
-       <item row="3" column="1" >
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>SimonFileSelector</class>
-   <extends>QLineEdit</extends>
-   <header>simonfileselector.h</header>
-   <slots>
-    <signal>urlChanged()</signal>
-   </slots>
-  </customwidget>
   <customwidget>
    <class>SimonTableWidget</class>
    <extends>QTableWidget</extends>
@@ -350,70 +281,6 @@
   <include location="../action_icons.qrc" />
  </resources>
  <connections>
-  <connection>
-   <sender>cbUseEncryption</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lbCipher</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>66</x>
-     <y>43</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>75</x>
-     <y>97</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cbUseEncryption</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lbCert</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>100</x>
-     <y>43</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>99</x>
-     <y>131</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cbUseEncryption</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>cbCipher</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>204</x>
-     <y>43</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>216</x>
-     <y>97</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cbUseEncryption</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>leCert</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>157</x>
-     <y>43</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>182</x>
-     <y>131</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>cbKiosk</sender>
    <signal>toggled(bool)</signal>

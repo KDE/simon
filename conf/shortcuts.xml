@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<commands />
+<commands>
+ <shortcut>
+  <name>Öffnen</name>
+  <icon></icon>
+  <modifiers>4</modifiers>
+  <actionkeys>0</actionkeys>
+  <functionkeys>0</functionkeys>
+  <movementkeys>0</movementkeys>
+  <charkey>O</charkey>
+ </shortcut>
+</commands>

@@ -15,8 +15,6 @@
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QLineEdit>
-#include <QSslSocket>
-#include <QSslCipher>
 #include "../SimonLib/Settings/settings.h"
 
 
@@ -105,8 +103,6 @@ bool NetworkSettings::apply()
 	Settings::set("Juliusd/Password", ui.lePass->text());
 
 	Settings::set("Juliusd/Encrypted", ui.cbUseEncryption->isChecked());
-	Settings::set("Juliusd/Cipher", ui.cbCipher->currentText());
-	Settings::set("Juliusd/Cert", ui.leCert->text());
 	Settings::set("Juliusd/ContinueOnWarning", ui.cbIgnoreWarnings->isChecked());
 	Settings::set("Juliusd/AutoConnect", ui.cbAutoConnect->isChecked());
 
@@ -150,27 +146,6 @@ bool NetworkSettings::init()
 	ui.cbIgnoreWarnings->setChecked(Settings::getB("Juliusd/ContinueOnWarning"));
 
 	ui.cbUseEncryption->setChecked(Settings::getB("Juliusd/Encrypted"));
-
-	QString selectedCipher = Settings::getS("Juliusd/Cipher");
-	int selectedIndex=0;
-	//QList<QSslCipher> ciphers = QSslSocket::supportedCiphers();
-	QStringList cipherStrs;
-	QString cipherName;
-	//for (int i=0; i < ciphers.count(); i++)
-	//{
-	//	cipherName = ciphers[i].name();
-	//	if (cipherName == selectedCipher)
-	//		selectedIndex =i;
-	//	cipherStrs << cipherName;
-	//
-    //}
-
-	ui.cbCipher->clear();
-	ui.cbCipher->addItems(cipherStrs);
-	ui.cbCipher->setCurrentIndex(selectedIndex);
-
-
-	ui.leCert->setText(Settings::getS("Juliusd/Cert"));
 	
 	return true;
 }

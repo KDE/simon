@@ -16,7 +16,7 @@
 
 #include <QObject>
 
-class QTcpSocket;
+class QSslSocket;
 class QTimer;
 
 const qint8 protocolVersion=0;
@@ -32,9 +32,8 @@ const qint8 protocolVersion=0;
 class JuliusControl : public QObject {
 	Q_OBJECT
 private:
-	QTcpSocket *socket; //!< QSslSocket for communicating with the juliusd-socket
-    //to work around the STUPID, STUPID, STUPID susi-compile-bugs
-    //STUPID!
+	QSslSocket *socket; //!< QSslSocket for communicating with the juliusd-socket
+
 	QTimer *timeoutWatcher;
 signals:
 	/*--------------------connection--------------------*/

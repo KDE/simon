@@ -42,10 +42,6 @@ signals:
 	void currentProgress(int msecs);
 	
 public:
-// int processData( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
-// 	    double streamTime, RtAudioStreamStatus status, void *userData );
-// 	int processData( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
-// 		 double streamTime, RtAudioStreamStatus status, void *userData );
 	WAV* getWav() { return wavData; }
 	int getChannels() { return chans; }
 	WavRecorder(QObject *parent=0);
