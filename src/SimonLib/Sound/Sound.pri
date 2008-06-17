@@ -1,8 +1,6 @@
 FORMS +=	SimonLib/Sound/recwidget.ui \
 		SimonLib/Sound/soundsettingsdlg.ui 
 HEADERS += 	SimonLib/Sound/recwidget.h \
-		SimonLib/Sound/RtAudio.h \
-		SimonLib/Sound/RtError.h \
 		SimonLib/Sound/soundcontrol.h \
 		SimonLib/Sound/soundsettings.h \
 		SimonLib/Sound/sounddevice.h \
@@ -10,7 +8,6 @@ HEADERS += 	SimonLib/Sound/recwidget.h \
 		SimonLib/Sound/wavplayer.h \
 		SimonLib/Sound/wavrecorder.h
 SOURCES += 	SimonLib/Sound/recwidget.cpp \
-		SimonLib/Sound/RtAudio.cpp \
 		SimonLib/Sound/soundcontrol.cpp \
 		SimonLib/Sound/soundsettings.cpp \
 		SimonLib/Sound/wav.cpp \
