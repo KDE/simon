@@ -15,12 +15,13 @@
 #include "systemview.h"
 #include "systemwidget.h"
 #include "generalsettings.h"
-#include "soundsettings.h"
 #include "logview.h"
 #include "externalprogrammanager.h"
 #include "networksettings.h"
 #include "internetextensionsettings.h"
 #include "passwordsettings.h"
+
+#include "../SimonLib/Sound/soundsettings.h"
 
 #include "../ModelManagement/modelsettings.h"
 #include "../ModelManagement/Grammar/grammarsettings.h"

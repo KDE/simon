@@ -33,6 +33,9 @@ class SoundControl{
 public:
 	SoundDeviceList* getInputDevices();
 	SoundDeviceList* getOutputDevices();
+
+	bool checkDeviceSupport(int inputDeviceId, int outputDeviceId, int channels, int samplerate);
+
     SoundControl();
 
     ~SoundControl();

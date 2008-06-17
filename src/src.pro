@@ -33,11 +33,14 @@ unix {
     INCLUDEPATH += /usr/include/alsa \
 	      /usr/X11R6/include
     LIBS += \
+      /usr/lib/libportaudio.a \
       -L/usr/X11R6/lib \
       -L/usr/lib/alsa-lib \
       -lX11 \
       -lXtst \
-      -lasound
+      -lasound \
+      -lpthread \
+      -lrt
 }
 
 

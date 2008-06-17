@@ -11,10 +11,13 @@
 //
 #include "soundcontrol.h"
 #include <string.h>
+#include <QDebug>
+#include <QObject>
+#include <QMessageBox>
 #include "../SimonInfo/simoninfo.h"
 #include "../Logging/logger.h"
-#include "RtAudio.h"
-#include "RtError.h"
+#include "portaudio.h"
+
 #include <QObject>
 /**
  *	@brief Constructor
@@ -32,7 +35,7 @@ SoundControl::SoundControl()
 /**
  *	@brief Sets the volume in percent
  *
- *	@author Gigerl Martin
+ *	@author Peter Grasch
  *	@param int percent
  *	returns the aviable sound devices
 */
@@ -41,88 +44,101 @@ SoundDeviceList* SoundControl::getOutputDevices()
 {
 	Logger::log(QObject::tr("[INF] Bekommen einer Liste mit den verfügbaren devices"));
 	SoundDeviceList *sdl= new SoundDeviceList();
-	RtAudio audio;
 	
-	// Determine the number of devices available
-	unsigned int devices = audio.getDeviceCount();
-	
-	
-	// Scan through devices for various capabilities
-	RtAudio::DeviceInfo info;
-	for ( unsigned int i=0; i<devices+1; i++ )
+	if (Pa_Initialize() < 0) return sdl;
+
+	int numDevices = Pa_GetDeviceCount();
+	if( numDevices < 0 )
 	{
-		try {
-			info = audio.getDeviceInfo ( i );
-		} catch (RtError &e)
-		{
-// 			e.printMessage();
-		}
-	
-		if ( info.probed == true )
-		{
-			if (info.outputChannels > 0)
-			{
-				QList<int> supportedChannels;
-				QList<int> sampleRates;
-				for (unsigned int j=1; j <= info.outputChannels; j++)
-				{
-					supportedChannels << j;
-				}
-				for (unsigned int j=0; j < info.sampleRates.size(); j++)
-					sampleRates << info.sampleRates[j];
-				sdl->append(SoundDevice(i, info.name.c_str(), supportedChannels, sampleRates));
-			}
+		QMessageBox::critical(0, QObject::tr("Konnte Ausgabegeräte nicht einlesen"), QObject::tr("Fehler beim Einlesen der Audio-Ausgabegeräte:\n\nPa_CountDevices returned %1").arg(numDevices));
+		return sdl;
+	}
+
+	const PaDeviceInfo *deviceInfo;
+	for(int i=0; i<numDevices; i++ )
+	{
+		deviceInfo = Pa_GetDeviceInfo( i );
+		
+		if (deviceInfo->maxOutputChannels > 0)
+		{ 	//yay it's an output-device!
+			//TODO: samplerate as double? wtf?
+			sdl->append(SoundDevice ( i, QString(deviceInfo->name), deviceInfo->maxOutputChannels, (int) deviceInfo->defaultSampleRate ));
 		}
 	}
 
+	Pa_Terminate();
+	
 	return sdl;
 }
 
 
 /**
- * \author Gigerl Martin
  * \brief Returns the available input devices
+ * \author Peter Grasch
  * @return The list of found Sounddevices
  */
 SoundDeviceList* SoundControl::getInputDevices()
 {
 	Logger::log(QObject::tr("[INF] Bekommen einer Liste mit den verfügbaren Input-devices"));
 	SoundDeviceList *sdl= new SoundDeviceList();
-	RtAudio audio;
+
+	if (Pa_Initialize() < 0) return sdl;
+
 	
-	// Determine the number of devices available
-	unsigned int devices = audio.getDeviceCount();
-	
-	// Scan through devices for various capabilities
-	RtAudio::DeviceInfo info;
-	for ( unsigned int i=0; i<devices+1; i++ )
+	int numDevices = Pa_GetDeviceCount();
+	if( numDevices < 0 )
 	{
-		try {
-			info = audio.getDeviceInfo ( i );
-		} catch (RtError &e)
-		{
-			e.printMessage();
-		}
-	
-		if ( info.probed == true )
-		{
-			if (info.inputChannels > 0)
-			{
-			// Print, for example, the maximum number of output channels for each device
-				QList<int> supportedChannels;
-				QList<int> sampleRates;
-				for (unsigned int j=1; j <= info.inputChannels; j++)
-				{
-					supportedChannels << j;
-				}
-				for (unsigned int j=0; j < info.sampleRates.size(); j++)
-					sampleRates << info.sampleRates[j];
-				sdl->append(SoundDevice(i, info.name.c_str(), supportedChannels, sampleRates));
-			}
+		QMessageBox::critical(0, QObject::tr("Konnte Eingabegeräte nicht einlesen"), QObject::tr("Fehler beim Einlesen der Audio-Eingabegeräte:\n\nPa_CountDevices returned %1").arg(numDevices));
+		return sdl;
+	}
+
+	const PaDeviceInfo *deviceInfo;
+	for(int i=0; i<numDevices; i++ )
+	{
+		deviceInfo = Pa_GetDeviceInfo( i );
+		
+		if (deviceInfo->maxInputChannels > 0)
+		{ 	//yay it's an input-device!
+			//TODO: samplerate as double? wtf?
+			sdl->append(SoundDevice ( i, QString(deviceInfo->name), deviceInfo->maxInputChannels, (int) deviceInfo->defaultSampleRate ));
 		}
 	}
-	return sdl;
+	
+	Pa_Terminate();
 
+	return sdl;
+}
+
+bool SoundControl::checkDeviceSupport(int inputDeviceId, int outputDeviceId, int channels, int samplerate)
+{
+	if (Pa_Initialize() < 0) return false;
+	
+	PaStreamParameters outputParameters;
+	PaStreamParameters inputParameters;
+	
+	bzero( &inputParameters, sizeof( inputParameters ) );
+	inputParameters.channelCount = channels;
+	inputParameters.device = inputDeviceId;
+	inputParameters.hostApiSpecificStreamInfo = NULL;
+	inputParameters.sampleFormat = paInt16;
+	inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputDeviceId)->defaultLowInputLatency ;
+	inputParameters.hostApiSpecificStreamInfo = NULL; //See you specific host's API docs for info on using this field
+	
+	
+	bzero( &outputParameters, sizeof( outputParameters ) );
+	outputParameters.channelCount = channels;
+	outputParameters.device = outputDeviceId;
+	outputParameters.hostApiSpecificStreamInfo = NULL;
+	outputParameters.sampleFormat = paInt16;
+	outputParameters.suggestedLatency = Pa_GetDeviceInfo(outputDeviceId)->defaultLowInputLatency ;
+	outputParameters.hostApiSpecificStreamInfo = NULL; //See you specific host's API docs for info on using this field
+	
+	PaError err;
+	err = Pa_IsFormatSupported( &inputParameters, &outputParameters, (double) samplerate );
+	
+	Pa_Terminate();
+	
+	return ( err == paFormatIsSupported );
 }
 
 /**

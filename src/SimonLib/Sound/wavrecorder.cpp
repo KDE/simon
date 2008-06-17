@@ -1,6 +1,6 @@
 #include "wavrecorder.h"
-#include "RtError.h"
 #include <QObject>
+#include <QDebug>
 #include "wav.h"
 #include "../Logging/logger.h"
 #include "../Settings/settings.h"
@@ -10,67 +10,116 @@
  */
 WavRecorder::WavRecorder(QObject *parent) : QObject(parent)
 {
-	audio = 0;
 	wavData=0;
+	stream =0;
+	
+	connect(&timeWatcher, SIGNAL(timeout()), this, SLOT(publishTime()));
 }
 
-int processData( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
-		 double streamTime, RtAudioStreamStatus status, void *userData )
+
+int processInputData( const void *inputBuffer, void *outputBuffer, unsigned long framesPerBuffer,
+		 const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags status, void *userData )
 {
+	if (!inputBuffer) return paContinue;
+
+	(void) outputBuffer; //prevent unused-variable-message
+
 
 	WavRecorder *rec = (WavRecorder*) userData;
-	if (!rec) return 1;
+	if (!rec) return paAbort;
 
 	WAV *wav = rec->getWav();
-	wav->addData((char*) inputBuffer, sizeof(signed short)*nBufferFrames*rec->getChannels());
-	rec->publishTime(streamTime);
 
-	return 0;
+	float* audioData = (float*) inputBuffer;
+	short *converted = (short*) malloc(framesPerBuffer*sizeof(short));
+	if (!converted) return paAbort;
+
+	memset(converted, 0, framesPerBuffer*sizeof(short));
+
+	for (unsigned long i=0; i<framesPerBuffer; i++)
+	{
+		*converted  = (int) (*audioData * 32768.0f);
+		audioData++;
+		converted++;
+	}
+
+	wav->addData(converted-framesPerBuffer, framesPerBuffer);
+
+
+	return paContinue;
 }
+
 
 /**
  * \brief Records a WAV file to the given filename
  * \author Peter Grasch
  * \param QString filename
  * Filename to write to
- * \param short channels
- * Channels
- * \param int sampleRate
- * The samplerate of the file
  */
 bool WavRecorder::record(QString filename)
 {
-	if (audio) {
-		delete audio;
-		audio =0;
+	if (stream)
+	{
+// 		delete stream;
+		stream = 0;
 	}
-	audio = new RtAudio();
-	RtAudio::StreamParameters parameters;
-
-	parameters.deviceId = Settings::getI("Sound/InputDevice");
-	parameters.nChannels = this->chans = Settings::getI("Sound/ChannelsIn");
-	parameters.firstChannel = 0;
-	unsigned int sampleRate = Settings::getI("Sound/SamplerateIn");
-	unsigned int bufferFrames = 256; // 256 sample frames
-
-	wavData = new WAV(filename, chans, sampleRate);
-
-	try {
-		audio->openStream( NULL, &parameters, RTAUDIO_SINT16,
-				   sampleRate, &bufferFrames, &processData, (void*) this, NULL );
-		audio->startStream();
+	if (wavData)
+	{
+		delete wavData;
+wavData = 0;
 	}
-	catch ( RtError& e ) {
-		e.printMessage();
-		return false;
-	}
+
+
+	PaStreamParameters  inputParameters;
+	PaError             err = paNoError;
+
+	err = Pa_Initialize();
+	if( err != paNoError ) return false;
+
+	bzero( &inputParameters, sizeof( inputParameters ) );
+
+	int channels = Settings::getI("Sound/Channels");
+	int sampleRate = Settings::getI("Sound/SampleRate");
+	inputParameters.device = Settings::getI("Sound/InputDevice");
+
+	inputParameters.channelCount = channels;
+	inputParameters.sampleFormat = paFloat32;
+	inputParameters.suggestedLatency = Pa_GetDeviceInfo( inputParameters.device )->defaultLowInputLatency;
+	inputParameters.hostApiSpecificStreamInfo = NULL;
+
+	/* Record some audio. -------------------------------------------- */
+	
+	err = Pa_OpenStream(
+		&stream,
+		&inputParameters,
+		NULL,                  /* &outputParameters, */
+		(double) sampleRate,
+		1024, //frames per buffer
+		paClipOff,      /* we won't output out of range samples so don't bother clipping them */
+		processInputData,
+		(void*) this );
+
+	if( err != paNoError ) return false;
+
+	this->wavData = new WAV(filename, channels, sampleRate);
+	
+	
+	wavData->beginAddSequence();
+	err = Pa_StartStream( stream );
+	if( err != paNoError ) return false;
+	
+	this->startTime = Pa_GetStreamTime(stream);
+	timeWatcher.start(100);
+
 	return true;
 }
 
 
-void WavRecorder::publishTime(double time)
+void WavRecorder::publishTime()
 {
-	emit currentProgress(time*1000);
+	//qDebug() << time;
+ 	//emit currentProgress(time*1000);
+	emit currentProgress((Pa_GetStreamTime(stream) - startTime)*1000);
 }
 
 /**
@@ -81,17 +130,26 @@ void WavRecorder::publishTime(double time)
  */
 bool WavRecorder::finish()
 {
-	try {
-		audio->stopStream();
-		audio->closeStream();
-	}
-	catch (RtError &error) {
-		error.printMessage();
-	}
-	delete audio;
-	audio = 0;
+	PaError err = Pa_StopStream( stream );
+	timeWatcher.stop();
 	
+	if( err != paNoError ) return false;
+	wavData->endAddSequence();
+	
+	
+	err = Pa_CloseStream( stream );
+	if( err != paNoError ) return false;
+	
+
+	stream = 0;
 	if (! wavData->writeFile()) return false;
+	
+
+	Pa_Sleep( 500 );
+
+	err = Pa_Terminate();
+	if( err != paNoError ) return false;
+	
 	
 	delete wavData;
 	wavData = 0;
@@ -105,7 +163,6 @@ bool WavRecorder::finish()
 WavRecorder::~WavRecorder()
 {
     if (wavData) delete wavData;
-    if (audio) delete audio;
 }
 
 

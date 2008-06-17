@@ -13,6 +13,7 @@
 #define WAV_H
 
 #include <QString>
+#include <QBuffer>
 
 
 /**
@@ -30,8 +31,9 @@
  */
 class WAV{
 private:
-	char *waveData;  //!< here we store the audio data
-	int length; //!< this is needed as there seems to be no way to determine the length of an array
+	//short *waveData;  //!< here we store the audio data
+	QBuffer wavData;
+	unsigned long length; //!< this is needed as there seems to be no way to determine the length of an array
 	int samplerate; //!< the samplerate of the file
 	int channels;
 	QString filename; //!< Filename
@@ -46,8 +48,18 @@ private:
 public:
     WAV(QString filename,int channels=0, int samplerate=0);
 
-	char* getRawData(int& data);
-    void addData(char* data, int length);
+	bool beginAddSequence() {
+		return wavData.open(QIODevice::WriteOnly|QIODevice::Append);
+	}
+
+	bool endAddSequence() {
+		if (wavData.isOpen()) wavData.close();
+		return true;
+	}
+
+	short* getRawData(unsigned long& length);
+    void addData(short* data, int length);
+	int getLength() { return length; }
     bool writeFile(QString filename="");
     int getSampleRate() { return samplerate; }
     int getChannels() { return channels; }

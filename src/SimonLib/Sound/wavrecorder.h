@@ -21,33 +21,39 @@
 	It uses a SoundControl to control the microphone, captures data (until its interrupted)
 	Then it writes the data into a specified wav-file.
 	It utilizes callback functions for optimal performance
-	
+
 	\date 27.05.2007
 */
 
 #include <QObject>
-#include "RtAudio.h"
+#include <QTimer>
+#include "portaudio.h"
 
 class WAV;
-class RtAudio;
 
 class WavRecorder : public QObject {
 	Q_OBJECT
 private:
+	PaStream* stream;
 	WAV *wavData;
-	RtAudio *audio;
-	int chans;
+	int chans/*, samplerate*/;
+	long startTime;
+	QTimer timeWatcher;
 
 signals:
 	void currentProgress(int msecs);
 	
+private slots:
+	void publishTime();
+	
+	
 public:
 	WAV* getWav() { return wavData; }
 	int getChannels() { return chans; }
+
 	WavRecorder(QObject *parent=0);
 	bool finish();
     	bool record(QString filename);
-    	void publishTime(double time);
     
 
     ~WavRecorder();

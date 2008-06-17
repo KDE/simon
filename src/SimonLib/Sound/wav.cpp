@@ -12,6 +12,7 @@
 #include "wav.h"
 #include <QObject>
 #include <QDataStream>
+#include <QDebug>
 #include <QFile>
 #include "../Logging/logger.h"
 
@@ -37,11 +38,11 @@ WAV::WAV(QString filename, int channels, int samplerate)
 	// that way we know (for example in the retrieveSampleRate() function, that we have a new file and that the
 	// file at <filename> may not be current/even existing
 	
-    waveData = new char();
+// 	waveData = new short();
     
 	if (samplerate == 0)
 	{
-		Logger::log(QObject::tr("[INF] Öffne WAV Datei: %1").arg(filename));
+		Logger::log(QObject::tr("[INF] ï¿½ffne WAV Datei: %1").arg(filename));
 		this->importDataFromFile(filename);
 		this->samplerate = this->retrieveSampleRate();
 		this->channels = this->retrieveChannels();
@@ -55,13 +56,18 @@ WAV::WAV(QString filename, int channels, int samplerate)
  * \brief Returns the data from the wav file
  * 
  * \author Peter Grasch
- * \return char*
+ * \return short*
  * The data of the file
  */
-char* WAV::getRawData(int& length)
+short* WAV::getRawData(unsigned long& length)
 {
-	length = this->length;
-	return this->waveData;
+	length = this->length / sizeof(short);
+
+	wavData.open(QIODevice::ReadOnly);
+	char *tempData = wavData.buffer().data();
+	wavData.close();
+
+	return (short*) tempData;
 }
 
 
@@ -88,10 +94,12 @@ void WAV::importDataFromFile(QString filename)
 	quint32 bytesToFollow;
 	dstream->readRawData((char*) &bytesToFollow, 4);
 	
-	char *out = (char*) malloc(bytesToFollow);
-	int length = dstream->readRawData(out, bytesToFollow);
+	short *out = (short*) malloc(bytesToFollow);
+	int length = dstream->readRawData((char*) out, bytesToFollow);
 	
-	this->addData(out, length);
+	this->beginAddSequence();
+	this->addData(out, length / sizeof(short));
+	this->endAddSequence();
 }
 
 /**
@@ -185,7 +193,11 @@ bool WAV::writeFile(QString filename)
 	writeFormat(dstream);
 	writeDataChunk(dstream);
 	
-	dstream->writeRawData(waveData, this->length);
+// 	char* data;
+	wavData.open(QIODevice::ReadOnly);
+// 	wavData.read(data, this->length);
+	dstream->writeRawData(wavData.buffer().data(), this->length);
+	wavData.close();
 	
 	wavFile.close();
 	return true;
@@ -262,34 +274,27 @@ void WAV::writeFormat(QDataStream *dstream)
 {
 	dstream->writeRawData("fmt ",4);
 	*dstream << (quint32) 0x10 << (quint16) 0x01 << (quint16) channels <<
-			(quint32) samplerate << (quint32) channels*samplerate << (quint16) 4 << (quint16) 16;
+			(quint32) samplerate << (quint32) channels*samplerate*sizeof(short) /*16bit*/ << (quint16) 4 << (quint16) 16;
 }
 
 /**
  *	@brief Adds the array of data to the main waveData (member)
  *
  *	@author Peter Grasch
- *	@param char* data
+ *	@param short* data
  *	the data to add
  *	@param int length
  *	the length of the provided array
  */
-void WAV::addData(char* data, int length)
+void WAV::addData(short* data, int length)
 {
-	char *tmp = (char*) malloc (this->length+length);
+	//for (int i=0; i < length; i++)
+	//	qDebug() << data[i];
+		
+ 	length = (length*sizeof(short)) / sizeof(char);
 
-	//moving back original data
-	memcpy(tmp, this->waveData, this->length);
-    
-	//adding new data
-	memcpy(tmp+this->length, data, length);
-	
-	//deleting old pointer
-	delete this->waveData;
+	wavData.write((char*) data, length);
 
-	//setting it to the new array
-	this->waveData = tmp;
-	
 	this->length += length;
 }
 
@@ -299,5 +304,5 @@ void WAV::addData(char* data, int length)
  */
 WAV::~WAV()
 {
-	delete waveData;
+// 	delete waveData;
 }

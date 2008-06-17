@@ -13,9 +13,11 @@
 #define WAVPLAYER_H
 
 #include <QObject>
+#include <QTimer>
+#include "portaudio.h"
 
 class QTimer;
-class RtAudio;
+class WAV;
 
 /**
 	\class WavPlayer
@@ -27,36 +29,41 @@ class RtAudio;
 */
 class WavPlayer : public QObject {
 	Q_OBJECT
-private:
-	QTimer *progressTimer;
-	char* data;
 	
-	int length;
-	int chans;
-	long wavPosition;
+private:
+	PaStream* stream;
+	long startTime;
+	QTimer timeWatcher;
+	
+	WAV *wav;
+	float *data;
+	short channels;
+	unsigned long length;
+	
 	bool stopTimer;
-	RtAudio *audio;
-
+	unsigned long wavPosition;
 
 signals:
 	void currentProgress(int);
 	void finished();
+	
+private:
+	void closeStream();
+
 public:
-	char* getData() { return this->data; }
-	int getChannels() { return chans; }
-
-	long getWavPosition() { return this->wavPosition; }
-
-	int getLength() { return this->length; }
-	void addSamplesToCounter(long samples) { this->wavPosition += samples; }
     WavPlayer(QObject *parent=0);
     bool play(QString filename);
     ~WavPlayer();
-private slots:
-	void closeStream();
+	
+	float* getData() { return data; }
+	unsigned long getLength() { return length; }
+	unsigned long getPosition() { return wavPosition; }
+	short getChannels() { return channels; }
+	void advance(int amount) { wavPosition += amount; }
+	
 public slots:
-    	void publishTime(double time);
-	void stop();
+    	void publishTime();
+		void stop();
 	
 
 

@@ -34,11 +34,8 @@ private:
 	SoundDeviceList *in;
 	SoundDeviceList *out;
 
-	void refresh(SoundDevice sd, QComboBox *cbChannels, QComboBox *sampleRates);
-
 private slots:
-	void refreshDeviceCapabilitiesIn();
-	void refreshDeviceCapabilitiesOut();
+	bool check();
 	
 public slots:
 	bool init();

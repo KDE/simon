@@ -12,11 +12,10 @@
 #include "wavplayer.h"
 #include <QTimer>
 #include <QObject>
+#include <QDebug>
 #include "../Logging/logger.h"
 #include "../Settings/settings.h"
 #include "wav.h"
-#include "RtError.h"
-#include "RtAudio.h"
 
 /**
  * \brief Constructor
@@ -24,41 +23,50 @@
  */
 WavPlayer::WavPlayer(QObject *parent) : QObject(parent)
 {
-	audio =0;
+	stream = 0;
+	wav= 0;
 	data = 0;
-	progressTimer = new QTimer();
-	connect(progressTimer, SIGNAL(timeout()), this, SLOT(closeStream()));
+	connect(&timeWatcher, SIGNAL(timeout()), this, SLOT(publishTime()));
 }
 
 
-int process( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
-		 double streamTime, RtAudioStreamStatus status, void *userData )
+int processOutputData( const void *inputBuffer, void *outputBuffer, unsigned long framesPerBuffer,
+		 const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags status, void *userData )
 {
 	WavPlayer *play = (WavPlayer*) userData;
 	if (!play) return 1;
 
-	long position = play->getWavPosition();
-	int samplesToWrite = nBufferFrames*play->getChannels()*sizeof(short);
-	if (play->getLength()<(position+samplesToWrite))
-	{
-		play->stop();
-		return 1;
-	}
-	play->addSamplesToCounter(samplesToWrite);
-	play->publishTime(streamTime);
+	int retVal = 0;
 	
-	char* data = play->getData();
-	outputBuffer =(char*)  memcpy(outputBuffer, data+position, samplesToWrite);
+	//float * data = play->getData()+play->getPosition();
 
-	return 0;
+	//qDebug() << play->getPosition() << framesPerBuffer << play->getLength();
+	if (play->getPosition()+framesPerBuffer > play->getLength())
+	{
+		framesPerBuffer = play->getLength()-play->getPosition();
+		retVal = 1;
+		play->stop();
+	}
+	
+	//float* toPlay = (float*) outputBuffer;
+	//memset( toPlay , 0, framesPerBuffer*sizeof(float));
+	//for( unsigned int i=0; i<framesPerBuffer; i++ )
+	//{
+	//	*toPlay = ((float) *data) / 32768.0f;
+		//printf("%.5f\n", *toPlay);
+	//	toPlay++;
+	//	data++;
+	//}
+	//toPlay -= framesPerBuffer;
+	
+	memcpy(outputBuffer, play->getData()+play->getPosition(), framesPerBuffer*sizeof(float));
+	//outputBuffer = toPlay-framesPerBuffer;
+	
+	play->advance(framesPerBuffer);
+	
+	return retVal;
 }
 
-
-
-void WavPlayer::publishTime(double time)
-{
-	emit currentProgress(time*1000);
-}
 
 
 /**
@@ -68,100 +76,127 @@ void WavPlayer::publishTime(double time)
 bool WavPlayer::play( QString filename )
 {
 	Logger::log(tr("[INF] Abspielen von %1").arg(filename)); 
+	
+
+	if (stream)
+	{
+// 		delete stream;
+		stream = 0;
+	}
+	if (wav)
+	{
+		delete wav;
+		wav = 0;
+	}
+
 	wavPosition = 0;
-	if (audio) {
-		delete audio;
-		audio =0;
-	}
-	audio = new RtAudio();
-
-	WAV *file = new WAV(filename); 
-	this->data = file->getRawData(this->length);
+	length = 0;
+	stopTimer = false;
+	
+	wav = new WAV(filename);
+	short* shortData = (short*) wav->getRawData(this->length);
 	if (length==0) return false;
-
-
-	RtAudio::StreamParameters parameters;
-	parameters.deviceId = Settings::getI("Sound/OutputDevice");
-	parameters.nChannels = this->chans = file->getChannels();
-	parameters.firstChannel = 0;
-	unsigned int sampleRate = file->getSampleRate();
-	unsigned int bufferFrames = 256; // 256 sample frames
-	try {
-		audio->openStream( &parameters, NULL, RTAUDIO_SINT16,
-				    sampleRate, &bufferFrames, &process, (void *) this );
-		
-		stopTimer = false;
-		progressTimer->start(100);
-		
-		audio->startStream();
+	
+	this->data = (float*) malloc(length*sizeof(float));
+	
+	for( unsigned int i=0; i<length; i++ ) //convert to floats
+	{	//the wav file is stored using signed 16bit integers, but the
+		//audio device expects 32-bit floats.
+		//this (ugly) code should be replaced with a nice integrated
+		//solution like phonon (once it is able to record...)
+		*data = ((float) *shortData) / 32768.0f;
+		//qDebug() << *shortData;
+		//qDebug() << *shortData << " -> " << *data;
+		data++;
+		shortData++;
 	}
-	catch ( RtError& e ) {
-		e.printMessage();
-		return false;
-  	}
+	data -= length;
+	
+	
+	
+//	for( unsigned int i=0; i<length; i++ ) //convert to floats
+//	{
+//		printf("%.5f\n", *data);
+//		data++;
+//	}
+//	data -= length;
+	
+
+	PaStreamParameters  outputParameters;
+	PaError             err = paNoError;
+
+	err = Pa_Initialize();
+	if( err != paNoError ) return false;
+
+	bzero( &outputParameters, sizeof( outputParameters ) );
+
+	int channels = wav->getChannels();
+	int sampleRate = wav->getSampleRate();
+	outputParameters.device = Settings::getI("Sound/OutputDevice");
+
+	outputParameters.channelCount = channels;
+	outputParameters.sampleFormat = paFloat32;
+	outputParameters.suggestedLatency = Pa_GetDeviceInfo( outputParameters.device )->defaultLowInputLatency;
+	outputParameters.hostApiSpecificStreamInfo = NULL;
+
+	/* Play some audio. -------------------------------------------- */
+	
+	
+	err = Pa_OpenStream(
+		&stream,
+		NULL,                  /* &inputParameters, */
+		&outputParameters,
+		(double) sampleRate,
+		1024, //frames per buffer
+		paClipOff,      /* we won't output out of range samples so don't bother clipping them */
+		processOutputData,
+		(void*) this );
+
+	if( err != paNoError ) return false;
+	
+	err = Pa_StartStream( stream );
+	if( err != paNoError ) return false;
+	
+	this->startTime = Pa_GetStreamTime(stream);
+	timeWatcher.start(100);
 
 	return true;
 }
 
 
+void  WavPlayer::publishTime()
+{
+	if (stopTimer) 
+	{
+		timeWatcher.stop();
+		closeStream();
+	} else 
+		emit currentProgress((Pa_GetStreamTime(stream) - startTime)*1000);
+}
 
-// int WavPlayer::processWrapper(char* buffer, int bufferSize, void *play)
-// {
-// 	char* data = ((WavPlayer*) play)->getData();
-// 	
-// 	long position = ((WavPlayer*) play)->getPosition();
-// 	int channels = ((WavPlayer*) play)->getChannels();
-// 	long realBufferLength = bufferSize*channels*sizeof(signed short);
-// 	
-// 	if (((WavPlayer*) play)->getLength() <= position+realBufferLength)
-// 	{
-// 		((WavPlayer*) play)->stop();
-// 		return 1;
-// 	}
-// 	
-// 	buffer =(char*)  memcpy(buffer, data+position, realBufferLength);
-// 	((WavPlayer*) play)->setPosition(position+realBufferLength);
-// 	return 0;
-// }
 
-/**
- * \brief Increases the progress by 100 msecs
- * 
- * emits the currentProgress signal
- * Also watches the killflag "stopTimer" which is used to stop the timer
- * and close the stream when finished
- * 
- * \see stop()
- * 
- * \author Peter Grasch
- */
+
 void WavPlayer::closeStream()
 {
-	if ( stopTimer )
-	{
-		progressTimer->stop();
-		try
-		{
-			// Stop and close the stream
-			//audio->abortStream();
-			audio->stopStream();
-			audio->closeStream();
-			delete audio;
-			audio =0;
-		}
-		catch ( RtError &error )
-		{
-	//             Logger::log(tr("[ERR]")+" "+error.getMessageString());
-			error.printMessage();
-		}
+	PaError err = Pa_StopStream( stream );
+	timeWatcher.stop();
+	if( err != paNoError ) return;
 	
-		delete data;
-		data = 0;
-		emit finished();
 	
-		stopTimer=false;
-		return;
-	}
+	err = Pa_CloseStream( stream );
+	if( err != paNoError ) return;
+	
+	stream = 0;
+
+	Pa_Sleep( 500 );
+
+	err = Pa_Terminate();
+	if( err != paNoError ) return;
+	
+	delete wav; // data gets killed by WAV itself
+	wav = 0;
+	
+	emit finished();
 }
 
 /**
@@ -185,9 +220,7 @@ void WavPlayer::stop()
  */
 WavPlayer::~WavPlayer()
 {
-    progressTimer->deleteLater();
-    if (data) delete data;
-    if (audio) delete audio;
+	if (wav) delete wav;
 }
 
 

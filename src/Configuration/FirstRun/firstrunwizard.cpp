@@ -11,6 +11,7 @@
 //
 
 #include <QWizardPage>
+#include "portaudio.h"
 #include "firstrunwizard.h"
 #include "../../SimonLib/Settings/settings.h"
 #include "../externalprogrammanager.h"
@@ -30,7 +31,7 @@
 #include "../../ModelManagement/Grammar/grammarsettings.h"
 #include "../../ModelManagement/WordList/wordlistmanager.h"
 
-#include "../soundsettings.h"
+#include "../../SimonLib/Sound/soundsettings.h"
 #include "../networksettings.h"
 #include "../passwordsettings.h"
 #include "../../Actions/Commands/commandsettings.h"
@@ -487,6 +488,18 @@ void FirstRunWizard::initDefaultValues()
 	Settings::checkAndSet("Commands/ATIntegration/Enabled", false);
 	Settings::checkAndSet("Commands/ATIntegration/QtWorkarounds", true);
 	Settings::checkAndSet("Commands/ATIntegration/QtMenuSupport", true);
+
+	if (Pa_Initialize() != paNoError)
+	{
+		Settings::checkAndSet("Sound/InputDevice", Pa_GetDefaultInputDevice());
+		Settings::checkAndSet("Sound/OutputDevice", Pa_GetDefaultOutputDevice());
+		Pa_Terminate();
+	} else {
+		Settings::checkAndSet("Sound/InputDevice", 0);
+		Settings::checkAndSet("Sound/OutputDevice", 0);
+	}
+	Settings::checkAndSet("Sound/Channels", 1);
+	Settings::checkAndSet("Sound/Samplerate", 16000);
 }
 
 

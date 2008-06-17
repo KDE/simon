@@ -37,20 +37,20 @@ class SoundDevice
 	private:
 		int deviceID;
 		QString name;
-		QList<int> channels;
-		QList<int> samplerates;
+		int numChannels;
+		int preferredSamplerate;
 	public:
-		SoundDevice ( int deviceID, QString name, QList<int> channels, QList<int> samplerates )
+		SoundDevice ( int deviceID, QString name, int numChannels, int preferredSamplerate )
 		{
 			this->deviceID=deviceID;
 			this->name=name;
-			this->channels = channels;
-			this->samplerates = samplerates;
+			this->numChannels = numChannels;
+			this->preferredSamplerate = preferredSamplerate;
 		}
 		int getDeviceID() const {return this->deviceID;}
 		QString getName() const {return this->name;}
-		QList<int> getChannels() const {return this->channels;}
-		QList<int> getSamplerates() const {return this->samplerates;}
+		int getChannels() const {return this->numChannels;}
+		int getPreferredSamplerate() const {return this->preferredSamplerate;}
 		~SoundDevice()    { }
 };
 
