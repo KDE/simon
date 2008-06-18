@@ -22,7 +22,7 @@
      <property name="orientation" >
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="QWidget" name="" >
+     <widget class="QWidget" name="layoutWidget" >
       <layout class="QVBoxLayout" name="verticalLayout" >
        <property name="spacing" >
         <number>4</number>
@@ -166,7 +166,7 @@
           <item>
            <widget class="QPushButton" name="pbImport" >
             <property name="toolTip" >
-             <string>Importiert ein vorhandenes W�rterbuch</string>
+             <string>Importiert ein vorhandenes Wörterbuch</string>
             </property>
             <property name="text" >
              <string>Importiere Wörterbuch</string>
@@ -193,7 +193,7 @@
           <item>
            <widget class="QPushButton" name="pbRemoveWord" >
             <property name="toolTip" >
-             <string>L�scht das Wort komplett aus dem Sprachmodell</string>
+             <string>Löscht das Wort komplett aus dem Sprachmodell</string>
             </property>
             <property name="text" >
              <string>Selektiertes Wort &amp;löschen</string>

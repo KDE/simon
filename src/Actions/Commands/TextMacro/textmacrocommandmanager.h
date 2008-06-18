@@ -24,7 +24,7 @@ class XMLTextMacroCommand;
  *	@author Peter Grasch
  */
 class TextMacroCommandManager : public CommandManager{
-
+Q_OBJECT
 private:
 	XMLTextMacroCommand* xmlTextMacroCommand;
 public:

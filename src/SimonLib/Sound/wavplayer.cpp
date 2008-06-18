@@ -38,9 +38,6 @@ int processOutputData( const void *inputBuffer, void *outputBuffer, unsigned lon
 
 	int retVal = 0;
 	
-	//float * data = play->getData()+play->getPosition();
-
-	//qDebug() << play->getPosition() << framesPerBuffer << play->getLength();
 	if (play->getPosition()+framesPerBuffer > play->getLength())
 	{
 		framesPerBuffer = play->getLength()-play->getPosition();
@@ -48,19 +45,8 @@ int processOutputData( const void *inputBuffer, void *outputBuffer, unsigned lon
 		play->stop();
 	}
 	
-	//float* toPlay = (float*) outputBuffer;
-	//memset( toPlay , 0, framesPerBuffer*sizeof(float));
-	//for( unsigned int i=0; i<framesPerBuffer; i++ )
-	//{
-	//	*toPlay = ((float) *data) / 32768.0f;
-		//printf("%.5f\n", *toPlay);
-	//	toPlay++;
-	//	data++;
-	//}
-	//toPlay -= framesPerBuffer;
 	
 	memcpy(outputBuffer, play->getData()+play->getPosition(), framesPerBuffer*sizeof(float));
-	//outputBuffer = toPlay-framesPerBuffer;
 	
 	play->advance(framesPerBuffer);
 	
@@ -105,21 +91,10 @@ bool WavPlayer::play( QString filename )
 		//this (ugly) code should be replaced with a nice integrated
 		//solution like phonon (once it is able to record...)
 		*data = ((float) *shortData) / 32768.0f;
-		//qDebug() << *shortData;
-		//qDebug() << *shortData << " -> " << *data;
 		data++;
 		shortData++;
 	}
 	data -= length;
-	
-	
-	
-//	for( unsigned int i=0; i<length; i++ ) //convert to floats
-//	{
-//		printf("%.5f\n", *data);
-//		data++;
-//	}
-//	data -= length;
 	
 
 	PaStreamParameters  outputParameters;
@@ -153,11 +128,12 @@ bool WavPlayer::play( QString filename )
 		(void*) this );
 
 	if( err != paNoError ) return false;
+	this->startTime = Pa_GetStreamTime(stream);
+	
 	
 	err = Pa_StartStream( stream );
 	if( err != paNoError ) return false;
 	
-	this->startTime = Pa_GetStreamTime(stream);
 	timeWatcher.start(100);
 
 	return true;
@@ -178,8 +154,8 @@ void  WavPlayer::publishTime()
 
 void WavPlayer::closeStream()
 {
-	PaError err = Pa_StopStream( stream );
 	timeWatcher.stop();
+	PaError err = Pa_StopStream( stream );
 	if( err != paNoError ) return;
 	
 	

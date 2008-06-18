@@ -84,6 +84,7 @@ void JuliusControl::connectTo(QString server, quint16 port)
 
 void JuliusControl::errorOccured()
 {
+	if (socket->state()== QAbstractSocket::UnconnectedState) return;
 	if (timeoutWatcher->isActive())
 		timeoutWatcher->stop();
 	
@@ -94,9 +95,21 @@ void JuliusControl::errorOccured()
 		{
 			socket->ignoreSslErrors();
 			return;
+		} else {
+			socket->abort();
+			socket->flush();
+			socket->close();
 		}
 	}
-	emit connectionError(socket->errorString());
+	if (socket->error() != QAbstractSocket::UnknownSocketError)
+		emit connectionError(socket->errorString());
+	else 
+	{ //build ssl error list
+		QString sslErrorStr;
+		for (int i=0; i < errors.count(); i++)
+			sslErrorStr += errors[i].errorString()+"\n";
+		emit connectionError(sslErrorStr);
+	}
 }
 
 /**

@@ -49,7 +49,6 @@ win32 {
     LIBS += -ldsound -lwinmm -lole32 -oleacc -atls
 }
 
-TRANSLATIONS += simon_en.ts simon_tob.ts
 
 INCLUDEPATH += 	SimonLib/SpeechGUI
 
@@ -67,4 +66,5 @@ include(ModelManagement/ModelManagement.pri)
 include(RecognitionControl/RecognitionControl.pri)
 include(SimonLib/SimonLib.pri)
 
+TRANSLATIONS = simon_en.ts
 message ("Working... (This may take a couple of seconds)")

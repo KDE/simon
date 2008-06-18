@@ -467,7 +467,6 @@ bool ModelManager::makeTranscriptions()
 	return true;
 }
 
-
 /**
  * \brief Processes an error (reacts on it some way)
  * \author Peter Grasch
@@ -516,8 +515,10 @@ bool ModelManager::processError(QString userError)
 	}
 	else if (err.contains("Error:       undefined class \""))
 	{
-		int startIndex = err.indexOf("Error:       undefined class \"");
-		QString undefClass = err.mid(30+startIndex, err.lastIndexOf("\"", startIndex+1)-1);
+		int startIndex = err.indexOf("Error:       undefined class \"") + 30;
+		
+		QString undefClass = err.mid(startIndex);
+		undefClass = undefClass.left(undefClass.indexOf("\""));
 		emit unknownGrammarClass(undefClass);
 	} else
 		displayError(userError);

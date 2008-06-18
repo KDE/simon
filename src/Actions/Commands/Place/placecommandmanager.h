@@ -24,7 +24,7 @@ class XMLPlaceCommand;
  *	@author Peter Grasch
  */
 class PlaceCommandManager : public CommandManager{
-
+Q_OBJECT
 private:
 	XMLPlaceCommand* xmlPlaceCommand;
 public:

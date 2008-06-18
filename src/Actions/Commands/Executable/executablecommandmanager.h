@@ -25,7 +25,7 @@ class XMLExecutableCommand;
  *	@author Peter Grasch
  */
 class ExecutableCommandManager : public CommandManager {
-
+Q_OBJECT
 private:
 	XMLExecutableCommand* xmlExecutableCommand;
 public:

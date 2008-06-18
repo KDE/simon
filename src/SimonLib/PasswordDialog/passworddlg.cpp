@@ -27,10 +27,12 @@
 */
 PasswordDlg::PasswordDlg(QWidget *parent): QDialog(parent)
 {
-    setWindowTitle(tr("Settingspasswort"));
+    setWindowTitle(tr("Zugriff verweigert"));
     
     QVBoxLayout *vbLayout = new QVBoxLayout();
-    vbLayout->addWidget(new QLabel(tr("Bitte geben Sie hier das Passwort ein, \num alle Settings anzuzeigen.\n\nPassword:\n")));
+	QLabel *label = new QLabel(tr("Dieser Bereich ist passwortgeschützt.\n\nBitte authentifizieren Sie sich:\n"));
+	label->setWordWrap(true);
+    vbLayout->addWidget(label);
     
     lePassword = new QLineEdit();
     lePassword->setEchoMode(QLineEdit::Password);

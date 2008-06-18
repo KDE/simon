@@ -24,7 +24,7 @@
  *	@author Peter Grasch
  */
 class DesktopGridCommandManager : public CommandManager{
-
+Q_OBJECT
 public:
 	const QString name() const;
 	bool load();

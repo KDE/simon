@@ -100,15 +100,15 @@ wavData = 0;
 		(void*) this );
 
 	if( err != paNoError ) return false;
+	
+	startTime = Pa_GetStreamTime(stream);
 
 	this->wavData = new WAV(filename, channels, sampleRate);
-	
 	
 	wavData->beginAddSequence();
 	err = Pa_StartStream( stream );
 	if( err != paNoError ) return false;
 	
-	this->startTime = Pa_GetStreamTime(stream);
 	timeWatcher.start(100);
 
 	return true;
@@ -117,8 +117,6 @@ wavData = 0;
 
 void WavRecorder::publishTime()
 {
-	//qDebug() << time;
- 	//emit currentProgress(time*1000);
 	emit currentProgress((Pa_GetStreamTime(stream) - startTime)*1000);
 }
 
@@ -130,11 +128,11 @@ void WavRecorder::publishTime()
  */
 bool WavRecorder::finish()
 {
-	PaError err = Pa_StopStream( stream );
 	timeWatcher.stop();
+	PaError err = Pa_StopStream( stream );
 	
-	if( err != paNoError ) return false;
 	wavData->endAddSequence();
+	if( err != paNoError ) return false;
 	
 	
 	err = Pa_CloseStream( stream );

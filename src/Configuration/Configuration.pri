@@ -14,7 +14,8 @@ HEADERS += 	Configuration/externalprogrammanager.h \
 		Configuration/networksettings.h \
 		Configuration/passwordsettings.h \
 		Configuration/systemview.h  \
-		Configuration/logview.h
+		Configuration/logview.h \
+		Configuration/FirstRun/firstrunimportbomppage.h 
 
 SOURCES += 	Configuration/externalprogrammanager.cpp \
 		Configuration/generalsettings.cpp \
@@ -22,7 +23,7 @@ SOURCES += 	Configuration/externalprogrammanager.cpp \
 		Configuration/networksettings.cpp \
 		Configuration/passwordsettings.cpp \
 		Configuration/systemview.cpp  \
-		Configuration/logview.cpp
+		Configuration/logview.cpp 
 
 QT += network
 

@@ -24,7 +24,7 @@ SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellung
 	guessChildTriggers(this);
 	hide();
 	//set help
-	help = tr("Hier finden Sie alle Einstellungen zur Spracheingabe und Tonausgabe.\n\nWenn Sie aktivieren, dass Sie alle Aufnahmen speichern wollen, wird nach jeder Aufnahme eine Audiodatei mit Datum und Uhrzeit, sowie die erkannte Transkribtion im angegebenen Verzeichnis erstellt.\nBitte bedenken Sie, das dies sehr viel Platz in Anspruch nimmt.");
+	help = tr("Hier finden Sie alle Einstellungen zur Sound Ein- und Ausgabe.");
 
 	//set up the channels
 	ui.cbChannels->clear();

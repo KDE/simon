@@ -25,7 +25,7 @@
  *	@author Peter Grasch
  */
 class TextMacroCommand : public Command {
-
+Q_OBJECT
 private:
 	QString text;
 

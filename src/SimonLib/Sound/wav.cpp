@@ -42,7 +42,7 @@ WAV::WAV(QString filename, int channels, int samplerate)
     
 	if (samplerate == 0)
 	{
-		Logger::log(QObject::tr("[INF] ï¿½ffne WAV Datei: %1").arg(filename));
+		Logger::log(QObject::tr("[INF] Öffne WAV Datei: %1").arg(filename));
 		this->importDataFromFile(filename);
 		this->samplerate = this->retrieveSampleRate();
 		this->channels = this->retrieveChannels();
@@ -82,7 +82,7 @@ void WAV::importDataFromFile(QString filename)
 {
 	QFile wavFile(filename);
 	if (!wavFile.open(QIODevice::ReadOnly)) {
-		Logger::log(QObject::tr("Importieren des existierenden Daten Datei. Fortsetzen mit einer Lehren Datei."));
+		Logger::log(QObject::tr("[INF] Importieren des existierenden Datei fehlgeschlagen. Fortsetzen mit einer leeren Datei."));
 		return;
 	}
 	QDataStream *dstream = new QDataStream(&wavFile);

@@ -31,7 +31,7 @@ ImportPlaceWizard::ImportPlaceWizard(QWidget* parent): QWizard(parent)
 	this->addPage(createFinishedPage());
 
 	setWindowTitle(tr("Ort hinzufügen"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(tr(":/images/banners/importplace.png")));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importplace.png"));
 
 	connect(this, SIGNAL(finished(int)), this, SLOT(createCommand(int)));
 }
@@ -74,7 +74,7 @@ QWizardPage* ImportPlaceWizard::createIntroPlacePage()
 
 	QLabel *label = new QLabel(intro);
 	label->setWordWrap(true);
-	label->setText(tr("Hier können Sie einen Ort ihren Kommandos hinzufügen, um ihn später über das Schlüsselwort Simon anzusprechen. \n\nEs wird zwischen lokalen und entfernten Orten unterschieden. Unter entfernten Orten versteht man Orte, die über das Internet erreichbar sind.\n\n"));
+	label->setText(tr("Hier können Sie einen Ort den Kommandos hinzufügen.\n\nsimon unterscheidet grundsätzlich zwischen lokalen (Ordner) und entfernten Orten (HTTP / FTP).\n\n"));
 	QVBoxLayout *layout = new QVBoxLayout(intro);
 	layout->addWidget(label);
 	intro->setLayout(layout);
@@ -95,86 +95,12 @@ QWizardPage* ImportPlaceWizard::createFinishedPage()
 	QWizardPage *finished = new QWizardPage(this);
 	finished->setTitle(tr("Hinzufügen eines Ortes"));
 	QLabel *label = new QLabel(finished);
-	label->setText(tr("\n\nKlicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschließen."));
+	label->setWordWrap(true);
+	label->setText(tr("\n\nKlicken Sie auf \"Fertigstellen\" um den Wizard abzuschließen."));
 	QVBoxLayout *layout = new QVBoxLayout(finished);
 	layout->addWidget(label);
 	finished->setLayout(layout);
 	
 	return finished;
 }
-
-/**
-*   \brief slot: the signal is emited this class
-            if the current page changes, we will save the last pageId and the new pageId
-*   @author Susanne Tschernegg
-*   @param int newId
-*       holds the Id of the current page
-*/
-// void ImportPlaceWizard::idChanged(int newId)
-// {
-//     if((oldId==0) && (newId==1))
-//     {
-//         if(introPlacePage->rbRemotePlace->isChecked())
-//         {
-//             oldId = newId + 1;
-//             next();
-//         }
-//         else
-//         {
-//             oldId = newId;
-//         }
-//     }
-//     else if((oldId==1) && (newId==2))
-//     {
-//         if(introPlacePage->rbLocalPlace->isChecked())
-//         {
-//             oldId = newId + 1;
-//             next();
-//         }
-//         else
-//         {
-//              oldId = newId;
-//         }
-//     }
-//     else if((oldId==2) && (newId==1))
-//     {
-//         oldId = newId - 1;
-//         back();
-//     }
-//     else if((oldId==3) && (newId==2))
-//     {
-//         if(introPlacePage->rbLocalPlace->isChecked())
-//         {
-//             oldId = newId - 1;
-//             back();
-//         }
-//         else
-//         {
-//              oldId = newId;
-//         }
-//     }
-//     else if((oldId==3) && (newId==4))
-//     {
-//         configurePlacePage->setPlaceName();
-//         configurePlacePage->setPlaceValue();
-//         importPlacePage->createCommand(configurePlacePage->getPlaceName(), configurePlacePage->getPlaceValue());
-//     }
-//     else
-//     {    
-//         oldId = newId;
-//     }
-//     if(newId==3)
-//     {
-//         if(introPlacePage->rbLocalPlace->isChecked())
-//         {
-//             configurePlacePage->setPlaceValue(localPlacePage->getPlacePath());
-//         }
-//         else if(introPlacePage->rbRemotePlace->isChecked())
-//         {
-//             configurePlacePage->setPlaceValue(remotePlacePage->getPlacePath());
-//         }
-//         configurePlacePage->writeInformation();
-//     }
-// }
-
 

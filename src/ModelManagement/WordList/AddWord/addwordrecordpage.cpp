@@ -29,7 +29,8 @@ AddWordRecordPage::AddWordRecordPage(QWidget *parent)
 	setTitle(tr("Aufnehmen des Wortes"));
 	lay = new QVBoxLayout(this);
 	QLabel *desc = new QLabel(this);
-	desc->setText(tr("Bitte nehmen Sie nun das hinzuzufügende Wort zweimal auf.\n\nBitte achten Sie darauf, das Wort deutlich, aber natürlich\nauszusprechen und vermeiden Sie Hintergrundgeräusche.\n"));
+	desc->setWordWrap(true);
+	desc->setText(tr("Bitte nehmen Sie nun das hinzuzufügende Wort zweimal auf.\n\nBitte achten Sie darauf, das Wort deutlich, aber natürlich auszusprechen und vermeiden Sie Hintergrundgeräusche.\n"));
 	lay->addWidget(desc);
 
 

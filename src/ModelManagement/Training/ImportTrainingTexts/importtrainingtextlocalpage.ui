@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>438</width>
+    <height>310</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -16,13 +16,9 @@
    <item>
     <widget class="QLabel" name="lbDesc" >
      <property name="text" >
-      <string>Hier können Sie Textdateien importieren. Sollte ihr Text in
-einem anderen Format (z.B.: einem Word Dokument)
-vorliegen, kännen Sie ihn in der spezifischen Applikation
-öffnen, als Text speichern und diese Datei hier angeben.
+      <string>Hier können Sie Textdateien importieren. Sollte ihr Text in einem anderen Format (z.B.: einem Word Dokument) vorliegen, können Sie ihn in der spezifischen Applikation öffnen, als Text speichern und diese Datei hier angeben.
 
-Bitte wählen Sie nun die Datei aus die Sie gerne
-importieren möchten:</string>
+Bitte wählen Sie nun die Datei aus die Sie gerne importieren möchten:</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>

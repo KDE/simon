@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>454</width>
-    <height>324</height>
+    <height>326</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -16,8 +16,7 @@
    <item>
     <widget class="QLabel" name="lbDesc" >
      <property name="text" >
-      <string>Sie können Texte aus lokalen Textdateien importieren
-oder simon-kompatible Texte aus dem Internet laden.
+      <string>Sie können Texte aus lokalen Textdateien importieren oder simon-kompatible Texte aus dem Internet laden.
 
 Bitte wählen Sie die gewünschte Quelle aus:
 </string>
@@ -40,9 +39,7 @@ Bitte wählen Sie die gewünschte Quelle aus:
    <item>
     <widget class="QLabel" name="lbLocalDesc" >
      <property name="text" >
-      <string>Wählen Sie diese Option wenn Sie einen Text, den
-Sie gerne mit in Verbindung mit simon verwenden
-möchten, gespeichert haben.
+      <string>Wählen Sie diese Option wenn Sie einen Text, den Sie gerne mit in Verbindung mit simon verwenden möchten, gespeichert haben.
 </string>
      </property>
      <property name="wordWrap" >
@@ -60,10 +57,7 @@ möchten, gespeichert haben.
    <item>
     <widget class="QLabel" name="lbRemoteDesc" >
      <property name="text" >
-      <string>Wenn Sie diese Option wählen wird zuerst eine
-Liste der vorhandenen Texte aus dem Internet
-geladen aus welcher Sie sich dann einen Text
-aussuchen und importieren kännen.</string>
+      <string>Wenn Sie diese Option wählen wird zuerst eine Liste der vorhandenen Texte aus dem Internet geladen aus welcher Sie sich dann einen Text aussuchen und importieren kännen.</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>

@@ -24,7 +24,7 @@
  *	@author Peter Grasch
  */
 class ExecutableCommand : public Command{
-
+Q_OBJECT
 private:
 	QString exe;
 	QUrl workingDirectory;

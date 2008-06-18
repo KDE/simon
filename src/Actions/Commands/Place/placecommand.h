@@ -26,7 +26,7 @@
  *	@author Peter Grasch
  */
 class PlaceCommand : public Command{
-
+Q_OBJECT
 private:
 	QUrl url;
 

@@ -138,7 +138,8 @@ QWizardPage* AddWordView::createFinishedPage()
 	QWizardPage *finished = new QWizardPage(this);
 	finished->setTitle(tr("Hinzufügen des Wortes"));
 	QLabel *label = new QLabel(finished);
-	label->setText(tr("Es wurden alle benötigten Daten gesammelt.\n\nSimon kann das neue Wort jetzt lernen.\nBitte ueberprüfen Sie, bevor Sie hier\nbestätigen, ob die Aufnahmen nicht von\nHintergrundgeräuschen beeinträchtigt werden.\n\nKlicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschließen."));
+	label->setWordWrap(true);
+	label->setText(tr("Es wurden alle benötigten Daten gesammelt.\n\nSimon kann das neue Wort jetzt lernen.\nBitte ueberprüfen Sie, bevor Sie hier bestätigen, ob die Aufnahmen nicht von Hintergrundgeräuschen beeinträchtigt werden.\n\nKlicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschließen."));
 	QVBoxLayout *layout = new QVBoxLayout(finished);
 	layout->addWidget(label);
 	finished->setLayout(layout);

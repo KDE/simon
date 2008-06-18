@@ -282,7 +282,7 @@ void LogView::displayDay(QDate day)
 void LogView::displayDates(Dates daysAvailable)
 {
 	ui.pbLogLoad->setMaximum(daysAvailable.size());
-	setStatus("Tage eintragen...");
+	setStatus(tr("Tage eintragen..."));
 	for (int i=0; i < daysAvailable.size(); i++)
 	{
 		ui.twLogEntries->addTopLevelItem(new QTreeWidgetItem(ui.twLogEntries, QStringList() << 
