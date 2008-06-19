@@ -13,8 +13,8 @@
    <string>simon</string>
   </property>
   <property name="windowIcon" >
-   <iconset>
-    <normaloff>../../../../../../../:/images/tray.png</normaloff>../../../../../../../:/images/tray.png</iconset>
+   <iconset resource="others.qrc" >
+    <normaloff>:/images/tray.png</normaloff>:/images/tray.png</iconset>
   </property>
   <property name="accessibleName" >
    <string>simon</string>
@@ -457,22 +457,519 @@
         <iconset resource="others.qrc" >
          <normaloff>:/images/tray.png</normaloff>:/images/tray.png</iconset>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_2" >
+       <layout class="QVBoxLayout" name="verticalLayout" >
         <item>
-         <widget class="QLabel" name="lbWelcomeDesc" >
-          <property name="text" >
-           <string/>
+         <layout class="QHBoxLayout" name="horizontalLayout_3" >
+          <item>
+           <spacer name="horizontalSpacer_7" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbWelcomeDesc" >
+            <property name="text" >
+             <string/>
+            </property>
+            <property name="pixmap" >
+             <pixmap resource="banners.qrc" >:/images/banner.png</pixmap>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+            </property>
+            <property name="wordWrap" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_6" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_3" >
+          <property name="orientation" >
+           <enum>Qt::Vertical</enum>
           </property>
-          <property name="pixmap" >
-           <pixmap resource="banners.qrc" >:/images/home.png</pixmap>
+          <property name="sizeHint" stdset="0" >
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
           </property>
-          <property name="alignment" >
-           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout" >
+          <item>
+           <spacer name="horizontalSpacer_4" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label" >
+            <property name="minimumSize" >
+             <size>
+              <width>678</width>
+              <height>116</height>
+             </size>
+            </property>
+            <property name="maximumSize" >
+             <size>
+              <width>678</width>
+              <height>116</height>
+             </size>
+            </property>
+            <property name="font" >
+             <font>
+              <pointsize>11</pointsize>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet" >
+             <string notr="true" >background-image: url(":/images/alphawarning.png"); padding-left:120px; padding-top:10px</string>
+            </property>
+            <property name="frameShape" >
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="text" >
+             <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Verdana'; font-size:11pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Diese frühe Alpha-Version ist noch nicht für den produktiven Betrieb gedacht. Sollten Programmfehler auftreten, kontaktieren Sie bitte die Entwickler um diese schnellstmöglich zu beheben.&lt;/p>&lt;/body>&lt;/html></string>
+            </property>
+            <property name="wordWrap" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_5" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer" >
+          <property name="orientation" >
+           <enum>Qt::Vertical</enum>
           </property>
-          <property name="wordWrap" >
-           <bool>true</bool>
+          <property name="sizeHint" stdset="0" >
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
           </property>
-         </widget>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2" >
+          <item>
+           <spacer name="horizontalSpacer_2" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>18</width>
+              <height>111</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox" >
+            <property name="minimumSize" >
+             <size>
+              <width>240</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize" >
+             <size>
+              <width>240</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font" >
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="title" >
+             <string>Kontakt</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout" >
+             <property name="horizontalSpacing" >
+              <number>12</number>
+             </property>
+             <item row="1" column="0" >
+              <widget class="QLabel" name="label_5" >
+               <property name="maximumSize" >
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="text" >
+                <string/>
+               </property>
+               <property name="pixmap" >
+                <pixmap resource="action_icons.qrc" >:/images/icons/mail-mark-unread.svg</pixmap>
+               </property>
+               <property name="scaledContents" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" >
+              <widget class="QLabel" name="label_6" >
+               <property name="text" >
+                <string>&lt;html>
+&lt;head />
+&lt;body>
+&lt;a href="mailto:support@simon-listens.org">Direkter Mail-Support&lt;/a>
+&lt;/body>
+&lt;/html></string>
+               </property>
+               <property name="openExternalLinks" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" >
+              <widget class="QLabel" name="label_7" >
+               <property name="maximumSize" >
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="text" >
+                <string/>
+               </property>
+               <property name="pixmap" >
+                <pixmap resource="other_icons.qrc" >:/images/icons/signature.svg</pixmap>
+               </property>
+               <property name="scaledContents" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" >
+              <widget class="QLabel" name="label_8" >
+               <property name="text" >
+                <string>&lt;html>
+&lt;head />
+&lt;body>
+&lt;a href="http://sourceforge.net/forum/?group_id=190872">Community Forum&lt;/a>
+&lt;/body>
+&lt;/html></string>
+               </property>
+               <property name="openExternalLinks" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>13</width>
+              <height>111</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_3" >
+            <property name="minimumSize" >
+             <size>
+              <width>240</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize" >
+             <size>
+              <width>240</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font" >
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="title" >
+             <string>Über die Software</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_3" >
+             <property name="horizontalSpacing" >
+              <number>12</number>
+             </property>
+             <item row="1" column="0" >
+              <widget class="QLabel" name="label_15" >
+               <property name="maximumSize" >
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="text" >
+                <string/>
+               </property>
+               <property name="pixmap" >
+                <pixmap resource="banners.qrc" >:/images/Qt_logo.svg</pixmap>
+               </property>
+               <property name="scaledContents" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" >
+              <widget class="QPushButton" name="pbAboutQt" >
+               <property name="styleSheet" >
+                <string notr="true" />
+               </property>
+               <property name="text" >
+                <string>Über Qt</string>
+               </property>
+               <property name="flat" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" >
+              <widget class="QPushButton" name="pbAbout" >
+               <property name="styleSheet" >
+                <string notr="true" />
+               </property>
+               <property name="text" >
+                <string>Über simon</string>
+               </property>
+               <property name="flat" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" >
+              <widget class="QLabel" name="label_16" >
+               <property name="maximumSize" >
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="text" >
+                <string/>
+               </property>
+               <property name="pixmap" >
+                <pixmap resource="action_icons.qrc" >:/images/icons/help-about.svg</pixmap>
+               </property>
+               <property name="scaledContents" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_8" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>18</width>
+              <height>111</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_2" >
+            <property name="minimumSize" >
+             <size>
+              <width>240</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize" >
+             <size>
+              <width>240</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font" >
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="title" >
+             <string>Dokumentation</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2" >
+             <property name="horizontalSpacing" >
+              <number>12</number>
+             </property>
+             <item row="1" column="0" >
+              <widget class="QLabel" name="label_9" >
+               <property name="maximumSize" >
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="text" >
+                <string/>
+               </property>
+               <property name="pixmap" >
+                <pixmap resource="application_icons.qrc" >:/images/icons/applications-internet.svg</pixmap>
+               </property>
+               <property name="scaledContents" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" >
+              <widget class="QLabel" name="label_10" >
+               <property name="text" >
+                <string>&lt;html>
+&lt;head />
+&lt;body>
+&lt;a href="http://www.cyber-byte.at/wiki/index.php/Main_Page">Online Wiki&lt;/a>
+&lt;/body>
+&lt;/html></string>
+               </property>
+               <property name="openExternalLinks" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1" >
+              <spacer name="verticalSpacer_4" >
+               <property name="orientation" >
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0" >
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="2" column="1" >
+              <widget class="QLabel" name="label_14" >
+               <property name="text" >
+                <string>&lt;html>
+&lt;head />
+&lt;body>
+&lt;a href="http://www.simon-listens.org">Offizielle Homepage&lt;/a>
+&lt;/body>
+&lt;/html></string>
+               </property>
+               <property name="openExternalLinks" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" >
+              <widget class="QLabel" name="label_13" >
+               <property name="maximumSize" >
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="text" >
+                <string/>
+               </property>
+               <property name="pixmap" >
+                <pixmap resource="application_icons.qrc" >:/images/icons/applications-internet.svg</pixmap>
+               </property>
+               <property name="scaledContents" >
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>18</width>
+              <height>111</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2" >
+          <property name="orientation" >
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0" >
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>

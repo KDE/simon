@@ -273,8 +273,13 @@ void WAV::writeDataChunk(QDataStream *dstream)
 void WAV::writeFormat(QDataStream *dstream)
 {
 	dstream->writeRawData("fmt ",4);
-	*dstream << (quint32) 0x10 << (quint16) 0x01 << (quint16) channels <<
-			(quint32) samplerate << (quint32) channels*samplerate*sizeof(short) /*16bit*/ << (quint16) 4 << (quint16) 16;
+	*dstream << (quint32) 0x10;
+	*dstream << (quint16) 0x01;
+	*dstream << (quint16) channels;
+	*dstream << (quint32) samplerate;
+	*dstream << (quint32) channels*samplerate*sizeof(short); // 16bit
+	*dstream << (quint16) 4;
+	*dstream << (quint16) 16;
 }
 
 /**

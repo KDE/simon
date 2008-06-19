@@ -63,6 +63,7 @@ class SimonView : public SimonMainWindow    {
 private slots:
 	void setButtonNotChecked();
 	void compileModel();
+	void showAbout();
 
 private:
 	QAction *settingsToolButton; /** This represents the "action" button on the toolbar

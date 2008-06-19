@@ -160,6 +160,18 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	connect ( ui.pbKeyed, SIGNAL ( clicked ( bool ) ), this, SLOT ( checkSettingState() ) );
 }
 
+void SimonView::showAbout()
+{
+	QMessageBox::about(this, tr("Über simon"), tr("<html><head /><body><h2>simon 0.1-alpha-2</h2>\
+	<h2>Entwicklung und Vertrieb</h2>\
+	<p>Entwickelt und Vertrieben vom gemmeinnützigen Verein <a href=\"http://simon-listens.org\">simon listens e.V.</a> in Kooperation mit <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\
+	<h3>Entwickler</h3>\
+	<ul><li>Peter Grasch<li>Phillip Goriup<li>Susanne Tschernegg<li>Bettina Sturmann<li>Gigerl Martin</ul>\
+	<h3>Dank an</h3> \
+	<ul><li>Franz Stieger<li>Matthias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Stieger Michael</ul> \
+	</body></html>"));
+}
+
 /**
  * \brief Sets up the signal/slot connections
  * \author Peter Grasch
@@ -167,6 +179,10 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 void SimonView::setupSignalSlots()
 {
 	//Setting up Signal/Slots
+	QObject::connect(ui.pbAbout, SIGNAL(clicked()), this, SLOT(showAbout()));
+	QObject::connect(ui.pbAboutQt, SIGNAL(clicked()), qApp, SLOT(aboutQt()));
+	
+	
 	QObject::connect ( control,SIGNAL ( guiAction ( QString ) ), ui.inlineView,SIGNAL ( guiAction ( QString ) ) );
 	connect ( control, SIGNAL ( guiAction ( QString ) ), this, SLOT ( doAction ( QString ) ) );
 	QObject::connect ( this->trainDialog, SIGNAL ( displayMe() ), this, SLOT ( showTrainDialog() ) );
