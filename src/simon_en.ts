@@ -2259,17 +2259,17 @@ Do you still want to continue?</translation>
         <translation>Administration mode</translation>
     </message>
     <message>
-        <location filename="main.ui" line="493"/>
+        <location filename="main.ui" line="990"/>
         <source>Globale Aktionen</source>
         <translation>global actions</translation>
     </message>
     <message>
-        <location filename="main.ui" line="515"/>
+        <location filename="main.ui" line="1012"/>
         <source>Logo</source>
         <translation>Logo</translation>
     </message>
     <message>
-        <location filename="main.ui" line="537"/>
+        <location filename="main.ui" line="1034"/>
         <source>Module</source>
         <translation>Modules</translation>
     </message>
@@ -2362,6 +2362,80 @@ Do you still want to continue?</translation>
         <location filename="main.ui" line="242"/>
         <source>Kommandos</source>
         <translation>Commands</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="main.ui" line="563"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Verdana&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Diese frühe Alpha-Version ist noch nicht für den produktiven Betrieb gedacht. Sollten Programmfehler auftreten, kontaktieren Sie bitte die Entwickler um diese schnellstmöglich zu beheben.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;p, li { white-space: pre-wrap; }&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Verdana&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This is an early alpha version and not yet suited for productive use. Should you find bugs, please contact the developers so that they can be fixed as quickly as possible.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="main.ui" line="638"/>
+        <source>Kontakt</source>
+        <translation>Contact</translation>
+    </message>
+    <message>
+        <location filename="main.ui" line="666"/>
+        <source>&lt;html&gt;
+&lt;head /&gt;
+&lt;body&gt;
+&lt;a href=&quot;mailto:support@simon-listens.org&quot;&gt;Direkter Mail-Support&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;a href=&quot;mailto:support@simon-listens.org&quot;&gt;Direct mail-support&lt;/a&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="main.ui" line="700"/>
+        <source>&lt;html&gt;
+&lt;head /&gt;
+&lt;body&gt;
+&lt;a href=&quot;http://sourceforge.net/forum/?group_id=190872&quot;&gt;Community Forum&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;a href=&quot;http://sourceforge.net/forum/?group_id=190872&quot;&gt;Community forums&lt;/a&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="main.ui" line="749"/>
+        <source>Über die Software</source>
+        <translation>About the software</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="main.ui" line="780"/>
+        <source>Über Qt</source>
+        <translation>About Qt</translation>
+    </message>
+    <message encoding="UTF-8">
+        <location filename="main.ui" line="793"/>
+        <source>Über simon</source>
+        <translation>About simon</translation>
+    </message>
+    <message>
+        <location filename="main.ui" line="856"/>
+        <source>Dokumentation</source>
+        <translation>Documentation</translation>
+    </message>
+    <message>
+        <location filename="main.ui" line="884"/>
+        <source>&lt;html&gt;
+&lt;head /&gt;
+&lt;body&gt;
+&lt;a href=&quot;http://www.cyber-byte.at/wiki/index.php/Main_Page&quot;&gt;Online Wiki&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;a href=&quot;http://www.cyber-byte.at/wiki/index.php/Main_Page&quot;&gt;Online Wiki&lt;/a&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="main.ui" line="912"/>
+        <source>&lt;html&gt;
+&lt;head /&gt;
+&lt;body&gt;
+&lt;a href=&quot;http://www.simon-listens.org&quot;&gt;Offizielle Homepage&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;a href=&quot;http://www.simon-listens.org/index.php?id=122&amp;amp;L=1&quot;&gt;Official homepage&lt;/a&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -2571,227 +2645,227 @@ This can take a few seconds.</translation>
         <translation>Building of the transcriptions files failed. Please ensure that you have entered the paths for the files mkphones0.led and mkphones1.led correctly. (%1, %2)</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="1061"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="1056"/>
         <source>[INF] Verwendete Monophone des Modells: %1</source>
         <translation>[INF] Used monophones of the model: %1</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="1122"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="1117"/>
         <source>[INF]</source>
         <translation>[INF]</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="482"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="480"/>
         <source>[ERR]</source>
         <translation>[ERR]</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="536"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="531"/>
         <source>Erstelle hmm0...</source>
         <translation>Building hmm0...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="543"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="538"/>
         <source>Erstelle hmm1...</source>
         <translation>Building hmm1...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="550"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="545"/>
         <source>Erstelle hmm2...</source>
         <translation>Building hmm2...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="557"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="552"/>
         <source>Erstelle hmm3...</source>
         <translation>Building hmm3...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="569"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="564"/>
         <source>Erstelle Pausenmodell (hmm4)...</source>
         <translation>Building sp-model (hmm4)...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="572"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="567"/>
         <source>Fehler beim Generieren des HMM4. Bitte &#xfc;berpr&#xfc;fen Sie das HMM3</source>
         <translation>Error when building HMM4. Please check the HMM3</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="576"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="571"/>
         <source>Erstelle hmm5...</source>
         <translation>Building hmm5...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="579"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="574"/>
         <source>Fehler beim Generieren des HMM5. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HHEd (%1) und  des Silence-Modells (%2)</source>
         <translation>Error while generating the HMM5. Please ensure that the path to HHed (%1) and the silence model(%2) is set correctly</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="583"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="578"/>
         <source>Erstelle hmm6...</source>
         <translation>Building hmm6...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="586"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="581"/>
         <source>Fehler beim Generieren des HMM6. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2</source>
         <translation>Error while generating the HMM6. Please ensure that the path to HERest (%1) and the config (%2) is set correctly</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="590"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="585"/>
         <source>Erstelle hmm7...</source>
         <translation>Building hmm7...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="593"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="588"/>
         <source>Fehler beim Generieren des HMM7. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2</source>
         <translation>Error while generating the HMM7. Please ensure that the path to HERest (%1) and the config (%2) is set correctly</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="603"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="598"/>
         <source>Erstellte dict1...</source>
         <translation>Building dict1...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="606"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="601"/>
         <source>Fehler beim erstellen des dict1</source>
         <translation>Error while building dict1</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="611"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="606"/>
         <source>Hmm7 neu ausrichten...</source>
         <translation>Realigning hmm7...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="614"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="609"/>
         <source>Konnte HMM7 nicht neu ausrichten. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HVite (%1), der config (%2) und das HMM7.</source>
         <translation>Couldn&apos;t realign HMM7. Please ensure that the path to the HVite (%1), the config (%2) and the HMM7 is set correctly.</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="619"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="614"/>
         <source>Erstelle hmm8...</source>
         <translation>Building hmm8...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="622"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="617"/>
         <source>Fehler beim Generieren des HMM8. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2</source>
         <translation>Error while generating the HMM8. Please ensure that the path to HERest (%1) and the config (%2) is set correctly</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="627"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="622"/>
         <source>Erstelle hmm9...</source>
         <translation>Building hmm9...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="630"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="625"/>
         <source>Fehler beim Generieren des HMM9. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2</source>
         <translation>Error while generating the HMM9. Please ensure that the path to HERest (%1) and the config (%2) is set correctly</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="813"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="808"/>
         <source>Erstelle triphone...</source>
         <translation>Building triphones...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="646"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="641"/>
         <source>Konnte Triphone nicht binden. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HDMan (%1), global.ded (%2) und dem Lexikon (%3).</source>
         <translation>Couldn&apos;t bind triphones. Please ensure that the path to HDMan (%1), global.ded (%2) and the lexicon (%3) is set correclty.</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="651"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="646"/>
         <source>Erstelle Liste der Triphone...</source>
         <translation>Building list of triphones...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="654"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="649"/>
         <source>Konnte Liste der Triphone nicht erstellen.</source>
         <translation>Couldn&apos;t build the list of triphones.</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="658"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="653"/>
         <source>Erstelle tree.hed...</source>
         <translation>Building tree.hed...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="661"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="656"/>
         <source>Konnte tree.hed nicht erstellen.</source>
         <translation>Couldn&apos;t build tree.hed.</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="666"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="661"/>
         <source>Erstelle hmm13...</source>
         <translation>Building hmm13...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="669"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="664"/>
         <source>Fehler beim Generieren des HMM13. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HHEd (%1).</source>
         <translation>Error while generating the HMM13. Please check the path to HHEd (%1).</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="675"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="670"/>
         <source>Erstelle hmm14...</source>
         <translation>Building hmm14...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="678"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="673"/>
         <source>Fehler beim Generieren des HMM14. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)</source>
         <translation>Error while generating HMM14. Please check the path to HERest (%1), to the config (%2), and the stats file (%3)</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="683"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="678"/>
         <source>Erstelle hmm15...</source>
         <translation>Building hmm15...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="686"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="681"/>
         <source>Fehler beim Generieren des HMM15. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)</source>
         <translation>Error while generating HMM15. Please check the path to HERest (%1), to the config (%2) and the stats file (%3)</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="796"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="791"/>
         <source>&#xdc;bernehme Modell...</source>
         <translation>Applying the model...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="818"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="813"/>
         <source>Erstellen der Triphone files fehlgeschlagen. Bitte &#xfc;berpr&#xfc;fen Sie ob Sie den Pfad f&#xfc;r die Datei mktri.led richtig angegeben haben (%1) und &#xfc;berpr&#xfc;fen Sie den Pfad zu HLEd (%2)</source>
         <translation>Builing of the triphone files failed. Please check, if you have set the path for the file mktrie.led correctly (%1) and check the path to HLEd (%2)</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="823"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="818"/>
         <source>Erstelle mktri.hed...</source>
         <translation>Building mktri.hed...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="826"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="821"/>
         <source>Fehler beim generieren der mktri.hed</source>
         <translation>Error while generating the mktri.hed</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="831"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="826"/>
         <source>Erstelle hmm10...</source>
         <translation>Building hmm10...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="834"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="829"/>
         <source>Fehler beim Generieren des HMM10. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HHEd (%1).</source>
         <translation>Error while generating HMM10. Please check the path to HHed (%1).</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="839"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="834"/>
         <source>Erstelle hmm11...</source>
         <translation>Building hmm11...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="842"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="837"/>
         <source>Fehler beim Generieren des HMM11. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2)</source>
         <translation>Error while generating HMM11. Please check the path to HERest (%1) and the config (%2)</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="847"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="842"/>
         <source>Erstelle hmm12...</source>
         <translation>Building hmm12...</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="850"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="845"/>
         <source>Fehler beim Generieren des HMM12. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)</source>
         <translation>Error while generating HMM12. Please check the path to HERest (%1), the config (%2) and the stats file (%3)</translation>
     </message>
@@ -2868,7 +2942,7 @@ Bitte &#xfc;berpr&#xfc;fen Sie die Pfade zur Ausgabedatei. (%1).</source>
 Please check the path to the output file (%1).</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="499"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="497"/>
         <source>Phonem %1 kommt in den Trainingsdaten nicht vor.
 
 Bitte trainieren Sie ein Wort welches das Phonem %1 beinhaltet.
@@ -2881,7 +2955,7 @@ Please train a word containing the phoneme %1.
 Tip: You can choose a random word in the wordlist containing this phoneme and create a special training with it.</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="539"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="534"/>
         <source>Fehler beim Generieren des HMM0. 
 
 Bitte &#xfc;berpr&#xfc;fen Sie, ob ausreichend Trainingsmaterial vorhanden ist.
@@ -2894,17 +2968,17 @@ Please check if there is enough training material.
 Should you be certain that there is indeed enough training data, please check your paths to HCompV (%1), the config (%2) and the hmm-protoype (%3).</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="546"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="541"/>
         <source>Fehler beim Generieren des HMM1. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2)</source>
         <translation>Error while generating HMM1. Please check the path to HERest (%1) and the config (%2)</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="553"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="548"/>
         <source>Fehler beim Generieren des HMM2. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2)</source>
         <translation>Error while generating HMM2. Please check the path to HERest (%1) and the config (%2)</translation>
     </message>
     <message>
-        <location filename="ModelManagement/modelmanager.cpp" line="560"/>
+        <location filename="ModelManagement/modelmanager.cpp" line="555"/>
         <source>Fehler beim Generieren des HMM3. Bitte &#xfc;berpr&#xfc;fen Sie den Pfad zu HERest (%1) und der config (%2)</source>
         <translation>Error while generating HMM3. Please check the path to HERest (%1) and the config (%2)</translation>
     </message>
@@ -4814,32 +4888,32 @@ Thanks! -- the programmer</translation>
         <translation>Connecting to juliusd...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="270"/>
+        <location filename="simonview.cpp" line="286"/>
         <source>Verbunden</source>
         <translation>Connected</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="276"/>
+        <location filename="simonview.cpp" line="292"/>
         <source>Verbunden zu Julius</source>
         <translation>Connected to julius</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="333"/>
+        <location filename="simonview.cpp" line="349"/>
         <source>Verbinden</source>
         <translation>Connect</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="296"/>
+        <location filename="simonview.cpp" line="312"/>
         <source>Verbindung zu Julius verloren</source>
         <translation>Connection to julius lost</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="341"/>
+        <location filename="simonview.cpp" line="357"/>
         <source>Kritischer Verbindungsfehler</source>
         <translation>Critical connectionerror</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="341"/>
+        <location filename="simonview.cpp" line="357"/>
         <source>Die Verbindung zum juliusd Erkennungsd&#xe4;mon konnte nicht aufgenommen werden.
 
 Bitte &#xfc;berpr&#xfc;fen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.
@@ -4854,37 +4928,37 @@ The exact error was:
 </translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="342"/>
+        <location filename="simonview.cpp" line="358"/>
         <source>[ERR] Verbindung zu juliusd fehlgeschlagen...</source>
         <translation>[ERR] Connection to juliusd failed...</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="530"/>
+        <location filename="simonview.cpp" line="546"/>
         <source>Deaktivieren</source>
         <translation>Deactivate</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="541"/>
+        <location filename="simonview.cpp" line="557"/>
         <source>Aktivieren</source>
         <translation>Activate</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="544"/>
+        <location filename="simonview.cpp" line="560"/>
         <source>simon wurde deaktiviert</source>
         <translation>simon has been deactivated</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="546"/>
+        <location filename="simonview.cpp" line="562"/>
         <source>Simon - Deaktiviert</source>
         <translation>Simon - deactivated</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="580"/>
+        <location filename="simonview.cpp" line="596"/>
         <source>Wirklich beenden?</source>
         <translation>Are you sure you want to quit?</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="580"/>
+        <location filename="simonview.cpp" line="596"/>
         <source>Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos k&#xf6;nnen mehr benutzt werden.
 
 Wollen Sie wirklich beenden?</source>
@@ -4893,7 +4967,7 @@ Wollen Sie wirklich beenden?</source>
 Would you really like to exit?</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="611"/>
+        <location filename="simonview.cpp" line="627"/>
         <source>[INF] Beenden...</source>
         <translation>[INF] Quit...</translation>
     </message>
@@ -4917,14 +4991,24 @@ Wollen Sie den Assistenten beim n&#xe4;chsten Start wieder anzeigen?</source>
 Do you want to show the assistant again at the next start?</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="269"/>
+        <location filename="simonview.cpp" line="285"/>
         <source>Trennen</source>
         <translation>Disconnect</translation>
     </message>
     <message>
-        <location filename="simonview.cpp" line="290"/>
+        <location filename="simonview.cpp" line="306"/>
         <source>Nicht Verbunden</source>
         <translation>Not connected</translation>
+    </message>
+    <message>
+        <location filename="simonview.cpp" line="165"/>
+        <source>&#xdc;ber simon</source>
+        <translation>About simon</translation>
+    </message>
+    <message>
+        <location filename="simonview.cpp" line="172"/>
+        <source>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;h2&gt;simon 0.1-alpha-2&lt;/h2&gt;<byte value="x9"/>&lt;h2&gt;Entwicklung und Vertrieb&lt;/h2&gt;<byte value="x9"/>&lt;p&gt;Entwickelt und Vertrieben vom gemmeinn&#xfc;tzigen Verein &lt;a href=&quot;http://simon-listens.org&quot;&gt;simon listens e.V.&lt;/a&gt; in Kooperation mit &lt;a href=&quot;http://cyber-byte.at&quot;&gt;Cyber-Byte EDV Services&lt;/a&gt;.&lt;/p&gt;<byte value="x9"/>&lt;h3&gt;Entwickler&lt;/h3&gt;<byte value="x9"/>&lt;ul&gt;&lt;li&gt;Peter Grasch&lt;li&gt;Phillip Goriup&lt;li&gt;Susanne Tschernegg&lt;li&gt;Bettina Sturmann&lt;li&gt;Gigerl Martin&lt;/ul&gt;<byte value="x9"/>&lt;h3&gt;Dank an&lt;/h3&gt; <byte value="x9"/>&lt;ul&gt;&lt;li&gt;Franz Stieger&lt;li&gt;Matthias Stieger&lt;li&gt;Phillip Theussl&lt;li&gt;Moacyr Prado&lt;li&gt;Stieger Michael&lt;/ul&gt; <byte value="x9"/>&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head /&gt;&lt;body&gt;&lt;h2&gt;simon 0.1-alpha-2&lt;/h2&gt;<byte value="x9"/>&lt;h2&gt;Development and distribution&lt;/h2&gt;<byte value="x9"/>&lt;p&gt;Developed and distributed by the non-profit organization &lt;a href=&quot;http://simon-listens.org&quot;&gt;simon listens e.V.&lt;/a&gt; in cooperation with &lt;a href=&quot;http://cyber-byte.at&quot;&gt;Cyber-Byte EDV Services&lt;/a&gt;.&lt;/p&gt;<byte value="x9"/>&lt;h3&gt;Developers&lt;/h3&gt;<byte value="x9"/>&lt;ul&gt;&lt;li&gt;Peter Grasch&lt;li&gt;Phillip Goriup&lt;li&gt;Susanne Tschernegg&lt;li&gt;Bettina Sturmann&lt;li&gt;Gigerl Martin&lt;/ul&gt;<byte value="x9"/>&lt;h3&gt;Special thanks to&lt;/h3&gt; <byte value="x9"/>&lt;ul&gt;&lt;li&gt;Franz Stieger&lt;li&gt;Matthias Stieger&lt;li&gt;Phillip Theussl&lt;li&gt;Moacyr Prado&lt;li&gt;Stieger Michael&lt;/ul&gt; <byte value="x9"/>&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
