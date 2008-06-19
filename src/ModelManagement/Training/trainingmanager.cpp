@@ -379,7 +379,7 @@ bool TrainingManager::allWordsExisting()
 		for ( int y=0; y<strList.size(); y++ )
 		{
 			QString word = strList.at ( y );
-			word.trimmed();
+			word = word.trimmed();
 			word.remove ( "." );
 			word.remove ( "," );
 			word.remove ( "(" );
@@ -394,15 +394,7 @@ bool TrainingManager::allWordsExisting()
 			WordList* words = WordListManager::getInstance()->getMainstreamWords( word );
 			if ( words->isEmpty() )
 			{
-				bool wordExistingInList = false;
-				for ( int z=0; z<strListAllWords.count(); z++ )
-				{
-					if ( strListAllWords.at ( z ) ==word )
-					{
-						wordExistingInList = true;
-					}
-				}
-				if ( !wordExistingInList )
+				if (!strListAllWords.contains(word))
 					strListAllWords.append ( word );
 			}
 			delete words;

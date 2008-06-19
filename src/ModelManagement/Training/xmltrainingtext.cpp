@@ -12,6 +12,7 @@ void XMLTrainingText::save(QString path)
 {
 	if (path.isEmpty()) path = this->path;
 	
+	if (!doc) doc = new QDomDocument();
 	doc->clear();
 	
 	QDomElement root = doc->createElement("text");

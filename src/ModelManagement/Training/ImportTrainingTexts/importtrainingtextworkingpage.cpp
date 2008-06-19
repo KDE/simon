@@ -98,6 +98,7 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 	if (!file.open(QIODevice::ReadOnly))
 		return;
 	
+
 	QStringList sents;
 	QString tmp;
 	QTextStream ts(&file);

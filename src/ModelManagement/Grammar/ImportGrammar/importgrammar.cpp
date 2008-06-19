@@ -35,6 +35,7 @@ void ImportGrammar::run()
 }
 
 
+
 QStringList ImportGrammar::readFile(QString path)
 {
 	emit status(tr("Öffne Datei..."));
@@ -62,23 +63,24 @@ QStringList ImportGrammar::readFile(QString path)
 	{
 		QStringList realSentences;
 		
-		QString sentence=leftOvers;
-		leftOvers="";
+		QString sentence;//=leftOvers;
+// 		leftOvers="";
 		
 		while (!file.atEnd() && (!sentence.contains(sentenceStoppers)))
 			sentence += file.readLine(4000)+"\n";
 		
 		QStringList sentences = sentence.split(sentenceStoppers, QString::SkipEmptyParts);
-		for (int i=0; i < sentences.count()-1;i++)
+		for (int i=0; i < sentences.count();i++)
 		{
 			currentSentence = sentences[i].trimmed();
 			if (currentSentence.trimmed().isEmpty()) continue;
 			
 			realSentences << currentSentence;
 		}
-		if (!sentences.at(sentences.count()-1).contains(sentenceStoppers))
-			leftOvers = sentences.at(sentences.count()-1);
-		else realSentences << leftOvers;
+
+		//if (!sentences.at(sentences.count()-1).contains(sentenceStoppers))
+		//	leftOvers = sentences.at(sentences.count()-1);
+		//else realSentences << leftOvers;
 		
 		structures << realSentences;
 	}

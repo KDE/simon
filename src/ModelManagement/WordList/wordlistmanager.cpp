@@ -388,6 +388,7 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 		currentWordName = currentWord->getWord().toUpper();
 		currentWordPronunciation = currentWord->getPronunciation();
 		currentWordTerminal = currentWord->getTerminal();
+
 		
 		if ((currentWordName==word)
 			&& ((pronunciation.isEmpty() || currentWordPronunciation == pronunciation)
@@ -876,7 +877,7 @@ WordList* WordListManager::searchForWords(WordList *list, QString word, bool fuz
 		
 		//go up and down around the found index and add all matching words
 		int i=indexOfWord;
-		while ((i > 0) && (list->at(i).getWord().toUpper() == word.toUpper()))
+		while ((i >= 0) && (list->at(i).getWord().toUpper() == word.toUpper()))
 		{
 			out->append(list->at(i));
 			i--;
