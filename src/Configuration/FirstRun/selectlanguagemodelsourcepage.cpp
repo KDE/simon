@@ -14,7 +14,7 @@
 
 SelectLanguageModelSourcePage::SelectLanguageModelSourcePage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle("Sprachmodell: Quelle");
+	setTitle(tr("Sprachmodell: Quelle"));
 	ui.setupUi(this);
 	connect(ui.rbNewModel, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
 	connect(ui.rbOpenModel, SIGNAL(toggled(bool)), this, SLOT(updateInfo()));

@@ -100,7 +100,7 @@ void WordListView::reloadList()
 void WordListView::reloadShadowList()
 {
 	//if the shadowlist is not even shown - why bother?
-	if (!ui.cbShowCompleteLexicon->isChecked()) return
+	if (!ui.cbShowCompleteLexicon->isChecked()) return;
 
 	//else, reload
 	filterListbyPattern(); //this will take care of the currently active filter

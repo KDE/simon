@@ -88,7 +88,7 @@ void InlineWidgetView::registerPage(InlineWidget *page)
  */
 void InlineWidgetView::unRegisterPage(InlineWidget *page)
 {
-	if(!page || (indexOf(page) != -1)) return;
+	if(!page || (indexOf(page) == -1)) return;
 
 	removeTab(indexOf(page));
 
