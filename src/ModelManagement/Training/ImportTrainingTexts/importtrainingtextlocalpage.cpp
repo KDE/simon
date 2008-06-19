@@ -30,7 +30,7 @@ ImportTrainingTextLocalPage::ImportTrainingTextLocalPage(QWidget *parent) : QWiz
 	ui.setupUi(this);
 	setTitle(tr("Importieren aus Textdatei"));
 	
-	registerField("importTrainingTextLFilename*", ui.lePath);
+	registerField("importTrainingTextLFilename*", ui.lePath, "currentUrl", SIGNAL(urlChanged(QString)));
 	registerField("importTrainingTextLTextname*", ui.leName);
 }
 

@@ -11,12 +11,10 @@
 //
 
 #include "simondirselector.h"
-#include "simonfilesystemselector.h"
 
 
 
 SimonDirSelector::SimonDirSelector(QWidget *parent) : SimonFileSystemSelector("", QObject::tr("Ordner auswählen"), 
 						".", 0, "", QFileDialog::DirectoryOnly, parent)
 {
-	
 }
