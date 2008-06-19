@@ -26,6 +26,7 @@
  *	@author Peter Grasch
  */
 class ShortcutCommand : public Command{
+Q_OBJECT
 
 private:
 	Shortcut *shortcut;

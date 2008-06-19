@@ -683,7 +683,10 @@ void SimonView::hideSettings()
 {
 	//disables the button settings in the mainwindow
 	if ( ui.pbSystem->isChecked() )
-		ui.pbSystem->animateClick();
+	{
+		ui.pbSystem->setChecked(false);
+		ui.inlineView->unRegisterPage(this->systemDialog);
+	}
 
 	ui.tbModules->removeAction ( this->settingsToolButton );
 	ui.pbSystem->setDisabled ( true );

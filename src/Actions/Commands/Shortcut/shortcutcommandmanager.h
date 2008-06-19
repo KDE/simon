@@ -25,7 +25,7 @@ class XMLShortcutCommand;
  *	@author Peter Grasch
  */
 class ShortcutCommandManager : public CommandManager {
-
+Q_OBJECT
 private:
 	XMLShortcutCommand* xmlShortcutCommand;
 public:

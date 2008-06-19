@@ -38,4 +38,4 @@ SOURCES +=	SimonLib/SpeechGUI/systemwidgetpage.cpp \
 		SimonLib/SpeechGUI/simoncalendarwidget.cpp \
 		SimonLib/SpeechGUI/inlinewidget.cpp \
 		SimonLib/SpeechGUI/inlinewidgetview.cpp \
-		SimonLib/SpeechGUI/guievents.cpp \
+		SimonLib/SpeechGUI/guievents.cpp

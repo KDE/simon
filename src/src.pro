@@ -35,10 +35,12 @@ unix {
     LIBS += \
       /usr/lib/libportaudio.a \
       -L/usr/X11R6/lib \
-      -L/usr/lib/alsa-lib \
+      -L/usr/lib/jack \
+      -L/usr/lib/alsa \
       -lX11 \
       -lXtst \
       -lasound \
+      -ljack \
       -lpthread \
       -lrt
 }
