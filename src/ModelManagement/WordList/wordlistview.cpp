@@ -335,10 +335,10 @@ void WordListView::insertVocab(WordList *vocab)
 	ui.twVocab->setRowCount(startAmount+vocab->count());
 	while ((!abortVocabInsertion) && (i<vocab->count()) && (i<limit))
 	{
-		if (!vocab->at(i).getWord().isEmpty())
+		QString curWordName = vocab->at(i).getWord();
+		if (!curWordName.isEmpty())
 		{
-			QTableWidgetItem *wordName = new QTableWidgetItem(vocab->at(i).getWord());
-			ui.twVocab->setItem(currentRow, 0, wordName);
+			ui.twVocab->setItem(currentRow, 0, new QTableWidgetItem(curWordName));
 			ui.twVocab->setItem(currentRow, 1, new QTableWidgetItem(vocab->at(i).getPronunciation()));
 			ui.twVocab->setItem(currentRow, 2, new QTableWidgetItem(vocab->at(i).getTerminal()));
 			

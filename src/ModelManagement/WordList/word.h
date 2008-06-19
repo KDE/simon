@@ -135,7 +135,10 @@ public:
 	 */
 	const bool operator<(const Word w2) const
 	{
-		return getWord().toUpper() < w2.getWord().toUpper();
+		if (getWord().toUpper() < w2.getWord().toUpper())
+			return true;
+		else return ((getWord().toUpper() == w2.getWord().toUpper()) && ((getPronunciation() < w2.getPronunciation()) || 
+							((getPronunciation() == w2.getPronunciation()) && (getTerminal() < w2.getTerminal()))));
 	}
 	
 	
