@@ -25,7 +25,7 @@ QSettings* Settings::settings;
  */
 void Settings::initSettings()
 {
-	settings = new QSettings ( QSettings::IniFormat,QSettings::UserScope,"CyberByte","simon" );
+	settings = new QSettings ( QSettings::IniFormat,QSettings::UserScope,"simonlistens","simon" );
 	settings->sync();
 }
 

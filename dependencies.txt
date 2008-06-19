@@ -1,0 +1,7 @@
+libportaudio-dev v19
+	If your portaudio library doesn't support jack, remove the two
+	lines in the file src/src.pro that contain the word "jack"
+	Simon will work fine without it
+
+>=libqt-4.4 mit sql, xml, network
+libxtst (linux)
