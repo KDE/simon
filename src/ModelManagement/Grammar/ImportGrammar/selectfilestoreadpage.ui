@@ -32,12 +32,12 @@
     </widget>
    </item>
    <item>
-    <layout class="QFormLayout" name="formLayout" >
-     <item row="0" column="0" >
+    <layout class="QHBoxLayout" name="horizontalLayout" >
+     <item>
       <widget class="QLabel" name="lbListDesc" >
        <property name="minimumSize" >
         <size>
-         <width>121</width>
+         <width>149</width>
          <height>0</height>
         </size>
        </property>
@@ -49,8 +49,15 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="SimonFileSelector" name="leFiles" />
+     <item>
+      <widget class="QLineEdit" name="leFiles" >
+       <property name="maximumSize" >
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -105,14 +112,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>SimonFileSelector</class>
-   <extends>QLineEdit</extends>
-   <header>simonfileselector.h</header>
-   <slots>
-    <signal>urlChanged()</signal>
-   </slots>
-  </customwidget>
   <customwidget>
    <class>SimonListWidget</class>
    <extends>QListWidget</extends>
