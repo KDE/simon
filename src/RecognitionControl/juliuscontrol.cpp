@@ -243,7 +243,6 @@ void JuliusControl::messageReceived()
 				data.append(text);
 				stamp.append(timestamp);
 				stamp.append("\n");
-// 				qDebug() << "Client bekommt: " <<text << " : " << timestamp;
 			}
 			datafile->flush();
 			datafile->write(data);

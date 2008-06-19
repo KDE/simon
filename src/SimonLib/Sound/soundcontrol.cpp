@@ -11,7 +11,6 @@
 //
 #include "soundcontrol.h"
 #include <string.h>
-#include <QDebug>
 #include <QObject>
 #include <QMessageBox>
 #include "../SimonInfo/simoninfo.h"

@@ -20,7 +20,6 @@
 
 #include "actionmanager.h"
 #include <QMessageBox>
-#include <QDebug>
 #include "../SimonLib/Logging/logger.h"
 #include "../SimonLib/Settings/settings.h"
 #include "../SimonLib/SimonInfo/simoninfo.h"
@@ -170,8 +169,6 @@ void ActionManager::process(QString input)
 {
 	Q_ASSERT(managers);
 	Q_ASSERT(eventHandler);
-
-	qDebug() << "ActionManager::process(QString input); input=" << input;
 
 
 	QString keyword = Settings::getS("Commands/Trigger");

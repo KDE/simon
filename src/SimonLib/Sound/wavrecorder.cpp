@@ -1,6 +1,5 @@
 #include "wavrecorder.h"
 #include <QObject>
-#include <QDebug>
 #include "wav.h"
 #include "../Logging/logger.h"
 #include "../Settings/settings.h"

@@ -20,7 +20,6 @@
 
 #include "simoncontrol.h"
 #include <QMessageBox>
-#include <QDebug>
 #include "SimonLib/Logging/logger.h"
 #include "SimonLib/Settings/settings.h"
 #include "SimonLib/EventSimulation/shortcut.h"
@@ -149,7 +148,6 @@ void SimonControl::disconnectFromJulius()
  */
 void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 {
-	qDebug() << "SimonControl::wordRecognised()";
 	actionManager->process(word);
 // 	QString keyword = Settings::getS("Commands/Keyword");
 // 	

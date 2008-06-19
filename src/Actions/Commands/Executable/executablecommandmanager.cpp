@@ -1,5 +1,4 @@
 #include "executablecommandmanager.h"
-#include <QDebug>
 #include "../../../SimonLib/Settings/settings.h"
 #include "../../../SimonLib/Logging/logger.h"
 #include "xmlexecutablecommand.h"
@@ -13,14 +12,11 @@ ExecutableCommandManager::ExecutableCommandManager(QObject *parent) :CommandMana
 
 bool ExecutableCommandManager::addCommand(Command *command)
 {
-// 	qDebug() << "ExecutableCommandManager::addCommand(Command *command)=" << command;
 	if (dynamic_cast<ExecutableCommand*>(command))
 	{
-// 		qDebug() << "-> Cast successfull";
 		this->commands->append(command);
 		return save();
 	} else
-// 		qDebug() << "-> Cast unsuccessfull :(";
 	return false;
 }
 

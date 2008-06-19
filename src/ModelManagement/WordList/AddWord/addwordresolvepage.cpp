@@ -145,8 +145,6 @@ void AddWordResolvePage::suggest()
 	if (!ui.twSuggestions->item(row,0)) return;
 
 	QString suggestedWordText = ui.twSuggestions->item(row,0)->text();
-// 	qDebug() << alreadyTriedToConvinceAboutCapitalization ;
-// 	qDebug() << suggestedWordText.toUpper() << ui.leWord->text().toUpper();
 	
 	if (suggestedWordText.toUpper() != ui.leWord->text().toUpper())
 	{

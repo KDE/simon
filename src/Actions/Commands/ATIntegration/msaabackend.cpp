@@ -16,7 +16,6 @@
 #include <ole2.h>
 #include <oleacc.h>
 #include <commctrl.h>
-#include <QDebug>
 /*#include <atlconv.h>
 #include <comdef.h>*/
 

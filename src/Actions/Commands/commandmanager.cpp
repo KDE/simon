@@ -2,7 +2,6 @@
 
 bool CommandManager::trigger(QString triggerName)
 {
-// 	qDebug() << QString("%1: trigger(triggerName) triggerName=").arg(name()) << triggerName;
 	if (!commands) return false;
 
 	bool done=false;
@@ -20,7 +19,6 @@ bool CommandManager::trigger(QString triggerName)
 			//break;
 		}
 	}
-// 	qDebug() << "Ausgeführt: " << done;
 	return done;
 }
 

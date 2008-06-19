@@ -23,7 +23,6 @@
 #endif
 
 #include <QStack>
-// #include <QDebug>
 
 ATWatcher* ATWatcher::instance;
 
@@ -69,7 +68,6 @@ void ATWatcher::translateFocusToWindow(ATObject* selectedObject)
 	{
 		//!< Because we can't focus a "application" - only there windows
 		//!< and the window would have the application as parent
-// 		qDebug() << "received garbage";
 		return;
 	}
 	ATObject *application= (ATObject*) selectedObject->parent();

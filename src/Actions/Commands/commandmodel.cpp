@@ -19,7 +19,6 @@
  ***************************************************************************/
 
 #include "commandmodel.h"
-#include <QDebug>
 
 //TODO: what if the backends delete their lists?
 
@@ -62,7 +61,6 @@ QVariant CommandModel::data(const QModelIndex &index, int role) const
 		
 		Command *command = static_cast<Command*>(index.internalPointer());
 		if (!command) {
-			qDebug() << "data(): Command is no command... ERROR";
 			return QVariant();
 		}
 		if (role == Qt::DisplayRole) 

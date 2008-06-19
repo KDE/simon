@@ -1,13 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<commands>
- <textmacro>
-  <name>simon</name>
-  <icon></icon>
-  <text>simon</text>
- </textmacro>
- <textmacro>
-  <name>blindtext</name>
-  <icon></icon>
-  <text>asdfawerfwqer</text>
- </textmacro>
-</commands>
+<commands />

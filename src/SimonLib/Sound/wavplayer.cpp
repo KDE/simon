@@ -12,7 +12,6 @@
 #include "wavplayer.h"
 #include <QTimer>
 #include <QObject>
-#include <QDebug>
 #include "../Logging/logger.h"
 #include "../Settings/settings.h"
 #include "wav.h"

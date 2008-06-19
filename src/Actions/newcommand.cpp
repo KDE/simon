@@ -19,7 +19,6 @@
  ***************************************************************************/
 
 #include <QUrl>
-#include <QDebug>
 #include "newcommand.h"
 
 #include "Commands/Executable/executablecommand.h"

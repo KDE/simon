@@ -11,7 +11,6 @@
 //
 #include "importplacewizard.h"
 #include <QLabel>
-#include <QDebug>
 #include <QVBoxLayout>
 #include <QPixmap>
 #include <QRadioButton>

@@ -10,7 +10,6 @@
 //
 //
 #include "screengrid.h"
-#include <QDebug>
 #include <QWidget>
 #include <QGridLayout>
 #include <QPushButton>

@@ -12,7 +12,6 @@
 #include "wav.h"
 #include <QObject>
 #include <QDataStream>
-#include <QDebug>
 #include <QFile>
 #include "../Logging/logger.h"
 
@@ -293,9 +292,6 @@ void WAV::writeFormat(QDataStream *dstream)
  */
 void WAV::addData(short* data, int length)
 {
-	//for (int i=0; i < length; i++)
-	//	qDebug() << data[i];
-		
  	length = (length*sizeof(short)) / sizeof(char);
 
 	wavData.write((char*) data, length);

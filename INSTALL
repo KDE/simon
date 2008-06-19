@@ -14,8 +14,11 @@ qt >= 4.3.3 (4.4.0 recommended)
 Linux:
 	alsa-dev
 	x11-dev
-WIN32:
-	DirectX SDK
+	xtst-dev
+
+Cross plattform:
+	portaudio v19
+		If you have compiled portaudio without jack support please remove the two lines containing the word "jack" from src/src.pro
 
 
 
@@ -25,9 +28,7 @@ WIN32:
 
 To compile this version just issue:
 
-$ cd src
-$ qmake 
-$ make
+$ ./build.sh
 
 The executable should be named "simon" and reside in this very directory :) (not in the src/ subdir)
 
@@ -43,5 +44,5 @@ When starting simon the first time you will go thourgh a kind of "setup" procedu
 ----------
 
 If you find a bug please contact us over the sourceforge project site (bugtracker):
-http://sourceforg.net/projects/speech2text
+http://sourceforge.net/projects/speech2text
 

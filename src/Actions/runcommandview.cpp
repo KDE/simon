@@ -14,7 +14,6 @@
 #include <QIcon>
 #include <QWidget>
 #include <QTableWidgetItem>
-#include <QDebug>
 #include <QHeaderView>
 #include <QSize>
 #include "../SimonLib/Settings/settings.h"

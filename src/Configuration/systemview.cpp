@@ -11,7 +11,6 @@
 //
 #include "simonlistwidget.h"
 #include <QMessageBox>
-#include <QDebug>
 #include "systemview.h"
 #include "systemwidget.h"
 #include "generalsettings.h"
