@@ -12,8 +12,8 @@
   <property name="windowTitle" >
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <item row="0" column="0" colspan="2" >
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <item>
     <widget class="QLabel" name="lbUnknownDesc" >
      <property name="text" >
       <string>Wenn das folgende Feld gesetzt ist, werden auch Sätze deren Grammatikalischen Komponenten nicht komplett bekannt sind importiert (die Sätze beinhalten dann "Unbekannt"e Komponenten)
@@ -24,33 +24,40 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2" >
+   <item>
     <widget class="QCheckBox" name="cbIncludeUnknown" >
      <property name="text" >
       <string>Auch unbekannte Konstrukte importieren</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="0" >
-    <widget class="QLabel" name="lbListDesc" >
-     <property name="minimumSize" >
-      <size>
-       <width>121</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="text" >
-      <string>Textdateien (*.txt):</string>
-     </property>
-     <property name="wordWrap" >
-      <bool>true</bool>
-     </property>
-    </widget>
+   <item>
+    <layout class="QFormLayout" name="formLayout" >
+     <item row="0" column="0" >
+      <widget class="QLabel" name="lbListDesc" >
+       <property name="minimumSize" >
+        <size>
+         <width>121</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text" >
+        <string>Textdateien (*.txt):</string>
+       </property>
+       <property name="wordWrap" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="SimonFileSelector" name="leFiles" />
+     </item>
+    </layout>
    </item>
-   <item row="2" column="1" >
-    <widget class="SimonFileSelector" name="leFiles" />
+   <item>
+    <widget class="SimonListWidget" name="lwFiles" />
    </item>
-   <item row="3" column="0" colspan="2" >
+   <item>
     <layout class="QHBoxLayout" >
      <item>
       <spacer>
@@ -74,7 +81,7 @@
         <string>Hinzufügen</string>
        </property>
        <property name="icon" >
-        <iconset resource="../action_icons.qrc" >
+        <iconset resource="../../../action_icons.qrc" >
          <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
        </property>
       </widget>
@@ -88,15 +95,12 @@
         <string>Entfernen</string>
        </property>
        <property name="icon" >
-        <iconset resource="../action_icons.qrc" >
+        <iconset resource="../../../action_icons.qrc" >
          <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
        </property>
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="4" column="0" colspan="2" >
-    <widget class="QListWidget" name="lwFiles" />
    </item>
   </layout>
  </widget>
@@ -109,9 +113,14 @@
     <signal>urlChanged()</signal>
    </slots>
   </customwidget>
+  <customwidget>
+   <class>SimonListWidget</class>
+   <extends>QListWidget</extends>
+   <header>simonlistwidget.h</header>
+  </customwidget>
  </customwidgets>
  <resources>
-  <include location="../action_icons.qrc" />
+  <include location="../../../action_icons.qrc" />
  </resources>
  <connections/>
 </ui>

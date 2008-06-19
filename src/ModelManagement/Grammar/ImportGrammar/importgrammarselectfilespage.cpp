@@ -24,7 +24,7 @@ ImportGrammarSelectFilesPage::ImportGrammarSelectFilesPage(QWidget* parent): QWi
 	connect(ui.pbAddFile, SIGNAL(clicked()), this, SLOT(addFile()));
 	connect(ui.pbDeleteFile, SIGNAL(clicked()), this, SLOT(removeFile()));
 	
-	registerField("files*", ui.leFiles);
+	//registerField("files*", ui.lwFiles, "count", SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)));
 	registerField("includeUnknown", ui.cbIncludeUnknown);
 }
 
