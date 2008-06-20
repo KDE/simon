@@ -168,7 +168,7 @@ void SimonView::showAbout()
 	<h3>Entwickler</h3>\
 	<ul><li>Peter Grasch<li>Phillip Goriup<li>Susanne Tschernegg<li>Bettina Sturmann<li>Gigerl Martin</ul>\
 	<h3>Dank an</h3> \
-	<ul><li>Franz Stieger<li>Matthias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Stieger Michael</ul> \
+	<ul><li>Franz Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Stieger Michael</ul> \
 	</body></html>"));
 }
 
