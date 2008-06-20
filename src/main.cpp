@@ -31,6 +31,7 @@
 int main(int argc, char *argv[])
 {
 	QApplication app(argc,argv);
+	app.addLibraryPath(app.applicationDirPath()+"/plugins");
 	QString locale = QLocale::system().name().left(2);
 
 	QTranslator translator;
