@@ -46,7 +46,7 @@ unix {
 
 
 win32 {
-    LIBS += -ldsound -lwinmm -lole32 -oleacc -atls
+    LIBS += -ldsound -lwinmm -lole32 -atls portaudio_x86.dll
 }
 
 
