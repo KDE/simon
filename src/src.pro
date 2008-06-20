@@ -1,5 +1,5 @@
 win32{
-TARGET=../../simon.exe
+TARGET=../../simon
 }
 !win32{
 TARGET=../simon
@@ -29,7 +29,6 @@ RESOURCES += banners.qrc \
 
 unix {
     CONFIG += x11 qdbus
-    DEFINES += __LINUX_ALSA__
     INCLUDEPATH += /usr/include/alsa \
 	      /usr/X11R6/include
     LIBS += \
@@ -47,7 +46,6 @@ unix {
 
 
 win32 {
-    DEFINES += __WINDOWS_DS__
     LIBS += -ldsound -lwinmm -lole32 -oleacc -atls
 }
 

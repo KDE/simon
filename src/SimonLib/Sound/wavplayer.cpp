@@ -15,6 +15,7 @@
 #include "../Logging/logger.h"
 #include "../Settings/settings.h"
 #include "wav.h"
+#define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
 
 /**
  * \brief Constructor
