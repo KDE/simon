@@ -9,6 +9,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
+#include <stdlib.h>
+#include <string.h>
 #include "wav.h"
 #include <QObject>
 #include <QDataStream>
