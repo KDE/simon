@@ -1,6 +1,8 @@
 #include "wavrecorder.h"
 #include <QObject>
 #include "wav.h"
+#include <stdlib.h>
+#include <string.h>
 #include "../Logging/logger.h"
 #include "../Settings/settings.h"
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)

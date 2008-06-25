@@ -164,7 +164,7 @@ void SimonView::showAbout()
 {
 	QMessageBox::about(this, tr("Über simon"), tr("<html><head /><body><h2>simon 0.1-alpha-2</h2>\
 	<h2>Entwicklung und Vertrieb</h2>\
-	<p>Entwickelt und Vertrieben vom gemmeinnützigen Verein <a href=\"http://simon-listens.org\">simon listens e.V.</a> in Kooperation mit <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\
+	<p>Entwickelt und Vertrieben vom gemeinnützigen Verein <a href=\"http://simon-listens.org\">simon listens e.V.</a> in Kooperation mit <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\
 	<h3>Entwickler</h3>\
 	<ul><li>Peter Grasch<li>Phillip Goriup<li>Susanne Tschernegg<li>Bettina Sturmann<li>Gigerl Martin</ul>\
 	<h3>Dank an</h3> \
