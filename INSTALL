@@ -20,6 +20,13 @@ Cross plattform:
 	portaudio v19
 		If you have compiled portaudio without jack support please remove the two lines containing the word "jack" from src/src.pro
 
+		If you are running windows getting portaudio to run can be a bit tricky.
+		Here is a quick & dirty (and tested) way:
+			1. Download the precompiled portaudio.dll from http://code.google.com/p/portaudiosharp/downloads/detail?name=PortAudio.dll&can=2&q=
+			2. Rename it to portaudio_x86.dll and put it in your src/ subdir
+			3. Download a portaudio (source) snapshot http://www.portaudio.com/download.html (v19!)
+			4. Extract the portaudio.h file from the include/ directory and put it in the folders: Configuration/Firstrun/ and SimonLib/Sound/
+			5. Done!
 
 
 
@@ -28,7 +35,8 @@ Cross plattform:
 
 To compile this version just issue:
 
-$ ./build.sh
+Linux: $ ./build.sh
+Windows: Double-click on build.bat
 
 The executable should be named "simon" and reside in this very directory :) (not in the src/ subdir)
 

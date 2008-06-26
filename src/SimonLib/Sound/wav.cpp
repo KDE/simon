@@ -278,7 +278,8 @@ void WAV::writeFormat(QDataStream *dstream)
 	*dstream << (quint16) 0x01;
 	*dstream << (quint16) channels;
 	*dstream << (quint32) samplerate;
-	*dstream << (quint32) channels*samplerate*sizeof(short); // 16bit
+	*dstream << (quint32) channels*samplerate
+				*((int)sizeof(short)); // 16bit
 	*dstream << (quint16) 4;
 	*dstream << (quint16) 16;
 }

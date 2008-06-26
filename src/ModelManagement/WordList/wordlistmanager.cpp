@@ -980,6 +980,8 @@ void WordListManager::renameTerminal(QString from, QString to, bool includeShado
  */
 void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 {
+	if (isRunning()) wait();
+
 	if (!isSorted)
 		list = sortList(list);
 
