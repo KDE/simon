@@ -468,6 +468,7 @@ void FirstRunWizard::initDefaultValues()
 	Settings::checkAndSet("Internet/WikiDumpPostfix", "-pages-articles.xml.bz2");
 
 
+	Settings::checkAndSet("Commands/Dictation", true);
 	Settings::checkAndSet("Commands/Trigger", "simon");
 	Settings::checkAndSet("Commands/Executable/Enabled", true);
 	Settings::checkAndSet("Commands/Executable/PathToConfig", applicationPath+"conf/executables.xml");

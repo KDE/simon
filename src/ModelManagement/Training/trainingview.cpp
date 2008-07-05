@@ -142,6 +142,8 @@ void TrainingView::startTraining()
 	this->currentPage=0;
 	recordedPages = 0;
 
+	adaptNavigationButtons();
+
 	fetchPage ( currentPage );
 }
 
@@ -207,33 +209,24 @@ void TrainingView::fetchPage ( int page )
 	ui.pbPages->setValue ( page+1 );
 }
 
+
+void TrainingView::adaptNavigationButtons()
+{
+	ui.pbPrevPage->setEnabled ( currentPage > 0 );
+
+	ui.pbNextPage->setEnabled(currentPage < (trainMgr->getPageCount()-1));
+}
+
 /**
  * \brief Jumps to the previous page in the pile
  * \author Peter Grasch, Susanne Tschernegg
  */
 void TrainingView::prevPage()
 {
-	if ( currentPage>0 )
-	{
-		if ( currentPage==1 )
-			ui.pbPrevPage->setEnabled ( false );
-		else if ( ui.pbPrevPage->isEnabled() ==false )
-			ui.pbPrevPage->setEnabled ( true );
-		currentPage--;
-	}
-	else
-	{
-		ui.pbPrevPage->setEnabled ( false );
-	}
-	int max = trainMgr->getPageCount()-1;
-	if ( currentPage < max )
-	{
-		ui.pbNextPage->setEnabled ( true );
-	}
-	else
-	{
-		ui.pbNextPage->setEnabled ( false );
-	}
+	currentPage--;
+	Q_ASSERT(currentPage >= 0);
+
+	adaptNavigationButtons();
 	resetRecorder();
 	fetchPage ( currentPage );
 }
@@ -269,23 +262,10 @@ void TrainingView::resetRecorder()
  */
 void TrainingView::nextPage()
 {
-	int max = trainMgr->getPageCount()-1;
-	if ( currentPage < max )
-	{
-		if ( currentPage==max-1 )
-			ui.pbNextPage->setEnabled ( false );
-		else if ( ui.pbNextPage->isEnabled() ==false )
-			ui.pbNextPage->setEnabled ( true );
-		currentPage++;
-	}
-	else
-	{
-		ui.pbNextPage->setEnabled ( false );
-	}
-	if ( currentPage > 0 )
-	{
-		ui.pbPrevPage->setEnabled ( true );
-	}
+	currentPage++;
+	Q_ASSERT(currentPage < trainMgr->getPageCount());
+	
+	adaptNavigationButtons();
 	resetRecorder();
 	fetchPage ( currentPage );
 }

@@ -183,7 +183,8 @@ void ActionManager::process(QString input)
 			emit guiAction(input);
 
 	} else {
-		eventHandler->sendWord(input);
+		if (Settings::getB("Commands/Dictation")) //is dictation activated?
+			eventHandler->sendWord(input);
 	}
 }
 

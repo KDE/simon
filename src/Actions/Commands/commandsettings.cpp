@@ -74,6 +74,8 @@ bool CommandSettings::isComplete()
  */
 bool CommandSettings::apply()
 {
+	Settings::set("Commands/Dictation", ui.cbDictation->isChecked());
+
 	Settings::set("Commands/Trigger", ui.leTrigger->text());
 	Settings::set("Commands/Executable/Enabled", ui.gbExe->isChecked());
 	Settings::set("Commands/Executable/PathToConfig", ui.leCommands->text());
@@ -115,6 +117,7 @@ bool CommandSettings::reset()
  */
 bool CommandSettings::init()
 {
+	ui.cbDictation->setChecked(Settings::getB("Commands/Dictation"));
 	ui.leTrigger->setText(Settings::getS("Commands/Trigger"));
 
 	ui.gbExe->setChecked(Settings::getB("Commands/Executable/Enabled"));

@@ -76,6 +76,8 @@ private slots:
     void increaseRecordedPages();
     void decreaseRecordedPages();
 
+	void adaptNavigationButtons();
+
 public:
 	static TrainingView* getInstance(){
 		if (!instance) instance = new TrainingView();
