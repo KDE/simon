@@ -40,8 +40,15 @@ SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellung
 	connect ( ui.cbChannels, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
 	connect ( ui.sbSamplerate, SIGNAL(valueChanged(int)), this, SIGNAL(changed()));
 
-	connect(ui.pbTest, SIGNAL(clicked()), this, SLOT(check()));
+	connect(ui.pbTest, SIGNAL(clicked()), this, SLOT(checkWithSuccessMessage()));
 	connect(ui.pbReload, SIGNAL(clicked()), this, SLOT(init()));
+}
+
+
+void SoundSettings::checkWithSuccessMessage()
+{
+	if (check())
+		QMessageBox::information(this, tr("Soundkonfiguration korrekt"), tr("Die Soundkonfiguration wurde erfolgreich getestet."));
 }
 
 /**
@@ -99,7 +106,10 @@ bool SoundSettings::check()
 	
 	if ((channels != Settings::getI("Model/Channels")) || 
 			(samplerate != Settings::getI("Model/Samplerate")))
+	{
 		QMessageBox::warning(this, tr("Modell- und Soundkonfiguration abweichend"), tr("Die konfigurierten Kanäle / Samplerate der Trainingstexte passt nicht mit den Soundeinstellungen zusammen.\n\nBitte korrigieren Sie ihre Konfiguration hier oder definieren Sie entsprechende Nachbearbeitungsketten um den Unterschied auszugleichen."));
+		ok=false;
+	}
 
 	return ok;
 }

@@ -36,6 +36,7 @@ private:
 
 private slots:
 	bool check();
+	void checkWithSuccessMessage();
 	
 public slots:
 	bool init();
