@@ -155,9 +155,12 @@ void SelectShortcutButton::displayKeys()
 
 		
 		if (!newkey.isEmpty())
+		{
 			if (!text.isEmpty())
+			{
 				text = tr("%1 + %2").arg(text).arg(newkey);
-			else text = newkey;
+			} else text = newkey;
+		}
 	}
 
 	if (charKey != '\0')

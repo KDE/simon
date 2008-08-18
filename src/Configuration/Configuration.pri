@@ -1,30 +1,27 @@
 message ( "Processing Configuration..." )
 
-FORMS += 	Configuration/externalprogramms.ui \
-		Configuration/generalsettingsdlg.ui \
-		Configuration/internetextensiondlg.ui \
-		Configuration/logmanagerdlg.ui \
-		Configuration/networksettingsdlg.ui \
-		Configuration/passwordsettingsdlg.ui \
-		Configuration/systemviewdlg.ui
+FORMS += 	$$PWD/externalprogramms.ui \
+		$$PWD/generalsettingsdlg.ui \
+		$$PWD/internetextensiondlg.ui \
+		$$PWD/logmanagerdlg.ui \
+		$$PWD/networksettingsdlg.ui \
+		$$PWD/passwordsettingsdlg.ui \
+		$$PWD/systemviewdlg.ui
 
-HEADERS += 	Configuration/externalprogrammanager.h \
-		Configuration/generalsettings.h \
-		Configuration/internetextensionsettings.h \
-		Configuration/networksettings.h \
-		Configuration/passwordsettings.h \
-		Configuration/systemview.h  \
-		Configuration/logview.h \
-		Configuration/FirstRun/firstrunimportbomppage.h 
+HEADERS += 	$$PWD/externalprogrammanager.h \
+		$$PWD/generalsettings.h \
+		$$PWD/internetextensionsettings.h \
+		$$PWD/networksettings.h \
+		$$PWD/passwordsettings.h \
+		$$PWD/systemview.h  \
+		$$PWD/logview.h
 
-SOURCES += 	Configuration/externalprogrammanager.cpp \
-		Configuration/generalsettings.cpp \
-		Configuration/internetextensionsettings.cpp \
-		Configuration/networksettings.cpp \
-		Configuration/passwordsettings.cpp \
-		Configuration/systemview.cpp  \
-		Configuration/logview.cpp 
+SOURCES += 	$$PWD/externalprogrammanager.cpp \
+		$$PWD/generalsettings.cpp \
+		$$PWD/internetextensionsettings.cpp \
+		$$PWD/networksettings.cpp \
+		$$PWD/passwordsettings.cpp \
+		$$PWD/systemview.cpp  \
+		$$PWD/logview.cpp 
 
-QT += network
-
-include(Configuration/FirstRun/FirstRun.pri)
+include($$PWD/FirstRun/FirstRun.pri)

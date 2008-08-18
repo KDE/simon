@@ -1,5 +1,5 @@
-HEADERS += 	SimonLib/SimonInfo/osd.h \
-		SimonLib/SimonInfo/simoninfo.h 
+HEADERS += 	$$PWD/osd.h \
+		$$PWD/simoninfo.h 
 
-SOURCES += 	SimonLib/SimonInfo/osd.cpp \
-		SimonLib/SimonInfo/simoninfo.cpp
+SOURCES += 	$$PWD/osd.cpp \
+		$$PWD/simoninfo.cpp

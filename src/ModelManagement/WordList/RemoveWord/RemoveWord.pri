@@ -1,5 +1,5 @@
-FORMS += 	ModelManagement/WordList/RemoveWord/removeword.ui
+FORMS += 	$$PWD/removeword.ui
 
-HEADERS += 	ModelManagement/WordList/RemoveWord/deleteworddialog.h
+HEADERS += 	$$PWD/deleteworddialog.h
 
-SOURCES += 	ModelManagement/WordList/RemoveWord/deleteworddialog.cpp
+SOURCES += 	$$PWD/deleteworddialog.cpp

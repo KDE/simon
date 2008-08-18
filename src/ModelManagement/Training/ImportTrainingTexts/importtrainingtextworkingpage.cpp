@@ -104,40 +104,45 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 	QTextStream ts(&file);
 	
 	int sentend;
-	QRegExp reg("(\\.|\\!|\\?)");
+	QRegExp reg("(\\.|\\!|\\?)"); //TODO: maybe add an option to treat "\n" as sentence-stopper
 	QRegExp spec("(\\.\\.\\.|\\!\\!\\!|\\?\\?\\?)");
 	QString currentLine;
-	while ((!ts.atEnd()) || (!tmp.isEmpty()))
+	while ((!ts.atEnd()) || (!tmp.trimmed().isEmpty()))
 	{
 		if (!ts.atEnd())
 			currentLine = ts.readLine();
 		else currentLine = "";
 		
-		if ((QString(tmp+currentLine).indexOf(spec) <= 
-				   QString(tmp+currentLine).indexOf(reg)) && 
-				   (QString(tmp+currentLine).indexOf(spec) != -1))
-			sentend = QString(tmp+currentLine).indexOf(spec)+3;
-		else if (QString(tmp+currentLine).indexOf(reg) != -1)
-			sentend = QString(tmp+currentLine).indexOf(reg)+1;
-		else sentend = QString(tmp+currentLine).length();
+		QString currentProcessQueue = tmp+currentLine;
 		
-		if (sentend == -1)
-			tmp += currentLine;
-		else  {
-			QString sentence = QString(tmp+" "+currentLine).left(sentend).trimmed();
-			sentence.remove("\"");
-			sentence.remove(",");
-			sentence.remove(".");
-			sentence.replace("-", " ");
-			sentence.remove("#");
-			sentence.remove("'");
-			sentence.remove("`");
-			sentence.remove("!");
-			sentence.remove("?");
-			sentence.remove(".");
-			if (!sentence.isEmpty()) sents << sentence;
-			tmp = QString(tmp+currentLine).mid(sentend).trimmed();
-		}
+		int regIndex = currentProcessQueue.indexOf(reg);
+		int specIndex = currentProcessQueue.indexOf(spec);
+		
+		if (regIndex != -1)
+		{
+			if ((specIndex <=regIndex) && (specIndex != -1))
+				sentend = specIndex+3;
+			else
+				sentend = regIndex+1;
+		} else sentend = currentProcessQueue.length();
+		
+	
+		QString sentence = QString(currentProcessQueue).left(sentend).trimmed();
+		sentence.remove("\"");
+		sentence.remove(",");
+		sentence.remove(".");
+		sentence.remove("#");
+		sentence.remove("'");
+		sentence.remove("`");
+		sentence.remove("!");
+		sentence.remove("?");
+		sentence.remove(".");
+		sentence.replace("-", " ");
+		sentence.replace("\n", " ");
+		sentence.replace(QRegExp("  *"), " ");
+		if (!sentence.isEmpty()) sents << sentence;
+		
+		tmp = currentProcessQueue.mid(sentend).trimmed()+" ";
 	}
 	file.close();
 	QFileInfo fi = QFileInfo(path);

@@ -81,10 +81,10 @@ public:
 		this->name = name;
 	}
 	
-	const short getType() const { return this->type;  }
-	const int getSimonKey() const { return simonKey; }
-	const int getQtKey() const { return qtKey; }
-	const QString getName() const { return name; }
+	short getType() const { return this->type;  }
+	int getSimonKey() const { return simonKey; }
+	int getQtKey() const { return qtKey; }
+	QString getName() const { return name; }
 	
 	
 	~Key();

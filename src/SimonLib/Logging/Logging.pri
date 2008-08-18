@@ -1,7 +1,7 @@
-HEADERS += 	SimonLib/Logging/logentry.h \
-		SimonLib/Logging/logger.h \
-		SimonLib/Logging/logmanager.h
+HEADERS += 	$$PWD/logentry.h \
+		$$PWD/logger.h \
+		$$PWD/logmanager.h
 
-SOURCES += 	SimonLib/Logging/logentry.cpp \
-		SimonLib/Logging/logger.cpp \
-		SimonLib/Logging/logmanager.cpp
+SOURCES += 	$$PWD/logentry.cpp \
+		$$PWD/logger.cpp \
+		$$PWD/logmanager.cpp

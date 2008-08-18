@@ -1,3 +1,3 @@
-HEADERS += 	SimonLib/TrayIcon/trayiconmanager.h
+HEADERS += 	$$PWD/trayiconmanager.h
 
-SOURCES += 	SimonLib/TrayIcon/trayiconmanager.cpp
+SOURCES += 	$$PWD/trayiconmanager.cpp

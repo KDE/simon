@@ -1,15 +1,15 @@
-FORMS +=	SimonLib/Sound/recwidget.ui \
-		SimonLib/Sound/soundsettingsdlg.ui 
-HEADERS += 	SimonLib/Sound/recwidget.h \
-		SimonLib/Sound/soundcontrol.h \
-		SimonLib/Sound/soundsettings.h \
-		SimonLib/Sound/sounddevice.h \
-		SimonLib/Sound/wav.h \
-		SimonLib/Sound/wavplayer.h \
-		SimonLib/Sound/wavrecorder.h
-SOURCES += 	SimonLib/Sound/recwidget.cpp \
-		SimonLib/Sound/soundcontrol.cpp \
-		SimonLib/Sound/soundsettings.cpp \
-		SimonLib/Sound/wav.cpp \
-		SimonLib/Sound/wavplayer.cpp \
-		SimonLib/Sound/wavrecorder.cpp
+FORMS +=	$$PWD/recwidget.ui \
+		$$PWD/soundsettingsdlg.ui 
+HEADERS += 	$$PWD/recwidget.h \
+		$$PWD/soundcontrol.h \
+		$$PWD/soundsettings.h \
+		$$PWD/sounddevice.h \
+		$$PWD/wav.h \
+		$$PWD/wavplayer.h \
+		$$PWD/wavrecorder.h
+SOURCES += 	$$PWD/recwidget.cpp \
+		$$PWD/soundcontrol.cpp \
+		$$PWD/soundsettings.cpp \
+		$$PWD/wav.cpp \
+		$$PWD/wavplayer.cpp \
+		$$PWD/wavrecorder.cpp

@@ -1,22 +1,22 @@
 unix {
-HEADERS += 	SimonLib/ProgramManager/kdeprogrammanager.h
+HEADERS += 	$$PWD/kdeprogrammanager.h
 
-SOURCES += 	SimonLib/ProgramManager/kdeprogrammanager.cpp
+SOURCES += 	$$PWD/kdeprogrammanager.cpp
 }
 
 win32 {
-HEADERS += 	SimonLib/ProgramManager/windowsprogrammanager.h 
+HEADERS += 	$$PWD/windowsprogrammanager.h 
 
-SOURCES += 	SimonLib/ProgramManager/windowsprogrammanager.cpp
+SOURCES += 	$$PWD/windowsprogrammanager.cpp
 }
 
 
-HEADERS += 	SimonLib/ProgramManager/categoryxmlreader.h \
-		SimonLib/ProgramManager/programcategory.h \
-		SimonLib/ProgramManager/program.h \
-		SimonLib/ProgramManager/programmanager.h
+HEADERS += 	$$PWD/categoryxmlreader.h \
+		$$PWD/programcategory.h \
+		$$PWD/program.h \
+		$$PWD/programmanager.h
 		
 
-SOURCES += 	SimonLib/ProgramManager/categoryxmlreader.cpp \
-		SimonLib/ProgramManager/programmanager.cpp
+SOURCES += 	$$PWD/categoryxmlreader.cpp \
+		$$PWD/programmanager.cpp
 		

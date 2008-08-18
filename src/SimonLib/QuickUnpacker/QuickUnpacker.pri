@@ -1,6 +1,6 @@
-HEADERS += 	SimonLib/QuickUnpacker/bunzip.h \
-		SimonLib/QuickUnpacker/compression.h \
-		SimonLib/QuickUnpacker/quickunpacker.h
+HEADERS += 	$$PWD/bunzip.h \
+		$$PWD/compression.h \
+		$$PWD/quickunpacker.h
 
-SOURCES += 	SimonLib/QuickUnpacker/bunzip.cpp \
-		SimonLib/QuickUnpacker/quickunpacker.cpp
+SOURCES += 	$$PWD/bunzip.cpp \
+		$$PWD/quickunpacker.cpp

@@ -1,9 +1,9 @@
-HEADERS += 	Actions/Commands/Executable/executablecommand.h \
-		Actions/Commands/Executable/executablecommandmanager.h \
-		Actions/Commands/Executable/xmlexecutablecommand.h
+HEADERS += 	$$PWD/executablecommand.h \
+		$$PWD/executablecommandmanager.h \
+		$$PWD/xmlexecutablecommand.h
 
-SOURCES += 	Actions/Commands/Executable/executablecommand.cpp \
-		Actions/Commands/Executable/executablecommandmanager.cpp \
-		Actions/Commands/Executable/xmlexecutablecommand.cpp
+SOURCES += 	$$PWD/executablecommand.cpp \
+		$$PWD/executablecommandmanager.cpp \
+		$$PWD/xmlexecutablecommand.cpp
 
-include(Actions/Commands/Executable/ImportProgram/ImportProgram.pri)
+include($$PWD/ImportProgram/ImportProgram.pri)

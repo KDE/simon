@@ -1,17 +1,17 @@
 win32 {
-HEADERS += 	SimonLib/EventSimulation/windowsevents.h
-SOURCES += 	SimonLib/EventSimulation/windowsevents.cpp
+HEADERS += 	$$PWD/windowsevents.h
+SOURCES += 	$$PWD/windowsevents.cpp
 }
 
 unix {
-HEADERS +=	SimonLib/EventSimulation/xevents.h
-SOURCES +=	SimonLib/EventSimulation/xevents.cpp
+HEADERS +=	$$PWD/xevents.h
+SOURCES +=	$$PWD/xevents.cpp
 }
 
-HEADERS += 	SimonLib/EventSimulation/coreevents.h \
-		SimonLib/EventSimulation/key.h \
-		SimonLib/EventSimulation/shortcut.h \
-		SimonLib/EventSimulation/eventhandler.h
+HEADERS += 	$$PWD/coreevents.h \
+		$$PWD/key.h \
+		$$PWD/shortcut.h \
+		$$PWD/eventhandler.h
 
-SOURCES += 	SimonLib/EventSimulation/eventhandler.cpp \
-		SimonLib/EventSimulation/shortcut.cpp
+SOURCES += 	$$PWD/eventhandler.cpp \
+		$$PWD/shortcut.cpp

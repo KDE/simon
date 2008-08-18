@@ -115,7 +115,7 @@ QStringList ImportGrammar::importFile(QString path)
 		currentSentence.remove(":");
 		currentSentence.remove("-");
 		currentSentence.remove("\"");
-		QStringList words = currentSentence.split(" ");
+		QStringList words = currentSentence.split(" ",QString::SkipEmptyParts);
 		
 		QString terminal;
 		bool everyWordSure=true;
@@ -130,7 +130,7 @@ QStringList ImportGrammar::importFile(QString path)
 				wordTerminals = terminals(lookupResult);
 			}
 			
-			if (wordTerminals.count() != 1)
+			if (wordTerminals.count() != 1 /*change this to include ambigous terminals */)
 			{
 				if (includeUnknown)
 					words.replace(j, tr("Unbekannt"));

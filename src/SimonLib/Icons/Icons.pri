@@ -1,5 +1,5 @@
-HEADERS += 	SimonLib/Icons/iconbutton.h \
-		SimonLib/Icons/icondialog.h
+HEADERS += 	$$PWD/iconbutton.h \
+		$$PWD/icondialog.h
 
-SOURCES += 	SimonLib/Icons/iconbutton.cpp \
-		SimonLib/Icons/icondialog.cpp
+SOURCES += 	$$PWD/iconbutton.cpp \
+		$$PWD/icondialog.cpp

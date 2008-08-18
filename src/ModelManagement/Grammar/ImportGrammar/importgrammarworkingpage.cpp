@@ -12,6 +12,7 @@
 #include "importgrammarworkingpage.h"
 #include "importgrammar.h"
 #include <QFile>
+#include <QDebug>
 
 ImportGrammarWorkingPage::ImportGrammarWorkingPage(QWidget* parent): QWizardPage(parent)
 {
@@ -41,19 +42,29 @@ void ImportGrammarWorkingPage::displayWholeProgress(int progress, int max)
 	QCoreApplication::processEvents();
 }
 
+void ImportGrammarWorkingPage::processCompletion()
+{
+	qDebug() << "test";
+	
+	this->completed = true;
+	emit completeChanged();
+	if (grammarImporter) {
+		grammarImporter->deleteLater();
+		grammarImporter=0;
+	}
+}
+
 void ImportGrammarWorkingPage::initializePage()
 {
 	completed=false;
 	emit completeChanged();
-
-	if (grammarImporter) grammarImporter->deleteLater();
 
 	grammarImporter = new ImportGrammar(this);
 	connect(grammarImporter, SIGNAL(status(QString)), this, SLOT(printStatus(QString)));
 	connect(grammarImporter, SIGNAL(fileProgress(int, int)), this, SLOT(displayFileProgress(int, int)));
 	connect(grammarImporter, SIGNAL(allProgress(int, int)), this, SLOT(displayWholeProgress(int, int)));
 	connect(grammarImporter, SIGNAL(grammarCreated(QStringList)), this, SIGNAL(grammarCreated(QStringList)));
-	connect(grammarImporter, SIGNAL(grammarCreated(QStringList)), this, SLOT(setComplete()));
+	connect(grammarImporter, SIGNAL(terminated()), this, SLOT(processCompletion()));
 
 
 	QStringList files = field("files").toString().split("||");
@@ -65,8 +76,7 @@ void ImportGrammarWorkingPage::initializePage()
 
 void ImportGrammarWorkingPage::cancel()
 {
-	if (!grammarImporter) return;
-	if (grammarImporter->isRunning())
+	if (grammarImporter && grammarImporter->isRunning())
 		grammarImporter->terminate();
 }
 

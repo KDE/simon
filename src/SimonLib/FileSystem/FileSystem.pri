@@ -1,3 +1,3 @@
-HEADERS += 	SimonLib/FileSystem/filesystemencoder.h
+HEADERS += 	$$PWD/filesystemencoder.h
 
-SOURCES += 	SimonLib/FileSystem/filesystemencoder.cpp
+SOURCES += 	$$PWD/filesystemencoder.cpp

@@ -180,9 +180,9 @@ WordList* WordListManager::getShadowList()
 //	and therefore result in a crash;
 //	
 // 		SimonInfo::showMessage(tr("Bitte warten Sie während das Schatten-Wörterbuch lädt..."),1000);
+//		this is actually bug-using as we just set any kind of timeout (the gui thread will be
+//		blocked until the importing is done anyway...
 // 		QCoreApplication::processEvents();
-		//this is actually bug-using as we just set any kind of timeout (the gui thread will be
-		//blocked until the importing is done anyway...
 		wait();
 	}
 	
@@ -252,18 +252,18 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	
 	QFile *outfile = new QFile(lexiconFilename);
 	if (!outfile->open(QIODevice::WriteOnly)) {
-		Logger::log(QObject::tr("[ERR] Fehler beim öffnen der Ausgabedatei %1").arg(lexiconFilename));
+		Logger::log(QObject::tr("[ERR] Fehler beim Öffnen der Ausgabedatei %1").arg(lexiconFilename));
 		outfile->deleteLater();
 		return false;
 	}
 	QTextStream outstream(outfile);
 	//TODO Test encoding
-// 	outstream.setCodec("ISO 8859-15");
+	outstream.setCodec("UTF-8");
 
 
 	QFile *vocabFile = new QFile(vocabFilename);
 	if (!vocabFile->open(QIODevice::WriteOnly)) {
-		Logger::log(QObject::tr("[ERR] Fehler beim öffnen der Ausgabedatei %1").arg(vocabFilename));
+		Logger::log(QObject::tr("[ERR] Fehler beim Öffnen der Ausgabedatei %1").arg(vocabFilename));
 		outfile->close();
 		outfile->deleteLater();
 		vocabFile->deleteLater();
@@ -271,7 +271,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	}
 	QTextStream vocab(vocabFile);
 	//TODO Test encoding
-// 	vocab.setCodec("ISO 8859-15");
+	vocab.setCodec("UTF-8");
 
 	//print internal sentence structure
 	// 	% NS_B
@@ -493,7 +493,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 
 	while (!vocab.atEnd())
 	{
-		line = QString(vocab.readLine(1024)).trimmed();
+		line = QString::fromUtf8(vocab.readLine(1024)).trimmed();
 		if (!line.startsWith("% "))
 		{
 			//read the word

@@ -1,13 +1,13 @@
 message ( "Processing ModelManagement..." )
 
-include(ModelManagement/Grammar/Grammar.pri)
-include(ModelManagement/Training/Training.pri)
-include(ModelManagement/WordList/WordList.pri)
+include($$PWD/Grammar/Grammar.pri)
+include($$PWD/Training/Training.pri)
+include($$PWD/WordList/WordList.pri)
 
-FORMS += 	ModelManagement/modelsettingsdlg.ui
+FORMS += 	$$PWD/modelsettingsdlg.ui
 
-HEADERS += 	ModelManagement/modelmanager.h \
-		ModelManagement/modelsettings.h
+HEADERS += 	$$PWD/modelmanager.h \
+		$$PWD/modelsettings.h
 
-SOURCES += 	ModelManagement/modelmanager.cpp \
-		ModelManagement/modelsettings.cpp
+SOURCES += 	$$PWD/modelmanager.cpp \
+		$$PWD/modelsettings.cpp

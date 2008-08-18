@@ -1,3 +1,3 @@
-HEADERS += 	SimonLib/PasswordDialog/passworddlg.h
+HEADERS += 	$$PWD/passworddlg.h
 
-SOURCES += 	SimonLib/PasswordDialog/passworddlg.cpp
+SOURCES += 	$$PWD/passworddlg.cpp

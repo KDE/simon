@@ -1,3 +1,3 @@
-HEADERS += 	SimonLib/KDELib/desktopreader.h
+HEADERS += 	$$PWD/desktopreader.h
 
-SOURCES += 	SimonLib/KDELib/desktopreader.cpp
+SOURCES += 	$$PWD/desktopreader.cpp

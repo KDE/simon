@@ -1,7 +1,7 @@
-FORMS +=	Actions/Commands/Executable/ImportProgram/selectprogramdlg.ui 
+FORMS +=	$$PWD/selectprogramdlg.ui 
 
-HEADERS += 	Actions/Commands/Executable/ImportProgram/importprogramwizard.h \
-		Actions/Commands/Executable/ImportProgram/selectprogrampage.h
+HEADERS += 	$$PWD/importprogramwizard.h \
+		$$PWD/selectprogrampage.h
 
-SOURCES += 	Actions/Commands/Executable/ImportProgram/importprogramwizard.cpp \
-		Actions/Commands/Executable/ImportProgram/selectprogrampage.cpp
+SOURCES += 	$$PWD/importprogramwizard.cpp \
+		$$PWD/selectprogrampage.cpp

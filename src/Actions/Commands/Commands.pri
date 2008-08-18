@@ -1,19 +1,19 @@
-FORMS += 	Actions/Commands/commandsettingsdlg.ui
+FORMS += 	$$PWD/commandsettingsdlg.ui
 
-HEADERS += 	Actions/Commands/command.h \
-		Actions/Commands/commandmanager.h \
-		Actions/Commands/commandmodel.h \
-		Actions/Commands/commandsettings.h
+HEADERS += 	$$PWD/command.h \
+		$$PWD/commandmanager.h \
+		$$PWD/commandmodel.h \
+		$$PWD/commandsettings.h
 
-SOURCES +=	Actions/Commands/commandmanager.cpp \
-		Actions/Commands/command.cpp \
-		Actions/Commands/commandmodel.cpp \
-		Actions/Commands/commandsettings.cpp
+SOURCES +=	$$PWD/commandmanager.cpp \
+		$$PWD/command.cpp \
+		$$PWD/commandmodel.cpp \
+		$$PWD/commandsettings.cpp
 
 
-include(Actions/Commands/ATIntegration/ATIntegration.pri)
-include(Actions/Commands/DesktopGrid/DesktopGrid.pri)
-include(Actions/Commands/Executable/Executable.pri)
-include(Actions/Commands/Place/Place.pri)
-include(Actions/Commands/Shortcut/Shortcut.pri)
-include(Actions/Commands/TextMacro/TextMacro.pri)
+include($$PWD/ATIntegration/ATIntegration.pri)
+include($$PWD/DesktopGrid/DesktopGrid.pri)
+include($$PWD/Executable/Executable.pri)
+include($$PWD/Place/Place.pri)
+include($$PWD/Shortcut/Shortcut.pri)
+include($$PWD/TextMacro/TextMacro.pri)

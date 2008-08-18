@@ -19,12 +19,12 @@ CONFIG += qt \
 	  debug \
 	  thread
 
-RESOURCES += banners.qrc \
-	      others.qrc \
-	      action_icons.qrc \
-	      application_icons.qrc  \
-	      category_icons.qrc  \
-	      other_icons.qrc
+RESOURCES += $$PWD/banners.qrc \
+	      $$PWD/others.qrc \
+	      $$PWD/action_icons.qrc \
+	      $$PWD/application_icons.qrc  \
+	      $$PWD/category_icons.qrc  \
+	      $$PWD/other_icons.qrc
 
 
 unix {
@@ -32,7 +32,7 @@ unix {
     INCLUDEPATH += /usr/include/alsa \
 	      /usr/X11R6/include
     LIBS += \
-      /usr/lib/libportaudio.a \
+      /usr/lib64/libportaudio.a \
       -L/usr/X11R6/lib \
       -L/usr/lib/jack \
       -L/usr/lib/alsa \
@@ -50,21 +50,21 @@ win32 {
 }
 
 
-INCLUDEPATH += 	SimonLib/SpeechGUI
+INCLUDEPATH += 	$$PWD/SimonLib/SpeechGUI
 
-FORMS +=	main.ui
+FORMS +=	$$PWD/main.ui
 
-SOURCES += 	main.cpp \
-		simonview.cpp \
-		simoncontrol.cpp
-HEADERS += 	simonview.h \
-		simoncontrol.h
+SOURCES += 	$$PWD/main.cpp \
+		$$PWD/simonview.cpp \
+		$$PWD/simoncontrol.cpp
+HEADERS += 	$$PWD/simonview.h \
+		$$PWD/simoncontrol.h
 
-include(Actions/Actions.pri)
-include(Configuration/Configuration.pri)
-include(ModelManagement/ModelManagement.pri)
-include(RecognitionControl/RecognitionControl.pri)
-include(SimonLib/SimonLib.pri)
+include($$PWD/Actions/Actions.pri)
+include($$PWD/Configuration/Configuration.pri)
+include($$PWD/ModelManagement/ModelManagement.pri)
+include($$PWD/RecognitionControl/RecognitionControl.pri)
+include($$PWD/SimonLib/SimonLib.pri)
 
-TRANSLATIONS = simon_en.ts
+TRANSLATIONS = $$PWD/simon_en.ts
 message ("Working... (This may take a couple of seconds)")

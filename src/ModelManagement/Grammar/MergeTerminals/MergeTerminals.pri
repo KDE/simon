@@ -1,12 +1,12 @@
-FORMS += 	ModelManagement/Grammar/MergeTerminals/mergeterminalsselectpage.ui \
-		ModelManagement/Grammar/MergeTerminals/mergeterminalsworkingpage.ui
+FORMS += 	$$PWD/mergeterminalsselectpage.ui \
+		$$PWD/mergeterminalsworkingpage.ui
 
-HEADERS += 	ModelManagement/Grammar/MergeTerminals/mergeterminals.h \
-		ModelManagement/Grammar/MergeTerminals/mergeterminalsselectterminalspage.h \
-		ModelManagement/Grammar/MergeTerminals/mergeterminalswizard.h \
-		ModelManagement/Grammar/MergeTerminals/mergeterminalsworkingpage.h
+HEADERS += 	$$PWD/mergeterminals.h \
+		$$PWD/mergeterminalsselectterminalspage.h \
+		$$PWD/mergeterminalswizard.h \
+		$$PWD/mergeterminalsworkingpage.h
 
-SOURCES +=	ModelManagement/Grammar/MergeTerminals/mergeterminals.cpp \
-		ModelManagement/Grammar/MergeTerminals/mergeterminalsselectterminalspage.cpp \
-		ModelManagement/Grammar/MergeTerminals/mergeterminalswizard.cpp \
-		ModelManagement/Grammar/MergeTerminals/mergeterminalsworkingpage.cpp
+SOURCES +=	$$PWD/mergeterminals.cpp \
+		$$PWD/mergeterminalsselectterminalspage.cpp \
+		$$PWD/mergeterminalswizard.cpp \
+		$$PWD/mergeterminalsworkingpage.cpp

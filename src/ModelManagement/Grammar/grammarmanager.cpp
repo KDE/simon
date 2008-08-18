@@ -63,7 +63,7 @@ bool GrammarManager::load()
 	QString structure;
 	while (!grammar.atEnd()) 
 	{
-		structure = grammar.readLine(1500);
+		structure = QString::fromUtf8(grammar.readLine(1500));
 		structure.remove(0,7);		//remove the leading "S:NS_B "
 		structure = structure.left(structure.count()-6);  //remove the trailing " NS_E"
 		structures << structure;
@@ -81,6 +81,7 @@ bool GrammarManager::load()
  */
 void GrammarManager::renameTerminal(QString terminal, QString newName)
 {
+	//make the terminal regex-able :)
 	terminal.replace(".", "\\.");
 	terminal.replace("-", "\\-");
 	terminal.replace("!", "\\!");
@@ -90,10 +91,14 @@ void GrammarManager::renameTerminal(QString terminal, QString newName)
 	terminal.replace("^", "\\^");
 	terminal.replace("$", "\\$");
 
+	//replace using regex patterns
 	structures.replaceInStrings(QRegExp("^"+terminal+"$"), newName);
 	structures.replaceInStrings(QRegExp(" "+terminal+"$"), " "+newName);
 	structures.replaceInStrings(QRegExp("^"+terminal+" "), newName+" ");
 	structures.replaceInStrings(QRegExp(" "+terminal+" "), " "+newName+" ");
+
+	//this turned out to be faster than the "per-hand" approach
+	//...even if it looks a bit funny...
 }
 
 /**
@@ -214,7 +219,7 @@ bool GrammarManager::save()
 	if (!grammar.open(QIODevice::WriteOnly)) return false;
 	
 	for (int i=0; i < structures.count(); i++)
-		grammar.write("S:NS_B "+structures[i].toLatin1()+" NS_E\n");
+		grammar.write("S:NS_B "+structures[i].toUtf8()+" NS_E\n");
 	
 	grammar.close();
 	

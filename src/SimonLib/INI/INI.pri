@@ -1,3 +1,3 @@
-HEADERS += 	SimonLib/INI/inireader.h
+HEADERS += 	$$PWD/inireader.h
 
-SOURCES += 	SimonLib/INI/inireader.cpp
+SOURCES += 	$$PWD/inireader.cpp

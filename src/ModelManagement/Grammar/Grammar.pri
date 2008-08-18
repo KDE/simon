@@ -1,11 +1,11 @@
-include(ModelManagement/Grammar/ImportGrammar/ImportGrammar.pri)
-include(ModelManagement/Grammar/MergeTerminals/MergeTerminals.pri)
-include(ModelManagement/Grammar/RenameTerminal/RenameTerminal.pri)
+include($$PWD/ImportGrammar/ImportGrammar.pri)
+include($$PWD/MergeTerminals/MergeTerminals.pri)
+include($$PWD/RenameTerminal/RenameTerminal.pri)
 
-FORMS += 	ModelManagement/Grammar/grammarsettingsdlg.ui
+FORMS += 	$$PWD/grammarsettingsdlg.ui
 
-HEADERS += 	ModelManagement/Grammar/grammarmanager.h \
-		ModelManagement/Grammar/grammarsettings.h
+HEADERS += 	$$PWD/grammarmanager.h \
+		$$PWD/grammarsettings.h
 
-SOURCES += 	ModelManagement/Grammar/grammarmanager.cpp \
-		ModelManagement/Grammar/grammarsettings.cpp
+SOURCES += 	$$PWD/grammarmanager.cpp \
+		$$PWD/grammarsettings.cpp

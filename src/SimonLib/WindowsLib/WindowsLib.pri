@@ -1,5 +1,5 @@
-HEADERS += 	SimonLib/WindowsLib/registrymanager.h \
-		SimonLib/WindowsLib/windowsresourcehandler.h
+HEADERS += 	$$PWD/registrymanager.h \
+		$$PWD/windowsresourcehandler.h
 
-SOURCES += 	SimonLib/WindowsLib/registrymanager.cpp \
-		SimonLib/WindowsLib/windowsresourcehandler.cpp
+SOURCES += 	$$PWD/registrymanager.cpp \
+		$$PWD/windowsresourcehandler.cpp

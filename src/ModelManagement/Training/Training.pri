@@ -1,14 +1,14 @@
-include(ModelManagement/Training/ImportTrainingData/ImportTrainingData.pri)
-include(ModelManagement/Training/ImportTrainingTexts/ImportTrainingTexts.pri)
+include($$PWD/ImportTrainingData/ImportTrainingData.pri)
+include($$PWD/ImportTrainingTexts/ImportTrainingTexts.pri)
 
-FORMS += 	ModelManagement/Training/trainmain.ui
+FORMS += 	$$PWD/trainmain.ui
 
-HEADERS += 	ModelManagement/Training/trainingmanager.h \
-		ModelManagement/Training/trainingtext.h \
-		ModelManagement/Training/trainingview.h \
-		ModelManagement/Training/xmltrainingtext.h
+HEADERS += 	$$PWD/trainingmanager.h \
+		$$PWD/trainingtext.h \
+		$$PWD/trainingview.h \
+		$$PWD/xmltrainingtext.h
 
-SOURCES += 	ModelManagement/Training/trainingmanager.cpp \
-		ModelManagement/Training/trainingtext.cpp \
-		ModelManagement/Training/trainingview.cpp \
-		ModelManagement/Training/xmltrainingtext.cpp
+SOURCES += 	$$PWD/trainingmanager.cpp \
+		$$PWD/trainingtext.cpp \
+		$$PWD/trainingview.cpp \
+		$$PWD/xmltrainingtext.cpp

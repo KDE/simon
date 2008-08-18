@@ -1,3 +1,3 @@
-HEADERS +=	SimonLib/ShortcutButton/selectshortcutbutton.h
+HEADERS +=	$$PWD/selectshortcutbutton.h
 
-SOURCES +=	SimonLib/ShortcutButton/selectshortcutbutton.cpp
+SOURCES +=	$$PWD/selectshortcutbutton.cpp

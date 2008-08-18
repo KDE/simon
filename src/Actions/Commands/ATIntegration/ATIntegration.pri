@@ -1,18 +1,18 @@
 
 unix {
-HEADERS +=	Actions/Commands/ATIntegration/dbusbackend.h
-SOURCES +=	Actions/Commands/ATIntegration/dbusbackend.cpp 
+HEADERS +=	$$PWD/dbusbackend.h
+SOURCES +=	$$PWD/dbusbackend.cpp 
 }
 
 win32 {
-HEADERS +=	Actions/Commands/ATIntegration/msaabackend.h 
-SOURCES += 	Actions/Commands/ATIntegration/msaabackend.cpp
+HEADERS +=	$$PWD/msaabackend.h 
+SOURCES += 	$$PWD/msaabackend.cpp
 }
 
-HEADERS += 	Actions/Commands/ATIntegration/atbackend.h \
-		Actions/Commands/ATIntegration/atobject.h \
-		Actions/Commands/ATIntegration/ato.h \
-		Actions/Commands/ATIntegration/atwatcher.h  
+HEADERS += 	$$PWD/atbackend.h \
+		$$PWD/atobject.h \
+		$$PWD/ato.h \
+		$$PWD/atwatcher.h  
 
-SOURCES += 	Actions/Commands/ATIntegration/atobject.cpp \
-		Actions/Commands/ATIntegration/atwatcher.cpp 
+SOURCES += 	$$PWD/atobject.cpp \
+		$$PWD/atwatcher.cpp 

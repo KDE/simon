@@ -1,3 +1,3 @@
-HEADERS += 	SimonLib/Settings/settings.h
+HEADERS += 	$$PWD/settings.h
 
-SOURCES += 	SimonLib/Settings/settings.cpp
+SOURCES += 	$$PWD/settings.cpp

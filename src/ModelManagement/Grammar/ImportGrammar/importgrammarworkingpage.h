@@ -37,7 +37,8 @@ private slots:
 	void printStatus(QString);
 	void displayFileProgress(int progress, int max);
 	void displayWholeProgress(int progress, int max);
-	void setComplete() { this->completed = true; emit completeChanged(); }
+	void processCompletion();
+
 public:
     ImportGrammarWorkingPage(QWidget* parent);
 

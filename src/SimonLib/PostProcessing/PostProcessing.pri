@@ -1,3 +1,3 @@
-HEADERS += 	SimonLib/PostProcessing/postprocessing.h
+HEADERS += 	$$PWD/postprocessing.h
 
-SOURCES += 	SimonLib/PostProcessing/postprocessing.cpp
+SOURCES += 	$$PWD/postprocessing.cpp

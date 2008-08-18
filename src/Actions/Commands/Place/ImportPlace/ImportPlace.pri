@@ -1,5 +1,5 @@
-FORMS += 	Actions/Commands/Place/ImportPlace/selectplacedlg.ui
-SOURCES += 	Actions/Commands/Place/ImportPlace/importplacewizard.cpp \
-		Actions/Commands/Place/ImportPlace/selectplacepage.cpp 
-HEADERS += 	Actions/Commands/Place/ImportPlace/importplacewizard.h \
-		Actions/Commands/Place/ImportPlace/selectplacepage.h
+FORMS += 	$$PWD/selectplacedlg.ui
+SOURCES += 	$$PWD/importplacewizard.cpp \
+		$$PWD/selectplacepage.cpp 
+HEADERS += 	$$PWD/importplacewizard.h \
+		$$PWD/selectplacepage.h

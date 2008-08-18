@@ -475,7 +475,9 @@ bool ModelManager::makeTranscriptions()
  */
 bool ModelManager::processError(QString userError)
 {
-	lastError = QString(lastError+"\n"+proc->readAllStandardError()).right(400);
+	//can't control the systems console-charset so we use the Local8Bit setting to import
+	//instead of UTF-8
+	lastError = QString(lastError+"\n"+QString::fromLocal8Bit(proc->readAllStandardError())).right(400);
 	
 	Logger::log(tr("[ERR]")+" "+lastError);
 	

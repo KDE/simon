@@ -133,7 +133,7 @@ public:
 	 * \return bool
 	 * smaller?
 	 */
-	const bool operator<(const Word w2) const
+	bool operator<(const Word w2) const
 	{
 		if (getWord().toUpper() < w2.getWord().toUpper())
 			return true;
@@ -142,7 +142,7 @@ public:
 	}
 	
 	
-	const bool operator!=(const Word w2) const
+	bool operator!=(const Word w2) const
 	{
 		if ((getWord() != w2.getWord()) || (getTerminal() != w2.getTerminal()) || (getPronunciation() != w2.getPronunciation()))
 			return true;

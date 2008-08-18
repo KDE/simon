@@ -1,16 +1,16 @@
-include(ModelManagement/WordList/AddWord/AddWord.pri)
-include(ModelManagement/WordList/ImportDict/ImportDict.pri)
-include(ModelManagement/WordList/RemoveWord/RemoveWord.pri)
+include($$PWD/AddWord/AddWord.pri)
+include($$PWD/ImportDict/ImportDict.pri)
+include($$PWD/RemoveWord/RemoveWord.pri)
 
-FORMS += 	ModelManagement/WordList/wordlist.ui
+FORMS += 	$$PWD/wordlist.ui
 
-HEADERS += 	ModelManagement/WordList/dragtablewidget.h \
-		ModelManagement/WordList/droplistwidget.h \
-		ModelManagement/WordList/word.h \
-		ModelManagement/WordList/wordlistmanager.h \
-		ModelManagement/WordList/wordlistview.h
+HEADERS += 	$$PWD/dragtablewidget.h \
+		$$PWD/droplistwidget.h \
+		$$PWD/word.h \
+		$$PWD/wordlistmanager.h \
+		$$PWD/wordlistview.h
 
-SOURCES += 	ModelManagement/WordList/dragtablewidget.cpp \
-		ModelManagement/WordList/droplistwidget.cpp \
-		ModelManagement/WordList/wordlistmanager.cpp \
-		ModelManagement/WordList/wordlistview.cpp
+SOURCES += 	$$PWD/dragtablewidget.cpp \
+		$$PWD/droplistwidget.cpp \
+		$$PWD/wordlistmanager.cpp \
+		$$PWD/wordlistview.cpp

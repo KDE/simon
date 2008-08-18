@@ -1,9 +1,9 @@
-HEADERS += 	Actions/Commands/Place/placecommand.h \
-		Actions/Commands/Place/xmlplacecommand.h \
-		Actions/Commands/Place/placecommandmanager.h
+HEADERS += 	$$PWD/placecommand.h \
+		$$PWD/xmlplacecommand.h \
+		$$PWD/placecommandmanager.h
 
-SOURCES += 	Actions/Commands/Place/placecommand.cpp \
-		Actions/Commands/Place/xmlplacecommand.cpp \
-		Actions/Commands/Place/placecommandmanager.cpp
+SOURCES += 	$$PWD/placecommand.cpp \
+		$$PWD/xmlplacecommand.cpp \
+		$$PWD/placecommandmanager.cpp
 
-include(Actions/Commands/Place/ImportPlace/ImportPlace.pri)
+include($$PWD/ImportPlace/ImportPlace.pri)

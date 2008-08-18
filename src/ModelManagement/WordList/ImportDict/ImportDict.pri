@@ -1,27 +1,27 @@
-FORMS += 	ModelManagement/WordList/ImportDict/importbomppage.ui \
-		ModelManagement/WordList/ImportDict/importdictlexiconpage.ui \
-		ModelManagement/WordList/ImportDict/importwiktionarypage.ui
+FORMS += 	$$PWD/importbomppage.ui \
+		$$PWD/importdictlexiconpage.ui \
+		$$PWD/importwiktionarypage.ui
 
-HEADERS += 	ModelManagement/WordList/ImportDict/dict.h \
-		ModelManagement/WordList/ImportDict/bompdict.h \
-		ModelManagement/WordList/ImportDict/importbomppage.h \
-		ModelManagement/WordList/ImportDict/importdict.h \
-		ModelManagement/WordList/ImportDict/importdictselectsourcepage.h \
-		ModelManagement/WordList/ImportDict/importdictview.h \
-		ModelManagement/WordList/ImportDict/importdictwiktionarypage.h \
-		ModelManagement/WordList/ImportDict/importdictworkingpage.h \
-		ModelManagement/WordList/ImportDict/importlexiconpage.h \
-		ModelManagement/WordList/ImportDict/lexicondict.h \
-		ModelManagement/WordList/ImportDict/wiktionarydict.h
+HEADERS += 	$$PWD/dict.h \
+		$$PWD/bompdict.h \
+		$$PWD/importbomppage.h \
+		$$PWD/importdict.h \
+		$$PWD/importdictselectsourcepage.h \
+		$$PWD/importdictview.h \
+		$$PWD/importdictwiktionarypage.h \
+		$$PWD/importdictworkingpage.h \
+		$$PWD/importlexiconpage.h \
+		$$PWD/lexicondict.h \
+		$$PWD/wiktionarydict.h
 
-SOURCES += 	ModelManagement/WordList/ImportDict/dict.cpp \
-		ModelManagement/WordList/ImportDict/bompdict.cpp \
-		ModelManagement/WordList/ImportDict/importbomppage.cpp \
-		ModelManagement/WordList/ImportDict/importdict.cpp \
-		ModelManagement/WordList/ImportDict/importdictselectsourcepage.cpp \
-		ModelManagement/WordList/ImportDict/importdictview.cpp \
-		ModelManagement/WordList/ImportDict/importdictwiktionarypage.cpp \
-		ModelManagement/WordList/ImportDict/importdictworkingpage.cpp \
-		ModelManagement/WordList/ImportDict/importlexiconpage.cpp \
-		ModelManagement/WordList/ImportDict/lexicondict.cpp \
-		ModelManagement/WordList/ImportDict/wiktionarydict.cpp
+SOURCES += 	$$PWD/dict.cpp \
+		$$PWD/bompdict.cpp \
+		$$PWD/importbomppage.cpp \
+		$$PWD/importdict.cpp \
+		$$PWD/importdictselectsourcepage.cpp \
+		$$PWD/importdictview.cpp \
+		$$PWD/importdictwiktionarypage.cpp \
+		$$PWD/importdictworkingpage.cpp \
+		$$PWD/importlexiconpage.cpp \
+		$$PWD/lexicondict.cpp \
+		$$PWD/wiktionarydict.cpp

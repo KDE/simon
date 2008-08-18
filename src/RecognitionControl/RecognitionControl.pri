@@ -1,3 +1,3 @@
-HEADERS += 	RecognitionControl/juliuscontrol.h
+HEADERS += 	$$PWD/juliuscontrol.h
 
-SOURCES += 	RecognitionControl/juliuscontrol.cpp
+SOURCES += 	$$PWD/juliuscontrol.cpp

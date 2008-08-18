@@ -1,5 +1,5 @@
-HEADERS += 	Actions/Commands/DesktopGrid/screengrid.h \
-		Actions/Commands/DesktopGrid/desktopgridcommandmanager.h 
+HEADERS += 	$$PWD/screengrid.h \
+		$$PWD/desktopgridcommandmanager.h 
 
-SOURCES +=	Actions/Commands/DesktopGrid/screengrid.cpp \
-		Actions/Commands/DesktopGrid/desktopgridcommandmanager.cpp
+SOURCES +=	$$PWD/screengrid.cpp \
+		$$PWD/desktopgridcommandmanager.cpp

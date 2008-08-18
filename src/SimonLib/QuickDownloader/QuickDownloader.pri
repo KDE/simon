@@ -1,3 +1,3 @@
-HEADERS += 	SimonLib/QuickDownloader/quickdownloader.h
+HEADERS += 	$$PWD/quickdownloader.h
 
-SOURCES += 	SimonLib/QuickDownloader/quickdownloader.cpp
+SOURCES += 	$$PWD/quickdownloader.cpp

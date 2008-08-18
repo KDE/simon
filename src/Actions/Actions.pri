@@ -1,15 +1,15 @@
-FORMS +=	Actions/modifycommands.ui \
-		Actions/commandpreviewwidget.ui \
-		Actions/rundialog.ui
+FORMS +=	$$PWD/modifycommands.ui \
+		$$PWD/commandpreviewwidget.ui \
+		$$PWD/rundialog.ui
 
-HEADERS += 	Actions/newcommand.h \
-		Actions/runcommandview.h \
-		Actions/commandpreviewwidget.h \
-		Actions/actionmanager.h
+HEADERS += 	$$PWD/newcommand.h \
+		$$PWD/runcommandview.h \
+		$$PWD/commandpreviewwidget.h \
+		$$PWD/actionmanager.h
 
-SOURCES += 	Actions/newcommand.cpp \
-		Actions/runcommandview.cpp \
-		Actions/commandpreviewwidget.cpp \
-		Actions/actionmanager.cpp
+SOURCES += 	$$PWD/newcommand.cpp \
+		$$PWD/runcommandview.cpp \
+		$$PWD/commandpreviewwidget.cpp \
+		$$PWD/actionmanager.cpp
 
-include(Actions/Commands/Commands.pri)
+include($$PWD/Commands/Commands.pri)

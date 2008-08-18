@@ -52,19 +52,19 @@ public:
 	}
 
 
-	const int getModifiers() const { return modifiers; }
-	const int getActionKeys() const { return actionKeys; }
-	const int getFunctionKeys() const { return functionKeys; }
-	const int getMovementKeys() const { return movementKeys; }
-	const char getCharKey() const { return charKey; }
+	int getModifiers() const { return modifiers; }
+	int getActionKeys() const { return actionKeys; }
+	int getFunctionKeys() const { return functionKeys; }
+	int getMovementKeys() const { return movementKeys; }
+	char getCharKey() const { return charKey; }
 	
-	const QString getDescription() const;
+	QString getDescription() const;
 
 	static void initKeys();
-	static const int qtKeyToSimonKey ( int qtKey );
+	static int qtKeyToSimonKey ( int qtKey );
 	static Key* getQtKey ( int qtKey );
-	static const int simonKeyToqtKey ( int simonKey, short type );
-	static const QString getSimonKeyname ( int simonKey, short type );
+	static int simonKeyToqtKey ( int simonKey, short type );
+	static QString getSimonKeyname ( int simonKey, short type );
 	
 	bool operator==(Shortcut s2) {
 		return ((modifiers==s2.getModifiers()) && 

@@ -1,14 +1,14 @@
-FORMS += 	Configuration/FirstRun/selectlanguagemodelsource.ui
+FORMS += 	$$PWD/selectlanguagemodelsource.ui
 
-HEADERS += 	Configuration/FirstRun/firstrunimportbomppage.h \
-		Configuration/FirstRun/firstrunimportdictselectsourcepage.h \
-		Configuration/FirstRun/firstrunimportdictwiktionarypage.h \
-		Configuration/FirstRun/firstrunmodelsettings.h \
-		Configuration/FirstRun/firstrunwizard.h \
-		Configuration/FirstRun/selectlanguagemodelsourcepage.h
+HEADERS += 	$$PWD/firstrunimportbomppage.h \
+		$$PWD/firstrunimportdictselectsourcepage.h \
+		$$PWD/firstrunimportdictwiktionarypage.h \
+		$$PWD/firstrunmodelsettings.h \
+		$$PWD/firstrunwizard.h \
+		$$PWD/selectlanguagemodelsourcepage.h
 
-SOURCES += 	Configuration/FirstRun/firstrunimportdictselectsourcepage.cpp \
-		Configuration/FirstRun/firstrunimportdictwiktionarypage.cpp \
-		Configuration/FirstRun/firstrunmodelsettings.cpp \
-		Configuration/FirstRun/firstrunwizard.cpp \
-		Configuration/FirstRun/selectlanguagemodelsourcepage.cpp
+SOURCES += 	$$PWD/firstrunimportdictselectsourcepage.cpp \
+		$$PWD/firstrunimportdictwiktionarypage.cpp \
+		$$PWD/firstrunmodelsettings.cpp \
+		$$PWD/firstrunwizard.cpp \
+		$$PWD/selectlanguagemodelsourcepage.cpp

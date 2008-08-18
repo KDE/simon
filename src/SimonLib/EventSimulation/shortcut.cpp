@@ -17,7 +17,7 @@
  * \author Peter Grasch
  * @return description
  */
-const QString Shortcut::getDescription() const
+QString Shortcut::getDescription() const
 {
 	QString modifierName = Shortcut::getSimonKeyname(getModifiers(), ModifierKey);
 	QString actionName = Shortcut::getSimonKeyname(getActionKeys(), ActionKey);
@@ -59,7 +59,7 @@ QList<Key*> Shortcut::keys;
  * @param qtKey Qt-KeyCode (Qt::Key_*)
  * @return The matching simon-Keycode (or 0 if not found)
  */
-const int Shortcut::qtKeyToSimonKey ( int qtKey )
+int Shortcut::qtKeyToSimonKey ( int qtKey )
 {
 	for (int i=0; i < keys.count(); i++)
 	{
@@ -93,7 +93,7 @@ Key* Shortcut::getQtKey ( int qtKey )
  * @param type Type of the given key (see the enum defined in shortcut.h)
  * @return The name of the key ("" if not found)
  */
-const QString Shortcut::getSimonKeyname ( int simonKey, short type )
+QString Shortcut::getSimonKeyname ( int simonKey, short type )
 {
 	QString keyName="";
 	for (int i=0; i < keys.count(); i++)
@@ -116,7 +116,7 @@ const QString Shortcut::getSimonKeyname ( int simonKey, short type )
  * @param type The type of the simon-key (see the enum in shortcut.h)
  * @return The corresponding qt keycode
  */
-const int Shortcut::simonKeyToqtKey ( int simonKey, short type )
+int Shortcut::simonKeyToqtKey ( int simonKey, short type )
 {
 	for (int i=0; i < keys.count(); i++)
 	{
