@@ -100,9 +100,9 @@ private:
 		bool generateDict();
 	
 private slots:
-	void setStatus(QString);
+// 	void setStatus(QString);
 	void displayError(QString);
-	void setProgress(int now, int max);
+// 	void setProgress(int now, int max);
 	void logInfo();
 	bool processError(QString userError);
 

@@ -43,9 +43,11 @@ QString AddWordRecordPage::getSamplesDir()
 	QString sampleDir = Settings::getS("Model/PathToSamples");
 	QDir dir(sampleDir);
 	if (!dir.exists())
+	{
 		if (dir.mkpath(sampleDir))
 			return sampleDir;
 		else return "";
+	}
 
 	return sampleDir;
 }
@@ -66,11 +68,10 @@ void AddWordRecordPage::initializePage()
 		lay->removeWidget(rec2);
 		rec2->deleteLater();
 	}
-	QString example1=field("wordExample1").toString();
-	QString example2=field("wordExample2").toString();
+	
 	QString dateTime = QDate::currentDate().toString ( "yyyy-MM-dd" ) +"_"+QTime::currentTime().toString("hh-mm-ss");
-	QString filename1=example1.replace(" ", "_")+ "_1_"+dateTime;
-	QString filename2=example2.replace(" ", "_")+ "_2_"+dateTime;
+	QString filename1=field("wordExample1").toString().replace(" ", "_")+ "_1_"+dateTime;
+	QString filename2=field("wordExample2").toString().replace(" ", "_")+ "_2_"+dateTime;
 
 	filename1 = FileSystemEncoder::encodeFilename(filename1);
 	filename2 = FileSystemEncoder::encodeFilename(filename2);
@@ -85,8 +86,10 @@ void AddWordRecordPage::initializePage()
 		return;
 	}
 
-	rec1 = new RecWidget(tr("1: %1").arg(example1), Settings::getS("Model/PathToSamples")+"/"+filename1+".wav", this);
-	rec2 = new RecWidget(tr("2: %1").arg(example2), Settings::getS("Model/PathToSamples")+"/"+filename2+".wav", this);
+	rec1 = new RecWidget(tr("1: %1").arg(field("wordExample1").toString()),
+			      Settings::getS("Model/PathToSamples")+"/"+filename1+".wav", this);
+	rec2 = new RecWidget(tr("2: %1").arg(field("wordExample2").toString()),
+			      Settings::getS("Model/PathToSamples")+"/"+filename2+".wav", this);
 
 	
 	connect(rec1, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));

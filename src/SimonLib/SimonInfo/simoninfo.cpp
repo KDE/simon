@@ -83,7 +83,7 @@ void SimonInfo::writeToSplash(QString status)
  * @brief Shows a short message on the screen
  *
  * Shows a short message. Replacement to QMessageBox::information(...)
- * Doesn't interfer with the users work as the message is passive
+ * Doesn't interfere with the users work as the message is passive
  * Message disappears after n-Seconds
  *
  *	@author Peter Grasch

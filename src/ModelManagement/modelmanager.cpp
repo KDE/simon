@@ -29,20 +29,18 @@ ModelManager* ModelManager::instance;
 
 ModelManager::ModelManager(QWidget *parent) : QThread(parent)
 {
-	processDialog = new QProgressDialog();
-	connect(processDialog, SIGNAL(canceled()), this, SLOT(terminate()));
-	connect(this, SIGNAL(status(QString)), this, SLOT(setStatus(QString)));
-	connect(this, SIGNAL(progress(int,int)), this, SLOT(setProgress(int,int)));
+// 	processDialog = new QProgressDialog();
+// 	connect(processDialog, SIGNAL(canceled()), this, SLOT(terminate()));
+// 	connect(this, SIGNAL(status(QString)), this, SLOT(setStatus(QString)));
+// 	connect(this, SIGNAL(progress(int,int)), this, SLOT(setProgress(int,int)));
 
 	connect(this, SIGNAL(error(QString)), this, SLOT(processError(QString)));
-	
-	connect(processDialog, SIGNAL(canceled()), this, SLOT(terminate()));
 
-	connect(this, SIGNAL(unknownGrammarClass(QString)), processDialog, SLOT(close()));
-	connect(this, SIGNAL(missingWord(QString)), processDialog, SLOT(close()));
-	connect(this, SIGNAL(sampleWithoutWord(QString)), processDialog, SLOT(close()));
+// 	connect(this, SIGNAL(unknownGrammarClass(QString)), processDialog, SLOT(close()));
+// 	connect(this, SIGNAL(missingWord(QString)), processDialog, SLOT(close()));
+// 	connect(this, SIGNAL(sampleWithoutWord(QString)), processDialog, SLOT(close()));
 
-	processDialog->setWindowTitle(tr("Generiere Sprachmodell..."));
+// 	processDialog->setWindowTitle(tr("Generiere Sprachmodell..."));
 }
 
 
@@ -258,26 +256,28 @@ bool ModelManager::generateDict()
 	return true;
 }
 
-void ModelManager::setStatus(QString status)
-{
-	processDialog->setLabelText(status);
-}
+// void ModelManager::setStatus(QString status)
+// {
+// 	processDialog->setLabelText(status);
+// }
 
-void ModelManager::setProgress(int now, int max)
-{
-	processDialog->setMaximum(max);
-	processDialog->setValue(now);
-}
+// void ModelManager::setProgress(int now, int max)
+// {
+// 	processDialog->setMaximum(max);
+// 	processDialog->setValue(now);
+// }
 
 void ModelManager::displayError(QString error)
 {
 	QMessageBox::critical(0, tr("Fehler"), tr("Beim Kompilieren des Modells ist ein Fehler aufgetreten:\n\n%1\n\nLetzter Output:\n...%2\n\nFehlermeldung:\n...%3").arg(error).arg(lastOutput.right(600)).arg(lastError.right(600)));
-	processDialog->close();
+	emit status(tr("Abgebrochen."));
+	emit progress(100,100);
+// 	processDialog->close();
 }
 
 bool ModelManager::startCompilation()
 {
-	processDialog->show();
+// 	processDialog->show();
 	if (isRunning()) return false;
 	lastError="";
 	start();
@@ -373,7 +373,6 @@ void ModelManager::run()
 	proc = new QProcess();
 	proc->setWorkingDirectory(QCoreApplication::applicationDirPath());
 	connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(logInfo()));
-	connect(processDialog, SIGNAL(canceled()), proc, SLOT(terminate()));
 	connect(this, SIGNAL(finished()), proc, SLOT(deleteLater()));
 	
 	Logger::log(tr("[INF] Modell wird generiert..."));
@@ -406,7 +405,7 @@ void ModelManager::run()
 	//Settings::getS("Model/PathToHmm")
 	//Settings::getS("Model/PathToTiedlist")
 	
-	emit status(tr("Abgeschlossen"));
+	emit status(tr("Fertig."));
 	emit progress(2300, 2300);
 }
 
@@ -1191,7 +1190,7 @@ bool ModelManager::generateMlf()
 
 ModelManager::~ModelManager()
 {
-    processDialog->deleteLater();
+//     processDialog->deleteLater();
     proc->deleteLater();
 }
 

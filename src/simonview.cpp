@@ -38,6 +38,7 @@
 #include "Configuration/FirstRun/firstrunwizard.h"
 #include "ModelManagement/WordList/wordlistview.h"
 #include "ModelManagement/WordList/AddWord/addwordview.h"
+#include "ModelManagement/WordList/wordlistmanager.h"
 
 
 
@@ -102,6 +103,9 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	qApp->setQuitOnLastWindowClosed(false);
 	ui.setupUi ( this );
 
+	
+	connect(WordListManager::getInstance(), SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
+	connect(WordListManager::getInstance(), SIGNAL(progress(int,int)), this, SLOT(displayProgress(int, int)));
 
 	//Preloads all Dialogs
 	guessChildTriggers ( ( QObject* ) this );
@@ -123,11 +127,12 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	this->info->writeToSplash ( tr ( "Lade Oberfläche..." ) );
 
-	ui.tbStatus->addWidget ( ui.pbActivision );
-	ui.tbStatus->addWidget ( ui.pbHide );
+	ui.tbStatus->addWidget ( ui.lbStatus );
+// 	ui.tbStatus->addWidget ( ui.statusSpacer );
+	ui.tbStatus->addWidget ( ui.pbProgress );
+// 	ui.tbStatus->addWidget ( ui.pbActivision );
 	ui.tbStatus->addWidget ( ui.pbCompileModel );
 	ui.tbStatus->addWidget ( ui.pbKeyed );
-	ui.tbStatus->addWidget ( ui.pbClose );
 	ui.tbLogo->addWidget ( ui.lbLogo );
 	ui.tbLogo->addWidget ( ui.frmConnectionStatus );
 	ui.tbModules->addWidget ( ui.pbAddWord );
@@ -136,7 +141,8 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	ui.tbModules->addWidget ( ui.pbRunProgram );
 	ui.pbSystem->setDisabled ( true );
 	settingsToolButton = ui.tbModules->addWidget ( ui.pbSystem );
-	ui.tbModules->removeAction ( settingsToolButton );
+	settingsToolButton->setVisible(false);
+	ui.tbModules->addWidget ( ui.pbClose );
 
 	setupSignalSlots();
 
@@ -194,12 +200,6 @@ void SimonView::setupSignalSlots()
 	QObject::connect ( ui.pbSystem, SIGNAL ( clicked( ) ), this, SLOT ( showSystemDialog () ) );
 	QObject::connect ( addWordView, SIGNAL ( hidden() ), this, SLOT ( setButtonNotChecked() ) );
 
-// 	QObject::connect ( ui.pbQuickAddWord, SIGNAL ( clicked() ), ui.pbAddWord, SLOT ( animateClick() ) );
-// 	QObject::connect ( ui.pbQuickWordlist, SIGNAL ( clicked() ), ui.pbWordList, SLOT ( animateClick() ) );
-// 	QObject::connect ( ui.pbQuickRunProgram, SIGNAL ( clicked() ), ui.pbRunProgram, SLOT ( animateClick() ) );
-// 	QObject::connect ( ui.pbQuickTrain, SIGNAL ( clicked() ), ui.pbTrain, SLOT ( animateClick() ) );
-
-	QObject::connect ( ui.pbHide, SIGNAL ( clicked() ), this, SLOT ( hideSimon() ) );
 	QObject::connect ( ui.pbClose, SIGNAL ( clicked() ), this, SLOT ( closeSimon() ) );
 	QObject::connect ( this->trayManager, SIGNAL ( clicked() ), this, SLOT ( toggleVisibility() ) );
 	QObject::connect ( ui.pbActivision, SIGNAL ( clicked() ), this, SLOT ( toggleActivation() ) );
@@ -222,6 +222,9 @@ void SimonView::setupSignalSlots()
 	          SLOT ( inlineWidgetUnRegistered ( InlineWidget* ) ) );
 
 
+	connect(ModelManager::getInstance(), SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
+	connect(ModelManager::getInstance(), SIGNAL(progress(int,int)), this, SLOT(displayProgress(int, int)));
+	
 
 	QObject::connect ( control, SIGNAL ( connected() ), this, SLOT ( connected() ) );
 	QObject::connect ( control, SIGNAL ( disconnected() ), this, SLOT ( disconnected() ) );
@@ -229,6 +232,17 @@ void SimonView::setupSignalSlots()
 
 
 	connect ( ui.pbCompileModel, SIGNAL ( clicked() ), this, SLOT ( compileModel() ) );
+}
+
+void SimonView::displayStatus(QString status)
+{
+	ui.lbStatus->setText(status);
+}
+
+void SimonView::displayProgress(int cur, int max)
+{
+	ui.pbProgress->setMaximum(max);
+	ui.pbProgress->setValue(cur);
 }
 
 void SimonView::compileModel()
@@ -688,7 +702,7 @@ void SimonView::hideSettings()
 		ui.inlineView->unRegisterPage(this->systemDialog);
 	}
 
-	ui.tbModules->removeAction ( this->settingsToolButton );
+	settingsToolButton->setVisible(false);
 	ui.pbSystem->setDisabled ( true );
 
 
@@ -705,8 +719,7 @@ void SimonView::hideSettings()
 */
 void SimonView::showSettings()
 {
-	//to set the button settings in the main not disabled
-	ui.tbModules->addAction ( this->settingsToolButton );
+	settingsToolButton->setVisible(true);
 	ui.pbSystem->setDisabled ( false );
 
 

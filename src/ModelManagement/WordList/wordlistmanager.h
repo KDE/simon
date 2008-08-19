@@ -38,6 +38,8 @@ signals:
 	void tempWarning();
 	void wordListCouldntBeLoaded();
 	void shadowListCouldntBeLoaded();
+	void status(QString);
+	void progress(int cur, int max);
 private:
 	static WordListManager *instance;
 
@@ -75,10 +77,17 @@ public:
 	bool saveWordList(WordList *list, QString lexiconFilename, QString vocabFilename);
 
 	WordList* getWordList() { return this->wordlist; }
-	WordList* getShadowList();
+	inline WordList* getShadowList();
 	QStringList getTerminals(bool includeShadow=true);
 
 	QString getRandomWord(QString terminal, bool includeShadow=true);
+	
+	bool mainWordListContains(Word *word);
+	bool mainWordListContainsStr(QString word);
+	bool extraListContains(Word *word);
+	bool extraListContainsStr(QString word);
+	bool wordListContains(WordList *list, Word *word);
+	bool wordListContainsStr(WordList *list, QString word);
 
 	WordList* getShadowedWords(QString word, bool fuzzy=false);
 	WordList* getMainstreamWords(QString word, bool fuzzy=false);

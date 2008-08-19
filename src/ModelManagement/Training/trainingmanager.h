@@ -35,7 +35,8 @@ Q_OBJECT
 		static TrainingManager *instance;
 		TrainingList *trainingTexts;
 		TrainingText *currentText;
-		QHash<QString, QString> *sampleHash;    //<! sampleHash("SampleName","Text");
+		QHash<QString, QString> *sampleHash;    //<! sampleHash("SampleName","Text")
+		QHash<QString,int> wordRelevance; /// Stores the relevance of words (caching for getProbability)
 		QMutex promptsLock;
 	private slots:
 		void askDeleteLonelySample(QString);

@@ -17,7 +17,7 @@ private:
 	QString title;
 	QStringList pages;
 public: 
-	XMLTrainingText(QString path);
+	XMLTrainingText(QString path="");
 	
 	int getPageCount();
 	void save(QString path="");

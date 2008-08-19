@@ -37,8 +37,8 @@ RecWidget::RecWidget(QString name, QString filename, QWidget *parent) : QWidget(
 	postProc = new PostProcessing();
 	
 	ui.setupUi(this);
-	ui.leRecognisedText->setVisible(false);
-	ui.lbRecognisedText->setVisible(false);
+// 	ui.leRecognisedText->setVisible(false);
+// 	ui.lbRecognisedText->setVisible(false);
 	ui.gb->setTitle(name);
 	
 	if (QFile::exists(filename))
@@ -108,7 +108,7 @@ void RecWidget::setupSignalsSlots()
  */
 void RecWidget::displayPosition(int msecs)
 {
-	ui.hsProgress->setValue(msecs);
+	ui.pbProgress->setValue(msecs);
 }
 
 
@@ -134,8 +134,8 @@ void RecWidget::displayRecordingProgress(int msecs)
 {
  	QString textprog = QString("%1").arg((int) msecs/10, 4, 10, QChar('0'));
 	textprog.insert(textprog.length()-2, ':');
-	ui.lbProgress->setText("00:00 / "+textprog);
-	ui.hsProgress->setMaximum(msecs);
+// 	ui.lbProgress->setText("00:00 / "+textprog);
+// 	ui.hsProgress->setMaximum(msecs);
 }
 
 /**
@@ -149,7 +149,7 @@ void RecWidget::displayPlaybackProgress(int msecs)
  	QString textprog = QString("%1").arg(QString::number(msecs/10), 4, QChar('0'));
 	textprog.insert(2, ':');
 	
-	ui.lbProgress->setText(ui.lbProgress->text().replace(0,5, textprog));
+	ui.pbProgress->setFormat(ui.pbProgress->format().replace(0,5, textprog));
 }
 
 
@@ -176,10 +176,6 @@ void RecWidget::record()
 	}else {
 		disconnect(ui.pbRecord, SIGNAL(clicked()), this, SLOT(record()));
 		connect(ui.pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
-		ui.leRecognisedText->setVisible(true);
-		ui.leRecognisedText->clear();
-		ui.lbRecognisedText->setVisible(true);
-		ui.leRecognisedText->setFocus(Qt::OtherFocusReason);
 	}
 	emit recording();
 }
@@ -217,9 +213,7 @@ void RecWidget::stopRecording()
 			QMessageBox::critical(this, tr("Verarbeiten fehlgeschlagen"), QString(tr("Nachbearbeitung fehlgeschlagen")).arg(fName).arg(filename));
 	
 	
-	ui.hsProgress->setValue(0);
-	ui.leRecognisedText->setVisible(false);
-	ui.lbRecognisedText->setVisible(false);
+	ui.pbProgress->setValue(0);
 	disconnect(ui.pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
 	connect(ui.pbRecord, SIGNAL(clicked()), this, SLOT(record()));
 	emit recordingFinished();
@@ -256,8 +250,8 @@ void RecWidget::deleteSample()
 {
 	if(QFile::remove(this->filename))
 	{
-		ui.hsProgress->setValue(0);
-		ui.lbProgress->setText("00:00 / 00:00");
+		ui.pbProgress->setValue(0);
+		ui.pbProgress->setFormat("00:00 / 00:00");
 		ui.pbDelete->setEnabled(false);
 		ui.pbRecord->setEnabled(true);
 		ui.pbPlay->setEnabled(false);

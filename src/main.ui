@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>839</width>
-    <height>696</height>
+    <width>830</width>
+    <height>665</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -30,116 +30,13 @@
     <rect>
      <x>0</x>
      <y>12</y>
-     <width>839</width>
-     <height>672</height>
+     <width>830</width>
+     <height>641</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" >
     <item>
      <layout class="QHBoxLayout" >
-      <item>
-       <widget class="QLabel" name="lbLogo" >
-        <property name="sizePolicy" >
-         <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximumSize" >
-         <size>
-          <width>100</width>
-          <height>60</height>
-         </size>
-        </property>
-        <property name="text" >
-         <string/>
-        </property>
-        <property name="pixmap" >
-         <pixmap resource="others.qrc" >:/images/simon_d.png</pixmap>
-        </property>
-        <property name="scaledContents" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="frmConnectionStatus" >
-        <property name="frameShape" >
-         <enum>QFrame::NoFrame</enum>
-        </property>
-        <property name="frameShadow" >
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QVBoxLayout" >
-         <property name="spacing" >
-          <number>0</number>
-         </property>
-         <property name="leftMargin" >
-          <number>6</number>
-         </property>
-         <property name="topMargin" >
-          <number>0</number>
-         </property>
-         <property name="rightMargin" >
-          <number>6</number>
-         </property>
-         <property name="bottomMargin" >
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="lbTextConnectionStatus" >
-           <property name="font" >
-            <font>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text" >
-            <string>Nicht Verbunden</string>
-           </property>
-           <property name="alignment" >
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QToolButton" name="pbConnect" >
-           <property name="enabled" >
-            <bool>true</bool>
-           </property>
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="accessibleName" >
-            <string>Verbinden</string>
-           </property>
-           <property name="accessibleDescription" >
-            <string>Verbindet zu Juliusd</string>
-           </property>
-           <property name="text" >
-            <string>Verb&amp;inden</string>
-           </property>
-           <property name="icon" >
-            <iconset resource="action_icons.qrc" >
-             <normaloff>:/images/icons/connect-no.svg</normaloff>:/images/icons/connect-no.svg</iconset>
-           </property>
-           <property name="iconSize" >
-            <size>
-             <width>16</width>
-             <height>16</height>
-            </size>
-           </property>
-           <property name="toolButtonStyle" >
-            <enum>Qt::ToolButtonTextBesideIcon</enum>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
       <item>
        <widget class="QToolButton" name="pbAddWord" >
         <property name="accessibleName" >
@@ -288,120 +185,6 @@
         </property>
        </widget>
       </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" >
-      <item>
-       <widget class="QToolButton" name="pbActivision" >
-        <property name="enabled" >
-         <bool>false</bool>
-        </property>
-        <property name="accessibleName" >
-         <string>Aktiviert simon</string>
-        </property>
-        <property name="accessibleDescription" >
-         <string>Wechselt zwischen Aktiv / Inaktiv ohne die Verbindung zu trennen</string>
-        </property>
-        <property name="text" >
-         <string>&amp;Aktivieren</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="action_icons.qrc" >
-          <normaloff>:/images/icons/media-playback-start.svg</normaloff>:/images/icons/media-playback-start.svg</iconset>
-        </property>
-        <property name="iconSize" >
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
-        </property>
-        <property name="toolButtonStyle" >
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="pbHide" >
-        <property name="enabled" >
-         <bool>true</bool>
-        </property>
-        <property name="accessibleName" >
-         <string>Verstecken</string>
-        </property>
-        <property name="accessibleDescription" >
-         <string>Versteckt das simon-Hauptfenster</string>
-        </property>
-        <property name="text" >
-         <string>&amp;Verstecken</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="action_icons.qrc" >
-          <normaloff>:/images/icons/go-bottom.svg</normaloff>:/images/icons/go-bottom.svg</iconset>
-        </property>
-        <property name="iconSize" >
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
-        </property>
-        <property name="toolButtonStyle" >
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="pbCompileModel" >
-        <property name="text" >
-         <string>Sprachmodell generieren</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="action_icons.qrc" >
-          <normaloff>:/images/icons/go-next.svg</normaloff>:/images/icons/go-next.svg</iconset>
-        </property>
-        <property name="iconSize" >
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
-        </property>
-        <property name="toolButtonStyle" >
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="pbKeyed" >
-        <property name="enabled" >
-         <bool>true</bool>
-        </property>
-        <property name="accessibleName" >
-         <string>Systemverwaltungsmodus</string>
-        </property>
-        <property name="accessibleDescription" >
-         <string>Wechselt zwischen den Administrations / Benutzer-Modu</string>
-        </property>
-        <property name="text" >
-         <string>Systemverwaltungsmodus</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="action_icons.qrc" >
-          <normaloff>:/images/icons/lock.svg</normaloff>:/images/icons/lock.svg</iconset>
-        </property>
-        <property name="iconSize" >
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
-        </property>
-        <property name="checkable" >
-         <bool>true</bool>
-        </property>
-        <property name="toolButtonStyle" >
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QToolButton" name="pbClose" >
         <property name="enabled" >
@@ -422,12 +205,148 @@
         </property>
         <property name="iconSize" >
          <size>
-          <width>24</width>
-          <height>24</height>
+          <width>32</width>
+          <height>32</height>
          </size>
         </property>
         <property name="toolButtonStyle" >
-         <enum>Qt::ToolButtonTextBesideIcon</enum>
+         <enum>Qt::ToolButtonTextUnderIcon</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frmConnectionStatus" >
+        <property name="frameShape" >
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow" >
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2" >
+         <property name="leftMargin" >
+          <number>4</number>
+         </property>
+         <property name="topMargin" >
+          <number>0</number>
+         </property>
+         <property name="bottomMargin" >
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="lbTextConnectionStatus" >
+           <property name="font" >
+            <font>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text" >
+            <string>Nicht Verbunden</string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4" >
+           <property name="spacing" >
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QToolButton" name="pbActivision" >
+             <property name="enabled" >
+              <bool>false</bool>
+             </property>
+             <property name="toolTip" >
+              <string>Aktivieren / Deaktivieren</string>
+             </property>
+             <property name="accessibleName" >
+              <string>Aktiviert simon</string>
+             </property>
+             <property name="accessibleDescription" >
+              <string>Wechselt zwischen Aktiv / Inaktiv ohne die Verbindung zu trennen</string>
+             </property>
+             <property name="text" >
+              <string>&amp;Aktivieren</string>
+             </property>
+             <property name="icon" >
+              <iconset resource="action_icons.qrc" >
+               <normaloff>:/images/icons/media-playback-start.svg</normaloff>:/images/icons/media-playback-start.svg</iconset>
+             </property>
+             <property name="iconSize" >
+              <size>
+               <width>24</width>
+               <height>24</height>
+              </size>
+             </property>
+             <property name="toolButtonStyle" >
+              <enum>Qt::ToolButtonIconOnly</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="pbConnect" >
+             <property name="enabled" >
+              <bool>true</bool>
+             </property>
+             <property name="sizePolicy" >
+              <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="accessibleName" >
+              <string>Verbinden</string>
+             </property>
+             <property name="accessibleDescription" >
+              <string>Verbindet zu Juliusd</string>
+             </property>
+             <property name="text" >
+              <string>Verb&amp;inden</string>
+             </property>
+             <property name="icon" >
+              <iconset resource="action_icons.qrc" >
+               <normaloff>:/images/icons/connect-no.svg</normaloff>:/images/icons/connect-no.svg</iconset>
+             </property>
+             <property name="iconSize" >
+              <size>
+               <width>16</width>
+               <height>16</height>
+              </size>
+             </property>
+             <property name="toolButtonStyle" >
+              <enum>Qt::ToolButtonTextBesideIcon</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbLogo" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize" >
+         <size>
+          <width>100</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string/>
+        </property>
+        <property name="pixmap" >
+         <pixmap resource="others.qrc" >:/images/simon_d.png</pixmap>
+        </property>
+        <property name="scaledContents" >
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -446,8 +365,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>819</width>
-         <height>516</height>
+         <width>814</width>
+         <height>490</height>
         </rect>
        </property>
        <attribute name="title" >
@@ -975,14 +894,114 @@ p, li { white-space: pre-wrap; }
       </widget>
      </widget>
     </item>
+    <item>
+     <layout class="QHBoxLayout" >
+      <item>
+       <widget class="QLabel" name="lbStatus" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text" >
+         <string>Fertig.</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QProgressBar" name="pbProgress" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize" >
+         <size>
+          <width>200</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="baseSize" >
+         <size>
+          <width>200</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="value" >
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="pbCompileModel" >
+        <property name="toolTip" >
+         <string>Sprachmodell regenerieren</string>
+        </property>
+        <property name="text" >
+         <string>Sprachmodell regenerieren</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="action_icons.qrc" >
+          <normaloff>:/images/icons/view-refresh.svg</normaloff>:/images/icons/view-refresh.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonIconOnly</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="pbKeyed" >
+        <property name="enabled" >
+         <bool>true</bool>
+        </property>
+        <property name="toolTip" >
+         <string>Systemverwaltungsmodus</string>
+        </property>
+        <property name="accessibleName" >
+         <string>Systemverwaltungsmodus</string>
+        </property>
+        <property name="accessibleDescription" >
+         <string>Wechselt zwischen den Administrations / Benutzer-Modu</string>
+        </property>
+        <property name="text" >
+         <string>Systemverwaltungsmodus</string>
+        </property>
+        <property name="icon" >
+         <iconset resource="action_icons.qrc" >
+          <normaloff>:/images/icons/lock.svg</normaloff>:/images/icons/lock.svg</iconset>
+        </property>
+        <property name="iconSize" >
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="checkable" >
+         <bool>true</bool>
+        </property>
+        <property name="toolButtonStyle" >
+         <enum>Qt::ToolButtonIconOnly</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
   <widget class="QToolBar" name="tbStatus" >
    <property name="geometry" >
     <rect>
      <x>0</x>
-     <y>684</y>
-     <width>839</width>
+     <y>653</y>
+     <width>830</width>
      <height>12</height>
     </rect>
    </property>
@@ -1026,7 +1045,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>10</x>
      <y>0</y>
-     <width>829</width>
+     <width>820</width>
      <height>12</height>
     </rect>
    </property>

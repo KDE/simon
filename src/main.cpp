@@ -26,10 +26,12 @@
 #endif
 #include <QTranslator>
 #include <QLocale>
+// #include <KApplication>
 
 
 int main(int argc, char *argv[])
 {
+// 	KApplication app(argc,argv);
 	QApplication app(argc,argv);
 	app.addLibraryPath(app.applicationDirPath()+"/plugins");
 	QString locale = QLocale::system().name().left(2);

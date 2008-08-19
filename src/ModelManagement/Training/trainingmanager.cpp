@@ -18,6 +18,7 @@
 #include <QObject>
 #include <QDate>
 #include <QTextStream>
+#include <QDebug>
 #include <QVariant>
 #include <QTime>
 #include "../../SimonLib/Settings/settings.h"
@@ -312,6 +313,7 @@ TrainingList* TrainingManager::readTrainingTexts ()
 		trainingTexts=0;
 	}
 	
+	
 	trainingTexts = new TrainingList();
 	for ( int i=0; i < textsrcs.count(); i++ )
 	{
@@ -320,7 +322,7 @@ TrainingList* TrainingManager::readTrainingTexts ()
 		TrainingText *newText = new TrainingText ( text->getTitle(),
 		        pathToTexts+"/"+textsrcs.at ( i ),
 		        text->getAllPages() );
-		newText->setRelevance ( calcRelevance ( newText ) );
+		newText->setRelevance ( calcRelevance ( newText ) ); //FIXME: speed
 		trainingTexts->append ( newText );
 		delete text;
 	}
@@ -348,18 +350,19 @@ bool TrainingManager::trainText ( int i )
 	
 	Logger::log(QObject::tr("[INF] Training Text: \"")+currentText->getName()+"\"");
 	bool allWordsInDict = allWordsExisting();
-    if(!allWordsInDict)
-	    return false;
-    QString textName = getTextName();
-    textName.replace(QString(" "), QString("_"));
-    QString time = qvariant_cast<QString>(QTime::currentTime());
-    time.replace(QString(":"), QString("-"));
-
-    QString textFileName = FileSystemEncoder::encodeFilename(textName);
-    for(int i=0; i<getPageCount(); i++)
-    {
-        sampleHash->insert((textFileName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), getPage(i));
-    }
+	if(!allWordsInDict)
+		return false;
+	
+	QString textName = getTextName();
+	textName.replace(QString(" "), QString("_"));
+	QString time = qvariant_cast<QString>(QTime::currentTime());
+	time.replace(QString(":"), QString("-"));
+	
+	QString textFileName = FileSystemEncoder::encodeFilename(textName);
+	for(int i=0; i<getPageCount(); i++)
+	{
+		sampleHash->insert((textFileName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), getPage(i));
+	}
 	return (currentText != NULL);
 }
 
@@ -373,12 +376,16 @@ bool TrainingManager::trainText ( int i )
 bool TrainingManager::allWordsExisting()
 {
 	QStringList strListAllWords;
-	for ( int x=0; x<getPageCount(); x++ )
+	int pageCount=getPageCount();
+	for ( int x=0; x<pageCount; x++ )
 	{
 		QStringList strList = getPage ( x ).split ( " " );
-		for ( int y=0; y<strList.size(); y++ )
+		int strListSize = strList.size();
+		for ( int y=0; y < strListSize; y++ )
 		{
 			QString word = strList.at ( y );
+				
+				
 			word = word.trimmed();
 			word.remove ( "." );
 			word.remove ( "," );
@@ -391,13 +398,22 @@ bool TrainingManager::allWordsExisting()
 			word.remove ( "\\" );
 			word.remove ( "[" );
 			word.remove ( "]" );
-			WordList* words = WordListManager::getInstance()->getMainstreamWords( word );
-			if ( words->isEmpty() )
+			
+			
+			if (!WordListManager::getInstance()->mainWordListContainsStr(word))
 			{
 				if (!strListAllWords.contains(word))
 					strListAllWords.append ( word );
 			}
-			delete words;
+			
+			
+// 			WordList* words = WordListManager::getInstance()->getMainstreamWords( word );
+// 			if ( words->isEmpty() )
+// 			{
+// 				if (!strListAllWords.contains(word))
+// 					strListAllWords.append ( word );
+// 			}
+// 			delete words;
 		}
 	}
 	if ( strListAllWords.count() ==0 )
@@ -456,7 +472,8 @@ QString TrainingManager::getTextName()
  */
 TrainingText* TrainingManager::getText ( int i )
 {
-	readTrainingTexts();
+	if (!this->trainingTexts) readTrainingTexts();
+	
 	if ( this->trainingTexts && (trainingTexts->count() > i))
 		return this->trainingTexts->at ( i );
 	else return NULL;
@@ -477,10 +494,13 @@ float TrainingManager::calcRelevance ( TrainingText *text )
 	              text->getPath() +")" );
 	QString currPage;
 	QStringList words;
-
 	int wordCount=0;
 	int probability=0;
-	for ( int i=0; i<text->getPageCount();i++ )
+	int curWordCount=0;
+	
+	promptsLock.lock();
+	int textWordCount=text->getPageCount();
+	for ( int i=0; i<textWordCount; i++ )
 	{
 		currPage = text->getPage ( i );
 		currPage.remove ( "." );
@@ -493,16 +513,20 @@ float TrainingManager::calcRelevance ( TrainingText *text )
 		currPage.remove ( "]" );
 
 		words = currPage.split ( " " );
-		//wlistmgr->addWords(words);
-
-		for ( int j=0; j<words.count(); j++ )
+		
+		curWordCount = words.count();
+		
+		wordCount += curWordCount;
+		
+		for ( int j=0; j<curWordCount; j++ )
 		{
-			wordCount++;
-			promptsLock.lock();
-			probability += getProbability ( words.at ( j ) );
-			promptsLock.unlock();
+			QString currentWord = words[j];
+			
+			probability += getProbability ( currentWord );
 		}
 	}
+	promptsLock.unlock();
+	
 	if ( wordCount > 0 )
 		return qRound ( probability/wordCount );
 	else return 0;
@@ -553,18 +577,25 @@ void TrainingManager::modelManagerDone()
  */
 int TrainingManager::getProbability ( QString wordname )
 {
+	wordname = wordname.toUpper();
+	if (wordRelevance.contains(wordname))
+	{
+// 		qDebug() << "cached";
+		return wordRelevance.value(wordname);
+	}
+	
 	QStringList prompts = promptsTable->values();
 	int prob=0;
 	int i=0;
-	QString line;
-	wordname = wordname.toUpper();
-
-	while ( i<prompts.count() )
+	int promptscount=prompts.count();
+	
+	while ( i<promptscount )
 	{
-		line =  prompts.at ( i );
-		prob += line.count(QRegExp(QString("( |^)%1( |$)").arg(wordname)));
+		prob += prompts.at ( i ).count(QRegExp(QString("( |^)%1( |$)").arg(wordname)));
 		i++;
 	}
+// 	qDebug() << "calculated";
+	wordRelevance.insert(wordname, prob);
 	return prob;
 }
 

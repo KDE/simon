@@ -65,12 +65,15 @@ bool XMLDomReader::load(QString path)
 {
 	if (path.isEmpty())
         path = this->path;
+	
+	if (doc) delete doc;
 	doc= new QDomDocument();
+	
 	QFile file(path);
 	if(!file.open(QIODevice::ReadOnly))
 		return false;
 
-	if(!doc->setContent(&file))
+	if (!doc->setContent(&file))
 	{
 		file.close();
 		return false;

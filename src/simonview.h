@@ -104,6 +104,9 @@ private:
 
 
 public slots:
+	void displayStatus(QString status);
+	void displayProgress(int cur, int max);
+	
 	void toggleVisibility();
 	void hideSimon();
 	void showSimon();

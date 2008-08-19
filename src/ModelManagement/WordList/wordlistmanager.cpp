@@ -138,6 +138,8 @@ WordListManager* WordListManager::getInstance()
  */
 void WordListManager::run()
 {
+	emit status(tr("Lade Schattenliste..."));
+	emit progress(0,0);
 	shadowLock.lock();
 	shadowDirty = false;
 	this->shadowList = readWordList(Settings::getS("Model/PathToShadowLexicon"), Settings::getS("Model/PathToShadowVocab"), Settings::getS("Model/PathToPrompts"), this->shadowTerminals, true);
@@ -145,8 +147,12 @@ void WordListManager::run()
 	{
 		this->shadowList = new WordList();
 		emit shadowListCouldntBeLoaded();
-	}
+		emit status(tr("Abgebrochen."));
+	} else 
+		emit status(tr("Fertig."));
+	
 	shadowLock.unlock();
+	emit progress(100,100);
 }
 
 
@@ -166,7 +172,7 @@ WordList* WordListManager::sortList(WordList* list)
 }
 
 
-WordList* WordListManager::getShadowList()
+inline WordList* WordListManager::getShadowList()
 {
 	//if the thread is still running we are obviously not ready to give out the shadowdict
 	//wait till we are finished
@@ -904,6 +910,57 @@ WordList* WordListManager::searchForWords(WordList *list, QString word, bool fuz
 	}
 	
 	return out;
+}
+
+
+bool WordListManager::mainWordListContains(Word *word)
+{
+	QMutexLocker m(&wordListLock);
+	return wordListContains(getWordList(), word);
+}
+
+bool WordListManager::extraListContains(Word *word)
+{
+	QMutexLocker m(&shadowLock);
+	return wordListContains(getShadowList(), word);
+}
+
+
+bool WordListManager::mainWordListContainsStr(QString word)
+{
+	QMutexLocker m(&wordListLock);
+	return wordListContainsStr(getWordList(), word);
+}
+
+bool WordListManager::extraListContainsStr(QString word)
+{
+	QMutexLocker m(&shadowLock);
+	return wordListContainsStr(getShadowList(), word);
+}
+
+bool WordListManager::wordListContains(WordList *list, Word *word)
+{
+	Q_ASSERT(list);
+
+	int i=0;
+	int count = list->count();
+	
+	while ((i<count) && (list->at(i) != *(word)))
+		i++;
+	
+	return (i!=count) /*did we go all the way through?*/;
+}
+
+bool WordListManager::wordListContainsStr(WordList *list, QString word)
+{
+	Q_ASSERT(list);
+
+	int i=0;
+	int count = list->count();
+	while ((i<count) && (list->at(i).getWord() != word))
+		i++;
+	
+	return (i!=count) /*did we go all the way through?*/;
 }
 
 WordList* WordListManager::getMainstreamWords(QString word, bool fuzzy)
