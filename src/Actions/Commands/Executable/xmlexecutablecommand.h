@@ -15,11 +15,11 @@
 class XMLExecutableCommand : public XMLDomReader {
 	
 public:
-	XMLExecutableCommand(QString path="conf/commands.xml");
+	XMLExecutableCommand(const QString& path="conf/commands.xml");
 	
-	bool save(CommandList *list, QString path="");
+	bool save(CommandList *list, const QString& path="");
 	
-	CommandList* load(bool &ok, QString path);
+	CommandList* load(bool &ok, const QString& path);
 	
 	~XMLExecutableCommand();
 };

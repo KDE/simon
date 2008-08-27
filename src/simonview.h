@@ -36,6 +36,7 @@
 #define sAddWordView 		1
 #include "ui_main.h"
 #include "simonmainwindow.h"
+#include "simoncontrol.h"
 
 class QPoint;
 class QWidget;
@@ -61,37 +62,16 @@ class SimonView : public SimonMainWindow    {
 	Q_OBJECT
 	
 private slots:
-	void setButtonNotChecked();
 	void compileModel();
-	void showAbout();
 
 private:
-	QAction *settingsToolButton; /** This represents the "action" button on the toolbar
-					We need this to call setVisible() on the button because
-					this will only work on the representing action;
-					We create the action when adding the button to the toolbar by calling
-					addWidget() which returns the QAction handle representing the 
-					toolbar-button;
-					This is then stored in this member for use in the methods 
-						* showSettings()
-						* hideSettings()
-					where we show / hide (resp.) the "System" button by hiding its 
-					QAction handle;
-				     */
-					
-
-
+	bool settingsShown;
 	int shownDialogs;
 	QPoint currentPos;
-	QPoint runDlgPos;
 	QPoint addWordDlgPos;
-	QPoint wordlistDlgPos;
-	QPoint trainDlgPos;
-	QPoint settingsDlgPos;
 
 	Ui::MainWindow ui;	//!< Mainwindow UI definition - made by uic from the QTDesigner .ui
 	SimonControl *control; //!< Pointer to the main concept class
-	SimonInfo *info;  //!< Pointer to the Info class
 	TrayIconManager *trayManager; //!< Handles the TrayIcon
 	AddWordView *addWordView; //!< Pointer on the Dialog "Add Word to Language model"
 	WordListView *wordList; //!< Pointer on the Dialog "WordList"
@@ -101,37 +81,33 @@ private:
 
 
 	void setupSignalSlots();
+	void setupActions();
 
 
 public slots:
-	void displayStatus(QString status);
+	void displayStatus(const QString &status);
+	void displayConnectionStatus(const QString &status);
 	void displayProgress(int cur, int max);
 	
 	void toggleVisibility();
 	void hideSimon();
 	void showSimon();
-	
 	void closeSimon();
-	void connectToServer();
-	void abortConnecting();
+	
+	void toggleConnection();
 	void errorConnecting(QString error);
-	void connected();
-	void disconnected();
+// 	void connected();
+// 	void disconnected();
 	
 	void toggleActivation();
-	void representState();
+	void representState(SimonControl::SystemStatus status);
 	
 
-	void alignButtonToInlineWidget(QAbstractButton *btn, InlineWidget *widget);
 	void showAddWordDialog();
 	void showRunDialog();
 	void showTrainDialog();
 	void showWordListDialog();
 	void showSystemDialog();
-	
-
-	void inlineWidgetRegistered(InlineWidget *widget);
-	void inlineWidgetUnRegistered(InlineWidget *widget);
     
     void checkSettingState();
 

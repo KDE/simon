@@ -16,7 +16,7 @@ bool ExecutableCommandManager::addCommand(Command *command)
 	{
 		this->commands->append(command);
 		return save();
-	} else
+	}
 	return false;
 }
 

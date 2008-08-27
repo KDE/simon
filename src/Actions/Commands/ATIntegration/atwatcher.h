@@ -21,7 +21,7 @@ class ATObject;
 */
 
 
-/// \warning Was wenn von einer untestützten Applikation zu einer nicht unterstützten umgewechselt wird? was wird emmitted?
+/// \warning Was wenn von einer untestï¿½tzten Applikation zu einer nicht unterstï¿½tzten umgewechselt wird? was wird emmitted?
 class ATWatcher : public QObject
 {
 		Q_OBJECT
@@ -37,7 +37,7 @@ class ATWatcher : public QObject
 		void deleteObject(ATObject *oldObject);
 		void translateFocusToWindow(ATObject* selectedObject);
 	public slots:
-		bool trigger(QString word);
+		bool trigger(const QString &word);
 
 	protected:
 		ATWatcher ( QObject* parent=0 );

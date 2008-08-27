@@ -14,7 +14,7 @@
 #include <QList>
 #include <QObject>
 #include <QString>
-#include <QIcon>
+#include <kicon.h>
 #include <QMap>
 
 /**
@@ -52,9 +52,9 @@ protected:
 
 public:
 	static const QString staticCategoryText() {return "";}
-	static const QIcon staticCategoryIcon() {return QIcon();}
+	static const KIcon staticCategoryIcon() {return KIcon();}
 
-	virtual const QIcon getCategoryIcon() const=0;
+	virtual const KIcon getCategoryIcon() const=0;
 	virtual const QString getCategoryText() const=0;
 
 	virtual bool trigger();
@@ -63,7 +63,7 @@ public:
 
 
 	virtual void remove() { emit removed(); deleteLater(); }
-	virtual void change(QString newName, QString newIconSrc) { 
+	void change(const QString& newName, const QString& newIconSrc) { 
 		triggerName = newName;
 		iconSrc = newIconSrc;
 		emit changed();
@@ -76,7 +76,7 @@ public:
     *	@param trigger 
     *	@param icon
     */
-    Command(QString name, QString iconSrc)
+    Command(const QString& name, const QString& iconSrc)
     {
         this->triggerName = name;
         this->iconSrc = iconSrc;
@@ -97,8 +97,8 @@ public:
     * @author Peter Grasch
     * @return The icon
     */
-   const QIcon getIcon() const {
-	QIcon thisIcon = QIcon(iconSrc);
+   const KIcon getIcon() const {
+	KIcon thisIcon = KIcon(iconSrc);
 	if (!thisIcon.isNull())
 		return thisIcon;
 	else return getCategoryIcon();

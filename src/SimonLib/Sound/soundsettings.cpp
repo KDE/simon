@@ -10,6 +10,7 @@
 //
 //
 #include "soundsettings.h"
+#include <QMessageBox>
 #include "../SimonLib/Sound/soundcontrol.h"
 #include "../SimonLib/Settings/settings.h"
 

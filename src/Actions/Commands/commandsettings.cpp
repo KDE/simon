@@ -20,7 +20,7 @@
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-CommandSettings::CommandSettings(QWidget* parent): SystemWidget(tr("Kommandos"), QIcon(":/images/icons/applications-system.svg"), tr("Kommandos verwalten"), parent)
+CommandSettings::CommandSettings(QWidget* parent): SystemWidget(i18n("Kommandos"), KIcon(":/images/icons/applications-system.svg"), tr("Kommandos verwalten"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers(this);
@@ -48,7 +48,7 @@ CommandSettings::CommandSettings(QWidget* parent): SystemWidget(tr("Kommandos"),
 	connect(ui.cbATIntegrationQtWorkarounds, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
 	connect(ui.cbATIntegrationQtMenu, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
 
-	help = tr("Konfigurieren Sie hier die Kommandos simons.\n\nSie können hier die einzelnen Typen konfigurieren und sogar (de-/)aktivieren.");
+	help = i18n("Konfigurieren Sie hier die Kommandos simons.\n\nSie können hier die einzelnen Typen konfigurieren und sogar (de-/)aktivieren.");
 }
 
 /**

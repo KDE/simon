@@ -1,14 +1,18 @@
 #include "executablecommand.h"
-#include <QIcon>
 #include <QObject>
-#include <QProcess>
 #include <QVariant>
+#include <KIcon>
+#include <KProcess>
+#include <KLocalizedString>
+
+#ifdef __WIN32
 #include "../SimonLib/WindowsLib/registrymanager.h"
+#endif
 
 
 const QString ExecutableCommand::staticCategoryText()
 {
-	return QObject::tr("Programm");
+	return i18n("Programm");
 }
 
 const QString ExecutableCommand::getCategoryText() const
@@ -16,12 +20,12 @@ const QString ExecutableCommand::getCategoryText() const
 	return ExecutableCommand::staticCategoryText();
 }
 
-const QIcon ExecutableCommand::staticCategoryIcon()
+const KIcon ExecutableCommand::staticCategoryIcon()
 {
-	return QIcon(":/images/icons/applications-system.svg");
+	return KIcon("applications-system");
 }
 
-const QIcon ExecutableCommand::getCategoryIcon() const
+const KIcon ExecutableCommand::getCategoryIcon() const
 {
 	return ExecutableCommand::staticCategoryIcon();
 }
@@ -29,8 +33,8 @@ const QIcon ExecutableCommand::getCategoryIcon() const
 const QMap<QString,QVariant> ExecutableCommand::getValueMapPrivate() const
 {
 	QMap<QString,QVariant> out;
-	out.insert(tr("Ausführbare Datei"), getExecutable());
-	out.insert(tr("Arbeitspfad"), getWorkingDirectory());
+	out.insert(i18n("Ausführbare Datei"), getExecutable());
+	out.insert(i18n("Arbeitspfad"), getWorkingDirectory());
 	return out;
 }
 
@@ -46,7 +50,9 @@ bool ExecutableCommand::triggerPrivate()
 		args = argumentStrs.split(" ", QString::SkipEmptyParts);
 	} else executable = exe;
 
-	QProcess::startDetached  (executable, args, workingDirectory.toString());
+	KProcess proc;
+	proc.setWorkingDirectory(workingDirectory.path());
+	proc.startDetached  (executable, args );
 #endif
 
 	#ifdef __WIN32

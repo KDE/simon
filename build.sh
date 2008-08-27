@@ -4,5 +4,6 @@
 # The executable will be called "simon" and located in this directory
 
 cd src/
-qmake && make && lrelease src.pro && mv *.qm .. && echo -e "**** Build completed ****\n\nThe executable file \"simon\" is now ready.\n\nIssue \"./simon\" to start it."
+#qmake && make && lrelease src.pro && mv *.qm .. && echo -e "**** Build completed ****\n\nThe executable file \"simon\" is now ready.\n\nIssue \"./simon\" to start it."
+cd build && cmake .. && make && mv simon ../../ && cd ../ && lrelease src.pro && mv *.qm .. && echo -e "**** Build completed ****\n\nThe executable file \"simon\" is now ready.\n\nIssue \"./simon\" to start it."
 

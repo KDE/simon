@@ -36,7 +36,7 @@ public:
 	 * @return 
 	 * success
 	 */
-	static bool init(QString path="log/simon.log");
+	static bool init(QString path);
 	
 	/**
 	 * \brief Logs the given string to the file (adds a timecode)

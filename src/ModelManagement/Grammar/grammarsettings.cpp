@@ -15,12 +15,16 @@
 #include "MergeTerminals/mergeterminalswizard.h"
 #include "RenameTerminal/renameterminalwizard.h"
 #include <QTableWidgetItem>
-#include <QMessageBox>
+#include <kmessagebox.h>
 
-GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(tr("Grammatikeinstellungen"), QIcon(":/images/icons/signature.svg"), tr("Grammatik bearbeiten"), parent)
+GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(i18n("Grammatikeinstellungen"), KIcon("signature"), i18n("Grammatik bearbeiten"), parent)
 {
 	ui.setupUi(this);
-	help = tr("Hier können Sie die Grammatikkonstrukte die von simon erkannt werden anpassen.");
+	ui.pbImportTexts->setIcon(KIcon("document-open"));
+	ui.pbRename->setIcon(KIcon("document-properties"));
+	ui.pbMerge->setIcon(KIcon("arrow-down-double"));
+	
+	help = i18n("Hier kÃ¶nnen Sie die Grammatikkonstrukte die von simon erkannt werden anpassen.");
 
 	this->importGrammarWizard = new ImportGrammarWizard(this);
 
@@ -28,30 +32,27 @@ GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(tr("Grammatikein
 
 	connect(importGrammarWizard, SIGNAL(grammarCreated(QStringList)), this, SLOT(mergeGrammar(QStringList)));
 	connect(importGrammarWizard, SIGNAL(finished(int)), ui.pbImportTexts, SLOT(toggle()));
-		
-	connect(ui.twSentences, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(sentenceSelectionChanged(int, int, int, int)));
-	connect(ui.pbAddSentence, SIGNAL(clicked()), this, SLOT(addSentence()));
-	connect(ui.pbDeleteSentence, SIGNAL(clicked()), this, SLOT(deleteSelectedSentence()));
 	
 	
 	this->mergeTerminalsWizard = new MergeTerminalsWizard(this);
 	
 	connect(ui.pbImportTexts, SIGNAL(toggled(bool)), this, SLOT(showImportWizard(bool)));
 	connect(ui.pbMerge, SIGNAL(toggled(bool)), this, SLOT(showMergeWizard(bool)));
+	
 	connect(mergeTerminalsWizard, SIGNAL(finished(int)), ui.pbMerge, SLOT(animateClick()));
 	connect(renameTerminalWizard, SIGNAL(finished(int)), ui.pbRename, SLOT(animateClick()));
 
 	connect(mergeTerminalsWizard, SIGNAL(finished(int)), this, SLOT(reset()));
 	connect(renameTerminalWizard, SIGNAL(finished(int)), this, SLOT(reset()));
 
-	connect(ui.twSentences, SIGNAL(cellChanged(int, int)), this, SIGNAL(changed()));
+	connect(ui.elbSentences, SIGNAL(changed()), this, SIGNAL(changed()));
 	
 	connect (ui.pbRename, SIGNAL(toggled(bool)), this, SLOT(showRenameWizard(bool)));
 }
 
 void GrammarSettings::askForSave()
 {
-	if (QMessageBox::question(this, tr("Grammatik speichern"), tr("Sie möchten eine Aktion ausführen, die eine gespeicherte Grammatik benötigt.\n\nWenn Sie Ihre aktuellen Änderungen beibehalten möchten, müssen Sie jetzt Ihre Grammatik speichern.(Ansonsten wird mit der zuletzt gespeicherten Grammatik weitergearbeitet)\n\nWollen Sie das jetzt tun?"), QMessageBox::Yes| QMessageBox::No) == QMessageBox::Yes)
+	if (KMessageBox::questionYesNo(this, i18n("Sie mÃ¶chten eine Aktion ausfÃ¼hren, die eine gespeicherte Grammatik benÃ¶tigt.\n\nWenn Sie Ihre aktuellen Ã„nderungen beibehalten mÃ¶chten, mÃ¼ssen Sie jetzt Ihre Grammatik speichern.(Ansonsten wird mit der zuletzt gespeicherten Grammatik weitergearbeitet)\n\nWollen Sie das jetzt tun?"), i18n("Grammatik speichern")) == KMessageBox::Yes)
 		apply();
 }
 
@@ -84,9 +85,9 @@ QStringList GrammarSettings::getCurrentTerminals()
 {
 	QStringList terms;
 	QString sent;
-	for (int i=0; i < ui.twSentences->rowCount(); i++)
+	for (int i=0; i < ui.elbSentences->count(); i++)
 	{
-		sent = ui.twSentences->item(i,0)->text();
+		sent = ui.elbSentences->text(i);
 		QStringList termtemp = sent.split(" ");
 		for (int j=0; j < termtemp.count(); j++)
 		{
@@ -98,23 +99,7 @@ QStringList GrammarSettings::getCurrentTerminals()
 
 void GrammarSettings::insertSentences(QStringList sentences)
 {
-	int currentRowCount = ui.twSentences->rowCount();
-	ui.twSentences->setRowCount(currentRowCount+sentences.count());
-	for (int i=0; i < sentences.count(); i++)
-	{
-		ui.twSentences->setItem(i+currentRowCount, 0, new QTableWidgetItem(sentences[i]));
-	}
-}
-
-void GrammarSettings::addSentence()
-{
-	ui.twSentences->setRowCount(ui.twSentences->rowCount()+1);
-	int newRow =  ui.twSentences->rowCount()-1;
-	ui.twSentences->setItem(newRow, 0, new QTableWidgetItem());
-	ui.twSentences->setRangeSelected(QTableWidgetSelectionRange(0, 0, ui.twSentences->rowCount()-1,0),false);
-	ui.twSentences->setRangeSelected(QTableWidgetSelectionRange(newRow, 0, newRow,0),true);
-	ui.twSentences->setCurrentCell(newRow,0);
-	ui.twSentences->editItem(ui.twSentences->item(newRow,0));
+	ui.elbSentences->insertStringList(sentences);
 }
 
 void GrammarSettings::showImportWizard(bool show)
@@ -127,28 +112,11 @@ void GrammarSettings::showImportWizard(bool show)
 
 void GrammarSettings::showMergeWizard(bool show)
 {
-	if (show) {	
+	if (show) {
 		askForSave();
 		mergeTerminalsWizard->restart();
 		mergeTerminalsWizard->show();
 	} else mergeTerminalsWizard->hide();
-}
-
-void GrammarSettings::sentenceSelectionChanged(int row, int col, int oldrow, int oldcol)
-{
-	if ((oldrow != -1) && (ui.twSentences->item(oldrow,0)->text().trimmed().isEmpty()))
-	{
-		if (QMessageBox::question(this, tr("Leerer Satz"), tr("Wollen Sie den leeren Satz löschen?\n\n(Es gibt keine leeren Sätze)"), QMessageBox::Yes | QMessageBox::No) != QMessageBox::Yes)
-		{
-			QCoreApplication::processEvents();
-			ui.twSentences->setRangeSelected(QTableWidgetSelectionRange(0, 0, ui.twSentences->rowCount()-1,0),false);
-			ui.twSentences->setRangeSelected(QTableWidgetSelectionRange(oldrow, 0, oldrow,0),true);
-			ui.twSentences->setCurrentCell(oldrow,0);
-			ui.twSentences->editItem(ui.twSentences->item(oldrow,0));
-		} else
-			ui.twSentences->removeRow(oldrow);
-	}
-	if (row != -1) ui.pbDeleteSentence->setEnabled(true);
 }
 
 /**
@@ -160,35 +128,10 @@ bool GrammarSettings::isComplete()
 	return true;
 }
 
-void GrammarSettings::deleteSelectedSentence()
-{
-	int row = ui.twSentences->currentRow();
-	if (QMessageBox::question(this, tr("Selektiereten Satz löschen"), tr("Wollen Sie den Satz\n\n\"%1\"\n\nwirklich löschen?").arg(ui.twSentences->item(row,0)->text()), QMessageBox::Yes | QMessageBox::No)==QMessageBox::Yes)
-	{
-		ui.twSentences->item(row, 0)->setText("_____"); //ugly hack, but if we wouldn't do that,
-		//and we would want to delete a (now) empty sentence (i.e. the user deleted its content and
-		//wants to remove it now, qt would (while removing the row) set the focus on a different cell.
-		//this would then trigger the currentCellChanged() signal which would in terms trigger
-		//our sentenceSelectionChanged slot which checks if the slot we just left is empty.
-		//in that case that would would evaluate as "true" and simon would ask the user if he wants
-		//to delete the (empty) sentence.
-		//this is not only unnessecairy but also causes a segmentation fault if the user selects yes
-		//(because we then try to delete the row twice)
-		
-		ui.twSentences->removeRow(row);
-	}
-}
 
 QStringList GrammarSettings::getCurrentStructures()
 {
-	QStringList sentences;
-
-	for (int i=0; i < ui.twSentences->rowCount(); i++)
-	{
-		sentences << ui.twSentences->item(i,0)->text();
-	}
-	
-	return sentences;
+	return ui.elbSentences->items();
 }
 
 bool GrammarSettings::apply()
@@ -202,24 +145,20 @@ bool GrammarSettings::apply()
 
 bool GrammarSettings::init()
 {
-	ui.twSentences->setRowCount(0);
+	ui.elbSentences->clear();
 	GrammarManager *grammarManager = GrammarManager::getInstance();
 	QStringList terminals = grammarManager->getTerminals();
 
 	QStringList sentences = grammarManager->getAllStructures();
 	insertSentences(sentences);
-	
-	ui.twSentences->resizeColumnsToContents();
+
 	return true;
 }
 
 bool GrammarSettings::reset()
 {
-	ui.twSentences->clearContents();
-	ui.twSentences->setRowCount(0);
 	return init();
 }
-
 
 
 GrammarSettings::~GrammarSettings()
@@ -228,5 +167,3 @@ GrammarSettings::~GrammarSettings()
     renameTerminalWizard->deleteLater();
     mergeTerminalsWizard->deleteLater();
 }
-
-

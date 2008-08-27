@@ -29,7 +29,7 @@ public:
 	const QString name() const;
 	bool load();
 	bool save();
-	bool trigger(QString triggerName);
+	bool trigger(const QString& triggerName);
 	bool addCommand(Command *) { return false; }
 
     /**

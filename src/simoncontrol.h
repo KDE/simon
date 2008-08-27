@@ -45,23 +45,48 @@ class ActionManager;
 class SimonControl : public QObject {
 	Q_OBJECT
 
+
+	
+public:
+	
+	enum SystemStatus {
+		Disconnected=0,
+		Connecting=1,
+		ConnectedDeactivated=2,
+		ConnectedActivated=3
+	};
+	
+	void connectTo(QString host);
+	SimonControl::SystemStatus deactivateSimon();
+	SimonControl::SystemStatus activateSimon();
+
+	SimonControl::SystemStatus toggleActivition();
+	
+	SimonControl::SystemStatus getStatus() const {return status;}
+	void setStatus(SimonControl::SystemStatus status);
+
+	SimonControl();
+
+	~SimonControl();
+	
 signals:
 	void connected();
 	void disconnected();
 	void connectionError(QString error);
 	void guiAction(QString action);
+	void systemStatusChanged(SimonControl::SystemStatus);
 	
 public slots:
-	void connectToJulius();
-	void disconnectFromJulius();
-	void connectedToJulius();
-	void disconnectedFromJulius();
+	void connectToServer();
+	void disconnectFromServer();
+	void connectedToServer();
+	void disconnectedFromServer();
 	void wordRecognised(QString word,QString sampa,QString samparaw);
 	void abortConnecting();
 	void errorConnecting(QString error);
 
 	//TextSync
-	void sendFileToSyncer();
+// 	void sendFileToSyncer();
 	//_______
 
 private slots:
@@ -69,25 +94,14 @@ private slots:
 	void juliusWarning(QString warning);
 	void loggedIn();
 private:
-	bool active; //!< Is active?
+	SimonControl::SystemStatus status;
+	
 	JuliusControl *julius; //!< Julius Backend
 	ActionManager *actionManager; //!< Processes all actions
 	
 	QStringList juliusdConnectionsToTry;
 	QStringList juliusdConnectionErrors;
 	
-public:
-	void connectTo(QString host);
-	bool deactivateSimon();
-	bool activateSimon();
-
-	bool toggleActivition();
-	bool getActivitionState();
-	
-
-	SimonControl();
-	
-	~SimonControl();
 
 };
 

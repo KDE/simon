@@ -45,6 +45,8 @@ public:
 	void keyPressEvent(QKeyEvent * event);
 	void unRegisterPage(InlineWidget *page);
 	void unRegisterCurrentPage();
+	
+	void toggleDisplay(InlineWidget *page);
 
     ~InlineWidgetView();
 

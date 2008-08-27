@@ -103,7 +103,7 @@ void ATWatcher::deleteObject(ATObject *oldObject)
  * @param triggerString The trigger of the widget to trigger
  * @return True if we found the widget; else: false
  */
-bool ATWatcher::trigger(QString triggerString)
+bool ATWatcher::trigger(const QString &triggerString)
 {
 // 	qDebug() << "execute: " << triggerString;
 	QStack<ATObject*> objectsToSearch;

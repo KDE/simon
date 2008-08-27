@@ -19,14 +19,23 @@
  ***************************************************************************/
 #include <QDir>
 #include <QPixmap>
-#include <QMessageBox>
 #include <QCryptographicHash>
+#include <QDebug>
+
+
+#include <KMessageBox>
+#include <KApplication>
+#include <KAction>
+#include <KLocale>
+#include <KActionCollection>
+#include <KStandardAction>
+#include <KStandardDirs>
+#include <KStatusBar>
 
 #include "simonview.h"
 #include "inlinewidgetview.h"
 #include "Configuration/systemview.h"
 #include "SimonLib/Logging/logger.h"
-#include "simoncontrol.h"
 
 #include "SimonLib/SimonInfo/simoninfo.h"
 #include "Actions/runcommandview.h"
@@ -58,38 +67,37 @@
 SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 		:SimonMainWindow ( parent, flags )
 {
-	QDir::setCurrent ( QCoreApplication::applicationDirPath() );
-	if ( !Logger::init() )
+	//FIXME: set logging path
+	if ( !Logger::init(KStandardDirs::locate("appdata", "simon.log") ))
 	{
-		QMessageBox::critical ( this, tr ( "Fehler" ), tr ( "Konnte die Log-Datei nicht öffnen. Bitte überprüfen Sie die Berechtigungen.." ) );
+		QMessageBox::critical ( this, i18n ( "Fehler" ), i18n ( "Konnte die Log-Datei nicht Ã¶ffnen. Bitte Ã¼berprÃ¼fen Sie die Berechtigungen.." ) );
 		exit ( 1 );
 	}
 	
-	Logger::log ( tr ( "[INF] Starte simon..." ) );
+	Logger::log ( i18n ( "[INF] Starte simon..." ) );
 	
-	this->info = new SimonInfo();
+	SimonInfo *info = new SimonInfo();
 
 	//showing splash
-	Logger::log ( tr ( "[INF] Zeige Splashscreen..." ) );
-	this->info->showSplash();
+	Logger::log ( i18n ( "[INF] Zeige Splashscreen..." ) );
+	info->showSplash();
 
-	Logger::log ( tr ( "[INF] Lade Einstellungen..." ) );
+	Logger::log ( i18n ( "[INF] Lade Einstellungen..." ) );
 	Settings::initSettings();
 
-// 	Settings::set("ConfigDone", false);
 	if (!Settings::getB("ConfigDone"))
 	{
 		FirstRunWizard *firstRunWizard = new FirstRunWizard(this);
-		if (firstRunWizard->exec() || (QMessageBox::question(this, tr("Konfiguration abbrechen"), tr("Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.\n\nWollen Sie den Assistenten beim nächsten Start wieder anzeigen?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::No))
+		if (firstRunWizard->exec() || (QMessageBox::question(this, i18n("Konfiguration abbrechen"), i18n("Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.\n\nWollen Sie den Assistenten beim nÃ¤chsten Start wieder anzeigen?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::No))
 			Settings::set("ConfigDone", true);
 		firstRunWizard->deleteLater();
 	}
 	
 	
 	
-	Logger::log ( tr ( "[INF] Einstellungen geladen..." ) );
+	Logger::log ( i18n ( "[INF] Einstellungen geladen..." ) );
 
-	this->info->writeToSplash ( tr ( "Lade Programmlogik..." ) );
+	info->writeToSplash ( i18n ( "Lade Programmlogik..." ) );
 	
 	this->control = new SimonControl ();
 	this->trayManager = new TrayIconManager();
@@ -103,6 +111,9 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	qApp->setQuitOnLastWindowClosed(false);
 	ui.setupUi ( this );
 
+	statusBar()->insertItem("Nicht Verbunden",0);
+	statusBar()->insertItem("",1,10);
+	statusBar()->insertPermanentWidget(2,ui.pbProgress);
 	
 	connect(WordListManager::getInstance(), SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
 	connect(WordListManager::getInstance(), SIGNAL(progress(int,int)), this, SLOT(displayProgress(int, int)));
@@ -110,72 +121,126 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	//Preloads all Dialogs
 	guessChildTriggers ( ( QObject* ) this );
 
-	this->info->writeToSplash ( tr ( "Lade \"Trainieren\"..." ) );
+	info->writeToSplash ( i18n ( "Lade \"Trainieren\"..." ) );
 	this->trainDialog = TrainingView::getInstance ();
 
-	this->info->writeToSplash ( tr ( "Lade \"Wortliste\"..." ) );
+	info->writeToSplash ( i18n ( "Lade \"Wortliste\"..." ) );
 	this->wordList = new WordListView ( this );
 
-	this->info->writeToSplash ( tr ( "Lade \"Wort hinzufügen\"..." ) );
+	info->writeToSplash ( i18n ( "Lade \"Wort hinzufÃ¼gen\"..." ) );
 	this->addWordView = AddWordView::getInstance();
 
-	this->info->writeToSplash ( tr ( "Lade \"Ausführen\"..." ) );
+	info->writeToSplash ( i18n ( "Lade \"AusfÃ¼hren\"..." ) );
 	this->runDialog = new RunCommandView ( this );
 
-	this->info->writeToSplash ( tr ( "Lade \"System\"..." ) );
-	this->systemDialog = new SystemView ( this );
+// 	info->writeToSplash ( i18n ( "Lade \"System\"..." ) );
+// 	this->systemDialog = new SystemView ( this );
+	this->systemDialog=0;
 
-	this->info->writeToSplash ( tr ( "Lade Oberfläche..." ) );
+	info->writeToSplash ( i18n ( "Lade OberflÃ¤che..." ) );
 
-	ui.tbStatus->addWidget ( ui.lbStatus );
-// 	ui.tbStatus->addWidget ( ui.statusSpacer );
-	ui.tbStatus->addWidget ( ui.pbProgress );
-// 	ui.tbStatus->addWidget ( ui.pbActivision );
-	ui.tbStatus->addWidget ( ui.pbCompileModel );
-	ui.tbStatus->addWidget ( ui.pbKeyed );
-	ui.tbLogo->addWidget ( ui.lbLogo );
-	ui.tbLogo->addWidget ( ui.frmConnectionStatus );
-	ui.tbModules->addWidget ( ui.pbAddWord );
-	ui.tbModules->addWidget ( ui.pbTrain );
-	ui.tbModules->addWidget ( ui.pbWordList );
-	ui.tbModules->addWidget ( ui.pbRunProgram );
-	ui.pbSystem->setDisabled ( true );
-	settingsToolButton = ui.tbModules->addWidget ( ui.pbSystem );
-	settingsToolButton->setVisible(false);
-	ui.tbModules->addWidget ( ui.pbClose );
+	
+	
+	settingsShown=false;
+	
+	setupActions();
 
 	setupSignalSlots();
 
 
 	if ( Settings::getB ( "Juliusd/AutoConnect" ) )
 	{
-		this->info->writeToSplash ( tr ( "Verbinde zu juliusd..." ) );
-		connectToServer();
+		info->writeToSplash ( i18n ( "Verbinde zu juliusd..." ) );
+		control->connectToServer();
 	}
 
 	//hiding splash again after loading
-	this->info->hideSplash();
+	info->hideSplash();
 
 	show();
 	QCoreApplication::processEvents();
-	connect ( systemDialog, SIGNAL ( commandsChanged() ), runDialog, SLOT ( loadCommands() ) );
 
 	//switches, if the settings are shown or not
 	hideSettings();
-
-	connect ( ui.pbKeyed, SIGNAL ( clicked ( bool ) ), this, SLOT ( checkSettingState() ) );
 }
 
-void SimonView::showAbout()
+void SimonView::setupActions()
 {
-	QMessageBox::about(this, tr("Über simon"), tr("<html><head /><body><h2>simon 0.1-alpha-2</h2>\
-	<h2>Entwicklung und Vertrieb</h2>\
-	<p>Entwickelt und Vertrieben vom gemeinnützigen Verein <a href=\"http://simon-listens.org\">simon listens e.V.</a> in Kooperation mit <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\
-	<h3>Entwickler</h3>\
-	<ul><li>Peter Grasch<li>Phillip Goriup<li>Susanne Tschernegg<li>Bettina Sturmann<li>Gigerl Martin</ul>\
-	<h3>Dank an</h3> \
-	<ul><li>Franz Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Stieger Michael</ul> \
-	</body></html>"));
+	KAction* connectActivate = new KAction(this);
+	connectActivate->setCheckable(true);
+	connectActivate->setText(i18n("Verbinden"));
+	connectActivate->setIcon(KIcon("network-disconnect"));
+	connectActivate->setShortcut(Qt::CTRL + Qt::Key_C);
+	actionCollection()->addAction("connectActivate", connectActivate);
+	connect(connectActivate, SIGNAL(triggered(bool)),
+		this, SLOT(toggleConnection()));
+	
+	KAction* addWord = new KAction(this);
+	addWord->setText(i18n("Wort HinzufÃ¼gen"));
+	addWord->setIcon(KIcon("list-add"));
+	addWord->setShortcut(Qt::CTRL + Qt::Key_N);
+	actionCollection()->addAction("addword", addWord);
+	connect(addWord, SIGNAL(triggered(bool)),
+		this, SLOT(showAddWordDialog()));
+	
+	KAction* train = new KAction(this);
+// 	train->setCheckable(true);
+	train->setText(i18n("Trainieren"));
+	train->setIcon(KIcon("view-pim-news"));
+	train->setShortcut(Qt::CTRL + Qt::Key_T);
+	actionCollection()->addAction("train", train);
+	connect(train, SIGNAL(triggered(bool)),
+		this, SLOT(showTrainDialog()));
+	
+	KAction* commands = new KAction(this);
+// 	commands->setCheckable(true);
+	commands->setText(i18n("Kommandos"));
+	commands->setIcon(KIcon("system-run"));
+	commands->setShortcut(Qt::CTRL + Qt::Key_K);
+	actionCollection()->addAction("commands", commands);
+	connect(commands, SIGNAL(triggered(bool)),
+		this, SLOT(showRunDialog()));
+	
+	KAction* wordlist = new KAction(this);
+// 	wordlist->setCheckable(true);
+	wordlist->setText(i18n("Wortliste"));
+	wordlist->setIcon(KIcon("format-justify-fill"));
+	wordlist->setShortcut(Qt::CTRL + Qt::Key_L);
+	actionCollection()->addAction("wordlist", wordlist);
+	connect(wordlist, SIGNAL(triggered(bool)),
+		this, SLOT(showWordListDialog()));
+	
+	KAction* recompile = new KAction(this);
+	recompile->setText(i18n("Modell erstellen"));
+	recompile->setIcon(KIcon("view-refresh"));
+	recompile->setShortcut(Qt::CTRL + Qt::Key_F5);
+	actionCollection()->addAction("compileModel", recompile);
+	connect(recompile, SIGNAL(triggered(bool)),
+		this, SLOT(compileModel()));
+	
+	KAction* systemMode = new KAction(this);
+	systemMode->setCheckable(true);
+	systemMode->setText(i18n("Verwaltungsmodus"));
+	systemMode->setIcon(KIcon("system-lock-screen"));
+	systemMode->setShortcut(Qt::CTRL + Qt::Key_A);
+	actionCollection()->addAction("systemMode", systemMode);
+	connect(systemMode, SIGNAL(triggered(bool)),
+		this, SLOT(checkSettingState()));
+	
+	KAction* system = new KAction(this);
+// 	system->setCheckable(true);
+	system->setText(i18n("System"));
+	system->setIcon(KIcon("configure"));
+	system->setShortcut(Qt::CTRL + Qt::Key_S);
+	system->setVisible(false);
+	actionCollection()->addAction("system", system);
+	connect(system, SIGNAL(triggered(bool)),
+		this, SLOT(showSystemDialog()));
+	
+	KStandardAction::quit(this, SLOT(closeSimon()),
+			      actionCollection());
+	
+	setupGUI();
 }
 
 /**
@@ -185,24 +250,13 @@ void SimonView::showAbout()
 void SimonView::setupSignalSlots()
 {
 	//Setting up Signal/Slots
-	QObject::connect(ui.pbAbout, SIGNAL(clicked()), this, SLOT(showAbout()));
-	QObject::connect(ui.pbAboutQt, SIGNAL(clicked()), qApp, SLOT(aboutQt()));
-	
 	
 	QObject::connect ( control,SIGNAL ( guiAction ( QString ) ), ui.inlineView,SIGNAL ( guiAction ( QString ) ) );
-	connect ( control, SIGNAL ( guiAction ( QString ) ), this, SLOT ( doAction ( QString ) ) );
+	connect ( control, SIGNAL(guiAction(QString)), this, SLOT(doAction(QString)));
+	connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
 	QObject::connect ( this->trainDialog, SIGNAL ( displayMe() ), this, SLOT ( showTrainDialog() ) );
-
-	QObject::connect ( ui.pbAddWord, SIGNAL ( clicked() ), this, SLOT ( showAddWordDialog()) );
-	QObject::connect ( ui.pbWordList, SIGNAL ( clicked()), this, SLOT ( showWordListDialog()) );
-	QObject::connect ( ui.pbRunProgram, SIGNAL ( clicked()), this, SLOT ( showRunDialog()) );
-	QObject::connect ( ui.pbTrain, SIGNAL ( clicked()), this, SLOT ( showTrainDialog()) );
-	QObject::connect ( ui.pbSystem, SIGNAL ( clicked( ) ), this, SLOT ( showSystemDialog () ) );
-	QObject::connect ( addWordView, SIGNAL ( hidden() ), this, SLOT ( setButtonNotChecked() ) );
-
-	QObject::connect ( ui.pbClose, SIGNAL ( clicked() ), this, SLOT ( closeSimon() ) );
+	
 	QObject::connect ( this->trayManager, SIGNAL ( clicked() ), this, SLOT ( toggleVisibility() ) );
-	QObject::connect ( ui.pbActivision, SIGNAL ( clicked() ), this, SLOT ( toggleActivation() ) );
 	QObject::connect ( this->trayManager, SIGNAL ( middleClicked() ), this, SLOT ( toggleActivation() ) );
 	
 	//TextSync
@@ -214,29 +268,21 @@ void SimonView::setupSignalSlots()
 	connect ( trainDialog, SIGNAL ( trainingCompleted() ), wordList,
 	          SLOT ( reloadList() ) );
 
-	connect ( ui.pbConnect, SIGNAL ( clicked() ), this, SLOT ( connectToServer() ) );
-
-	connect ( ui.inlineView, SIGNAL ( registeredPage ( InlineWidget* ) ), this,
-	          SLOT ( inlineWidgetRegistered ( InlineWidget* ) ) );
-	connect ( ui.inlineView, SIGNAL ( unRegisteredPage ( InlineWidget* ) ), this,
-	          SLOT ( inlineWidgetUnRegistered ( InlineWidget* ) ) );
-
 
 	connect(ModelManager::getInstance(), SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
 	connect(ModelManager::getInstance(), SIGNAL(progress(int,int)), this, SLOT(displayProgress(int, int)));
 	
-
-	QObject::connect ( control, SIGNAL ( connected() ), this, SLOT ( connected() ) );
-	QObject::connect ( control, SIGNAL ( disconnected() ), this, SLOT ( disconnected() ) );
 	connect ( control, SIGNAL ( connectionError ( QString ) ), this, SLOT ( errorConnecting ( QString ) ) );
-
-
-	connect ( ui.pbCompileModel, SIGNAL ( clicked() ), this, SLOT ( compileModel() ) );
 }
 
-void SimonView::displayStatus(QString status)
+void SimonView::displayStatus(const QString &status)
 {
-	ui.lbStatus->setText(status);
+	statusBar()->changeItem(status, 1);
+}
+
+void SimonView::displayConnectionStatus(const QString &status)
+{
+	statusBar()->changeItem(status, 0);
 }
 
 void SimonView::displayProgress(int cur, int max)
@@ -250,105 +296,21 @@ void SimonView::compileModel()
 	ModelManager::compileModel();
 }
 
-void SimonView::setButtonNotChecked()
+
+void SimonView::toggleConnection()
 {
-	if ( dynamic_cast<AddWordView*> ( sender() ) )
+	SimonControl::SystemStatus status = control->getStatus();
+	
+	if (status==SimonControl::Disconnected)
 	{
-		ui.pbAddWord->setChecked ( false );
-	}
-	else if ( dynamic_cast<RunCommandView*> ( sender() ) )
+		this->control->connectToServer();
+	} else if (status==SimonControl::Connecting)
 	{
-		ui.pbRunProgram->setChecked ( false );
-	}
-	else if ( dynamic_cast<WordListView*> ( sender() ) )
-	{
-		ui.pbWordList->setChecked ( false );
-	}
-	else if ( dynamic_cast<SystemView*> ( sender() ) )
-	{
-		ui.pbSystem->setChecked ( false );
-	}
-	else if ( dynamic_cast<TrainingView*> ( sender() ) )
-	{
-		ui.pbTrain->setChecked ( false );
-	}
+		this->control->abortConnecting();
+	} else control->disconnectFromServer();
 }
 
 
-/**
- * \brief Connects to juliusd and gives appropriate status information about it
- *
- * @author Peter Grasch
- */
-void SimonView::connectToServer()
-{
-	ui.pbConnect->setText ( "Verbinde..." );
-	ui.pbConnect->setChecked ( true );
-	disconnect ( ui.pbConnect, 0,0,0 );
-	connect ( ui.pbConnect, SIGNAL ( clicked() ), this, SLOT ( abortConnecting() ) );
-	this->control->connectToJulius();
-}
-
-/**
- * \brief Informs the user that we connected to the server
- *
- * @author Peter Grasch
- */
-void SimonView::connected()
-{
-	ui.pbConnect->setText ( tr ( "Trennen" ) );
-	ui.lbTextConnectionStatus->setText(tr("Verbunden"));
-	ui.pbConnect->setEnabled ( true );
-	ui.pbActivision->setEnabled ( true );
-	disconnect ( ui.pbConnect, 0,0,0 );
-	connect ( ui.pbConnect, SIGNAL ( clicked() ), control, SLOT ( disconnectFromJulius() ) );
-
-	SimonInfo::showMessage ( tr ( "Verbunden zu Julius" ), 3000 );
-
-	this->control->getActivitionState();
-	this->representState();
-}
-
-/**
- * \brief Informs the user that we have been disconnected from the server
- *
- * @author Peter Grasch
- */
-void SimonView::disconnected()
-{
-	ui.pbConnect->setText ( tr ( "Verbinden" ) );
-	ui.lbTextConnectionStatus->setText(tr("Nicht Verbunden"));
-	ui.pbActivision->setEnabled ( false );
-	ui.pbConnect->setChecked ( false );
-	disconnect ( ui.pbConnect, 0,0,0 );
-	connect ( ui.pbConnect, SIGNAL ( clicked() ), this, SLOT ( connectToServer() ) );
-
-	SimonInfo::showMessage ( tr ( "Verbindung zu Julius verloren" ), 4000 );
-	//we should probably try to reconnect at this point
-
-	control->deactivateSimon();
-	this->representState();
-}
-
-
-/**
- * \brief We canceled the connecting to the server
- *
- * @author Peter Grasch
- */
-void SimonView::abortConnecting()
-{
-	ui.pbConnect->setText ( tr ( "Verbinden" ) );
-	ui.pbConnect->setChecked ( false );
-	disconnect ( ui.pbConnect, 0,0,0 );
-	connect ( ui.pbConnect, SIGNAL ( clicked() ), this, SLOT ( connectToServer() ) );
-
-	this->control->abortConnecting();
-	this->representState();
-
-	this->control->deactivateSimon();
-
-}
 
 /**
  * \brief Error connecting to the server
@@ -360,17 +322,10 @@ void SimonView::abortConnecting()
  */
 void SimonView::errorConnecting ( QString error )
 {
-	ui.pbConnect->setText ( tr ( "Verbinden" ) );
-	ui.pbConnect->setChecked ( false );
-	disconnect ( ui.pbConnect, 0,0,0 );
-	connect ( ui.pbConnect, SIGNAL ( clicked() ), this, SLOT ( connectToServer() ) );
-
-	this->control->deactivateSimon();
-	this->representState();
-
-	QMessageBox::critical ( this, tr ( "Kritischer Verbindungsfehler" ), tr ( "Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte(n) Fehlermeldung(en) lautete(n):\n" ) +error );
-	Logger::log ( tr ( "[ERR] Verbindung zu juliusd fehlgeschlagen..." ) );
+	QMessageBox::critical ( this, i18n ( "Kritischer Verbindungsfehler" ), i18n ( "Die Verbindung zum juliusd ErkennungsdÃ¤mon konnte nicht aufgenommen werden.\n\nBitte Ã¼berprÃ¼fen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte(n) Fehlermeldung(en) lautete(n):\n" ) +error );
+	Logger::log ( i18n ( "[ERR] Verbindung zu juliusd fehlgeschlagen..." ) );
 }
+
 
 
 
@@ -381,7 +336,7 @@ void SimonView::errorConnecting ( QString error )
  */
 void SimonView::showRunDialog ()
 {
-	alignButtonToInlineWidget(ui.pbRunProgram, runDialog);
+	ui.inlineView->toggleDisplay(runDialog);
 }
 
 
@@ -393,67 +348,11 @@ void SimonView::showRunDialog ()
 void SimonView::showAddWordDialog ( )
 {
 	if ( !addWordView->isVisible() )
-	{
 		this->addWordView->show();
-		ui.pbAddWord->setChecked ( true );
-	}
 	else
-	{
 		this->addWordView->hide();
-		ui.pbAddWord->setChecked ( false );
-	}
 }
 
-
-/**
- * \brief Presses the corresponding button / Gives visual feedback
- * \author Peter Grasch
- */
-void SimonView::inlineWidgetRegistered ( InlineWidget *widget )
-{
-	if ( widget==wordList )
-		if ( !ui.pbWordList->isChecked() ) ui.pbWordList->setChecked(true);
-	if ( widget==runDialog )
-		if ( !ui.pbRunProgram->isChecked() ) ui.pbRunProgram->setChecked(true);
-	if ( widget==trainDialog )
-		if ( !ui.pbTrain->isChecked() ) ui.pbTrain->setChecked(true);
-	if ( widget==systemDialog )
-		if ( !ui.pbSystem->isChecked() ) ui.pbSystem->setChecked(true);
-}
-
-/**
- * \brief Releases the corresponding button / Gives visual feedback
- * \author Peter Grasch
- */
-void SimonView::inlineWidgetUnRegistered ( InlineWidget *widget )
-{
-	if ( widget==wordList )
-		if ( ui.pbWordList->isChecked() ) ui.pbWordList->setChecked(false);
-	if ( widget==runDialog )
-		if ( ui.pbRunProgram->isChecked() ) ui.pbRunProgram->setChecked(false);
-	if ( widget==trainDialog )
-		if ( ui.pbTrain->isChecked() ) ui.pbTrain->setChecked(false);
-	if ( widget==systemDialog )
-		if ( ui.pbSystem->isChecked() ) ui.pbSystem->setChecked(false);
-}
-
-void SimonView::alignButtonToInlineWidget(QAbstractButton *btn, InlineWidget *widget)
-{
-	if (!btn || !widget) return;
-	if (!widget->isShown())
-	{
-		if (ui.inlineView->indexOf(widget) == -1)
-			ui.inlineView->registerPage ( widget );
-		else
-			ui.inlineView->focusPage(widget);
-
-		btn->setChecked(true);
-	} else
-	{
-		ui.inlineView->unRegisterPage ( widget );
-		btn->setChecked(false);
-	}
-}
 
 /**
  * @brief Shows a dialog to configure simon
@@ -462,7 +361,10 @@ void SimonView::alignButtonToInlineWidget(QAbstractButton *btn, InlineWidget *wi
  */
 void SimonView::showSystemDialog ()
 {
-	alignButtonToInlineWidget(ui.pbSystem, systemDialog);
+	//lazy initialization
+	if (!systemDialog)  systemDialog = new SystemView ( this );
+	
+	ui.inlineView->toggleDisplay(systemDialog);
 }
 
 /**
@@ -472,7 +374,7 @@ void SimonView::showSystemDialog ()
  */
 void SimonView::showTrainDialog ()
 {
-	alignButtonToInlineWidget(ui.pbTrain, trainDialog);
+	ui.inlineView->toggleDisplay(trainDialog);
 }
 
 /**
@@ -482,7 +384,7 @@ void SimonView::showTrainDialog ()
  */
 void SimonView::showWordListDialog ()
 {
-	alignButtonToInlineWidget(ui.pbWordList, wordList);
+	ui.inlineView->toggleDisplay(wordList);
 }
 
 
@@ -544,37 +446,74 @@ void SimonView::showSimon()
 void SimonView::toggleActivation()
 {
 	this->control->toggleActivition();
-	this->representState();
 }
 
 /**
- * \brief Make the widgets represent the current state (active/inactive)
+ * \brief Make the widgets represent the current state (connected / disconnected, active/inactive)
  *
  * \author Peter Grasch
  */
-void SimonView::representState()
+void SimonView::representState(SimonControl::SystemStatus status)
 {
-	if ( this->control->getActivitionState() )
+	QAction *connectActivate = actionCollection()->action("connectActivate");
+	switch (status)
 	{
-		ui.lbLogo->setPixmap ( QPixmap ( ":/images/simon.png" ) );
-		ui.pbActivision->setText ( tr ( "Deaktivieren" ) );
-		ui.pbActivision->setIcon ( QIcon ( ":/images/icons/media-playback-pause.svg" ) );
-		this->trayManager->createIcon ( QIcon ( ":/images/tray.png" ), "Simon" );
+		case SimonControl::Disconnected: {
+			displayConnectionStatus(i18n("Getrennt"));
+			
+			if (connectActivate) {
+				connectActivate->setText(i18n ( "Verbinden" ));
+				connectActivate->setChecked(false);
+				connectActivate->setIcon(KIcon("network-disconnect"));
+			}
 
-		if ( isHidden() ) SimonInfo::showMessage ( QString ( "Simon wurde aktiviert" ), 2000 );
-
-		repaint();
-	}
-	else
-	{
-		ui.lbLogo->setPixmap ( QPixmap ( ":/images/simon_d.png" ) );
-		ui.pbActivision->setText ( tr ( "Aktivieren" ) );
-		ui.pbActivision->setIcon ( QIcon ( ":/images/icons/media-playback-start.svg" ) );
-
-		if ( isHidden() ) SimonInfo::showMessage ( QString ( tr ( "simon wurde deaktiviert" ) ), 2000 );
-
-		this->trayManager->createIcon ( QIcon ( ":/images/tray_d.png" ), tr ( "Simon - Deaktiviert" ) );
-		repaint();
+			SimonInfo::showMessage ( i18n ( "Verbindung zu Server getrennt" ), 4000 );
+			//TODO: we should probably (configurably) try to reconnect at this point
+			
+			break; }
+			
+		case SimonControl::Connecting: {
+			QString connectionStr = i18n("Verbinde...");
+			
+			if (connectActivate) {
+				connectActivate->setText(connectionStr);
+				connectActivate->setChecked(true);
+				connectActivate->setIcon(KIcon("network-disconnect"));
+			}
+			displayConnectionStatus(connectionStr);
+			
+			break; }
+			
+		case SimonControl::ConnectedDeactivated: {
+			displayConnectionStatus(i18n("Verbunden aber Deaktiviert"));
+			
+			if (connectActivate) {
+				connectActivate->setText(i18n ( "Aktivieren" ));
+				connectActivate->setChecked(false);
+				connectActivate->setIcon(KIcon("media-playback-pause"));
+			}
+			
+				
+			SimonInfo::showMessage ( i18n ( "simon wurde deaktiviert" ), 2000 );
+				
+			this->trayManager->createIcon ( QIcon ( ":/images/tray_d.png" ), i18n ( "Simon - Deaktiviert" ) );
+			repaint();
+			break; }
+			
+		case SimonControl::ConnectedActivated: {
+			displayConnectionStatus(i18n("Verbunden und Aktiviert"));
+			
+			if (connectActivate)
+			{
+				connectActivate->setText(i18n ( "Aktiviert" ));
+				connectActivate->setChecked(true);
+				connectActivate->setIcon(KIcon("network-connect"));
+			}
+			
+			this->trayManager->createIcon ( QIcon ( ":/images/tray.png" ), "Simon" );
+				
+			SimonInfo::showMessage ( i18n ( "simon wurde aktiviert" ), 2000 );
+			break; }
 	}
 }
 
@@ -607,7 +546,7 @@ void SimonView::toggleVisibility()
 */
 void SimonView::closeSimon()
 {
-	if ( ( !Settings::getB ( "AskBeforeExit" ) ) || ( QMessageBox::question ( this, tr ( "Wirklich beenden?" ), tr ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?" ),QMessageBox::Yes|QMessageBox::No,QMessageBox::No ) == QMessageBox::Yes ) )
+	if ( ( !Settings::getB ( "AskBeforeExit" ) ) || ( QMessageBox::question ( this, i18n ( "Wirklich beenden?" ), i18n ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos kÃ¶nnen mehr benutzt werden.\n\nWollen Sie wirklich beenden?" ),QMessageBox::Yes|QMessageBox::No,QMessageBox::No ) == QMessageBox::Yes ) )
 	{
 		close();
 		qApp->quit();
@@ -627,22 +566,7 @@ void SimonView::closeSimon()
 void SimonView::closeEvent ( QCloseEvent * event )
 {
 	this->hideSimon();
-	if ( sender() != ui.pbClose )
-		event->ignore();
-}
-
-/**
- * @brief Destructor
- *
- *	@author Peter Grasch
-*/
-SimonView::~SimonView()
-{
-	Logger::log ( tr ( "[INF] Beenden..." ) );
-	this->trayManager->~ TrayIconManager();
-	this->control->~ SimonControl();
-	this->info->~ SimonInfo();
-	Logger::close();
+	event->ignore();
 }
 
 /**
@@ -652,7 +576,7 @@ SimonView::~SimonView()
 */
 void SimonView::checkSettingState()
 {
-	if ( ui.pbKeyed->isChecked() )
+	if ( !settingsShown )
 	{
 		if ( !Settings::getB ( "Passwordprotected" ) || checkPassword() )
 		{
@@ -677,15 +601,7 @@ bool SimonView::checkPassword()
 	PasswordDlg* dialog = new PasswordDlg ( this );
 
 	int success = dialog->exec();
-	if ( !success )
-	{
-		ui.pbKeyed->setChecked ( false );
-		return false;
-	}
-	else
-	{
-		return true;
-	}
+	return success;
 }
 
 /**
@@ -695,21 +611,17 @@ bool SimonView::checkPassword()
 */
 void SimonView::hideSettings()
 {
-	//disables the button settings in the mainwindow
-	if ( ui.pbSystem->isChecked() )
-	{
-		ui.pbSystem->setChecked(false);
-		ui.inlineView->unRegisterPage(this->systemDialog);
+	if (systemDialog) { //it is possibly not initialized because we use lazy initialization
+		ui.inlineView->unRegisterPage(systemDialog);
 	}
 
-	settingsToolButton->setVisible(false);
-	ui.pbSystem->setDisabled ( true );
-
-
+	actionCollection()->action("system")->setVisible(false);
 
 	wordList->setSettingsHidden();
 	trainDialog->setSettingsHidden();
 	runDialog->setSettingsHidden();
+	
+	settingsShown=false;
 }
 
 /**
@@ -719,13 +631,26 @@ void SimonView::hideSettings()
 */
 void SimonView::showSettings()
 {
-	settingsToolButton->setVisible(true);
-	ui.pbSystem->setDisabled ( false );
-
+	actionCollection()->action("system")->setVisible(true);
 
 	//sets the setting buttons visible
 	trainDialog->setSettingsVisible();
 	wordList->setSettingsVisible();
 	runDialog->setSettingsVisible();
+	
+	settingsShown=true;
 }
 
+
+/**
+ * @brief Destructor
+ *
+ *	@author Peter Grasch
+ */
+SimonView::~SimonView()
+{
+	Logger::log ( i18n ( "[INF] Beenden..." ) );
+	trayManager->deleteLater();
+	control->deleteLater();
+	Logger::close();
+}

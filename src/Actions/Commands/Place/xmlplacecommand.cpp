@@ -15,7 +15,7 @@
  * \param QString path
  * Path to the commands.xml; Default: conf/commands.xml
  */
-XMLPlaceCommand::XMLPlaceCommand(QString path):XMLDomReader(path)
+XMLPlaceCommand::XMLPlaceCommand(const QString &path):XMLDomReader(path)
 { }
 
 
@@ -29,7 +29,7 @@ XMLPlaceCommand::XMLPlaceCommand(QString path):XMLDomReader(path)
  * The path to save to; Default: conf/commands.xml
  * @return returns, if the command were saved or not
  */
-bool XMLPlaceCommand::save(CommandList *list, QString path)
+bool XMLPlaceCommand::save(const CommandList *list, const QString& path)
 {
 	if (this->doc)
 		this->doc->clear();
@@ -40,7 +40,6 @@ bool XMLPlaceCommand::save(CommandList *list, QString path)
 	
 	for (int i=0; i < list->size(); i++)
 	{
-		//FIXME: implement
 		PlaceCommand *com = dynamic_cast<PlaceCommand*>(list->at(i));
 		if (!com) continue;
 		
@@ -69,7 +68,7 @@ bool XMLPlaceCommand::save(CommandList *list, QString path)
  * @param path
  * The path to save to; If not given the path used to construct the object is used
  */
-CommandList* XMLPlaceCommand::load(bool &ok, QString path)
+CommandList* XMLPlaceCommand::load(bool &ok, const QString& path)
 {
 	if (!XMLDomReader::load(path) || !this->doc)
 	{

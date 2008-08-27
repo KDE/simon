@@ -12,7 +12,7 @@
 #ifndef SELECTPLACEPAGE_H
 #define SELECTPLACEPAGE_H
 #include <QWizardPage>
-#include <QUrl>
+#include <kurl.h>
 
 #include "ui_selectplacedlg.h"
 #include "importplacewizard.h"
@@ -36,9 +36,9 @@ private slots:
 	void parseRemoteUrl();
 	
 public:
-	QString getName();
 	SelectPlacePage(QWidget *parent=0);
-	QUrl getUrl();
+	QString getName() const;
+	KUrl getUrl() const;
 	void initializePage();
 	bool isComplete() const;
 

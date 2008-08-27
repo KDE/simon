@@ -14,12 +14,12 @@ const QString PlaceCommand::getCategoryText() const
 	return PlaceCommand::staticCategoryText();
 }
 
-const QIcon PlaceCommand::staticCategoryIcon()
+const KIcon PlaceCommand::staticCategoryIcon()
 {
-	return QIcon(":/images/icons/folder.svg");
+	return KIcon(":/images/icons/folder.svg");
 }
 
-const QIcon PlaceCommand::getCategoryIcon() const
+const KIcon PlaceCommand::getCategoryIcon() const
 {
 	return PlaceCommand::staticCategoryIcon();
 }

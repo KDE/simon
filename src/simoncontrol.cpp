@@ -39,23 +39,20 @@ SimonControl::SimonControl() : QObject ()
 {
 	Shortcut::initKeys();
 
-	this->active=false;
+	setStatus(SimonControl::Disconnected);
 	this->julius = new JuliusControl();
 	this->actionManager = ActionManager::getInstance();
-// 	eventHandler = EventHandler::getInstance();
-
-// 	this->shortcutControl = ShortcutControl::getInstance();
-
-// 	this->atWatcher = ATWatcher::getInstance();
 	QObject::connect(actionManager, SIGNAL(guiAction(QString)), this, SIGNAL(guiAction(QString)));
 	
-	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToJulius()));
-	QObject::connect(julius, SIGNAL(disconnected()), this, SLOT(disconnectedFromJulius()));
+	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToServer()));
+	QObject::connect(julius, SIGNAL(disconnected()), this, SLOT(disconnectedFromServer()));
 	QObject::connect(julius, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
 
 	QObject::connect(julius, SIGNAL(error(QString,bool)), this, SLOT(juliusError(QString,bool)));
 	QObject::connect(julius, SIGNAL(warning(QString)), this, SLOT(juliusWarning(QString)));
 	QObject::connect(julius, SIGNAL(loggedIn()), this, SLOT(loggedIn()));
+	
+	QObject::connect(julius, SIGNAL(recognised(QString,QString,QString)), this, SLOT(wordRecognised(QString,QString,QString)));
 }
 
 void SimonControl::loggedIn()
@@ -81,23 +78,14 @@ void SimonControl::juliusWarning(QString warning)
 }
 
 /**
- * @brief Destructor
- *
- *	@author Peter Grasch
- */
-SimonControl::~SimonControl()
-{
-    julius->deleteLater();
-//     delete eventHandler;
-}
-
-/**
  * @brief Connects to julius
  *
  *	@author Peter Grasch
  */
-void SimonControl::connectToJulius()
+void SimonControl::connectToServer()
 {
+	setStatus(SimonControl::Connecting);
+	
 	juliusdConnectionsToTry.clear();
 	juliusdConnectionErrors.clear();
 	QString juliusServers = Settings::getS("Network/JuliusdServers");
@@ -131,7 +119,7 @@ void SimonControl::connectTo(QString host)
  *
  *	@author Peter Grasch
  */
-void SimonControl::disconnectFromJulius()
+void SimonControl::disconnectFromServer()
 {
 	julius->disconnectFromServer();
 }
@@ -148,28 +136,15 @@ void SimonControl::disconnectFromJulius()
  */
 void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 {
+	if (status != SimonControl::ConnectedActivated) return;
+	
 	actionManager->process(word);
-// 	QString keyword = Settings::getS("Commands/Keyword");
-// 	
-// 	if (word.startsWith(keyword))
-// 	{
-// 		word = word.replace(0, QString(keyword).length()+1,"");
-// 		
-// 		if (word.startsWith(Settings::getS("Desktopgrid/Trigger")))
-// 		{
-// 			ScreenGrid *sg = new ScreenGrid();
-// 			connect(sg, SIGNAL(click(int, int)), this, SLOT(click(int, int)));
-// 			sg->show();
-// 		}
-// 		if (shortcutControl && (shortcutControl->nameExists(word)))
-// 		{
-// 			eventHandler->sendShortcut(shortcutControl->getShortcut(word));
-// 		} else if (!atWatcher->trigger(word))
-// 			if (!run->run(word))
-// 				emit guiAction(word);
-// 	} else {
-// 		eventHandler->sendWord(word);
-// 	}
+}
+
+void SimonControl::setStatus(SimonControl::SystemStatus status)
+{
+	this->status = status;
+	emit systemStatusChanged(status);
 }
 
 /**
@@ -180,8 +155,9 @@ void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
  *
  * @author Peter Grasch
  */
-void SimonControl::connectedToJulius()
+void SimonControl::connectedToServer()
 {
+	setStatus(SimonControl::ConnectedDeactivated);
 	Logger::log(tr("[INF]")+" "+tr("Verbunden zu julius"));
 	this->activateSimon();
 	emit connected();
@@ -195,8 +171,9 @@ void SimonControl::connectedToJulius()
  *
  * @author Peter Grasch
  */
-void SimonControl::disconnectedFromJulius()
+void SimonControl::disconnectedFromServer()
 {
+	setStatus(SimonControl::Disconnected);
 	Logger::log(tr("[INF] Verbindung von Julius getrennt"));
 	emit disconnected();
 }
@@ -234,21 +211,42 @@ void SimonControl::errorConnecting(QString error)
 	if (juliusdConnectionsToTry.count() > 0)
 		connectTo(juliusdConnectionsToTry.at(0));
 	else {
+		setStatus(Disconnected);
 		emit connectionError(juliusdConnectionErrors.join("\n"));
 	}
 }
 
 
+
 /**
- * @brief getActivitionState()
- *
- * Returns the current Activition State
+ * @brief Toggles the activition
  *
  *	@author Peter Grasch
  */
-bool SimonControl::getActivitionState()
+SimonControl::SystemStatus SimonControl::toggleActivition()
 {
-	return this->active;
+// 	if (!julius->isConnected()) return false;
+	if ((status != SimonControl::Disconnected) && (status != SimonControl::Connecting))
+	{
+		if (status==SimonControl::ConnectedActivated)
+		{
+			deactivateSimon();
+		} else activateSimon();
+	}
+	
+	return status;
+}
+
+/**
+ * @brief Activates Simon
+ *
+ *	@author Peter Grasch
+ */
+SimonControl::SystemStatus SimonControl::activateSimon()
+{
+	Logger::log(tr("[INF] Simon aktiviert"));
+	setStatus(SimonControl::ConnectedActivated);
+	return status;
 }
 
 
@@ -257,48 +255,30 @@ bool SimonControl::getActivitionState()
  *
  *	@author Peter Grasch
  */
-bool SimonControl::deactivateSimon()
+SimonControl::SystemStatus SimonControl::deactivateSimon()
 {
-	this->active=false;
-	disconnect( this->julius, SIGNAL(recognised(QString,QString,QString)), this, SLOT(wordRecognised(QString,QString,QString)));
-	Logger::log(tr("[INF] Simon deaktiviert"));
-	return this->active;
-}
-
-/**
- * @brief Toggles the activition
- *
- *	@author Peter Grasch
- */
-bool SimonControl::toggleActivition()
-{
-	if (!julius->isConnected()) return false;
-	
-	if (this->active)
+	if ((status != SimonControl::Disconnected) && (status != SimonControl::Connecting))
 	{
-		deactivateSimon();
-	} else activateSimon();
-	
-	return this->active;
+		setStatus(SimonControl::ConnectedDeactivated);
+		Logger::log(tr("[INF] Simon deaktiviert"));
+	}
+	return status;
 }
 
+// void SimonControl::sendFileToSyncer()
+// {
+// 	julius->sendSyncFile("fileone.txt");
+// }
+
+
 /**
- * @brief Activates Simon
+ * @brief Destructor
  *
  *	@author Peter Grasch
  */
-bool SimonControl::activateSimon()
+SimonControl::~SimonControl()
 {
-	this->active=true;
-
-	QObject::connect(julius, SIGNAL(recognised(QString,QString,QString)), this, SLOT(wordRecognised(QString,QString,QString)));
-		
-	Logger::log(tr("[INF] Simon aktiviert"));
-	return this->active;
+	julius->deleteLater();
+	actionManager->deleteLater();
+//     delete eventHandler;
 }
-
-void SimonControl::sendFileToSyncer()
-{
-	julius->sendSyncFile("fileone.txt");
-}
-

@@ -69,7 +69,7 @@ void DragTableWidget::mouseMoveEvent(QMouseEvent *event)
 	{	
 		return;
 	}
-	startDrag();
+	startDrag(Qt::CopyAction);
 }
 
 /**
@@ -83,9 +83,9 @@ void DragTableWidget::mouseMoveEvent(QMouseEvent *event)
  *
  * It uses the text-plain mimetype
  *
- * @author Peter Grasch / Phillip Goriup
+ * @author Peter Grasch, Phillip Goriup
  */
-void DragTableWidget::startDrag()
+void DragTableWidget::startDrag(Qt::DropActions supportedActions)
 {
 	QDrag *drag = new QDrag ( this );
 	QMimeData *mimeData = new QMimeData();

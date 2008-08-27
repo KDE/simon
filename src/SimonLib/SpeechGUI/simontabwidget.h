@@ -15,7 +15,7 @@ private:
 	
 public:
 	SimonTabWidget( QWidget * parent  = 0);
-	~SimonTabWidget();
+	~SimonTabWidget(){}
 
 public slots:
 	void setTab(QString text);

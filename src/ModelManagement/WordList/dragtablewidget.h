@@ -42,7 +42,7 @@ private:
 protected:
 	void mousePressEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
-	void startDrag();
+	void startDrag(Qt::DropActions supportedActions);
 public:
     DragTableWidget(QWidget *parent);
 

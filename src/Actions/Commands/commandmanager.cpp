@@ -1,6 +1,6 @@
 #include "commandmanager.h"
 
-bool CommandManager::trigger(QString triggerName)
+bool CommandManager::trigger(const QString& triggerName)
 {
 	if (!commands) return false;
 

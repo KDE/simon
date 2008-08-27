@@ -1,8 +1,8 @@
 #include "guievents.h"
 #include <QRegExp>
-#include <QMessageBox>
 #include "../Logging/logger.h"
 #include <QCoreApplication>
+#include <QStringList>
 
 GuiEvents::GuiEvents(QObject *parent)
 {

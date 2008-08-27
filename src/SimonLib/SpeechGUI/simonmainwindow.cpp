@@ -3,7 +3,7 @@
 
 
 
-SimonMainWindow::SimonMainWindow(QWidget *parent, Qt::WFlags flags)
+SimonMainWindow::SimonMainWindow(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags)
 {
 	guievents = new GuiEvents;
 }

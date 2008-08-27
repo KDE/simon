@@ -20,7 +20,7 @@
  * @param path The path to write to / read from
  * @param parent Parent of the object
  */
-XMLShortcutCommand::XMLShortcutCommand(QString path, QObject* parent): XMLDomReader(path, parent)
+XMLShortcutCommand::XMLShortcutCommand(const QString& path, QObject* parent): XMLDomReader(path, parent)
 {
 }
 
@@ -36,11 +36,12 @@ XMLShortcutCommand::XMLShortcutCommand(QString path, QObject* parent): XMLDomRea
  * @param ok Reference if everything went ok
  * @return the read list
  */
-CommandList* XMLShortcutCommand::load(bool &ok, QString path)
+CommandList* XMLShortcutCommand::load(bool &ok, const QString& path)
 {
-	if (path.isEmpty()) path = this->path;
+	QString realPath = path;
+	if (path.isEmpty()) realPath = this->path;
 
-	XMLDomReader::load(path);
+	XMLDomReader::load(realPath);
 
 	ok = true;
 
@@ -99,10 +100,11 @@ CommandList* XMLShortcutCommand::load(bool &ok, QString path)
  * @param path The path to save to
  * @return Success
  */
-bool XMLShortcutCommand::save(CommandList *commands, QString path)
+bool XMLShortcutCommand::save(const CommandList *commands, const QString& path)
 {
-	if (path.isEmpty()) path = this->path;
-	if (path.isEmpty()) return false;
+	QString realPath = path;
+	if (realPath.isEmpty()) realPath = this->path;
+	if (realPath.isEmpty()) return false;
 	if (!commands) return false;
 	
 	doc->clear();
@@ -151,7 +153,7 @@ bool XMLShortcutCommand::save(CommandList *commands, QString path)
 	}
 
 	doc->appendChild(root);
-	XMLDomReader::save(path);
+	XMLDomReader::save(realPath);
 	return true;
 }
 

@@ -12,7 +12,7 @@
 #ifndef EXECUTABLECOMMAND_H
 #define EXECUTABLECOMMAND_H
 
-#include <QUrl>
+#include <KUrl>
 #include "../command.h"
 
 /**
@@ -27,7 +27,7 @@ class ExecutableCommand : public Command{
 Q_OBJECT
 private:
 	QString exe;
-	QUrl workingDirectory;
+	KUrl workingDirectory;
 
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
@@ -35,9 +35,9 @@ protected:
 
 public:
 	static const QString staticCategoryText();
-	static const QIcon staticCategoryIcon();
+	static const KIcon staticCategoryIcon();
 
-	const QIcon getCategoryIcon() const;
+	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
 
 	
@@ -46,7 +46,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    ExecutableCommand(QString name, QString iconSrc, QString exe, QUrl workingDirectory) : Command(name, iconSrc)
+    ExecutableCommand(const QString& name, const QString& iconSrc, const QString& exe, const KUrl& workingDirectory) : Command(name, iconSrc)
     {
         this->exe = exe;
         this->workingDirectory = workingDirectory;
@@ -64,10 +64,12 @@ public:
     *
     * @author Peter Grasch
     */
-    const QUrl getWorkingDirectory() const {return this->workingDirectory;}
+    const KUrl getWorkingDirectory() const {return this->workingDirectory;}
     
     
-	void change(QString newName, QString newIconSrc, QString newExe, QString newWorkingDir) { 
+
+	void change(const QString& newName, const QString& newIconSrc, const QString& newExe, const QString& newWorkingDir)
+	{ 
 		this->exe = newExe;
 		this->workingDirectory = newWorkingDir;
 		Command::change(newName, newIconSrc);

@@ -52,10 +52,10 @@ ImportProgramWizard::~ImportProgramWizard()
 QWizardPage* ImportProgramWizard::createIntroPage()
 {
 	QWizardPage *intro = new QWizardPage ( this );
-	intro->setTitle ( tr("Importieren eines Programmes") );
+	intro->setTitle ( i18n("Importieren eines Programmes") );
 	QLabel *label = new QLabel ( intro );
 	label->setWordWrap ( true );
-	label->setText ( tr("Dieser Assistent wird ihnen helfen, ein Program, welches bereits installiert wurde, in simon zu importieren.\n\nsimon wird dabei versuchen automatisch alle installierten Proramme zu erkennen und eine sortiert Liste präsentieren, aus der Sie das gewünschte Programm auswählen können.") );
+	label->setText ( i18n("Dieser Assistent wird ihnen helfen, ein Program, welches bereits installiert wurde, in simon zu importieren.\n\nsimon wird dabei versuchen automatisch alle installierten Proramme zu erkennen und eine sortiert Liste präsentieren, aus der Sie das gewünschte Programm auswählen können.") );
 	QVBoxLayout *layout = new QVBoxLayout ( intro );
 	layout->addWidget ( label );
 	intro->setLayout ( layout );

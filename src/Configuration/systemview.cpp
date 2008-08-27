@@ -37,16 +37,16 @@ SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/ima
 {
 	ui.setupUi(this);
 	hide();
-	registerControl(new GeneralSettings(this));
-	registerControl(new InternetExtensionSettings(this));
-	registerControl(new PasswordSettings(this));
-	registerControl(new ModelSettings(this));
-	registerControl(new GrammarSettings(this));
-	registerControl(new SoundSettings(this));
-	registerControl(new NetworkSettings(this));
-	registerControl(new CommandSettings(this));
-	registerControl(new LogView(this));
-	registerControl(new ExternalProgramManager(this));
+	registerSystemWidget(new GeneralSettings(this));
+	registerSystemWidget(new InternetExtensionSettings(this));
+	registerSystemWidget(new PasswordSettings(this));
+	registerSystemWidget(new ModelSettings(this));
+	registerSystemWidget(new GrammarSettings(this));
+	registerSystemWidget(new SoundSettings(this));
+	registerSystemWidget(new NetworkSettings(this));
+	registerSystemWidget(new CommandSettings(this));
+	registerSystemWidget(new LogView(this));
+	registerSystemWidget(new ExternalProgramManager(this));
 
 	connect(ui.lwMenu, SIGNAL(currentRowChanged(int)), this, SLOT(displayId(int)));
 	connect(ui.pbApply, SIGNAL(clicked()), this, SLOT(apply()));
@@ -110,7 +110,7 @@ void SystemView::displayId(int id)
  * \author Peter Grasch
  * @param control The control to register
  */
-void SystemView::registerControl(SystemWidget* control)
+void SystemView::registerSystemWidget(SystemWidget* control)
 {
 	ui.swControls->addWidget(control);
 	connect(this, SIGNAL(guiAction(QString)), control, SLOT(doAction(QString)));
@@ -129,7 +129,7 @@ void SystemView::registerControl(SystemWidget* control)
  * \brief Removes the control
  * @param control The control to remove
  */
-void SystemView::deleteControl(SystemWidget* control)
+void SystemView::deleteSystemWidget(SystemWidget* control)
 {
 	ui.swControls->removeWidget(control);
 }

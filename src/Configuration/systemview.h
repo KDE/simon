@@ -56,14 +56,13 @@ public slots:
 public:
     SystemView(QWidget* parent);
 
-	void registerControl(SystemWidget* control);
-	void deleteControl(SystemWidget* control);
+	void registerSystemWidget(SystemWidget* control);
+	void deleteSystemWidget(SystemWidget* control);
 	
     ~SystemView();
 
 signals:
 	void guiAction(QString);
-	void commandsChanged();
 
 };
 

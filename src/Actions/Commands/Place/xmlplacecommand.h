@@ -15,11 +15,11 @@
 class XMLPlaceCommand : public XMLDomReader {
 	
 public:
-	XMLPlaceCommand(QString path="conf/commands.xml");
+	XMLPlaceCommand(const QString& path="conf/commands.xml");
 	
-	bool save(CommandList *list, QString path="conf/commands.xml");
+	bool save(const CommandList *list, const QString& path="conf/commands.xml");
 	
-	CommandList* load(bool &ok, QString path="");
+	CommandList* load(bool &ok, const QString& path="");
 	
 	~XMLPlaceCommand();
 };

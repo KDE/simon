@@ -18,7 +18,7 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <QUrl>
+#include <KUrl>
 #include "newcommand.h"
 
 #include "Commands/Executable/executablecommand.h"
@@ -53,7 +53,7 @@ void NewCommand::init(Command *command)
 
 		ui.cbType->setCurrentIndex(0); //Executable menu
 		ui.leExecutable->setText(exe->getExecutable());
-		ui.leWorkingDirectory->setText(exe->getWorkingDirectory().toString());
+		ui.leWorkingDirectory->setText(exe->getWorkingDirectory().prettyUrl());
 	}
 	if (dynamic_cast<PlaceCommand*>(command))
 	{
@@ -112,7 +112,7 @@ Command* NewCommand::newCommand()
 	if (QDialog::exec())
 	{
 		//creating
-		Command *command;
+		Command *command=0;
 		
 		int type = ui.cbType->currentIndex();
 		switch (type)
@@ -124,7 +124,7 @@ Command* NewCommand::newCommand()
 				
 			case 1: //place
 				command = new PlaceCommand(ui.leTrigger->text(), ui.tbIcon->getIconName(),
-							QUrl(ui.leUrl->text()));
+							KUrl(ui.leUrl->text()));
 				break;
 				
 			case 2: //shortcut

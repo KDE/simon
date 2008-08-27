@@ -13,7 +13,7 @@ ShortcutCommandManager::ShortcutCommandManager(QObject *parent) :CommandManager(
 
 bool ShortcutCommandManager::addCommand(Command *command)
 {
-	if (dynamic_cast<ShortcutCommand*>(command))
+	if (dynamic_cast<const ShortcutCommand*>(command))
 	{
 		this->commands->append(command);
 		return save();

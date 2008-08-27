@@ -6,10 +6,6 @@ TARGET=../simon
 }
 
 
-OBJECTS_DIR = buildtmp
-MOC_DIR = buildtmp
-UI_DIR = buildtmp
-
 QT += network xml
 
 TEMPLATE = app

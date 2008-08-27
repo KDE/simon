@@ -27,11 +27,11 @@
 class XMLShortcutCommand : public XMLDomReader
 {
 public:
-    XMLShortcutCommand(QString path="conf/shortcuts.xml", QObject* parent=0);
+    XMLShortcutCommand(const QString& path="conf/shortcuts.xml", QObject* parent=0);
 
-    CommandList* load(bool &ok, QString path="");
+    CommandList* load(bool &ok, const QString& path="");
 
-    bool save(CommandList *commands, QString path="");
+    bool save(const CommandList *commands, const QString& path="");
 
     ~XMLShortcutCommand();
 

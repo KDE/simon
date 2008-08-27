@@ -11,6 +11,7 @@
 //
 #include "passwordsettings.h"
 #include "../SimonLib/Settings/settings.h"
+#include <QMessageBox>
 #include <QCryptographicHash>
 
 PasswordSettings::PasswordSettings(QWidget* parent): SystemWidget(tr("Passwort-Sicherung"), QIcon(":/images/icons/lock.svg"), tr("Sichern Sie simons Systemeinstellungen mit einem Passwort"), parent)

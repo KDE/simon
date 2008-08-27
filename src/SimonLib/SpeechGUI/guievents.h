@@ -20,9 +20,9 @@
 #ifndef GUIEVENTS_H
 #define GUIEVENTS_H
 
+// #include "speechgui_export.h"
 #include <QObject>
 #include <QHash>
-#include <QMessageBox>
 
 
 struct actionValues
@@ -38,7 +38,7 @@ struct uniqueKey
 typedef QHash<uniqueKey*,  actionValues*> GuiAction;
 
 
-class GuiEvents :  public  QObject {
+class /*SPEECHGUI_EXPORT*/ GuiEvents :  public  QObject {
 	Q_OBJECT
 	
 private:

@@ -37,12 +37,12 @@
 class QWidget;
 class QIcon;
 
-class QSplashScreen;
+class KSplashScreen;
 
 class SimonInfo {
 	
 private:
-	QSplashScreen *splash;  //!< Splashscreen-Pointer
+	KSplashScreen *splash;  //!< Splashscreen-Pointer
 	QWidget *parent;
 
 public:

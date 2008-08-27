@@ -34,7 +34,7 @@ private slots:
 
 public:
     MergeTerminalsWorkingPage(QWidget* parent);
-	bool isComplete() { return this->complete; }
+	bool isComplete() const { return this->complete; }
 	void initializePage();
     ~MergeTerminalsWorkingPage();
 

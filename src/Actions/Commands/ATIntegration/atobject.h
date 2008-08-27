@@ -29,7 +29,7 @@ class ATObject : public QWidget
 		QString className, name, description;
 		QList<ATOMenu*> menuList;
 	public:
-		ATObject ( ATObject* parent, QString nam, QString cName, QString desc="" );
+		ATObject ( ATObject* parent, const QString& nam, const QString& cName, const QString& desc="" );
 			
 		void addMenu(ATOMenu* menu);
 		QString getClassName() { return className; }

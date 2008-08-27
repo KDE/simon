@@ -37,12 +37,12 @@ public:
 		this->formats = formats;
 	}
 	
-	const QString getName() const { return name; }
-	const QString getDescription() const { return description; }
-	const QIcon getIcon() const { return icon; }
-	const QStringList getFormats() const { return formats; }
+	QString getName() const { return name; }
+	QString getDescription() const { return description; }
+	QIcon getIcon() const { return icon; }
+	QStringList getFormats() const { return formats; }
 
-	const bool operator==(ProgramCategory c)
+	bool operator==(ProgramCategory c)
 	{
 		return (name == c.getName());
 	}

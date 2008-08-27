@@ -36,8 +36,6 @@ class ImportPlaceWizard : public QWizard
 
 	QWizardPage* createIntroPlacePage();
 	SelectPlacePage* createSelectPlacePage();
-//         LocalPlacePage* createLocalPlacePage();
-//         RemotePlacePage* createRemotePlacePage();
 
         QWizardPage* createFinishedPage();
 
@@ -49,7 +47,7 @@ public:
 private slots:
 	void createCommand(int);
 signals:
-   void commandCreated(Command* command);
+   void commandCreated(const Command* command);
 
 };
 

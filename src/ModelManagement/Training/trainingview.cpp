@@ -16,6 +16,7 @@
 #include <QString>
 #include <QTableWidget>
 #include <QHeaderView>
+#include <QMessageBox>
 #include "trainingview.h"
 #include "ImportTrainingData/importtrainingdirectory.h"
 #include "../../SimonLib/Settings/settings.h"

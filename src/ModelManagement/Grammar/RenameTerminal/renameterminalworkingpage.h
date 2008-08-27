@@ -35,7 +35,7 @@ public:
     RenameTerminalWorkingPage(QWidget *parent);
 
 	void initializePage();
-	bool isComplete() { return this->complete; }
+	bool isComplete() const { return this->complete; }
 
     ~RenameTerminalWorkingPage();
 

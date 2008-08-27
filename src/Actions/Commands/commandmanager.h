@@ -40,11 +40,11 @@ public:
 	virtual bool save()=0;
 	virtual bool addCommand(Command *command)=0;
 
-	virtual CommandList* getCommands() { return commands; }
+	virtual CommandList* getCommands() const { return commands; }
 
 	virtual bool deleteCommand(Command *command);
 
-	virtual bool trigger(QString triggerName);
+	virtual bool trigger(const QString& triggerName);
     /**
     * @brief Constructor
     * 

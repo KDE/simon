@@ -13,7 +13,7 @@
 #define SIMONMAINWINDOW_H
 
 #include <QObject>
-#include <QMainWindow>
+#include <kxmlguiwindow.h>
 
 #include "simonwidget.h"
 
@@ -26,12 +26,13 @@
  * \version 
  * \date 
 */
-class SimonMainWindow : public QMainWindow,  public  SimonWidget
+class SimonMainWindow : public KXmlGuiWindow,  public  SimonWidget
 {
 Q_OBJECT
 
 private:
 	GuiEvents *guievents;
+	virtual void setupActions()=0;
 
 signals:
 

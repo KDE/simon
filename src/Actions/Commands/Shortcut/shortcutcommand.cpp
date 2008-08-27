@@ -1,11 +1,12 @@
 #include "shortcutcommand.h"
 #include <QObject>
 #include <QVariant>
+#include <KLocalizedString>
 #include "../../../SimonLib/EventSimulation/eventhandler.h"
 
 const QString ShortcutCommand::staticCategoryText()
 {
-	return QObject::tr("Tastenkürzel");
+	return i18n("Tastenkürzel");
 }
 
 const QString ShortcutCommand::getCategoryText() const
@@ -13,12 +14,12 @@ const QString ShortcutCommand::getCategoryText() const
 	return ShortcutCommand::staticCategoryText();
 }
 
-const QIcon ShortcutCommand::staticCategoryIcon()
+const KIcon ShortcutCommand::staticCategoryIcon()
 {
-	return QIcon(":/images/icons/go-jump-locationbar.svg");
+	return KIcon("go-jump-locationbar");
 }
 
-const QIcon ShortcutCommand::getCategoryIcon() const
+const KIcon ShortcutCommand::getCategoryIcon() const
 {
 	return ShortcutCommand::staticCategoryIcon();
 }
@@ -29,7 +30,7 @@ const QMap<QString,QVariant> ShortcutCommand::getValueMapPrivate() const
 	const Shortcut *shortcut = getShortcut();
 	if (!shortcut) return out;
 
-	out.insert(tr("Tastenkürzel"), shortcut->getDescription());
+	out.insert(i18n("Tastenkürzel"), shortcut->getDescription());
 	return out;
 }
 

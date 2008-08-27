@@ -12,9 +12,9 @@
 #include "atobject.h"
 #include "ato.h"
 #include "../EventSimulation/eventhandler.h"
-#include <QMessageBox>
+#include <kmessagebox.h>
 
-ATObject::ATObject ( ATObject* parent, QString nam, QString cName, QString desc ) :
+ATObject::ATObject ( ATObject* parent, const QString& nam, const QString& cName, const QString& desc ) :
 			QWidget(parent),className(cName), name(nam)
 {
 	this->description=desc;
@@ -22,18 +22,17 @@ ATObject::ATObject ( ATObject* parent, QString nam, QString cName, QString desc 
 
 void ATObject::addMenu(ATOMenu* menu)
 {
-// 	QMessageBox::critical(0, "sodfij", menu->title);
+// 	KMessageBox::critical(0, "sodfij", menu->title);
 // 	for (int i=0; i < menu->actions.count(); i++)
-// 		QMessageBox::information(0, "sodfij", menu->actions[i]->title);
+// 		KMessageBox::information(0, "sodfij", menu->actions[i]->title);
 	this->menuList.append(menu);
 }
 
 void ATObject::trigger()
 {
-	EventHandler *eventHandler = EventHandler::getInstance();
 	int xC = x()+(width()/2);
 	int yC = y()+(height()/2);
-	eventHandler->click(xC, yC);
+	EventHandler::getInstance()->click(xC, yC);
 }
 
 

@@ -4,7 +4,6 @@
 #include <QString>
 #include <QList>
 #include <QFile>
-#include <QIODevice>
 #include <QStringList>
 #include <QDomNode>
 #include <QDomDocument>
@@ -15,7 +14,7 @@
  * \param QString path
  * Path to the commands.xml; Default: conf/commands.xml
  */
-XMLExecutableCommand::XMLExecutableCommand(QString path):XMLDomReader(path)
+XMLExecutableCommand::XMLExecutableCommand(const QString& path):XMLDomReader(path)
 { }
 
 
@@ -29,7 +28,7 @@ XMLExecutableCommand::XMLExecutableCommand(QString path):XMLDomReader(path)
  * The path to save to
  * @return returns, if the command were saved or not
  */
-bool XMLExecutableCommand::save(CommandList *list, QString path)
+bool XMLExecutableCommand::save(CommandList *list, const QString &path)
 {
 	if (this->doc)
 		this->doc->clear();
@@ -49,7 +48,7 @@ bool XMLExecutableCommand::save(CommandList *list, QString path)
 		QDomElement icon = doc->createElement("icon");
 		icon.appendChild(doc->createTextNode(com->getIconSrc()));
 		QDomElement workingDir = doc->createElement("workingdirectory");
-		workingDir.appendChild(doc->createTextNode(com->getWorkingDirectory().toString()));
+		workingDir.appendChild(doc->createTextNode(com->getWorkingDirectory().url()));
 		QDomElement executable = doc->createElement("executable");
 		executable.appendChild(doc->createTextNode(com->getExecutable()));
 		
@@ -67,7 +66,7 @@ bool XMLExecutableCommand::save(CommandList *list, QString path)
  * \brief Loads the commands
  * @author Peter Grasch
  */
-CommandList* XMLExecutableCommand::load(bool &ok, QString path)
+CommandList* XMLExecutableCommand::load(bool &ok, const QString &path)
 {
 	if (!XMLDomReader::load(path) || !this->doc)
 	{

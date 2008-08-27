@@ -233,7 +233,7 @@ void XEvents::sendKey(unsigned short key /*unicode*/)
 	KeyCode keyToSendcode = XKeysymToKeycode(display, keyToSend);
 	KeySym *keyToSendShifted=XGetKeyboardMapping(display, keyToSendcode, 1, &syms);
 	if (!keyToSendShifted) return;	//get the keyToSendboard mapping and go back
-	for (; syms && (!keyToSendShifted[syms-1]); syms--); //to the first in the list
+	for (; syms && (!keyToSendShifted[syms-1]); syms--) ; //to the first in the list
 	if (!syms) return;	//return on error
 	XConvertCase(keyToSend,&keyToSendLowerCase,&keyToSendUpperCase); //extract the keyToSend with and
 	//without shift

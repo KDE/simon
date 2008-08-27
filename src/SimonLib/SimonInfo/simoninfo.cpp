@@ -19,7 +19,7 @@
 #include "simoninfo.h"
 #include <QCoreApplication>
 #include <QPixmap>
-#include <QSplashScreen>
+#include <ksplashscreen.h>
 #include "osd.h"
 
 /**
@@ -34,6 +34,7 @@
 SimonInfo::SimonInfo(QWidget *parent)
 {
 	this->parent = parent;
+	this->splash=0;
 }
 
 
@@ -51,7 +52,9 @@ void SimonInfo::showSplash()
 {
 	QPixmap splashbg(":/images/splash.png");
 
-	this->splash = new QSplashScreen( splashbg );
+	if (this->splash) this->splash->deleteLater();
+	
+	this->splash = new KSplashScreen( splashbg );
 	this->splash->show();
 
 }
@@ -72,6 +75,8 @@ void SimonInfo::showSplash()
 
 void SimonInfo::writeToSplash(QString status)
 {
+	if (!this->splash) return;
+	
 	this->splash->showMessage(status, Qt::AlignLeft|Qt::AlignBottom, 
 					QColor(175, 190, 200, 255));
 	QCoreApplication::processEvents();
@@ -108,8 +113,11 @@ void SimonInfo::showMessage(QString message, short time, QIcon *icon)
 */
 void SimonInfo::hideSplash()
 {
+	if (!splash) return;
+	
 	this->splash->finish(this->parent);
 	splash->deleteLater();
+	splash=0;
 }
 
 
@@ -120,8 +128,7 @@ void SimonInfo::hideSplash()
 */
 SimonInfo::~SimonInfo()
 {
-    splash->deleteLater();
-    parent->deleteLater();
+	if (this->splash) this->splash->deleteLater();
 }
 
 

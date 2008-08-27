@@ -19,61 +19,14 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
-    <widget class="QTableWidget" name="twSentences" >
-     <property name="selectionMode" >
-      <enum>QAbstractItemView::SingleSelection</enum>
+    <widget class="KEditListBox" name="elbSentences" >
+     <property name="title" >
+      <string>Satzstrukturen</string>
      </property>
-     <column>
-      <property name="text" >
-       <string>Satzstruktur</string>
-      </property>
-     </column>
+     <property name="buttons" >
+      <set>KEditListBox::Add|KEditListBox::Remove</set>
+     </property>
     </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" >
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0" >
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pbDeleteSentence" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="text" >
-        <string>Entfernen</string>
-       </property>
-       <property name="icon" >
-        <iconset resource="../action_icons.qrc" >
-         <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pbAddSentence" >
-       <property name="enabled" >
-        <bool>true</bool>
-       </property>
-       <property name="text" >
-        <string>Hinzufügen</string>
-       </property>
-       <property name="icon" >
-        <iconset resource="../action_icons.qrc" >
-         <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
    <item>
     <widget class="Line" name="line" >
@@ -85,44 +38,29 @@
    <item>
     <layout class="QHBoxLayout" >
      <item>
-      <widget class="QPushButton" name="pbImportTexts" >
-       <property name="toolTip" >
-        <string>Importieren Sie persönliche Texte um die verwendete Grammatik zu analysieren</string>
-       </property>
+      <widget class="KPushButton" name="pbImportTexts" >
        <property name="text" >
         <string>Textimport</string>
        </property>
-       <property name="icon" >
-        <iconset resource="../action_icons.qrc" >
-         <normaloff>:/images/icons/document-open.svg</normaloff>:/images/icons/document-open.svg</iconset>
-       </property>
        <property name="checkable" >
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pbRename" >
+      <widget class="KPushButton" name="pbRename" >
        <property name="text" >
         <string>Terminal umbenennen</string>
        </property>
-       <property name="icon" >
-        <iconset resource="../action_icons.qrc" >
-         <normaloff>:/images/icons/document-properties.svg</normaloff>:/images/icons/document-properties.svg</iconset>
-       </property>
        <property name="checkable" >
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pbMerge" >
+      <widget class="KPushButton" name="pbMerge" >
        <property name="text" >
         <string>Terminale verbinden</string>
-       </property>
-       <property name="icon" >
-        <iconset resource="../action_icons.qrc" >
-         <normaloff>:/images/icons/arrow-down-double.svg</normaloff>:/images/icons/arrow-down-double.svg</iconset>
        </property>
        <property name="checkable" >
         <bool>true</bool>
@@ -133,6 +71,18 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KEditListBox</class>
+   <extends>QGroupBox</extends>
+   <header>keditlistbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../simon.qrc" />
   <include location="../action_icons.qrc" />

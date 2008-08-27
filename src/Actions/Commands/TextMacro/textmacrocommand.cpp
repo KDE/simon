@@ -2,12 +2,13 @@
 #include <QObject>
 #include <QCoreApplication>
 #include <QVariant>
+#include <KLocalizedString>
 #include "../../SimonLib/EventSimulation/eventhandler.h"
 
 
 const QString TextMacroCommand::staticCategoryText()
 {
-	return tr("Text-Makro");
+	return i18n("Text-Makro");
 }
 
 const QString TextMacroCommand::getCategoryText() const
@@ -15,12 +16,12 @@ const QString TextMacroCommand::getCategoryText() const
 	return TextMacroCommand::staticCategoryText();
 }
 
-const QIcon TextMacroCommand::staticCategoryIcon()
+const KIcon TextMacroCommand::staticCategoryIcon()
 {
-	return QIcon(":/images/icons/format-text-bold.svg");
+	return KIcon("format-text-bold");
 }
 
-const QIcon TextMacroCommand::getCategoryIcon() const
+const KIcon TextMacroCommand::getCategoryIcon() const
 {
 	return TextMacroCommand::staticCategoryIcon();
 }

@@ -9,11 +9,6 @@ SimonTabWidget::SimonTabWidget( QWidget * parent )
 }
 
 
-SimonTabWidget::~SimonTabWidget()
-{
-	
-}
-
 void SimonTabWidget::setTab(QString text)
 {
 	int j = 0;

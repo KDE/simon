@@ -12,7 +12,7 @@ const QString DesktopGridCommandManager::name() const
 	tr("Desktopgitter");
 }
 
-bool DesktopGridCommandManager::trigger(QString triggerName)
+bool DesktopGridCommandManager::trigger(const QString& triggerName)
 {
 	if (triggerName != Settings::getS("Commands/DesktopGrid/Trigger")) return false;
 

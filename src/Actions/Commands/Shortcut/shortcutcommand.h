@@ -38,9 +38,9 @@ protected:
 
 public:
 	static const QString staticCategoryText();
-	static const QIcon staticCategoryIcon();
+	static const KIcon staticCategoryIcon();
 
-	const QIcon getCategoryIcon() const;
+	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
 	
     /**
@@ -48,13 +48,13 @@ public:
     * 
     *	@author Peter Grasch
     */
-    ShortcutCommand(QString name, QString iconSrc, Shortcut *shortcut) : Command(name, iconSrc)
+    ShortcutCommand(const QString& name, const QString& iconSrc, Shortcut *shortcut) : Command(name, iconSrc)
     {
         this->shortcut = shortcut;
     }
 
 
-	void change(QString newName, QString newIconSrc, Shortcut *newShortcut) { 
+	void change(const QString& newName, const QString& newIconSrc, Shortcut *newShortcut) { 
 		this->shortcut = newShortcut;
 		Command::change(newName, newIconSrc);
 	}

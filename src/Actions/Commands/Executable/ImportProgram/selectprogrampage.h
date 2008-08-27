@@ -40,20 +40,16 @@ public:
         SelectProgramPage(QWidget* parent);
         ~SelectProgramPage();
 
-        void insertCategories(ProgramCategoryList categorieList);
-        void insertPrograms(ProgramList *programList);
+        void insertCategories(const ProgramCategoryList& categorieList);
+        void insertPrograms(const ProgramList *programList);
 
 	void initializePage();
 
-        QString getExecPath();
-        QString getName();
-        QString getIcon();
-	    QString getWorkingDirectory();
+	QString getExecPath();
+	QString getName();
+	QString getIcon();
+	QString getWorkingDirectory();
 
-//         QVBoxLayout *vboxLayout;
-//         QListWidget *lwCategories;
-//         QListWidget *lwPrograms;
-//         QHBoxLayout *hboxLayout;
 
 
     public slots:

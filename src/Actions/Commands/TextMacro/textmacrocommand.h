@@ -35,9 +35,9 @@ protected:
 
 public:
 	static const QString staticCategoryText();
-	static const QIcon staticCategoryIcon();
+	static const KIcon staticCategoryIcon();
 
-	const QIcon getCategoryIcon() const;
+	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
 
 	
@@ -46,7 +46,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    TextMacroCommand(QString name, QString iconSrc, QString text) : Command(name, iconSrc)
+    TextMacroCommand(const QString& name, const QString& iconSrc, const QString& text) : Command(name, iconSrc)
     {
         this->text = text;
     }
@@ -59,7 +59,7 @@ public:
     const QString getText() const { return this->text; }
     
 
-	void change(QString newName, QString newIconSrc, QString newText) { 
+	void change(const QString& newName, const QString& newIconSrc, const QString& newText) { 
 		this->text = newText;
 		Command::change(newName, newIconSrc);
 	}

@@ -146,8 +146,10 @@ void LogManager::getDay(QDate day)
 	}
 
 	if (day.isNull())
+	{
 		if (dayToGet.isNull()) return;
 		else day = dayToGet;
+	}
 
 	LogEntryList *entriesperday = new LogEntryList;
 
@@ -160,7 +162,9 @@ void LogManager::getDay(QDate day)
 
 	int i = 0;
 	int size = entries->count();
-	while((i<size) && (this->entries->at(i++).getDate() < day));
+	while((i<size) && (this->entries->at(i++).getDate() < day))
+		;
+
 	i--;
 	
 	size = entries->count();

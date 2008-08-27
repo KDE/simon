@@ -24,7 +24,7 @@
 
 bool Command::trigger()
 {
-	QIcon commandIcon = getIcon();
+	KIcon commandIcon = getIcon();
 	SimonInfo::showMessage(getTrigger(), 2500, &commandIcon);
 	return triggerPrivate();
 }
@@ -32,7 +32,7 @@ bool Command::trigger()
 const QMap<QString,QVariant> Command::getValueMap() const
 {
 	QMap<QString,QVariant> out = getValueMapPrivate();
-// 	out.insert(tr("Name"), getTrigger());
-// 	out.insert(tr("Icon"), getIcon());
+// 	out.insert(i18n("Name"), getTrigger());
+// 	out.insert(i18n("Icon"), getIcon());
 	return out;
 }

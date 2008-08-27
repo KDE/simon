@@ -17,7 +17,7 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#include <QDir>
+#include <KUrl>
 #include <QCoreApplication>
 #include "selectplacepage.h"
 
@@ -77,30 +77,30 @@ bool SelectPlacePage::isComplete() const
 
 void SelectPlacePage::buildRemoteUrl()
 {
-	QUrl url;
+	KUrl url;
 	url.setScheme(ui.cbProtocol->currentText());
 	url.setHost(ui.leHost->text());
 	url.setPath(ui.lePath->text());
 	url.setUserName(ui.leUser->text());
 	url.setPassword(ui.lePass->text());
-	QString urlStr = url.toString((!ui.cbAuthentification->isChecked()) ? QUrl::RemoveUserInfo : QUrl::None);
+	QString urlStr = url.prettyUrl(); //toString((!ui.cbAuthentification->isChecked()) ? KUrl::RemoveUserInfo : KUrl::None);
 	ui.leRemoteUrl->setText(urlStr);
 }
 
-QString SelectPlacePage::getName()
+QString SelectPlacePage::getName() const
 {
 	if (ui.rbLocalPlace->isChecked())
 	{ //local place
 		return QDir(ui.leLocalUrl->text()).dirName();
 	} else
 	{ //remote place
-		return QUrl(ui.leRemoteUrl->text()).host();
+		return KUrl(ui.leRemoteUrl->text()).host();
 	}
 }
 
 void SelectPlacePage::parseRemoteUrl()
 {
-	QUrl url(ui.leRemoteUrl->text());
+	KUrl url(ui.leRemoteUrl->text());
 	ui.cbProtocol->setEditText(url.scheme());
 	ui.leHost->setText(url.host());
 	ui.lePath->setText(url.path());
@@ -113,13 +113,13 @@ void SelectPlacePage::parseRemoteUrl()
 	} else ui.cbAuthentification->setChecked(false);
 }
 
-QUrl SelectPlacePage::getUrl()
+KUrl SelectPlacePage::getUrl() const
 {
 	if (ui.rbLocalPlace->isChecked())
 	{ //local place
-		return QUrl(ui.leLocalUrl->text());
+		return KUrl(ui.leLocalUrl->text());
 	} else
 	{ //remote place
-		return QUrl(ui.leRemoteUrl->text());
+		return KUrl(ui.leRemoteUrl->text());
 	}
 }

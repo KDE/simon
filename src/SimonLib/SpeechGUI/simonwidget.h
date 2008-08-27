@@ -13,6 +13,7 @@
 #define SIMONWIDGET_H
 
 #include "guievents.h"
+#include <QVector>
 /**
  *	@class SimonWidget
  *
@@ -20,6 +21,8 @@
  *	@date 4.03.2007
  *	@author Phillip Goriup
  */
+class QLabel;
+
 class SimonWidget{
 	
 private:

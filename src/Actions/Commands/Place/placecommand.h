@@ -14,7 +14,8 @@
 
 
 #include "../command.h"
-#include <QUrl>
+#include <KUrl>
+#include <KIcon>
 
 
 /**
@@ -28,7 +29,7 @@
 class PlaceCommand : public Command{
 Q_OBJECT
 private:
-	QUrl url;
+	KUrl url;
 
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
@@ -36,9 +37,9 @@ protected:
 
 public:
 	static const QString staticCategoryText();
-	static const QIcon staticCategoryIcon();
+	static const KIcon staticCategoryIcon();
 
-	const QIcon getCategoryIcon() const;
+	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
 	
     /**
@@ -46,12 +47,12 @@ public:
     * 
     *	@author Peter Grasch
     */
-    PlaceCommand(QString name, QString iconSrc, QUrl url) : Command(name, iconSrc)
+    PlaceCommand(const QString& name, const QString& iconSrc, const KUrl& url) : Command(name, iconSrc)
     {
         this->url = url;
     }
 
-	void change(QString newName, QString newIconSrc, QUrl newUrl) { 
+	void change(const QString& newName, const QString& newIconSrc, const KUrl& newUrl) { 
 		this->url = newUrl;
 		Command::change(newName, newIconSrc);
 	}

@@ -10,14 +10,10 @@
 //
 //
 #include "selectprogrampage.h"
-#include <QMessageBox>
+#include <KMessageBox>
 
-#include <QAction>
-#include <QApplication>
-#include <QButtonGroup>
-#include <QHBoxLayout>
-#include <QListWidget>
-#include <QVBoxLayout>
+#include <klistwidget.h>
+#include <QListWidgetItem>
 #include <QWidget>
 
 #ifdef linux
@@ -58,7 +54,7 @@ void SelectProgramPage::initializePage()
 {
 	ProgramCategoryList list = programManager->readCategories();
 	if (list.isEmpty()) 
-		QMessageBox::critical(this, tr("Konnte keine Programmkategorien finden"), tr("Konnte keine Programmkategorien finden.\n\nMöglicherweise ist der Pfad zur categories.xml falsch gesetzt."));
+		KMessageBox::error(this, i18n("Konnte keine Programmkategorien finden.\n\nMöglicherweise ist der Pfad zur categories.xml falsch gesetzt."), i18n("Konnte keine Programmkategorien finden"));
 	else {
 		this->insertCategories(list);
 		#ifdef linux
@@ -121,7 +117,7 @@ QString SelectProgramPage::getName()
 *   @param ProgramCategoryList categorieList
 *       holds the categories, which where read out of a xml-file
 */
-void SelectProgramPage::insertCategories(ProgramCategoryList categorieList)
+void SelectProgramPage::insertCategories(const ProgramCategoryList& categorieList)
 {
     ui.lwCategories->clear();
     QListWidgetItem* item;
@@ -137,11 +133,11 @@ void SelectProgramPage::insertCategories(ProgramCategoryList categorieList)
 /**
 *   \brief inserts all given programms in a list
 *
-*   @author Susanne Tschernegg+
+*   @author Susanne Tschernegg
 *   @param ProgramList *programList
 *       is a list, which holds all programms of a specified category
 */
-void SelectProgramPage::insertPrograms(ProgramList *programList)
+void SelectProgramPage::insertPrograms(const ProgramList *programList)
 {
     ui.lwPrograms->clear();
     QListWidgetItem* lwItem;
