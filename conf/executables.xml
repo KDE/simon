@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<commands />
+<commands>
+ <executable>
+  <name>test</name>
+  <icon></icon>
+  <workingdirectory></workingdirectory>
+  <executable>echo "hi" ; pwd</executable>
+ </executable>
+</commands>
