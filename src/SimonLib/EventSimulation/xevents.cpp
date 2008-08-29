@@ -132,65 +132,28 @@ void XEvents::sendChar(char key)
  * \author Peter Grasch
  * @param key The key to send
  */
-#include <QDebug>
 void XEvents::sendKey(unsigned int key /*unicode*/)
 {
-	qDebug() << key;
-	sleep(1);
 	if (!display) return;
-// 	char keyChr[256];
-// 	sprintf(keyChr,"U%x",key);
-// 	KeySym keyToSend=XStringToKeysym(keyChr);
 	KeyCode keyCode = XKeysymToKeycode(display, key);
 	
-	KeySym shiftSym = XKeycodeToKeysym(display, keyCode, 1);
-	KeySym altGrSym = XKeycodeToKeysym(display, keyCode, 2);
-	
-	if (shiftSym == key)
-		setModifierKey(Qt::SHIFT, true);
-	else if (altGrSym == key)
-		setModifierKey(Qt::Key_AltGr, true);
-	
-	qDebug() << keyCode;
-	
-	pressKeyCode(keyCode);
-	unsetUnneededModifiers();
-	
-	
-// 	qDebug() << "Keysym: " << keyToSend;
-// 	qDebug() << "KeyCode: " << keyCode;
-// 	qDebug() << "Keysym reverse: " << XKeycodeToKeysym(display, XKeysymToKeycode(display, key), 0); //nomods
-// 	qDebug() << "Keysym reverse: " << XKeycodeToKeysym(display, XKeysymToKeycode(display, key), 1); //shift
-// 	qDebug() << "Keysym reverse: " << XKeycodeToKeysym(display, XKeysymToKeycode(display, key), 2); //altgr
-// 	qDebug() << "Keysym reverse: " << XKeycodeToKeysym(display, XKeysymToKeycode(display, key), 3);
-// 	qDebug() << "Keysym reverse: " << XKeycodeToKeysym(display, XKeysymToKeycode(display, key), 4);
-// 	qDebug() << "-------------";
-	
-// 	if (key > 32)
-// 	{
-// 		int syms;
-// 		KeyCode keyToSendcode = XKeysymToKeycode(display, keyToSend);hier kommt der test. qorjq
-// 		KeySym *keyToSendShifted=XGetKeyboardMapping(display, keyToSendcode, 1, &syms);
-// 		if (!keyToSendShifted) return;	//get the keyToSendboard mapping and go back
-// 		for (; syms && (!keyToSendShifted[syms-1]); syms--) ; //to the first in the list
-// 		if (!syms) return;	//return on error
-// 		
-// 		if (keyToSend==keyToSendShifted[2])
-// 			setModifierKey(Qt::Key_AltGr, true);
-// 		
-// 		char keyChr = (char) keyToSend;
-// 		KeySym generatedKeySym = XStringToKeysym(&keyChr);
-// 		qDebug() << generatedKeySym;
-// 		
-// 		if (generatedKeySym)
-// 			pressKey(generatedKeySym);
-// 		else pressKey((KeySym) keyToSend);
-// 		unsetUnneededModifiers();
-// 	} else {
+	if (keyCode)
+	{
+		KeySym shiftSym = XKeycodeToKeysym(display, keyCode, 1);
+		KeySym altGrSym = XKeycodeToKeysym(display, keyCode, 2);
 		
-// 		pressKey(keyToSend);
-// 	}
+		if (shiftSym == key)
+			setModifierKey(Qt::SHIFT, true);
+		else if (altGrSym == key)
+			setModifierKey(Qt::Key_AltGr, true);
+		
+		pressKeyCode(keyCode);
+	} else {
+		QKeySequence k(key); //do some magic
+		pressKey(XStringToKeysym(k.toString().toLatin1().data()));
+	}
 	
+	unsetUnneededModifiers();
 }
 
 void XEvents::pressKey(KeySym key)
