@@ -34,7 +34,7 @@ const KIcon ExecutableCommand::getCategoryIcon() const
 const QMap<QString,QVariant> ExecutableCommand::getValueMapPrivate() const
 {
 	QMap<QString,QVariant> out;
-	out.insert(i18n("Ausführbare Datei"), getExecutable());
+	out.insert(i18n("AusfÃ¼hrbare Datei"), getExecutable());
 	out.insert(i18n("Arbeitspfad"), getWorkingDirectory());
 	return out;
 }

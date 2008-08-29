@@ -16,7 +16,7 @@ const QString PlaceCommand::getCategoryText() const
 
 const KIcon PlaceCommand::staticCategoryIcon()
 {
-	return KIcon(":/images/icons/folder.svg");
+	return KIcon("folder");
 }
 
 const KIcon PlaceCommand::getCategoryIcon() const
