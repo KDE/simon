@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <commands>
  <executable>
-  <name>test</name>
-  <icon></icon>
+  <name>Editor</name>
+  <icon>/usr/kde/svn/share/icons/oxygen/48x48/apps/accessories-text-editor.png</icon>
   <workingdirectory></workingdirectory>
-  <executable>echo "hi" ; pwd</executable>
+  <executable>kwrite %U</executable>
+ </executable>
+ <executable>
+  <name>Textverarbeitung</name>
+  <icon>/usr/share/icons/hicolor/48x48/apps/ooo-writer.png</icon>
+  <workingdirectory></workingdirectory>
+  <executable>oowriter %U</executable>
+ </executable>
+ <executable>
+  <name>Musik</name>
+  <icon>/usr/kde/svn/share/icons/hicolor/48x48/apps/amarok.png</icon>
+  <workingdirectory></workingdirectory>
+  <executable>amarok %U</executable>
+ </executable>
+ <executable>
+  <name>Dateienaustausch</name>
+  <icon>/usr/kde/svn/share/icons/hicolor/48x48/apps/ktorrent.png</icon>
+  <workingdirectory></workingdirectory>
+  <executable>ktorrent %i -caption "%c" %u</executable>
+ </executable>
+ <executable>
+  <name>E-Mail</name>
+  <icon>/usr/kde/svn/share/icons/crystalsvg/48x48/apps/kmail.png</icon>
+  <workingdirectory></workingdirectory>
+  <executable>kmail -caption "%c"</executable>
+ </executable>
+ <executable>
+  <name>Chat</name>
+  <icon>/usr/kde/svn/share/icons/crystalsvg/48x48/apps/kopete.png</icon>
+  <workingdirectory></workingdirectory>
+  <executable>kopete -caption "%c" %u</executable>
+ </executable>
+ <executable>
+  <name>Internet</name>
+  <icon>konqueror</icon>
+  <workingdirectory></workingdirectory>
+  <executable>/usr/bin/firefox</executable>
+ </executable>
+ <executable>
+  <name>Photos</name>
+  <icon>/usr/kde/svn/share/icons/hicolor/48x48/apps/gwenview.png</icon>
+  <workingdirectory></workingdirectory>
+  <executable>gwenview %u -caption "%c" %i</executable>
  </executable>
 </commands>

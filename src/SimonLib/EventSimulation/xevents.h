@@ -36,10 +36,9 @@ class XEvents : public CoreEvents {
 private:
 	Display *display; //!< The opened Display
 
-	bool shiftSet, altgrSet, altSet, superSet, capsSet, strgSet;
-	bool shiftOnce, altgrOnce, altOnce, superOnce, capsOnce, strgOnce;
 
 	void pressKey(KeySym key);
+	void pressKeyCode(KeyCode code);
 	void sendKeySymString(QString keysymString);
 public:
 	XEvents(char* displayName=":0.0");
@@ -47,10 +46,8 @@ public:
 	
 	void click(int x, int y);
 	void sendChar(char key);
-	void sendKey(unsigned short key);
+	void sendKey(unsigned int key);
 	void setModifierKey(int virtualKey, bool once);
-	void unsetUnneededModifiers();
-	void sendShortcut(Shortcut shortcut);
 	void unsetModifier(int virtualKey);
 	
 	~XEvents();

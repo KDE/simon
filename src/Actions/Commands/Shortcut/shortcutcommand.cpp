@@ -6,7 +6,7 @@
 
 const QString ShortcutCommand::staticCategoryText()
 {
-	return i18n("Tastenkürzel");
+	return i18n("TastenkÃ¼rzel");
 }
 
 const QString ShortcutCommand::getCategoryText() const
@@ -27,10 +27,8 @@ const KIcon ShortcutCommand::getCategoryIcon() const
 const QMap<QString,QVariant> ShortcutCommand::getValueMapPrivate() const
 {
 	QMap<QString,QVariant> out;
-	const Shortcut *shortcut = getShortcut();
-	if (!shortcut) return out;
 
-	out.insert(i18n("Tastenkürzel"), shortcut->getDescription());
+	out.insert(i18n("TastenkÃ¼rzel"), shortcut.toString());
 	return out;
 }
 

@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<commands />
+<commands>
+ <shortcut>
+  <name>asdf</name>
+  <icon>system-run</icon>
+  <text>Ctrl+Home</text>
+ </shortcut>
+</commands>

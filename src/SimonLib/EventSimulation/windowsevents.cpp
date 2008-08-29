@@ -22,7 +22,7 @@
  * saves the special character and there parent keys into a hash
  * @author Phillip Goriup
  */
-WindowsEvents::WindowsEvents()
+WindowsEvents::WindowsEvents() : CoreEvents()
 {
 	this->keycodes = new QHash <char, int>();
 	keycodes->insert('0',0x30);
@@ -174,11 +174,11 @@ void WindowsEvents::click(int x, int y)
  * @brief if it is a special character from an german keyboard, the parent key will be safed, and the modifier will be pressed
  *
  * @param unsigned shord key
- * unsigned shord key: the requested key as a unsigned short
+ * unsigned shord key: the requested key as a unsigned int
  * 
  * @author Phillip Goriup
  */
-void WindowsEvents::sendKey(unsigned short key /*unicode representation*/)
+void WindowsEvents::sendKey(unsigned int key /*unicode representation*/)
 {
 	int keyint = key;
 	if (specialcodes->contains(keyint))
@@ -199,7 +199,6 @@ void WindowsEvents::sendKey(unsigned short key /*unicode representation*/)
  */
 void WindowsEvents::sendShortcut(Shortcut shortcut)
 {
-	
 	int modifier = shortcut.getModifiers();
 	if (modifier & KeyShift)
 	{	
@@ -273,6 +272,47 @@ void WindowsEvents::sendShortcut(Shortcut shortcut)
 }
 
 /**
+ * @brief
+ *
+ * @param int virtualKey
+
+ * @author Phillip Goriup
+ */
+void WindowsEvents::setModifierKey(int virtualKey, bool once)
+{
+	if ((!shiftSet) && (virtualKey & Qt::SHIFT))
+	{
+		keybd_event(VK_SHIFT,0,0,0);
+		shiftSet=true;
+		shiftOnce=once;
+	}
+	if ((!altgrSet) && (virtualKey & Qt::Key_AltGr))
+	{
+		keybd_event(VK_RMENU,0,0,0);
+		altgrSet=true;
+		altgrOnce=once;
+	}
+	if ((!strgSet) && (virtualKey & Qt::CTRL))
+	{
+		keybd_event(VK_CONTROL,0,0,0);
+		strgSet=true;
+		strgOnce=once;
+	}
+	if ((!altSet) && (virtualKey & Qt::ALT))
+	{
+		keybd_event(VK_MENU,0,0,0);
+		altSet=true;
+		altOnce=once;
+	}
+	if ((!superSet) && (virtualKey & Qt::META))
+	{
+		keybd_event(VK_LWIN,0,0,0);
+		superSet=true;
+		superOnce=once;
+	}
+}
+
+/**
  * @brief 
  *
  * @param int virtualKey
@@ -298,23 +338,6 @@ void WindowsEvents::sendChar(char key)
 }
 
 /**
- * @brief
- *
- * @param int virtualKey
-
- * @author Phillip Goriup
- */
-void WindowsEvents::setModifierKey(int virtualKey, bool once)
-{
-	if (once)
-	{
-		keybd_event(virtualKey,0,0,0);
-	}
-	else
-		keybd_event(virtualKey,0,0,0);
-}
-
-/**
  * @brief 
  *
  * @param int virtualKey
@@ -337,12 +360,12 @@ void WindowsEvents::unsetModifier(int virtualKey)
  */
 void WindowsEvents::unsetUnneededModifiers()
 {
-		unsetModifier(VK_SHIFT);
-		unsetModifier(VK_MENU);
-		unsetModifier(VK_CONTROL);
-		unsetModifier(VK_LWIN);
-		unsetModifier(VK_CAPITAL);
-		unsetModifier(VK_RMENU);
+	unsetModifier(VK_SHIFT);
+	unsetModifier(VK_MENU);
+	unsetModifier(VK_CONTROL);
+	unsetModifier(VK_LWIN);
+	unsetModifier(VK_CAPITAL);
+	unsetModifier(VK_RMENU);
 }
 
 /**

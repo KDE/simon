@@ -12,6 +12,10 @@
 #include "shortcut.h"
 #include <QCoreApplication>
 
+//static
+
+QList<Key*> Shortcut::keys;
+
 /**
  * \brief Returns a text like "Strg + A" which describes the shortcut
  * \author Peter Grasch
@@ -49,9 +53,6 @@ QString Shortcut::getDescription() const
 
 
 
-//static
-
-QList<Key*> Shortcut::keys;
 
 /**
  * \brief Converts a QT-Keycode to a simon-keycode

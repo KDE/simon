@@ -49,7 +49,7 @@ public:
 
        ~EventHandler();
 	void click(int x, int y);
-	void sendShortcut(const Shortcut *shortcut) const;
+	void sendShortcut(const QKeySequence& shortcut) const;
 	void sendWord(const QString word) const;
 	void sendKey(const QChar key) const;
 	void setModifier(const int virtualKey, const bool once) const;

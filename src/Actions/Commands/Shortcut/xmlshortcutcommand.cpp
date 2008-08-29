@@ -10,9 +10,10 @@
 //
 //
 #include <QDomDocument>
+#include <QEvent>
+#include <QKeySequence>
 #include "xmlshortcutcommand.h"
 #include "shortcutcommand.h"
-#include "../../../SimonLib/EventSimulation/shortcut.h"
 
 /**
  * \brief Constructor
@@ -47,44 +48,20 @@ CommandList* XMLShortcutCommand::load(bool &ok, const QString& path)
 
 	CommandList *list = new CommandList();
 
-	bool allFine=true;
-	bool tempFine=true;
-
 	QDomNode shortcut = doc->documentElement().firstChildElement();
 
 	while (!shortcut.isNull())
 	{
-		allFine=true;
-		
-
 		QDomElement name = shortcut.firstChildElement();
 		QDomElement icon = name.nextSiblingElement();
-		QDomElement modifiers = icon.nextSiblingElement();
-		QDomElement actionkeys = modifiers.nextSiblingElement();
-		QDomElement functionkeys = actionkeys.nextSiblingElement();
-		QDomElement movementkeys = functionkeys.nextSiblingElement();
-		QDomElement charKey = movementkeys.nextSiblingElement();
+		QDomElement text = icon.nextSiblingElement();
 
 		QString nameVal = name.text();
 		QString iconVal = icon.text();
-		int modifiersVal = modifiers.text().toInt(&tempFine);
-		allFine = allFine && tempFine;
-		int actionKeysVal = actionkeys.text().toInt(&tempFine);
-		allFine = allFine && tempFine;
-		int functionKeysVal = functionkeys.text().toInt(&tempFine);
-		allFine = allFine && tempFine;
-		int movementKeysVal = movementkeys.text().toInt(&tempFine);
-		allFine = allFine && tempFine;
+		QString textVal = text.text();
 
-		QByteArray chars = charKey.text().toLatin1();
-		char charKeyVal='_';
-		if (chars.count()>0)
-			charKeyVal = chars.constData()[0];
-
-		if (allFine)
-			list->append(new ShortcutCommand(nameVal, iconVal, new Shortcut(modifiersVal, actionKeysVal, 
-						functionKeysVal, movementKeysVal, charKeyVal)));
-		else ok = false;
+		list->append(new ShortcutCommand(nameVal, iconVal, 
+						 QKeySequence(textVal)));
 
 		shortcut = shortcut.nextSiblingElement();
 	}
@@ -115,11 +92,8 @@ bool XMLShortcutCommand::save(const CommandList *commands, const QString& path)
 	{
 		ShortcutCommand *currentSC = dynamic_cast<ShortcutCommand*>(commands->at(i));
 		if(!currentSC) continue;
-		const Shortcut *currentShortcut = currentSC->getShortcut();
-		if (!currentShortcut) continue;
 		
 		QDomElement shortcut = doc->createElement("shortcut");
-		
 		
 		QDomNode name = doc->createElement("name");
 		name.appendChild(doc->createTextNode(currentSC->getTrigger()));
@@ -128,26 +102,16 @@ bool XMLShortcutCommand::save(const CommandList *commands, const QString& path)
 		QDomNode icon = doc->createElement("icon");
 		icon.appendChild(doc->createTextNode(currentSC->getIconSrc()));
 		shortcut.appendChild(icon);
+		
+		QKeySequence currentShortcut = currentSC->getShortcut();
 
-		QDomNode modifier = doc->createElement("modifiers");
-		modifier.appendChild(doc->createTextNode(QString::number(currentShortcut->getModifiers())));
-		shortcut.appendChild(modifier);
+// 		QDomNode modifier = doc->createElement("modifiers");
+// 		modifier.appendChild(doc->createTextNode(QString::number(currentShortcut.modifiers())));
+// 		shortcut.appendChild(modifier);
 
-		QDomNode actionkeys = doc->createElement("actionkeys");
-		actionkeys.appendChild(doc->createTextNode(QString::number(currentShortcut->getActionKeys())));
-		shortcut.appendChild(actionkeys);
-		
-		QDomNode functionkeys = doc->createElement("functionkeys");
-		functionkeys.appendChild(doc->createTextNode(QString::number(currentShortcut->getFunctionKeys())));
-		shortcut.appendChild(functionkeys);
-		
-		QDomNode movementkeys = doc->createElement("movementkeys");
-		movementkeys.appendChild(doc->createTextNode(QString::number(currentShortcut->getMovementKeys())));
-		shortcut.appendChild(movementkeys);
-		
-		QDomNode charkey = doc->createElement("charkey");
-		charkey.appendChild(doc->createTextNode(QChar(currentShortcut->getCharKey())));
-		shortcut.appendChild(charkey);
+		QDomNode text = doc->createElement("text");
+		text.appendChild(doc->createTextNode(currentShortcut.toString()));
+		shortcut.appendChild(text);
 
 		root.appendChild(shortcut);
 	}

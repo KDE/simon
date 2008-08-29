@@ -12,7 +12,7 @@
 #ifndef SHORTCUTCOMMAND_H
 #define SHORTCUTCOMMAND_H
 
-
+#include <QKeySequence>
 #include "../command.h"
 #include "../../../SimonLib/EventSimulation/shortcut.h"
 
@@ -29,7 +29,7 @@ class ShortcutCommand : public Command{
 Q_OBJECT
 
 private:
-	Shortcut *shortcut;
+	QKeySequence shortcut;
 
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
@@ -48,13 +48,13 @@ public:
     * 
     *	@author Peter Grasch
     */
-    ShortcutCommand(const QString& name, const QString& iconSrc, Shortcut *shortcut) : Command(name, iconSrc)
+    ShortcutCommand(const QString& name, const QString& iconSrc, const QKeySequence &shortcut) : Command(name, iconSrc)
     {
         this->shortcut = shortcut;
     }
 
 
-	void change(const QString& newName, const QString& newIconSrc, Shortcut *newShortcut) { 
+	void change(const QString& newName, const QString& newIconSrc, const QKeySequence& newShortcut) { 
 		this->shortcut = newShortcut;
 		Command::change(newName, newIconSrc);
 	}
@@ -64,11 +64,10 @@ public:
     * 
     *	@author Peter Grasch
     */
-    const Shortcut* getShortcut() const { return this->shortcut; }
+    const QKeySequence getShortcut() const { return this->shortcut; }
     
     
     ~ShortcutCommand() {
-	  delete shortcut;
     }
 
 };

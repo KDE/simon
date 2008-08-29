@@ -70,10 +70,9 @@ void EventHandler::sendWord(const QString word) const
  * \author Peter Grasch
  * @param shortcut The shortcut to send
  */
-void EventHandler::sendShortcut(const Shortcut *shortcut) const
+void EventHandler::sendShortcut(const QKeySequence& shortcut) const
 {
-	if (shortcut)
-		coreEvents->sendShortcut(*shortcut);
+	coreEvents->sendShortcut(shortcut);
 }
 
 /**
@@ -90,12 +89,12 @@ void EventHandler::sendShortcut(const Shortcut *shortcut) const
  */
 void EventHandler::sendKey(const QChar key) const
 {
-	unsigned short c = (unsigned short) key.unicode();
+	unsigned int c = (unsigned int) key.unicode();
 
-	if (((c >= 'A') && (c <= 'Z'))  || ((capslock) && ((c >= 'a') && (c <= 'z'))))
-	{
-		coreEvents->setModifierKey(KeyShift,false);
-	}
+// 	if (((c >= 'A') && (c <= 'Z'))  || ((capslock) && ((c >= 'a') && (c <= 'z'))))
+// 	{
+// 		coreEvents->setModifierKey(KeyShift,false);
+// 	}
 #ifdef __WIN32	
 	if (((c >= 'A') && (c <= 'Z')))
 	{
@@ -103,9 +102,9 @@ void EventHandler::sendKey(const QChar key) const
 		coreEvents->setModifierKey(VK_LSHIFT,false);
 	}
 #endif
-	coreEvents->sendKey(c);
+	coreEvents->sendKey(key.unicode());
 
-	coreEvents->unsetModifier(KeyShift);
+// 	coreEvents->unsetModifier(KeyShift);
 }
 
 EventHandler::~EventHandler()

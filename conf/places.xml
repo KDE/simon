@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<commands />
+<commands>
+ <place>
+  <name>Eigene Dateien</name>
+  <icon>system-run</icon>
+  <url>file:///home/bedahr</url>
+ </place>
+</commands>

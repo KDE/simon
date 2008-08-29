@@ -17,23 +17,15 @@
 #include <windows.h>
 #include <QHash>
 
-
-/*const int KeyAlt = VK_MENU;
-const int KeyStrg = VK_CONTROL;
-const int KeyShift = VK_SHIFT;
-const int KeySuper = VK_LWIN;
-const int KeyAltGr = VK_RMENU;
-const int KeyCapsLock = VK_CAPITAL;*/
-
 /**
- *	@class XEvents
- *	@brief The X11 Event Backend
+ *	@class WindowsEvents
+ *	@brief The WinAPI Event Backend
  *	
  *	Implements CoreEvents
  *
  *	@version 0.1
  *	@date 4.03.2007
- *	@author Peter Grasch
+ *	@author Phillip Goriup
  */
 class WindowsEvents : public CoreEvents {
 private:

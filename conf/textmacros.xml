@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<commands />
+<commands>
+ <textmacro>
+  <name>asdfgtzhtzet</name>
+  <icon>system-run</icon>
+  <text>qwer234rr</text>
+ </textmacro>
+</commands>
