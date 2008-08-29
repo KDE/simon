@@ -31,9 +31,9 @@
 NewCommand::NewCommand(QWidget *parent) : QDialog(parent)
 {
 	ui.setupUi(this);
+	ui.ksShortcut->setCheckAgainstStandardShortcuts(false);
+	
 	checkIfComplete();
-// 	SelectShortcutButton *test = new SelectShortcutButton (0);
-// 	test->show();
 	connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(setWindowTitleToCommandName(QString)));
 	connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
 	connect(ui.cbImportProgram, SIGNAL(clicked()), this, SLOT(showImportProgramWizard()));
@@ -45,7 +45,7 @@ void NewCommand::init(Command *command)
 {
 	if (!command) return;
 	ui.leTrigger->setText(command->getTrigger());
-	ui.tbIcon->setIconFromResource(command->getIconSrc());
+	ui.ibIcon->setIcon(command->getIconSrc());
 
 	if (dynamic_cast<ExecutableCommand*>(command))
 	{
@@ -66,7 +66,7 @@ void NewCommand::init(Command *command)
 	{
 		ShortcutCommand *shortcut = dynamic_cast<ShortcutCommand*>(command);
 		ui.cbType->setCurrentIndex(2); //Shortcut menu
-		ui.pbSelectShortcut->setShortcut(shortcut->getShortcut());
+		ui.ksShortcut->setKeySequence(shortcut->getShortcut());
 	}
 	if (dynamic_cast<TextMacroCommand*>(command))
 	{
@@ -118,27 +118,29 @@ Command* NewCommand::newCommand()
 		switch (type)
 		{
 			case 0: //Program
-				command = new ExecutableCommand(ui.leTrigger->text(), ui.tbIcon->getIconName(),
+				command = new ExecutableCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
 							ui.leExecutable->text(), ui.leWorkingDirectory->text());
 				break;
 				
 			case 1: //place
-				command = new PlaceCommand(ui.leTrigger->text(), ui.tbIcon->getIconName(),
+				command = new PlaceCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
 							KUrl(ui.leUrl->text()));
 				break;
 				
 			case 2: //shortcut
-				command = new ShortcutCommand(ui.leTrigger->text(), ui.tbIcon->getIconName(),
-							ui.pbSelectShortcut->getShortcut());
+				command = new ShortcutCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
+							ui.ksShortcut->keySequence());
 				break;
 				
 			case 3: //textmacro
-				command = new TextMacroCommand(ui.leTrigger->text(), ui.tbIcon->getIconName(),
+				command = new TextMacroCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
 							ui.teMacroText->toPlainText());
 				break;
 		}
+		ui.ksShortcut->clearKeySequence();
 		return command;
 	}
+	ui.ksShortcut->clearKeySequence();
 	return 0;
 }
 
