@@ -63,16 +63,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="leSearch" >
-           <property name="text" >
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QToolButton" name="pbClearSearch" >
-           <property name="text" >
-            <string>&amp;x</string>
+          <widget class="KLineEdit" name="leSearch" >
+           <property name="showClearButton" stdset="0" >
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -164,10 +157,7 @@
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout" >
           <item>
-           <widget class="QPushButton" name="pbImport" >
-            <property name="toolTip" >
-             <string>Importiert ein vorhandenes Wörterbuch</string>
-            </property>
+           <widget class="KPushButton" name="pbImport" >
             <property name="text" >
              <string>Importiere Wörterbuch</string>
             </property>
@@ -191,10 +181,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pbRemoveWord" >
-            <property name="toolTip" >
-             <string>Löscht das Wort komplett aus dem Sprachmodell</string>
-            </property>
+           <widget class="KPushButton" name="pbRemoveWord" >
             <property name="text" >
              <string>Selektiertes Wort &amp;löschen</string>
             </property>
@@ -250,10 +237,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pbAddToTraining" >
-         <property name="toolTip" >
-          <string>Fügt das in der Liste links selektierte Wort in die Liste der zu trainierenden Wörter (oben) ein</string>
-         </property>
+        <widget class="KPushButton" name="pbAddToTraining" >
          <property name="text" >
           <string>Zum Training &amp;hinzufügen</string>
          </property>
@@ -264,10 +248,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pbDeleteTrainingWord" >
-         <property name="toolTip" >
-          <string>Löscht das Wort aus der Liste der zu trainierenden Wörter</string>
-         </property>
+        <widget class="KPushButton" name="pbDeleteTrainingWord" >
          <property name="text" >
           <string>Wort aus Training &amp;löschen</string>
          </property>
@@ -278,7 +259,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pbSuggestTrain" >
+        <widget class="KPushButton" name="pbSuggestTrain" >
          <property name="toolTip" >
           <string>Schlägt automatisch ein Training vor das die schwächsten 10 Wörter trainiert.</string>
          </property>
@@ -292,7 +273,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pbTrainList" >
+        <widget class="KPushButton" name="pbTrainList" >
          <property name="font" >
           <font>
            <italic>true</italic>
@@ -318,6 +299,16 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
    <class>DragTableWidget</class>
    <extends>QTableWidget</extends>
    <header>../ModelManagement/WordList/dragtablewidget.h</header>
@@ -331,38 +322,5 @@
  <resources>
   <include location="../../action_icons.qrc" />
  </resources>
- <connections>
-  <connection>
-   <sender>pbClearSearch</sender>
-   <signal>clicked()</signal>
-   <receiver>leSearch</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>468</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>392</x>
-     <y>30</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbClearSearch</sender>
-   <signal>clicked()</signal>
-   <receiver>leSearch</receiver>
-   <slot>setFocus()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>474</x>
-     <y>25</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>420</x>
-     <y>25</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

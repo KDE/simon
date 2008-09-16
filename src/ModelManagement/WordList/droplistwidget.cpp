@@ -21,7 +21,7 @@
  * Sets the parent of the QListWidget
  */
 DropListWidget::DropListWidget(QWidget *parent)
- : QListWidget(parent)
+ : KListWidget(parent)
 {
 	setAcceptDrops(true);
 }
@@ -54,7 +54,7 @@ void DropListWidget::dragEnterEvent(QDragEnterEvent *event)
  */
 void DropListWidget::dragMoveEvent(QDragMoveEvent *event)
 {
-	if (event->mimeData()->hasFormat(tr("text/plain")))
+	if (event->mimeData()->hasFormat("text/plain"))
 		event->accept();
 }
 

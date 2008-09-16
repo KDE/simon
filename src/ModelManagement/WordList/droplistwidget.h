@@ -12,7 +12,7 @@
 #ifndef DROPLISTWIDGET_H
 #define DROPLISTWIDGET_H
 
-#include <QListWidget>
+#include <KListWidget>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
@@ -31,7 +31,7 @@
  *	@date 28.01.2006
  *	@author Peter Grasch
  */
-class DropListWidget : public QListWidget
+class DropListWidget : public KListWidget
 {
 	Q_OBJECT
 signals:

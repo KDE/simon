@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include <KUrl>
+#include <KKeySequenceWidget>
 #include "newcommand.h"
 
 #include "Commands/Executable/executablecommand.h"
@@ -31,7 +32,7 @@
 NewCommand::NewCommand(QWidget *parent) : QDialog(parent)
 {
 	ui.setupUi(this);
-	ui.ksShortcut->setCheckAgainstStandardShortcuts(false);
+	ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
 	
 	checkIfComplete();
 	connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(setWindowTitleToCommandName(QString)));

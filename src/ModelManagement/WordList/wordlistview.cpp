@@ -53,7 +53,20 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"),
 	connect(ui.pbSuggestTrain, SIGNAL(clicked()), this, SLOT(suggestTraining()));
 	connect(ui.pbRemoveWord, SIGNAL(clicked()), this, SLOT(deleteSelectedWord()));
 	connect(ui.leSearch, SIGNAL(returnPressed()), this, SLOT(filterListbyPattern()));
-	connect(ui.leSearch, SIGNAL(editingFinished()), this, SLOT(filterListbyPattern()));
+	connect(ui.leSearch, SIGNAL(clearButtonClicked()), this, SLOT(filterListbyPattern()));
+	
+// 	connect(ui.leSearch, SIGNAL(editingFinished()), this, SLOT(filterListbyPattern()));
+	//we can't filter on editingFinished() LineEdit because that would cause simon to
+	//run in the following infinite loop:
+	//	1. We press return in the LineEdit which activates the returnPressed() signal which
+	//	   in turn activates filterListbyPattern()
+	//	2. filterListbyPattern() displays a progressdialog while filtering the wordlist
+	//	   which of course gets the focus.
+	//	3. This means we get a hit on editingFinished() which starts to filter the Wordlist again
+	//	4. Which shows the progressdialog again
+	//	5. Which, when shown will activate editingFinished() again, etc.
+	// so we just use returnPressed() for now, which makes more sense anyways
+	
 	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(showImportDictDialog()));
 	connect(importDictView, SIGNAL(dictGenerated(WordList*)), this, SLOT(importDict(WordList*)));
@@ -158,6 +171,7 @@ void WordListView::markWordToTrain(Word word)
 }
 
 
+#include <KMessageBox>
 /**
  * @brief Filters the QList
  *
@@ -167,6 +181,7 @@ void WordListView::markWordToTrain(Word word)
  */
 void WordListView::filterListbyPattern(QString filter)
 {
+// 	KMessageBox::information(this, i18n("seas"));
 	if (filter.isEmpty()) filter = ui.leSearch->text().trimmed();
 	
 	clearList();

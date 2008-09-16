@@ -133,8 +133,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	info->writeToSplash ( i18n ( "Lade \"Ausführen\"..." ) );
 	this->runDialog = new RunCommandView ( this );
 
-// 	info->writeToSplash ( i18n ( "Lade \"System\"..." ) );
-// 	this->systemDialog = new SystemView ( this );
+	
 	this->systemDialog=0;
 
 	info->writeToSplash ( i18n ( "Lade Oberfläche..." ) );
