@@ -4,9 +4,9 @@
 #define SIMONLISTWIDGET_H
 
 #include <QLineEdit>
-#include <QListWidget>
+#include <KListWidget>
 
-class SimonListWidget : public QListWidget
+class SimonListWidget : public KListWidget
 {	
 	
 	Q_OBJECT

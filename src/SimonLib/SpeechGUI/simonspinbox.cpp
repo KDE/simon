@@ -3,7 +3,7 @@
 
 
 
-SimonSpinBox::SimonSpinBox( QWidget * parent ) : QSpinBox(parent)
+SimonSpinBox::SimonSpinBox( QWidget * parent ) : KIntNumInput(parent)
 {
 
 }

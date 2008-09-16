@@ -2,7 +2,7 @@
 #include <QMessageBox>
 #include <QKeyEvent>
 #include <QModelIndex>
-#include <QLineEdit>
+#include <KLineEdit>
 
 
 //TODO-List

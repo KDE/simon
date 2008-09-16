@@ -35,7 +35,7 @@ Sobald die Liste vollständig geladen wurde, wählen Sie bitte einen Text aus de
  <customwidgets>
   <customwidget>
    <class>SimonListWidget</class>
-   <extends>QListWidget</extends>
+   <extends>KListWidget</extends>
    <header>simonlistwidget.h</header>
   </customwidget>
  </customwidgets>

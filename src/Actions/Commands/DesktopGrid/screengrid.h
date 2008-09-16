@@ -14,7 +14,7 @@
 
 #include <QWidget>
 
-class QPushButton;
+class KPushButton;
 class QGridLayout;
 class QLabel;
 /**
@@ -39,7 +39,7 @@ private:
 public:
     ScreenGrid(QWidget* parent=0);
     void keyPressEvent(QKeyEvent *event);
-    void setButtonFontSize(QPushButton *btn);
+    void setButtonFontSize(KPushButton *btn);
 
     ~ScreenGrid();
 

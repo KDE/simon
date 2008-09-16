@@ -20,6 +20,7 @@
 
 #include <KUrl>
 #include <KKeySequenceWidget>
+#include <KDialogButtonBox>
 #include "newcommand.h"
 
 #include "Commands/Executable/executablecommand.h"
@@ -29,7 +30,7 @@
 #include "Commands/Shortcut/shortcutcommand.h"
 #include "Commands/TextMacro/textmacrocommand.h"
 
-NewCommand::NewCommand(QWidget *parent) : QDialog(parent)
+NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
 {
 	ui.setupUi(this);
 	ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
@@ -79,7 +80,7 @@ void NewCommand::init(Command *command)
 
 void NewCommand::checkIfComplete()
 {
-	QPushButton *okBtn = ui.bbDialog->button(QDialogButtonBox::Ok);
+	QPushButton *okBtn = ui.bbDialog->button(KDialogButtonBox::Ok);
 	if (!okBtn) return;
 	
 	okBtn->setEnabled(!ui.leTrigger->text().isEmpty());
@@ -110,7 +111,7 @@ void NewCommand::showImportPlaceWizard()
 
 Command* NewCommand::newCommand()
 {
-	if (QDialog::exec())
+	if (KDialog::exec())
 	{
 		//creating
 		Command *command=0;

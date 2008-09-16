@@ -73,7 +73,7 @@ Bitte beachten Sie, dass diese Lexica keine Grammatikdefinitionen besitzen.</str
  <customwidgets>
   <customwidget>
    <class>SimonFileSelector</class>
-   <extends>QLineEdit</extends>
+   <extends>KLineEdit</extends>
    <header>simonfileselector.h</header>
    <slots>
     <signal>urlChanged()</signal>

@@ -31,6 +31,7 @@
 #include <KStandardAction>
 #include <KStandardDirs>
 #include <KStatusBar>
+#include <KPasswordDialog>
 
 #include "simonview.h"
 #include "inlinewidgetview.h"
@@ -100,18 +101,19 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	info->writeToSplash ( i18n ( "Lade Programmlogik..." ) );
 	
 	this->control = new SimonControl ();
-	this->trayManager = new TrayIconManager();
-	this->trayManager->createIcon ( QIcon ( ":/images/tray_d.png" ), "Simon" );
+	this->trayManager = new TrayIconManager( this);
+	this->trayManager->createIcon ( KIcon ( ":/images/tray_d.png" ), i18n("simon"));
 
-
-	this->trayManager->createIcon ( QIcon ( ":/images/tray.png" ), "Simon" );
 
 	shownDialogs = 0;
 	QMainWindow ( parent,flags );
 	qApp->setQuitOnLastWindowClosed(false);
 	ui.setupUi ( this );
+	
+	
+	ui.inlineView->addTab(ui.tbWelcome, QIcon ( ":/images/tray.png" ), i18n("Start"));
 
-	statusBar()->insertItem("Nicht Verbunden",0);
+	statusBar()->insertItem(i18n("Nicht Verbunden"),0);
 	statusBar()->insertItem("",1,10);
 	statusBar()->insertPermanentWidget(2,ui.pbProgress);
 	
@@ -173,6 +175,7 @@ void SimonView::setupActions()
 	actionCollection()->addAction("connectActivate", connectActivate);
 	connect(connectActivate, SIGNAL(triggered(bool)),
 		this, SLOT(toggleConnection()));
+	this->trayManager->addAction("connectActivate", connectActivate);
 	
 	KAction* addWord = new KAction(this);
 	addWord->setText(i18n("Wort Hinzufügen"));
@@ -255,8 +258,6 @@ void SimonView::setupSignalSlots()
 	connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
 	QObject::connect ( this->trainDialog, SIGNAL ( displayMe() ), this, SLOT ( showTrainDialog() ) );
 	
-	QObject::connect ( this->trayManager, SIGNAL ( clicked() ), this, SLOT ( toggleVisibility() ) );
-	QObject::connect ( this->trayManager, SIGNAL ( middleClicked() ), this, SLOT ( toggleActivation() ) );
 	
 	//TextSync
 //	QObject::connect(ui.pbSyncTest, SIGNAL(clicked()),control, SLOT(sendFileToSyncer()));
@@ -495,7 +496,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
 				
 			SimonInfo::showMessage ( i18n ( "simon wurde deaktiviert" ), 2000 );
 				
-			this->trayManager->createIcon ( QIcon ( ":/images/tray_d.png" ), i18n ( "Simon - Deaktiviert" ) );
+			this->trayManager->createIcon ( KIcon ( ":/images/tray_d.png" ), i18n ( "Simon - Deaktiviert" ) );
 			repaint();
 			break; }
 			
@@ -509,7 +510,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
 				connectActivate->setIcon(KIcon("network-connect"));
 			}
 			
-			this->trayManager->createIcon ( QIcon ( ":/images/tray.png" ), "Simon" );
+			this->trayManager->createIcon ( KIcon ( ":/images/tray.png" ), "Simon" );
 				
 			SimonInfo::showMessage ( i18n ( "simon wurde aktiviert" ), 2000 );
 			break; }
@@ -580,7 +581,8 @@ void SimonView::checkSettingState()
 		if ( !Settings::getB ( "Passwordprotected" ) || checkPassword() )
 		{
 			showSettings();
-		}
+		} else 
+			actionCollection()->action("systemMode")->setChecked(false);
 	}
 	else
 	{
@@ -597,10 +599,17 @@ void SimonView::checkSettingState()
 */
 bool SimonView::checkPassword()
 {
-	PasswordDlg* dialog = new PasswordDlg ( this );
-
-	int success = dialog->exec();
-	return success;
+	KPasswordDialog dlg( this , KPasswordDialog::NoFlags );
+	dlg.setPrompt( i18n( "Dieser Bereich wurde passwortgeschützt.\n\nBitte geben Sie das Passwort ein:" ));
+	if( !dlg.exec() )
+		return false; //the user canceled
+		
+	QString password = Settings::getS ( "Password" );
+	QCryptographicHash *hasher = new QCryptographicHash(QCryptographicHash::Md5);
+	hasher->addData(dlg.password().toUtf8());
+	QString hash = hasher->result();
+	
+	return (password == hash);
 }
 
 /**

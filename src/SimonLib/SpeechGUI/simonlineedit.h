@@ -3,11 +3,10 @@
 #ifndef SIMONLINEEDIT_H
 #define SIMONLINEEDIT_H
 
-#include <QLineEdit>
+#include <KLineEdit>
 
-class SimonLineEdit : public QLineEdit
-{	
-	
+class SimonLineEdit : public KLineEdit
+{
 	Q_OBJECT
 	
 	

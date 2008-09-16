@@ -3,9 +3,9 @@
 #ifndef SIMONSPINBOX_H
 #define SIMONSPINBOX_H
 
-#include <QSpinBox>
+#include <KIntNumInput>
 
-class SimonSpinBox : public QSpinBox
+class SimonSpinBox : public KIntNumInput
 {	
 	
 	Q_OBJECT

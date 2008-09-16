@@ -12,7 +12,7 @@
 #ifndef DELETEWORDDIALOG_H
 #define DELETEWORDDIALOG_H
 
-#include <QDialog>
+#include <KDialog>
 #include "ui_removeword.h"
 
 /**
@@ -24,7 +24,7 @@
 */
 class Word;
 
-class DeleteWordDialog : public QDialog
+class DeleteWordDialog : public KDialog
 {
 
 private:

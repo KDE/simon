@@ -13,7 +13,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QLineEdit>
+#include <KLineEdit>
 
 /**
  * \brief Constructor - also creates the GUI Elements
@@ -29,7 +29,7 @@ AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 	label->setText(tr("Mit Hilfe dieses Assistenten können Sie neue Wörter zum Sprachmodell hinzufügen.\n\nGeben Sie hierzu bitte den Namen des Wortes an und bestätigen Sie mit \"Weiter\":\n\n"));
 	QLabel *lbName = new QLabel(this);
 	lbName->setText(tr("Neues Wort:"));
-	QLineEdit *leName = new QLineEdit(this);
+	KLineEdit *leName = new KLineEdit(this);
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	QHBoxLayout *loName = new QHBoxLayout();
 	loName->addWidget(lbName);

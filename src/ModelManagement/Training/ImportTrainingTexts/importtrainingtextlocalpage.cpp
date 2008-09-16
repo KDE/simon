@@ -11,11 +11,11 @@
 //
 #include "importtrainingtextlocalpage.h"
 
-#include <QLineEdit>
+#include <KLineEdit>
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QPushButton>
+#include <KPushButton>
 #include <QDir>
 
 

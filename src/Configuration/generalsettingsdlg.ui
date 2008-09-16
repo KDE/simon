@@ -18,7 +18,7 @@
   </property>
   <layout class="QVBoxLayout" >
    <item>
-    <widget class="QPushButton" name="pbShowFirstRunWizard" >
+    <widget class="KPushButton" name="pbShowFirstRunWizard" >
      <property name="text" >
       <string>Einrichtungsassistent beim nächsten Start wieder anzeigen</string>
      </property>
@@ -168,7 +168,7 @@
  <customwidgets>
   <customwidget>
    <class>SimonFileSelector</class>
-   <extends>QLineEdit</extends>
+   <extends>KLineEdit</extends>
    <header>simonfileselector.h</header>
    <slots>
     <signal>urlChanged()</signal>
@@ -176,7 +176,7 @@
   </customwidget>
   <customwidget>
    <class>SimonDirSelector</class>
-   <extends>QLineEdit</extends>
+   <extends>KLineEdit</extends>
    <header>simondirselector.h</header>
   </customwidget>
  </customwidgets>

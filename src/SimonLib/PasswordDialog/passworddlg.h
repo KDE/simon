@@ -12,8 +12,8 @@
 #ifndef PASSWORDDLG_H
 #define PASSWORDDLG_H
 
-#include <QDialog>
-class QLineEdit;
+#include <KDialog>
+class KLineEdit;
 
 /**
 	@author Susanne Tschernegg
@@ -25,7 +25,7 @@ class QLineEdit;
  * \version 0.1
  * \brief If the user has blocked the settings with a password, this dialog will be called to enter the password and to change the settings.
  */
-class PasswordDlg : public QDialog
+class PasswordDlg : public KDialog
 {
     Q_OBJECT
     
@@ -35,7 +35,7 @@ public:
        // ~PasswordDlg();
 
 private:
-        QLineEdit *lePassword;
+        KLineEdit *lePassword;
 
 private slots:
         void checkPassword();

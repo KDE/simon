@@ -3,7 +3,7 @@
 
 
 
-SimonLineEdit::SimonLineEdit( QWidget * parent ) : QLineEdit(parent)
+SimonLineEdit::SimonLineEdit( QWidget * parent ) : KLineEdit(parent)
 {
 
 }

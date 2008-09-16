@@ -67,7 +67,7 @@ bool PasswordSettings::apply()
 		if (!isHashed)
 		{
 			QCryptographicHash *hasher = new QCryptographicHash(QCryptographicHash::Md5);
-			hasher->addData(ui.lePassword->text().toLatin1());
+			hasher->addData(ui.lePassword->text().toUtf8());
 			hash = hasher->result();
 			delete hasher;
 		} else hash = ui.lePassword->text();

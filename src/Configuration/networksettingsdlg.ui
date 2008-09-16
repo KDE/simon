@@ -60,7 +60,7 @@
         </widget>
        </item>
        <item row="3" column="1" >
-        <widget class="QLineEdit" name="leUser" />
+        <widget class="KLineEdit" name="leUser" />
        </item>
        <item row="4" column="0" >
         <widget class="QLabel" name="lbPassword" >
@@ -73,9 +73,9 @@
         </widget>
        </item>
        <item row="4" column="1" >
-        <widget class="QLineEdit" name="lePass" >
+        <widget class="KLineEdit" name="lePass" >
          <property name="echoMode" >
-          <enum>QLineEdit::Password</enum>
+          <enum>KLineEdit::Password</enum>
          </property>
         </widget>
        </item>
@@ -229,7 +229,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pbAddAddress" >
+          <widget class="KPushButton" name="pbAddAddress" >
            <property name="enabled" >
             <bool>true</bool>
            </property>
@@ -243,7 +243,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pbDeleteAddress" >
+          <widget class="KPushButton" name="pbDeleteAddress" >
            <property name="enabled" >
             <bool>false</bool>
            </property>
@@ -272,7 +272,7 @@
   </customwidget>
   <customwidget>
    <class>SimonTabWidget</class>
-   <extends>QTabWidget</extends>
+   <extends>KTabWidget</extends>
    <header>simontabwidget.h</header>
    <container>1</container>
   </customwidget>

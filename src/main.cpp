@@ -26,9 +26,9 @@
 #endif
 #include <QTranslator>
 #include <QLocale>
-#include <kapplication.h>
-#include <kaboutdata.h>
-#include <kcmdlineargs.h>
+#include <KUniqueApplication>
+#include <KAboutData>
+#include <KCmdLineArgs>
 
 
 int main(int argc, char *argv[])
@@ -45,9 +45,8 @@ int main(int argc, char *argv[])
 			ki18n("Copyright (c) 2008 Peter Grasch, hillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
 	
 	KCmdLineArgs::init(argc, argv, &aboutData);
-	KApplication app;	
-	
-// 	QApplication app(argc,argv);
+	KUniqueApplication app;	
+	app.setWindowIcon(QIcon(":/images/tray.png"));
 	app.addLibraryPath(app.applicationDirPath()+"/plugins");
 // 	QString locale = QLocale::system().name().left(2);
 

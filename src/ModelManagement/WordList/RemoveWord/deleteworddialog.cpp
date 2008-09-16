@@ -18,7 +18,7 @@
  * @param parent The parent of the dialog
  * @param f Window flags
  */
-DeleteWordDialog::DeleteWordDialog(QWidget* parent, Qt::WindowFlags f): QDialog(parent, f)
+DeleteWordDialog::DeleteWordDialog(QWidget* parent, Qt::WindowFlags f): KDialog(parent, f)
 {
 	ui.setupUi(this);
 }
@@ -45,5 +45,5 @@ int DeleteWordDialog::exec(Word word, bool isShadowed)
 		ui.rbShadow->setEnabled(true);
 		ui.rbShadow->setChecked(true);
 	}
-	return QDialog::exec();
+	return KDialog::exec();
 }

@@ -18,7 +18,7 @@
  *
  * @author Peter Grasch
  * @param QWidget *parent
- * Sets the parent of the QListWidget
+ * Sets the parent of the KListWidget
  */
 DropListWidget::DropListWidget(QWidget *parent)
  : KListWidget(parent)

@@ -11,8 +11,8 @@
 //
 #include "importbomppage.h"
 #include <QLabel>
-#include <QLineEdit>
-#include <QPushButton>
+#include <KLineEdit>
+#include <KPushButton>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QIcon>
@@ -28,7 +28,7 @@ ImportBOMPPage::ImportBOMPPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
 
-	registerField("bompFileName*", ui.leFile, "currentUrl", SIGNAL(urlChanged(QString)));
+	registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
 	setTitle(tr("Importiere BOMP Wörterbuch"));
 }
 

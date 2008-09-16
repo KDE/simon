@@ -85,7 +85,7 @@ void DragTableWidget::mouseMoveEvent(QMouseEvent *event)
  *
  * @author Peter Grasch, Phillip Goriup
  */
-void DragTableWidget::startDrag(Qt::DropActions supportedActions)
+void DragTableWidget::startDrag(Qt::DropActions)
 {
 	QDrag *drag = new QDrag ( this );
 	QMimeData *mimeData = new QMimeData();

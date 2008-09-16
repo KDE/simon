@@ -18,8 +18,8 @@
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <widget class="QListWidget" name="lwCategories" />
-     <widget class="QListWidget" name="lwPrograms" />
+     <widget class="KListWidget" name="lwCategories" />
+     <widget class="KListWidget" name="lwPrograms" />
     </widget>
    </item>
   </layout>

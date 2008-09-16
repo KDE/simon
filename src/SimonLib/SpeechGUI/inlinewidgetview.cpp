@@ -23,9 +23,19 @@
  * \author Peter Grasch
  * @param parent the parent of the widget 
  */
-InlineWidgetView::InlineWidgetView(QWidget* parent): QTabWidget(parent)
+InlineWidgetView::InlineWidgetView(QWidget* parent): KTabWidget(parent)
 {
 	tabBar()->hide();
+	
+	connect(this, SIGNAL(closeRequest (QWidget *)), this, SLOT(processCloseRequest(QWidget*)));
+}
+
+void InlineWidgetView::processCloseRequest(QWidget* page)
+{
+	InlineWidget *iwPage = dynamic_cast<InlineWidget*>(page);
+	if (!iwPage) return;
+	
+	unRegisterPage(iwPage);
 }
 
 void InlineWidgetView::toggleDisplay(InlineWidget *page)

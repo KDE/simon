@@ -3,13 +3,13 @@
 #include <QColor>
 #include <QBrush>
 #include <QPalette>
-#include <QLineEdit>
+#include <KLineEdit>
 
 
 
 SimonSlider::SimonSlider( QWidget * parent ) : QSlider(parent)
 {	
-	this->lePlusMinus = new QLineEdit(dynamic_cast<QWidget*>(this->parent()));
+	this->lePlusMinus = new KLineEdit(dynamic_cast<QWidget*>(this->parent()));
 	this->lePlusMinus->setInputMask ("99");
 	this->lePlusMinus->setVisible(false);
 	this->setMinimum(0);

@@ -3,9 +3,9 @@
 #ifndef SIMONCOMBOBOX_H
 #define SIMONCOMBOBOX_H
 
-#include <QComboBox>
+#include <KComboBox>
 
-class SimonComboBox : public QComboBox
+class SimonComboBox : public KComboBox
 {	
 	
 	Q_OBJECT

@@ -10,13 +10,13 @@
 //
 //
 #include "importtrainingdirectoryintropage.h"
-#include <QPushButton>
+#include <KPushButton>
 #include <QStringList>
 #include <QFileDialog>
 #include <QDir>
-#include <QPushButton>
+#include <KPushButton>
 #include <QHBoxLayout>
-#include <QLineEdit>
+#include <KLineEdit>
 #include <QVBoxLayout>
 #include <QLabel>
 
@@ -36,8 +36,8 @@ ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *pare
 	
 	
 	QHBoxLayout *fileSelectorLay = new QHBoxLayout();
-	this->leDirectory = new QLineEdit(this);
-	QPushButton *selectDir = new QPushButton(this);
+	this->leDirectory = new KLineEdit(this);
+	KPushButton *selectDir = new KPushButton(this);
 	selectDir->setIcon(QIcon(":/images/icons/document-open.svg"));
 	connect(selectDir, SIGNAL(clicked()), this, SLOT(setDir()));
 	fileSelectorLay->addWidget(leDirectory);

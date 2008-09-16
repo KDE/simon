@@ -137,7 +137,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" >
      <item>
-      <widget class="QPushButton" name="pbReload" >
+      <widget class="KPushButton" name="pbReload" >
        <property name="text" >
         <string>Neu laden</string>
        </property>
@@ -157,7 +157,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pbTest" >
+      <widget class="KPushButton" name="pbTest" >
        <property name="text" >
         <string>Testen</string>
        </property>

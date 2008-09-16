@@ -135,7 +135,6 @@ set (	simonGeneralSources
                 SimonLib/SpeechGUI/inlinewidget.cpp
                 SimonLib/SpeechGUI/simonlistwidget.cpp
                 SimonLib/SpeechGUI/simontabwidget.cpp
-		SimonLib/PasswordDialog/passworddlg.cpp
 		SimonLib/Logging/logmanager.cpp
 		SimonLib/Logging/logger.cpp
 		SimonLib/Logging/logentry.cpp

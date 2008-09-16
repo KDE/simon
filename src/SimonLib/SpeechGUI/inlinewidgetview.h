@@ -12,7 +12,7 @@
 #ifndef INLINEWIDGETVIEW_H
 #define INLINEWIDGETVIEW_H
 
-#include <QTabWidget>
+#include <KTabWidget>
 
 class InlineWidget;
 class QKeyEvent;
@@ -24,7 +24,7 @@ class QKeyEvent;
  \version 0.1
  \date 10.8.2007
 */
-class InlineWidgetView : public QTabWidget
+class InlineWidgetView : public KTabWidget
 {
 Q_OBJECT
 signals:
@@ -34,6 +34,9 @@ signals:
 	
 	void registeredPage(InlineWidget *page);
 	void unRegisteredPage(InlineWidget *page);
+	
+private slots:
+	void processCloseRequest(QWidget* page);
 
 private:
 	void hideEvent(QHideEvent *event) { emit hidden(); return QWidget::hideEvent(event); }

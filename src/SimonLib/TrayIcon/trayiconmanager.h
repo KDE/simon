@@ -13,7 +13,9 @@
 #define TRAYICONMANAGER_H
 
 #include <QObject>
-#include <QSystemTrayIcon>
+#include <KAction>
+#include <KIcon>
+#include <KSystemTrayIcon>
 
 /**
  *	@class TrayIconManager
@@ -30,36 +32,14 @@ class TrayIconManager : public QObject
 
 	Q_OBJECT
 private:
-	QSystemTrayIcon *icon; //!< The QSystemTrayIcon to display the icon itself
+	KSystemTrayIcon *icon; //!< The QSystemTrayIcon to display the icon itself
 
-signals:
-	/**
-	* @brief Signal: clicked
-	*
-	* Signal that is emitted when the icon is clicked
-	*
-	* @author Peter Grasch
-	* 
-	 */
-	void clicked();
-	
-	/**
-	* @brief Signal: middleClicked
-	*
-	* Signal that is emitted when the icon is clicked with the middle (3rd) Mouse Button
-	*
-	* @author Peter Grasch
-	* 
-	 */
-	void middleClicked();
 
-public slots:
-	void triggered( QSystemTrayIcon::ActivationReason reason);
 	
 public:
-	void createIcon(QIcon icon, QString tooltip);
-	void hideIcon();
-    TrayIconManager();
+	void createIcon(const KIcon& icon, const QString& tooltip);
+	void addAction(const QString& name, KAction* action);
+    TrayIconManager(QWidget *parent);
 
     ~TrayIconManager();
 

@@ -84,7 +84,7 @@ Qt::ItemFlags CommandModel::flags(const QModelIndex &index) const
 	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
-QVariant CommandModel::headerData(int section, Qt::Orientation orientation,
+QVariant CommandModel::headerData(int, Qt::Orientation orientation,
 			int role) const
 {
 	Q_ASSERT(commands);

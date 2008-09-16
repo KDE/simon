@@ -68,12 +68,12 @@ p, li { white-space: pre-wrap; }
  <customwidgets>
   <customwidget>
    <class>SimonFileSelector</class>
-   <extends>QLineEdit</extends>
+   <extends>KLineEdit</extends>
    <header>simonfileselector.h</header>
   </customwidget>
   <customwidget>
    <class>SimonListWidget</class>
-   <extends>QListWidget</extends>
+   <extends>KListWidget</extends>
    <header>simonlistwidget.h</header>
   </customwidget>
  </customwidgets>

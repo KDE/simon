@@ -12,14 +12,14 @@
 #include "importtrainingtexts.h"
 #include <QWizardPage>
 #include <QLabel>
-#include <QListWidget>
-#include <QLineEdit>
+#include <KListWidget>
+#include <KLineEdit>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QProgressBar>
 #include <QRadioButton>
-#include <QPushButton>
+#include <KPushButton>
 #include <QFileDialog>
 #include "../../../SimonLib/QuickDownloader/quickdownloader.h"
 #include "xmltrainingtextlist.h"

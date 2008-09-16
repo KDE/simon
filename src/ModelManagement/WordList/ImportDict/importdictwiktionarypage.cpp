@@ -11,9 +11,9 @@
 //
 #include "importdictwiktionarypage.h"
 #include <QLabel>
-#include <QLineEdit>
-#include <QListWidget>
-#include <QPushButton>
+#include <KLineEdit>
+#include <KListWidget>
+#include <KPushButton>
 #include <QRadioButton>
 #include <QFileDialog>
 #include <QFile>

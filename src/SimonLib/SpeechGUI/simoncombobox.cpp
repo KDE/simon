@@ -4,7 +4,7 @@
 
 
 
-SimonComboBox::SimonComboBox( QWidget * parent ) : QComboBox(parent)
+SimonComboBox::SimonComboBox( QWidget * parent ) : KComboBox(parent)
 {
 }
 

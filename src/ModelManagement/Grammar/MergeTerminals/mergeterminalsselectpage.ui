@@ -33,7 +33,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="leNewTerminal" />
+      <widget class="KLineEdit" name="leNewTerminal" />
      </item>
     </layout>
    </item>
@@ -116,7 +116,7 @@
  <customwidgets>
   <customwidget>
    <class>SimonListWidget</class>
-   <extends>QListWidget</extends>
+   <extends>KListWidget</extends>
    <header>simonlistwidget.h</header>
   </customwidget>
  </customwidgets>

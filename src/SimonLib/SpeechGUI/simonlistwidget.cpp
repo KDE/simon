@@ -1,6 +1,6 @@
 #include "simonlistwidget.h"
 #include <QMessageBox>
-#include <QLineEdit>
+#include <KLineEdit>
 #include <QScrollBar>
 #include <QPalette>
 #include <QCoreApplication>
@@ -9,9 +9,9 @@
 
 
 
-SimonListWidget::SimonListWidget( QWidget * parent ) : QListWidget(parent)
+SimonListWidget::SimonListWidget( QWidget * parent ) : KListWidget(parent)
 {
-	line = new QLineEdit(this);
+	line = new KLineEdit(this);
 	line->hide();
 	this->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
 	this->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff);

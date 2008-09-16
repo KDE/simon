@@ -384,7 +384,7 @@ QStringList DBusBackend::buildFinalClasses()
 	if (Settings::getB("GuiRecognition/QtWorkarounds"))
 	{
 		final << "QListView";
-		final << "QListWidget";
+		final << "KListWidget";
 		final << "QTableView";
 		final << "QTableWidget";
 		final << "QRubberBand";

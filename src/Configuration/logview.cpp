@@ -13,7 +13,7 @@
 
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <QComboBox>
+#include <KComboBox>
 #include <QCoreApplication>
 #include <QRegExp>
 

@@ -50,8 +50,8 @@ WiktionaryDict::WiktionaryDict(QString path, QObject* parent) :QXmlDefaultHandle
  * \return bool
  * Success. (in the current implementation this returns allways true)
  */
-bool WiktionaryDict::startElement(const QString &namespaceURI,
-			      const QString &localName,
+bool WiktionaryDict::startElement(const QString&,
+			      const QString&,
 				const QString &qName,
 				const QXmlAttributes &attributes)
 {
@@ -100,7 +100,7 @@ bool WiktionaryDict::startElement(const QString &namespaceURI,
  * \return bool
  * Success. (in the current implementation this returns allways true)
  */
-bool WiktionaryDict::endElement(const QString &namespaceURI, const QString &localName,
+bool WiktionaryDict::endElement(const QString&, const QString&,
 			    const QString &qName)
 {
 	if (qName == "text")
@@ -283,10 +283,12 @@ int WiktionaryDict::processFoundIPA(QString ipa)
 		//the last recorded pronunciation would cause a faulty pronunciation in that 
 		//case
 		if (ipa.startsWith("-"))
+		{
 			if (i>0) {
 				ipa.insert(0, ipas.at(i-1));
 			} else
 				ipa.remove(QRegExp("-.*"));
+		}
 		
 		//with the substitution taken care of, we can safely remove all syllable brakes
 		ipa.remove("-");

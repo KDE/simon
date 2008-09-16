@@ -21,7 +21,7 @@
 #include "addwordview.h"
 #include <QWizardPage>
 #include <QMessageBox>
-#include <QLineEdit>
+#include <KLineEdit>
 #include "../../../SimonLib/Logging/logger.h"
 #include "../../../SimonLib/Settings/settings.h"
 #include "addwordintropage.h"

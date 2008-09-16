@@ -10,8 +10,9 @@
 //
 //
 #include "trayiconmanager.h"
-#include <QSystemTrayIcon>
+#include <KActionCollection>
 #include <QMenu>
+#include <KSystemTrayIcon>
 #include "../Logging/logger.h"
 
 /**
@@ -23,57 +24,35 @@
  * @author Peter Grasch
  * 
  */
-TrayIconManager::TrayIconManager()
+TrayIconManager::TrayIconManager(QWidget *parent)
  : QObject()
 {
-	this->icon = new QSystemTrayIcon(this);
-	connect(this->icon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(triggered(QSystemTrayIcon::ActivationReason)));
+	this->icon = new KSystemTrayIcon(parent);
 }
 
 /**
  * @brief Creates the Icon and displays it in the systray
  *
- * Utilizes the QSystemTrayIcon class from qt 4.2
+ * Utilizes the KSystemTrayIcon class
  *
  * @author Peter Grasch
  * @param QPixmap icon
  * The icon that will be displayed
  * 
  */
-void TrayIconManager::createIcon(QIcon icon, QString tooltip)
+void TrayIconManager::createIcon(const KIcon& icon, const QString& tooltip)
 {
-	Logger::log(tr("[INF] Erstelle systray icon(%1)").arg(tooltip));
+	Logger::log(tr("[INF] Erstelle systray icon (\"%1\")").arg(tooltip));
 	this->icon->setIcon( icon );
 	this->icon->setToolTip( tooltip );
 	this->icon->show();
 }
 
-/**
- * @brief Hides the Systrayicon
- *
- * @author Peter Grasch
- * 
- */
-void TrayIconManager::hideIcon()
-{
-	this->icon->hide();
-}
 
-/**
- * @brief Slot to react on the triggered action of the icon
- *
- * Emits the clicked() signal if the icon was clicked
- * 
- * @author Peter Grasch
- * @param QSystemTrayIcon::ActivationReason reason
- *  Contains the reason and is used to determine which button was pressed
- */
-void TrayIconManager::triggered( QSystemTrayIcon::ActivationReason reason)
+void TrayIconManager::addAction(const QString& name, KAction* action)
 {
-	if (reason == QSystemTrayIcon::Trigger)
-		emit clicked();
-	else if (reason == QSystemTrayIcon::MiddleClick)
-		emit middleClicked();
+	this->icon->contextMenu()->addAction(action);
+	this->icon->actionCollection()->addAction(name, action);
 }
 
 /**

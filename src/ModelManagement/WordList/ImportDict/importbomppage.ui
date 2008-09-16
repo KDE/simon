@@ -36,7 +36,11 @@
       </widget>
      </item>
      <item>
-      <widget class="SimonFileSelector" name="leFile" />
+      <widget class="KUrlRequester" name="urFile" >
+       <property name="filter" >
+        <string>Textdateien *.txt</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -44,9 +48,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SimonFileSelector</class>
-   <extends>QLineEdit</extends>
-   <header>simonfileselector.h</header>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

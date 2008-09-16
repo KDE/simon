@@ -612,7 +612,7 @@
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="pbAdd" >
+              <widget class="KPushButton" name="pbAdd" >
                <property name="text" >
                 <string>Hinzufügen</string>
                </property>
@@ -623,7 +623,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pbRemove" >
+              <widget class="KPushButton" name="pbRemove" >
                <property name="text" >
                 <string>Entfernen</string>
                </property>
@@ -699,7 +699,7 @@ p, li { white-space: pre-wrap; }
  <customwidgets>
   <customwidget>
    <class>SimonFileSelector</class>
-   <extends>QLineEdit</extends>
+   <extends>KLineEdit</extends>
    <header>simonfileselector.h</header>
    <slots>
     <signal>urlChanged()</signal>
@@ -712,12 +712,12 @@ p, li { white-space: pre-wrap; }
   </customwidget>
   <customwidget>
    <class>SimonDirSelector</class>
-   <extends>QLineEdit</extends>
+   <extends>KLineEdit</extends>
    <header>simondirselector.h</header>
   </customwidget>
   <customwidget>
    <class>SimonTabWidget</class>
-   <extends>QTabWidget</extends>
+   <extends>KTabWidget</extends>
    <header>simontabwidget.h</header>
    <container>1</container>
   </customwidget>

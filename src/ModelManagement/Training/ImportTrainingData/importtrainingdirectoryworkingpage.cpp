@@ -10,7 +10,7 @@
 //
 //
 #include "importtrainingdirectoryworkingpage.h"
-#include <QPushButton>
+#include <KPushButton>
 #include <QHBoxLayout>
 #include <QProgressBar>
 #include <QVBoxLayout>

@@ -1,7 +1,7 @@
 #include "recwidget.h"
 #include <QGroupBox>
 #include <QLabel>
-#include <QPushButton>
+#include <KPushButton>
 #include <QSlider>
 #include <QString>
 #include <QHBoxLayout>

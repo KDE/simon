@@ -22,7 +22,7 @@
 #define NEWCOMMAND_H
 
 
-#include <QDialog>
+#include <KDialog>
 #include "ui_modifycommands.h"
 
 class Command;
@@ -30,7 +30,7 @@ class NewCommand;
 
 // typedef EditCommand NewCommand;
 
-class NewCommand : protected QDialog {
+class NewCommand : protected KDialog {
 
 Q_OBJECT
 

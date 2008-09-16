@@ -14,7 +14,7 @@
 #include <QInputDialog>
 #include <QTableWidget>
 #include <QTableWidgetItem>
-#include <QLineEdit>
+#include <KLineEdit>
 #include "../SimonLib/Settings/settings.h"
 
 
@@ -237,11 +237,11 @@ void NetworkSettings::addAddress()
 	QString host="";
 	QString port="";
 	bool ok=false;
-	host=QInputDialog::getText ( this, tr("Neue Adresse Hinzufügen"),tr("Host:"), QLineEdit::Normal,"localhost", &ok );
+	host=QInputDialog::getText ( this, tr("Neue Adresse Hinzufügen"),tr("Host:"), KLineEdit::Normal,"localhost", &ok );
 	if ( ok && !host.isEmpty() )
 	{
 		ok=false;
-		port=QInputDialog::getText ( this, tr("Neue Adresse Hinzufügen"),tr("Portnummer:"), QLineEdit::Normal, "4444",&ok );
+		port=QInputDialog::getText ( this, tr("Neue Adresse Hinzufügen"),tr("Portnummer:"), KLineEdit::Normal, "4444",&ok );
 		if ( ok )
 		{
 			if ( !port.isEmpty() ) insertAddress(host, port.toInt());

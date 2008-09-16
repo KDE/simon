@@ -26,14 +26,6 @@
    <enum>Qt::ToolButtonTextUnderIcon</enum>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>830</width>
-     <height>665</height>
-    </rect>
-   </property>
    <layout class="QVBoxLayout" >
     <item>
      <widget class="InlineWidgetView" name="inlineView" >
@@ -43,15 +35,16 @@
       <property name="tabShape" >
        <enum>QTabWidget::Rounded</enum>
       </property>
+      <property name="currentIndex" >
+       <number>0</number>
+      </property>
+      <property name="tabReorderingEnabled" >
+       <bool>true</bool>
+      </property>
+      <property name="closeButtonEnabled" >
+       <bool>true</bool>
+      </property>
       <widget class="QWidget" name="tbWelcome" >
-       <property name="geometry" >
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>814</width>
-         <height>590</height>
-        </rect>
-       </property>
        <attribute name="title" >
         <string>Start</string>
        </attribute>
@@ -135,7 +128,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="label" >
+           <widget class="QLabel" name="lbWarning" >
             <property name="minimumSize" >
              <size>
               <width>678</width>
@@ -496,12 +489,14 @@ p, li { white-space: pre-wrap; }
      </widget>
     </item>
    </layout>
+   <zorder>pbProgress</zorder>
+   <zorder>inlineView</zorder>
   </widget>
  </widget>
  <customwidgets>
   <customwidget>
    <class>InlineWidgetView</class>
-   <extends>QTabWidget</extends>
+   <extends>KTabWidget</extends>
    <header>inlinewidgetview.h</header>
    <container>1</container>
   </customwidget>

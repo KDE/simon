@@ -17,9 +17,9 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QLineEdit>
+#include <KLineEdit>
 #include <QDir>
-#include <QPushButton>
+#include <KPushButton>
 #include <QIcon>
 #include <QCoreApplication>
 

@@ -300,12 +300,12 @@
  <customwidgets>
   <customwidget>
    <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
+   <extends>KLineEdit</extends>
    <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>KPushButton</class>
-   <extends>QPushButton</extends>
+   <extends>KPushButton</extends>
    <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
@@ -315,7 +315,7 @@
   </customwidget>
   <customwidget>
    <class>DropListWidget</class>
-   <extends>QListWidget</extends>
+   <extends>KListWidget</extends>
    <header>../ModelManagement/WordList/droplistwidget.h</header>
   </customwidget>
  </customwidgets>

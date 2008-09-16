@@ -44,12 +44,12 @@ public:
 	WiktionaryDict(QString path="", QObject *parent=0);
 	void load(QString path="");
 	
-	bool startElement(const QString &namespaceURI,
-			  const QString &localName,
+	bool startElement(const QString &,
+			  const QString &,
 			  const QString &qName,
 			  const QXmlAttributes &attributes);
 	
-	bool endElement(const QString &namespaceURI, const QString &localName,
+	bool endElement(const QString &, const QString &,
 			const QString &qName);
 
 	bool characters (const QString &str);

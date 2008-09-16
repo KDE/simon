@@ -1,13 +1,13 @@
 
 
 #include "simonwidget.h"
-#include <QPushButton>
-#include <QLineEdit>
+#include <KPushButton>
+#include <KLineEdit>
 #include <QLabel>
 #include <QCheckBox>
 #include <QMessageBox>
 #include <QRegExp>
-#include <QSpinBox>
+#include <KIntNumInput>
 #include "simongroupbox.h"
 #include "simoncombobox.h"
 #include "simonspinbox.h"
@@ -81,8 +81,8 @@ void SimonWidget::registerBuddy(QLabel* label)
 	text = label->text();
 	
 	text = editChildKeys(text);
-//QLineEdit
-	if (dynamic_cast<QLineEdit*>(label->buddy()))
+//KLineEdit
+	if (dynamic_cast<KLineEdit*>(label->buddy()))
 	{
 		registerControl(text,label->buddy(),SLOT(setFocus()));
 	}

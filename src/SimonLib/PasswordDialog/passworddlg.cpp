@@ -13,8 +13,8 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QLineEdit>
-#include <QPushButton>
+#include <KLineEdit>
+#include <KPushButton>
 #include <QCryptographicHash>
 #include <QMessageBox>
 #include <QString>
@@ -25,7 +25,7 @@
 *   @author Susanne Tschernegg
 *   @param QWidget *parent
 */
-PasswordDlg::PasswordDlg(QWidget *parent): QDialog(parent)
+PasswordDlg::PasswordDlg(QWidget *parent): KDialog(parent)
 {
     setWindowTitle(tr("Zugriff verweigert"));
     
@@ -34,18 +34,18 @@ PasswordDlg::PasswordDlg(QWidget *parent): QDialog(parent)
 	label->setWordWrap(true);
     vbLayout->addWidget(label);
     
-    lePassword = new QLineEdit();
-    lePassword->setEchoMode(QLineEdit::Password);
+    lePassword = new KLineEdit();
+    lePassword->setEchoMode(KLineEdit::Password);
     vbLayout->addWidget(lePassword);
     
     setLayout(vbLayout);
     QHBoxLayout *hbLayout = new QHBoxLayout();
     
-    QPushButton *pbOk = new QPushButton();
+    KPushButton *pbOk = new KPushButton();
     pbOk->setText(tr("Ok"));
     //pbOk->setEditFocus(true);
     
-    QPushButton *pbCancel = new QPushButton();
+    KPushButton *pbCancel = new KPushButton();
     pbCancel->setText(tr("Abbrechen"));
     
      hbLayout->addWidget(pbOk);

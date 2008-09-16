@@ -27,7 +27,7 @@
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="QLineEdit" name="leTextUpdateURL" />
+       <widget class="KLineEdit" name="leTextUpdateURL" />
       </item>
      </layout>
     </widget>
@@ -48,7 +48,7 @@
          </widget>
         </item>
         <item row="0" column="1" >
-         <widget class="QLineEdit" name="leWikiDumpUrls" />
+         <widget class="KLineEdit" name="leWikiDumpUrls" />
         </item>
         <item row="1" column="0" >
          <widget class="QLabel" name="lbDumpPrefix" >
@@ -58,7 +58,7 @@
          </widget>
         </item>
         <item row="1" column="1" >
-         <widget class="QLineEdit" name="leWikiPrefix" />
+         <widget class="KLineEdit" name="leWikiPrefix" />
         </item>
         <item row="2" column="0" >
          <widget class="QLabel" name="lbDumpPostfix" >
@@ -68,7 +68,7 @@
          </widget>
         </item>
         <item row="2" column="1" >
-         <widget class="QLineEdit" name="leWikiPostfix" />
+         <widget class="KLineEdit" name="leWikiPostfix" />
         </item>
        </layout>
       </item>

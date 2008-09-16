@@ -79,7 +79,7 @@
   </customwidget>
   <customwidget>
    <class>KPushButton</class>
-   <extends>QPushButton</extends>
+   <extends>KPushButton</extends>
    <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>

@@ -48,7 +48,7 @@ Bitte wählen Sie nun die Datei aus die Sie gerne importieren möchten:</string>
       </widget>
      </item>
      <item row="0" column="1" >
-      <widget class="QLineEdit" name="leName" />
+      <widget class="KLineEdit" name="leName" />
      </item>
      <item row="1" column="0" >
       <widget class="QLabel" name="label" >
@@ -84,7 +84,7 @@ Bitte wählen Sie nun die Datei aus die Sie gerne importieren möchten:</string>
  <customwidgets>
   <customwidget>
    <class>SimonFileSelector</class>
-   <extends>QLineEdit</extends>
+   <extends>KLineEdit</extends>
    <header>simonfileselector.h</header>
    <slots>
     <signal>urlChanged()</signal>

@@ -65,7 +65,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pbTrainText" >
+        <widget class="KPushButton" name="pbTrainText" >
          <property name="font" >
           <font>
            <weight>75</weight>
@@ -96,7 +96,7 @@
        <item>
         <layout class="QHBoxLayout" >
          <item>
-          <widget class="QPushButton" name="pbDelText" >
+          <widget class="KPushButton" name="pbDelText" >
            <property name="toolTip" >
             <string>Löschen des markierten Textes aus dem System</string>
            </property>
@@ -110,7 +110,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pbImportText" >
+          <widget class="KPushButton" name="pbImportText" >
            <property name="toolTip" >
             <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
            </property>
@@ -124,7 +124,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pbImportDir" >
+          <widget class="KPushButton" name="pbImportDir" >
            <property name="toolTip" >
             <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
            </property>
@@ -276,7 +276,7 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QPushButton" name="pbPrevPage" >
+            <widget class="KPushButton" name="pbPrevPage" >
              <property name="toolTip" >
               <string>Startet das Training des selektierten Textes.</string>
              </property>
@@ -299,7 +299,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pbNextPage" >
+            <widget class="KPushButton" name="pbNextPage" >
              <property name="toolTip" >
               <string>Startet das Training des selektierten Textes.</string>
              </property>
@@ -332,7 +332,7 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QPushButton" name="pbBackToMain" >
+            <widget class="KPushButton" name="pbBackToMain" >
              <property name="toolTip" >
               <string>Schließt den Dialog</string>
              </property>
@@ -356,7 +356,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pbFinish" >
+            <widget class="KPushButton" name="pbFinish" >
              <property name="layoutDirection" >
               <enum>Qt::RightToLeft</enum>
              </property>
@@ -450,7 +450,7 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pbBackToMain2" >
+           <widget class="KPushButton" name="pbBackToMain2" >
             <property name="text" >
              <string>Zurück</string>
             </property>

@@ -27,13 +27,26 @@
     </widget>
    </item>
    <item row="0" column="1" >
-    <widget class="QLineEdit" name="leTrigger" >
+    <widget class="KLineEdit" name="leTrigger" >
      <property name="text" >
       <string/>
      </property>
     </widget>
    </item>
-   <item rowspan="2" row="0" column="4" >
+   <item row="0" column="2" >
+    <spacer name="horizontalSpacer" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>33</width>
+       <height>27</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item rowspan="2" row="0" column="3" >
     <widget class="KIconButton" name="ibIcon" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
@@ -59,7 +72,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1" colspan="2" >
+   <item row="1" column="1" >
     <widget class="QComboBox" name="cbType" >
      <item>
       <property name="text" >
@@ -115,7 +128,7 @@
      </property>
     </spacer>
    </item>
-   <item row="4" column="0" colspan="5" >
+   <item row="3" column="0" colspan="4" >
     <widget class="QStackedWidget" name="stackedWidget" >
      <property name="currentIndex" >
       <number>0</number>
@@ -307,35 +320,21 @@
      </widget>
     </widget>
    </item>
-   <item row="5" column="0" colspan="5" >
-    <widget class="QDialogButtonBox" name="bbDialog" >
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
+   <item row="4" column="0" colspan="4" >
+    <widget class="KDialogButtonBox" name="bbDialog" >
      <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-     <property name="centerButtons" >
-      <bool>false</bool>
+      <set>QDialogButtonBox::Abort|QDialogButtonBox::Ok</set>
      </property>
     </widget>
-   </item>
-   <item row="0" column="3" >
-    <spacer name="horizontalSpacer" >
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0" >
-      <size>
-       <width>33</width>
-       <height>27</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KDialogButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header>kdialogbuttonbox.h</header>
+  </customwidget>
   <customwidget>
    <class>KIconButton</class>
    <extends>QPushButton</extends>
@@ -347,13 +346,18 @@
    <header>kkeysequencewidget.h</header>
   </customwidget>
   <customwidget>
-   <class>SimonDirSelector</class>
+   <class>KLineEdit</class>
    <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SimonDirSelector</class>
+   <extends>KLineEdit</extends>
    <header>simondirselector.h</header>
   </customwidget>
   <customwidget>
    <class>SimonFileSelector</class>
-   <extends>QLineEdit</extends>
+   <extends>KLineEdit</extends>
    <header>simonfileselector.h</header>
   </customwidget>
  </customwidgets>
@@ -363,38 +367,6 @@
   <include location="../action_icons.qrc" />
  </resources>
  <connections>
-  <connection>
-   <sender>bbDialog</sender>
-   <signal>accepted()</signal>
-   <receiver>DlgModifyCommands</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>252</x>
-     <y>341</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>bbDialog</sender>
-   <signal>rejected()</signal>
-   <receiver>DlgModifyCommands</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>320</x>
-     <y>341</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>cbType</sender>
    <signal>currentIndexChanged(int)</signal>

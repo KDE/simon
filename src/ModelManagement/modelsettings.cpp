@@ -14,6 +14,7 @@
 #include <QTableWidget>
 #include <QInputDialog>
 #include <QTableWidgetItem>
+#include <KLineEdit>
 
 ModelSettings::ModelSettings(QWidget* parent): SystemWidget(tr("Modelleinstellungen"), QIcon(":/images/icons/applications-education-language.svg"), tr("Hier können Sie Einstellungen rund um das Sprachmodell einstellen"), parent)
 {
@@ -67,7 +68,7 @@ void ModelSettings::addFilter()
 {
 	QString command="";
 	bool ok=false;
-	command=QInputDialog::getText ( this, tr("Neues Kommando hinzufügen"),tr("Vorverarbeitungskommando hinzufügen:"), QLineEdit::Normal,"", &ok );
+	command=QInputDialog::getText ( this, tr("Neues Kommando hinzufügen"),tr("Vorverarbeitungskommando hinzufügen:"), KLineEdit::Normal,"", &ok );
 	if ( ok && !command.isEmpty() )
 	{
 		insertFilter(command);

@@ -41,7 +41,7 @@
     <widget class="QWidget" native="1" name="wgSettings" >
      <layout class="QHBoxLayout" name="horizontalLayout" >
       <item>
-       <widget class="QPushButton" name="pbNewCommand" >
+       <widget class="KPushButton" name="pbNewCommand" >
         <property name="text" >
          <string>Neues Kommando</string>
         </property>
@@ -52,7 +52,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pbImportActivities" >
+       <widget class="KPushButton" name="pbImportActivities" >
         <property name="enabled" >
          <bool>false</bool>
         </property>
@@ -82,7 +82,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pbEditCommand" >
+       <widget class="KPushButton" name="pbEditCommand" >
         <property name="enabled" >
          <bool>false</bool>
         </property>
@@ -96,7 +96,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pbDeleteCommand" >
+       <widget class="KPushButton" name="pbDeleteCommand" >
         <property name="enabled" >
          <bool>false</bool>
         </property>

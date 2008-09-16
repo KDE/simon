@@ -12,7 +12,7 @@
 #include "screengrid.h"
 #include <QWidget>
 #include <QGridLayout>
-#include <QPushButton>
+#include <KPushButton>
 #include <QDesktopWidget>
 #include <QKeyEvent>
 #include <QCoreApplication>
@@ -40,7 +40,7 @@ ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent,
 	{
 		for (int j=0; j<3; j++)
 		{
-			QPushButton *btn = new QPushButton(QString::number(btnNr), this);
+			KPushButton *btn = new KPushButton(QString::number(btnNr), this);
 
 			QPalette pal = btn->palette();
 			pal.setBrush(QPalette::Button, transbrush);
@@ -76,7 +76,7 @@ ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent,
 }
 
 
-void ScreenGrid::setButtonFontSize(QPushButton *btn)
+void ScreenGrid::setButtonFontSize(KPushButton *btn)
 {
 	QFont f = btn->font();
 	f.setPointSize(btn->height()/4-2);
@@ -92,7 +92,7 @@ QPixmap ScreenGrid::makeFakeTransparency()
 
 void ScreenGrid::regionSelected()
 {
-	QPushButton *senderBtn = dynamic_cast<QPushButton*>(sender());
+	KPushButton *senderBtn = dynamic_cast<KPushButton*>(sender());
 	if (!senderBtn) return;
 
 	if ((senderBtn->width() <= 20) && (senderBtn->height() <= 20))
@@ -112,7 +112,7 @@ void ScreenGrid::regionSelected()
 
 	for (int i=0; i < this->children().count(); i++)
 	{
-		QPushButton *btn = dynamic_cast<QPushButton*>(children().at(i));
+		KPushButton *btn = dynamic_cast<KPushButton*>(children().at(i));
 		if (btn) {
 			setButtonFontSize(btn);
 			btn->setMinimumHeight(btnHeight);

@@ -63,10 +63,10 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="leSearchLogs" />
+           <widget class="KLineEdit" name="leSearchLogs" />
           </item>
           <item>
-           <widget class="QPushButton" name="pbClearSearch" >
+           <widget class="KPushButton" name="pbClearSearch" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Fixed" hsizetype="Fixed" >
               <horstretch>0</horstretch>
@@ -85,7 +85,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pbLogSearch" >
+           <widget class="KPushButton" name="pbLogSearch" >
             <property name="text" >
              <string>Suchen</string>
             </property>
@@ -154,7 +154,7 @@
          </widget>
         </item>
         <item row="4" column="1" >
-         <widget class="QPushButton" name="pbAbort" >
+         <widget class="KPushButton" name="pbAbort" >
           <property name="text" >
            <string>Abbrechen</string>
           </property>
