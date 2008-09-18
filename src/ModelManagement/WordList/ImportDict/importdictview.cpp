@@ -42,7 +42,7 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 	addPage(workingPage);
 
 	addPage(createFinishedPage());
-	setWindowTitle(i18n("Importiere Wörterbuch"));
+	setWindowTitle(i18n("Importiere WÃ¶rterbuch"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importdict.png"));
 }
 
@@ -77,10 +77,10 @@ QWizardPage* ImportDictView::createImportLexiconPage()
 QWizardPage* ImportDictView::createIntroPage()
 {
 	QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle(i18n("Wörterbuch importieren"));
+	intro->setTitle(i18n("WÃ¶rterbuch importieren"));
 	QLabel *lbIntro = new QLabel(intro);
 	lbIntro->setWordWrap(true);
-	lbIntro->setText(i18n("Dieser Assistent wird Ihnen dabei helfen, ein neues Wörterbuch zu importieren.\n\nEin Wörterbuch beinhaltet Informationen über die bekannten Wörter wie zum Beispiel wie Sie geschrieben werden und wie sie ausgesprochen werden.\n\nDas Wörterbuch ist deshalb ein wichtiger Bestandteil von simon.\n\nWir empfehlen ein BOMP Wörterbuch aufgrund dessen hohen Qualitätsstandards.\n\nBitte wählen Sie Ihre Quellen sorgfältig und achten Sie darauf nur hochqualitatives Material zu verwenden."));
+	lbIntro->setText(i18n("Dieser Assistent wird Ihnen dabei helfen, ein neues WÃ¶rterbuch zu importieren.\n\nEin WÃ¶rterbuch beinhaltet Informationen Ã¼ber die bekannten WÃ¶rter wie zum Beispiel wie Sie geschrieben werden und wie sie ausgesprochen werden.\n\nDas WÃ¶rterbuch ist deshalb ein wichtiger Bestandteil von simon.\n\nWir empfehlen ein BOMP WÃ¶rterbuch aufgrund dessen hohen QualitÃ¤tsstandards.\n\nBitte wÃ¤hlen Sie Ihre Quellen sorgfÃ¤ltig und achten Sie darauf nur hochqualitatives Material zu verwenden."));
 
 	QVBoxLayout *lay = new QVBoxLayout(intro);
 	lay->addWidget(lbIntro);
@@ -140,9 +140,9 @@ ImportDictWorkingPage* ImportDictView::createImportDictWorkingPage()
 QWizardPage* ImportDictView::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(i18n("Wörterbuch importiert"));
+	finished->setTitle(i18n("WÃ¶rterbuch importiert"));
 	QLabel *lbFinished = new QLabel(finished);
-	lbFinished->setText(i18n("Das Wörterbuch wurde erfolgreich importiert und wird nun übernommen.\n\nDas noch einige Zeit dauern, währenddessen ist simon aber bereits voll einsatzfähig und der Abgleich geschieht im Hintergrund.\n\nDas neue Wörterbuch wird in spätestenens einigen Minuten voll aktiviert sein.\n\nVielen Dank, dass Sie simon verbessert haben."));
+	lbFinished->setText(i18n("Das WÃ¶rterbuch wurde erfolgreich importiert und wird nun Ã¼bernommen.\n\nDas noch einige Zeit dauern, wÃ¤hrenddessen ist simon aber bereits voll einsatzfÃ¤hig und der Abgleich geschieht im Hintergrund.\n\nDas neue WÃ¶rterbuch wird in spÃ¤testenens einigen Minuten voll aktiviert sein.\n\nVielen Dank, dass Sie simon verbessert haben."));
 	lbFinished->setWordWrap(true);
 	QVBoxLayout *lay = new QVBoxLayout(finished);
 	lay->addWidget(lbFinished);

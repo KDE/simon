@@ -32,7 +32,7 @@
 #include "../../ModelManagement/WordList/wordlistmanager.h"
 
 #include "../../SimonLib/Sound/soundsettings.h"
-#include "../networksettings.h"
+#include "../../RecognitionControl/networksettings.h"
 #include "../passwordsettings.h"
 #include "../../Actions/Commands/commandsettings.h"
 

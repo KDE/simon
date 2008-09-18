@@ -41,7 +41,7 @@ ImportDictWiktionaryPage::ImportDictWiktionaryPage(QWidget* parent): QWizardPage
 	registerField("wikiRemoteURL", ui.lwRemoteList, "currentUserData",
 			 SIGNAL(currentIndexChanged(int)));
 
-	setTitle(i18n("Importiere Wiktionary Wörterbuch"));
+	setTitle(i18n("Importiere Wiktionary WÃ¶rterbuch"));
 	
 	connect(ui.rbImportLocal, SIGNAL(toggled(bool)), this, SLOT(resambleImportLocal(bool)));
 	connect(ui.rbImportLocal, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));

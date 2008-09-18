@@ -167,8 +167,8 @@ set (	simonGeneralSources
 		Configuration/FirstRun/selectlanguagemodelsourcepage.cpp
 		Configuration/FirstRun/firstrunimportdictwiktionarypage.cpp
 		Configuration/internetextensionsettings.cpp
-		Configuration/networksettings.cpp
-		Configuration/addserverconnection.cpp
+		RecognitionControl/networksettings.cpp
+		RecognitionControl/addserverconnection.cpp
 		simoncontrol.cpp
 		main.cpp
 )
@@ -210,8 +210,8 @@ kde4_add_ui_files( simonGeneralSources
 		Configuration/internetextensiondlg.ui
 		Configuration/externalprogramms.ui
 		Configuration/generalsettingsdlg.ui
-		Configuration/networksettingsdlg.ui
-		Configuration/addserverconnectiondlg.ui
+		RecognitionControl/networksettingsdlg.ui
+		RecognitionControl/addserverconnectiondlg.ui
 		Configuration/FirstRun/selectlanguagemodelsource.ui
 		Configuration/systemviewdlg.ui
 		)

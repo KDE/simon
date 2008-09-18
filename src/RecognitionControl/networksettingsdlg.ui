@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>430</width>
-    <height>328</height>
+    <width>405</width>
+    <height>256</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,29 +17,43 @@
     <normaloff/>
    </iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout_2" >
    <item>
-    <widget class="SimonTabWidget" name="twNetwork" >
+    <widget class="KTabWidget" name="twNetwork" >
      <property name="currentIndex" >
-      <number>1</number>
+      <number>0</number>
      </property>
-     <widget class="QWidget" name="tbUser" >
+     <widget class="QWidget" name="tab" >
       <attribute name="title" >
        <string>Allgemein</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout" >
-       <item row="5" column="0" colspan="2" >
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
+      <layout class="QGridLayout" name="gridLayout_2" >
+       <item row="0" column="0" colspan="2" >
+        <widget class="QCheckBox" name="cbAutoConnect" >
+         <property name="text" >
+          <string>Beim simon-Start verbinden</string>
          </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
+         <property name="tristate" >
+          <bool>false</bool>
          </property>
-        </spacer>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2" >
+        <widget class="QCheckBox" name="cbIgnoreWarnings" >
+         <property name="text" >
+          <string>Warnungen ignorieren (Nicht empfohlen)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2" >
+        <widget class="QCheckBox" name="cbKiosk" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+         <property name="text" >
+          <string>"Kiosk" Modus (In Arbeit)</string>
+         </property>
+        </widget>
        </item>
        <item row="3" column="0" >
         <widget class="QLabel" name="lbUsername" >
@@ -67,44 +81,30 @@
        <item row="4" column="1" >
         <widget class="KLineEdit" name="lePass" >
          <property name="echoMode" >
-          <enum>QLineEdit::Normal</enum>
+          <enum>QLineEdit::Password</enum>
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2" >
-        <widget class="QCheckBox" name="cbKiosk" >
-         <property name="enabled" >
-          <bool>false</bool>
+       <item row="5" column="0" colspan="2" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
          </property>
-         <property name="text" >
-          <string>"Kiosk" Modus (In Arbeit)</string>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>268</width>
+           <height>59</height>
+          </size>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="2" >
-        <widget class="QCheckBox" name="cbAutoConnect" >
-         <property name="text" >
-          <string>Beim simon-Start verbinden</string>
-         </property>
-         <property name="tristate" >
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2" >
-        <widget class="QCheckBox" name="cbIgnoreWarnings" >
-         <property name="text" >
-          <string>Warnungen ignorieren (Nicht empfohlen)</string>
-         </property>
-        </widget>
+        </spacer>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tbNet" >
+     <widget class="QWidget" name="tab_2" >
       <attribute name="title" >
        <string>Netzwerk</string>
       </attribute>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout" >
        <item>
         <widget class="QCheckBox" name="cbUseEncryption" >
          <property name="text" >
@@ -180,7 +180,7 @@
             <string>...</string>
            </property>
            <property name="icon" >
-            <iconset>
+            <iconset resource="../action_icons.qrc" >
              <normaloff>:/images/icons/go-up.svg</normaloff>:/images/icons/go-up.svg</iconset>
            </property>
           </widget>
@@ -194,7 +194,7 @@
             <string>...</string>
            </property>
            <property name="icon" >
-            <iconset>
+            <iconset resource="../action_icons.qrc" >
              <normaloff>:/images/icons/go-down.svg</normaloff>:/images/icons/go-down.svg</iconset>
            </property>
           </widget>
@@ -221,7 +221,7 @@
             <string>Hinzufügen</string>
            </property>
            <property name="icon" >
-            <iconset>
+            <iconset resource="../action_icons.qrc" >
              <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
            </property>
           </widget>
@@ -235,7 +235,7 @@
             <string>Entfernen</string>
            </property>
            <property name="icon" >
-            <iconset>
+            <iconset resource="../action_icons.qrc" >
              <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
            </property>
           </widget>
@@ -260,84 +260,19 @@
    <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
+   <class>KTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>ktabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>SimonTableWidget</class>
    <extends>QTableWidget</extends>
    <header>simontablewidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>SimonTabWidget</class>
-   <extends>KTabWidget</extends>
-   <header>simontabwidget.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
   <include location="../action_icons.qrc" />
  </resources>
- <connections>
-  <connection>
-   <sender>cbKiosk</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>leUser</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>91</x>
-     <y>101</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>204</x>
-     <y>146</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cbKiosk</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lePass</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>77</x>
-     <y>102</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>155</x>
-     <y>180</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cbKiosk</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lbUsername</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>47</x>
-     <y>106</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>47</x>
-     <y>132</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cbKiosk</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lbPassword</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>54</x>
-     <y>109</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>28</x>
-     <y>174</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

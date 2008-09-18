@@ -23,13 +23,6 @@ class ModelSettings : public SystemWidget
 Q_OBJECT
 private:
         Ui::ModelSettingsDlg ui;
-private slots:
-	void deleteFilter();
-	void addFilter();
-	void insertFilter(QString command);
-	void enableButtons();
-	void moveUp();
-	void moveDown();
 
 public slots:
         bool apply();

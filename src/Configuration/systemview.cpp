@@ -18,7 +18,6 @@
 #include "generalsettings.h"
 #include "logview.h"
 #include "externalprogrammanager.h"
-#include "networksettings.h"
 #include "internetextensionsettings.h"
 #include "passwordsettings.h"
 
@@ -27,6 +26,7 @@
 #include "../ModelManagement/modelsettings.h"
 #include "../ModelManagement/Grammar/grammarsettings.h"
 #include "../Actions/Commands/commandsettings.h"
+#include "../RecognitionControl/networksettings.h"
 #include "../SimonLib/SimonInfo/simoninfo.h"
 #include "../SimonLib/Logging/logger.h"
 
@@ -71,9 +71,9 @@ void SystemView::apply()
 		currentControl = dynamic_cast<SystemWidget*>(ui.swControls->widget(i));
 		if (currentControl)
 			if (!currentControl->apply())
-				Logger::log("[ERR] "+i18n("Konnte Änderungen in \"%1\" nicht speichern.", currentControl->getTitle()));
+				Logger::log("[ERR] "+i18n("Konnte Ã„nderungen in \"%1\" nicht speichern.", currentControl->getTitle()));
 	}
-	SimonInfo::showMessage(i18n("Einstellungen übernommen"),3000);
+	SimonInfo::showMessage(i18n("Einstellungen Ã¼bernommen"),3000);
 }
 
 /**
@@ -88,7 +88,7 @@ void SystemView::reset()
 		currentControl = dynamic_cast<SystemWidget*>(ui.swControls->widget(i));
 		if (currentControl)
 			if (!currentControl->reset())
-				Logger::log("[ERR] "+i18n("Konnte Änderungen in \"%1\" nicht zurücknehmen.", currentControl->getTitle()));
+				Logger::log("[ERR] "+i18n("Konnte Ã„nderungen in \"%1\" nicht zurÃ¼cknehmen.", currentControl->getTitle()));
 	}
 }
 
@@ -120,7 +120,7 @@ void SystemView::registerSystemWidget(SystemWidget* control)
 	{
 		//something went wrong
 		Logger::log("[ERR] "+i18n("Konnte %1 nicht initiieren", control->getTitle()));
-		KMessageBox::error(this, i18n("Es ist ein Schwerwiegender Fehler aufgetreten.\n\nEs konnten nicht alle Elemente der Konfiguration initalisiert werden. Dies ist meist auf eine fehlerhaft Konfiguration zurückzuführen.\n\nBitte kontrollieren Sie ihre Einstellungen (vor allem im Bezug auf mögliche vorangegangene Fehlermeldungen) und starten sie simon danach neu."));
+		KMessageBox::error(this, i18n("Es ist ein Schwerwiegender Fehler aufgetreten.\n\nEs konnten nicht alle Elemente der Konfiguration initalisiert werden. Dies ist meist auf eine fehlerhaft Konfiguration zurÃ¼ckzufÃ¼hren.\n\nBitte kontrollieren Sie ihre Einstellungen (vor allem im Bezug auf mÃ¶gliche vorangegangene Fehlermeldungen) und starten sie simon danach neu."));
 	}
 	
 	//item gets automatically added to the list widget if given the parent

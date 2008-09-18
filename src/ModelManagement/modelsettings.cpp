@@ -16,14 +16,9 @@
 #include <QTableWidgetItem>
 #include <KLineEdit>
 
-ModelSettings::ModelSettings(QWidget* parent): SystemWidget(i18n("Modelleinstellungen"), QIcon(":/images/icons/applications-education-language.svg"), i18n("Hier können Sie Einstellungen rund um das Sprachmodell einstellen"), parent)
+ModelSettings::ModelSettings(QWidget* parent): SystemWidget(i18n("Modelleinstellungen"), QIcon(":/images/icons/applications-education-language.svg"), i18n("Hier kÃ¶nnen Sie Einstellungen rund um das Sprachmodell einstellen"), parent)
 {
 	ui.setupUi(this);
-	connect(ui.pbAdd, SIGNAL(clicked()), this, SLOT(addFilter()));
-	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(deleteFilter()));
-	connect(ui.tbUp, SIGNAL(clicked()), this, SLOT(moveUp()));
-	connect(ui.tbDown, SIGNAL(clicked()), this, SLOT(moveDown()));
-	connect(ui.twProcessingFilters, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(enableButtons()));
 	
 	connect(ui.urLexicon, SIGNAL(urlChanged()), this, SIGNAL(changed()));
 	connect(ui.urGrammar, SIGNAL(urlChanged()), this, SIGNAL(changed()));
@@ -44,7 +39,7 @@ ModelSettings::ModelSettings(QWidget* parent): SystemWidget(i18n("Modelleinstell
 	connect(ui.urShadowLexicon, SIGNAL(urlChanged()), this, SIGNAL(changed()));
 	connect(ui.urShadowVocab, SIGNAL(urlChanged()), this, SIGNAL(changed()));
 
-	help = i18n("Hier können Sie Pfade zu den Sprachmodell-Dateien festlegen und Nachbearbeitungs-Ketten konfigurieren.\n\nAchtung: Unbedachte Änderungen in diesem Modul können die Funktionsfähigkeit von simon negativ beeinflussen");
+	help = i18n("Hier kÃ¶nnen Sie Pfade zu den Sprachmodell-Dateien festlegen und Nachbearbeitungs-Ketten konfigurieren.\n\nAchtung: Unbedachte Ã„nderungen in diesem Modul kÃ¶nnen die FunktionsfÃ¤higkeit von simon negativ beeinflussen");
 }
 
 
@@ -52,95 +47,6 @@ ModelSettings::~ModelSettings()
 {}
 
 
-
-void ModelSettings::deleteFilter()
-{
-	if (ui.twProcessingFilters->currentRow()==-1)
-	{
-		return;
-	}
-
-	ui.twProcessingFilters->removeRow(ui.twProcessingFilters->currentRow());
-	enableButtons();
-}
-
-void ModelSettings::addFilter()
-{
-	QString command="";
-	bool ok=false;
-	command=QInputDialog::getText ( this, i18n("Neues Kommando hinzufügen"),i18n("Vorverarbeitungskommando hinzufügen:"), KLineEdit::Normal,"", &ok );
-	if ( ok && !command.isEmpty() )
-	{
-		insertFilter(command);
-	}
-}
-
-void ModelSettings::insertFilter(QString command)
-{
-	int currRow = ui.twProcessingFilters->currentRow();
-	if (currRow == -1) currRow = 0;
-
-	ui.twProcessingFilters->insertRow(currRow);
-	
-	ui.twProcessingFilters->setItem(currRow,0, new QTableWidgetItem(command));
-	enableButtons();
-}
-
-void ModelSettings::enableButtons()
-{
-	if (ui.twProcessingFilters->currentRow() == -1)
-	{
-		ui.pbRemove->setEnabled(false);
-		ui.tbDown->setEnabled(false);
-		ui.tbUp->setEnabled(false);
-		return;
-	} else ui.pbRemove->setEnabled(true);
-
-	
-	if (ui.twProcessingFilters->rowCount()-1 > ui.twProcessingFilters->currentRow())
-		ui.tbDown->setEnabled(true);
-	else ui.tbDown->setEnabled(false);
-	
-	if (0 < ui.twProcessingFilters->currentRow())
-		ui.tbUp->setEnabled(true);
-	else ui.tbUp->setEnabled(false);
-}
-
-void ModelSettings::moveUp()
-{
-	int currentRow = ui.twProcessingFilters->currentRow();
-	if (!ui.twProcessingFilters->item(currentRow,0)) return;
-	if (!ui.twProcessingFilters->item(currentRow-1,0)) return;
-	
-	QString command = ui.twProcessingFilters->item(currentRow,0)->text();
-	
-	ui.twProcessingFilters->item(currentRow,0)->setText(
-		ui.twProcessingFilters->item(currentRow-1,0)->text());
-
-	
-	ui.twProcessingFilters->item(currentRow-1,0)->setText(command);
-	ui.twProcessingFilters->setCurrentCell(currentRow-1, 0);
-
-	enableButtons();
-}
-
-void ModelSettings::moveDown()
-{
-	int currentRow = ui.twProcessingFilters->currentRow();
-	if (!ui.twProcessingFilters->item(currentRow,0)) return;
-	if (!ui.twProcessingFilters->item(currentRow+1,0)) return;
-	
-	QString command = ui.twProcessingFilters->item(currentRow,0)->text();
-	
-	ui.twProcessingFilters->item(currentRow,0)->setText(
-		ui.twProcessingFilters->item(currentRow+1,0)->text());
-
-	
-	ui.twProcessingFilters->item(currentRow+1,0)->setText(command);
-	ui.twProcessingFilters->setCurrentCell(currentRow+1, 0);
-	
-	enableButtons();
-}
 
 
 bool ModelSettings::isComplete()
@@ -206,21 +112,7 @@ bool ModelSettings::apply()
 
 	Settings::set("Model/ProcessInternal", ui.cbProcessInternal->isChecked());
 
-	if (ui.twProcessingFilters->rowCount() == 0) return true;
-	
-	if (ui.twProcessingFilters->rowCount() == 1)
-		Settings::set("Model/ProcessingFilters", ui.twProcessingFilters->item(0,0)->text());
-
-	if (ui.twProcessingFilters->rowCount() > 1)
-	{
-		QString filters;
-		for (int i=0; i < ui.twProcessingFilters->rowCount()-1; i++)
-		{
-			filters += ui.twProcessingFilters->item(i,0)->text() + " && ";
-		}
-		filters += ui.twProcessingFilters->item(ui.twProcessingFilters->rowCount()-1,0)->text();
-		Settings::set("Model/ProcessingFilters", filters);
-	}
+	Settings::set("Model/ProcessingFilters", ui.elbCommands->items().join(" && "));
 
 	return true;
 }
@@ -236,13 +128,7 @@ bool ModelSettings::init()
 
 	QStringList filters = Settings::getS("Model/ProcessingFilters").split("&&", QString::SkipEmptyParts);
 	
-	ui.twProcessingFilters->setRowCount(filters.count());
-	for (int i=0; i < filters.count(); i++)
-	{
-		ui.twProcessingFilters->setItem(i, 0, new QTableWidgetItem(filters.at(i)));
-	}
-	ui.twProcessingFilters->resizeColumnToContents(0);
-	enableButtons();
+	ui.elbCommands->insertStringList(filters);
 
 	ui.urLexicon->setPath(Settings::getS("Model/PathToLexicon"));
 	ui.urGrammar->setPath(Settings::getS("Model/PathToGrammar"));

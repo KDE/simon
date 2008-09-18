@@ -28,10 +28,10 @@ ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent): QWizardPage(paren
 {
 	ready = false;
 	
-	setTitle(i18n("Importiere Wörterbuch..."));
+	setTitle(i18n("Importiere WÃ¶rterbuch..."));
 	QLabel *desc = new QLabel(this);
 	desc->setWordWrap(true);
-	desc->setText(i18n("Importiere das Wörterbuch... Je nach dessen Art und Größe kann das einige Zeit dauern.\n\nBitte haben Sie etwas Geduld...\n\n"));
+	desc->setText(i18n("Importiere das WÃ¶rterbuch... Je nach dessen Art und GrÃ¶ÃŸe kann das einige Zeit dauern.\n\nBitte haben Sie etwas Geduld...\n\n"));
 	lbStatus = new QLabel(this);
 	
 	pbMain = new QProgressBar(this);
@@ -84,7 +84,7 @@ void ImportDictWorkingPage::importLexicon(QString path)
 	ready=false;
 	completeChanged();
 	
-	displayStatus(i18n("Importiere Lexicon-Wörterbuch %1...", path));
+	displayStatus(i18n("Importiere Lexicon-WÃ¶rterbuch %1...", path));
 	pbMain->setMaximum(1000);
 	
 	import->parseWordList(path, 3);
@@ -99,7 +99,7 @@ void ImportDictWorkingPage::importHADIFIX(QString path)
 	ready=false;
 	completeChanged();
 	
-	displayStatus(i18n("Importiere Hadifix-Wörterbuch %1...", path));
+	displayStatus(i18n("Importiere Hadifix-WÃ¶rterbuch %1...", path));
 	pbMain->setMaximum(1000);
 	
 	import->parseWordList(path, 1);
@@ -115,7 +115,7 @@ void ImportDictWorkingPage::importWiktionary(QString url)
 	if (url.startsWith("http"))
 	{
 		pbMain->setMaximum(0);
-		displayStatus(i18n("Lade Wörterbuch herunter..."));
+		displayStatus(i18n("Lade WÃ¶rterbuch herunter..."));
 		QuickDownloader *loader = new QuickDownloader(this);
 		connect(loader, SIGNAL(aborted()), this, SIGNAL(failed()));
 		connect(loader, SIGNAL(errorOccured(QString)), this, SIGNAL(failed()));
@@ -192,7 +192,7 @@ void ImportDictWorkingPage::importWiktionaryFile(QString path)
 {
 	QuickUnpacker *qu = qobject_cast<QuickUnpacker*>(sender());
 	if (qu) qu->deleteLater();
-	displayStatus(i18n("Importiere Wiktionary-Wörterbuch %1...", path));
+	displayStatus(i18n("Importiere Wiktionary-WÃ¶rterbuch %1...", path));
 	pbMain->setMaximum(1000);
 	
 	import->parseWordList(path, 2);
