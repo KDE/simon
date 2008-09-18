@@ -64,7 +64,7 @@ int processOutputData( const void *inputBuffer, void *outputBuffer, unsigned lon
  */
 bool WavPlayer::play( QString filename )
 {
-	Logger::log(i18n("[INF] Abspielen von %1").arg(filename)); 
+	Logger::log(i18n("[INF] Abspielen von %1", filename)); 
 	
 
 	if (stream)

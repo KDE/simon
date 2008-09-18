@@ -33,7 +33,7 @@ bool IniReader::load(QString path)
 	
 	QFile doc(path);
 	if (!doc.open(QIODevice::ReadOnly|QIODevice::Text)) {
-		Logger::log(i18n("[ERR] Konnte INI-Datei %1 nicht zum lesen öffnen").arg(path));
+		Logger::log(i18n("[ERR] Konnte INI-Datei %1 nicht zum lesen öffnen", path));
 		return false;
 	}
 	
@@ -44,7 +44,7 @@ bool IniReader::load(QString path)
 		QString line = ts.readLine(1024);
 		QStringList pair = line.split("=");
 		if (pair.count() == 2) 
-// 			Logger::log(i18n("[INF] Ignoriere Zeile %1 in Datei %2: \"%3\"").arg(lineC).arg(path).arg(line));
+// 			Logger::log(i18n("[INF] Ignoriere Zeile %1 in Datei %2: \"%3\"", lineC, path, line));
 			this->document.insert(pair[0], pair[1]);
 		
 		lineC++;

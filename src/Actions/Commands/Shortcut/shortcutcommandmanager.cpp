@@ -30,7 +30,7 @@ const QString ShortcutCommandManager::name() const
 bool ShortcutCommandManager::load()
 {
 	QString commandPath = Settings::getS("Commands/Shortcut/PathToConfig");
-	Logger::log(i18n("[INF] Lade Tastenkürzel von %1").arg(commandPath));
+	Logger::log(i18n("[INF] Lade Tastenkürzel von %1", commandPath));
 
 	bool ok = false;
 	this->commands = xmlShortcutCommand->load(ok, commandPath);
@@ -40,7 +40,7 @@ bool ShortcutCommandManager::load()
 bool ShortcutCommandManager::save()
 {
 	QString commandPath = Settings::getS("Commands/Shortcut/PathToConfig");
-	Logger::log(i18n("[INF] Speichere Shortcut-Kommandos nach %1").arg(commandPath));
+	Logger::log(i18n("[INF] Speichere Shortcut-Kommandos nach %1", commandPath));
 	return xmlShortcutCommand->save(commands, commandPath);
 }
 

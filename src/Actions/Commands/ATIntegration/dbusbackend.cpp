@@ -107,7 +107,7 @@ ATObject* DBusBackend::readGui(QString service)
 
 	//TODO: submenues werden ignoriert
 // 	if (ignoredSubmenue != 0) {
-// 		KMessageBox::error(0, i18n("%1 Submenüs wurden ignoriert;\n\n(Submenüs sind derzeit nicht unterstützt)").arg(ignoredSubmenue));
+// 		KMessageBox::error(0, i18n("%1 Submenüs wurden ignoriert;\n\n(Submenüs sind derzeit nicht unterstützt)", ignoredSubmenue));
 // 	}
 	if (root->children().count()==0) return 0;
 	return root;
@@ -130,7 +130,7 @@ void DBusBackend::serviceRegistered(QString service)
 		QStringList applications = QStringList() << service;
 		QStringList applicationNames = QStringList() << name;
 		emit servicesFound(applications, applicationNames);
-	} else emit status(i18n("Konnte %1 nicht auflösen...").arg(service));
+	} else emit status(i18n("Konnte %1 nicht auflösen...", service));
 }
 
 

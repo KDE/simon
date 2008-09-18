@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 
 // 	QTranslator translator;
 
-// 	translator.load(QString("simon_%1").arg(locale));
+// 	translator.load(QString("simon_%1", locale));
 
 // 	app.installTranslator(&translator);
 

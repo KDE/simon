@@ -62,10 +62,10 @@ TrainingManager* TrainingManager::getInstance()
 
 void TrainingManager::askDeleteLonelySample(QString sample)
 {
-	if (KMessageBox::questionYesNoCancel(0, i18n("Die Datei %1 hat keine Transkription.\n\nWollen Sie sie löschen?").arg(sample), i18n("Herrenloses Sample")) == KMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(0, i18n("Die Datei %1 hat keine Transkription.\n\nWollen Sie sie lÃ¶schen?", sample), i18n("Herrenloses Sample")) == KMessageBox::Yes)
 	{
 		if (!QFile::remove(sample))
-			KMessageBox::error(0, i18n("Das Löschen des Samples ist fehlgeschlagen"), i18n("Löschen fehlgeschlagen"));
+			KMessageBox::error(0, i18n("Das LÃ¶schen des Samples ist fehlgeschlagen"), i18n("LÃ¶schen fehlgeschlagen"));
 		else ModelManager::compileModel(); //start again
 	}
 }
@@ -145,7 +145,7 @@ bool TrainingManager::savePrompts(bool recompiledLater)
 	emit trainingDataChanged();
 	if (recompiledLater) return true;
 
-	if (KMessageBox::questionYesNoCancel(0, i18n("Die Trainingsdaten wurden geändert.\n\nWollen Sie das Sprachmodell jetzt neu kompilieren?"), i18n("Trainingsdaten geändert")) == KMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(0, i18n("Die Trainingsdaten wurden geÃ¤ndert.\n\nWollen Sie das Sprachmodell jetzt neu kompilieren?"), i18n("Trainingsdaten geÃ¤ndert")) == KMessageBox::Yes)
 		ModelManager::compileModel();
 	return true;
 }
@@ -199,7 +199,7 @@ void TrainingManager::trainWords ( WordList *words )
 {
 	if ( !words ) return;
 
-	Logger::log ( i18n ( "[INF] Starten eines  on-the-fly Trainings mit %1 Wörter" ).arg ( words->count() ) );
+	Logger::log ( i18n ( "[INF] Starten eines  on-the-fly Trainings mit %1 WÃ¶rter" ).arg ( words->count() ) );
 
 	QStringList pages;
 
@@ -276,7 +276,7 @@ void TrainingManager::trainWords ( WordList *words )
  */
 bool TrainingManager::deleteText ( int index )
 {
-	Logger::log ( i18n ( "[INF] Löschen von \"%1\" von \"%2\"" ).arg ( trainingTexts->at ( index )->getName() ).arg ( trainingTexts->at ( index )->getPath() ) );
+	Logger::log ( i18n ( "[INF] LÃ¶schen von \"%1\" von \"%2\"" ).arg ( trainingTexts->at ( index )->getName() ).arg ( trainingTexts->at ( index )->getPath() ) );
 	QFile text ( trainingTexts->at ( index )->getPath() );
 	return text.remove();
 }

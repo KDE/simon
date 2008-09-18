@@ -71,7 +71,7 @@ void SystemView::apply()
 		currentControl = dynamic_cast<SystemWidget*>(ui.swControls->widget(i));
 		if (currentControl)
 			if (!currentControl->apply())
-				Logger::log("[ERR] "+i18n("Konnte Änderungen in \"%1\" nicht speichern.").arg(currentControl->getTitle()));
+				Logger::log("[ERR] "+i18n("Konnte Änderungen in \"%1\" nicht speichern.", currentControl->getTitle()));
 	}
 	SimonInfo::showMessage(i18n("Einstellungen übernommen"),3000);
 }
@@ -88,7 +88,7 @@ void SystemView::reset()
 		currentControl = dynamic_cast<SystemWidget*>(ui.swControls->widget(i));
 		if (currentControl)
 			if (!currentControl->reset())
-				Logger::log("[ERR] "+i18n("Konnte Änderungen in \"%1\" nicht zurücknehmen.").arg(currentControl->getTitle()));
+				Logger::log("[ERR] "+i18n("Konnte Änderungen in \"%1\" nicht zurücknehmen.", currentControl->getTitle()));
 	}
 }
 
@@ -119,7 +119,7 @@ void SystemView::registerSystemWidget(SystemWidget* control)
 	if (!control->init())
 	{
 		//something went wrong
-		Logger::log("[ERR] "+i18n("Konnte %1 nicht initiieren").arg(control->getTitle()));
+		Logger::log("[ERR] "+i18n("Konnte %1 nicht initiieren", control->getTitle()));
 		KMessageBox::error(this, i18n("Es ist ein Schwerwiegender Fehler aufgetreten.\n\nEs konnten nicht alle Elemente der Konfiguration initalisiert werden. Dies ist meist auf eine fehlerhaft Konfiguration zurückzuführen.\n\nBitte kontrollieren Sie ihre Einstellungen (vor allem im Bezug auf mögliche vorangegangene Fehlermeldungen) und starten sie simon danach neu."));
 	}
 	

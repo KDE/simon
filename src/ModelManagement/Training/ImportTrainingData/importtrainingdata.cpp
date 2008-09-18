@@ -35,7 +35,7 @@ void ImportTrainingData::run()
 	if (!d.exists())
 		if (!d.mkpath(wavDestdir))
 	{
-		emit error(i18n("Konnte Ausgabeordner %1 nicht erstellen").arg(wavDestdir));
+		emit error(i18n("Konnte Ausgabeordner %1 nicht erstellen", wavDestdir));
 	}
 	
 	QStringList *dataFiles = this->searchDir(directory);
@@ -43,7 +43,7 @@ void ImportTrainingData::run()
 	
 
 	emit progress(0, dataFiles->count());
-	emit status(i18n("Importiere %1 Dateien...").arg(dataFiles->count()));
+	emit status(i18n("Importiere %1 Dateien...", dataFiles->count()));
 
 	dataFiles = processSounds(*dataFiles, wavDestdir);
 	

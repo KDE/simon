@@ -91,7 +91,7 @@ void NewCommand::checkIfComplete()
 void NewCommand::setWindowTitleToCommandName(QString name)
 {
 	if (!name.isEmpty())
-		setCaption(i18n("Kommando: %1").arg(name));
+		setCaption(i18n("Kommando: %1", name));
 	else setCaption(i18n("Kommando"));
 }
 

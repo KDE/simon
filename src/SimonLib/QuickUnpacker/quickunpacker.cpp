@@ -61,7 +61,7 @@ void QuickUnpacker::unpack(QString path)
  */
 void QuickUnpacker::unpacked(QString to)
 {
-	setStatus(i18n("BZIP2 Datei erfolgreich nach %1 extrahiert").arg(to));
+	setStatus(i18n("BZIP2 Datei erfolgreich nach %1 extrahiert", to));
 	prog->done(0);
 	emit unpackedTo(to);
 }
@@ -105,7 +105,7 @@ void QuickUnpacker::setProgress(int currentProg)
 void QuickUnpacker::errorOccured(QString err)
 {
 	Logger::log(i18n("[ERR] Fehler beim Entpacken"));
-	KMessageBox::error(this, i18n("Beim Entpacken ist ein Fehler aufgetreten: %1").arg(err));
+	KMessageBox::error(this, i18n("Beim Entpacken ist ein Fehler aufgetreten: %1", err));
 	emit error(err);
 }
 

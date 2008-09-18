@@ -368,7 +368,7 @@ void TrainingView::loadList()
 		QString tooltip;
 		
 		if (pageCount > 0)
-			tooltip = i18n("Vorschau: %1...").arg(list->at(i)->getPage(0));
+			tooltip = i18n("Vorschau: %1...", list->at(i)->getPage(0));
 		else tooltip = i18n("Leer");
 		
 		//make them readonly

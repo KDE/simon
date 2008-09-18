@@ -70,7 +70,7 @@ void ActionManager::setupBackends()
 	{
 		CommandManager *man = managers->at(i);
 		if (!man->load())
-			KMessageBox::error(0, i18n("Konnte Kommandomanager \"%1\" nicht initialisieren.\n\nBitte überprüfen Sie seine Konfiguration.").arg(man->name()));
+			KMessageBox::error(0, i18n("Konnte Kommandomanager \"%1\" nicht initialisieren.\n\nBitte überprüfen Sie seine Konfiguration.", man->name()));
 	}
 }
 
@@ -121,7 +121,7 @@ bool ActionManager::addCommand(Command *command)
 		i++;
 	}
 	if (!added)
-		KMessageBox::error(0, i18n("Konnte das Kommando \"%1\" nicht hinzufügen.").arg(command->getTrigger()));
+		KMessageBox::error(0, i18n("Konnte das Kommando \"%1\" nicht hinzufügen.", command->getTrigger()));
 	else emit commandsChanged(getCommandList());
 
 	return added;

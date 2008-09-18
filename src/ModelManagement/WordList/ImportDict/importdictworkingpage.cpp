@@ -84,7 +84,7 @@ void ImportDictWorkingPage::importLexicon(QString path)
 	ready=false;
 	completeChanged();
 	
-	displayStatus(i18n("Importiere Lexicon-Wörterbuch %1...").arg(path));
+	displayStatus(i18n("Importiere Lexicon-Wörterbuch %1...", path));
 	pbMain->setMaximum(1000);
 	
 	import->parseWordList(path, 3);
@@ -99,7 +99,7 @@ void ImportDictWorkingPage::importHADIFIX(QString path)
 	ready=false;
 	completeChanged();
 	
-	displayStatus(i18n("Importiere Hadifix-Wörterbuch %1...").arg(path));
+	displayStatus(i18n("Importiere Hadifix-Wörterbuch %1...", path));
 	pbMain->setMaximum(1000);
 	
 	import->parseWordList(path, 1);
@@ -192,7 +192,7 @@ void ImportDictWorkingPage::importWiktionaryFile(QString path)
 {
 	QuickUnpacker *qu = qobject_cast<QuickUnpacker*>(sender());
 	if (qu) qu->deleteLater();
-	displayStatus(i18n("Importiere Wiktionary-Wörterbuch %1...").arg(path));
+	displayStatus(i18n("Importiere Wiktionary-Wörterbuch %1...", path));
 	pbMain->setMaximum(1000);
 	
 	import->parseWordList(path, 2);

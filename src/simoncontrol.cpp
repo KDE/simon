@@ -64,18 +64,18 @@ void SimonControl::loggedIn()
 void SimonControl::juliusError(QString error, bool skippable)
 {
 	if (skippable)
-		error += "\n\n"+i18n("Sie können dies ignorieren, indem Sie die Option \"Warnungen ignorieren\" In den Netzwerkeinstellungen aktivieren");
+		error += "\n\n"+i18n("Sie kÃ¶nnen dies ignorieren, indem Sie die Option \"Warnungen ignorieren\" In den Netzwerkeinstellungen aktivieren");
 
 	KMessageBox::error(0, error, i18n("Julius Fehler"));
 
-	Logger::log(i18n("[ERR] Julius Fehler: %1, Überspringbar: %2").arg(error).arg(skippable ? i18n("Ja") : i18n("Nein")));
+	Logger::log(i18n("[ERR] Julius Fehler: %1, Ãœberspringbar: %2", error, skippable ? i18n("Ja") : i18n("Nein")));
 }
 
 void SimonControl::juliusWarning(QString warning)
 {
-	Logger::log(i18n("[INF] Julius Warning: %1").arg(warning));
+	Logger::log(i18n("[INF] Julius Warning: %1", warning));
 
-	SimonInfo::showMessage(i18n("Julius: %1").arg(warning), 5000);
+	SimonInfo::showMessage(i18n("Julius: %1", warning), 5000);
 }
 
 /**
@@ -92,7 +92,7 @@ void SimonControl::connectToServer()
 	QString juliusServers = Settings::getS("Network/JuliusdServers");
 	if (juliusServers.isEmpty()) return;
 	QStringList addresses = juliusServers.split(";", QString::SkipEmptyParts);
-	Logger::log(i18n("[INF] %1 juliusd Adressen gefunden").arg(addresses.count()));
+	Logger::log(i18n("[INF] %1 juliusd Adressen gefunden", addresses.count()));
 	
 	if (addresses.count() == 0) return;
 	
@@ -205,7 +205,7 @@ void SimonControl::abortConnecting()
 void SimonControl::errorConnecting(QString error)
 {
 	QString currentHost = juliusdConnectionsToTry.takeAt(0);
-	Logger::log(i18n("[ERR] Verbinden zu Julius (%1) fehlgeschlagen: %2").arg(currentHost).arg(error));
+	Logger::log(i18n("[ERR] Verbinden zu Julius (%1) fehlgeschlagen: %2", currentHost, error));
 	
 	juliusdConnectionErrors << QString("%1: %2").arg(currentHost).arg(error);
 	

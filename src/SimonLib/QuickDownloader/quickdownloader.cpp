@@ -71,7 +71,7 @@ bool QuickDownloader::download(QString url, QString filename)
 		file = new QFile(filename, this);
 	}
 
-	Logger::log(i18n("[INF] Lade \"%1\" zu \"%2\"").arg(url).arg(file->fileName()));
+	Logger::log(i18n("[INF] Lade \"%1\" zu \"%2\"", url, file->fileName()));
 	if (!loader || !progressDlg) return false;
 	
 	QUrl urlD = QUrl(url);
@@ -124,7 +124,7 @@ void QuickDownloader::readResponse(const QHttpResponseHeader header)
 	Logger::log(i18n("[INF] Erhaltene HTTP Antwort: \"")+QString::number(header.statusCode())+"\"");
 	if (header.statusCode() != 200) {
 		KMessageBox::information(this, i18n("Download fehlgeschlagen: %1.", header.reasonPhrase()));
-		Logger::log(i18n("[INF] Download fehlgeschlagen: %1.").arg(header.reasonPhrase()));
+		Logger::log(i18n("[INF] Download fehlgeschlagen: %1.", header.reasonPhrase()));
 		aborting = true;
 		progressDlg->close();
 		loader->abort();

@@ -28,7 +28,7 @@ bool PlaceCommandManager::addCommand(Command *command)
 bool PlaceCommandManager::load()
 {
 	QString commandPath = Settings::getS("Commands/Place/PathToConfig");
-	Logger::log(i18n("[INF] Lade Ort-Kommandos von %1").arg(commandPath));
+	Logger::log(i18n("[INF] Lade Ort-Kommandos von %1", commandPath));
 
 	bool ok = false;
 	this->commands = xmlPlaceCommand->load(ok, commandPath);
@@ -38,7 +38,7 @@ bool PlaceCommandManager::load()
 bool PlaceCommandManager::save()
 {
 	QString commandPath = Settings::getS("Commands/Place/PathToConfig");
-	Logger::log(i18n("[INF] Speichere Ort-Kommandos nach %1").arg(commandPath));
+	Logger::log(i18n("[INF] Speichere Ort-Kommandos nach %1", commandPath));
 	return xmlPlaceCommand->save(commands, commandPath);
 }
 

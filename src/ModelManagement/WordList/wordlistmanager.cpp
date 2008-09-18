@@ -168,7 +168,7 @@ void WordListManager::run()
  */
 WordList* WordListManager::sortList(WordList* list)
 {
-	Logger::log(i18n("[INF] Sortiere eine Liste mit %1 Wörtern").arg(list->count()));
+	Logger::log(i18n("[INF] Sortiere eine Liste mit %1 Wörtern", list->count()));
 	qSort(list->begin(), list->end());
 	return list;
 }
@@ -256,11 +256,11 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
  */
 bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QString vocabFilename)
 {
-	Logger::log(i18n("[INF] Öffnen der Ausgabedatei: %1").arg(lexiconFilename));
+	Logger::log(i18n("[INF] Öffnen der Ausgabedatei: %1", lexiconFilename));
 	
 	QFile *outfile = new QFile(lexiconFilename);
 	if (!outfile->open(QIODevice::WriteOnly)) {
-		Logger::log(i18n("[ERR] Fehler beim Öffnen der Ausgabedatei %1").arg(lexiconFilename));
+		Logger::log(i18n("[ERR] Fehler beim Öffnen der Ausgabedatei %1", lexiconFilename));
 		outfile->deleteLater();
 		return false;
 	}
@@ -271,7 +271,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 
 	QFile *vocabFile = new QFile(vocabFilename);
 	if (!vocabFile->open(QIODevice::WriteOnly)) {
-		Logger::log(i18n("[ERR] Fehler beim Öffnen der Ausgabedatei %1").arg(vocabFilename));
+		Logger::log(i18n("[ERR] Fehler beim Öffnen der Ausgabedatei %1", vocabFilename));
 		outfile->close();
 		outfile->deleteLater();
 		vocabFile->deleteLater();
@@ -477,9 +477,9 @@ void WordListManager::safelyInit()
 WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QString promptspath, QStringList &terminals, bool isShadowlist )
 {
 	Logger::log (i18n("[INF] Lesen der Wörterliste bestehend aus "));
-	Logger::log(i18n("[INF] \t\tLexikon: %1,").arg(lexiconpath));
-	Logger::log(i18n("[INF] \t\tVocabular: %1,").arg(vocabpath));
-	Logger::log(i18n("[INF] \t\tPrompts: %1").arg(promptspath));
+	Logger::log(i18n("[INF] \t\tLexikon: %1,", lexiconpath));
+	Logger::log(i18n("[INF] \t\tVocabular: %1,", vocabpath));
+	Logger::log(i18n("[INF] \t\tPrompts: %1", promptspath));
 
 	WordList *wordlist = new WordList();
 	//read the vocab
@@ -519,7 +519,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 		}
 	}
 	wordlist = this->sortList(wordlist);
-// 	Logger::log(i18n("[INF] Öffnen des Lexikons von: %1").arg(lexiconpath));
+// 	Logger::log(i18n("[INF] Öffnen des Lexikons von: %1", lexiconpath));
 // 	QFile *lexicon = new QFile ( lexiconpath );
 // 	QFile vocab(vocabpath);
 // 	if ( !lexicon->open ( QFile::ReadOnly ) || !vocab.open(QFile::ReadOnly) || !promptsTable) {
@@ -1055,7 +1055,7 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 	}
 		
 
-	Logger::log(i18n("[INF] Hinzufügen von %1 Wörtern in die Wörterliste").arg(list->count()));
+	Logger::log(i18n("[INF] Hinzufügen von %1 Wörtern in die Wörterliste", list->count()));
 
 	if (shadow)
 	{
@@ -1121,7 +1121,7 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 		wordListLock.unlock();
 	}
 
-	Logger::log(i18n("[INF] Die Wortliste beinhaltet jetzt %1 Wörter").arg(wordlist->count()));
+	Logger::log(i18n("[INF] Die Wortliste beinhaltet jetzt %1 Wörter", wordlist->count()));
 	
 	this->save();
 }
@@ -1136,7 +1136,7 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
  */
 WordList* WordListManager::readVocab(QString vocabpath)
 {
-	Logger::log(i18n("[INF] Lese Vokabular von %1").arg(vocabpath));
+	Logger::log(i18n("[INF] Lese Vokabular von %1", vocabpath));
 	WordList *vocablist = new WordList();
 	
 	QFile *vocab = new QFile ( vocabpath );
@@ -1202,7 +1202,7 @@ WordList* WordListManager::readVocab(QString vocabpath)
  */
 PromptsTable* WordListManager::readPrompts(QString promptspath)
 {
-	Logger::log(i18n("[INF] Parse Promptsdatei von %1").arg(promptspath));
+	Logger::log(i18n("[INF] Parse Promptsdatei von %1", promptspath));
 	PromptsTable *promptsTable = new PromptsTable();
 	
 	QFile *prompts = new QFile ( promptspath );

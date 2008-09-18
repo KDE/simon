@@ -205,12 +205,12 @@ void RecWidget::stopRecording()
 		fName += "_tmp";
 
 	if (!rec->finish())
-		KMessageBox::error(this, QString(i18n("Abschließen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!")).arg(fName));
+		KMessageBox::error(this, i18n("AbschlieÃŸen der Aufnahme fehlgeschlagen. MÃ¶glicherweise ist die Aufnahme fehlerhaft.\n\nTip: Ã¼berprÃ¼fen Sie ob Sie die nÃ¶tigen Berechtigungen besitzen um auf %1 schreiben zu dÃ¼rfen!", fName));
 		
 	if (Settings::getB("Model/ProcessInternal"))
 // 		if (!QFile::copy(fName, filename) || !QFile::remove(fName))
 		if (!postProc->process(fName, filename, true))
-			KMessageBox::error(this, QString(i18n("Nachbearbeitung fehlgeschlagen")).arg(fName).arg(filename));
+			KMessageBox::error(this, i18n("Nachbearbeitung fehlgeschlagen"));
 	
 	
 	ui.pbProgress->setValue(0);

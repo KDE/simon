@@ -86,9 +86,9 @@ void AddWordRecordPage::initializePage()
 		return;
 	}
 
-	rec1 = new RecWidget(i18n("1: %1").arg(field("wordExample1").toString()),
+	rec1 = new RecWidget(i18n("1: %1", field("wordExample1").toString()),
 			      Settings::getS("Model/PathToSamples")+"/"+filename1+".wav", this);
-	rec2 = new RecWidget(i18n("2: %1").arg(field("wordExample2").toString()),
+	rec2 = new RecWidget(i18n("2: %1", field("wordExample2").toString()),
 			      Settings::getS("Model/PathToSamples")+"/"+filename2+".wav", this);
 
 	

@@ -95,7 +95,7 @@ void LogView::viewDay(QDate day)
 {
 	displayCancel();
 	readLog();
-	setStatus(i18n("Lade Tag %1").arg(day.toString("yyyy/MM/dd")));
+	setStatus(i18n("Lade Tag %1", day.toString("yyyy/MM/dd")));
 	manager->getDay(day);
 }
 

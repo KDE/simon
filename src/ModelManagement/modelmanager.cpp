@@ -13,7 +13,7 @@
 #include <QCoreApplication>
 #include <KMessageBox>
 #include <QDir>
-	#include <QFile>
+#include <QFile>
 #include <QProcess>
 #include <KLocalizedString>
 
@@ -38,7 +38,7 @@ bool ModelManager::compileGrammar()
 	emit status(i18n("Generiere Umkehr-Grammatik..."));
 	if (!generateReverseGrammar())
 	{
-		emit error(i18n("Konnte Umkehr-Grammatik nicht erstellen.\n\nIst eine Grammatik definiert?\n\nWenn ja, überprüfen Sie bitte auch die Pfade zur Grammatikdatei (%1).").arg(Settings::getS("Model/PathToGrammar")));
+		emit error(i18n("Konnte Umkehr-Grammatik nicht erstellen.\n\nIst eine Grammatik definiert?\n\nWenn ja, Ã¼berprÃ¼fen Sie bitte auch die Pfade zur Grammatikdatei (%1).", Settings::getS("Model/PathToGrammar")));
 		return false;
 	}
 	
@@ -46,16 +46,16 @@ bool ModelManager::compileGrammar()
 	emit status(i18n("Entferne unverwendete Vokabeln..."));
 	if (!makeSimpleVocab())
 	{
-		emit error(i18n("Konnte simple Vokabeln nicht erstellen.\n\nBitte überprüfen Sie ob der die Wortliste richtig geladen wurde."));
+		emit error(i18n("Konnte simple Vokabeln nicht erstellen.\n\nBitte Ã¼berprÃ¼fen Sie ob der die Wortliste richtig geladen wurde."));
 		return false;
 	}
 	emit progress(2090);
 	
 
-	emit status(i18n("Generiere temporäre Vokabeln..."));
+	emit status(i18n("Generiere temporÃ¤re Vokabeln..."));
 	if (!makeTempVocab())
 	{
-		emit error(i18n("Konnte Temporäre Vokabeln nicht erstellen.\n\nBitte überprüfen Sie die Pfade zur Vokabulardatei (%1).").arg(Settings::getS("Model/PathToVocab")));
+		emit error(i18n("Konnte TemporÃ¤re Vokabeln nicht erstellen.\n\nBitte Ã¼berprÃ¼fen Sie die Pfade zur Vokabulardatei (%1).", Settings::getS("Model/PathToVocab")));
 		return false;
 	}
 	emit progress(2100);
@@ -64,15 +64,15 @@ bool ModelManager::compileGrammar()
 	emit status(i18n("Generiere DFA..."));
 	if (!makeDfa())
 	{
-		emit error(i18n("Konnte dfa nicht generieren.\n\nBitte überprüfen Sie die Pfade zur dfa und dfa_minimize Datei (%1, %2).").arg(Settings::getS("Programs/Julius/mkfa")).arg(Settings::getS("Programs/Julius/dfa_minimize")));
+		emit error(i18n("Konnte dfa nicht generieren.\n\nBitte Ã¼berprÃ¼fen Sie die Pfade zur dfa und dfa_minimize Datei (%1, %2).", Settings::getS("Programs/Julius/mkfa"), Settings::getS("Programs/Julius/dfa_minimize")));
 		return false;
 	}
 	emit progress(2250);
 	
-	emit status(i18n("Generiere Grammatikalisches Wörterbuch..."));
+	emit status(i18n("Generiere Grammatikalisches WÃ¶rterbuch..."));
 	if (!generateDict())
 	{
-		emit error(i18n("Konnte das grammatikalische Wörterbuch nicht generieren. \nBitte überprüfen Sie die Pfade zur Ausgabedatei. (%1).").arg(Settings::getS("Model/PathToDict")));
+		emit error(i18n("Konnte das grammatikalische WÃ¶rterbuch nicht generieren. \nBitte Ã¼berprÃ¼fen Sie die Pfade zur Ausgabedatei. (%1).", Settings::getS("Model/PathToDict")));
 		return false;
 	}
 	emit progress(2299);
@@ -296,7 +296,7 @@ bool ModelManager::codeAudioData()
 	proc->waitForFinished(-1);
 	if (!proc->exitCode()==0)
 	{
-		emit error(i18n("Fehler beim kodieren der samples! Bitte überprüfen Sie den Pfad zu HCopy (%1) und der wav config (%2)").arg(Settings::getS("Programs/HTK/HCopy")).arg(Settings::getS("Model/PathToWavConfig")));
+		emit error(i18n("Fehler beim kodieren der samples! Bitte Ã¼berprÃ¼fen Sie den Pfad zu HCopy (%1) und der wav config (%2)", Settings::getS("Programs/HTK/HCopy"), Settings::getS("Model/PathToWavConfig")));
 		return false;
 	}
 	emit progress(550);
@@ -357,7 +357,7 @@ void ModelManager::run()
 	
 	if (!generateDirectoryStructure())
 	{
-		emit error(i18n("Fehler beim Erstellen der Ordnerstruktur. Bitte überprüfen Sie die Berechtigungen für den Temporären Ordner (%1)").arg(Settings::getS("TempDir")));
+		emit error(i18n("Fehler beim Erstellen der Ordnerstruktur. Bitte Ã¼berprÃ¼fen Sie die Berechtigungen fÃ¼r den TemporÃ¤ren Ordner (%1)", Settings::getS("TempDir")));
 		return;
 	}
 	emit progress(2);
@@ -391,8 +391,8 @@ bool ModelManager::generateInputFiles()
 	//wlist
 	if (!generateWlist())
 	{
-		emit error(i18n("Erstellen der Wordliste fehlgeschlagen. Bitte überprüfen Sie die Berechtigungen für den Temporären Pfad (%1) und ob die Prompts-File richtig gesetzt ist (%2)")
-				.arg(Settings::getS("TempDir")).arg(Settings::getS("Model/PathToPrompts")));
+		emit error(i18n("Erstellen der Wordliste fehlgeschlagen. Bitte Ã¼berprÃ¼fen Sie die Berechtigungen fÃ¼r den TemporÃ¤ren Pfad (%1) und ob die Prompts-File richtig gesetzt ist (%2)")
+				.arg(Settings::getS("TempDir"), Settings::getS("Model/PathToPrompts")));
 		return false;
 	}
 	emit progress(35);
@@ -403,7 +403,7 @@ bool ModelManager::generateInputFiles()
 	
 	if (!makeMonophones())
 	{
-		emit error(i18n("Erstellen der Monophone fehlgeschlagen. Bitte überprüfen Sie ob das Programm HDMan richtig eingerichtet ist und der Pfad zum Lexikon richtig konfiguriert wurde (%1), und diese alle verwendeten Wörter beinhaltet.").arg(Settings::getS("Model/PathToLexicon")));
+		emit error(i18n("Erstellen der Monophone fehlgeschlagen. Bitte Ã¼berprÃ¼fen Sie ob das Programm HDMan richtig eingerichtet ist und der Pfad zum Lexikon richtig konfiguriert wurde (%1), und diese alle verwendeten WÃ¶rter beinhaltet.", Settings::getS("Model/PathToLexicon")));
 		return false;
 	}
 	
@@ -418,7 +418,7 @@ bool ModelManager::makeTranscriptions()
 	emit status(i18n("Erstelle Master Label File..."));
 	if (!generateMlf())
 	{
-		emit error(i18n("Erstellen der Master Label File fehlgeschlagen. Bitte überprüfen Sie, ob die prompts-Datei (%1)").arg(Settings::getS("Model/PathToPrompts")));
+		emit error(i18n("Erstellen der Master Label File fehlgeschlagen. Bitte Ã¼berprÃ¼fen Sie, ob die prompts-Datei (%1)", Settings::getS("Model/PathToPrompts")));
 		return false;
 	}
 	emit progress(55);
@@ -435,7 +435,7 @@ bool ModelManager::makeTranscriptions()
 	
 	if (proc->exitCode() != 0)
 	{
-		emit error(i18n("Erstellen der Transcriptions files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Dateien mkphones0.led und mkphones1.led richtig angegeben haben. (%1, %2)").arg(Settings::getS("Model/PathToMkPhones0")).arg(Settings::getS("Model/PathToMkPhones1")));
+		emit error(i18n("Erstellen der Transcriptions files fehlgeschlagen. Bitte Ã¼berprÃ¼fen Sie ob Sie den Pfad fÃ¼r die Dateien mkphones0.led und mkphones1.led richtig angegeben haben. (%1, %2)", Settings::getS("Model/PathToMkPhones0"), Settings::getS("Model/PathToMkPhones1")));
 		return false;
 	}
 	emit progress(155);
@@ -471,7 +471,7 @@ bool ModelManager::processError(QString userError)
 	{
 // 		"ERROR [+2662]  FindProtoModel: no proto for E in hSet
 		QString phoneme = err.mid(44,err.indexOf(' ', 44)-44);
-		displayError(i18n("Phonem %1 kommt in den Trainingsdaten nicht vor.\n\nBitte trainieren Sie ein Wort welches das Phonem %1 beinhaltet.\n\nSie können zum Beispiel in der Wortliste ein beliebiges Wort wählen welches diesen Phonem beinhaltet, ihn zu einem speziellen Training hinzufügen und dieses Training dann durchführen.").arg(phoneme));
+		displayError(i18n("Phonem %1 kommt in den Trainingsdaten nicht vor.\n\nBitte trainieren Sie ein Wort welches das Phonem %1 beinhaltet.\n\nSie kÃ¶nnen zum Beispiel in der Wortliste ein beliebiges Wort wÃ¤hlen welches diesen Phonem beinhaltet, ihn zu einem speziellen Training hinzufÃ¼gen und dieses Training dann durchfÃ¼hren.", phoneme));
 // 		emit missingPhoneme(phoneme);
 	} else
 	if (err.startsWith("ERROR [+6510]"))  //sample without prompts-entry
@@ -508,28 +508,28 @@ bool ModelManager::createMonophones()
 	emit status(i18n("Erstelle hmm0..."));
 	if (!buildHMM0())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM0. \n\nBitte überprüfen Sie, ob ausreichend Trainingsmaterial vorhanden ist.\n\nSollten Sie sicher sein, das Modell wurde ausreichend trainiert, überprüfen Sie bitte den Pfad zu HCompV (%1), der config (%2) und des Prototypen (%3).").arg(Settings::getS("Programs/HTK/HCompV")).arg(Settings::getS("Model/PathToConfig")).arg(Settings::getS("Model/PathToProto")));
+		emit error(i18n("Fehler beim Generieren des HMM0. \n\nBitte Ã¼berprÃ¼fen Sie, ob ausreichend Trainingsmaterial vorhanden ist.\n\nSollten Sie sicher sein, das Modell wurde ausreichend trainiert, Ã¼berprÃ¼fen Sie bitte den Pfad zu HCompV (%1), der config (%2) und des Prototypen (%3).", Settings::getS("Programs/HTK/HCompV"), Settings::getS("Model/PathToConfig"), Settings::getS("Model/PathToProto")));
 		return false;
 	}
 	emit progress(550);
 	emit status(i18n("Erstelle hmm1..."));
 	if (!buildHMM1())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM1. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		emit error(i18n("Fehler beim Generieren des HMM1. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HERest (%1) und der config (%2)", Settings::getS("Programs/HTK/HERest"), Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(800);
 	emit status(i18n("Erstelle hmm2..."));
 	if (!buildHMM2())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM2. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		emit error(i18n("Fehler beim Generieren des HMM2. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HERest (%1) und der config (%2)", Settings::getS("Programs/HTK/HERest"), Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(850);
 	emit status(i18n("Erstelle hmm3..."));
 	if (!buildHMM3())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM3. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		emit error(i18n("Fehler beim Generieren des HMM3. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HERest (%1) und der config (%2)", Settings::getS("Programs/HTK/HERest"), Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(900);
@@ -541,28 +541,28 @@ bool ModelManager::fixSilenceModel()
 	emit status(i18n("Erstelle Pausenmodell (hmm4)..."));
 	if (!buildHMM4())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM4. Bitte überprüfen Sie das HMM3"));
+		emit error(i18n("Fehler beim Generieren des HMM4. Bitte Ã¼berprÃ¼fen Sie das HMM3"));
 		return false;
 	}
 	emit progress(950);
 	emit status(i18n("Erstelle hmm5..."));
 	if (!buildHMM5())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM5. Bitte überprüfen Sie den Pfad zu HHEd (%1) und  des Silence-Modells (%2)").arg(Settings::getS("Programs/HTK/HHEd")).arg(Settings::getS("Model/PathToSilHed")));
+		emit error(i18n("Fehler beim Generieren des HMM5. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HHEd (%1) und  des Silence-Modells (%2)", Settings::getS("Programs/HTK/HHEd"), Settings::getS("Model/PathToSilHed")));
 		return false;
 	}
 	emit progress(1000);
 	emit status(i18n("Erstelle hmm6..."));
 	if (!buildHMM6())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM6. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		emit error(i18n("Fehler beim Generieren des HMM6. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HERest (%1) und der config (%2", Settings::getS("Programs/HTK/HERest"), Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(1080);
 	emit status(i18n("Erstelle hmm7..."));
 	if (!buildHMM7())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM7. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		emit error(i18n("Fehler beim Generieren des HMM7. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HERest (%1) und der config (%2", Settings::getS("Programs/HTK/HERest"), Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(1150);
@@ -583,7 +583,7 @@ bool ModelManager::realign()
 	emit status(i18n("Hmm7 neu ausrichten..."));
 	if (!realignHMM7())
 	{
-		emit error(i18n("Konnte HMM7 nicht neu ausrichten. Bitte überprüfen Sie den Pfad zu HVite (%1), der config (%2) und das HMM7.").arg(Settings::getS("Programs/HTK/HVite")).arg(Settings::getS("Model/PathToConfig")));
+		emit error(i18n("Konnte HMM7 nicht neu ausrichten. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HVite (%1), der config (%2) und das HMM7.", Settings::getS("Programs/HTK/HVite"), Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(1160);
@@ -591,7 +591,7 @@ bool ModelManager::realign()
 	emit status(i18n("Erstelle hmm8..."));
 	if (!buildHMM8())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM8. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		emit error(i18n("Fehler beim Generieren des HMM8. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HERest (%1) und der config (%2", Settings::getS("Programs/HTK/HERest"), Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(1230);
@@ -599,7 +599,7 @@ bool ModelManager::realign()
 	emit status(i18n("Erstelle hmm9..."));
 	if (!buildHMM9())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM9. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		emit error(i18n("Fehler beim Generieren des HMM9. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HERest (%1) und der config (%2", Settings::getS("Programs/HTK/HERest"), Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(1300);
@@ -615,7 +615,7 @@ bool ModelManager::tieStates()
 	proc->waitForFinished(-1);
 	if ((proc->exitCode() != 0))
 	{
-		emit error(i18n("Konnte Triphone nicht binden. Bitte überprüfen Sie den Pfad zu HDMan (%1), global.ded (%2) und dem Lexikon (%3).").arg(Settings::getS("Programs/HTK/HDMan")).arg(Settings::getS("Model/PathToGlobalDed")).arg(Settings::getS("Model/PahtToLexicon")));
+		emit error(i18n("Konnte Triphone nicht binden. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HDMan (%1), global.ded (%2) und dem Lexikon (%3).", Settings::getS("Programs/HTK/HDMan"), Settings::getS("Model/PathToGlobalDed"), Settings::getS("Model/PahtToLexicon")));
 		return false;
 	}
 	emit progress(1700);
@@ -638,7 +638,7 @@ bool ModelManager::tieStates()
 	emit status(i18n("Erstelle hmm13..."));
 	if (!buildHMM13())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM13. Bitte überprüfen Sie den Pfad zu HHEd (%1).").arg(Settings::getS("Programs/HTK/HHEd")));
+		emit error(i18n("Fehler beim Generieren des HMM13. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HHEd (%1).", Settings::getS("Programs/HTK/HHEd")));
 		return false;
 	}
 	emit progress(1830);
@@ -647,7 +647,7 @@ bool ModelManager::tieStates()
 	emit status(i18n("Erstelle hmm14..."));
 	if (!buildHMM14())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM14. Bitte überprüfen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")).arg(tmpDir+"stats"));
+		emit error(i18n("Fehler beim Generieren des HMM14. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)", Settings::getS("Programs/HTK/HERest"), Settings::getS("Model/PathToConfig"), tmpDir+"stats"));
 		return false;
 	}
 	emit progress(1900);
@@ -655,7 +655,7 @@ bool ModelManager::tieStates()
 	emit status(i18n("Erstelle hmm15..."));
 	if (!buildHMM15())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM15. Bitte überprüfen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")).arg(tmpDir+"stats"));
+		emit error(i18n("Fehler beim Generieren des HMM15. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)", Settings::getS("Programs/HTK/HERest"), Settings::getS("Model/PathToConfig"), tmpDir+"stats"));
 		return false;
 	}
 	emit progress(1990);
@@ -765,7 +765,7 @@ bool ModelManager::buildHMM()
 	
 
 	//TODO: Make a Backup!
-	emit status(i18n("Übernehme Modell..."));
+	emit status(i18n("Ãœbernehme Modell..."));
 
 	if (QFile::exists(Settings::getS("Model/PathToHmm")))
 		if (!QFile::remove(Settings::getS("Model/PathToHmm"))) return false;
@@ -787,7 +787,7 @@ bool ModelManager::makeTriphones()
 	proc->waitForFinished(-1);
 	if ((proc->exitCode() != 0))
 	{
-		emit error(i18n("Erstellen der Triphone files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Datei mktri.led richtig angegeben haben (%1) und überprüfen Sie den Pfad zu HLEd (%2)").arg(Settings::getS("Model/PathToMktriLed")).arg(Settings::getS("Programs/HTK/HLEd")));
+		emit error(i18n("Erstellen der Triphone files fehlgeschlagen. Bitte Ã¼berprÃ¼fen Sie ob Sie den Pfad fÃ¼r die Datei mktri.led richtig angegeben haben (%1) und Ã¼berprÃ¼fen Sie den Pfad zu HLEd (%2)", Settings::getS("Model/PathToMktriLed"), Settings::getS("Programs/HTK/HLEd")));
 		return false;
 	}
 	emit progress(1380);
@@ -803,7 +803,7 @@ bool ModelManager::makeTriphones()
 	emit status(i18n("Erstelle hmm10..."));
 	if (!buildHMM10())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM10. Bitte überprüfen Sie den Pfad zu HHEd (%1).").arg(Settings::getS("Programs/HTK/HHEd")));
+		emit error(i18n("Fehler beim Generieren des HMM10. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HHEd (%1).", Settings::getS("Programs/HTK/HHEd")));
 		return false;
 	}
 	emit progress(1470);
@@ -811,7 +811,7 @@ bool ModelManager::makeTriphones()
 	emit status(i18n("Erstelle hmm11..."));
 	if (!buildHMM11())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM11. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")));
+		emit error(i18n("Fehler beim Generieren des HMM11. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HERest (%1) und der config (%2)", Settings::getS("Programs/HTK/HERest"), Settings::getS("Model/PathToConfig")));
 		return false;
 	}
 	emit progress(1550);
@@ -819,7 +819,7 @@ bool ModelManager::makeTriphones()
 	emit status(i18n("Erstelle hmm12..."));
 	if (!buildHMM12())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM12. Bitte überprüfen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)").arg(Settings::getS("Programs/HTK/HERest")).arg(Settings::getS("Model/PathToConfig")).arg(realTmpDir+"stats"));
+		emit error(i18n("Fehler beim Generieren des HMM12. Bitte Ã¼berprÃ¼fen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)", Settings::getS("Programs/HTK/HERest"), Settings::getS("Model/PathToConfig"), realTmpDir+"stats"));
 		return false;
 	}
 	emit progress(1620);
@@ -1030,7 +1030,7 @@ bool ModelManager::buildHMM0()
 		monophones.append(monophones0.readLine(50).trimmed());
 	monophones0.close();
 	
-	Logger::log(i18n("[INF] Verwendete Monophone des Modells: %1").arg(monophones.join(", ")));
+	Logger::log(i18n("[INF] Verwendete Monophone des Modells: %1", monophones.join(", ")));
 
 	QFile hmmdefs(realTmpDir+"hmm0/hmmdefs");
 	if (!hmmdefs.open(QIODevice::WriteOnly)) return false;

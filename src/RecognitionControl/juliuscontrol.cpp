@@ -131,7 +131,7 @@ bool JuliusControl::isConnected()
 void JuliusControl::timeoutReached()
 {
 	timeoutWatcher->stop();
-	emit connectionError(i18n("Zeitüberschreitung der Anforderung (%1 ms)").arg(Settings::getI("Network/Timeout")));
+	emit connectionError(i18n("Zeitüberschreitung der Anforderung (%1 ms)", Settings::getI("Network/Timeout")));
 	socket->abort();
 }
 

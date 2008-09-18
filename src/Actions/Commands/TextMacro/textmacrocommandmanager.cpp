@@ -28,7 +28,7 @@ const QString TextMacroCommandManager::name() const
 bool TextMacroCommandManager::load()
 {
 	QString commandPath = Settings::getS("Commands/TextMacro/PathToConfig");
-	Logger::log(i18n("[INF] Lade Text-Makro-Kommandos von %1").arg(commandPath));
+	Logger::log(i18n("[INF] Lade Text-Makro-Kommandos von %1", commandPath));
 
 	bool ok = false;
 	this->commands = xmlTextMacroCommand->load(ok, commandPath);
@@ -38,7 +38,7 @@ bool TextMacroCommandManager::load()
 bool TextMacroCommandManager::save()
 {
 	QString commandPath = Settings::getS("Commands/TextMacro/PathToConfig");
-	Logger::log(i18n("[INF] Speichere Text-Makro-Kommandos nach %1").arg(commandPath));
+	Logger::log(i18n("[INF] Speichere Text-Makro-Kommandos nach %1", commandPath));
 	return xmlTextMacroCommand->save(commands, commandPath);
 }
 
