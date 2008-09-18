@@ -6,7 +6,7 @@
 #include <KLocalizedString>
 #include <KDebug>
 
-#ifdef __WIN32
+#ifdef Q_OS_WIN
 #include "../SimonLib/WindowsLib/registrymanager.h"
 #endif
 
@@ -46,7 +46,7 @@ bool ExecutableCommand::triggerPrivate()
 	{
 		QString exe = commands[i].trimmed();
 
-		#ifdef linux
+		#ifdef Q_OS_UNIX
 		QString executable;
 		QStringList args;
 		if (exe.contains(" "))
@@ -61,7 +61,7 @@ bool ExecutableCommand::triggerPrivate()
 		proc.startDetached  (executable, args );
 		#endif
 
-		#ifdef __WIN32
+		#ifdef Q_OS_WIN
 		RegistryManager *rm = new RegistryManager();
 		rm->startProcess(exe, workingDirectory.toString());
 		delete rm;

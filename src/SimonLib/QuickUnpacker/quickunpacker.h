@@ -23,7 +23,7 @@
  \note Uses the Bunzip class
 */
 
-class QProgressDialog;
+class KProgressDialog;
 class QString;
 class QObject;
 class Compression;
@@ -50,7 +50,7 @@ private slots:
 public slots:
 	void unpack(QString path);
 private:
-	QProgressDialog *prog;
+	KProgressDialog *prog;
 	Compression *compression;
 public:
     QuickUnpacker(QWidget* parent);

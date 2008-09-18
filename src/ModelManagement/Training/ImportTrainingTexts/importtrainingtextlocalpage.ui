@@ -58,11 +58,7 @@ Bitte wählen Sie nun die Datei aus die Sie gerne importieren möchten:</string>
       </widget>
      </item>
      <item row="1" column="1" >
-      <layout class="QHBoxLayout" >
-       <item>
-        <widget class="SimonFileSelector" name="lePath" />
-       </item>
-      </layout>
+      <widget class="KUrlRequester" name="urPath" />
      </item>
     </layout>
    </item>
@@ -83,12 +79,14 @@ Bitte wählen Sie nun die Datei aus die Sie gerne importieren möchten:</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SimonFileSelector</class>
-   <extends>KLineEdit</extends>
-   <header>simonfileselector.h</header>
-   <slots>
-    <signal>urlChanged()</signal>
-   </slots>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources>

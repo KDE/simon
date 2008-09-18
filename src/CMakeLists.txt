@@ -115,16 +115,13 @@ set (	simonGeneralSources
 		SimonLib/Sound/wavplayer.cpp
 		SimonLib/Sound/soundcontrol.cpp
 		SimonLib/Sound/wav.cpp
-                SimonLib/SpeechGUI/simonfileselector.cpp
                 SimonLib/SpeechGUI/inlinewidgetview.cpp
                 SimonLib/SpeechGUI/systemwidgetpage.cpp
                 SimonLib/SpeechGUI/systemwidget.cpp
                 SimonLib/SpeechGUI/simonlineedit.cpp
-                SimonLib/SpeechGUI/simondirselector.cpp
                 SimonLib/SpeechGUI/simontablewidget.cpp
                 SimonLib/SpeechGUI/simonspinbox.cpp
                 SimonLib/SpeechGUI/simongroupbox.cpp
-                SimonLib/SpeechGUI/simonfilesystemselector.cpp
                 SimonLib/SpeechGUI/simonslider.cpp
                 SimonLib/SpeechGUI/simonwidget.cpp
                 SimonLib/SpeechGUI/simoncombobox.cpp
@@ -171,6 +168,7 @@ set (	simonGeneralSources
 		Configuration/FirstRun/firstrunimportdictwiktionarypage.cpp
 		Configuration/internetextensionsettings.cpp
 		Configuration/networksettings.cpp
+		Configuration/addserverconnection.cpp
 		simoncontrol.cpp
 		main.cpp
 )
@@ -190,6 +188,8 @@ kde4_add_ui_files( simonGeneralSources
 		ModelManagement/Training/ImportTrainingTexts/importtrainingtextremotepage.ui
 		ModelManagement/Training/ImportTrainingTexts/importtrainingtextworkingpage.ui
 		ModelManagement/Training/ImportTrainingTexts/importtrainingtextselectsourcepage.ui
+		ModelManagement/Training/ImportTrainingData/importtrainingdataintrodlg.ui
+		ModelManagement/Training/ImportTrainingData/importtrainingdataworkingdlg.ui
 		ModelManagement/WordList/RemoveWord/removeword.ui
 		ModelManagement/WordList/AddWord/resolvewordpage.ui
 		ModelManagement/WordList/ImportDict/importbomppage.ui
@@ -211,6 +211,7 @@ kde4_add_ui_files( simonGeneralSources
 		Configuration/externalprogramms.ui
 		Configuration/generalsettingsdlg.ui
 		Configuration/networksettingsdlg.ui
+		Configuration/addserverconnectiondlg.ui
 		Configuration/FirstRun/selectlanguagemodelsource.ui
 		Configuration/systemviewdlg.ui
 		)

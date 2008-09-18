@@ -1,6 +1,6 @@
 <ui version="4.0" >
  <class>DlgModifyCommands</class>
- <widget class="QDialog" name="DlgModifyCommands" >
+ <widget class="QWidget" name="DlgModifyCommands" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -168,16 +168,6 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1" >
-        <widget class="SimonFileSelector" name="leExecutable" >
-         <property name="enabled" >
-          <bool>false</bool>
-         </property>
-         <property name="text" >
-          <string/>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="0" >
         <widget class="QLabel" name="label_13" >
          <property name="enabled" >
@@ -185,16 +175,6 @@
          </property>
          <property name="text" >
           <string>Arbeitspfad:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1" >
-        <widget class="SimonDirSelector" name="leWorkingDirectory" >
-         <property name="enabled" >
-          <bool>false</bool>
-         </property>
-         <property name="text" >
-          <string/>
          </property>
         </widget>
        </item>
@@ -210,6 +190,20 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="2" column="1" >
+        <widget class="KUrlRequester" name="urExecutable" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" >
+        <widget class="KUrlRequester" name="urWorkingDirectory" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -248,16 +242,6 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1" >
-        <widget class="SimonFileSelector" name="leUrl" >
-         <property name="enabled" >
-          <bool>false</bool>
-         </property>
-         <property name="text" >
-          <string/>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="1" >
         <spacer name="verticalSpacer_3" >
          <property name="orientation" >
@@ -270,6 +254,13 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="2" column="1" >
+        <widget class="KUrlRequester" name="urUrl" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -320,21 +311,9 @@
      </widget>
     </widget>
    </item>
-   <item row="4" column="0" colspan="4" >
-    <widget class="KDialogButtonBox" name="bbDialog" >
-     <property name="standardButtons" >
-      <set>QDialogButtonBox::Abort|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KDialogButtonBox</class>
-   <extends>QDialogButtonBox</extends>
-   <header>kdialogbuttonbox.h</header>
-  </customwidget>
   <customwidget>
    <class>KIconButton</class>
    <extends>QPushButton</extends>
@@ -351,14 +330,9 @@
    <header>klineedit.h</header>
   </customwidget>
   <customwidget>
-   <class>SimonDirSelector</class>
-   <extends>KLineEdit</extends>
-   <header>simondirselector.h</header>
-  </customwidget>
-  <customwidget>
-   <class>SimonFileSelector</class>
-   <extends>KLineEdit</extends>
-   <header>simonfileselector.h</header>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources>
@@ -378,40 +352,8 @@
      <y>53</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>247</x>
-     <y>99</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>commandLinkButton_2</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>leExecutable</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>140</x>
-     <y>193</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>162</x>
-     <y>260</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>commandLinkButton_2</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>leWorkingDirectory</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>83</x>
-     <y>185</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>154</x>
-     <y>296</y>
+     <x>251</x>
+     <y>203</y>
     </hint>
    </hints>
   </connection>
@@ -426,8 +368,8 @@
      <y>198</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>46</x>
-     <y>231</y>
+     <x>50</x>
+     <y>261</y>
     </hint>
    </hints>
   </connection>
@@ -450,32 +392,64 @@
   <connection>
    <sender>commandLinkButton_3</sender>
    <signal>toggled(bool)</signal>
-   <receiver>leUrl</receiver>
+   <receiver>label_14</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>200</x>
-     <y>188</y>
+     <x>101</x>
+     <y>209</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>242</x>
-     <y>260</y>
+     <x>30</x>
+     <y>261</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>commandLinkButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>urExecutable</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>148</x>
+     <y>204</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>156</x>
+     <y>248</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>commandLinkButton_2</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>urWorkingDirectory</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>193</x>
+     <y>220</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>192</x>
+     <y>277</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>commandLinkButton_3</sender>
    <signal>toggled(bool)</signal>
-   <receiver>label_14</receiver>
+   <receiver>urUrl</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>93</x>
-     <y>177</y>
+     <x>173</x>
+     <y>204</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>26</x>
-     <y>260</y>
+     <x>180</x>
+     <y>244</y>
     </hint>
    </hints>
   </connection>

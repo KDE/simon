@@ -11,13 +11,14 @@
 //
 #include "passwordsettings.h"
 #include "../SimonLib/Settings/settings.h"
-#include <QMessageBox>
+#include <KMessageBox>
 #include <QCryptographicHash>
+#include <KLocalizedString>
 
-PasswordSettings::PasswordSettings(QWidget* parent): SystemWidget(tr("Passwort-Sicherung"), QIcon(":/images/icons/lock.svg"), tr("Sichern Sie simons Systemeinstellungen mit einem Passwort"), parent)
+PasswordSettings::PasswordSettings(QWidget* parent): SystemWidget(i18n("Passwort-Sicherung"), QIcon(":/images/icons/lock.svg"), i18n("Sichern Sie simons Systemeinstellungen mit einem Passwort"), parent)
 {
 	ui.setupUi(this);
-	help=tr("Wenn der Passwortschutz deaktiviert ist, muss nur auf den Knopf \"Systemverwaltungsmodus\" geklickt werden, damit alle (System-) Optionen angezeigt werden.");
+	help=i18n("Wenn der Passwortschutz deaktiviert ist, muss nur auf den Knopf \"Systemverwaltungsmodus\" geklickt werden, damit alle (System-) Optionen angezeigt werden.");
 	connect(ui.lePassword2, SIGNAL(editingFinished()), this, SLOT(checkPassword()));
 	connect(ui.lePassword, SIGNAL(textChanged(QString)), this, SLOT(unsetHashed()));
 	connect(ui.lePassword2, SIGNAL(textChanged(QString)), this, SLOT(unsetHashed()));
@@ -32,7 +33,7 @@ PasswordSettings::PasswordSettings(QWidget* parent): SystemWidget(tr("Passwort-S
 void PasswordSettings::checkPassword()
 {
 	if (!checkIfPasswordsSane())
-		QMessageBox::critical(this, tr("Passwortschutz"), tr("Die eingegebenen Passwörter des simon-Passwortschutz' stimmen nicht überein.\n\nBitte geben Sie sie erneut ein."));
+		KMessageBox::error(this, i18n("Die eingegebenen Passwörter des simon-Passwortschutz' stimmen nicht überein.\n\nBitte geben Sie sie erneut ein."));
 }
 
 bool PasswordSettings::checkIfPasswordsSane()

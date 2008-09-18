@@ -9,8 +9,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#ifndef MERGETERMINALWORKINGPAGE_H
-#define MERGETERMINALWORKINGPAGE_H
+#ifndef MERGETERMINALSWORKINGPAGE_H
+#define MERGETERMINALSWORKINGPAGE_H
 
 #include <QWizardPage>
 #include "ui_mergeterminalsworkingpage.h"

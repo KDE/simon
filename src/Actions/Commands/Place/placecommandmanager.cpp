@@ -3,6 +3,7 @@
 #include "../../../SimonLib/Logging/logger.h"
 #include "xmlplacecommand.h"
 #include "placecommand.h"
+#include <KLocalizedString>
 
 PlaceCommandManager::PlaceCommandManager(QObject *parent) : CommandManager(parent)
 {
@@ -27,7 +28,7 @@ bool PlaceCommandManager::addCommand(Command *command)
 bool PlaceCommandManager::load()
 {
 	QString commandPath = Settings::getS("Commands/Place/PathToConfig");
-	Logger::log(tr("[INF] Lade Ort-Kommandos von %1").arg(commandPath));
+	Logger::log(i18n("[INF] Lade Ort-Kommandos von %1").arg(commandPath));
 
 	bool ok = false;
 	this->commands = xmlPlaceCommand->load(ok, commandPath);
@@ -37,7 +38,7 @@ bool PlaceCommandManager::load()
 bool PlaceCommandManager::save()
 {
 	QString commandPath = Settings::getS("Commands/Place/PathToConfig");
-	Logger::log(tr("[INF] Speichere Ort-Kommandos nach %1").arg(commandPath));
+	Logger::log(i18n("[INF] Speichere Ort-Kommandos nach %1").arg(commandPath));
 	return xmlPlaceCommand->save(commands, commandPath);
 }
 

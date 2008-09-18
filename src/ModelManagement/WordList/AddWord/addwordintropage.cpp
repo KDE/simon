@@ -14,6 +14,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <KLineEdit>
+#include <KLocalizedString>
 
 /**
  * \brief Constructor - also creates the GUI Elements
@@ -23,12 +24,12 @@
  */
 AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle(tr("Hinzufügen eines neuen Wortes"));
+	setTitle(i18n("HinzufÃ¼gen eines neuen Wortes"));
 	QLabel *label = new QLabel(this);
 	label->setWordWrap(true);
-	label->setText(tr("Mit Hilfe dieses Assistenten können Sie neue Wörter zum Sprachmodell hinzufügen.\n\nGeben Sie hierzu bitte den Namen des Wortes an und bestätigen Sie mit \"Weiter\":\n\n"));
+	label->setText(i18n("Mit Hilfe dieses Assistenten kÃ¶nnen Sie neue WÃ¶rter zum Sprachmodell hinzufÃ¼gen.\n\nGeben Sie hierzu bitte den Namen des Wortes an und bestÃ¤tigen Sie mit \"Weiter\":\n\n"));
 	QLabel *lbName = new QLabel(this);
-	lbName->setText(tr("Neues Wort:"));
+	lbName->setText(i18n("Neues Wort:"));
 	KLineEdit *leName = new KLineEdit(this);
 	QVBoxLayout *layout = new QVBoxLayout(this);
 	QHBoxLayout *loName = new QHBoxLayout();

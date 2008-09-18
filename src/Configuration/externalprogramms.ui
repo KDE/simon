@@ -34,18 +34,12 @@
           <property name="text" >
            <string>HDMan:</string>
           </property>
-          <property name="buddy" >
-           <cstring>leHDMan</cstring>
-          </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="lbHLEd" >
           <property name="text" >
            <string>HLEd:</string>
-          </property>
-          <property name="buddy" >
-           <cstring>leHLEd</cstring>
           </property>
          </widget>
         </item>
@@ -54,18 +48,12 @@
           <property name="text" >
            <string>HCopy:</string>
           </property>
-          <property name="buddy" >
-           <cstring>leHCopy</cstring>
-          </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="lbHCompV" >
           <property name="text" >
            <string>HCompV:</string>
-          </property>
-          <property name="buddy" >
-           <cstring>leHCompV</cstring>
           </property>
          </widget>
         </item>
@@ -74,20 +62,16 @@
       <item>
        <layout class="QVBoxLayout" >
         <item>
-         <widget class="SimonFileSelector" name="leHDMan" >
-          <property name="text" >
-           <string/>
-          </property>
-         </widget>
+         <widget class="KUrlRequester" name="urHDMan" />
         </item>
         <item>
-         <widget class="SimonFileSelector" name="leHLEd" />
+         <widget class="KUrlRequester" name="urHLEd" />
         </item>
         <item>
-         <widget class="SimonFileSelector" name="leHCopy" />
+         <widget class="KUrlRequester" name="urHCopy" />
         </item>
         <item>
-         <widget class="SimonFileSelector" name="leHCompV" />
+         <widget class="KUrlRequester" name="urHCompV" />
         </item>
        </layout>
       </item>
@@ -111,18 +95,12 @@
           <property name="text" >
            <string>HERest:</string>
           </property>
-          <property name="buddy" >
-           <cstring>leHERest</cstring>
-          </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="lbHHEd" >
           <property name="text" >
            <string>HHEd:</string>
-          </property>
-          <property name="buddy" >
-           <cstring>leHHEd</cstring>
           </property>
          </widget>
         </item>
@@ -131,9 +109,6 @@
           <property name="text" >
            <string>HVite:</string>
           </property>
-          <property name="buddy" >
-           <cstring>leHVite</cstring>
-          </property>
          </widget>
         </item>
        </layout>
@@ -141,13 +116,13 @@
       <item>
        <layout class="QVBoxLayout" >
         <item>
-         <widget class="SimonFileSelector" name="leHERest" />
+         <widget class="KUrlRequester" name="urHERest" />
         </item>
         <item>
-         <widget class="SimonFileSelector" name="leHHEd" />
+         <widget class="KUrlRequester" name="urHHEd" />
         </item>
         <item>
-         <widget class="SimonFileSelector" name="leHVite" />
+         <widget class="KUrlRequester" name="urHVite" />
         </item>
        </layout>
       </item>
@@ -168,17 +143,10 @@
         <property name="text" >
          <string>Bzip2:</string>
         </property>
-        <property name="buddy" >
-         <cstring>leBzip2</cstring>
-        </property>
        </widget>
       </item>
       <item>
-       <widget class="SimonFileSelector" name="leBzip2" >
-        <property name="text" >
-         <string/>
-        </property>
-       </widget>
+       <widget class="KUrlRequester" name="urBzip2" />
       </item>
      </layout>
     </widget>
@@ -197,23 +165,6 @@
         <property name="text" >
          <string>mkfa:</string>
         </property>
-        <property name="buddy" >
-         <cstring>leBzip2</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <widget class="SimonFileSelector" name="leMkfa" >
-        <property name="text" >
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" >
-       <widget class="SimonFileSelector" name="leDfaMinimize" >
-        <property name="text" >
-         <string/>
-        </property>
        </widget>
       </item>
       <item row="1" column="0" >
@@ -221,10 +172,13 @@
         <property name="text" >
          <string>dfa_minimize:</string>
         </property>
-        <property name="buddy" >
-         <cstring>leBzip2</cstring>
-        </property>
        </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="KUrlRequester" name="urMkfa" />
+      </item>
+      <item row="1" column="1" >
+       <widget class="KUrlRequester" name="urDfaMinimize" />
       </item>
      </layout>
     </widget>
@@ -246,12 +200,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SimonFileSelector</class>
-   <extends>KLineEdit</extends>
-   <header>simonfileselector.h</header>
-   <slots>
-    <signal>urlChanged()</signal>
-   </slots>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

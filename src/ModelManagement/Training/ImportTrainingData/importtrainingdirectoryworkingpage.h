@@ -13,9 +13,8 @@
 #define IMPORTTRAININGDIRECTORYWORKINGPAGE_H
 
 #include <QWizardPage>
+#include "ui_importtrainingdataworkingdlg.h"
 
-class QLabel;
-class QProgressBar;
 class ImportTrainingData;
 
 
@@ -31,7 +30,7 @@ class ImportTrainingData;
  *   * Normalize WAVs
  *   * Write codetrain.scp
  * 
- * Normalisation and resampling is done with external programs
+ * Normalization and resampling is done with external programs
  * (resample and normalize-audio)
  * 
  * Extends QWizardpage;
@@ -42,11 +41,10 @@ class ImportTrainingDirectoryWorkingPage : public QWizardPage{
 signals:
 	void done();
 private:
-	QProgressBar *pbMain;
-	QLabel *lbStatus;
+	Ui::ImportTrainingDataWorkingDlg ui;
+	
 	ImportTrainingData *importer;
 	bool completed;
-	int prog;
 	
 	void error() { completed = false; }
 
@@ -56,12 +54,11 @@ private slots:
 	void displayStatus(QString status);
 	void displayError(QString error);
 public:
-    ImportTrainingDirectoryWorkingPage(QWidget *parent=0);
-	bool importDir(QString dir);
+	ImportTrainingDirectoryWorkingPage(QWidget *parent=0);
+	~ImportTrainingDirectoryWorkingPage() {}
+// 	bool importDir(QString dir);
 	bool isComplete() const { return completed; }
 	void initializePage();
-
-    ~ImportTrainingDirectoryWorkingPage();
 
 };
 

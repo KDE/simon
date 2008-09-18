@@ -16,10 +16,10 @@
 #include <QListWidgetItem>
 #include <QWidget>
 
-#ifdef linux
+#ifdef Q_OS_UNIX
 #include "../../SimonLib/ProgramManager/kdeprogrammanager.h"
 #endif
-#ifdef __WIN32
+#ifdef Q_OS_WIN
 #include "../../SimonLib/ProgramManager/windowsprogrammanager.h"
 #endif
 
@@ -34,10 +34,10 @@
 SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
-#ifdef linux
+#ifdef Q_OS_UNIX
 	this->programManager = new KDEProgramManager();
 #endif
-#ifdef __WIN32
+#ifdef Q_OS_WIN
 	this->programManager = new WindowsProgramManager();
 #endif
 
@@ -57,7 +57,7 @@ void SelectProgramPage::initializePage()
 		KMessageBox::error(this, i18n("Konnte keine Programmkategorien finden.\n\nMöglicherweise ist der Pfad zur categories.xml falsch gesetzt."), i18n("Konnte keine Programmkategorien finden"));
 	else {
 		this->insertCategories(list);
-		#ifdef linux
+		#ifdef Q_OS_UNIX
 			((KDEProgramManager*) this->programManager)->loadPrograms();
 		#endif
 	}

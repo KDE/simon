@@ -9,6 +9,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
+#include "trainingview.h"
+
 #include <QDir>
 #include <QHash>
 #include <QHashIterator>
@@ -16,8 +18,7 @@
 #include <QString>
 #include <QTableWidget>
 #include <QHeaderView>
-#include <QMessageBox>
-#include "trainingview.h"
+#include <KMessageBox>
 #include "ImportTrainingData/importtrainingdirectory.h"
 #include "../../SimonLib/Settings/settings.h"
 #include "../../SimonLib/SimonInfo/simoninfo.h"
@@ -35,8 +36,8 @@ TrainingView* TrainingView::instance;
  * @param parent The parent of the widget
  */
 TrainingView::TrainingView ( QWidget *parent )
-		: InlineWidget ( tr ( "Training" ), QIcon ( ":/images/icons/kvoctrain.svg" ),
-		                 tr ( "Trainieren des Sprachmodells" ), parent )
+		: InlineWidget ( i18n ( "Training" ), QIcon ( ":/images/icons/kvoctrain.svg" ),
+		                 i18n ( "Trainieren des Sprachmodells" ), parent )
 {
 	ui.setupUi ( this );
 	recorder=0;
@@ -68,19 +69,19 @@ TrainingView::TrainingView ( QWidget *parent )
 /**
  * \brief Deletes the selected text from the harddisc
  *
- * Asks the user for confirmation befor the irreversible deletion
+ * Asks the user for confirmation before the irreversible deletion
  * \author Peter Grasch
  */
 void TrainingView::deleteSelected()
 {
 	if ( ui.twTrainingWords->selectedItems().isEmpty() )
 	{
-		QMessageBox::information ( this,tr ( "Nichts ausgewählt" ),tr ( "Bitte selektieren Sie zuerst einen Text aus der Liste." ) );
+		KMessageBox::information ( this ,i18n ( "Bitte selektieren Sie zuerst einen Text aus der Liste." ) );
 		return;
 	}
 	int currentIndex = ui.twTrainingWords->currentRow();
 
-	if ( QMessageBox::question ( this, tr ( "Wollen Sie den ausgewählten Text wirklich löschen?" ), tr ( "Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?" ), QMessageBox::Yes|QMessageBox::No ) ==QMessageBox::Yes )
+	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?")) == KMessageBox::Yes )
 		this->trainMgr->deleteText ( currentIndex );
 
 	loadList();
@@ -108,14 +109,13 @@ void TrainingView::trainSelected()
 {
 	if ( ui.twTrainingWords->selectedItems().isEmpty() )
 	{
-		QMessageBox::information ( this,tr ( "Nichts ausgewählt" ),tr ( "Bitte selektieren Sie zuerst einen Text aus der Liste." ) );
+		KMessageBox::information(this,i18n("Bitte selektieren Sie zuerst einen Text aus der Liste."));
 		return;
 	}
 	bool success = trainMgr->trainText ( ui.twTrainingWords->currentRow() );
 	if ( !success )
 	{
-// 		QMessageBox::critical(this, tr("Konnte Training nicht starten"), tr("Konnte Training nicht starten.\n\nDer Text konnte nicht geladen werden."));
-		SimonInfo::showMessage(tr("Konnte Training nicht starten"), 2000); // show passive notification
+		SimonInfo::showMessage(i18n("Konnte Training nicht starten"), 2000); // show passive notification
 		return;
 	}
 
@@ -125,7 +125,7 @@ void TrainingView::trainSelected()
 /**
  * \brief Starts the training of the currently used text in the TrainingManager
  *
- * Trains a text or a special Training Programm;
+ * Trains a text or a special training program;
  * All the needed data is fetched from the concept class;
  * This ensures that the behaviour from the specialized training is not different from
  * the default training texts.
@@ -134,7 +134,7 @@ void TrainingView::trainSelected()
 void TrainingView::startTraining()
 {
 	ui.swAction->setCurrentIndex ( 1 );
-	setWindowTitle ( tr ( "Training - " ) +trainMgr->getTextName() );
+	setWindowTitle ( i18n ( "Training - " ) +trainMgr->getTextName() );
 
 	int count = trainMgr->getPageCount();
 	ui.pbPages->setMaximum ( count );
@@ -198,7 +198,7 @@ void TrainingView::fetchPage ( int page )
 
 	QString filename = Settings::getS ( "Model/PathToSamples" ) +"/"+keyStr+".wav";
 	resetRecorder();
-	recorder = new RecWidget ( tr ( "Seite: %1" ).arg ( page+1 ),
+	recorder = new RecWidget ( i18n ( "Seite: %1" ).arg ( page+1 ),
 	                           filename, ui.wRecTexts );  //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
 
 	connect ( recorder, SIGNAL ( recordingFinished() ), this, SLOT ( increaseRecordedPages() ) );
@@ -206,7 +206,7 @@ void TrainingView::fetchPage ( int page )
 
 	ui.wRecTexts->layout()->addWidget ( recorder );
 
-	ui.gbPage->setTitle ( tr ( "Seite: %1/%2" ).arg ( page+1 ).arg ( trainMgr->getPageCount() ) );
+	ui.gbPage->setTitle ( i18n ( "Seite: %1/%2" ).arg ( page+1 ).arg ( trainMgr->getPageCount() ) );
 	ui.pbPages->setValue ( page+1 );
 }
 
@@ -288,7 +288,7 @@ void TrainingView::backToMain()
 {
 	resetRecorder();
 	ui.swAction->setCurrentIndex ( 0 );
-	setWindowTitle ( tr ( "Training" ) );
+	setWindowTitle ( i18n ( "Training" ) );
 }
 
 /**
@@ -308,7 +308,7 @@ void TrainingView::exec()
  */
 void TrainingView::cancelTraining()
 {
-	if ( QMessageBox::question ( this, tr ( "Wollen Sie wirklich abbrechen?" ), tr ( "Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhöhen.\n\nWollen Sie wirklich abbrechen?" ), QMessageBox::Yes|QMessageBox::No ) ==QMessageBox::Yes )
+	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhöhen.\n\nWollen Sie wirklich abbrechen?" )) ==KMessageBox::Yes )
 	{
 		cleanUpTrainingSamples();
 	}
@@ -368,8 +368,8 @@ void TrainingView::loadList()
 		QString tooltip;
 		
 		if (pageCount > 0)
-			tooltip = tr("Vorschau: %1...").arg(list->at(i)->getPage(0));
-		else tooltip = tr("Leer");
+			tooltip = i18n("Vorschau: %1...").arg(list->at(i)->getPage(0));
+		else tooltip = i18n("Leer");
 		
 		//make them readonly
 		for ( int j = 0; j<3; j++ )

@@ -14,6 +14,7 @@
 #include "bompdict.h"
 #include "lexicondict.h"
 #include "wiktionarydict.h"
+#include <KLocalizedString>
 
 /**
  * \brief Constructor
@@ -45,8 +46,8 @@ void ImportDict::parseWordList(QString pathToDict, int type, bool deleteFileWhen
  */
 void ImportDict::run()
 {
-	Logger::log(tr("[INF] Öffne Lexikon")+" \""+pathToDict+"\"");
-	emit status(tr("Öffne Wörterbuch..."));
+	Logger::log(i18n("[INF] Öffne Lexikon")+" \""+pathToDict+"\"");
+	emit status(i18n("Öffne Wörterbuch..."));
 	
 	emit progress(10);
 	if (dict) dict->deleteLater();
@@ -60,10 +61,10 @@ void ImportDict::run()
 	connect(dict, SIGNAL(loaded()), this, SLOT(openingFinished()));
 	connect(dict, SIGNAL(progress(int)), this, SLOT(loadProgress(int)));
 	
-	emit status(tr("Verarbeite Wörterbuch..."));
+	emit status(i18n("Verarbeite Wörterbuch..."));
 	
 	dict->load(pathToDict);
-	emit status(tr("Erstelle Liste..."));
+	emit status(i18n("Erstelle Liste..."));
 	QStringList words = dict->getWords();
 	QStringList terminals = dict->getTerminals();
 	QStringList pronunciations = dict->getPronuncations();
@@ -80,19 +81,19 @@ void ImportDict::run()
 	}
 	if (type != LEXICON)
 	{
-		emit status(tr("Sortiere Wörterbuch..."));
+		emit status(i18n("Sortiere Wörterbuch..."));
 		qSort(vocablist->begin(), vocablist->end());
 	}
 	
 	
 	emit progress(1000);
-	emit status(tr("Wörterbuch wird verteilt..."));
+	emit status(i18n("Wörterbuch wird verteilt..."));
 	
-	Logger::log(tr("[UPT] ")+QString::number(words.count())+" "+tr("Wörter aus dem lexikon")+" \""+pathToDict+"\""+tr(" importiert"));
+	Logger::log(i18n("[UPT] ")+QString::number(words.count())+" "+i18n("Wörter aus dem lexikon")+" \""+pathToDict+"\""+i18n(" importiert"));
 
 	if (deleteFileWhenDone)
 	{
-		Logger::log(tr("[INF]")+" "+tr("Lösche Eingabedatei"));
+		Logger::log(i18n("[INF]")+" "+i18n("Lösche Eingabedatei"));
 		
 		QFile::remove(this->pathToDict);
 	}

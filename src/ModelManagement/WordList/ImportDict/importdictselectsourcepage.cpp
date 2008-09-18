@@ -16,6 +16,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QVariant>
+#include <KLocalizedString>
 
 /**
  * \brief Constructor - Inits the gui
@@ -24,17 +25,17 @@
  */
 ImportDictSelectSourcePage::ImportDictSelectSourcePage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle(tr("Wörterbuch Typ auswählen"));
+	setTitle(i18n("Wörterbuch Typ auswählen"));
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	
 	QLabel *desc = new QLabel(this);
-	desc->setText(tr("Simon kann drei verschiedene Typen von Wörterbüchern importieren: HADIFIX-BOMP Wörterbücher, Wiktionary-Dumps und HTK Wörterbücher.\n\nBitte selektieren Sie welchen Typ von Wörterbuch Sie importieren möchten:\n"));
+	desc->setText(i18n("Simon kann drei verschiedene Typen von Wörterbüchern importieren: HADIFIX-BOMP Wörterbücher, Wiktionary-Dumps und HTK Wörterbücher.\n\nBitte selektieren Sie welchen Typ von Wörterbuch Sie importieren möchten:\n"));
 	desc->setWordWrap(true);
 	
-	QRadioButton *hadifixBOMP=new QRadioButton(tr("HADIFIX-BOMP"), this);
-	QRadioButton *wiktionary = new QRadioButton(tr("Wiktionary Wörterbuch"), this);
-	QRadioButton *lexicon = new QRadioButton(tr("simon kompatibles Lexicon"), this);
-	none = new QRadioButton(tr("Keines (Überspringt diesen Schritt)"), this);
+	QRadioButton *hadifixBOMP=new QRadioButton(i18n("HADIFIX-BOMP"), this);
+	QRadioButton *wiktionary = new QRadioButton(i18n("Wiktionary Wörterbuch"), this);
+	QRadioButton *lexicon = new QRadioButton(i18n("simon kompatibles Lexicon"), this);
+	none = new QRadioButton(i18n("Keines (Überspringt diesen Schritt)"), this);
 	
 	registerField("hadifix", hadifixBOMP, "checked", SIGNAL(toggled(bool)));
 	registerField("wiktionary", wiktionary, "checked", SIGNAL(toggled(bool)));

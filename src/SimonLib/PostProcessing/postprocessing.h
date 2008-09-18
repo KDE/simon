@@ -13,6 +13,7 @@
 #define POSTPROCESSING_H
 
 #include <QString>
+
 /**
  \class PostProcessing
  \author Peter Grasch

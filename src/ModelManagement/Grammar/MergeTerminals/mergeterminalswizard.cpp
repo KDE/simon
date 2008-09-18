@@ -19,7 +19,7 @@
 
 MergeTerminalsWizard::MergeTerminalsWizard(QWidget* parent): QWizard(parent)
 {
-	setWindowTitle(tr("Terminale verbinden"));
+	setWindowTitle(i18n("Terminale verbinden"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/merge.png"));
 	addPage(createIntroPage());
 	addPage(createSelectTerminalsPage());
@@ -36,8 +36,8 @@ QWizardPage* MergeTerminalsWizard::createIntroPage()
 	intro->setLayout(lay);
 
 	desc->setWordWrap(true);
-	intro->setTitle(tr("Willkommen zum Verbinden mehrerere Terminale"));
-	desc->setText(tr("Dieser Assistent wird Ihnen erlauben, zwei verschiedene Terminale zu einem zusammenzufassen.\n\nDies ermöglicht es, die Grammatik sauber zu halten und große Gruppen von Wörtern gleichzeitig grammatikalisch einzufügen. (Wenn zum Beispiel durch das Importieren eines Wörterbuches anders benannte Terminale hinzugefügt wurden, die auf andere, bestehende Wortgruppen gebunden werden sollen)."));
+	intro->setTitle(i18n("Willkommen zum Verbinden mehrerere Terminale"));
+	desc->setText(i18n("Dieser Assistent wird Ihnen erlauben, zwei verschiedene Terminale zu einem zusammenzufassen.\n\nDies ermöglicht es, die Grammatik sauber zu halten und große Gruppen von Wörtern gleichzeitig grammatikalisch einzufügen. (Wenn zum Beispiel durch das Importieren eines Wörterbuches anders benannte Terminale hinzugefügt wurden, die auf andere, bestehende Wortgruppen gebunden werden sollen)."));
 
 	return intro;
 }
@@ -63,8 +63,8 @@ QWizardPage* MergeTerminalsWizard::createFinishedPage()
 	finished->setLayout(lay);
 
 	desc->setWordWrap(true);
-	finished->setTitle(tr("Import abgeschlossen"));
-	desc->setText(tr("Die Terminale wurden verbunden.\n\nVielen Dank, dass Sie simon verbessert haben."));
+	finished->setTitle(i18n("Import abgeschlossen"));
+	desc->setText(i18n("Die Terminale wurden verbunden.\n\nVielen Dank, dass Sie simon verbessert haben."));
 
 	return finished;
 }

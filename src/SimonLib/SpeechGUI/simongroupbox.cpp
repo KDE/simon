@@ -1,7 +1,4 @@
 #include "simongroupbox.h"
-#include <QMessageBox>
-
-
 
 SimonGroupBox::SimonGroupBox( QWidget * parent )
 {

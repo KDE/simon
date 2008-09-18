@@ -18,10 +18,11 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "newcommand.h"
+
 #include <KUrl>
 #include <KKeySequenceWidget>
 #include <KDialogButtonBox>
-#include "newcommand.h"
 
 #include "Commands/Executable/executablecommand.h"
 #include "Commands/Executable/ImportProgram/importprogramwizard.h"
@@ -32,7 +33,11 @@
 
 NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
 {
-	ui.setupUi(this);
+	QWidget *widget = new QWidget( this );
+	ui.setupUi(widget);
+	setMainWidget( widget );
+	setCaption( i18n("Kommando") );
+	
 	ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
 	
 	checkIfComplete();
@@ -54,15 +59,15 @@ void NewCommand::init(Command *command)
 		ExecutableCommand *exe = dynamic_cast<ExecutableCommand*>(command);
 
 		ui.cbType->setCurrentIndex(0); //Executable menu
-		ui.leExecutable->setText(exe->getExecutable());
-		ui.leWorkingDirectory->setText(exe->getWorkingDirectory().prettyUrl());
+		ui.urExecutable->setPath(exe->getExecutable());
+		ui.urWorkingDirectory->setUrl(exe->getWorkingDirectory());
 	}
 	if (dynamic_cast<PlaceCommand*>(command))
 	{
 		PlaceCommand *place = dynamic_cast<PlaceCommand*>(command);
 
 		ui.cbType->setCurrentIndex(1); //Place menu
-		ui.leUrl->setText(place->getURL().toString());
+		ui.urUrl->setUrl(place->getURL());
 	}
 	if (dynamic_cast<ShortcutCommand*>(command))
 	{
@@ -80,17 +85,14 @@ void NewCommand::init(Command *command)
 
 void NewCommand::checkIfComplete()
 {
-	QPushButton *okBtn = ui.bbDialog->button(KDialogButtonBox::Ok);
-	if (!okBtn) return;
-	
-	okBtn->setEnabled(!ui.leTrigger->text().isEmpty());
+	enableButtonOk(!ui.leTrigger->text().isEmpty());
 }
 
 void NewCommand::setWindowTitleToCommandName(QString name)
 {
 	if (!name.isEmpty())
-		setWindowTitle(tr("Kommando: %1").arg(name));
-	else setWindowTitle(tr("Kommando"));
+		setCaption(i18n("Kommando: %1").arg(name));
+	else setCaption(i18n("Kommando"));
 }
 
 void NewCommand::showImportProgramWizard()
@@ -121,12 +123,12 @@ Command* NewCommand::newCommand()
 		{
 			case 0: //Program
 				command = new ExecutableCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
-							ui.leExecutable->text(), ui.leWorkingDirectory->text());
+							ui.urExecutable->url().path(), ui.urWorkingDirectory->url());
 				break;
 				
 			case 1: //place
 				command = new PlaceCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
-							KUrl(ui.leUrl->text()));
+							ui.urUrl->url());
 				break;
 				
 			case 2: //shortcut

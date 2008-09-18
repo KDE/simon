@@ -19,7 +19,7 @@
 class QFile;
 class QUrl;
 class QHttp;
-class QProgressDialog;
+class KProgressDialog;
 
 /**
  * \class QuickDownloader
@@ -38,7 +38,7 @@ signals:
 	void aborted();
 
 private:
-	QProgressDialog *progressDlg;
+	KProgressDialog *progressDlg;
 	QHttp *loader;
 	int request;
 	bool aborting;
@@ -46,7 +46,7 @@ private:
 	
 private slots:
 	void requestFinished(int id, bool error);
-	void dataRecieved(int now, int max);
+	void dataReceived(int now, int max);
 	void readResponse(const QHttpResponseHeader header);
 	
 public slots:

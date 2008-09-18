@@ -17,8 +17,8 @@
 *   Free Software Foundation, Inc.,                                       *
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-#ifndef PROJECTVIEW_H
-#define PROJECTVIEW_H
+#ifndef SIMONVIEW_H
+#define SIMONVIEW_H
 
 
 /**
@@ -96,8 +96,6 @@ public slots:
 	
 	void toggleConnection();
 	void errorConnecting(QString error);
-// 	void connected();
-// 	void disconnected();
 	
 	void toggleActivation();
 	void representState(SimonControl::SystemStatus status);
@@ -112,7 +110,7 @@ public slots:
     void checkSettingState();
 
 public:
-	SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
+	explicit SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
 
 	~SimonView();
 

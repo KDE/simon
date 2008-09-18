@@ -129,21 +129,13 @@
       <item>
        <layout class="QVBoxLayout" >
         <item>
-         <widget class="SimonFileSelector" name="leProgramCategories" >
-          <property name="text" >
-           <string>conf/categories.xml</string>
-          </property>
-         </widget>
+         <widget class="KUrlRequester" name="urProgramCategories" />
         </item>
         <item>
-         <widget class="SimonDirSelector" name="leTempDir" >
-          <property name="text" >
-           <string>tmp/</string>
-          </property>
-         </widget>
+         <widget class="KUrlRequester" name="urTempDir" />
         </item>
         <item>
-         <widget class="SimonDirSelector" name="lePathToTexts" />
+         <widget class="KUrlRequester" name="urPathToTexts" />
         </item>
        </layout>
       </item>
@@ -167,17 +159,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SimonFileSelector</class>
-   <extends>KLineEdit</extends>
-   <header>simonfileselector.h</header>
-   <slots>
-    <signal>urlChanged()</signal>
-   </slots>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
-   <class>SimonDirSelector</class>
-   <extends>KLineEdit</extends>
-   <header>simondirselector.h</header>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources>

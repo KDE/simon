@@ -9,14 +9,14 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include <QHash>
-#include <QCoreApplication>
-#include <KMessageBox>
-#include <KLocalizedString>
-#include <QDebug>
+#include <QHash> 	// this needs to be included first because the 
+#include <KMessageBox>	// X11 headers included in the xevents header define "Status"
+
+
+
 #include "xevents.h"
+#include <KLocalizedString>
 #include "../Logging/logger.h"
-// #include "key.h"
 
 
 #include <X11/Xlibint.h>
@@ -61,17 +61,17 @@ Display* XEvents::openDisplay(char* displayName)
 	int Event, Error;
 	int Major, Minor;
 	
-	Logger::log(QCoreApplication::tr("[INF] Öffne display \"%1\"").arg(QString(displayName)));
+	Logger::log(i18n("[INF] Öffne display \"%1\"").arg(QString(displayName)));
 
 	Display * display = XOpenDisplay(displayName);
 
 	if (!display) {
-		Logger::log(QCoreApplication::tr("[ERR] Fehler beim öffnen des display \"%1\"").arg(QString(displayName)));
+		Logger::log(i18n("[ERR] Fehler beim öffnen des display \"%1\"").arg(QString(displayName)));
 		KMessageBox::error(0,i18n("Konnte Display nicht öffnen. Bitte überprüfen Sie ihre Konfiguration und / oder setzen Sie sich mit den simon-Entwickler in Verbindung. (Display: \"%1\")").arg(QString(XDisplayName ( displayName ))));
 		return NULL;
 	}
 
-	//check wether the XTest extension is installed
+	//check whether the XTest extension is installed
 	if ( !XTestQueryExtension(display, &Event, &Error, &Major, &Minor) ) {
 		Logger::log("[ERR] Display "+QString(displayName)+" unterstützt XTest nicht");
 		KMessageBox::error(0,i18n("Der X-Server unterstützt die \"XTest\" nicht - bitte installieren Sie diese. (Display: \"%1\")").arg(QString(DisplayString(display))));
@@ -175,7 +175,7 @@ void XEvents::pressKeyCode(KeyCode code)
  * @param int virtualKey
  * The keycode
  * @param bool once
- * Wether the modifier should be unset after one "normal" key
+ * Whether the modifier should be unset after one "normal" key
  * 
  * @author Peter Grasch
  */

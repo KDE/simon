@@ -19,6 +19,7 @@
  ***************************************************************************/
 
 #include "commandmodel.h"
+#include <KLocalizedString>
 
 //TODO: what if the backends delete their lists?
 
@@ -90,7 +91,7 @@ QVariant CommandModel::headerData(int, Qt::Orientation orientation,
 	Q_ASSERT(commands);
 	if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
 	{
-		return tr("Kommando");
+		return i18n("Kommando");
 	}
 	
 	//default

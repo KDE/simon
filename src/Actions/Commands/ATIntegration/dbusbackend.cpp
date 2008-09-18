@@ -10,10 +10,22 @@
 //
 //
 #include "dbusbackend.h"
+
+#include <QtDBus> //FIXME: where the hell resides qDBusRegisterMetaType?
+#include <QDBusConnection>
+#include <QDomDocument>
+#include <QDomNode>
+#include <QDomElement>
+#include <QDBusArgument>
+#include <QDBusMessage>
+#include <QDBusReply>
+#include <QDBusInterface>
+#include <QDBusConnectionInterface>
+
+
 #include <QMetaType>
-#include <QtDBus>
-#include <QtXml>
-#include <QMessageBox>
+#include <KMessageBox>
+#include <KLocalizedString>
 #include "atobject.h"
 #include "../../../SimonLib/Settings/settings.h"
 
@@ -48,7 +60,7 @@ void DBusBackend::startMonitoring()
 	
 	if (!list.isValid())
 	{
-		QMessageBox::critical(0, tr("Konnte Liste nicht empfangen"), tr("Konnte Liste der verfügbaren DBus Services nicht empfangen"));
+		KMessageBox::error(0, i18n("Konnte Liste der verfügbaren DBus Services nicht empfangen"));
 		return;
 	}
 	
@@ -95,7 +107,7 @@ ATObject* DBusBackend::readGui(QString service)
 
 	//TODO: submenues werden ignoriert
 // 	if (ignoredSubmenue != 0) {
-// 		QMessageBox::critical(0, tr("Ignorierte Menüs"), tr("%1 Submenüs wurden ignoriert;\n\n(Submenüs sind derzeit nicht unterstützt)").arg(ignoredSubmenue));
+// 		KMessageBox::error(0, i18n("%1 Submenüs wurden ignoriert;\n\n(Submenüs sind derzeit nicht unterstützt)").arg(ignoredSubmenue));
 // 	}
 	if (root->children().count()==0) return 0;
 	return root;
@@ -118,7 +130,7 @@ void DBusBackend::serviceRegistered(QString service)
 		QStringList applications = QStringList() << service;
 		QStringList applicationNames = QStringList() << name;
 		emit servicesFound(applications, applicationNames);
-	} else emit status(tr("Konnte %1 nicht auflösen...").arg(service));
+	} else emit status(i18n("Konnte %1 nicht auflösen...").arg(service));
 }
 
 
@@ -309,7 +321,7 @@ void DBusBackend::handleMenuEntry(QString service, QString path)
 		currentActionIndex++;
 	} else
 	{
-		QMessageBox::critical(0, tr("Jackpot!"), tr("You encountered an IMPOSSIBLE error!\n\nHave a cookie!"));
+		KMessageBox::error(0, i18n("Jackpot!"), i18n("You encountered an IMPOSSIBLE error!\n\nHave a cookie!"));
 	}
 }
 
@@ -369,9 +381,9 @@ ATObjectList* DBusBackend::parseObject(QString service, QString path, ATObject *
 		name = elem.attribute("name");
 		if (!elem.isNull())
 		{
-			ATObjectList* childs = parseObject(service, path+"/"+name, thisObject);
-			for (int i=0; i<childs->count(); i++)
-				objects->append(childs->at(i));
+			ATObjectList* children = parseObject(service, path+"/"+name, thisObject);
+			for (int i=0; i<children->count(); i++)
+				objects->append(children->at(i));
 		}
 		elem = elem.nextSiblingElement("node");
 	}

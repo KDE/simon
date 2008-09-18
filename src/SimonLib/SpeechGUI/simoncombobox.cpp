@@ -1,7 +1,4 @@
 #include "simoncombobox.h"
-#include <QMessageBox>
-
-
 
 
 SimonComboBox::SimonComboBox( QWidget * parent ) : KComboBox(parent)

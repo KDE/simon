@@ -14,7 +14,7 @@
 #include "../../../SimonLib/Settings/settings.h"
 #include "../../../SimonLib/QuickDownloader/quickdownloader.h"
 #include "xmltrainingtextlist.h"
-#include <QMessageBox>
+#include <KMessageBox>
 
 /**
  * \brief Constructor
@@ -22,7 +22,7 @@
  */
 ImportTrainingTextRemotePage::ImportTrainingTextRemotePage(QWidget *parent) : QWizardPage(parent)
 {
-	setTitle(tr("Importieren aus dem Internet"));
+	setTitle(i18n("Importieren aus dem Internet"));
 	ui.setupUi(this);
 	registerField("textDownloadURL*", ui.lwTexts, "currentUserData", SIGNAL(currentRowChanged(int)));
 }
@@ -35,7 +35,7 @@ void ImportTrainingTextRemotePage::initializePage()
 {
 	downloader = new QuickDownloader(this);
 
-	Logger::log(tr("[INF] Abrufen der Liste von verfügbaren Trainingstexten"));
+	Logger::log(i18n("[INF] Abrufen der Liste von verfügbaren Trainingstexten"));
 	
 	connect (downloader, SIGNAL(downloadFinished(QString)), this, SLOT(importList(QString)));
 	downloader->download(Settings::getS("Internet/TextOnlineUpdate"));
@@ -51,7 +51,7 @@ void ImportTrainingTextRemotePage::importList(QString path)
 {
 	XMLTrainingTextList *tlist = new XMLTrainingTextList(path);
 	if (!tlist->load(path))
-		QMessageBox::critical(this, tr("Konnte Datei nicht öffnen"), tr("Konnte Liste der Texte nicht öffnen.\n\nMöglicherweise ist der URL falsch konfiguriert oder beim Download ist ein Fehler aufgetreten."));
+		KMessageBox::error(this, i18n("Konnte Liste der Texte nicht öffnen.\n\nMöglicherweise ist der URL falsch konfiguriert oder beim Download ist ein Fehler aufgetreten."));
 	QHash<QString, QString> textlist = tlist->getTrainingTextList();
 	ui.lwTexts->clear();
 	for (int i=0; i < textlist.count(); i++)

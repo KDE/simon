@@ -18,22 +18,24 @@
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(tr("Allgemeine Einstellungen"), QIcon(":/images/icons/computer.svg"), tr("Grundlegende Einstellungen rund um Simon"), parent)
+GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(i18n("Allgemeine Einstellungen"), QIcon(":/images/icons/computer.svg"), i18n("Grundlegende Einstellungen rund um Simon"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers(this);
 	hide();
 
+	ui.urTempDir->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
+	ui.urPathToTexts->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 
 	connect(ui.cbStartSimonOnBoot, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
 	connect(ui.cbAskBeforeExit, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
 
-	connect(ui.leProgramCategories, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.leTempDir, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.lePathToTexts, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urProgramCategories, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urTempDir, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urPathToTexts, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
 
 	//set help
-	help = tr("Hier können Sie grundlegende Einstellungen rund um Simon verändern.\n\nDazu zählen: Pfade und Sicherheitsabfragen.\n\nEinstellungen in diesem Modul können kritisch für die Verwendung von simon sein.\n\nWenn das Häckchen \"Starte juliusd wenn nötig\" aktiviert ist, wird versucht juliusd lokal zu starten, sollte zu keinem laufenden Dämon verbunden werden können.");
+	help = i18n("Hier können Sie grundlegende Einstellungen rund um Simon verändern.\n\nDazu zählen: Pfade und Sicherheitsabfragen.\n\nEinstellungen in diesem Modul können kritisch für die Verwendung von simon sein.\n\nWenn das Häckchen \"Starte juliusd wenn nötig\" aktiviert ist, wird versucht juliusd lokal zu starten, sollte zu keinem laufenden Dämon verbunden werden können.");
 }
 
 /**
@@ -44,8 +46,8 @@ GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(tr("Allgemeine E
  */
 bool GeneralSettings::isComplete()
 {
-	return ((!ui.leProgramCategories->text().isEmpty()) &&  (!ui.leTempDir->text().isEmpty()) && 
-			(!ui.lePathToTexts->text().isEmpty()));
+	return ((!ui.urProgramCategories->url().isEmpty()) &&  (!ui.urTempDir->url().isEmpty()) && 
+			(!ui.urPathToTexts->url().isEmpty()));
 }
 
 /**
@@ -62,14 +64,14 @@ bool GeneralSettings::apply()
 	Settings::set("AskBeforeExit", ui.cbAskBeforeExit->isChecked());
 
 	//paths
-	Settings::set("PathToProgramCategories", ui.leProgramCategories->text());
-	Settings::set("TempDir", ui.leTempDir->text());
-	Settings::set("PathToTexts", ui.lePathToTexts->text());
+	Settings::set("PathToProgramCategories", ui.urProgramCategories->url().path());
+	Settings::set("TempDir", ui.urTempDir->url().path());
+	Settings::set("PathToTexts", ui.urPathToTexts->url().path());
 
 	Settings::set("ConfigDone", !ui.pbShowFirstRunWizard->isChecked());
 
 
-// #ifdef __WIN32
+// #ifdef Q_OS_WIN
 // 	QSettings settings;
 // 	settings.setPath("Microsoft", "Windows", QSettings::UserScope);
 // 	if (ui.cbStartSimonOnBoot->isChecked()) {
@@ -115,9 +117,9 @@ bool GeneralSettings::init()
 
 
 	//paths
-	ui.leProgramCategories->setText(Settings::getS("PathToProgramCategories"));
-	ui.leTempDir->setText(Settings::getS("TempDir"));
-	ui.lePathToTexts->setText(Settings::getS("PathToTexts"));
+	ui.urProgramCategories->setPath(Settings::getS("PathToProgramCategories"));
+	ui.urTempDir->setPath(Settings::getS("TempDir"));
+	ui.urPathToTexts->setPath(Settings::getS("PathToTexts"));
 
 	return true;
 }

@@ -10,7 +10,7 @@
 //
 //
 #include "soundsettings.h"
-#include <QMessageBox>
+#include <KMessageBox>
 #include "../SimonLib/Sound/soundcontrol.h"
 #include "../SimonLib/Settings/settings.h"
 
@@ -19,18 +19,18 @@
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellungen"), QIcon(":/images/icons/preferences-desktop-sound.svg"), tr("Konfigurieren Sie hier ihre Audiogeräte und legen Einstellungen für dessen Verwendung fest"), parent)
+SoundSettings::SoundSettings(QWidget* parent): SystemWidget(i18n("Soundeinstellungen"), QIcon(":/images/icons/preferences-desktop-sound.svg"), i18n("Konfigurieren Sie hier ihre Audiogeräte und legen Einstellungen für dessen Verwendung fest"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers(this);
 	hide();
 	//set help
-	help = tr("Hier finden Sie alle Einstellungen zur Sound Ein- und Ausgabe.");
+	help = i18n("Hier finden Sie alle Einstellungen zur Sound Ein- und Ausgabe.");
 
 	//set up the channels
 	ui.cbChannels->clear();
-	ui.cbChannels->addItem(tr("Mono"), 1);
-	ui.cbChannels->addItem(tr("Stereo"), 2);
+	ui.cbChannels->addItem(i18n("Mono"), 1);
+	ui.cbChannels->addItem(i18n("Stereo"), 2);
 	
 	this->sc= new SoundControl();
 	this->in = 0;
@@ -49,7 +49,7 @@ SoundSettings::SoundSettings(QWidget* parent): SystemWidget(tr("Soundeinstellung
 void SoundSettings::checkWithSuccessMessage()
 {
 	if (check())
-		QMessageBox::information(this, tr("Soundkonfiguration korrekt"), tr("Die Soundkonfiguration wurde erfolgreich getestet."));
+		KMessageBox::information(this, i18n("Die Soundkonfiguration wurde erfolgreich getestet."));
 }
 
 /**
@@ -102,13 +102,13 @@ bool SoundSettings::check()
 	bool ok = this->sc->checkDeviceSupport(inputDevice, outputDevice, channels, samplerate);
 
 	if (!ok)
-		QMessageBox::critical(this, tr("Soundkonfiguration nicht unterstützt"), tr("Die ausgewählte Soundkonfiguration wird von der Hardware nicht unterstützt.\n\nBitte korrigieren Sie die Werte.\n\nFalls notwendig, wenden Sie sich bitte an Ihren Soundkartenhersteller."));
+		KMessageBox::error(this, i18n("Die ausgewählte Soundkonfiguration wird von der Hardware nicht unterstützt.\n\nBitte korrigieren Sie die Werte.\n\nFalls notwendig, wenden Sie sich bitte an Ihren Soundkartenhersteller."));
 
 	
 	if ((channels != Settings::getI("Model/Channels")) || 
 			(samplerate != Settings::getI("Model/Samplerate")))
 	{
-		QMessageBox::warning(this, tr("Modell- und Soundkonfiguration abweichend"), tr("Die konfigurierten Kanäle / Samplerate der Trainingstexte passt nicht mit den Soundeinstellungen zusammen.\n\nBitte korrigieren Sie ihre Konfiguration hier oder definieren Sie entsprechende Nachbearbeitungsketten um den Unterschied auszugleichen."));
+		KMessageBox::information(this, i18n("Die konfigurierten Kanäle / Samplerate der Trainingstexte passt nicht mit den Soundeinstellungen zusammen.\n\nBitte korrigieren Sie ihre Konfiguration hier oder definieren Sie entsprechende Nachbearbeitungsketten um den Unterschied auszugleichen.") );
 		ok=false;
 	}
 

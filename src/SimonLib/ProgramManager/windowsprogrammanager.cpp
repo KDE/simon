@@ -15,7 +15,6 @@
 #include "windows.h"
 
 #include "../WindowsLib/registrymanager.h"
-#include <QMessageBox>
 
 
 /**

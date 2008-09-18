@@ -14,13 +14,13 @@
 #include <QDir>
 #include <QStringList>
 #include <QString>
-#include <QMessageBox>
+#include <KMessageBox>
 #include <QObject>
 #include <QDate>
 #include <QTextStream>
-#include <QDebug>
 #include <QVariant>
 #include <QTime>
+#include <KLocalizedString>
 #include "../../SimonLib/Settings/settings.h"
 #include "../../SimonLib/Logging/logger.h"
 #include "../WordList/wordlistmanager.h"
@@ -62,10 +62,10 @@ TrainingManager* TrainingManager::getInstance()
 
 void TrainingManager::askDeleteLonelySample(QString sample)
 {
-	if (QMessageBox::question(0, tr("Herrenloses Sample"), tr("Die Datei %1 hat keine Transkription.\n\nWollen Sie sie löschen?").arg(sample),QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(0, i18n("Die Datei %1 hat keine Transkription.\n\nWollen Sie sie löschen?").arg(sample), i18n("Herrenloses Sample")) == KMessageBox::Yes)
 	{
 		if (!QFile::remove(sample))
-			QMessageBox::critical(0, tr("Löschen fehlgeschlagen"), tr("Das Löschen des Samples ist fehlgeschlagen"));
+			KMessageBox::error(0, i18n("Das Löschen des Samples ist fehlgeschlagen"), i18n("Löschen fehlgeschlagen"));
 		else ModelManager::compileModel(); //start again
 	}
 }
@@ -145,7 +145,7 @@ bool TrainingManager::savePrompts(bool recompiledLater)
 	emit trainingDataChanged();
 	if (recompiledLater) return true;
 
-	if (QMessageBox::question(0, QObject::tr("Trainingsdaten geändert"), QObject::tr("Die Trainingsdaten wurden geändert.\n\nWollen Sie das Sprachmodell jetzt neu kompilieren?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(0, i18n("Die Trainingsdaten wurden geändert.\n\nWollen Sie das Sprachmodell jetzt neu kompilieren?"), i18n("Trainingsdaten geändert")) == KMessageBox::Yes)
 		ModelManager::compileModel();
 	return true;
 }
@@ -166,7 +166,7 @@ PromptsTable* TrainingManager::getPrompts()
  */
 PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 {
-	Logger::log ( QObject::tr ( "[INF] Parse Promptsdatei von %1" ).arg ( promptspath ) );
+	Logger::log ( i18n ( "[INF] Parse Promptsdatei von %1" ).arg ( promptspath ) );
 	PromptsTable *promptsTable = new PromptsTable();
 
 	QFile *prompts = new QFile ( promptspath );
@@ -187,7 +187,7 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 
 		promptsTable->insert ( label, prompt );
 	}
-	Logger::log ( QObject::tr ( "[INF] %1 Prompts gelesen" ).arg ( promptsTable->count() ) );
+	Logger::log ( i18n ( "[INF] %1 Prompts gelesen" ).arg ( promptsTable->count() ) );
 	return promptsTable;
 }
 
@@ -199,7 +199,7 @@ void TrainingManager::trainWords ( WordList *words )
 {
 	if ( !words ) return;
 
-	Logger::log ( QObject::tr ( "[INF] Starten eines  on-the-fly Trainings mit %1 Wörter" ).arg ( words->count() ) );
+	Logger::log ( i18n ( "[INF] Starten eines  on-the-fly Trainings mit %1 Wörter" ).arg ( words->count() ) );
 
 	QStringList pages;
 
@@ -259,10 +259,10 @@ void TrainingManager::trainWords ( WordList *words )
 
 		time = qvariant_cast<QString>(QTime::currentTime());
 		time.replace(QString(":"), QString("-"));
-		sampleHash->insert((tr("spezialtraining")+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), page.toUpper());
+		sampleHash->insert((i18n("spezialtraining")+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), page.toUpper());
 	}
 
-	TrainingText *newText = new TrainingText ( QObject::tr ( "Spezialisiertes Training" ),
+	TrainingText *newText = new TrainingText ( i18n ( "Spezialisiertes Training" ),
 	        "", pages );
 
 	currentText=newText;
@@ -276,7 +276,7 @@ void TrainingManager::trainWords ( WordList *words )
  */
 bool TrainingManager::deleteText ( int index )
 {
-	Logger::log ( QObject::tr ( "[INF] Löschen von \"%1\" von \"%2\"" ).arg ( trainingTexts->at ( index )->getName() ).arg ( trainingTexts->at ( index )->getPath() ) );
+	Logger::log ( i18n ( "[INF] Löschen von \"%1\" von \"%2\"" ).arg ( trainingTexts->at ( index )->getName() ).arg ( trainingTexts->at ( index )->getPath() ) );
 	QFile text ( trainingTexts->at ( index )->getPath() );
 	return text.remove();
 }
@@ -293,13 +293,13 @@ TrainingList* TrainingManager::readTrainingTexts ()
 
 	if ( pathToTexts.isEmpty() )
 	{
-		QMessageBox::critical ( 0, QObject::tr ( "Fehler beim Auslesen der Trainingstexte" ), QObject::tr ( "Der Pfad zu den Trainingstexten ist nicht richtig konfiguriert. (Er ist leer)\n\nBitte setzen Sie einen korrekten Pfad in den Einstellungen." ) );
+		KMessageBox::error ( 0, i18n ( "Der Pfad zu den Trainingstexten ist nicht richtig konfiguriert. (Er ist leer)\n\nBitte setzen Sie einen korrekten Pfad in den Einstellungen." ) );
 		return new TrainingList();
 	}
-	Logger::log ( QObject::tr ( "[INF] Lesen der Trainingtexte von \"" ) +pathToTexts+"\"" );
+	Logger::log ( i18n ( "[INF] Lesen der Trainingtexte von \"" ) +pathToTexts+"\"" );
 	QDir *textdir = new QDir ( pathToTexts );
 	if ( !textdir || !textdir->exists() ) {
-		QMessageBox::critical ( 0, QObject::tr ( "Fehler beim Auslesen der Trainingstexte" ), QObject::tr ( "Der Pfad zu den Trainingstexten ist nicht richtig konfiguriert. (Der Ordner existiert nicht)\n\nBitte setzen Sie einen korrekten Pfad in den Einstellungen." ) );
+		KMessageBox::error ( 0, i18n ( "Der Pfad zu den Trainingstexten ist nicht richtig konfiguriert. (Der Ordner existiert nicht)\n\nBitte setzen Sie einen korrekten Pfad in den Einstellungen." ) );
 		delete textdir;
 		return NULL;
 	}
@@ -348,7 +348,7 @@ bool TrainingManager::trainText ( int i )
 		return false;
 	}
 	
-	Logger::log(QObject::tr("[INF] Training Text: \"")+currentText->getName()+"\"");
+	Logger::log(i18n("[INF] Training Text: \"")+currentText->getName()+"\"");
 	bool allWordsInDict = allWordsExisting();
 	if(!allWordsInDict)
 		return false;
@@ -371,7 +371,7 @@ bool TrainingManager::trainText ( int i )
  * \brief chechs if all words in the dict. If there some words missing in the dict, the addwordview dialog will be shown.
  * \author Susanne Tschernegg, Peter Grasch
  * @return bool
- *      returns wheter all words are in the dict or not
+ *      returns whether all words are in the dict or not
  */
 bool TrainingManager::allWordsExisting()
 {
@@ -490,7 +490,7 @@ TrainingText* TrainingManager::getText ( int i )
  */
 float TrainingManager::calcRelevance ( TrainingText *text )
 {
-	Logger::log ( QObject::tr ( "[INF] Berechne Nutzen des Textes " ) +"\""+text->getName() +"\" ("+
+	Logger::log ( i18n ( "[INF] Berechne Nutzen des Textes " ) +"\""+text->getName() +"\" ("+
 	              text->getPath() +")" );
 	QString currPage;
 	QStringList words;
@@ -579,10 +579,7 @@ int TrainingManager::getProbability ( QString wordname )
 {
 	wordname = wordname.toUpper();
 	if (wordRelevance.contains(wordname))
-	{
-// 		qDebug() << "cached";
 		return wordRelevance.value(wordname);
-	}
 	
 	QStringList prompts = promptsTable->values();
 	int prob=0;
@@ -594,7 +591,7 @@ int TrainingManager::getProbability ( QString wordname )
 		prob += prompts.at ( i ).count(QRegExp(QString("( |^)%1( |$)").arg(wordname)));
 		i++;
 	}
-// 	qDebug() << "calculated";
+	
 	wordRelevance.insert(wordname, prob);
 	return prob;
 }

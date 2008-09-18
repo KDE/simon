@@ -1,6 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2006 by Peter Grasch   *
- *   bedahr@gmx.net   *
+ *   grasch@simon-listens.org   *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -17,6 +17,9 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
+#include "simonview.h"
+
 #include <QDir>
 #include <QPixmap>
 #include <QCryptographicHash>
@@ -33,7 +36,6 @@
 #include <KStatusBar>
 #include <KPasswordDialog>
 
-#include "simonview.h"
 #include "inlinewidgetview.h"
 #include "Configuration/systemview.h"
 #include "SimonLib/Logging/logger.h"
@@ -44,7 +46,6 @@
 #include "ModelManagement/modelmanager.h"
 #include "ModelManagement/Training/trainingview.h"
 #include "SimonLib/Settings/settings.h"
-#include "SimonLib/PasswordDialog/passworddlg.h"
 #include "Configuration/FirstRun/firstrunwizard.h"
 #include "ModelManagement/WordList/wordlistview.h"
 #include "ModelManagement/WordList/AddWord/addwordview.h"
@@ -71,7 +72,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	//FIXME: set logging path
 	if ( !Logger::init(KStandardDirs::locate("appdata", "simon.log") ))
 	{
-		QMessageBox::critical ( this, i18n ( "Fehler" ), i18n ( "Konnte die Log-Datei nicht öffnen. Bitte überprüfen Sie die Berechtigungen.." ) );
+		KMessageBox::error ( this, i18n ( "Konnte die Log-Datei nicht öffnen. Bitte überprüfen Sie die Berechtigungen.." ) );
 		exit ( 1 );
 	}
 	
@@ -89,7 +90,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	if (!Settings::getB("ConfigDone"))
 	{
 		FirstRunWizard *firstRunWizard = new FirstRunWizard(this);
-		if (firstRunWizard->exec() || (QMessageBox::question(this, i18n("Konfiguration abbrechen"), i18n("Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.\n\nWollen Sie den Assistenten beim nächsten Start wieder anzeigen?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::No))
+		if (firstRunWizard->exec() || (KMessageBox::questionYesNo(this, i18n("Konfiguration abbrechen"), i18n("Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.\n\nWollen Sie den Assistenten beim nächsten Start wieder anzeigen?")) == KMessageBox::No))
 			Settings::set("ConfigDone", true);
 		firstRunWizard->deleteLater();
 	}
@@ -111,7 +112,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	ui.setupUi ( this );
 	
 	
-	ui.inlineView->addTab(ui.tbWelcome, QIcon ( ":/images/tray.png" ), i18n("Start"));
+	ui.inlineView->addTab(ui.tbWelcome, QIcon ( ":/images/tray.png" ), i18n("Willkommen"));
 
 	statusBar()->insertItem(i18n("Nicht Verbunden"),0);
 	statusBar()->insertItem("",1,10);
@@ -318,11 +319,11 @@ void SimonView::toggleConnection()
  * @author Peter Grasch
  *
  * \param  error
- * The error that occured
+ * The error that occurred
  */
 void SimonView::errorConnecting ( QString error )
 {
-	QMessageBox::critical ( this, i18n ( "Kritischer Verbindungsfehler" ), i18n ( "Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte(n) Fehlermeldung(en) lautete(n):\n" ) +error );
+	KMessageBox::error ( this, i18n ( "Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte(n) Fehlermeldung(en) lautete(n):\n" ) +error );
 	Logger::log ( i18n ( "[ERR] Verbindung zu juliusd fehlgeschlagen..." ) );
 }
 
@@ -546,7 +547,7 @@ void SimonView::toggleVisibility()
 */
 void SimonView::closeSimon()
 {
-	if ( ( !Settings::getB ( "AskBeforeExit" ) ) || ( QMessageBox::question ( this, i18n ( "Wirklich beenden?" ), i18n ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?" ),QMessageBox::Yes|QMessageBox::No,QMessageBox::No ) == QMessageBox::Yes ) )
+	if ( ( !Settings::getB ( "AskBeforeExit" ) ) || ( KMessageBox::questionYesNo ( this, i18n ( "Wirklich beenden?" ), i18n ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?" )) == KMessageBox::Yes ) )
 	{
 		close();
 		qApp->quit();
@@ -595,7 +596,7 @@ void SimonView::checkSettingState()
  *
  *	@author Susanne Tschernegg
  *  @return bool
- *      returns wheter the password is correct or not
+ *      returns whether the password is correct or not
 */
 bool SimonView::checkPassword()
 {

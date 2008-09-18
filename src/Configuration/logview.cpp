@@ -22,7 +22,7 @@
  * \author Peter Grasch
  * @param parent Parent of the systemwidget
  */
-LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images/icons/utilities-log-viewer.svg"), tr("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
+LogView::LogView(QWidget* parent): SystemWidget(i18n("Protokoll"), QIcon(":/images/icons/utilities-log-viewer.svg"), i18n("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
 {
 	ui.setupUi(this);
 
@@ -52,7 +52,7 @@ LogView::LogView(QWidget* parent): SystemWidget(tr("Protokoll"), QIcon(":/images
 	ui.gbOnlyDay->setObjectName("gbOnlyDay");
 	ui.twLogEntries->setObjectName("twLogEntries");
 
-	help = tr("simon speichert im normalen Betrieb viele Loginformationen die im Nachhinein helfen können, Probleme nachzuvollziehen");
+	help = i18n("simon speichert im normalen Betrieb viele Loginformationen die im Nachhinein helfen können, Probleme nachzuvollziehen");
 }
 
 
@@ -75,7 +75,7 @@ void LogView::viewAll()
 	displayCancel();
 	clean();
 	readLog();
-	setStatus(tr("Lade Übersicht"));
+	setStatus(i18n("Lade Übersicht"));
 
  	manager->getDateList();
 }
@@ -95,7 +95,7 @@ void LogView::viewDay(QDate day)
 {
 	displayCancel();
 	readLog();
-	setStatus(tr("Lade Tag %1").arg(day.toString("yyyy/MM/dd")));
+	setStatus(i18n("Lade Tag %1").arg(day.toString("yyyy/MM/dd")));
 	manager->getDay(day);
 }
 
@@ -115,7 +115,7 @@ void LogView::readLog()
 	if (!this->manager->hasFinishedReading() && (!this->manager->isBusy()))
 	{
 		clean();
-		setStatus(tr("Lese Datei..."));
+		setStatus(i18n("Lese Datei..."));
 		this->manager->start();
 	}
 }
@@ -139,7 +139,7 @@ void LogView::readLog()
  */
 void LogView::startLogLoad()
 {
-	setStatus(tr("Lade Log..."));
+	setStatus(i18n("Lade Log..."));
 	clickedDate = QDate();
 	if (sender() && sender()->objectName()=="gbOnlyDay" && !ui.gbOnlyDay->isChecked())
 	{
@@ -242,7 +242,7 @@ void LogView::displayDay(QTreeWidgetItem *item)
 		item->isExpanded() && item->childCount()>0)
 	{
 		item->setExpanded(false);
-		deleteChilds(item);
+		deleteChildren(item);
 		return;
 	}
 
@@ -260,14 +260,14 @@ void LogView::displayDay(QTreeWidgetItem *item)
  * \brief Display the given Day
  * \author Peter Grasch
  * 
- * Calls displayCancel() and removes all childs from all the other entries
+ * Calls displayCancel() and removes all children from all the other entries
  * 
  * @param day The day to display
  */
 void LogView::displayDay(QDate day)
 {
 	displayCancel();
-	cleanAllChilds();
+	cleanAllChildren();
 	this->viewDay(day);
 }
 
@@ -282,7 +282,7 @@ void LogView::displayDay(QDate day)
 void LogView::displayDates(Dates daysAvailable)
 {
 	ui.pbLogLoad->setMaximum(daysAvailable.size());
-	setStatus(tr("Tage eintragen..."));
+	setStatus(i18n("Tage eintragen..."));
 	for (int i=0; i < daysAvailable.size(); i++)
 	{
 		ui.twLogEntries->addTopLevelItem(new QTreeWidgetItem(ui.twLogEntries, QStringList() << 
@@ -430,7 +430,7 @@ void LogView::insertEntries(LogEntryList *entries)
 {
 	if(!entries) return;
 
-	setStatus(tr("Trage Einträge ein..."));
+	setStatus(i18n("Trage Einträge ein..."));
 	QDate currentDay; //where are we now?
 	
 	QDate firstDay;	//store the first day
@@ -549,18 +549,18 @@ void LogView::completeDates()
 
 
 /**
- * \brief Deletes all childs of all toplevelitems in the twLogEntries treewidget
+ * \brief Deletes all children of all toplevelitems in the twLogEntries treewidget
  * \author Peter Grasch
  * 
- * Calls deleteChilds() for each toplevelitem-index
+ * Calls deleteChildren() for each toplevelitem-index
  * 
- * \see deleteChilds()
+ * \see deleteChildren()
  */
-void LogView::cleanAllChilds()
+void LogView::cleanAllChildren()
 {
 	for (int i=0; i < ui.twLogEntries->topLevelItemCount(); i++)
 	{
-		deleteChilds(i);
+		deleteChildren(i);
 	}
 }
 
@@ -590,36 +590,36 @@ void LogView::deleteItem(int index)
 }
 
 /**
- * \brief Deletes the given item completely (i.e. also removes all childs)
+ * \brief Deletes the given item completely (i.e. also removes all children)
  * \author Peter Grasch
  * @param item The item to remove
  */
 void LogView::deleteItem(QTreeWidgetItem *item)
 {
-	deleteChilds(item);
+	deleteChildren(item);
 	delete item;
 }
 
 /**
- * \brief Deletes the childs of the given item
+ * \brief Deletes the children of the given item
  * \author Peter Grasch
  * @param item The item to remove the children from
  */
-void LogView::deleteChilds(QTreeWidgetItem *item)
+void LogView::deleteChildren(QTreeWidgetItem *item)
 {
-	QList<QTreeWidgetItem*> childs = item->takeChildren();
-	while(childs.count() > 0)
-		delete childs.takeAt(0);
+	QList<QTreeWidgetItem*> children = item->takeChildren();
+	while(children.count() > 0)
+		delete children.takeAt(0);
 }
 
 /**
- * \brief Overloaded function: calls deleteChilds(QTreeWidgetItem*)
+ * \brief Overloaded function: calls deleteChildren(QTreeWidgetItem*)
  * \author Peter Grasch
  * @param parentIndex 
  */
-void LogView::deleteChilds(int parentIndex)
+void LogView::deleteChildren(int parentIndex)
 {
-	deleteChilds(ui.twLogEntries->topLevelItem(parentIndex));
+	deleteChildren(ui.twLogEntries->topLevelItem(parentIndex));
 }
 
 /**
@@ -646,7 +646,7 @@ LogEntryList* LogView::filterFor(LogEntryList* log, bool copy,
 	if (copy) dest = log;
 	else dest = new LogEntryList();
 
-	setStatus(tr("Filtere Liste..."));
+	setStatus(i18n("Filtere Liste..."));
 	int i=0;
 	ui.pbLogLoad->setMaximum(log->size());
 	while (i< log->size() && !abortInsertingEntries)
@@ -682,7 +682,7 @@ LogEntryList* LogView::filterFor(LogEntryList* log, bool copy,
 void LogView::displayCancel()
 {
 	enableWidgets(false);
-	this->ui.pbAbort->setText(tr("Abbrechen"));
+	this->ui.pbAbort->setText(i18n("Abbrechen"));
 	ui.pbAbort->setIcon(QIcon(":/images/icons/process-stop.svg"));
 	disconnect(ui.pbAbort, SIGNAL(clicked()), this, SLOT(reload()));
 	connect(ui.pbAbort, SIGNAL(clicked()), this, SLOT(abort()));
@@ -694,10 +694,10 @@ void LogView::displayCancel()
  */
 void LogView::displayReload()
 {
-	setStatus(tr("Fertig"));
+	setStatus(i18n("Fertig"));
 	enableWidgets(true);
 	abortInsertingEntries=false;
-	this->ui.pbAbort->setText(tr("Neu laden"));
+	this->ui.pbAbort->setText(i18n("Neu laden"));
 	this->ui.pbLogLoad->setMaximum(100);
 	this->ui.pbLogLoad->setValue(100);
 	ui.pbAbort->setIcon(QIcon(":/images/icons/view-refresh.svg"));

@@ -11,11 +11,12 @@
 //
 #include "postprocessing.h"
 #include <QProcess>
-#include <QMessageBox>
+#include <KMessageBox>
 #include <QFile>
-#include <QProgressDialog>
+#include <KProgressDialog>
 #include <QCoreApplication>
 #include <QObject>
+#include <KLocalizedString>
 #include "../Settings/settings.h"
 
 PostProcessing::PostProcessing()
@@ -30,16 +31,16 @@ PostProcessing::PostProcessing()
  */
 bool PostProcessing::process(QString in, QString out, bool deleteIn)
 {
-	QProgressDialog *progDialog = new QProgressDialog(QObject::tr("Filter werden angewendet..."), QObject::tr("Abbrechen"), 0, 1);
+	KProgressDialog *progDialog = new KProgressDialog(0, i18n("Nachbearbeitung"), i18n("Filter werden angewendet..."));
 	if (QFile::exists(out) && (!QFile::remove(out)))
 	{
-		QMessageBox::critical(0, QObject::tr("Fehler"), QObject::tr("Konnte %1 nicht überschreiben. Bitte überprüfen Sie, ob Sie die nötigen Rechte besitzen.").arg(out));
+		KMessageBox::error(0, i18n("Konnte %1 nicht überschreiben. Bitte überprüfen Sie, ob Sie die nötigen Rechte besitzen.").arg(out));
 		return false;
 	}
 	
 	QStringList filters = Settings::getS("Model/ProcessingFilters").split(" && ", QString::SkipEmptyParts);
 	QString filter;
-	progDialog->setMaximum(filter.count()+1);
+	progDialog->progressBar()->setMaximum(filter.count()+1);
 	QCoreApplication::processEvents();
 	for (int j=0; j < filters.count(); j++)
 	{
@@ -52,10 +53,10 @@ bool PostProcessing::process(QString in, QString out, bool deleteIn)
 		if (ret)
 		{
 			//something went wrong
-			QMessageBox::critical(0, QObject::tr("Fehler"), QObject::tr("Konnte %1 nicht nach %2 bearbeiten.\n\nBitte ueberpruefen Sie ob Sie das Programm, installiert haben, der Pfad in den Einstellungen richtig angegeben wurde und ob Sie all die nötigen Berechtigungen besitzen. (Rückgabewert %3) (Ausgefuehrtes Kommando: %4)").arg(in).arg(out).arg(ret).arg(execStr));
+			KMessageBox::error(0, i18n("Konnte %1 nicht nach %2 bearbeiten.\n\nBitte ueberpruefen Sie ob Sie das Programm, installiert haben, der Pfad in den Einstellungen richtig angegeben wurde und ob Sie all die nötigen Berechtigungen besitzen. (Rückgabewert %3) (Ausgefuehrtes Kommando: %4)").arg(in).arg(out).arg(ret).arg(execStr));
 			return NULL;
 		}
-		progDialog->setValue(j+1);
+		progDialog->progressBar()->setValue(j+1);
 		QCoreApplication::processEvents();
 	}
 
@@ -63,7 +64,7 @@ bool PostProcessing::process(QString in, QString out, bool deleteIn)
 	{
 		if (!QFile::copy(in, out))
 		{
-			QMessageBox::critical(0, QObject::tr("Fehler"), QObject::tr("Konnte %1 nicht nach %2 kopieren. Bitte überprüfen Sie ihre Berechtigungen auf den Zielort").arg(in).arg(out));
+			KMessageBox::error(0, i18n("Konnte %1 nicht nach %2 kopieren. Bitte überprüfen Sie ihre Berechtigungen auf den Zielort").arg(in).arg(out));
 			return false;
 		}
 	}
@@ -71,11 +72,11 @@ bool PostProcessing::process(QString in, QString out, bool deleteIn)
 	if (deleteIn)
 		if (!QFile::remove(in))
 		{
-			QMessageBox::critical(0, QObject::tr("Fehler"), QObject::tr("Konnte %1 nicht löschen").arg(in));
+			KMessageBox::error(0, i18n("Konnte %1 nicht löschen").arg(in));
 		}
 
 	QCoreApplication::processEvents();
-	progDialog->setValue(progDialog->maximum());
+	progDialog->progressBar()->setValue(progDialog->progressBar()->maximum());
 	progDialog->close();
 	progDialog->deleteLater();
 

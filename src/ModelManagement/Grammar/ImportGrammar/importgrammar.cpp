@@ -11,6 +11,7 @@
 //
 #include "importgrammar.h"
 #include "../../WordList/wordlistmanager.h"
+#include <KLocalizedString>
 #include <QFile>
 
 ImportGrammar::ImportGrammar(QObject* parent): QThread(parent)
@@ -38,13 +39,13 @@ void ImportGrammar::run()
 
 QStringList ImportGrammar::readFile(QString path)
 {
-	emit status(tr("Öffne Datei..."));
+	emit status(i18n("Öffne Datei..."));
 	QStringList structures;
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly)) return structures;
 	
 
-	emit status(tr("Lese Datei..."));
+	emit status(i18n("Lese Datei..."));
 	
 	//matches for example the following:
 	// this is a test.
@@ -53,7 +54,7 @@ QStringList ImportGrammar::readFile(QString path)
 	// this is a test?
 	// this is a test!?
 	// this is a test?!...!
-	// this is a test - or is it? (is recognised as two seperate sentences: this is a test; or is it)
+	// this is a test - or is it? (is recognised as two separate sentences: this is a test; or is it)
 	// he said: Test
 	QRegExp sentenceStoppers = QRegExp("((\\.|\\?|\\!|:)(\\.|\\?|\\!)*| )-*( |$|\\n)");
 
@@ -95,7 +96,7 @@ QStringList ImportGrammar::importFile(QString path)
 
 	QStringList structures = readFile(path);
 	
-	emit status(tr("Verarbeite..."));
+	emit status(i18n("Verarbeite..."));
 	emit fileProgress(0, structures.count());
 
 	WordList* lookupResult;
@@ -133,7 +134,7 @@ QStringList ImportGrammar::importFile(QString path)
 			if (wordTerminals.count() != 1 /*change this to include ambigous terminals */)
 			{
 				if (includeUnknown)
-					words.replace(j, tr("Unbekannt"));
+					words.replace(j, i18n("Unbekannt"));
 				else 
 					everyWordSure = false;
 			} else 
@@ -142,7 +143,7 @@ QStringList ImportGrammar::importFile(QString path)
 			if (includeUnknown)
 			{
 				if (wordTerminals.count() != 1)
-					words.replace(j, tr("Unbekannt"));
+					words.replace(j, i18n("Unbekannt"));
 				else 
 					words.replace(j, wordTerminals[0]);
 			} else {
@@ -163,7 +164,7 @@ QStringList ImportGrammar::importFile(QString path)
 		emit fileProgress(++progress, max);
 	}
 	
-	emit status(tr("Fertig"));
+	emit status(i18n("Fertig"));
 	return out;
 }
 
@@ -176,7 +177,7 @@ QStringList ImportGrammar::terminals(WordList *in)
 		terminal = in->at(i).getTerminal();
 		if (!terminals.contains(terminal)) terminals << terminal;
 	}
-	if (!includeUnknown) terminals.removeAll(tr("Unbekannt"));
+	if (!includeUnknown) terminals.removeAll(i18n("Unbekannt"));
 	return terminals;
 }
 

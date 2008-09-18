@@ -19,7 +19,8 @@
  ***************************************************************************/
 
 #include "simoncontrol.h"
-#include <QMessageBox>
+#include <KMessageBox>
+#include <KLocalizedString>
 #include "SimonLib/Logging/logger.h"
 #include "SimonLib/Settings/settings.h"
 #include "SimonLib/EventSimulation/shortcut.h"
@@ -57,24 +58,24 @@ SimonControl::SimonControl() : QObject ()
 
 void SimonControl::loggedIn()
 {
-	SimonInfo::showMessage(tr("Benutzer authentifiziert"), 1500);
+	SimonInfo::showMessage(i18n("Benutzer authentifiziert"), 1500);
 }
 
 void SimonControl::juliusError(QString error, bool skippable)
 {
 	if (skippable)
-		error += "\n\n"+tr("Sie können dies ignorieren, indem Sie die Option \"Warnungen ignorieren\" In den Netzwerkeinstellungen aktivieren");
+		error += "\n\n"+i18n("Sie können dies ignorieren, indem Sie die Option \"Warnungen ignorieren\" In den Netzwerkeinstellungen aktivieren");
 
-	QMessageBox::critical(0, tr("Julius Fehler"), error);
+	KMessageBox::error(0, error, i18n("Julius Fehler"));
 
-	Logger::log(tr("[ERR] Julius Fehler: %1, Überspringbar: %2").arg(error).arg(skippable ? tr("Ja") : tr("Nein")));
+	Logger::log(i18n("[ERR] Julius Fehler: %1, Überspringbar: %2").arg(error).arg(skippable ? i18n("Ja") : i18n("Nein")));
 }
 
 void SimonControl::juliusWarning(QString warning)
 {
-	Logger::log(tr("[INF] Julius Warning: %1").arg(warning));
+	Logger::log(i18n("[INF] Julius Warning: %1").arg(warning));
 
-	SimonInfo::showMessage(tr("Julius: %1").arg(warning), 5000);
+	SimonInfo::showMessage(i18n("Julius: %1").arg(warning), 5000);
 }
 
 /**
@@ -91,7 +92,7 @@ void SimonControl::connectToServer()
 	QString juliusServers = Settings::getS("Network/JuliusdServers");
 	if (juliusServers.isEmpty()) return;
 	QStringList addresses = juliusServers.split(";", QString::SkipEmptyParts);
-	Logger::log(tr("[INF] %1 juliusd Adressen gefunden").arg(addresses.count()));
+	Logger::log(i18n("[INF] %1 juliusd Adressen gefunden").arg(addresses.count()));
 	
 	if (addresses.count() == 0) return;
 	
@@ -109,7 +110,7 @@ void SimonControl::connectToServer()
  */
 void SimonControl::connectTo(QString host)
 {
-	Logger::log(tr("[INF] Verbinden zu Julius auf ")+host);
+	Logger::log(i18n("[INF] Verbinden zu Julius auf ")+host);
 	QStringList address = host.split(":");
 	julius->connectTo(address[0],address[1].toInt());
 }
@@ -158,7 +159,7 @@ void SimonControl::setStatus(SimonControl::SystemStatus status)
 void SimonControl::connectedToServer()
 {
 	setStatus(SimonControl::ConnectedDeactivated);
-	Logger::log(tr("[INF]")+" "+tr("Verbunden zu julius"));
+	Logger::log(i18n("[INF]")+" "+i18n("Verbunden zu julius"));
 	this->activateSimon();
 	emit connected();
 }
@@ -174,7 +175,7 @@ void SimonControl::connectedToServer()
 void SimonControl::disconnectedFromServer()
 {
 	setStatus(SimonControl::Disconnected);
-	Logger::log(tr("[INF] Verbindung von Julius getrennt"));
+	Logger::log(i18n("[INF] Verbindung von Julius getrennt"));
 	emit disconnected();
 }
 
@@ -185,7 +186,7 @@ void SimonControl::disconnectedFromServer()
  */
 void SimonControl::abortConnecting()
 {
-	Logger::log(tr("[INF] Verbinden abgebrochen"));
+	Logger::log(i18n("[INF] Verbinden abgebrochen"));
 	juliusdConnectionsToTry.clear();
 	this->julius->disconnectFromServer();
 }
@@ -204,7 +205,7 @@ void SimonControl::abortConnecting()
 void SimonControl::errorConnecting(QString error)
 {
 	QString currentHost = juliusdConnectionsToTry.takeAt(0);
-	Logger::log(tr("[ERR] Verbinden zu Julius (%1) fehlgeschlagen: %2").arg(currentHost).arg(error));
+	Logger::log(i18n("[ERR] Verbinden zu Julius (%1) fehlgeschlagen: %2").arg(currentHost).arg(error));
 	
 	juliusdConnectionErrors << QString("%1: %2").arg(currentHost).arg(error);
 	
@@ -244,7 +245,7 @@ SimonControl::SystemStatus SimonControl::toggleActivition()
  */
 SimonControl::SystemStatus SimonControl::activateSimon()
 {
-	Logger::log(tr("[INF] Simon aktiviert"));
+	Logger::log(i18n("[INF] Simon aktiviert"));
 	setStatus(SimonControl::ConnectedActivated);
 	return status;
 }
@@ -260,7 +261,7 @@ SimonControl::SystemStatus SimonControl::deactivateSimon()
 	if ((status != SimonControl::Disconnected) && (status != SimonControl::Connecting))
 	{
 		setStatus(SimonControl::ConnectedDeactivated);
-		Logger::log(tr("[INF] Simon deaktiviert"));
+		Logger::log(i18n("[INF] Simon deaktiviert"));
 	}
 	return status;
 }

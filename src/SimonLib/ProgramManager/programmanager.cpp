@@ -9,12 +9,12 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include "program.h"
 #include "programmanager.h"
+
+#include "program.h"
 #include "programcategory.h"
 #include "../Settings/settings.h"
 #include "categoryxmlreader.h"
-#include <QMessageBox>
 
 ProgramManager::ProgramManager()
 {

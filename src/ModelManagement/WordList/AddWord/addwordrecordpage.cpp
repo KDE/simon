@@ -13,7 +13,7 @@
 #include <QDate>
 #include <QTime>
 #include <QDir>
-#include <QMessageBox>
+#include <KMessageBox>
 #include "../../../SimonLib/FileSystem/filesystemencoder.h"
 #include "../../../SimonLib/Settings/settings.h"
 
@@ -26,11 +26,11 @@
 AddWordRecordPage::AddWordRecordPage(QWidget *parent)
  : QWizardPage(parent)
 {
-	setTitle(tr("Aufnehmen des Wortes"));
+	setTitle(i18n("Aufnehmen des Wortes"));
 	lay = new QVBoxLayout(this);
 	QLabel *desc = new QLabel(this);
 	desc->setWordWrap(true);
-	desc->setText(tr("Bitte nehmen Sie nun das hinzuzufügende Wort zweimal auf.\n\nBitte achten Sie darauf, das Wort deutlich, aber natürlich auszusprechen und vermeiden Sie Hintergrundgeräusche.\n"));
+	desc->setText(i18n("Bitte nehmen Sie nun das hinzuzufÃ¼gende Wort zweimal auf.\n\nBitte achten Sie darauf, das Wort deutlich, aber natÃ¼rlich auszusprechen und vermeiden Sie HintergrundgerÃ¤usche.\n"));
 	lay->addWidget(desc);
 
 
@@ -82,13 +82,13 @@ void AddWordRecordPage::initializePage()
 
 	QString sampleDir = getSamplesDir();
 	if (sampleDir.isEmpty()) {
-		QMessageBox::critical(this, tr("Konnte Pfad nicht anlegen"), tr("Konnte Pfad nicht erstellen.\n\nBitte überprüfen Sie Ihre Schreibrechte im konfigurierten Sample-Pfad"));
+		KMessageBox::error(this, i18n("Konnte Pfad nicht erstellen.\n\nBitte Ã¼berprÃ¼fen Sie Ihre Schreibrechte im konfigurierten Sample-Pfad"));
 		return;
 	}
 
-	rec1 = new RecWidget(tr("1: %1").arg(field("wordExample1").toString()),
+	rec1 = new RecWidget(i18n("1: %1").arg(field("wordExample1").toString()),
 			      Settings::getS("Model/PathToSamples")+"/"+filename1+".wav", this);
-	rec2 = new RecWidget(tr("2: %1").arg(field("wordExample2").toString()),
+	rec2 = new RecWidget(i18n("2: %1").arg(field("wordExample2").toString()),
 			      Settings::getS("Model/PathToSamples")+"/"+filename2+".wav", this);
 
 	

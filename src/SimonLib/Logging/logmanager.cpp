@@ -55,7 +55,7 @@ bool LogManager::hasFinishedReading()
  * 	[ERR] for Error
  * 	[INF] for Info
  * 	[UPD] for Update
- * saves the read informations into a Vector of LogEntry
+ * saves the read information into a Vector of LogEntry
  * 
  * \author Phillip Goriup, Peter Grasch
  */

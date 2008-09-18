@@ -10,7 +10,7 @@
 //
 //
 #include "runcommandview.h"
-#include <QMessageBox>
+#include <KMessageBox>
 #include <QIcon>
 #include <QWidget>
 #include <QTableWidgetItem>
@@ -23,7 +23,7 @@
 #include "Commands/commandmodel.h"
 #include "commandpreviewwidget.h"
 
-#ifdef __WIN32
+#ifdef Q_OS_WIN
 #include "../SimonLib/WindowsLib/windowsresourcehandler.h"
 #endif
 
@@ -33,7 +33,7 @@
  *
  *	@author Peter Grasch
  */
-RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(tr("Kommandos"), QIcon(":/images/icons/system-run.svg"), tr("Direkte ausführung von simon-Befehlen"), parent)
+RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(i18n("Kommandos"), QIcon(":/images/icons/system-run.svg"), i18n("Direkte ausführung von simon-Befehlen"), parent)
 {
 	ui.setupUi(this);
 
@@ -117,7 +117,7 @@ Command* RunCommandView::getCommandToModify()
 	Command *command = static_cast<Command*>(currentIndex.internalPointer());
 	if (!command)
 	{
-		QMessageBox::information(this, tr("Kommando auswählen"), tr("Bitte wählen Sie zuerst ein Kommando aus der Liste aus"));
+		KMessageBox::information(this, i18n("Kommando auswählen"), i18n("Bitte wählen Sie zuerst ein Kommando aus der Liste aus"));
 		return 0;
 	}
 	return command;
@@ -143,7 +143,7 @@ void RunCommandView::deleteCommand()
 	Command *command = getCommandToModify();
 	if (!command) return;
 	
-	if (QMessageBox::question(this, tr("Kommando löschen"), tr("Wollen Sie das ausgewählte Kommando wirklich unwiederruflich löschen?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(this, i18n("Kommando löschen"), i18n("Wollen Sie das ausgewählte Kommando wirklich unwiederruflich löschen?")) == KMessageBox::Yes)
 	{
 		ActionManager::getInstance()->deleteCommand(command);
 	}

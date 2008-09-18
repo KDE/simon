@@ -49,7 +49,7 @@ bool XMLPlaceCommand::save(const CommandList *list, const QString& path)
 		QDomElement icon = doc->createElement("icon");
 		icon.appendChild(doc->createTextNode(com->getIconSrc()));
 		QDomElement url = doc->createElement("url");
-		url.appendChild(doc->createTextNode(com->getURL().toString()));
+		url.appendChild(doc->createTextNode(com->getURL().pathOrUrl()));
 		
 		command.appendChild(name);
 		command.appendChild(icon);

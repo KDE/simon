@@ -10,15 +10,6 @@
 //
 //
 #include "importtrainingdirectoryintropage.h"
-#include <KPushButton>
-#include <QStringList>
-#include <QFileDialog>
-#include <QDir>
-#include <KPushButton>
-#include <QHBoxLayout>
-#include <KLineEdit>
-#include <QVBoxLayout>
-#include <QLabel>
 
 /**
  * \brief Constructor
@@ -27,41 +18,11 @@
  */
 ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *parent) : QWizardPage(parent)
 {
-	setTitle(tr("Trainingsdaten aus Ordner importieren"));
-	QVBoxLayout *lay = new QVBoxLayout(this);
+	ui.setupUi(this);
 	
-	QLabel *lbIntroText = new QLabel(this);
-	lbIntroText->setText(tr("Willkommen beim Importieren von Trainingsdaten aus\neinem Ordner.\n\nAuf diese Weise koennen Sie vorhandene Trainingsdaten\nsimpel und leicht in simon uebernehmen.\n\nBitte waehlen Sie den Ordner aus, der die Trainingsdaten\nenthaelt:\n\n"));
-	lay->addWidget(lbIntroText);
+	ui.urTrainingDataDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 	
+	setTitle(i18n("Trainingsdaten aus Ordner importieren"));
 	
-	QHBoxLayout *fileSelectorLay = new QHBoxLayout();
-	this->leDirectory = new KLineEdit(this);
-	KPushButton *selectDir = new KPushButton(this);
-	selectDir->setIcon(QIcon(":/images/icons/document-open.svg"));
-	connect(selectDir, SIGNAL(clicked()), this, SLOT(setDir()));
-	fileSelectorLay->addWidget(leDirectory);
-	fileSelectorLay->addWidget(selectDir);
-	lay->addLayout(fileSelectorLay);
-
-	setLayout(lay);
-	
-	registerField("directory*", leDirectory);
-}
-
-
-
-/**
- * \brief Prompts the user to select a directory
- * \author Peter Grasch
- */
-void ImportTrainingDirectoryIntroPage::setDir()
-{
-	QString dir = QFileDialog::getExistingDirectory(this, tr("Trainingsdaten-Ordner"));
-	leDirectory->setText(dir);
-}
-
-ImportTrainingDirectoryIntroPage::~ImportTrainingDirectoryIntroPage()
-{
-    leDirectory->deleteLater();
+	registerField("directory*", ui.urTrainingDataDirectory, "url", SIGNAL(textChanged(QString)));
 }

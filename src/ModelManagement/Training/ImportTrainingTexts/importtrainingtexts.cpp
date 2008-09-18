@@ -49,7 +49,7 @@ ImportTrainingTexts::ImportTrainingTexts(QWidget *parent) : QWizard(parent)
 	this->addPage(working);
 	
 	this->addPage(createFinishedPage());
-	setWindowTitle(tr("Trainingstext importieren"));
+	setWindowTitle(i18n("Trainingstext importieren"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importtexts.png"));
 	prevId = 0;
 	
@@ -83,10 +83,10 @@ ImportTrainingTexts::~ImportTrainingTexts()
 QWizardPage* ImportTrainingTexts::createIntroPage()
 {
 	QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle(tr("Importieren eines neuen Trainingstextes"));
+	intro->setTitle(i18n("Importieren eines neuen Trainingstextes"));
 	QLabel *label = new QLabel(intro);
 	label->setWordWrap(true);
-	label->setText(tr("Mit Hilfe dieses Assistenten können Sie neue Trainingstexte aus dem Internet oder aus lokalen Dateien importieren.\n\nSo wird das Trainieren von simon nie langweilig!"));
+	label->setText(i18n("Mit Hilfe dieses Assistenten können Sie neue Trainingstexte aus dem Internet oder aus lokalen Dateien importieren.\n\nSo wird das Trainieren von simon nie langweilig!"));
 	QVBoxLayout *layout = new QVBoxLayout(intro);
 	layout->addWidget(label);
 	intro->setLayout(layout);
@@ -152,10 +152,10 @@ QWizardPage* ImportTrainingTexts::createWorkingPage()
 QWizardPage* ImportTrainingTexts::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(tr("Text hinzugefügt"));
+	finished->setTitle(i18n("Text hinzugefügt"));
 	QLabel *label = new QLabel(finished);
 	label->setWordWrap(true);
-	label->setText(tr("Hiermit haben Sie den neuen Text hinzugefügt.\n\nEr wird nun neben allen anderen Texten in Ihrem Trainingsdialog gelistet.\n\nVielen Dank und viel Spaß mit dem neuen Text!"));
+	label->setText(i18n("Hiermit haben Sie den neuen Text hinzugefügt.\n\nEr wird nun neben allen anderen Texten in Ihrem Trainingsdialog gelistet.\n\nVielen Dank und viel Spaß mit dem neuen Text!"));
 	QVBoxLayout *layout = new QVBoxLayout(finished);
 	layout->addWidget(label);
 	finished->setLayout(layout);

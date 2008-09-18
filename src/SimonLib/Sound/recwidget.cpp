@@ -7,7 +7,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QIcon>
-#include <QMessageBox>
+#include <KMessageBox>
 #include <QFile>
 #include <QChar>
 #include "wavrecorder.h"
@@ -205,12 +205,12 @@ void RecWidget::stopRecording()
 		fName += "_tmp";
 
 	if (!rec->finish())
-		QMessageBox::critical(this, tr("Aufnehmen fehlgeschlagen"), QString(tr("Abschließen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!")).arg(fName));
+		KMessageBox::error(this, QString(i18n("Abschließen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!")).arg(fName));
 		
 	if (Settings::getB("Model/ProcessInternal"))
 // 		if (!QFile::copy(fName, filename) || !QFile::remove(fName))
 		if (!postProc->process(fName, filename, true))
-			QMessageBox::critical(this, tr("Verarbeiten fehlgeschlagen"), QString(tr("Nachbearbeitung fehlgeschlagen")).arg(fName).arg(filename));
+			KMessageBox::error(this, QString(i18n("Nachbearbeitung fehlgeschlagen")).arg(fName).arg(filename));
 	
 	
 	ui.pbProgress->setValue(0);
@@ -256,8 +256,8 @@ void RecWidget::deleteSample()
 		ui.pbRecord->setEnabled(true);
 		ui.pbPlay->setEnabled(false);
 		emit sampleDeleted();
-	} else QMessageBox::critical(this, tr("Fehler beim Löschen"), 
-			QString(tr("Konnte die Datei %1 nicht entfernen")).arg(this->filename));
+	} else KMessageBox::error(this, 
+			i18n("Konnte die Datei %1 nicht entfernen", this->filename));
 }
 
 /**

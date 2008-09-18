@@ -79,7 +79,7 @@ Q_OBJECT
 
 		QString getLabel ( int i )
 		{
-			return QString::number ( i ); //just to supress these silly compiler
+			return QString::number ( i ); //just to surpress these silly compiler
 			//warnings that make me mad
 		}
 

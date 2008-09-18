@@ -5,9 +5,6 @@
 #include <KLineEdit>
 #include <QLabel>
 #include <QCheckBox>
-#include <QMessageBox>
-#include <QRegExp>
-#include <KIntNumInput>
 #include "simongroupbox.h"
 #include "simoncombobox.h"
 #include "simonspinbox.h"
@@ -16,13 +13,10 @@
 #include "simontabwidget.h"
 #include "simoncalendarwidget.h"
 #include "simonslider.h"
-#include <QCoreApplication>
 
 
 void SimonWidget::guessChildTriggers(QObject *current) 
 {
-	QCoreApplication::processEvents();
-	
 	QObjectList childList = getChildren(current);
 	QString text = "";
 	int i = 0;

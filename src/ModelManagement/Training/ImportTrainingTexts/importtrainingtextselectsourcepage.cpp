@@ -21,7 +21,7 @@
 ImportTrainingTextSelectSourcePage::ImportTrainingTextSelectSourcePage(QWidget *parent) : QWizardPage(parent)
 {
 	ui.setupUi(this);
-	setTitle(tr("Auswahl der Quelle"));
+	setTitle(i18n("Auswahl der Quelle"));
 	registerField("importTrainingTextLocal", ui.rbLocal);
 }
 

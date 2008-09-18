@@ -32,7 +32,7 @@ signals:
 private:
 	QString path;
 public:
-    BOMPDict(QString path="", QObject* parent=0);
+    explicit BOMPDict(QString path="", QObject* parent=0);
     void load(QString path="");
 
     ~BOMPDict();

@@ -20,7 +20,7 @@
  
 #include "addwordview.h"
 #include <QWizardPage>
-#include <QMessageBox>
+#include <KMessageBox>
 #include <KLineEdit>
 #include "../../../SimonLib/Logging/logger.h"
 #include "../../../SimonLib/Settings/settings.h"
@@ -66,7 +66,7 @@ AddWordView::AddWordView(QWidget *parent)
 	connect(ModelManager::getInstance(), SIGNAL(missingWord(QString)), this, SLOT(askToAddWord(QString)));
 	connect(TrainingManager::getInstance(), SIGNAL(addMissingWords(QStringList)), this, SLOT(askToAddWords(QStringList)));
 
-	setWindowTitle(tr("Wort hinzufügen"));
+	setWindowTitle(i18n("Wort hinzufÃ¼gen"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/addword.png"));
 }
 
@@ -76,7 +76,7 @@ void AddWordView::cleanUp()
 	wordsToAdd.clear();
 	if (!listToAdd->isEmpty())
 	{
-		if (QMessageBox::question(this, tr("Bisherige Wörter hinzufügen"), tr("Wollen Sie die bisher fertig beschriebenen Wörter dieses Durchlaufes hinzufügen?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+		if (KMessageBox::questionYesNoCancel(this, i18n("Wollen Sie die bisher fertig beschriebenen WÃ¶rter dieses Durchlaufes hinzufÃ¼gen?")) == KMessageBox::Yes)
 			commitList();
 		else 
 		{
@@ -136,10 +136,10 @@ AddWordResolvePage* AddWordView::createResolvePage()
 QWizardPage* AddWordView::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(tr("Hinzufügen des Wortes"));
+	finished->setTitle(i18n("HinzufÃ¼gen des Wortes"));
 	QLabel *label = new QLabel(finished);
 	label->setWordWrap(true);
-	label->setText(tr("Es wurden alle benötigten Daten gesammelt.\n\nSimon kann das neue Wort jetzt lernen.\nBitte ueberprüfen Sie, bevor Sie hier bestätigen, ob die Aufnahmen nicht von Hintergrundgeräuschen beeinträchtigt werden.\n\nKlicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschließen."));
+	label->setText(i18n("Es wurden alle benÃ¶tigten Daten gesammelt.\n\nSimon kann das neue Wort jetzt lernen.\nBitte ueberprÃ¼fen Sie, bevor Sie hier bestÃ¤tigen, ob die Aufnahmen nicht von HintergrundgerÃ¤uschen beeintrÃ¤chtigt werden.\n\nKlicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschlieÃŸen."));
 	QVBoxLayout *layout = new QVBoxLayout(finished);
 	layout->addWidget(label);
 	finished->setLayout(layout);
@@ -161,8 +161,8 @@ void AddWordView::finish(int done)
 	
 	QString word = field("wordName").toString();
 	
-	Logger::log(tr("[INF] Füge neues Wort zum Modell hinzu..."));
-	Logger::log(tr("[INF] Neues Wort lautet: ")+word);
+	Logger::log(i18n("[INF] FÃ¼ge neues Wort zum Modell hinzu..."));
+	Logger::log(i18n("[INF] Neues Wort lautet: ")+word);
 	
 	listToAdd->append(Word(word, field("wordPronunciation").toString(),
 		     field("wordTerminal").toString(), 2 /* 2 recordings */));
@@ -180,7 +180,7 @@ void AddWordView::finish(int done)
 
 
 	//cleaning up
-	Logger::log(tr("[INF] Wort hinzugefügt: ")+word);
+	Logger::log(i18n("[INF] Wort hinzugefÃ¼gt: ")+word);
 	emit addedWord();
 }
 
@@ -201,7 +201,7 @@ void AddWordView::commitList()
 
 void AddWordView::askToAddWord(QString word)
 {
-	if (QMessageBox::question(this, tr("Wort hinzufügen"), tr("Es wurde erkannt, dass das Wort \"%1\" im Sprachmodell fehlt.\n\nWollen Sie es jetzt hinzufügen?").arg(word), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(this, i18n("Es wurde erkannt, dass das Wort \"%1\" im Sprachmodell fehlt.\n\nWollen Sie es jetzt hinzufÃ¼gen?", word)) == KMessageBox::Yes)
 	{
 		createWord(word);
 	}
@@ -224,7 +224,7 @@ void AddWordView::askToAddWords(QStringList words)
 // 	}
 // 	allWords = allWords.left(allWords.size()-2);
 
-	if (QMessageBox::question ( 0, tr("Fehlende Wörter"), tr ( "Der zu trainierende Text enthält unbekannte Wörter. Diese sind:\n%1\n\nWollen Sie diese Wörter jetzt hinzufügen?").arg ( allWords ),QMessageBox::Yes|QMessageBox::No ) == QMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel ( 0, i18n ( "Der zu trainierende Text enthÃ¤lt unbekannte WÃ¶rter. Diese sind:\n%1\n\nWollen Sie diese WÃ¶rter jetzt hinzufÃ¼gen?", allWords)) == KMessageBox::Yes)
 	{
 		wordsToAdd << words;
 		createWord(wordsToAdd.takeAt(0));
@@ -252,7 +252,7 @@ void AddWordView::createWord(QString word)
 {
 	if (isVisible())
 	{
-		if (QMessageBox::question(this, tr("Wort hinzufügen Abbrechen?"), tr("Es wurde erkannt, dass gerade ein Wort hinzugefügt wird.\n\nWollen Sie das aktuelle Hinzufügen abbrechen?"), QMessageBox::Yes|QMessageBox::No) != QMessageBox::Yes)
+		if (KMessageBox::questionYesNoCancel(this, i18n("Es wurde erkannt, dass gerade ein Wort hinzugefÃ¼gt wird.\n\nWollen Sie das aktuelle HinzufÃ¼gen abbrechen?")) != KMessageBox::Yes)
 			return;
 	}
 	restart();

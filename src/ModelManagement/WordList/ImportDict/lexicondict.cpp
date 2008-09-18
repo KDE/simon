@@ -13,6 +13,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
+#include <KLocalizedString>
 
 LexiconDict::LexiconDict(QString path, QObject* parent): Dict(parent)
 {
@@ -34,7 +35,7 @@ void LexiconDict::load(QString path)
 	if (path.isEmpty()) path = this->path;
 	if (path.isEmpty()) return;
 
-	QString unknownStr = tr("Unbekannt");
+	QString unknownStr = i18n("Unbekannt");
 	emit progress(0);
 	QFile *dict = new QFile(path);
 	if (!dict->open(QIODevice::ReadOnly))

@@ -10,14 +10,8 @@
 //
 //
 #include "importtrainingdirectoryworkingpage.h"
-#include <KPushButton>
-#include <QHBoxLayout>
-#include <QProgressBar>
-#include <QVBoxLayout>
-#include <QMessageBox>
+#include <KMessageBox>
 #include <QFileInfo>
-#include <QLabel>
-#include <QCoreApplication>
 #include <QVariant>
 #include "importtrainingdata.h"
 #include "../../modelmanager.h"
@@ -30,22 +24,11 @@
  */
 ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *parent) : QWizardPage(parent)
 {
-	setTitle(tr("Verarbeite Ordner..."));
+	ui.setupUi(this);
+	
+	setTitle(i18n("Verarbeite Ordner..."));
 	completed = false;
 	
-	QVBoxLayout *lay = new QVBoxLayout(this);
-	QLabel *lbMain = new QLabel(this);
-	lbMain->setText(tr("Der angegebene Ordner wird verarbeit.\nSie können den Fortschritt mit dem Fortschrittsbalken\nüberprüfen.\n\nBitte haben Sie einen Moment Geduld.\n\n"));
-	lbStatus = new QLabel(this);
-	
-	pbMain = new QProgressBar(this);
-	pbMain->setMaximum(0);
-
-	lay->addWidget(lbMain);
-	lay->addWidget(pbMain);
-	lay->addWidget(lbStatus);
-	setLayout(lay);
-
 	importer = new ImportTrainingData(this);
 	connect(importer, SIGNAL(done()), this, SLOT(setComplete()));
 	connect(importer, SIGNAL(progress(int, int)), this, SLOT(displayProgress(int, int)));
@@ -55,18 +38,18 @@ ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *
 void ImportTrainingDirectoryWorkingPage::displayProgress(int now, int max)
 {
 	if (max != -1)
-		this->pbMain->setMaximum(max);
-	pbMain->setValue(now);
+		ui.pbMain->setMaximum(max);
+	ui.pbMain->setValue(now);
 }
 
 void ImportTrainingDirectoryWorkingPage::displayStatus(QString status)
 {
-	lbStatus->setText(status);
+	ui.lbStatus->setText(status);
 }
 
 void ImportTrainingDirectoryWorkingPage::displayError(QString error)
 {
-	QMessageBox::critical(this, tr("Fehler"), error);
+	KMessageBox::error(this, error);
 }
 
 void ImportTrainingDirectoryWorkingPage::setComplete()
@@ -74,10 +57,12 @@ void ImportTrainingDirectoryWorkingPage::setComplete()
 	completed = true;
 	emit completeChanged();
 
-	if (QMessageBox::question(this, tr("Änderungen anwenden"), tr("Soll das Sprachmodell mit diesen neuen Daten neu kompiliert werden?"), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(this, i18n("Soll das Sprachmodell mit diesen neuen Daten neu kompiliert werden?"), i18n("Ã„nderungen anwenden")) == KMessageBox::Yes)
 		ModelManager::compileModel();
 	emit done();
 }
+
+#include <QDebug>
 
 /**
  * \brief Starts the importing process and calls all the other methods
@@ -88,10 +73,12 @@ void ImportTrainingDirectoryWorkingPage::initializePage()
 	completed = false;
 	emit completeChanged();
 	
-	importer->import(field("directory").toString());
-}
-
-ImportTrainingDirectoryWorkingPage::~ImportTrainingDirectoryWorkingPage()
-{
-    pbMain->deleteLater();
+	//reading
+	qDebug() << field("directory");
+	qDebug() << field("directory").toString();
+	qDebug() << field("directory").toUrl();
+	
+	
+	KMessageBox::information(this, field("directory").toUrl().toString());
+// 	importer->import(field("directory").toUrl().toString());
 }

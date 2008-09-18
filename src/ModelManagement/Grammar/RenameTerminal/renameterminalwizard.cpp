@@ -19,7 +19,7 @@
 
 RenameTerminalWizard::RenameTerminalWizard(QWidget* parent): QWizard(parent)
 {
-	setWindowTitle(tr("Terminal umbenennen"));
+	setWindowTitle(i18n("Terminal umbenennen"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/editterminal.png"));
 	addPage(createIntroPage());
 	addPage(createSelectParametersPage());
@@ -50,8 +50,8 @@ QWizardPage* RenameTerminalWizard::createIntroPage()
 	intro->setLayout(lay);
 
 	desc->setWordWrap(true);
-	intro->setTitle(tr("Willkommen zum Umbenennen eines Terminals"));
-	desc->setText(tr("Dieser Assistent wird Ihnen erlauben, einen bestehenden Terminal der Grammatik und der Wortliste umzubennennen.\n\nSie können dabei konfigurieren, ob Sie all diese Bereiche in die Aktion einbeziehen möchten.\n\nWenn Sie mehrere Terminale zusammenfügen wollen, benutzen Sie bitte den \"Terminal verbinden\"-Wizard. Er bietet Ihnen ebenfalls die Möglichkeit, dem verbundenen Terminal einen neuen Nahmen zu verleihen."));
+	intro->setTitle(i18n("Willkommen zum Umbenennen eines Terminals"));
+	desc->setText(i18n("Dieser Assistent wird Ihnen erlauben, einen bestehenden Terminal der Grammatik und der Wortliste umzubennennen.\n\nSie können dabei konfigurieren, ob Sie all diese Bereiche in die Aktion einbeziehen möchten.\n\nWenn Sie mehrere Terminale zusammenfügen wollen, benutzen Sie bitte den \"Terminal verbinden\"-Wizard. Er bietet Ihnen ebenfalls die Möglichkeit, dem verbundenen Terminal einen neuen Nahmen zu verleihen."));
 
 	return intro;
 }
@@ -65,8 +65,8 @@ QWizardPage* RenameTerminalWizard::createFinishedPage()
 	finished->setLayout(lay);
 
 	desc->setWordWrap(true);
-	finished->setTitle(tr("Unbenennen Abgeschlossen"));
-	desc->setText(tr("Der Terminal wurde erfolgreich umbenannt.\n\nVielen Dank, dass Sie simon verbessert haben."));
+	finished->setTitle(i18n("Unbenennen Abgeschlossen"));
+	desc->setText(i18n("Der Terminal wurde erfolgreich umbenannt.\n\nVielen Dank, dass Sie simon verbessert haben."));
 
 	return finished;
 }

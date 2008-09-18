@@ -19,6 +19,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QMouseEvent>
+#include <KLocalizedString>
 #include "../Logging/logger.h"
 
 /**
@@ -42,7 +43,7 @@ OSD::OSD(QString message, int timeout, QIcon *icon)
 	: QLabel(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint)
 {
 	setPixmap(QPixmap(":/images/osd.png"));
-	Logger::log(tr("[INF] ")+message);
+	Logger::log(i18n("[INF] ")+message);
 	
 	this->timer = new QTimer();
 	

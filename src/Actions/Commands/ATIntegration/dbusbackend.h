@@ -41,7 +41,7 @@ class DBusBackend : public ATBackend
 		int currentActionIndex;
 		int ignoredSubmenue;
 		ATObject *currentWindow, *currentRoot;
-		QStringList finalClasses; // classes which childs should not be inspected
+		QStringList finalClasses; // classes which children should not be inspected
 					  // -> Quirks-Modus
 		
 		QStringList getAccessibleWindowNames(QString service);

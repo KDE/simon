@@ -27,7 +27,7 @@ signals:
 private:
 	QString path;
 public:
-    LexiconDict(QString path, QObject* parent=0);
+    explicit LexiconDict(QString path, QObject* parent=0);
     void load(QString path="");
 
     ~LexiconDict();

@@ -10,6 +10,7 @@
 //
 //
 #include "mergeterminals.h"
+#include <KLocalizedString>
 #include "../../WordList/wordlistmanager.h"
 #include "../grammarmanager.h"
 
@@ -19,7 +20,7 @@ MergeTerminals::MergeTerminals(QObject* parent): QThread(parent)
 
 void MergeTerminals::run()
 {
-	emit status(tr("Bearbeite Wörter des Terminals %1").arg(this->terminalA));
+	emit status(i18n("Bearbeite Wörter des Terminals %1").arg(this->terminalA));
 	emit progress(0,100);
 
 	GrammarManager *grammarManager = GrammarManager::getInstance();
@@ -27,21 +28,21 @@ void MergeTerminals::run()
 
 	wordListManager->renameTerminal(terminalA, newName, includeShadow);
 
-	emit status(tr("Bearbeite Wörter des Terminals %1").arg(this->terminalB));
+	emit status(i18n("Bearbeite Wörter des Terminals %1").arg(this->terminalB));
 	emit progress(45,100);
 
 	wordListManager->renameTerminal(terminalB, newName, includeShadow);
 
 	if (includeGrammar)
 	{
-		emit status(tr("Passe Grammatik an"));
+		emit status(i18n("Passe Grammatik an"));
 		emit progress(90,100);
 		grammarManager->renameTerminal(terminalA, newName);
 		emit progress(95,100);
 		grammarManager->renameTerminal(terminalB, newName);
 	}
 
-	emit status(tr("Fertig"));
+	emit status(i18n("Fertig"));
 	emit progress(100,100);
 	wordListManager->save();
 	grammarManager->save();

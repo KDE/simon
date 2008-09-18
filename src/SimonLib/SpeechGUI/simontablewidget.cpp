@@ -1,5 +1,4 @@
 #include "simontablewidget.h"
-#include <QMessageBox>
 #include <QKeyEvent>
 #include <QModelIndex>
 #include <KLineEdit>
@@ -153,7 +152,7 @@ void SimonTableWidget::filterEntries(QString text)
 	}
 	this->showEntries();
 	this->returnFilterEntries(temp);
-	if (text == "")
+	if (text.isEmpty())
 	{
 		this->redFlag = false;	
 		controlRedFlag(temp->objectName().toInt());
@@ -177,7 +176,7 @@ void SimonTableWidget::returnFilterEntries(SimonLineEdit* temp)
 
 	for (int i = 0; i<this->linevector.count(); i++)
 	{
-		if (linevector.at(i)->text() != "")
+		if (! linevector.at(i)->text().isEmpty())
 		{
 			QString text = this->linevector.at(i)->text();
 			this->invisibleRows(linevector.at(i), text);

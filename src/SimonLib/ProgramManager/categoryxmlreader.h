@@ -27,7 +27,7 @@ class CategoryXMLReader : public XMLDomReader
 private:
 	ProgramCategoryList *categoryList;
 public:
-    CategoryXMLReader(QString path, QObject* parent=0);
+    explicit CategoryXMLReader(QString path, QObject* parent=0);
     ~CategoryXMLReader();
 
 	ProgramCategoryList* getCategoryList() { return this->categoryList; }

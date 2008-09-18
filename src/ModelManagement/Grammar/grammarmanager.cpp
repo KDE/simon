@@ -12,7 +12,8 @@
 #include "grammarmanager.h"
 #include <QFile>
 #include <QCoreApplication>
-#include <QMessageBox>
+#include <KMessageBox>
+#include <KLocalizedString>
 #include "../../SimonLib/Logging/logger.h"
 #include "../../SimonLib/Settings/settings.h"
 #include "../WordList/wordlistmanager.h"
@@ -35,7 +36,7 @@ GrammarManager::GrammarManager() : QObject()
 
 void GrammarManager::unknownWordClass(QString name)
 {
-	QMessageBox::critical(0, tr("Nicht benutzte Wortklasse"), tr("Der Terminal \"%1\" kommt in Ihrere Grammatikdefinition vor, nicht aber in der Wortliste.\n\nDies ist nicht gültig.\n\nBitte fügen Sie entweder ein Wort dieses Terminals zu Ihrem aktiven Wortschatz hinzu oder löschen Sie das betreffende Satzkonstrukt.").arg(name));
+	KMessageBox::error(0, i18n("Der Terminal \"%1\" kommt in Ihrere Grammatikdefinition vor, nicht aber in der Wortliste.\n\nDies ist nicht gültig.\n\nBitte fügen Sie entweder ein Wort dieses Terminals zu Ihrem aktiven Wortschatz hinzu oder löschen Sie das betreffende Satzkonstrukt.").arg(name), i18n("Nicht benutzte Wortklasse"));
 }
 
 GrammarManager * GrammarManager::getInstance()
@@ -55,7 +56,7 @@ bool GrammarManager::load()
 	structures.clear();
 	
 	QString path =Settings::getS("Model/PathToGrammar");
-	Logger::log(QCoreApplication::tr("[INF] Lade Grammatik von %1").arg(path));
+	Logger::log(i18n("[INF] Lade Grammatik von %1").arg(path));
 	
 	QFile grammar(Settings::getS("Model/PathToGrammar"));
 	if (!grammar.open(QIODevice::ReadOnly)) return false;
@@ -92,10 +93,10 @@ void GrammarManager::renameTerminal(QString terminal, QString newName)
 	terminal.replace("$", "\\$");
 
 	//replace using regex patterns
-	structures.replaceInStrings(QRegExp("^"+terminal+"$"), newName);
-	structures.replaceInStrings(QRegExp(" "+terminal+"$"), " "+newName);
-	structures.replaceInStrings(QRegExp("^"+terminal+" "), newName+" ");
-	structures.replaceInStrings(QRegExp(" "+terminal+" "), " "+newName+" ");
+	structures.replaceInStrings(QRegExp('^'+terminal+'$'), newName);
+	structures.replaceInStrings(QRegExp(' '+terminal+'$'), ' '+newName);
+	structures.replaceInStrings(QRegExp('^'+terminal+' '), newName+' ');
+	structures.replaceInStrings(QRegExp(' '+terminal+' '), ' '+newName+' ');
 
 	//this turned out to be faster than the "per-hand" approach
 	//...even if it looks a bit funny...
@@ -133,10 +134,10 @@ QStringList GrammarManager::getExamples(QString word, QString terminal, int coun
 		
 		badWord = false;
 		//find random words for this terminals:
-		//replace the first occurance of the words terminal with the actual word we are trying to
+		//replace the first occurrance of the words terminal with the actual word we are trying to
 		//"demonstrate in action"
 		//this is ensured by the alreadyUsed variable which holds if the word was already replaced
-		//if it is set the occurance of the terminal is used just like any other
+		//if it is set the occurrance of the terminal is used just like any other
 		for (int j=0; !badWord && (j < terminals.count()); j++)
 		{
 			
@@ -213,7 +214,7 @@ QStringList GrammarManager::getStructures(QString terminal)
 bool GrammarManager::save()
 {
 	QString path =Settings::getS("Model/PathToGrammar");
-	Logger::log(QCoreApplication::tr("[INF] Speichere Grammatik nach %1").arg(path));
+	Logger::log(i18n("[INF] Speichere Grammatik nach %1").arg(path));
 	
 	QFile grammar(Settings::getS("Model/PathToGrammar"));
 	if (!grammar.open(QIODevice::WriteOnly)) return false;

@@ -75,11 +75,11 @@ public slots:
 
 	//cleaning the list
 	void clean();
-	void cleanAllChilds();
+	void cleanAllChildren();
 	void deleteItem(int index);
 	void deleteItem(QTreeWidgetItem *item);
-	void deleteChilds(QTreeWidgetItem *item);
-	void deleteChilds(int parentIndex);
+	void deleteChildren(QTreeWidgetItem *item);
+	void deleteChildren(int parentIndex);
 	LogEntryList* filterFor(LogEntryList* log, bool copy,
 				const QString filter, const short type);
 

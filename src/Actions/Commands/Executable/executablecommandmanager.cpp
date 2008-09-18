@@ -1,4 +1,5 @@
 #include "executablecommandmanager.h"
+#include <KLocalizedString>
 #include "../../../SimonLib/Settings/settings.h"
 #include "../../../SimonLib/Logging/logger.h"
 #include "xmlexecutablecommand.h"
@@ -28,7 +29,7 @@ const QString ExecutableCommandManager::name() const
 bool ExecutableCommandManager::load()
 {
 	QString commandPath = Settings::getS("Commands/Executable/PathToConfig");
-	Logger::log(tr("[INF] Lade Ausführbare-Kommandos von %1").arg(commandPath));
+	Logger::log(i18n("[INF] Lade Ausführbare-Kommandos von %1").arg(commandPath));
 
 	bool ok = false;
 	this->commands = xmlExecutableCommand->load(ok, commandPath);
@@ -38,7 +39,7 @@ bool ExecutableCommandManager::load()
 bool ExecutableCommandManager::save()
 {
 	QString commandPath = Settings::getS("Commands/Executable/PathToConfig");
-	Logger::log(tr("[INF] Speichere Ausführbare-Kommandos nach %1").arg(commandPath));
+	Logger::log(i18n("[INF] Speichere Ausführbare-Kommandos nach %1").arg(commandPath));
 	return xmlExecutableCommand->save(commands, commandPath);
 }
 

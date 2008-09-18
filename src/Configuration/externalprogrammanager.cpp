@@ -20,24 +20,24 @@
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(tr("Externe Programme"), QIcon(":/images/icons/applications-other.svg"), tr("Externe Programme verwalten"), parent)
+ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(i18n("Externe Programme"), QIcon(":/images/icons/applications-other.svg"), i18n("Externe Programme verwalten"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers(this);
 	hide();
 
-	connect(ui.leHDMan, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.leHLEd, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.leHCopy, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.leHCompV, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.leHERest, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.leHVite, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.leBzip2, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.leHHEd, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.leMkfa, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.leDfaMinimize, SIGNAL(urlChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urHDMan, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urHLEd, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urHCopy, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urHCompV, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urHERest, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urHVite, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urBzip2, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urHHEd, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urMkfa, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+	connect(ui.urDfaMinimize, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
 
-	help = tr("Setzen Sie Pfade zu den externen Programmen, die simon erweitern.");
+	help = i18n("Setzen Sie Pfade zu den externen Programmen, die simon erweitern.");
 }
 
 /**
@@ -47,16 +47,16 @@ ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(tr
  */
 bool ExternalProgramManager::isComplete()
 {
-	return (!(ui.leHDMan->text().isEmpty()) && 
-		!(ui.leHLEd->text().isEmpty()) && 
-		!(ui.leHCopy->text().isEmpty()) && 
-		!(ui.leHCompV->text().isEmpty()) && 
-		!(ui.leHERest->text().isEmpty()) && 
-		!(ui.leHVite->text().isEmpty()) && 
-		!(ui.leBzip2->text().isEmpty()) && 
-		!(ui.leHHEd->text().isEmpty()) &&  
-		!(ui.leMkfa->text().isEmpty()) &&  
-		!(ui.leDfaMinimize->text().isEmpty()));
+	return (!(ui.urHDMan->url().isEmpty()) && 
+		!(ui.urHLEd->url().isEmpty()) && 
+		!(ui.urHCopy->url().isEmpty()) && 
+		!(ui.urHCompV->url().isEmpty()) && 
+		!(ui.urHERest->url().isEmpty()) && 
+		!(ui.urHVite->url().isEmpty()) && 
+		!(ui.urBzip2->url().isEmpty()) && 
+		!(ui.urHHEd->url().isEmpty()) &&  
+		!(ui.urMkfa->url().isEmpty()) &&  
+		!(ui.urDfaMinimize->url().isEmpty()));
 }
 
 
@@ -67,18 +67,18 @@ bool ExternalProgramManager::isComplete()
  */
 bool ExternalProgramManager::apply()
 {
-	Settings::set("Programs/HTK/HDMan", ui.leHDMan->text());
-	Settings::set("Programs/HTK/HLEd", ui.leHLEd->text());
-	Settings::set("Programs/HTK/HCopy", ui.leHCopy->text());
-	Settings::set("Programs/HTK/HCompV", ui.leHCompV->text());
-	Settings::set("Programs/HTK/HERest", ui.leHERest->text());
-	Settings::set("Programs/HTK/HHEd", ui.leHHEd->text());
-	Settings::set("Programs/HTK/HVite", ui.leHVite->text());
+	Settings::set("Programs/HTK/HDMan", ui.urHDMan->url().path());
+	Settings::set("Programs/HTK/HLEd", ui.urHLEd->url().path());
+	Settings::set("Programs/HTK/HCopy", ui.urHCopy->url().path());
+	Settings::set("Programs/HTK/HCompV", ui.urHCompV->url().path());
+	Settings::set("Programs/HTK/HERest", ui.urHERest->url().path());
+	Settings::set("Programs/HTK/HHEd", ui.urHHEd->url().path());
+	Settings::set("Programs/HTK/HVite", ui.urHVite->url().path());
 	
-	Settings::set("Programs/Files/BZip2", ui.leBzip2->text());
+	Settings::set("Programs/Files/BZip2", ui.urBzip2->url().path());
 	
-	Settings::set("Programs/Julius/mkfa", ui.leMkfa->text());
-	Settings::set("Programs/Julius/dfa_minimize", ui.leDfaMinimize->text());
+	Settings::set("Programs/Julius/mkfa", ui.urMkfa->url().path());
+	Settings::set("Programs/Julius/dfa_minimize", ui.urDfaMinimize->url().path());
 	
 	return true;
 }
@@ -100,18 +100,18 @@ bool ExternalProgramManager::reset()
  */
 bool ExternalProgramManager::init()
 {
-	ui.leHDMan->setText(Settings::getS("Programs/HTK/HDMan"));
-	ui.leHLEd->setText(Settings::getS("Programs/HTK/HLEd"));
-	ui.leHCopy->setText(Settings::getS("Programs/HTK/HCopy"));
-	ui.leHCompV->setText(Settings::getS("Programs/HTK/HCompV"));
-	ui.leHERest->setText(Settings::getS("Programs/HTK/HERest"));
-	ui.leHHEd->setText(Settings::getS("Programs/HTK/HHEd"));
-	ui.leHVite->setText(Settings::getS("Programs/HTK/HVite"));
+	ui.urHDMan->setPath(Settings::getS("Programs/HTK/HDMan"));
+	ui.urHLEd->setPath(Settings::getS("Programs/HTK/HLEd"));
+	ui.urHCopy->setPath(Settings::getS("Programs/HTK/HCopy"));
+	ui.urHCompV->setPath(Settings::getS("Programs/HTK/HCompV"));
+	ui.urHERest->setPath(Settings::getS("Programs/HTK/HERest"));
+	ui.urHHEd->setPath(Settings::getS("Programs/HTK/HHEd"));
+	ui.urHVite->setPath(Settings::getS("Programs/HTK/HVite"));
 	
-	ui.leBzip2->setText(Settings::getS("Programs/Files/BZip2"));
+	ui.urBzip2->setPath(Settings::getS("Programs/Files/BZip2"));
 
-	ui.leMkfa->setText(Settings::getS("Programs/Julius/mkfa"));
-	ui.leDfaMinimize->setText(Settings::getS("Programs/Julius/dfa_minimize"));
+	ui.urMkfa->setPath(Settings::getS("Programs/Julius/mkfa"));
+	ui.urDfaMinimize->setPath(Settings::getS("Programs/Julius/dfa_minimize"));
 	
 	return true;
 }

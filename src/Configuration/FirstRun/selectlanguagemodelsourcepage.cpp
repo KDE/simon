@@ -14,7 +14,7 @@
 
 SelectLanguageModelSourcePage::SelectLanguageModelSourcePage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle(tr("Sprachmodell: Quelle"));
+	setTitle(i18n("Sprachmodell: Quelle"));
 	ui.setupUi(this);
 	connect(ui.rbNewModel, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
 	connect(ui.rbOpenModel, SIGNAL(toggled(bool)), this, SLOT(updateInfo()));
@@ -28,10 +28,10 @@ void SelectLanguageModelSourcePage::updateInfo()
 {
 	if (ui.rbNewModel->isChecked())
 	{
-		ui.lbInfo->setText(tr("<html><head /><body><p>Wenn Sie ein neues Sprachmodell generieren werden Sie aufgefordert werden:</p><ul><li>Pfade zu den benötigten Dateien zu setzen.<li>Ein Wörterbuch zu importieren (meist aus dem Internet)<li>Grammatikdefinitionen zu erstellen (auch diese können aus persönlichen Texten importiert werden</ul><p>Das schließt das erste erstellen des Sprachmodelles einmal ab. Damit das Modell einsatzfähig ist, müssen noch Wörter zum aktiven Sprachschatz hinzugefügt werden und das Modell trainiert werden.</p></body></html>"));
+		ui.lbInfo->setText(i18n("<html><head /><body><p>Wenn Sie ein neues Sprachmodell generieren werden Sie aufgefordert werden:</p><ul><li>Pfade zu den benötigten Dateien zu setzen.<li>Ein Wörterbuch zu importieren (meist aus dem Internet)<li>Grammatikdefinitionen zu erstellen (auch diese können aus persönlichen Texten importiert werden</ul><p>Das schließt das erste erstellen des Sprachmodelles einmal ab. Damit das Modell einsatzfähig ist, müssen noch Wörter zum aktiven Sprachschatz hinzugefügt werden und das Modell trainiert werden.</p></body></html>"));
 	} else 
 	{
-		ui.lbInfo->setText(tr("Wenn Sie ein vorhandenes Sprachmodell mit simon verwenden wollen, ist die Prozedur denkbar einfach. Sie werden mit der Konfigurationsseite des Modells konfrontiert, wo nur mehr die nötigen Pfade zu den Dateien konfiguriert werden müssen."));
+		ui.lbInfo->setText(i18n("Wenn Sie ein vorhandenes Sprachmodell mit simon verwenden wollen, ist die Prozedur denkbar einfach. Sie werden mit der Konfigurationsseite des Modells konfrontiert, wo nur mehr die nötigen Pfade zu den Dateien konfiguriert werden müssen."));
 	}
 }
 

@@ -32,7 +32,6 @@ InlineWidget::InlineWidget(QString title, QIcon icon, QString desc, QWidget* par
 
 void InlineWidget::registerControl(QString trigger, QObject* receiver, const char* slot)
 {
-	//QMessageBox::critical(NULL,trigger,"INLINEWIDGET");
 	guievents->registerControl(trigger, receiver, slot);
 }
 

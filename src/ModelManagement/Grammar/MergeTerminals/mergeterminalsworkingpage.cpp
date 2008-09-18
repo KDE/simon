@@ -22,7 +22,7 @@ MergeTerminalsWorkingPage::MergeTerminalsWorkingPage (QWidget* parent ) : QWizar
 	connect ( mergeTerminals, SIGNAL ( done() ), this, SLOT ( finished() ) );
 	connect ( mergeTerminals, SIGNAL ( progress ( int, int ) ), this, SLOT ( displayProgress ( int, int ) ) );
 
-	setTitle ( tr ( "Verbinde..." ) );
+	setTitle ( i18n ( "Verbinde..." ) );
 }
 
 void MergeTerminalsWorkingPage::finished()

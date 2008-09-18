@@ -14,11 +14,11 @@
 #include "../../../SimonLib/Settings/settings.h"
 #include "ato.h"
 
-#ifdef linux
+#ifdef Q_OS_UNIX
 #include "dbusbackend.h"
 #endif
 
-#ifdef __WIN32
+#ifdef Q_OS_WIN
 #include "msaabackend.h"
 #endif
 
@@ -31,10 +31,10 @@ ATWatcher::ATWatcher ( QObject* parent ) : QObject ( parent )
 {
 // 	currentObjectTree=0;
 	focusedWindow=0;
-#ifdef linux
+#ifdef Q_OS_UNIX
 	backend = new DBusBackend(this);
 #endif
-#ifdef __WIN32
+#ifdef Q_OS_WIN
 	backend = new MSAABackend(this);
 #endif
 	
@@ -146,9 +146,9 @@ bool ATWatcher::trigger(const QString &triggerString)
 // 			qDebug() << "nach subi";
 		}
 		
-		QObjectList childs = current->children();
-		for (int i=0; i < childs.count(); i++)
-			objectsToSearch.push((ATObject*) childs.at(i));
+		QObjectList children = current->children();
+		for (int i=0; i < children.count(); i++)
+			objectsToSearch.push((ATObject*) children.at(i));
 	}
 		
 	return false;

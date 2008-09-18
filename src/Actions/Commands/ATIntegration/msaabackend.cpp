@@ -194,7 +194,7 @@ ATOLocation MSAABackend::getLocation(QString windowName)
 	GetWindowRect(hwnd, &lpRect);
 
 	qDebug() << "left: " << lpRect.left;
-	qDebug() << "rigt: " << lpRect.right;
+	qDebug() << "right: " << lpRect.right;
 	qDebug() << "top: " << lpRect.top;
 	qDebug() << "bottom: " << lpRect.bottom;*/
     

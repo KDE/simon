@@ -1,9 +1,10 @@
 #include "simonslider.h"
-#include <QMessageBox>
+#include <KMessageBox>
 #include <QColor>
 #include <QBrush>
 #include <QPalette>
 #include <KLineEdit>
+#include <KLocalizedString>
 
 
 
@@ -42,7 +43,7 @@ void SimonSlider::doCommand()
 {
 	if ((this->lePlusMinus->text().toInt() >100) || (this->lePlusMinus->text().toInt() < 0))
 	{	
-		QMessageBox::information(this,"Ungültiger Wert","Der von Ihnen eingegebene Wert ist auserhalb des Bereiches der eingestellt werden kann.\nBitte geben sie einen Wert zwischen\n\t0 und 100\nein.");
+		KMessageBox::information(this,i18n("Der von Ihnen eingegebene Wert ist auserhalb des Bereiches der eingestellt werden kann.\nBitte geben sie einen Wert zwischen\n\t0 und 100\nein."));
 		return;
 	}
 		this->setValue(this->lePlusMinus->text().toInt()); 

@@ -49,7 +49,7 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <widget class="SimonFileSelector" name="leWikiPath" />
+      <widget class="KUrlRequester" name="urWikiPath" />
      </item>
     </layout>
    </item>
@@ -67,9 +67,9 @@ p, li { white-space: pre-wrap; }
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SimonFileSelector</class>
-   <extends>KLineEdit</extends>
-   <header>simonfileselector.h</header>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
   <customwidget>
    <class>SimonListWidget</class>

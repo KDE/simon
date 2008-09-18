@@ -26,7 +26,7 @@
  Uses two Recwidgets and the QT-Mechanism to ensure that you can't 
  continiue without both recordings done.
 
- Trys to determine useful sentences by using the grammarmanager and
+ Tries to determine useful sentences by using the grammarmanager and
  let the user record them
 */
 class AddWordRecordPage : public QWizardPage

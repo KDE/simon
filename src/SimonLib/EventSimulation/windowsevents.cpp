@@ -9,10 +9,9 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
+#include "windowsevents.h"
 #include "../Logging/logger.h"
 #include <QCoreApplication>
-#include "windowsevents.h"
-#include <QMessageBox>
 #include <ctype.h>
 
 

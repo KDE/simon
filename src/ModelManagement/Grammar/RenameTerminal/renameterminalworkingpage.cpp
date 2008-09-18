@@ -21,7 +21,7 @@ RenameTerminalWorkingPage::RenameTerminalWorkingPage(QWidget *parent)
 	connect(renameTerminal, SIGNAL(progress(int)), this, SLOT(displayProgress(int)));
 	connect(renameTerminal, SIGNAL(done()), this, SLOT(finish()));
 	ui.setupUi(this);
-	setTitle(tr("Benenne Terminal um..."));
+	setTitle(i18n("Benenne Terminal um..."));
 }
 
 void RenameTerminalWorkingPage::displayProgress(int progress)

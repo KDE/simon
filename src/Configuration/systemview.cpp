@@ -9,9 +9,11 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include "simonlistwidget.h"
-#include <QMessageBox>
 #include "systemview.h"
+
+#include <KMessageBox>
+
+#include "simonlistwidget.h"
 #include "systemwidget.h"
 #include "generalsettings.h"
 #include "logview.h"
@@ -33,7 +35,7 @@
  *  \brief Constructor - inits the ui and registers the controls
  * @param parent the parent of the widget
  */
-SystemView::SystemView(QWidget* parent): InlineWidget(tr("System"), QIcon(":/images/icons/computer.svg"), tr("Einstellungen, Protokolle, etc."), parent)
+SystemView::SystemView(QWidget* parent): InlineWidget(i18n("System"), QIcon(":/images/icons/computer.svg"), i18n("Einstellungen, Protokolle, etc."), parent)
 {
 	ui.setupUi(this);
 	hide();
@@ -69,9 +71,9 @@ void SystemView::apply()
 		currentControl = dynamic_cast<SystemWidget*>(ui.swControls->widget(i));
 		if (currentControl)
 			if (!currentControl->apply())
-				Logger::log("[ERR] "+tr("Konnte Änderungen in \"%1\" nicht speichern.").arg(currentControl->getTitle()));
+				Logger::log("[ERR] "+i18n("Konnte Änderungen in \"%1\" nicht speichern.").arg(currentControl->getTitle()));
 	}
-	SimonInfo::showMessage(tr("Einstellungen übernommen"),3000);
+	SimonInfo::showMessage(i18n("Einstellungen übernommen"),3000);
 }
 
 /**
@@ -86,7 +88,7 @@ void SystemView::reset()
 		currentControl = dynamic_cast<SystemWidget*>(ui.swControls->widget(i));
 		if (currentControl)
 			if (!currentControl->reset())
-				Logger::log("[ERR] "+tr("Konnte Änderungen in \"%1\" nicht zurücknehmen.").arg(currentControl->getTitle()));
+				Logger::log("[ERR] "+i18n("Konnte Änderungen in \"%1\" nicht zurücknehmen.").arg(currentControl->getTitle()));
 	}
 }
 
@@ -117,8 +119,8 @@ void SystemView::registerSystemWidget(SystemWidget* control)
 	if (!control->init())
 	{
 		//something went wrong
-		Logger::log("[ERR] "+tr("Konnte %1 nicht initiieren").arg(control->getTitle()));
-		QMessageBox::critical(this, tr("Schwerwiegender Fehler aufgetreten"), tr("Es ist ein Schwerwiegender Fehler aufgetreten.\n\nEs konnten nicht alle Elemente der Konfiguration initalisiert werden. Dies ist meist auf eine fehlerhaft Konfiguration zurückzuführen.\n\nBitte kontrollieren Sie ihre Einstellungen (vor allem im Bezug auf mögliche vorangegangene Fehlermeldungen) und starten sie simon danach neu."));
+		Logger::log("[ERR] "+i18n("Konnte %1 nicht initiieren").arg(control->getTitle()));
+		KMessageBox::error(this, i18n("Es ist ein Schwerwiegender Fehler aufgetreten.\n\nEs konnten nicht alle Elemente der Konfiguration initalisiert werden. Dies ist meist auf eine fehlerhaft Konfiguration zurückzuführen.\n\nBitte kontrollieren Sie ihre Einstellungen (vor allem im Bezug auf mögliche vorangegangene Fehlermeldungen) und starten sie simon danach neu."));
 	}
 	
 	//item gets automatically added to the list widget if given the parent

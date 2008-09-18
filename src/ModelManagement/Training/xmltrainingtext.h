@@ -1,5 +1,6 @@
-#ifndef XMLDOCUMENT_H
-#define XMLDOCUMENT_H
+#ifndef XMLTRAININGTEXT_H
+#define XMLTRAININGTEXT_H
+
 #include <QStringList>
 #include "../../SimonLib/XML/xmldomreader.h"
 

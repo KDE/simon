@@ -12,9 +12,6 @@
 #include "inlinewidgetview.h"
 #include "inlinewidget.h"
 #include <QTabBar>
-#include <QPalette>
-#include <QBrush>
-#include <QMessageBox>
 #include <QKeyEvent>
 #include <QCoreApplication>
 

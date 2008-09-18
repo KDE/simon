@@ -28,7 +28,7 @@ protected:
 	QDomDocument *doc;
     QString path;
 public:
-	XMLDomReader(QString path, QObject* parent=0);
+	explicit XMLDomReader(QString path, QObject* parent=0);
 
 	bool save(QString path="");
 	

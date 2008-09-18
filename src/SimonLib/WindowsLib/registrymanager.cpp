@@ -14,7 +14,6 @@
 #include <winnt.h>
 #include <QFile>
 #include <QProcess>
-#include <QMessageBox>
 #include <QStringList>
 
 /**
@@ -90,6 +89,7 @@ void RegistryManager::startProcess(QString command, QString workingDirectory)
         QProcess *process = new QProcess();
         process->setWorkingDirectory(workingDirectory);    //sets the workingdirectory
         process->startDetached(str);
+	process->deleteLater();
     }   
 }
 

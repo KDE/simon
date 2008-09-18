@@ -1,5 +1,5 @@
 #include "simontabwidget.h"
-#include <QMessageBox>
+#include <KMessageBox>
 
 
 

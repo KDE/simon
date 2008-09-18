@@ -2,11 +2,12 @@
 #include <QObject>
 #include <QDesktopServices>
 #include <QVariant>
+#include <KLocalizedString>
 
 
 const QString PlaceCommand::staticCategoryText()
 {
-	return QObject::tr("Ort");
+	return i18n("Ort");
 }
 
 const QString PlaceCommand::getCategoryText() const
@@ -27,7 +28,7 @@ const KIcon PlaceCommand::getCategoryIcon() const
 const QMap<QString,QVariant> PlaceCommand::getValueMapPrivate() const
 {
 	QMap<QString,QVariant> out;
-	out.insert(tr("URL"), getURL());
+	out.insert(i18n("URL"), getURL());
 	return out;
 }
 

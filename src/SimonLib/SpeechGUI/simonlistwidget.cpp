@@ -1,5 +1,5 @@
 #include "simonlistwidget.h"
-#include <QMessageBox>
+#include <KMessageBox>
 #include <KLineEdit>
 #include <QScrollBar>
 #include <QPalette>
@@ -49,7 +49,7 @@ void SimonListWidget::selectItem()
 {
 	int i;
 	
-	if((this->redFlag )|| (this->line->text() == ""))
+	if((this->redFlag )|| (this->line->text().isEmpty()))
 		return;
 
 	for (i = 0; i<this->count(); i++)
@@ -71,7 +71,7 @@ void SimonListWidget::filterEntries(QString text)
 	int i = 0;
 	this->redFlag = true;
 	
-	if (text == "")
+	if (text.isEmpty())
 	{
 		this->redFlag = false;	
 		controlRedFlag();

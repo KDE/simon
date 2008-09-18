@@ -1,7 +1,4 @@
 #include "simonmainwindow.h"
-#include <QMessageBox>
-
-
 
 SimonMainWindow::SimonMainWindow(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags)
 {

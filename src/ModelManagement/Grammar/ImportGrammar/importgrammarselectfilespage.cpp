@@ -10,13 +10,13 @@
 //
 //
 #include "importgrammarselectfilespage.h"
-#include <QFileDialog>
+#include <KFileDialog>
 
 //todo: document
 //ambiguous words and words with more than one meaning are still ignored when using the "Also include unknown constructs" option; This is not a bug!
 ImportGrammarSelectFilesPage::ImportGrammarSelectFilesPage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle(tr("Eingabedateien"));
+	setTitle(i18n("Eingabedateien"));
 	ui.setupUi(this);
 	ui.leFiles->setVisible(false);
 	
@@ -35,7 +35,7 @@ void ImportGrammarSelectFilesPage::cleanupPage()
 
 void ImportGrammarSelectFilesPage::addFile()
 {
-	QStringList files = QFileDialog::getOpenFileNames(this, tr("Datei(en) auswählen"), ".", tr("Textdateien")+" (*.txt)");
+	QStringList files = KFileDialog::getOpenFileNames(KUrl(), i18n("Textdateien")+" *.txt", this, i18n("Datei(en) auswählen"));
 	ui.lwFiles->addItems(files);
 	setField("files", getFiles().join("||"));
 }

@@ -11,11 +11,12 @@
 //
 #include "networksettings.h"
 #include <QIcon>
-#include <QInputDialog>
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <KLineEdit>
+#include <KMessageBox>
 #include "../SimonLib/Settings/settings.h"
+#include "addserverconnection.h"
 
 
 /**
@@ -23,7 +24,7 @@
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(tr("Juliusd"), QIcon(":/images/icons/connect-no.svg"), tr("Hier können Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
+NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(i18n("Juliusd"), QIcon(":/images/icons/connect-no.svg"), i18n("Hier können Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
 {
 	ui.setupUi(this);
 	
@@ -119,9 +120,9 @@ bool NetworkSettings::init()
 {
 	ui.sbTimeout->setValue(Settings::getI("Network/Timeout"));
 	
-	QTableWidgetItem *header1 = new QTableWidgetItem(tr("Adresse"));
+	QTableWidgetItem *header1 = new QTableWidgetItem(i18n("Adresse"));
 	ui.twJuliusAddresses->setHorizontalHeaderItem(0, header1);
-	QTableWidgetItem *header2 = new QTableWidgetItem(tr("Port"));
+	QTableWidgetItem *header2 = new QTableWidgetItem(i18n("Port"));
 	ui.twJuliusAddresses->setHorizontalHeaderItem(1, header2);
 
 	
@@ -234,20 +235,17 @@ void NetworkSettings::insertAddress(QString host, int port)
  */
 void NetworkSettings::addAddress()
 {
-	QString host="";
-	QString port="";
-	bool ok=false;
-	host=QInputDialog::getText ( this, tr("Neue Adresse Hinzufügen"),tr("Host:"), KLineEdit::Normal,"localhost", &ok );
-	if ( ok && !host.isEmpty() )
+	AddServerConnection *addDlg = new AddServerConnection(this);
+	if (addDlg->exec())
 	{
-		ok=false;
-		port=QInputDialog::getText ( this, tr("Neue Adresse Hinzufügen"),tr("Portnummer:"), KLineEdit::Normal, "4444",&ok );
-		if ( ok )
-		{
-			if ( !port.isEmpty() ) insertAddress(host, port.toInt());
-			else insertAddress(host, 4444);
-		}
+		QString host=addDlg->getHost();
+		int port = addDlg->getPort();
+		
+		if (host.isEmpty())
+			KMessageBox::information(this, i18n("Sie haben eine leere Hostadresse angegeben. Die Eingaben werden verworfen."));
+		else insertAddress(host, port);
 	}
+	addDlg->deleteLater();
 }
 
 

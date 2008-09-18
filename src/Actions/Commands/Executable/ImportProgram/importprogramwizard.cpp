@@ -84,9 +84,9 @@ SelectProgramPage* ImportProgramWizard::createSelectProgramPage()
 QWizardPage* ImportProgramWizard::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage ( this );
-	finished->setTitle ( tr ( "Hinzufügen des Programmes" ) );
+	finished->setTitle ( i18n ( "Hinzufügen des Programmes" ) );
 	QLabel *label = new QLabel ( finished );
-	label->setText ( tr ( "Klicken Sie auf \"Fertigstellen\" um den Wizard abzuschließen." ) );
+	label->setText ( i18n ( "Klicken Sie auf \"Fertigstellen\" um den Wizard abzuschließen." ) );
 	label->setWordWrap ( true );
 	QVBoxLayout *layout = new QVBoxLayout ( finished );
 	layout->addWidget ( label );

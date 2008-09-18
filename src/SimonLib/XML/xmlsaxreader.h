@@ -27,7 +27,7 @@ class QXmlDefaultHandler;
 */
 class XMLSAXReader : public XMLReader{
 public:
-	XMLSAXReader(QString path, QObject* parent=0);
+	explicit XMLSAXReader(QString path, QObject* parent=0);
 	
 	void load(QXmlDefaultHandler* handler, QString path="");
     ~XMLSAXReader();

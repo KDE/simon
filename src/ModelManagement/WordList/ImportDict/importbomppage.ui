@@ -38,7 +38,7 @@
      <item>
       <widget class="KUrlRequester" name="urFile" >
        <property name="filter" >
-        <string>Textdateien *.txt</string>
+        <string>BOMP-Wörterbücher *.txt</string>
        </property>
       </widget>
      </item>

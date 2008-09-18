@@ -11,6 +11,7 @@
 //
 #include "dragtablewidget.h"
 #include <QApplication>
+#include <KLocalizedString>
 
 /**
  * @brief Constructor
@@ -96,7 +97,7 @@ void DragTableWidget::startDrag(Qt::DropActions)
 		mimeData->setText( currentItem );
 		drag->setMimeData(mimeData);
 	
-		SimonInfo::showMessage( tr("Ziehe das Wort in die Liste rechts um es zu trainieren") , 2000 );
+		SimonInfo::showMessage( i18n("Ziehe das Wort in die Liste rechts um es zu trainieren") , 2000 );
 	
 		drag->start(Qt::MoveAction);
 	}

@@ -19,7 +19,7 @@
 #include "simoninfo.h"
 #include <QCoreApplication>
 #include <QPixmap>
-#include <ksplashscreen.h>
+#include <KSplashScreen>
 #include "osd.h"
 
 /**
@@ -41,7 +41,7 @@ SimonInfo::SimonInfo(QWidget *parent)
 /**
  * @brief Shows a splash screen
  *
- * Shows the simon splash screen to increase the feel of responsivness
+ * Shows the simon splash screen to increase the feel of responsiveness
  * The splash will be shown until it is destroyed
  *	@author Peter Grasch
  *

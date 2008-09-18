@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>430</width>
-    <height>563</height>
+    <height>237</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -23,15 +23,12 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" >
-    <widget class="QLabel" name="label" >
-     <property name="text" >
-      <string>Globaler Trigger:</string>
+   <item row="1" column="1" >
+    <widget class="KLineEdit" name="leTrigger" >
+     <property name="enabled" >
+      <bool>true</bool>
      </property>
     </widget>
-   </item>
-   <item row="1" column="1" >
-    <widget class="KLineEdit" name="leTrigger" />
    </item>
    <item row="2" column="0" colspan="2" >
     <widget class="QLabel" name="label_2" >
@@ -51,7 +48,7 @@
         <x>0</x>
         <y>0</y>
         <width>397</width>
-        <height>633</height>
+        <height>613</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout" >
@@ -67,20 +64,17 @@
           <bool>true</bool>
          </property>
          <layout class="QFormLayout" name="formLayout" >
-          <item row="0" column="1" >
-           <widget class="SimonFileSelector" name="leCommands" >
-            <property name="text" >
-             <string>conf/commands.xml</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0" >
            <widget class="QLabel" name="lbCommands" >
             <property name="text" >
              <string>Konfigurationsdatei:</string>
             </property>
-            <property name="buddy" >
-             <cstring>leCommands</cstring>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="KUrlRequester" name="urCommands" >
+            <property name="filter" >
+             <string>Konfigurationsdatei *.xml</string>
             </property>
            </widget>
           </item>
@@ -104,15 +98,12 @@
             <property name="text" >
              <string>Konfigurationsdatei:</string>
             </property>
-            <property name="buddy" >
-             <cstring>leCommands</cstring>
-            </property>
            </widget>
           </item>
           <item>
-           <widget class="SimonFileSelector" name="lePlace" >
-            <property name="text" >
-             <string>conf/commands.xml</string>
+           <widget class="KUrlRequester" name="urPlace" >
+            <property name="filter" >
+             <string>Konfigurationsdatei *.xml</string>
             </property>
            </widget>
           </item>
@@ -136,15 +127,12 @@
             <property name="text" >
              <string>Konfigurationsdatei:</string>
             </property>
-            <property name="buddy" >
-             <cstring>leCommands</cstring>
-            </property>
            </widget>
           </item>
           <item>
-           <widget class="SimonFileSelector" name="leTextMacro" >
-            <property name="text" >
-             <string>conf/commands.xml</string>
+           <widget class="KUrlRequester" name="urTextMacro" >
+            <property name="filter" >
+             <string>Konfigurationsdatei *.xml</string>
             </property>
            </widget>
           </item>
@@ -168,15 +156,12 @@
             <property name="text" >
              <string>Konfigurationsdatei:</string>
             </property>
-            <property name="buddy" >
-             <cstring>leCommands</cstring>
-            </property>
            </widget>
           </item>
           <item>
-           <widget class="SimonFileSelector" name="leShortcut" >
-            <property name="text" >
-             <string>conf/commands.xml</string>
+           <widget class="KUrlRequester" name="urShortcut" >
+            <property name="filter" >
+             <string>Konfigurationsdatei *.xml</string>
             </property>
            </widget>
           </item>
@@ -294,16 +279,25 @@ p, li { white-space: pre-wrap; }
      </widget>
     </widget>
    </item>
+   <item row="1" column="0" >
+    <widget class="QCheckBox" name="cbUseTrigger" >
+     <property name="text" >
+      <string>Globalen Trigger verwenden:</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SimonFileSelector</class>
-   <extends>KLineEdit</extends>
-   <header>simonfileselector.h</header>
-   <slots>
-    <signal>urlChanged()</signal>
-   </slots>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -315,28 +309,12 @@ p, li { white-space: pre-wrap; }
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>253</x>
-     <y>-93</y>
+     <x>257</x>
+     <y>92</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>151</x>
-     <y>-50</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gbExe</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>leCommands</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>237</x>
-     <y>-89</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>254</x>
-     <y>-53</y>
+     <x>159</x>
+     <y>124</y>
     </hint>
    </hints>
   </connection>
@@ -347,28 +325,12 @@ p, li { white-space: pre-wrap; }
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>109</x>
-     <y>-20</y>
+     <x>113</x>
+     <y>165</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>100</x>
-     <y>19</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gbPlace</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lePlace</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>185</x>
-     <y>-20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>209</x>
-     <y>18</y>
+     <x>129</x>
+     <y>197</y>
     </hint>
    </hints>
   </connection>
@@ -379,28 +341,12 @@ p, li { white-space: pre-wrap; }
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>104</x>
-     <y>62</y>
+     <x>108</x>
+     <y>238</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>92</x>
-     <y>101</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gbTextMacro</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>leTextMacro</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>304</x>
-     <y>65</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>301</x>
-     <y>98</y>
+     <x>121</x>
+     <y>270</y>
     </hint>
    </hints>
   </connection>
@@ -411,28 +357,12 @@ p, li { white-space: pre-wrap; }
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>150</x>
-     <y>176</y>
+     <x>154</x>
+     <y>311</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>99</x>
-     <y>201</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gbShortcut</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>leShortcut</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>219</x>
-     <y>157</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>218</x>
-     <y>194</y>
+     <x>128</x>
+     <y>343</y>
     </hint>
    </hints>
   </connection>
@@ -443,12 +373,12 @@ p, li { white-space: pre-wrap; }
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>77</x>
-     <y>251</y>
+     <x>81</x>
+     <y>384</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>76</x>
-     <y>268</y>
+     <x>92</x>
+     <y>416</y>
     </hint>
    </hints>
   </connection>
@@ -459,12 +389,12 @@ p, li { white-space: pre-wrap; }
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>320</x>
-     <y>251</y>
+     <x>324</x>
+     <y>384</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>315</x>
-     <y>267</y>
+     <x>390</x>
+     <y>416</y>
     </hint>
    </hints>
   </connection>
@@ -475,12 +405,12 @@ p, li { white-space: pre-wrap; }
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>266</x>
-     <y>244</y>
+     <x>270</x>
+     <y>384</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>238</x>
-     <y>305</y>
+     <x>267</x>
+     <y>454</y>
     </hint>
    </hints>
   </connection>
@@ -491,12 +421,12 @@ p, li { white-space: pre-wrap; }
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>141</x>
-     <y>355</y>
+     <x>145</x>
+     <y>484</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>118</x>
-     <y>381</y>
+     <x>147</x>
+     <y>516</y>
     </hint>
    </hints>
   </connection>
@@ -507,12 +437,12 @@ p, li { white-space: pre-wrap; }
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>172</x>
-     <y>358</y>
+     <x>176</x>
+     <y>484</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>156</x>
-     <y>408</y>
+     <x>210</x>
+     <y>553</y>
     </hint>
    </hints>
   </connection>
@@ -523,12 +453,28 @@ p, li { white-space: pre-wrap; }
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>217</x>
-     <y>357</y>
+     <x>221</x>
+     <y>484</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>159</x>
-     <y>442</y>
+     <x>188</x>
+     <y>615</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbUseTrigger</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leTrigger</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>174</x>
+     <y>41</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>314</x>
+     <y>52</y>
     </hint>
    </hints>
   </connection>

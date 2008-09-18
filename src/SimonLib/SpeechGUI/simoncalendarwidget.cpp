@@ -1,6 +1,7 @@
 #include "simoncalendarwidget.h"
 #include <QCalendarWidget>
-#include <QMessageBox>
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <QRegExp>
 #include <QDate>
 
@@ -22,11 +23,11 @@ SimonCalendarWidget::~SimonCalendarWidget()
 
 void SimonCalendarWidget::setDate(QString text)
 {
-	if (text.contains(tr("Tag")))
+	if (text.contains(i18n("Tag")))
 		this->whatis = 1;
-	if (text.contains(tr("Monat")))
+	if (text.contains(i18n("Monat")))
 		this->whatis = 2;
-	if (text.contains(tr("Jahr")))
+	if (text.contains(i18n("Jahr")))
 		this->whatis = 3;
 	
 	text = clearString(text);
@@ -62,16 +63,14 @@ void SimonCalendarWidget::setDay(int value)
 	int month = currentdate.month();
 	int year = currentdate.year();
 	int daycount = currentdate.daysInMonth();
-	//QMessageBox::critical(NULL,QString::number(value),"3");
 	if((value <= daycount) && (value >0))
 	{
-		//QMessageBox::critical(NULL,QString::number(value),"4");
 		QDate date(year,month,value);
 		this->setSelectedDate (date);
 	}
 	else
 	{
-		QMessageBox::information(this,tr("Falscher Befehl"), tr("Der gewünschte Tag existiert in diesem Monat nicht.\nBitte führen Sie den Befehl mit einem anderen Tag nochmal aus.\n\nEs wurde der erste des Monats als Default Datum gewählt"));
+		KMessageBox::information(this,i18n("Der gewünschte Tag existiert in diesem Monat nicht.\nBitte führen Sie den Befehl mit einem anderen Tag nochmal aus.\n\nEs wurde der erste des Monats als Default Datum gewählt"));
 		QDate date(year,month,1);
 		this->setSelectedDate (date);
 	}
@@ -83,16 +82,14 @@ void SimonCalendarWidget::setMonth(int value)
 {
 	QDate currentdate = this->selectedDate();
 	int year = currentdate.year();
-	//QMessageBox::critical(NULL,QString::number(value),"3");
 	if((value <= 13) && (value >0))
 	{
-		//QMessageBox::critical(NULL,QString::number(value),"4");
 		QDate date(year,value,1);
 		this->setSelectedDate (date);
 	}
 	else
 	{
-		QMessageBox::information(this,tr("Falscher Befehl"),tr("Der gewünschte Monat existiert nicht.\nBitte widerholen Sie ihren Befehl mit einem anderen Wert"));
+		KMessageBox::information(this,i18n("Der gewünschte Monat existiert nicht.\nBitte widerholen Sie ihren Befehl mit einem anderen Wert"));
 	}
 	
 }
@@ -100,37 +97,19 @@ void SimonCalendarWidget::setMonth(int value)
 //+7999
 void SimonCalendarWidget::setYear(int value)
 {
-	//QMessageBox::critical(NULL,QString::number(value),"3");
 	QDate date(value,1,1);
 	if ((value > 1000) && (value <3000))
 	{
-		//QMessageBox::critical(NULL,QString::number(value),"4");
 		this->setSelectedDate (date);
 	}
 	else if((value > -4713) && (value <7999))
 	{
-		QMessageBox msgBox;
-		msgBox.setText(tr("Das von Ihnen gewünschte Jahr ist: ")+QString::number(value)+tr("\nWollen sie wirklich dieses Jahr anzeigen?"));
-		msgBox.setWindowTitle(tr("Information"));
-		msgBox.setIcon(QMessageBox::Question);
-		msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-		switch (msgBox.exec()) 
-		{
-		case QMessageBox::Yes:
-		     this->setSelectedDate (date);
-		     break;
-		case QMessageBox::No:
-		     return;
-		     break;
-		default:
-		     return; 
-		     break;
-		} 
+		if (KMessageBox::questionYesNoCancel(0, i18n("Das von Ihnen gewünschte Jahr ist: ")+QString::number(value)+i18n("\nWollen sie wirklich dieses Jahr anzeigen?"))==KMessageBox::Yes)
+			this->setSelectedDate (date);
+		else return;
 	}
 	else
-	{
-		QMessageBox::information(this,tr("Hääääää-Befehl..."),tr("Ihr gewünschter Wert überschreitet den Max/Min Wert.\nBitte führen sie den Befehl erneut aus, mit einem Jahr zw.\n-4714 & +8000\n\nDer Programmierer dankt"));
-	}
+		KMessageBox::information(this,i18n("Ihr gewünschter Wert überschreitet den Max/Min Wert.\nBitte führen sie den Befehl erneut aus, mit einem Jahr zw.\n-4714 & +8000\n\nDer Programmierer dankt"));
 }
 
 

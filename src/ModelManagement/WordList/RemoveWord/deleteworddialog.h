@@ -31,12 +31,12 @@ private:
 	Ui::DlgRemoveWord ui;
 public:
 
-enum DeletionType {
-MoveToShadow			= 0x00,
-RemoveCompletely		= 0x01
-};
+	enum DeletionType {
+		MoveToShadow			= 0x00,
+		RemoveCompletely		= 0x01
+	};
 
-    DeleteWordDialog(QWidget* parent=0, Qt::WindowFlags f=0);
+	explicit DeleteWordDialog(QWidget* parent=0, Qt::WindowFlags f=0);
 
 	int exec(Word word, bool isShadowed);
 

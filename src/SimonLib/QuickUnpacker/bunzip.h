@@ -10,7 +10,7 @@ class QProcess;
  * \class Bunzip
  * \brief Extracts *.bz2 / *.bzip2 files
  * \author Peter Grasch
- * \note This uses the programm bzip2 which might not be installed
+ * \note This uses the program bzip2 which might not be installed
  * \version 0.1
  * \date 10.08.2007
  */

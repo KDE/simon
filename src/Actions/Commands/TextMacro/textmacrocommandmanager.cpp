@@ -1,4 +1,5 @@
 #include "textmacrocommandmanager.h"
+#include <KLocalizedString>
 #include "../../../SimonLib/Settings/settings.h"
 #include "../../../SimonLib/Logging/logger.h"
 #include "xmltextmacrocommand.h"
@@ -27,7 +28,7 @@ const QString TextMacroCommandManager::name() const
 bool TextMacroCommandManager::load()
 {
 	QString commandPath = Settings::getS("Commands/TextMacro/PathToConfig");
-	Logger::log(tr("[INF] Lade Text-Makro-Kommandos von %1").arg(commandPath));
+	Logger::log(i18n("[INF] Lade Text-Makro-Kommandos von %1").arg(commandPath));
 
 	bool ok = false;
 	this->commands = xmlTextMacroCommand->load(ok, commandPath);
@@ -37,7 +38,7 @@ bool TextMacroCommandManager::load()
 bool TextMacroCommandManager::save()
 {
 	QString commandPath = Settings::getS("Commands/TextMacro/PathToConfig");
-	Logger::log(tr("[INF] Speichere Text-Makro-Kommandos nach %1").arg(commandPath));
+	Logger::log(i18n("[INF] Speichere Text-Makro-Kommandos nach %1").arg(commandPath));
 	return xmlTextMacroCommand->save(commands, commandPath);
 }
 

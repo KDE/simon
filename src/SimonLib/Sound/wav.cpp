@@ -9,9 +9,10 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
+#include "wav.h"
+#include <KLocalizedString>
 #include <stdlib.h>
 #include <string.h>
-#include "wav.h"
 #include <QObject>
 #include <QDataStream>
 #include <QFile>
@@ -43,12 +44,12 @@ WAV::WAV(QString filename, int channels, int samplerate)
     
 	if (samplerate == 0)
 	{
-		Logger::log(QObject::tr("[INF] Öffne WAV Datei: %1").arg(filename));
+		Logger::log(i18n("[INF] Öffne WAV Datei: %1").arg(filename));
 		this->importDataFromFile(filename);
 		this->samplerate = this->retrieveSampleRate();
 		this->channels = this->retrieveChannels();
 	} else {
-		Logger::log(QObject::tr("[INF] Erstelle neue WAV Datei: %1").arg(filename));
+		Logger::log(i18n("[INF] Erstelle neue WAV Datei: %1").arg(filename));
 	}
 	
 }
@@ -83,7 +84,7 @@ void WAV::importDataFromFile(QString filename)
 {
 	QFile wavFile(filename);
 	if (!wavFile.open(QIODevice::ReadOnly)) {
-		Logger::log(QObject::tr("[INF] Importieren des existierenden Datei fehlgeschlagen. Fortsetzen mit einer leeren Datei."));
+		Logger::log(i18n("[INF] Importieren des existierenden Datei fehlgeschlagen. Fortsetzen mit einer leeren Datei."));
 		return;
 	}
 	QDataStream *dstream = new QDataStream(&wavFile);
@@ -181,7 +182,7 @@ int WAV::retrieveChannels()
  */
 bool WAV::writeFile(QString filename)
 {
-	Logger::log(QObject::tr("Writing WAV file to \"%1\"").arg(filename));
+	Logger::log(i18n("Writing WAV file to \"%1\"").arg(filename));
 	if (filename.isEmpty()) filename = this->filename;
 	
 	QFile wavFile(filename);

@@ -46,7 +46,7 @@ private:
 	int retrieveChannels();
 	
 public:
-    WAV(QString filename,int channels=0, int samplerate=0);
+    explicit WAV(QString filename,int channels=0, int samplerate=0);
 
 	bool beginAddSequence() {
 		return wavData.open(QIODevice::WriteOnly|QIODevice::Append);

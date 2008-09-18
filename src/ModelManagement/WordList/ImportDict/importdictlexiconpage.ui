@@ -51,7 +51,7 @@ Bitte beachten Sie, dass diese Lexica keine Grammatikdefinitionen besitzen.</str
       </widget>
      </item>
      <item>
-      <widget class="SimonFileSelector" name="lePath" />
+      <widget class="KUrlRequester" name="urPath" />
      </item>
     </layout>
    </item>
@@ -72,12 +72,9 @@ Bitte beachten Sie, dass diese Lexica keine Grammatikdefinitionen besitzen.</str
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SimonFileSelector</class>
-   <extends>KLineEdit</extends>
-   <header>simonfileselector.h</header>
-   <slots>
-    <signal>urlChanged()</signal>
-   </slots>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources>

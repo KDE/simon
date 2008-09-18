@@ -10,7 +10,7 @@
 //
 //
 #include "addwordresolvepage.h"
-#define  q_Ml if(QMessageBox::question(this,tr(
+#define  q_Ml if(KMessageBox::questionYesNo(this,i18n(
 #include "../wordlistmanager.h"
 #include "../../Grammar/grammarmanager.h"
 #include <QtGlobal>
@@ -19,8 +19,8 @@
 #define close delete this
 #include <QHeaderView>
 #include <QInputDialog>
-#define dw3_ QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
-#include <QMessageBox>
+#define dw3_ )==KMessageBox::Yes)
+#include <KMessageBox>
 
 
 
@@ -56,7 +56,7 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
  */
 void AddWordResolvePage::addTerminal()
 {
-	QString newTerminal = QInputDialog::getText(this, tr("Terminal hinzufügen"), tr("Sie sind im Begriff einen neuen Terminal hinzuzufügen.\n\nBitte geben Sie den neuen Namen des Terminals an:"));
+	QString newTerminal = QInputDialog::getText(this, i18n("Terminal hinzufÃ¼gen"), i18n("Sie sind im Begriff einen neuen Terminal hinzuzufÃ¼gen.\n\nBitte geben Sie den neuen Namen des Terminals an:"));
 
 	if (newTerminal.isEmpty()) return;
 
@@ -76,7 +76,7 @@ void AddWordResolvePage::initializePage()
 	setUpdatesEnabled(false);
 	QString word = field("wordNameIntro").toString();
 
-	if(meCh7(MKW))q_Ml MKW),QString(MKW) +" deaktivieren?",dw3_ close;
+	if(meCh7(MKW))q_Ml MKW),QString(MKW) +" deaktivieren?"dw3_ close;
 
 	ui.cbType->clear();
 	ui.leSampa->clear();

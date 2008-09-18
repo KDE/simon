@@ -5,14 +5,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>379</width>
-    <height>312</height>
+    <width>375</width>
+    <height>337</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" >
+  <layout class="QGridLayout" name="gridLayout_2" >
    <item row="0" column="0" >
     <widget class="QLabel" name="lbWordDesc" >
      <property name="text" >
@@ -41,7 +41,8 @@
         <string>...</string>
        </property>
        <property name="icon" >
-        <iconset resource="../action_icons.qrc" >:/images/icons/edit-add.svg</iconset>
+        <iconset resource="../../../action_icons.qrc" >
+         <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
        </property>
       </widget>
      </item>
@@ -58,7 +59,7 @@
     <widget class="KLineEdit" name="leSampa" />
    </item>
    <item row="3" column="0" colspan="2" >
-    <widget class="KTabWidget" name="twShower" >
+    <widget class="KTabWidget" name="twModules" >
      <property name="currentIndex" >
       <number>0</number>
      </property>
@@ -66,7 +67,7 @@
       <attribute name="title" >
        <string>Ähnliche Wörter</string>
       </attribute>
-      <layout class="QVBoxLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout" >
        <item>
         <widget class="QTableWidget" name="twSuggestions" >
          <property name="minimumSize" >
@@ -116,7 +117,7 @@
       <attribute name="title" >
        <string>Beispiele</string>
       </attribute>
-      <layout class="QGridLayout" >
+      <layout class="QGridLayout" name="gridLayout" >
        <item row="0" column="0" >
         <widget class="QLabel" name="lbSample1Desc" >
          <property name="maximumSize" >
@@ -136,7 +137,10 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0" >
+       <item row="0" column="1" >
+        <widget class="KLineEdit" name="leExample1" />
+       </item>
+       <item row="1" column="0" >
         <widget class="QLabel" name="lbSample2Desc" >
          <property name="maximumSize" >
           <size>
@@ -155,14 +159,17 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1" >
+       <item row="1" column="1" >
+        <widget class="KLineEdit" name="leExample2" />
+       </item>
+       <item row="2" column="1" >
         <layout class="QHBoxLayout" >
          <item>
           <spacer>
            <property name="orientation" >
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeHint" >
+           <property name="sizeHint" stdset="0" >
             <size>
              <width>40</width>
              <height>20</height>
@@ -176,40 +183,48 @@
             <string>Neu Raten</string>
            </property>
            <property name="icon" >
-            <iconset resource="../action_icons.qrc" >:/images/icons/view-refresh.svg</iconset>
+            <iconset resource="../../../action_icons.qrc" >
+             <normaloff>:/images/icons/view-refresh.svg</normaloff>:/images/icons/view-refresh.svg</iconset>
            </property>
           </widget>
          </item>
         </layout>
-       </item>
-       <item row="0" column="1" >
-        <widget class="KLineEdit" name="leExample1" />
-       </item>
-       <item row="2" column="1" >
-        <widget class="KLineEdit" name="leExample2" />
-       </item>
-       <item row="1" column="1" >
-        <widget class="QLabel" name="lbError1" >
-         <property name="text" >
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1" >
-        <widget class="QLabel" name="lbError2" >
-         <property name="text" >
-          <string/>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
     </widget>
    </item>
   </layout>
+  <zorder>lbWordDesc</zorder>
+  <zorder>leWord</zorder>
+  <zorder>lbTypeDesc</zorder>
+  <zorder>lbSampa</zorder>
+  <zorder>leSampa</zorder>
+  <zorder>twShower</zorder>
+  <zorder>tabWidget</zorder>
+  <zorder>twModules</zorder>
+  <zorder></zorder>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>ktabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
-  <include location="../action_icons.qrc" />
+  <include location="../../../action_icons.qrc" />
  </resources>
  <connections/>
 </ui>

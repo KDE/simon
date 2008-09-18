@@ -41,7 +41,7 @@ private:
 	QString cleanTitle(QString title);
 	
 public:
-	WiktionaryDict(QString path="", QObject *parent=0);
+	explicit WiktionaryDict(QString path="", QObject *parent=0);
 	void load(QString path="");
 	
 	bool startElement(const QString &,

@@ -38,7 +38,7 @@ signals:
 
 
 public:
-	SimonMainWindow(QWidget *parent = 0, Qt::WFlags flags = 0);	
+	explicit SimonMainWindow(QWidget *parent = 0, Qt::WFlags flags = 0);	
 	~SimonMainWindow();
 	QObjectList getChildren(QObject *current);
 	

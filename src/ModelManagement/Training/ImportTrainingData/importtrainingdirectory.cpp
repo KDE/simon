@@ -30,7 +30,7 @@
  */
 ImportTrainingDirectory::ImportTrainingDirectory(QWidget *parent) : QWizard(parent)
 {
-	setWindowTitle(tr("Importiere Trainingsdaten von Ordner"));
+	setWindowTitle(i18n("Importiere Trainingsdaten von Ordner"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importfolder.png"));
 
  	addPage(createIntroPage());
@@ -71,9 +71,9 @@ ImportTrainingDirectoryWorkingPage* ImportTrainingDirectory::createWorkingPage()
 QWizardPage* ImportTrainingDirectory::createFinishedPage()
 {
 	QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle(tr("Importieren des Ordners abgeschlossen"));
+	intro->setTitle(i18n("Importieren des Ordners abgeschlossen"));
 	QLabel *label = new QLabel(intro);
-	label->setText(tr("Die Dateien aus dem Ordner wurden nun importiert.\n\nVielen dank, dass Sie sich die Zeit genommen haben\num simon zu verbessern."));
+	label->setText(i18n("Die Dateien aus dem Ordner wurden nun importiert.\n\nVielen dank, dass Sie sich die Zeit genommen haben\num simon zu verbessern."));
 	QVBoxLayout *layout = new QVBoxLayout(intro);
 	layout->addWidget(label);
 	intro->setLayout(layout);

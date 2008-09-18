@@ -27,7 +27,7 @@
 class XMLShortcutCommand : public XMLDomReader
 {
 public:
-    XMLShortcutCommand(const QString& path="conf/shortcuts.xml", QObject* parent=0);
+    explicit XMLShortcutCommand(const QString& path="conf/shortcuts.xml", QObject* parent=0);
 
     CommandList* load(bool &ok, const QString& path="");
 

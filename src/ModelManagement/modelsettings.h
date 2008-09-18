@@ -9,8 +9,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#ifndef MODELLSETTINGS_H
-#define MODELLSETTINGS_H
+#ifndef MODELSETTINGS_H
+#define MODELSETTINGS_H
 
 #include "systemwidget.h"
 #include "ui_modelsettingsdlg.h"

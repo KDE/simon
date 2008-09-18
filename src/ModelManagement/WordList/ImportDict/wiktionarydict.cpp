@@ -48,7 +48,7 @@ WiktionaryDict::WiktionaryDict(QString path, QObject* parent) :QXmlDefaultHandle
  * \param QXmlAttributes &attributes
  * atts are the attributes attached to the element. If there are no attributes, atts is an empty attributes object.
  * \return bool
- * Success. (in the current implementation this returns allways true)
+ * Success. (in the current implementation this returns always true)
  */
 bool WiktionaryDict::startElement(const QString&,
 			      const QString&,
@@ -98,7 +98,7 @@ bool WiktionaryDict::startElement(const QString&,
  * \param QString &qName
  * qName is the qualified name (with prefix)
  * \return bool
- * Success. (in the current implementation this returns allways true)
+ * Success. (in the current implementation this returns always true)
  */
 bool WiktionaryDict::endElement(const QString&, const QString&,
 			    const QString &qName)

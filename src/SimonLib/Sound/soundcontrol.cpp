@@ -10,15 +10,15 @@
 //
 //
 #include "soundcontrol.h"
+#include <KLocalizedString>
 #include <string.h>
 #include <QObject>
-#include <QMessageBox>
+#include <KMessageBox>
 #include "../SimonInfo/simoninfo.h"
 #include "../Logging/logger.h"
 #include "portaudio.h"
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
 
-#include <QObject>
 /**
  *	@brief Constructor
  *
@@ -37,12 +37,12 @@ SoundControl::SoundControl()
  *
  *	@author Peter Grasch
  *	@param int percent
- *	returns the aviable sound devices
+ *	returns the available sound devices
 */
 
 SoundDeviceList* SoundControl::getOutputDevices()
 {
-	Logger::log(QObject::tr("[INF] Bekommen einer Liste mit den verfügbaren devices"));
+	Logger::log(i18n("[INF] Bekommen einer Liste mit den verfügbaren devices"));
 	SoundDeviceList *sdl= new SoundDeviceList();
 	
 	if (Pa_Initialize() < 0) return sdl;
@@ -50,7 +50,7 @@ SoundDeviceList* SoundControl::getOutputDevices()
 	int numDevices = Pa_GetDeviceCount();
 	if( numDevices < 0 )
 	{
-		QMessageBox::critical(0, QObject::tr("Konnte Ausgabegeräte nicht einlesen"), QObject::tr("Fehler beim Einlesen der Audio-Ausgabegeräte:\n\nPa_CountDevices returned %1").arg(numDevices));
+		KMessageBox::error(0, i18n("Fehler beim Einlesen der Audio-Ausgabegeräte:\n\nPa_CountDevices returned %1", numDevices));
 		return sdl;
 	}
 
@@ -79,7 +79,7 @@ SoundDeviceList* SoundControl::getOutputDevices()
  */
 SoundDeviceList* SoundControl::getInputDevices()
 {
-	Logger::log(QObject::tr("[INF] Bekommen einer Liste mit den verfügbaren Input-devices"));
+	Logger::log(i18n("[INF] Bekommen einer Liste mit den verfügbaren Input-devices"));
 	SoundDeviceList *sdl= new SoundDeviceList();
 
 	if (Pa_Initialize() < 0) return sdl;
@@ -88,7 +88,7 @@ SoundDeviceList* SoundControl::getInputDevices()
 	int numDevices = Pa_GetDeviceCount();
 	if( numDevices < 0 )
 	{
-		QMessageBox::critical(0, QObject::tr("Konnte Eingabegeräte nicht einlesen"), QObject::tr("Fehler beim Einlesen der Audio-Eingabegeräte:\n\nPa_CountDevices returned %1").arg(numDevices));
+		KMessageBox::error(0, i18n("Fehler beim Einlesen der Audio-Eingabegeräte:\n\nPa_CountDevices returned %1", numDevices));
 		return sdl;
 	}
 

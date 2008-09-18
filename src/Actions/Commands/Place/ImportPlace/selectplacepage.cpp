@@ -17,15 +17,16 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+#include "selectplacepage.h"
+
 #include <KUrl>
 #include <QCoreApplication>
-#include "selectplacepage.h"
 
 SelectPlacePage::SelectPlacePage(QWidget *parent) : QWizardPage(parent)
 {
 	ui.setupUi(this);
 
-	setTitle(tr("Ort auswählen"));
+	setTitle(i18n("Ort auswählen"));
 	
 	connect(ui.cbProtocol->lineEdit(), SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));
 	connect(ui.leUser, SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));
@@ -37,7 +38,7 @@ SelectPlacePage::SelectPlacePage(QWidget *parent) : QWizardPage(parent)
 	
 	connect(ui.rbLocalPlace, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
 	connect(ui.leRemoteUrl, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
-	connect(ui.leLocalUrl, SIGNAL(urlChanged(QString)), this, SIGNAL(completeChanged()));
+	connect(ui.urLocalUrl, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
 	
 }
 
@@ -45,7 +46,7 @@ void SelectPlacePage::initializePage()
 {
 	ui.gbRemoteHelp->setChecked(false);
 	
-	ui.leLocalUrl->hide();
+	ui.urLocalUrl->hide();
 	ui.leRemoteUrl->hide();
 	ui.lbRemoteUrl->hide();
 	ui.gbRemoteHelp->hide();
@@ -67,7 +68,7 @@ bool SelectPlacePage::isComplete() const
 	bool complete=false;
 	if (ui.rbLocalPlace->isChecked())
 	{ //local place
-		complete = ! (ui.leLocalUrl->text().isEmpty());
+		complete = ! (ui.urLocalUrl->url().isEmpty());
 	} else
 	{ //remote place
 		complete = ! (ui.leRemoteUrl->text().isEmpty());
@@ -91,7 +92,7 @@ QString SelectPlacePage::getName() const
 {
 	if (ui.rbLocalPlace->isChecked())
 	{ //local place
-		return QDir(ui.leLocalUrl->text()).dirName();
+		return QDir(ui.urLocalUrl->url().path()).dirName();
 	} else
 	{ //remote place
 		return KUrl(ui.leRemoteUrl->text()).host();
@@ -117,7 +118,7 @@ KUrl SelectPlacePage::getUrl() const
 {
 	if (ui.rbLocalPlace->isChecked())
 	{ //local place
-		return KUrl(ui.leLocalUrl->text());
+		return ui.urLocalUrl->url();
 	} else
 	{ //remote place
 		return KUrl(ui.leRemoteUrl->text());

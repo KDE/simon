@@ -14,7 +14,6 @@
 
 #include <QThread>
 class QProcess;
-class QProgressDialog;
 
 /**
  *	@class ModelManager
@@ -39,7 +38,6 @@ signals:
 // 	void missingPhoneme(QString);
 private:
 	static ModelManager* instance;
-	QProgressDialog *processDialog;
 	QProcess *proc;
 	QString tmpDir, realTmpDir;
 	QString lastOutput;
@@ -100,9 +98,7 @@ private:
 		bool generateDict();
 	
 private slots:
-// 	void setStatus(QString);
 	void displayError(QString);
-// 	void setProgress(int now, int max);
 	void logInfo();
 	bool processError(QString userError);
 

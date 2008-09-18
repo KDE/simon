@@ -13,11 +13,12 @@
 #include <QTemporaryFile>
 #include <QFile>
 #include <QVariant>
-#include <QProgressDialog>
+#include <KProgressDialog>
 #include <QHttp>
 #include <QUrl>
-#include <QMessageBox>
+#include <KMessageBox>
 #include <QFileInfo>
+#include <KLocalizedString>
 #include "../Settings/settings.h"
 #include "../Logging/logger.h"
 
@@ -30,7 +31,7 @@
 QuickDownloader::QuickDownloader(QWidget *parent) : QWidget(parent)
 {
 	this->loader = new QHttp();
-	this->progressDlg = new QProgressDialog(this);
+	this->progressDlg = new KProgressDialog(this);
 	this->file = 0;
 }
 
@@ -70,7 +71,7 @@ bool QuickDownloader::download(QString url, QString filename)
 		file = new QFile(filename, this);
 	}
 
-	Logger::log(tr("[INF] Lade \"%1\" zu \"%2\"").arg(url).arg(file->fileName()));
+	Logger::log(i18n("[INF] Lade \"%1\" zu \"%2\"").arg(url).arg(file->fileName()));
 	if (!loader || !progressDlg) return false;
 	
 	QUrl urlD = QUrl(url);
@@ -82,7 +83,7 @@ bool QuickDownloader::download(QString url, QString filename)
 	
 	
 	connect (loader, SIGNAL(requestFinished(int, bool)), this, SLOT(requestFinished(int, bool)));
-	connect(loader, SIGNAL(dataReadProgress(int, int)), this, SLOT(dataRecieved(int, int)));
+	connect(loader, SIGNAL(dataReadProgress(int, int)), this, SLOT(dataReceived(int, int)));
 	connect(progressDlg, SIGNAL(canceled()), this, SLOT(cancelDownload()));
 	connect(loader, SIGNAL(responseHeaderReceived(const QHttpResponseHeader &)),
 		this, SLOT(readResponse(const QHttpResponseHeader &)));
@@ -91,10 +92,10 @@ bool QuickDownloader::download(QString url, QString filename)
 	loader->setHost(urlD.host(), mode, urlD.port() == -1 ? 0 : urlD.port());;
 	QFileInfo info = QFileInfo(urlD.path());
 	
-	progressDlg->setWindowTitle(tr("Lade ")+info.fileName());
-	progressDlg->setLabelText(tr("Lade ")+url);
-	progressDlg->setMaximum(0);
-	progressDlg->setValue(0);
+	progressDlg->setWindowTitle(i18n("Lade ")+info.fileName());
+	progressDlg->setLabelText(i18n("Lade ")+url);
+	progressDlg->progressBar()->setMaximum(0);
+	progressDlg->progressBar()->setValue(0);
 	progressDlg->show();
 	
 	aborting = false;
@@ -102,9 +103,8 @@ bool QuickDownloader::download(QString url, QString filename)
 	if (!file->open(QIODevice::WriteOnly))
 	{
 		
-		QMessageBox::critical(this, tr("Fehler beim Öffnen"),
-				QString(tr("Konnte die temporäre Datei (%1) nicht öffnen:\n%2"))
-				.arg(file->fileName()).arg(file->errorString()));
+		KMessageBox::error(this,
+				i18n("Konnte die temporäre Datei (%1) nicht öffnen:\n%2", file->fileName(), file->errorString()));
 		return false;
 	}
 	
@@ -117,16 +117,14 @@ bool QuickDownloader::download(QString url, QString filename)
  * \brief reads the response header from the server
  * \author Peter Grasch
  * @param QHttpResponseHeader header
- * The header we recieved
+ * The header we received
  */
 void QuickDownloader::readResponse(const QHttpResponseHeader header)
 {
-	Logger::log(tr("[INF] Erhaltene HTTP Antwort: \"")+QString::number(header.statusCode())+"\"");
+	Logger::log(i18n("[INF] Erhaltene HTTP Antwort: \"")+QString::number(header.statusCode())+"\"");
 	if (header.statusCode() != 200) {
-		QMessageBox::information(this, tr("HTTP"),
-					 tr("Download fehlgeschlagen: %1.")
-							 .arg(header.reasonPhrase()));
-		Logger::log(tr("[INF] Download fehlgeschlagen: %1.").arg(header.reasonPhrase()));
+		KMessageBox::information(this, i18n("Download fehlgeschlagen: %1.", header.reasonPhrase()));
+		Logger::log(i18n("[INF] Download fehlgeschlagen: %1.").arg(header.reasonPhrase()));
 		aborting = true;
 		progressDlg->close();
 		loader->abort();
@@ -140,7 +138,7 @@ void QuickDownloader::readResponse(const QHttpResponseHeader header)
  */
 void QuickDownloader::cancelDownload()
 {
-	Logger::log(tr("[INF] Download zurückgesetzt"));
+	Logger::log(i18n("[INF] Download zurückgesetzt"));
 	aborting = true;
 	progressDlg->close();
 	loader->abort();
@@ -149,16 +147,16 @@ void QuickDownloader::cancelDownload()
 /**
  * \brief Updates the progressbar and emits the current progress
  * @param int now
- * How many bytes have we already recieved?
+ * How many bytes have we already received?
  * @param int max
  * How many bytes are there to retrieve?
  */
-void QuickDownloader::dataRecieved(int now, int max)
+void QuickDownloader::dataReceived(int now, int max)
 {
 	if (aborting) return;
 	
-	progressDlg->setMaximum(max);
-	progressDlg->setValue(now);
+	progressDlg->progressBar()->setMaximum(max);
+	progressDlg->progressBar()->setValue(now);
 	emit progress(now, max);
 }
 
@@ -172,12 +170,12 @@ void QuickDownloader::dataRecieved(int now, int max)
 void QuickDownloader::requestFinished(int id, bool error)
 {
 	if (error) {
-		Logger::log(tr("[ERR] Fehler beim Download aufgetreten: \"")+loader->errorString()+"\"");
+		Logger::log(i18n("[ERR] Fehler beim Download aufgetreten: \"")+loader->errorString()+"\"");
 		emit errorOccured(loader->errorString());
 	}
 	
 	if ((id == this->request) && (aborting == false)) {
-		Logger::log(tr("[INF] Download abgeschlossen: \"")+file->fileName()+"\"");
+		Logger::log(i18n("[INF] Download abgeschlossen: \"")+file->fileName()+"\"");
 		if (file)
 			file->close();
 		progressDlg->hide();
@@ -185,7 +183,7 @@ void QuickDownloader::requestFinished(int id, bool error)
 	}
 	if (aborting)
 	{
-		Logger::log(tr("[INF] Download abgebrochen: \"")+file->fileName()+"\"");
+		Logger::log(i18n("[INF] Download abgebrochen: \"")+file->fileName()+"\"");
 		if (file) {
 			file->close();
 			file->remove();

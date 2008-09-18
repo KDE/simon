@@ -39,7 +39,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="SimonDirSelector" name="leLocalUrl" />
+      <widget class="KUrlRequester" name="urLocalUrl" />
      </item>
     </layout>
    </item>
@@ -182,7 +182,7 @@
              <bool>false</bool>
             </property>
             <property name="echoMode" >
-             <enum>KLineEdit::Password</enum>
+             <enum>QLineEdit::Password</enum>
             </property>
            </widget>
           </item>
@@ -230,14 +230,18 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SimonDirSelector</class>
-   <extends>KLineEdit</extends>
-   <header>simondirselector.h</header>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>rbLocalPlace</tabstop>
-  <tabstop>leLocalUrl</tabstop>
   <tabstop>rbRemotePlace</tabstop>
   <tabstop>leRemoteUrl</tabstop>
   <tabstop>gbRemoteHelp</tabstop>
@@ -250,22 +254,6 @@
  </tabstops>
  <resources/>
  <connections>
-  <connection>
-   <sender>rbLocalPlace</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>leLocalUrl</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>78</x>
-     <y>28</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>97</x>
-     <y>55</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>cbAuthentification</sender>
    <signal>toggled(bool)</signal>

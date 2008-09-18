@@ -12,7 +12,7 @@
 
 #include "simonfileselector.h"
 
-SimonFileSelector::SimonFileSelector(QWidget *parent) : SimonFileSystemSelector("", QObject::tr("Datei öffnen"), 
+SimonFileSelector::SimonFileSelector(QWidget *parent) : SimonFileSystemSelector("", i18n("Datei öffnen"), 
 						".", 0, "", QFileDialog::ExistingFile, parent)
 {
 	

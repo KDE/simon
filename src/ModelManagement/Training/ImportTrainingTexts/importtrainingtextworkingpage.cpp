@@ -32,7 +32,7 @@
  */
 ImportTrainingTextWorkingPage::ImportTrainingTextWorkingPage(QWidget *parent) : QWizardPage(parent)
 {
-	setTitle(tr("Text wird hinzugefügt"));
+	setTitle(i18n("Text wird hinzugefügt"));
 	ui.setupUi(this);
 }
 
@@ -45,13 +45,13 @@ void ImportTrainingTextWorkingPage::startImport(QString path)
 {
 	if (path.startsWith("http"))
 	{
-		Logger::log(QObject::tr("[INF] Starte Remote Import von \"")+path+QObject::tr("\""));
+		Logger::log(i18n("[INF] Starte Remote Import von \"")+path+i18n("\""));
 		QuickDownloader *qd = new QuickDownloader(this);
 		connect(qd, SIGNAL(downloadFinished(QString)), this,
 			SLOT(processText(QString)));
 		qd->download(path);
 	} else {
-		Logger::log(QObject::tr("[INF] Starte Lokalen Import von\"")+path+QObject::tr("\""));
+		Logger::log(i18n("[INF] Starte Lokalen Import von\"")+path+i18n("\""));
 		parseFile(path);
 	}
 }

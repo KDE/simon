@@ -17,7 +17,8 @@
 #include <QDataStream>
 #include <QCryptographicHash>
 #include <QStringList>
-#include <QMessageBox>
+#include <KMessageBox>
+#include <KLocalizedString>
 #include "../SimonLib/Settings/settings.h"
 #include "../SimonLib/SimonInfo/simoninfo.h"
 
@@ -91,7 +92,7 @@ void JuliusControl::errorOccured()
 	QList<QSslError> errors = socket->sslErrors();
 	if ((errors.count() == 1) && (errors[0].error() == QSslError::SelfSignedCertificate) && (Settings::getB("Juliusd/Encrypted")))
 	{
-		if (QMessageBox::question(0, tr("Selbst-Signiertes Zertifikat"), tr("Das Zertifikat der Gegenstelle ist selbst-signiert und nicht vertrauenswürdig.\n\nWollen Sie die Verbindung trozdem fortsetzen?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+		if (KMessageBox::questionYesNoCancel(0, i18n("Das Zertifikat der Gegenstelle ist selbst-signiert und nicht vertrauenswürdig.\n\nWollen Sie die Verbindung trozdem fortsetzen?"), i18n("Selbst-Signiertes Zertifikat"))==KMessageBox::Yes)
 		{
 			socket->ignoreSslErrors();
 			return;
@@ -113,7 +114,7 @@ void JuliusControl::errorOccured()
 }
 
 /**
- * \brief Returns wether the socket is connected to a valid juliusd server
+ * \brief Returns whether the socket is connected to a valid juliusd server
  * 
  * \author Peter Grasch
  * \return bool
@@ -130,7 +131,7 @@ bool JuliusControl::isConnected()
 void JuliusControl::timeoutReached()
 {
 	timeoutWatcher->stop();
-	emit connectionError(tr("Zeitüberschreitung der Anforderung (%1 ms)").arg(Settings::getI("Network/Timeout")));
+	emit connectionError(i18n("Zeitüberschreitung der Anforderung (%1 ms)").arg(Settings::getI("Network/Timeout")));
 	socket->abort();
 }
 
@@ -167,7 +168,7 @@ void JuliusControl::messageReceived()
 		case 2:
 		{
 			/* user / pass rejected */
-			emit error(tr("Benutzername oder Passwort falsch."));
+			emit error(i18n("Benutzername oder Passwort falsch."));
 			this->disconnectFromServer();
 		}
 			break;
@@ -175,20 +176,20 @@ void JuliusControl::messageReceived()
 		case 3:
 		{
 			/* no pass specified */
-			emit error(tr("Kein Passwort angegeben. Aus Sicherheitsgründen muss ein Passwort festgelegt werden"));
+			emit error(i18n("Kein Passwort angegeben. Aus Sicherheitsgründen muss ein Passwort festgelegt werden"));
 		}
 			break;
 		
 		case 4:
 		{
 			/* login rejected, because the version is known to NOT be supported */
-			emit error(tr("Version nicht unterstützt"));
+			emit error(i18n("Version nicht unterstützt"));
 		}
 			break;
 		case 5:
 		{
 			/* login accepted, but the version is not known to be supported */
-			QString reason=tr("Version mglw. nicht unterstützt");
+			QString reason=i18n("Version mglw. nicht unterstützt");
 			if (Settings::getB("Juliusd/ContinueOnWarning"))
 			{
 				emit warning(reason);
@@ -210,7 +211,7 @@ void JuliusControl::messageReceived()
 			emit recognised(word, sampa, samparaw);
 		}
 			break;
-		//TextSync the data of the syncprocess is here aviable
+		//TextSync the data of the syncprocess is here avaiable
 		case 99990:
 		{
 			QString timestamp;
@@ -227,11 +228,11 @@ void JuliusControl::messageReceived()
 			
 			if(!datafile->open(QIODevice::WriteOnly))
 			{
-				QMessageBox::critical(NULL,"Fehler","Fehler beim lesen der Daten-Datei");
+				KMessageBox::error(NULL,i18n("Fehler beim lesen der Daten-Datei"));
 			}
 			if(!stampfile->open(QIODevice::WriteOnly))
 			{
-				QMessageBox::critical(NULL,"Fehler","Fehler beim lesen der Shadow-Datei");
+				KMessageBox::error(NULL,i18n("Fehler beim lesen der Shadow-Datei"));
 			}
 
 			
@@ -351,11 +352,11 @@ void JuliusControl::sendSyncFile(QString filename)
 	
 	if(!datafile->open(QIODevice::ReadOnly))
 	{
-		QMessageBox::critical(NULL,"Fehler","Fehler beim lesen der Daten-Datei");
+		KMessageBox::error(NULL,i18n("Fehler beim lesen der Daten-Datei"));
 	}
 	if(!stampfile->open(QIODevice::ReadOnly))
 	{
-		QMessageBox::critical(NULL,"Fehler","Fehler beim lesen der Shadow-Datei");
+		KMessageBox::error(NULL,i18n("Fehler beim lesen der Shadow-Datei"));
 	}
 
 	QByteArray datareader, stampreader;

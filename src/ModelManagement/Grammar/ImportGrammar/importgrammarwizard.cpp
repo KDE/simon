@@ -18,7 +18,7 @@
 
 ImportGrammarWizard::ImportGrammarWizard(QWidget* parent): QWizard(parent)
 {
-	setWindowTitle(tr("Grammatikstrukturen Importieren"));
+	setWindowTitle(i18n("Grammatikstrukturen Importieren"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importgrammar.png"));
 	addPage(createIntroPage());
 	addPage(createSelectFilesPage());
@@ -35,8 +35,8 @@ QWizardPage* ImportGrammarWizard::createIntroPage()
 	intro->setLayout(lay);
 
 	desc->setWordWrap(true);
-	intro->setTitle(tr("Willkommen zum Importieren der Grammatik"));
-	desc->setText(tr("Dieser Assistent wird Ihnen erlauben, beliebig viele Textdateien auszuwählen aus denen dann ein Grammatikprofil erstellt wird.\n\nDazu werden die einzelnen Wörter mit Hilfe der Wortliste in ihre grammatikalischen Kategorien (\"Terminale\") aufgelöst und anhand dieser die Satzkonstrukte kreiert.\n\nBitte überprüfen Sie die Wortliste auf Korrektheit bevor Sie diesen Assistenten ausführen."));
+	intro->setTitle(i18n("Willkommen zum Importieren der Grammatik"));
+	desc->setText(i18n("Dieser Assistent wird Ihnen erlauben, beliebig viele Textdateien auszuwählen aus denen dann ein Grammatikprofil erstellt wird.\n\nDazu werden die einzelnen Wörter mit Hilfe der Wortliste in ihre grammatikalischen Kategorien (\"Terminale\") aufgelöst und anhand dieser die Satzkonstrukte kreiert.\n\nBitte überprüfen Sie die Wortliste auf Korrektheit bevor Sie diesen Assistenten ausführen."));
 
 	return intro;
 }
@@ -65,8 +65,8 @@ QWizardPage* ImportGrammarWizard::createFinishedPage()
 	finished->setLayout(lay);
 
 	desc->setWordWrap(true);
-	finished->setTitle(tr("Import abgeschlossen"));
-	desc->setText(tr("Die Dateien wurden erfolgreich importiert.\n\nBitte überprüfen Sie die importierten Strukturen noch auf offensichtliche Fehler.\n\nVielen Dank dass Sie simon verbessert haben!"));
+	finished->setTitle(i18n("Import abgeschlossen"));
+	desc->setText(i18n("Die Dateien wurden erfolgreich importiert.\n\nBitte überprüfen Sie die importierten Strukturen noch auf offensichtliche Fehler.\n\nVielen Dank dass Sie simon verbessert haben!"));
 
 	return finished;
 }

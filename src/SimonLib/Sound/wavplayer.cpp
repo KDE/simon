@@ -11,6 +11,7 @@
 //
 #include "wavplayer.h"
 #include <QTimer>
+#include <KLocalizedString>
 #include <QObject>
 #include <stdlib.h>
 #include <string.h>
@@ -63,7 +64,7 @@ int processOutputData( const void *inputBuffer, void *outputBuffer, unsigned lon
  */
 bool WavPlayer::play( QString filename )
 {
-	Logger::log(tr("[INF] Abspielen von %1").arg(filename)); 
+	Logger::log(i18n("[INF] Abspielen von %1").arg(filename)); 
 	
 
 	if (stream)

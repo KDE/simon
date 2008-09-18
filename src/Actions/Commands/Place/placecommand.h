@@ -62,7 +62,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    const QUrl getURL() const { return this->url; }
+    const KUrl getURL() const { return this->url; }
     
     
     ~PlaceCommand() {}

@@ -29,7 +29,7 @@ const KIcon TextMacroCommand::getCategoryIcon() const
 const QMap<QString,QVariant> TextMacroCommand::getValueMapPrivate() const
 {
 	QMap<QString,QVariant> out;
-	out.insert(tr("Text"), getText());
+	out.insert(i18n("Text"), getText());
 	return out;
 }
 

@@ -19,7 +19,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QVBoxLayout>
-#include <QMessageBox>
+#include <KMessageBox>
 #include <QHBoxLayout>
 #include <QIcon>
 #include "simonlistwidget.h"
@@ -34,18 +34,18 @@
 ImportDictWiktionaryPage::ImportDictWiktionaryPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
-	registerField("wikiFileName*", ui.leWikiPath, "currentUrl", SIGNAL(urlChanged(QString)));
+	registerField("wikiFileName*", ui.urWikiPath, "url", SIGNAL(textChanged(QString)));
 
 	registerField("importWikiLocal", ui.rbImportLocal);
 	registerField("importWikiRemote", ui.rbImportRemote);
 	registerField("wikiRemoteURL", ui.lwRemoteList, "currentUserData",
 			 SIGNAL(currentIndexChanged(int)));
 
-	setTitle(tr("Importiere Wiktionary Wörterbuch"));
+	setTitle(i18n("Importiere Wiktionary Wörterbuch"));
 	
 	connect(ui.rbImportLocal, SIGNAL(toggled(bool)), this, SLOT(resambleImportLocal(bool)));
 	connect(ui.rbImportLocal, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
-	connect(ui.leWikiPath, SIGNAL(urlChanged(QString)), this, SIGNAL(completeChanged()));
+	connect(ui.urWikiPath, SIGNAL(textChanged(QString)), this, SIGNAL(completeChanged()));
 	connect(ui.lwRemoteList, SIGNAL(itemSelectionChanged()), this, SIGNAL(completeChanged()));
 }
 
@@ -59,15 +59,13 @@ void ImportDictWiktionaryPage::resambleImportLocal(bool isTrue)
 {
 	if (!isTrue)
 	{
-		ui.leWikiPath->setEnabled(false);
-		ui.leWikiPath->setEnabled(false);
+		ui.urWikiPath->setEnabled(false);
 		ui.lwRemoteList->setEnabled(true);
 		
 		loadList();
 	} else
 	{
-		ui.leWikiPath->setEnabled(true);
-		ui.leWikiPath->setEnabled(true);
+		ui.urWikiPath->setEnabled(true);
 		ui.lwRemoteList->setEnabled(false);
 	}
 }
@@ -128,7 +126,7 @@ void ImportDictWiktionaryPage::loadList()
 
 	QString url = Settings::getS("Internet/WikiDumpOverview");
 	if (!qDownloader->download(url))
-		QMessageBox::critical(this, tr("Fehler beim Herunterladen"), tr("Konnte ")+url+tr(" nicht herunterladen."));
+		KMessageBox::error(this, i18n("Konnte %1 nicht herunterladen.", url));
 	
 }
 

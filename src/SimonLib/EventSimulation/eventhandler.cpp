@@ -24,10 +24,10 @@ EventHandler* EventHandler::instance;
  */
 EventHandler::EventHandler()
 {
-#ifdef linux
+#ifdef Q_OS_UNIX
 	this->coreEvents= (CoreEvents*) new XEvents();
 #endif
-#ifdef __WIN32
+#ifdef Q_OS_WIN
 	coreEvents= (CoreEvents*) new WindowsEvents();
 #endif
 	
@@ -50,7 +50,7 @@ void EventHandler::click(int x, int y)
  * @brief Sends a word to the underlying Core Eventhandlers
  *
  * Splits up the word in characters and sends every single one 
- * seperate by using sendKey()
+ * separate by using sendKey()
  *
  * @param QString word
  * The word to send
@@ -85,7 +85,7 @@ void EventHandler::sendShortcut(const QKeySequence& shortcut) const
  * The key to send
  * 
  * @author Peter Grasch
- * \todo Shift gets unset ALOT
+ * \todo Shift gets unset a LOT
  */
 void EventHandler::sendKey(const QChar key) const
 {
@@ -95,7 +95,7 @@ void EventHandler::sendKey(const QChar key) const
 // 	{
 // 		coreEvents->setModifierKey(KeyShift,false);
 // 	}
-#ifdef __WIN32	
+#ifdef Q_OS_WIN	
 	if (((c >= 'A') && (c <= 'Z')))
 	{
 		c+=32;

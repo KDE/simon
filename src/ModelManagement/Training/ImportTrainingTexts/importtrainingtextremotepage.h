@@ -9,8 +9,8 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#ifndef IMPORTREMOTEWIZARDPAGE_H
-#define IMPORTREMOTEWIZARDPAGE_H
+#ifndef IMPORTTRAININGTEXTREMOTEPAGE_H
+#define IMPORTTRAININGTEXTREMOTEPAGE_H
 
 #include <QWizardPage>
 #include <QString>

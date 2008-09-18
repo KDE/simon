@@ -14,8 +14,8 @@
 
 #include <QWizardPage>
 #include <QVariant>
+#include "ui_importtrainingdataintrodlg.h"
 
-class QLineEdit;
 
 /**
   \class ImportTrainingDirectoryIntroPage
@@ -26,16 +26,12 @@ class QLineEdit;
 */
 class ImportTrainingDirectoryIntroPage : public QWizardPage{
 	Q_OBJECT
+
 private:
-	QLineEdit *leDirectory;
-public slots:
-	void setDir();
+	Ui::ImportTrainingDataIntroDlg ui;
 public:
 	ImportTrainingDirectoryIntroPage(QWidget *parent=0);
-
-	~ImportTrainingDirectoryIntroPage();
-	void setPathEdit(QLineEdit *leDirectory) { this->leDirectory = leDirectory; }
-	QVariant getField(QString name) { return field(name);}
+	~ImportTrainingDirectoryIntroPage() {}
 
 };
 

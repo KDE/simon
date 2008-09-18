@@ -16,7 +16,7 @@
 #include <QDir>
 #include <QDate>
 #include <QTime>
-#include <QCoreApplication>
+#include <KLocalizedString>
 
 ImportTrainingData::ImportTrainingData(QObject* parent): QThread(parent)
 {
@@ -28,14 +28,14 @@ void ImportTrainingData::run()
 {
 	prog=0;
 	emit progress(0,0); //waiting...
-	emit status(tr("Durchsuche Ordner..."));
+	emit status(i18n("Durchsuche Ordner..."));
 	QString wavDestdir = Settings::getS("Model/PathToSamples")+"/";
 
 	QDir d(wavDestdir);
 	if (!d.exists())
 		if (!d.mkpath(wavDestdir))
 	{
-		emit error(tr("Konnte Ausgabeordner %1 nicht erstellen").arg(wavDestdir));
+		emit error(i18n("Konnte Ausgabeordner %1 nicht erstellen").arg(wavDestdir));
 	}
 	
 	QStringList *dataFiles = this->searchDir(directory);
@@ -43,16 +43,16 @@ void ImportTrainingData::run()
 	
 
 	emit progress(0, dataFiles->count());
-	emit status(tr("Importiere %1 Dateien...").arg(dataFiles->count()));
+	emit status(i18n("Importiere %1 Dateien...").arg(dataFiles->count()));
 
 	dataFiles = processSounds(*dataFiles, wavDestdir);
 	
 	if (!dataFiles) return;
 	
-	emit status(tr("Erstelle automatische Transkription..."));
+	emit status(i18n("Erstelle automatische Transkription..."));
 	
 	if (!createPrompts(*dataFiles)) return;
-	emit status(tr("Fertig"));
+	emit status(i18n("Fertig"));
 	emit done();
 }
 
@@ -179,7 +179,7 @@ QStringList* ImportTrainingData::processSounds(QStringList dataFiles,
 
 		if (!pp->process(dataFiles[i], newFileName))
 		{
-			emit error(tr("Konnte Tondaten nicht verarbeiten"));
+			emit error(i18n("Konnte Tondaten nicht verarbeiten"));
 			return NULL;
 		}
 		newFiles->append(newFileName);

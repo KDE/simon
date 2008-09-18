@@ -29,7 +29,7 @@ ImportBOMPPage::ImportBOMPPage(QWidget* parent): QWizardPage(parent)
 	ui.setupUi(this);
 
 	registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
-	setTitle(tr("Importiere BOMP Wörterbuch"));
+	setTitle(i18n("Importiere BOMP Wörterbuch"));
 }
 
 

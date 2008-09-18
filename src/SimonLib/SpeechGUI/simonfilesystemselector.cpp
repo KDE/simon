@@ -10,8 +10,8 @@
 //
 //
 
-#include <QToolButton>
 #include "simonfilesystemselector.h"
+#include <QToolButton>
 #include <QHBoxLayout>
 #include <QStringList>
 #include <QFileInfo>

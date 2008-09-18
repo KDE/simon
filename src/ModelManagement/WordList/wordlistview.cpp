@@ -12,8 +12,8 @@
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QString>
-#include <QMessageBox>
-#include <QProgressDialog>
+#include <KMessageBox>
+#include <KProgressDialog>
 #include <QCoreApplication>
 #include <QIcon>
 #include "wordlistmanager.h"
@@ -33,9 +33,9 @@
  *
  * @author Peter Grasch
  */
-WordListView::WordListView(QWidget *parent) : InlineWidget(tr("Wortliste"), 
+WordListView::WordListView(QWidget *parent) : InlineWidget(i18n("Wortliste"), 
 	QIcon(":/images/icons/format-justify-fill.svg"), 
-	tr("Betrachten und bearbeiten der Wortliste"), parent)
+	i18n("Betrachten und bearbeiten der Wortliste"), parent)
 {
 	shownDialogs = 0;
 	abortVocabInsertion = false;
@@ -87,7 +87,7 @@ void WordListView::askForRebuild()
 {
 	//we changed the wordlist
 	//we should thus recompile the model
-	if (QMessageBox::question(this, tr("Übernehmen"), tr("Um die Änderung zu übernehmen, muss das Sprachmodell neu generiert werden.\n\nWollen Sie es jetzt neu generieren?"), QMessageBox::Yes|QMessageBox::No)==QMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(this, i18n("Um die Änderung zu übernehmen, muss das Sprachmodell neu generiert werden.\n\nWollen Sie es jetzt neu generieren?"))==KMessageBox::Yes)
 			ModelManager::compileModel();
 }
 
@@ -151,7 +151,7 @@ void WordListView::suggestTraining()
 	int toInsert = 10;
 	if (ui.twVocab->rowCount() < toInsert) toInsert = ui.twVocab->rowCount();
 
-	if (toInsert==0) QMessageBox::information(this, ("Keine Wörter in der Wortliste"), tr("Es sind nicht genügend Wörter im wörterbuch"));
+	if (toInsert==0) KMessageBox::information(this, i18n("Es sind nicht genügend Wörter im wörterbuch"));
 	for (int i=0; i<toInsert; i++)
 	{
 		ui.twVocab->setCurrentItem(ui.twVocab->item(i,0));
@@ -171,7 +171,6 @@ void WordListView::markWordToTrain(Word word)
 }
 
 
-#include <KMessageBox>
 /**
  * @brief Filters the QList
  *
@@ -204,7 +203,7 @@ void WordListView::trainList()
 	if (!trainView) return;
 	if (this->trainingwordlist.count()==0)
 	{
-		QMessageBox::critical(this, tr("Keine Wörter selektiert"), tr("Bitte wählen Sie zuerst ein paar Wörter für das spezielle Training aus.\nZiehen Sie sie dazu von der großen Liste links in die kleine Liste oben rechts.\n\nWenn Sie generische Texte vorlesen wollen, gehen Sie bitte zum Allgemeine Training.\n(Der Punkt \"Trainieren\" ist in der \"Globale Aktion\"-Toolbar)."));
+		KMessageBox::error(this, i18n("Bitte wählen Sie zuerst ein paar Wörter für das spezielle Training aus.\nZiehen Sie sie dazu von der großen Liste links in die kleine Liste oben rechts.\n\nWenn Sie generische Texte vorlesen wollen, gehen Sie bitte zum Allgemeine Training.\n(Der Punkt \"Trainieren\" ist in der \"Globale Aktion\"-Toolbar)."));
 		return;
 	}
 	trainView->trainWords(trainingwordlist);
@@ -214,9 +213,9 @@ void WordListView::trainList()
 }
 
 /**
- * @brief Copys a word to the Traininglist
+ * @brief Copies a word to the Traininglist
  *
- * Copys the currently selected word from the twVocab (member) to the
+ * Copies the currently selected word from the twVocab (member) to the
  * lwTrainingWords (member)
  *
  * @author Peter Grasch
@@ -225,7 +224,7 @@ void WordListView::copyWordToTrain()
 {
 	if (ui.twVocab->selectedItems().isEmpty())
 	{
-		QMessageBox::information(this,tr("Nichts ausgewählt"),tr("Bitte selektieren Sie zuerst ein Wort aus der Liste links"));
+		KMessageBox::information(this,i18n("Bitte selektieren Sie zuerst ein Wort aus der Liste links"));
 		return;
 	}
 	
@@ -288,7 +287,7 @@ void WordListView::deleteSelectedWord()
 	int row = ui.twVocab->currentRow();
 	if (row == -1) //none selected
 	{
-		QMessageBox::information(this, tr("Nichts ausgewählt"), tr("Bitte selektieren Sie ein Wort"));
+		KMessageBox::information(this, i18n("Bitte selektieren Sie ein Wort"));
 		return;
 	}
 
@@ -320,7 +319,7 @@ void WordListView::deleteSelectedWord()
 		}
 		
 		if (!success)
-			QMessageBox::critical(this, tr("Fehler beim Löschen"), tr("Das Wort konnte nicht komplett gelöscht werden.\n\nBitte überprüfen Sie die Pfade der Dateien: prompts, codetrain.scp, Pfad der Samples, dict, shadow-dict, voca"));
+			KMessageBox::error(this, i18n("Das Wort konnte nicht komplett gelöscht werden.\n\nBitte überprüfen Sie die Pfade der Dateien: prompts, codetrain.scp, Pfad der Samples, dict, shadow-dict, voca"));
 	}
 	//do not delete w as it is a pointer to its wordlistmanager-representation
 	del->deleteLater();
@@ -342,10 +341,10 @@ void WordListView::insertVocab(WordList *vocab)
 	int currentRow = startAmount;
         int i=0;
 	int limit=Settings::getI("Performance/MaxDisplayedWords");
-	QProgressDialog *pgDlg = new QProgressDialog(tr("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Wörterbuch nicht!)"), tr("Abbrechen"), 0, 
-			((vocab->count() < limit) ? vocab->count() : limit), this);
+	KProgressDialog *pgDlg = new KProgressDialog(this, i18n("Lade Wortliste..."), i18n("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Wörterbuch nicht!)"));
+	pgDlg->progressBar()->setMaximum((vocab->count() < limit) ? vocab->count() : limit);
 
-	connect(pgDlg, SIGNAL(canceled()), this, SLOT(abortInsertion()));
+	connect(pgDlg, SIGNAL(rejected()), this, SLOT(abortInsertion()));
 
 	ui.twVocab->setRowCount(startAmount+vocab->count());
 	while ((!abortVocabInsertion) && (i<vocab->count()) && (i<limit))
@@ -370,14 +369,14 @@ void WordListView::insertVocab(WordList *vocab)
 				ui.twVocab->item(currentRow,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 		} else {
 			vocab->removeAt(i);
-			pgDlg->setMaximum(vocab->count());
+			pgDlg->progressBar()->setMaximum(vocab->count());
 			i--;
 		}
 		i++;
 		currentRow++;
-		if ((i % 50)==0) pgDlg->setValue(i);
+		if ((i % 50)==0) pgDlg->progressBar()->setValue(i);
 	}
-	pgDlg->setValue(i);
+	pgDlg->progressBar()->setValue(i);
 	ui.twVocab->setRowCount(i);
 	ui.twVocab->resizeColumnsToContents();
 	pgDlg->deleteLater();
@@ -388,9 +387,9 @@ void WordListView::insertVocab(WordList *vocab)
 /**
  * @brief Deletes the selected word from the Training-List
  *
- * @todo The list only knows the word - not the pronounciation - if there are more than one it should open a dialog and ask what pronounciation should be deleted
+ * @todo The list only knows the word - not the pronunciation - if there are more than one it should open a dialog and ask what pronunciation should be deleted
  * @author Peter Grasch
- * @note This deletes every pronounciation of the word in the list
+ * @note This deletes every pronunciation of the word in the list
  */
 void WordListView::deleteTrainingWord()
 {

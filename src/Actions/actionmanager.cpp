@@ -19,7 +19,8 @@
  ***************************************************************************/
 
 #include "actionmanager.h"
-#include <QMessageBox>
+#include <KMessageBox>
+#include <KLocalizedString>
 #include "../SimonLib/Logging/logger.h"
 #include "../SimonLib/Settings/settings.h"
 #include "../SimonLib/SimonInfo/simoninfo.h"
@@ -69,7 +70,7 @@ void ActionManager::setupBackends()
 	{
 		CommandManager *man = managers->at(i);
 		if (!man->load())
-			QMessageBox::warning(0, tr("Initialisieren fehlgeschlagen"), tr("Konnte Kommandomanager \"%1\" nicht initialisieren.\n\nBitte überprüfen Sie seine Konfiguration.").arg(man->name()));
+			KMessageBox::error(0, i18n("Konnte Kommandomanager \"%1\" nicht initialisieren.\n\nBitte überprüfen Sie seine Konfiguration.").arg(man->name()));
 	}
 }
 
@@ -91,7 +92,7 @@ bool ActionManager::askDeleteCommandByTrigger(QString trigger)
 		if (!com) continue;
 		
 		if (com->getTrigger() == trigger) {
-			if (QMessageBox::question(0, tr("Trigger vergeben"), tr("Der Trigger \"%1\" ist bereits vergeben.\n\nWollen Sie das Kommando, welches den Trigger %1 verwendet, löschen?").arg(com->getTrigger()), QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes)
+			if (KMessageBox::questionYesNoCancel(0, i18n("Der Trigger \"%1\" ist bereits vergeben.\n\nWollen Sie das Kommando, welches den Trigger %1 verwendet, löschen?", com->getTrigger())) == KMessageBox::Yes)
 			{
 				deleteCommand(com);
 			} else allDeleted = false;
@@ -120,7 +121,7 @@ bool ActionManager::addCommand(Command *command)
 		i++;
 	}
 	if (!added)
-		QMessageBox::critical(0, tr("Nicht hinzugefügt"), tr("Konnte das Kommando \"%1\" nicht hinzufügen.").arg(command->getTrigger()));
+		KMessageBox::error(0, i18n("Konnte das Kommando \"%1\" nicht hinzufügen.").arg(command->getTrigger()));
 	else emit commandsChanged(getCommandList());
 
 	return added;
@@ -140,7 +141,7 @@ bool ActionManager::deleteCommand(Command *command)
 	}
 	
 	if (!deleted)
-		QMessageBox::warning(0, tr("Kommando löschen fehlgeschlagne"), tr("Kommando konnte nicht gelöscht werden."));
+		KMessageBox::error(0, i18n("Kommando konnte nicht gelöscht werden."));
 	else emit commandsChanged(getCommandList());
 
 	command->deleteLater();

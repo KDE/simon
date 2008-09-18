@@ -10,10 +10,11 @@
 //
 //
 #include "quickunpacker.h"
-#include <QProgressDialog>
+#include <KProgressDialog>
 #include <QObject>
-#include <QMessageBox>
+#include <KMessageBox>
 #include <QString>
+#include <KLocalizedString>
 #include "../Logging/logger.h"
 #include "bunzip.h"
 
@@ -34,10 +35,12 @@ QuickUnpacker::QuickUnpacker(QWidget* parent): QWidget(parent)
  */
 void QuickUnpacker::unpack(QString path)
 {
-	prog = new QProgressDialog(tr("Extrahiere")+" "+path, tr("Abbrechen"), 0, 0);
+	prog = new KProgressDialog(this, i18n("Extrahiere..."), i18n("Extrahiere %1...", path));
+	prog->progressBar()->setValue(0);
+	prog->progressBar()->setMaximum(0);
 	prog->show();
 	
-	Logger::log(tr("Extrahiere BZIP2 komprimierte Datei ")+path);
+	Logger::log(i18n("Extrahiere BZIP2 komprimierte Datei ")+path);
 
 	if (compression) compression->deleteLater();
 
@@ -58,7 +61,7 @@ void QuickUnpacker::unpack(QString path)
  */
 void QuickUnpacker::unpacked(QString to)
 {
-	setStatus(tr("BZIP2 Datei erfolgreich nach %1 extrahiert").arg(to));
+	setStatus(i18n("BZIP2 Datei erfolgreich nach %1 extrahiert").arg(to));
 	prog->done(0);
 	emit unpackedTo(to);
 }
@@ -70,7 +73,7 @@ void QuickUnpacker::unpacked(QString to)
  */
 void QuickUnpacker::setStatus(QString status)
 {
-	Logger::log(tr("[INF] ")+status);
+	Logger::log(i18n("[INF] ")+status);
 	prog->setLabelText(status);
 }
 
@@ -80,7 +83,7 @@ void QuickUnpacker::setStatus(QString status)
  */
 void QuickUnpacker::cancel()
 {
-	emit status(tr("Abbrechen..."));
+	emit status(i18n("Abbrechen..."));
 	compression->cancel();
 }
 
@@ -95,14 +98,14 @@ void QuickUnpacker::setProgress(int currentProg)
 }
 
 /**
- * \brief An error occured - we react on it: Shows a messagebox and emits error(the-error)
+ * \brief An error occurred - we react on it: Shows a messagebox and emits error(the-error)
  * \author Peter Grasch
  * @param err The error
  */
 void QuickUnpacker::errorOccured(QString err)
 {
-	Logger::log(tr("[ERR] Fehler beim Entpacken"));
-	QMessageBox::critical(this, tr("Fehler beim Entpacken"), tr("Beim Entpacken ist ein Fehler aufgetreten: %1").arg(err));
+	Logger::log(i18n("[ERR] Fehler beim Entpacken"));
+	KMessageBox::error(this, i18n("Beim Entpacken ist ein Fehler aufgetreten: %1").arg(err));
 	emit error(err);
 }
 

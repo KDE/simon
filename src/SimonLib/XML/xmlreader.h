@@ -23,7 +23,7 @@ protected:
  	QString path;
  
 public:
-	XMLReader(QString path, QObject *parent=0);
+	explicit XMLReader(QString path, QObject *parent=0);
 	
 	~XMLReader();
 };

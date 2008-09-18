@@ -28,9 +28,9 @@
 ImportTrainingTextLocalPage::ImportTrainingTextLocalPage(QWidget *parent) : QWizardPage(parent)
 {
 	ui.setupUi(this);
-	setTitle(tr("Importieren aus Textdatei"));
+	setTitle(i18n("Importieren aus Textdatei"));
 	
-	registerField("importTrainingTextLFilename*", ui.lePath, "currentUrl", SIGNAL(urlChanged(QString)));
+	registerField("importTrainingTextLFilename*", ui.urPath, "url", SIGNAL(textChanged(QString)));
 	registerField("importTrainingTextLTextname*", ui.leName);
 }
 

@@ -1,5 +1,6 @@
 #include "xmlreader.h"
 #include "../Logging/logger.h"
+#include <KLocalizedString>
 
 
 /**
@@ -8,7 +9,7 @@
  */
 XMLReader::XMLReader(QString path, QObject *parent) : QObject(parent)
 {
-	Logger::log(tr("[INF] Initialisiere XML Datei \"%1\"").arg(path));
+	Logger::log(i18n("[INF] Initialisiere XML Datei \"%1\"").arg(path));
 	this->path=path;
 }
 
