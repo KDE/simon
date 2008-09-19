@@ -1,0 +1,576 @@
+<ui version="4.0" >
+ <class>DlgSettings</class>
+ <widget class="QDialog" name="DlgSettings" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>618</width>
+    <height>402</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Settings</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset>
+    <normaloff>../../../../../../../:/images/simon.png</normaloff>../../../../../../../:/images/simon.png</iconset>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2" >
+   <item row="0" column="0" >
+    <widget class="QTabWidget" name="twSettings" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tbGeneral" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>437</width>
+        <height>316</height>
+       </rect>
+      </property>
+      <attribute name="title" >
+       <string>Allgemein</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <widget class="QLabel" name="lbStartArgs" >
+         <property name="text" >
+          <string>Start:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QCheckBox" name="cbStartMinimized" >
+         <property name="text" >
+          <string>Minimiert starten</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QCheckBox" name="cbConnectOnStart" >
+         <property name="text" >
+          <string>Beim Start verbinden</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" >
+        <widget class="QLabel" name="lbOutput" >
+         <property name="text" >
+          <string>Ausgabe:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" >
+        <widget class="QCheckBox" name="cbError" >
+         <property name="text" >
+          <string>Fehler</string>
+         </property>
+         <property name="checked" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1" >
+        <widget class="QCheckBox" name="cbInfo" >
+         <property name="text" >
+          <string>Info</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1" >
+        <widget class="QCheckBox" name="cbWords" >
+         <property name="text" >
+          <string>Erkannte Wörter</string>
+         </property>
+         <property name="checked" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" >
+        <widget class="QCheckBox" name="cbStartOnSystemStart" >
+         <property name="text" >
+          <string>Bei Systemstart starten</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="6" column="0" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tbConnections" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>412</width>
+        <height>306</height>
+       </rect>
+      </property>
+      <attribute name="title" >
+       <string>Verbindungen</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout" >
+       <item row="0" column="0" >
+        <widget class="QLabel" name="lbConncetions" >
+         <property name="text" >
+          <string>Verbindungen:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QCheckBox" name="cbRestrictAccess" >
+         <property name="text" >
+          <string>Nur erlauben von:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QLineEdit" name="leHost" >
+         <property name="enabled" >
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" >
+        <widget class="QLabel" name="lbPort" >
+         <property name="text" >
+          <string>Port:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" >
+        <widget class="QSpinBox" name="sbPort" >
+         <property name="minimum" >
+          <number>1</number>
+         </property>
+         <property name="maximum" >
+          <number>50000</number>
+         </property>
+         <property name="value" >
+          <number>4444</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2" >
+        <widget class="QGroupBox" name="gbEncryption" >
+         <property name="title" >
+          <string>Verschlüsselung</string>
+         </property>
+         <property name="checkable" >
+          <bool>true</bool>
+         </property>
+         <layout class="QFormLayout" name="formLayout" >
+          <item row="0" column="0" >
+           <widget class="QLabel" name="lbCipher" >
+            <property name="text" >
+             <string>Algorithmus:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QComboBox" name="cbCipher" />
+          </item>
+          <item row="1" column="0" >
+           <widget class="QLabel" name="lbCert" >
+            <property name="text" >
+             <string>Zertifikat (.pem):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" >
+           <widget class="QLineEdit" name="leCert" />
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tbJulius" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>412</width>
+        <height>306</height>
+       </rect>
+      </property>
+      <attribute name="title" >
+       <string>Julius</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="0" column="0" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QLabel" name="lbJulius" >
+         <property name="text" >
+          <string/>
+         </property>
+         <property name="pixmap" >
+          <pixmap resource="juliusd.qrc" >:/images/julius.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QLabel" name="lbCommand" >
+         <property name="text" >
+          <string>&amp;Kommando:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>leCommand</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QLineEdit" name="leCommand" >
+         <property name="text" >
+          <string>julian</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" >
+        <widget class="QLabel" name="lbArgs" >
+         <property name="text" >
+          <string>A&amp;rgumente:</string>
+         </property>
+         <property name="buddy" >
+          <cstring>leArgs</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" >
+        <widget class="QLineEdit" name="leArgs" >
+         <property name="text" >
+          <string>-C julian.jconf -input mic -quiet</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="3" column="0" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tbDatabase" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>412</width>
+        <height>306</height>
+       </rect>
+      </property>
+      <attribute name="title" >
+       <string>Datenbankanbindung</string>
+      </attribute>
+      <layout class="QGridLayout" >
+       <item row="1" column="0" >
+        <widget class="QLabel" name="lbDbHost" >
+         <property name="text" >
+          <string>Host:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" >
+        <widget class="QLineEdit" name="leDbHost" />
+       </item>
+       <item row="2" column="0" >
+        <widget class="QLabel" name="lbDbPort" >
+         <property name="text" >
+          <string>Port:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" >
+        <widget class="QSpinBox" name="sbDbPort" >
+         <property name="minimum" >
+          <number>1</number>
+         </property>
+         <property name="maximum" >
+          <number>50000</number>
+         </property>
+         <property name="value" >
+          <number>3306</number>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="6" column="1" >
+        <spacer>
+         <property name="orientation" >
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0" >
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="3" column="0" >
+        <widget class="QLabel" name="lbDbName" >
+         <property name="text" >
+          <string>Datenbankname:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1" >
+        <widget class="QLineEdit" name="leDbName" />
+       </item>
+       <item row="0" column="1" >
+        <widget class="QComboBox" name="cbDbType" />
+       </item>
+       <item row="0" column="0" >
+        <widget class="QLabel" name="lbDbType" >
+         <property name="text" >
+          <string>Typ:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" >
+        <widget class="QLabel" name="lbDbUser" >
+         <property name="text" >
+          <string>Benutzername:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1" >
+        <widget class="QLineEdit" name="leDbUser" />
+       </item>
+       <item row="5" column="1" >
+        <widget class="QLineEdit" name="leDbPass" >
+         <property name="echoMode" >
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" >
+        <widget class="QLabel" name="lbDbPass" >
+         <property name="text" >
+          <string>Passwort:</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <layout class="QVBoxLayout" >
+     <item>
+      <widget class="QLabel" name="lbHelp" >
+       <property name="maximumSize" >
+        <size>
+         <width>150</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="layoutDirection" >
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="text" >
+        <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Juliusd verwendet das Netzwerk um mit simon zu kommunizieren.&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Die Standardeinstellungen besagen, dass dieses Programm auf dem selben Rechner ausgeführt wird wie simon.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Das angegebene Zertifikat muss den privaten Schlüssel (RSA-enkodiert) und das Zertifikat selbst im PEM Format beinhalten. Wie ein Zertifikat generiert werden kann, ist im Handbuch vermerkt.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Sollten sie beim Verbinden eine Warnung ihrer &lt;span style=" font-weight:600;">Firewall&lt;/span> erhalten bestätigen Sie diese bitte mit &lt;span style=" font-weight:600;">"zulassen"&lt;/span>.&lt;/p>&lt;/body>&lt;/html></string>
+       </property>
+       <property name="wordWrap" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" >
+       <item>
+        <widget class="QLabel" name="lbSimonLogo" >
+         <property name="text" >
+          <string/>
+         </property>
+         <property name="pixmap" >
+          <pixmap resource="juliusd.qrc" >:/images/simon.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbSimon" >
+         <property name="text" >
+          <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-style:italic;">Ein Teil von simon&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0" colspan="2" >
+    <layout class="QHBoxLayout" >
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbCancel" >
+       <property name="text" >
+        <string>&amp;Abbrechen</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbAccept" >
+       <property name="text" >
+        <string>&amp;Ok</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>pbAccept</tabstop>
+  <tabstop>pbCancel</tabstop>
+ </tabstops>
+ <resources>
+  <include location="juliusd.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>pbAccept</sender>
+   <signal>clicked()</signal>
+   <receiver>DlgSettings</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>280</x>
+     <y>350</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>393</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbCancel</sender>
+   <signal>clicked()</signal>
+   <receiver>DlgSettings</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>41</x>
+     <y>350</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>46</x>
+     <y>202</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbRestrictAccess</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leHost</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>122</x>
+     <y>25</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>133</x>
+     <y>48</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

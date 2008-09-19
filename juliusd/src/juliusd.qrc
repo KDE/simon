@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+	<qresource>
+		<file>images/julius.png</file>
+		<file>images/juliustray_d.png</file>
+		<file>images/juliustray.png</file>
+		<file>images/simon.png</file>
+	</qresource>
+</RCC>
