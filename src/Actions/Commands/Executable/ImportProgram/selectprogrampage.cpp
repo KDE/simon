@@ -54,7 +54,7 @@ void SelectProgramPage::initializePage()
 {
 	ProgramCategoryList list = programManager->readCategories();
 	if (list.isEmpty()) 
-		KMessageBox::error(this, i18n("Konnte keine Programmkategorien finden.\n\nMöglicherweise ist der Pfad zur categories.xml falsch gesetzt."), i18n("Konnte keine Programmkategorien finden"));
+		KMessageBox::error(this, i18n("Konnte keine Programmkategorien finden.\n\nMÃ¶glicherweise ist der Pfad zur categories.xml falsch gesetzt."), i18n("Konnte keine Programmkategorien finden"));
 	else {
 		this->insertCategories(list);
 		#ifdef Q_OS_UNIX

@@ -14,7 +14,7 @@
 ImportLexiconPage::ImportLexiconPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
-	setTitle(i18n("Lexikon auswählen"));
+	setTitle(i18n("Lexikon auswälen"));
 	registerField("lexiconFilename", ui.urPath, "url", SIGNAL(textChanged(QString)));
 }
 

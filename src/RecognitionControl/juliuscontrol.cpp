@@ -92,7 +92,7 @@ void JuliusControl::errorOccured()
 	QList<QSslError> errors = socket->sslErrors();
 	if ((errors.count() == 1) && (errors[0].error() == QSslError::SelfSignedCertificate) && (Settings::getB("Juliusd/Encrypted")))
 	{
-		if (KMessageBox::questionYesNoCancel(0, i18n("Das Zertifikat der Gegenstelle ist selbst-signiert und nicht vertrauenswürdig.\n\nWollen Sie die Verbindung trozdem fortsetzen?"), i18n("Selbst-Signiertes Zertifikat"))==KMessageBox::Yes)
+		if (KMessageBox::questionYesNoCancel(0, i18n("Das Zertifikat der Gegenstelle ist selbst-signiert und nicht vertrauenswÃ¼rdig.\n\nWollen Sie die Verbindung trozdem fortsetzen?"), i18n("Selbst-Signiertes Zertifikat"))==KMessageBox::Yes)
 		{
 			socket->ignoreSslErrors();
 			return;
@@ -131,7 +131,7 @@ bool JuliusControl::isConnected()
 void JuliusControl::timeoutReached()
 {
 	timeoutWatcher->stop();
-	emit connectionError(i18n("Zeitüberschreitung der Anforderung (%1 ms)", Settings::getI("Network/Timeout")));
+	emit connectionError(i18n("ZeitÃ¼berschreitung der Anforderung (%1 ms)", Settings::getI("Network/Timeout")));
 	socket->abort();
 }
 
@@ -176,20 +176,20 @@ void JuliusControl::messageReceived()
 		case 3:
 		{
 			/* no pass specified */
-			emit error(i18n("Kein Passwort angegeben. Aus Sicherheitsgründen muss ein Passwort festgelegt werden"));
+			emit error(i18n("Kein Passwort angegeben. Aus SicherheitsgrÃ¼nden muss ein Passwort festgelegt werden"));
 		}
 			break;
 		
 		case 4:
 		{
 			/* login rejected, because the version is known to NOT be supported */
-			emit error(i18n("Version nicht unterstützt"));
+			emit error(i18n("Version nicht unterstÃ¼tzt"));
 		}
 			break;
 		case 5:
 		{
 			/* login accepted, but the version is not known to be supported */
-			QString reason=i18n("Version mglw. nicht unterstützt");
+			QString reason=i18n("Version mglw. nicht unterstÃ¼tzt");
 			if (Settings::getB("Juliusd/ContinueOnWarning"))
 			{
 				emit warning(reason);

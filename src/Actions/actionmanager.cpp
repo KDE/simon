@@ -70,7 +70,7 @@ void ActionManager::setupBackends()
 	{
 		CommandManager *man = managers->at(i);
 		if (!man->load())
-			KMessageBox::error(0, i18n("Konnte Kommandomanager \"%1\" nicht initialisieren.\n\nBitte überprüfen Sie seine Konfiguration.", man->name()));
+			KMessageBox::error(0, i18n("Konnte Kommandomanager \"%1\" nicht initialisieren.\n\nBitte Ã¼berprÃ¼fen Sie seine Konfiguration.", man->name()));
 	}
 }
 
@@ -92,7 +92,7 @@ bool ActionManager::askDeleteCommandByTrigger(QString trigger)
 		if (!com) continue;
 		
 		if (com->getTrigger() == trigger) {
-			if (KMessageBox::questionYesNoCancel(0, i18n("Der Trigger \"%1\" ist bereits vergeben.\n\nWollen Sie das Kommando, welches den Trigger %1 verwendet, löschen?", com->getTrigger())) == KMessageBox::Yes)
+			if (KMessageBox::questionYesNoCancel(0, i18n("Der Trigger \"%1\" ist bereits vergeben.\n\nWollen Sie das Kommando, welches den Trigger %1 verwendet, lÃ¶schen?", com->getTrigger())) == KMessageBox::Yes)
 			{
 				deleteCommand(com);
 			} else allDeleted = false;
@@ -121,7 +121,7 @@ bool ActionManager::addCommand(Command *command)
 		i++;
 	}
 	if (!added)
-		KMessageBox::error(0, i18n("Konnte das Kommando \"%1\" nicht hinzufügen.", command->getTrigger()));
+		KMessageBox::error(0, i18n("Konnte das Kommando \"%1\" nicht hinzufÃ¼gen.", command->getTrigger()));
 	else emit commandsChanged(getCommandList());
 
 	return added;
@@ -141,7 +141,7 @@ bool ActionManager::deleteCommand(Command *command)
 	}
 	
 	if (!deleted)
-		KMessageBox::error(0, i18n("Kommando konnte nicht gelöscht werden."));
+		KMessageBox::error(0, i18n("Kommando konnte nicht gelÃ¶scht werden."));
 	else emit commandsChanged(getCommandList());
 
 	command->deleteLater();

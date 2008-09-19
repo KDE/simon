@@ -81,7 +81,7 @@ void TrainingView::deleteSelected()
 	}
 	int currentIndex = ui.twTrainingWords->currentRow();
 
-	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?")) == KMessageBox::Yes )
+	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "Wenn Sie hier mit \"Ja\" bestÃ¤tigen, wird der ausgewÃ¤hlte Text unwiderbringlich von der Festplatte gelÃ¶scht. Wollen Sie den ausgewÃ¤hlten Text wirklich lÃ¶schen?")) == KMessageBox::Yes )
 		this->trainMgr->deleteText ( currentIndex );
 
 	loadList();
@@ -308,7 +308,7 @@ void TrainingView::exec()
  */
 void TrainingView::cancelTraining()
 {
-	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhöhen.\n\nWollen Sie wirklich abbrechen?" )) ==KMessageBox::Yes )
+	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhÃ¶hen.\n\nWollen Sie wirklich abbrechen?" )) ==KMessageBox::Yes )
 	{
 		cleanUpTrainingSamples();
 	}

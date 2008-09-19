@@ -28,10 +28,10 @@ void SelectLanguageModelSourcePage::updateInfo()
 {
 	if (ui.rbNewModel->isChecked())
 	{
-		ui.lbInfo->setText(i18n("<html><head /><body><p>Wenn Sie ein neues Sprachmodell generieren werden Sie aufgefordert werden:</p><ul><li>Pfade zu den benötigten Dateien zu setzen.<li>Ein Wörterbuch zu importieren (meist aus dem Internet)<li>Grammatikdefinitionen zu erstellen (auch diese können aus persönlichen Texten importiert werden</ul><p>Das schließt das erste erstellen des Sprachmodelles einmal ab. Damit das Modell einsatzfähig ist, müssen noch Wörter zum aktiven Sprachschatz hinzugefügt werden und das Modell trainiert werden.</p></body></html>"));
+		ui.lbInfo->setText(i18n("<html><head /><body><p>Wenn Sie ein neues Sprachmodell generieren werden Sie aufgefordert werden:</p><ul><li>Pfade zu den benÃ¶tigten Dateien zu setzen.<li>Ein WÃ¶rterbuch zu importieren (meist aus dem Internet)<li>Grammatikdefinitionen zu erstellen (auch diese kÃ¶nnen aus persÃ¶nlichen Texten importiert werden</ul><p>Das schlieÃŸt das erste erstellen des Sprachmodelles einmal ab. Damit das Modell einsatzfÃ¤hig ist, mÃ¼ssen noch WÃ¶rter zum aktiven Sprachschatz hinzugefÃ¼gt werden und das Modell trainiert werden.</p></body></html>"));
 	} else 
 	{
-		ui.lbInfo->setText(i18n("Wenn Sie ein vorhandenes Sprachmodell mit simon verwenden wollen, ist die Prozedur denkbar einfach. Sie werden mit der Konfigurationsseite des Modells konfrontiert, wo nur mehr die nötigen Pfade zu den Dateien konfiguriert werden müssen."));
+		ui.lbInfo->setText(i18n("Wenn Sie ein vorhandenes Sprachmodell mit simon verwenden wollen, ist die Prozedur denkbar einfach. Sie werden mit der Konfigurationsseite des Modells konfrontiert, wo nur mehr die nÃ¶tigen Pfade zu den Dateien konfiguriert werden mÃ¼ssen."));
 	}
 }
 

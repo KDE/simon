@@ -32,7 +32,6 @@ ImportBOMPPage::ImportBOMPPage(QWidget* parent): QWizardPage(parent)
 	setTitle(i18n("Importiere BOMP Wörterbuch"));
 }
 
-
 /**
  * \brief Destructor
  * \author Peter Grasch

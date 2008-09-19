@@ -23,9 +23,7 @@
 #include <KLocalizedString>
 #include "SimonLib/Logging/logger.h"
 #include "SimonLib/Settings/settings.h"
-#include "SimonLib/EventSimulation/shortcut.h"
 #include "SimonLib/SimonInfo/simoninfo.h"
-#include "SimonLib/Sound/soundcontrol.h"
 #include "RecognitionControl/juliuscontrol.h"
 #include "Actions/actionmanager.h"
 
@@ -38,8 +36,6 @@
 */
 SimonControl::SimonControl() : QObject ()
 {
-	Shortcut::initKeys();
-
 	setStatus(SimonControl::Disconnected);
 	this->julius = new JuliusControl();
 	this->actionManager = ActionManager::getInstance();

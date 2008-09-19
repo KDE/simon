@@ -35,7 +35,7 @@ GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(i18n("Allgemeine
 	connect(ui.urPathToTexts, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
 
 	//set help
-	help = i18n("Hier können Sie grundlegende Einstellungen rund um Simon verändern.\n\nDazu zählen: Pfade und Sicherheitsabfragen.\n\nEinstellungen in diesem Modul können kritisch für die Verwendung von simon sein.\n\nWenn das Häckchen \"Starte juliusd wenn nötig\" aktiviert ist, wird versucht juliusd lokal zu starten, sollte zu keinem laufenden Dämon verbunden werden können.");
+	help = i18n("Hier kÃ¶nnen Sie grundlegende Einstellungen rund um Simon verÃ¤ndern.\n\nDazu zÃ¤hlen: Pfade und Sicherheitsabfragen.\n\nEinstellungen in diesem Modul kÃ¶nnen kritisch fÃ¼r die Verwendung von simon sein.\n\nWenn das HÃ¤ckchen \"Starte juliusd wenn nÃ¶tig\" aktiviert ist, wird versucht juliusd lokal zu starten, sollte zu keinem laufenden DÃ¤mon verbunden werden kÃ¶nnen.");
 }
 
 /**

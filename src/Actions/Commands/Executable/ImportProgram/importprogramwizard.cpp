@@ -30,7 +30,7 @@ ImportProgramWizard::ImportProgramWizard ( QWidget* parent ) : QWizard ( parent 
 
 	this->addPage ( createFinishedPage() );
 
-	setWindowTitle ( "Programm hinzufügen" );
+	setWindowTitle ( "Programm hinzufÃ¼gen" );
 	setPixmap ( QWizard::WatermarkPixmap, QPixmap ( ":/images/banners/importprogram.png" ) );
 
 	connect ( this, SIGNAL ( finished ( int ) ), this, SLOT ( import( int ) ) );
@@ -55,7 +55,7 @@ QWizardPage* ImportProgramWizard::createIntroPage()
 	intro->setTitle ( i18n("Importieren eines Programmes") );
 	QLabel *label = new QLabel ( intro );
 	label->setWordWrap ( true );
-	label->setText ( i18n("Dieser Assistent wird ihnen helfen, ein Program, welches bereits installiert wurde, in simon zu importieren.\n\nsimon wird dabei versuchen automatisch alle installierten Proramme zu erkennen und eine sortiert Liste präsentieren, aus der Sie das gewünschte Programm auswählen können.") );
+	label->setText ( i18n("Dieser Assistent wird ihnen helfen, ein Program, welches bereits installiert wurde, in simon zu importieren.\n\nsimon wird dabei versuchen automatisch alle installierten Proramme zu erkennen und eine sortiert Liste prÃ¤sentieren, aus der Sie das gewÃ¼nschte Programm auswÃ¤hlen kÃ¶nnen.") );
 	QVBoxLayout *layout = new QVBoxLayout ( intro );
 	layout->addWidget ( label );
 	intro->setLayout ( layout );
@@ -84,9 +84,9 @@ SelectProgramPage* ImportProgramWizard::createSelectProgramPage()
 QWizardPage* ImportProgramWizard::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage ( this );
-	finished->setTitle ( i18n ( "Hinzufügen des Programmes" ) );
+	finished->setTitle ( i18n ( "HinzufÃ¼gen des Programmes" ) );
 	QLabel *label = new QLabel ( finished );
-	label->setText ( i18n ( "Klicken Sie auf \"Fertigstellen\" um den Wizard abzuschließen." ) );
+	label->setText ( i18n ( "Klicken Sie auf \"Fertigstellen\" um den Wizard abzuschlieÃŸen." ) );
 	label->setWordWrap ( true );
 	QVBoxLayout *layout = new QVBoxLayout ( finished );
 	layout->addWidget ( label );

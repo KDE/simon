@@ -104,7 +104,7 @@ bool QuickDownloader::download(QString url, QString filename)
 	{
 		
 		KMessageBox::error(this,
-				i18n("Konnte die temporäre Datei (%1) nicht öffnen:\n%2", file->fileName(), file->errorString()));
+				i18n("Konnte die temporÃ¤re Datei (%1) nicht Ã¶ffnen:\n%2", file->fileName(), file->errorString()));
 		return false;
 	}
 	
@@ -138,7 +138,7 @@ void QuickDownloader::readResponse(const QHttpResponseHeader header)
  */
 void QuickDownloader::cancelDownload()
 {
-	Logger::log(i18n("[INF] Download zurückgesetzt"));
+	Logger::log(i18n("[INF] Download zurÃ¼ckgesetzt"));
 	aborting = true;
 	progressDlg->close();
 	loader->abort();

@@ -39,7 +39,7 @@ void ImportGrammar::run()
 
 QStringList ImportGrammar::readFile(QString path)
 {
-	emit status(i18n("Öffne Datei..."));
+	emit status(i18n("Ã–ffne Datei..."));
 	QStringList structures;
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly)) return structures;

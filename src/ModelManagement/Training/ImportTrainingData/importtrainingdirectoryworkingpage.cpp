@@ -11,6 +11,7 @@
 //
 #include "importtrainingdirectoryworkingpage.h"
 #include <KMessageBox>
+#include <KUrl>
 #include <QFileInfo>
 #include <QVariant>
 #include "importtrainingdata.h"
@@ -62,7 +63,6 @@ void ImportTrainingDirectoryWorkingPage::setComplete()
 	emit done();
 }
 
-#include <QDebug>
 
 /**
  * \brief Starts the importing process and calls all the other methods
@@ -74,11 +74,5 @@ void ImportTrainingDirectoryWorkingPage::initializePage()
 	emit completeChanged();
 	
 	//reading
-	qDebug() << field("directory");
-	qDebug() << field("directory").toString();
-	qDebug() << field("directory").toUrl();
-	
-	
-	KMessageBox::information(this, field("directory").toUrl().toString());
-// 	importer->import(field("directory").toUrl().toString());
+	importer->import(field("directory").value<KUrl>().path());
 }

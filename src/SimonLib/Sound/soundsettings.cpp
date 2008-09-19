@@ -19,7 +19,7 @@
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-SoundSettings::SoundSettings(QWidget* parent): SystemWidget(i18n("Soundeinstellungen"), QIcon(":/images/icons/preferences-desktop-sound.svg"), i18n("Konfigurieren Sie hier ihre Audioger‰te und legen Einstellungen f¸r dessen Verwendung fest"), parent)
+SoundSettings::SoundSettings(QWidget* parent): SystemWidget(i18n("Soundeinstellungen"), QIcon(":/images/icons/preferences-desktop-sound.svg"), i18n("Konfigurieren Sie hier ihre Audioger√§te und legen Einstellungen f√ºr dessen Verwendung fest"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers(this);
@@ -102,13 +102,13 @@ bool SoundSettings::check()
 	bool ok = this->sc->checkDeviceSupport(inputDevice, outputDevice, channels, samplerate);
 
 	if (!ok)
-		KMessageBox::error(this, i18n("Die ausgew‰hlte Soundkonfiguration wird von der Hardware nicht unterst¸tzt.\n\nBitte korrigieren Sie die Werte.\n\nFalls notwendig, wenden Sie sich bitte an Ihren Soundkartenhersteller."));
+		KMessageBox::error(this, i18n("Die ausgew√§hlte Soundkonfiguration wird von der Hardware nicht unterst√ºtzt.\n\nBitte korrigieren Sie die Werte.\n\nFalls notwendig, wenden Sie sich bitte an Ihren Soundkartenhersteller."));
 
 	
 	if ((channels != Settings::getI("Model/Channels")) || 
 			(samplerate != Settings::getI("Model/Samplerate")))
 	{
-		KMessageBox::information(this, i18n("Die konfigurierten Kan‰le / Samplerate der Trainingstexte passt nicht mit den Soundeinstellungen zusammen.\n\nBitte korrigieren Sie ihre Konfiguration hier oder definieren Sie entsprechende Nachbearbeitungsketten um den Unterschied auszugleichen.") );
+		KMessageBox::information(this, i18n("Die konfigurierten Kan√§le / Samplerate der Trainingstexte passt nicht mit den Soundeinstellungen zusammen.\n\nBitte korrigieren Sie ihre Konfiguration hier oder definieren Sie entsprechende Nachbearbeitungsketten um den Unterschied auszugleichen.") );
 		ok=false;
 	}
 

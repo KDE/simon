@@ -26,7 +26,7 @@ SelectPlacePage::SelectPlacePage(QWidget *parent) : QWizardPage(parent)
 {
 	ui.setupUi(this);
 
-	setTitle(i18n("Ort auswählen"));
+	setTitle(i18n("Ort auswÃ¤hlen"));
 	
 	connect(ui.cbProtocol->lineEdit(), SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));
 	connect(ui.leUser, SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));

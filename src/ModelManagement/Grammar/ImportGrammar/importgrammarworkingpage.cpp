@@ -18,7 +18,7 @@ ImportGrammarWorkingPage::ImportGrammarWorkingPage(QWidget* parent): QWizardPage
 {
 	grammarImporter=0;
 	completed=false;
-	setTitle(i18n("Analyse l‰uft..."));
+	setTitle(i18n("Analyse l√§uft..."));
 	ui.setupUi(this);
 }
 

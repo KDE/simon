@@ -12,7 +12,6 @@
 #ifndef COREEVENTS_H
 #define COREEVENTS_H
 
-#include "shortcut.h"
 class QKeySequence;
 /**
  *	@class CoreEvents

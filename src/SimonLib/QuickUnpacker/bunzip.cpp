@@ -98,9 +98,9 @@ void Bunzip::extractingFinishing(int code)
 {
 	if (code!=0)
 	{
-		emit errorOccured(i18n("Es ist ein Fehler beim Entpacken aufgetreten.\n\nBitte überprüfen Sie ob Sie das Paket \"bzip2\" installiert haben und der Pfad richtig gesetzt ist(%1).\n\n(Rückgabewert %2)", Settings::getS("Programs/Files/BZip2"), code));
+		emit errorOccured(i18n("Es ist ein Fehler beim Entpacken aufgetreten.\n\nBitte Ã¼berprÃ¼fen Sie ob Sie das Paket \"bzip2\" installiert haben und der Pfad richtig gesetzt ist(%1).\n\n(RÃ¼ckgabewert %2)", Settings::getS("Programs/Files/BZip2"), code));
 		cancel();
-		Logger::log(i18n("[ERR] Programm \"bzip2 -d\" gab nicht %1 zurück", code));
+		Logger::log(i18n("[ERR] Programm \"bzip2 -d\" gab nicht %1 zurÃ¼ck", code));
 	} else {
 		QString extFile = this->filename.remove(QRegExp(".bz2$"));
 		emit extractionFinished(extFile);

@@ -33,7 +33,7 @@ PasswordSettings::PasswordSettings(QWidget* parent): SystemWidget(i18n("Passwort
 void PasswordSettings::checkPassword()
 {
 	if (!checkIfPasswordsSane())
-		KMessageBox::error(this, i18n("Die eingegebenen Passwörter des simon-Passwortschutz' stimmen nicht überein.\n\nBitte geben Sie sie erneut ein."));
+		KMessageBox::error(this, i18n("Die eingegebenen PasswÃ¶rter des simon-Passwortschutz' stimmen nicht Ã¼berein.\n\nBitte geben Sie sie erneut ein."));
 }
 
 bool PasswordSettings::checkIfPasswordsSane()

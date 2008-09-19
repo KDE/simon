@@ -113,7 +113,7 @@ void SimonWidget::registerBuddy(QLabel* label)
 	if (dynamic_cast<SimonCalendarWidget*>(label->buddy()))
 	{
 		QString extendedtext;
-		extendedtext = text+" nächster Monat";
+		extendedtext = text+" nÃ¤chster Monat";
 		extendedtext = text + " Tag ";
 		registerControl(extendedtext,label->buddy(),SLOT(setDate(QString)));
 		extendedtext = text + " Monat ";

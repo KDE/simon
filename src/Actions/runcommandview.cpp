@@ -33,7 +33,7 @@
  *
  *	@author Peter Grasch
  */
-RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(i18n("Kommandos"), QIcon(":/images/icons/system-run.svg"), i18n("Direkte ausführung von simon-Befehlen"), parent)
+RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(i18n("Kommandos"), QIcon(":/images/icons/system-run.svg"), i18n("Direkte ausfÃ¼hrung von simon-Befehlen"), parent)
 {
 	ui.setupUi(this);
 
@@ -117,7 +117,7 @@ Command* RunCommandView::getCommandToModify()
 	Command *command = static_cast<Command*>(currentIndex.internalPointer());
 	if (!command)
 	{
-		KMessageBox::information(this, i18n("Kommando auswählen"), i18n("Bitte wählen Sie zuerst ein Kommando aus der Liste aus"));
+		KMessageBox::information(this, i18n("Kommando auswÃ¤hlen"), i18n("Bitte wÃ¤hlen Sie zuerst ein Kommando aus der Liste aus"));
 		return 0;
 	}
 	return command;
@@ -143,7 +143,7 @@ void RunCommandView::deleteCommand()
 	Command *command = getCommandToModify();
 	if (!command) return;
 	
-	if (KMessageBox::questionYesNoCancel(this, i18n("Kommando löschen"), i18n("Wollen Sie das ausgewählte Kommando wirklich unwiederruflich löschen?")) == KMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(this, i18n("Kommando lÃ¶schen"), i18n("Wollen Sie das ausgewÃ¤hlte Kommando wirklich unwiederruflich lÃ¶schen?")) == KMessageBox::Yes)
 	{
 		ActionManager::getInstance()->deleteCommand(command);
 	}

@@ -25,7 +25,7 @@
  */
 WiktionaryDict::WiktionaryDict(QString path, QObject* parent) :QXmlDefaultHandler(), Dict(parent)
 {
-	allowedChars = "-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890äÄüÜöÖ";
+	allowedChars = "-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890Ã¤Ã„Ã¼ÃœÃ¶Ã–";
 	this->reader = new XMLSAXReader(path);
 	pos=0;
 }

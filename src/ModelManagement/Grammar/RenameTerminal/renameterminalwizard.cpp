@@ -51,7 +51,7 @@ QWizardPage* RenameTerminalWizard::createIntroPage()
 
 	desc->setWordWrap(true);
 	intro->setTitle(i18n("Willkommen zum Umbenennen eines Terminals"));
-	desc->setText(i18n("Dieser Assistent wird Ihnen erlauben, einen bestehenden Terminal der Grammatik und der Wortliste umzubennennen.\n\nSie können dabei konfigurieren, ob Sie all diese Bereiche in die Aktion einbeziehen möchten.\n\nWenn Sie mehrere Terminale zusammenfügen wollen, benutzen Sie bitte den \"Terminal verbinden\"-Wizard. Er bietet Ihnen ebenfalls die Möglichkeit, dem verbundenen Terminal einen neuen Nahmen zu verleihen."));
+	desc->setText(i18n("Dieser Assistent wird Ihnen erlauben, einen bestehenden Terminal der Grammatik und der Wortliste umzubennennen.\n\nSie kÃ¶nnen dabei konfigurieren, ob Sie all diese Bereiche in die Aktion einbeziehen mÃ¶chten.\n\nWenn Sie mehrere Terminale zusammenfÃ¼gen wollen, benutzen Sie bitte den \"Terminal verbinden\"-Wizard. Er bietet Ihnen ebenfalls die MÃ¶glichkeit, dem verbundenen Terminal einen neuen Nahmen zu verleihen."));
 
 	return intro;
 }

@@ -44,7 +44,7 @@ WAV::WAV(QString filename, int channels, int samplerate)
     
 	if (samplerate == 0)
 	{
-		Logger::log(i18n("[INF] Öffne WAV Datei: %1", filename));
+		Logger::log(i18n("[INF] Ã–ffne WAV Datei: %1", filename));
 		this->importDataFromFile(filename);
 		this->samplerate = this->retrieveSampleRate();
 		this->channels = this->retrieveChannels();

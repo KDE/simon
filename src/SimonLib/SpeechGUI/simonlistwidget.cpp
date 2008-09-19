@@ -134,22 +134,25 @@ void SimonListWidget::keyPressEvent ( QKeyEvent * event )
 	}
 	
 
-	char c;
-	QByteArray array = event->text().toLatin1();
-	c = *array.data();
-	if(!((c<=126) && (c>=33)))
-	{	
+// 	char c;
+// 	QByteArray array = event->text().toLatin1();
+// 	c = *array.data();
+// 	if(!((c<=126) && (c>=33)))
+// 	{	
+// 		return;
+// 	}	
+// 	if(c == '\n')
+// 	{
+// 		return;
+// 	}
+	QString eventText = event->text();
+	
+	if (eventText.trimmed().isEmpty())
 		return;
-	}	
-	if(c == '\n')
-	{
-		return;
-	}
+	
 	if(this->line->isHidden())
-	{
 		showLineEdit();
-		this->line->setText(event->text());
-		
-	}
+	
+	this->line->setText(eventText);
 }
 

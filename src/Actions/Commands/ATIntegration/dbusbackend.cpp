@@ -60,7 +60,7 @@ void DBusBackend::startMonitoring()
 	
 	if (!list.isValid())
 	{
-		KMessageBox::error(0, i18n("Konnte Liste der verfügbaren DBus Services nicht empfangen"));
+		KMessageBox::error(0, i18n("Konnte Liste der verfÃ¼gbaren DBus Services nicht empfangen"));
 		return;
 	}
 	
@@ -107,7 +107,7 @@ ATObject* DBusBackend::readGui(QString service)
 
 	//TODO: submenues werden ignoriert
 // 	if (ignoredSubmenue != 0) {
-// 		KMessageBox::error(0, i18n("%1 Submenüs wurden ignoriert;\n\n(Submenüs sind derzeit nicht unterstützt)", ignoredSubmenue));
+// 		KMessageBox::error(0, i18n("%1 SubmenÃ¼s wurden ignoriert;\n\n(SubmenÃ¼s sind derzeit nicht unterstÃ¼tzt)", ignoredSubmenue));
 // 	}
 	if (root->children().count()==0) return 0;
 	return root;
@@ -130,7 +130,7 @@ void DBusBackend::serviceRegistered(QString service)
 		QStringList applications = QStringList() << service;
 		QStringList applicationNames = QStringList() << name;
 		emit servicesFound(applications, applicationNames);
-	} else emit status(i18n("Konnte %1 nicht auflösen...", service));
+	} else emit status(i18n("Konnte %1 nicht auflÃ¶sen...", service));
 }
 
 

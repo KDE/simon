@@ -14,6 +14,7 @@
 #include <QProgressBar>
 #include <QVariant>
 #include <QVBoxLayout>
+#include <KUrl>
 #include <KLocalizedString>
 #include "../../../SimonLib/QuickUnpacker/quickunpacker.h"
 #include "../../../SimonLib/QuickDownloader/quickdownloader.h"
@@ -172,16 +173,17 @@ void ImportDictWorkingPage::displayProgress(int progress)
 void ImportDictWorkingPage::initializePage()
 {
 	if (field("hadifix").toBool())
-		importHADIFIX(field("bompFileName").toString());
-	else if (field("wiktionary").toBool())
+	{
+		importHADIFIX(field("bompFileName").value<KUrl>().path());
+	}else if (field("wiktionary").toBool())
 	{
 		QString path;
-		if (field("importWikiLocal").toBool()) path = field("wikiFileName").toString();
+		if (field("importWikiLocal").toBool()) path = field("wikiFileName").value<KUrl>().path();
 		if (field("importWikiRemote").toBool()) path = field("wikiRemoteURL").toString();
 
 		importWiktionary(path);
 	} else
-		importLexicon(field("lexiconFilename").toString());
+		importLexicon(field("lexiconFilename").value<KUrl>().path());
 }
 
 /**

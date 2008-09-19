@@ -61,20 +61,20 @@ Display* XEvents::openDisplay(char* displayName)
 	int Event, Error;
 	int Major, Minor;
 	
-	Logger::log(i18n("[INF] Öffne display \"%1\"", QString(displayName)));
+	Logger::log(i18n("[INF] Ã–ffne display \"%1\"", QString(displayName)));
 
 	Display * display = XOpenDisplay(displayName);
 
 	if (!display) {
-		Logger::log(i18n("[ERR] Fehler beim öffnen des display \"%1\"", QString(displayName)));
-		KMessageBox::error(0,i18n("Konnte Display nicht öffnen. Bitte überprüfen Sie ihre Konfiguration und / oder setzen Sie sich mit den simon-Entwickler in Verbindung. (Display: \"%1\")", QString(XDisplayName ( displayName ))));
+		Logger::log(i18n("[ERR] Fehler beim Ã¶ffnen des display \"%1\"", QString(displayName)));
+		KMessageBox::error(0,i18n("Konnte Display nicht Ã¶ffnen. Bitte Ã¼berprÃ¼fen Sie ihre Konfiguration und / oder setzen Sie sich mit den simon-Entwickler in Verbindung. (Display: \"%1\")", QString(XDisplayName ( displayName ))));
 		return NULL;
 	}
 
 	//check whether the XTest extension is installed
 	if ( !XTestQueryExtension(display, &Event, &Error, &Major, &Minor) ) {
-		Logger::log("[ERR] Display "+QString(displayName)+" unterstützt XTest nicht");
-		KMessageBox::error(0,i18n("Der X-Server unterstützt die \"XTest\" nicht - bitte installieren Sie diese. (Display: \"%1\")", QString(DisplayString(display))));
+		Logger::log("[ERR] Display "+QString(displayName)+" unterstÃ¼tzt XTest nicht");
+		KMessageBox::error(0,i18n("Der X-Server unterstÃ¼tzt die \"XTest\" nicht - bitte installieren Sie diese. (Display: \"%1\")", QString(DisplayString(display))));
 
 		XCloseDisplay(display);
 		return NULL;
@@ -83,7 +83,7 @@ Display* XEvents::openDisplay(char* displayName)
 
 	//The following should be logged somewhere... Interresting for debugging purposes...
 	//We'll do that once we have the logging classes...
-	Logger::log(i18n("[INF] XTest für Server \"%1\" ist Version %2.%3", QString(DisplayString(display)), Major, Minor));
+	Logger::log(i18n("[INF] XTest fÃ¼r Server \"%1\" ist Version %2.%3", QString(DisplayString(display)), Major, Minor));
 
 	Logger::log(i18n("[INF] Aufnahme der Display-Kontrolle"));
 	XTestGrabControl( display, True ); 
@@ -150,7 +150,7 @@ void XEvents::sendKey(unsigned int key /*unicode*/)
 		pressKeyCode(keyCode);
 	} else {
 		QKeySequence k(key); //do some magic
-		pressKey(XStringToKeysym(k.toString().toLatin1().data()));
+		pressKey(XStringToKeysym(k.toString().toUtf8().data())); //this was: toLatin1(); TEST THIS!
 	}
 	
 	unsetUnneededModifiers();

@@ -53,17 +53,10 @@
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="lbSearch" >
-           <property name="text" >
-            <string>Fi&amp;ltern:</string>
-           </property>
-           <property name="buddy" >
-            <cstring>leSearch</cstring>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="KLineEdit" name="leSearch" >
+           <property name="clickMessage" >
+            <string>Filter</string>
+           </property>
            <property name="showClearButton" stdset="0" >
             <bool>true</bool>
            </property>

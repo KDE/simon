@@ -33,7 +33,7 @@ bool IniReader::load(QString path)
 	
 	QFile doc(path);
 	if (!doc.open(QIODevice::ReadOnly|QIODevice::Text)) {
-		Logger::log(i18n("[ERR] Konnte INI-Datei %1 nicht zum lesen öffnen", path));
+		Logger::log(i18n("[ERR] Konnte INI-Datei %1 nicht zum lesen Ã¶ffnen", path));
 		return false;
 	}
 	

@@ -117,12 +117,12 @@ WordList* WordListManager::getWordsByTerminal(QString terminal, bool includeShad
  */
 void WordListManager::warnAboutTempWordList()
 {
-	KMessageBox::information(0, i18n("Sie verändern eine temporäre Wordliste.\n\nDie Änderungen werden nicht gespeichert. Bitte konfigurieren Sie einen korrekten Pfad in den Einstellungen und starten Sie simon neu um eine dauerhafte Wortliste zu benutzen."), i18n("Temporäre Änderungen"));
+	KMessageBox::information(0, i18n("Sie verÃ¤ndern eine temporÃ¤re Wordliste.\n\nDie Ã„nderungen werden nicht gespeichert. Bitte konfigurieren Sie einen korrekten Pfad in den Einstellungen und starten Sie simon neu um eine dauerhafte Wortliste zu benutzen."), i18n("TemporÃ¤re Ã„nderungen"));
 }
 
 void WordListManager::complainAboutPaths()
 {
-	KMessageBox::error(0, i18n("Konnte benötigte Dateien für die Wortliste nicht einlesen. Bitte überprüfen Sie die Pfade zu den Vocab- und Lexikon-Dateien und stellen Sie sicher das sie die nötigen Leserechte haben.\n\nDie Wortliste wird leer im RAM erstellt. Änderungen werden NICHT dauerhaft gespeichert."), i18n("Lesefehler"));
+	KMessageBox::error(0, i18n("Konnte benÃ¶tigte Dateien fÃ¼r die Wortliste nicht einlesen. Bitte Ã¼berprÃ¼fen Sie die Pfade zu den Vocab- und Lexikon-Dateien und stellen Sie sicher das sie die nÃ¶tigen Leserechte haben.\n\nDie Wortliste wird leer im RAM erstellt. Ã„nderungen werden NICHT dauerhaft gespeichert."), i18n("Lesefehler"));
 }
 
 WordListManager* WordListManager::getInstance()
@@ -168,7 +168,7 @@ void WordListManager::run()
  */
 WordList* WordListManager::sortList(WordList* list)
 {
-	Logger::log(i18n("[INF] Sortiere eine Liste mit %1 Wörtern", list->count()));
+	Logger::log(i18n("[INF] Sortiere eine Liste mit %1 WÃ¶rtern", list->count()));
 	qSort(list->begin(), list->end());
 	return list;
 }
@@ -187,7 +187,7 @@ inline WordList* WordListManager::getShadowList()
 //	This will result in an async-error from xlib (you can't have different threads painting the gui)
 //	and therefore result in a crash;
 //	
-// 		SimonInfo::showMessage(i18n("Bitte warten Sie während das Schatten-Wörterbuch lädt..."),1000);
+// 		SimonInfo::showMessage(i18n("Bitte warten Sie wÃ¤hrend das Schatten-WÃ¶rterbuch lÃ¤dt..."),1000);
 //		this is actually bug-using as we just set any kind of timeout (the gui thread will be
 //		blocked until the importing is done anyway...
 // 		QCoreApplication::processEvents();
@@ -214,7 +214,7 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 		emit tempWarning();
 	}
 
-	Logger::log(i18n("[INF] Speichere Wörterliste"));
+	Logger::log(i18n("[INF] Speichere WÃ¶rterliste"));
 	
 	//save wordlist
 	wordListLock.lock();
@@ -256,11 +256,11 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
  */
 bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QString vocabFilename)
 {
-	Logger::log(i18n("[INF] Öffnen der Ausgabedatei: %1", lexiconFilename));
+	Logger::log(i18n("[INF] Ã–ffnen der Ausgabedatei: %1", lexiconFilename));
 	
 	QFile *outfile = new QFile(lexiconFilename);
 	if (!outfile->open(QIODevice::WriteOnly)) {
-		Logger::log(i18n("[ERR] Fehler beim Öffnen der Ausgabedatei %1", lexiconFilename));
+		Logger::log(i18n("[ERR] Fehler beim Ã–ffnen der Ausgabedatei %1", lexiconFilename));
 		outfile->deleteLater();
 		return false;
 	}
@@ -271,7 +271,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 
 	QFile *vocabFile = new QFile(vocabFilename);
 	if (!vocabFile->open(QIODevice::WriteOnly)) {
-		Logger::log(i18n("[ERR] Fehler beim Öffnen der Ausgabedatei %1", vocabFilename));
+		Logger::log(i18n("[ERR] Fehler beim Ã–ffnen der Ausgabedatei %1", vocabFilename));
 		outfile->close();
 		outfile->deleteLater();
 		vocabFile->deleteLater();
@@ -354,7 +354,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 		}
 	}
 
-	Logger::log(i18n("[INF] Schießen der Ausgabedatei"));
+	Logger::log(i18n("[INF] SchieÃŸen der Ausgabedatei"));
 	vocabFile->close();
 	vocabFile->deleteLater();
 	return true;
@@ -476,7 +476,7 @@ void WordListManager::safelyInit()
  */
 WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QString promptspath, QStringList &terminals, bool isShadowlist )
 {
-	Logger::log (i18n("[INF] Lesen der Wörterliste bestehend aus "));
+	Logger::log (i18n("[INF] Lesen der WÃ¶rterliste bestehend aus "));
 	Logger::log(i18n("[INF] \t\tLexikon: %1,", lexiconpath));
 	Logger::log(i18n("[INF] \t\tVocabular: %1,", vocabpath));
 	Logger::log(i18n("[INF] \t\tPrompts: %1", promptspath));
@@ -519,7 +519,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 		}
 	}
 	wordlist = this->sortList(wordlist);
-// 	Logger::log(i18n("[INF] Öffnen des Lexikons von: %1", lexiconpath));
+// 	Logger::log(i18n("[INF] Ã–ffnen des Lexikons von: %1", lexiconpath));
 // 	QFile *lexicon = new QFile ( lexiconpath );
 // 	QFile vocab(vocabpath);
 // 	if ( !lexicon->open ( QFile::ReadOnly ) || !vocab.open(QFile::ReadOnly) || !promptsTable) {
@@ -529,7 +529,7 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 // 	lexicon->close();
 // 	lexicon->deleteLater();
 
-	Logger::log(i18n("[INF] Wörterliste erstellt"));
+	Logger::log(i18n("[INF] WÃ¶rterliste erstellt"));
 	return wordlist;
 }
 
@@ -544,7 +544,7 @@ WordList* WordListManager::removeDoubles(WordList *in)
 {
 	if (!in) return NULL;
 	
-	Logger::log(i18n("[INF] Entfernen der doppelten Einträge"));
+	Logger::log(i18n("[INF] Entfernen der doppelten EintrÃ¤ge"));
 	
 	for (int i=0; i < in->count(); i++)
 	{
@@ -622,7 +622,7 @@ bool WordListManager::moveToShadow(Word *w)
 			bool found;
 			int index = getWordIndex(shadowList, found, w.getWord(), w.getPronunciation(), w.getTerminal());
 			if (found) {
-				KMessageBox::information(0, i18n("Dieses Wort existiert bereits im Schattenwörterbuch.\n\nEs wird nicht nocheinmal eingefügt"));
+				KMessageBox::information(0, i18n("Dieses Wort existiert bereits im SchattenwÃ¶rterbuch.\n\nEs wird nicht nocheinmal eingefÃ¼gt"));
 			} else
 				shadowList->insert(index, w);
 				
@@ -1055,7 +1055,7 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 	}
 		
 
-	Logger::log(i18n("[INF] Hinzufügen von %1 Wörtern in die Wörterliste", list->count()));
+	Logger::log(i18n("[INF] HinzufÃ¼gen von %1 WÃ¶rtern in die WÃ¶rterliste", list->count()));
 
 	if (shadow)
 	{
@@ -1121,7 +1121,7 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 		wordListLock.unlock();
 	}
 
-	Logger::log(i18n("[INF] Die Wortliste beinhaltet jetzt %1 Wörter", wordlist->count()));
+	Logger::log(i18n("[INF] Die Wortliste beinhaltet jetzt %1 WÃ¶rter", wordlist->count()));
 	
 	this->save();
 }

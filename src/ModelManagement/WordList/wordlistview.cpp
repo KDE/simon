@@ -87,7 +87,7 @@ void WordListView::askForRebuild()
 {
 	//we changed the wordlist
 	//we should thus recompile the model
-	if (KMessageBox::questionYesNoCancel(this, i18n("Um die Änderung zu übernehmen, muss das Sprachmodell neu generiert werden.\n\nWollen Sie es jetzt neu generieren?"))==KMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(this, i18n("Um die Ã„nderung zu Ã¼bernehmen, muss das Sprachmodell neu generiert werden.\n\nWollen Sie es jetzt neu generieren?"))==KMessageBox::Yes)
 			ModelManager::compileModel();
 }
 
@@ -151,7 +151,7 @@ void WordListView::suggestTraining()
 	int toInsert = 10;
 	if (ui.twVocab->rowCount() < toInsert) toInsert = ui.twVocab->rowCount();
 
-	if (toInsert==0) KMessageBox::information(this, i18n("Es sind nicht genügend Wörter im wörterbuch"));
+	if (toInsert==0) KMessageBox::information(this, i18n("Es sind nicht genÃ¼gend WÃ¶rter im wÃ¶rterbuch"));
 	for (int i=0; i<toInsert; i++)
 	{
 		ui.twVocab->setCurrentItem(ui.twVocab->item(i,0));
@@ -203,7 +203,7 @@ void WordListView::trainList()
 	if (!trainView) return;
 	if (this->trainingwordlist.count()==0)
 	{
-		KMessageBox::error(this, i18n("Bitte wählen Sie zuerst ein paar Wörter für das spezielle Training aus.\nZiehen Sie sie dazu von der großen Liste links in die kleine Liste oben rechts.\n\nWenn Sie generische Texte vorlesen wollen, gehen Sie bitte zum Allgemeine Training.\n(Der Punkt \"Trainieren\" ist in der \"Globale Aktion\"-Toolbar)."));
+		KMessageBox::error(this, i18n("Bitte wÃ¤hlen Sie zuerst ein paar WÃ¶rter fÃ¼r das spezielle Training aus.\nZiehen Sie sie dazu von der groÃŸen Liste links in die kleine Liste oben rechts.\n\nWenn Sie generische Texte vorlesen wollen, gehen Sie bitte zum Allgemeine Training.\n(Der Punkt \"Trainieren\" ist in der \"Globale Aktion\"-Toolbar)."));
 		return;
 	}
 	trainView->trainWords(trainingwordlist);
@@ -319,7 +319,7 @@ void WordListView::deleteSelectedWord()
 		}
 		
 		if (!success)
-			KMessageBox::error(this, i18n("Das Wort konnte nicht komplett gelöscht werden.\n\nBitte überprüfen Sie die Pfade der Dateien: prompts, codetrain.scp, Pfad der Samples, dict, shadow-dict, voca"));
+			KMessageBox::error(this, i18n("Das Wort konnte nicht komplett gelÃ¶scht werden.\n\nBitte Ã¼berprÃ¼fen Sie die Pfade der Dateien: prompts, codetrain.scp, Pfad der Samples, dict, shadow-dict, voca"));
 	}
 	//do not delete w as it is a pointer to its wordlistmanager-representation
 	del->deleteLater();
@@ -341,7 +341,7 @@ void WordListView::insertVocab(WordList *vocab)
 	int currentRow = startAmount;
         int i=0;
 	int limit=Settings::getI("Performance/MaxDisplayedWords");
-	KProgressDialog *pgDlg = new KProgressDialog(this, i18n("Lade Wortliste..."), i18n("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Wörterbuch nicht!)"));
+	KProgressDialog *pgDlg = new KProgressDialog(this, i18n("Lade Wortliste..."), i18n("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete WÃ¶rterbuch nicht!)"));
 	pgDlg->progressBar()->setMaximum((vocab->count() < limit) ? vocab->count() : limit);
 
 	connect(pgDlg, SIGNAL(rejected()), this, SLOT(abortInsertion()));

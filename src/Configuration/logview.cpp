@@ -22,7 +22,7 @@
  * \author Peter Grasch
  * @param parent Parent of the systemwidget
  */
-LogView::LogView(QWidget* parent): SystemWidget(i18n("Protokoll"), QIcon(":/images/icons/utilities-log-viewer.svg"), i18n("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
+LogView::LogView(QWidget* parent): SystemWidget(i18n("Protokoll"), QIcon(":/images/icons/utilities-log-viewer.svg"), i18n("Hier kÃ¶nnen Sie die letzten Aktionen von simon Ã¼berprÃ¼fen"), parent)
 {
 	ui.setupUi(this);
 
@@ -52,7 +52,7 @@ LogView::LogView(QWidget* parent): SystemWidget(i18n("Protokoll"), QIcon(":/imag
 	ui.gbOnlyDay->setObjectName("gbOnlyDay");
 	ui.twLogEntries->setObjectName("twLogEntries");
 
-	help = i18n("simon speichert im normalen Betrieb viele Loginformationen die im Nachhinein helfen können, Probleme nachzuvollziehen");
+	help = i18n("simon speichert im normalen Betrieb viele Loginformationen die im Nachhinein helfen kÃ¶nnen, Probleme nachzuvollziehen");
 }
 
 
@@ -75,7 +75,7 @@ void LogView::viewAll()
 	displayCancel();
 	clean();
 	readLog();
-	setStatus(i18n("Lade Übersicht"));
+	setStatus(i18n("Lade Ãœbersicht"));
 
  	manager->getDateList();
 }
@@ -430,7 +430,7 @@ void LogView::insertEntries(LogEntryList *entries)
 {
 	if(!entries) return;
 
-	setStatus(i18n("Trage Einträge ein..."));
+	setStatus(i18n("Trage EintrÃ¤ge ein..."));
 	QDate currentDay; //where are we now?
 	
 	QDate firstDay;	//store the first day

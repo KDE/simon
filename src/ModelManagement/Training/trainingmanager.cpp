@@ -139,7 +139,7 @@ bool TrainingManager::savePrompts(bool recompiledLater)
 	QStringList samples = this->promptsTable->keys();
 
 	for ( int i=0; i <samples.count(); i++ )
-		prompts.write ( samples[i].toLatin1() +" "+promptsTable->value ( samples[i] ).toLatin1() +"\n" );
+		prompts.write ( samples[i].toUtf8() +" "+promptsTable->value ( samples[i] ).toUtf8() +"\n" );
 	prompts.close();
 
 	emit trainingDataChanged();

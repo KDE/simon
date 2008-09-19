@@ -15,7 +15,7 @@
 
 InternetExtensionSettings::InternetExtensionSettings(QWidget* parent): SystemWidget(i18n("Internet-Erweiterungen"), QIcon(":/images/icons/network.svg"), i18n("Konfigurieren der URLS der Erweiterungs-Downloads"), parent)
 {
-	help = i18n("Hier können Sie URLS konfigurieren, um simon mit optionale Komponenten aus dem Internet zu erweitern");
+	help = i18n("Hier kÃ¶nnen Sie URLS konfigurieren, um simon mit optionale Komponenten aus dem Internet zu erweitern");
 	ui.setupUi(this);
 
 	connect(ui.leWikiPrefix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));

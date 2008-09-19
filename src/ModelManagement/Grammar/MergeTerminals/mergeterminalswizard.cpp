@@ -37,7 +37,7 @@ QWizardPage* MergeTerminalsWizard::createIntroPage()
 
 	desc->setWordWrap(true);
 	intro->setTitle(i18n("Willkommen zum Verbinden mehrerere Terminale"));
-	desc->setText(i18n("Dieser Assistent wird Ihnen erlauben, zwei verschiedene Terminale zu einem zusammenzufassen.\n\nDies ermˆglicht es, die Grammatik sauber zu halten und groﬂe Gruppen von Wˆrtern gleichzeitig grammatikalisch einzuf¸gen. (Wenn zum Beispiel durch das Importieren eines Wˆrterbuches anders benannte Terminale hinzugef¸gt wurden, die auf andere, bestehende Wortgruppen gebunden werden sollen)."));
+	desc->setText(i18n("Dieser Assistent wird Ihnen erlauben, zwei verschiedene Terminale zu einem zusammenzufassen.\n\nDies erm√∂glicht es, die Grammatik sauber zu halten und gro√üe Gruppen von W√∂rtern gleichzeitig grammatikalisch einzuf√ºgen. (Wenn zum Beispiel durch das Importieren eines W√∂rterbuches anders benannte Terminale hinzugef√ºgt wurden, die auf andere, bestehende Wortgruppen gebunden werden sollen)."));
 
 	return intro;
 }

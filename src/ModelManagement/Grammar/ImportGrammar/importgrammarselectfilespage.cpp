@@ -35,7 +35,7 @@ void ImportGrammarSelectFilesPage::cleanupPage()
 
 void ImportGrammarSelectFilesPage::addFile()
 {
-	QStringList files = KFileDialog::getOpenFileNames(KUrl(), i18n("Textdateien")+" *.txt", this, i18n("Datei(en) auswählen"));
+	QStringList files = KFileDialog::getOpenFileNames(KUrl(), i18n("Textdateien")+" *.txt", this, i18n("Datei(en) auswÃ¤hlen"));
 	ui.lwFiles->addItems(files);
 	setField("files", getFiles().join("||"));
 }

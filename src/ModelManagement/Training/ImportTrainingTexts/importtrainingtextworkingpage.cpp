@@ -17,6 +17,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
+#include <KUrl>
 #include "../../../SimonLib/Logging/logger.h"
 #include "../../../SimonLib/QuickDownloader/quickdownloader.h"
 #include "../../../SimonLib/Settings/settings.h"
@@ -32,7 +33,7 @@
  */
 ImportTrainingTextWorkingPage::ImportTrainingTextWorkingPage(QWidget *parent) : QWizardPage(parent)
 {
-	setTitle(i18n("Text wird hinzugefügt"));
+	setTitle(i18n("Text wird hinzugefÃ¼gt"));
 	ui.setupUi(this);
 }
 
@@ -62,7 +63,7 @@ void ImportTrainingTextWorkingPage::initializePage()
 	ui.pbProgress->setMaximum(0);
 	if (field("importTrainingTextLocal").toBool())
 	{
-		startImport(field("importTrainingTextLFilename").toString());
+		startImport(field("importTrainingTextLFilename").value<KUrl>().path());
 	} else startImport(field("textDownloadURL").toString());
 }
 

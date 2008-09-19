@@ -24,14 +24,14 @@
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(i18n("Juliusd"), QIcon(":/images/icons/connect-no.svg"), i18n("Hier können Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
+NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(i18n("Juliusd"), QIcon(":/images/icons/connect-no.svg"), i18n("Hier kÃ¶nnen Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
 {
 	ui.setupUi(this);
 	
 	
 	hide();
 	
-	help = "simon verwendet für die Erkennung selbst die Open Source Spracherkennungs-engine \"Julius\".\nDie Verbindung zu Julius wird über das Netzwerk aufgebaut.\nDie Addresse zum Juliusd wird entweder mit einem Hostnamen oder einer direkten \"IP Adresse\" angegeben (4x3 stellige Netzwerksidentifikationsnummer - xxx.xxx.xxx.xxx)\nDie Port Nummer muss beim Juliusd und bei simon gleich sein.\n";
+	help = "simon verwendet fÃ¼r die Erkennung selbst die Open Source Spracherkennungs-engine \"Julius\".\nDie Verbindung zu Julius wird Ã¼ber das Netzwerk aufgebaut.\nDie Addresse zum Juliusd wird entweder mit einem Hostnamen oder einer direkten \"IP Adresse\" angegeben (4x3 stellige Netzwerksidentifikationsnummer - xxx.xxx.xxx.xxx)\nDie Port Nummer muss beim Juliusd und bei simon gleich sein.\n";
 	
 	connect ( ui.pbAddAddress, SIGNAL ( clicked() ), this, SLOT ( addAddress() ) );
 	connect ( ui.pbDeleteAddress, SIGNAL ( clicked() ), this, SLOT ( deleteAddress() ) );

@@ -174,8 +174,8 @@ QWizardPage* FirstRunWizard::createGrammarDescriptionPage()
 	description->setLayout(lay);
 
 	desc->setWordWrap(true);
-	description->setTitle(i18n("Über die Grammatik"));
-	desc->setText(i18n("<html><head /><body><p>simon kann eine Grammatik verwenden um die Erkennungsrate zu erhöhen. Mit ihr können Sie Satzkonstrukte (wie zum Beispiel \"Nomen Verb Nomen\") definieren.</p><p>simon kann dabei sogar aus vorhandenen Texten ihren persönlichen Schreibstil lernen.</p><p>Bitte definieren Sie jetzt ihre Grammatik oder lassen Sie simon diese mithilfe einiger, am besten von ihnen erfassten Texten erlernen (ein großes Schattenlexikon vorrausgesetzt).</p></body></html>"));
+	description->setTitle(i18n("Ãœber die Grammatik"));
+	desc->setText(i18n("<html><head /><body><p>simon kann eine Grammatik verwenden um die Erkennungsrate zu erhÃ¶hen. Mit ihr kÃ¶nnen Sie Satzkonstrukte (wie zum Beispiel \"Nomen Verb Nomen\") definieren.</p><p>simon kann dabei sogar aus vorhandenen Texten ihren persÃ¶nlichen Schreibstil lernen.</p><p>Bitte definieren Sie jetzt ihre Grammatik oder lassen Sie simon diese mithilfe einiger, am besten von ihnen erfassten Texten erlernen (ein groÃŸes Schattenlexikon vorrausgesetzt).</p></body></html>"));
 
 	return description;
 }
@@ -208,8 +208,8 @@ QWizardPage* FirstRunWizard::createPasswordDescriptionPage()
 	description->setLayout(lay);
 
 	desc->setWordWrap(true);
-	description->setTitle(i18n("Über den Passwortschutz"));
-	desc->setText(i18n("<html><head /><body><p>simon unterscheidet generell zwischen normaler Benutzung (dies umfasst das Trainieren, Hinzufügen von Wörtern, durchsuchen der Wortliste, etc.) und einem \"Systemverwaltungsmodus\". Dieser umfasst zum Beispiel die Systemeinstellungen.</p><p>Der Systemverwaltungsmodus kann mit einem Passwort gegen unlauteren Zugriff gesperrt werden. </p></body></html>"));
+	description->setTitle(i18n("Ãœber den Passwortschutz"));
+	desc->setText(i18n("<html><head /><body><p>simon unterscheidet generell zwischen normaler Benutzung (dies umfasst das Trainieren, HinzufÃ¼gen von WÃ¶rtern, durchsuchen der Wortliste, etc.) und einem \"Systemverwaltungsmodus\". Dieser umfasst zum Beispiel die Systemeinstellungen.</p><p>Der Systemverwaltungsmodus kann mit einem Passwort gegen unlauteren Zugriff gesperrt werden. </p></body></html>"));
 
 	return description;
 }
@@ -240,8 +240,8 @@ QWizardPage* FirstRunWizard::createJuliusdDescriptionPage()
 	description->setLayout(lay);
 
 	desc->setWordWrap(true);
-	description->setTitle(i18n("Über Juliusd"));
-	desc->setText(i18n("<html><head /><body><p>Das simon-System besteht eigentlich aus zwei Teilen:</p><ul><li>simon (client; Dieses Programm)<li>juliusd (server, verwaltet julius)</ul><p>Der juliusd kann beliebig viele simon-clients gleichzeitig bedienen.</p><p>Meist wird der Juliusd auf einem zentralen Server ausgeführt werden, zu dem alle Clients verbinden. Es ist jedoch eine Einzelinstallation möglich. Starten Sie dafür Juliusd lokal und geben auf der nächsten Seite als Adresse ihre Loopbackadresse (meist 127.0.0.1 / localhost) und den konfigurierten Port (standardmäsig 4444) an.</p><p>Nähere Informationen zu Juliusd finden Sie im Handbuch</p></body></html>"));
+	description->setTitle(i18n("Ãœber Juliusd"));
+	desc->setText(i18n("<html><head /><body><p>Das simon-System besteht eigentlich aus zwei Teilen:</p><ul><li>simon (client; Dieses Programm)<li>juliusd (server, verwaltet julius)</ul><p>Der juliusd kann beliebig viele simon-clients gleichzeitig bedienen.</p><p>Meist wird der Juliusd auf einem zentralen Server ausgefÃ¼hrt werden, zu dem alle Clients verbinden. Es ist jedoch eine Einzelinstallation mÃ¶glich. Starten Sie dafÃ¼r Juliusd lokal und geben auf der nÃ¤chsten Seite als Adresse ihre Loopbackadresse (meist 127.0.0.1 / localhost) und den konfigurierten Port (standardmÃ¤sig 4444) an.</p><p>NÃ¤here Informationen zu Juliusd finden Sie im Handbuch</p></body></html>"));
 
 	return description;
 }
@@ -290,7 +290,7 @@ QWizardPage* FirstRunWizard::createLanguageModelDescription()
 
 	desc->setWordWrap(true);
 	description->setTitle(i18n("Das Sprachmodell"));
-	desc->setText(i18n("<html><head /><body><p>Sie benötigen die folgenden Einzelteile:</p><ul><li>(Schatten-) Wörterbuch, (Schatten-) Vokabeln, Grammatik und Trainingsdaten (pfad, prompts, wav_config)<br />Personenbezogen<li>Sprachskripte (tree1.hed)<br />Sprachbezogen<li>Modellskripte (sil.hed, config, proto, mkphones0.led und -1.led, global.ded, mktri.led)<br />Generell</ul><p>Aus diesen Eingabedaten werden dann folgende Dateien erstellt:<ul><li>hmmdefs<br />Beinhaltet eine technische Repräsentation der Stimme<li>tiedlist<br />Eine Liste der verwendeten Lautkombinationen<li>dict / dfa<br />Eine von julian lesbare Form der Grammatik</body></html>"));
+	desc->setText(i18n("<html><head /><body><p>Sie benÃ¶tigen die folgenden Einzelteile:</p><ul><li>(Schatten-) WÃ¶rterbuch, (Schatten-) Vokabeln, Grammatik und Trainingsdaten (pfad, prompts, wav_config)<br />Personenbezogen<li>Sprachskripte (tree1.hed)<br />Sprachbezogen<li>Modellskripte (sil.hed, config, proto, mkphones0.led und -1.led, global.ded, mktri.led)<br />Generell</ul><p>Aus diesen Eingabedaten werden dann folgende Dateien erstellt:<ul><li>hmmdefs<br />Beinhaltet eine technische ReprÃ¤sentation der Stimme<li>tiedlist<br />Eine Liste der verwendeten Lautkombinationen<li>dict / dfa<br />Eine von julian lesbare Form der Grammatik</body></html>"));
 
 	return description;
 }
@@ -310,7 +310,7 @@ QWizardPage* FirstRunWizard::createIntroPage()
 
 	desc->setWordWrap(true);
 	intro->setTitle(i18n("Willkommen bei simon"));
-	desc->setText(i18n("Dieser Assistent wird Ihnen helfen, simon zu konfigurieren.\n\nAlle Einstellungen die Sie in diesem Assistenten treffen können später über das Systemmenü wieder geändert werden. Bitte beachten Sie, das die Einstellungen hier essientiell für die Funktionstüchtigkeit von simon sind.\n\nSollten Sie sich bei einigen Punkten nicht sicher sein, sehen Sie bitte im Handbuch nach oder fragen Sie gegebenenfalls ihren Systemadministrator."));
+	desc->setText(i18n("Dieser Assistent wird Ihnen helfen, simon zu konfigurieren.\n\nAlle Einstellungen die Sie in diesem Assistenten treffen kÃ¶nnen spÃ¤ter Ã¼ber das SystemmenÃ¼ wieder geÃ¤ndert werden. Bitte beachten Sie, das die Einstellungen hier essientiell fÃ¼r die FunktionstÃ¼chtigkeit von simon sind.\n\nSollten Sie sich bei einigen Punkten nicht sicher sein, sehen Sie bitte im Handbuch nach oder fragen Sie gegebenenfalls ihren Systemadministrator."));
 
 	return intro;
 }
@@ -331,7 +331,7 @@ QWizardPage* FirstRunWizard::createCheckList()
 
 	desc->setWordWrap(true);
 	checklist->setTitle(i18n("Checkliste"));
-	desc->setText(i18n("<html><head/><body><p>Um simon erfolgreich zu benutzen werden einige externe Programme und Dateien benötigt.</p><ul><li>HTK Toolkit<br />(Erhältlich von der <a href=\"http://htk.eng.cam.ac.uk/\">Universität Cambridge</a>)<li>Julius<br />(Erhältlich von der offiziellen <a href=\"http://julius.sourceforge.jp/en/\">Julius Homepage</a>)<li>BZip2<br />(Erhältlich von der <a href=\"http://www.bzip.org/\">Homepage</a>)<li>Diverse Sprachmodell Skripte und Konfigurationsdateien<br />Für die Englische Sprache erhalten Sie die Dateien zum Beispiel vom GPL Sprachmodell voxforge (<a href=\"http://www.voxforge.org\">Voxforge Homepage</a>). Wenn sie selbst ein Sprachmodell erstellen wollen, können Sie einfach die mit simon ausgelieferten Default-Dateien verwenden (sie sind als Standardwerte in den Modelleinstellungen ausgewählt). Im Zweifelsfall wenden Sie sich bitte an den simon support (<a href=\"mailto:support@simon-listens.org\">support@simon-listens.org</a>) oder besuchen Sie das <a href=\"http://www.simon-listens.org/wiki/\">Wiki</a> (im Aufbau)</ul><p>Bitte installieren Sie diese, bevor Sie hier fortfahren.</p></body></html>"));
+	desc->setText(i18n("<html><head/><body><p>Um simon erfolgreich zu benutzen werden einige externe Programme und Dateien benÃ¶tigt.</p><ul><li>HTK Toolkit<br />(ErhÃ¤ltlich von der <a href=\"http://htk.eng.cam.ac.uk/\">UniversitÃ¤t Cambridge</a>)<li>Julius<br />(ErhÃ¤ltlich von der offiziellen <a href=\"http://julius.sourceforge.jp/en/\">Julius Homepage</a>)<li>BZip2<br />(ErhÃ¤ltlich von der <a href=\"http://www.bzip.org/\">Homepage</a>)<li>Diverse Sprachmodell Skripte und Konfigurationsdateien<br />FÃ¼r die Englische Sprache erhalten Sie die Dateien zum Beispiel vom GPL Sprachmodell voxforge (<a href=\"http://www.voxforge.org\">Voxforge Homepage</a>). Wenn sie selbst ein Sprachmodell erstellen wollen, kÃ¶nnen Sie einfach die mit simon ausgelieferten Default-Dateien verwenden (sie sind als Standardwerte in den Modelleinstellungen ausgewÃ¤hlt). Im Zweifelsfall wenden Sie sich bitte an den simon support (<a href=\"mailto:support@simon-listens.org\">support@simon-listens.org</a>) oder besuchen Sie das <a href=\"http://www.simon-listens.org/wiki/\">Wiki</a> (im Aufbau)</ul><p>Bitte installieren Sie diese, bevor Sie hier fortfahren.</p></body></html>"));
 
 	return checklist;
 }
@@ -353,7 +353,7 @@ QWizardPage* FirstRunWizard::createNewModelDescription()
 
 	desc->setWordWrap(true);
 	newModel->setTitle(i18n("Neues Sprachmodell"));
-	desc->setText(i18n("<html><head /><body><p>Sie haben ausgewählt ein neues Sprachmodell zu erstellen.</p><p>Von den folgenden Dateien finden sie Standard-Dateien im model-Ordner.</p><p>Für den nächsten Schritt brauchen Sie gültige, teilweise Ihrer Sprache entsprechenden, Exemplare der Dateien:<br />wav_config (wenn Sie simon zum Training verwenden können Sie bedenkenlos die voxforge-Version der Datei verwenden), tree1.hed (diese Datei muss auf Ihre Sprache, in diesem Fall Deutsch, angepasst sein), config, proto, mkphones0.led, mkphones1.led, global.ded, mktri.led<br /><b>Sie können die meisten dieser Dateien aus einem aktuellen Voxforge-Snapshot entnehmen. (<a href=\"http://www.voxforge.org\">Voxforge Homepage</a>)</b></p><p>Außerdem benötigen Sie <i>leere</i> prompts, lexicon, shadow-lexicon, vocab, shadow-vocab und grammar Dateien, die Sie im nächsten Schritt angeben müssen.</p><p>Eine ausführliche Anleitung finden Sie im <a href=\"http://www.cyber-byte.at/wiki/index.php?title=Initial_Configuration\">Wiki</a></body></html>"));
+	desc->setText(i18n("<html><head /><body><p>Sie haben ausgewÃ¤hlt ein neues Sprachmodell zu erstellen.</p><p>Von den folgenden Dateien finden sie Standard-Dateien im model-Ordner.</p><p>FÃ¼r den nÃ¤chsten Schritt brauchen Sie gÃ¼ltige, teilweise Ihrer Sprache entsprechenden, Exemplare der Dateien:<br />wav_config (wenn Sie simon zum Training verwenden kÃ¶nnen Sie bedenkenlos die voxforge-Version der Datei verwenden), tree1.hed (diese Datei muss auf Ihre Sprache, in diesem Fall Deutsch, angepasst sein), config, proto, mkphones0.led, mkphones1.led, global.ded, mktri.led<br /><b>Sie kÃ¶nnen die meisten dieser Dateien aus einem aktuellen Voxforge-Snapshot entnehmen. (<a href=\"http://www.voxforge.org\">Voxforge Homepage</a>)</b></p><p>AuÃŸerdem benÃ¶tigen Sie <i>leere</i> prompts, lexicon, shadow-lexicon, vocab, shadow-vocab und grammar Dateien, die Sie im nÃ¤chsten Schritt angeben mÃ¼ssen.</p><p>Eine ausfÃ¼hrliche Anleitung finden Sie im <a href=\"http://www.cyber-byte.at/wiki/index.php?title=Initial_Configuration\">Wiki</a></body></html>"));
 
 	return newModel;
 }
@@ -407,7 +407,7 @@ QWizardPage* FirstRunWizard::createFinishedPage()
 
 	desc->setWordWrap(true);
 	finished->setTitle(i18n("Konfiguration abgeschlossen"));
-	desc->setText(i18n("Die Konfiguration von simon ist hiermit abgeschlossen.\n\nSie können alle Einstellungen im System-Menü bearbeiten.\n\nSollten Sie soeben ein neues Sprachmodell erstellt haben, müssen Sie diese vor der ersten Verwendung trainieren. Selektieren Sie hierzu den Menüpunkt \"Training\".\n\nViel Spaß mit simon!"));
+	desc->setText(i18n("Die Konfiguration von simon ist hiermit abgeschlossen.\n\nSie kÃ¶nnen alle Einstellungen im System-MenÃ¼ bearbeiten.\n\nSollten Sie soeben ein neues Sprachmodell erstellt haben, mÃ¼ssen Sie diese vor der ersten Verwendung trainieren. Selektieren Sie hierzu den MenÃ¼punkt \"Training\".\n\nViel SpaÃŸ mit simon!"));
 
 	return finished;
 }

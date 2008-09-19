@@ -146,7 +146,6 @@ set (	simonGeneralSources
 		SimonLib/KDELib/desktopreader.cpp
 		SimonLib/EventSimulation/eventhandler.cpp
 		SimonLib/EventSimulation/coreevents.cpp
-		SimonLib/EventSimulation/shortcut.cpp
 		SimonLib/Settings/settings.cpp
 		SimonLib/SimonInfo/osd.cpp
 		SimonLib/SimonInfo/simoninfo.cpp

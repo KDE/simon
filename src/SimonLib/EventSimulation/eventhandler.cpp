@@ -10,7 +10,6 @@
 //
 //
 #include "eventhandler.h"
-#include "key.h"
 
 EventHandler* EventHandler::instance;
 
@@ -91,10 +90,6 @@ void EventHandler::sendKey(const QChar key) const
 {
 	unsigned int c = (unsigned int) key.unicode();
 
-// 	if (((c >= 'A') && (c <= 'Z'))  || ((capslock) && ((c >= 'a') && (c <= 'z'))))
-// 	{
-// 		coreEvents->setModifierKey(KeyShift,false);
-// 	}
 #ifdef Q_OS_WIN	
 	if (((c >= 'A') && (c <= 'Z')))
 	{
@@ -103,8 +98,6 @@ void EventHandler::sendKey(const QChar key) const
 	}
 #endif
 	coreEvents->sendKey(key.unicode());
-
-// 	coreEvents->unsetModifier(KeyShift);
 }
 
 EventHandler::~EventHandler()

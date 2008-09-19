@@ -29,7 +29,7 @@ const QString ExecutableCommandManager::name() const
 bool ExecutableCommandManager::load()
 {
 	QString commandPath = Settings::getS("Commands/Executable/PathToConfig");
-	Logger::log(i18n("[INF] Lade Ausführbare-Kommandos von %1", commandPath));
+	Logger::log(i18n("[INF] Lade AusfÃ¼hrbare-Kommandos von %1", commandPath));
 
 	bool ok = false;
 	this->commands = xmlExecutableCommand->load(ok, commandPath);
@@ -39,7 +39,7 @@ bool ExecutableCommandManager::load()
 bool ExecutableCommandManager::save()
 {
 	QString commandPath = Settings::getS("Commands/Executable/PathToConfig");
-	Logger::log(i18n("[INF] Speichere Ausführbare-Kommandos nach %1", commandPath));
+	Logger::log(i18n("[INF] Speichere AusfÃ¼hrbare-Kommandos nach %1", commandPath));
 	return xmlExecutableCommand->save(commands, commandPath);
 }
 

@@ -35,7 +35,7 @@ void ImportTrainingTextRemotePage::initializePage()
 {
 	downloader = new QuickDownloader(this);
 
-	Logger::log(i18n("[INF] Abrufen der Liste von verfügbaren Trainingstexten"));
+	Logger::log(i18n("[INF] Abrufen der Liste von verfÃ¼gbaren Trainingstexten"));
 	
 	connect (downloader, SIGNAL(downloadFinished(QString)), this, SLOT(importList(QString)));
 	downloader->download(Settings::getS("Internet/TextOnlineUpdate"));
@@ -51,7 +51,7 @@ void ImportTrainingTextRemotePage::importList(QString path)
 {
 	XMLTrainingTextList *tlist = new XMLTrainingTextList(path);
 	if (!tlist->load(path))
-		KMessageBox::error(this, i18n("Konnte Liste der Texte nicht öffnen.\n\nMöglicherweise ist der URL falsch konfiguriert oder beim Download ist ein Fehler aufgetreten."));
+		KMessageBox::error(this, i18n("Konnte Liste der Texte nicht Ã¶ffnen.\n\nMÃ¶glicherweise ist der URL falsch konfiguriert oder beim Download ist ein Fehler aufgetreten."));
 	QHash<QString, QString> textlist = tlist->getTrainingTextList();
 	ui.lwTexts->clear();
 	for (int i=0; i < textlist.count(); i++)

@@ -14,7 +14,7 @@
 
 
 
-SimonDirSelector::SimonDirSelector(QWidget *parent) : SimonFileSystemSelector("", i18n("Ordner ausw‰hlen"), 
+SimonDirSelector::SimonDirSelector(QWidget *parent) : SimonFileSystemSelector("", i18n("Ordner ausw√§hlen"), 
 						".", 0, "", QFileDialog::DirectoryOnly, parent)
 {
 }

@@ -36,7 +36,7 @@ QWizardPage* ImportGrammarWizard::createIntroPage()
 
 	desc->setWordWrap(true);
 	intro->setTitle(i18n("Willkommen zum Importieren der Grammatik"));
-	desc->setText(i18n("Dieser Assistent wird Ihnen erlauben, beliebig viele Textdateien auszuw‰hlen aus denen dann ein Grammatikprofil erstellt wird.\n\nDazu werden die einzelnen Wˆrter mit Hilfe der Wortliste in ihre grammatikalischen Kategorien (\"Terminale\") aufgelˆst und anhand dieser die Satzkonstrukte kreiert.\n\nBitte ¸berpr¸fen Sie die Wortliste auf Korrektheit bevor Sie diesen Assistenten ausf¸hren."));
+	desc->setText(i18n("Dieser Assistent wird Ihnen erlauben, beliebig viele Textdateien auszuw√§hlen aus denen dann ein Grammatikprofil erstellt wird.\n\nDazu werden die einzelnen W√∂rter mit Hilfe der Wortliste in ihre grammatikalischen Kategorien (\"Terminale\") aufgel√∂st und anhand dieser die Satzkonstrukte kreiert.\n\nBitte √ºberpr√ºfen Sie die Wortliste auf Korrektheit bevor Sie diesen Assistenten ausf√ºhren."));
 
 	return intro;
 }
@@ -66,7 +66,7 @@ QWizardPage* ImportGrammarWizard::createFinishedPage()
 
 	desc->setWordWrap(true);
 	finished->setTitle(i18n("Import abgeschlossen"));
-	desc->setText(i18n("Die Dateien wurden erfolgreich importiert.\n\nBitte ¸berpr¸fen Sie die importierten Strukturen noch auf offensichtliche Fehler.\n\nVielen Dank dass Sie simon verbessert haben!"));
+	desc->setText(i18n("Die Dateien wurden erfolgreich importiert.\n\nBitte √ºberpr√ºfen Sie die importierten Strukturen noch auf offensichtliche Fehler.\n\nVielen Dank dass Sie simon verbessert haben!"));
 
 	return finished;
 }

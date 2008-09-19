@@ -21,7 +21,7 @@ class QString;
 
  Encodes Paths into "encoding-safe" equivalents (this can later be reverted).
 
- This prevents e.g. German "Umlaute" ("ä", "ü", etc.) from getting fucked up
+ This prevents e.g. German "Umlaute" ("Ã¤", "Ã¼", etc.) from getting fucked up
 */
 class FileSystemEncoder{
 public:

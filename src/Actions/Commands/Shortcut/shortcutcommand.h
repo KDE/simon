@@ -14,7 +14,6 @@
 
 #include <QKeySequence>
 #include "../command.h"
-#include "../../../SimonLib/EventSimulation/shortcut.h"
 
 
 /**

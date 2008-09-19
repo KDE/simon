@@ -48,7 +48,7 @@ CommandSettings::CommandSettings(QWidget* parent): SystemWidget(i18n("Kommandos"
 	connect(ui.cbATIntegrationQtWorkarounds, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
 	connect(ui.cbATIntegrationQtMenu, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
 
-	help = i18n("Konfigurieren Sie hier die Kommandos simons.\n\nSie können hier die einzelnen Typen konfigurieren und sogar (de-/)aktivieren.");
+	help = i18n("Konfigurieren Sie hier die Kommandos simons.\n\nSie kÃ¶nnen hier die einzelnen Typen konfigurieren und sogar (de-/)aktivieren.");
 }
 
 /**

@@ -104,7 +104,7 @@ void LogManager::run ()
 		
 		this->entries->append(LogEntry(funzus_der_grosse , 
 		funzi_der_erste, 
-		str.remove(QRegExp("\\[.*\\]")).trimmed().toLatin1(), type));
+		str.remove(QRegExp("\\[.*\\]")).trimmed().toUtf8(), type));
 		
 		i++;
 	}	

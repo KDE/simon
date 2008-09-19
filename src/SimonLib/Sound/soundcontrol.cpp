@@ -42,7 +42,7 @@ SoundControl::SoundControl()
 
 SoundDeviceList* SoundControl::getOutputDevices()
 {
-	Logger::log(i18n("[INF] Bekommen einer Liste mit den verfügbaren devices"));
+	Logger::log(i18n("[INF] Bekommen einer Liste mit den verfÃ¼gbaren devices"));
 	SoundDeviceList *sdl= new SoundDeviceList();
 	
 	if (Pa_Initialize() < 0) return sdl;
@@ -50,7 +50,7 @@ SoundDeviceList* SoundControl::getOutputDevices()
 	int numDevices = Pa_GetDeviceCount();
 	if( numDevices < 0 )
 	{
-		KMessageBox::error(0, i18n("Fehler beim Einlesen der Audio-Ausgabegeräte:\n\nPa_CountDevices returned %1", numDevices));
+		KMessageBox::error(0, i18n("Fehler beim Einlesen der Audio-AusgabegerÃ¤te:\n\nPa_CountDevices returned %1", numDevices));
 		return sdl;
 	}
 
@@ -79,7 +79,7 @@ SoundDeviceList* SoundControl::getOutputDevices()
  */
 SoundDeviceList* SoundControl::getInputDevices()
 {
-	Logger::log(i18n("[INF] Bekommen einer Liste mit den verfügbaren Input-devices"));
+	Logger::log(i18n("[INF] Bekommen einer Liste mit den verfÃ¼gbaren Input-devices"));
 	SoundDeviceList *sdl= new SoundDeviceList();
 
 	if (Pa_Initialize() < 0) return sdl;
@@ -88,7 +88,7 @@ SoundDeviceList* SoundControl::getInputDevices()
 	int numDevices = Pa_GetDeviceCount();
 	if( numDevices < 0 )
 	{
-		KMessageBox::error(0, i18n("Fehler beim Einlesen der Audio-Eingabegeräte:\n\nPa_CountDevices returned %1", numDevices));
+		KMessageBox::error(0, i18n("Fehler beim Einlesen der Audio-EingabegerÃ¤te:\n\nPa_CountDevices returned %1", numDevices));
 		return sdl;
 	}
 

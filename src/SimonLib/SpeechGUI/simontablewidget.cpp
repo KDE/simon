@@ -7,19 +7,19 @@
 //TODO-List
 //SimonTableWidget STW
 // Arbeitsliste
-//   -) LineEdits sollen so angeordnet werden, dass in jeder Spalte unten am Rand des STW erscheinen. Diese sollen bei veränderung der Spaltenbreite ihre Breite auch ändern
-//       und sich anpassen........OK bis auf Spaltenbreitebänderung
+//   -) LineEdits sollen so angeordnet werden, dass in jeder Spalte unten am Rand des STW erscheinen. Diese sollen bei verÃ¤nderung der Spaltenbreite ihre Breite auch Ã¤ndern
+//       und sich anpassen........OK bis auf SpaltenbreitebÃ¤nderung
 //   -) Bei der Registrierung der STW sollen das STW selbst mittels dem Buddy, und weiters auch alle Spalten mit dessen Namen registriert werden (z.B.: "simon Hosts Port")
-//       für dies soll eine eigene Funktion bei der Registrierung implementiert werden.
+//       fÃ¼r dies soll eine eigene Funktion bei der Registrierung implementiert werden.
 //   -)  sollte nur der Buddy angesprochen werden, sollen alle LineEdits angezeigt werden, aber kein Fokus gesetzt werden.................OK
-//       der aufruf der eigenen Spalten erfolgt dann über z.B.:"simon Hosts Port"
-//   -)  der direkter aufruf einer Spalte mittels z.B.: "simon Hosts Port" soll auch alle LineEdits anzeigen, und den Fokus für das gewünschte LineEdit setzen.
-//   -) Die Elemente sollen Buchstabe für Buchstabe bei der eingabe gefiltert werden........................................................................................................................OK
-//   -) Abgeschlossen wird das Filtern durch das drücken der Enter Taste. ...........................................................................................................................OK
-//      bei einem übergebliebenen Element soll  dies selectiert werden, alle anderen wieder angezeigt, und zum gewünschten gescrollt werden.....OK
+//       der aufruf der eigenen Spalten erfolgt dann Ã¼ber z.B.:"simon Hosts Port"
+//   -)  der direkter aufruf einer Spalte mittels z.B.: "simon Hosts Port" soll auch alle LineEdits anzeigen, und den Fokus fÃ¼r das gewÃ¼nschte LineEdit setzen.
+//   -) Die Elemente sollen Buchstabe fÃ¼r Buchstabe bei der eingabe gefiltert werden........................................................................................................................OK
+//   -) Abgeschlossen wird das Filtern durch das drÃ¼cken der Enter Taste. ...........................................................................................................................OK
+//      bei einem Ã¼bergebliebenen Element soll  dies selectiert werden, alle anderen wieder angezeigt, und zum gewÃ¼nschten gescrollt werden.....OK
 //      bei mehreren soll das erste in der liste selectiert werden, -"-.......................................................................................................................................OK
-//   -) sollte kein Element mit der Suchabfrage übereinstimmen, soll das selectierte LineEdit rot markiert werden.
-//   -) Bei verlieren des Focus soll die sortierung abgebrochen werden. (außer der Focus bleibt innerhalb der Lineedits, oder dem STW)
+//   -) sollte kein Element mit der Suchabfrage Ã¼bereinstimmen, soll das selectierte LineEdit rot markiert werden.
+//   -) Bei verlieren des Focus soll die sortierung abgebrochen werden. (auÃŸer der Focus bleibt innerhalb der Lineedits, oder dem STW)
 //
 //  
 //__________-

@@ -36,7 +36,7 @@ GrammarManager::GrammarManager() : QObject()
 
 void GrammarManager::unknownWordClass(QString name)
 {
-	KMessageBox::error(0, i18n("Der Terminal \"%1\" kommt in Ihrere Grammatikdefinition vor, nicht aber in der Wortliste.\n\nDies ist nicht gültig.\n\nBitte fügen Sie entweder ein Wort dieses Terminals zu Ihrem aktiven Wortschatz hinzu oder löschen Sie das betreffende Satzkonstrukt.", name), i18n("Nicht benutzte Wortklasse"));
+	KMessageBox::error(0, i18n("Der Terminal \"%1\" kommt in Ihrere Grammatikdefinition vor, nicht aber in der Wortliste.\n\nDies ist nicht gÃ¼ltig.\n\nBitte fÃ¼gen Sie entweder ein Wort dieses Terminals zu Ihrem aktiven Wortschatz hinzu oder lÃ¶schen Sie das betreffende Satzkonstrukt.", name), i18n("Nicht benutzte Wortklasse"));
 }
 
 GrammarManager * GrammarManager::getInstance()
