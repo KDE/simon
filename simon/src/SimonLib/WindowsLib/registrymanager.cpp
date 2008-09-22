@@ -54,18 +54,18 @@ void RegistryManager::startProcess(QString command, QString workingDirectory)
         bool noerror;
         
         QString strAusfuehren = "\\Applications\\" + command + "\\shell\\open\\command";
-        noerror = RegOpenKeyEx(HKEY_CLASSES_ROOT, (WCHAR*)strAusfuehren.utf16(), 0, KEY_QUERY_VALUE, &hKey)==ERROR_SUCCESS;
+        noerror = RegOpenKeyEx(HKEY_CLASSES_ROOT, (char*) strAusfuehren.utf16(), 0, KEY_QUERY_VALUE, &hKey)==ERROR_SUCCESS;
         if(!noerror)
         {
             strAusfuehren = "\\Applications\\" + command + "\\shell\\edit\\command";
-            noerror = RegOpenKeyEx(HKEY_CLASSES_ROOT, (WCHAR*)strAusfuehren.utf16(), 0, KEY_QUERY_VALUE, &hKey)==ERROR_SUCCESS;
+            noerror = RegOpenKeyEx(HKEY_CLASSES_ROOT, (char*) strAusfuehren.utf16(), 0, KEY_QUERY_VALUE, &hKey)==ERROR_SUCCESS;
             if(!noerror)
             {
                 return;
             }
         }
         
-        bool success = RegQueryValueEx(hKey, L"", NULL, NULL, temp, &size)==ERROR_SUCCESS;
+        bool success = RegQueryValueEx(hKey, "", NULL, NULL, temp, &size)==ERROR_SUCCESS;
         if(!success)
         {
             RegCloseKey(hKey);
@@ -113,7 +113,7 @@ QStringList* RegistryManager::getAllPrograms(QString format)
     bool success;
     format.prepend(".");
     QString strFormatPath = "\\" + format + "\\OpenWithList";
-    success = RegOpenKeyEx(HKEY_CLASSES_ROOT, (WCHAR*)strFormatPath.utf16(), 0, KEY_ALL_ACCESS, &hKey)==ERROR_SUCCESS;
+    success = RegOpenKeyEx(HKEY_CLASSES_ROOT, (char*) strFormatPath.utf16(), 0, KEY_ALL_ACCESS, &hKey)==ERROR_SUCCESS;
     if(!success)
     {
             return programs;
@@ -127,7 +127,7 @@ QStringList* RegistryManager::getAllPrograms(QString format)
         for (u=0; u<cSubKeys; u++) 
         { 
             cbName = 255;
-            RegEnumKeyEx(hKey, u, (WCHAR*)achKey, &cbName, NULL, NULL, NULL, NULL);
+            RegEnumKeyEx(hKey, u, (char*)achKey, &cbName, NULL, NULL, NULL, NULL);
 
             programs->append(QString::fromUtf16((const ushort*)achKey));
         }
@@ -171,7 +171,7 @@ QStringList* RegistryManager::getAllFormats(QString categorie)
         for (u=0; u<cSubKeys; u++) 
         { 
             cbName = 255;
-            RegEnumKeyEx(hKey, u, (WCHAR*)achKey, &cbName, NULL, NULL, NULL, NULL);
+            RegEnumKeyEx(hKey, u, (char*)achKey, &cbName, NULL, NULL, NULL, NULL);
 
             if((QString::fromUtf16((const ushort*)achKey)).left(1)==".")
                 formatList->append(QString::fromUtf16((const ushort*)achKey));
@@ -187,8 +187,8 @@ QStringList* RegistryManager::getAllFormats(QString categorie)
         QStringList *formatListCateg = new QStringList();
         for(int i=0; i<formatList->count(); i++)
         {
-            success = RegOpenKeyEx(HKEY_CLASSES_ROOT, (WCHAR*)formatList->at(i).utf16(), 0, KEY_QUERY_VALUE, &hKey2)==ERROR_SUCCESS;
-            success = RegQueryValueEx(hKey2, L"PerceivedType", NULL, NULL, temp, &size)==ERROR_SUCCESS;
+            success = RegOpenKeyEx(HKEY_CLASSES_ROOT, (char*) formatList->at(i).utf16(), 0, KEY_QUERY_VALUE, &hKey2)==ERROR_SUCCESS;
+            success = RegQueryValueEx(hKey2, "PerceivedType", NULL, NULL, temp, &size)==ERROR_SUCCESS;
             QString tempStr = QString::fromUtf16((const ushort*)temp);
             if(success && (tempStr == categorie))
             {
@@ -220,18 +220,18 @@ QString RegistryManager::getPath(QString exeStr)
         bool noerror;
         
         QString strAusfuehren = "\\Applications\\" + exeStr + "\\shell\\open\\command";
-        noerror = RegOpenKeyEx(HKEY_CLASSES_ROOT, (WCHAR*)strAusfuehren.utf16(), 0, KEY_QUERY_VALUE, &hKey)==ERROR_SUCCESS;
+        noerror = RegOpenKeyEx(HKEY_CLASSES_ROOT, (char*) strAusfuehren.utf16(), 0, KEY_QUERY_VALUE, &hKey)==ERROR_SUCCESS;
         if(!noerror)
         {
             strAusfuehren = "\\Applications\\" + exeStr + "\\shell\\edit\\command";
-            noerror = RegOpenKeyEx(HKEY_CLASSES_ROOT, (WCHAR*)strAusfuehren.utf16(), 0, KEY_QUERY_VALUE, &hKey)==ERROR_SUCCESS;
+            noerror = RegOpenKeyEx(HKEY_CLASSES_ROOT, (char*) strAusfuehren.utf16(), 0, KEY_QUERY_VALUE, &hKey)==ERROR_SUCCESS;
             if(!noerror)
             {
                 return "";
             }
         }
         
-        bool success = RegQueryValueEx(hKey, L"", NULL, NULL, temp, &size)==ERROR_SUCCESS;
+        bool success = RegQueryValueEx(hKey, "", NULL, NULL, temp, &size)==ERROR_SUCCESS;
         if(!success)
         {
             RegCloseKey(hKey);

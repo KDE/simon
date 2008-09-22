@@ -136,11 +136,11 @@ WindowsEvents::WindowsEvents() : CoreEvents()
  * 
  * @author Phillip Goriup
  */
-void WindowsEvents::sendKey(int key)
-{	
-	Sleep(50);
-	keybd_event(key,0,0,0);	
-}
+//void WindowsEvents::sendKey(unsigned short key)
+//{	
+//	Sleep(50);
+//	keybd_event(key,0,0,0);	
+//}
 
 /**
  * @brief simulates a mouseclick at the requested coordinates
@@ -159,7 +159,7 @@ void WindowsEvents::click(int x, int y)
 	int xsolution = nScreenWidth;
 	int ysolution = nScreenHeight;
 	
-	//windows API devides the screen into 65535*65535
+	//windows API divides the screen into 65535*65535
 	int clickx = x * 65535 / xsolution;
 	int clicky = y * 65535 / ysolution;
 	

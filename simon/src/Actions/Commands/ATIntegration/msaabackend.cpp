@@ -92,13 +92,13 @@ void MSAABackend::stopMonitoring()
 **/
 QStringList MSAABackend::getWindowNames()
 {
-    CoInitialize(NULL);
+    //CoInitialize(NULL);
 
 //	TCHAR  lpTitle[WND_COUNT];  // title string of console 
-    LPARAM lParam = 0; 
-    BOOL   bRet; 
+    //LPARAM lParam = 0; 
+    //BOOL   bRet; 
 
-    bRet = EnumWindows ((WNDENUMPROC)EnumWindowsProc, lParam); 
+    //bRet = EnumWindows ((WNDENUMPROC)EnumWindowsProc, lParam); 
 
 /*	size_t sizeOfTitle = wcslen((const wchar_t*)lpTitle) + 1;
     const size_t newsize3 = 300;
@@ -112,7 +112,7 @@ QStringList MSAABackend::getWindowNames()
 
     getchar(); 
     */
-    CoUninitialize ( );
+    //CoUninitialize ( );
     return this->windowNameList;
 }
 

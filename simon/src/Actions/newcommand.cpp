@@ -38,7 +38,7 @@ NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
 	setMainWidget( widget );
 	setCaption( i18n("Kommando") );
 	
-	ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
+	//ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
 	
 	checkIfComplete();
 	connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(setWindowTitleToCommandName(QString)));

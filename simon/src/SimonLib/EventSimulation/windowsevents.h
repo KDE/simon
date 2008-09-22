@@ -39,10 +39,9 @@ private:
 public:
 	WindowsEvents();
 	void click(int x, int y);
-	void sendKey(unsigned short key /*unicode representation*/);
+	void sendKey(unsigned int key /*unicode representation*/);
 //  	void sendShortcut(const QKeySequence& shortcut);
 
-	inline void sendKey(int key);
 	inline void sendChar(char key);
 	inline void setModifierKey(int virtualKey, bool once);
 	inline void unsetModifier(int virtualKey);
