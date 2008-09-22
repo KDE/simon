@@ -63,7 +63,7 @@ bool ExecutableCommand::triggerPrivate()
 
 		#ifdef Q_OS_WIN
 		RegistryManager *rm = new RegistryManager();
-		rm->startProcess(exe, workingDirectory.toString());
+		rm->startProcess(exe, workingDirectory.path());
 		delete rm;
 		#endif
 	}
