@@ -48,6 +48,9 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
 	registerField("wordName*", ui.leWord);
 	registerField("wordPronunciation*", ui.leSampa);
 	registerField("wordTerminal*", ui.cbType, "currentText", SIGNAL(currentIndexChanged(int)));
+
+	ui.tbAddTerminal->setIcon(KIcon("list-add"));
+	ui.pbReGuess->setIcon(KIcon("view-refresh"));
 }
 
 /**

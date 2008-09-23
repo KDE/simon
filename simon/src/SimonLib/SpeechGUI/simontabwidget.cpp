@@ -3,7 +3,7 @@
 
 
 
-SimonTabWidget::SimonTabWidget( QWidget * parent )
+SimonTabWidget::SimonTabWidget( QWidget * parent ) : QTabWidget(parent)
 {
 	
 }

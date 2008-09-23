@@ -10,6 +10,7 @@
 //
 //
 #include "externalprogrammanager.h"
+#include <KIcon>
 #include "../SimonLib/Settings/settings.h"
 
 /**
@@ -20,7 +21,7 @@
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(i18n("Externe Programme"), QIcon(":/images/icons/applications-other.svg"), i18n("Externe Programme verwalten"), parent)
+ExternalProgramManager::ExternalProgramManager(QWidget* parent): SystemWidget(i18n("Externe Programme"), KIcon("applications-other"), i18n("Externe Programme verwalten"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers(this);

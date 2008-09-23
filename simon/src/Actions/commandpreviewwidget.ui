@@ -170,8 +170,5 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../action_icons.qrc" />
- </resources>
  <connections/>
 </ui>

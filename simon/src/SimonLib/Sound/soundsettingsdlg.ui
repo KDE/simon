@@ -12,10 +12,6 @@
   <property name="windowTitle" >
    <string>Soundeinstellungen</string>
   </property>
-  <property name="windowIcon" >
-   <iconset>
-    <normaloff>:/images/icons/preferences-desktop-sound.svg</normaloff>:/images/icons/preferences-desktop-sound.svg</iconset>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
     <layout class="QFormLayout" name="formLayout" >
@@ -187,10 +183,5 @@
    <header>simoncombobox.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../others.qrc" />
-  <include location="../other_icons.qrc" />
-  <include location="../category_icons.qrc" />
- </resources>
  <connections/>
 </ui>

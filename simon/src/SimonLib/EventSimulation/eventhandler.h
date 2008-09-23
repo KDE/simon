@@ -19,7 +19,7 @@
 #ifdef Q_OS_UNIX
 #include "xevents.h"
 #endif
-#ifdef def Q_OS_WIN
+#ifdef Q_OS_WIN
 #include "windowsevents.h"
 #endif
 

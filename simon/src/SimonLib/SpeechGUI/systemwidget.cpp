@@ -19,7 +19,7 @@
  * @param desc A small description
  * @param parent The parent of the widget
  */
-SystemWidget::SystemWidget(QString title, QIcon icon, QString desc, QWidget *parent)
+SystemWidget::SystemWidget(const QString& title, const KIcon& icon, const QString& desc, QWidget *parent)
  : InlineWidget(title, icon, desc, parent)
 {
 	

@@ -41,6 +41,7 @@ void SimonListWidget::moveLineEdit()
 
 void SimonListWidget::resizeEvent ( QResizeEvent * event )
 {
+	Q_UNUSED(event);
 	this->moveLineEdit();
 }
 

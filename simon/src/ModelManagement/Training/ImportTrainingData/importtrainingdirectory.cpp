@@ -22,6 +22,7 @@
 #include <KPushButton>
 #include <QIcon>
 #include <QCoreApplication>
+#include <KStandardDirs>
 
 /**
  * \brief Constructor - Creats the pages and adds them
@@ -31,7 +32,7 @@
 ImportTrainingDirectory::ImportTrainingDirectory(QWidget *parent) : QWizard(parent)
 {
 	setWindowTitle(i18n("Importiere Trainingsdaten von Ordner"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importfolder.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importfolder.png")));
 
  	addPage(createIntroPage());
 	addPage(createWorkingPage());

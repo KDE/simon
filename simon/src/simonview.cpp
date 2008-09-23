@@ -70,7 +70,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 		:SimonMainWindow ( parent, flags )
 {
 	//FIXME: set logging path
-	if ( !Logger::init(KStandardDirs::locate("appdata", "simon.log") ))
+	if ( !Logger::init(KStandardDirs::locateLocal("appdata", "simon.log") ))
 	{
 		KMessageBox::error ( this, i18n ( "Konnte die Log-Datei nicht öffnen. Bitte überprüfen Sie die Berechtigungen.." ) );
 		exit ( 1 );
@@ -103,7 +103,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	
 	this->control = new SimonControl ();
 	this->trayManager = new TrayIconManager( this);
-	this->trayManager->createIcon ( KIcon ( ":/images/tray_d.png" ), i18n("simon"));
+	this->trayManager->createIcon ( KIcon("simon"), i18n("simon"));
 
 
 	shownDialogs = 0;
@@ -111,8 +111,9 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	qApp->setQuitOnLastWindowClosed(false);
 	ui.setupUi ( this );
 	
+	ui.tbWelcome->setWindowIcon(KIcon("simon"));
 	
-	ui.inlineView->addTab(ui.tbWelcome, QIcon ( ":/images/tray.png" ), i18n("Willkommen"));
+	ui.inlineView->addTab(ui.tbWelcome, KIcon("simon"), i18n("Willkommen"));
 
 	statusBar()->insertItem(i18n("Nicht Verbunden"),0);
 	statusBar()->insertItem("",1,10);
@@ -164,6 +165,14 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	//switches, if the settings are shown or not
 	hideSettings();
+
+	ui.lbWelcomeDesc->setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/welcomebanner.png")));
+	ui.lbWarning->setStyleSheet("background-image: url(\""+KStandardDirs::locate("appdata", "theme/default/alphawarning.png")+"\"); padding-left:120px; padding-top:10px");
+
+	ui.label_5->setPixmap(KIcon("mail-message-new").pixmap(QSize(24,24)));
+	ui.label_7->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
+	ui.label_9->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
+	ui.label_13->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
 }
 
 void SimonView::setupActions()
@@ -497,7 +506,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
 				
 			SimonInfo::showMessage ( i18n ( "simon wurde deaktiviert" ), 2000 );
 				
-			this->trayManager->createIcon ( KIcon ( ":/images/tray_d.png" ), i18n ( "Simon - Deaktiviert" ) );
+			this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "Simon - Deaktiviert" ) );
 			repaint();
 			break; }
 			
@@ -511,7 +520,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
 				connectActivate->setIcon(KIcon("network-connect"));
 			}
 			
-			this->trayManager->createIcon ( KIcon ( ":/images/tray.png" ), "Simon" );
+			this->trayManager->createIcon ( KIcon ( "simon" ), "Simon" );
 				
 			SimonInfo::showMessage ( i18n ( "simon wurde aktiviert" ), 2000 );
 			break; }

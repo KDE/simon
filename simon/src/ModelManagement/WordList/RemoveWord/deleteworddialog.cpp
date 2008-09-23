@@ -11,6 +11,7 @@
 //
 #include "deleteworddialog.h"
 #include "../word.h"
+#include <KIconLoader>
 
 /**
  * \brief Constructor
@@ -20,7 +21,12 @@
  */
 DeleteWordDialog::DeleteWordDialog(QWidget* parent, Qt::WindowFlags f): KDialog(parent, f)
 {
-	ui.setupUi(this);
+	QWidget *widget = new QWidget( this );
+	ui.setupUi(widget);
+	setMainWidget( widget );
+	setCaption( i18n("Wort löschen") );
+
+	ui.lbIcon->setPixmap(KIconLoader().loadIcon("edit-delete", KIconLoader::NoGroup, KIconLoader::SizeEnormous));
 }
 
 /**

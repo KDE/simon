@@ -39,10 +39,6 @@
           <property name="text" >
            <string>Aufnehmen</string>
           </property>
-          <property name="icon" >
-           <iconset resource="../../action_icons.qrc" >
-            <normaloff>:/images/icons/media-record.svg</normaloff>:/images/icons/media-record.svg</iconset>
-          </property>
           <property name="checkable" >
            <bool>true</bool>
           </property>
@@ -53,10 +49,6 @@
           <property name="text" >
            <string>Abspielen</string>
           </property>
-          <property name="icon" >
-           <iconset resource="../../action_icons.qrc" >
-            <normaloff>:/images/icons/media-playback-start.svg</normaloff>:/images/icons/media-playback-start.svg</iconset>
-          </property>
           <property name="checkable" >
            <bool>true</bool>
           </property>
@@ -66,10 +58,6 @@
          <widget class="KPushButton" name="pbDelete" >
           <property name="text" >
            <string>Löschen</string>
-          </property>
-          <property name="icon" >
-           <iconset resource="../../action_icons.qrc" >
-            <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
           </property>
          </widget>
         </item>
@@ -90,8 +78,5 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../action_icons.qrc" />
- </resources>
  <connections/>
 </ui>

@@ -12,10 +12,6 @@
   <property name="windowTitle" >
    <string>Allgemeine Einstellungen</string>
   </property>
-  <property name="windowIcon" >
-   <iconset resource="../other_icons.qrc" >
-    <normaloff>:/images/icons/computer.svg</normaloff>:/images/icons/computer.svg</iconset>
-  </property>
   <layout class="QVBoxLayout" >
    <item>
     <widget class="KPushButton" name="pbShowFirstRunWizard" >
@@ -169,8 +165,5 @@
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../other_icons.qrc" />
- </resources>
  <connections/>
 </ui>

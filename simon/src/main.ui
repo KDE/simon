@@ -12,10 +12,6 @@
   <property name="windowTitle" >
    <string>simon</string>
   </property>
-  <property name="windowIcon" >
-   <iconset resource="others.qrc" >
-    <normaloff>:/images/tray.png</normaloff>:/images/tray.png</iconset>
-  </property>
   <property name="accessibleName" >
    <string>simon</string>
   </property>
@@ -48,10 +44,6 @@
        <attribute name="title" >
         <string>Start</string>
        </attribute>
-       <attribute name="icon" >
-        <iconset resource="others.qrc" >
-         <normaloff>:/images/tray.png</normaloff>:/images/tray.png</iconset>
-       </attribute>
        <layout class="QVBoxLayout" name="verticalLayout" >
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3" >
@@ -72,9 +64,6 @@
            <widget class="QLabel" name="lbWelcomeDesc" >
             <property name="text" >
              <string/>
-            </property>
-            <property name="pixmap" >
-             <pixmap resource="banners.qrc" >:/images/banner.png</pixmap>
             </property>
             <property name="alignment" >
              <set>Qt::AlignJustify|Qt::AlignVCenter</set>
@@ -149,7 +138,7 @@
              </font>
             </property>
             <property name="styleSheet" >
-             <string notr="true" >background-image: url(":/images/alphawarning.png"); padding-left:120px; padding-top:10px</string>
+             <string notr="true" />
             </property>
             <property name="frameShape" >
              <enum>QFrame::StyledPanel</enum>
@@ -247,11 +236,18 @@ p, li { white-space: pre-wrap; }
                <property name="text" >
                 <string/>
                </property>
-               <property name="pixmap" >
-                <pixmap resource="action_icons.qrc" >:/images/icons/mail-mark-unread.svg</pixmap>
+              </widget>
+             </item>
+             <item row="0" column="0" >
+              <widget class="QLabel" name="label_7" >
+               <property name="maximumSize" >
+                <size>
+                 <width>32</width>
+                 <height>32</height>
+                </size>
                </property>
-               <property name="scaledContents" >
-                <bool>true</bool>
+               <property name="text" >
+                <string/>
                </property>
               </widget>
              </item>
@@ -266,25 +262,6 @@ p, li { white-space: pre-wrap; }
 &lt;/html></string>
                </property>
                <property name="openExternalLinks" >
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0" >
-              <widget class="QLabel" name="label_7" >
-               <property name="maximumSize" >
-                <size>
-                 <width>32</width>
-                 <height>32</height>
-                </size>
-               </property>
-               <property name="text" >
-                <string/>
-               </property>
-               <property name="pixmap" >
-                <pixmap resource="other_icons.qrc" >:/images/icons/signature.svg</pixmap>
-               </property>
-               <property name="scaledContents" >
                 <bool>true</bool>
                </property>
               </widget>
@@ -358,41 +335,20 @@ p, li { white-space: pre-wrap; }
                <property name="text" >
                 <string/>
                </property>
-               <property name="pixmap" >
-                <pixmap resource="application_icons.qrc" >:/images/icons/applications-internet.svg</pixmap>
-               </property>
-               <property name="scaledContents" >
-                <bool>true</bool>
-               </property>
               </widget>
              </item>
-             <item row="1" column="1" >
-              <widget class="QLabel" name="label_10" >
-               <property name="text" >
-                <string>&lt;html>
-&lt;head />
-&lt;body>
-&lt;a href="http://www.cyber-byte.at/wiki/index.php/Main_Page">Online Wiki&lt;/a>
-&lt;/body>
-&lt;/html></string>
-               </property>
-               <property name="openExternalLinks" >
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1" >
-              <spacer name="verticalSpacer_4" >
-               <property name="orientation" >
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0" >
+             <item row="2" column="0" >
+              <widget class="QLabel" name="label_13" >
+               <property name="maximumSize" >
                 <size>
-                 <width>20</width>
-                 <height>40</height>
+                 <width>32</width>
+                 <height>32</height>
                 </size>
                </property>
-              </spacer>
+               <property name="text" >
+                <string/>
+               </property>
+              </widget>
              </item>
              <item row="2" column="1" >
               <widget class="QLabel" name="label_14" >
@@ -409,21 +365,17 @@ p, li { white-space: pre-wrap; }
                </property>
               </widget>
              </item>
-             <item row="2" column="0" >
-              <widget class="QLabel" name="label_13" >
-               <property name="maximumSize" >
-                <size>
-                 <width>32</width>
-                 <height>32</height>
-                </size>
-               </property>
+             <item row="1" column="1" >
+              <widget class="QLabel" name="label_10" >
                <property name="text" >
-                <string/>
+                <string>&lt;html>
+&lt;head />
+&lt;body>
+&lt;a href="http://www.cyber-byte.at/wiki/index.php/Main_Page">Online Wiki&lt;/a>
+&lt;/body>
+&lt;/html></string>
                </property>
-               <property name="pixmap" >
-                <pixmap resource="application_icons.qrc" >:/images/icons/applications-internet.svg</pixmap>
-               </property>
-               <property name="scaledContents" >
+               <property name="openExternalLinks" >
                 <bool>true</bool>
                </property>
               </widget>
@@ -501,13 +453,5 @@ p, li { white-space: pre-wrap; }
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="action_icons.qrc" />
-  <include location="application_icons.qrc" />
-  <include location="banners.qrc" />
-  <include location="category_icons.qrc" />
-  <include location="other_icons.qrc" />
-  <include location="others.qrc" />
- </resources>
  <connections/>
 </ui>

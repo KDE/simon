@@ -15,7 +15,7 @@
 
 #include "systemwidget.h"
 #include "ui_logmanagerdlg.h"
-#include "../SimonLib/Logging/logmanager.h"
+#include "logmanager.h"
 
 
 /**

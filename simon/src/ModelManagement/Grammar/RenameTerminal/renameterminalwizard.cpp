@@ -13,6 +13,7 @@
 #include <QWizardPage>
 #include <QLabel>
 #include <QHBoxLayout>
+#include <KStandardDirs>
 #include "renameterminalselectparameterspage.h"
 #include "renameterminalworkingpage.h"
 #include "../grammarmanager.h"
@@ -20,7 +21,7 @@
 RenameTerminalWizard::RenameTerminalWizard(QWidget* parent): QWizard(parent)
 {
 	setWindowTitle(i18n("Terminal umbenennen"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/editterminal.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/editterminal.png")));
 	addPage(createIntroPage());
 	addPage(createSelectParametersPage());
 	addPage(createWorkingPage());

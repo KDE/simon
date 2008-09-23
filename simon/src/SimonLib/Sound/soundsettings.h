@@ -13,7 +13,7 @@
 #define SOUNDSETTINGS_H
 
 #include "systemwidget.h"
-#include "../SimonLib/Sound/sounddevice.h"
+#include "sounddevice.h"
 #include "ui_soundsettingsdlg.h"
 
 class SoundControl;

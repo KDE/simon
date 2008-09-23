@@ -17,7 +17,7 @@
 #include <QTableWidgetItem>
 #include <kmessagebox.h>
 
-GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(i18n("Grammatikeinstellungen"), KIcon("signature"), i18n("Grammatik bearbeiten"), parent)
+GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(i18n("Grammatikeinstellungen"), KIcon("user-properties"), i18n("Grammatik bearbeiten"), parent)
 {
 	ui.setupUi(this);
 	ui.pbImportTexts->setIcon(KIcon("document-open"));

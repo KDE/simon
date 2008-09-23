@@ -179,10 +179,6 @@
            <property name="text" >
             <string>...</string>
            </property>
-           <property name="icon" >
-            <iconset resource="../action_icons.qrc" >
-             <normaloff>:/images/icons/go-up.svg</normaloff>:/images/icons/go-up.svg</iconset>
-           </property>
           </widget>
          </item>
          <item>
@@ -192,10 +188,6 @@
            </property>
            <property name="text" >
             <string>...</string>
-           </property>
-           <property name="icon" >
-            <iconset resource="../action_icons.qrc" >
-             <normaloff>:/images/icons/go-down.svg</normaloff>:/images/icons/go-down.svg</iconset>
            </property>
           </widget>
          </item>
@@ -220,10 +212,6 @@
            <property name="text" >
             <string>Hinzufügen</string>
            </property>
-           <property name="icon" >
-            <iconset resource="../action_icons.qrc" >
-             <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
-           </property>
           </widget>
          </item>
          <item>
@@ -233,10 +221,6 @@
            </property>
            <property name="text" >
             <string>Entfernen</string>
-           </property>
-           <property name="icon" >
-            <iconset resource="../action_icons.qrc" >
-             <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
            </property>
           </widget>
          </item>
@@ -271,8 +255,5 @@
    <header>simontablewidget.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../action_icons.qrc" />
- </resources>
  <connections/>
 </ui>

@@ -11,7 +11,7 @@
 //
 #include "runcommandview.h"
 #include <KMessageBox>
-#include <QIcon>
+#include <KIcon>
 #include <QWidget>
 #include <QTableWidgetItem>
 #include <QHeaderView>
@@ -33,7 +33,7 @@
  *
  *	@author Peter Grasch
  */
-RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(i18n("Kommandos"), QIcon(":/images/icons/system-run.svg"), i18n("Direkte ausführung von simon-Befehlen"), parent)
+RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(i18n("Kommandos"), KIcon("system-run"), i18n("Direkte ausführung von simon-Befehlen"), parent)
 {
 	ui.setupUi(this);
 
@@ -54,10 +54,16 @@ RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(i18n("Kommandos")
 	connect(ui.cvCommands, SIGNAL(clicked(QModelIndex)), this, SLOT(reflectSelectionStatus(QModelIndex)));
 
 	QList<int> colWidths;
-	colWidths << 230 << 230 << 340;
+	colWidths << 210 << 210 << 320;
 	ui.cvCommands->setColumnWidths(colWidths);
 
 	this->loadCommands();
+
+
+	ui.pbNewCommand->setIcon(KIcon("list-add"));
+	ui.pbImportActivities->setIcon(KIcon("document-import"));
+	ui.pbEditCommand->setIcon(KIcon("edit-rename"));
+	ui.pbDeleteCommand->setIcon(KIcon("edit-delete"));
 }
 
 

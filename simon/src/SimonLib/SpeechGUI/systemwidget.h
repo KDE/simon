@@ -41,7 +41,7 @@ public slots:
 	virtual bool isComplete()=0;
 	
 public:
-    SystemWidget(QString title, QIcon icon, QString desc, QWidget *parent);
+    SystemWidget(const QString& title, const KIcon& icon, const QString& desc, QWidget *parent);
 
 
 	QString getHelp() { return help; };

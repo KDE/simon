@@ -133,6 +133,9 @@ void SimonControl::disconnectFromServer()
  */
 void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 {
+	Q_UNUSED(sampa);
+	Q_UNUSED(samparaw);
+
 	if (status != SimonControl::ConnectedActivated) return;
 	
 	actionManager->process(word);

@@ -37,8 +37,7 @@ RecWidget::RecWidget(QString name, QString filename, QWidget *parent) : QWidget(
 	postProc = new PostProcessing();
 	
 	ui.setupUi(this);
-// 	ui.leRecognisedText->setVisible(false);
-// 	ui.lbRecognisedText->setVisible(false);
+
 	ui.gb->setTitle(name);
 	
 	if (QFile::exists(filename))
@@ -54,7 +53,10 @@ RecWidget::RecWidget(QString name, QString filename, QWidget *parent) : QWidget(
 	}
 	
 	setupSignalsSlots();
-	
+
+	ui.pbRecord->setIcon(KIcon("media-record"));
+	ui.pbPlay->setIcon(KIcon("media-playback-start"));
+	ui.pbDelete->setIcon(KIcon("edit-delete"));
 }
 
 

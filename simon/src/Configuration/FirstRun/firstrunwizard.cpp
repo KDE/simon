@@ -12,6 +12,7 @@
 #include "firstrunwizard.h"
 
 #include <QWizardPage>
+#include <KStandardDirs>
 #include "portaudio.h"
 #include "../../SimonLib/Settings/settings.h"
 #include "../externalprogrammanager.h"
@@ -45,7 +46,7 @@
 FirstRunWizard::FirstRunWizard(QWidget* parent): QWizard(parent)
 {
 	setWindowTitle(i18n("simon Erstkonfiguration"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/firstrun.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/firstrun.png")));
 	addPage(createIntroPage());
 	addPage(createCheckList());
 	addPage(createExternalProgramsPage());

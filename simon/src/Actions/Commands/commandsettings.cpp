@@ -10,7 +10,7 @@
 //
 //
 #include "commandsettings.h"
-#include "../SimonLib/Settings/settings.h"
+#include "../../SimonLib/Settings/settings.h"
 
 /**
  * \brief Constructor
@@ -20,7 +20,7 @@
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-CommandSettings::CommandSettings(QWidget* parent): SystemWidget(i18n("Kommandos"), KIcon(":/images/icons/applications-system.svg"), i18n("Kommandos verwalten"), parent)
+CommandSettings::CommandSettings(QWidget* parent): SystemWidget(i18n("Kommandos"), KIcon("system-run"), i18n("Kommandos verwalten"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers(this);

@@ -14,12 +14,12 @@
 
 // #include "speechgui_export.h"
 #include <QWidget>
-#include <QIcon>
+#include <KIcon>
 
 #include "simonwidget.h"
 
 class QString;
-class QIcon;
+class KIcon;
 class QSettings;
 
 /**
@@ -36,7 +36,7 @@ Q_OBJECT
 
 private:
 	QString title, desc;
-	QIcon icon;
+	KIcon icon;
 	GuiEvents *guievents;
 	//SimonControl *control;
 
@@ -49,14 +49,14 @@ signals:
 	void accepted();
 
 public:
-	InlineWidget(QString title, QIcon icon, QString desc, QWidget* parent=0);
+	InlineWidget(QString title, KIcon icon, QString desc, QWidget* parent=0);
 		
 	~InlineWidget();
 
 	void setVisible(bool visible);
 
 	QString getTitle() const {return title; }
-	QIcon getIcon() const { return icon; }
+	KIcon getIcon() const { return icon; }
 	QString getDesc() const { return desc; }
 	bool isShown();
 

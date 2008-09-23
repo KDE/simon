@@ -30,13 +30,14 @@
 
 TrainingView* TrainingView::instance;
 
+
 /**
  * \brief Constructor - inits the Gui
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
 TrainingView::TrainingView ( QWidget *parent )
-		: InlineWidget ( i18n ( "Training" ), QIcon ( ":/images/icons/kvoctrain.svg" ),
+		: InlineWidget ( i18n ( "Training" ), KIcon ( "view-pim-news" ),
 		                 i18n ( "Trainieren des Sprachmodells" ), parent )
 {
 	ui.setupUi ( this );
@@ -63,6 +64,20 @@ TrainingView::TrainingView ( QWidget *parent )
 	trainMgr = TrainingManager::getInstance();
 	connect(trainMgr, SIGNAL(trainingFinished()), this, SLOT(backToMain()));
 	loadList();
+
+
+	//set up icons
+	ui.pbTrainText->setIcon(KIcon("go-next"));
+	ui.pbDelText->setIcon(KIcon("edit-delete"));
+	ui.pbImportText->setIcon(KIcon("document-import"));
+	ui.pbImportDir->setIcon(KIcon("document-open-folder"));
+
+	ui.pbPrevPage->setIcon(KIcon("go-previous"));
+	ui.pbNextPage->setIcon(KIcon("go-next"));
+	ui.pbBackToMain->setIcon(KIcon("dialog-cancel"));
+	ui.pbFinish->setIcon(KIcon("dialog-ok-apply"));
+
+	ui.pbBackToMain2->setIcon(KIcon("go-previous"));
 }
 
 
@@ -173,7 +188,7 @@ void TrainingView::finish()
 
 	//finishing up
 
-	trainMgr->finishTrainingSession();;
+	trainMgr->finishTrainingSession();
 
 	//done
 	emit trainingCompleted();

@@ -16,11 +16,12 @@
 #include <QWizardPage>
 #include <QLabel>
 #include <QHBoxLayout>
+#include <KStandardDirs>
 
 MergeTerminalsWizard::MergeTerminalsWizard(QWidget* parent): QWizard(parent)
 {
 	setWindowTitle(i18n("Terminale verbinden"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/merge.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/merge.png")));
 	addPage(createIntroPage());
 	addPage(createSelectTerminalsPage());
 	addPage(createWorkingPage());

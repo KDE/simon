@@ -1,10 +1,10 @@
 #include "guievents.h"
 #include <QRegExp>
 #include "../Logging/logger.h"
-#include <QCoreApplication>
 #include <QStringList>
+#include <KLocalizedString>
 
-GuiEvents::GuiEvents(QObject *parent)
+GuiEvents::GuiEvents(QObject *parent) : QObject(parent)
 {
 	guiItems = new GuiAction;
 }
@@ -32,7 +32,9 @@ void GuiEvents::registerControl(QString trigger, QObject* receiver, const char* 
 
 void GuiEvents::doAction(QString action, QObject * parentItem)
 {
-	QRegExp expression("Kalender *");
+	Q_UNUSED(parentItem);
+
+	QRegExp expression(i18n("Kalender *"));
 	expression.setPatternSyntax(QRegExp::Wildcard);
 	
 	QList<uniqueKey*> keyList = guiItems->keys();
@@ -75,7 +77,7 @@ void GuiEvents::doAction(QString action, QObject * parentItem)
 	{
 		return;
 	}
-	QCoreApplication::processEvents();
+
 	//connects to the slot that is saved in the QHash with the given parameters
 	connect(this, SIGNAL(dummy(QString)), guiItems->value(key)->receiver, guiItems->value(key)->slot);
 	emit this->dummy(action);

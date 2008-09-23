@@ -89,8 +89,5 @@ Bitte wählen Sie nun die Datei aus die Sie gerne importieren möchten:</string>
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../action_icons.qrc" />
- </resources>
  <connections/>
 </ui>

@@ -13,13 +13,14 @@
 #include <QWizardPage>
 #include <QLabel>
 #include <QHBoxLayout>
+#include <KStandardDirs>
 #include "importgrammarselectfilespage.h"
 #include "importgrammarworkingpage.h"
 
 ImportGrammarWizard::ImportGrammarWizard(QWidget* parent): QWizard(parent)
 {
 	setWindowTitle(i18n("Grammatikstrukturen Importieren"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importgrammar.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importgrammar.png")));
 	addPage(createIntroPage());
 	addPage(createSelectFilesPage());
 	addPage(createWorkingPage());

@@ -16,13 +16,12 @@
 #include "simonlistwidget.h"
 #include "systemwidget.h"
 #include "generalsettings.h"
-#include "logview.h"
 #include "externalprogrammanager.h"
 #include "internetextensionsettings.h"
 #include "passwordsettings.h"
 
 #include "../SimonLib/Sound/soundsettings.h"
-
+#include "../SimonLib/Logging/logview.h"
 #include "../ModelManagement/modelsettings.h"
 #include "../ModelManagement/Grammar/grammarsettings.h"
 #include "../Actions/Commands/commandsettings.h"
@@ -35,7 +34,7 @@
  *  \brief Constructor - inits the ui and registers the controls
  * @param parent the parent of the widget
  */
-SystemView::SystemView(QWidget* parent): InlineWidget(i18n("System"), QIcon(":/images/icons/computer.svg"), i18n("Einstellungen, Protokolle, etc."), parent)
+SystemView::SystemView(QWidget* parent): InlineWidget(i18n("System"), KIcon("configure"), i18n("Einstellungen, Protokolle, etc."), parent)
 {
 	ui.setupUi(this);
 	hide();
@@ -57,6 +56,9 @@ SystemView::SystemView(QWidget* parent): InlineWidget(i18n("System"), QIcon(":/i
 	ui.lwMenu->setIconSize(QSize(24,24));
 	
 	guessChildTriggers((QObject*)this);
+
+	ui.pbReset->setIcon(KIcon("edit-undo"));
+	ui.pbApply->setIcon(KIcon("dialog-ok-apply"));
 }
 
 /**

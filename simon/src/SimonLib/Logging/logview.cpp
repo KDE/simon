@@ -22,7 +22,7 @@
  * \author Peter Grasch
  * @param parent Parent of the systemwidget
  */
-LogView::LogView(QWidget* parent): SystemWidget(i18n("Protokoll"), QIcon(":/images/icons/utilities-log-viewer.svg"), i18n("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
+LogView::LogView(QWidget* parent): SystemWidget(i18n("Protokoll"), KIcon("utilities-log-viewer"), i18n("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
 {
 	ui.setupUi(this);
 
@@ -53,6 +53,9 @@ LogView::LogView(QWidget* parent): SystemWidget(i18n("Protokoll"), QIcon(":/imag
 	ui.twLogEntries->setObjectName("twLogEntries");
 
 	help = i18n("simon speichert im normalen Betrieb viele Loginformationen die im Nachhinein helfen können, Probleme nachzuvollziehen");
+
+	ui.pbLogSearch->setIcon(KIcon("system-search"));
+	ui.pbAbort->setIcon(KIcon("process-stop"));
 }
 
 
@@ -683,7 +686,7 @@ void LogView::displayCancel()
 {
 	enableWidgets(false);
 	this->ui.pbAbort->setText(i18n("Abbrechen"));
-	ui.pbAbort->setIcon(QIcon(":/images/icons/process-stop.svg"));
+	ui.pbAbort->setIcon(KIcon("process-stop"));
 	disconnect(ui.pbAbort, SIGNAL(clicked()), this, SLOT(reload()));
 	connect(ui.pbAbort, SIGNAL(clicked()), this, SLOT(abort()));
 }
@@ -700,7 +703,7 @@ void LogView::displayReload()
 	this->ui.pbAbort->setText(i18n("Neu laden"));
 	this->ui.pbLogLoad->setMaximum(100);
 	this->ui.pbLogLoad->setValue(100);
-	ui.pbAbort->setIcon(QIcon(":/images/icons/view-refresh.svg"));
+	ui.pbAbort->setIcon(KIcon("view-refresh"));
 	disconnect(ui.pbAbort, 0,0,0);
 	connect(ui.pbAbort, SIGNAL(clicked()), this, SLOT(reload()));
 }

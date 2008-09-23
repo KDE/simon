@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 	
 	KCmdLineArgs::init(argc, argv, &aboutData);
 	KUniqueApplication app;	
-	app.setWindowIcon(QIcon(":/images/tray.png"));
+	app.setWindowIcon(KIcon("simon"));
 	app.addLibraryPath(app.applicationDirPath()+"/plugins");
 // 	QString locale = QLocale::system().name().left(2);
 

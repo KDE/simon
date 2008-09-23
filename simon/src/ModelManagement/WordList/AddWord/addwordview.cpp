@@ -22,6 +22,7 @@
 #include <QWizardPage>
 #include <KMessageBox>
 #include <KLineEdit>
+#include <KStandardDirs>
 #include "../../../SimonLib/Logging/logger.h"
 #include "../../../SimonLib/Settings/settings.h"
 #include "addwordintropage.h"
@@ -67,7 +68,7 @@ AddWordView::AddWordView(QWidget *parent)
 	connect(TrainingManager::getInstance(), SIGNAL(addMissingWords(QStringList)), this, SLOT(askToAddWords(QStringList)));
 
 	setWindowTitle(i18n("Wort hinzufügen"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/addword.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/addword.png")));
 }
 
 

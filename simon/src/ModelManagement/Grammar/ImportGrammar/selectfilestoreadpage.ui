@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>345</height>
+    <height>387</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -25,101 +25,42 @@
     </widget>
    </item>
    <item>
+    <widget class="KUrlRequester" name="urFileToAdd" >
+     <property name="filter" >
+      <string>Textdateien *.txt</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="KEditListBox" name="elbFiles" >
+     <property name="title" >
+      <string>Zu importierende Dateien</string>
+     </property>
+     <property name="buttons" >
+      <set>KEditListBox::Add|KEditListBox::Remove</set>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="cbIncludeUnknown" >
      <property name="text" >
       <string>Auch unbekannte Konstrukte importieren</string>
      </property>
     </widget>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" >
-     <item>
-      <widget class="QLabel" name="lbListDesc" >
-       <property name="minimumSize" >
-        <size>
-         <width>149</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text" >
-        <string>Textdateien (*.txt):</string>
-       </property>
-       <property name="wordWrap" >
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KLineEdit" name="leFiles" >
-       <property name="maximumSize" >
-        <size>
-         <width>16777215</width>
-         <height>16777215</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="SimonListWidget" name="lwFiles" />
-   </item>
-   <item>
-    <layout class="QHBoxLayout" >
-     <item>
-      <spacer>
-       <property name="orientation" >
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0" >
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="KPushButton" name="pbAddFile" >
-       <property name="enabled" >
-        <bool>true</bool>
-       </property>
-       <property name="text" >
-        <string>Hinzufügen</string>
-       </property>
-       <property name="icon" >
-        <iconset resource="../../../action_icons.qrc" >
-         <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KPushButton" name="pbDeleteFile" >
-       <property name="enabled" >
-        <bool>false</bool>
-       </property>
-       <property name="text" >
-        <string>Entfernen</string>
-       </property>
-       <property name="icon" >
-        <iconset resource="../../../action_icons.qrc" >
-         <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SimonListWidget</class>
-   <extends>KListWidget</extends>
-   <header>simonlistwidget.h</header>
+   <class>KEditListBox</class>
+   <extends>QGroupBox</extends>
+   <header>keditlistbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../../../action_icons.qrc" />
- </resources>
  <connections/>
 </ui>

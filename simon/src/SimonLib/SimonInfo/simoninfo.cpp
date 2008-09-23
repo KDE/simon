@@ -20,6 +20,7 @@
 #include <QCoreApplication>
 #include <QPixmap>
 #include <KSplashScreen>
+#include <KStandardDirs>
 #include "osd.h"
 
 /**
@@ -50,11 +51,9 @@ SimonInfo::SimonInfo(QWidget *parent)
 */
 void SimonInfo::showSplash()
 {
-	QPixmap splashbg(":/images/splash.png");
-
 	if (this->splash) this->splash->deleteLater();
 	
-	this->splash = new KSplashScreen( splashbg );
+	this->splash = new KSplashScreen( QPixmap(KStandardDirs::locate("appdata", "themes/default/splash.png")) );
 	this->splash->show();
 
 }
@@ -94,7 +93,7 @@ void SimonInfo::writeToSplash(QString status)
  *	@author Peter Grasch
  * 
  */
-void SimonInfo::showMessage(QString message, short time, QIcon *icon)
+void SimonInfo::showMessage(QString message, short time, KIcon *icon)
 {
 	//show an "OSD"-like Message
 	new OSD(message, time, icon);

@@ -12,6 +12,7 @@
 #include "kdeprogrammanager.h"
 #include <QDir>
 #include <QProcess>
+#include <KStandardDirs>
 #include "../KDELib/desktopreader.h"
 
 KDEProgramManager::KDEProgramManager()

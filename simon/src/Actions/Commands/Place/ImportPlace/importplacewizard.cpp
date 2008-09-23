@@ -14,6 +14,7 @@
 #include <QVBoxLayout>
 #include <QPixmap>
 #include <QRadioButton>
+#include <KStandardDirs>
 #include "../placecommand.h"
 #include "selectplacepage.h"
 
@@ -30,7 +31,7 @@ ImportPlaceWizard::ImportPlaceWizard(QWidget* parent): QWizard(parent)
 	this->addPage(createFinishedPage());
 
 	setWindowTitle(i18n("Ort hinzufügen"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importplace.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importplace.png")));
 
 	connect(this, SIGNAL(finished(int)), this, SLOT(createCommand(int)));
 }

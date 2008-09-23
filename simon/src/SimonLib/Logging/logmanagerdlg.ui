@@ -89,9 +89,6 @@
             <property name="text" >
              <string>Suchen</string>
             </property>
-            <property name="icon" >
-             <iconset resource="../other_icons.qrc" >:/images/icons/system-search.svg</iconset>
-            </property>
            </widget>
           </item>
          </layout>
@@ -157,9 +154,6 @@
          <widget class="KPushButton" name="pbAbort" >
           <property name="text" >
            <string>Abbrechen</string>
-          </property>
-          <property name="icon" >
-           <iconset resource="../action_icons.qrc" >:/images/icons/process-stop.svg</iconset>
           </property>
          </widget>
         </item>
@@ -236,10 +230,6 @@
    <header>simoncalendarwidget.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../action_icons.qrc" />
-  <include location="../other_icons.qrc" />
- </resources>
  <connections>
   <connection>
    <sender>pbClearSearch</sender>

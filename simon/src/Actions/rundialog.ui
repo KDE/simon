@@ -45,10 +45,6 @@
         <property name="text" >
          <string>Neues Kommando</string>
         </property>
-        <property name="icon" >
-         <iconset resource="../action_icons.qrc" >
-          <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
-        </property>
        </widget>
       </item>
       <item>
@@ -61,10 +57,6 @@
         </property>
         <property name="text" >
          <string>Aktivitäten importieren</string>
-        </property>
-        <property name="icon" >
-         <iconset resource="../action_icons.qrc" >
-          <normaloff>:/images/icons/arrow-down-double.svg</normaloff>:/images/icons/arrow-down-double.svg</iconset>
         </property>
        </widget>
       </item>
@@ -89,10 +81,6 @@
         <property name="text" >
          <string>Bearbeiten</string>
         </property>
-        <property name="icon" >
-         <iconset resource="../action_icons.qrc" >
-          <normaloff>:/images/icons/edit.svg</normaloff>:/images/icons/edit.svg</iconset>
-        </property>
        </widget>
       </item>
       <item>
@@ -103,10 +91,6 @@
         <property name="text" >
          <string>Löschen</string>
         </property>
-        <property name="icon" >
-         <iconset resource="../action_icons.qrc" >
-          <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
-        </property>
        </widget>
       </item>
      </layout>
@@ -114,10 +98,5 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../other_icons.qrc" />
-  <include location="../action_icons.qrc" />
-  <include location="../category_icons.qrc" />
- </resources>
  <connections/>
 </ui>

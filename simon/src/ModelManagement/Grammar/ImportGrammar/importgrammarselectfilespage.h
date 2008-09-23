@@ -22,14 +22,8 @@ class ImportGrammarSelectFilesPage : public QWizardPage
 Q_OBJECT
 private:
 	Ui::SelectFilesPage ui;
-private slots:
-	void addFile();
-	void removeFile();
-	void rowChanged(int row);
 public:
     ImportGrammarSelectFilesPage(QWidget* parent);
-
-	QStringList getFiles();
 	void cleanupPage();
     ~ImportGrammarSelectFilesPage();
 

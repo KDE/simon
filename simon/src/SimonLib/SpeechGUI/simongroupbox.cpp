@@ -1,6 +1,6 @@
 #include "simongroupbox.h"
 
-SimonGroupBox::SimonGroupBox( QWidget * parent )
+SimonGroupBox::SimonGroupBox( QWidget * parent ) : QGroupBox(parent)
 {
 	
 }

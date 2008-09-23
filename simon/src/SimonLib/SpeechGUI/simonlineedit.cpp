@@ -15,6 +15,7 @@ SimonLineEdit::~SimonLineEdit()
 
 void SimonLineEdit::focusOutEvent(QFocusEvent* event)
 {
+	Q_UNUSED(event);
 	emit checkFocus();
 }
 

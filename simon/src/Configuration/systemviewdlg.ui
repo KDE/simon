@@ -129,10 +129,6 @@ p, li { white-space: pre-wrap; }
        <property name="text" >
         <string>Zurücksetzen</string>
        </property>
-       <property name="icon" >
-        <iconset resource="../action_icons.qrc" >
-         <normaloff>:/images/icons/edit-undo.svg</normaloff>:/images/icons/edit-undo.svg</iconset>
-       </property>
       </widget>
      </item>
      <item>
@@ -176,10 +172,6 @@ p, li { white-space: pre-wrap; }
        <property name="text" >
         <string>Übernehmen</string>
        </property>
-       <property name="icon" >
-        <iconset resource="../action_icons.qrc" >
-         <normaloff>:/images/icons/dialog-ok-apply.svg</normaloff>:/images/icons/dialog-ok-apply.svg</iconset>
-       </property>
       </widget>
      </item>
     </layout>
@@ -193,8 +185,5 @@ p, li { white-space: pre-wrap; }
    <header>simonlistwidget.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../action_icons.qrc" />
- </resources>
  <connections/>
 </ui>

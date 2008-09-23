@@ -15,7 +15,7 @@ bool Logger::init(QString path)
 	QFileInfo fInfo;
 	fInfo.setFile(path);
 	
-	QDir *dir = new QDir(fInfo.absolutePath());
+	QDir *dir = new QDir(fInfo.absoluteDir());
 	if ((!dir->exists()) && (!dir->mkpath(path)))
 		return false;
 	delete dir;

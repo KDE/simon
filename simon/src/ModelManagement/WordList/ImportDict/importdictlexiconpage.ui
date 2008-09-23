@@ -77,8 +77,5 @@ Bitte beachten Sie, dass diese Lexica keine Grammatikdefinitionen besitzen.</str
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../action_icons.qrc" />
- </resources>
  <connections/>
 </ui>

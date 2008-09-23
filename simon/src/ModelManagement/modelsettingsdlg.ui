@@ -489,8 +489,5 @@ p, li { white-space: pre-wrap; }
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../action_icons.qrc" />
- </resources>
  <connections/>
 </ui>

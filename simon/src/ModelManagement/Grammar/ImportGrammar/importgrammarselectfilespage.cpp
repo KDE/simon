@@ -10,7 +10,7 @@
 //
 //
 #include "importgrammarselectfilespage.h"
-#include <KFileDialog>
+#include <KEditListBox>
 
 //todo: document
 //ambiguous words and words with more than one meaning are still ignored when using the "Also include unknown constructs" option; This is not a bug!
@@ -18,48 +18,16 @@ ImportGrammarSelectFilesPage::ImportGrammarSelectFilesPage(QWidget* parent): QWi
 {
 	setTitle(i18n("Eingabedateien"));
 	ui.setupUi(this);
-	ui.leFiles->setVisible(false);
+
+	ui.elbFiles->setCustomEditor(KEditListBox::CustomEditor(ui.urFileToAdd, ui.urFileToAdd->lineEdit()));
 	
-	connect(ui.lwFiles, SIGNAL(currentRowChanged(int)), this, SLOT(rowChanged(int)));
-	connect(ui.pbAddFile, SIGNAL(clicked()), this, SLOT(addFile()));
-	connect(ui.pbDeleteFile, SIGNAL(clicked()), this, SLOT(removeFile()));
-	
-	registerField("files*", ui.leFiles);
+	registerField("files*", ui.elbFiles, "items", SIGNAL(changed()));
 	registerField("includeUnknown", ui.cbIncludeUnknown);
 }
 
 void ImportGrammarSelectFilesPage::cleanupPage()
 {
-	ui.lwFiles->clear();
-}
-
-void ImportGrammarSelectFilesPage::addFile()
-{
-	QStringList files = KFileDialog::getOpenFileNames(KUrl(), i18n("Textdateien")+" *.txt", this, i18n("Datei(en) auswählen"));
-	ui.lwFiles->addItems(files);
-	setField("files", getFiles().join("||"));
-}
-
-void ImportGrammarSelectFilesPage::removeFile()
-{
-	ui.lwFiles->takeItem(ui.lwFiles->currentRow());
-	setField("files", getFiles().join("||"));
-}
-
-void ImportGrammarSelectFilesPage::rowChanged(int row)
-{
-	if (row != -1) ui.pbDeleteFile->setEnabled(true);
-	else ui.pbDeleteFile->setEnabled(false);
-}
-
-QStringList ImportGrammarSelectFilesPage::getFiles()
-{
-	QStringList files;
-	for (int i=0; i < ui.lwFiles->count(); i++)
-	{
-		files << ui.lwFiles->item(i)->text();
-	}
-	return files;
+	ui.elbFiles->clear();
 }
 
 ImportGrammarSelectFilesPage::~ImportGrammarSelectFilesPage()

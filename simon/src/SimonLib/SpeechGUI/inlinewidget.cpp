@@ -20,7 +20,7 @@
  * @param desc A short description (mainly used as tooltip)
  * @param parent the parent of the widget
  */
-InlineWidget::InlineWidget(QString title, QIcon icon, QString desc, QWidget* parent) 
+InlineWidget::InlineWidget(QString title, KIcon icon, QString desc, QWidget* parent) 
 	: QWidget(parent)
 {
 	this->title = title;

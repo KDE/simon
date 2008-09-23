@@ -15,7 +15,7 @@
 #include <KMessageBox>
 #include <KProgressDialog>
 #include <QCoreApplication>
-#include <QIcon>
+#include <KIcon>
 #include "wordlistmanager.h"
 #include "ImportDict/importdictview.h"
 #include "../Training/trainingview.h"
@@ -34,7 +34,7 @@
  * @author Peter Grasch
  */
 WordListView::WordListView(QWidget *parent) : InlineWidget(i18n("Wortliste"), 
-	QIcon(":/images/icons/format-justify-fill.svg"), 
+	KIcon("format-justify-fill"), 
 	i18n("Betrachten und bearbeiten der Wortliste"), parent)
 {
 	shownDialogs = 0;
@@ -81,6 +81,13 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(i18n("Wortliste"),
 	this->filterListbyPattern();
 	
 	hide();
+
+	ui.pbImport->setIcon(KIcon("document-import"));
+	ui.pbRemoveWord->setIcon(KIcon("edit-delete"));
+	ui.pbAddToTraining->setIcon(KIcon("list-add"));
+	ui.pbDeleteTrainingWord->setIcon(KIcon("list-remove"));
+	ui.pbSuggestTrain->setIcon(KIcon("bookmark-new-list"));
+	ui.pbTrainList->setIcon(KIcon("go-next"));
 }
 
 void WordListView::askForRebuild()
@@ -151,7 +158,7 @@ void WordListView::suggestTraining()
 	int toInsert = 10;
 	if (ui.twVocab->rowCount() < toInsert) toInsert = ui.twVocab->rowCount();
 
-	if (toInsert==0) KMessageBox::information(this, i18n("Es sind nicht genügend Wörter im wörterbuch"));
+	if (toInsert==0) KMessageBox::information(this, i18n("Es sind nicht genügend Wörter im Wörterbuch"));
 	for (int i=0; i<toInsert; i++)
 	{
 		ui.twVocab->setCurrentItem(ui.twVocab->item(i,0));

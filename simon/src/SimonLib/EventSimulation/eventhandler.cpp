@@ -24,7 +24,7 @@ EventHandler* EventHandler::instance;
 EventHandler::EventHandler()
 {
 #ifdef Q_OS_UNIX
-	this->coreEvents= (CoreEvents*) new XEvents();
+	coreEvents= (CoreEvents*) new XEvents();
 #endif
 #ifdef Q_OS_WIN
 	coreEvents= (CoreEvents*) new WindowsEvents();
@@ -88,8 +88,6 @@ void EventHandler::sendShortcut(const QKeySequence& shortcut) const
  */
 void EventHandler::sendKey(const QChar key) const
 {
-	unsigned int c = (unsigned int) key.unicode();
-
 #ifdef Q_OS_WIN	
 	if (((c >= 'A') && (c <= 'Z')))
 	{

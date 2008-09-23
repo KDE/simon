@@ -12,13 +12,14 @@
 #include "passwordsettings.h"
 #include "../SimonLib/Settings/settings.h"
 #include <KMessageBox>
+#include <KIcon>
 #include <QCryptographicHash>
 #include <KLocalizedString>
 
 
 //TODO: PORT ME TO KNEWPASSWORDDIALOG
 
-PasswordSettings::PasswordSettings(QWidget* parent): SystemWidget(i18n("Passwort-Sicherung"), QIcon(":/images/icons/lock.svg"), i18n("Sichern Sie simons Systemeinstellungen mit einem Passwort"), parent)
+PasswordSettings::PasswordSettings(QWidget* parent): SystemWidget(i18n("Passwort-Sicherung"), KIcon("document-encrypt"), i18n("Sichern Sie simons Systemeinstellungen mit einem Passwort"), parent)
 {
 	ui.setupUi(this);
 	help=i18n("Wenn der Passwortschutz deaktiviert ist, muss nur auf den Knopf \"Systemverwaltungsmodus\" geklickt werden, damit alle (System-) Optionen angezeigt werden.");

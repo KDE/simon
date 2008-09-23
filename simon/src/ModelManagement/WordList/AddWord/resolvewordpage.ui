@@ -40,10 +40,6 @@
        <property name="text" >
         <string>...</string>
        </property>
-       <property name="icon" >
-        <iconset resource="../../../action_icons.qrc" >
-         <normaloff>:/images/icons/edit-add.svg</normaloff>:/images/icons/edit-add.svg</iconset>
-       </property>
       </widget>
      </item>
     </layout>
@@ -182,10 +178,6 @@
            <property name="text" >
             <string>Neu Raten</string>
            </property>
-           <property name="icon" >
-            <iconset resource="../../../action_icons.qrc" >
-             <normaloff>:/images/icons/view-refresh.svg</normaloff>:/images/icons/view-refresh.svg</iconset>
-           </property>
           </widget>
          </item>
         </layout>
@@ -223,8 +215,5 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../../../action_icons.qrc" />
- </resources>
  <connections/>
 </ui>

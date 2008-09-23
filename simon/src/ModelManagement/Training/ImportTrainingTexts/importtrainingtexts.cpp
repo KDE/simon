@@ -28,6 +28,7 @@
 #include "importtrainingtextworkingpage.h"
 #include "importtrainingtextselectsourcepage.h"
 #include "../xmltrainingtext.h"
+#include <KStandardDirs>
 
 
 /**
@@ -50,7 +51,7 @@ ImportTrainingTexts::ImportTrainingTexts(QWidget *parent) : QWizard(parent)
 	
 	this->addPage(createFinishedPage());
 	setWindowTitle(i18n("Trainingstext importieren"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importtexts.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importtexts.png")));
 	prevId = 0;
 	
 }

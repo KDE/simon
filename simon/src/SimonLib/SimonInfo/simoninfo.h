@@ -35,7 +35,7 @@
  *	@author Peter Grasch
 */
 class QWidget;
-class QIcon;
+class KIcon;
 
 class KSplashScreen;
 
@@ -51,7 +51,7 @@ public:
 	void showSplash();
 	void writeToSplash(QString status);
 	void hideSplash();
-	static void showMessage(QString message, short time, QIcon *icon=0);
+	static void showMessage(QString message, short time, KIcon *icon=0);
 	~SimonInfo();
 
 };

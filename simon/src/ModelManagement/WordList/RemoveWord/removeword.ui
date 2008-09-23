@@ -1,20 +1,20 @@
 <ui version="4.0" >
  <class>DlgRemoveWord</class>
- <widget class="QDialog" name="DlgRemoveWord" >
+ <widget class="QWidget" name="DlgRemoveWord" >
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>538</width>
-    <height>435</height>
+    <width>571</width>
+    <height>449</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Wort Entfernen</string>
+   <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout" name="_10" >
      <item>
       <widget class="QLabel" name="lbDeleteWord" >
        <property name="minimumSize" >
@@ -38,7 +38,7 @@
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>40</width>
          <height>20</height>
@@ -50,15 +50,12 @@
       <widget class="QLabel" name="lbIcon" >
        <property name="minimumSize" >
         <size>
-         <width>128</width>
-         <height>128</height>
+         <width>64</width>
+         <height>64</height>
         </size>
        </property>
        <property name="text" >
         <string/>
-       </property>
-       <property name="pixmap" >
-        <pixmap resource="../action_icons.qrc" >:/images/icons/process-stop.svg</pixmap>
        </property>
        <property name="scaledContents" >
         <bool>false</bool>
@@ -73,7 +70,7 @@
        <property name="sizeType" >
         <enum>QSizePolicy::Fixed</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>5</width>
          <height>20</height>
@@ -84,13 +81,13 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout" name="_8" >
      <item>
       <spacer>
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>40</width>
          <height>20</height>
@@ -106,7 +103,7 @@
        <property name="frameShadow" >
         <enum>QFrame::Raised</enum>
        </property>
-       <layout class="QGridLayout" >
+       <layout class="QGridLayout" name="_9" >
         <item row="0" column="0" >
          <widget class="QLabel" name="lbNameD" >
           <property name="text" >
@@ -171,7 +168,7 @@
        <property name="orientation" >
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>40</width>
          <height>20</height>
@@ -192,7 +189,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout" name="_7" >
      <item>
       <spacer>
        <property name="orientation" >
@@ -201,7 +198,7 @@
        <property name="sizeType" >
         <enum>QSizePolicy::Fixed</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>30</width>
          <height>20</height>
@@ -229,7 +226,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout" name="_6" >
      <item>
       <spacer>
        <property name="orientation" >
@@ -238,7 +235,7 @@
        <property name="sizeType" >
         <enum>QSizePolicy::Fixed</enum>
        </property>
-       <property name="sizeHint" >
+       <property name="sizeHint" stdset="0" >
         <size>
          <width>30</width>
          <height>20</height>
@@ -258,53 +255,8 @@
      </item>
     </layout>
    </item>
-   <item>
-    <widget class="QDialogButtonBox" name="buttonBox" >
-     <property name="orientation" >
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons" >
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
- <resources>
-  <include location="../action_icons.qrc" />
- </resources>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>DlgRemoveWord</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>DlgRemoveWord</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <resources/>
+ <connections/>
 </ui>

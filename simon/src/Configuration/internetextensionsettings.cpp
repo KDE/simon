@@ -13,7 +13,7 @@
 #include "../SimonLib/Settings/settings.h"
 #include <QIcon>
 
-InternetExtensionSettings::InternetExtensionSettings(QWidget* parent): SystemWidget(i18n("Internet-Erweiterungen"), QIcon(":/images/icons/network.svg"), i18n("Konfigurieren der URLS der Erweiterungs-Downloads"), parent)
+InternetExtensionSettings::InternetExtensionSettings(QWidget* parent): SystemWidget(i18n("Internet-Erweiterungen"), KIcon("document-open-remote"), i18n("Konfigurieren der URLS der Erweiterungs-Downloads"), parent)
 {
 	help = i18n("Hier können Sie URLS konfigurieren, um simon mit optionale Komponenten aus dem Internet zu erweitern");
 	ui.setupUi(this);

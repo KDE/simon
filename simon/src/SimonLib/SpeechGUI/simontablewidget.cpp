@@ -48,6 +48,7 @@ SimonTableWidget::~SimonTableWidget()
  */
 void SimonTableWidget::resizeEvent(QResizeEvent * event)
 {
+	Q_UNUSED(event);
 	//this->moveLineEdit();
 }
 
@@ -172,6 +173,7 @@ void SimonTableWidget::filterEntries(QString text)
  */
 void SimonTableWidget::returnFilterEntries(SimonLineEdit* temp)
 {
+	Q_UNUSED(temp);
 	//int index = this->linevector. indexOf(temp);
 
 	for (int i = 0; i<this->linevector.count(); i++)

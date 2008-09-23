@@ -12,10 +12,6 @@
   <property name="windowTitle" >
    <string>Wortliste</string>
   </property>
-  <property name="windowIcon" >
-   <iconset resource="../../action_icons.qrc" >
-    <normaloff>:/images/icons/format-justify-fill.svg</normaloff>:/images/icons/format-justify-fill.svg</iconset>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2" >
    <item>
     <widget class="QSplitter" name="splitter" >
@@ -154,10 +150,6 @@
             <property name="text" >
              <string>Importiere Wörterbuch</string>
             </property>
-            <property name="icon" >
-             <iconset resource="../../action_icons.qrc" >
-              <normaloff>:/images/icons/document-open.svg</normaloff>:/images/icons/document-open.svg</iconset>
-            </property>
            </widget>
           </item>
           <item>
@@ -177,10 +169,6 @@
            <widget class="KPushButton" name="pbRemoveWord" >
             <property name="text" >
              <string>Selektiertes Wort &amp;löschen</string>
-            </property>
-            <property name="icon" >
-             <iconset resource="../../action_icons.qrc" >
-              <normaloff>:/images/icons/process-stop.svg</normaloff>:/images/icons/process-stop.svg</iconset>
             </property>
            </widget>
           </item>
@@ -234,20 +222,12 @@
          <property name="text" >
           <string>Zum Training &amp;hinzufügen</string>
          </property>
-         <property name="icon" >
-          <iconset resource="../../action_icons.qrc" >
-           <normaloff>:/images/icons/go-up.svg</normaloff>:/images/icons/go-up.svg</iconset>
-         </property>
         </widget>
        </item>
        <item>
         <widget class="KPushButton" name="pbDeleteTrainingWord" >
          <property name="text" >
           <string>Wort aus Training &amp;löschen</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="../../action_icons.qrc" >
-           <normaloff>:/images/icons/list-remove.svg</normaloff>:/images/icons/list-remove.svg</iconset>
          </property>
         </widget>
        </item>
@@ -259,28 +239,15 @@
          <property name="text" >
           <string>Training &amp;vorschlagen</string>
          </property>
-         <property name="icon" >
-          <iconset resource="../../action_icons.qrc" >
-           <normaloff>:/images/icons/bookmark-new.svg</normaloff>:/images/icons/bookmark-new.svg</iconset>
-         </property>
         </widget>
        </item>
        <item>
         <widget class="KPushButton" name="pbTrainList" >
-         <property name="font" >
-          <font>
-           <italic>true</italic>
-          </font>
-         </property>
          <property name="toolTip" >
           <string>Trainiert die Liste der Wörter</string>
          </property>
          <property name="text" >
           <string>Liste &amp;Trainieren</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="../../action_icons.qrc" >
-           <normaloff>:/images/icons/go-next.svg</normaloff>:/images/icons/go-next.svg</iconset>
          </property>
         </widget>
        </item>
@@ -304,16 +271,13 @@
   <customwidget>
    <class>DragTableWidget</class>
    <extends>QTableWidget</extends>
-   <header>../ModelManagement/WordList/dragtablewidget.h</header>
+   <header>../../ModelManagement/WordList/dragtablewidget.h</header>
   </customwidget>
   <customwidget>
    <class>DropListWidget</class>
    <extends>KListWidget</extends>
-   <header>../ModelManagement/WordList/droplistwidget.h</header>
+   <header>../../ModelManagement/WordList/droplistwidget.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../../action_icons.qrc" />
- </resources>
  <connections/>
 </ui>

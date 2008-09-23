@@ -73,41 +73,25 @@
     </widget>
    </item>
    <item row="1" column="1" >
-    <widget class="QComboBox" name="cbType" >
+    <widget class="KComboBox" name="cbType" >
      <item>
       <property name="text" >
        <string>Program</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../application_icons.qrc" >
-        <normaloff>:/images/icons/applications-system.svg</normaloff>:/images/icons/applications-system.svg</iconset>
       </property>
      </item>
      <item>
       <property name="text" >
        <string>Ort</string>
       </property>
-      <property name="icon" >
-       <iconset resource="../category_icons.qrc" >
-        <normaloff>:/images/icons/computer.svg</normaloff>:/images/icons/computer.svg</iconset>
-      </property>
      </item>
      <item>
       <property name="text" >
        <string>Tastenkürzel</string>
       </property>
-      <property name="icon" >
-       <iconset resource="../action_icons.qrc" >
-        <normaloff>:/images/icons/configure-shortcuts.svg</normaloff>:/images/icons/configure-shortcuts.svg</iconset>
-      </property>
      </item>
      <item>
       <property name="text" >
-       <string>Text-Makro</string>
-      </property>
-      <property name="icon" >
-       <iconset resource="../action_icons.qrc" >
-        <normaloff>:/images/icons/format-text-bold.svg</normaloff>:/images/icons/format-text-bold.svg</iconset>
+       <string>Textmakro</string>
       </property>
      </item>
     </widget>
@@ -315,6 +299,11 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
    <class>KIconButton</class>
    <extends>QPushButton</extends>
    <header>kicondialog.h</header>
@@ -335,28 +324,7 @@
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../category_icons.qrc" />
-  <include location="../application_icons.qrc" />
-  <include location="../action_icons.qrc" />
- </resources>
  <connections>
-  <connection>
-   <sender>cbType</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>stackedWidget</receiver>
-   <slot>setCurrentIndex(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>233</x>
-     <y>53</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>251</x>
-     <y>203</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>commandLinkButton_2</sender>
    <signal>toggled(bool)</signal>
@@ -396,12 +364,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>101</x>
-     <y>209</y>
+     <x>103</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>30</x>
-     <y>261</y>
+     <x>34</x>
+     <y>133</y>
     </hint>
    </hints>
   </connection>
@@ -444,12 +412,28 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>173</x>
-     <y>204</y>
+     <x>103</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>180</x>
-     <y>244</y>
+     <x>103</x>
+     <y>133</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbType</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>stackedWidget</receiver>
+   <slot>setCurrentIndex(int)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>162</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>215</x>
+     <y>104</y>
     </hint>
    </hints>
   </connection>

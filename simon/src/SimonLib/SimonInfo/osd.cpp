@@ -11,7 +11,7 @@
 //
 #include "osd.h"
 #include <QString>
-#include <QIcon>
+#include <KIcon>
 #include <QPixmap>
 #include <QTimer>
 #include <QLabel>
@@ -20,6 +20,7 @@
 #include <QDesktopWidget>
 #include <QMouseEvent>
 #include <KLocalizedString>
+#include <KStandardDirs>
 #include "../Logging/logger.h"
 
 /**
@@ -39,10 +40,10 @@
  *
  * @author Peter Grasch
  */
-OSD::OSD(QString message, int timeout, QIcon *icon)
+OSD::OSD(QString message, int timeout, KIcon *icon)
 	: QLabel(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint)
 {
-	setPixmap(QPixmap(":/images/osd.png"));
+	setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/osd.png")));
 	Logger::log(i18n("[INF] ")+message);
 	
 	this->timer = new QTimer();
@@ -74,7 +75,7 @@ OSD::OSD(QString message, int timeout, QIcon *icon)
 	this->icon->setGeometry(16, 16, 48, 48);
 	if (!icon)
 	{
-		this->icon->setPixmap(QPixmap(":/images/tray.png"));
+		this->icon->setPixmap(KIcon("simon").pixmap(QSize(48,48)));
 	}
 	else {
 		this->icon->setPixmap(icon->pixmap(48));

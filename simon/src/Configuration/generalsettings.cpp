@@ -18,7 +18,7 @@
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(i18n("Allgemeine Einstellungen"), QIcon(":/images/icons/computer.svg"), i18n("Grundlegende Einstellungen rund um Simon"), parent)
+GeneralSettings::GeneralSettings(QWidget* parent): SystemWidget(i18n("Allgemeine Einstellungen"), KIcon("computer"), i18n("Grundlegende Einstellungen rund um Simon"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers(this);

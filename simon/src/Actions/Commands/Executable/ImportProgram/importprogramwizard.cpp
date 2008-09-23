@@ -13,6 +13,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QPixmap>
+#include <KStandardDirs>
 #include "selectprogrampage.h"
 #include "../executablecommand.h"
 
@@ -31,7 +32,7 @@ ImportProgramWizard::ImportProgramWizard ( QWidget* parent ) : QWizard ( parent 
 	this->addPage ( createFinishedPage() );
 
 	setWindowTitle ( "Programm hinzufügen" );
-	setPixmap ( QWizard::WatermarkPixmap, QPixmap ( ":/images/banners/importprogram.png" ) );
+	setPixmap ( QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importprogram.png")) );
 
 	connect ( this, SIGNAL ( finished ( int ) ), this, SLOT ( import( int ) ) );
 }

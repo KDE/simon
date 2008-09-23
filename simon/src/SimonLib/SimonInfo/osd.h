@@ -29,6 +29,7 @@ class QMouseEvent;
 class QTimer;
 class QLabel;
 class QMouseEvent;
+class KIcon;
 
 class OSD : public QLabel
 {
@@ -41,7 +42,7 @@ private:
 protected:
 	void mouseReleaseEvent ( QMouseEvent * );
 public:
-	OSD(QString message, int timeout, QIcon *icon=0);
+	OSD(QString message, int timeout, KIcon *icon=NULL);
 // 	void paintEvent(QPaintEvent *e);
 	
 

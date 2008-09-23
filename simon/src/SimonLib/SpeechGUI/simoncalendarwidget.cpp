@@ -7,7 +7,7 @@
 
 
 
-SimonCalendarWidget::SimonCalendarWidget( QWidget * parent )
+SimonCalendarWidget::SimonCalendarWidget( QWidget * parent ) : QCalendarWidget(parent)
 {
 	//whatis = 1 Day received
 	//whatis = 2 Month received

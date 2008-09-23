@@ -18,6 +18,7 @@
 #include "importlexiconpage.h"
 #include <QLabel>
 #include <QVBoxLayout>
+#include <KStandardDirs>
 
 /**
  * \brief Constructor
@@ -43,7 +44,7 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 
 	addPage(createFinishedPage());
 	setWindowTitle(i18n("Importiere Wörterbuch"));
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/banners/importdict.png"));
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importdict.png")));
 }
 
 /**

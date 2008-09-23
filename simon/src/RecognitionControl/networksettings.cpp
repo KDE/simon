@@ -10,7 +10,7 @@
 //
 //
 #include "networksettings.h"
-#include <QIcon>
+#include <KIcon>
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <KLineEdit>
@@ -24,7 +24,7 @@
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(i18n("Juliusd"), QIcon(":/images/icons/connect-no.svg"), i18n("Hier können Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
+NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(i18n("Juliusd"), KIcon("network-disconnect"), i18n("Hier können Sie Adressen zu anderen Teilen des Programmes konfigurieren"), parent)
 {
 	ui.setupUi(this);
 	
@@ -45,6 +45,11 @@ NetworkSettings::NetworkSettings(QWidget* parent): SystemWidget(i18n("Juliusd"),
 	connect(ui.lePass, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
 	
 	guessChildTriggers(this);
+
+	ui.tbMoveUp->setIcon(KIcon("go-up"));
+	ui.tbMoveDown->setIcon(KIcon("go-down"));
+	ui.pbAddAddress->setIcon(KIcon("list-add"));
+	ui.pbDeleteAddress->setIcon(KIcon("list-remove"));
 }
 
 

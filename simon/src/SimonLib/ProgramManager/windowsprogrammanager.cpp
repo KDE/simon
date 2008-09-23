@@ -59,7 +59,7 @@ Program(QString name, QString exec, QString description,
     QString exec;
     QString description = "";
     QString path = "";  //TODO set a path for the program
-    QIcon icon(":/images/icons/audio-x-generic.svg");
+    QIcon icon("unknown");
     
     //to geht the name of the program ... cuts only the .exe out of the string
     int startIndex;

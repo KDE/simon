@@ -11,15 +11,16 @@
 //
 #include "soundsettings.h"
 #include <KMessageBox>
-#include "../SimonLib/Sound/soundcontrol.h"
-#include "../SimonLib/Settings/settings.h"
+#include <KIcon>
+#include "soundcontrol.h"
+#include "../Settings/settings.h"
 
 /**
  * \brief Constructor - inits the help text and the gui
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-SoundSettings::SoundSettings(QWidget* parent): SystemWidget(i18n("Soundeinstellungen"), QIcon(":/images/icons/preferences-desktop-sound.svg"), i18n("Konfigurieren Sie hier ihre Audiogeräte und legen Einstellungen für dessen Verwendung fest"), parent)
+SoundSettings::SoundSettings(QWidget* parent): SystemWidget(i18n("Soundeinstellungen"), KIcon("preferences-desktop-sound"), i18n("Konfigurieren Sie hier ihre Audiogeräte und legen Einstellungen für dessen Verwendung fest"), parent)
 {
 	ui.setupUi(this);
 	guessChildTriggers(this);
@@ -43,6 +44,9 @@ SoundSettings::SoundSettings(QWidget* parent): SystemWidget(i18n("Soundeinstellu
 
 	connect(ui.pbTest, SIGNAL(clicked()), this, SLOT(checkWithSuccessMessage()));
 	connect(ui.pbReload, SIGNAL(clicked()), this, SLOT(init()));
+
+	ui.pbReload->setIcon(KIcon("view-refresh"));
+	ui.pbTest->setIcon(KIcon("help-hint"));
 }
 
 
