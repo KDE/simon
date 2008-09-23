@@ -11,7 +11,7 @@
 FirstRunImportDictSelectSourcePage::FirstRunImportDictSelectSourcePage(QWidget* parent) 
 	: ImportDictSelectSourcePage (parent) 
 {
-	none->show();
+	ui.rbNone->show();
 }
 
 int FirstRunImportDictSelectSourcePage::nextId() const

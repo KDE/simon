@@ -27,12 +27,7 @@ AddWordRecordPage::AddWordRecordPage(QWidget *parent)
  : QWizardPage(parent)
 {
 	setTitle(i18n("Aufnehmen des Wortes"));
-	lay = new QVBoxLayout(this);
-	QLabel *desc = new QLabel(this);
-	desc->setWordWrap(true);
-	desc->setText(i18n("Bitte nehmen Sie nun das hinzuzufügende Wort zweimal auf.\n\nBitte achten Sie darauf, das Wort deutlich, aber natürlich auszusprechen und vermeiden Sie Hintergrundgeräusche.\n"));
-	lay->addWidget(desc);
-
+	ui.setupUi(this);
 
 	rec1 = 0;
 	rec2 = 0;
@@ -60,12 +55,12 @@ void AddWordRecordPage::initializePage()
 {
 	if (rec1)
 	{
-		lay->removeWidget(rec1);
+		layout()->removeWidget(rec1);
 		rec1->deleteLater();
 	}
 	if (rec2)
 	{
-		lay->removeWidget(rec2);
+		layout()->removeWidget(rec2);
 		rec2->deleteLater();
 	}
 	
@@ -97,8 +92,8 @@ void AddWordRecordPage::initializePage()
 	connect(rec1, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
 	connect(rec2, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
 
-	lay->addWidget(rec1);
-	lay->addWidget(rec2);
+	layout()->addWidget(rec1);
+	layout()->addWidget(rec2);
 }
 
 
@@ -111,7 +106,7 @@ AddWordRecordPage::~AddWordRecordPage()
 {
 	if (rec1) rec1->deleteLater();
 	if (rec2) rec2->deleteLater();
-	if (lay) delete lay;
+	if (layout()) delete layout();
 }
 
 

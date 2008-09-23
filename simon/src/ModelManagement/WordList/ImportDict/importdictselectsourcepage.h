@@ -13,6 +13,7 @@
 #define IMPORTDICTSELECTSOURCEPAGE_H
 
 #include <QWizardPage>
+#include "ui_importdictselectsourcepage.h"
 
 class QRadioButton;
 /**
@@ -25,9 +26,10 @@ class QRadioButton;
 class ImportDictSelectSourcePage : public QWizardPage
 {
     Q_OBJECT
-    
+
 protected:
-	QRadioButton *none;
+	Ui::ImportDictSelectSourcePage ui;
+    
 public:
 	int nextId() const;
     ImportDictSelectSourcePage(QWidget* parent);

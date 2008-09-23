@@ -24,7 +24,7 @@
 */
 class QWizardPage;
 class ImportDictSelectSourcePage;
-class ImportBOMPPage;
+class ImportDictBOMPPage;
 class ImportDictWiktionaryPage;
 class ImportDictWorkingPage;
 
@@ -40,7 +40,7 @@ public slots:
 	QWizardPage* createIntroPage();
 	ImportDictSelectSourcePage* 
 		createSelectSourcePage();
-	ImportBOMPPage* createImportBOMPPage();
+	ImportDictBOMPPage* createImportBOMPPage();
 	ImportDictWiktionaryPage*
 		createImportWiktionaryPage();
 

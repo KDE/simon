@@ -15,19 +15,22 @@
 #include <QCryptographicHash>
 #include <KLocalizedString>
 
+
+//TODO: PORT ME TO KNEWPASSWORDDIALOG
+
 PasswordSettings::PasswordSettings(QWidget* parent): SystemWidget(i18n("Passwort-Sicherung"), QIcon(":/images/icons/lock.svg"), i18n("Sichern Sie simons Systemeinstellungen mit einem Passwort"), parent)
 {
 	ui.setupUi(this);
 	help=i18n("Wenn der Passwortschutz deaktiviert ist, muss nur auf den Knopf \"Systemverwaltungsmodus\" geklickt werden, damit alle (System-) Optionen angezeigt werden.");
-	connect(ui.lePassword2, SIGNAL(editingFinished()), this, SLOT(checkPassword()));
-	connect(ui.lePassword, SIGNAL(textChanged(QString)), this, SLOT(unsetHashed()));
-	connect(ui.lePassword2, SIGNAL(textChanged(QString)), this, SLOT(unsetHashed()));
-	connect(ui.pbResetPassword, SIGNAL(toggled(bool)), this, SLOT(resetButtonClicked(bool)));
+//	connect(ui.lePassword2, SIGNAL(editingFinished()), this, SLOT(checkPassword()));
+//	connect(ui.lePassword, SIGNAL(textChanged(QString)), this, SLOT(unsetHashed()));
+//	connect(ui.lePassword2, SIGNAL(textChanged(QString)), this, SLOT(unsetHashed()));
+//	connect(ui.pbResetPassword, SIGNAL(toggled(bool)), this, SLOT(resetButtonClicked(bool)));
 
 
-	connect(ui.cbCheckPassword, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
-	connect(ui.lePassword, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-	connect(ui.lePassword2, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+//	connect(ui.cbCheckPassword, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
+//	connect(ui.lePassword, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+//	connect(ui.lePassword2, SIGNAL(editingFinished()), this, SIGNAL(changed()));
 }
 
 void PasswordSettings::checkPassword()
@@ -38,7 +41,8 @@ void PasswordSettings::checkPassword()
 
 bool PasswordSettings::checkIfPasswordsSane()
 {
-	return (ui.lePassword->text() == ui.lePassword2->text());
+	return true;
+//	return (ui.lePassword->text() == ui.lePassword2->text());
 }
 
 
@@ -48,14 +52,14 @@ PasswordSettings::~PasswordSettings()
 
 void PasswordSettings::resetButtonClicked(bool isDown)
 {
-	if (isDown) {
+/*	if (isDown) {
 		ui.lePassword->clear();
 		ui.lePassword2->clear();
 	} else
 	{
 		ui.lePassword->setText(originalHash);
 		ui.lePassword2->setText(originalHash);
-	}
+	}*/
 }
 
 bool PasswordSettings::apply()
@@ -68,10 +72,10 @@ bool PasswordSettings::apply()
 		if (!isHashed)
 		{
 			QCryptographicHash *hasher = new QCryptographicHash(QCryptographicHash::Md5);
-			hasher->addData(ui.lePassword->text().toUtf8());
+//			hasher->addData(ui.lePassword->text().toUtf8());
 			hash = hasher->result();
 			delete hasher;
-		} else hash = ui.lePassword->text();
+		} //else hash = ui.lePassword->text();
 
 		Settings::set("Password", hash);
 	} else {
@@ -88,7 +92,8 @@ bool PasswordSettings::apply()
 
 bool PasswordSettings::isComplete()
 {
-	return (!ui.cbCheckPassword->isChecked() || ((checkIfPasswordsSane()) && (!ui.lePassword->text().isEmpty())));
+	return true;
+//	return (!ui.cbCheckPassword->isChecked() || ((checkIfPasswordsSane()) && (!ui.lePassword->text().isEmpty())));
 }
 
 bool PasswordSettings::init()
@@ -96,8 +101,8 @@ bool PasswordSettings::init()
 	//password
 	ui.cbCheckPassword->setChecked(Settings::getB("Passwordprotected"));
 	originalHash = Settings::getS("Password");
-	ui.lePassword->setText(originalHash);
-	ui.lePassword2->setText(originalHash);
+	//ui.lePassword->setText(originalHash);
+	//ui.lePassword2->setText(originalHash);
 	isHashed = true;
 	return true;
 }

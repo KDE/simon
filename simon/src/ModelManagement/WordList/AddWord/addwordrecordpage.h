@@ -15,6 +15,7 @@
 #include <QVBoxLayout>
 #include <QWizardPage>
 #include "../../../SimonLib/Sound/recwidget.h"
+#include "ui_addwordrecordpage.h"
 
 /**
  \class AddWordRecordPage
@@ -37,12 +38,13 @@ signals:
 	void recordingNamesGenerated(QString,QString);
 private:
 	RecWidget *rec1, *rec2; ///<! The recwidgets
-	QVBoxLayout *lay;
 	QString getSamplesDir();
+	Ui::AddWordRecordPage ui;
 
 public:
     void initializePage();
     AddWordRecordPage(QWidget *parent=0);
+    
     bool isComplete() const 
     {
 // 	return true;

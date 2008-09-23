@@ -14,8 +14,9 @@
 
 #include <QWizardPage>
 #include <QVariant>
+#include "ui_addwordintropage.h"
 
-class QLineEdit;
+class KLineEdit;
 /**
  \class AddWordIntroPage
  \author Peter Grasch
@@ -30,10 +31,11 @@ class QLineEdit;
 class AddWordIntroPage : public QWizardPage
 {
     Q_OBJECT
+private:
+	Ui::AddWordIntroPage ui;
     
 public:
     AddWordIntroPage(QWidget* parent);
-	QString getName() { return field("name").toString(); }
     ~AddWordIntroPage() {}
 
 };

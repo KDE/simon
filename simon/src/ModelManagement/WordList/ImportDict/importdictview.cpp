@@ -13,7 +13,7 @@
 
 #include "importdictworkingpage.h"
 #include "importdictselectsourcepage.h"
-#include "importbomppage.h"
+#include "importdictbomppage.h"
 #include "importdictwiktionarypage.h"
 #include "importlexiconpage.h"
 #include <QLabel>
@@ -105,9 +105,9 @@ ImportDictSelectSourcePage* ImportDictView::createSelectSourcePage()
  * \author Peter Grasch
  * @return the created page
  */
-ImportBOMPPage* ImportDictView::createImportBOMPPage() 
+ImportDictBOMPPage* ImportDictView::createImportBOMPPage() 
 {
-	return new ImportBOMPPage(this);
+	return new ImportDictBOMPPage(this);
 }
 
 /**

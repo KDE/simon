@@ -16,10 +16,10 @@
 #include <QChar>
 #include "coreevents.h"
 
-#ifdef linux
+#ifdef Q_OS_UNIX
 #include "xevents.h"
 #endif
-#ifdef __WIN32
+#ifdef def Q_OS_WIN
 #include "windowsevents.h"
 #endif
 

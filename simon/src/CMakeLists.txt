@@ -18,14 +18,6 @@ FIND_LIBRARY(X11_XTest_LIB Xtst ${X11_LIB_SEARCH_PATH})
 include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR} SimonLib/SpeechGUI/ )
 #add_definitions( ${KDE4_DEFINITIONS} )
 
-IF(${CMAKE_SYSTEM} MATCHES "Linux" )
-	add_definitions( -Dlinux )
-ENDIF(${CMAKE_SYSTEM} MATCHES "Linux" )
-
-IF(WIN32)
-	add_definitions( -D__WIN32 )
-ENDIF(WIN32)
-
 
 set (	simonGeneralSources
 		ModelManagement/modelmanager.cpp
@@ -73,7 +65,7 @@ set (	simonGeneralSources
 		ModelManagement/WordList/ImportDict/importdictworkingpage.cpp
 		ModelManagement/WordList/ImportDict/bompdict.cpp
 		ModelManagement/WordList/ImportDict/importdictview.cpp
-		ModelManagement/WordList/ImportDict/importbomppage.cpp
+		ModelManagement/WordList/ImportDict/importdictbomppage.cpp
 		ModelManagement/WordList/ImportDict/wiktionarydict.cpp
 		ModelManagement/WordList/ImportDict/lexicondict.cpp
 		ModelManagement/WordList/ImportDict/dict.cpp
@@ -115,23 +107,23 @@ set (	simonGeneralSources
 		SimonLib/Sound/wavplayer.cpp
 		SimonLib/Sound/soundcontrol.cpp
 		SimonLib/Sound/wav.cpp
-                SimonLib/SpeechGUI/inlinewidgetview.cpp
-                SimonLib/SpeechGUI/systemwidgetpage.cpp
-                SimonLib/SpeechGUI/systemwidget.cpp
-                SimonLib/SpeechGUI/simonlineedit.cpp
-                SimonLib/SpeechGUI/simontablewidget.cpp
-                SimonLib/SpeechGUI/simonspinbox.cpp
-                SimonLib/SpeechGUI/simongroupbox.cpp
-                SimonLib/SpeechGUI/simonslider.cpp
-                SimonLib/SpeechGUI/simonwidget.cpp
-                SimonLib/SpeechGUI/simoncombobox.cpp
-                SimonLib/SpeechGUI/simoncalendarwidget.cpp
-                SimonLib/SpeechGUI/guievents.cpp
-                SimonLib/SpeechGUI/simonmainwindow.cpp
-                SimonLib/SpeechGUI/returntablewidget.cpp
-                SimonLib/SpeechGUI/inlinewidget.cpp
-                SimonLib/SpeechGUI/simonlistwidget.cpp
-                SimonLib/SpeechGUI/simontabwidget.cpp
+		SimonLib/SpeechGUI/inlinewidgetview.cpp
+		SimonLib/SpeechGUI/systemwidgetpage.cpp
+		SimonLib/SpeechGUI/systemwidget.cpp
+		SimonLib/SpeechGUI/simonlineedit.cpp
+		SimonLib/SpeechGUI/simontablewidget.cpp
+		SimonLib/SpeechGUI/simonspinbox.cpp
+		SimonLib/SpeechGUI/simongroupbox.cpp
+		SimonLib/SpeechGUI/simonslider.cpp
+		SimonLib/SpeechGUI/simonwidget.cpp
+		SimonLib/SpeechGUI/simoncombobox.cpp
+		SimonLib/SpeechGUI/simoncalendarwidget.cpp
+		SimonLib/SpeechGUI/guievents.cpp
+		SimonLib/SpeechGUI/simonmainwindow.cpp
+		SimonLib/SpeechGUI/returntablewidget.cpp
+		SimonLib/SpeechGUI/inlinewidget.cpp
+		SimonLib/SpeechGUI/simonlistwidget.cpp
+		SimonLib/SpeechGUI/simontabwidget.cpp
 		SimonLib/Logging/logmanager.cpp
 		SimonLib/Logging/logger.cpp
 		SimonLib/Logging/logentry.cpp
@@ -190,9 +182,12 @@ kde4_add_ui_files( simonGeneralSources
 		ModelManagement/Training/ImportTrainingData/importtrainingdataintrodlg.ui
 		ModelManagement/Training/ImportTrainingData/importtrainingdataworkingdlg.ui
 		ModelManagement/WordList/RemoveWord/removeword.ui
+		ModelManagement/WordList/AddWord/addwordintropage.ui
+		ModelManagement/WordList/AddWord/addwordrecordpage.ui
 		ModelManagement/WordList/AddWord/resolvewordpage.ui
-		ModelManagement/WordList/ImportDict/importbomppage.ui
+		ModelManagement/WordList/ImportDict/importdictbomppage.ui
 		ModelManagement/WordList/ImportDict/importdictlexiconpage.ui
+		ModelManagement/WordList/ImportDict/importdictselectsourcepage.ui
 		ModelManagement/WordList/ImportDict/importwiktionarypage.ui
 		ModelManagement/WordList/wordlist.ui
 		Actions/rundialog.ui
@@ -257,7 +252,7 @@ ENDIF(WIN32)
 
 target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES} )
 
-install (TARGETS simon DESTINATION ${BIN_INSTALL_DIR})
+install (TARGETS simon DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR}/simon)
 # install(DIRECTORIES model DESTINATION ${DATA_INSTALL_DIR}/simon)
 

@@ -12,7 +12,7 @@
 #ifndef FIRSTRUNIMPORTBOMPPAGE_H
 #define FIRSTRUNIMPORTBOMPPAGE_H
 
-#include "../../ModelManagement/WordList/ImportDict/importbomppage.h"
+#include "../../ModelManagement/WordList/ImportDict/importdictbomppage.h"
 #include "firstrunwizard.h"
 
 /**
@@ -22,10 +22,10 @@
  \date 6.1.2008
  \version 0.1
 */
-class FirstRunImportBOMPPage : public ImportBOMPPage
+class FirstRunImportBOMPPage : public ImportDictBOMPPage
 {
 public:
-    FirstRunImportBOMPPage(QWidget* parent) : ImportBOMPPage(parent) {}
+    FirstRunImportBOMPPage(QWidget* parent) : ImportDictBOMPPage(parent) {}
 
 	/**
 	 * \brief Returns FirstRunWizard::DictionaryWorkingPage
