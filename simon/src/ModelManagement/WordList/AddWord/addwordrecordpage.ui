@@ -1,0 +1,32 @@
+<ui version="4.0" >
+ <class>AddWordRecordPage</class>
+ <widget class="QWidget" name="AddWordRecordPage" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <item>
+    <widget class="QLabel" name="lbDesc" >
+     <property name="text" >
+      <string>Bitte nehmen Sie nun das hinzuzufügende Wort zweimal auf.
+
+Bitte achten Sie darauf, das Wort deutlich, aber natürlich auszusprechen und vermeiden Sie Hintergrundgeräusche.</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
