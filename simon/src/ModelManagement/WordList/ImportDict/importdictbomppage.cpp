@@ -9,14 +9,7 @@
 // Copyright: See COPYING file that comes with this distribution
 //
 //
-#include "importbomppage.h"
-#include <QLabel>
-#include <KLineEdit>
-#include <KPushButton>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QIcon>
-#include <QVariant>
+#include "importdictbomppage.h"
 
 
 /**
@@ -24,7 +17,7 @@
  * \author Peter Grasch
  * @param parent Parent of the page
  */
-ImportBOMPPage::ImportBOMPPage(QWidget* parent): QWizardPage(parent)
+ImportDictBOMPPage::ImportDictBOMPPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
 
@@ -36,7 +29,7 @@ ImportBOMPPage::ImportBOMPPage(QWidget* parent): QWizardPage(parent)
  * \brief Destructor
  * \author Peter Grasch
  */
-ImportBOMPPage::~ImportBOMPPage()
+ImportDictBOMPPage::~ImportDictBOMPPage()
 {
 }
 
