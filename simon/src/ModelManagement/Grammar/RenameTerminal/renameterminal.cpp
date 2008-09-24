@@ -34,7 +34,7 @@ void RenameTerminal::run()
 	if (includeGrammar)
 	{
 		grammarManager->renameTerminal(oldName, newName);
-		grammarManager->save();
+// 		grammarManager->save(); saved automagically
 	}
 
 	emit progress(100);

@@ -12,8 +12,8 @@
 #ifndef COMMANDSETTINGS_H
 #define COMMANDSETTINGS_H
 
-#include "systemwidget.h"
 #include "ui_commandsettingsdlg.h"
+#include <QWidget>
 
 /**
  * \class CommandSettings
@@ -22,18 +22,18 @@
  * \date 13.08.2007
  * \version 0.1
  */
-class CommandSettings : public SystemWidget
+class CommandSettings : public QWidget
 {
 Q_OBJECT
 private:
 	Ui::CommandSettingsDlg ui;
-public slots:
-	bool apply();
-	bool reset();
-	bool init();
+// public slots:
+// 	bool apply();
+// 	bool reset();
+// 	bool init();
 public:
     CommandSettings(QWidget* parent);
-	bool isComplete();
+// 	bool isComplete();
     ~CommandSettings();
 
 };

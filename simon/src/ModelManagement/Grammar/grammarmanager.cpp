@@ -18,6 +18,7 @@
 #include "../../SimonLib/Settings/settings.h"
 #include "../WordList/wordlistmanager.h"
 #include "../modelmanager.h"
+#include "coreconfiguration.h"
 
 
 
@@ -30,7 +31,7 @@ GrammarManager* GrammarManager::instance;
 GrammarManager::GrammarManager() : QObject()
 {
 	connect(ModelManager::getInstance(), SIGNAL(unknownGrammarClass(QString)), this, SLOT(unknownWordClass(QString)));
-	load();
+// 	load();
 }
 
 
@@ -51,29 +52,29 @@ GrammarManager * GrammarManager::getInstance()
  * \author Peter Grasch
  * @return Successs
  */
-bool GrammarManager::load()
-{
-	structures.clear();
-	
-	QString path =Settings::getS("Model/PathToGrammar");
-	Logger::log(i18n("[INF] Lade Grammatik von %1", path));
-	
-	QFile grammar(Settings::getS("Model/PathToGrammar"));
-	if (!grammar.open(QIODevice::ReadOnly)) return false;
-	
-	QString structure;
-	while (!grammar.atEnd()) 
-	{
-		structure = QString::fromUtf8(grammar.readLine(1500));
-		structure.remove(0,7);		//remove the leading "S:NS_B "
-		structure = structure.left(structure.count()-6);  //remove the trailing " NS_E"
-		structures << structure;
-	}
-	
-	grammar.close();
-	
-	return true;
-}
+// bool GrammarManager::load()
+// {
+// 	structures.clear();
+// 	
+// 	QString path =Settings::getS("Model/PathToGrammar");
+// 	Logger::log(i18n("[INF] Lade Grammatik von %1", path));
+// 	
+// 	QFile grammar(Settings::getS("Model/PathToGrammar"));
+// 	if (!grammar.open(QIODevice::ReadOnly)) return false;
+// 	
+// 	QString structure;
+// 	while (!grammar.atEnd()) 
+// 	{
+// 		structure = QString::fromUtf8(grammar.readLine(1500));
+// 		structure.remove(0,7);		//remove the leading "S:NS_B "
+// 		structure = structure.left(structure.count()-6);  //remove the trailing " NS_E"
+// 		structures << structure;
+// 	}
+// 	
+// 	grammar.close();
+// 	
+// 	return true;
+// }
 
 /**
  * \brief Renames the terminal to the given, new name
@@ -93,10 +94,12 @@ void GrammarManager::renameTerminal(QString terminal, QString newName)
 	terminal.replace("$", "\\$");
 
 	//replace using regex patterns
+	QStringList structures = CoreConfiguration::grammarStructures();
 	structures.replaceInStrings(QRegExp('^'+terminal+'$'), newName);
 	structures.replaceInStrings(QRegExp(' '+terminal+'$'), ' '+newName);
 	structures.replaceInStrings(QRegExp('^'+terminal+' '), newName+' ');
 	structures.replaceInStrings(QRegExp(' '+terminal+' '), ' '+newName+' ');
+	CoreConfiguration::setGrammarStructures(structures);
 
 	//this turned out to be faster than the "per-hand" approach
 	//...even if it looks a bit funny...
@@ -177,6 +180,7 @@ QStringList GrammarManager::getTerminals()
 {
 	QStringList out;
 	QStringList terminalsInStruct;
+	QStringList structures = CoreConfiguration::grammarStructures();
 	for (int i=0; i < structures.count(); i++)
 	{
 		terminalsInStruct.clear();
@@ -198,7 +202,8 @@ QStringList GrammarManager::getStructures(QString terminal)
 {
 	QStringList matching;
 	int i=0;
-	while (i < this->structures.count())
+	QStringList structures = CoreConfiguration::grammarStructures();
+	while (i < structures.count())
 	{
 		if(structures[i].contains(terminal)) matching << structures[i];
 		i++;
@@ -211,28 +216,18 @@ QStringList GrammarManager::getStructures(QString terminal)
  * \author Peter Grasch
  * @return success
  */
-bool GrammarManager::save()
-{
-	QString path =Settings::getS("Model/PathToGrammar");
-	Logger::log(i18n("[INF] Speichere Grammatik nach %1", path));
-	
-	QFile grammar(Settings::getS("Model/PathToGrammar"));
-	if (!grammar.open(QIODevice::WriteOnly)) return false;
-	
-	for (int i=0; i < structures.count(); i++)
-		grammar.write("S:NS_B "+structures[i].toUtf8()+" NS_E\n");
-	
-	grammar.close();
-	
-	return true;
-}
-
-/**
- * \brief Sets the structures to the given structures
- * @param structures The structures to set to
- */
-void GrammarManager::setStructures(QStringList structures)
-{
-	this->structures = structures;
-}
-
+// bool GrammarManager::save()
+// {
+// 	QString path =Settings::getS("Model/PathToGrammar");
+// 	Logger::log(i18n("[INF] Speichere Grammatik nach %1", path));
+// 	
+// 	QFile grammar(Settings::getS("Model/PathToGrammar"));
+// 	if (!grammar.open(QIODevice::WriteOnly)) return false;
+// 	
+// 	for (int i=0; i < structures.count(); i++)
+// 		grammar.write("S:NS_B "+structures[i].toUtf8()+" NS_E\n");
+// 	
+// 	grammar.close();
+// 	
+// 	return true;
+// }

@@ -27,7 +27,7 @@
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="KLineEdit" name="leTextUpdateURL" />
+       <widget class="KLineEdit" name="kcfg_TextOnlineUpdate" />
       </item>
      </layout>
     </widget>
@@ -48,7 +48,7 @@
          </widget>
         </item>
         <item row="0" column="1" >
-         <widget class="KLineEdit" name="leWikiDumpUrls" />
+         <widget class="KLineEdit" name="kcfg_WikiDumpOverview" />
         </item>
         <item row="1" column="0" >
          <widget class="QLabel" name="lbDumpPrefix" >
@@ -58,7 +58,7 @@
          </widget>
         </item>
         <item row="1" column="1" >
-         <widget class="KLineEdit" name="leWikiPrefix" />
+         <widget class="KLineEdit" name="kcfg_WikiDumpPrefix" />
         </item>
         <item row="2" column="0" >
          <widget class="QLabel" name="lbDumpPostfix" >
@@ -68,7 +68,7 @@
          </widget>
         </item>
         <item row="2" column="1" >
-         <widget class="KLineEdit" name="leWikiPostfix" />
+         <widget class="KLineEdit" name="kcfg_WikiDumpPostfix" />
         </item>
        </layout>
       </item>
@@ -94,7 +94,7 @@
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>20</width>
        <height>61</height>
@@ -104,6 +104,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

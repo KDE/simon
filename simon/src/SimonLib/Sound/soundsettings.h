@@ -12,9 +12,9 @@
 #ifndef SOUNDSETTINGS_H
 #define SOUNDSETTINGS_H
 
-#include "systemwidget.h"
 #include "sounddevice.h"
 #include "ui_soundsettingsdlg.h"
+#include <QWidget>
 
 class SoundControl;
 
@@ -24,15 +24,13 @@ class SoundControl;
  * \date 12.8.2007
  * \brief SystemWidget to manager the soundsettings
  */
-class SoundSettings : public SystemWidget
+class SoundSettings : public QWidget
 {
 Q_OBJECT
 
 private:
 	Ui::SoundSettingsDlg ui; //!< UI definition - made by uic from the QTDesigner .ui
 	SoundControl *sc;
-	SoundDeviceList *in;
-	SoundDeviceList *out;
 
 private slots:
 	bool check();
@@ -40,11 +38,11 @@ private slots:
 	
 public slots:
 	bool init();
-	bool apply();
-	bool reset();
+// 	bool apply();
+// 	bool reset();
 public:
     SoundSettings(QWidget* parent);
-	bool isComplete();
+// 	bool isComplete();
     ~SoundSettings();
 
 };

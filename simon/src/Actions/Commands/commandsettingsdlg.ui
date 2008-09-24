@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>430</width>
-    <height>237</height>
+    <width>588</width>
+    <height>420</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -14,7 +14,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2" >
    <item row="0" column="0" colspan="2" >
-    <widget class="QCheckBox" name="cbDictation" >
+    <widget class="QCheckBox" name="kcfg_Dictation" >
      <property name="toolTip" >
       <string>Wenn aktiviert, tippe alles das nicht als Kommando erkannt wird</string>
      </property>
@@ -24,7 +24,7 @@
     </widget>
    </item>
    <item row="1" column="1" >
-    <widget class="KLineEdit" name="leTrigger" >
+    <widget class="KLineEdit" name="kcfg_GlobalTrigger" >
      <property name="enabled" >
       <bool>true</bool>
      </property>
@@ -47,8 +47,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>397</width>
-        <height>613</height>
+        <width>555</width>
+        <height>483</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout" >
@@ -64,20 +64,9 @@
           <bool>true</bool>
          </property>
          <layout class="QFormLayout" name="formLayout" >
-          <item row="0" column="0" >
-           <widget class="QLabel" name="lbCommands" >
-            <property name="text" >
-             <string>Konfigurationsdatei:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" >
-           <widget class="KUrlRequester" name="urCommands" >
-            <property name="filter" >
-             <string>Konfigurationsdatei *.xml</string>
-            </property>
-           </widget>
-          </item>
+          <property name="fieldGrowthPolicy" >
+           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+          </property>
          </layout>
         </widget>
        </item>
@@ -92,22 +81,7 @@
          <property name="checkable" >
           <bool>true</bool>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout" >
-          <item>
-           <widget class="QLabel" name="lbPlaces" >
-            <property name="text" >
-             <string>Konfigurationsdatei:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="KUrlRequester" name="urPlace" >
-            <property name="filter" >
-             <string>Konfigurationsdatei *.xml</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <layout class="QHBoxLayout" name="horizontalLayout" />
         </widget>
        </item>
        <item>
@@ -121,22 +95,7 @@
          <property name="checkable" >
           <bool>true</bool>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2" >
-          <item>
-           <widget class="QLabel" name="lbTextMacro" >
-            <property name="text" >
-             <string>Konfigurationsdatei:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="KUrlRequester" name="urTextMacro" >
-            <property name="filter" >
-             <string>Konfigurationsdatei *.xml</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <layout class="QHBoxLayout" name="horizontalLayout_2" />
         </widget>
        </item>
        <item>
@@ -150,22 +109,7 @@
          <property name="checkable" >
           <bool>true</bool>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_3" >
-          <item>
-           <widget class="QLabel" name="lbShortcuts" >
-            <property name="text" >
-             <string>Konfigurationsdatei:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="KUrlRequester" name="urShortcut" >
-            <property name="filter" >
-             <string>Konfigurationsdatei *.xml</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <layout class="QHBoxLayout" name="horizontalLayout_3" />
         </widget>
        </item>
        <item>
@@ -280,7 +224,7 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item row="1" column="0" >
-    <widget class="QCheckBox" name="cbUseTrigger" >
+    <widget class="QCheckBox" name="kcfg_UseGlobalTrigger" >
      <property name="text" >
       <string>Globalen Trigger verwenden:</string>
      </property>
@@ -294,78 +238,9 @@ p, li { white-space: pre-wrap; }
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
   </customwidget>
-  <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QFrame</extends>
-   <header>kurlrequester.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>gbExe</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lbCommands</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>257</x>
-     <y>92</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>159</x>
-     <y>124</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gbPlace</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lbPlaces</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>113</x>
-     <y>165</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>129</x>
-     <y>197</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gbTextMacro</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lbTextMacro</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>108</x>
-     <y>238</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>121</x>
-     <y>270</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gbShortcut</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>lbShortcuts</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>154</x>
-     <y>311</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>128</x>
-     <y>343</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>gbDesktopGrid</sender>
    <signal>toggled(bool)</signal>
@@ -463,9 +338,9 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>cbUseTrigger</sender>
+   <sender>kcfg_UseGlobalTrigger</sender>
    <signal>toggled(bool)</signal>
-   <receiver>leTrigger</receiver>
+   <receiver>kcfg_GlobalTrigger</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >

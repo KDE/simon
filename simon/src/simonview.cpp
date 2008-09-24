@@ -38,6 +38,7 @@
 
 #include "inlinewidgetview.h"
 #include "Configuration/systemview.h"
+#include "Configuration/configurationdialog.h"
 #include "SimonLib/Logging/logger.h"
 
 #include "SimonLib/SimonInfo/simoninfo.h"
@@ -139,6 +140,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	
 	this->systemDialog=0;
+	this->configurationDialog=0;
 
 	info->writeToSplash ( i18n ( "Lade Oberfläche..." ) );
 
@@ -241,11 +243,11 @@ void SimonView::setupActions()
 	
 	KAction* system = new KAction(this);
 // 	system->setCheckable(true);
-	system->setText(i18n("System"));
+	system->setText(i18n("Konfiguration"));
 	system->setIcon(KIcon("configure"));
 	system->setShortcut(Qt::CTRL + Qt::Key_S);
 	system->setVisible(false);
-	actionCollection()->addAction("system", system);
+	actionCollection()->addAction("configuration", system);
 	connect(system, SIGNAL(triggered(bool)),
 		this, SLOT(showSystemDialog()));
 	
@@ -372,9 +374,13 @@ void SimonView::showAddWordDialog ( )
 void SimonView::showSystemDialog ()
 {
 	//lazy initialization
-	if (!systemDialog)  systemDialog = new SystemView ( this );
-	
-	ui.inlineView->toggleDisplay(systemDialog);
+// 	if (!systemDialog)  systemDialog = new SystemView ( this );
+// 	ui.inlineView->toggleDisplay(systemDialog);
+
+	if (!configurationDialog)
+		configurationDialog = new ConfigurationDialog(this);
+
+	configurationDialog->show();
 }
 
 /**
@@ -633,7 +639,7 @@ void SimonView::hideSettings()
 		ui.inlineView->unRegisterPage(systemDialog);
 	}
 
-	actionCollection()->action("system")->setVisible(false);
+	actionCollection()->action("configuration")->setVisible(false);
 
 	wordList->setSettingsHidden();
 	trainDialog->setSettingsHidden();
@@ -649,7 +655,7 @@ void SimonView::hideSettings()
 */
 void SimonView::showSettings()
 {
-	actionCollection()->action("system")->setVisible(true);
+	actionCollection()->action("configuration")->setVisible(true);
 
 	//sets the setting buttons visible
 	trainDialog->setSettingsVisible();

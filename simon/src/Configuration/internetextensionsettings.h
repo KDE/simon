@@ -12,12 +12,12 @@
 #ifndef INTERNETEXTENSIONSETTINGS_H
 #define INTERNETEXTENSIONSETTINGS_H
 
-#include "systemwidget.h"
 #include "ui_internetextensiondlg.h"
+#include <QWidget>
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class InternetExtensionSettings : public SystemWidget
+class InternetExtensionSettings : public QWidget
 {
 Q_OBJECT
 private:
@@ -29,10 +29,10 @@ public:
 
     ~InternetExtensionSettings();
 
-    virtual bool apply();
-    virtual bool init();
-    virtual bool isComplete();
-    virtual bool reset();
+//     virtual bool apply();
+//     virtual bool init();
+//     virtual bool isComplete();
+//     virtual bool reset();
 
 };
 

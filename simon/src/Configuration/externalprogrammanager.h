@@ -12,8 +12,8 @@
 #ifndef EXTERNALPROGRAMMANAGER_H
 #define EXTERNALPROGRAMMANAGER_H
 
-#include "systemwidget.h"
 #include "ui_externalprogramms.h"
+#include <QWidget>
 
 /**
  * \class ExternalProgramManager
@@ -22,18 +22,18 @@
  * \date 13.08.2007
  * \version 0.1
  */
-class ExternalProgramManager : public SystemWidget
+class ExternalProgramManager : public QWidget
 {
 Q_OBJECT
 private:
 	Ui::ExternalProgrammsDlg ui;
-public slots:
-	bool apply();
-	bool reset();
-	bool init();
+// public slots:
+// 	bool apply();
+// 	bool reset();
+// 	bool init();
 public:
     ExternalProgramManager(QWidget* parent);
-	bool isComplete();
+// 	bool isComplete();
     ~ExternalProgramManager();
 
 };

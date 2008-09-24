@@ -12,12 +12,12 @@
 #ifndef PASSWORDSETTINGS_H
 #define PASSWORDSETTINGS_H
 
-#include "systemwidget.h"
 #include "ui_passwordsettingsdlg.h"
+#include <QWidget>
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class PasswordSettings : public SystemWidget
+class PasswordSettings : public QWidget
 {
 Q_OBJECT
 private:
@@ -36,10 +36,10 @@ public:
     ~PasswordSettings();
 
 public slots:
-    bool apply();
-    bool init();
-    bool reset();
-    bool isComplete();
+//     bool apply();
+//     bool init();
+//     bool reset();
+//     bool isComplete();
 
 };
 

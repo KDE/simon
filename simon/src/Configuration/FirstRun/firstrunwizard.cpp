@@ -16,7 +16,6 @@
 #include "portaudio.h"
 #include "../../SimonLib/Settings/settings.h"
 #include "../externalprogrammanager.h"
-#include "systemwidgetpage.h"
 #include "selectlanguagemodelsourcepage.h"
 
 #include "firstrunmodelsettings.h"
@@ -47,36 +46,36 @@ FirstRunWizard::FirstRunWizard(QWidget* parent): QWizard(parent)
 {
 	setWindowTitle(i18n("simon Erstkonfiguration"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/firstrun.png")));
-	addPage(createIntroPage());
-	addPage(createCheckList());
-	addPage(createExternalProgramsPage());
-	addPage(createLanguageModelDescription());
-	addPage(createLanguageModelSelectSource());
-	addPage(createNewModelDescription());
-	addPage(createModelSettings());
-
-	addPage(createImportDictSelectTypePage());
-	addPage(createImportDictBOMPPage());
-	addPage(createImportDictWiktionaryPage());
-	addPage(createImportDictLexiconPage());
-	addPage(createImportDictWorkingPage());
-
-	addPage(createGrammarDescriptionPage());
-	addPage(createGrammarSettings());
-
-	addPage(createSoundSettingsPage());
-
-	addPage(createPasswordDescriptionPage());
-	addPage(createPasswordSettingsPage());
-
-	addPage(createJuliusdDescriptionPage());
-	addPage(createJuliusdSettingsPage());
-
-	addPage(createConfigureCommandsPage());
+// 	addPage(createIntroPage());
+// 	addPage(createCheckList());
+// 	addPage(createExternalProgramsPage());
+// 	addPage(createLanguageModelDescription());
+// 	addPage(createLanguageModelSelectSource());
+// 	addPage(createNewModelDescription());
+// 	addPage(createModelSettings());
+// 
+// 	addPage(createImportDictSelectTypePage());
+// 	addPage(createImportDictBOMPPage());
+// 	addPage(createImportDictWiktionaryPage());
+// 	addPage(createImportDictLexiconPage());
+// 	addPage(createImportDictWorkingPage());
+// 
+// 	addPage(createGrammarDescriptionPage());
+// 	addPage(createGrammarSettings());
+// 
+// 	addPage(createSoundSettingsPage());
+// 
+// 	addPage(createPasswordDescriptionPage());
+// 	addPage(createPasswordSettingsPage());
+// 
+// 	addPage(createJuliusdDescriptionPage());
+// 	addPage(createJuliusdSettingsPage());
+// 
+// 	addPage(createConfigureCommandsPage());
 
 	addPage(createFinishedPage());
 
-	initDefaultValues();
+// 	initDefaultValues();
 }
 
 /**
@@ -86,9 +85,9 @@ FirstRunWizard::FirstRunWizard(QWidget* parent): QWizard(parent)
  */
 QWizardPage* FirstRunWizard::createConfigureCommandsPage()
 {
-	SystemWidgetPage *comSettings = new SystemWidgetPage(this);
-	comSettings->setChild(new CommandSettings(comSettings));
-	return comSettings;
+// 	SystemWidgetPage *comSettings = new SystemWidgetPage(this);
+// 	comSettings->setChild(new CommandSettings(comSettings));
+// 	return comSettings;
 }
 
 
@@ -190,9 +189,9 @@ QWizardPage* FirstRunWizard::createGrammarDescriptionPage()
  */
 QWizardPage* FirstRunWizard::createSoundSettingsPage()
 {
-	SystemWidgetPage *sound = new SystemWidgetPage(this);
-	sound->setChild(new SoundSettings(sound));
-	return sound;
+// 	SystemWidgetPage *sound = new SystemWidgetPage(this);
+// 	sound->setChild(new SoundSettings(sound));
+// 	return sound;
 }
 
 /**
@@ -222,9 +221,9 @@ QWizardPage* FirstRunWizard::createPasswordDescriptionPage()
  */
 QWizardPage* FirstRunWizard::createPasswordSettingsPage()
 {
-	SystemWidgetPage *passpg = new SystemWidgetPage(this);
-	passpg->setChild(new PasswordSettings(this));
-	return passpg;
+// 	SystemWidgetPage *passpg = new SystemWidgetPage(this);
+// 	passpg->setChild(new PasswordSettings(this));
+// 	return passpg;
 }
 
 /**
@@ -254,9 +253,9 @@ QWizardPage* FirstRunWizard::createJuliusdDescriptionPage()
  */
 QWizardPage* FirstRunWizard::createJuliusdSettingsPage()
 {
-	SystemWidgetPage *julius = new SystemWidgetPage(this);
-	julius->setChild(new NetworkSettings(julius));
-	return julius;
+// 	SystemWidgetPage *julius = new SystemWidgetPage(this);
+// 	julius->setChild(new NetworkSettings(julius));
+// 	return julius;
 }
 
 
@@ -267,12 +266,12 @@ QWizardPage* FirstRunWizard::createJuliusdSettingsPage()
  */
 QWizardPage* FirstRunWizard::createGrammarSettings()
 {
-	SystemWidgetPage *grammarSettingsPage = new SystemWidgetPage(this);
-
-	GrammarSettings *grammarSettings = new GrammarSettings(grammarSettingsPage);
-	grammarSettingsPage->setChild(grammarSettings);
-
-	return (QWizardPage*) grammarSettingsPage;
+// 	SystemWidgetPage *grammarSettingsPage = new SystemWidgetPage(this);
+// 
+// 	GrammarSettings *grammarSettings = new GrammarSettings(grammarSettingsPage);
+// 	grammarSettingsPage->setChild(grammarSettings);
+// 
+// 	return (QWizardPage*) grammarSettingsPage;
 	
 }
 
@@ -377,9 +376,9 @@ QWizardPage* FirstRunWizard::createModelSettings()
  */
 QWizardPage* FirstRunWizard::createExternalProgramsPage()
 {
-	SystemWidgetPage *page = new SystemWidgetPage(this);
-	page->setChild(new ExternalProgramManager(page));
-	return (QWizardPage*) page;
+// 	SystemWidgetPage *page = new SystemWidgetPage(this);
+// 	page->setChild(new ExternalProgramManager(page));
+// 	return (QWizardPage*) page;
 }
 
 /**

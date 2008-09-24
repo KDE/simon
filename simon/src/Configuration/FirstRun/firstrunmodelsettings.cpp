@@ -11,7 +11,8 @@
 //
 #include "firstrunmodelsettings.h"
 #include "firstrunwizard.h"
-#include "../../ModelManagement/modelsettings.h"
+#include <QVariant>
+// #include "../../ModelManagement/modelsettings.h"
 
 /**
  * \brief Constructor
@@ -20,7 +21,7 @@
  */
 FirstRunModelSettings::FirstRunModelSettings(QWidget* parent): SystemWidgetPage(parent)
 {
-	setChild(new ModelSettings(this));
+// 	setChild(new ModelSettings(this));
 }
 
 

@@ -23,7 +23,7 @@ class ImportGrammarWizard;
 class MergeTerminalsWizard;
 class RenameTerminalWizard;
 
-class GrammarSettings : public SystemWidget
+class GrammarSettings : public QWidget
 {
 Q_OBJECT
 private:
@@ -32,21 +32,22 @@ private:
 	MergeTerminalsWizard *mergeTerminalsWizard;
 	Ui::GrammarSettingsDlg ui;
 
-	QStringList getCurrentStructures();
-	void insertSentences(QStringList sentences);
-	QStringList getCurrentTerminals();
+// 	QStringList getCurrentTerminals();
 
+signals:
+	void changed();
 
 private slots:
-	void showRenameWizard(bool show);
-	void showImportWizard(bool show);
-	void showMergeWizard(bool show);
+	void showRenameWizard();
+	void showImportWizard();
+	void showMergeWizard();
 	void askForSave();
 public slots:
 	bool init();
 	bool apply();
+
 	bool reset();
-	bool isComplete();
+// 	bool isComplete();
 	void mergeGrammar(QStringList);
 public:
     GrammarSettings(QWidget* parent);

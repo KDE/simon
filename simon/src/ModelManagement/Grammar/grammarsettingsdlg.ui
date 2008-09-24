@@ -19,7 +19,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
-    <widget class="KEditListBox" name="elbSentences" >
+    <widget class="KEditListBox" name="kcfg_GrammarStructures" >
      <property name="title" >
       <string>Satzstrukturen</string>
      </property>
@@ -43,7 +43,7 @@
         <string>Textimport</string>
        </property>
        <property name="checkable" >
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -53,7 +53,7 @@
         <string>Terminal umbenennen</string>
        </property>
        <property name="checkable" >
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -63,7 +63,7 @@
         <string>Terminale verbinden</string>
        </property>
        <property name="checkable" >
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -79,9 +79,10 @@
   </customwidget>
   <customwidget>
    <class>KPushButton</class>
-   <extends>KPushButton</extends>
+   <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
   </customwidget>
  </customwidgets>
+ <resources/>
  <connections/>
 </ui>

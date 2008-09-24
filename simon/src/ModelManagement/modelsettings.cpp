@@ -16,30 +16,32 @@
 #include <QTableWidgetItem>
 #include <KLineEdit>
 
-ModelSettings::ModelSettings(QWidget* parent): SystemWidget(i18n("Modelleinstellungen"), KIcon("applications-education-language"), i18n("Hier können Sie Einstellungen rund um das Sprachmodell einstellen"), parent)
+ModelSettings::ModelSettings(QWidget* parent): QWidget(parent) // SystemWidget(i18n("Modelleinstellungen"), KIcon("applications-education-language"), i18n("Hier können Sie Einstellungen rund um das Sprachmodell einstellen"), parent)
 {
 	ui.setupUi(this);
-	
-	connect(ui.urLexicon, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urGrammar, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urPrompts, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urVocab, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urWavConfig, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urConfig, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urProto, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urTreeHed, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urMkPhones0, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urMkPhones1, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urSamplePath, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urGlobalDed, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urSilHed, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urMktriLed, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urHmmOut, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urTiedlist, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urShadowLexicon, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
-	connect(ui.urShadowVocab, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
 
-	help = i18n("Hier können Sie Pfade zu den Sprachmodell-Dateien festlegen und Nachbearbeitungs-Ketten konfigurieren.\n\nAchtung: Unbedachte Änderungen in diesem Modul können die Funktionsfähigkeit von simon negativ beeinflussen");
+	ui.kcfg_ModelTrainingsDataPath->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly );
+	
+// 	connect(ui.urLexicon, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urGrammar, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urPrompts, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urVocab, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urWavConfig, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urConfig, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urProto, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urTreeHed, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urMkPhones0, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urMkPhones1, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urSamplePath, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urGlobalDed, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urSilHed, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urMktriLed, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urHmmOut, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urTiedlist, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urShadowLexicon, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+// 	connect(ui.urShadowVocab, SIGNAL(textChanged(QString)), this, SIGNAL(changed()));
+
+// 	help = i18n("Hier können Sie Pfade zu den Sprachmodell-Dateien festlegen und Nachbearbeitungs-Ketten konfigurieren.\n\nAchtung: Unbedachte Änderungen in diesem Modul können die Funktionsfähigkeit von simon negativ beeinflussen");
 }
 
 
@@ -48,7 +50,7 @@ ModelSettings::~ModelSettings()
 
 
 
-
+/*
 bool ModelSettings::isComplete()
 {
 	return (!ui.urLexicon->url().isEmpty() && 
@@ -165,5 +167,5 @@ bool ModelSettings::init()
 bool ModelSettings::reset()
 {
 	return init();
-}
+}*/
 

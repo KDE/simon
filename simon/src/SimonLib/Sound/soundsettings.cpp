@@ -20,33 +20,26 @@
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-SoundSettings::SoundSettings(QWidget* parent): SystemWidget(i18n("Soundeinstellungen"), KIcon("preferences-desktop-sound"), i18n("Konfigurieren Sie hier ihre Audiogeräte und legen Einstellungen für dessen Verwendung fest"), parent)
+SoundSettings::SoundSettings(QWidget* parent):QWidget(parent)// SystemWidget(i18n("Soundeinstellungen"), KIcon("preferences-desktop-sound"), i18n("Konfigurieren Sie hier ihre Audiogeräte und legen Einstellungen für dessen Verwendung fest"), parent)
 {
 	ui.setupUi(this);
-	guessChildTriggers(this);
-	hide();
+// 	guessChildTriggers(this);
 	//set help
-	help = i18n("Hier finden Sie alle Einstellungen zur Sound Ein- und Ausgabe.");
+// 	help = i18n("Hier finden Sie alle Einstellungen zur Sound Ein- und Ausgabe.");
 
-	//set up the channels
-	ui.cbChannels->clear();
-	ui.cbChannels->addItem(i18n("Mono"), 1);
-	ui.cbChannels->addItem(i18n("Stereo"), 2);
-	
-	this->sc= new SoundControl();
-	this->in = 0;
-	this->out = 0;
-
-	connect ( ui.cbInDevice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
-	connect ( ui.cbOutDevice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
-	connect ( ui.cbChannels, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
-	connect ( ui.sbSamplerate, SIGNAL(valueChanged(int)), this, SIGNAL(changed()));
+// 	connect ( ui.kcfg_SoundInputDevice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
+// 	connect ( ui.kcfg_SoundOutputDevice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
+// 	connect ( ui.cbChannels, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
+// 	connect ( ui.sbSamplerate, SIGNAL(valueChanged(int)), this, SIGNAL(changed()));
 
 	connect(ui.pbTest, SIGNAL(clicked()), this, SLOT(checkWithSuccessMessage()));
 	connect(ui.pbReload, SIGNAL(clicked()), this, SLOT(init()));
 
 	ui.pbReload->setIcon(KIcon("view-refresh"));
 	ui.pbTest->setIcon(KIcon("help-hint"));
+
+	this->sc= new SoundControl();
+	init();
 }
 
 
@@ -63,45 +56,39 @@ void SoundSettings::checkWithSuccessMessage()
  */
 bool SoundSettings::init()
 {
-	if (in) delete in;
-	if (out) delete out;
+	SoundDeviceList *in = sc->getInputDevices();
 
-
-	this->in = sc->getInputDevices();
-
-	ui.cbInDevice->clear();
+	ui.kcfg_SoundInputDevice->clear();
 	for ( int i=0; i<in->count(); i++ )
 	{
 		int deviceid= in->at(i).getDeviceID();
-		ui.cbInDevice->addItem (in->at(i).getName(),deviceid );
+		ui.kcfg_SoundInputDevice->addItem (in->at(i).getName(),deviceid );
 	}
 	int defindevice=Settings::getI ( "Sound/InputDevice" );
-	ui.cbInDevice->setCurrentIndex(ui.cbInDevice->findData(defindevice));
+	ui.kcfg_SoundInputDevice->setCurrentIndex(ui.kcfg_SoundInputDevice->findData(defindevice));
 
 
 
-	this->out = sc->getOutputDevices();
+	SoundDeviceList *out = sc->getOutputDevices();
 
-	ui.cbOutDevice->clear();
+	ui.kcfg_SoundOutputDevice->clear();
 	for ( int i=0; i<out->count(); i++ )
 	{
 		int deviceid= out->at (i).getDeviceID();
-		ui.cbOutDevice->addItem (out->at(i).getName(),deviceid );
+		ui.kcfg_SoundOutputDevice->addItem (out->at(i).getName(),deviceid );
 	}
 	int defoutdevice=Settings::getI ( "Sound/OutputDevice" );
-	ui.cbOutDevice->setCurrentIndex(ui.cbOutDevice->findData(defoutdevice));
+	ui.kcfg_SoundOutputDevice->setCurrentIndex(ui.kcfg_SoundOutputDevice->findData(defoutdevice));
 
-	ui.cbChannels->setCurrentIndex(ui.cbChannels->findData(Settings::get("Sound/Channels")));
-	ui.sbSamplerate->setValue(Settings::getI("Sound/Samplerate"));
 	return true;
 }
 
 bool SoundSettings::check()
 {
-	int inputDevice = ui.cbInDevice->itemData(ui.cbInDevice->currentIndex()).toInt();
-	int outputDevice = ui.cbOutDevice->itemData(ui.cbOutDevice->currentIndex()).toInt();
-	int channels = ui.cbChannels->itemData(ui.cbChannels->currentIndex()).toInt();
-	int samplerate = ui.sbSamplerate->value();
+	int inputDevice = ui.kcfg_SoundInputDevice->itemData(ui.kcfg_SoundInputDevice->currentIndex()).toInt();
+	int outputDevice = ui.kcfg_SoundOutputDevice->itemData(ui.kcfg_SoundOutputDevice->currentIndex()).toInt();
+	int channels = ui.kcfg_SoundChannels->value();
+	int samplerate = ui.kcfg_SoundSampleRate->value();
 
 	bool ok = this->sc->checkDeviceSupport(inputDevice, outputDevice, channels, samplerate);
 
@@ -125,36 +112,36 @@ bool SoundSettings::check()
  * \author Peter Grasch
  * @return always true
  */
-bool SoundSettings::isComplete()
-{
-	return true;
-}
+// bool SoundSettings::isComplete()
+// {
+// 	return true;
+// }
 
 /**
  * \brief Applys the changes
  * \author Peter Grasch
  * @return success
  */
-bool SoundSettings::apply()
-{
-	Settings::set("Sound/InputDevice", ui.cbInDevice->itemData(ui.cbInDevice->currentIndex()));
-	Settings::set("Sound/OutputDevice", ui.cbOutDevice->itemData(
-		      ui.cbOutDevice->currentIndex()));
-	Settings::set("Sound/Channels", ui.cbChannels->itemData(ui.cbChannels->currentIndex()));
-	Settings::set("Sound/Samplerate", ui.sbSamplerate->value());
-
-	return check();
-}
+// bool SoundSettings::apply()
+// {
+// 	Settings::set("Sound/InputDevice", ui.kcfg_SoundInputDevice->itemData(ui.kcfg_SoundInputDevice->currentIndex()));
+// 	Settings::set("Sound/OutputDevice", ui.kcfg_SoundOutputDevice->itemData(
+// 		      ui.kcfg_SoundOutputDevice->currentIndex()));
+// 	Settings::set("Sound/Channels", ui.cbChannels->itemData(ui.cbChannels->currentIndex()));
+// 	Settings::set("Sound/Samplerate", ui.sbSamplerate->value());
+// 
+// 	return check();
+// }
 
 /**
  * \brief Resets the cxhanges
  * \author Peter Grasch
  * @return success
  */
-bool SoundSettings::reset()
-{
-	return init();
-}
+// bool SoundSettings::reset()
+// {
+// 	return init();
+// }
 
 /**
  * \brief Destructor
@@ -163,8 +150,6 @@ bool SoundSettings::reset()
 SoundSettings::~SoundSettings()
 {
 	if (sc) delete sc;
-	if (in) delete in;
-	if (out) delete out;
 }
 
 

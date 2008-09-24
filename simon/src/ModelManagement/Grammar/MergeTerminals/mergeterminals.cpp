@@ -45,7 +45,7 @@ void MergeTerminals::run()
 	emit status(i18n("Fertig"));
 	emit progress(100,100);
 	wordListManager->save();
-	grammarManager->save();
+	//grammarManager->save(); saved automagically
 	emit done();
 }
 

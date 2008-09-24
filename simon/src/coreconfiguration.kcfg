@@ -1,6 +1,6 @@
-<kcfg>
-<kcfgfile>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg> <kcfgfile />
   <include>KStandardDirs</include>
   
   <group name="general">
@@ -12,10 +12,6 @@
       <label>If simon should start on login.</label>
       <default>false</default>
     </entry>
-    <entry name="ConfigDone" type="Bool">
-      <label>If the nescessary initial configuration has been completed or not.</label>
-      <default>false</default>
-    </entry>
   </group>
   
   <group name="Security">
@@ -23,7 +19,7 @@
       <label>If the user needs a password to access the administration mode.</label>
       <default>false</default>
     </entry>
-    <entry name="Password" type="String">
+    <entry name="AdminPassword" type="String">
       <label>The password-hash for the administration mode.</label>
       <default></default>
     </entry>
@@ -37,13 +33,23 @@
   </group>
   
   <group name="Model">
-    <entry name="SampleRate" type="Int">
+    <entry name="ModelSampleRate" type="Int">
       <label>What samplerate the trainings samples should be recorded in.</label>
       <default>16000</default>
     </entry>
-    <entry name="Channels" type="Int">
+    <entry name="ModelChannels" type="Int">
       <label>Determines how many channels the trainings sample should use.</label>
       <default>1</default>
+    </entry>
+    <entry name="ModelTrainingsDataPath" type="Url">
+      <label>Where to save the trainings samples.</label>
+      <default code="true">KStandardDirs::locateLocal("appdata", "model/training.data/")</default>
+    </entry>
+  </group>
+  
+  <group name="Grammar">
+    <entry name="GrammarStructures" type="StringList">
+      <label>The known grammar structures.</label>
     </entry>
   </group>
 
@@ -58,72 +64,72 @@
   </group>
   
   <group name="Programs">
-    <entry name="HDMan" type="String">
+    <entry name="HDMan" type="Url">
       <label>The path to the HDMan executable.</label>
       <default code="true">KStandardDirs::findExe("HDMan")</default>
     </entry>
-    <entry name="HLEd" type="String">
+    <entry name="HLEd" type="Url">
       <label>The path to the HLEd executable.</label>
       <default code="true">KStandardDirs::findExe("HLEd")</default>
     </entry>
-    <entry name="HCopy" type="String">
+    <entry name="HCopy" type="Url">
       <label>The path to the HCopy executable.</label>
       <default code="true">KStandardDirs::findExe("HCopy")</default>
     </entry>
-    <entry name="HCompV" type="String">
+    <entry name="HCompV" type="Url">
       <label>The path to the HCompV executable.</label>
       <default code="true">KStandardDirs::findExe("HCompV")</default>
     </entry>
-    <entry name="HERest" type="String">
+    <entry name="HERest" type="Url">
       <label>The path to the HERest executable.</label>
       <default code="true">KStandardDirs::findExe("HERest")</default>
     </entry>
-    <entry name="HHEd" type="String">
+    <entry name="HHEd" type="Url">
       <label>The path to the HHEd executable.</label>
       <default code="true">KStandardDirs::findExe("HHEd")</default>
     </entry>
-    <entry name="HVite" type="String">
+    <entry name="HVite" type="Url">
       <label>The path to the HVite executable.</label>
       <default code="true">KStandardDirs::findExe("HVite")</default>
     </entry>
-    <entry name="bzip2" type="String">
+    <entry name="bzip2" type="Url">
       <label>The path to the bzip2 executable.</label>
       <default code="true">KStandardDirs::findExe("bzip2")</default>
     </entry>
-    <entry name="mkfa" type="String">
+    <entry name="mkfa" type="Url">
       <label>The path to the mkfa executable.</label>
       <default code="true">KStandardDirs::findExe("mkfa")</default>
     </entry>
-    <entry name="dfa_minimize" type="String">
+    <entry name="dfa_minimize" type="Url">
       <label>The path to the dfa_minimize executable.</label>
       <default code="true">KStandardDirs::findExe("dfa_minimize")</default>
     </entry>
   </group>
 
   <group name="Juliusd">
-    <entry name="AutoConnect" type="Bool">
+    <entry name="JuliusdAutoConnect" type="Bool">
       <label>If we should automatically connect to the Juliusd.</label>
       <default>false</default>
     </entry>
-    <entry name="Username" type="String">
+    <entry name="JuliusdUsername" type="String">
       <label>The username for Juliusd.</label>
     </entry>
-    <entry name="Password" type="String">
+    <entry name="JuliusdPassword" type="String">
       <label>The password for Juliusd.</label>
     </entry>
-    <entry name="Encrypted" type="Bool">
+    <entry name="JuliusdEncrypted" type="Bool">
       <label>If the connection to the Juliusd should be encrypted.</label>
       <default>false</default>
     </entry>
-    <entry name="ContinueOnWarning" type="Bool">
+    <entry name="JuliusdContinueOnWarning" type="Bool">
       <label>If we should ignore warnings (like version discrepancies) when connecting to Juliusd.</label>
       <default>false</default>
     </entry>
-    <entry name="ConnectionTimeout" type="Int">
+    <entry name="JuliusdConnectionTimeout" type="Int">
       <label>The timeout for the connection to the Juliusd.</label>
       <default>3000</default>
     </entry>
-    <entry name="Servers" type="StringList">
+    <entry name="JuliusdServers" type="StringList">
       <label>The addresses to all known Juliusd servers in order of preference.</label>
       <default>localhost:4444</default>
     </entry>
@@ -163,38 +169,20 @@
     </entry>
   </group>
 
-<!--
-Executable\Enabled=true
-Executable\PathToConfig=/home/bedahr/Daten/simon/svn/trunk/simon/conf/executables.xml
-Place\Enabled=true
-Place\PathToConfig=/home/bedahr/Daten/simon/svn/trunk/simon/conf/places.xml
-TextMacro\Enabled=true
-TextMacro\PathToConfig=/home/bedahr/Daten/simon/svn/trunk/simon/conf/textmacros.xml
-Shortcut\Enabled=true
-Shortcut\PathToConfig=/home/bedahr/Daten/simon/svn/trunk/simon/conf/shortcuts.xml
-DesktopGrid\Enabled=true
-DesktopGrid\Trigger=Desktopgitter
-DesktopGrid\RealTransparency=true
-ATIntegration\Enabled=false
-ATIntegration\QtWorkarounds=true
-ATIntegration\QtMenuSupport=true
--->
-
   <group name="Sound">
-    <entry name="InputDevice" type="Int">
+    <entry name="SoundInputDevice" type="Int">
       <label>The sounddevice used for recording.</label>
     </entry>
-    <entry name="OutputDevice" type="Int">
+    <entry name="SoundOutputDevice" type="Int">
       <label>The sounddevice used for playback.</label>
     </entry>
-    <entry name="Channels" type="Int">
+    <entry name="SoundChannels" type="Int">
       <label>How many channels should the samples be recorded with.</label>
+      <default>1</default>
     </entry>
-    <entry name="SampleRate" type="Int">
+    <entry name="SoundSampleRate" type="Int">
       <label>The samplerate used for recording.</label>
+      <default>16000</default>
     </entry>
   </group>
-
-
-</kcfgfile>
 </kcfg>

@@ -14,17 +14,17 @@
 #include "grammarmanager.h"
 #include "MergeTerminals/mergeterminalswizard.h"
 #include "RenameTerminal/renameterminalwizard.h"
-#include <QTableWidgetItem>
 #include <kmessagebox.h>
+#include "coreconfiguration.h"
 
-GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(i18n("Grammatikeinstellungen"), KIcon("user-properties"), i18n("Grammatik bearbeiten"), parent)
+GrammarSettings::GrammarSettings(QWidget* parent): QWidget(parent) //SystemWidget(i18n("Grammatikeinstellungen"), KIcon("user-properties"), i18n("Grammatik bearbeiten"), parent)
 {
 	ui.setupUi(this);
 	ui.pbImportTexts->setIcon(KIcon("document-open"));
 	ui.pbRename->setIcon(KIcon("document-properties"));
 	ui.pbMerge->setIcon(KIcon("arrow-down-double"));
 	
-	help = i18n("Hier können Sie die Grammatikkonstrukte die von simon erkannt werden anpassen.");
+// 	help = i18n("Hier können Sie die Grammatikkonstrukte die von simon erkannt werden anpassen.");
 
 	this->importGrammarWizard = new ImportGrammarWizard(this);
 
@@ -36,18 +36,15 @@ GrammarSettings::GrammarSettings(QWidget* parent): SystemWidget(i18n("Grammatike
 	
 	this->mergeTerminalsWizard = new MergeTerminalsWizard(this);
 	
-	connect(ui.pbImportTexts, SIGNAL(toggled(bool)), this, SLOT(showImportWizard(bool)));
-	connect(ui.pbMerge, SIGNAL(toggled(bool)), this, SLOT(showMergeWizard(bool)));
-	
-	connect(mergeTerminalsWizard, SIGNAL(finished(int)), ui.pbMerge, SLOT(animateClick()));
-	connect(renameTerminalWizard, SIGNAL(finished(int)), ui.pbRename, SLOT(animateClick()));
+	connect(ui.pbImportTexts, SIGNAL(clicked()), this, SLOT(showImportWizard()));
+	connect(ui.pbMerge, SIGNAL(clicked()), this, SLOT(showMergeWizard()));
 
 	connect(mergeTerminalsWizard, SIGNAL(finished(int)), this, SLOT(reset()));
 	connect(renameTerminalWizard, SIGNAL(finished(int)), this, SLOT(reset()));
 
-	connect(ui.elbSentences, SIGNAL(changed()), this, SIGNAL(changed()));
+	connect(ui.kcfg_GrammarStructures, SIGNAL(changed()), this, SIGNAL(changed()));
 	
-	connect (ui.pbRename, SIGNAL(toggled(bool)), this, SLOT(showRenameWizard(bool)));
+	connect (ui.pbRename, SIGNAL(clicked()), this, SLOT(showRenameWizard()));
 }
 
 void GrammarSettings::askForSave()
@@ -56,14 +53,11 @@ void GrammarSettings::askForSave()
 		apply();
 }
 
-void GrammarSettings::showRenameWizard(bool show)
+void GrammarSettings::showRenameWizard()
 {
-	if (show)
-	{
-		askForSave();
-		this->renameTerminalWizard->restart();
-		this->renameTerminalWizard->show();
-	}else this->renameTerminalWizard->hide();
+	askForSave();
+	this->renameTerminalWizard->restart();
+	this->renameTerminalWizard->show();
 	
 }
 
@@ -72,85 +66,76 @@ void GrammarSettings::mergeGrammar(QStringList grammar)
 {
 	QStringList toInsert;
 	
-	QStringList currentStructures = getCurrentStructures();
+	QStringList currentStructures = ui.kcfg_GrammarStructures->items();
 	for (int i=0; i < grammar.count(); i++)
 	{
 		if (!currentStructures.contains(grammar[i]))
 			toInsert << grammar[i];
 	}
-	insertSentences(toInsert);
+	ui.kcfg_GrammarStructures->insertStringList(toInsert);
 }
 
-QStringList GrammarSettings::getCurrentTerminals()
+// QStringList GrammarSettings::getCurrentTerminals()
+// {
+// 	QStringList terms;
+// 	QString sent;
+// 	for (int i=0; i < ui.kcfg_GrammarStructures->count(); i++)
+// 	{
+// 		sent = ui.kcfg_GrammarStructures->text(i);
+// 		QStringList termtemp = sent.split(" ");
+// 		for (int j=0; j < termtemp.count(); j++)
+// 		{
+// 			if (!terms.contains(termtemp[j])) terms << termtemp[j];
+// 		}
+// 	}
+// 	return terms;
+// }
+
+void GrammarSettings::showImportWizard()
 {
-	QStringList terms;
-	QString sent;
-	for (int i=0; i < ui.elbSentences->count(); i++)
-	{
-		sent = ui.elbSentences->text(i);
-		QStringList termtemp = sent.split(" ");
-		for (int j=0; j < termtemp.count(); j++)
-		{
-			if (!terms.contains(termtemp[j])) terms << termtemp[j];
-		}
-	}
-	return terms;
+	importGrammarWizard->restart();
+	importGrammarWizard->show();
 }
 
-void GrammarSettings::insertSentences(QStringList sentences)
+void GrammarSettings::showMergeWizard()
 {
-	ui.elbSentences->insertStringList(sentences);
-}
-
-void GrammarSettings::showImportWizard(bool show)
-{
-	if (show) {
-		importGrammarWizard->restart();
-		importGrammarWizard->show();
-	} else importGrammarWizard->hide();
-}
-
-void GrammarSettings::showMergeWizard(bool show)
-{
-	if (show) {
-		askForSave();
-		mergeTerminalsWizard->restart();
-		mergeTerminalsWizard->show();
-	} else mergeTerminalsWizard->hide();
+	askForSave();
+	mergeTerminalsWizard->restart();
+	mergeTerminalsWizard->show();
 }
 
 /**
  * \brief Returns if true if we filled out the required fields
  * @return always true - there are no mandatory fields here
  */
-bool GrammarSettings::isComplete()
-{
-	return true;
-}
+// bool GrammarSettings::isComplete()
+// {
+// 	return true;
+// }
 
 
-QStringList GrammarSettings::getCurrentStructures()
-{
-	return ui.elbSentences->items();
-}
+// QStringList GrammarSettings::getCurrentStructures()
+// {
+// 	return ui.kcfg_GrammarStructures->items();
+// }
 
 bool GrammarSettings::apply()
 {
-	GrammarManager *grammarManager = GrammarManager::getInstance();
-	QStringList sentences = getCurrentStructures();
-	grammarManager->setStructures(sentences);
-	grammarManager->save();
+// 	GrammarManager *grammarManager = GrammarManager::getInstance();
+// 	QStringList sentences = ui.kcfg_GrammarStructures->items();
+// 	grammarManager->setStructures(sentences);
+// 	grammarManager->save();
+	CoreConfiguration::setGrammarStructures(ui.kcfg_GrammarStructures->items());
+	CoreConfiguration::self()->writeConfig();
 	return true;
 }
 
 bool GrammarSettings::init()
 {
-	ui.elbSentences->clear();
-	GrammarManager *grammarManager = GrammarManager::getInstance();
-	QStringList terminals = grammarManager->getTerminals();
-
-	QStringList sentences = grammarManager->getAllStructures();
-	insertSentences(sentences);
+// 	ui.kcfg_GrammarStructures->clear();
+// 	GrammarManager *grammarManager = GrammarManager::getInstance();
+// 	QStringList sentences = grammarManager->getAllStructures();
+// 	insertSentences(sentences);
 
 	return true;
 }

@@ -4,11 +4,13 @@
 	<ToolBar name="mainToolBar" >
 		<text>Hauptaktionen</text>
 		<Action name="connectActivate" />
+		<Separator/>
 		<Action name="addword" />
 		<Action name="wordlist" />
 		<Action name="train" />
 		<Action name="commands" />
-		<Action name="system" />
+		<Action name="configuration" />
+		<Separator/>
 		<Action name="compileModel" />
 		<Action name="systemMode" />
 	</ToolBar>
@@ -29,12 +31,15 @@
 			<Action name="wordlist" />
 			<Action name="train" />
 			<Action name="commands" />
-			<Action name="system" />
-			<Action name="compileModel" />
 		</Menu>
 		<Menu name="mode">
-			<text>Modus</text>
+			<text>Aktionen</text>
+			<Action name="compileModel" />
 			<Action name="systemMode" />
+		</Menu>
+		<Menu name="settings">
+			<text>Einstellungen</text>
+			<Action name="configuration" />
 		</Menu>
 	</MenuBar>
 </gui>

@@ -151,6 +151,7 @@ set (	simonGeneralSources
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/passwordsettings.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/generalsettings.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/systemview.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/configurationdialog.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Logging/logview.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/FirstRun/firstrunmodelsettings.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/FirstRun/firstrunwizard.cpp
@@ -159,7 +160,8 @@ set (	simonGeneralSources
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/FirstRun/firstrunimportdictwiktionarypage.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/internetextensionsettings.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/networksettings.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/addserverconnection.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ServerAddressSelector/addserverconnection.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ServerAddressSelector/serveraddressselector.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/simoncontrol.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
@@ -205,7 +207,7 @@ kde4_add_ui_files( simonGeneralSources
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/externalprogramms.ui
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/generalsettingsdlg.ui
 		${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/networksettingsdlg.ui
-		${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/addserverconnectiondlg.ui
+		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ServerAddressSelector/addserverconnectiondlg.ui
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/FirstRun/selectlanguagemodelsource.ui
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/systemviewdlg.ui
 		)
@@ -223,9 +225,7 @@ set ( simonWindowsSources
 		${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/ATIntegration/msaabackend.cpp
 	)
 
-#add_directory(${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI)
-
-QT4_ADD_RESOURCES(simonGeneralSources ${simon_RCC_SRCS})
+kde4_add_kcfg_files(simonGeneralSources coreconfiguration.kcfgc)
 
 
 IF(UNIX)
@@ -244,5 +244,3 @@ target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${QT_LIBRARIES}
 
 install (TARGETS simon DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR}/simon)
-# install(DIRECTORIES model DESTINATION ${DATA_INSTALL_DIR}/simon)
-

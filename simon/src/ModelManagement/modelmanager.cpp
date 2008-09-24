@@ -22,6 +22,7 @@
 
 #include "WordList/wordlistmanager.h"
 #include "Grammar/grammarmanager.h"
+#include "coreconfiguration.h"
 
 
 ModelManager* ModelManager::instance;
@@ -166,8 +167,13 @@ bool ModelManager::makeDfa()
 
 bool ModelManager::generateReverseGrammar()
 {
-	QFile grammar(Settings::getS("Model/PathToGrammar"));
-	if (!grammar.open(QFile::ReadOnly)) return false;
+// 	QFile grammar(Settings::getS("Model/PathToGrammar"));
+// 	if (!grammar.open(QFile::ReadOnly)) return false;
+
+	QStringList structures = CoreConfiguration::grammarStructures();
+
+	if (structures.count() == 0)
+		return false;
 
 	QFile reverseGrammar(realTmpDir+"reverseGrammar");
 	if (!reverseGrammar.open(QFile::WriteOnly)) return false;
@@ -177,35 +183,23 @@ bool ModelManager::generateReverseGrammar()
 	QStringList terminals;
 	QString identifier;
 	
-	int structureCount=0;
-	
-	while (!grammar.atEnd())
+	for (int i=0; i < structures.count(); i++)
 	{
-		grammarEntry = grammar.readLine(1024);
-		grammarEntry.remove(QRegExp("\r+$"));
-		grammarEntry.remove(QRegExp("#.*"));
+		grammarEntry = structures[i];
 		if (grammarEntry.trimmed().isEmpty()) continue;
 		
-		int splitter =grammarEntry.indexOf(QRegExp("\\:"));
+// 		int splitter =grammarEntry.indexOf(QRegExp("\\:"));
+// 		if (splitter == -1) continue;
+// 		identifier = grammarEntry.left(splitter);
 		
-		if (splitter == -1) continue;
-		
-		identifier = grammarEntry.left(splitter);
-		
-		reverseGrammarEntry = identifier+": ";
-		terminals = grammarEntry.mid(splitter+1).split(' ');
-		for (int i=terminals.count()-1; i >= 0; i--)
-			reverseGrammarEntry += terminals[i].remove(':').trimmed()+' ';
-		
-		structureCount++;
+		reverseGrammarEntry = "S: ";
+		terminals = grammarEntry.split(' ');
+		for (int j=terminals.count()-1; j >= 0; j--)
+			reverseGrammarEntry += terminals[j].remove(':').trimmed()+' ';
 		
 		reverseGrammar.write(reverseGrammarEntry.toLatin1()+'\n');
 	}
 	reverseGrammar.close();
-	grammar.close();
-	if (structureCount==0) {
-		return false;
-	}
 	return true;
 }
 

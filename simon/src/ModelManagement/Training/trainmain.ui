@@ -118,125 +118,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="page_3" >
-      <layout class="QHBoxLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout" >
        <item>
-        <layout class="QVBoxLayout" >
-         <property name="spacing" >
-          <number>6</number>
+        <widget class="QSplitter" name="splitter" >
+         <property name="orientation" >
+          <enum>Qt::Horizontal</enum>
          </property>
-         <property name="margin" >
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="QGroupBox" name="gbPage" >
-           <property name="title" >
-            <string>Seite: </string>
-           </property>
-           <layout class="QVBoxLayout" >
-            <item>
-             <widget class="QLabel" name="lbPage" >
-              <property name="palette" >
-               <palette>
-                <active>
-                 <colorrole role="Window" >
-                  <brush brushstyle="SolidPattern" >
-                   <color alpha="255" >
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                </active>
-                <inactive>
-                 <colorrole role="Window" >
-                  <brush brushstyle="SolidPattern" >
-                   <color alpha="255" >
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                </inactive>
-                <disabled>
-                 <colorrole role="Window" >
-                  <brush brushstyle="SolidPattern" >
-                   <color alpha="255" >
-                    <red>255</red>
-                    <green>255</green>
-                    <blue>255</blue>
-                   </color>
-                  </brush>
-                 </colorrole>
-                </disabled>
-               </palette>
-              </property>
-              <property name="autoFillBackground" >
-               <bool>false</bool>
-              </property>
-              <property name="frameShape" >
-               <enum>QFrame::StyledPanel</enum>
-              </property>
-              <property name="frameShadow" >
-               <enum>QFrame::Plain</enum>
-              </property>
-              <property name="lineWidth" >
-               <number>1</number>
-              </property>
-              <property name="text" >
-               <string/>
-              </property>
-              <property name="wordWrap" >
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_2" >
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType" >
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QWidget" native="1" name="wRecTexts" >
-           <property name="minimumSize" >
-            <size>
-             <width>345</width>
-             <height>100</height>
-            </size>
-           </property>
-           <layout class="QHBoxLayout" />
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer" >
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0" >
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" >
+         <widget class="QWidget" name="" >
+          <layout class="QVBoxLayout" >
            <property name="spacing" >
             <number>6</number>
            </property>
@@ -244,100 +133,215 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="KPushButton" name="pbPrevPage" >
-             <property name="toolTip" >
-              <string>Startet das Training des selektierten Textes.</string>
+            <widget class="QGroupBox" name="gbPage" >
+             <property name="title" >
+              <string>Seite: </string>
              </property>
-             <property name="layoutDirection" >
-              <enum>Qt::LeftToRight</enum>
+             <layout class="QVBoxLayout" >
+              <item>
+               <widget class="QLabel" name="lbPage" >
+                <property name="palette" >
+                 <palette>
+                  <active>
+                   <colorrole role="Window" >
+                    <brush brushstyle="SolidPattern" >
+                     <color alpha="255" >
+                      <red>255</red>
+                      <green>255</green>
+                      <blue>255</blue>
+                     </color>
+                    </brush>
+                   </colorrole>
+                  </active>
+                  <inactive>
+                   <colorrole role="Window" >
+                    <brush brushstyle="SolidPattern" >
+                     <color alpha="255" >
+                      <red>255</red>
+                      <green>255</green>
+                      <blue>255</blue>
+                     </color>
+                    </brush>
+                   </colorrole>
+                  </inactive>
+                  <disabled>
+                   <colorrole role="Window" >
+                    <brush brushstyle="SolidPattern" >
+                     <color alpha="255" >
+                      <red>255</red>
+                      <green>255</green>
+                      <blue>255</blue>
+                     </color>
+                    </brush>
+                   </colorrole>
+                  </disabled>
+                 </palette>
+                </property>
+                <property name="autoFillBackground" >
+                 <bool>false</bool>
+                </property>
+                <property name="frameShape" >
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow" >
+                 <enum>QFrame::Plain</enum>
+                </property>
+                <property name="lineWidth" >
+                 <number>1</number>
+                </property>
+                <property name="text" >
+                 <string/>
+                </property>
+                <property name="wordWrap" >
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2" >
+             <property name="orientation" >
+              <enum>Qt::Vertical</enum>
              </property>
-             <property name="text" >
-              <string>&amp;Vorige Seite</string>
+             <property name="sizeType" >
+              <enum>QSizePolicy::Fixed</enum>
              </property>
-             <property name="iconSize" >
+             <property name="sizeHint" stdset="0" >
               <size>
                <width>20</width>
-               <height>20</height>
+               <height>40</height>
               </size>
              </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QWidget" native="1" name="wRecTexts" >
+             <property name="minimumSize" >
+              <size>
+               <width>345</width>
+               <height>100</height>
+              </size>
+             </property>
+             <layout class="QHBoxLayout" />
             </widget>
            </item>
            <item>
-            <widget class="KPushButton" name="pbNextPage" >
-             <property name="toolTip" >
-              <string>Startet das Training des selektierten Textes.</string>
+            <spacer name="verticalSpacer" >
+             <property name="orientation" >
+              <enum>Qt::Vertical</enum>
              </property>
-             <property name="layoutDirection" >
-              <enum>Qt::RightToLeft</enum>
-             </property>
-             <property name="text" >
-              <string>&amp;Nächste Seite</string>
-             </property>
-             <property name="iconSize" >
+             <property name="sizeHint" stdset="0" >
               <size>
                <width>20</width>
-               <height>20</height>
+               <height>40</height>
               </size>
              </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" >
-           <property name="spacing" >
-            <number>6</number>
-           </property>
-           <property name="margin" >
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="KPushButton" name="pbBackToMain" >
-             <property name="toolTip" >
-              <string>Schließt den Dialog</string>
-             </property>
-             <property name="text" >
-              <string>&amp;Abbrechen</string>
-             </property>
-            </widget>
+            </spacer>
            </item>
            <item>
-            <widget class="QProgressBar" name="pbPages" >
-             <property name="value" >
+            <layout class="QHBoxLayout" >
+             <property name="spacing" >
+              <number>6</number>
+             </property>
+             <property name="margin" >
               <number>0</number>
              </property>
-             <property name="orientation" >
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
+             <item>
+              <widget class="KPushButton" name="pbPrevPage" >
+               <property name="toolTip" >
+                <string>Startet das Training des selektierten Textes.</string>
+               </property>
+               <property name="layoutDirection" >
+                <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="text" >
+                <string>&amp;Vorige Seite</string>
+               </property>
+               <property name="iconSize" >
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="KPushButton" name="pbNextPage" >
+               <property name="toolTip" >
+                <string>Startet das Training des selektierten Textes.</string>
+               </property>
+               <property name="layoutDirection" >
+                <enum>Qt::RightToLeft</enum>
+               </property>
+               <property name="text" >
+                <string>&amp;Nächste Seite</string>
+               </property>
+               <property name="iconSize" >
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
-            <widget class="KPushButton" name="pbFinish" >
-             <property name="layoutDirection" >
-              <enum>Qt::RightToLeft</enum>
+            <layout class="QHBoxLayout" >
+             <property name="spacing" >
+              <number>6</number>
              </property>
-             <property name="text" >
-              <string>&amp;Fertigstellen</string>
+             <property name="margin" >
+              <number>0</number>
              </property>
-            </widget>
+             <item>
+              <widget class="KPushButton" name="pbBackToMain" >
+               <property name="toolTip" >
+                <string>Schließt den Dialog</string>
+               </property>
+               <property name="text" >
+                <string>&amp;Abbrechen</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QProgressBar" name="pbPages" >
+               <property name="value" >
+                <number>0</number>
+               </property>
+               <property name="orientation" >
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="KPushButton" name="pbFinish" >
+               <property name="layoutDirection" >
+                <enum>Qt::RightToLeft</enum>
+               </property>
+               <property name="text" >
+                <string>&amp;Fertigstellen</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QTextEdit" name="textEdit" >
-         <property name="maximumSize" >
-          <size>
-           <width>190</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="readOnly" >
-          <bool>true</bool>
-         </property>
-         <property name="html" >
-          <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+         </widget>
+         <widget class="QTextEdit" name="textEdit" >
+          <property name="maximumSize" >
+           <size>
+            <width>190</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="readOnly" >
+           <bool>true</bool>
+          </property>
+          <property name="html" >
+           <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
 &lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
 &lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
@@ -347,7 +351,8 @@ p, li { white-space: pre-wrap; }
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Wenn Sie alle Seiten aufgenommen haben wird der Knopf "Fertigstellen" verfügbar sein und das Sprachmodell mit den gesammelten Daten neu berechnen.&lt;/p>
 &lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
 &lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Bitte achten Sie darauf alle Aufnahmen ohne Hintergrundgeräusche aufzunehmen, halten Sie sich genau an den angezeigten Text und versuchen Sie möglichst deutlich aber natürlich zu sprechen.&lt;/p>&lt;/body>&lt;/html></string>
-         </property>
+          </property>
+         </widget>
         </widget>
        </item>
       </layout>

@@ -14,13 +14,32 @@
   </property>
   <layout class="QVBoxLayout" >
    <item>
-    <widget class="KPushButton" name="pbShowFirstRunWizard" >
-     <property name="text" >
-      <string>Einrichtungsassistent beim nächsten Start wieder anzeigen</string>
+    <widget class="QGroupBox" name="gbGeneral" >
+     <property name="title" >
+      <string>Allgemein</string>
      </property>
-     <property name="checkable" >
-      <bool>true</bool>
+     <property name="flat" >
+      <bool>false</bool>
      </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QCheckBox" name="kcfg_AutoStart" >
+        <property name="text" >
+         <string>Starte simon bei Systemstart</string>
+        </property>
+        <property name="checked" >
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QCheckBox" name="kcfg_AskBeforeQuit" >
+        <property name="text" >
+         <string>Nachfragen vor dem Beenden</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -41,12 +60,12 @@
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="QSpinBox" name="sbMaxSimultaniouslyShownWords" >
+       <widget class="QSpinBox" name="kcfg_MaxConcurrentlyDisplayedWords" >
         <property name="minimum" >
          <number>1</number>
         </property>
         <property name="maximum" >
-         <number>100000</number>
+         <number>10000000</number>
         </property>
         <property name="singleStep" >
          <number>10</number>
@@ -57,85 +76,9 @@
        </widget>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="gbGeneral" >
-     <property name="title" >
-      <string>Allgemein</string>
-     </property>
-     <property name="flat" >
-      <bool>false</bool>
-     </property>
-     <layout class="QGridLayout" >
-      <item row="0" column="0" >
-       <widget class="QCheckBox" name="cbStartSimonOnBoot" >
-        <property name="text" >
-         <string>Starte simon bei Systemstart</string>
-        </property>
-        <property name="checked" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <widget class="QCheckBox" name="cbAskBeforeExit" >
-        <property name="text" >
-         <string>Nachfragen vor dem Beenden</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="gbPaths" >
-     <property name="title" >
-      <string>Pfade</string>
-     </property>
-     <property name="flat" >
-      <bool>false</bool>
-     </property>
-     <layout class="QHBoxLayout" >
-      <item>
-       <layout class="QVBoxLayout" >
-        <item>
-         <widget class="QLabel" name="lbCategories" >
-          <property name="text" >
-           <string>Programmkategorien:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="lbTempDir" >
-          <property name="text" >
-           <string>Temporärer Ordner:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="lbPathToTexts" >
-          <property name="text" >
-           <string>Pfad der Trainingstexte:</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" >
-        <item>
-         <widget class="KUrlRequester" name="urProgramCategories" />
-        </item>
-        <item>
-         <widget class="KUrlRequester" name="urTempDir" />
-        </item>
-        <item>
-         <widget class="KUrlRequester" name="urPathToTexts" />
-        </item>
-       </layout>
-      </item>
-     </layout>
+     <zorder>label</zorder>
+     <zorder>kcfg_MaxConcurrentlyDisplayedWords</zorder>
+     <zorder>gbGeneral</zorder>
     </widget>
    </item>
    <item>
@@ -153,17 +96,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QFrame</extends>
-   <header>kurlrequester.h</header>
-  </customwidget>
- </customwidgets>
+ <resources/>
  <connections/>
 </ui>

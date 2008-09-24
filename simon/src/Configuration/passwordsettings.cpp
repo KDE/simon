@@ -19,10 +19,10 @@
 
 //TODO: PORT ME TO KNEWPASSWORDDIALOG
 
-PasswordSettings::PasswordSettings(QWidget* parent): SystemWidget(i18n("Passwort-Sicherung"), KIcon("document-encrypt"), i18n("Sichern Sie simons Systemeinstellungen mit einem Passwort"), parent)
+PasswordSettings::PasswordSettings(QWidget* parent): QWidget(parent) //SystemWidget(i18n("Passwort-Sicherung"), KIcon("document-encrypt"), i18n("Sichern Sie simons Systemeinstellungen mit einem Passwort"), parent)
 {
 	ui.setupUi(this);
-	help=i18n("Wenn der Passwortschutz deaktiviert ist, muss nur auf den Knopf \"Systemverwaltungsmodus\" geklickt werden, damit alle (System-) Optionen angezeigt werden.");
+// 	help=i18n("Wenn der Passwortschutz deaktiviert ist, muss nur auf den Knopf \"Systemverwaltungsmodus\" geklickt werden, damit alle (System-) Optionen angezeigt werden.");
 //	connect(ui.lePassword2, SIGNAL(editingFinished()), this, SLOT(checkPassword()));
 //	connect(ui.lePassword, SIGNAL(textChanged(QString)), this, SLOT(unsetHashed()));
 //	connect(ui.lePassword2, SIGNAL(textChanged(QString)), this, SLOT(unsetHashed()));
@@ -63,7 +63,7 @@ void PasswordSettings::resetButtonClicked(bool isDown)
 	}*/
 }
 
-bool PasswordSettings::apply()
+/*bool PasswordSettings::apply()
 {
 	//password
 	Settings::set("Passwordprotected", ui.cbCheckPassword->isChecked());
@@ -89,8 +89,8 @@ bool PasswordSettings::apply()
 	}
 
 	return true;
-}
-
+}*/
+/*
 bool PasswordSettings::isComplete()
 {
 	return true;
@@ -106,10 +106,10 @@ bool PasswordSettings::init()
 	//ui.lePassword2->setText(originalHash);
 	isHashed = true;
 	return true;
-}
+}*/
 
-bool PasswordSettings::reset()
-{
-	return init();
-}
+// bool PasswordSettings::reset()
+// {
+// 	return init();
+// }
 

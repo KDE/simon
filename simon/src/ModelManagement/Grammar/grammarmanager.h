@@ -21,7 +21,7 @@ class WordListManager;
 class GrammarManager : public QObject {
 Q_OBJECT
 private:
-	QStringList structures;
+// 	QStringList structures;
 	static GrammarManager *instance;
 
 protected:
@@ -33,18 +33,14 @@ public:
 
 	static GrammarManager* getInstance();
 
-	bool load();
-	bool save();
+// 	bool load();
+// 	bool save();
 
 	QStringList getStructures(QString terminal);
 	QStringList getTerminals();
 
-	void setStructures(QStringList structures);
-
 	void renameTerminal(QString terminal, QString newName);
 
-
-	QStringList getAllStructures() { return structures; }
 	QStringList getExamples(QString word, QString terminal, int count=2, bool includeShadow=false);
 
 };

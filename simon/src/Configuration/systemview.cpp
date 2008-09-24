@@ -38,16 +38,16 @@ SystemView::SystemView(QWidget* parent): InlineWidget(i18n("System"), KIcon("con
 {
 	ui.setupUi(this);
 	hide();
-	registerSystemWidget(new GeneralSettings(this));
-	registerSystemWidget(new InternetExtensionSettings(this));
-	registerSystemWidget(new PasswordSettings(this));
-	registerSystemWidget(new ModelSettings(this));
-	registerSystemWidget(new GrammarSettings(this));
-	registerSystemWidget(new SoundSettings(this));
-	registerSystemWidget(new NetworkSettings(this));
-	registerSystemWidget(new CommandSettings(this));
-	registerSystemWidget(new LogView(this));
-	registerSystemWidget(new ExternalProgramManager(this));
+// 	registerSystemWidget(new GeneralSettings(this));
+// 	registerSystemWidget(new InternetExtensionSettings(this));
+// 	registerSystemWidget(new PasswordSettings(this));
+// 	registerSystemWidget(new ModelSettings(this));
+// 	registerSystemWidget(new GrammarSettings(this));
+// 	registerSystemWidget(new SoundSettings(this));
+// 	registerSystemWidget(new NetworkSettings(this));
+// 	registerSystemWidget(new CommandSettings(this));
+// 	registerSystemWidget(new LogView(this));
+// 	registerSystemWidget(new ExternalProgramManager(this));
 
 	connect(ui.lwMenu, SIGNAL(currentRowChanged(int)), this, SLOT(displayId(int)));
 	connect(ui.pbApply, SIGNAL(clicked()), this, SLOT(apply()));

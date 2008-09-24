@@ -12,8 +12,8 @@
 #ifndef NETWORKSETTINGS_H
 #define NETWORKSETTINGS_H
 
-#include "systemwidget.h"
 #include "ui_networksettingsdlg.h"
+#include <QWidget>
 
 /**
  * \class NetworkSettings
@@ -22,27 +22,27 @@
  * \version 0.1
  * \brief SystemWidget to control the addresses to julius
  */
-class NetworkSettings : public SystemWidget
+class NetworkSettings : public QWidget
 {
 Q_OBJECT
 private:
 	Ui::NetworkSettingsDlg ui;
-private slots:
-	void deleteAddress();
-	void addAddress();
-	void insertAddress(QString host, int port);
-	void enableButtons();
-	void moveUp();
-	void moveDown();
+// private slots:
+// 	void deleteAddress();
+// 	void addAddress();
+// 	void insertAddress(QString host, int port);
+// 	void enableButtons();
+// 	void moveUp();
+// 	void moveDown();
 	
-public slots:
-	bool apply();
-	bool reset();
-	bool init();
+// public slots:
+// 	bool apply();
+// 	bool reset();
+// 	bool init();
 	
 public:
         NetworkSettings(QWidget* parent);
-	bool isComplete();
+// 	bool isComplete();
         ~NetworkSettings();
 
 };
