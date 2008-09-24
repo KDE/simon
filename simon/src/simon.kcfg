@@ -1,0 +1,200 @@
+<kcfg>
+<kcfgfile>
+
+  <include>KStandardDirs</include>
+  
+  <group name="general">
+    <entry name="AskBeforeQuit" type="Bool">
+      <label>If we should ask the user before quitting simon.</label>
+      <default>true</default>
+    </entry>
+    <entry name="AutoStart" type="Bool">
+      <label>If simon should start on login.</label>
+      <default>false</default>
+    </entry>
+    <entry name="ConfigDone" type="Bool">
+      <label>If the nescessary initial configuration has been completed or not.</label>
+      <default>false</default>
+    </entry>
+  </group>
+  
+  <group name="Security">
+    <entry name="PasswordProtected" type="Bool">
+      <label>If the user needs a password to access the administration mode.</label>
+      <default>false</default>
+    </entry>
+    <entry name="Password" type="String">
+      <label>The password-hash for the administration mode.</label>
+      <default></default>
+    </entry>
+  </group>
+  
+  <group name="Performance">
+    <entry name="MaxConcurrentlyDisplayedWords" type="Int">
+      <label>Determines how many words should be displayed concurrently.</label>
+      <default>500</default>
+    </entry>
+  </group>
+  
+  <group name="Model">
+    <entry name="SampleRate" type="Int">
+      <label>What samplerate the trainings samples should be recorded in.</label>
+      <default>16000</default>
+    </entry>
+    <entry name="Channels" type="Int">
+      <label>Determines how many channels the trainings sample should use.</label>
+      <default>1</default>
+    </entry>
+  </group>
+
+  <group name="PostProcessing">
+    <entry name="ProcessInternal" type="Bool">
+      <label>If samples recorded with simon should be processed at all.</label>
+      <default>false</default>
+    </entry>
+    <entry name="ProcessingFilters" type="StringList">
+      <label>The filters (commands) to apply to the samples.</label>
+    </entry>
+  </group>
+  
+  <group name="Programs">
+    <entry name="HDMan" type="String">
+      <label>The path to the HDMan executable.</label>
+      <default code="true">KStandardDirs::findExe("HDMan")</default>
+    </entry>
+    <entry name="HLEd" type="String">
+      <label>The path to the HLEd executable.</label>
+      <default code="true">KStandardDirs::findExe("HLEd")</default>
+    </entry>
+    <entry name="HCopy" type="String">
+      <label>The path to the HCopy executable.</label>
+      <default code="true">KStandardDirs::findExe("HCopy")</default>
+    </entry>
+    <entry name="HCompV" type="String">
+      <label>The path to the HCompV executable.</label>
+      <default code="true">KStandardDirs::findExe("HCompV")</default>
+    </entry>
+    <entry name="HERest" type="String">
+      <label>The path to the HERest executable.</label>
+      <default code="true">KStandardDirs::findExe("HERest")</default>
+    </entry>
+    <entry name="HHEd" type="String">
+      <label>The path to the HHEd executable.</label>
+      <default code="true">KStandardDirs::findExe("HHEd")</default>
+    </entry>
+    <entry name="HVite" type="String">
+      <label>The path to the HVite executable.</label>
+      <default code="true">KStandardDirs::findExe("HVite")</default>
+    </entry>
+    <entry name="bzip2" type="String">
+      <label>The path to the bzip2 executable.</label>
+      <default code="true">KStandardDirs::findExe("bzip2")</default>
+    </entry>
+    <entry name="mkfa" type="String">
+      <label>The path to the mkfa executable.</label>
+      <default code="true">KStandardDirs::findExe("mkfa")</default>
+    </entry>
+    <entry name="dfa_minimize" type="String">
+      <label>The path to the dfa_minimize executable.</label>
+      <default code="true">KStandardDirs::findExe("dfa_minimize")</default>
+    </entry>
+  </group>
+
+  <group name="Juliusd">
+    <entry name="AutoConnect" type="Bool">
+      <label>If we should automatically connect to the Juliusd.</label>
+      <default>false</default>
+    </entry>
+    <entry name="Username" type="String">
+      <label>The username for Juliusd.</label>
+    </entry>
+    <entry name="Password" type="String">
+      <label>The password for Juliusd.</label>
+    </entry>
+    <entry name="Encrypted" type="Bool">
+      <label>If the connection to the Juliusd should be encrypted.</label>
+      <default>false</default>
+    </entry>
+    <entry name="ContinueOnWarning" type="Bool">
+      <label>If we should ignore warnings (like version discrepancies) when connecting to Juliusd.</label>
+      <default>false</default>
+    </entry>
+    <entry name="ConnectionTimeout" type="Int">
+      <label>The timeout for the connection to the Juliusd.</label>
+      <default>3000</default>
+    </entry>
+    <entry name="Servers" type="StringList">
+      <label>The addresses to all known Juliusd servers in order of preference.</label>
+      <default>localhost:4444</default>
+    </entry>
+  </group>
+
+  <group name="Internet">
+    <entry name="TextOnlineUpdate" type="String">
+      <label>The url to the online text-list to get new trainingstexts.</label>
+      <default>http://simon.pytalhost.org/texts/list.xml</default>
+    </entry>
+    <entry name="WikiDumpOverview" type="String">
+      <label>The url to the wikimedia dump overview.</label>
+      <default>http://download.wikimedia.org/backup-index.html</default>
+    </entry>
+    <entry name="WikiDumpPrefix" type="String">
+      <label>The prefix of the wiktionary dumps.</label>
+      <default>http://download.wikimedia.org/</default>
+    </entry>
+    <entry name="WikiDumpPostfix" type="String">
+      <label>The postfix of the wiktionary dumps.</label>
+      <default>-pages-articles.xml.bz2</default>
+    </entry>
+  </group>
+  
+  <group name="Commands">
+    <entry name="Dictation" type="Bool">
+      <label>If dictation is enabled at all.</label>
+      <default>false</default>
+    </entry>
+    <entry name="UseGlobalTrigger" type="Bool">
+      <label>If simon should use a global trigger to differentiate between commands and dictation.</label>
+      <default>true</default>
+    </entry>
+    <entry name="GlobalTrigger" type="String">
+      <label>The global trigger to decide if the recognition result is a command or just text.</label>
+      <default>Computer</default>
+    </entry>
+  </group>
+
+<!--
+Executable\Enabled=true
+Executable\PathToConfig=/home/bedahr/Daten/simon/svn/trunk/simon/conf/executables.xml
+Place\Enabled=true
+Place\PathToConfig=/home/bedahr/Daten/simon/svn/trunk/simon/conf/places.xml
+TextMacro\Enabled=true
+TextMacro\PathToConfig=/home/bedahr/Daten/simon/svn/trunk/simon/conf/textmacros.xml
+Shortcut\Enabled=true
+Shortcut\PathToConfig=/home/bedahr/Daten/simon/svn/trunk/simon/conf/shortcuts.xml
+DesktopGrid\Enabled=true
+DesktopGrid\Trigger=Desktopgitter
+DesktopGrid\RealTransparency=true
+ATIntegration\Enabled=false
+ATIntegration\QtWorkarounds=true
+ATIntegration\QtMenuSupport=true
+-->
+
+  <group name="Sound">
+    <entry name="InputDevice" type="Int">
+      <label>The sounddevice used for recording.</label>
+    </entry>
+    <entry name="OutputDevice" type="Int">
+      <label>The sounddevice used for playback.</label>
+    </entry>
+    <entry name="Channels" type="Int">
+      <label>How many channels should the samples be recorded with.</label>
+    </entry>
+    <entry name="SampleRate" type="Int">
+      <label>The samplerate used for recording.</label>
+    </entry>
+  </group>
+
+
+</kcfgfile>
+</kcfg>

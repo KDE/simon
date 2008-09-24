@@ -303,10 +303,10 @@ TrainingList* TrainingManager::readTrainingTexts ()
 		delete textdir;
 		return NULL;
 	}
-	QStringList filter;
+
 	textdir->setFilter ( QDir::Files|QDir::Readable );
 
-	QStringList textsrcs = textdir->entryList();
+	QStringList textsrcs = textdir->entryList(QStringList() << "*.xml");
 
 	if (trainingTexts) {
 		delete trainingTexts;

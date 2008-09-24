@@ -1,0 +1,4 @@
+File=simon.kcfg
+ClassName=CoreConfiguration
+Singleton=true
+Mutators=true
