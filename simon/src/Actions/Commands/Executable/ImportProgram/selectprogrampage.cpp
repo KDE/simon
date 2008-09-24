@@ -12,16 +12,18 @@
 #include "selectprogrampage.h"
 #include <KMessageBox>
 
-#include <klistwidget.h>
+#include <KListWidget>
 #include <QListWidgetItem>
 #include <QWidget>
+#include <KService>
+#include <QDebug>
 
-#ifdef Q_OS_UNIX
-#include "../../SimonLib/ProgramManager/kdeprogrammanager.h"
-#endif
-#ifdef Q_OS_WIN
-#include "../../SimonLib/ProgramManager/windowsprogrammanager.h"
-#endif
+// #ifdef Q_OS_UNIX
+// #include "../../SimonLib/ProgramManager/kdeprogrammanager.h"
+// #endif
+// #ifdef Q_OS_WIN
+// #include "../../SimonLib/ProgramManager/windowsprogrammanager.h"
+// #endif
 
 /**
 *   \brief Constructor
@@ -34,33 +36,40 @@
 SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
-#ifdef Q_OS_UNIX
-	this->programManager = new KDEProgramManager();
-#endif
-#ifdef Q_OS_WIN
-	this->programManager = new WindowsProgramManager();
-#endif
+// #ifdef Q_OS_UNIX
+// 	this->programManager = new KDEProgramManager();
+// #endif
+// #ifdef Q_OS_WIN
+// 	this->programManager = new WindowsProgramManager();
+// #endif
 
         registerField("executable*", ui.lwPrograms);
 
-        connect(ui.lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
+//         connect(ui.lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
 }
 
 /**
- * \brief Initializes the page (under linux this loads the list of programs)
+ * \brief Initializes the page (under linux this also loads the list of programs)
  * \author Peter Grasch
  */
 void SelectProgramPage::initializePage()
 {
-	ProgramCategoryList list = programManager->readCategories();
-	if (list.isEmpty()) 
-		KMessageBox::error(this, i18n("Konnte keine Programmkategorien finden.\n\nMöglicherweise ist der Pfad zur categories.xml falsch gesetzt."), i18n("Konnte keine Programmkategorien finden"));
-	else {
-		this->insertCategories(list);
-		#ifdef Q_OS_UNIX
-			((KDEProgramManager*) this->programManager)->loadPrograms();
-		#endif
+	QList<KService::Ptr> services = KService::allServices();
+	for (int i=0; i<services.count(); i++)
+	{
+		if (!services[i]->isApplication()) continue;
+		qDebug() << services[i]->name()  << services[i]->genericName() << services[i]->exec() << services[i]->path();
 	}
+
+// 	ProgramCategoryList list = programManager->readCategories();
+// 	if (list.isEmpty()) 
+// 		KMessageBox::error(this, i18n("Konnte keine Programmkategorien finden.\n\nMöglicherweise ist der Pfad zur categories.xml falsch gesetzt."), i18n("Konnte keine Programmkategorien finden"));
+// 	else {
+// 		this->insertCategories(list);
+// 		#ifdef Q_OS_UNIX
+// 			((KDEProgramManager*) this->programManager)->loadPrograms();
+// 		#endif
+// 	}
 
 }
 
@@ -71,7 +80,7 @@ void SelectProgramPage::initializePage()
 */
 SelectProgramPage::~SelectProgramPage()
 {
-    delete programManager;
+//     delete programManager;
 }
 
 /**
@@ -117,18 +126,18 @@ QString SelectProgramPage::getName()
 *   @param ProgramCategoryList categorieList
 *       holds the categories, which where read out of a xml-file
 */
-void SelectProgramPage::insertCategories(const ProgramCategoryList& categorieList)
-{
-    ui.lwCategories->clear();
-    QListWidgetItem* item;
-    for(int i=0; i<categorieList.count(); i++)
-    {
-        item = new QListWidgetItem(ui.lwCategories);
-        item->setText(categorieList.at(i).getName());
-        item->setData(Qt::UserRole, categorieList.at(i).getDescription());
-        item->setIcon(categorieList.at(i).getIcon());
-    }
-}
+// void SelectProgramPage::insertCategories(const ProgramCategoryList& categorieList)
+// {
+//     ui.lwCategories->clear();
+//     QListWidgetItem* item;
+//     for(int i=0; i<categorieList.count(); i++)
+//     {
+//         item = new QListWidgetItem(ui.lwCategories);
+//         item->setText(categorieList.at(i).getName());
+//         item->setData(Qt::UserRole, categorieList.at(i).getDescription());
+//         item->setIcon(categorieList.at(i).getIcon());
+//     }
+// }
 
 /**
 *   \brief inserts all given programms in a list
@@ -137,41 +146,41 @@ void SelectProgramPage::insertCategories(const ProgramCategoryList& categorieLis
 *   @param ProgramList *programList
 *       is a list, which holds all programms of a specified category
 */
-void SelectProgramPage::insertPrograms(const ProgramList *programList)
-{
-    ui.lwPrograms->clear();
-    QListWidgetItem* lwItem;
-    for (int i=0; i<programList->count(); i++)
-    {
-        lwItem = new QListWidgetItem(ui.lwPrograms);
-        lwItem->setText(programList->at(i).getName());
-	lwItem->setIcon(programList->at(i).getIcon());
-        lwItem->setData(Qt::UserRole, programList->at(i).getExec());
-        lwItem->setData(Qt::UserRole+1, programList->at(i).getIconPath());
-        lwItem->setData(Qt::UserRole+2, programList->at(i).getPath());
-    }
-}
+// void SelectProgramPage::insertPrograms(const ProgramList *programList)
+// {
+//     ui.lwPrograms->clear();
+//     QListWidgetItem* lwItem;
+//     for (int i=0; i<programList->count(); i++)
+//     {
+//         lwItem = new QListWidgetItem(ui.lwPrograms);
+//         lwItem->setText(programList->at(i).getName());
+// 	lwItem->setIcon(programList->at(i).getIcon());
+//         lwItem->setData(Qt::UserRole, programList->at(i).getExec());
+//         lwItem->setData(Qt::UserRole+1, programList->at(i).getIconPath());
+//         lwItem->setData(Qt::UserRole+2, programList->at(i).getPath());
+//     }
+// }
 
 /**
 *   \brief searches for all programs, which contains the associated formats of a category
 *
 *   @author Susanne Tschernegg
 */
-void SelectProgramPage::searchForPrograms()
-{
-    QString catName = ui.lwCategories->currentItem()->text();
-    ProgramCategoryList catList = programManager->readCategories();
-    for(int i=0; i<catList.count(); i++)
-    {
-        if(catName == catList.at(i).getName())
-        {
-            ProgramList *pl = programManager->getPrograms(catList.at(i));
-            insertPrograms(pl);
-	    delete pl;
-            break;
-        }
-    }
-}
+// void SelectProgramPage::searchForPrograms()
+// {
+//     QString catName = ui.lwCategories->currentItem()->text();
+//     ProgramCategoryList catList = programManager->readCategories();
+//     for(int i=0; i<catList.count(); i++)
+//     {
+//         if(catName == catList.at(i).getName())
+//         {
+//             ProgramList *pl = programManager->getPrograms(catList.at(i));
+//             insertPrograms(pl);
+// 	    delete pl;
+//             break;
+//         }
+//     }
+// }
 
 /**
 *   \brief returns the workingdirectory, which the user set

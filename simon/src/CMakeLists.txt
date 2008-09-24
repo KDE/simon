@@ -234,7 +234,7 @@ IF(UNIX)
 ENDIF(UNIX)
 
 IF(WIN32)
-	MESSAGE(STATUS "Windows detected! We are awefully sorry...")
+	MESSAGE(STATUS "Windows detected! We are awfully sorry...")
 	kde4_add_executable( simon ${simonGeneralSources} ${simonWindowsSources} )
 ENDIF(WIN32)
 

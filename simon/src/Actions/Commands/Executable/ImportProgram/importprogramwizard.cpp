@@ -31,7 +31,7 @@ ImportProgramWizard::ImportProgramWizard ( QWidget* parent ) : QWizard ( parent 
 
 	this->addPage ( createFinishedPage() );
 
-	setWindowTitle ( "Programm hinzufügen" );
+	setWindowTitle ( i18n("Programm hinzufügen") );
 	setPixmap ( QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importprogram.png")) );
 
 	connect ( this, SIGNAL ( finished ( int ) ), this, SLOT ( import( int ) ) );

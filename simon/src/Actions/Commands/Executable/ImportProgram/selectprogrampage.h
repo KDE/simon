@@ -17,7 +17,7 @@
 #include "../../SimonLib/ProgramManager/programcategory.h"
 #include "../../SimonLib/ProgramManager/program.h"
 
-class ProgramManager;
+// class ProgramManager;
 
 
 /**
@@ -33,15 +33,15 @@ class SelectProgramPage : public QWizardPage
 
 private:
 	Ui::SelectProgramDlg ui;
-	ProgramManager *programManager;
-	ProgramCategoryList categoryList;
+// 	ProgramManager *programManager;
+// 	ProgramCategoryList categoryList;
 
 public:
         SelectProgramPage(QWidget* parent);
         ~SelectProgramPage();
 
-        void insertCategories(const ProgramCategoryList& categorieList);
-        void insertPrograms(const ProgramList *programList);
+//         void insertCategories(const ProgramCategoryList& categorieList);
+//         void insertPrograms(const ProgramList *programList);
 
 	void initializePage();
 
@@ -52,8 +52,8 @@ public:
 
 
 
-    public slots:
-        void searchForPrograms();
+//     public slots:
+//         void searchForPrograms();
 };
 
 #endif

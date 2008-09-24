@@ -13,6 +13,7 @@
 #include <QDir>
 #include <QProcess>
 #include <KStandardDirs>
+#include <KService>
 #include "../KDELib/desktopreader.h"
 
 KDEProgramManager::KDEProgramManager()
@@ -40,72 +41,105 @@ bool KDEProgramManager::loadPrograms()
 {
 	this->programs->clear();
 
-	QStringList pathToDesktopFiles = getKDEDirs();
 
-	for (int i=0; i < pathToDesktopFiles.count(); i++)
+	QList<KService::Ptr> services = KService::allServices();
+	for (int i=0; i<services.count(); i++)
 	{
-		pathToDesktopFiles.replace(i, pathToDesktopFiles.at(i)+"/share/applications/");
+		if (!services[i]->isApplication()) continue;
 		
-		if (!QDir(pathToDesktopFiles.at(i)).exists())
-		{
-			pathToDesktopFiles.removeAt(i);
-			i--;
-		}
+// 			Program *prog = new Program(name, services[i]->exec(), services[i]->description, services[i]->path,
+// 						QIcon(), services[i]->icon()
+//     Program(QString name, QString exec, QString description, QString path,
+// 		ProgramCategoryList categories=ProgramCategoryList(), QIcon icon=QIcon(), QString iconPath="")
+
+
+
+// 		if (prog) {
+// 			QStringList strCats = kdeCategoriesToSimonCategories(deskReader.getStrCategories());
+// 
+// 			ProgramCategoryList categories;
+// 			
+// 			for (int j=0; j < strCats.count(); j++)
+// 			{
+// 				ProgramCategory *category = getCategory(strCats.at(j));
+// 				if (category) 
+// 					categories.append(*category);
+// 			}
+// 			QString iconsrc = resolveIcon(deskReader.getIconname());
+// 			if (!iconsrc.isEmpty())
+// 				prog->setIcon(QIcon(iconsrc), iconsrc);
+// 			prog->setCategories(categories);
+// 			
+// 			this->programs->append(*prog);
+// 		}
 	}
 
-
-
-	QStringList desktopFiles = QStringList();
-	
-	for (int i=0; i < pathToDesktopFiles.count(); i++)
-	{
-		QDir *dirHandle = new QDir(pathToDesktopFiles.at(i));
-		if ((!dirHandle) || (!dirHandle->isReadable())) return false;
-	
-		QStringList dirsToCheck;
-		dirsToCheck<<pathToDesktopFiles.at(i);
-	
-		QStringList allowedFileTypes;
-		allowedFileTypes << "*.desktop";
-		QStringList dirs;
-		QStringList files;
-	
-		while (!dirsToCheck.isEmpty())
-		{
-			dirHandle->setPath(dirsToCheck.takeAt(0));
-			dirs = dirHandle->entryList(QDir::Dirs);
-			for (int i=2; i < dirs.count(); i++) 
-				dirsToCheck.append(dirHandle->path()+"/"+dirs[i]);
-	
-			files = dirHandle->entryList(allowedFileTypes,  QDir::Files);
-			for (int i=0; i < files.count(); i++)
-				desktopFiles.append(dirHandle->path()+"/"+files[i]);
-		}
-	}
-	DesktopReader deskReader;
-	for (int i=0; i < desktopFiles.count(); i++)
-	{
-		Program *prog = deskReader.readDesktopFile(desktopFiles.at(i));
-		
-		if (prog) {
-			QStringList strCats = kdeCategoriesToSimonCategories(deskReader.getStrCategories());
-
-			ProgramCategoryList categories;
-			
-			for (int j=0; j < strCats.count(); j++)
-			{
-				ProgramCategory *category = getCategory(strCats.at(j));
-				if (category) 
-					categories.append(*category);
-			}
-			QString iconsrc = resolveIcon(deskReader.getIconname());
-			if (!iconsrc.isEmpty())
-				prog->setIcon(QIcon(iconsrc), iconsrc);
-			prog->setCategories(categories);
-			
-			this->programs->append(*prog);
-		}
-	}
+// 	QStringList pathToDesktopFiles = getKDEDirs();
+// 
+// 	for (int i=0; i < pathToDesktopFiles.count(); i++)
+// 	{
+// 		pathToDesktopFiles.replace(i, pathToDesktopFiles.at(i)+"/share/applications/");
+// 		
+// 		if (!QDir(pathToDesktopFiles.at(i)).exists())
+// 		{
+// 			pathToDesktopFiles.removeAt(i);
+// 			i--;
+// 		}
+// 	}
+// 
+// 
+// 
+// 	QStringList desktopFiles = QStringList();
+// 	
+// 	for (int i=0; i < pathToDesktopFiles.count(); i++)
+// 	{
+// 		QDir *dirHandle = new QDir(pathToDesktopFiles.at(i));
+// 		if ((!dirHandle) || (!dirHandle->isReadable())) return false;
+// 	
+// 		QStringList dirsToCheck;
+// 		dirsToCheck<<pathToDesktopFiles.at(i);
+// 	
+// 		QStringList allowedFileTypes;
+// 		allowedFileTypes << "*.desktop";
+// 		QStringList dirs;
+// 		QStringList files;
+// 	
+// 		while (!dirsToCheck.isEmpty())
+// 		{
+// 			dirHandle->setPath(dirsToCheck.takeAt(0));
+// 			dirs = dirHandle->entryList(QDir::Dirs);
+// 			for (int i=2; i < dirs.count(); i++) 
+// 				dirsToCheck.append(dirHandle->path()+"/"+dirs[i]);
+// 	
+// 			files = dirHandle->entryList(allowedFileTypes,  QDir::Files);
+// 			for (int i=0; i < files.count(); i++)
+// 				desktopFiles.append(dirHandle->path()+"/"+files[i]);
+// 		}
+// 	}
+// 	DesktopReader deskReader;
+// 	for (int i=0; i < desktopFiles.count(); i++)
+// 	{
+// 		Program *prog = deskReader.readDesktopFile(desktopFiles.at(i));
+// 		
+// 		if (prog) {
+// 			QStringList strCats = kdeCategoriesToSimonCategories(deskReader.getStrCategories());
+// 
+// 			ProgramCategoryList categories;
+// 			
+// 			for (int j=0; j < strCats.count(); j++)
+// 			{
+// 				ProgramCategory *category = getCategory(strCats.at(j));
+// 				if (category) 
+// 					categories.append(*category);
+// 			}
+// 			QString iconsrc = resolveIcon(deskReader.getIconname());
+// 			if (!iconsrc.isEmpty())
+// 				prog->setIcon(QIcon(iconsrc), iconsrc);
+// 			prog->setCategories(categories);
+// 			
+// 			this->programs->append(*prog);
+// 		}
+// 	}
 	return true;
 }
 
