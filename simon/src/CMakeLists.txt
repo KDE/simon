@@ -108,8 +108,6 @@ set (	simonGeneralSources
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Sound/soundcontrol.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Sound/wav.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/inlinewidgetview.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/systemwidgetpage.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/systemwidget.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simonlineedit.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simontablewidget.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simonspinbox.cpp
@@ -150,14 +148,8 @@ set (	simonGeneralSources
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/externalprogrammanager.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/passwordsettings.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/generalsettings.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/systemview.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/configurationdialog.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Logging/logview.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/FirstRun/firstrunmodelsettings.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/FirstRun/firstrunwizard.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/FirstRun/firstrunimportdictselectsourcepage.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/FirstRun/selectlanguagemodelsourcepage.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/FirstRun/firstrunimportdictwiktionarypage.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/internetextensionsettings.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/networksettings.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ServerAddressSelector/addserverconnection.cpp
@@ -208,8 +200,6 @@ kde4_add_ui_files( simonGeneralSources
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/generalsettingsdlg.ui
 		${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/networksettingsdlg.ui
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ServerAddressSelector/addserverconnectiondlg.ui
-		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/FirstRun/selectlanguagemodelsource.ui
-		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/systemviewdlg.ui
 		)
 
 set ( simonLinuxSources

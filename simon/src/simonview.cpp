@@ -35,9 +35,9 @@
 #include <KStandardDirs>
 #include <KStatusBar>
 #include <KPasswordDialog>
+#include <KConfigDialog>
 
 #include "inlinewidgetview.h"
-#include "Configuration/systemview.h"
 #include "Configuration/configurationdialog.h"
 #include "SimonLib/Logging/logger.h"
 
@@ -47,7 +47,6 @@
 #include "ModelManagement/modelmanager.h"
 #include "ModelManagement/Training/trainingview.h"
 #include "SimonLib/Settings/settings.h"
-#include "Configuration/FirstRun/firstrunwizard.h"
 #include "ModelManagement/WordList/wordlistview.h"
 #include "ModelManagement/WordList/AddWord/addwordview.h"
 #include "ModelManagement/WordList/wordlistmanager.h"
@@ -88,13 +87,13 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	Logger::log ( i18n ( "[INF] Lade Einstellungen..." ) );
 	Settings::initSettings();
 
-	if (!Settings::getB("ConfigDone"))
-	{
-		FirstRunWizard *firstRunWizard = new FirstRunWizard(this);
-		if (firstRunWizard->exec() || (KMessageBox::questionYesNo(this, i18n("Konfiguration abbrechen"), i18n("Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.\n\nWollen Sie den Assistenten beim nächsten Start wieder anzeigen?")) == KMessageBox::No))
-			Settings::set("ConfigDone", true);
-		firstRunWizard->deleteLater();
-	}
+// 	if (!Settings::getB("ConfigDone"))
+// 	{
+// 		FirstRunWizard *firstRunWizard = new FirstRunWizard(this);
+// 		if (firstRunWizard->exec() || (KMessageBox::questionYesNo(this, i18n("Konfiguration abbrechen"), i18n("Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.\n\nWollen Sie den Assistenten beim nächsten Start wieder anzeigen?")) == KMessageBox::No))
+// 			Settings::set("ConfigDone", true);
+// 		firstRunWizard->deleteLater();
+// 	}
 	
 	
 	
@@ -139,7 +138,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	this->runDialog = new RunCommandView ( this );
 
 	
-	this->systemDialog=0;
 	this->configurationDialog=0;
 
 	info->writeToSplash ( i18n ( "Lade Oberfläche..." ) );
@@ -374,9 +372,6 @@ void SimonView::showAddWordDialog ( )
 void SimonView::showSystemDialog ()
 {
 	//lazy initialization
-// 	if (!systemDialog)  systemDialog = new SystemView ( this );
-// 	ui.inlineView->toggleDisplay(systemDialog);
-
 	if (!configurationDialog)
 		configurationDialog = new ConfigurationDialog(this);
 
@@ -635,9 +630,8 @@ bool SimonView::checkPassword()
 */
 void SimonView::hideSettings()
 {
-	if (systemDialog) { //it is possibly not initialized because we use lazy initialization
-		ui.inlineView->unRegisterPage(systemDialog);
-	}
+	KConfigDialog *configurationDlg = KConfigDialog::exists("coreconfiguration");
+	if (configurationDlg) configurationDlg->hide();
 
 	actionCollection()->action("configuration")->setVisible(false);
 

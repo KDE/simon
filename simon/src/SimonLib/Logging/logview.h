@@ -13,19 +13,19 @@
 #define LOGVIEW_H
 
 
-#include "systemwidget.h"
 #include "ui_logmanagerdlg.h"
 #include "logmanager.h"
+#include <QWidget>
 
 
 /**
  * \class LogView
- * \brief Derived from the systemwidget class to display and search the logs
+ * \brief To display and search the logs
  * \version 0.1
  * \date 23.8.2007
  * \author Peter Grasch
 */
-class LogView : public SystemWidget
+class LogView : public QWidget
 {
 	Q_OBJECT
 	
@@ -39,9 +39,7 @@ private:
 
 public slots:
 	//to comply with the systemwidget
-	bool apply() { return true; }
 	bool init();
-	bool reset() { return true; }
 
 	void logReadFinished(int exitCode);
 
@@ -90,7 +88,6 @@ signals:
 	
 public:
     LogView(QWidget* parent);
-    bool isComplete();
     ~LogView();
 
 };

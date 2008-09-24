@@ -22,11 +22,11 @@
  * \author Peter Grasch
  * @param parent Parent of the systemwidget
  */
-LogView::LogView(QWidget* parent): SystemWidget(i18n("Protokoll"), KIcon("utilities-log-viewer"), i18n("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
+LogView::LogView(QWidget* parent):QWidget(parent)// SystemWidget(i18n("Protokoll"), KIcon("utilities-log-viewer"), i18n("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
 {
 	ui.setupUi(this);
 
-	guessChildTriggers(this);
+// 	guessChildTriggers(this);
 	
 	clickedDate = QDate();
 	connect (ui.gbOnlyDay, SIGNAL (toggled (bool)), ui.cwLogDay, SLOT (setEnabled(bool)));
@@ -52,10 +52,12 @@ LogView::LogView(QWidget* parent): SystemWidget(i18n("Protokoll"), KIcon("utilit
 	ui.gbOnlyDay->setObjectName("gbOnlyDay");
 	ui.twLogEntries->setObjectName("twLogEntries");
 
-	help = i18n("simon speichert im normalen Betrieb viele Loginformationen die im Nachhinein helfen können, Probleme nachzuvollziehen");
+// 	help = i18n("simon speichert im normalen Betrieb viele Loginformationen die im Nachhinein helfen können, Probleme nachzuvollziehen");
 
 	ui.pbLogSearch->setIcon(KIcon("system-search"));
 	ui.pbAbort->setIcon(KIcon("process-stop"));
+
+	init();
 }
 
 
@@ -181,16 +183,6 @@ void LogView::logReadFinished(int code)
 	if (code != 0)
 		displayReload();
 	//code is != 0 when we aborted the process
-}
-
-
-/**
- * \brief Returns always true
- * @return True - there are now configuration options
- */
-bool LogView::isComplete()
-{
-	return true;
 }
 
 /**

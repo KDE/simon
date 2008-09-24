@@ -12,8 +12,8 @@
 #ifndef GRAMMARSETTINGS_H
 #define GRAMMARSETTINGS_H
 
-#include "systemwidget.h"
 #include "ui_grammarsettingsdlg.h"
+#include <QWidget>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>

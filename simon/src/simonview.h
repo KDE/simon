@@ -50,7 +50,6 @@ class VuMeter;
 class AddWordView;
 class TrayIconManager;
 class RunCommandView;
-class SystemView;
 class QAction;
 class WordListView;
 class ConfigurationDialog;
@@ -78,7 +77,6 @@ private:
 	WordListView *wordList; //!< Pointer on the Dialog "WordList"
 	RunCommandView *runDialog; //!< Pointer on the Dialog "RunCommand"
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
-	SystemView *systemDialog; //!< Pointer on the Dialog "System"
 	ConfigurationDialog *configurationDialog;
 
 
