@@ -1,9 +1,4 @@
-project (simon)
-find_package(KDE4 REQUIRED)
-
-include(FindKDE4)
 include(FindPortaudio)
-include(KDE4Defaults)
 include(FindQt4)
 
 set (QT_USE_QTMAIN true)
@@ -16,7 +11,7 @@ include(${QT_USE_FILE})
 FIND_LIBRARY(X11_XTest_LIB Xtst ${X11_LIB_SEARCH_PATH})
 
 include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/ )
-#add_definitions( ${KDE4_DEFINITIONS} )
+
 
 
 set (	simonGeneralSources
@@ -218,6 +213,8 @@ set ( simonWindowsSources
 kde4_add_kcfg_files(simonGeneralSources coreconfiguration.kcfgc)
 
 
+kde4_add_app_icon(simonGeneralSources "../icons/hi*-apps-simon.png")
+
 IF(UNIX)
 	MESSAGE(STATUS "UNIX detected! Congratulations!")
 	kde4_add_executable( simon ${simonGeneralSources} ${simonLinuxSources} )
@@ -228,7 +225,7 @@ IF(WIN32)
 	kde4_add_executable( simon ${simonGeneralSources} ${simonWindowsSources} )
 ENDIF(WIN32)
 
-
+install(FILES simon.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
 target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES} )
 

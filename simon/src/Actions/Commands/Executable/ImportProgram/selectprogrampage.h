@@ -45,6 +45,8 @@ public:
 
 	void initializePage();
 
+	void findCategories(QString relPath);
+
 	QString getExecPath();
 	QString getName();
 	QString getIcon();

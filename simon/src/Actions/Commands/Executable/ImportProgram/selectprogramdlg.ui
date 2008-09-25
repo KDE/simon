@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>395</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -16,14 +16,28 @@
    <item>
     <widget class="QSplitter" name="splitter" >
      <property name="orientation" >
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="KListWidget" name="lwCategories" />
+     <widget class="KListWidget" name="lwCategories" >
+      <property name="minimumSize" >
+       <size>
+        <width>0</width>
+        <height>350</height>
+       </size>
+      </property>
+     </widget>
      <widget class="KListWidget" name="lwPrograms" />
     </widget>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KListWidget</class>
+   <extends>QListWidget</extends>
+   <header>klistwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

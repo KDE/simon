@@ -241,9 +241,9 @@ void JuliusControl::messageReceived()
 			for (int i = 0; i<count; ++i)
 			{
 				msg >> text >> timestamp;
-				data.append(text);
-				stamp.append(timestamp);
-				stamp.append("\n");
+				data.append(text.toUtf8());
+				stamp.append(timestamp.toUtf8());
+				stamp.append('\n');
 			}
 			datafile->flush();
 			datafile->write(data);

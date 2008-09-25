@@ -94,7 +94,7 @@ void EventHandler::sendKey(const QChar& key) const
 		coreEvents->setModifierKey(VK_LSHIFT,false);
 		c = key.toLower().unicode();
 	} else c = key.unicode();
-#elif
+#else
 	c = key.unicode();
 #endif
 	coreEvents->sendKey(c);
