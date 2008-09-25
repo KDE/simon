@@ -120,22 +120,17 @@ set (	simonGeneralSources
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Logging/logmanager.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Logging/logger.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Logging/logentry.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ProgramManager/kdeprogrammanager.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ProgramManager/programmanager.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ProgramManager/categoryxmlreader.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/QuickDownloader/quickdownloader.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/XML/xmlreader.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/XML/xmldomreader.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/XML/xmlsaxreader.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/TrayIcon/trayiconmanager.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/KDELib/desktopreader.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/EventSimulation/eventhandler.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/EventSimulation/coreevents.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Settings/settings.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SimonInfo/osd.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SimonInfo/simoninfo.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/FileSystem/filesystemencoder.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/INI/inireader.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/PostProcessing/postprocessing.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/QuickUnpacker/quickunpacker.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/QuickUnpacker/bunzip.cpp
@@ -203,7 +198,6 @@ set ( simonLinuxSources
 	)
 
 set ( simonWindowsSources
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ProgramManager/windowsprogrammanager.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/WindowsLib/windowsresourcehandler.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/WindowsLib/registrymanager.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/EventSimulation/windowsevents.cpp
