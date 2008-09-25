@@ -213,7 +213,7 @@ set ( simonWindowsSources
 kde4_add_kcfg_files(simonGeneralSources coreconfiguration.kcfgc)
 
 
-kde4_add_app_icon(simonGeneralSources "../icons/hi*-apps-simon.png")
+kde4_add_app_icon(simonGeneralSources "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-simon.png")
 
 IF(UNIX)
 	MESSAGE(STATUS "UNIX detected! Congratulations!")
