@@ -7,7 +7,7 @@
 #include <KDebug>
 
 #ifdef Q_OS_WIN
-#include "../SimonLib/WindowsLib/registrymanager.h"
+#include "../../../SimonLib/WindowsLib/registrymanager.h"
 #endif
 
 

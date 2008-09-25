@@ -76,7 +76,7 @@ WindowsEvents::WindowsEvents() : CoreEvents()
 	keycodes->insert('<',0xE2);
 	keycodes->insert('\n',0x0D);
 	keycodes->insert('\r',0x0D);
-	keycodes->insert('\r\n',0x0D);
+	//keycodes->insert('\r\n',0x0D);
 	keycodes->insert('\t',0x09);
 
 

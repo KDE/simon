@@ -50,8 +50,8 @@ public:
        ~EventHandler();
 	void click(int x, int y);
 	void sendShortcut(const QKeySequence& shortcut) const;
-	void sendWord(const QString word) const;
-	void sendKey(const QChar key) const;
+	void sendWord(const QString& word) const;
+	void sendKey(const QChar& key) const;
 	void setModifier(const int virtualKey, const bool once) const;
 	void unsetModifier(const int virtualKey) const;
 	void sendKeyCode(const int keycode) const;

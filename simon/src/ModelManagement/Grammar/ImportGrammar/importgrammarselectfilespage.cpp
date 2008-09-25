@@ -19,7 +19,7 @@ ImportGrammarSelectFilesPage::ImportGrammarSelectFilesPage(QWidget* parent): QWi
 	setTitle(i18n("Eingabedateien"));
 	ui.setupUi(this);
 
-	ui.elbFiles->setCustomEditor(KEditListBox::CustomEditor(ui.urFileToAdd, ui.urFileToAdd->lineEdit()));
+	ui.elbFiles->setCustomEditor(*(new KEditListBox::CustomEditor(ui.urFileToAdd, ui.urFileToAdd->lineEdit())));
 	
 	registerField("files*", ui.elbFiles, "items", SIGNAL(changed()));
 	registerField("includeUnknown", ui.cbIncludeUnknown);

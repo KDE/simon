@@ -30,7 +30,7 @@ NetworkSettings::NetworkSettings(QWidget* parent): QWidget(parent) //SystemWidge
 // 	help = "simon verwendet für die Erkennung selbst die Open Source Spracherkennungs-engine \"Julius\".\nDie Verbindung zu Julius wird über das Netzwerk aufgebaut.\nDie Addresse zum Juliusd wird entweder mit einem Hostnamen oder einer direkten \"IP Adresse\" angegeben (4x3 stellige Netzwerksidentifikationsnummer - xxx.xxx.xxx.xxx)\nDie Port Nummer muss beim Juliusd und bei simon gleich sein.\n";
 
 	ServerAddressSelector *saSelector = new ServerAddressSelector(this);
-	ui.kcfg_JuliusdServers->setCustomEditor(KEditListBox::CustomEditor(saSelector, saSelector->lineEdit()));
+	ui.kcfg_JuliusdServers->setCustomEditor(*(new KEditListBox::CustomEditor(saSelector, saSelector->lineEdit())));
 
 // 	connect ( ui.pbAddAddress, SIGNAL ( clicked() ), this, SLOT ( addAddress() ) );
 // 	connect ( ui.pbDeleteAddress, SIGNAL ( clicked() ), this, SLOT ( deleteAddress() ) );

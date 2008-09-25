@@ -56,7 +56,7 @@ void EventHandler::click(int x, int y)
  * 
  * @author Peter Grasch
  */
-void EventHandler::sendWord(const QString word) const
+void EventHandler::sendWord(const QString& word) const
 {
 	for (int i=0; i < word.size();i++)
 	{
@@ -86,16 +86,18 @@ void EventHandler::sendShortcut(const QKeySequence& shortcut) const
  * @author Peter Grasch
  * \todo Shift gets unset a LOT
  */
-void EventHandler::sendKey(const QChar key) const
+void EventHandler::sendKey(const QChar& key) const
 {
+	unsigned int c;
 #ifdef Q_OS_WIN	
-	if (((c >= 'A') && (c <= 'Z')))
-	{
-		c+=32;
+	if (key.isUpper()) {
 		coreEvents->setModifierKey(VK_LSHIFT,false);
-	}
+		c = key.toLower().unicode();
+	} else c = key.unicode();
+#elif
+	c = key.unicode();
 #endif
-	coreEvents->sendKey(key.unicode());
+	coreEvents->sendKey(c);
 }
 
 EventHandler::~EventHandler()
