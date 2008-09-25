@@ -1,0 +1,17 @@
+[Desktop Entry]
+Icon=simon 
+
+Name=simon
+Name[de]=simon
+
+GenericName=Speech recognition
+GenericName[de]=Spracherkennung
+
+Exec=simon
+
+Comment=Speech recognition and model management
+Comment[de]=Spracherkennungs und -modelverwaltung
+
+Terminal=false
+
+Categories=Qt;KDE;Utilities;

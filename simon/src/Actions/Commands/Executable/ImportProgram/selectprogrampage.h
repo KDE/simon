@@ -52,8 +52,8 @@ public:
 
 
 
-//     public slots:
-//         void searchForPrograms();
+    public slots:
+        void searchForPrograms();
 };
 
 #endif

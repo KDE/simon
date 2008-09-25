@@ -19,6 +19,7 @@
  ***************************************************************************/
 #include "newuserdialog.h"
 #include <QMessageBox>
+#include <KLocalizedString>
 
 NewUserDialog::NewUserDialog(QWidget* parent, Qt::WindowFlags f): QDialog(parent, f)
 {

@@ -45,7 +45,7 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 
         registerField("executable*", ui.lwPrograms);
 
-//         connect(ui.lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
+        connect(ui.lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
 }
 
 /**
@@ -55,11 +55,27 @@ SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 void SelectProgramPage::initializePage()
 {
 	QList<KService::Ptr> services = KService::allServices();
+
+	QStringList categories;
+
 	for (int i=0; i<services.count(); i++)
 	{
 		if (!services[i]->isApplication()) continue;
-		qDebug() << services[i]->name()  << services[i]->genericName() << services[i]->exec() << services[i]->path();
+
+		QStringList newCategories = services[i]->categories();
+
+		for (int j=0; j<newCategories.count(); j++)
+			if (!categories.contains(newCategories[j]))
+				categories << newCategories[j];
+
+// 		qDebug() << services[i]->name()  << services[i]->genericName() << services[i]->exec() << services[i]->path();
 	}
+
+	for (int i=0; i<categories.count(); i++)
+		ui.lwCategories->addItems(categories);
+
+
+// 		ui.lwCategories->addItem(new QListWidgetItem(KIcon("unknown"), "title"));
 
 // 	ProgramCategoryList list = programManager->readCategories();
 // 	if (list.isEmpty()) 
@@ -166,8 +182,17 @@ QString SelectProgramPage::getName()
 *
 *   @author Susanne Tschernegg
 */
-// void SelectProgramPage::searchForPrograms()
-// {
+void SelectProgramPage::searchForPrograms()
+{
+	QList<KService::Ptr> services = KService::allServices();
+
+	for (int i=0; i<services.count(); i++)
+	{
+		if (!services[i]->isApplication()) continue;
+
+		qDebug() << services[i]->name()  << services[i]->genericName() << services[i]->exec() << services[i]->path();
+	}
+
 //     QString catName = ui.lwCategories->currentItem()->text();
 //     ProgramCategoryList catList = programManager->readCategories();
 //     for(int i=0; i<catList.count(); i++)
@@ -180,7 +205,7 @@ QString SelectProgramPage::getName()
 //             break;
 //         }
 //     }
-// }
+}
 
 /**
 *   \brief returns the workingdirectory, which the user set
