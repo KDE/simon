@@ -1,21 +1,28 @@
-//
-// C++ Implementation: internetextensionsettings
-//
-// Description: 
-//
-//
-// Author: Peter Grasch <bedahr@gmx.net>, (C) 2008
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
+/*
+ *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   or (at your option) any later version, as published by the Free
+ *   Software Foundation
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details
+ *
+ *   You should have received a copy of the GNU General Public
+ *   License along with this program; if not, write to the
+ *   Free Software Foundation, Inc.,
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 #include "internetextensionsettings.h"
 #include "../SimonLib/Settings/settings.h"
 #include <QIcon>
 
-InternetExtensionSettings::InternetExtensionSettings(QWidget* parent): QWidget(parent) //SystemWidget(i18n("Internet-Erweiterungen"), KIcon("document-open-remote"), i18n("Konfigurieren der URLS der Erweiterungs-Downloads"), parent)
+InternetExtensionSettings::InternetExtensionSettings(QWidget* parent): QWidget(parent)
 {
-// 	help = i18n("Hier können Sie URLS konfigurieren, um simon mit optionale Komponenten aus dem Internet zu erweitern");
 	ui.setupUi(this);
 
 	connect(ui.kcfg_WikiDumpPrefix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
@@ -29,25 +36,6 @@ InternetExtensionSettings::~InternetExtensionSettings()
 {
 }
 
-
-// bool InternetExtensionSettings::apply()
-// {
-// 	Settings::set("Internet/TextOnlineUpdate", ui.leTextUpdateURL->text());
-// 	Settings::set("Internet/WikiDumpOverview", ui.leWikiDumpUrls->text());
-// 	Settings::set("Internet/WikiDumpPrefix", ui.leWikiPrefix->text());
-// 	Settings::set("Internet/WikiDumpPostfix", ui.leWikiPostfix->text());
-// 	return true;
-// }
-
-// bool InternetExtensionSettings::init()
-// {
-// 	ui.leTextUpdateURL->setText(Settings::getS("Internet/TextOnlineUpdate"));
-// 	ui.leWikiDumpUrls->setText(Settings::getS("Internet/WikiDumpOverview"));
-// 	ui.leWikiPrefix->setText(Settings::getS("Internet/WikiDumpPrefix"));
-// 	ui.leWikiPostfix->setText(Settings::getS("Internet/WikiDumpPostfix"));
-// 	return true;
-// }
-
 void InternetExtensionSettings::makeExample()
 {
 	QString example;
@@ -56,14 +44,3 @@ void InternetExtensionSettings::makeExample()
 	example += ui.kcfg_WikiDumpPostfix->text();
 	ui.lbExample->setText(example);
 }
-
-// bool InternetExtensionSettings::isComplete()
-// {
-// 	return true; //nothing is mandatory
-// }
-
-// bool InternetExtensionSettings::reset()
-// {
-// 	return init();
-// }
-

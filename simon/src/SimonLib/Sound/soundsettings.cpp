@@ -1,14 +1,23 @@
-//
-// C++ Implementation: soundsettings
-//
-// Description: 
-//
-//
-// Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
+/*
+ *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   or (at your option) any later version, as published by the Free
+ *   Software Foundation
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details
+ *
+ *   You should have received a copy of the GNU General Public
+ *   License along with this program; if not, write to the
+ *   Free Software Foundation, Inc.,
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+
 #include "soundsettings.h"
 #include <KMessageBox>
 #include <KIcon>
@@ -20,18 +29,9 @@
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-SoundSettings::SoundSettings(QWidget* parent):QWidget(parent)// SystemWidget(i18n("Soundeinstellungen"), KIcon("preferences-desktop-sound"), i18n("Konfigurieren Sie hier ihre Audiogeräte und legen Einstellungen für dessen Verwendung fest"), parent)
+SoundSettings::SoundSettings(QWidget* parent):QWidget(parent)
 {
 	ui.setupUi(this);
-// 	guessChildTriggers(this);
-	//set help
-// 	help = i18n("Hier finden Sie alle Einstellungen zur Sound Ein- und Ausgabe.");
-
-// 	connect ( ui.kcfg_SoundInputDevice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
-// 	connect ( ui.kcfg_SoundOutputDevice, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
-// 	connect ( ui.cbChannels, SIGNAL(currentIndexChanged(int)), this, SIGNAL(changed()));
-// 	connect ( ui.sbSamplerate, SIGNAL(valueChanged(int)), this, SIGNAL(changed()));
-
 	connect(ui.pbTest, SIGNAL(clicked()), this, SLOT(checkWithSuccessMessage()));
 	connect(ui.pbReload, SIGNAL(clicked()), this, SLOT(init()));
 
@@ -105,43 +105,6 @@ bool SoundSettings::check()
 
 	return ok;
 }
-
-
-/**
- * \brief As there _must_ be an audio device selected  it might as well be the correct one - return true
- * \author Peter Grasch
- * @return always true
- */
-// bool SoundSettings::isComplete()
-// {
-// 	return true;
-// }
-
-/**
- * \brief Applys the changes
- * \author Peter Grasch
- * @return success
- */
-// bool SoundSettings::apply()
-// {
-// 	Settings::set("Sound/InputDevice", ui.kcfg_SoundInputDevice->itemData(ui.kcfg_SoundInputDevice->currentIndex()));
-// 	Settings::set("Sound/OutputDevice", ui.kcfg_SoundOutputDevice->itemData(
-// 		      ui.kcfg_SoundOutputDevice->currentIndex()));
-// 	Settings::set("Sound/Channels", ui.cbChannels->itemData(ui.cbChannels->currentIndex()));
-// 	Settings::set("Sound/Samplerate", ui.sbSamplerate->value());
-// 
-// 	return check();
-// }
-
-/**
- * \brief Resets the cxhanges
- * \author Peter Grasch
- * @return success
- */
-// bool SoundSettings::reset()
-// {
-// 	return init();
-// }
 
 /**
  * \brief Destructor

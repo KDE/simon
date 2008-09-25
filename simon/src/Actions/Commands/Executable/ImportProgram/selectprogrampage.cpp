@@ -1,30 +1,29 @@
-//
-// C++ Implementation: selectprogrampage
-//
-// Description:
-//
-//
-// Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
+/*
+ *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   or (at your option) any later version, as published by the Free
+ *   Software Foundation
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details
+ *
+ *   You should have received a copy of the GNU General Public
+ *   License along with this program; if not, write to the
+ *   Free Software Foundation, Inc.,
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 #include "selectprogrampage.h"
-#include <KMessageBox>
 
 #include <KListWidget>
 #include <QListWidgetItem>
 #include <QWidget>
 #include <KService>
 #include <KServiceGroup>
-#include <QDebug>
-
-// #ifdef Q_OS_UNIX
-// #include "../../SimonLib/ProgramManager/kdeprogrammanager.h"
-// #endif
-// #ifdef Q_OS_WIN
-// #include "../../SimonLib/ProgramManager/windowsprogrammanager.h"
-// #endif
 
 /**
 *   \brief Constructor
@@ -37,13 +36,7 @@
 SelectProgramPage::SelectProgramPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
-// #ifdef Q_OS_UNIX
-// 	this->programManager = new KDEProgramManager();
-// #endif
-// #ifdef Q_OS_WIN
-// 	this->programManager = new WindowsProgramManager();
-// #endif
-
+	
         registerField("executable*", ui.lwPrograms);
 
         connect(ui.lwCategories, SIGNAL(itemSelectionChanged()), this, SLOT(searchForPrograms()));
@@ -92,68 +85,8 @@ void SelectProgramPage::findCategories(QString relPath)
 */
 SelectProgramPage::~SelectProgramPage()
 {
-//     delete programManager;
+	
 }
-
-/**
-*   \brief gets the whole exe-name of the program (e.g. program.exe)
-*
-*   @author Peter Grasch
-*   @return QString
-*       returns the name of the .exe file
-*/
-QString SelectProgramPage::getExecPath()
-{
-	Q_ASSERT(ui.lwPrograms->currentItem());
-	return ui.lwPrograms->currentItem()->data(Qt::UserRole+1).toString();
-}
-
-/**
-*   \brief gets the iconsrc of the program
-*
-*   @author Peter Grasch
-*/
-QString SelectProgramPage::getIcon()
-{
-	Q_ASSERT(ui.lwPrograms->currentItem());
-	return ui.lwPrograms->currentItem()->data(Qt::UserRole+2).toString();
-}
-
-
-/**
-*   \brief gets the name of the program
-*
-*   @author Peter Grasch
-*   @return QString
-*       returns the name of the program
-*/
-QString SelectProgramPage::getName()
-{
-	Q_ASSERT(ui.lwPrograms->currentItem());
-	return ui.lwPrograms->currentItem()->data(Qt::UserRole).toString();
-}
-
-/**
-*   \brief inserts all given programms in a list
-*
-*   @author Susanne Tschernegg
-*   @param ProgramList *programList
-*       is a list, which holds all programms of a specified category
-*/
-// void SelectProgramPage::insertPrograms(const ProgramList *programList)
-// {
-//     ui.lwPrograms->clear();
-//     QListWidgetItem* lwItem;
-//     for (int i=0; i<programList->count(); i++)
-//     {
-//         lwItem = new QListWidgetItem(ui.lwPrograms);
-//         lwItem->setText(programList->at(i).getName());
-// 	lwItem->setIcon(programList->at(i).getIcon());
-//         lwItem->setData(Qt::UserRole, programList->at(i).getExec());
-//         lwItem->setData(Qt::UserRole+1, programList->at(i).getIconPath());
-//         lwItem->setData(Qt::UserRole+2, programList->at(i).getPath());
-//     }
-// }
 
 /**
 *   \brief searches for all programs, which contains the associated formats of a category
@@ -207,3 +140,41 @@ QString SelectProgramPage::getWorkingDirectory()
 	return ui.lwPrograms->currentItem()->data(Qt::UserRole+3).toString();
 }
 
+
+/**
+*   \brief gets the whole exe-name of the program (e.g. program.exe)
+*
+*   @author Peter Grasch
+*   @return QString
+*       returns the name of the .exe file
+*/
+QString SelectProgramPage::getExecPath()
+{
+	Q_ASSERT(ui.lwPrograms->currentItem());
+	return ui.lwPrograms->currentItem()->data(Qt::UserRole+1).toString();
+}
+
+/**
+*   \brief gets the iconsrc of the program
+*
+*   @author Peter Grasch
+*/
+QString SelectProgramPage::getIcon()
+{
+	Q_ASSERT(ui.lwPrograms->currentItem());
+	return ui.lwPrograms->currentItem()->data(Qt::UserRole+2).toString();
+}
+
+
+/**
+*   \brief gets the name of the program
+*
+*   @author Peter Grasch
+*   @return QString
+*       returns the name of the program
+*/
+QString SelectProgramPage::getName()
+{
+	Q_ASSERT(ui.lwPrograms->currentItem());
+	return ui.lwPrograms->currentItem()->data(Qt::UserRole).toString();
+}

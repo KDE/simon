@@ -1,14 +1,23 @@
-//
-// C++ Implementation: generalsettings
-//
-// Description: 
-//
-//
-// Author: Peter Grasch <bedahr@gmx.net>, (C) 2007
-//
-// Copyright: See COPYING file that comes with this distribution
-//
-//
+/*
+ *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   or (at your option) any later version, as published by the Free
+ *   Software Foundation
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details
+ *
+ *   You should have received a copy of the GNU General Public
+ *   License along with this program; if not, write to the
+ *   Free Software Foundation, Inc.,
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+
 #include "generalsettings.h"
 #include <QInputDialog>
 #include <KFile>
@@ -19,39 +28,10 @@
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-GeneralSettings::GeneralSettings(QWidget* parent): QWidget(parent) //i18n("Allgemeine Einstellungen"), KIcon("computer"), i18n("Grundlegende Einstellungen rund um Simon"), parent)
+GeneralSettings::GeneralSettings(QWidget* parent): QWidget(parent)
 {
 	ui.setupUi(this);
-// 	guessChildTriggers(this);
-
-	//set help
-	//help = i18n("Hier können Sie grundlegende Einstellungen rund um Simon verändern.\n\nDazu zählen: Pfade und Sicherheitsabfragen.\n\nEinstellungen in diesem Modul können kritisch für die Verwendung von simon sein.\n\nWenn das Häckchen \"Starte juliusd wenn nötig\" aktiviert ist, wird versucht juliusd lokal zu starten, sollte zu keinem laufenden Dämon verbunden werden können.");
 }
-
-/**
- * \brief Applys the changed settings
- * \author Peter Grasch
- * @return Success
- */
-// bool GeneralSettings::apply()
-// {
-
-// #ifdef Q_OS_WIN
-// 	QSettings settings;
-// 	settings.setPath("Microsoft", "Windows", QSettings::UserScope);
-// 	if (ui.cbStartSimonOnBoot->isChecked()) {
-// 		// Want to start on boot up
-// 		QString appPath = qApp->applicationFilePath();
-// 		settings.writeEntry("/CurrentVersion/Run/simon.exe", appPath);
-// 	} else {
-// 		// Do not want to start on boot up
-// 		settings.removeEntry("/CurrentVersion/Run/simon.exe");
-// 	}
-// #endif
-
-// 	return true;
-// }
-
 
 
 
