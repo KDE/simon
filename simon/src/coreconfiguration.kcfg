@@ -19,7 +19,7 @@
       <label>If the user needs a password to access the administration mode.</label>
       <default>false</default>
     </entry>
-    <entry name="AdminPassword" type="String">
+    <entry name="AdminPassword" type="Password">
       <label>The password-hash for the administration mode.</label>
       <default></default>
     </entry>
@@ -114,7 +114,7 @@
     <entry name="JuliusdUsername" type="String">
       <label>The username for Juliusd.</label>
     </entry>
-    <entry name="JuliusdPassword" type="String">
+    <entry name="JuliusdPassword" type="Password">
       <label>The password for Juliusd.</label>
     </entry>
     <entry name="JuliusdEncrypted" type="Bool">

@@ -34,10 +34,10 @@
  *
  *	@author Peter Grasch
 */
-SimonControl::SimonControl() : QObject ()
+SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 {
 	setStatus(SimonControl::Disconnected);
-	this->julius = new JuliusControl();
+	this->julius = new JuliusControl(parent);
 	this->actionManager = ActionManager::getInstance();
 	QObject::connect(actionManager, SIGNAL(guiAction(QString)), this, SIGNAL(guiAction(QString)));
 	

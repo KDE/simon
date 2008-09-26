@@ -30,6 +30,7 @@
 #include <QStringList>
 #include <KMessageBox>
 #include <KLocalizedString>
+#include <KPasswordDialog>
 
 /**
  *	@brief Constructor
@@ -41,7 +42,7 @@
  *	@param qint16 port
  *	Port the Server should listen to
  */
-JuliusControl::JuliusControl()
+JuliusControl::JuliusControl(QWidget *parent) : QObject(parent)
 {
 	socket = new QSslSocket();
 	timeoutWatcher = new QTimer(this);
@@ -328,6 +329,26 @@ void JuliusControl::login()
 {
 	QString user = CoreConfiguration::juliusdUsername();
 	QString pass = CoreConfiguration::juliusdPassword();
+
+	if (user.isEmpty())
+	{
+		KPasswordDialog dlg( dynamic_cast<QWidget*>(parent()), 
+					KPasswordDialog::ShowUsernameLine|KPasswordDialog::ShowKeepPassword );
+		dlg.setPrompt( i18n( "Bitte geben Sie die Benutzerdaten für die Verbindung zum Juliusd an." ));
+		if( !dlg.exec() || dlg.username().isEmpty() )
+		{
+			disconnectFromServer(); //the user canceled
+			return;
+		}
+		user = dlg.username();
+		pass = dlg.password();
+
+		if (dlg.keepPassword())
+		{
+			CoreConfiguration::setJuliusdUsername(user);
+			CoreConfiguration::setJuliusdPassword(pass);
+		}
+	}
 
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);

@@ -101,7 +101,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	info->writeToSplash ( i18n ( "Lade Programmlogik..." ) );
 	
-	this->control = new SimonControl ();
+	this->control = new SimonControl (this);
 	this->trayManager = new TrayIconManager( this);
 	this->trayManager->createIcon ( KIcon("simon"), i18n("simon"));
 
@@ -611,16 +611,11 @@ void SimonView::checkSettingState()
 bool SimonView::checkPassword()
 {
 	KPasswordDialog dlg( this , KPasswordDialog::NoFlags );
-	dlg.setPrompt( i18n( "Dieser Bereich wurde passwortgeschützt.\n\nBitte geben Sie das Passwort ein:" ));
+	dlg.setPrompt( i18n( "Dieser Bereich wurde passwortgeschützt." ));
 	if( !dlg.exec() )
 		return false; //the user canceled
 		
-	QString password = CoreConfiguration::adminPassword();
-	QCryptographicHash *hasher = new QCryptographicHash(QCryptographicHash::Md5);
-	hasher->addData(dlg.password().toUtf8());
-	QString hash = hasher->result();
-	
-	return (password == hash);
+	return (dlg.password() == CoreConfiguration::adminPassword());
 }
 
 /**

@@ -66,7 +66,7 @@ public:
 	SimonControl::SystemStatus getStatus() const {return status;}
 	void setStatus(SimonControl::SystemStatus status);
 
-	SimonControl();
+	SimonControl(QWidget *parent=0);
 
 	~SimonControl();
 	

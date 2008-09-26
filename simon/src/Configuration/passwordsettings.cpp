@@ -19,103 +19,41 @@
 
 #include "passwordsettings.h"
 #include <KMessageBox>
-#include <QCryptographicHash>
+#include <knewpassworddialog.h>
 #include <KLocalizedString>
+#include "coreconfiguration.h"
 
 
-//TODO: PORT ME TO KNEWPASSWORDDIALOG
-
-PasswordSettings::PasswordSettings(QWidget* parent): QWidget(parent) //SystemWidget(i18n("Passwort-Sicherung"), KIcon("document-encrypt"), i18n("Sichern Sie simons Systemeinstellungen mit einem Passwort"), parent)
+PasswordSettings::PasswordSettings(QWidget* parent): QWidget(parent)
 {
 	ui.setupUi(this);
-// 	help=i18n("Wenn der Passwortschutz deaktiviert ist, muss nur auf den Knopf \"Systemverwaltungsmodus\" geklickt werden, damit alle (System-) Optionen angezeigt werden.");
-//	connect(ui.lePassword2, SIGNAL(editingFinished()), this, SLOT(checkPassword()));
-//	connect(ui.lePassword, SIGNAL(textChanged(QString)), this, SLOT(unsetHashed()));
-//	connect(ui.lePassword2, SIGNAL(textChanged(QString)), this, SLOT(unsetHashed()));
-//	connect(ui.pbResetPassword, SIGNAL(toggled(bool)), this, SLOT(resetButtonClicked(bool)));
 
-
-//	connect(ui.cbCheckPassword, SIGNAL(stateChanged(int)), this, SIGNAL(changed()));
-//	connect(ui.lePassword, SIGNAL(editingFinished()), this, SIGNAL(changed()));
-//	connect(ui.lePassword2, SIGNAL(editingFinished()), this, SIGNAL(changed()));
+	connect(ui.kcfg_PasswordProtected, SIGNAL(toggled(bool)), this, SLOT(checkPassword()));
+	connect(ui.pbResetPassword, SIGNAL(clicked()), this, SLOT(newPassword()));
 }
 
 void PasswordSettings::checkPassword()
 {
-	if (!checkIfPasswordsSane())
-		KMessageBox::error(this, i18n("Die eingegebenen Passwörter des simon-Passwortschutz' stimmen nicht überein.\n\nBitte geben Sie sie erneut ein."));
+	if (ui.kcfg_PasswordProtected->isChecked() && CoreConfiguration::adminPassword().isEmpty())
+	{
+		newPassword();
+
+		if (CoreConfiguration::adminPassword().isEmpty()) //still?
+			ui.kcfg_PasswordProtected->setChecked(false);
+	}
 }
 
-bool PasswordSettings::checkIfPasswordsSane()
+void PasswordSettings::newPassword()
 {
-	return true;
-//	return (ui.lePassword->text() == ui.lePassword2->text());
+	KNewPasswordDialog *dlg = new KNewPasswordDialog( this );
+	dlg->setPrompt( i18n( "Bitte geben Sie das gewünschte Systemverwaltungspasswort an." ));
+	if (dlg->exec())
+	{
+		CoreConfiguration::setAdminPassword(dlg->password());
+	}
 }
 
 
 PasswordSettings::~PasswordSettings()
 {
 }
-
-void PasswordSettings::resetButtonClicked(bool isDown)
-{
-/*	if (isDown) {
-		ui.lePassword->clear();
-		ui.lePassword2->clear();
-	} else
-	{
-		ui.lePassword->setText(originalHash);
-		ui.lePassword2->setText(originalHash);
-	}*/
-}
-
-/*bool PasswordSettings::apply()
-{
-	//password
-	Settings::set("Passwordprotected", ui.cbCheckPassword->isChecked());
-	if (checkIfPasswordsSane())
-	{
-		QString hash;
-		if (!isHashed)
-		{
-			QCryptographicHash *hasher = new QCryptographicHash(QCryptographicHash::Md5);
-//			hasher->addData(ui.lePassword->text().toUtf8());
-			hash = hasher->result();
-			delete hasher;
-		} //else hash = ui.lePassword->text();
-
-		Settings::set("Password", hash);
-	} else {
-		checkPassword(); //shows error
-		return false;
-	}
-	if (ui.pbResetPassword->isChecked())
-	{
-		ui.pbResetPassword->animateClick();
-	}
-
-	return true;
-}*/
-/*
-bool PasswordSettings::isComplete()
-{
-	return true;
-//	return (!ui.cbCheckPassword->isChecked() || ((checkIfPasswordsSane()) && (!ui.lePassword->text().isEmpty())));
-}
-
-bool PasswordSettings::init()
-{
-	//password
-	ui.cbCheckPassword->setChecked(Settings::getB("Passwordprotected"));
-	originalHash = Settings::getS("Password");
-	//ui.lePassword->setText(originalHash);
-	//ui.lePassword2->setText(originalHash);
-	isHashed = true;
-	return true;
-}*/
-
-// bool PasswordSettings::reset()
-// {
-// 	return init();
-// }
-

@@ -49,12 +49,13 @@ signals:
 	void disconnected();
 
 	/*
-	  Errors are ALWAYS fatal.
+	  Errors emitted are ALWAYS fatal.
 	  This signal will only be emitted when an error occurs that _aborts_ the current process.
 	
-	  BUT, there might be some errors that can be skipped, altough it is not recommended.
+	  BUT, there might be some errors that could have been skipped, altough it is not recommended.
 	  Those errors can be skipped by setting the corresponding Setting in the juliusd-configuration.
-	  If the error is technically not fatal, but is made fatal by setting this configuration item to "false".
+	  If the error is technically not fatal, but is made fatal by setting this configuration item to false, 
+	  skippable is true
 	*/
 	void error(QString errStr, bool skippable=false);
 	void connectionError(QString errStr);
@@ -62,6 +63,10 @@ signals:
 
 	/*-----------------user management-----------------*/
 	void loggedIn();
+
+
+
+	/*-------------------recognition-------------------*/
 	void recognised(QString, QString sampa, QString samparaw);
 	
 
@@ -83,7 +88,7 @@ private slots:
 	void sendRequest (qint32 request);
 
 public:
-	JuliusControl();
+	JuliusControl(QWidget *parent=0);
 
     ~JuliusControl();
 

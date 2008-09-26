@@ -31,24 +31,15 @@ class PasswordSettings : public QWidget
 Q_OBJECT
 private:
 	Ui::PasswordSettingsDlg ui;
-	bool checkIfPasswordsSane();
-	bool isHashed;
-	QString originalHash;
+
 private slots:
+	void newPassword();
 	void checkPassword();
-	void resetButtonClicked(bool isDown);
-	void unsetHashed()
-	{ isHashed=false; }
+
 public:
     PasswordSettings(QWidget* parent);
 
     ~PasswordSettings();
-
-public slots:
-//     bool apply();
-//     bool init();
-//     bool reset();
-//     bool isComplete();
 
 };
 
