@@ -19,7 +19,6 @@
 
 #include "desktopgridcommandmanager.h"
 #include <KLocalizedString>
-#include "../../../SimonLib/Settings/settings.h"
 #include "../../../SimonLib/Logging/logger.h"
 #include "screengrid.h"
 
@@ -34,7 +33,8 @@ const QString DesktopGridCommandManager::name() const
 
 bool DesktopGridCommandManager::trigger(const QString& triggerName)
 {
-	if (triggerName != Settings::getS("Commands/DesktopGrid/Trigger")) return false;
+// 	if (triggerName != Settings::getS("Commands/DesktopGrid/Trigger")) return false;
+	return false;
 
 	Logger::log(i18n("[INF] Aktiviere Desktopgitter"));
 	ScreenGrid *screenGrid = new ScreenGrid();

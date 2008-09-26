@@ -18,6 +18,15 @@
  */
 
 
+#include "wordlistmanager.h"
+#include "ImportDict/importdictview.h"
+#include "../Training/trainingview.h"
+#include "../../SimonLib/Logging/logger.h"
+#include "../WordList/wordlistview.h"
+#include "../WordList/RemoveWord/deleteworddialog.h"
+#include "../modelmanager.h"
+#include "coreconfiguration.h"
+
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QString>
@@ -25,14 +34,6 @@
 #include <KProgressDialog>
 #include <QCoreApplication>
 #include <KIcon>
-#include "wordlistmanager.h"
-#include "ImportDict/importdictview.h"
-#include "../Training/trainingview.h"
-#include "../../SimonLib/Logging/logger.h"
-#include "../WordList/wordlistview.h"
-#include "../../SimonLib/Settings/settings.h"
-#include "../WordList/RemoveWord/deleteworddialog.h"
-#include "../modelmanager.h"
 
 /**
  * @brief Constructor
@@ -356,7 +357,7 @@ void WordListView::insertVocab(WordList *vocab)
 	int startAmount=ui.twVocab->rowCount();
 	int currentRow = startAmount;
         int i=0;
-	int limit=Settings::getI("Performance/MaxDisplayedWords");
+	int limit=CoreConfiguration::maxConcurrentlyDisplayedWords();
 	KProgressDialog *pgDlg = new KProgressDialog(this, i18n("Lade Wortliste..."), i18n("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Wörterbuch nicht!)"));
 	pgDlg->progressBar()->setMaximum((vocab->count() < limit) ? vocab->count() : limit);
 

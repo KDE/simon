@@ -32,8 +32,8 @@
 #include "wavrecorder.h"
 #include "wavplayer.h"
 #include "../PostProcessing/postprocessing.h"
-#include "../Settings/settings.h"
 #include "../Logging/logger.h"
+#include "coreconfiguration.h"
 
 /**
  * \brief Constructor
@@ -181,7 +181,7 @@ void RecWidget::displayPlaybackProgress(int msecs)
 void RecWidget::record()
 {
 	QString fName = this->filename;
-	if (Settings::getB("Model/ProcessInternal"))
+	if (CoreConfiguration::processInternal())
 		fName += "_tmp";
 	if (!rec->record(fName))
 	{
@@ -222,13 +222,13 @@ void RecWidget::finishPlayback()
 void RecWidget::stopRecording()
 {
 	QString fName = this->filename;
-	if (Settings::getB("Model/ProcessInternal"))
+	if (CoreConfiguration::processInternal())
 		fName += "_tmp";
 
 	if (!rec->finish())
 		KMessageBox::error(this, i18n("Abschließen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!", fName));
 		
-	if (Settings::getB("Model/ProcessInternal"))
+	if (CoreConfiguration::processInternal())
 // 		if (!QFile::copy(fName, filename) || !QFile::remove(fName))
 		if (!postProc->process(fName, filename, true))
 			KMessageBox::error(this, i18n("Nachbearbeitung fehlgeschlagen"));

@@ -20,9 +20,10 @@
 
 #include "importtrainingtextremotepage.h"
 #include "../../../SimonLib/Logging/logger.h"
-#include "../../../SimonLib/Settings/settings.h"
 #include "../../../SimonLib/QuickDownloader/quickdownloader.h"
 #include "xmltrainingtextlist.h"
+#include "coreconfiguration.h"
+
 #include <KMessageBox>
 
 /**
@@ -47,7 +48,7 @@ void ImportTrainingTextRemotePage::initializePage()
 	Logger::log(i18n("[INF] Abrufen der Liste von verfügbaren Trainingstexten"));
 	
 	connect (downloader, SIGNAL(downloadFinished(QString)), this, SLOT(importList(QString)));
-	downloader->download(Settings::getS("Internet/TextOnlineUpdate"));
+	downloader->download(CoreConfiguration::textOnlineUpdate());
 }
 
 /**

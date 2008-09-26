@@ -24,7 +24,7 @@
 #include <QFile>
 #include <KLocalizedString>
 #include "../Logging/logger.h"
-#include "../Settings/settings.h"
+#include "coreconfiguration.h"
 
 
 /**
@@ -71,7 +71,7 @@ void Bunzip::extract(QString filename)
 	this->filename = filename;
 	if (QFile::exists(this->filename.remove(QRegExp(".bz2$")))) 
 		QFile::remove(this->filename.remove(QRegExp(".bz2$")));;
-	proc->start("\""+Settings::getS("Programs/Files/BZip2")+"\n -d \""+filename+"\"");
+	proc->start("\""+CoreConfiguration::bzip2().path()+"\n -d \""+filename+"\"");
 }
 
 /**
@@ -107,7 +107,7 @@ void Bunzip::extractingFinishing(int code)
 {
 	if (code!=0)
 	{
-		emit errorOccured(i18n("Es ist ein Fehler beim Entpacken aufgetreten.\n\nBitte überprüfen Sie ob Sie das Paket \"bzip2\" installiert haben und der Pfad richtig gesetzt ist(%1).\n\n(Rückgabewert %2)", Settings::getS("Programs/Files/BZip2"), code));
+		emit errorOccured(i18n("Es ist ein Fehler beim Entpacken aufgetreten.\n\nBitte überprüfen Sie ob Sie das Paket \"bzip2\" installiert haben und der Pfad richtig gesetzt ist(%1).\n\n(Rückgabewert %2)", CoreConfiguration::bzip2().path(), code));
 		cancel();
 		Logger::log(i18n("[ERR] Programm \"bzip2 -d\" gab nicht %1 zurück", code));
 	} else {

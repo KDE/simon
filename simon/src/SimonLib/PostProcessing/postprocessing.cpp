@@ -26,7 +26,7 @@
 #include <QCoreApplication>
 #include <QObject>
 #include <KLocalizedString>
-#include "../Settings/settings.h"
+#include "coreconfiguration.h"
 
 PostProcessing::PostProcessing()
 {
@@ -47,7 +47,7 @@ bool PostProcessing::process(QString in, QString out, bool deleteIn)
 		return false;
 	}
 	
-	QStringList filters = Settings::getS("Model/ProcessingFilters").split(" && ", QString::SkipEmptyParts);
+	QStringList filters = CoreConfiguration::processingFilters();
 	QString filter;
 	progDialog->progressBar()->setMaximum(filter.count()+1);
 	QCoreApplication::processEvents();
@@ -56,8 +56,8 @@ bool PostProcessing::process(QString in, QString out, bool deleteIn)
 		QString execStr = filters.at(j);
 		execStr.replace("\%1", in);
 		execStr.replace("\%2", out);
-		execStr.replace("\%3", Settings::getS("Model/SampleRate"));
-		execStr.replace("\%4", Settings::getS("Model/Channels"));
+		execStr.replace("\%3", QString::number(CoreConfiguration::modelSampleRate()));
+		execStr.replace("\%4", QString::number(CoreConfiguration::modelChannels()));
 		int ret = QProcess::execute(execStr);
 		if (ret)
 		{

@@ -19,9 +19,6 @@
 
 
 #include "generalsettings.h"
-#include <QInputDialog>
-#include <KFile>
-#include "../SimonLib/Settings/settings.h"
 
 /**
  * \brief Constructs a new GeneralSettings object

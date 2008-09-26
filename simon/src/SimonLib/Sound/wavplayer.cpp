@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../Logging/logger.h"
-#include "../Settings/settings.h"
+#include "coreconfiguration.h"
 #include "wav.h"
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
 
@@ -119,7 +119,7 @@ bool WavPlayer::play( QString filename )
 
 	int channels = wav->getChannels();
 	int sampleRate = wav->getSampleRate();
-	outputParameters.device = Settings::getI("Sound/OutputDevice");
+	outputParameters.device = CoreConfiguration::soundOutputDevice();
 
 	outputParameters.channelCount = channels;
 	outputParameters.sampleFormat = paFloat32;

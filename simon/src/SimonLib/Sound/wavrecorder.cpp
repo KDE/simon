@@ -18,12 +18,13 @@
  */
 
 #include "wavrecorder.h"
-#include <QObject>
 #include "wav.h"
+#include "../Logging/logger.h"
+#include "coreconfiguration.h"
+
+#include <QObject>
 #include <stdlib.h>
 #include <string.h>
-#include "../Logging/logger.h"
-#include "../Settings/settings.h"
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
 
 /**
@@ -41,6 +42,9 @@ WavRecorder::WavRecorder(QObject *parent) : QObject(parent)
 int processInputData( const void *inputBuffer, void *outputBuffer, unsigned long framesPerBuffer,
 		 const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags status, void *userData )
 {
+	Q_UNUSED(timeInfo);
+	Q_UNUSED(status);
+
 	if (!inputBuffer) return paContinue;
 
 	(void) outputBuffer; //prevent unused-variable-message
@@ -87,7 +91,7 @@ bool WavRecorder::record(QString filename)
 	if (wavData)
 	{
 		delete wavData;
-wavData = 0;
+		wavData = 0;
 	}
 
 
@@ -99,9 +103,9 @@ wavData = 0;
 
 	bzero( &inputParameters, sizeof( inputParameters ) );
 
-	int channels = Settings::getI("Sound/Channels");
-	int sampleRate = Settings::getI("Sound/SampleRate");
-	inputParameters.device = Settings::getI("Sound/InputDevice");
+	int channels = CoreConfiguration::soundChannels();
+	int sampleRate = CoreConfiguration::soundSampleRate();
+	inputParameters.device = CoreConfiguration::soundInputDevice();
 
 	inputParameters.channelCount = channels;
 	inputParameters.sampleFormat = paFloat32;

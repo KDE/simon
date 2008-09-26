@@ -18,7 +18,6 @@
  */
 
 #include "modelsettings.h"
-#include "../SimonLib/Settings/settings.h"
 #include <QTableWidget>
 #include <QInputDialog>
 #include <QTableWidgetItem>

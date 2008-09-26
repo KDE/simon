@@ -29,7 +29,6 @@
 #include <QBrush>
 #include <QRect>
 #include <QColor>
-#include "../../../SimonLib/Settings/settings.h"
 #include "../../../SimonLib/EventSimulation/eventhandler.h"
 
 ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent, 
@@ -64,7 +63,7 @@ ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent,
 	}
 
 	
-	if (!Settings::getB("Commands/DesktopGrid/RealTransparency"))
+	if (!false) //Settings::getB("Commands/DesktopGrid/RealTransparency"))
 	{
 		background = new QLabel(this);
 		background->lower();
@@ -139,7 +138,7 @@ void ScreenGrid::regionSelected()
 	repaint();
 
 	
-	if (!Settings::getB("Commands/DesktopGrid/RealTransparency"))
+	if (!false) //Settings::getB("Commands/DesktopGrid/RealTransparency"))
 	{
 		background->resize(size());
 		background->move(0,0);

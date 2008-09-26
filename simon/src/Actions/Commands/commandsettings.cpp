@@ -18,7 +18,6 @@
  */
 
 #include "commandsettings.h"
-#include "../../SimonLib/Settings/settings.h"
 
 /**
  * \brief Constructor

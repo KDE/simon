@@ -127,7 +127,6 @@ set (	simonGeneralSources
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/TrayIcon/trayiconmanager.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/EventSimulation/eventhandler.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/EventSimulation/coreevents.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Settings/settings.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SimonInfo/osd.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SimonInfo/simoninfo.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/FileSystem/filesystemencoder.cpp

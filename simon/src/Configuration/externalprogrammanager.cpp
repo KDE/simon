@@ -19,8 +19,6 @@
 
 
 #include "externalprogrammanager.h"
-#include <KIcon>
-#include "../SimonLib/Settings/settings.h"
 
 /**
  * \brief Constructor

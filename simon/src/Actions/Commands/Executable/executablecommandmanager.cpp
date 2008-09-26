@@ -17,11 +17,11 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "executablecommandmanager.h"
-#include <KLocalizedString>
-#include "../../../SimonLib/Settings/settings.h"
 #include "../../../SimonLib/Logging/logger.h"
 #include "xmlexecutablecommand.h"
 #include "executablecommand.h"
+#include <KLocalizedString>
+#include <KStandardDirs>
 
 
 ExecutableCommandManager::ExecutableCommandManager(QObject *parent) :CommandManager(parent)  
@@ -46,7 +46,7 @@ const QString ExecutableCommandManager::name() const
 
 bool ExecutableCommandManager::load()
 {
-	QString commandPath = Settings::getS("Commands/Executable/PathToConfig");
+	QString commandPath = KStandardDirs::locate("appdata", "conf/executables.xml");
 	Logger::log(i18n("[INF] Lade Ausführbare-Kommandos von %1", commandPath));
 
 	bool ok = false;
@@ -56,7 +56,7 @@ bool ExecutableCommandManager::load()
 
 bool ExecutableCommandManager::save()
 {
-	QString commandPath = Settings::getS("Commands/Executable/PathToConfig");
+	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/executables.xml");
 	Logger::log(i18n("[INF] Speichere Ausführbare-Kommandos nach %1", commandPath));
 	return xmlExecutableCommand->save(commands, commandPath);
 }

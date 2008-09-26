@@ -18,8 +18,6 @@
  */
 
 #include "internetextensionsettings.h"
-#include "../SimonLib/Settings/settings.h"
-#include <QIcon>
 
 InternetExtensionSettings::InternetExtensionSettings(QWidget* parent): QWidget(parent)
 {

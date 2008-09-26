@@ -18,11 +18,11 @@
  */
 
 #include "shortcutcommandmanager.h"
-#include "../../../SimonLib/Settings/settings.h"
 #include "../../../SimonLib/Logging/logger.h"
 #include "xmlshortcutcommand.h"
 #include "shortcutcommand.h"
 #include <KLocalizedString>
+#include <KStandardDirs>
 
 
 ShortcutCommandManager::ShortcutCommandManager(QObject *parent) :CommandManager(parent)  
@@ -48,7 +48,7 @@ const QString ShortcutCommandManager::name() const
 
 bool ShortcutCommandManager::load()
 {
-	QString commandPath = Settings::getS("Commands/Shortcut/PathToConfig");
+	QString commandPath = KStandardDirs::locate("appdata", "conf/shortcuts.xml");
 	Logger::log(i18n("[INF] Lade Tastenkürzel von %1", commandPath));
 
 	bool ok = false;
@@ -58,7 +58,7 @@ bool ShortcutCommandManager::load()
 
 bool ShortcutCommandManager::save()
 {
-	QString commandPath = Settings::getS("Commands/Shortcut/PathToConfig");
+	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/shortcuts.xml");
 	Logger::log(i18n("[INF] Speichere Shortcut-Kommandos nach %1", commandPath));
 	return xmlShortcutCommand->save(commands, commandPath);
 }

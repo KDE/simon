@@ -19,21 +19,12 @@
 
 
 #include "importdictwiktionarypage.h"
-#include <QLabel>
-#include <KLineEdit>
-#include <KListWidget>
-#include <KPushButton>
-#include <QRadioButton>
-#include <QFileDialog>
+#include "simonlistwidget.h"
+#include "../../../SimonLib/QuickDownloader/quickdownloader.h"
+#include "coreconfiguration.h"
 #include <QFile>
 #include <QTextStream>
-#include <QVBoxLayout>
 #include <KMessageBox>
-#include <QHBoxLayout>
-#include <QIcon>
-#include "simonlistwidget.h"
-#include "../../../SimonLib/Settings/settings.h"
-#include "../../../SimonLib/QuickDownloader/quickdownloader.h"
 
 /**
  * \brief Constructor - Inits the gui
@@ -106,7 +97,7 @@ void ImportDictWiktionaryPage::importList(QString list)
 		wikiName = txtList.mid(wikiStart+29, 12);
 		date = wikiUrl.mid(wikiUrl.indexOf("/")+1);
 		wikiUrl = 
-			Settings::getS("Internet/WikiDumpPrefix")+wikiUrl+"/"+wikiName+"-"+date+Settings::getS("Internet/WikiDumpPostfix");
+			CoreConfiguration::wikiDumpPrefix()+wikiUrl+"/"+wikiName+"-"+date+CoreConfiguration::wikiDumpPostfix();
 		
 		txtList = txtList.mid(wikiStart+40);
 
@@ -133,7 +124,7 @@ void ImportDictWiktionaryPage::loadList()
 	QuickDownloader *qDownloader = new QuickDownloader(this);
 	connect(qDownloader, SIGNAL(downloadFinished(QString)), this, SLOT(importList(QString)));
 
-	QString url = Settings::getS("Internet/WikiDumpOverview");
+	QString url = CoreConfiguration::wikiDumpOverview();
 	if (!qDownloader->download(url))
 		KMessageBox::error(this, i18n("Konnte %1 nicht herunterladen.", url));
 	

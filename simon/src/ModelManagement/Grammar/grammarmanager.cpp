@@ -24,7 +24,6 @@
 #include <KMessageBox>
 #include <KLocalizedString>
 #include "../../SimonLib/Logging/logger.h"
-#include "../../SimonLib/Settings/settings.h"
 #include "../WordList/wordlistmanager.h"
 #include "../modelmanager.h"
 #include "coreconfiguration.h"

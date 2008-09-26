@@ -19,12 +19,12 @@
 
 
 #include "addwordrecordpage.h"
+#include "../../../SimonLib/FileSystem/filesystemencoder.h"
+#include "coreconfiguration.h"
 #include <QDate>
 #include <QTime>
 #include <QDir>
 #include <KMessageBox>
-#include "../../../SimonLib/FileSystem/filesystemencoder.h"
-#include "../../../SimonLib/Settings/settings.h"
 
 /**
  * \brief Constructor - also creates the GUI Elements
@@ -44,7 +44,7 @@ AddWordRecordPage::AddWordRecordPage(QWidget *parent)
 
 QString AddWordRecordPage::getSamplesDir()
 {
-	QString sampleDir = Settings::getS("Model/PathToSamples");
+	QString sampleDir = CoreConfiguration::modelTrainingsDataPath().path();
 	QDir dir(sampleDir);
 	if (!dir.exists())
 	{
@@ -91,9 +91,9 @@ void AddWordRecordPage::initializePage()
 	}
 
 	rec1 = new RecWidget(i18n("1: %1", field("wordExample1").toString()),
-			      Settings::getS("Model/PathToSamples")+"/"+filename1+".wav", this);
+			      CoreConfiguration::modelTrainingsDataPath().path()+"/"+filename1+".wav", this);
 	rec2 = new RecWidget(i18n("2: %1", field("wordExample2").toString()),
-			      Settings::getS("Model/PathToSamples")+"/"+filename2+".wav", this);
+			      CoreConfiguration::modelTrainingsDataPath().path()+"/"+filename2+".wav", this);
 
 	
 	connect(rec1, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));

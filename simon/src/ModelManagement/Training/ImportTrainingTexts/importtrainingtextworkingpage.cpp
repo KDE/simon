@@ -20,6 +20,13 @@
 
 
 #include "importtrainingtextworkingpage.h"
+#include "../../../SimonLib/Logging/logger.h"
+#include "../../../SimonLib/QuickDownloader/quickdownloader.h"
+#include "../xmltrainingtext.h"
+#include "importtrainingtextlocalpage.h"
+#include "xmltrainingtextlist.h"
+#include "coreconfiguration.h"
+
 #include <QObject>
 #include <QString>
 #include <QWidget>
@@ -27,12 +34,6 @@
 #include <QFileInfo>
 #include <QTextStream>
 #include <KUrl>
-#include "../../../SimonLib/Logging/logger.h"
-#include "../../../SimonLib/QuickDownloader/quickdownloader.h"
-#include "../../../SimonLib/Settings/settings.h"
-#include "../xmltrainingtext.h"
-#include "importtrainingtextlocalpage.h"
-#include "xmltrainingtextlist.h"
 
 
 /**
@@ -85,7 +86,7 @@ void ImportTrainingTextWorkingPage::initializePage()
 void ImportTrainingTextWorkingPage::processText(QString path)
 {
 	QFileInfo fi = QFileInfo(path);
-	QFile::copy(path, Settings::getS("PathToTexts")+"/"+fi.fileName());
+	QFile::copy(path, KStandardDirs::locateLocal("appdata", "texts/")+"/"+fi.fileName());
 	QFile::remove(path);
 
 	
@@ -158,7 +159,7 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 	QFileInfo fi = QFileInfo(path);
 
 
-	QString xmlPath = Settings::getS("PathToTexts")+"/"+fi.fileName().left(fi.fileName().lastIndexOf("."))+".xml";
+	QString xmlPath = KStandardDirs::locateLocal("appdata", "texts/")+"/"+fi.fileName().left(fi.fileName().lastIndexOf("."))+".xml";
 	XMLTrainingText *text = new XMLTrainingText(xmlPath);
 	text->setTitle(field("importTrainingTextLTextname").toString());
 	text->addPages(sents);

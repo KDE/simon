@@ -48,13 +48,11 @@ signals:
 private:
 	static ModelManager* instance;
 	QProcess *proc;
-	QString tmpDir, realTmpDir;
 	QString lastOutput;
 	QString lastError;
 
 
 
-	bool generateDirectoryStructure();
 	
 	bool generateInputFiles();
 		bool generateWlist();

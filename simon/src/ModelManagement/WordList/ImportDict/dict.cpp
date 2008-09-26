@@ -19,7 +19,7 @@
 
 
 #include "dict.h"
-#include "../../../SimonLib/Settings/settings.h"
+#include <KStandardDirs>
 #include <QFile>
 
 /**
@@ -284,7 +284,7 @@ void Dict::buildTranslationTables()
 
 void Dict::buildAllowedPhonemes()
 {
-	QFile phon(Settings::getS("Model/PathToPhonemes"));
+	QFile phon(KStandardDirs::locate("appdata", "model/phonemes"));
 	if (!phon.open(QIODevice::ReadOnly))
 		return;
 	

@@ -19,18 +19,18 @@
 
 
 #include "addwordview.h"
-#include <QWizardPage>
-#include <KMessageBox>
-#include <KLineEdit>
-#include <KStandardDirs>
 #include "../../../SimonLib/Logging/logger.h"
-#include "../../../SimonLib/Settings/settings.h"
 #include "addwordintropage.h"
 #include "addwordrecordpage.h"
 #include "addwordresolvepage.h"
 #include "../../Grammar/grammarmanager.h"
 #include "../wordlistmanager.h"
 #include "../../modelmanager.h"
+
+#include <QWizardPage>
+#include <KMessageBox>
+#include <KLineEdit>
+#include <KStandardDirs>
 
 
 AddWordView* AddWordView::instance;

@@ -28,7 +28,7 @@
 #include <KMessageBox>
 #include <QFileInfo>
 #include <KLocalizedString>
-#include "../Settings/settings.h"
+#include <KStandardDirs>
 #include "../Logging/logger.h"
 
 /**
@@ -71,11 +71,11 @@ bool QuickDownloader::download(QString url, QString filename)
 
 
 	if (filename.isEmpty())
-		file = new QTemporaryFile(Settings::getS("TempDir")+"/"+"simon_tmp_download",this);
+		file = new QTemporaryFile(KStandardDirs::locate("tmp", "simon_tmp_download"),this);
 	else {
 		QFileInfo f(filename);
 		if (!f.isAbsolute())
-			filename = Settings::getS("TempDir")+"/"+filename;
+			filename =KStandardDirs::locate("tmp", filename);
 
 		file = new QFile(filename, this);
 	}

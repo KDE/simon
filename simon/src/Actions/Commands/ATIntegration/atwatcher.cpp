@@ -19,7 +19,6 @@
 
 #include "atwatcher.h"
 #include "atobject.h"
-#include "../../../SimonLib/Settings/settings.h"
 #include "ato.h"
 
 #ifdef Q_OS_UNIX
@@ -59,9 +58,9 @@ ATWatcher::ATWatcher ( QObject* parent ) : QObject ( parent )
  */
 void ATWatcher::applySettings()
 {
-	if (Settings::getB("GuiRecognition/SupportAT"))
-		backend->startMonitoring();
-	else backend->stopMonitoring();
+// 	if (Settings::getB("GuiRecognition/SupportAT"))
+// 		backend->startMonitoring();
+// 	else backend->stopMonitoring();
 }
 
 /**

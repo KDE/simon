@@ -29,12 +29,12 @@
 #include <QHeaderView>
 #include <KMessageBox>
 #include "ImportTrainingData/importtrainingdirectory.h"
-#include "../../SimonLib/Settings/settings.h"
 #include "../../SimonLib/SimonInfo/simoninfo.h"
 #include "trainingtext.h"
 #include "trainingmanager.h"
 #include "ImportTrainingTexts/importtrainingtexts.h"
 #include "../../SimonLib/Sound/recwidget.h"
+#include "coreconfiguration.h"
 
 
 TrainingView* TrainingView::instance;
@@ -220,7 +220,7 @@ void TrainingView::fetchPage ( int page )
 	if (samplenames.count() < page) return;
 	keyStr = samplenames.at(page);
 
-	QString filename = Settings::getS ( "Model/PathToSamples" ) +"/"+keyStr+".wav";
+	QString filename = CoreConfiguration::modelTrainingsDataPath().path()+"/"+keyStr+".wav";
 	resetRecorder();
 	recorder = new RecWidget ( i18n ( "Seite: %1" ).arg ( page+1 ),
 	                           filename, ui.wRecTexts );  //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
@@ -350,7 +350,7 @@ void TrainingView::cleanUpTrainingSamples()
 	//cleaning up
 	for ( int i=1; i < trainMgr->getPageCount() +1; i++ )
 	{
-		QDir dir ( Settings::getS ( "Model/PathToSamples" ) );
+		QDir dir ( CoreConfiguration::modelTrainingsDataPath().path() );
 		//QStringList list = dir.entryList(QDir::Files);
 		/*QString textName = trainMgr->getTextName();
 		textName.replace(QString(" "), QString("_"));

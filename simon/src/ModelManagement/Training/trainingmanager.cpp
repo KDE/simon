@@ -19,6 +19,14 @@
 
 
 #include "trainingmanager.h"
+
+#include "../../SimonLib/Logging/logger.h"
+#include "../WordList/wordlistmanager.h"
+#include "../modelmanager.h"
+#include "xmltrainingtext.h"
+#include "../../SimonLib/FileSystem/filesystemencoder.h"
+#include "coreconfiguration.h"
+
 #include <QFile>
 #include <QDir>
 #include <QStringList>
@@ -30,12 +38,7 @@
 #include <QVariant>
 #include <QTime>
 #include <KLocalizedString>
-#include "../../SimonLib/Settings/settings.h"
-#include "../../SimonLib/Logging/logger.h"
-#include "../WordList/wordlistmanager.h"
-#include "../modelmanager.h"
-#include "xmltrainingtext.h"
-#include "../../SimonLib/FileSystem/filesystemencoder.h"
+#include <KStandardDirs>
 #include <math.h>
 
 
@@ -50,7 +53,7 @@ TrainingManager::TrainingManager(QObject *parent) : QObject(parent)
 {
 	trainingTexts = 0;
 	promptsLock.lock();
-	this->promptsTable = readPrompts ( Settings::getS ( "Model/PathToPrompts" ) );
+	this->promptsTable = readPrompts ( KStandardDirs::locate("appdata", "model/prompts") );
 	promptsLock.unlock();
 	sampleHash = new QHash<QString, QString>();
 	connect(ModelManager::getInstance(), SIGNAL(sampleWithoutWord(QString)), this, SLOT(askDeleteLonelySample(QString)));
@@ -131,7 +134,7 @@ bool TrainingManager::deletePrompt ( QString key )
 {
 	promptsTable->remove ( key );
 	//removes the sample
-	return QFile::remove ( Settings::getS ( "Model/PathToSamples" ) +"/"+key+".wav" );
+	return QFile::remove ( CoreConfiguration::modelTrainingsDataPath().path()+"/"+key+".wav" );
 }
 
 /**
@@ -142,7 +145,7 @@ bool TrainingManager::deletePrompt ( QString key )
  */
 bool TrainingManager::savePrompts(bool recompiledLater)
 {
-	QFile prompts ( Settings::getS ( "Model/PathToPrompts" ) );
+	QFile prompts ( KStandardDirs::locateLocal("appdata", "model/prompts") );
 	if ( !prompts.open ( QIODevice::WriteOnly ) ) return false;
 
 	QStringList samples = this->promptsTable->keys();
@@ -298,7 +301,7 @@ bool TrainingManager::deleteText ( int index )
  */
 TrainingList* TrainingManager::readTrainingTexts ()
 {
-	QString pathToTexts = Settings::getS ( "PathToTexts" );
+	QString pathToTexts = KStandardDirs::locate("appdata", "texts/");
 
 	if ( pathToTexts.isEmpty() )
 	{
@@ -617,11 +620,12 @@ void TrainingManager::addSamples ( QHash<QString, QString> *hash )
 
 /**
  * \brief adds the new samples to the prompts
+ * \todo WTF susi? SLOOOOOOOOWWWWWPOKE?!...
  * \author Susanne Tschernegg
  */
 void TrainingManager::writePrompts ( QString text )
 {
-	QFile *prompts = new QFile ( Settings::getS ( "Model/PathToPrompts" ) );
+	QFile *prompts = new QFile ( KStandardDirs::locateLocal("appdata", "model/prompts") );
 	if ( !prompts->open ( QIODevice::Append ) ) return;
 	//prompts->isWritable()
 
@@ -629,7 +633,7 @@ void TrainingManager::writePrompts ( QString text )
 	out << text << "\n";
 	prompts->close();
 	prompts->deleteLater();
-	promptsTable = readPrompts ( Settings::getS ( "Model/PathToPrompts" ) );
+	promptsTable = readPrompts ( KStandardDirs::locateLocal("appdata", "model/prompts") );
 }
 
 /**

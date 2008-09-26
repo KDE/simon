@@ -64,7 +64,7 @@ private:
 	bool mainDirty, shadowDirty;
 	
 	WordList* removeDoubles(WordList *in);
-	WordList* readWordList(QString lexiconpath, QString vocabpath, QString promptspath, QStringList &terminals, bool isShadowlist=false);
+	WordList* readWordList(QString lexiconpath, QString vocabpath, QStringList &terminals, bool isShadowlist=false);
 	WordList* readVocab(QString vocabpath);
 	QString* getTerminal(QString name, QString pronunciation, WordList *wlist);
 
@@ -117,9 +117,6 @@ public:
 	bool deleteCompletely(Word *w, bool shadowed);
 
 	WordList* sortList(WordList* list);
-    void writePrompts(QString line, QString promptspath="model/prompts");
-
-    PromptsTable* readPrompts(QString promptspath="model/prompts");
 
 	void renameTerminal(QString from, QString to, bool includeShadow);
 	~WordListManager();

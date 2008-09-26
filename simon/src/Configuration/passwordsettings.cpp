@@ -18,9 +18,7 @@
  */
 
 #include "passwordsettings.h"
-#include "../SimonLib/Settings/settings.h"
 #include <KMessageBox>
-#include <KIcon>
 #include <QCryptographicHash>
 #include <KLocalizedString>
 

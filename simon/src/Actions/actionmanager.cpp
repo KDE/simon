@@ -18,10 +18,13 @@
  */
 
 #include "actionmanager.h"
+
+#include "coreconfiguration.h"
+
 #include <KMessageBox>
 #include <KLocalizedString>
+
 #include "../SimonLib/Logging/logger.h"
-#include "../SimonLib/Settings/settings.h"
 #include "../SimonLib/SimonInfo/simoninfo.h"
 #include "../SimonLib/EventSimulation/eventhandler.h"
 #include "Commands/commandmanager.h"
@@ -31,6 +34,7 @@
 #include "Commands/Place/placecommandmanager.h"
 #include "Commands/Shortcut/shortcutcommandmanager.h"
 #include "Commands/TextMacro/textmacrocommandmanager.h"
+
 
 ActionManager* ActionManager::instance;
 
@@ -51,15 +55,15 @@ void ActionManager::setupBackends()
 
 
 
-	if (Settings::getB("Commands/DesktopGrid/Enabled"))
+	if (true) //Settings::getB("Commands/DesktopGrid/Enabled"))
 		managers->append(new DesktopGridCommandManager());
-	if (Settings::getB("Commands/Executable/Enabled"))
+	if (true) //Settings::getB("Commands/Executable/Enabled"))
 		managers->append(new ExecutableCommandManager());
-	if (Settings::getB("Commands/Place/Enabled"))
+	if (true) //Settings::getB("Commands/Place/Enabled"))
 		managers->append(new PlaceCommandManager());
-	if (Settings::getB("Commands/Shortcut/Enabled"))
+	if (true) //Settings::getB("Commands/Shortcut/Enabled"))
 		managers->append(new ShortcutCommandManager());
-	if (Settings::getB("Commands/TextMacro/Enabled"))
+	if (true) //Settings::getB("Commands/TextMacro/Enabled"))
 		managers->append(new TextMacroCommandManager());
 
 // 	if (Settings::getB("Commands/ATIntegration/Enabled"))
@@ -171,7 +175,7 @@ void ActionManager::process(QString input)
 	Q_ASSERT(eventHandler);
 
 
-	QString keyword = Settings::getS("Commands/Trigger");
+	QString keyword = CoreConfiguration::globalTrigger();
 	if (input.startsWith(keyword))
 	{
 		input = input.remove(0, QString(keyword).length()).trimmed();
@@ -183,7 +187,7 @@ void ActionManager::process(QString input)
 			emit guiAction(input);
 
 	} else {
-		if (Settings::getB("Commands/Dictation")) //is dictation activated?
+		if (CoreConfiguration::dictation()) //is dictation activated?
 			eventHandler->sendWord(input);
 	}
 }

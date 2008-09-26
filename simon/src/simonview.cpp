@@ -1,26 +1,40 @@
-/***************************************************************************
- *   Copyright (C) 2006 by Peter Grasch   *
- *   grasch@simon-listens.org   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/*
+ *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   or (at your option) any later version, as published by the Free
+ *   Software Foundation
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details
+ *
+ *   You should have received a copy of the GNU General Public
+ *   License along with this program; if not, write to the
+ *   Free Software Foundation, Inc.,
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 
 #include "simonview.h"
 
-#include <QDir>
+
+#include "inlinewidgetview.h"
+#include "Configuration/configurationdialog.h"
+#include "SimonLib/Logging/logger.h"
+#include "coreconfiguration.h"
+
+#include "SimonLib/SimonInfo/simoninfo.h"
+#include "Actions/runcommandview.h"
+#include "SimonLib/TrayIcon/trayiconmanager.h"
+#include "ModelManagement/modelmanager.h"
+#include "ModelManagement/Training/trainingview.h"
+#include "ModelManagement/WordList/wordlistview.h"
+#include "ModelManagement/WordList/AddWord/addwordview.h"
+#include "ModelManagement/WordList/wordlistmanager.h"
+
 #include <QPixmap>
 #include <QCryptographicHash>
 #include <QDebug>
@@ -36,20 +50,6 @@
 #include <KStatusBar>
 #include <KPasswordDialog>
 #include <KConfigDialog>
-
-#include "inlinewidgetview.h"
-#include "Configuration/configurationdialog.h"
-#include "SimonLib/Logging/logger.h"
-
-#include "SimonLib/SimonInfo/simoninfo.h"
-#include "Actions/runcommandview.h"
-#include "SimonLib/TrayIcon/trayiconmanager.h"
-#include "ModelManagement/modelmanager.h"
-#include "ModelManagement/Training/trainingview.h"
-#include "SimonLib/Settings/settings.h"
-#include "ModelManagement/WordList/wordlistview.h"
-#include "ModelManagement/WordList/AddWord/addwordview.h"
-#include "ModelManagement/WordList/wordlistmanager.h"
 
 
 
@@ -85,7 +85,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	info->showSplash();
 
 	Logger::log ( i18n ( "[INF] Lade Einstellungen..." ) );
-	Settings::initSettings();
+// 	Settings::initSettings();
 
 // 	if (!Settings::getB("ConfigDone"))
 // 	{
@@ -151,7 +151,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	setupSignalSlots();
 
 
-	if ( Settings::getB ( "Juliusd/AutoConnect" ) )
+	if ( CoreConfiguration::juliusdAutoConnect() )
 	{
 		info->writeToSplash ( i18n ( "Verbinde zu juliusd..." ) );
 		control->connectToServer();
@@ -557,7 +557,7 @@ void SimonView::toggleVisibility()
 */
 void SimonView::closeSimon()
 {
-	if ( ( !Settings::getB ( "AskBeforeExit" ) ) || ( KMessageBox::questionYesNo ( this, i18n ( "Wirklich beenden?" ), i18n ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?" )) == KMessageBox::Yes ) )
+	if ( ( !CoreConfiguration::askBeforeQuit() ) || ( KMessageBox::questionYesNo ( this, i18n ( "Wirklich beenden?" ), i18n ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?" )) == KMessageBox::Yes ) )
 	{
 		close();
 		qApp->quit();
@@ -589,7 +589,7 @@ void SimonView::checkSettingState()
 {
 	if ( !settingsShown )
 	{
-		if ( !Settings::getB ( "Passwordprotected" ) || checkPassword() )
+		if ( !CoreConfiguration::passwordProtected() || checkPassword() )
 		{
 			showSettings();
 		} else 
@@ -615,7 +615,7 @@ bool SimonView::checkPassword()
 	if( !dlg.exec() )
 		return false; //the user canceled
 		
-	QString password = Settings::getS ( "Password" );
+	QString password = CoreConfiguration::adminPassword();
 	QCryptographicHash *hasher = new QCryptographicHash(QCryptographicHash::Md5);
 	hasher->addData(dlg.password().toUtf8());
 	QString hash = hasher->result();

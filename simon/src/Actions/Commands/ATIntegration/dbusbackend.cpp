@@ -35,7 +35,6 @@
 #include <KMessageBox>
 #include <KLocalizedString>
 #include "atobject.h"
-#include "../../../SimonLib/Settings/settings.h"
 
 DBusBackend::DBusBackend(QObject* parent): ATBackend(parent)
 {
@@ -335,7 +334,7 @@ void DBusBackend::handleMenuEntry(QString service, QString path)
 
 ATObjectList* DBusBackend::parseObject(QString service, QString path, ATObject *parent)
 {
-	bool qtWorkArounds = Settings::getB("GuiRecognition/QtWorkarounds");
+	bool qtWorkArounds = true; //Settings::getB("GuiRecognition/QtWorkarounds");
 	
 	ATObjectList* objects = new ATObjectList();
 	QString thisClassName = getClassName(service, path);
@@ -401,7 +400,7 @@ ATObjectList* DBusBackend::parseObject(QString service, QString path, ATObject *
 QStringList DBusBackend::buildFinalClasses()
 {
 	QStringList final;
-	if (Settings::getB("GuiRecognition/QtWorkarounds"))
+	if (true) //Settings::getB("GuiRecognition/QtWorkarounds"))
 	{
 		final << "QListView";
 		final << "KListWidget";

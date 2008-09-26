@@ -19,17 +19,17 @@
 
 
 #include "juliuscontrol.h"
+#include "../SimonLib/SimonInfo/simoninfo.h"
+#include "coreconfiguration.h"
+
 #include <QByteArray>
 #include <QSslSocket>
 #include <QTimer>
 #include <QFile>
 #include <QDataStream>
-#include <QCryptographicHash>
 #include <QStringList>
 #include <KMessageBox>
 #include <KLocalizedString>
-#include "../SimonLib/Settings/settings.h"
-#include "../SimonLib/SimonInfo/simoninfo.h"
 
 /**
  *	@brief Constructor
@@ -77,18 +77,16 @@ void JuliusControl::connectTo(QString server, quint16 port)
 	disconnect(socket, SIGNAL(encrypted()), 0, 0);
 	disconnect(socket, SIGNAL(connected()), 0, 0);
 
-	if (Settings::getB("Juliusd/Encrypted"))
+	if (CoreConfiguration::juliusdEncrypted())
 	{
 		socket->setProtocol(QSsl::TlsV1);
-// 		socket->setCiphers(Settings::getS("Juliusd/Cipher"));
-// 		socket->setPrivateKey(Settings::getS("Juliusd/Cert"), QSsl::Rsa, QSsl::Pem);
 		connect(socket, SIGNAL(encrypted()), this, SLOT(connectedTo()));
 		socket->connectToHostEncrypted( server, port );
 	} else {
 		connect(socket, SIGNAL(connected()), this, SLOT(connectedTo()));
 		socket->connectToHost( server, port );
 	}
-	timeoutWatcher->start(Settings::getI("Network/Timeout"));
+	timeoutWatcher->start(CoreConfiguration::juliusdConnectionTimeout());
 	
 }
 
@@ -99,7 +97,7 @@ void JuliusControl::errorOccured()
 		timeoutWatcher->stop();
 	
 	QList<QSslError> errors = socket->sslErrors();
-	if ((errors.count() == 1) && (errors[0].error() == QSslError::SelfSignedCertificate) && (Settings::getB("Juliusd/Encrypted")))
+	if ((errors.count() == 1) && (errors[0].error() == QSslError::SelfSignedCertificate) && (CoreConfiguration::juliusdEncrypted()))
 	{
 		if (KMessageBox::questionYesNoCancel(0, i18n("Das Zertifikat der Gegenstelle ist selbst-signiert und nicht vertrauenswürdig.\n\nWollen Sie die Verbindung trozdem fortsetzen?"), i18n("Selbst-Signiertes Zertifikat"))==KMessageBox::Yes)
 		{
@@ -140,7 +138,7 @@ bool JuliusControl::isConnected()
 void JuliusControl::timeoutReached()
 {
 	timeoutWatcher->stop();
-	emit connectionError(i18n("Zeitüberschreitung der Anforderung (%1 ms)", Settings::getI("Network/Timeout")));
+	emit connectionError(i18n("Zeitüberschreitung der Anforderung (%1 ms)", CoreConfiguration::juliusdConnectionTimeout()));
 	socket->abort();
 }
 
@@ -199,7 +197,7 @@ void JuliusControl::messageReceived()
 		{
 			/* login accepted, but the version is not known to be supported */
 			QString reason=i18n("Version mglw. nicht unterstützt");
-			if (Settings::getB("Juliusd/ContinueOnWarning"))
+			if (CoreConfiguration::juliusdContinueOnWarning())
 			{
 				emit warning(reason);
 				sendRequest (100 /*start recognition*/);
@@ -328,8 +326,8 @@ void JuliusControl::connectedTo()
 
 void JuliusControl::login()
 {
-	QString user = Settings::getS("Juliusd/Username");
-	QString pass = Settings::getS("Juliusd/Password");
+	QString user = CoreConfiguration::juliusdUsername();
+	QString pass = CoreConfiguration::juliusdPassword();
 
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);

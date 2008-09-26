@@ -22,7 +22,8 @@
 #include <KMessageBox>
 #include <KIcon>
 #include "soundcontrol.h"
-#include "../Settings/settings.h"
+#include "coreconfiguration.h"
+
 
 /**
  * \brief Constructor - inits the help text and the gui
@@ -64,7 +65,7 @@ bool SoundSettings::init()
 		int deviceid= in->at(i).getDeviceID();
 		ui.kcfg_SoundInputDevice->addItem (in->at(i).getName(),deviceid );
 	}
-	int defindevice=Settings::getI ( "Sound/InputDevice" );
+	int defindevice=CoreConfiguration::soundInputDevice();
 	ui.kcfg_SoundInputDevice->setCurrentIndex(ui.kcfg_SoundInputDevice->findData(defindevice));
 
 
@@ -77,7 +78,7 @@ bool SoundSettings::init()
 		int deviceid= out->at (i).getDeviceID();
 		ui.kcfg_SoundOutputDevice->addItem (out->at(i).getName(),deviceid );
 	}
-	int defoutdevice=Settings::getI ( "Sound/OutputDevice" );
+	int defoutdevice=CoreConfiguration::soundOutputDevice();
 	ui.kcfg_SoundOutputDevice->setCurrentIndex(ui.kcfg_SoundOutputDevice->findData(defoutdevice));
 
 	return true;
@@ -96,8 +97,8 @@ bool SoundSettings::check()
 		KMessageBox::error(this, i18n("Die ausgewählte Soundkonfiguration wird von der Hardware nicht unterstützt.\n\nBitte korrigieren Sie die Werte.\n\nFalls notwendig, wenden Sie sich bitte an Ihren Soundkartenhersteller."));
 
 	
-	if ((channels != Settings::getI("Model/Channels")) || 
-			(samplerate != Settings::getI("Model/Samplerate")))
+	if ((channels != CoreConfiguration::soundChannels()) || 
+			(samplerate != CoreConfiguration::soundSampleRate()))
 	{
 		KMessageBox::information(this, i18n("Die konfigurierten Kanäle / Samplerate der Trainingstexte passt nicht mit den Soundeinstellungen zusammen.\n\nBitte korrigieren Sie ihre Konfiguration hier oder definieren Sie entsprechende Nachbearbeitungsketten um den Unterschied auszugleichen.") );
 		ok=false;

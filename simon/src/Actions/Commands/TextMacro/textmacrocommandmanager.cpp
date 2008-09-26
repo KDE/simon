@@ -18,11 +18,11 @@
  */
 
 #include "textmacrocommandmanager.h"
-#include <KLocalizedString>
-#include "../../../SimonLib/Settings/settings.h"
 #include "../../../SimonLib/Logging/logger.h"
 #include "xmltextmacrocommand.h"
 #include "textmacrocommand.h"
+#include <KLocalizedString>
+#include <KStandardDirs>
 
 TextMacroCommandManager::TextMacroCommandManager(QObject *parent) : CommandManager(parent)
 {
@@ -46,7 +46,7 @@ const QString TextMacroCommandManager::name() const
 
 bool TextMacroCommandManager::load()
 {
-	QString commandPath = Settings::getS("Commands/TextMacro/PathToConfig");
+	QString commandPath = KStandardDirs::locate("appdata", "conf/textmacros.xml");
 	Logger::log(i18n("[INF] Lade Text-Makro-Kommandos von %1", commandPath));
 
 	bool ok = false;
@@ -56,7 +56,7 @@ bool TextMacroCommandManager::load()
 
 bool TextMacroCommandManager::save()
 {
-	QString commandPath = Settings::getS("Commands/TextMacro/PathToConfig");
+	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/textmacros.xml");
 	Logger::log(i18n("[INF] Speichere Text-Makro-Kommandos nach %1", commandPath));
 	return xmlTextMacroCommand->save(commands, commandPath);
 }

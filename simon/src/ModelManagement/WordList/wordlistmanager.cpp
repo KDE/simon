@@ -19,6 +19,9 @@
 
 
 #include "wordlistmanager.h"
+#include "../modelmanager.h"
+#include "../../SimonLib/Logging/logger.h"
+#include "coreconfiguration.h"
 
 #include <QObject>
 #include <QList>
@@ -28,10 +31,7 @@
 #include <QTextStream>
 #include <KMessageBox>
 #include <KLocalizedString>
-
-#include "../modelmanager.h"
-#include "../../SimonLib/Logging/logger.h"
-#include "../../SimonLib/Settings/settings.h"
+#include <KStandardDirs>
 
 WordListManager* WordListManager::instance;
 
@@ -54,7 +54,9 @@ WordListManager::WordListManager () : QThread()
 
 	wordListLock.lock();
 	mainDirty = false;
-	this->wordlist = readWordList ( Settings::getS("Model/PathToLexicon"), Settings::getS("Model/PathToVocab"), Settings::getS("Model/PathToPrompts"), this->activeTerminals );
+	this->wordlist = readWordList ( KStandardDirs::locate("appdata", "model/lexicon"), 
+					KStandardDirs::locate("appdata", "model/model.voca"),
+					this->activeTerminals );
 	if (!wordlist) {
 		this->wordlist = new WordList();
 		emit wordListCouldntBeLoaded();
@@ -153,7 +155,9 @@ void WordListManager::run()
 	emit progress(0,0);
 	shadowLock.lock();
 	shadowDirty = false;
-	this->shadowList = readWordList(Settings::getS("Model/PathToShadowLexicon"), Settings::getS("Model/PathToShadowVocab"), Settings::getS("Model/PathToPrompts"), this->shadowTerminals, true);
+	this->shadowList = readWordList(KStandardDirs::locate("appdata", "model/shadowlexicon"),
+					KStandardDirs::locate("appdata", "model/shadow.voca"),
+					this->shadowTerminals, true);
 	if (!shadowList)
 	{
 		this->shadowList = new WordList();
@@ -229,8 +233,8 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 	wordListLock.lock();
 	if (mainDirty)	//we changed the wordlist
 	{
-		if (lexiconFilename.isEmpty()) lexiconFilename = Settings::getS("Model/PathToLexicon");
-		if (vocabFilename.isEmpty()) vocabFilename = Settings::getS("Model/PathToVocab");
+		if (lexiconFilename.isEmpty()) lexiconFilename = KStandardDirs::locateLocal("appdata", "model/lexicon");
+		if (vocabFilename.isEmpty()) vocabFilename = KStandardDirs::locateLocal("appdata", "model/model.voca");
 		saveWordList(this->getWordList(), lexiconFilename, vocabFilename);
 		wlistChanged = true;
 		mainDirty=false;
@@ -241,8 +245,8 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 	shadowLock.lock();
 	if (shadowDirty) //we changed the shadowDict
 	{
-		if (shadowLexiconFilename.isEmpty()) shadowLexiconFilename = Settings::getS("Model/PathToShadowLexicon");
-		if (shadowVocabFilename.isEmpty()) shadowVocabFilename = Settings::getS("Model/PathToShadowVocab");
+		if (shadowLexiconFilename.isEmpty()) shadowLexiconFilename = KStandardDirs::locateLocal("appdata", "model/shadowlexicon");
+		if (shadowVocabFilename.isEmpty()) shadowVocabFilename = KStandardDirs::locateLocal("appdata", "model/shadow.voca");
 		saveWordList(this->getShadowList(), shadowLexiconFilename, shadowVocabFilename);
 		slistChanged = true;
 		shadowDirty=false;
@@ -475,29 +479,24 @@ void WordListManager::safelyInit()
  * Path to the lexicon
  * \param vocabpath
  * Path to the vocabulary
- * \param promptspath
- * Path to the prompts file
  * \param terminals
  * Pointer to the terminallist to fill
  * \param isShadowlist
  * Points out if this is a shadowlist - then we skip the recognition-check (it will always return 0)
  * @return  The parsed WordList
  */
-WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QString promptspath, QStringList &terminals, bool isShadowlist )
+WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QStringList &terminals, bool isShadowlist )
 {
 	Logger::log (i18n("[INF] Lesen der Wörterliste bestehend aus "));
 	Logger::log(i18n("[INF] \t\tLexikon: %1,", lexiconpath));
 	Logger::log(i18n("[INF] \t\tVocabular: %1,", vocabpath));
-	Logger::log(i18n("[INF] \t\tPrompts: %1", promptspath));
 
 	WordList *wordlist = new WordList();
 	//read the vocab
-	TrainingManager *trainManager = TrainingManager::getInstance();
-
-	PromptsTable *promptsTable = TrainingManager::getInstance()->getPrompts();	
+	TrainingManager *trainManager = TrainingManager::getInstance();	
 
 	QFile vocab(vocabpath);
-	if ( !vocab.open(QFile::ReadOnly) || !promptsTable) {
+	if ( !vocab.open(QFile::ReadOnly)) {
 		return false;
 	}
 	QString line, term, word;
@@ -1199,42 +1198,6 @@ WordList* WordListManager::readVocab(QString vocabpath)
 	vocab->deleteLater();
 
 	return vocablist;
-}
-
-/**
- * \brief Builds and returns the promptstable by parsing the file at the given path
- * \author Peter Grasch
- * \param QString promptspath
- * The path to the prompts file
- * \return PromptsTable*
- * The table
- */
-PromptsTable* WordListManager::readPrompts(QString promptspath)
-{
-	Logger::log(i18n("[INF] Parse Promptsdatei von %1", promptspath));
-	PromptsTable *promptsTable = new PromptsTable();
-	
-	QFile *prompts = new QFile ( promptspath );
-	prompts->open ( QFile::ReadOnly );
-	if ( !prompts->isReadable() ) return false;
-	
-	QString label;
-	QString prompt;
-	QString line;
-	int labelend;
-	while ( !prompts->atEnd() ) //for each line that was successfully read
-	{
-		line = prompts->readLine(1024);
-		labelend = line.indexOf(" ");
-		label = line.left(labelend);
-		prompt = line.mid(labelend).trimmed();
-
-		promptsTable->insert( label, prompt );
-	}
-	prompts->close();
-	prompts->deleteLater();
-	
-	return promptsTable;
 }
 
 /**
