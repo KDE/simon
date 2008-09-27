@@ -1,3 +1,1 @@
-cd src
-qmake
-make release && cd ..
+cd build && cmake .. && make install
