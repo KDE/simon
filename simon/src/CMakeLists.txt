@@ -197,8 +197,6 @@ set ( simonLinuxSources
 	)
 
 set ( simonWindowsSources
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/WindowsLib/windowsresourcehandler.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/WindowsLib/registrymanager.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/EventSimulation/windowsevents.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/ATIntegration/msaabackend.cpp
 	)
