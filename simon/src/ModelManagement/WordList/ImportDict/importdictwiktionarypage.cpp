@@ -20,11 +20,15 @@
 
 #include "importdictwiktionarypage.h"
 #include "simonlistwidget.h"
-#include "../../../SimonLib/QuickDownloader/quickdownloader.h"
 #include "coreconfiguration.h"
-#include <QFile>
 #include <QTextStream>
+#include <QFile>
+
+#include <KFilterDev>
 #include <KMessageBox>
+#include <KMimeType>
+#include <kio/job.h>
+#include <kio/jobuidelegate.h>
 
 /**
  * \brief Constructor - Inits the gui
@@ -34,6 +38,9 @@
 ImportDictWiktionaryPage::ImportDictWiktionaryPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
+
+	ui.urWikiPath->setMode(KFile::File|KFile::ExistingOnly);
+
 	registerField("wikiFileName*", ui.urWikiPath, "url", SIGNAL(textChanged(QString)));
 
 	registerField("importWikiLocal", ui.rbImportLocal);
@@ -79,11 +86,16 @@ void ImportDictWiktionaryPage::resambleImportLocal(bool isTrue)
 void ImportDictWiktionaryPage::importList(QString list)
 {
 	ui.lwRemoteList->clear();
-	QFile listFile(list);
-	if (!listFile.open(QIODevice::ReadOnly)) return;
-	QTextStream *txtStream = new QTextStream(&listFile);
+
+	QIODevice *file = KFilterDev::deviceForFile(list,
+							KMimeType::findByFileContent(list)->name());
+	if((!file) || (!file->open(QIODevice::ReadOnly)))
+		return;
+	QTextStream *txtStream = new QTextStream(file);
 	QString txtList = txtStream->readAll();
-	listFile.close();
+	file->close();
+	file->deleteLater();
+	QFile::remove(list);
 
 	QRegExp pattern = QRegExp("href=\\\"..wiktionary/........\\\"\\>..wiktionary\\<\\/a\\>: \\<span class=\\'done");
 	
@@ -107,9 +119,6 @@ void ImportDictWiktionaryPage::importList(QString list)
 		
 		wikiStart = txtList.indexOf(pattern);
 	}
-	QuickDownloader *downloader = qobject_cast<QuickDownloader*>(sender());
-	if (!downloader) return;
-	downloader->deleteLater();
 }
 
 /**
@@ -117,16 +126,22 @@ void ImportDictWiktionaryPage::importList(QString list)
  * \author Peter Grasch
  * 
  * Loads the list from http://download.wikimedia.org/backup-index.html using
- * the QuickDownloader class
+ * KIO
  */
 void ImportDictWiktionaryPage::loadList()
 {
-	QuickDownloader *qDownloader = new QuickDownloader(this);
-	connect(qDownloader, SIGNAL(downloadFinished(QString)), this, SLOT(importList(QString)));
+	KUrl downloadUrl(CoreConfiguration::wikiDumpOverview());
+	KUrl tmpPath(KStandardDirs::locateLocal("tmp", downloadUrl.fileName()));
 
-	QString url = CoreConfiguration::wikiDumpOverview();
-	if (!qDownloader->download(url))
-		KMessageBox::error(this, i18n("Konnte %1 nicht herunterladen.", url));
+	KIO::FileCopyJob *job = KIO::file_copy(downloadUrl, tmpPath, -1, KIO::Overwrite);
+
+	if (!job->exec())
+	{
+		job->ui()->showErrorMessage();
+		return;
+	}
+
+	importList(job->destUrl().path());
 	
 }
 

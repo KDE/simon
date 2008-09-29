@@ -289,8 +289,7 @@ void TrainingManager::trainWords ( WordList *words )
 bool TrainingManager::deleteText ( int index )
 {
 	Logger::log ( i18n ( "[INF] Löschen von \"%1\" von \"%2\"" ).arg ( trainingTexts->at ( index )->getName() ).arg ( trainingTexts->at ( index )->getPath() ) );
-	QFile text ( trainingTexts->at ( index )->getPath() );
-	return text.remove();
+	return QFile::remove( trainingTexts->at ( index )->getPath() );
 }
 
 /**
@@ -301,44 +300,28 @@ bool TrainingManager::deleteText ( int index )
  */
 TrainingList* TrainingManager::readTrainingTexts ()
 {
-	QString pathToTexts = KStandardDirs::locate("appdata", "texts/");
+	Logger::log ( i18n ( "[INF] Lesen der Trainingtexte" ));
 
-	if ( pathToTexts.isEmpty() )
-	{
-		KMessageBox::error ( 0, i18n ( "Der Pfad zu den Trainingstexten ist nicht richtig konfiguriert. (Er ist leer)\n\nBitte setzen Sie einen korrekten Pfad in den Einstellungen." ) );
-		return new TrainingList();
-	}
-	Logger::log ( i18n ( "[INF] Lesen der Trainingtexte von \"" ) +pathToTexts+"\"" );
-	QDir *textdir = new QDir ( pathToTexts );
-	if ( !textdir || !textdir->exists() ) {
-		KMessageBox::error ( 0, i18n ( "Der Pfad zu den Trainingstexten ist nicht richtig konfiguriert. (Der Ordner existiert nicht)\n\nBitte setzen Sie einen korrekten Pfad in den Einstellungen." ) );
-		delete textdir;
-		return NULL;
-	}
-
-	textdir->setFilter ( QDir::Files|QDir::Readable );
-
-	QStringList textsrcs = textdir->entryList(QStringList() << "*.xml");
+		//finddirs is net das was i will?...
+	QStringList textsrcs = KGlobal::dirs()->findAllResources("appdata", "texts/");
 
 	if (trainingTexts) {
 		delete trainingTexts;
 		trainingTexts=0;
 	}
 	
-	
 	trainingTexts = new TrainingList();
 	for ( int i=0; i < textsrcs.count(); i++ )
 	{
-		XMLTrainingText *text = new XMLTrainingText ( pathToTexts+"/"+textsrcs.at ( i ) );
-		text->load ( pathToTexts+"/"+textsrcs.at ( i ) );
+		XMLTrainingText *text = new XMLTrainingText ( textsrcs.at ( i ) );
+		text->load ( textsrcs.at ( i ) );
 		TrainingText *newText = new TrainingText ( text->getTitle(),
-		        pathToTexts+"/"+textsrcs.at ( i ),
+		        textsrcs.at ( i ),
 		        text->getAllPages() );
 		newText->setRelevance ( calcRelevance ( newText ) ); //FIXME: speed
 		trainingTexts->append ( newText );
 		delete text;
 	}
-	delete textdir;
 	
 	return trainingTexts;
 }

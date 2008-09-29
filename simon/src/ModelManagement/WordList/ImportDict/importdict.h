@@ -21,11 +21,9 @@
 #ifndef IMPORTDICT_H
 #define IMPORTDICT_H
 
-#define HADIFIXBOMP 1
-#define WIKTIONARY 2
-#define LEXICON 3
 
 #include "../word.h"
+#include "dict.h"
 #include <QThread>
 
 class Dict;

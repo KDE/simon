@@ -51,7 +51,11 @@ Bitte beachten Sie, dass diese Lexica keine Grammatikdefinitionen besitzen.</str
       </widget>
      </item>
      <item>
-      <widget class="KUrlRequester" name="urPath" />
+      <widget class="KUrlRequester" name="urPath" >
+       <property name="filter" >
+        <string>* | HTK Lexikon</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -77,5 +81,6 @@ Bitte beachten Sie, dass diese Lexica keine Grammatikdefinitionen besitzen.</str
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
+ <resources/>
  <connections/>
 </ui>

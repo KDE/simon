@@ -20,9 +20,12 @@
 
 #include "lexicondict.h"
 #include <QFile>
+#include <QIODevice>
 #include <QFileInfo>
 #include <QTextStream>
 #include <KLocalizedString>
+#include <KMimeType>
+#include <KFilterDev>
 
 LexiconDict::LexiconDict(QString path, QObject* parent): Dict(parent)
 {
@@ -45,17 +48,29 @@ void LexiconDict::load(QString path)
 	if (path.isEmpty()) return;
 
 	QString unknownStr = i18n("Unbekannt");
+
 	emit progress(0);
-	QFile *dict = new QFile(path);
-	if (!dict->open(QIODevice::ReadOnly))
+
+	QIODevice *dict = KFilterDev::deviceForFile(path,
+							KMimeType::findByFileContent(path)->name());
+	if ((!dict) || (!dict->open(QIODevice::ReadOnly)))
 		return;
-	QFileInfo info;
-	info.setFile(path);
-	int maxProg = info.size();
+
+
+	int maxProg=0;
+
+	KMimeType::Ptr mimeType = KMimeType::findByFileContent(path);
+	if (mimeType->is("text/plain")) //not compressed
+	{
+		QFileInfo info;
+		info.setFile(QFile(path));
+		maxProg = info.size();
+	}
+
 	int currentProg = 0;
 	
 	QTextStream *dictStream = new QTextStream(dict);
-	dictStream->setCodec("ISO-8859-1");
+	dictStream->setCodec("ISO-8859-15");
 	emit loaded();
 	
 	QString line, xsp;
@@ -70,8 +85,11 @@ void LexiconDict::load(QString path)
 		pronunciations << line.mid(wordend+2).trimmed();
 		
 		currentProg += line.length();
-		emit progress((int) (((((double)currentProg) / 
+		
+		if (maxProg != 0)
+			emit progress((int) (((((double)currentProg) / 
 				((double)maxProg)))*1000));
+				
 		line = dictStream->readLine(1000);
 	}
 	dict->close();

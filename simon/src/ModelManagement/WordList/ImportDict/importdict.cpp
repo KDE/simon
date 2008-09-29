@@ -60,12 +60,21 @@ void ImportDict::run()
 	
 	emit progress(10);
 	if (dict) dict->deleteLater();
-	if (type == WIKTIONARY)
-		dict = new WiktionaryDict(pathToDict);
-	else if (type == HADIFIXBOMP) dict = new BOMPDict(pathToDict);
-	else if (type == LEXICON) dict = new LexiconDict(pathToDict);
 
-	if (!dict) return;
+	switch (type)
+	{
+		case Dict::Wiktionary:
+			dict = new WiktionaryDict(pathToDict);
+			break;
+		case Dict::HadifixBOMP:
+			dict = new BOMPDict(pathToDict);
+			break;
+		case Dict::HTKLexicon:
+			dict = new LexiconDict(pathToDict);
+			break;
+		default:
+			return; //unknown type
+	}
 	
 	connect(dict, SIGNAL(loaded()), this, SLOT(openingFinished()));
 	connect(dict, SIGNAL(progress(int)), this, SLOT(loadProgress(int)));
@@ -83,12 +92,12 @@ void ImportDict::run()
 	
 	for (int i=0; i<words.count(); i++)
 	{
-		vocablist->append ( Word(QString(words.at(i)), 
-				    QString(pronunciations.at(i)), 
-					QString(terminals.at(i)), 0 ) );
+		vocablist->append ( Word(words.at(i), 
+				    pronunciations.at(i), 
+					terminals.at(i), 0 ) );
 		emit progress((int) ((((double) i)/((double)words.count())) *40+800));
 	}
-	if (type != LEXICON)
+	if (type != Dict::HTKLexicon)
 	{
 		emit status(i18n("Sortiere Wörterbuch..."));
 		qSort(vocablist->begin(), vocablist->end());
@@ -98,7 +107,7 @@ void ImportDict::run()
 	emit progress(1000);
 	emit status(i18n("Wörterbuch wird verteilt..."));
 	
-	Logger::log(i18n("[UPT] ")+QString::number(words.count())+" "+i18n("Wörter aus dem lexikon")+" \""+pathToDict+"\""+i18n(" importiert"));
+	Logger::log(i18n("[UPD] ")+QString::number(words.count())+" "+i18n("Wörter aus dem lexikon")+" \""+pathToDict+"\""+i18n(" importiert"));
 
 	if (deleteFileWhenDone)
 	{

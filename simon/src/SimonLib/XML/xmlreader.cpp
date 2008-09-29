@@ -20,7 +20,7 @@
 #include "xmlreader.h"
 #include "../Logging/logger.h"
 #include <KLocalizedString>
-
+#include <QDebug>
 
 /**
  *  \brief Constructor

@@ -120,7 +120,6 @@ set (	simonGeneralSources
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Logging/logmanager.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Logging/logger.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Logging/logentry.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/QuickDownloader/quickdownloader.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/XML/xmlreader.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/XML/xmldomreader.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/XML/xmlsaxreader.cpp
@@ -131,9 +130,6 @@ set (	simonGeneralSources
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SimonInfo/simoninfo.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/FileSystem/filesystemencoder.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/PostProcessing/postprocessing.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/QuickUnpacker/quickunpacker.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/QuickUnpacker/bunzip.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/QuickUnpacker/compression.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/externalprogrammanager.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/passwordsettings.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Configuration/generalsettings.cpp

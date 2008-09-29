@@ -30,7 +30,6 @@
 #include <QRadioButton>
 #include <KPushButton>
 #include <QFileDialog>
-#include "../../../SimonLib/QuickDownloader/quickdownloader.h"
 #include "xmltrainingtextlist.h"
 #include "importtrainingtextlocalpage.h"
 #include "importtrainingtextremotepage.h"

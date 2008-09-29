@@ -27,6 +27,7 @@
 class QProgressBar;
 class QLabel;
 class ImportDict;
+class KUrl;
 
 /**
  \class ImportDictWorkingPage
@@ -46,9 +47,11 @@ private:
 	ImportDict *import; //!< Underlying concept class
 	QLabel *lbStatus;
 	bool ready;
+	QString prepareDict(KUrl url);
+
 private slots:
-	void importWiktionaryFile(QString path);
 	void setCompleted() { ready=true; emit completeChanged(); }
+
 public slots:
 	void abort();
 	void displayStatus(QString status);
@@ -58,9 +61,8 @@ public slots:
 	void importWiktionary(QString url);
 	void importLexicon(QString path);
 
-	void unpackWikiIfNecessary(QString file);
-
 	bool isComplete() const;
+
 public:
 	void initializePage();
     ImportDictWorkingPage(QWidget* parent);

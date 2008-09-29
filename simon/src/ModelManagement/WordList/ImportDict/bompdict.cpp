@@ -24,6 +24,9 @@
 #include <QTextStream>
 #include <QRegExp>
 #include <QFileInfo>
+#include <QDebug>
+#include <KMimeType>
+#include <KFilterDev>
 
 /**
  * \brief Constructor
@@ -50,12 +53,22 @@ void BOMPDict::load(QString path)
 	if (path.isEmpty()) path = this->path;
 	
 	emit progress(0);
-	QFile *dict = new QFile(path);
-	if (!dict->open(QIODevice::ReadOnly))
+
+	QIODevice *dict = KFilterDev::deviceForFile(path,
+							KMimeType::findByFileContent(path)->name());
+	if ((!dict) || (!dict->open(QIODevice::ReadOnly)))
 		return;
-	QFileInfo info;
-	info.setFile(path);
-	int maxProg = info.size();
+
+	int maxProg=0;
+
+	KMimeType::Ptr mimeType = KMimeType::findByFileContent(path);
+	if (mimeType->is("text/plain")) //not compressed
+	{
+		QFileInfo info;
+		info.setFile(QFile(path));
+		maxProg = info.size();
+	}
+
 	int currentProg = 0;
 	
 	QTextStream *dictStream = new QTextStream(dict);
@@ -86,30 +99,10 @@ void BOMPDict::load(QString path)
 		
 		xsp.remove(QRegExp("^'*?*"));
 		xsp.remove("'");
-		xsp.remove("?");
 		xsp.remove("|");
 		xsp.remove(",");
+		currentFinalXsp = segmentSampa(adaptToSimonPhonemeSet(xsp));
 
-		filteredXsp = xsp;
-		//filter xsp through 'sampa sieve'
-		phonemeIndex=0;
-		xspFertig = currentPhoneme = "";
-		
-		while ((!filteredXsp.isEmpty()) && (allowedPhonemes.count() > phonemeIndex))
-		{
-			currentPhoneme = allowedPhonemes[phonemeIndex++];
-			if (filteredXsp.indexOf(currentPhoneme)==0)
-			{
-				xspFertig += " "+currentPhoneme;
-				filteredXsp.remove(0, currentPhoneme.count()); //remove phoneme at start
-				phonemeIndex=0;
-			}
-		}
-		
-		if (filteredXsp.isEmpty()) //found everything
-		{
-			currentFinalXsp = xspFertig.trimmed();
-		} else currentFinalXsp = xsp;
 		
 		currentWord = line.left(wordend);
 		currentTerminal = line.mid(wordend, 
@@ -124,8 +117,11 @@ void BOMPDict::load(QString path)
 		}
 
 		currentProg += line.length();
-		emit progress((int) (((((double)currentProg) / 
-				((double)maxProg)))*1000));
+
+		if (maxProg != 0)
+			emit progress((int) (((((double)currentProg) / 
+					((double)maxProg)))*1000));
+
 		line = dictStream->readLine(1000);
 	}
 	delete dictStream;

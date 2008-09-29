@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "importdictbomppage.h"
 
 
@@ -29,6 +28,8 @@
 ImportDictBOMPPage::ImportDictBOMPPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
+
+	ui.urFile->setMode(KFile::File|KFile::ExistingOnly);
 
 	registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
 	setTitle(i18n("Importiere BOMP Wörterbuch"));

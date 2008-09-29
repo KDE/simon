@@ -19,10 +19,13 @@
 
 
 #include "xmlsaxreader.h"
-#include <QFile>
+#include <QIODevice>
 #include <QXmlInputSource>
 #include <QXmlDefaultHandler>
 #include <QXmlSimpleReader>
+
+#include <KFilterDev>
+#include <KMimeType>
 
 /**
  * \brief Constructor
@@ -50,9 +53,10 @@ void XMLSAXReader::load(QXmlDefaultHandler* handler, QString path)
 {
 	if (!handler) return;
 	if (path.isEmpty()) path = this->path;
-	
-	QFile *sourcefile = new QFile(path);
-	if (!sourcefile->open(QIODevice::ReadOnly|QIODevice::Text))
+
+	QIODevice *sourcefile = KFilterDev::deviceForFile(path,
+							KMimeType::findByFileContent(path)->name());
+	if ((!sourcefile) || (!sourcefile->open(QIODevice::ReadOnly)))
 		return;
 	
 	QXmlInputSource source(sourcefile);

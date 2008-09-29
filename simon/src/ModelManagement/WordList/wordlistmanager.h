@@ -47,7 +47,7 @@ signals:
 	void tempWarning();
 	void wordListCouldntBeLoaded();
 	void shadowListCouldntBeLoaded();
-	void status(QString);
+	void status(const QString&);
 	void progress(int cur, int max);
 private:
 	static WordListManager *instance;
@@ -64,9 +64,8 @@ private:
 	bool mainDirty, shadowDirty;
 	
 	WordList* removeDoubles(WordList *in);
-	WordList* readWordList(QString lexiconpath, QString vocabpath, QStringList &terminals, bool isShadowlist=false);
-	WordList* readVocab(QString vocabpath);
-	QString* getTerminal(QString name, QString pronunciation, WordList *wlist);
+	WordList* readWordList(const QString& lexiconpath, const QString& vocabpath, QStringList &terminals, bool isShadowlist=false);
+	QString* getTerminal(const QString& name, const QString& pronunciation, WordList *wlist);
 
 private slots:
 	void complainAboutPaths();
@@ -83,42 +82,41 @@ public:
 	void run();
 
 
-	bool saveWordList(WordList *list, QString lexiconFilename, QString vocabFilename);
+	bool saveWordList(WordList *list, const QString& lexiconFilename, const QString& vocabFilename);
 
 	WordList* getWordList() { return this->wordlist; }
 	inline WordList* getShadowList();
 	QStringList getTerminals(bool includeShadow=true);
 
-	QString getRandomWord(QString terminal, bool includeShadow=true);
+	QString getRandomWord(const QString& terminal, bool includeShadow=true);
 	
 	bool mainWordListContains(Word *word);
-	bool mainWordListContainsStr(QString word);
+	bool mainWordListContainsStr(const QString& word);
 	bool extraListContains(Word *word);
-	bool extraListContainsStr(QString word);
+	bool extraListContainsStr(const QString& word);
 	bool wordListContains(WordList *list, Word *word);
-	bool wordListContainsStr(WordList *list, QString word);
+	bool wordListContainsStr(WordList *list, const QString& word);
 
-	WordList* getShadowedWords(QString word, bool fuzzy=false);
-	WordList* getMainstreamWords(QString word, bool fuzzy=false);
-	WordList* searchForWords(WordList *list, QString word, bool fuzzy=false);
+	WordList* getShadowedWords(const QString& word, bool fuzzy=false);
+	WordList* getMainstreamWords(const QString& word, bool fuzzy=false);
+	WordList* searchForWords(WordList *list, const QString& word, bool fuzzy=false);
 	
-	WordList* getWords(QString word, bool includeShadow, bool fuzzy=false, bool keepDoubles=false);
+	WordList* getWords(const QString& word, bool includeShadow, bool fuzzy=false, bool keepDoubles=false);
 
 	WordList* mergeLists(WordList *a, WordList *b, bool keepDoubles=true);
 
-	Word* getWord(QString word, QString pronunciation, QString terminal, bool &isShadowed);
-	int getWordIndex(WordList *list, bool &found, QString word, QString pronunciation="", QString terminal="");
+	Word* getWord(const QString& word, const QString& pronunciation, const QString& terminal, bool &isShadowed);
+	int getWordIndex(WordList *list, bool &found, const QString& word, const QString& pronunciation="", const QString& terminal="");
 
-	WordList* getWordsByTerminal(QString terminal, bool includeShadow=false);
+	WordList* getWordsByTerminal(const QString& terminal, bool includeShadow=false);
 	void addWords(WordList *list, bool isSorted=false, bool shadow=false);
-	bool save( QString lexiconFilename="", QString vocabFilename="", QString shadowLexiconFilename="",
-			 QString shadowVocabFilename="" );
+	bool save();
 	bool moveToShadow(Word *w);
 	bool deleteCompletely(Word *w, bool shadowed);
 
 	WordList* sortList(WordList* list);
 
-	void renameTerminal(QString from, QString to, bool includeShadow);
+	void renameTerminal(const QString& from, const QString& to, bool includeShadow);
 	~WordListManager();
 
 };

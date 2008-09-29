@@ -20,11 +20,14 @@
 
 #include "importtrainingtextremotepage.h"
 #include "../../../SimonLib/Logging/logger.h"
-#include "../../../SimonLib/QuickDownloader/quickdownloader.h"
 #include "xmltrainingtextlist.h"
 #include "coreconfiguration.h"
 
+#include <kio/job.h>
+#include <kio/jobuidelegate.h>
+
 #include <KMessageBox>
+#include <QFile>
 
 /**
  * \brief Constructor
@@ -43,24 +46,27 @@ ImportTrainingTextRemotePage::ImportTrainingTextRemotePage(QWidget *parent) : QW
  */
 void ImportTrainingTextRemotePage::initializePage()
 {
-	downloader = new QuickDownloader(this);
-
 	Logger::log(i18n("[INF] Abrufen der Liste von verfügbaren Trainingstexten"));
+
+	KUrl downloadUrl(CoreConfiguration::textOnlineUpdate());
+
+	KIO::FileCopyJob *job = KIO::file_copy(downloadUrl, 
+				KStandardDirs::locateLocal("tmp", downloadUrl.fileName()), 
+				-1 /* no special permissions */, KIO::Overwrite);
 	
-	connect (downloader, SIGNAL(downloadFinished(QString)), this, SLOT(importList(QString)));
-	downloader->download(CoreConfiguration::textOnlineUpdate());
+	if (job->exec())
+		importList(job->destUrl().path());
+	else job->ui()->showErrorMessage();
 }
 
 /**
  * \brief Imports the xml list of available trainingtexts from the given path
  * \author Peter Grasch
- * @param path the path to import from
- * \see fetchList()
  */
-void ImportTrainingTextRemotePage::importList(QString path)
+void ImportTrainingTextRemotePage::importList(const QString& path)
 {
 	XMLTrainingTextList *tlist = new XMLTrainingTextList(path);
-	if (!tlist->load(path))
+	if (!tlist->load())
 		KMessageBox::error(this, i18n("Konnte Liste der Texte nicht öffnen.\n\nMöglicherweise ist der URL falsch konfiguriert oder beim Download ist ein Fehler aufgetreten."));
 	QHash<QString, QString> textlist = tlist->getTrainingTextList();
 	ui.lwTexts->clear();
@@ -73,7 +79,7 @@ void ImportTrainingTextRemotePage::importList(QString path)
 		ui.lwTexts->addItem(item);
 	}
 	delete tlist;
-	downloader->deleteLater();
+	QFile::remove(path); //cleanup
 }
 
 ImportTrainingTextRemotePage::~ImportTrainingTextRemotePage()

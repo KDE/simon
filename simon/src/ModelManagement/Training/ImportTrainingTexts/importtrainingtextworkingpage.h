@@ -23,8 +23,6 @@
 
 #include <QWizardPage>
 #include "ui_importtrainingtextworkingpage.h"
-class QString;
-class QWidget;
 
 /**
  * \class ImportTrainingTextWorkingPage
@@ -36,8 +34,9 @@ class ImportTrainingTextWorkingPage : public QWizardPage {
 	Q_OBJECT 
 	private:
 		Ui::ImportTextWorkingPage ui;
+
 	public slots:
-		void startImport(QString path);
+		void startImport(KUrl path);
 		void processText(QString path);
 		void parseFile(QString path);
 

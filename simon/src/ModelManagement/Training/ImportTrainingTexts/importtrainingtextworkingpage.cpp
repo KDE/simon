@@ -21,19 +21,19 @@
 
 #include "importtrainingtextworkingpage.h"
 #include "../../../SimonLib/Logging/logger.h"
-#include "../../../SimonLib/QuickDownloader/quickdownloader.h"
 #include "../xmltrainingtext.h"
 #include "importtrainingtextlocalpage.h"
 #include "xmltrainingtextlist.h"
 #include "coreconfiguration.h"
 
-#include <QObject>
-#include <QString>
-#include <QWidget>
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
+
 #include <KUrl>
+#include <KMimeType>
+#include <kio/job.h>
+#include <kio/jobuidelegate.h>
 
 
 /**
@@ -52,29 +52,38 @@ ImportTrainingTextWorkingPage::ImportTrainingTextWorkingPage(QWidget *parent) : 
  * @param path The path to import from (this can be a url too)
  * \author Peter Grasch
  */
-void ImportTrainingTextWorkingPage::startImport(QString path)
+void ImportTrainingTextWorkingPage::startImport(KUrl path)
 {
-	if (path.startsWith("http"))
+	if (!path.isLocalFile())
 	{
-		Logger::log(i18n("[INF] Starte Remote Import von \"")+path+i18n("\""));
-		QuickDownloader *qd = new QuickDownloader(this);
-		connect(qd, SIGNAL(downloadFinished(QString)), this,
-			SLOT(processText(QString)));
-		qd->download(path);
-	} else {
-		Logger::log(i18n("[INF] Starte Lokalen Import von\"")+path+i18n("\""));
-		parseFile(path);
-	}
-}
+		Logger::log(i18n("[INF] Starte Remote Import von \"%1\"", path.prettyUrl()));
 
+		KUrl tmpPath = KUrl(KStandardDirs::locateLocal("tmp", "tmp_trainingstext.xml"));
+
+		KIO::FileCopyJob *job = KIO::file_copy(path, tmpPath, 
+						-1 /* no special permissions */, KIO::Overwrite);
+		
+		if (!job->exec())
+		{
+			job->ui()->showErrorMessage();
+			return;
+		}
+
+		path = tmpPath;
+	}
+	if (KMimeType::findByFileContent(path.path())->is("application/xml")) // rewrite to mimetype "application/xml"
+		processText(path.path());
+	else parseFile(path.path());
+	
+}
 
 void ImportTrainingTextWorkingPage::initializePage()
 {
 	ui.pbProgress->setMaximum(0);
 	if (field("importTrainingTextLocal").toBool())
 	{
-		startImport(field("importTrainingTextLFilename").value<KUrl>().path());
-	} else startImport(field("textDownloadURL").toString());
+		startImport(field("importTrainingTextLFilename").value<KUrl>());
+	} else startImport(KUrl(field("textDownloadURL").toString()));
 }
 
 
@@ -88,10 +97,6 @@ void ImportTrainingTextWorkingPage::processText(QString path)
 	QFileInfo fi = QFileInfo(path);
 	QFile::copy(path, KStandardDirs::locateLocal("appdata", "texts/")+"/"+fi.fileName());
 	QFile::remove(path);
-
-	
-	QuickDownloader *down = qobject_cast<QuickDownloader*>(sender());
-	if (down) down->deleteLater();
 	
 	wizard()->next();
 }
@@ -166,5 +171,4 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 	text->save(xmlPath);
 	delete text;
 	ui.pbProgress->setValue(1);
-// 	wizard()->next();
 }

@@ -34,7 +34,7 @@
 class XMLExecutableCommand : public XMLDomReader {
 	
 public:
-	XMLExecutableCommand(const QString& path="conf/commands.xml");
+	XMLExecutableCommand(const QString& path="");
 	
 	bool save(CommandList *list, const QString& path="");
 	

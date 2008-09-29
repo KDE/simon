@@ -22,9 +22,6 @@
 #define IMPORTTRAININGTEXTREMOTEPAGE_H
 
 #include <QWizardPage>
-#include <QString>
-#include <QWidget>
-#include <QListWidget>
 #include "ui_importtrainingtextremotepage.h"
 
 class QuickDownloader;
@@ -41,7 +38,7 @@ class ImportTrainingTextRemotePage : public QWizardPage {
 		QuickDownloader *downloader;
 		Ui::ImportRemotePage ui;
 	private slots:
-		void importList(QString path);
+		void importList(const QString& path);
 		
 	public:
 		void initializePage();

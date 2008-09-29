@@ -20,12 +20,6 @@
 
 #include "importtrainingtextlocalpage.h"
 
-#include <KLineEdit>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <KPushButton>
-#include <QDir>
 
 
 /**

@@ -34,6 +34,7 @@
  */
 WiktionaryDict::WiktionaryDict(QString path, QObject* parent) :QXmlDefaultHandler(), Dict(parent)
 {
+	buildTranslationTables();
 	allowedChars = "-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890äÄüÜöÖ";
 	this->reader = new XMLSAXReader(path);
 	pos=0;

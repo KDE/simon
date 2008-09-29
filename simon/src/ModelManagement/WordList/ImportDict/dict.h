@@ -44,6 +44,8 @@
 class Dict : public QObject{
 Q_OBJECT
 
+
+
 signals:
 	void loaded();
 	void progress(int prog);
@@ -57,7 +59,18 @@ protected:
 
 	void buildAllowedPhonemes();
 	void buildTranslationTables();
+
+	QString segmentSampa(const QString& sampa);
+	QString adaptToSimonPhonemeSet(QString sampa);
 public:
+
+
+enum DictType {
+	HadifixBOMP=1,
+	Wiktionary=2,
+	HTKLexicon=3
+};
+
     Dict(QObject *parent=0);
 	QString ipaToXSampa(QString ipa);
 	virtual void load(QString path) = 0;

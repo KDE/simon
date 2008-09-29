@@ -21,10 +21,11 @@
 #include "xmldomreader.h"
 #include <QObject>
 #include <QDomDocument>
-#include <QFile>
 #include <QIODevice>
 #include <QTextStream>
 #include <QTextCodec>
+#include <KFilterDev>
+#include <KMimeType>
 
 /**
  * \brief Constructor
@@ -48,16 +49,22 @@ XMLDomReader::XMLDomReader(QString path, QObject* parent) : XMLReader(path, pare
 bool XMLDomReader::save(QString path)
 {
 	if (path.isEmpty()) path = this->path;
-	QFile file(path);
-	if(!file.open(QIODevice::WriteOnly ) )
-		return false;
 
-	QTextStream ts(&file);
+
+	QIODevice *file = KFilterDev::deviceForFile(path,
+							KMimeType::findByFileContent(path)->name());
+	if((!file) || (!file->open(QIODevice::WriteOnly)))
+	{
+		return false;
+	}
+
+	QTextStream ts(file);
 	ts.setCodec("UTF-8");
 	ts << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	ts << doc->toString();
 	emit(written());
-	file.close();
+	file->close();
+	file->deleteLater();
 	emit(closed());
 	return true;
 }
@@ -77,17 +84,20 @@ bool XMLDomReader::load(QString path)
 	
 	if (doc) delete doc;
 	doc= new QDomDocument();
+
+
+	QIODevice *file = KFilterDev::deviceForFile(path,
+							KMimeType::findByFileContent(path)->name());
 	
-	QFile file(path);
-	if(!file.open(QIODevice::ReadOnly))
+	if((!file) || (!file->open(QIODevice::ReadOnly)))
 		return false;
 
-	if (!doc->setContent(&file))
-	{
-		file.close();
+	if (!doc->setContent(file))
 		return false;
-	}
-	file.close();
+
+	file->close();
+	file->deleteLater();
+
 	emit (loaded());
 	return true;
 }

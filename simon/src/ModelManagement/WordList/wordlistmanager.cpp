@@ -32,6 +32,8 @@
 #include <KMessageBox>
 #include <KLocalizedString>
 #include <KStandardDirs>
+#include <KFilterDev>
+#include <KMimeType>
 
 WordListManager* WordListManager::instance;
 
@@ -91,7 +93,7 @@ void WordListManager::updateWordProbability()
  * @param includeShadow Should we also look in the shadowdict?
  * @return The wordlist
  */
-WordList* WordListManager::getWordsByTerminal(QString terminal, bool includeShadow)
+WordList* WordListManager::getWordsByTerminal(const QString& terminal, bool includeShadow)
 {
 	wordListLock.lock();
 	WordList *list = getWordList();
@@ -219,23 +221,22 @@ inline WordList* WordListManager::getShadowList()
  * \return bool
  * Saving successful?
  */
-bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
-			     QString shadowLexiconFilename, QString shadowVocabFilename )
+bool WordListManager::save()
 {
 	bool wlistChanged = false, slistChanged = false;
 	if (isTemp){
 		emit tempWarning();
 	}
 
-	Logger::log(i18n("[INF] Speichere Wörterliste"));
+	Logger::log(i18n("[INF] Speichere Wörterliste(n)"));
 	
 	//save wordlist
 	wordListLock.lock();
 	if (mainDirty)	//we changed the wordlist
 	{
-		if (lexiconFilename.isEmpty()) lexiconFilename = KStandardDirs::locateLocal("appdata", "model/lexicon");
-		if (vocabFilename.isEmpty()) vocabFilename = KStandardDirs::locateLocal("appdata", "model/model.voca");
-		saveWordList(this->getWordList(), lexiconFilename, vocabFilename);
+		saveWordList(this->getWordList(), 
+			      KStandardDirs::locateLocal("appdata", "model/lexicon"), 
+			      KStandardDirs::locateLocal("appdata", "model/model.voca"));
 		wlistChanged = true;
 		mainDirty=false;
 	}
@@ -245,9 +246,9 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
 	shadowLock.lock();
 	if (shadowDirty) //we changed the shadowDict
 	{
-		if (shadowLexiconFilename.isEmpty()) shadowLexiconFilename = KStandardDirs::locateLocal("appdata", "model/shadowlexicon");
-		if (shadowVocabFilename.isEmpty()) shadowVocabFilename = KStandardDirs::locateLocal("appdata", "model/shadow.voca");
-		saveWordList(this->getShadowList(), shadowLexiconFilename, shadowVocabFilename);
+		saveWordList(this->getShadowList(), 
+			      KStandardDirs::locateLocal("appdata", "model/shadowlexicon"), 
+			      KStandardDirs::locateLocal("appdata", "model/shadow.voca"));
 		slistChanged = true;
 		shadowDirty=false;
 	}
@@ -267,11 +268,12 @@ bool WordListManager::save ( QString lexiconFilename, QString vocabFilename,
  * @param vocabFilename The vocabfile to write to
  * @return Success
  */
-bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QString vocabFilename)
+bool WordListManager::saveWordList(WordList *list, const QString& lexiconFilename, const QString& vocabFilename)
 {
 	Logger::log(i18n("[INF] Öffnen der Ausgabedatei: %1", lexiconFilename));
 	
-	QFile *outfile = new QFile(lexiconFilename);
+	QIODevice *outfile = KFilterDev::deviceForFile(lexiconFilename,
+							KMimeType::findByFileContent(lexiconFilename)->name());
 	if (!outfile->open(QIODevice::WriteOnly)) {
 		Logger::log(i18n("[ERR] Fehler beim Öffnen der Ausgabedatei %1", lexiconFilename));
 		outfile->deleteLater();
@@ -282,7 +284,8 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
 	outstream.setCodec("UTF-8");
 
 
-	QFile *vocabFile = new QFile(vocabFilename);
+	QIODevice *vocabFile = KFilterDev::deviceForFile(vocabFilename,
+							KMimeType::findByFileContent(vocabFilename)->name());
 	if (!vocabFile->open(QIODevice::WriteOnly)) {
 		Logger::log(i18n("[ERR] Fehler beim Öffnen der Ausgabedatei %1", vocabFilename));
 		outfile->close();
@@ -384,7 +387,7 @@ bool WordListManager::saveWordList(WordList *list, QString lexiconFilename, QStr
  * \note This is incredibly fast :)
  * \return The index of the found word; this is set to the nearest hit if the word is not found (see parameter: found)
  */
-int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QString pronunciation, QString terminal)
+int WordListManager::getWordIndex(WordList *list, bool &found, const QString& word, const QString& pronunciation, const QString& terminal)
 {
 	if (!list || (list->count()==0))
 	{
@@ -392,7 +395,7 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 		return 0;
 	}
 	
-	word = word.toUpper();
+	QString realWord = word.toUpper();
 	
 	int currentSearchStart = list->count()/2; //make use of integer division
 	//if count() == 1, currentSearchStart = 0,5 = 0 instead of 1 when using round
@@ -411,20 +414,20 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 		currentWordTerminal = currentWord->getTerminal();
 
 		
-		if ((currentWordName==word)
+		if ((currentWordName==realWord)
 			&& ((pronunciation.isEmpty() || currentWordPronunciation == pronunciation)
 			&& (terminal.isEmpty() || currentWordTerminal == terminal)))
 		{
 			//we found the exact word
 			found = true;
 			return currentSearchStart;
-		} else if ((currentWordName < word) || 
+		} else if ((currentWordName < realWord) || 
 			((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation < pronunciation)
 			|| (!terminal.isEmpty() && currentWordTerminal < terminal))))
 		{
 			currentMinValue = currentSearchStart;
 			modificator = (currentMaxValue - currentMinValue)/2;
-		} else if ((currentWordName > word) || 
+		} else if ((currentWordName > realWord) || 
 			((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation > pronunciation)
 			|| (!terminal.isEmpty() && currentWordTerminal > terminal))))
 		{
@@ -437,13 +440,13 @@ int WordListManager::getWordIndex(WordList *list, bool &found, QString word, QSt
 			//stagnating search
 			//do a incremental search over the left over items
 			int i=currentMinValue;
-			while ((i < currentMaxValue) && ((currentWordName < word) || 
+			while ((i < currentMaxValue) && ((currentWordName < realWord) || 
 						     ((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation < pronunciation)
 						     || (!terminal.isEmpty() && currentWordTerminal < terminal)))))
 			{
 				i++;
 			}
-			if ((i<list->count()) && (list->at(i).getWord().toUpper()==word)
+			if ((i<list->count()) && (list->at(i).getWord().toUpper()==realWord)
 							&& ((pronunciation.isEmpty() || list->at(i).getPronunciation() == pronunciation)
 							&& (terminal.isEmpty() || list->at(i).getTerminal() == terminal)))
 			{
@@ -485,7 +488,7 @@ void WordListManager::safelyInit()
  * Points out if this is a shadowlist - then we skip the recognition-check (it will always return 0)
  * @return  The parsed WordList
  */
-WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath, QStringList &terminals, bool isShadowlist )
+WordList* WordListManager::readWordList ( const QString& lexiconpath, const QString& vocabpath, QStringList &terminals, bool isShadowlist )
 {
 	Logger::log (i18n("[INF] Lesen der Wörterliste bestehend aus "));
 	Logger::log(i18n("[INF] \t\tLexikon: %1,", lexiconpath));
@@ -495,21 +498,29 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 	//read the vocab
 	TrainingManager *trainManager = TrainingManager::getInstance();	
 
-	QFile vocab(vocabpath);
-	if ( !vocab.open(QFile::ReadOnly)) {
+	QIODevice *vocab = KFilterDev::deviceForFile(vocabpath,
+							KMimeType::findByFileContent(vocabpath)->name());
+	if (!vocab->open(QIODevice::ReadOnly)) {
+		Logger::log(i18n("[ERR] Fehler beim Öffnen der Vokabulardatei %1", vocabpath));
+		vocab->deleteLater();
 		return false;
 	}
+	QTextStream vocabStream(vocab);
+	vocabStream.setCodec("UTF-8");
+
 	QString line, term, word;
 	QString pronunciation;
 	int splitter;
 
 	//skip NS_E and NS_B
-	for (int i=0; (i < 4) && (!vocab.atEnd()); i++)
-		vocab.readLine(1025);
+	for (int i=0; (i < 4) && (!vocabStream.atEnd()); i++)
+		vocabStream.readLine(1024);
 
-	while (!vocab.atEnd())
+	line = vocabStream.readLine();
+	
+	while (!line.isNull())
 	{
-		line = QString::fromUtf8(vocab.readLine(1024)).trimmed();
+		line = line.trimmed(); //test if we can do this together with the readLine() without destroying the isNull()
 		if (!line.startsWith("% "))
 		{
 			//read the word
@@ -525,19 +536,14 @@ WordList* WordListManager::readWordList ( QString lexiconpath, QString vocabpath
 			//strip multiple definitions
 			if (!terminals.contains(term)) terminals.append(term);
 		}
+		line = vocabStream.readLine();
 	}
 	wordlist = this->sortList(wordlist);
-// 	Logger::log(i18n("[INF] Öffnen des Lexikons von: %1", lexiconpath));
-// 	QFile *lexicon = new QFile ( lexiconpath );
-// 	QFile vocab(vocabpath);
-// 	if ( !lexicon->open ( QFile::ReadOnly ) || !vocab.open(QFile::ReadOnly) || !promptsTable) {
-// 		lexicon->/*delete*/Later();
-// 		return false;
-// 	}
-// 	lexicon->close();
-// 	lexicon->deleteLater();
 
 	Logger::log(i18n("[INF] Wörterliste erstellt"));
+
+	vocab->close();
+	vocab->deleteLater();
 	return wordlist;
 }
 
@@ -576,7 +582,7 @@ WordList* WordListManager::removeDoubles(WordList *in)
  * @param isShadowed If the word is shadowed (reference parameter)
  * @return The word (null if not found)
  */
-Word* WordListManager::getWord(QString word, QString pronunciation, QString terminal, bool &isShadowed)
+Word* WordListManager::getWord(const QString& word, const QString& pronunciation, const QString& terminal, bool &isShadowed)
 {
 	Word *w=NULL;
 	isShadowed = false;
@@ -701,7 +707,7 @@ bool WordListManager::deleteCompletely(Word *w, bool shadowed)
  * \return QString*
  * The found terminal (or NULL if none matched)
  */
-QString* WordListManager::getTerminal(QString name, QString pronunciation, WordList *wlist)
+QString* WordListManager::getTerminal(const QString& name, const QString& pronunciation, WordList *wlist)
 {
 	int i=0, wordcount = wlist->count();
 	QString uppername = name.toUpper();
@@ -726,7 +732,7 @@ QString* WordListManager::getTerminal(QString name, QString pronunciation, WordL
  * @author Peter Grasch
  * @return Wordname
  */
-QString WordListManager::getRandomWord(QString terminal, bool includeShadow)
+QString WordListManager::getRandomWord(const QString& terminal, bool includeShadow)
 {
 	wordListLock.lock();
 	WordList *main = getWordList();
@@ -868,7 +874,7 @@ WordList* WordListManager::mergeLists(WordList *a, WordList *b, bool keepDoubles
 }
 
 
-WordList* WordListManager::getWords(QString word, bool includeShadow, bool fuzzy, bool keepDoubles)
+WordList* WordListManager::getWords(const QString& word, bool includeShadow, bool fuzzy, bool keepDoubles)
 {
 	WordList *out;
 	
@@ -880,7 +886,7 @@ WordList* WordListManager::getWords(QString word, bool includeShadow, bool fuzzy
 }
 
 
-WordList* WordListManager::searchForWords(WordList *list, QString word, bool fuzzy)
+WordList* WordListManager::searchForWords(WordList *list, const QString& word, bool fuzzy)
 {
 	bool found;
 	WordList *out = new WordList();
@@ -936,13 +942,13 @@ bool WordListManager::extraListContains(Word *word)
 }
 
 
-bool WordListManager::mainWordListContainsStr(QString word)
+bool WordListManager::mainWordListContainsStr(const QString& word)
 {
 	QMutexLocker m(&wordListLock);
 	return wordListContainsStr(getWordList(), word);
 }
 
-bool WordListManager::extraListContainsStr(QString word)
+bool WordListManager::extraListContainsStr(const QString& word)
 {
 	QMutexLocker m(&shadowLock);
 	return wordListContainsStr(getShadowList(), word);
@@ -961,7 +967,7 @@ bool WordListManager::wordListContains(WordList *list, Word *word)
 	return (i!=count) /*did we go all the way through?*/;
 }
 
-bool WordListManager::wordListContainsStr(WordList *list, QString word)
+bool WordListManager::wordListContainsStr(WordList *list, const QString& word)
 {
 	Q_ASSERT(list);
 
@@ -973,7 +979,7 @@ bool WordListManager::wordListContainsStr(WordList *list, QString word)
 	return (i!=count) /*did we go all the way through?*/;
 }
 
-WordList* WordListManager::getMainstreamWords(QString word, bool fuzzy)
+WordList* WordListManager::getMainstreamWords(const QString& word, bool fuzzy)
 {
 	wordListLock.lock();
 	WordList* found = searchForWords(getWordList(), word, fuzzy);
@@ -981,7 +987,7 @@ WordList* WordListManager::getMainstreamWords(QString word, bool fuzzy)
 	return found;
 }
 
-WordList* WordListManager::getShadowedWords(QString word, bool fuzzy)
+WordList* WordListManager::getShadowedWords(const QString& word, bool fuzzy)
 {
 	shadowLock.lock();
 	WordList* found = searchForWords(getShadowList(), word, fuzzy);
@@ -989,7 +995,7 @@ WordList* WordListManager::getShadowedWords(QString word, bool fuzzy)
 	return found;
 }
 
-void WordListManager::renameTerminal(QString from, QString to, bool includeShadow)
+void WordListManager::renameTerminal(const QString& from, const QString& to, bool includeShadow)
 {
 	if (to == from) return;
 	int i=0;
@@ -1132,72 +1138,6 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
 	Logger::log(i18n("[INF] Die Wortliste beinhaltet jetzt %1 Wörter", wordlist->count()));
 	
 	this->save();
-}
-
-/**
- * \brief Reads the vocab of the given file and parses it into the WordList which is returned
- * \author Peter Grasch
- * \param QString vocabpath
- * Path to the vocabs
- * \return WordList*
- * The list of parsed vocab
- */
-WordList* WordListManager::readVocab(QString vocabpath)
-{
-	Logger::log(i18n("[INF] Lese Vokabular von %1", vocabpath));
-	WordList *vocablist = new WordList();
-	
-	QFile *vocab = new QFile ( vocabpath );
-	vocab->open ( QFile::ReadOnly );
-	if ( !vocab->isReadable() ) return false;
-
-	
-	QString line;
-	QString name;
-	QString pronunciation;
-	QString terminal;
-	int foundPos;
-
-
-	if (!vocab->atEnd()) 
-	{
-		line = vocab->readLine(1024);
-	
-		//skip till the next terminal definition
-		while (!vocab->atEnd() && (!line.startsWith("% ")))
-		{ line = vocab->readLine(1024);  }
-		
-		//set the terminal to this one if there is one (i.e. the file was not over)
-		if (!vocab->atEnd())
-			terminal = line.mid(2).trimmed();
-	}
-	
-
-
-	while ( !vocab->atEnd() ) //for each line that was successfully read
-	{
-		line =vocab->readLine(1024);
-		if (line.trimmed().isEmpty()) continue;
-		
-		if (line.startsWith("%")) 
-		{
-			//The Line is the Definition of the terminal
-			terminal = line.mid(2).trimmed();
-			continue;
-		}
-		
-		//parsing the line
-		foundPos = line.indexOf ( "\t" );
-		name = line.left ( foundPos ).trimmed();
-		pronunciation = line.mid ( foundPos ).trimmed();
-		
-		//creates and appends the word to the wordlist
-		vocablist->append ( Word(name, pronunciation, terminal, 0 ) );
-	}
-	vocab->close();
-	vocab->deleteLater();
-
-	return vocablist;
 }
 
 /**

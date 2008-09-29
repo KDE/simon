@@ -19,15 +19,16 @@
 
 
 #include "importdictworkingpage.h"
+#include "importdict.h"
 #include <QLabel>
 #include <QProgressBar>
 #include <QVariant>
 #include <QVBoxLayout>
 #include <KUrl>
 #include <KLocalizedString>
-#include "../../../SimonLib/QuickUnpacker/quickunpacker.h"
-#include "../../../SimonLib/QuickDownloader/quickdownloader.h"
-#include "importdict.h"
+#include <KStandardDirs>
+#include <kio/job.h>
+#include <kio/jobuidelegate.h>
 
 /**
  * \brief Constructor - inits the gui
@@ -91,13 +92,11 @@ bool ImportDictWorkingPage::isComplete() const
  */
 void ImportDictWorkingPage::importLexicon(QString path)
 {
-	ready=false;
-	completeChanged();
-	
+	if (path.isEmpty()) return;
+
 	displayStatus(i18n("Importiere Lexicon-Wörterbuch %1...", path));
-	pbMain->setMaximum(1000);
 	
-	import->parseWordList(path, 3);
+	import->parseWordList(path, Dict::HTKLexicon, true /* remove input file when done */);
 }
 
 /**
@@ -106,54 +105,65 @@ void ImportDictWorkingPage::importLexicon(QString path)
  */
 void ImportDictWorkingPage::importHADIFIX(QString path)
 {
+	if (path.isEmpty()) return;
+
+	displayStatus(i18n("Importiere Hadifix-Wörterbuch %1...", path));
+	
+	import->parseWordList(path, Dict::HadifixBOMP, true /* remove input file when done */);
+}
+
+/**
+ * \brief Imports the wiktionary at <path>
+ * @param path the path of the (downloaded and extracted) wiki
+ */
+void ImportDictWorkingPage::importWiktionary(QString path)
+{
+	if (path.isEmpty()) return;
+
+	displayStatus(i18n("Importiere Wiktionary-Wörterbuch %1...", path));
+	
+	import->parseWordList(path, Dict::Wiktionary, true /* remove input file when done */);
+	
+}
+
+
+QString ImportDictWorkingPage::prepareDict(KUrl url)
+{
+	KIO::FileCopyJob *job = KIO::file_copy(url, KStandardDirs::locateLocal("tmp", url.fileName()));
+	
+	if (!job->exec()) {
+		job->ui()->showErrorMessage();
+		return "";
+	}
+
+	return job->destUrl().path();
+}
+
+
+/**
+ * \brief Starts the importing progress
+ * \author Peter Grasch
+ */
+void ImportDictWorkingPage::initializePage()
+{
 	ready=false;
 	completeChanged();
-	
-	displayStatus(i18n("Importiere Hadifix-Wörterbuch %1...", path));
 	pbMain->setMaximum(1000);
-	
-	import->parseWordList(path, 1);
-}
 
-/**
- * \brief Imports the wiki at the given url (local or remote)
- * \author Peter Grasch
- * @param url the url to import from
- */
-void ImportDictWorkingPage::importWiktionary(QString url)
-{
-	if (url.startsWith("http"))
+	if (field("hadifix").toBool())
 	{
-		pbMain->setMaximum(0);
-		displayStatus(i18n("Lade Wörterbuch herunter..."));
-		QuickDownloader *loader = new QuickDownloader(this);
-		connect(loader, SIGNAL(aborted()), this, SIGNAL(failed()));
-		connect(loader, SIGNAL(errorOccured(QString)), this, SIGNAL(failed()));
-		connect(loader, SIGNAL(downloadFinished(QString)), this, 
-				SLOT(unpackWikiIfNecessary(QString)));
-		loader->download(url, "wiki_tmp.bz2");
-	} else unpackWikiIfNecessary(url);
-}
-
-/**
- * \brief Unpacks the wiki if necessary
- * \author Peter Grasch
- * @param file the wiki
- * \todo The distinction if the file is packed or not is entirely done by using the filename
- */
-void ImportDictWorkingPage::unpackWikiIfNecessary(QString file)
-{
-	if (file.endsWith("bz2"))
+		importHADIFIX(prepareDict(field("bompFileName").value<KUrl>()));
+	}else if (field("wiktionary").toBool())
 	{
-		QuickUnpacker *unpacker = new QuickUnpacker(this);
-		unpacker->unpack(file);
-		connect(unpacker, SIGNAL(unpackedTo(QString)), this, 
-			SLOT(importWiktionaryFile(QString)));
-	} else importWiktionaryFile(file);
+		if (field("importWikiLocal").toBool())
+			importWiktionary(prepareDict(field("wikiFileName").value<KUrl>()));
 
-	QuickDownloader *dl = qobject_cast<QuickDownloader*>(sender());
-	if (dl) dl->deleteLater();
+		if (field("importWikiRemote").toBool())
+			importWiktionary(prepareDict(KUrl(field("wikiRemoteURL").toString())));
+	} else
+		importLexicon(prepareDict(field("lexiconFilename").value<KUrl>()));
 }
+
 
 /**
  * \brief Displays the given status
@@ -173,41 +183,6 @@ void ImportDictWorkingPage::displayStatus(QString status)
 void ImportDictWorkingPage::displayProgress(int progress)
 {
 	pbMain->setValue(progress);
-}
-
-/**
- * \brief Starts the importing progress
- * \author Peter Grasch
- */
-void ImportDictWorkingPage::initializePage()
-{
-	if (field("hadifix").toBool())
-	{
-		importHADIFIX(field("bompFileName").value<KUrl>().path());
-	}else if (field("wiktionary").toBool())
-	{
-		QString path;
-		if (field("importWikiLocal").toBool()) path = field("wikiFileName").value<KUrl>().path();
-		if (field("importWikiRemote").toBool()) path = field("wikiRemoteURL").toString();
-
-		importWiktionary(path);
-	} else
-		importLexicon(field("lexiconFilename").value<KUrl>().path());
-}
-
-/**
- * \brief Imports the wiktionary at <path>
- * @param path the path of the (downloaded and extracted) wiki
- */
-void ImportDictWorkingPage::importWiktionaryFile(QString path)
-{
-	QuickUnpacker *qu = qobject_cast<QuickUnpacker*>(sender());
-	if (qu) qu->deleteLater();
-	displayStatus(i18n("Importiere Wiktionary-Wörterbuch %1...", path));
-	pbMain->setMaximum(1000);
-	
-	import->parseWordList(path, 2);
-	
 }
 
 /**

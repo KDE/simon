@@ -28,7 +28,6 @@
  */
 Dict::Dict(QObject *parent) : QObject(parent)
 {
-	buildTranslationTables();
 	buildAllowedPhonemes();
 }
 
@@ -73,7 +72,7 @@ void Dict::buildTranslationTables()
 	translationLookup.insert(0x01AD, "t_<");
 	translationLookup.insert(0x01BB, "dz)");
 	translationLookup.insert(0x01C3, "!");
-	translationLookup.insert(0x0250, "6");
+	translationLookup.insert(0x0250, "@ r");
 	translationLookup.insert(0x0251, "A");
 	translationLookup.insert(0x0252, "Q");
 	translationLookup.insert(0x0253, "b_<");
@@ -249,10 +248,10 @@ void Dict::buildTranslationTables()
 	translationLookup.insert(0x02B6, "R");
 	translationLookup.insert(0x02CC, "%");
 // 	translationLookup.insert(0x01A6, "R\\\\");
-// 	translationLookup.insert(0x00F8, "2");
-// 	translationLookup.insert(0x00F6, "2");
-// 	translationLookup.insert(0x0020, "2");
-// 	translationLookup.insert(0x0153, "9");
+	translationLookup.insert(0x00F8, "oeh");
+	translationLookup.insert(0x00F6, "oeh");
+	translationLookup.insert(0x0020, "oeh");
+	translationLookup.insert(0x0153, "oe");
 	
 	
 	
@@ -289,11 +288,13 @@ void Dict::buildAllowedPhonemes()
 		return;
 	
 	QStringList phonemes;
-	//TODO sort per size (desc)
+	//sorting per phoneme length...
 	while (!phon.atEnd())
 	{
 		phonemes << phon.readLine(50).trimmed(); //read phonemes linewise
 	}
+	phon.close();
+
 	int max =0;
 	//find max
 	for (int i=0; i < phonemes.count(); i++)
@@ -312,8 +313,43 @@ void Dict::buildAllowedPhonemes()
 		}
 		--max;
 	}
+}
+
+QString Dict::adaptToSimonPhonemeSet(QString sampa)
+{
+	QString out = sampa.replace("6", "@ r");
+	out = out.replace("2", "oeh");
+	out = out.remove("~");
+	out = out.remove("<");
+	out = out.remove("_");
+	out = out.remove("?");
+	return out.replace("9", "oe");
+}
+
+QString Dict::segmentSampa(const QString& sampa)
+{
+	QString filteredXsp = sampa;
+	//filter xsp through 'sampa sieve'
+	int phonemeIndex=0;
+	QString currentPhoneme = "";
+	QString xspFertig = "";
 	
-	phon.close();
+	while ((!filteredXsp.isEmpty()) && (allowedPhonemes.count() > phonemeIndex))
+	{
+		currentPhoneme = allowedPhonemes[phonemeIndex++];
+		if (filteredXsp.indexOf(currentPhoneme)==0)
+		{
+			xspFertig += " "+currentPhoneme;
+			filteredXsp.remove(0, currentPhoneme.count()); //remove phoneme at start
+			phonemeIndex=0;
+		}
+	}
+	
+	if (filteredXsp.isEmpty()) //found everything
+	{
+		return xspFertig.trimmed();
+	} else
+		return sampa;
 }
 
 /**
