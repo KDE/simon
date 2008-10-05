@@ -21,6 +21,7 @@
 #include "dragtablewidget.h"
 #include <QApplication>
 #include <KLocalizedString>
+#include "simoninfo/simoninfo.h"
 
 /**
  * @brief Constructor

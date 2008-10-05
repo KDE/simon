@@ -19,7 +19,6 @@
 
 
 #include "addwordrecordpage.h"
-#include "../../../SimonLib/FileSystem/filesystemencoder.h"
 #include "coreconfiguration.h"
 #include <QDate>
 #include <QTime>
@@ -77,8 +76,8 @@ void AddWordRecordPage::initializePage()
 	QString filename1=field("wordExample1").toString().replace(" ", "_")+ "_1_"+dateTime;
 	QString filename2=field("wordExample2").toString().replace(" ", "_")+ "_2_"+dateTime;
 
-	filename1 = FileSystemEncoder::encodeFilename(filename1);
-	filename2 = FileSystemEncoder::encodeFilename(filename2);
+	filename1 = QFile::encodeName(filename1);
+	filename2 = QFile::encodeName(filename2);
 
 
 

@@ -25,7 +25,6 @@
 #include <QMouseEvent>
 #include <QDrag>
 #include <QMimeData>
-#include "../../SimonLib/SimonInfo/simoninfo.h"
 
 
 /**

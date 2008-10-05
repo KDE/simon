@@ -19,13 +19,13 @@
 
 
 #include "wav.h"
+#include "logging/logger.h"
 #include <KLocalizedString>
 #include <stdlib.h>
 #include <string.h>
 #include <QObject>
 #include <QDataStream>
 #include <QFile>
-#include "../Logging/logger.h"
 
 
 /**

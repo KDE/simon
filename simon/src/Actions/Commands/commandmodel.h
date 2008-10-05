@@ -23,7 +23,7 @@
 
 #include <QAbstractItemModel>
 #include <QStringList>
-#include "command.h"
+#include "commandpluginbase/command.h"
 
 
 class CommandModel : public QAbstractItemModel {

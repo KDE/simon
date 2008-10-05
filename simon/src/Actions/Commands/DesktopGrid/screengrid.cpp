@@ -29,7 +29,7 @@
 #include <QBrush>
 #include <QRect>
 #include <QColor>
-#include "../../../SimonLib/EventSimulation/eventhandler.h"
+#include "eventsimulation/eventhandler.h"
 
 ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent, 
 		Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint)

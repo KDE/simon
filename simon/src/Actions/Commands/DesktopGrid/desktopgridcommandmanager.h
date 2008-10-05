@@ -20,8 +20,9 @@
 #ifndef DESKTOPGRIDCOMMANDMANAGER_H
 #define DESKTOPGRIDCOMMANDMANAGER_H
 
-#include "../commandmanager.h"
+#include <simoncommandpluginbase/commandmanager.h>
 
+#include <QVariantList>
 
 /**
  *	@class DesktopGridCommandManager
@@ -45,7 +46,7 @@ public:
     * 
     *	@author Peter Grasch
     */
-    DesktopGridCommandManager(QObject *parent=0);
+    DesktopGridCommandManager(QObject *parent, const QVariantList& args);
 
     
     ~DesktopGridCommandManager() {}

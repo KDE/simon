@@ -20,9 +20,11 @@
 #ifndef COMMANDMANAGER_H
 #define COMMANDMANAGER_H
 
+#include "simoncommandpluginbase_export.h"
+
+#include "command.h"
 #include <QList>
 #include <QObject>
-#include "command.h"
 
 class CommandManager;
 
@@ -36,7 +38,7 @@ typedef QList<CommandManager*> CommandManagerList;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class CommandManager : public QObject{
+class SIMONCOMMANDPLUGINBASE_EXPORT CommandManager : public QObject{
 Q_OBJECT
 signals:
 	void commandsFound(CommandList*);

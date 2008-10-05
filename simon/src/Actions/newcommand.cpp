@@ -22,13 +22,14 @@
 #include <KUrl>
 #include <KKeySequenceWidget>
 #include <KDialogButtonBox>
+#include "Commands/commandpluginbase/command.h"
 
-#include "Commands/Executable/executablecommand.h"
-#include "Commands/Executable/ImportProgram/importprogramwizard.h"
-#include "Commands/Place/placecommand.h"
-#include "Commands/Place/ImportPlace/importplacewizard.h"
-#include "Commands/Shortcut/shortcutcommand.h"
-#include "Commands/TextMacro/textmacrocommand.h"
+// #include "Commands/Executable/executablecommand.h"
+// #include "Commands/Executable/ImportProgram/importprogramwizard.h"
+// #include "Commands/Place/placecommand.h"
+// #include "Commands/Place/ImportPlace/importplacewizard.h"
+// #include "Commands/Shortcut/shortcutcommand.h"
+// #include "Commands/TextMacro/textmacrocommand.h"
 
 NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
 {
@@ -53,33 +54,33 @@ void NewCommand::init(Command *command)
 	ui.leTrigger->setText(command->getTrigger());
 	ui.ibIcon->setIcon(command->getIconSrc());
 
-	if (dynamic_cast<ExecutableCommand*>(command))
-	{
-		ExecutableCommand *exe = dynamic_cast<ExecutableCommand*>(command);
-
-		ui.cbType->setCurrentIndex(0); //Executable menu
-		ui.urExecutable->setPath(exe->getExecutable());
-		ui.urWorkingDirectory->setUrl(exe->getWorkingDirectory());
-	}
-	if (dynamic_cast<PlaceCommand*>(command))
-	{
-		PlaceCommand *place = dynamic_cast<PlaceCommand*>(command);
-
-		ui.cbType->setCurrentIndex(1); //Place menu
-		ui.urUrl->setUrl(place->getURL());
-	}
-	if (dynamic_cast<ShortcutCommand*>(command))
-	{
-		ShortcutCommand *shortcut = dynamic_cast<ShortcutCommand*>(command);
-		ui.cbType->setCurrentIndex(2); //Shortcut menu
-		ui.ksShortcut->setKeySequence(shortcut->getShortcut());
-	}
-	if (dynamic_cast<TextMacroCommand*>(command))
-	{
-		TextMacroCommand *macro = dynamic_cast<TextMacroCommand*>(command);
-		ui.cbType->setCurrentIndex(3); //Macro menu
-		ui.teMacroText->setPlainText(macro->getText());
-	}
+// 	if (dynamic_cast<ExecutableCommand*>(command))
+// 	{
+// 		ExecutableCommand *exe = dynamic_cast<ExecutableCommand*>(command);
+// 
+// 		ui.cbType->setCurrentIndex(0); //Executable menu
+// 		ui.urExecutable->setPath(exe->getExecutable());
+// 		ui.urWorkingDirectory->setUrl(exe->getWorkingDirectory());
+// 	}
+// 	if (dynamic_cast<PlaceCommand*>(command))
+// 	{
+// 		PlaceCommand *place = dynamic_cast<PlaceCommand*>(command);
+// 
+// 		ui.cbType->setCurrentIndex(1); //Place menu
+// 		ui.urUrl->setUrl(place->getURL());
+// 	}
+// 	if (dynamic_cast<ShortcutCommand*>(command))
+// 	{
+// 		ShortcutCommand *shortcut = dynamic_cast<ShortcutCommand*>(command);
+// 		ui.cbType->setCurrentIndex(2); //Shortcut menu
+// 		ui.ksShortcut->setKeySequence(shortcut->getShortcut());
+// 	}
+// 	if (dynamic_cast<TextMacroCommand*>(command))
+// 	{
+// 		TextMacroCommand *macro = dynamic_cast<TextMacroCommand*>(command);
+// 		ui.cbType->setCurrentIndex(3); //Macro menu
+// 		ui.teMacroText->setPlainText(macro->getText());
+// 	}
 }
 
 void NewCommand::checkIfComplete()
@@ -96,18 +97,18 @@ void NewCommand::setWindowTitleToCommandName(QString name)
 
 void NewCommand::showImportProgramWizard()
 {
-	ImportProgramWizard *import = new ImportProgramWizard(this);
-	connect (import, SIGNAL(commandCreated(Command*)), this, SLOT(init(Command*)));
-	import->exec();
-	import->deleteLater();
+// 	ImportProgramWizard *import = new ImportProgramWizard(this);
+// 	connect (import, SIGNAL(commandCreated(Command*)), this, SLOT(init(Command*)));
+// 	import->exec();
+// 	import->deleteLater();
 }
 
 void NewCommand::showImportPlaceWizard()
 {
-	ImportPlaceWizard *import = new ImportPlaceWizard(this);
-	connect (import, SIGNAL(commandCreated(Command*)), this, SLOT(init(Command*)));
-	import->exec();
-	import->deleteLater();
+// 	ImportPlaceWizard *import = new ImportPlaceWizard(this);
+// 	connect (import, SIGNAL(commandCreated(Command*)), this, SLOT(init(Command*)));
+// 	import->exec();
+// 	import->deleteLater();
 }
 
 Command* NewCommand::newCommand()
@@ -118,28 +119,28 @@ Command* NewCommand::newCommand()
 		Command *command=0;
 		
 		int type = ui.cbType->currentIndex();
-		switch (type)
-		{
-			case 0: //Program
-				command = new ExecutableCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
-							ui.urExecutable->url().path(), ui.urWorkingDirectory->url());
-				break;
-				
-			case 1: //place
-				command = new PlaceCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
-							ui.urUrl->url());
-				break;
-				
-			case 2: //shortcut
-				command = new ShortcutCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
-							ui.ksShortcut->keySequence());
-				break;
-				
-			case 3: //textmacro
-				command = new TextMacroCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
-							ui.teMacroText->toPlainText());
-				break;
-		}
+// 		switch (type)
+// 		{
+// 			case 0: //Program
+// 				command = new ExecutableCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
+// 							ui.urExecutable->url().path(), ui.urWorkingDirectory->url());
+// 				break;
+// 				
+// 			case 1: //place
+// 				command = new PlaceCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
+// 							ui.urUrl->url());
+// 				break;
+// 				
+// 			case 2: //shortcut
+// 				command = new ShortcutCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
+// 							ui.ksShortcut->keySequence());
+// 				break;
+// 				
+// 			case 3: //textmacro
+// 				command = new TextMacroCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
+// 							ui.teMacroText->toPlainText());
+// 				break;
+// 		}
 		ui.ksShortcut->clearKeySequence();
 		return command;
 	}

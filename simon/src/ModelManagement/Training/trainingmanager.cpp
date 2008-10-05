@@ -20,11 +20,10 @@
 
 #include "trainingmanager.h"
 
-#include "../../SimonLib/Logging/logger.h"
+#include "logging/logger.h"
 #include "../WordList/wordlistmanager.h"
 #include "../modelmanager.h"
 #include "xmltrainingtext.h"
-#include "../../SimonLib/FileSystem/filesystemencoder.h"
 #include "coreconfiguration.h"
 
 #include <QFile>
@@ -353,7 +352,7 @@ bool TrainingManager::trainText ( int i )
 	QString time = qvariant_cast<QString>(QTime::currentTime());
 	time.replace(QString(":"), QString("-"));
 	
-	QString textFileName = FileSystemEncoder::encodeFilename(textName);
+	QString textFileName = QFile::encodeName(textName);
 	for(int i=0; i<getPageCount(); i++)
 	{
 		sampleHash->insert((textFileName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), getPage(i));

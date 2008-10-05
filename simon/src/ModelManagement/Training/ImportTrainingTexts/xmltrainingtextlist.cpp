@@ -19,7 +19,7 @@
 
 
 #include "xmltrainingtextlist.h"
-#include "../../../SimonLib/Logging/logger.h"
+#include "logging/logger.h"
 #include <QDomDocument>
 #include <KLocalizedString>
 

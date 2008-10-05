@@ -21,7 +21,7 @@
 #include "wordlistmanager.h"
 #include "ImportDict/importdictview.h"
 #include "../Training/trainingview.h"
-#include "../../SimonLib/Logging/logger.h"
+#include "logging/logger.h"
 #include "../WordList/wordlistview.h"
 #include "../WordList/RemoveWord/deleteworddialog.h"
 #include "../modelmanager.h"

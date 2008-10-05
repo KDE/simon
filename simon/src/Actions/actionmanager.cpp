@@ -21,19 +21,25 @@
 
 #include "coreconfiguration.h"
 
+#include "logging/logger.h"
+#include "simoninfo/simoninfo.h"
+
+#include <QDebug>
+#include <QFile>
+
 #include <KMessageBox>
 #include <KLocalizedString>
+#include <KService>
+#include <KServiceTypeTrader>
 
-#include "../SimonLib/Logging/logger.h"
-#include "../SimonLib/SimonInfo/simoninfo.h"
-#include "../SimonLib/EventSimulation/eventhandler.h"
-#include "Commands/commandmanager.h"
-// #include "Commands/ATIntegration/"
-#include "Commands/DesktopGrid/desktopgridcommandmanager.h"
-#include "Commands/Executable/executablecommandmanager.h"
-#include "Commands/Place/placecommandmanager.h"
-#include "Commands/Shortcut/shortcutcommandmanager.h"
-#include "Commands/TextMacro/textmacrocommandmanager.h"
+#include "eventsimulation/eventhandler.h"
+
+
+// #include "Commands/DesktopGrid/desktopgridcommandmanager.h"
+// #include "Commands/Executable/executablecommandmanager.h"
+// #include "Commands/Place/placecommandmanager.h"
+// #include "Commands/Shortcut/shortcutcommandmanager.h"
+// #include "Commands/TextMacro/textmacrocommandmanager.h"
 
 
 ActionManager* ActionManager::instance;
@@ -53,21 +59,42 @@ void ActionManager::setupBackends()
 	qDeleteAll(*managers);
 	managers->clear();
 
+	KService::List services;
+	KServiceTypeTrader* trader = KServiceTypeTrader::self();
+
+	services = trader->query("simon/CommandPlugin");
+	qDebug() << services.count();
+	foreach (KService::Ptr service, services) {
+		KPluginFactory *factory = KPluginLoader(service->library()).factory();
+ 
+		if (!factory)
+		{
+			qDebug() << "KPluginFactory could not load the plugin:" << service->library();
+			continue;
+		}
+		
+		CommandManager *man = factory->create<CommandManager>(this);
+	
+		if (man) {
+			qDebug() << "YIHAAAAAAAAA plugin loaded: " << service->name();
+			managers->append(man);
+		} else
+			qDebug() << "Plugin failed to load: " << service->name();
+	}
 
 
-	if (true) //Settings::getB("Commands/DesktopGrid/Enabled"))
-		managers->append(new DesktopGridCommandManager());
-	if (true) //Settings::getB("Commands/Executable/Enabled"))
-		managers->append(new ExecutableCommandManager());
-	if (true) //Settings::getB("Commands/Place/Enabled"))
-		managers->append(new PlaceCommandManager());
-	if (true) //Settings::getB("Commands/Shortcut/Enabled"))
-		managers->append(new ShortcutCommandManager());
-	if (true) //Settings::getB("Commands/TextMacro/Enabled"))
-		managers->append(new TextMacroCommandManager());
 
-// 	if (Settings::getB("Commands/ATIntegration/Enabled"))
-//		managers->append(new ATIntegrationCommandManager());
+// 	if (true) //Settings::getB("Commands/DesktopGrid/Enabled"))
+// 		managers->append(new DesktopGridCommandManager());
+// 	if (true) //Settings::getB("Commands/Executable/Enabled"))
+// 		managers->append(new ExecutableCommandManager());
+// 	if (true) //Settings::getB("Commands/Place/Enabled"))
+// 		managers->append(new PlaceCommandManager());
+// 	if (true) //Settings::getB("Commands/Shortcut/Enabled"))
+// 		managers->append(new ShortcutCommandManager());
+// 	if (true) //Settings::getB("Commands/TextMacro/Enabled"))
+// 		managers->append(new TextMacroCommandManager());
+
 
 	for (int i=0; i< managers->count(); i++)
 	{

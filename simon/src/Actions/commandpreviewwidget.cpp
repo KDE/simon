@@ -18,7 +18,7 @@
  */
 
 #include "commandpreviewwidget.h"
-#include "Commands/command.h"
+#include "Commands/commandpluginbase/command.h"
 #include <QMap>
 #include <QFormLayout>
 #include <QLayout>

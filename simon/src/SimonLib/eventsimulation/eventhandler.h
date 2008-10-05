@@ -18,40 +18,42 @@
  */
 
 
-#include "filesystemencoder.h"
-#include <QString>
-/**
- * \brief Encode the given filename
- * \author Peter Grasch
- * @param  in filename
- * @return safe filename
- */
-QString FileSystemEncoder::encodeFilename(QString in)
-{
-	in.replace("ü", "%ue");
-	in.replace("ä", "%ue");
-	in.replace("ö", "%oe");
-	in.replace("Ü", "%Ue");
-	in.replace("Ä", "%Ae");
-	in.replace("Ö", "%Oe");
-	in.replace("ß", "%Sz");
-	return in;
-}
+#ifndef EVENTHANDLER_H
+#define EVENTHANDLER_H
 
+#include "eventsimulation_export.h"
+
+class CoreEvents;
+class QChar;
+class QString;
+class QKeySequence;
 /**
- * \brief Decode the given filename
- * \author Peter Grasch
- * @param  in Safe filename
- * @return Original filename
+ *	@class EventHandler
+ *	@brief Manages the underlying CoreEventhandlers
+ *
+ *	@version 0.1
+ *	@date 4.03.2007
+ *	@author Peter Grasch
  */
-QString FileSystemEncoder::decodeFilename(QString  in)
-{
-	in.replace("%ue", "ü");
-	in.replace("%ae", "ä");
-	in.replace("%oe", "ö");
-	in.replace("%Ae", "Ä");
-	in.replace("%Oe", "Ö");
-	in.replace("%Ue", "Ü");
-	in.replace("%Sz", "ß");
-	return in;
-}
+class EVENTSIMULATION_EXPORT EventHandler {
+private:
+	static EventHandler* instance;
+	CoreEvents* coreEvents; //!< The event backend
+protected:
+	EventHandler();
+	void sendKey(const QChar& key) const;
+
+public:
+	static EventHandler* getInstance() {
+		if (!instance) instance = new EventHandler();
+		return instance;
+	}
+
+       ~EventHandler();
+
+	void click(int x, int y);
+	void sendWord(const QString& word) const;
+	void sendShortcut(const QKeySequence& shortcut) const;
+};
+
+#endif

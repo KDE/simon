@@ -18,53 +18,37 @@
  */
 
 
-#ifndef EVENTHANDLER_H
-#define EVENTHANDLER_H
+#ifndef XEVENTS_H
+#define XEVENTS_H
 
-#include <QString>
-#include <QChar>
 #include "coreevents.h"
 
-#ifdef Q_OS_UNIX
-#include "xevents.h"
-#endif
-#ifdef Q_OS_WIN
-#include "windowsevents.h"
-#endif
-
-// class ShortcutControl;
-
+class QString;
+class XEventsPrivate;
 /**
- *	@class EventHandler
- *	@brief Manages the underlying CoreEventhandlers
+ *	@class XEvents
+ *	@brief The X11 Event Backend
+ *	
+ *	Implements CoreEvents
  *
  *	@version 0.1
  *	@date 4.03.2007
  *	@author Peter Grasch
  */
-class EventHandler{
+
+class XEvents : public CoreEvents {
 private:
-	static EventHandler* instance;
-	CoreEvents *coreEvents; //!< The event backend
-	bool capslock;
-protected:
-	EventHandler();
+	XEventsPrivate *d;
 
 public:
-	static EventHandler* getInstance() {
-		if (!instance) instance = new EventHandler();
-		return instance;
-	}
-
-       ~EventHandler();
 	void click(int x, int y);
-	void sendShortcut(const QKeySequence& shortcut) const;
-	void sendWord(const QString& word) const;
-	void sendKey(const QChar& key) const;
-	void setModifier(const int virtualKey, const bool once) const;
-	void unsetModifier(const int virtualKey) const;
-	void sendKeyCode(const int keycode) const;
-	void runCommandKey(const int keycombination) const;
+	void sendChar(char key);
+	void sendKey(unsigned int key);
+	void setModifierKey(int virtualKey, bool once);
+	void unsetModifier(int virtualKey);
+	XEvents(char* displayName=":0.0");
+	~XEvents();
+
 };
 
 #endif

@@ -23,10 +23,10 @@
 
 #include "inlinewidgetview.h"
 #include "Configuration/configurationdialog.h"
-#include "SimonLib/Logging/logger.h"
+#include "logging/logger.h"
 #include "coreconfiguration.h"
 
-#include "SimonLib/SimonInfo/simoninfo.h"
+#include "simoninfo/simoninfo.h"
 #include "Actions/runcommandview.h"
 #include "SimonLib/TrayIcon/trayiconmanager.h"
 #include "ModelManagement/modelmanager.h"

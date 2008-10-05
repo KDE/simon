@@ -29,7 +29,7 @@
 #include <QHeaderView>
 #include <KMessageBox>
 #include "ImportTrainingData/importtrainingdirectory.h"
-#include "../../SimonLib/SimonInfo/simoninfo.h"
+#include "simoninfo/simoninfo.h"
 #include "trainingtext.h"
 #include "trainingmanager.h"
 #include "ImportTrainingTexts/importtrainingtexts.h"

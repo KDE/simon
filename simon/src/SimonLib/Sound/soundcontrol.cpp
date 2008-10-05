@@ -23,8 +23,8 @@
 #include <string.h>
 #include <QObject>
 #include <KMessageBox>
-#include "../SimonInfo/simoninfo.h"
-#include "../Logging/logger.h"
+#include "simoninfo/simoninfo.h"
+#include "logging/logger.h"
 #include "portaudio.h"
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
 

@@ -18,8 +18,8 @@
  */
 
 #include "guievents.h"
+#include "logging/logger.h"
 #include <QRegExp>
-#include "../Logging/logger.h"
 #include <QStringList>
 #include <KLocalizedString>
 

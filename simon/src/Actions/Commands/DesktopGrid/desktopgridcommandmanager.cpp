@@ -18,12 +18,19 @@
  */
 
 #include "desktopgridcommandmanager.h"
-#include <KLocalizedString>
-#include "../../../SimonLib/Logging/logger.h"
+#include <simoncommandpluginbase/simoncommandpluginbase_export.h>
+#include "logging/logger.h"
 #include "screengrid.h"
+#include <KLocalizedString>
+#include <KGenericFactory>
+#include <KMessageBox>
+#include <QDebug>
 
-DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent) : CommandManager(parent)
+SIMONCOMMAND_EXPORT_PLUGIN(DesktopGridCommandManager)
+
+DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent)
 {
+	Q_UNUSED(args);
 }
 
 const QString DesktopGridCommandManager::name() const
@@ -44,6 +51,7 @@ bool DesktopGridCommandManager::trigger(const QString& triggerName)
 
 bool DesktopGridCommandManager::load()
 {
+// 	KMessageBox::information(0, "du bist da king");
 	return true;
 }
 

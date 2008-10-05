@@ -18,48 +18,43 @@
  */
 
 
-#ifndef XEVENTS_H
-#define XEVENTS_H
+#ifndef SIMONINFO_H
+#define SIMONINFO_H
 
-#include "coreevents.h"
+#include "simoninfo_export.h"
 #include <QString>
 
-
-// class Display;
-#include <X11/Xlib.h>
-#include <X11/keysym.h>
-#include <X11/keysymdef.h>
-
 /**
- *	@class XEvents
- *	@brief The X11 Event Backend
- *	
- *	Implements CoreEvents
+ *	@class SimonInfo
+ *	@brief Helper class providing convenient methods on how to display short infos on the screen
+ *
+ *	Provides methods to display infos on the screen. Some of these methods are public and static to be used
+ *	from every context.
+ *	This Info-Viewer includes OSD like messages but also splashscreens,etc.
  *
  *	@version 0.1
- *	@date 4.03.2007
+ *	@date 10.01.2006
  *	@author Peter Grasch
- */
+*/
+class QWidget;
+class KIcon;
 
-class XEvents : public CoreEvents {
+class KSplashScreen;
+
+class SIMONINFO_EXPORT SimonInfo {
+	
 private:
-	Display *display; //!< The opened Display
+	KSplashScreen *splash;  //!< Splashscreen-Pointer
+	QWidget *parent;
 
-
-	void pressKey(KeySym key);
-	void pressKeyCode(KeyCode code);
-	void sendKeySymString(QString keysymString);
 public:
-	XEvents(char* displayName=":0.0");
-	Display* openDisplay(char* displayName);
+	SimonInfo(QWidget *parent = 0);
 	
-	void click(int x, int y);
-	void sendChar(char key);
-	void sendKey(unsigned int key);
-	void setModifierKey(int virtualKey, bool once);
-	void unsetModifier(int virtualKey);
-	
-	~XEvents();
+	void showSplash();
+	void writeToSplash(QString status);
+	void hideSplash();
+	static void showMessage(QString message, short time, KIcon *icon=0);
+	~SimonInfo();
 
 };
 

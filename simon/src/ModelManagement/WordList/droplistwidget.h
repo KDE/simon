@@ -25,7 +25,6 @@
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
-#include "../../SimonLib/SimonInfo/simoninfo.h"
 
 /**
  *	@class DropListWidget

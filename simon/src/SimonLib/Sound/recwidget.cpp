@@ -18,6 +18,13 @@
  */
 
 #include "recwidget.h"
+
+#include "wavrecorder.h"
+#include "wavplayer.h"
+#include "../PostProcessing/postprocessing.h"
+#include "logging/logger.h"
+#include "coreconfiguration.h"
+
 #include <QGroupBox>
 #include <QLabel>
 #include <KPushButton>
@@ -29,11 +36,6 @@
 #include <KMessageBox>
 #include <QFile>
 #include <QChar>
-#include "wavrecorder.h"
-#include "wavplayer.h"
-#include "../PostProcessing/postprocessing.h"
-#include "../Logging/logger.h"
-#include "coreconfiguration.h"
 
 /**
  * \brief Constructor

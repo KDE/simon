@@ -17,44 +17,37 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#ifndef COREEVENTS_H
+#define COREEVENTS_H
 
-#ifndef SIMONINFO_H
-#define SIMONINFO_H
-
-#include <QString>
-
+class QKeySequence;
 /**
- *	@class SimonInfo
- *	@brief Helper class providing convenient methods on how to display short infos on the screen
- *
- *	Provides methods to display infos on the screen. Some of these methods are public and static to be used
- *	from every context.
- *	This Info-Viewer includes OSD like messages but also splashscreens,etc.
+ *	@class CoreEvents
+ *	@brief Abstract class defining the methods that a EventBackend has to support
  *
  *	@version 0.1
- *	@date 10.01.2006
+ *	@date 4.03.2007
  *	@author Peter Grasch
-*/
-class QWidget;
-class KIcon;
-
-class KSplashScreen;
-
-class SimonInfo {
+ */
+class CoreEvents {
 	
-private:
-	KSplashScreen *splash;  //!< Splashscreen-Pointer
-	QWidget *parent;
-
 public:
-	SimonInfo(QWidget *parent = 0);
+	bool shiftSet, altgrSet, altSet, superSet, strgSet;
+	bool shiftOnce, altgrOnce, altOnce, superOnce, strgOnce;
+public:
+	CoreEvents();
 	
-	void showSplash();
-	void writeToSplash(QString status);
-	void hideSplash();
-	static void showMessage(QString message, short time, KIcon *icon=0);
-	~SimonInfo();
+	virtual void sendChar(char key)=0;
 
+	virtual void click(int x, int y)=0;
+	virtual void sendKey(unsigned int key /*unicode representation*/)=0;
+	
+	void unsetUnneededModifiers();
+	void sendShortcut(const QKeySequence& shortcut);
+
+	virtual void setModifierKey(int virtualKey, bool once)=0;
+	virtual void unsetModifier(int virtualKey)=0;
+	virtual ~CoreEvents() {}
 };
 
 #endif

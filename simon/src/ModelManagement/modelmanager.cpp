@@ -26,7 +26,7 @@
 #include <QDebug>
 #include <KLocalizedString>
 
-#include "../SimonLib/Logging/logger.h"
+#include "logging/logger.h"
 
 #include "WordList/wordlistmanager.h"
 #include "Grammar/grammarmanager.h"

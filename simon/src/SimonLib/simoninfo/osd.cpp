@@ -30,7 +30,6 @@
 #include <QMouseEvent>
 #include <KLocalizedString>
 #include <KStandardDirs>
-#include "../Logging/logger.h"
 
 /**
  * @brief Constructor
@@ -53,7 +52,6 @@ OSD::OSD(QString message, int timeout, KIcon *icon)
 	: QLabel(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint)
 {
 	setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/osd.png")));
-	Logger::log(i18n("[INF] ")+message);
 	
 	this->timer = new QTimer();
 	

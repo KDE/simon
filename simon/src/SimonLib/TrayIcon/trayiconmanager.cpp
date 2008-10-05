@@ -19,10 +19,10 @@
 
 
 #include "trayiconmanager.h"
+#include "logging/logger.h"
 #include <KActionCollection>
 #include <QMenu>
 #include <KSystemTrayIcon>
-#include "../Logging/logger.h"
 #include <KLocalizedString>
 
 /**

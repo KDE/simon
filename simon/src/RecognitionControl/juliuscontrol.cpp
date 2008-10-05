@@ -19,7 +19,7 @@
 
 
 #include "juliuscontrol.h"
-#include "../SimonLib/SimonInfo/simoninfo.h"
+#include "simoninfo/simoninfo.h"
 #include "coreconfiguration.h"
 
 #include <QByteArray>

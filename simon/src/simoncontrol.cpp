@@ -21,8 +21,8 @@
 #include "simoncontrol.h"
 #include <KMessageBox>
 #include <KLocalizedString>
-#include "SimonLib/Logging/logger.h"
-#include "SimonLib/SimonInfo/simoninfo.h"
+#include "logging/logger.h"
+#include "simoninfo/simoninfo.h"
 #include "RecognitionControl/juliuscontrol.h"
 #include "Actions/actionmanager.h"
 #include "coreconfiguration.h"

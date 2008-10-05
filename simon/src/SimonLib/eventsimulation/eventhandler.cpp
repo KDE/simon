@@ -19,6 +19,19 @@
 
 
 #include "eventhandler.h"
+#include "coreevents.h"
+
+
+#include <QChar>
+
+#ifdef Q_OS_UNIX
+#include "xevents.h"
+#endif
+#ifdef Q_OS_WIN
+#include "windowsevents.h"
+#endif
+
+#include <QString>
 
 EventHandler* EventHandler::instance;
 
@@ -33,13 +46,11 @@ EventHandler* EventHandler::instance;
 EventHandler::EventHandler()
 {
 #ifdef Q_OS_UNIX
-	coreEvents= (CoreEvents*) new XEvents();
+	coreEvents = new XEvents();
 #endif
 #ifdef Q_OS_WIN
-	coreEvents= (CoreEvents*) new WindowsEvents();
+	coreEvents = (CoreEvents*) new WindowsEvents();
 #endif
-	
-	this->capslock = false;
 }
 
 /**

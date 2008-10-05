@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=simon/CommandPlugin
+X-KDE-Library=simondesktopgridplugin
+Name=simon DesktopGrid Plugin
+Name[de]=simon Desktopgitter Modul
+Comment=Voice-controlled mouseclicks
+Comment[de]=Sprachgesteuerte Mausklicks
+
+X-KDE-PluginInfo-Author=Peter Grasch
+X-KDE-PluginInfo-Email=grasch@simon-listens.org
+X-KDE-PluginInfo-Name=simoncommanddesktopgrid
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://simon-listens.org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ParentApp=simon

@@ -19,7 +19,7 @@
 
 #include "wavrecorder.h"
 #include "wav.h"
-#include "../Logging/logger.h"
+#include "logging/logger.h"
 #include "coreconfiguration.h"
 
 #include <QObject>

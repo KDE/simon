@@ -50,3 +50,6 @@ bool CommandManager::deleteCommand(Command *command)
 
 	return false;
 }
+
+
+#include "commandmanager.moc"

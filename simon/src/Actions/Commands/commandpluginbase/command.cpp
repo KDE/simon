@@ -18,7 +18,7 @@
  */
 
 #include "command.h"
-#include "../../SimonLib/SimonInfo/simoninfo.h"
+#include "simoninfo/simoninfo.h"
 #include <QVariant>
 
 bool Command::trigger()
@@ -35,3 +35,6 @@ const QMap<QString,QVariant> Command::getValueMap() const
 // 	out.insert(i18n("Icon"), getIcon());
 	return out;
 }
+
+
+#include "command.moc"

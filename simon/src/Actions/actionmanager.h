@@ -22,8 +22,8 @@
 
 
 #include <QObject>
-#include "Commands/command.h"
-#include "Commands/commandmanager.h"
+#include "Commands/commandpluginbase/command.h"
+#include "Commands/commandpluginbase/commandmanager.h"
 
 class EventHandler;
 
