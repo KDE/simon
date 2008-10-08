@@ -18,14 +18,21 @@
  */
 
 #include "shortcutcommandmanager.h"
-#include "../../../SimonLib/Logging/logger.h"
+#include <simonlogging/logger.h>
 #include "xmlshortcutcommand.h"
 #include "shortcutcommand.h"
+#include "createshortcutcommandwidget.h"
 #include <KLocalizedString>
 #include <KStandardDirs>
 
+K_PLUGIN_FACTORY( ShortcutCommandPluginFactory, 
+			registerPlugin< ShortcutCommandManager >(); 
+		)
+        
+K_EXPORT_PLUGIN( ShortcutCommandPluginFactory("ShortcutCommandManager") )
 
-ShortcutCommandManager::ShortcutCommandManager(QObject *parent) :CommandManager(parent)  
+
+ShortcutCommandManager::ShortcutCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
 {
 	this->xmlShortcutCommand = new XMLShortcutCommand();
 }
@@ -39,6 +46,11 @@ bool ShortcutCommandManager::addCommand(Command *command)
 		return save();
 	}
 	return false;
+}
+
+CreateCommandWidget* ShortcutCommandManager::getCreateCommandWidget(QWidget *parent)
+{
+	return new CreateShortcutCommandWidget(parent);
 }
 
 const QString ShortcutCommandManager::name() const

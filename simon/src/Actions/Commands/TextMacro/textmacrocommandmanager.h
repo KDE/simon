@@ -21,9 +21,10 @@
 #ifndef TEXTMACROCOMMANDMANAGER_H
 #define TEXTMACROCOMMANDMANAGER_H
 
-#include "../commandmanager.h"
+#include "commandmanager.h"
 
 class XMLTextMacroCommand;
+class CreateCommandWidget;
 /**
  *	@class PlaceCommandManager
  *	@brief Manager for the place-commands
@@ -41,13 +42,14 @@ public:
 	bool load();
 	bool save();
 	bool addCommand(Command *command);
+	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    TextMacroCommandManager(QObject *parent=0);
+    TextMacroCommandManager(QObject *parent, const QVariantList& args);
 
     
     ~TextMacroCommandManager();

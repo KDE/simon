@@ -18,8 +18,8 @@
  */
 #ifndef XMLPLACECOMMAND_H
 #define XMLPLACECOMMAND_H
-#include "../command.h"
-#include "../../SimonLib/XML/xmldomreader.h"
+#include "command.h"
+#include <simonxml/xmldomreader.h>
 
 /**
  *  @class XMLPlaceCommand

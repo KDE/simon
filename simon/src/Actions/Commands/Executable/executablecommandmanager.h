@@ -42,7 +42,7 @@ public:
 	const QString name() const;
 	bool load();
 	bool save();
-	CreateExecutableCommandWidget* getCreateCommandWidget(QWidget *parent);
+	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
     /**
     * @brief Constructor

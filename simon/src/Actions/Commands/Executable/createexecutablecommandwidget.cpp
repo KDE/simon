@@ -24,15 +24,17 @@ CreateExecutableCommandWidget::CreateExecutableCommandWidget(QWidget *parent) : 
 {
 	ui.setupUi(this);
 	
+	ui.urWorkingDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
+	
 	setWindowIcon(ExecutableCommand::staticCategoryIcon());
 	setWindowTitle(ExecutableCommand::staticCategoryText());
 	
-	connect(ui.urExecutable, SIGNAL(textChanged(const QString&)), this, SLOT(checkIfComplete()));
+	connect(ui.urExecutable, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
 }
 
-void CreateExecutableCommandWidget::checkIfComplete()
+bool CreateExecutableCommandWidget::isComplete()
 {
-	emit complete(!(ui.urExecutable->url().isEmpty()));
+	return !(ui.urExecutable->url().isEmpty());
 }
 
 bool CreateExecutableCommandWidget::init(Command* command)

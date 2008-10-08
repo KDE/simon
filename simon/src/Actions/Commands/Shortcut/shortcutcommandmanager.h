@@ -21,10 +21,12 @@
 #ifndef SHORTCUTCOMMANDMANAGER_H
 #define SHORTCUTCOMMANDMANAGER_H
 
-#include "../commandmanager.h"
+#include "commandmanager.h"
 
 
 class XMLShortcutCommand;
+class CreateCommandWidget;
+
 /**
  *	@class ShortcutCommandManager 
  *	@brief Manager for the executable commands
@@ -42,13 +44,14 @@ public:
 	bool load();
 	bool save();
 	bool addCommand(Command *command);
+	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    ShortcutCommandManager (QObject *parent=0);
+    ShortcutCommandManager (QObject *parent, const QVariantList& args);
 
     
     ~ShortcutCommandManager ();

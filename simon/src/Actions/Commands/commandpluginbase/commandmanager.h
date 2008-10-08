@@ -27,7 +27,7 @@
 #include <QObject>
 
 class CommandManager;
-class CreateExecutableCommandWidget;
+class CreateCommandWidget;
 class KCModule;
 
 /**
@@ -58,19 +58,23 @@ public:
 	virtual bool deleteCommand(Command *command);
 
 	virtual KCModule* getConfigurationPage();
-	virtual CreateExecutableCommandWidget* getCreateCommandWidget(QWidget *parent);
+	virtual CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
 	virtual bool trigger(const QString& triggerName);
-    /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
-    CommandManager(QObject *parent=0) : QObject(parent)
-    { commands=0; configurationPage=0; }
+	/**
+	* @brief Constructor
+	* 
+	*	@author Peter Grasch
+	*/
+	CommandManager(QObject *parent, const QVariantList& args) : QObject(parent)
+	{
+		Q_UNUSED(args);
+		commands=0;
+		configurationPage=0;
+	}
 
-    
-    virtual ~CommandManager();
+
+	virtual ~CommandManager();
 
 };
 

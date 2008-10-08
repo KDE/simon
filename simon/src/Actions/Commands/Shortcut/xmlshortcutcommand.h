@@ -21,9 +21,9 @@
 #ifndef XMLSHORTCUTCOMMAND_H
 #define XMLSHORTCUTCOMMAND_H
 
-#include "../../../SimonLib/XML/xmldomreader.h"
-#include "../commandmanager.h"
-#include "../command.h"
+#include <simonxml/xmldomreader.h>
+#include "commandmanager.h"
+#include "command.h"
 
 
 /**

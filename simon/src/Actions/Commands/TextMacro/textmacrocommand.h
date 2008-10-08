@@ -22,7 +22,7 @@
 #define TEXTMACRO_H
 
 
-#include "../command.h"
+#include "command.h"
 
 
 /**

@@ -36,10 +36,8 @@ K_EXPORT_PLUGIN( DesktopGridPluginFactory("DesktopGridCommandManager") )
 
 
 
-DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent)
+DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
 {
-	Q_UNUSED(args);
-
 	configurationPage = new DesktopGridConfiguration(dynamic_cast<QWidget*>(parent), QVariantList());
 	configurationPage->load();
 }

@@ -31,10 +31,8 @@ K_PLUGIN_FACTORY( ExecutableCommandPluginFactory,
 K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("ExecutableCommandManager") )
 
 
-ExecutableCommandManager::ExecutableCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent)  
+ExecutableCommandManager::ExecutableCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
 {
-	Q_UNUSED(args);
-
 	this->xmlExecutableCommand = new XMLExecutableCommand();
 }
 
@@ -54,7 +52,7 @@ const QString ExecutableCommandManager::name() const
 }
 
 
-CreateExecutableCommandWidget* ExecutableCommandManager::getCreateCommandWidget(QWidget *parent)
+CreateCommandWidget* ExecutableCommandManager::getCreateCommandWidget(QWidget *parent)
 {
 	return new CreateExecutableCommandWidget(parent);
 }

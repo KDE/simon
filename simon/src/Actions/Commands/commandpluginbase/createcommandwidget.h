@@ -39,11 +39,7 @@ class SIMONCOMMANDPLUGINBASE_EXPORT CreateCommandWidget : public QWidget{
 Q_OBJECT
 
 signals:
-	/**
-	* \brief Emits true/false when the user entered all/not all mandatory fields
-	* \author Peter Grasch
-	*/
-	void complete(bool);
+	void completeChanged();
 
 public:
 	/**
@@ -62,6 +58,7 @@ public:
 	virtual Command* createCommand(const QString& name, const QString& iconSrc)=0;
 
 	virtual bool init(Command* command)=0;
+	virtual bool isComplete()=0;
 
 	/**
 	* @brief Constructor

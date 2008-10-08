@@ -38,16 +38,17 @@ NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
 {
 	QWidget *widget = new QWidget( this );
 	ui.setupUi(widget);
+	
+	ui.swCommandCreaters->removeWidget(ui.swCommandCreaters->currentWidget());
+	
 	setMainWidget( widget );
 	setCaption( i18n("Kommando") );
 	
-	//ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
-	
-	checkIfComplete();
 	connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(setWindowTitleToCommandName(QString)));
 	connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
 	
 	commandCreaters=0;
+	checkIfComplete();
 }
 
 bool NewCommand::registerCreators(QList<CreateCommandWidget*>* commandCreaters)
@@ -59,27 +60,13 @@ bool NewCommand::registerCreators(QList<CreateCommandWidget*>* commandCreaters)
 	{
 		ui.cbType->addItem(widget->windowIcon(), widget->windowTitle());
 		ui.swCommandCreaters->addWidget(widget);
-		connect(widget, SIGNAL(complete(bool)), this, SLOT(slotPluginComplete(bool)));
+		connect(widget, SIGNAL(completeChanged()), this, SLOT(checkIfComplete()));
 	}
 	
 	this->commandCreaters = commandCreaters;
 	return true;
 }
-/**
- * \brief En-/disables the Ok-Button; Takes general settings into account
- * \author Peter Grasch
- * 
- * This calls checkIfComplete() to check the general command-parameters
- * but sets the button also to disabled if the plugin reports it is not yet
- * complete
- *
- */
-void NewCommand::slotPluginComplete(bool complete)
-{
-	checkIfComplete();
-	if ((ui.swCommandCreaters->currentWidget() == sender()) && (!complete))
-		enableButtonOk(false);
-}
+
 
 void NewCommand::init(Command *command)
 {
@@ -102,11 +89,22 @@ void NewCommand::init(Command *command)
 	}
 	if (!found)
 		KMessageBox::error(this, i18n("Konnte Kommandotyp nicht bestimmen."));
+	
+	checkIfComplete();
 }
 
 void NewCommand::checkIfComplete()
 {
-	enableButtonOk(!ui.leTrigger->text().isEmpty());
+	CreateCommandWidget *creater = dynamic_cast<CreateCommandWidget*>(ui.swCommandCreaters->currentWidget());
+// 	Q_ASSERT(creater);
+	
+	bool complete;
+	if (!creater) 
+		complete = false;
+	else
+		complete = (!ui.leTrigger->text().isEmpty()) && creater->isComplete();
+	
+	enableButtonOk(complete);
 }
 
 void NewCommand::setWindowTitleToCommandName(QString name)

@@ -22,7 +22,7 @@
 #define SHORTCUTCOMMAND_H
 
 #include <QKeySequence>
-#include "../command.h"
+#include "command.h"
 
 
 /**

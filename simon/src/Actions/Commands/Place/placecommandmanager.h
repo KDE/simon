@@ -21,9 +21,10 @@
 #ifndef PLACECOMMANDMANAGER_H
 #define PLACECOMMANDMANAGER_H
 
-#include "../commandmanager.h"
+#include "commandmanager.h"
 
 class XMLPlaceCommand;
+class CreateCommandWidget;
 /**
  *	@class PlaceCommandManager
  *	@brief Manager for the place-commands
@@ -42,12 +43,14 @@ public:
 	bool save();
 	bool addCommand(Command *command);
 
+	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
+
     /**
     * @brief Constructor
     * 
     *	@author Peter Grasch
     */
-    PlaceCommandManager(QObject *parent=0);
+    PlaceCommandManager(QObject *parent, const QVariantList& args);
 
     
     ~PlaceCommandManager();

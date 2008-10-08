@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=format-text-bold
+ServiceTypes=simon/CommandPlugin
+X-KDE-Library=simontextmacrocommandplugin
+Name=simon TextMacro Plugin
+Name[de]=simon Text-Makro Modul
+Comment=Writes prerecorded sequences
+Comment[de]=Schreibt zuvor definierte Textstücke
+
+X-KDE-PluginInfo-Author=Peter Grasch
+X-KDE-PluginInfo-Email=grasch@simon-listens.org
+X-KDE-PluginInfo-Name=simonshortcutcommandplugin
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://simon-listens.org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ParentApp=simon

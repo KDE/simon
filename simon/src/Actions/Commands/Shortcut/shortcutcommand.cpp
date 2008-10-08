@@ -21,7 +21,7 @@
 #include <QObject>
 #include <QVariant>
 #include <KLocalizedString>
-#include "../../../SimonLib/EventSimulation/eventhandler.h"
+#include <eventsimulation/eventhandler.h>
 
 const QString ShortcutCommand::staticCategoryText()
 {

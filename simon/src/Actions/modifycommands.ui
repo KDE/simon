@@ -73,23 +73,7 @@
     </widget>
    </item>
    <item row="1" column="1" >
-    <widget class="KComboBox" name="cbType" >
-     <item>
-      <property name="text" >
-       <string>Ort</string>
-      </property>
-     </item>
-     <item>
-      <property name="text" >
-       <string>Tastenkürzel</string>
-      </property>
-     </item>
-     <item>
-      <property name="text" >
-       <string>Textmakro</string>
-      </property>
-     </item>
-    </widget>
+    <widget class="KComboBox" name="cbType" />
    </item>
    <item row="2" column="1" >
     <spacer name="verticalSpacer" >
@@ -112,107 +96,8 @@
      <property name="currentIndex" >
       <number>0</number>
      </property>
-     <widget class="QWidget" name="page_2" >
-      <layout class="QGridLayout" name="gridLayout_3" >
-       <item row="0" column="0" colspan="2" >
-        <widget class="QCommandLinkButton" name="cbImportPlace" >
-         <property name="text" >
-          <string>Ort importieren</string>
-         </property>
-         <property name="description" >
-          <string>Dieser Assistent kann Ihnen helfen, lokale und entfernte Orte mit Kommandos zu verknüpfen.</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2" >
-        <widget class="QCommandLinkButton" name="commandLinkButton_3" >
-         <property name="text" >
-          <string>Manuell</string>
-         </property>
-         <property name="checkable" >
-          <bool>true</bool>
-         </property>
-         <property name="description" >
-          <string>Notwendigen Parameter händisch konfigurieren.</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" >
-        <widget class="QLabel" name="label_14" >
-         <property name="enabled" >
-          <bool>false</bool>
-         </property>
-         <property name="text" >
-          <string>Ort:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1" >
-        <spacer name="verticalSpacer_3" >
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="2" column="1" >
-        <widget class="KUrlRequester" name="urUrl" >
-         <property name="enabled" >
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="Seite" >
-      <layout class="QVBoxLayout" name="verticalLayout" >
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout" >
-         <item>
-          <widget class="QLabel" name="label_2" >
-           <property name="text" >
-            <string>Tastenkürzel:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="KKeySequenceWidget" name="ksShortcut" />
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_4" >
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0" >
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
      <widget class="QWidget" name="Seite_2" >
-      <layout class="QVBoxLayout" name="verticalLayout_2" >
-       <item>
-        <widget class="QLabel" name="label_3" >
-         <property name="text" >
-          <string>Assozierter Text:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPlainTextEdit" name="teMacroText" />
-       </item>
-      </layout>
+      <layout class="QVBoxLayout" name="verticalLayout_2" />
      </widget>
     </widget>
    </item>
@@ -230,55 +115,13 @@
    <header>kicondialog.h</header>
   </customwidget>
   <customwidget>
-   <class>KKeySequenceWidget</class>
-   <extends>QWidget</extends>
-   <header>kkeysequencewidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
   </customwidget>
-  <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QFrame</extends>
-   <header>kurlrequester.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections>
-  <connection>
-   <sender>commandLinkButton_3</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>label_14</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>111</x>
-     <y>229</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>30</x>
-     <y>261</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>commandLinkButton_3</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>urUrl</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>111</x>
-     <y>229</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>138</x>
-     <y>261</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>cbType</sender>
    <signal>currentIndexChanged(int)</signal>

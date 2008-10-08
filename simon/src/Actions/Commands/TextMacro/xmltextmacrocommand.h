@@ -19,8 +19,8 @@
 
 #ifndef XMLTEXTMACROCOMMAND_H
 #define XMLTEXTMACROCOMMAND_H
-#include "../command.h"
-#include "../../SimonLib/XML/xmldomreader.h"
+#include <command.h>
+#include <simonxml/xmldomreader.h>
 
 /**
  *  @class XMLTextMacroCommand

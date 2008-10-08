@@ -18,13 +18,21 @@
  */
 
 #include "textmacrocommandmanager.h"
-#include "../../../SimonLib/Logging/logger.h"
+#include <simonlogging/logger.h>
 #include "xmltextmacrocommand.h"
 #include "textmacrocommand.h"
 #include <KLocalizedString>
 #include <KStandardDirs>
+#include "createtextmacrocommandwidget.h"
 
-TextMacroCommandManager::TextMacroCommandManager(QObject *parent) : CommandManager(parent)
+K_PLUGIN_FACTORY( TextMacroCommandPluginFactory, 
+			registerPlugin< TextMacroCommandManager >(); 
+		)
+        
+K_EXPORT_PLUGIN( TextMacroCommandPluginFactory("TextMacroCommandManager") )
+
+
+TextMacroCommandManager::TextMacroCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
 {
 	this->xmlTextMacroCommand = new XMLTextMacroCommand();
 }
@@ -52,6 +60,11 @@ bool TextMacroCommandManager::load()
 	bool ok = false;
 	this->commands = xmlTextMacroCommand->load(ok, commandPath);
 	return ok;
+}
+
+CreateCommandWidget* TextMacroCommandManager::getCreateCommandWidget(QWidget *parent)
+{
+	return new CreateTextMacroCommandWidget(parent);
 }
 
 bool TextMacroCommandManager::save()

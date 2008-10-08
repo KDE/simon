@@ -22,7 +22,7 @@
 #define PLACECOMMAND_H
 
 
-#include "../command.h"
+#include "command.h"
 #include <KUrl>
 #include <KIcon>
 

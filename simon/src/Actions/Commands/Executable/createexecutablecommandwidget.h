@@ -21,7 +21,6 @@
 #define CREATEEXECUTABLECOMMANDWIDGET_H
 
 #include <QWidget>
-#include <KIcon>
 #include <createcommandwidget.h>
 #include "ui_createexecutablecommandwidget.h"
 
@@ -41,13 +40,11 @@ Q_OBJECT
 private:
 	Ui::CreateExecutableCommandWidget ui;
 
-private slots:
-	void checkIfComplete();
-
 public:
 	Command* createCommand(const QString& name, const QString& iconSrc);
 
 	bool init(Command* command);
+	bool isComplete();
 
 	/**
 	* @brief Constructor

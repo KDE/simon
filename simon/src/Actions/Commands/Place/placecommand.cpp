@@ -47,7 +47,7 @@ const KIcon PlaceCommand::getCategoryIcon() const
 const QMap<QString,QVariant> PlaceCommand::getValueMapPrivate() const
 {
 	QMap<QString,QVariant> out;
-	out.insert(i18n("URL"), getURL());
+	out.insert(i18n("URL"), getURL().prettyUrl());
 	return out;
 }
 

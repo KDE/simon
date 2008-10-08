@@ -53,7 +53,7 @@ bool CommandManager::trigger(const QString& triggerName)
  * 
  * The default implementation returns NULL.
  */
-CreateExecutableCommandWidget* CommandManager::getCreateCommandWidget(QWidget *parent)
+CreateCommandWidget* CommandManager::getCreateCommandWidget(QWidget *parent)
 {
 	Q_UNUSED(parent);
 

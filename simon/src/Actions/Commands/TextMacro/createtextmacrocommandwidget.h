@@ -17,44 +17,45 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef NEWCOMMAND_H
-#define NEWCOMMAND_H
+#ifndef CREATETEXTMACROCOMMANDWIDGET_H
+#define CREATETEXTMACROCOMMANDWIDGET_H
 
-
-#include <KDialog>
-#include <QList>
-#include "ui_modifycommands.h"
+#include <QWidget>
+#include <createcommandwidget.h>
+#include "ui_createtextmacrocommandwidget.h"
 
 class Command;
-class NewCommand;
-class CreateCommandWidget;
 
-// typedef EditCommand NewCommand;
-
-class NewCommand : protected KDialog {
-
+/**
+ *	@class CreateTextMacroCommandWidget
+ *	@brief Provides a widget to modify the specific attributes of an TextMacroCommand
+ *
+ *	@version 0.1
+ *	@date 8.10.2008
+ *	@author Peter Grasch
+ */
+class CreateTextMacroCommandWidget : public CreateCommandWidget{
 Q_OBJECT
 
 private:
-	Ui::DlgModifyCommands ui;
-	QList<CreateCommandWidget*> *commandCreaters;
-
-private slots:
-	void setWindowTitleToCommandName(QString name);
-	void checkIfComplete();
+	Ui::CreateTextMacroCommandWidget ui;
 
 public:
-	NewCommand(QWidget *parent=0);
-	~NewCommand();
+	Command* createCommand(const QString& name, const QString& iconSrc);
 
-	bool registerCreators(QList<CreateCommandWidget*>* commandCreaters);
+	bool init(Command* command);
+	bool isComplete();
 
-	Command* newCommand();
+	/**
+	* @brief Constructor
+	* 
+	*	@author Peter Grasch
+	*/
+	CreateTextMacroCommandWidget(QWidget *parent=0);
 
-public slots:
-	void init(Command *command);
+
+	virtual ~CreateTextMacroCommandWidget();
+
 };
-
-
 
 #endif

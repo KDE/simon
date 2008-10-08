@@ -56,7 +56,6 @@ bool XMLPlaceCommand::save(const CommandList *list, const QString& path)
 
 	QDomElement root = doc->createElement("commands");
 	doc->appendChild(root);
-	
 	for (int i=0; i < list->size(); i++)
 	{
 		PlaceCommand *com = dynamic_cast<PlaceCommand*>(list->at(i));
