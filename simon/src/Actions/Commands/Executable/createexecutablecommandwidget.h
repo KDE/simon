@@ -25,6 +25,7 @@
 #include "ui_createexecutablecommandwidget.h"
 
 class Command;
+class ImportProgramWizard;
 
 /**
  *	@class CreateExecutableCommandWidget
@@ -39,6 +40,11 @@ Q_OBJECT
 
 private:
 	Ui::CreateExecutableCommandWidget ui;
+	ImportProgramWizard *importWizard;
+
+private slots:
+	void showImportWizard();
+	void wizardInit(Command *command);
 
 public:
 	Command* createCommand(const QString& name, const QString& iconSrc);

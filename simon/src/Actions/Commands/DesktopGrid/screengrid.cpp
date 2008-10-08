@@ -30,6 +30,7 @@
 #include <QRect>
 #include <QColor>
 #include "eventsimulation/eventhandler.h"
+#include "desktopgridconfiguration.h"
 
 ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent, 
 		Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint)
@@ -63,7 +64,7 @@ ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent,
 	}
 
 	
-	if (!false) //Settings::getB("Commands/DesktopGrid/RealTransparency"))
+	if (!DesktopGridConfiguration::getInstance()->useRealTransparency())
 	{
 		background = new QLabel(this);
 		background->lower();
@@ -138,7 +139,7 @@ void ScreenGrid::regionSelected()
 	repaint();
 
 	
-	if (!false) //Settings::getB("Commands/DesktopGrid/RealTransparency"))
+	if (!DesktopGridConfiguration::getInstance()->useRealTransparency())
 	{
 		background->resize(size());
 		background->move(0,0);
@@ -155,10 +156,9 @@ void ScreenGrid::keyPressEvent(QKeyEvent *event)
 
 ScreenGrid::~ScreenGrid()
 {
-    buttons->deleteLater();
-    // #ifdef FAKETRANSPARENCY
+	buttons->deleteLater();
+
 	if (background) background->deleteLater();
-    // #endif
 }
 
 

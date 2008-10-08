@@ -60,9 +60,15 @@ CreateCommandWidget* CommandManager::getCreateCommandWidget(QWidget *parent)
 	return 0;
 }
 
-KCModule* CommandManager::getConfigurationPage()
+/**
+ * \brief Returns the configuration page of the plugin
+ * \author Peter Grasch
+ * 
+ * If you want your Plugin to be configurable you will have to reimplement this.
+ */
+CommandConfiguration* CommandManager::getConfigurationPage()
 {
-	return configurationPage;
+	return 0;
 }
 
 bool CommandManager::deleteCommand(Command *command)
@@ -79,7 +85,4 @@ CommandManager::~CommandManager()
 {
 	if (commands)
 		qDeleteAll(*commands);
-
-	if (configurationPage)
-		configurationPage->deleteLater();
 }

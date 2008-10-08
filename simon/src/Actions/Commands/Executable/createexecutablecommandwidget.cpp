@@ -19,9 +19,12 @@
 
 #include "createexecutablecommandwidget.h"
 #include "executablecommand.h"
+#include "ImportProgram/importprogramwizard.h"
 
 CreateExecutableCommandWidget::CreateExecutableCommandWidget(QWidget *parent) : CreateCommandWidget(parent)
 {
+	importWizard=0;
+	
 	ui.setupUi(this);
 	
 	ui.urWorkingDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
@@ -30,11 +33,34 @@ CreateExecutableCommandWidget::CreateExecutableCommandWidget(QWidget *parent) : 
 	setWindowTitle(ExecutableCommand::staticCategoryText());
 	
 	connect(ui.urExecutable, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+	
+	connect(ui.cbImportProgram, SIGNAL(clicked()), this, SLOT(showImportWizard()));
 }
 
 bool CreateExecutableCommandWidget::isComplete()
 {
 	return !(ui.urExecutable->url().isEmpty());
+}
+
+void CreateExecutableCommandWidget::showImportWizard()
+{
+	if (!importWizard) {
+		importWizard = new ImportProgramWizard(this);
+		connect(importWizard, SIGNAL(commandCreated(Command*)), this, SLOT(wizardInit(Command*)));
+	}
+	
+	importWizard->restart();
+	importWizard->show();
+	
+}
+
+
+void CreateExecutableCommandWidget::wizardInit(Command *command)
+{
+	Q_ASSERT(command);
+	
+	init(command);
+	command->deleteLater();
 }
 
 bool CreateExecutableCommandWidget::init(Command* command)
@@ -57,4 +83,5 @@ Command* CreateExecutableCommandWidget::createCommand(const QString& name, const
 
 CreateExecutableCommandWidget::~CreateExecutableCommandWidget()
 {
+	if (importWizard) importWizard->deleteLater();
 }

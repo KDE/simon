@@ -29,6 +29,7 @@
 class CommandManager;
 class CreateCommandWidget;
 class KCModule;
+class CommandConfiguration;
 
 /**
  *	@class CommandManager
@@ -45,7 +46,6 @@ signals:
 
 protected:
 	CommandList *commands;
-	KCModule* configurationPage;
 
 public:
 	virtual const QString name() const=0;
@@ -57,7 +57,7 @@ public:
 
 	virtual bool deleteCommand(Command *command);
 
-	virtual KCModule* getConfigurationPage();
+	virtual CommandConfiguration* getConfigurationPage();
 	virtual CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
 	virtual bool trigger(const QString& triggerName);
@@ -70,7 +70,6 @@ public:
 	{
 		Q_UNUSED(args);
 		commands=0;
-		configurationPage=0;
 	}
 
 

@@ -13,7 +13,7 @@ kde4_add_ui_files(simondesktopgridplugin_SRCS desktopgridconfigurationdlg.ui)
 kde4_add_plugin(simondesktopgridplugin ${simondesktopgridplugin_SRCS})
 
 
-target_link_libraries(simondesktopgridplugin ${KDE4_KDEUI_LIBS} eventsimulation simoncommandpluginbase)
+target_link_libraries(simondesktopgridplugin ${KDE4_KDEUI_LIBS} eventsimulation simonlogging simoncommandpluginbase)
 
 install(TARGETS simondesktopgridplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 install( FILES simondesktopgridplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

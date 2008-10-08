@@ -56,7 +56,7 @@ public:
 private slots:
 	void createCommand(int);
 signals:
-   void commandCreated(const Command* command);
+   void commandCreated(Command* command);
 
 };
 

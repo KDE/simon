@@ -29,7 +29,7 @@
 
 K_PLUGIN_FACTORY( DesktopGridPluginFactory, 
 			registerPlugin< DesktopGridCommandManager >(); 
-			registerPlugin< DesktopGridConfiguration >(); 
+			/*registerPlugin< DesktopGridConfiguration >();*/ 
 		)
         
 K_EXPORT_PLUGIN( DesktopGridPluginFactory("DesktopGridCommandManager") )
@@ -38,8 +38,7 @@ K_EXPORT_PLUGIN( DesktopGridPluginFactory("DesktopGridCommandManager") )
 
 DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
 {
-	configurationPage = new DesktopGridConfiguration(dynamic_cast<QWidget*>(parent), QVariantList());
-	configurationPage->load();
+	DesktopGridConfiguration::getInstance(dynamic_cast<QWidget*>(parent), QVariantList())->load();
 }
 
 const QString DesktopGridCommandManager::name() const
@@ -47,10 +46,14 @@ const QString DesktopGridCommandManager::name() const
 	i18n("Desktopgitter");
 }
 
+CommandConfiguration* DesktopGridCommandManager::getConfigurationPage()
+{
+	return DesktopGridConfiguration::getInstance();
+}
+
 bool DesktopGridCommandManager::trigger(const QString& triggerName)
 {
-// 	if (triggerName != Settings::getS("Commands/DesktopGrid/Trigger")) return false;
-	return false;
+	if (triggerName != DesktopGridConfiguration::getInstance()->trigger()) return false;
 
 	Logger::log(i18n("[INF] Aktiviere Desktopgitter"));
 	ScreenGrid *screenGrid = new ScreenGrid();
@@ -60,7 +63,6 @@ bool DesktopGridCommandManager::trigger(const QString& triggerName)
 
 bool DesktopGridCommandManager::load()
 {
-// 	KMessageBox::information(0, "du bist da king");
 	return true;
 }
 

@@ -23,6 +23,7 @@
 
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
+#include "Commands/commandpluginbase/commandconfiguration.h"
 #include "Commands/commandpluginbase/commandmanager.h"
 #include "Commands/commandpluginbase/createcommandwidget.h"
 
@@ -38,11 +39,6 @@
 
 #include "../Configuration/configurationdialog.h"
 #include "commandsettings.h"
-// #include "Commands/DesktopGrid/desktopgridcommandmanager.h"
-// #include "Commands/Executable/executablecommandmanager.h"
-// #include "Commands/Place/placecommandmanager.h"
-// #include "Commands/Shortcut/shortcutcommandmanager.h"
-// #include "Commands/TextMacro/textmacrocommandmanager.h"
 
 
 ActionManager* ActionManager::instance;
@@ -68,7 +64,6 @@ void ActionManager::setupBackends()
 	KServiceTypeTrader* trader = KServiceTypeTrader::self();
 
 	services = trader->query("simon/CommandPlugin");
-	qDebug() << services.count();
 	
 	ConfigurationDialog *configDialog = ConfigurationDialog::getInstance();
 	
@@ -76,24 +71,18 @@ void ActionManager::setupBackends()
 		KPluginFactory *factory = KPluginLoader(service->library()).factory();
  
 		if (!factory)
-		{
-			qDebug() << "KPluginFactory could not load the plugin:" << service->library();
 			continue;
-		}
 		
 		CommandManager *man = factory->create<CommandManager>(this);
 	
 		if (man) {
-			qDebug() << "YIHAAAAAAAAA plugin loaded: " << service->name();
-			
 			managers->append(man);
 			configDialog->registerModule(man->getConfigurationPage());
 			
 			if (!man->load())
 				KMessageBox::error(0, i18n("Konnte Kommandomanager \"%1\" nicht initialisieren.\n\n"
 						   "Bitte überprüfen Sie seine Konfiguration.", man->name()));
-		} else
-			qDebug() << "Plugin failed to load: " << service->name();
+		}
 	}
 }
 

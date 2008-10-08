@@ -19,17 +19,39 @@
 
 #include "createplacecommandwidget.h"
 #include "placecommand.h"
+#include "ImportPlace/importplacewizard.h"
 
 CreatePlaceCommandWidget::CreatePlaceCommandWidget(QWidget *parent) : CreateCommandWidget(parent)
 {
+	importWizard=0;
 	ui.setupUi(this);
 	ui.urUrl->setMode(KFile::Directory | KFile::ExistingOnly);
 	setWindowIcon(PlaceCommand::staticCategoryIcon());
 	setWindowTitle(PlaceCommand::staticCategoryText());
 	
 	connect(ui.urUrl, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+	connect(ui.cbImportPlace, SIGNAL(clicked()), this, SLOT(showImportWizard()));
 }
 
+void CreatePlaceCommandWidget::showImportWizard()
+{
+	if (!importWizard) {
+		importWizard = new ImportPlaceWizard(this);
+		connect(importWizard, SIGNAL(commandCreated(Command*)), this, SLOT(wizardInit(Command*)));
+	}
+	
+	importWizard->restart();
+	importWizard->show();
+}
+
+
+void CreatePlaceCommandWidget::wizardInit(Command *command)
+{
+	Q_ASSERT(command);
+	
+	init(command);
+	command->deleteLater();
+}
 
 bool CreatePlaceCommandWidget::isComplete()
 {
@@ -54,4 +76,5 @@ Command* CreatePlaceCommandWidget::createCommand(const QString& name, const QStr
 
 CreatePlaceCommandWidget::~CreatePlaceCommandWidget()
 {
+	if (importWizard) importWizard->deleteLater();
 }
