@@ -19,7 +19,7 @@
 
 
 #include "importtrainingtextremotepage.h"
-#include "logging/logger.h"
+#include <simonlogging/logger.h>
 #include "xmltrainingtextlist.h"
 #include "coreconfiguration.h"
 

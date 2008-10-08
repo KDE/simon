@@ -24,7 +24,7 @@
 #include <QString>
 #include <QFile>
 #include <QRegExp>
-#include "../../../SimonLib/XML/xmlsaxreader.h"
+#include <simonxml/xmlsaxreader.h>
 
 /**
  * \brief Constructor

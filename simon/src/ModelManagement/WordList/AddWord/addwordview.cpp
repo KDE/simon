@@ -19,7 +19,7 @@
 
 
 #include "addwordview.h"
-#include "logging/logger.h"
+#include <simonlogging/logger.h>
 #include "addwordintropage.h"
 #include "addwordrecordpage.h"
 #include "addwordresolvepage.h"

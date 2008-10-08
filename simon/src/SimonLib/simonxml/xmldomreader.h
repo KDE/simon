@@ -17,42 +17,33 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef EXECUTABLECOMMANDMANAGER_H
-#define EXECUTABLECOMMANDMANAGER_H
 
-#include <commandmanager.h>
-#include <QVariantList>
+#ifndef XMLDOMREADER_H
+#define XMLDOMREADER_H
 
-class XMLExecutableCommand;
-class CreateExecutableCommandWidget;
+#include "xmlreader.h"
+#include "simonxml_export.h"
+
+class QDomDocument;
 /**
- *	@class ExecutableCommandManager
- *	@brief Manager for the executable commands
- *
- *	@version 0.1
- *	@date 20.05.2008
- *	@author Peter Grasch
+	\class XMLDomReader
+	
+	\author Peter Grasch
+	\brief Implements qts DOM API to parse xml documents and implements the XMLReader interface
+	\date 12.05.2007
+	\version 0.1
  */
-class ExecutableCommandManager : public CommandManager {
-Q_OBJECT
-private:
-	XMLExecutableCommand* xmlExecutableCommand;
+class SIMONXML_EXPORT XMLDomReader : public XMLReader {
+protected:
+	QDomDocument *doc;
 public:
-	bool addCommand(Command *command);
-	const QString name() const;
-	bool load();
-	bool save();
-	CreateExecutableCommandWidget* getCreateCommandWidget(QWidget *parent);
+	explicit XMLDomReader(QString path, QObject* parent=0);
 
-    /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
-    ExecutableCommandManager(QObject *parent, const QVariantList& args);
-
-    
-    ~ExecutableCommandManager();
+	bool save(QString path="");
+	
+	bool load(QString path="");
+	
+    ~XMLDomReader();
 
 };
 

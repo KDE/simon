@@ -21,8 +21,10 @@
 
 #include "coreconfiguration.h"
 
-#include "logging/logger.h"
-#include "simoninfo/simoninfo.h"
+#include <simonlogging/logger.h>
+#include <simoninfo/simoninfo.h>
+#include "Commands/commandpluginbase/commandmanager.h"
+#include "Commands/commandpluginbase/createcommandwidget.h"
 
 #include <QDebug>
 #include <QFile>
@@ -34,7 +36,8 @@
 
 #include "eventsimulation/eventhandler.h"
 
-
+#include "../Configuration/configurationdialog.h"
+#include "commandsettings.h"
 // #include "Commands/DesktopGrid/desktopgridcommandmanager.h"
 // #include "Commands/Executable/executablecommandmanager.h"
 // #include "Commands/Place/placecommandmanager.h"
@@ -46,8 +49,10 @@ ActionManager* ActionManager::instance;
 
 ActionManager::ActionManager(QObject *parent) : QObject(parent)
 {
-	managers = new CommandManagerList();
-	this->eventHandler = EventHandler::getInstance();
+	managers = new QList<CommandManager*>();
+	
+	ConfigurationDialog::getInstance()->registerManagedWidget( new CommandSettings(), i18n("Kommandos"), "fork" );
+	
 	setupBackends();
 }
 
@@ -64,6 +69,9 @@ void ActionManager::setupBackends()
 
 	services = trader->query("simon/CommandPlugin");
 	qDebug() << services.count();
+	
+	ConfigurationDialog *configDialog = ConfigurationDialog::getInstance();
+	
 	foreach (KService::Ptr service, services) {
 		KPluginFactory *factory = KPluginLoader(service->library()).factory();
  
@@ -77,32 +85,31 @@ void ActionManager::setupBackends()
 	
 		if (man) {
 			qDebug() << "YIHAAAAAAAAA plugin loaded: " << service->name();
+			
 			managers->append(man);
+			configDialog->registerModule(man->getConfigurationPage());
+			
+			if (!man->load())
+				KMessageBox::error(0, i18n("Konnte Kommandomanager \"%1\" nicht initialisieren.\n\n"
+						   "Bitte überprüfen Sie seine Konfiguration.", man->name()));
 		} else
 			qDebug() << "Plugin failed to load: " << service->name();
 	}
-
-
-
-// 	if (true) //Settings::getB("Commands/DesktopGrid/Enabled"))
-// 		managers->append(new DesktopGridCommandManager());
-// 	if (true) //Settings::getB("Commands/Executable/Enabled"))
-// 		managers->append(new ExecutableCommandManager());
-// 	if (true) //Settings::getB("Commands/Place/Enabled"))
-// 		managers->append(new PlaceCommandManager());
-// 	if (true) //Settings::getB("Commands/Shortcut/Enabled"))
-// 		managers->append(new ShortcutCommandManager());
-// 	if (true) //Settings::getB("Commands/TextMacro/Enabled"))
-// 		managers->append(new TextMacroCommandManager());
-
-
-	for (int i=0; i< managers->count(); i++)
-	{
-		CommandManager *man = managers->at(i);
-		if (!man->load())
-			KMessageBox::error(0, i18n("Konnte Kommandomanager \"%1\" nicht initialisieren.\n\nBitte überprüfen Sie seine Konfiguration.", man->name()));
-	}
 }
+
+QList<CreateCommandWidget*>* ActionManager::getCreateCommandWidgets(QWidget *parent)
+{
+	QList<CreateCommandWidget*> *out = new QList<CreateCommandWidget*>();
+	
+	foreach (CommandManager* manager, * this->managers)
+	{
+		CreateCommandWidget* widget = (CreateCommandWidget*) manager->getCreateCommandWidget(parent);
+		if (widget)
+			*out << widget;
+	}
+	return out;
+}
+
 
 /**
 * \brief Goes through all the command-lists and asks to delete every command with the given trigger
@@ -199,8 +206,6 @@ CommandList* ActionManager::getCommandList()
 void ActionManager::process(QString input)
 {
 	Q_ASSERT(managers);
-	Q_ASSERT(eventHandler);
-
 
 	QString keyword = CoreConfiguration::globalTrigger();
 	if (input.startsWith(keyword))
@@ -215,7 +220,7 @@ void ActionManager::process(QString input)
 
 	} else {
 		if (CoreConfiguration::dictation()) //is dictation activated?
-			eventHandler->sendWord(input);
+			EventHandler::getInstance()->sendWord(input);
 	}
 }
 

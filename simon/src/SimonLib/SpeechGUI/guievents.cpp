@@ -18,7 +18,7 @@
  */
 
 #include "guievents.h"
-#include "logging/logger.h"
+#include <simonlogging/logger.h>
 #include <QRegExp>
 #include <QStringList>
 #include <KLocalizedString>

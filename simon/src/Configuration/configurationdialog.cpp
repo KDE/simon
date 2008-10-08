@@ -19,21 +19,29 @@
 
 #include "configurationdialog.h"
 #include "coreconfiguration.h"
-#include "generalsettings.h"
-#include "internetextensionsettings.h"
-#include "externalprogrammanager.h"
-#include "passwordsettings.h"
 
-#include "../SimonLib/Sound/soundsettings.h"
-#include "../ModelManagement/modelsettings.h"
-#include "../ModelManagement/Grammar/grammarsettings.h"
-#include "../Actions/Commands/commandsettings.h"
-#include "../RecognitionControl/networksettings.h"
 #include <KConfigDialog>
+#include <KCModule>
+#include <KAboutData>
+
+ConfigurationDialog* ConfigurationDialog::instance=0;
 
 
 ConfigurationDialog::ConfigurationDialog(QWidget *parent) : QObject(parent)
 {
+
+}
+
+KConfigDialog* ConfigurationDialog::configDialog()
+{
+	KConfigDialog *dlg = KConfigDialog::exists("coreconfiguration");
+	if (!dlg) {
+		QWidget *parentWidget = dynamic_cast<QWidget*>(parent());
+
+		dlg = new KConfigDialog(parentWidget, "coreconfiguration", CoreConfiguration::self());
+	}
+	
+	return dlg;
 }
 
 void ConfigurationDialog::show()
@@ -41,23 +49,9 @@ void ConfigurationDialog::show()
 	if ( KConfigDialog::showDialog( "coreconfiguration" ) )
 		return;
 
-	QWidget *parentWidget = dynamic_cast<QWidget*>(parent());
-	if (!parentWidget) return;
+	KConfigDialog* dialog = configDialog();
+	if (!dialog) return;
 
-	KConfigDialog* dialog = new KConfigDialog(parentWidget, "coreconfiguration", CoreConfiguration::self());
-
-	dialog->addPage( new GeneralSettings( parentWidget ), i18n("Allgemein"), "computer" ); 
-	dialog->addPage( new InternetExtensionSettings( parentWidget ), i18n("Interneterweiterungen"), "document-open-remote" ); 
-	dialog->addPage( new PasswordSettings( parentWidget ), i18n("Passwortschutz"), "document-encrypt" ); 
-	dialog->addPage( new ModelSettings( parentWidget ), i18n("Modell"), "applications-education-language" ); 
-
-	dialog->addPage( new GrammarSettings(parentWidget), i18n("Grammatik"), "user-properties" ); 
-	
-	dialog->addPage( new SoundSettings( parentWidget ), i18n("Sound"), "preferences-desktop-sound" ); 
-	dialog->addPage( new NetworkSettings( parentWidget ), i18n("Netzwerk"), "network-disconnect" ); 
-	dialog->addPage( new CommandSettings( parentWidget ), i18n("Kommandos"), "system-run" ); 
- 	dialog->addPage( new ExternalProgramManager( parentWidget ), i18n("Externe Programme"), "applications-other" ); 
-	
 	//User edited the configuration - update your local copies of the 
 	//configuration data 
 	// connect( dialog, SIGNAL(settingsChanged()), 
@@ -67,7 +61,54 @@ void ConfigurationDialog::show()
 }
 
 
+bool ConfigurationDialog::registerManagedWidget(QWidget *widget, const QString& title, const QByteArray& iconName)
+{
+	Q_ASSERT(widget);
+	
+	KConfigDialog *dlg = configDialog();
+	if (!dlg) return false;
+	
+	dlg->addPage( widget, title, iconName); 
+	return true;
+}
+
+bool ConfigurationDialog::registerModule(KCModule *module)
+{
+	if (!module) return false;
+	
+	KConfigDialog *dlg = configDialog();
+	if (!dlg) return false;
+	
+	const KAboutData *about = module->aboutData();
+	if (!about) return false;
+	
+	dlg->addPage( module, about->programName(), about->programIconName(), QString(), false); 
+	
+	connect (module, SIGNAL(changed(bool)), this, SLOT(moduleChanged(bool)));
+	connect (dlg, SIGNAL(applyClicked()), module, SLOT(save()));
+	connect (dlg, SIGNAL(okClicked()), module, SLOT(save()));
+	connect (dlg, SIGNAL(cancelClicked()), module, SLOT(load()));
+	connect (dlg, SIGNAL(defaultClicked()), module, SLOT(defaults()));
+	pluginCompletionStatus.insert(module, true);
+	
+	return true;
+}
+
+void ConfigurationDialog::moduleChanged(bool complete)
+{
+	KConfigDialog *dlg = configDialog();
+	if (!dlg) return;
+	
+	KCModule *senderModule = dynamic_cast<KCModule*>(sender());
+	if (!senderModule) return;
+	
+	pluginCompletionStatus.insert(senderModule, complete);
+	
+	dlg->enableButton( KDialog::Apply, !pluginCompletionStatus.values().contains(false) );
+}
+
+
 ConfigurationDialog::~ConfigurationDialog()
 {
-
+	instance=0;
 }

@@ -23,10 +23,11 @@
 
 #include "inlinewidgetview.h"
 #include "Configuration/configurationdialog.h"
-#include "logging/logger.h"
 #include "coreconfiguration.h"
 
-#include "simoninfo/simoninfo.h"
+#include <simonlogging/logger.h>
+#include <simoninfo/simoninfo.h>
+
 #include "Actions/runcommandview.h"
 #include "SimonLib/TrayIcon/trayiconmanager.h"
 #include "ModelManagement/modelmanager.h"
@@ -34,6 +35,14 @@
 #include "ModelManagement/WordList/wordlistview.h"
 #include "ModelManagement/WordList/AddWord/addwordview.h"
 #include "ModelManagement/WordList/wordlistmanager.h"
+
+#include "generalsettings.h"
+#include "SimonLib/sound/soundsettings.h"
+#include "ModelManagement/modelsettings.h"
+#include "ModelManagement/internetextensionsettings.h"
+#include "ModelManagement/externalprogrammanager.h"
+#include "ModelManagement/Grammar/grammarsettings.h"
+#include "RecognitionControl/networksettings.h"
 
 #include <QPixmap>
 #include <QCryptographicHash>
@@ -78,26 +87,24 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	
 	Logger::log ( i18n ( "[INF] Starte simon..." ) );
 	
+
 	SimonInfo *info = new SimonInfo();
 
 	//showing splash
 	Logger::log ( i18n ( "[INF] Zeige Splashscreen..." ) );
 	info->showSplash();
 
-	Logger::log ( i18n ( "[INF] Lade Einstellungen..." ) );
-// 	Settings::initSettings();
+	Logger::log ( i18n ( "[INF] Lade Konfigurationsmodule..." ) );
 
-// 	if (!Settings::getB("ConfigDone"))
-// 	{
-// 		FirstRunWizard *firstRunWizard = new FirstRunWizard(this);
-// 		if (firstRunWizard->exec() || (KMessageBox::questionYesNo(this, i18n("Konfiguration abbrechen"), i18n("Sie haben die Konfiguration nicht abgeschlossen. Einige Teile des Programmes funktionieren vielleicht nicht richtig.\n\nWollen Sie den Assistenten beim nächsten Start wieder anzeigen?")) == KMessageBox::No))
-// 			Settings::set("ConfigDone", true);
-// 		firstRunWizard->deleteLater();
-// 	}
-	
-	
-	
-	Logger::log ( i18n ( "[INF] Einstellungen geladen..." ) );
+	ConfigurationDialog *configDialog = ConfigurationDialog::getInstance(this); //create dialog with correct parent
+	configDialog->registerManagedWidget( new GeneralSettings( parent ), i18n("Allgemein"), "computer" ); 
+	configDialog->registerManagedWidget( new InternetExtensionSettings( parent ), i18n("Interneterweiterungen"), "document-open-remote" ); 
+	configDialog->registerManagedWidget( new ModelSettings( parent ), i18n("Modell"), "applications-education-language" ); 
+	configDialog->registerManagedWidget( new GrammarSettings(parent), i18n("Grammatik"), "user-properties" ); 
+	configDialog->registerManagedWidget( new SoundSettings( parent ), i18n("Sound"), "preferences-desktop-sound" ); 
+	configDialog->registerManagedWidget( new NetworkSettings( parent ), i18n("Netzwerk"), "network-disconnect" );
+ 	configDialog->registerManagedWidget( new ExternalProgramManager( parent ), i18n("Externe Programme"), "applications-other" ); 
+
 
 	info->writeToSplash ( i18n ( "Lade Programmlogik..." ) );
 	
@@ -137,12 +144,8 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	info->writeToSplash ( i18n ( "Lade \"Ausführen\"..." ) );
 	this->runDialog = new RunCommandView ( this );
 
-	
-	this->configurationDialog=0;
 
 	info->writeToSplash ( i18n ( "Lade Oberfläche..." ) );
-
-	
 	
 	settingsShown=false;
 	
@@ -239,16 +242,10 @@ void SimonView::setupActions()
 	connect(systemMode, SIGNAL(triggered(bool)),
 		this, SLOT(checkSettingState()));
 	
-	KAction* system = new KAction(this);
-// 	system->setCheckable(true);
-	system->setText(i18n("Konfiguration"));
-	system->setIcon(KIcon("configure"));
-	system->setShortcut(Qt::CTRL + Qt::Key_S);
-	system->setVisible(false);
-	actionCollection()->addAction("configuration", system);
-	connect(system, SIGNAL(triggered(bool)),
-		this, SLOT(showSystemDialog()));
-	
+
+	actionCollection()->addAction(KStandardAction::Preferences, "configuration",
+                               this, SLOT(showSystemDialog()));
+
 	KStandardAction::quit(this, SLOT(closeSimon()),
 			      actionCollection());
 	
@@ -371,11 +368,7 @@ void SimonView::showAddWordDialog ( )
  */
 void SimonView::showSystemDialog ()
 {
-	//lazy initialization
-	if (!configurationDialog)
-		configurationDialog = new ConfigurationDialog(this);
-
-	configurationDialog->show();
+	ConfigurationDialog::getInstance(this)->show();
 }
 
 /**

@@ -19,7 +19,7 @@
 
 
 #include "wav.h"
-#include "logging/logger.h"
+#include <simonlogging/logger.h>
 #include <KLocalizedString>
 #include <stdlib.h>
 #include <string.h>

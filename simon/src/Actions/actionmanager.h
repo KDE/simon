@@ -22,10 +22,11 @@
 
 
 #include <QObject>
+#include <QList>
 #include "Commands/commandpluginbase/command.h"
-#include "Commands/commandpluginbase/commandmanager.h"
 
-class EventHandler;
+class CommandManager;
+class CreateCommandWidget;
 
 class ActionManager : public QObject {
 
@@ -38,10 +39,8 @@ signals:
 
 private:
 	static ActionManager* instance;
-	
-	EventHandler *eventHandler; //to type (fallback)
 
-	CommandManagerList *managers;
+	QList<CommandManager*> *managers;
 	bool askDeleteCommandByTrigger(QString trigger);
 
 
@@ -59,6 +58,8 @@ public:
 	void process(QString input);
 	bool addCommand(Command *command);
 	bool deleteCommand(Command *command);
+
+	QList<CreateCommandWidget*>* getCreateCommandWidgets(QWidget *parent);
 
 	CommandList* getCommandList();
 

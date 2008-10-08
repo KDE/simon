@@ -17,27 +17,4 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
-#ifndef POSTPROCESSING_H
-#define POSTPROCESSING_H
-
-#include <QString>
-
-/**
- \class PostProcessing
- \author Peter Grasch
- \version 0.1
- \date 19.2.2008
- \brief Applies the specified postprocessing stack to the given filenames
-*/
-class PostProcessing{
-public:
-    PostProcessing();
-
-	bool process(QString in, QString out, bool deleteIn=false);
-
-    ~PostProcessing();
-
-};
-
-#endif
+#include "createcommandwidget.h"

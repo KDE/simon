@@ -19,10 +19,10 @@
 
 
 #include "wavplayer.h"
-#include "logging/logger.h"
 #include "coreconfiguration.h"
 #include "wav.h"
 
+#include <simonlogging/logger.h>
 #include <QTimer>
 #include <KLocalizedString>
 #include <QObject>

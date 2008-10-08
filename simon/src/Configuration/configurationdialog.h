@@ -22,17 +22,39 @@
 #define CONFIGURATIONDIALOG_H
 
 #include <QObject>
+#include <QHash>
+
+class KCModule;
+class KConfigDialog;
 
 class ConfigurationDialog : public QObject
 {
 	Q_OBJECT
 
-	public:
+	private:
+		static ConfigurationDialog* instance;
+		
+		QHash<KCModule*,bool> pluginCompletionStatus;
 		ConfigurationDialog(QWidget *parent);
+		
+		KConfigDialog* configDialog();
 
+	private slots:
+		void moduleChanged(bool complete);
+
+	public:
+		static ConfigurationDialog* getInstance(QWidget *parent=0)
+		{
+			if (!instance) instance = new ConfigurationDialog(parent);
+			return instance;
+		}
+		
 		void show();
-
-		~ConfigurationDialog();
+		
+		bool registerManagedWidget(QWidget *widget, const QString& title, const QByteArray& iconName);
+		
+		bool registerModule(KCModule *module);
+		virtual ~ConfigurationDialog();
 
 };
 

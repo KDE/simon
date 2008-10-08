@@ -17,15 +17,24 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "executablecommandmanager.h"
-#include "../../../SimonLib/Logging/logger.h"
 #include "xmlexecutablecommand.h"
 #include "executablecommand.h"
+#include "createexecutablecommandwidget.h"
+#include <simonlogging/logger.h>
 #include <KLocalizedString>
 #include <KStandardDirs>
 
+K_PLUGIN_FACTORY( ExecutableCommandPluginFactory, 
+			registerPlugin< ExecutableCommandManager >(); 
+		)
+        
+K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("ExecutableCommandManager") )
 
-ExecutableCommandManager::ExecutableCommandManager(QObject *parent) :CommandManager(parent)  
+
+ExecutableCommandManager::ExecutableCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent)  
 {
+	Q_UNUSED(args);
+
 	this->xmlExecutableCommand = new XMLExecutableCommand();
 }
 
@@ -42,6 +51,12 @@ bool ExecutableCommandManager::addCommand(Command *command)
 const QString ExecutableCommandManager::name() const
 {
 	return ExecutableCommand::staticCategoryText();
+}
+
+
+CreateExecutableCommandWidget* ExecutableCommandManager::getCreateCommandWidget(QWidget *parent)
+{
+	return new CreateExecutableCommandWidget(parent);
 }
 
 bool ExecutableCommandManager::load()

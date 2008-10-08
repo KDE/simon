@@ -33,7 +33,7 @@
 #include "trainingtext.h"
 #include "trainingmanager.h"
 #include "ImportTrainingTexts/importtrainingtexts.h"
-#include "../../SimonLib/Sound/recwidget.h"
+#include "../../SimonLib/sound/recwidget.h"
 #include "coreconfiguration.h"
 
 

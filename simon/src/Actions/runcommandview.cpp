@@ -26,7 +26,7 @@
 #include <QSize>
 #include "actionmanager.h"
 #include "newcommand.h"
-#include "Commands/commandmodel.h"
+#include "commandmodel.h"
 #include "commandpreviewwidget.h"
 
 
@@ -94,6 +94,8 @@ void RunCommandView::setSettingsHidden()
 void RunCommandView::addCommand()
 {
 	NewCommand *newCommand = new NewCommand(this);
+	newCommand->registerCreators(ActionManager::getInstance()->getCreateCommandWidgets(newCommand));
+	
 	Command *com = newCommand->newCommand();
 	if (com)
 	{
@@ -137,6 +139,7 @@ void RunCommandView::editCommand()
 	if (!command) return;
 
 	NewCommand *editCommand = new NewCommand(this);
+	editCommand->registerCreators(ActionManager::getInstance()->getCreateCommandWidgets(editCommand));
 	editCommand->init(command);
 	Command *newCommand = editCommand->newCommand();
 	if (newCommand)

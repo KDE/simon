@@ -20,7 +20,7 @@
 #ifndef DESKTOPGRIDCOMMANDMANAGER_H
 #define DESKTOPGRIDCOMMANDMANAGER_H
 
-#include <simoncommandpluginbase/commandmanager.h>
+#include "commandmanager.h"
 
 #include <QVariantList>
 
@@ -34,6 +34,7 @@
  */
 class DesktopGridCommandManager : public CommandManager{
 Q_OBJECT
+
 public:
 	const QString name() const;
 	bool load();

@@ -71,20 +71,23 @@ set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/ImportDict/lexicondict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/ImportDict/dict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/wordlistmanager.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/internetextensionsettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/externalprogrammanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/juliuscontrol.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandpreviewwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/newcommand.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/actionmanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/commandmodel.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/commandsettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandmodel.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/runcommandview.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Sound/wavrecorder.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Sound/soundsettings.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Sound/recwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Sound/wavplayer.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Sound/soundcontrol.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Sound/wav.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/wavrecorder.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/soundsettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/recwidget.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/wavplayer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/soundcontrol.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/postprocessing.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/wav.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/inlinewidgetview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simonlineedit.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simontablewidget.cpp
@@ -100,19 +103,12 @@ set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/inlinewidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simonlistwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simontabwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/XML/xmlreader.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/XML/xmldomreader.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/XML/xmlsaxreader.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/TrayIcon/trayiconmanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/PostProcessing/postprocessing.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Configuration/externalprogrammanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Configuration/passwordsettings.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Configuration/generalsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Configuration/configurationdialog.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Configuration/internetextensionsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/networksettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ServerAddressSelector/addserverconnection.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ServerAddressSelector/serveraddressselector.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/generalsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/simoncontrol.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
@@ -143,21 +139,29 @@ kde4_add_ui_files( simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/ImportDict/importdictselectsourcepage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/ImportDict/importwiktionarypage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/wordlist.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/internetextensiondlg.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/externalprogramms.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/rundialog.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/modifycommands.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandpreviewwidget.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/commandsettingsdlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Sound/soundsettingsdlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/Sound/recwidget.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandsettingsdlg.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/soundsettingsdlg.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/recwidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/main.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/Configuration/passwordsettingsdlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/Configuration/internetextensiondlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/Configuration/externalprogramms.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/Configuration/generalsettingsdlg.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/generalsettingsdlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/networksettingsdlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ServerAddressSelector/addserverconnectiondlg.ui
 )
 
+
+set( simon_LIB_HDRS
+  ${CMAKE_CURRENT_SOURCE_DIR}/coreconfiguration.kcfgc
+)
+
+install( FILES ${simon_LIB_HDRS}
+  DESTINATION ${INCLUDE_INSTALL_DIR}/simon
+  COMPONENT Devel
+)
 
 kde4_add_kcfg_files(simonGeneralSources coreconfiguration.kcfgc)
 
@@ -176,7 +180,7 @@ ENDIF(WIN32)
 
 install(FILES simon.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
-target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES} simonlogging eventsimulation simoncommandpluginbase simoninfo )
+target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES} eventsimulation simoncommandpluginbase simoninfo simonlogging simonxml )
 
 install (TARGETS simon DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR}/simon)
+install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR})

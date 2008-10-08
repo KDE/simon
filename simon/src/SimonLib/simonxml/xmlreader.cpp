@@ -18,7 +18,7 @@
  */
 
 #include "xmlreader.h"
-#include "logging/logger.h"
+#include <simonlogging/logger.h>
 #include <KLocalizedString>
 #include <QDebug>
 

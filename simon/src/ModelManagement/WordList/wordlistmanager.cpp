@@ -20,7 +20,7 @@
 
 #include "wordlistmanager.h"
 #include "../modelmanager.h"
-#include "logging/logger.h"
+#include <simonlogging/logger.h>
 #include "coreconfiguration.h"
 
 #include <QObject>

@@ -20,6 +20,9 @@
 #ifndef XMLREADER_H
 #define XMLREADER_H
 #include <QObject>
+
+#include "simonxml_export.h"
+
 /**
  *  @class XMLReader
  *  @brief To handle with xml-files
@@ -31,7 +34,7 @@
  
 
  
-class XMLReader : public QObject {
+class SIMONXML_EXPORT XMLReader : public QObject {
  	Q_OBJECT
 signals:
 	void loaded();

@@ -19,7 +19,7 @@
 
 
 #include "trayiconmanager.h"
-#include "logging/logger.h"
+#include <simonlogging/logger.h>
 #include <KActionCollection>
 #include <QMenu>
 #include <KSystemTrayIcon>

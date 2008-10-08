@@ -18,6 +18,7 @@
  */
 
 #include "commandmanager.h"
+#include <KCModule>
 
 bool CommandManager::trigger(const QString& triggerName)
 {
@@ -41,6 +42,29 @@ bool CommandManager::trigger(const QString& triggerName)
 	return done;
 }
 
+/**
+ * \brief Returns the CreateCommandWidget used for configuring a new/existing command
+ * \author Peter Grasch
+ * 
+ * If you want your command to be add-able (the user can add a new command of the the type of your plugin)
+ * you must override this method and provide your own CreateCommandWidget.
+ * 
+ * See the CreateCommandWidget documentation for details.
+ * 
+ * The default implementation returns NULL.
+ */
+CreateExecutableCommandWidget* CommandManager::getCreateCommandWidget(QWidget *parent)
+{
+	Q_UNUSED(parent);
+
+	return 0;
+}
+
+KCModule* CommandManager::getConfigurationPage()
+{
+	return configurationPage;
+}
+
 bool CommandManager::deleteCommand(Command *command)
 {
 	if (!commands) return false;
@@ -51,5 +75,11 @@ bool CommandManager::deleteCommand(Command *command)
 	return false;
 }
 
+CommandManager::~CommandManager()
+{
+	if (commands)
+		qDeleteAll(*commands);
 
-#include "commandmanager.moc"
+	if (configurationPage)
+		configurationPage->deleteLater();
+}

@@ -27,8 +27,8 @@
 #include <QObject>
 
 class CommandManager;
-
-typedef QList<CommandManager*> CommandManagerList;
+class CreateExecutableCommandWidget;
+class KCModule;
 
 /**
  *	@class CommandManager
@@ -42,8 +42,11 @@ class SIMONCOMMANDPLUGINBASE_EXPORT CommandManager : public QObject{
 Q_OBJECT
 signals:
 	void commandsFound(CommandList*);
+
 protected:
 	CommandList *commands;
+	KCModule* configurationPage;
+
 public:
 	virtual const QString name() const=0;
 	virtual bool load()=0;
@@ -54,6 +57,9 @@ public:
 
 	virtual bool deleteCommand(Command *command);
 
+	virtual KCModule* getConfigurationPage();
+	virtual CreateExecutableCommandWidget* getCreateCommandWidget(QWidget *parent);
+
 	virtual bool trigger(const QString& triggerName);
     /**
     * @brief Constructor
@@ -61,13 +67,10 @@ public:
     *	@author Peter Grasch
     */
     CommandManager(QObject *parent=0) : QObject(parent)
-    { this->commands = 0;  }
+    { commands=0; configurationPage=0; }
 
     
-    virtual ~CommandManager() {
-		if (commands)
-			qDeleteAll(*commands);
-	}
+    virtual ~CommandManager();
 
 };
 

@@ -20,9 +20,12 @@
 #include "newcommand.h"
 
 #include <KUrl>
+#include <KMessageBox>
 #include <KKeySequenceWidget>
 #include <KDialogButtonBox>
 #include "Commands/commandpluginbase/command.h"
+#include "Commands/commandpluginbase/createcommandwidget.h"
+#include "actionmanager.h"
 
 // #include "Commands/Executable/executablecommand.h"
 // #include "Commands/Executable/ImportProgram/importprogramwizard.h"
@@ -43,44 +46,62 @@ NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
 	checkIfComplete();
 	connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(setWindowTitleToCommandName(QString)));
 	connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
-	connect(ui.cbImportProgram, SIGNAL(clicked()), this, SLOT(showImportProgramWizard()));
-	connect(ui.cbImportPlace, SIGNAL(clicked()), this, SLOT(showImportPlaceWizard()));
+	
+	commandCreaters=0;
 }
 
+bool NewCommand::registerCreators(QList<CreateCommandWidget*>* commandCreaters)
+{
+	if (this->commandCreaters)
+		delete this->commandCreaters;
+	
+	foreach (CreateCommandWidget *widget, *commandCreaters)
+	{
+		ui.cbType->addItem(widget->windowIcon(), widget->windowTitle());
+		ui.swCommandCreaters->addWidget(widget);
+		connect(widget, SIGNAL(complete(bool)), this, SLOT(slotPluginComplete(bool)));
+	}
+	
+	this->commandCreaters = commandCreaters;
+	return true;
+}
+/**
+ * \brief En-/disables the Ok-Button; Takes general settings into account
+ * \author Peter Grasch
+ * 
+ * This calls checkIfComplete() to check the general command-parameters
+ * but sets the button also to disabled if the plugin reports it is not yet
+ * complete
+ *
+ */
+void NewCommand::slotPluginComplete(bool complete)
+{
+	checkIfComplete();
+	if ((ui.swCommandCreaters->currentWidget() == sender()) && (!complete))
+		enableButtonOk(false);
+}
 
 void NewCommand::init(Command *command)
 {
 	if (!command) return;
+	
 	ui.leTrigger->setText(command->getTrigger());
 	ui.ibIcon->setIcon(command->getIconSrc());
 
-// 	if (dynamic_cast<ExecutableCommand*>(command))
-// 	{
-// 		ExecutableCommand *exe = dynamic_cast<ExecutableCommand*>(command);
-// 
-// 		ui.cbType->setCurrentIndex(0); //Executable menu
-// 		ui.urExecutable->setPath(exe->getExecutable());
-// 		ui.urWorkingDirectory->setUrl(exe->getWorkingDirectory());
-// 	}
-// 	if (dynamic_cast<PlaceCommand*>(command))
-// 	{
-// 		PlaceCommand *place = dynamic_cast<PlaceCommand*>(command);
-// 
-// 		ui.cbType->setCurrentIndex(1); //Place menu
-// 		ui.urUrl->setUrl(place->getURL());
-// 	}
-// 	if (dynamic_cast<ShortcutCommand*>(command))
-// 	{
-// 		ShortcutCommand *shortcut = dynamic_cast<ShortcutCommand*>(command);
-// 		ui.cbType->setCurrentIndex(2); //Shortcut menu
-// 		ui.ksShortcut->setKeySequence(shortcut->getShortcut());
-// 	}
-// 	if (dynamic_cast<TextMacroCommand*>(command))
-// 	{
-// 		TextMacroCommand *macro = dynamic_cast<TextMacroCommand*>(command);
-// 		ui.cbType->setCurrentIndex(3); //Macro menu
-// 		ui.teMacroText->setPlainText(macro->getText());
-// 	}
+	bool found=false;
+	int i=0;
+	foreach (CreateCommandWidget *widget, *commandCreaters)
+	{
+		if (widget->init(command))
+		{
+			found=true;
+			ui.cbType->setCurrentIndex(i);
+			ui.swCommandCreaters->setCurrentIndex(i);
+		}
+		i++;
+	}
+	if (!found)
+		KMessageBox::error(this, i18n("Konnte Kommandotyp nicht bestimmen."));
 }
 
 void NewCommand::checkIfComplete()
@@ -95,30 +116,19 @@ void NewCommand::setWindowTitleToCommandName(QString name)
 	else setCaption(i18n("Kommando"));
 }
 
-void NewCommand::showImportProgramWizard()
-{
-// 	ImportProgramWizard *import = new ImportProgramWizard(this);
-// 	connect (import, SIGNAL(commandCreated(Command*)), this, SLOT(init(Command*)));
-// 	import->exec();
-// 	import->deleteLater();
-}
-
-void NewCommand::showImportPlaceWizard()
-{
-// 	ImportPlaceWizard *import = new ImportPlaceWizard(this);
-// 	connect (import, SIGNAL(commandCreated(Command*)), this, SLOT(init(Command*)));
-// 	import->exec();
-// 	import->deleteLater();
-}
-
 Command* NewCommand::newCommand()
 {
 	if (KDialog::exec())
 	{
 		//creating
-		Command *command=0;
+		CreateCommandWidget *creater = dynamic_cast<CreateCommandWidget*>(ui.swCommandCreaters->currentWidget());
+		Q_ASSERT(creater);
 		
-		int type = ui.cbType->currentIndex();
+		if (!creater) return 0;
+		
+		return creater->createCommand(ui.leTrigger->text(), ui.ibIcon->icon());
+		
+// 		int type = ui.cbType->currentIndex();
 // 		switch (type)
 // 		{
 // 			case 0: //Program
@@ -141,14 +151,14 @@ Command* NewCommand::newCommand()
 // 							ui.teMacroText->toPlainText());
 // 				break;
 // 		}
-		ui.ksShortcut->clearKeySequence();
-		return command;
+// 		ui.ksShortcut->clearKeySequence();
+// 		return command;
 	}
-	ui.ksShortcut->clearKeySequence();
+// 	ui.ksShortcut->clearKeySequence();
 	return 0;
 }
 
 NewCommand::~NewCommand()
 {
-
+	delete commandCreaters;
 }

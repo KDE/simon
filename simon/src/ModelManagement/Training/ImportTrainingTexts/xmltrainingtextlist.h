@@ -23,7 +23,7 @@
 
 #include <QString>
 #include <QHash>
-#include "../../../SimonLib/XML/xmldomreader.h"
+#include <simonxml/xmldomreader.h>
 
 /**
  * \class XMLTrainingTextList

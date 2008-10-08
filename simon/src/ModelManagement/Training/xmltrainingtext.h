@@ -21,7 +21,7 @@
 #define XMLTRAININGTEXT_H
 
 #include <QStringList>
-#include "../../SimonLib/XML/xmldomreader.h"
+#include <simonxml/xmldomreader.h>
 
 /**
  *  @class XMLTrainingText

@@ -23,7 +23,7 @@
 
 #include <QVBoxLayout>
 #include <QWizardPage>
-#include "../../../SimonLib/Sound/recwidget.h"
+#include "../../../SimonLib/sound/recwidget.h"
 #include "ui_addwordrecordpage.h"
 
 /**

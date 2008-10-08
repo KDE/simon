@@ -21,7 +21,7 @@
 #define EXECUTABLECOMMAND_H
 
 #include <KUrl>
-#include "../command.h"
+#include <command.h>
 
 /**
  *	@class ExecutableCommand

@@ -20,7 +20,7 @@
 
 
 #include "importtrainingtextworkingpage.h"
-#include "logging/logger.h"
+#include <simonlogging/logger.h>
 #include "../xmltrainingtext.h"
 #include "importtrainingtextlocalpage.h"
 #include "xmltrainingtextlist.h"

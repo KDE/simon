@@ -19,7 +19,7 @@
 
 
 #include "importdict.h"
-#include "logging/logger.h"
+#include <simonlogging/logger.h>
 #include "bompdict.h"
 #include "lexicondict.h"
 #include "wiktionarydict.h"

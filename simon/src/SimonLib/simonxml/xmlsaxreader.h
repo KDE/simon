@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include "xmlreader.h"
+#include "simonxml_export.h"
 
 class QXmlDefaultHandler;
 
@@ -34,7 +35,7 @@ class QXmlDefaultHandler;
 	\date 12.05.2007
 	\version 0.1
 */
-class XMLSAXReader : public XMLReader{
+class SIMONXML_EXPORT XMLSAXReader : public XMLReader{
 public:
 	explicit XMLSAXReader(QString path, QObject* parent=0);
 	

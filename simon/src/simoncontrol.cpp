@@ -19,13 +19,15 @@
 
 
 #include "simoncontrol.h"
-#include <KMessageBox>
-#include <KLocalizedString>
-#include "logging/logger.h"
-#include "simoninfo/simoninfo.h"
+
 #include "RecognitionControl/juliuscontrol.h"
 #include "Actions/actionmanager.h"
 #include "coreconfiguration.h"
+
+#include <KMessageBox>
+#include <KLocalizedString>
+#include <simonlogging/logger.h>
+#include <simoninfo/simoninfo.h>
 
 /**
  * @brief Constructor

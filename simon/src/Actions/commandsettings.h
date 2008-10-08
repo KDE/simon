@@ -40,7 +40,7 @@ private:
 // 	bool reset();
 // 	bool init();
 public:
-    CommandSettings(QWidget* parent);
+    CommandSettings(QWidget* parent=0);
 // 	bool isComplete();
     ~CommandSettings();
 

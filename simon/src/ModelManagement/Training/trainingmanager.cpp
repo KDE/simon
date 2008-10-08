@@ -20,7 +20,7 @@
 
 #include "trainingmanager.h"
 
-#include "logging/logger.h"
+#include <simonlogging/logger.h>
 #include "../WordList/wordlistmanager.h"
 #include "../modelmanager.h"
 #include "xmltrainingtext.h"

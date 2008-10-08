@@ -136,13 +136,13 @@
   </group>
 
   <group name="Internet">
-    <entry name="TextOnlineUpdate" type="Url">
+    <entry name="TextOnlineUpdate" type="String">
       <label>The url to the online text-list to get new trainingstexts.</label>
-      <default code="true">KUrl("http://simon.pytalhost.org/texts/list.xml")</default>
+      <default>http://simon.pytalhost.org/texts/list.xml</default>
     </entry>
-    <entry name="WikiDumpOverview" type="Url">
+    <entry name="WikiDumpOverview" type="String">
       <label>The url to the wikimedia dump overview.</label>
-      <default code="true">KUrl("http://download.wikimedia.org/backup-index.html")</default>
+      <default>http://download.wikimedia.org/backup-index.html</default>
     </entry>
     <entry name="WikiDumpPrefix" type="String">
       <label>The prefix of the wiktionary dumps.</label>

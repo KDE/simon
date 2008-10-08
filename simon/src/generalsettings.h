@@ -18,28 +18,36 @@
  */
 
 
-#ifndef PASSWORDSETTINGS_H
-#define PASSWORDSETTINGS_H
+#ifndef GENERALSETTINGS_H
+#define GENERALSETTINGS_H
 
-#include "ui_passwordsettingsdlg.h"
+#include "ui_generalsettingsdlg.h"
 #include <QWidget>
+
 /**
-	@author Peter Grasch <bedahr@gmx.net>
+ \class GeneralSettings
+ \author Peter Grasch
+ \version 0.1
+ \date 12.08.2007
+
+ \brief Used to control the genernal system settings (like paths to the language model, etc.)
+
 */
-class PasswordSettings : public QWidget
+class GeneralSettings : public QWidget
 {
 Q_OBJECT
-private:
-	Ui::PasswordSettingsDlg ui;
 
+private:
+	Ui::GeneralSettingsDlg ui; //!< UI definition - made by uic from the QTDesigner .ui
+	
 private slots:
 	void newPassword();
 	void checkPassword();
 
 public:
-    PasswordSettings(QWidget* parent);
+    GeneralSettings(QWidget* parent);
 
-    ~PasswordSettings();
+    ~GeneralSettings();
 
 };
 

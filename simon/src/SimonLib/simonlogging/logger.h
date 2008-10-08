@@ -21,6 +21,7 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#include "simonlogging_export.h"
 #include <QString>
 /**
  \class Logger
@@ -31,7 +32,7 @@
 class QTextStream;
 class QFile;
 
-class Logger{
+class SIMONLOGGING_EXPORT Logger{
 private:
 	static QTextStream *logFile;
 	static QFile * logF;

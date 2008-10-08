@@ -18,19 +18,30 @@
  */
 
 #include "desktopgridcommandmanager.h"
-#include <simoncommandpluginbase/simoncommandpluginbase_export.h>
-#include "logging/logger.h"
+#include <simoncommandpluginbase_export.h>
+#include <simonlogging/logger.h>
 #include "screengrid.h"
 #include <KLocalizedString>
 #include <KGenericFactory>
 #include <KMessageBox>
 #include <QDebug>
+#include "desktopgridconfiguration.h"
 
-SIMONCOMMAND_EXPORT_PLUGIN(DesktopGridCommandManager)
+K_PLUGIN_FACTORY( DesktopGridPluginFactory, 
+			registerPlugin< DesktopGridCommandManager >(); 
+			registerPlugin< DesktopGridConfiguration >(); 
+		)
+        
+K_EXPORT_PLUGIN( DesktopGridPluginFactory("DesktopGridCommandManager") )
+
+
 
 DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent)
 {
 	Q_UNUSED(args);
+
+	configurationPage = new DesktopGridConfiguration(dynamic_cast<QWidget*>(parent), QVariantList());
+	configurationPage->load();
 }
 
 const QString DesktopGridCommandManager::name() const

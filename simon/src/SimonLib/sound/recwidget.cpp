@@ -21,9 +21,10 @@
 
 #include "wavrecorder.h"
 #include "wavplayer.h"
-#include "../PostProcessing/postprocessing.h"
-#include "logging/logger.h"
+#include "postprocessing.h"
 #include "coreconfiguration.h"
+
+#include <simonlogging/logger.h>
 
 #include <QGroupBox>
 #include <QLabel>

@@ -18,7 +18,7 @@
  */
 
 #include "command.h"
-#include "simoninfo/simoninfo.h"
+#include <simoninfo/simoninfo.h>
 #include <QVariant>
 
 bool Command::trigger()

@@ -22,10 +22,12 @@
 
 
 #include <KDialog>
+#include <QList>
 #include "ui_modifycommands.h"
 
 class Command;
 class NewCommand;
+class CreateCommandWidget;
 
 // typedef EditCommand NewCommand;
 
@@ -35,17 +37,18 @@ Q_OBJECT
 
 private:
 	Ui::DlgModifyCommands ui;
+	QList<CreateCommandWidget*> *commandCreaters;
 
 private slots:
-	void showImportPlaceWizard();
-	void showImportProgramWizard();
 	void setWindowTitleToCommandName(QString name);
 	void checkIfComplete();
+	void slotPluginComplete(bool);
 
 public:
 	NewCommand(QWidget *parent=0);
 	~NewCommand();
 
+	bool registerCreators(QList<CreateCommandWidget*>* commandCreaters);
 
 	Command* newCommand();
 

@@ -18,32 +18,27 @@
  */
 
 
-#ifndef GENERALSETTINGS_H
-#define GENERALSETTINGS_H
+#ifndef POSTPROCESSING_H
+#define POSTPROCESSING_H
 
-#include "ui_generalsettingsdlg.h"
-#include <QWidget>
+// #include "simonpostprocessing_export.h"
+
+class QString;
 
 /**
- \class GeneralSettings
+ \class PostProcessing
  \author Peter Grasch
  \version 0.1
- \date 12.08.2007
-
- \brief Used to control the genernal system settings (like paths to the language model, etc.)
-
+ \date 19.2.2008
+ \brief Applies the specified postprocessing stack to the given filenames
 */
-class GeneralSettings : public QWidget
-{
-Q_OBJECT
-
-private:
-	Ui::GeneralSettingsDlg ui; //!< UI definition - made by uic from the QTDesigner .ui
-	
+class /*SIMONPOSTPROCESSING_EXPORT*/ PostProcessing{
 public:
-    GeneralSettings(QWidget* parent);
+    PostProcessing();
 
-    ~GeneralSettings();
+	bool process(const QString& in, const QString& out, bool deleteIn=false);
+
+    ~PostProcessing();
 
 };
 

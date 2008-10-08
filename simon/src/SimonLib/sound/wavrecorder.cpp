@@ -19,9 +19,9 @@
 
 #include "wavrecorder.h"
 #include "wav.h"
-#include "logging/logger.h"
 #include "coreconfiguration.h"
 
+#include <simonlogging/logger.h>
 #include <QObject>
 #include <stdlib.h>
 #include <string.h>

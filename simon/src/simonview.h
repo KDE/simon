@@ -43,17 +43,14 @@ class QPoint;
 class QWidget;
 class InlineWidgetView;
 class QString;
-class QTimer;
 class SimonControl;
 class SimonInfo;
 class TrainingView;
-class VuMeter;
 class AddWordView;
 class TrayIconManager;
 class RunCommandView;
 class QAction;
 class WordListView;
-class ConfigurationDialog;
 
 
 typedef QHash<QObject*,  const char*> ActionIdent;
@@ -78,7 +75,6 @@ private:
 	WordListView *wordList; //!< Pointer on the Dialog "WordList"
 	RunCommandView *runDialog; //!< Pointer on the Dialog "RunCommand"
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
-	ConfigurationDialog *configurationDialog;
 
 
 	void setupSignalSlots();

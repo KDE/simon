@@ -17,32 +17,47 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#ifndef CREATEEXECUTABLECOMMANDWIDGET_H
+#define CREATEEXECUTABLECOMMANDWIDGET_H
 
-#ifndef XMLDOMREADER_H
-#define XMLDOMREADER_H
+#include <QWidget>
+#include <KIcon>
+#include <createcommandwidget.h>
+#include "ui_createexecutablecommandwidget.h"
 
-#include "xmlreader.h"
+class Command;
 
-class QDomDocument;
 /**
-	\class XMLDomReader
-	
-	\author Peter Grasch
-	\brief Implements qts DOM API to parse xml documents and implements the XMLReader interface
-	\date 12.05.2007
-	\version 0.1
+ *	@class CreateExecutableCommandWidget
+ *	@brief Provides a widget to modify the specific attributes of an ExecutableCommand
+ *
+ *	@version 0.1
+ *	@date 8.10.2008
+ *	@author Peter Grasch
  */
-class XMLDomReader : public XMLReader {
-protected:
-	QDomDocument *doc;
-public:
-	explicit XMLDomReader(QString path, QObject* parent=0);
+class CreateExecutableCommandWidget : public CreateCommandWidget{
+Q_OBJECT
 
-	bool save(QString path="");
-	
-	bool load(QString path="");
-	
-    ~XMLDomReader();
+private:
+	Ui::CreateExecutableCommandWidget ui;
+
+private slots:
+	void checkIfComplete();
+
+public:
+	Command* createCommand(const QString& name, const QString& iconSrc);
+
+	bool init(Command* command);
+
+	/**
+	* @brief Constructor
+	* 
+	*	@author Peter Grasch
+	*/
+	CreateExecutableCommandWidget(QWidget *parent=0);
+
+
+	virtual ~CreateExecutableCommandWidget();
 
 };
 

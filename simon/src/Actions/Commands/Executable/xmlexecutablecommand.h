@@ -19,8 +19,8 @@
 
 #ifndef XMLEXECUTABLECOMMAND_H
 #define XMLEXECUTABLECOMMAND_H
-#include "../command.h"
-#include "../../SimonLib/XML/xmldomreader.h"
+#include <command.h>
+#include <simonxml/xmldomreader.h>
 
 /**
  *  @class XMLExecutableCommand

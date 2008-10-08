@@ -26,7 +26,7 @@
 #include <QCoreApplication>
 #include <QObject>
 #include <KLocalizedString>
-#include "coreconfiguration.h"
+// #include "coreconfiguration.h"
 
 PostProcessing::PostProcessing()
 {
@@ -38,7 +38,7 @@ PostProcessing::PostProcessing()
  * @param out Where to save it to
  * @return success
  */
-bool PostProcessing::process(QString in, QString out, bool deleteIn)
+bool PostProcessing::process(const QString& in, const QString& out, bool deleteIn)
 {
 	KProgressDialog *progDialog = new KProgressDialog(0, i18n("Nachbearbeitung"), i18n("Filter werden angewendet..."));
 	if (QFile::exists(out) && (!QFile::remove(out)))
@@ -47,7 +47,7 @@ bool PostProcessing::process(QString in, QString out, bool deleteIn)
 		return false;
 	}
 	
-	QStringList filters = CoreConfiguration::processingFilters();
+ 	QStringList filters;// = CoreConfiguration::processingFilters();
 	QString filter;
 	progDialog->progressBar()->setMaximum(filter.count()+1);
 	QCoreApplication::processEvents();
@@ -56,8 +56,8 @@ bool PostProcessing::process(QString in, QString out, bool deleteIn)
 		QString execStr = filters.at(j);
 		execStr.replace("\%1", in);
 		execStr.replace("\%2", out);
-		execStr.replace("\%3", QString::number(CoreConfiguration::modelSampleRate()));
-		execStr.replace("\%4", QString::number(CoreConfiguration::modelChannels()));
+// 		execStr.replace("\%3", QString::number(CoreConfiguration::modelSampleRate()));
+// 		execStr.replace("\%4", QString::number(CoreConfiguration::modelChannels()));
 		int ret = QProcess::execute(execStr);
 		if (ret)
 		{

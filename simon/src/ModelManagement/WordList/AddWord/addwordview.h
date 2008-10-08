@@ -36,7 +36,6 @@
 
 #include <QWizard>
 #include <QStringList>
-#include "../../../SimonLib/Sound/recwidget.h"
 #include "../word.h"
 
 
