@@ -180,7 +180,7 @@ ENDIF(WIN32)
 
 install(FILES simon.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
-target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES} eventsimulation simoncommandpluginbase simoninfo simonlogging simonxml )
+target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES} simoncommandpluginbase simoninfo simonlogging simonxml )
 
 install (TARGETS simon DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR})

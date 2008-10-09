@@ -5,5 +5,5 @@
 
 #cd src/
 #qmake && make && lrelease src.pro && mv *.qm .. && echo -e "**** Build completed ****\n\nThe executable file \"simon\" is now ready.\n\nIssue \"./simon\" to start it."
-cd build && cmake .. && make && make install && echo -e "**** Build completed ****\n\nThe executable file \"simon\" is now ready.\n\nIssue \"./simon\" to start it."
+cd build && cmake .. && make && su -c 'make install' && echo -e "**** Build completed ****\n\nThe executable file \"simon\" is now ready and has been installed.\n\nIssue \"simon\" to start it."
 

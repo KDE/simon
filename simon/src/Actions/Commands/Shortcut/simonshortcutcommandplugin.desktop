@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=input-keyboard
+ServiceTypes=simon/CommandPlugin
+X-KDE-Library=simonshortcutcommandplugin
+Name=simon ShortcutCommand Plugin
+Name[de]=simon Tastenkürzel Modul
+Comment=Activate shortcuts
+Comment[de]=Löse Tastenkürzel aus
+
+X-KDE-PluginInfo-Author=Peter Grasch
+X-KDE-PluginInfo-Email=grasch@simon-listens.org
+X-KDE-PluginInfo-Name=simonshortcutcommandplugin
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://simon-listens.org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ParentApp=simon
