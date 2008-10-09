@@ -1,0 +1,5 @@
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/eventsimulation)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonlogging)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simoninfo)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonxml)
+# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sound)
