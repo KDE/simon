@@ -26,7 +26,7 @@
 
 K_PLUGIN_FACTORY_DECLARATION(DesktopGridPluginFactory)
 
-DesktopGridConfiguration* DesktopGridConfiguration::instance;
+QPointer<DesktopGridConfiguration> DesktopGridConfiguration::instance;
 
 
 DesktopGridConfiguration::DesktopGridConfiguration(QWidget *parent, const QVariantList &args)

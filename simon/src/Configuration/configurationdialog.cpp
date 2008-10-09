@@ -84,7 +84,7 @@ bool ConfigurationDialog::registerModule(KCModule *module)
 	
 	KPageWidgetItem *page = dlg->addPage( module, about->programName(), 
 					      about->programIconName(), 
-					      QString(), false); 
+					      QString()); 
 	
 	connect (module, SIGNAL(changed(bool)), this, SLOT(moduleChanged(bool)));
 // 	connect (module, SIGNAL(destroyed(QObject*)), this, SLOT(moduleDestroyed(QObject*)));
@@ -116,12 +116,7 @@ void ConfigurationDialog::moduleChanged(bool changed)
 	KCModule *senderModule = dynamic_cast<KCModule*>(sender());
 	if (!senderModule) return;
 	
-// 	qDebug() << "======================================";
-// 	qDebug() << senderModule << changed;
-	
 	pluginChangedStatus.insert(senderModule, changed);
-	
-// 	qDebug() << pluginChangedStatus;
 	
 	bool allChanged = pluginChangedStatus.values().contains(true);
 	dlg->enableButton( KDialog::Apply, allChanged );

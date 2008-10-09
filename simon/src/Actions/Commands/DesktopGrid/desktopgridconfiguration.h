@@ -23,6 +23,7 @@
 #include "commandconfiguration.h"
 #include "ui_desktopgridconfigurationdlg.h"
 #include <KSharedConfig>
+#include <QPointer>
 
 class DesktopGridConfiguration : public CommandConfiguration
 {
@@ -30,9 +31,13 @@ class DesktopGridConfiguration : public CommandConfiguration
 	
 	private:
 		Ui::DesktopGridConfigurationDlg ui;
-		static DesktopGridConfiguration *instance;
+		static QPointer<DesktopGridConfiguration> instance;
 		DesktopGridConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
  
+	public slots:
+		virtual void save();
+		virtual void load();
+		virtual void defaults();
 	
 	public:
 		static DesktopGridConfiguration *getInstance(QWidget *parent=0, const QVariantList &args = QVariantList()) {
@@ -40,9 +45,6 @@ class DesktopGridConfiguration : public CommandConfiguration
 			return instance;
 		}
 		~DesktopGridConfiguration();
-		virtual void save();
-		virtual void load();
-		virtual void defaults();
 		
 		void destroy();
 		

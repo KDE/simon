@@ -43,13 +43,15 @@ class SIMONCOMMANDPLUGINBASE_EXPORT CommandConfiguration : public KCModule
 				      const QString& iconName, const KComponentData& componentData,
 				      QWidget *parent=0, const QVariantList &args = QVariantList());
 		~CommandConfiguration();
+		virtual void destroy();
 		
 // 		KSharedConfig::Ptr* getConfig() { return &config; }
+
+	public slots:
 		virtual void save()=0;
 		virtual void load()=0;
 		virtual void defaults()=0;
 		
-		virtual void destroy();
 };
 
 #endif

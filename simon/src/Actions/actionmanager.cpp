@@ -27,7 +27,6 @@
 #include "Commands/commandpluginbase/commandmanager.h"
 #include "Commands/commandpluginbase/createcommandwidget.h"
 
-#include <QDebug>
 #include <QFile>
 
 #include <KMessageBox>
@@ -103,14 +102,18 @@ void ActionManager::setupBackends(QStringList pluginsToLoad)
 		
 		CommandManager *man = factory->create<CommandManager>(this);
 	
-		if (man && pluginsToLoad.contains(man->name())) {
-			qDebug() << "Loading: " << man->name();
-			managers->append(man);
-			configDialog->registerModule(man->getConfigurationPage());
-			
-			if (!man->load())
-				KMessageBox::error(0, i18n("Konnte Kommandomanager \"%1\" nicht initialisieren.\n\n"
-						   "Bitte überprüfen Sie seine Konfiguration.", man->name()));
+		if (man)
+		{
+			if (pluginsToLoad.contains(man->name()))
+			{
+				managers->append(man);
+				configDialog->registerModule(man->getConfigurationPage());
+				
+				if (!man->load())
+					KMessageBox::error(0, i18n("Konnte Kommandomanager \"%1\" nicht initialisieren.\n\n"
+							"Bitte überprüfen Sie seine Konfiguration.", man->name()));
+			} else
+				man->deleteLater();
 		}
 	}
 	
@@ -145,6 +148,7 @@ QStringList ActionManager::availableCommandManagers()
 		
 		CommandManager *man = factory->create<CommandManager>(this);
 		if (man) commandManagers << man->name();
+		man->deleteLater();
 	}
 	return commandManagers;
 }
