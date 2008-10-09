@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=Service
+Icon=games-config-board
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=simondesktopgridplugin
+
+X-KDE-PluginKeyword=simondesktopgridpluginconfig
+X-KDE-FactoryName=simondesktopgridpluginconfig
+X-KDE-ParentComponents=simondesktopgridplugin
+
+X-KDE-ParentApp=simon
+X-KDE-System-Settings-Parent-Category=system
+
+
+Name=Desktopgrid configuration
+Name[de]=Desktopgitter Konfiguration
+
+Comment=Configuration of simons desktopgrid-plugin
+Comment[de]=Konfiguration des Desktopgitter-Plug-Ins von simon
