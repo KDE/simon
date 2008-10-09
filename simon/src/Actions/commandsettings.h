@@ -21,28 +21,42 @@
 #define COMMANDSETTINGS_H
 
 #include "ui_commandsettingsdlg.h"
-#include <QWidget>
+#include <KCModule>
+#include <QStringList>
 
 /**
  * \class CommandSettings
  * \author Peter Grasch
- * \brief SystemWidgets that manages all the commands
+ * \brief KCModule that manages some general options and what command-plugins to load
  * \date 13.08.2007
  * \version 0.1
  */
-class CommandSettings : public QWidget
+class CommandSettings : public KCModule
 {
 Q_OBJECT
+
+signals:
+	void pluginSelectionChanged(const QStringList& pluginsToLoad);
+
 private:
 	Ui::CommandSettingsDlg ui;
-// public slots:
-// 	bool apply();
-// 	bool reset();
-// 	bool init();
+	KSharedConfig::Ptr config;
+	bool isChanged;
+	QStringList pluginsToLoad;
+
+
+public slots:
+	void save();
+	void load();
+	void defaults();
+ 
+private slots:
+	void slotChanged();
+
 public:
-    CommandSettings(QWidget* parent=0);
-// 	bool isComplete();
-    ~CommandSettings();
+	CommandSettings(QWidget* parent=0);
+	QStringList getPluginsToLoad();
+	~CommandSettings();
 
 };
 

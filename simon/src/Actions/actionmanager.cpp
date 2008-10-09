@@ -43,22 +43,50 @@
 
 ActionManager* ActionManager::instance;
 
+
 ActionManager::ActionManager(QObject *parent) : QObject(parent)
 {
 	managers = new QList<CommandManager*>();
+}
+
+void ActionManager::init()
+{
+	CommandSettings* commandSettings = new CommandSettings();
+	connect (commandSettings, SIGNAL(pluginSelectionChanged(const QStringList&)),
+		  this, SLOT(setupBackends(QStringList)));
+		  
+	ConfigurationDialog::getInstance()->registerModule( commandSettings );
 	
-	ConfigurationDialog::getInstance()->registerManagedWidget( new CommandSettings(), i18n("Kommandos"), "fork" );
-	
-	setupBackends();
+	setupBackends(commandSettings->getPluginsToLoad());
+}
+
+void ActionManager::deleteManager(CommandManager *manager)
+{
+	ConfigurationDialog::getInstance()->unregisterModule(manager->getConfigurationPage());
+	manager->deleteLater();
+	managers->removeAll(manager);
 }
 
 
-void ActionManager::setupBackends()
+void ActionManager::setupBackends(QStringList pluginsToLoad)
 {
 	Q_ASSERT(managers);
 
-	qDeleteAll(*managers);
-	managers->clear();
+	bool changed=false;
+	
+	foreach (CommandManager *man, *managers)
+	{
+		QString currentName = man->name();
+		
+		if (pluginsToLoad.contains(currentName))
+			pluginsToLoad.removeAll(currentName);
+		else {
+			deleteManager(man);
+			changed=true;
+		}
+	}
+	if (pluginsToLoad.count() > 0)
+		changed=true;
 
 	KService::List services;
 	KServiceTypeTrader* trader = KServiceTypeTrader::self();
@@ -75,7 +103,8 @@ void ActionManager::setupBackends()
 		
 		CommandManager *man = factory->create<CommandManager>(this);
 	
-		if (man) {
+		if (man && pluginsToLoad.contains(man->name())) {
+			qDebug() << "Loading: " << man->name();
 			managers->append(man);
 			configDialog->registerModule(man->getConfigurationPage());
 			
@@ -84,6 +113,8 @@ void ActionManager::setupBackends()
 						   "Bitte überprüfen Sie seine Konfiguration.", man->name()));
 		}
 	}
+	
+	if (changed) emit commandsChanged(getCommandList());
 }
 
 QList<CreateCommandWidget*>* ActionManager::getCreateCommandWidgets(QWidget *parent)
@@ -99,6 +130,24 @@ QList<CreateCommandWidget*>* ActionManager::getCreateCommandWidgets(QWidget *par
 	return out;
 }
 
+QStringList ActionManager::availableCommandManagers()
+{
+	QStringList commandManagers;
+	
+	KService::List services;
+	KServiceTypeTrader* trader = KServiceTypeTrader::self();
+
+	services = trader->query("simon/CommandPlugin");
+	
+	foreach (KService::Ptr service, services) {
+		KPluginFactory *factory = KPluginLoader(service->library()).factory();
+		if (!factory) continue;
+		
+		CommandManager *man = factory->create<CommandManager>(this);
+		if (man) commandManagers << man->name();
+	}
+	return commandManagers;
+}
 
 /**
 * \brief Goes through all the command-lists and asks to delete every command with the given trigger

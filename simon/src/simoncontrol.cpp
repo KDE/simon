@@ -40,7 +40,8 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 {
 	setStatus(SimonControl::Disconnected);
 	this->julius = new JuliusControl(parent);
-	this->actionManager = ActionManager::getInstance();
+	ActionManager *actionManager = ActionManager::getInstance();
+	actionManager->init();
 	QObject::connect(actionManager, SIGNAL(guiAction(QString)), this, SIGNAL(guiAction(QString)));
 	
 	QObject::connect(julius, SIGNAL(connected()), this, SLOT(connectedToServer()));
@@ -138,7 +139,7 @@ void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 
 	if (status != SimonControl::ConnectedActivated) return;
 	
-	actionManager->process(word);
+	ActionManager::getInstance()->process(word);
 }
 
 void SimonControl::setStatus(SimonControl::SystemStatus status)
@@ -279,6 +280,5 @@ SimonControl::SystemStatus SimonControl::deactivateSimon()
 SimonControl::~SimonControl()
 {
 	julius->deleteLater();
-	actionManager->deleteLater();
 //     delete eventHandler;
 }

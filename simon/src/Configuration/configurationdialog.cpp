@@ -82,19 +82,33 @@ bool ConfigurationDialog::registerModule(KCModule *module)
 	const KAboutData *about = module->aboutData();
 	if (!about) return false;
 	
-	dlg->addPage( module, about->programName(), about->programIconName(), QString(), false); 
+	KPageWidgetItem *page = dlg->addPage( module, about->programName(), 
+					      about->programIconName(), 
+					      QString(), false); 
 	
 	connect (module, SIGNAL(changed(bool)), this, SLOT(moduleChanged(bool)));
+// 	connect (module, SIGNAL(destroyed(QObject*)), this, SLOT(moduleDestroyed(QObject*)));
 	connect (dlg, SIGNAL(applyClicked()), module, SLOT(save()));
 	connect (dlg, SIGNAL(okClicked()), module, SLOT(save()));
 	connect (dlg, SIGNAL(cancelClicked()), module, SLOT(load()));
 	connect (dlg, SIGNAL(defaultClicked()), module, SLOT(defaults()));
-	pluginCompletionStatus.insert(module, true);
+	pluginChangedStatus.insert(module, false);
+	pluginConfigPage.insert(module, page);
 	
 	return true;
 }
 
-void ConfigurationDialog::moduleChanged(bool complete)
+void ConfigurationDialog::unregisterModule(KCModule *module)
+{
+	pluginChangedStatus.remove(module);
+	
+	KConfigDialog *dlg = configDialog();
+	if (!dlg) return;
+	
+	dlg->removePage(pluginConfigPage.value(module));
+}
+
+void ConfigurationDialog::moduleChanged(bool changed)
 {
 	KConfigDialog *dlg = configDialog();
 	if (!dlg) return;
@@ -102,9 +116,16 @@ void ConfigurationDialog::moduleChanged(bool complete)
 	KCModule *senderModule = dynamic_cast<KCModule*>(sender());
 	if (!senderModule) return;
 	
-	pluginCompletionStatus.insert(senderModule, complete);
+// 	qDebug() << "======================================";
+// 	qDebug() << senderModule << changed;
 	
-	dlg->enableButton( KDialog::Apply, !pluginCompletionStatus.values().contains(false) );
+	pluginChangedStatus.insert(senderModule, changed);
+	
+// 	qDebug() << pluginChangedStatus;
+	
+	bool allChanged = pluginChangedStatus.values().contains(true);
+	dlg->enableButton( KDialog::Apply, allChanged );
+	dlg->enableButton( KDialog::Default, allChanged );
 }
 
 

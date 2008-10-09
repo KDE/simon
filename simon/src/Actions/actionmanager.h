@@ -43,10 +43,15 @@ private:
 	QList<CommandManager*> *managers;
 	bool askDeleteCommandByTrigger(QString trigger);
 
+	void deleteManager(CommandManager *manager);
+
 
 
 protected:
 	ActionManager(QObject *parent=0);
+
+private slots:
+	void setupBackends(QStringList pluginsToLoad);
 
 public:
 
@@ -55,15 +60,18 @@ public:
 		return instance;
 	}
 
+	void init();
+
 	void process(QString input);
 	bool addCommand(Command *command);
 	bool deleteCommand(Command *command);
+
+	QStringList availableCommandManagers();
 
 	QList<CreateCommandWidget*>* getCreateCommandWidgets(QWidget *parent);
 
 	CommandList* getCommandList();
 
-	void setupBackends();
 
 	~ActionManager();
 

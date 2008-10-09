@@ -23,7 +23,7 @@
 #include <QCoreApplication>
 #include <KMessageBox>
 #include <KLocalizedString>
-#include "logging/logger.h"
+#include <simonlogging/logger.h>
 #include "../WordList/wordlistmanager.h"
 #include "../modelmanager.h"
 #include "coreconfiguration.h"

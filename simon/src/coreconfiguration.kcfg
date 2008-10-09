@@ -167,6 +167,10 @@
       <label>The global trigger to decide if the recognition result is a command or just text.</label>
       <default>Computer</default>
     </entry>
+    <entry name="SelectedPlugins" type="StringList">
+      <label>The commandplugins to be loaded.</label>
+      <default></default>
+    </entry>
   </group>
 
   <group name="Sound">

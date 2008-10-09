@@ -98,7 +98,6 @@ private:
 	SimonControl::SystemStatus status;
 	
 	JuliusControl *julius; //!< Julius Backend
-	ActionManager *actionManager; //!< Processes all actions
 	
 	QStringList juliusdConnectionsToTry;
 	QStringList juliusdConnectionErrors;

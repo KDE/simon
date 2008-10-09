@@ -26,6 +26,7 @@
 
 class KCModule;
 class KConfigDialog;
+class KPageWidgetItem;
 
 class ConfigurationDialog : public QObject
 {
@@ -34,13 +35,15 @@ class ConfigurationDialog : public QObject
 	private:
 		static ConfigurationDialog* instance;
 		
-		QHash<KCModule*,bool> pluginCompletionStatus;
+		QHash<KCModule*,bool> pluginChangedStatus;
+		QHash<KCModule*,KPageWidgetItem*> pluginConfigPage;
+		
 		ConfigurationDialog(QWidget *parent);
 		
 		KConfigDialog* configDialog();
 
 	private slots:
-		void moduleChanged(bool complete);
+		void moduleChanged(bool changed);
 
 	public:
 		static ConfigurationDialog* getInstance(QWidget *parent=0)
@@ -54,6 +57,7 @@ class ConfigurationDialog : public QObject
 		bool registerManagedWidget(QWidget *widget, const QString& title, const QByteArray& iconName);
 		
 		bool registerModule(KCModule *module);
+		void unregisterModule(KCModule *module);
 		virtual ~ConfigurationDialog();
 
 };
