@@ -52,7 +52,7 @@ public:
     DesktopGridCommandManager(QObject *parent, const QVariantList& args);
 
     
-    ~DesktopGridCommandManager() {}
+    ~DesktopGridCommandManager();
 
 };
 

@@ -29,7 +29,6 @@
 
 K_PLUGIN_FACTORY( DesktopGridPluginFactory, 
 			registerPlugin< DesktopGridCommandManager >(); 
-			/*registerPlugin< DesktopGridConfiguration >();*/ 
 		)
         
 K_EXPORT_PLUGIN( DesktopGridPluginFactory("DesktopGridCommandManager") )
@@ -43,7 +42,7 @@ DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent, const QVar
 
 const QString DesktopGridCommandManager::name() const
 {
-	i18n("Desktopgitter");
+	return i18n("Desktopgitter");
 }
 
 CommandConfiguration* DesktopGridCommandManager::getConfigurationPage()
@@ -60,7 +59,7 @@ bool DesktopGridCommandManager::trigger(const QString& triggerName)
 	screenGrid->show();
 	return true;
 }
-
+ 
 bool DesktopGridCommandManager::load()
 {
 	return true;
@@ -69,4 +68,9 @@ bool DesktopGridCommandManager::load()
 bool DesktopGridCommandManager::save()
 {
 	return true;
+}
+
+DesktopGridCommandManager::~DesktopGridCommandManager()
+{
+// 	DesktopGridConfiguration::getInstance()->destroy();
 }
