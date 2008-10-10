@@ -20,7 +20,7 @@
 #ifndef DESKTOPGRIDCOMMANDMANAGER_H
 #define DESKTOPGRIDCOMMANDMANAGER_H
 
-#include "commandmanager.h"
+#include <commandmanager.h>
 
 #include <QVariantList>
 

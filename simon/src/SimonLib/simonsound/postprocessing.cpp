@@ -26,7 +26,7 @@
 #include <QCoreApplication>
 #include <QObject>
 #include <KLocalizedString>
-// #include "coreconfiguration.h"
+#include "soundsettings.h"
 
 PostProcessing::PostProcessing()
 {
@@ -47,7 +47,7 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
 		return false;
 	}
 	
- 	QStringList filters;// = CoreConfiguration::processingFilters();
+ 	QStringList filters = SoundSettings::getInstance()->processingFilters();
 	QString filter;
 	progDialog->progressBar()->setMaximum(filter.count()+1);
 	QCoreApplication::processEvents();

@@ -19,10 +19,11 @@
 
 #include "wavrecorder.h"
 #include "wav.h"
-#include "coreconfiguration.h"
 
-#include <simonlogging/logger.h>
+#include "soundsettings.h"
+
 #include <QObject>
+
 #include <stdlib.h>
 #include <string.h>
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
@@ -103,12 +104,17 @@ bool WavRecorder::record(QString filename)
 
 	bzero( &inputParameters, sizeof( inputParameters ) );
 
-	int channels = CoreConfiguration::soundChannels();
-	int sampleRate = CoreConfiguration::soundSampleRate();
-	inputParameters.device = CoreConfiguration::soundInputDevice();
+	SoundSettings *soundSettings = SoundSettings::getInstance();
+	int channels = soundSettings->channels();
+	int sampleRate = soundSettings->sampleRate();
+	inputParameters.device = soundSettings->inputDevice();
 
 	inputParameters.channelCount = channels;
 	inputParameters.sampleFormat = paFloat32;
+
+	if (!Pa_GetDeviceInfo( inputParameters.device ))
+		return false;
+
 	inputParameters.suggestedLatency = Pa_GetDeviceInfo( inputParameters.device )->defaultLowInputLatency;
 	inputParameters.hostApiSpecificStreamInfo = NULL;
 
@@ -124,7 +130,9 @@ bool WavRecorder::record(QString filename)
 		processInputData,
 		(void*) this );
 
-	if( err != paNoError ) return false;
+	if( err != paNoError ) {
+		return false;
+	}
 	
 	startTime = Pa_GetStreamTime(stream);
 
@@ -132,7 +140,9 @@ bool WavRecorder::record(QString filename)
 	
 	wavData->beginAddSequence();
 	err = Pa_StartStream( stream );
-	if( err != paNoError ) return false;
+	if( err != paNoError ) {
+		return false;
+	}
 	
 	timeWatcher.start(100);
 

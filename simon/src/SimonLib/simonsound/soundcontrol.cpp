@@ -23,8 +23,6 @@
 #include <string.h>
 #include <QObject>
 #include <KMessageBox>
-#include <simoninfo/simoninfo.h>
-#include <simonlogging/logger.h>
 #include "portaudio.h"
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
 
@@ -51,7 +49,6 @@ SoundControl::SoundControl()
 
 SoundDeviceList* SoundControl::getOutputDevices()
 {
-	Logger::log(i18n("[INF] Bekommen einer Liste mit den verfügbaren devices"));
 	SoundDeviceList *sdl= new SoundDeviceList();
 	
 	if (Pa_Initialize() < 0) return sdl;
@@ -88,7 +85,6 @@ SoundDeviceList* SoundControl::getOutputDevices()
  */
 SoundDeviceList* SoundControl::getInputDevices()
 {
-	Logger::log(i18n("[INF] Bekommen einer Liste mit den verfügbaren Input-devices"));
 	SoundDeviceList *sdl= new SoundDeviceList();
 
 	if (Pa_Initialize() < 0) return sdl;

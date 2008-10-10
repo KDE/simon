@@ -19,7 +19,6 @@
 
 
 #include "wav.h"
-#include <simonlogging/logger.h>
 #include <KLocalizedString>
 #include <stdlib.h>
 #include <string.h>
@@ -53,12 +52,9 @@ WAV::WAV(QString filename, int channels, int samplerate)
     
 	if (samplerate == 0)
 	{
-		Logger::log(i18n("[INF] Öffne WAV Datei: %1", filename));
 		this->importDataFromFile(filename);
 		this->samplerate = this->retrieveSampleRate();
 		this->channels = this->retrieveChannels();
-	} else {
-		Logger::log(i18n("[INF] Erstelle neue WAV Datei: %1", filename));
 	}
 	
 }
@@ -92,10 +88,9 @@ short* WAV::getRawData(unsigned long& length)
 void WAV::importDataFromFile(QString filename)
 {
 	QFile wavFile(filename);
-	if (!wavFile.open(QIODevice::ReadOnly)) {
-		Logger::log(i18n("[INF] Importieren des existierenden Datei fehlgeschlagen. Fortsetzen mit einer leeren Datei."));
+	if (!wavFile.open(QIODevice::ReadOnly))
 		return;
-	}
+
 	QDataStream *dstream = new QDataStream(&wavFile);
 	
 	dstream->setByteOrder( QDataStream::LittleEndian );
@@ -191,7 +186,6 @@ int WAV::retrieveChannels()
  */
 bool WAV::writeFile(QString filename)
 {
-	Logger::log(i18n("Writing WAV file to \"%1\"", filename));
 	if (filename.isEmpty()) filename = this->filename;
 	
 	QFile wavFile(filename);

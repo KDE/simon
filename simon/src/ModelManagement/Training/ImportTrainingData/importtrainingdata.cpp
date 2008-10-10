@@ -19,7 +19,7 @@
 
 
 #include "importtrainingdata.h"
-#include "../../../SimonLib/sound/postprocessing.h"
+#include <simonsound/postprocessing.h>
 #include "../trainingmanager.h"
 #include "coreconfiguration.h"
 #include <QDir>

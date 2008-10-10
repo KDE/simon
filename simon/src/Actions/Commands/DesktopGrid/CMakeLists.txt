@@ -6,7 +6,11 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include_directories(${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR}
 ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../commandpluginbase ${CMAKE_INSTALL_PREFIX}/include ${CMAKE_CURRENT_SOURCE_DIR}/../../../SimonLib/)
 
-set (simondesktopgridplugin_SRCS desktopgridcommandmanager.cpp desktopgridconfiguration.cpp screengrid.cpp)
+set (simondesktopgridplugin_SRCS 
+	desktopgridcommandmanager.cpp
+	desktopgridconfiguration.cpp 
+	screengrid.cpp
+)
 
 kde4_add_ui_files(simondesktopgridplugin_SRCS desktopgridconfigurationdlg.ui)
 

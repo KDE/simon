@@ -40,7 +40,6 @@
  */
 class WAV{
 private:
-	//short *waveData;  //!< here we store the audio data
 	QBuffer wavData;
 	unsigned long length; //!< this is needed as there seems to be no way to determine the length of an array
 	int samplerate; //!< the samplerate of the file

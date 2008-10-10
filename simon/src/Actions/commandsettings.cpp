@@ -152,7 +152,6 @@ void CommandSettings::defaults()
 
 void CommandSettings::slotChanged()
 {
-// 	KMessageBox::information(this, "wtf?");
 	emit changed(true);
 }
 

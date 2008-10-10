@@ -19,10 +19,10 @@
 
 
 #include "wavplayer.h"
-#include "coreconfiguration.h"
 #include "wav.h"
 
-#include <simonlogging/logger.h>
+#include "soundsettings.h"
+
 #include <QTimer>
 #include <KLocalizedString>
 #include <QObject>
@@ -75,9 +75,6 @@ int processOutputData( const void *inputBuffer, void *outputBuffer, unsigned lon
  */
 bool WavPlayer::play( QString filename )
 {
-	Logger::log(i18n("[INF] Abspielen von %1", filename)); 
-	
-
 	if (stream)
 	{
 // 		delete stream;
@@ -121,7 +118,7 @@ bool WavPlayer::play( QString filename )
 
 	int channels = wav->getChannels();
 	int sampleRate = wav->getSampleRate();
-	outputParameters.device = CoreConfiguration::soundOutputDevice();
+	outputParameters.device = SoundSettings::getInstance()->outputDevice();
 
 	outputParameters.channelCount = channels;
 	outputParameters.sampleFormat = paFloat32;

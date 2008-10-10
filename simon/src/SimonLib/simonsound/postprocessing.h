@@ -21,7 +21,7 @@
 #ifndef POSTPROCESSING_H
 #define POSTPROCESSING_H
 
-// #include "simonpostprocessing_export.h"
+#include "simonsound_export.h"
 
 class QString;
 
@@ -32,7 +32,7 @@ class QString;
  \date 19.2.2008
  \brief Applies the specified postprocessing stack to the given filenames
 */
-class /*SIMONPOSTPROCESSING_EXPORT*/ PostProcessing{
+class SIMONSOUND_EXPORT PostProcessing{
 public:
     PostProcessing();
 

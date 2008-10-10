@@ -21,10 +21,10 @@
 #ifndef ADDWORDRECORDPAGE_H
 #define ADDWORDRECORDPAGE_H
 
-#include <QVBoxLayout>
 #include <QWizardPage>
-#include "../../../SimonLib/sound/recwidget.h"
 #include "ui_addwordrecordpage.h"
+
+class RecWidget;
 
 /**
  \class AddWordRecordPage
@@ -54,12 +54,7 @@ public:
     void initializePage();
     AddWordRecordPage(QWidget *parent=0);
     
-    bool isComplete() const 
-    {
-// 	return true;
-	//make recordings mandatory
-	return rec1 && rec2 && rec1->hasRecordingReady() && rec2->hasRecordingReady(); 
-    }
+    bool isComplete() const;
 
     ~AddWordRecordPage();
 

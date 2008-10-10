@@ -124,7 +124,7 @@
          <property name="orientation" >
           <enum>Qt::Horizontal</enum>
          </property>
-         <widget class="QWidget" name="" >
+         <widget class="QWidget" name="layoutWidget" >
           <layout class="QVBoxLayout" >
            <property name="spacing" >
             <number>6</number>
@@ -132,90 +132,6 @@
            <property name="margin" >
             <number>0</number>
            </property>
-           <item>
-            <widget class="QGroupBox" name="gbPage" >
-             <property name="title" >
-              <string>Seite: </string>
-             </property>
-             <layout class="QVBoxLayout" >
-              <item>
-               <widget class="QLabel" name="lbPage" >
-                <property name="palette" >
-                 <palette>
-                  <active>
-                   <colorrole role="Window" >
-                    <brush brushstyle="SolidPattern" >
-                     <color alpha="255" >
-                      <red>255</red>
-                      <green>255</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </active>
-                  <inactive>
-                   <colorrole role="Window" >
-                    <brush brushstyle="SolidPattern" >
-                     <color alpha="255" >
-                      <red>255</red>
-                      <green>255</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </inactive>
-                  <disabled>
-                   <colorrole role="Window" >
-                    <brush brushstyle="SolidPattern" >
-                     <color alpha="255" >
-                      <red>255</red>
-                      <green>255</green>
-                      <blue>255</blue>
-                     </color>
-                    </brush>
-                   </colorrole>
-                  </disabled>
-                 </palette>
-                </property>
-                <property name="autoFillBackground" >
-                 <bool>false</bool>
-                </property>
-                <property name="frameShape" >
-                 <enum>QFrame::StyledPanel</enum>
-                </property>
-                <property name="frameShadow" >
-                 <enum>QFrame::Plain</enum>
-                </property>
-                <property name="lineWidth" >
-                 <number>1</number>
-                </property>
-                <property name="text" >
-                 <string/>
-                </property>
-                <property name="wordWrap" >
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_2" >
-             <property name="orientation" >
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType" >
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0" >
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
            <item>
             <widget class="QWidget" native="1" name="wRecTexts" >
              <property name="minimumSize" >

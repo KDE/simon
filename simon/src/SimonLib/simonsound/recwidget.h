@@ -21,11 +21,17 @@
 #ifndef RECWIDGET_H
 #define RECWIDGET_H
 
-#include "ui_recwidget.h"
+#include "simonsound_export.h"
 #include <QWidget>
 class WavRecorder;
 class WavPlayer;
 class PostProcessing;
+
+class KPushButton;
+class QGroupBox;
+class QProgressBar;
+class QLabel;
+class QFont;
 
 /**
  * \class RecWidget
@@ -36,7 +42,7 @@ class PostProcessing;
  * \author Peter Grasch
  * \date 26.05.2007
  */
-class RecWidget : public QWidget {
+class SIMONSOUND_EXPORT RecWidget : public QWidget {
 	Q_OBJECT
 
 signals:
@@ -48,14 +54,25 @@ signals:
 	void playbackFinished();
 
 private:
-	Ui::RecWidgetUi ui;
+	QGroupBox *gbContainer;
+	QLabel *toRecord;
+	KPushButton *pbRecord;
+	KPushButton *pbPlay;
+	KPushButton *pbDelete;
+	QProgressBar *pbProgress;
 	
+
 	QString filename;
 	WavRecorder *rec;
 	WavPlayer *play;
 	PostProcessing *postProc;
+
+	int recordingProgress;
 	
 	void setupSignalsSlots();
+
+private slots:
+	void changePromptFont(const QFont& font);
 
 public slots:
 	void record();
@@ -68,12 +85,11 @@ public slots:
 	void finishPlayback();
 	
 	void deleteSample();
-	void displayPosition(int msecs);
 	void displayRecordingProgress(int msecs);
 	void displayPlaybackProgress(int msecs);
 	
 public:
-    RecWidget(QString name, QString filename, QWidget *parent=0);
+    RecWidget(QString name, QString text, QString filename, QWidget *parent=0);
     
     bool hasRecordingReady();
 

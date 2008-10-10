@@ -29,7 +29,7 @@
 #include <simoninfo/simoninfo.h>
 
 #include "Actions/runcommandview.h"
-#include "SimonLib/TrayIcon/trayiconmanager.h"
+#include "trayiconmanager.h"
 #include "ModelManagement/modelmanager.h"
 #include "ModelManagement/Training/trainingview.h"
 #include "ModelManagement/WordList/wordlistview.h"
@@ -37,12 +37,13 @@
 #include "ModelManagement/WordList/wordlistmanager.h"
 
 #include "generalsettings.h"
-#include "SimonLib/sound/soundsettings.h"
 #include "ModelManagement/modelsettings.h"
 #include "ModelManagement/internetextensionsettings.h"
 #include "ModelManagement/externalprogrammanager.h"
 #include "ModelManagement/Grammar/grammarsettings.h"
 #include "RecognitionControl/networksettings.h"
+
+#include <simonsound/soundsettings.h>
 
 #include <QPixmap>
 #include <QCryptographicHash>
@@ -100,10 +101,11 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	configDialog->registerManagedWidget( new GeneralSettings( parent ), i18n("Allgemein"), "computer" ); 
 	configDialog->registerManagedWidget( new InternetExtensionSettings( parent ), i18n("Interneterweiterungen"), "document-open-remote" ); 
 	configDialog->registerManagedWidget( new ModelSettings( parent ), i18n("Modell"), "applications-education-language" ); 
-	configDialog->registerManagedWidget( new GrammarSettings(parent), i18n("Grammatik"), "user-properties" ); 
-	configDialog->registerManagedWidget( new SoundSettings( parent ), i18n("Sound"), "preferences-desktop-sound" ); 
+	configDialog->registerManagedWidget( new GrammarSettings(parent), i18n("Grammatik"), "user-properties" );
 	configDialog->registerManagedWidget( new NetworkSettings( parent ), i18n("Netzwerk"), "network-disconnect" );
+	configDialog->registerModule( SoundSettings::getInstance(parent) );
  	configDialog->registerManagedWidget( new ExternalProgramManager( parent ), i18n("Externe Programme"), "applications-other" ); 
+
 
 
 	info->writeToSplash ( i18n ( "Lade Programmlogik..." ) );

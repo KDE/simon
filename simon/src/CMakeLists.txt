@@ -1,4 +1,3 @@
-include(FindPortaudio)
 include(FindQt4)
 
 
@@ -10,7 +9,7 @@ set (QT_USE_QTSVG true)
 include(${QT_USE_FILE})
 
 
-include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/SimonLib ${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/speechgui )
+include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/SimonLib ${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/speechgui )
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/SimonLib)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/commandpluginbase)
@@ -81,13 +80,6 @@ set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/runcommandview.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/wavrecorder.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/soundsettings.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/recwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/wavplayer.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/soundcontrol.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/postprocessing.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/wav.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Configuration/configurationdialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/networksettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/generalsettings.cpp
@@ -127,8 +119,6 @@ kde4_add_ui_files( simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/modifycommands.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandpreviewwidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandsettingsdlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/soundsettingsdlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/recwidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/main.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/generalsettingsdlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/networksettingsdlg.ui
@@ -162,8 +152,8 @@ ENDIF(WIN32)
 install(FILES simon.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
 target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
-${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES} simoncommandpluginbase simoninfo
-simonlogging simonxml eventsimulation speechgui )
+${QT_LIBRARIES} simoncommandpluginbase simoninfo
+simonlogging simonxml eventsimulation speechgui simonsound )
 
 install (TARGETS simon DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR})

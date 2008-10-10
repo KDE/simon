@@ -20,6 +20,16 @@
 
 #include "trainingview.h"
 
+
+#include "ImportTrainingData/importtrainingdirectory.h"
+#include "trainingtext.h"
+#include "trainingmanager.h"
+#include "ImportTrainingTexts/importtrainingtexts.h"
+#include "coreconfiguration.h"
+
+#include <simonsound/recwidget.h>
+#include <simoninfo/simoninfo.h>
+
 #include <QDir>
 #include <QHash>
 #include <QHashIterator>
@@ -28,13 +38,7 @@
 #include <QTableWidget>
 #include <QHeaderView>
 #include <KMessageBox>
-#include "ImportTrainingData/importtrainingdirectory.h"
-#include "simoninfo/simoninfo.h"
-#include "trainingtext.h"
-#include "trainingmanager.h"
-#include "ImportTrainingTexts/importtrainingtexts.h"
-#include "../../SimonLib/sound/recwidget.h"
-#include "coreconfiguration.h"
+
 
 
 TrainingView* TrainingView::instance;
@@ -214,7 +218,6 @@ void TrainingView::finish()
  */
 void TrainingView::fetchPage ( int page )
 {
-	ui.lbPage->setText ( this->trainMgr->getPage ( page ) );
 	QString keyStr;
 	QStringList samplenames = trainMgr->getSampleHash()->keys();
 	if (samplenames.count() < page) return;
@@ -222,15 +225,15 @@ void TrainingView::fetchPage ( int page )
 
 	QString filename = CoreConfiguration::modelTrainingsDataPath().path()+"/"+keyStr+".wav";
 	resetRecorder();
-	recorder = new RecWidget ( i18n ( "Seite: %1" ).arg ( page+1 ),
+	recorder = new RecWidget ( i18n("Seite %1/%2:", page+1, trainMgr->getPageCount()), 
+				   this->trainMgr->getPage ( page ),
 	                           filename, ui.wRecTexts );  //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
 
 	connect ( recorder, SIGNAL ( recordingFinished() ), this, SLOT ( increaseRecordedPages() ) );
 	connect ( recorder, SIGNAL ( sampleDeleted() ), this, SLOT ( decreaseRecordedPages() ) );
 
 	ui.wRecTexts->layout()->addWidget ( recorder );
-
-	ui.gbPage->setTitle ( i18n ( "Seite: %1/%2" ).arg ( page+1 ).arg ( trainMgr->getPageCount() ) );
+	
 	ui.pbPages->setValue ( page+1 );
 }
 

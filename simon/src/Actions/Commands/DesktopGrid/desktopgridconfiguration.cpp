@@ -44,6 +44,9 @@ DesktopGridConfiguration::DesktopGridConfiguration(QWidget *parent, const QVaria
 
 	QObject::connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	QObject::connect(ui.cbUseRealTransparency, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	
+// 	if (instance) instance->deleteLater();
+// 	instance = this;
 }
 
 QString DesktopGridConfiguration::trigger()

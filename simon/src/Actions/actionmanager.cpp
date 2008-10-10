@@ -145,8 +145,10 @@ QStringList ActionManager::availableCommandManagers()
 		if (!factory) continue;
 		
 		CommandManager *man = factory->create<CommandManager>(this);
-		if (man) commandManagers << man->name();
-		man->deleteLater();
+		if (man) {
+			commandManagers << man->name();
+			man->deleteLater();
+		}
 	}
 	return commandManagers;
 }

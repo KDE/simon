@@ -32,7 +32,6 @@ class DesktopGridConfiguration : public CommandConfiguration
 	private:
 		Ui::DesktopGridConfigurationDlg ui;
 		static QPointer<DesktopGridConfiguration> instance;
-		DesktopGridConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
  
 	public slots:
 		virtual void save();
@@ -44,6 +43,7 @@ class DesktopGridConfiguration : public CommandConfiguration
 			if (!instance) instance = new DesktopGridConfiguration(parent, args);
 			return instance;
 		}
+		DesktopGridConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
 		~DesktopGridConfiguration();
 		
 		void destroy();

@@ -28,7 +28,7 @@
 #include "desktopgridconfiguration.h"
 
 K_PLUGIN_FACTORY( DesktopGridPluginFactory, 
-			registerPlugin< DesktopGridCommandManager >("desktopgridplugin"); 
+			registerPlugin< DesktopGridCommandManager >(); 
 		)
         
 K_EXPORT_PLUGIN( DesktopGridPluginFactory("DesktopGridCommandManager") )

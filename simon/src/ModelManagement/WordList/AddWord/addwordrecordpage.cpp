@@ -24,6 +24,8 @@
 #include <QTime>
 #include <QDir>
 #include <KMessageBox>
+#include <QVBoxLayout>
+#include <simonsound/recwidget.h>
 
 /**
  * \brief Constructor - also creates the GUI Elements
@@ -39,6 +41,13 @@ AddWordRecordPage::AddWordRecordPage(QWidget *parent)
 
 	rec1 = 0;
 	rec2 = 0;
+}
+
+bool AddWordRecordPage::isComplete() const
+{
+	// 	return true;
+	//make recordings mandatory
+	return rec1 && rec2 && rec1->hasRecordingReady() && rec2->hasRecordingReady(); 
 }
 
 QString AddWordRecordPage::getSamplesDir()
@@ -89,9 +98,9 @@ void AddWordRecordPage::initializePage()
 		return;
 	}
 
-	rec1 = new RecWidget(i18n("1: %1", field("wordExample1").toString()),
+	rec1 = new RecWidget(i18n("Aufnahme 1:"), field("wordExample1").toString(),
 			      CoreConfiguration::modelTrainingsDataPath().path()+"/"+filename1+".wav", this);
-	rec2 = new RecWidget(i18n("2: %1", field("wordExample2").toString()),
+	rec2 = new RecWidget(i18n("Aufnahme 2:"), field("wordExample2").toString(),
 			      CoreConfiguration::modelTrainingsDataPath().path()+"/"+filename2+".wav", this);
 
 	
