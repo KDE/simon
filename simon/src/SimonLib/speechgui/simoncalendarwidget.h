@@ -17,27 +17,32 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#ifndef SIMONCALENDARWIDGET_H
+#define SIMONCALENDARWIDGET_H
 
+#include <QCalendarWidget>
+#include "speechgui_export.h"
 
-#ifndef SIMONLINEEDIT_H
-#define SIMONLINEEDIT_H
-
-#include <KLineEdit>
-
-class SimonLineEdit : public KLineEdit
-{
+class SPEECHGUI_EXPORT SimonCalendarWidget : public QCalendarWidget
+{	
+	
 	Q_OBJECT
 	
-	
+private:
+	int whatis;
 public:
-	SimonLineEdit( QWidget * parent  = 0);
-	~SimonLineEdit();
+	SimonCalendarWidget( QWidget * parent  = 0);
+	~SimonCalendarWidget();
 
-	void focusOutEvent (QFocusEvent* event);
+public slots:
 
-signals:
-	void checkFocus();
-
+	void setDate(QString text);
+	QString clearString(QString text);
+	void setDay(int value);
+	void setMonth(int value);
+	void setYear(int value);
+	
+	
 };
 
 

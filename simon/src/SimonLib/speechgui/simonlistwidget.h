@@ -24,8 +24,9 @@
 
 #include <QLineEdit>
 #include <KListWidget>
+#include "speechgui_export.h"
 
-class SimonListWidget : public KListWidget
+class SPEECHGUI_EXPORT SimonListWidget : public KListWidget
 {	
 	
 	Q_OBJECT

@@ -18,43 +18,30 @@
  */
 
 
-#ifndef SIMONWIDGET_H
-#define SIMONWIDGET_H
 
-#include "guievents.h"
-#include <QVector>
-/**
- *	@class SimonWidget
- *
- *	@version 0.1
- *	@date 4.03.2007
- *	@author Phillip Goriup
- */
-class QLabel;
+#ifndef SIMONTABWIDGET_H
+#define SIMONTABWIDGET_H
 
-class SimonWidget{
+#include <QTabWidget>
+#include "speechgui_export.h"
+
+class SPEECHGUI_EXPORT SimonTabWidget : public QTabWidget
+{	
+	
+	Q_OBJECT
 	
 private:
 	
-	QVector <QString> specialcharacter;
-
-	virtual QObjectList getChildren(QObject *current)
-	{
-		QObjectList temp;
-		current->deleteLater();
-		return temp;
-	}
-	protected: 
-	GuiEvents *guievents;
-
+	
 public:
-	virtual void doAction(QString action) = 0;
-	virtual void registerControl(QString trigger, QObject* receiver, const char* slot) = 0;
+	SimonTabWidget( QWidget * parent  = 0);
+	~SimonTabWidget(){}
 
-	void guessChildTriggers(QObject *current);
-	void registerBuddy(QLabel* label);
-	QString editChildKeys(QString);
-	virtual ~SimonWidget() {}
+public slots:
+	void setTab(QString text);
+
+	
 };
+
 
 #endif

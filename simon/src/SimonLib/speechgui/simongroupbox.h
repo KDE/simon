@@ -23,8 +23,9 @@
 #define SIMONGROUPBOX_H
 
 #include <QGroupBox>
+#include "speechgui_export.h"
 
-class SimonGroupBox : public QGroupBox
+class SPEECHGUI_EXPORT SimonGroupBox : public QGroupBox
 {	
 	
 	Q_OBJECT

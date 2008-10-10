@@ -19,7 +19,7 @@
 
 
 #include "networksettings.h"
-#include "../SimonLib/ServerAddressSelector/serveraddressselector.h"
+#include "serveraddressselector.h"
 
 
 /**

@@ -18,29 +18,41 @@
  */
 
 
+#ifndef SIMONWIDGET_H
+#define SIMONWIDGET_H
 
-#ifndef SIMONTABWIDGET_H
-#define SIMONTABWIDGET_H
+#include "guievents.h"
+#include "speechgui_export.h"
+/**
+ *	@class SimonWidget
+ *
+ *	@version 0.1
+ *	@date 4.03.2007
+ *	@author Phillip Goriup
+ */
+class QLabel;
 
-#include <QTabWidget>
-
-class SimonTabWidget : public QTabWidget
-{	
-	
-	Q_OBJECT
+class SPEECHGUI_EXPORT SimonWidget{
 	
 private:
-	
-	
+
+	virtual QObjectList getChildren(QObject *current)
+	{
+		QObjectList temp;
+		current->deleteLater();
+		return temp;
+	}
+	protected: 
+	GuiEvents *guievents;
+
 public:
-	SimonTabWidget( QWidget * parent  = 0);
-	~SimonTabWidget(){}
+	virtual void doAction(QString action) = 0;
+	virtual void registerControl(QString trigger, QObject* receiver, const char* slot) = 0;
 
-public slots:
-	void setTab(QString text);
-
-	
+	void guessChildTriggers(QObject *current);
+	void registerBuddy(QLabel* label);
+	QString editChildKeys(QString);
+	virtual ~SimonWidget() {}
 };
-
 
 #endif

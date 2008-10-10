@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Phillip Goriup <goriup@simon-listens.org>
+ *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -16,46 +16,42 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef SIMONMAINWINDOW_H
-#define SIMONMAINWINDOW_H
+
+
+#ifndef TRAYICONMANAGER_H
+#define TRAYICONMANAGER_H
 
 #include <QObject>
-#include <kxmlguiwindow.h>
-
-#include "simonwidget.h"
-
+#include <KAction>
+#include <KIcon>
+#include <KSystemTrayIcon>
+#include "speechgui_export.h"
 
 /**
- * \class SimonMainWindow
- * \brief 
- * \note 
- * \author Phillip Goriup
- * \version 
- * \date 
-*/
-class SimonMainWindow : public KXmlGuiWindow,  public  SimonWidget
+ *	@class TrayIconManager
+ *	@brief Manages the System Tray Icon
+ *
+ *	Uses the QSystemTrayIcon Class to display the system tray icon
+ *
+ *	@version 0.1
+ *	@date 25.01.2006
+ *	@author Peter Grasch
+ */
+class SPEECHGUI_EXPORT TrayIconManager : public QObject
 {
-Q_OBJECT
 
+	Q_OBJECT
 private:
-	GuiEvents *guievents;
-	virtual void setupActions()=0;
-
-signals:
+	KSystemTrayIcon *icon; //!< The QSystemTrayIcon to display the icon itself
 
 
+	
 public:
-	explicit SimonMainWindow(QWidget *parent = 0, Qt::WFlags flags = 0);	
-	~SimonMainWindow();
-	QObjectList getChildren(QObject *current);
-	
+	void createIcon(const KIcon& icon, const QString& tooltip);
+	void addAction(const QString& name, KAction* action);
+    TrayIconManager(QWidget *parent);
 
-
-public slots:
-	
-	void registerControl(QString trigger, QObject* receiver, const char* slot);
-	void doAction(QString action);
-	
+    ~TrayIconManager();
 
 };
 

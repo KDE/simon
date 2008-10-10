@@ -9,7 +9,9 @@ include(KDE4Defaults)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
+
 add_subdirectory(src)
+add_subdirectory(po)
 add_subdirectory(icons)
 add_subdirectory(themes)
 add_subdirectory(conf)

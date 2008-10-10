@@ -23,11 +23,12 @@
 #include <QTableWidget>
 #include <QVector>
 #include "simonlineedit.h"
+#include "speechgui_export.h"
 
 class QLineEdit;
 
 
-class SimonTableWidget : public QTableWidget
+class SPEECHGUI_EXPORT SimonTableWidget : public QTableWidget
 {	
 	
 	Q_OBJECT

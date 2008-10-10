@@ -19,7 +19,6 @@
 
 
 #include "trayiconmanager.h"
-#include <simonlogging/logger.h>
 #include <KActionCollection>
 #include <QMenu>
 #include <KSystemTrayIcon>
@@ -46,13 +45,14 @@ TrayIconManager::TrayIconManager(QWidget *parent)
  * Utilizes the KSystemTrayIcon class
  *
  * @author Peter Grasch
- * @param QPixmap icon
+ * @param icon
  * The icon that will be displayed
+ * @param tooltip
+ * The tooltip of the icon
  * 
  */
 void TrayIconManager::createIcon(const KIcon& icon, const QString& tooltip)
 {
-	Logger::log(i18n("[INF] Erstelle systray icon (\"%1\")", tooltip));
 	this->icon->setIcon( icon );
 	this->icon->setToolTip( tooltip );
 	this->icon->show();

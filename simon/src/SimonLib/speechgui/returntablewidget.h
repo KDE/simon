@@ -17,32 +17,30 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef SIMONCALENDARWIDGET_H
-#define SIMONCALENDARWIDGET_H
+#ifndef RETURNTABLEWIDGET_H
+#define RETURNTABLEWIDGET_H
 
-#include <QCalendarWidget>
+#include <QTableWidget>
+#include "speechgui_export.h"
 
-class SimonCalendarWidget : public QCalendarWidget
-{	
-	
-	Q_OBJECT
-	
-private:
-	int whatis;
+class QKeyEvent;
+/**
+	@author Peter Grasch <bedahr@gmx.net>
+*/
+class SPEECHGUI_EXPORT ReturnTableWidget : public QTableWidget
+{
+    Q_OBJECT
 public:
-	SimonCalendarWidget( QWidget * parent  = 0);
-	~SimonCalendarWidget();
+        ReturnTableWidget(QWidget* parent=0);
 
-public slots:
+        ~ReturnTableWidget();
 
-	void setDate(QString text);
-	QString clearString(QString text);
-	void setDay(int value);
-	void setMonth(int value);
-	void setYear(int value);
-	
-	
+protected:
+    virtual void keyPressEvent(QKeyEvent *e);
+
+signals:
+    void returnPressed();
+
 };
-
 
 #endif

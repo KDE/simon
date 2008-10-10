@@ -44,6 +44,10 @@ private:
 	bool isChanged;
 	QStringList pluginsToLoad;
 
+	bool storedUseGlobalTrigger;
+	QString storedGlobalTrigger;
+	bool storedDictation;
+
 
 public slots:
 	void save();
@@ -57,6 +61,10 @@ public:
 	CommandSettings(QWidget* parent=0);
 	QStringList getPluginsToLoad();
 	~CommandSettings();
+	
+	bool useGlobalTrigger() { return storedUseGlobalTrigger; }
+	QString globalTrigger() { return storedGlobalTrigger; }
+	bool dictation() { return storedDictation; }
 
 };
 

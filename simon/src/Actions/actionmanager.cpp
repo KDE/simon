@@ -19,8 +19,6 @@
 
 #include "actionmanager.h"
 
-#include "coreconfiguration.h"
-
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 #include "Commands/commandpluginbase/commandconfiguration.h"
@@ -50,7 +48,7 @@ ActionManager::ActionManager(QObject *parent) : QObject(parent)
 
 void ActionManager::init()
 {
-	CommandSettings* commandSettings = new CommandSettings();
+	this->commandSettings = new CommandSettings();
 	connect (commandSettings, SIGNAL(pluginSelectionChanged(const QStringList&)),
 		  this, SLOT(setupBackends(QStringList)));
 		  
@@ -248,9 +246,12 @@ CommandList* ActionManager::getCommandList()
 void ActionManager::process(QString input)
 {
 	Q_ASSERT(managers);
+	Q_ASSERT(commandSettings);
 
-	QString keyword = CoreConfiguration::globalTrigger();
-	if (input.startsWith(keyword))
+	QString keyword = commandSettings->globalTrigger();
+	
+	bool commandFound=false;
+	if (input.startsWith(keyword) || (!commandSettings->useGlobalTrigger()))
 	{
 		input = input.remove(0, QString(keyword).length()).trimmed();
 		
@@ -259,11 +260,11 @@ void ActionManager::process(QString input)
 		{ i++; }
 		if (i == managers->count()) // didn't find anything
 			emit guiAction(input);
-
-	} else {
-		if (CoreConfiguration::dictation()) //is dictation activated?
+		else commandFound=true;
+	} 
+	if ((!input.startsWith(keyword) || (!commandSettings->useGlobalTrigger() && !commandFound)) &&
+		commandSettings->dictation()) //is dictation activated?
 			EventHandler::getInstance()->sendWord(input);
-	}
 }
 
 

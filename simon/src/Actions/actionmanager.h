@@ -27,6 +27,7 @@
 
 class CommandManager;
 class CreateCommandWidget;
+class CommandSettings;
 
 class ActionManager : public QObject {
 
@@ -39,6 +40,8 @@ signals:
 
 private:
 	static ActionManager* instance;
+
+	CommandSettings* commandSettings;
 
 	QList<CommandManager*> *managers;
 	bool askDeleteCommandByTrigger(QString trigger);

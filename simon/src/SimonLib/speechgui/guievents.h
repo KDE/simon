@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2008 Phillip Goriup <goriup@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,29 +18,50 @@
  */
 
 
-#ifndef SERVERADDRESSSELECTOR
-#define SERVERADDRESSSELECTOR
+#ifndef GUIEVENTS_H
+#define GUIEVENTS_H
 
-#include <QWidget>
+#include "speechgui_export.h"
+#include <QObject>
+#include <QHash>
 
-class KLineEdit;
-class QToolButton;
 
-class ServerAddressSelector : public QWidget
-{
-Q_OBJECT
+struct actionValues
+	{
+		QObject* receiver;
+		const char* slot;
+	};
+struct uniqueKey
+	{
+		QObject* parent;
+		QString trigger;
+	};
+typedef QHash<uniqueKey*,  actionValues*> GuiAction;
+
+
+class SPEECHGUI_EXPORT GuiEvents :  public  QObject {
+	Q_OBJECT
+	
 private:
-	KLineEdit *leServerAddress;
-	QToolButton *pbSelectServerAddress;
+	
+	GuiAction *guiItems;
+	
 
-private slots:
-	void displayAddDialog();
 public:
-	ServerAddressSelector(QWidget *parent);
+	
+	GuiEvents(QObject *parent=0);
+	~GuiEvents();
 
-	KLineEdit* lineEdit();
+public slots:
+	
+	void registerControl(QString trigger, QObject* receiver, const char* slot);
 
-	~ServerAddressSelector();
 
+	void doAction(QString action, QObject * parentItem);
+
+signals:
+	void dummy(QString);
+	
 };
+
 #endif

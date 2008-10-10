@@ -22,6 +22,7 @@
 #define INLINEWIDGETVIEW_H
 
 #include <KTabWidget>
+#include "speechgui_export.h"
 
 class InlineWidget;
 class QKeyEvent;
@@ -33,7 +34,7 @@ class QKeyEvent;
  \version 0.1
  \date 10.8.2007
 */
-class InlineWidgetView : public KTabWidget
+class SPEECHGUI_EXPORT InlineWidgetView : public KTabWidget
 {
 Q_OBJECT
 signals:

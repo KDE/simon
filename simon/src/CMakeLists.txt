@@ -10,7 +10,7 @@ set (QT_USE_QTSVG true)
 include(${QT_USE_FILE})
 
 
-include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/SimonLib ${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI )
+include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/SimonLib ${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/speechgui )
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/SimonLib)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/commandpluginbase)
@@ -88,26 +88,8 @@ set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/soundcontrol.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/postprocessing.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/sound/wav.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/inlinewidgetview.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simonlineedit.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simontablewidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simonspinbox.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simongroupbox.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simonslider.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simonwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simoncombobox.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simoncalendarwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/guievents.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simonmainwindow.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/returntablewidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/inlinewidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simonlistwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/SpeechGUI/simontabwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/TrayIcon/trayiconmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Configuration/configurationdialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/networksettings.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ServerAddressSelector/addserverconnection.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ServerAddressSelector/serveraddressselector.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/generalsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/simoncontrol.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
@@ -150,7 +132,6 @@ kde4_add_ui_files( simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/main.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/generalsettingsdlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/networksettingsdlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/ServerAddressSelector/addserverconnectiondlg.ui
 )
 
 
@@ -182,7 +163,7 @@ install(FILES simon.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
 target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
 ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES} simoncommandpluginbase simoninfo
-simonlogging simonxml eventsimulation )
+simonlogging simonxml eventsimulation speechgui )
 
 install (TARGETS simon DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR})

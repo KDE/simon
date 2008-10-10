@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Phillip Goriup <goriup@simon-listens.org>
+ *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,29 +17,31 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef RETURNTABLEWIDGET_H
-#define RETURNTABLEWIDGET_H
 
-#include <QTableWidget>
+#ifndef SERVERADDRESSSELECTOR
+#define SERVERADDRESSSELECTOR
 
-class QKeyEvent;
-/**
-	@author Peter Grasch <bedahr@gmx.net>
-*/
-class ReturnTableWidget : public QTableWidget
+#include <QWidget>
+#include "speechgui_export.h"
+
+class KLineEdit;
+class QToolButton;
+
+class SPEECHGUI_EXPORT ServerAddressSelector : public QWidget
 {
-    Q_OBJECT
+Q_OBJECT
+private:
+	KLineEdit *leServerAddress;
+	QToolButton *pbSelectServerAddress;
+
+private slots:
+	void displayAddDialog();
 public:
-        ReturnTableWidget(QWidget* parent=0);
+	ServerAddressSelector(QWidget *parent);
 
-        ~ReturnTableWidget();
+	KLineEdit* lineEdit();
 
-protected:
-    virtual void keyPressEvent(QKeyEvent *e);
-
-signals:
-    void returnPressed();
+	~ServerAddressSelector();
 
 };
-
 #endif

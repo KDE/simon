@@ -25,6 +25,7 @@
 #include <KIcon>
 
 #include "simonwidget.h"
+#include "speechgui_export.h"
 
 class QString;
 class KIcon;
@@ -38,7 +39,7 @@ class QSettings;
  * \version 0.1
  * \date 10.8.2007
 */
-class /*SPEECHGUI_EXPORT*/ InlineWidget : public QWidget, public SimonWidget
+class SPEECHGUI_EXPORT InlineWidget : public QWidget, public SimonWidget
 {
 Q_OBJECT
 
@@ -46,7 +47,6 @@ private:
 	QString title, desc;
 	KIcon icon;
 	GuiEvents *guievents;
-	//SimonControl *control;
 
 signals:
 	void closed();

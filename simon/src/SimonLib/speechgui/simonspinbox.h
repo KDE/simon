@@ -19,29 +19,26 @@
 
 
 
-#ifndef SIMONSLIDER_H
-#define SIMONSLIDER_H
+#ifndef SIMONSPINBOX_H
+#define SIMONSPINBOX_H
 
-#include <QSlider>
-class QLineEdit;
+#include <KIntNumInput>
+#include "speechgui_export.h"
 
-class SimonSlider : public QSlider
+class SPEECHGUI_EXPORT SimonSpinBox : public KIntNumInput
 {	
 	
 	Q_OBJECT
 	
 private:
-	QLineEdit *lePlusMinus;
-	
 	
 	
 public:
-	SimonSlider( QWidget * parent  = 0);
-	~SimonSlider();
+	SimonSpinBox( QWidget * parent  = 0);
+	~SimonSpinBox();
 
 public slots:
-	void changeValue();
-	void doCommand();
+	void changeValue(QString text);
 
 	
 };

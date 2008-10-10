@@ -153,25 +153,6 @@
       <default>-pages-articles.xml.bz2</default>
     </entry>
   </group>
-  
-  <group name="Commands">
-    <entry name="Dictation" type="Bool">
-      <label>If dictation is enabled at all.</label>
-      <default>false</default>
-    </entry>
-    <entry name="UseGlobalTrigger" type="Bool">
-      <label>If simon should use a global trigger to differentiate between commands and dictation.</label>
-      <default>true</default>
-    </entry>
-    <entry name="GlobalTrigger" type="String">
-      <label>The global trigger to decide if the recognition result is a command or just text.</label>
-      <default>Computer</default>
-    </entry>
-    <entry name="SelectedPlugins" type="StringList">
-      <label>The commandplugins to be loaded.</label>
-      <default></default>
-    </entry>
-  </group>
 
   <group name="Sound">
     <entry name="SoundInputDevice" type="Int">

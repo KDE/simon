@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2008 Phillip Goriup <goriup@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,22 +18,28 @@
  */
 
 
-#include "addserverconnection.h"
 
-AddServerConnection::AddServerConnection(QWidget *parent) : KDialog(parent)
-{
-	QWidget *widget = new QWidget( this );
-	ui.setupUi(widget);
-	setMainWidget( widget );
-	setCaption( i18n("Serververbindung hinzufügen") );
-}
+#ifndef SIMONLINEEDIT_H
+#define SIMONLINEEDIT_H
 
-QString AddServerConnection::getHost()
-{
-	return ui.leAddress->text();
-}
+#include <KLineEdit>
+#include "speechgui_export.h"
 
-int AddServerConnection::getPort()
+class SPEECHGUI_EXPORT SimonLineEdit : public KLineEdit
 {
-	return ui.sbPort->value();
-}
+	Q_OBJECT
+	
+	
+public:
+	SimonLineEdit( QWidget * parent  = 0);
+	~SimonLineEdit();
+
+	void focusOutEvent (QFocusEvent* event);
+
+signals:
+	void checkFocus();
+
+};
+
+
+#endif

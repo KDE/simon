@@ -18,40 +18,38 @@
  */
 
 
-#ifndef TRAYICONMANAGER_H
-#define TRAYICONMANAGER_H
+#include "addserverconnection.h"
 
-#include <QObject>
-#include <KAction>
-#include <KIcon>
-#include <KSystemTrayIcon>
+#include <QLabel>
+#include <KLocalizedString>
+#include <KLineEdit>
+#include <KIntNumInput>
+#include <QFormLayout>
 
-/**
- *	@class TrayIconManager
- *	@brief Manages the System Tray Icon
- *
- *	Uses the QSystemTrayIcon Class to display the system tray icon
- *
- *	@version 0.1
- *	@date 25.01.2006
- *	@author Peter Grasch
- */
-class TrayIconManager : public QObject
+AddServerConnection::AddServerConnection(QWidget *parent) : KDialog(parent)
 {
+	QWidget *widget = new QWidget( this );
 
-	Q_OBJECT
-private:
-	KSystemTrayIcon *icon; //!< The QSystemTrayIcon to display the icon itself
-
-
+	leAddress = new KLineEdit("localhost", widget);
+	sbPort = new KIntNumInput(widget);
+	sbPort->setMinimum(0);
+	sbPort->setMaximum(65000);
+	sbPort->setValue(4444);
 	
-public:
-	void createIcon(const KIcon& icon, const QString& tooltip);
-	void addAction(const QString& name, KAction* action);
-    TrayIconManager(QWidget *parent);
+	QFormLayout *lay = new QFormLayout(widget);
+	lay->addRow(i18n("Addresse:"), leAddress);
+	lay->addRow(i18n("Port:"), sbPort);
+	
+	setMainWidget( widget );
+	setCaption( i18n("Serververbindung hinzufügen") );
+}
 
-    ~TrayIconManager();
+QString AddServerConnection::getHost()
+{
+	return leAddress->text();
+}
 
-};
-
-#endif
+int AddServerConnection::getPort()
+{
+	return sbPort->value();
+}

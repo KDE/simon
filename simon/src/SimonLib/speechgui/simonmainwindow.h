@@ -16,31 +16,48 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+#ifndef SIMONMAINWINDOW_H
+#define SIMONMAINWINDOW_H
+
+#include <QObject>
+#include <kxmlguiwindow.h>
+
+#include "simonwidget.h"
+#include "speechgui_export.h"
 
 
+/**
+ * \class SimonMainWindow
+ * \brief 
+ * \note 
+ * \author Phillip Goriup
+ * \version 
+ * \date 
+*/
+class SPEECHGUI_EXPORT SimonMainWindow : public KXmlGuiWindow,  public  SimonWidget
+{
+Q_OBJECT
 
-#ifndef SIMONCOMBOBOX_H
-#define SIMONCOMBOBOX_H
-
-#include <KComboBox>
-
-class SimonComboBox : public KComboBox
-{	
-	
-	Q_OBJECT
-	
 private:
-	
-	
+	GuiEvents *guievents;
+	virtual void setupActions()=0;
+
+signals:
+
+
 public:
-	SimonComboBox( QWidget * parent  = 0);
-	~SimonComboBox();
+	explicit SimonMainWindow(QWidget *parent = 0, Qt::WFlags flags = 0);	
+	~SimonMainWindow();
+	QObjectList getChildren(QObject *current);
+	
+
 
 public slots:
-	void schowPopUp();
-
 	
-};
+	void registerControl(QString trigger, QObject* receiver, const char* slot);
+	void doAction(QString action);
+	
 
+};
 
 #endif

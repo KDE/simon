@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Phillip Goriup <goriup@simon-listens.org>
+ *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,50 +18,37 @@
  */
 
 
-#ifndef GUIEVENTS_H
-#define GUIEVENTS_H
+#ifndef ADDSERVERCONNECTION_H
+#define ADDSERVERCONNECTION_H
 
-// #include "speechgui_export.h"
-#include <QObject>
-#include <QHash>
+#include "speechgui_export.h"
+#include <KDialog>
 
+class KLineEdit;
+class KIntNumInput;
 
-struct actionValues
-	{
-		QObject* receiver;
-		const char* slot;
-	};
-struct uniqueKey
-	{
-		QObject* parent;
-		QString trigger;
-	};
-typedef QHash<uniqueKey*,  actionValues*> GuiAction;
+/**
+ \class AddServerConnection
+ \author Peter Grasch
+ \version 0.1
+ \date 12.08.2007
 
+ \brief Little Dialog to enter server address and port into
 
-class /*SPEECHGUI_EXPORT*/ GuiEvents :  public  QObject {
-	Q_OBJECT
-	
+*/
+class SPEECHGUI_EXPORT AddServerConnection : public KDialog
+{
+Q_OBJECT
+
 private:
+	KLineEdit *leAddress;
+	KIntNumInput *sbPort;
 	
-	GuiAction *guiItems;
-	
-
 public:
-	
-	GuiEvents(QObject *parent=0);
-	~GuiEvents();
+    explicit AddServerConnection(QWidget* parent=0);
+    QString getHost();
+    int getPort();
 
-public slots:
-	
-	void registerControl(QString trigger, QObject* receiver, const char* slot);
-
-
-	void doAction(QString action, QObject * parentItem);
-
-signals:
-	void dummy(QString);
-	
 };
 
 #endif

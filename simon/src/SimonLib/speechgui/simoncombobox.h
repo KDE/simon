@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2008 Phillip Goriup <goriup@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,33 +18,30 @@
  */
 
 
-#ifndef ADDSERVERCONNECTION_H
-#define ADDSERVERCONNECTION_H
 
-#include "ui_addserverconnectiondlg.h"
-#include <KDialog>
+#ifndef SIMONCOMBOBOX_H
+#define SIMONCOMBOBOX_H
 
-/**
- \class AddServerConnection
- \author Peter Grasch
- \version 0.1
- \date 12.08.2007
+#include <KComboBox>
+#include "speechgui_export.h"
 
- \brief Little Dialog to enter server address and port into
-
-*/
-class AddServerConnection : public KDialog
-{
-Q_OBJECT
-
+class SPEECHGUI_EXPORT SimonComboBox : public KComboBox
+{	
+	
+	Q_OBJECT
+	
 private:
-	Ui::AddServerConnectionDlg ui; //!< UI definition - made by uic from the QTDesigner .ui
+	
 	
 public:
-    explicit AddServerConnection(QWidget* parent=0);
-    QString getHost();
-    int getPort();
+	SimonComboBox( QWidget * parent  = 0);
+	~SimonComboBox();
 
+public slots:
+	void schowPopUp();
+
+	
 };
+
 
 #endif

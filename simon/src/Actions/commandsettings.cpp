@@ -90,9 +90,14 @@ void CommandSettings::load()
 	Q_ASSERT(config);
 
 	KConfigGroup cg(config, "");
-	ui.cbDictation->setChecked(cg.readEntry("Dictation", false));
-	ui.cbUseGlobalTrigger->setChecked(cg.readEntry("UseGlobalTrigger", true));
-	ui.leGlobalTrigger->setText(cg.readEntry("GlobalTrigger", i18n("Computer")));
+	
+	storedUseGlobalTrigger = cg.readEntry("UseGlobalTrigger", true);
+	storedGlobalTrigger = cg.readEntry("GlobalTrigger", i18n("Computer"));
+	storedDictation = cg.readEntry("Dictation", false);
+	
+	ui.cbUseGlobalTrigger->setChecked(storedUseGlobalTrigger);
+	ui.leGlobalTrigger->setText(storedGlobalTrigger);
+	ui.cbDictation->setChecked(storedDictation);
 
 
 	QListWidget* available = ui.asCommandPlugins->availableListWidget();
