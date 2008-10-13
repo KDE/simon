@@ -1,0 +1,10 @@
+This AI enigne is based on several parts.
+
+The qaiml (http://sourceforge.net/projects/qaiml) AIML-parsing library (it has
+been ported to qt4 for use with simon).
+
+The A.L.I.C.E. AIML set available under (http://alice.pandorabots.com/).
+
+The German AIML-set developed by Christian Droßmann (mail@drossman.de).
+
+Thanks go out to the respective Authors for their great contribution!

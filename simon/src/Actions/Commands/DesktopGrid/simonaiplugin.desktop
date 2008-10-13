@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=view-media-artist
+ServiceTypes=simon/CommandPlugin
+X-KDE-Library=simonaiplugin
+Name=simon AI Plugin
+Name[de]=simon Künstliche Intelligenz Modul
+Comment=Voicecontrolled Chatbot with Festival based speech output
+Comment[de]=Sprachgesteuerter Chatbot mit Festival basierender Sprachausgabe
+
+X-KDE-PluginInfo-Author=Peter Grasch
+X-KDE-PluginInfo-Email=grasch@simon-listens.org
+X-KDE-PluginInfo-Name=simonai
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://simon-listens.org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ParentApp=simon

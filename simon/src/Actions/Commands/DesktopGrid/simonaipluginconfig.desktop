@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=Service
+Icon=view-media-artist
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=simonaiplugin
+
+X-KDE-PluginKeyword=simonaipluginconfig
+X-KDE-FactoryName=simonaipluginconfig
+X-KDE-ParentComponents=simonaiplugin
+
+X-KDE-ParentApp=simon
+X-KDE-System-Settings-Parent-Category=system
+
+
+Name=AI configuration
+Name[de]=Konfiguration der künstlichen Intelligenz
+
+Comment=Configuration of simons ai-plugin
+Comment[de]=Konfiguration des Künstlichen-Intelligenz-Plug-Ins von simon
