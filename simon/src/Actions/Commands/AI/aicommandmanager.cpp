@@ -129,7 +129,7 @@ bool AICommandManager::load()
 	if (!festivalProc->waitForStarted(1000))
 		return false;
 	
-	festivalProc->write("(voice_us2_mbrola)\n");
+// 	festivalProc->write("(voice_us2_mbrola)\n");
 	return true;
 }
 

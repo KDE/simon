@@ -91,11 +91,9 @@ void AIConfiguration::load()
 	emit changed(false);
 }
 
-#include <QDebug>
 void AIConfiguration::setAimlSets(const QStringList& aimlSets)
 {
 	ui.cbAimlSets->clear();
-	qDebug() << aimlSets;
 	ui.cbAimlSets->addItems(aimlSets);
 }
  
