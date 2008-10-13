@@ -13,6 +13,7 @@ include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/SimonLib)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/commandpluginbase)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/AI)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/DesktopGrid)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/Executable)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/Place)

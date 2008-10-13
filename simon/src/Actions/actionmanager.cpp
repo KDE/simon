@@ -69,28 +69,38 @@ void ActionManager::setupBackends(QStringList pluginsToLoad)
 {
 	Q_ASSERT(managers);
 
+	QList<CommandManager*> *newManagerList = new QList<CommandManager*>();
+	ConfigurationDialog *configDialog = ConfigurationDialog::getInstance();
+	
 	bool changed=false;
 	
-	foreach (CommandManager *man, *managers)
+	QHash<QString, int> pluginsToLoadPositions;
+	int i=0;
+	foreach (QString pluginToLoad, pluginsToLoad)
 	{
-		QString currentName = man->name();
-		
-		if (pluginsToLoad.contains(currentName))
-			pluginsToLoad.removeAll(currentName);
-		else {
-			deleteManager(man);
-			changed=true;
+		bool found=false;
+		foreach (CommandManager *man, *managers)
+		{
+			if (man->name() == pluginToLoad)
+			{
+				if (managers->indexOf(man) != i)
+					changed=true;
+				
+				newManagerList->append(man);
+				managers->removeAll(man);
+				found=true;
+			}
 		}
+		if (!found)
+			pluginsToLoadPositions.insert(pluginToLoad, i+pluginsToLoadPositions.size());
+		i++;
 	}
-	if (pluginsToLoad.count() > 0)
-		changed=true;
 
+	if (pluginsToLoadPositions.size() > 0) changed=true;
+	
 	KService::List services;
 	KServiceTypeTrader* trader = KServiceTypeTrader::self();
-
 	services = trader->query("simon/CommandPlugin");
-	
-	ConfigurationDialog *configDialog = ConfigurationDialog::getInstance();
 	
 	foreach (KService::Ptr service, services) {
 		KPluginFactory *factory = KPluginLoader(service->library()).factory();
@@ -102,18 +112,25 @@ void ActionManager::setupBackends(QStringList pluginsToLoad)
 	
 		if (man)
 		{
-			if (pluginsToLoad.contains(man->name()))
+			QString currentManagerName = man->name();
+			if (pluginsToLoadPositions.contains(currentManagerName))
 			{
-				managers->append(man);
+				newManagerList->insert(pluginsToLoadPositions.value(currentManagerName), man);
 				configDialog->registerModule(man->getConfigurationPage());
 				
 				if (!man->load())
 					KMessageBox::error(0, i18n("Konnte Kommandomanager \"%1\" nicht initialisieren.\n\n"
-							"Bitte überprüfen Sie seine Konfiguration.", man->name()));
+							"Bitte überprüfen Sie seine Konfiguration.", currentManagerName));
 			} else
 				man->deleteLater();
 		}
 	}
+	
+	foreach (CommandManager *manager, *managers)
+		deleteManager(manager);
+	
+	delete this->managers;
+	this->managers = newManagerList;
 	
 	if (changed) emit commandsChanged(getCommandList());
 }
@@ -250,12 +267,16 @@ void ActionManager::process(QString input)
 	Q_ASSERT(managers);
 	Q_ASSERT(commandSettings);
 
+	if (input.isEmpty()) return;
+	
 	QString keyword = commandSettings->globalTrigger();
 	
 	bool commandFound=false;
-	if (input.startsWith(keyword) || (!commandSettings->useGlobalTrigger()))
+	bool useGlobalTrigger = commandSettings->useGlobalTrigger();
+	if (input.startsWith(keyword) || (!useGlobalTrigger))
 	{
-		input = input.remove(0, QString(keyword).length()).trimmed();
+		if (useGlobalTrigger)
+			input = input.remove(0, QString(keyword).length()).trimmed();
 		
 		int i=0;
 		while ((i < managers->count()) && (!managers->at(i)->trigger(input)))

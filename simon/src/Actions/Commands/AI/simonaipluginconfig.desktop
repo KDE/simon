@@ -12,7 +12,7 @@ X-KDE-ParentApp=simon
 X-KDE-System-Settings-Parent-Category=system
 
 
-Name=AI configuration
+Name=AI Configuration
 Name[de]=Konfiguration der künstlichen Intelligenz
 
 Comment=Configuration of simons ai-plugin
