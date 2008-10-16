@@ -1,0 +1,4 @@
+File=recognitionconfiguration.kcfg
+ClassName=RecognitionConfiguration
+Singleton=true
+Mutators=true

@@ -98,8 +98,11 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
 
 	KPageWidgetItem *commandSettingsItem = configDialog->addModule("simonactionsconfig", QStringList() << "");
-	KCModuleProxy *proxy = static_cast<KCModuleProxy*>(commandSettingsItem->widget());
-	ActionManager::getInstance()->setConfigurationDialog(proxy->realModule());
+	if (commandSettingsItem)
+	{
+		KCModuleProxy *proxy = static_cast<KCModuleProxy*>(commandSettingsItem->widget());
+		ActionManager::getInstance()->setConfigurationDialog(proxy->realModule());
+	}
 
 
 	info->writeToSplash ( i18n ( "Lade Programmlogik..." ) );

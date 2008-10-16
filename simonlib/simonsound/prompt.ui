@@ -1,0 +1,30 @@
+<ui version="4.0" >
+ <class>Prompt</class>
+ <widget class="QWidget" name="Prompt" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>476</width>
+    <height>309</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <item>
+    <widget class="KFontChooser" name="kcfg_PromptFont" />
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KFontChooser</class>
+   <extends>QWidget</extends>
+   <header>kfontdialog.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

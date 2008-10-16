@@ -1,0 +1,11 @@
+set ( simon_model_scripts
+		${CMAKE_CURRENT_SOURCE_DIR}/config
+		${CMAKE_CURRENT_SOURCE_DIR}/global.ded
+		${CMAKE_CURRENT_SOURCE_DIR}/mkphones0.led
+		${CMAKE_CURRENT_SOURCE_DIR}/mkphones1.led
+		${CMAKE_CURRENT_SOURCE_DIR}/mktri.led
+		${CMAKE_CURRENT_SOURCE_DIR}/proto
+		${CMAKE_CURRENT_SOURCE_DIR}/sil.hed
+	)
+
+install( FILES ${simon_model_scripts}  DESTINATION ${DATA_INSTALL_DIR}/simon/model/scripts )

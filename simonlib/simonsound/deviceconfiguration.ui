@@ -1,0 +1,201 @@
+<ui version="4.0" >
+ <class>DeviceConfiguration</class>
+ <widget class="QWidget" name="DeviceConfiguration" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>475</width>
+    <height>344</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Soundeinstellungen</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" >
+   <item row="0" column="0" >
+    <widget class="QLabel" name="lbInDevice" >
+     <property name="text" >
+      <string>Eingabe Gerät:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>kcfg_SoundInputDevice</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" >
+    <widget class="SimonComboBox" name="kcfg_SoundInputDevice" />
+   </item>
+   <item row="1" column="0" >
+    <widget class="QLabel" name="lbOutDevice" >
+     <property name="text" >
+      <string>Ausgabe Gerät:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>kcfg_SoundOutputDevice</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <widget class="SimonComboBox" name="kcfg_SoundOutputDevice" />
+   </item>
+   <item row="2" column="0" >
+    <widget class="QLabel" name="lbChannels" >
+     <property name="text" >
+      <string>Kanäle:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" >
+    <layout class="QHBoxLayout" name="horizontalLayout_3" >
+     <item>
+      <spacer name="horizontalSpacer_3" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="KIntNumInput" name="kcfg_SoundChannels" >
+       <property name="minimum" >
+        <number>1</number>
+       </property>
+       <property name="maximum" >
+        <number>2</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0" >
+    <widget class="QLabel" name="lbSamplerate" >
+     <property name="text" >
+      <string>Samplerate:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" >
+    <layout class="QHBoxLayout" name="horizontalLayout_2" >
+     <item>
+      <spacer name="horizontalSpacer_2" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="kcfg_SoundSampleRate" >
+       <property name="minimum" >
+        <number>8000</number>
+       </property>
+       <property name="maximum" >
+        <number>128000</number>
+       </property>
+       <property name="value" >
+        <number>16000</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbHz" >
+       <property name="text" >
+        <string>Hz</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0" colspan="2" >
+    <spacer name="verticalSpacer" >
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType" >
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="5" column="0" colspan="2" >
+    <layout class="QHBoxLayout" name="horizontalLayout" >
+     <item>
+      <widget class="KPushButton" name="pbReload" >
+       <property name="text" >
+        <string>Neu laden</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="KPushButton" name="pbTest" >
+       <property name="text" >
+        <string>Testen</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="6" column="0" colspan="2" >
+    <spacer name="verticalSpacer_2" >
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>20</width>
+       <height>125</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KIntNumInput</class>
+   <extends>QWidget</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SimonComboBox</class>
+   <extends>QComboBox</extends>
+   <header>simoncombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

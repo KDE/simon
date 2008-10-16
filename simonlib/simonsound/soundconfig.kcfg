@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg> <kcfgfile />
+  <include>KStandardDirs</include>
+  <group name="Devices">
+    <entry name="SoundInputDevice" type="Int">
+      <label>The sounddevice used for recording.</label>
+    </entry>
+    <entry name="SoundOutputDevice" type="Int">
+      <label>The sounddevice used for playback.</label>
+    </entry>
+    <entry name="SoundChannels" type="Int">
+      <label>How many channels should the samples be recorded with.</label>
+      <default>1</default>
+    </entry>
+    <entry name="SoundSampleRate" type="Int">
+      <label>The samplerate used for recording.</label>
+      <default>16000</default>
+    </entry>
+  </group>
+
+  <group name="Prompt">
+    <entry name="PromptFont" type="Font">
+      <label>The font to use for all the promtps in simon.</label>
+    </entry>
+  </group>
+
+  <group name="PostProcessing">
+    <entry name="ProcessInternal" type="Bool">
+      <label>If samples recorded with simon should be processed at all.</label>
+      <default>false</default>
+    </entry>
+    <entry name="ProcessingFilters" type="StringList">
+      <label>The filters (commands) to apply to the samples.</label>
+    </entry>
+  </group>
+</kcfg>

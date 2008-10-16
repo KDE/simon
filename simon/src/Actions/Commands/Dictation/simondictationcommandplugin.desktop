@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=text-speak
+ServiceTypes=simon/CommandPlugin
+X-KDE-Library=simondictationcommandplugin
+Name=simon Dictation Plugin
+Name[de]=simon Diktation Modul
+Comment=Dictate Texts
+Comment[de]=Diktiere Texte
+
+X-KDE-PluginInfo-Author=Peter Grasch
+X-KDE-PluginInfo-Email=grasch@simon-listens.org
+X-KDE-PluginInfo-Name=simondictationcommandplugin
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://simon-listens.org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ParentApp=simon

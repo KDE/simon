@@ -1,0 +1,48 @@
+<ui version="4.0" >
+ <class>PostProcessing</class>
+ <widget class="QWidget" name="PostProcessing" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>370</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <item>
+    <widget class="QCheckBox" name="kcfg_ProcessInternal" >
+     <property name="text" >
+      <string>Auch interne Aufnahmen nachbearbeiten</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="KEditListBox" name="kcfg_ProcessingFilters" >
+     <property name="title" >
+      <string>Nachbearbeitungsfilter</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Legende: %1........Eingabedatei, %2........Ausgabedatei</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KEditListBox</class>
+   <extends>QGroupBox</extends>
+   <header>keditlistbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

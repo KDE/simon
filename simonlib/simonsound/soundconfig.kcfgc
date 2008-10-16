@@ -1,0 +1,4 @@
+File=soundconfig.kcfg
+ClassName=SoundConfiguration
+Singleton=true
+Mutators=true
