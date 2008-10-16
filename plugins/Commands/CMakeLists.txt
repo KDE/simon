@@ -1,6 +1,5 @@
 add_subdirectory(AI)
 add_subdirectory(ATIntegration)
-add_subdirectory(commandpluginbase)
 add_subdirectory(DesktopGrid)
 add_subdirectory(Dictation)
 add_subdirectory(Executable)

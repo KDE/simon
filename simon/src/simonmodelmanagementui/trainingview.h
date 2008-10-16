@@ -23,6 +23,8 @@
 
 #include "inlinewidget.h"
 #include "ui_trainmain.h"
+#include "simonmodelmanagementui_export.h"
+
 #include <speechmodelbase/word.h>
 
 class WordListView;
@@ -39,7 +41,7 @@ class ImportTrainingTexts;
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class TrainingView : public InlineWidget {
+class SIMONMODELMANAGEMENTUI_EXPORT TrainingView : public InlineWidget {
 	Q_OBJECT
 
 signals:

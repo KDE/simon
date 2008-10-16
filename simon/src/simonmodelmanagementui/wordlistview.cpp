@@ -21,7 +21,7 @@
 #include "wordlistview.h"
 #include "deleteworddialog.h"
 #include "ImportDict/importdictview.h"
-#include "../Training/trainingview.h"
+#include "trainingview.h"
 // #include "coreconfiguration.h"
 
 #include <speechmodelmanagement/wordlistmanager.h>

@@ -17,28 +17,28 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "internetextensionsettings.h"
 
-InternetExtensionSettings::InternetExtensionSettings(QWidget* parent): QWidget(parent)
+#ifndef INTERNETEXTENSIONSETTINGS_H
+#define INTERNETEXTENSIONSETTINGS_H
+
+#include "ui_internetextensiondlg.h"
+#include <QWidget>
+#include <QVariantList>
+/**
+	@author Peter Grasch <bedahr@gmx.net>
+*/
+class InternetExtensionSettings : public QWidget
 {
-	ui.setupUi(this);
+Q_OBJECT
+private:
+	Ui::InternetExtensionDlg ui;
+private slots:
+	void makeExample();
+public:
+    InternetExtensionSettings(QWidget* parent, const QVariantList &args=QVariantList());
 
-	connect(ui.kcfg_WikiDumpPrefix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
-	connect(ui.kcfg_WikiDumpPostfix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
+    ~InternetExtensionSettings();
 
-	makeExample();
-}
+};
 
-
-InternetExtensionSettings::~InternetExtensionSettings()
-{
-}
-
-void InternetExtensionSettings::makeExample()
-{
-	QString example;
-	example += ui.kcfg_WikiDumpPrefix->text();
-	example += "xxwiktionary/xxxxxxxx";
-	example += ui.kcfg_WikiDumpPostfix->text();
-	ui.lbExample->setText(example);
-}
+#endif

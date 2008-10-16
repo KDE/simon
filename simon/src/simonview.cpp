@@ -27,17 +27,14 @@
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 
-#include "Actions/runcommandview.h"
-#include "trayiconmanager.h"
+#include <simonactionsui/runcommandview.h>
+#include <trayiconmanager.h>
 
-// #include <modelmanagement/modelmanager.h>
 #include <speechmodelmanagement/wordlistmanager.h>
-// #include <modelmanagement/modelsettings.h>
-#include "ModelManagement/Training/trainingview.h"
-#include "ModelManagement/WordList/wordlistview.h"
-#include "ModelManagement/WordList/AddWord/addwordview.h"
-
-#include "ModelManagement/internetextensionsettings.h"
+#include <simonmodelmanagementui/trainingview.h>
+#include <simonmodelmanagementui/wordlistview.h>
+#include <simonmodelmanagementui/AddWord/addwordview.h>
+#include <simonactions/actionmanager.h>
 
 
 #include <QPixmap>
@@ -58,7 +55,6 @@
 #include <KCMultiDialog>
 #include <KCModuleProxy>
 #include <KPageWidgetItem>
-#include <simonactions/actionmanager.h>
 
 /**
  * @brief Constructor

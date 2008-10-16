@@ -37,7 +37,7 @@
 #include <QWizard>
 #include <QStringList>
 #include <speechmodelbase/word.h>
-
+#include "../simonmodelmanagementui_export.h"
 
 class QWizardPage;
 class AddWordResolvePage;
@@ -46,7 +46,7 @@ class AddWordIntroPage;
 class WordListManager;
 class TrainingManager;
 
-class AddWordView : public QWizard
+class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 {
 	Q_OBJECT
 

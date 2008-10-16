@@ -23,10 +23,11 @@
 
 #define sImportDict 	32
 
-
-#include <speechmodelbase/word.h>
 #include "ui_wordlist.h"
 #include "inlinewidget.h"
+#include "simonmodelmanagementui_export.h"
+
+#include <speechmodelbase/word.h>
 
 
 class TrainingView;
@@ -44,7 +45,7 @@ class WordListManager;
  */
 
 
-class WordListView : public InlineWidget {
+class SIMONMODELMANAGEMENTUI_EXPORT WordListView : public InlineWidget {
 	Q_OBJECT
 private:
 	int shownDialogs;

@@ -20,7 +20,7 @@
 
 #include "simoncontrol.h"
 
-#include <RecognitionControl/recognitioncontrol.h>
+#include <simonrecognitioncontrol/recognitioncontrol.h>
 #include <simonactions/actionmanager.h>
 #include "coreconfiguration.h"
 
