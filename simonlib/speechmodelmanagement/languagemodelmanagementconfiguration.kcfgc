@@ -1,0 +1,4 @@
+File=languagemodelmanagementconfiguration.kcfg
+ClassName=LanguageModelManagementConfiguration
+Singleton=true
+Mutators=true

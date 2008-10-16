@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=view-pim-news
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=libsimonmodelmanagement
+
+X-KDE-FactoryName=speechmodelsettingsfactory
+X-KDE-ParentComponents=libsimonmodelmanagement
+
+X-KDE-ParentApp=simon
+X-KDE-System-Settings-Parent-Category=simon
+
+
+Name=Speech Model
+Name[de]=Sprachmodell
+
+Comment=Configuration of simons Speech Model
+Comment[de]=Konfiguration des Sprachmodells von simon

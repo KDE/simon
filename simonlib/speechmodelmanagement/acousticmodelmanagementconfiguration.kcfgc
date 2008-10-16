@@ -1,0 +1,4 @@
+File=acousticmodelmanagementconfiguration.kcfg
+ClassName=AcousticModelManagementConfiguration
+Singleton=true
+Mutators=true

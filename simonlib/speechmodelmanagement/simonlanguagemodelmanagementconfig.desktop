@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=applications-education-language
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=libsimonmodelmanagement
+
+X-KDE-FactoryName=grammarsettingsfactory
+X-KDE-ParentComponents=libsimonmodelmanagement
+
+X-KDE-ParentApp=simon
+X-KDE-System-Settings-Parent-Category=simon
+
+
+Name=Grammar
+Name[de]=Grammatik
+
+Comment=Configuration of simons Grammar
+Comment[de]=Konfiguration der simon Grammatik
