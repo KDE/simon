@@ -1,0 +1,4 @@
+File=modelcompilationconfiguration.kcfg
+ClassName=ModelCompilationConfiguration
+Singleton=true
+Mutators=true
