@@ -1,0 +1,71 @@
+<ui version="4.0" >
+ <class>ImportTrainingTextSelectSourcePage</class>
+ <widget class="QWidget" name="ImportTrainingTextSelectSourcePage" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>454</width>
+    <height>326</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QLabel" name="lbDesc" >
+     <property name="text" >
+      <string>Sie können Texte aus lokalen Textdateien importieren oder simon-kompatible Texte aus dem Internet laden.
+
+Bitte wählen Sie die gewünschte Quelle aus:
+</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbLocal" >
+     <property name="text" >
+      <string>Lokale Textdatei</string>
+     </property>
+     <property name="checked" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lbLocalDesc" >
+     <property name="text" >
+      <string>Wählen Sie diese Option wenn Sie einen Text, den Sie gerne mit in Verbindung mit simon verwenden möchten, gespeichert haben.
+</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbRemote" >
+     <property name="text" >
+      <string>Aus dem Internet laden</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lbRemoteDesc" >
+     <property name="text" >
+      <string>Wenn Sie diese Option wählen wird zuerst eine Liste der vorhandenen Texte aus dem Internet geladen aus welcher Sie sich dann einen Text aussuchen und importieren kännen.</string>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
