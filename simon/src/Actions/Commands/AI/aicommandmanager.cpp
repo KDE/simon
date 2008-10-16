@@ -22,7 +22,6 @@
 #include <simonlogging/logger.h>
 #include <KLocalizedString>
 #include <KGenericFactory>
-#include <KMessageBox>
 #include <KStandardDirs>
 #include <QDebug>
 #include <KProcess>
@@ -32,6 +31,7 @@
 
 K_PLUGIN_FACTORY( AIPluginFactory, 
 			registerPlugin< AICommandManager >(); 
+			registerPlugin< AIConfiguration >(); 
 		)
         
 K_EXPORT_PLUGIN( AIPluginFactory("AICommandManager") )
@@ -40,12 +40,8 @@ K_EXPORT_PLUGIN( AIPluginFactory("AICommandManager") )
 
 AICommandManager::AICommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
 {
-	AIConfiguration::getInstance(dynamic_cast<QWidget*>(parent))->setAimlSets(getAimlSets());
-	AIConfiguration::getInstance()->setManager(this);
-	AIConfiguration::getInstance()->load();
-	
-
 	parser=0;
+	festivalProc=0;
 }
 
 const QString AICommandManager::name() const
@@ -66,7 +62,6 @@ bool AICommandManager::trigger(const QString& triggerName)
 	if (!festivalProc) return false;
 
 	QString aliceResponse = parser->getResponse(triggerName);
-	
 	festivalProc->write("(SayText \""+aliceResponse.toLatin1().trimmed().replace("\"", "")+"\")\n");
 	
 // 	QString outputName = KStandardDirs::locateLocal("tmp", "tmpSoundOutput.wav");
@@ -76,7 +71,7 @@ bool AICommandManager::trigger(const QString& triggerName)
 // 					" /opt/mbrola/de5/de5 - "+
 // 					outputName.toLatin1()+" && "+
 // 					"aplay -q -c 1 "+outputName.toLatin1());
-// 	qDebug() << festivalProc->execute();
+// 	festivalProc->execute();
 	
 	return false; // pass this recognition result on to the other plugins
 }
@@ -118,9 +113,12 @@ bool AICommandManager::setupParser()
 bool AICommandManager::load()
 {
 	if (parser) return true;
-	else {
-		if (!setupParser()) return false;
-	}
+	
+	AIConfiguration::getInstance(dynamic_cast<QWidget*>(parent()));
+	AIConfiguration::getInstance()->setManager(this);
+	AIConfiguration::getInstance()->load();
+	
+	if (!setupParser()) return false;
 
 	
 	festivalProc = new KProcess(this);
@@ -133,11 +131,6 @@ bool AICommandManager::load()
 	return true;
 }
 
-QStringList AICommandManager::getAimlSets()
-{
-	return QDir(KStandardDirs::locate("data", "ai/aimls/")).entryList(QStringList(), QDir::Dirs|QDir::NoDotAndDotDot);
-}
-
 bool AICommandManager::save()
 {
 	return true;
@@ -145,6 +138,9 @@ bool AICommandManager::save()
 
 AICommandManager::~AICommandManager()
 {
+	if (festivalProc && (festivalProc->state()==QProcess::Running))
+		festivalProc->write("(quit)\n");
+	
 	if (parser) {
 		parser->saveVars(KStandardDirs::locate("data", "ai/util/vars.xml"));
 		delete parser;

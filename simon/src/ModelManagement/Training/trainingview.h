@@ -23,7 +23,7 @@
 
 #include "inlinewidget.h"
 #include "ui_trainmain.h"
-#include "../WordList/word.h"
+#include <speechmodelbase/word.h>
 
 class WordListView;
 class ImportTrainingDirectory;
@@ -44,7 +44,6 @@ class TrainingView : public InlineWidget {
 
 signals:
 	void trainingCompleted();
-	void displayMe();
 
 private:
 	static TrainingView *instance;
@@ -92,7 +91,6 @@ public:
 		if (!instance) instance = new TrainingView();
 		return instance;
 	}
-	void exec();
 	
 	~TrainingView();
 	

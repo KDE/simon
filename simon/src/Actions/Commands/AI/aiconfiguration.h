@@ -52,7 +52,6 @@ class AIConfiguration : public CommandConfiguration
 		}
 		
 		void setManager(AICommandManager *manager);
-		void setAimlSets(const QStringList& aimlSets);
 		AIConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
 		~AIConfiguration();
 

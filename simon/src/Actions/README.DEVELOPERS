@@ -11,6 +11,7 @@ Every reaction of simon that is triggered by speech input is an "action".
 |              | Places            |
 |              | Textmacros        |
 |              | ATIntegration     |
+|              | AI                |
 |              |                   |
 +--------------+-------------------+
 

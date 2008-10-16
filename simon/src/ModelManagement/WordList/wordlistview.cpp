@@ -18,14 +18,14 @@
  */
 
 
-#include "wordlistmanager.h"
+#include "wordlistview.h"
 #include "ImportDict/importdictview.h"
-#include "../Training/trainingview.h"
-#include <simonlogging/logger.h>
-#include "../WordList/wordlistview.h"
 #include "../WordList/RemoveWord/deleteworddialog.h"
-#include "../modelmanager.h"
-#include "coreconfiguration.h"
+#include "../Training/trainingview.h"
+// #include "coreconfiguration.h"
+
+#include <speechmodelmanagement/wordlistmanager.h>
+#include <simonlogging/logger.h>
 
 #include <QTableWidget>
 #include <QHeaderView>
@@ -104,8 +104,8 @@ void WordListView::askForRebuild()
 {
 	//we changed the wordlist
 	//we should thus recompile the model
-	if (KMessageBox::questionYesNoCancel(this, i18n("Um die Änderung zu übernehmen, muss das Sprachmodell neu generiert werden.\n\nWollen Sie es jetzt neu generieren?"))==KMessageBox::Yes)
-			ModelManager::compileModel();
+// 	if (KMessageBox::questionYesNoCancel(this, i18n("Um die Änderung zu übernehmen, muss das Sprachmodell neu generiert werden.\n\nWollen Sie es jetzt neu generieren?"))==KMessageBox::Yes)
+// 			ModelManager::compileModel();
 }
 
 
@@ -357,7 +357,7 @@ void WordListView::insertVocab(WordList *vocab)
 	int startAmount=ui.twVocab->rowCount();
 	int currentRow = startAmount;
         int i=0;
-	int limit=CoreConfiguration::maxConcurrentlyDisplayedWords();
+	int limit=1000; //CoreConfiguration::maxConcurrentlyDisplayedWords();
 	KProgressDialog *pgDlg = new KProgressDialog(this, i18n("Lade Wortliste..."), i18n("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Wörterbuch nicht!)"));
 	pgDlg->progressBar()->setMaximum((vocab->count() < limit) ? vocab->count() : limit);
 

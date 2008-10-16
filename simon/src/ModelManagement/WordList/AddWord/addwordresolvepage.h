@@ -23,7 +23,7 @@
 
 #include <QWizardPage>
 #include "ui_resolvewordpage.h"
-#include "../word.h"
+#include <speechmodelbase/word.h>
 /**
 	\class AddWordResolvePage
 	\version 0.1

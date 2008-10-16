@@ -25,14 +25,7 @@
 #include <KDialogButtonBox>
 #include "Commands/commandpluginbase/command.h"
 #include "Commands/commandpluginbase/createcommandwidget.h"
-#include "actionmanager.h"
-
-// #include "Commands/Executable/executablecommand.h"
-// #include "Commands/Executable/ImportProgram/importprogramwizard.h"
-// #include "Commands/Place/placecommand.h"
-// #include "Commands/Place/ImportPlace/importplacewizard.h"
-// #include "Commands/Shortcut/shortcutcommand.h"
-// #include "Commands/TextMacro/textmacrocommand.h"
+#include <simonactions/actionmanager.h>
 
 NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
 {

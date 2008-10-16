@@ -19,13 +19,13 @@
 
 
 #include "addwordrecordpage.h"
-#include "coreconfiguration.h"
 #include <QDate>
 #include <QTime>
 #include <QDir>
 #include <KMessageBox>
 #include <QVBoxLayout>
 #include <simonsound/recwidget.h>
+#include <KStandardDirs>
 
 /**
  * \brief Constructor - also creates the GUI Elements
@@ -52,16 +52,7 @@ bool AddWordRecordPage::isComplete() const
 
 QString AddWordRecordPage::getSamplesDir()
 {
-	QString sampleDir = CoreConfiguration::modelTrainingsDataPath().path();
-	QDir dir(sampleDir);
-	if (!dir.exists())
-	{
-		if (dir.mkpath(sampleDir))
-			return sampleDir;
-		else return "";
-	}
-
-	return sampleDir;
+	return KStandardDirs::locateLocal("tmp", "simonsamplestosend/");
 }
 
 /**
@@ -99,9 +90,9 @@ void AddWordRecordPage::initializePage()
 	}
 
 	rec1 = new RecWidget(i18n("Aufnahme 1:"), field("wordExample1").toString(),
-			      CoreConfiguration::modelTrainingsDataPath().path()+"/"+filename1+".wav", this);
+			     sampleDir+"/"+filename1+".wav", this);
 	rec2 = new RecWidget(i18n("Aufnahme 2:"), field("wordExample2").toString(),
-			      CoreConfiguration::modelTrainingsDataPath().path()+"/"+filename2+".wav", this);
+			      sampleDir+"/"+filename2+".wav", this);
 
 	
 	connect(rec1, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));

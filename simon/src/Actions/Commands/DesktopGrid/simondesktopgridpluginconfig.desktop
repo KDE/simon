@@ -9,11 +9,11 @@ X-KDE-FactoryName=simondesktopgridpluginconfig
 X-KDE-ParentComponents=simondesktopgridplugin
 
 X-KDE-ParentApp=simon
-X-KDE-System-Settings-Parent-Category=system
+X-KDE-System-Settings-Parent-Category=simon
 
 
-Name=Desktopgrid Configuration
-Name[de]=Desktopgitter Konfiguration
+Name=Desktopgrid
+Name[de]=Desktopgitter
 
 Comment=Configuration of simons desktopgrid-plugin
 Comment[de]=Konfiguration des Desktopgitter-Plug-Ins von simon

@@ -22,10 +22,9 @@
 
 
 #include "ImportTrainingData/importtrainingdirectory.h"
-#include "trainingtext.h"
-#include "trainingmanager.h"
+#include <speechmodelmanagement/trainingmanager.h>
 #include "ImportTrainingTexts/importtrainingtexts.h"
-#include "coreconfiguration.h"
+// #include "coreconfiguration.h"
 
 #include <simonsound/recwidget.h>
 #include <simoninfo/simoninfo.h>
@@ -223,7 +222,9 @@ void TrainingView::fetchPage ( int page )
 	if (samplenames.count() < page) return;
 	keyStr = samplenames.at(page);
 
-	QString filename = CoreConfiguration::modelTrainingsDataPath().path()+"/"+keyStr+".wav";
+	//FIXME: move to library
+	QString filename = keyStr+".wav";
+// 	QString filename = CoreConfiguration::modelTrainingsDataPath().path()+"/"+keyStr+".wav";
 	resetRecorder();
 	recorder = new RecWidget ( i18n("Seite %1/%2:", page+1, trainMgr->getPageCount()), 
 				   this->trainMgr->getPage ( page ),
@@ -319,15 +320,6 @@ void TrainingView::backToMain()
 }
 
 /**
- * \brief Emits the displayMe Signal
- * \author Peter Grasch
- */
-void TrainingView::exec()
-{
-	emit displayMe();
-}
-
-/**
  * \brief Cancels the current Training
  * Tells the TrainingManager to abort building the new model (and to clean up)
  * It also goes back to the main list of trainingtexts
@@ -353,7 +345,9 @@ void TrainingView::cleanUpTrainingSamples()
 	//cleaning up
 	for ( int i=1; i < trainMgr->getPageCount() +1; i++ )
 	{
-		QDir dir ( CoreConfiguration::modelTrainingsDataPath().path() );
+		//FIXME: library
+		//QDir dir ( CoreConfiguration::modelTrainingsDataPath().path() );
+		QDir dir();
 		//QStringList list = dir.entryList(QDir::Files);
 		/*QString textName = trainMgr->getTextName();
 		textName.replace(QString(" "), QString("_"));

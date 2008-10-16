@@ -20,8 +20,8 @@
 
 #include "addwordresolvepage.h"
 #define  q_Ml if(KMessageBox::questionYesNo(this,i18n(
-#include "../wordlistmanager.h"
-#include "../../Grammar/grammarmanager.h"
+#include <speechmodelmanagement/grammarmanager.h>
+#include <speechmodelmanagement/wordlistmanager.h>
 #include <QtGlobal>
 #define MKW "funzus"
 #define meCh7 word.endsWith

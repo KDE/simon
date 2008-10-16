@@ -21,12 +21,13 @@
 #include "importtrainingtextremotepage.h"
 #include <simonlogging/logger.h>
 #include "xmltrainingtextlist.h"
-#include "coreconfiguration.h"
+// #include "coreconfiguration.h"
 
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
 
 #include <KMessageBox>
+#include <KStandardDirs>
 #include <QFile>
 
 /**
@@ -48,7 +49,7 @@ void ImportTrainingTextRemotePage::initializePage()
 {
 	Logger::log(i18n("[INF] Abrufen der Liste von verfügbaren Trainingstexten"));
 
-	KUrl downloadUrl(CoreConfiguration::textOnlineUpdate());
+	KUrl downloadUrl;//CoreConfiguration::textOnlineUpdate());
 
 	KIO::FileCopyJob *job = KIO::file_copy(downloadUrl, 
 				KStandardDirs::locateLocal("tmp", downloadUrl.fileName()), 

@@ -22,23 +22,24 @@
 #define NETWORKSETTINGS_H
 
 #include "ui_networksettingsdlg.h"
-#include <QWidget>
+#include <KCModule>
+#include <QVariantList>
 
 /**
  * \class NetworkSettings
  * \author Peter Grasch
  * \date 14.08.2007
  * \version 0.1
- * \brief SystemWidget to control the addresses to julius
+ * \brief KCModule to control the addresses to julius
  */
-class NetworkSettings : public QWidget
+class NetworkSettings : public KCModule
 {
 Q_OBJECT
 private:
 	Ui::NetworkSettingsDlg ui;
 	
 public:
-        NetworkSettings(QWidget* parent);
+        NetworkSettings(QWidget* parent, const QVariantList& args=QVariantList());
         ~NetworkSettings();
 
 };

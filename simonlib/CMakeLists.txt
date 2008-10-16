@@ -1,0 +1,11 @@
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/eventsimulation)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonlogging)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simoninfo)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonxml)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechgui)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonsound)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagement)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/modelcompilation)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelbase)
+
+install( FILES settings-simon.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

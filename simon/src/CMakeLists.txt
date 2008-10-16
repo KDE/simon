@@ -9,38 +9,21 @@ set (QT_USE_QTSVG true)
 include(${QT_USE_FILE})
 
 
-include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/SimonLib ${CMAKE_CURRENT_SOURCE_DIR}/SimonLib/speechgui )
+include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR}/KDE 
+		     ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../simonlib
+		     ${CMAKE_CURRENT_SOURCE_DIR}/../../simonlib/speechgui
+		     ${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList
+		     ${CMAKE_CURRENT_SOURCE_DIR}/AppCore
+		     ${CMAKE_CURRENT_SOURCE_DIR}/Actions
+		     ${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands )
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/SimonLib)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/commandpluginbase)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/AI)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/DesktopGrid)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/Executable)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/Place)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/Shortcut)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands/TextMacro)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/AppCore)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl)
 
 set (	simonGeneralSources
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/modelmanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/modelsettings.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/grammarmanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/MergeTerminals/mergeterminals.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/MergeTerminals/mergeterminalsworkingpage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/MergeTerminals/mergeterminalsselectterminalspage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/MergeTerminals/mergeterminalswizard.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/ImportGrammar/importgrammarwizard.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/ImportGrammar/importgrammarworkingpage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/ImportGrammar/importgrammarselectfilespage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/ImportGrammar/importgrammar.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/grammarsettings.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/RenameTerminal/renameterminalwizard.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/RenameTerminal/renameterminalworkingpage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/RenameTerminal/renameterminalselectparameterspage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/RenameTerminal/renameterminal.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/xmltrainingtext.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/trainingview.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/trainingtext.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/trainingmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/ImportTrainingTexts/xmltrainingtextlist.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/ImportTrainingTexts/importtrainingtextremotepage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/ImportTrainingTexts/importtrainingtextselectsourcepage.cpp
@@ -70,34 +53,15 @@ set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/ImportDict/wiktionarydict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/ImportDict/lexicondict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/ImportDict/dict.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/wordlistmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/internetextensionsettings.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/externalprogrammanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simonview.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/juliuscontrol.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandpreviewwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/newcommand.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Actions/actionmanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandmodel.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/runcommandview.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/Configuration/configurationdialog.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/networksettings.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/generalsettings.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simoncontrol.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/simonview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
 kde4_add_ui_files( simonGeneralSources 
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/modelsettingsdlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/MergeTerminals/mergeterminalsworkingpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/MergeTerminals/mergeterminalsselectpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/ImportGrammar/importgrammardescriptionpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/ImportGrammar/selectfilestoreadpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/ImportGrammar/importgrammarworkingpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/RenameTerminal/renameterminalselectparameterspage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/RenameTerminal/renameterminalworkingpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Grammar/grammarsettingsdlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/trainmain.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/ImportTrainingTexts/importtrainingtextlocalpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/ImportTrainingTexts/importtrainingtextremotepage.ui
@@ -115,27 +79,17 @@ kde4_add_ui_files( simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/ImportDict/importwiktionarypage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/wordlist.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/internetextensiondlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/externalprogramms.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/rundialog.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/modifycommands.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandpreviewwidget.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/Actions/commandsettingsdlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/main.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/generalsettingsdlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/RecognitionControl/networksettingsdlg.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/simonview.ui
 )
 
-
-set( simon_LIB_HDRS
-  ${CMAKE_CURRENT_SOURCE_DIR}/coreconfiguration.kcfgc
-)
 
 install( FILES ${simon_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon
   COMPONENT Devel
 )
-
-kde4_add_kcfg_files(simonGeneralSources coreconfiguration.kcfgc)
 
 
 kde4_add_app_icon(simonGeneralSources "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-simon.png")
@@ -150,11 +104,11 @@ IF(WIN32)
 	kde4_add_executable( simon ${simonGeneralSources} )
 ENDIF(WIN32)
 
-install(FILES simon.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
 target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
-${QT_LIBRARIES} simoncommandpluginbase simoninfo
-simonlogging simonxml eventsimulation speechgui simonsound )
+${QT_LIBRARIES} ${KDE4_KUTILS_LIBS} simonappcore simoninfo
+simonlogging simonxml speechgui simonsound simonmodelmanagement
+simonmodelmanagement simonrecognitioncontrol simonactions)
 
 install (TARGETS simon DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR})

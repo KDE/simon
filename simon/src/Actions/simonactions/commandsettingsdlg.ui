@@ -1,0 +1,81 @@
+<ui version="4.0" >
+ <class>CommandSettingsDlg</class>
+ <widget class="QWidget" name="CommandSettingsDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>588</width>
+    <height>420</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout" >
+     <item>
+      <widget class="QCheckBox" name="cbUseGlobalTrigger" >
+       <property name="text" >
+        <string>Globalen Trigger verwenden:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KLineEdit" name="leGlobalTrigger" >
+       <property name="enabled" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>Kommandos:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="KActionSelector" name="asCommandPlugins" >
+     <property name="showUpDownButtons" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KActionSelector</class>
+   <extends>QWidget</extends>
+   <header>kactionselector.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>cbUseGlobalTrigger</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>leGlobalTrigger</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>174</x>
+     <y>41</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>314</x>
+     <y>52</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

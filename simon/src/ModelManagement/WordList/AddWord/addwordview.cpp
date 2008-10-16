@@ -23,9 +23,9 @@
 #include "addwordintropage.h"
 #include "addwordrecordpage.h"
 #include "addwordresolvepage.h"
-#include "../../Grammar/grammarmanager.h"
-#include "../wordlistmanager.h"
-#include "../../modelmanager.h"
+
+#include <speechmodelmanagement/wordlistmanager.h>
+#include <speechmodelmanagement/trainingmanager.h>
 
 #include <QWizardPage>
 #include <KMessageBox>
@@ -64,7 +64,7 @@ AddWordView::AddWordView(QWidget *parent)
 	
 	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
 	connect(this, SIGNAL(rejected()), this, SLOT(cleanUp()));
-	connect(ModelManager::getInstance(), SIGNAL(missingWord(QString)), this, SLOT(askToAddWord(QString)));
+// 	connect(ModelManager::getInstance(), SIGNAL(missingWord(QString)), this, SLOT(askToAddWord(QString)));
 	connect(TrainingManager::getInstance(), SIGNAL(addMissingWords(QStringList)), this, SLOT(askToAddWords(QStringList)));
 
 	setWindowTitle(i18n("Wort hinzufügen"));

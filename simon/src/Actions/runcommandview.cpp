@@ -24,9 +24,9 @@
 #include <QTableWidgetItem>
 #include <QHeaderView>
 #include <QSize>
-#include "actionmanager.h"
+#include <simonactions/actionmanager.h>
+#include <simonactions/commandmodel.h>
 #include "newcommand.h"
-#include "commandmodel.h"
 #include "commandpreviewwidget.h"
 
 

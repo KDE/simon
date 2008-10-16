@@ -24,7 +24,7 @@
 #define sImportDict 	32
 
 
-#include "word.h"
+#include <speechmodelbase/word.h>
 #include "ui_wordlist.h"
 #include "inlinewidget.h"
 

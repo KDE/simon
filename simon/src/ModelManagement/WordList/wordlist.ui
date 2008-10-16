@@ -271,12 +271,12 @@
   <customwidget>
    <class>DragTableWidget</class>
    <extends>QTableWidget</extends>
-   <header>../../ModelManagement/WordList/dragtablewidget.h</header>
+   <header>dragtablewidget.h</header>
   </customwidget>
   <customwidget>
    <class>DropListWidget</class>
    <extends>KListWidget</extends>
-   <header>../../ModelManagement/WordList/droplistwidget.h</header>
+   <header>droplistwidget.h</header>
   </customwidget>
  </customwidgets>
  <connections/>

@@ -35,7 +35,7 @@
 */
 
 #define sAddWordView 		1
-#include "ui_main.h"
+#include "ui_simonview.h"
 #include "simonmainwindow.h"
 #include "simoncontrol.h"
 
@@ -51,6 +51,7 @@ class TrayIconManager;
 class RunCommandView;
 class QAction;
 class WordListView;
+class KCMultiDialog;
 
 
 typedef QHash<QObject*,  const char*> ActionIdent;
@@ -75,6 +76,7 @@ private:
 	WordListView *wordList; //!< Pointer on the Dialog "WordList"
 	RunCommandView *runDialog; //!< Pointer on the Dialog "RunCommand"
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
+	KCMultiDialog *configDialog;
 
 
 	void setupSignalSlots();

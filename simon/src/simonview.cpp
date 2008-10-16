@@ -23,27 +23,23 @@
 
 #include "inlinewidgetview.h"
 #include "Configuration/configurationdialog.h"
-#include "coreconfiguration.h"
+
 
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
 
 #include "Actions/runcommandview.h"
 #include "trayiconmanager.h"
-#include "ModelManagement/modelmanager.h"
+
+// #include <modelmanagement/modelmanager.h>
+#include <speechmodelmanagement/wordlistmanager.h>
+// #include <modelmanagement/modelsettings.h>
 #include "ModelManagement/Training/trainingview.h"
 #include "ModelManagement/WordList/wordlistview.h"
 #include "ModelManagement/WordList/AddWord/addwordview.h"
-#include "ModelManagement/WordList/wordlistmanager.h"
 
-#include "generalsettings.h"
-#include "ModelManagement/modelsettings.h"
 #include "ModelManagement/internetextensionsettings.h"
-#include "ModelManagement/externalprogrammanager.h"
-#include "ModelManagement/Grammar/grammarsettings.h"
-#include "RecognitionControl/networksettings.h"
 
-#include <simonsound/soundsettings.h>
 
 #include <QPixmap>
 #include <QCryptographicHash>
@@ -60,8 +56,10 @@
 #include <KStatusBar>
 #include <KPasswordDialog>
 #include <KConfigDialog>
-
-
+#include <KCMultiDialog>
+#include <KCModuleProxy>
+#include <KPageWidgetItem>
+#include <simonactions/actionmanager.h>
 
 /**
  * @brief Constructor
@@ -79,15 +77,7 @@
 SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 		:SimonMainWindow ( parent, flags )
 {
-	//FIXME: set logging path
-	if ( !Logger::init(KStandardDirs::locateLocal("appdata", "simon.log") ))
-	{
-		KMessageBox::error ( this, i18n ( "Konnte die Log-Datei nicht öffnen. Bitte überprüfen Sie die Berechtigungen.." ) );
-		exit ( 1 );
-	}
-	
 	Logger::log ( i18n ( "[INF] Starte simon..." ) );
-	
 
 	SimonInfo *info = new SimonInfo();
 
@@ -97,15 +87,19 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	Logger::log ( i18n ( "[INF] Lade Konfigurationsmodule..." ) );
 
-	ConfigurationDialog *configDialog = ConfigurationDialog::getInstance(this); //create dialog with correct parent
-	configDialog->registerManagedWidget( new GeneralSettings( parent ), i18n("Allgemein"), "computer" ); 
-	configDialog->registerManagedWidget( new InternetExtensionSettings( parent ), i18n("Interneterweiterungen"), "document-open-remote" ); 
-	configDialog->registerManagedWidget( new ModelSettings( parent ), i18n("Modell"), "applications-education-language" ); 
-	configDialog->registerManagedWidget( new GrammarSettings(parent), i18n("Grammatik"), "user-properties" );
-	configDialog->registerManagedWidget( new NetworkSettings( parent ), i18n("Netzwerk"), "network-disconnect" );
-	configDialog->registerModule( SoundSettings::getInstance(parent) );
- 	configDialog->registerManagedWidget( new ExternalProgramManager( parent ), i18n("Externe Programme"), "applications-other" ); 
+// 	ConfigurationDialog *configDialog = ConfigurationDialog::getInstance(this); //create dialog with correct parent
+// 	configDialog->registerManagedWidget( new InternetExtensionSettings( parent ), i18n("Interneterweiterungen"), "document-open-remote" );
 
+	configDialog = new KCMultiDialog(this);
+	configDialog->addModule("simongeneralconfig", QStringList() << "");
+	configDialog->addModule("simonmodelconfig", QStringList() << "");
+	configDialog->addModule("simonsoundconfig", QStringList() << "");
+	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
+	configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
+
+	KPageWidgetItem *commandSettingsItem = configDialog->addModule("simonactionsconfig", QStringList() << "");
+	KCModuleProxy *proxy = static_cast<KCModuleProxy*>(commandSettingsItem->widget());
+	ActionManager::getInstance()->setConfigurationDialog(proxy->realModule());
 
 
 	info->writeToSplash ( i18n ( "Lade Programmlogik..." ) );
@@ -154,13 +148,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	setupActions();
 
 	setupSignalSlots();
-
-
-	if ( CoreConfiguration::juliusdAutoConnect() )
-	{
-		info->writeToSplash ( i18n ( "Verbinde zu juliusd..." ) );
-		control->connectToServer();
-	}
 
 	//hiding splash again after loading
 	info->hideSplash();
@@ -265,8 +252,6 @@ void SimonView::setupSignalSlots()
 	QObject::connect ( control,SIGNAL ( guiAction ( QString ) ), ui.inlineView,SIGNAL ( guiAction ( QString ) ) );
 	connect ( control, SIGNAL(guiAction(QString)), this, SLOT(doAction(QString)));
 	connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
-	QObject::connect ( this->trainDialog, SIGNAL ( displayMe() ), this, SLOT ( showTrainDialog() ) );
-	
 	
 	//TextSync
 //	QObject::connect(ui.pbSyncTest, SIGNAL(clicked()),control, SLOT(sendFileToSyncer()));
@@ -277,9 +262,8 @@ void SimonView::setupSignalSlots()
 	connect ( trainDialog, SIGNAL ( trainingCompleted() ), wordList,
 	          SLOT ( reloadList() ) );
 
-
-	connect(ModelManager::getInstance(), SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
-	connect(ModelManager::getInstance(), SIGNAL(progress(int,int)), this, SLOT(displayProgress(int, int)));
+// 	connect(ModelManager::getInstance(), SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
+// 	connect(ModelManager::getInstance(), SIGNAL(progress(int,int)), this, SLOT(displayProgress(int, int)));
 	
 	connect ( control, SIGNAL ( connectionError ( QString ) ), this, SLOT ( errorConnecting ( QString ) ) );
 }
@@ -302,7 +286,7 @@ void SimonView::displayProgress(int cur, int max)
 
 void SimonView::compileModel()
 {
-	ModelManager::compileModel();
+// 	ModelManager::compileModel();
 }
 
 
@@ -334,8 +318,6 @@ void SimonView::errorConnecting ( QString error )
 	KMessageBox::error ( this, i18n ( "Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte(n) Fehlermeldung(en) lautete(n):\n" ) +error );
 	Logger::log ( i18n ( "[ERR] Verbindung zu juliusd fehlgeschlagen..." ) );
 }
-
-
 
 
 /**
@@ -370,7 +352,7 @@ void SimonView::showAddWordDialog ( )
  */
 void SimonView::showSystemDialog ()
 {
-	ConfigurationDialog::getInstance(this)->show();
+	configDialog->show();
 }
 
 /**
@@ -552,7 +534,7 @@ void SimonView::toggleVisibility()
 */
 void SimonView::closeSimon()
 {
-	if ( ( !CoreConfiguration::askBeforeQuit() ) || ( KMessageBox::questionYesNo ( this, i18n ( "Wirklich beenden?" ), i18n ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?" )) == KMessageBox::Yes ) )
+	if ( ( !control->askBeforeQuit() ) || ( KMessageBox::questionYesNo ( this, i18n ( "Wirklich beenden?" ), i18n ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?" )) == KMessageBox::Yes ) )
 	{
 		close();
 		qApp->quit();
@@ -584,7 +566,7 @@ void SimonView::checkSettingState()
 {
 	if ( !settingsShown )
 	{
-		if ( !CoreConfiguration::passwordProtected() || checkPassword() )
+		if ( !control->passwordProtected() || checkPassword() )
 		{
 			showSettings();
 		} else 
@@ -610,7 +592,7 @@ bool SimonView::checkPassword()
 	if( !dlg.exec() )
 		return false; //the user canceled
 		
-	return (dlg.password() == CoreConfiguration::adminPassword());
+	return (dlg.password() == control->adminPassword());
 }
 
 /**
@@ -620,8 +602,7 @@ bool SimonView::checkPassword()
 */
 void SimonView::hideSettings()
 {
-	KConfigDialog *configurationDlg = KConfigDialog::exists("coreconfiguration");
-	if (configurationDlg) configurationDlg->hide();
+	configDialog->hide();
 
 	actionCollection()->action("configuration")->setVisible(false);
 

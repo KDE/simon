@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=SystemSettingsCategory
+X-KDE-System-Settings-Category=simon
+X-KDE-System-Settings-Parent-Category=general
+Icon=simon
+
+Name=simon
+Name[de]=simon

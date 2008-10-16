@@ -29,6 +29,7 @@
 
 K_PLUGIN_FACTORY( DesktopGridPluginFactory, 
 			registerPlugin< DesktopGridCommandManager >(); 
+			registerPlugin< DesktopGridConfiguration >(); 
 		)
         
 K_EXPORT_PLUGIN( DesktopGridPluginFactory("DesktopGridCommandManager") )
@@ -37,7 +38,6 @@ K_EXPORT_PLUGIN( DesktopGridPluginFactory("DesktopGridCommandManager") )
 
 DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
 {
-	DesktopGridConfiguration::getInstance(dynamic_cast<QWidget*>(parent), QVariantList())->load();
 }
 
 const QString DesktopGridCommandManager::name() const
@@ -62,6 +62,7 @@ bool DesktopGridCommandManager::trigger(const QString& triggerName)
  
 bool DesktopGridCommandManager::load()
 {
+	DesktopGridConfiguration::getInstance(dynamic_cast<QWidget*>(parent()), QVariantList())->load();
 	return true;
 }
 

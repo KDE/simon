@@ -20,11 +20,12 @@
 
 
 #include "importtrainingtextworkingpage.h"
-#include <simonlogging/logger.h>
-#include "../xmltrainingtext.h"
 #include "importtrainingtextlocalpage.h"
 #include "xmltrainingtextlist.h"
-#include "coreconfiguration.h"
+// #include "coreconfiguration.h"
+
+#include <simonlogging/logger.h>
+// #include <speechmodelbase/trainingtext.h>
 
 #include <QFile>
 #include <QFileInfo>
@@ -32,6 +33,8 @@
 
 #include <KUrl>
 #include <KMimeType>
+#include <KStandardDirs>
+#include <KMessageBox>
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
 
@@ -164,11 +167,12 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 	QFileInfo fi = QFileInfo(path);
 
 
-	QString xmlPath = KStandardDirs::locateLocal("appdata", "texts/")+"/"+fi.fileName().left(fi.fileName().lastIndexOf("."))+".xml";
-	XMLTrainingText *text = new XMLTrainingText(xmlPath);
-	text->setTitle(field("importTrainingTextLTextname").toString());
-	text->addPages(sents);
-	text->save(xmlPath);
-	delete text;
+// 	QString xmlPath = KStandardDirs::locateLocal("appdata", "texts/")+"/"+fi.fileName().left(fi.fileName().lastIndexOf("."))+".xml";
+// 	TrainingText *text = new TrainingText(field("importTrainingTextLTextname").toString(),
+// 					       xmlPath,
+// 					       sents);
+// 	if (!text->save())
+// 		KMessageBox::error(this, i18n("Konnte Trainingstext nicht speichern"));
+// 	delete text;
 	ui.pbProgress->setValue(1);
 }

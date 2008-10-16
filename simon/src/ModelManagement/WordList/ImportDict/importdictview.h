@@ -23,7 +23,7 @@
 
 
 #include <QWizard>
-#include "../word.h"
+#include <speechmodelbase/word.h>
 
 /**
  * \class ImportDictView

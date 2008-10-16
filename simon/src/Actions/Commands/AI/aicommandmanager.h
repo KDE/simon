@@ -50,8 +50,6 @@ public:
 	bool trigger(const QString& triggerName);
 	bool addCommand(Command *) { return false; }
 
-	QStringList getAimlSets();
-
 	CommandConfiguration* getConfigurationPage();
 
     /**

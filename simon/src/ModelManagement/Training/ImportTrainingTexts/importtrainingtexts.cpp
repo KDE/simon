@@ -30,12 +30,10 @@
 #include <QRadioButton>
 #include <KPushButton>
 #include <QFileDialog>
-#include "xmltrainingtextlist.h"
 #include "importtrainingtextlocalpage.h"
 #include "importtrainingtextremotepage.h"
 #include "importtrainingtextworkingpage.h"
 #include "importtrainingtextselectsourcepage.h"
-#include "../xmltrainingtext.h"
 #include <KStandardDirs>
 
 

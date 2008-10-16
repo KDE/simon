@@ -36,7 +36,7 @@
 
 #include <QWizard>
 #include <QStringList>
-#include "../word.h"
+#include <speechmodelbase/word.h>
 
 
 class QWizardPage;

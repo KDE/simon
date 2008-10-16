@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=preferences-desktop-sound
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=libsimonsound
+
+X-KDE-FactoryName=soundsettingsfactory
+X-KDE-ParentComponents=libsimonsound
+
+X-KDE-ParentApp=simon
+X-KDE-System-Settings-Parent-Category=simon
+
+
+Name=Recordings
+Name[de]=Aufnahmen
+
+Comment=Configuration of simons Soundsystem
+Comment[de]=Konfiguration des Soundsystems von simon

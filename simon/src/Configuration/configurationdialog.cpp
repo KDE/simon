@@ -18,7 +18,7 @@
  */
 
 #include "configurationdialog.h"
-#include "coreconfiguration.h"
+// #include "coreconfiguration.h"
 
 #include <KConfigDialog>
 #include <KCModule>
@@ -38,7 +38,7 @@ KConfigDialog* ConfigurationDialog::configDialog()
 	if (!dlg) {
 		QWidget *parentWidget = dynamic_cast<QWidget*>(parent());
 
-		dlg = new KConfigDialog(parentWidget, "coreconfiguration", CoreConfiguration::self());
+// 		dlg = new KConfigDialog(parentWidget, "coreconfiguration", CoreConfiguration::self());
 	}
 	
 	return dlg;

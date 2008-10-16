@@ -20,8 +20,8 @@
 
 #include "importtrainingdata.h"
 #include <simonsound/postprocessing.h>
-#include "../trainingmanager.h"
-#include "coreconfiguration.h"
+#include <speechmodelmanagement/trainingmanager.h>
+// #include "coreconfiguration.h"
 #include <QDir>
 #include <QDate>
 #include <QTime>
@@ -38,7 +38,7 @@ void ImportTrainingData::run()
 	prog=0;
 	emit progress(0,0); //waiting...
 	emit status(i18n("Durchsuche Ordner..."));
-	QString wavDestdir = CoreConfiguration::modelTrainingsDataPath().path()+"/";
+	QString wavDestdir;// = CoreConfiguration::modelTrainingsDataPath().path()+"/";
 
 	QDir d(wavDestdir);
 	if (!d.exists())

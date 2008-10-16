@@ -42,19 +42,12 @@ int main(int argc, char *argv[])
 					      <ul><li>Franz Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Stieger Michael</ul> \
 					      </body></html>"),
 			KAboutData::License_GPL,
-			ki18n("Copyright (c) 2008 Peter Grasch, hillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
+			ki18n("Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
 	
 	KCmdLineArgs::init(argc, argv, &aboutData);
-	KUniqueApplication app;	
+	KUniqueApplication app;
 	app.setWindowIcon(KIcon("simon"));
 	app.addLibraryPath(app.applicationDirPath()+"/plugins");
-// 	QString locale = QLocale::system().name().left(2);
-
-// 	QTranslator translator;
-
-// 	translator.load(QString("simon_%1", locale));
-
-// 	app.installTranslator(&translator);
 
 	SimonView *pv = new SimonView();
 	pv->show();

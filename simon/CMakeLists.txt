@@ -1,6 +1,4 @@
 project (simon)
-
-cmake_minimum_required(VERSION 2.6)
 include(FindKDE4)
 find_package(KDE4 REQUIRED)
 
@@ -17,3 +15,5 @@ add_subdirectory(themes)
 add_subdirectory(conf)
 add_subdirectory(model)
 add_subdirectory(texts)
+
+install(FILES simon.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})

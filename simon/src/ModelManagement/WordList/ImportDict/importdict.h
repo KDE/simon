@@ -22,8 +22,8 @@
 #define IMPORTDICT_H
 
 
-#include "../word.h"
 #include "dict.h"
+#include <speechmodelbase/word.h>
 #include <QThread>
 
 class Dict;

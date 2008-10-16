@@ -20,12 +20,13 @@
 
 #include "importdictwiktionarypage.h"
 #include "simonlistwidget.h"
-#include "coreconfiguration.h"
+// #include "coreconfiguration.h"
 #include <QTextStream>
 #include <QFile>
 
 #include <KFilterDev>
 #include <KMessageBox>
+#include <KStandardDirs>
 #include <KMimeType>
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
@@ -108,8 +109,8 @@ void ImportDictWiktionaryPage::importList(QString list)
 		wikiUrl = txtList.mid(wikiStart+6, 21);
 		wikiName = txtList.mid(wikiStart+29, 12);
 		date = wikiUrl.mid(wikiUrl.indexOf("/")+1);
-		wikiUrl = 
-			CoreConfiguration::wikiDumpPrefix()+wikiUrl+"/"+wikiName+"-"+date+CoreConfiguration::wikiDumpPostfix();
+		wikiUrl = "";
+			//CoreConfiguration::wikiDumpPrefix()+wikiUrl+"/"+wikiName+"-"+date+CoreConfiguration::wikiDumpPostfix();
 		
 		txtList = txtList.mid(wikiStart+40);
 
@@ -130,7 +131,7 @@ void ImportDictWiktionaryPage::importList(QString list)
  */
 void ImportDictWiktionaryPage::loadList()
 {
-	KUrl downloadUrl(CoreConfiguration::wikiDumpOverview());
+	KUrl downloadUrl;//CoreConfiguration::wikiDumpOverview());
 	KUrl tmpPath(KStandardDirs::locateLocal("tmp", downloadUrl.fileName()));
 
 	KIO::FileCopyJob *job = KIO::file_copy(downloadUrl, tmpPath, -1, KIO::Overwrite);

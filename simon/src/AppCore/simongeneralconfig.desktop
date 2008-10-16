@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Service
+Icon=computer
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=libsimonappcore
+
+X-KDE-FactoryName=generalsettingsfactory
+X-KDE-ParentComponents=libsimonappcore
+
+X-KDE-ParentApp=simon
+X-KDE-System-Settings-Parent-Category=simon
+
+Name=General
+Name[de]=Allgemein
+
+Comment=Configuration of the general Options of simon
+Comment[de]=Konfiguration der allgemeinen simon Einstellungen

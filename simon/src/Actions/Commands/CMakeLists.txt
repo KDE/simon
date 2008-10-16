@@ -1,0 +1,8 @@
+add_subdirectory(AI)
+add_subdirectory(ATIntegration)
+add_subdirectory(commandpluginbase)
+add_subdirectory(DesktopGrid)
+add_subdirectory(Executable)
+add_subdirectory(Place)
+add_subdirectory(Shortcut)
+add_subdirectory(TextMacro)

@@ -20,9 +20,11 @@
 #include "aiconfiguration.h"
 #include "aicommandmanager.h"
 #include <QVariantList>
+#include <QDir>
 #include <kgenericfactory.h>
 #include <KAboutData>
 #include <KMessageBox>
+#include <KStandardDirs>
 
 K_PLUGIN_FACTORY_DECLARATION(AIPluginFactory)
 
@@ -60,7 +62,7 @@ void AIConfiguration::save()
 
 	if (storedAimlSet != oldStoredAimlSet)
 	{
-		manager->setupParser();
+		if (manager) manager->setupParser();
 
 		KConfigGroup cg(config, "");
 		cg.writeEntry("Personality", storedAimlSet);
@@ -80,6 +82,9 @@ void AIConfiguration::load()
 {
 	Q_ASSERT(config);
 
+	ui.cbAimlSets->clear();
+	ui.cbAimlSets->addItems(QDir(KStandardDirs::locate("data", "ai/aimls/")).entryList(QStringList(), QDir::Dirs|QDir::NoDotAndDotDot));
+
 	KConfigGroup cg(config, "");
 
 	ui.cbAimlSets->setCurrentIndex(ui.cbAimlSets->findText(cg.readEntry("Personality", "Alice")));
@@ -89,12 +94,6 @@ void AIConfiguration::load()
 	cg.sync();
 	
 	emit changed(false);
-}
-
-void AIConfiguration::setAimlSets(const QStringList& aimlSets)
-{
-	ui.cbAimlSets->clear();
-	ui.cbAimlSets->addItems(aimlSets);
 }
  
 void AIConfiguration::defaults()

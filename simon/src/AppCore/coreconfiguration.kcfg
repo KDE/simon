@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg> <kcfgfile />
+  <include>KStandardDirs</include>
+  
+  <group name="general">
+    <entry name="AskBeforeQuit" type="Bool">
+      <label>If we should ask the user before quitting simon.</label>
+      <default>true</default>
+    </entry>
+  </group>
+  
+  <group name="Security">
+    <entry name="PasswordProtected" type="Bool">
+      <label>If the user needs a password to access the administration mode.</label>
+      <default>false</default>
+    </entry>
+    <entry name="AdminPassword" type="Password">
+      <label>The password-hash for the administration mode.</label>
+      <default></default>
+    </entry>
+  </group>
+  
+  <group name="Performance">
+    <entry name="MaxConcurrentlyDisplayedWords" type="Int">
+      <label>Determines how many words should be displayed concurrently.</label>
+      <default>500</default>
+    </entry>
+  </group>
+  
+
+  <group name="Internet">
+    <entry name="TextOnlineUpdate" type="String">
+      <label>The url to the online text-list to get new trainingstexts.</label>
+      <default>http://simon.pytalhost.org/texts/list.xml</default>
+    </entry>
+    <entry name="WikiDumpOverview" type="String">
+      <label>The url to the wikimedia dump overview.</label>
+      <default>http://download.wikimedia.org/backup-index.html</default>
+    </entry>
+    <entry name="WikiDumpPrefix" type="String">
+      <label>The prefix of the wiktionary dumps.</label>
+      <default>http://download.wikimedia.org/</default>
+    </entry>
+    <entry name="WikiDumpPostfix" type="String">
+      <label>The postfix of the wiktionary dumps.</label>
+      <default>-pages-articles.xml.bz2</default>
+    </entry>
+  </group>
+</kcfg>

@@ -20,19 +20,28 @@
 
 #include "networksettings.h"
 #include "serveraddressselector.h"
+#include "recognitionconfiguration.h"
+#include <kgenericfactory.h>
 
+K_PLUGIN_FACTORY( NetworkSettingsFactory, 
+			registerPlugin< NetworkSettings >(); 
+		)
+        
+K_EXPORT_PLUGIN( NetworkSettingsFactory("NetworkSettings") )
 
 /**
  * \brief Constructor - inits the help text and the gui
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-NetworkSettings::NetworkSettings(QWidget* parent): QWidget(parent)
+NetworkSettings::NetworkSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
 	ui.setupUi(this);
 	
 	ServerAddressSelector *saSelector = new ServerAddressSelector(this);
 	ui.kcfg_JuliusdServers->setCustomEditor(*(new KEditListBox::CustomEditor(saSelector, saSelector->lineEdit())));
+
+	addConfig(RecognitionConfiguration::self(), this);
 }
 
 
