@@ -19,8 +19,8 @@
 
 
 #include "wordlistview.h"
+#include "deleteworddialog.h"
 #include "ImportDict/importdictview.h"
-#include "../WordList/RemoveWord/deleteworddialog.h"
 #include "../Training/trainingview.h"
 // #include "coreconfiguration.h"
 

@@ -22,7 +22,6 @@
 
 
 #include "inlinewidgetview.h"
-#include "Configuration/configurationdialog.h"
 
 
 #include <simonlogging/logger.h>

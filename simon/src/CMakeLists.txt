@@ -14,8 +14,7 @@ include_directories( ${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR} ${KDE4_INCLUDE_DIR
 		     ${CMAKE_CURRENT_SOURCE_DIR}/../../simonlib/speechgui
 		     ${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList
 		     ${CMAKE_CURRENT_SOURCE_DIR}/AppCore
-		     ${CMAKE_CURRENT_SOURCE_DIR}/Actions
-		     ${CMAKE_CURRENT_SOURCE_DIR}/Actions/Commands )
+		     ${CMAKE_CURRENT_SOURCE_DIR}/Actions)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Actions)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/AppCore)
@@ -35,7 +34,7 @@ set (	simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/ImportTrainingData/importtrainingdata.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/ImportTrainingData/importtrainingdirectoryintropage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/wordlistview.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/RemoveWord/deleteworddialog.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/deleteworddialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/dragtablewidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/AddWord/addwordview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/AddWord/addwordresolvepage.cpp
@@ -69,7 +68,7 @@ kde4_add_ui_files( simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/ImportTrainingTexts/importtrainingtextselectsourcepage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/ImportTrainingData/importtrainingdataintrodlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/Training/ImportTrainingData/importtrainingdataworkingdlg.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/RemoveWord/removeword.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/removeword.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/AddWord/addwordintropage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/AddWord/addwordrecordpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ModelManagement/WordList/AddWord/resolvewordpage.ui

@@ -19,13 +19,14 @@
 
 #include "newcommand.h"
 
+#include <commandpluginbase/command.h>
+#include <commandpluginbase/createcommandwidget.h>
+#include <simonactions/actionmanager.h>
+
 #include <KUrl>
 #include <KMessageBox>
 #include <KKeySequenceWidget>
 #include <KDialogButtonBox>
-#include "Commands/commandpluginbase/command.h"
-#include "Commands/commandpluginbase/createcommandwidget.h"
-#include <simonactions/actionmanager.h>
 
 NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
 {
