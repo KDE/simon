@@ -19,6 +19,7 @@
 
 #include "internetextensionsettings.h"
 #include <kgenericfactory.h>
+#include <KGlobal>
 
 K_PLUGIN_FACTORY( InternetExtensionSettingsFactory, 
 			registerPlugin< InternetExtensionSettings >(); 
@@ -26,7 +27,7 @@ K_PLUGIN_FACTORY( InternetExtensionSettingsFactory,
         
 K_EXPORT_PLUGIN( InternetExtensionSettingsFactory("InternetExtensionSettings") )
 
-InternetExtensionSettings::InternetExtensionSettings(QWidget* parent, const QVariantList &args): QWidget(parent)
+InternetExtensionSettings::InternetExtensionSettings(QWidget* parent, const QVariantList &args): KCModule(KGlobal::mainComponent(), parent, args)
 {
 	Q_UNUSED(args);
 

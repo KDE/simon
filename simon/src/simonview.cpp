@@ -87,10 +87,10 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	configDialog = new KCMultiDialog(this);
 	configDialog->addModule("simongeneralconfig", QStringList() << "");
-	configDialog->addModule("simonmodelconfig", QStringList() << "");
 	configDialog->addModule("simonsoundconfig", QStringList() << "");
-	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
 	configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
+	configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
+	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
 
 	KPageWidgetItem *commandSettingsItem = configDialog->addModule("simonactionsconfig", QStringList() << "");
 	if (commandSettingsItem)

@@ -22,12 +22,12 @@
 #define INTERNETEXTENSIONSETTINGS_H
 
 #include "ui_internetextensiondlg.h"
-#include <QWidget>
+#include <KCModule>
 #include <QVariantList>
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class InternetExtensionSettings : public QWidget
+class InternetExtensionSettings : public KCModule
 {
 Q_OBJECT
 private:

@@ -70,3 +70,6 @@ install( FILES ${simonmodelmanagement_LIB_HDRS}
  
 install( TARGETS simonmodelmanagement  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 install( FILES simonspeechmodelmanagementconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagementconfiguration.kcfg DESTINATION  ${KCFG_INSTALL_DIR} )
+
+	

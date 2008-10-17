@@ -21,17 +21,17 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonrecognitioncontrol)
 
 set (	simonGeneralSources
-	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui/commandpreviewwidget.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui/newcommand.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui/runcommandview.cpp
+# 	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui/commandpreviewwidget.cpp
+# 	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui/newcommand.cpp
+# 	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui/runcommandview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
 kde4_add_ui_files( simonGeneralSources
-	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui/rundialog.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui/modifycommands.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui/commandpreviewwidget.ui
+# 	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui/rundialog.ui
+# 	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui/modifycommands.ui
+# 	${CMAKE_CURRENT_SOURCE_DIR}/simonactionsui/commandpreviewwidget.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.ui
 )
 
@@ -49,7 +49,7 @@ kde4_add_executable( simon ${simonGeneralSources} )
 target_link_libraries( simon ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS}
 ${QT_LIBRARIES} ${KDE4_KUTILS_LIBS} simonappcore simoninfo
 simonlogging simonxml speechgui simonsound simonmodelmanagementui 
-simonrecognitioncontrol simonactions)
+simonrecognitioncontrol simonactionsui)
 
 install (TARGETS simon DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR})
