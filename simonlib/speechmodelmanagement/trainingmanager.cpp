@@ -29,14 +29,16 @@
 #include <QDir>
 #include <QStringList>
 #include <QString>
-// #include <KMessageBox>
+// #include <QCryptographicHash>
 #include <QObject>
 #include <QDate>
 #include <QTextStream>
 #include <QVariant>
 #include <QTime>
+#include <QRegExp>
 #include <KLocalizedString>
 #include <KStandardDirs>
+#include <QDebug>
 #include <math.h>
 
 
@@ -56,6 +58,47 @@ TrainingManager::TrainingManager(QObject *parent) : QObject(parent)
 	sampleHash = new QHash<QString, QString>();
 // 	connect(ModelManager::getInstance(), SIGNAL(sampleWithoutWord(QString)), this, SLOT(askDeleteLonelySample(QString)));
 }
+
+
+QHash<QString, QString> TrainingManager::getTransferTrainingMap()
+{
+	Q_ASSERT(promptsTable);
+	
+	QHash<QString, QString> trainingMap;
+	QString sampleDir = KStandardDirs::locateLocal("tmp", "simonsamplestosend/");
+	QStringList filesToTransfer = QDir(sampleDir).entryList(QStringList() << "*.wav", QDir::Files);
+	foreach (QString file, filesToTransfer)
+	{
+		QString fileBaseName = file.remove(sampleDir).remove(QRegExp("\\.wav$"));
+		qDebug() << fileBaseName;
+		trainingMap.insert(file, promptsTable->value("fileBaseName"));
+	}
+	return trainingMap;
+}
+
+
+/**
+ * \brief Returns a map of filename -> Hash combinations of all the trainingssamples
+ * \author Peter Grasch
+ * \note The filename is _NOT_ the full path but rather relative to the configured training directory
+ */
+// QHash<QString, QString> TrainingManager::getTrainingsDataHashes()
+// {
+// 	QStringList fileNames = promptsTable->keys();
+// 	QHash<QString, QString> hashes;
+// 	QString hash;
+// 	QString basePath = SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+QDir::separator();
+// 	foreach (QString file, fileNames)
+// 	{
+// 		QFile f(basePath+file+".wav");
+// 		qDebug() << basePath+file+".wav";
+// 		if (!f.open(QIODevice::ReadOnly))
+// 			qDebug() << "DESASTER!";
+// 		hashes.insert(file, QCryptographicHash::hash(f.readAll(),QCryptographicHash::Md4));
+// 	}
+// 	qDebug() << hashes;
+// 	return hashes;
+// }
 
 TrainingManager* TrainingManager::getInstance()
 {

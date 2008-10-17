@@ -26,6 +26,7 @@ set( simonmodelmanagement_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminal.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/xmltrainingtext.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
 )
 

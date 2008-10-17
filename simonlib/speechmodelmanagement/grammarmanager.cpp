@@ -25,7 +25,7 @@
 #include <KLocalizedString>
 #include <simonlogging/logger.h>
 #include "wordlistmanager.h"
-// #include "modelmanager.h"
+#include "speechmodelmanagementconfiguration.h"
 
 
 
@@ -42,7 +42,7 @@ GrammarManager::GrammarManager() : QObject()
 }
 
 
-void GrammarManager::unknownWordClass(QString name)
+void GrammarManager::unknownWordClass(const QString& name)
 {
 // 	KMessageBox::error(0, i18n("Der Terminal \"%1\" kommt in Ihrere Grammatikdefinition vor, nicht aber in der Wortliste.\n\nDies ist nicht gültig.\n\nBitte fügen Sie entweder ein Wort dieses Terminals zu Ihrem aktiven Wortschatz hinzu oder löschen Sie das betreffende Satzkonstrukt.", name), i18n("Nicht benutzte Wortklasse"));
 }
@@ -88,7 +88,7 @@ GrammarManager * GrammarManager::getInstance()
  * @param terminal The terminal to renmae
  * @param newName The new name
  */
-void GrammarManager::renameTerminal(QString terminal, QString newName)
+void GrammarManager::renameTerminal(QString terminal, const QString& newName)
 {
 	//make the terminal regex-able :)
 	terminal.replace(".", "\\.");
@@ -120,7 +120,7 @@ void GrammarManager::renameTerminal(QString terminal, QString newName)
  * @param count How many examples do we want?
  * @return Examples
  */
-QStringList GrammarManager::getExamples(QString word, QString terminal, int count, bool includeShadow)
+QStringList GrammarManager::getExamples(const QString& word, const QString& terminal, int count, bool includeShadow)
 {
 	QStringList grammarStructures = getStructures(terminal);
 
@@ -205,17 +205,27 @@ QStringList GrammarManager::getTerminals()
  * @param terminal The terminal to lok for
  * @return The structures
  */
-QStringList GrammarManager::getStructures(QString terminal)
+QStringList GrammarManager::getStructures(const QString& terminal)
 {
 	QStringList matching;
 	int i=0;
-	QStringList structures;// = CoreConfiguration::grammarStructures();
+	QStringList structures = getStructures();// = CoreConfiguration::grammarStructures();
 	while (i < structures.count())
 	{
 		if(structures[i].contains(terminal)) matching << structures[i];
 		i++;
 	}
 	return matching;
+}
+
+QStringList GrammarManager::getStructures()
+{
+	return SpeechModelManagementConfiguration::grammarStructures();
+}
+
+void GrammarManager::setStructures(const QStringList &structures)
+{
+	SpeechModelManagementConfiguration::setGrammarStructures(structures);
 }
 
 /**

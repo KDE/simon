@@ -22,6 +22,7 @@
 
 #include "inlinewidget.h"
 #include "ui_rundialog.h"
+#include "simonactionsui_export.h"
 
 class Command;
 class RunCommand;
@@ -35,7 +36,7 @@ class CommandPreviewWidget;
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class RunCommandView : public InlineWidget {
+class SIMONACTIONSUI_EXPORT RunCommandView : public InlineWidget {
 	Q_OBJECT
 
 private:

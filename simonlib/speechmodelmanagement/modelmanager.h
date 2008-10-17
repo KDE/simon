@@ -17,26 +17,23 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <kapplication.h>
-#include <kaboutdata.h>
-#include <kcmdlineargs.h>
-#include <KDE/KLocale>
 
-static const char description[] =
-    I18N_NOOP("The simon recognition daemon");
+#ifndef MODELMANAGER_H
+#define MODELMANAGER_H
 
-static const char version[] = "0.1";
+#include "simonacousticmodelmanagement_export.h"
 
-int main(int argc, char **argv)
+class ModelContainer;
+
+class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager
 {
-    KAboutData about("simond", 0, ki18n("simond"), version, ki18n(description),
-                     KAboutData::License_GPL, ki18n("(C) 2007 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
-    about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
-    KCmdLineArgs::init(argc, argv, &about);
+	public:
+		ModelManager();
 
+		static ModelContainer* createContainer();
 
-    KApplication app;
-    
+		~ModelManager();
+		
+};
 
-    return app.exec();
-}
+#endif

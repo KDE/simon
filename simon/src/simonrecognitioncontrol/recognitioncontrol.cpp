@@ -62,6 +62,12 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 		startConnecting();
 }
 
+
+bool RecognitionControl::requestModelCompilation(ModelContainer *model)
+{
+	return true;
+}
+
 void RecognitionControl::startConnecting()
 {
 	if (socket->state() != QAbstractSocket::UnconnectedState)

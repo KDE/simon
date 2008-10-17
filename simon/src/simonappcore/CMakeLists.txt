@@ -1,6 +1,6 @@
 include(FindQt4)
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib )
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
@@ -19,7 +19,8 @@ kde4_add_kcfg_files(simonappcore_LIB_SRCS coreconfiguration.kcfgc)
 
 kde4_add_library( simonappcore  SHARED ${simonappcore_LIB_SRCS} )
 target_link_libraries( simonappcore ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
-simoninfo simonlogging speechgui simonrecognitioncontrol simonactions)
+simoninfo simonlogging speechgui simonrecognitioncontrol simonactions
+simonmodelmanagement)
 
 
 set_target_properties( simonappcore

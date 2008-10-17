@@ -22,6 +22,10 @@
 
 #include <simonrecognitioncontrol/recognitioncontrol.h>
 #include <simonactions/actionmanager.h>
+
+#include <speechmodelmanagement/modelmanager.h>
+#include <speechmodelbase/modelcontainer.h>
+
 #include "coreconfiguration.h"
 
 #include <KMessageBox>
@@ -47,11 +51,13 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	QObject::connect(recognitionControl, SIGNAL(disconnected()), this, SLOT(disconnectedFromServer()));
 	QObject::connect(recognitionControl, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
 
-	QObject::connect(recognitionControl, SIGNAL(error(QString,bool)), this, SLOT(serverError(QString,bool)));
-	QObject::connect(recognitionControl, SIGNAL(warning(QString)), this, SLOT(serverWarning(QString)));
+	QObject::connect(recognitionControl, SIGNAL(status(const QString&)), this, SIGNAL(statusInfo(const QString&)));
+	QObject::connect(recognitionControl, SIGNAL(progress(int, int)), this, SIGNAL(progressInfo(int,int)));
+	QObject::connect(recognitionControl, SIGNAL(error(const QString&,bool)), this, SLOT(serverError(QString,bool)));
+	QObject::connect(recognitionControl, SIGNAL(warning(const QString&)), this, SLOT(serverWarning(QString)));
 	QObject::connect(recognitionControl, SIGNAL(loggedIn()), this, SLOT(loggedIn()));
 	
-	QObject::connect(recognitionControl, SIGNAL(recognised(QString,QString,QString)), this, SLOT(wordRecognised(QString,QString,QString)));
+	QObject::connect(recognitionControl, SIGNAL(recognised(const QString&,const QString&,const QString&)), this, SLOT(wordRecognised(QString,QString,QString)));
 }
 
 bool SimonControl::passwordProtected()
@@ -184,7 +190,7 @@ void SimonControl::abortConnecting()
 void SimonControl::errorConnecting(QString error)
 {
 	setStatus(Disconnected);
-	emit connectionError(error);
+	emit statusError(i18n ( "Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte(n) Fehlermeldung(en) lautete(n):\n" ) +error );
 }
 
 
@@ -196,7 +202,6 @@ void SimonControl::errorConnecting(QString error)
  */
 SimonControl::SystemStatus SimonControl::toggleActivition()
 {
-// 	if (!recognitionControl->isConnected()) return false;
 	if ((status != SimonControl::Disconnected) && (status != SimonControl::Connecting))
 	{
 		if (status==SimonControl::ConnectedActivated)
@@ -236,11 +241,32 @@ SimonControl::SystemStatus SimonControl::deactivateSimon()
 	return status;
 }
 
-// void SimonControl::sendFileToSyncer()
-// {
-// 	recognitionControl->sendSyncFile("fileone.txt");
-// }
-
+void SimonControl::compileModel()
+{
+	emit statusInfo(i18n("Starte Synchronisation..."));
+	
+// 	int modelSampleRate=1;
+// 	int modelChannels=1;
+// 	QString modelWavConfig;
+// 	
+// 	QStringList grammarStructures = GrammarManager::getInstance()->getStructures();
+// 	WordList *simpleVocab = WordListManager::getInstance()->getSimpleVocab();
+// 
+// 	QString treeHed;
+// 	QHash<QString,QString> trainingsMap = TrainingManager::getInstance()->getTransferTrainingMap();
+// 	
+	
+	
+	ModelContainer *model = ModelManager::createContainer(); //new ModelContainer(modelSampleRate, modelChannels, modelWavConfig,
+			       //grammarStructures, simpleVocab, treeHed, trainingsMap);
+	if (!model) emit statusError(i18n("Konnte Modellcontainer nicht erstellen"));
+	
+	bool succ = recognitionControl->requestModelCompilation(model);
+	
+	if (succ)
+		emit statusInfo(i18n("Synchronisation gestartet"));
+	else emit statusInfo(i18n("Konnte Synchronisation nicht starten"));
+}
 
 /**
  * @brief Destructor

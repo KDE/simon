@@ -82,9 +82,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	Logger::log ( i18n ( "[INF] Lade Konfigurationsmodule..." ) );
 
-// 	ConfigurationDialog *configDialog = ConfigurationDialog::getInstance(this); //create dialog with correct parent
-// 	configDialog->registerManagedWidget( new InternetExtensionSettings( parent ), i18n("Interneterweiterungen"), "document-open-remote" );
-
 	configDialog = new KCMultiDialog(this);
 	configDialog->addModule("simongeneralconfig", QStringList() << "");
 	configDialog->addModule("simonsoundconfig", QStringList() << "");
@@ -218,7 +215,7 @@ void SimonView::setupActions()
 	recompile->setShortcut(Qt::CTRL + Qt::Key_F5);
 	actionCollection()->addAction("compileModel", recompile);
 	connect(recompile, SIGNAL(triggered(bool)),
-		this, SLOT(compileModel()));
+		control, SLOT(compileModel()));
 	
 	KAction* systemMode = new KAction(this);
 	systemMode->setCheckable(true);
@@ -250,20 +247,14 @@ void SimonView::setupSignalSlots()
 	QObject::connect ( control,SIGNAL ( guiAction ( QString ) ), ui.inlineView,SIGNAL ( guiAction ( QString ) ) );
 	connect ( control, SIGNAL(guiAction(QString)), this, SLOT(doAction(QString)));
 	connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
-	
-	//TextSync
-//	QObject::connect(ui.pbSyncTest, SIGNAL(clicked()),control, SLOT(sendFileToSyncer()));
-	//______
+	connect ( control, SIGNAL(statusInfo(const QString&)), this, SLOT(displayStatus(const QString&)));
+	connect ( control, SIGNAL(statusError(const QString&)), this, SLOT(displayError(const QString&)));
+	connect ( control, SIGNAL(progressInfo(int, int)), this, SLOT(displayProgress(int, int)));
 
 	connect ( addWordView, SIGNAL ( addedWord() ), wordList,
 	          SLOT ( reloadList() ) );
 	connect ( trainDialog, SIGNAL ( trainingCompleted() ), wordList,
 	          SLOT ( reloadList() ) );
-
-// 	connect(ModelManager::getInstance(), SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
-// 	connect(ModelManager::getInstance(), SIGNAL(progress(int,int)), this, SLOT(displayProgress(int, int)));
-	
-	connect ( control, SIGNAL ( connectionError ( QString ) ), this, SLOT ( errorConnecting ( QString ) ) );
 }
 
 void SimonView::displayStatus(const QString &status)
@@ -279,12 +270,8 @@ void SimonView::displayConnectionStatus(const QString &status)
 void SimonView::displayProgress(int cur, int max)
 {
 	ui.pbProgress->setMaximum(max);
-	ui.pbProgress->setValue(cur);
-}
-
-void SimonView::compileModel()
-{
-// 	ModelManager::compileModel();
+	if (max != -1)
+		ui.pbProgress->setValue(cur);
 }
 
 
@@ -304,17 +291,16 @@ void SimonView::toggleConnection()
 
 
 /**
- * \brief Error connecting to the server
+ * \brief An error occured
  *
  * @author Peter Grasch
  *
  * \param  error
  * The error that occurred
  */
-void SimonView::errorConnecting ( QString error )
+void SimonView::displayError ( const QString& error )
 {
-	KMessageBox::error ( this, i18n ( "Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte(n) Fehlermeldung(en) lautete(n):\n" ) +error );
-	Logger::log ( i18n ( "[ERR] Verbindung zu juliusd fehlgeschlagen..." ) );
+	KMessageBox::error ( this, error );
 }
 
 

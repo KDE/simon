@@ -59,9 +59,7 @@ typedef QHash<QObject*,  const char*> ActionIdent;
 class SimonView : public SimonMainWindow    {
 	
 	Q_OBJECT
-	
-private slots:
-	void compileModel();
+
 
 private:
 	bool settingsShown;
@@ -94,7 +92,7 @@ public slots:
 	void closeSimon();
 	
 	void toggleConnection();
-	void errorConnecting(QString error);
+	void displayError(const QString& error);
 	
 	void toggleActivation();
 	void representState(SimonControl::SystemStatus status);

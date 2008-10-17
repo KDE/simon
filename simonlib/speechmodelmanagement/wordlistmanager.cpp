@@ -20,6 +20,7 @@
 
 #include "wordlistmanager.h"
 #include "trainingmanager.h"
+#include "grammarmanager.h"
 #include <simonlogging/logger.h>
 
 #include <QObject>
@@ -121,7 +122,25 @@ WordList* WordListManager::getWordsByTerminal(const QString& terminal, bool incl
 	return out;
 }
 
+/**
+ * \brief Returns a copy of the active dict which only contains words with a terminal that is used in the grammar
+ * \author Peter Grasch
+ */
+WordList* WordListManager::getSimpleVocab()
+{
+	QStringList usedTerminals = GrammarManager::getInstance()->getTerminals();
 
+	WordList *simpleList = new WordList();
+	for (int i=0; i < usedTerminals.count(); i++)
+	{
+		WordList *tempList = getWordsByTerminal(usedTerminals[i]);
+		foreach (Word w, *tempList)
+			simpleList->append(w);
+		delete tempList;
+	}
+	
+	return simpleList;
+}
 
 /**
  * \brief Warns about changing a temporary wordlist (when the path is not correctly configured)

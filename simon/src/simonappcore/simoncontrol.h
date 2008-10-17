@@ -75,9 +75,11 @@ public:
 signals:
 	void connected();
 	void disconnected();
-	void connectionError(QString error);
-	void guiAction(QString action);
+	void guiAction(const QString& action);
 	void systemStatusChanged(SimonControl::SystemStatus);
+	void statusInfo(const QString&);
+	void statusError(const QString&);
+	void progressInfo(int now, int max=-1);
 	
 public slots:
 	void connectToServer();
@@ -88,9 +90,7 @@ public slots:
 	void abortConnecting();
 	void errorConnecting(QString error);
 
-	//TextSync
-// 	void sendFileToSyncer();
-	//_______
+	void compileModel();
 
 private slots:
 	void serverError(QString error,bool skippable);

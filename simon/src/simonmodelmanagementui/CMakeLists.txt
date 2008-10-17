@@ -1,6 +1,6 @@
 include(FindQt4)
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib/speechmodelmanagement ${KCFG_INSTALL_DIR} )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
@@ -46,8 +46,8 @@ set( simonmodelmanagementui_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui_export.h
 )
 
-kde4_add_kcfg_files(simonmodelmanagementui_LIB_SRCS
-	  ${KCFG_INSTALL_DIR}/speechmodelmanagementconfiguration.kcfgc)
+# kde4_add_kcfg_files(simonmodelmanagementui_LIB_SRCS
+# 	  speechmodelmanagementconfiguration.kcfgc)
 
 kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/internetextensiondlg.ui
@@ -72,7 +72,7 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 kde4_add_library( simonmodelmanagementui  SHARED ${simonmodelmanagementui_LIB_SRCS} )
 
 target_link_libraries( simonmodelmanagementui ${QT_LIBRARIES}
-${KDE4_KDEUI_LIBS} speechgui simonmodelmanagement
+${KDE4_KDEUI_LIBS} speechgui simonmodelmanagement simoninfo
 simonsound )
 
 

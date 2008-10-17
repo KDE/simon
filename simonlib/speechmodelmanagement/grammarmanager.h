@@ -38,20 +38,22 @@ protected:
 	GrammarManager();
 
 public slots:
-	void unknownWordClass(QString name);
+	void unknownWordClass(const QString& name);
 public:
+	QStringList getStructures();
+	void setStructures(const QStringList& structures);
 
 	static GrammarManager* getInstance();
 
 // 	bool load();
 // 	bool save();
 
-	QStringList getStructures(QString terminal);
+	QStringList getStructures(const QString& terminal);
 	QStringList getTerminals();
 
-	void renameTerminal(QString terminal, QString newName);
+	void renameTerminal(QString terminal, const QString& newName);
 
-	QStringList getExamples(QString word, QString terminal, int count=2, bool includeShadow=false);
+	QStringList getExamples(const QString& word, const QString& terminal, int count=2, bool includeShadow=false);
 
 };
 

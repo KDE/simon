@@ -81,6 +81,7 @@ public:
 	void safelyInit();
 	void run();
 
+	WordList* getSimpleVocab();
 
 	bool saveWordList(WordList *list, const QString& lexiconFilename, const QString& vocabFilename);
 

@@ -18,3 +18,20 @@
  */
 
 #include "modelcontainer.h"
+
+ModelContainer::ModelContainer(int sampleRate, int channels, const QString& wavConfig,
+			       const QStringList& grammarStructures, WordList *simpleVocab,
+			       const QString& treeHed,
+			       const QHash<QString,QString>& trainingsMap) : 
+	m_sampleRate(sampleRate), m_channels(channels), m_wavConfig(wavConfig), 
+	m_grammarStructures(grammarStructures), m_simpleVocab(simpleVocab), 
+	m_treeHed(treeHed), m_trainingsMap(trainingsMap)
+{
+	
+}
+
+
+ModelContainer::~ModelContainer()
+{
+	delete m_simpleVocab;
+}

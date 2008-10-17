@@ -15,5 +15,3 @@ set ( simon_model_files
 	)
 
 install( FILES ${simon_model_files}  DESTINATION ${DATA_INSTALL_DIR}/simon/model )
-
-add_subdirectory(scripts)

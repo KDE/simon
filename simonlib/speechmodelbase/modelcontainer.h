@@ -24,39 +24,37 @@
 #include <QString>
 #include <QHash>
 #include <QStringList>
-#include <QIODevice>
 #include "speechmodelbase_export.h"
+#include "word.h"
 
 class SPEECHMODELBASE_EXPORT ModelContainer
 {
 	private:
-		int sampleRate, channels;
-		QString wav_config;
+		int m_sampleRate, m_channels;
+		QString m_wavConfig;
 	
-		QStringList grammarStructures;
-		//simpleVocab?
-		QStringList phonemSet;
-		QString treeHed;
+		QStringList m_grammarStructures;
+		WordList *m_simpleVocab;
+		QString m_treeHed;
 
-		QHash<QString, QString> prompts;
-		QHash<QString, QString> trainingsDataHashes;
+		QHash<QString, QString> m_trainingsMap;
+
+	public:
+		ModelContainer(int sampleRate, int channels, const QString& wavConfig,
+			       const QStringList& grammarStructures, WordList *simpleVocab,
+			       const QString& treeHed,
+			       const QHash<QString,QString>& trainingsMap);
+			       
+		~ModelContainer();
 		
-// 		WordList
-/*
-=====Sound=====
-SampleRate
-Kanäle
-wav_config
-
-=====Language Model=====
-Grammatik
-Simple Vokabeln (nur Wörter deren Terminal in der Grammatik vorkommt)
-Phonemset
-tree1.hed
-
-=====Training=====
-Prompts
-Trainingsdaten**/
+		int sampleRate() { return m_sampleRate; }
+		int channels() { return m_channels; }
+		QString wavConfig() { return m_wavConfig; }
+		QStringList grammarStructures() { return m_grammarStructures; }
+		WordList* simpleVocab() { return m_simpleVocab; }
+		QString treeHed() { return m_treeHed; }
+		QHash<QString,QString> trainingsMap() { return m_trainingsMap; }
+		
 };
 
 #endif

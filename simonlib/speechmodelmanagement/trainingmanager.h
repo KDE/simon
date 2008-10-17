@@ -78,6 +78,9 @@ Q_OBJECT
 		bool deletePrompt ( QString key );
 		bool savePrompts(bool recompiledLater=false);
 
+		QHash<QString, QString> getTransferTrainingMap();
+// 		QHash<QString, QString> getTrainingsDataHashes();
+
 		/**
 		 * @brief Getter method for the QList of training texts
 		 *

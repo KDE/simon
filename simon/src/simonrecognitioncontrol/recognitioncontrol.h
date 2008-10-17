@@ -27,6 +27,7 @@
 
 class QSslSocket;
 class QTimer;
+class ModelContainer;
 
 const qint8 protocolVersion=0;
 
@@ -61,15 +62,17 @@ signals:
 	  If the error is technically not fatal, but is made fatal by setting this configuration item to false, 
 	  skippable is true
 	*/
-	void error(QString errStr, bool skippable=false);
-	void connectionError(QString errStr);
-	void warning(QString);
+	void error(const QString& errStr, bool skippable=false);
+	void connectionError(const QString& errStr);
+	void warning(const QString&);
+	void status(const QString&);
+	void progress(int now, int max=-1);
 
 	/*-----------------user management-----------------*/
 	void loggedIn();
 
 	/*-------------------recognition-------------------*/
-	void recognised(QString, QString sampa, QString samparaw);
+	void recognised(const QString&, const QString& sampa, const QString& samparaw);
 	
 
 
@@ -77,6 +80,7 @@ signals:
 public slots:
 	void disconnectFromServer();
 	void startConnecting();
+	bool requestModelCompilation(ModelContainer *model);
 
 private slots:
 	void sendRequest (qint32 request);
