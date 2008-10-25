@@ -17,35 +17,17 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "modelcontainer.h"
+#include "trainingcontainer.h"
 
-ModelContainer::ModelContainer(int sampleRate, int channels, QIODevice* wavConfig,
-				QIODevice* grammarStructures, 
-				QIODevice* simpleVocab, QIODevice* activeVocab,
-				QIODevice* activeLexicon, QIODevice* shadowVocab, 
-				QIODevice* shadowLexicon, QIODevice* treeHed,
-				const QHash<QString,QString>& trainingsMap) : 
+TrainingContainer::TrainingContainer(int sampleRate, int channels, const QByteArray& wavConfig,
+				const QByteArray& prompts) : 
 	m_sampleRate(sampleRate), m_channels(channels), m_wavConfig(wavConfig), 
-	m_grammarStructures(grammarStructures),m_simpleVocab(simpleVocab),
-	m_activeVocab(activeVocab), m_activeLexicon(activeLexicon), 
-	m_shadowVocab(shadowVocab), m_shadowLexicon(shadowLexicon), 
-	m_treeHed(treeHed), m_trainingsMap(trainingsMap)
+	m_prompts(prompts)
 {
 	
 }
 
 
-ModelContainer::~ModelContainer()
+TrainingContainer::~TrainingContainer()
 {
-	delete m_wavConfig;
-
-	delete m_grammarStructures;
-	
-	delete m_simpleVocab;
-	delete m_activeVocab;
-	delete m_shadowVocab;
-	delete m_activeLexicon;
-	delete m_shadowLexicon;
-	
-	delete m_treeHed;
 }
