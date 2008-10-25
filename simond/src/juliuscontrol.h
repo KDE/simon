@@ -17,32 +17,20 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "internetextensionsettings.h"
-#include <KGlobal>
+#ifndef JULIUSCONTROL_H
+#define JULIUSCONTROL_H
 
+#include "recognitioncontrol.h"
 
-InternetExtensionSettings::InternetExtensionSettings(QWidget* parent, const QVariantList &args): KCModule(KGlobal::mainComponent(), parent, args)
+class JuliusControl : public RecognitionControl
 {
-	Q_UNUSED(args);
+	Q_OBJECT
 
-	ui.setupUi(this);
+	public:
+		JuliusControl(QObject *parent=0);
+      
+		~JuliusControl();
+		
+};
 
-	connect(ui.kcfg_WikiDumpPrefix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
-	connect(ui.kcfg_WikiDumpPostfix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
-
-	makeExample();
-}
-
-
-InternetExtensionSettings::~InternetExtensionSettings()
-{
-}
-
-void InternetExtensionSettings::makeExample()
-{
-	QString example;
-	example += ui.kcfg_WikiDumpPrefix->text();
-	example += "xxwiktionary/xxxxxxxx";
-	example += ui.kcfg_WikiDumpPostfix->text();
-	ui.lbExample->setText(example);
-}
+#endif

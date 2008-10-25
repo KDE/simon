@@ -17,32 +17,20 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "internetextensionsettings.h"
-#include <KGlobal>
+#ifndef MODELCOMPILATIONMANAGER_H
+#define MODELCOMPILATIONMANAGER_H
 
+#include <QObject>
 
-InternetExtensionSettings::InternetExtensionSettings(QWidget* parent, const QVariantList &args): KCModule(KGlobal::mainComponent(), parent, args)
+class ModelCompilationManager : public QObject
 {
-	Q_UNUSED(args);
+	Q_OBJECT
 
-	ui.setupUi(this);
+	public:
+		ModelCompilationManager(QObject *parent=0);
+			       
+		~ModelCompilationManager();
+		
+};
 
-	connect(ui.kcfg_WikiDumpPrefix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
-	connect(ui.kcfg_WikiDumpPostfix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
-
-	makeExample();
-}
-
-
-InternetExtensionSettings::~InternetExtensionSettings()
-{
-}
-
-void InternetExtensionSettings::makeExample()
-{
-	QString example;
-	example += ui.kcfg_WikiDumpPrefix->text();
-	example += "xxwiktionary/xxxxxxxx";
-	example += ui.kcfg_WikiDumpPostfix->text();
-	ui.lbExample->setText(example);
-}
+#endif

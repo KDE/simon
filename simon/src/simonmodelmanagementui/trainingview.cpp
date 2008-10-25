@@ -52,6 +52,9 @@ TrainingView::TrainingView ( QWidget *parent )
 		: InlineWidget ( i18n ( "Training" ), KIcon ( "view-pim-news" ),
 		                 i18n ( "Trainieren des Sprachmodells" ), parent )
 {
+	trainMgr = TrainingManager::getInstance();
+	trainMgr->init();
+
 	ui.setupUi ( this );
 	recorder=0;
 	guessChildTriggers ( ( QObject* ) this );
@@ -72,9 +75,9 @@ TrainingView::TrainingView ( QWidget *parent )
 	connect ( ui.pbImportDir, SIGNAL ( clicked() ), this, SLOT ( importDirectory() ) );
 
 	currentPage=0;
-	import = new ImportTrainingTexts();;
-	trainMgr = TrainingManager::getInstance();
+	import = new ImportTrainingTexts();
 	connect(trainMgr, SIGNAL(trainingFinished()), this, SLOT(backToMain()));
+	connect(trainMgr, SIGNAL(trainingDataChanged()), this, SLOT(loadList()));
 	loadList();
 
 
@@ -218,7 +221,7 @@ void TrainingView::finish()
 void TrainingView::fetchPage ( int page )
 {
 	QString keyStr;
-	QStringList samplenames = trainMgr->getSampleHash()->keys();
+	QStringList samplenames = trainMgr->getSampleHash().keys();
 	if (samplenames.count() < page) return;
 	keyStr = samplenames.at(page);
 
@@ -352,7 +355,7 @@ void TrainingView::cleanUpTrainingSamples()
 		/*QString textName = trainMgr->getTextName();
 		textName.replace(QString(" "), QString("_"));
 		QStringList filteredList = list.filter(QRegExp(QString(textName+"_S"+QString::number(i)+"_"+QString(qvariant_cast<QString>(QDate::currentDate()))+"_*.wav")));*/
-		QHashIterator<QString, QString> hIterator ( *trainMgr->getSampleHash() );
+		QHashIterator<QString, QString> hIterator ( trainMgr->getSampleHash() );
 		while ( hIterator.hasNext() )
 		{
 			hIterator.next();
@@ -360,7 +363,7 @@ void TrainingView::cleanUpTrainingSamples()
 			if ( f.exists() )
 				f.remove();
 		}
-		trainMgr->getSampleHash()->clear();
+		trainMgr->clearSampleHash();
 	}
 }
 

@@ -21,38 +21,49 @@
 #ifndef MODELCONTAINER_H
 #define MODELCONTAINER_H
 
+#include "speechmodelbase_export.h"
+
 #include <QString>
 #include <QHash>
-#include <QStringList>
-#include "speechmodelbase_export.h"
-#include "word.h"
 
 class SPEECHMODELBASE_EXPORT ModelContainer
 {
 	private:
 		int m_sampleRate, m_channels;
-		QString m_wavConfig;
+		QIODevice* m_wavConfig;
 	
-		QStringList m_grammarStructures;
-		WordList *m_simpleVocab;
-		QString m_treeHed;
+		QIODevice* m_grammarStructures;
+		
+		QIODevice* m_simpleVocab;
+		QIODevice* m_activeVocab;
+		QIODevice* m_activeLexicon;
+		QIODevice* m_shadowVocab;
+		QIODevice* m_shadowLexicon;
+		
+		QIODevice* m_treeHed;
 
 		QHash<QString, QString> m_trainingsMap;
 
 	public:
-		ModelContainer(int sampleRate, int channels, const QString& wavConfig,
-			       const QStringList& grammarStructures, WordList *simpleVocab,
-			       const QString& treeHed,
-			       const QHash<QString,QString>& trainingsMap);
+		ModelContainer(int sampleRate, int channels, QIODevice* wavConfig,
+				QIODevice* grammarStructures, QIODevice *simpleVocab,
+				QIODevice* activeVocab, QIODevice* activeLexicon, 
+				QIODevice* shadowVocab, QIODevice* shadowLexicon, 
+				QIODevice* treeHed,
+				const QHash<QString,QString>& trainingsMap);
 			       
 		~ModelContainer();
 		
 		int sampleRate() { return m_sampleRate; }
 		int channels() { return m_channels; }
-		QString wavConfig() { return m_wavConfig; }
-		QStringList grammarStructures() { return m_grammarStructures; }
-		WordList* simpleVocab() { return m_simpleVocab; }
-		QString treeHed() { return m_treeHed; }
+		QIODevice* wavConfig() { return m_wavConfig; }
+		QIODevice* grammarStructures() { return m_grammarStructures; }
+		QIODevice* simpleVocab() { return m_simpleVocab; }
+		QIODevice* activeVocab() { return m_activeVocab; }
+		QIODevice* activeLexicon() { return m_activeLexicon; }
+		QIODevice* shadowVocab() { return m_shadowVocab; }
+		QIODevice* shadowLexicon() { return m_shadowLexicon; }
+		QIODevice* treeHed() { return m_treeHed; }
 		QHash<QString,QString> trainingsMap() { return m_trainingsMap; }
 		
 };

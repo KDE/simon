@@ -86,7 +86,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	configDialog->addModule("simongeneralconfig", QStringList() << "");
 	configDialog->addModule("simonsoundconfig", QStringList() << "");
 	configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
-	configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
+	configDialog->addModule("simongrammarconfig", QStringList() << "");
 	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
 
 	KPageWidgetItem *commandSettingsItem = configDialog->addModule("simonactionsconfig", QStringList() << "");
@@ -210,7 +210,7 @@ void SimonView::setupActions()
 		this, SLOT(showWordListDialog()));
 	
 	KAction* recompile = new KAction(this);
-	recompile->setText(i18n("Modell erstellen"));
+	recompile->setText(i18n("Synchronisieren"));
 	recompile->setIcon(KIcon("view-refresh"));
 	recompile->setShortcut(Qt::CTRL + Qt::Key_F5);
 	actionCollection()->addAction("compileModel", recompile);
@@ -252,9 +252,9 @@ void SimonView::setupSignalSlots()
 	connect ( control, SIGNAL(progressInfo(int, int)), this, SLOT(displayProgress(int, int)));
 
 	connect ( addWordView, SIGNAL ( addedWord() ), wordList,
-	          SLOT ( reloadList() ) );
+	          SLOT ( filterListbyPattern() ) );
 	connect ( trainDialog, SIGNAL ( trainingCompleted() ), wordList,
-	          SLOT ( reloadList() ) );
+	          SLOT ( filterListbyPattern() ) );
 }
 
 void SimonView::displayStatus(const QString &status)

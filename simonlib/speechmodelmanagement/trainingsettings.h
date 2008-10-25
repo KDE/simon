@@ -34,6 +34,9 @@ private:
         Ui::TrainingSettingsWidget trainingUi;
 
 public:
+	virtual void save();
+
+public:
         TrainingSettings(QWidget* parent, const QVariantList& args=QVariantList());
 
         ~TrainingSettings();

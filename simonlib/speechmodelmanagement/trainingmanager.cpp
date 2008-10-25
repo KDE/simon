@@ -49,32 +49,55 @@ TrainingManager* TrainingManager::instance;
  *
  *	@author Peter Grasch
  */
-TrainingManager::TrainingManager(QObject *parent) : QObject(parent)
+TrainingManager::TrainingManager(QObject *parent) : QObject(parent), promptsLock(QMutex::Recursive)
 {
 	trainingTexts = 0;
-	promptsLock.lock();
-	this->promptsTable = readPrompts ( KStandardDirs::locate("appdata", "model/prompts") );
-	promptsLock.unlock();
-	sampleHash = new QHash<QString, QString>();
+	promptsTable=0;
 // 	connect(ModelManager::getInstance(), SIGNAL(sampleWithoutWord(QString)), this, SLOT(askDeleteLonelySample(QString)));
 }
 
-
-QHash<QString, QString> TrainingManager::getTransferTrainingMap()
+bool TrainingManager::init()
 {
-	Q_ASSERT(promptsTable);
-	
-	QHash<QString, QString> trainingMap;
-	QString sampleDir = KStandardDirs::locateLocal("tmp", "simonsamplestosend/");
-	QStringList filesToTransfer = QDir(sampleDir).entryList(QStringList() << "*.wav", QDir::Files);
-	foreach (QString file, filesToTransfer)
-	{
-		QString fileBaseName = file.remove(sampleDir).remove(QRegExp("\\.wav$"));
-		qDebug() << fileBaseName;
-		trainingMap.insert(file, promptsTable->value("fileBaseName"));
-	}
-	return trainingMap;
+	return initPrompts();
 }
+
+bool TrainingManager::initPrompts()
+{
+	QMutexLocker lock(&promptsLock);
+	PromptsTable *promptsTable = readPrompts ( KStandardDirs::locate("appdata", "model/prompts") );
+	if (promptsTable) {
+		this->promptsTable = promptsTable;
+		return true;
+	} else return false;
+}
+
+void TrainingManager::trainingSettingsSaved()
+{
+	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	cGroup.writeEntry("TrainingDate", QDateTime::currentDateTime());
+	config.sync();
+	
+	emit trainingSettingsChanged();
+}
+
+
+// QHash<QString, QString> TrainingManager::getTransferTrainingMap()
+// {
+// 	Q_ASSERT(promptsTable);
+// 	QMutexLocker lock(&promptsLock);
+// 	
+// 	QHash<QString, QString> trainingMap;
+// 	QString sampleDir = KStandardDirs::locateLocal("tmp", "simonsamplestosend/");
+// 	QStringList filesToTransfer = QDir(sampleDir).entryList(QStringList() << "*.wav", QDir::Files);
+// 	foreach (QString file, filesToTransfer)
+// 	{
+// 		QString fileBaseName = file.remove(sampleDir).remove(QRegExp("\\.wav$"));
+// 		qDebug() << fileBaseName;
+// 		trainingMap.insert(file, promptsTable->value("fileBaseName"));
+// 	}
+// 	return trainingMap;
+// }
 
 
 /**
@@ -84,6 +107,7 @@ QHash<QString, QString> TrainingManager::getTransferTrainingMap()
  */
 // QHash<QString, QString> TrainingManager::getTrainingsDataHashes()
 // {
+// 	QMutexLocker lock(&promptsLock);
 // 	QStringList fileNames = promptsTable->keys();
 // 	QHash<QString, QString> hashes;
 // 	QString hash;
@@ -134,12 +158,15 @@ void TrainingManager::askDeleteLonelySample(QString sample)
  */
 bool TrainingManager::deleteWord ( Word *w, bool recompiledLater )
 {
+	if (!promptsTable) initPrompts();
+	
 	QString wordToDelete = w->getWord().toUpper();
 
-	promptsLock.lock();
+	QMutexLocker lock(&promptsLock);
 	//TODO: For now we delete every word with the same name
 	//For the future we should implement a lookup which tries to resolve the pronunciation using the samples
 	//and looking up if this is the selected word
+	
 	QStringList sampleFileNames = promptsTable->keys();
 	bool sampleAlreadyDeleted;
 	for ( int i=0; i < this->promptsTable->count(); i++ )
@@ -167,12 +194,14 @@ bool TrainingManager::deleteWord ( Word *w, bool recompiledLater )
 /**
  * \brief Deletes the prompt corresponding to the key
  * \author Peter Grasch
- * \WARNING The calling function is responsible for locking the promptslock-mutex!
  * @param key The key to delete
  * @return success
  */
 bool TrainingManager::deletePrompt ( QString key )
 {
+	if (!promptsTable) initPrompts();
+	
+	QMutexLocker lock(&promptsLock);
 	promptsTable->remove ( key );
 	//removes the sample
 	return QFile::remove ( SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+key+".wav" );
@@ -181,19 +210,12 @@ bool TrainingManager::deletePrompt ( QString key )
 /**
  * \brief Saves the current promptstable
  * \author Peter Grasch
- * \WARNING The calling function is responsible for locking the promptslock-mutex!
  * @return Success
  */
 bool TrainingManager::savePrompts(bool recompiledLater)
 {
-	QFile prompts ( KStandardDirs::locateLocal("appdata", "model/prompts") );
-	if ( !prompts.open ( QIODevice::WriteOnly ) ) return false;
-
-	QStringList samples = this->promptsTable->keys();
-
-	for ( int i=0; i <samples.count(); i++ )
-		prompts.write ( samples[i].toUtf8() +" "+promptsTable->value ( samples[i] ).toUtf8() +"\n" );
-	prompts.close();
+	QMutexLocker lock(&promptsLock);
+	if (!writePromptsFile(getPrompts(), KStandardDirs::locateLocal("appdata", "model/prompts"))) return false;
 
 	emit trainingDataChanged();
 	if (recompiledLater) return true;
@@ -203,8 +225,30 @@ bool TrainingManager::savePrompts(bool recompiledLater)
 	return true;
 }
 
+bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
+{
+	if (!promptsTable) initPrompts();
+	
+	QFile promptsFile ( path );
+	if ( !promptsFile.open ( QIODevice::WriteOnly ) ) return false;
+
+	QStringList samples = this->promptsTable->keys();
+
+	for ( int i=0; i <samples.count(); i++ )
+		promptsFile.write ( samples[i].toUtf8() +" "+prompts->value ( samples[i] ).toUtf8() +"\n" );
+	promptsFile.close();
+	
+	kDebug() << "schreibe datum...";
+	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	cGroup.writeEntry("TrainingDate", QDateTime::currentDateTime());
+	config.sync();
+	return true;
+}
+
 PromptsTable* TrainingManager::getPrompts()
 {
+	if (!promptsTable) initPrompts();
 	return this->promptsTable;
 }
 
@@ -312,7 +356,7 @@ void TrainingManager::trainWords ( WordList *words )
 
 		time = qvariant_cast<QString>(QTime::currentTime());
 		time.replace(QString(":"), QString("-"));
-		sampleHash->insert((i18n("spezialtraining")+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), page.toUpper());
+		sampleHash.insert((page.replace(" ", "_")+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), page.toUpper());
 	}
 
 	TrainingText *newText = new TrainingText ( i18n ( "Spezialisiertes Training" ),
@@ -363,6 +407,27 @@ TrainingList* TrainingManager::readTrainingTexts ()
 	return trainingTexts;
 }
 
+bool TrainingManager::refreshTraining(int soundChannels, int sampleRate, const QByteArray& prompts)
+{
+	QMutexLocker lock(&promptsLock);
+	
+	SpeechModelManagementConfiguration::setModelChannels(soundChannels);
+	SpeechModelManagementConfiguration::setModelSampleRate(sampleRate);
+	
+	QFile promptsF(KStandardDirs::locateLocal("appdata", "model/prompts"));
+	if (!promptsF.open(QIODevice::WriteOnly))
+		return false;
+	
+	promptsF.write(prompts);
+	promptsF.close();
+	
+// 	emit promptsChanged();
+	
+	initPrompts();
+	
+	return true;
+}
+
 /**
  * \brief Marks text at the given index as the one we are training now
  * Stores a pointer of the text in the member currentText
@@ -393,7 +458,7 @@ bool TrainingManager::trainText ( int i )
 	QString textFileName = QFile::encodeName(textName);
 	for(int i=0; i<getPageCount(); i++)
 	{
-		sampleHash->insert((textFileName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), getPage(i));
+		sampleHash.insert((textFileName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), getPage(i));
 	}
 	return (currentText != NULL);
 }
@@ -563,30 +628,11 @@ float TrainingManager::calcRelevance ( TrainingText *text )
 void TrainingManager::finishTrainingSession()
 {
 	addSamples ( sampleHash );
+	sampleHash.clear();
 	
-	this->savePrompts(true);
-// 	ModelManager *man = ModelManager::getInstance();
-// 	man->startCompilation();
-// 	connect(man, SIGNAL(finished()), this, SLOT(modelManagerDone()));
-}
-
-
-/**
- * \brief Emits trainingFinished()
- * \author Peter Grasch
- * 
- * This Method emits the signal and disconnects the finished() signal from the ModelManager so
- * we don't emit this signal everytime we compile the model.
- * 
- * This is usually connected after we "finished" a training session and are starting to compile
- * the model so we can react on the finished training (like switching back to the main view)
- * without introducing the bug that we would also switch to the mainview if we compiled the model
- * /during/ a normal trainingsession when we'd connect this statically
- */
-void TrainingManager::modelManagerDone()
-{
-// 	disconnect(ModelManager::getInstance(), SIGNAL(finished()), this, SLOT(modelManagerDone()));
 	emit trainingFinished();
+	
+	initPrompts();
 }
 
 
@@ -600,6 +646,8 @@ void TrainingManager::modelManagerDone()
  */
 int TrainingManager::getProbability ( QString wordname )
 {
+	if (!promptsTable) initPrompts();
+	
 	wordname = wordname.toUpper();
 	if (wordRelevance.contains(wordname))
 		return wordRelevance.value(wordname);
@@ -622,39 +670,22 @@ int TrainingManager::getProbability ( QString wordname )
 /**
  * @brief Adds the Samples to the prompts-file.
  *
- *	@author Susanne Tschernegg
+ *	@author Peter Grasch
  *  @param QHash<QString, QString> *hash
  *      holds the pagenumber as text and the name of a text with the correspondenting sentence and the time and date, when the training has begun
  */
-void TrainingManager::addSamples ( QHash<QString, QString> *hash )
+void TrainingManager::addSamples ( const QHash<QString, QString>& trainingsMap, bool recompiledLater )
 {
-	QHashIterator<QString, QString> hIterator ( *hash );
-	hIterator.toFront();
-	while ( hIterator.hasNext() )
-	{
-        hIterator.next();
-		writePrompts ( hIterator.key() + " " + hIterator.value().toUpper() );
-	}
-	hash->clear();
+	Q_ASSERT(promptsTable);
+	
+	QMutexLocker lock(&promptsLock);
+	
+	foreach (QString key, trainingsMap.keys())
+		promptsTable->insert(key, trainingsMap.value(key));
+	
+	savePrompts(recompiledLater);
 }
 
-/**
- * \brief adds the new samples to the prompts
- * \todo WTF susi? SLOOOOOOOOWWWWWPOKE?!...
- * \author Susanne Tschernegg
- */
-void TrainingManager::writePrompts ( QString text )
-{
-	QFile *prompts = new QFile ( KStandardDirs::locateLocal("appdata", "model/prompts") );
-	if ( !prompts->open ( QIODevice::Append ) ) return;
-	//prompts->isWritable()
-
-	QTextStream out ( prompts );
-	out << text << "\n";
-	prompts->close();
-	prompts->deleteLater();
-	promptsTable = readPrompts ( KStandardDirs::locateLocal("appdata", "model/prompts") );
-}
 
 /**
  * @brief Destructor

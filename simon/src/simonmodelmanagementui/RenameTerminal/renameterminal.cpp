@@ -17,32 +17,36 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "internetextensionsettings.h"
-#include <KGlobal>
+
+#include "renameterminal.h"
+#include <speechmodelmanagement/wordlistmanager.h>
+#include <speechmodelmanagement/grammarmanager.h>
+
+RenameTerminal::RenameTerminal(QObject* parent): QThread(parent)
+{}
 
 
-InternetExtensionSettings::InternetExtensionSettings(QWidget* parent, const QVariantList &args): KCModule(KGlobal::mainComponent(), parent, args)
-{
-	Q_UNUSED(args);
-
-	ui.setupUi(this);
-
-	connect(ui.kcfg_WikiDumpPrefix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
-	connect(ui.kcfg_WikiDumpPostfix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
-
-	makeExample();
-}
-
-
-InternetExtensionSettings::~InternetExtensionSettings()
+RenameTerminal::~RenameTerminal()
 {
 }
 
-void InternetExtensionSettings::makeExample()
+
+void RenameTerminal::run()
 {
-	QString example;
-	example += ui.kcfg_WikiDumpPrefix->text();
-	example += "xxwiktionary/xxxxxxxx";
-	example += ui.kcfg_WikiDumpPostfix->text();
-	ui.lbExample->setText(example);
+	emit progress(0);
+
+	WordListManager *wordListManager = WordListManager::getInstance();
+	GrammarManager *grammarManager = GrammarManager::getInstance();
+	wordListManager->renameTerminal(oldName, newName, includeShadow);
+	wordListManager->save();
+	emit progress(80);
+	if (includeGrammar)
+	{
+		grammarManager->renameTerminal(oldName, newName);
+// 		grammarManager->save(); saved automagically
+	}
+
+	emit progress(100);
+	emit done();
 }
+

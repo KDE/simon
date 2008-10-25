@@ -48,25 +48,31 @@ Q_OBJECT
 		static TrainingManager *instance;
 		TrainingList *trainingTexts;
 		TrainingText *currentText;
-		QHash<QString, QString> *sampleHash;    //<! sampleHash("SampleName","Text")
+		QHash<QString, QString> sampleHash;    //<! sampleHash("SampleName","Text")
 		QHash<QString,int> wordRelevance; /// Stores the relevance of words (caching for getProbability)
 		QMutex promptsLock;
+		PromptsTable *promptsTable;
+
 	private slots:
 		void askDeleteLonelySample(QString);
-		void modelManagerDone();
+		bool initPrompts();
+
 	signals:
 		void addMissingWords(QStringList words);
 		void trainingFinished();
 		void trainingDataChanged();
+		void trainingSettingsChanged();
+// 		void promptsChanged();
 
 	protected:
 		TrainingManager(QObject *parent=0);
 
 	public:
 		static TrainingManager* getInstance();
-		PromptsTable *promptsTable;
 
-		QHash<QString, QString> *getSampleHash() {return sampleHash;}
+		bool init();
+
+		QHash<QString, QString> getSampleHash() {return sampleHash;}
 		int getProbability ( QString name, PromptsTable *promptsTable );
 		TrainingList* readTrainingTexts ();
 
@@ -77,9 +83,12 @@ Q_OBJECT
 		bool deleteWord ( Word *w, bool recompiledLater=false );
 		bool deletePrompt ( QString key );
 		bool savePrompts(bool recompiledLater=false);
+		bool writePromptsFile(PromptsTable* prompts, QString path);
 
-		QHash<QString, QString> getTransferTrainingMap();
+// 		QHash<QString, QString> getTransferTrainingMap();
 // 		QHash<QString, QString> getTrainingsDataHashes();
+
+		bool refreshTraining(int soundChannels, int sampleRate, const QByteArray& prompts);
 
 		/**
 		 * @brief Getter method for the QList of training texts
@@ -113,9 +122,11 @@ Q_OBJECT
 
 		void finishTrainingSession();
 		bool allWordsExisting();
-		void addSamples ( QHash<QString, QString> *hash );
+		void addSamples ( const QHash<QString, QString>& trainingsMap, bool recompiledLater=false );
 
-		void writePrompts ( QString text );
+		void clearSampleHash() { sampleHash.clear(); }
+
+		void trainingSettingsSaved();
 
 		~TrainingManager();
 

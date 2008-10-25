@@ -25,7 +25,6 @@
 #include <KStandardDirs>
 #include "renameterminalselectparameterspage.h"
 #include "renameterminalworkingpage.h"
-#include "../grammarmanager.h"
 
 RenameTerminalWizard::RenameTerminalWizard(QWidget* parent): QWizard(parent)
 {

@@ -20,7 +20,6 @@
 
 #include "renameterminalworkingpage.h"
 #include "renameterminal.h"
-#include "../grammarmanager.h"
 
 RenameTerminalWorkingPage::RenameTerminalWorkingPage(QWidget *parent)
  : QWizardPage(parent)

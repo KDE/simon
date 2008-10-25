@@ -141,21 +141,6 @@ void NetworkControl::reloadServer()
 	startServer();
 }
 
-/**
- * @brief Sends a word through the socket
- * 
- * 	Writes the Latin1 encoded Data of the supplied Data to the socket
- *
- *	@author Peter Grasch
- *	@param QString data
- *	The data to write
- */
-void NetworkControl::sendString(QString data)
-{
-	for (int i=0; i<sockets->count(); i++)
-		sockets->at(i)->write(data.toUtf8());
-}
-
 
 /**
  * @brief Reacts on a client who closes the connection
@@ -177,12 +162,6 @@ void NetworkControl::connectionClosing(QAbstractSocket::SocketState state)
 			}
 		}
 	}
-}
-
-
-void NetworkControl::readClient()
-{
-	
 }
 
 

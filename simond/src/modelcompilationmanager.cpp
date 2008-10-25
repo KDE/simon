@@ -17,31 +17,15 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "modelcompilationmanager.h"
 
-#include "renameterminalselectparameterspage.h"
-#include "../wordlistmanager.h"
 
-RenameTerminalSelectParametersPage::RenameTerminalSelectParametersPage(QWidget *parent)
- : QWizardPage(parent)
+ModelCompilationManager::ModelCompilationManager(QObject *parent) : QObject(parent)
 {
-	ui.setupUi(this);
-	registerField("renameNewName*",ui.leNewName);
-	registerField("renameTerminal*",ui.lwTerminal, "currentText", SIGNAL(currentRowChanged(int)));
-	registerField("renameIncludeShadow", ui.cbIncludeShadow);
-	registerField("renameIncludeGrammar", ui.cbIncludeGrammar);
+
 }
 
-void RenameTerminalSelectParametersPage::initializePage()
+ModelCompilationManager::~ModelCompilationManager()
 {
-	QStringList availableTerminals;
-	availableTerminals = WordListManager::getInstance()->getTerminals(true);
-	ui.lwTerminal->clear();
-	ui.lwTerminal->addItems(availableTerminals);
 	
 }
-
-RenameTerminalSelectParametersPage::~RenameTerminalSelectParametersPage()
-{
-}
-
-

@@ -19,6 +19,7 @@
 
 #include "modelcompilationsettings.h"
 #include "acousticmodelmanagementconfiguration.h"
+#include "trainingmanager.h"
 #include <KLineEdit>
 #include <KPageWidget>
 #include <kgenericfactory.h>
@@ -49,6 +50,14 @@ TrainingSettings::TrainingSettings(QWidget* parent, const QVariantList& args): K
 	trainingsData->setHeader("");
 
 	addConfig(AcousticModelManagementConfiguration::self(), this);
+}
+
+
+void TrainingSettings::save()
+{
+	TrainingManager::getInstance()->trainingSettingsSaved();
+
+	KCModule::save();
 }
 
 TrainingSettings::~TrainingSettings()

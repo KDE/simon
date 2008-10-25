@@ -22,7 +22,6 @@
 #define SPEECHMODELSETTINGS_H
 
 
-#include "ui_grammarsettingsdlg.h"
 #include "ui_trainingsettings.h"
 #include <KCModule>
 #include <QVariantList>
@@ -35,21 +34,11 @@ class SpeechModelSettings : public KCModule
 {
 Q_OBJECT
 private:
-	Ui::GrammarSettingsDlg uiGrammar;
 	Ui::TrainingSettingsWidget uiTrainingsData;
 	
 
 signals:
 	void changed();
-
-private slots:
-	void showRenameWizard();
-	void showImportWizard();
-	void showMergeWizard();
-	void askToSaveGrammar();
-
-public slots:
-	void mergeGrammar(QStringList);
 
 public:
     SpeechModelSettings(QWidget* parent, const QVariantList& args=QVariantList());

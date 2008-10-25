@@ -29,6 +29,10 @@
 #include <QByteArray>
 #include <QtGlobal>
 #include <QTextStream>
+#include <QDateTime>
+
+#include <KConfig>
+#include <KConfigGroup>
 #include <KMessageBox>
 #include <KLocalizedString>
 #include <KStandardDirs>
@@ -46,7 +50,7 @@ WordListManager* WordListManager::instance;
  * @param QString path
  * Sets the path (member) to the given string
  */
-WordListManager::WordListManager () : QThread()
+WordListManager::WordListManager () : QThread(), wordListLock(QMutex::Recursive), shadowLock(QMutex::Recursive)
 {
 	isTemp = false;
 	connect(this, SIGNAL(wordListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
@@ -54,18 +58,31 @@ WordListManager::WordListManager () : QThread()
 	connect(this, SIGNAL(tempWarning()), this, SLOT(warnAboutTempWordList()));
 	connect(TrainingManager::getInstance(), SIGNAL(trainingDataChanged()), this, SLOT(updateWordProbability()));
 
-	wordListLock.lock();
+	initWordList();
+	initShadowList();
+}
+
+bool WordListManager::initShadowList()
+{
+	start(QThread::IdlePriority);
+	return true;
+}
+
+bool WordListManager::initWordList()
+{
+	QMutexLocker lock(&wordListLock);
 	mainDirty = false;
 	this->wordlist = readWordList ( KStandardDirs::locate("appdata", "model/lexicon"), 
 					KStandardDirs::locate("appdata", "model/model.voca"),
 					this->activeTerminals );
+
 	if (!wordlist) {
 		this->wordlist = new WordList();
 		emit wordListCouldntBeLoaded();
+		return false;
 	}
 	
-	wordListLock.unlock();
-	start(QThread::IdlePriority);
+	return true;
 }
 
 /**
@@ -272,8 +289,20 @@ bool WordListManager::save()
 	}
 	shadowLock.unlock();
 	
-	if (wlistChanged) emit wordlistChanged();
-	else if (slistChanged) emit shadowListChanged();
+	if (wlistChanged) {
+		emit wordlistChanged();
+		KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+		KConfigGroup cGroup(&config, "");
+		cGroup.writeEntry("WordListDate", QDateTime::currentDateTime());
+		config.sync();
+		
+	} else if (slistChanged) {
+		emit shadowListChanged();
+		KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+		KConfigGroup cGroup(&config, "");
+		cGroup.writeEntry("LanguageDescriptionDate", QDateTime::currentDateTime());
+		config.sync();
+	}
 	return true;
 }
 
@@ -565,6 +594,52 @@ WordList* WordListManager::readWordList ( const QString& lexiconpath, const QStr
 	return wordlist;
 }
 
+
+bool WordListManager::refreshWordListFiles(const QByteArray& simpleVocab,
+		const QByteArray& activeVocab, const QByteArray& activeLexicon)
+{
+	QMutexLocker lock1(&wordListLock);
+	
+	Q_UNUSED(simpleVocab);
+	
+	QFile vocaF(KStandardDirs::locateLocal("appdata", "model/model.voca"));
+	QFile wordListF(KStandardDirs::locateLocal("appdata", "model/lexicon"));
+	if (!vocaF.open(QIODevice::WriteOnly) || !wordListF.open(QIODevice::WriteOnly))
+		return false;
+	
+	vocaF.write(activeVocab);
+	wordListF.write(activeLexicon);
+	
+	vocaF.close();
+	wordListF.close();
+	
+	if (!initWordList()) return false;
+	
+	emit wordlistChanged();
+	return true;
+}
+
+
+bool WordListManager::refreshShadowListFiles(const QByteArray& shadowVocab, const QByteArray& shadowLexicon)
+{
+	QMutexLocker lock2(&shadowLock);
+	
+	QFile vocaF(KStandardDirs::locateLocal("appdata", "model/shadow.voca"));
+	QFile wordListF(KStandardDirs::locateLocal("appdata", "model/shadowlexicon"));
+	if (!vocaF.open(QIODevice::WriteOnly) || !wordListF.open(QIODevice::WriteOnly))
+		return false;
+	
+	vocaF.write(shadowVocab);
+	wordListF.write(shadowLexicon);
+	
+	vocaF.close();
+	wordListF.close();
+	
+	if (!initShadowList()) return false;
+	
+	emit shadowListChanged();
+	return true;
+}
 
 /**
  * \brief [DEPRECATED] Removes the doubles in the supplied input list

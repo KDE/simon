@@ -2,10 +2,12 @@
 Type=Service
 Icon=applications-education-language
 X-KDE-ServiceTypes=KCModule
-X-KDE-Library=libsimonmodelmanagement
+X-KDE-Library=libsimonmodelmanagementui
 
-X-KDE-FactoryName=grammarsettingsfactory
-X-KDE-ParentComponents=libsimonmodelmanagement
+X-KDE-FactoryName=speechmodelmanagementuifactory
+X-KDE-ParentComponents=libsimonmodelmanagementui
+
+X-KDE-PluginKeyword=GrammarSettings
 
 X-KDE-ParentApp=simon
 X-KDE-System-Settings-Parent-Category=simon

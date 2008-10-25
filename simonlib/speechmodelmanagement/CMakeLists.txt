@@ -12,18 +12,6 @@ include(KDE4Defaults)
 set( simonmodelmanagement_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlistmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarmanager.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminals.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsworkingpage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsselectterminalspage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalswizard.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarwizard.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarworkingpage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarselectfilespage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammar.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalwizard.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalworkingpage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalselectparameterspage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminal.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/xmltrainingtext.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.cpp
@@ -32,23 +20,14 @@ set( simonmodelmanagement_LIB_SRCS
 
 
 set( simonmodelmanagement_LIB_HDRS
-  ${CMAKE_CURRENT_SOURCE_DIR}/simonlanguagemodelmanagement_export.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/grammarmanager.h
   ${CMAKE_CURRENT_SOURCE_DIR}/simonacousticmodelmanagement_export.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/simonlanguagemodelmanagement_export.h
   ${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.h
 )
 
 
 
 kde4_add_ui_files( simonmodelmanagement_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsworkingpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsselectpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammardescriptionpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/selectfilestoreadpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarworkingpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalselectparameterspage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalworkingpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/grammarsettingsdlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingsettings.ui
 )
 

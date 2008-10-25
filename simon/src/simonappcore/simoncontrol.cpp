@@ -20,11 +20,7 @@
 
 #include "simoncontrol.h"
 
-#include <simonrecognitioncontrol/recognitioncontrol.h>
 #include <simonactions/actionmanager.h>
-
-#include <speechmodelmanagement/modelmanager.h>
-#include <speechmodelbase/modelcontainer.h>
 
 #include "coreconfiguration.h"
 
@@ -58,6 +54,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	QObject::connect(recognitionControl, SIGNAL(loggedIn()), this, SLOT(loggedIn()));
 	
 	QObject::connect(recognitionControl, SIGNAL(recognised(const QString&,const QString&,const QString&)), this, SLOT(wordRecognised(QString,QString,QString)));
+	QObject::connect(recognitionControl, SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
 }
 
 bool SimonControl::passwordProtected()
@@ -88,7 +85,7 @@ void SimonControl::serverWarning(QString warning)
 {
 	Logger::log(i18n("[INF] Server Warning: %1", warning));
 
-	SimonInfo::showMessage(i18n("Server: %1", warning), 5000);
+	SimonInfo::showMessage(i18n("simond: %1", warning), 5000);
 }
 
 /**
@@ -131,6 +128,38 @@ void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 	if (status != SimonControl::ConnectedActivated) return;
 	
 	ActionManager::getInstance()->process(word);
+}
+
+
+void SimonControl::recognitionStatusChanged(RecognitionControl::RecognitionStatus status)
+{
+	switch (status)
+	{
+		case RecognitionControl::Ready:
+		{
+			
+			break;
+		}
+		
+		case RecognitionControl::Started:
+		{
+			
+			break;
+		}
+		
+		case RecognitionControl::TemporarilyUnavailable:
+		{
+			
+			break;
+		}
+		
+		case RecognitionControl::Stopped:
+		{
+			
+			break;
+		}
+		
+	}
 }
 
 void SimonControl::setStatus(SimonControl::SystemStatus status)
@@ -256,16 +285,11 @@ void SimonControl::compileModel()
 // 	QHash<QString,QString> trainingsMap = TrainingManager::getInstance()->getTransferTrainingMap();
 // 	
 	
+	recognitionControl->startSynchronisation();
 	
-	ModelContainer *model = ModelManager::createContainer(); //new ModelContainer(modelSampleRate, modelChannels, modelWavConfig,
-			       //grammarStructures, simpleVocab, treeHed, trainingsMap);
-	if (!model) emit statusError(i18n("Konnte Modellcontainer nicht erstellen"));
-	
-	bool succ = recognitionControl->requestModelCompilation(model);
-	
-	if (succ)
+// 	if (succ)
 		emit statusInfo(i18n("Synchronisation gestartet"));
-	else emit statusInfo(i18n("Konnte Synchronisation nicht starten"));
+// 	else emit statusInfo(i18n("Konnte Synchronisation nicht starten"));
 }
 
 /**

@@ -36,6 +36,7 @@
 
 #include <QWizard>
 #include <QStringList>
+#include <QHash>
 #include <speechmodelbase/word.h>
 #include "../simonmodelmanagementui_export.h"
 
@@ -59,7 +60,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 		AddWordResolvePage *resolvePage;
 		AddWordIntroPage *welcomePage;
 		WordList *listToAdd;
-		QHash<QString,QString> *promptsToAdd;
+		QHash<QString,QString> promptsToAdd;
 		
 		void hideEvent(QHideEvent *event) { 
 			emit hidden(); return QWidget::hideEvent(event); }

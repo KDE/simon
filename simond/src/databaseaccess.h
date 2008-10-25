@@ -17,32 +17,34 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "internetextensionsettings.h"
-#include <KGlobal>
+#ifndef DATABASEACCESS_H
+#define DATABASEACCESS_H
 
+#include <QObject>
+#include <QSqlDatabase>
 
-InternetExtensionSettings::InternetExtensionSettings(QWidget* parent, const QVariantList &args): KCModule(KGlobal::mainComponent(), parent, args)
+class DatabaseAccess : public QObject
 {
-	Q_UNUSED(args);
+	Q_OBJECT
 
-	ui.setupUi(this);
+	signals:
+		void error(const QString& error);
 
-	connect(ui.kcfg_WikiDumpPrefix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
-	connect(ui.kcfg_WikiDumpPostfix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
+	private:
+		QSqlDatabase *db;
+		bool executeQuery(const QString& query);
 
-	makeExample();
-}
+	public:
+		DatabaseAccess(QObject *parent=0);   
+		~DatabaseAccess();
 
+		bool init();
+		void closeConnection();
 
-InternetExtensionSettings::~InternetExtensionSettings()
-{
-}
+		bool addUser(const QString& username, const QString& password);
+		bool authenticateUser(const QString& user, const QString& password);
 
-void InternetExtensionSettings::makeExample()
-{
-	QString example;
-	example += ui.kcfg_WikiDumpPrefix->text();
-	example += "xxwiktionary/xxxxxxxx";
-	example += ui.kcfg_WikiDumpPostfix->text();
-	ui.lbExample->setText(example);
-}
+		bool isConnected() { return db->isOpen(); }
+};
+
+#endif

@@ -25,28 +25,33 @@
 	@author Peter Grasch <bedahr@gmx.net>
 */
 #include <QStringList>
+#include <QMutex>
 #include "simonlanguagemodelmanagement_export.h"
 
 class WordListManager;
 
 class LANGUAGEMODELMANAGEMENT_EXPORT GrammarManager : public QObject {
 Q_OBJECT
+
+signals:
+	void structuresChanged();
+
 private:
 	static GrammarManager *instance;
+	QMutex structuresLock;
+	QStringList structures;
 
 protected:
 	GrammarManager();
 
-public slots:
-	void unknownWordClass(const QString& name);
 public:
 	QStringList getStructures();
 	void setStructures(const QStringList& structures);
 
 	static GrammarManager* getInstance();
 
-// 	bool load();
-// 	bool save();
+	bool load();
+	bool save();
 
 	QStringList getStructures(const QString& terminal);
 	QStringList getTerminals();
@@ -54,6 +59,8 @@ public:
 	void renameTerminal(QString terminal, const QString& newName);
 
 	QStringList getExamples(const QString& word, const QString& terminal, int count=2, bool includeShadow=false);
+
+	bool refreshFiles(const QByteArray& grammarStructures);
 
 };
 

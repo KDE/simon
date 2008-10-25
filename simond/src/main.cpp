@@ -21,6 +21,7 @@
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
 #include <KDE/KLocale>
+#include "simondcontrol.h"
 
 static const char description[] =
     I18N_NOOP("The simon recognition daemon");
@@ -29,14 +30,16 @@ static const char version[] = "0.1";
 
 int main(int argc, char **argv)
 {
-    KAboutData about("simond", 0, ki18n("simond"), version, ki18n(description),
-                     KAboutData::License_GPL, ki18n("(C) 2007 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
-    about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
-    KCmdLineArgs::init(argc, argv, &about);
+	KAboutData about("simond", 0, ki18n("simond"), version, ki18n(description),
+			KAboutData::License_GPL, ki18n("(C) 2007 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
+	about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
+	KCmdLineArgs::init(argc, argv, &about);
+	KApplication app;
+
+	SimondControl *control = new SimondControl();
+	if (!control->init())
+		return 1;
 
 
-    KApplication app;
-    
-
-    return app.exec();
+	return app.exec();
 }

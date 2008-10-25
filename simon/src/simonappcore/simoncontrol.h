@@ -36,6 +36,7 @@
 
 #include <QObject>
 #include <QStringList>
+#include <simonrecognitioncontrol/recognitioncontrol.h>
 #include "simonappcore_export.h"
 
 class QSettings;
@@ -96,6 +97,8 @@ private slots:
 	void serverError(QString error,bool skippable);
 	void serverWarning(QString warning);
 	void loggedIn();
+	void recognitionStatusChanged(RecognitionControl::RecognitionStatus status);
+
 private:
 	SimonControl::SystemStatus status;
 	

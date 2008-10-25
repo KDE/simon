@@ -59,15 +59,12 @@ public slots:
 	void startServer(QHostAddress allowedClient=QHostAddress::Any, quint16 port=4444);
 	void stopServer();
 	void reloadServer();
-	void sendString(QString data);
 	bool initDb();
 	void sendWord(QString word);
 
 	void incomingConnection (int descriptor);
 
 	void connectionClosing(QAbstractSocket::SocketState state);
-
-	void readClient();
 
 	//TextsYnc
 	void sendSocket(int sd, QByteArray out);

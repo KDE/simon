@@ -20,6 +20,14 @@
 
 #include "recognitioncontrol.h"
 #include <simoninfo/simoninfo.h>
+#include <simonprotocol/simonprotocol.h>
+#include <speechmodelmanagement/modelmanager.h>
+// #include <speechmodelbase/modelcontainer.h>
+#include <speechmodelbase/wordlistcontainer.h>
+#include <speechmodelbase/grammarcontainer.h>
+#include <speechmodelbase/languagedescriptioncontainer.h>
+#include <speechmodelbase/trainingcontainer.h>
+#include <speechmodelbase/model.h>
 #include "recognitionconfiguration.h"
 
 #include <QByteArray>
@@ -30,6 +38,7 @@
 #include <QStringList>
 #include <KMessageBox>
 #include <KLocalizedString>
+#include <KDebug>
 #include <KPasswordDialog>
 
 /**
@@ -60,12 +69,8 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 
 	if ( RecognitionConfiguration::juliusdAutoConnect() )
 		startConnecting();
-}
-
-
-bool RecognitionControl::requestModelCompilation(ModelContainer *model)
-{
-	return true;
+	
+	this->modelManager = new ModelManager();
 }
 
 void RecognitionControl::startConnecting()
@@ -175,142 +180,6 @@ void RecognitionControl::timeoutReached()
 	socket->abort();
 }
 
-
-/**
- *	@brief Process the request
- *	
- *	Reads the new data from the socket and processes it
- *	
- *	@author Peter Grasch
- */
-void RecognitionControl::messageReceived()
-{
-	QByteArray msgByte = socket->readAll();
-	
-	
-	
-	QDataStream msg(&msgByte, QIODevice::ReadOnly);
-	
-	qint32 type;
-	msg >> type;
-	
-	switch (type)
-	{
-		case 1:
-		{
-			/* login accepted */
-			emit loggedIn();
-
-			//start recognition
-			sendRequest (100 /*start recognition*/);
-		}
-			break;
-		case 2:
-		{
-			/* user / pass rejected */
-			emit error(i18n("Benutzername oder Passwort falsch."));
-			this->disconnectFromServer();
-		}
-			break;
-		
-		case 3:
-		{
-			/* no pass specified */
-			emit error(i18n("Kein Passwort angegeben. Aus Sicherheitsgründen muss ein Passwort festgelegt werden"));
-		}
-			break;
-		
-		case 4:
-		{
-			/* login rejected, because the version is known to NOT be supported */
-			emit error(i18n("Version nicht unterstützt"));
-		}
-			break;
-		case 5:
-		{
-			/* login accepted, but the version is not known to be supported */
-			QString reason=i18n("Version mglw. nicht unterstützt");
-			if (RecognitionConfiguration::juliusdContinueOnWarning())
-			{
-				emit warning(reason);
-				sendRequest (100 /*start recognition*/);
-				emit loggedIn();
-			} else 
-				emit error(reason,true);
-		}
-			break;
-
-
-		case 20000:
-		{
-			/* word recognized */
-			QString word, sampa, samparaw;
-			msg >> word;
-			msg >> sampa;
-			msg >> samparaw;
-			emit recognised(word, sampa, samparaw);
-		}
-			break;
-		//TextSync the data of the syncprocess is here avaiable
-		case 99990:
-		{
-			QString timestamp;
-			QString text;
-			QString filename;
-			int count;
-
-			msg >> filename;
-
-			msg >> count;
-			
-			QFile *datafile = new QFile(filename);
-			QFile *stampfile = new QFile("shadow"+filename);
-			
-			if(!datafile->open(QIODevice::WriteOnly))
-			{
-				KMessageBox::error(NULL,i18n("Fehler beim lesen der Daten-Datei"));
-			}
-			if(!stampfile->open(QIODevice::WriteOnly))
-			{
-				KMessageBox::error(NULL,i18n("Fehler beim lesen der Shadow-Datei"));
-			}
-
-			
-			QByteArray data, stamp;
-			
-			for (int i = 0; i<count; ++i)
-			{
-				msg >> text >> timestamp;
-				data.append(text.toUtf8());
-				stamp.append(timestamp.toUtf8());
-				stamp.append('\n');
-			}
-			datafile->flush();
-			datafile->write(data);
-			datafile->close();
-			stampfile->flush();
-			stampfile->write(stamp);
-			stampfile->close();
-			
-		}
-			break;
-		//_______
-	}
-}
-
-/**
- * \brief Sends a simple request identified by the request id
- * \author Peter Grasch
- * @param request The request to send
- */
-void RecognitionControl::sendRequest(qint32 request)
-{
-	QByteArray toWrite;
-	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << request;
-	socket->write(toWrite);
-}
-
 /**
  *	@brief Disconnects the socket from julius
  *	
@@ -345,6 +214,19 @@ void RecognitionControl::connectedTo()
 	login();
 }
 
+/**
+ * \brief Sends a simple request identified by the request id
+ * \author Peter Grasch
+ * @param request The request to send
+ */
+void RecognitionControl::sendRequest(qint32 request)
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << request;
+	socket->write(toWrite);
+}
+
 void RecognitionControl::login()
 {
 	QString user = RecognitionConfiguration::juliusdUsername();
@@ -370,68 +252,645 @@ void RecognitionControl::login()
 		}
 	}
 
+
+	QByteArray userBytes = user.toUtf8();
+	QByteArray passBytes = QCryptographicHash::hash(pass.toUtf8(),QCryptographicHash::Sha1);
+	
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	int size = (userBytes.count()+passBytes.count()+sizeof(qint8)+sizeof(Simond::Request));
+	out << Simond::Login << protocolVersion << size << userBytes << passBytes;
+	socket->write(toWrite);
+}
 
-	out << qint32(0 /*login*/) << user << pass << protocolVersion;
+void RecognitionControl::sendActiveModelModifiedDate()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << Simond::ActiveModelDate
+		<< modelManager->getActiveContainerModifiedTime();
+	socket->write(toWrite);
+}
+	
+bool RecognitionControl::sendActiveModel()
+{
+	Model *model = modelManager->createActiveContainer();
+	if (!model) {
+		emit warning(i18n("Konnte Modellcontainer nicht erstellen"));
+		sendRequest(Simond::ErrorRetrievingActiveModel);
+		return false;
+	}
+	
+	
+	qint64 size = sizeof(int)+sizeof(int)+sizeof(qint64)
+			+ model->hmmDefs().count()
+			+ model->tiedList().count()
+			+ model->dict().count()
+			+ model->term().count()
+			+ sizeof(Simond::Request)+sizeof(QDateTime);
+	
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << Simond::ActiveModel
+		<< size
+		<< modelManager->getActiveContainerModifiedTime()
+		<< model->channels()
+		<< model->sampleRate()
+		<< model->hmmDefs()
+		<< model->tiedList()
+		<< model->dict()
+		<< model->term();
+		
+	socket->write(toWrite);
+	
+	delete model;
+	return true;
+}
 
-	out.device()->seek(0);
 
+void RecognitionControl::sendModelSrcModifiedDate()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << Simond::ModelSrcDate
+		<< modelManager->getSrcContainerModifiedTime();
 	socket->write(toWrite);
 }
 
 
-//TextSync / just a testdata is send to the mergeprocess
-void RecognitionControl::sendSyncFile(QString filename)
+void RecognitionControl::sendWordListModifiedDate()
 {
-	
-	QByteArray block;
-	QDataStream out(&block, QIODevice::WriteOnly);
-
-	out << qint32(99990);
-	
-	
-// 	QFile *file = new QFile(filename);
-	
-	out << filename;
-	
-	QFile *datafile = new QFile(filename);
-	QFile *stampfile = new QFile("shadow"+filename);
-	
-	if(!datafile->open(QIODevice::ReadOnly))
-	{
-		KMessageBox::error(NULL,i18n("Fehler beim lesen der Daten-Datei"));
-	}
-	if(!stampfile->open(QIODevice::ReadOnly))
-	{
-		KMessageBox::error(NULL,i18n("Fehler beim lesen der Shadow-Datei"));
-	}
-
-	QByteArray datareader, stampreader;
-
-	int i = 0;
-
-	while(!datafile->atEnd())
-	{
-		datareader = datafile->readLine();
-		stampreader = stampfile->readLine();
-		stampreader = stampreader.remove(23,2);
-		
-		QString data(datareader);
-		QString stamp(stampreader);
-		out  << data << stamp;
-		++i;
-	}
-	
-	//marks the end of the file
-	out << QString("[file_end]") << QString("0000.00.00-00:00:00:000");
-	
-	out.device()->seek(0);
-
-	socket->write(block);
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << Simond::WordListDate
+		<< modelManager->getWordListModifiedTime();
+	socket->write(toWrite);
 }
-//_____
 
+void RecognitionControl::sendWordList()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	
+	WordListContainer *wordList = modelManager->getWordListContainer();
+	
+	qint64 size = wordList->simpleVocab().count()+
+			wordList->activeVocab().count()+
+			wordList->activeLexicon().count()+
+			sizeof(Simond::Request)+sizeof(qint64)+sizeof(QDateTime);
+			
+	out << Simond::WordList
+		<< size
+		<< modelManager->getWordListModifiedTime()
+		<< wordList->simpleVocab()
+		<< wordList->activeVocab()
+		<< wordList->activeLexicon();
+	socket->write(toWrite);
+	
+	delete wordList;
+}
+
+
+
+void RecognitionControl::sendGrammarModifiedDate()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << Simond::GrammarDate
+		<< modelManager->getGrammarModifiedTime();
+	socket->write(toWrite);
+}
+
+
+void RecognitionControl::sendGrammar()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	
+	GrammarContainer *grammar = modelManager->getGrammarContainer();
+	
+	qint64 size = grammar->grammarStructures().count()+
+			sizeof(Simond::Request)+sizeof(qint64)+sizeof(QDateTime);
+	
+	out << Simond::Grammar
+		<< size
+		<< modelManager->getGrammarModifiedTime()
+		<< grammar->grammarStructures();
+	socket->write(toWrite);
+	
+	delete grammar;
+}
+
+
+
+void RecognitionControl::sendLanguageDescriptionModifiedDate()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << Simond::LanguageDescriptionDate
+		<< modelManager->getLanguageDescriptionModifiedTime();
+	socket->write(toWrite);
+}
+
+
+void RecognitionControl::sendLanguageDescription()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	
+	LanguageDescriptionContainer *languageDescription = modelManager->getLanguageDescriptionContainer();
+	
+	qint64 size = languageDescription->treeHed().count()+languageDescription->shadowVocab().count()+
+			languageDescription->shadowLexicon().count()+sizeof(Simond::Request)+sizeof(qint64)+sizeof(QDateTime);
+	
+	out << Simond::LanguageDescription
+		<< size
+		<< modelManager->getLanguageDescriptionModifiedTime()
+		<< languageDescription->treeHed()
+		<< languageDescription->shadowVocab()
+		<< languageDescription->shadowLexicon();
+	socket->write(toWrite);
+	
+	delete languageDescription;
+}
+
+
+
+void RecognitionControl::sendTrainingModifiedDate()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << Simond::TrainingDate
+		<< modelManager->getTrainingModifiedTime();
+	socket->write(toWrite);
+}
+
+
+void RecognitionControl::sendTraining()
+{
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	
+	TrainingContainer *training = modelManager->getTrainingContainer();
+	
+	qint64 size = sizeof(int)+sizeof(int)+
+			training->wavConfig().count()+
+			training->prompts().count()+
+			sizeof(Simond::Request)+sizeof(qint64)+sizeof(QDateTime);
+	
+	out << Simond::Training
+		<< size
+		<< modelManager->getTrainingModifiedTime()
+		<< training->channels()
+		<< training->sampleRate()
+		<< training->wavConfig()
+		<< training->prompts();
+	socket->write(toWrite);
+	
+	delete training;
+}
+
+
+
+
+void RecognitionControl::startSynchronisation()
+{
+	kDebug() << "Starting synchronisation";
+	disconnect (modelManager, SIGNAL(modelChanged()), this, SLOT(startSynchronisation()));
+	sendRequest(Simond::StartSynchronisation);
+}
+
+void RecognitionControl::synchronisationComplete()
+{
+	kDebug() << "Synchronisation completed";
+	
+	connect(modelManager, SIGNAL(modelChanged()), this, SLOT(startSynchronisation()));
+}
+
+
+/**
+ *	@brief Process the request
+ *	
+ *	Reads the new data from the socket and processes it
+ *	
+ *	@author Peter Grasch
+ */
+void RecognitionControl::messageReceived()
+{
+	QByteArray msgByte = socket->readAll();
+	QDataStream msg(&msgByte, QIODevice::ReadOnly);
+	qint32 type;
+	Simond::Request request;
+	msg >> type;
+	request = (Simond::Request) type;
+	kDebug() << type;
+	switch (request)
+	{
+		////////////////////    LOGIN    //////////////////////////////////////
+
+		case Simond::LoginSuccessful:
+		{
+			emit loggedIn();
+			startSynchronisation();
+			break;
+		}
+
+		case Simond::VersionIncompatible:
+		{
+			emit error(i18n("Version nicht unterstützt"));
+			break;
+		}
+
+		case Simond::AuthenticationFailed:
+		{
+			emit error(i18n("Benutzername oder Passwort falsch."));
+			this->disconnectFromServer();
+			break;
+		}
+
+		case Simond::AccessDenied:
+		{
+			emit error(i18n("Zugriff verweigert."));
+			this->disconnectFromServer();
+			break;
+		}
+
+
+
+		////////////////////    SYNCHRONISATION    ////////////////////////////
+		
+
+		case Simond::GetActiveModelDate:
+		{
+			kDebug() << "Server requested active Model modified date";
+			sendActiveModelModifiedDate();
+			break;
+		}
+
+		case Simond::GetActiveModel:
+		{
+			kDebug() << "Server requested active Model";
+			sendActiveModel();
+			break;
+		}
+
+		case Simond::ActiveModel:
+		{
+			kDebug() << "Server sent active Model";
+			kDebug() << "FIXME: Store model";
+			
+			//TODO: Store active model
+			
+			sendModelSrcModifiedDate();
+			break;
+		}
+
+		case Simond::NoActiveModelAvailable:
+		{
+			kDebug() << "No active model available";
+			emit warning(i18n("Kein Sprachmodell verfügbar: Erkennung deaktiviert"));
+			sendModelSrcModifiedDate();
+			
+			break;
+		}
+
+		case Simond::ActiveModelStorageFailed:
+		{
+			kDebug() << "Couldn't store active model on server";
+			emit warning(i18n("Konnte Server-Modell nicht aktualisieren"));
+			sendModelSrcModifiedDate();
+			
+			break;
+		}
+		
+		
+
+		case Simond::GetModelSrcDate:
+		{
+			kDebug() << "Server requested Model src modified date";
+			sendModelSrcModifiedDate();
+			break;
+		}
+		
+		
+		
+		case Simond::GetTrainingDate:
+		{
+			kDebug() << "Server Requested training modified date";
+			sendTrainingModifiedDate();
+			break;
+		}
+		
+		case Simond::GetTraining:
+		{
+			kDebug() << "Server requested training";
+			sendTraining();
+			break;
+		}
+		
+		case Simond::Training:
+		{
+			kDebug() << "Server sent training";
+			
+			qint64 length;
+			msg >> length;
+			
+			while (msgByte.count() < length)
+			{
+				if (socket->waitForReadyRead())
+					msgByte += socket->readAll();
+			}
+			
+			int channels, sampleRate;
+			QByteArray wavConfig, prompts;
+			
+			QDateTime changedTime;
+			msg >> changedTime;
+			msg >> channels;
+			msg >> sampleRate;
+			msg >> wavConfig;
+			msg >> prompts;
+			
+			modelManager->storeTraining(changedTime,channels, sampleRate,wavConfig,prompts);
+			
+			sendWordListModifiedDate();
+			break;
+		}
+		
+		case Simond::NoTrainingAvailable:
+		{
+			kDebug() << "No training available";
+			sendWordListModifiedDate();
+			break;
+		}
+		
+		case Simond::TrainingStorageFailed:
+		{
+			kDebug() << "Server could not store training";
+			sendWordListModifiedDate();
+			break;
+		}
+		
+		
+		case Simond::GetWordListDate:
+		{
+			kDebug() << "Server Requested WordList modified date";
+			sendWordListModifiedDate();
+			break;
+		}
+		
+		case Simond::GetWordList:
+		{
+			kDebug() << "Server Requested WordList";
+			sendWordList();
+			break;
+		}
+		
+		case Simond::WordList:
+		{
+			kDebug() << "Server sent WordList";
+			
+			qint64 length;
+			msg >> length;
+			
+			while (msgByte.count() < length)
+			{
+				if (socket->waitForReadyRead())
+					msgByte += socket->readAll();
+			}
+			
+			QByteArray simple, vocab, lexicon;
+			QDateTime changedTime;
+			msg >> changedTime;
+			msg >> simple;
+			msg >> vocab;
+			msg >> lexicon;
+			
+			modelManager->storeWordList(changedTime,simple,vocab,lexicon);
+			
+			sendGrammarModifiedDate();
+			break;
+		}
+		
+		case Simond::NoWordListAvailable:
+		{
+			kDebug() << "No wordlist available";
+			emit warning(i18n("Keine Wortliste verfügbar"));
+			sendGrammarModifiedDate();
+			break;
+		}
+		
+		case Simond::WordListStorageFailed:
+		{
+			kDebug() << "Server could not store wordlist";
+			emit warning(i18n("Konnte Wortliste nicht auf Server ablegen"));
+			sendGrammarModifiedDate();
+			break;
+		}
+		
+		
+		
+		case Simond::GetGrammarDate:
+		{
+			kDebug() << "Server Requested Grammar modified date";
+			sendGrammarModifiedDate();
+			break;
+		}
+		
+		case Simond::GetGrammar:
+		{
+			kDebug() << "Server requested Grammar";
+			sendGrammar();
+			break;
+		}
+		
+		case Simond::Grammar:
+		{
+			kDebug() << "Server sent grammar";
+			
+			qint64 length;
+			msg >> length;
+			
+			while (msgByte.count() < length)
+			{
+				if (socket->waitForReadyRead())
+					msgByte += socket->readAll();
+			}
+			
+			QByteArray grammar;
+			QDateTime changedTime;
+			msg >> changedTime;
+			msg >> grammar;
+			
+			modelManager->storeGrammar(changedTime,grammar);
+			
+			sendLanguageDescriptionModifiedDate();
+			break;
+		}
+		
+		case Simond::NoGrammarAvailable:
+		{
+			kDebug() << "No grammar available";
+			sendLanguageDescriptionModifiedDate();
+			break;
+		}
+		
+		case Simond::GrammarStorageFailed:
+		{
+			kDebug() << "Server could not store grammar";
+			sendLanguageDescriptionModifiedDate();
+			break;
+		}
+		
+		
+		
+		case Simond::GetLanguageDescriptionDate:
+		{
+			kDebug() << "Server Requested lang. desc. modified date";
+			sendLanguageDescriptionModifiedDate();
+			break;
+		}
+		
+		case Simond::GetLanguageDescription:
+		{
+			kDebug() << "Server requested lang. desc.";
+			sendLanguageDescription();
+			break;
+		}
+		
+		case Simond::LanguageDescription:
+		{
+			kDebug() << "Server sent languagedescription";
+			
+			
+			qint64 length;
+			msg >> length;
+			
+			while (msgByte.count() < length)
+			{
+				if (socket->waitForReadyRead())
+					msgByte += socket->readAll();
+			}
+			
+			QByteArray treeHed, shadowVocab, shadowLexicon;
+			QDateTime changedTime;
+			msg >> changedTime;
+			msg >> treeHed;
+			msg >> shadowVocab;
+			msg >> shadowLexicon;
+			
+			modelManager->storeLanguageDescription(changedTime,shadowVocab, shadowLexicon, treeHed);
+			
+			synchronisationComplete();
+			break;
+		}
+		
+		case Simond::NoLanguageDescriptionAvailable:
+		{
+			kDebug() << "No languagedescription available";
+			synchronisationComplete();
+			break;
+		}
+		
+		case Simond::LanguageDescriptionStorageFailed:
+		{
+			kDebug() << "Server could not store languagedescription";
+			synchronisationComplete();
+			break;
+		}
+		
+	
+
+		case Simond::GetTrainingsSample:
+		{
+			kDebug() << "Server requested Trainings-Sample";
+			
+			break;
+		}
+
+		case Simond::TrainingsSample:
+		{
+			kDebug() << "Server sent Trainings-Sample";
+			
+			break;
+		}
+		
+
+
+		case Simond::SynchronisationComplete:
+		{
+			synchronisationComplete();
+			break;
+		}
+
+
+
+		////////////////////    RECOGNITION    ////////////////////////////////
+
+		case Simond::RecognitionReady:
+		{
+			emit recognitionStatusChanged(RecognitionControl::Ready);
+			break;
+		}
+
+		case Simond::RecognitionError:
+		{
+			QString errormsg;
+			msg >> errormsg;
+			emit error(i18n("Erkennungsfehler: %1", errormsg));
+// 			void error(const QString& errStr, bool skippable=false);
+			emit recognitionStatusChanged(RecognitionControl::TemporarilyUnavailable);
+			break;
+		}
+
+		case Simond::RecognitionWarning:
+		{
+			QString warningmsg;
+			msg >> warningmsg;
+			emit warning(i18n("Erkennungswarnung: ")+warningmsg);
+			break;
+		}
+
+		case Simond::RecognitionStarted:
+		{
+			emit recognitionStatusChanged(RecognitionControl::Started);
+			break;
+		}
+
+		case Simond::RecognitionStopped:
+		{
+			emit recognitionStatusChanged(RecognitionControl::Stopped);
+			break;
+		}
+
+		case Simond::RecognitionTemporarilyUnavailable:
+		{
+			emit recognitionStatusChanged(RecognitionControl::TemporarilyUnavailable);
+			break;
+		}
+
+		case Simond::RecognitionResult:
+		{
+			QString word, sampa, samparaw;
+			msg >> word;
+			msg >> sampa;
+			msg >> samparaw;
+			emit recognised(word, sampa, samparaw);
+			break;
+		}
+	}
+}
+
+
+void RecognitionControl::startRecognition()
+{
+	sendRequest(Simond::StartRecognition);
+}
+
+void RecognitionControl::stopRecognition()
+{
+	sendRequest(Simond::StopRecognition);
+}
 
 
 /**
@@ -443,6 +902,8 @@ RecognitionControl::~RecognitionControl()
 {
     socket->deleteLater();
     timeoutWatcher->deleteLater();
+    
+    delete modelManager;
 }
 
 

@@ -6,6 +6,8 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
 set( simonmodelmanagementui_LIB_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/plugin_exporter.cpp
+
 	${CMAKE_CURRENT_SOURCE_DIR}/deleteworddialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/dragtablewidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/droplistwidget.cpp
@@ -38,6 +40,20 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/wiktionarydict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/lexicondict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/dict.cpp
+
+	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminals.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsworkingpage.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsselectterminalspage.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalswizard.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarwizard.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarworkingpage.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarselectfilespage.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammar.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalwizard.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalworkingpage.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalselectparameterspage.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminal.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/grammarsettings.cpp
 )
 
 set( simonmodelmanagementui_LIB_HDRS
@@ -67,6 +83,14 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictlexiconpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictselectsourcepage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importwiktionarypage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsworkingpage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsselectpage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammardescriptionpage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/selectfilestoreadpage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarworkingpage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalselectparameterspage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalworkingpage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/grammarsettingsdlg.ui
 )
 
 kde4_add_library( simonmodelmanagementui  SHARED ${simonmodelmanagementui_LIB_SRCS} )
@@ -87,3 +111,4 @@ install( FILES ${simonmodelmanagementui_LIB_HDRS}
  
 install( TARGETS simonmodelmanagementui  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 install( FILES simonmodelinternetextensionconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( FILES simongrammarconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

@@ -65,7 +65,6 @@ signals:
 
 public slots:
 	void abortInsertion() { abortVocabInsertion = true; }
-	void reloadList();
 	void reloadShadowList();
 	void askForRebuild();
 	void suggestTraining();

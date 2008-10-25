@@ -66,7 +66,7 @@ public:
 	* Recognition probability
 	* 
 	*/
-	Word(QString word, QString pronunciation, QString terminal=NULL, int probability=NULL)
+	Word(const QString& word, const QString& pronunciation, const QString& terminal=NULL, int probability=NULL)
 	{
 		this->word = word;
 		this->pronunciation = pronunciation;
@@ -128,7 +128,7 @@ public:
 	 * \author Peter Grasch
 	 * @param terminal The (new) terminal of the word
 	 */
-	void setTerminal(QString terminal)
+	void setTerminal(const QString& terminal)
 	{
 		this->terminal = terminal;
 	}
@@ -143,8 +143,9 @@ public:
 	 * \return bool
 	 * smaller?
 	 */
-	bool operator<(const Word w2) const
+	bool operator<(const Word& w2) const
 	{
+// 		kDebug() << word;
 		if (getWord().toUpper() < w2.getWord().toUpper())
 			return true;
 		else return ((getWord().toUpper() == w2.getWord().toUpper()) && ((getPronunciation() < w2.getPronunciation()) || 
@@ -152,7 +153,7 @@ public:
 	}
 	
 	
-	bool operator!=(const Word w2) const
+	bool operator!=(const Word& w2) const
 	{
 		if ((getWord() != w2.getWord()) || (getTerminal() != w2.getTerminal()) || (getPronunciation() != w2.getPronunciation()))
 			return true;

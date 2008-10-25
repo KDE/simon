@@ -19,12 +19,16 @@
 
 #include "modelcontainer.h"
 
-ModelContainer::ModelContainer(int sampleRate, int channels, const QString& wavConfig,
-			       const QStringList& grammarStructures, WordList *simpleVocab,
-			       const QString& treeHed,
-			       const QHash<QString,QString>& trainingsMap) : 
+ModelContainer::ModelContainer(int sampleRate, int channels, QIODevice* wavConfig,
+				QIODevice* grammarStructures, 
+				QIODevice* simpleVocab, QIODevice* activeVocab,
+				QIODevice* activeLexicon, QIODevice* shadowVocab, 
+				QIODevice* shadowLexicon, QIODevice* treeHed,
+				const QHash<QString,QString>& trainingsMap) : 
 	m_sampleRate(sampleRate), m_channels(channels), m_wavConfig(wavConfig), 
-	m_grammarStructures(grammarStructures), m_simpleVocab(simpleVocab), 
+	m_grammarStructures(grammarStructures),m_simpleVocab(simpleVocab),
+	m_activeVocab(activeVocab), m_activeLexicon(activeLexicon), 
+	m_shadowVocab(shadowVocab), m_shadowLexicon(shadowLexicon), 
 	m_treeHed(treeHed), m_trainingsMap(trainingsMap)
 {
 	
@@ -33,5 +37,15 @@ ModelContainer::ModelContainer(int sampleRate, int channels, const QString& wavC
 
 ModelContainer::~ModelContainer()
 {
+	delete m_wavConfig;
+
+	delete m_grammarStructures;
+	
 	delete m_simpleVocab;
+	delete m_activeVocab;
+	delete m_shadowVocab;
+	delete m_activeLexicon;
+	delete m_shadowLexicon;
+	
+	delete m_treeHed;
 }

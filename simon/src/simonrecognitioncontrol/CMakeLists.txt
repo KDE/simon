@@ -24,7 +24,8 @@ kde4_add_ui_files( simonrecognition_LIB_SRCS
 
 kde4_add_library( simonrecognitioncontrol  SHARED ${simonrecognition_LIB_SRCS} )
 
-target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} speechgui speechmodelbase )
+target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} speechgui speechmodelbase
+  simonmodelmanagement ) # for building the modelcontainers for synchronisation
 
 
 set_target_properties( simonrecognitioncontrol

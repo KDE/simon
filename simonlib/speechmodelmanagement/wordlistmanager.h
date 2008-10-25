@@ -118,6 +118,14 @@ public:
 	WordList* sortList(WordList* list);
 
 	void renameTerminal(const QString& from, const QString& to, bool includeShadow);
+
+	bool refreshWordListFiles(const QByteArray& simpleVocab,
+			const QByteArray& activeVocab, const QByteArray& activeLexicon);
+	bool refreshShadowListFiles(const QByteArray& activeVocab, const QByteArray& activeLexicon);
+
+	bool initShadowList();
+	bool initWordList();
+
 	~WordListManager();
 
 };

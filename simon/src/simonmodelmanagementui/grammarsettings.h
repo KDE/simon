@@ -42,16 +42,19 @@ private:
 	MergeTerminalsWizard *mergeTerminalsWizard;
 	Ui::GrammarSettingsDlg ui;
 
-signals:
-	void changed();
-
 private slots:
 	void showRenameWizard();
 	void showImportWizard();
 	void showMergeWizard();
 	void askForSave();
+	void slotChanged();
+
 public slots:
 	void mergeGrammar(QStringList);
+	
+	void load();
+	void save();
+	void defaults();
 
 public:
     GrammarSettings(QWidget* parent, const QVariantList& args=QVariantList());

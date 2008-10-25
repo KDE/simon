@@ -26,20 +26,20 @@
 #include <KMessageBox>
 #include <KGlobal>
 #include "grammarmanager.h"
-#include <kgenericfactory.h>
 
-K_PLUGIN_FACTORY( GrammarSettingsFactory, 
-			registerPlugin< GrammarSettings >(); 
-		)
-        
-K_EXPORT_PLUGIN( GrammarSettingsFactory("GrammarSettings") )
 
 GrammarSettings::GrammarSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
+	Q_UNUSED(args);
+
+	
 	ui.setupUi(this);
 	ui.pbImportTexts->setIcon(KIcon("document-open"));
 	ui.pbRename->setIcon(KIcon("document-properties"));
 	ui.pbMerge->setIcon(KIcon("arrow-down-double"));
+
+
+	connect(GrammarManager::getInstance(), SIGNAL(structuresChanged()), this, SLOT(load()));
 
 	this->importGrammarWizard = new ImportGrammarWizard(this);
 
@@ -54,10 +54,10 @@ GrammarSettings::GrammarSettings(QWidget* parent, const QVariantList& args): KCM
 	connect(ui.pbImportTexts, SIGNAL(clicked()), this, SLOT(showImportWizard()));
 	connect(ui.pbMerge, SIGNAL(clicked()), this, SLOT(showMergeWizard()));
 
-	connect(mergeTerminalsWizard, SIGNAL(finished(int)), this, SLOT(reset()));
-	connect(renameTerminalWizard, SIGNAL(finished(int)), this, SLOT(reset()));
+	connect(mergeTerminalsWizard, SIGNAL(finished(int)), this, SLOT(load()));
+	connect(renameTerminalWizard, SIGNAL(finished(int)), this, SLOT(load()));
 
-	connect(ui.kcfg_GrammarStructures, SIGNAL(changed()), this, SIGNAL(changed()));
+	connect(ui.kcfg_GrammarStructures, SIGNAL(changed()), this, SLOT(slotChanged()));
 	
 	connect (ui.pbRename, SIGNAL(clicked()), this, SLOT(showRenameWizard()));
 }
@@ -65,7 +65,12 @@ GrammarSettings::GrammarSettings(QWidget* parent, const QVariantList& args): KCM
 void GrammarSettings::askForSave()
 {
 	if (KMessageBox::questionYesNo(this, i18n("Sie möchten eine Aktion ausführen, die eine gespeicherte Grammatik benötigt.\n\nWenn Sie Ihre aktuellen Änderungen beibehalten möchten, müssen Sie jetzt Ihre Grammatik speichern.(Ansonsten wird mit der zuletzt gespeicherten Grammatik weitergearbeitet)\n\nWollen Sie das jetzt tun?"), i18n("Grammatik speichern")) == KMessageBox::Yes)
-		apply();
+		save();
+}
+
+void GrammarSettings::slotChanged()
+{
+	emit changed(true);
 }
 
 void GrammarSettings::showRenameWizard()
@@ -73,7 +78,27 @@ void GrammarSettings::showRenameWizard()
 	askForSave();
 	this->renameTerminalWizard->restart();
 	this->renameTerminalWizard->show();
-	
+}
+
+
+
+void GrammarSettings::load()
+{
+	ui.kcfg_GrammarStructures->setItems(GrammarManager::getInstance()->getStructures());
+	emit changed(false);
+}
+
+void GrammarSettings::save()
+{
+	GrammarManager::getInstance()->setStructures(ui.kcfg_GrammarStructures->items());
+	GrammarManager::getInstance()->save();
+	emit changed(false);
+}
+
+void GrammarSettings::defaults()
+{
+	ui.kcfg_GrammarStructures->clear();
+	save();
 }
 
 

@@ -22,17 +22,52 @@
 #define MODELMANAGER_H
 
 #include "simonacousticmodelmanagement_export.h"
+#include <QObject>
+#include <QDateTime>
 
-class ModelContainer;
+class Model;
+class WordListContainer;
+class GrammarContainer;
+class LanguageDescriptionContainer;
+class TrainingContainer;
 
-class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager
+class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
 {
+	Q_OBJECT
+	
+	signals:
+		void modelChanged();
+	
 	public:
 		ModelManager();
 
-		static ModelContainer* createContainer();
+		QDateTime getSrcContainerModifiedTime();
+		
+		WordListContainer* getWordListContainer();
+		QDateTime getWordListModifiedTime();
+		bool storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
+					const QByteArray& activeVocab, const QByteArray& activeLexicon);
+		
+		GrammarContainer* getGrammarContainer();
+		QDateTime getGrammarModifiedTime();
+		bool storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures);
+		
+		LanguageDescriptionContainer* getLanguageDescriptionContainer();
+		QDateTime getLanguageDescriptionModifiedTime();
+		bool storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, const QByteArray& shadowLexicon, 
+				        const QByteArray& treeHed);
+		
+		TrainingContainer* getTrainingContainer();
+		QDateTime getTrainingModifiedTime();
+		bool storeTraining(const QDateTime& changedTime, int soundChannels, int sampleRate, const QByteArray& wavConfig,
+					const QByteArray& prompts);
 
-		~ModelManager();
+		Model* createActiveContainer();
+		QDateTime getActiveContainerModifiedTime();
+		bool storeActiveModel(const QDateTime& changedTime, int sampleRate, int channels, const QByteArray& hmmDefs,
+				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& term);
+
+		~ModelManager() {}
 		
 };
 

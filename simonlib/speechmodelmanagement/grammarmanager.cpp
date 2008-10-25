@@ -21,8 +21,9 @@
 #include "grammarmanager.h"
 #include <QFile>
 #include <QCoreApplication>
-// #include <KMessageBox>
 #include <KLocalizedString>
+#include <QMutexLocker>
+#include <QDateTime>
 #include <simonlogging/logger.h>
 #include "wordlistmanager.h"
 #include "speechmodelmanagementconfiguration.h"
@@ -35,17 +36,11 @@ GrammarManager* GrammarManager::instance;
  * \brief Constructor
  * \author Peter Grasch
  */
-GrammarManager::GrammarManager() : QObject()
+GrammarManager::GrammarManager() : QObject(), structuresLock(QMutex::Recursive)
 {
-// 	connect(ModelManager::getInstance(), SIGNAL(unknownGrammarClass(QString)), this, SLOT(unknownWordClass(QString)));
-// 	load();
+	load();
 }
 
-
-void GrammarManager::unknownWordClass(const QString& name)
-{
-// 	KMessageBox::error(0, i18n("Der Terminal \"%1\" kommt in Ihrere Grammatikdefinition vor, nicht aber in der Wortliste.\n\nDies ist nicht gültig.\n\nBitte fügen Sie entweder ein Wort dieses Terminals zu Ihrem aktiven Wortschatz hinzu oder löschen Sie das betreffende Satzkonstrukt.", name), i18n("Nicht benutzte Wortklasse"));
-}
 
 GrammarManager * GrammarManager::getInstance()
 {
@@ -59,29 +54,31 @@ GrammarManager * GrammarManager::getInstance()
  * \author Peter Grasch
  * @return Successs
  */
-// bool GrammarManager::load()
-// {
-// 	structures.clear();
-// 	
-// 	QString path =Settings::getS("Model/PathToGrammar");
-// 	Logger::log(i18n("[INF] Lade Grammatik von %1", path));
-// 	
-// 	QFile grammar(Settings::getS("Model/PathToGrammar"));
-// 	if (!grammar.open(QIODevice::ReadOnly)) return false;
-// 	
-// 	QString structure;
-// 	while (!grammar.atEnd()) 
-// 	{
-// 		structure = QString::fromUtf8(grammar.readLine(1500));
-// 		structure.remove(0,7);		//remove the leading "S:NS_B "
-// 		structure = structure.left(structure.count()-6);  //remove the trailing " NS_E"
-// 		structures << structure;
-// 	}
-// 	
-// 	grammar.close();
-// 	
-// 	return true;
-// }
+bool GrammarManager::load()
+{
+	QMutexLocker lock(&structuresLock);
+
+	structures.clear();
+	
+	QString path =KStandardDirs::locate("appdata", "model/model.grammar");
+	Logger::log(i18n("[INF] Lade Grammatik von %1", path));
+	
+	QFile grammar(KStandardDirs::locate("appdata", "model/model.grammar"));
+	if (!grammar.open(QIODevice::ReadOnly)) return false;
+	
+	QString structure;
+	while (!grammar.atEnd()) 
+	{
+		structure = QString::fromUtf8(grammar.readLine(1500));
+		structure.remove(0,7);		//remove the leading "S:NS_B "
+		structure = structure.left(structure.count()-6);  //remove the trailing " NS_E"
+		structures << structure;
+	}
+	
+	grammar.close();
+
+	return true;
+}
 
 /**
  * \brief Renames the terminal to the given, new name
@@ -91,6 +88,8 @@ GrammarManager * GrammarManager::getInstance()
 void GrammarManager::renameTerminal(QString terminal, const QString& newName)
 {
 	//make the terminal regex-able :)
+	QMutexLocker lock(&structuresLock);
+
 	terminal.replace(".", "\\.");
 	terminal.replace("-", "\\-");
 	terminal.replace("!", "\\!");
@@ -101,15 +100,28 @@ void GrammarManager::renameTerminal(QString terminal, const QString& newName)
 	terminal.replace("$", "\\$");
 
 	//replace using regex patterns
-	QStringList structures;// = CoreConfiguration::grammarStructures();
 	structures.replaceInStrings(QRegExp('^'+terminal+'$'), newName);
 	structures.replaceInStrings(QRegExp(' '+terminal+'$'), ' '+newName);
 	structures.replaceInStrings(QRegExp('^'+terminal+' '), newName+' ');
 	structures.replaceInStrings(QRegExp(' '+terminal+' '), ' '+newName+' ');
-// 	CoreConfiguration::setGrammarStructures(structures);
 
+	save();
+// 	emit structuresChanged();
 	//this turned out to be faster than the "per-hand" approach
 	//...even if it looks a bit funny...
+}
+
+bool GrammarManager::refreshFiles(const QByteArray& grammarStructures)
+{
+	QMutexLocker lock(&structuresLock);
+	QFile grammarF(KStandardDirs::locateLocal("appdata", "model/model.grammar"));
+	if (!grammarF.open(QIODevice::WriteOnly)) return false;
+	grammarF.write(grammarStructures);
+	grammarF.close();
+
+	if (!load()) return false;
+	emit structuresChanged();
+	return true;
 }
 
 /**
@@ -185,9 +197,10 @@ QStringList GrammarManager::getExamples(const QString& word, const QString& term
  */
 QStringList GrammarManager::getTerminals()
 {
+	QMutexLocker lock(&structuresLock);
 	QStringList out;
 	QStringList terminalsInStruct;
-	QStringList structures;// = CoreConfiguration::grammarStructures();
+// 	QStringList structures;// = CoreConfiguration::grammarStructures();
 	for (int i=0; i < structures.count(); i++)
 	{
 		terminalsInStruct.clear();
@@ -207,9 +220,10 @@ QStringList GrammarManager::getTerminals()
  */
 QStringList GrammarManager::getStructures(const QString& terminal)
 {
+	QMutexLocker lock(&structuresLock);
 	QStringList matching;
 	int i=0;
-	QStringList structures = getStructures();// = CoreConfiguration::grammarStructures();
+// 	QStringList structures = getStructures();// = CoreConfiguration::grammarStructures();
 	while (i < structures.count())
 	{
 		if(structures[i].contains(terminal)) matching << structures[i];
@@ -220,12 +234,12 @@ QStringList GrammarManager::getStructures(const QString& terminal)
 
 QStringList GrammarManager::getStructures()
 {
-	return SpeechModelManagementConfiguration::grammarStructures();
+	return structures;
 }
 
 void GrammarManager::setStructures(const QStringList &structures)
 {
-	SpeechModelManagementConfiguration::setGrammarStructures(structures);
+	this->structures = structures;
 }
 
 /**
@@ -233,18 +247,27 @@ void GrammarManager::setStructures(const QStringList &structures)
  * \author Peter Grasch
  * @return success
  */
-// bool GrammarManager::save()
-// {
-// 	QString path =Settings::getS("Model/PathToGrammar");
-// 	Logger::log(i18n("[INF] Speichere Grammatik nach %1", path));
-// 	
-// 	QFile grammar(Settings::getS("Model/PathToGrammar"));
-// 	if (!grammar.open(QIODevice::WriteOnly)) return false;
-// 	
-// 	for (int i=0; i < structures.count(); i++)
-// 		grammar.write("S:NS_B "+structures[i].toUtf8()+" NS_E\n");
-// 	
-// 	grammar.close();
-// 	
-// 	return true;
-// }
+bool GrammarManager::save()
+{
+	QMutexLocker lock(&structuresLock);
+	QString path =KStandardDirs::locateLocal("appdata", "model/model.grammar");
+	Logger::log(i18n("[INF] Speichere Grammatik nach %1", path));
+	
+	QFile grammar(path);
+	if (!grammar.open(QIODevice::WriteOnly)) return false;
+	
+	for (int i=0; i < structures.count(); i++)
+		grammar.write("S:NS_B "+structures[i].toUtf8()+" NS_E\n");
+	
+	grammar.close();
+
+	
+	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	cGroup.writeEntry("GrammarDate", QDateTime::currentDateTime());
+	config.sync();
+
+	emit structuresChanged();
+	
+	return true;
+}

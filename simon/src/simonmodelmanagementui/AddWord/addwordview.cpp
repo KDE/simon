@@ -53,7 +53,6 @@ AddWordView::AddWordView(QWidget *parent)
 {
 	prevId=0;
 	listToAdd = new WordList();
-	promptsToAdd = new QHash<QString,QString>();
 	this->welcomePage = createWelcomePage();
 	resolvePage = createResolvePage();
 	this->addPage((QWizardPage*) welcomePage);
@@ -82,7 +81,7 @@ void AddWordView::cleanUp()
 		else 
 		{
 			listToAdd->clear();
-			promptsToAdd->clear();
+			promptsToAdd.clear();
 		}
 	}
 }
@@ -167,8 +166,8 @@ void AddWordView::finish(int done)
 	
 	listToAdd->append(Word(word, field("wordPronunciation").toString(),
 		     field("wordTerminal").toString(), 2 /* 2 recordings */));
-	promptsToAdd->insert(recordingName1, field("wordExample1").toString().toUpper());
-	promptsToAdd->insert(recordingName2, field("wordExample2").toString().toUpper());
+	promptsToAdd.insert(recordingName1, field("wordExample1").toString().toUpper());
+	promptsToAdd.insert(recordingName2, field("wordExample2").toString().toUpper());
 	
 	if (wordsToAdd.count() > 0)
 	{
@@ -191,9 +190,8 @@ void AddWordView::finish(int done)
  */
 void AddWordView::commitList()
 {
-	// 	Training stuff deactivated for now
-	TrainingManager::getInstance()->addSamples(promptsToAdd);
-	promptsToAdd->clear();
+	TrainingManager::getInstance()->addSamples(promptsToAdd, true /*recompiled later*/);
+	promptsToAdd.clear();
 
 	//we can't know for certain if this will be sorted when we add multiple words at once
 	WordListManager::getInstance()->addWords(listToAdd, false /*sorted*/, false /*shadowed*/);

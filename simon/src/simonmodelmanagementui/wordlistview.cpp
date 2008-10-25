@@ -84,7 +84,7 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(i18n("Wortliste"),
 	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(filterListbyPattern()));
 
 	this->wordListManager = WordListManager::getInstance();
-	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(reloadList()));
+	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(filterListbyPattern()));
 	
 	connect(this->wordListManager, SIGNAL(shadowListChanged()), this, SLOT(reloadShadowList()));
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(askForRebuild()));
@@ -108,18 +108,6 @@ void WordListView::askForRebuild()
 // 			ModelManager::compileModel();
 }
 
-
-/**
- * \brief Reloads the wordlist
- * \author Peter Grasch
- * \note Respects filters (by calling filterListbyPattern())
- */
-void WordListView::reloadList()
-{
-	this->clearList();
-	filterListbyPattern(); //this will take care of the currently active filter
-	// if there is none set, we will just load the list with loadList
-}
 
 
 /**
@@ -188,6 +176,7 @@ void WordListView::markWordToTrain(Word word)
 }
 
 
+
 /**
  * @brief Filters the QList
  *
@@ -204,6 +193,7 @@ void WordListView::filterListbyPattern(QString filter)
 
 	WordList* limitedVocab = wordListManager->getWords(filter, ui.cbShowCompleteLexicon->isChecked(), 
 				true, false /* display words twice which are in the active AND the shadowdict*/);
+	
 	insertVocab( limitedVocab );
 	delete limitedVocab;
 }

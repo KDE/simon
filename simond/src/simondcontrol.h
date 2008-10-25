@@ -17,36 +17,45 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#ifndef SIMONDCONTROL_H
+#define SIMONDCONTROL_H
 
-#include "renameterminal.h"
-#include "../wordlistmanager.h"
-#include "../grammarmanager.h"
+#include "clientsocket.h"
 
-RenameTerminal::RenameTerminal(QObject* parent): QThread(parent)
-{}
+#include <QHostAddress>
+#include <QTcpServer>
+#include <QList>
 
+class DatabaseAccess;
+class QTcpServer;
 
-RenameTerminal::~RenameTerminal()
+class SimondControl : public QTcpServer
 {
-}
+	Q_OBJECT
+	private:
+		QList<ClientSocket*> clients;
+		DatabaseAccess *db;
 
+	private slots:
+		void handleError(const QString& error);
+		
+		void startServer(const QHostAddress& allowedClient=QHostAddress::Any, quint16 port=4444);
+		void stopServer();
+		
+		void incomingConnection (int descriptor);
+		
+		void connectionClosing(QAbstractSocket::SocketState state);
+		
+		//debug
+		void sendString(const QString& data);
 
-void RenameTerminal::run()
-{
-	emit progress(0);
+	public:
+		SimondControl(QObject *parent=0);
 
-	WordListManager *wordListManager = WordListManager::getInstance();
-	GrammarManager *grammarManager = GrammarManager::getInstance();
-	wordListManager->renameTerminal(oldName, newName, includeShadow);
-	wordListManager->save();
-	emit progress(80);
-	if (includeGrammar)
-	{
-		grammarManager->renameTerminal(oldName, newName);
-// 		grammarManager->save(); saved automagically
-	}
+		bool init();
+			       
+		~SimondControl();
+		
+};
 
-	emit progress(100);
-	emit done();
-}
-
+#endif

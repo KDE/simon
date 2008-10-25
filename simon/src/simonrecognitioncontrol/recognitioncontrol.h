@@ -27,9 +27,9 @@
 
 class QSslSocket;
 class QTimer;
-class ModelContainer;
+class ModelManager;
 
-const qint8 protocolVersion=0;
+const qint8 protocolVersion=1;
 
 /**
  *	@class RecognitionControl
@@ -41,10 +41,26 @@ const qint8 protocolVersion=0;
  */
 class RECOGNITIONCONTROL_EXPORT RecognitionControl : public QObject {
 	Q_OBJECT
+
+public:
+	RecognitionControl(QWidget *parent=0);
+
+	~RecognitionControl();
+	
+
+	enum RecognitionStatus {
+		Ready=0,
+		Started=1,
+		TemporarilyUnavailable=2,
+		Stopped=3
+	};
+
 private:
 	QSslSocket *socket; //!< QSslSocket for communicating with the juliusd-socket
 
 	QTimer *timeoutWatcher;
+	ModelManager *modelManager;
+
 	QStringList serverConnectionsToTry;
 	QStringList serverConnectionErrors;
 
@@ -72,6 +88,7 @@ signals:
 	void loggedIn();
 
 	/*-------------------recognition-------------------*/
+	void recognitionStatusChanged(RecognitionControl::RecognitionStatus);
 	void recognised(const QString&, const QString& sampa, const QString& samparaw);
 	
 
@@ -80,7 +97,12 @@ signals:
 public slots:
 	void disconnectFromServer();
 	void startConnecting();
-	bool requestModelCompilation(ModelContainer *model);
+	void stopRecognition();
+	void startRecognition();
+
+	void startSynchronisation();
+	
+	
 
 private slots:
 	void sendRequest (qint32 request);
@@ -91,13 +113,25 @@ private slots:
 	void connectTo( QString server="127.0.0.1", quint16 port=4444 );
 	void timeoutReached();
 	void messageReceived();
+	bool sendActiveModel();
+	void sendModelSrcModifiedDate();
+	void sendActiveModelModifiedDate();
 
-public:
-	RecognitionControl(QWidget *parent=0);
 
-    ~RecognitionControl();
+	void sendWordListModifiedDate();
+	void sendWordList();
 
-	void sendSyncFile(QString filename);
+	void sendGrammarModifiedDate();
+	void sendGrammar();
+
+	void sendLanguageDescriptionModifiedDate();
+	void sendLanguageDescription();
+
+	void sendTrainingModifiedDate();
+	void sendTraining();
+
+	void synchronisationComplete();
+
 
 };
 

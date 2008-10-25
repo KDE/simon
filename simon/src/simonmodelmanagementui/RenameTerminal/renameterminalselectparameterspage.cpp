@@ -17,32 +17,31 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "internetextensionsettings.h"
-#include <KGlobal>
 
+#include "renameterminalselectparameterspage.h"
+#include <speechmodelmanagement/wordlistmanager.h>
 
-InternetExtensionSettings::InternetExtensionSettings(QWidget* parent, const QVariantList &args): KCModule(KGlobal::mainComponent(), parent, args)
+RenameTerminalSelectParametersPage::RenameTerminalSelectParametersPage(QWidget *parent)
+ : QWizardPage(parent)
 {
-	Q_UNUSED(args);
-
 	ui.setupUi(this);
-
-	connect(ui.kcfg_WikiDumpPrefix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
-	connect(ui.kcfg_WikiDumpPostfix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
-
-	makeExample();
+	registerField("renameNewName*",ui.leNewName);
+	registerField("renameTerminal*",ui.lwTerminal, "currentText", SIGNAL(currentRowChanged(int)));
+	registerField("renameIncludeShadow", ui.cbIncludeShadow);
+	registerField("renameIncludeGrammar", ui.cbIncludeGrammar);
 }
 
+void RenameTerminalSelectParametersPage::initializePage()
+{
+	QStringList availableTerminals;
+	availableTerminals = WordListManager::getInstance()->getTerminals(true);
+	ui.lwTerminal->clear();
+	ui.lwTerminal->addItems(availableTerminals);
+	
+}
 
-InternetExtensionSettings::~InternetExtensionSettings()
+RenameTerminalSelectParametersPage::~RenameTerminalSelectParametersPage()
 {
 }
 
-void InternetExtensionSettings::makeExample()
-{
-	QString example;
-	example += ui.kcfg_WikiDumpPrefix->text();
-	example += "xxwiktionary/xxxxxxxx";
-	example += ui.kcfg_WikiDumpPostfix->text();
-	ui.lbExample->setText(example);
-}
+
