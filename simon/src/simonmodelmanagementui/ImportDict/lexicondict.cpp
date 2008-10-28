@@ -63,7 +63,8 @@ void LexiconDict::load(QString path)
 	if (mimeType->is("text/plain")) //not compressed
 	{
 		QFileInfo info;
-		info.setFile(QFile(path));
+		QFile f(path);
+		info.setFile(f);
 		maxProg = info.size();
 	}
 
