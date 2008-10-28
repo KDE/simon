@@ -34,6 +34,7 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KDebug>
+#include <QBuffer>
 
 
 SynchronisationManager::SynchronisationManager(const QString& username, QObject *parent) : QObject(parent)
@@ -50,27 +51,25 @@ Model* SynchronisationManager::getActiveModel()
 
 	QString configPath = dirPath+"activemodelrc";
 	KConfig config( configPath, KConfig::SimpleConfig );
-	int channels;
 	int sampleRate;
 	KConfigGroup cGroup(&config, "");
-	channels = cGroup.readEntry("channels").toInt();
-	sampleRate = cGroup.readEntry("samplerate").toInt();
+	sampleRate = cGroup.readEntry("SampleRate").toInt();
 	
 	QFile hmmDefs(dirPath+"hmmdefs");
 	QFile tiedlist(dirPath+"tiedlist");
 	QFile dict(dirPath+"model.dict");
-	QFile term(dirPath+"model.term");
+	QFile dfa(dirPath+"model.dfa");
 	
 	if ((!hmmDefs.open(QIODevice::ReadOnly)) || 
 		(!tiedlist.open(QIODevice::ReadOnly)) || 
 		(!dict.open(QIODevice::ReadOnly)) || 
-		(!term.open(QIODevice::ReadOnly)))
+		(!dfa.open(QIODevice::ReadOnly)))
 	{
 		kDebug() << "Failed to gather active model";
 		return false;
 	}
 
-	return new Model(channels, sampleRate, hmmDefs.readAll(), tiedlist.readAll(), dict.readAll(), term.readAll());
+	return new Model(sampleRate, hmmDefs.readAll(), tiedlist.readAll(), dict.readAll(), dfa.readAll());
 }
 
 QDateTime SynchronisationManager::getActiveModelDate()
@@ -80,20 +79,39 @@ QDateTime SynchronisationManager::getActiveModelDate()
 	KConfig config( dirPath+"activemodelrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("Date", QDateTime());
-
-// 	QDateTime maxModifiedDate = qMax(QFileInfo(dirPath+"hmmdefs").lastModified(),
-// 					 QFileInfo(dirPath+"tiedlist").lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, QFileInfo(configPath).lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, QFileInfo(dirPath+"model.dict").lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, QFileInfo(dirPath+"model.term").lastModified());
-// 	return maxModifiedDate;
 }
 
-bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, int sampleRate, int channels, const QByteArray& hmmDefs,
-		const QByteArray& tiedList, const QByteArray& dict, const QByteArray& term)
+bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, int sampleRate, const QByteArray& hmmDefs,
+		const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa)
 {
-	//TODO: Implement
-	return false;
+	if (username.isEmpty()) return false;
+
+	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+	QFile hmmDefsFile(dirPath+"hmmdefs");
+	QFile tiedListFile(dirPath+"tiedlist");
+	QFile dictFile(dirPath+"model.dict");
+	QFile dfaFile(dirPath+"model.dfa");
+
+	if ((!hmmDefsFile.open(QIODevice::WriteOnly))
+		|| (!tiedListFile.open(QIODevice::WriteOnly))
+		|| (!dictFile.open(QIODevice::WriteOnly))
+		|| (!dfaFile.open(QIODevice::WriteOnly)))
+		return 0;
+	
+	hmmDefsFile.write(hmmDefs);
+	tiedListFile.write(tiedList);
+	dictFile.write(dict);
+	dfaFile.write(dfa);
+	hmmDefsFile.close();
+	tiedListFile.close();
+	dictFile.close();
+	dfaFile.close();
+
+	KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	cGroup.writeEntry("activemodelrc", changedDate);
+	config.sync();
+	return true;
 }
 
 QDateTime SynchronisationManager::getWordListDate()
@@ -330,7 +348,6 @@ TrainingContainer* SynchronisationManager::getTraining()
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/");
 	KConfig config( dirPath+"trainingrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
-	int channels = cGroup.readEntry("channels").toInt();
 	int sampleRate = cGroup.readEntry("samplerate").toInt();
 
 
@@ -343,12 +360,12 @@ TrainingContainer* SynchronisationManager::getTraining()
 	if (!prompts.open(QIODevice::ReadOnly))
 		return 0;
 
-	return new TrainingContainer(sampleRate, channels, wavConfig.readAll(),
+	return new TrainingContainer(sampleRate, wavConfig.readAll(),
 				  prompts.readAll());
 }
 
 
-bool SynchronisationManager::storeTraining(const QDateTime& changedDate, int soundChannels, int sampleRate, const QByteArray& wavConfig,
+bool SynchronisationManager::storeTraining(const QDateTime& changedDate, int sampleRate, const QByteArray& wavConfig,
 			const QByteArray& prompts)
 {
 	if (username.isEmpty()) return false;
@@ -357,12 +374,40 @@ bool SynchronisationManager::storeTraining(const QDateTime& changedDate, int sou
 	QString configPath = dirPath+"trainingrc";
 	KConfig config( configPath, KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
-	cGroup.writeEntry("channels", soundChannels);
 	cGroup.writeEntry("samplerate", sampleRate);
 	config.sync();
+	
+	////////////////
+	QFile promptsFile(dirPath+"prompts");
+	QStringList oldList, newList;
+	if (promptsFile.open(QIODevice::ReadOnly))
+	{
+		while (!promptsFile.atEnd())
+		{
+			QString promptsLine = QString::fromUtf8(promptsFile.readLine());
+			oldList << promptsLine.left(promptsLine.indexOf(" "));
+		}
+		promptsFile.close();
+	}
+	
+	QBuffer b((QByteArray*) &prompts);
+	if (!b.open(QIODevice::ReadOnly)) return false;
+	while (!b.atEnd())
+	{
+		QString promptsLine = QString::fromUtf8(b.readLine());
+		newList << promptsLine.left(promptsLine.indexOf(" "));
+	}
+	b.close();
+	
+	foreach (QString fileName, newList)
+	{
+		
+		if ((!oldList.contains(fileName)) && (!this->missingFiles.contains(fileName)))
+			missingFiles << fileName;
+	}
+	///////////
 
 	QFile wavConfigFile(dirPath+"wav_config");
-	QFile promptsFile(dirPath+"prompts");
 
 	if ((!wavConfigFile.open(QIODevice::WriteOnly)) || (!promptsFile.open(QIODevice::WriteOnly)))
 		return false;
@@ -377,129 +422,37 @@ bool SynchronisationManager::storeTraining(const QDateTime& changedDate, int sou
 	KConfigGroup cGroupg(&configg, "");
 	cGroupg.writeEntry("TrainingDate", changedDate);
 	configg.sync();
+	
 	return true;
 }
 
+bool SynchronisationManager::storeSample(const QByteArray& sample)
+{
+	if (missingFiles.isEmpty()) return false;
 
+	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/");
 
-// ModelContainer* SynchronisationManager::getModelSrc()
-// {
-// 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/");
-// 	QString configPath = dirPath+"trainingrc";
-// 	KConfig config( configPath, KConfig::SimpleConfig );
-// 	int channels;
-// 	int sampleRate;
-// 	KConfigGroup cGroup(&config, "");
-// 	channels = cGroup.readEntry("channels").toInt();
-// 	sampleRate = cGroup.readEntry("samplerate").toInt();
-// 
-// 	QFile *wavConfig = new QFile(dirPath+"wav_config");
-// 	QFile *treeHed = new QFile(dirPath+"tree1.hed");
-// 	QFile *grammar = new QFile(dirPath+"model.grammar");
-// 	
-// 	QFile *simpleVocab = new QFile(dirPath+"simplevocab");
-// 	QFile *activeVocab = new QFile(dirPath+"lexicon");
-// 	QFile *activeLexicon = new QFile(dirPath+"model.voca");
-// 	QFile *shadowVocab = new QFile(dirPath+"shadowlexicon");
-// 	QFile *shadowLexicon = new QFile(dirPath+"shadow.voca");
-// 	QFile *prompts = new QFile(dirPath+"prompts");
-// 
-// 	if ((!wavConfig->open(QIODevice::ReadOnly)) || (!treeHed->open(QIODevice::ReadOnly))
-// 		|| (!grammar->open(QIODevice::ReadOnly))
-// 		|| (!simpleVocab->open(QIODevice::ReadOnly))
-// 		|| (!activeVocab->open(QIODevice::ReadOnly))
-// 		|| (!activeLexicon->open(QIODevice::ReadOnly))
-// 		|| (!shadowVocab->open(QIODevice::ReadOnly))
-// 		|| (!shadowLexicon->open(QIODevice::ReadOnly))
-// 		|| (!prompts->open(QIODevice::ReadOnly)))
-// 		return 0;
-// 	
-// 	QHash<QString,QString> trainingsMap;
-// 
-// 	QTextStream ts(prompts);
-// 	while (!ts.atEnd())
-// 	{
-// 		QString line = ts.readLine();
-// 		int firstSpace=line.indexOf(" ");
-// 		trainingsMap.insert(line.left(firstSpace), line.mid(firstSpace+1));
-// 	}
-// 	prompts->close();
-// 	delete prompts;
-// 	
-// 	return new ModelContainer(sampleRate, channels, wavConfig,
-// 				   grammar, simpleVocab, activeVocab, activeLexicon, 
-// 				   shadowVocab, shadowLexicon, treeHed, trainingsMap);
-// }
+	QFile f(dirPath+missingFiles.at(0)+".wav");
+	if (!f.open(QIODevice::WriteOnly)) return false;
 
-// bool SynchronisationManager::storeModelSrc(int sampleRate, int soundChannels, const QByteArray& wavConfig,
-// 					const QByteArray& grammarStructures, const QByteArray& simpleVocab,
-// 					const QByteArray& activeVocab, const QByteArray& activeLexicon, 
-// 				        const QByteArray& shadowVocab, const QByteArray& shadowLexicon, 
-// 				        const QByteArray& treeHed, const QHash<QString, QString>& trainingsMap)
-// {
-// 	if (username.isEmpty()) return false;
-// 
-// 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/");
-// 	QString configPath = dirPath+"trainingrc";
-// 	KConfig config( configPath, KConfig::SimpleConfig );
-// 	KConfigGroup cGroup(&config, "");
-// 	cGroup.writeEntry("channels", soundChannels);
-// 	cGroup.writeEntry("samplerate", sampleRate);
-// 	config.sync();
-// 
-// 	QFile wavConfigFile(dirPath+"wav_config");
-// 	QFile treeHedFile(dirPath+"tree1.hed");
-// 	QFile grammarFile(dirPath+"model.grammar");
-// 	
-// 	QFile simpleVocabFile(dirPath+"simplevocab");
-// 	QFile activeVocabFile(dirPath+"lexicon");
-// 	QFile activeLexiconFile(dirPath+"model.voca");
-// 	QFile shadowVocabFile(dirPath+"shadowlexicon");
-// 	QFile shadowLexiconFile(dirPath+"shadow.voca");
-// 	QFile promptsFile(dirPath+"prompts");
-// 
-// 	if ((!wavConfigFile.open(QIODevice::WriteOnly)) || (!treeHedFile.open(QIODevice::WriteOnly))
-// 		|| (!grammarFile.open(QIODevice::WriteOnly))
-// 		|| (!simpleVocabFile.open(QIODevice::WriteOnly))
-// 		|| (!activeVocabFile.open(QIODevice::WriteOnly))
-// 		|| (!activeLexiconFile.open(QIODevice::WriteOnly))
-// 		|| (!shadowVocabFile.open(QIODevice::WriteOnly))
-// 		|| (!shadowLexiconFile.open(QIODevice::WriteOnly))
-// 		|| (!promptsFile.open(QIODevice::WriteOnly)))
-// 		return 0;
-// 	
-// 	wavConfigFile.write(wavConfig);
-// 	treeHedFile.write(treeHed);
-// 	grammarFile.write(grammarStructures);
-// 	simpleVocabFile.write(simpleVocab);
-// 	activeVocabFile.write(activeVocab);
-// 	activeLexiconFile.write(activeLexicon);
-// 	shadowVocabFile.write(shadowVocab);
-// 	shadowLexiconFile.write(shadowLexicon);
-// 
-// 	QStringList trainingFiles = trainingsMap.keys();
-// 	foreach (const QString& file, trainingFiles)
-// 		promptsFile.write(file.toUtf8()+" "+trainingsMap.value(file).toUtf8());
-// 	
-// 	
-// 	wavConfigFile.close();
-// 	treeHedFile.close();
-// 	grammarFile.close();
-// 	simpleVocabFile.close();
-// 	activeVocabFile.close();
-// 	activeLexiconFile.close();
-// 	shadowVocabFile.close();
-// 	shadowLexiconFile.close();
-// 	promptsFile.close();
-// 	return true;
-// }
+	f.write(sample);
+	f.close();
 
+	missingFiles.removeAt(0);
+	return true;
+}
+
+QString SynchronisationManager::missingSample()
+{
+	if (missingFiles.isEmpty()) return QString();
+
+	return missingFiles.at(0);
+}
 
 
 QDateTime SynchronisationManager::getModelSrcDate()
 {
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/");
-// 	QString configPath = dirPath+"trainingrc";
 
 	KConfig config( dirPath+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
@@ -507,17 +460,6 @@ QDateTime SynchronisationManager::getModelSrcDate()
 					 cGroup.readEntry("GrammarDate", QDateTime()));
 	maxModifiedDate = qMax(maxModifiedDate, cGroup.readEntry("LanguageDescriptionDate", QDateTime()));
 	maxModifiedDate = qMax(maxModifiedDate, cGroup.readEntry("TrainingDate", QDateTime()));
-
-// 	QDateTime maxModifiedDate = qMax(QFileInfo(dirPath+"wav_config").lastModified(),
-// 					 QFileInfo(dirPath+"tree1.hed").lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, QFileInfo(configPath).lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, QFileInfo(dirPath+"model.grammar").lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, QFileInfo(dirPath+"simplevocab").lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, QFileInfo(dirPath+"lexicon").lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, QFileInfo(dirPath+"model.voca").lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, QFileInfo(dirPath+"shadowlexicon").lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, QFileInfo(dirPath+"shadow.voca").lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, QFileInfo(dirPath+"prompts").lastModified());
 	return maxModifiedDate;
 }
 

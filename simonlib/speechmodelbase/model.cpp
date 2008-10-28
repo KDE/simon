@@ -19,10 +19,10 @@
 
 #include "model.h"
 
-Model::Model(int sampleRate, int channels, const QByteArray&  hmmDefs,
-				const QByteArray&  tiedList, const QByteArray&  dict, const QByteArray&  term) : 
-	m_sampleRate(sampleRate), m_channels(channels), m_hmmDefs(hmmDefs), 
-	m_tiedList(tiedList), m_dict(dict), m_term(term)
+Model::Model(int sampleRate, const QByteArray&  hmmDefs,
+				const QByteArray&  tiedList, const QByteArray&  dict, const QByteArray&  dfa) : 
+	m_sampleRate(sampleRate), m_hmmDefs(hmmDefs), 
+	m_tiedList(tiedList), m_dict(dict), m_dfa(dfa)
 {
 	
 }

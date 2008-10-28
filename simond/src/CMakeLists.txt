@@ -6,7 +6,7 @@ set(simond_SRCS
    clientsocket.cpp
    databaseaccess.cpp
    synchronisationmanager.cpp
-   modelcompilationmanager.cpp
+#    modelcompilationmanager.cpp
    recognitioncontrol.cpp
    juliuscontrol.cpp
  )
@@ -16,7 +16,7 @@ kde4_add_kcfg_files(simond_SRCS settings.kcfgc )
 
 kde4_add_executable(simond ${simond_SRCS})
 
-target_link_libraries(simond ${KDE4_KDEUI_LIBS}  ${QT_LIBRARIES} speechmodelbase )
+target_link_libraries(simond ${KDE4_KDEUI_LIBS}  ${QT_LIBRARIES} speechmodelbase simonmodelcompilation )
 
 install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} )
 

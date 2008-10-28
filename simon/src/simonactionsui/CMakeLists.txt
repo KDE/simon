@@ -9,6 +9,7 @@ set( simonactionsui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandpreviewwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/newcommand.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/runcommandview.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/runcommandviewprivate.cpp
 )
 
 set( simonactionsui_LIB_HDRS

@@ -47,7 +47,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	QObject::connect(recognitionControl, SIGNAL(disconnected()), this, SLOT(disconnectedFromServer()));
 	QObject::connect(recognitionControl, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
 
-	QObject::connect(recognitionControl, SIGNAL(status(const QString&)), this, SIGNAL(statusInfo(const QString&)));
+	QObject::connect(recognitionControl, SIGNAL(status(const QString&, int, int)), this, SLOT(slotRecognitionControlStatus(const QString&, int, int)));
 	QObject::connect(recognitionControl, SIGNAL(progress(int, int)), this, SIGNAL(progressInfo(int,int)));
 	QObject::connect(recognitionControl, SIGNAL(error(const QString&,bool)), this, SLOT(serverError(QString,bool)));
 	QObject::connect(recognitionControl, SIGNAL(warning(const QString&)), this, SLOT(serverWarning(QString)));
@@ -55,6 +55,13 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	
 	QObject::connect(recognitionControl, SIGNAL(recognised(const QString&,const QString&,const QString&)), this, SLOT(wordRecognised(QString,QString,QString)));
 	QObject::connect(recognitionControl, SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
+}
+
+void SimonControl::slotRecognitionControlStatus(const QString& message, int progNow, int progMax)
+{
+	emit statusInfo(message);
+	if (progNow != -1)
+		emit progressInfo(progNow, progMax);
 }
 
 bool SimonControl::passwordProtected()
@@ -274,22 +281,9 @@ void SimonControl::compileModel()
 {
 	emit statusInfo(i18n("Starte Synchronisation..."));
 	
-// 	int modelSampleRate=1;
-// 	int modelChannels=1;
-// 	QString modelWavConfig;
-// 	
-// 	QStringList grammarStructures = GrammarManager::getInstance()->getStructures();
-// 	WordList *simpleVocab = WordListManager::getInstance()->getSimpleVocab();
-// 
-// 	QString treeHed;
-// 	QHash<QString,QString> trainingsMap = TrainingManager::getInstance()->getTransferTrainingMap();
-// 	
-	
 	recognitionControl->startSynchronisation();
 	
-// 	if (succ)
-		emit statusInfo(i18n("Synchronisation gestartet"));
-// 	else emit statusInfo(i18n("Konnte Synchronisation nicht starten"));
+	emit statusInfo(i18n("Synchronisation gestartet"));
 }
 
 /**

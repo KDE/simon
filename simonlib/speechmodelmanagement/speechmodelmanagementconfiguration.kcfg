@@ -7,10 +7,6 @@
       <label>What samplerate the trainings samples should be recorded in.</label>
       <default>16000</default>
     </entry>
-    <entry name="ModelChannels" type="Int">
-      <label>Determines how many channels the trainings sample should use.</label>
-      <default>1</default>
-    </entry>
     <entry name="ModelTrainingsDataPath" type="Url">
       <label>Where to save the trainings samples.</label>
       <default code="true">KStandardDirs::locateLocal("appdata", "model/training.data/")</default>

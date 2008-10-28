@@ -39,7 +39,7 @@
 
 #include <QPixmap>
 #include <QCryptographicHash>
-#include <QDebug>
+#include <QCloseEvent>
 
 
 #include <KMessageBox>
@@ -124,10 +124,10 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	guessChildTriggers ( ( QObject* ) this );
 
 	info->writeToSplash ( i18n ( "Lade \"Trainieren\"..." ) );
-	this->trainDialog = TrainingView::getInstance ();
+	this->trainDialog = new TrainingView(this);
 
 	info->writeToSplash ( i18n ( "Lade \"Wortliste\"..." ) );
-	this->wordList = new WordListView ( this );
+	this->wordList = new WordListView ( trainDialog, this );
 
 	info->writeToSplash ( i18n ( "Lade \"Wort hinzufügen\"..." ) );
 	this->addWordView = AddWordView::getInstance();

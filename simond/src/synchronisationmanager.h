@@ -22,7 +22,7 @@
 
 #include <QObject>
 #include <QDateTime>
-#include <QHash>
+#include <QStringList>
 
 class Model;
 class WordListContainer;
@@ -36,6 +36,7 @@ class SynchronisationManager : public QObject
 
 	private:
 		QString username;
+		QStringList missingFiles;
 		
 	public:
 		SynchronisationManager(const QString& username, QObject *parent=0);
@@ -43,8 +44,8 @@ class SynchronisationManager : public QObject
 		Model* getActiveModel();
 		bool hasActiveModel();
 		QDateTime getActiveModelDate();
-		bool storeActiveModel(const QDateTime& changedDate, int sampleRate, int channels, const QByteArray& hmmDefs,
-				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& term);
+		bool storeActiveModel(const QDateTime& changedDate, int sampleRate, const QByteArray& hmmDefs,
+				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
 
 				
 		QDateTime getModelSrcDate();
@@ -70,8 +71,12 @@ class SynchronisationManager : public QObject
 		QDateTime getTrainingDate();
 		bool hasTraining();
 		TrainingContainer* getTraining();
-		bool storeTraining(const QDateTime& changedDate, int soundChannels, int sampleRate, const QByteArray& wavConfig,
+		bool storeTraining(const QDateTime& changedDate, int sampleRate, const QByteArray& wavConfig,
 					const QByteArray& prompts);
+		
+		QString missingSample();
+		
+		bool storeSample(const QByteArray& sample);
 			       
 		~SynchronisationManager();
 		

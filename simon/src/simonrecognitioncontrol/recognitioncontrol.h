@@ -64,6 +64,8 @@ private:
 	QStringList serverConnectionsToTry;
 	QStringList serverConnectionErrors;
 
+	void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
+
 signals:
 	/*--------------------connection--------------------*/
 	void connected();
@@ -81,7 +83,7 @@ signals:
 	void error(const QString& errStr, bool skippable=false);
 	void connectionError(const QString& errStr);
 	void warning(const QString&);
-	void status(const QString&);
+	void status(const QString&, int progNow=-1, int progMax=0);
 	void progress(int now, int max=-1);
 
 	/*-----------------user management-----------------*/
@@ -129,6 +131,8 @@ private slots:
 
 	void sendTrainingModifiedDate();
 	void sendTraining();
+
+	void sendSample(QString sampleName);
 
 	void synchronisationComplete();
 

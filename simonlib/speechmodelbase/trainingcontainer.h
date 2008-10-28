@@ -29,18 +29,17 @@
 class SPEECHMODELBASE_EXPORT TrainingContainer
 {
 	private:
-		int m_sampleRate, m_channels;
+		int m_sampleRate;
 		QByteArray m_wavConfig;
 		QByteArray m_prompts;
 
 	public:
-		TrainingContainer(int sampleRate, int channels, const QByteArray& wavConfig,
+		TrainingContainer(int sampleRate, const QByteArray& wavConfig,
 				const QByteArray& prompts);
 			       
 		~TrainingContainer();
 		
 		int sampleRate() { return m_sampleRate; }
-		int channels() { return m_channels; }
 		QByteArray wavConfig() { return m_wavConfig; }
 		QByteArray prompts() { return m_prompts; }
 		

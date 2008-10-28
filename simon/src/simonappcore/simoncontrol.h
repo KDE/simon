@@ -98,6 +98,7 @@ private slots:
 	void serverWarning(QString warning);
 	void loggedIn();
 	void recognitionStatusChanged(RecognitionControl::RecognitionStatus status);
+	void slotRecognitionControlStatus(const QString& message, int progNow, int progMax);
 
 private:
 	SimonControl::SystemStatus status;

@@ -29,7 +29,6 @@
 #include <QDir>
 #include <QStringList>
 #include <QString>
-// #include <QCryptographicHash>
 #include <QObject>
 #include <QDate>
 #include <QTextStream>
@@ -81,49 +80,6 @@ void TrainingManager::trainingSettingsSaved()
 	emit trainingSettingsChanged();
 }
 
-
-// QHash<QString, QString> TrainingManager::getTransferTrainingMap()
-// {
-// 	Q_ASSERT(promptsTable);
-// 	QMutexLocker lock(&promptsLock);
-// 	
-// 	QHash<QString, QString> trainingMap;
-// 	QString sampleDir = KStandardDirs::locateLocal("tmp", "simonsamplestosend/");
-// 	QStringList filesToTransfer = QDir(sampleDir).entryList(QStringList() << "*.wav", QDir::Files);
-// 	foreach (QString file, filesToTransfer)
-// 	{
-// 		QString fileBaseName = file.remove(sampleDir).remove(QRegExp("\\.wav$"));
-// 		qDebug() << fileBaseName;
-// 		trainingMap.insert(file, promptsTable->value("fileBaseName"));
-// 	}
-// 	return trainingMap;
-// }
-
-
-/**
- * \brief Returns a map of filename -> Hash combinations of all the trainingssamples
- * \author Peter Grasch
- * \note The filename is _NOT_ the full path but rather relative to the configured training directory
- */
-// QHash<QString, QString> TrainingManager::getTrainingsDataHashes()
-// {
-// 	QMutexLocker lock(&promptsLock);
-// 	QStringList fileNames = promptsTable->keys();
-// 	QHash<QString, QString> hashes;
-// 	QString hash;
-// 	QString basePath = SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+QDir::separator();
-// 	foreach (QString file, fileNames)
-// 	{
-// 		QFile f(basePath+file+".wav");
-// 		qDebug() << basePath+file+".wav";
-// 		if (!f.open(QIODevice::ReadOnly))
-// 			qDebug() << "DESASTER!";
-// 		hashes.insert(file, QCryptographicHash::hash(f.readAll(),QCryptographicHash::Md4));
-// 	}
-// 	qDebug() << hashes;
-// 	return hashes;
-// }
-
 TrainingManager* TrainingManager::getInstance()
 {
 	if (!instance)
@@ -163,9 +119,6 @@ bool TrainingManager::deleteWord ( Word *w, bool recompiledLater )
 	QString wordToDelete = w->getWord().toUpper();
 
 	QMutexLocker lock(&promptsLock);
-	//TODO: For now we delete every word with the same name
-	//For the future we should implement a lookup which tries to resolve the pronunciation using the samples
-	//and looking up if this is the selected word
 	
 	QStringList sampleFileNames = promptsTable->keys();
 	bool sampleAlreadyDeleted;
@@ -205,6 +158,11 @@ bool TrainingManager::deletePrompt ( QString key )
 	promptsTable->remove ( key );
 	//removes the sample
 	return QFile::remove ( SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+key+".wav" );
+}
+
+QString TrainingManager::getTrainingDir()
+{
+	return SpeechModelManagementConfiguration::modelTrainingsDataPath().path();
 }
 
 /**
@@ -292,7 +250,7 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
  * \brief Creates a training text and sets it to be the current text
  * \author Peter Grasch
  */
-void TrainingManager::trainWords ( WordList *words )
+void TrainingManager::trainWords ( const WordList *words )
 {
 	if ( !words ) return;
 
@@ -407,11 +365,10 @@ TrainingList* TrainingManager::readTrainingTexts ()
 	return trainingTexts;
 }
 
-bool TrainingManager::refreshTraining(int soundChannels, int sampleRate, const QByteArray& prompts)
+bool TrainingManager::refreshTraining(int sampleRate, const QByteArray& prompts)
 {
 	QMutexLocker lock(&promptsLock);
 	
-	SpeechModelManagementConfiguration::setModelChannels(soundChannels);
 	SpeechModelManagementConfiguration::setModelSampleRate(sampleRate);
 	
 	QFile promptsF(KStandardDirs::locateLocal("appdata", "model/prompts"));

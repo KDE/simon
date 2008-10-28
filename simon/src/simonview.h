@@ -40,6 +40,7 @@
 #include "simoncontrol.h"
 
 class QPoint;
+class QCloseEvent;
 class QWidget;
 class InlineWidgetView;
 class QString;

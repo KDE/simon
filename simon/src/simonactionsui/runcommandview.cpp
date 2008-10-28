@@ -18,16 +18,8 @@
  */
 
 #include "runcommandview.h"
-#include <KMessageBox>
-#include <KIcon>
-#include <QWidget>
-#include <QTableWidgetItem>
-#include <QHeaderView>
-#include <QSize>
-#include <simonactions/actionmanager.h>
-#include <simonactions/commandmodel.h>
-#include "newcommand.h"
-#include "commandpreviewwidget.h"
+#include "runcommandviewprivate.h"
+#include <KLocalizedString>
 
 
 /**
@@ -37,127 +29,21 @@
  */
 RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(i18n("Kommandos"), KIcon("system-run"), i18n("Direkte ausführung von simon-Befehlen"), parent)
 {
-	ui.setupUi(this);
-
-	CommandPreviewWidget *commandPreviewWidget = new CommandPreviewWidget(ui.cvCommands);
-	connect(ui.cvCommands, SIGNAL(updatePreviewWidget(QModelIndex)), commandPreviewWidget, SLOT(updateCommand(QModelIndex)));
-	ui.cvCommands->setPreviewWidget(commandPreviewWidget);
+	d = new RunCommandViewPrivate(this);
+	QVBoxLayout *lay = new QVBoxLayout(this);
+	lay->addWidget(d);
 
 	guessChildTriggers((QObject*)this);
-
-	setSettingsHidden();
-	hide();
-
-	connect ( ui.pbNewCommand, SIGNAL(clicked()), this, SLOT(addCommand()));
-	connect ( ui.pbEditCommand, SIGNAL(clicked()), this, SLOT(editCommand()));
-	connect ( ui.pbDeleteCommand, SIGNAL(clicked()), this, SLOT(deleteCommand()));
-
-	connect(ui.cvCommands, SIGNAL(activated(QModelIndex)), this, SLOT(reflectSelectionStatus(QModelIndex)));
-	connect(ui.cvCommands, SIGNAL(clicked(QModelIndex)), this, SLOT(reflectSelectionStatus(QModelIndex)));
-
-	QList<int> colWidths;
-	colWidths << 210 << 210 << 320;
-	ui.cvCommands->setColumnWidths(colWidths);
-
-	this->loadCommands();
-
-
-	ui.pbNewCommand->setIcon(KIcon("list-add"));
-	ui.pbImportActivities->setIcon(KIcon("document-import"));
-	ui.pbEditCommand->setIcon(KIcon("edit-rename"));
-	ui.pbDeleteCommand->setIcon(KIcon("edit-delete"));
 }
-
-
-void RunCommandView::reflectSelectionStatus(QModelIndex index)
-{
-	bool commandSelected = false;
-	if (index.internalPointer()) //categories have a 0 pointer
-		commandSelected = true;
-
-	ui.pbEditCommand->setEnabled(commandSelected);
-	ui.pbDeleteCommand->setEnabled(commandSelected);
-}
-
 
 void RunCommandView::setSettingsVisible()
 {
-	ui.wgSettings->show();
+	d->setSettingsVisible();
 }
 
 void RunCommandView::setSettingsHidden()
 {
-	ui.wgSettings->hide();
-}
-
-
-void RunCommandView::addCommand()
-{
-	NewCommand *newCommand = new NewCommand(this);
-	newCommand->registerCreators(ActionManager::getInstance()->getCreateCommandWidgets(newCommand));
-	
-	Command *com = newCommand->newCommand();
-	if (com)
-	{
-		ActionManager::getInstance()->addCommand(com);
-	}
-}
-
-
-
-
-/**
-*   \brief Loads and inserts the commandList by using the RunCommand backend
-*
-*   @author Peter Grasch
-*/
-void RunCommandView::loadCommands()
-{
-	CommandModel *model = new CommandModel(ActionManager::getInstance()->getCommandList());
-	connect(ActionManager::getInstance(), SIGNAL(commandsChanged(CommandList*)), model, 
-			SLOT(updateCommands(CommandList*)));
-	ui.cvCommands->setModel(model);
-}
-
-
-
-Command* RunCommandView::getCommandToModify()
-{
-	QModelIndex currentIndex = ui.cvCommands->currentIndex();
-	Command *command = static_cast<Command*>(currentIndex.internalPointer());
-	if (!command)
-	{
-		KMessageBox::information(this, i18n("Bitte wählen Sie zuerst ein Kommando aus der Liste aus"), i18n("Kommando auswählen"));
-		return 0;
-	}
-	return command;
-}
-
-void RunCommandView::editCommand()
-{
-	Command *command = getCommandToModify();
-	if (!command) return;
-
-	NewCommand *editCommand = new NewCommand(this);
-	editCommand->registerCreators(ActionManager::getInstance()->getCreateCommandWidgets(editCommand));
-	editCommand->init(command);
-	Command *newCommand = editCommand->newCommand();
-	if (newCommand)
-	{
-		ActionManager::getInstance()->deleteCommand(command);
-		ActionManager::getInstance()->addCommand(newCommand);
-	}
-}
-
-void RunCommandView::deleteCommand()
-{
-	Command *command = getCommandToModify();
-	if (!command) return;
-	
-	if (KMessageBox::questionYesNoCancel(this, i18n("Wollen Sie das ausgewählte Kommando wirklich unwiederruflich löschen?"), i18n("Kommando löschen")) == KMessageBox::Yes)
-	{
-		ActionManager::getInstance()->deleteCommand(command);
-	}
+	d->setSettingsHidden();
 }
 
 /**
@@ -167,5 +53,5 @@ void RunCommandView::deleteCommand()
  */
 RunCommandView::~RunCommandView()
 {
-	//do nothing - RunCommand should be preserved as it is a singleton...
+	d->deleteLater();
 }

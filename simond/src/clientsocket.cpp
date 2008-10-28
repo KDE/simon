@@ -19,7 +19,6 @@
 
 #include "clientsocket.h"
 #include "synchronisationmanager.h"
-#include "modelcompilationmanager.h"
 #include "databaseaccess.h"
 #include "juliuscontrol.h"
 
@@ -28,6 +27,8 @@
 #include <speechmodelbase/grammarcontainer.h>
 #include <speechmodelbase/languagedescriptioncontainer.h>
 #include <speechmodelbase/trainingcontainer.h>
+
+#include <modelcompilation/modelcompilationmanager.h>
 
 #include <QDir>
 #include <QDateTime>
@@ -43,6 +44,7 @@
 ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, QObject *parent) : QSslSocket(parent)
 {
 	username ="";
+	synchronisationRunning = false;
 
 	Q_ASSERT(databaseAccess);
 
@@ -51,7 +53,8 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess,
 	synchronisationManager = 0;
 	modelSource = ClientSocket::Undefined;
 	
-	modelCompilationManager = new ModelCompilationManager(this);
+	modelCompilationManager=0;
+	
 
 	kDebug() << "Created ClientSocket with Descriptor " << socketDescriptor;
 
@@ -76,6 +79,15 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess,
 	}
 }
 
+void ClientSocket::waitForMessage(qint64 length, QDataStream& stream, QByteArray& message)
+{
+	Q_ASSERT(stream.device());
+	while (stream.device()->bytesAvailable() < length)
+	{
+		if (waitForReadyRead())
+			message += readAll();
+	}
+}
 
 void ClientSocket::processRequest()
 {
@@ -83,515 +95,598 @@ void ClientSocket::processRequest()
 	QDataStream stream(&msg, QIODevice::ReadOnly);
 	qint32 type;
 
-	Simond::Request request;
-	stream >> type;
-	request = (Simond::Request) type;
 	
-	switch (request)
+	while (!stream.atEnd())
 	{
-		case Simond::Login:
+		Simond::Request request;
+		stream >> type;
+		request = (Simond::Request) type;
+		
+		switch (request)
 		{
-			kDebug() << "Login requested";
-
-			qint8 remoteProtocolVersion;
-			QString user;
-			QByteArray userBytes;
-			QString pass;
-			QByteArray passBytes;
-			
-			int length;
-			
-			stream >> remoteProtocolVersion;
-			stream >> length;
-			
-			while (msg.count() < length)
+			case Simond::Login:
 			{
-				if (waitForReadyRead())
-					msg += readAll();
-			}
-			
-			stream >> userBytes;
-			stream >> passBytes;
-			user = userBytes;
-			pass = passBytes;
+				kDebug() << "Login requested";
+				waitForMessage(sizeof(qint8)+sizeof(qint64), stream, msg);
+
+				qint8 remoteProtocolVersion;
+				QString user;
+				QByteArray userBytes;
+				QString pass;
+				QByteArray passBytes;
 				
-			if (remoteProtocolVersion !=  protocolVersion)
-			{
-				sendCode(Simond::VersionIncompatible);
-				return;
-			}
-
-			if (databaseAccess->authenticateUser(user, pass))
-			{
-				//store authentication data
-				sendCode(Simond::LoginSuccessful);
-
-				this->username = user;
+				qint64 length;
 				
-			} else {
-				sendCode(Simond::AuthenticationFailed);
-			}
-			
-			//TODO: Implement Simond::AccessDenied for insufficient privileges
-			break;
-			
-		}
-		
-		case Simond::StartSynchronisation:
-		{
-			if (username.isEmpty()) {
-				sendCode(Simond::AccessDenied);
-				return;
-			}
-			if (!synchronisationManager)
-				synchronisationManager = new SynchronisationManager(username, this);
-			
-			sendCode(Simond::GetActiveModelDate);
-			break;
-		}
-		
-
-		case Simond::ActiveModelDate:
-		{
-			QDateTime remoteModelDate;
-			stream >> remoteModelDate;
-			
-			Q_ASSERT(synchronisationManager);
-			
-			if (remoteModelDate > synchronisationManager->getActiveModelDate())
-				sendCode(Simond::GetActiveModel);
-			else if (!sendActiveModel())
-				sendCode(Simond::GetActiveModel);
-			
-			break;
-		}
-
-		case Simond::GetActiveModel:
-		{
-			sendActiveModel();
-			break;
-		}
-
-		case Simond::ActiveModel:
-		{
-			if (username.isEmpty()) {
-				sendCode(Simond::AccessDenied);
-				return;
-			}
-			
-			Q_ASSERT(synchronisationManager);
-			
-			kDebug() << "Received Active model";
-			
-			
-			qint64 length;
-			stream >> length;
-			
-			while (msg.count() < length)
-			{
-				if (waitForReadyRead())
-					msg += readAll();
-			}
-			
-			int soundChannels;
-			int sampleRate;
-			
-			stream >> soundChannels;
-			stream >> sampleRate;
-			
-			QByteArray hmmdefs, tiedlist, dict, term;
-			QDateTime changedDate;
-			stream >> changedDate;
-			stream >> hmmdefs;
-			stream >> tiedlist;
-			stream >> dict;
-			stream >> term;
-			
-			synchronisationManager->storeActiveModel( changedDate, sampleRate, soundChannels, hmmdefs,
-				tiedlist, dict, term);
-			
-			break;
-		}
-
-		case Simond::ErrorRetrievingActiveModel:
-		{
-			if (username.isEmpty()) {
-				sendCode(Simond::AccessDenied);
-				return;
-			}
-			Q_ASSERT(synchronisationManager);
-			
-			kDebug() << "Client reported error during the retrieving of the active model";
-			
-			if (!sendActiveModel())
-				sendCode(Simond::NoActiveModelAvailable);
-			
-			
-			break;
-		}
-
-		case Simond::ModelSrcDate:
-		{
-			QDateTime remoteModelDate;
-			stream >> remoteModelDate;
-			
-			Q_ASSERT(synchronisationManager);
-			
-			if (remoteModelDate > synchronisationManager->getModelSrcDate())
-			{
-				modelSource = ClientSocket::Client;
-			} else {
-				if (remoteModelDate < synchronisationManager->getModelSrcDate())
-					modelSource = ClientSocket::Server;
-			}
-				kDebug() << "Modelsource: " << modelSource;
-			if (remoteModelDate != synchronisationManager->getModelSrcDate())
-				sendCode(Simond::GetTrainingDate);
-			else sendCode(Simond::SynchronisationComplete);
-			
-			break;
-		}
-		
-		
-		
-		case Simond::TrainingDate:
-		{
-			QDateTime remoteTrainingDate;
-			stream >> remoteTrainingDate;
-			
-			Q_ASSERT(synchronisationManager);
-			Q_ASSERT(modelSource != ClientSocket::Undefined);
-			
-			if (remoteTrainingDate != synchronisationManager->getTrainingDate())
-			{
-				//Training changed
-				if (modelSource == ClientSocket::Server)
+				stream >> remoteProtocolVersion;
+				stream >> length;
+				waitForMessage(length, stream, msg);
+				
+				stream >> userBytes;
+				stream >> passBytes;
+				user = QString::fromUtf8(userBytes);
+				pass = passBytes;
+					
+				if (remoteProtocolVersion !=  protocolVersion)
 				{
-					if (!sendTraining())
-						sendCode(Simond::GetTraining);
-				} else sendCode(Simond::GetTraining);
-			} else {
-				kDebug() << "Training is up-to-date";
-				sendCode(Simond::GetWordListDate);
-			}
-			break;
-		}
-		
-		case Simond::ErrorRetrievingTraining:
-		{
-			kDebug() << "Couldn't get training";
-			if (!synchronisationManager->hasTraining())
-				sendCode(Simond::NoTrainingAvailable);
-			else sendTraining();
-			break;
-		}
-		
-		case Simond::Training:
-		{
-			kDebug() << "Received Training";
-			Q_ASSERT(synchronisationManager);
-			
-			qint64 length;
-			stream >> length;
-			
-			while (msg.count() < length)
-			{
-				if (waitForReadyRead())
-					msg += readAll();
-			}
-			
-			int channels, sampleRate;
-			QByteArray wavConfig, prompts;
-			QDateTime changedTime;
-			stream >> changedTime;
-			stream >> channels;
-			stream >> sampleRate;
-			stream >> wavConfig;
-			stream >> prompts;
-			
-			if (!synchronisationManager->storeTraining(changedTime, channels, sampleRate, wavConfig, prompts))
-			{
-				sendCode(Simond::TrainingStorageFailed);
-			}
-			sendCode(Simond::GetWordListDate);
-			
-			break;
-		}
-		
-		
-		
-		case Simond::WordListDate:
-		{
-			kDebug() << "Received Wordlist-Date";
-			QDateTime remoteWordListDate;
-			stream >> remoteWordListDate;
-			
-			Q_ASSERT(synchronisationManager);
-			Q_ASSERT(modelSource != ClientSocket::Undefined);
-			
-			kDebug() << remoteWordListDate << synchronisationManager->getWordListDate();
-			
-			if (remoteWordListDate != synchronisationManager->getWordListDate())
-			{
-				kDebug() << "Remote wordlist not synchronized";
-				//wordlist changed
-				if (modelSource == ClientSocket::Server)
-				{
-					if (!sendWordList())
-						sendCode(Simond::GetWordList);
-				} else {
-					kDebug() << "Requesting Wordlist";
-					sendCode(Simond::GetWordList);
+					sendCode(Simond::VersionIncompatible);
+					break;
 				}
-			} else {
-				kDebug() << "Wordlist is up-to-date";
-				sendCode(Simond::GetGrammarDate);
-			}
-			
-			break;
-		}
-		
-		case Simond::ErrorRetrievingWordList:
-		{
-			kDebug() << "Couldn't get wordlist";
-			if (!synchronisationManager->hasWordList())
-				sendCode(Simond::NoWordListAvailable);
-			else sendWordList();
-			
-			break;
-		}
-		
-		case Simond::WordList:
-		{
-			kDebug() << "Received Wordlist";
-			Q_ASSERT(synchronisationManager);
-			
-			qint64 length;
-			stream >> length;
-			
-			while (msg.count() < length)
-			{
-				if (waitForReadyRead())
-					msg += readAll();
-			}
-			
-			QByteArray simple, vocab, lexicon;
-			QDateTime changedTime;
-			stream >> changedTime;
-			stream >> simple;
-			stream >> vocab;
-			stream >> lexicon;
-			
-			
-			if (!synchronisationManager->storeWordList(changedTime, simple, vocab, lexicon))
-			{
-				sendCode(Simond::WordListStorageFailed);
-			}
-			
-			sendCode(Simond::GetGrammarDate);
-			break;
-		}
-		
-		
-		case Simond::GrammarDate:
-		{
-			kDebug() << "Received grammar date";
-			QDateTime remoteGrammarDate;
-			stream >> remoteGrammarDate;
-			
-			Q_ASSERT(synchronisationManager);
-			Q_ASSERT(modelSource != ClientSocket::Undefined);
 
-
-			if (remoteGrammarDate != synchronisationManager->getGrammarDate())
-			{
-				//grammar changed
-				if (modelSource == ClientSocket::Server)
+				if (databaseAccess->authenticateUser(user, pass))
 				{
-					if (!sendGrammar())
-						sendCode(Simond::GetGrammar);
-				} else sendCode(Simond::GetGrammar);
-			} else  {
-				kDebug() << "Grammar is up-to-date";
-				sendCode(Simond::GetLanguageDescriptionDate);
-			}
+					//store authentication data
+					this->username = user;
+					
+					if (modelCompilationManager) modelCompilationManager->deleteLater();
+					
+					QString srcDir = KStandardDirs::locateLocal("appdata", "models/"+user+"/src/");
+					QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+user+"/active/");
+					QString sampleDir = KStandardDirs::locateLocal("appdata", "models/"+user+"/samples/");
+					modelCompilationManager = new ModelCompilationManager(user, sampleDir, srcDir+"lexicon", srcDir+"model.grammar", 
+											srcDir+"simplevocab", srcDir+"prompts",
+											srcDir+"tree1.hed", srcDir+"wav_config",
+											activeDir+"hmmdefs", activeDir+"tiedlist",
+											activeDir+"model.dict", activeDir+"model.dfa",
+												this);
+					connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(sendActiveModel()));
+					connect(modelCompilationManager, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelCompilationStatus(const QString&, int, int)));
+					connect(modelCompilationManager, SIGNAL(error(const QString&)), this, SLOT(slotModelCompilationError(const QString&)));
+					
+					sendCode(Simond::LoginSuccessful);
+				} else {
+					sendCode(Simond::AuthenticationFailed);
+				}
 				
-			break;
-		}
-		
-		case Simond::ErrorRetrievingGrammar:
-		{
-			kDebug() << "Couldn't get grammar";
-			if (!synchronisationManager->hasGrammar())
-				sendCode(Simond::NoGrammarAvailable);
-			else sendGrammar();
-			break;
-		}
-		
-		case Simond::Grammar:
-		{
-			kDebug() << "Received grammar";
-			Q_ASSERT(synchronisationManager);
-			
-			qint64 length;
-			stream >> length;
-			
-			while (msg.count() < length)
-			{
-				if (waitForReadyRead())
-					msg += readAll();
+				break;
+				
 			}
 			
-			QByteArray grammar;
-			QDateTime changedTime;
-			stream >> changedTime;
-			stream >> grammar;
-			
-			
-			if (!synchronisationManager->storeGrammar(changedTime, grammar))
+			case Simond::StartSynchronisation:
 			{
-				sendCode(Simond::GrammarStorageFailed);
+				if (synchronisationRunning) break;
+				
+				if (username.isEmpty()) {
+					sendCode(Simond::AccessDenied);
+					break;
+				}
+				synchronisationRunning = true;
+				if (!synchronisationManager)
+					synchronisationManager = new SynchronisationManager(username, this);
+				
+				sendCode(Simond::GetActiveModelDate);
+				break;
 			}
 			
-			sendCode(Simond::GetLanguageDescriptionDate);
-			break;
-		}
-		
-		
-		
-		case Simond::LanguageDescriptionDate:
-		{
-			QDateTime remoteLanguageDescriptionDate;
-			stream >> remoteLanguageDescriptionDate;
-			
-			Q_ASSERT(synchronisationManager);
-			Q_ASSERT(modelSource != ClientSocket::Undefined);
-			
-			
-			if (remoteLanguageDescriptionDate != synchronisationManager->getLanguageDescriptionDate())
+
+			case Simond::ActiveModelDate:
 			{
-				//LanguageDescription changed
-				if (modelSource == ClientSocket::Server)
+				QDateTime remoteModelDate;
+				waitForMessage(sizeof(QDateTime), stream, msg);
+				stream >> remoteModelDate;
+				
+				Q_ASSERT(synchronisationManager);
+				
+				QDateTime localModelDate = synchronisationManager->getActiveModelDate();
+				if (remoteModelDate != localModelDate)
 				{
-					if (!sendLanguageDescription())
-						sendCode(Simond::GetLanguageDescription);
-				} else sendCode(Simond::GetLanguageDescription);
-			} else kDebug() << "LanguageDescription is up-to-date";
-			
-			
-			//reset modelsource
-			modelSource = ClientSocket::Undefined;
-			
-			break;
-		}
-		
-		
-		case Simond::ErrorRetrievingLanguageDescription:
-		{
-			kDebug() << "Couldn't get languagedescription";
-			if (!synchronisationManager->hasLanguageDescription())
-				sendCode(Simond::NoLanguageDescriptionAvailable);
-			else sendLanguageDescription();
-			break;
-		}
-		
-		case Simond::LanguageDescription:
-		{
-			kDebug() << "Received languagedescription";
-			Q_ASSERT(synchronisationManager);
-			
-			qint64 length;
-			stream >> length;
-			
-			while (msg.count() < length)
+					if (remoteModelDate > localModelDate)
+						sendCode(Simond::GetActiveModel);
+					else if (!sendActiveModel())
+						sendCode(Simond::GetActiveModel);
+				} else {
+					kDebug() << "Active model is up-to-date";
+					sendCode(Simond::GetModelSrcDate);
+				}
+				
+				break;
+			}
+
+			case Simond::GetActiveModel:
 			{
-				if (waitForReadyRead())
-					msg += readAll();
+				sendActiveModel();
+				break;
 			}
-			
-			QByteArray treeHed, shadowVocab, shadowLexicon;
-			QDateTime changedTime;
-			stream >> changedTime;
-			stream >> treeHed;
-			stream >> shadowVocab;
-			stream >> shadowLexicon;
-			
-			if (!synchronisationManager->storeLanguageDescription(changedTime, shadowVocab, shadowLexicon, treeHed))
+
+			case Simond::ActiveModel:
 			{
-				sendCode(Simond::LanguageDescriptionStorageFailed);
+				if (username.isEmpty()) {
+					sendCode(Simond::AccessDenied);
+					break;
+				}
+				
+				Q_ASSERT(synchronisationManager);
+				
+				kDebug() << "Received Active model";
+				
+				waitForMessage(sizeof(qint64), stream, msg);
+				
+				qint64 length;
+				stream >> length;
+				waitForMessage(length, stream, msg);
+				
+				int sampleRate;
+				stream >> sampleRate;
+				
+				QByteArray hmmdefs, tiedlist, dict, dfa;
+				QDateTime changedDate;
+				stream >> changedDate;
+				stream >> hmmdefs;
+				stream >> tiedlist;
+				stream >> dict;
+				stream >> dfa;
+				
+				synchronisationManager->storeActiveModel( changedDate, sampleRate, hmmdefs,
+					tiedlist, dict, dfa);
+				
+				break;
 			}
 
-			sendCode(Simond::SynchronisationComplete);
-			break;
+			case Simond::ErrorRetrievingActiveModel:
+			{
+				if (username.isEmpty()) {
+					sendCode(Simond::AccessDenied);
+					break;
+				}
+				Q_ASSERT(synchronisationManager);
+				
+				kDebug() << "Client reported error during the retrieving of the active model";
+				
+				if (!sendActiveModel())
+					sendCode(Simond::NoActiveModelAvailable);
+				
+				
+				break;
+			}
+
+			case Simond::ModelSrcDate:
+			{
+				QDateTime remoteModelDate;
+				waitForMessage(sizeof(QDateTime), stream, msg);
+				stream >> remoteModelDate;
+				
+				Q_ASSERT(synchronisationManager);
+				
+				if (remoteModelDate > synchronisationManager->getModelSrcDate())
+				{
+					modelSource = ClientSocket::Client;
+				} else {
+					if (remoteModelDate < synchronisationManager->getModelSrcDate())
+						modelSource = ClientSocket::Server;
+				}
+					kDebug() << "Modelsource: " << modelSource;
+				if (remoteModelDate != synchronisationManager->getModelSrcDate())
+					sendCode(Simond::GetTrainingDate);
+				else
+					synchronisationComplete();
+				
+				break;
+			}
+			
+			
+			case Simond::TrainingDate:
+			{
+				QDateTime remoteTrainingDate;
+				waitForMessage(sizeof(QDateTime), stream, msg);
+				stream >> remoteTrainingDate;
+				
+				Q_ASSERT(synchronisationManager);
+				Q_ASSERT(modelSource != ClientSocket::Undefined);
+				
+				if (remoteTrainingDate != synchronisationManager->getTrainingDate())
+				{
+					//Training changed
+					if (modelSource == ClientSocket::Server)
+					{
+						if (!sendTraining())
+							sendCode(Simond::GetTraining);
+					} else sendCode(Simond::GetTraining);
+				} else {
+					kDebug() << "Training is up-to-date";
+					sendCode(Simond::GetWordListDate);
+				}
+				break;
+			}
+			
+			case Simond::ErrorRetrievingTraining:
+			{
+				kDebug() << "Couldn't get training";
+				if (!synchronisationManager->hasTraining())
+					sendCode(Simond::NoTrainingAvailable);
+				else sendTraining();
+				break;
+			}
+			
+			case Simond::Training:
+			{
+				kDebug() << "Received Training";
+				Q_ASSERT(synchronisationManager);
+				
+				waitForMessage(sizeof(qint64), stream, msg);
+				qint64 length;
+				stream >> length;
+				
+				waitForMessage(length, stream, msg);
+				
+				int sampleRate;
+				QByteArray wavConfig, prompts;
+				QDateTime changedTime;
+				stream >> changedTime;
+				stream >> sampleRate;
+				stream >> wavConfig;
+				stream >> prompts;
+				
+				if (!synchronisationManager->storeTraining(changedTime, sampleRate, wavConfig, prompts))
+				{
+					sendCode(Simond::TrainingStorageFailed);
+				}
+				sendCode(Simond::GetWordListDate);
+				
+				break;
+			}
+			
+			
+			
+			case Simond::WordListDate:
+			{
+				kDebug() << "Received Wordlist-Date";
+				QDateTime remoteWordListDate;
+				waitForMessage(sizeof(QDateTime), stream, msg);
+				stream >> remoteWordListDate;
+				
+				Q_ASSERT(synchronisationManager);
+				Q_ASSERT(modelSource != ClientSocket::Undefined);
+				
+				kDebug() << remoteWordListDate << synchronisationManager->getWordListDate();
+				
+				if (remoteWordListDate != synchronisationManager->getWordListDate())
+				{
+					kDebug() << "Remote wordlist not synchronized";
+					//wordlist changed
+					if (modelSource == ClientSocket::Server)
+					{
+						if (!sendWordList())
+							sendCode(Simond::GetWordList);
+					} else {
+						kDebug() << "Requesting Wordlist";
+						sendCode(Simond::GetWordList);
+					}
+				} else {
+					kDebug() << "Wordlist is up-to-date";
+					sendCode(Simond::GetGrammarDate);
+				}
+				
+				break;
+			}
+			
+			case Simond::ErrorRetrievingWordList:
+			{
+				kDebug() << "Couldn't get wordlist";
+				if (!synchronisationManager->hasWordList())
+					sendCode(Simond::NoWordListAvailable);
+				else sendWordList();
+				
+				break;
+			}
+			
+			case Simond::WordList:
+			{
+				kDebug() << "Received Wordlist";
+				Q_ASSERT(synchronisationManager);
+				
+				qint64 length;
+				waitForMessage(sizeof(qint64), stream, msg);
+				stream >> length;
+				
+				waitForMessage(length, stream, msg);
+				
+				QByteArray simple, vocab, lexicon;
+				QDateTime changedTime;
+				stream >> changedTime;
+				stream >> simple;
+				stream >> vocab;
+				stream >> lexicon;
+				
+				
+				if (!synchronisationManager->storeWordList(changedTime, simple, vocab, lexicon))
+				{
+					sendCode(Simond::WordListStorageFailed);
+				}
+				
+				sendCode(Simond::GetGrammarDate);
+				break;
+			}
+			
+			
+			case Simond::GrammarDate:
+			{
+				kDebug() << "Received grammar date";
+				QDateTime remoteGrammarDate;
+				waitForMessage(sizeof(QDateTime), stream, msg);
+				stream >> remoteGrammarDate;
+				
+				Q_ASSERT(synchronisationManager);
+				Q_ASSERT(modelSource != ClientSocket::Undefined);
+
+
+				if (remoteGrammarDate != synchronisationManager->getGrammarDate())
+				{
+					//grammar changed
+					if (modelSource == ClientSocket::Server)
+					{
+						if (!sendGrammar())
+							sendCode(Simond::GetGrammar);
+					} else sendCode(Simond::GetGrammar);
+				} else  {
+					kDebug() << "Grammar is up-to-date";
+					sendCode(Simond::GetLanguageDescriptionDate);
+				}
+					
+				break;
+			}
+			
+			case Simond::ErrorRetrievingGrammar:
+			{
+				kDebug() << "Couldn't get grammar";
+				if (!synchronisationManager->hasGrammar())
+					sendCode(Simond::NoGrammarAvailable);
+				else sendGrammar();
+				break;
+			}
+			
+			case Simond::Grammar:
+			{
+				kDebug() << "Received grammar";
+				Q_ASSERT(synchronisationManager);
+				
+				qint64 length;
+				waitForMessage(sizeof(qint64), stream, msg);
+				stream >> length;
+				
+				waitForMessage(length, stream, msg);
+				
+				QByteArray grammar;
+				QDateTime changedTime;
+				stream >> changedTime;
+				stream >> grammar;
+				
+				
+				if (!synchronisationManager->storeGrammar(changedTime, grammar))
+				{
+					sendCode(Simond::GrammarStorageFailed);
+				}
+				
+				sendCode(Simond::GetLanguageDescriptionDate);
+				break;
+			}
+			
+			
+			
+			case Simond::LanguageDescriptionDate:
+			{
+				QDateTime remoteLanguageDescriptionDate;
+				waitForMessage(sizeof(QDateTime), stream, msg);
+				stream >> remoteLanguageDescriptionDate;
+				
+				Q_ASSERT(synchronisationManager);
+				Q_ASSERT(modelSource != ClientSocket::Undefined);
+				
+				
+				if (remoteLanguageDescriptionDate != synchronisationManager->getLanguageDescriptionDate())
+				{
+					//LanguageDescription changed
+					if (modelSource == ClientSocket::Server)
+					{
+						if (!sendLanguageDescription())
+							sendCode(Simond::GetLanguageDescription);
+					} else sendCode(Simond::GetLanguageDescription);
+				} else {
+					kDebug() << "LanguageDescription is up-to-date";
+					fetchTrainingSample();
+				}
+				
+				break;
+			}
+			
+			
+			case Simond::ErrorRetrievingLanguageDescription:
+			{
+				kDebug() << "Couldn't get languagedescription";
+				if (!synchronisationManager->hasLanguageDescription())
+				{
+					sendCode(Simond::NoLanguageDescriptionAvailable);
+					synchronisationDone();
+				} else sendLanguageDescription();
+				break;
+			}
+			
+			case Simond::LanguageDescription:
+			{
+				kDebug() << "Received languagedescription";
+				Q_ASSERT(synchronisationManager);
+				
+				qint64 length;
+				waitForMessage(sizeof(qint64), stream, msg);
+				stream >> length;
+				
+				waitForMessage(length, stream, msg);
+				
+				QByteArray treeHed, shadowVocab, shadowLexicon;
+				QDateTime changedTime;
+				stream >> changedTime;
+				stream >> treeHed;
+				stream >> shadowVocab;
+				stream >> shadowLexicon;
+				
+				if (!synchronisationManager->storeLanguageDescription(changedTime, shadowVocab, shadowLexicon, treeHed))
+				{
+					sendCode(Simond::LanguageDescriptionStorageFailed);
+				} else fetchTrainingSample();
+				break;
+			}
+			
+
+			case Simond::GetTrainingsSample:
+			{
+				if (username.isEmpty()) {
+					sendCode(Simond::AccessDenied);
+					break;
+				}
+				
+				Q_ASSERT(synchronisationManager);
+				
+				
+				break;
+			}
+
+			case Simond::ErrorRetrievingTrainingsSample:
+			{
+				if (username.isEmpty()) {
+					sendCode(Simond::AccessDenied);
+					break;
+				}
+				
+				Q_ASSERT(synchronisationManager);
+				
+				
+				break;
+			}
+
+			case Simond::TrainingsSample:
+			{
+				if (username.isEmpty()) {
+					sendCode(Simond::AccessDenied);
+					break;
+				}
+				
+				Q_ASSERT(synchronisationManager);
+				
+				qint64 length;
+				waitForMessage(sizeof(qint64), stream, msg);
+				stream >> length;
+				
+				waitForMessage(length, stream, msg);
+				
+				QByteArray sample;
+				stream >> sample;
+				
+				if (!synchronisationManager->storeSample(sample))
+				{
+					sendCode(Simond::TrainingsSampleStorageFailed);
+					synchronisationDone();
+				} else
+					fetchTrainingSample();
+				
+				break;
+			}
+
+			case Simond::StartRecognition:
+			{
+				if (username.isEmpty()) {
+					sendCode(Simond::AccessDenied);
+					break;
+				}
+				
+				
+				break;
+			}
+
+			case Simond::StopRecognition:
+			{
+				if (username.isEmpty()) {
+					sendCode(Simond::AccessDenied);
+					break;
+				}
+				
+				break;
+			}
+			
+			default:
+			{
+				kDebug() << "Unknown request: " << msg;
+			}
 		}
 		
-
-		case Simond::GetTrainingsSample:
-		{
-			if (username.isEmpty()) {
-				sendCode(Simond::AccessDenied);
-				return;
-			}
-			
-			Q_ASSERT(synchronisationManager);
-			
-			
-			break;
-		}
-
-		case Simond::ErrorRetrievingTrainingsSample:
-		{
-			if (username.isEmpty()) {
-				sendCode(Simond::AccessDenied);
-				return;
-			}
-			
-			Q_ASSERT(synchronisationManager);
-			
-			
-			break;
-		}
-
-		case Simond::TrainingsSample:
-		{
-			if (username.isEmpty()) {
-				sendCode(Simond::AccessDenied);
-				return;
-			}
-			
-			Q_ASSERT(synchronisationManager);
-			
-			
-			break;
-		}
-
-		case Simond::StartRecognition:
-		{
-			if (username.isEmpty()) {
-				sendCode(Simond::AccessDenied);
-				return;
-			}
-			
-			
-			break;
-		}
-
-		case Simond::StopRecognition:
-		{
-			if (username.isEmpty()) {
-				sendCode(Simond::AccessDenied);
-				return;
-			}
-			
-			
-			break;
-		}
-		
-		default:
-		{
-			kDebug() << "Unknown request: " << msg;
-		}
+		if (bytesAvailable())
+			msg += readAll();
 	}
+}
+
+void ClientSocket::fetchTrainingSample()
+{
+	Q_ASSERT(synchronisationManager);
+	
+	QString sample = synchronisationManager->missingSample();
+	if (sample.isNull())
+	{
+		kDebug() << "Done fetching samples";
+		synchronisationComplete();
+		return;
+	}
+	
+	kDebug() << "Fetching sample " << sample;
+
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	stream << (qint32) Simond::GetTrainingsSample
+		<< (qint64) sample.count()
+		<< sample;
+	write(toWrite);
+}
+
+
+void ClientSocket::slotModelCompilationStatus(const QString& status, int progressNow, int progressMax)
+{
+	QByteArray toWrite;
+	QByteArray statusByte = status.toUtf8();
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	stream << (qint32) Simond::ModelCompilationStatus
+		<< (qint64) (statusByte.count()+sizeof(int)+sizeof(int))
+		<< progressNow
+		<< progressMax
+		<< statusByte;
+		
+	write(toWrite);
+	kDebug() << progressNow << progressMax << status;
+}
+
+void ClientSocket::slotModelCompilationError(const QString& error)
+{
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	QByteArray errorByte = error.toUtf8();
+	stream << (qint32) Simond::ModelCompilationError
+		<< (qint64) errorByte.count()
+		<< errorByte;
+		
+	write(toWrite);
+	kDebug() << error;
+}
+
+
+void ClientSocket::recompileModel()
+{
+	kDebug() << "Compiling model...";
+	modelCompilationManager->startCompilation();
 }
 
 void ClientSocket::sendCode(Simond::Request code)
@@ -628,10 +723,10 @@ bool ClientSocket::sendActiveModel()
 	if (!model) return false;
 	
 	
-	qint64 size = model->hmmDefs().count()+
+	qint32 size = model->hmmDefs().count()+
 			model->tiedList().count()+
 			model->dict().count()+
-			model->term().count()+
+			model->dfa().count()+
 			sizeof(Simond::Request)+sizeof(QDateTime)+
 			sizeof(int)+sizeof(int);
 			
@@ -641,11 +736,10 @@ bool ClientSocket::sendActiveModel()
 		<< size
 		<< synchronisationManager->getActiveModelDate()
 		<< model->sampleRate()
-		<< model->channels()
 		<< model->hmmDefs()
 		<< model->tiedList()
 		<< model->dict()
-		<< model->term();
+		<< model->dfa();
 	write(toWrite);
 	
 	delete model;
@@ -653,6 +747,30 @@ bool ClientSocket::sendActiveModel()
 	return true;
 }
 
+void ClientSocket::synchronisationDone()
+{
+	synchronisationRunning=false;
+	//reset modelsource
+	modelSource = ClientSocket::Undefined;
+	
+	//send queued messages
+	if (messagesToSend.count() > 0)
+	{
+		write(messagesToSend.takeAt(0));
+	}
+}
+
+
+void ClientSocket::synchronisationComplete()
+{
+	sendCode(Simond::SynchronisationComplete);
+	
+	if (modelSource == ClientSocket::Client)
+		//if we got our model from the client modelsrc has changed
+		recompileModel();
+	
+	synchronisationDone();
+}
 
 bool ClientSocket::sendWordList()
 {
@@ -664,10 +782,10 @@ bool ClientSocket::sendWordList()
 	WordListContainer *wordList = synchronisationManager->getWordList();
 	if (!wordList) return false;
 	
-	qint64 size = wordList->simpleVocab().count()+
+	qint32 size = wordList->simpleVocab().count()+
 			wordList->activeVocab().count()+
 			wordList->activeLexicon().count()+
-			sizeof(Simond::Request)+sizeof(QDateTime)+sizeof(qint64);
+			sizeof(QDateTime);
 			
 	out << Simond::WordList
 		<< size
@@ -692,8 +810,8 @@ bool ClientSocket::sendGrammar()
 	GrammarContainer *grammar = synchronisationManager->getGrammar();
 	if (!grammar) return false;
 	
-	qint64 size = grammar->grammarStructures().count()+
-			sizeof(Simond::Request)+sizeof(QDateTime)+sizeof(qint64);
+	qint32 size = grammar->grammarStructures().count()+
+			sizeof(QDateTime);
 	
 	out << Simond::Grammar
 		<< size
@@ -716,7 +834,7 @@ bool ClientSocket::sendLanguageDescription()
 	if (!languageDescription) return false;
 	
 	qint64 size = languageDescription->treeHed().count()+languageDescription->shadowVocab().count()+
-			languageDescription->shadowLexicon().count()+sizeof(Simond::Request)+sizeof(QDateTime)+sizeof(qint64);
+			languageDescription->shadowLexicon().count()+sizeof(QDateTime);
 	
 	out << Simond::LanguageDescription
 		<< size
@@ -742,13 +860,11 @@ bool ClientSocket::sendTraining()
 	
 	qint64 size = sizeof(int)+sizeof(int)+
 			training->wavConfig().count()+
-			training->prompts().count()+
-			sizeof(Simond::Request)+sizeof(QDateTime)+sizeof(qint64);
+			training->prompts().count()+sizeof(QDateTime);
 	
 	out << Simond::Training
 		<< size
 		<< synchronisationManager->getTrainingDate()
-		<< training->channels()
 		<< training->sampleRate()
 		<< training->wavConfig()
 		<< training->prompts();
@@ -768,7 +884,8 @@ void ClientSocket::recognitionError(const QString& error)
 {
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-	stream << (qint32) Simond::RecognitionError << error.toUtf8();
+	QByteArray errorByte = error.toUtf8();
+	stream << (qint32) Simond::RecognitionError << (qint64) errorByte.count() << errorByte;
 	write(toWrite);
 }
 
@@ -776,7 +893,8 @@ void ClientSocket::recognitionWarning(const QString& warning)
 {
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-	stream << (qint32) Simond::RecognitionWarning << warning.toUtf8();
+	QByteArray warningByte = warning.toUtf8();
+	stream << (qint32) Simond::RecognitionError << (qint64) warningByte.count() << warningByte;
 	write(toWrite);
 }
 
@@ -803,7 +921,14 @@ void ClientSocket::sendRecognitionResult(const QString& data, const QString& sam
 {
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-	stream << Simond::RecognitionResult << data << sampa << samparaw;
+	
+	QByteArray dataByte = data.toUtf8();
+	QByteArray sampaByte = sampa.toUtf8();
+	QByteArray sampaRawByte = samparaw.toUtf8();
+	
+	qint64 size = dataByte.count() + sampaByte.count() + sampaRawByte.count();
+	
+	stream << Simond::RecognitionResult << size << dataByte << sampaByte << sampaRawByte;
 	write(toWrite);
 }
 

@@ -104,16 +104,6 @@ bool DatabaseAccess::authenticateUser(const QString& user, const QString& passwo
 	QString query = "SELECT Name FROM User WHERE Name='"+cleanedUser+"' AND Password='"+cleanedPass+"'";
 	kDebug() << query;
 	QSqlQuery q;
-	
-// 	QSqlQuery q3;
-// 	kDebug() << q3.exec("Update User set Password='"+password+"';");
-	
-// 	QSqlQuery q2;
-// 	kDebug() << q2.exec("Select password from User");
-// 	while (q2.next())
-// 		if (q2.value(0).toString() == password)
-// 			kDebug() << "Found It!";
-// 		else kDebug() << "Zonk: " << q2.value(0).toString() << password;
 
 	if (q.exec(query)) 
 	{

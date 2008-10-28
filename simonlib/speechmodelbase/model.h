@@ -31,24 +31,23 @@
 class SPEECHMODELBASE_EXPORT Model
 {
 	private:
-		int m_sampleRate, m_channels;
+		int m_sampleRate;
 		QByteArray m_hmmDefs;
 		QByteArray m_tiedList;
 		QByteArray m_dict;
-		QByteArray m_term;
+		QByteArray m_dfa;
 
 	public:
-		Model(int sampleRate, int channels, const QByteArray& hmmDefs,
-				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& term);
+		Model(int sampleRate, const QByteArray& hmmDefs,
+				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
 			       
 		~Model();
 		
 		int sampleRate() { return m_sampleRate; }
-		int channels() { return m_channels; }
 		QByteArray hmmDefs() { return m_hmmDefs; }
 		QByteArray tiedList() { return m_tiedList; }
 		QByteArray dict() { return m_dict; }
-		QByteArray term() { return m_term; }
+		QByteArray dfa() { return m_dfa; }
 		
 };
 

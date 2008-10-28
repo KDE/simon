@@ -39,18 +39,26 @@ class QProcess;
 class MODELCOMPILATIONMANAGEMENT_EXPORT ModelCompilationManager : public QThread{
 Q_OBJECT
 signals:
-	void status(const QString&);
+	void status(const QString&, int progressNow, int progressTotal=2300);
 	void error(const QString&);
-	void progress(int now, int total=2300);
 	void missingWord(const QString&);
 	void sampleWithoutWord(const QString&);
 	void unknownGrammarClass(const QString&);
+
+	void modelCompiled();
 // 	void missingPhoneme(const QString&);
 private:
-	static ModelCompilationManager* instance;
+	QString currentStatus;
+	
 	QProcess *proc;
 	QString lastOutput;
 	QString lastError;
+
+
+	QString userName;
+	QString samplePath;
+	QString lexiconPath, grammarPath, vocabPath, promptsPath, treeHedPath, wavConfigPath;
+	QString hmmDefsPath, tiedListPath, dictPath, dfaPath;
 
 
 
@@ -100,30 +108,29 @@ private:
 
 	bool compileGrammar();
 		bool generateReverseGrammar();
-		bool makeSimpleVocab();
 		bool makeTempVocab();
 		bool makeDfa();
 		bool generateDict();
 	
 private slots:
-	void displayError(const QString&);
 	void logInfo();
 	bool processError(const QString& userError);
 
 protected:
-    ModelCompilationManager(QObject *parent=0);
 	
 public:
-	static ModelCompilationManager* getInstance() {
-		if (!instance) instance = new ModelCompilationManager();
-		return instance;
-	}
-	static bool compileModel() {
-		return ModelCompilationManager::getInstance()->startCompilation();
-	}
+    ModelCompilationManager(const QString& userName, const QString& samplePath,
+			     const QString& lexiconPath, const QString& grammarPath, 
+			     const QString& vocabPath, const QString& promptsPath, 
+			     const QString& treeHedPath, const QString& wavConfigPath,
+			     const QString& hmmDefsPath, const QString& tiedListPath,
+			     const QString& dictPath, const QString& dfaPath,
+			     QObject *parent=0);
 
 	void run();
 	bool startCompilation();
+	
+	QString getStatus() { return currentStatus; }
 
     ~ModelCompilationManager();
 

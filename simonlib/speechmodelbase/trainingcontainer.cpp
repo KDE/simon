@@ -19,9 +19,9 @@
 
 #include "trainingcontainer.h"
 
-TrainingContainer::TrainingContainer(int sampleRate, int channels, const QByteArray& wavConfig,
+TrainingContainer::TrainingContainer(int sampleRate, const QByteArray& wavConfig,
 				const QByteArray& prompts) : 
-	m_sampleRate(sampleRate), m_channels(channels), m_wavConfig(wavConfig), 
+	m_sampleRate(sampleRate), m_wavConfig(wavConfig), 
 	m_prompts(prompts)
 {
 	

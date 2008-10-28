@@ -85,10 +85,7 @@ Q_OBJECT
 		bool savePrompts(bool recompiledLater=false);
 		bool writePromptsFile(PromptsTable* prompts, QString path);
 
-// 		QHash<QString, QString> getTransferTrainingMap();
-// 		QHash<QString, QString> getTrainingsDataHashes();
-
-		bool refreshTraining(int soundChannels, int sampleRate, const QByteArray& prompts);
+		bool refreshTraining(int sampleRate, const QByteArray& prompts);
 
 		/**
 		 * @brief Getter method for the QList of training texts
@@ -111,8 +108,9 @@ Q_OBJECT
 		bool deleteText ( int index );
 
 		float calcRelevance ( TrainingText *text );
+		QString getTrainingDir();
 
-		void trainWords ( WordList *words );
+		void trainWords ( const WordList *words );
 
 		bool trainText ( int i );
 		int getPageCount();

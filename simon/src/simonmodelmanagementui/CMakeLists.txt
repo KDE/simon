@@ -13,7 +13,9 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/droplistwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/internetextensionsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingview.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/trainingviewprivate.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlistview.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/wordlistviewprivate.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/xmltrainingtextlist.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextremotepage.cpp

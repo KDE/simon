@@ -24,7 +24,6 @@
 #include <QThread>
 #include <QStringList>
 #include <speechmodelbase/word.h>
-class WordListManager;
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>

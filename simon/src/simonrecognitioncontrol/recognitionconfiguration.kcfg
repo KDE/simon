@@ -2,9 +2,11 @@
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
 <kcfg> <kcfgfile />
   <include>KStandardDirs</include>
-
-
   <group name="Recognition">
+    <entry name="AutomaticSync" type="Bool">
+      <label>Should we automatically start the synchronisation process when the model is changed?</label>
+      <default>true</default>
+    </entry>
     <entry name="JuliusdAutoConnect" type="Bool">
       <label>If we should automatically connect to the Juliusd.</label>
       <default>false</default>

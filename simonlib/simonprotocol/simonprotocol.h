@@ -23,6 +23,8 @@
 namespace Simond
 {
 	enum Request {
+		Ack=1,
+		
 		Login=1001,
 		VersionIncompatible=1002,
 		AuthenticationFailed=1003,
@@ -80,19 +82,24 @@ namespace Simond
 		GetTrainingsSample=2071,
 		ErrorRetrievingTrainingsSample=2072,
 		TrainingsSample=2073,
+		TrainingsSampleStorageFailed=2074,
 		
 		SynchronisationComplete=2101,
 		
+		ModelCompilationStarted=3001,
+		ModelCompilationStatus=3002,
+		ModelCompilationProgress=3003,
+		ModelCompilationError=3004,
 		
-		RecognitionReady=3001,
-		StartRecognition=3002,
-		RecognitionError=3003,
-		RecognitionWarning=3004,
-		RecognitionStarted=3005,
-		StopRecognition=3006,
-		RecognitionStopped=3007,
-		RecognitionTemporarilyUnavailable=3008,
-		RecognitionResult=3009
+		RecognitionReady=4001,
+		StartRecognition=4002,
+		RecognitionError=4003,
+		RecognitionWarning=4004,
+		RecognitionStarted=4005,
+		StopRecognition=4006,
+		RecognitionStopped=4007,
+		RecognitionTemporarilyUnavailable=4008,
+		RecognitionResult=4009
 	};
 };
 

@@ -59,13 +59,15 @@ class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
 		
 		TrainingContainer* getTrainingContainer();
 		QDateTime getTrainingModifiedTime();
-		bool storeTraining(const QDateTime& changedTime, int soundChannels, int sampleRate, const QByteArray& wavConfig,
+		bool storeTraining(const QDateTime& changedTime, int sampleRate, const QByteArray& wavConfig,
 					const QByteArray& prompts);
 
 		Model* createActiveContainer();
 		QDateTime getActiveContainerModifiedTime();
-		bool storeActiveModel(const QDateTime& changedTime, int sampleRate, int channels, const QByteArray& hmmDefs,
-				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& term);
+		bool storeActiveModel(const QDateTime& changedTime, int sampleRate, const QByteArray& hmmDefs,
+				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
+				
+		QByteArray getSample(const QString& sampleName);
 
 		~ModelManager() {}
 		

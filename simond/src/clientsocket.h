@@ -21,6 +21,7 @@
 #define CLIENTSOCKET_H
 
 #include <QSslSocket>
+#include <QList>
 #include "clientsocket.h"
 #include "databaseaccess.h"
 #include <simonprotocol/simonprotocol.h>
@@ -38,12 +39,14 @@ class ClientSocket : public QSslSocket
 	Q_OBJECT
 
 	private:
-
+		bool synchronisationRunning;
 		enum ModelSource {
 			Undefined=0,
 			Client=1,
 			Server=2
 		};
+		
+		QList<QByteArray> messagesToSend;
 		
 		QString username;
 		
@@ -53,6 +56,8 @@ class ClientSocket : public QSslSocket
 		RecognitionControl *recognitionControl;
 		SynchronisationManager *synchronisationManager;
 		ModelCompilationManager *modelCompilationManager;
+		
+		void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
 
 	public slots:
 		void sendRecognitionResult(const QString& data, const QString& sampa, const QString& samparaw);
@@ -76,6 +81,16 @@ class ClientSocket : public QSslSocket
 		bool sendGrammar();
 		bool sendLanguageDescription();
 		bool sendTraining();
+		
+		void recompileModel();
+		
+		void slotModelCompilationStatus(const QString& status, int progressNow, int progressMax);
+		void slotModelCompilationError(const QString& error);
+		
+		void synchronisationComplete();
+		void synchronisationDone();
+		
+		void fetchTrainingSample();
 
 	public:
 		ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, QObject *parent=0);

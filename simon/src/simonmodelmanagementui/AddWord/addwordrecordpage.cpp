@@ -26,6 +26,7 @@
 #include <QVBoxLayout>
 #include <simonsound/recwidget.h>
 #include <KStandardDirs>
+#include <speechmodelmanagement/trainingmanager.h>
 
 /**
  * \brief Constructor - also creates the GUI Elements
@@ -52,7 +53,12 @@ bool AddWordRecordPage::isComplete() const
 
 QString AddWordRecordPage::getSamplesDir()
 {
-	return KStandardDirs::locateLocal("tmp", "simonsamplestosend/");
+	return TrainingManager::getInstance()->getTrainingDir();
+// 	KConfig config( KStandardDirs::locate("config", "localsamplesrc") );
+// 	KConfigGroup cGroup(&config, "");
+// 	QString samplePath = cGroup.readEntry("SamplePath", KStandardDirs::locate("appdata", "samples/"));
+
+// 	return samplePath;
 }
 
 /**

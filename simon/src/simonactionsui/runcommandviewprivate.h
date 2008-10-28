@@ -17,15 +17,46 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "modelcompilationmanager.h"
+#ifndef RUNCOMMANDVIEWPRIVATE_H
+#define RUNCOMMANDVIEWPRIVATE_H
 
+#include "ui_rundialog.h"
 
-ModelCompilationManager::ModelCompilationManager(QObject *parent) : QObject(parent)
-{
+class Command;
+class RunCommand;
+class CommandPreviewWidget;
+/**
+ *	@class RunCommandViewPrivate
+ *	@brief Provides a graphical frontend to run commands and perform 
+ * 	system actions
+ *
+ *	@version 0.1
+ *	@date 23.01.2006
+ *	@author Peter Grasch
+ */
+class RunCommandViewPrivate : public QWidget {
+	Q_OBJECT
 
-}
+private:
+	Ui::RunDlg ui;
+	Command* getCommandToModify();
 
-ModelCompilationManager::~ModelCompilationManager()
-{
-	
-}
+private slots:
+	void addCommand();
+	void deleteCommand();
+	void editCommand();
+	void reflectSelectionStatus(QModelIndex index);
+
+public slots:
+	void loadCommands();
+	void setSettingsVisible();
+	void setSettingsHidden();
+
+public:
+    RunCommandViewPrivate(QWidget *parent);
+
+    ~RunCommandViewPrivate();
+
+};
+
+#endif

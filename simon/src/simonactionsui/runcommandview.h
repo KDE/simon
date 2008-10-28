@@ -21,36 +21,18 @@
 #define RUNCOMMANDVIEW_H
 
 #include "inlinewidget.h"
-#include "ui_rundialog.h"
 #include "simonactionsui_export.h"
 
-class Command;
-class RunCommand;
-class CommandPreviewWidget;
-/**
- *	@class RunCommandView
- *	@brief Provides a graphical frontend to run commands and perform 
- * 	system actions
- *
- *	@version 0.1
- *	@date 23.01.2006
- *	@author Peter Grasch
- */
+class RunCommandViewPrivate;
+
 class SIMONACTIONSUI_EXPORT RunCommandView : public InlineWidget {
 	Q_OBJECT
 
 private:
-	Ui::RunDlg ui;
-	Command* getCommandToModify();
-
-private slots:
-	void addCommand();
-	void deleteCommand();
-	void editCommand();
-	void reflectSelectionStatus(QModelIndex index);
+	RunCommandViewPrivate *d;
 
 public slots:
-	void loadCommands();
+// 	void loadCommands();
 	void setSettingsVisible();
 	void setSettingsHidden();
 

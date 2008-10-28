@@ -29,99 +29,136 @@
 
 #include <simonlogging/logger.h>
 
-// #include "wordlistmanager.h"
-// #include "grammarmanager.h"
 #include "modelcompilationconfiguration.h"
 
 
-ModelCompilationManager* ModelCompilationManager::instance;
 
-
-ModelCompilationManager::ModelCompilationManager(QObject *parent) : QThread(parent)
+ModelCompilationManager::ModelCompilationManager(const QString& userName, const QString& samplePath,
+			     const QString& lexiconPath, const QString& grammarPath, 
+			     const QString& vocabPath, const QString& promptsPath, 
+			     const QString& treeHedPath, const QString& wavConfigPath, 
+			     const QString& hmmDefsPath, const QString& tiedListPath,
+			     const QString& dictPath, const QString& dfaPath, QObject *parent) : QThread(parent)
 {
+	this->userName = userName;
+	this->samplePath = samplePath;
+	
+	this->lexiconPath = lexiconPath;
+	this->grammarPath = grammarPath;
+	this->vocabPath = vocabPath;
+	this->promptsPath = promptsPath;
+	this->treeHedPath = treeHedPath;
+	this->wavConfigPath = wavConfigPath;
+	
+	this->hmmDefsPath = hmmDefsPath;
+	this->tiedListPath = tiedListPath;
+	this->dictPath = dictPath;
+	this->dfaPath = dfaPath;
+	
 	connect(this, SIGNAL(error(QString)), this, SLOT(processError(QString)));
+	
+	proc=0;
+}
+
+bool ModelCompilationManager::startCompilation()
+{
+	if (isRunning()) {
+		terminate();
+		wait();
+	}
+	lastError="";
+	start();
+	return true;
+}
+
+void ModelCompilationManager::run()
+{
+	if (proc) proc->deleteLater();
+	
+	proc = new QProcess();
+	proc->setWorkingDirectory(QCoreApplication::applicationDirPath());
+	connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(logInfo()));
+	connect(this, SIGNAL(finished()), proc, SLOT(deleteLater()));
+
+	Logger::log(i18n("[INF] Modell wird generiert..."));
+	emit status(i18n("Vorbereitung"), 0,2300);
+	
+
+	if (!generateInputFiles()) return;
+	if (!makeTranscriptions()) return;
+	if (!codeAudioData()) return;
+	if (!buildHMM()) return;
+	if (!compileGrammar()) return;
+
+	//sync model
+	
+	emit status(i18n("Fertig."), 2300, 2300);
 }
 
 
 bool ModelCompilationManager::compileGrammar()
 {
-	emit status(i18n("Generiere Umkehr-Grammatik..."));
+	emit status(i18n("Generiere Umkehr-Grammatik..."), 2000);
 	if (!generateReverseGrammar())
 	{
 		emit error(i18n("Konnte Umkehr-Grammatik nicht erstellen.\n\nIst eine Grammatik definiert?"));
 		return false;
 	}
-	
-	emit progress(2050);
-	emit status(i18n("Entferne unverwendete Vokabeln..."));
-	if (!makeSimpleVocab())
-	{
-		emit error(i18n("Konnte simple Vokabeln nicht erstellen.\n\nBitte überprüfen Sie ob der die Wortliste richtig geladen wurde."));
-		return false;
-	}
-	emit progress(2090);
-	
 
-	emit status(i18n("Generiere temporäre Vokabeln..."));
+	emit status(i18n("Generiere temporäre Vokabeln..."), 2100);
 	if (!makeTempVocab())
 	{
-		emit error(i18n("Konnte Temporäre Vokabeln nicht erstellen.\n\nBitte überprüfen Sie die Pfade zur Vokabulardatei (%1).", KStandardDirs::locate("appdata", "model/model.voca")));
+		emit error(i18n("Konnte Temporäre Vokabeln nicht erstellen.\n\nBitte überprüfen Sie die Pfade zur Vokabulardatei (%1).", this->vocabPath));
 		return false;
 	}
-	emit progress(2100);
 	
 
-	emit status(i18n("Generiere DFA..."));
+	emit status(i18n("Generiere DFA..."), 2250);
 	if (!makeDfa())
 	{
 		emit error(i18n("Konnte dfa nicht generieren.\n\nBitte überprüfen Sie die Pfade zur mkfa und dfa_minimize Datei (%1, %2).", ModelCompilationConfiguration::mkfa().path(), ModelCompilationConfiguration::dfa_minimize().path()));
 		return false;
 	}
-	emit progress(2250);
 	
-	emit status(i18n("Generiere Grammatikalisches Wörterbuch..."));
+	emit status(i18n("Generiere Grammatikalisches Wörterbuch..."), 2299);
 	if (!generateDict())
 	{
-		emit error(i18n("Konnte das grammatikalische Wörterbuch nicht generieren. \nBitte überprüfen Sie die Pfade zur Ausgabedatei. (%1).", KStandardDirs::locateLocal("appdata", "model/model.dict")));
+		emit error(i18n("Konnte das grammatikalische Wörterbuch nicht generieren. \nBitte überprüfen Sie die Pfade zur Ausgabedatei. (%1).", dictPath));
 		return false;
 	}
-	emit progress(2299);
 	
 	return true;
 }
 
 bool ModelCompilationManager::makeTempVocab()
 {
-	QString vocabPath = KStandardDirs::locateLocal("tmp", "simpleVocab");
 	QFile vocab ( vocabPath );
 
 	QString terminal;
-
 	if ( !vocab.open ( QFile::ReadOnly ) ) return false;
-	QFile tmpVocab ( KStandardDirs::locateLocal("tmp", "tempvoca") );
+	QFile tmpVocab ( KStandardDirs::locateLocal("tmp", userName+"/tempvoca") );
 	if ( !tmpVocab.open ( QFile::WriteOnly ) ) return false;
 
-	QFile term ( KStandardDirs::locateLocal("tmp", "term") );
+	QFile term ( KStandardDirs::locateLocal("tmp", userName+"/term") );
 	if ( !term.open ( QFile::WriteOnly ) ) return false;
-
+	
 	QString vocabEntry;
 
 	int termid=0;
 	while ( !vocab.atEnd() )
 	{
-		vocabEntry = vocab.readLine ( 1024 );
+		vocabEntry = QString::fromUtf8(vocab.readLine ( 1024 ));
 		vocabEntry.remove ( QRegExp ( "\r+$" ) );
 		vocabEntry.remove ( QRegExp ( "#.*" ) );
 		if ( vocabEntry.trimmed().isEmpty() ) continue;
 		if ( vocabEntry.startsWith ( '%' ) )
 		{
 			terminal = vocabEntry.mid ( 1 ).trimmed();
-			tmpVocab.write ( '#'+terminal.toLatin1() +'\n' );
+			tmpVocab.write ( '#'+terminal.toUtf8() +'\n' );
 
-			term.write ( termid+"\t"+terminal.toLatin1() +"\n" );
+			term.write ( termid+"\t"+terminal.toUtf8() +"\n" );
 			termid++;
 		}
-
 	}
 	vocab.close();
 	tmpVocab.close();
@@ -129,39 +166,18 @@ bool ModelCompilationManager::makeTempVocab()
 	return true;
 }
 
-bool ModelCompilationManager::makeSimpleVocab()
-{
-// 	WordListManager *wlistman = WordListManager::getInstance();
-// 	QStringList usedTerminals = GrammarManager::getInstance()->getTerminals();
-
-// 	WordList *simpleList = new WordList();
-// 	for (int i=0; i < usedTerminals.count(); i++)
-// 	{
-// 		WordList *tempList = wlistman->getWordsByTerminal(usedTerminals[i]);
-// 		for (int j=0; j < tempList->count(); j++)
-// 			simpleList->append(tempList->at(j));
-// 		delete tempList;
-// 	
-// 	}
-	
-// 	bool succ = wlistman->saveWordList(simpleList, KStandardDirs::locateLocal("tmp", "simpleLexicon"), KStandardDirs::locateLocal("tmp", "simpleVocab"));
-	
-// 	delete simpleList;
-// 	return succ;
-}
-
 bool ModelCompilationManager::makeDfa()
 {
 	QString mkfa = ModelCompilationConfiguration::mkfa().path();
 	QString dfaMinimize= ModelCompilationConfiguration::dfa_minimize().path();
 
-	QString execStr = '"'+mkfa+"\" -e1 -fg \""+KStandardDirs::locateLocal("tmp", "reverseGrammar")+"\" -fv \""+KStandardDirs::locateLocal("tmp", "tempvoca")+"\" -fo \""+KStandardDirs::locateLocal("tmp", "dfaTemp.tmp")+"\" -fh \""+KStandardDirs::locateLocal("tmp", "dfaTemp.h")+"\"";
+	QString execStr = '"'+mkfa+"\" -e1 -fg \""+KStandardDirs::locateLocal("tmp", userName+"/reverseGrammar")+"\" -fv \""+KStandardDirs::locateLocal("tmp", userName+"/tempvoca")+"\" -fo \""+KStandardDirs::locateLocal("tmp", userName+"/dfaTemp.tmp")+"\" -fh \""+KStandardDirs::locateLocal("tmp", userName+"/dfaTemp.h")+"\"";
 	proc->start(execStr);
 	proc->waitForFinished(-1);
 	if (proc->exitCode() != 0) 
 		return false;
 
-	proc->start('"'+dfaMinimize+'"'+" \""+KStandardDirs::locateLocal("tmp", "dfaTemp.tmp")+"\" -o \""+KStandardDirs::locate("appdata", "model/model.dfa")+'"');
+	proc->start('"'+dfaMinimize+'"'+" \""+KStandardDirs::locateLocal("tmp", userName+"/dfaTemp.tmp")+"\" -o \""+dfaPath+'"');
 	proc->waitForFinished(-1);
 	if (proc->exitCode()!= 0) 
 		return false;
@@ -171,16 +187,10 @@ bool ModelCompilationManager::makeDfa()
 
 bool ModelCompilationManager::generateReverseGrammar()
 {
-// 	QFile grammar(KStandardDirs::locate("appdata", "model/model.grammar"));
-// 	if (!grammar.open(QFile::ReadOnly)) return false;
+	QFile grammar(grammarPath);
+	if (!grammar.open(QFile::ReadOnly)) return false;
 
-// 	QStringList structures = ModelCompilationConfiguration::grammarStructures();
-	QStringList structures;
-
-	if (structures.count() == 0)
-		return false;
-
-	QFile reverseGrammar(KStandardDirs::locateLocal("tmp", "reverseGrammar"));
+	QFile reverseGrammar(KStandardDirs::locateLocal("tmp", userName+"/reverseGrammar"));
 	if (!reverseGrammar.open(QFile::WriteOnly)) return false;
 
 	QString reverseGrammarEntry;
@@ -188,21 +198,22 @@ bool ModelCompilationManager::generateReverseGrammar()
 	QStringList terminals;
 	QString identifier;
 	
-	for (int i=0; i < structures.count(); i++)
+	while (!grammar.atEnd())
 	{
-		grammarEntry = structures[i];
+		grammarEntry = QString::fromUtf8(grammar.readLine()).trimmed();
 		if (grammarEntry.trimmed().isEmpty()) continue;
 		
-// 		int splitter =grammarEntry.indexOf(QRegExp("\\:"));
-// 		if (splitter == -1) continue;
-// 		identifier = grammarEntry.left(splitter);
+		//example: "S:NS_B NOM NS_E"
+		int splitter =grammarEntry.indexOf(":");
+		if (splitter == -1) continue;
+		reverseGrammarEntry = grammarEntry.left(splitter+1);
+		//reverse = "S:"
 		
-		reverseGrammarEntry = "S: NS_E ";
-		terminals = grammarEntry.split(' ');
+		terminals = grammarEntry.mid(splitter+1).split(' ');
 		for (int j=terminals.count()-1; j >= 0; j--)
-			reverseGrammarEntry += terminals[j].remove(':').trimmed()+' ';
-		reverseGrammarEntry += " NS_B";
-		reverseGrammar.write(reverseGrammarEntry.toLatin1()+'\n');
+			reverseGrammarEntry += terminals[j]+' ';
+		// reverse = "S:NS_E NOM NS_B "
+		reverseGrammar.write(reverseGrammarEntry.toUtf8()+'\n');
 	}
 	reverseGrammar.close();
 	return true;
@@ -211,9 +222,9 @@ bool ModelCompilationManager::generateReverseGrammar()
 bool ModelCompilationManager::generateDict()
 {
 	int nowId = -1;
-	QFile vocab(KStandardDirs::locateLocal("tmp", "simpleVocab"));
+	QFile vocab(vocabPath);
 	if (!vocab.open(QFile::ReadOnly)) return false;
-	QFile dict(KStandardDirs::locate("appdata", "model/model.dict"));
+	QFile dict(dictPath);
 	if (!dict.open(QFile::WriteOnly)) return false;
 	QString vocabEntry;
 	QStringList entryPart;
@@ -235,7 +246,7 @@ bool ModelCompilationManager::generateDict()
 			int splitter = vocabEntry.indexOf('\t');
 			if (splitter == -1) continue;
 			
-			dict.write(QString(QString::number(nowId)+"\t["+vocabEntry.left(splitter)+"]\t"+vocabEntry.mid(splitter).trimmed()+'\n').toLatin1());
+			dict.write(QString(QString::number(nowId)+"\t["+vocabEntry.left(splitter)+"]\t"+vocabEntry.mid(splitter).trimmed()+'\n').toUtf8());
 		}
 	}
 	
@@ -244,24 +255,9 @@ bool ModelCompilationManager::generateDict()
 	return true;
 }
 
-void ModelCompilationManager::displayError(const QString& error)
-{
-// 	KMessageBox::error(0, i18n("Beim Kompilieren des Modells ist ein Fehler aufgetreten:\n\n%1\n\nLetzter Output:\n...%2\n\nFehlermeldung:\n...%3", error, lastOutput.right(600), lastError.right(600)));
-	emit status(i18n("Abgebrochen."));
-	emit progress(100,100);
-}
-
-bool ModelCompilationManager::startCompilation()
-{
-	if (isRunning()) return false;
-	lastError="";
-	start();
-	return true;
-}
-
 bool ModelCompilationManager::codeAudioData()
 {
-	emit status(i18n("Kodiere Audiodaten..."));
+	emit status(i18n("Kodiere Audiodaten..."), 150);
 	
 	//creating codetrain
 	if (!generateCodetrainScp())
@@ -270,32 +266,29 @@ bool ModelCompilationManager::codeAudioData()
 		return false;
 	}
 
-	emit progress(160);
-	QString codetrainPath = KStandardDirs::locateLocal("tmp", "/codetrain.scp");
+	QString codetrainPath = KStandardDirs::locateLocal("tmp", userName+"/codetrain.scp");
 
 	//TODO: implement some sort of caching (maybe with an file/hash combination?)
-	proc->start('"'+ModelCompilationConfiguration::hCopy().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/wav_config")+"\" -S \""+codetrainPath+'"');
+	proc->start('"'+ModelCompilationConfiguration::hCopy().path()+"\" -A -D -T 1 -C \""+wavConfigPath+"\" -S \""+codetrainPath+'"');
 	proc->waitForFinished(-1);
 	if (!proc->exitCode()==0)
 	{
-		emit error(i18n("Fehler beim kodieren der samples! Bitte überprüfen Sie den Pfad zu HCopy (%1) und der wav config (%2)", ModelCompilationConfiguration::hCopy().path(), KStandardDirs::locate("appdata", "model/wav_config")));
+		emit error(i18n("Fehler beim kodieren der samples! Bitte überprüfen Sie den Pfad zu HCopy (%1) und der wav config (%2)", ModelCompilationConfiguration::hCopy().path(), wavConfigPath));
 		return false;
 	}
-	emit progress(550);
 
 	return true;
 }
 
 bool ModelCompilationManager::generateCodetrainScp()
 {
-	QString samplePath = KStandardDirs::locateLocal("tmp", "simonsamplestosend/");
-	QString codetrainPath = KStandardDirs::locateLocal("tmp", "codetrain.scp");
-	QString trainPath = KStandardDirs::locateLocal("tmp", "train.scp");
+	QString codetrainPath = KStandardDirs::locateLocal("tmp", userName+"/codetrain.scp");
+	QString trainPath = KStandardDirs::locateLocal("tmp", userName+"/train.scp");
 
 	QDir wavDir(samplePath);
 	QStringList wavs = wavDir.entryList(QStringList() << ("*.wav"));
 	
-	QString pathToMFCs =KStandardDirs::locateLocal("tmp", "mfcs");
+	QString pathToMFCs =KStandardDirs::locateLocal("tmp", userName+"/mfcs");
 	wavDir.mkpath(pathToMFCs);
 	
 	QString file;
@@ -318,51 +311,26 @@ bool ModelCompilationManager::generateCodetrainScp()
 		mfcFile = pathToMFCs+'/'+fileBase+".mfc";
 
 		
-		scpFile.write(QString('"'+samplePath+'/'+file + "\" \"" + mfcFile +"\"\n").toLatin1());
-		trainScpFile.write(mfcFile.toLatin1()+'\n');
+		scpFile.write(QString('"'+samplePath+'/'+file + "\" \"" + mfcFile +"\"\n").toUtf8());
+		trainScpFile.write(mfcFile.toUtf8()+'\n');
 	}
 	scpFile.close();
 	trainScpFile.close();
 	return true;
 }
 
-void ModelCompilationManager::run()
-{
-	proc = new QProcess();
-	proc->setWorkingDirectory(QCoreApplication::applicationDirPath());
-	connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(logInfo()));
-	connect(this, SIGNAL(finished()), proc, SLOT(deleteLater()));
-	
-	Logger::log(i18n("[INF] Modell wird generiert..."));
-	emit status(i18n("Vorbereitung"));
-	emit progress(0,2300);
-	
-
-	if (!generateInputFiles()) return;
-	if (!makeTranscriptions()) return;
-	if (!codeAudioData()) return;
-	if (!buildHMM()) return;
-	if (!compileGrammar()) return;
-
-	//sync model
-	
-	emit status(i18n("Fertig."));
-	emit progress(2300, 2300);
-}
-
 bool ModelCompilationManager::generateInputFiles()
 {	
-	emit status(i18n("Generiere Wordliste..."));
+	emit status(i18n("Generiere Wordliste..."), 35);
 	//wlist
 	if (!generateWlist())
 	{
-		emit error(i18n("Erstellen der Wordliste fehlgeschlagen. Bitte überprüfen Sie die Berechtigungen für den Temporären Pfad."));
+		emit error(i18n("Erstellen der Wortliste fehlgeschlagen. Bitte überprüfen Sie die Berechtigungen für den Temporären Pfad."));
 		return false;
 	}
-	emit progress(35);
 
 	//monophones
-	emit status(i18n("Erstelle Monophone..."));
+	emit status(i18n("Erstelle Monophone..."), 40);
 
 	
 	if (!makeMonophones())
@@ -370,8 +338,6 @@ bool ModelCompilationManager::generateInputFiles()
 		emit error(i18n("Erstellen der Monophone fehlgeschlagen. Bitte überprüfen Sie ob das Programm HDMan richtig eingerichtet ist und das Lexicon alle verwendeten Wörter beinhaltet."));
 		return false;
 	}
-	
-	emit progress(40);
 
 	return true;
 }
@@ -379,30 +345,28 @@ bool ModelCompilationManager::generateInputFiles()
 bool ModelCompilationManager::makeTranscriptions()
 {
 	//mlf
-	emit status(i18n("Erstelle Master Label File..."));
+	emit status(i18n("Erstelle Master Label File..."), 55);
 	if (!generateMlf())
 	{
-		emit error(i18n("Erstellen der Master Label File fehlgeschlagen. Bitte überprüfen Sie die prompts-Datei (%1)", KStandardDirs::locate("appdata", "Model/PathToPrompts")));
+		emit error(i18n("Erstellen der Master Label File fehlgeschlagen. Bitte überprüfen Sie die prompts-Datei (%1)", promptsPath));
 		return false;
 	}
-	emit progress(55);
 	
 	
-	proc->start('"'+ModelCompilationConfiguration::hLEd().path()+"\" -A -D -T 1 -l \"*\" -d \""+KStandardDirs::locateLocal("tmp", "/dict")+"\" -i \""+KStandardDirs::locateLocal("tmp", "/phones0.mlf")+"\" \""+KStandardDirs::locate("appdata", "model/scripts/mkphones0.led")+"\" \""+KStandardDirs::locateLocal("tmp", "/words.mlf")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hLEd().path()+"\" -A -D -T 1 -l \"*\" -d \""+KStandardDirs::locateLocal("tmp", userName+"/dict")+"\" -i \""+KStandardDirs::locateLocal("tmp", userName+"/phones0.mlf")+"\" \""+KStandardDirs::locate("appdata", "scripts/mkphones0.led")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/words.mlf")+"\"");
 	proc->waitForFinished(-1);
 	if (proc->exitCode() ==0)
 	{
-		proc->start('"'+ModelCompilationConfiguration::hLEd().path()+"\" -A -D -T 1 -l \"*\" -d \""+KStandardDirs::locateLocal("tmp", "/dict")+"\" -i \""+KStandardDirs::locateLocal("tmp", "/phones1.mlf")+"\" \""+KStandardDirs::locate("appdata", "model/scripts/mkphones1.led")+"\" \""+KStandardDirs::locateLocal("tmp", "/words.mlf")+"\"");
+		proc->start('"'+ModelCompilationConfiguration::hLEd().path()+"\" -A -D -T 1 -l \"*\" -d \""+KStandardDirs::locateLocal("tmp", userName+"/dict")+"\" -i \""+KStandardDirs::locateLocal("tmp", userName+"/phones1.mlf")+"\" \""+KStandardDirs::locate("appdata", "scripts/mkphones1.led")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/words.mlf")+"\"");
 		proc->waitForFinished(-1);
 	}
 	
 	
 	if (proc->exitCode() != 0)
 	{
-		emit error(i18n("Erstellen der Transcriptions files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Dateien mkphones0.led und mkphones1.led richtig angegeben haben. (%1, %2)", KStandardDirs::locate("appdata", "model/scripts/mkphones0.led"), KStandardDirs::locate("appdata", "model/scripts/mkphones1.led")));
+		emit error(i18n("Erstellen der Transkriptionsdateien fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Dateien mkphones0.led und mkphones1.led richtig angegeben haben. (%1, %2)", KStandardDirs::locate("appdata", "scripts/mkphones0.led"), KStandardDirs::locate("appdata", "scripts/mkphones1.led")));
 		return false;
 	}
-	emit progress(155);
 	return true;
 }
 
@@ -428,14 +392,15 @@ bool ModelCompilationManager::processError(const QString& userError)
 		int wordstart = 45;
 		QString word = lastError.mid(wordstart, lastError.indexOf(' ', wordstart)-wordstart);
 		
-		//this error ONLY occurs when there are samples for the word but the word itself is not recorded
-		//so - RECORD THE WORD!
+		//this error ONLY occurs when there are samples for the word but the word itself was not added
+		//to the dictionary so - ADD THE WORD!
 		emit missingWord(word);
 	} else if (err.startsWith("ERROR [+2662]"))
 	{
 // 		"ERROR [+2662]  FindProtoModel: no proto for E in hSet
 		QString phoneme = err.mid(44,err.indexOf(' ', 44)-44);
-		displayError(i18n("Phonem %1 kommt in den Trainingsdaten nicht vor.\n\nBitte trainieren Sie ein Wort welches das Phonem %1 beinhaltet.\n\nSie können zum Beispiel in der Wortliste ein beliebiges Wort wählen welches diesen Phonem beinhaltet, ihn zu einem speziellen Training hinzufügen und dieses Training dann durchführen.", phoneme));
+		//FIXME propagate error:
+// 		emit error(i18n("Phonem %1 kommt in den Trainingsdaten nicht vor.\n\nBitte trainieren Sie ein Wort welches das Phonem %1 beinhaltet.\n\nSie können zum Beispiel in der Wortliste ein beliebiges Wort wählen welches diesen Phonem beinhaltet, ihn zu einem speziellen Training hinzufügen und dieses Training dann durchführen.", phoneme));
 // 		emit missingPhoneme(phoneme);
 	} else
 	if (err.startsWith("ERROR [+6510]"))  //sample without prompts-entry
@@ -449,7 +414,7 @@ bool ModelCompilationManager::processError(const QString& userError)
 		QString sampleName = label.left(label.count()-4);
 		if (!sampleName.isEmpty())
 		{
-			QString filename = KStandardDirs::locateLocal("tmp", "simonsamplestosend/")+'/'+sampleName+".wav";
+			QString filename = samplePath+'/'+sampleName+".wav";
 			
 // 			emit sampleWithoutWord(filename);
 		}
@@ -461,170 +426,150 @@ bool ModelCompilationManager::processError(const QString& userError)
 		QString undefClass = err.mid(startIndex);
 		undefClass = undefClass.left(undefClass.indexOf('"'));
 		emit unknownGrammarClass(undefClass);
-	} else
-		displayError(userError);
+	}
 
-	emit status(i18n("Abgebrochen"));
-	emit progress(1,1);
+	emit status(i18n("Abgebrochen"), 1, 1);
 	return false;
 }
 
 bool ModelCompilationManager::createMonophones()
 {
-	emit status(i18n("Erstelle hmm0..."));
+	emit status(i18n("Erstelle hmm0..."), 550);
 	if (!buildHMM0())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM0. \n\nBitte überprüfen Sie, ob ausreichend Trainingsmaterial vorhanden ist.\n\nSollten Sie sicher sein, das Modell wurde ausreichend trainiert, überprüfen Sie bitte den Pfad zu HCompV (%1), der config (%2) und des Prototypen (%3).", ModelCompilationConfiguration::hCompV().path(), KStandardDirs::locate("appdata", "model/scripts/config"), KStandardDirs::locate("appdata", "model/scripts/proto")));
+		emit error(i18n("Fehler beim Generieren des HMM0. \n\nBitte überprüfen Sie, ob ausreichend Trainingsmaterial vorhanden ist.\n\nSollten Sie sicher sein, das Modell wurde ausreichend trainiert, überprüfen Sie bitte den Pfad zu HCompV (%1), der config (%2) und des Prototypen (%3).", ModelCompilationConfiguration::hCompV().path(), KStandardDirs::locate("appdata", "scripts/config"), KStandardDirs::locate("appdata", "scripts/proto")));
 		return false;
 	}
-	emit progress(550);
-	emit status(i18n("Erstelle hmm1..."));
+	emit status(i18n("Erstelle hmm1..."), 800);
 	if (!buildHMM1())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM1. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "model/scripts/config")));
+		emit error(i18n("Fehler beim Generieren des HMM1. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
-	emit progress(800);
-	emit status(i18n("Erstelle hmm2..."));
+	emit status(i18n("Erstelle hmm2..."), 850);
 	if (!buildHMM2())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM2. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "model/scripts/config")));
+		emit error(i18n("Fehler beim Generieren des HMM2. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
-	emit progress(850);
-	emit status(i18n("Erstelle hmm3..."));
+	emit status(i18n("Erstelle hmm3..."), 900);
 	if (!buildHMM3())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM3. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "model/scripts/config")));
+		emit error(i18n("Fehler beim Generieren des HMM3. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
-	emit progress(900);
 	return true;
 }
 
 bool ModelCompilationManager::fixSilenceModel()
 {
-	emit status(i18n("Erstelle Pausenmodell (hmm4)..."));
+	emit status(i18n("Erstelle Pausenmodell (hmm4)..."), 950);
 	if (!buildHMM4())
 	{
 		emit error(i18n("Fehler beim Generieren des HMM4. Bitte überprüfen Sie das HMM3"));
 		return false;
 	}
-	emit progress(950);
-	emit status(i18n("Erstelle hmm5..."));
+	emit status(i18n("Erstelle hmm5..."), 1000);
 	if (!buildHMM5())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM5. Bitte überprüfen Sie den Pfad zu HHEd (%1) und  des Silence-Modells (%2)", ModelCompilationConfiguration::hHEd().path(), KStandardDirs::locate("appdata", "model/scripts/sil.hed")));
+		emit error(i18n("Fehler beim Generieren des HMM5. Bitte überprüfen Sie den Pfad zu HHEd (%1) und  des Silence-Modells (%2)", ModelCompilationConfiguration::hHEd().path(), KStandardDirs::locate("appdata", "scripts/sil.hed")));
 		return false;
 	}
-	emit progress(1000);
-	emit status(i18n("Erstelle hmm6..."));
+	emit status(i18n("Erstelle hmm6..."), 1080);
 	if (!buildHMM6())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM6. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "model/scripts/config")));
+		emit error(i18n("Fehler beim Generieren des HMM6. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
-	emit progress(1080);
-	emit status(i18n("Erstelle hmm7..."));
+	emit status(i18n("Erstelle hmm7..."), 1150);
 	if (!buildHMM7())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM7. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "model/scripts/config")));
+		emit error(i18n("Fehler beim Generieren des HMM7. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
-	emit progress(1150);
 	
 	return true;
 }
 
 bool ModelCompilationManager::realign()
 {
-	emit status(i18n("Erstellte dict1..."));
+	emit status(i18n("Erstellte dict1..."), 1160);
 	if (!makeDict1())
 	{
 		emit error(i18n("Fehler beim erstellen des dict1"));
 		return false;
 	}
-	emit progress(1160);
 
-	emit status(i18n("Hmm7 neu ausrichten..."));
+	emit status(i18n("Hmm7 neu ausrichten..."), 1160);
 	if (!realignHMM7())
 	{
-		emit error(i18n("Konnte HMM7 nicht neu ausrichten. Bitte überprüfen Sie den Pfad zu HVite (%1), der config (%2) und das HMM7.", ModelCompilationConfiguration::hVite().path(), KStandardDirs::locate("appdata", "model/scripts/config")));
+		emit error(i18n("Konnte HMM7 nicht neu ausrichten. Bitte überprüfen Sie den Pfad zu HVite (%1), der config (%2) und das HMM7.", ModelCompilationConfiguration::hVite().path(), KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
-	emit progress(1160);
 
-	emit status(i18n("Erstelle hmm8..."));
+	emit status(i18n("Erstelle hmm8..."), 1230);
 	if (!buildHMM8())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM8. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "model/scripts/config")));
+		emit error(i18n("Fehler beim Generieren des HMM8. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
-	emit progress(1230);
 
-	emit status(i18n("Erstelle hmm9..."));
+	emit status(i18n("Erstelle hmm9..."),1300);
 	if (!buildHMM9())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM9. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "model/scripts/config")));
+		emit error(i18n("Fehler beim Generieren des HMM9. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
-	emit progress(1300);
 	
 	return true;
 }
 
 bool ModelCompilationManager::tieStates()
 {
-	emit status(i18n("Erstelle triphone..."));
+	emit status(i18n("Erstelle triphone..."),1700);
 	
-	proc->start('"'+ModelCompilationConfiguration::hDMan().path()+"\" -A -D -T 1 -b sp -n \""+KStandardDirs::locateLocal("tmp", "fulllist")+"\" -g \""+KStandardDirs::locate("appdata", "model/scripts/global.ded")+"\" \""+KStandardDirs::locateLocal("tmp", "dict-tri")+"\" \""+KStandardDirs::locate("appdata", "model/lexicon")+'"');
+	proc->start('"'+ModelCompilationConfiguration::hDMan().path()+"\" -A -D -T 1 -b sp -n \""+KStandardDirs::locateLocal("tmp", userName+"/fulllist")+"\" -g \""+KStandardDirs::locate("appdata", "scripts/global.ded")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/dict-tri")+"\" \""+lexiconPath+'"');
 	proc->waitForFinished(-1);
 	if ((proc->exitCode() != 0))
 	{
-		emit error(i18n("Konnte Triphone nicht binden. Bitte überprüfen Sie den Pfad zu HDMan (%1), global.ded (%2) und dem Lexikon (%3).", ModelCompilationConfiguration::hDMan().path(), KStandardDirs::locate("appdata", "model/scripts/global.ded"), KStandardDirs::locate("appdata", "model/lexicon")));
+		emit error(i18n("Konnte Triphone nicht binden. Bitte überprüfen Sie den Pfad zu HDMan (%1), global.ded (%2) und dem Lexikon (%3).", ModelCompilationConfiguration::hDMan().path(), KStandardDirs::locate("appdata", "scripts/global.ded"), lexiconPath));
 		return false;
 	}
-	emit progress(1700);
 
-	emit status(i18n("Erstelle Liste der Triphone..."));
+	emit status(i18n("Erstelle Liste der Triphone..."),1705);
 	if (!makeFulllist())
 	{
 		emit error(i18n("Konnte Liste der Triphone nicht erstellen."));
 		return false;
 	}
-	emit progress(1705);
-	emit status(i18n("Erstelle tree.hed..."));
+	emit status(i18n("Erstelle tree.hed..."), 1750);
 	if (!makeTreeHed())
 	{
 		emit error(i18n("Konnte tree.hed nicht erstellen."));
 		return false;
 	}
-	emit progress(1750);
 	
-	emit status(i18n("Erstelle hmm13..."));
+	emit status(i18n("Erstelle hmm13..."),1830);
 	if (!buildHMM13())
 	{
 		emit error(i18n("Fehler beim Generieren des HMM13. Bitte überprüfen Sie den Pfad zu HHEd (%1).", ModelCompilationConfiguration::hHEd().path()));
 		return false;
 	}
-	emit progress(1830);
 	
 	
-	emit status(i18n("Erstelle hmm14..."));
+	emit status(i18n("Erstelle hmm14..."),1900);
 	if (!buildHMM14())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM14. Bitte überprüfen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "model/scripts/config"), KStandardDirs::locateLocal("tmp", "stats")));
+		emit error(i18n("Fehler beim Generieren des HMM14. Bitte überprüfen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "scripts/config"), KStandardDirs::locateLocal("tmp", userName+"/stats")));
 		return false;
 	}
-	emit progress(1900);
 	
-	emit status(i18n("Erstelle hmm15..."));
+	emit status(i18n("Erstelle hmm15..."),1990);
 	if (!buildHMM15())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM15. Bitte überprüfen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "model/scripts/config"), KStandardDirs::locateLocal("tmp", "stats")));
+		emit error(i18n("Fehler beim Generieren des HMM15. Bitte überprüfen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "scripts/config"), KStandardDirs::locateLocal("tmp", userName+"/stats")));
 		return false;
 	}
-	emit progress(1990);
 
 	
 	return true;
@@ -632,7 +577,7 @@ bool ModelCompilationManager::tieStates()
 
 bool ModelCompilationManager::buildHMM13()
 {
-	proc->start('"'+ModelCompilationConfiguration::hHEd().path()+"\" -A -D -T 1 -H \""+KStandardDirs::locateLocal("tmp", "hmm12/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm12/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm13/")+"\" \""+KStandardDirs::locateLocal("tmp", "tree.hed")+"\" \""+KStandardDirs::locateLocal("tmp", "triphones1")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hHEd().path()+"\" -A -D -T 1 -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm12/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm12/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm13/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/tree.hed")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/triphones1")+"\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
@@ -640,7 +585,7 @@ bool ModelCompilationManager::buildHMM13()
 
 bool ModelCompilationManager::buildHMM14()
 {
-	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", "wintri.mlf")+"\" -t 250.0 150.0 3000.0 -s \""+KStandardDirs::locateLocal("tmp", "stats")+"\" -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm13/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm13/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm14/")+"\" \""+KStandardDirs::locateLocal("tmp", "tiedlist")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/wintri.mlf")+"\" -t 250.0 150.0 3000.0 -s \""+KStandardDirs::locateLocal("tmp", userName+"/stats")+"\" -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm13/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm13/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm14/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/tiedlist")+"\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
@@ -648,18 +593,18 @@ bool ModelCompilationManager::buildHMM14()
 
 bool ModelCompilationManager::buildHMM15()
 {
-	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", "wintri.mlf")+"\" -t 250.0 150.0 3000.0 -s \""+KStandardDirs::locateLocal("tmp", "stats")+"\" -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm14/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm14/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm15/")+"\" \""+KStandardDirs::locateLocal("tmp", "tiedlist")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/wintri.mlf")+"\" -t 250.0 150.0 3000.0 -s \""+KStandardDirs::locateLocal("tmp", userName+"/stats")+"\" -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm14/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm14/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm15/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/tiedlist")+"\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelCompilationManager::makeFulllist()
 {	
-	QFile::remove(KStandardDirs::locateLocal("tmp", "fulllist-original"));
-	if (!QFile::copy(KStandardDirs::locateLocal("tmp", "fulllist"), KStandardDirs::locateLocal("tmp", "fulllist-original"))) return false;
+	QFile::remove(KStandardDirs::locateLocal("tmp", userName+"/fulllist-original"));
+	if (!QFile::copy(KStandardDirs::locateLocal("tmp", userName+"/fulllist"), KStandardDirs::locateLocal("tmp", userName+"/fulllist-original"))) return false;
 	
-	QFile triphones1(KStandardDirs::locateLocal("tmp", "triphones1"));
-	QFile fulllist(KStandardDirs::locateLocal("tmp", "fulllist"));
+	QFile triphones1(KStandardDirs::locateLocal("tmp", userName+"/triphones1"));
+	QFile fulllist(KStandardDirs::locateLocal("tmp", userName+"/fulllist"));
 	
 	
 	//copy the triphones from triphones1 to fulllist
@@ -684,18 +629,18 @@ bool ModelCompilationManager::makeFulllist()
 
 bool ModelCompilationManager::makeTreeHed()
 {	
-	QFile::remove(KStandardDirs::locateLocal("tmp", "tree.hed"));
+	QFile::remove(KStandardDirs::locateLocal("tmp", userName+"/tree.hed"));
 
-// 	if (!QFile::copy(KStandardDirs::locate("appdata", "model/tree1.hed"), KStandardDirs::locateLocal("tmp", "tree.hed"))) return false;
+// 	if (!QFile::copy(treeHedPath, KStandardDirs::locateLocal("tmp", userName+"/tree.hed"))) return false;
 	
-	QFile tree1Hed(KStandardDirs::locate("appdata", "model/tree1.hed"));
-	QFile treeHed(KStandardDirs::locateLocal("tmp", "tree.hed"));
+	QFile tree1Hed(treeHedPath);
+	QFile treeHed(KStandardDirs::locateLocal("tmp", userName+"/tree.hed"));
 	
 	if ((!treeHed.open(QIODevice::WriteOnly)) || 
 		(!tree1Hed.open(QIODevice::ReadOnly))) return false;
 	
 	//HTK uses Latin1 instead of UTF-8 :/
-	treeHed.write("RO 100 \""+KStandardDirs::locateLocal("tmp", "stats").toLatin1()+"\"\n");
+	treeHed.write("RO 100 \""+KStandardDirs::locateLocal("tmp", userName+"/stats").toUtf8()+"\"\n");
 	
 	//copy tree1.hed content to tree.hed
 	treeHed.write(tree1Hed.readAll());
@@ -704,7 +649,7 @@ bool ModelCompilationManager::makeTreeHed()
 	
 	QString command = "TB";
 	int threshold = 350;
-	QFile hmmlist(KStandardDirs::locateLocal("tmp", "monophones0"));
+	QFile hmmlist(KStandardDirs::locateLocal("tmp", userName+"/monophones0"));
 	if (!hmmlist.open(QIODevice::ReadOnly)) return false;
 	
 	QStringList phonemeList;
@@ -713,15 +658,15 @@ bool ModelCompilationManager::makeTreeHed()
 	hmmlist.close();
 	
 	for (int i=0; i < phonemeList.count(); i++)
-		treeHed.write(QString("%1 %2 \"ST_%3_2_\" {(\"%3\",\"*-%3+*\",\"%3+*\",\"*-%3\").state[2]}\n").arg(command).arg(threshold).arg(phonemeList[i]).toLatin1());
+		treeHed.write(QString("%1 %2 \"ST_%3_2_\" {(\"%3\",\"*-%3+*\",\"%3+*\",\"*-%3\").state[2]}\n").arg(command).arg(threshold).arg(phonemeList[i]).toUtf8());
 	
 	for (int i=0; i < phonemeList.count(); i++)
-		treeHed.write(QString("%1 %2 \"ST_%3_3_\" {(\"%3\",\"*-%3+*\",\"%3+*\",\"*-%3\").state[3]}\n").arg(command).arg(threshold).arg(phonemeList[i]).toLatin1());
+		treeHed.write(QString("%1 %2 \"ST_%3_3_\" {(\"%3\",\"*-%3+*\",\"%3+*\",\"*-%3\").state[3]}\n").arg(command).arg(threshold).arg(phonemeList[i]).toUtf8());
 	
 	for (int i=0; i < phonemeList.count(); i++)
-		treeHed.write(QString("%1 %2 \"ST_%3_4_\" {(\"%3\",\"*-%3+*\",\"%3+*\",\"*-%3\").state[4]}\n").arg(command).arg(threshold).arg(phonemeList[i]).toLatin1());	
+		treeHed.write(QString("%1 %2 \"ST_%3_4_\" {(\"%3\",\"*-%3+*\",\"%3+*\",\"*-%3\").state[4]}\n").arg(command).arg(threshold).arg(phonemeList[i]).toUtf8());	
 	
-	treeHed.write(QString(" \nTR 1\n \nAU "+KStandardDirs::locateLocal("tmp", "fulllist")+" \nCO "+KStandardDirs::locateLocal("tmp", "tiedlist")+" \n \nST "+KStandardDirs::locateLocal("tmp", "trees")+" \n").toLatin1());
+	treeHed.write(QString(" \nTR 1\n \nAU "+KStandardDirs::locateLocal("tmp", userName+"/fulllist")+" \nCO "+KStandardDirs::locateLocal("tmp", userName+"/tiedlist")+" \n \nST "+KStandardDirs::locateLocal("tmp", userName+"/trees")+" \n").toUtf8());
 	
 	treeHed.close();
 	
@@ -735,19 +680,15 @@ bool ModelCompilationManager::buildHMM()
 	if (!realign()) return false;
 	if (!makeTriphones()) return false;
 	if (!tieStates()) return false;
-	
 
-	//TODO: Make a Backup!
-	emit status(i18n("Übernehme Modell..."));
-
-	if (QFile::exists(KStandardDirs::locateLocal("appdata", "model/hmmdefs")))
-		if (!QFile::remove(KStandardDirs::locateLocal("appdata", "model/hmmdefs"))) return false;
-	if (!QFile::copy(KStandardDirs::locateLocal("tmp", "hmm15/hmmdefs"), KStandardDirs::locateLocal("appdata", "model/hmmdefs")))
+	if (QFile::exists(hmmDefsPath))
+		if (!QFile::remove(hmmDefsPath)) return false;
+	if (!QFile::copy(KStandardDirs::locateLocal("tmp", userName+"/hmm15/hmmdefs"), hmmDefsPath))
 		return false;
 
-	if (QFile::exists(KStandardDirs::locateLocal("appdata", "model/tiedlist")))
-		if (!QFile::remove(KStandardDirs::locateLocal("appdata", "model/tiedlist"))) return false;
-	if (!QFile::copy(KStandardDirs::locateLocal("tmp", "tiedlist"), KStandardDirs::locateLocal("appdata", "model/tiedlist")))
+	if (QFile::exists(tiedListPath))
+		if (!QFile::remove(tiedListPath)) return false;
+	if (!QFile::copy(KStandardDirs::locateLocal("tmp", userName+"/tiedlist"), tiedListPath))
 		return false;
 
 	return true;
@@ -755,47 +696,42 @@ bool ModelCompilationManager::buildHMM()
 
 bool ModelCompilationManager::makeTriphones()
 {
-	emit status(i18n("Erstelle triphone..."));
-	proc->start('"'+ModelCompilationConfiguration::hLEd().path()+"\" -A -D -T 1 -n \""+KStandardDirs::locateLocal("tmp", "triphones1")+"\" -l * -i \""+KStandardDirs::locateLocal("tmp", "/wintri.mlf")+"\" \""+KStandardDirs::locate("appdata", "model/scripts/mktri.led")+"\" \""+KStandardDirs::locateLocal("tmp", "aligned.mlf")+"\"");
+	emit status(i18n("Erstelle triphone..."),1380);
+	proc->start('"'+ModelCompilationConfiguration::hLEd().path()+"\" -A -D -T 1 -n \""+KStandardDirs::locateLocal("tmp", userName+"/triphones1")+"\" -l * -i \""+KStandardDirs::locateLocal("tmp", userName+"/wintri.mlf")+"\" \""+KStandardDirs::locate("appdata", "scripts/mktri.led")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/aligned.mlf")+"\"");
 	proc->waitForFinished(-1);
 	if ((proc->exitCode() != 0))
 	{
-		emit error(i18n("Erstellen der Triphone files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Datei mktri.led richtig angegeben haben (%1) und überprüfen Sie den Pfad zu HLEd (%2)", KStandardDirs::locate("appdata", "model/scripts/mktri.led"), ModelCompilationConfiguration::hLEd().path()));
+		emit error(i18n("Erstellen der Triphone files fehlgeschlagen. Bitte überprüfen Sie ob Sie den Pfad für die Datei mktri.led richtig angegeben haben (%1) und überprüfen Sie den Pfad zu HLEd (%2)", KStandardDirs::locate("appdata", "scripts/mktri.led"), ModelCompilationConfiguration::hLEd().path()));
 		return false;
 	}
-	emit progress(1380);
 	
-	emit status(i18n("Erstelle mktri.hed..."));
+	emit status(i18n("Erstelle mktri.hed..."),1400);
 	if (!makeMkTriHed())
 	{
 		emit error(i18n("Fehler beim generieren der mktri.hed"));
 		return false;
 	}
-	emit progress(1400);
 	
-	emit status(i18n("Erstelle hmm10..."));
+	emit status(i18n("Erstelle hmm10..."),1470);
 	if (!buildHMM10())
 	{
 		emit error(i18n("Fehler beim Generieren des HMM10. Bitte überprüfen Sie den Pfad zu HHEd (%1).", ModelCompilationConfiguration::hHEd().path()));
 		return false;
 	}
-	emit progress(1470);
 	
-	emit status(i18n("Erstelle hmm11..."));
+	emit status(i18n("Erstelle hmm11..."),1550);
 	if (!buildHMM11())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM11. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "model/scripts/config")));
+		emit error(i18n("Fehler beim Generieren des HMM11. Bitte überprüfen Sie den Pfad zu HERest (%1) und der config (%2)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
-	emit progress(1550);
 	
-	emit status(i18n("Erstelle hmm12..."));
+	emit status(i18n("Erstelle hmm12..."),1620);
 	if (!buildHMM12())
 	{
-		emit error(i18n("Fehler beim Generieren des HMM12. Bitte überprüfen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "model/scripts/config"), KStandardDirs::locateLocal("tmp", "stats")));
+		emit error(i18n("Fehler beim Generieren des HMM12. Bitte überprüfen Sie den Pfad zu HERest (%1), der config (%2), und die stats-Datei (%3)", ModelCompilationConfiguration::hERest().path(), KStandardDirs::locate("appdata", "scripts/config"), KStandardDirs::locateLocal("tmp", userName+"/stats")));
 		return false;
 	}
-	emit progress(1620);
 	
 	return true;
 }
@@ -803,7 +739,7 @@ bool ModelCompilationManager::makeTriphones()
 
 bool ModelCompilationManager::buildHMM12()
 {
-	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", "wintri.mlf")+"\" -t 250.0 150.0 3000.0 -s \""+KStandardDirs::locateLocal("tmp", "stats")+"\" -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm11/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm11/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm12/")+"\" \""+KStandardDirs::locateLocal("tmp", "triphones1")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/wintri.mlf")+"\" -t 250.0 150.0 3000.0 -s \""+KStandardDirs::locateLocal("tmp", userName+"/stats")+"\" -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm11/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm11/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm12/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/triphones1")+"\"");
 
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
@@ -812,7 +748,7 @@ bool ModelCompilationManager::buildHMM12()
 
 bool ModelCompilationManager::buildHMM11()
 {
-	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", "wintri.mlf")+"\" -t 250.0 150.0 3000.0 -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm10/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm10/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm11/")+"\" \""+KStandardDirs::locateLocal("tmp", "triphones1")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/wintri.mlf")+"\" -t 250.0 150.0 3000.0 -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm10/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm10/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm11/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/triphones1")+"\"");
 	
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
@@ -821,7 +757,7 @@ bool ModelCompilationManager::buildHMM11()
 
 bool ModelCompilationManager::buildHMM10()
 {
-	proc->start('"'+ModelCompilationConfiguration::hHEd().path()+"\" -A -D -T 1 -H \""+KStandardDirs::locateLocal("tmp", "hmm9/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm9/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm10/")+"\" \""+KStandardDirs::locateLocal("tmp", "mktri.hed")+"\" \""+KStandardDirs::locateLocal("tmp", "monophones1")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hHEd().path()+"\" -A -D -T 1 -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm9/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm9/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm10/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/mktri.hed")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/monophones1")+"\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
@@ -829,15 +765,15 @@ bool ModelCompilationManager::buildHMM10()
 
 bool ModelCompilationManager::makeMkTriHed()
 {
-	QFile monophones1(KStandardDirs::locateLocal("tmp", "monophones1"));
+	QFile monophones1(KStandardDirs::locateLocal("tmp", userName+"/monophones1"));
 	if (!monophones1.open(QIODevice::ReadOnly))
 		return false;
 		
 	
-	QFile mktriHed(KStandardDirs::locateLocal("tmp", "mktri.hed"));
+	QFile mktriHed(KStandardDirs::locateLocal("tmp", userName+"/mktri.hed"));
 	if (!mktriHed.open(QIODevice::WriteOnly)) return false;
 	
-	mktriHed.write("CL "+KStandardDirs::locateLocal("tmp", "triphones1").toLatin1()+"\n");
+	mktriHed.write("CL "+KStandardDirs::locateLocal("tmp", userName+"/triphones1").toUtf8()+"\n");
 	QByteArray phone="";
 	while (!monophones1.atEnd())
 	{
@@ -853,7 +789,7 @@ bool ModelCompilationManager::makeMkTriHed()
 
 bool ModelCompilationManager::buildHMM9()
 {
-	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", "aligned.mlf")+"\" -t 250.0 150.0 3000.0 -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm8/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm8/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm9/")+"\" \""+KStandardDirs::locateLocal("tmp", "monophones1")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/aligned.mlf")+"\" -t 250.0 150.0 3000.0 -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm8/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm8/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm9/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/monophones1")+"\"");
 	
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
@@ -862,23 +798,23 @@ bool ModelCompilationManager::buildHMM9()
 
 bool ModelCompilationManager::buildHMM8()
 {
-	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", "aligned.mlf")+"\" -t 250.0 150.0 3000.0 -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm7/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm7/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm8/")+"\" \""+KStandardDirs::locateLocal("tmp", "monophones1")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/aligned.mlf")+"\" -t 250.0 150.0 3000.0 -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm7/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm7/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm8/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/monophones1")+"\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelCompilationManager::realignHMM7()
 {
-	proc->start('"'+ModelCompilationConfiguration::hVite().path()+"\" -A -D -T 1 -l *  -o SWT -b silence -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm7/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm7/hmmdefs")+"\" -i \""+KStandardDirs::locateLocal("tmp", "aligned.mlf")+"\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+KStandardDirs::locateLocal("tmp", "words.mlf")+"\" -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" \""+KStandardDirs::locateLocal("tmp", "dict1")+"\" \""+KStandardDirs::locateLocal("tmp", "monophones1")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hVite().path()+"\" -A -D -T 1 -l *  -o SWT -b silence -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm7/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm7/hmmdefs")+"\" -i \""+KStandardDirs::locateLocal("tmp", userName+"/aligned.mlf")+"\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+KStandardDirs::locateLocal("tmp", userName+"/words.mlf")+"\" -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/dict1")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/monophones1")+"\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelCompilationManager::makeDict1()
 {
-	QFile::remove(KStandardDirs::locateLocal("tmp", "dict1"));
-	if (!QFile::copy(KStandardDirs::locateLocal("tmp", "dict"), KStandardDirs::locateLocal("tmp", "dict1"))) return false;
-	QFile dict1(KStandardDirs::locateLocal("tmp", "dict1"));
+	QFile::remove(KStandardDirs::locateLocal("tmp", userName+"/dict1"));
+	if (!QFile::copy(KStandardDirs::locateLocal("tmp", userName+"/dict"), KStandardDirs::locateLocal("tmp", userName+"/dict1"))) return false;
+	QFile dict1(KStandardDirs::locateLocal("tmp", userName+"/dict1"));
 	if (!dict1.open(QIODevice::WriteOnly|QIODevice::Append)) return false;
 
 	dict1.write("silence  []  sil\n");
@@ -888,34 +824,34 @@ bool ModelCompilationManager::makeDict1()
 
 bool ModelCompilationManager::buildHMM7()
 {
-	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", "phones1.mlf")+"\" -t 250.0 150.0 3000.0 -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm6/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm6/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm7/")+"\" \""+KStandardDirs::locateLocal("tmp", "monophones1")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/phones1.mlf")+"\" -t 250.0 150.0 3000.0 -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm6/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm6/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm7/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/monophones1")+"\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelCompilationManager::buildHMM6()
 {
-	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", "phones1.mlf")+"\" -t 250.0 150.0 3000.0 -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm5/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm5/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm6/")+"\" \""+KStandardDirs::locateLocal("tmp", "monophones1")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/phones1.mlf")+"\" -t 250.0 150.0 3000.0 -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm5/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm5/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm6/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/monophones1")+"\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelCompilationManager::buildHMM5()
 {
-	proc->start('"'+ModelCompilationConfiguration::hHEd().path()+"\" -A -D -T 1 -H \""+KStandardDirs::locateLocal("tmp", "hmm4/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm4/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm5/")+"\" \""+KStandardDirs::locate("appdata", "model/scripts/sil.hed")+"\" \""+KStandardDirs::locateLocal("tmp", "monophones1")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hHEd().path()+"\" -A -D -T 1 -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm4/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm4/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm5/")+"\" \""+KStandardDirs::locate("appdata", "scripts/sil.hed")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/monophones1")+"\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelCompilationManager::buildHMM4()
 {
-	QFile::copy(KStandardDirs::locateLocal("tmp", "hmm3/macros"), KStandardDirs::locateLocal("tmp", "hmm4/macros"));
+	QFile::copy(KStandardDirs::locateLocal("tmp", userName+"/hmm3/macros"), KStandardDirs::locateLocal("tmp", userName+"/hmm4/macros"));
 
 	QStringList  tmp2;
 
-	QFile hmmdefs3(KStandardDirs::locateLocal("tmp", "hmm3/hmmdefs"));
+	QFile hmmdefs3(KStandardDirs::locateLocal("tmp", userName+"/hmm3/hmmdefs"));
 	if (!hmmdefs3.open(QIODevice::ReadOnly)) return false;
-	QFile hmmdefs4(KStandardDirs::locateLocal("tmp", "hmm4/hmmdefs"));
+	QFile hmmdefs4(KStandardDirs::locateLocal("tmp", userName+"/hmm4/hmmdefs"));
 	if (!hmmdefs4.open(QIODevice::WriteOnly)) return false;
 
 	QByteArray line;
@@ -931,16 +867,16 @@ bool ModelCompilationManager::buildHMM4()
 				line = hmmdefs3.readLine(3000);
 			}
 			hmmdefs4.write(line);
-			hmmdefs4.write(tmp2[0].replace("~h \"sil\"", "~h \"sp\"").toLatin1());
-			hmmdefs4.write(tmp2[1].toLatin1());
-			hmmdefs4.write(tmp2[2].replace('5', '3').toLatin1());
-			hmmdefs4.write(tmp2[9].replace('3', '2').toLatin1());
-			hmmdefs4.write(tmp2[10].toLatin1());
-			hmmdefs4.write(tmp2[11].toLatin1());
-			hmmdefs4.write(tmp2[12].toLatin1());
-			hmmdefs4.write(tmp2[13].toLatin1());
-			hmmdefs4.write(tmp2[14].toLatin1());
-			hmmdefs4.write(tmp2[21].replace('5', '3').toLatin1());
+			hmmdefs4.write(tmp2[0].replace("~h \"sil\"", "~h \"sp\"").toUtf8());
+			hmmdefs4.write(tmp2[1].toUtf8());
+			hmmdefs4.write(tmp2[2].replace('5', '3').toUtf8());
+			hmmdefs4.write(tmp2[9].replace('3', '2').toUtf8());
+			hmmdefs4.write(tmp2[10].toUtf8());
+			hmmdefs4.write(tmp2[11].toUtf8());
+			hmmdefs4.write(tmp2[12].toUtf8());
+			hmmdefs4.write(tmp2[13].toUtf8());
+			hmmdefs4.write(tmp2[14].toUtf8());
+			hmmdefs4.write(tmp2[21].replace('5', '3').toUtf8());
 			hmmdefs4.write("0.000000e+000 1.000000e+000 0.000000e+000\n");
 			hmmdefs4.write("0.000000e+000 0.900000e+000 0.100000e+000\n");
 			hmmdefs4.write("0.000000e+000 0.000000e+000 0.000000e+000\n");
@@ -952,35 +888,35 @@ bool ModelCompilationManager::buildHMM4()
 
 bool ModelCompilationManager::buildHMM3()
 {
-	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", "phones0.mlf")+"\" -t 250.0 150.0 1000.0 -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm2/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm2/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm3/")+"\" \""+KStandardDirs::locateLocal("tmp", "monophones0")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/phones0.mlf")+"\" -t 250.0 150.0 1000.0 -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm2/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm2/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm3/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/monophones0")+"\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelCompilationManager::buildHMM2()
 {
-	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", "phones0.mlf")+"\" -t 250.0 150.0 1000.0 -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm1/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm1/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm2/")+"\" \""+KStandardDirs::locateLocal("tmp", "monophones0")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/phones0.mlf")+"\" -t 250.0 150.0 1000.0 -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm1/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm1/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm2/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/monophones0")+"\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelCompilationManager::buildHMM1()
 {
-	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", "phones0.mlf")+"\" -t 250.0 150.0 1000.0 -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm0/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", "hmm0/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm1/")+"\" \""+KStandardDirs::locateLocal("tmp", "monophones0")+"\"");
+	proc->start('"'+ModelCompilationConfiguration::hERest().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/phones0.mlf")+"\" -t 250.0 150.0 1000.0 -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm0/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm0/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm1/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/monophones0")+"\"");
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);
 }
 
 bool ModelCompilationManager::buildHMM0()
 {
-	proc->start('"'+ModelCompilationConfiguration::hCompV().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "model/scripts/config")+"\" -f 0.01 -m -S \""+KStandardDirs::locateLocal("tmp", "train.scp")+"\" -M \""+KStandardDirs::locateLocal("tmp", "hmm0/")+"\" \""+KStandardDirs::locate("appdata", "model/scripts/proto")+'"');
+	proc->start('"'+ModelCompilationConfiguration::hCompV().path()+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -f 0.01 -m -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm0/")+"\" \""+KStandardDirs::locate("appdata", "scripts/proto")+'"');
 	proc->waitForFinished(-1);
 	if (proc->exitCode()!=0) return false;
 
 	QString protoBody="";
 	QString protoHead="";
 	QString line;
-	QFile protoFile(KStandardDirs::locateLocal("tmp", "hmm0/proto"));
+	QFile protoFile(KStandardDirs::locateLocal("tmp", userName+"/hmm0/proto"));
 	if (!protoFile.open(QIODevice::ReadOnly)) return false;
 	
 	//extracting proto
@@ -996,7 +932,7 @@ bool ModelCompilationManager::buildHMM0()
 	protoFile.close();
 
 	QStringList monophones;
-	QFile monophones0(KStandardDirs::locateLocal("tmp", "monophones0"));
+	QFile monophones0(KStandardDirs::locateLocal("tmp", userName+"/monophones0"));
 	if (!monophones0.open(QIODevice::ReadOnly)) return false;
 
 	while (!monophones0.atEnd())
@@ -1005,24 +941,24 @@ bool ModelCompilationManager::buildHMM0()
 	
 	Logger::log(i18n("[INF] Verwendete Monophone des Modells: %1", monophones.join(", ")));
 
-	QFile hmmdefs(KStandardDirs::locateLocal("tmp", "hmm0/hmmdefs"));
+	QFile hmmdefs(KStandardDirs::locateLocal("tmp", userName+"/hmm0/hmmdefs"));
 	if (!hmmdefs.open(QIODevice::WriteOnly)) return false;
 	QString phoneHead;
 	QString currentHead="";
 	for (int i=0; i < monophones.count(); i++)
 	{
 		currentHead = protoHead;
-		hmmdefs.write(currentHead.replace("proto", monophones[i]).toLatin1());
-		hmmdefs.write(protoBody.toLatin1());
+		hmmdefs.write(currentHead.replace("proto", monophones[i]).toUtf8());
+		hmmdefs.write(protoBody.toUtf8());
 	}
 	hmmdefs.close();
 
 	//generating macros
-	QFile macros(KStandardDirs::locateLocal("tmp", "hmm0/macros"));
+	QFile macros(KStandardDirs::locateLocal("tmp", userName+"/hmm0/macros"));
 	if (!macros.open(QIODevice::WriteOnly)) return false;
-	macros.write(protoPreamble.toLatin1());
+	macros.write(protoPreamble.toUtf8());
 
-	QFile vFloors(KStandardDirs::locateLocal("tmp", "hmm0/vFloors"));
+	QFile vFloors(KStandardDirs::locateLocal("tmp", userName+"/hmm0/vFloors"));
 	if (!vFloors.open(QIODevice::ReadOnly)) return false;
 	while (!vFloors.atEnd()) macros.write(vFloors.readLine(1000));
 	vFloors.close();
@@ -1035,15 +971,15 @@ bool ModelCompilationManager::buildHMM0()
 bool ModelCompilationManager::makeMonophones()
 {
 	//make monophones1
-	proc->start('"'+ModelCompilationConfiguration::hDMan().path()+"\" -A -D -T 1 -m -w \""+KStandardDirs::locateLocal("tmp", "/wlist")+"\" -g \""+KStandardDirs::locate("appdata", "model/scripts/global.ded")+"\" -n \""+KStandardDirs::locateLocal("tmp", "monophones1")+"\" -i \""+KStandardDirs::locateLocal("tmp", "dict")+"\" \""+KStandardDirs::locate("appdata", "model/lexicon")+'"');
+	proc->start('"'+ModelCompilationConfiguration::hDMan().path()+"\" -A -D -T 1 -m -w \""+KStandardDirs::locateLocal("tmp", userName+"/wlist")+"\" -g \""+KStandardDirs::locate("appdata", "scripts/global.ded")+"\" -n \""+KStandardDirs::locateLocal("tmp", userName+"/monophones1")+"\" -i \""+KStandardDirs::locateLocal("tmp", userName+"/dict")+"\" \""+lexiconPath+'"');
 	proc->waitForFinished(-1);
 	if (proc->exitStatus()!=0) return false;
 
 	//make monophones0
 	//ditch the "sp" phoneme
 
-	QFile monophones1(KStandardDirs::locateLocal("tmp", "/monophones1"));
-	QFile monophones0(KStandardDirs::locateLocal("tmp", "/monophones0"));
+	QFile monophones1(KStandardDirs::locateLocal("tmp", userName+"/monophones1"));
+	QFile monophones0(KStandardDirs::locateLocal("tmp", userName+"/monophones0"));
 	if (!monophones1.open(QIODevice::ReadOnly))
 		return false;
 	if (!monophones0.open(QIODevice::WriteOnly|QIODevice::Truncate))
@@ -1054,7 +990,7 @@ bool ModelCompilationManager::makeMonophones()
 	{
 		phoneme = monophones1.readLine(50);
 		if ((phoneme.trimmed() != "sp") && (!phoneme.trimmed().isEmpty()))
-			monophones0.write(phoneme.toLatin1());
+			monophones0.write(phoneme.toUtf8());
 	}
 	monophones1.close();
 	monophones0.close();
@@ -1069,7 +1005,7 @@ void ModelCompilationManager::logInfo()
 
 bool ModelCompilationManager::generateWlist()
 {
-	QFile promptsFile(KStandardDirs::locateLocal("appdata", "model/prompts"));
+	QFile promptsFile(promptsPath);
 	if (!promptsFile.open(QIODevice::ReadOnly))
 		return false;
 	
@@ -1096,13 +1032,12 @@ bool ModelCompilationManager::generateWlist()
 			words.removeAt(i);
 		else i++;
 	}
-	
-	QFile wlistFile(KStandardDirs::locateLocal("tmp", "wlist"));
+	QFile wlistFile(KStandardDirs::locateLocal("tmp", userName+"/wlist"));
 	if (!wlistFile.open(QIODevice::WriteOnly))
 		return false;
 	for (int i=0; i < words.count(); i++)
 	{
-		wlistFile.write(words[i].toLatin1()+'\n');
+		wlistFile.write(words[i].toUtf8()+'\n');
 	}
 	wlistFile.close();
 	return true;
@@ -1110,8 +1045,8 @@ bool ModelCompilationManager::generateWlist()
 
 bool ModelCompilationManager::generateMlf()
 {
-	QFile promptsFile(KStandardDirs::locateLocal("appdata", "model/prompts"));
-	QFile mlf(KStandardDirs::locateLocal("tmp", "words.mlf"));
+	QFile promptsFile(promptsPath);
+	QFile mlf(KStandardDirs::locateLocal("tmp", userName+"/words.mlf"));
 
 	if (!promptsFile.open(QIODevice::ReadOnly))
 		return false;
@@ -1127,9 +1062,9 @@ bool ModelCompilationManager::generateMlf()
 		if (line.trimmed().isEmpty()) continue;
 		lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
 		QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\""; //ditch the file-id
-		mlf.write(labFile.toLatin1()+"\n");
+		mlf.write(labFile.toUtf8()+"\n");
 		for (int i=0; i < lineWords.count(); i++)
-			mlf.write(lineWords[i].toLatin1()+"\n");
+			mlf.write(lineWords[i].toUtf8()+"\n");
 		mlf.write(".\n");
 	}
 	promptsFile.close();

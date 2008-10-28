@@ -21,19 +21,14 @@
 #ifndef WORDLISTVIEW_H
 #define WORDLISTVIEW_H
 
-#define sImportDict 	32
-
-#include "ui_wordlist.h"
 #include "inlinewidget.h"
 #include "simonmodelmanagementui_export.h"
 
 #include <speechmodelbase/word.h>
 
 
+class WordListViewPrivate;
 class TrainingView;
-class QPoint;
-class ImportDictView;
-class WordListManager;
 
 /**
  *	@class WordListView
@@ -42,52 +37,44 @@ class WordListManager;
  *	@version 0.1
  *	@date 23.01.2006
  *	@author Peter Grasch
- */
-
-
-class SIMONMODELMANAGEMENTUI_EXPORT WordListView : public InlineWidget {
+ */class SIMONMODELMANAGEMENTUI_EXPORT WordListView : public InlineWidget {
 	Q_OBJECT
-private:
-	int shownDialogs;
-	QPoint importDictPos;
-	
-	bool abortVocabInsertion;
-	Ui::WordList ui;	//!< UI definition - made by uic from the QTDesigner .ui
-	WordList trainingwordlist;  //!< Holds all the words that are scheduled for training
-	WordListManager *wordListManager; //!< Concept class
-	ImportDictView *importDictView; //!< Provides the Interface to import a dictionary
-	
-	void setDirty ( bool dirty );
-
 signals:
 	void wordlistLoaded();
+private:
+	WordListViewPrivate *d;
 
+
+
+// public slots:
+// 	void abortInsertion() { abortVocabInsertion = true; }
+// 	void reloadShadowList();
+// 	void suggestTraining();
+// 	void markWordToTrain( Word word );
+// 	void copyWordToTrain();
+// 	void deleteTrainingWord();
+// 	void deleteSelectedWord();
+// 	void trainList();
+// 	void importDict(WordList* list);
+// 	void clearList();
+// 	void filterListbyPattern(QString filter="");
+// 	void insertVocab(WordList *vocab);
+// 	void show();
+// 	void hide();
+// 	void showImportDictDialog();
+// 
+// 	void setSettingsVisible();
+// 	void setSettingsHidden();
+// 
+// 	WordListManager* getManager(){return wordListManager;}
 
 public slots:
-	void abortInsertion() { abortVocabInsertion = true; }
-	void reloadShadowList();
-	void askForRebuild();
-	void suggestTraining();
-	void markWordToTrain( Word word );
-	void copyWordToTrain();
-	void deleteTrainingWord();
-	void deleteSelectedWord();
-	void trainList();
-	void importDict(WordList* list);
-	void clearList();
-	void filterListbyPattern(QString filter="");
-	void insertVocab(WordList *vocab);
-	void show();
-	void hide();
-	void showImportDictDialog();
-
-	void setSettingsVisible();
 	void setSettingsHidden();
-
-	WordListManager* getManager(){return wordListManager;}
+	void setSettingsVisible();
+	void filterListbyPattern();
 
 public:
-	WordListView(QWidget *parent);
+	WordListView(TrainingView *trainingView, QWidget *parent);
 	
 	~WordListView();
 
