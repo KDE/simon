@@ -39,7 +39,7 @@ ENDIF(UNIX)
 
 IF(WIN32)
 	kde4_add_library( eventsimulation  SHARED ${eventsimulation_LIB_SRCS} ${eventsimulation_LIB_WINDOWS_SRCS} )
-	target_link_libraries( eventsimulation ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} )
+	target_link_libraries( eventsimulation ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} )
 ENDIF(WIN32)
 
 

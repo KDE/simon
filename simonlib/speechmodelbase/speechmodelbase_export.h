@@ -10,7 +10,7 @@
 #  define SPEECHMODELBASE_EXPORT KDE_EXPORT
 # else
    // We are using this library
-#  define SPEECHMODELBASE_EXPORT KDE_IMPORT
+#  define SPEECHMODELBASE_EXPORT
 # endif
 #endif
  

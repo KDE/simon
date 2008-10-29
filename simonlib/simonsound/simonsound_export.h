@@ -10,7 +10,7 @@
 #  define SIMONSOUND_EXPORT KDE_EXPORT
 # else
    // We are using this library
-#  define SIMONSOUND_EXPORT KDE_IMPORT
+#  define SIMONSOUND_EXPORT
 # endif
 #endif
  

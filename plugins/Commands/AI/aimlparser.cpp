@@ -741,7 +741,7 @@ QString AIMLParser::executeCommand(const QString &commandStr)
     si.hStdError  = (Qt::HANDLE) _get_osfhandle (2);
     si.wShowWindow = 0;
     create = CreateProcess(NULL,                                   // The full path of app to launch
-                           (unsigned short*)QString("cmd.exe /c \"%1\"").arg(commandStr).ucs2(),  // Command line parameters
+                           (char*) QString("cmd.exe /c \"%1\"").arg(commandStr).utf16(),  // Command line parameters
                            NULL,                                   // Default process security attributes
                            NULL,                                   // Default thread security attributes
                            TRUE,                                   // Inherit handles from the parent

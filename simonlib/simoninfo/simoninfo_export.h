@@ -10,7 +10,7 @@
 #  define SIMONINFO_EXPORT KDE_EXPORT
 # else
    // We are using this library
-#  define SIMONINFO_EXPORT KDE_IMPORT
+#  define SIMONINFO_EXPORT 
 # endif
 #endif
  

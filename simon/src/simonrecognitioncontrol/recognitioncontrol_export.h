@@ -10,7 +10,7 @@
 #  define RECOGNITIONCONTROL_EXPORT KDE_EXPORT
 # else
    // We are using this library
-#  define RECOGNITIONCONTROL_EXPORT KDE_IMPORT
+#  define RECOGNITIONCONTROL_EXPORT
 # endif
 #endif
  

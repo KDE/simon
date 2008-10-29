@@ -19,7 +19,6 @@
 
 
 #include "windowsevents.h"
-#include "../Logging/logger.h"
 #include <QCoreApplication>
 #include <ctype.h>
 
