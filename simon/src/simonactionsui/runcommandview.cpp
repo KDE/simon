@@ -29,9 +29,11 @@
  */
 RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(i18n("Kommandos"), KIcon("system-run"), i18n("Direkte ausführung von simon-Befehlen"), parent)
 {
-	d = new RunCommandViewPrivate(this);
 	QVBoxLayout *lay = new QVBoxLayout(this);
+	d = new RunCommandViewPrivate(this);
 	lay->addWidget(d);
+
+	hide();
 
 	guessChildTriggers((QObject*)this);
 }

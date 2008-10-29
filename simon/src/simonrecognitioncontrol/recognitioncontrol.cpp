@@ -448,6 +448,29 @@ void RecognitionControl::sendTraining()
 	delete training;
 }
 
+void RecognitionControl::fetchMissingSamples()
+{
+	Q_ASSERT(modelManager);
+	
+	QString sample = modelManager->missingSample();
+	if (sample.isNull())
+	{
+		kDebug() << "Done fetching samples";
+		synchronisationComplete();
+		return;
+	}
+	
+	QByteArray sampleByte = sample.toUtf8();
+	
+	kDebug() << "Fetching sample " << sample;
+
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	stream << (qint32) Simond::GetTrainingsSample
+		<< (qint64) sampleByte.count()
+		<< sampleByte;
+	socket->write(toWrite);
+}
 
 
 void RecognitionControl::sendSample(QString sampleName)
@@ -485,8 +508,14 @@ void RecognitionControl::startSynchronisation()
 }
 
 void RecognitionControl::synchronisationComplete()
-{
+{//successful
 	kDebug() << "Synchronisation completed";
+	synchronisationDone();
+}
+
+void RecognitionControl::synchronisationDone()
+{
+	kDebug() << "Finishing up synchronisation";
 	
 	if (RecognitionConfiguration::automaticSync())
 		connect(modelManager, SIGNAL(modelChanged()), this, SLOT(startSynchronisation()));
@@ -794,26 +823,23 @@ void RecognitionControl::messageReceived()
 				msg >> shadowLexicon;
 				
 				modelManager->storeLanguageDescription(changedTime,shadowVocab, shadowLexicon, treeHed);
-				
-				synchronisationComplete();
+				fetchMissingSamples();
 				break;
 			}
 			
 			case Simond::NoLanguageDescriptionAvailable:
 			{
 				kDebug() << "No languagedescription available";
-				synchronisationComplete();
+				fetchMissingSamples();
 				break;
 			}
 			
 			case Simond::LanguageDescriptionStorageFailed:
 			{
 				kDebug() << "Server could not store languagedescription";
-				synchronisationComplete();
+				fetchMissingSamples();
 				break;
 			}
-			
-		
 
 			case Simond::GetTrainingsSample:
 			{
@@ -824,16 +850,34 @@ void RecognitionControl::messageReceived()
 				msg >> length;
 				waitForMessage(length, msg, msgByte);
 				
-				QString sampleName;
-				msg >> sampleName;
+				QByteArray sampleNameByte;
+				msg >> sampleNameByte;
 				
-				sendSample(sampleName);
+				sendSample(QString::fromUtf8(sampleNameByte));
 				break;
 			}
 
 			case Simond::TrainingsSample:
 			{
 				kDebug() << "Server sent Trainings-Sample";
+				//TODO: store sample
+				
+				Q_ASSERT(modelManager);
+				
+				waitForMessage(sizeof(qint64), msg, msgByte);
+				qint64 length;
+				msg >> length;
+				waitForMessage(length, msg, msgByte);
+				
+				QByteArray sample;
+				msg >> sample;
+				
+				if (!modelManager->storeSample(sample))
+				{
+					sendRequest(Simond::TrainingsSampleStorageFailed);
+					synchronisationDone();
+				} else
+					fetchMissingSamples();
 				break;
 			}
 			
@@ -841,7 +885,7 @@ void RecognitionControl::messageReceived()
 			case Simond::TrainingsSampleStorageFailed:
 			{
 				kDebug() << "Server could not store trainings-sample";
-				synchronisationComplete();
+				synchronisationDone();
 				break;
 			}
 

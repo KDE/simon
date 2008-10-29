@@ -90,7 +90,9 @@ class ClientSocket : public QSslSocket
 		void synchronisationComplete();
 		void synchronisationDone();
 		
+		void synchronizeSamples();
 		void fetchTrainingSample();
+		void sendSample(QString sampleName);
 
 	public:
 		ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, QObject *parent=0);

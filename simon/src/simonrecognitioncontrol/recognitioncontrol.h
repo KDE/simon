@@ -135,6 +135,9 @@ private slots:
 	void sendSample(QString sampleName);
 
 	void synchronisationComplete();
+	void synchronisationDone();
+
+	void fetchMissingSamples();
 
 
 };

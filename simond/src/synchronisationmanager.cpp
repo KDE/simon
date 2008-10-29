@@ -35,6 +35,7 @@
 #include <KConfigGroup>
 #include <KDebug>
 #include <QBuffer>
+#include <QRegExp>
 
 
 SynchronisationManager::SynchronisationManager(const QString& username, QObject *parent) : QObject(parent)
@@ -109,7 +110,8 @@ bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, int 
 
 	KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
-	cGroup.writeEntry("activemodelrc", changedDate);
+	cGroup.writeEntry("Date", changedDate);
+	cGroup.writeEntry("SampleRate", sampleRate);
 	config.sync();
 	return true;
 }
@@ -348,7 +350,7 @@ TrainingContainer* SynchronisationManager::getTraining()
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/");
 	KConfig config( dirPath+"trainingrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
-	int sampleRate = cGroup.readEntry("samplerate").toInt();
+	int sampleRate = cGroup.readEntry("SampleRate").toInt();
 
 
 	QFile wavConfig(dirPath+"wav_config");
@@ -374,38 +376,10 @@ bool SynchronisationManager::storeTraining(const QDateTime& changedDate, int sam
 	QString configPath = dirPath+"trainingrc";
 	KConfig config( configPath, KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
-	cGroup.writeEntry("samplerate", sampleRate);
+	cGroup.writeEntry("SampleRate", sampleRate);
 	config.sync();
-	
-	////////////////
+
 	QFile promptsFile(dirPath+"prompts");
-	QStringList oldList, newList;
-	if (promptsFile.open(QIODevice::ReadOnly))
-	{
-		while (!promptsFile.atEnd())
-		{
-			QString promptsLine = QString::fromUtf8(promptsFile.readLine());
-			oldList << promptsLine.left(promptsLine.indexOf(" "));
-		}
-		promptsFile.close();
-	}
-	
-	QBuffer b((QByteArray*) &prompts);
-	if (!b.open(QIODevice::ReadOnly)) return false;
-	while (!b.atEnd())
-	{
-		QString promptsLine = QString::fromUtf8(b.readLine());
-		newList << promptsLine.left(promptsLine.indexOf(" "));
-	}
-	b.close();
-	
-	foreach (QString fileName, newList)
-	{
-		
-		if ((!oldList.contains(fileName)) && (!this->missingFiles.contains(fileName)))
-			missingFiles << fileName;
-	}
-	///////////
 
 	QFile wavConfigFile(dirPath+"wav_config");
 
@@ -424,6 +398,44 @@ bool SynchronisationManager::storeTraining(const QDateTime& changedDate, int sam
 	configg.sync();
 	
 	return true;
+}
+
+
+void SynchronisationManager::buildMissingSamples()
+{
+	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/");
+	QFile promptsFile(dirPath+"prompts");
+	QStringList oldList, newList;
+	QDir samplesDir(KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"));
+	oldList = samplesDir.entryList(QStringList() << "*.wav");
+	
+
+	if (promptsFile.open(QIODevice::ReadOnly))
+	{
+		while (!promptsFile.atEnd())
+		{
+			QString promptsLine = QString::fromUtf8(promptsFile.readLine());
+			newList << promptsLine.left(promptsLine.indexOf(" "));
+		}
+		promptsFile.close();
+	}
+	
+	foreach (QString fileName, newList)
+	{
+		if ((!oldList.contains(fileName+".wav")) && (!this->missingFiles.contains(fileName)))
+			missingFiles << fileName;
+	}
+	
+}
+
+
+QByteArray SynchronisationManager::getSample(const QString& sampleName)
+{
+	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/");
+	QFile f(dirPath+"/"+sampleName.toUtf8());
+	kDebug() << "Retrieving " << dirPath+"/"+sampleName.toUtf8();
+	if (!f.open(QIODevice::ReadOnly)) return QByteArray();
+	return f.readAll();
 }
 
 bool SynchronisationManager::storeSample(const QByteArray& sample)

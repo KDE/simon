@@ -24,6 +24,7 @@
 #include "simonacousticmodelmanagement_export.h"
 #include <QObject>
 #include <QDateTime>
+#include <QStringList>
 
 class Model;
 class WordListContainer;
@@ -37,6 +38,9 @@ class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
 	
 	signals:
 		void modelChanged();
+		
+	private:
+		QStringList missingFiles;
 	
 	public:
 		ModelManager();
@@ -68,6 +72,10 @@ class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
 				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
 				
 		QByteArray getSample(const QString& sampleName);
+		
+		QString missingSample();
+		
+		bool storeSample(const QByteArray& sample);
 
 		~ModelManager() {}
 		

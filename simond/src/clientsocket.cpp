@@ -277,7 +277,8 @@ void ClientSocket::processRequest()
 				if (remoteModelDate != synchronisationManager->getModelSrcDate())
 					sendCode(Simond::GetTrainingDate);
 				else
-					synchronisationComplete();
+					synchronizeSamples();
+					//synchronisationComplete();
 				
 				break;
 			}
@@ -514,7 +515,8 @@ void ClientSocket::processRequest()
 				if (!synchronisationManager->hasLanguageDescription())
 				{
 					sendCode(Simond::NoLanguageDescriptionAvailable);
-					synchronisationDone();
+					
+					synchronizeSamples();
 				} else sendLanguageDescription();
 				break;
 			}
@@ -540,7 +542,8 @@ void ClientSocket::processRequest()
 				if (!synchronisationManager->storeLanguageDescription(changedTime, shadowVocab, shadowLexicon, treeHed))
 				{
 					sendCode(Simond::LanguageDescriptionStorageFailed);
-				} else fetchTrainingSample();
+				} else 
+					synchronizeSamples();
 				break;
 			}
 			
@@ -555,6 +558,17 @@ void ClientSocket::processRequest()
 				Q_ASSERT(synchronisationManager);
 				
 				
+				waitForMessage(sizeof(qint64), stream, msg);
+				qint64 length;
+				stream >> length;
+				waitForMessage(length, stream, msg);
+
+				QByteArray sampleNameByte;
+				stream >> sampleNameByte;
+
+				sendSample(QString::fromUtf8(sampleNameByte));
+				
+				
 				break;
 			}
 
@@ -566,7 +580,7 @@ void ClientSocket::processRequest()
 				}
 				
 				Q_ASSERT(synchronisationManager);
-				
+				synchronisationDone();
 				
 				break;
 			}
@@ -631,6 +645,14 @@ void ClientSocket::processRequest()
 	}
 }
 
+
+void ClientSocket::synchronizeSamples()
+{
+	Q_ASSERT(synchronisationManager);
+	synchronisationManager->buildMissingSamples();
+	fetchTrainingSample();
+}
+
 void ClientSocket::fetchTrainingSample()
 {
 	Q_ASSERT(synchronisationManager);
@@ -643,12 +665,41 @@ void ClientSocket::fetchTrainingSample()
 		return;
 	}
 	
+	QByteArray sampleByte = sample.toUtf8();
+	
 	kDebug() << "Fetching sample " << sample;
 
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	stream << (qint32) Simond::GetTrainingsSample
-		<< (qint64) sample.count()
+		<< (qint64) sampleByte.count()
+		<< sampleByte;
+	write(toWrite);
+}
+
+
+
+void ClientSocket::sendSample(QString sampleName)
+{
+	Q_ASSERT(synchronisationManager);
+	
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	
+	sampleName += ".wav";
+	
+	QByteArray sample = synchronisationManager->getSample(sampleName);
+	
+	if (sample.isNull())
+	{
+		sendCode(Simond::ErrorRetrievingTrainingsSample);
+		return;
+	}
+
+	qint64 size = sample.count();
+	
+	out << Simond::TrainingsSample
+		<< size
 		<< sample;
 	write(toWrite);
 }
@@ -782,7 +833,7 @@ bool ClientSocket::sendWordList()
 	WordListContainer *wordList = synchronisationManager->getWordList();
 	if (!wordList) return false;
 	
-	qint32 size = wordList->simpleVocab().count()+
+	qint64 size = wordList->simpleVocab().count()+
 			wordList->activeVocab().count()+
 			wordList->activeLexicon().count()+
 			sizeof(QDateTime);
@@ -810,7 +861,7 @@ bool ClientSocket::sendGrammar()
 	GrammarContainer *grammar = synchronisationManager->getGrammar();
 	if (!grammar) return false;
 	
-	qint32 size = grammar->grammarStructures().count()+
+	qint64 size = grammar->grammarStructures().count()+
 			sizeof(QDateTime);
 	
 	out << Simond::Grammar

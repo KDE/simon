@@ -28,6 +28,9 @@ TrainingView::TrainingView(QWidget *parent) : InlineWidget(i18n ( "Training" ), 
 	d = new TrainingViewPrivate(this);
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	lay->addWidget(d);
+	
+	hide();
+	
 	connect(d, SIGNAL(trainingCompleted()), this, SIGNAL(trainingCompleted()));
 	
 	guessChildTriggers ( ( QObject* ) this );

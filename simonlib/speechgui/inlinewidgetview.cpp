@@ -48,8 +48,10 @@ void InlineWidgetView::toggleDisplay(InlineWidget *page)
 {
 	if (!page) return;
 	
-	if (! page->isShown()) registerPage(page);
-	else unRegisterPage(page);
+	if (! page->isShown())
+		registerPage(page);
+	else
+		unRegisterPage(page);
 }
 
 

@@ -44,30 +44,6 @@ signals:
 private:
 	WordListViewPrivate *d;
 
-
-
-// public slots:
-// 	void abortInsertion() { abortVocabInsertion = true; }
-// 	void reloadShadowList();
-// 	void suggestTraining();
-// 	void markWordToTrain( Word word );
-// 	void copyWordToTrain();
-// 	void deleteTrainingWord();
-// 	void deleteSelectedWord();
-// 	void trainList();
-// 	void importDict(WordList* list);
-// 	void clearList();
-// 	void filterListbyPattern(QString filter="");
-// 	void insertVocab(WordList *vocab);
-// 	void show();
-// 	void hide();
-// 	void showImportDictDialog();
-// 
-// 	void setSettingsVisible();
-// 	void setSettingsHidden();
-// 
-// 	WordListManager* getManager(){return wordListManager;}
-
 public slots:
 	void setSettingsHidden();
 	void setSettingsVisible();

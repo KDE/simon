@@ -51,7 +51,6 @@ TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
 
 	ui.setupUi ( this );
 	recorder=0;
-	this->hide();
 
 	connect ( ui.pbTrainText, SIGNAL ( clicked() ), this, SLOT ( trainSelected() ) );
 	connect ( ui.twTrainingWords, SIGNAL ( cellDoubleClicked ( int,int ) ), this, SLOT ( trainSelected() ) );

@@ -86,8 +86,6 @@ WordListViewPrivate::WordListViewPrivate(TrainingView *trainingView, QWidget *pa
 	
 	connect(this->wordListManager, SIGNAL(shadowListChanged()), this, SLOT(reloadShadowList()));
 	this->filterListbyPattern();
-	
-	hide();
 
 	ui.pbImport->setIcon(KIcon("document-import"));
 	ui.pbRemoveWord->setIcon(KIcon("edit-delete"));

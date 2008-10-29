@@ -74,8 +74,9 @@ class SynchronisationManager : public QObject
 		bool storeTraining(const QDateTime& changedDate, int sampleRate, const QByteArray& wavConfig,
 					const QByteArray& prompts);
 		
+		void buildMissingSamples();
+		QByteArray getSample(const QString& sampleName);
 		QString missingSample();
-		
 		bool storeSample(const QByteArray& sample);
 			       
 		~SynchronisationManager();

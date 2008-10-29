@@ -22,14 +22,17 @@
 #include "wordlistmanager.h"
 #include "trainingmanager.h"
 #include "speechmodelmanagementconfiguration.h"
-#include <KStandardDirs>
-#include <QFile>
-#include <QFileInfo>
+
 #include <speechmodelbase/model.h>
 #include <speechmodelbase/wordlistcontainer.h>
 #include <speechmodelbase/grammarcontainer.h>
 #include <speechmodelbase/languagedescriptioncontainer.h>
 #include <speechmodelbase/trainingcontainer.h>
+
+#include <KStandardDirs>
+#include <QFile>
+#include <QFileInfo>
+#include <QBuffer>
 
 
 ModelManager::ModelManager()
@@ -278,6 +281,28 @@ QDateTime ModelManager::getTrainingModifiedTime()
 bool ModelManager::storeTraining(const QDateTime& changedTime, int sampleRate, const QByteArray& wavConfig,
 					const QByteArray& prompts)
 {
+	////////////////
+	
+	QStringList newList;
+	QStringList oldList = TrainingManager::getInstance()->getPrompts()->keys();
+	
+	QBuffer b((QByteArray*) &prompts);
+	if (!b.open(QIODevice::ReadOnly)) return false;
+	while (!b.atEnd())
+	{
+		QString promptsLine = QString::fromUtf8(b.readLine());
+		newList << promptsLine.left(promptsLine.indexOf(" "));
+	}
+	b.close();
+	
+	foreach (QString fileName, newList)
+	{
+		if ((!oldList.contains(fileName)) && (!this->missingFiles.contains(fileName)))
+			missingFiles << fileName;
+	}
+	///////////
+	
+	
 	if (!TrainingManager::getInstance()->refreshTraining(sampleRate, prompts))
 		return false;
 	
@@ -288,12 +313,38 @@ bool ModelManager::storeTraining(const QDateTime& changedTime, int sampleRate, c
 	wavConfigF.write(wavConfig);
 	wavConfigF.close();
 	
+	
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	cGroup.writeEntry("TrainingDate", changedTime);
 	config.sync();
 	return true;
 }
+
+
+bool ModelManager::storeSample(const QByteArray& sample)
+{
+	if (missingFiles.isEmpty()) return false;
+
+	QString dirPath = SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+'/';
+
+	QFile f(dirPath+missingFiles.at(0)+".wav");
+	if (!f.open(QIODevice::WriteOnly)) return false;
+
+	f.write(sample);
+	f.close();
+
+	missingFiles.removeAt(0);
+	return true;
+}
+
+QString ModelManager::missingSample()
+{
+	if (missingFiles.isEmpty()) return QString();
+
+	return missingFiles.at(0);
+}
+
 
 QDateTime ModelManager::getSrcContainerModifiedTime()
 {

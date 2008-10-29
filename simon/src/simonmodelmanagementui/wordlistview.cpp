@@ -37,6 +37,8 @@ WordListView::WordListView(TrainingView *trainingView, QWidget *parent) : Inline
 	d = new WordListViewPrivate(trainingView, this);
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	lay->addWidget(d);
+	
+	hide();
 
 	connect(d, SIGNAL(wordlistLoaded()), this, SIGNAL(wordlistLoaded()));
 	guessChildTriggers(this);

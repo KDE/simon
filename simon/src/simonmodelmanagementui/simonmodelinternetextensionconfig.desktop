@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=Service
+Icon=view-web-browser-dom-tree
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=libsimonmodelmanagementui
+
+X-KDE-FactoryName=speechmodelmanagementuifactory
+X-KDE-ParentComponents=libsimonmodelmanagementui
+
+X-KDE-ParentApp=simon
+X-KDE-System-Settings-Parent-Category=simon
+
+Name=Model Extensions
+Name[de]=Modell Erweiterungen
+
+X-KDE-PluginKeyword=InternetExtensionSettings
+
+Comment=Configuration of the Internet-Extensions of the Speech-Model
+Comment[de]=Konfiguration der Internet-Erweiterungen des Sprachmodells

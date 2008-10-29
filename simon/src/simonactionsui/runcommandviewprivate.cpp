@@ -44,7 +44,6 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 	ui.cvCommands->setPreviewWidget(commandPreviewWidget);
 
 	setSettingsHidden();
-	hide();
 
 	connect ( ui.pbNewCommand, SIGNAL(clicked()), this, SLOT(addCommand()));
 	connect ( ui.pbEditCommand, SIGNAL(clicked()), this, SLOT(editCommand()));
