@@ -116,6 +116,13 @@ bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, int 
 	return true;
 }
 
+bool SynchronisationManager::hasActiveModel()
+{
+	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+	return (QFile::exists(dirPath+"hmmdefs")&&QFile::exists(dirPath+"tiedlist")
+		&&QFile::exists(dirPath+"model.dict")&&QFile::exists(dirPath+"model.dfa"));
+}
+
 QDateTime SynchronisationManager::getWordListDate()
 {
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/");

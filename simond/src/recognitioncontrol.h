@@ -37,6 +37,8 @@ class RecognitionControl : public QObject
 
 	public:
 		RecognitionControl(QObject *parent=0);
+
+		virtual bool initializeRecognition()=0;
 			       
 		~RecognitionControl();
 		

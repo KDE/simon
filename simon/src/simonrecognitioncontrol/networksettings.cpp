@@ -36,6 +36,8 @@ K_EXPORT_PLUGIN( NetworkSettingsFactory("NetworkSettings") )
  */
 NetworkSettings::NetworkSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
+	Q_UNUSED(args);
+
 	ui.setupUi(this);
 	
 	ServerAddressSelector *saSelector = new ServerAddressSelector(this);

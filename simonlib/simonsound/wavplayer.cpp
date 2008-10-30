@@ -47,6 +47,9 @@ WavPlayer::WavPlayer(QObject *parent) : QObject(parent)
 int processOutputData( const void *inputBuffer, void *outputBuffer, unsigned long framesPerBuffer,
 		 const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags status, void *userData )
 {
+	Q_UNUSED(inputBuffer);
+	Q_UNUSED(timeInfo);
+	Q_UNUSED(status);
 	WavPlayer *play = (WavPlayer*) userData;
 	if (!play) return 1;
 

@@ -71,10 +71,9 @@ class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
 		bool storeActiveModel(const QDateTime& changedTime, int sampleRate, const QByteArray& hmmDefs,
 				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
 				
+		void buildMissingSamplesList();
 		QByteArray getSample(const QString& sampleName);
-		
 		QString missingSample();
-		
 		bool storeSample(const QByteArray& sample);
 
 		~ModelManager() {}

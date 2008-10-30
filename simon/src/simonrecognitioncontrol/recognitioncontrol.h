@@ -137,6 +137,7 @@ private slots:
 	void synchronisationComplete();
 	void synchronisationDone();
 
+	void synchronizeSamples();
 	void fetchMissingSamples();
 
 

@@ -189,6 +189,7 @@ const QStringList CommandModel::getCategories(const CommandList *commands) const
 
 int CommandModel::columnCount(const QModelIndex &parent) const
 {
+	Q_UNUSED(parent);
 	return 1;
 }
 

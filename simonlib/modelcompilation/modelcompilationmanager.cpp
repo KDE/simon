@@ -26,6 +26,7 @@
 #include <QDebug>
 #include <KStandardDirs>
 #include <KLocalizedString>
+// #include <KDebug>
 
 #include <simonlogging/logger.h>
 
@@ -93,6 +94,7 @@ void ModelCompilationManager::run()
 	//sync model
 	
 	emit status(i18n("Fertig."), 2300, 2300);
+	emit modelCompiled();
 }
 
 
@@ -150,13 +152,14 @@ bool ModelCompilationManager::makeTempVocab()
 		vocabEntry = QString::fromUtf8(vocab.readLine ( 1024 ));
 		vocabEntry.remove ( QRegExp ( "\r+$" ) );
 		vocabEntry.remove ( QRegExp ( "#.*" ) );
-		if ( vocabEntry.trimmed().isEmpty() ) continue;
+		vocabEntry = vocabEntry.trimmed();
+		if ( vocabEntry.isEmpty() ) continue;
 		if ( vocabEntry.startsWith ( '%' ) )
 		{
 			terminal = vocabEntry.mid ( 1 ).trimmed();
 			tmpVocab.write ( '#'+terminal.toUtf8() +'\n' );
 
-			term.write ( termid+"\t"+terminal.toUtf8() +"\n" );
+			term.write ( QString::number(termid).toUtf8()+'\t'+terminal.toUtf8() +'\n' );
 			termid++;
 		}
 	}
@@ -172,12 +175,15 @@ bool ModelCompilationManager::makeDfa()
 	QString dfaMinimize= ModelCompilationConfiguration::dfa_minimize().path();
 
 	QString execStr = '"'+mkfa+"\" -e1 -fg \""+KStandardDirs::locateLocal("tmp", userName+"/reverseGrammar")+"\" -fv \""+KStandardDirs::locateLocal("tmp", userName+"/tempvoca")+"\" -fo \""+KStandardDirs::locateLocal("tmp", userName+"/dfaTemp.tmp")+"\" -fh \""+KStandardDirs::locateLocal("tmp", userName+"/dfaTemp.h")+"\"";
+// 	kDebug() << execStr;
 	proc->start(execStr);
 	proc->waitForFinished(-1);
 	if (proc->exitCode() != 0) 
 		return false;
 
-	proc->start('"'+dfaMinimize+'"'+" \""+KStandardDirs::locateLocal("tmp", userName+"/dfaTemp.tmp")+"\" -o \""+dfaPath+'"');
+	execStr = '"'+dfaMinimize+'"'+" \""+KStandardDirs::locateLocal("tmp", userName+"/dfaTemp.tmp")+"\" -o \""+dfaPath+'"';
+// 	kDebug() << execStr;
+	proc->start(execStr);
 	proc->waitForFinished(-1);
 	if (proc->exitCode()!= 0) 
 		return false;
@@ -198,9 +204,14 @@ bool ModelCompilationManager::generateReverseGrammar()
 	QStringList terminals;
 	QString identifier;
 	
+	int structureCount=0;
+	
 	while (!grammar.atEnd())
 	{
 		grammarEntry = QString::fromUtf8(grammar.readLine()).trimmed();
+		grammarEntry.remove(QRegExp("\r+$"));
+		grammarEntry.remove(QRegExp("#.*"));
+
 		if (grammarEntry.trimmed().isEmpty()) continue;
 		
 		//example: "S:NS_B NOM NS_E"
@@ -212,11 +223,15 @@ bool ModelCompilationManager::generateReverseGrammar()
 		terminals = grammarEntry.mid(splitter+1).split(' ');
 		for (int j=terminals.count()-1; j >= 0; j--)
 			reverseGrammarEntry += terminals[j]+' ';
+		
+		structureCount++;
 		// reverse = "S:NS_E NOM NS_B "
 		reverseGrammar.write(reverseGrammarEntry.toUtf8()+'\n');
 	}
 	reverseGrammar.close();
-	return true;
+	grammar.close();
+	
+	return (structureCount > 0);
 }
 
 bool ModelCompilationManager::generateDict()
@@ -378,6 +393,7 @@ bool ModelCompilationManager::makeTranscriptions()
  */
 bool ModelCompilationManager::processError(const QString& userError)
 {
+	//FIXME: completeley broken atm
 	//can't control the systems console-charset so we use the Local8Bit setting to import
 	//instead of UTF-8
 	lastError = QString(lastError+'\n'+QString::fromLocal8Bit(proc->readAllStandardError())).right(400);

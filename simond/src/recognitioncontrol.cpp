@@ -22,7 +22,6 @@
 
 RecognitionControl::RecognitionControl(QObject *parent) : QObject(parent)
 {
-
 }
 
 RecognitionControl::~RecognitionControl()

@@ -88,8 +88,7 @@ namespace Simond
 		
 		ModelCompilationStarted=3001,
 		ModelCompilationStatus=3002,
-		ModelCompilationProgress=3003,
-		ModelCompilationError=3004,
+		ModelCompilationError=3003,
 		
 		RecognitionReady=4001,
 		StartRecognition=4002,

@@ -10,7 +10,7 @@
 #  define SIMONAPPCORE_EXPORT KDE_EXPORT
 # else
    // We are using this library
-#  define SIMONAPPCORE_EXPORT
+#  define SIMONAPPCORE_EXPORT KDE_IMPORT
 # endif
 #endif
  

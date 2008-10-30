@@ -765,6 +765,7 @@ void ClientSocket::slotSocketError()
 		
 bool ClientSocket::sendActiveModel()
 {
+	kDebug() << "Sending active model...";
 	Q_ASSERT(synchronisationManager);
 	
 	if (username.isEmpty()) return false;
@@ -774,7 +775,7 @@ bool ClientSocket::sendActiveModel()
 	if (!model) return false;
 	
 	
-	qint32 size = model->hmmDefs().count()+
+	qint64 size = model->hmmDefs().count()+
 			model->tiedList().count()+
 			model->dict().count()+
 			model->dfa().count()+
@@ -809,14 +810,18 @@ void ClientSocket::synchronisationDone()
 	{
 		write(messagesToSend.takeAt(0));
 	}
+
+	Q_ASSERT(recognitionControl);
+	recognitionControl->initializeRecognition();
 }
 
 
 void ClientSocket::synchronisationComplete()
 {
+	kDebug() << "we are here";
 	sendCode(Simond::SynchronisationComplete);
 	
-	if (modelSource == ClientSocket::Client)
+	if ((modelSource == ClientSocket::Client) || !(synchronisationManager->hasActiveModel()))
 		//if we got our model from the client modelsrc has changed
 		recompileModel();
 	

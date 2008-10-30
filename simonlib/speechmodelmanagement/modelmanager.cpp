@@ -33,6 +33,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QBuffer>
+#include <QDir>
 
 
 ModelManager::ModelManager()
@@ -281,28 +282,6 @@ QDateTime ModelManager::getTrainingModifiedTime()
 bool ModelManager::storeTraining(const QDateTime& changedTime, int sampleRate, const QByteArray& wavConfig,
 					const QByteArray& prompts)
 {
-	////////////////
-	
-	QStringList newList;
-	QStringList oldList = TrainingManager::getInstance()->getPrompts()->keys();
-	
-	QBuffer b((QByteArray*) &prompts);
-	if (!b.open(QIODevice::ReadOnly)) return false;
-	while (!b.atEnd())
-	{
-		QString promptsLine = QString::fromUtf8(b.readLine());
-		newList << promptsLine.left(promptsLine.indexOf(" "));
-	}
-	b.close();
-	
-	foreach (QString fileName, newList)
-	{
-		if ((!oldList.contains(fileName)) && (!this->missingFiles.contains(fileName)))
-			missingFiles << fileName;
-	}
-	///////////
-	
-	
 	if (!TrainingManager::getInstance()->refreshTraining(sampleRate, prompts))
 		return false;
 	
@@ -319,6 +298,19 @@ bool ModelManager::storeTraining(const QDateTime& changedTime, int sampleRate, c
 	cGroup.writeEntry("TrainingDate", changedTime);
 	config.sync();
 	return true;
+}
+
+void ModelManager::buildMissingSamplesList()
+{
+	QStringList newList = TrainingManager::getInstance()->getPrompts()->keys();
+	QDir samplesDir(SpeechModelManagementConfiguration::modelTrainingsDataPath().path());
+	QStringList oldList = samplesDir.entryList(QStringList() << "*.wav");
+	
+	foreach (QString fileName, newList)
+	{
+		if ((!oldList.contains(fileName)) && (!this->missingFiles.contains(fileName)))
+			missingFiles << fileName;
+	}
 }
 
 

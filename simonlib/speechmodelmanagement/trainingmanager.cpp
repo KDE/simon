@@ -95,6 +95,7 @@ TrainingManager* TrainingManager::getInstance()
 
 void TrainingManager::askDeleteLonelySample(QString sample)
 {
+	//FIXME
 // 	if (KMessageBox::questionYesNoCancel(0, i18n("Die Datei %1 hat keine Transkription.\n\nWollen Sie sie löschen?", sample), i18n("Herrenloses Sample")) == KMessageBox::Yes)
 // 	{
 // 		if (!QFile::remove(sample))

@@ -448,6 +448,14 @@ void RecognitionControl::sendTraining()
 	delete training;
 }
 
+void RecognitionControl::synchronizeSamples()
+{
+	Q_ASSERT(modelManager);
+	
+	modelManager->buildMissingSamplesList();
+	fetchMissingSamples();
+}
+
 void RecognitionControl::fetchMissingSamples()
 {
 	Q_ASSERT(modelManager);
@@ -594,9 +602,25 @@ void RecognitionControl::messageReceived()
 			case Simond::ActiveModel:
 			{
 				kDebug() << "Server sent active Model";
-				kDebug() << "FIXME: Store model";
 				
-				//TODO: Store active model
+				waitForMessage(sizeof(qint64), msg, msgByte);
+				qint64 length;
+				msg >> length;
+				waitForMessage(length, msg, msgByte);
+				
+				int sampleRate;
+				QByteArray hmmDefs, tiedList, dict, dfa;
+				
+				QDateTime changedTime;
+				msg >> changedTime;
+				msg >> sampleRate;
+				msg >> hmmDefs;
+				msg >> tiedList;
+				msg >> dict;
+				msg >> dfa;
+				
+				modelManager->storeActiveModel(changedTime, sampleRate, 
+								hmmDefs, tiedList, dict, dfa);
 				
 				sendModelSrcModifiedDate();
 				break;
@@ -823,21 +847,21 @@ void RecognitionControl::messageReceived()
 				msg >> shadowLexicon;
 				
 				modelManager->storeLanguageDescription(changedTime,shadowVocab, shadowLexicon, treeHed);
-				fetchMissingSamples();
+				synchronizeSamples();
 				break;
 			}
 			
 			case Simond::NoLanguageDescriptionAvailable:
 			{
 				kDebug() << "No languagedescription available";
-				fetchMissingSamples();
+				synchronizeSamples();
 				break;
 			}
 			
 			case Simond::LanguageDescriptionStorageFailed:
 			{
 				kDebug() << "Server could not store languagedescription";
-				fetchMissingSamples();
+				synchronizeSamples();
 				break;
 			}
 
@@ -860,7 +884,6 @@ void RecognitionControl::messageReceived()
 			case Simond::TrainingsSample:
 			{
 				kDebug() << "Server sent Trainings-Sample";
-				//TODO: store sample
 				
 				Q_ASSERT(modelManager);
 				
@@ -923,10 +946,7 @@ void RecognitionControl::messageReceived()
 				emit status(i18n("Modell: %1", statusMsg), progNow, progMax);
 				break;
 			}
-			case Simond::ModelCompilationProgress: {
-				
-				break;
-			}
+			
 			case Simond::ModelCompilationError: {
 				waitForMessage(sizeof(qint64), msg, msgByte);
 				qint64 length;

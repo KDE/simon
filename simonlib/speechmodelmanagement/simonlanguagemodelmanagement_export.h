@@ -10,7 +10,7 @@
 #  define LANGUAGEMODELMANAGEMENT_EXPORT KDE_EXPORT
 # else
    // We are using this library
-#  define LANGUAGEMODELMANAGEMENT_EXPORT
+#  define LANGUAGEMODELMANAGEMENT_EXPORT KDE_IMPORT
 # endif
 #endif
  

@@ -28,6 +28,8 @@ class JuliusControl : public RecognitionControl
 
 	public:
 		JuliusControl(QObject *parent=0);
+
+		bool initializeRecognition();
       
 		~JuliusControl();
 		

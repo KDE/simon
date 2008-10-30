@@ -10,7 +10,7 @@
 #  define ACOUSTICMODELMANAGEMENT_EXPORT KDE_EXPORT
 # else
    // We are using this library
-#  define ACOUSTICMODELMANAGEMENT_EXPORT
+#  define ACOUSTICMODELMANAGEMENT_EXPORT KDE_IMPORT
 # endif
 #endif
  

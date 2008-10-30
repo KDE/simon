@@ -18,11 +18,30 @@
  */
 
 #include "juliuscontrol.h"
+#include <KLocalizedString>
 
+extern "C" {
+	#include <julius/julius.h>
+}
+
+// extern Jconf* j_config_load_args_new(int argc, char** argv);
 
 JuliusControl::JuliusControl(QObject *parent) : RecognitionControl(parent)
 {
 
+}
+
+bool JuliusControl::initializeRecognition()
+{
+	Jconf *jconf;// = j_jconf_new();
+	int argc=0;
+	char** argv;
+// 	jconf = j_config_load_args_new(argc, argv);
+// 	delete jconf;
+
+
+	emit recognitionError(i18n("Not implemented"));
+	return false;
 }
 
 JuliusControl::~JuliusControl()
