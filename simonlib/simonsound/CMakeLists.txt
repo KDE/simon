@@ -30,7 +30,6 @@ kde4_add_ui_files( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/prompt.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/deviceconfiguration.ui
-# 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.ui
 )
 
 kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )

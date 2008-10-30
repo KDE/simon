@@ -20,6 +20,13 @@
 #include "juliuscontrol.h"
 #include <KLocalizedString>
 
+#ifdef FALSE
+#undef FALSE
+#endif
+#ifdef TRUE
+#undef TRUE
+#endif
+
 extern "C" {
 	#include <julius/julius.h>
 }

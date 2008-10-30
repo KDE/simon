@@ -1,8 +1,6 @@
 include(FindJulius)
+include(FindPortaudio)
 find_package(Julius REQUIRED)
-
-message (STATUS ${JULIUS_INCLUDE_DIR})
-message (STATUS ${JULIUS_LIBRARIES})
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${JULIUS_INCLUDE_DIR} )
 
@@ -23,7 +21,7 @@ kde4_add_app_icon(simonGeneralSources
 
 kde4_add_executable(simond ${simond_SRCS})
 
-target_link_libraries(simond ${KDE4_KDEUI_LIBS}  ${QT_LIBRARIES} ${JULIUS_LIBRARIES} speechmodelbase simonmodelcompilation )
+target_link_libraries(simond ${KDE4_KDEUI_LIBS}   ${PORTAUDIO_LIBRARIES} ${QT_LIBRARIES} ${JULIUS_LIBRARIES} speechmodelbase simonmodelcompilation )
 
 install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} )
 

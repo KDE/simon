@@ -25,16 +25,19 @@ else (PORTAUDIO_LIBRARIES AND PORTAUDIO_INCLUDE_DIRS)
       /usr/local/include
       /opt/local/include
       /sw/include
+      C:/programme/portaudio/include
   )
 
   find_library(PORTAUDIO_LIBRARY
     NAMES
       portaudio
+      libportaudio-2.dll
     PATHS
       /usr/lib
       /usr/local/lib
       /opt/local/lib
       /sw/lib
+      C:/programme/portaudio/bin
   )
 
   set(PORTAUDIO_INCLUDE_DIRS
