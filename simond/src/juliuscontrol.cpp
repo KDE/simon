@@ -33,10 +33,8 @@ JuliusControl::JuliusControl(QObject *parent) : RecognitionControl(parent)
 
 bool JuliusControl::initializeRecognition()
 {
-	Jconf *jconf;// = j_jconf_new();
-	int argc=0;
-	char** argv;
-// 	jconf = j_config_load_args_new(argc, argv);
+	Jconf *jconf = j_jconf_new();
+	
 // 	delete jconf;
 
 
