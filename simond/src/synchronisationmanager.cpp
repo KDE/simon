@@ -77,7 +77,7 @@ QDateTime SynchronisationManager::getActiveModelDate()
 {
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 
-	KConfig config( dirPath+"activemodelrc", KConfig::SimpleConfig );
+	KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("Date", QDateTime());
 }
@@ -116,11 +116,29 @@ bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, int 
 	return true;
 }
 
+void SynchronisationManager::setActiveModelSampleRate(int activeModelSampleRate)
+{
+	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+	KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	cGroup.writeEntry("SampleRate", activeModelSampleRate);
+	config.sync();
+}
+
 bool SynchronisationManager::hasActiveModel()
 {
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 	return (QFile::exists(dirPath+"hmmdefs")&&QFile::exists(dirPath+"tiedlist")
 		&&QFile::exists(dirPath+"model.dict")&&QFile::exists(dirPath+"model.dfa"));
+}
+
+void SynchronisationManager::modelCompiled()
+{
+	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+	KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	cGroup.writeEntry("Date", QDateTime::currentDateTime());
+	config.sync();
 }
 
 QDateTime SynchronisationManager::getWordListDate()

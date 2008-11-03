@@ -6,5 +6,5 @@ Icon=simond
 Type=Application
 DocPath=simond/index.html
 GenericName=simon server
-Terminal=0
-
+Terminal=1
+Categories=Qt;KDE;Utility;Accessibility;

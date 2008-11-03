@@ -20,8 +20,9 @@
 #include "recognitioncontrol.h"
 
 
-RecognitionControl::RecognitionControl(QObject *parent) : QObject(parent)
+RecognitionControl::RecognitionControl(const QString& username, QObject *parent) : QThread(parent)
 {
+	this->username = username;
 }
 
 RecognitionControl::~RecognitionControl()

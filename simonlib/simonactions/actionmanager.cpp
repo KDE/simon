@@ -18,7 +18,7 @@
  */
 
 #include "actionmanager.h"
-
+#include "actionconfig.h"
 #include <simoninfo/simoninfo.h>
 #include <commandpluginbase/commandconfiguration.h>
 #include <commandpluginbase/commandmanager.h>
@@ -43,14 +43,19 @@ ActionManager::ActionManager(QObject *parent) : QObject(parent)
 {
 	managers = new QList<CommandManager*>();
 	commandSettings=0;
+	initCompleteSystem=false;
 }
 
 void ActionManager::init()
 {
-	if (!commandSettings) return;
+	if (commandSettings)
+		setupBackends(commandSettings->getPluginsToLoad());
+}
 
-	connect(commandSettings, SIGNAL(pluginSelectionChanged(const QStringList&)), this, SLOT(setupBackends(QStringList)));
-	setupBackends(commandSettings->getPluginsToLoad());
+void ActionManager::setConfigurationDialog(KCModule* commandSettings)
+{
+	this->commandSettings = dynamic_cast<CommandSettings*>(commandSettings);
+	connect(commandSettings, SIGNAL(pluginSelectionChanged(const QStringList&)), this, SLOT(setupBackends(const QStringList&)));
 }
 
 void ActionManager::deleteManager(CommandManager *manager)
@@ -62,8 +67,9 @@ void ActionManager::deleteManager(CommandManager *manager)
 }
 
 
-void ActionManager::setupBackends(QStringList pluginsToLoad)
+void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 {
+	kDebug() << "SETTING UP BACKENDS"  << pluginsToLoad;
 	Q_ASSERT(managers);
 
 	QList<CommandManager*> *newManagerList = new QList<CommandManager*>();
@@ -129,11 +135,6 @@ void ActionManager::setupBackends(QStringList pluginsToLoad)
 	this->managers = newManagerList;
 	
 	if (changed) emit commandsChanged(getCommandList());
-}
-
-void ActionManager::setConfigurationDialog(KCModule* commandSettings)
-{
-	this->commandSettings = dynamic_cast<CommandSettings*>(commandSettings);
 }
 
 QList<CreateCommandWidget*>* ActionManager::getCreateCommandWidgets(QWidget *parent)
@@ -240,29 +241,35 @@ CommandList* ActionManager::getCommandList()
 	return out;
 }
 
-
+#include <KDebug>
 void ActionManager::process(QString input)
 {
 	Q_ASSERT(managers);
 	Q_ASSERT(commandSettings);
 
 	if (input.isEmpty()) return;
+	kDebug() << 1;
+	QString keyword = ActionConfiguration::globalTrigger();
 	
-	QString keyword = commandSettings->globalTrigger();
-	
+	kDebug() << 2;
 	bool commandFound=false;
-	bool useGlobalTrigger = commandSettings->useGlobalTrigger();
+	bool useGlobalTrigger = ActionConfiguration::useGlobalTrigger();
+	kDebug() << 3 << useGlobalTrigger;
 	if (input.startsWith(keyword) || (!useGlobalTrigger))
 	{
+		kDebug() << 4;
 		if (useGlobalTrigger)
 			input = input.remove(0, QString(keyword).length()).trimmed();
 		
+		kDebug() << 5;
 		int i=0;
 		while ((i < managers->count()) && (!managers->at(i)->trigger(input)))
 		{ i++; }
+		kDebug() << 6;
 		if (i == managers->count()) // didn't find anything
 			emit guiAction(input);
 		else commandFound=true;
+		kDebug() << 7;
 	} 
 // 	if ((!input.startsWith(keyword) || (!commandSettings->useGlobalTrigger() && !commandFound)) &&
 // 		commandSettings->dictation()) //is dictation activated?

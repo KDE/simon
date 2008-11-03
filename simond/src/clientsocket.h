@@ -75,7 +75,9 @@ class ClientSocket : public QSslSocket
 		void recognitionWarning(const QString& warning);
 		void recognitionStarted();
 		void recognitionStopped();
-		void recognitionTemporarilyUnavailable(const QString& reason);
+		void recognitionPaused();
+		void recognitionResumed();
+// 		void recognitionTemporarilyUnavailable(const QString& reason);
 
 		bool sendWordList();
 		bool sendGrammar();
@@ -93,6 +95,8 @@ class ClientSocket : public QSslSocket
 		void synchronizeSamples();
 		void fetchTrainingSample();
 		void sendSample(QString sampleName);
+		
+		void activeModelCompiled();
 
 	public:
 		ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, QObject *parent=0);

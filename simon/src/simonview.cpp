@@ -40,6 +40,7 @@
 #include <QPixmap>
 #include <QCryptographicHash>
 #include <QCloseEvent>
+#include <QMenu>
 
 
 #include <KMessageBox>
@@ -93,7 +94,9 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	if (commandSettingsItem)
 	{
 		KCModuleProxy *proxy = static_cast<KCModuleProxy*>(commandSettingsItem->widget());
+		kDebug() << proxy->realModule();
 		ActionManager::getInstance()->setConfigurationDialog(proxy->realModule());
+		ActionManager::getInstance()->init();
 	}
 
 
@@ -164,7 +167,14 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 void SimonView::setupActions()
 {
+	disconnectAction = new KAction(this);
+	disconnectAction->setText(i18n("Verbindung trennen"));
+	disconnectAction->setIcon(KIcon("network-disconnect"));
+	connect(disconnectAction, SIGNAL(triggered(bool)),
+		control, SLOT(disconnectFromServer()));
+
 	KAction* connectActivate = new KAction(this);
+	connectActivate->setMenu(new QMenu());
 	connectActivate->setCheckable(true);
 	connectActivate->setText(i18n("Verbinden"));
 	connectActivate->setIcon(KIcon("network-disconnect"));
@@ -278,8 +288,10 @@ void SimonView::displayProgress(int cur, int max)
 void SimonView::toggleConnection()
 {
 	SimonControl::SystemStatus status = control->getStatus();
+// 	kDebug() << "hier" << status;
+// 	KMessageBox::information(this, QString::number((int) status));
 	
-	if (status==SimonControl::Disconnected)
+	if (status==SimonControl::Disconnected) 
 	{
 		this->control->connectToServer();
 	} else if (status==SimonControl::Connecting)
@@ -417,7 +429,12 @@ void SimonView::showSimon()
  */
 void SimonView::toggleActivation()
 {
-	this->control->toggleActivition();
+	if (control->getStatus() == SimonControl::ConnectedDeactivatedNotReady)
+	{
+		KMessageBox::error(this, i18n("Konnte Erkennung nicht starten"));
+		representState(control->getStatus());
+	} else
+		this->control->toggleActivition();
 }
 
 /**
@@ -437,6 +454,12 @@ void SimonView::representState(SimonControl::SystemStatus status)
 				connectActivate->setText(i18n ( "Verbinden" ));
 				connectActivate->setChecked(false);
 				connectActivate->setIcon(KIcon("network-disconnect"));
+				if (connectActivate->menu()->actions().contains(disconnectAction))
+					connectActivate->menu()->removeAction(disconnectAction);
+
+				disconnect(connectActivate,0,0,0);
+				connect(connectActivate, SIGNAL(triggered(bool)),
+					this, SLOT(toggleConnection()));
 			}
 
 			SimonInfo::showMessage ( i18n ( "Verbindung zu Server getrennt" ), 4000 );
@@ -451,18 +474,44 @@ void SimonView::representState(SimonControl::SystemStatus status)
 				connectActivate->setText(connectionStr);
 				connectActivate->setChecked(true);
 				connectActivate->setIcon(KIcon("network-disconnect"));
+
+				disconnect(connectActivate,0,0,0);
+				connect(connectActivate, SIGNAL(triggered(bool)),
+					this, SLOT(toggleConnection()));
 			}
 			displayConnectionStatus(connectionStr);
+			if (connectActivate->menu()->actions().contains(disconnectAction))
+				connectActivate->menu()->removeAction(disconnectAction);
 			
 			break; }
-			
-		case SimonControl::ConnectedDeactivated: {
+		
+		case SimonControl::ConnectedDeactivating: {
+			displayConnectionStatus(i18n("Verbunden; Deaktiviere..."));
+			if (connectActivate) {
+				connectActivate->setText(i18n ( "Deaktiviere..." ));
+				connectActivate->setChecked(false);
+			}
+		}
+		
+		case SimonControl::ConnectedDeactivatedNotReady: 
+		case SimonControl::ConnectedPaused: 
+		case SimonControl::ConnectedDeactivatedReady: {
 			displayConnectionStatus(i18n("Verbunden aber Deaktiviert"));
 			
 			if (connectActivate) {
 				connectActivate->setText(i18n ( "Aktivieren" ));
 				connectActivate->setChecked(false);
-				connectActivate->setIcon(KIcon("media-playback-pause"));
+				connectActivate->setIcon(KIcon("media-playback-start"));
+
+				disconnect(connectActivate,0,0,0);
+				connect(connectActivate, SIGNAL(triggered(bool)),
+					this, SLOT(toggleActivation()));
+					
+// 				connectActivate->setEnabled(status!=SimonControl::ConnectedDeactivatedNotReady);
+
+				//add disconnect action with icon network-disconnect
+				if (!connectActivate->menu()->actions().contains(disconnectAction))
+					connectActivate->menu()->addAction(disconnectAction);
 			}
 			
 				
@@ -471,6 +520,15 @@ void SimonView::representState(SimonControl::SystemStatus status)
 			this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "Simon - Deaktiviert" ) );
 			repaint();
 			break; }
+		
+		case SimonControl::ConnectedResuming: 
+		case SimonControl::ConnectedActivating: {
+			displayConnectionStatus(i18n("Verbunden; Aktiviere..."));
+			if (connectActivate) {
+				connectActivate->setText(i18n ( "Aktiviere..." ));
+				connectActivate->setChecked(false);
+			}
+		}
 			
 		case SimonControl::ConnectedActivated: {
 			displayConnectionStatus(i18n("Verbunden und Aktiviert"));
@@ -479,7 +537,14 @@ void SimonView::representState(SimonControl::SystemStatus status)
 			{
 				connectActivate->setText(i18n ( "Aktiviert" ));
 				connectActivate->setChecked(true);
-				connectActivate->setIcon(KIcon("network-connect"));
+				connectActivate->setIcon(KIcon("media-playback-start"));
+
+				disconnect(connectActivate,0,0,0);
+				connect(connectActivate, SIGNAL(triggered(bool)),
+					this, SLOT(toggleActivation()));
+
+				if (!connectActivate->menu()->actions().contains(disconnectAction))
+					connectActivate->menu()->addAction(disconnectAction);
 			}
 			
 			this->trayManager->createIcon ( KIcon ( "simon" ), "Simon" );

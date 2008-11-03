@@ -53,6 +53,7 @@
  */
 RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 {
+	recognitionReady=false;
 	socket = new QSslSocket();
 	timeoutWatcher = new QTimer(this);
 	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
@@ -64,13 +65,19 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 
 	connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()));
 	
-	connect(this, SIGNAL(error(QString, bool)), this, SLOT(disconnectFromServer()));
+	connect(socket, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
+	connect(this, SIGNAL(simondSystemError(const QString&)), this, SLOT(disconnectFromServer()));
 
 
 	if ( RecognitionConfiguration::juliusdAutoConnect() )
 		startConnecting();
 	
 	this->modelManager = new ModelManager();
+}
+
+void RecognitionControl::slotDisconnected()
+{
+	recognitionReady=false;
 }
 
 void RecognitionControl::startConnecting()
@@ -207,10 +214,10 @@ void RecognitionControl::disconnectFromServer()
  */
 void RecognitionControl::connectedTo()
 {
+	kDebug() << "Connected";
 	timeoutWatcher->stop();
 
 	emit connected();
-
 	login();
 }
 
@@ -276,13 +283,13 @@ bool RecognitionControl::sendActiveModel()
 {
 	Model *model = modelManager->createActiveContainer();
 	if (!model) {
-		emit warning(i18n("Konnte Modellcontainer nicht erstellen"));
+		emit synchronisationWarning(i18n("Konnte Modellcontainer nicht erstellen"));
 		sendRequest(Simond::ErrorRetrievingActiveModel);
 		return false;
 	}
 	
 	
-	qint64 size = sizeof(int)+sizeof(int)
+	qint64 size = sizeof(int)
 			+ model->hmmDefs().count()
 			+ model->tiedList().count()
 			+ model->dict().count()
@@ -306,6 +313,18 @@ bool RecognitionControl::sendActiveModel()
 	return true;
 }
 
+
+void RecognitionControl::sendActiveModelSampleRate()
+{
+	int smpFreq = modelManager->getActiveModelSampleRate();
+	
+	QByteArray toWrite;
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	out << Simond::ActiveModelSampleRate
+		<< smpFreq;
+		
+	socket->write(toWrite);
+}
 
 void RecognitionControl::sendModelSrcModifiedDate()
 {
@@ -492,7 +511,7 @@ void RecognitionControl::sendSample(QString sampleName)
 	
 	if (sample.isNull())
 	{
-		emit warning(i18n("Konnte \"%1\" nicht übertragen", sampleName));
+		emit synchronisationError(i18n("Konnte \"%1\" nicht übertragen", sampleName));
 		sendRequest(Simond::ErrorRetrievingTrainingsSample);
 		return;
 	}
@@ -562,20 +581,20 @@ void RecognitionControl::messageReceived()
 
 			case Simond::VersionIncompatible:
 			{
-				emit error(i18n("Version nicht unterstützt"));
+				emit simondSystemError(i18n("Version nicht unterstützt"));
 				break;
 			}
 
 			case Simond::AuthenticationFailed:
 			{
-				emit error(i18n("Benutzername oder Passwort falsch."));
+				emit simondSystemError(i18n("Benutzername oder Passwort falsch."));
 				this->disconnectFromServer();
 				break;
 			}
 
 			case Simond::AccessDenied:
 			{
-				emit error(i18n("Zugriff verweigert."));
+				emit simondSystemError(i18n("Zugriff verweigert."));
 				this->disconnectFromServer();
 				break;
 			}
@@ -625,11 +644,17 @@ void RecognitionControl::messageReceived()
 				sendModelSrcModifiedDate();
 				break;
 			}
+			
+			case Simond::GetActiveModelSampleRate:
+			{
+				sendActiveModelSampleRate();
+				break;
+			}
 
 			case Simond::NoActiveModelAvailable:
 			{
 				kDebug() << "No active model available";
-				emit warning(i18n("Kein Sprachmodell verfügbar: Erkennung deaktiviert"));
+				emit synchronisationWarning(i18n("Kein Sprachmodell verfügbar: Erkennung deaktiviert"));
 				sendModelSrcModifiedDate();
 				
 				break;
@@ -638,7 +663,7 @@ void RecognitionControl::messageReceived()
 			case Simond::ActiveModelStorageFailed:
 			{
 				kDebug() << "Couldn't store active model on server";
-				emit warning(i18n("Konnte Server-Modell nicht aktualisieren"));
+				emit synchronisationError(i18n("Konnte Server-Modell nicht aktualisieren"));
 				sendModelSrcModifiedDate();
 				
 				break;
@@ -749,7 +774,7 @@ void RecognitionControl::messageReceived()
 			case Simond::NoWordListAvailable:
 			{
 				kDebug() << "No wordlist available";
-				emit warning(i18n("Keine Wortliste verfügbar"));
+				emit synchronisationError(i18n("Keine Wortliste verfügbar"));
 				sendGrammarModifiedDate();
 				break;
 			}
@@ -757,7 +782,7 @@ void RecognitionControl::messageReceived()
 			case Simond::WordListStorageFailed:
 			{
 				kDebug() << "Server could not store wordlist";
-				emit warning(i18n("Konnte Wortliste nicht auf Server ablegen"));
+				emit synchronisationError(i18n("Konnte Wortliste nicht auf Server ablegen"));
 				sendGrammarModifiedDate();
 				break;
 			}
@@ -958,7 +983,7 @@ void RecognitionControl::messageReceived()
 				msg >> errorByte;
 				errorMsg = QString::fromUtf8(errorByte);
 				
-				emit warning(errorMsg);
+				emit compilationError(errorMsg);
 				break;
 			}
 
@@ -966,6 +991,7 @@ void RecognitionControl::messageReceived()
 
 			case Simond::RecognitionReady:
 			{
+				recognitionReady=true;
 				emit recognitionStatusChanged(RecognitionControl::Ready);
 				break;
 			}
@@ -980,8 +1006,9 @@ void RecognitionControl::messageReceived()
 				QByteArray errormsgByte;
 				msg >> errormsgByte;
 				QString errormsg = QString::fromUtf8(errormsgByte);
-				emit warning(i18n("Erkennungsfehler: %1", errormsg));
-				emit recognitionStatusChanged(RecognitionControl::TemporarilyUnavailable);
+				emit recognitionError(errormsg);
+				emit recognitionStatusChanged(RecognitionControl::Stopped);
+// 				emit recognitionStatusChanged(RecognitionControl::TemporarilyUnavailable);
 				break;
 			}
 
@@ -995,7 +1022,7 @@ void RecognitionControl::messageReceived()
 				QByteArray warningmsgByte;
 				msg >> warningmsgByte;
 				QString warningmsg = QString::fromUtf8(warningmsgByte);
-				emit warning(i18n("Erkennungswarnung: ")+warningmsg);
+				emit recognitionWarning(warningmsg);
 				break;
 			}
 
@@ -1011,11 +1038,24 @@ void RecognitionControl::messageReceived()
 				break;
 			}
 
-			case Simond::RecognitionTemporarilyUnavailable:
+			case Simond::RecognitionPaused:
 			{
-				emit recognitionStatusChanged(RecognitionControl::TemporarilyUnavailable);
+				emit recognitionStatusChanged(RecognitionControl::Paused);
 				break;
 			}
+
+			case Simond::RecognitionResumed:
+			{
+				emit recognitionStatusChanged(RecognitionControl::Resumed);
+				kDebug() << "Recognition has been resumed" << msgByte;
+				break;
+			}
+
+// 			case Simond::RecognitionTemporarilyUnavailable:
+// 			{
+// 				emit recognitionStatusChanged(RecognitionControl::TemporarilyUnavailable);
+// 				break;
+// 			}
 
 			case Simond::RecognitionResult:
 			{
@@ -1063,6 +1103,17 @@ void RecognitionControl::startRecognition()
 void RecognitionControl::stopRecognition()
 {
 	sendRequest(Simond::StopRecognition);
+}
+
+void RecognitionControl::pauseRecognition()
+{
+	sendRequest(Simond::PauseRecognition);
+}
+
+void RecognitionControl::resumeRecognition()
+{
+	kDebug() << "Sending resume request";
+	sendRequest(Simond::ResumeRecognition);
 }
 
 

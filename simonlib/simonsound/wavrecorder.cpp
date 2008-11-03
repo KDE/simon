@@ -23,6 +23,7 @@
 #include "soundconfig.h"
 
 #include <QObject>
+#include <KDebug>
 
 #include <stdlib.h>
 #include <string.h>
@@ -108,6 +109,8 @@ bool WavRecorder::record(QString filename)
 	int sampleRate = SoundConfiguration::soundSampleRate();
 	inputParameters.device = SoundConfiguration::soundInputDevice();
 
+	kDebug() << inputParameters.device << SoundConfiguration::soundInputDevice() << channels << sampleRate;
+
 	inputParameters.channelCount = channels;
 	inputParameters.sampleFormat = paFloat32;
 
@@ -130,6 +133,7 @@ bool WavRecorder::record(QString filename)
 		(void*) this );
 
 	if( err != paNoError ) {
+		kDebug() << err << "ERROR!!!";
 		return false;
 	}
 	

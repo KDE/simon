@@ -44,6 +44,7 @@ class SynchronisationManager : public QObject
 		Model* getActiveModel();
 		bool hasActiveModel();
 		QDateTime getActiveModelDate();
+		void setActiveModelSampleRate(int activeModelSampleRate);
 		bool storeActiveModel(const QDateTime& changedDate, int sampleRate, const QByteArray& hmmDefs,
 				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
 
@@ -78,6 +79,8 @@ class SynchronisationManager : public QObject
 		QByteArray getSample(const QString& sampleName);
 		QString missingSample();
 		bool storeSample(const QByteArray& sample);
+		
+		void modelCompiled();
 			       
 		~SynchronisationManager();
 		

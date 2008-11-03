@@ -52,8 +52,13 @@ public:
 	enum SystemStatus {
 		Disconnected=0,
 		Connecting=1,
-		ConnectedDeactivated=2,
-		ConnectedActivated=3
+		ConnectedDeactivating=3,
+		ConnectedDeactivatedNotReady=4,
+		ConnectedDeactivatedReady=5,
+		ConnectedPaused=6,
+		ConnectedActivating=7,
+		ConnectedResuming=8,
+		ConnectedActivated=9
 	};
 	
 	void connectTo(QString host);
@@ -74,13 +79,17 @@ public:
 	bool askBeforeQuit();
 	
 signals:
-	void connected();
-	void disconnected();
 	void guiAction(const QString& action);
 	void systemStatusChanged(SimonControl::SystemStatus);
 	void statusInfo(const QString&);
 	void statusError(const QString&);
 	void progressInfo(int now, int max=-1);
+
+	void simondSystemError(const QString &err);
+	void synchronisationError(const QString &err);
+	void recognitionError(const QString &err);
+	void compilationError(const QString &err);
+
 	
 public slots:
 	void connectToServer();
@@ -94,8 +103,18 @@ public slots:
 	void compileModel();
 
 private slots:
-	void serverError(QString error,bool skippable);
-	void serverWarning(QString warning);
+	void slotConnectionError(const QString& err);
+	void slotSimondSystemError(const QString &err);
+	void slotSynchronisationError(const QString &err);
+	void slotRecognitionError(const QString &err);
+	void slotCompilationError(const QString &err);
+
+
+	void slotSimondSystemWarning(const QString& warning);
+	void slotSynchronisationWarning(const QString& warning);
+	void slotRecognitionWarning(const QString& warning);
+	void slotCompilationWarning(const QString& warning);
+
 	void loggedIn();
 	void recognitionStatusChanged(RecognitionControl::RecognitionStatus status);
 	void slotRecognitionControlStatus(const QString& message, int progNow, int progMax);

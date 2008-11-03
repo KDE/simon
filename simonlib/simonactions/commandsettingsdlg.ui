@@ -16,14 +16,14 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" >
      <item>
-      <widget class="QCheckBox" name="cbUseGlobalTrigger" >
+      <widget class="QCheckBox" name="kcfg_UseGlobalTrigger" >
        <property name="text" >
         <string>Globalen Trigger verwenden:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KLineEdit" name="leGlobalTrigger" >
+      <widget class="KLineEdit" name="kcfg_GlobalTrigger" >
        <property name="enabled" >
         <bool>true</bool>
        </property>
@@ -62,9 +62,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>cbUseGlobalTrigger</sender>
+   <sender>kcfg_UseGlobalTrigger</sender>
    <signal>toggled(bool)</signal>
-   <receiver>leGlobalTrigger</receiver>
+   <receiver>kcfg_GlobalTrigger</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >

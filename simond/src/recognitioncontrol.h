@@ -21,9 +21,9 @@
 #define RECOGNITIONCONTROL_H
 
 #include <QObject>
+#include <QThread>
 
-
-class RecognitionControl : public QObject
+class RecognitionControl : public QThread
 {
 	Q_OBJECT
 
@@ -33,12 +33,22 @@ class RecognitionControl : public QObject
 		void recognitionWarning(const QString& warning);
 		void recognitionStarted();
 		void recognitionStopped();
-		void recognitionTemporarilyUnavailable(const QString& reason);
+		void recognitionPaused();
+		void recognitionResumed();
+		void recognitionResult(const QString& result, const QString& sampa, const QString& samparaw);
+// 		void recognitionTemporarilyUnavailable(const QString& reason);
+
+	protected:
+		QString username;
 
 	public:
-		RecognitionControl(QObject *parent=0);
+		RecognitionControl(const QString& username, QObject *parent=0);
 
-		virtual bool initializeRecognition()=0;
+		virtual bool initializeRecognition(bool isLocal)=0;
+
+		virtual void stop()=0;
+		virtual void pause()=0;
+		virtual void resume()=0;
 			       
 		~RecognitionControl();
 		

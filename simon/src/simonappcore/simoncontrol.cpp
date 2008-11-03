@@ -40,7 +40,6 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 {
 	setStatus(SimonControl::Disconnected);
 	this->recognitionControl = new RecognitionControl(parent);
-	ActionManager::getInstance()->init();
 	QObject::connect(ActionManager::getInstance(), SIGNAL(guiAction(QString)), this, SIGNAL(guiAction(QString)));
 	
 	QObject::connect(recognitionControl, SIGNAL(connected()), this, SLOT(connectedToServer()));
@@ -49,8 +48,18 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 
 	QObject::connect(recognitionControl, SIGNAL(status(const QString&, int, int)), this, SLOT(slotRecognitionControlStatus(const QString&, int, int)));
 	QObject::connect(recognitionControl, SIGNAL(progress(int, int)), this, SIGNAL(progressInfo(int,int)));
-	QObject::connect(recognitionControl, SIGNAL(error(const QString&,bool)), this, SLOT(serverError(QString,bool)));
-	QObject::connect(recognitionControl, SIGNAL(warning(const QString&)), this, SLOT(serverWarning(QString)));
+	
+	QObject::connect(recognitionControl, SIGNAL(connectionError(const QString&)), this, SLOT(slotConnectionError(const QString&)));
+	QObject::connect(recognitionControl, SIGNAL(simondSystemError(const QString&)), this, SLOT(slotSimondSystemError(const QString&)));
+	QObject::connect(recognitionControl, SIGNAL(synchronisationError(const QString&)), this, SLOT(slotSynchronisationError(const QString&)));
+	QObject::connect(recognitionControl, SIGNAL(recognitionError(const QString&)), this, SLOT(slotRecognitionError(const QString&)));
+	QObject::connect(recognitionControl, SIGNAL(compilationError(const QString&)), this, SLOT(slotCompilationError(const QString&)));
+
+	QObject::connect(recognitionControl, SIGNAL(simondSystemWarning(const QString&)), this, SLOT(slotSimondSystemWarning(const QString&)));
+	QObject::connect(recognitionControl, SIGNAL(synchronisationWarning(const QString&)), this, SLOT(slotSynchronisationWarning(const QString&)));
+	QObject::connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(slotRecognitionWarning(const QString&)));
+	QObject::connect(recognitionControl, SIGNAL(compilationWarning(const QString&)), this, SLOT(slotCompilationWarning(const QString&)));
+	
 	QObject::connect(recognitionControl, SIGNAL(loggedIn()), this, SLOT(loggedIn()));
 	
 	QObject::connect(recognitionControl, SIGNAL(recognised(const QString&,const QString&,const QString&)), this, SLOT(wordRecognised(QString,QString,QString)));
@@ -78,21 +87,50 @@ void SimonControl::loggedIn()
 	SimonInfo::showMessage(i18n("Benutzer authentifiziert"), 1500);
 }
 
-void SimonControl::serverError(QString error, bool skippable)
+void SimonControl::slotConnectionError(const QString &err)
 {
-	if (skippable)
-		error += "\n\n"+i18n("Sie können dies ignorieren, indem Sie die Option \"Warnungen ignorieren\" In den Netzwerkeinstellungen aktivieren");
-
-	KMessageBox::error(0, error, i18n("Server Fehler"));
-
-	Logger::log(i18n("[ERR] Server Fehler: %1, Überspringbar: %2", error, skippable ? i18n("Ja") : i18n("Nein")));
+	KMessageBox::error(0, i18n("Verbindungsfehler: \n%1", err));
 }
 
-void SimonControl::serverWarning(QString warning)
+void SimonControl::slotSimondSystemError(const QString &err)
 {
-	Logger::log(i18n("[INF] Server Warning: %1", warning));
+	KMessageBox::error(0, i18n("Der Erkennungsserver liefert folgenden fatalen Fehler: \n%1", err));
+}
 
+void SimonControl::slotSynchronisationError(const QString &err)
+{
+	KMessageBox::error(0, i18n("Bei der Modellsynchronisation ist folgender Fehler aufgetreten: \n%1", err));	
+}
+
+void SimonControl::slotRecognitionError(const QString &err)
+{
+	KMessageBox::error(0, i18n("Bei der Erkennung ist folgender Fehler aufgetreten: \n%1", err));
+}
+
+void SimonControl::slotCompilationError(const QString &err)
+{
+	KMessageBox::error(0, i18n("Als der Server das Modell kompilieren wollte trat dieser Fehler auf: \n%1", err));
+}
+
+
+void SimonControl::slotSimondSystemWarning(const QString& warning)
+{
 	SimonInfo::showMessage(i18n("simond: %1", warning), 5000);
+}
+
+void SimonControl::slotSynchronisationWarning(const QString& warning)
+{
+	SimonInfo::showMessage(i18n("Modellsynchronisation: %1", warning), 5000);
+}
+
+void SimonControl::slotRecognitionWarning(const QString& warning)
+{
+	SimonInfo::showMessage(i18n("Erkennung: %1", warning), 5000);
+}
+
+void SimonControl::slotCompilationWarning(const QString& warning)
+{
+	SimonInfo::showMessage(i18n("Modellverwaltung: %1", warning), 5000);
 }
 
 /**
@@ -134,7 +172,11 @@ void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 
 	if (status != SimonControl::ConnectedActivated) return;
 	
-	ActionManager::getInstance()->process(word);
+	kDebug() << "Recognized: " << word;
+	
+	word = word.remove("<s>");
+	word = word.remove("</s>");
+	ActionManager::getInstance()->process(word.trimmed());
 }
 
 
@@ -144,25 +186,31 @@ void SimonControl::recognitionStatusChanged(RecognitionControl::RecognitionStatu
 	{
 		case RecognitionControl::Ready:
 		{
-			
+			setStatus(SimonControl::ConnectedDeactivatedReady);
 			break;
 		}
 		
 		case RecognitionControl::Started:
 		{
-			
+			setStatus(SimonControl::ConnectedActivated);
 			break;
 		}
 		
-		case RecognitionControl::TemporarilyUnavailable:
+		case RecognitionControl::Paused:
 		{
-			
+			setStatus(SimonControl::ConnectedPaused);
+			break;
+		}
+		
+		case RecognitionControl::Resumed:
+		{
+			setStatus(SimonControl::ConnectedActivated);
 			break;
 		}
 		
 		case RecognitionControl::Stopped:
 		{
-			
+			setStatus(SimonControl::ConnectedDeactivatedNotReady);
 			break;
 		}
 		
@@ -185,10 +233,8 @@ void SimonControl::setStatus(SimonControl::SystemStatus status)
  */
 void SimonControl::connectedToServer()
 {
-	setStatus(SimonControl::ConnectedDeactivated);
+	setStatus(SimonControl::ConnectedDeactivatedNotReady);
 	Logger::log(i18n("[INF]")+" "+i18n("Verbunden zu Server"));
-	this->activateSimon();
-	emit connected();
 }
 
 /**
@@ -203,7 +249,6 @@ void SimonControl::disconnectedFromServer()
 {
 	setStatus(SimonControl::Disconnected);
 	Logger::log(i18n("[INF] Verbindung von Server getrennt"));
-	emit disconnected();
 }
 
 /**
@@ -238,13 +283,11 @@ void SimonControl::errorConnecting(QString error)
  */
 SimonControl::SystemStatus SimonControl::toggleActivition()
 {
-	if ((status != SimonControl::Disconnected) && (status != SimonControl::Connecting))
+	if (status==SimonControl::ConnectedActivated)
 	{
-		if (status==SimonControl::ConnectedActivated)
-		{
-			deactivateSimon();
-		} else activateSimon();
-	}
+		deactivateSimon();
+	} else if ((status==SimonControl::ConnectedDeactivatedReady) || (status==SimonControl::ConnectedPaused))
+		activateSimon();
 	
 	return status;
 }
@@ -256,8 +299,18 @@ SimonControl::SystemStatus SimonControl::toggleActivition()
  */
 SimonControl::SystemStatus SimonControl::activateSimon()
 {
-	Logger::log(i18n("[INF] Simon aktiviert"));
-	setStatus(SimonControl::ConnectedActivated);
+	if (status == SimonControl::ConnectedDeactivatedReady)
+	{
+		Logger::log(i18n("[INF] Simon wird aktiviert"));
+		setStatus(SimonControl::ConnectedActivating);
+		recognitionControl->startRecognition();
+	}
+	if (status == SimonControl::ConnectedPaused)
+	{
+		Logger::log(i18n("[INF] Erkennung wird fortgesetzt"));
+		setStatus(SimonControl::ConnectedResuming);
+		recognitionControl->resumeRecognition();
+	}
 	return status;
 }
 
@@ -269,10 +322,11 @@ SimonControl::SystemStatus SimonControl::activateSimon()
  */
 SimonControl::SystemStatus SimonControl::deactivateSimon()
 {
-	if ((status != SimonControl::Disconnected) && (status != SimonControl::Connecting))
+	if (status == SimonControl::ConnectedActivated)
 	{
-		setStatus(SimonControl::ConnectedDeactivated);
+		setStatus(SimonControl::ConnectedDeactivating);
 		Logger::log(i18n("[INF] Simon deaktiviert"));
+		recognitionControl->pauseRecognition();
 	}
 	return status;
 }

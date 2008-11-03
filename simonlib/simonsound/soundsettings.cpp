@@ -65,6 +65,8 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 	deviceUi.pbReload->setIcon(KIcon("view-refresh"));
 	connect(deviceUi.pbTest, SIGNAL(clicked()), this, SLOT(checkWithSuccessMessage()));
 	connect(deviceUi.pbReload, SIGNAL(clicked()), this, SLOT(load()));
+	connect(deviceUi.cbSoundInputDevice, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+	connect(deviceUi.cbSoundOutputDevice, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
 	
 	QWidget *postProcessingConfig = new QWidget(this);
 	postProcUi.setupUi(postProcessingConfig);
@@ -109,40 +111,44 @@ void SoundSettings::checkWithSuccessMessage()
  */
 void SoundSettings::load()
 {
-	deviceUi.kcfg_SoundInputDevice->clear();
-	deviceUi.kcfg_SoundOutputDevice->clear();
+	deviceUi.cbSoundInputDevice->clear();
+	deviceUi.cbSoundOutputDevice->clear();
 
 	SoundDeviceList *in = sc->getInputDevices();
 
-	deviceUi.kcfg_SoundInputDevice->clear();
+	deviceUi.cbSoundInputDevice->clear();
 	for ( int i=0; i<in->count(); i++ )
 	{
 		int deviceid= in->at(i).getDeviceID();
-		deviceUi.kcfg_SoundInputDevice->addItem (in->at(i).getName(),deviceid );
+		deviceUi.cbSoundInputDevice->addItem (in->at(i).getName(),deviceid );
 	}
-	deviceUi.kcfg_SoundInputDevice->setCurrentIndex(
-			deviceUi.kcfg_SoundInputDevice->findData(SoundConfiguration::soundInputDevice()));
+	deviceUi.cbSoundInputDevice->setCurrentIndex(
+			deviceUi.cbSoundInputDevice->findData(SoundConfiguration::soundInputDevice()));
 
 
 
 	SoundDeviceList *out = sc->getOutputDevices();
-	deviceUi.kcfg_SoundOutputDevice->clear();
+	deviceUi.cbSoundOutputDevice->clear();
 	for ( int i=0; i<out->count(); i++ )
 	{
 		int deviceid= out->at (i).getDeviceID();
-		deviceUi.kcfg_SoundOutputDevice->addItem (out->at(i).getName(),deviceid );
+		deviceUi.cbSoundOutputDevice->addItem (out->at(i).getName(),deviceid );
 	}
-	deviceUi.kcfg_SoundOutputDevice->setCurrentIndex(deviceUi.kcfg_SoundOutputDevice->findData(SoundConfiguration::soundOutputDevice()));
+	deviceUi.cbSoundOutputDevice->setCurrentIndex(deviceUi.cbSoundOutputDevice->findData(SoundConfiguration::soundOutputDevice()));
 
 	KCModule::load();
 }
 
+#include <KDebug>
+
 bool SoundSettings::check()
 {
-	int inputDevice = deviceUi.kcfg_SoundInputDevice->itemData(deviceUi.kcfg_SoundInputDevice->currentIndex()).toInt();
-	int outputDevice = deviceUi.kcfg_SoundOutputDevice->itemData(deviceUi.kcfg_SoundOutputDevice->currentIndex()).toInt();
+	int inputDevice = getSelectedInputDeviceId();
+	int outputDevice = getSelectedOutputDeviceId();
 	int channels = deviceUi.kcfg_SoundChannels->value();
 	int samplerate = deviceUi.kcfg_SoundSampleRate->value();
+
+	kDebug() << inputDevice << channels << samplerate;
 
 	bool ok = this->sc->checkDeviceSupport(inputDevice, outputDevice, channels, samplerate);
 
@@ -160,11 +166,22 @@ bool SoundSettings::check()
 	return ok;
 }
 
+int SoundSettings::getSelectedInputDeviceId()
+{
+	return deviceUi.cbSoundInputDevice->itemData(deviceUi.cbSoundInputDevice->currentIndex()).toInt();
+}
+
+int SoundSettings::getSelectedOutputDeviceId()
+{
+	return deviceUi.cbSoundOutputDevice->itemData(deviceUi.cbSoundOutputDevice->currentIndex()).toInt();
+}
 
 void SoundSettings::save()
 {
 	check();
 	KCModule::save();
+	SoundConfiguration::setSoundInputDevice(getSelectedInputDeviceId());
+	SoundConfiguration::setSoundOutputDevice(getSelectedOutputDeviceId());
 }
 
 void SoundSettings::slotChanged()

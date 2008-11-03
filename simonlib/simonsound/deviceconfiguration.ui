@@ -19,12 +19,12 @@
       <string>Eingabe Gerät:</string>
      </property>
      <property name="buddy" >
-      <cstring>kcfg_SoundInputDevice</cstring>
+      <cstring>cbSoundInputDevice</cstring>
      </property>
     </widget>
    </item>
    <item row="0" column="1" >
-    <widget class="SimonComboBox" name="kcfg_SoundInputDevice" />
+    <widget class="SimonComboBox" name="cbSoundInputDevice" />
    </item>
    <item row="1" column="0" >
     <widget class="QLabel" name="lbOutDevice" >
@@ -32,12 +32,12 @@
       <string>Ausgabe Gerät:</string>
      </property>
      <property name="buddy" >
-      <cstring>kcfg_SoundOutputDevice</cstring>
+      <cstring>cbSoundOutputDevice</cstring>
      </property>
     </widget>
    </item>
    <item row="1" column="1" >
-    <widget class="SimonComboBox" name="kcfg_SoundOutputDevice" />
+    <widget class="SimonComboBox" name="cbSoundOutputDevice" />
    </item>
    <item row="2" column="0" >
     <widget class="QLabel" name="lbChannels" >

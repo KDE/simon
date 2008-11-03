@@ -20,18 +20,56 @@
 #ifndef JULIUSCONTROL_H
 #define JULIUSCONTROL_H
 
+#include <QList>
+#include <QPointer>
+#include <QMutex>
+#include <KDebug>
 #include "recognitioncontrol.h"
+
+extern "C" {
+	#include <julius/julius.h>
+}
 
 class JuliusControl : public RecognitionControl
 {
 	Q_OBJECT
-
+		
 	public:
-		JuliusControl(QObject *parent=0);
+		enum Request {
+			None=0,
+			Stop=2,
+			Pause=3
+		};
+		
+		JuliusControl(const QString& username, QObject *parent=0);
 
-		bool initializeRecognition();
+		bool initializeRecognition(bool isLocal);
+		void stop();
+		void pause();
+		void resume();
+		
+		void stopped();
+		
+		void waitForResumed();
+		void recognized(const QString& sequence, const QString& sampa, const QString& samparaw);
+		JuliusControl::Request popNextRequest();
+		
+
+		Jconf* setupJconf();
       
 		~JuliusControl();
+		
+	protected:
+		void run();
+		void pushRequest(JuliusControl::Request);
+
+	private:
+		Recog *recog;
+		Jconf *jconf;
+		bool isLocal;
+		QMutex pauseMutex;
+		
+		QList<JuliusControl::Request> nextRequests;
 		
 };
 

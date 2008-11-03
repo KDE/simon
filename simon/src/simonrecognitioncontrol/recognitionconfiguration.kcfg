@@ -21,10 +21,6 @@
       <label>If the connection to the Juliusd should be encrypted.</label>
       <default>false</default>
     </entry>
-    <entry name="JuliusdContinueOnWarning" type="Bool">
-      <label>If we should ignore warnings (like version discrepancies) when connecting to Juliusd.</label>
-      <default>false</default>
-    </entry>
     <entry name="JuliusdConnectionTimeout" type="Int">
       <label>The timeout for the connection to the Juliusd.</label>
       <default>3000</default>

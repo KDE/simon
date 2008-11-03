@@ -38,9 +38,11 @@ namespace Simond
 		ActiveModelDate=2012,
 		GetActiveModel=2013,
 		ErrorRetrievingActiveModel=2014,
-		ActiveModel=2015,
-		NoActiveModelAvailable=2016,
-		ActiveModelStorageFailed=2017,
+		GetActiveModelSampleRate=2015,
+		ActiveModelSampleRate=2016,
+		ActiveModel=2017,
+		NoActiveModelAvailable=2018,
+		ActiveModelStorageFailed=2019,
 		
 		
 		GetModelSrcDate=2021,
@@ -97,8 +99,12 @@ namespace Simond
 		RecognitionStarted=4005,
 		StopRecognition=4006,
 		RecognitionStopped=4007,
-		RecognitionTemporarilyUnavailable=4008,
-		RecognitionResult=4009
+		PauseRecognition=4008,
+		RecognitionPaused=4009,
+		ResumeRecognition=4010,
+		RecognitionResumed=4011,
+// 		RecognitionTemporarilyUnavailable=4008,
+		RecognitionResult=4012
 	};
 };
 

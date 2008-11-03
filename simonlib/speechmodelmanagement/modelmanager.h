@@ -67,6 +67,7 @@ class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
 					const QByteArray& prompts);
 
 		Model* createActiveContainer();
+		int getActiveModelSampleRate();
 		QDateTime getActiveContainerModifiedTime();
 		bool storeActiveModel(const QDateTime& changedTime, int sampleRate, const QByteArray& hmmDefs,
 				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);

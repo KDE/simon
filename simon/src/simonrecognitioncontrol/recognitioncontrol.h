@@ -51,11 +51,13 @@ public:
 	enum RecognitionStatus {
 		Ready=0,
 		Started=1,
-		TemporarilyUnavailable=2,
-		Stopped=3
+		Paused=2,
+		Resumed=3,
+		Stopped=4
 	};
 
 private:
+	bool recognitionReady;
 	QSslSocket *socket; //!< QSslSocket for communicating with the juliusd-socket
 
 	QTimer *timeoutWatcher;
@@ -67,29 +69,25 @@ private:
 	void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
 
 signals:
-	/*--------------------connection--------------------*/
 	void connected();
 	void disconnected();
 
-	/*
-	  Errors emitted are ALWAYS fatal.
-	  This signal will only be emitted when an error occurs that _aborts_ the current process.
-	
-	  BUT, there might be some errors that could have been skipped, altough it is not recommended.
-	  Those errors can be skipped by setting the corresponding Setting in the juliusd-configuration.
-	  If the error is technically not fatal, but is made fatal by setting this configuration item to false, 
-	  skippable is true
-	*/
-	void error(const QString& errStr, bool skippable=false);
 	void connectionError(const QString& errStr);
-	void warning(const QString&);
+	void simondSystemError(const QString& errStr);
+	void synchronisationError(const QString &err);
+	void recognitionError(const QString &err);
+	void compilationError(const QString &err);
+
+	void simondSystemWarning(const QString&);
+	void synchronisationWarning(const QString&);
+	void recognitionWarning(const QString&);
+	void compilationWarning(const QString&);
+
 	void status(const QString&, int progNow=-1, int progMax=0);
 	void progress(int now, int max=-1);
 
-	/*-----------------user management-----------------*/
 	void loggedIn();
 
-	/*-------------------recognition-------------------*/
 	void recognitionStatusChanged(RecognitionControl::RecognitionStatus);
 	void recognised(const QString&, const QString& sampa, const QString& samparaw);
 	
@@ -99,14 +97,18 @@ signals:
 public slots:
 	void disconnectFromServer();
 	void startConnecting();
-	void stopRecognition();
+
 	void startRecognition();
+	void stopRecognition();
+	void pauseRecognition();
+	void resumeRecognition();
 
 	void startSynchronisation();
 	
 	
 
 private slots:
+	void slotDisconnected();
 	void sendRequest (qint32 request);
 	void login();
 	bool isConnected();
@@ -118,6 +120,7 @@ private slots:
 	bool sendActiveModel();
 	void sendModelSrcModifiedDate();
 	void sendActiveModelModifiedDate();
+	void sendActiveModelSampleRate();
 
 
 	void sendWordListModifiedDate();

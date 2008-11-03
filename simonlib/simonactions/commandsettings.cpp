@@ -18,6 +18,8 @@
  */
 
 #include "commandsettings.h"
+#include "actionconfig.h"
+#include "actionmanager.h"
 #include <QListWidget>
 #include <KAboutData>
 #include <KService>
@@ -34,6 +36,8 @@ K_PLUGIN_FACTORY( CommandSettingsFactory,
 		)
         
 K_EXPORT_PLUGIN( CommandSettingsFactory("CommandSettings") )
+
+CommandSettings* CommandSettings::instance;
 /**
  * \brief Constructor
  *
@@ -44,6 +48,7 @@ K_EXPORT_PLUGIN( CommandSettingsFactory("CommandSettings") )
  */
 CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
+	kDebug() << "CREATING!!";
 	Q_UNUSED(args)
 
 	QWidget *baseWidget = new QWidget(this);
@@ -71,8 +76,8 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 	config = KSharedConfig::openConfig(KGlobal::mainComponent(),
 					"simoncommandrc");
 
-	QObject::connect(ui.cbUseGlobalTrigger, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	QObject::connect(ui.leGlobalTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	QObject::connect(ui.kcfg_UseGlobalTrigger, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	QObject::connect(ui.kcfg_GlobalTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	QObject::connect(ui.asCommandPlugins, SIGNAL(added(QListWidgetItem*)), this, SLOT(slotChanged()));
 	QObject::connect(ui.asCommandPlugins, SIGNAL(removed(QListWidgetItem*)), this, SLOT(slotChanged()));
 	QObject::connect(ui.asCommandPlugins, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(slotChanged()));
@@ -80,6 +85,9 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 
 	load();
 	isChanged=false;
+	addConfig(ActionConfiguration::self(), this);
+
+	ActionManager::getInstance()->setConfigurationDialog(this);
 }
 
 void CommandSettings::registerPlugIn(KCModule *plugin)
@@ -133,14 +141,10 @@ QStringList CommandSettings::availableCommandManagers()
 	return commandManagers;
 }
 
-
+#include <KDebug>
 void CommandSettings::save()
 {
 	KConfigGroup cg(config, "");
-
-	cg.writeEntry("UseGlobalTrigger", ui.cbUseGlobalTrigger->isChecked());
-	cg.writeEntry("GlobalTrigger", ui.leGlobalTrigger->text());
-	
 	QListWidget *selected = ui.asCommandPlugins->selectedListWidget();
 	QStringList pluginsToLoad;
 	for (int i=0; i < selected->count(); i++)
@@ -164,6 +168,7 @@ void CommandSettings::save()
 	cg.sync();
 
 	emit changed(false);
+	KCModule::save();
 }
 
 void CommandSettings::load()
@@ -172,11 +177,11 @@ void CommandSettings::load()
 
 	KConfigGroup cg(config, "");
 	
-	storedUseGlobalTrigger = cg.readEntry("UseGlobalTrigger", true);
-	storedGlobalTrigger = cg.readEntry("GlobalTrigger", i18n("Computer"));
+// 	storedUseGlobalTrigger = cg.readEntry("UseGlobalTrigger", true);
+// 	storedGlobalTrigger = cg.readEntry("GlobalTrigger", i18n("Computer"));
 	
-	ui.cbUseGlobalTrigger->setChecked(storedUseGlobalTrigger);
-	ui.leGlobalTrigger->setText(storedGlobalTrigger);
+// 	ui.kcfg_UseGlobalTrigger->setChecked(storedUseGlobalTrigger);
+// 	ui.kcfg_GlobalTrigger->setText(storedGlobalTrigger);
 
 
 	QListWidget* available = ui.asCommandPlugins->availableListWidget();
@@ -212,6 +217,7 @@ void CommandSettings::load()
 	}
 
 	emit changed(false);
+	KCModule::load();
 }
 
 QStringList CommandSettings::getPluginsToLoad()
@@ -221,8 +227,8 @@ QStringList CommandSettings::getPluginsToLoad()
 
 void CommandSettings::defaults()
 {
-	ui.cbUseGlobalTrigger->setChecked(true);
-	ui.leGlobalTrigger->setText(i18n("Computer"));
+	ui.kcfg_UseGlobalTrigger->setChecked(true);
+	ui.kcfg_GlobalTrigger->setText(i18n("Computer"));
 
 	QListWidget* available = ui.asCommandPlugins->availableListWidget();
 	available->clear();
@@ -236,6 +242,7 @@ void CommandSettings::defaults()
 	}
 
 	save();
+	KCModule::defaults();
 }
 
 

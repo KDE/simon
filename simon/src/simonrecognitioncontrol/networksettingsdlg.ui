@@ -38,14 +38,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2" >
-        <widget class="QCheckBox" name="kcfg_JuliusdContinueOnWarning" >
-         <property name="text" >
-          <string>Warnungen ignorieren (Nicht empfohlen)</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0" colspan="2" >
+       <item row="3" column="0" colspan="2" >
         <widget class="QCheckBox" name="cbKiosk" >
          <property name="enabled" >
           <bool>false</bool>
@@ -55,7 +48,7 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="0" >
+       <item row="4" column="0" >
         <widget class="QLabel" name="lbUsername" >
          <property name="text" >
           <string>Benutzername:</string>
@@ -65,10 +58,10 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="1" >
+       <item row="4" column="1" >
         <widget class="KLineEdit" name="kcfg_JuliusdUsername" />
        </item>
-       <item row="6" column="0" >
+       <item row="5" column="0" >
         <widget class="QLabel" name="lbPassword" >
          <property name="text" >
           <string>Passwort:</string>
@@ -78,14 +71,14 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="1" >
+       <item row="5" column="1" >
         <widget class="KLineEdit" name="kcfg_JuliusdPassword" >
          <property name="echoMode" >
           <enum>QLineEdit::Password</enum>
          </property>
         </widget>
        </item>
-       <item row="7" column="0" colspan="2" >
+       <item row="6" column="0" colspan="2" >
         <spacer>
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
@@ -98,8 +91,8 @@
          </property>
         </spacer>
        </item>
-       <item row="3" column="0" >
-        <widget class="QCheckBox" name="cbAutomaticSync" >
+       <item row="2" column="0" >
+        <widget class="QCheckBox" name="kcfg_AutomaticSync" >
          <property name="text" >
           <string>Automatischer Modell-Abgleich</string>
          </property>

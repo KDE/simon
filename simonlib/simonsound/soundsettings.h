@@ -58,6 +58,8 @@ private:
 	Ui::Prompt promptUi;
 
 	SoundControl *sc;
+	int getSelectedInputDeviceId();
+	int getSelectedOutputDeviceId();
 
 public slots:
 	void load();

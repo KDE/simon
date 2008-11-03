@@ -32,6 +32,7 @@
 
 #include <QDir>
 #include <QDateTime>
+#include <QHostAddress>
 
 #include <KDebug>
 #include <KLocalizedString>
@@ -61,15 +62,6 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess,
 	this->setSocketDescriptor(socketDescriptor);
 	connect(this, SIGNAL(readyRead()), this, SLOT(processRequest()));
 	connect(this, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(slotSocketError()));
-
-
-	recognitionControl = new JuliusControl(this);
-	connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
-	connect(recognitionControl, SIGNAL(recognitionError(const QString&)), this, SLOT(recognitionError(const QString&)));
-	connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
-	connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
-	connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
-	connect(recognitionControl, SIGNAL(recognitionTemporarilyUnavailable(const QString&)), this, SLOT(recognitionTemporarilyUnavailable(const QString&)));
 
 	//TODO: Implement encryption
 	if (false) //Settings::getB("Encryption"))
@@ -148,9 +140,23 @@ void ClientSocket::processRequest()
 											activeDir+"hmmdefs", activeDir+"tiedlist",
 											activeDir+"model.dict", activeDir+"model.dfa",
 												this);
-					connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(sendActiveModel()));
+					connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(activeModelCompiled()));
 					connect(modelCompilationManager, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelCompilationStatus(const QString&, int, int)));
 					connect(modelCompilationManager, SIGNAL(error(const QString&)), this, SLOT(slotModelCompilationError(const QString&)));
+					
+					
+
+
+					recognitionControl = new JuliusControl(username, this);
+					connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
+					connect(recognitionControl, SIGNAL(recognitionError(const QString&)), this, SLOT(recognitionError(const QString&)));
+					connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
+					connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
+					connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
+					connect(recognitionControl, SIGNAL(recognitionPaused()), this, SLOT(recognitionPaused()));
+					connect(recognitionControl, SIGNAL(recognitionResumed()), this, SLOT(recognitionResumed()));
+					connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const QString&, const QString&)), this, SLOT(sendRecognitionResult(const QString&, const QString&, const QString&)));
+// 					connect(recognitionControl, SIGNAL(recognitionTemporarilyUnavailable(const QString&)), this, SLOT(recognitionTemporarilyUnavailable(const QString&)));
 					
 					sendCode(Simond::LoginSuccessful);
 				} else {
@@ -225,11 +231,10 @@ void ClientSocket::processRequest()
 				waitForMessage(length, stream, msg);
 				
 				int sampleRate;
-				stream >> sampleRate;
-				
 				QByteArray hmmdefs, tiedlist, dict, dfa;
 				QDateTime changedDate;
 				stream >> changedDate;
+				stream >> sampleRate;
 				stream >> hmmdefs;
 				stream >> tiedlist;
 				stream >> dict;
@@ -237,7 +242,7 @@ void ClientSocket::processRequest()
 				
 				synchronisationManager->storeActiveModel( changedDate, sampleRate, hmmdefs,
 					tiedlist, dict, dfa);
-				
+				sendCode(Simond::GetModelSrcDate);
 				break;
 			}
 
@@ -251,11 +256,26 @@ void ClientSocket::processRequest()
 				
 				kDebug() << "Client reported error during the retrieving of the active model";
 				
+				sendCode(Simond::GetActiveModelSampleRate);
+				
 				if (!sendActiveModel())
 					sendCode(Simond::NoActiveModelAvailable);
 				
-				
 				break;
+			}
+			
+			case Simond::ActiveModelSampleRate:
+			{
+				if (username.isEmpty()) {
+					sendCode(Simond::AccessDenied);
+					break;
+				}
+				Q_ASSERT(synchronisationManager);
+				int sampleRate;
+				waitForMessage(sizeof(int), stream, msg);
+				stream >> sampleRate;
+				synchronisationManager->setActiveModelSampleRate(sampleRate);
+				
 			}
 
 			case Simond::ModelSrcDate:
@@ -619,8 +639,7 @@ void ClientSocket::processRequest()
 					sendCode(Simond::AccessDenied);
 					break;
 				}
-				
-				
+				recognitionControl->start();
 				break;
 			}
 
@@ -630,7 +649,27 @@ void ClientSocket::processRequest()
 					sendCode(Simond::AccessDenied);
 					break;
 				}
-				
+				recognitionControl->stop();
+				break;
+			}
+
+			case Simond::PauseRecognition:
+			{
+				if (username.isEmpty()) {
+					sendCode(Simond::AccessDenied);
+					break;
+				}
+				recognitionControl->pause();
+				break;
+			}
+
+			case Simond::ResumeRecognition:
+			{
+				if (username.isEmpty()) {
+					sendCode(Simond::AccessDenied);
+					break;
+				}
+				recognitionControl->resume();
 				break;
 			}
 			
@@ -645,6 +684,14 @@ void ClientSocket::processRequest()
 	}
 }
 
+void ClientSocket::activeModelCompiled()
+{
+	Q_ASSERT(synchronisationManager);
+	synchronisationManager->modelCompiled();
+	sendActiveModel();
+	
+// 	recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
+}
 
 void ClientSocket::synchronizeSamples()
 {
@@ -812,7 +859,9 @@ void ClientSocket::synchronisationDone()
 	}
 
 	Q_ASSERT(recognitionControl);
-	recognitionControl->initializeRecognition();
+	
+	if (synchronisationManager->hasActiveModel())
+		recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 }
 
 
@@ -821,9 +870,11 @@ void ClientSocket::synchronisationComplete()
 	kDebug() << "we are here";
 	sendCode(Simond::SynchronisationComplete);
 	
-	if ((modelSource == ClientSocket::Client) || !(synchronisationManager->hasActiveModel()))
+	if (synchronisationManager->getActiveModelDate() < synchronisationManager->getModelSrcDate())
+	{
 		//if we got our model from the client modelsrc has changed
 		recompileModel();
+	}
 	
 	synchronisationDone();
 }
@@ -964,13 +1015,23 @@ void ClientSocket::recognitionStopped()
 	sendCode(Simond::RecognitionStopped);
 }
 
-void ClientSocket::recognitionTemporarilyUnavailable(const QString& reason)
+void ClientSocket::recognitionPaused()
 {
-	QByteArray toWrite;
-	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-	stream << (qint32) Simond::RecognitionTemporarilyUnavailable << reason.toUtf8();
-	write(toWrite);
+	sendCode(Simond::RecognitionPaused);
 }
+
+void ClientSocket::recognitionResumed()
+{
+	sendCode(Simond::RecognitionResumed);
+}
+
+// void ClientSocket::recognitionTemporarilyUnavailable(const QString& reason)
+// {
+// 	QByteArray toWrite;
+// 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+// 	stream << (qint32) Simond::RecognitionTemporarilyUnavailable << reason.toUtf8();
+// 	write(toWrite);
+// }
 
 
 void ClientSocket::sendRecognitionResult(const QString& data, const QString& sampa, const QString& samparaw)
@@ -991,7 +1052,11 @@ void ClientSocket::sendRecognitionResult(const QString& data, const QString& sam
 ClientSocket::~ClientSocket()
 {
 	//leave databaseAccess alone since it is shared
-	if (recognitionControl) recognitionControl->deleteLater();
+	if (recognitionControl) 
+	{
+		recognitionControl->stop();
+		recognitionControl->deleteLater();
+	}
 	if (synchronisationManager) synchronisationManager->deleteLater();
 	if (modelCompilationManager) modelCompilationManager->deleteLater();
 }

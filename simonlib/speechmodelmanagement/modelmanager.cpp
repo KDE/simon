@@ -72,6 +72,11 @@ Model* ModelManager::createActiveContainer()
 	return new Model(modelSampleRate, hmmDefs.readAll(), tiedList.readAll(), dict.readAll(), dfa.readAll());
 }
 
+int ModelManager::getActiveModelSampleRate()
+{
+	return SpeechModelManagementConfiguration::modelSampleRate();
+}
+
 QDateTime ModelManager::getActiveContainerModifiedTime()
 {
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/activemodelrc"), KConfig::SimpleConfig );

@@ -43,6 +43,8 @@ signals:
 	void pluginSelectionChanged(const QStringList& pluginsToLoad);
 
 private:
+	static CommandSettings* instance;
+
 	Ui::CommandSettingsDlg ui;
 	KSharedConfig::Ptr config;
 	bool isChanged;
@@ -51,9 +53,8 @@ private:
 	QHash<KCModule*, KPageWidgetItem*> moduleHash;
 
 	QStringList pluginsToLoad;
-	bool storedUseGlobalTrigger;
-	QString storedGlobalTrigger;
-	bool storedDictation;
+// 	bool storedUseGlobalTrigger;
+// 	QString storedGlobalTrigger;
 
 	QStringList availableCommandManagers();
 
@@ -68,13 +69,18 @@ private slots:
 	void pluginChanged(bool isChanged);
 
 public:
+	static CommandSettings* getInstance(QWidget *parent=0, const QVariantList& args=QVariantList())
+	{
+		if (!instance) instance = new CommandSettings(parent, args);
+		return instance;
+	}
+
 	CommandSettings(QWidget* parent=0, const QVariantList& args=QVariantList());
 	QStringList getPluginsToLoad();
 	~CommandSettings();
 	
-	bool useGlobalTrigger() { return storedUseGlobalTrigger; }
-	QString globalTrigger() { return storedGlobalTrigger; }
-	bool dictation() { return storedDictation; }
+// 	bool useGlobalTrigger() { return storedUseGlobalTrigger; }
+// 	QString globalTrigger() { return storedGlobalTrigger; }
 
 	void registerPlugIn(KCModule *plugin);
 	void unregisterPlugIn(KCModule *plugin);

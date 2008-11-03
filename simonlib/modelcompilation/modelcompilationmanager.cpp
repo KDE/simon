@@ -370,9 +370,11 @@ bool ModelCompilationManager::makeTranscriptions()
 	
 	proc->start('"'+ModelCompilationConfiguration::hLEd().path()+"\" -A -D -T 1 -l \"*\" -d \""+KStandardDirs::locateLocal("tmp", userName+"/dict")+"\" -i \""+KStandardDirs::locateLocal("tmp", userName+"/phones0.mlf")+"\" \""+KStandardDirs::locate("appdata", "scripts/mkphones0.led")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/words.mlf")+"\"");
 	proc->waitForFinished(-1);
+	kDebug() << '"'+ModelCompilationConfiguration::hLEd().path()+"\" -A -D -T 1 -l \"*\" -d \""+KStandardDirs::locateLocal("tmp", userName+"/dict")+"\" -i \""+KStandardDirs::locateLocal("tmp", userName+"/phones0.mlf")+"\" \""+KStandardDirs::locate("appdata", "scripts/mkphones0.led")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/words.mlf")+"\"";
 	if (proc->exitCode() ==0)
 	{
 		proc->start('"'+ModelCompilationConfiguration::hLEd().path()+"\" -A -D -T 1 -l \"*\" -d \""+KStandardDirs::locateLocal("tmp", userName+"/dict")+"\" -i \""+KStandardDirs::locateLocal("tmp", userName+"/phones1.mlf")+"\" \""+KStandardDirs::locate("appdata", "scripts/mkphones1.led")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/words.mlf")+"\"");
+		kDebug() << '"'+ModelCompilationConfiguration::hLEd().path()+"\" -A -D -T 1 -l \"*\" -d \""+KStandardDirs::locateLocal("tmp", userName+"/dict")+"\" -i \""+KStandardDirs::locateLocal("tmp", userName+"/phones1.mlf")+"\" \""+KStandardDirs::locate("appdata", "scripts/mkphones1.led")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/words.mlf")+"\"";
 		proc->waitForFinished(-1);
 	}
 	

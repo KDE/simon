@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
 <kcfg> <kcfgfile />
+  <group name="Actions">
+    <entry name="UseGlobalTrigger" type="Bool">
+      <label>Determines wheter a global trigger is needed to trigger commands</label>
+      <default>true</default>
+    </entry>
+    <entry name="GlobalTrigger" type="String">
+      <label>The global trigger to use.</label>
+      <default>Computer</default>
+    </entry>
+  </group>
 
 </kcfg>
   

@@ -21,7 +21,10 @@ kde4_add_app_icon(simonGeneralSources
 
 kde4_add_executable(simond ${simond_SRCS})
 
-target_link_libraries(simond ${KDE4_KDEUI_LIBS}   ${PORTAUDIO_LIBRARIES} ${QT_LIBRARIES} ${JULIUS_LIBRARIES} speechmodelbase simonmodelcompilation )
+target_link_libraries(simond ${KDE4_KDEUI_LIBS}   ${PORTAUDIO_LIBRARIES}
+${QT_LIBRARIES} ${JULIUS_LIBRARIES} speechmodelbase simonmodelcompilation
+sndfile)
+#/usr/lib/libsndfile.so
 
 install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} )
 

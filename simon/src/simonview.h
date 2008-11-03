@@ -53,6 +53,7 @@ class RunCommandView;
 class QAction;
 class WordListView;
 class KCMultiDialog;
+class KAction;
 
 
 typedef QHash<QObject*,  const char*> ActionIdent;
@@ -67,6 +68,8 @@ private:
 	int shownDialogs;
 	QPoint currentPos;
 	QPoint addWordDlgPos;
+
+	KAction *disconnectAction;
 
 	Ui::MainWindow ui;	//!< Mainwindow UI definition - made by uic from the QTDesigner .ui
 	SimonControl *control; //!< Pointer to the main concept class

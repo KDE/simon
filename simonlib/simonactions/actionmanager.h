@@ -41,6 +41,7 @@ signals:
 	void commandsChanged(CommandList *commands);
 
 private:
+	bool initCompleteSystem;
 	static ActionManager* instance;
 
 	CommandSettings* commandSettings;
@@ -55,7 +56,7 @@ protected:
 	ActionManager(QObject *parent=0);
 
 private slots:
-	void setupBackends(QStringList pluginsToLoad);
+	void setupBackends(const QStringList& pluginsToLoad);
 
 public:
 
@@ -65,6 +66,7 @@ public:
 	}
 
 	void setConfigurationDialog(KCModule*);
+	KCModule* getConfigurationDialog() { return (KCModule*) commandSettings; }
 	void init();
 
 	void process(QString input);
