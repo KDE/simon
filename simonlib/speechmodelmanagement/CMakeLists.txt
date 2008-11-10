@@ -36,7 +36,7 @@ kde4_add_kcfg_files(simonmodelmanagement_LIB_SRCS
 )
 
 kde4_add_library( simonmodelmanagement SHARED ${simonmodelmanagement_LIB_SRCS} )
-target_link_libraries( simonmodelmanagement ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonxml simonlogging speechgui speechmodelbase )
+target_link_libraries( simonmodelmanagement ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} simonxml simonlogging speechgui speechmodelbase simonprogresstracking )
 
 
 set_target_properties( simonmodelmanagement

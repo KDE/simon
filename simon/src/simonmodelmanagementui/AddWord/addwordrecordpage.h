@@ -22,9 +22,8 @@
 #define ADDWORDRECORDPAGE_H
 
 #include <QWizardPage>
-#include "ui_addwordrecordpage.h"
 
-class RecWidget;
+class TrainSamplePage;
 
 /**
  \class AddWordRecordPage
@@ -35,9 +34,6 @@ class RecWidget;
  The WizardPage of the AddWordView-Wizard that manages the recordings;
  Uses two Recwidgets and the QT-Mechanism to ensure that you can't 
  continiue without both recordings done.
-
- Tries to determine useful sentences by using the grammarmanager and
- let the user record them
 */
 class AddWordRecordPage : public QWizardPage
 {
@@ -46,13 +42,17 @@ class AddWordRecordPage : public QWizardPage
 signals:
 	void recordingNamesGenerated(QString,QString);
 private:
-	RecWidget *rec1, *rec2; ///<! The recwidgets
-	QString getSamplesDir();
-	Ui::AddWordRecordPage ui;
+	TrainSamplePage *page;
+	int pageNr, pageMax;
+	QString fieldName;
+
+public:
+	QString getFileName();
+	QString getPrompt();
 
 public:
     void initializePage();
-    AddWordRecordPage(QWidget *parent=0);
+    AddWordRecordPage(const QString& fieldName, int pageNr, int pageMax, QWidget *parent=0);
     
     bool isComplete() const;
 

@@ -16,8 +16,6 @@ set( simonactions_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmanager.h
 )
 
-kde4_add_kcfg_files(simonactions_LIB_SRCS actionconfig.kcfgc)
-
 kde4_add_ui_files( simonactions_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandsettingsdlg.ui
 )

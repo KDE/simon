@@ -4,13 +4,13 @@ Icon=simon
 Name=simon
 Name[de]=simon
 
-GenericName=Speech recognition
+GenericName=Speech Recognition
 GenericName[de]=Spracherkennung
 
 Exec=simon
 
-Comment=Speech recognition and model management
-Comment[de]=Spracherkennungs und -modelverwaltung
+Comment=Speech Recognition and Model Management
+Comment[de]=Spracherkennung und Modelverwaltung
 
 Terminal=false
 

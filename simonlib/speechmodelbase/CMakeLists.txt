@@ -6,7 +6,6 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
 set( speechmodelbase_LIB_SRCS
-# 	${CMAKE_CURRENT_SOURCE_DIR}/modelcontainer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlistcontainer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarcontainer.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/languagedescriptioncontainer.cpp
@@ -20,7 +19,6 @@ set( speechmodelbase_LIB_SRCS
 set( speechmodelbase_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/speechmodelbase_export.h
   ${CMAKE_CURRENT_SOURCE_DIR}/word.h
-#   ${CMAKE_CURRENT_SOURCE_DIR}/modelcontainer.h
   ${CMAKE_CURRENT_SOURCE_DIR}/wordlistcontainer.h
   ${CMAKE_CURRENT_SOURCE_DIR}/grammarcontainer.h
   ${CMAKE_CURRENT_SOURCE_DIR}/languagedescriptioncontainer.h

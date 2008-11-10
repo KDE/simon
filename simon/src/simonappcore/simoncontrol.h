@@ -81,9 +81,9 @@ public:
 signals:
 	void guiAction(const QString& action);
 	void systemStatusChanged(SimonControl::SystemStatus);
-	void statusInfo(const QString&);
-	void statusError(const QString&);
-	void progressInfo(int now, int max=-1);
+// 	void statusInfo(const QString&);
+// 	void statusError(const QString&);
+// 	void progressInfo(int now, int max=-1);
 
 	void simondSystemError(const QString &err);
 	void synchronisationError(const QString &err);
@@ -98,7 +98,6 @@ public slots:
 	void disconnectedFromServer();
 	void wordRecognised(QString word,QString sampa,QString samparaw);
 	void abortConnecting();
-	void errorConnecting(QString error);
 
 	void compileModel();
 
@@ -117,7 +116,6 @@ private slots:
 
 	void loggedIn();
 	void recognitionStatusChanged(RecognitionControl::RecognitionStatus status);
-	void slotRecognitionControlStatus(const QString& message, int progNow, int progMax);
 
 private:
 	SimonControl::SystemStatus status;

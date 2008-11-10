@@ -39,6 +39,7 @@
  */
 AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
 {
+	setTitle("Wort definieren");
 	ui.setupUi(this);
 	ui.twSuggestions->verticalHeader()->hide();
 	this->grammarManager = GrammarManager::getInstance();
@@ -60,6 +61,19 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
 
 	ui.tbAddTerminal->setIcon(KIcon("list-add"));
 	ui.pbReGuess->setIcon(KIcon("view-refresh"));
+}
+
+bool AddWordResolvePage::validatePage()
+{
+	Word *search = new Word(ui.leWord->text(), ui.leSampa->text(), ui.cbType->currentText());
+	bool exists = WordListManager::getInstance()->mainWordListContains(search);
+	delete search;
+	
+	if (exists) {
+		KMessageBox::error(this, i18n("Dieses Wort existiert bereits in Ihrer Wortliste."));
+		return false;
+	}
+	return true;
 }
 
 /**
@@ -134,7 +148,7 @@ void AddWordResolvePage::createExamples()
 	QString terminal = ui.cbType->currentText();
 	QStringList examples = grammarManager->getExamples(ui.leWord->text(), terminal,2);
 
-	if (examples.count() >= 2) 
+	if (examples.count() == 2) 
 	{
 		ui.leExample1->setText(examples[0]);
 		ui.leExample2->setText(examples[1]);

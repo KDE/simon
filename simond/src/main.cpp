@@ -17,11 +17,15 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <kapplication.h>
+#include "simondcontrol.h"
+
+#include <QCoreApplication>
+
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
-#include <KDE/KLocale>
-#include "simondcontrol.h"
+#include <KLocale>
+#include <KGlobal>
+#include <KComponentData>
 
 static const char description[] =
     I18N_NOOP("The simon recognition daemon");
@@ -33,13 +37,16 @@ int main(int argc, char **argv)
 	KAboutData about("simond", 0, ki18n("simond"), version, ki18n(description),
 			KAboutData::License_GPL, ki18n("(C) 2007 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
 	about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
+
 	KCmdLineArgs::init(argc, argv, &about);
-	KApplication app;
+
+	KGlobal::setActiveComponent(KComponentData(about));
+
+	QCoreApplication app(argc,argv);
 
 	SimondControl *control = new SimondControl();
 	if (!control->init())
 		return 1;
-
 
 	return app.exec();
 }

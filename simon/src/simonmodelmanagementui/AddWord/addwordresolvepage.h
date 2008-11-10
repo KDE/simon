@@ -56,6 +56,7 @@ public:
 
 	void initializePage();
 	void displayWords(WordList *words);
+	bool validatePage();
 
 };
 

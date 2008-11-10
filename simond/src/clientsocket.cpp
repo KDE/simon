@@ -28,7 +28,7 @@
 #include <speechmodelbase/languagedescriptioncontainer.h>
 #include <speechmodelbase/trainingcontainer.h>
 
-#include <modelcompilation/modelcompilationmanager.h>
+#include <speechmodelcompilation/modelcompilationmanager.h>
 
 #include <QDir>
 #include <QDateTime>

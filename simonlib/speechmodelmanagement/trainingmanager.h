@@ -22,10 +22,11 @@
 #define TRAININGMANAGER_H
 
 #include <speechmodelbase/word.h>
+#include <speechmodelbase/trainingtext.h>
 #include <QHash>
 #include <QMutex>
 #include <QList>
-#include "xmltrainingtext.h"
+// #include "xmltrainingtext.h"
 #include "simonacousticmodelmanagement_export.h"
 
 
@@ -39,7 +40,7 @@
  */
 
 typedef QHash<QString, QString> PromptsTable;
-typedef  QList<XMLTrainingText*> TrainingList;
+typedef  QList<TrainingText*> TrainingList;
 
 class ACOUSTICMODELMANAGEMENT_EXPORT TrainingManager : public QObject
 {
@@ -48,14 +49,19 @@ Q_OBJECT
 		static TrainingManager *instance;
 		TrainingList *trainingTexts;
 		TrainingText *currentText;
+
 		QHash<QString, QString> sampleHash;    //<! sampleHash("SampleName","Text")
+
 		QHash<QString,int> wordRelevance; /// Stores the relevance of words (caching for getProbability)
+
 		QMutex promptsLock;
 		PromptsTable *promptsTable;
 
+		bool deletePrompt ( QString key );
+		bool allWordsExisting();
+
 	private slots:
 		void askDeleteLonelySample(QString);
-		bool initPrompts();
 
 	signals:
 		void addMissingWords(QStringList words);
@@ -68,6 +74,11 @@ Q_OBJECT
 		TrainingManager(QObject *parent=0);
 
 	public:
+		//TODO: Port me to friends for the modelmanager
+		PromptsTable* getPrompts();
+		bool writePromptsFile(PromptsTable* prompts, QString path);
+		//end
+
 		static TrainingManager* getInstance();
 
 		bool init();
@@ -78,14 +89,16 @@ Q_OBJECT
 
 		int getProbability ( QString name );
 		PromptsTable* readPrompts ( QString pathToPrompts );
-		PromptsTable* getPrompts();
 
-		bool deleteWord ( Word *w, bool recompiledLater=false );
-		bool deletePrompt ( QString key );
-		bool savePrompts(bool recompiledLater=false);
-		bool writePromptsFile(PromptsTable* prompts, QString path);
+		bool deleteWord ( Word *w );
+		bool savePrompts();
 
 		bool refreshTraining(int sampleRate, const QByteArray& prompts);
+// 		void addSamples ( const QHash<QString, QString>& trainingsMap);
+
+		bool addSample(const QString& fileBaseName, const QString& prompt);
+
+		QString getPage ( int i );
 
 		/**
 		 * @brief Getter method for the QList of training texts
@@ -99,12 +112,6 @@ Q_OBJECT
 		}
 
 
-		QString getLabel ( int i )
-		{
-			return QString::number ( i ); //just to surpress these silly compiler
-			//warnings that make me mad
-		}
-
 		bool deleteText ( int index );
 
 		float calcRelevance ( TrainingText *text );
@@ -113,14 +120,14 @@ Q_OBJECT
 		void trainWords ( const WordList *words );
 
 		bool trainText ( int i );
-		int getPageCount();
-		QString getPage ( int i );
-		QString getTextName();
+// 		int getPageCount();
+// 		QString getPage ( int i );
+// 		QString getTextName();
+// 		bool allWordsExisting();
 		TrainingText* getText ( int i );
+		TrainingText* getCurrentText () { return currentText; }
 
-		void finishTrainingSession();
-		bool allWordsExisting();
-		void addSamples ( const QHash<QString, QString>& trainingsMap, bool recompiledLater=false );
+// 		void finishTrainingSession();
 
 		void clearSampleHash() { sampleHash.clear(); }
 

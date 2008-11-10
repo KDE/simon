@@ -18,7 +18,7 @@
  */
 
 #include "commandmanager.h"
-#include <KCModule>
+#include <KDebug>
 
 bool CommandManager::trigger(const QString& triggerName)
 {
@@ -31,13 +31,14 @@ bool CommandManager::trigger(const QString& triggerName)
 
 		if (commands->at(i)->getTrigger() == triggerName)
 		{
+			kDebug() << triggerName;
 			if (commands->at(i)->trigger())
 				done=true;
 
 			//uncomment the following line if you don't want to allow multiple commands with the
 			//same name. (this is just commented out for testing)
 			//break;
-		}
+		} else kDebug() << "No match: " << commands->at(i)->getTrigger();
 	}
 	return done;
 }

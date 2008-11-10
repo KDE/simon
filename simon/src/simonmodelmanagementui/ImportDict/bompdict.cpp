@@ -85,7 +85,6 @@ void BOMPDict::load(QString path)
 		maxPhonemeSize = allowedPhonemes[0].count();
 	
 	QString filteredXsp;
-	int phonemeIndex=0;
 	QString xspFertig;
 	QString currentPhoneme;
 	QString currentTerminal;

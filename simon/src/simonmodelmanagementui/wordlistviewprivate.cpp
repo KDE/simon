@@ -21,7 +21,7 @@
 #include "wordlistviewprivate.h"
 #include "deleteworddialog.h"
 #include "ImportDict/importdictview.h"
-#include "trainingview.h"
+#include "TrainSamples/trainingswizard.h"
 // #include "coreconfiguration.h"
 
 #include <speechmodelmanagement/wordlistmanager.h>
@@ -34,6 +34,7 @@
 #include <KProgressDialog>
 #include <QCoreApplication>
 #include <KIcon>
+#include <KColorScheme>
 
 /**
  * @brief Constructor
@@ -43,11 +44,10 @@
  *
  * @author Peter Grasch
  */
-WordListViewPrivate::WordListViewPrivate(TrainingView *trainingView, QWidget *parent) : QWidget(parent)
+WordListViewPrivate::WordListViewPrivate(QWidget *parent) : QWidget(parent)
 {
 	shownDialogs = 0;
 	abortVocabInsertion = false;
-	this->trainingView = trainingView;
 	
 	ui.setupUi(this);
 
@@ -193,14 +193,14 @@ void WordListViewPrivate::filterListbyPattern(QString filter)
  */
 void WordListViewPrivate::trainList()
 {
-	if (!trainingView) return;
 	if (this->trainingwordlist.count()==0)
 	{
 		KMessageBox::error(this, i18n("Bitte wählen Sie zuerst ein paar Wörter für das spezielle Training aus.\nZiehen Sie sie dazu von der großen Liste links in die kleine Liste oben rechts.\n\nWenn Sie generische Texte vorlesen wollen, gehen Sie bitte zum Allgemeine Training.\n(Der Punkt \"Trainieren\" ist in der \"Globale Aktion\"-Toolbar)."));
 		return;
 	}
-	trainingView->trainWords(trainingwordlist);
-	trainingView->exec();
+
+	TrainingsWizard *wizard = new TrainingsWizard(trainingwordlist, this);
+	wizard->exec();
 	trainingwordlist.clear();
 	ui.lwTrainingWords->clear();
 }
@@ -340,6 +340,10 @@ void WordListViewPrivate::insertVocab(WordList *vocab)
 	connect(pgDlg, SIGNAL(rejected()), this, SLOT(abortInsertion()));
 
 	ui.twVocab->setRowCount(startAmount+vocab->count());
+	
+	KColorScheme colorScheme(QPalette::Active);
+	QColor negative = colorScheme.background(KColorScheme::NegativeBackground).color();
+	
 	while ((!abortVocabInsertion) && (i<vocab->count()) && (i<limit))
 	{
 		QString curWordName = vocab->at(i).getWord();
@@ -349,14 +353,18 @@ void WordListViewPrivate::insertVocab(WordList *vocab)
 			ui.twVocab->setItem(currentRow, 1, new QTableWidgetItem(vocab->at(i).getPronunciation()));
 			ui.twVocab->setItem(currentRow, 2, new QTableWidgetItem(vocab->at(i).getTerminal()));
 			
-			QTableWidgetItem *prob = new QTableWidgetItem(QString().setNum(vocab->at(i).getPropability()));
-			if (vocab->at(i).getPropability() == 0)
-				prob->setBackgroundColor( QColor(255,0,0) );
-			else 
-				if (vocab->at(i).getPropability() < 2)
-					prob->setBackgroundColor( QColor( 241, 134, 134 ) );
-			ui.twVocab->setItem(currentRow, 3, prob);
-			
+			int probability = vocab->at(i).getPropability();
+			ui.twVocab->setItem(currentRow, 3, new QTableWidgetItem(QString::number(probability)));
+			if (probability < 2)
+			{
+				QBrush specialCol;
+				if (probability==0)
+					specialCol = KColorScheme::shade(negative, KColorScheme::DarkShade);
+				else specialCol = KColorScheme::shade(negative, KColorScheme::MidShade);
+				
+				for (int i=0; i <4; i++)
+					ui.twVocab->item(currentRow,i)->setBackground(specialCol);
+			}
 	
 			for (int j = 0; j<4; j++)
 				ui.twVocab->item(currentRow,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);

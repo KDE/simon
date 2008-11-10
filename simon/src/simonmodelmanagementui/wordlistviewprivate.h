@@ -28,7 +28,7 @@
 #include <speechmodelbase/word.h>
 
 
-class TrainingView;
+
 class QPoint;
 class ImportDictView;
 class WordListManager;
@@ -54,7 +54,6 @@ private:
 	WordList trainingwordlist;  //!< Holds all the words that are scheduled for training
 	WordListManager *wordListManager; //!< Concept class
 	ImportDictView *importDictView; //!< Provides the Interface to import a dictionary
-	TrainingView *trainingView;
 
 	void setDirty ( bool dirty );
 
@@ -85,7 +84,7 @@ public slots:
 	WordListManager* getManager(){return wordListManager;}
 
 public:
-	WordListViewPrivate(TrainingView *trainingView, QWidget *parent);
+	WordListViewPrivate(QWidget *parent);
 	
 	~WordListViewPrivate();
 

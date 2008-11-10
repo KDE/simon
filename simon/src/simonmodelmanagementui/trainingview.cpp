@@ -31,8 +31,6 @@ TrainingView::TrainingView(QWidget *parent) : InlineWidget(i18n ( "Training" ), 
 	
 	hide();
 	
-	connect(d, SIGNAL(trainingCompleted()), this, SIGNAL(trainingCompleted()));
-	
 	guessChildTriggers ( ( QObject* ) this );
 }
 

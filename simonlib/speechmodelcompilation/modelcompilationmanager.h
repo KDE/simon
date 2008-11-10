@@ -47,6 +47,7 @@ signals:
 
 	void modelCompiled();
 // 	void missingPhoneme(const QString&);
+
 private:
 	QString currentStatus;
 	
@@ -61,7 +62,11 @@ private:
 	QString hmmDefsPath, tiedListPath, dictPath, dfaPath;
 
 
+	//config options
+	QString hDMan, hLEd, hCopy, hCompV, hERest, hHEd, hVite, mkfa, dfaMinimize;
 
+
+	bool parseConfiguration();
 	
 	bool generateInputFiles();
 		bool generateWlist();

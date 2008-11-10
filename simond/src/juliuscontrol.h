@@ -48,6 +48,8 @@ class JuliusControl : public RecognitionControl
 		void pause();
 		void resume();
 		
+		bool isStopping() { return stopping; }
+		
 		void stopped();
 		
 		void waitForResumed();
@@ -67,6 +69,7 @@ class JuliusControl : public RecognitionControl
 		Recog *recog;
 		Jconf *jconf;
 		bool isLocal;
+		bool stopping;
 		QMutex pauseMutex;
 		
 		QList<JuliusControl::Request> nextRequests;

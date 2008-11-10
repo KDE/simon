@@ -56,7 +56,7 @@
  */
 RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *parent) : QWidget(parent)
 {	
-	this->filename = filename;
+	this->filename = QFile::encodeName(filename);
 	recordingProgress=0;
 	
 	rec = new WavRecorder(this);
@@ -71,6 +71,7 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 
 	QVBoxLayout *mainLay = new QVBoxLayout(this);
 	gbContainer = new QGroupBox(name, this);
+// 	gbContainer->setFlat(true);
 	mainLay->addWidget(gbContainer);
 
 	QVBoxLayout *lay = new QVBoxLayout(gbContainer);
@@ -115,7 +116,7 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 	//////////////////////////////////////////////////////////////////////
 	
 	
-	if (QFile::exists(filename))
+	if (QFile::exists(this->filename))
 	{
 		pbRecord->setEnabled(false);
 		pbPlay->setEnabled(true);
@@ -330,7 +331,7 @@ void RecWidget::playback()
  * \brief Deletes the file at filename (member)
  * \author Peter Grasch
  */
-void RecWidget::deleteSample()
+bool RecWidget::deleteSample()
 {
 	if(QFile::remove(this->filename))
 	{
@@ -340,8 +341,17 @@ void RecWidget::deleteSample()
 		pbRecord->setEnabled(true);
 		pbPlay->setEnabled(false);
 		emit sampleDeleted();
-	} else KMessageBox::error(this, 
-			i18n("Konnte die Datei %1 nicht entfernen", this->filename));
+		return true;
+	} else {
+		if (QFile::exists(this->filename))
+		{
+			KMessageBox::error(this, 
+				i18n("Konnte die Datei %1 nicht entfernen", this->filename));
+			return false;
+		}
+	}
+
+	return true;
 }
 
 /**

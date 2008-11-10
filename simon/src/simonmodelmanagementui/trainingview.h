@@ -29,8 +29,6 @@ class TrainingViewPrivate;
 class SIMONMODELMANAGEMENTUI_EXPORT TrainingView : public InlineWidget {
 	Q_OBJECT
 
-	signals:
-		void trainingCompleted();
 	private:
 		TrainingViewPrivate *d;
 

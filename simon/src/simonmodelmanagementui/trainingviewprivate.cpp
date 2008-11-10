@@ -23,7 +23,7 @@
 #include "ImportTrainingData/importtrainingdirectory.h"
 #include <speechmodelmanagement/trainingmanager.h>
 #include "ImportTrainingTexts/importtrainingtexts.h"
-// #include "coreconfiguration.h"
+#include "TrainSamples/trainingswizard.h"
 
 #include <simonsound/recwidget.h>
 #include <simoninfo/simoninfo.h>
@@ -46,8 +46,7 @@
 TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
 		: QWidget(parent)
 {
-	trainMgr = TrainingManager::getInstance();
-	trainMgr->init();
+	TrainingManager::getInstance()->init();
 
 	ui.setupUi ( this );
 	recorder=0;
@@ -62,14 +61,13 @@ TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
 	connect ( ui.pbFinish, SIGNAL ( clicked() ), this, SLOT ( finish() ) );
 	connect ( ui.pbImportText, SIGNAL ( clicked() ), this, SLOT ( importTexts() ) );
 	connect ( ui.pbBackToMain, SIGNAL ( clicked() ), this, SLOT ( cancelReading() ) );
-	connect ( ui.pbBackToMain2, SIGNAL ( clicked() ), this, SLOT ( backToMain() ) );
 	connect ( ui.pbDelText, SIGNAL ( clicked() ), this, SLOT ( deleteSelected() ) );
 	connect ( ui.pbImportDir, SIGNAL ( clicked() ), this, SLOT ( importDirectory() ) );
 
 	currentPage=0;
 	import = new ImportTrainingTexts();
-	connect(trainMgr, SIGNAL(trainingFinished()), this, SLOT(backToMain()));
-	connect(trainMgr, SIGNAL(trainingDataChanged()), this, SLOT(loadList()));
+	connect(TrainingManager::getInstance(), SIGNAL(trainingFinished()), this, SLOT(backToMain()));
+	connect(TrainingManager::getInstance(), SIGNAL(trainingDataChanged()), this, SLOT(loadList()));
 	loadList();
 
 
@@ -83,8 +81,6 @@ TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
 	ui.pbNextPage->setIcon(KIcon("go-next"));
 	ui.pbBackToMain->setIcon(KIcon("dialog-cancel"));
 	ui.pbFinish->setIcon(KIcon("dialog-ok-apply"));
-
-	ui.pbBackToMain2->setIcon(KIcon("go-previous"));
 }
 
 
@@ -104,7 +100,7 @@ void TrainingViewPrivate::deleteSelected()
 	int currentIndex = ui.twTrainingWords->currentRow();
 
 	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?")) == KMessageBox::Yes )
-		this->trainMgr->deleteText ( currentIndex );
+		TrainingManager::getInstance()->deleteText ( currentIndex );
 
 	loadList();
 }
@@ -118,7 +114,7 @@ void TrainingViewPrivate::trainWords ( const WordList& words )
 {
 	if ( words.empty() ) return;
 
-	this->trainMgr->trainWords ( &words );
+	TrainingManager::getInstance()->trainWords ( &words );
 
 	startTraining();
 }
@@ -134,14 +130,15 @@ void TrainingViewPrivate::trainSelected()
 		KMessageBox::information(this,i18n("Bitte selektieren Sie zuerst einen Text aus der Liste."));
 		return;
 	}
-	bool success = trainMgr->trainText ( ui.twTrainingWords->currentRow() );
-	if ( !success )
+	TrainingText *text =TrainingManager::getInstance()->getText ( ui.twTrainingWords->currentRow() );
+	if ( !text )
 	{
 		SimonInfo::showMessage(i18n("Konnte Training nicht starten"), 2000); // show passive notification
 		return;
 	}
 
-	startTraining();
+	TrainingsWizard *wizard = new TrainingsWizard(*text, this);
+	wizard->exec();
 }
 
 /**
@@ -156,9 +153,9 @@ void TrainingViewPrivate::trainSelected()
 void TrainingViewPrivate::startTraining()
 {
 	ui.swAction->setCurrentIndex ( 1 );
-	setWindowTitle ( i18n ( "Training - " ) +trainMgr->getTextName() );
+	setWindowTitle ( i18n ( "Training - " ) +TrainingManager::getInstance()->getCurrentText()->getName() );
 
-	int count = trainMgr->getPageCount();
+	int count = TrainingManager::getInstance()->getCurrentText()->getPageCount();
 	ui.pbPages->setMaximum ( count );
 
 	ui.pbFinish->setEnabled ( false );
@@ -188,17 +185,8 @@ void TrainingViewPrivate::importDirectory()
  */
 void TrainingViewPrivate::finish()
 {
-	ui.swAction->setCurrentIndex ( 2 );
-
-	//training...
-
-
-	//finishing up
-
-	trainMgr->finishTrainingSession();
-
-	//done
-	emit trainingCompleted();
+	backToMain();
+// 	TrainingManager::getInstance()->finishTrainingSession();
 }
 
 /**
@@ -208,21 +196,21 @@ void TrainingViewPrivate::finish()
  * \author Peter Grasch, Susanne Tschernegg
  * \param int page
  * The page to use
- * \note all information is retrieved from this->trainMgr
+ * \note all information is retrieved from this->TrainingManager::getInstance()
  */
 void TrainingViewPrivate::fetchPage ( int page )
 {
 	QString keyStr;
-	QStringList samplenames = trainMgr->getSampleHash().keys();
+	QStringList samplenames = TrainingManager::getInstance()->getSampleHash().keys();
 	if (samplenames.count() < page) return;
 	keyStr = samplenames.at(page);
 
 	//FIXME: move to library
-	QString filename = keyStr+".wav";
+	QString filename = TrainingManager::getInstance()->getTrainingDir()+"/"+keyStr+".wav";
 // 	QString filename = CoreConfiguration::modelTrainingsDataPath().path()+"/"+keyStr+".wav";
 	resetRecorder();
-	recorder = new RecWidget ( i18n("Seite %1/%2:", page+1, trainMgr->getPageCount()), 
-				   this->trainMgr->getPage ( page ),
+	recorder = new RecWidget ( i18n("Seite %1/%2:", page+1, TrainingManager::getInstance()->getCurrentText()->getPageCount()), 
+				   TrainingManager::getInstance()->getCurrentText()->getPage ( page ),
 	                           filename, ui.wRecTexts );  //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
 
 	connect ( recorder, SIGNAL ( recordingFinished() ), this, SLOT ( increaseRecordedPages() ) );
@@ -238,7 +226,7 @@ void TrainingViewPrivate::adaptNavigationButtons()
 {
 	ui.pbPrevPage->setEnabled ( currentPage > 0 );
 
-	ui.pbNextPage->setEnabled(currentPage < (trainMgr->getPageCount()-1));
+	ui.pbNextPage->setEnabled(currentPage < (TrainingManager::getInstance()->getCurrentText()->getPageCount()-1));
 }
 
 /**
@@ -287,7 +275,7 @@ void TrainingViewPrivate::resetRecorder()
 void TrainingViewPrivate::nextPage()
 {
 	currentPage++;
-	Q_ASSERT(currentPage < trainMgr->getPageCount());
+	Q_ASSERT(currentPage < TrainingManager::getInstance()->getCurrentText()->getPageCount());
 	
 	adaptNavigationButtons();
 	resetRecorder();
@@ -298,7 +286,6 @@ void TrainingViewPrivate::nextPage()
 /**
  * \brief Stops the training of a specific text and switches back to the overview
  * \author Peter Grasch, Susanne Tschernegg
- * \todo cleaning up temp. stuff
  */
 void TrainingViewPrivate::cancelReading()
 {
@@ -315,20 +302,6 @@ void TrainingViewPrivate::backToMain()
 }
 
 /**
- * \brief Cancels the current Training
- * Tells the TrainingManager to abort building the new model (and to clean up)
- * It also goes back to the main list of trainingtexts
- * \author Peter Grasch, Susanne Tschernegg
- */
-void TrainingViewPrivate::cancelTraining()
-{
-	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "Wenn Sie an diesem Punkt abbrechen, wird das Sprachmodell die in dieser Trainingseinheit gesammelten Daten verwerfen und die Erkennungsrate wird sich durch dieses Training nicht erhöhen.\n\nWollen Sie wirklich abbrechen?" )) ==KMessageBox::Yes )
-	{
-		cleanUpTrainingSamples();
-	}
-}
-
-/**
  * @brief cleans up the saved Trainingfiles, because they are no longer needed
  *
  *	@author Peter Grasch, Susanne Tschernegg
@@ -338,16 +311,16 @@ void TrainingViewPrivate::cleanUpTrainingSamples()
 	ui.swAction->setCurrentIndex ( 0 );
 
 	//cleaning up
-	for ( int i=1; i < trainMgr->getPageCount() +1; i++ )
+	for ( int i=1; i < TrainingManager::getInstance()->getCurrentText()->getPageCount() +1; i++ )
 	{
 		//FIXME: library
 		//QDir dir ( CoreConfiguration::modelTrainingsDataPath().path() );
 		QDir dir();
 		//QStringList list = dir.entryList(QDir::Files);
-		/*QString textName = trainMgr->getTextName();
+		/*QString textName = TrainingManager::getInstance()->getTextName();
 		textName.replace(QString(" "), QString("_"));
 		QStringList filteredList = list.filter(QRegExp(QString(textName+"_S"+QString::number(i)+"_"+QString(qvariant_cast<QString>(QDate::currentDate()))+"_*.wav")));*/
-		QHashIterator<QString, QString> hIterator ( trainMgr->getSampleHash() );
+		QHashIterator<QString, QString> hIterator ( TrainingManager::getInstance()->getSampleHash() );
 		while ( hIterator.hasNext() )
 		{
 			hIterator.next();
@@ -355,7 +328,7 @@ void TrainingViewPrivate::cleanUpTrainingSamples()
 			if ( f.exists() )
 				f.remove();
 		}
-		trainMgr->clearSampleHash();
+		TrainingManager::getInstance()->clearSampleHash();
 	}
 }
 
@@ -368,7 +341,7 @@ void TrainingViewPrivate::cleanUpTrainingSamples()
  */
 void TrainingViewPrivate::loadList()
 {
-	TrainingList *list = this->trainMgr->readTrainingTexts();
+	TrainingList *list = TrainingManager::getInstance()->readTrainingTexts();
 
 	if ( !list ) return;
 
@@ -441,7 +414,7 @@ void TrainingViewPrivate::setSettingsVisible()
  */
 void TrainingViewPrivate::increaseRecordedPages()
 {
-	int max = trainMgr->getPageCount();
+	int max = TrainingManager::getInstance()->getCurrentText()->getPageCount();
 	++recordedPages;
 	if ( recordedPages==max )
 		ui.pbFinish->setEnabled ( true );
@@ -454,7 +427,7 @@ void TrainingViewPrivate::increaseRecordedPages()
  */
 void TrainingViewPrivate::decreaseRecordedPages()
 {
-	int max = trainMgr->getPageCount();
+	int max = TrainingManager::getInstance()->getCurrentText()->getPageCount();
 	--recordedPages;
 	if ( recordedPages<max )
 		ui.pbFinish->setEnabled ( false );

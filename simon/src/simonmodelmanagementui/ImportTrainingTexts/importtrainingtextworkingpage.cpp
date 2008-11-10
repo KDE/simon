@@ -74,7 +74,7 @@ void ImportTrainingTextWorkingPage::startImport(KUrl path)
 
 		path = tmpPath;
 	}
-	if (KMimeType::findByFileContent(path.path())->is("application/xml")) // rewrite to mimetype "application/xml"
+	if (KMimeType::findByFileContent(path.path())->is("application/xml"))
 		processText(path.path());
 	else parseFile(path.path());
 	
@@ -166,7 +166,7 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 	file.close();
 	QFileInfo fi = QFileInfo(path);
 
-
+	//FIXME
 // 	QString xmlPath = KStandardDirs::locateLocal("appdata", "texts/")+"/"+fi.fileName().left(fi.fileName().lastIndexOf("."))+".xml";
 // 	TrainingText *text = new TrainingText(field("importTrainingTextLTextname").toString(),
 // 					       xmlPath,

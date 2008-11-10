@@ -41,7 +41,6 @@ signals:
 	void commandsChanged(CommandList *commands);
 
 private:
-	bool initCompleteSystem;
 	static ActionManager* instance;
 
 	CommandSettings* commandSettings;
@@ -50,6 +49,7 @@ private:
 	bool askDeleteCommandByTrigger(QString trigger);
 
 	void deleteManager(CommandManager *manager);
+	QStringList trigger;
 
 
 protected:
@@ -57,6 +57,8 @@ protected:
 
 private slots:
 	void setupBackends(const QStringList& pluginsToLoad);
+	void setTrigger(const QStringList& trigger);
+
 
 public:
 

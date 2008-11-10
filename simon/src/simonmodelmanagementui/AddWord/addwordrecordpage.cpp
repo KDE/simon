@@ -19,14 +19,18 @@
 
 
 #include "addwordrecordpage.h"
+#include "../TrainSamples/trainsamplepage.h"
+#include <simonsound/recwidget.h>
+#include <speechmodelmanagement/trainingmanager.h>
 #include <QDate>
 #include <QTime>
 #include <QDir>
-#include <KMessageBox>
 #include <QVBoxLayout>
-#include <simonsound/recwidget.h>
+#include <QVariant>
+
+#include <KMessageBox>
 #include <KStandardDirs>
-#include <speechmodelmanagement/trainingmanager.h>
+#include <KLocalizedString>
 
 /**
  * \brief Constructor - also creates the GUI Elements
@@ -34,31 +38,32 @@
  * @param parent
  * The parent of the widget
  */
-AddWordRecordPage::AddWordRecordPage(QWidget *parent)
+AddWordRecordPage::AddWordRecordPage(const QString& fieldName, int pageNr, int pageMax, QWidget *parent)
  : QWizardPage(parent)
 {
-	setTitle(i18n("Aufnehmen des Wortes"));
-	ui.setupUi(this);
-
-	rec1 = 0;
-	rec2 = 0;
+	QVBoxLayout *lay = new QVBoxLayout(this);
+	setLayout(lay);
+	page = 0;
+	this->pageNr = pageNr;
+	this->pageMax = pageMax;
+	
+	this->fieldName = fieldName;
 }
 
 bool AddWordRecordPage::isComplete() const
 {
-	// 	return true;
-	//make recordings mandatory
-	return rec1 && rec2 && rec1->hasRecordingReady() && rec2->hasRecordingReady(); 
+	Q_ASSERT(page);
+	return page->isComplete();
 }
 
-QString AddWordRecordPage::getSamplesDir()
+QString AddWordRecordPage::getFileName()
 {
-	return TrainingManager::getInstance()->getTrainingDir();
-// 	KConfig config( KStandardDirs::locate("config", "localsamplesrc") );
-// 	KConfigGroup cGroup(&config, "");
-// 	QString samplePath = cGroup.readEntry("SamplePath", KStandardDirs::locate("appdata", "samples/"));
+	return page->getFileName();
+}
 
-// 	return samplePath;
+QString AddWordRecordPage::getPrompt()
+{
+	return page->getPrompt();
 }
 
 /**
@@ -67,47 +72,19 @@ QString AddWordRecordPage::getSamplesDir()
  */
 void AddWordRecordPage::initializePage()
 {
-	if (rec1)
-	{
-		layout()->removeWidget(rec1);
-		rec1->deleteLater();
+	QString prompt = field(fieldName).toString();
+	if (page && (page->getPrompt() != prompt)) {
+		layout()->removeWidget(page);
+		page->cleanUp();
+		page->deleteLater();
+		page = 0;
 	}
-	if (rec2)
-	{
-		layout()->removeWidget(rec2);
-		rec2->deleteLater();
-	}
-	
-	QString dateTime = QDate::currentDate().toString ( "yyyy-MM-dd" ) +"_"+QTime::currentTime().toString("hh-mm-ss");
-	QString filename1=field("wordExample1").toString().replace(" ", "_")+ "_1_"+dateTime;
-	QString filename2=field("wordExample2").toString().replace(" ", "_")+ "_2_"+dateTime;
+	if (!page) 
+		page = new TrainSamplePage(prompt, pageNr, pageMax, i18n("Training"), this);
 
-	filename1 = QFile::encodeName(filename1);
-	filename2 = QFile::encodeName(filename2);
-
-
-
-	emit recordingNamesGenerated(filename1, filename2);
-
-	QString sampleDir = getSamplesDir();
-	if (sampleDir.isEmpty()) {
-		KMessageBox::error(this, i18n("Konnte Pfad nicht erstellen.\n\nBitte überprüfen Sie Ihre Schreibrechte im konfigurierten Sample-Pfad"));
-		return;
-	}
-
-	rec1 = new RecWidget(i18n("Aufnahme 1:"), field("wordExample1").toString(),
-			     sampleDir+"/"+filename1+".wav", this);
-	rec2 = new RecWidget(i18n("Aufnahme 2:"), field("wordExample2").toString(),
-			      sampleDir+"/"+filename2+".wav", this);
-
-	
-	connect(rec1, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));
-	connect(rec2, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));
-	connect(rec1, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
-	connect(rec2, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
-
-	layout()->addWidget(rec1);
-	layout()->addWidget(rec2);
+	setTitle(page->title());
+	connect(page, SIGNAL(completeChanged()), this, SIGNAL(completeChanged()));
+	layout()->addWidget(page);
 }
 
 
@@ -118,9 +95,6 @@ void AddWordRecordPage::initializePage()
  */
 AddWordRecordPage::~AddWordRecordPage()
 {
-	if (rec1) rec1->deleteLater();
-	if (rec2) rec2->deleteLater();
-	if (layout()) delete layout();
 }
 
 

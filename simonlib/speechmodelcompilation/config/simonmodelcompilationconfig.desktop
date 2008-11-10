@@ -2,10 +2,10 @@
 Type=Service
 Icon=applications-education-language
 X-KDE-ServiceTypes=KCModule
-X-KDE-Library=libsimonmodelcompilation
+X-KDE-Library=libsimonmodelcompilationconfiguration
 
 X-KDE-FactoryName=modelcompilationsettingsfactory
-X-KDE-ParentComponents=libsimonmodelcompilation
+X-KDE-ParentComponents=libsimonmodelcompilationconfiguration
 
 X-KDE-ParentApp=simon
 X-KDE-System-Settings-Parent-Category=simon

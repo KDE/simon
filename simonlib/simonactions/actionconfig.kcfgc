@@ -1,4 +1,0 @@
-File=actionconfig.kcfg
-ClassName=ActionConfiguration
-Singleton=true
-Mutators=true

@@ -124,8 +124,6 @@ bool ImportTrainingData::createPrompts(QStringList dataFiles)
 {
 	TrainingManager *train = TrainingManager::getInstance();
 	
-
-	PromptsTable prompts;
 	QFileInfo fileInfo;
 	QString fileName, said;
 
@@ -135,9 +133,8 @@ bool ImportTrainingData::createPrompts(QStringList dataFiles)
 		fileName = fileInfo.fileName();
 
 		said = extractSaid(fileName);
-		prompts.insert(fileName.left(fileName.lastIndexOf(".")), said.toUpper());
+		train->addSample(fileName.left(fileName.lastIndexOf(".")), said.toUpper());
 	}
-	train->addSamples(prompts, true/*compilelater*/);
 	return true;
 }
 

@@ -41,11 +41,9 @@
 #include "../simonmodelmanagementui_export.h"
 
 class QWizardPage;
+class AddWordRecordPage;
 class AddWordResolvePage;
-class GrammarManager;
 class AddWordIntroPage;
-class WordListManager;
-class TrainingManager;
 
 class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 {
@@ -54,16 +52,14 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 	private:
 		static AddWordView *instance;
 		
-		QString recordingName1, recordingName2;
 		QStringList wordsToAdd;
-		int prevId;
-		AddWordResolvePage *resolvePage;
-		AddWordIntroPage *welcomePage;
 		WordList *listToAdd;
 		QHash<QString,QString> promptsToAdd;
 		
 		void hideEvent(QHideEvent *event) { 
 			emit hidden(); return QWidget::hideEvent(event); }
+
+		AddWordRecordPage *record1, *record2;
 
 		void commitList();
 	
@@ -72,7 +68,6 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 		void hidden();
 		
 	private slots:
-		void setRecordingNames(QString name1, QString name2);
 		void askToAddWord(QString word);
 		void askToAddWords(QStringList words);
 		void cleanUp();
@@ -82,7 +77,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 		void finish(int done);
 
 		AddWordIntroPage* createWelcomePage();
-		QWizardPage* createRecordPage();
+		AddWordRecordPage* createRecordPage(const QString& fieldName, int pageNr, int pageMax);
 		AddWordResolvePage* createResolvePage();
 		QWizardPage* createFinishedPage();
 		

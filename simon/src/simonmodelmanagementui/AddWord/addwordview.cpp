@@ -51,19 +51,20 @@ AddWordView* AddWordView::instance;
 AddWordView::AddWordView(QWidget *parent)
 	: QWizard (parent)
 {
-	prevId=0;
 	listToAdd = new WordList();
-	this->welcomePage = createWelcomePage();
-	resolvePage = createResolvePage();
-	this->addPage((QWizardPage*) welcomePage);
-	this->addPage(resolvePage);
+	this->addPage(createWelcomePage());
+	this->addPage(createResolvePage());
 
-	this->addPage(createRecordPage());
+	record1 = createRecordPage("wordExample1", 1, 2);
+	record2 = createRecordPage("wordExample2", 2, 2);
+	
+	this->addPage(record1);
+	this->addPage(record2);
+	
 	this->addPage(createFinishedPage());
 	
 	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
 	connect(this, SIGNAL(rejected()), this, SLOT(cleanUp()));
-// 	connect(ModelManager::getInstance(), SIGNAL(missingWord(QString)), this, SLOT(askToAddWord(QString)));
 	connect(TrainingManager::getInstance(), SIGNAL(addMissingWords(QStringList)), this, SLOT(askToAddWords(QStringList)));
 
 	setWindowTitle(i18n("Wort hinzufügen"));
@@ -110,10 +111,9 @@ AddWordIntroPage* AddWordView::createWelcomePage()
  * \author Peter Grasch
  * @return the QWizardPage
  */
-QWizardPage* AddWordView::createRecordPage()
+AddWordRecordPage* AddWordView::createRecordPage(const QString& fieldName, int pageNr, int pageMax)
 {
-	AddWordRecordPage *add = new AddWordRecordPage(this);
-	connect(add, SIGNAL(recordingNamesGenerated(QString,QString)), this, SLOT(setRecordingNames(QString, QString)));
+	AddWordRecordPage *add = new AddWordRecordPage(fieldName, pageNr, pageMax);
 	return add;
 }
 
@@ -136,18 +136,16 @@ AddWordResolvePage* AddWordView::createResolvePage()
 QWizardPage* AddWordView::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(i18n("Hinzufügen des Wortes"));
+	finished->setTitle(i18n("Hinzufügen Abgeschlossen"));
 	QLabel *label = new QLabel(finished);
 	label->setWordWrap(true);
-	label->setText(i18n("Es wurden alle benötigten Daten gesammelt.\n\nSimon kann das neue Wort jetzt lernen.\nBitte ueberprüfen Sie, bevor Sie hier bestätigen, ob die Aufnahmen nicht von Hintergrundgeräuschen beeinträchtigt werden.\n\nKlicken Sie auf \"Fertigstellen\" um den Wizard \nabzuschließen."));
+	label->setText(i18n("Es wurden alle benötigten Daten gesammelt.\n\nSimon kann das neue Wort jetzt lernen.\n\nDer Assistent ist hiermit abgeschlossen."));
 	QVBoxLayout *layout = new QVBoxLayout(finished);
 	layout->addWidget(label);
 	finished->setLayout(layout);
 	
 	return finished;
 }
-
-
 
 
 /**
@@ -166,8 +164,8 @@ void AddWordView::finish(int done)
 	
 	listToAdd->append(Word(word, field("wordPronunciation").toString(),
 		     field("wordTerminal").toString(), 2 /* 2 recordings */));
-	promptsToAdd.insert(recordingName1, field("wordExample1").toString().toUpper());
-	promptsToAdd.insert(recordingName2, field("wordExample2").toString().toUpper());
+	promptsToAdd.insert(record1->getFileName(), record1->getPrompt().toUpper());
+	promptsToAdd.insert(record2->getFileName(), record2->getPrompt().toUpper());
 	
 	if (wordsToAdd.count() > 0)
 	{
@@ -190,10 +188,11 @@ void AddWordView::finish(int done)
  */
 void AddWordView::commitList()
 {
-	TrainingManager::getInstance()->addSamples(promptsToAdd, true /*recompiled later*/);
+	foreach (const QString& key, promptsToAdd.keys())
+		TrainingManager::getInstance()->addSample(key, promptsToAdd.value(key));
+		
 	promptsToAdd.clear();
 
-	//we can't know for certain if this will be sorted when we add multiple words at once
 	WordListManager::getInstance()->addWords(listToAdd, false /*sorted*/, false /*shadowed*/);
 	listToAdd = new WordList();
 }
@@ -232,14 +231,6 @@ void AddWordView::askToAddWords(QStringList words)
 
 AddWordView::~AddWordView()
 {
-    resolvePage->deleteLater();
-    welcomePage->deleteLater();
-}
-
-void AddWordView::setRecordingNames(QString name1, QString name2)
-{
-	this->recordingName1 = name1;
-	this->recordingName2 = name2;
 }
 
 /**

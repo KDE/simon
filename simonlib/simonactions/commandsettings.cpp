@@ -18,16 +18,18 @@
  */
 
 #include "commandsettings.h"
-#include "actionconfig.h"
 #include "actionmanager.h"
+
 #include <QListWidget>
+#include <QVariant>
+#include <QListWidgetItem>
+
 #include <KAboutData>
 #include <KService>
 #include <KServiceTypeTrader>
 #include <KPageWidget>
 #include <commandpluginbase/commandmanager.h>
 #include <kgenericfactory.h>
-#include <QDebug>
 
 
 
@@ -48,7 +50,6 @@ CommandSettings* CommandSettings::instance;
  */
 CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
-	kDebug() << "CREATING!!";
 	Q_UNUSED(args)
 
 	QWidget *baseWidget = new QWidget(this);
@@ -76,18 +77,56 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 	config = KSharedConfig::openConfig(KGlobal::mainComponent(),
 					"simoncommandrc");
 
-	QObject::connect(ui.kcfg_UseGlobalTrigger, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	QObject::connect(ui.kcfg_GlobalTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	QObject::connect(ui.asCommandPlugins, SIGNAL(added(QListWidgetItem*)), this, SLOT(slotChanged()));
+	QObject::connect(ui.asCommandPlugins, SIGNAL(added(QListWidgetItem*)), this, SLOT(initPluginListWidgetItem(QListWidgetItem*)));
 	QObject::connect(ui.asCommandPlugins, SIGNAL(removed(QListWidgetItem*)), this, SLOT(slotChanged()));
 	QObject::connect(ui.asCommandPlugins, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(slotChanged()));
 	QObject::connect(ui.asCommandPlugins, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(slotChanged()));
+	QObject::connect(ui.leTrigger, SIGNAL(textChanged(const QString&)), this, SLOT(currentTriggerChanged(const QString&)));
+	QObject::connect(ui.leTrigger, SIGNAL(textChanged(const QString&)), this, SLOT(slotChanged()));
+	QObject::connect(ui.pbApplyToAll, SIGNAL(clicked()), this, SLOT(applyToAllClicked()));
+	
+	QObject::connect(ui.asCommandPlugins->selectedListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
+			  this, SLOT(activePluginSelectionChanged(QListWidgetItem*)));
 
 	load();
 	isChanged=false;
-	addConfig(ActionConfiguration::self(), this);
 
 	ActionManager::getInstance()->setConfigurationDialog(this);
+}
+
+void CommandSettings::updatePluginListWidgetItem(QListWidgetItem *item, const QString& trigger)
+{
+	if (!item) return;
+	QString displayName = item->data(Qt::UserRole).toString();
+	kDebug() << displayName;
+	
+	if (!trigger.isEmpty())
+		displayName += " ("+trigger+")";
+
+	item->setData(Qt::UserRole+1, trigger);
+	item->setText(displayName);
+}
+
+void CommandSettings::initPluginListWidgetItem(QListWidgetItem *item)
+{
+	if (!item) return;
+	updatePluginListWidgetItem(item, item->data(Qt::UserRole+1).toString());
+}
+
+void CommandSettings::currentTriggerChanged(const QString& newTrigger)
+{
+	QListWidgetItem *pluginItem = ui.asCommandPlugins->selectedListWidget()->currentItem();
+	if (!pluginItem) return;
+	updatePluginListWidgetItem(pluginItem, newTrigger);
+}
+
+void CommandSettings::applyToAllClicked()
+{
+	QListWidget *selected = ui.asCommandPlugins->selectedListWidget();
+	QString trigger = ui.leTrigger->text();
+	for (int i=0; i < selected->count(); i++)
+		updatePluginListWidgetItem(selected->item(i), trigger);
 }
 
 void CommandSettings::registerPlugIn(KCModule *plugin)
@@ -111,6 +150,23 @@ void CommandSettings::pluginChanged(bool isChanged)
 	if (isChanged) emit changed(true);
 }
 
+void CommandSettings::activePluginSelectionChanged(QListWidgetItem* activePluginItem)
+{
+	if (!activePluginItem)
+	{
+		ui.lbTrigger->setEnabled(false);
+		ui.leTrigger->setEnabled(false);
+		ui.pbApplyToAll->setEnabled(false);
+		return;
+	}
+	
+	ui.pbApplyToAll->setEnabled(true);
+	ui.lbTrigger->setEnabled(true);
+	ui.leTrigger->setEnabled(true);
+	
+	QString trigger = activePluginItem->data(Qt::UserRole+1).toString();
+	ui.leTrigger->setText(trigger);
+}
 
 void CommandSettings::unregisterPlugIn(KCModule *plugin)
 {
@@ -141,21 +197,29 @@ QStringList CommandSettings::availableCommandManagers()
 	return commandManagers;
 }
 
-#include <KDebug>
 void CommandSettings::save()
 {
 	KConfigGroup cg(config, "");
 	QListWidget *selected = ui.asCommandPlugins->selectedListWidget();
 	QStringList pluginsToLoad;
+	QStringList newTrigger;
 	for (int i=0; i < selected->count(); i++)
 	{
-		pluginsToLoad << selected->item(i)->text();
+		pluginsToLoad << selected->item(i)->data(Qt::UserRole).toString();
+		newTrigger << selected->item(i)->data(Qt::UserRole+1).toString();
 	}
 	
 
 	foreach (KCModule *module, moduleHash.keys())
 	{
 		module->save();
+	}
+
+	if (newTrigger != storedTrigger)
+	{
+		cg.writeEntry("Trigger", newTrigger);
+		emit triggerChanged(newTrigger);
+		this->storedTrigger = newTrigger;
 	}
 	
 	if (pluginsToLoad != this->pluginsToLoad)
@@ -176,13 +240,8 @@ void CommandSettings::load()
 	Q_ASSERT(config);
 
 	KConfigGroup cg(config, "");
-	
-// 	storedUseGlobalTrigger = cg.readEntry("UseGlobalTrigger", true);
-// 	storedGlobalTrigger = cg.readEntry("GlobalTrigger", i18n("Computer"));
-	
-// 	ui.kcfg_UseGlobalTrigger->setChecked(storedUseGlobalTrigger);
-// 	ui.kcfg_GlobalTrigger->setText(storedGlobalTrigger);
 
+	QStringList trigger = cg.readEntry("Trigger", QStringList());
 
 	QListWidget* available = ui.asCommandPlugins->availableListWidget();
 	available->clear();
@@ -197,14 +256,54 @@ void CommandSettings::load()
 	{
 		if (!allPlugins.contains(pluginName))
 		{
+			int index = pluginsToLoad.indexOf(pluginName);
+			while (index != -1)
+			{
+				pluginsToLoad.removeAt(index);
+				if (trigger.count() > index)
+					trigger.removeAt(index);
+				index = pluginsToLoad.indexOf(pluginName);
+			}
 			pluginsToLoad.removeAll(pluginName);
 			continue;
 		}
 		
 		notSelectedPlugins.removeAll(pluginName);
 	}
-	available->addItems(notSelectedPlugins);
-	selected->addItems(pluginsToLoad);
+	foreach (const QString pluginName, notSelectedPlugins)
+	{
+		QListWidgetItem *newItem = new QListWidgetItem(pluginName);
+		newItem->setData(Qt::UserRole, pluginName);
+		newItem->setData(Qt::UserRole+1, i18n("Computer"));
+		available->addItem(newItem);
+	}
+
+	// ensure that trigger has the same amount of elements
+	// as pluginsToLoad
+	if (trigger.count() != pluginsToLoad.count())
+	{
+		for (int i=0; trigger.count() < pluginsToLoad.count(); i++)
+			trigger << i18n("Computer");
+
+		while (trigger.count() > pluginsToLoad.count())
+			trigger.removeAt(trigger.count()-1);
+	}
+	storedTrigger = trigger;
+	
+	int i=0;
+	foreach (QString pluginToLoad, pluginsToLoad)
+	{
+		QString name;
+		if (trigger[i].isEmpty())
+			name = pluginToLoad;
+		else name = pluginToLoad+" ("+trigger[i]+")";
+		
+		QListWidgetItem *newItem = new QListWidgetItem(name);
+		newItem->setData(Qt::UserRole, pluginToLoad);
+		newItem->setData(Qt::UserRole+1, trigger[i]);
+		selected->addItem(newItem);
+		i++;
+	}
 	
 	this->pluginsToLoad = pluginsToLoad;
 	
@@ -225,11 +324,13 @@ QStringList CommandSettings::getPluginsToLoad()
 	return pluginsToLoad;
 }
 
+QStringList CommandSettings::getTrigger()
+{
+	return storedTrigger;
+}
+
 void CommandSettings::defaults()
 {
-	ui.kcfg_UseGlobalTrigger->setChecked(true);
-	ui.kcfg_GlobalTrigger->setText(i18n("Computer"));
-
 	QListWidget* available = ui.asCommandPlugins->availableListWidget();
 	available->clear();
 	available->addItems(availableCommandManagers());

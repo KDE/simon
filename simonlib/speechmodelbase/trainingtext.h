@@ -46,7 +46,7 @@ public:
 	 * \return
 	 * Name
 	 */
-	QString getName() { return this->name; }
+	QString getName() const { return this->name; }
 	
 	/**
 		 * \brief Returns the path to the text
@@ -54,7 +54,7 @@ public:
 		 * \return
 		 * path
 	 */
-	QString getPath() { return this->path; }
+	QString getPath() const { return this->path; }
 	
 	/**
 	 * \brief Returns the page count of the text
@@ -62,7 +62,7 @@ public:
 	 * \return
 	 * count of pages
 	 */
-	int getPageCount() { return pages.count(); }
+	int getPageCount() const { return pages.count(); }
 	
 	/**
 	 * \brief Returns the pages of the text
@@ -70,7 +70,7 @@ public:
 	 * \return
 	 * pages
 	 */
-	QStringList getPages() { return pages; }
+	QStringList getPages() const { return pages; }
 	
 	/**
 	 * \brief Returns the page <page> of the text
@@ -78,7 +78,7 @@ public:
 	 * \return 
 	 * page
 	 */
-	QString getPage( int page ) { return pages.at(page); }
+	QString getPage( int page ) const { return pages.at(page); }
 	
 	
 	/**
@@ -90,7 +90,7 @@ public:
 	 * \return 
 	 * relevance
 	 */
-	float getRelevance() { return this->relevance; }
+	float getRelevance() const { return this->relevance; }
 	
 	
 	/**
@@ -109,7 +109,6 @@ public:
 	 */
 	virtual bool save()
 	{ return true; }
-// 	bool save();
 
 	virtual ~TrainingText();
 

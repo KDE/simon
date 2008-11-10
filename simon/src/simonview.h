@@ -37,7 +37,11 @@
 #define sAddWordView 		1
 #include "ui_simonview.h"
 #include "simonmainwindow.h"
-#include "simoncontrol.h"
+#include <simoncontrol.h>
+
+#include <QList>
+
+// #include "operation.h"
 
 class QPoint;
 class QCloseEvent;
@@ -54,9 +58,9 @@ class QAction;
 class WordListView;
 class KCMultiDialog;
 class KAction;
+class Operation;
+class QThread;
 
-
-typedef QHash<QObject*,  const char*> ActionIdent;
 
 class SimonView : public SimonMainWindow    {
 	
@@ -79,16 +83,22 @@ private:
 	RunCommandView *runDialog; //!< Pointer on the Dialog "RunCommand"
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
 	KCMultiDialog *configDialog;
+// 	QList<Operation*> runningOperations;
 
 
 	void setupSignalSlots();
 	void setupActions();
+// 	Operation* getOperation(QThread *messenger) const;
+// 	void displayOperations();
+
 
 
 public slots:
-	void displayStatus(const QString &status);
 	void displayConnectionStatus(const QString &status);
-	void displayProgress(int cur, int max);
+
+// 	void displayOperations(QList<Operation*> runningOperations);
+// 	void displayStatus(const QString &operationName, const QString &currentAction=QString());
+// 	void displayProgress(int cur, int max);
 	
 	void toggleVisibility();
 	void hideSimon();

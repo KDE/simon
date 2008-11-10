@@ -44,10 +44,6 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	
 	QObject::connect(recognitionControl, SIGNAL(connected()), this, SLOT(connectedToServer()));
 	QObject::connect(recognitionControl, SIGNAL(disconnected()), this, SLOT(disconnectedFromServer()));
-	QObject::connect(recognitionControl, SIGNAL(connectionError(QString)), this, SLOT(errorConnecting(QString)));
-
-	QObject::connect(recognitionControl, SIGNAL(status(const QString&, int, int)), this, SLOT(slotRecognitionControlStatus(const QString&, int, int)));
-	QObject::connect(recognitionControl, SIGNAL(progress(int, int)), this, SIGNAL(progressInfo(int,int)));
 	
 	QObject::connect(recognitionControl, SIGNAL(connectionError(const QString&)), this, SLOT(slotConnectionError(const QString&)));
 	QObject::connect(recognitionControl, SIGNAL(simondSystemError(const QString&)), this, SLOT(slotSimondSystemError(const QString&)));
@@ -64,13 +60,6 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	
 	QObject::connect(recognitionControl, SIGNAL(recognised(const QString&,const QString&,const QString&)), this, SLOT(wordRecognised(QString,QString,QString)));
 	QObject::connect(recognitionControl, SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
-}
-
-void SimonControl::slotRecognitionControlStatus(const QString& message, int progNow, int progMax)
-{
-	emit statusInfo(message);
-	if (progNow != -1)
-		emit progressInfo(progNow, progMax);
 }
 
 bool SimonControl::passwordProtected()
@@ -263,18 +252,6 @@ void SimonControl::abortConnecting()
 }
 
 
-/**
- * @brief Emits the signal connetionError(QString)
- * 
- * @author Peter Grasch
- */
-void SimonControl::errorConnecting(QString error)
-{
-	setStatus(Disconnected);
-	emit statusError(i18n ( "Die Verbindung zum juliusd Erkennungsdämon konnte nicht aufgenommen werden.\n\nBitte überprüfen Sie Ihre Einstellungen, ihre Netzwerkverbindung und ggf. Ihre Firewall.\n\nDie exakte(n) Fehlermeldung(en) lautete(n):\n" ) +error );
-}
-
-
 
 /**
  * @brief Toggles the activition
@@ -333,11 +310,7 @@ SimonControl::SystemStatus SimonControl::deactivateSimon()
 
 void SimonControl::compileModel()
 {
-	emit statusInfo(i18n("Starte Synchronisation..."));
-	
 	recognitionControl->startSynchronisation();
-	
-	emit statusInfo(i18n("Synchronisation gestartet"));
 }
 
 /**

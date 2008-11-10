@@ -23,6 +23,8 @@
 #include "grammarmanager.h"
 #include <simonlogging/logger.h>
 
+#include <simonprogresstracking/operation.h>
+
 #include <QObject>
 #include <QList>
 #include <QFile>
@@ -188,8 +190,7 @@ WordListManager* WordListManager::getInstance()
  */
 void WordListManager::run()
 {
-	emit status(i18n("Lade Schattenliste..."));
-	emit progress(0,0);
+	Operation op(thread(), i18n("Lade Schattenliste"), i18n("Parse..."), 0,0, true);
 	shadowLock.lock();
 	shadowDirty = false;
 	this->shadowList = readWordList(KStandardDirs::locate("appdata", "model/shadowlexicon"),
@@ -199,12 +200,12 @@ void WordListManager::run()
 	{
 		this->shadowList = new WordList();
 		emit shadowListCouldntBeLoaded();
-		emit status(i18n("Abgebrochen."));
-	} else 
-		emit status(i18n("Fertig."));
+		op.canceled();
+	} else {
+		op.finished();
+	}
 	
 	shadowLock.unlock();
-	emit progress(100,100);
 }
 
 
@@ -716,7 +717,7 @@ bool WordListManager::moveToShadow(Word *w)
 {
 	int i=0;
 	if (!w) return false;
-	if (!TrainingManager::getInstance()->deleteWord(w, true))
+	if (!TrainingManager::getInstance()->deleteWord(w))
 		return false;
 	shadowLock.lock();
 	wordListLock.lock();
@@ -755,7 +756,7 @@ bool WordListManager::deleteCompletely(Word *w, bool shadowed)
 
 	if (!shadowed)
 	{
-		TrainingManager::getInstance()->deleteWord(w,true); //if the word is shadowed we can't have any
+		TrainingManager::getInstance()->deleteWord(w); //if the word is shadowed we can't have any
 		wordListLock.lock();
 		WordList *main = getWordList();
 		int end = main->count();

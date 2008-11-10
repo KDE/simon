@@ -55,6 +55,8 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalworkingpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalselectparameterspage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminal.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/TrainSamples/trainingswizard.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/TrainSamples/trainsamplepage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarsettings.cpp
 )
 

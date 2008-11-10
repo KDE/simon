@@ -30,11 +30,11 @@
  *
  * @author Peter Grasch
  */
-WordListView::WordListView(TrainingView *trainingView, QWidget *parent) : InlineWidget(i18n("Wortliste"), 
+WordListView::WordListView(QWidget *parent) : InlineWidget(i18n("Wortliste"), 
 	KIcon("format-justify-fill"), 
 	i18n("Betrachten und bearbeiten der Wortliste"), parent)
 {
-	d = new WordListViewPrivate(trainingView, this);
+	d = new WordListViewPrivate(this);
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	lay->addWidget(d);
 	

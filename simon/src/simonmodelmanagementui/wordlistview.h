@@ -28,7 +28,6 @@
 
 
 class WordListViewPrivate;
-class TrainingView;
 
 /**
  *	@class WordListView
@@ -50,7 +49,7 @@ public slots:
 	void filterListbyPattern();
 
 public:
-	WordListView(TrainingView *trainingView, QWidget *parent);
+	WordListView(QWidget *parent);
 	
 	~WordListView();
 

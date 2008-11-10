@@ -57,11 +57,7 @@ TrainingManager::TrainingManager(QObject *parent) : QObject(parent), promptsLock
 
 bool TrainingManager::init()
 {
-	return initPrompts();
-}
-
-bool TrainingManager::initPrompts()
-{
+	//init prompts
 	QMutexLocker lock(&promptsLock);
 	PromptsTable *promptsTable = readPrompts ( KStandardDirs::locate("appdata", "model/prompts") );
 	if (promptsTable) {
@@ -110,12 +106,11 @@ void TrainingManager::askDeleteLonelySample(QString sample)
  * This will normally be used to delete a word from the language model (because no sample can contain a word
  * not in the model)
  * @param w The word to remove
- * @param recompiledLater If this flag is set, we will not prompt the user to recompile the model
  * @return Success
  */
-bool TrainingManager::deleteWord ( Word *w, bool recompiledLater )
+bool TrainingManager::deleteWord ( Word *w )
 {
-	if (!promptsTable) initPrompts();
+	if (!promptsTable) init();
 	
 	QString wordToDelete = w->getWord().toUpper();
 
@@ -142,7 +137,7 @@ bool TrainingManager::deleteWord ( Word *w, bool recompiledLater )
 		}
 	}
 	promptsLock.unlock();
-	return savePrompts(recompiledLater);
+	return savePrompts();
 }
 
 /**
@@ -153,7 +148,7 @@ bool TrainingManager::deleteWord ( Word *w, bool recompiledLater )
  */
 bool TrainingManager::deletePrompt ( QString key )
 {
-	if (!promptsTable) initPrompts();
+	if (!promptsTable) init();
 	
 	QMutexLocker lock(&promptsLock);
 	promptsTable->remove ( key );
@@ -171,22 +166,19 @@ QString TrainingManager::getTrainingDir()
  * \author Peter Grasch
  * @return Success
  */
-bool TrainingManager::savePrompts(bool recompiledLater)
+bool TrainingManager::savePrompts()
 {
 	QMutexLocker lock(&promptsLock);
 	if (!writePromptsFile(getPrompts(), KStandardDirs::locateLocal("appdata", "model/prompts"))) return false;
 
+	//TODO: only emit this when it really changed
 	emit trainingDataChanged();
-	if (recompiledLater) return true;
-
-// 	if (KMessageBox::questionYesNoCancel(0, i18n("Die Trainingsdaten wurden geändert.\n\nWollen Sie das Sprachmodell jetzt neu kompilieren?"), i18n("Trainingsdaten geändert")) == KMessageBox::Yes)
-// 		ModelManager::compileModel();
 	return true;
 }
 
 bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
 {
-	if (!promptsTable) initPrompts();
+	if (!promptsTable) init();
 	
 	QFile promptsFile ( path );
 	if ( !promptsFile.open ( QIODevice::WriteOnly ) ) return false;
@@ -207,7 +199,7 @@ bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
 
 PromptsTable* TrainingManager::getPrompts()
 {
-	if (!promptsTable) initPrompts();
+	if (!promptsTable) init();
 	return this->promptsTable;
 }
 
@@ -310,6 +302,7 @@ void TrainingManager::trainWords ( const WordList *words )
 		{
 			page += words->at ( j+ ( i*wordsPerPage ) ).getWord() +QString ( " " );
 		}
+		page = page.trimmed();
 
 		pages.append ( page );
 
@@ -380,8 +373,7 @@ bool TrainingManager::refreshTraining(int sampleRate, const QByteArray& prompts)
 	promptsF.close();
 	
 // 	emit promptsChanged();
-	
-	initPrompts();
+	init();
 	
 	return true;
 }
@@ -408,15 +400,15 @@ bool TrainingManager::trainText ( int i )
 	if(!allWordsInDict)
 		return false;
 	
-	QString textName = getTextName();
+	QString textName = currentText->getName();
 	textName.replace(QString(" "), QString("_"));
 	QString time = qvariant_cast<QString>(QTime::currentTime());
 	time.replace(QString(":"), QString("-"));
 	
 	QString textFileName = QFile::encodeName(textName);
-	for(int i=0; i<getPageCount(); i++)
+	for(int i=0; i<currentText->getPageCount(); i++)
 	{
-		sampleHash.insert((textFileName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), getPage(i));
+		sampleHash.insert((textFileName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), currentText->getPage(i));
 	}
 	return (currentText != NULL);
 }
@@ -430,8 +422,9 @@ bool TrainingManager::trainText ( int i )
  */
 bool TrainingManager::allWordsExisting()
 {
+	Q_ASSERT(currentText);
 	QStringList strListAllWords;
-	int pageCount=getPageCount();
+	int pageCount=currentText->getPageCount();
 	for ( int x=0; x<pageCount; x++ )
 	{
 		QStringList strList = getPage ( x ).split ( " " );
@@ -482,30 +475,6 @@ QString TrainingManager::getPage ( int i )
 {
 	if ( !currentText ) return "";
 	return currentText->getPage ( i );
-}
-
-/**
- * \brief Returns the pagecount of the currently training text
- * \author Peter Grasch
- * \return int
- * count of pages
- */
-int TrainingManager::getPageCount()
-{
-	if ( !currentText ) return 0;
-	return currentText->getPageCount();
-}
-
-/**
- * \brief Returns the name of the currently trained text
- * \author Peter Grasch
- * \return QString
- * Name of the text
- */
-QString TrainingManager::getTextName()
-{
-	if ( !currentText ) return "";
-	return currentText->getName();
 }
 
 /**
@@ -583,15 +552,15 @@ float TrainingManager::calcRelevance ( TrainingText *text )
  *
  *	@author Susanne Tschernegg
  */
-void TrainingManager::finishTrainingSession()
-{
-	addSamples ( sampleHash );
-	sampleHash.clear();
-	
-	emit trainingFinished();
-	
-	initPrompts();
-}
+// void TrainingManager::finishTrainingSession()
+// {
+// 	addSamples ( sampleHash );
+// 	sampleHash.clear();
+// 	
+// 	emit trainingFinished();
+// 	
+// 	init();
+// }
 
 
 /**
@@ -604,7 +573,7 @@ void TrainingManager::finishTrainingSession()
  */
 int TrainingManager::getProbability ( QString wordname )
 {
-	if (!promptsTable) initPrompts();
+	if (!promptsTable) init();
 	
 	wordname = wordname.toUpper();
 	if (wordRelevance.contains(wordname))
@@ -632,16 +601,27 @@ int TrainingManager::getProbability ( QString wordname )
  *  @param QHash<QString, QString> *hash
  *      holds the pagenumber as text and the name of a text with the correspondenting sentence and the time and date, when the training has begun
  */
-void TrainingManager::addSamples ( const QHash<QString, QString>& trainingsMap, bool recompiledLater )
+// void TrainingManager::addSamples ( const QHash<QString, QString>& trainingsMap )
+// {
+// 	Q_ASSERT(promptsTable);
+// 	
+// 	QMutexLocker lock(&promptsLock);
+// 	
+// 	foreach (QString key, trainingsMap.keys())
+// 		promptsTable->insert(key, trainingsMap.value(key));
+// 	
+// 	savePrompts();
+// }
+
+bool TrainingManager::addSample ( const QString& fileBaseName, const QString& prompt )
 {
 	Q_ASSERT(promptsTable);
 	
-	QMutexLocker lock(&promptsLock);
+	if (promptsTable->contains(fileBaseName)) 
+		return false;
 	
-	foreach (QString key, trainingsMap.keys())
-		promptsTable->insert(key, trainingsMap.value(key));
-	
-	savePrompts(recompiledLater);
+	promptsTable->insert(fileBaseName, prompt);
+	return true;
 }
 
 

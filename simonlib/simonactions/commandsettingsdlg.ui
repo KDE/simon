@@ -16,16 +16,32 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" >
      <item>
-      <widget class="QCheckBox" name="kcfg_UseGlobalTrigger" >
+      <widget class="QLabel" name="lbTrigger" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
        <property name="text" >
-        <string>Globalen Trigger verwenden:</string>
+        <string>Trigger:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KLineEdit" name="kcfg_GlobalTrigger" >
+      <widget class="KLineEdit" name="leTrigger" >
        <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="showClearButton" stdset="0" >
         <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbApplyToAll" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="text" >
+        <string>Für alle anwenden</string>
        </property>
       </widget>
      </item>
@@ -60,22 +76,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>kcfg_UseGlobalTrigger</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>kcfg_GlobalTrigger</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>174</x>
-     <y>41</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>314</x>
-     <y>52</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

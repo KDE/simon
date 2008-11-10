@@ -22,12 +22,12 @@
 #include <simoninfo/simoninfo.h>
 #include <simonprotocol/simonprotocol.h>
 #include <speechmodelmanagement/modelmanager.h>
-// #include <speechmodelbase/modelcontainer.h>
 #include <speechmodelbase/wordlistcontainer.h>
 #include <speechmodelbase/grammarcontainer.h>
 #include <speechmodelbase/languagedescriptioncontainer.h>
 #include <speechmodelbase/trainingcontainer.h>
 #include <speechmodelbase/model.h>
+#include <simonprogresstracking/operation.h>
 #include "recognitionconfiguration.h"
 
 #include <QByteArray>
@@ -54,6 +54,10 @@
 RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 {
 	recognitionReady=false;
+
+	synchronisationOperation=NULL;
+	modelCompilationOperation=NULL;
+
 	socket = new QSslSocket();
 	timeoutWatcher = new QTimer(this);
 	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
@@ -950,7 +954,12 @@ void RecognitionControl::messageReceived()
 
 
 			case Simond::ModelCompilationStarted: {
-				emit status(i18n("Modell wird erstellt"));
+				if (modelCompilationOperation)
+				{
+					modelCompilationOperation->deleteLater();
+					modelCompilationOperation = 0;
+				}
+				modelCompilationOperation = new Operation(thread(), i18n("Modellerstellung"), i18n("Initialisiere..."));
 				break;
 			}
 			case Simond::ModelCompilationStatus: {
@@ -968,7 +977,8 @@ void RecognitionControl::messageReceived()
 				msg >> statusByte;
 				statusMsg = QString::fromUtf8(statusByte);
 				
-				emit status(i18n("Modell: %1", statusMsg), progNow, progMax);
+				if (modelCompilationOperation)
+					modelCompilationOperation->update(i18n("Modell: %1", statusMsg), progNow, progMax);
 				break;
 			}
 			
@@ -984,6 +994,11 @@ void RecognitionControl::messageReceived()
 				errorMsg = QString::fromUtf8(errorByte);
 				
 				emit compilationError(errorMsg);
+				if (modelCompilationOperation)
+				{
+					modelCompilationOperation->canceled();
+					modelCompilationOperation->deleteLater();
+				}
 				break;
 			}
 
@@ -1008,7 +1023,6 @@ void RecognitionControl::messageReceived()
 				QString errormsg = QString::fromUtf8(errormsgByte);
 				emit recognitionError(errormsg);
 				emit recognitionStatusChanged(RecognitionControl::Stopped);
-// 				emit recognitionStatusChanged(RecognitionControl::TemporarilyUnavailable);
 				break;
 			}
 

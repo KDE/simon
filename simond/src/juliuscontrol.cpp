@@ -18,6 +18,7 @@
  */
 
 #include "juliuscontrol.h"
+#include <QFile>
 #include <KLocalizedString>
 #include <KStandardDirs>
 #include <KConfig>
@@ -42,9 +43,17 @@ JuliusControl::JuliusControl(const QString& username, QObject *parent) : Recogni
 
 Jconf* JuliusControl::setupJconf()
 {
+	if (!QFile::exists(KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.jconf")))
+	{
+		if (!QFile::copy(KStandardDirs::locate("appdata", "default.jconf"), 
+			KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.jconf")))
+			return 0;
+	}
+	
+	
 	QString dirPath =  KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
-	QByteArray dfa = dirPath.toUtf8()+"model.dfa";
-	QByteArray dict = dirPath.toUtf8()+"model.dict";
+	QByteArray jConfPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.jconf").toUtf8();
+	QByteArray gram = dirPath.toUtf8()+"model";
 	QByteArray hmmDefs = dirPath.toUtf8()+"hmmdefs";
 	QByteArray tiedList = dirPath.toUtf8()+"tiedlist";
 	
@@ -53,22 +62,16 @@ Jconf* JuliusControl::setupJconf()
 	KConfigGroup cGroup(&config, "");
 	QByteArray smpFreq = QString(cGroup.readEntry("SampleRate")).toUtf8();
 
-	int argc=30;
-	char* argv[] = { "", "-input", "mic", 
-			 "-dfa", dfa.data(), 
-			 "-v", dict.data(), 
+	int argc=15;
+	char* argv[] = {"simond", "-C", jConfPath.data(),
+			"-gram", gram.data(),
+			 "-gram", gram.data(), 
 			 "-h", hmmDefs.data(),
 			 "-hlist", tiedList.data(),
-			 "-penalty1", "5.0", 
-			 "-penalty2", "20.0",
-			 "-iwcd1", "max",
-			 "-gprune", "safe",
-			 "-b2", "200",
-			 "-sb", "200.0",
-			 "-spmodel", "sp",
-			 "-iwsp",
-			 "-smpFreq", smpFreq.data(),
-			 "-iwsppenalty", "-70.0"};
+			 "-input", "mic", 
+			 "-smpFreq", smpFreq.data()};
+			 
+
 	for (int i=0; i < argc; i++)
 		kDebug() << argv[i];
 	
@@ -110,6 +113,25 @@ QString getHypoPhoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
 	return result;
 }
 
+void
+put_hypo_phoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
+{
+  int i,j;
+  WORD_ID w;
+  static char buf[MAX_HMMNAME_LEN];
+
+  if (seq != NULL) {
+    for (i=0;i<n;i++) {
+      if (i > 0) printf(" |");
+      w = seq[i];
+      for (j=0;j<winfo->wlen[w];j++) {
+	center_name(winfo->wseq[w][j]->name, buf);
+	printf(" %s", buf);
+      }
+    }
+  }
+  printf("\n");  
+}
 
 void outputResult(Recog *recog, void *control)
 {
@@ -230,7 +252,6 @@ void juliusCallbackPoll(Recog *recog, void *control)
 		
 		case JuliusControl::Stop:
 			kDebug() << "Stopping...";
-// 			j_request_terminate(recog);
 			break;
 		
 		case JuliusControl::Pause:
@@ -257,6 +278,7 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 	{
 		kDebug() << "Recognition already running... HANDLEME";
 		//FIXME
+		schedule_grammar_update(recog);
 		return true;
 	}
 	
@@ -269,11 +291,13 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 		return false;
 	}
 	
-// 	FILE *fp;
-// 	fp = fopen(KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8(), "w");
-// 	if (fp == NULL) 
-// 		return false;
-// 	jlog_set_output(fp);
+ 	FILE *fp;
+	QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
+	kDebug () << logPath.data();
+ 	fp = fopen(logPath.data(), "w");
+ 	if (fp == NULL) 
+ 		return false;
+ 	jlog_set_output(fp);
 	
 	Jconf *jconf = setupJconf();
 	if (!jconf)
@@ -305,14 +329,6 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 }
 
 
-/* how to stop:
-00153          add a function to CALLBACK_POLL and call j_request_pause() or
-00154          j_request_terminate() in the function.
-00155          Julius will them stop search and call CALLBACK_PAUSE_FUNCTION.
-00156          after all callbacks in CALLBACK_PAUSE_FUNCTION was processed,
-00157          Julius resume the search.
-00158       */
-
 
 void JuliusControl::run()
 {
@@ -322,8 +338,7 @@ void JuliusControl::run()
 	/* Initialize audio input */
 	/**************************/
 	/* initialize audio input device */
-	/* ad-in thread starts at this time for microphone */
-	if (j_adin_init(recog) == false) {    /* error */
+	/* ad-in thread starts at this time for microphone */if (j_adin_init(recog) == false) {    /* error */
 		emit recognitionError(i18n("Couldn't start adin-thread"));
 		return;
 	}
@@ -354,6 +369,7 @@ void JuliusControl::run()
 	{
 		emit recognitionError("recognize_stream: -1");
 	}
+	
 }
 
 void JuliusControl::stop()
@@ -361,7 +377,6 @@ void JuliusControl::stop()
 	if (!recog) return;
 	
 	pauseMutex.unlock();
-	pushRequest(JuliusControl::Stop);
 	j_request_terminate(recog);
 	quit();
 	wait(1000);

@@ -23,3 +23,5 @@ add_subdirectory( config )
 add_subdirectory( src )
 add_subdirectory( icons )
 add_subdirectory(scripts)
+
+install( FILES default.jconf  DESTINATION ${DATA_INSTALL_DIR}/simond )

@@ -26,6 +26,7 @@
 #include <QVariantList>
 #include <QHash>
 
+class QListWidgetItem;
 class KPageWidget;
 class KPageWidgetItem;
 /**
@@ -41,6 +42,7 @@ Q_OBJECT
 
 signals:
 	void pluginSelectionChanged(const QStringList& pluginsToLoad);
+	void triggerChanged(const QStringList& triggers);
 
 private:
 	static CommandSettings* instance;
@@ -53,10 +55,10 @@ private:
 	QHash<KCModule*, KPageWidgetItem*> moduleHash;
 
 	QStringList pluginsToLoad;
-// 	bool storedUseGlobalTrigger;
-// 	QString storedGlobalTrigger;
+	QStringList storedTrigger;
 
 	QStringList availableCommandManagers();
+	void updatePluginListWidgetItem(QListWidgetItem *item, const QString& trigger);
 
 
 public slots:
@@ -67,6 +69,10 @@ public slots:
 private slots:
 	void slotChanged();
 	void pluginChanged(bool isChanged);
+	void activePluginSelectionChanged(QListWidgetItem* activePluginItem);
+	void currentTriggerChanged(const QString& newTrigger);
+	void applyToAllClicked();
+	void initPluginListWidgetItem(QListWidgetItem* item);
 
 public:
 	static CommandSettings* getInstance(QWidget *parent=0, const QVariantList& args=QVariantList())
@@ -77,14 +83,12 @@ public:
 
 	CommandSettings(QWidget* parent=0, const QVariantList& args=QVariantList());
 	QStringList getPluginsToLoad();
-	~CommandSettings();
+	QStringList getTrigger();
 	
-// 	bool useGlobalTrigger() { return storedUseGlobalTrigger; }
-// 	QString globalTrigger() { return storedGlobalTrigger; }
-
 	void registerPlugIn(KCModule *plugin);
 	void unregisterPlugIn(KCModule *plugin);
 
+	~CommandSettings();
 };
 
 #endif

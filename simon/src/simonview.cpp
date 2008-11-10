@@ -20,7 +20,6 @@
 
 #include "simonview.h"
 
-
 #include "inlinewidgetview.h"
 
 
@@ -29,6 +28,9 @@
 
 #include <simonactionsui/runcommandview.h>
 #include <trayiconmanager.h>
+
+#include <simonprogresstracking/statusmanager.h>
+#include <simonprogresstracking/compositeprogresswidget.h>
 
 #include <speechmodelmanagement/wordlistmanager.h>
 #include <simonmodelmanagementui/trainingview.h>
@@ -41,11 +43,14 @@
 #include <QCryptographicHash>
 #include <QCloseEvent>
 #include <QMenu>
+#include <QThread>
 
 
 #include <KMessageBox>
 #include <KApplication>
 #include <KAction>
+#include <KActionMenu>
+#include <KMenu>
 #include <KLocale>
 #include <KActionCollection>
 #include <KStandardAction>
@@ -118,10 +123,8 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	statusBar()->insertItem(i18n("Nicht Verbunden"),0);
 	statusBar()->insertItem("",1,10);
-	statusBar()->insertPermanentWidget(2,ui.pbProgress);
+	statusBar()->insertPermanentWidget(2,StatusManager::global(this)->createWidget(this));
 	
-	connect(WordListManager::getInstance(), SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
-	connect(WordListManager::getInstance(), SIGNAL(progress(int,int)), this, SLOT(displayProgress(int, int)));
 
 	//Preloads all Dialogs
 	guessChildTriggers ( ( QObject* ) this );
@@ -130,7 +133,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	this->trainDialog = new TrainingView(this);
 
 	info->writeToSplash ( i18n ( "Lade \"Wortliste\"..." ) );
-	this->wordList = new WordListView ( trainDialog, this );
+	this->wordList = new WordListView(this);
 
 	info->writeToSplash ( i18n ( "Lade \"Wort hinzufügen\"..." ) );
 	this->addWordView = AddWordView::getInstance();
@@ -173,8 +176,8 @@ void SimonView::setupActions()
 	connect(disconnectAction, SIGNAL(triggered(bool)),
 		control, SLOT(disconnectFromServer()));
 
-	KAction* connectActivate = new KAction(this);
-	connectActivate->setMenu(new QMenu());
+	KActionMenu* connectActivate = new KActionMenu(this);
+// 	connectActivate->setMenu(new QMenu());
 	connectActivate->setCheckable(true);
 	connectActivate->setText(i18n("Verbinden"));
 	connectActivate->setIcon(KIcon("network-disconnect"));
@@ -257,31 +260,16 @@ void SimonView::setupSignalSlots()
 	QObject::connect ( control,SIGNAL ( guiAction ( QString ) ), ui.inlineView,SIGNAL ( guiAction ( QString ) ) );
 	connect ( control, SIGNAL(guiAction(QString)), this, SLOT(doAction(QString)));
 	connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
-	connect ( control, SIGNAL(statusInfo(const QString&)), this, SLOT(displayStatus(const QString&)));
-	connect ( control, SIGNAL(statusError(const QString&)), this, SLOT(displayError(const QString&)));
-	connect ( control, SIGNAL(progressInfo(int, int)), this, SLOT(displayProgress(int, int)));
 
 	connect ( addWordView, SIGNAL ( addedWord() ), wordList,
 	          SLOT ( filterListbyPattern() ) );
-	connect ( trainDialog, SIGNAL ( trainingCompleted() ), wordList,
-	          SLOT ( filterListbyPattern() ) );
-}
-
-void SimonView::displayStatus(const QString &status)
-{
-	statusBar()->changeItem(status, 1);
+		  
+	connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
 }
 
 void SimonView::displayConnectionStatus(const QString &status)
 {
 	statusBar()->changeItem(status, 0);
-}
-
-void SimonView::displayProgress(int cur, int max)
-{
-	ui.pbProgress->setMaximum(max);
-	if (max != -1)
-		ui.pbProgress->setValue(cur);
 }
 
 
@@ -444,7 +432,7 @@ void SimonView::toggleActivation()
  */
 void SimonView::representState(SimonControl::SystemStatus status)
 {
-	QAction *connectActivate = actionCollection()->action("connectActivate");
+	KActionMenu *connectActivate = dynamic_cast<KActionMenu*>(actionCollection()->action("connectActivate"));
 	switch (status)
 	{
 		case SimonControl::Disconnected: {

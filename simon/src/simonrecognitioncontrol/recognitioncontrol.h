@@ -28,6 +28,7 @@
 class QSslSocket;
 class QTimer;
 class ModelManager;
+class Operation;
 
 const qint8 protocolVersion=1;
 
@@ -59,6 +60,9 @@ public:
 private:
 	bool recognitionReady;
 	QSslSocket *socket; //!< QSslSocket for communicating with the juliusd-socket
+
+	Operation *synchronisationOperation;
+	Operation *modelCompilationOperation;
 
 	QTimer *timeoutWatcher;
 	ModelManager *modelManager;

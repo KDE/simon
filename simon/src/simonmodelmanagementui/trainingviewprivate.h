@@ -42,45 +42,42 @@ class ImportTrainingTexts;
 class TrainingViewPrivate : public QWidget {
 	Q_OBJECT
 
-signals:
-	void trainingCompleted();
-
 private:
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
-	TrainingManager *trainMgr;
 	ImportTrainingTexts *import;
 	int currentPage; //!< when we train a text this will hold the page we are on
-	int oldId; //!< where did we come from?
 
 	RecWidget *recorder;
-    int recordedPages; //!< this counter will hold the recorded pages; it will change, when pages are recorded or deleted
+	int recordedPages; //!< this counter will hold the recorded pages; it will change, when pages are recorded or deleted
 	
-	QString makeTextProgress(int msecs);
-
-public slots:
-	void finish();
-	void importTexts();
-	void trainSelected();
-	
-	void nextPage();
-	void prevPage();
-	void loadList();
-	void cancelReading();
-    void cancelTraining();
 	void resetRecorder();
-	void backToMain();
-	void deleteSelected();
-	void fetchPage(int page);
-	void trainWords(const WordList& words);
-	void startTraining();
-	void importDirectory();
-	TrainingManager* getManager() { return trainMgr; }
+	void cleanUpTrainingSamples();
 
 private slots:
-    void increaseRecordedPages();
-    void decreaseRecordedPages();
+	void increaseRecordedPages();
+	void decreaseRecordedPages();
 
 	void adaptNavigationButtons();
+	void backToMain();
+
+	void startTraining();
+	void fetchPage(int page);
+	void nextPage();
+	void prevPage();
+	void cancelReading();
+	void finish();
+
+
+public slots:
+	void loadList();
+
+	void deleteSelected();
+
+	void trainSelected();
+	void trainWords(const WordList& words);
+
+	void importTexts();
+	void importDirectory();
 
 public:
 	TrainingViewPrivate(QWidget *parent=0);
@@ -88,7 +85,6 @@ public:
 	
 	void setSettingsHidden();
 	void setSettingsVisible();
-	void cleanUpTrainingSamples();
 
 };
 #endif

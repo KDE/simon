@@ -260,53 +260,15 @@
            <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
 &lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Bitte nehmen Sie nun Seite für Seite des Textes auf. &lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Sie können jederzeit zu einer vorigen Seite zurückgehen, es gehen dabei keine Daten verloren.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Wenn Sie alle Seiten aufgenommen haben wird der Knopf "Fertigstellen" verfügbar sein und das Sprachmodell mit den gesammelten Daten neu berechnen.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;">Bitte achten Sie darauf alle Aufnahmen ohne Hintergrundgeräusche aufzunehmen, halten Sie sich genau an den angezeigten Text und versuchen Sie möglichst deutlich aber natürlich zu sprechen.&lt;/p>&lt;/body>&lt;/html></string>
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Bitstream Vera Sans'; font-size:8pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Bitte nehmen Sie nun Seite für Seite des Textes auf. &lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Sie können jederzeit zu einer vorigen Seite zurückgehen, es gehen dabei keine Daten verloren.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Wenn Sie alle Seiten aufgenommen haben wird der Knopf "Fertigstellen" verfügbar sein und das Sprachmodell mit den gesammelten Daten neu berechnen.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans Serif'; font-size:9pt;">Bitte achten Sie darauf alle Aufnahmen ohne Hintergrundgeräusche aufzunehmen, halten Sie sich genau an den angezeigten Text und versuchen Sie möglichst deutlich aber natürlich zu sprechen.&lt;/p>&lt;/body>&lt;/html></string>
           </property>
          </widget>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="page_2" >
-      <layout class="QVBoxLayout" >
-       <item>
-        <widget class="QGroupBox" name="gbCurrentlyTraining" >
-         <property name="title" >
-          <string>Trainiere Sprachmodell</string>
-         </property>
-         <layout class="QVBoxLayout" >
-          <item>
-           <widget class="QLabel" name="lbProgressInfo" >
-            <property name="text" >
-             <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
-p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal; text-decoration:none;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Das Sprachmodell wird mit den von ihnen bereitgestellten Daten jetzt trainiert.&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Danke das Sie sich die Zeit genommen haben und bei der Verbesserung des Sprachmodelles mitgeholfen haben.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Das Modell wird nun neu erstellt. Dies kann, je nach Menge und Qualität der Trainingsdaten und Ihrer Rechenleistung, einige Zeit in Anspruch nehmen.&lt;/p>
-&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Bitte beachten Sie, dass wenn Sie diesen Vorgang jetzt abbrechen, die bisher in dieser Trainingseinheit gesammelten Daten die Erkennungsrate &lt;span style=" font-style:italic;">nicht&lt;/span> weiter verbessern.&lt;/p>&lt;br />&lt;/body>&lt;/html></string>
-            </property>
-            <property name="wordWrap" >
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="KPushButton" name="pbBackToMain2" >
-            <property name="text" >
-             <string>Zurück</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </widget>
        </item>
       </layout>
