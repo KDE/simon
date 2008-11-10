@@ -15,6 +15,16 @@
  *   License along with this program; if not, write to the
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ *
+ *   Powered By:
+ *
+ *   Large Vocabulary Continuous Speech Recognition Engine Julius
+ *   Copyright (c) 1997-2000 Information-technology Promotion Agency, Japan
+ *   Copyright (c) 1991-2008 Kawahara Lab., Kyoto University
+ *   Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
+ *   Copyright (c) 2005-2008 Julius project team, Nagoya Institute of Technology
+ *
  */
 
 #ifndef JULIUSCONTROL_H
