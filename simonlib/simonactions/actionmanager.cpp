@@ -31,6 +31,7 @@
 #include <KServiceTypeTrader>
 #include <KStandardDirs>
 #include <KDesktopFile>
+#include <KDebug>
 
 #include "commandsettings.h"
 
@@ -247,10 +248,9 @@ CommandList* ActionManager::getCommandList()
 	return out;
 }
 
-#include <KDebug>
 void ActionManager::process(QString input)
 {
-	kDebug() << "===============\nInput: " << input;
+	kDebug() << "Input: " << input;
 	Q_ASSERT(managers);
 	Q_ASSERT(commandSettings);
 
@@ -266,14 +266,10 @@ void ActionManager::process(QString input)
 		currentTrigger = trigger[i];
 		if (input.startsWith(currentTrigger))
 		{
-			kDebug() << "Triggering...";
-			kDebug() << "Current trigger: " << currentTrigger;
-			
 			if (!currentTrigger.isEmpty())
 				realCommand = input.mid(currentTrigger.count()+1);
 			else realCommand = input;
 
-			kDebug() << "Command: " << realCommand;
 			if(managers->at(i)->trigger(realCommand))
 				commandFound=true;
 		}
