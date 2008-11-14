@@ -58,6 +58,7 @@ public:
 	};
 
 private:
+	QByteArray stillToProcess;
 	bool recognitionReady;
 	QSslSocket *socket; //!< QSslSocket for communicating with the juliusd-socket
 
@@ -69,8 +70,6 @@ private:
 
 	QStringList serverConnectionsToTry;
 	QStringList serverConnectionErrors;
-
-	void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
 
 signals:
 	void connected();

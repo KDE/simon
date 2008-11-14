@@ -66,7 +66,7 @@ class SynchronisationManager : public QObject
 		QDateTime getLanguageDescriptionDate();
 		bool hasLanguageDescription();
 		LanguageDescriptionContainer* getLanguageDescription();
-		bool storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab, const QByteArray& shadowLexicon, 
+		bool storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab, 
 				        const QByteArray& treeHed);
 		
 		QDateTime getTrainingDate();

@@ -83,7 +83,7 @@ public:
 
 	WordList* getSimpleVocab();
 
-	bool saveWordList(WordList *list, const QString& lexiconFilename, const QString& vocabFilename);
+	bool saveWordList(WordList *list, const QString& vocabFilename, const QString& lexiconFilename="");
 
 	WordList* getWordList() { return this->wordlist; }
 	inline WordList* getShadowList();
@@ -121,7 +121,7 @@ public:
 
 	bool refreshWordListFiles(const QByteArray& simpleVocab,
 			const QByteArray& activeVocab, const QByteArray& activeLexicon);
-	bool refreshShadowListFiles(const QByteArray& activeVocab, const QByteArray& activeLexicon);
+	bool refreshShadowListFiles(const QByteArray& vocab);
 
 	bool initShadowList();
 	bool initWordList();

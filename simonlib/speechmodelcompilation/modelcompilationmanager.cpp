@@ -196,14 +196,14 @@ bool ModelCompilationManager::makeTempVocab()
 bool ModelCompilationManager::makeDfa()
 {
 	QString execStr = '"'+mkfa+"\" -e1 -fg \""+KStandardDirs::locateLocal("tmp", userName+"/reverseGrammar")+"\" -fv \""+KStandardDirs::locateLocal("tmp", userName+"/tempvoca")+"\" -fo \""+KStandardDirs::locateLocal("tmp", userName+"/dfaTemp.tmp")+"\" -fh \""+KStandardDirs::locateLocal("tmp", userName+"/dfaTemp.h")+"\"";
-// 	kDebug() << execStr;
+ 	kDebug() << execStr;
 	proc->start(execStr);
 	proc->waitForFinished(-1);
 	if (proc->exitCode() != 0) 
 		return false;
 
 	execStr = '"'+dfaMinimize+'"'+" \""+KStandardDirs::locateLocal("tmp", userName+"/dfaTemp.tmp")+"\" -o \""+dfaPath+'"';
-// 	kDebug() << execStr;
+ 	kDebug() << execStr;
 	proc->start(execStr);
 	proc->waitForFinished(-1);
 	if (proc->exitCode()!= 0) 
@@ -445,24 +445,7 @@ bool ModelCompilationManager::processError(const QString& userError)
 		//FIXME propagate error:
 // 		emit error(i18n("Phonem %1 kommt in den Trainingsdaten nicht vor.\n\nBitte trainieren Sie ein Wort welches das Phonem %1 beinhaltet.\n\nSie können zum Beispiel in der Wortliste ein beliebiges Wort wählen welches diesen Phonem beinhaltet, ihn zu einem speziellen Training hinzufügen und dieses Training dann durchführen.", phoneme));
 // 		emit missingPhoneme(phoneme);
-	} else
-	if (err.startsWith("ERROR [+6510]"))  //sample without prompts-entry
-	{ //LOpen: Unable to open label file /path/to/missing-sample.lab
-// 		err = err.mid(48); //err.left(err.indexOf("\n"));
-// ERROR [+6510]  LOpen: Unable to open label file ./tmp//modeltmp/mfcs/Test_1_2008-03-19_13-45-08_2008-03-24_22-23-22.lab
-
-		err = err.left(err.indexOf('\n'));
-		QString label = err.mid(48);
-		label = label.mid(label.lastIndexOf('/'));
-		QString sampleName = label.left(label.count()-4);
-		if (!sampleName.isEmpty())
-		{
-			QString filename = samplePath+'/'+sampleName+".wav";
-			
-// 			emit sampleWithoutWord(filename);
-		}
-	}
-	else if (err.contains("Error:       undefined class \""))
+	} else if (err.contains("Error:       undefined class \""))
 	{
 		int startIndex = err.indexOf("Error:       undefined class \"") + 30;
 		
@@ -793,7 +776,8 @@ bool ModelCompilationManager::buildHMM12()
 
 bool ModelCompilationManager::buildHMM11()
 {
-	proc->start('"'+hERest+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/wintri.mlf")+"\" -t 250.0 150.0 3000.0 -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm10/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm10/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm11/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/triphones1")+"\"");
+	QString execStr = '"'+hERest+"\" -A -D -T 1 -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -I \""+KStandardDirs::locateLocal("tmp", userName+"/wintri.mlf")+"\" -t 250.0 150.0 3000.0 -S \""+KStandardDirs::locateLocal("tmp", userName+"/train.scp")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm10/macros")+"\" -H \""+KStandardDirs::locateLocal("tmp", userName+"/hmm10/hmmdefs")+"\" -M \""+KStandardDirs::locateLocal("tmp", userName+"/hmm11/")+"\" \""+KStandardDirs::locateLocal("tmp", userName+"/triphones1")+"\"";
+	proc->start(execStr);
 	
 	proc->waitForFinished(-1);
 	return (proc->exitCode()==0);

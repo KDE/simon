@@ -31,38 +31,47 @@ ProgressWidget::ProgressWidget(QPointer<Operation> op, QWidget* parent): QWidget
 {
 	this->op = op;
 
-	name = new QLabel(op->name(), this);
-	QFont font(name->font());
-	font.setBold(true);
-	name->setFont(font);
-	currentAction = new QLabel(op->currentAction(), this);
-
-	bar = new QProgressBar(this);
-	bar->setValue(op->currentProgress());
-	bar->setMaximum(op->maxProgress());
-
-	cancelButton = new KPushButton(KIcon("process-stop"), i18n("Abbrechen"), this);
+	if (op)
+	{
+		name = new QLabel(op->name(), this);
+		QFont font(name->font());
+		font.setBold(true);
+		name->setFont(font);
+		currentAction = new QLabel(op->currentAction(), this);
 	
-	QHBoxLayout *hBox = new QHBoxLayout();
-	hBox->addWidget(currentAction);
-	hBox->addWidget(bar);
-	hBox->addWidget(cancelButton);
-	if (op->isAtomic()) cancelButton->setEnabled(false);
-
-	QVBoxLayout *vBox = new QVBoxLayout(this);
-	vBox->addWidget(name);
-	vBox->addLayout(hBox);
-	vBox->addWidget(new QSplitter(this));
+		bar = new QProgressBar(this);
+		bar->setValue(op->currentProgress());
+		bar->setMaximum(op->maxProgress());
 	
-//	connect(op, SIGNAL(changed()), this, SLOT(update()));
+		cancelButton = new KPushButton(KIcon("process-stop"), i18n("Abbrechen"), this);
+		if (op->isAtomic()) cancelButton->setEnabled(false);
+		
+		QHBoxLayout *hBox = new QHBoxLayout();
+		hBox->addWidget(currentAction);
+		hBox->addWidget(bar);
+		hBox->addWidget(cancelButton);
+
+		QVBoxLayout *vBox = new QVBoxLayout(this);
+		vBox->addWidget(name);
+		vBox->addLayout(hBox);
+		vBox->addWidget(new QSplitter(this));
+		connect(cancelButton, SIGNAL(clicked()), op, SLOT(cancel()));
+	}
+	
+	//connect(op, SIGNAL(changed()), this, SLOT(update()));
 }
 
 
+#include <KDebug>
 void ProgressWidget::update()
 {
 	currentAction->setText(op->currentAction());
 	bar->setValue(op->currentProgress());
 	bar->setMaximum(op->maxProgress());
+
+	if (!op->isRunning())
+		cancelButton->setDisabled(true);
+	kDebug() << "Updated";
 }
 
 

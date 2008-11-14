@@ -58,7 +58,7 @@ class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
 		
 		LanguageDescriptionContainer* getLanguageDescriptionContainer();
 		QDateTime getLanguageDescriptionModifiedTime();
-		bool storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, const QByteArray& shadowLexicon, 
+		bool storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, 
 				        const QByteArray& treeHed);
 		
 		TrainingContainer* getTrainingContainer();

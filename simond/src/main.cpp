@@ -26,6 +26,7 @@
 #include <KLocale>
 #include <KGlobal>
 #include <KComponentData>
+#include <QApplication>
 
 static const char description[] =
     I18N_NOOP("The simon recognition daemon");
@@ -42,7 +43,7 @@ int main(int argc, char **argv)
 
 	KGlobal::setActiveComponent(KComponentData(about));
 
-	QCoreApplication app(argc,argv);
+	QApplication app(argc,argv);
 
 	SimondControl *control = new SimondControl();
 	if (!control->init())

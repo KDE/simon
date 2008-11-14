@@ -33,8 +33,10 @@
 #include <QDir>
 #include <QDateTime>
 #include <QHostAddress>
+#include <QMutexLocker>
 
 #include <KDebug>
+#include <KMessageBox>
 #include <KLocalizedString>
 #include <KStandardDirs>
 #include <KConfigGroup>
@@ -93,6 +95,12 @@ void ClientSocket::processRequest()
 		Simond::Request request;
 		stream >> type;
 		request = (Simond::Request) type;
+
+		if ((request != Simond::Login) &&  (username.isEmpty()))
+		{
+			sendCode(Simond::AccessDenied);
+			break;
+		}
 		
 		switch (request)
 		{
@@ -156,12 +164,10 @@ void ClientSocket::processRequest()
 					connect(recognitionControl, SIGNAL(recognitionPaused()), this, SLOT(recognitionPaused()));
 					connect(recognitionControl, SIGNAL(recognitionResumed()), this, SLOT(recognitionResumed()));
 					connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const QString&, const QString&)), this, SLOT(sendRecognitionResult(const QString&, const QString&, const QString&)));
-// 					connect(recognitionControl, SIGNAL(recognitionTemporarilyUnavailable(const QString&)), this, SLOT(recognitionTemporarilyUnavailable(const QString&)));
 					
 					sendCode(Simond::LoginSuccessful);
-				} else {
+				} else
 					sendCode(Simond::AuthenticationFailed);
-				}
 				
 				break;
 				
@@ -171,16 +177,19 @@ void ClientSocket::processRequest()
 			{
 				if (synchronisationRunning) break;
 				
-				if (username.isEmpty()) {
-					sendCode(Simond::AccessDenied);
-					break;
-				}
 				synchronisationRunning = true;
 				if (!synchronisationManager)
 					synchronisationManager = new SynchronisationManager(username, this);
 				
 				sendCode(Simond::GetActiveModelDate);
 				break;
+			}
+
+			case Simond::AbortSynchronisation:
+			{
+				if (!synchronisationRunning) break;
+
+				synchronisationDone();
 			}
 			
 
@@ -215,11 +224,6 @@ void ClientSocket::processRequest()
 
 			case Simond::ActiveModel:
 			{
-				if (username.isEmpty()) {
-					sendCode(Simond::AccessDenied);
-					break;
-				}
-				
 				Q_ASSERT(synchronisationManager);
 				
 				kDebug() << "Received Active model";
@@ -248,10 +252,6 @@ void ClientSocket::processRequest()
 
 			case Simond::ErrorRetrievingActiveModel:
 			{
-				if (username.isEmpty()) {
-					sendCode(Simond::AccessDenied);
-					break;
-				}
 				Q_ASSERT(synchronisationManager);
 				
 				kDebug() << "Client reported error during the retrieving of the active model";
@@ -266,10 +266,6 @@ void ClientSocket::processRequest()
 			
 			case Simond::ActiveModelSampleRate:
 			{
-				if (username.isEmpty()) {
-					sendCode(Simond::AccessDenied);
-					break;
-				}
 				Q_ASSERT(synchronisationManager);
 				int sampleRate;
 				waitForMessage(sizeof(int), stream, msg);
@@ -280,9 +276,11 @@ void ClientSocket::processRequest()
 
 			case Simond::ModelSrcDate:
 			{
+				kDebug() << "Getting model-src-date";
 				QDateTime remoteModelDate;
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteModelDate;
+				kDebug() << remoteModelDate;
 				
 				Q_ASSERT(synchronisationManager);
 				
@@ -550,16 +548,18 @@ void ClientSocket::processRequest()
 				waitForMessage(sizeof(qint64), stream, msg);
 				stream >> length;
 				
+// 				KMessageBox::information(0, "waiting for: "+QString::number(length));
 				waitForMessage(length, stream, msg);
+// 				KMessageBox::information(0, "Done");
 				
-				QByteArray treeHed, shadowVocab, shadowLexicon;
+				QByteArray treeHed, shadowVocab;
 				QDateTime changedTime;
+
 				stream >> changedTime;
 				stream >> treeHed;
 				stream >> shadowVocab;
-				stream >> shadowLexicon;
 				
-				if (!synchronisationManager->storeLanguageDescription(changedTime, shadowVocab, shadowLexicon, treeHed))
+				if (!synchronisationManager->storeLanguageDescription(changedTime, shadowVocab, treeHed))
 				{
 					sendCode(Simond::LanguageDescriptionStorageFailed);
 				} else 
@@ -570,11 +570,6 @@ void ClientSocket::processRequest()
 
 			case Simond::GetTrainingsSample:
 			{
-				if (username.isEmpty()) {
-					sendCode(Simond::AccessDenied);
-					break;
-				}
-				
 				Q_ASSERT(synchronisationManager);
 				
 				
@@ -594,11 +589,6 @@ void ClientSocket::processRequest()
 
 			case Simond::ErrorRetrievingTrainingsSample:
 			{
-				if (username.isEmpty()) {
-					sendCode(Simond::AccessDenied);
-					break;
-				}
-				
 				Q_ASSERT(synchronisationManager);
 				synchronisationDone();
 				
@@ -607,11 +597,6 @@ void ClientSocket::processRequest()
 
 			case Simond::TrainingsSample:
 			{
-				if (username.isEmpty()) {
-					sendCode(Simond::AccessDenied);
-					break;
-				}
-				
 				Q_ASSERT(synchronisationManager);
 				
 				qint64 length;
@@ -635,40 +620,24 @@ void ClientSocket::processRequest()
 
 			case Simond::StartRecognition:
 			{
-				if (username.isEmpty()) {
-					sendCode(Simond::AccessDenied);
-					break;
-				}
 				recognitionControl->start();
 				break;
 			}
 
 			case Simond::StopRecognition:
 			{
-				if (username.isEmpty()) {
-					sendCode(Simond::AccessDenied);
-					break;
-				}
 				recognitionControl->stop();
 				break;
 			}
 
 			case Simond::PauseRecognition:
 			{
-				if (username.isEmpty()) {
-					sendCode(Simond::AccessDenied);
-					break;
-				}
 				recognitionControl->pause();
 				break;
 			}
 
 			case Simond::ResumeRecognition:
 			{
-				if (username.isEmpty()) {
-					sendCode(Simond::AccessDenied);
-					break;
-				}
 				recognitionControl->resume();
 				break;
 			}
@@ -686,8 +655,10 @@ void ClientSocket::processRequest()
 
 void ClientSocket::activeModelCompiled()
 {
+	KMessageBox::information(0, "Kompiliert");
 	Q_ASSERT(synchronisationManager);
 	synchronisationManager->modelCompiled();
+	sendCode(Simond::ModelCompilationCompleted);
 	sendActiveModel();
 	
 // 	recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
@@ -730,9 +701,6 @@ void ClientSocket::sendSample(QString sampleName)
 {
 	Q_ASSERT(synchronisationManager);
 	
-	QByteArray toWrite;
-	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	
 	sampleName += ".wav";
 	
 	QByteArray sample = synchronisationManager->getSample(sampleName);
@@ -743,10 +711,13 @@ void ClientSocket::sendSample(QString sampleName)
 		return;
 	}
 
-	qint64 size = sample.count();
+	QByteArray toWrite=QByteArray();
+	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	
+	qint64 size=(qint64) sample.count();
+	//FIXME: Those 32 byte comming out of nowhere drive me nuts
 	out << Simond::TrainingsSample
-		<< size
+		<< (qint64) sample.count()+sizeof(qint32) /*seperator*/
 		<< sample;
 	write(toWrite);
 }
@@ -754,35 +725,42 @@ void ClientSocket::sendSample(QString sampleName)
 
 void ClientSocket::slotModelCompilationStatus(const QString& status, int progressNow, int progressMax)
 {
+	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QByteArray statusByte = status.toUtf8();
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-	stream << (qint32) Simond::ModelCompilationStatus
-		<< (qint64) (statusByte.count()+sizeof(int)+sizeof(int))
-		<< progressNow
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
+	bodyStream <<  progressNow
 		<< progressMax
 		<< statusByte;
 		
+	stream << (qint32) Simond::ModelCompilationStatus
+		<< (qint64) body.count();
+
 	write(toWrite);
-	kDebug() << progressNow << progressMax << status;
+	write(body);
+	waitForBytesWritten(toWrite.count()+body.count());
 }
 
 void ClientSocket::slotModelCompilationError(const QString& error)
 {
+	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray errorByte = error.toUtf8();
 	stream << (qint32) Simond::ModelCompilationError
-		<< (qint64) errorByte.count()
+		<< (qint64) (errorByte.count()+sizeof(qint32) /*seperator*/)
 		<< errorByte;
-		
+	//FIXME: renable
 	write(toWrite);
-	kDebug() << error;
 }
 
 
 void ClientSocket::recompileModel()
 {
+	sendCode(Simond::ModelCompilationStarted);
 	kDebug() << "Compiling model...";
 	modelCompilationManager->startCompilation();
 }
@@ -815,31 +793,25 @@ bool ClientSocket::sendActiveModel()
 	kDebug() << "Sending active model...";
 	Q_ASSERT(synchronisationManager);
 	
-	if (username.isEmpty()) return false;
-	
 	Model *model = synchronisationManager->getActiveModel();
 	
 	if (!model) return false;
 	
-	
-	qint64 size = model->hmmDefs().count()+
-			model->tiedList().count()+
-			model->dict().count()+
-			model->dfa().count()+
-			sizeof(Simond::Request)+sizeof(QDateTime)+
-			sizeof(int)+sizeof(int);
-			
-	QByteArray toWrite;
-	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-	stream << (qint32) Simond::ActiveModel
-		<< size
-		<< synchronisationManager->getActiveModelDate()
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+	bodyStream << synchronisationManager->getActiveModelDate()
 		<< model->sampleRate()
 		<< model->hmmDefs()
 		<< model->tiedList()
 		<< model->dict()
 		<< model->dfa();
+			
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	stream 	<< (qint32) Simond::ActiveModel << (qint64) body.count();
+
 	write(toWrite);
+	write(body);
 	
 	delete model;
 	
@@ -852,12 +824,6 @@ void ClientSocket::synchronisationDone()
 	//reset modelsource
 	modelSource = ClientSocket::Undefined;
 	
-	//send queued messages
-	if (messagesToSend.count() > 0)
-	{
-		write(messagesToSend.takeAt(0));
-	}
-
 	Q_ASSERT(recognitionControl);
 	
 	if (synchronisationManager->hasActiveModel())
@@ -867,7 +833,6 @@ void ClientSocket::synchronisationDone()
 
 void ClientSocket::synchronisationComplete()
 {
-	kDebug() << "we are here";
 	sendCode(Simond::SynchronisationComplete);
 	
 	if (synchronisationManager->getActiveModelDate() < synchronisationManager->getModelSrcDate())
@@ -885,22 +850,22 @@ bool ClientSocket::sendWordList()
 	
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
 	WordListContainer *wordList = synchronisationManager->getWordList();
 	if (!wordList) return false;
 	
-	qint64 size = wordList->simpleVocab().count()+
-			wordList->activeVocab().count()+
-			wordList->activeLexicon().count()+
-			sizeof(QDateTime);
-			
-	out << Simond::WordList
-		<< size
-		<< synchronisationManager->getWordListDate()
+	bodyStream << synchronisationManager->getWordListDate()
 		<< wordList->simpleVocab()
 		<< wordList->activeVocab()
 		<< wordList->activeLexicon();
+
+	out << Simond::WordList
+		<< (qint64) body.count();
+
 	write(toWrite);
+	write(body);
 	
 	delete wordList;
 	return true;
@@ -909,22 +874,21 @@ bool ClientSocket::sendWordList()
 
 bool ClientSocket::sendGrammar()
 {
-	kDebug() << "Sending grammar";
 	Q_ASSERT(synchronisationManager);
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
 	GrammarContainer *grammar = synchronisationManager->getGrammar();
 	if (!grammar) return false;
 	
-	qint64 size = grammar->grammarStructures().count()+
-			sizeof(QDateTime);
-	
-	out << Simond::Grammar
-		<< size
-		<< synchronisationManager->getGrammarDate()
+	bodyStream << synchronisationManager->getGrammarDate()
 		<< grammar->grammarStructures();
+	out << Simond::Grammar
+		<< (qint64) body.count();
 	write(toWrite);
+	write(body);
 	
 	delete grammar;
 	return true;
@@ -936,20 +900,20 @@ bool ClientSocket::sendLanguageDescription()
 	Q_ASSERT(synchronisationManager);
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
 	LanguageDescriptionContainer *languageDescription = synchronisationManager->getLanguageDescription();
 	if (!languageDescription) return false;
 	
-	qint64 size = languageDescription->treeHed().count()+languageDescription->shadowVocab().count()+
-			languageDescription->shadowLexicon().count()+sizeof(QDateTime);
-	
-	out << Simond::LanguageDescription
-		<< size
-		<< synchronisationManager->getGrammarDate()
+	bodyStream << synchronisationManager->getLanguageDescriptionDate()
 		<< languageDescription->treeHed()
-		<< languageDescription->shadowVocab()
-		<< languageDescription->shadowLexicon();
+		<< languageDescription->shadowVocab();
+
+	out << Simond::LanguageDescription
+		<< (qint64) body.count();
 	write(toWrite);
+	write(body);
 	
 	delete languageDescription;
 	return true;
@@ -961,21 +925,20 @@ bool ClientSocket::sendTraining()
 	Q_ASSERT(synchronisationManager);
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
 	TrainingContainer *training = synchronisationManager->getTraining();
 	if (!training) return false;
 	
-	qint64 size = sizeof(int)+sizeof(int)+
-			training->wavConfig().count()+
-			training->prompts().count()+sizeof(QDateTime);
-	
-	out << Simond::Training
-		<< size
-		<< synchronisationManager->getTrainingDate()
+	bodyStream << synchronisationManager->getTrainingDate()
 		<< training->sampleRate()
 		<< training->wavConfig()
 		<< training->prompts();
+	out << Simond::Training
+		<< (qint64) body.count();
 	write(toWrite);
+	write(body);
 	
 	delete training;
 	return true;
@@ -1038,15 +1001,17 @@ void ClientSocket::sendRecognitionResult(const QString& data, const QString& sam
 {
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
 	QByteArray dataByte = data.toUtf8();
 	QByteArray sampaByte = sampa.toUtf8();
 	QByteArray sampaRawByte = samparaw.toUtf8();
 	
-	qint64 size = dataByte.count() + sampaByte.count() + sampaRawByte.count();
-	
-	stream << Simond::RecognitionResult << size << dataByte << sampaByte << sampaRawByte;
+	bodyStream << dataByte << sampaByte << sampaRawByte;
+	stream << Simond::RecognitionResult << body.count();
 	write(toWrite);
+	write(body);
 }
 
 ClientSocket::~ClientSocket()

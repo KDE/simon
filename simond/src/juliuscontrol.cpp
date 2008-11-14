@@ -301,13 +301,13 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 		return false;
 	}
 	
- 	FILE *fp;
-	QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
-	kDebug () << logPath.data();
- 	fp = fopen(logPath.data(), "w");
- 	if (fp == NULL) 
- 		return false;
- 	jlog_set_output(fp);
+ 	//FILE *fp;
+	//QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
+	//kDebug () << logPath.data();
+ 	//fp = fopen(logPath.data(), "w");
+ 	//if (fp == NULL) 
+ //		return false;
+ //	jlog_set_output(fp);
 	
 	Jconf *jconf = setupJconf();
 	if (!jconf)

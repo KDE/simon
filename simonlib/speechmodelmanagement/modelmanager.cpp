@@ -205,14 +205,12 @@ LanguageDescriptionContainer* ModelManager::getLanguageDescriptionContainer()
 {
 	QFile treeHed(KStandardDirs::locate("appdata", "model/tree1.hed"));
 	QFile shadowVocab(KStandardDirs::locate("appdata", "model/shadow.voca"));
-	QFile shadowLexicon(KStandardDirs::locate("appdata", "model/shadowlexicon"));
 
 	if ((!treeHed.open(QIODevice::ReadOnly))
-		|| (!shadowVocab.open(QIODevice::ReadOnly))
-		|| (!shadowLexicon.open(QIODevice::ReadOnly)))
+		|| (!shadowVocab.open(QIODevice::ReadOnly)))
 		return 0;
 
-	return new LanguageDescriptionContainer(shadowVocab.readAll(), shadowLexicon.readAll(), treeHed.readAll());
+	return new LanguageDescriptionContainer(shadowVocab.readAll(), treeHed.readAll());
 }
 
 QDateTime ModelManager::getLanguageDescriptionModifiedTime()
@@ -231,10 +229,10 @@ QDateTime ModelManager::getLanguageDescriptionModifiedTime()
 
 
 
-bool ModelManager::storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, const QByteArray& shadowLexicon, 
+bool ModelManager::storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, 
 				        const QByteArray& treeHed)
 {
-	if (!WordListManager::getInstance()->refreshShadowListFiles(shadowVocab, shadowLexicon)) return false;
+	if (!WordListManager::getInstance()->refreshShadowListFiles(shadowVocab)) return false;
 	
 	QFile treeHedF(KStandardDirs::locateLocal("appdata", "model/tree1.hed"));
 	if (!treeHedF.open(QIODevice::WriteOnly))

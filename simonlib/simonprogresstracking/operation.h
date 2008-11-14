@@ -29,6 +29,7 @@
 
 class QThread;
 class Operation;
+class StatusManager;
 
 typedef QPointer<Operation> OperationPtr;
 typedef QList<OperationPtr> OperationList;
@@ -37,8 +38,11 @@ class SIMONPROGRESSTRACKING_EXPORT Operation : public QObject {
 	
 	Q_OBJECT
 
-	signals:
-		void changed();
+	public slots:
+		void cancel();
+		void canceled();
+		void finished();
+
 		
 	public:
 		enum Status {
@@ -50,14 +54,8 @@ class SIMONPROGRESSTRACKING_EXPORT Operation : public QObject {
 		
 		Operation(QThread* thread, const QString& name, const QString& currentAction=QString(), int now=0, int max=0, bool isAtomic=true);
 		
-		void cancel();
-		
-		void canceled();
-		
-		void finished();
-		
-		void update(const QString& currentAction, int newProgress, int newMaximum);
-		void update(int newProgress, int newMaximum);
+		void update(const QString& currentAction, int newProgress, int newMaximum=-1);
+		void update(int newProgress, int newMaximum=-1);
 		
 		~Operation();
 		
@@ -92,6 +90,19 @@ class SIMONPROGRESSTRACKING_EXPORT Operation : public QObject {
 		{
 			return m_isAtomic;
 		}
+		bool isRunning()
+		{
+			return m_status == Running;
+		}
+		bool isFinished()
+		{
+			return m_status == Finished;
+		}
+		bool aborting()
+		{
+			return m_status == Aborting;
+		}
+
 
 	private:
 		QThread* m_thread;
@@ -99,6 +110,10 @@ class SIMONPROGRESSTRACKING_EXPORT Operation : public QObject {
 		int m_now, m_max;
 		bool m_cancel, m_isAtomic;
 		Status m_status;
+		QList<StatusManager*> manager;
+
+		void pushUpdate();
+		void registerWith(StatusManager *man);
 
 };
 

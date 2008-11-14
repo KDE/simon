@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-Icon=network-disconnect
+Icon=simond
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=libsimonrecognitioncontrol
 

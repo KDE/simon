@@ -79,6 +79,7 @@ void SimonControl::loggedIn()
 void SimonControl::slotConnectionError(const QString &err)
 {
 	KMessageBox::error(0, i18n("Verbindungsfehler: \n%1", err));
+	setStatus(SimonControl::Disconnected);
 }
 
 void SimonControl::slotSimondSystemError(const QString &err)

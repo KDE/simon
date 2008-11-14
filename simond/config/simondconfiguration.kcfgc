@@ -1,0 +1,4 @@
+File=simondconfiguration.kcfg
+ClassName=SimondConfiguration
+Singleton=true
+Mutators=true

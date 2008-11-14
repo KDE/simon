@@ -17,7 +17,7 @@ kde4_add_ui_files(simonaiplugin_SRCS aiconfigurationdlg.ui)
 kde4_add_plugin(simonaiplugin ${simonaiplugin_SRCS})
 
 
-target_link_libraries(simonaiplugin ${KDE4_KDEUI_LIBS} ${QT_LIBRARIES} simonlogging simoncommandpluginbase)
+target_link_libraries(simonaiplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY} ${QT_LIBRARIES} simonlogging simoncommandpluginbase)
 
 install(TARGETS simonaiplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 install( FILES simonaiplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

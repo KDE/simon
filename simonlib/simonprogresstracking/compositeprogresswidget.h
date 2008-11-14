@@ -28,6 +28,7 @@ class QFrame;
 class QProgressBar;
 class ProgressWidget;
 class KPushButton;
+class QMoveEvent;
 
 /**
 \class CompositeProgressWidget
@@ -49,6 +50,9 @@ class CompositeProgressWidget : public QWidget
 		QFrame *popupWidget;
 		KPushButton *togglePopup;
 		QList<ProgressWidget*> progressWidgets;
+		
+	protected:
+		void moveEvent(QMoveEvent *event);
 		
 	public:
 		CompositeProgressWidget(QWidget* parent=0);

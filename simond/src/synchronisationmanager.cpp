@@ -300,18 +300,16 @@ LanguageDescriptionContainer* SynchronisationManager::getLanguageDescription()
 
 	QFile treeHed(dirPath+"tree1.hed");
 	QFile shadowVocab(dirPath+"shadow.voca");
-	QFile shadowLexicon(dirPath+"shadowlexicon");
 
 	if ((!treeHed.open(QIODevice::ReadOnly))
-		|| (!shadowVocab.open(QIODevice::ReadOnly))
-		|| (!shadowLexicon.open(QIODevice::ReadOnly)))
+		|| (!shadowVocab.open(QIODevice::ReadOnly)))
 		return 0;
 
-	return new LanguageDescriptionContainer(shadowVocab.readAll(), shadowLexicon.readAll(), treeHed.readAll());
+	return new LanguageDescriptionContainer(shadowVocab.readAll(), treeHed.readAll());
 }
 
 
-bool SynchronisationManager::storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab, const QByteArray& shadowLexicon, 
+bool SynchronisationManager::storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab, 
 			const QByteArray& treeHed)
 {
 	if (username.isEmpty()) return false;
@@ -319,20 +317,16 @@ bool SynchronisationManager::storeLanguageDescription(const QDateTime& changedDa
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/");
 	QFile treeHedFile(dirPath+"tree1.hed");
 	QFile shadowVocabFile(dirPath+"shadow.voca");
-	QFile shadowLexiconFile(dirPath+"shadowlexicon");
 	
 	if ((!treeHedFile.open(QIODevice::WriteOnly))
-		|| (!shadowVocabFile.open(QIODevice::WriteOnly))
-		|| (!shadowLexiconFile.open(QIODevice::WriteOnly)))
+		|| (!shadowVocabFile.open(QIODevice::WriteOnly)))
 		return 0;
 	
 	treeHedFile.write(treeHed);
 	shadowVocabFile.write(shadowVocab);
-	shadowLexiconFile.write(shadowLexicon);
 
 	treeHedFile.close();
 	shadowVocabFile.close();
-	shadowLexiconFile.close();
 
 	KConfig config( dirPath+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
@@ -460,7 +454,8 @@ QByteArray SynchronisationManager::getSample(const QString& sampleName)
 	QFile f(dirPath+"/"+sampleName.toUtf8());
 	kDebug() << "Retrieving " << dirPath+"/"+sampleName.toUtf8();
 	if (!f.open(QIODevice::ReadOnly)) return QByteArray();
-	return f.readAll();
+	QByteArray content = f.readAll();
+	return content;
 }
 
 bool SynchronisationManager::storeSample(const QByteArray& sample)

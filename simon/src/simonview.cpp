@@ -247,6 +247,8 @@ void SimonView::setupActions()
 			      actionCollection());
 	
 	setupGUI();
+
+	//Operation *op = new Operation(thread(), i18n("Seas"), i18n("Grüße Programmierer..."), 0, 0);
 }
 
 /**

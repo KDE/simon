@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=user-properties
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=libsimondconfiguration
+
+X-KDE-FactoryName=simondconfigurationfactory
+X-KDE-ParentComponents=libsimondconfiguration
+
+X-KDE-ParentApp=simond
+X-KDE-System-Settings-Parent-Category=simond
+
+
+Name=User
+Name[de]=Benutzer
+
+Comment=Userconfiguration
+Comment[de]=Benutzerkonfiguration

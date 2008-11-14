@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg> <kcfgfile />
+  <include>KStandardDirs</include>
+  <group name="Network">
+    <entry name="Port" type="Int">
+      <label>The port to use for the server.</label>
+      <default>4444</default>
+    </entry>
+    <entry name="BindTo" type="Bool">
+      <label>wether we want to restrict access to a certain IP.</label>
+      <default>true</default>
+    </entry>
+    <entry name="Host" type="String">
+      <label>The only host to allow to connect to the server.</label>
+      <default>localhost</default>
+    </entry>
+
+    <entry name="UseEncryption" type="Bool">
+      <label>wether we want to encrypt the communication between simon and simond.</label>
+      <default>false</default>
+    </entry>
+    <entry name="EncryptionMethod" type="String">
+      <label>The encryption method to use.</label>
+    </entry>
+    <entry name="Certificate" type="Url">
+      <label>the path to the SSL certificate.</label>
+    </entry>
+    
+  </group>
+  <group name="Database">
+    <entry name="DatabaseUrl" type="Url">
+      <label>The path to the database.</label>
+      <default code="true">KStandardDirs::locate("appdata", "simond.db")</default>
+    </entry>
+  </group>
+
+  
+</kcfg>

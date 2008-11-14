@@ -5,6 +5,8 @@ include(FindSoundFile)
 find_package(Julius REQUIRED)
 find_package(SoundFile REQUIRED)
 
+add_definitions(${KDE_DEFINITIONS} ${QT_DEFINITIONS} -DQT_DEBUG -DDEBUG)
+
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${JULIUS_INCLUDE_DIR} )
 
 set(simond_SRCS
@@ -22,7 +24,7 @@ kde4_add_app_icon(simonGeneralSources
 
 kde4_add_executable(simond ${simond_SRCS})
 
-target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${PORTAUDIO_LIBRARIES} ${SOUNDFILE_LIBRARY}
+target_link_libraries(simond ${KDE4_KDEUI_LIBS} ${PORTAUDIO_LIBRARIES} ${SOUNDFILE_LIBRARY}
 ${QT_LIBRARIES} ${JULIUS_LIBRARIES} speechmodelbase simonmodelcompilation)
 
 install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} )

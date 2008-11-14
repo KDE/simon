@@ -53,12 +53,11 @@ class SIMONPROGRESSTRACKING_EXPORT StatusManager : public QObject {
 		
 		CompositeProgressWidget* createWidget(QWidget *parent=0);
 		
-		void registerOperation(QPointer<Operation> operation);
-		void removeOperation(QPointer<Operation> operation);
+		void registerOperation(Operation* operation);
+		void removeOperation(Operation* operation);
 		
 		~StatusManager();
 	
-	private slots:
 		void update();
 		
 

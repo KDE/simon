@@ -23,12 +23,14 @@
 #include <QMetaType>
 
 #include <KLocalizedString>
+#include <KDebug>
 
 StatusManager* StatusManager::globalInstance;
 
 StatusManager::StatusManager(QObject *parent) : QObject(parent)
 {
 	qRegisterMetaType<OperationList>("OperationList");
+	qRegisterMetaType<OperationPtr>("OperationPtr");
 }
 
 CompositeProgressWidget* StatusManager::createWidget(QWidget *parent)
@@ -36,7 +38,7 @@ CompositeProgressWidget* StatusManager::createWidget(QWidget *parent)
 	CompositeProgressWidget* widget = new CompositeProgressWidget(parent);
 	widget->display(runningOperations);
 	connect(this, SIGNAL(operationsChanged(const OperationList&)),
-		widget, SLOT(display(const OperationList&)));
+		widget, SLOT(display(OperationList)));
 	return widget;
 }
 
@@ -45,23 +47,14 @@ void StatusManager::update()
 	emit operationsChanged(runningOperations);
 }
 
-void StatusManager::registerOperation(QPointer<Operation> operation)
+void StatusManager::registerOperation(Operation* operation)
 {
-// 	if (this != StatusManager::global()) //update the global instance
-// 	{
-// 		StatusManager::global()->registerOperation(operation);
-// 	}
-	connect(operation, SIGNAL(changed()), this, SLOT(update()));
-	runningOperations << operation;
+	runningOperations.append(operation);
 	emit operationsChanged(runningOperations);
 }
 
-void StatusManager::removeOperation(QPointer<Operation> operation)
+void StatusManager::removeOperation(Operation* operation)
 {
-// 	if (this != StatusManager::global()) //update the global instance
-// 	{
-// 		StatusManager::global()->removeOperation(operation);
-// 	}
 	runningOperations.removeAll(operation);
 	emit operationsChanged(runningOperations);
 }

@@ -29,19 +29,17 @@ class SPEECHMODELBASE_EXPORT LanguageDescriptionContainer
 {
 	private:
 		QByteArray m_shadowVocab;
-		QByteArray m_shadowLexicon;
 		
 		QByteArray m_treeHed;
 
 	public:
-		LanguageDescriptionContainer(const QByteArray& shadowVocab, const QByteArray& shadowLexicon, 
+		LanguageDescriptionContainer(const QByteArray& shadowVocab, 
 				const QByteArray&  treeHed);
 			       
 		~LanguageDescriptionContainer();
 		
 
 		QByteArray shadowVocab() { return m_shadowVocab; }
-		QByteArray shadowLexicon() { return m_shadowLexicon; }
 		QByteArray treeHed() { return m_treeHed; }
 
 };

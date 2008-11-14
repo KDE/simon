@@ -18,6 +18,8 @@
  */
 #include "operation.h"
 #include "statusmanager.h"
+#include <QTimer>
+#include <KDebug>
 
 
 Operation::Operation(QThread* thread, const QString& name, const QString& currentAction, int now, int max, bool isAtomic) : QObject(0)
@@ -29,8 +31,14 @@ Operation::Operation(QThread* thread, const QString& name, const QString& curren
 	m_max = max;
 	m_status = Operation::Running;
 	m_isAtomic = isAtomic;
-	
-	StatusManager::global()->registerOperation(this);
+	registerWith(StatusManager::global());
+}
+
+
+void Operation::registerWith(StatusManager *man)
+{
+	manager << man;
+	man->registerOperation(this);
 }
 
 
@@ -38,42 +46,58 @@ void Operation::update(const QString& currentAction, int newProgress, int newMax
 {
 	m_currentAction = currentAction;
 	m_now = newProgress;
-	m_max = newMaximum;
-	emit changed();
+
+	if (newMaximum != -1)
+		m_max = newMaximum;
+	
+	pushUpdate();
 }
+
 
 
 void Operation::update(int newProgress, int newMaximum)
 {
 	m_now = newProgress;
-	m_max = newMaximum;
-	emit changed();
+	if (newMaximum != -1)
+		m_max = newMaximum;
+	pushUpdate();
 }
 
 void Operation::cancel()
 {
 	m_cancel=true;
 	m_status = Aborting;
-	emit changed();
+	pushUpdate();
 }
 
 void Operation::canceled()
 {
 	m_status = Aborted;
 	update(maxProgress(), maxProgress());
-	emit changed();
+	pushUpdate();
+	QTimer::singleShot(3000, this, SLOT(deleteLater()));
 }
 
-#include <KDebug>
 void Operation::finished()
 {
 	m_status = Finished;
-	update(maxProgress(), maxProgress());
-	kDebug() << "Hier";
-	emit changed();
+
+	if (maxProgress() > 0)
+		update(maxProgress(), maxProgress());
+	else update(1,1);
+
+	pushUpdate();
+	QTimer::singleShot(3000, this, SLOT(deleteLater()));
+}
+
+void Operation::pushUpdate()
+{
+	foreach (StatusManager *man, manager)
+		man->update();
 }
 
 Operation::~Operation()
 {
-	StatusManager::global()->removeOperation(this);
+	foreach (StatusManager *man, manager)
+		man->removeOperation(this);
 }

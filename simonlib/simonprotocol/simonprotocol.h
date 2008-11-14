@@ -23,8 +23,6 @@
 namespace Simond
 {
 	enum Request {
-		Ack=1,
-		
 		Login=1001,
 		VersionIncompatible=1002,
 		AuthenticationFailed=1003,
@@ -33,6 +31,7 @@ namespace Simond
 		
 		
 		StartSynchronisation=2001,
+		AbortSynchronisation=2002,
 		
 		GetActiveModelDate=2011,
 		ActiveModelDate=2012,
@@ -91,6 +90,7 @@ namespace Simond
 		ModelCompilationStarted=3001,
 		ModelCompilationStatus=3002,
 		ModelCompilationError=3003,
+		ModelCompilationCompleted=3004,
 		
 		RecognitionReady=4001,
 		StartRecognition=4002,
@@ -103,7 +103,6 @@ namespace Simond
 		RecognitionPaused=4009,
 		ResumeRecognition=4010,
 		RecognitionResumed=4011,
-// 		RecognitionTemporarilyUnavailable=4008,
 		RecognitionResult=4012
 	};
 };

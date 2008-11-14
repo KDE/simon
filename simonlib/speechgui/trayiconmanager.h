@@ -49,7 +49,7 @@ private:
 public:
 	void createIcon(const KIcon& icon, const QString& tooltip);
 	void addAction(const QString& name, KAction* action);
-    TrayIconManager(QWidget *parent);
+    TrayIconManager(QWidget *parent=0);
 
     ~TrayIconManager();
 

@@ -24,6 +24,7 @@
 #include <simonlogging/logger.h>
 
 #include <simonprogresstracking/operation.h>
+#include <simonprogresstracking/statusmanager.h>
 
 #include <QObject>
 #include <QList>
@@ -201,7 +202,8 @@ void WordListManager::run()
 		this->shadowList = new WordList();
 		emit shadowListCouldntBeLoaded();
 		op.canceled();
-	} else {
+	} else
+	{
 		op.finished();
 	}
 	
@@ -271,8 +273,8 @@ bool WordListManager::save()
 	if (mainDirty)	//we changed the wordlist
 	{
 		saveWordList(this->getWordList(), 
-			      KStandardDirs::locateLocal("appdata", "model/lexicon"), 
-			      KStandardDirs::locateLocal("appdata", "model/model.voca"));
+			      KStandardDirs::locateLocal("appdata", "model/model.voca"),
+			      KStandardDirs::locateLocal("appdata", "model/lexicon"));
 		wlistChanged = true;
 		mainDirty=false;
 	}
@@ -283,7 +285,6 @@ bool WordListManager::save()
 	if (shadowDirty) //we changed the shadowDict
 	{
 		saveWordList(this->getShadowList(), 
-			      KStandardDirs::locateLocal("appdata", "model/shadowlexicon"), 
 			      KStandardDirs::locateLocal("appdata", "model/shadow.voca"));
 		slistChanged = true;
 		shadowDirty=false;
@@ -316,24 +317,29 @@ bool WordListManager::save()
  * @param vocabFilename The vocabfile to write to
  * @return Success
  */
-bool WordListManager::saveWordList(WordList *list, const QString& lexiconFilename, const QString& vocabFilename)
+bool WordListManager::saveWordList(WordList *list, const QString& vocabFilename, const QString& lexiconFilename)
 {
 	Logger::log(i18n("[INF] Öffnen der Ausgabedatei: %1", lexiconFilename));
-	
-	QIODevice *outfile = KFilterDev::deviceForFile(lexiconFilename,
+	QIODevice *outfile=NULL;
+	QTextStream *outstream=NULL;
+
+	if (!lexiconFilename.isEmpty())
+	{
+		outfile = KFilterDev::deviceForFile(lexiconFilename,
 							KMimeType::findByFileContent(lexiconFilename)->name());
-	if (!outfile->open(QIODevice::WriteOnly)) {
-		Logger::log(i18n("[ERR] Fehler beim Öffnen der Ausgabedatei %1", lexiconFilename));
-		outfile->deleteLater();
-		return false;
+		if (!outfile->open(QIODevice::WriteOnly)) {
+			Logger::log(i18n("[ERR] Fehler beim Öffnen der Ausgabedatei %1", lexiconFilename));
+			outfile->deleteLater();
+			return false;
+		}
+		outstream = new QTextStream(outfile);
+		//TODO Test encoding
+		outstream->setCodec("UTF-8");
 	}
-	QTextStream outstream(outfile);
-	//TODO Test encoding
-	outstream.setCodec("UTF-8");
 
 
 	QIODevice *vocabFile = KFilterDev::deviceForFile(vocabFilename,
-							KMimeType::findByFileContent(vocabFilename)->name());
+						KMimeType::findByFileContent(vocabFilename)->name());
 	if (!vocabFile->open(QIODevice::WriteOnly)) {
 		Logger::log(i18n("[ERR] Fehler beim Öffnen der Ausgabedatei %1", vocabFilename));
 		outfile->close();
@@ -356,17 +362,6 @@ bool WordListManager::saveWordList(WordList *list, const QString& lexiconFilenam
 
 	QHash<QString /*terminalName*/, Word /*words*/> vocabulary;
 	
-// 	int i=0;
-
-// 	bool foundSentEnd=false;
-// 	int sentEndIndex = getWordIndex(list, foundSentEnd, "SENT-END", "sil");
-// 	if (!foundSentEnd)
-// 	{
-// 		list->insert(sentEndIndex, Word("SENT-START", "sil", "deleteme"));
-// 		list->insert(sentEndIndex, Word("SENT-END", "sil", "deleteme"));
-// 	}
-	//write lexicon
-// 	int count = list->count();
 	bool sentWritten = false;
 	WordList::const_iterator end = list->constEnd();
 	WordList::const_iterator i = list->constBegin();
@@ -375,36 +370,38 @@ bool WordListManager::saveWordList(WordList *list, const QString& lexiconFilenam
 	{
 		Word w = (*i);
 		QString wordStr = w.getWord();
-		//TODO: Test naming
-		QString upperWord = wordStr.toUpper();
-		QString wordPron = w.getPronunciation();
 		QString wordTerm = w.getTerminal();
-
-		if (!sentWritten && (upperWord >= "SENT-END"))
-		{
-			outstream << "SENT-END\t\t[]\t\tsil\n";
-			outstream << "SENT-START\t\t[]\t\tsil\n";
-			sentWritten=true;
+		//TODO: Test naming
+		if (!lexiconFilename.isEmpty()) {
+			QString upperWord = wordStr.toUpper();
+			QString wordPron = w.getPronunciation();
+	
+			if (!sentWritten && (upperWord >= "SENT-END"))
+			{
+				*outstream << "SENT-END\t\t[]\t\tsil\n";
+				*outstream << "SENT-START\t\t[]\t\tsil\n";
+				sentWritten=true;
+			}
+			*outstream << upperWord /*wordStr*/ << "\t\t[" << wordStr << "]\t\t" <<
+					wordPron << "\n";
 		}
-		outstream << upperWord /*wordStr*/ << "\t\t[" << wordStr << "]\t\t" <<
-				wordPron << "\n";
 
 		vocabulary.insertMulti(wordTerm, w);
 		if (!distinctTerminals.contains(wordTerm)) distinctTerminals.append(wordTerm);
 		i++;
 	}
-	if (!sentWritten)
+	if (!lexiconFilename.isEmpty() && !sentWritten)
 	{
-		outstream << "SENT-END\t\t[]\t\tsil\n";
-		outstream << "SENT-START\t\t[]\t\tsil\n";
+		if (!sentWritten)
+		{
+			*outstream << "SENT-END\t\t[]\t\tsil\n";
+			*outstream << "SENT-START\t\t[]\t\tsil\n";
+		}
+		outstream->flush();
+		outfile->close();
+		outfile->deleteLater();
+		delete outstream;
 	}
-	outfile->close();
-	outfile->deleteLater();
-
-	//remove sent-start and sent-end
-// 	list->removeAt(sentEndIndex);
-// 	list->removeAt(sentEndIndex);
-// 	distinctTerminals.removeAll("deleteme");
 	
 	for (int i=0; i < distinctTerminals.count(); i++)
 	{
@@ -621,20 +618,17 @@ bool WordListManager::refreshWordListFiles(const QByteArray& simpleVocab,
 }
 
 
-bool WordListManager::refreshShadowListFiles(const QByteArray& shadowVocab, const QByteArray& shadowLexicon)
+bool WordListManager::refreshShadowListFiles(const QByteArray& shadowVocab)
 {
 	QMutexLocker lock2(&shadowLock);
 	
 	QFile vocaF(KStandardDirs::locateLocal("appdata", "model/shadow.voca"));
-	QFile wordListF(KStandardDirs::locateLocal("appdata", "model/shadowlexicon"));
-	if (!vocaF.open(QIODevice::WriteOnly) || !wordListF.open(QIODevice::WriteOnly))
+	if (!vocaF.open(QIODevice::WriteOnly))
 		return false;
 	
 	vocaF.write(shadowVocab);
-	wordListF.write(shadowLexicon);
 	
 	vocaF.close();
-	wordListF.close();
 	
 	if (!initShadowList()) return false;
 	

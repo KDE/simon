@@ -22,6 +22,7 @@
 
 #include <QSslSocket>
 #include <QList>
+#include <QMutex>
 #include "clientsocket.h"
 #include "databaseaccess.h"
 #include <simonprotocol/simonprotocol.h>
@@ -46,9 +47,8 @@ class ClientSocket : public QSslSocket
 			Server=2
 		};
 		
-		QList<QByteArray> messagesToSend;
-		
 		QString username;
+		QMutex messageLocker;
 		
 		ModelSource modelSource;
 

@@ -71,6 +71,7 @@ void CompositeProgressWidget::showDetails(bool show)
 
 void CompositeProgressWidget::display(OperationList operations)
 {	
+	kDebug() << "hier";
 	QString status;
 	int now = 0;
 	int max = 0;
@@ -116,8 +117,13 @@ void CompositeProgressWidget::display(OperationList operations)
 
 			if (noProgressData != 0)
 			{	//there are processes without progress data
-				int averageMax = max / (operations.count() - noProgressData);
-				max += (averageMax*noProgressData);
+				if (operations.count() == noProgressData)
+				{
+					now=max=0;
+				} else {
+					int averageMax = max / (operations.count() - noProgressData);
+					max += (averageMax*noProgressData);
+				}
 			}
 		}
 	}
@@ -126,8 +132,9 @@ void CompositeProgressWidget::display(OperationList operations)
 	{
 		if ((!widget->operation()) || (!operations.contains(widget->operation())))
 		{
-			kDebug() << "Removing widget...";
+			kDebug() << "Removing widget..." << widget;
 			popupWidget->layout()->removeWidget(widget);
+			progressWidgets.removeAll(widget);
 			widget->deleteLater();
 		}
 		else {
@@ -146,10 +153,11 @@ void CompositeProgressWidget::display(OperationList operations)
 	}
 	
 
-	if (operations.count() > 0)
+	kDebug() << "Operationcount " << operations.count();
+	if (progressWidgets.count() > 0)
 	{
 		togglePopup->setEnabled(true);
-		if (popupWidget->isVisible())
+		if (togglePopup->isChecked())
 			showDetails(true); //resize / move
 	} else {
 		showDetails(false); //hide empty widget
@@ -160,6 +168,14 @@ void CompositeProgressWidget::display(OperationList operations)
 	statusLabel->setText(status);
 	bar->setValue(now);
 	bar->setMaximum(max);
+}
+
+void CompositeProgressWidget::moveEvent(QMoveEvent *event)
+{
+	if (togglePopup->isChecked())
+	{
+		showDetails(true);
+	}
 }
 
 
