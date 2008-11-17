@@ -1,11 +1,18 @@
 include(FindJulius)
 include(FindPortaudio)
-include(FindSoundFile)
 
 find_package(Julius REQUIRED)
-find_package(SoundFile REQUIRED)
 
-add_definitions(${KDE_DEFINITIONS} ${QT_DEFINITIONS} -DQT_DEBUG -DDEBUG)
+IF(UNIX)
+	include(FindSoundFile)
+	find_package(SoundFile REQUIRED)
+ENDIF(UNIX)
+IF(WIN32)
+	include(FindDirectSound)
+	find_package(DirectSound REQUIRED)
+ENDIF(WIN32)
+
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${JULIUS_INCLUDE_DIR} )
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${JULIUS_INCLUDE_DIR}
 	../../simonlib )
@@ -25,9 +32,14 @@ kde4_add_app_icon(simonGeneralSources
 
 kde4_add_executable(simond ${simond_SRCS})
 
-target_link_libraries(simond ${KDE4_KDEUI_LIBS} ${PORTAUDIO_LIBRARIES} ${SOUNDFILE_LIBRARY}
-${QT_LIBRARIES} ${JULIUS_LIBRARIES} speechmodelbase simonmodelcompilation
-simonddatabaseaccess)
+IF(UNIX)
+target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${PORTAUDIO_LIBRARIES} ${SOUNDFILE_LIBRARY}
+${QT_LIBRARIES} ${JULIUS_LIBRARIES} speechmodelbase simonmodelcompilation simonddatabaseaccess)
+ENDIF(UNIX)
+IF(WIN32)
+target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${PORTAUDIO_LIBRARIES} ${DIRECTSOUND_LIBRARY}
+${QT_LIBRARIES} ${JULIUS_LIBRARIES} speechmodelbase simonmodelcompilation simonddatabaseaccess wsock32 dsound winmm)
+ENDIF(WIN32)
 
 install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} )
 

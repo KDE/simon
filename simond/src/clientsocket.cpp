@@ -23,6 +23,9 @@
 
 #include <simonddatabaseaccess/databaseaccess.h>
 
+#ifdef bzero
+#undef bzero
+#endif
 #include <speechmodelbase/model.h>
 #include <speechmodelbase/wordlistcontainer.h>
 #include <speechmodelbase/grammarcontainer.h>
@@ -662,13 +665,12 @@ void ClientSocket::processRequest()
 
 void ClientSocket::activeModelCompiled()
 {
-	KMessageBox::information(0, "Kompiliert");
 	Q_ASSERT(synchronisationManager);
 	synchronisationManager->modelCompiled();
 	sendCode(Simond::ModelCompilationCompleted);
 	sendActiveModel();
 	
-// 	recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
+ 	recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 }
 
 void ClientSocket::synchronizeSamples()

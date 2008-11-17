@@ -36,6 +36,17 @@
 #include <KDebug>
 #include "recognitioncontrol.h"
 
+#ifdef bzero
+#undef bzero
+#endif
+
+#ifdef FALSE
+#undef FALSE
+#endif
+#ifdef TRUE
+#undef TRUE
+#endif
+
 extern "C" {
 	#include <julius/julius.h>
 }
