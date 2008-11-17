@@ -711,8 +711,7 @@ bool WordListManager::moveToShadow(Word *w)
 {
 	int i=0;
 	if (!w) return false;
-	if (!TrainingManager::getInstance()->deleteWord(w))
-		return false;
+	TrainingManager::getInstance()->deleteWord(w);
 	shadowLock.lock();
 	wordListLock.lock();
 	while (i < wordlist->count())

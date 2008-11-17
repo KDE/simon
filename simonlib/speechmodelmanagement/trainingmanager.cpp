@@ -98,28 +98,30 @@ bool TrainingManager::deleteWord ( Word *w )
 
 	QMutexLocker lock(&promptsLock);
 	
+	kDebug() << "Removing word: " << wordToDelete;
 	QStringList sampleFileNames = promptsTable->keys();
 	bool sampleAlreadyDeleted;
+	bool succ = true;
 	for ( int i=0; i < this->promptsTable->count(); i++ )
 	{
 		QString filename = sampleFileNames[i];
 		QStringList promptWords = promptsTable->value ( filename ).split ( " " );
 		sampleAlreadyDeleted = false;
+		kDebug() << promptWords;
 		for ( int j=0; j < promptWords.count() && !sampleAlreadyDeleted; j++ )
 		{
 			if ( promptWords[j].toUpper() == wordToDelete )
 			{
 				if ( !deletePrompt ( filename ) )
-				{
-					promptsLock.unlock();
-					return false;
-				}
+					succ = false;
+
 				sampleAlreadyDeleted = true;
+				j--;
 			}
 		}
 	}
 	promptsLock.unlock();
-	return savePrompts();
+	return (savePrompts() && succ);
 }
 
 /**
@@ -131,11 +133,14 @@ bool TrainingManager::deleteWord ( Word *w )
 bool TrainingManager::deletePrompt ( QString key )
 {
 	if (!promptsTable) init();
+	QString path = SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+key+".wav";
 	
+	kDebug() << "removing " << path;
+
 	QMutexLocker lock(&promptsLock);
 	promptsTable->remove ( key );
 	//removes the sample
-	return QFile::remove ( SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+key+".wav" );
+	return QFile::remove ( path );
 }
 
 QString TrainingManager::getTrainingDir()

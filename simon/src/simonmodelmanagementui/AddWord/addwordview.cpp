@@ -179,7 +179,14 @@ void AddWordView::finish(int done)
 void AddWordView::commitList()
 {
 	foreach (const QString& key, promptsToAdd.keys())
-		TrainingManager::getInstance()->addSample(key, promptsToAdd.value(key));
+	{
+		if (!TrainingManager::getInstance()->addSample(key, promptsToAdd.value(key)))
+		{
+			KMessageBox::error(this, i18n("Konnte %1 nicht zur Promptstable hinzufügen", key));
+		}
+	}
+	if (!TrainingManager::getInstance()->savePrompts())
+		KMessageBox::error(this, i18n("Konnte Prompts nicht speichern"));
 		
 	promptsToAdd.clear();
 
