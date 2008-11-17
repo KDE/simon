@@ -35,7 +35,6 @@ class SIMONMODELMANAGEMENTUI_EXPORT TrainingView : public InlineWidget {
 	public:
 		TrainingView(QWidget *parent);
 		~TrainingView();
-		void trainWords(const WordList& words);
 };
 
 

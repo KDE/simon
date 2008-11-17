@@ -33,8 +33,6 @@
 #include <KStandardDirs>
 
 
-AddWordView* AddWordView::instance;
-
 /**
  * @brief Constructor
  *
@@ -65,7 +63,6 @@ AddWordView::AddWordView(QWidget *parent)
 	
 	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
 	connect(this, SIGNAL(rejected()), this, SLOT(cleanUp()));
-	connect(TrainingManager::getInstance(), SIGNAL(addMissingWords(QStringList)), this, SLOT(askToAddWords(QStringList)));
 
 	setWindowTitle(i18n("Wort hinzufügen"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/addword.png")));
@@ -85,14 +82,6 @@ void AddWordView::cleanUp()
 			promptsToAdd.clear();
 		}
 	}
-}
-
-AddWordView* AddWordView::getInstance()
-{
-	if (!instance)
-		instance = new AddWordView(0);
-	
-	return instance;
 }
 
 
@@ -171,6 +160,7 @@ void AddWordView::finish(int done)
 	{
 		//multiple words
 		createWord(wordsToAdd.takeAt(0));
+		show();
 	} else {
 		commitList();
 		restart();
@@ -210,23 +200,13 @@ void AddWordView::askToAddWord(QString word)
  * \author Susanne Tschernegg, Peter Grasch
  * @param words The words to add
  */
-void AddWordView::askToAddWords(QStringList words)
+void AddWordView::addWords(QStringList words)
 {
 	if (words.count() == 0) return;
 	
-	//tells the user, which words aren't in the dict
-	QString allWords = words.join(", ");
-// 	for ( int i=0; i<words.count(); i++ )
-// 	{
-// 		allWords += words.at ( i )+", ";
-// 	}
-// 	allWords = allWords.left(allWords.size()-2);
-
-	if (KMessageBox::questionYesNoCancel ( 0, i18n ( "Der zu trainierende Text enthält unbekannte Wörter. Diese sind:\n%1\n\nWollen Sie diese Wörter jetzt hinzufügen?", allWords)) == KMessageBox::Yes)
-	{
-		wordsToAdd << words;
-		createWord(wordsToAdd.takeAt(0));
-	}
+	wordsToAdd << words;
+	KMessageBox::information(this, "hier");
+	createWord(wordsToAdd.takeAt(0));
 }
 
 AddWordView::~AddWordView()
@@ -246,7 +226,6 @@ void AddWordView::createWord(QString word)
 			return;
 	}
 	restart();
-	show();
 	setField("wordNameIntro", word);
 	next(); //continue to page 2
 }

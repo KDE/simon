@@ -83,26 +83,15 @@ private:
 	RunCommandView *runDialog; //!< Pointer on the Dialog "RunCommand"
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
 	KCMultiDialog *configDialog;
-// 	QList<Operation*> runningOperations;
-
 
 	void setupSignalSlots();
 	void setupActions();
-// 	Operation* getOperation(QThread *messenger) const;
-// 	void displayOperations();
 
 
 
 public slots:
 	void displayConnectionStatus(const QString &status);
 
-// 	void displayOperations(QList<Operation*> runningOperations);
-// 	void displayStatus(const QString &operationName, const QString &currentAction=QString());
-// 	void displayProgress(int cur, int max);
-	
-	void toggleVisibility();
-	void hideSimon();
-	void showSimon();
 	void closeSimon();
 	
 	void toggleConnection();
@@ -124,8 +113,6 @@ public:
 	~SimonView();
 
 	void closeEvent ( QCloseEvent * event );
-
-    bool checkPassword();
 
 };
 

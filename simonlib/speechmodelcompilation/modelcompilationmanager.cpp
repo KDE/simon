@@ -421,6 +421,7 @@ bool ModelCompilationManager::makeTranscriptions()
 bool ModelCompilationManager::processError(const QString& userError)
 {
 	//FIXME: completeley broken atm
+	
 	//can't control the systems console-charset so we use the Local8Bit setting to import
 	//instead of UTF-8
 	lastError = QString(lastError+'\n'+QString::fromLocal8Bit(proc->readAllStandardError())).right(400);
@@ -437,21 +438,21 @@ bool ModelCompilationManager::processError(const QString& userError)
 		
 		//this error ONLY occurs when there are samples for the word but the word itself was not added
 		//to the dictionary so - ADD THE WORD!
-		emit missingWord(word);
+		emit wordUndefined(word);
 	} else if (err.startsWith("ERROR [+2662]"))
 	{
 // 		"ERROR [+2662]  FindProtoModel: no proto for E in hSet
 		QString phoneme = err.mid(44,err.indexOf(' ', 44)-44);
 		//FIXME propagate error:
 // 		emit error(i18n("Phonem %1 kommt in den Trainingsdaten nicht vor.\n\nBitte trainieren Sie ein Wort welches das Phonem %1 beinhaltet.\n\nSie können zum Beispiel in der Wortliste ein beliebiges Wort wählen welches diesen Phonem beinhaltet, ihn zu einem speziellen Training hinzufügen und dieses Training dann durchführen.", phoneme));
-// 		emit missingPhoneme(phoneme);
+ 		emit phonemeUndefined(phoneme);
 	} else if (err.contains("Error:       undefined class \""))
 	{
 		int startIndex = err.indexOf("Error:       undefined class \"") + 30;
 		
 		QString undefClass = err.mid(startIndex);
 		undefClass = undefClass.left(undefClass.indexOf('"'));
-		emit unknownGrammarClass(undefClass);
+		emit classUndefined(undefClass);
 	}
 
 	emit status(i18n("Abgebrochen"), 1, 1);

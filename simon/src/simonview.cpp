@@ -135,9 +135,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	info->writeToSplash ( i18n ( "Lade \"Wortliste\"..." ) );
 	this->wordList = new WordListView(this);
 
-	info->writeToSplash ( i18n ( "Lade \"Wort hinzufügen\"..." ) );
-	this->addWordView = AddWordView::getInstance();
-
 	info->writeToSplash ( i18n ( "Lade \"Ausführen\"..." ) );
 	this->runDialog = new RunCommandView ( this );
 
@@ -246,9 +243,6 @@ void SimonView::setupSignalSlots()
 	connect ( control, SIGNAL(guiAction(QString)), this, SLOT(doAction(QString)));
 	connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
 
-	connect ( addWordView, SIGNAL ( addedWord() ), wordList,
-	          SLOT ( filterListbyPattern() ) );
-		  
 	connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
 }
 
@@ -307,10 +301,11 @@ void SimonView::showRunDialog ()
  */
 void SimonView::showAddWordDialog ( )
 {
-	if ( !addWordView->isVisible() )
-		this->addWordView->show();
-	else
-		this->addWordView->hide();
+	AddWordView *addWordView = new AddWordView(this);
+	connect ( addWordView, SIGNAL ( addedWord() ), wordList,
+          SLOT ( filterListbyPattern() ) );
+		  
+	addWordView->show();
 }
 
 
@@ -342,49 +337,6 @@ void SimonView::showTrainDialog ()
 void SimonView::showWordListDialog ()
 {
 	ui.inlineView->toggleDisplay(wordList);
-}
-
-
-/**
- * @brief Hide the main window
- *
- * Hides the main window and sends it to the system tray.
- *
- *	@author Peter Grasch
- *
-*/
-void SimonView::hideSimon()
-{
-	shownDialogs=0;
-	currentPos = pos();
-
-	if ( this->addWordView->isVisible() )
-	{
-		this->shownDialogs = shownDialogs | sAddWordView;
-		addWordDlgPos = addWordView->pos();
-		this->addWordView->hide();
-	}
-	hide();
-}
-
-
-/**
- * @brief Shows the main Window
- *
- * Shows the Main Window after it was hidden at first
- *
- *	@author Peter Grasch
- *
- */
-void SimonView::showSimon()
-{
-	move ( currentPos );
-	show();
-	if ( shownDialogs & sAddWordView )
-	{
-		addWordView->show();
-		addWordView->move ( addWordDlgPos );
-	}
 }
 
 
@@ -531,23 +483,6 @@ void SimonView::representState(SimonControl::SystemStatus status)
 
 
 /**
- * @brief Trigger Visibility
- *
- * Asks of the current status (hidden/visible) and inverts it
- *
- * @author Peter Grasch
- * @see showSimon(), hideSimon()
- *
- */
-void SimonView::toggleVisibility()
-{
-	if ( ! ( this->isHidden() ) )
-		this->hideSimon();
-	else this->showSimon();
-}
-
-
-/**
  * @brief Close the main window
  *
  * Closes the whole program and kills all dialogs associated with it
@@ -576,7 +511,7 @@ void SimonView::closeSimon()
 */
 void SimonView::closeEvent ( QCloseEvent * event )
 {
-	this->hideSimon();
+	hide();
 	event->ignore();
 }
 

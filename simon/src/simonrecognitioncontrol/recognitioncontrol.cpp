@@ -636,7 +636,7 @@ void RecognitionControl::messageReceived()
 	while (socket->bytesAvailable())
 	{
 		msgByte += socket->readAll();
-		while ((msg.device()->bytesAvailable() >= sizeof(qint32)) && !messageNotYetFinished)
+		while (((unsigned) msg.device()->bytesAvailable() >= sizeof(qint32)) && !messageNotYetFinished)
 		{
 			messageNotYetFinished=false;
 			msg >> type;
@@ -1129,16 +1129,50 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
 					modelCompilationOperation->canceled();
-// 					modelCompilationOperation->deleteLater();
 					modelCompilationOperation=NULL;
 					emit compilationError(errorMsg);
 					break;
 				}
+	
+				case Simond::ModelCompilationWordUndefined: {
+					parseLengthHeader();
+					QByteArray word;
+					msg >> word;
+					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					
+					modelCompilationOperation->canceled();
+					modelCompilationOperation=NULL;
+					emit modelCompilationWordUndefined(word);
+					break;
+				}	
+				case Simond::ModelCompilationClassUndefined: {
+					parseLengthHeader();
+					QByteArray undefClass;
+					msg >> undefClass;
+					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					
+					modelCompilationOperation->canceled();
+					modelCompilationOperation=NULL;
+					emit modelCompilationClassUndefined(undefClass);
+					break;
+				}	
+				case Simond::ModelCompilationPhonemeUndefined: {
+					parseLengthHeader();
+					QByteArray phoneme;
+					msg >> phoneme;
+					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					
+					modelCompilationOperation->canceled();
+					modelCompilationOperation=NULL;
+					emit modelCompilationWordUndefined(phoneme);
+					break;
+				}
+
+
 
 				case Simond::ModelCompilationCompleted: {
 					advanceStream(sizeof(qint32));
 					modelCompilationOperation->finished();
-					modelCompilationOperation->deleteLater();
 					modelCompilationOperation=NULL;
 				}
 

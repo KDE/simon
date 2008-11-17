@@ -48,7 +48,6 @@ Q_OBJECT
 	private:
 		static TrainingManager *instance;
 		TrainingList *trainingTexts;
-		TrainingText *currentText;
 
 		QHash<QString, QString> sampleHash;    //<! sampleHash("SampleName","Text")
 
@@ -58,10 +57,6 @@ Q_OBJECT
 		PromptsTable *promptsTable;
 
 		bool deletePrompt ( QString key );
-		bool allWordsExisting();
-
-	private slots:
-		void askDeleteLonelySample(QString);
 
 	signals:
 		void addMissingWords(QStringList words);
@@ -94,9 +89,10 @@ Q_OBJECT
 		bool savePrompts();
 
 		bool refreshTraining(int sampleRate, const QByteArray& prompts);
-// 		void addSamples ( const QHash<QString, QString>& trainingsMap);
 
 		bool addSample(const QString& fileBaseName, const QString& prompt);
+
+		QStringList missingWords(const QStringList& prompts);
 
 		QString getPage ( int i );
 
@@ -120,14 +116,7 @@ Q_OBJECT
 		void trainWords ( const WordList *words );
 
 		bool trainText ( int i );
-// 		int getPageCount();
-// 		QString getPage ( int i );
-// 		QString getTextName();
-// 		bool allWordsExisting();
 		TrainingText* getText ( int i );
-		TrainingText* getCurrentText () { return currentText; }
-
-// 		void finishTrainingSession();
 
 		void clearSampleHash() { sampleHash.clear(); }
 

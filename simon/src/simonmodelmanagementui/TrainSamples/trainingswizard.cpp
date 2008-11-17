@@ -18,7 +18,9 @@
  */
 #include "trainingswizard.h"
 #include "trainsamplepage.h"
+#include "../AddWord/addwordview.h"
 #include <speechmodelmanagement/trainingmanager.h>
+#include <speechmodelmanagement/wordlistmanager.h>
 #include <speechmodelbase/trainingtext.h>
 
 #include <QWizardPage>
@@ -26,6 +28,7 @@
 
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QTimer>
 
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -33,12 +36,18 @@
 
 #include <math.h>
 
-TrainingsWizard::TrainingsWizard(const QStringList &prompts, QWidget *parent) : QWizard(parent)
+TrainingsWizard::TrainingsWizard(QWidget *parent) : QWizard(parent)
 {
-	init(prompts);
+	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/training.png")));
+	addPage(createIntroPage());
 }
 
-TrainingsWizard::TrainingsWizard(const WordList &wList, QWidget *parent) : QWizard(parent)
+bool TrainingsWizard::init(const QStringList& prompts)
+{
+	return init(prompts, i18n("Training"));
+}
+
+bool TrainingsWizard::init(const WordList &wList) 
 {
 	QStringList pages;
 
@@ -98,36 +107,46 @@ TrainingsWizard::TrainingsWizard(const WordList &wList, QWidget *parent) : QWiza
 		pages.append(page);
 	}
 	
-	init(pages, i18n("Spezialtraining"));
+	return init(pages, i18n("Spezialtraining"));
 }
 
-TrainingsWizard::TrainingsWizard(const TrainingText &text, QWidget *parent) : QWizard(parent)
+bool TrainingsWizard::init(const TrainingText &text)
 {
-	init(text.getPages(), text.getName());
+	return init(text.getPages(), text.getName());
 }
 
-void TrainingsWizard::init(const QStringList& prompts, const QString& name)
+bool TrainingsWizard::init(const QStringList& prompts, const QString& name)
 {
-	QString textName;
-	if (name.isEmpty())
-		textName = i18n("Training");
-	else textName = name;
-	
-	setWindowTitle(textName);
-	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/training.png")));
+	QStringList missingWords = TrainingManager::getInstance()->missingWords(prompts);
+	while (!missingWords.isEmpty())
+	{
+		if (KMessageBox::questionYesNoCancel(0, i18n("Einge Wörter kommen nicht im Lexikon vor:\n%1\n\nWollen Sie diese jetzt hinzufügen?", missingWords.join(", "))) == KMessageBox::Yes)
+		{
+			AddWordView *addWord = new AddWordView(this);
+			addWord->addWords(missingWords);
+			if (!addWord->exec())
+				return false;
+		} else {
+			return false;
+		}
+		missingWords = TrainingManager::getInstance()->missingWords(prompts);
+	}
+
+	setWindowTitle(name);
 	
 	int nowPage=1;
 	int maxPage=prompts.count();
 	foreach (const QString& prompt, prompts)
 	{
-		TrainSamplePage *page = new TrainSamplePage(prompt, nowPage++, maxPage, textName, this);
+		TrainSamplePage *page = new TrainSamplePage(prompt, nowPage++, maxPage, name, this);
 // 		connect(this, SIGNAL(accepted()), page, SLOT(submit()));
 // 		connect(this, SIGNAL(rejected()), page, SLOT(cleanUp()));
 		addPage(page);
 	}
 	connect(this, SIGNAL(accepted()), this, SLOT(submit()));
 	connect(this, SIGNAL(rejected()), this, SLOT(cleanUp()));
-	
+	addPage(createFinishedPage());
+	return true;
 }
 
 QWizardPage* TrainingsWizard::createIntroPage()
@@ -136,7 +155,7 @@ QWizardPage* TrainingsWizard::createIntroPage()
 	intro->setTitle(i18n("Training"));
 	QLabel *lbIntro = new QLabel(intro);
 	lbIntro->setWordWrap(true);
-	lbIntro->setText(i18n("Dieser Assistent wird Ihnen dabei helfen, die Erkennungsrate Anhand von Trainings-Aufnahmen zu erhöhen.."));
+	lbIntro->setText(i18n("Dieser Assistent wird Ihnen dabei helfen, die Erkennungsrate Anhand von Trainings-Aufnahmen zu erhöhen."));
 
 	QVBoxLayout *lay = new QVBoxLayout(intro);
 	lay->addWidget(lbIntro);

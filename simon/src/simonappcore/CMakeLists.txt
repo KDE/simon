@@ -20,7 +20,7 @@ kde4_add_kcfg_files(simonappcore_LIB_SRCS coreconfiguration.kcfgc)
 kde4_add_library( simonappcore  SHARED ${simonappcore_LIB_SRCS} )
 target_link_libraries( simonappcore ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
 simoninfo simonlogging speechgui simonrecognitioncontrol simonactions
-simonmodelmanagement)
+simonmodelmanagementui simonmodelmanagement)
 
 
 set_target_properties( simonappcore

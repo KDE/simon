@@ -108,6 +108,10 @@ private slots:
 	void slotRecognitionError(const QString &err);
 	void slotCompilationError(const QString &err);
 
+	void slotModelCompilationWordUndefined(const QString &word);
+	void slotModelCompilationClassUndefined(const QString &undefClass);
+	void slotModelCompilationPhonemeUndefined(const QString &phonemeUndefined);
+
 
 	void slotSimondSystemWarning(const QString& warning);
 	void slotSynchronisationWarning(const QString& warning);

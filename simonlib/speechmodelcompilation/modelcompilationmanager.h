@@ -41,12 +41,12 @@ Q_OBJECT
 signals:
 	void status(const QString&, int progressNow, int progressTotal=2300);
 	void error(const QString&);
-	void missingWord(const QString&);
-	void sampleWithoutWord(const QString&);
-	void unknownGrammarClass(const QString&);
+
+	void wordUndefined(const QString&);
+	void classUndefined(const QString&);
+ 	void phonemeUndefined(const QString&);
 
 	void modelCompiled();
-// 	void missingPhoneme(const QString&);
 
 private:
 	QString currentStatus;

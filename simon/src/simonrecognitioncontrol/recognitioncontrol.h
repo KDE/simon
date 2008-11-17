@@ -91,9 +91,14 @@ signals:
 
 	void loggedIn();
 
+	void modelCompilationWordUndefined(const QString&);
+	void modelCompilationClassUndefined(const QString&);
+ 	void modelCompilationPhonemeUndefined(const QString&);
+
 	void recognitionStatusChanged(RecognitionControl::RecognitionStatus);
 	void recognised(const QString&, const QString& sampa, const QString& samparaw);
 	
+
 
 
 	

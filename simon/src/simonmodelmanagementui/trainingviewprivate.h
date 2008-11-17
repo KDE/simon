@@ -45,27 +45,6 @@ class TrainingViewPrivate : public QWidget {
 private:
 	Ui::TrainMain ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	ImportTrainingTexts *import;
-	int currentPage; //!< when we train a text this will hold the page we are on
-
-	RecWidget *recorder;
-	int recordedPages; //!< this counter will hold the recorded pages; it will change, when pages are recorded or deleted
-	
-	void resetRecorder();
-	void cleanUpTrainingSamples();
-
-private slots:
-	void increaseRecordedPages();
-	void decreaseRecordedPages();
-
-	void adaptNavigationButtons();
-	void backToMain();
-
-	void startTraining();
-	void fetchPage(int page);
-	void nextPage();
-	void prevPage();
-	void cancelReading();
-	void finish();
 
 
 public slots:
@@ -74,7 +53,6 @@ public slots:
 	void deleteSelected();
 
 	void trainSelected();
-	void trainWords(const WordList& words);
 
 	void importTexts();
 	void importDirectory();

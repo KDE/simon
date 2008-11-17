@@ -49,24 +49,15 @@ TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
 	TrainingManager::getInstance()->init();
 
 	ui.setupUi ( this );
-	recorder=0;
 
 	connect ( ui.pbTrainText, SIGNAL ( clicked() ), this, SLOT ( trainSelected() ) );
 	connect ( ui.twTrainingWords, SIGNAL ( cellDoubleClicked ( int,int ) ), this, SLOT ( trainSelected() ) );
 
-	ui.pbPrevPage->setEnabled ( false );
-	connect ( ui.pbNextPage, SIGNAL ( clicked() ), this, SLOT ( nextPage() ) );
-	connect ( ui.pbPrevPage, SIGNAL ( clicked() ), this, SLOT ( prevPage() ) );
-
-	connect ( ui.pbFinish, SIGNAL ( clicked() ), this, SLOT ( finish() ) );
 	connect ( ui.pbImportText, SIGNAL ( clicked() ), this, SLOT ( importTexts() ) );
-	connect ( ui.pbBackToMain, SIGNAL ( clicked() ), this, SLOT ( cancelReading() ) );
 	connect ( ui.pbDelText, SIGNAL ( clicked() ), this, SLOT ( deleteSelected() ) );
 	connect ( ui.pbImportDir, SIGNAL ( clicked() ), this, SLOT ( importDirectory() ) );
 
-	currentPage=0;
 	import = new ImportTrainingTexts();
-	connect(TrainingManager::getInstance(), SIGNAL(trainingFinished()), this, SLOT(backToMain()));
 	connect(TrainingManager::getInstance(), SIGNAL(trainingDataChanged()), this, SLOT(loadList()));
 	loadList();
 
@@ -76,11 +67,6 @@ TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
 	ui.pbDelText->setIcon(KIcon("edit-delete"));
 	ui.pbImportText->setIcon(KIcon("document-import"));
 	ui.pbImportDir->setIcon(KIcon("document-open-folder"));
-
-	ui.pbPrevPage->setIcon(KIcon("go-previous"));
-	ui.pbNextPage->setIcon(KIcon("go-next"));
-	ui.pbBackToMain->setIcon(KIcon("dialog-cancel"));
-	ui.pbFinish->setIcon(KIcon("dialog-ok-apply"));
 }
 
 
@@ -107,19 +93,6 @@ void TrainingViewPrivate::deleteSelected()
 
 
 /**
- * \brief Starts a special training with the given words
- * \author Peter Grasch
- */
-void TrainingViewPrivate::trainWords ( const WordList& words )
-{
-	if ( words.empty() ) return;
-
-	TrainingManager::getInstance()->trainWords ( &words );
-
-	startTraining();
-}
-
-/**
  * \brief Starts the training of the selected text
  * \author Peter Grasch
  */
@@ -137,35 +110,12 @@ void TrainingViewPrivate::trainSelected()
 		return;
 	}
 
-	TrainingsWizard *wizard = new TrainingsWizard(*text, this);
-	wizard->exec();
+	TrainingsWizard *wizard = new TrainingsWizard(this);
+	if (wizard->init(*text))
+		wizard->exec();
+	wizard->deleteLater();
 }
 
-/**
- * \brief Starts the training of the currently used text in the TrainingManager
- *
- * Trains a text or a special training program;
- * All the needed data is fetched from the concept class;
- * This ensures that the behaviour from the specialized training is not different from
- * the default training texts.
- * \author Peter Grasch
- */
-void TrainingViewPrivate::startTraining()
-{
-	ui.swAction->setCurrentIndex ( 1 );
-	setWindowTitle ( i18n ( "Training - " ) +TrainingManager::getInstance()->getCurrentText()->getName() );
-
-	int count = TrainingManager::getInstance()->getCurrentText()->getPageCount();
-	ui.pbPages->setMaximum ( count );
-
-	ui.pbFinish->setEnabled ( false );
-	this->currentPage=0;
-	recordedPages = 0;
-
-	adaptNavigationButtons();
-
-	fetchPage ( currentPage );
-}
 
 /**
  * \brief Shows the ImportTrainingDirectory-Wizard
@@ -178,70 +128,6 @@ void TrainingViewPrivate::importDirectory()
 
 }
 
-/**
- * \brief Trains the model with the gathered data
- *
- * \author Peter Grasch
- */
-void TrainingViewPrivate::finish()
-{
-	backToMain();
-// 	TrainingManager::getInstance()->finishTrainingSession();
-}
-
-/**
- * \brief Adapts the components to the content of the page given
- * Gets the content of the page and displays it in the label;
- * Displays the pageNumber in the progressbar and the groupbox-title
- * \author Peter Grasch, Susanne Tschernegg
- * \param int page
- * The page to use
- * \note all information is retrieved from this->TrainingManager::getInstance()
- */
-void TrainingViewPrivate::fetchPage ( int page )
-{
-	QString keyStr;
-	QStringList samplenames = TrainingManager::getInstance()->getSampleHash().keys();
-	if (samplenames.count() < page) return;
-	keyStr = samplenames.at(page);
-
-	//FIXME: move to library
-	QString filename = TrainingManager::getInstance()->getTrainingDir()+"/"+keyStr+".wav";
-// 	QString filename = CoreConfiguration::modelTrainingsDataPath().path()+"/"+keyStr+".wav";
-	resetRecorder();
-	recorder = new RecWidget ( i18n("Seite %1/%2:", page+1, TrainingManager::getInstance()->getCurrentText()->getPageCount()), 
-				   TrainingManager::getInstance()->getCurrentText()->getPage ( page ),
-	                           filename, ui.wRecTexts );  //<name-des-textes>_S<seitennummer>_<datum/zeit>.wav
-
-	connect ( recorder, SIGNAL ( recordingFinished() ), this, SLOT ( increaseRecordedPages() ) );
-	connect ( recorder, SIGNAL ( sampleDeleted() ), this, SLOT ( decreaseRecordedPages() ) );
-
-	ui.wRecTexts->layout()->addWidget ( recorder );
-	
-	ui.pbPages->setValue ( page+1 );
-}
-
-
-void TrainingViewPrivate::adaptNavigationButtons()
-{
-	ui.pbPrevPage->setEnabled ( currentPage > 0 );
-
-	ui.pbNextPage->setEnabled(currentPage < (TrainingManager::getInstance()->getCurrentText()->getPageCount()-1));
-}
-
-/**
- * \brief Jumps to the previous page in the pile
- * \author Peter Grasch, Susanne Tschernegg
- */
-void TrainingViewPrivate::prevPage()
-{
-	currentPage--;
-	Q_ASSERT(currentPage >= 0);
-
-	adaptNavigationButtons();
-	resetRecorder();
-	fetchPage ( currentPage );
-}
 
 /**
  * \brief Displays the ImportTrainingTexts Wizard
@@ -255,82 +141,6 @@ void TrainingViewPrivate::importTexts()
 	connect ( import, SIGNAL ( finished ( int ) ), this, SLOT ( loadList() ) );
 }
 
-/**
- * \brief Resets the RecordingWidget
- * \author Peter Grasch
- */
-void TrainingViewPrivate::resetRecorder()
-{
-	if (!recorder) return;
-
-	ui.wRecTexts->layout()->removeWidget ( recorder );
-	delete recorder;
-	recorder=0;
-}
-
-/**
- * \brief Jumps to the next page in the pile
- * \author Peter Grasch, Susanne Tschernegg
- */
-void TrainingViewPrivate::nextPage()
-{
-	currentPage++;
-	Q_ASSERT(currentPage < TrainingManager::getInstance()->getCurrentText()->getPageCount());
-	
-	adaptNavigationButtons();
-	resetRecorder();
-	fetchPage ( currentPage );
-}
-
-
-/**
- * \brief Stops the training of a specific text and switches back to the overview
- * \author Peter Grasch, Susanne Tschernegg
- */
-void TrainingViewPrivate::cancelReading()
-{
-	cleanUpTrainingSamples();
-	backToMain();
-}
-
-
-void TrainingViewPrivate::backToMain()
-{
-	resetRecorder();
-	ui.swAction->setCurrentIndex ( 0 );
-	setWindowTitle ( i18n ( "Training" ) );
-}
-
-/**
- * @brief cleans up the saved Trainingfiles, because they are no longer needed
- *
- *	@author Peter Grasch, Susanne Tschernegg
-*/
-void TrainingViewPrivate::cleanUpTrainingSamples()
-{
-	ui.swAction->setCurrentIndex ( 0 );
-
-	//cleaning up
-	for ( int i=1; i < TrainingManager::getInstance()->getCurrentText()->getPageCount() +1; i++ )
-	{
-		//FIXME: library
-		//QDir dir ( CoreConfiguration::modelTrainingsDataPath().path() );
-		QDir dir();
-		//QStringList list = dir.entryList(QDir::Files);
-		/*QString textName = TrainingManager::getInstance()->getTextName();
-		textName.replace(QString(" "), QString("_"));
-		QStringList filteredList = list.filter(QRegExp(QString(textName+"_S"+QString::number(i)+"_"+QString(qvariant_cast<QString>(QDate::currentDate()))+"_*.wav")));*/
-		QHashIterator<QString, QString> hIterator ( TrainingManager::getInstance()->getSampleHash() );
-		while ( hIterator.hasNext() )
-		{
-			hIterator.next();
-			QFile f ( hIterator.value() );
-			if ( f.exists() )
-				f.remove();
-		}
-		TrainingManager::getInstance()->clearSampleHash();
-	}
-}
 
 /**
  * @brief Loads the List of known Trainingtexts
@@ -379,32 +189,6 @@ void TrainingViewPrivate::loadList()
  */
 TrainingViewPrivate::~TrainingViewPrivate()
 {
-    recorder->deleteLater();
     import->deleteLater();
 }
 
-/**
- * @brief increases the recorded pages. if the recordedpages the same as the maximum of pages, the finish-butten will be enabled.
- *
- * @author Susanne Tschernegg, Peter Grasch
- */
-void TrainingViewPrivate::increaseRecordedPages()
-{
-	int max = TrainingManager::getInstance()->getCurrentText()->getPageCount();
-	++recordedPages;
-	if ( recordedPages==max )
-		ui.pbFinish->setEnabled ( true );
-}
-
-/**
- * @brief decreases the recorded pages. if the recordedpages were before the same as the maximum of pages, the finish-butten will be enabled.
- *
- *	@author Susanne Tschernegg, Peter Grasch
- */
-void TrainingViewPrivate::decreaseRecordedPages()
-{
-	int max = TrainingManager::getInstance()->getCurrentText()->getPageCount();
-	--recordedPages;
-	if ( recordedPages<max )
-		ui.pbFinish->setEnabled ( false );
-}

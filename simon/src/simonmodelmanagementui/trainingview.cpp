@@ -34,11 +34,6 @@ TrainingView::TrainingView(QWidget *parent) : InlineWidget(i18n ( "Training" ), 
 	guessChildTriggers ( ( QObject* ) this );
 }
 
-void TrainingView::trainWords ( const WordList& words )
-{
-	d->trainWords(words);
-}
-
 
 TrainingView::~TrainingView()
 {

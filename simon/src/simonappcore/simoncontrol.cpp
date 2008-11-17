@@ -55,6 +55,13 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	QObject::connect(recognitionControl, SIGNAL(synchronisationWarning(const QString&)), this, SLOT(slotSynchronisationWarning(const QString&)));
 	QObject::connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(slotRecognitionWarning(const QString&)));
 	QObject::connect(recognitionControl, SIGNAL(compilationWarning(const QString&)), this, SLOT(slotCompilationWarning(const QString&)));
+
+	connect(recognitionControl, SIGNAL(modelCompilationWordUndefined(const QString&)), this, 
+			SLOT(slotModelCompilationClassUndefined(const QString&)));
+	connect(recognitionControl, SIGNAL(modelCompilationClassUndefined(const QString&)), this, 
+			SLOT(slotModelCompilationWordUndefined(const QString&)));
+	connect(recognitionControl, SIGNAL(modelCompilationPhonemeUndefined(const QString&)), this, 
+			SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
 	
 	QObject::connect(recognitionControl, SIGNAL(loggedIn()), this, SLOT(loggedIn()));
 	
@@ -116,6 +123,24 @@ void SimonControl::slotCompilationWarning(const QString& warning)
 {
 	SimonInfo::showMessage(i18n("Modellverwaltung: %1", warning), 5000);
 }
+
+void SimonControl::slotModelCompilationWordUndefined(const QString& word)
+{
+	if (KMessageBox::questionYesNoCancel(0, i18n("Beim Generieren des Sprachmodells wurde erkannt, dass das Wort \"%1\" in den Trainingsdaten vorkommt aber nicht phonetisch definiert ist.\n\nMöchten Sie das Wort jetzt hinzufügen?", word)) != KMessageBox::Yes)
+		return;
+
+
+}
+
+void SimonControl::slotModelCompilationClassUndefined(const QString& undefClass)
+{
+}
+
+void SimonControl::slotModelCompilationPhonemeUndefined(const QString& phoneme)
+{
+}
+
+
 
 /**
  * @brief Connects to recognitionControl

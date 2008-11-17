@@ -88,6 +88,9 @@ class ClientSocket : public QSslSocket
 		
 		void slotModelCompilationStatus(const QString& status, int progressNow, int progressMax);
 		void slotModelCompilationError(const QString& error);
+		void slotModelCompilationWordUndefined(const QString& word);
+		void slotModelCompilationPhonemeUndefined(const QString& phoneme);
+		void slotModelCompilationClassUndefined(const QString& undefClass);
 		
 		void synchronisationComplete();
 		void synchronisationDone();

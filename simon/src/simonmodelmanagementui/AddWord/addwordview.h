@@ -50,8 +50,6 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 	Q_OBJECT
 
 	private:
-		static AddWordView *instance;
-		
 		QStringList wordsToAdd;
 		WordList *listToAdd;
 		QHash<QString,QString> promptsToAdd;
@@ -69,23 +67,19 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 		
 	private slots:
 		void askToAddWord(QString word);
-		void askToAddWords(QStringList words);
 		void cleanUp();
 
 	public slots:
-		
 		void finish(int done);
 
 		AddWordIntroPage* createWelcomePage();
 		AddWordRecordPage* createRecordPage(const QString& fieldName, int pageNr, int pageMax);
 		AddWordResolvePage* createResolvePage();
 		QWizardPage* createFinishedPage();
+		void addWords(QStringList words);
 		
-	protected:
-		AddWordView(QWidget *parent);
-
 	public:
-		static AddWordView* getInstance();
+		AddWordView(QWidget *parent);
 		~AddWordView();
     
         void createWord(QString word);

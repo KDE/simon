@@ -52,7 +52,6 @@ TrainingManager::TrainingManager(QObject *parent) : QObject(parent), promptsLock
 {
 	trainingTexts = 0;
 	promptsTable=0;
-// 	connect(ModelManager::getInstance(), SIGNAL(sampleWithoutWord(QString)), this, SLOT(askDeleteLonelySample(QString)));
 }
 
 bool TrainingManager::init()
@@ -81,23 +80,6 @@ TrainingManager* TrainingManager::getInstance()
 	if (!instance)
 		instance = new TrainingManager();
 	return instance;
-}
-
-/**
- * \brief Asks to delete the sample which has no entry in the prompts-table
- * \author Peter Grasch
- * @param  sample The sample to delete
- */
-
-void TrainingManager::askDeleteLonelySample(QString sample)
-{
-	//FIXME
-// 	if (KMessageBox::questionYesNoCancel(0, i18n("Die Datei %1 hat keine Transkription.\n\nWollen Sie sie löschen?", sample), i18n("Herrenloses Sample")) == KMessageBox::Yes)
-// 	{
-// 		if (!QFile::remove(sample))
-// 			KMessageBox::error(0, i18n("Das Löschen des Samples ist fehlgeschlagen"), i18n("Löschen fehlgeschlagen"));
-// 		else ModelManager::compileModel(); //start again
-// 	}
 }
 
 /**
@@ -239,83 +221,6 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 	return promptsTable;
 }
 
-/**
- * \brief Creates a training text and sets it to be the current text
- * \author Peter Grasch
- */
-void TrainingManager::trainWords ( const WordList *words )
-{
-	if ( !words ) return;
-
-	Logger::log ( i18n ( "[INF] Starten eines  on-the-fly Trainings mit %1 Wörter" ).arg ( words->count() ) );
-
-	QStringList pages;
-
-	//we try to guess the perfect amount of words/page
-	//We first go through the possible words/page word counts from 5 to 12
-	//If we find a perfect match (means we have x pages with the /same/ amount of words
-	//on them, we found a perfect words/page value
-	//If not, we try to find the w/p count that leaves the last page with the closest
-	//value of w/p than the others.
-	//for example if we have given 37 words, we would end up with the following:
-	//
-	//	+---------+-----------------+
-	//	| w/p     |    w/p last page|
-	//	+---------------------------+
-	//	|  5      |         2	    |
-	//	|  6      |         1	    |
-	//	|  7      |         2	    |
-	//	|  8      |         5	    |
-	//	|  9      |         1	    |
-	//	|  10     |         7	    |
-	//	|  11     |         4	    |
-	//	|  12     |         1	    |
-	//	+---------+-----------------+
-	//
-	//In this case the perfect amount of w/p would be 10 because even the last page
-	//would have enough words for perfect accuracy
-
-	short wordCount = words->count();
-	short wordsPerPage=5;
-
-	short maxLeftOver=0;
-	short leftOverWordsPerPage=5;
-
-	while ( ( wordCount%wordsPerPage != 0 ) && ( wordsPerPage <=12 ) )
-	{
-		if ( wordCount%wordsPerPage > maxLeftOver )
-		{
-			maxLeftOver = wordCount%wordsPerPage;
-			leftOverWordsPerPage = wordsPerPage;
-		}
-
-		wordsPerPage++;
-	}
-	if ( wordsPerPage==13 ) wordsPerPage=leftOverWordsPerPage;
-
-	QString page;
-	QString time;
-	for ( int i=0; i< ceil ( ( double ) wordCount/wordsPerPage ); i++ )
-	{
-		page="";
-		for ( int j=0; ( j<wordsPerPage ) && ( j+ ( i*wordsPerPage ) < wordCount ); j++ )
-		{
-			page += words->at ( j+ ( i*wordsPerPage ) ).getWord() +QString ( " " );
-		}
-		page = page.trimmed();
-
-		pages.append ( page );
-
-		time = qvariant_cast<QString>(QTime::currentTime());
-		time.replace(QString(":"), QString("-"));
-		sampleHash.insert((page.replace(" ", "_")+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), page.toUpper());
-	}
-
-	TrainingText *newText = new TrainingText ( i18n ( "Spezialisiertes Training" ),
-	        "", pages );
-
-	currentText=newText;
-}
 
 /**
  * \brief Deletes the given file from the harddrive
@@ -378,63 +283,23 @@ bool TrainingManager::refreshTraining(int sampleRate, const QByteArray& prompts)
 	return true;
 }
 
-/**
- * \brief Marks text at the given index as the one we are training now
- * Stores a pointer of the text in the member currentText
- * \author Peter Grasch
- * \param int i
- * The index
- * \return bool
- * Success?
- */
-bool TrainingManager::trainText ( int i )
-{
-	this->currentText = getText(i);
-	
-	if (!currentText) {
-		return false;
-	}
-	
-	Logger::log(i18n("[INF] Training Text: \"")+currentText->getName()+"\"");
-	bool allWordsInDict = allWordsExisting();
-	if(!allWordsInDict)
-		return false;
-	
-	QString textName = currentText->getName();
-	textName.replace(QString(" "), QString("_"));
-	QString time = qvariant_cast<QString>(QTime::currentTime());
-	time.replace(QString(":"), QString("-"));
-	
-	QString textFileName = QFile::encodeName(textName);
-	for(int i=0; i<currentText->getPageCount(); i++)
-	{
-		sampleHash.insert((textFileName+"_S"+QString::number(i+1)+"_"+QDate::currentDate().toString("yyyy-MM-dd")+"_"+time), currentText->getPage(i));
-	}
-	return (currentText != NULL);
-}
-
 
 /**
- * \brief chechs if all words in the dict. If there some words missing in the dict, the addwordview dialog will be shown.
+ * \brief chechs if all words in the dict and returns those that aren't
  * \author Susanne Tschernegg, Peter Grasch
- * @return bool
- *      returns whether all words are in the dict or not
+ * @return Missing words
  */
-bool TrainingManager::allWordsExisting()
+QStringList TrainingManager::missingWords(const QStringList& prompts)
 {
-	Q_ASSERT(currentText);
 	QStringList strListAllWords;
-	int pageCount=currentText->getPageCount();
-	for ( int x=0; x<pageCount; x++ )
+	for ( int x=0; x<prompts.count(); x++ )
 	{
-		QStringList strList = getPage ( x ).split ( " " );
+		QStringList strList = prompts[x].split ( " " );
 		int strListSize = strList.size();
 		for ( int y=0; y < strListSize; y++ )
 		{
 			QString word = strList.at ( y );
 				
-				
-			word = word.trimmed();
 			word.remove ( "." );
 			word.remove ( "," );
 			word.remove ( "(" );
@@ -446,7 +311,7 @@ bool TrainingManager::allWordsExisting()
 			word.remove ( "\\" );
 			word.remove ( "[" );
 			word.remove ( "]" );
-			
+			word = word.trimmed();
 			
 			if (!WordListManager::getInstance()->mainWordListContainsStr(word))
 			{
@@ -455,26 +320,7 @@ bool TrainingManager::allWordsExisting()
 			}
 		}
 	}
-	if ( strListAllWords.count() ==0 )
-		return true;
-	
-	
-	emit addMissingWords(strListAllWords); // tell addwordview what the hell is going on
-	return false;
-}
-
-/**
- * \brief This is used to get the page <i> of the currently training text (stored in the currentText member)
- * \author Peter Grasch
- * \param int i
- * The index
- * \return QString
- * The text of the page <i>
- */
-QString TrainingManager::getPage ( int i )
-{
-	if ( !currentText ) return "";
-	return currentText->getPage ( i );
+	return strListAllWords;
 }
 
 /**
@@ -490,8 +336,9 @@ TrainingText* TrainingManager::getText ( int i )
 	if (!this->trainingTexts) readTrainingTexts();
 	
 	if ( this->trainingTexts && (trainingTexts->count() > i))
+	{
 		return this->trainingTexts->at ( i );
-	else return NULL;
+	} else return NULL;
 }
 
 
@@ -633,7 +480,6 @@ bool TrainingManager::addSample ( const QString& fileBaseName, const QString& pr
 TrainingManager::~TrainingManager()
 {
     delete trainingTexts;
-    delete currentText;
 }
 
 

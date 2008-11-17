@@ -39,12 +39,13 @@ class TrainingsWizard : public QWizard
 		QWizardPage* createIntroPage();
 		QWizardPage* createFinishedPage();
 
-		void init(const QStringList& prompts, const QString& name="");
+		bool init(const QStringList& prompts, const QString& name);
 
 	public:
-		TrainingsWizard(const QStringList &prompts, QWidget *parent=0);
-		TrainingsWizard(const WordList &wList, QWidget *parent=0);
-		TrainingsWizard(const TrainingText &text, QWidget *parent=0);
+		TrainingsWizard(QWidget *parent=0);
+		bool init(const QStringList &prompts);
+		bool init(const WordList &wList);
+		bool init(const TrainingText &text);
 		~TrainingsWizard();
 
 };

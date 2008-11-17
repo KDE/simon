@@ -51,5 +51,7 @@ int main(int argc, char *argv[])
 
 	SimonView *pv = new SimonView();
 	pv->show();
-	return app.exec();
+	int ret= app.exec();
+	delete pv;
+	return ret;
 }

@@ -22,7 +22,6 @@
 #include "deleteworddialog.h"
 #include "ImportDict/importdictview.h"
 #include "TrainSamples/trainingswizard.h"
-// #include "coreconfiguration.h"
 
 #include <speechmodelmanagement/wordlistmanager.h>
 #include <simonlogging/logger.h>
@@ -199,10 +198,14 @@ void WordListViewPrivate::trainList()
 		return;
 	}
 
-	TrainingsWizard *wizard = new TrainingsWizard(trainingwordlist, this);
-	wizard->exec();
-	trainingwordlist.clear();
-	ui.lwTrainingWords->clear();
+	TrainingsWizard *wizard = new TrainingsWizard(this);
+	if (wizard->init(trainingwordlist))
+	{
+		wizard->exec();
+		trainingwordlist.clear();
+		ui.lwTrainingWords->clear();
+	}
+	wizard->deleteLater();
 }
 
 /**

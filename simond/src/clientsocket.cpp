@@ -152,6 +152,12 @@ void ClientSocket::processRequest()
 					connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(activeModelCompiled()));
 					connect(modelCompilationManager, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelCompilationStatus(const QString&, int, int)));
 					connect(modelCompilationManager, SIGNAL(error(const QString&)), this, SLOT(slotModelCompilationError(const QString&)));
+					connect(modelCompilationManager, SIGNAL(classUndefined(const QString&)), this, 
+							SLOT(slotModelCompilationClassUndefined(const QString&)));
+					connect(modelCompilationManager, SIGNAL(wordUndefined(const QString&)), this, 
+							SLOT(slotModelCompilationWordUndefined(const QString&)));
+					connect(modelCompilationManager, SIGNAL(phonemeUndefined(const QString&)), this, 
+							SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
 					
 					
 
@@ -753,9 +759,47 @@ void ClientSocket::slotModelCompilationError(const QString& error)
 	stream << (qint32) Simond::ModelCompilationError
 		<< (qint64) (errorByte.count()+sizeof(qint32) /*seperator*/)
 		<< errorByte;
-	//FIXME: renable
 	write(toWrite);
 }
+
+
+void ClientSocket::slotModelCompilationWordUndefined(const QString& word)
+{
+	QMutexLocker l(&messageLocker);
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	QByteArray errorByte = word.toUtf8();
+	stream << (qint32) Simond::ModelCompilationWordUndefined
+		<< (qint64) (errorByte.count()+sizeof(qint32) /*seperator*/)
+		<< errorByte;
+	write(toWrite);
+}
+
+
+void ClientSocket::slotModelCompilationClassUndefined(const QString& undefClass)
+{
+	QMutexLocker l(&messageLocker);
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	QByteArray classByte = undefClass.toUtf8();
+	stream << (qint32) Simond::ModelCompilationClassUndefined
+		<< (qint64) (classByte.count()+sizeof(qint32) /*seperator*/)
+		<< classByte;
+	write(toWrite);
+}
+
+void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
+{
+	QMutexLocker l(&messageLocker);
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	QByteArray phonemeByte = phoneme.toUtf8();
+	stream << (qint32) Simond::ModelCompilationPhonemeUndefined
+		<< (qint64) (phonemeByte.count()+sizeof(qint32) /*seperator*/)
+		<< phonemeByte;
+	write(toWrite);
+}
+
 
 
 void ClientSocket::recompileModel()
@@ -967,6 +1011,8 @@ void ClientSocket::recognitionWarning(const QString& warning)
 	stream << (qint32) Simond::RecognitionError << (qint64) warningByte.count() << warningByte;
 	write(toWrite);
 }
+
+
 
 void ClientSocket::recognitionStarted()
 {
