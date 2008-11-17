@@ -20,13 +20,8 @@
 
 #include "simondnetworkconfiguration.h"
 #include "simondconfiguration.h"
-#include <kgenericfactory.h>
-
-K_PLUGIN_FACTORY( SimondNetworkConfigurationFactory, 
-			registerPlugin< SimondNetworkConfiguration >("SimondNetworkConfiguration");
-		)
-
-K_EXPORT_PLUGIN( SimondNetworkConfigurationFactory("SimondNetworkConfiguration"); )
+#include <QSslSocket>
+#include <QSslCipher>
 
 SimondNetworkConfiguration::SimondNetworkConfiguration(QWidget* parent, const QVariantList& args)
 					: KCModule(KGlobal::mainComponent(), parent)
@@ -36,6 +31,43 @@ SimondNetworkConfiguration::SimondNetworkConfiguration(QWidget* parent, const QV
 	ui.setupUi(this);
 	
 	addConfig(SimondConfiguration::self(), this);
+	connect(ui.cbCipher, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+}
+
+
+void SimondNetworkConfiguration::slotChanged()
+{
+	emit changed(true);
+}
+
+
+void SimondNetworkConfiguration::load()
+{
+	ui.cbCipher->clear();
+	QString selectedCipher = SimondConfiguration::encryptionMethod();
+
+        QList<QSslCipher> ciphers = QSslSocket::supportedCiphers();
+        QStringList cipherStrs;
+        QString cipherName;
+	int selectedIndex;
+        for (int i=0; i < ciphers.count(); i++)
+	{
+		cipherName = ciphers[i].name();
+		if (cipherName == selectedCipher)
+			selectedIndex =i;
+		cipherStrs << cipherName;
+	}
+
+	ui.cbCipher->addItems(cipherStrs);
+	ui.cbCipher->setCurrentIndex(selectedIndex);
+								
+	KCModule::load();
+}
+
+void SimondNetworkConfiguration::save()
+{
+	SimondConfiguration::setEncryptionMethod(ui.cbCipher->currentText());
+	KCModule::save();
 }
 
 SimondNetworkConfiguration::~SimondNetworkConfiguration()

@@ -79,6 +79,8 @@ int ModelManager::getActiveModelSampleRate()
 
 QDateTime ModelManager::getActiveContainerModifiedTime()
 {
+	if (!hasActiveContainer()) return QDateTime();
+
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/activemodelrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("Date", QDateTime());
@@ -122,7 +124,6 @@ bool ModelManager::storeActiveModel(const QDateTime& changedTime, int sampleRate
 QByteArray ModelManager::getSample(const QString& sampleName)
 {
 	QFile f(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+sampleName.toUtf8());
-	kDebug() << "Retrieving " << SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+sampleName.toUtf8();
 	if (!f.open(QIODevice::ReadOnly)) return QByteArray();
 	return f.readAll();
 }
@@ -151,6 +152,8 @@ WordListContainer* ModelManager::getWordListContainer()
 
 QDateTime ModelManager::getWordListModifiedTime()
 {
+	if (!hasWordList()) return QDateTime();
+	
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	/* grammar might effect the simpleVocab */
@@ -182,10 +185,10 @@ GrammarContainer* ModelManager::getGrammarContainer()
 
 QDateTime ModelManager::getGrammarModifiedTime()
 {
+	if (!hasGrammar()) return QDateTime();
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("GrammarDate", QDateTime());
-// 	return QFileInfo(KStandardDirs::locate("appdata", "model/model.grammar")).lastModified();
 }
 
 
@@ -215,12 +218,7 @@ LanguageDescriptionContainer* ModelManager::getLanguageDescriptionContainer()
 
 QDateTime ModelManager::getLanguageDescriptionModifiedTime()
 {
-// 	QDateTime maxModifiedDate = QFileInfo(KStandardDirs::locate("appdata", "model/tree1.hed")).lastModified();
-// 	maxModifiedDate = qMax(maxModifiedDate, 
-// 				QFileInfo(KStandardDirs::locate("appdata", "model/shadow.voca")).lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, 
-// 				QFileInfo(KStandardDirs::locate("appdata", "model/shadowlexicon")).lastModified());
-// 	return maxModifiedDate;
+	if (!hasLanguageDescription()) return QDateTime();
 	
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
@@ -253,12 +251,12 @@ TrainingContainer* ModelManager::getTrainingContainer()
 {
 	int modelSampleRate=SpeechModelManagementConfiguration::modelSampleRate();
 	
-	TrainingManager::getInstance()->writePromptsFile(
-			TrainingManager::getInstance()->getPrompts(), 
-			KStandardDirs::locateLocal("tmp", "transferprompts"));
+//	TrainingManager::getInstance()->writePromptsFile(
+//			TrainingManager::getInstance()->getPrompts(), 
+//			KStandardDirs::locateLocal("tmp", "transferprompts"));
 
 	QFile wavConfig(KStandardDirs::locate("appdata", "model/wav_config"));
-	QFile prompts(KStandardDirs::locateLocal("tmp", "transferprompts"));
+	QFile prompts(KStandardDirs::locate("appdata", "model/prompts"));
 	
 
 	if ((!wavConfig.open(QIODevice::ReadOnly)) || (!prompts.open(QIODevice::ReadOnly)))
@@ -270,12 +268,7 @@ TrainingContainer* ModelManager::getTrainingContainer()
 
 QDateTime ModelManager::getTrainingModifiedTime()
 {
-// 	QDateTime maxModifiedDate = QFileInfo(KStandardDirs::locate("appdata", "model/wav_config")).lastModified();
-// 	maxModifiedDate = qMax(maxModifiedDate, 
-// 				QFileInfo(KStandardDirs::locate("appdata", "model/prompts")).lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, 
-// 				QFileInfo(KStandardDirs::locate("config", "speechmodelmanagementrc")).lastModified());
-// 	return maxModifiedDate;
+	if (!hasTraining()) return QDateTime();
 
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
@@ -340,32 +333,47 @@ QString ModelManager::missingSample()
 	return missingFiles.at(0);
 }
 
+bool ModelManager::hasWordList()
+{
+	return (QFile::exists(KStandardDirs::locate("appdata", "model/model.voca")) && 
+		  QFile::exists(KStandardDirs::locate("appdata", "model/lexicon")));
+}
+
+bool ModelManager::hasTraining()
+{
+	return (QFile::exists(KStandardDirs::locate("appdata", "model/wav_config")) && 
+		  QFile::exists(KStandardDirs::locate("appdata", "model/prompts")));
+}
+
+bool ModelManager::hasGrammar()
+{
+	return QFile::exists(KStandardDirs::locate("appdata", "model/model.grammar"));
+}
+
+bool ModelManager::hasLanguageDescription()
+{
+	return (QFile::exists(KStandardDirs::locate("appdata", "model/tree1.hed")) && 
+		  QFile::exists(KStandardDirs::locate("appdata", "model/shadow.voca")));
+}
+
+bool ModelManager::hasActiveContainer()
+{
+	return (QFile::exists(KStandardDirs::locate("appdata", "model/hmmdefs")) && 
+		  QFile::exists(KStandardDirs::locate("appdata", "model/tiedlist")) &&
+		  QFile::exists(KStandardDirs::locate("appdata", "model/model.dict")) && 
+		  QFile::exists(KStandardDirs::locate("appdata", "model/model.dfa")));
+}
+
 
 QDateTime ModelManager::getSrcContainerModifiedTime()
 {
-	
+	if (!hasWordList() || !hasTraining() || !hasGrammar() || !hasLanguageDescription())
+		return QDateTime();
+
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	QDateTime maxModifiedDate = qMax(cGroup.readEntry("WordListDate", QDateTime()),
 					 cGroup.readEntry("GrammarDate", QDateTime()));
 	maxModifiedDate = qMax(maxModifiedDate, cGroup.readEntry("LanguageDescriptionDate", QDateTime()));
 	return qMax(maxModifiedDate, cGroup.readEntry("TrainingDate", QDateTime()));
-	
-// 	QDateTime maxModifiedDate = qMax(QFileInfo(KStandardDirs::locate("appdata", "model/wav_config")).lastModified(),
-// 					  QFileInfo(KStandardDirs::locate("appdata", "model/tree1.hed")).lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, 
-// 				QFileInfo(KStandardDirs::locate("appdata", "model/model.grammar")).lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, 
-// 				QFileInfo(KStandardDirs::locate("appdata", "model/model.voca")).lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, 
-// 				QFileInfo(KStandardDirs::locate("appdata", "model/lexicon")).lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, 
-// 				QFileInfo(KStandardDirs::locate("appdata", "model/shadow.voca")).lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, 
-// 				QFileInfo(KStandardDirs::locate("appdata", "model/shadowlexicon")).lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, 
-// 				QFileInfo(KStandardDirs::locate("appdata", "model/prompts")).lastModified());
-// 	maxModifiedDate = qMax(maxModifiedDate, 
-// 				QFileInfo(KStandardDirs::locate("config", "speechmodelmanagementrc")).lastModified());
-// 	return maxModifiedDate;
 }

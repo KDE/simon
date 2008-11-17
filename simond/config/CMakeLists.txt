@@ -6,29 +6,29 @@ include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../../simonlib/ )
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
-set( simondconfiguration_LIB_SRCS
-	#${CMAKE_CURRENT_SOURCE_DIR}/simonduserconfiguration.cpp
+set( simondsettings_LIB_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/simonduserconfiguration.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/simondnetworkconfiguration.cpp
-	#	${CMAKE_CURRENT_SOURCE_DIR}/plugin_exporter.cpp
-	#${CMAKE_CURRENT_SOURCE_DIR}/simondconfigurationmain.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/plugin_exporter.cpp
 )
 
-kde4_add_kcfg_files(simondconfiguration_LIB_SRCS simondconfiguration.kcfgc)
+kde4_add_kcfg_files(simondsettings_LIB_SRCS simondconfiguration.kcfgc)
 
-kde4_add_ui_files( simondconfiguration_LIB_SRCS
+kde4_add_ui_files( simondsettings_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/simondnetworkconfiguration.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/simonduserconfiguration.ui
 )
 
-kde4_add_library( simondconfiguration SHARED ${simondconfiguration_LIB_SRCS} )
+kde4_add_library( simondsettings SHARED ${simondsettings_LIB_SRCS} )
 
-target_link_libraries( simondconfiguration ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} speechgui )
+target_link_libraries( simondsettings ${QT_LIBRARIES} ${QT_LIBRARIES}
+	${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} speechgui simonddatabaseaccess )
 
-set_target_properties( simondconfiguration
+set_target_properties( simondsettings
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 
  
-install( TARGETS simondconfiguration  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS simondsettings  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 install( FILES simondnetworkconfiguration.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 install( FILES simonduserconfiguration.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

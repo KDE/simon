@@ -44,8 +44,6 @@ private:
 	WordListViewPrivate *d;
 
 public slots:
-	void setSettingsHidden();
-	void setSettingsVisible();
 	void filterListbyPattern();
 
 public:

@@ -54,7 +54,6 @@ CompositeProgressWidget::CompositeProgressWidget(QWidget* parent): QWidget(paren
 	lay->addWidget(togglePopup);
 	setLayout(lay);
 }
-#include <KDebug>
 
 void CompositeProgressWidget::showDetails(bool show)
 {
@@ -71,7 +70,6 @@ void CompositeProgressWidget::showDetails(bool show)
 
 void CompositeProgressWidget::display(OperationList operations)
 {	
-	kDebug() << "hier";
 	QString status;
 	int now = 0;
 	int max = 0;
@@ -132,7 +130,6 @@ void CompositeProgressWidget::display(OperationList operations)
 	{
 		if ((!widget->operation()) || (!operations.contains(widget->operation())))
 		{
-			kDebug() << "Removing widget..." << widget;
 			popupWidget->layout()->removeWidget(widget);
 			progressWidgets.removeAll(widget);
 			widget->deleteLater();
@@ -153,7 +150,6 @@ void CompositeProgressWidget::display(OperationList operations)
 	}
 	
 
-	kDebug() << "Operationcount " << operations.count();
 	if (progressWidgets.count() > 0)
 	{
 		togglePopup->setEnabled(true);

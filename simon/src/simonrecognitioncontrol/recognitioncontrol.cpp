@@ -105,10 +105,18 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 void RecognitionControl::slotDisconnected()
 {
 	recognitionReady=false;
-	synchronisationOperation->deleteLater();
-	synchronisationOperation = NULL;
-	modelCompilationOperation->deleteLater();
-	modelCompilationOperation = NULL;
+	if (synchronisationOperation)
+	{
+		if (synchronisationOperation->isRunning())
+			synchronisationOperation->canceled();
+		synchronisationOperation = NULL;
+	}
+	if (modelCompilationOperation)
+	{
+		if (modelCompilationOperation->isRunning())
+			modelCompilationOperation->canceled();
+		modelCompilationOperation = NULL;
+	}
 }
 
 void RecognitionControl::startConnecting()
@@ -120,6 +128,7 @@ void RecognitionControl::startConnecting()
 	serverConnectionsToTry = RecognitionConfiguration::juliusdServers();
 	
 	if (serverConnectionsToTry.count() == 0) return;
+	kDebug() << serverConnectionsToTry;
 	
 	QStringList address = serverConnectionsToTry.takeAt(0).split(":");
 	connectTo(address[0], address[1].toInt());
@@ -588,7 +597,6 @@ void RecognitionControl::synchronisationDone()
 		{
 			synchronisationOperation->canceled();
 		}
-// 		synchronisationOperation->deleteLater();
 		synchronisationOperation=NULL;
 	}
 	

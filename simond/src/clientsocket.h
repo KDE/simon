@@ -24,7 +24,7 @@
 #include <QList>
 #include <QMutex>
 #include "clientsocket.h"
-#include "databaseaccess.h"
+#include <simonddatabaseaccess/databaseaccess.h>
 #include <simonprotocol/simonprotocol.h>
 
 

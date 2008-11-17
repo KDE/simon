@@ -5,11 +5,11 @@
 #include "simondnetworkconfiguration.h"
 #include <kgenericfactory.h>
 
-K_PLUGIN_FACTORY( SimondConfigurationFactory, 
+K_PLUGIN_FACTORY( SimondSettingsFactory, 
 			registerPlugin< SimondUserConfiguration >("SimondUserConfiguration"); 
 			registerPlugin< SimondNetworkConfiguration >("SimondNetworkConfiguration");
 		)
 
-K_EXPORT_PLUGIN( SimondConfigurationFactory("SimondConfiguration"); )
+K_EXPORT_PLUGIN( SimondSettingsFactory("SimondConfiguration"); )
 
 #endif

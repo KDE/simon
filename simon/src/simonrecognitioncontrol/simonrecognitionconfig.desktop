@@ -10,7 +10,6 @@ X-KDE-ParentComponents=libsimonrecognitioncontrol
 X-KDE-ParentApp=simon
 X-KDE-System-Settings-Parent-Category=simon
 
-
 Name=Recognition
 Name[de]=Erkennung
 

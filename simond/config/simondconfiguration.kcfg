@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
-<kcfg> <kcfgfile />
+<kcfg> <kcfgfile name="simondrc" />
   <include>KStandardDirs</include>
   <group name="Network">
     <entry name="Port" type="Int">
@@ -13,7 +13,7 @@
     </entry>
     <entry name="Host" type="String">
       <label>The only host to allow to connect to the server.</label>
-      <default>localhost</default>
+      <default>127.0.0.1</default>
     </entry>
 
     <entry name="UseEncryption" type="Bool">
@@ -31,7 +31,6 @@
   <group name="Database">
     <entry name="DatabaseUrl" type="Url">
       <label>The path to the database.</label>
-      <default code="true">KStandardDirs::locate("appdata", "simond.db")</default>
     </entry>
   </group>
 

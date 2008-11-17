@@ -38,16 +38,6 @@ RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(i18n("Kommandos")
 	guessChildTriggers((QObject*)this);
 }
 
-void RunCommandView::setSettingsVisible()
-{
-	d->setSettingsVisible();
-}
-
-void RunCommandView::setSettingsHidden()
-{
-	d->setSettingsHidden();
-}
-
 /**
  *	@brief Destructor
  *

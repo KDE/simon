@@ -23,7 +23,6 @@
 #include <QMetaType>
 
 #include <KLocalizedString>
-#include <KDebug>
 
 StatusManager* StatusManager::globalInstance;
 

@@ -46,6 +46,7 @@ KSimondView::KSimondView(QObject *parent):QObject(parent)
 	stopProcess = new KAction(0);
 	stopProcess->setText(i18n("simond stoppen"));
 	stopProcess->setIcon(KIcon("process-stop"));
+	stopProcess->setEnabled(false);
 	connect(stopProcess, SIGNAL(triggered(bool)),
 			this, SLOT(stopSimond()));
 
@@ -68,12 +69,12 @@ void KSimondView::showConfigurationDialog()
 {
 	KCMultiDialog *configDialog = new KCMultiDialog(0);
 //	configDialog->addModule("ksimondconfiguration");
-	configDialog->addModule("simondnetworkconfiguration");
 	configDialog->addModule("simonduserconfiguration");
+	configDialog->addModule("simondnetworkconfiguration");
 	configDialog->show();
 
 	//destroy when done
-	connect(configDialog, SIGNAL(done(int)), configDialog, SLOT(deleteLater()));
+	connect(configDialog, SIGNAL(finished(int)), configDialog, SLOT(deleteLater()));
 }
 
 
@@ -143,10 +144,13 @@ void KSimondView::slotError(QProcess::ProcessError err)
 void KSimondView::stopSimond()
 {
 	process->terminate();
+	if (!process->waitForFinished())
+		process->kill();
 }
 
 KSimondView::~KSimondView()
 {
+	stopSimond();
 	process->deleteLater();
 	trayIconMgr->deleteLater();
 	startProcess->deleteLater();

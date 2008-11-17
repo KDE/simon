@@ -384,30 +384,6 @@ TrainingViewPrivate::~TrainingViewPrivate()
 }
 
 /**
- * @brief to hide the settings
- *
- *	@author Susanne Tschernegg, Peter Grasch
- */
-void TrainingViewPrivate::setSettingsHidden()
-{
-	ui.pbDelText->hide();
-	ui.pbImportText->hide();
-	ui.pbImportDir->hide();
-}
-
-/**
- * @brief to set the settings visible
- *
- *	@author Susanne Tschernegg
- */
-void TrainingViewPrivate::setSettingsVisible()
-{
-	ui.pbDelText->show();
-	ui.pbImportText->show();
-	ui.pbImportDir->show();
-}
-
-/**
  * @brief increases the recorded pages. if the recordedpages the same as the maximum of pages, the finish-butten will be enabled.
  *
  * @author Susanne Tschernegg, Peter Grasch

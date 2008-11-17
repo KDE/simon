@@ -9,15 +9,9 @@
 		<Action name="wordlist" />
 		<Action name="train" />
 		<Action name="commands" />
-		<Action name="configuration" />
 		<Separator/>
 		<Action name="compileModel" />
-		<Action name="systemMode" />
 	</ToolBar>
-<!--	<ToolBar name="mode">
-		<text>Modus</text>
-		<Action name="systemMode" />
-	</ToolBar>-->
 	
 	<MenuBar>
 		<Menu name="juliusd">

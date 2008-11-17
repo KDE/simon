@@ -1,5 +1,6 @@
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/commandpluginbase)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/eventsimulation)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonddatabaseaccess)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonactions)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonlogging)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simoninfo)

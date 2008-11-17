@@ -19,8 +19,9 @@
 
 #include "clientsocket.h"
 #include "synchronisationmanager.h"
-#include "databaseaccess.h"
 #include "juliuscontrol.h"
+
+#include <simonddatabaseaccess/databaseaccess.h>
 
 #include <speechmodelbase/model.h>
 #include <speechmodelbase/wordlistcontainer.h>
@@ -714,7 +715,6 @@ void ClientSocket::sendSample(QString sampleName)
 	QByteArray toWrite=QByteArray();
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	
-	qint64 size=(qint64) sample.count();
 	//FIXME: Those 32 byte comming out of nowhere drive me nuts
 	out << Simond::TrainingsSample
 		<< (qint64) sample.count()+sizeof(qint32) /*seperator*/

@@ -41,6 +41,11 @@ class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
 		
 	private:
 		QStringList missingFiles;
+		bool hasWordList();
+		bool hasTraining();
+		bool hasGrammar();
+		bool hasLanguageDescription();
+		bool hasActiveContainer();
 	
 	public:
 		ModelManager();

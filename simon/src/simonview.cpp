@@ -49,7 +49,7 @@
 #include <KMessageBox>
 #include <KApplication>
 #include <KAction>
-#include <KActionMenu>
+#include <KToolBarPopupAction>
 #include <KMenu>
 #include <KLocale>
 #include <KActionCollection>
@@ -156,9 +156,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	show();
 	QCoreApplication::processEvents();
 
-	//switches, if the settings are shown or not
-	hideSettings();
-
 	ui.lbWelcomeDesc->setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/welcomebanner.png")));
 	ui.lbWarning->setStyleSheet("background-image: url(\""+KStandardDirs::locate("appdata", "themes/default/alphawarning.png")+"\"); padding-left:120px; padding-top:10px");
 
@@ -176,11 +173,8 @@ void SimonView::setupActions()
 	connect(disconnectAction, SIGNAL(triggered(bool)),
 		control, SLOT(disconnectFromServer()));
 
-	KActionMenu* connectActivate = new KActionMenu(this);
-// 	connectActivate->setMenu(new QMenu());
+	KToolBarPopupAction* connectActivate = new KToolBarPopupAction(KIcon("network-disconnect"), i18n("Verbinden"), this);
 	connectActivate->setCheckable(true);
-	connectActivate->setText(i18n("Verbinden"));
-	connectActivate->setIcon(KIcon("network-disconnect"));
 	connectActivate->setShortcut(Qt::CTRL + Qt::Key_C);
 	actionCollection()->addAction("connectActivate", connectActivate);
 	connect(connectActivate, SIGNAL(triggered(bool)),
@@ -230,16 +224,6 @@ void SimonView::setupActions()
 	connect(recompile, SIGNAL(triggered(bool)),
 		control, SLOT(compileModel()));
 	
-	KAction* systemMode = new KAction(this);
-	systemMode->setCheckable(true);
-	systemMode->setText(i18n("Verwaltungsmodus"));
-	systemMode->setIcon(KIcon("system-lock-screen"));
-	systemMode->setShortcut(Qt::CTRL + Qt::Key_A);
-	actionCollection()->addAction("systemMode", systemMode);
-	connect(systemMode, SIGNAL(triggered(bool)),
-		this, SLOT(checkSettingState()));
-	
-
 	actionCollection()->addAction(KStandardAction::Preferences, "configuration",
                                this, SLOT(showSystemDialog()));
 
@@ -247,8 +231,6 @@ void SimonView::setupActions()
 			      actionCollection());
 	
 	setupGUI();
-
-	//Operation *op = new Operation(thread(), i18n("Seas"), i18n("Grüße Programmierer..."), 0, 0);
 }
 
 /**
@@ -434,7 +416,7 @@ void SimonView::toggleActivation()
  */
 void SimonView::representState(SimonControl::SystemStatus status)
 {
-	KActionMenu *connectActivate = dynamic_cast<KActionMenu*>(actionCollection()->action("connectActivate"));
+	KToolBarPopupAction *connectActivate = dynamic_cast<KToolBarPopupAction*>(actionCollection()->action("connectActivate"));
 	switch (status)
 	{
 		case SimonControl::Disconnected: {
@@ -595,80 +577,6 @@ void SimonView::closeEvent ( QCloseEvent * event )
 	this->hideSimon();
 	event->ignore();
 }
-
-/**
- * @brief If the user wants to set any settings, he/she has to give a password to show all settings.
- *
- *	@author Susanne Tschernegg
-*/
-void SimonView::checkSettingState()
-{
-	if ( !settingsShown )
-	{
-		if ( !control->passwordProtected() || checkPassword() )
-		{
-			showSettings();
-		} else 
-			actionCollection()->action("systemMode")->setChecked(false);
-	}
-	else
-	{
-		hideSettings();
-	}
-}
-
-/**
- * @brief checks the password, if it returns true, the user gaves the right password
- *
- *	@author Susanne Tschernegg
- *  @return bool
- *      returns whether the password is correct or not
-*/
-bool SimonView::checkPassword()
-{
-	KPasswordDialog dlg( this , KPasswordDialog::NoFlags );
-	dlg.setPrompt( i18n( "Dieser Bereich wurde passwortgeschützt." ));
-	if( !dlg.exec() )
-		return false; //the user canceled
-		
-	return (dlg.password() == control->adminPassword());
-}
-
-/**
- * @brief the user couldn't see the setting-widgets resp. they are disabled
- *
- *	@author Susanne Tschernegg
-*/
-void SimonView::hideSettings()
-{
-	configDialog->hide();
-
-	actionCollection()->action("configuration")->setVisible(false);
-
-	wordList->setSettingsHidden();
-	trainDialog->setSettingsHidden();
-	runDialog->setSettingsHidden();
-	
-	settingsShown=false;
-}
-
-/**
- * @brief to set some settings, the widgets must be shown resp. not disabled
- *
- *	@author Susanne Tschernegg
-*/
-void SimonView::showSettings()
-{
-	actionCollection()->action("configuration")->setVisible(true);
-
-	//sets the setting buttons visible
-	trainDialog->setSettingsVisible();
-	wordList->setSettingsVisible();
-	runDialog->setSettingsVisible();
-	
-	settingsShown=true;
-}
-
 
 /**
  * @brief Destructor

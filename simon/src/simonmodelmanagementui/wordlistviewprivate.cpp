@@ -416,16 +416,6 @@ void WordListViewPrivate::deleteTrainingWord()
 }
 
 
-void WordListViewPrivate::setSettingsVisible()
-{
-	ui.wgSettings->show();
-}
-
-void WordListViewPrivate::setSettingsHidden()
-{
-	ui.wgSettings->hide();
-}
-
 
 /**
  * @brief Destructor

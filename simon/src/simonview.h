@@ -117,8 +117,6 @@ public slots:
 	void showTrainDialog();
 	void showWordListDialog();
 	void showSystemDialog();
-    
-    void checkSettingState();
 
 public:
 	explicit SimonView(QWidget *parent = 0, Qt::WFlags flags = 0);
@@ -128,8 +126,6 @@ public:
 	void closeEvent ( QCloseEvent * event );
 
     bool checkPassword();
-    void hideSettings();
-    void showSettings();
 
 };
 

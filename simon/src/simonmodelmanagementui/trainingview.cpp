@@ -39,16 +39,6 @@ void TrainingView::trainWords ( const WordList& words )
 	d->trainWords(words);
 }
 
-void TrainingView::setSettingsHidden()
-{
-	d->setSettingsHidden();
-}
-
-void TrainingView::setSettingsVisible()
-{
-	d->setSettingsVisible();
-}
-
 
 TrainingView::~TrainingView()
 {

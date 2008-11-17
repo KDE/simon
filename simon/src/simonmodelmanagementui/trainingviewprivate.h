@@ -82,9 +82,6 @@ public slots:
 public:
 	TrainingViewPrivate(QWidget *parent=0);
 	~TrainingViewPrivate();
-	
-	void setSettingsHidden();
-	void setSettingsVisible();
 
 };
 #endif

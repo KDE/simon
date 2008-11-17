@@ -49,8 +49,6 @@ private slots:
 
 public slots:
 	void loadCommands();
-	void setSettingsVisible();
-	void setSettingsHidden();
 
 public:
     RunCommandViewPrivate(QWidget *parent);

@@ -43,8 +43,6 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 	connect(ui.cvCommands, SIGNAL(updatePreviewWidget(QModelIndex)), commandPreviewWidget, SLOT(updateCommand(QModelIndex)));
 	ui.cvCommands->setPreviewWidget(commandPreviewWidget);
 
-	setSettingsHidden();
-
 	connect ( ui.pbNewCommand, SIGNAL(clicked()), this, SLOT(addCommand()));
 	connect ( ui.pbEditCommand, SIGNAL(clicked()), this, SLOT(editCommand()));
 	connect ( ui.pbDeleteCommand, SIGNAL(clicked()), this, SLOT(deleteCommand()));
@@ -76,16 +74,6 @@ void RunCommandViewPrivate::reflectSelectionStatus(QModelIndex index)
 	ui.pbDeleteCommand->setEnabled(commandSelected);
 }
 
-
-void RunCommandViewPrivate::setSettingsVisible()
-{
-	ui.wgSettings->show();
-}
-
-void RunCommandViewPrivate::setSettingsHidden()
-{
-	ui.wgSettings->hide();
-}
 
 
 void RunCommandViewPrivate::addCommand()

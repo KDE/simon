@@ -19,7 +19,6 @@
 #include "operation.h"
 #include "statusmanager.h"
 #include <QTimer>
-#include <KDebug>
 
 
 Operation::Operation(QThread* thread, const QString& name, const QString& currentAction, int now, int max, bool isAtomic) : QObject(0)

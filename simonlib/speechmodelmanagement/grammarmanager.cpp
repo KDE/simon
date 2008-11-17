@@ -60,10 +60,10 @@ bool GrammarManager::load()
 
 	structures.clear();
 	
-	QString path =KStandardDirs::locate("appdata", "model/model.grammar");
+	QString path =KStandardDirs::locate("data", "simon/model/model.grammar");
 	Logger::log(i18n("[INF] Lade Grammatik von %1", path));
 	
-	QFile grammar(KStandardDirs::locate("appdata", "model/model.grammar"));
+	QFile grammar(path);
 	if (!grammar.open(QIODevice::ReadOnly)) return false;
 	
 	QString structure;
@@ -114,7 +114,7 @@ void GrammarManager::renameTerminal(QString terminal, const QString& newName)
 bool GrammarManager::refreshFiles(const QByteArray& grammarStructures)
 {
 	QMutexLocker lock(&structuresLock);
-	QFile grammarF(KStandardDirs::locateLocal("appdata", "model/model.grammar"));
+	QFile grammarF(KStandardDirs::locateLocal("data", "simon/model/model.grammar"));
 	if (!grammarF.open(QIODevice::WriteOnly)) return false;
 	grammarF.write(grammarStructures);
 	grammarF.close();
@@ -250,7 +250,7 @@ void GrammarManager::setStructures(const QStringList &structures)
 bool GrammarManager::save()
 {
 	QMutexLocker lock(&structuresLock);
-	QString path =KStandardDirs::locateLocal("appdata", "model/model.grammar");
+	QString path =KStandardDirs::locateLocal("data", "simon/model/model.grammar");
 	Logger::log(i18n("[INF] Speichere Grammatik nach %1", path));
 	
 	QFile grammar(path);
@@ -262,7 +262,7 @@ bool GrammarManager::save()
 	grammar.close();
 
 	
-	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+	KConfig config( KStandardDirs::locateLocal("data", "simon/model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	cGroup.writeEntry("GrammarDate", QDateTime::currentDateTime());
 	config.sync();

@@ -32,10 +32,6 @@ class SIMONMODELMANAGEMENTUI_EXPORT TrainingView : public InlineWidget {
 	private:
 		TrainingViewPrivate *d;
 
-	public slots:
-		void setSettingsHidden();
-		void setSettingsVisible();
-
 	public:
 		TrainingView(QWidget *parent);
 		~TrainingView();

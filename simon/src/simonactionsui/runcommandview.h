@@ -33,8 +33,6 @@ private:
 
 public slots:
 // 	void loadCommands();
-	void setSettingsVisible();
-	void setSettingsHidden();
 
 public:
     RunCommandView(QWidget *parent);

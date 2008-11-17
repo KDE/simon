@@ -17,11 +17,10 @@ include(${QT_USE_FILE})
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../simonlib )
 
-add_subdirectory( db )
 add_subdirectory( config )
 #add_subdirectory( doc )
 add_subdirectory( src )
 add_subdirectory( icons )
 add_subdirectory(scripts)
 
-install( FILES default.jconf  DESTINATION ${DATA_INSTALL_DIR}/simond )
+install( FILES default.jconf simond.db DESTINATION ${DATA_INSTALL_DIR}/simond )

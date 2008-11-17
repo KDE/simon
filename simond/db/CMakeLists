@@ -1,2 +1,0 @@
-install( FILES juliusd.db  DESTINATION ${DATA_INSTALL_DIR}/simond )
-

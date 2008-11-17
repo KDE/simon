@@ -68,7 +68,7 @@
        </widget>
       </item>
       <item row="0" column="1" >
-       <widget class="QComboBox" name="kcfg_EncryptionMethod" />
+       <widget class="QComboBox" name="cbCipher" />
       </item>
       <item row="1" column="0" >
        <widget class="QLabel" name="lbCert" >
@@ -113,5 +113,22 @@
   <include location="../../juliusd_old/src/juliusd.qrc" />
   <include location="../../../../../../juliusd.qrc" />
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>kcfg_BindTo</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcfg_Host</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>144</x>
+     <y>56</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>310</x>
+     <y>45</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

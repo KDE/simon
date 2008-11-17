@@ -78,9 +78,6 @@ public slots:
 	void hide();
 	void showImportDictDialog();
 
-	void setSettingsVisible();
-	void setSettingsHidden();
-
 	WordListManager* getManager(){return wordListManager;}
 
 public:

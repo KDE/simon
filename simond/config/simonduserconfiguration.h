@@ -25,22 +25,32 @@
 
 #include "ui_simonduserconfiguration.h"
 
+class DatabaseAccess;
+
 class SimondUserConfiguration : public KCModule
 {
 	Q_OBJECT
 
 	private:
 		Ui::UserConfiguration ui;
+		DatabaseAccess *db;
+		QString storedDb;
+
+		void activateUserConfiguration(bool active);
+		void initDb();
+		QByteArray encryptPassword(const QString& pass);
 
 	private slots:
 		void addUser();
 		void deleteUser();
-		void updateDeleteButton();
+		void changePassword();
+		void slotChanged();
 
 	public:
 		SimondUserConfiguration(QWidget* parent, const QVariantList& args=QVariantList());
 		~SimondUserConfiguration();
 
+		void load();
 		void save();
 };
 

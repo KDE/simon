@@ -2,13 +2,15 @@
 Type=Service
 Icon=network-disconnect
 X-KDE-ServiceTypes=KCModule
-X-KDE-Library=libsimondconfiguration
+X-KDE-Library=libsimondsettings
 
-X-KDE-FactoryName=simondnetworkconfigurationfactory
-X-KDE-ParentComponents=libsimondconfiguration
+X-KDE-FactoryName=simondsettingsfactory
+X-KDE-ParentComponents=libsimondsettings
 
 X-KDE-ParentApp=simond
 X-KDE-System-Settings-Parent-Category=simond
+
+X-KDE-PluginKeyword=SimondNetworkConfiguration
 
 
 Name=Network

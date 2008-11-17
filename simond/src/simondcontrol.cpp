@@ -18,8 +18,11 @@
  */
 
 #include "simondcontrol.h"
-#include "databaseaccess.h"
+#include <simonddatabaseaccess/databaseaccess.h>
 
+#include <KConfig>
+#include <KConfigGroup>
+#include <KStandardDirs>
 #include <KDebug>
 
 SimondControl::SimondControl(QObject *parent) : QTcpServer(parent)
@@ -34,7 +37,17 @@ bool SimondControl::init()
 	if (!db->init())
 		return false;
 
-	startServer();
+	//FIXME encryption!
+	KConfig config(KStandardDirs::locate("config", "simondrc"));
+	KConfigGroup cGroup(&config, "Network");
+	int port = cGroup.readEntry("Port", 4444);
+	if (cGroup.readEntry("BindTo", true))
+	{
+		QString hostName = cGroup.readEntry("Host", "127.0.0.1");
+		startServer(QHostAddress(hostName), port);
+	} else {
+		startServer(QHostAddress::Any, port);
+	}
 
 	return true;
 }

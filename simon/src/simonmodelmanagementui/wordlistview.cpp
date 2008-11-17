@@ -49,15 +49,6 @@ void WordListView::filterListbyPattern()
 	d->filterListbyPattern();
 }
 
-void WordListView::setSettingsHidden()
-{
-	d->setSettingsHidden();
-}
-
-void WordListView::setSettingsVisible()
-{
-	d->setSettingsVisible();
-}
 
 /**
  * @brief Destructor
