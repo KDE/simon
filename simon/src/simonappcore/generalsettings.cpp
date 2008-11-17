@@ -41,33 +41,8 @@ GeneralSettings::GeneralSettings(QWidget* parent, const QVariantList& args):
 	Q_UNUSED(args);
 
 	ui.setupUi(this);
-	connect(ui.kcfg_PasswordProtected, SIGNAL(toggled(bool)), this, SLOT(checkPassword()));
-	connect(ui.pbResetPassword, SIGNAL(clicked()), this, SLOT(newPassword()));
-
 
 	addConfig(CoreConfiguration::self(), this);
-}
-
-
-void GeneralSettings::checkPassword()
-{
-	if (ui.kcfg_PasswordProtected->isChecked() && CoreConfiguration::adminPassword().isEmpty())
-	{
-		newPassword();
-
-		if (CoreConfiguration::adminPassword().isEmpty()) //still?
-			ui.kcfg_PasswordProtected->setChecked(false);
-	}
-}
-
-void GeneralSettings::newPassword()
-{
-	KNewPasswordDialog *dlg = new KNewPasswordDialog( this );
-	dlg->setPrompt( i18n( "Bitte geben Sie das gewünschte Systemverwaltungspasswort an." ));
-	if (dlg->exec())
-	{
-		CoreConfiguration::setAdminPassword(dlg->password());
-	}
 }
 
 

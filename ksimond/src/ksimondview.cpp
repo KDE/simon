@@ -123,7 +123,9 @@ void KSimondView::slotError(QProcess::ProcessError err)
 			KMessageBox::error(0, i18n("Konnte simond nicht starten.\n\nBitte überprüfen Sie die ksimond Konfiguration.\n\nAusgeführter Befehl:\"%1\"", process->program().join(", ")));
 			break;
 		case QProcess::Crashed:
-			KMessageBox::error(0, i18n("simond ist abgestürzt. (Status: %1)", process->exitStatus()));
+			//"Crashing" with status 1 is normal when we terminate a program with terminate()
+			if (process->exitStatus() != 1)
+				KMessageBox::error(0, i18n("simond ist abgestürzt. (Status: %1)", process->exitStatus()));
 			break;
 		case QProcess::Timedout:
 			KMessageBox::error(0, i18n("Zeitüberschreitung."));

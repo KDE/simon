@@ -234,6 +234,18 @@ void RecognitionControl::timeoutReached()
  */
 void RecognitionControl::disconnectFromServer()
 {
+	if (synchronisationOperation)
+	{
+		synchronisationOperation->canceled();
+		synchronisationOperation->deleteLater();
+		synchronisationOperation=NULL;
+	}
+	if (modelCompilationOperation)
+	{
+		modelCompilationOperation->canceled();
+		modelCompilationOperation->deleteLater();
+		modelCompilationOperation=NULL;
+	}
 	serverConnectionsToTry.clear();
 	
 	if (timeoutWatcher->isActive())
@@ -568,6 +580,8 @@ void RecognitionControl::sendSample(QString sampleName)
 
 void RecognitionControl::startSynchronisation()
 {
+	if (!isConnected()) return;
+
 	if (synchronisationOperation)
 	{
 		synchronisationOperation->deleteLater();

@@ -43,11 +43,12 @@ int main(int argc, char **argv)
 
 	KGlobal::setActiveComponent(KComponentData(about));
 
-	QApplication app(argc,argv);
+	QCoreApplication app(argc,argv);
 
 	SimondControl *control = new SimondControl();
 	if (!control->init())
-		return 1;
+		return 2;
 
-	return app.exec();
+	app.exec();
+	return 0;
 }

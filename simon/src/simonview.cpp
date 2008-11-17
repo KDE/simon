@@ -217,6 +217,7 @@ void SimonView::setupActions()
 		this, SLOT(showWordListDialog()));
 	
 	KAction* recompile = new KAction(this);
+	recompile->setEnabled(control->getStatus() != SimonControl::Disconnected);
 	recompile->setText(i18n("Synchronisieren"));
 	recompile->setIcon(KIcon("view-refresh"));
 	recompile->setShortcut(Qt::CTRL + Qt::Key_F5);
@@ -417,6 +418,7 @@ void SimonView::toggleActivation()
 void SimonView::representState(SimonControl::SystemStatus status)
 {
 	KToolBarPopupAction *connectActivate = dynamic_cast<KToolBarPopupAction*>(actionCollection()->action("connectActivate"));
+	actionCollection()->action("compileModel")->setEnabled(status != SimonControl::Disconnected);
 	switch (status)
 	{
 		case SimonControl::Disconnected: {

@@ -21,5 +21,7 @@ int main(int argc, char **argv)
     KSimondView *widget = new KSimondView();
     //widget->show();
 
-    return app.exec();
+    int ret = app.exec();
+    delete widget;
+    return ret;
 }

@@ -41,10 +41,6 @@ Q_OBJECT
 private:
 	Ui::GeneralSettingsDlg ui; //!< UI definition - made by uic from the QTDesigner .ui
 	
-private slots:
-	void newPassword();
-	void checkPassword();
-
 public:
     GeneralSettings(QWidget* parent, const QVariantList& args=QVariantList());
 
