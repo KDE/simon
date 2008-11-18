@@ -50,6 +50,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	QObject::connect(recognitionControl, SIGNAL(synchronisationError(const QString&)), this, SLOT(slotSynchronisationError(const QString&)));
 	QObject::connect(recognitionControl, SIGNAL(recognitionError(const QString&)), this, SLOT(slotRecognitionError(const QString&)));
 	QObject::connect(recognitionControl, SIGNAL(compilationError(const QString&)), this, SLOT(slotCompilationError(const QString&)));
+	QObject::connect(recognitionControl, SIGNAL(modelCompilationProtocol(const QString&)), this, SLOT(slotModelCompilationProtocol(const QString&)));
 
 	QObject::connect(recognitionControl, SIGNAL(simondSystemWarning(const QString&)), this, SLOT(slotSimondSystemWarning(const QString&)));
 	QObject::connect(recognitionControl, SIGNAL(synchronisationWarning(const QString&)), this, SLOT(slotSynchronisationWarning(const QString&)));
@@ -100,7 +101,10 @@ void SimonControl::slotRecognitionError(const QString &err)
 
 void SimonControl::slotCompilationError(const QString &err)
 {
-	KMessageBox::error(0, i18n("Als der Server das Modell kompilieren wollte trat dieser Fehler auf: \n%1", err));
+// 	KMessageBox::error(0, i18n("Als der Server das Modell kompilieren wollte trat dieser Fehler auf: \n%1", err));
+
+	if (KMessageBox::questionYesNoCancel(0, i18n("Als der Server das Modell kompilieren wollte trat dieser Fehler auf:\n%1\n\nWollen Sie ein detailiertes Fehlerprotokoll abfragen?", err)) == KMessageBox::Yes)
+		recognitionControl->fetchCompilationProtocol();
 }
 
 
@@ -122,6 +126,17 @@ void SimonControl::slotRecognitionWarning(const QString& warning)
 void SimonControl::slotCompilationWarning(const QString& warning)
 {
 	SimonInfo::showMessage(i18n("Modellverwaltung: %1", warning), 5000);
+}
+
+
+void SimonControl::slotCouldNotRetrieveModelCompilationProtocol()
+{
+	KMessageBox::error(0, i18n("Konnte Modellprotokoll nicht abrufen"));
+}
+
+void SimonControl::slotModelCompilationProtocol(const QString& protocol)
+{
+	KMessageBox::information(0, protocol);
 }
 
 void SimonControl::slotModelCompilationWordUndefined(const QString& word)

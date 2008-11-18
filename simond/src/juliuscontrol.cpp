@@ -348,7 +348,8 @@ void JuliusControl::run()
 	/* Initialize audio input */
 	/**************************/
 	/* initialize audio input device */
-	/* ad-in thread starts at this time for microphone */if (j_adin_init(recog) == false) {    /* error */
+	/* ad-in thread starts at this time for microphone */
+	if (j_adin_init(recog) == false) {    /* error */
 		emit recognitionError(i18n("Couldn't start adin-thread"));
 		return;
 	}

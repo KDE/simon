@@ -86,6 +86,7 @@ class ClientSocket : public QSslSocket
 		
 		void recompileModel();
 		
+		void sendModelCompilationLog();
 		void slotModelCompilationStatus(const QString& status, int progressNow, int progressMax);
 		void slotModelCompilationError(const QString& error);
 		void slotModelCompilationWordUndefined(const QString& word);

@@ -42,6 +42,8 @@ signals:
 	void status(const QString&, int progressNow, int progressTotal=2300);
 	void error(const QString&);
 
+	void userReadableError(const QString&);
+
 	void wordUndefined(const QString&);
 	void classUndefined(const QString&);
  	void phonemeUndefined(const QString&);
@@ -52,8 +54,8 @@ private:
 	QString currentStatus;
 	
 	QProcess *proc;
+	QString buildLog;
 	QString lastOutput;
-	QString lastError;
 
 
 	QString userName;
@@ -61,10 +63,13 @@ private:
 	QString lexiconPath, grammarPath, vocabPath, promptsPath, treeHedPath, wavConfigPath;
 	QString hmmDefsPath, tiedListPath, dictPath, dfaPath;
 
+	void analyseError(const QString& readableError);
+	bool processError();
 
 	//config options
 	QString hDMan, hLEd, hCopy, hCompV, hERest, hHEd, hVite, mkfa, dfaMinimize;
 
+	bool execute(const QString& command);
 
 	bool parseConfiguration();
 	
@@ -117,12 +122,6 @@ private:
 		bool makeDfa();
 		bool generateDict();
 	
-private slots:
-	void logInfo();
-	bool processError(const QString& userError);
-
-protected:
-	
 public:
     ModelCompilationManager(const QString& userName, const QString& samplePath,
 			     const QString& lexiconPath, const QString& grammarPath, 
@@ -134,6 +133,9 @@ public:
 
 	void run();
 	bool startCompilation();
+	bool hasBuildLog();
+	QString getGraphicBuildLog();
+	QString getBuildLog();
 	
 	QString getStatus() { return currentStatus; }
 

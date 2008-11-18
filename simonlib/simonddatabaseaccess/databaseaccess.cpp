@@ -26,6 +26,9 @@
 #include <KDebug>
 #include <KStandardDirs>
 #include <KLocalizedString>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KUrl>
 
 DatabaseAccess::DatabaseAccess(QObject *parent) : QObject(parent)
 {
@@ -44,7 +47,9 @@ bool DatabaseAccess::init()
 
 	db = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE", "simond"));
 	
-	QString databaseUrl=""; //TODO: get from settings
+	KConfig config(KStandardDirs::locate("config", "simondrc"));
+	KConfigGroup cGroup(&config, "Database");
+	QString databaseUrl= cGroup.readEntry("DatabaseUrl", KUrl()).path();
 
 	if (databaseUrl.isEmpty())
 	{
@@ -108,11 +113,13 @@ void DatabaseAccess::closeConnection()
 	db->close();
 }
 
+//#include <KMessageBox>
 
 //USER
 bool DatabaseAccess::addUser(const QString& user, const QString& password)
 {
 	QString query = "INSERT INTO User (Name, Password) VALUES ('"+user+"', '"+password+"');";
+	//KMessageBox::information(0, query);
 	return executeQuery(query);
 }
 

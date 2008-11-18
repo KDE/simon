@@ -24,6 +24,7 @@
 #include "recognitioncontrol_export.h"
 #include <QObject>
 #include <QStringList>
+#include <QMutex>
 
 class QSslSocket;
 class QTimer;
@@ -58,6 +59,7 @@ public:
 	};
 
 private:
+	QMutex messageLocker;
 	QByteArray stillToProcess;
 	bool recognitionReady;
 	QSslSocket *socket; //!< QSslSocket for communicating with the juliusd-socket
@@ -94,6 +96,9 @@ signals:
 	void modelCompilationWordUndefined(const QString&);
 	void modelCompilationClassUndefined(const QString&);
  	void modelCompilationPhonemeUndefined(const QString&);
+	
+	void couldNotRetrieveModelCompilationProtocol();
+	void modelCompilationProtocol(const QString&);
 
 	void recognitionStatusChanged(RecognitionControl::RecognitionStatus);
 	void recognised(const QString&, const QString& sampa, const QString& samparaw);
@@ -111,6 +116,7 @@ public slots:
 	void pauseRecognition();
 	void resumeRecognition();
 
+	void fetchCompilationProtocol();
 	void startSynchronisation();
 	
 	

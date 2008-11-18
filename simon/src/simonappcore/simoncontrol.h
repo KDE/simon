@@ -112,7 +112,8 @@ private slots:
 	void slotModelCompilationClassUndefined(const QString &undefClass);
 	void slotModelCompilationPhonemeUndefined(const QString &phonemeUndefined);
 
-
+	void slotCouldNotRetrieveModelCompilationProtocol();
+	void slotModelCompilationProtocol(const QString&);
 	void slotSimondSystemWarning(const QString& warning);
 	void slotSynchronisationWarning(const QString& warning);
 	void slotRecognitionWarning(const QString& warning);

@@ -111,7 +111,7 @@ void ClientSocket::processRequest()
 			case Simond::Login:
 			{
 				kDebug() << "Login requested";
-				waitForMessage(sizeof(qint8)+sizeof(qint64), stream, msg);
+				waitForMessage(sizeof(qint64), stream, msg);
 
 				qint8 remoteProtocolVersion;
 				QString user;
@@ -121,10 +121,10 @@ void ClientSocket::processRequest()
 				
 				qint64 length;
 				
-				stream >> remoteProtocolVersion;
 				stream >> length;
 				waitForMessage(length, stream, msg);
 				
+				stream >> remoteProtocolVersion;
 				stream >> userBytes;
 				stream >> passBytes;
 				user = QString::fromUtf8(userBytes);
@@ -244,7 +244,7 @@ void ClientSocket::processRequest()
 				stream >> length;
 				waitForMessage(length, stream, msg);
 				
-				int sampleRate;
+				qint32 sampleRate;
 				QByteArray hmmdefs, tiedlist, dict, dfa;
 				QDateTime changedDate;
 				stream >> changedDate;
@@ -277,8 +277,8 @@ void ClientSocket::processRequest()
 			case Simond::ActiveModelSampleRate:
 			{
 				Q_ASSERT(synchronisationManager);
-				int sampleRate;
-				waitForMessage(sizeof(int), stream, msg);
+				qint32 sampleRate;
+				waitForMessage(sizeof(qint32), stream, msg);
 				stream >> sampleRate;
 				synchronisationManager->setActiveModelSampleRate(sampleRate);
 				
@@ -356,7 +356,7 @@ void ClientSocket::processRequest()
 				
 				waitForMessage(length, stream, msg);
 				
-				int sampleRate;
+				qint32 sampleRate;
 				QByteArray wavConfig, prompts;
 				QDateTime changedTime;
 				stream >> changedTime;
@@ -627,6 +627,14 @@ void ClientSocket::processRequest()
 				
 				break;
 			}
+			
+			case Simond::GetModelCompilationProtocol: {
+				Q_ASSERT(modelCompilationManager);
+				if (!modelCompilationManager->hasBuildLog())
+					sendCode(Simond::ErrorRetrievingModelCompilationProtocol);
+				else sendModelCompilationLog();
+				break;
+			}
 
 			case Simond::StartRecognition:
 			{
@@ -699,7 +707,7 @@ void ClientSocket::fetchTrainingSample()
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	stream << (qint32) Simond::GetTrainingsSample
-		<< (qint64) sampleByte.count()
+		<< (qint64) sampleByte.count()+sizeof(qint32) /*separator*/
 		<< sampleByte;
 	write(toWrite);
 }
@@ -724,24 +732,35 @@ void ClientSocket::sendSample(QString sampleName)
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	
 	//FIXME: Those 32 byte comming out of nowhere drive me nuts
-	out << Simond::TrainingsSample
+	out << (qint32) Simond::TrainingsSample
 		<< (qint64) sample.count()+sizeof(qint32) /*seperator*/
 		<< sample;
 	write(toWrite);
 }
 
+void ClientSocket::sendModelCompilationLog()
+{
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	QByteArray log = modelCompilationManager->getGraphicBuildLog().toUtf8();
+	
+	stream << (qint32) Simond::ModelCompilationProtocol
+		<< (qint64) (log.count()+sizeof(qint32) /*seperator*/)
+		<< log;
+	write(toWrite);
+}
 
 void ClientSocket::slotModelCompilationStatus(const QString& status, int progressNow, int progressMax)
 {
-	QMutexLocker l(&messageLocker);
+// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QByteArray statusByte = status.toUtf8();
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 
-	bodyStream <<  progressNow
-		<< progressMax
+	bodyStream <<  (qint32) progressNow
+		<< (qint32) progressMax
 		<< statusByte;
 		
 	stream << (qint32) Simond::ModelCompilationStatus
@@ -749,12 +768,12 @@ void ClientSocket::slotModelCompilationStatus(const QString& status, int progres
 
 	write(toWrite);
 	write(body);
-	waitForBytesWritten(toWrite.count()+body.count());
+// 	waitForBytesWritten(toWrite.count()+body.count());
 }
 
 void ClientSocket::slotModelCompilationError(const QString& error)
 {
-	QMutexLocker l(&messageLocker);
+// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray errorByte = error.toUtf8();
@@ -767,7 +786,7 @@ void ClientSocket::slotModelCompilationError(const QString& error)
 
 void ClientSocket::slotModelCompilationWordUndefined(const QString& word)
 {
-	QMutexLocker l(&messageLocker);
+// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray errorByte = word.toUtf8();
@@ -780,7 +799,7 @@ void ClientSocket::slotModelCompilationWordUndefined(const QString& word)
 
 void ClientSocket::slotModelCompilationClassUndefined(const QString& undefClass)
 {
-	QMutexLocker l(&messageLocker);
+// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray classByte = undefClass.toUtf8();
@@ -792,7 +811,7 @@ void ClientSocket::slotModelCompilationClassUndefined(const QString& undefClass)
 
 void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 {
-	QMutexLocker l(&messageLocker);
+// 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray phonemeByte = phoneme.toUtf8();
@@ -907,7 +926,7 @@ bool ClientSocket::sendWordList()
 		<< wordList->activeVocab()
 		<< wordList->activeLexicon();
 
-	out << Simond::WordList
+	out << (qint32) Simond::WordList
 		<< (qint64) body.count();
 
 	write(toWrite);
@@ -931,7 +950,7 @@ bool ClientSocket::sendGrammar()
 	
 	bodyStream << synchronisationManager->getGrammarDate()
 		<< grammar->grammarStructures();
-	out << Simond::Grammar
+	out << (qint32) Simond::Grammar
 		<< (qint64) body.count();
 	write(toWrite);
 	write(body);
@@ -956,7 +975,7 @@ bool ClientSocket::sendLanguageDescription()
 		<< languageDescription->treeHed()
 		<< languageDescription->shadowVocab();
 
-	out << Simond::LanguageDescription
+	out << (qint32) Simond::LanguageDescription
 		<< (qint64) body.count();
 	write(toWrite);
 	write(body);
@@ -981,7 +1000,7 @@ bool ClientSocket::sendTraining()
 		<< training->sampleRate()
 		<< training->wavConfig()
 		<< training->prompts();
-	out << Simond::Training
+	out << (qint32) Simond::Training
 		<< (qint64) body.count();
 	write(toWrite);
 	write(body);
@@ -1001,7 +1020,7 @@ void ClientSocket::recognitionError(const QString& error)
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray errorByte = error.toUtf8();
-	stream << (qint32) Simond::RecognitionError << (qint64) errorByte.count() << errorByte;
+	stream << (qint32) Simond::RecognitionError << (qint64) errorByte.count()+sizeof(qint32) /*separator*/ << errorByte;
 	write(toWrite);
 }
 
@@ -1010,7 +1029,7 @@ void ClientSocket::recognitionWarning(const QString& warning)
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray warningByte = warning.toUtf8();
-	stream << (qint32) Simond::RecognitionError << (qint64) warningByte.count() << warningByte;
+	stream << (qint32) Simond::RecognitionError << (qint64) warningByte.count()+sizeof(qint32) /*separator*/ << warningByte;
 	write(toWrite);
 }
 
@@ -1057,7 +1076,7 @@ void ClientSocket::sendRecognitionResult(const QString& data, const QString& sam
 	QByteArray sampaRawByte = samparaw.toUtf8();
 	
 	bodyStream << dataByte << sampaByte << sampaRawByte;
-	stream << Simond::RecognitionResult << body.count();
+	stream << (qint32) Simond::RecognitionResult << body.count();
 	write(toWrite);
 	write(body);
 }

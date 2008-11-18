@@ -133,7 +133,6 @@ WordListContainer* ModelManager::getWordListContainer()
 {
 	WordList *simpleVocabList = WordListManager::getInstance()->getSimpleVocab();
 	WordListManager::getInstance()->saveWordList(simpleVocabList, 
-						      KStandardDirs::locateLocal("tmp", "simplelexicon"),
 						      KStandardDirs::locateLocal("tmp", "simplevocab"));
 	delete simpleVocabList;
 

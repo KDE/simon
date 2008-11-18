@@ -42,11 +42,13 @@
 #include <KDebug>
 #include <KPasswordDialog>
 
-#define advanceStream(x) qint64 currentPos = msg.device()->pos()-x;\
-					msgByte.remove(0,x);\
-					msg.device()->seek(currentPos);
+#define advanceStream(x) messageLocker.lock();\
+					qint64 currentPos = ((qint64)msg.device()->pos())-((qint64)x);\
+					msgByte.remove(0,(int)x);\
+					msg.device()->seek(currentPos);\
+					messageLocker.unlock();
 					
-#define checkIfSynchronisationIsAborting() if (synchronisationOperation->aborting()) \
+#define checkIfSynchronisationIsAborting() if (synchronisationOperation && synchronisationOperation->aborting()) \
 					{ \
 						sendRequest(Simond::AbortSynchronisation); \
 						synchronisationDone(); \
@@ -314,19 +316,23 @@ void RecognitionControl::login()
 
 	QByteArray userBytes = user.toUtf8();
 	QByteArray passBytes = QCryptographicHash::hash(pass.toUtf8(),QCryptographicHash::Sha1);
+
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+	bodyStream << protocolVersion << userBytes << passBytes;
 	
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	qint64 size = (userBytes.count()+passBytes.count()+sizeof(qint8)+sizeof(Simond::Request));
-	out << Simond::Login << protocolVersion << size << userBytes << passBytes;
+	out << (qint32) Simond::Login << (qint64) body.count();
 	socket->write(toWrite);
+	socket->write(body);
 }
 
 void RecognitionControl::sendActiveModelModifiedDate()
 {
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << Simond::ActiveModelDate
+	out << (qint32) Simond::ActiveModelDate
 		<< modelManager->getActiveContainerModifiedTime();
 	socket->write(toWrite);
 }
@@ -366,11 +372,11 @@ bool RecognitionControl::sendActiveModel()
 
 void RecognitionControl::sendActiveModelSampleRate()
 {
-	int smpFreq = modelManager->getActiveModelSampleRate();
+	qint32 smpFreq = modelManager->getActiveModelSampleRate();
 	
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << Simond::ActiveModelSampleRate
+	out << (qint32) Simond::ActiveModelSampleRate
 		<< smpFreq;
 		
 	socket->write(toWrite);
@@ -380,7 +386,7 @@ void RecognitionControl::sendModelSrcModifiedDate()
 {
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << Simond::ModelSrcDate
+	out << (qint32) Simond::ModelSrcDate
 		<< modelManager->getSrcContainerModifiedTime();
 	socket->write(toWrite);
 }
@@ -390,7 +396,7 @@ void RecognitionControl::sendWordListModifiedDate()
 {
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << Simond::WordListDate
+	out << (qint32) Simond::WordListDate
 		<< modelManager->getWordListModifiedTime();
 	socket->write(toWrite);
 }
@@ -409,7 +415,7 @@ void RecognitionControl::sendWordList()
 		<< wordList->activeVocab()
 		<< wordList->activeLexicon();
 
-	out << Simond::WordList
+	out << (qint32) Simond::WordList
 		<< (qint64) body.count();
 
 	socket->write(toWrite);
@@ -424,7 +430,7 @@ void RecognitionControl::sendGrammarModifiedDate()
 {
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << Simond::GrammarDate
+	out << (qint32) Simond::GrammarDate
 		<< modelManager->getGrammarModifiedTime();
 	socket->write(toWrite);
 }
@@ -442,7 +448,7 @@ void RecognitionControl::sendGrammar()
 	bodyStream << modelManager->getGrammarModifiedTime()
 		<< grammar->grammarStructures();
 
-	out << Simond::Grammar
+	out << (qint32) Simond::Grammar
 		<< (qint64) body.count();
 
 	socket->write(toWrite);
@@ -457,7 +463,7 @@ void RecognitionControl::sendLanguageDescriptionModifiedDate()
 {
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << Simond::LanguageDescriptionDate
+	out << (qint32) Simond::LanguageDescriptionDate
 		<< modelManager->getLanguageDescriptionModifiedTime();
 	socket->write(toWrite);
 }
@@ -476,12 +482,11 @@ void RecognitionControl::sendLanguageDescription()
 		<< languageDescription->treeHed()
 		<< languageDescription->shadowVocab();
 
-	out << Simond::LanguageDescription
+	out << (qint32) Simond::LanguageDescription
 		<< (qint64) body.count();
 		
 	socket->write(toWrite);
 	socket->write(body);
-	socket->waitForBytesWritten(body.count());
 	
 	delete languageDescription;
 }
@@ -492,7 +497,7 @@ void RecognitionControl::sendTrainingModifiedDate()
 {
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
-	out << Simond::TrainingDate
+	out << (qint32) Simond::TrainingDate
 		<< modelManager->getTrainingModifiedTime();
 	socket->write(toWrite);
 }
@@ -512,7 +517,7 @@ void RecognitionControl::sendTraining()
 		<< training->wavConfig()
 		<< training->prompts();
 	
-	out << Simond::Training
+	out << (qint32) Simond::Training
 		<< (qint64) body.count();
 
 	socket->write(toWrite);
@@ -569,8 +574,8 @@ void RecognitionControl::sendSample(QString sampleName)
 		return;
 	}
 
-	out << Simond::TrainingsSample
-		<< sample.count()
+	out << (qint32) Simond::TrainingsSample
+		<< (qint64) sample.count()+sizeof(qint32) /*separator*/
 		<< sample;
 	socket->write(toWrite);
 }
@@ -597,7 +602,8 @@ void RecognitionControl::startSynchronisation()
 void RecognitionControl::synchronisationComplete()
 {//successful
 	kDebug() << "Synchronisation completed";
-	synchronisationOperation->finished();
+	if (synchronisationOperation)
+		synchronisationOperation->finished();
 	synchronisationDone();
 }
 
@@ -635,7 +641,9 @@ void RecognitionControl::messageReceived()
 	bool messageNotYetFinished=false;
 	while (socket->bytesAvailable())
 	{
+		messageLocker.lock();
 		msgByte += socket->readAll();
+		messageLocker.unlock();
 		while (((unsigned) msg.device()->bytesAvailable() >= sizeof(qint32)) && !messageNotYetFinished)
 		{
 			messageNotYetFinished=false;
@@ -711,7 +719,7 @@ void RecognitionControl::messageReceived()
 					
 					parseLengthHeader();
 					
-					int sampleRate;
+					qint32 sampleRate;
 					QByteArray hmmDefs, tiedList, dict, dfa;
 					
 					QDateTime changedTime;
@@ -804,7 +812,7 @@ void RecognitionControl::messageReceived()
 	
 					kDebug() << "Server sent training";
 					parseLengthHeader();
-					int sampleRate;
+					qint32 sampleRate;
 					QByteArray wavConfig, prompts;
 					
 					QDateTime changedTime;
@@ -1097,7 +1105,6 @@ void RecognitionControl::messageReceived()
 
 				case Simond::ModelCompilationStarted: {
 					advanceStream(sizeof(qint32));
-					checkIfSynchronisationIsAborting();
 					modelCompilationOperation = new Operation(thread(), i18n("Modellerstellung"), i18n("Initialisiere..."));
 					break;
 				}
@@ -1106,7 +1113,7 @@ void RecognitionControl::messageReceived()
 					
 					parseLengthHeader();
 					
-					int progNow, progMax;
+					qint32 progNow, progMax;
 					msg >> progNow;
 					msg >> progMax;
 					
@@ -1116,7 +1123,10 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					statusMsg = QString::fromUtf8(statusByte);
 					
-					modelCompilationOperation->update(i18n("Modell: %1", statusMsg), progNow, progMax);
+					if (!modelCompilationOperation)
+						modelCompilationOperation = new Operation(thread(), i18n("Modellerstellung"), statusMsg, progNow, progMax);
+					else 
+						modelCompilationOperation->update(i18n("Modell: %1", statusMsg), progNow, progMax);
 					break;
 				}
 				
@@ -1128,8 +1138,11 @@ void RecognitionControl::messageReceived()
 					errorMsg = QString::fromUtf8(errorByte);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
-					modelCompilationOperation->canceled();
-					modelCompilationOperation=NULL;
+					if (modelCompilationOperation)
+					{
+						modelCompilationOperation->canceled();
+						modelCompilationOperation=NULL;
+					}
 					emit compilationError(errorMsg);
 					break;
 				}
@@ -1168,13 +1181,28 @@ void RecognitionControl::messageReceived()
 					break;
 				}
 
-
-
 				case Simond::ModelCompilationCompleted: {
 					advanceStream(sizeof(qint32));
 					modelCompilationOperation->finished();
 					modelCompilationOperation=NULL;
+					break;
 				}
+
+				case Simond::ErrorRetrievingModelCompilationProtocol: {
+					advanceStream(sizeof(qint32));
+					emit couldNotRetrieveModelCompilationProtocol();
+					break;
+				}
+				
+				case Simond::ModelCompilationProtocol: {
+					parseLengthHeader();
+					QByteArray protocol;
+					msg >> protocol;
+					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					
+					emit modelCompilationProtocol(QString::fromUtf8(protocol));
+				}
+				
 
 				////////////////////    RECOGNITION    ////////////////////////////////
 
@@ -1267,7 +1295,10 @@ void RecognitionControl::messageReceived()
 	}
 }
 
-
+void RecognitionControl::fetchCompilationProtocol()
+{
+	sendRequest(Simond::GetModelCompilationProtocol);
+}
 
 void RecognitionControl::startRecognition()
 {

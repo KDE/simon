@@ -83,7 +83,7 @@ void SimondUserConfiguration::addUser()
 {
 	KPasswordDialog dlg( dynamic_cast<QWidget*>(parent()), 
 				KPasswordDialog::ShowUsernameLine);
-	dlg.setPrompt( i18n( "Neuen Benutzer hinzufügen:" ));
+	dlg.setPrompt( i18n( "Neuen Benutzer hinzufügen" ));
 	if( !dlg.exec() || dlg.username().isEmpty() )
 		return;
 
