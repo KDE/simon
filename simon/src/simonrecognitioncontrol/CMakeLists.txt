@@ -1,7 +1,8 @@
 include(FindQt4)
 find_package(KDE4 REQUIRED)
 set (QT_USE_QTNETWORK true)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../speechgui ../../../simonlib/ )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../speechgui
+	../../../simonlib/ ../ )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DDEBUG -DQT_DEBUG)
 include(KDE4Defaults)
@@ -26,7 +27,7 @@ kde4_add_ui_files( simonrecognition_LIB_SRCS
 kde4_add_library( simonrecognitioncontrol  SHARED ${simonrecognition_LIB_SRCS} )
 
 target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} speechgui speechmodelbase
-  simonmodelmanagement ) # for building the modelcontainers for synchronisation
+  simonmodelmanagementui ) # for building the modelcontainers for synchronisation
 
 
 set_target_properties( simonrecognitioncontrol

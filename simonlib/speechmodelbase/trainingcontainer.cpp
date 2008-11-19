@@ -19,7 +19,7 @@
 
 #include "trainingcontainer.h"
 
-TrainingContainer::TrainingContainer(int sampleRate, const QByteArray& wavConfig,
+TrainingContainer::TrainingContainer(qint32 sampleRate, const QByteArray& wavConfig,
 				const QByteArray& prompts) : 
 	m_sampleRate(sampleRate), m_wavConfig(wavConfig), 
 	m_prompts(prompts)

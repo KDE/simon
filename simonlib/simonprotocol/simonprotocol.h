@@ -20,10 +20,17 @@
 #ifndef SIMONPROTOCOL_H
 #define SIMONPROTOCOL_H
 
+/*
+ * "length" always refers to a 64bit signed integer (qint64) which contains the length of the rest of the packet
+ * (excluding the 12 bytes of "header" data (qint32 type and the qint64 length itself))
+ *
+ * length is ONLY ommitted if it would be 0 (i.e. no data after the type) or if the length of the packet is not
+ * variable
+ */
 namespace Simond
 {
 	enum Request {
-		Login=1001,
+		Login=1001,  /* qint64 length, quint8 protocol version, QByteArray username, QByteArray passwordHash */
 		VersionIncompatible=1002,
 		AuthenticationFailed=1003,
 		AccessDenied=1004,
@@ -34,12 +41,12 @@ namespace Simond
 		AbortSynchronisation=2002,
 		
 		GetActiveModelDate=2011,
-		ActiveModelDate=2012,
+		ActiveModelDate=2012, /* QDateTime lastModified */
 		GetActiveModel=2013,
 		ErrorRetrievingActiveModel=2014,
 		GetActiveModelSampleRate=2015,
-		ActiveModelSampleRate=2016,
-		ActiveModel=2017,
+		ActiveModelSampleRate=2016, /* QDateTime modifiedDat, qint32 samplerate, QByteArray hmmDefs, QByteArray tiedlist, QByteArray dict, QByteArray dfa */
+		ActiveModel=2017, /* QDateTime modifiedDat, qint32 samplerate, QByteArray hmmDefs, QByteArray tiedlist, QByteArray dict, QByteArray dfa */
 		NoActiveModelAvailable=2018,
 		ActiveModelStorageFailed=2019,
 		

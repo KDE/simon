@@ -28,7 +28,7 @@
 
 class QSslSocket;
 class QTimer;
-class ModelManager;
+class ModelManagerUiProxy;
 class Operation;
 
 const qint8 protocolVersion=1;
@@ -68,7 +68,7 @@ private:
 	Operation *modelCompilationOperation;
 
 	QTimer *timeoutWatcher;
-	ModelManager *modelManager;
+	ModelManagerUiProxy *modelManager;
 
 	QStringList serverConnectionsToTry;
 	QStringList serverConnectionErrors;
@@ -81,7 +81,7 @@ signals:
 	void simondSystemError(const QString& errStr);
 	void synchronisationError(const QString &err);
 	void recognitionError(const QString &err);
-	void compilationError(const QString &err);
+	void compilationError(const QString &err, const QString& protocol);
 
 	void simondSystemWarning(const QString&);
 	void synchronisationWarning(const QString&);
@@ -92,13 +92,6 @@ signals:
 	void progress(int now, int max=-1);
 
 	void loggedIn();
-
-	void modelCompilationWordUndefined(const QString&);
-	void modelCompilationClassUndefined(const QString&);
- 	void modelCompilationPhonemeUndefined(const QString&);
-	
-	void couldNotRetrieveModelCompilationProtocol();
-	void modelCompilationProtocol(const QString&);
 
 	void recognitionStatusChanged(RecognitionControl::RecognitionStatus);
 	void recognised(const QString&, const QString& sampa, const QString& samparaw);

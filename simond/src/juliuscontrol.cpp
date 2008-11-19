@@ -72,19 +72,15 @@ Jconf* JuliusControl::setupJconf()
 	KConfigGroup cGroup(&config, "");
 	QByteArray smpFreq = QString(cGroup.readEntry("SampleRate")).toUtf8();
 
-	int argc=15;
+	int argc=13;
 	char* argv[] = {"simond", "-C", jConfPath.data(),
 			"-gram", gram.data(),
-			 "-gram", gram.data(), 
 			 "-h", hmmDefs.data(),
 			 "-hlist", tiedList.data(),
-			 "-input", "mic", 
+			 "-input", "mic", //only for local input -.-
 			 "-smpFreq", smpFreq.data()};
 			 
 
-	for (int i=0; i < argc; i++)
-		kDebug() << argv[i];
-	
 	return j_config_load_args_new(argc, argv);
 }
 
@@ -287,8 +283,8 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 	if (isRunning())
 	{
 		kDebug() << "Recognition already running... HANDLEME";
-		//FIXME
-		schedule_grammar_update(recog);
+		//schedule_grammar_update(recog);
+		stop();
 		return true;
 	}
 	
@@ -317,7 +313,7 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 	}
 	this->jconf = jconf;
 	
-	Recog *recog = j_create_instance_from_jconf(jconf);
+	this->recog = j_create_instance_from_jconf(jconf);
 	if (!recog)
 	{
 		emit recognitionError(i18n("Could not initialize recognition"));
@@ -326,7 +322,6 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 		this->recog=0;
 		return false;
 	}
-	this->recog=recog;
 	
 	callback_add(recog, CALLBACK_EVENT_SPEECH_READY, statusRecready, this);
 	callback_add(recog, CALLBACK_EVENT_SPEECH_START, statusRecstart, this);
@@ -388,14 +383,16 @@ void JuliusControl::stop()
 	if (!recog) return;
 	
 	pauseMutex.unlock();
+	if (!isRunning()) return;
+
+	if (recog->adin)
+		recog->adin->ad_end();
 	j_request_terminate(recog);
 	quit();
-	wait(1000);
-	if (isRunning()) {
-		terminate();
-		wait();
-	}
-	recog=0;
+	if (!wait(1000))
+		kWarning() << "ARGH STILL RUNNING!";
+	else 
+		emit recognitionStopped();
 }
 
 
@@ -441,9 +438,7 @@ JuliusControl::~JuliusControl()
 	if (isRunning())
 		stop();
 	
-	wait();
-	
-	if (recog) j_recog_free(recog);
+	j_recog_free(recog);
 // 	if (recog)
 // 	{
 // 		j_recog_free(recog);

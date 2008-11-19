@@ -212,7 +212,6 @@ void AddWordView::addWords(QStringList words)
 	if (words.count() == 0) return;
 	
 	wordsToAdd << words;
-	KMessageBox::information(this, "hier");
 	createWord(wordsToAdd.takeAt(0));
 }
 

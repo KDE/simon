@@ -40,6 +40,9 @@ class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
 		void modelChanged();
 		
 	private:
+		bool inGroup;
+		bool modelChangedFlag;
+
 		QStringList missingFiles;
 		bool hasWordList();
 		bool hasTraining();
@@ -47,8 +50,14 @@ class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
 		bool hasLanguageDescription();
 		bool hasActiveContainer();
 	
+	private slots:
+		void slotModelChanged();
+	
 	public:
-		ModelManager();
+		ModelManager(QObject *parent=0);
+
+		void startGroup();
+		void commitGroup(bool silent=false);
 
 		QDateTime getSrcContainerModifiedTime();
 		
@@ -68,13 +77,13 @@ class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
 		
 		TrainingContainer* getTrainingContainer();
 		QDateTime getTrainingModifiedTime();
-		bool storeTraining(const QDateTime& changedTime, int sampleRate, const QByteArray& wavConfig,
+		bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
 					const QByteArray& prompts);
 
 		Model* createActiveContainer();
-		int getActiveModelSampleRate();
+		qint32 getActiveModelSampleRate();
 		QDateTime getActiveContainerModifiedTime();
-		bool storeActiveModel(const QDateTime& changedTime, int sampleRate, const QByteArray& hmmDefs,
+		bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
 				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
 				
 		void buildMissingSamplesList();

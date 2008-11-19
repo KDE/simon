@@ -91,6 +91,7 @@ Q_OBJECT
 		bool refreshTraining(int sampleRate, const QByteArray& prompts);
 
 		bool addSample(const QString& fileBaseName, const QString& prompt);
+		bool removeSample(const QString& fileBaseName);
 
 		QStringList missingWords(const QStringList& prompts);
 

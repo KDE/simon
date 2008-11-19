@@ -90,11 +90,11 @@ bool ModelCompilationManager::execute(const QString& command)
 	QString err = QString::fromLocal8Bit(proc->readAllStandardError());
 	QString out = QString::fromLocal8Bit(proc->readAllStandardOutput());
 	
-	if (!err.isEmpty())
-		buildLog += "<p><span style=\"color:#aa0000;\">"+err+"</span></p>";
-	
 	if (!out.isEmpty())
 		buildLog += "<p>"+out+"</p>";
+
+	if (!err.isEmpty())
+		buildLog += "<p><span style=\"color:#aa0000;\">"+err+"</span></p>";
 	
 	if (proc->exitCode() != 0) 
 		return false;

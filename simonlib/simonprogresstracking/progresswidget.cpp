@@ -57,12 +57,9 @@ ProgressWidget::ProgressWidget(QPointer<Operation> op, QWidget* parent): QWidget
 		vBox->addWidget(new QSplitter(this));
 		connect(cancelButton, SIGNAL(clicked()), op, SLOT(cancel()));
 	}
-	
-	//connect(op, SIGNAL(changed()), this, SLOT(update()));
 }
 
 
-#include <KDebug>
 void ProgressWidget::update()
 {
 	currentAction->setText(op->currentAction());
@@ -71,7 +68,6 @@ void ProgressWidget::update()
 
 	if (!op->isRunning())
 		cancelButton->setDisabled(true);
-	kDebug() << "Updated";
 }
 
 

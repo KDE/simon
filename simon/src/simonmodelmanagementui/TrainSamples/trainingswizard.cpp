@@ -139,8 +139,6 @@ bool TrainingsWizard::init(const QStringList& prompts, const QString& name)
 	foreach (const QString& prompt, prompts)
 	{
 		TrainSamplePage *page = new TrainSamplePage(prompt, nowPage++, maxPage, name, this);
-// 		connect(this, SIGNAL(accepted()), page, SLOT(submit()));
-// 		connect(this, SIGNAL(rejected()), page, SLOT(cleanUp()));
 		addPage(page);
 	}
 	connect(this, SIGNAL(accepted()), this, SLOT(submit()));

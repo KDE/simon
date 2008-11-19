@@ -36,27 +36,52 @@
 #include <QDir>
 
 
-ModelManager::ModelManager()
+ModelManager::ModelManager(QObject *parent) : QObject(parent)
 {
+	modelChangedFlag=false;
+	inGroup=false;
 	connect (WordListManager::getInstance(), SIGNAL(wordlistChanged()), 
-		  this, SIGNAL(modelChanged()));
+		  this, SLOT(slotModelChanged()));
 
 	connect (WordListManager::getInstance(), SIGNAL(shadowListChanged()), 
-		  this, SIGNAL(modelChanged()));
+		  this, SLOT(slotModelChanged()));
 	
 	connect (TrainingManager::getInstance(), SIGNAL(trainingDataChanged()),
-		  this, SIGNAL(modelChanged()));
+		  this, SLOT(slotModelChanged()));
 	
 	connect (TrainingManager::getInstance(), SIGNAL(trainingSettingsChanged()),
-		  this, SIGNAL(modelChanged()));
+		  this, SLOT(slotModelChanged()));
 	
 	connect (GrammarManager::getInstance(), SIGNAL(structuresChanged()), 
-		  this, SIGNAL(modelChanged()));
+		  this, SLOT(slotModelChanged()));
 }
+
+void ModelManager::slotModelChanged()
+{
+	if (inGroup) 
+		modelChangedFlag=true;
+	else
+		emit modelChanged();
+}
+
+void ModelManager::startGroup()
+{
+	modelChangedFlag=false;
+	inGroup=true;
+}
+
+void ModelManager::commitGroup(bool silent)
+{
+	if (modelChangedFlag && !silent)
+		emit modelChanged();
+	modelChangedFlag=false;
+	inGroup=false;
+}
+
 
 Model* ModelManager::createActiveContainer()
 {
-	int modelSampleRate=SpeechModelManagementConfiguration::modelSampleRate();
+	qint32 modelSampleRate=SpeechModelManagementConfiguration::modelSampleRate();
 	
 	QFile hmmDefs(KStandardDirs::locate("appdata", "model/hmmdefs"));
 	QFile tiedList(KStandardDirs::locate("appdata", "model/tiedlist"));
@@ -72,7 +97,7 @@ Model* ModelManager::createActiveContainer()
 	return new Model(modelSampleRate, hmmDefs.readAll(), tiedList.readAll(), dict.readAll(), dfa.readAll());
 }
 
-int ModelManager::getActiveModelSampleRate()
+qint32 ModelManager::getActiveModelSampleRate()
 {
 	return SpeechModelManagementConfiguration::modelSampleRate();
 }
@@ -87,7 +112,7 @@ QDateTime ModelManager::getActiveContainerModifiedTime()
 }
 
 
-bool ModelManager::storeActiveModel(const QDateTime& changedTime, int sampleRate, const QByteArray& hmmDefs,
+bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
 			const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa)
 {
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/activemodelrc"), KConfig::SimpleConfig );
@@ -248,7 +273,7 @@ bool ModelManager::storeLanguageDescription(const QDateTime& changedTime, const 
 
 TrainingContainer* ModelManager::getTrainingContainer()
 {
-	int modelSampleRate=SpeechModelManagementConfiguration::modelSampleRate();
+	qint32 modelSampleRate=SpeechModelManagementConfiguration::modelSampleRate();
 	
 //	TrainingManager::getInstance()->writePromptsFile(
 //			TrainingManager::getInstance()->getPrompts(), 
@@ -274,7 +299,7 @@ QDateTime ModelManager::getTrainingModifiedTime()
 	return cGroup.readEntry("TrainingDate", QDateTime());
 }
 
-bool ModelManager::storeTraining(const QDateTime& changedTime, int sampleRate, const QByteArray& wavConfig,
+bool ModelManager::storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
 					const QByteArray& prompts)
 {
 	if (!TrainingManager::getInstance()->refreshTraining(sampleRate, prompts))

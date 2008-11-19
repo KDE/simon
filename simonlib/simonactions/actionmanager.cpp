@@ -250,7 +250,7 @@ CommandList* ActionManager::getCommandList()
 
 void ActionManager::process(QString input)
 {
-	kDebug() << "Input: " << input;
+	kWarning() << "Input: " << input;
 	Q_ASSERT(managers);
 	Q_ASSERT(commandSettings);
 

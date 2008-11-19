@@ -51,7 +51,7 @@
 OSD::OSD(QString message, int timeout, KIcon *icon)
 	: QLabel(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint)
 {
-	setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/osd.png")));
+	setPixmap(QPixmap(KStandardDirs::locate("data", "simoninfo/themes/default/osd.png")));
 	
 	this->timer = new QTimer();
 	
@@ -100,21 +100,6 @@ void OSD::mouseReleaseEvent(QMouseEvent *event)
 	QWidget::mouseReleaseEvent(event);
 	deleteLater();
 }
-
-/**
- * @brief Overwritten paintEvent
- *
- * Overloads the Widgets paint-Function to draw the background-Pixmap
- *
- * @author Peter Grasch
- */
-// void OSD::paintEvent( QPaintEvent *e )
-// {
-// 	QPainter painter(this);
-// 	QPixmap bg = QPixmap(":/images/osd.png");
-// 	painter.drawPixmap(0,0,bg);
-// 	QWidget::paintEvent(e);
-// }
 
 /**
  * \brief Destructor

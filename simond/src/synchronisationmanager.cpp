@@ -52,7 +52,7 @@ Model* SynchronisationManager::getActiveModel()
 
 	QString configPath = dirPath+"activemodelrc";
 	KConfig config( configPath, KConfig::SimpleConfig );
-	int sampleRate;
+	qint32 sampleRate;
 	KConfigGroup cGroup(&config, "");
 	sampleRate = cGroup.readEntry("SampleRate").toInt();
 	
@@ -82,7 +82,7 @@ QDateTime SynchronisationManager::getActiveModelDate()
 	return cGroup.readEntry("Date", QDateTime());
 }
 
-bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, int sampleRate, const QByteArray& hmmDefs,
+bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& hmmDefs,
 		const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa)
 {
 	if (username.isEmpty()) return false;
@@ -116,7 +116,7 @@ bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, int 
 	return true;
 }
 
-void SynchronisationManager::setActiveModelSampleRate(int activeModelSampleRate)
+void SynchronisationManager::setActiveModelSampleRate(qint32 activeModelSampleRate)
 {
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 	KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
@@ -369,7 +369,7 @@ TrainingContainer* SynchronisationManager::getTraining()
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/");
 	KConfig config( dirPath+"trainingrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
-	int sampleRate = cGroup.readEntry("SampleRate").toInt();
+	qint32 sampleRate = cGroup.readEntry("SampleRate").toInt();
 
 
 	QFile wavConfig(dirPath+"wav_config");
@@ -386,7 +386,7 @@ TrainingContainer* SynchronisationManager::getTraining()
 }
 
 
-bool SynchronisationManager::storeTraining(const QDateTime& changedDate, int sampleRate, const QByteArray& wavConfig,
+bool SynchronisationManager::storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& wavConfig,
 			const QByteArray& prompts)
 {
 	if (username.isEmpty()) return false;
@@ -476,6 +476,7 @@ bool SynchronisationManager::storeSample(const QByteArray& sample)
 
 QString SynchronisationManager::missingSample()
 {
+	kWarning() << "hier" << missingFiles;
 	if (missingFiles.isEmpty()) return QString();
 
 	return missingFiles.at(0);

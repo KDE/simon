@@ -7,6 +7,8 @@ include(KDE4Defaults)
 
 set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/plugin_exporter.cpp
+	
+	${CMAKE_CURRENT_SOURCE_DIR}/modelmanageruiproxy.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/deleteworddialog.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/dragtablewidget.cpp

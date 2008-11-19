@@ -45,7 +45,7 @@ class SynchronisationManager : public QObject
 		bool hasActiveModel();
 		QDateTime getActiveModelDate();
 		void setActiveModelSampleRate(int activeModelSampleRate);
-		bool storeActiveModel(const QDateTime& changedDate, int sampleRate, const QByteArray& hmmDefs,
+		bool storeActiveModel(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& hmmDefs,
 				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
 
 				
@@ -72,7 +72,7 @@ class SynchronisationManager : public QObject
 		QDateTime getTrainingDate();
 		bool hasTraining();
 		TrainingContainer* getTraining();
-		bool storeTraining(const QDateTime& changedDate, int sampleRate, const QByteArray& wavConfig,
+		bool storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& wavConfig,
 					const QByteArray& prompts);
 		
 		void buildMissingSamples();

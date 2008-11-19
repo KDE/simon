@@ -34,3 +34,5 @@ install( FILES ${simoninfo_LIB_HDRS}
 )
  
 install( TARGETS simoninfo  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+
+add_subdirectory(themes)

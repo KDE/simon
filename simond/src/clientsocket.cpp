@@ -306,7 +306,6 @@ void ClientSocket::processRequest()
 					sendCode(Simond::GetTrainingDate);
 				else
 					synchronizeSamples();
-					//synchronisationComplete();
 				
 				break;
 			}
@@ -530,7 +529,7 @@ void ClientSocket::processRequest()
 					} else sendCode(Simond::GetLanguageDescription);
 				} else {
 					kDebug() << "LanguageDescription is up-to-date";
-					fetchTrainingSample();
+					synchronizeSamples();
 				}
 				
 				break;
@@ -776,11 +775,17 @@ void ClientSocket::slotModelCompilationError(const QString& error)
 // 	QMutexLocker l(&messageLocker);
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+
 	QByteArray errorByte = error.toUtf8();
+	QByteArray log = modelCompilationManager->getGraphicBuildLog().toUtf8();
+	bodyStream << errorByte << log;
+
 	stream << (qint32) Simond::ModelCompilationError
-		<< (qint64) (errorByte.count()+sizeof(qint32) /*seperator*/)
-		<< errorByte;
+		<< (qint64) body.count();
 	write(toWrite);
+	write(body);
 }
 
 
@@ -1055,17 +1060,10 @@ void ClientSocket::recognitionResumed()
 	sendCode(Simond::RecognitionResumed);
 }
 
-// void ClientSocket::recognitionTemporarilyUnavailable(const QString& reason)
-// {
-// 	QByteArray toWrite;
-// 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-// 	stream << (qint32) Simond::RecognitionTemporarilyUnavailable << reason.toUtf8();
-// 	write(toWrite);
-// }
-
 
 void ClientSocket::sendRecognitionResult(const QString& data, const QString& sampa, const QString& samparaw)
 {
+	kWarning() << data;
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray body;
@@ -1076,7 +1074,7 @@ void ClientSocket::sendRecognitionResult(const QString& data, const QString& sam
 	QByteArray sampaRawByte = samparaw.toUtf8();
 	
 	bodyStream << dataByte << sampaByte << sampaRawByte;
-	stream << (qint32) Simond::RecognitionResult << body.count();
+	stream << (qint32) Simond::RecognitionResult << (qint64) body.count();
 	write(toWrite);
 	write(body);
 }

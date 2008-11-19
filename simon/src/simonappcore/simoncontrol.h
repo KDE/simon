@@ -106,14 +106,8 @@ private slots:
 	void slotSimondSystemError(const QString &err);
 	void slotSynchronisationError(const QString &err);
 	void slotRecognitionError(const QString &err);
-	void slotCompilationError(const QString &err);
+	void slotCompilationError(const QString &err, const QString& protocol);
 
-	void slotModelCompilationWordUndefined(const QString &word);
-	void slotModelCompilationClassUndefined(const QString &undefClass);
-	void slotModelCompilationPhonemeUndefined(const QString &phonemeUndefined);
-
-	void slotCouldNotRetrieveModelCompilationProtocol();
-	void slotModelCompilationProtocol(const QString&);
 	void slotSimondSystemWarning(const QString& warning);
 	void slotSynchronisationWarning(const QString& warning);
 	void slotRecognitionWarning(const QString& warning);

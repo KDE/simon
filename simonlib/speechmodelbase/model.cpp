@@ -19,7 +19,7 @@
 
 #include "model.h"
 
-Model::Model(int sampleRate, const QByteArray&  hmmDefs,
+Model::Model(qint32 sampleRate, const QByteArray&  hmmDefs,
 				const QByteArray&  tiedList, const QByteArray&  dict, const QByteArray&  dfa) : 
 	m_sampleRate(sampleRate), m_hmmDefs(hmmDefs), 
 	m_tiedList(tiedList), m_dict(dict), m_dfa(dfa)

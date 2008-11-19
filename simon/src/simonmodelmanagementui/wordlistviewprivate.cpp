@@ -199,9 +199,8 @@ void WordListViewPrivate::trainList()
 	}
 
 	TrainingsWizard *wizard = new TrainingsWizard(this);
-	if (wizard->init(trainingwordlist))
+	if (wizard->init(trainingwordlist)&& wizard->exec())
 	{
-		wizard->exec();
 		trainingwordlist.clear();
 		ui.lwTrainingWords->clear();
 	}

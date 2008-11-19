@@ -22,7 +22,7 @@
 #include "recognitioncontrol.h"
 #include <simoninfo/simoninfo.h>
 #include <simonprotocol/simonprotocol.h>
-#include <speechmodelmanagement/modelmanager.h>
+#include <simonmodelmanagementui/modelmanageruiproxy.h>
 #include <speechmodelbase/wordlistcontainer.h>
 #include <speechmodelbase/grammarcontainer.h>
 #include <speechmodelbase/languagedescriptioncontainer.h>
@@ -101,12 +101,14 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 	if ( RecognitionConfiguration::juliusdAutoConnect() )
 		startConnecting();
 	
-	this->modelManager = new ModelManager();
+	this->modelManager = new ModelManagerUiProxy(this);
+	connect(modelManager, SIGNAL(recompileModel()), this, SLOT(startSynchronisation()));
 }
 
 void RecognitionControl::slotDisconnected()
 {
 	recognitionReady=false;
+	modelManager->setConnectionStatus(false);
 	if (synchronisationOperation)
 	{
 		if (synchronisationOperation->isRunning())
@@ -568,9 +570,10 @@ void RecognitionControl::sendSample(QString sampleName)
 	
 	if (sample.isNull())
 	{
-		emit synchronisationError(i18n("Konnte \"%1\" nicht übertragen", sampleName));
 		sendRequest(Simond::ErrorRetrievingTrainingsSample);
 		synchronisationOperation->canceled();
+		synchronisationDone();
+		modelManager->sampleNotAvailable(sampleName);
 		return;
 	}
 
@@ -594,9 +597,9 @@ void RecognitionControl::startSynchronisation()
 
 	synchronisationOperation = new Operation(thread(), i18n("Modellsynchronisation"), i18n("Initialisiere..."), 0, 100, false);
 
-	kDebug() << "Starting synchronisation";
-	disconnect (modelManager, SIGNAL(modelChanged()), this, SLOT(startSynchronisation()));
+	kWarning() << "Starting synchronisation";
 	sendRequest(Simond::StartSynchronisation);
+	kWarning() << stillToProcess.count();
 }
 
 void RecognitionControl::synchronisationComplete()
@@ -619,9 +622,6 @@ void RecognitionControl::synchronisationDone()
 		}
 		synchronisationOperation=NULL;
 	}
-	
-	if (RecognitionConfiguration::automaticSync())
-		connect(modelManager, SIGNAL(modelChanged()), this, SLOT(startSynchronisation()));
 }
 
 
@@ -658,6 +658,7 @@ void RecognitionControl::messageReceived()
 				{
 					advanceStream(sizeof(qint32));
 					emit loggedIn();
+					modelManager->setConnectionStatus(true);
 					startSynchronisation();
 					break;
 				}
@@ -1050,9 +1051,9 @@ void RecognitionControl::messageReceived()
 					
 					QByteArray sampleNameByte;
 					msg >> sampleNameByte;
+					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
 					sendSample(QString::fromUtf8(sampleNameByte));
-					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					break;
 				}
 
@@ -1132,10 +1133,17 @@ void RecognitionControl::messageReceived()
 				
 				case Simond::ModelCompilationError: {
 					parseLengthHeader();
+
 					QString errorMsg;
 					QByteArray errorByte;
+					QString protocol;
+					QByteArray protocolByte;
+
 					msg >> errorByte;
+					msg >> protocolByte;
+					
 					errorMsg = QString::fromUtf8(errorByte);
+					protocol = QString::fromUtf8(protocolByte);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
 					if (modelCompilationOperation)
@@ -1143,7 +1151,7 @@ void RecognitionControl::messageReceived()
 						modelCompilationOperation->canceled();
 						modelCompilationOperation=NULL;
 					}
-					emit compilationError(errorMsg);
+					emit compilationError(errorMsg, protocol);
 					break;
 				}
 	
@@ -1155,7 +1163,7 @@ void RecognitionControl::messageReceived()
 					
 					modelCompilationOperation->canceled();
 					modelCompilationOperation=NULL;
-					emit modelCompilationWordUndefined(word);
+					modelManager->wordUndefined(word);
 					break;
 				}	
 				case Simond::ModelCompilationClassUndefined: {
@@ -1166,7 +1174,7 @@ void RecognitionControl::messageReceived()
 					
 					modelCompilationOperation->canceled();
 					modelCompilationOperation=NULL;
-					emit modelCompilationClassUndefined(undefClass);
+					modelManager->classUndefined(undefClass);
 					break;
 				}	
 				case Simond::ModelCompilationPhonemeUndefined: {
@@ -1177,7 +1185,7 @@ void RecognitionControl::messageReceived()
 					
 					modelCompilationOperation->canceled();
 					modelCompilationOperation=NULL;
-					emit modelCompilationWordUndefined(phoneme);
+					modelManager->phonemeUndefined(phoneme);
 					break;
 				}
 
@@ -1190,7 +1198,7 @@ void RecognitionControl::messageReceived()
 
 				case Simond::ErrorRetrievingModelCompilationProtocol: {
 					advanceStream(sizeof(qint32));
-					emit couldNotRetrieveModelCompilationProtocol();
+					KMessageBox::sorry(0, i18n("Konnte Modellerstellungsprotokoll nicht abrufen"));
 					break;
 				}
 				
@@ -1200,7 +1208,7 @@ void RecognitionControl::messageReceived()
 					msg >> protocol;
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
-					emit modelCompilationProtocol(QString::fromUtf8(protocol));
+					modelManager->displayCompilationProtocol(QString::fromUtf8(protocol));
 				}
 				
 
@@ -1276,8 +1284,8 @@ void RecognitionControl::messageReceived()
 					msg >> word;
 					msg >> sampa;
 					msg >> samparaw;
-					emit recognised(QString::fromUtf8(word), QString::fromUtf8(sampa), QString::fromUtf8(samparaw));
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					emit recognised(QString::fromUtf8(word), QString::fromUtf8(sampa), QString::fromUtf8(samparaw));
 					break;
 				}
 				

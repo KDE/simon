@@ -30,6 +30,7 @@
 #include <KActionCollection>
 #include <KMessageBox>
 #include <KStandardDirs>
+#include <simoninfo/simoninfo.h>
 
 KSimondView::KSimondView(QObject *parent):QObject(parent)
 {
@@ -96,6 +97,7 @@ void KSimondView::matchDisplayToState()
 	{
 		case QProcess::NotRunning:
 		{
+			SimonInfo::showMessage(i18n("simond beendet"), 2000, new KIcon("simond"));
 			startProcess->setEnabled(true);
 			stopProcess->setEnabled(false);
 			break;
@@ -108,6 +110,7 @@ void KSimondView::matchDisplayToState()
 		}
 		case QProcess::Running:
 		{
+			SimonInfo::showMessage(i18n("simond gestartet"), 2000, new KIcon("simond"));
 			startProcess->setEnabled(false);
 			stopProcess->setEnabled(true);
 			break;

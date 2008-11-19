@@ -476,6 +476,13 @@ bool TrainingManager::addSample ( const QString& fileBaseName, const QString& pr
 	return true;
 }
 
+bool TrainingManager::removeSample(const QString& fileBaseName)
+{
+	Q_ASSERT(promptsTable);
+	
+	return (promptsTable->remove(fileBaseName) > 0);
+}
+
 
 /**
  * @brief Destructor

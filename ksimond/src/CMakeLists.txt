@@ -7,7 +7,7 @@ set(ksimond_SRCS
 
 kde4_add_executable(ksimond ${ksimond_SRCS})
 
-target_link_libraries(ksimond ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS} speechgui )
+target_link_libraries(ksimond ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS} speechgui simoninfo)
 
 install(TARGETS ksimond DESTINATION ${BIN_INSTALL_DIR} )
 
