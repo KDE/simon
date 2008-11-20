@@ -50,7 +50,6 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	QObject::connect(recognitionControl, SIGNAL(synchronisationError(const QString&)), this, SLOT(slotSynchronisationError(const QString&)));
 	QObject::connect(recognitionControl, SIGNAL(recognitionError(const QString&)), this, SLOT(slotRecognitionError(const QString&)));
 	QObject::connect(recognitionControl, SIGNAL(compilationError(const QString&, const QString&)), this, SLOT(slotCompilationError(const QString&, const QString&)));
-	QObject::connect(recognitionControl, SIGNAL(modelCompilationProtocol(const QString&)), this, SLOT(slotModelCompilationProtocol(const QString&)));
 
 	QObject::connect(recognitionControl, SIGNAL(simondSystemWarning(const QString&)), this, SLOT(slotSimondSystemWarning(const QString&)));
 	QObject::connect(recognitionControl, SIGNAL(synchronisationWarning(const QString&)), this, SLOT(slotSynchronisationWarning(const QString&)));

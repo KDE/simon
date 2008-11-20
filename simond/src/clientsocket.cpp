@@ -677,6 +677,8 @@ void ClientSocket::activeModelCompiled()
 	sendCode(Simond::ModelCompilationCompleted);
 	sendActiveModel();
 	
+	//FIXME: should not reinitialize recognition if active model
+	//did not change and recog is already running
  	recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 }
 
@@ -896,6 +898,8 @@ void ClientSocket::synchronisationDone()
 	
 	Q_ASSERT(recognitionControl);
 	
+	//FIXME: should not reinitialize recognition if active model
+	//did not change and recog is already running
 	if (synchronisationManager->hasActiveModel())
 		recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 }
