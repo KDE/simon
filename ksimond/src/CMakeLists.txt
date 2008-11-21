@@ -5,6 +5,8 @@ set(ksimond_SRCS
    ksimondview.cpp
  )
 
+kde4_add_kcfg_files(ksimond_SRCS ../config/ksimondconfiguration.kcfgc)
+
 kde4_add_executable(ksimond ${ksimond_SRCS})
 
 target_link_libraries(ksimond ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS} speechgui simoninfo)
@@ -15,3 +17,4 @@ install(TARGETS ksimond DESTINATION ${BIN_INSTALL_DIR} )
 ########### install files ###############
 
 install( FILES ksimond.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} )
+install( FILES ksimond_autostart.desktop  DESTINATION ${AUTOSTART_INSTALL_DIR} )

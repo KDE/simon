@@ -49,6 +49,7 @@ JuliusControl::JuliusControl(const QString& username, QObject *parent) : Recogni
 	recog=0;
 	jconf=0;
 	isLocal=false;
+	m_initialized=false;
 }
 
 Jconf* JuliusControl::setupJconf()
@@ -77,21 +78,22 @@ Jconf* JuliusControl::setupJconf()
 			"-gram", gram.data(),
 			 "-h", hmmDefs.data(),
 			 "-hlist", tiedList.data(),
-			 "-input", "mic", //only for local input -.-
+			 //"-input", "mic", //only for local input -.- 
+			 "-input", "adinnet", //only for local input -.- 
 			 "-smpFreq", smpFreq.data()};
 			 
 
 	return j_config_load_args_new(argc, argv);
 }
 
-void statusRecstart(Recog *recog, void *control)
+void statusRecstart(Recog *recog, void *)
 {
   if (recog->jconf->input.speech_input == SP_MIC || recog->jconf->input.speech_input == SP_NETAUDIO) {
     kDebug() << "\nListening...\n";
   }
 }
 
-void statusRecready(Recog *recog, void *control)
+void statusRecready(Recog *recog, void *)
 {
   if (recog->jconf->input.speech_input == SP_MIC || recog->jconf->input.speech_input == SP_NETAUDIO) {
     kDebug() << "<<< please speak >>>";
@@ -141,8 +143,7 @@ put_hypo_phoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
 
 void outputResult(Recog *recog, void *control)
 {
-	int i, j;
-	int len;
+	int i;
 	WORD_INFO *winfo;
 	WORD_ID *seq;
 	int seqnum;
@@ -237,7 +238,7 @@ void outputResult(Recog *recog, void *control)
 }
 
 
-void pauseWaiter(Recog *recog, void *control)
+void pauseWaiter(Recog *, void *control)
 {
 	JuliusControl *jControl = (JuliusControl*) control;
 	Q_ASSERT(jControl);
@@ -277,16 +278,36 @@ JuliusControl::Request JuliusControl::popNextRequest()
 	return req;
 }
 
-bool JuliusControl::initializeRecognition(bool isLocal)
+
+bool JuliusControl::isInitialized()
 {
-	//introduce some kind of isRunning() logic
+	return m_initialized;
+}
+
+void JuliusControl::uninitialize()
+{
+	if (!m_initialized) return;
+
 	if (isRunning())
 	{
-		kDebug() << "Recognition already running... HANDLEME";
-		//schedule_grammar_update(recog);
 		stop();
-		return true;
+		wait(1000);
 	}
+
+	if (this->recog)
+		j_recog_free(recog);
+	else 
+		if (this->jconf)
+			j_jconf_free(jconf);
+
+	m_initialized=false;
+}
+
+
+bool JuliusControl::initializeRecognition(bool isLocal)
+{
+	bool wasRunning = isRunning();
+	uninitialize();
 	
 	this->isLocal = isLocal;
 	if (isLocal) 
@@ -311,6 +332,7 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 		emit recognitionError(i18n("Internal Jconf error"));
 		return false;
 	}
+
 	this->jconf = jconf;
 	
 	this->recog = j_create_instance_from_jconf(jconf);
@@ -329,7 +351,9 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 	callback_add(recog, CALLBACK_POLL, juliusCallbackPoll, this);
 	callback_add(recog, CALLBACK_PAUSE_FUNCTION, pauseWaiter, this);
 
+	m_initialized=true;
 	emit recognitionReady();
+	if (wasRunning) start();
 	return true;
 }
 
@@ -401,11 +425,6 @@ void JuliusControl::recognized(const QString& sequence, const QString& sampa, co
 	emit recognitionResult(sequence, sampa, samparaw);
 }
 
-void JuliusControl::stopped()
-{
-	emit recognitionStopped();
-}
-
 void JuliusControl::pause()
 {
 	kDebug() << "Locking";
@@ -435,8 +454,7 @@ void JuliusControl::pushRequest(JuliusControl::Request request)
 
 JuliusControl::~JuliusControl()
 {
-	if (isRunning())
-		stop();
+	stop();
 	
 	j_recog_free(recog);
 // 	if (recog)

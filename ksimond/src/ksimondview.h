@@ -55,6 +55,7 @@ private slots:
     void showConfigurationDialog();
     void startSimond();
     void stopSimond();
+    void simondFinished();
 
     void matchDisplayToState();
     void slotError(QProcess::ProcessError err);
@@ -63,6 +64,7 @@ private:
     TrayIconManager *trayIconMgr;
     KProcess *process;
     KAction *startProcess, *stopProcess, *configure;
+    bool stopIntended;
 };
 
 #endif // ksimondVIEW_H

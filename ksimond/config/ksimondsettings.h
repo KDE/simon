@@ -17,41 +17,22 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef RECOGNITIONCONTROL_H
-#define RECOGNITIONCONTROL_H
+#ifndef KSIMONDSETTINGS_H
+#define KSIMONDSETTINGS_H
 
-#include <QObject>
-#include <QThread>
+#include <KCModule>
+#include <QVariantList>
 
-class RecognitionControl : public QThread
+#include "ui_ksimondconfiguration.h"
+
+class KSimondSettings : public KCModule
 {
 	Q_OBJECT
-
-	signals:
-		void recognitionReady();
-		void recognitionError(const QString& error);
-		void recognitionWarning(const QString& warning);
-		void recognitionStarted();
-		void recognitionStopped();
-		void recognitionPaused();
-		void recognitionResumed();
-		void recognitionResult(const QString& result, const QString& sampa, const QString& samparaw);
-
-	protected:
-		QString username;
-
+	private:
+		Ui::KSimondSettings ui;
 	public:
-		RecognitionControl(const QString& username, QObject *parent=0);
-
-		virtual bool initializeRecognition(bool isLocal)=0;
-		virtual bool isInitialized()=0;
-
-		virtual void stop()=0;
-		virtual void pause()=0;
-		virtual void resume()=0;
-			       
-		~RecognitionControl();
-		
+		KSimondSettings(QWidget* parent, const QVariantList& args=QVariantList());
+		~KSimondSettings();
 };
 
 #endif

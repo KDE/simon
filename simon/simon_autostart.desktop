@@ -1,0 +1,20 @@
+[Desktop Entry]
+Icon=simon 
+
+Name=simon
+Name[de]=simon
+
+GenericName=Speech Recognition
+GenericName[de]=Spracherkennung
+
+Exec=simon
+
+Comment=Speech Recognition and Model Management
+Comment[de]=Spracherkennung und Modelverwaltung
+
+Terminal=false
+
+Categories=Qt;KDE;Utility;Accessibility;
+
+X-KDE-StartupNotify=false
+X-KDE-autostart-condition=simonrc:General:AutoStart:false

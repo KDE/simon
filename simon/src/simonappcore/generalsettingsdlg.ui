@@ -22,10 +22,17 @@
       <bool>false</bool>
      </property>
      <layout class="QGridLayout" >
-      <item row="0" column="0" >
+      <item row="1" column="0" >
        <widget class="QCheckBox" name="kcfg_AskBeforeQuit" >
         <property name="text" >
          <string>Nachfragen vor dem Beenden</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QCheckBox" name="kcfg_AutoStart" >
+        <property name="text" >
+         <string>Starte simon bei KDE Start</string>
         </property>
        </widget>
       </item>

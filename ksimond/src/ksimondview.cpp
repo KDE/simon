@@ -19,6 +19,7 @@
 
 
 #include "ksimondview.h"
+#include "ksimondconfiguration.h"
 
 #include <QStringList>
 
@@ -34,6 +35,7 @@
 
 KSimondView::KSimondView(QObject *parent):QObject(parent)
 {
+	stopIntended=false;
 	trayIconMgr = new TrayIconManager();
 	trayIconMgr->createIcon(KIcon("simond"), i18n("simond"));
 	//add actions
@@ -64,12 +66,16 @@ KSimondView::KSimondView(QObject *parent):QObject(parent)
 	process = new KProcess();
 	connect(process, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(matchDisplayToState()));
 	connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(slotError(QProcess::ProcessError)));
+	connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(simondFinished()));
+
+	if (KSimondConfiguration::autoStartSimond())
+		startSimond();
 }
 
 void KSimondView::showConfigurationDialog()
 {
 	KCMultiDialog *configDialog = new KCMultiDialog(0);
-//	configDialog->addModule("ksimondconfiguration");
+	configDialog->addModule("ksimondconfiguration");
 	configDialog->addModule("simonduserconfiguration");
 	configDialog->addModule("simondnetworkconfiguration");
 	configDialog->show();
@@ -118,6 +124,18 @@ void KSimondView::matchDisplayToState()
 	}
 }
 
+
+void KSimondView::simondFinished()
+{
+	if (!stopIntended && KSimondConfiguration::autoReStartSimond())
+	{
+		startSimond();
+		stopIntended=false;
+	}
+}
+
+
+
 void KSimondView::slotError(QProcess::ProcessError err)
 {
 	switch (err)
@@ -126,9 +144,9 @@ void KSimondView::slotError(QProcess::ProcessError err)
 			KMessageBox::error(0, i18n("Konnte simond nicht starten.\n\nBitte überprüfen Sie die ksimond Konfiguration.\n\nAusgeführter Befehl:\"%1\"", process->program().join(", ")));
 			break;
 		case QProcess::Crashed:
-			//"Crashing" with status 1 is normal when we terminate a program with terminate()
-			if (process->exitStatus() != 1)
+			if (!stopIntended)
 				KMessageBox::error(0, i18n("simond ist abgestürzt. (Status: %1)", process->exitStatus()));
+			
 			break;
 		case QProcess::Timedout:
 			KMessageBox::error(0, i18n("Zeitüberschreitung."));
@@ -148,6 +166,7 @@ void KSimondView::slotError(QProcess::ProcessError err)
 
 void KSimondView::stopSimond()
 {
+	stopIntended=true;
 	process->terminate();
 	if (!process->waitForFinished())
 		process->kill();

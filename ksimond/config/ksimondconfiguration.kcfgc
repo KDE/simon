@@ -1,0 +1,4 @@
+File=ksimondconfiguration.kcfg
+ClassName=KSimondConfiguration
+Singleton=true
+Mutators=true

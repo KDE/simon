@@ -732,7 +732,6 @@ void ClientSocket::sendSample(QString sampleName)
 	QByteArray toWrite=QByteArray();
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	
-	//FIXME: Those 32 byte comming out of nowhere drive me nuts
 	out << (qint32) Simond::TrainingsSample
 		<< (qint64) sample.count()+sizeof(qint32) /*seperator*/
 		<< sample;
@@ -788,6 +787,8 @@ void ClientSocket::slotModelCompilationError(const QString& error)
 		<< (qint64) body.count();
 	write(toWrite);
 	write(body);
+	if (!recognitionControl->isInitialized() && synchronisationManager->hasActiveModel())
+		recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 }
 
 
@@ -900,7 +901,8 @@ void ClientSocket::synchronisationDone()
 	
 	//FIXME: should not reinitialize recognition if active model
 	//did not change and recog is already running
-	if (synchronisationManager->hasActiveModel())
+	if (!recognitionControl->isInitialized() && !modelCompilationManager->isRunning() && 
+			synchronisationManager->hasActiveModel())
 		recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 }
 

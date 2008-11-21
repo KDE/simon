@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg> <kcfgfile name="ksimondrc" />
+  <include>KStandardDirs</include>
+  <group name="KSimond">
+    <entry name="AutoStart" type="Bool">
+      <label>should ksimond start on KDE start?</label>
+      <default>false</default>
+    </entry>
+    <entry name="AutoStartSimond" type="Bool">
+      <label>wether we want to start simond automatically.</label>
+      <default>true</default>
+    </entry>
+    <entry name="AutoReStartSimond" type="Bool">
+      <label>wether we want to start simond automatically after it quit unexpectedly.</label>
+      <default>true</default>
+    </entry>
+  </group>
+</kcfg>

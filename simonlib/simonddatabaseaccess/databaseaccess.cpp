@@ -174,6 +174,9 @@ QSqlTableModel* DatabaseAccess::getUsers()
 
 DatabaseAccess::~DatabaseAccess()
 {
-	db->close();
-	delete db;
+	if (db)
+	{
+		db->close();
+		delete db;
+	}
 }

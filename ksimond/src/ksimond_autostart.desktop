@@ -10,3 +10,4 @@ GenericName[de]=Ein KDE Front-End für simond
 Terminal=0
 Categories=Qt;KDE;Utility;Accessibility;
 X-KDE-StartupNotify=false
+X-KDE-autostart-condition=ksimondrc:KSimond:AutoStart:false

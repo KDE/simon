@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
-<kcfg> <kcfgfile />
+<kcfg> <kcfgfile name="simonrc" />
   <include>KStandardDirs</include>
   
-  <group name="general">
-    <entry name="AskBeforeQuit" type="Bool">
+  <group name="General">
+     <entry name="AutoStart" type="Bool">
+      <label>If we should start simon when KDE is started.</label>
+      <default>false</default>
+    </entry>
+   <entry name="AskBeforeQuit" type="Bool">
       <label>If we should ask the user before quitting simon.</label>
       <default>true</default>
     </entry>

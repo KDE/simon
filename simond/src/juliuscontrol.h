@@ -68,10 +68,9 @@ class JuliusControl : public RecognitionControl
 		void stop();
 		void pause();
 		void resume();
+		bool isInitialized();
 		
 		bool isStopping() { return stopping; }
-		
-		void stopped();
 		
 		void waitForResumed();
 		void recognized(const QString& sequence, const QString& sampa, const QString& samparaw);
@@ -85,6 +84,7 @@ class JuliusControl : public RecognitionControl
 	protected:
 		void run();
 		void pushRequest(JuliusControl::Request);
+		void uninitialize();
 
 	private:
 		Recog *recog;
@@ -92,6 +92,7 @@ class JuliusControl : public RecognitionControl
 		bool isLocal;
 		bool stopping;
 		QMutex pauseMutex;
+		bool m_initialized;
 		
 		QList<JuliusControl::Request> nextRequests;
 		
