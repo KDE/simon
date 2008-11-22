@@ -12,8 +12,6 @@ IF(WIN32)
 	find_package(DirectSound REQUIRED)
 ENDIF(WIN32)
 
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${JULIUS_INCLUDE_DIR} )
-
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${JULIUS_INCLUDE_DIR}
 	../../simonlib )
 
@@ -21,7 +19,6 @@ set(simond_SRCS
    main.cpp
    simondcontrol.cpp
    clientsocket.cpp
-   #   databaseaccess.cpp
    synchronisationmanager.cpp
    recognitioncontrol.cpp
    juliuscontrol.cpp

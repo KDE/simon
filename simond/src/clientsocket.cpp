@@ -169,6 +169,7 @@ void ClientSocket::processRequest()
 					connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
 					connect(recognitionControl, SIGNAL(recognitionError(const QString&)), this, SLOT(recognitionError(const QString&)));
 					connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
+					connect(recognitionControl, SIGNAL(recognitionAwaitingStream(qint32)), this, SLOT(recognitionAwaitingStream(qint32)));
 					connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
 					connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
 					connect(recognitionControl, SIGNAL(recognitionPaused()), this, SLOT(recognitionPaused()));
@@ -1024,6 +1025,15 @@ bool ClientSocket::sendTraining()
 void ClientSocket::recognitionReady()
 {
 	sendCode(Simond::RecognitionReady);
+}
+
+
+void ClientSocket::recognitionAwaitingStream(qint32 port)
+{
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	stream << (qint32) Simond::RecognitionAwaitingStream << (qint32) port;
+	write(toWrite);
 }
 
 void ClientSocket::recognitionError(const QString& error)

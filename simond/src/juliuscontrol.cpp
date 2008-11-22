@@ -52,6 +52,11 @@ JuliusControl::JuliusControl(const QString& username, QObject *parent) : Recogni
 	m_initialized=false;
 }
 
+qint32 JuliusControl::getPort() 
+{
+	return reservedPort;
+}
+
 Jconf* JuliusControl::setupJconf()
 {
 	if (!QFile::exists(KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.jconf")))
@@ -73,15 +78,20 @@ Jconf* JuliusControl::setupJconf()
 	KConfigGroup cGroup(&config, "");
 	QByteArray smpFreq = QString(cGroup.readEntry("SampleRate")).toUtf8();
 
-	int argc=13;
+	char portChr[5];
+	qint32 port = reservePortNum();
+	this->reservedPort = port;
+	sprintf(portChr, "%d", reservedPort);
+
+	int argc=15;
 	char* argv[] = {"simond", "-C", jConfPath.data(),
 			"-gram", gram.data(),
 			 "-h", hmmDefs.data(),
 			 "-hlist", tiedList.data(),
 			 //"-input", "mic", //only for local input -.- 
-			 "-input", "adinnet", //only for local input -.- 
+			 "-input", "adinnet", 
+			 "-adport", portChr, 
 			 "-smpFreq", smpFreq.data()};
-			 
 
 	return j_config_load_args_new(argc, argv);
 }
@@ -299,7 +309,6 @@ void JuliusControl::uninitialize()
 	else 
 		if (this->jconf)
 			j_jconf_free(jconf);
-
 	m_initialized=false;
 }
 
@@ -308,6 +317,11 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 {
 	bool wasRunning = isRunning();
 	uninitialize();
+//	if (m_initialized)
+//	{
+//		j_request_terminate(recog);
+//		return true;
+//	}
 	
 	this->isLocal = isLocal;
 	if (isLocal) 
@@ -348,12 +362,14 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 	callback_add(recog, CALLBACK_EVENT_SPEECH_READY, statusRecready, this);
 	callback_add(recog, CALLBACK_EVENT_SPEECH_START, statusRecstart, this);
 	callback_add(recog, CALLBACK_RESULT, outputResult, this);
-	callback_add(recog, CALLBACK_POLL, juliusCallbackPoll, this);
+//	callback_add(recog, CALLBACK_POLL, juliusCallbackPoll, this);
 	callback_add(recog, CALLBACK_PAUSE_FUNCTION, pauseWaiter, this);
 
 	m_initialized=true;
 	emit recognitionReady();
-	if (wasRunning) start();
+	if (wasRunning) {
+		start();
+	}
 	return true;
 }
 
@@ -362,6 +378,7 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 void JuliusControl::run()
 {
 	Q_ASSERT(recog);
+	shouldBeRunning=true;
 	
 	/**************************/
 	/* Initialize audio input */
@@ -373,6 +390,7 @@ void JuliusControl::run()
 		return;
 	}
 
+	emit recognitionAwaitingStream(getPort());
 	/* output system information to log */
 	j_recog_info(recog);
 	
@@ -390,21 +408,25 @@ void JuliusControl::run()
 			return;
 	}
 	
-	/**********************/
-	/* Recognization Loop */
-	/**********************/
-	/* enter main loop to recognize the input stream */
-	/* finish after whole input has been processed and input reaches end */
-	if (j_recognize_stream(recog) == -1)
-	{
-		emit recognitionError("recognize_stream: -1");
-	}
-	
+	 while (shouldBeRunning)
+	 {
+		/**********************/
+		/* Recognization Loop */
+		/**********************/
+		/* enter main loop to recognize the input stream */
+		/* finish after whole input has been processed and input reaches end */
+		if (j_recognize_stream(recog) == -1)
+		{
+			emit recognitionError("recognize_stream: -1");
+		}
+	 }
 }
 
 void JuliusControl::stop()
 {
 	if (!recog) return;
+
+	shouldBeRunning=false;
 	
 	pauseMutex.unlock();
 	if (!isRunning()) return;
@@ -429,7 +451,8 @@ void JuliusControl::pause()
 {
 	kDebug() << "Locking";
 	pauseMutex.lock();
-	pushRequest(JuliusControl::Pause);
+//	pushRequest(JuliusControl::Pause);
+	j_request_pause(recog);
 }
 
 void JuliusControl::resume()

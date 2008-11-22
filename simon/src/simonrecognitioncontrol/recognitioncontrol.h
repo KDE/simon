@@ -33,6 +33,7 @@ class Operation;
 
 const qint8 protocolVersion=1;
 
+class AdinStreamer;
 /**
  *	@class RecognitionControl
  *	@brief Provides the methods and emits the needed signals to work with Julius
@@ -59,6 +60,7 @@ public:
 	};
 
 private:
+	AdinStreamer *adinStreamer;
 	QMutex messageLocker;
 	QByteArray stillToProcess;
 	bool recognitionReady;

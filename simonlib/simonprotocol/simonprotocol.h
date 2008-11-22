@@ -109,14 +109,15 @@ namespace Simond
 		StartRecognition=4002,
 		RecognitionError=4003,
 		RecognitionWarning=4004,
-		RecognitionStarted=4005,
-		StopRecognition=4006,
-		RecognitionStopped=4007,
-		PauseRecognition=4008,
-		RecognitionPaused=4009,
-		ResumeRecognition=4010,
-		RecognitionResumed=4011,
-		RecognitionResult=4012
+		RecognitionAwaitingStream=4005,
+		RecognitionStarted=4006,
+		StopRecognition=4007,
+		RecognitionStopped=4008,
+		PauseRecognition=4009,
+		RecognitionPaused=4010,
+		ResumeRecognition=4011,
+		RecognitionResumed=4012,
+		RecognitionResult=4013
 	};
 };
 

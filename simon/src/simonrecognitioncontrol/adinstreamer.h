@@ -16,7 +16,6 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- *
  *   Powered By:
  *
  *   Large Vocabulary Continuous Speech Recognition Engine Julius
@@ -27,78 +26,38 @@
  *
  */
 
-#ifndef JULIUSCONTROL_H
-#define JULIUSCONTROL_H
 
-#include <QList>
-#include <QPointer>
-#include <QMutex>
-#include <KDebug>
-#include "recognitioncontrol.h"
+#ifndef ADINSTREAMER_H
+#define ADINSTREAMER_H
 
-#ifdef bzero
-#undef bzero
-#endif
+#include <QThread>
+#include <QHostAddress>
 
-#ifdef FALSE
-#undef FALSE
-#endif
-#ifdef TRUE
-#undef TRUE
-#endif
-
-extern "C" {
-	#include <julius/julius.h>
-}
-
-class JuliusControl : public RecognitionControl
+/**
+ * \class AdinStreamer
+ * \author Peter Grasch
+ * \date 23.11.2008
+ * \version 0.1
+ * \brief Streams an adin stream to simond
+ */
+class AdinStreamer : public QThread
 {
-	Q_OBJECT
-		
-	public:
-		enum Request {
-			None=0,
-			Stop=2,
-			Pause=3
-		};
-		
-		JuliusControl(const QString& username, QObject *parent=0);
+Q_OBJECT
 
-		bool initializeRecognition(bool isLocal);
-		void stop();
-		void pause();
-		void resume();
-		bool isInitialized();
-		
-		bool isStopping() { return stopping; }
-		
-		void waitForResumed();
-		void recognized(const QString& sequence, const QString& sampa, const QString& samparaw);
-		JuliusControl::Request popNextRequest();
-		
+signals:
+	void connected();
+	
+private:
+	QHostAddress address;
+	qint32 port;
+	bool shouldBeRunning;
+public:
+        AdinStreamer(QObject* parent);
+	void run();
+	void stop();
+	void init(const QHostAddress& address, qint32 port);
+        ~AdinStreamer();
 
-		Jconf* setupJconf();
-      
-		~JuliusControl();
-		qint32 getPort();
-
-	protected:
-		void run();
-		void pushRequest(JuliusControl::Request);
-		void uninitialize();
-
-	private:
-		qint32 reservedPort;
-		Recog *recog;
-		Jconf *jconf;
-		bool isLocal;
-		bool stopping;
-		QMutex pauseMutex;
-		bool m_initialized;
-		bool shouldBeRunning;
-		
-		QList<JuliusControl::Request> nextRequests;
-		
 };
 
 #endif

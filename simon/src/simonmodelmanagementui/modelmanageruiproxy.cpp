@@ -32,7 +32,7 @@ ModelManagerUiProxy::ModelManagerUiProxy(QObject *parent) : ModelManager(parent)
 
 void ModelManagerUiProxy::slotModelChanged()
 {
-	if (connectedToServer && KMessageBox::questionYesNo(0, i18n("Das Sprachmodell hat sich geändert.\n\nSoll es jetzt synchronisiert werden?")))
+	if (connectedToServer && (KMessageBox::questionYesNo(0, i18n("Das Sprachmodell hat sich geändert.\n\nSoll es jetzt synchronisiert werden?"))==KMessageBox::Yes))
 	{
 		emit recompileModel();
 	}

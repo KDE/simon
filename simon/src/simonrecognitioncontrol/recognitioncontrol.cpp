@@ -30,6 +30,7 @@
 #include <speechmodelbase/model.h>
 #include <simonprogresstracking/operation.h>
 #include "recognitionconfiguration.h"
+#include "adinstreamer.h"
 
 #include <QByteArray>
 #include <QSslSocket>
@@ -82,6 +83,7 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 
 	synchronisationOperation=NULL;
 	modelCompilationOperation=NULL;
+	adinStreamer=new AdinStreamer(this);;
 
 	socket = new QSslSocket();
 	timeoutWatcher = new QTimer(this);
@@ -107,6 +109,7 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 
 void RecognitionControl::slotDisconnected()
 {
+	adinStreamer->stop();
 	recognitionReady=false;
 	modelManager->setConnectionStatus(false);
 	if (synchronisationOperation)
@@ -1217,8 +1220,22 @@ void RecognitionControl::messageReceived()
 				case Simond::RecognitionReady:
 				{
 					advanceStream(sizeof(qint32));
+
 					recognitionReady=true;
 					emit recognitionStatusChanged(RecognitionControl::Ready);
+					break;
+				}
+
+				case Simond::RecognitionAwaitingStream:
+				{
+					checkIfMessageFinished(sizeof(qint32));
+					qint32 port;
+					msg >> port;
+					advanceStream(sizeof(qint32)*2);
+
+					kWarning() << "adinnet server running on port " << port;
+					adinStreamer->init(socket->peerAddress(), port);
+					adinStreamer->start();
 					break;
 				}
 
@@ -1248,14 +1265,16 @@ void RecognitionControl::messageReceived()
 				}
 
 				case Simond::RecognitionStarted:
-				{
+				{	
 					advanceStream(sizeof(qint32));
+						
 					emit recognitionStatusChanged(RecognitionControl::Started);
 					break;
 				}
 
 				case Simond::RecognitionStopped:
 				{
+					adinStreamer->stop();
 					advanceStream(sizeof(qint32));
 					emit recognitionStatusChanged(RecognitionControl::Stopped);
 					break;
@@ -1315,6 +1334,7 @@ void RecognitionControl::startRecognition()
 
 void RecognitionControl::stopRecognition()
 {
+	adinStreamer->stop();
 	sendRequest(Simond::StopRecognition);
 }
 
