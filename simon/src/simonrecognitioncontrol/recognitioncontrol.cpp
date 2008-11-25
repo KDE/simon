@@ -414,6 +414,8 @@ void RecognitionControl::sendWordList()
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
 	WordListContainer *wordList = modelManager->getWordListContainer();
+	if (!wordList)
+		sendRequest(Simond::ErrorRetrievingWordList);
 	
 	bodyStream << modelManager->getWordListModifiedTime()
 		<< wordList->simpleVocab()

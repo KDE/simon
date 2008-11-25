@@ -221,7 +221,10 @@ void ClientSocket::processRequest()
 						sendCode(Simond::GetActiveModel);
 				} else {
 					kDebug() << "Active model is up-to-date";
-					sendCode(Simond::GetModelSrcDate);
+					if (remoteModelDate.isNull())
+						sendCode(Simond::GetActiveModelSampleRate);
+					else 
+						sendCode(Simond::GetModelSrcDate);
 				}
 				
 				break;
@@ -267,10 +270,13 @@ void ClientSocket::processRequest()
 				
 				kDebug() << "Client reported error during the retrieving of the active model";
 				
-				sendCode(Simond::GetActiveModelSampleRate);
+				kWarning() << "Requesting sample rate";
 				
 				if (!sendActiveModel())
+				{
+					sendCode(Simond::GetActiveModelSampleRate);
 					sendCode(Simond::NoActiveModelAvailable);
+				}
 				
 				break;
 			}
@@ -281,8 +287,10 @@ void ClientSocket::processRequest()
 				qint32 sampleRate;
 				waitForMessage(sizeof(qint32), stream, msg);
 				stream >> sampleRate;
+				kWarning() << "Got sample rate: " << sampleRate;
 				synchronisationManager->setActiveModelSampleRate(sampleRate);
 				
+				sendCode(Simond::GetModelSrcDate);
 			}
 
 			case Simond::ModelSrcDate:
@@ -455,6 +463,7 @@ void ClientSocket::processRequest()
 				Q_ASSERT(synchronisationManager);
 				Q_ASSERT(modelSource != ClientSocket::Undefined);
 
+				kWarning() << "Grammar: " << remoteGrammarDate << synchronisationManager->getGrammarDate();
 
 				if (remoteGrammarDate != synchronisationManager->getGrammarDate())
 				{
@@ -530,6 +539,7 @@ void ClientSocket::processRequest()
 							sendCode(Simond::GetLanguageDescription);
 					} else sendCode(Simond::GetLanguageDescription);
 				} else {
+					kWarning() << "Language desc u-t-d";
 					kDebug() << "LanguageDescription is up-to-date";
 					synchronizeSamples();
 				}
@@ -689,6 +699,7 @@ void ClientSocket::activeModelCompiled()
 void ClientSocket::synchronizeSamples()
 {
 	Q_ASSERT(synchronisationManager);
+	kWarning() << "synchronisiere samples";
 	synchronisationManager->buildMissingSamples();
 	fetchTrainingSample();
 }
@@ -865,7 +876,6 @@ void ClientSocket::slotSocketError()
 	kDebug() << error;
 
 // 	ignoreSslErrors();
-// 	Logger::log(i18n("[ERR] %1", error));
 }
 
 

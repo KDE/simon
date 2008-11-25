@@ -127,6 +127,7 @@ bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, qint
 
 void SynchronisationManager::setActiveModelSampleRate(qint32 activeModelSampleRate)
 {
+	kWarning() << "Storing sample rate: " << activeModelSampleRate;
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 	KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
@@ -216,7 +217,6 @@ bool SynchronisationManager::storeWordList(const QDateTime& changedDate, const Q
 
 QDateTime SynchronisationManager::getGrammarDate()
 {
-	QString currentSrcContainerPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/");
 	KConfig config( currentSrcContainerPath+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("GrammarDate", QDateTime());
@@ -540,9 +540,13 @@ bool SynchronisationManager::commit()
 	foreach (const QString& file, files)
 	{
 		if (!QFile::copy(srcContainerTempPath+file, newSrcContainerPath+file))
+		{
+			kWarning() << "MURKS: " << srcContainerTempPath+file << newSrcContainerPath+file;
 			allCopied=false;
+		}
 	}
 	if (!allCopied) {
+		kWarning () << "Not all could be copied";
 		return false;
 	}
 	kWarning() << "new path is " << newSrcContainerPath;
@@ -553,6 +557,7 @@ bool SynchronisationManager::commit()
 	cGroup2.writeEntry("CurrentModelDate", newSrcContainerTime);
 	currentModelConfig.sync();
 	currentSrcContainerPath=newSrcContainerPath;
+	kWarning () << "Cleaning temp";
 	return cleanTemp();
 }
 

@@ -333,17 +333,17 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 		kDebug() << "Initializing local recognition";
 	else {
 		kDebug() << "Initializing remote recognition";
-		emit recognitionError(i18n("Remote recognition not yet implemented"));
-		return false;
+	//	emit recognitionError(i18n("Remote recognition not yet implemented"));
+	//	return false;
 	}
-	
- 	//FILE *fp;
-	//QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
-	//kDebug () << logPath.data();
- 	//fp = fopen(logPath.data(), "w");
- 	//if (fp == NULL) 
- //		return false;
- //	jlog_set_output(fp);
+
+ 	FILE *fp;
+	QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
+	kDebug () << logPath.data();
+ 	fp = fopen(logPath.data(), "w");
+ 	if (fp == NULL) 
+		return false;
+	jlog_set_output(fp);
 	
 	Jconf *jconf = setupJconf();
 	if (!jconf)
@@ -404,12 +404,12 @@ void JuliusControl::run()
 			emit recognitionStarted();
 			break;
 		case -1:
-			emit recognitionError(i18n("Unbekannter Fehler"));
+			emit recognitionError(i18n("Unknown error"));
 			return;
 		case -2:
 			if (isLocal)
-				emit recognitionError(i18n("Konnte Mikrofon nicht initialisieren"));
-			else emit recognitionError(i18n("Fehler im Netzwerk-Sprachstream"));
+				emit recognitionError(i18n("Couldn't initialize microphone"));
+			else emit recognitionError(i18n("Error with the audio stream"));
 			return;
 	}
 	
