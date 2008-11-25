@@ -29,6 +29,8 @@ SelectPlacePage::SelectPlacePage(QWidget *parent) : QWizardPage(parent)
 
 	setTitle(i18n("Ort auswählen"));
 	
+	ui.urLocalUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
+	
 	connect(ui.cbProtocol->lineEdit(), SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));
 	connect(ui.leUser, SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));
 	connect(ui.lePass, SIGNAL(textEdited(QString)), this, SLOT(buildRemoteUrl()));

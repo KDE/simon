@@ -780,6 +780,7 @@ bool SynchronisationManager::copyLanguageDescription(const QString& sourcePath, 
 
 
 
+//FIXME: I crash!
 bool SynchronisationManager::removeExcessModelBackups()
 {
 	int maxBackupedModels=5; //TODO make configurable

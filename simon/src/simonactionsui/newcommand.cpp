@@ -119,34 +119,7 @@ Command* NewCommand::newCommand()
 		if (!creater) return 0;
 		
 		return creater->createCommand(ui.leTrigger->text(), ui.ibIcon->icon());
-		
-// 		int type = ui.cbType->currentIndex();
-// 		switch (type)
-// 		{
-// 			case 0: //Program
-// 				command = new ExecutableCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
-// 							ui.urExecutable->url().path(), ui.urWorkingDirectory->url());
-// 				break;
-// 				
-// 			case 1: //place
-// 				command = new PlaceCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
-// 							ui.urUrl->url());
-// 				break;
-// 				
-// 			case 2: //shortcut
-// 				command = new ShortcutCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
-// 							ui.ksShortcut->keySequence());
-// 				break;
-// 				
-// 			case 3: //textmacro
-// 				command = new TextMacroCommand(ui.leTrigger->text(), ui.ibIcon->icon(),
-// 							ui.teMacroText->toPlainText());
-// 				break;
-// 		}
-// 		ui.ksShortcut->clearKeySequence();
-// 		return command;
 	}
-// 	ui.ksShortcut->clearKeySequence();
 	return 0;
 }
 

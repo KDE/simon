@@ -21,6 +21,7 @@
 // this needs to be included first because the 
 #include <KMessageBox>	// X11 headers included in the xevents header define "Status"
 
+#include <KDebug>
 #include "xeventsprivate.h"
 // #include "../Logging/logger.h"
 #include <KLocalizedString>
@@ -109,27 +110,62 @@ void XEventsPrivate::sendKeySymString(const QString& keysymString)
 void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 {
 	if (!display) return;
-	KeyCode keyCode = XKeysymToKeycode(display, key);
+	KeyCode keyCode;
+	
+	if (key=='\n') {
+		keyCode=XKeysymToKeycode(display, XStringToKeysym("Return"));
+	} else 
+	if (key=='\t') {
+		keyCode=XKeysymToKeycode(display, XStringToKeysym("Tab"));
+	} else
+		keyCode = XKeysymToKeycode(display, key);
+	
+	kWarning() << keyCode;
 	
 	if (keyCode)
 	{
+		int syms;
+		KeySym *keyToSendShifted=XGetKeyboardMapping(display, keyCode, 1, &syms);
+		if (!keyToSendShifted) return;
 		KeySym shiftSym = XKeycodeToKeysym(display, keyCode, 1);
-		KeySym altGrSym = XKeycodeToKeysym(display, keyCode, 2);
+		KeySym altGrSym = keyToSendShifted[2];
 		
 		if (shiftSym == key)
 			setModifierKey(Qt::SHIFT);
-		else if (altGrSym == key)
+		else if (key!=altGrSym) {
 			setModifierKey(Qt::Key_AltGr);
+		}
 		
 		pressKeyCode(keyCode);
 		
 		if (shiftSym == key)
 			unsetModifier(Qt::SHIFT);
-		else if (altGrSym == key)
+		else if (key!=altGrSym)
 			unsetModifier(Qt::Key_AltGr);
 	} else {
 		QKeySequence k(key); //do some magic
-		pressKey(XStringToKeysym(k.toString().toUtf8().data())); //this was: toLatin1(); TEST THIS!
+		QString shortcut = k.toString(); //somthing like "Ctrl+L"
+		QStringList keys = shortcut.split("+"); 
+		QList<KeyCode> shortcutCodes;
+		kWarning() << "sodifj";
+		
+		foreach (const QString keyStr, keys)
+		{
+			kWarning() << XKeysymToKeycode(display, XStringToKeysym(keyStr.toUtf8().data()));
+			shortcutCodes << XKeysymToKeycode(display, XStringToKeysym(keyStr.toUtf8().data()));
+		}
+		
+		foreach (KeyCode shortcutCode, shortcutCodes)
+			XTestFakeKeyEvent(display, shortcutCode, True, 15);
+		
+		foreach (KeyCode shortcutCode, shortcutCodes)
+			XTestFakeKeyEvent(display, shortcutCode, False, 15);
+		
+		XFlush ( display );
+		
+// 		pressKey(XStringToKeysym("Ctrl+l"));
+		
+// 		pressKey(XStringToKeysym(k.toString().toLatin1().data())); //this was: toLatin1(); TEST THIS!
 	}
 }
 

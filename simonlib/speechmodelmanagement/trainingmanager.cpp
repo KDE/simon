@@ -107,7 +107,6 @@ bool TrainingManager::deleteWord ( Word *w )
 		QString filename = sampleFileNames[i];
 		QStringList promptWords = promptsTable->value ( filename ).split ( " " );
 		sampleAlreadyDeleted = false;
-		kDebug() << promptWords;
 		for ( int j=0; j < promptWords.count() && !sampleAlreadyDeleted; j++ )
 		{
 			if ( promptWords[j].toUpper() == wordToDelete )
@@ -116,7 +115,7 @@ bool TrainingManager::deleteWord ( Word *w )
 					succ = false;
 
 				sampleAlreadyDeleted = true;
-				j--;
+				i--;
 			}
 		}
 	}

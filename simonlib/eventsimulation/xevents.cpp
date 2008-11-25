@@ -57,7 +57,6 @@ void XEvents::sendChar(char key)
 void XEvents::sendKey(unsigned int key)
 {
 	d->sendKey(key);
-	
 	unsetUnneededModifiers();
 }
 

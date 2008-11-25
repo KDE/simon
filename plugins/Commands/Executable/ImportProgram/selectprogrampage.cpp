@@ -119,8 +119,15 @@ void SelectProgramPage::searchForPrograms()
 			else displayName = service->name();
 			QListWidgetItem *item = new QListWidgetItem(KIcon(service->icon()), displayName);
 			
+			QString exec;
+			QStringList execParts = service->exec().split(" ", QString::SkipEmptyParts);
+			foreach ( const QString& execPart, execParts)
+				if (!execPart.startsWith("-") && !(execPart.startsWith("\"%"))
+					 && !(execPart.startsWith("%")))
+					exec += execPart;
+			
 			item->setData(Qt::UserRole, service->name());
-			item->setData(Qt::UserRole+1, service->exec());
+			item->setData(Qt::UserRole+1, exec);
 			item->setData(Qt::UserRole+2, service->icon());
 			item->setData(Qt::UserRole+3, service->path());
 			ui.lwPrograms->addItem(item);

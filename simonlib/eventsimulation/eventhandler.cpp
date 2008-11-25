@@ -32,6 +32,8 @@
 #endif
 
 #include <QString>
+#include <KDebug>
+
 
 EventHandler* EventHandler::instance;
 

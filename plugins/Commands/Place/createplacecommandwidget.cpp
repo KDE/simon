@@ -25,7 +25,7 @@ CreatePlaceCommandWidget::CreatePlaceCommandWidget(QWidget *parent) : CreateComm
 {
 	importWizard=0;
 	ui.setupUi(this);
-	ui.urUrl->setMode(KFile::Directory | KFile::ExistingOnly);
+	ui.urUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
 	setWindowIcon(PlaceCommand::staticCategoryIcon());
 	setWindowTitle(PlaceCommand::staticCategoryText());
 	

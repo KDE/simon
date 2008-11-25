@@ -41,6 +41,7 @@
 #include <KStandardDirs>
 #include <KFilterDev>
 #include <KMimeType>
+#include <KDebug>
 
 WordListManager* WordListManager::instance;
 
@@ -390,7 +391,7 @@ bool WordListManager::saveWordList(WordList *list, const QString& vocabFilename,
 		if (!distinctTerminals.contains(wordTerm)) distinctTerminals.append(wordTerm);
 		i++;
 	}
-	if (!lexiconFilename.isEmpty() && !sentWritten)
+	if (!lexiconFilename.isEmpty())
 	{
 		if (!sentWritten)
 		{
