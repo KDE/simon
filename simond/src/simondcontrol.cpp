@@ -93,12 +93,6 @@ void SimondControl::incomingConnection (int descriptor)
 	
 	connect(clientSocket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), 
 		this, SLOT(connectionClosing(QAbstractSocket::SocketState)));
-// 	connect(socket, SIGNAL(info(QString, int)), this, SIGNAL(info(QString, int)));
-// 	connect(socket, SIGNAL(errorOccured(QString,int)), this, SIGNAL(errorOccured(QString,int)));
-// 	connect(socket, SIGNAL(wordSent(QString,int)), this, SIGNAL(wordSent(QString,int)));
-// 	connect(socket, SIGNAL(sendId(int, QByteArray)),this,SLOT(sendSocket(int, QByteArray)));
-	
-
 	
 	clients << clientSocket;
 }

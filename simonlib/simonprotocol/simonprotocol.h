@@ -38,7 +38,9 @@ namespace Simond
 		
 		
 		StartSynchronisation=2001,
-		AbortSynchronisation=2002,
+		SynchronisationAlreadyRunning=2002,
+		AbortSynchronisation=2003,
+		AbortSynchronisationFailed=2004,
 		
 		GetActiveModelDate=2011,
 		ActiveModelDate=2012, /* QDateTime lastModified */
@@ -93,6 +95,13 @@ namespace Simond
 		TrainingsSampleStorageFailed=2074,
 		
 		SynchronisationComplete=2101,
+		SynchronisationCommitFailed=2102,
+
+		GetAvailableModels=2201,
+		ModelBackupDisabled=2202,
+		AvailableModels=2203,
+		SwitchToModel=2204,
+		SwitchToModelFailed=2205,
 		
 		ModelCompilationStarted=3001,
 		ModelCompilationStatus=3002,

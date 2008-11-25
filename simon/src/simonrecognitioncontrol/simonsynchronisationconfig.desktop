@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-Icon=simond
+Icon=view-refresh
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=libsimonrecognitioncontrol
 
@@ -10,10 +10,10 @@ X-KDE-ParentComponents=libsimonrecognitioncontrol
 X-KDE-ParentApp=simon
 X-KDE-System-Settings-Parent-Category=simon
 
-X-KDE-PluginKeyword=NetworkSettings
+X-KDE-PluginKeyword=SynchronisationSettings
 
-Name=Server
-Name[de]=Server
+Name=Synchronisation
+Name[de]=Synchronisation
 
-Comment=Configuration of the Recognition-Server
-Comment[de]=Konfiguration des Erkennungsservers
+Comment=Configuration of the Model-Synchronisation
+Comment[de]=Konfiguration der Modellsynchronisation

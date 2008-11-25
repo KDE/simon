@@ -23,6 +23,7 @@
 #include <QObject>
 #include <QDateTime>
 #include <QStringList>
+#include <QMap>
 
 class Model;
 class WordListContainer;
@@ -37,7 +38,20 @@ class SynchronisationManager : public QObject
 	private:
 		QString username;
 		QStringList missingFiles;
-		
+		QString currentSrcContainerPath;
+		QString srcContainerTempPath;
+		QDateTime currentSrcContainerDate;
+		bool cleanTemp();
+		QMap<QDateTime, QString> getModels();
+
+		QString getLatestPath(const QMap<QDateTime, QString>& models);
+
+		QMap<QDateTime, QString> getWordLists(); //lexicon, vocab
+		QMap<QDateTime, QString> getGrammars(); //grammars
+		QMap<QDateTime, QString> getTrainingDatas(); //prompts, wavconfig
+		QMap<QDateTime, QString> getLanguageDescriptions(); //treehed
+
+	
 	public:
 		SynchronisationManager(const QString& username, QObject *parent=0);
 
@@ -51,6 +65,7 @@ class SynchronisationManager : public QObject
 				
 		QDateTime getModelSrcDate();
 
+		void setCurrentSrcContainerTime(const QDateTime& time);
 		
 		QDateTime getWordListDate();
 		bool hasWordList();
@@ -79,6 +94,18 @@ class SynchronisationManager : public QObject
 		QByteArray getSample(const QString& sampleName);
 		QString missingSample();
 		bool storeSample(const QByteArray& sample);
+
+		QString getLexiconPath();
+		QString getGrammarPath();
+		QString getVocabPath();
+		QString getPromptsPath();
+		QString getTreeHedPath();
+		QString getWavConfigPath();
+
+		bool startSynchronisation();
+		bool abort();
+		bool commit();
+		bool removeExcessModelBackups();
 		
 		void modelCompiled();
 			       

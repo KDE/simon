@@ -122,6 +122,7 @@ void SimondUserConfiguration::deleteUser()
 	QFile::remove(modelDir+"active/model.term");
 	QFile::remove(modelDir+"active/model.dfa");
 
+	//FIXME adapt to model backups
 	QFile::remove(modelDir+"src/lexicon");
 	QFile::remove(modelDir+"src/model.grammar");
 	QFile::remove(modelDir+"src/modelsrcrc");

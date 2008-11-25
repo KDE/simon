@@ -43,8 +43,9 @@ signals:
 private slots:
 	void slotModelChanged();
 
-private:
-	bool connectedToServer;
+// private:
+// 	bool connectedToServer;
+// 	bool askForSync;
 
 public:
 	ModelManagerUiProxy(QObject *parent=0);
@@ -58,10 +59,14 @@ public:
 	void displayCompilationProtocol(const QString& protocol);
 
 	
-	void setConnectionStatus(bool connected)
-	{
-		connectedToServer = connected;
-	}
+// 	void setConnectionStatus(bool connected)
+// 	{
+// 		connectedToServer = connected;
+// 	}
+// 	void setAskForSync(bool ask)
+// 	{
+// 		askForSync = ask;
+// 	}
 };
 
 #endif

@@ -143,15 +143,9 @@ void ClientSocket::processRequest()
 					
 					if (modelCompilationManager) modelCompilationManager->deleteLater();
 					
-					QString srcDir = KStandardDirs::locateLocal("appdata", "models/"+user+"/src/");
 					QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+user+"/active/");
-					QString sampleDir = KStandardDirs::locateLocal("appdata", "models/"+user+"/samples/");
-					modelCompilationManager = new ModelCompilationManager(user, sampleDir, srcDir+"lexicon", srcDir+"model.grammar", 
-											srcDir+"simplevocab", srcDir+"prompts",
-											srcDir+"tree1.hed", srcDir+"wav_config",
-											activeDir+"hmmdefs", activeDir+"tiedlist",
-											activeDir+"model.dict", activeDir+"model.dfa",
-												this);
+					modelCompilationManager = new ModelCompilationManager(user, activeDir+"hmmdefs", activeDir+"tiedlist",
+											activeDir+"model.dict", activeDir+"model.dfa", this);
 					connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(activeModelCompiled()));
 					connect(modelCompilationManager, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelCompilationStatus(const QString&, int, int)));
 					connect(modelCompilationManager, SIGNAL(error(const QString&)), this, SLOT(slotModelCompilationError(const QString&)));
@@ -169,7 +163,7 @@ void ClientSocket::processRequest()
 					connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
 					connect(recognitionControl, SIGNAL(recognitionError(const QString&)), this, SLOT(recognitionError(const QString&)));
 					connect(recognitionControl, SIGNAL(recognitionWarning(const QString&)), this, SLOT(recognitionWarning(const QString&)));
-					connect(recognitionControl, SIGNAL(recognitionAwaitingStream(qint32)), this, SLOT(recognitionAwaitingStream(qint32)));
+					connect(recognitionControl, SIGNAL(recognitionAwaitingStream(qint32, qint32)), this, SLOT(recognitionAwaitingStream(qint32, qint32)));
 					connect(recognitionControl, SIGNAL(recognitionStarted()), this, SLOT(recognitionStarted()));
 					connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
 					connect(recognitionControl, SIGNAL(recognitionPaused()), this, SLOT(recognitionPaused()));
@@ -192,13 +186,19 @@ void ClientSocket::processRequest()
 				if (!synchronisationManager)
 					synchronisationManager = new SynchronisationManager(username, this);
 				
-				sendCode(Simond::GetActiveModelDate);
+				if (!synchronisationManager->startSynchronisation())
+					sendCode(Simond::SynchronisationAlreadyRunning);
+				else 
+					sendCode(Simond::GetActiveModelDate);
 				break;
 			}
 
 			case Simond::AbortSynchronisation:
 			{
 				if (!synchronisationRunning) break;
+
+				if (!synchronisationManager->abort())
+					sendCode(Simond::AbortSynchronisationFailed);
 
 				synchronisationDone();
 			}
@@ -294,7 +294,6 @@ void ClientSocket::processRequest()
 				kDebug() << remoteModelDate;
 				
 				Q_ASSERT(synchronisationManager);
-				
 				if (remoteModelDate > synchronisationManager->getModelSrcDate())
 				{
 					modelSource = ClientSocket::Client;
@@ -302,11 +301,11 @@ void ClientSocket::processRequest()
 					if (remoteModelDate < synchronisationManager->getModelSrcDate())
 						modelSource = ClientSocket::Server;
 				}
-					kDebug() << "Modelsource: " << modelSource;
+
 				if (remoteModelDate != synchronisationManager->getModelSrcDate())
+				{
 					sendCode(Simond::GetTrainingDate);
-				else
-					synchronizeSamples();
+				} else synchronisationComplete();
 				
 				break;
 			}
@@ -519,6 +518,8 @@ void ClientSocket::processRequest()
 				Q_ASSERT(synchronisationManager);
 				Q_ASSERT(modelSource != ClientSocket::Undefined);
 				
+				kWarning() << remoteLanguageDescriptionDate;
+				kWarning() << synchronisationManager->getLanguageDescriptionDate();
 				
 				if (remoteLanguageDescriptionDate != synchronisationManager->getLanguageDescriptionDate())
 				{
@@ -676,7 +677,9 @@ void ClientSocket::activeModelCompiled()
 	Q_ASSERT(synchronisationManager);
 	synchronisationManager->modelCompiled();
 	sendCode(Simond::ModelCompilationCompleted);
-	sendActiveModel();
+	if (!synchronisationManager->startSynchronisation())
+		sendCode(Simond::SynchronisationAlreadyRunning);
+	else sendActiveModel();
 	
 	//FIXME: should not reinitialize recognition if active model
 	//did not change and recog is already running
@@ -697,14 +700,14 @@ void ClientSocket::fetchTrainingSample()
 	QString sample = synchronisationManager->missingSample();
 	if (sample.isNull())
 	{
-		kDebug() << "Done fetching samples";
+		kWarning() << "Done fetching samples";
 		synchronisationComplete();
 		return;
 	}
 	
 	QByteArray sampleByte = sample.toUtf8();
 	
-	kDebug() << "Fetching sample " << sample;
+	kWarning() << "Fetching sample " << sample;
 
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
@@ -836,7 +839,12 @@ void ClientSocket::recompileModel()
 {
 	sendCode(Simond::ModelCompilationStarted);
 	kDebug() << "Compiling model...";
-	modelCompilationManager->startCompilation();
+	
+	kWarning() << synchronisationManager->getLexiconPath();
+	modelCompilationManager->startCompilation(KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
+				synchronisationManager->getLexiconPath(), synchronisationManager->getGrammarPath(),
+				synchronisationManager->getVocabPath(),	synchronisationManager->getPromptsPath(), 
+				synchronisationManager->getTreeHedPath(), synchronisationManager->getWavConfigPath());
 }
 
 void ClientSocket::sendCode(Simond::Request code)
@@ -908,14 +916,20 @@ void ClientSocket::synchronisationDone()
 }
 
 
+//FIXME: commit will fail if we didn't even start the synchronisation (client has same model)
 void ClientSocket::synchronisationComplete()
 {
-	sendCode(Simond::SynchronisationComplete);
-	
-	if (synchronisationManager->getActiveModelDate() < synchronisationManager->getModelSrcDate())
+	if (!synchronisationManager->commit())
 	{
-		//if we got our model from the client modelsrc has changed
-		recompileModel();
+		kWarning() << "Synchronisation commit failed";
+		sendCode(Simond::SynchronisationCommitFailed);
+	} else {
+		kWarning() << "Synchronisation succeded";
+		sendCode(Simond::SynchronisationComplete);
+	
+		//FIXME: OR user switched to an old model
+		if (synchronisationManager->getActiveModelDate() < synchronisationManager->getModelSrcDate())
+			recompileModel();
 	}
 	
 	synchronisationDone();
@@ -1028,11 +1042,11 @@ void ClientSocket::recognitionReady()
 }
 
 
-void ClientSocket::recognitionAwaitingStream(qint32 port)
+void ClientSocket::recognitionAwaitingStream(qint32 port, qint32 samplerate)
 {
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
-	stream << (qint32) Simond::RecognitionAwaitingStream << (qint32) port;
+	stream << (qint32) Simond::RecognitionAwaitingStream << port << samplerate;
 	write(toWrite);
 }
 
@@ -1095,14 +1109,15 @@ void ClientSocket::sendRecognitionResult(const QString& data, const QString& sam
 	write(body);
 }
 
+
 ClientSocket::~ClientSocket()
 {
+	kWarning() << "Deleting client";
 	//leave databaseAccess alone since it is shared
 	if (recognitionControl) 
-	{
-		recognitionControl->stop();
 		recognitionControl->deleteLater();
-	}
-	if (synchronisationManager) synchronisationManager->deleteLater();
-	if (modelCompilationManager) modelCompilationManager->deleteLater();
+	if (synchronisationManager) 
+		synchronisationManager->deleteLater();
+	if (modelCompilationManager) 
+		modelCompilationManager->deleteLater();
 }

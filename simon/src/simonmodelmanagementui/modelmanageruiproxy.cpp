@@ -25,22 +25,20 @@
 
 ModelManagerUiProxy::ModelManagerUiProxy(QObject *parent) : ModelManager(parent)
 {
-	connectedToServer=false;
+// 	connectedToServer=false;
+// 	askForSync=false;
 	connect (this, SIGNAL(modelChanged()), this, SLOT(slotModelChanged()));
 }
 
 
 void ModelManagerUiProxy::slotModelChanged()
 {
-	if (connectedToServer && (KMessageBox::questionYesNo(0, i18n("Das Sprachmodell hat sich geändert.\n\nSoll es jetzt synchronisiert werden?"))==KMessageBox::Yes))
-	{
-		emit recompileModel();
-	}
+	emit recompileModel();
 }
 
+//TODO: is this deprecated?
 void ModelManagerUiProxy::displayCompilationProtocol(const QString& protocol)
 {
-	kWarning() << protocol;
 	KMessageBox::detailedSorry(0, i18n("Modellprotokoll"), protocol);
 }
 

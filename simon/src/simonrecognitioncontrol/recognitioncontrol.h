@@ -112,6 +112,7 @@ public slots:
 	void resumeRecognition();
 
 	void fetchCompilationProtocol();
+	void askStartSynchronisation();
 	void startSynchronisation();
 	
 	

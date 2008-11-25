@@ -71,14 +71,13 @@ class ClientSocket : public QSslSocket
 		bool sendActiveModel();
 
 		void recognitionReady();
-		void recognitionAwaitingStream(qint32 port);
+		void recognitionAwaitingStream(qint32 port, qint32 sampleRate);
 		void recognitionError(const QString& error);
 		void recognitionWarning(const QString& warning);
 		void recognitionStarted();
 		void recognitionStopped();
 		void recognitionPaused();
 		void recognitionResumed();
-// 		void recognitionTemporarilyUnavailable(const QString& reason);
 
 		bool sendWordList();
 		bool sendGrammar();

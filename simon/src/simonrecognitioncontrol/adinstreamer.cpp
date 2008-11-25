@@ -37,12 +37,11 @@ extern "C" {
 #include <signal.h>
 }
 
-static int rewind_msec = 0;
-static int socketDescriptor = 0;
-static int unknown_command_counter = 0;	///< Counter to detect broken connection
-static int speechlen=0;
-static long sfreq = 16000;
-static bool stop_at_next=false;
+static int adinstreamer_rewind_msec = 0;
+static int adinstreamer_socketDescriptor = 0;
+static int adinstreamer_speechlen=0;
+static long adinstreamer_sfreq = 16000;
+static bool adinstreamer_stop_at_next=false;
 
 
 static int adin_callback_adinnet(SP16 *now, int len, Recog *recog)
@@ -52,9 +51,9 @@ static int adin_callback_adinnet(SP16 *now, int len, Recog *recog)
 
 	start = 0;
 
-	if (speechlen == 0) {
+	if (adinstreamer_speechlen == 0) {
 		/* this is first up-trigger */
-		if (rewind_msec > 0 && !recog->adin->is_valid_data) {
+		if (adinstreamer_rewind_msec > 0 && !recog->adin->is_valid_data) {
 			/* not spoken currently but has data to process at first trigger */
 			/* it means that there are old spoken segments */
 			/* disgard them */
@@ -63,12 +62,12 @@ static int adin_callback_adinnet(SP16 *now, int len, Recog *recog)
 		}
 		/* erase "<<<please speak>>>" text on tty */
 // 		fprintf(stderr, "\r                    \r");
-		if (rewind_msec > 0) {
+		if (adinstreamer_rewind_msec > 0) {
 			/* when -rewind value set larger than 0, the speech data spoken
 				while pause will be considered back to the specified msec.
 				*/
 			printf("buffered samples=%d\n", len);
-			w = rewind_msec * sfreq / 1000;
+			w = adinstreamer_rewind_msec * adinstreamer_sfreq / 1000;
 			if (len > w) {
 				start = len - w;
 				len = w;
@@ -82,7 +81,7 @@ static int adin_callback_adinnet(SP16 *now, int len, Recog *recog)
 	#ifdef WORDS_BIGENDIAN
 		swap_sample_bytes(&(now[start]), len);
 	#endif
-	count = wt(socketDescriptor, (char *)&(now[start]), len * sizeof(SP16));
+	count = wt(adinstreamer_socketDescriptor, (char *)&(now[start]), len * sizeof(SP16));
 	if (count < 0) {
 		perror("adintool: cannot write");
 		fprintf(stderr, "failed to send data to server\n");
@@ -91,7 +90,7 @@ static int adin_callback_adinnet(SP16 *now, int len, Recog *recog)
 		swap_sample_bytes(&(now[start]), len);
 	#endif
 	/* accumulate sample num of this segment */
-	speechlen += len;
+	adinstreamer_speechlen += len;
 	#ifdef HAVE_PTHREAD
 	if (recog->adin->enable_thread) {
 		/* if input length reaches limit, rehash the ad-in buffer */
@@ -113,7 +112,7 @@ adin_send_end_of_segment()
 {
 	char p;
 
-	if (wt(socketDescriptor, &p,  0) < 0) {
+	if (wt(adinstreamer_socketDescriptor, &p,  0) < 0) {
 		perror("adintool: cannot write");
 		fprintf(stderr, "failed to send EOS to server\n");
 	}
@@ -136,21 +135,21 @@ static int adinnet_check_command(Recog *)
 	
 	/* check if some commands are waiting in queue */
 	FD_ZERO(&rfds);
-	FD_SET(socketDescriptor, &rfds);
+	FD_SET(adinstreamer_socketDescriptor, &rfds);
 	tv.tv_sec = 0;
 	tv.tv_usec = 1;
-	status = select(socketDescriptor+1, &rfds, NULL, NULL, &tv);
+	status = select(adinstreamer_socketDescriptor+1, &rfds, NULL, NULL, &tv);
 	if (status < 0) {           /* error */
 		fprintf(stderr, "adintool: cannot check command from adinnet server\n");
 		return -2;                        /* error return */
 	}
 	if (status > 0) {           /* there are some data */
-		if (FD_ISSET(socketDescriptor, &rfds)) {
-			ret = rd(socketDescriptor, &com, &cnt, 1); /* read in command */
+		if (FD_ISSET(adinstreamer_socketDescriptor, &rfds)) {
+			ret = rd(adinstreamer_socketDescriptor, &com, &cnt, 1); /* read in command */
 			switch (com) {
 				case '0':                       /* pause */
 					fprintf(stderr, "<PAUSE>\n");
-					stop_at_next = TRUE;	/* mark to pause at the end of this input */
+					adinstreamer_stop_at_next = TRUE;	/* mark to pause at the end of this input */
 					/* tell caller to stop recording */
 					return -1;
 				case '1':                       /* resume */
@@ -159,21 +158,13 @@ static int adinnet_check_command(Recog *)
 					break;
 				case '2':                       /* terminate */
 					fprintf(stderr, "<TERMINATE>\n");
-					stop_at_next = TRUE;	/* mark to pause at the end of this input */
+					adinstreamer_stop_at_next = TRUE;	/* mark to pause at the end of this input */
 					/* tell caller to stop recording immediately */
 					return -2;
 					break;
 				default:
 					fprintf(stderr, "adintool: unknown command adinnet_check_command: %d\n", com);
 					return -1;
-					unknown_command_counter++;
-					/* avoid infinite loop in that case... */
-					/* this may happen when connection is terminated from server side  */
-					if (unknown_command_counter > 100) {
-						close(socketDescriptor);
-						fprintf(stderr, "killed by a flood of unknown commands from server\n");
-						exit(1);
-					}
 			}
 		}
 	}
@@ -182,17 +173,9 @@ static int adinnet_check_command(Recog *)
 
 
 /** 
- * <JA>
- * サーバから再開コマンドを受信するまで待つ．再開コマンドを受信したら
- * 終了する．
- * 
- * @return エラー時 -1, 通常終了は 0 を返す．
- * </JA>
- * <EN>
  * Wait for resume command from server.
  * 
  * @return 0 on normal exit, or -1 on error.
- * </EN>
  */
 static int adinnet_wait_command()
 {
@@ -205,16 +188,16 @@ static int adinnet_wait_command()
 
 	while(true) {
 		FD_ZERO(&rfds);
-		FD_SET(socketDescriptor, &rfds);
+		FD_SET(adinstreamer_socketDescriptor, &rfds);
 		
 		//ich glaub das blockt...
-		status = select(socketDescriptor+1, &rfds, NULL, NULL, NULL); /* block when no command */
+		status = select(adinstreamer_socketDescriptor+1, &rfds, NULL, NULL, NULL); /* block when no command */
 		if (status < 0) {         /* error */
 			fprintf(stderr, "adintool: cannot check command from adinnet server\n");
 			return -1;                      /* error return */
 		} else {                  /* there are some data */
-			if (FD_ISSET(socketDescriptor, &rfds)) {
-				ret = rd(socketDescriptor, &com, &cnt, 1);
+			if (FD_ISSET(adinstreamer_socketDescriptor, &rfds)) {
+				ret = rd(adinstreamer_socketDescriptor, &com, &cnt, 1);
 				switch (com) {
 					case '0':                       /* pause */
 						/* already paused, so just wait for next command */
@@ -231,13 +214,7 @@ static int adinnet_wait_command()
 						break;
 					default:
 						fprintf(stderr, "adintool: unknown command adinnet_wait_command: %d\n", com);
-						unknown_command_counter++;
-						/* avoid infinite loop in that case... */
-						/* this may happen when connection is terminated from server side  */
-						if (unknown_command_counter > 100) {
-						fprintf(stderr, "killed by a flood of unknown commands from server\n");
-						exit(1);
-					}
+						return 1;
 				}
 			}
 		}
@@ -252,17 +229,18 @@ AdinStreamer::AdinStreamer(QObject* parent) : QThread(parent)
 	shouldBeRunning=true;
 }
 
-void AdinStreamer::init(const QHostAddress& address, qint32 port)
+void AdinStreamer::init(const QHostAddress& address, qint32 port, qint32 sampleRate)
 {
 	this->address = address;
 	this->port = port;
+	adinstreamer_sfreq = sampleRate;
 }
 
 void AdinStreamer::run()
 {
 	kWarning() << "starting to stream to " << address << port;
 	shouldBeRunning=true;
-	stop_at_next=false;
+	adinstreamer_stop_at_next=false;
 	
 	Recog *recog;
 	Jconf *jconf;
@@ -278,8 +256,8 @@ void AdinStreamer::run()
 	jconf->input.type = INPUT_WAVEFORM;
 	jconf->input.speech_input = SP_MIC;
 
-	jconf->amnow->analysis.para.smp_freq = sfreq;
-	jconf->amnow->analysis.para.smp_period = freq2period(sfreq);
+	jconf->amnow->analysis.para.smp_freq = adinstreamer_sfreq;
+	jconf->amnow->analysis.para.smp_period = freq2period(adinstreamer_sfreq);
 
 	/* read arguments and set parameters */
 	int argc=1;
@@ -299,7 +277,7 @@ void AdinStreamer::run()
 
 // 	printf("connecting...");
 	QByteArray addressByte = address.toString().toUtf8();
-	socketDescriptor = make_connection(addressByte.data(), port);
+	adinstreamer_socketDescriptor = make_connection(addressByte.data(), port);
 // 	fprintf(stderr, "connected\n");
 
 
@@ -334,8 +312,8 @@ void AdinStreamer::run()
 				performed and, adin_callback_* is called for speech output for each segment block.
 			*/
 			/* adin_go() return when input segmented by long silence, or input stream reached to the end */
-			speechlen = 0;
-			stop_at_next = FALSE;
+			adinstreamer_speechlen = 0;
+			adinstreamer_stop_at_next = FALSE;
 // 			fprintf(stderr, "<<< please speak >>>");
 			ret = adin_go(adin_callback_adinnet, adinnet_check_command, recog);
 			/* return value of adin_go:
@@ -347,7 +325,7 @@ void AdinStreamer::run()
 				(or return value of ad_check (<0) (== not used in this program))
 				
 			if PAUSE or TERMINATE command has been received while input,
-				stop_at_next is TRUE here  */
+				adinstreamer_stop_at_next is TRUE here  */
 			switch(ret) {
 				case -2:	     /* terminated by terminate command from server */
 					fprintf(stderr, "[terminated by server]\n");
@@ -368,20 +346,20 @@ void AdinStreamer::run()
 				return;
 			}
 
-			if (speechlen > 0) {
-				if (ret >= 0 || stop_at_next) { /* segmented by adin-cut or end of stream or server-side command */
+			if (adinstreamer_speechlen > 0) {
+				if (ret >= 0 || adinstreamer_stop_at_next) { /* segmented by adin-cut or end of stream or server-side command */
 					/* send end-of-segment ack to client */
 					adin_send_end_of_segment();
 				}
 				/* output info */
-				printf("sent: %d samples (%.2f sec.)\n", speechlen, (float)speechlen / (float)sfreq);
+				printf("sent: %d samples (%.2f sec.)\n", adinstreamer_speechlen, (float)adinstreamer_speechlen / (float)adinstreamer_sfreq);
 			}
 
 			/***************************************************/
 			/* with adinnet server, if terminated by           */
 			/* server-side PAUSE command, wait for RESUME here */
 			/***************************************************/
-			if ((stop_at_next) && (adinnet_wait_command() < 0)) {
+			if ((adinstreamer_stop_at_next) && (adinnet_wait_command() < 0)) {
 					/* command error: terminate program here */
 					return;
 			}
@@ -390,8 +368,8 @@ void AdinStreamer::run()
 // 		kWarning() << "Outer while";
 	}
 
-	close(socketDescriptor);
-	socketDescriptor=0;
+	close(adinstreamer_socketDescriptor);
+	adinstreamer_socketDescriptor=0;
 	
 	recog->adin->ad_end();
 	j_request_terminate(recog);

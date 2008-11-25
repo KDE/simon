@@ -104,14 +104,14 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 		startConnecting();
 	
 	this->modelManager = new ModelManagerUiProxy(this);
-	connect(modelManager, SIGNAL(recompileModel()), this, SLOT(startSynchronisation()));
+	connect(modelManager, SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
 }
 
 void RecognitionControl::slotDisconnected()
 {
 	adinStreamer->stop();
 	recognitionReady=false;
-	modelManager->setConnectionStatus(false);
+// 	modelManager->setConnectionStatus(false);
 	if (synchronisationOperation)
 	{
 		if (synchronisationOperation->isRunning())
@@ -587,6 +587,11 @@ void RecognitionControl::sendSample(QString sampleName)
 }
 
 
+void RecognitionControl::askStartSynchronisation()
+{
+	if (isConnected() && ((!RecognitionConfiguration::askForSync()) || KMessageBox::questionYesNo(0, i18n("Das Sprachmodell hat sich geändert.\n\nSoll es jetzt synchronisiert werden?"))==KMessageBox::Yes))
+		startSynchronisation();
+}
 
 
 void RecognitionControl::startSynchronisation()
@@ -661,7 +666,6 @@ void RecognitionControl::messageReceived()
 				{
 					advanceStream(sizeof(qint32));
 					emit loggedIn();
-					modelManager->setConnectionStatus(true);
 					startSynchronisation();
 					break;
 				}
@@ -690,7 +694,22 @@ void RecognitionControl::messageReceived()
 				}
 	
 				////////////////////    SYNCHRONISATION    ////////////////////////////
-				
+
+				case Simond::SynchronisationAlreadyRunning:
+				{
+					advanceStream(sizeof(qint32));
+					emit synchronisationError(i18n("Synchronisation läuft bereits."));
+					synchronisationDone();
+					break;
+				}
+	
+				case Simond::AbortSynchronisationFailed:
+				{
+					advanceStream(sizeof(qint32));
+					emit synchronisationError(i18n("Konnte Synchronisation nicht korrekt abbrechen."));
+					break;
+				}
+			
 				case Simond::GetActiveModelDate:
 				{
 					advanceStream(sizeof(qint32));
@@ -1055,6 +1074,7 @@ void RecognitionControl::messageReceived()
 					QByteArray sampleNameByte;
 					msg >> sampleNameByte;
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					kWarning() << "Server requested sampleNameByte";
 					
 					sendSample(QString::fromUtf8(sampleNameByte));
 					break;
@@ -1090,6 +1110,15 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "Server could not store trainings-sample";
+					synchronisationDone();
+					break;
+				}
+
+
+				case Simond::SynchronisationCommitFailed:
+				{
+					advanceStream(sizeof(qint32));
+					emit synchronisationError(i18n("Konnte Modellabgleich nicht abschließen"));
 					synchronisationDone();
 					break;
 				}
@@ -1199,6 +1228,7 @@ void RecognitionControl::messageReceived()
 					break;
 				}
 
+				//TODO: is this deprecated?
 				case Simond::ErrorRetrievingModelCompilationProtocol: {
 					advanceStream(sizeof(qint32));
 					KMessageBox::sorry(0, i18n("Konnte Modellerstellungsprotokoll nicht abrufen"));
@@ -1229,12 +1259,13 @@ void RecognitionControl::messageReceived()
 				case Simond::RecognitionAwaitingStream:
 				{
 					checkIfMessageFinished(sizeof(qint32));
-					qint32 port;
+					qint32 port, sampleRate;
 					msg >> port;
-					advanceStream(sizeof(qint32)*2);
+					msg >> sampleRate;
+					advanceStream(sizeof(qint32)*3);
 
 					kWarning() << "adinnet server running on port " << port;
-					adinStreamer->init(socket->peerAddress(), port);
+					adinStreamer->init(socket->peerAddress(), port, sampleRate);
 					adinStreamer->start();
 					break;
 				}

@@ -27,6 +27,8 @@ set( simonrecognition_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/recognitioncontrol.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/networksettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/adinstreamer.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/plugin_exporter.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/synchronisationsettings.cpp
 )
 
 set( simonrecognition_LIB_HDRS
@@ -37,6 +39,7 @@ kde4_add_kcfg_files(simonrecognition_LIB_SRCS recognitionconfiguration.kcfgc)
 
 kde4_add_ui_files( simonrecognition_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/networksettingsdlg.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/synchronisationsettings.ui
 )
 
 kde4_add_library( simonrecognitioncontrol  SHARED ${simonrecognition_LIB_SRCS} )
@@ -61,4 +64,4 @@ install( FILES ${simonrecognition_LIB_HDRS}
 )
  
 install( TARGETS simonrecognitioncontrol  ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( FILES simonrecognitionconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( FILES simonrecognitionconfig.desktop simonsynchronisationconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

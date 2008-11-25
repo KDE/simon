@@ -3,10 +3,6 @@
 <kcfg> <kcfgfile name="simonrecognitionrc" />
   <include>KStandardDirs</include>
   <group name="Recognition">
-    <entry name="AutomaticSync" type="Bool">
-      <label>Should we automatically start the synchronisation process when the model is changed?</label>
-      <default>true</default>
-    </entry>
     <entry name="JuliusdAutoConnect" type="Bool">
       <label>If we should automatically connect to the Juliusd.</label>
       <default>false</default>
@@ -28,6 +24,14 @@
     <entry name="JuliusdServers" type="StringList">
       <label>The addresses to all known Juliusd servers in order of preference.</label>
       <default>localhost:4444</default>
+    </entry>
+  </group>
+
+
+  <group name="Synchronisation">
+    <entry name="AskForSync" type="Bool">
+      <label>Should we not automatically start the synchronisation process when the model is changed?</label>
+      <default>false</default>
     </entry>
   </group>
 

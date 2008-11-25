@@ -50,5 +50,6 @@ int main(int argc, char **argv)
 		return 2;
 
 	app.exec();
+	delete control;
 	return 0;
 }

@@ -54,6 +54,7 @@ public:
 private slots:
     void showConfigurationDialog();
     void startSimond();
+    void restartSimond();
     void stopSimond();
     void simondFinished();
 
@@ -63,8 +64,9 @@ private slots:
 private:
     TrayIconManager *trayIconMgr;
     KProcess *process;
-    KAction *startProcess, *stopProcess, *configure;
+    KAction *startProcess, *restartProcess, *stopProcess, *configure;
     bool stopIntended;
+    bool wantReload;
 };
 
 #endif // ksimondVIEW_H

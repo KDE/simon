@@ -55,7 +55,7 @@ public:
         AdinStreamer(QObject* parent);
 	void run();
 	void stop();
-	void init(const QHostAddress& address, qint32 port);
+	void init(const QHostAddress& address, qint32 port, qint32 sampleRate);
         ~AdinStreamer();
 
 };

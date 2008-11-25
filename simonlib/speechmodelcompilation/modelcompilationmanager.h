@@ -51,6 +51,7 @@ signals:
 	void modelCompiled();
 
 private:
+	bool keepGoing;
 	QString currentStatus;
 	
 	QProcess *proc;
@@ -60,6 +61,7 @@ private:
 
 	QString userName;
 	QString samplePath;
+	QString tempDir;
 	QString lexiconPath, grammarPath, vocabPath, promptsPath, treeHedPath, wavConfigPath;
 	QString hmmDefsPath, tiedListPath, dictPath, dfaPath;
 
@@ -68,6 +70,8 @@ private:
 
 	//config options
 	QString hDMan, hLEd, hCopy, hCompV, hERest, hHEd, hVite, mkfa, dfaMinimize;
+	
+	bool createDirs();
 
 	bool execute(const QString& command);
 
@@ -123,16 +127,15 @@ private:
 		bool generateDict();
 	
 public:
-    ModelCompilationManager(const QString& userName, const QString& samplePath,
-			     const QString& lexiconPath, const QString& grammarPath, 
-			     const QString& vocabPath, const QString& promptsPath, 
-			     const QString& treeHedPath, const QString& wavConfigPath,
-			     const QString& hmmDefsPath, const QString& tiedListPath,
+    ModelCompilationManager(const QString& userName, const QString& hmmDefsPath, const QString& tiedListPath,
 			     const QString& dictPath, const QString& dfaPath,
 			     QObject *parent=0);
 
 	void run();
-	bool startCompilation();
+	bool startCompilation(const QString& samplePath,
+			     const QString& lexiconPath, const QString& grammarPath, 
+			     const QString& vocabPath, const QString& promptsPath, 
+			     const QString& treeHedPath, const QString& wavConfigPath);
 	bool hasBuildLog();
 	QString getGraphicBuildLog();
 	QString getBuildLog();

@@ -36,6 +36,7 @@
 KSimondView::KSimondView(QObject *parent):QObject(parent)
 {
 	stopIntended=false;
+	wantReload=false;
 	trayIconMgr = new TrayIconManager();
 	trayIconMgr->createIcon(KIcon("simond"), i18n("simond"));
 	//add actions
@@ -44,6 +45,14 @@ KSimondView::KSimondView(QObject *parent):QObject(parent)
 	startProcess->setIcon(KIcon("media-playback-start"));
 	connect(startProcess, SIGNAL(triggered(bool)),
 			this, SLOT(startSimond()));
+
+
+	restartProcess = new KAction(0);
+	restartProcess->setText(i18n("simond neu starten"));
+	restartProcess->setIcon(KIcon("view-refresh"));
+	restartProcess->setEnabled(false);
+	connect(restartProcess, SIGNAL(triggered(bool)),
+			this, SLOT(restartSimond()));
 
 
 	stopProcess = new KAction(0);
@@ -60,6 +69,7 @@ KSimondView::KSimondView(QObject *parent):QObject(parent)
 			this, SLOT(showConfigurationDialog()));
 
 	trayIconMgr->addAction(i18n("simond starten"), startProcess);
+	trayIconMgr->addAction(i18n("simond neu starten"), restartProcess);
 	trayIconMgr->addAction(i18n("simond stoppen"), stopProcess);
 	trayIconMgr->addAction(i18n("Konfiguration"), configure);
 
@@ -97,6 +107,13 @@ void KSimondView::startSimond()
 	process->start();
 }
 
+
+void KSimondView::restartSimond()
+{
+	wantReload=true;
+	stopSimond();
+}
+
 void KSimondView::matchDisplayToState()
 {
 	switch (process->state())
@@ -105,12 +122,14 @@ void KSimondView::matchDisplayToState()
 		{
 			SimonInfo::showMessage(i18n("simond beendet"), 2000, new KIcon("simond"));
 			startProcess->setEnabled(true);
+			restartProcess->setEnabled(false);
 			stopProcess->setEnabled(false);
 			break;
 		}
 		case QProcess::Starting:
 		{
 			startProcess->setEnabled(false);
+			restartProcess->setEnabled(false);
 			stopProcess->setEnabled(false);
 			break;
 		}
@@ -119,6 +138,7 @@ void KSimondView::matchDisplayToState()
 			SimonInfo::showMessage(i18n("simond gestartet"), 2000, new KIcon("simond"));
 			startProcess->setEnabled(false);
 			stopProcess->setEnabled(true);
+			restartProcess->setEnabled(true);
 			break;
 		}
 	}
@@ -127,10 +147,11 @@ void KSimondView::matchDisplayToState()
 
 void KSimondView::simondFinished()
 {
-	if (!stopIntended && KSimondConfiguration::autoReStartSimond())
+	if ((!stopIntended && KSimondConfiguration::autoReStartSimond()) || wantReload)
 	{
 		startSimond();
 		stopIntended=false;
+		wantReload=false;
 	}
 }
 

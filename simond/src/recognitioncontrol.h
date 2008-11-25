@@ -31,7 +31,7 @@ class RecognitionControl : public QThread
 		void recognitionReady();
 		void recognitionError(const QString& error);
 		void recognitionWarning(const QString& warning);
-		void recognitionAwaitingStream(qint32 port);
+		void recognitionAwaitingStream(qint32 port, qint32 sampleRate);
 		void recognitionStarted();
 		void recognitionStopped();
 		void recognitionPaused();
@@ -40,6 +40,8 @@ class RecognitionControl : public QThread
 
 	protected:
 		QString username;
+		qint32 sampleRate;
+
 		static qint32 portNum;
 		static qint32 reservePortNum() { return portNum++; }
 		static qint32 getPortNum() { return portNum; }

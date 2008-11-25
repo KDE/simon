@@ -17,32 +17,32 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
-#include "networksettings.h"
-#include "serveraddressselector.h"
+#include "synchronisationsettings.h"
 #include "recognitionconfiguration.h"
-
+#include <KIcon>
 
 /**
  * \brief Constructor - inits the help text and the gui
  * \author Peter Grasch
  * @param parent the parent of the widget
  */
-NetworkSettings::NetworkSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
+SynchronisationSettings::SynchronisationSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
 	Q_UNUSED(args);
 
 	ui.setupUi(this);
-	
-	ServerAddressSelector *saSelector = new ServerAddressSelector(this);
-	ui.kcfg_JuliusdServers->setCustomEditor(*(new KEditListBox::CustomEditor(saSelector, saSelector->lineEdit())));
+
+	ui.pbLoadList->setIcon(KIcon("view-refresh"));
+	ui.pbSelectModel->setIcon(KIcon("dialog-ok-apply"));
 
 	addConfig(RecognitionConfiguration::self(), this);
 }
 
 
 
-NetworkSettings::~NetworkSettings()
+SynchronisationSettings::~SynchronisationSettings()
 {}
+
+
 
 

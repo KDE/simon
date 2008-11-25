@@ -77,6 +77,7 @@ Jconf* JuliusControl::setupJconf()
 	KConfig config( configPath, KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	QByteArray smpFreq = QString(cGroup.readEntry("SampleRate")).toUtf8();
+	this->sampleRate = cGroup.readEntry("SampleRate", 0);
 
 	char portChr[5];
 	qint32 port = reservePortNum();
@@ -309,6 +310,10 @@ void JuliusControl::uninitialize()
 	else 
 		if (this->jconf)
 			j_jconf_free(jconf);
+
+	this->recog=NULL;
+	this->jconf=NULL;
+
 	m_initialized=false;
 }
 
@@ -390,7 +395,7 @@ void JuliusControl::run()
 		return;
 	}
 
-	emit recognitionAwaitingStream(getPort());
+	emit recognitionAwaitingStream(getPort(), this->sampleRate);
 	/* output system information to log */
 	j_recog_info(recog);
 	
@@ -477,12 +482,5 @@ void JuliusControl::pushRequest(JuliusControl::Request request)
 
 JuliusControl::~JuliusControl()
 {
-	stop();
-	
-	j_recog_free(recog);
-// 	if (recog)
-// 	{
-// 		j_recog_free(recog);
-// 	} else if (jconf)
-// 		j_jconf_free(jconf);
+	uninitialize();
 }
