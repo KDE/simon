@@ -25,6 +25,13 @@
 #include <speechmodelbase/languagedescriptioncontainer.h>
 #include <speechmodelbase/trainingcontainer.h>
 
+#include <QString>
+#include <QFileInfo>
+#include <QDir>
+#include <QFile>
+#include <QBuffer>
+#include <QRegExp>
+#include <QMutableMapIterator>
 #include <KStandardDirs>
 #include <KComponentData>
 #include <KAboutData>
@@ -32,12 +39,6 @@
 #include <KConfigGroup>
 #include <KDebug>
 
-#include <QString>
-#include <QFileInfo>
-#include <QDir>
-#include <QFile>
-#include <QBuffer>
-#include <QRegExp>
 
 
 SynchronisationManager::SynchronisationManager(const QString& username, QObject *parent) : QObject(parent)
@@ -235,8 +236,6 @@ bool SynchronisationManager::hasGrammar()
 
 GrammarContainer* SynchronisationManager::getGrammar()
 {
-	QString currentSrcContainerPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/");
-
 	QFile grammar(currentSrcContainerPath+"model.grammar");
 	if (!grammar.open(QIODevice::ReadOnly))
 		return 0;
@@ -502,7 +501,7 @@ bool SynchronisationManager::cleanTemp()
 			allRemoved=false;
 	}
 
-	return (QFile::remove(srcContainerTempPath+"lock")) && allRemoved;
+	return (QFile::remove(srcContainerTempPath+"lock")) && allRemoved && removeExcessModelBackups();
 }
 
 bool SynchronisationManager::abort()
@@ -662,12 +661,160 @@ QMap<QDateTime, QString> SynchronisationManager::getLanguageDescriptions()
 }
 
 
+bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
+{
+	if (!startSynchronisation()) return false;
+
+	kWarning() << "Switching to " << modelDate;
+
+	QDateTime newModelDate = QDateTime::currentDateTime();
+	KConfig config( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	cGroup.writeEntry("WordListDate", newModelDate);
+	cGroup.writeEntry("GrammarDate", newModelDate);
+	cGroup.writeEntry("TrainingDate", newModelDate);
+	cGroup.writeEntry("LanguageDescriptionDate", newModelDate);
+	config.sync();
+
+	QString wordListPath, grammarPath, trainingPath, languageDescriptionPath;
+	QMap<QDateTime,QString> wordlistModels = getWordLists();
+	for (QMap<QDateTime,QString>::const_iterator i=wordlistModels.constBegin(); i != wordlistModels.constEnd(); i++)
+		if (i.key() >= modelDate)
+		{
+			wordListPath = i.value();
+			break;
+		}
+	QMap<QDateTime,QString> grammarModels = getGrammars();
+	for (QMap<QDateTime,QString>::const_iterator i=grammarModels.constBegin(); i != grammarModels.constEnd(); i++)
+		if (i.key() >= modelDate)
+		{
+			grammarPath = i.value();
+			break;
+		}
+	QMap<QDateTime,QString> trainingModels = getTrainingDatas();
+	for (QMap<QDateTime,QString>::const_iterator i=trainingModels.constBegin(); i != trainingModels.constEnd(); i++)
+		if (i.key() >= modelDate)
+		{
+			trainingPath = i.value();
+			break;
+		}
+	QMap<QDateTime,QString> languageDescriptionModels = getLanguageDescriptions();
+	for (QMap<QDateTime,QString>::const_iterator i=languageDescriptionModels.constBegin(); i != languageDescriptionModels.constEnd(); i++)
+		if (i.key() >= modelDate)
+		{
+			languageDescriptionPath = i.value();
+			break;
+		}
+
+	if (wordListPath.isEmpty() || grammarPath.isEmpty() || trainingPath.isEmpty() || languageDescriptionPath.isEmpty()) {
+		kWarning() << "Not complete";
+		abort();
+		return false;
+	}
+	kWarning () << wordListPath << grammarPath << trainingPath << languageDescriptionPath << srcContainerTempPath;
+
+	bool allCopied=true;
+	if (!copyWordList(wordListPath, srcContainerTempPath)) allCopied=false;
+	if (!copyTrainingData(trainingPath, srcContainerTempPath)) allCopied=false;
+	if (!copyGrammar(grammarPath, srcContainerTempPath)) allCopied=false;
+	if (!copyLanguageDescription(languageDescriptionPath, srcContainerTempPath)) allCopied=false;
+
+	if (!allCopied)
+	{
+		kWarning() << "could not copy all";
+		abort();
+		return false;
+	}
+
+	return commit();
+}
+
+
+bool SynchronisationManager::copyWordList(const QString& sourcePath, const QString& targetPath)
+{
+	bool allFine=true;
+	if (!QFile::exists(targetPath+"lexicon") || !QFile::exists(targetPath+"model.voca") || !QFile::exists(targetPath+"simplevocab"))
+	{
+		if (!QFile::copy(sourcePath+"lexicon", targetPath+"lexicon")) allFine=false;
+		if (!QFile::copy(sourcePath+"model.voca", targetPath+"model.voca")) allFine=false;
+		if (!QFile::copy(sourcePath+"simplevocab", targetPath+"simplevocab")) allFine=false;
+	}
+
+	return allFine;
+}
+
+bool SynchronisationManager::copyGrammar(const QString& sourcePath, const QString& targetPath)
+{
+	bool allFine=true;
+	if (!QFile::exists(targetPath+"model.grammar"))
+		if (!QFile::copy(sourcePath+"model.grammar", targetPath+"model.grammar")) allFine=false;
+
+	return allFine;
+}
+
+bool SynchronisationManager::copyTrainingData(const QString& sourcePath, const QString& targetPath)
+{
+	bool allFine=true;
+	if (!QFile::exists(targetPath+"prompts") || !QFile::exists(targetPath+"trainingrc") || !QFile::exists(targetPath+"wav_config"))
+	{
+		if (!QFile::copy(sourcePath+"prompts", targetPath+"prompts")) allFine=false;
+		if (!QFile::copy(sourcePath+"trainingrc", targetPath+"trainingrc")) allFine=false;
+		if (!QFile::copy(sourcePath+"wav_config", targetPath+"wav_config")) allFine=false;
+	}
+
+	return allFine;
+}
+
+bool SynchronisationManager::copyLanguageDescription(const QString& sourcePath, const QString& targetPath)
+{
+	bool allFine=true;
+	if (!QFile::exists(targetPath+"shadow.voca") || !QFile::exists(targetPath+"tree1.hed"))
+	{
+		if (!QFile::copy(sourcePath+"shadow.voca", targetPath+"shadow.voca")) allFine=false;
+		if (!QFile::copy(sourcePath+"tree1.hed", targetPath+"tree1.hed")) allFine=false;
+	}
+
+	return allFine;
+}
+
+
 
 
 bool SynchronisationManager::removeExcessModelBackups()
 {
 	int maxBackupedModels=5; //TODO make configurable
-	//FIXME implement
+	
+	QMap<QDateTime, QString> models = getModels();
+
+	//date is ascending so the we can remove from the front until we have removed enough
+	QMutableMapIterator<QDateTime, QString> i(models);
+	while ((models.count() > maxBackupedModels) && (i.hasNext()))
+	{
+		QString modelToRemovePath = i.value();
+		QString modelTargetPath = i.peekNext().value();
+
+		if (!copyWordList(modelToRemovePath, modelTargetPath))
+			return false;
+		if (!copyGrammar(modelToRemovePath, modelTargetPath))
+			return false;
+		if (!copyLanguageDescription(modelToRemovePath, modelTargetPath))
+			return false;
+		if (!copyTrainingData(modelToRemovePath, modelTargetPath))
+			return false;
+	
+		//remove modelToRemovePath
+		QDir oldModelDir(srcContainerTempPath);
+		QStringList files = oldModelDir.entryList(QDir::Files|QDir::NoDotAndDotDot);
+		bool allRemoved=true;
+		foreach (const QString& file, files)
+		{
+			if (!QFile::remove(modelToRemovePath+file))
+				allRemoved=false;
+		}
+		if (!allRemoved || !oldModelDir.rmdir(modelToRemovePath))
+			return false;
+	}
+	
 	return true;
 }
 

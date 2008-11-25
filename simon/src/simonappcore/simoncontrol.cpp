@@ -39,7 +39,7 @@
 SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 {
 	setStatus(SimonControl::Disconnected);
-	this->recognitionControl = new RecognitionControl(parent);
+	this->recognitionControl = RecognitionControl::getInstance(parent);
 	QObject::connect(ActionManager::getInstance(), SIGNAL(guiAction(QString)), this, SIGNAL(guiAction(QString)));
 	
 	QObject::connect(recognitionControl, SIGNAL(connected()), this, SLOT(connectedToServer()));

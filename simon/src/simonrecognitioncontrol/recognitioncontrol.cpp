@@ -17,9 +17,11 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include <stdio.h>
 
 #include "recognitioncontrol.h"
+#include "recognitionconfiguration.h"
+
+#include "adinstreamer.h"
 #include <simoninfo/simoninfo.h>
 #include <simonprotocol/simonprotocol.h>
 #include <simonmodelmanagementui/modelmanageruiproxy.h>
@@ -29,15 +31,17 @@
 #include <speechmodelbase/trainingcontainer.h>
 #include <speechmodelbase/model.h>
 #include <simonprogresstracking/operation.h>
-#include "recognitionconfiguration.h"
-#include "adinstreamer.h"
+
+#include <stdio.h>
 
 #include <QByteArray>
 #include <QSslSocket>
 #include <QTimer>
 #include <QFile>
 #include <QDataStream>
+#include <QDateTime>
 #include <QStringList>
+
 #include <KMessageBox>
 #include <KLocalizedString>
 #include <KDebug>
@@ -66,6 +70,8 @@
 					qint64 length; \
 					msg >> length; \
 					checkIfMessageFinished(length);
+
+RecognitionControl* RecognitionControl::instance;
 
 /**
  *	@brief Constructor
@@ -106,6 +112,8 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 	this->modelManager = new ModelManagerUiProxy(this);
 	connect(modelManager, SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
 }
+
+
 
 void RecognitionControl::slotDisconnected()
 {
@@ -714,6 +722,8 @@ void RecognitionControl::messageReceived()
 			
 				case Simond::GetActiveModelDate:
 				{
+					if (!synchronisationOperation)
+						synchronisationOperation = new Operation(thread(), i18n("Modellsynchronisation"), i18n("Synchronisiere Aktives Modell"), 1, 100, false);
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
 	
@@ -735,9 +745,6 @@ void RecognitionControl::messageReceived()
 	
 				case Simond::ActiveModel:
 				{
-					if (!synchronisationOperation)
-						synchronisationOperation = new Operation(thread(), i18n("Modellsynchronisation"), i18n("Synchronisiere Aktives Modell"), 1, 100, false);
-					
 					checkIfSynchronisationIsAborting();
 	
 					kDebug() << "Server sent active Model";
@@ -967,7 +974,7 @@ void RecognitionControl::messageReceived()
 				{
 					checkIfSynchronisationIsAborting();
 
-					kDebug() << "Server sent grammar";
+					kWarning() << "Server sent grammar";
 					
 					parseLengthHeader();
 					
@@ -1130,6 +1137,29 @@ void RecognitionControl::messageReceived()
 				{
 					advanceStream(sizeof(qint32));
 					synchronisationComplete();
+					break;
+				}
+
+
+				case Simond::AvailableModels:
+				{
+					kDebug() << "Server sent Available Models";
+					
+					parseLengthHeader();
+					
+					QList<QDateTime> models;
+					msg >> models;
+					
+					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					
+					emit modelsAvailable(models);
+					break;
+				}
+				case Simond::SwitchToModelFailed:
+				{
+					advanceStream(sizeof(qint32));
+
+					emit synchronisationError(i18n("Konnte altes Sprachmodell nicht wiederherstellen."));
 					break;
 				}
 				
@@ -1353,6 +1383,27 @@ void RecognitionControl::messageReceived()
 		//this _ensures_ that we don't loose something
 		stillToProcess=msgByte;
 	}
+}
+
+
+bool RecognitionControl::getAvailableModels()
+{
+	sendRequest(Simond::GetAvailableModels);
+	return true;
+}
+
+bool RecognitionControl::switchToModel(const QDateTime& model)
+{
+	QByteArray toWrite, body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+	
+	bodyStream << model;
+	stream << (qint32) Simond::SwitchToModel << (qint64) body.count();
+
+	socket->write(toWrite);
+	socket->write(body);
+	return true;
 }
 
 void RecognitionControl::fetchCompilationProtocol()

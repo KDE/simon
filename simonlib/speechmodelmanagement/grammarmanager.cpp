@@ -113,6 +113,7 @@ void GrammarManager::renameTerminal(QString terminal, const QString& newName)
 
 bool GrammarManager::refreshFiles(const QByteArray& grammarStructures)
 {
+	kWarning() << "Hier: " << grammarStructures;
 	QMutexLocker lock(&structuresLock);
 	QFile grammarF(KStandardDirs::locateLocal("data", "simon/model/model.grammar"));
 	if (!grammarF.open(QIODevice::WriteOnly)) return false;

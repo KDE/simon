@@ -23,12 +23,27 @@
 #include "ui_synchronisationsettings.h"
 #include <KCModule>
 #include <QVariantList>
+#include <QList>
+#include <QDateTime>
+
+class KProgressDialog;
+class QShowEvent;
 
 class SynchronisationSettings : public KCModule
 {
 Q_OBJECT
 private:
 	Ui::SynchronisationSettingsDlg ui;
+	KProgressDialog *dlg;
+
+private slots:
+	void loadList();
+	void displayList(const QList<QDateTime>& models);
+	void modelSelectionChanged();
+	void selectModel();
+	
+protected:
+	void showEvent(QShowEvent*);
 	
 public:
         SynchronisationSettings(QWidget* parent, const QVariantList& args=QVariantList());

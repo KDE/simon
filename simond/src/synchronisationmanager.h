@@ -42,7 +42,6 @@ class SynchronisationManager : public QObject
 		QString srcContainerTempPath;
 		QDateTime currentSrcContainerDate;
 		bool cleanTemp();
-		QMap<QDateTime, QString> getModels();
 
 		QString getLatestPath(const QMap<QDateTime, QString>& models);
 
@@ -54,6 +53,8 @@ class SynchronisationManager : public QObject
 	
 	public:
 		SynchronisationManager(const QString& username, QObject *parent=0);
+
+		QMap<QDateTime, QString> getModels();
 
 		Model* getActiveModel();
 		bool hasActiveModel();
@@ -108,6 +109,11 @@ class SynchronisationManager : public QObject
 		bool removeExcessModelBackups();
 		
 		void modelCompiled();
+		bool copyWordList(const QString& source, const QString& dest);
+		bool copyGrammar(const QString& source, const QString& dest);
+		bool copyTrainingData(const QString& source, const QString& dest);
+		bool copyLanguageDescription(const QString& source, const QString& dest);
+		bool switchToModel(const QDateTime& modelDate);
 			       
 		~SynchronisationManager();
 		

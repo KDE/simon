@@ -64,6 +64,8 @@ class ClientSocket : public QSslSocket
 
 
 	private slots:
+		void startSynchronisation();
+
 		void sendCode(Simond::Request code);
 		void processRequest();
 		void slotSocketError();
@@ -83,6 +85,8 @@ class ClientSocket : public QSslSocket
 		bool sendGrammar();
 		bool sendLanguageDescription();
 		bool sendTraining();
+
+		void sendAvailableModels();
 		
 		void recompileModel();
 		

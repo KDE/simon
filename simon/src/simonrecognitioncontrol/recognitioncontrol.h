@@ -34,6 +34,8 @@ class Operation;
 const qint8 protocolVersion=1;
 
 class AdinStreamer;
+class QDateTime;
+
 /**
  *	@class RecognitionControl
  *	@brief Provides the methods and emits the needed signals to work with Julius
@@ -50,6 +52,12 @@ public:
 
 	~RecognitionControl();
 	
+	static RecognitionControl* getInstance(QWidget *parent=0)
+	{
+		if (!instance) instance = new RecognitionControl(parent);
+		return instance;
+	}
+
 
 	enum RecognitionStatus {
 		Ready=0,
@@ -59,7 +67,12 @@ public:
 		Stopped=4
 	};
 
+
+	bool getAvailableModels();
+	bool switchToModel(const QDateTime& model);
+
 private:
+	static RecognitionControl *instance;
 	AdinStreamer *adinStreamer;
 	QMutex messageLocker;
 	QByteArray stillToProcess;
@@ -97,8 +110,9 @@ signals:
 
 	void recognitionStatusChanged(RecognitionControl::RecognitionStatus);
 	void recognised(const QString&, const QString& sampa, const QString& samparaw);
-	
 
+	void modelsAvailable(const QList<QDateTime>& models);
+	
 
 
 	

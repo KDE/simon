@@ -218,6 +218,7 @@ QDateTime ModelManager::getGrammarModifiedTime()
 
 bool ModelManager::storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures)
 {
+	kWarning() << "storing...";
 	if (!GrammarManager::getInstance()->refreshFiles(grammarStructures)) return false;
 	
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );

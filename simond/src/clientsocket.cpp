@@ -38,6 +38,7 @@
 #include <QDateTime>
 #include <QHostAddress>
 #include <QMutexLocker>
+#include <QMap>
 
 #include <KDebug>
 #include <KMessageBox>
@@ -180,16 +181,7 @@ void ClientSocket::processRequest()
 			
 			case Simond::StartSynchronisation:
 			{
-				if (synchronisationRunning) break;
-				
-				synchronisationRunning = true;
-				if (!synchronisationManager)
-					synchronisationManager = new SynchronisationManager(username, this);
-				
-				if (!synchronisationManager->startSynchronisation())
-					sendCode(Simond::SynchronisationAlreadyRunning);
-				else 
-					sendCode(Simond::GetActiveModelDate);
+				startSynchronisation();
 				break;
 			}
 
@@ -569,9 +561,7 @@ void ClientSocket::processRequest()
 				waitForMessage(sizeof(qint64), stream, msg);
 				stream >> length;
 				
-// 				KMessageBox::information(0, "waiting for: "+QString::number(length));
 				waitForMessage(length, stream, msg);
-// 				KMessageBox::information(0, "Done");
 				
 				QByteArray treeHed, shadowVocab;
 				QDateTime changedTime;
@@ -638,7 +628,33 @@ void ClientSocket::processRequest()
 				
 				break;
 			}
-			
+
+			case Simond::GetAvailableModels:
+			{
+				Q_ASSERT(synchronisationManager);
+				sendAvailableModels();
+				break;
+			}
+	
+			case Simond::SwitchToModel:
+			{
+				Q_ASSERT(synchronisationManager);
+				qint64 length;
+				waitForMessage(sizeof(qint64), stream, msg);
+				stream >> length;
+				waitForMessage(length, stream, msg);
+				
+				QDateTime modelDate;
+				stream >> modelDate;
+				
+				if (synchronisationManager->switchToModel(modelDate))
+					startSynchronisation();
+				else 
+					sendCode(Simond::SwitchToModelFailed);
+
+				break;
+			}
+		
 			case Simond::GetModelCompilationProtocol: {
 				Q_ASSERT(modelCompilationManager);
 				if (!modelCompilationManager->hasBuildLog())
@@ -673,7 +689,7 @@ void ClientSocket::processRequest()
 			
 			default:
 			{
-				kDebug() << "Unknown request: " << msg;
+				kWarning() << "Unknown request: " << msg;
 			}
 		}
 		
@@ -682,14 +698,25 @@ void ClientSocket::processRequest()
 	}
 }
 
+void ClientSocket::startSynchronisation()
+{
+	if (synchronisationRunning) return;
+				
+	synchronisationRunning = true;
+	if (!synchronisationManager)
+		synchronisationManager = new SynchronisationManager(username, this);
+				
+	if (!synchronisationManager->startSynchronisation())
+		sendCode(Simond::SynchronisationAlreadyRunning);
+	else sendCode(Simond::GetActiveModelDate);
+}
+
 void ClientSocket::activeModelCompiled()
 {
 	Q_ASSERT(synchronisationManager);
 	synchronisationManager->modelCompiled();
 	sendCode(Simond::ModelCompilationCompleted);
-	if (!synchronisationManager->startSynchronisation())
-		sendCode(Simond::SynchronisationAlreadyRunning);
-	else sendActiveModel();
+	startSynchronisation();
 	
 	//FIXME: should not reinitialize recognition if active model
 	//did not change and recog is already running
@@ -975,6 +1002,7 @@ bool ClientSocket::sendWordList()
 
 bool ClientSocket::sendGrammar()
 {
+	kWarning() << "Sending grammar...";
 	Q_ASSERT(synchronisationManager);
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
@@ -991,6 +1019,7 @@ bool ClientSocket::sendGrammar()
 	write(toWrite);
 	write(body);
 	
+	kWarning() << "Done";
 	delete grammar;
 	return true;
 }
@@ -1045,6 +1074,22 @@ bool ClientSocket::sendTraining()
 	return true;
 }
 
+void ClientSocket::sendAvailableModels()
+{
+	QMap<QDateTime,QString> models = synchronisationManager->getModels();
+	QByteArray body;
+	QDataStream bodyStream(&body, QIODevice::WriteOnly);
+	QByteArray toWrite;
+	QDataStream stream(&toWrite, QIODevice::WriteOnly);
+
+	QList<QDateTime> dates = models.keys();
+//	foreach (const QDateTime& date, dates)
+		bodyStream << dates;
+	stream << (qint32) Simond::AvailableModels << (qint64) body.count();
+
+	write(toWrite);
+	write(body);
+}
 
 void ClientSocket::recognitionReady()
 {
