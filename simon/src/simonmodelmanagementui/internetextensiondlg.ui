@@ -33,63 +33,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox" >
-     <property name="title" >
-      <string>Wiktionary-Import</string>
-     </property>
-     <layout class="QVBoxLayout" >
-      <item>
-       <layout class="QGridLayout" >
-        <item row="0" column="0" >
-         <widget class="QLabel" name="lbDumpOverview" >
-          <property name="text" >
-           <string>Dump Übersicht:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1" >
-         <widget class="KLineEdit" name="kcfg_WikiDumpOverview" />
-        </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="lbDumpPrefix" >
-          <property name="text" >
-           <string>Dump Prefix:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1" >
-         <widget class="KLineEdit" name="kcfg_WikiDumpPrefix" />
-        </item>
-        <item row="2" column="0" >
-         <widget class="QLabel" name="lbDumpPostfix" >
-          <property name="text" >
-           <string>Dump Postfix:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1" >
-         <widget class="KLineEdit" name="kcfg_WikiDumpPostfix" />
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QLabel" name="lbExample" >
-        <property name="text" >
-         <string>Beispiel:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="lbExampleURL" >
-        <property name="text" >
-         <string/>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>

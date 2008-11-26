@@ -482,6 +482,22 @@ bool TrainingManager::removeSample(const QString& fileBaseName)
 	return (promptsTable->remove(fileBaseName) > 0);
 }
 
+bool TrainingManager::saveTrainingsText(const QString& name, const QStringList pages)
+{
+	QString textDir = KStandardDirs::locateLocal("appdata", "texts/");
+	int index=1;
+
+	//find next free path
+	while (QFile::exists(textDir+name+QString::number(index)+".xml"))
+		index++;
+
+	QString path = textDir+name+QString::number(index)+".xml";
+ 	XMLTrainingText *text = new XMLTrainingText (name, path,pages);
+	bool succ = text->save();
+	delete text;
+
+	return succ;
+}
 
 /**
  * @brief Destructor

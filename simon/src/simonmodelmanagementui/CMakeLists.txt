@@ -34,14 +34,12 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/AddWord/addwordintropage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/AddWord/addwordrecordpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictselectsourcepage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictwiktionarypage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importlexiconpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictworkingpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/bompdict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbomppage.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/wiktionarydict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/lexicondict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/dict.cpp
 
@@ -88,7 +86,6 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbomppage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictlexiconpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictselectsourcepage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importwiktionarypage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsworkingpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsselectpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammardescriptionpage.ui

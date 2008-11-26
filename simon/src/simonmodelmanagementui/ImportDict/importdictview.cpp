@@ -23,7 +23,6 @@
 #include "importdictworkingpage.h"
 #include "importdictselectsourcepage.h"
 #include "importdictbomppage.h"
-#include "importdictwiktionarypage.h"
 #include "importlexiconpage.h"
 #include <QLabel>
 #include <QVBoxLayout>
@@ -43,7 +42,6 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 
 	addPage(createSelectSourcePage());
 	addPage(createImportBOMPPage());
-	addPage(createImportWiktionaryPage());
 	addPage(createImportLexiconPage());
 	ImportDictWorkingPage *workingPage = createImportDictWorkingPage();
 	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SIGNAL(dictGenerated(WordList*)));
@@ -120,15 +118,6 @@ ImportDictBOMPPage* ImportDictView::createImportBOMPPage()
 	return new ImportDictBOMPPage(this);
 }
 
-/**
- * \brief Creates a new ImportDictWiktionaryPage and returns it
- * \author Peter Grasch
- * @return the created page
- */
-ImportDictWiktionaryPage* ImportDictView::createImportWiktionaryPage()
-{
-	return new ImportDictWiktionaryPage(this);
-}
 
 /**
  * \brief Creates a new ImportDictWorkingPage and returns it

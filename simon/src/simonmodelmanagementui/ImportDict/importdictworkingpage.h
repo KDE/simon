@@ -58,7 +58,6 @@ public slots:
 	void displayProgress(int progress);
 	
 	void importHADIFIX(QString path);
-	void importWiktionary(QString url);
 	void importLexicon(QString path);
 
 	bool isComplete() const;

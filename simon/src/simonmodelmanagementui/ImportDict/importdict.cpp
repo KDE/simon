@@ -22,7 +22,7 @@
 #include <simonlogging/logger.h>
 #include "bompdict.h"
 #include "lexicondict.h"
-#include "wiktionarydict.h"
+#include <QFile>
 #include <KLocalizedString>
 
 /**
@@ -36,7 +36,7 @@ ImportDict::ImportDict(QObject *parent) : QThread(parent)
 }
 
 /**
- * \brief Parses the wordlist of an existing wiktioray wordlist
+ * \brief Parses the wordlist of an existing dictionary
  * \author Peter Grasch
  */
 void ImportDict::parseWordList(QString pathToDict, int type, bool deleteFileWhenDone)
@@ -63,9 +63,6 @@ void ImportDict::run()
 
 	switch (type)
 	{
-		case Dict::Wiktionary:
-			dict = new WiktionaryDict(pathToDict);
-			break;
 		case Dict::HadifixBOMP:
 			dict = new BOMPDict(pathToDict);
 			break;

@@ -86,7 +86,8 @@ void TrainingViewPrivate::deleteSelected()
 	int currentIndex = ui.twTrainingWords->currentRow();
 
 	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?")) == KMessageBox::Yes )
-		TrainingManager::getInstance()->deleteText ( currentIndex );
+		if (!TrainingManager::getInstance()->deleteText ( currentIndex ))
+			KMessageBox::sorry(this, i18n("Konnte Trainingstext nicht löschen.\n\nEs könnte sein, dass Sie nicht ausreichend Rechte benutzen weil es sich um einen Systemweiten Trainingstext handelt?..."));
 
 	loadList();
 }

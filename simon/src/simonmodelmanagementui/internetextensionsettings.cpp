@@ -26,11 +26,6 @@ InternetExtensionSettings::InternetExtensionSettings(QWidget* parent, const QVar
 	Q_UNUSED(args);
 
 	ui.setupUi(this);
-
-	connect(ui.kcfg_WikiDumpPrefix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
-	connect(ui.kcfg_WikiDumpPostfix, SIGNAL(textChanged(QString)), this, SLOT(makeExample()));
-
-	makeExample();
 }
 
 
@@ -38,11 +33,3 @@ InternetExtensionSettings::~InternetExtensionSettings()
 {
 }
 
-void InternetExtensionSettings::makeExample()
-{
-	QString example;
-	example += ui.kcfg_WikiDumpPrefix->text();
-	example += "xxwiktionary/xxxxxxxx";
-	example += ui.kcfg_WikiDumpPostfix->text();
-	ui.lbExample->setText(example);
-}

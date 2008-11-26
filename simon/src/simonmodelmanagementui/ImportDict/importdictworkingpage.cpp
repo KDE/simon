@@ -112,20 +112,6 @@ void ImportDictWorkingPage::importHADIFIX(QString path)
 	import->parseWordList(path, Dict::HadifixBOMP, true /* remove input file when done */);
 }
 
-/**
- * \brief Imports the wiktionary at <path>
- * @param path the path of the (downloaded and extracted) wiki
- */
-void ImportDictWorkingPage::importWiktionary(QString path)
-{
-	if (path.isEmpty()) return;
-
-	displayStatus(i18n("Importiere Wiktionary-Wörterbuch %1...", path));
-	
-	import->parseWordList(path, Dict::Wiktionary, true /* remove input file when done */);
-	
-}
-
 
 QString ImportDictWorkingPage::prepareDict(KUrl url)
 {
@@ -153,13 +139,6 @@ void ImportDictWorkingPage::initializePage()
 	if (field("hadifix").toBool())
 	{
 		importHADIFIX(prepareDict(field("bompFileName").value<KUrl>()));
-	}else if (field("wiktionary").toBool())
-	{
-		if (field("importWikiLocal").toBool())
-			importWiktionary(prepareDict(field("wikiFileName").value<KUrl>()));
-
-		if (field("importWikiRemote").toBool())
-			importWiktionary(prepareDict(KUrl(field("wikiRemoteURL").toString())));
 	} else
 		importLexicon(prepareDict(field("lexiconFilename").value<KUrl>()));
 }

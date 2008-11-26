@@ -32,8 +32,6 @@ class InternetExtensionSettings : public KCModule
 Q_OBJECT
 private:
 	Ui::InternetExtensionDlg ui;
-private slots:
-	void makeExample();
 public:
     InternetExtensionSettings(QWidget* parent, const QVariantList &args=QVariantList());
 

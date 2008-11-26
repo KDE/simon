@@ -69,6 +69,7 @@ Q_OBJECT
 		TrainingManager(QObject *parent=0);
 
 	public:
+		bool saveTrainingsText(const QString& name, const QStringList pages);
 		//TODO: Port me to friends for the modelmanager
 		PromptsTable* getPrompts();
 		bool writePromptsFile(PromptsTable* prompts, QString path);

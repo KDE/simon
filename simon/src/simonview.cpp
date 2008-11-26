@@ -94,6 +94,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	configDialog->addModule("simonsoundconfig", QStringList() << "");
 	configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
 	configDialog->addModule("simongrammarconfig", QStringList() << "");
+	configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
 	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
 	configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
 

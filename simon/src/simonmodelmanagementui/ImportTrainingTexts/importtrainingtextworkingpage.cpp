@@ -22,10 +22,9 @@
 #include "importtrainingtextworkingpage.h"
 #include "importtrainingtextlocalpage.h"
 #include "xmltrainingtextlist.h"
-// #include "coreconfiguration.h"
 
 #include <simonlogging/logger.h>
-// #include <speechmodelbase/trainingtext.h>
+#include <speechmodelmanagement/trainingmanager.h>
 
 #include <QFile>
 #include <QFileInfo>
@@ -166,13 +165,8 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 	file.close();
 	QFileInfo fi = QFileInfo(path);
 
-	//FIXME
-// 	QString xmlPath = KStandardDirs::locateLocal("appdata", "texts/")+"/"+fi.fileName().left(fi.fileName().lastIndexOf("."))+".xml";
-// 	TrainingText *text = new TrainingText(field("importTrainingTextLTextname").toString(),
-// 					       xmlPath,
-// 					       sents);
-// 	if (!text->save())
-// 		KMessageBox::error(this, i18n("Konnte Trainingstext nicht speichern"));
-// 	delete text;
+	if (!TrainingManager::getInstance()->saveTrainingsText(field("importTrainingTextLTextname").toString(), sents))
+		KMessageBox::error(this, i18n("Konnte Trainingstext nicht speichern"));
 	ui.pbProgress->setValue(1);
 }
+

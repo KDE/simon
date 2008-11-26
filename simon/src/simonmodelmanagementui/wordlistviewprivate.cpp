@@ -335,7 +335,8 @@ void WordListViewPrivate::insertVocab(WordList *vocab)
 	int startAmount=ui.twVocab->rowCount();
 	int currentRow = startAmount;
         int i=0;
-	int limit=1000; //CoreConfiguration::maxConcurrentlyDisplayedWords();
+	int limit=1000; //WordListManager::getInstance()->getMaxDisplayedWords(); //1000; //CoreConfiguration::maxConcurrentlyDisplayedWords();
+
 	KProgressDialog *pgDlg = new KProgressDialog(this, i18n("Lade Wortliste..."), i18n("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Wörterbuch nicht!)"));
 	pgDlg->progressBar()->setMaximum((vocab->count() < limit) ? vocab->count() : limit);
 
