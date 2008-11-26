@@ -11,7 +11,7 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/modelmanageruiproxy.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/deleteworddialog.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/dragtablewidget.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/dragtableview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/droplistwidget.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/internetextensionsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingview.cpp
@@ -66,8 +66,8 @@ set( simonmodelmanagementui_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui_export.h
 )
 
-# kde4_add_kcfg_files(simonmodelmanagementui_LIB_SRCS
-# 	  speechmodelmanagementconfiguration.kcfgc)
+ kde4_add_kcfg_files(simonmodelmanagementui_LIB_SRCS
+ 	  speechmodelmanagementuiconfiguration.kcfgc)
 
 kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/internetextensiondlg.ui

@@ -17,11 +17,4 @@
       <default>true</default>
     </entry>
   </group>
-  
-  <group name="Performance">
-    <entry name="MaxConcurrentlyDisplayedWords" type="Int">
-      <label>Determines how many words should be displayed concurrently.</label>
-      <default>500</default>
-    </entry>
-  </group>
 </kcfg>

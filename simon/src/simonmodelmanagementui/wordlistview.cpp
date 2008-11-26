@@ -40,7 +40,6 @@ WordListView::WordListView(QWidget *parent) : InlineWidget(i18n("Wortliste"),
 	
 	hide();
 
-	connect(d, SIGNAL(wordlistLoaded()), this, SIGNAL(wordlistLoaded()));
 	guessChildTriggers(this);
 }
 

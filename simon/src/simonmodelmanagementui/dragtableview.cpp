@@ -18,21 +18,22 @@
  */
 
 
-#include "dragtablewidget.h"
+#include "dragtableview.h"
 #include <QApplication>
 #include <KLocalizedString>
-#include "simoninfo/simoninfo.h"
+#include <simoninfo/simoninfo.h>
+#include <speechmodelbase/word.h>
 
 /**
  * @brief Constructor
  *
  * Empty constructor - calls the element initializer of the
- * QTableWidget
+ * QTableView
  *
  * @author Peter Grasch
  */
-DragTableWidget::DragTableWidget(QWidget *parent)
-	: QTableWidget(parent)
+DragTableView::DragTableView(QWidget *parent)
+	: QTableView(parent)
 {	}
 
 
@@ -48,11 +49,11 @@ DragTableWidget::DragTableWidget(QWidget *parent)
  * @param QMouseEvent *event
  * Is used to determine the button that was pressed
  */
-void DragTableWidget::mousePressEvent(QMouseEvent *event)
+void DragTableView::mousePressEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton)
 		this->mousePos= event->pos();
-	QTableWidget::mousePressEvent(event);
+	QTableView::mousePressEvent(event);
 	
 }
 
@@ -70,7 +71,7 @@ void DragTableWidget::mousePressEvent(QMouseEvent *event)
  * @param QMouseEvent *event
  * Is used to determine the button that was pressed
  */
-void DragTableWidget::mouseMoveEvent(QMouseEvent *event)
+void DragTableView::mouseMoveEvent(QMouseEvent *event)
 {
 	if (!(event->buttons() & Qt::LeftButton))
 	{
@@ -96,21 +97,21 @@ void DragTableWidget::mouseMoveEvent(QMouseEvent *event)
  *
  * @author Peter Grasch, Phillip Goriup
  */
-void DragTableWidget::startDrag(Qt::DropActions)
+void DragTableView::startDrag(Qt::DropActions)
 {
 	QDrag *drag = new QDrag ( this );
 	QMimeData *mimeData = new QMimeData();
-	if(this->currentItem())
-	{
-		QString currentItem( this->item(this->currentRow(),0)->text() );
-		
-		mimeData->setText( currentItem );
-		drag->setMimeData(mimeData);
 	
-		SimonInfo::showMessage( i18n("Ziehe das Wort in die Liste rechts um es zu trainieren") , 2000 );
-	
-		drag->start(Qt::MoveAction);
-	}
+	Word *w = (Word*) currentIndex().internalPointer();
+
+	if (!w) return;
+
+	mimeData->setText( w->getWord() );
+	drag->setMimeData(mimeData);
+
+	SimonInfo::showMessage( i18n("Ziehe das Wort in die Liste rechts um es zu trainieren") , 2000 );
+
+	drag->start(Qt::MoveAction);
 }
 
 
@@ -120,6 +121,6 @@ void DragTableWidget::startDrag(Qt::DropActions)
  *
  * @author Peter Grasch
  */
-DragTableWidget::~DragTableWidget()
+DragTableView::~DragTableView()
 {
 }

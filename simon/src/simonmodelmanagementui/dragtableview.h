@@ -18,18 +18,18 @@
  */
 
 
-#ifndef DRAGTABLEWIDGET_H
-#define DRAGTABLEWIDGET_H
+#ifndef DRAGTABLEVIEW_H
+#define DRAGTABLEVIEW_H
 
-#include <QTableWidget>
+#include <QTableView>
 #include <QMouseEvent>
 #include <QDrag>
 #include <QMimeData>
 
 
 /**
- *	@class DragTableWidget
- *	@brief Extends the QTableWidget with Drag Functions
+ *	@class DragTableView
+ *	@brief Extends the QTableView with Drag Functions
  *
  *	Implements the Drag- (from Drag and Drop) functions:
  *		mousePressEvent(QMouseEvent)
@@ -42,7 +42,7 @@
  *	@date 28.01.2006
  *	@author Peter Grasch
  */
-class DragTableWidget : public QTableWidget
+class DragTableView : public QTableView
 {
 	Q_OBJECT
 private:
@@ -52,9 +52,9 @@ protected:
 	void mouseMoveEvent(QMouseEvent *event);
 	void startDrag(Qt::DropActions);
 public:
-    DragTableWidget(QWidget *parent);
+    DragTableView(QWidget *parent);
 
-    ~DragTableWidget();
+    ~DragTableView();
 
 };
 

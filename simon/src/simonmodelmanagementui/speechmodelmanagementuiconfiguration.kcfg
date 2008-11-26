@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg> <kcfgfile />
+  <include>KStandardDirs</include>
+  
+  <group name="Extension">
+    <entry name="TextOnlineUpdate" type="String">
+      <label>The url to the online text-list to get new trainingstexts.</label>
+      <default>http://simon.pytalhost.org/texts/list.xml</default>
+    </entry>
+  </group>
+</kcfg>

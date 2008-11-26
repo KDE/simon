@@ -28,7 +28,6 @@
 #include <speechmodelbase/word.h>
 
 
-
 class QPoint;
 class ImportDictView;
 class WordListManager;
@@ -57,23 +56,17 @@ private:
 
 	void setDirty ( bool dirty );
 
-signals:
-	void wordlistLoaded();
-
 
 public slots:
 	void abortInsertion() { abortVocabInsertion = true; }
 	void reloadShadowList();
-	void suggestTraining();
 	void markWordToTrain( Word word );
 	void copyWordToTrain();
 	void deleteTrainingWord();
 	void deleteSelectedWord();
 	void trainList();
 	void importDict(WordList* list);
-	void clearList();
 	void filterListbyPattern(QString filter="");
-	void insertVocab(WordList *vocab);
 	void show();
 	void hide();
 	void showImportDictDialog();

@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>828</width>
-    <height>574</height>
+    <width>773</width>
+    <height>398</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -61,7 +61,7 @@
         </layout>
        </item>
        <item>
-        <widget class="DragTableWidget" name="twVocab" >
+        <widget class="DragTableView" name="tvVocab" >
          <property name="sizePolicy" >
           <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
            <horstretch>255</horstretch>
@@ -74,38 +74,6 @@
            <height>0</height>
           </size>
          </property>
-         <property name="baseSize" >
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="selectionMode" >
-          <enum>QAbstractItemView::SingleSelection</enum>
-         </property>
-         <property name="selectionBehavior" >
-          <enum>QAbstractItemView::SelectRows</enum>
-         </property>
-         <column>
-          <property name="text" >
-           <string>Wort</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>SAMPA</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>Kategorie</string>
-          </property>
-         </column>
-         <column>
-          <property name="text" >
-           <string>Erkennungsrate</string>
-          </property>
-         </column>
         </widget>
        </item>
        <item>
@@ -215,6 +183,18 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize" >
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize" >
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
         </widget>
        </item>
        <item>
@@ -228,16 +208,6 @@
         <widget class="KPushButton" name="pbDeleteTrainingWord" >
          <property name="text" >
           <string>Wort aus Training &amp;löschen</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="KPushButton" name="pbSuggestTrain" >
-         <property name="toolTip" >
-          <string>Schlägt automatisch ein Training vor das die schwächsten 10 Wörter trainiert.</string>
-         </property>
-         <property name="text" >
-          <string>Training &amp;vorschlagen</string>
          </property>
         </widget>
        </item>
@@ -269,15 +239,16 @@
    <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
-   <class>DragTableWidget</class>
-   <extends>QTableWidget</extends>
-   <header>dragtablewidget.h</header>
-  </customwidget>
-  <customwidget>
    <class>DropListWidget</class>
    <extends>KListWidget</extends>
    <header>droplistwidget.h</header>
   </customwidget>
+  <customwidget>
+   <class>DragTableView</class>
+   <extends>QTableView</extends>
+   <header>dragtableview.h</header>
+  </customwidget>
  </customwidgets>
+ <resources/>
  <connections/>
 </ui>

@@ -25,6 +25,7 @@
 
 #include <speechmodelmanagement/wordlistmanager.h>
 #include <simonlogging/logger.h>
+#include <speechmodelmanagement/wordlistmodel.h>
 
 #include <QTableWidget>
 #include <QHeaderView>
@@ -50,14 +51,11 @@ WordListViewPrivate::WordListViewPrivate(QWidget *parent) : QWidget(parent)
 	
 	ui.setupUi(this);
 
-	ui.twVocab->verticalHeader()->hide();
-	
 	importDictView = new ImportDictView(this);
 	connect(ui.pbAddToTraining, SIGNAL(clicked()), this, SLOT(copyWordToTrain()));
 	connect(ui.pbDeleteTrainingWord, SIGNAL(clicked()), this, SLOT(deleteTrainingWord()));
 	connect(ui.lwTrainingWords, SIGNAL(droppedText(QString)), this, SLOT(copyWordToTrain()));
 	
-	connect(ui.pbSuggestTrain, SIGNAL(clicked()), this, SLOT(suggestTraining()));
 	connect(ui.pbRemoveWord, SIGNAL(clicked()), this, SLOT(deleteSelectedWord()));
 	connect(ui.leSearch, SIGNAL(returnPressed()), this, SLOT(filterListbyPattern()));
 	connect(ui.leSearch, SIGNAL(clearButtonClicked()), this, SLOT(filterListbyPattern()));
@@ -90,8 +88,9 @@ WordListViewPrivate::WordListViewPrivate(QWidget *parent) : QWidget(parent)
 	ui.pbRemoveWord->setIcon(KIcon("edit-delete"));
 	ui.pbAddToTraining->setIcon(KIcon("list-add"));
 	ui.pbDeleteTrainingWord->setIcon(KIcon("list-remove"));
-	ui.pbSuggestTrain->setIcon(KIcon("bookmark-new-list"));
 	ui.pbTrainList->setIcon(KIcon("go-next"));
+
+	ui.tvVocab->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 
@@ -129,26 +128,6 @@ void WordListViewPrivate::importDict(WordList* list)
 	}
 }
 
-/**
- * @brief Suggest a training
- *
- * Uses the recognition rate and chooses the lowest 10
- *
- * @author Peter Grasch
- */
-void WordListViewPrivate::suggestTraining()
-{
-	ui.twVocab->sortItems(3);
-	int toInsert = 10;
-	if (ui.twVocab->rowCount() < toInsert) toInsert = ui.twVocab->rowCount();
-
-	if (toInsert==0) KMessageBox::information(this, i18n("Es sind nicht genügend Wörter im Wörterbuch"));
-	for (int i=0; i<toInsert; i++)
-	{
-		ui.twVocab->setCurrentItem(ui.twVocab->item(i,0));
-		copyWordToTrain();
-	}
-}
 
 /**
  * @brief Marks a word for Training
@@ -172,16 +151,15 @@ void WordListViewPrivate::markWordToTrain(Word word)
  */
 void WordListViewPrivate::filterListbyPattern(QString filter)
 {
-// 	KMessageBox::information(this, i18n("seas"));
 	if (filter.isEmpty()) filter = ui.leSearch->text().trimmed();
 	
-	clearList();
-
 	WordList* limitedVocab = wordListManager->getWords(filter, ui.cbShowCompleteLexicon->isChecked(), 
 				true, false /* display words twice which are in the active AND the shadowdict*/);
 	
-	insertVocab( limitedVocab );
-	delete limitedVocab;
+	WordListModel *model = dynamic_cast<WordListModel*>(ui.tvVocab->model());
+	if (!model)
+		ui.tvVocab->setModel(new WordListModel(limitedVocab));
+	else model->updateWordList(limitedVocab);
 }
 
 /**
@@ -210,40 +188,27 @@ void WordListViewPrivate::trainList()
 /**
  * @brief Copies a word to the Traininglist
  *
- * Copies the currently selected word from the twVocab (member) to the
+ * Copies the currently selected word from the tvVocab to the
  * lwTrainingWords (member)
  *
  * @author Peter Grasch
  */
 void WordListViewPrivate::copyWordToTrain()
 {
-	if (ui.twVocab->selectedItems().isEmpty())
+	if (!ui.tvVocab->currentIndex().isValid())
 	{
 		KMessageBox::information(this,i18n("Bitte selektieren Sie zuerst ein Wort aus der Liste links"));
 		return;
 	}
+	Word *w = static_cast<Word*>(ui.tvVocab->currentIndex().internalPointer());
+	if (!w) return;
 	
-	QString word = ui.twVocab->item(ui.twVocab->currentRow(),0)->text();
-	QString sampa = ui.twVocab->item(ui.twVocab->currentRow(),1)->text();
-	QString category = ui.twVocab->item(ui.twVocab->currentRow(),2)->text();
-	int probability = ui.twVocab->item(ui.twVocab->currentRow(),3)->text().toInt();
+	this->trainingwordlist.append(*w);
 	
-	this->trainingwordlist.append(Word(word, sampa, category, probability));
-	
-	ui.lwTrainingWords->addItem(word);
+	ui.lwTrainingWords->addItem(w->getWord());
 }
 
 
-
-/**
- * \brief Clears the VocabList
- * \author Peter Grasch
- */
-void WordListViewPrivate::clearList()
-{
-	ui.twVocab->clearContents();
-	ui.twVocab->setRowCount(0);
-}
 
 void WordListViewPrivate::show()
 {
@@ -279,23 +244,20 @@ void WordListViewPrivate::hide()
  */
 void WordListViewPrivate::deleteSelectedWord()
 {
-	int row = ui.twVocab->currentRow();
-	if (row == -1) //none selected
+	if (!ui.tvVocab->currentIndex().isValid())
 	{
-		KMessageBox::information(this, i18n("Bitte selektieren Sie ein Wort"));
+		KMessageBox::information(this,i18n("Bitte selektieren Sie zuerst ein Wort aus der Liste links"));
 		return;
 	}
-
+	
+	Word *wordTemp = static_cast<Word*>(ui.tvVocab->currentIndex().internalPointer());
+	
 	DeleteWordDialog *del = new DeleteWordDialog(this);
 
-	QString word = ui.twVocab->item(row,0)->text();
-	QString pronunciation = ui.twVocab->item(row,1)->text();
-	QString terminal = ui.twVocab->item(row,2)->text();
-	
 	bool isShadowed=false;
 	bool success = true;
 
-	Word *w = this->wordListManager->getWord(word, pronunciation, terminal, isShadowed);
+	Word *w = this->wordListManager->getWord(wordTemp->getWord(), wordTemp->getPronunciation(), wordTemp->getTerminal(), isShadowed);
 	if (!w)
 	{
 		return; //word not found?!
@@ -319,74 +281,6 @@ void WordListViewPrivate::deleteSelectedWord()
 	//do not delete w as it is a pointer to its wordlistmanager-representation
 	del->deleteLater();
 }
-
-
-/**
- * @brief Inserts a given Wordlist to the QTableWidget
- *
- * @author Peter Grasch
- * @see readVocab()
- * @param WordList *vocab
- * The Wordlist to insert
- */
-void WordListViewPrivate::insertVocab(WordList *vocab)
-{
-	abortVocabInsertion=false;
-	int startAmount=ui.twVocab->rowCount();
-	int currentRow = startAmount;
-        int i=0;
-	int limit=1000; //WordListManager::getInstance()->getMaxDisplayedWords(); //1000; //CoreConfiguration::maxConcurrentlyDisplayedWords();
-
-	KProgressDialog *pgDlg = new KProgressDialog(this, i18n("Lade Wortliste..."), i18n("Lade Wortliste zur Anzeige...\n(Ein Abbruch beeinflusst das intern verwendete Wörterbuch nicht!)"));
-	pgDlg->progressBar()->setMaximum((vocab->count() < limit) ? vocab->count() : limit);
-
-	connect(pgDlg, SIGNAL(rejected()), this, SLOT(abortInsertion()));
-
-	ui.twVocab->setRowCount(startAmount+vocab->count());
-	
-	KColorScheme colorScheme(QPalette::Active);
-	QColor negative = colorScheme.background(KColorScheme::NegativeBackground).color();
-	
-	while ((!abortVocabInsertion) && (i<vocab->count()) && (i<limit))
-	{
-		QString curWordName = vocab->at(i).getWord();
-		if (!curWordName.isEmpty())
-		{
-			ui.twVocab->setItem(currentRow, 0, new QTableWidgetItem(curWordName));
-			ui.twVocab->setItem(currentRow, 1, new QTableWidgetItem(vocab->at(i).getPronunciation()));
-			ui.twVocab->setItem(currentRow, 2, new QTableWidgetItem(vocab->at(i).getTerminal()));
-			
-			int probability = vocab->at(i).getPropability();
-			ui.twVocab->setItem(currentRow, 3, new QTableWidgetItem(QString::number(probability)));
-			if (probability < 2)
-			{
-				QBrush specialCol;
-				if (probability==0)
-					specialCol = KColorScheme::shade(negative, KColorScheme::DarkShade);
-				else specialCol = KColorScheme::shade(negative, KColorScheme::MidShade);
-				
-				for (int i=0; i <4; i++)
-					ui.twVocab->item(currentRow,i)->setBackground(specialCol);
-			}
-	
-			for (int j = 0; j<4; j++)
-				ui.twVocab->item(currentRow,j)->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-		} else {
-			vocab->removeAt(i);
-			pgDlg->progressBar()->setMaximum(vocab->count());
-			i--;
-		}
-		i++;
-		currentRow++;
-		if ((i % 50)==0) pgDlg->progressBar()->setValue(i);
-	}
-	pgDlg->progressBar()->setValue(i);
-	ui.twVocab->setRowCount(i);
-	ui.twVocab->resizeColumnsToContents();
-	pgDlg->deleteLater();
-	emit wordlistLoaded();
-}
-
 
 /**
  * @brief Deletes the selected word from the Training-List

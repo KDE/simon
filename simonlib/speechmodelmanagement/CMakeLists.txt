@@ -16,6 +16,7 @@ set( simonmodelmanagement_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/xmltrainingtext.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/wordlistmodel.cpp
 )
 
 
@@ -23,6 +24,8 @@ set( simonmodelmanagement_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/simonacousticmodelmanagement_export.h
   ${CMAKE_CURRENT_SOURCE_DIR}/simonlanguagemodelmanagement_export.h
   ${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/wordlistmodel.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/wordlistmanager.h
 )
 
 

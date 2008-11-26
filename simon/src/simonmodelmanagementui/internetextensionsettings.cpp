@@ -19,6 +19,7 @@
 
 #include "internetextensionsettings.h"
 #include <KGlobal>
+#include "speechmodelmanagementuiconfiguration.h"
 
 
 InternetExtensionSettings::InternetExtensionSettings(QWidget* parent, const QVariantList &args): KCModule(KGlobal::mainComponent(), parent, args)
@@ -26,6 +27,8 @@ InternetExtensionSettings::InternetExtensionSettings(QWidget* parent, const QVar
 	Q_UNUSED(args);
 
 	ui.setupUi(this);
+
+	addConfig(SpeechModelManagementUiConfiguration::self(), this);
 }
 
 

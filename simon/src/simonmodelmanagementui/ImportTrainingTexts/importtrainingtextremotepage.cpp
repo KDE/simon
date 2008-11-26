@@ -21,7 +21,7 @@
 #include "importtrainingtextremotepage.h"
 #include <simonlogging/logger.h>
 #include "xmltrainingtextlist.h"
-// #include "coreconfiguration.h"
+#include "speechmodelmanagementuiconfiguration.h"
 
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
@@ -49,7 +49,7 @@ void ImportTrainingTextRemotePage::initializePage()
 {
 	Logger::log(i18n("[INF] Abrufen der Liste von verfügbaren Trainingstexten"));
 
-	KUrl downloadUrl;//CoreConfiguration::textOnlineUpdate());
+	KUrl downloadUrl=KUrl(SpeechModelManagementUiConfiguration::textOnlineUpdate());
 
 	KIO::FileCopyJob *job = KIO::file_copy(downloadUrl, 
 				KStandardDirs::locateLocal("tmp", downloadUrl.fileName()), 

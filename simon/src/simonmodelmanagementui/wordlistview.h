@@ -38,8 +38,6 @@ class WordListViewPrivate;
  *	@author Peter Grasch
  */class SIMONMODELMANAGEMENTUI_EXPORT WordListView : public InlineWidget {
 	Q_OBJECT
-signals:
-	void wordlistLoaded();
 private:
 	WordListViewPrivate *d;
 
