@@ -128,7 +128,6 @@ bool SynchronisationManager::storeActiveModel(const QDateTime& changedDate, qint
 
 void SynchronisationManager::setActiveModelSampleRate(qint32 activeModelSampleRate)
 {
-	kWarning() << "Storing sample rate: " << activeModelSampleRate;
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 	KConfig config( dirPath+"activerc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
@@ -159,9 +158,13 @@ QDateTime SynchronisationManager::getWordListDate()
 	return cGroup.readEntry("WordListDate", QDateTime());
 }
 
-bool SynchronisationManager::hasWordList()
+bool SynchronisationManager::hasWordList(const QString& modelPath)
 {
-	QDir dir(currentSrcContainerPath);
+	QString modelDirPath;
+	if (modelPath.isEmpty())
+		modelDirPath = currentSrcContainerPath;
+	else modelDirPath=modelPath;
+	QDir dir(modelDirPath);
 	QStringList entries = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
 	if (entries.contains("simpleVocab") && 
 		entries.contains("activeVocab") && 
@@ -224,9 +227,13 @@ QDateTime SynchronisationManager::getGrammarDate()
 }
 
 
-bool SynchronisationManager::hasGrammar()
+bool SynchronisationManager::hasGrammar(const QString& modelPath)
 {
-	QDir dir(currentSrcContainerPath);
+	QString modelDirPath;
+	if (modelPath.isEmpty())
+		modelDirPath = currentSrcContainerPath;
+	else modelDirPath=modelPath;
+	QDir dir(modelDirPath);
 	QStringList entries = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
 	if (entries.contains("grammarStructures"))
 		return true;
@@ -268,16 +275,19 @@ bool SynchronisationManager::storeGrammar(const QDateTime& changedDate, const QB
 
 QDateTime SynchronisationManager::getLanguageDescriptionDate()
 {
-	kWarning() << "Retrieving lang. desc. date" << currentSrcContainerPath+"modelsrcrc";
 	KConfig config( currentSrcContainerPath+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("LanguageDescriptionDate", QDateTime());
 }
 
 
-bool SynchronisationManager::hasLanguageDescription()
+bool SynchronisationManager::hasLanguageDescription(const QString& modelPath)
 {
-	QDir dir(currentSrcContainerPath);
+	QString modelDirPath;
+	if (modelPath.isEmpty())
+		modelDirPath = currentSrcContainerPath;
+	else modelDirPath=modelPath;
+	QDir dir(modelDirPath);
 	QStringList entries = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
 	if (entries.contains("shadowVocab") && 
 		entries.contains("shadowLexicon") && 
@@ -336,9 +346,14 @@ QDateTime SynchronisationManager::getTrainingDate()
 }
 
 
-bool SynchronisationManager::hasTraining()
+bool SynchronisationManager::hasTraining(const QString& modelPath)
 {
-	QDir dir(currentSrcContainerPath);
+	QString modelDirPath;
+	if (modelPath.isEmpty())
+		modelDirPath = currentSrcContainerPath;
+	else modelDirPath=modelPath;
+	QDir dir(modelDirPath);
+
 	QStringList entries = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
 	if (entries.contains("wavConfig") &&
 		entries.contains("trainingrc") && 
@@ -527,12 +542,10 @@ bool SynchronisationManager::commit()
 					 cGroup.readEntry("GrammarDate", QDateTime()));
 	newSrcContainerTime = qMax(newSrcContainerTime, cGroup.readEntry("LanguageDescriptionDate", QDateTime()));
 	newSrcContainerTime = qMax(newSrcContainerTime, cGroup.readEntry("TrainingDate", QDateTime()));
-	kWarning () << newSrcContainerTime << cGroup.readEntry("LanguageDescriptionDate", QDateTime());
 	if (newSrcContainerTime.isNull()) return false; // wtf?
 
 	QString newSrcContainerPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/"+newSrcContainerTime.toString("yyyy-MM-dd_hh:mm:ss")+"/");
 
-	kWarning() << "new path is " << newSrcContainerPath;
 	if (newSrcContainerPath.isEmpty()) return false;
 
 	bool allCopied=true;
@@ -540,15 +553,12 @@ bool SynchronisationManager::commit()
 	{
 		if (!QFile::copy(srcContainerTempPath+file, newSrcContainerPath+file))
 		{
-			kWarning() << "MURKS: " << srcContainerTempPath+file << newSrcContainerPath+file;
 			allCopied=false;
 		}
 	}
 	if (!allCopied) {
-		kWarning () << "Not all could be copied";
 		return false;
 	}
-	kWarning() << "new path is " << newSrcContainerPath;
 
 	KConfig currentModelConfig(KStandardDirs::locateLocal("appdata", "models/"+username+"/src/currentmodelrc"));
 	KConfigGroup cGroup2(&currentModelConfig, "");
@@ -556,7 +566,6 @@ bool SynchronisationManager::commit()
 	cGroup2.writeEntry("CurrentModelDate", newSrcContainerTime);
 	currentModelConfig.sync();
 	currentSrcContainerPath=newSrcContainerPath;
-	kWarning () << "Cleaning temp";
 	return cleanTemp();
 }
 
@@ -665,8 +674,6 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 {
 	if (!startSynchronisation()) return false;
 
-	kWarning() << "Switching to " << modelDate;
-
 	QDateTime newModelDate = QDateTime::currentDateTime();
 	KConfig config( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
@@ -707,11 +714,9 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 		}
 
 	if (wordListPath.isEmpty() || grammarPath.isEmpty() || trainingPath.isEmpty() || languageDescriptionPath.isEmpty()) {
-		kWarning() << "Not complete";
 		abort();
 		return false;
 	}
-	kWarning () << wordListPath << grammarPath << trainingPath << languageDescriptionPath << srcContainerTempPath;
 
 	bool allCopied=true;
 	if (!copyWordList(wordListPath, srcContainerTempPath)) allCopied=false;
@@ -721,7 +726,6 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 
 	if (!allCopied)
 	{
-		kWarning() << "could not copy all";
 		abort();
 		return false;
 	}
@@ -788,23 +792,23 @@ bool SynchronisationManager::removeExcessModelBackups()
 	QMap<QDateTime, QString> models = getModels();
 
 	//date is ascending so the we can remove from the front until we have removed enough
-	QMutableMapIterator<QDateTime, QString> i(models);
-	while ((models.count() > maxBackupedModels) && (i.hasNext()))
+//	QMutableMapIterator<QDateTime, QString> i(models);
+	while ((models.count() > maxBackupedModels) && (models.count() >= 2))
 	{
-		QString modelToRemovePath = i.value();
-		QString modelTargetPath = i.peekNext().value();
+		QString modelToRemovePath = models.value(models.keys().at(0));
+		QString modelTargetPath = models.value(models.keys().at(0));
 
-		if (!copyWordList(modelToRemovePath, modelTargetPath))
+		if (hasWordList(modelToRemovePath) && !copyWordList(modelToRemovePath, modelTargetPath))
 			return false;
-		if (!copyGrammar(modelToRemovePath, modelTargetPath))
+		if (hasGrammar(modelToRemovePath) && !copyGrammar(modelToRemovePath, modelTargetPath))
 			return false;
-		if (!copyLanguageDescription(modelToRemovePath, modelTargetPath))
+		if (hasLanguageDescription(modelToRemovePath) && !copyLanguageDescription(modelToRemovePath, modelTargetPath))
 			return false;
-		if (!copyTrainingData(modelToRemovePath, modelTargetPath))
+		if (hasTraining(modelToRemovePath) && !copyTrainingData(modelToRemovePath, modelTargetPath))
 			return false;
 	
 		//remove modelToRemovePath
-		QDir oldModelDir(srcContainerTempPath);
+		QDir oldModelDir(modelToRemovePath);
 		QStringList files = oldModelDir.entryList(QDir::Files|QDir::NoDotAndDotDot);
 		bool allRemoved=true;
 		foreach (const QString& file, files)
@@ -812,8 +816,11 @@ bool SynchronisationManager::removeExcessModelBackups()
 			if (!QFile::remove(modelToRemovePath+file))
 				allRemoved=false;
 		}
+		oldModelDir.cdUp(); //move out of oldModelDir
 		if (!allRemoved || !oldModelDir.rmdir(modelToRemovePath))
 			return false;
+
+		models.remove(models.keys().at(0));
 	}
 	
 	return true;

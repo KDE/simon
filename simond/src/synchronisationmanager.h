@@ -69,24 +69,24 @@ class SynchronisationManager : public QObject
 		void setCurrentSrcContainerTime(const QDateTime& time);
 		
 		QDateTime getWordListDate();
-		bool hasWordList();
+		bool hasWordList(const QString& modelPath=QString());
 		WordListContainer* getWordList();
 		bool storeWordList(const QDateTime& changedDate, const QByteArray& simpleVocab,
 					const QByteArray& activeVocab, const QByteArray& activeLexicon);
 		
 		QDateTime getGrammarDate();
-		bool hasGrammar();
+		bool hasGrammar(const QString& modelPath=QString());
 		GrammarContainer* getGrammar();
 		bool storeGrammar(const QDateTime& changedDate, const QByteArray& grammarStructures);
 		
 		QDateTime getLanguageDescriptionDate();
-		bool hasLanguageDescription();
+		bool hasLanguageDescription(const QString& modelPath=QString());
 		LanguageDescriptionContainer* getLanguageDescription();
 		bool storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab, 
 				        const QByteArray& treeHed);
 		
 		QDateTime getTrainingDate();
-		bool hasTraining();
+		bool hasTraining(const QString& modelPath=QString());
 		TrainingContainer* getTraining();
 		bool storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& wavConfig,
 					const QByteArray& prompts);
