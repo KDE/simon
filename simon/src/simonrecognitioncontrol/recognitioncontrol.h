@@ -70,6 +70,7 @@ public:
 
 	bool getAvailableModels();
 	bool switchToModel(const QDateTime& model);
+	bool isConnected();
 
 private:
 	static RecognitionControl *instance;
@@ -135,7 +136,6 @@ private slots:
 	void slotDisconnected();
 	void sendRequest (qint32 request);
 	void login();
-	bool isConnected();
 	void connectedTo();
 	void errorOccured();
 	void connectTo( QString server="127.0.0.1", quint16 port=4444 );

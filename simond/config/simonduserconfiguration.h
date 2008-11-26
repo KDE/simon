@@ -40,6 +40,8 @@ class SimondUserConfiguration : public KCModule
 		void initDb();
 		QByteArray encryptPassword(const QString& pass);
 
+		bool recursiveDelete(const QString& dirPath);
+
 	private slots:
 		void addUser();
 		void deleteUser();

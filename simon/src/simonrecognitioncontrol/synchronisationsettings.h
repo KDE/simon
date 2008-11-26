@@ -41,6 +41,8 @@ private slots:
 	void displayList(const QList<QDateTime>& models);
 	void modelSelectionChanged();
 	void selectModel();
+	void connected();
+	void disconnected();
 	
 protected:
 	void showEvent(QShowEvent*);

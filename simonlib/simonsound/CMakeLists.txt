@@ -22,6 +22,7 @@ set( simonsound_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/recwidget.h
 	${CMAKE_CURRENT_SOURCE_DIR}/soundsettings.h
 	${CMAKE_CURRENT_SOURCE_DIR}/postprocessing.h
+	${CMAKE_CURRENT_SOURCE_DIR}/soundcontrol.h
 )
 
 kde4_add_kcfg_files(simonsound_LIB_SRCS soundconfig.kcfgc)

@@ -23,6 +23,7 @@
 
 #include "sounddevice.h"
 #include <QList>
+#include "simonsound_export.h"
 
 
 /**
@@ -37,13 +38,17 @@
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class SoundControl{
+class SIMONSOUND_EXPORT SoundControl{
 
 public:
 	SoundDeviceList* getInputDevices();
 	SoundDeviceList* getOutputDevices();
 
 	bool checkDeviceSupport(int inputDeviceId, int outputDeviceId, int channels, int samplerate);
+
+#ifdef Q_OS_UNIX
+	QString idToALSAName(int deviceId);
+#endif
 
     SoundControl();
 

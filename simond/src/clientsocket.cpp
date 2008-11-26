@@ -62,6 +62,7 @@ ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess,
 	modelSource = ClientSocket::Undefined;
 	
 	modelCompilationManager=0;
+	recognitionControl=0;
 	
 
 	kDebug() << "Created ClientSocket with Descriptor " << socketDescriptor;
@@ -158,8 +159,6 @@ void ClientSocket::processRequest()
 							SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
 					
 					
-
-
 					recognitionControl = new JuliusControl(username, this);
 					connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
 					connect(recognitionControl, SIGNAL(recognitionError(const QString&)), this, SLOT(recognitionError(const QString&)));
@@ -170,7 +169,10 @@ void ClientSocket::processRequest()
 					connect(recognitionControl, SIGNAL(recognitionPaused()), this, SLOT(recognitionPaused()));
 					connect(recognitionControl, SIGNAL(recognitionResumed()), this, SLOT(recognitionResumed()));
 					connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const QString&, const QString&)), this, SLOT(sendRecognitionResult(const QString&, const QString&, const QString&)));
+
+					synchronisationManager = new SynchronisationManager(username, this);
 					
+					kWarning() << "Sending Code";
 					sendCode(Simond::LoginSuccessful);
 				} else
 					sendCode(Simond::AuthenticationFailed);
@@ -703,8 +705,6 @@ void ClientSocket::startSynchronisation()
 	if (synchronisationRunning) return;
 				
 	synchronisationRunning = true;
-	if (!synchronisationManager)
-		synchronisationManager = new SynchronisationManager(username, this);
 				
 	if (!synchronisationManager->startSynchronisation())
 		sendCode(Simond::SynchronisationAlreadyRunning);
@@ -1076,6 +1076,7 @@ bool ClientSocket::sendTraining()
 
 void ClientSocket::sendAvailableModels()
 {
+	kWarning() << synchronisationManager;
 	QMap<QDateTime,QString> models = synchronisationManager->getModels();
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);

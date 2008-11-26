@@ -47,11 +47,37 @@ SynchronisationSettings::SynchronisationSettings(QWidget* parent, const QVariant
 	connect(ui.pbLoadList, SIGNAL(clicked()), this, SLOT(loadList()));
 	connect(ui.pbSelectModel, SIGNAL(clicked()), this, SLOT(selectModel()));
 	connect(ui.lwModels, SIGNAL(currentRowChanged(int)), this, SLOT(modelSelectionChanged()));
+	connect(ui.lwModels, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(selectModel()));
 	connect(RecognitionControl::getInstance(), SIGNAL(modelsAvailable(QList<QDateTime>)), this, SLOT(displayList(QList<QDateTime>)));
+	connect(RecognitionControl::getInstance(), SIGNAL(loggedIn()), this, SLOT(connected()));
+	connect(RecognitionControl::getInstance(), SIGNAL(disconnected()), this, SLOT(disconnected()));
+}
+
+void SynchronisationSettings::connected()
+{
+	loadList();
+}
+
+
+void SynchronisationSettings::disconnected()
+{
+	ui.lwModels->clear();
+	ui.pbSelectModel->setEnabled(false);
+	ui.lwModels->setEnabled(false);
 }
 
 void SynchronisationSettings::loadList()
 {
+	ui.lwModels->clear();
+
+	if (!RecognitionControl::getInstance()->isConnected())
+	{
+		KMessageBox::information(this, i18n("Nicht mit derm Server verbunden."));
+		ui.pbSelectModel->setEnabled(false);
+		ui.lwModels->setEnabled(false);
+		return;
+	}
+
 	if (!dlg)
 	{
 		dlg = new KProgressDialog(this, i18n("Lade verfügbare Modelle"), i18n("Lade Liste verfügbarer Modelle..."));
@@ -60,8 +86,6 @@ void SynchronisationSettings::loadList()
 		dlg->showCancelButton(false);
 	}
 		else dlg->show();
-	
-	ui.lwModels->clear();
 
 	if (!RecognitionControl::getInstance()->getAvailableModels())
 	{
@@ -123,6 +147,9 @@ void SynchronisationSettings::selectModel()
 		KMessageBox::information(this, i18n("Bitte selektieren Sie ein Sprachmodell aus der Liste"));
 		return;
 	}
+
+	if (KMessageBox::questionYesNoCancel(this, i18n("Wollen Sie wirklich zu dem ausgewählten Modell zurückkehren?")) != KMessageBox::Yes)
+		return;
 
 	QDateTime modelDate = ui.lwModels->currentItem()->data(Qt::UserRole).toDateTime();
 	if (modelDate.isNull()) {

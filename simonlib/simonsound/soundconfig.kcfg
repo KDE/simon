@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
-<kcfg> <kcfgfile />
+<kcfg> <kcfgfile name="simonsoundrc" />
   <include>KStandardDirs</include>
   <group name="Devices">
     <entry name="SoundInputDevice" type="Int">

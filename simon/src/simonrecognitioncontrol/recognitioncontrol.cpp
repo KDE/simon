@@ -46,6 +46,7 @@
 #include <KLocalizedString>
 #include <KDebug>
 #include <KPasswordDialog>
+#include <KStringHandler>
 
 #define advanceStream(x) messageLocker.lock();\
 					qint64 currentPos = ((qint64)msg.device()->pos())-((qint64)x);\
@@ -321,8 +322,13 @@ void RecognitionControl::login()
 
 		if (dlg.keepPassword())
 		{
+			KSharedConfig::Ptr config = KSharedConfig::openConfig("simonrecognitionrc");
+			KConfigGroup group(config, "Recognition");
 			RecognitionConfiguration::setJuliusdUsername(user);
 			RecognitionConfiguration::setJuliusdPassword(pass);
+			group.writeEntry("JuliusdUsername", user);
+			group.writeEntry("JuliusdPassword", KStringHandler::obscure(pass));
+			config->sync();
 		}
 	}
 

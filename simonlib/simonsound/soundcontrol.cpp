@@ -67,7 +67,6 @@ SoundDeviceList* SoundControl::getOutputDevices()
 		
 		if (deviceInfo->maxOutputChannels > 0)
 		{ 	//yay it's an output-device!
-			//TODO: samplerate as double? wtf?
 			sdl->append(SoundDevice ( i, QString(deviceInfo->name), deviceInfo->maxOutputChannels, (int) deviceInfo->defaultSampleRate ));
 		}
 	}
@@ -77,6 +76,29 @@ SoundDeviceList* SoundControl::getOutputDevices()
 	return sdl;
 }
 
+#ifdef Q_OS_UNIX
+QString SoundControl::idToALSAName(int deviceId)
+{
+	if (Pa_Initialize() < 0) return QString();
+
+	const PaDeviceInfo *deviceInfo = Pa_GetDeviceInfo( deviceId );
+	if (!deviceInfo) {
+		Pa_Terminate();
+		return QString();
+	}
+
+	QString devName = QString::fromUtf8(deviceInfo->name);
+
+	if (devName.contains("("))
+	{
+		devName = devName.remove(0, devName.indexOf("(")+1);
+		devName = devName.left(devName.indexOf(")"));
+	}
+
+	Pa_Terminate();
+	return devName;
+}
+#endif
 
 /**
  * \brief Returns the available input devices

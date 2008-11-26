@@ -25,6 +25,7 @@ CreateShortcutCommandWidget::CreateShortcutCommandWidget(QWidget *parent) : Crea
 	ui.setupUi(this);
 
 	ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
+	ui.ksShortcut->setModifierlessAllowed(true);
 
 	setWindowIcon(ShortcutCommand::staticCategoryIcon());
 	setWindowTitle(ShortcutCommand::staticCategoryText());

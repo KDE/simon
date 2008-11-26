@@ -24,6 +24,9 @@
 #include <QLayout>
 #include <QUrl>
 
+#include <KIcon>
+#include <KIconLoader>
+
 
 CommandPreviewWidget::CommandPreviewWidget(QWidget *parent) : QWidget(parent)
 {
@@ -47,7 +50,8 @@ void CommandPreviewWidget::updateCommand(const QModelIndex &commandIdx)
 		return;
 	} else show();
 
-	ui.lbIcon->setPixmap(command->getIcon().pixmap(64,64));
+	ui.lbIcon->setPixmap(KIcon(command->getIcon()).pixmap(64,64));
+//	ui.lbIcon->setPixmap(KIconLoader().loadIcon(command->getIconSrc(), KIconLoader::NoGroup, KIconLoader::SizeEnormous));
 	ui.lbName->setText(command->getTrigger());
 
 	QLayoutItem *child;

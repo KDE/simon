@@ -28,9 +28,15 @@
 
 
 #include "adinstreamer.h"
-#include <KDebug>
+
+#include <simonsound/soundcontrol.h>
+
 #include <QString>
 #include <QByteArray>
+
+#include <KDebug>
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 extern "C" {
 #include <julius/juliuslib.h>
@@ -241,6 +247,22 @@ void AdinStreamer::run()
 	kWarning() << "starting to stream to " << address << port;
 	shouldBeRunning=true;
 	adinstreamer_stop_at_next=false;
+
+#ifdef Q_OS_LINUX
+	//set alsa device to the one configured in the sound settings
+	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonsoundrc");
+	KConfigGroup group(config, "Devices");
+	int id = group.readEntry("SoundInputDevice", -1);
+	if (id != -1)
+	{
+		SoundControl c;
+		QString alsaId = c.idToALSAName(id);
+
+		kWarning() << "Dev: " << alsaId;
+
+		setenv("ALSADEV", alsaId.toUtf8().data(), 1/*overwrite*/);
+	}
+#endif
 	
 	Recog *recog;
 	Jconf *jconf;
@@ -262,7 +284,7 @@ void AdinStreamer::run()
 	/* read arguments and set parameters */
 	int argc=1;
 	char* argv[] = {"simon"};
-	//FIXME: device, samplerate!
+	//FIXME: device!
 	if (j_config_load_args(jconf, argc, argv) == -1) {
 		fprintf(stderr, "Error reading arguments\n");
 		return;

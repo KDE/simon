@@ -46,11 +46,15 @@ kde4_add_library( simonrecognitioncontrol  SHARED ${simonrecognition_LIB_SRCS} )
 
 
 IF(UNIX)
-target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${PORTAUDIO_LIBRARIES} ${SOUNDFILE_LIBRARY} ${JULIUS_LIBRARIES} speechgui speechmodelbase
+target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES}
+	${KDE4_KDEUI_LIBS} ${PORTAUDIO_LIBRARIES} ${SOUNDFILE_LIBRARY}
+	${JULIUS_LIBRARIES} speechgui simonsound speechmodelbase
   simonmodelmanagementui ) # for building the modelcontainers for synchronisation
 ENDIF(UNIX)
 IF(WIN32)
-target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${PORTAUDIO_LIBRARIES} ${DIRECTSOUND_LIBRARY} ${JULIUS_LIBRARIES} speechgui speechmodelbase
+target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES}
+	${KDE4_KDEUI_LIBS} ${PORTAUDIO_LIBRARIES} ${DIRECTSOUND_LIBRARY}
+	${JULIUS_LIBRARIES} speechgui simonsound speechmodelbase
   simonmodelmanagementui wsock32 dsound winmm ) # for building the modelcontainers for synchronisation
 ENDIF(WIN32)
 

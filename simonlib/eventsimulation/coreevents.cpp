@@ -74,6 +74,11 @@ void CoreEvents::unsetUnneededModifiers()
 void CoreEvents::sendShortcut(const QKeySequence& shortcut)
 {
 	int key = shortcut[0] & ~(Qt::SHIFT | Qt::META | Qt::CTRL | Qt::ALT);
+
+	//make key lowercase
+	if ((key >= 65) && (key <= 90))
+		key += 32;
+
 	Qt::KeyboardModifiers mods = Qt::KeyboardModifiers(shortcut[0] & (Qt::SHIFT | Qt::META | Qt::CTRL | Qt::ALT));
 	setModifierKey(mods, true);
 	sendKey(key);

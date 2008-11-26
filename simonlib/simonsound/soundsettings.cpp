@@ -33,7 +33,8 @@
 #include <KAboutData>
 #include <KPageWidgetItem>
 #include <KPageWidget>
- #include <kgenericfactory.h>
+#include <KDebug>
+#include <kgenericfactory.h>
 
 K_PLUGIN_FACTORY( SoundSettingsFactory, 
 			registerPlugin< SoundSettings >(); 
@@ -139,7 +140,6 @@ void SoundSettings::load()
 	KCModule::load();
 }
 
-#include <KDebug>
 
 bool SoundSettings::check()
 {
@@ -148,20 +148,10 @@ bool SoundSettings::check()
 	int channels = deviceUi.kcfg_SoundChannels->value();
 	int samplerate = deviceUi.kcfg_SoundSampleRate->value();
 
-	kDebug() << inputDevice << channels << samplerate;
-
 	bool ok = this->sc->checkDeviceSupport(inputDevice, outputDevice, channels, samplerate);
 
 	if (!ok)
 		KMessageBox::error(this, i18n("Die ausgewählte Soundkonfiguration wird von der Hardware nicht unterstützt.\n\nBitte korrigieren Sie die Werte.\n\nFalls notwendig, wenden Sie sich bitte an Ihren Soundkartenhersteller."));
-
-	
-// 	if ((channels != CoreConfiguration::soundChannels()) || 
-// 			(samplerate != CoreConfiguration::soundSampleRate()))
-// 	{
-// 		KMessageBox::information(this, i18n("Die konfigurierten Kanäle / Samplerate der Trainingstexte passt nicht mit den Soundeinstellungen zusammen.\n\nBitte korrigieren Sie ihre Konfiguration hier oder definieren Sie entsprechende Nachbearbeitungsketten um den Unterschied auszugleichen.") );
-// 		ok=false;
-// 	}
 
 	return ok;
 }
@@ -182,6 +172,13 @@ void SoundSettings::save()
 	KCModule::save();
 	SoundConfiguration::setSoundInputDevice(getSelectedInputDeviceId());
 	SoundConfiguration::setSoundOutputDevice(getSelectedOutputDeviceId());
+
+	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonsoundrc");
+	KConfigGroup group(config, "Devices");
+	group.writeEntry("SoundInputDevice", getSelectedInputDeviceId());
+	group.writeEntry("SoundOutputDevice", getSelectedOutputDeviceId());
+	config->sync();
+
 }
 
 void SoundSettings::slotChanged()

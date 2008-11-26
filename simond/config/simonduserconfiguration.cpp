@@ -115,37 +115,39 @@ void SimondUserConfiguration::deleteUser()
 			(KMessageBox::questionYesNoCancel(this, i18n("Wollen Sie auch das Sprachmodell vom Server entfernen?")) != KMessageBox::Yes))
 		return;
 
-	//remove model
-	QFile::remove(modelDir+"active/activemodelrc");
-	QFile::remove(modelDir+"active/tiedlist");
-	QFile::remove(modelDir+"active/hmmdefs");
-	QFile::remove(modelDir+"active/model.term");
-	QFile::remove(modelDir+"active/model.dfa");
-
-	//FIXME adapt to model backups
-	QFile::remove(modelDir+"src/lexicon");
-	QFile::remove(modelDir+"src/model.grammar");
-	QFile::remove(modelDir+"src/modelsrcrc");
-	QFile::remove(modelDir+"src/model.voca");
-	QFile::remove(modelDir+"src/prompts");
-	QFile::remove(modelDir+"src/shadow.voca");
-	QFile::remove(modelDir+"src/simplevocab");
-	QFile::remove(modelDir+"src/trainingrc");
-	QFile::remove(modelDir+"src/tree1.hed");
-	QFile::remove(modelDir+"src/wav_config");
-
-	QStringList samples = QDir(modelDir+"samples").entryList();
-	foreach (QString sample, samples)
-		QFile::remove(modelDir+"samples/"+sample);
-
-	QDir dir(modelDir);
-	dir.rmdir("active");
-	dir.rmdir("src");
-	dir.rmdir("samples");
-	dir.cdUp();
-	dir.rmdir(username);
+	if (!recursiveDelete(modelDir))
+		KMessageBox::sorry(this, i18n("Konnte Sprachmodell des benutzers nicht löschen"));
 }
 
+bool SimondUserConfiguration::recursiveDelete(const QString& dirPath)
+{
+	bool allDeleted=true;
+
+	QDir dir(dirPath);
+
+	//delete all files
+	QStringList files = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
+	foreach (const QString& file, files)
+		if (!QFile::remove(dirPath+QDir::separator()+file))
+			allDeleted=false;
+
+	//descend into subdirs
+	QStringList subDirs = dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot);
+	foreach (const QString& subDir, subDirs)
+	{
+		if (!recursiveDelete(dirPath+QDir::separator()+subDir))
+			allDeleted=false;
+	}
+
+	if (allDeleted)
+	{
+		//we can remove this dir
+		dir.cdUp();
+		dir.rmdir(dirPath);
+	}
+
+	return allDeleted;
+}
 
 QByteArray SimondUserConfiguration::encryptPassword(const QString& password)
 {
