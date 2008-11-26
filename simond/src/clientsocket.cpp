@@ -1149,7 +1149,6 @@ void ClientSocket::recognitionResumed()
 
 void ClientSocket::sendRecognitionResult(const QString& data, const QString& sampa, const QString& samparaw)
 {
-	kWarning() << data;
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray body;

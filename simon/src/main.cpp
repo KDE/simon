@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 	app.addLibraryPath(app.applicationDirPath()+"/plugins");
 
 	SimonView *pv = new SimonView();
-	pv->show();
+//	pv->show();
 	int ret= app.exec();
 	delete pv;
 	return ret;

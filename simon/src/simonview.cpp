@@ -39,6 +39,7 @@
 #include <simonactions/actionmanager.h>
 
 
+#include <QTimer>
 #include <QPixmap>
 #include <QCryptographicHash>
 #include <QCloseEvent>
@@ -151,9 +152,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	//hiding splash again after loading
 	info->hideSplash();
 
-	show();
-	QCoreApplication::processEvents();
-
 	ui.lbWelcomeDesc->setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/welcomebanner.png")));
 	ui.lbWarning->setStyleSheet("background-image: url(\""+KStandardDirs::locate("appdata", "themes/default/alphawarning.png")+"\"); padding-left:120px; padding-top:10px");
 
@@ -161,6 +159,9 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	ui.label_7->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
 	ui.label_9->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
 	ui.label_13->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
+
+	if (!control->startMinimized())
+		show();
 }
 
 void SimonView::setupActions()

@@ -1291,6 +1291,10 @@ void RecognitionControl::messageReceived()
 
 					recognitionReady=true;
 					emit recognitionStatusChanged(RecognitionControl::Ready);
+
+					if (RecognitionConfiguration::automaticallyEnableRecognition())
+						startRecognition();
+
 					break;
 				}
 

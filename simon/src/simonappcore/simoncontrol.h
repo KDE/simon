@@ -75,6 +75,7 @@ public:
 	~SimonControl();
 
 	bool passwordProtected();
+	bool startMinimized();
 	QString adminPassword();
 	bool askBeforeQuit();
 	

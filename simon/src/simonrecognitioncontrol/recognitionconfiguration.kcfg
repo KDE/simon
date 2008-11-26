@@ -7,6 +7,10 @@
       <label>If we should automatically connect to the Juliusd.</label>
       <default>false</default>
     </entry>
+    <entry name="AutomaticallyEnableRecognition" type="Bool">
+      <label>If we should automatically activate the recognition once we get the ready-signal</label>
+      <default>true</default>
+    </entry>
     <entry name="JuliusdUsername" type="String">
       <label>The username for Juliusd.</label>
     </entry>

@@ -62,6 +62,9 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	QObject::connect(recognitionControl, SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
 }
 
+bool SimonControl::startMinimized()
+{ return CoreConfiguration::startMinimized(); }
+
 bool SimonControl::askBeforeQuit()
 { return CoreConfiguration::askBeforeQuit(); }
 
