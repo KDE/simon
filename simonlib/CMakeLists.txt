@@ -1,3 +1,4 @@
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/po)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/commandpluginbase)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/eventsimulation)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonddatabaseaccess)
@@ -13,5 +14,5 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelcompilation)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelbase)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonprogresstracking)
 
-install( FILES settings-simon.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+#install( FILES settings-simon.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 install( FILES settings-simond.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

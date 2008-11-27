@@ -41,18 +41,11 @@
         <bool>false</bool>
        </property>
        <property name="text" >
-        <string>Für alle anwenden</string>
+        <string>Apply to all Plugins</string>
        </property>
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_2" >
-     <property name="text" >
-      <string>Kommandos:</string>
-     </property>
-    </widget>
    </item>
    <item>
     <widget class="KActionSelector" name="asCommandPlugins" >

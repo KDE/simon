@@ -16,9 +16,10 @@
    <item>
     <widget class="QLabel" name="label" >
      <property name="text" >
-      <string>Simon kann zwei verschiedene Typen von Wörterbüchern importieren: HADIFIX-BOMP Wörterbücher und HTK Wörterbücher.
+      <string>simon is able to import two different types of dictionaries:
+HADIFIX dictionaries and HTK compatible dictionaries.
 
-Bitte selektieren Sie welchen Typ von Wörterbuch Sie importieren möchten:</string>
+Please select the type of dictionary you want to import now.</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>
@@ -28,7 +29,7 @@ Bitte selektieren Sie welchen Typ von Wörterbuch Sie importieren möchten:</str
    <item>
     <widget class="QRadioButton" name="rbHadifixBOMP" >
      <property name="text" >
-      <string>Hadifix-BOMP</string>
+      <string>HADIFIX</string>
      </property>
      <property name="checked" >
       <bool>true</bool>
@@ -38,7 +39,7 @@ Bitte selektieren Sie welchen Typ von Wörterbuch Sie importieren möchten:</str
    <item>
     <widget class="QRadioButton" name="rbHTK" >
      <property name="text" >
-      <string>HTK Lexikon</string>
+      <string>HTK Lexicon</string>
      </property>
     </widget>
    </item>

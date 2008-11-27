@@ -16,7 +16,7 @@
    <item>
     <widget class="QLabel" name="lbDesc" >
      <property name="text" >
-      <string>Bitte wählen Sie die beiden Terminale aus den Listen aus und vergeben Sie einen (gemeinsamen) Namen.</string>
+      <string>Please select both terminals from the lists below and assign a name for the new, combined terminal.</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>
@@ -28,7 +28,7 @@
      <item>
       <widget class="QLabel" name="lbNewTerminal" >
        <property name="text" >
-        <string>Neuer Terminal-Name:</string>
+        <string>New Name:</string>
        </property>
       </widget>
      </item>
@@ -81,7 +81,7 @@
    <item>
     <widget class="QCheckBox" name="cbIncludeShadow" >
      <property name="text" >
-      <string>Schattenlexikon einbeziehen</string>
+      <string>Change shadow vocabulary</string>
      </property>
      <property name="checked" >
       <bool>true</bool>
@@ -91,7 +91,7 @@
    <item>
     <widget class="QCheckBox" name="cbIncludeGrammar" >
      <property name="text" >
-      <string>Grammatik anpassen</string>
+      <string>Change grammar</string>
      </property>
      <property name="checked" >
       <bool>true</bool>
@@ -103,7 +103,7 @@
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>20</width>
        <height>40</height>
@@ -114,6 +114,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
   <customwidget>
    <class>SimonListWidget</class>
    <extends>KListWidget</extends>

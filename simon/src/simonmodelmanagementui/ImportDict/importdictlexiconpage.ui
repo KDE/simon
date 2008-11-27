@@ -16,9 +16,9 @@
    <item>
     <widget class="QLabel" name="lbDesc" >
      <property name="text" >
-      <string>Wenn Sie bereits ein von vorigen simon Versionen, oder von Hand generiertes Lexicon besitzen, können Sie hier den Pfad zu dieser Datei eingeben und es wird zu ihrem aktuellen simon Lexicon hinzugefügt.
+      <string>To import a HTK compatible lexicon (like the voxforge dictionary) please provide the file below.
 
-Bitte beachten Sie, dass diese Lexica keine Grammatikdefinitionen besitzen.</string>
+Please keep in mind that those dictionaries don't provide information about terminals of the words.</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>
@@ -46,7 +46,7 @@ Bitte beachten Sie, dass diese Lexica keine Grammatikdefinitionen besitzen.</str
      <item>
       <widget class="QLabel" name="lbFile" >
        <property name="text" >
-        <string>Datei:</string>
+        <string>File:</string>
        </property>
       </widget>
      </item>

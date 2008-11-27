@@ -16,11 +16,9 @@
    <item>
     <widget class="QLabel" name="lbDescription" >
      <property name="text" >
-      <string>Die Texte werden analysiert.
+      <string>Texts are being analyzed...
 
-Dies kann je nach Umfang der Texte und der Wortliste einige Zeit dauern.
-
-Bitte beachten Sie das die Wörter mit Hilfe der Wortliste aufgelöst werden. Wörter die nicht in der Wortliste vorkommen, können nicht aufgelöst werden und die Sätze in denen sie vorkommen können nicht interpretiert werden.</string>
+This can take a few minutes...</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>
@@ -32,7 +30,7 @@ Bitte beachten Sie das die Wörter mit Hilfe der Wortliste aufgelöst werden. W�
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>20</width>
        <height>40</height>
@@ -43,7 +41,7 @@ Bitte beachten Sie das die Wörter mit Hilfe der Wortliste aufgelöst werden. W�
    <item>
     <widget class="QLabel" name="label_2" >
      <property name="text" >
-      <string>Gesamt:</string>
+      <string>Overall:</string>
      </property>
     </widget>
    </item>
@@ -57,7 +55,7 @@ Bitte beachten Sie das die Wörter mit Hilfe der Wortliste aufgelöst werden. W�
    <item>
     <widget class="QLabel" name="label" >
      <property name="text" >
-      <string>Datei:</string>
+      <string>File:</string>
      </property>
     </widget>
    </item>
@@ -76,7 +74,7 @@ Bitte beachten Sie das die Wörter mit Hilfe der Wortliste aufgelöst werden. W�
       </font>
      </property>
      <property name="text" >
-      <string>Warten...</string>
+      <string>Waiting...</string>
      </property>
      <property name="alignment" >
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -88,7 +86,7 @@ Bitte beachten Sie das die Wörter mit Hilfe der Wortliste aufgelöst werden. W�
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>20</width>
        <height>40</height>

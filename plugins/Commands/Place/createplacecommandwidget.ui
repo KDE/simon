@@ -16,23 +16,23 @@
    <item row="0" column="0" colspan="2" >
     <widget class="QCommandLinkButton" name="cbImportPlace" >
      <property name="text" >
-      <string>Ort importieren</string>
+      <string>Import Place</string>
      </property>
      <property name="description" >
-      <string>Dieser Assistent kann Ihnen helfen, lokale und entfernte Orte mit Kommandos zu verknüpfen.</string>
+      <string>Using this wizard, you can import local and remote places easily.</string>
      </property>
     </widget>
    </item>
    <item row="1" column="0" colspan="2" >
     <widget class="QCommandLinkButton" name="commandLinkButton_3" >
      <property name="text" >
-      <string>Manuell</string>
+      <string>Manual</string>
      </property>
      <property name="checkable" >
       <bool>true</bool>
      </property>
      <property name="description" >
-      <string>Notwendigen Parameter händisch konfigurieren.</string>
+      <string>Configure the necessairy parameters manually</string>
      </property>
     </widget>
    </item>
@@ -42,7 +42,7 @@
       <bool>false</bool>
      </property>
      <property name="text" >
-      <string>Ort:</string>
+      <string>URL:</string>
      </property>
     </widget>
    </item>

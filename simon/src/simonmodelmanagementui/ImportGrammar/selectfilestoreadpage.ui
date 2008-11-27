@@ -16,11 +16,17 @@
    <item>
     <widget class="QLabel" name="lbUnknownDesc" >
      <property name="text" >
-      <string>Wenn das folgende Feld gesetzt ist, werden auch Sätze deren Grammatikalischen Komponenten nicht komplett bekannt sind importiert (die Sätze beinhalten dann "Unbekannt"e Komponenten)
-(Wörter die nicht im Wörterbuch vorkommen oder mehr als eine Bedeutung haben können werden trozdem ignoriert)</string>
+      <string>If you check the following field, sentences containing words with unknown terminals will also be imported (words with more than one terminal will still cause the sentence to be ignored).</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbIncludeUnknown" >
+     <property name="text" >
+      <string>Also import unknown sentences</string>
      </property>
     </widget>
    </item>
@@ -34,17 +40,10 @@
    <item>
     <widget class="KEditListBox" name="elbFiles" >
      <property name="title" >
-      <string>Zu importierende Dateien</string>
+      <string>Files to import</string>
      </property>
      <property name="buttons" >
       <set>KEditListBox::Add|KEditListBox::Remove</set>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="cbIncludeUnknown" >
-     <property name="text" >
-      <string>Auch unbekannte Konstrukte importieren</string>
      </property>
     </widget>
    </item>
@@ -62,5 +61,6 @@
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
+ <resources/>
  <connections/>
 </ui>

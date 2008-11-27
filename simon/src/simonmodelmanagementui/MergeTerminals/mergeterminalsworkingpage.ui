@@ -16,9 +16,9 @@
    <item>
     <widget class="QLabel" name="lbDesc" >
      <property name="text" >
-      <string>Die gewählten Terminale werden jetzt zu dem neuen, gemeinsamen Terminal verbunden.
+      <string>The selected terminals will be now merged to a new one.
 
-Dies kann einige Zeit in Anspruch nehmen.</string>
+This can take some time...</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>
@@ -30,7 +30,7 @@ Dies kann einige Zeit in Anspruch nehmen.</string>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>20</width>
        <height>40</height>
@@ -65,7 +65,7 @@ Dies kann einige Zeit in Anspruch nehmen.</string>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" >
+     <property name="sizeHint" stdset="0" >
       <size>
        <width>20</width>
        <height>40</height>

@@ -25,13 +25,13 @@
      </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
-       <string>Allgemein</string>
+       <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout" >
        <item row="0" column="0" colspan="2" >
         <widget class="QCheckBox" name="kcfg_JuliusdAutoConnect" >
          <property name="text" >
-          <string>Beim simon-Start verbinden</string>
+          <string>Connect automatically on simon start</string>
          </property>
          <property name="tristate" >
           <bool>false</bool>
@@ -41,14 +41,14 @@
        <item row="1" column="0" colspan="2" >
         <widget class="QCheckBox" name="kcfg_AutomaticallyEnableRecognition" >
          <property name="text" >
-          <string>Sobald verfügbar, Erkennung aktivieren</string>
+          <string>Start Recognition immediately once available</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0" >
         <widget class="QLabel" name="lbUsername" >
          <property name="text" >
-          <string>Benutzername:</string>
+          <string>Username:</string>
          </property>
          <property name="buddy" >
           <cstring>kcfg_JuliusdUsername</cstring>
@@ -61,7 +61,7 @@
        <item row="3" column="0" >
         <widget class="QLabel" name="lbPassword" >
          <property name="text" >
-          <string>Passwort:</string>
+          <string>Password:</string>
          </property>
          <property name="buddy" >
           <cstring>kcfg_JuliusdPassword</cstring>
@@ -92,7 +92,7 @@
      </widget>
      <widget class="QWidget" name="tab_2" >
       <attribute name="title" >
-       <string>Netzwerk</string>
+       <string>Network</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout" >
        <item>
@@ -101,7 +101,7 @@
           <bool>false</bool>
          </property>
          <property name="text" >
-          <string>Verschlüsselung verwenden</string>
+          <string>Use Encryption</string>
          </property>
         </widget>
        </item>
@@ -110,7 +110,7 @@
          <item>
           <widget class="QLabel" name="lbTimeout" >
            <property name="text" >
-            <string>Timeout (Millisekunden):</string>
+            <string>Timeout (Milliseconds):</string>
            </property>
           </widget>
          </item>

@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>571</width>
-    <height>449</height>
+    <height>376</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -24,9 +24,15 @@
         </size>
        </property>
        <property name="text" >
-        <string>Sie haben ein Wort zum Löschen ausgewählt.
-
-"Löschen" eines Wortes kann in simon zwei Bedeutungen haben.</string>
+        <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Bitstream Vera Sans'; font-size:8pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">You are about to delete a word.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">To "delete" a word can have two different meanings.&lt;/p>
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Regardless of what type of deletion you choose, &lt;span style=" font-weight:600;">all trainignsmaterial referencing the word will be removed.&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
        </property>
        <property name="wordWrap" >
         <bool>true</bool>
@@ -114,7 +120,7 @@
         <item row="1" column="0" >
          <widget class="QLabel" name="lbPronunciationD" >
           <property name="text" >
-           <string>Aussprache:</string>
+           <string>Pronunciation:</string>
           </property>
          </widget>
         </item>
@@ -128,7 +134,7 @@
         <item row="3" column="0" >
          <widget class="QLabel" name="lbRecognitionRateD" >
           <property name="text" >
-           <string>Erkennungsrate:</string>
+           <string>Recognition Rate:</string>
           </property>
          </widget>
         </item>
@@ -181,7 +187,7 @@
    <item>
     <widget class="QRadioButton" name="rbShadow" >
      <property name="text" >
-      <string>Das Wort aus dem aktiven Wortschatz entfernen</string>
+      <string>Remove the word from the active vocabulary</string>
      </property>
      <property name="checked" >
       <bool>true</bool>
@@ -209,7 +215,7 @@
      <item>
       <widget class="QLabel" name="lbShadowDesc" >
        <property name="text" >
-        <string>Das Wort bleibt weiter gespeichert, wird allerdings bei der Erkennung nicht mehr in Betracht gezogen.  Alle Trainings- und Sprachsamples die das Wort beihnalten werden entfernt.</string>
+        <string>The word will stay saved, but it will be moved to the shadow lexicon and thus no longer considered for recognition.</string>
        </property>
        <property name="wordWrap" >
         <bool>true</bool>
@@ -221,7 +227,7 @@
    <item>
     <widget class="QRadioButton" name="rbDelete" >
      <property name="text" >
-      <string>Das Wort unwiederruflich löschen</string>
+      <string>Completely remove the word</string>
      </property>
     </widget>
    </item>
@@ -246,7 +252,7 @@
      <item>
       <widget class="QLabel" name="lbDeleteDesc" >
        <property name="text" >
-        <string>Das unwiederrufliche Löschen entfernt das Wort aus dem aktiven- und dem Schattenlexikon und entfernt alle Trainings- und Sprachsamples die das Wort betreffen.</string>
+        <string>This will remove the word from both active and shadow vocabulary.</string>
        </property>
        <property name="wordWrap" >
         <bool>true</bool>

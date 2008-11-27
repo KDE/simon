@@ -25,7 +25,7 @@
       <item>
        <widget class="QLabel" name="lbPrompt" >
         <property name="text" >
-         <string>Hier kommt jetzt der Text den jemand vorlesen muss. Mit konfigurierbarem Font</string>
+         <string/>
         </property>
         <property name="wordWrap" >
          <bool>true</bool>
@@ -37,7 +37,7 @@
         <item>
          <widget class="KPushButton" name="pbRecord" >
           <property name="text" >
-           <string>Aufnehmen</string>
+           <string>Record</string>
           </property>
           <property name="checkable" >
            <bool>true</bool>
@@ -47,7 +47,7 @@
         <item>
          <widget class="KPushButton" name="pbPlay" >
           <property name="text" >
-           <string>Abspielen</string>
+           <string>Play</string>
           </property>
           <property name="checkable" >
            <bool>true</bool>
@@ -57,7 +57,7 @@
         <item>
          <widget class="KPushButton" name="pbDelete" >
           <property name="text" >
-           <string>Löschen</string>
+           <string>Delete</string>
           </property>
          </widget>
         </item>
@@ -78,5 +78,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
  <connections/>
 </ui>

@@ -16,7 +16,7 @@
    <item>
     <widget class="QCheckBox" name="kcfg_AskForSync" >
      <property name="text" >
-      <string>Nachfragen vor Synchronisation</string>
+      <string>Ask for Confirmation before Synchronisation</string>
      </property>
     </widget>
    </item>
@@ -26,13 +26,13 @@
       <bool>true</bool>
      </property>
      <property name="title" >
-      <string>Verfügbare Sprachmodelle</string>
+      <string>Available Speech Models</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout" >
       <item>
        <widget class="QLabel" name="label" >
         <property name="text" >
-         <string>Hier können Sie zu einer älteren Modellversion zurückkehren.</string>
+         <string>Here you can revert back to old model versions.</string>
         </property>
         <property name="wordWrap" >
          <bool>true</bool>
@@ -51,7 +51,7 @@
         <item>
          <widget class="KPushButton" name="pbLoadList" >
           <property name="text" >
-           <string>Liste verfügbarer Modelle laden</string>
+           <string>List available Models</string>
           </property>
          </widget>
         </item>
@@ -74,19 +74,15 @@
            <bool>false</bool>
           </property>
           <property name="text" >
-           <string>Modell auswählen</string>
+           <string>Choose Model</string>
           </property>
          </widget>
         </item>
        </layout>
       </item>
      </layout>
-     <zorder>tableView</zorder>
-     <zorder>pbSelectModel</zorder>
-     <zorder>horizontalSpacer</zorder>
      <zorder>lwModels</zorder>
      <zorder>label</zorder>
-     <zorder>pbSelectModel</zorder>
     </widget>
    </item>
   </layout>

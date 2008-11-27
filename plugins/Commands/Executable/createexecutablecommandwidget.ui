@@ -16,23 +16,23 @@
    <item row="0" column="0" colspan="2" >
     <widget class="QCommandLinkButton" name="cbImportProgram" >
      <property name="text" >
-      <string>Programm importieren</string>
+      <string>Import Program</string>
      </property>
      <property name="description" >
-      <string>Hier können Sie installierte Programme automatisch importieren. </string>
+      <string>This wizard will help you to add commands for installed programs easily</string>
      </property>
     </widget>
    </item>
    <item row="1" column="0" colspan="2" >
     <widget class="QCommandLinkButton" name="commandLinkButton_2" >
      <property name="text" >
-      <string>Manuell</string>
+      <string>Manual</string>
      </property>
      <property name="checkable" >
       <bool>true</bool>
      </property>
      <property name="description" >
-      <string>Notwendigen Parameter händisch konfigurieren.</string>
+      <string>Configure the needed parameters manually</string>
      </property>
     </widget>
    </item>
@@ -42,7 +42,7 @@
       <bool>false</bool>
      </property>
      <property name="text" >
-      <string>Ausführbare Datei:</string>
+      <string>Executable:</string>
      </property>
     </widget>
    </item>
@@ -59,7 +59,7 @@
       <bool>false</bool>
      </property>
      <property name="text" >
-      <string>Arbeitspfad:</string>
+      <string>Working Directory:</string>
      </property>
     </widget>
    </item>

@@ -147,8 +147,8 @@
              <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
 &lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; font-size:11pt;">&lt;span style=" font-size:9pt;">Diese frühe Alpha-Version ist noch nicht für den produktiven Betrieb gedacht. Sollten Programmfehler auftreten, kontaktieren Sie bitte die Entwickler um diese schnellstmöglich zu beheben.&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Bitstream Vera Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; font-size:11pt;">&lt;span style=" font-size:9pt;">This early Alpha-Version is not yet suited for productive use. Should you encounter bugs, please contact the developers to help us improve simon.&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
             </property>
             <property name="wordWrap" >
              <bool>true</bool>
@@ -219,7 +219,7 @@ p, li { white-space: pre-wrap; }
              </font>
             </property>
             <property name="title" >
-             <string>Kontakt</string>
+             <string>Contact</string>
             </property>
             <layout class="QGridLayout" name="gridLayout" >
              <property name="horizontalSpacing" >
@@ -254,12 +254,11 @@ p, li { white-space: pre-wrap; }
              <item row="1" column="1" >
               <widget class="QLabel" name="label_6" >
                <property name="text" >
-                <string>&lt;html>
-&lt;head />
-&lt;body>
-&lt;a href="mailto:support@simon-listens.org">Direkter Mail-Support&lt;/a>
-&lt;/body>
-&lt;/html></string>
+                <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Bitstream Vera Sans'; font-size:8pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;a href="mailto:support@simon-listens.org">&lt;span style=" text-decoration: underline; color:#0000ff;">Direct Mail-Support&lt;/span>&lt;/a> &lt;/p>&lt;/body>&lt;/html></string>
                </property>
                <property name="openExternalLinks" >
                 <bool>true</bool>
@@ -269,12 +268,11 @@ p, li { white-space: pre-wrap; }
              <item row="0" column="1" >
               <widget class="QLabel" name="label_8" >
                <property name="text" >
-                <string>&lt;html>
-&lt;head />
-&lt;body>
-&lt;a href="http://sourceforge.net/forum/?group_id=190872">Community Forum&lt;/a>
-&lt;/body>
-&lt;/html></string>
+                <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Bitstream Vera Sans'; font-size:8pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;a href="http://sourceforge.net/forum/?group_id=190872">&lt;span style=" text-decoration: underline; color:#0000ff;">Community Forums&lt;/span>&lt;/a>&lt;/p>&lt;/body>&lt;/html></string>
                </property>
                <property name="openExternalLinks" >
                 <bool>true</bool>
@@ -318,7 +316,7 @@ p, li { white-space: pre-wrap; }
              </font>
             </property>
             <property name="title" >
-             <string>Dokumentation</string>
+             <string>Documentation</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_2" >
              <property name="horizontalSpacing" >
@@ -353,12 +351,11 @@ p, li { white-space: pre-wrap; }
              <item row="2" column="1" >
               <widget class="QLabel" name="label_14" >
                <property name="text" >
-                <string>&lt;html>
-&lt;head />
-&lt;body>
-&lt;a href="http://www.simon-listens.org">Offizielle Homepage&lt;/a>
-&lt;/body>
-&lt;/html></string>
+                <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Bitstream Vera Sans'; font-size:8pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;a href="http://www.simon-listens.org">&lt;span style=" text-decoration: underline; color:#0000ff;">Official Homepage&lt;/span>&lt;/a> &lt;/p>&lt;/body>&lt;/html></string>
                </property>
                <property name="openExternalLinks" >
                 <bool>true</bool>
@@ -416,8 +413,6 @@ p, li { white-space: pre-wrap; }
      </widget>
     </item>
    </layout>
-   <zorder>pbProgress</zorder>
-   <zorder>inlineView</zorder>
   </widget>
  </widget>
  <customwidgets>

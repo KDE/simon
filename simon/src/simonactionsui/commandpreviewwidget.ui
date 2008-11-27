@@ -145,7 +145,7 @@
      <item>
       <widget class="KPushButton" name="pbTrigger" >
        <property name="text" >
-        <string>Auslösen</string>
+        <string>Trigger</string>
        </property>
       </widget>
      </item>

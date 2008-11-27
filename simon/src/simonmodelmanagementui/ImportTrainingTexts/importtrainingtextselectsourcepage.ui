@@ -16,10 +16,7 @@
    <item>
     <widget class="QLabel" name="lbDesc" >
      <property name="text" >
-      <string>Sie können Texte aus lokalen Textdateien importieren oder simon-kompatible Texte aus dem Internet laden.
-
-Bitte wählen Sie die gewünschte Quelle aus:
-</string>
+      <string>You can import trainingstexts from local text files or download predefined trainingstext from an online repository.</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>
@@ -27,9 +24,25 @@ Bitte wählen Sie die gewünschte Quelle aus:
     </widget>
    </item>
    <item>
+    <spacer name="verticalSpacer_2" >
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType" >
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>15</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
     <widget class="QRadioButton" name="rbLocal" >
      <property name="text" >
-      <string>Lokale Textdatei</string>
+      <string>Local text file</string>
      </property>
      <property name="checked" >
       <bool>true</bool>
@@ -37,32 +50,24 @@ Bitte wählen Sie die gewünschte Quelle aus:
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="lbLocalDesc" >
-     <property name="text" >
-      <string>Wählen Sie diese Option wenn Sie einen Text, den Sie gerne mit in Verbindung mit simon verwenden möchten, gespeichert haben.
-</string>
-     </property>
-     <property name="wordWrap" >
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QRadioButton" name="rbRemote" >
      <property name="text" >
-      <string>Aus dem Internet laden</string>
+      <string>Download text from online repository</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="lbRemoteDesc" >
-     <property name="text" >
-      <string>Wenn Sie diese Option wählen wird zuerst eine Liste der vorhandenen Texte aus dem Internet geladen aus welcher Sie sich dann einen Text aussuchen und importieren kännen.</string>
+    <spacer name="verticalSpacer" >
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
      </property>
-     <property name="wordWrap" >
-      <bool>true</bool>
+     <property name="sizeHint" stdset="0" >
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
      </property>
-    </widget>
+    </spacer>
    </item>
   </layout>
  </widget>

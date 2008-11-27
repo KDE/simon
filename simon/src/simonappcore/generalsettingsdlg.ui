@@ -16,7 +16,7 @@
    <item>
     <widget class="QGroupBox" name="gbGeneral" >
      <property name="title" >
-      <string>Allgemein</string>
+      <string>General</string>
      </property>
      <property name="flat" >
       <bool>false</bool>
@@ -25,21 +25,21 @@
       <item row="2" column="0" >
        <widget class="QCheckBox" name="kcfg_AskBeforeQuit" >
         <property name="text" >
-         <string>Nachfragen vor dem Beenden</string>
+         <string>Ask before quitting</string>
         </property>
        </widget>
       </item>
       <item row="0" column="0" >
        <widget class="QCheckBox" name="kcfg_AutoStart" >
         <property name="text" >
-         <string>Starte simon bei KDE Start</string>
+         <string>Start simon on KDE-start</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0" >
        <widget class="QCheckBox" name="kcfg_StartMinimized" >
         <property name="text" >
-         <string>simon minimiert starten</string>
+         <string>Start simon minimized</string>
         </property>
        </widget>
       </item>

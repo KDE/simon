@@ -18,7 +18,7 @@
      <item row="0" column="0" >
       <widget class="QLabel" name="label" >
        <property name="text" >
-        <string>Auslöser:</string>
+        <string>Trigger:</string>
        </property>
       </widget>
      </item>
@@ -30,7 +30,7 @@
    <item>
     <widget class="QCheckBox" name="cbUseRealTransparency" >
      <property name="text" >
-      <string>Echte Transparenz verwenden</string>
+      <string>Use real transparency</string>
      </property>
     </widget>
    </item>

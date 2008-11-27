@@ -21,7 +21,7 @@
    <item>
     <widget class="KEditListBox" name="kcfg_GrammarStructures" >
      <property name="title" >
-      <string>Satzstrukturen</string>
+      <string>Sentence Structures</string>
      </property>
      <property name="buttons" >
       <set>KEditListBox::Add|KEditListBox::Remove</set>
@@ -40,7 +40,7 @@
      <item>
       <widget class="KPushButton" name="pbImportTexts" >
        <property name="text" >
-        <string>Textimport</string>
+        <string>Import Texts</string>
        </property>
        <property name="checkable" >
         <bool>false</bool>
@@ -50,7 +50,7 @@
      <item>
       <widget class="KPushButton" name="pbRename" >
        <property name="text" >
-        <string>Terminal umbenennen</string>
+        <string>Rename Terminal</string>
        </property>
        <property name="checkable" >
         <bool>false</bool>
@@ -60,7 +60,7 @@
      <item>
       <widget class="KPushButton" name="pbMerge" >
        <property name="text" >
-        <string>Terminale verbinden</string>
+        <string>Merge Terminals</string>
        </property>
        <property name="checkable" >
         <bool>false</bool>

@@ -16,11 +16,9 @@
    <item>
     <widget class="QLabel" name="lbMain" >
      <property name="text" >
-      <string>Der angegebene Ordner wird verarbeit.
-Sie können den Fortschritt mit dem Fortschrittsbalken
-überprüfen.
+      <string>The selected folder is being processed.
 
-Bitte haben Sie einen Moment Geduld.</string>
+Please wait a moment...</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>
@@ -46,7 +44,7 @@ Bitte haben Sie einen Moment Geduld.</string>
       <number>0</number>
      </property>
      <property name="value" >
-      <number>44449</number>
+      <number>44870</number>
      </property>
     </widget>
    </item>

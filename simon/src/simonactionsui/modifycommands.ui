@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Kommando</string>
+   <string>Command</string>
   </property>
   <layout class="QGridLayout" name="gridLayout" >
    <item row="0" column="0" >
@@ -22,7 +22,7 @@
       </font>
      </property>
      <property name="text" >
-      <string>Name (Auslöser):</string>
+      <string>Name (Trigger):</string>
      </property>
     </widget>
    </item>
@@ -68,7 +68,7 @@
    <item row="1" column="0" >
     <widget class="QLabel" name="label" >
      <property name="text" >
-      <string>Typ:</string>
+      <string>Type:</string>
      </property>
     </widget>
    </item>

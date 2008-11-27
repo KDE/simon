@@ -18,12 +18,16 @@
      <item>
       <widget class="QLabel" name="label_2" >
        <property name="text" >
-        <string>Tastenkürzel:</string>
+        <string>Shortcut:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KKeySequenceWidget" name="ksShortcut" />
+      <widget class="KKeySequenceWidget" name="ksShortcut" >
+       <property name="multiKeyShortcutsAllowed" >
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

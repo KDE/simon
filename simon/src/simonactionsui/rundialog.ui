@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Ausführen</string>
+   <string>Run</string>
   </property>
   <property name="windowIcon" >
    <iconset>
@@ -43,7 +43,7 @@
       <item>
        <widget class="KPushButton" name="pbNewCommand" >
         <property name="text" >
-         <string>Neues Kommando</string>
+         <string>New Command</string>
         </property>
        </widget>
       </item>
@@ -56,7 +56,7 @@
          <string>In Entwicklung...</string>
         </property>
         <property name="text" >
-         <string>Aktivitäten importieren</string>
+         <string>Import Activities</string>
         </property>
        </widget>
       </item>
@@ -79,7 +79,7 @@
          <bool>false</bool>
         </property>
         <property name="text" >
-         <string>Bearbeiten</string>
+         <string>Edit</string>
         </property>
        </widget>
       </item>
@@ -89,7 +89,7 @@
          <bool>false</bool>
         </property>
         <property name="text" >
-         <string>Löschen</string>
+         <string>Delete</string>
         </property>
        </widget>
       </item>
@@ -98,5 +98,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
  <connections/>
 </ui>

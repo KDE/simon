@@ -16,21 +16,21 @@
    <item>
     <widget class="QCheckBox" name="kcfg_ProcessInternal" >
      <property name="text" >
-      <string>Auch interne Aufnahmen nachbearbeiten</string>
+      <string>Apply filters to recordings recorded with simon</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="KEditListBox" name="kcfg_ProcessingFilters" >
      <property name="title" >
-      <string>Nachbearbeitungsfilter</string>
+      <string>Post-Processing Commands</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QLabel" name="label" >
      <property name="text" >
-      <string>Legende: %1........Eingabedatei, %2........Ausgabedatei</string>
+      <string>Legend: %1........Inputfile, %2........Outputfile</string>
      </property>
     </widget>
    </item>

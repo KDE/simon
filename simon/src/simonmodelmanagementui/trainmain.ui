@@ -33,12 +33,12 @@
      </column>
      <column>
       <property name="text" >
-       <string>Seiten</string>
+       <string>Pages</string>
       </property>
      </column>
      <column>
       <property name="text" >
-       <string>Relevanz</string>
+       <string>Relevance</string>
       </property>
      </column>
     </widget>
@@ -58,7 +58,7 @@
       <enum>Qt::RightToLeft</enum>
      </property>
      <property name="text" >
-      <string>   (Markierten Text &amp;vorlesen (trainieren</string>
+      <string>Start Training</string>
      </property>
      <property name="iconSize" >
       <size>
@@ -76,7 +76,7 @@
         <string>Löschen des markierten Textes aus dem System</string>
        </property>
        <property name="text" >
-        <string>  Markierten Text &amp;löschen</string>
+        <string>Delete selected Text</string>
        </property>
       </widget>
      </item>
@@ -86,7 +86,7 @@
         <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
        </property>
        <property name="text" >
-        <string>  Text &amp;importieren</string>
+        <string>Import Text</string>
        </property>
       </widget>
      </item>
@@ -96,7 +96,7 @@
         <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
        </property>
        <property name="text" >
-        <string>Trainingsdaten Importieren</string>
+        <string>Import Trainingsdata</string>
        </property>
       </widget>
      </item>

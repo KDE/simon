@@ -31,7 +31,7 @@
          <item>
           <widget class="QLabel" name="lbVocab" >
            <property name="text" >
-            <string>Vokabular:</string>
+            <string>Vocabulary:</string>
            </property>
           </widget>
          </item>
@@ -97,7 +97,7 @@
              </size>
             </property>
             <property name="text" >
-             <string>Zeige auch unverwendete Wörter an (Schattenlexikon)</string>
+             <string>Include unused Words from the Shadow Lexicon</string>
             </property>
            </widget>
           </item>
@@ -116,7 +116,7 @@
           <item>
            <widget class="KPushButton" name="pbImport" >
             <property name="text" >
-             <string>Importiere Wörterbuch</string>
+             <string>Import Dictionary</string>
             </property>
            </widget>
           </item>
@@ -136,7 +136,7 @@
           <item>
            <widget class="KPushButton" name="pbRemoveWord" >
             <property name="text" >
-             <string>Selektiertes Wort &amp;löschen</string>
+             <string>Remove Selected Word</string>
             </property>
            </widget>
           </item>
@@ -171,7 +171,7 @@
           </size>
          </property>
          <property name="text" >
-          <string>Einzelne Wörter trainieren:</string>
+          <string>Train Words:</string>
          </property>
         </widget>
        </item>
@@ -200,14 +200,14 @@
        <item>
         <widget class="KPushButton" name="pbAddToTraining" >
          <property name="text" >
-          <string>Zum Training &amp;hinzufügen</string>
+          <string>Add to Training</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="KPushButton" name="pbDeleteTrainingWord" >
          <property name="text" >
-          <string>Wort aus Training &amp;löschen</string>
+          <string>Remove Word from Training</string>
          </property>
         </widget>
        </item>
@@ -217,7 +217,7 @@
           <string>Trainiert die Liste der Wörter</string>
          </property>
          <property name="text" >
-          <string>Liste &amp;Trainieren</string>
+          <string>Train selected Words</string>
          </property>
         </widget>
        </item>

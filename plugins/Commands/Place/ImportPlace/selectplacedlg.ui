@@ -16,7 +16,7 @@
    <item>
     <widget class="QRadioButton" name="rbLocalPlace" >
      <property name="text" >
-      <string>Lokaler Ort</string>
+      <string>Local Place</string>
      </property>
     </widget>
    </item>
@@ -46,7 +46,7 @@
    <item>
     <widget class="QRadioButton" name="rbRemotePlace" >
      <property name="text" >
-      <string>Entfernter Ort</string>
+      <string>Remote URL</string>
      </property>
     </widget>
    </item>
@@ -91,7 +91,7 @@
        <item>
         <widget class="QGroupBox" name="gbRemoteHelp" >
          <property name="title" >
-          <string>Hilfe</string>
+          <string>Help</string>
          </property>
          <property name="flat" >
           <bool>true</bool>
@@ -106,7 +106,7 @@
           <item row="0" column="0" >
            <widget class="QLabel" name="lbProtocol" >
             <property name="text" >
-             <string>Protokoll:</string>
+             <string>Protocol:</string>
             </property>
            </widget>
           </item>
@@ -145,7 +145,7 @@
           <item row="3" column="0" colspan="2" >
            <widget class="QCheckBox" name="cbAuthentification" >
             <property name="text" >
-             <string>Authentifizierung</string>
+             <string>Use Authentication</string>
             </property>
            </widget>
           </item>
@@ -155,7 +155,7 @@
              <bool>false</bool>
             </property>
             <property name="text" >
-             <string>Benutzer:</string>
+             <string>User:</string>
             </property>
            </widget>
           </item>
@@ -172,7 +172,7 @@
              <bool>false</bool>
             </property>
             <property name="text" >
-             <string>Passwort:</string>
+             <string>Pass:</string>
             </property>
            </widget>
           </item>
@@ -199,7 +199,7 @@
           <item row="2" column="0" >
            <widget class="QLabel" name="lbPath" >
             <property name="text" >
-             <string>Pfad:</string>
+             <string>Path:</string>
             </property>
            </widget>
           </item>

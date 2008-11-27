@@ -16,9 +16,9 @@
    <item>
     <widget class="QLabel" name="lbDesc" >
      <property name="text" >
-      <string>Hier können Sie Textdateien importieren. Sollte ihr Text in einem anderen Format (z.B.: einem Word Dokument) vorliegen, können Sie ihn in der spezifischen Applikation öffnen, als Text speichern und diese Datei hier angeben.
+      <string>Here you can import text files to use them as trainingtexts.
 
-Bitte wählen Sie nun die Datei aus die Sie gerne importieren möchten:</string>
+Please ensure that the file you import is a plain text document (.txt).</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>
@@ -43,7 +43,7 @@ Bitte wählen Sie nun die Datei aus die Sie gerne importieren möchten:</string>
      <item row="0" column="0" >
       <widget class="QLabel" name="label_2" >
        <property name="text" >
-        <string>Name des Textes:</string>
+        <string>Name:</string>
        </property>
       </widget>
      </item>
@@ -53,7 +53,7 @@ Bitte wählen Sie nun die Datei aus die Sie gerne importieren möchten:</string>
      <item row="1" column="0" >
       <widget class="QLabel" name="label" >
        <property name="text" >
-        <string>Datei:</string>
+        <string>File:</string>
        </property>
       </widget>
      </item>
@@ -89,5 +89,6 @@ Bitte wählen Sie nun die Datei aus die Sie gerne importieren möchten:</string>
    <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
+ <resources/>
  <connections/>
 </ui>

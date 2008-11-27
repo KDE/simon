@@ -81,14 +81,12 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingData/importtrainingdataintrodlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingData/importtrainingdataworkingdlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/AddWord/addwordintropage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/AddWord/addwordrecordpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/AddWord/resolvewordpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbomppage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictlexiconpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictselectsourcepage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsworkingpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsselectpage.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammardescriptionpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/selectfilestoreadpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportGrammar/importgrammarworkingpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalselectparameterspage.ui

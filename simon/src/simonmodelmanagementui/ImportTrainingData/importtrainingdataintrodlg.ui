@@ -16,14 +16,11 @@
    <item>
     <widget class="QLabel" name="label" >
      <property name="text" >
-      <string>Willkommen beim Importieren von Trainingsdaten aus
-einem Ordner.
+      <string>Welcome to the import of existing training data.
 
-Auf diese Weise koennen Sie vorhandene Trainingsdaten
-simpel und leicht in simon uebernehmen.
+Using this wizard you can import training data collected e.g. by previous simon installations.
 
-Bitte waehlen Sie den Ordner aus, der die Trainingsdaten
-enthaelt:</string>
+Please choose the folder which contains the data (it will be searched recursively):</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>

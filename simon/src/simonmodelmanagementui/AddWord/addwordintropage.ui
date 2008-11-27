@@ -16,9 +16,9 @@
    <item>
     <widget class="QLabel" name="lbIntro" >
      <property name="text" >
-      <string>Mit Hilfe dieses Assistenten können Sie neue Wörter zum Sprachmodell hinzufügen.
+      <string>Using this assistant you can add new words to your language model.
 
-Geben Sie hierzu bitte den Namen des Wortes an und bestätigen Sie mit "Weiter":</string>
+To do this, enter the name of the word in the field below and continue by clicking "Next".</string>
      </property>
      <property name="wordWrap" >
       <bool>true</bool>
@@ -30,7 +30,7 @@ Geben Sie hierzu bitte den Namen des Wortes an und bestätigen Sie mit "Weiter":
      <item>
       <widget class="QLabel" name="label" >
        <property name="text" >
-        <string>Neues Wort:</string>
+        <string>Word:</string>
        </property>
       </widget>
      </item>

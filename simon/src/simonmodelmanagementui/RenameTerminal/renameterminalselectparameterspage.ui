@@ -18,7 +18,7 @@
      <item>
       <widget class="QLabel" name="lbNewName" >
        <property name="text" >
-        <string>Neuer Name:</string>
+        <string>New Name:</string>
        </property>
        <property name="buddy" >
         <cstring>leNewName</cstring>
@@ -33,7 +33,7 @@
    <item>
     <widget class="QLabel" name="lbTerminal" >
      <property name="text" >
-      <string>Terminal A:</string>
+      <string>Old Terminal:</string>
      </property>
      <property name="buddy" >
       <cstring>lwTerminal</cstring>
@@ -46,7 +46,7 @@
    <item>
     <widget class="QCheckBox" name="cbIncludeShadow" >
      <property name="text" >
-      <string>Schattenlexikon einbeziehen</string>
+      <string>Change shadow lexicon</string>
      </property>
      <property name="checked" >
       <bool>true</bool>
@@ -56,7 +56,7 @@
    <item>
     <widget class="QCheckBox" name="cbIncludeGrammar" >
      <property name="text" >
-      <string>Grammatik anpassen</string>
+      <string>Adapt grammar</string>
      </property>
      <property name="checked" >
       <bool>true</bool>
@@ -66,6 +66,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
   <customwidget>
    <class>SimonListWidget</class>
    <extends>KListWidget</extends>
