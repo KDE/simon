@@ -16,21 +16,21 @@
    <item>
     <widget class="QCheckBox" name="kcfg_AutoStart" >
      <property name="text" >
-      <string>Starte ksimond bei KDE Start</string>
+      <string>Start ksimond on KDE start</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QCheckBox" name="kcfg_AutoStartSimond" >
      <property name="text" >
-      <string>Starte simond bei ksimond Start</string>
+      <string>Start simond when ksimond starts</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QCheckBox" name="kcfg_AutoReStartSimond" >
      <property name="text" >
-      <string>Starte simond neu, wenn es unerwartet beendet wird</string>
+      <string>Restart simond if it quits unexpectedly</string>
      </property>
     </widget>
    </item>
