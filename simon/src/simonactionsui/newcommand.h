@@ -53,6 +53,7 @@ public:
 
 public slots:
 	void init(Command *command);
+	void commandSuggested(Command *command);
 };
 
 

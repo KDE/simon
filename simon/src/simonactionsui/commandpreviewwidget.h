@@ -20,12 +20,13 @@
 #ifndef COMMANDPREVIEWWIDGET_H
 #define COMMANDPREVIEWWIDGET_H
 
-#include <QModelIndex>
+#include <QScrollArea>
 #include "ui_commandpreviewwidget.h"
 
 class Command;
+class QModelIndex;
 
-class CommandPreviewWidget : public QWidget {
+class CommandPreviewWidget : public QScrollArea {
 
 Q_OBJECT
 

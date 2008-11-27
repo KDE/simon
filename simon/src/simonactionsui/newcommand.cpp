@@ -55,10 +55,18 @@ bool NewCommand::registerCreators(QList<CreateCommandWidget*>* commandCreaters)
 		ui.cbType->addItem(widget->windowIcon(), widget->windowTitle());
 		ui.swCommandCreaters->addWidget(widget);
 		connect(widget, SIGNAL(completeChanged()), this, SLOT(checkIfComplete()));
+		connect(widget, SIGNAL(commandSuggested(Command*)), this, SLOT(commandSuggested(Command*)));
 	}
 	
 	this->commandCreaters = commandCreaters;
 	return true;
+}
+
+void NewCommand::commandSuggested(Command *command)
+{
+	if (!command) return;
+	init(command);
+	command->deleteLater();
 }
 
 

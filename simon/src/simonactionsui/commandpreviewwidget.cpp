@@ -19,6 +19,7 @@
 
 #include "commandpreviewwidget.h"
 #include <commandpluginbase/command.h>
+#include <QModelIndex>
 #include <QMap>
 #include <QFormLayout>
 #include <QLayout>
@@ -28,13 +29,16 @@
 #include <KIconLoader>
 
 
-CommandPreviewWidget::CommandPreviewWidget(QWidget *parent) : QWidget(parent)
+CommandPreviewWidget::CommandPreviewWidget(QWidget *parent) : QScrollArea(parent)
 {
 	command =0;
-	ui.setupUi(this);
+	QWidget *w = new QWidget(this);
+	ui.setupUi(w);
+	setWidget(w);
 	
 	connect(ui.pbTrigger, SIGNAL(clicked()), this, SLOT(trigger()));
 	hide();
+	
 }
 
 void CommandPreviewWidget::trigger()

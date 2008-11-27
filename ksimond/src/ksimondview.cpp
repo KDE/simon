@@ -41,14 +41,14 @@ KSimondView::KSimondView(QObject *parent):QObject(parent)
 	trayIconMgr->createIcon(KIcon("simond"), i18n("simond"));
 	//add actions
 	startProcess = new KAction(0);
-	startProcess->setText(i18n("simond starten"));
+	startProcess->setText(i18n("Start simond"));
 	startProcess->setIcon(KIcon("media-playback-start"));
 	connect(startProcess, SIGNAL(triggered(bool)),
 			this, SLOT(startSimond()));
 
 
 	restartProcess = new KAction(0);
-	restartProcess->setText(i18n("simond neu starten"));
+	restartProcess->setText(i18n("Restart simond"));
 	restartProcess->setIcon(KIcon("view-refresh"));
 	restartProcess->setEnabled(false);
 	connect(restartProcess, SIGNAL(triggered(bool)),
@@ -56,22 +56,22 @@ KSimondView::KSimondView(QObject *parent):QObject(parent)
 
 
 	stopProcess = new KAction(0);
-	stopProcess->setText(i18n("simond stoppen"));
+	stopProcess->setText(i18n("Stop simond"));
 	stopProcess->setIcon(KIcon("process-stop"));
 	stopProcess->setEnabled(false);
 	connect(stopProcess, SIGNAL(triggered(bool)),
 			this, SLOT(stopSimond()));
 
 	configure = new KAction(0);
-	configure->setText(i18n("Konfiguration"));
+	configure->setText(i18n("Configuration"));
 	configure->setIcon(KIcon("configure"));
 	connect(configure, SIGNAL(triggered(bool)),
 			this, SLOT(showConfigurationDialog()));
 
-	trayIconMgr->addAction(i18n("simond starten"), startProcess);
-	trayIconMgr->addAction(i18n("simond neu starten"), restartProcess);
-	trayIconMgr->addAction(i18n("simond stoppen"), stopProcess);
-	trayIconMgr->addAction(i18n("Konfiguration"), configure);
+	trayIconMgr->addAction(i18n("Start simond"), startProcess);
+	trayIconMgr->addAction(i18n("Restart simond"), restartProcess);
+	trayIconMgr->addAction(i18n("Stop simond"), stopProcess);
+	trayIconMgr->addAction(i18n("Configuration"), configure);
 
 	process = new KProcess();
 	connect(process, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(matchDisplayToState()));
@@ -99,7 +99,7 @@ void KSimondView::startSimond()
 {
 	if (process->state() != QProcess::NotRunning)
 	{
-		KMessageBox::information(0, i18n("simond läuft bereits"));
+		KMessageBox::information(0, i18n("simond is already running"));
 		return;
 	}
 	QString exePath = KStandardDirs::findExe("simond");
@@ -120,7 +120,7 @@ void KSimondView::matchDisplayToState()
 	{
 		case QProcess::NotRunning:
 		{
-			SimonInfo::showMessage(i18n("simond beendet"), 2000, new KIcon("simond"));
+			SimonInfo::showMessage(i18n("simond stopped"), 2000, new KIcon("simond"));
 			startProcess->setEnabled(true);
 			restartProcess->setEnabled(false);
 			stopProcess->setEnabled(false);
@@ -135,7 +135,7 @@ void KSimondView::matchDisplayToState()
 		}
 		case QProcess::Running:
 		{
-			SimonInfo::showMessage(i18n("simond gestartet"), 2000, new KIcon("simond"));
+			SimonInfo::showMessage(i18n("simond started"), 2000, new KIcon("simond"));
 			startProcess->setEnabled(false);
 			stopProcess->setEnabled(true);
 			restartProcess->setEnabled(true);
@@ -162,24 +162,24 @@ void KSimondView::slotError(QProcess::ProcessError err)
 	switch (err)
 	{
 		case QProcess::FailedToStart:
-			KMessageBox::error(0, i18n("Konnte simond nicht starten.\n\nBitte überprüfen Sie die ksimond Konfiguration.\n\nAusgeführter Befehl:\"%1\"", process->program().join(", ")));
+			KMessageBox::error(0, i18n("Couldn't start simond.\n\nPlease check your configuration.\n\nCommand: \"%1\"", process->program().join(", ")));
 			break;
 		case QProcess::Crashed:
 			if (!stopIntended)
-				KMessageBox::error(0, i18n("simond ist abgestürzt. (Status: %1)", process->exitStatus()));
+				KMessageBox::error(0, i18n("simond crashed. (Status: %1)", process->exitStatus()));
 			
 			break;
 		case QProcess::Timedout:
-			KMessageBox::error(0, i18n("Zeitüberschreitung."));
+			KMessageBox::error(0, i18n("Timeout."));
 			break;
 		case QProcess::WriteError:
-			KMessageBox::error(0, i18n("Konnte nicht mit simond kommunizieren: Schreiben fehlgeschlagen."));
+			KMessageBox::error(0, i18n("Couldn't communicate with simond: Write failed."));
 			break;
 		case QProcess::ReadError:
-			KMessageBox::error(0, i18n("Konnte nicht mit simond kommunizieren: Lesen fehlgeschlagen."));
+			KMessageBox::error(0, i18n("Couldn't communicate with simond: Read failed."));
 			break;
 		default:
-			KMessageBox::error(0, i18n("Unbekannter simond Fehler"));
+			KMessageBox::error(0, i18n("Unknown Error"));
 			break;
 	}
 }

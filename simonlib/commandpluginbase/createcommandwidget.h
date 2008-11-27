@@ -40,6 +40,7 @@ Q_OBJECT
 
 signals:
 	void completeChanged();
+	void commandSuggested(Command*);
 
 public:
 	/**

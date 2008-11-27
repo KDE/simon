@@ -37,7 +37,7 @@ void CreatePlaceCommandWidget::showImportWizard()
 {
 	if (!importWizard) {
 		importWizard = new ImportPlaceWizard(this);
-		connect(importWizard, SIGNAL(commandCreated(Command*)), this, SLOT(wizardInit(Command*)));
+		connect(importWizard, SIGNAL(commandCreated(Command*)), this, SIGNAL(commandSuggested(Command*)));
 	}
 	
 	importWizard->restart();
@@ -45,13 +45,6 @@ void CreatePlaceCommandWidget::showImportWizard()
 }
 
 
-void CreatePlaceCommandWidget::wizardInit(Command *command)
-{
-	Q_ASSERT(command);
-	
-	init(command);
-	command->deleteLater();
-}
 
 bool CreatePlaceCommandWidget::isComplete()
 {

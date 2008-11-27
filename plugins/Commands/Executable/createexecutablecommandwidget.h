@@ -44,7 +44,6 @@ private:
 
 private slots:
 	void showImportWizard();
-	void wizardInit(Command *command);
 
 public:
 	Command* createCommand(const QString& name, const QString& iconSrc);

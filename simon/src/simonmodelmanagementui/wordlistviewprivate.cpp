@@ -296,14 +296,14 @@ void WordListViewPrivate::deleteTrainingWord()
 		QString word = ui.lwTrainingWords->takeItem(ui.lwTrainingWords->currentRow())->text();
 		
 		int i=0;
-		while  (i < trainingwordlist.count())//(wordlist.at(i)->getWord() != word)
+		while  (i < trainingwordlist.count())
 		{
 			if (trainingwordlist.at(i).getWord() == word)
-				trainingwordlist.removeAt(i);
+				trainingwordlist.removeAt(i--);
 			i++;
 		}
 		i=0;
-		while  (i < ui.lwTrainingWords->count())//(wordlist.at(i)->getWord() != word)
+		while  (i < ui.lwTrainingWords->count())
 		{
 			if (ui.lwTrainingWords->item(i)->text() == word)
 				ui.lwTrainingWords->takeItem(i--);
