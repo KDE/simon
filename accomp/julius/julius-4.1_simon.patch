@@ -1,0 +1,296 @@
+diff -Naur julius-4.1/adinrec/Makefile.in julius-4.1_new/adinrec/Makefile.in
+--- julius-4.1/adinrec/Makefile.in	2008-10-02 10:57:01.000000000 +0200
++++ julius-4.1_new/adinrec/Makefile.in	2008-11-23 16:58:35.000000000 +0100
+@@ -28,7 +28,7 @@
+ 
+ all: $(TARGET)
+ 
+-adinrec: adinrec.c $(LIBSENT)/libsent.a $(LIBJULIUS)/libjulius.a
++adinrec: adinrec.c $(LIBSENT)/libsent.so $(LIBJULIUS)/libjulius.so
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ adinrec.c $(LDFLAGS)
+ 
+ ############################################################
+diff -Naur julius-4.1/adintool/adintool.c julius-4.1_new/adintool/adintool.c
+--- julius-4.1/adintool/adintool.c	2008-09-25 07:00:04.000000000 +0200
++++ julius-4.1_new/adintool/adintool.c	2008-11-24 10:19:39.000000000 +0100
+@@ -213,7 +213,7 @@
+       strcpy(adinnet_serv[adinnet_servnum], q);
+       adinnet_servnum++;
+     }
+-    free(p);
++//     free(p); //crash
+   } else {
+     fprintf(stderr, "Warning: server [%s] should be with adinnet\n", arg[0]);
+     return FALSE;
+diff -Naur julius-4.1/adintool/Makefile.in julius-4.1_new/adintool/Makefile.in
+--- julius-4.1/adintool/Makefile.in	2008-10-02 10:57:01.000000000 +0200
++++ julius-4.1_new/adintool/Makefile.in	2008-11-23 16:58:20.000000000 +0100
+@@ -28,7 +28,7 @@
+ 
+ all: $(TARGET)
+ 
+-adintool: adintool.c $(LIBSENT)/libsent.a $(LIBJULIUS)/libjulius.a
++adintool: adintool.c $(LIBSENT)/libsent.so $(LIBJULIUS)/libjulius.so
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ adintool.c $(LDFLAGS)
+ 
+ ############################################################
+diff -Naur julius-4.1/generate-ngram/Makefile.in julius-4.1_new/generate-ngram/Makefile.in
+--- julius-4.1/generate-ngram/Makefile.in	2008-10-02 10:57:01.000000000 +0200
++++ julius-4.1_new/generate-ngram/Makefile.in	2008-11-23 16:56:59.000000000 +0100
+@@ -26,7 +26,7 @@
+ 
+ all: $(TARGET)
+ 
+-$(TARGET): $(OBJ) $(LIBSENT)/libsent.a
++$(TARGET): $(OBJ) $(LIBSENT)/libsent.so
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $(OBJ) $(LDFLAGS)
+ 
+ install: install.bin
+diff -Naur julius-4.1/gramtools/mkdfa/mkfa-1.44-flex/triplet.c julius-4.1_new/gramtools/mkdfa/mkfa-1.44-flex/triplet.c
+--- julius-4.1/gramtools/mkdfa/mkfa-1.44-flex/triplet.c	2008-11-03 12:47:46.000000000 +0100
++++ julius-4.1_new/gramtools/mkdfa/mkfa-1.44-flex/triplet.c	2008-11-03 12:47:59.000000000 +0100
+@@ -150,7 +150,7 @@
+     FAQ *newFAQ;
+ 
+     if( fa != NULL ){
+-	if( (newFAQ = malloc( sizeof(newFAQ) )) == NULL ){
++	if( (newFAQ = malloc( sizeof(FAQ) )) == NULL ){
+ 	    errMes( "Can't malloc queue for breadth-first search of triplet list" );
+ 	}
+ 	newFAQ->fa = fa;
+diff -Naur julius-4.1/julius/Makefile.in julius-4.1_new/julius/Makefile.in
+--- julius-4.1/julius/Makefile.in	2008-10-02 10:57:03.000000000 +0200
++++ julius-4.1_new/julius/Makefile.in	2008-11-23 16:57:32.000000000 +0100
+@@ -53,7 +53,7 @@
+ 
+ all: $(TARGET)
+ 
+-$(TARGET): $(LIBSENT)/libsent.a $(LIBJULIUS)/libjulius.a $(OBJ)
++$(TARGET): $(LIBSENT)/libsent.so $(LIBJULIUS)/libjulius.so $(OBJ)
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $(OBJ) $(LDFLAGS) $(GTK_LIBS)
+ 
+ ############################################################
+diff -Naur julius-4.1/libjulius/include/julius/extern.h julius-4.1_new/libjulius/include/julius/extern.h
+--- julius-4.1/libjulius/include/julius/extern.h	2008-09-25 07:00:05.000000000 +0200
++++ julius-4.1_new/libjulius/include/julius/extern.h	2008-11-03 10:22:19.000000000 +0100
+@@ -109,9 +109,9 @@
+ void malloc_wordtrellis(RecogProcess *r);
+ void free_wordtrellis(StackDecode *dwrk);
+ void scan_word(NODE *now, HTK_Param *param, RecogProcess *r);
+-void next_word(NODE *now, NODE *new, NEXTWORD *nword, HTK_Param *param, RecogProcess *r);
+-void start_word(NODE *new, NEXTWORD *nword, HTK_Param *param, RecogProcess *r);
+-void last_next_word(NODE *now, NODE *new, HTK_Param *param, RecogProcess *r);
++void next_word(NODE *now, NODE *newParam, NEXTWORD *nword, HTK_Param *param, RecogProcess *r);
++void start_word(NODE *newParam, NEXTWORD *nword, HTK_Param *param, RecogProcess *r);
++void last_next_word(NODE *now, NODE *newParam, HTK_Param *param, RecogProcess *r);
+ 
+ /* wav2mfcc.c */
+ boolean wav2mfcc(SP16 speech[], int speechlen, Recog *recog);
+diff -Naur julius-4.1/libjulius/Makefile.in julius-4.1_new/libjulius/Makefile.in
+--- julius-4.1/libjulius/Makefile.in	2008-10-02 17:01:59.000000000 +0200
++++ julius-4.1_new/libjulius/Makefile.in	2008-11-23 14:18:48.000000000 +0100
+@@ -16,12 +16,13 @@
+ LIBSENT=../libsent
+ 
+ CC=@CC@
+-CFLAGS=@CFLAGS@
+-CPPFLAGS=-Iinclude -I$(LIBSENT)/include @CPPFLAGS@ `$(LIBSENT)/libsent-config --cflags`
++CFLAGS=@CFLAGS@ -fPIC
++CPPFLAGS=-Iinclude -I$(LIBSENT)/include @CPPFLAGS@ `$(LIBSENT)/libsent-config --cflags` -fPIC
+ LDFLAGS=@LDFLAGS@ @LIBS@ -L$(LIBSENT) `$(LIBSENT)/libsent-config --libs` 
+ RM=@RM@ -f
+ AR=@AR@ r
+ RANLIB=@RANLIB@
++LD=ld
+ 
+ ## install
+ prefix=@prefix@
+@@ -35,7 +36,7 @@
+ 
+ ############################################################
+ 
+-TARGET = libjulius.a
++TARGET = libjulius.so
+ 
+ OBJ = \
+ src/recogmain.o \
+@@ -82,8 +83,7 @@
+ all: $(TARGET)
+ 
+ $(TARGET): $(OBJ)
+-	$(AR) $@ $?
+-	$(RANLIB) $@
++	$(LD) -shared -o $@ $? $(LDFLAGS)
+ 
+ ############################################################
+ 
+diff -Naur julius-4.1/libjulius/src/adin-cut.c julius-4.1_new/libjulius/src/adin-cut.c
+--- julius-4.1/libjulius/src/adin-cut.c	2008-09-25 07:00:06.000000000 +0200
++++ julius-4.1_new/libjulius/src/adin-cut.c	2008-11-23 17:11:38.000000000 +0100
+@@ -950,7 +950,6 @@
+   } else if (ret == 0) {	/* EOF */
+     jlog("Stat: adin thread end with EOF\n");
+   }
+-  recog->adin->adinthread_ended = TRUE;
+ 
+   /* return to end this thread */
+ }
+diff -Naur julius-4.1/libsent/include/sent/htk_hmm.h julius-4.1_new/libsent/include/sent/htk_hmm.h
+--- julius-4.1/libsent/include/sent/htk_hmm.h	2008-09-30 05:58:18.000000000 +0200
++++ julius-4.1_new/libsent/include/sent/htk_hmm.h	2008-11-03 10:22:19.000000000 +0100
+@@ -428,16 +428,16 @@
+ char *get_cov_str(short covtype);
+ char *get_dur_str(short durtype);
+ /* rdhmmdef_trans.c */
+-void trans_add(HTK_HMM_INFO *hmm, HTK_HMM_Trans *new);
++void trans_add(HTK_HMM_INFO *hmm, HTK_HMM_Trans *newParam);
+ HTK_HMM_Trans *get_trans_data(FILE *, HTK_HMM_INFO *);
+ void def_trans_macro(char *, FILE *, HTK_HMM_INFO *);
+ /* rdhmmdef_state.c */
+ HTK_HMM_State *get_state_data(FILE *, HTK_HMM_INFO *);
+ void def_state_macro(char *, FILE *, HTK_HMM_INFO *);
+ HTK_HMM_State *state_lookup(HTK_HMM_INFO *hmm, char *keyname);
+-void state_add(HTK_HMM_INFO *hmm, HTK_HMM_State *new);
++void state_add(HTK_HMM_INFO *hmm, HTK_HMM_State *newParam);
+ /* rdhmmdef_mpdf.c */
+-void mpdf_add(HTK_HMM_INFO *hmm, HTK_HMM_PDF *new);
++void mpdf_add(HTK_HMM_INFO *hmm, HTK_HMM_PDF *newParam);
+ HTK_HMM_PDF *mpdf_lookup(HTK_HMM_INFO *hmm, char *keyname);
+ HTK_HMM_PDF *get_mpdf_data(FILE *fp, HTK_HMM_INFO *hmm, int mix_num, short stream_id);
+ void def_mpdf_macro(char *name, FILE *fp, HTK_HMM_INFO *hmm);
+@@ -445,22 +445,22 @@
+ HTK_HMM_Dens *get_dens_data(FILE *, HTK_HMM_INFO *);
+ void def_dens_macro(char *, FILE *, HTK_HMM_INFO *);
+ HTK_HMM_Dens *dens_lookup(HTK_HMM_INFO *hmm, char *keyname);
+-void dens_add(HTK_HMM_INFO *hmm, HTK_HMM_Dens *new);
++void dens_add(HTK_HMM_INFO *hmm, HTK_HMM_Dens *newParam);
+ /* rdhmmdef_var.c */
+ HTK_HMM_Var *get_var_data(FILE *, HTK_HMM_INFO *);
+ void def_var_macro(char *, FILE *, HTK_HMM_INFO *);
+-void var_add(HTK_HMM_INFO *hmm, HTK_HMM_Var *new);
++void var_add(HTK_HMM_INFO *hmm, HTK_HMM_Var *newParam);
+ /* rdhmmdef_streamweight.c */
+ HTK_HMM_StreamWeight *get_streamweight_data(FILE *fp, HTK_HMM_INFO *hmm);
+ void def_streamweight_macro(char *, FILE *, HTK_HMM_INFO *);
+-void sw_add(HTK_HMM_INFO *hmm, HTK_HMM_StreamWeight *new);
++void sw_add(HTK_HMM_INFO *hmm, HTK_HMM_StreamWeight *newParam);
+ /* rdhmmdef_data.c */
+ void def_HMM(char *, FILE *, HTK_HMM_INFO *);
+ HTK_HMM_Data *htk_hmmdata_new(HTK_HMM_INFO *);
+-void htk_hmmdata_add(HTK_HMM_INFO *hmm, HTK_HMM_Data *new);
++void htk_hmmdata_add(HTK_HMM_INFO *hmm, HTK_HMM_Data *newParam);
+ /* rdhmmdef_tiedmix.c */
+ void tmix_read(FILE *fp, HTK_HMM_PDF *mpdf, HTK_HMM_INFO *hmm);
+-void codebook_add(HTK_HMM_INFO *hmm, GCODEBOOK *new);
++void codebook_add(HTK_HMM_INFO *hmm, GCODEBOOK *newParam);
+ /* rdhmmdef_regtree.c */
+ void def_regtree_macro(char *name, FILE *fp, HTK_HMM_INFO *hmm);
+ /* rdhmmdef_hmmlist.c */
+diff -Naur julius-4.1/libsent/Makefile.in julius-4.1_new/libsent/Makefile.in
+--- julius-4.1/libsent/Makefile.in	2008-10-02 17:01:59.000000000 +0200
++++ julius-4.1_new/libsent/Makefile.in	2008-11-23 14:19:46.000000000 +0100
+@@ -14,13 +14,14 @@
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
+ 
+ CC=@CC@
+-CFLAGS=@CFLAGS@
+-CPPFLAGS=-Iinclude @CPPFLAGS@ @SOUNDINC@ @DEFS@
++CFLAGS=@CFLAGS@ -fPIC
++CPPFLAGS=-Iinclude @CPPFLAGS@ @SOUNDINC@ @DEFS@ -fPIC
+ # LDFLAGS=@LDFLAGS@ @LIBS@
+ RM=@RM@ -f
+ AR=@AR@ r
+ RANLIB=@RANLIB@
+-TARGET=libsent.a
++TARGET=libsent.so
++LD=ld
+ 
+ ## install
+ prefix=@prefix@
+@@ -136,8 +137,7 @@
+ all: $(TARGET)
+ 
+ $(TARGET): $(OBJ)
+-	$(AR) $@ $?
+-	$(RANLIB) $@
++	$(LD) -shared -o $@ $? $(LDFLAGS)
+ 
+ ############################################################
+ 
+diff -Naur julius-4.1/libsent/src/adin/adin_mic_linux_alsa.c julius-4.1_new/libsent/src/adin/adin_mic_linux_alsa.c
+--- julius-4.1/libsent/src/adin/adin_mic_linux_alsa.c	2008-11-19 11:39:02.000000000 +0100
++++ julius-4.1_new/libsent/src/adin/adin_mic_linux_alsa.c	2008-11-24 10:19:06.000000000 +0100
+@@ -464,7 +464,29 @@
+ boolean
+ adin_alsa_end()
+ {
+-  return(TRUE);
++  int ret;
++  if (!handle) return TRUE;
++  
++  boolean worked=TRUE;
++  
++  if (snd_pcm_state(handle) == SND_PCM_STATE_RUNNING)
++  {
++    if ((ret = snd_pcm_drop(handle)) != 0) {
++      worked = FALSE;
++      fprintf(stderr, "Could not drop frames: %d", ret);
++    }
++  }
++  if ((ret = snd_pcm_close(handle)) != 0) {
++    fprintf(stderr, "Could not close handle: %d", ret);
++    worked = FALSE;
++  }
++  if ((ret=snd_pcm_hw_free(handle)) != 0) {
++    fprintf(stderr, "Could not free params: %d", ret);
++    return FALSE;
++  }
++  
++  handle=0;
++  return(worked);
+ }
+ 
+ /**
+diff -Naur julius-4.1/libsent/src/net/server-client.c julius-4.1_new/libsent/src/net/server-client.c
+--- julius-4.1/libsent/src/net/server-client.c	2008-08-05 11:49:00.000000000 +0200
++++ julius-4.1_new/libsent/src/net/server-client.c	2008-11-21 17:57:32.000000000 +0100
+@@ -92,8 +92,9 @@
+   memset((char *)&sin, 0, sizeof(sin));
+   sin.sin_family = AF_INET;
+   sin.sin_port = htons((unsigned short)port_num);
+-  if(bind(sd, (struct sockaddr *)&sin, sizeof(sin)) < 0){
+-    jlog("Error: server-client: bind() error\n");
++  int bindRet = bind(sd, (struct sockaddr *)&sin, sizeof(sin));
++  if(bindRet < 0){
++    jlog("Error: server-client: bind() error: %d\n", bindRet);
+     return -2;
+   }
+   /* begin to listen */
+diff -Naur julius-4.1/mkbingram/Makefile.in julius-4.1_new/mkbingram/Makefile.in
+--- julius-4.1/mkbingram/Makefile.in	2008-10-02 10:57:03.000000000 +0200
++++ julius-4.1_new/mkbingram/Makefile.in	2008-11-23 16:56:46.000000000 +0100
+@@ -26,7 +26,7 @@
+ 
+ all: $(TARGET)
+ 
+-$(TARGET): $(OBJ) $(LIBSENT)/libsent.a
++$(TARGET): $(OBJ) $(LIBSENT)/libsent.so
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $(OBJ) $(LDFLAGS)
+ 
+ install: install.bin
+diff -Naur julius-4.1/mkbinhmm/Makefile.in julius-4.1_new/mkbinhmm/Makefile.in
+--- julius-4.1/mkbinhmm/Makefile.in	2008-10-02 10:57:04.000000000 +0200
++++ julius-4.1_new/mkbinhmm/Makefile.in	2008-11-23 16:58:50.000000000 +0100
+@@ -23,10 +23,10 @@
+ 
+ all: mkbinhmm mkbinhmmlist
+ 
+-mkbinhmm: mkbinhmm.o $(LIBSENT)/libsent.a
++mkbinhmm: mkbinhmm.o $(LIBSENT)/libsent.so
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ mkbinhmm.o $(LDFLAGS)
+ 
+-mkbinhmmlist: mkbinhmmlist.o $(LIBSENT)/libsent.a
++mkbinhmmlist: mkbinhmmlist.o $(LIBSENT)/libsent.so
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ mkbinhmmlist.o $(LDFLAGS)
+ 
+ install: install.bin
