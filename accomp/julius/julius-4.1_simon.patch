@@ -101,7 +101,7 @@ diff -Naur julius-4.1/libjulius/Makefile.in julius-4.1_new/libjulius/Makefile.in
  RM=@RM@ -f
  AR=@AR@ r
  RANLIB=@RANLIB@
-+LD=ld
++LD=gcc
  
  ## install
  prefix=@prefix@
@@ -203,7 +203,7 @@ diff -Naur julius-4.1/libsent/Makefile.in julius-4.1_new/libsent/Makefile.in
  RANLIB=@RANLIB@
 -TARGET=libsent.a
 +TARGET=libsent.so
-+LD=ld
++LD=gcc
  
  ## install
  prefix=@prefix@

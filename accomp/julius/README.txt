@@ -7,7 +7,7 @@ This will create the subdirectory "julius-4.1".
 Then apply the patch using the following command:
 
 cd julius-4.1
-patch -p0 < ../julius-4.1_simon.patch
+patch -p1 < ../julius-4.1_simon.patch
 
 
 You can then go on and install Julius normally using 
