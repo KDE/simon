@@ -80,7 +80,7 @@
       <item row="1" column="1" >
        <widget class="KUrlComboRequester" name="kcfg_Certificate" >
         <property name="filter" >
-         <string>SSL-Zertifikat *.pem</string>
+         <string>SSL-Certificate *.pem</string>
         </property>
        </widget>
       </item>

@@ -68,7 +68,7 @@ void SimondUserConfiguration::initDb()
 {
 	if (!db->init())
 	{
-		KMessageBox::error(this, i18n("Konnte keine Verbindung zur Datenbank aufbauen"));
+		KMessageBox::error(this, i18n("Couldn't connect to database"));
 		activateUserConfiguration(false);
 		ui.tvUser->setModel(NULL); //empty table
 		KMessageBox::information(this, db->getDatabase());
@@ -83,7 +83,7 @@ void SimondUserConfiguration::addUser()
 {
 	KPasswordDialog dlg( dynamic_cast<QWidget*>(parent()), 
 				KPasswordDialog::ShowUsernameLine);
-	dlg.setPrompt( i18n( "Neuen Benutzer hinzufügen" ));
+	dlg.setPrompt( i18n( "Add a new user" ));
 	if( !dlg.exec() || dlg.username().isEmpty() )
 		return;
 
@@ -91,7 +91,7 @@ void SimondUserConfiguration::addUser()
 	QString pass = dlg.password();
 
 	if (!db->addUser(user, encryptPassword(pass)))
-		KMessageBox::error(0, i18n("Konnte Benutzer nicht hinzufügen"));
+		KMessageBox::error(0, i18n("Couldn't add user"));
 }
 
 void SimondUserConfiguration::deleteUser()
@@ -99,24 +99,24 @@ void SimondUserConfiguration::deleteUser()
 	if (!ui.tvUser->currentIndex().isValid())
 		return;
 
-	if (KMessageBox::questionYesNoCancel(this, i18n("Wollen Sie den ausgewählten Benutzer wirklich aus der Datenbank entfernen?")) != KMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to remove the user from the database?")) != KMessageBox::Yes)
 		return;
 
 	//delete user from db
 	QString username = ui.tvUser->currentIndex().sibling(ui.tvUser->currentIndex().row(), 0).data().toString();
 	if (!db->deleteUser(username))
 	{
-		KMessageBox::error(0, i18n("Konnte Benutzer nicht löschen"));
+		KMessageBox::error(0, i18n("Couldn't remove User"));
 		return;
 	}
 
 	QString modelDir = KStandardDirs::locateLocal("data", "simond/models/")+username+"/";
 	if ((!QDir().exists(modelDir)) ||
-			(KMessageBox::questionYesNoCancel(this, i18n("Wollen Sie auch das Sprachmodell vom Server entfernen?")) != KMessageBox::Yes))
+			(KMessageBox::questionYesNoCancel(this, i18n("Do you also want to remove the speech model from the server?")) != KMessageBox::Yes))
 		return;
 
 	if (!recursiveDelete(modelDir))
-		KMessageBox::sorry(this, i18n("Konnte Sprachmodell des benutzers nicht löschen"));
+		KMessageBox::sorry(this, i18n("Couldn't remove the speech model"));
 }
 
 bool SimondUserConfiguration::recursiveDelete(const QString& dirPath)
@@ -162,11 +162,11 @@ void SimondUserConfiguration::changePassword()
 
 	QString username = ui.tvUser->currentIndex().sibling(ui.tvUser->currentIndex().row(), 0).data().toString();
 	KNewPasswordDialog dlg(this);
-	dlg.setPrompt(i18n("Passwort ändern für Benutzer \"%1\"", username));
+	dlg.setPrompt(i18n("Change Password for User \"%1\"", username));
 	if (dlg.exec() && (!dlg.password().isEmpty()))
 	{
 		if (!db->setPassword(username, encryptPassword(dlg.password())))
-			KMessageBox::error(0, i18n("Konnte Passwort nicht ändern"));
+			KMessageBox::error(0, i18n("Couldn't change Password"));
 	}
 
 }

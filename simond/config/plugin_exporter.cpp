@@ -10,6 +10,6 @@ K_PLUGIN_FACTORY( SimondSettingsFactory,
 			registerPlugin< SimondNetworkConfiguration >("SimondNetworkConfiguration");
 		)
 
-K_EXPORT_PLUGIN( SimondSettingsFactory("SimondConfiguration"); )
+K_EXPORT_PLUGIN( SimondSettingsFactory("simond"); )
 
 #endif
