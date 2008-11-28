@@ -1,0 +1,250 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Peter Grasch <grasch@simon-listens.org>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: simond\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2008-11-28 10:21+0100\n"
+"PO-Revision-Date: 2008-11-28 10:35+0100\n"
+"Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
+"Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: config/simonduserconfiguration.cpp:71
+msgid "Couldn't connect to database"
+msgstr "Konnte keine Verbindung zur Datenbank aufbauen"
+
+#: config/simonduserconfiguration.cpp:86
+msgid "Add a new user"
+msgstr "Neuen Benutzer hinzufügen"
+
+#: config/simonduserconfiguration.cpp:94
+msgid "Couldn't add user"
+msgstr "Konnte Benutzer nicht hinzufügen"
+
+#: config/simonduserconfiguration.cpp:102
+msgid "Do you really want to remove the user from the database?"
+msgstr ""
+"Wollen Sie den ausgewählten Benutzer wirklich aus der Datenbank entfernen?"
+
+#: config/simonduserconfiguration.cpp:109
+msgid "Couldn't remove User"
+msgstr "Konnte Benutzer nicht löschen"
+
+#: config/simonduserconfiguration.cpp:115
+msgid "Do you also want to remove the speech model from the server?"
+msgstr "Wollen Sie auch das Sprachmodell vom Server entfernen?"
+
+#: config/simonduserconfiguration.cpp:119
+msgid "Couldn't remove the speech model"
+msgstr "Konnte Sprachmodell des Benutzers nicht löschen"
+
+#: config/simonduserconfiguration.cpp:165
+msgid "Change Password for User \"%1\""
+msgstr "Passwort ändern für Benutzer \"%1\""
+
+#: config/simonduserconfiguration.cpp:169
+msgid "Couldn't change Password"
+msgstr "Konnte Passwort nicht ändern"
+
+#. i18n: file: config/simondconfiguration.kcfg:7
+#. i18n: ectx: label, entry (Port), group (Network)
+#: po/rc.cpp:3 rc.cpp:3
+msgid "The port to use for the server."
+msgstr "der Port für den Server"
+
+#. i18n: file: config/simondconfiguration.kcfg:11
+#. i18n: ectx: label, entry (BindTo), group (Network)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "wether we want to restrict access to a certain IP."
+msgstr "ob wir den Zugriff auf eine gewisse IP beschränken wollen"
+
+#. i18n: file: config/simondconfiguration.kcfg:15
+#. i18n: ectx: label, entry (Host), group (Network)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "The only host to allow to connect to the server."
+msgstr "der einzige Host der zum Server verbinden darf."
+
+#. i18n: file: config/simondconfiguration.kcfg:20
+#. i18n: ectx: label, entry (UseEncryption), group (Network)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "wether we want to encrypt the communication between simon and simond."
+msgstr ""
+"ob wir die Kommunikation zwischen simon und simond verschlüsseln wollen."
+
+#. i18n: file: config/simondconfiguration.kcfg:24
+#. i18n: ectx: label, entry (EncryptionMethod), group (Network)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "The encryption method to use."
+msgstr "Die Methode der Verschlüsselung"
+
+#. i18n: file: config/simondconfiguration.kcfg:27
+#. i18n: ectx: label, entry (Certificate), group (Network)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "the path to the SSL certificate."
+msgstr "der Pfad zum SSL Zertifikat"
+
+#. i18n: file: config/simondconfiguration.kcfg:33
+#. i18n: ectx: label, entry (DatabaseUrl), group (Database)
+#: po/rc.cpp:21 rc.cpp:21
+msgid "The path to the database."
+msgstr "der Pfad zur Datenbank "
+
+#. i18n: file: config/simondnetworkconfiguration.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, NetworkConfiguration)
+#. i18n: file: config/simonduserconfiguration.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, UserConfiguration)
+#. i18n: file: config/simondnetworkconfiguration.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, NetworkConfiguration)
+#. i18n: file: config/simonduserconfiguration.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, UserConfiguration)
+#: po/rc.cpp:24 po/rc.cpp:45 rc.cpp:24 rc.cpp:45
+msgid "Form"
+msgstr "Form"
+
+#. i18n: file: config/simondnetworkconfiguration.ui:21
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "Port:"
+msgstr "Port:"
+
+#. i18n: file: config/simondnetworkconfiguration.ui:41
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_BindTo)
+#: po/rc.cpp:30 rc.cpp:30
+msgid "Only allow connections from:"
+msgstr "Nur Verbindungen erlauben von:"
+
+#. i18n: file: config/simondnetworkconfiguration.ui:57
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseEncryption)
+#: po/rc.cpp:33 rc.cpp:33
+msgid "Encryption"
+msgstr "Verschlüsselung"
+
+#. i18n: file: config/simondnetworkconfiguration.ui:66
+#. i18n: ectx: property (text), widget (QLabel, lbCipher)
+#: po/rc.cpp:36 rc.cpp:36
+msgid "Algorithm:"
+msgstr "Algorithmus:"
+
+#. i18n: file: config/simondnetworkconfiguration.ui:76
+#. i18n: ectx: property (text), widget (QLabel, lbCert)
+#: po/rc.cpp:39 rc.cpp:39
+msgid "Certificate:"
+msgstr "Zertifikat:"
+
+#. i18n: file: config/simondnetworkconfiguration.ui:83
+#. i18n: ectx: property (filter), widget (KUrlComboRequester, kcfg_Certificate)
+#: po/rc.cpp:42 rc.cpp:42
+msgid "SSL-Certificate *.pem"
+msgstr "SSL-Zertifikat *.pem"
+
+#. i18n: file: config/simonduserconfiguration.ui:23
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:48 rc.cpp:48
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">WARNING:</span> All changes made here will be <span style=\" "
+"font-weight:600;\">applied</span> instantly.</p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\"><html><head><meta name=\"qrichtext\" content=\"1\" /"
+"><style type=\"text/css\">p, li { white-space: pre-wrap; }</style></"
+"head><body style=\" font-family:'Bitstream Vera Sans'; font-size:8pt; font-"
+"weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-"
+"bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
+"indent:0px;\"><span style=\" font-weight:600;\">WARNUNG:</span> Die hier "
+"getroffenen Änderungen werden <span style=\" font-weight:600;\">sofort</"
+"span> übernommen.</p></body></html>"
+
+#. i18n: file: config/simonduserconfiguration.ui:35
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:55 rc.cpp:55
+msgid "Database:"
+msgstr "Datenbank:"
+
+#. i18n: file: config/simonduserconfiguration.ui:65
+#. i18n: ectx: property (text), widget (KPushButton, pbAdd)
+#: po/rc.cpp:58 rc.cpp:58
+msgid "Add"
+msgstr "Neu"
+
+#. i18n: file: config/simonduserconfiguration.ui:72
+#. i18n: ectx: property (text), widget (KPushButton, pbChangePassword)
+#: po/rc.cpp:61 rc.cpp:61
+msgid "Change Password"
+msgstr "Passwort ändern"
+
+#. i18n: file: config/simonduserconfiguration.ui:79
+#. i18n: ectx: property (text), widget (KPushButton, pbDelete)
+#: po/rc.cpp:64 rc.cpp:64
+msgid "Delete"
+msgstr "Löschen"
+
+#: po/rc.cpp:65 rc.cpp:65
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Peter Grasch"
+
+#: po/rc.cpp:66 rc.cpp:66
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "grasch@simon-listens.org"
+
+#: src/juliuscontrol.cpp:351
+msgid "Internal Jconf error"
+msgstr "Interner JConf Fehler"
+
+#: src/juliuscontrol.cpp:360
+msgid "Could not initialize recognition"
+msgstr "Konnte Erkennung nicht starten"
+
+#: src/juliuscontrol.cpp:394
+msgid "Couldn't start adin-thread"
+msgstr "Konnte adin-thread nicht starten."
+
+#: src/juliuscontrol.cpp:407
+msgid "Unknown error"
+msgstr "Unbekannter Fehler"
+
+#: src/juliuscontrol.cpp:411
+msgid "Couldn't initialize microphone"
+msgstr "Konnte Mikrofon nicht initialisieren"
+
+#: src/juliuscontrol.cpp:412
+msgid "Error with the audio stream"
+msgstr "Fehler mit dem Audio-Stream"
+
+#: src/main.cpp:32
+msgid "The simon recognition daemon"
+msgstr "Der simon Erkennungsserver"
+
+#: src/main.cpp:38
+msgid "simond"
+msgstr "simond"
+
+#: src/main.cpp:39
+msgid "(C) 2007 Peter Grasch"
+msgstr "(C) 2007 Peter Grasch"
+
+#: src/main.cpp:40
+msgid "Peter Grasch"
+msgstr "Peter Grasch"
+
+#~ msgid "grasch@simon-listens.org"
+#~ msgstr "Your emails"
+
