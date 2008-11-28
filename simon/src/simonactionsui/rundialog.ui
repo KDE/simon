@@ -53,7 +53,7 @@
          <bool>false</bool>
         </property>
         <property name="toolTip" >
-         <string>In Entwicklung...</string>
+         <string/>
         </property>
         <property name="text" >
          <string>Import Activities</string>

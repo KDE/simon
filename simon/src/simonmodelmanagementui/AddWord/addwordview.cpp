@@ -64,7 +64,7 @@ AddWordView::AddWordView(QWidget *parent)
 	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
 	connect(this, SIGNAL(rejected()), this, SLOT(cleanUp()));
 
-	setWindowTitle(i18n("Wort hinzufügen"));
+	setWindowTitle(i18n("Add Word"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/addword.png")));
 }
 
@@ -74,7 +74,7 @@ void AddWordView::cleanUp()
 	wordsToAdd.clear();
 	if (!listToAdd->isEmpty())
 	{
-		if (KMessageBox::questionYesNoCancel(this, i18n("Wollen Sie die bisher fertig beschriebenen Wörter dieses Durchlaufes hinzufügen?")) == KMessageBox::Yes)
+		if (KMessageBox::questionYesNoCancel(this, i18n("Do you want to add the words that have been completely described up until now?")) == KMessageBox::Yes)
 			commitList();
 		else 
 		{
@@ -125,10 +125,10 @@ AddWordResolvePage* AddWordView::createResolvePage()
 QWizardPage* AddWordView::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(i18n("Hinzufügen Abgeschlossen"));
+	finished->setTitle(i18n("Word Added"));
 	QLabel *label = new QLabel(finished);
 	label->setWordWrap(true);
-	label->setText(i18n("Es wurden alle benötigten Daten gesammelt.\n\nSimon kann das neue Wort jetzt lernen.\n\nDer Assistent ist hiermit abgeschlossen."));
+	label->setText(i18n("The needed data has been collected.\n\nSimon can now \"learn\" the new word."));
 	QVBoxLayout *layout = new QVBoxLayout(finished);
 	layout->addWidget(label);
 	finished->setLayout(layout);
@@ -148,8 +148,8 @@ void AddWordView::finish(int done)
 	
 	QString word = field("wordName").toString();
 	
-	Logger::log(i18n("[INF] Füge neues Wort zum Modell hinzu..."));
-	Logger::log(i18n("[INF] Neues Wort lautet: ")+word);
+	Logger::log(i18n("[INF] Adding the new Word to the Model..."));
+	Logger::log(i18n("[INF] New word: ")+word);
 	
 	listToAdd->append(Word(word, field("wordPronunciation").toString(),
 		     field("wordTerminal").toString(), 2 /* 2 recordings */));
@@ -168,7 +168,7 @@ void AddWordView::finish(int done)
 
 
 	//cleaning up
-	Logger::log(i18n("[INF] Wort hinzugefügt: ")+word);
+	Logger::log(i18n("[INF] Added Word: ")+word);
 	emit addedWord();
 }
 
@@ -182,11 +182,11 @@ void AddWordView::commitList()
 	{
 		if (!TrainingManager::getInstance()->addSample(key, promptsToAdd.value(key)))
 		{
-			KMessageBox::error(this, i18n("Konnte %1 nicht zur Promptstable hinzufügen", key));
+			KMessageBox::error(this, i18n("Couldn't add %1 to the Prompts-Table", key));
 		}
 	}
 	if (!TrainingManager::getInstance()->savePrompts())
-		KMessageBox::error(this, i18n("Konnte Prompts nicht speichern"));
+		KMessageBox::error(this, i18n("Couldn't save prompts"));
 		
 	promptsToAdd.clear();
 
@@ -196,7 +196,7 @@ void AddWordView::commitList()
 
 void AddWordView::askToAddWord(QString word)
 {
-	if (KMessageBox::questionYesNoCancel(this, i18n("Es wurde erkannt, dass das Wort \"%1\" im Sprachmodell fehlt.\n\nWollen Sie es jetzt hinzufügen?", word)) == KMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(this, i18n("The word \"%1\" appears to be missing in your language model.\n\nDo you want to add it now?", word)) == KMessageBox::Yes)
 	{
 		createWord(word);
 	}
@@ -228,7 +228,7 @@ void AddWordView::createWord(QString word)
 {
 	if (isVisible())
 	{
-		if (KMessageBox::questionYesNoCancel(this, i18n("Es wurde erkannt, dass gerade ein Wort hinzugefügt wird.\n\nWollen Sie das aktuelle Hinzufügen abbrechen?")) != KMessageBox::Yes)
+		if (KMessageBox::questionYesNoCancel(this, i18n("A word is currently being added.\n\nDo you want to abort this process?")) != KMessageBox::Yes)
 			return;
 	}
 	restart();

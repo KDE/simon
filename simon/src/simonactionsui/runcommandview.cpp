@@ -27,7 +27,7 @@
  *
  *	@author Peter Grasch
  */
-RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(i18n("Kommandos"), KIcon("system-run"), i18n("Direkte ausführung von simon-Befehlen"), parent)
+RunCommandView::RunCommandView(QWidget *parent) : InlineWidget(i18n("Commands"), KIcon("system-run"), i18n("Direct Execution of simon Commands"), parent)
 {
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	d = new RunCommandViewPrivate(this);

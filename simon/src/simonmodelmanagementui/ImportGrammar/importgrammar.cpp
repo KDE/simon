@@ -48,13 +48,13 @@ void ImportGrammar::run()
 
 QStringList ImportGrammar::readFile(QString path)
 {
-	emit status(i18n("Öffne Datei..."));
+	emit status(i18n("Opening File..."));
 	QStringList structures;
 	QFile file(path);
 	if (!file.open(QIODevice::ReadOnly)) return structures;
 	
 
-	emit status(i18n("Lese Datei..."));
+	emit status(i18n("Reading File..."));
 	
 	//matches for example the following:
 	// this is a test.
@@ -105,7 +105,7 @@ QStringList ImportGrammar::importFile(QString path)
 
 	QStringList structures = readFile(path);
 	
-	emit status(i18n("Verarbeite..."));
+	emit status(i18n("Processing..."));
 	emit fileProgress(0, structures.count());
 
 	WordList* lookupResult;
@@ -143,7 +143,7 @@ QStringList ImportGrammar::importFile(QString path)
 			if (wordTerminals.count() != 1 /*change this to include ambigous terminals */)
 			{
 				if (includeUnknown)
-					words.replace(j, i18n("Unbekannt"));
+					words.replace(j, i18n("Unknown"));
 				else 
 					everyWordSure = false;
 			} else 
@@ -152,7 +152,7 @@ QStringList ImportGrammar::importFile(QString path)
 			if (includeUnknown)
 			{
 				if (wordTerminals.count() != 1)
-					words.replace(j, i18n("Unbekannt"));
+					words.replace(j, i18n("Unknown"));
 				else 
 					words.replace(j, wordTerminals[0]);
 			} else {
@@ -173,7 +173,7 @@ QStringList ImportGrammar::importFile(QString path)
 		emit fileProgress(++progress, max);
 	}
 	
-	emit status(i18n("Fertig"));
+	emit status(i18n("Finished"));
 	return out;
 }
 
@@ -186,7 +186,7 @@ QStringList ImportGrammar::terminals(WordList *in)
 		terminal = in->at(i).getTerminal();
 		if (!terminals.contains(terminal)) terminals << terminal;
 	}
-	if (!includeUnknown) terminals.removeAll(i18n("Unbekannt"));
+	if (!includeUnknown) terminals.removeAll(i18n("Unknown"));
 	return terminals;
 }
 

@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Wortliste</string>
+   <string>Wortlist</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2" >
    <item>
@@ -214,7 +214,7 @@
        <item>
         <widget class="KPushButton" name="pbTrainList" >
          <property name="toolTip" >
-          <string>Trainiert die Liste der Wörter</string>
+          <string>Starts the Training of the selected Words</string>
          </property>
          <property name="text" >
           <string>Train selected Words</string>

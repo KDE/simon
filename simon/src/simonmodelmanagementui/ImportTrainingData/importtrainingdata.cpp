@@ -37,14 +37,14 @@ void ImportTrainingData::run()
 {
 	prog=0;
 	emit progress(0,0); //waiting...
-	emit status(i18n("Durchsuche Ordner..."));
+	emit status(i18n("Collecting files..."));
 	QString wavDestdir;// = CoreConfiguration::modelTrainingsDataPath().path()+"/";
 
 	QDir d(wavDestdir);
 	if (!d.exists())
 		if (!d.mkpath(wavDestdir))
 	{
-		emit error(i18n("Konnte Ausgabeordner %1 nicht erstellen", wavDestdir));
+		emit error(i18n("Couldn't create output folder %1", wavDestdir));
 	}
 	
 	QStringList *dataFiles = this->searchDir(directory);
@@ -52,16 +52,16 @@ void ImportTrainingData::run()
 	
 
 	emit progress(0, dataFiles->count());
-	emit status(i18n("Importiere %1 Dateien...", dataFiles->count()));
+	emit status(i18n("Importing %1 Files...", dataFiles->count()));
 
 	dataFiles = processSounds(*dataFiles, wavDestdir);
 	
 	if (!dataFiles) return;
 	
-	emit status(i18n("Erstelle automatische Transkription..."));
+	emit status(i18n("Creating automatic transcriptions..."));
 	
 	if (!createPrompts(*dataFiles)) return;
-	emit status(i18n("Fertig"));
+	emit status(i18n("Finished"));
 	emit done();
 }
 
@@ -183,7 +183,7 @@ QStringList* ImportTrainingData::processSounds(QStringList dataFiles,
 
 		if (!pp->process(dataFiles[i], newFileName))
 		{
-			emit error(i18n("Konnte Tondaten nicht verarbeiten"));
+			emit error(i18n("Couldn't process soundfiles"));
 			return NULL;
 		}
 		newFiles->append(newFileName);

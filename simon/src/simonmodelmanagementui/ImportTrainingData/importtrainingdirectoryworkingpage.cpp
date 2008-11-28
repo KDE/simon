@@ -36,7 +36,7 @@ ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *
 {
 	ui.setupUi(this);
 	
-	setTitle(i18n("Verarbeite Ordner..."));
+	setTitle(i18n("Processing folder..."));
 	completed = false;
 	
 	importer = new ImportTrainingData(this);

@@ -79,15 +79,15 @@
 SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 		:SimonMainWindow ( parent, flags )
 {
-	Logger::log ( i18n ( "[INF] Starte simon..." ) );
+	Logger::log ( i18n ( "[INF] Starting simon..." ) );
 
 	SimonInfo *info = new SimonInfo();
 
 	//showing splash
-	Logger::log ( i18n ( "[INF] Zeige Splashscreen..." ) );
+	Logger::log ( i18n ( "[INF] Displaying Splashscreen..." ) );
 	info->showSplash();
 
-	Logger::log ( i18n ( "[INF] Lade Konfigurationsmodule..." ) );
+	Logger::log ( i18n ( "[INF] Loading configuration modules..." ) );
 
 	configDialog = new KCMultiDialog(this);
 	configDialog->addModule("simongeneralconfig", QStringList() << "");
@@ -108,7 +108,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	}
 
 
-	info->writeToSplash ( i18n ( "Lade Programmlogik..." ) );
+	info->writeToSplash ( i18n ( "Loading program..." ) );
 	
 	this->control = new SimonControl (this);
 	this->trayManager = new TrayIconManager( this);
@@ -122,9 +122,9 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	
 	ui.tbWelcome->setWindowIcon(KIcon("simon"));
 	
-	ui.inlineView->addTab(ui.tbWelcome, KIcon("simon"), i18n("Willkommen"));
+	ui.inlineView->addTab(ui.tbWelcome, KIcon("simon"), i18n("Welcome"));
 
-	statusBar()->insertItem(i18n("Nicht Verbunden"),0);
+	statusBar()->insertItem(i18n("Not connected"),0);
 	statusBar()->insertItem("",1,10);
 	statusBar()->insertPermanentWidget(2,StatusManager::global(this)->createWidget(this));
 	
@@ -132,17 +132,17 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	//Preloads all Dialogs
 	guessChildTriggers ( ( QObject* ) this );
 
-	info->writeToSplash ( i18n ( "Lade \"Trainieren\"..." ) );
+	info->writeToSplash ( i18n ( "Loading \"Training\"..." ) );
 	this->trainDialog = new TrainingView(this);
 
-	info->writeToSplash ( i18n ( "Lade \"Wortliste\"..." ) );
+	info->writeToSplash ( i18n ( "Loading \"Wordlist\"..." ) );
 	this->wordList = new WordListView(this);
 
-	info->writeToSplash ( i18n ( "Lade \"Ausführen\"..." ) );
+	info->writeToSplash ( i18n ( "Loading \"Run\"..." ) );
 	this->runDialog = new RunCommandView ( this );
 
 
-	info->writeToSplash ( i18n ( "Lade Oberfläche..." ) );
+	info->writeToSplash ( i18n ( "Loading Interface..." ) );
 	
 	settingsShown=false;
 	
@@ -168,7 +168,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 void SimonView::setupActions()
 {
 	disconnectAction = new KAction(this);
-	disconnectAction->setText(i18n("Verbindung trennen"));
+	disconnectAction->setText(i18n("Disconnect"));
 	disconnectAction->setIcon(KIcon("network-disconnect"));
 	connect(disconnectAction, SIGNAL(triggered(bool)),
 		control, SLOT(disconnectFromServer()));
@@ -182,7 +182,7 @@ void SimonView::setupActions()
 	this->trayManager->addAction("connectActivate", connectActivate);
 	
 	KAction* addWord = new KAction(this);
-	addWord->setText(i18n("Wort Hinzufügen"));
+	addWord->setText(i18n("Add Word"));
 	addWord->setIcon(KIcon("list-add"));
 	addWord->setShortcut(Qt::CTRL + Qt::Key_N);
 	actionCollection()->addAction("addword", addWord);
@@ -191,7 +191,7 @@ void SimonView::setupActions()
 	
 	KAction* train = new KAction(this);
 // 	train->setCheckable(true);
-	train->setText(i18n("Trainieren"));
+	train->setText(i18n("Training"));
 	train->setIcon(KIcon("view-pim-news"));
 	train->setShortcut(Qt::CTRL + Qt::Key_T);
 	actionCollection()->addAction("train", train);
@@ -200,7 +200,7 @@ void SimonView::setupActions()
 	
 	KAction* commands = new KAction(this);
 // 	commands->setCheckable(true);
-	commands->setText(i18n("Kommandos"));
+	commands->setText(i18n("Commands"));
 	commands->setIcon(KIcon("system-run"));
 	commands->setShortcut(Qt::CTRL + Qt::Key_K);
 	actionCollection()->addAction("commands", commands);
@@ -209,7 +209,7 @@ void SimonView::setupActions()
 	
 	KAction* wordlist = new KAction(this);
 // 	wordlist->setCheckable(true);
-	wordlist->setText(i18n("Wortliste"));
+	wordlist->setText(i18n("Wordlist"));
 	wordlist->setIcon(KIcon("format-justify-fill"));
 	wordlist->setShortcut(Qt::CTRL + Qt::Key_L);
 	actionCollection()->addAction("wordlist", wordlist);
@@ -218,7 +218,7 @@ void SimonView::setupActions()
 	
 	KAction* recompile = new KAction(this);
 	recompile->setEnabled(control->getStatus() != SimonControl::Disconnected);
-	recompile->setText(i18n("Synchronisieren"));
+	recompile->setText(i18n("Synchronize"));
 	recompile->setIcon(KIcon("view-refresh"));
 	recompile->setShortcut(Qt::CTRL + Qt::Key_F5);
 	actionCollection()->addAction("compileModel", recompile);
@@ -350,7 +350,7 @@ void SimonView::showWordListDialog ()
  * response the following (re)actions are taken:
  * 	desaturate the Tray Image as needed
  * 	desaturate the simon logo in the bg
- * 	replaces the text on the label to "Deaktivieren"/"Aktivieren"
+ * 	replaces the text on the label to "Deaktivieren"/"Activate"
  *
  *	@author Peter Grasch
  *
@@ -359,7 +359,7 @@ void SimonView::toggleActivation()
 {
 	if (control->getStatus() == SimonControl::ConnectedDeactivatedNotReady)
 	{
-		KMessageBox::error(this, i18n("Konnte Erkennung nicht starten"));
+		KMessageBox::error(this, i18n("Couldn't start Recognition"));
 		representState(control->getStatus());
 	} else
 		this->control->toggleActivition();
@@ -377,10 +377,10 @@ void SimonView::representState(SimonControl::SystemStatus status)
 	switch (status)
 	{
 		case SimonControl::Disconnected: {
-			displayConnectionStatus(i18n("Getrennt"));
+			displayConnectionStatus(i18n("Disconnected"));
 			
 			if (connectActivate) {
-				connectActivate->setText(i18n ( "Verbinden" ));
+				connectActivate->setText(i18n ( "Connect" ));
 				connectActivate->setChecked(false);
 				connectActivate->setIcon(KIcon("network-disconnect"));
 				if (connectActivate->menu()->actions().contains(disconnectAction))
@@ -391,13 +391,13 @@ void SimonView::representState(SimonControl::SystemStatus status)
 					this, SLOT(toggleConnection()));
 			}
 
-			SimonInfo::showMessage ( i18n ( "Verbindung zu Server getrennt" ), 4000 );
+			SimonInfo::showMessage ( i18n ( "Connection to server lost" ), 4000 );
 			//TODO: we should probably (configurably) try to reconnect at this point
 			
 			break; }
 			
 		case SimonControl::Connecting: {
-			QString connectionStr = i18n("Verbinde...");
+			QString connectionStr = i18n("Merging...");
 			
 			if (connectActivate) {
 				connectActivate->setText(connectionStr);
@@ -415,9 +415,9 @@ void SimonView::representState(SimonControl::SystemStatus status)
 			break; }
 		
 		case SimonControl::ConnectedDeactivating: {
-			displayConnectionStatus(i18n("Verbunden; Deaktiviere..."));
+			displayConnectionStatus(i18n("Connected: Deactivating..."));
 			if (connectActivate) {
-				connectActivate->setText(i18n ( "Deaktiviere..." ));
+				connectActivate->setText(i18n ( "Deactivating..." ));
 				connectActivate->setChecked(false);
 			}
 		}
@@ -425,10 +425,10 @@ void SimonView::representState(SimonControl::SystemStatus status)
 		case SimonControl::ConnectedDeactivatedNotReady: 
 		case SimonControl::ConnectedPaused: 
 		case SimonControl::ConnectedDeactivatedReady: {
-			displayConnectionStatus(i18n("Verbunden aber Deaktiviert"));
+			displayConnectionStatus(i18n("Connected but Deactivated"));
 			
 			if (connectActivate) {
-				connectActivate->setText(i18n ( "Aktivieren" ));
+				connectActivate->setText(i18n ( "Activate" ));
 				connectActivate->setChecked(false);
 				connectActivate->setIcon(KIcon("media-playback-start"));
 
@@ -444,27 +444,27 @@ void SimonView::representState(SimonControl::SystemStatus status)
 			}
 			
 				
-			SimonInfo::showMessage ( i18n ( "simon wurde deaktiviert" ), 2000 );
+			SimonInfo::showMessage ( i18n ( "simon has been deactivated" ), 2000 );
 				
-			this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "Simon - Deaktiviert" ) );
+			this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "Simon - Deactivated" ) );
 			repaint();
 			break; }
 		
 		case SimonControl::ConnectedResuming: 
 		case SimonControl::ConnectedActivating: {
-			displayConnectionStatus(i18n("Verbunden; Aktiviere..."));
+			displayConnectionStatus(i18n("Connected; Activating..."));
 			if (connectActivate) {
-				connectActivate->setText(i18n ( "Aktiviere..." ));
+				connectActivate->setText(i18n ( "Activating..." ));
 				connectActivate->setChecked(false);
 			}
 		}
 			
 		case SimonControl::ConnectedActivated: {
-			displayConnectionStatus(i18n("Verbunden und Aktiviert"));
+			displayConnectionStatus(i18n("Connected and Activated"));
 			
 			if (connectActivate)
 			{
-				connectActivate->setText(i18n ( "Aktiviert" ));
+				connectActivate->setText(i18n ( "Activated" ));
 				connectActivate->setChecked(true);
 				connectActivate->setIcon(KIcon("media-playback-start"));
 
@@ -478,7 +478,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
 			
 			this->trayManager->createIcon ( KIcon ( "simon" ), "Simon" );
 				
-			SimonInfo::showMessage ( i18n ( "simon wurde aktiviert" ), 2000 );
+			SimonInfo::showMessage ( i18n ( "simon has been activated" ), 2000 );
 			break; }
 	}
 }
@@ -495,7 +495,9 @@ void SimonView::representState(SimonControl::SystemStatus status)
 */
 void SimonView::closeSimon()
 {
-	if ( ( !control->askBeforeQuit() ) || ( KMessageBox::questionYesNo ( this, i18n ( "Wirklich beenden?" ), i18n ( "Ein beenden der Applikation wird die Verbindung zur Erkennung beenden und weder Diktatfunktionen noch andere Kommandos können mehr benutzt werden.\n\nWollen Sie wirklich beenden?" )) == KMessageBox::Yes ) )
+	if ( ( !control->askBeforeQuit() ) || ( KMessageBox::questionYesNo ( this, i18n ( "If you quit the application the connection to the server will be closed and "
+"you will no longer be able to dictate texts or use command.\n\nDo you want to "
+"quit?" )) == KMessageBox::Yes ) )
 	{
 		close();
 		qApp->quit();
@@ -525,7 +527,7 @@ void SimonView::closeEvent ( QCloseEvent * event )
  */
 SimonView::~SimonView()
 {
-	Logger::log ( i18n ( "[INF] Beenden..." ) );
+	Logger::log ( i18n ( "[INF] Quitting..." ) );
 	trayManager->deleteLater();
 	control->deleteLater();
 	Logger::close();

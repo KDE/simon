@@ -70,7 +70,7 @@ bool AddWordResolvePage::validatePage()
 	delete search;
 	
 	if (exists) {
-		KMessageBox::error(this, i18n("Dieses Wort existiert bereits in Ihrer Wortliste."));
+		KMessageBox::error(this, i18n("The Wordlist already contains this Word."));
 		return false;
 	}
 	return true;
@@ -82,7 +82,7 @@ bool AddWordResolvePage::validatePage()
  */
 void AddWordResolvePage::addTerminal()
 {
-	QString newTerminal = QInputDialog::getText(this, i18n("Terminal hinzufügen"), i18n("Sie sind im Begriff einen neuen Terminal hinzuzufügen.\n\nBitte geben Sie den neuen Namen des Terminals an:"));
+	QString newTerminal = QInputDialog::getText(this, i18n("Add Terminal"), i18n("You are about to add a new terminal.\n\nPlease enter the name of this new terminal:"));
 
 	if (newTerminal.isEmpty()) return;
 

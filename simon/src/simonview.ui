@@ -16,7 +16,7 @@
    <string>simon</string>
   </property>
   <property name="accessibleDescription" >
-   <string>simon Hauptfenster</string>
+   <string>simon Main Window</string>
   </property>
   <property name="toolButtonStyle" >
    <enum>Qt::ToolButtonTextUnderIcon</enum>

@@ -23,7 +23,7 @@
 #include <KLocalizedString>
 
 TrainingView::TrainingView(QWidget *parent) : InlineWidget(i18n ( "Training" ), KIcon ( "view-pim-news" ),
-		                 i18n ( "Trainieren des Sprachmodells" ), parent)
+		                 i18n ( "Train the Acoustic Model" ), parent)
 {
 	d = new TrainingViewPrivate(this);
 	QVBoxLayout *lay = new QVBoxLayout(this);

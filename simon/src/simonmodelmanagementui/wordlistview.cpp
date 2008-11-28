@@ -30,9 +30,9 @@
  *
  * @author Peter Grasch
  */
-WordListView::WordListView(QWidget *parent) : InlineWidget(i18n("Wortliste"), 
+WordListView::WordListView(QWidget *parent) : InlineWidget(i18n("Wortlist"), 
 	KIcon("format-justify-fill"), 
-	i18n("Betrachten und bearbeiten der Wortliste"), parent)
+	i18n("View and modify the wordlist."), parent)
 {
 	d = new WordListViewPrivate(this);
 	QVBoxLayout *lay = new QVBoxLayout(this);

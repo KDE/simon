@@ -34,12 +34,12 @@
 int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "simon", "simon",
-			ki18n("simon"), "0.1-alpha-2.99",
+			ki18n("simon"), "0.2-alpha-1",
 			      ki18n("<html><head /><body>\
-					      <h2>Entwicklung und Vertrieb</h2>\
-					      <p>Entwickelt und Vertrieben vom gemeinnützigen Verein <a href=\"http://simon-listens.org\">simon listens e.V.</a> in Kooperation mit <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\
-					      <h3>Dank an</h3> \
-					      <ul><li>Franz Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Stieger Michael</ul> \
+					      <h2>Development and Distribution</h2>\
+					      <p>Developed and distributed by the friendly society <a href=\"http://simon-listens.org\">simon listens e.V.</a> in Cooperation with <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\
+					      <h3>Special Thanks To</h3> \
+					      <ul><li>Franz Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Stieger Michael<li>Ralf Herzog</ul> \
 					      </body></html>"),
 			KAboutData::License_GPL,
 			ki18n("Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );

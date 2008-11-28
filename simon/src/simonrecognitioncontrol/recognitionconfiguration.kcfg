@@ -12,21 +12,21 @@
       <default>true</default>
     </entry>
     <entry name="JuliusdUsername" type="String">
-      <label>The username for Juliusd.</label>
+      <label>The Username for simond.</label>
     </entry>
     <entry name="JuliusdPassword" type="Password">
-      <label>The password for Juliusd.</label>
+      <label>The Password for simond.</label>
     </entry>
     <entry name="JuliusdEncrypted" type="Bool">
-      <label>If the connection to the Juliusd should be encrypted.</label>
+      <label>If the Connection to the simond should be encrypted.</label>
       <default>false</default>
     </entry>
     <entry name="JuliusdConnectionTimeout" type="Int">
-      <label>The timeout for the connection to the Juliusd.</label>
+      <label>The Timeout for the connection to the simond.</label>
       <default>3000</default>
     </entry>
     <entry name="JuliusdServers" type="StringList">
-      <label>The addresses to all known Juliusd servers in order of preference.</label>
+      <label>The Addresses to all known simond servers in order of preference.</label>
       <default>localhost:4444</default>
     </entry>
   </group>

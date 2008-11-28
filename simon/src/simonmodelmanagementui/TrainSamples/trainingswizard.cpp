@@ -107,7 +107,7 @@ bool TrainingsWizard::init(const WordList &wList)
 		pages.append(page);
 	}
 	
-	return init(pages, i18n("Spezialtraining"));
+	return init(pages, i18n("Special Training"));
 }
 
 bool TrainingsWizard::init(const TrainingText &text)
@@ -120,7 +120,8 @@ bool TrainingsWizard::init(const QStringList& prompts, const QString& name)
 	QStringList missingWords = TrainingManager::getInstance()->missingWords(prompts);
 	while (!missingWords.isEmpty())
 	{
-		if (KMessageBox::questionYesNoCancel(0, i18n("Einge Wörter kommen nicht im Lexikon vor:\n%1\n\nWollen Sie diese jetzt hinzufügen?", missingWords.join(", "))) == KMessageBox::Yes)
+		if (KMessageBox::questionYesNoCancel(0, i18n("Your vocabulary does not define all words used in this text. These words are "
+"missing:\n%1\n\nDo you want to add them now?", missingWords.join(", "))) == KMessageBox::Yes)
 		{
 			AddWordView *addWord = new AddWordView(this);
 			addWord->addWords(missingWords);
@@ -153,7 +154,8 @@ QWizardPage* TrainingsWizard::createIntroPage()
 	intro->setTitle(i18n("Training"));
 	QLabel *lbIntro = new QLabel(intro);
 	lbIntro->setWordWrap(true);
-	lbIntro->setText(i18n("Dieser Assistent wird Ihnen dabei helfen, die Erkennungsrate Anhand von Trainings-Aufnahmen zu erhöhen."));
+	lbIntro->setText(i18n("This wizard will help you to improve the recognition rate based on "
+"recordings of your voice."));
 
 	QVBoxLayout *lay = new QVBoxLayout(intro);
 	lay->addWidget(lbIntro);
@@ -165,9 +167,10 @@ QWizardPage* TrainingsWizard::createIntroPage()
 QWizardPage* TrainingsWizard::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(i18n("Training abgeschlossen"));
+	finished->setTitle(i18n("Training completed"));
 	QLabel *lbFinished = new QLabel(finished);
-	lbFinished->setText(i18n("Das Training wurde hiermit abgeschlossen.\n\nDie Änderungen werden im Hintergrund übernommen."));
+	lbFinished->setText(i18n("The training has now been completed. The changes are being applied in the "
+"background."));
 	lbFinished->setWordWrap(true);
 	QVBoxLayout *lay = new QVBoxLayout(finished);
 	lay->addWidget(lbFinished);
@@ -191,7 +194,7 @@ void TrainingsWizard::submit()
 	}
 	if (!TrainingManager::getInstance()->savePrompts())
 	{
-		KMessageBox::error(this, i18n("Konnte Änderung der Trainingsdaten nicht speichern.\n\nBitte starten Sie simon neu."));
+		KMessageBox::error(this, i18n("Couldn't save changes to the trainings corpus.\n\nPlease restart simon."));
 	}
 }
 

@@ -52,7 +52,7 @@
       </font>
      </property>
      <property name="toolTip" >
-      <string>Startet das Training des selektierten Textes.</string>
+      <string>Starts the training of the selected text</string>
      </property>
      <property name="layoutDirection" >
       <enum>Qt::RightToLeft</enum>
@@ -73,7 +73,7 @@
      <item>
       <widget class="KPushButton" name="pbDelText" >
        <property name="toolTip" >
-        <string>Löschen des markierten Textes aus dem System</string>
+        <string>Removes the selected text from the system</string>
        </property>
        <property name="text" >
         <string>Delete selected Text</string>
@@ -83,7 +83,7 @@
      <item>
       <widget class="KPushButton" name="pbImportText" >
        <property name="toolTip" >
-        <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
+        <string>Import new texts from local files or form an oline repository</string>
        </property>
        <property name="text" >
         <string>Import Text</string>
@@ -93,7 +93,7 @@
      <item>
       <widget class="KPushButton" name="pbImportDir" >
        <property name="toolTip" >
-        <string>Importiert neue Texte aus dem Internet oder aus Dateien</string>
+        <string>Import Trainings-Corpuses from other simon versions</string>
        </property>
        <property name="text" >
         <string>Import Trainingsdata</string>

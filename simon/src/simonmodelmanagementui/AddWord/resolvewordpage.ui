@@ -43,7 +43,7 @@
    <item row="3" column="0" colspan="2" >
     <widget class="KTabWidget" name="twModules" >
      <property name="currentIndex" >
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
@@ -66,22 +66,22 @@
          </property>
          <column>
           <property name="text" >
-           <string>Wort</string>
+           <string>Word</string>
           </property>
          </column>
          <column>
           <property name="text" >
-           <string>Betonung</string>
+           <string>Pronunciation</string>
           </property>
          </column>
          <column>
           <property name="text" >
-           <string>Typ</string>
+           <string>Type</string>
           </property>
          </column>
          <column>
           <property name="text" >
-           <string>Erkennungsrate</string>
+           <string>Recognition Rate</string>
           </property>
          </column>
         </widget>

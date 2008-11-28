@@ -55,8 +55,8 @@ void ImportDict::parseWordList(QString pathToDict, int type, bool deleteFileWhen
  */
 void ImportDict::run()
 {
-	Logger::log(i18n("[INF] Öffne Lexikon")+" \""+pathToDict+"\"");
-	emit status(i18n("Öffne Wörterbuch..."));
+	Logger::log(i18n("[INF] Opening Lexicon")+" \""+pathToDict+"\"");
+	emit status(i18n("Opening Lexicon..."));
 	
 	emit progress(10);
 	if (dict) dict->deleteLater();
@@ -76,10 +76,10 @@ void ImportDict::run()
 	connect(dict, SIGNAL(loaded()), this, SLOT(openingFinished()));
 	connect(dict, SIGNAL(progress(int)), this, SLOT(loadProgress(int)));
 	
-	emit status(i18n("Verarbeite Wörterbuch..."));
+	emit status(i18n("Processing Lexicon..."));
 	
 	dict->load(pathToDict);
-	emit status(i18n("Erstelle Liste..."));
+	emit status(i18n("Creating List..."));
 	QStringList words = dict->getWords();
 	QStringList terminals = dict->getTerminals();
 	QStringList pronunciations = dict->getPronuncations();
@@ -96,19 +96,19 @@ void ImportDict::run()
 	}
 	if (type != Dict::HTKLexicon)
 	{
-		emit status(i18n("Sortiere Wörterbuch..."));
+		emit status(i18n("Sorting Dictionary..."));
 		qSort(vocablist->begin(), vocablist->end());
 	}
 	
 	
 	emit progress(1000);
-	emit status(i18n("Wörterbuch wird verteilt..."));
+	emit status(i18n("Storing Dictionary..."));
 	
-	Logger::log(i18n("[UPD] ")+QString::number(words.count())+" "+i18n("Wörter aus dem lexikon")+" \""+pathToDict+"\""+i18n(" importiert"));
+	Logger::log(i18n("[UPD]")+QString::number(words.count())+" "+i18n("Words from the Lexicon")+" \""+pathToDict+"\""+i18n(" imported"));
 
 	if (deleteFileWhenDone)
 	{
-		Logger::log(i18n("[INF]")+" "+i18n("Lösche Eingabedatei"));
+		Logger::log(i18n("[INF]")+" "+i18n("Deleting Input-File"));
 		
 		QFile::remove(this->pathToDict);
 	}

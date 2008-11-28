@@ -24,7 +24,7 @@
 MergeTerminalsSelectTerminalsPage::MergeTerminalsSelectTerminalsPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
-	setTitle(i18n("Terminale auswählen"));
+	setTitle(i18n("Choose Terminals"));
 	registerField("newName*", ui.leNewTerminal);
 	registerField("terminalA*", ui.lwA, "currentText", SIGNAL(currentTextChanged(QString)));
 	registerField("terminalB*", ui.lwB, "currentText", SIGNAL(currentTextChanged(QString)));

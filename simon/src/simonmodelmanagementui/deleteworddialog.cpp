@@ -33,7 +33,7 @@ DeleteWordDialog::DeleteWordDialog(QWidget* parent, Qt::WindowFlags f): KDialog(
 	QWidget *widget = new QWidget( this );
 	ui.setupUi(widget);
 	setMainWidget( widget );
-	setCaption( i18n("Wort löschen") );
+	setCaption( i18n("Remove Word") );
 
 	ui.lbIcon->setPixmap(KIconLoader().loadIcon("edit-delete", KIconLoader::NoGroup, KIconLoader::SizeEnormous));
 }

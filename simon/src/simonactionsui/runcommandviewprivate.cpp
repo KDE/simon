@@ -112,7 +112,7 @@ Command* RunCommandViewPrivate::getCommandToModify()
 	Command *command = static_cast<Command*>(currentIndex.internalPointer());
 	if (!command)
 	{
-		KMessageBox::information(this, i18n("Bitte wählen Sie zuerst ein Kommando aus der Liste aus"), i18n("Kommando auswählen"));
+		KMessageBox::information(this, i18n("Please select a command from the List"), i18n("Select Command"));
 		return 0;
 	}
 	return command;
@@ -139,7 +139,7 @@ void RunCommandViewPrivate::deleteCommand()
 	Command *command = getCommandToModify();
 	if (!command) return;
 	
-	if (KMessageBox::questionYesNoCancel(this, i18n("Wollen Sie das ausgewählte Kommando wirklich unwiederruflich löschen?"), i18n("Kommando löschen")) == KMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(this, i18n("Are you sure that you want to irreversibly remove that command?"), i18n("Remove Command")) == KMessageBox::Yes)
 	{
 		ActionManager::getInstance()->deleteCommand(command);
 	}

@@ -31,7 +31,7 @@
  */
 ImportDictSelectSourcePage::ImportDictSelectSourcePage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle(i18n("Wörterbuch Typ auswählen"));
+	setTitle(i18n("Select the Type of Dictionary"));
 	ui.setupUi(this);
 	
 	registerField("hadifix", ui.rbHadifixBOMP, "checked", SIGNAL(toggled(bool)));

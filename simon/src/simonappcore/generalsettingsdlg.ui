@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Allgemeine Einstellungen</string>
+   <string>General Settings</string>
   </property>
   <layout class="QVBoxLayout" >
    <item>

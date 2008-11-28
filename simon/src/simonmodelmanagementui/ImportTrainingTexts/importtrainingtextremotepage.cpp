@@ -36,7 +36,7 @@
  */
 ImportTrainingTextRemotePage::ImportTrainingTextRemotePage(QWidget *parent) : QWizardPage(parent)
 {
-	setTitle(i18n("Importieren aus dem Internet"));
+	setTitle(i18n("Import from the Internet"));
 	ui.setupUi(this);
 	registerField("textDownloadURL*", ui.lwTexts, "currentUserData", SIGNAL(currentRowChanged(int)));
 }
@@ -47,7 +47,7 @@ ImportTrainingTextRemotePage::ImportTrainingTextRemotePage(QWidget *parent) : QW
  */
 void ImportTrainingTextRemotePage::initializePage()
 {
-	Logger::log(i18n("[INF] Abrufen der Liste von verfügbaren Trainingstexten"));
+	Logger::log(i18n("[INF] Retrieving List of available Texts"));
 
 	KUrl downloadUrl=KUrl(SpeechModelManagementUiConfiguration::textOnlineUpdate());
 
@@ -68,7 +68,8 @@ void ImportTrainingTextRemotePage::importList(const QString& path)
 {
 	XMLTrainingTextList *tlist = new XMLTrainingTextList(path);
 	if (!tlist->load())
-		KMessageBox::error(this, i18n("Konnte Liste der Texte nicht öffnen.\n\nMöglicherweise ist der URL falsch konfiguriert oder beim Download ist ein Fehler aufgetreten."));
+		KMessageBox::error(this, i18n("Couldn't open List of available Texts.\n\nPlease check if the URL is correctly "
+"configured."));
 	QHash<QString, QString> textlist = tlist->getTrainingTextList();
 	ui.lwTexts->clear();
 	for (int i=0; i < textlist.count(); i++)

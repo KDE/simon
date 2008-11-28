@@ -72,7 +72,7 @@ void SynchronisationSettings::loadList()
 
 	if (!RecognitionControl::getInstance()->isConnected())
 	{
-		KMessageBox::information(this, i18n("Nicht mit derm Server verbunden."));
+		KMessageBox::information(this, i18n("Not connected to the server"));
 		ui.pbSelectModel->setEnabled(false);
 		ui.lwModels->setEnabled(false);
 		return;
@@ -80,7 +80,7 @@ void SynchronisationSettings::loadList()
 
 	if (!dlg)
 	{
-		dlg = new KProgressDialog(this, i18n("Lade verfügbare Modelle"), i18n("Lade Liste verfügbarer Modelle..."));
+		dlg = new KProgressDialog(this, i18n("Loading available Models"), i18n("Loading list of available Models"));
 		dlg->progressBar()->setValue(0);
 		dlg->progressBar()->setMaximum(0);
 		dlg->showCancelButton(false);
@@ -89,7 +89,7 @@ void SynchronisationSettings::loadList()
 
 	if (!RecognitionControl::getInstance()->getAvailableModels())
 	{
-		KMessageBox::sorry(this, i18n("Die Anfrage konnte nicht an den Server gesendet werden."));
+		KMessageBox::sorry(this, i18n("Couldn't send Request to Server"));
 		dlg->reject();
 		dlg->deleteLater();
 		dlg=0;
@@ -109,7 +109,7 @@ void SynchronisationSettings::displayList(const QList<QDateTime>& models)
 	}
 	if (models.isEmpty())
 	{
-		KMessageBox::sorry(this, i18n("Keine Modelle gefunden"));
+		KMessageBox::sorry(this, i18n("No Models found"));
 		return;
 	}
 
@@ -144,23 +144,24 @@ void SynchronisationSettings::showEvent(QShowEvent*)
 void SynchronisationSettings::selectModel()
 {
 	if (ui.lwModels->currentRow() == -1) {
-		KMessageBox::information(this, i18n("Bitte selektieren Sie ein Sprachmodell aus der Liste"));
+		KMessageBox::information(this, i18n("Please select a Model from the List"));
 		return;
 	}
 
-	if (KMessageBox::questionYesNoCancel(this, i18n("Wollen Sie wirklich zu dem ausgewählten Modell zurückkehren?")) != KMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to revert all changes made since this Model?")) != KMessageBox::Yes)
 		return;
 
 	QDateTime modelDate = ui.lwModels->currentItem()->data(Qt::UserRole).toDateTime();
 	if (modelDate.isNull()) {
-		KMessageBox::sorry(this, i18n("Dieses Modell besitzt kein gültiges Datum."));
+		KMessageBox::sorry(this, i18n("This model has no valid date."));
 		return;
 	}
 
 	if (RecognitionControl::getInstance()->switchToModel(modelDate))
-		KMessageBox::information(this, i18n("Die Anfrage wurde an den Server gesendet.\n\nBitte überwachen Sie den Fortschritt der Synchronisation im simon Hauptfenster."));
+		KMessageBox::information(this, i18n("The Request has been send to the server.\n\nPlease track the process of the "
+"synchronization in simons main window."));
 	else 
-		KMessageBox::sorry(this, i18n("Die Anfrage konnte nicht an den Server gesendet werden."));
+		KMessageBox::sorry(this, i18n("Couldn't send Request to Server"));
 }
 
 

@@ -80,14 +80,15 @@ void TrainingViewPrivate::deleteSelected()
 {
 	if ( ui.twTrainingWords->selectedItems().isEmpty() )
 	{
-		KMessageBox::information ( this ,i18n ( "Bitte selektieren Sie zuerst einen Text aus der Liste." ) );
+		KMessageBox::information ( this ,i18n ( "Please select a text from the list." ) );
 		return;
 	}
 	int currentIndex = ui.twTrainingWords->currentRow();
 
-	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "Wenn Sie hier mit \"Ja\" bestätigen, wird der ausgewählte Text unwiderbringlich von der Festplatte gelöscht. Wollen Sie den ausgewählten Text wirklich löschen?")) == KMessageBox::Yes )
+	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "If you confirm this dialog, the selected Text will be completely removed "
+"from your hard drive.\n\nDo you want to continue?")) == KMessageBox::Yes )
 		if (!TrainingManager::getInstance()->deleteText ( currentIndex ))
-			KMessageBox::sorry(this, i18n("Konnte Trainingstext nicht löschen.\n\nEs könnte sein, dass Sie nicht ausreichend Rechte benutzen weil es sich um einen Systemweiten Trainingstext handelt?..."));
+			KMessageBox::sorry(this, i18n("Couldn't delete Trainingstext. Do you have enough permissions?"));
 
 	loadList();
 }
@@ -101,13 +102,13 @@ void TrainingViewPrivate::trainSelected()
 {
 	if ( ui.twTrainingWords->selectedItems().isEmpty() )
 	{
-		KMessageBox::information(this,i18n("Bitte selektieren Sie zuerst einen Text aus der Liste."));
+		KMessageBox::information(this,i18n("Please select a text from the list."));
 		return;
 	}
 	TrainingText *text =TrainingManager::getInstance()->getText ( ui.twTrainingWords->currentRow() );
 	if ( !text )
 	{
-		SimonInfo::showMessage(i18n("Konnte Training nicht starten"), 2000); // show passive notification
+		SimonInfo::showMessage(i18n("Couldn't start Training"), 2000); // show passive notification
 		return;
 	}
 
@@ -168,8 +169,8 @@ void TrainingViewPrivate::loadList()
 		QString tooltip;
 		
 		if (pageCount > 0)
-			tooltip = i18n("Vorschau: %1...", list->at(i)->getPage(0));
-		else tooltip = i18n("Leer");
+			tooltip = i18n("Preview: %1...", list->at(i)->getPage(0));
+		else tooltip = i18n("Empty");
 		
 		//make them readonly
 		for ( int j = 0; j<3; j++ )

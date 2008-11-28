@@ -28,7 +28,7 @@
 
 ImportGrammarWizard::ImportGrammarWizard(QWidget* parent): QWizard(parent)
 {
-	setWindowTitle(i18n("Grammatikstrukturen Importieren"));
+	setWindowTitle(i18n("Import Sentence Structures"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importgrammar.png")));
 	addPage(createIntroPage());
 	addPage(createSelectFilesPage());
@@ -45,8 +45,14 @@ QWizardPage* ImportGrammarWizard::createIntroPage()
 	intro->setLayout(lay);
 
 	desc->setWordWrap(true);
-	intro->setTitle(i18n("Willkommen zum Importieren der Grammatik"));
-	desc->setText(i18n("Dieser Assistent wird Ihnen erlauben, beliebig viele Textdateien auszuwählen aus denen dann ein Grammatikprofil erstellt wird.\n\nDazu werden die einzelnen Wörter mit Hilfe der Wortliste in ihre grammatikalischen Kategorien (\"Terminale\") aufgelöst und anhand dieser die Satzkonstrukte kreiert.\n\nBitte überprüfen Sie die Wortliste auf Korrektheit bevor Sie diesen Assistenten ausführen."));
+	intro->setTitle(i18n("Welcome to the Import of your Grammar"));
+	desc->setText(i18n("This wizard will allow you to select textfiles which will then create your "
+"personal grammar profile.\n\nTo do this each of the files will be read by a "
+"grammar parser which will look up every single word in your dictionary-"
+"corpus. If the word is found its terminal will be added to the sentence. "
+"This way the parsers will find valid grammatical sentences on terminal "
+"level.\n\nThis process requires a large shadow-lexicon or targeted input "
+"material."));
 
 	return intro;
 }
@@ -75,8 +81,9 @@ QWizardPage* ImportGrammarWizard::createFinishedPage()
 	finished->setLayout(lay);
 
 	desc->setWordWrap(true);
-	finished->setTitle(i18n("Import abgeschlossen"));
-	desc->setText(i18n("Die Dateien wurden erfolgreich importiert.\n\nBitte überprüfen Sie die importierten Strukturen noch auf offensichtliche Fehler.\n\nVielen Dank dass Sie simon verbessert haben!"));
+	finished->setTitle(i18n("Import completed"));
+	desc->setText(i18n("The files have been imported.\n\nPlease check the structures for errors.\n\nThank "
+"you for improving simon!"));
 
 	return finished;
 }

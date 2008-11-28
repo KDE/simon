@@ -50,7 +50,7 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 	addPage(workingPage);
 
 	addPage(createFinishedPage());
-	setWindowTitle(i18n("Importiere Wörterbuch"));
+	setWindowTitle(i18n("Importing Dictionary"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importdict.png")));
 }
 
@@ -85,10 +85,16 @@ QWizardPage* ImportDictView::createImportLexiconPage()
 QWizardPage* ImportDictView::createIntroPage()
 {
 	QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle(i18n("Wörterbuch importieren"));
+	intro->setTitle(i18n("Import Dictionary"));
 	QLabel *lbIntro = new QLabel(intro);
 	lbIntro->setWordWrap(true);
-	lbIntro->setText(i18n("Dieser Assistent wird Ihnen dabei helfen, ein neues Wörterbuch zu importieren.\n\nEin Wörterbuch beinhaltet Informationen über die bekannten Wörter wie zum Beispiel wie Sie geschrieben werden und wie sie ausgesprochen werden.\n\nDas Wörterbuch ist deshalb ein wichtiger Bestandteil von simon.\n\nWir empfehlen ein BOMP Wörterbuch aufgrund dessen hohen Qualitätsstandards.\n\nBitte wählen Sie Ihre Quellen sorgfältig und achten Sie darauf nur hochqualitatives Material zu verwenden."));
+	lbIntro->setText(i18n("This assistant will help you to import a new dictionary.\n\nA dictionary "
+"contains information about the known words like how they are written and how "
+"they are pronounced.\n\nThe dictionary is an essential core-component of your "
+"language model. Please ensure that every dictionary that you import is of "
+"high quality as it will massivly impact your recognition performance.\n\nWe "
+"suggest that you use the Voxforge English Dictionary which is a HTK "
+"compatible lexicon and of very high quality."));
 
 	QVBoxLayout *lay = new QVBoxLayout(intro);
 	lay->addWidget(lbIntro);
@@ -139,9 +145,9 @@ ImportDictWorkingPage* ImportDictView::createImportDictWorkingPage()
 QWizardPage* ImportDictView::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(i18n("Wörterbuch importiert"));
+	finished->setTitle(i18n("Dictionary imported"));
 	QLabel *lbFinished = new QLabel(finished);
-	lbFinished->setText(i18n("Das Wörterbuch wurde erfolgreich importiert und wird nun übernommen.\n\nDas noch einige Zeit dauern, währenddessen ist simon aber bereits voll einsatzfähig und der Abgleich geschieht im Hintergrund.\n\nDas neue Wörterbuch wird in spätestenens einigen Minuten voll aktiviert sein.\n\nVielen Dank, dass Sie simon verbessert haben."));
+	lbFinished->setText(i18n("The dictionary has been imported successfully.\n\nThank you for improving simon."));
 	lbFinished->setWordWrap(true);
 	QVBoxLayout *lay = new QVBoxLayout(finished);
 	lay->addWidget(lbFinished);

@@ -31,7 +31,7 @@ ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *pare
 	
 	ui.urTrainingDataDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 	
-	setTitle(i18n("Trainingsdaten aus Ordner importieren"));
+	setTitle(i18n("Import Trainings Samples from Folder"));
 	
 	registerField("directory*", ui.urTrainingDataDirectory, "url", SIGNAL(textChanged(QString)));
 }

@@ -70,33 +70,33 @@ bool SimonControl::askBeforeQuit()
 
 void SimonControl::loggedIn()
 {
-	SimonInfo::showMessage(i18n("Benutzer authentifiziert"), 1500);
+	SimonInfo::showMessage(i18n("User athenticated"), 1500);
 }
 
 void SimonControl::slotConnectionError(const QString &err)
 {
-	KMessageBox::error(0, i18n("Verbindungsfehler: \n%1", err));
+	KMessageBox::error(0, i18n("Connection Error: \n%1", err));
 	setStatus(SimonControl::Disconnected);
 }
 
 void SimonControl::slotSimondSystemError(const QString &err)
 {
-	KMessageBox::error(0, i18n("Der Erkennungsserver liefert folgenden fatalen Fehler: \n%1", err));
+	KMessageBox::error(0, i18n("The Recognition Server returned the following fatal error: \n%1", err));
 }
 
 void SimonControl::slotSynchronisationError(const QString &err)
 {
-	KMessageBox::error(0, i18n("Bei der Modellsynchronisation ist folgender Fehler aufgetreten: \n%1", err));	
+	KMessageBox::error(0, i18n("The model synchronization reported the following error: \n%1", err));	
 }
 
 void SimonControl::slotRecognitionError(const QString &err)
 {
-	KMessageBox::error(0, i18n("Bei der Erkennung ist folgender Fehler aufgetreten: \n%1", err));
+	KMessageBox::error(0, i18n("The Recognition reported the following error: \n%1", err));
 }
 
 void SimonControl::slotCompilationError(const QString &err, const QString& protocol)
 {
-	KMessageBox::detailedError(0, i18n("Als der Server das Modell kompilieren wollte trat dieser Fehler auf:\n%1", err), protocol);
+	KMessageBox::detailedError(0, i18n("As the server compiled the model the following error occured:\n%1", err), protocol);
 }
 
 
@@ -107,17 +107,17 @@ void SimonControl::slotSimondSystemWarning(const QString& warning)
 
 void SimonControl::slotSynchronisationWarning(const QString& warning)
 {
-	SimonInfo::showMessage(i18n("Modellsynchronisation: %1", warning), 5000);
+	SimonInfo::showMessage(i18n("Model Synchronisation %1", warning), 5000);
 }
 
 void SimonControl::slotRecognitionWarning(const QString& warning)
 {
-	SimonInfo::showMessage(i18n("Erkennung: %1", warning), 5000);
+	SimonInfo::showMessage(i18n("Recognition: %1", warning), 5000);
 }
 
 void SimonControl::slotCompilationWarning(const QString& warning)
 {
-	SimonInfo::showMessage(i18n("Modellverwaltung: %1", warning), 5000);
+	SimonInfo::showMessage(i18n("Modelmanagement: %1", warning), 5000);
 }
 
 
@@ -223,7 +223,7 @@ void SimonControl::setStatus(SimonControl::SystemStatus status)
 void SimonControl::connectedToServer()
 {
 	setStatus(SimonControl::ConnectedDeactivatedNotReady);
-	Logger::log(i18n("[INF]")+" "+i18n("Verbunden zu Server"));
+	Logger::log(i18n("[INF]")+" "+i18n("Connected to the Server"));
 }
 
 /**
@@ -237,7 +237,7 @@ void SimonControl::connectedToServer()
 void SimonControl::disconnectedFromServer()
 {
 	setStatus(SimonControl::Disconnected);
-	Logger::log(i18n("[INF] Verbindung von Server getrennt"));
+	Logger::log(i18n("[INF] Connection lost"));
 }
 
 /**
@@ -247,7 +247,7 @@ void SimonControl::disconnectedFromServer()
  */
 void SimonControl::abortConnecting()
 {
-	Logger::log(i18n("[INF] Verbinden abgebrochen"));
+	Logger::log(i18n("[INF] Connecting aborted"));
 	this->recognitionControl->disconnectFromServer();
 }
 
@@ -278,13 +278,13 @@ SimonControl::SystemStatus SimonControl::activateSimon()
 {
 	if (status == SimonControl::ConnectedDeactivatedReady)
 	{
-		Logger::log(i18n("[INF] Simon wird aktiviert"));
+		Logger::log(i18n("[INF] simon activated"));
 		setStatus(SimonControl::ConnectedActivating);
 		recognitionControl->startRecognition();
 	}
 	if (status == SimonControl::ConnectedPaused)
 	{
-		Logger::log(i18n("[INF] Erkennung wird fortgesetzt"));
+		Logger::log(i18n("[INF] Continuing recognition"));
 		setStatus(SimonControl::ConnectedResuming);
 		recognitionControl->resumeRecognition();
 	}
@@ -302,7 +302,7 @@ SimonControl::SystemStatus SimonControl::deactivateSimon()
 	if (status == SimonControl::ConnectedActivated)
 	{
 		setStatus(SimonControl::ConnectedDeactivating);
-		Logger::log(i18n("[INF] Simon deaktiviert"));
+		Logger::log(i18n("[INF] simon deactivated"));
 		recognitionControl->pauseRecognition();
 	}
 	return status;

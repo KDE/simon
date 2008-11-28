@@ -195,7 +195,8 @@ void RecognitionControl::errorOccured()
 	QList<QSslError> errors = socket->sslErrors();
 	if ((errors.count() == 1) && (errors[0].error() == QSslError::SelfSignedCertificate) && (RecognitionConfiguration::juliusdEncrypted()))
 	{
-		if (KMessageBox::questionYesNoCancel(0, i18n("Das Zertifikat der Gegenstelle ist selbst-signiert und nicht vertrauenswürdig.\n\nWollen Sie die Verbindung trozdem fortsetzen?"), i18n("Selbst-Signiertes Zertifikat"))==KMessageBox::Yes)
+		if (KMessageBox::questionYesNoCancel(0, i18n("The certificate of the remote host is self-signed and thus not trustworthy. "
+"\n\nDo you still want to continue?"), i18n("Self-Signed Certificate"))==KMessageBox::Yes)
 		{
 			socket->ignoreSslErrors();
 			return;
@@ -239,7 +240,7 @@ bool RecognitionControl::isConnected()
 void RecognitionControl::timeoutReached()
 {
 	timeoutWatcher->stop();
-	emit connectionError(i18n("Zeitüberschreitung der Anforderung (%1 ms)", RecognitionConfiguration::juliusdConnectionTimeout()));
+	emit connectionError(i18n("Request timed out (%1 ms)", RecognitionConfiguration::juliusdConnectionTimeout()));
 	socket->abort();
 }
 
@@ -311,7 +312,7 @@ void RecognitionControl::login()
 	{
 		KPasswordDialog dlg( dynamic_cast<QWidget*>(parent()), 
 					KPasswordDialog::ShowUsernameLine|KPasswordDialog::ShowKeepPassword );
-		dlg.setPrompt( i18n( "Bitte geben Sie die Benutzerdaten für die Verbindung zum Juliusd an." ));
+		dlg.setPrompt( i18n( "Please enter your Authentication Details for the simond below" ));
 		if( !dlg.exec() || dlg.username().isEmpty() )
 		{
 			disconnectFromServer(); //the user canceled
@@ -360,7 +361,7 @@ bool RecognitionControl::sendActiveModel()
 {
 	Model *model = modelManager->createActiveContainer();
 	if (!model) {
-		emit synchronisationWarning(i18n("Konnte Modellcontainer nicht erstellen"));
+		emit synchronisationWarning(i18n("Couldn't create model container"));
 		sendRequest(Simond::ErrorRetrievingActiveModel);
 		return false;
 	}
@@ -605,7 +606,7 @@ void RecognitionControl::sendSample(QString sampleName)
 
 void RecognitionControl::askStartSynchronisation()
 {
-	if (isConnected() && ((!RecognitionConfiguration::askForSync()) || KMessageBox::questionYesNo(0, i18n("Das Sprachmodell hat sich geändert.\n\nSoll es jetzt synchronisiert werden?"))==KMessageBox::Yes))
+	if (isConnected() && ((!RecognitionConfiguration::askForSync()) || KMessageBox::questionYesNo(0, i18n("The Speech Model changed.\n\nSynchronize it now?"))==KMessageBox::Yes))
 		startSynchronisation();
 }
 
@@ -619,7 +620,7 @@ void RecognitionControl::startSynchronisation()
 		synchronisationOperation->deleteLater();
 	}
 
-	synchronisationOperation = new Operation(thread(), i18n("Modellsynchronisation"), i18n("Initialisiere..."), 0, 100, false);
+	synchronisationOperation = new Operation(thread(), i18n("Modell Synchronisation"), i18n("Initializing..."), 0, 100, false);
 
 	kWarning() << "Starting synchronisation";
 	sendRequest(Simond::StartSynchronisation);
@@ -689,14 +690,14 @@ void RecognitionControl::messageReceived()
 				case Simond::VersionIncompatible:
 				{
 					advanceStream(sizeof(qint32));
-					emit simondSystemError(i18n("Version nicht unterstützt"));
+					emit simondSystemError(i18n("Version not supported"));
 					break;
 				}
 	
 				case Simond::AuthenticationFailed:
 				{
 					advanceStream(sizeof(qint32));
-					emit simondSystemError(i18n("Benutzername oder Passwort falsch."));
+					emit simondSystemError(i18n("Wrong username or password."));
 					this->disconnectFromServer();
 					break;
 				}
@@ -704,7 +705,7 @@ void RecognitionControl::messageReceived()
 				case Simond::AccessDenied:
 				{
 					advanceStream(sizeof(qint32));
-					emit simondSystemError(i18n("Zugriff verweigert."));
+					emit simondSystemError(i18n("Access Denied."));
 					this->disconnectFromServer();
 					break;
 				}
@@ -714,7 +715,7 @@ void RecognitionControl::messageReceived()
 				case Simond::SynchronisationAlreadyRunning:
 				{
 					advanceStream(sizeof(qint32));
-					emit synchronisationError(i18n("Synchronisation läuft bereits."));
+					emit synchronisationError(i18n("Synchronization already running"));
 					synchronisationDone();
 					break;
 				}
@@ -722,18 +723,18 @@ void RecognitionControl::messageReceived()
 				case Simond::AbortSynchronisationFailed:
 				{
 					advanceStream(sizeof(qint32));
-					emit synchronisationError(i18n("Konnte Synchronisation nicht korrekt abbrechen."));
+					emit synchronisationError(i18n("Couldn't abort synchronization."));
 					break;
 				}
 			
 				case Simond::GetActiveModelDate:
 				{
 					if (!synchronisationOperation)
-						synchronisationOperation = new Operation(thread(), i18n("Modellsynchronisation"), i18n("Synchronisiere Aktives Modell"), 1, 100, false);
+						synchronisationOperation = new Operation(thread(), i18n("Modell Synchronisation"), i18n("Synchronizing acitve Model"), 1, 100, false);
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
 	
-					synchronisationOperation->update(i18n("Synchronisiere Aktives Modell"), 1);
+					synchronisationOperation->update(i18n("Synchronizing acitve Model"), 1);
 					kDebug() << "Server requested active Model modified date";
 					sendActiveModelModifiedDate();
 					break;
@@ -791,7 +792,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "No active model available";
-					emit synchronisationWarning(i18n("Kein Sprachmodell verfügbar: Erkennung deaktiviert"));
+					emit synchronisationWarning(i18n("No Speech Model available: Recognition deactivated"));
 					sendModelSrcModifiedDate();
 					
 					break;
@@ -803,7 +804,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 	
 					kDebug() << "Couldn't store active model on server";
-					emit synchronisationError(i18n("Konnte Server-Modell nicht aktualisieren"));
+					emit synchronisationError(i18n("Couldn't update the Server-Model."));
 					sendModelSrcModifiedDate();
 					
 					break;
@@ -814,7 +815,7 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
 					
-					synchronisationOperation->update(i18n("Überprüfe Modellquelle"), 9);
+					synchronisationOperation->update(i18n("Checking Source"), 9);
 	
 					kDebug() << "Server requested Model src modified date";
 					sendModelSrcModifiedDate();
@@ -825,7 +826,7 @@ void RecognitionControl::messageReceived()
 				{
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
-					synchronisationOperation->update(i18n("Synchronisiere Training"), 10);
+					synchronisationOperation->update(i18n("Synchronizing Training"), 10);
 	
 					kDebug() << "Server Requested training modified date";
 					sendTrainingModifiedDate();
@@ -834,7 +835,7 @@ void RecognitionControl::messageReceived()
 				
 				case Simond::GetTraining:
 				{
-					synchronisationOperation->update(i18n("Sende Training"), 11);
+					synchronisationOperation->update(i18n("Sending Training-Corpus"), 11);
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
 	
@@ -845,7 +846,7 @@ void RecognitionControl::messageReceived()
 				
 				case Simond::Training:
 				{
-					synchronisationOperation->update(i18n("Lade Training"), 11);
+					synchronisationOperation->update(i18n("Loading Training"), 11);
 					checkIfSynchronisationIsAborting();
 	
 					kDebug() << "Server sent training";
@@ -862,7 +863,7 @@ void RecognitionControl::messageReceived()
 					modelManager->storeTraining(changedTime, sampleRate,wavConfig,prompts);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
-					synchronisationOperation->update(i18n("Synchronisiere Wortliste"), 3);
+					synchronisationOperation->update(i18n("Synchronizing Wordlist"), 3);
 					sendWordListModifiedDate();
 					break;
 				}
@@ -893,7 +894,7 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
 					
-					synchronisationOperation->update(i18n("Synchronisiere Wortliste"), 17);
+					synchronisationOperation->update(i18n("Synchronizing Wordlist"), 17);
 	
 					kDebug() << "Server Requested WordList modified date";
 					sendWordListModifiedDate();
@@ -927,7 +928,7 @@ void RecognitionControl::messageReceived()
 					modelManager->storeWordList(changedTime,simple,vocab,lexicon);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					
-					synchronisationOperation->update(i18n("Synchronisiere Grammatik"), 24);
+					synchronisationOperation->update(i18n("Synchronizing Grammar"), 24);
 					sendGrammarModifiedDate();
 					break;
 				}
@@ -938,7 +939,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 		
 					kDebug() << "No wordlist available";
-					emit synchronisationError(i18n("Keine Wortliste verfügbar"));
+					emit synchronisationError(i18n("No Wordlist available"));
 					sendGrammarModifiedDate();
 					break;
 				}
@@ -949,7 +950,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "Server could not store wordlist";
-					emit synchronisationError(i18n("Konnte Wortliste nicht auf Server ablegen"));
+					emit synchronisationError(i18n("Couldn't store Wordlist on Server"));
 					sendGrammarModifiedDate();
 					break;
 				}
@@ -959,7 +960,7 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
 					
-					synchronisationOperation->update(i18n("Synchronisiere Grammatik"), 31);
+					synchronisationOperation->update(i18n("Synchronizing Grammar"), 31);
 
 					kDebug() << "Server Requested Grammar modified date";
 					sendGrammarModifiedDate();
@@ -1020,7 +1021,7 @@ void RecognitionControl::messageReceived()
 				{
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
-					synchronisationOperation->update(i18n("Synchronisiere Sprachdefinition"), 38);
+					synchronisationOperation->update(i18n("Synchronizing Language Description"), 38);
 
 					kDebug() << "Server Requested lang. desc. modified date";
 					sendLanguageDescriptionModifiedDate();
@@ -1081,8 +1082,7 @@ void RecognitionControl::messageReceived()
 				{
 					checkIfSynchronisationIsAborting();
 
-					kDebug() << "Server requested Trainings-Sample";
-					synchronisationOperation->update(i18n("Synchronisiere Trainingsdaten"), 68);
+					synchronisationOperation->update(i18n("Synchronizing Trainings-Corpus"), 68);
 					
 					parseLengthHeader();
 					
@@ -1097,7 +1097,7 @@ void RecognitionControl::messageReceived()
 
 				case Simond::TrainingsSample:
 				{
-					synchronisationOperation->update(i18n("Synchronisiere Trainingsdaten"), 68);
+					synchronisationOperation->update(i18n("Synchronizing Trainings-Corpus"), 68);
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "Server sent Trainings-Sample";
@@ -1133,7 +1133,7 @@ void RecognitionControl::messageReceived()
 				case Simond::SynchronisationCommitFailed:
 				{
 					advanceStream(sizeof(qint32));
-					emit synchronisationError(i18n("Konnte Modellabgleich nicht abschließen"));
+					emit synchronisationError(i18n("Couldn't complete Synchronization"));
 					synchronisationDone();
 					break;
 				}
@@ -1165,7 +1165,7 @@ void RecognitionControl::messageReceived()
 				{
 					advanceStream(sizeof(qint32));
 
-					emit synchronisationError(i18n("Konnte altes Sprachmodell nicht wiederherstellen."));
+					emit synchronisationError(i18n("Couldn't restore old Model"));
 					break;
 				}
 				
@@ -1176,7 +1176,7 @@ void RecognitionControl::messageReceived()
 
 				case Simond::ModelCompilationStarted: {
 					advanceStream(sizeof(qint32));
-					modelCompilationOperation = new Operation(thread(), i18n("Modellerstellung"), i18n("Initialisiere..."));
+					modelCompilationOperation = new Operation(thread(), i18n("Compiling Model"), i18n("Initializing..."));
 					break;
 				}
 				
@@ -1195,9 +1195,9 @@ void RecognitionControl::messageReceived()
 					statusMsg = QString::fromUtf8(statusByte);
 					
 					if (!modelCompilationOperation)
-						modelCompilationOperation = new Operation(thread(), i18n("Modellerstellung"), statusMsg, progNow, progMax);
+						modelCompilationOperation = new Operation(thread(), i18n("Compiling Model"), statusMsg, progNow, progMax);
 					else 
-						modelCompilationOperation->update(i18n("Modell: %1", statusMsg), progNow, progMax);
+						modelCompilationOperation->update(i18n("Model: %1", statusMsg), progNow, progMax);
 					break;
 				}
 				
@@ -1269,7 +1269,7 @@ void RecognitionControl::messageReceived()
 				//TODO: is this deprecated?
 				case Simond::ErrorRetrievingModelCompilationProtocol: {
 					advanceStream(sizeof(qint32));
-					KMessageBox::sorry(0, i18n("Konnte Modellerstellungsprotokoll nicht abrufen"));
+					KMessageBox::sorry(0, i18n("Couldn't retrieve Model-Compilation-Protocol"));
 					break;
 				}
 				

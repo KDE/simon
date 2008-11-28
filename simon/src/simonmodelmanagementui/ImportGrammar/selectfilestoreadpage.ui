@@ -33,7 +33,7 @@
    <item>
     <widget class="KUrlRequester" name="urFileToAdd" >
      <property name="filter" >
-      <string>Textdateien *.txt</string>
+      <string>Textfiles *.txt</string>
      </property>
     </widget>
    </item>

@@ -42,7 +42,7 @@ p, li { white-space: pre-wrap; }
      <item>
       <widget class="KUrlRequester" name="urFile" >
        <property name="filter" >
-        <string>*.txt *.txt.bz2 *.txt.gz | BOMP-Wörterbücher (*.txt, *.txt.gz, *.txt.bz2)</string>
+        <string>*.txt *.txt.bz2 *.txt.gz | BOMP-Dictionaries (*.txt, *.txt.gz, *.txt.bz2)</string>
        </property>
       </widget>
      </item>

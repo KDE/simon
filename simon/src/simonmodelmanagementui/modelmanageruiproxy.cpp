@@ -39,12 +39,13 @@ void ModelManagerUiProxy::slotModelChanged()
 //TODO: is this deprecated?
 void ModelManagerUiProxy::displayCompilationProtocol(const QString& protocol)
 {
-	KMessageBox::detailedSorry(0, i18n("Modellprotokoll"), protocol);
+	KMessageBox::detailedSorry(0, i18n("Protocol:"), protocol);
 }
 
 void ModelManagerUiProxy::sampleNotAvailable(const QString& sample)
 {
-	if (KMessageBox::questionYesNo(0, i18n("Das Sprachsample \"%1\" konnte weder auf dem Server noch auf dem Computer gefunden werden.\n\nWollen Sie das Sample aus der Trainingsdatenbank entfernen?", sample)) == KMessageBox::Yes)
+	if (KMessageBox::questionYesNo(0, i18n("The sample \"%1\" could not be found neither on the local computer nor the "
+"server.\n\nDo you want to remove it from the Trainings-Database?", sample)) == KMessageBox::Yes)
 	{
 		//kick some poor samples ass
 		startGroup();
@@ -57,7 +58,7 @@ void ModelManagerUiProxy::sampleNotAvailable(const QString& sample)
 		commitGroup(true /*silent*/);
 
 		if (!succ)
-			KMessageBox::error(0, i18n("Konnte das Sample nicht aus dem Trainingskorpus löschen"));
+			KMessageBox::error(0, i18n("Couldn't remove Sample from the Trainingscorpus"));
 		else
 			// and _do_ _it_ _again_
 			emit recompileModel();
@@ -69,7 +70,8 @@ void ModelManagerUiProxy::sampleNotAvailable(const QString& sample)
 
 void ModelManagerUiProxy::wordUndefined(const QString& word)
 {
-	if (KMessageBox::questionYesNoCancel(0, i18n("Beim Generieren des Sprachmodells wurde erkannt, dass das Wort \"%1\" in den Trainingsdaten vorkommt aber nicht phonetisch definiert ist.\n\nMöchten Sie das Wort jetzt hinzufügen?", word)) != KMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(0, i18n("The word \"%1\" is used in your trainings samples but is not phonetically "
+"defined. Do you want to add the word now?", word)) != KMessageBox::Yes)
 		return;
 
 

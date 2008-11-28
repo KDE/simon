@@ -30,7 +30,7 @@ MergeTerminals::MergeTerminals(QObject* parent): QThread(parent)
 
 void MergeTerminals::run()
 {
-	emit status(i18n("Bearbeite Wörter des Terminals %1", this->terminalA));
+	emit status(i18n("Processing Words of Terminal %1", this->terminalA));
 	emit progress(0,100);
 
 	GrammarManager *grammarManager = GrammarManager::getInstance();
@@ -38,21 +38,21 @@ void MergeTerminals::run()
 
 	wordListManager->renameTerminal(terminalA, newName, includeShadow);
 
-	emit status(i18n("Bearbeite Wörter des Terminals %1", this->terminalB));
+	emit status(i18n("Processing Words of Terminal %1", this->terminalB));
 	emit progress(45,100);
 
 	wordListManager->renameTerminal(terminalB, newName, includeShadow);
 
 	if (includeGrammar)
 	{
-		emit status(i18n("Passe Grammatik an"));
+		emit status(i18n("Adapting Grammar"));
 		emit progress(90,100);
 		grammarManager->renameTerminal(terminalA, newName);
 		emit progress(95,100);
 		grammarManager->renameTerminal(terminalB, newName);
 	}
 
-	emit status(i18n("Fertig"));
+	emit status(i18n("Finished"));
 	emit progress(100,100);
 	wordListManager->save();
 	//grammarManager->save(); saved automagically

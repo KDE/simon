@@ -172,7 +172,9 @@ void WordListViewPrivate::trainList()
 {
 	if (this->trainingwordlist.count()==0)
 	{
-		KMessageBox::error(this, i18n("Bitte wählen Sie zuerst ein paar Wörter für das spezielle Training aus.\nZiehen Sie sie dazu von der großen Liste links in die kleine Liste oben rechts.\n\nWenn Sie generische Texte vorlesen wollen, gehen Sie bitte zum Allgemeine Training.\n(Der Punkt \"Trainieren\" ist in der \"Globale Aktion\"-Toolbar)."));
+		KMessageBox::error(this, i18n("Please select a few words for the special training by dragging them from the "
+"list on your left to the list above.\n\nIf you just want to train your model "
+"using generic texts use the \"Training\" option in the Toolbar."));
 		return;
 	}
 
@@ -197,7 +199,7 @@ void WordListViewPrivate::copyWordToTrain()
 {
 	if (!ui.tvVocab->currentIndex().isValid())
 	{
-		KMessageBox::information(this,i18n("Bitte selektieren Sie zuerst ein Wort aus der Liste links"));
+		KMessageBox::information(this,i18n("Please select a word first"));
 		return;
 	}
 	Word *w = static_cast<Word*>(ui.tvVocab->currentIndex().internalPointer());
@@ -246,7 +248,7 @@ void WordListViewPrivate::deleteSelectedWord()
 {
 	if (!ui.tvVocab->currentIndex().isValid())
 	{
-		KMessageBox::information(this,i18n("Bitte selektieren Sie zuerst ein Wort aus der Liste links"));
+		KMessageBox::information(this,i18n("Please select a word first"));
 		return;
 	}
 	
@@ -276,7 +278,7 @@ void WordListViewPrivate::deleteSelectedWord()
 		}
 		
 		if (!success)
-			KMessageBox::error(this, i18n("Das Wort konnte nicht komplett gelöscht werden.\n\nBitte überprüfen Sie die Pfade der Dateien: prompts, codetrain.scp, Pfad der Samples, dict, shadow-dict, voca"));
+			KMessageBox::error(this, i18n("The word could not be completely removed."));
 	}
 	//do not delete w as it is a pointer to its wordlistmanager-representation
 	del->deleteLater();

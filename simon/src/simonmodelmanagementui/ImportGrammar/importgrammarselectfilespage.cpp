@@ -25,7 +25,7 @@
 //ambiguous words and words with more than one meaning are still ignored when using the "Also include unknown constructs" option; This is not a bug!
 ImportGrammarSelectFilesPage::ImportGrammarSelectFilesPage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle(i18n("Eingabedateien"));
+	setTitle(i18n("Input Files"));
 	ui.setupUi(this);
 
 	ui.elbFiles->setCustomEditor(*(new KEditListBox::CustomEditor(ui.urFileToAdd, ui.urFileToAdd->lineEdit())));

@@ -30,7 +30,7 @@
  */
 AddWordIntroPage::AddWordIntroPage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle(i18n("Hinzufügen eines neuen Wortes"));
+	setTitle(i18n("Add a new Word"));
 
 	ui.setupUi(this);
 

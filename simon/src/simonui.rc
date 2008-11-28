@@ -2,7 +2,7 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
 <gui name="simon" version="1">
 	<ToolBar name="mainToolBar" >
-		<text>Hauptaktionen</text>
+		<text>Main Actions</text>
 		<Action name="connectActivate" />
 		<Separator/>
 		<Action name="addword" />
@@ -15,7 +15,7 @@
 	
 	<MenuBar>
 		<Menu name="juliusd">
-			<text>Erkennung</text>
+			<text>Recognition</text>
 			<Action name="connectActivate" />
 		</Menu>
 			
@@ -27,12 +27,12 @@
 			<Action name="commands" />
 		</Menu>
 		<Menu name="mode">
-			<text>Aktionen</text>
+			<text>Actions</text>
 			<Action name="compileModel" />
 			<Action name="systemMode" />
 		</Menu>
 		<Menu name="settings">
-			<text>Einstellungen</text>
+			<text>Preferences</text>
 			<Action name="configuration" />
 		</Menu>
 	</MenuBar>

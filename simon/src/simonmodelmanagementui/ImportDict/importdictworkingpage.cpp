@@ -39,10 +39,11 @@ ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent): QWizardPage(paren
 {
 	ready = false;
 	
-	setTitle(i18n("Importiere Wörterbuch..."));
+	setTitle(i18n("Importing dictionary..."));
 	QLabel *desc = new QLabel(this);
 	desc->setWordWrap(true);
-	desc->setText(i18n("Importiere das Wörterbuch... Je nach dessen Art und Größe kann das einige Zeit dauern.\n\nBitte haben Sie etwas Geduld...\n\n"));
+	desc->setText(i18n("Importing the dictionary... Depending on its type and size this can take a "
+"while. Please be patient...\n"));
 	lbStatus = new QLabel(this);
 	
 	pbMain = new QProgressBar(this);
@@ -94,7 +95,7 @@ void ImportDictWorkingPage::importLexicon(QString path)
 {
 	if (path.isEmpty()) return;
 
-	displayStatus(i18n("Importiere Lexicon-Wörterbuch %1...", path));
+	displayStatus(i18n("Importing HTK-Dictionary %1...", path));
 	
 	import->parseWordList(path, Dict::HTKLexicon, true /* remove input file when done */);
 }
@@ -107,7 +108,7 @@ void ImportDictWorkingPage::importHADIFIX(QString path)
 {
 	if (path.isEmpty()) return;
 
-	displayStatus(i18n("Importiere Hadifix-Wörterbuch %1...", path));
+	displayStatus(i18n("Importing HADIFIX-dictionary %1...", path));
 	
 	import->parseWordList(path, Dict::HadifixBOMP, true /* remove input file when done */);
 }

@@ -36,7 +36,7 @@ NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
 	ui.swCommandCreaters->removeWidget(ui.swCommandCreaters->currentWidget());
 	
 	setMainWidget( widget );
-	setCaption( i18n("Kommando") );
+	setCaption( i18n("Command") );
 	
 	connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(setWindowTitleToCommandName(QString)));
 	connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
@@ -90,7 +90,7 @@ void NewCommand::init(Command *command)
 		i++;
 	}
 	if (!found)
-		KMessageBox::error(this, i18n("Konnte Kommandotyp nicht bestimmen."));
+		KMessageBox::error(this, i18n("Couldn't determine Command Type"));
 	
 	checkIfComplete();
 }
@@ -112,7 +112,7 @@ void NewCommand::checkIfComplete()
 void NewCommand::setWindowTitleToCommandName(QString name)
 {
 	if (!name.isEmpty())
-		setCaption(i18n("Kommando: %1", name));
+		setCaption(i18n("Command: %1", name));
 	else setCaption(i18n("Kommando"));
 }
 

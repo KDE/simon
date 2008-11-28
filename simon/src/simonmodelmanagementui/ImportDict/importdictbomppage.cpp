@@ -32,7 +32,7 @@ ImportDictBOMPPage::ImportDictBOMPPage(QWidget* parent): QWizardPage(parent)
 	ui.urFile->setMode(KFile::File|KFile::ExistingOnly);
 
 	registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
-	setTitle(i18n("Importiere BOMP Wörterbuch"));
+	setTitle(i18n("Importing BOMP Dictionary"));
 }
 
 /**

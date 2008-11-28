@@ -32,7 +32,7 @@
 TrainSamplePage::TrainSamplePage(const QString& prompt, int nowPage, int maxPage, const QString name, QWidget *parent) : QWizardPage(parent)
 {
 	this->prompt = prompt;
-	QString title = i18n("Seite %1 von %2", nowPage, maxPage);
+	QString title = i18n("Page %1 of %2", nowPage, maxPage);
 	setTitle(name+": "+title);
 
 
@@ -40,7 +40,9 @@ TrainSamplePage::TrainSamplePage(const QString& prompt, int nowPage, int maxPage
 				+QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss");
 
 	QVBoxLayout *lay = new QVBoxLayout(this);
-	QLabel *desc = new QLabel(i18n("Bitte nehmen Sie den unten angeführten Text jetzt auf.\n\nAchten Sie auf eine natürliche Aussprache!\n\nTipp: Lassen Sie am besten vor und nach dem Gesprochenen ca. 1 bis 2 Sekunden Pause für beste Ergebnisse!\n"), this);
+	QLabel *desc = new QLabel(i18n("Please record the Text below.\n\nEnsure that you speek clearly but naturally. "
+"\n\nTip: Leave about one to two seconds \"silence\" before and after you read "
+"the text for best results!\n"), this);
 	desc->setWordWrap(true);
 	recorder = new RecWidget("", prompt, 
 				  TrainingManager::getInstance()->getTrainingDir()+
@@ -58,7 +60,7 @@ bool TrainSamplePage::submit()
 	bool succ = TrainingManager::getInstance()->addSample(fileName, prompt.toUpper());
 	if (!succ)
 	{
-		KMessageBox::error(this, i18n("Konnte Trainingssample nicht zum Datenschatz hinzufügen.\n\nDies deutet auf interne Datenkorruption hin."));
+		KMessageBox::error(this, i18n("Couldn't add samples to the corpus.\n\nThis indicates internal data corruption."));
 		cleanUp();
 	}
 	
@@ -72,7 +74,7 @@ bool TrainSamplePage::cleanUp()
 	{
 		succ = recorder->deleteSample();
 		if (!succ)
-			KMessageBox::error(this, i18n("Konnte Trainingssample nicht löschen."));
+			KMessageBox::error(this, i18n("Couldn't remove sample."));
 	}
 	
 	return succ;

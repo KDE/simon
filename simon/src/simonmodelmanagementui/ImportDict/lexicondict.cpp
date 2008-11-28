@@ -47,7 +47,7 @@ void LexiconDict::load(QString path)
 	if (path.isEmpty()) path = this->path;
 	if (path.isEmpty()) return;
 
-	QString unknownStr = i18n("Unbekannt");
+	QString unknownStr = i18n("Unknown");
 
 	emit progress(0);
 

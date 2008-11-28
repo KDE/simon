@@ -45,7 +45,7 @@
  */
 ImportTrainingTextWorkingPage::ImportTrainingTextWorkingPage(QWidget *parent) : QWizardPage(parent)
 {
-	setTitle(i18n("Text wird hinzugefügt"));
+	setTitle(i18n("Text is being added"));
 	ui.setupUi(this);
 }
 
@@ -58,7 +58,7 @@ void ImportTrainingTextWorkingPage::startImport(KUrl path)
 {
 	if (!path.isLocalFile())
 	{
-		Logger::log(i18n("[INF] Starte Remote Import von \"%1\"", path.prettyUrl()));
+		Logger::log(i18n("[INF] Starting remove import from \"%1\"", path.prettyUrl()));
 
 		KUrl tmpPath = KUrl(KStandardDirs::locateLocal("tmp", "tmp_trainingstext.xml"));
 
@@ -166,7 +166,7 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 	QFileInfo fi = QFileInfo(path);
 
 	if (!TrainingManager::getInstance()->saveTrainingsText(field("importTrainingTextLTextname").toString(), sents))
-		KMessageBox::error(this, i18n("Konnte Trainingstext nicht speichern"));
+		KMessageBox::error(this, i18n("Couldn't store Trainingstext"));
 	ui.pbProgress->setValue(1);
 }
 
