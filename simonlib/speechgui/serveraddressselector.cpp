@@ -26,15 +26,17 @@
 #include <KIcon>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <KLocale>
 
 ServerAddressSelector::ServerAddressSelector(QWidget *parent) : QWidget(parent)
 {
+	KLocale::setMainCatalog("simonlib");
 	QHBoxLayout *lay = new QHBoxLayout(this);
 	leServerAddress = new KLineEdit(this);
 	pbSelectServerAddress = new QToolButton(this);
 
 	pbSelectServerAddress->setIcon(KIcon("go-previous"));
-	pbSelectServerAddress->setText(i18n("Neuen Host anlegen"));
+	pbSelectServerAddress->setText(i18n("Add new Host"));
 
 // 	leServerAddress->setReadOnly(true);
 
@@ -58,7 +60,7 @@ void ServerAddressSelector::displayAddDialog()
 		int port = addDlg->getPort();
 		
 		if (host.isEmpty())
-			KMessageBox::information(this, i18n("Sie haben eine leere Hostadresse angegeben. Die Eingaben werden verworfen."));
+			KMessageBox::information(this, i18n("You ahve entered an empty host-address. The input will be discarded."));
 		else leServerAddress->setText(host+":"+QString::number(port));
 	}
 }

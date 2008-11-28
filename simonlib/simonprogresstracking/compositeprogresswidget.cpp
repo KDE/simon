@@ -29,9 +29,11 @@
 #include <KLocalizedString>
 #include <KIcon>
 #include <KPushButton>
+#include <KLocale>
 
 CompositeProgressWidget::CompositeProgressWidget(QWidget* parent): QWidget(parent)
 {
+	KLocale::setMainCatalog("simonlib");
 	this->designatedParent = parent;
 	statusLabel = new QLabel(this);
 	bar = new QProgressBar(this);
@@ -80,7 +82,7 @@ void CompositeProgressWidget::display(OperationList operations)
 	{
 		case 0:
 		{
-			status = i18n("Fertig.");
+			status = i18n("Finished");
 			now=max=1;
 		}
 		break;

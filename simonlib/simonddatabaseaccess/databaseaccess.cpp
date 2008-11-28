@@ -29,9 +29,11 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KUrl>
+#include <KLocale>
 
 DatabaseAccess::DatabaseAccess(QObject *parent) : QObject(parent)
 {
+	KLocale::setMainCatalog("simonlib");
 	db=NULL;
 	userModel=NULL;
 }
@@ -163,8 +165,8 @@ QSqlTableModel* DatabaseAccess::getUsers()
 	QSqlTableModel *user= new QSqlTableModel(this, *db);
 	user->setTable("User");
 	user->removeColumn(0); //skip id
-	user->setHeaderData(0, Qt::Horizontal, i18n("Benutzername"));
-	user->setHeaderData(1, Qt::Horizontal, i18n("Verschlüsseltes Passwort"));
+	user->setHeaderData(0, Qt::Horizontal, i18n("Username"));
+	user->setHeaderData(1, Qt::Horizontal, i18n("Encrypted Password"));
 	user->select();
 
 	this->userModel = user;

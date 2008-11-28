@@ -23,9 +23,11 @@
 
 #include <KLocalizedString>
 #include <KColorScheme>
+#include <KLocale>
 
 WordListModel::WordListModel(WordList *words)
 {
+	KLocale::setMainCatalog("simonlib");
 	this->words = words;
 }
 
@@ -118,13 +120,13 @@ QVariant WordListModel::headerData(int column, Qt::Orientation orientation,
 		switch (column)
 		{
 			case 0:
-				return i18n("Wort");
+				return i18n("Word");
 			case 1:
-				return i18n("Lautschrift");
+				return i18n("Pronunciation");
 			case 2:
-				return i18n("Kategorie");
+				return i18n("Category");
 			case 3:
-				return i18n("Erkennungsrate");
+				return i18n("Recognition Rate");
 		}
 	}
 	

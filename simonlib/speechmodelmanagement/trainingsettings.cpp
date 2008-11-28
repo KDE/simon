@@ -29,7 +29,7 @@ K_PLUGIN_FACTORY( TrainingSettingsFactory,
 			registerPlugin< TrainingSettings >(); 
 		)
         
-K_EXPORT_PLUGIN( TrainingSettingsFactory("TrainingSettings") )
+K_EXPORT_PLUGIN( TrainingSettingsFactory("simonlib") )
 
 TrainingSettings::TrainingSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
@@ -43,7 +43,7 @@ TrainingSettings::TrainingSettings(QWidget* parent, const QVariantList& args): K
 	QWidget *trainingsDataWidget = new QWidget(pageWidget);
 	trainingUi.setupUi(trainingsDataWidget);
 
-	KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdaten"));
+	KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdata"));
 
 	trainingsData->setIcon(KIcon("view-pim-news"));
 

@@ -40,7 +40,7 @@ K_PLUGIN_FACTORY( SoundSettingsFactory,
 			registerPlugin< SoundSettings >(); 
 		)
         
-K_EXPORT_PLUGIN( SoundSettingsFactory("SoundSettings") )
+K_EXPORT_PLUGIN( SoundSettingsFactory("simonlib") )
 
 /**
  * \brief Constructor - inits the help text and the gui
@@ -75,9 +75,9 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 	QWidget *promptConfig = new QWidget(this);
 	promptUi.setupUi(promptConfig);
 
-	KPageWidgetItem *deviceConfItem = pageWidget->addPage(coreConfig, i18n("Gerätekonfiguration"));
-	KPageWidgetItem *promptConfItem = pageWidget->addPage(promptConfig, i18n("Vorleseschriftart"));
-	KPageWidgetItem *postProcConfItem = pageWidget->addPage(postProcessingConfig, i18n("Nachbearbeitung"));
+	KPageWidgetItem *deviceConfItem = pageWidget->addPage(coreConfig, i18n("Device Configuration"));
+	KPageWidgetItem *promptConfItem = pageWidget->addPage(promptConfig, i18n("Prompt Font"));
+	KPageWidgetItem *postProcConfItem = pageWidget->addPage(postProcessingConfig, i18n("Post-Processing"));
 
 	deviceConfItem->setIcon(KIcon("audio-card"));
 	promptConfItem->setIcon(KIcon("draw-text"));
@@ -88,8 +88,8 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 	postProcConfItem->setHeader("");
 	
 	KAboutData *about = new KAboutData(
-				"soundsettings", "", ki18n("Aufnahmen"),
-				"0.1", ki18n("Einstellungen für die Aufnahme und Wiedergabe von Sounds"), KAboutData::License_GPL);
+				"soundsettings", "", ki18n("Recordings"),
+				"0.1", ki18n("Configuration for the Recording and Playback of sounds"), KAboutData::License_GPL);
 	about->setProgramIconName("preferences-desktop-sound");
 	setAboutData( about );
 
@@ -102,7 +102,7 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 void SoundSettings::checkWithSuccessMessage()
 {
 	if (check())
-		KMessageBox::information(this, i18n("Die Soundkonfiguration wurde erfolgreich getestet."));
+		KMessageBox::information(this, i18n("The soundconfiguration has been tested successfully."));
 }
 
 /**
@@ -151,7 +151,7 @@ bool SoundSettings::check()
 	bool ok = this->sc->checkDeviceSupport(inputDevice, outputDevice, channels, samplerate);
 
 	if (!ok)
-		KMessageBox::error(this, i18n("Die ausgewählte Soundkonfiguration wird von der Hardware nicht unterstützt.\n\nBitte korrigieren Sie die Werte.\n\nFalls notwendig, wenden Sie sich bitte an Ihren Soundkartenhersteller."));
+		KMessageBox::error(this, i18n("The selected sound configuration is not supported by your hardware.\n\nPlease double-check your configuration and, if necessairy, please contact your vendor."));
 
 	return ok;
 }

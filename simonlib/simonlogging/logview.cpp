@@ -25,6 +25,7 @@
 #include <KComboBox>
 #include <QCoreApplication>
 #include <QRegExp>
+#include <KLocale>
 
 /**
  * \brief Constructor
@@ -33,6 +34,7 @@
  */
 LogView::LogView(QWidget* parent):QWidget(parent)// SystemWidget(i18n("Protokoll"), KIcon("utilities-log-viewer"), i18n("Hier können Sie die letzten Aktionen von simon überprüfen"), parent)
 {
+	KLocale::setMainCatalog("simonlib");
 	ui.setupUi(this);
 
 // 	guessChildTriggers(this);
@@ -89,7 +91,7 @@ void LogView::viewAll()
 	displayCancel();
 	clean();
 	readLog();
-	setStatus(i18n("Lade Übersicht"));
+	setStatus(i18n("Loading Overview"));
 
  	manager->getDateList();
 }
@@ -109,7 +111,7 @@ void LogView::viewDay(QDate day)
 {
 	displayCancel();
 	readLog();
-	setStatus(i18n("Lade Tag %1", day.toString("yyyy/MM/dd")));
+	setStatus(i18n("Loading Day %1", day.toString("yyyy/MM/dd")));
 	manager->getDay(day);
 }
 
@@ -129,7 +131,7 @@ void LogView::readLog()
 	if (!this->manager->hasFinishedReading() && (!this->manager->isBusy()))
 	{
 		clean();
-		setStatus(i18n("Lese Datei..."));
+		setStatus(i18n("Loading File..."));
 		this->manager->start();
 	}
 }
@@ -153,7 +155,7 @@ void LogView::readLog()
  */
 void LogView::startLogLoad()
 {
-	setStatus(i18n("Lade Log..."));
+	setStatus(i18n("Loading Log..."));
 	clickedDate = QDate();
 	if (sender() && sender()->objectName()=="gbOnlyDay" && !ui.gbOnlyDay->isChecked())
 	{
@@ -286,7 +288,7 @@ void LogView::displayDay(QDate day)
 void LogView::displayDates(Dates daysAvailable)
 {
 	ui.pbLogLoad->setMaximum(daysAvailable.size());
-	setStatus(i18n("Tage eintragen..."));
+	setStatus(i18n("Parsing Days..."));
 	for (int i=0; i < daysAvailable.size(); i++)
 	{
 		ui.twLogEntries->addTopLevelItem(new QTreeWidgetItem(ui.twLogEntries, QStringList() << 
@@ -434,7 +436,7 @@ void LogView::insertEntries(LogEntryList *entries)
 {
 	if(!entries) return;
 
-	setStatus(i18n("Trage Einträge ein..."));
+	setStatus(i18n("Filling in Entries..."));
 	QDate currentDay; //where are we now?
 	
 	QDate firstDay;	//store the first day
@@ -650,7 +652,7 @@ LogEntryList* LogView::filterFor(LogEntryList* log, bool copy,
 	if (copy) dest = log;
 	else dest = new LogEntryList();
 
-	setStatus(i18n("Filtere Liste..."));
+	setStatus(i18n("Filtering List..."));
 	int i=0;
 	ui.pbLogLoad->setMaximum(log->size());
 	while (i< log->size() && !abortInsertingEntries)
@@ -686,7 +688,7 @@ LogEntryList* LogView::filterFor(LogEntryList* log, bool copy,
 void LogView::displayCancel()
 {
 	enableWidgets(false);
-	this->ui.pbAbort->setText(i18n("Abbrechen"));
+	this->ui.pbAbort->setText(i18n("Cancel"));
 	ui.pbAbort->setIcon(KIcon("process-stop"));
 	disconnect(ui.pbAbort, SIGNAL(clicked()), this, SLOT(reload()));
 	connect(ui.pbAbort, SIGNAL(clicked()), this, SLOT(abort()));
@@ -698,10 +700,10 @@ void LogView::displayCancel()
  */
 void LogView::displayReload()
 {
-	setStatus(i18n("Fertig"));
+	setStatus(i18n("Finished"));
 	enableWidgets(true);
 	abortInsertingEntries=false;
-	this->ui.pbAbort->setText(i18n("Neu laden"));
+	this->ui.pbAbort->setText(i18n("Reload"));
 	this->ui.pbLogLoad->setMaximum(100);
 	this->ui.pbLogLoad->setValue(100);
 	ui.pbAbort->setIcon(KIcon("view-refresh"));

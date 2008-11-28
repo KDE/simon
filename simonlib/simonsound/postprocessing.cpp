@@ -26,10 +26,12 @@
 #include <QCoreApplication>
 #include <QObject>
 #include <KLocalizedString>
+#include <KLocale>
 #include "soundconfig.h"
 
 PostProcessing::PostProcessing()
 {
+	KLocale::setMainCatalog("simonlib");
 }
 
 /**
@@ -40,10 +42,10 @@ PostProcessing::PostProcessing()
  */
 bool PostProcessing::process(const QString& in, const QString& out, bool deleteIn)
 {
-	KProgressDialog *progDialog = new KProgressDialog(0, i18n("Nachbearbeitung"), i18n("Filter werden angewendet..."));
+	KProgressDialog *progDialog = new KProgressDialog(0, i18n("Post-Processing"), i18n("Filter a being applied..."));
 	if (QFile::exists(out) && (!QFile::remove(out)))
 	{
-		KMessageBox::error(0, i18n("Konnte %1 nicht überschreiben. Bitte überprüfen Sie, ob Sie die nötigen Rechte besitzen.", out));
+		KMessageBox::error(0, i18n("Couldn't overwrite %1.\n\nPlease check if you have the needed permissons.", out));
 		return false;
 	}
 	
@@ -62,7 +64,7 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
 		if (ret)
 		{
 			//something went wrong
-			KMessageBox::error(0, i18n("Konnte %1 nicht nach %2 bearbeiten.\n\nBitte ueberpruefen Sie ob Sie das Programm, installiert haben, der Pfad in den Einstellungen richtig angegeben wurde und ob Sie all die nötigen Berechtigungen besitzen. (Rückgabewert %3) (Ausgefuehrtes Kommando: %4)", in, out, ret, execStr));
+			KMessageBox::error(0, i18n("Couldn't process \"%1\" to \"%2\". Please check if the command:\n\"%4\". (Return value: %3)", in, out, ret, execStr));
 			return NULL;
 		}
 		progDialog->progressBar()->setValue(j+1);
@@ -73,7 +75,7 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
 	{
 		if (!QFile::copy(in, out))
 		{
-			KMessageBox::error(0, i18n("Konnte %1 nicht nach %2 kopieren. Bitte überprüfen Sie ihre Berechtigungen auf den Zielort", in, out));
+			KMessageBox::error(0, i18n("Couldn't copy %1 to %2. Please check if you have all the needed permissions.", in, out));
 			return false;
 		}
 	}
@@ -81,7 +83,7 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
 	if (deleteIn)
 		if (!QFile::remove(in))
 		{
-			KMessageBox::error(0, i18n("Konnte %1 nicht löschen", in));
+			KMessageBox::error(0, i18n("Couldn't remove %1", in));
 		}
 
 	QCoreApplication::processEvents();

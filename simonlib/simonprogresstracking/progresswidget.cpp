@@ -26,9 +26,11 @@
 #include <QProgressBar>
 #include <KPushButton>
 #include <KLocalizedString>
+#include <KLocale>
 
 ProgressWidget::ProgressWidget(QPointer<Operation> op, QWidget* parent): QWidget(parent)
 {
+	KLocale::setMainCatalog("simonlib");
 	this->op = op;
 
 	if (op)
@@ -43,7 +45,7 @@ ProgressWidget::ProgressWidget(QPointer<Operation> op, QWidget* parent): QWidget
 		bar->setValue(op->currentProgress());
 		bar->setMaximum(op->maxProgress());
 	
-		cancelButton = new KPushButton(KIcon("process-stop"), i18n("Abbrechen"), this);
+		cancelButton = new KPushButton(KIcon("process-stop"), i18n("Cancel"), this);
 		if (op->isAtomic()) cancelButton->setEnabled(false);
 		
 		QHBoxLayout *hBox = new QHBoxLayout();

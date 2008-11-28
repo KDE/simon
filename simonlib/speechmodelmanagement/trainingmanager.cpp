@@ -37,7 +37,7 @@
 #include <QRegExp>
 #include <KLocalizedString>
 #include <KStandardDirs>
-#include <QDebug>
+#include <KLocale>
 #include <math.h>
 
 
@@ -50,6 +50,7 @@ TrainingManager* TrainingManager::instance;
  */
 TrainingManager::TrainingManager(QObject *parent) : QObject(parent), promptsLock(QMutex::Recursive)
 {
+	KLocale::setMainCatalog("simonlib");
 	trainingTexts = 0;
 	promptsTable=0;
 }
@@ -200,7 +201,7 @@ PromptsTable* TrainingManager::getPrompts()
  */
 PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 {
-	Logger::log ( i18n ( "[INF] Parse Promptsdatei von %1" ).arg ( promptspath ) );
+	Logger::log ( i18n ( "[INF] Parsing prompts-file from %1" ).arg ( promptspath ) );
 	PromptsTable *promptsTable = new PromptsTable();
 
 	QFile *prompts = new QFile ( promptspath );
@@ -221,7 +222,7 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 
 		promptsTable->insert ( label, prompt );
 	}
-	Logger::log ( i18n ( "[INF] %1 Prompts gelesen" ).arg ( promptsTable->count() ) );
+	Logger::log ( i18n ( "[INF] %1 Prompts read" ).arg ( promptsTable->count() ) );
 	return promptsTable;
 }
 
@@ -234,7 +235,7 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
  */
 bool TrainingManager::deleteText ( int index )
 {
-	Logger::log ( i18n ( "[INF] Löschen von \"%1\" von \"%2\"" ).arg ( trainingTexts->at ( index )->getName() ).arg ( trainingTexts->at ( index )->getPath() ) );
+	Logger::log ( i18n ( "[INF] Removing \"%1\" from \"%2\"" ).arg ( trainingTexts->at ( index )->getName() ).arg ( trainingTexts->at ( index )->getPath() ) );
 	return QFile::remove( trainingTexts->at ( index )->getPath() );
 }
 
@@ -246,7 +247,7 @@ bool TrainingManager::deleteText ( int index )
  */
 TrainingList* TrainingManager::readTrainingTexts ()
 {
-	Logger::log ( i18n ( "[INF] Lesen der Trainingtexte" ));
+	Logger::log ( i18n ( "[INF] Reading the trainingstexts" ));
 
 		//finddirs is net das was i will?...
 	QStringList textsrcs = KGlobal::dirs()->findAllResources("appdata", "texts/");
@@ -356,7 +357,7 @@ TrainingText* TrainingManager::getText ( int i )
  */
 float TrainingManager::calcRelevance ( TrainingText *text )
 {
-	Logger::log ( i18n ( "[INF] Berechne Nutzen des Textes " ) +"\""+text->getName() +"\" ("+
+	Logger::log ( i18n ( "[INF] Calculating relevance" ) +"\""+text->getName() +"\" ("+
 	              text->getPath() +")" );
 	QString currPage;
 	QStringList words;

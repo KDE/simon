@@ -22,6 +22,7 @@
 #include <QFile>
 #include <QCoreApplication>
 #include <KLocalizedString>
+#include <KLocale>
 #include <QMutexLocker>
 #include <QDateTime>
 #include <simonlogging/logger.h>
@@ -38,6 +39,7 @@ GrammarManager* GrammarManager::instance;
  */
 GrammarManager::GrammarManager() : QObject(), structuresLock(QMutex::Recursive)
 {
+	KLocale::setMainCatalog("simonlib");
 	load();
 }
 
@@ -61,7 +63,7 @@ bool GrammarManager::load()
 	structures.clear();
 	
 	QString path =KStandardDirs::locate("data", "simon/model/model.grammar");
-	Logger::log(i18n("[INF] Lade Grammatik von %1", path));
+	Logger::log(i18n("[INF] Loading grammar from %1", path));
 	
 	QFile grammar(path);
 	if (!grammar.open(QIODevice::ReadOnly)) return false;
@@ -252,7 +254,7 @@ bool GrammarManager::save()
 {
 	QMutexLocker lock(&structuresLock);
 	QString path =KStandardDirs::locateLocal("data", "simon/model/model.grammar");
-	Logger::log(i18n("[INF] Speichere Grammatik nach %1", path));
+	Logger::log(i18n("Loading grammar to %1", path));
 	
 	QFile grammar(path);
 	if (!grammar.open(QIODevice::WriteOnly)) return false;

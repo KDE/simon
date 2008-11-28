@@ -24,11 +24,12 @@
 #include <QPalette>
 #include <KLineEdit>
 #include <KLocalizedString>
-
+#include <KLocale>
 
 
 SimonSlider::SimonSlider( QWidget * parent ) : QSlider(parent)
-{	
+{
+	KLocale::setMainCatalog("simonlib");
 	this->lePlusMinus = new KLineEdit(dynamic_cast<QWidget*>(this->parent()));
 	this->lePlusMinus->setInputMask ("99");
 	this->lePlusMinus->setVisible(false);
@@ -62,7 +63,7 @@ void SimonSlider::doCommand()
 {
 	if ((this->lePlusMinus->text().toInt() >100) || (this->lePlusMinus->text().toInt() < 0))
 	{	
-		KMessageBox::information(this,i18n("Der von Ihnen eingegebene Wert ist auserhalb des Bereiches der eingestellt werden kann.\nBitte geben sie einen Wert zwischen\n\t0 und 100\nein."));
+		KMessageBox::information(this,i18n("The value you selected exceeds the boundaries of allowed values.\n\nPlease try again."));
 		return;
 	}
 		this->setValue(this->lePlusMinus->text().toInt()); 

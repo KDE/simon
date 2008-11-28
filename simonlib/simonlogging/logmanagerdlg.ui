@@ -17,12 +17,12 @@
     <widget class="QTreeWidget" name="twLogEntries" >
      <column>
       <property name="text" >
-       <string>Datum</string>
+       <string>Date</string>
       </property>
      </column>
      <column>
       <property name="text" >
-       <string>Nachricht</string>
+       <string>Message</string>
       </property>
      </column>
     </widget>
@@ -36,7 +36,7 @@
       </size>
      </property>
      <property name="title" >
-      <string>Suchen</string>
+      <string>Search</string>
      </property>
      <property name="flat" >
       <bool>false</bool>
@@ -55,7 +55,7 @@
              </size>
             </property>
             <property name="text" >
-             <string>Suche:</string>
+             <string>Search:</string>
             </property>
             <property name="buddy" >
              <cstring>leSearchLogs</cstring>
@@ -87,7 +87,7 @@
           <item>
            <widget class="KPushButton" name="pbLogSearch" >
             <property name="text" >
-             <string>Suchen</string>
+             <string>Search</string>
             </property>
            </widget>
           </item>
@@ -102,7 +102,7 @@
            </size>
           </property>
           <property name="text" >
-           <string>Fehler</string>
+           <string>Error</string>
           </property>
          </widget>
         </item>
@@ -153,7 +153,7 @@
         <item row="4" column="1" >
          <widget class="KPushButton" name="pbAbort" >
           <property name="text" >
-           <string>Abbrechen</string>
+           <string>Cancel</string>
           </property>
          </widget>
         </item>
@@ -162,7 +162,7 @@
       <item>
        <widget class="SimonGroupBox" name="gbOnlyDay" >
         <property name="title" >
-         <string>Nur von Tag</string>
+         <string>Only of day</string>
         </property>
         <property name="flat" >
          <bool>false</bool>
@@ -177,7 +177,7 @@
          <item>
           <widget class="QLabel" name="lbCalendar" >
            <property name="text" >
-            <string>Kalender</string>
+            <string>Calendar</string>
            </property>
            <property name="buddy" >
             <cstring>cwLogDay</cstring>

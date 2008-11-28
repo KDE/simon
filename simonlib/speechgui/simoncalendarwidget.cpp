@@ -23,11 +23,13 @@
 #include <KMessageBox>
 #include <QRegExp>
 #include <QDate>
+#include <KLocale>
 
 
 
 SimonCalendarWidget::SimonCalendarWidget( QWidget * parent ) : QCalendarWidget(parent)
 {
+	KLocale::setMainCatalog("simonlib");
 	//whatis = 1 Day received
 	//whatis = 2 Month received
 	//whatis = 3 Year received
@@ -42,11 +44,11 @@ SimonCalendarWidget::~SimonCalendarWidget()
 
 void SimonCalendarWidget::setDate(QString text)
 {
-	if (text.contains(i18n("Tag")))
+	if (text.contains(i18n("Day")))
 		this->whatis = 1;
-	if (text.contains(i18n("Monat")))
+	if (text.contains(i18n("Month")))
 		this->whatis = 2;
-	if (text.contains(i18n("Jahr")))
+	if (text.contains(i18n("Year")))
 		this->whatis = 3;
 	
 	text = clearString(text);
@@ -89,7 +91,7 @@ void SimonCalendarWidget::setDay(int value)
 	}
 	else
 	{
-		KMessageBox::information(this,i18n("Der gewünschte Tag existiert in diesem Monat nicht.\nBitte führen Sie den Befehl mit einem anderen Tag nochmal aus.\n\nEs wurde der erste des Monats als Default Datum gewählt"));
+		KMessageBox::information(this,i18n("The selected day does not exist in that month.\nPlease try again with a vaild date."));
 		QDate date(year,month,1);
 		this->setSelectedDate (date);
 	}
@@ -108,7 +110,7 @@ void SimonCalendarWidget::setMonth(int value)
 	}
 	else
 	{
-		KMessageBox::information(this,i18n("Der gewünschte Monat existiert nicht.\nBitte widerholen Sie ihren Befehl mit einem anderen Wert"));
+		KMessageBox::information(this,i18n("The selected month does not exist.\n\nPlease try again with a valid date."));
 	}
 	
 }
@@ -123,12 +125,12 @@ void SimonCalendarWidget::setYear(int value)
 	}
 	else if((value > -4713) && (value <7999))
 	{
-		if (KMessageBox::questionYesNoCancel(0, i18n("Das von Ihnen gewünschte Jahr ist: ")+QString::number(value)+i18n("\nWollen sie wirklich dieses Jahr anzeigen?"))==KMessageBox::Yes)
+		if (KMessageBox::questionYesNoCancel(0, i18n("You selected the year: %1.\n\nDo you really want to show that year?", QString::number(value)))==KMessageBox::Yes)
 			this->setSelectedDate (date);
 		else return;
 	}
 	else
-		KMessageBox::information(this,i18n("Ihr gewünschter Wert überschreitet den Max/Min Wert.\nBitte führen sie den Befehl erneut aus, mit einem Jahr zw.\n-4714 & +8000\n\nDer Programmierer dankt"));
+		KMessageBox::information(this,i18n("The value you selected exceeds the boundaries of allowed values."));
 }
 
 

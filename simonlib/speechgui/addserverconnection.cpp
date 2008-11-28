@@ -25,9 +25,11 @@
 #include <KLineEdit>
 #include <KIntNumInput>
 #include <QFormLayout>
+#include <KLocale>
 
 AddServerConnection::AddServerConnection(QWidget *parent) : KDialog(parent)
 {
+	KLocale::setMainCatalog("simonlib");
 	QWidget *widget = new QWidget( this );
 
 	leAddress = new KLineEdit("localhost", widget);
@@ -37,11 +39,11 @@ AddServerConnection::AddServerConnection(QWidget *parent) : KDialog(parent)
 	sbPort->setValue(4444);
 	
 	QFormLayout *lay = new QFormLayout(widget);
-	lay->addRow(i18n("Addresse:"), leAddress);
+	lay->addRow(i18n("Address:"), leAddress);
 	lay->addRow(i18n("Port:"), sbPort);
 	
 	setMainWidget( widget );
-	setCaption( i18n("Serververbindung hinzufügen") );
+	setCaption( i18n("Add Server Address") );
 }
 
 QString AddServerConnection::getHost()

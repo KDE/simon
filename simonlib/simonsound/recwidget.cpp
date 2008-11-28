@@ -42,6 +42,7 @@
 #include <QChar>
 
 #include <QFont>
+#include <KLocale>
 
 /**
  * \brief Constructor
@@ -56,6 +57,7 @@
  */
 RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *parent) : QWidget(parent)
 {	
+	KLocale::setMainCatalog("simonlib");
 	this->filename = QFile::encodeName(filename);
 	recordingProgress=0;
 	
@@ -83,19 +85,19 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 
 	QHBoxLayout *hBox = new QHBoxLayout();
 	pbRecord = new KPushButton(KIcon("media-record"),
-				    i18n("Aufnehmen"),
+				    i18n("Record"),
 				    this);
 	pbRecord->setCheckable(true);
 	hBox->addWidget(pbRecord);
 
 	pbPlay = new KPushButton(KIcon("media-playback-start"),
-				    i18n("Abspielen"),
+				    i18n("Play"),
 				    this);
 	pbPlay->setCheckable(true);
 	hBox->addWidget(pbPlay);
 
 	pbDelete = new KPushButton(KIcon("edit-delete"),
-				    i18n("Löschen"),
+				    i18n("Delete"),
 				    this);
 	hBox->addWidget(pbDelete);
 	lay->addLayout(hBox);
@@ -233,11 +235,9 @@ void RecWidget::record()
 		disconnect(pbRecord, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
 		disconnect(pbRecord, SIGNAL(toggled(bool)), pbRecord, SLOT(setEnabled(bool)));
 		
-		KMessageBox::error(this, i18n("Konnte Aufnahme nicht starten.\n\n"
-						"Wahrscheinlich konnte das Aufnahmegerät nicht "
-						"initalisiert werden.\n\nBitte überprüfen Sie "
-						"ihre Audiokonfiguration und versuchen Sie es "
-						"erneut."));
+		KMessageBox::error(this, i18n("Couldn't start recording.\n\n"
+						"The input device could not be initialized.\n\n"
+						"Please check your sound configuration and try again."));
 		pbRecord->toggle();
 		
 		connect(pbRecord, SIGNAL(toggled(bool)), pbPlay, SLOT(setDisabled(bool)));
@@ -280,12 +280,12 @@ void RecWidget::stopRecording()
 		fName += "_tmp";
 
 	if (!rec->finish())
-		KMessageBox::error(this, i18n("Abschließen der Aufnahme fehlgeschlagen. Möglicherweise ist die Aufnahme fehlerhaft.\n\nTip: überprüfen Sie ob Sie die nötigen Berechtigungen besitzen um auf %1 schreiben zu dürfen!", fName));
+		KMessageBox::error(this, i18n("Could not finalize the Sample. The recording probably failed.\n\nTip: Check if you have the needed permissions to write to \"%1\"!", fName));
 		
 	if (processInternal)
 // 		if (!QFile::copy(fName, filename) || !QFile::remove(fName))
 		if (!postProc->process(fName, filename, true))
-			KMessageBox::error(this, i18n("Nachbearbeitung fehlgeschlagen"));
+			KMessageBox::error(this, i18n("Post-Processing failed"));
 	
 	
 	pbProgress->setValue(0);
@@ -318,11 +318,9 @@ void RecWidget::playback()
 		connect(pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
 		emit playing();
 	} else {
-		KMessageBox::error(this, i18n("Konnte Wiedergabe nicht starten.\n\n"
-						"Wahrscheinlich konnte das Wiedergabegerät nicht "
-						"initalisiert werden.\n\nBitte überprüfen Sie "
-						"ihre Audiokonfiguration und versuchen Sie es "
-						"erneut."));	
+		KMessageBox::error(this, i18n("Couldn't start playback.\n\n"
+						"The output device could not be initialized.\n\n"
+						"Please check your sound configuration and try again."));
 		pbPlay->setChecked(false);
 	}
 }
@@ -346,7 +344,7 @@ bool RecWidget::deleteSample()
 		if (QFile::exists(this->filename))
 		{
 			KMessageBox::error(this, 
-				i18n("Konnte die Datei %1 nicht entfernen", this->filename));
+				i18n("Couldn't remove file %1", this->filename));
 			return false;
 		}
 	}

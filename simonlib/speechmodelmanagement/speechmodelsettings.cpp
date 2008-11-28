@@ -30,7 +30,7 @@ K_PLUGIN_FACTORY( SpeechModelSettingsFactory,
 			registerPlugin< SpeechModelSettings >(); 
 		)
         
-K_EXPORT_PLUGIN( SpeechModelSettingsFactory("SpeechModelSettings") )
+K_EXPORT_PLUGIN( SpeechModelSettingsFactory("simonlib") )
 
 SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
@@ -45,7 +45,7 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
 	uiTrainingsData.setupUi(trainingsDataWidget);
 	
 // 	KPageWidgetItem *grammar = pageWidget->addPage(grammarWidget, i18n("Grammatik"));
-	KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdaten"));
+	KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdata"));
 
 // 	grammar->setIcon(KIcon("user-properties"));
 	trainingsData->setIcon(KIcon("view-pim-news"));

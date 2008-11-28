@@ -22,6 +22,7 @@
 #include <KMessageBox>	// X11 headers included in the xevents header define "Status"
 
 #include <KDebug>
+#include <KLocale>
 #include "xeventsprivate.h"
 // #include "../Logging/logger.h"
 #include <KLocalizedString>
@@ -29,6 +30,7 @@
 XEventsPrivate::XEventsPrivate(char* displayName)
 {
 	display = openDisplay(displayName);
+	KLocale::setMainCatalog("simonlib");
 }
 
 /**
@@ -50,14 +52,14 @@ Display* XEventsPrivate::openDisplay(char* displayName)
 
 	if (!display) {
 // 		Logger::log(i18n("[ERR] Fehler beim öffnen des display \"%1\"", QString(displayName)));
-		KMessageBox::error(0,i18n("Konnte Display nicht öffnen. Bitte überprüfen Sie ihre Konfiguration und / oder setzen Sie sich mit den simon-Entwickler in Verbindung. (Display: \"%1\")", QString(XDisplayName ( displayName ))));
+		KMessageBox::error(0,i18n("Couldn't open display. Please check your configuration and / or contact the simond developers. (Display: \"%1\")", QString(XDisplayName ( displayName ))));
 		return NULL;
 	}
 
 	//check whether the XTest extension is installed
 	if ( !XTestQueryExtension(display, &Event, &Error, &Major, &Minor) ) {
 // 		Logger::log("[ERR] Display "+QString(displayName)+" unterstützt XTest nicht");
-		KMessageBox::error(0,i18n("Der X-Server unterstützt die \"XTest\" nicht - bitte installieren Sie diese. (Display: \"%1\")", QString(DisplayString(display))));
+		KMessageBox::error(0,i18n("The X-Server does not support the XTest extension. Please install it."));
 
 		XCloseDisplay(display);
 		return NULL;
@@ -120,8 +122,6 @@ void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 	} else
 		keyCode = XKeysymToKeycode(display, key);
 	
-	kWarning() << keyCode;
-	
 	if (keyCode)
 	{
 		int syms;
@@ -147,11 +147,9 @@ void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 		QString shortcut = k.toString(); //somthing like "Ctrl+L"
 		QStringList keys = shortcut.split("+"); 
 		QList<KeyCode> shortcutCodes;
-		kWarning() << "sodifj";
 		
 		foreach (const QString keyStr, keys)
 		{
-			kWarning() << XKeysymToKeycode(display, XStringToKeysym(keyStr.toUtf8().data()));
 			shortcutCodes << XKeysymToKeycode(display, XStringToKeysym(keyStr.toUtf8().data()));
 		}
 		

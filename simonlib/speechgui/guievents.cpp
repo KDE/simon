@@ -22,9 +22,11 @@
 #include <QRegExp>
 #include <QStringList>
 #include <KLocalizedString>
+#include <KLocale>
 
 GuiEvents::GuiEvents(QObject *parent) : QObject(parent)
 {
+	KLocale::setMainCatalog("simonlib");
 	guiItems = new GuiAction;
 }
 
@@ -53,7 +55,7 @@ void GuiEvents::doAction(QString action, QObject * parentItem)
 {
 	Q_UNUSED(parentItem);
 
-	QRegExp expression(i18n("Kalender *"));
+	QRegExp expression(i18n("Calendar *"));
 	expression.setPatternSyntax(QRegExp::Wildcard);
 	
 	QList<uniqueKey*> keyList = guiItems->keys();

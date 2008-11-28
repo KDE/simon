@@ -46,7 +46,7 @@ ModelCompilationSettings::ModelCompilationSettings(QWidget* parent, const QVaria
 	externalProgramsUi.setupUi(externalProgramsWidget);
 
 // 	KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdaten"));
-	KPageWidgetItem *externalPrograms = pageWidget->addPage(externalProgramsWidget, i18n("Externe Programme"));
+	KPageWidgetItem *externalPrograms = pageWidget->addPage(externalProgramsWidget, i18n("External Programs"));
 
 // 	trainingsData->setIcon(KIcon("view-pim-news"));
 	externalPrograms->setIcon(KIcon("applications-other"));

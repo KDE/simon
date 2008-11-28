@@ -32,12 +32,11 @@
 #include <kgenericfactory.h>
 
 
-
 K_PLUGIN_FACTORY( CommandSettingsFactory, 
 			registerPlugin< CommandSettings >(); 
 		)
         
-K_EXPORT_PLUGIN( CommandSettingsFactory("CommandSettings") )
+K_EXPORT_PLUGIN( CommandSettingsFactory("simonlib") )
 
 CommandSettings* CommandSettings::instance;
 /**
@@ -63,13 +62,13 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 	if (args.count() == 1)
 		pageWidget->setFaceType(KPageView::Tabbed);
 
-	KPageWidgetItem *generalItem = pageWidget->addPage(baseWidget, i18n("Allgemein"));
+	KPageWidgetItem *generalItem = pageWidget->addPage(baseWidget, i18n("General"));
 	generalItem->setIcon(KIcon("fork"));
 	generalItem->setHeader("");
 
 	KAboutData *about = new KAboutData(
-				"commandsettings", "", ki18n("Kommandoeinstellungen"),
-				"0.1", ki18n("Einstellungen rund um die Kommandos und Auswahl der zu verwendenden Plugins"), KAboutData::License_GPL);
+				"commandsettings", "", ki18n("Command Settings"),
+				"0.1", ki18n("Configuration about the Commands and the Selection of Plugins to use"), KAboutData::License_GPL);
 	about->setProgramIconName("fork");
 	setAboutData( about );
 

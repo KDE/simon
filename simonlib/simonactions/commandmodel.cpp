@@ -19,11 +19,13 @@
 
 #include "commandmodel.h"
 #include <KLocalizedString>
+#include <KLocale>
 
 //TODO: what if the backends delete their lists?
 
 CommandModel::CommandModel(CommandList *commands)
 {
+	KLocale::setMainCatalog("simonlib");
 	this->commands = commands;
 }
 
@@ -90,7 +92,7 @@ QVariant CommandModel::headerData(int, Qt::Orientation orientation,
 	Q_ASSERT(commands);
 	if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
 	{
-		return i18n("Kommando");
+		return i18n("Command");
 	}
 	
 	//default
