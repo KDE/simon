@@ -173,7 +173,7 @@ void SimonView::setupActions()
 	connect(disconnectAction, SIGNAL(triggered(bool)),
 		control, SLOT(disconnectFromServer()));
 
-	KToolBarPopupAction* connectActivate = new KToolBarPopupAction(KIcon("network-disconnect"), i18n("Verbinden"), this);
+	KToolBarPopupAction* connectActivate = new KToolBarPopupAction(KIcon("network-disconnect"), i18n("Connect"), this);
 	connectActivate->setCheckable(true);
 	connectActivate->setShortcut(Qt::CTRL + Qt::Key_C);
 	actionCollection()->addAction("connectActivate", connectActivate);

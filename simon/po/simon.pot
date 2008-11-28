@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 13:20+0100\n"
+"POT-Creation-Date: 2008-11-28 13:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2141,8 +2141,8 @@ msgstr ""
 msgid "Disconnect"
 msgstr ""
 
-#: src/simonview.cpp:176
-msgid "Verbinden"
+#: src/simonview.cpp:176 src/simonview.cpp:383
+msgid "Connect"
 msgstr ""
 
 #: src/simonview.cpp:212
@@ -2159,10 +2159,6 @@ msgstr ""
 
 #: src/simonview.cpp:380
 msgid "Disconnected"
-msgstr ""
-
-#: src/simonview.cpp:383
-msgid "Connect"
 msgstr ""
 
 #: src/simonview.cpp:394
