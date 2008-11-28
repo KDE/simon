@@ -24,7 +24,9 @@ CreateShortcutCommandWidget::CreateShortcutCommandWidget(QWidget *parent) : Crea
 {
 	ui.setupUi(this);
 
+#if KDE_IS_VERSION(4,1,60)
 	ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
+#endif
 	ui.ksShortcut->setModifierlessAllowed(true);
 
 	setWindowIcon(ShortcutCommand::staticCategoryIcon());

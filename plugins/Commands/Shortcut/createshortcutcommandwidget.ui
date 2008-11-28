@@ -24,7 +24,7 @@
      </item>
      <item>
       <widget class="KKeySequenceWidget" name="ksShortcut" >
-       <property name="multiKeyShortcutsAllowed" >
+       <property name="multiKeyShortcutsAllowed" stdset="0" >
         <bool>false</bool>
        </property>
       </widget>
