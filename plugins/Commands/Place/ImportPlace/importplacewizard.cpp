@@ -39,7 +39,7 @@ ImportPlaceWizard::ImportPlaceWizard(QWidget* parent): QWizard(parent)
 	addPage(selectPlacePage);
 	this->addPage(createFinishedPage());
 
-	setWindowTitle(i18n("Ort hinzufügen"));
+	setWindowTitle(i18n("Add Place"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importplace.png")));
 
 	connect(this, SIGNAL(finished(int)), this, SLOT(createCommand(int)));
@@ -79,11 +79,11 @@ SelectPlacePage* ImportPlaceWizard::createSelectPlacePage()
 QWizardPage* ImportPlaceWizard::createIntroPlacePage()
 {
 	QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle(i18n("Hinzufügen eines Ortes"));
+	intro->setTitle(i18n("Add a new Place"));
 
 	QLabel *label = new QLabel(intro);
 	label->setWordWrap(true);
-	label->setText(i18n("Hier können Sie einen Ort den Kommandos hinzufügen.\n\nsimon unterscheidet grundsätzlich zwischen lokalen (Ordner) und entfernten Orten (HTTP / FTP).\n\n"));
+	label->setText(i18n("With this wizard you can assoziate places with commands.\n\nBoth local and remote places are supported."));
 	QVBoxLayout *layout = new QVBoxLayout(intro);
 	layout->addWidget(label);
 	intro->setLayout(layout);
@@ -102,10 +102,10 @@ QWizardPage* ImportPlaceWizard::createIntroPlacePage()
 QWizardPage* ImportPlaceWizard::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage(this);
-	finished->setTitle(i18n("Hinzufügen eines Ortes"));
+	finished->setTitle(i18n("Place added"));
 	QLabel *label = new QLabel(finished);
 	label->setWordWrap(true);
-	label->setText(i18n("\n\nKlicken Sie auf \"Fertigstellen\" um den Wizard abzuschließen."));
+	label->setText(i18n("Press Finish to complete this wizard."));
 	QVBoxLayout *layout = new QVBoxLayout(finished);
 	layout->addWidget(label);
 	finished->setLayout(layout);

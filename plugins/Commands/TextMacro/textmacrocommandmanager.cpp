@@ -29,7 +29,7 @@ K_PLUGIN_FACTORY( TextMacroCommandPluginFactory,
 			registerPlugin< TextMacroCommandManager >(); 
 		)
         
-K_EXPORT_PLUGIN( TextMacroCommandPluginFactory("TextMacroCommandManager") )
+K_EXPORT_PLUGIN( TextMacroCommandPluginFactory("simontextmacrocommand") )
 
 
 TextMacroCommandManager::TextMacroCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
@@ -55,7 +55,7 @@ const QString TextMacroCommandManager::name() const
 bool TextMacroCommandManager::load()
 {
 	QString commandPath = KStandardDirs::locate("appdata", "conf/textmacros.xml");
-	Logger::log(i18n("[INF] Lade Text-Makro-Kommandos von %1", commandPath));
+	Logger::log(i18n("[INF] Loading text-macro commands from %1", commandPath));
 
 	bool ok = false;
 	this->commands = xmlTextMacroCommand->load(ok, commandPath);
@@ -70,7 +70,7 @@ CreateCommandWidget* TextMacroCommandManager::getCreateCommandWidget(QWidget *pa
 bool TextMacroCommandManager::save()
 {
 	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/textmacros.xml");
-	Logger::log(i18n("[INF] Speichere Text-Makro-Kommandos nach %1", commandPath));
+	Logger::log(i18n("[INF] Saving text-macro commands to %1", commandPath));
 	return xmlTextMacroCommand->save(commands, commandPath);
 }
 

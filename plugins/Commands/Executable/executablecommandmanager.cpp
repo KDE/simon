@@ -28,7 +28,7 @@ K_PLUGIN_FACTORY( ExecutableCommandPluginFactory,
 			registerPlugin< ExecutableCommandManager >(); 
 		)
         
-K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("ExecutableCommandManager") )
+K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("simonexecutablecommand") )
 
 
 ExecutableCommandManager::ExecutableCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
@@ -60,7 +60,7 @@ CreateCommandWidget* ExecutableCommandManager::getCreateCommandWidget(QWidget *p
 bool ExecutableCommandManager::load()
 {
 	QString commandPath = KStandardDirs::locate("appdata", "conf/executables.xml");
-	Logger::log(i18n("[INF] Lade Ausführbare-Kommandos von %1", commandPath));
+	Logger::log(i18n("[INF] Loading executable commands from %1", commandPath));
 
 	bool ok = false;
 	this->commands = xmlExecutableCommand->load(ok, commandPath);
@@ -70,7 +70,7 @@ bool ExecutableCommandManager::load()
 bool ExecutableCommandManager::save()
 {
 	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/executables.xml");
-	Logger::log(i18n("[INF] Speichere Ausführbare-Kommandos nach %1", commandPath));
+	Logger::log(i18n("[INF] Saving executable commands to %1", commandPath));
 	return xmlExecutableCommand->save(commands, commandPath);
 }
 

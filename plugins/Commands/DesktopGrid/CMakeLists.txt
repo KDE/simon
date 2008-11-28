@@ -22,3 +22,4 @@ target_link_libraries(simondesktopgridplugin ${KDE4_KDEUI_LIBS} eventsimulation 
 install(TARGETS simondesktopgridplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 install( FILES simondesktopgridplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 install( FILES simondesktopgridpluginconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+add_subdirectory(po)

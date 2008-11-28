@@ -18,7 +18,6 @@
  */
 
 #include "desktopgridcommandmanager.h"
-// #include <simoncommandpluginbase_export.h>
 #include <simonlogging/logger.h>
 #include "screengrid.h"
 #include <KLocalizedString>
@@ -32,7 +31,7 @@ K_PLUGIN_FACTORY( DesktopGridPluginFactory,
 			registerPlugin< DesktopGridConfiguration >(); 
 		)
         
-K_EXPORT_PLUGIN( DesktopGridPluginFactory("DesktopGridCommandManager") )
+K_EXPORT_PLUGIN( DesktopGridPluginFactory("simondesktopgridcommand") )
 
 
 
@@ -42,7 +41,7 @@ DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent, const QVar
 
 const QString DesktopGridCommandManager::name() const
 {
-	return i18n("Desktopgitter");
+	return i18n("Desktopgrid");
 }
 
 CommandConfiguration* DesktopGridCommandManager::getConfigurationPage()
@@ -54,7 +53,7 @@ bool DesktopGridCommandManager::trigger(const QString& triggerName)
 {
 	if (triggerName != DesktopGridConfiguration::getInstance()->trigger()) return false;
 
-	Logger::log(i18n("[INF] Aktiviere Desktopgitter"));
+	Logger::log(i18n("[INF] Activating desktopgrid"));
 	ScreenGrid *screenGrid = new ScreenGrid();
 	screenGrid->show();
 	return true;

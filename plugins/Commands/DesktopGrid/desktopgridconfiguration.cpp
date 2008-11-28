@@ -30,8 +30,8 @@ QPointer<DesktopGridConfiguration> DesktopGridConfiguration::instance;
 
 
 DesktopGridConfiguration::DesktopGridConfiguration(QWidget *parent, const QVariantList &args)
-		: CommandConfiguration("desktopgrid", ki18n( "Desktopgitter" ),
-				      "0.1", ki18n("Sprachgesteuerte Mausklicks"),
+		: CommandConfiguration("desktopgrid", ki18n( "Desktopgrid" ),
+				      "0.1", ki18n("Voice controlled mouse clicks"),
 				      "games-config-board",
 				      DesktopGridPluginFactory::componentData(),
 				      parent)
@@ -52,7 +52,7 @@ DesktopGridConfiguration::DesktopGridConfiguration(QWidget *parent, const QVaria
 QString DesktopGridConfiguration::trigger()
 {
 	KConfigGroup cg(config, "");
-	return cg.readEntry("Trigger", i18n("Desktopgitter"));
+	return cg.readEntry("Trigger", i18n("Desktopgrid"));
 }
 
 bool DesktopGridConfiguration::useRealTransparency()
@@ -85,7 +85,7 @@ void DesktopGridConfiguration::load()
 	Q_ASSERT(config);
 
 	KConfigGroup cg(config, "");
-	ui.leTrigger->setText(cg.readEntry("Trigger", i18n("Desktopgitter")));
+	ui.leTrigger->setText(cg.readEntry("Trigger", i18n("Desktopgrid")));
 	ui.cbUseRealTransparency->setChecked(cg.readEntry("RealTransparency", false));
 
 	cg.sync();
@@ -95,7 +95,7 @@ void DesktopGridConfiguration::load()
  
 void DesktopGridConfiguration::defaults()
 {
-	ui.leTrigger->setText(i18n("Desktopgitter"));
+	ui.leTrigger->setText(i18n("Desktopgrid"));
 	ui.cbUseRealTransparency->setChecked(false);
  
 	save();

@@ -31,8 +31,8 @@ K_PLUGIN_FACTORY_DECLARATION(AIPluginFactory)
 QPointer<AIConfiguration> AIConfiguration::instance;
 
 AIConfiguration::AIConfiguration(QWidget *parent, const QVariantList &args)
-		: CommandConfiguration("ai", ki18n( "Künstliche Intelligenz" ),
-				      "0.1", ki18n("Sprachgesteuerter Chatbot"),
+		: CommandConfiguration("ai", ki18n( "Artificial Intelligence" ),
+				      "0.1", ki18n("Voice controlled chatbot"),
 				      "view-media-artist",
 				      AIPluginFactory::componentData(),
 				      parent)

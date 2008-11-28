@@ -29,7 +29,7 @@ K_PLUGIN_FACTORY( PlaceCommandPluginFactory,
 			registerPlugin< PlaceCommandManager >(); 
 		)
         
-K_EXPORT_PLUGIN( PlaceCommandPluginFactory("PlaceCommandManager") )
+K_EXPORT_PLUGIN( PlaceCommandPluginFactory("simonplacecommand") )
 
 PlaceCommandManager::PlaceCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
 {
@@ -60,7 +60,7 @@ bool PlaceCommandManager::addCommand(Command *command)
 bool PlaceCommandManager::load()
 {
 	QString commandPath = KStandardDirs::locate("appdata", "conf/places.xml");
-	Logger::log(i18n("[INF] Lade Ort-Kommandos von %1", commandPath));
+	Logger::log(i18n("[INF] Loading place commands from %1", commandPath));
 
 	bool ok = false;
 	this->commands = xmlPlaceCommand->load(ok, commandPath);
@@ -70,7 +70,7 @@ bool PlaceCommandManager::load()
 bool PlaceCommandManager::save()
 {
 	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/places.xml");
-	Logger::log(i18n("[INF] Speichere Ort-Kommandos nach %1", commandPath));
+	Logger::log(i18n("[INF] Saving place commands to %1", commandPath));
 	return xmlPlaceCommand->save(commands, commandPath);
 }
 

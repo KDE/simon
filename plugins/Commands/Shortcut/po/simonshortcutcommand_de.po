@@ -1,0 +1,40 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Peter Grasch <grasch@simon-listens.org>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: simonshortcutcommand_de\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2008-11-28 17:57+0100\n"
+"PO-Revision-Date: 2008-11-28 17:57+0100\n"
+"Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
+"Language-Team: German <kde-i18n-de@lists.kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#: po/rc.cpp:1 rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Peter Grasch"
+
+#: po/rc.cpp:2 rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "grasch@simon-listens.org"
+
+#: shortcutcommand.cpp:28 shortcutcommand.cpp:50
+msgid "Shortcut"
+msgstr "Tastenkrzel"
+
+#: shortcutcommandmanager.cpp:64
+msgid "[INF] Loading shortcuts from %1"
+msgstr "[INF] Lade Tastenkrzel von %1"
+
+#: shortcutcommandmanager.cpp:74
+msgid "[INF] Saving Shortcuts to %1"
+msgstr "[INF] Speichere Tastenkrzel nach %1"

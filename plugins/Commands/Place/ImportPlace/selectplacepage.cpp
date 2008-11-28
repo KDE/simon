@@ -27,7 +27,7 @@ SelectPlacePage::SelectPlacePage(QWidget *parent) : QWizardPage(parent)
 {
 	ui.setupUi(this);
 
-	setTitle(i18n("Ort auswählen"));
+	setTitle(i18n("Select Place"));
 	
 	ui.urLocalUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
 	

@@ -25,7 +25,7 @@
 
 const QString ShortcutCommand::staticCategoryText()
 {
-	return i18n("Tastenkürzel");
+	return i18n("Shortcut");
 }
 
 const QString ShortcutCommand::getCategoryText() const
@@ -47,7 +47,7 @@ const QMap<QString,QVariant> ShortcutCommand::getValueMapPrivate() const
 {
 	QMap<QString,QVariant> out;
 
-	out.insert(i18n("Tastenkürzel"), shortcut.toString());
+	out.insert(i18n("Shortcut"), shortcut.toString());
 	return out;
 }
 

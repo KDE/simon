@@ -39,7 +39,7 @@ ImportProgramWizard::ImportProgramWizard ( QWidget* parent ) : QWizard ( parent 
 
 	this->addPage ( createFinishedPage() );
 
-	setWindowTitle ( i18n("Programm hinzufügen") );
+	setWindowTitle ( i18n("Add program") );
 	setPixmap ( QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importprogram.png")) );
 
 	connect ( this, SIGNAL ( finished ( int ) ), this, SLOT ( import( int ) ) );
@@ -61,10 +61,10 @@ ImportProgramWizard::~ImportProgramWizard()
 QWizardPage* ImportProgramWizard::createIntroPage()
 {
 	QWizardPage *intro = new QWizardPage ( this );
-	intro->setTitle ( i18n("Importieren eines Programmes") );
+	intro->setTitle ( i18n("Import a program") );
 	QLabel *label = new QLabel ( intro );
 	label->setWordWrap ( true );
-	label->setText ( i18n("Dieser Assistent wird ihnen helfen, ein Program, welches bereits installiert wurde, in simon zu importieren.\n\nsimon wird dabei versuchen automatisch alle installierten Proramme zu erkennen und eine sortiert Liste präsentieren, aus der Sie das gewünschte Programm auswählen können.") );
+	label->setText ( i18n("This wizard will guide you through the process of adding a new program.\n\nSimon will query KDE for a list of installed programs and you will then be able to choose the program you want to assign a command to from this list.") );
 	QVBoxLayout *layout = new QVBoxLayout ( intro );
 	layout->addWidget ( label );
 	intro->setLayout ( layout );
@@ -93,9 +93,9 @@ SelectProgramPage* ImportProgramWizard::createSelectProgramPage()
 QWizardPage* ImportProgramWizard::createFinishedPage()
 {
 	QWizardPage *finished = new QWizardPage ( this );
-	finished->setTitle ( i18n ( "Hinzufügen des Programmes" ) );
+	finished->setTitle ( i18n ( "Added the new Program" ) );
 	QLabel *label = new QLabel ( finished );
-	label->setText ( i18n ( "Klicken Sie auf \"Fertigstellen\" um den Wizard abzuschließen." ) );
+	label->setText ( i18n ( "Press \"Finish\" to complete the wizard." ) );
 	label->setWordWrap ( true );
 	QVBoxLayout *layout = new QVBoxLayout ( finished );
 	layout->addWidget ( label );

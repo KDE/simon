@@ -1,0 +1,131 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Peter Grasch <grasch@simon-listens.org>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: simonexecutablecommand_de\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2008-11-28 17:37+0100\n"
+"PO-Revision-Date: 2008-11-28 17:37+0100\n"
+"Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
+"Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: executablecommand.cpp:30
+msgid "Program"
+msgstr "Programm"
+
+#: executablecommand.cpp:51
+msgid "Executable"
+msgstr "Ausführbare Datei"
+
+#: executablecommand.cpp:52
+msgid "Working directory"
+msgstr "Arbeitsordner"
+
+#: executablecommandmanager.cpp:63
+msgid "[INF] Loading executable commands from %1"
+msgstr "[INF] Lade Ausführ-Kommandos von %1"
+
+#: executablecommandmanager.cpp:73
+msgid "[INF] Saving executable commands to %1"
+msgstr "[INF] Speichere Ausführ-Kommandos zu %1"
+
+#: ImportProgram/importprogramwizard.cpp:42
+msgid "Add program"
+msgstr "Programm hinzufügen"
+
+#: ImportProgram/importprogramwizard.cpp:64
+msgid "Import a program"
+msgstr "Programm importieren"
+
+#: ImportProgram/importprogramwizard.cpp:67
+msgid ""
+"This wizard will guide you through the process of adding a new program.\n"
+"\n"
+"Simon will query KDE for a list of installed programs and you will then be "
+"able to choose the program you want to assign a command to from this list."
+msgstr ""
+"Dieser Assistent wird Ihnen helfen ein installiertes Programm mit einem "
+"Kommando zu verknüpfen um es mit simon starten zu können. \n"
+"\n"
+"Simon wird KDE nach einer Lsit von verfügbaren Applikationen fragen und Sie "
+"können aus dieser Liste dann ein Programm auswählen."
+
+#: ImportProgram/importprogramwizard.cpp:96
+msgid "Added the new Program"
+msgstr "Neues Programm hinzugefügt"
+
+#: ImportProgram/importprogramwizard.cpp:98
+msgid "Press \"Finish\" to complete the wizard."
+msgstr "Sie können den Assistenten jetzt mit \"Fertigstellen\" abschließen."
+
+#: ImportProgram/selectprogrampage.cpp:118
+msgid "%1 (%2)"
+msgstr "%1 (%2)"
+
+#. i18n: file: createexecutablecommandwidget.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateExecutableCommandWidget)
+#. i18n: file: ImportProgram/selectprogramdlg.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, SelectProgramDlg)
+#. i18n: file: createexecutablecommandwidget.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateExecutableCommandWidget)
+#. i18n: file: ImportProgram/selectprogramdlg.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, SelectProgramDlg)
+#: po/rc.cpp:3 po/rc.cpp:24 rc.cpp:3 rc.cpp:24
+msgid "Form"
+msgstr "Form"
+
+#. i18n: file: createexecutablecommandwidget.ui:19
+#. i18n: ectx: property (text), widget (QCommandLinkButton, cbImportProgram)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "Import Program"
+msgstr "Importiere Program"
+
+#. i18n: file: createexecutablecommandwidget.ui:22
+#. i18n: ectx: property (description), widget (QCommandLinkButton, cbImportProgram)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "This wizard will help you to add commands for installed programs easily"
+msgstr ""
+"Dieser Assistent wird Ihnen helfen, installierte Programme mit Kommandos zu "
+"assoziieren"
+
+#. i18n: file: createexecutablecommandwidget.ui:29
+#. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_2)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Manual"
+msgstr "Manuell"
+
+#. i18n: file: createexecutablecommandwidget.ui:35
+#. i18n: ectx: property (description), widget (QCommandLinkButton, commandLinkButton_2)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "Configure the needed parameters manually"
+msgstr "Konfigurieren Sie die notwendigen Parameter selbst"
+
+#. i18n: file: createexecutablecommandwidget.ui:45
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "Executable:"
+msgstr "Ausführbare Datei:"
+
+#. i18n: file: createexecutablecommandwidget.ui:62
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: po/rc.cpp:21 rc.cpp:21
+msgid "Working Directory:"
+msgstr "Arbeitspfad:"
+
+#: po/rc.cpp:25 rc.cpp:25
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Peter Grasch"
+
+#: po/rc.cpp:26 rc.cpp:26
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "grasch@simon-listens.org"

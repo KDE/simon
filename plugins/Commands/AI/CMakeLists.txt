@@ -25,3 +25,4 @@ install( FILES simonaipluginconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR}
 install( FILES bot.xml vars.xml substitutions.xml  DESTINATION ${DATA_INSTALL_DIR}/ai/util )
 
 add_subdirectory(aimls)
+add_subdirectory(po)

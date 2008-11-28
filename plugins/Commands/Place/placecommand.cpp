@@ -26,7 +26,7 @@
 
 const QString PlaceCommand::staticCategoryText()
 {
-	return i18n("Ort");
+	return i18n("Place");
 }
 
 const QString PlaceCommand::getCategoryText() const

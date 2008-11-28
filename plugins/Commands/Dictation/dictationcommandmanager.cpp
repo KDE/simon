@@ -24,7 +24,7 @@ K_PLUGIN_FACTORY( DictationCommandPluginFactory,
 			registerPlugin< DictationCommandManager >(); 
 		)
         
-K_EXPORT_PLUGIN( DictationCommandPluginFactory("DictationCommandManager") )
+K_EXPORT_PLUGIN( DictationCommandPluginFactory("simondictationcommand") )
 
 
 DictationCommandManager::DictationCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
@@ -39,7 +39,7 @@ bool DictationCommandManager::trigger(const QString& triggerName)
 
 const QString DictationCommandManager::name() const
 {
-	return i18n("Diktation");
+	return i18n("Dictation");
 }
 
 bool DictationCommandManager::load()

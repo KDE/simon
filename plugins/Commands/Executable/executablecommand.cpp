@@ -27,7 +27,7 @@
 
 const QString ExecutableCommand::staticCategoryText()
 {
-	return i18n("Programm");
+	return i18n("Program");
 }
 
 const QString ExecutableCommand::getCategoryText() const
@@ -48,8 +48,8 @@ const KIcon ExecutableCommand::getCategoryIcon() const
 const QMap<QString,QVariant> ExecutableCommand::getValueMapPrivate() const
 {
 	QMap<QString,QVariant> out;
-	out.insert(i18n("Ausführbare Datei"), getExecutable());
-	out.insert(i18n("Arbeitspfad"), getWorkingDirectory());
+	out.insert(i18n("Executable"), getExecutable());
+	out.insert(i18n("Working directory"), getWorkingDirectory());
 	return out;
 }
 

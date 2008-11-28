@@ -33,7 +33,7 @@ K_PLUGIN_FACTORY( AIPluginFactory,
 			registerPlugin< AIConfiguration >(); 
 		)
         
-K_EXPORT_PLUGIN( AIPluginFactory("AICommandManager") )
+K_EXPORT_PLUGIN( AIPluginFactory("simonaicommand") )
 
 
 
@@ -45,7 +45,7 @@ AICommandManager::AICommandManager(QObject *parent, const QVariantList& args) : 
 
 const QString AICommandManager::name() const
 {
-	return i18n("Künstliche Intelligenz");
+	return i18n("Artificial Intelligence");
 }
 
 CommandConfiguration* AICommandManager::getConfigurationPage()
@@ -96,7 +96,7 @@ bool AICommandManager::setupParser()
 	QDir aimlDir(aimlDirString);
 	QStringList aimls = aimlDir.entryList(QStringList() << "*.aiml", QDir::Files);
 
-	KProgressDialog *dlg = new KProgressDialog(0, i18n("Intelligenz"), i18n("Lade künstliche Intelligenz..."));
+	KProgressDialog *dlg = new KProgressDialog(0, i18n("Artificial Intelligence"), i18n("Loading artificial intelligence..."));
 	dlg->progressBar()->setMaximum(aimls.count());
 	dlg->show();
 	int i=0;

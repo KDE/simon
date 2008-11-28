@@ -29,7 +29,7 @@ K_PLUGIN_FACTORY( ShortcutCommandPluginFactory,
 			registerPlugin< ShortcutCommandManager >(); 
 		)
         
-K_EXPORT_PLUGIN( ShortcutCommandPluginFactory("ShortcutCommandManager") )
+K_EXPORT_PLUGIN( ShortcutCommandPluginFactory("simonshortcutcommand") )
 
 
 ShortcutCommandManager::ShortcutCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
@@ -61,7 +61,7 @@ const QString ShortcutCommandManager::name() const
 bool ShortcutCommandManager::load()
 {
 	QString commandPath = KStandardDirs::locate("appdata", "conf/shortcuts.xml");
-	Logger::log(i18n("[INF] Lade Tastenkürzel von %1", commandPath));
+	Logger::log(i18n("[INF] Loading shortcuts from %1", commandPath));
 
 	bool ok = false;
 	this->commands = xmlShortcutCommand->load(ok, commandPath);
@@ -71,7 +71,7 @@ bool ShortcutCommandManager::load()
 bool ShortcutCommandManager::save()
 {
 	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/shortcuts.xml");
-	Logger::log(i18n("[INF] Speichere Shortcut-Kommandos nach %1", commandPath));
+	Logger::log(i18n("[INF] Saving Shortcuts to %1", commandPath));
 	return xmlShortcutCommand->save(commands, commandPath);
 }
 
