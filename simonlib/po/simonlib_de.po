@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonlib_de\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 17:07+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2008-11-28 18:54+0100\n"
 "PO-Revision-Date: 2008-11-28 17:07+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -291,7 +291,8 @@ msgstr "Die Schriftart für die Aufnahmefelder innerhalb von simon"
 #. i18n: ectx: label, entry (ProcessInternal), group (PostProcessing)
 #: po/rc.cpp:124 rc.cpp:124
 msgid "If samples recorded with simon should be processed at all."
-msgstr "ob Aufnahmen innerhalb von simon ebenfalls nachbearbeitet werden sollen."
+msgstr ""
+"ob Aufnahmen innerhalb von simon ebenfalls nachbearbeitet werden sollen."
 
 #. i18n: file: simonsound/soundconfig.kcfg:34
 #. i18n: ectx: label, entry (ProcessingFilters), group (PostProcessing)
@@ -847,7 +848,8 @@ msgid "Generating grammar dictionary..."
 msgstr "Generiere Grammatikalisches Wörterbuch..."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:282
-msgid "Couldn't generate grammatical lexicon. Please check the output path (%1)."
+msgid ""
+"Couldn't generate grammatical lexicon. Please check the output path (%1)."
 msgstr ""
 "Konnte das grammatikalische Wörterbuch nicht generieren. \n"
 "Bitte überprüfen Sie die Pfade zur Ausgabedatei. (%1)."
@@ -900,7 +902,8 @@ msgid "Generating Master Label File..."
 msgstr "Erstelle Master Label File..."
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:513
-msgid "Couldn't generate Master Label File. Please check your prompts file (%1)."
+msgid ""
+"Couldn't generate Master Label File. Please check your prompts file (%1)."
 msgstr ""
 "Erstellen der Master Label File fehlgeschlagen. Bitte überprüfen Sie die "
 "prompts-Datei (%1)"
@@ -1350,6 +1353,427 @@ msgid "Recognition Rate"
 msgstr "Erkennungsrate"
 
 #, fuzzy
+#~ msgid "User:"
+#~ msgstr "Benutzername"
+
+#, fuzzy
+#~ msgid "Host:"
+#~ msgstr "HERest:"
+
+#, fuzzy
+#~ msgid "Path:"
+#~ msgstr "Port:"
+
+#, fuzzy
+#~ msgid "Database:"
+#~ msgstr "Datum"
+
+#, fuzzy
+#~ msgid "Change Password"
+#~ msgstr "Verschlüsseltes Passwort"
+
+#, fuzzy
+#~ msgid "Trigger"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid "Name (Trigger):"
+#~ msgstr "Auslöser:"
+
+#, fuzzy
+#~ msgid "New Command"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgid "General Settings"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Word:"
+#~ msgstr "Wort"
+
+#, fuzzy
+#~ msgid "Grammatik Settings"
+#~ msgstr "Kommandoeinstellungen"
+
+#, fuzzy
+#~ msgid "Waiting..."
+#~ msgstr "Parse..."
+
+#, fuzzy
+#~ msgid "Texts"
+#~ msgstr "Test"
+
+#, fuzzy
+#~ msgid "Change grammar"
+#~ msgstr "[INF] Speichere Grammatik nach %1"
+
+#, fuzzy
+#~ msgid "Pronunciation:"
+#~ msgstr "Aussprache"
+
+#, fuzzy
+#~ msgid "Recognition Rate:"
+#~ msgstr "Erkennungsrate"
+
+#, fuzzy
+#~ msgid "Training"
+#~ msgstr "Trainingsdaten"
+
+#, fuzzy
+#~ msgid "Import Trainingsdata"
+#~ msgstr "Trainingsdaten"
+
+#, fuzzy
+#~ msgid "Vocabulary:"
+#~ msgstr "[INF] \t\tVocabular: %1,"
+
+#, fuzzy
+#~ msgid "Username:"
+#~ msgstr "Benutzername"
+
+#, fuzzy
+#~ msgid "Documentation"
+#~ msgstr "Aussprache"
+
+#, fuzzy
+#~ msgid "Configuration"
+#~ msgstr "Gerätekonfiguration"
+
+#, fuzzy
+#~ msgid ""
+#~ "Couldn't start simond.\n"
+#~ "\n"
+#~ "Please check your configuration.\n"
+#~ "\n"
+#~ "Command: \"%1\""
+#~ msgstr ""
+#~ "Konnte Kommandomanager \"%1\" nicht initialisieren.\n"
+#~ "\n"
+#~ "Bitte überprüfen Sie seine Konfiguration."
+
+#, fuzzy
+#~ msgid "(C) 2007 Peter Grasch"
+#~ msgstr "Your names"
+
+#~ msgid "Peter Grasch"
+#~ msgstr "Your names"
+
+#, fuzzy
+#~ msgid "Program"
+#~ msgstr "HTK Programme"
+
+#, fuzzy
+#~ msgid "[INF] Loading executable commands from %1"
+#~ msgstr "[INF] Lade Grammatik von %1"
+
+#, fuzzy
+#~ msgid "Place"
+#~ msgstr "Abspielen"
+
+#, fuzzy
+#~ msgid "[INF] Loading place commands from %1"
+#~ msgstr "[INF] Lade Grammatik von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving place commands to %1"
+#~ msgstr "[INF] Lade Grammatik von %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading shortcuts from %1"
+#~ msgstr "[INF] Lade Grammatik von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving Shortcuts to %1"
+#~ msgstr "[INF] Speichere Wörterliste(n)"
+
+#, fuzzy
+#~ msgid "Text"
+#~ msgstr "Test"
+
+#, fuzzy
+#~ msgid "[INF] Loading text-macro commands from %1"
+#~ msgstr "[INF] Lade Grammatik von %1"
+
+#, fuzzy
+#~ msgid "The port to use for the server."
+#~ msgstr "Die Schriftart für die Aufnahmefelder innerhalb von simon"
+
+#, fuzzy
+#~ msgid "the path to the SSL certificate."
+#~ msgstr "Der Pfad zur HLEd Datei."
+
+#, fuzzy
+#~ msgid "The path to the database."
+#~ msgstr "Der Pfad zur HLEd Datei."
+
+#, fuzzy
+#~ msgid "Recognition"
+#~ msgstr "Erkennungsrate"
+
+#, fuzzy
+#~ msgid "Couldn't connect to database"
+#~ msgstr "Konnte CodeTrain-Datei nicht erstellen."
+
+#, fuzzy
+#~ msgid "Add a new user"
+#~ msgstr "Neuen Host anlegen"
+
+#, fuzzy
+#~ msgid "Couldn't add user"
+#~ msgstr "Konnte das Kommando \"%1\" nicht hinzufügen."
+
+#, fuzzy
+#~ msgid "Couldn't remove User"
+#~ msgstr "Konnte %1 nicht löschen"
+
+#, fuzzy
+#~ msgid "Couldn't remove the speech model"
+#~ msgstr "Konnte die Datei %1 nicht entfernen"
+
+#, fuzzy
+#~ msgid "Couldn't start adin-thread"
+#~ msgstr "Konnte tree.hed nicht erstellen."
+
+#, fuzzy
+#~ msgid "Couldn't initialize microphone"
+#~ msgstr "Konnte Liste der Triphone nicht erstellen."
+
+#, fuzzy
+#~ msgid "Couldn't determine Command Type"
+#~ msgstr "Konnte das Kommando \"%1\" nicht hinzufügen."
+
+#, fuzzy
+#~ msgid "Command: %1"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgid "Kommando"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgid "Commands"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgid "Select Command"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgid "Remove Command"
+#~ msgstr "Kommando"
+
+#, fuzzy
+#~ msgid "Recognition: %1"
+#~ msgstr "Erkennungsrate"
+
+#, fuzzy
+#~ msgid "[INF] Connecting aborted"
+#~ msgstr "[INF] Schießen der Ausgabedatei"
+
+#, fuzzy
+#~ msgid "[INF] simon activated"
+#~ msgstr "[INF] Wörterliste erstellt"
+
+#, fuzzy
+#~ msgid "Add a new Word"
+#~ msgstr "Neuen Host anlegen"
+
+#, fuzzy
+#~ msgid "The Wordlist already contains this Word."
+#~ msgstr "[INF] Die Wortliste beinhaltet jetzt %1 Wörter"
+
+#, fuzzy
+#~ msgid "Add Word"
+#~ msgstr "Wort"
+
+#, fuzzy
+#~ msgid "[INF] Adding the new Word to the Model..."
+#~ msgstr "[INF] Hinzufügen von %1 Wörtern in die Wörterliste"
+
+#, fuzzy
+#~ msgid "Couldn't save prompts"
+#~ msgstr "Konnte %1 nicht löschen"
+
+#, fuzzy
+#~ msgid "[INF] Opening Lexicon"
+#~ msgstr "[INF] \t\tLexikon: %1,"
+
+#, fuzzy
+#~ msgid "Opening Lexicon..."
+#~ msgstr "Erstelle triphone..."
+
+#, fuzzy
+#~ msgid "Creating List..."
+#~ msgstr "Filtere Liste..."
+
+#, fuzzy
+#~ msgid "Sorting Dictionary..."
+#~ msgstr "Generiere Grammatikalisches Wörterbuch..."
+
+#, fuzzy
+#~ msgid "Storing Dictionary..."
+#~ msgstr "Generiere Grammatikalisches Wörterbuch..."
+
+#, fuzzy
+#~ msgid " imported"
+#~ msgstr "Abgebrochen"
+
+#, fuzzy
+#~ msgid "Importing dictionary..."
+#~ msgstr "Generiere Grammatikalisches Wörterbuch..."
+
+#, fuzzy
+#~ msgid "Opening File..."
+#~ msgstr "Lese Datei..."
+
+#, fuzzy
+#~ msgid "Reading File..."
+#~ msgstr "Lese Datei..."
+
+#, fuzzy
+#~ msgid "Processing..."
+#~ msgstr "Parse..."
+
+#, fuzzy
+#~ msgid "Input Files"
+#~ msgstr "Aufnahmegerät:"
+
+#, fuzzy
+#~ msgid "Collecting files..."
+#~ msgstr "Kodiere Audiodaten..."
+
+#, fuzzy
+#~ msgid "Couldn't create output folder %1"
+#~ msgstr "Konnte die Datei %1 nicht entfernen"
+
+#, fuzzy
+#~ msgid "Importing %1 Files..."
+#~ msgstr "Lese Datei..."
+
+#, fuzzy
+#~ msgid "Creating automatic transcriptions..."
+#~ msgstr "Erstelle Monophone..."
+
+#, fuzzy
+#~ msgid "Couldn't process soundfiles"
+#~ msgstr "Konnte die Datei %1 nicht entfernen"
+
+#, fuzzy
+#~ msgid "Processing folder..."
+#~ msgstr "Nachbearbeitung fehlgeschlagen"
+
+#, fuzzy
+#~ msgid "Importing Trainingstext"
+#~ msgstr "[INF] Lesen der Trainingtexte"
+
+#, fuzzy
+#~ msgid "Import a new Trainingstext"
+#~ msgstr "[INF] Lesen der Trainingtexte"
+
+#, fuzzy
+#~ msgid "[INF] Starting remove import from \"%1\""
+#~ msgstr "[INF] Parse Promptsdatei von %1"
+
+#, fuzzy
+#~ msgid "Couldn't store Trainingstext"
+#~ msgstr "Konnte CodeTrain-Datei nicht erstellen."
+
+#, fuzzy
+#~ msgid "[INF] Loading List of Trainingstexts from %1"
+#~ msgstr "[INF] Lesen der Trainingtexte"
+
+#, fuzzy
+#~ msgid "Merging..."
+#~ msgstr "Parse..."
+
+#, fuzzy
+#~ msgid "Renaming terminal..."
+#~ msgstr "Erstelle triphone..."
+
+#, fuzzy
+#~ msgid "Couldn't delete Trainingstext. Do you have enough permissions?"
+#~ msgstr ""
+#~ "Konnte %1 nicht überschreiben. Bitte überprüfen Sie, ob Sie die nötigen "
+#~ "Rechte besitzen."
+
+#, fuzzy
+#~ msgid "Couldn't start Training"
+#~ msgstr "Konnte CodeTrain-Datei nicht erstellen."
+
+#, fuzzy
+#~ msgid "Couldn't remove sample."
+#~ msgstr "Konnte die Datei %1 nicht entfernen"
+
+#, fuzzy
+#~ msgid "The word could not be completely removed."
+#~ msgstr "Kommando konnte nicht gelöscht werden."
+
+#, fuzzy
+#~ msgid "Couldn't create model container"
+#~ msgstr "Konnte CodeTrain-Datei nicht erstellen."
+
+#, fuzzy
+#~ msgid "Couldn't update the Server-Model."
+#~ msgstr "Konnte tree.hed nicht erstellen."
+
+#, fuzzy
+#~ msgid "Loading Training"
+#~ msgstr "Lade Übersicht"
+
+#, fuzzy
+#~ msgid "No Wordlist available"
+#~ msgstr "[INF] Wörterliste erstellt"
+
+#, fuzzy
+#~ msgid "Couldn't store Wordlist on Server"
+#~ msgstr "Konnte Liste der Triphone nicht erstellen."
+
+#, fuzzy
+#~ msgid "Couldn't restore old Model"
+#~ msgstr "Konnte die Datei %1 nicht entfernen"
+
+#, fuzzy
+#~ msgid "Compiling Model"
+#~ msgstr "[INF] Modell wird generiert..."
+
+#, fuzzy
+#~ msgid "[INF] Starting simon..."
+#~ msgstr "[INF] Modell wird generiert..."
+
+#, fuzzy
+#~ msgid "Loading program..."
+#~ msgstr "Lade Log..."
+
+#, fuzzy
+#~ msgid "Loading \"Training\"..."
+#~ msgstr "Lade Log..."
+
+#, fuzzy
+#~ msgid "Loading \"Wordlist\"..."
+#~ msgstr "Generiere Wordliste..."
+
+#, fuzzy
+#~ msgid "Loading \"Run\"..."
+#~ msgstr "Lade Log..."
+
+#, fuzzy
+#~ msgid "Loading Interface..."
+#~ msgstr "Lese Datei..."
+
+#, fuzzy
+#~ msgid "Wordlist"
+#~ msgstr "Wort"
+
+#, fuzzy
+#~ msgid "Activating..."
+#~ msgstr "Parse..."
+
+#, fuzzy
+#~ msgid "[INF] Quitting..."
+#~ msgstr "[INF] Modell wird generiert..."
+
+#, fuzzy
 #~ msgid ""
 #~ "Der X-Server unterstützt die \"XTest\" nicht - bitte installieren Sie "
 #~ "diese. (Display: \"%1\")"
@@ -1382,9 +1806,6 @@ msgstr "Erkennungsrate"
 
 #~ msgid "Record "
 #~ msgstr "Record"
-
-#~ msgid "Peter Grasch"
-#~ msgstr "Your names"
 
 #~ msgid "grasch@simon-listens.org"
 #~ msgstr "Your emails"
@@ -1518,4 +1939,3 @@ msgstr "Erkennungsrate"
 #~ "Die Änderungen werden nicht gespeichert. Bitte konfigurieren Sie einen "
 #~ "korrekten Pfad in den Einstellungen und starten Sie simon neu um eine "
 #~ "dauerhafte Wortliste zu benutzen."
-

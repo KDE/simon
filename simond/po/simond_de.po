@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simond\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 10:21+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2008-11-28 18:54+0100\n"
 "PO-Revision-Date: 2008-11-28 10:35+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -245,6 +245,355 @@ msgstr "(C) 2007 Peter Grasch"
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
 
+#, fuzzy
+#~ msgid "Host:"
+#~ msgstr "Port:"
+
+#, fuzzy
+#~ msgid "Path:"
+#~ msgstr "Port:"
+
+#, fuzzy
+#~ msgid "Word:"
+#~ msgstr "Port:"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">If you have have a "
+#~ "HADIFIX dictionary please provide the file below:<br /></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\"><html><head><meta name=\"qrichtext\" content=\"1"
+#~ "\" /><style type=\"text/css\">p, li { white-space: pre-wrap; }</style></"
+#~ "head><body style=\" font-family:'Bitstream Vera Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-"
+#~ "bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
+#~ "indent:0px;\"><span style=\" font-weight:600;\">WARNUNG:</span> Die hier "
+#~ "getroffenen Änderungen werden <span style=\" font-weight:600;\">sofort</"
+#~ "span> übernommen.</p></body></html>"
+
+#, fuzzy
+#~ msgid "Change grammar"
+#~ msgstr "Passwort ändern"
+
+#, fuzzy
+#~ msgid "Completely remove the word"
+#~ msgstr "Konnte Sprachmodell des Benutzers nicht löschen"
+
+#, fuzzy
+#~ msgid "Password:"
+#~ msgstr "Passwort ändern"
+
+#, fuzzy
+#~ msgid "Use Encryption"
+#~ msgstr "Verschlüsselung"
+
+#, fuzzy
+#~ msgid "simon"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:10pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; "
+#~ "font-size:11pt;\"><span style=\" font-size:9pt;\">This early Alpha-"
+#~ "Version is not yet suited for productive use. Should you encounter bugs, "
+#~ "please contact the developers to help us improve simon.</span></p></"
+#~ "body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\"><html><head><meta name=\"qrichtext\" content=\"1"
+#~ "\" /><style type=\"text/css\">p, li { white-space: pre-wrap; }</style></"
+#~ "head><body style=\" font-family:'Bitstream Vera Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-"
+#~ "bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
+#~ "indent:0px;\"><span style=\" font-weight:600;\">WARNUNG:</span> Die hier "
+#~ "getroffenen Änderungen werden <span style=\" font-weight:600;\">sofort</"
+#~ "span> übernommen.</p></body></html>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:"
+#~ "support@simon-listens.org\"><span style=\" text-decoration: underline; "
+#~ "color:#0000ff;\">Direct Mail-Support</span></a> </p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\"><html><head><meta name=\"qrichtext\" content=\"1"
+#~ "\" /><style type=\"text/css\">p, li { white-space: pre-wrap; }</style></"
+#~ "head><body style=\" font-family:'Bitstream Vera Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-"
+#~ "bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
+#~ "indent:0px;\"><span style=\" font-weight:600;\">WARNUNG:</span> Die hier "
+#~ "getroffenen Änderungen werden <span style=\" font-weight:600;\">sofort</"
+#~ "span> übernommen.</p></body></html>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://"
+#~ "sourceforge.net/forum/?group_id=190872\"><span style=\" text-decoration: "
+#~ "underline; color:#0000ff;\">Community Forums</span></a></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\"><html><head><meta name=\"qrichtext\" content=\"1"
+#~ "\" /><style type=\"text/css\">p, li { white-space: pre-wrap; }</style></"
+#~ "head><body style=\" font-family:'Bitstream Vera Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-"
+#~ "bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
+#~ "indent:0px;\"><span style=\" font-weight:600;\">WARNUNG:</span> Die hier "
+#~ "getroffenen Änderungen werden <span style=\" font-weight:600;\">sofort</"
+#~ "span> übernommen.</p></body></html>"
+
+#, fuzzy
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://www."
+#~ "simon-listens.org\"><span style=\" text-decoration: underline; color:"
+#~ "#0000ff;\">Official Homepage</span></a> </p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\"><html><head><meta name=\"qrichtext\" content=\"1"
+#~ "\" /><style type=\"text/css\">p, li { white-space: pre-wrap; }</style></"
+#~ "head><body style=\" font-family:'Bitstream Vera Sans'; font-size:8pt; "
+#~ "font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-"
+#~ "bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
+#~ "indent:0px;\"><span style=\" font-weight:600;\">WARNUNG:</span> Die hier "
+#~ "getroffenen Änderungen werden <span style=\" font-weight:600;\">sofort</"
+#~ "span> übernommen.</p></body></html>"
+
+#, fuzzy
+#~ msgid "Start simond"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Restart simond"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Stop simond"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "simond stopped"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "simond started"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Unknown Error"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "ksimond"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "Add a new Place"
+#~ msgstr "Neuen Benutzer hinzufügen"
+
+#, fuzzy
+#~ msgid "wether we want to start simond automatically."
+#~ msgstr "ob wir den Zugriff auf eine gewisse IP beschränken wollen"
+
+#, fuzzy
+#~ msgid "Date"
+#~ msgstr "Datenbank:"
+
+#, fuzzy
+#~ msgid "The samplerate used for recording."
+#~ msgstr "der Port für den Server"
+
+#, fuzzy
+#~ msgid "The font to use for all the promtps in simon."
+#~ msgstr "der Port für den Server"
+
+#, fuzzy
+#~ msgid "The path to the HDMan executable."
+#~ msgstr "der Pfad zur Datenbank "
+
+#, fuzzy
+#~ msgid "The path to the HLEd executable."
+#~ msgstr "der Pfad zur Datenbank "
+
+#, fuzzy
+#~ msgid "The path to the HCopy executable."
+#~ msgstr "der Pfad zur Datenbank "
+
+#, fuzzy
+#~ msgid "The path to the HCompV executable."
+#~ msgstr "der Pfad zur Datenbank "
+
+#, fuzzy
+#~ msgid "The path to the HERest executable."
+#~ msgstr "der Pfad zur Datenbank "
+
+#, fuzzy
+#~ msgid "The path to the HHEd executable."
+#~ msgstr "der Pfad zur Datenbank "
+
+#, fuzzy
+#~ msgid "The path to the HVite executable."
+#~ msgstr "der Pfad zur Datenbank "
+
+#, fuzzy
+#~ msgid "The path to the mkfa executable."
+#~ msgstr "der Pfad zur Datenbank "
+
+#, fuzzy
+#~ msgid "The path to the dfa_minimize executable."
+#~ msgstr "der Pfad zur Datenbank "
+
+#, fuzzy
+#~ msgid "The Password for simond."
+#~ msgstr "Passwort ändern für Benutzer \"%1\""
+
+#, fuzzy
+#~ msgid "The Timeout for the connection to the simond."
+#~ msgstr "Der simon Erkennungsserver"
+
+#, fuzzy
+#~ msgid "Couldn't add Command \"%1\"."
+#~ msgstr "Konnte Benutzer nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Encrypted Password"
+#~ msgstr "Passwort ändern"
+
+#, fuzzy
+#~ msgid "Couldn't remove %1"
+#~ msgstr "Konnte Benutzer nicht löschen"
+
+#, fuzzy
+#~ msgid "Couldn't remove file %1"
+#~ msgstr "Konnte Benutzer nicht löschen"
+
+#, fuzzy
+#~ msgid "Add new Host"
+#~ msgstr "Neuen Benutzer hinzufügen"
+
+#, fuzzy
+#~ msgid "Couldn't create codetrain-file."
+#~ msgstr "Konnte keine Verbindung zur Datenbank aufbauen"
+
+#, fuzzy
+#~ msgid "Couldn't generate list of triphones."
+#~ msgstr "Konnte Mikrofon nicht initialisieren"
+
+#, fuzzy
+#~ msgid "Couldn't generate tree.hed."
+#~ msgstr "Konnte Sprachmodell des Benutzers nicht löschen"
+
+#, fuzzy
+#~ msgid "simond: %1"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "[INF] Continuing recognition"
+#~ msgstr "Konnte Erkennung nicht starten"
+
+#, fuzzy
+#~ msgid "Add a new Word"
+#~ msgstr "Neuen Benutzer hinzufügen"
+
+#, fuzzy
+#~ msgid "Couldn't save prompts"
+#~ msgstr "Konnte Benutzer nicht löschen"
+
+#, fuzzy
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Couldn't process soundfiles"
+#~ msgstr "Konnte Benutzer nicht löschen"
+
+#, fuzzy
+#~ msgid "Couldn't store Trainingstext"
+#~ msgstr "Konnte adin-thread nicht starten."
+
+#, fuzzy
+#~ msgid "Couldn't start Training"
+#~ msgstr "Konnte adin-thread nicht starten."
+
+#, fuzzy
+#~ msgid "Couldn't remove sample."
+#~ msgstr "Konnte Benutzer nicht löschen"
+
+#, fuzzy
+#~ msgid "Self-Signed Certificate"
+#~ msgstr "Zertifikat:"
+
+#, fuzzy
+#~ msgid "Couldn't create model container"
+#~ msgstr "Konnte Benutzer nicht löschen"
+
+#, fuzzy
+#~ msgid "Couldn't update the Server-Model."
+#~ msgstr "Konnte Sprachmodell des Benutzers nicht löschen"
+
+#, fuzzy
+#~ msgid "Couldn't store Wordlist on Server"
+#~ msgstr "Konnte adin-thread nicht starten."
+
+#, fuzzy
+#~ msgid "Couldn't restore old Model"
+#~ msgstr "Konnte Sprachmodell des Benutzers nicht löschen"
+
+#, fuzzy
+#~ msgid "Not connected to the server"
+#~ msgstr "der einzige Host der zum Server verbinden darf."
+
+#, fuzzy
+#~ msgid "Couldn't send Request to Server"
+#~ msgstr "Konnte Benutzer nicht hinzufügen"
+
+#, fuzzy
+#~ msgid "Do you really want to revert all changes made since this Model?"
+#~ msgstr ""
+#~ "Wollen Sie den ausgewählten Benutzer wirklich aus der Datenbank entfernen?"
+
+#, fuzzy
+#~ msgid "Couldn't start Recognition"
+#~ msgstr "Konnte Erkennung nicht starten"
+
 #~ msgid "grasch@simon-listens.org"
 #~ msgstr "Your emails"
-

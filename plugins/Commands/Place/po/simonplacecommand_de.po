@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonplacecommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 17:48+0100\n"
+"POT-Creation-Date: 2008-11-28 18:55+0100\n"
 "PO-Revision-Date: 2008-11-28 17:48+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -204,3 +204,135 @@ msgstr "Peter Grasch"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
+
+#, fuzzy
+#~ msgid "Import Program"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Configure the needed parameters manually"
+#~ msgstr "Die notwendigen Parameter manuell konfigurieren"
+
+#, fuzzy
+#~ msgid "Port:"
+#~ msgstr "Host:"
+
+#, fuzzy
+#~ msgid "HERest:"
+#~ msgstr "Host:"
+
+#, fuzzy
+#~ msgid "Import Activities"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Import Texts"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Local text file"
+#~ msgstr "Lokaler Ort"
+
+#, fuzzy
+#~ msgid "Pages"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Import Text"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Username:"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "Password:"
+#~ msgstr "Passwort:"
+
+#, fuzzy
+#~ msgid "Use Encryption"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgid "Hosts"
+#~ msgstr "Host:"
+
+#, fuzzy
+#~ msgid "[INF] Loading executable commands from %1"
+#~ msgstr "[INF] Lade Ort Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving executable commands to %1"
+#~ msgstr "[INF] Speichere Ort Kommandos zu %1"
+
+#, fuzzy
+#~ msgid "Added the new Program"
+#~ msgstr "Neuen Ort hinzufgen"
+
+#, fuzzy
+#~ msgid "Press \"Finish\" to complete the wizard."
+#~ msgstr "Klicken Sie auf \"Fertigstellen\" um den Assistenten abzuschlieen."
+
+#, fuzzy
+#~ msgid "[INF] Loading shortcuts from %1"
+#~ msgstr "[INF] Lade Ort Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving Shortcuts to %1"
+#~ msgstr "[INF] Speichere Ort Kommandos zu %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading text-macro commands from %1"
+#~ msgstr "[INF] Lade Ort Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving text-macro commands to %1"
+#~ msgstr "[INF] Speichere Ort Kommandos zu %1"
+
+#, fuzzy
+#~ msgid "Play"
+#~ msgstr "Ort"
+
+#, fuzzy
+#~ msgid "Add a new user"
+#~ msgstr "Neuen Ort hinzufgen"
+
+#, fuzzy
+#~ msgid "Username"
+#~ msgstr "Benutzer:"
+
+#, fuzzy
+#~ msgid "[INF] Loading grammar from %1"
+#~ msgstr "[INF] Lade Ort Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Parsing prompts-file from %1"
+#~ msgstr "[INF] Lade Ort Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Select Command"
+#~ msgstr "Ort auswhlen"
+
+#, fuzzy
+#~ msgid "User athenticated"
+#~ msgstr "Benutze Authentifizierung"
+
+#, fuzzy
+#~ msgid "Add a new Word"
+#~ msgstr "Neuen Ort hinzufgen"
+
+#, fuzzy
+#~ msgid "Import completed"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Import Textfile"
+#~ msgstr "Ort importieren"
+
+#, fuzzy
+#~ msgid "Text added"
+#~ msgstr "Ort hinzugefgt"
+
+#, fuzzy
+#~ msgid "[INF] Loading List of Trainingstexts from %1"
+#~ msgstr "[INF] Lade Ort Kommandos von %1"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simontextmacrocommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 17:41+0100\n"
+"POT-Creation-Date: 2008-11-28 18:57+0100\n"
 "PO-Revision-Date: 2008-11-28 17:41+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -54,3 +54,55 @@ msgstr "[INF] Lade Text-Makro Kommandos von %1"
 #: textmacrocommandmanager.cpp:73
 msgid "[INF] Saving text-macro commands to %1"
 msgstr "[INF] Speichere Text-Makro Kommandos nach %1"
+
+#, fuzzy
+#~ msgid "Test"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "Texts"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "TextLabel"
+#~ msgstr "Text"
+
+#, fuzzy
+#~ msgid "[INF] Loading executable commands from %1"
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving executable commands to %1"
+#~ msgstr "[INF] Speichere Text-Makro Kommandos nach %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading place commands from %1"
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving place commands to %1"
+#~ msgstr "[INF] Speichere Text-Makro Kommandos nach %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading shortcuts from %1"
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving Shortcuts to %1"
+#~ msgstr "[INF] Speichere Text-Makro Kommandos nach %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading grammar from %1"
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Parsing prompts-file from %1"
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Starting remove import from \"%1\""
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading List of Trainingstexts from %1"
+#~ msgstr "[INF] Lade Text-Makro Kommandos von %1"

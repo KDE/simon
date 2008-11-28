@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonexecutablecommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 17:37+0100\n"
+"POT-Creation-Date: 2008-11-28 18:55+0100\n"
 "PO-Revision-Date: 2008-11-28 17:37+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -129,3 +129,91 @@ msgstr "Peter Grasch"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
+
+#, fuzzy
+#~ msgid "Import Place"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "Configure the necessairy parameters manually"
+#~ msgstr "Konfigurieren Sie die notwendigen Parameter selbst"
+
+#, fuzzy
+#~ msgid "HTK Programme"
+#~ msgstr "Programm"
+
+#, fuzzy
+#~ msgid "Add a new Place"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgid "Press Finish to complete this wizard."
+#~ msgstr "Sie können den Assistenten jetzt mit \"Fertigstellen\" abschließen."
+
+#, fuzzy
+#~ msgid "[INF] Loading place commands from %1"
+#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving place commands to %1"
+#~ msgstr "[INF] Speichere Ausführ-Kommandos zu %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading shortcuts from %1"
+#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving Shortcuts to %1"
+#~ msgstr "[INF] Speichere Ausführ-Kommandos zu %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading text-macro commands from %1"
+#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving text-macro commands to %1"
+#~ msgstr "[INF] Speichere Ausführ-Kommandos zu %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading grammar from %1"
+#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Add a new Word"
+#~ msgstr "Neues Programm hinzugefügt"
+
+#, fuzzy
+#~ msgid "Add Word"
+#~ msgstr "Programm hinzufügen"
+
+#, fuzzy
+#~ msgid "Importing BOMP Dictionary"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Sorting Dictionary..."
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Storing Dictionary..."
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Importing Dictionary"
+#~ msgstr "Arbeitspfad:"
+
+#, fuzzy
+#~ msgid "Importing dictionary..."
+#~ msgstr "Arbeitsordner"
+
+#, fuzzy
+#~ msgid "Import completed"
+#~ msgstr "Importiere Program"
+
+#, fuzzy
+#~ msgid "[INF] Loading List of Trainingstexts from %1"
+#~ msgstr "[INF] Lade Ausführ-Kommandos von %1"
+
+#, fuzzy
+#~ msgid "Loading program..."
+#~ msgstr "Programm hinzufügen"

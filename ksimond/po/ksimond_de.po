@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: ksimond\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-27 13:13+0100\n"
+"POT-Creation-Date: 2008-11-28 18:53+0100\n"
 "PO-Revision-Date: 2008-11-27 13:13+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -149,3 +149,93 @@ msgstr "(c) 2007 Peter Grasch"
 #: src/main.cpp:16
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
+
+#, fuzzy
+#~ msgid "Start simon on KDE-start"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "Start simon minimized"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "Pronunciation"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid "Start Training"
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "simon"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "wether we want to restrict access to a certain IP."
+#~ msgstr "ob wir simond automatisch starten wollen"
+
+#, fuzzy
+#~ msgid "If we should start simon when KDE is started."
+#~ msgstr "soll ksimond beim KDE Start starten?"
+
+#, fuzzy
+#~ msgid "Unknown error"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid ""
+#~ "Couldn't initialize commandmanager \"%1\".\n"
+#~ "\n"
+#~ "Please check its configuration."
+#~ msgstr ""
+#~ "Konnte simond nicht starten. Bitte überprüfen Sie Ihre Konfiguration. "
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgid "Device Configuration"
+#~ msgstr "Konfiguration"
+
+#, fuzzy
+#~ msgid ""
+#~ "Couldn't generate temporary folders.\n"
+#~ "\n"
+#~ "Please check your permissions for \"%1\"."
+#~ msgstr ""
+#~ "Konnte simond nicht starten. Bitte überprüfen Sie Ihre Konfiguration. "
+#~ "Kommando: \"%1\""
+
+#, fuzzy
+#~ msgid "simond: %1"
+#~ msgstr "simond"
+
+#, fuzzy
+#~ msgid "[INF] simon activated"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid " imported"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "Unknown"
+#~ msgstr "Unbekannter Fehler"
+
+#, fuzzy
+#~ msgid "Synchronization already running"
+#~ msgstr "simond läuft bereits"
+
+#, fuzzy
+#~ msgid "[INF] Starting simon..."
+#~ msgstr "Starte ksimond bei KDE Start"
+
+#, fuzzy
+#~ msgid "simon has been deactivated"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "Simon - Deactivated"
+#~ msgstr "simond gestartet"
+
+#, fuzzy
+#~ msgid "simon has been activated"
+#~ msgstr "simond gestartet"
