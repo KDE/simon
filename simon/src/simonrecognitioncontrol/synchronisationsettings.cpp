@@ -107,7 +107,7 @@ void SynchronisationSettings::displayList(const QList<QDateTime>& models)
 		dlg->deleteLater();
 		dlg=0;
 	}
-	if (models.isEmpty())
+	if (models.isEmpty() && isVisible())
 	{
 		KMessageBox::sorry(this, i18n("No Models found"));
 		return;
@@ -138,7 +138,7 @@ void SynchronisationSettings::modelSelectionChanged()
 
 void SynchronisationSettings::showEvent(QShowEvent*)
 {
-	loadList();
+	//loadList();
 }
 
 void SynchronisationSettings::selectModel()
