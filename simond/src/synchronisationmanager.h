@@ -38,9 +38,9 @@ class SynchronisationManager : public QObject
 	private:
 		QString username;
 		QStringList missingFiles;
-		QString currentSrcContainerPath;
+		//QString currentSrcContainerPath;
+		//QDateTime currentSrcContainerDate;
 		QString srcContainerTempPath;
-		QDateTime currentSrcContainerDate;
 		bool cleanTemp();
 
 		QString getLatestPath(const QMap<QDateTime, QString>& models);
@@ -50,6 +50,10 @@ class SynchronisationManager : public QObject
 		QMap<QDateTime, QString> getTrainingDatas(); //prompts, wavconfig
 		QMap<QDateTime, QString> getLanguageDescriptions(); //treehed
 
+		QString getLatestWordListPath();
+		QString getLatestGrammarPath();
+		QString getLatestLanguageDescriptionPath();
+		QString getLatestTrainingPath();
 	
 	public:
 		SynchronisationManager(const QString& username, QObject *parent=0);
@@ -65,6 +69,7 @@ class SynchronisationManager : public QObject
 
 				
 		QDateTime getModelSrcDate();
+		QDateTime getCompileModelSrcDate();
 		bool hasModelSrc();
 
 		void setCurrentSrcContainerTime(const QDateTime& time);

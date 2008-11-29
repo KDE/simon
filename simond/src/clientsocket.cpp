@@ -964,8 +964,9 @@ void ClientSocket::synchronisationComplete()
 		kWarning() << "Synchronisation succeded";
 		sendCode(Simond::SynchronisationComplete);
 	
-		//FIXME: OR user switched to an old model
-		if ((synchronisationManager->getActiveModelDate() < synchronisationManager->getModelSrcDate()) && (synchronisationManager->hasModelSrc()))
+		kWarning() << "Src Date: " << synchronisationManager->getCompileModelSrcDate();
+		kWarning() << "Active Date: " << synchronisationManager->getActiveModelDate();
+		if ((synchronisationManager->getActiveModelDate() < synchronisationManager->getCompileModelSrcDate()) && (synchronisationManager->hasModelSrc()))
 			recompileModel();
 	}
 	

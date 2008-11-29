@@ -47,8 +47,8 @@ SynchronisationManager::SynchronisationManager(const QString& username, QObject 
 	//TODO adjust this to the current rev.
 	KConfig currentModelConfig(KStandardDirs::locateLocal("appdata", "models/"+username+"/src/currentmodelrc"));
 	KConfigGroup cGroup(&currentModelConfig, "");
-	currentSrcContainerPath=cGroup.readEntry("CurrentModel", "");
-	currentSrcContainerDate=cGroup.readEntry("CurrentModelDate", QDateTime());
+	//currentSrcContainerPath=cGroup.readEntry("CurrentModel", "");
+	//currentSrcContainerDate=cGroup.readEntry("CurrentModelDate", QDateTime());
 
 	srcContainerTempPath = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+"/"+username+"/sync/");
 }
@@ -151,24 +151,36 @@ void SynchronisationManager::modelCompiled()
 	config.sync();
 }
 
+QString SynchronisationManager::getLatestWordListPath()
+{
+	QMap<QDateTime, QString> wordLists = getWordLists();
+	if (wordLists.isEmpty()) return QString();
+ 
+	QList<QDateTime> dates = wordLists.keys();
+	return wordLists.value(dates.at(dates.count()-1));
+}
+
 QDateTime SynchronisationManager::getWordListDate()
 {
-	KConfig config( currentSrcContainerPath+"modelsrcrc", KConfig::SimpleConfig );
+	QString wordListPath = getLatestWordListPath();
+	if (wordListPath.isNull()) return QDateTime();
+	KConfig config( wordListPath+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("WordListDate", QDateTime());
 }
 
 bool SynchronisationManager::hasWordList(const QString& modelPath)
 {
-	QString modelDirPath;
 	if (modelPath.isEmpty())
-		modelDirPath = currentSrcContainerPath;
-	else modelDirPath=modelPath;
-	QDir dir(modelDirPath);
+	{
+		return !getWordLists().isEmpty();
+	}
+
+	QDir dir(modelPath);
 	QStringList entries = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
-	if (entries.contains("simpleVocab") && 
-		entries.contains("activeVocab") && 
-		entries.contains("activeLexicon"))
+	if (entries.contains("simplevocab") && 
+		entries.contains("model.voca") && 
+		entries.contains("lexicon"))
 		return true;
 	else return false;
 }
@@ -176,9 +188,12 @@ bool SynchronisationManager::hasWordList(const QString& modelPath)
 
 WordListContainer* SynchronisationManager::getWordList()
 {
-	QFile simpleVocab(currentSrcContainerPath+"simplevocab");
-	QFile activeVocab(currentSrcContainerPath+"model.voca");
-	QFile activeLexicon(currentSrcContainerPath+"lexicon");
+	if (!hasWordList()) return 0;
+
+	QString path = getLatestWordListPath();
+	QFile simpleVocab(path+"simplevocab");
+	QFile activeVocab(path+"model.voca");
+	QFile activeLexicon(path+"lexicon");
 	
 	if ((!simpleVocab.open(QIODevice::ReadOnly))
 		|| (!activeVocab.open(QIODevice::ReadOnly))
@@ -218,24 +233,35 @@ bool SynchronisationManager::storeWordList(const QDateTime& changedDate, const Q
 }
 
 
+QString SynchronisationManager::getLatestGrammarPath()
+{
+	QMap<QDateTime, QString> grammars = getGrammars();
+	if (grammars.isEmpty()) return QString();
+ 
+	QList<QDateTime> dates = grammars.keys();
+	return grammars.value(dates.at(dates.count()-1));
+}
+
 
 QDateTime SynchronisationManager::getGrammarDate()
 {
-	KConfig config( currentSrcContainerPath+"modelsrcrc", KConfig::SimpleConfig );
+	QString gramPath = getLatestGrammarPath();
+	if (gramPath.isEmpty()) return QDateTime();
+	KConfig config( gramPath+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("GrammarDate", QDateTime());
 }
 
 
+
 bool SynchronisationManager::hasGrammar(const QString& modelPath)
 {
-	QString modelDirPath;
 	if (modelPath.isEmpty())
-		modelDirPath = currentSrcContainerPath;
-	else modelDirPath=modelPath;
-	QDir dir(modelDirPath);
+		return !getGrammars().isEmpty();
+
+	QDir dir(modelPath);
 	QStringList entries = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
-	if (entries.contains("grammarStructures"))
+	if (entries.contains("model.grammar"))
 		return true;
 	else return false;
 }
@@ -243,7 +269,9 @@ bool SynchronisationManager::hasGrammar(const QString& modelPath)
 
 GrammarContainer* SynchronisationManager::getGrammar()
 {
-	QFile grammar(currentSrcContainerPath+"model.grammar");
+	if (!hasGrammar()) return 0;
+
+	QFile grammar(getLatestGrammarPath()+"model.grammar");
 	if (!grammar.open(QIODevice::ReadOnly))
 		return 0;
 
@@ -272,10 +300,21 @@ bool SynchronisationManager::storeGrammar(const QDateTime& changedDate, const QB
 }
 
 
+QString SynchronisationManager::getLatestLanguageDescriptionPath()
+{
+	QMap<QDateTime, QString> langDescs = getLanguageDescriptions();
+	if (langDescs.isEmpty()) return QString();
+ 
+	QList<QDateTime> dates = langDescs.keys();
+	return langDescs.value(dates.at(dates.count()-1));
+}
 
 QDateTime SynchronisationManager::getLanguageDescriptionDate()
 {
-	KConfig config( currentSrcContainerPath+"modelsrcrc", KConfig::SimpleConfig );
+	QString path = getLatestLanguageDescriptionPath();
+	if (path.isNull()) return QDateTime();
+ 
+	KConfig config( path+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("LanguageDescriptionDate", QDateTime());
 }
@@ -283,15 +322,13 @@ QDateTime SynchronisationManager::getLanguageDescriptionDate()
 
 bool SynchronisationManager::hasLanguageDescription(const QString& modelPath)
 {
-	QString modelDirPath;
 	if (modelPath.isEmpty())
-		modelDirPath = currentSrcContainerPath;
-	else modelDirPath=modelPath;
-	QDir dir(modelDirPath);
+		return !getLanguageDescriptions().isEmpty();
+
+	QDir dir(modelPath);
 	QStringList entries = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
-	if (entries.contains("shadowVocab") && 
-		entries.contains("shadowLexicon") && 
-		entries.contains("treeHed"))
+	if (entries.contains("shadow.voca") && 
+		entries.contains("tree1.hed"))
 		return true;
 	else return false;
 }
@@ -299,9 +336,11 @@ bool SynchronisationManager::hasLanguageDescription(const QString& modelPath)
 
 LanguageDescriptionContainer* SynchronisationManager::getLanguageDescription()
 {
+	QString path = getLatestLanguageDescriptionPath();
+	if (path.isNull()) return 0;
 
-	QFile treeHed(currentSrcContainerPath+"tree1.hed");
-	QFile shadowVocab(currentSrcContainerPath+"shadow.voca");
+	QFile treeHed(path+"tree1.hed");
+	QFile shadowVocab(path+"shadow.voca");
 
 	if ((!treeHed.open(QIODevice::ReadOnly))
 		|| (!shadowVocab.open(QIODevice::ReadOnly)))
@@ -337,10 +376,21 @@ bool SynchronisationManager::storeLanguageDescription(const QDateTime& changedDa
 }
 
 
+QString SynchronisationManager::getLatestTrainingPath()
+{
+	QMap<QDateTime, QString> trainings = getTrainingDatas();
+	if (trainings.isEmpty()) return QString();
+ 
+	QList<QDateTime> dates = trainings.keys();
+	return trainings.value(dates.at(dates.count()-1));
+}
 
 QDateTime SynchronisationManager::getTrainingDate()
 {
-	KConfig config( currentSrcContainerPath+"modelsrcrc", KConfig::SimpleConfig );
+	QString path = getLatestTrainingPath();
+	if (path.isNull()) return QDateTime();
+ 
+	KConfig config( path+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("TrainingDate", QDateTime());
 }
@@ -348,14 +398,13 @@ QDateTime SynchronisationManager::getTrainingDate()
 
 bool SynchronisationManager::hasTraining(const QString& modelPath)
 {
-	QString modelDirPath;
 	if (modelPath.isEmpty())
-		modelDirPath = currentSrcContainerPath;
-	else modelDirPath=modelPath;
-	QDir dir(modelDirPath);
+		return !getTrainingDatas().isEmpty();
+
+	QDir dir(modelPath);
 
 	QStringList entries = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
-	if (entries.contains("wavConfig") &&
+	if (entries.contains("wav_config") &&
 		entries.contains("trainingrc") && 
 		entries.contains("prompts"))
 		return true;
@@ -365,17 +414,18 @@ bool SynchronisationManager::hasTraining(const QString& modelPath)
 
 TrainingContainer* SynchronisationManager::getTraining()
 {
-	KConfig config( currentSrcContainerPath+"trainingrc", KConfig::SimpleConfig );
+	QString path = getLatestTrainingPath();
+	KConfig config( path+"trainingrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	qint32 sampleRate = cGroup.readEntry("SampleRate").toInt();
 
 
-	QFile wavConfig(currentSrcContainerPath+"wav_config");
+	QFile wavConfig(path+"wav_config");
 	
 	if (!wavConfig.open(QIODevice::ReadOnly))
 		return 0;
 	
-	QFile prompts(currentSrcContainerPath+"prompts");
+	QFile prompts(path+"prompts");
 	if (!prompts.open(QIODevice::ReadOnly))
 		return 0;
 
@@ -477,20 +527,34 @@ QString SynchronisationManager::missingSample()
 	return missingFiles.at(0);
 }
 
+QDateTime SynchronisationManager::getCompileModelSrcDate()
+{
+	QDateTime wordListDate = getWordListDate();
+	QDateTime grammarDate = getGrammarDate();
+	QDateTime trainingDate = getTrainingDate();
+	kWarning() << "WordList: " << wordListDate;
+	kWarning() << "Grammar: " << grammarDate;
+	kWarning() << "Training: " << trainingDate;
+
+	if (wordListDate.isNull() || grammarDate.isNull() || trainingDate.isNull())
+		return QDateTime();
+
+	QDateTime maxModifiedDate = qMax(wordListDate,grammarDate);
+	maxModifiedDate = qMax(maxModifiedDate, trainingDate);
+	return maxModifiedDate;
+}
 
 QDateTime SynchronisationManager::getModelSrcDate()
 {
-	KConfig config( currentSrcContainerPath+"modelsrcrc", KConfig::SimpleConfig );
-	KConfigGroup cGroup(&config, "");
-	QDateTime maxModifiedDate = qMax(cGroup.readEntry("WordListDate", QDateTime()),
-					 cGroup.readEntry("GrammarDate", QDateTime()));
-	maxModifiedDate = qMax(maxModifiedDate, cGroup.readEntry("LanguageDescriptionDate", QDateTime()));
-	maxModifiedDate = qMax(maxModifiedDate, cGroup.readEntry("TrainingDate", QDateTime()));
-	return maxModifiedDate;
+	QDateTime compileSrcDate = getCompileModelSrcDate();
+	if (compileSrcDate.isNull()) return QDateTime();
+	
+	return qMax(compileSrcDate, getLanguageDescriptionDate());
 }
 
 bool SynchronisationManager::hasModelSrc()
 {
+	kWarning() << hasWordList() << hasGrammar() << hasTraining();
 	return hasWordList() && hasGrammar() && hasTraining();
 }
 
@@ -572,7 +636,7 @@ bool SynchronisationManager::commit()
 	cGroup2.writeEntry("CurrentModel", newSrcContainerPath);
 	cGroup2.writeEntry("CurrentModelDate", newSrcContainerTime);
 	currentModelConfig.sync();
-	currentSrcContainerPath=newSrcContainerPath;
+	//currentSrcContainerPath=newSrcContainerPath;
 	return cleanTemp();
 }
 
@@ -608,9 +672,12 @@ QMap<QDateTime, QString> SynchronisationManager::getWordLists()
 				!QFile::exists(path+"lexicon"))
 		{
 			//does not contain a valid wordlist
+			kWarning() << "Keine wortliste bei " << path;
 			i = models.erase(i);
-		} else 
+		} else {
+			kWarning() << "Wortliste gefunden bei " << path;
 			i++;
+		}
 	}
 	return models;
 }
