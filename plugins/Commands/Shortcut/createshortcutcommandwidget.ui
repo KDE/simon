@@ -14,6 +14,16 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
+    <widget class="QPushButton" name="pbGrabKeyboard" >
+     <property name="text" >
+      <string>Grab Keyboard</string>
+     </property>
+     <property name="checkable" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout" >
      <item>
       <widget class="QLabel" name="label_2" >
@@ -24,7 +34,7 @@
      </item>
      <item>
       <widget class="KKeySequenceWidget" name="ksShortcut" >
-       <property name="multiKeyShortcutsAllowed" stdset="0" >
+       <property name="multiKeyShortcutsAllowed" >
         <bool>false</bool>
        </property>
       </widget>
