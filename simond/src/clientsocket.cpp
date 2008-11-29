@@ -965,7 +965,7 @@ void ClientSocket::synchronisationComplete()
 		sendCode(Simond::SynchronisationComplete);
 	
 		//FIXME: OR user switched to an old model
-		if (synchronisationManager->getActiveModelDate() < synchronisationManager->getModelSrcDate())
+		if ((synchronisationManager->getActiveModelDate() < synchronisationManager->getModelSrcDate()) && (synchronisationManager->hasModelSrc()))
 			recompileModel();
 	}
 	

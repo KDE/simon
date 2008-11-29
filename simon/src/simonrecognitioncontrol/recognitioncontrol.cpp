@@ -1042,19 +1042,18 @@ void RecognitionControl::messageReceived()
 				{
 					checkIfSynchronisationIsAborting();
 
-					kDebug() << "Server sent languagedescription";
-					
 					parseLengthHeader();
+					kDebug() << "Server sent languagedescription";
 					
 					QByteArray treeHed, shadowVocab;
 					QDateTime changedTime;
 					msg >> changedTime;
 					msg >> treeHed;
 					msg >> shadowVocab;
-					
 					modelManager->storeLanguageDescription(changedTime,shadowVocab, treeHed);
-					synchronizeSamples();
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					
+					synchronizeSamples();
 					break;
 				}
 				

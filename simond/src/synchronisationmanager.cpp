@@ -489,6 +489,11 @@ QDateTime SynchronisationManager::getModelSrcDate()
 	return maxModifiedDate;
 }
 
+bool SynchronisationManager::hasModelSrc()
+{
+	return hasWordList() && hasGrammar() && hasTraining();
+}
+
 bool SynchronisationManager::startSynchronisation()
 {
 	if (QFile::exists(srcContainerTempPath+"lock")) 

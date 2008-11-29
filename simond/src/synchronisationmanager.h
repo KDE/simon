@@ -65,6 +65,7 @@ class SynchronisationManager : public QObject
 
 				
 		QDateTime getModelSrcDate();
+		bool hasModelSrc();
 
 		void setCurrentSrcContainerTime(const QDateTime& time);
 		
