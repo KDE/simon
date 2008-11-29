@@ -559,9 +559,11 @@ bool SynchronisationManager::commit()
 		if (!QFile::copy(srcContainerTempPath+file, newSrcContainerPath+file))
 		{
 			allCopied=false;
+			kWarning() << "Failed to copy " << srcContainerTempPath+file << "to" << newSrcContainerPath+file;
 		}
 	}
 	if (!allCopied) {
+		kWarning() << "Failed to copy all files. Aborting";
 		return false;
 	}
 
