@@ -19,6 +19,9 @@
 
 #include "createshortcutcommandwidget.h"
 #include "shortcutcommand.h"
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
 
 CreateShortcutCommandWidget::CreateShortcutCommandWidget(QWidget *parent) : CreateCommandWidget(parent)
 {
@@ -44,12 +47,12 @@ CreateShortcutCommandWidget::CreateShortcutCommandWidget(QWidget *parent) : Crea
 #ifdef Q_OS_WIN
 void CreateShortcutCommandWidget::grabKeyboard()
 {
-	
+	ui.ksShortcut->grabKeyboard();
 }
 
 void CreateShortcutCommandWidget::releaseKeyboard()
 {
-	
+	ui.ksShortcut->releaseShortcut();
 }
 
 void CreateShortcutCommandWidget::toggleGrab(bool grab)
