@@ -18,7 +18,12 @@ set (QT_USE_QTNETWORK true)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../speechgui
 	../../../simonlib/ ../ ${JULIUS_INCLUDE_DIR} )
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DDEBUG -DQT_DEBUG)
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_RECOGNITIONCONTROL_LIB)
+
+IF(WIN32)
+add_definitions(-D__INTERLOCKED_DECLARED -D__NO_ISOCEXT)
+ENDIF(WIN32)
+
 include(KDE4Defaults)
 
 set (QT_USE_QTMAIN true)

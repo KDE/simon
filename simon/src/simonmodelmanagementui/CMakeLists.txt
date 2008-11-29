@@ -2,7 +2,7 @@ include(FindQt4)
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib/speechmodelmanagement ${KCFG_INSTALL_DIR} )
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_SIMONMODELMANAGEMENTUI_LIB)
 include(KDE4Defaults)
 
 set( simonmodelmanagementui_LIB_SRCS

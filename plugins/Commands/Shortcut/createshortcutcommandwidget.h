@@ -40,11 +40,24 @@ Q_OBJECT
 private:
 	Ui::CreateShortcutCommandWidget ui;
 
+#ifdef Q_OS_WIN
+	void grabKeyboard();
+	void releaseKeyboard();
+#endif
+
+
+#ifdef Q_OS_WIN
+private slots:
+	void toggleGrab(bool grab);
+#endif
+	
+
 public:
 	Command* createCommand(const QString& name, const QString& iconSrc);
 
 	bool init(Command* command);
 	bool isComplete();
+
 
 	/**
 	* @brief Constructor

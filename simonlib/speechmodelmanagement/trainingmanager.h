@@ -27,7 +27,7 @@
 #include <QMutex>
 #include <QList>
 // #include "xmltrainingtext.h"
-#include "simonacousticmodelmanagement_export.h"
+#include "simonmodelmanagement_export.h"
 
 
 /**
@@ -42,7 +42,7 @@
 typedef QHash<QString, QString> PromptsTable;
 typedef  QList<TrainingText*> TrainingList;
 
-class ACOUSTICMODELMANAGEMENT_EXPORT TrainingManager : public QObject
+class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
 {
 Q_OBJECT
 	private:

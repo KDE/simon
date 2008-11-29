@@ -10,11 +10,11 @@
 #  define LANGUAGEMODELMANAGEMENT_EXPORT KDE_EXPORT
 # else
    // We are using this library
-	#ifdef Q_OS_WIN
+	//#ifdef Q_OS_WIN
 	#  define LANGUAGEMODELMANAGEMENT_EXPORT
-	#else
-	#  define LANGUAGEMODELMANAGEMENT_EXPORT KDE_IMPORT
-	#endif
+	//#else
+	//#  define LANGUAGEMODELMANAGEMENT_EXPORT KDE_IMPORT
+	//#endif
 # endif
 #endif
  

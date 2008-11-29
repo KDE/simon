@@ -6,7 +6,7 @@ include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}
 			${CMAKE_CURRENT_SOURCE_DIR}/../speechgui
 )
 
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
+add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_MODELMANAGEMENT_LIB)
 include(KDE4Defaults)
 
 set( simonmodelmanagement_LIB_SRCS
@@ -21,11 +21,11 @@ set( simonmodelmanagement_LIB_SRCS
 
 
 set( simonmodelmanagement_LIB_HDRS
-  ${CMAKE_CURRENT_SOURCE_DIR}/simonacousticmodelmanagement_export.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/simonlanguagemodelmanagement_export.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagement_export.h
   ${CMAKE_CURRENT_SOURCE_DIR}/trainingmanager.h
   ${CMAKE_CURRENT_SOURCE_DIR}/wordlistmodel.h
   ${CMAKE_CURRENT_SOURCE_DIR}/wordlistmanager.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.h
 )
 
 

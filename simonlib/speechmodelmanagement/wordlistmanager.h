@@ -23,7 +23,7 @@
 
 
 #include <speechmodelbase/word.h>
-#include "simonlanguagemodelmanagement_export.h"
+#include "simonmodelmanagement_export.h"
 #include <QThread>
 #include <QMutex>
 #include <QStringList>
@@ -38,7 +38,7 @@
 class QTextStream;
 class QString;
 
-class LANGUAGEMODELMANAGEMENT_EXPORT WordListManager : public QThread {
+class MODELMANAGEMENT_EXPORT WordListManager : public QThread {
 
 Q_OBJECT
 signals:

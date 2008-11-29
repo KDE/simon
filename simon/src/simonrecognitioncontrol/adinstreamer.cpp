@@ -38,8 +38,17 @@
 #include <KSharedConfig>
 #include <KConfigGroup>
 
+
+#ifdef TRUE
+#undef TRUE
+#endif
+#ifdef FALSE
+#undef FALSE
+#endif
+
 extern "C" {
 #include <julius/juliuslib.h>
+#include <julius/jconf.h>
 #include <signal.h>
 }
 
@@ -244,7 +253,6 @@ void AdinStreamer::init(const QHostAddress& address, qint32 port, qint32 sampleR
 
 void AdinStreamer::run()
 {
-	kWarning() << "starting to stream to " << address << port;
 	shouldBeRunning=true;
 	adinstreamer_stop_at_next=false;
 

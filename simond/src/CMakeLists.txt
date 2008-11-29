@@ -10,6 +10,7 @@ ENDIF(UNIX)
 IF(WIN32)
 	include(FindDirectSound)
 	find_package(DirectSound REQUIRED)
+	add_definitions(-D__INTERLOCKED_DECLARED -DMAKE_SIMOND)
 ENDIF(WIN32)
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${JULIUS_INCLUDE_DIR}

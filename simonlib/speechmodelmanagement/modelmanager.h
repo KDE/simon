@@ -21,7 +21,7 @@
 #ifndef MODELMANAGER_H
 #define MODELMANAGER_H
 
-#include "simonacousticmodelmanagement_export.h"
+#include "simonmodelmanagement_export.h"
 #include <QObject>
 #include <QDateTime>
 #include <QStringList>
@@ -32,7 +32,7 @@ class GrammarContainer;
 class LanguageDescriptionContainer;
 class TrainingContainer;
 
-class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
+class MODELMANAGEMENT_EXPORT ModelManager : public QObject
 {
 	Q_OBJECT
 	
@@ -91,7 +91,7 @@ class ACOUSTICMODELMANAGEMENT_EXPORT ModelManager : public QObject
 		QString missingSample();
 		bool storeSample(const QByteArray& sample);
 
-		~ModelManager() {}
+		virtual ~ModelManager() {}
 		
 };
 

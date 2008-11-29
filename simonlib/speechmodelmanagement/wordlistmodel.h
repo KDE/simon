@@ -25,10 +25,10 @@
 #include <QStringList>
 #include <QBrush>
 #include <speechmodelbase/word.h>
-#include "simonlanguagemodelmanagement_export.h"
+#include "simonmodelmanagement_export.h"
 
 
-class LANGUAGEMODELMANAGEMENT_EXPORT WordListModel : public QAbstractItemModel {
+class MODELMANAGEMENT_EXPORT WordListModel : public QAbstractItemModel {
 
 Q_OBJECT
 
