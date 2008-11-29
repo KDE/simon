@@ -26,11 +26,11 @@
 */
 #include <QStringList>
 #include <QMutex>
-#include "simonlanguagemodelmanagement_export.h"
+#include "simonmodelmanagement_export.h"
 
 class WordListManager;
 
-class LANGUAGEMODELMANAGEMENT_EXPORT GrammarManager : public QObject {
+class MODELMANAGEMENT_EXPORT GrammarManager : public QObject {
 Q_OBJECT
 
 signals:

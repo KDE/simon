@@ -313,8 +313,10 @@ void WindowsEvents::setModifierKey(int virtualKey, bool once)
  * 
  * @author Phillip Goriup
  */
+#include <KMessageBox>
 void WindowsEvents::sendChar(char key)
 {	
+	KMessageBox::information(0,  QString(key));
 	if (shiftcodes->contains(key))
 	{ 	
 		key = shiftcodes->value(key);

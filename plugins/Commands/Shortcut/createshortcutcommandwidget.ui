@@ -34,9 +34,6 @@
      </item>
      <item>
       <widget class="KKeySequenceWidget" name="ksShortcut" >
-       <property name="multiKeyShortcutsAllowed" >
-        <bool>false</bool>
-       </property>
       </widget>
      </item>
     </layout>

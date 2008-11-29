@@ -3,6 +3,10 @@ include(KDE4Defaults)
 include(KDE4Macros)
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 
+IF(WIN32)
+add_definitions(-D__INTERLOCKED_DECLARED)
+ENDIF(WIN32)
+
 include_directories(${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR}
 ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib)
 
