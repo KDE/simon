@@ -25,8 +25,6 @@
 
 ModelManagerUiProxy::ModelManagerUiProxy(QObject *parent) : ModelManager(parent)
 {
-// 	connectedToServer=false;
-// 	askForSync=false;
 	connect (this, SIGNAL(modelChanged()), this, SLOT(slotModelChanged()));
 }
 

@@ -32,7 +32,20 @@
 
 #include <QThread>
 #include <QHostAddress>
+#include <adinstreamer/adinstreamer_export.h>
 
+#ifdef TRUE
+#undef TRUE
+#endif
+#ifdef FALSE
+#undef FALSE
+#endif
+
+extern "C" {
+#include <julius/juliuslib.h>
+#include <julius/jconf.h>
+#include <signal.h>
+}
 /**
  * \class AdinStreamer
  * \author Peter Grasch
@@ -40,7 +53,7 @@
  * \version 0.1
  * \brief Streams an adin stream to simond
  */
-class AdinStreamer : public QThread
+class ADINSTREAMER_EXPORT AdinStreamer : public QThread
 {
 Q_OBJECT
 
@@ -48,14 +61,29 @@ signals:
 	void connected();
 	
 private:
+	Recog *recog;
+	bool shouldReStart;
+	static AdinStreamer* instance;
 	QHostAddress address;
 	qint32 port;
 	bool shouldBeRunning;
-public:
         AdinStreamer(QObject* parent);
+
+public:
+	static AdinStreamer* getInstance(QObject *parent=0)
+	{
+		if (!instance) instance = new AdinStreamer(parent);
+		return instance;
+	}
+	static bool hasInstance()
+	{
+		return instance != NULL;
+	}
 	void run();
 	void stop();
 	void init(const QHostAddress& address, qint32 port, qint32 sampleRate);
+	void stopSoundStream();
+	void restartSoundStream();
         ~AdinStreamer();
 
 };

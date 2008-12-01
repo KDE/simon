@@ -177,7 +177,11 @@ void SoundSettings::save()
 	KConfigGroup group(config, "Devices");
 	group.writeEntry("SoundInputDevice", getSelectedInputDeviceId());
 	group.writeEntry("SoundOutputDevice", getSelectedOutputDeviceId());
+#ifdef Q_OS_LINUX
+	group.writeEntry("SoundInputDeviceALSAName", sc->idToALSAName(getSelectedInputDeviceId()));
+#endif
 	config->sync();
+
 
 }
 

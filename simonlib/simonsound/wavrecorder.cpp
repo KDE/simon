@@ -27,6 +27,11 @@
 
 #include <stdlib.h>
 #include <string.h>
+
+#ifdef USE_WITH_SIMON
+#include <adinstreamer/adinstreamer.h>
+#endif
+
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
 
 /**
@@ -85,6 +90,14 @@ int processInputData( const void *inputBuffer, void *outputBuffer, unsigned long
  */
 bool WavRecorder::record(QString filename)
 {
+	#ifdef USE_WITH_SIMON
+	if (AdinStreamer::hasInstance())
+	{
+		AdinStreamer::getInstance()->stopSoundStream();
+	}
+	#endif
+
+
 	if (stream)
 	{
 // 		delete stream;
@@ -101,7 +114,13 @@ bool WavRecorder::record(QString filename)
 	PaError             err = paNoError;
 
 	err = Pa_Initialize();
-	if( err != paNoError ) return false;
+	if( err != paNoError ) {
+#ifdef USE_WITH_SIMON
+		if (AdinStreamer::hasInstance())
+			AdinStreamer::getInstance()->restartSoundStream();
+#endif
+		return false;
+	}
 
 	bzero( &inputParameters, sizeof( inputParameters ) );
 
@@ -114,10 +133,16 @@ bool WavRecorder::record(QString filename)
 	inputParameters.channelCount = channels;
 	inputParameters.sampleFormat = paFloat32;
 
-	if (!Pa_GetDeviceInfo( inputParameters.device ))
+	const PaDeviceInfo *info = Pa_GetDeviceInfo( inputParameters.device );
+	if (!info)
+	{
+#ifdef USE_WITH_SIMON
+		if (AdinStreamer::hasInstance())
+			AdinStreamer::getInstance()->restartSoundStream();
+#endif
 		return false;
-
-	inputParameters.suggestedLatency = Pa_GetDeviceInfo( inputParameters.device )->defaultLowInputLatency;
+	}
+	inputParameters.suggestedLatency = info->defaultLowInputLatency;
 	inputParameters.hostApiSpecificStreamInfo = NULL;
 
 	/* Record some audio. -------------------------------------------- */
@@ -133,7 +158,10 @@ bool WavRecorder::record(QString filename)
 		(void*) this );
 
 	if( err != paNoError ) {
-		kDebug() << err << "ERROR!!!";
+#ifdef USE_WITH_SIMON
+		if (AdinStreamer::hasInstance())
+			AdinStreamer::getInstance()->restartSoundStream();
+#endif
 		return false;
 	}
 	
@@ -144,6 +172,10 @@ bool WavRecorder::record(QString filename)
 	wavData->beginAddSequence();
 	err = Pa_StartStream( stream );
 	if( err != paNoError ) {
+#ifdef USE_WITH_SIMON
+		if (AdinStreamer::hasInstance())
+			AdinStreamer::getInstance()->restartSoundStream();
+#endif
 		return false;
 	}
 	
@@ -166,30 +198,39 @@ void WavRecorder::publishTime()
  */
 bool WavRecorder::finish()
 {
+	bool succ = true;
 	timeWatcher.stop();
 	PaError err = Pa_StopStream( stream );
 	
 	wavData->endAddSequence();
-	if( err != paNoError ) return false;
-	
-	
-	err = Pa_CloseStream( stream );
-	if( err != paNoError ) return false;
+	if( err != paNoError ) succ = false;
+	else {
+		err = Pa_CloseStream( stream );
+		if( err != paNoError ) succ = false;
+	}
 	
 
 	stream = 0;
-	if (! wavData->writeFile()) return false;
+	if (! wavData->writeFile()) succ = false;
 	
 
 	Pa_Sleep( 500 );
-
 	err = Pa_Terminate();
-	if( err != paNoError ) return false;
+
+	if( err != paNoError ) succ=false;
 	
 	
 	delete wavData;
 	wavData = 0;
-	return true;
+
+	#ifdef USE_WITH_SIMON
+	if (AdinStreamer::hasInstance())
+	{
+		AdinStreamer::getInstance()->restartSoundStream();
+	}
+	#endif
+
+	return succ;
 }
 
 

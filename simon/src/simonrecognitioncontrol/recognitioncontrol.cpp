@@ -21,7 +21,7 @@
 #include "recognitioncontrol.h"
 #include "recognitionconfiguration.h"
 
-#include "adinstreamer.h"
+#include <adinstreamer/adinstreamer.h>
 #include <simoninfo/simoninfo.h>
 #include <simonprotocol/simonprotocol.h>
 #include <simonmodelmanagementui/modelmanageruiproxy.h>
@@ -90,7 +90,7 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 
 	synchronisationOperation=NULL;
 	modelCompilationOperation=NULL;
-	adinStreamer=new AdinStreamer(this);;
+	adinStreamer=AdinStreamer::getInstance(this);
 
 	socket = new QSslSocket();
 	timeoutWatcher = new QTimer(this);
@@ -1424,6 +1424,22 @@ void RecognitionControl::startRecognition()
 {
 	sendRequest(Simond::StartRecognition);
 }
+
+
+/*
+void RecognitionControl::stopSoundStream()
+{
+	if (adinStreamer->isRunning())
+		adinStreamer->stop();
+}
+
+void RecognitionControl::restartSoundStream()
+{
+	if (!adinStreamer) return;
+
+	if (adinStreamShouldBeRunning)
+		adinStreamer->start();
+}*/
 
 void RecognitionControl::stopRecognition()
 {

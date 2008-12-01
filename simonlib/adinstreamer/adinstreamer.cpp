@@ -39,18 +39,9 @@
 #include <KConfigGroup>
 
 
-#ifdef TRUE
-#undef TRUE
-#endif
-#ifdef FALSE
-#undef FALSE
-#endif
 
-extern "C" {
-#include <julius/juliuslib.h>
-#include <julius/jconf.h>
-#include <signal.h>
-}
+
+AdinStreamer* AdinStreamer::instance;
 
 static int adinstreamer_rewind_msec = 0;
 static int adinstreamer_socketDescriptor = 0;
@@ -241,6 +232,8 @@ static int adinnet_wait_command()
 
 AdinStreamer::AdinStreamer(QObject* parent) : QThread(parent)
 {
+	recog = NULL;
+	shouldReStart=false;
 	shouldBeRunning=true;
 }
 
@@ -256,25 +249,15 @@ void AdinStreamer::run()
 	shouldBeRunning=true;
 	adinstreamer_stop_at_next=false;
 
-#ifdef Q_OS_LINUX
-	//set alsa device to the one configured in the sound settings
-	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonsoundrc");
-	KConfigGroup group(config, "Devices");
-	int id = group.readEntry("SoundInputDevice", -1);
-	if (id != -1)
-	{
-		SoundControl c;
-		QString alsaId = c.idToALSAName(id);
-
-		kWarning() << "Dev: " << alsaId;
-
-		setenv("ALSADEV", alsaId.toUtf8().data(), 1/*overwrite*/);
-	}
-#endif
-	
-	Recog *recog;
 	Jconf *jconf;
 	int ret;
+
+#ifdef Q_OS_LINUX
+	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonsoundrc");
+	KConfigGroup group(config, "Devices");
+	QString alsaDevice = group.readEntry("SoundInputDeviceALSAName", "default");
+	setenv("ALSADEV", alsaDevice.toUtf8().data(), 1/*overwrite*/);
+#endif
 
 	/* create instance */
 	recog = j_recog_new();
@@ -292,7 +275,6 @@ void AdinStreamer::run()
 	/* read arguments and set parameters */
 	int argc=1;
 	char* argv[] = {"simon"};
-	//FIXME: device!
 	if (j_config_load_args(jconf, argc, argv) == -1) {
 		fprintf(stderr, "Error reading arguments\n");
 		return;
@@ -305,10 +287,8 @@ void AdinStreamer::run()
 	jconf->input.frameshift = jconf->am_root->analysis.para.frameshift;
 	jconf->input.framesize = jconf->am_root->analysis.para.framesize;
 
-// 	printf("connecting...");
 	QByteArray addressByte = address.toString().toUtf8();
 	adinstreamer_socketDescriptor = make_connection(addressByte.data(), port);
-// 	fprintf(stderr, "connected\n");
 
 
 	if (j_adin_init(recog) == FALSE) {
@@ -373,7 +353,8 @@ void AdinStreamer::run()
 			
 			if (ret == -1) {
 				/* error in input device or callback function, so terminate program here */
-				return;
+				shouldBeRunning=false;
+				break;
 			}
 
 			if (adinstreamer_speechlen > 0) {
@@ -393,31 +374,72 @@ void AdinStreamer::run()
 					/* command error: terminate program here */
 					return;
 			}
-// 			kWarning() << "Inner while";
 		} while ((shouldBeRunning) && (ret > 0 || ret == -2)); /* to the next segment in this input stream */
-// 		kWarning() << "Outer while";
 	}
 
 	close(adinstreamer_socketDescriptor);
 	adinstreamer_socketDescriptor=0;
 	
-	recog->adin->ad_end();
-	j_request_terminate(recog);
 	
 	j_recog_free(recog);
+	recog=NULL;
 // 	kWarning() << "DONE exec";
 }
 
 
 void AdinStreamer::stop()
 {
+	shouldReStart=false;
 	shouldBeRunning=false;
+	adinstreamer_stop_at_next=false;
+	if (recog)
+	{
+		recog->adin->ad_end();
+		j_request_terminate(recog);
+	}
 	wait(1000);
-	while (isRunning())
+
+
+	int tries=0;
+	while (isRunning() && (tries<3))
 	{
 		kWarning() << "Stream still running";
+		wait(500);
+		tries++;
+	}
+	while (isRunning())
+	{
+		kWarning() << "Stream STILL running";
 		terminate();
-		wait(1000);
+		wait(500);
+	}
+	if (recog)
+	{
+		kWarning() << "Recog still alive";
+		recog->adin->ad_end();
+		j_request_terminate(recog);
+		
+		j_recog_free(recog);
+		recog=NULL;
+	}
+}
+
+void AdinStreamer::stopSoundStream()
+{
+	if (isRunning())
+	{
+		stop();
+
+		shouldReStart=true;
+	}
+}
+
+void AdinStreamer::restartSoundStream()
+{
+	if (shouldReStart)
+	{
+		kWarning() << "Restarting...";
+		start();
 	}
 }
 

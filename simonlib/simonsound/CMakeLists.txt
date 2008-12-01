@@ -1,7 +1,8 @@
 include(FindQt4)
 include(FindPortaudio)
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR} ../speechgui ../ )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR}
+	../speechgui ../ )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
@@ -36,7 +37,7 @@ kde4_add_ui_files( simonsound_LIB_SRCS
 kde4_add_library( simonsound  SHARED ${simonsound_LIB_SRCS} )
 
 target_link_libraries( simonsound ${QT_LIBRARIES} ${PORTAUDIO_LIBRARIES}
-${KDE4_KDEUI_LIBS} speechgui )
+${KDE4_KDEUI_LIBS} speechgui adinstreamer)
 
 
 set_target_properties( simonsound

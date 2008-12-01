@@ -397,7 +397,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
 			break; }
 			
 		case SimonControl::Connecting: {
-			QString connectionStr = i18n("Merging...");
+			QString connectionStr = i18n("Connecting...");
 			
 			if (connectActivate) {
 				connectActivate->setText(connectionStr);

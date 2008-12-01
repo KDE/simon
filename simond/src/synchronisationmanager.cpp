@@ -555,7 +555,7 @@ QDateTime SynchronisationManager::getModelSrcDate()
 bool SynchronisationManager::hasModelSrc()
 {
 	kWarning() << hasWordList() << hasGrammar() << hasTraining();
-	return hasWordList() && hasGrammar() && hasTraining();
+	return hasWordList() && hasGrammar() && hasTraining() && hasLanguageDescription();
 }
 
 bool SynchronisationManager::startSynchronisation()

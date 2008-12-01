@@ -125,7 +125,12 @@ bool WavPlayer::play( QString filename )
 
 	outputParameters.channelCount = channels;
 	outputParameters.sampleFormat = paFloat32;
-	outputParameters.suggestedLatency = Pa_GetDeviceInfo( outputParameters.device )->defaultLowInputLatency;
+
+	const PaDeviceInfo *info = Pa_GetDeviceInfo( outputParameters.device );
+	if (!info)
+		return false;
+
+	outputParameters.suggestedLatency = info->defaultLowInputLatency;
 	outputParameters.hostApiSpecificStreamInfo = NULL;
 
 	/* Play some audio. -------------------------------------------- */

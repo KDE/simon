@@ -65,7 +65,7 @@ public:
     	bool record(QString filename);
     
 
-    ~WavRecorder();
+    virtual ~WavRecorder();
 
 };
 
