@@ -23,6 +23,7 @@
 #include "addwordintropage.h"
 #include "addwordrecordpage.h"
 #include "addwordresolvepage.h"
+#include "../modelmanageruiproxy.h"
 
 #include <speechmodelmanagement/wordlistmanager.h>
 #include <speechmodelmanagement/trainingmanager.h>
@@ -178,6 +179,7 @@ void AddWordView::finish(int done)
  */
 void AddWordView::commitList()
 {
+	ModelManagerUiProxy::getInstance()->startGroup();
 	foreach (const QString& key, promptsToAdd.keys())
 	{
 		if (!TrainingManager::getInstance()->addSample(key, promptsToAdd.value(key)))
@@ -192,6 +194,7 @@ void AddWordView::commitList()
 
 	WordListManager::getInstance()->addWords(listToAdd, false /*sorted*/, false /*shadowed*/);
 	listToAdd = new WordList();
+	ModelManagerUiProxy::getInstance()->commitGroup();
 }
 
 void AddWordView::askToAddWord(QString word)

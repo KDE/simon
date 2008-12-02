@@ -49,6 +49,8 @@ public:
 #ifdef Q_OS_UNIX
 	QString idToALSAName(int deviceId);
 #endif
+	static int getDefaultInputDevice();
+	static int getDefaultOutputDevice();
 
     SoundControl();
 

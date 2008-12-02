@@ -21,6 +21,7 @@
 #include "wordlistmanager.h"
 #include "trainingmanager.h"
 #include "grammarmanager.h"
+#include "modelmanager.h"
 #include <simonlogging/logger.h>
 
 #include <simonprogresstracking/operation.h>
@@ -714,6 +715,9 @@ bool WordListManager::moveToShadow(Word *w)
 {
 	int i=0;
 	if (!w) return false;
+
+	ModelManager::getInstance()->startGroup();
+
 	TrainingManager::getInstance()->deleteWord(w);
 	shadowLock.lock();
 	wordListLock.lock();
@@ -737,7 +741,10 @@ bool WordListManager::moveToShadow(Word *w)
 	}
 	wordListLock.unlock();
 	shadowLock.unlock();
-	return save();
+	bool succ = save();
+
+	ModelManager::getInstance()->commitGroup();
+	return succ;
 }
 
 bool WordListManager::deleteCompletely(Word *w, bool shadowed)

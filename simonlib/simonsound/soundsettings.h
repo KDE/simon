@@ -61,6 +61,11 @@ private:
 	int getSelectedInputDeviceId();
 	int getSelectedOutputDeviceId();
 
+	bool enabled;
+
+	void enable();
+	void disable();
+
 public slots:
 	void load();
 	void save();

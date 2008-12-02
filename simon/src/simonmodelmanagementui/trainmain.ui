@@ -19,6 +19,13 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Available Trainings-Texts:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QTableWidget" name="twTrainingWords" >
      <property name="selectionMode" >
       <enum>QAbstractItemView::SingleSelection</enum>

@@ -380,9 +380,10 @@ void AdinStreamer::run()
 	close(adinstreamer_socketDescriptor);
 	adinstreamer_socketDescriptor=0;
 	
-	
-	j_recog_free(recog);
+	Recog *realRecog = recog;
 	recog=NULL;
+
+	j_recog_free(realRecog);
 // 	kWarning() << "DONE exec";
 }
 
@@ -395,17 +396,16 @@ void AdinStreamer::stop()
 	if (recog)
 	{
 		recog->adin->ad_end();
-		j_request_terminate(recog);
 	}
 	wait(1000);
 
 
-	int tries=0;
-	while (isRunning() && (tries<3))
+//	int tries=0;
+	if (isRunning())// && (tries<3))
 	{
 		kWarning() << "Stream still running";
 		wait(500);
-		tries++;
+//		tries++;
 	}
 	while (isRunning())
 	{

@@ -36,6 +36,8 @@
 #include <QDir>
 
 
+ModelManager* ModelManager::instance;
+
 ModelManager::ModelManager(QObject *parent) : QObject(parent)
 {
 	modelChangedFlag=false;

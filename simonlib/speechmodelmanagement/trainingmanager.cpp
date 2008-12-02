@@ -100,25 +100,18 @@ bool TrainingManager::deleteWord ( Word *w )
 	QMutexLocker lock(&promptsLock);
 	
 	kDebug() << "Removing word: " << wordToDelete;
+	kDebug() << "Prompts-table: " << *promptsTable;
 	QStringList sampleFileNames = promptsTable->keys();
-	bool sampleAlreadyDeleted;
 	bool succ = true;
-	for ( int i=0; i < this->promptsTable->count(); i++ )
+	for ( int i=0; i < sampleFileNames.count(); i++ )
 	{
 		QString filename = sampleFileNames[i];
 		QStringList promptWords = promptsTable->value ( filename ).split ( " " );
-		sampleAlreadyDeleted = false;
-		for ( int j=0; j < promptWords.count() && !sampleAlreadyDeleted; j++ )
+		if (promptWords.contains(wordToDelete))
 		{
-			if ( promptWords[j].toUpper() == wordToDelete )
-			{
-				if ( !deletePrompt ( filename ) )
-					succ = false;
-
-				sampleAlreadyDeleted = true;
-				i--;
-			}
-		}
+			if (!deletePrompt(filename)) succ = false;
+		} else
+			kWarning() << "No match: " << promptWords;
 	}
 	promptsLock.unlock();
 	return (savePrompts() && succ);

@@ -52,6 +52,7 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 {
 	Q_UNUSED(args);
 
+	enabled=true;
 
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	KPageWidget *pageWidget = new KPageWidget(this);
@@ -123,10 +124,8 @@ void SoundSettings::load()
 		int deviceid= in->at(i).getDeviceID();
 		deviceUi.cbSoundInputDevice->addItem (in->at(i).getName(),deviceid );
 	}
-	deviceUi.cbSoundInputDevice->setCurrentIndex(
-			deviceUi.cbSoundInputDevice->findData(SoundConfiguration::soundInputDevice()));
-
-
+	int paInputDevice = SoundConfiguration::soundInputDevice();
+	int inputDevice = deviceUi.cbSoundInputDevice->findData(paInputDevice);
 
 	SoundDeviceList *out = sc->getOutputDevices();
 	deviceUi.cbSoundOutputDevice->clear();
@@ -135,9 +134,70 @@ void SoundSettings::load()
 		int deviceid= out->at (i).getDeviceID();
 		deviceUi.cbSoundOutputDevice->addItem (out->at(i).getName(),deviceid );
 	}
-	deviceUi.cbSoundOutputDevice->setCurrentIndex(deviceUi.cbSoundOutputDevice->findData(SoundConfiguration::soundOutputDevice()));
+	int paOutputDevice = SoundConfiguration::soundOutputDevice();
+	int outputDevice = deviceUi.cbSoundOutputDevice->findData(paOutputDevice);
 
+#ifdef Q_OS_UNIX
+	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonsoundrc");
+	KConfigGroup group(config, "Devices");
+	QString inputALSAName = group.readEntry("SoundInputDeviceALSAName", "");
+	QString outputALSAName = group.readEntry("SoundOutputDeviceALSAName", "");
+
+	if ( ((!inputALSAName.isEmpty()) && (inputALSAName != sc->idToALSAName(paInputDevice))) ||
+		((!outputALSAName.isEmpty()) && (outputALSAName != sc->idToALSAName(paOutputDevice))) )
+	{
+		if (KMessageBox::questionYesNoCancel(this, i18n("simon noticed that not all of the sound devices you selected to use previously are available.\n\nThis is perfectly normal if you are connected to simond or are otherwise using an application that uses an ALSA device directly.\n\nDid you plug / unplug a device or otherwise change your systems audio setup?\n\nSelecting \"Yes\" will allow you to change your soundconfiguration, essentially deleting your previous configuration. Selecting \"No\" will temporarily deactivate the sound configuration in order to protect your previous configuration from being overwritten.")) == KMessageBox::Yes)
+		{
+			inputDevice = deviceUi.cbSoundInputDevice->findData(SoundControl::getDefaultInputDevice());
+			outputDevice = deviceUi.cbSoundOutputDevice->findData(SoundControl::getDefaultOutputDevice());
+			emit changed(true);
+			KMessageBox::information(this, i18n("Please adjust your soundconfiguration accordingly."));
+			enable();
+		} else disable();
+
+	} else enable();
+
+#endif
+
+	deviceUi.cbSoundInputDevice->setCurrentIndex(inputDevice);
+	deviceUi.cbSoundOutputDevice->setCurrentIndex(outputDevice);
 	KCModule::load();
+}
+
+void SoundSettings::enable()
+{
+	deviceUi.lbInDevice->setEnabled(true);
+	deviceUi.cbSoundInputDevice->setEnabled(true);
+
+	deviceUi.lbOutDevice->setEnabled(true);
+	deviceUi.cbSoundOutputDevice->setEnabled(true);
+
+	deviceUi.kcfg_SoundChannels->setEnabled(true);
+	deviceUi.kcfg_SoundSampleRate->setEnabled(true);
+	deviceUi.lbHz->setEnabled(true);
+	deviceUi.lbChannels->setEnabled(true);
+	deviceUi.lbSamplerate->setEnabled(true);
+
+	deviceUi.pbTest->setEnabled(true);
+	enabled=true;
+}
+
+void SoundSettings::disable()
+{
+	deviceUi.lbInDevice->setEnabled(false);
+	deviceUi.cbSoundInputDevice->setEnabled(false);
+
+	deviceUi.lbOutDevice->setEnabled(false);
+	deviceUi.cbSoundOutputDevice->setEnabled(false);
+
+	deviceUi.kcfg_SoundChannels->setEnabled(false);
+	deviceUi.kcfg_SoundSampleRate->setEnabled(false);
+	deviceUi.lbHz->setEnabled(false);
+	deviceUi.lbChannels->setEnabled(false);
+	deviceUi.lbSamplerate->setEnabled(false);
+
+	deviceUi.pbTest->setEnabled(false);
+	enabled=false;
 }
 
 
@@ -168,6 +228,7 @@ int SoundSettings::getSelectedOutputDeviceId()
 
 void SoundSettings::save()
 {
+	if (!enabled) return;
 	check();
 	KCModule::save();
 	SoundConfiguration::setSoundInputDevice(getSelectedInputDeviceId());
@@ -179,6 +240,7 @@ void SoundSettings::save()
 	group.writeEntry("SoundOutputDevice", getSelectedOutputDeviceId());
 #ifdef Q_OS_LINUX
 	group.writeEntry("SoundInputDeviceALSAName", sc->idToALSAName(getSelectedInputDeviceId()));
+	group.writeEntry("SoundOutputDeviceALSAName", sc->idToALSAName(getSelectedOutputDeviceId()));
 #endif
 	config->sync();
 

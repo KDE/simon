@@ -2,12 +2,15 @@
 <!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
 <kcfg> <kcfgfile name="simonsoundrc" />
   <include>KStandardDirs</include>
+  <include>simonsound/soundcontrol.h</include>
   <group name="Devices">
     <entry name="SoundInputDevice" type="Int">
       <label>The sounddevice used for recording.</label>
+      <default>SoundControl::getDefaultInputDevice()</default>
     </entry>
     <entry name="SoundOutputDevice" type="Int">
       <label>The sounddevice used for playback.</label>
+      <default>SoundControl::getDefaultOutputDevice()</default>
     </entry>
     <entry name="SoundChannels" type="Int">
       <label>How many channels should the samples be recorded with.</label>

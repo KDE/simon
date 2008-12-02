@@ -1426,21 +1426,6 @@ void RecognitionControl::startRecognition()
 }
 
 
-/*
-void RecognitionControl::stopSoundStream()
-{
-	if (adinStreamer->isRunning())
-		adinStreamer->stop();
-}
-
-void RecognitionControl::restartSoundStream()
-{
-	if (!adinStreamer) return;
-
-	if (adinStreamShouldBeRunning)
-		adinStreamer->start();
-}*/
-
 void RecognitionControl::stopRecognition()
 {
 	adinStreamer->stop();
@@ -1457,7 +1442,6 @@ void RecognitionControl::resumeRecognition()
 	kDebug() << "Sending resume request";
 	sendRequest(Simond::ResumeRecognition);
 }
-
 
 /**
  *	@brief Destructor

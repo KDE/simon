@@ -23,9 +23,15 @@
 #include <KLocalizedString>
 #include <speechmodelmanagement/trainingmanager.h>
 
+
 ModelManagerUiProxy::ModelManagerUiProxy(QObject *parent) : ModelManager(parent)
 {
 	connect (this, SIGNAL(modelChanged()), this, SLOT(slotModelChanged()));
+
+	if (ModelManager::instance)
+		ModelManager::instance->deleteLater();
+	
+	ModelManager::instance = this;
 }
 
 
@@ -71,8 +77,6 @@ void ModelManagerUiProxy::wordUndefined(const QString& word)
 	if (KMessageBox::questionYesNoCancel(0, i18n("The word \"%1\" is used in your trainings samples but is not phonetically "
 "defined. Do you want to add the word now?", word)) != KMessageBox::Yes)
 		return;
-
-
 }
 
 void ModelManagerUiProxy::classUndefined(const QString& undefClass)

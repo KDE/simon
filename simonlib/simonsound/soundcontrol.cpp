@@ -102,6 +102,22 @@ QString SoundControl::idToALSAName(int deviceId)
 }
 #endif
 
+int SoundControl::getDefaultInputDevice()
+{
+	if (Pa_Initialize() != paNoError) return 0;
+	int device = Pa_GetDefaultInputDevice();
+	Pa_Terminate();
+	return device;
+}
+
+int SoundControl::getDefaultOutputDevice()
+{
+	if (Pa_Initialize() != paNoError) return 0;
+	int device = Pa_GetDefaultOutputDevice();
+	Pa_Terminate();
+	return device;
+}
+
 /**
  * \brief Returns the available input devices
  * \author Peter Grasch
