@@ -12,7 +12,7 @@
   <property name="windowTitle" >
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
     <widget class="QLabel" name="lbDesc" >
      <property name="text" >
@@ -39,7 +39,7 @@ Please ensure that the file you import is a plain text document (.txt).</string>
     </spacer>
    </item>
    <item>
-    <layout class="QGridLayout" >
+    <layout class="QFormLayout" name="formLayout" >
      <item row="0" column="0" >
       <widget class="QLabel" name="label_2" >
        <property name="text" >

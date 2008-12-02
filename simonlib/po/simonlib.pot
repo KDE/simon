@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 18:54+0100\n"
+"POT-Creation-Date: 2008-12-02 16:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -155,49 +155,49 @@ msgstr ""
 msgid "Soundsettings"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:19
+#. i18n: file: simonsound/deviceconfiguration.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbInDevice)
 #: po/rc.cpp:57 rc.cpp:57
 msgid "Input Device:"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:32
+#. i18n: file: simonsound/deviceconfiguration.ui:34
 #. i18n: ectx: property (text), widget (QLabel, lbOutDevice)
 #: po/rc.cpp:60 rc.cpp:60
 msgid "Output Device:"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:45
+#. i18n: file: simonsound/deviceconfiguration.ui:47
 #. i18n: ectx: property (text), widget (QLabel, lbChannels)
 #: po/rc.cpp:63 rc.cpp:63
 msgid "Channels:"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:79
+#. i18n: file: simonsound/deviceconfiguration.ui:81
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate)
 #: po/rc.cpp:66 rc.cpp:66
 msgid "Sample-Rate:"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:114
+#. i18n: file: simonsound/deviceconfiguration.ui:116
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:42
+#. i18n: file: speechmodelmanagement/trainingsettings.ui:46
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
-#. i18n: file: simonsound/deviceconfiguration.ui:114
+#. i18n: file: simonsound/deviceconfiguration.ui:116
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:42
+#. i18n: file: speechmodelmanagement/trainingsettings.ui:46
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
 #: po/rc.cpp:69 po/rc.cpp:214 rc.cpp:69 rc.cpp:214
 msgid "Hz"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:141
+#. i18n: file: simonsound/deviceconfiguration.ui:145
 #. i18n: ectx: property (text), widget (KPushButton, pbReload)
 #: po/rc.cpp:72 simonlogging/logview.cpp:706 rc.cpp:72
 msgid "Reload"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:161
+#. i18n: file: simonsound/deviceconfiguration.ui:165
 #. i18n: ectx: property (text), widget (KPushButton, pbTest)
 #: po/rc.cpp:75 rc.cpp:75
 msgid "Test"
@@ -252,43 +252,43 @@ msgstr ""
 msgid "00:00 / 00:00"
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:7
+#. i18n: file: simonsound/soundconfig.kcfg:8
 #. i18n: ectx: label, entry (SoundInputDevice), group (Devices)
 #: po/rc.cpp:109 rc.cpp:109
 msgid "The sounddevice used for recording."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:10
+#. i18n: file: simonsound/soundconfig.kcfg:12
 #. i18n: ectx: label, entry (SoundOutputDevice), group (Devices)
 #: po/rc.cpp:112 rc.cpp:112
 msgid "The sounddevice used for playback."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:13
+#. i18n: file: simonsound/soundconfig.kcfg:16
 #. i18n: ectx: label, entry (SoundChannels), group (Devices)
 #: po/rc.cpp:115 rc.cpp:115
 msgid "How many channels should the samples be recorded with."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:17
+#. i18n: file: simonsound/soundconfig.kcfg:20
 #. i18n: ectx: label, entry (SoundSampleRate), group (Devices)
 #: po/rc.cpp:118 rc.cpp:118
 msgid "The samplerate used for recording."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:24
+#. i18n: file: simonsound/soundconfig.kcfg:27
 #. i18n: ectx: label, entry (PromptFont), group (Prompt)
 #: po/rc.cpp:121 rc.cpp:121
 msgid "The font to use for all the promtps in simon."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:30
+#. i18n: file: simonsound/soundconfig.kcfg:33
 #. i18n: ectx: label, entry (ProcessInternal), group (PostProcessing)
 #: po/rc.cpp:124 rc.cpp:124
 msgid "If samples recorded with simon should be processed at all."
 msgstr ""
 
-#. i18n: file: simonsound/soundconfig.kcfg:34
+#. i18n: file: simonsound/soundconfig.kcfg:37
 #. i18n: ectx: label, entry (ProcessingFilters), group (PostProcessing)
 #: po/rc.cpp:127 rc.cpp:127
 msgid "The filters (commands) to apply to the samples."
@@ -444,13 +444,13 @@ msgstr ""
 msgid "Where to save the trainings samples."
 msgstr ""
 
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:19
+#. i18n: file: speechmodelmanagement/trainingsettings.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbSampleRate)
 #: po/rc.cpp:211 rc.cpp:211
 msgid "Samplerate:"
 msgstr ""
 
-#. i18n: file: speechmodelmanagement/trainingsettings.ui:49
+#. i18n: file: speechmodelmanagement/trainingsettings.ui:55
 #. i18n: ectx: property (text), widget (QLabel, lbSamplePath)
 #: po/rc.cpp:217 rc.cpp:217
 msgid "Path to the Trainingssamples:"
@@ -554,7 +554,7 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: simonsound/postprocessing.cpp:45 simonsound/soundsettings.cpp:80
+#: simonsound/postprocessing.cpp:45 simonsound/soundsettings.cpp:81
 msgid "Post-Processing"
 msgstr ""
 
@@ -624,34 +624,55 @@ msgid ""
 "Pa_CountDevices returned %1"
 msgstr ""
 
-#: simonsound/soundcontrol.cpp:120
+#: simonsound/soundcontrol.cpp:136
 msgid ""
 "Fehler beim Einlesen der Audio-Eingabegeräte:\n"
 "\n"
 "Pa_CountDevices returned %1"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:78
+#: simonsound/soundsettings.cpp:79
 msgid "Device Configuration"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:79
+#: simonsound/soundsettings.cpp:80
 msgid "Prompt Font"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:91
+#: simonsound/soundsettings.cpp:92
 msgid "Recordings"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:92
+#: simonsound/soundsettings.cpp:93
 msgid "Configuration for the Recording and Playback of sounds"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:105
+#: simonsound/soundsettings.cpp:106
 msgid "The soundconfiguration has been tested successfully."
 msgstr ""
 
+#: simonsound/soundsettings.cpp:149
+msgid ""
+"simon noticed that not all of the sound devices you selected to use "
+"previously are available.\n"
+"\n"
+"This is perfectly normal if you are connected to simond or are otherwise "
+"using an application that uses an ALSA device directly.\n"
+"\n"
+"Did you plug / unplug a device or otherwise change your systems audio "
+"setup?\n"
+"\n"
+"Selecting \"Yes\" will allow you to change your soundconfiguration, "
+"essentially deleting your previous configuration. Selecting \"No\" will "
+"temporarily deactivate the sound configuration in order to protect your "
+"previous configuration from being overwritten."
+msgstr ""
+
 #: simonsound/soundsettings.cpp:154
+msgid "Please adjust your soundconfiguration accordingly."
+msgstr ""
+
+#: simonsound/soundsettings.cpp:214
 msgid ""
 "The selected sound configuration is not supported by your hardware.\n"
 "\n"
@@ -1076,112 +1097,112 @@ msgstr ""
 msgid "Trainingsdata"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:204
+#: speechmodelmanagement/trainingmanager.cpp:197
 msgid "[INF] Parsing prompts-file from %1"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:225
+#: speechmodelmanagement/trainingmanager.cpp:218
 msgid "[INF] %1 Prompts read"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:238
+#: speechmodelmanagement/trainingmanager.cpp:231
 msgid "[INF] Removing \"%1\" from \"%2\""
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:250
+#: speechmodelmanagement/trainingmanager.cpp:243
 msgid "[INF] Reading the trainingstexts"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:360
+#: speechmodelmanagement/trainingmanager.cpp:353
 msgid "[INF] Calculating relevance"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:174
+#: speechmodelmanagement/wordlistmanager.cpp:175
 msgid ""
 "You are changing a temporary wordlist.\n"
 "\n"
 "Your changes will NOT be saved!"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:174
+#: speechmodelmanagement/wordlistmanager.cpp:175
 msgid "Temporary changes"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:179
+#: speechmodelmanagement/wordlistmanager.cpp:180
 msgid ""
 "Couldn't read all the nescessairy files for the wordlist.\n"
 "\n"
 "A temporary wordlist will be created. Your changes will NOT be saved!"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:179
+#: speechmodelmanagement/wordlistmanager.cpp:180
 msgid "Read Error"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:197
+#: speechmodelmanagement/wordlistmanager.cpp:198
 msgid "Loading Shadow List"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:197
+#: speechmodelmanagement/wordlistmanager.cpp:198
 msgid "Parsing..."
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:227
+#: speechmodelmanagement/wordlistmanager.cpp:228
 msgid "[INF] Sorting a list of %1 words"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:272
+#: speechmodelmanagement/wordlistmanager.cpp:273
 msgid "[INF] Saving wordlist(s)"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:325
+#: speechmodelmanagement/wordlistmanager.cpp:326
 msgid "[INF] Opening output file: %1"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:334
-#: speechmodelmanagement/wordlistmanager.cpp:347
+#: speechmodelmanagement/wordlistmanager.cpp:335
+#: speechmodelmanagement/wordlistmanager.cpp:348
 msgid "[ERR] Could not open output file %1"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:421
+#: speechmodelmanagement/wordlistmanager.cpp:422
 msgid "[INF] Closing output file"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:541
+#: speechmodelmanagement/wordlistmanager.cpp:551
 msgid "[INF] Reading wordlist consisting of"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:542
+#: speechmodelmanagement/wordlistmanager.cpp:552
 msgid "[INF] \t\tLexicon: %1,"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:543
+#: speechmodelmanagement/wordlistmanager.cpp:553
 msgid "[INF \t\tVocabulary: %1"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:552
+#: speechmodelmanagement/wordlistmanager.cpp:562
 msgid "[ERR] Erorr when openin the vocabulary file at \"%1\""
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:591
+#: speechmodelmanagement/wordlistmanager.cpp:599
 msgid "[INF] Wordlist created"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:652
+#: speechmodelmanagement/wordlistmanager.cpp:660
 msgid "[INF] Removing doubles"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:729
+#: speechmodelmanagement/wordlistmanager.cpp:740
 msgid ""
 "This word already exists in the shadow lexicon. It will not be inserted "
 "again."
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:1162
+#: speechmodelmanagement/wordlistmanager.cpp:1175
 msgid "[INF] Adding %1 words to the wordlist"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:1228
+#: speechmodelmanagement/wordlistmanager.cpp:1241
 msgid "[INF] The wordlist now contains %1 words"
 msgstr ""
 

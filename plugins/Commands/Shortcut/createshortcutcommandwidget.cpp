@@ -36,12 +36,6 @@ CreateShortcutCommandWidget::CreateShortcutCommandWidget(QWidget *parent) : Crea
 	setWindowTitle(ShortcutCommand::staticCategoryText());
 	
 	connect(ui.ksShortcut, SIGNAL(keySequenceChanged (const QKeySequence &)), this, SIGNAL(completeChanged()));
-	
-#ifdef Q_OS_WIN
-	connect(ui.pbGrabKeyboard, SIGNAL(toggled(bool)), this, SLOT(toggleGrab(bool)));
-#else
-	ui.pbGrabKeyboard->hide();
-#endif
 }
 
 #ifdef Q_OS_WIN

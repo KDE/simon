@@ -39,19 +39,20 @@
  */
 AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
 {
-	setTitle("Wort definieren");
+	setTitle(i18n("Define Word"));
 	ui.setupUi(this);
 	ui.twSuggestions->verticalHeader()->hide();
 	this->grammarManager = GrammarManager::getInstance();
 	this->wordListManager = WordListManager::getInstance();
 	connect(ui.cbType, SIGNAL(currentIndexChanged(int)), this, SLOT(createExamples()));
 	connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(createExamples()));
-	connect(ui.leWord, SIGNAL(returnPressed()), this, SLOT(createExamples()));
 	connect(ui.pbReGuess, SIGNAL(clicked()), this, SLOT(createExamples()));
 	connect(ui.tbAddTerminal, SIGNAL(clicked()), this, SLOT(addTerminal()));
 	
+	connect(ui.cbType, SIGNAL(currentIndexChanged(int)), this, SLOT(setTerminalDirty()));
 	connect (ui.cbFuzzySearch, SIGNAL(toggled(bool)), this, SLOT(fetchSimilar()));
 	connect(ui.leWord, SIGNAL(editingFinished()), this, SLOT(fetchSimilar()));
+//	connect(ui.tbFetchSimilar, SIGNAL(clicked()), this, SLOT(fetchSimilar()));
 	
 	registerField("wordExample1*", ui.leExample1);
 	registerField("wordExample2*", ui.leExample2);
@@ -61,6 +62,7 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
 
 	ui.tbAddTerminal->setIcon(KIcon("list-add"));
 	ui.pbReGuess->setIcon(KIcon("view-refresh"));
+	//ui.tbFetchSimilar->setIcon(KIcon("help-hint"));
 }
 
 bool AddWordResolvePage::validatePage()
@@ -87,12 +89,11 @@ void AddWordResolvePage::addTerminal()
 	if (newTerminal.isEmpty()) return;
 
 	ui.cbType->addItem(newTerminal);
+	ui.cbType->setCurrentIndex(ui.cbType->count()-1);
 }
 
 /**
  * \brief Initializes the Page with the wordname from the intro page (pulled out of the "wordNameIntro" field)
- * 
- * This uses the wordListManager to get similar words so it'd better initialized when using this
  * 
  * \author Peter Grasch
  */
@@ -114,8 +115,8 @@ void AddWordResolvePage::initializePage()
 	ui.leSampa->clear();
 
 	setUpdatesEnabled(true);
+	terminalDirty=false;
 	fetchSimilar();
-
 }
 
 void AddWordResolvePage::fetchSimilar()
@@ -123,17 +124,26 @@ void AddWordResolvePage::fetchSimilar()
 	disconnect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
 	WordList* similar = wordListManager->getWords(ui.leWord->text(), true, ui.cbFuzzySearch->isChecked(), false);
 	displayWords(similar);
-	connect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
 
 	if (ui.twSuggestions->rowCount() > 0)
+		ui.twSuggestions->selectRow(0);
+
+	if (similar->count() > 0)
 	{
 		//select the first suggestion
-		if (!ui.cbFuzzySearch->isChecked())
-			ui.twSuggestions->selectRow(0);
-	} else {
-		//set unbekannt
+		if (ui.leSampa->text().isEmpty() || (ui.leSampa->text() == suggestedSampa))
+		{
+			suggestedSampa = similar->at(0).getPronunciation();
+			ui.leSampa->setText(suggestedSampa);
+		}
+		if (!terminalDirty)
+		{
+			QString suggestedTerminal  = similar->at(0).getTerminal();
+			ui.cbType->setCurrentIndex(ui.cbType->findText(suggestedTerminal));
+			terminalDirty=false;
+		}
 	}
-	
+	connect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
 	delete similar;
 	
 }
@@ -183,15 +193,14 @@ void AddWordResolvePage::suggest()
 	}
 		
 	
-	ui.leSampa->setText(ui.twSuggestions->item(row,1)->text());
+	QString sampa = ui.twSuggestions->item(row,1)->text();
+	suggestedSampa = sampa;
+	ui.leSampa->setText(sampa);
 	
 	QString terminal = ui.twSuggestions->item(row,2)->text();
 
-	for (int i=0; i < ui.cbType->count(); i++)
-	{
-		if(ui.cbType->itemText(i) == terminal)
-			ui.cbType->setCurrentIndex(i);
-	}
+	ui.cbType->setCurrentIndex(ui.cbType->findText(terminal));
+	terminalDirty=false;
 }
 
 /**

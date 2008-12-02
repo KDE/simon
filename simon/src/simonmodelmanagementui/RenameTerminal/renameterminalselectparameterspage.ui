@@ -12,10 +12,10 @@
   <property name="windowTitle" >
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
-    <layout class="QHBoxLayout" >
-     <item>
+    <layout class="QFormLayout" name="formLayout" >
+     <item row="0" column="0" >
       <widget class="QLabel" name="lbNewName" >
        <property name="text" >
         <string>New Name:</string>
@@ -25,7 +25,7 @@
        </property>
       </widget>
      </item>
-     <item>
+     <item row="0" column="1" >
       <widget class="KLineEdit" name="leNewName" />
      </item>
     </layout>

@@ -462,7 +462,6 @@ int WordListManager::getWordIndex(WordList *list, bool &found, const QString& wo
 		currentWordPronunciation = currentWord->getPronunciation();
 		currentWordTerminal = currentWord->getTerminal();
 
-		
 		if ((currentWordName==realWord)
 			&& ((pronunciation.isEmpty() || currentWordPronunciation == pronunciation)
 			&& (terminal.isEmpty() || currentWordTerminal == terminal)))
@@ -485,17 +484,27 @@ int WordListManager::getWordIndex(WordList *list, bool &found, const QString& wo
 		}
 		
 		
-		if (modificator == 0) {
+		if ((modificator > -10 ) && (modificator < 10)) {
 			//stagnating search
 			//do a incremental search over the left over items
-			int i=currentMinValue;
+			int i=qMax(currentMinValue,0);
+			currentWord = (Word*) &(list->at(i));
+			currentWordName = currentWord->getWord().toUpper();
+			currentWordPronunciation = currentWord->getPronunciation();
+			currentWordTerminal = currentWord->getTerminal();
 			while ((i < currentMaxValue) && ((currentWordName < realWord) || 
 						     ((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation < pronunciation)
 						     || (!terminal.isEmpty() && currentWordTerminal < terminal)))))
 			{
+				currentWord = (Word*) &(list->at(i));
+				currentWordName = currentWord->getWord().toUpper();
+				currentWordPronunciation = currentWord->getPronunciation();
+				currentWordTerminal = currentWord->getTerminal();
 				i++;
 			}
-			if ((i<list->count()) && (list->at(i).getWord().toUpper()==realWord)
+			if (i != currentMaxValue)
+				i--;
+			if ((i<currentMaxValue) && (list->at(i).getWord().toUpper()==realWord)
 							&& ((pronunciation.isEmpty() || list->at(i).getPronunciation() == pronunciation)
 							&& (terminal.isEmpty() || list->at(i).getTerminal() == terminal)))
 			{
@@ -565,11 +574,10 @@ WordList* WordListManager::readWordList ( const QString& lexiconpath, const QStr
 	for (int i=0; (i < 4) && (!vocabStream.atEnd()); i++)
 		vocabStream.readLine(1024);
 
-	line = vocabStream.readLine();
 	
-	while (!line.isNull())
+	while (!vocabStream.atEnd())
 	{
-		line = line.trimmed(); //test if we can do this together with the readLine() without destroying the isNull()
+		line = vocabStream.readLine().trimmed();
 		if (!line.startsWith("% "))
 		{
 			//read the word
@@ -585,7 +593,6 @@ WordList* WordListManager::readWordList ( const QString& lexiconpath, const QStr
 			//strip multiple definitions
 			if (!terminals.contains(term)) terminals.append(term);
 		}
-		line = vocabStream.readLine();
 	}
 	wordlist = this->sortList(wordlist);
 
@@ -974,7 +981,6 @@ WordList* WordListManager::mergeLists(WordList *a, WordList *b, bool keepDoubles
 WordList* WordListManager::getWords(const QString& word, bool includeShadow, bool fuzzy, bool keepDoubles)
 {
 	WordList *out;
-	
 	out = getMainstreamWords(word, fuzzy);
 	
 	if (!includeShadow) return out;

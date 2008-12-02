@@ -38,6 +38,8 @@ class AddWordResolvePage : public QWizardPage
 {
 Q_OBJECT
 private:
+	QString suggestedSampa;
+	bool terminalDirty;
 	Ui::ResolveWordPage ui;
 	bool alreadyTriedToConvinceAboutCapitalization;
 	WordListManager *wordListManager;
@@ -47,6 +49,7 @@ private slots:
 	void createExamples();
 	void addTerminal();
 	void fetchSimilar();
+	void setTerminalDirty() { terminalDirty=true; }
 public:
     AddWordResolvePage(QWidget* parent=0);
 

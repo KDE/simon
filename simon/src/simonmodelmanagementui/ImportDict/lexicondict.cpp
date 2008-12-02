@@ -71,17 +71,21 @@ void LexiconDict::load(QString path)
 	int currentProg = 0;
 	
 	QTextStream *dictStream = new QTextStream(dict);
-	dictStream->setCodec("ISO-8859-15");
+	dictStream->setCodec("UTF-8");
 	emit loaded();
 	
-	QString line, xsp;
+	QString line, word, xsp;
 	int wordstart, wordend;
-	line = dictStream->readLine(1000);
-	while (!line.isNull())
+	while (!dictStream->atEnd())
 	{
+		line = dictStream->readLine(1000);
 		wordstart = line.indexOf("[");
 		wordend = line.indexOf("]", wordstart+1);
-		words << line.mid(wordstart+1,wordend-wordstart-1);
+		word = line.mid(wordstart+1,wordend-wordstart-1);
+
+		if (word.isEmpty())
+			continue;
+		words << word;
 		terminals << unknownStr;
 		pronunciations << line.mid(wordend+2).trimmed();
 		
@@ -91,7 +95,6 @@ void LexiconDict::load(QString path)
 			emit progress((int) (((((double)currentProg) / 
 				((double)maxProg)))*1000));
 				
-		line = dictStream->readLine(1000);
 	}
 	dict->close();
     dict->deleteLater();
