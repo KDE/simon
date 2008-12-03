@@ -26,7 +26,6 @@
 #include <QHash>
 #include <QMutex>
 #include <QList>
-// #include "xmltrainingtext.h"
 #include "simonmodelmanagement_export.h"
 
 
@@ -46,10 +45,10 @@ class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
 {
 Q_OBJECT
 	private:
+		bool dirty;
+
 		static TrainingManager *instance;
 		TrainingList *trainingTexts;
-
-		QHash<QString, QString> sampleHash;    //<! sampleHash("SampleName","Text")
 
 		QHash<QString,int> wordRelevance; /// Stores the relevance of words (caching for getProbability)
 
@@ -63,7 +62,6 @@ Q_OBJECT
 		void trainingFinished();
 		void trainingDataChanged();
 		void trainingSettingsChanged();
-// 		void promptsChanged();
 
 	protected:
 		TrainingManager(QObject *parent=0);
@@ -79,7 +77,6 @@ Q_OBJECT
 
 		bool init();
 
-		QHash<QString, QString> getSampleHash() {return sampleHash;}
 		int getProbability ( QString name, PromptsTable *promptsTable );
 		TrainingList* readTrainingTexts ();
 
@@ -119,8 +116,6 @@ Q_OBJECT
 
 		bool trainText ( int i );
 		TrainingText* getText ( int i );
-
-		void clearSampleHash() { sampleHash.clear(); }
 
 		void trainingSettingsSaved();
 

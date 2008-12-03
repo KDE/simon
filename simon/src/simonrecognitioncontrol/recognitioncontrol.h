@@ -38,7 +38,7 @@ class QDateTime;
 
 /**
  *	@class RecognitionControl
- *	@brief Provides the methods and emits the needed signals to work with Julius
+ *	@brief Provides the methods and emits the needed signals to work with simond
  *
  *	@version 0.1
  *	@date 23.01.2006
@@ -78,7 +78,7 @@ private:
 	QMutex messageLocker;
 	QByteArray stillToProcess;
 	bool recognitionReady;
-	QSslSocket *socket; //!< QSslSocket for communicating with the juliusd-socket
+	QSslSocket *socket; //!< QSslSocket for communicating with the simond-socket
 
 	Operation *synchronisationOperation;
 	Operation *modelCompilationOperation;

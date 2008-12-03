@@ -81,10 +81,12 @@ void ModelManagerUiProxy::wordUndefined(const QString& word)
 
 void ModelManagerUiProxy::classUndefined(const QString& undefClass)
 {
+	KMessageBox::sorry(0, i18n("Your wordlist uses the undefined class %1.\n\nPlease use it in at least one grammar structure.", undefClass));
 }
 
 void ModelManagerUiProxy::phonemeUndefined(const QString& phoneme)
 {
+	KMessageBox::sorry(0, i18n("The Phoneme %1 is unedfined. Please train at least one word that uses it.", phoneme));
 }
 
 

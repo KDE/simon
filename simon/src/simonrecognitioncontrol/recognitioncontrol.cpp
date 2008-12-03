@@ -268,9 +268,18 @@ void RecognitionControl::disconnectFromServer()
 	if (timeoutWatcher->isActive())
 		timeoutWatcher->stop();
 	
+	if ((socket->state() == QAbstractSocket::UnconnectedState) ||
+		(socket->state() == QAbstractSocket::ConnectingState) || 
+		(socket->state() == QAbstractSocket::HostLookupState))
+	{
+		socket->abort();
+		emit disconnected();
+		return;
+	}
+
 	this->socket->disconnectFromHost();
 	if ((socket->state() != QAbstractSocket::UnconnectedState) &&
-		     (!socket->waitForDisconnected(1000)))
+		     (!socket->waitForDisconnected(500)))
 		this->socket->abort();
 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<gui name="simon" version="1">
+<gui name="simon" version="2">
 	<ToolBar name="mainToolBar" >
 		<text>Main Actions</text>
 		<Action name="connectActivate" />
@@ -14,9 +14,10 @@
 	</ToolBar>
 	
 	<MenuBar>
-		<Menu name="juliusd">
+		<Menu name="simond">
 			<text>Recognition</text>
-			<Action name="connectActivate" />
+			<Action name="connect" />
+			<Action name="activate" />
 		</Menu>
 			
 		<Menu name="modules" >
@@ -26,10 +27,9 @@
 			<Action name="train" />
 			<Action name="commands" />
 		</Menu>
-		<Menu name="mode">
+		<Menu name="actions">
 			<text>Actions</text>
 			<Action name="compileModel" />
-			<Action name="systemMode" />
 		</Menu>
 		<Menu name="settings">
 			<text>Preferences</text>

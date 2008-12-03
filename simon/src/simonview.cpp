@@ -102,7 +102,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	if (commandSettingsItem)
 	{
 		KCModuleProxy *proxy = static_cast<KCModuleProxy*>(commandSettingsItem->widget());
-		kDebug() << proxy->realModule();
 		ActionManager::getInstance()->setConfigurationDialog(proxy->realModule());
 		ActionManager::getInstance()->init();
 	}
@@ -167,6 +166,25 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 void SimonView::setupActions()
 {
+	connectAction = new KAction(this);
+	connectAction->setText(i18n("Connect"));
+	connectAction->setCheckable(true);
+	connectAction->setIcon(KIcon("network-disconnect"));
+	connect(connectAction, SIGNAL(triggered(bool)),
+		this, SLOT(toggleConnection()));
+	actionCollection()->addAction("connect", connectAction);
+	this->trayManager->addAction("connect", connectAction);
+
+	activateAction = new KAction(this);
+	activateAction->setText(i18n("Activate"));
+	activateAction->setIcon(KIcon("media-playback-start"));
+	activateAction->setCheckable(true);
+	connect(activateAction, SIGNAL(triggered(bool)),
+		this, SLOT(toggleActivation()));
+	this->trayManager->addAction("activate", activateAction);
+	activateAction->setEnabled(false);
+	actionCollection()->addAction("activate", activateAction);
+
 	disconnectAction = new KAction(this);
 	disconnectAction->setText(i18n("Disconnect"));
 	disconnectAction->setIcon(KIcon("network-disconnect"));
@@ -176,10 +194,10 @@ void SimonView::setupActions()
 	KToolBarPopupAction* connectActivate = new KToolBarPopupAction(KIcon("network-disconnect"), i18n("Connect"), this);
 	connectActivate->setCheckable(true);
 	connectActivate->setShortcut(Qt::CTRL + Qt::Key_C);
+
 	actionCollection()->addAction("connectActivate", connectActivate);
 	connect(connectActivate, SIGNAL(triggered(bool)),
 		this, SLOT(toggleConnection()));
-	this->trayManager->addAction("connectActivate", connectActivate);
 	
 	KAction* addWord = new KAction(this);
 	addWord->setText(i18n("Add Word"));
@@ -190,7 +208,6 @@ void SimonView::setupActions()
 		this, SLOT(showAddWordDialog()));
 	
 	KAction* train = new KAction(this);
-// 	train->setCheckable(true);
 	train->setText(i18n("Training"));
 	train->setIcon(KIcon("view-pim-news"));
 	train->setShortcut(Qt::CTRL + Qt::Key_T);
@@ -199,7 +216,6 @@ void SimonView::setupActions()
 		this, SLOT(showTrainDialog()));
 	
 	KAction* commands = new KAction(this);
-// 	commands->setCheckable(true);
 	commands->setText(i18n("Commands"));
 	commands->setIcon(KIcon("system-run"));
 	commands->setShortcut(Qt::CTRL + Qt::Key_K);
@@ -208,7 +224,6 @@ void SimonView::setupActions()
 		this, SLOT(showRunDialog()));
 	
 	KAction* wordlist = new KAction(this);
-// 	wordlist->setCheckable(true);
 	wordlist->setText(i18n("Wordlist"));
 	wordlist->setIcon(KIcon("format-justify-fill"));
 	wordlist->setShortcut(Qt::CTRL + Qt::Key_L);
@@ -393,7 +408,14 @@ void SimonView::representState(SimonControl::SystemStatus status)
 
 			SimonInfo::showMessage ( i18n ( "Connection to server lost" ), 4000 );
 			//TODO: we should probably (configurably) try to reconnect at this point
-			
+			activateAction->setEnabled(false);
+			activateAction->setText(i18n("Activate"));
+			activateAction->setIcon(KIcon("media-playback-start"));
+			activateAction->setChecked(false);
+
+			connectAction->setText(i18n("Connect"));
+			connectAction->setChecked(false);
+			connectAction->setIcon(KIcon("network-disconnect"));
 			break; }
 			
 		case SimonControl::Connecting: {
@@ -411,7 +433,11 @@ void SimonView::representState(SimonControl::SystemStatus status)
 			displayConnectionStatus(connectionStr);
 			if (connectActivate->menu()->actions().contains(disconnectAction))
 				connectActivate->menu()->removeAction(disconnectAction);
-			
+
+			connectAction->setText(connectionStr);
+			connectAction->setChecked(true);
+			connectAction->setIcon(KIcon("network-disconnect"));
+
 			break; }
 		
 		case SimonControl::ConnectedDeactivating: {
@@ -420,6 +446,10 @@ void SimonView::representState(SimonControl::SystemStatus status)
 				connectActivate->setText(i18n ( "Deactivating..." ));
 				connectActivate->setChecked(false);
 			}
+			activateAction->setEnabled(true);
+			activateAction->setText("Deactivating...");
+			activateAction->setChecked(false);
+			break;
 		}
 		
 		case SimonControl::ConnectedDeactivatedNotReady: 
@@ -436,14 +466,20 @@ void SimonView::representState(SimonControl::SystemStatus status)
 				connect(connectActivate, SIGNAL(triggered(bool)),
 					this, SLOT(toggleActivation()));
 					
-// 				connectActivate->setEnabled(status!=SimonControl::ConnectedDeactivatedNotReady);
-
 				//add disconnect action with icon network-disconnect
 				if (!connectActivate->menu()->actions().contains(disconnectAction))
 					connectActivate->menu()->addAction(disconnectAction);
 			}
 			
-				
+			activateAction->setEnabled(true);
+			activateAction->setText(i18n("Activate"));
+			activateAction->setChecked(false);
+			activateAction->setIcon(KIcon("media-playback-start"));
+			connectAction->setText("Connected");
+			connectAction->setIcon(KIcon("network-connect"));
+			connectAction->setChecked(true);
+
+			
 			SimonInfo::showMessage ( i18n ( "simon has been deactivated" ), 2000 );
 				
 			this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "Simon - Deactivated" ) );
@@ -457,6 +493,8 @@ void SimonView::representState(SimonControl::SystemStatus status)
 				connectActivate->setText(i18n ( "Activating..." ));
 				connectActivate->setChecked(false);
 			}
+			activateAction->setText(i18n("Activating..."));
+			activateAction->setChecked(false);
 		}
 			
 		case SimonControl::ConnectedActivated: {
@@ -476,6 +514,10 @@ void SimonView::representState(SimonControl::SystemStatus status)
 					connectActivate->menu()->addAction(disconnectAction);
 			}
 			
+			activateAction->setText(i18n("Activated"));
+			activateAction->setChecked(true);
+			activateAction->setIcon(KIcon("media-playback-start"));
+
 			this->trayManager->createIcon ( KIcon ( "simon" ), "Simon" );
 				
 			SimonInfo::showMessage ( i18n ( "simon has been activated" ), 2000 );

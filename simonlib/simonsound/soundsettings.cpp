@@ -137,7 +137,10 @@ void SoundSettings::load()
 	int paOutputDevice = SoundConfiguration::soundOutputDevice();
 	int outputDevice = deviceUi.cbSoundOutputDevice->findData(paOutputDevice);
 
+
 #ifdef Q_OS_UNIX
+	bool hasChanged=false;
+
 	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonsoundrc");
 	KConfigGroup group(config, "Devices");
 	QString inputALSAName = group.readEntry("SoundInputDeviceALSAName", "");
@@ -150,7 +153,7 @@ void SoundSettings::load()
 		{
 			inputDevice = deviceUi.cbSoundInputDevice->findData(SoundControl::getDefaultInputDevice());
 			outputDevice = deviceUi.cbSoundOutputDevice->findData(SoundControl::getDefaultOutputDevice());
-			emit changed(true);
+			hasChanged=true;
 			KMessageBox::information(this, i18n("Please adjust your soundconfiguration accordingly."));
 			enable();
 		} else disable();
@@ -161,7 +164,12 @@ void SoundSettings::load()
 
 	deviceUi.cbSoundInputDevice->setCurrentIndex(inputDevice);
 	deviceUi.cbSoundOutputDevice->setCurrentIndex(outputDevice);
+
 	KCModule::load();
+
+#ifdef Q_OS_UNIX
+	if (hasChanged) emit changed(true);
+#endif
 }
 
 void SoundSettings::enable()

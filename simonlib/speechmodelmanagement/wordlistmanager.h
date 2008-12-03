@@ -47,8 +47,7 @@ signals:
 	void tempWarning();
 	void wordListCouldntBeLoaded();
 	void shadowListCouldntBeLoaded();
-// 	void status(const QString&);
-// 	void progress(int cur, int max);
+
 private:
 	static WordListManager *instance;
 

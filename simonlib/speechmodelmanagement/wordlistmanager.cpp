@@ -109,6 +109,7 @@ void WordListManager::updateWordProbability()
 	}
 
 	wordListLock.unlock();
+	emit wordlistChanged();
 }
 
 /**

@@ -74,6 +74,7 @@ private:
 	QPoint addWordDlgPos;
 
 	KAction *disconnectAction;
+	KAction *activateAction, *connectAction;
 
 	Ui::MainWindow ui;	//!< Mainwindow UI definition - made by uic from the QTDesigner .ui
 	SimonControl *control; //!< Pointer to the main concept class

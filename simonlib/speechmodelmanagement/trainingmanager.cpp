@@ -53,6 +53,7 @@ TrainingManager::TrainingManager(QObject *parent) : QObject(parent), promptsLock
 	KLocale::setMainCatalog("simonlib");
 	trainingTexts = 0;
 	promptsTable=0;
+	dirty=false;
 }
 
 bool TrainingManager::init()
@@ -61,7 +62,12 @@ bool TrainingManager::init()
 	QMutexLocker lock(&promptsLock);
 	PromptsTable *promptsTable = readPrompts ( KStandardDirs::locate("appdata", "model/prompts") );
 	if (promptsTable) {
+		if (this->promptsTable)
+			delete this->promptsTable;
+
 		this->promptsTable = promptsTable;
+		dirty=false;
+
 		return true;
 	} else return false;
 }
@@ -99,8 +105,6 @@ bool TrainingManager::deleteWord ( Word *w )
 
 	QMutexLocker lock(&promptsLock);
 	
-	kDebug() << "Removing word: " << wordToDelete;
-	kDebug() << "Prompts-table: " << *promptsTable;
 	QStringList sampleFileNames = promptsTable->keys();
 	bool succ = true;
 	for ( int i=0; i < sampleFileNames.count(); i++ )
@@ -110,8 +114,7 @@ bool TrainingManager::deleteWord ( Word *w )
 		if (promptWords.contains(wordToDelete))
 		{
 			if (!deletePrompt(filename)) succ = false;
-		} else
-			kWarning() << "No match: " << promptWords;
+		}
 	}
 	promptsLock.unlock();
 	return (savePrompts() && succ);
@@ -128,8 +131,6 @@ bool TrainingManager::deletePrompt ( QString key )
 	if (!promptsTable) init();
 	QString path = SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+key+".wav";
 	
-	kDebug() << "removing " << path;
-
 	QMutexLocker lock(&promptsLock);
 	promptsTable->remove ( key );
 	//removes the sample
@@ -151,11 +152,25 @@ bool TrainingManager::savePrompts()
 	QMutexLocker lock(&promptsLock);
 	if (!writePromptsFile(getPrompts(), KStandardDirs::locateLocal("appdata", "model/prompts"))) return false;
 
-	//TODO: only emit this when it really changed
-	emit trainingDataChanged();
+	if (dirty)
+	{
+		wordRelevance.clear(); // drop probability cache
+		emit trainingDataChanged();
+	}
+
+	dirty=false;
+
 	return true;
 }
 
+
+/**
+ * \brief Saves any given promptstable to the given path. To save the main promptstable use savePrompts instead
+ * \author Peter Grasch
+ * \param prompts The promptstable to store
+ * \param path Where to store the file
+ * \return Success
+ */
 bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
 {
 	if (!promptsTable) init();
@@ -174,6 +189,7 @@ bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
 	KConfigGroup cGroup(&config, "");
 	cGroup.writeEntry("TrainingDate", QDateTime::currentDateTime());
 	config.sync();
+
 	return true;
 }
 
@@ -393,22 +409,6 @@ float TrainingManager::calcRelevance ( TrainingText *text )
 }
 
 /**
- * @brief compiles the model
- *
- *	@author Susanne Tschernegg
- */
-// void TrainingManager::finishTrainingSession()
-// {
-// 	addSamples ( sampleHash );
-// 	sampleHash.clear();
-// 	
-// 	emit trainingFinished();
-// 	
-// 	init();
-// }
-
-
-/**
  * \brief Returns the probability of the name (it is pulled out of the promptsTable)
  * \author Peter Grasch
  * \param QString wordname
@@ -439,25 +439,6 @@ int TrainingManager::getProbability ( QString wordname )
 	return prob;
 }
 
-/**
- * @brief Adds the Samples to the prompts-file.
- *
- *	@author Peter Grasch
- *  @param QHash<QString, QString> *hash
- *      holds the pagenumber as text and the name of a text with the correspondenting sentence and the time and date, when the training has begun
- */
-// void TrainingManager::addSamples ( const QHash<QString, QString>& trainingsMap )
-// {
-// 	Q_ASSERT(promptsTable);
-// 	
-// 	QMutexLocker lock(&promptsLock);
-// 	
-// 	foreach (QString key, trainingsMap.keys())
-// 		promptsTable->insert(key, trainingsMap.value(key));
-// 	
-// 	savePrompts();
-// }
-
 bool TrainingManager::addSample ( const QString& fileBaseName, const QString& prompt )
 {
 	Q_ASSERT(promptsTable);
@@ -466,6 +447,7 @@ bool TrainingManager::addSample ( const QString& fileBaseName, const QString& pr
 		return false;
 	
 	promptsTable->insert(fileBaseName, prompt);
+	dirty=true;
 	return true;
 }
 
@@ -473,7 +455,11 @@ bool TrainingManager::removeSample(const QString& fileBaseName)
 {
 	Q_ASSERT(promptsTable);
 	
-	return (promptsTable->remove(fileBaseName) > 0);
+	if (promptsTable->remove(fileBaseName) > 0)
+	{
+		dirty=true;
+		return true;
+	} else return false;
 }
 
 bool TrainingManager::saveTrainingsText(const QString& name, const QStringList pages)
