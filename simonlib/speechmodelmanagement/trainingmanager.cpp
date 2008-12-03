@@ -184,7 +184,7 @@ bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
 		promptsFile.write ( samples[i].toUtf8() +" "+prompts->value ( samples[i] ).toUtf8() +"\n" );
 	promptsFile.close();
 	
-	kDebug() << "schreibe datum...";
+	kDebug() << "schreibe datum..." << QDateTime::currentDateTime();
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	cGroup.writeEntry("TrainingDate", QDateTime::currentDateTime());

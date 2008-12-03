@@ -452,7 +452,7 @@ int WordListManager::getWordIndex(WordList *list, bool &found, const QString& wo
 	//(which would be out of bounds)
 	
 	int currentMinValue = 0;
-	int currentMaxValue = list->count();
+	int currentMaxValue = list->count()-1;
 	Word *currentWord;
 	QString currentWordName, currentWordPronunciation, currentWordTerminal;
 	int modificator=0;
@@ -493,7 +493,7 @@ int WordListManager::getWordIndex(WordList *list, bool &found, const QString& wo
 			currentWordName = currentWord->getWord().toUpper();
 			currentWordPronunciation = currentWord->getPronunciation();
 			currentWordTerminal = currentWord->getTerminal();
-			while ((i < currentMaxValue) && ((currentWordName < realWord) || 
+			while ((i <= currentMaxValue) && ((currentWordName < realWord) || 
 						     ((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation < pronunciation)
 						     || (!terminal.isEmpty() && currentWordTerminal < terminal)))))
 			{
@@ -503,9 +503,9 @@ int WordListManager::getWordIndex(WordList *list, bool &found, const QString& wo
 				currentWordTerminal = currentWord->getTerminal();
 				i++;
 			}
-			if (i != currentMaxValue)
+			if ((i != currentMaxValue) && (i>currentMinValue))
 				i--;
-			if ((i<currentMaxValue) && (list->at(i).getWord().toUpper()==realWord)
+			if ((i<=currentMaxValue) && (list->at(i).getWord().toUpper()==realWord)
 							&& ((pronunciation.isEmpty() || list->at(i).getPronunciation() == pronunciation)
 							&& (terminal.isEmpty() || list->at(i).getTerminal() == terminal)))
 			{

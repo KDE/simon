@@ -293,7 +293,7 @@ void ClientSocket::processRequest()
 				QDateTime remoteModelDate;
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteModelDate;
-				kDebug() << remoteModelDate;
+				kWarning() << "Received modelsrc date: " << remoteModelDate << synchronisationManager->getModelSrcDate();
 				
 				Q_ASSERT(synchronisationManager);
 				if (remoteModelDate > synchronisationManager->getModelSrcDate())
@@ -303,6 +303,7 @@ void ClientSocket::processRequest()
 					if (remoteModelDate < synchronisationManager->getModelSrcDate())
 						modelSource = ClientSocket::Server;
 				}
+				kWarning() << modelSource;
 
 				if (remoteModelDate != synchronisationManager->getModelSrcDate())
 				{
@@ -322,14 +323,19 @@ void ClientSocket::processRequest()
 				Q_ASSERT(synchronisationManager);
 				Q_ASSERT(modelSource != ClientSocket::Undefined);
 				
+//				kWarning() << "Received training date: " << remoteTrainingDate << synchronisationManager->getTrainingDate();
 				if (remoteTrainingDate != synchronisationManager->getTrainingDate())
 				{
 					//Training changed
 					if (modelSource == ClientSocket::Server)
 					{
+						kWarning() << "Sending training";
 						if (!sendTraining())
 							sendCode(Simond::GetTraining);
-					} else sendCode(Simond::GetTraining);
+					} else {
+						kWarning() << "Retreiving training";
+						sendCode(Simond::GetTraining);
+					}
 				} else {
 					kDebug() << "Training is up-to-date";
 					sendCode(Simond::GetWordListDate);

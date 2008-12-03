@@ -74,24 +74,24 @@ class SynchronisationManager : public QObject
 
 		void setCurrentSrcContainerTime(const QDateTime& time);
 		
-		QDateTime getWordListDate();
+		QDateTime getWordListDate(QString path=QString());
 		bool hasWordList(const QString& modelPath=QString());
 		WordListContainer* getWordList();
 		bool storeWordList(const QDateTime& changedDate, const QByteArray& simpleVocab,
 					const QByteArray& activeVocab, const QByteArray& activeLexicon);
 		
-		QDateTime getGrammarDate();
+		QDateTime getGrammarDate(QString path=QString());
 		bool hasGrammar(const QString& modelPath=QString());
 		GrammarContainer* getGrammar();
 		bool storeGrammar(const QDateTime& changedDate, const QByteArray& grammarStructures);
 		
-		QDateTime getLanguageDescriptionDate();
+		QDateTime getLanguageDescriptionDate(QString path=QString());
 		bool hasLanguageDescription(const QString& modelPath=QString());
 		LanguageDescriptionContainer* getLanguageDescription();
 		bool storeLanguageDescription(const QDateTime& changedDate, const QByteArray& shadowVocab, 
 				        const QByteArray& treeHed);
 		
-		QDateTime getTrainingDate();
+		QDateTime getTrainingDate(QString path=QString());
 		bool hasTraining(const QString& modelPath=QString());
 		TrainingContainer* getTraining();
 		bool storeTraining(const QDateTime& changedDate, qint32 sampleRate, const QByteArray& wavConfig,
@@ -120,7 +120,7 @@ class SynchronisationManager : public QObject
 		bool copyTrainingData(const QString& source, const QString& dest);
 		bool copyLanguageDescription(const QString& source, const QString& dest);
 		bool switchToModel(const QDateTime& modelDate);
-			       
+
 		~SynchronisationManager();
 		
 };
