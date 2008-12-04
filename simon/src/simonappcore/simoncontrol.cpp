@@ -181,6 +181,7 @@ void SimonControl::recognitionStatusChanged(RecognitionControl::RecognitionStatu
 		
 		case RecognitionControl::Started:
 		{
+			kWarning() << "Recognitioncontrol reports that it has been started";
 			setStatus(SimonControl::ConnectedActivated);
 			break;
 		}
@@ -193,6 +194,7 @@ void SimonControl::recognitionStatusChanged(RecognitionControl::RecognitionStatu
 		
 		case RecognitionControl::Resumed:
 		{
+			kWarning() << "Recognitioncontrol reports that it has been resumed";
 			setStatus(SimonControl::ConnectedActivated);
 			break;
 		}
@@ -260,6 +262,7 @@ void SimonControl::abortConnecting()
  */
 SimonControl::SystemStatus SimonControl::toggleActivition()
 {
+	kWarning() << "Hier kommt simoncontrolstatus: " << status;
 	if (status==SimonControl::ConnectedActivated)
 	{
 		deactivateSimon();

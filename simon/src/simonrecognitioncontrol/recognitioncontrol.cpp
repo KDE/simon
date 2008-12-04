@@ -91,6 +91,8 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 	synchronisationOperation=NULL;
 	modelCompilationOperation=NULL;
 	adinStreamer=AdinStreamer::getInstance(this);
+	connect(adinStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
+	connect(adinStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
 
 	socket = new QSslSocket();
 	timeoutWatcher = new QTimer(this);
@@ -101,9 +103,9 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 	connect(socket, SIGNAL(sslErrors(QList<QSslError>)), this, SLOT(errorOccured()));
 
 
+	connect(socket, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
 	connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()));
 	
-	connect(socket, SIGNAL(disconnected()), this, SLOT(slotDisconnected()));
 	connect(this, SIGNAL(simondSystemError(const QString&)), this, SLOT(disconnectFromServer()));
 
 
@@ -114,13 +116,22 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 	connect(modelManager, SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
 }
 
+void RecognitionControl::streamStarted()
+{
+	kWarning() << "Stream has been started";
+	emit recognitionStatusChanged(RecognitionControl::Started);
+}
+
+void RecognitionControl::streamStopped()
+{
+	emit recognitionStatusChanged(RecognitionControl::Ready);
+}
 
 
 void RecognitionControl::slotDisconnected()
 {
 	adinStreamer->stop();
 	recognitionReady=false;
-// 	modelManager->setConnectionStatus(false);
 	if (synchronisationOperation)
 	{
 		if (synchronisationOperation->isRunning())
@@ -1297,7 +1308,6 @@ void RecognitionControl::messageReceived()
 				{
 					advanceStream(sizeof(qint32));
 
-					recognitionReady=true;
 					emit recognitionStatusChanged(RecognitionControl::Ready);
 
 					if (RecognitionConfiguration::automaticallyEnableRecognition())
@@ -1313,10 +1323,11 @@ void RecognitionControl::messageReceived()
 					msg >> port;
 					msg >> sampleRate;
 					advanceStream(sizeof(qint32)*3);
+					recognitionReady=true;
 
 					kWarning() << "adinnet server running on port " << port;
 					adinStreamer->init(socket->peerAddress(), port, sampleRate);
-					adinStreamer->start();
+					startRecognition();
 					break;
 				}
 
@@ -1328,6 +1339,7 @@ void RecognitionControl::messageReceived()
 					msg >> errormsgByte;
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					QString errormsg = QString::fromUtf8(errormsgByte);
+					recognitionReady=false;
 					emit recognitionError(errormsg);
 					emit recognitionStatusChanged(RecognitionControl::Stopped);
 					break;
@@ -1349,12 +1361,13 @@ void RecognitionControl::messageReceived()
 				{	
 					advanceStream(sizeof(qint32));
 						
-					emit recognitionStatusChanged(RecognitionControl::Started);
+					//nothing to do?
 					break;
 				}
 
 				case Simond::RecognitionStopped:
 				{
+					recognitionReady=false;
 					adinStreamer->stop();
 					advanceStream(sizeof(qint32));
 					emit recognitionStatusChanged(RecognitionControl::Stopped);
@@ -1431,7 +1444,12 @@ void RecognitionControl::fetchCompilationProtocol()
 
 void RecognitionControl::startRecognition()
 {
-	sendRequest(Simond::StartRecognition);
+	if (recognitionReady)
+	{
+		kWarning() << "ole bin hier";
+		adinStreamer->start();
+	} else
+		sendRequest(Simond::StartRecognition);
 }
 
 

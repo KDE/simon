@@ -59,6 +59,9 @@ Q_OBJECT
 
 signals:
 	void connected();
+	void audioDeviceError();
+	void started();
+	void stopped();
 	
 private:
 	Recog *recog;
@@ -68,6 +71,9 @@ private:
 	qint32 port;
 	bool shouldBeRunning;
         AdinStreamer(QObject* parent);
+
+private slots:
+	void reportSoundDeviceError();
 
 public:
 	static AdinStreamer* getInstance(QObject *parent=0)

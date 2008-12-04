@@ -35,8 +35,10 @@
 #include <QByteArray>
 
 #include <KDebug>
+#include <KLocalizedString>
 #include <KSharedConfig>
 #include <KConfigGroup>
+#include <KMessageBox>
 
 
 
@@ -235,6 +237,7 @@ AdinStreamer::AdinStreamer(QObject* parent) : QThread(parent)
 	recog = NULL;
 	shouldReStart=false;
 	shouldBeRunning=true;
+	connect(this, SIGNAL(audioDeviceError()), this, SLOT(reportSoundDeviceError()));
 }
 
 void AdinStreamer::init(const QHostAddress& address, qint32 port, qint32 sampleRate)
@@ -246,6 +249,7 @@ void AdinStreamer::init(const QHostAddress& address, qint32 port, qint32 sampleR
 
 void AdinStreamer::run()
 {
+	fprintf(stderr, "Running\n");
 	shouldBeRunning=true;
 	adinstreamer_stop_at_next=false;
 
@@ -263,6 +267,7 @@ void AdinStreamer::run()
 	recog = j_recog_new();
 	jconf = j_jconf_new();
 	recog->jconf = jconf;
+	
 
 	/* register additional options */
 	jconf->input.plugin_source = -1;
@@ -292,14 +297,21 @@ void AdinStreamer::run()
 
 
 	if (j_adin_init(recog) == FALSE) {
-		printf("Could not init recog... ERROR");
+		Recog *realRecog = recog;
+		recog=NULL;
+		j_recog_free(realRecog);
+
+		fprintf(stderr, "Could not init recog... ERROR\n");
+		emit audioDeviceError();
 		return;
 	}
 
 	// put_status(recog);
 
 	printf("[start recording]");
+	emit started();
 
+	kWarning() << "bin hier";
 	while(shouldBeRunning) {
 		/* begin A/D input of a stream */
 		ret = j_open_stream(recog, NULL);
@@ -310,11 +322,13 @@ void AdinStreamer::run()
 				/* go on to next input */
 				continue;
 			case -2:	/* end of recognition process */
+				//KMessageBox::sorry(0, i18n("Couldn't start input stream."));
 				fprintf(stderr, "failed to begin input stream");
 				/* exit recording */
 				break;
 		}
 		
+		kWarning() << "bin hier2";
 		
 		do {
 			/* process one segment with segmentation */
@@ -372,6 +386,9 @@ void AdinStreamer::run()
 			/***************************************************/
 			if ((adinstreamer_stop_at_next) && (adinnet_wait_command() < 0)) {
 					/* command error: terminate program here */
+					Recog *realRecog = recog;
+					recog=NULL;
+					j_recog_free(realRecog);
 					return;
 			}
 		} while ((shouldBeRunning) && (ret > 0 || ret == -2)); /* to the next segment in this input stream */
@@ -384,6 +401,7 @@ void AdinStreamer::run()
 	recog=NULL;
 
 	j_recog_free(realRecog);
+	emit stopped();
 // 	kWarning() << "DONE exec";
 }
 
@@ -393,26 +411,23 @@ void AdinStreamer::stop()
 	shouldReStart=false;
 	shouldBeRunning=false;
 	adinstreamer_stop_at_next=false;
-	if (recog)
+	kWarning() << 1;
+	if (recog && (recog->adin))
 	{
+	kWarning() << 2;
 		recog->adin->ad_end();
 	}
+	kWarning() << 3;
 	wait(1000);
 
-
-//	int tries=0;
-	if (isRunning())// && (tries<3))
-	{
-		kWarning() << "Stream still running";
-		wait(500);
-//		tries++;
-	}
+	kWarning() << 4;
 	while (isRunning())
 	{
 		kWarning() << "Stream STILL running";
 		terminate();
 		wait(500);
 	}
+	kWarning() << 6;
 	if (recog)
 	{
 		kWarning() << "Recog still alive";
@@ -421,25 +436,47 @@ void AdinStreamer::stop()
 		
 		j_recog_free(recog);
 		recog=NULL;
+		emit stopped();
 	}
+	kWarning() << 7;
+}
+
+
+
+void AdinStreamer::reportSoundDeviceError()
+{
+	kWarning() << "hier";
+	shouldReStart=true;
+	kWarning() << "hier2";
+	emit stopped();
+	kWarning() << "hier3";
+	KMessageBox::error(0, i18n("Couldn't open sound device.\n\nPlease check your configuration."));
+	kWarning() << "hier4";
 }
 
 void AdinStreamer::stopSoundStream()
 {
+	kWarning() << 1;
 	if (isRunning())
 	{
+	kWarning() << 2;
 		stop();
-
+	kWarning() << 3;
 		shouldReStart=true;
+	kWarning() << 4;
 	}
 }
 
 void AdinStreamer::restartSoundStream()
 {
+	kWarning() << 1;
 	if (shouldReStart)
 	{
+	kWarning() << 2;
 		kWarning() << "Restarting...";
+	kWarning() << 3;
 		start();
+	kWarning() << 4;
 	}
 }
 

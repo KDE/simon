@@ -89,7 +89,6 @@ private:
 	void setupActions();
 
 
-
 public slots:
 	void displayConnectionStatus(const QString &status);
 

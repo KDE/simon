@@ -164,6 +164,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 		show();
 }
 
+
 void SimonView::setupActions()
 {
 	connectAction = new KAction(this);

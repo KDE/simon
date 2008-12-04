@@ -167,6 +167,9 @@ private slots:
 	void synchronizeSamples();
 	void fetchMissingSamples();
 
+	void streamStarted();
+	void streamStopped();
+
 
 };
 
