@@ -125,7 +125,7 @@ QString getHypoPhoneme(WORD_ID *seq, int n, WORD_INFO *winfo)
 			for (j=0;j<winfo->wlen[w];j++) {
 				center_name(winfo->wseq[w][j]->name, buf);
 				result += " ";
-				result += buf;
+				result += QString::fromUtf8(buf);
 			}
 		}
 	}
@@ -212,7 +212,7 @@ void outputResult(Recog *recog, void *control)
 			//       printf("sentence%d:", n+1);
 			for(i=0;i<seqnum;i++) {
 				result += " ";
-				result += winfo->woutput[seq[i]];// printf(" %s", );
+				result += QString::fromUtf8(winfo->woutput[seq[i]]);// printf(" %s", );
 			}
 			//       printf("\n");
 

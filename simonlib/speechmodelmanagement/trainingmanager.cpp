@@ -134,7 +134,7 @@ bool TrainingManager::deletePrompt ( QString key )
 	QMutexLocker lock(&promptsLock);
 	promptsTable->remove ( key );
 	//removes the sample
-	return QFile::remove ( path );
+	return QFile::remove ( path.toLocal8Bit() );
 }
 
 QString TrainingManager::getTrainingDir()
@@ -181,7 +181,7 @@ bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
 	QStringList samples = this->promptsTable->keys();
 
 	for ( int i=0; i <samples.count(); i++ )
-		promptsFile.write ( samples[i].toUtf8() +" "+prompts->value ( samples[i] ).toUtf8() +"\n" );
+		promptsFile.write ( samples[i].toLocal8Bit() +" "+prompts->value ( samples[i] ).toUtf8() +"\n" );
 	promptsFile.close();
 	
 	kDebug() << "schreibe datum..." << QDateTime::currentDateTime();
@@ -223,7 +223,7 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 	int labelend;
 	while ( !prompts->atEnd() ) //for each line that was successfully read
 	{
-		line = prompts->readLine ( 1024 );
+		line = QString::fromUtf8(prompts->readLine ( 1024 ));
 		if (line.trimmed().isEmpty()) continue;
 		labelend = line.indexOf ( " " );
 		label = line.left ( labelend );
@@ -245,7 +245,8 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 bool TrainingManager::deleteText ( int index )
 {
 	Logger::log ( i18n ( "[INF] Removing \"%1\" from \"%2\"" ).arg ( trainingTexts->at ( index )->getName() ).arg ( trainingTexts->at ( index )->getPath() ) );
-	return QFile::remove( trainingTexts->at ( index )->getPath() );
+	kWarning() << "removing " << trainingTexts->at ( index )->getPath().toAscii();
+	return QFile::remove( trainingTexts->at ( index )->getPath().toAscii() );
 }
 
 /**
@@ -258,7 +259,6 @@ TrainingList* TrainingManager::readTrainingTexts ()
 {
 	Logger::log ( i18n ( "[INF] Reading the trainingstexts" ));
 
-		//finddirs is net das was i will?...
 	QStringList textsrcs = KGlobal::dirs()->findAllResources("appdata", "texts/");
 
 	if (trainingTexts) {
@@ -269,8 +269,10 @@ TrainingList* TrainingManager::readTrainingTexts ()
 	trainingTexts = new TrainingList();
 	for ( int i=0; i < textsrcs.count(); i++ )
 	{
-		XMLTrainingText *text = new XMLTrainingText ( textsrcs.at ( i ) );
-		text->load ( textsrcs.at ( i ) );
+		//TODO: check
+		QString path = textsrcs.at ( i );
+		XMLTrainingText *text = new XMLTrainingText ( path );
+		text->load ( path );
 		text->setRelevance ( calcRelevance ( text ) ); //FIXME: speed
 		trainingTexts->append ( text );
 	}
@@ -468,11 +470,11 @@ bool TrainingManager::saveTrainingsText(const QString& name, const QStringList p
 	int index=1;
 
 	//find next free path
-	while (QFile::exists(textDir+name+QString::number(index)+".xml"))
+	while (QFile::exists(QString(textDir+name+QString::number(index)+".xml").toUtf8()))
 		index++;
 
 	QString path = textDir+name+QString::number(index)+".xml";
- 	XMLTrainingText *text = new XMLTrainingText (name, path,pages);
+ 	XMLTrainingText *text = new XMLTrainingText (name, path.toUtf8(),pages);
 	bool succ = text->save();
 	delete text;
 

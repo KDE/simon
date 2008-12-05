@@ -259,11 +259,9 @@ bool SynchronisationManager::hasGrammar(const QString& modelPath)
 	QStringList entries = dir.entryList(QDir::Files|QDir::NoDotAndDotDot);
 	if (entries.contains("model.grammar"))
 	{
-		kWarning() << modelPath << "has a grammar";
 		return true;
 	}
 	else {
-		kWarning() << modelPath << "has NO grammar";
 		return false;
 	}
 }
@@ -706,10 +704,8 @@ QMap<QDateTime, QString> SynchronisationManager::getGrammars()
 		{
 			//does not contain a valid grammar
 			i = models.erase(i);
-			kWarning() << "No grammar in " << path;
 		} else {
 			i++;
-			kWarning() << "Grammar in " << path;
 		}
 	}
 	return models;
@@ -841,22 +837,18 @@ bool SynchronisationManager::copyWordList(const QString& sourcePath, const QStri
 
 bool SynchronisationManager::copyGrammar(const QString& sourcePath, const QString& targetPath)
 {
-	kWarning() << "Copying grammar from " << sourcePath << "to" << targetPath;
 	if (!QFile::exists(targetPath+"model.grammar"))
 	{
 		if (!QFile::copy(sourcePath+"model.grammar", targetPath+"model.grammar"))
 		{
-			kWarning() << "Did not copy grammar from " << sourcePath+"model.grammar" << "to" << targetPath+"model.grammar";
 			return false;
 		}
-		else kWarning() << "copied..." << sourcePath+"model.grammar" << "to" << targetPath+"model.grammar";
 
 		KConfig config( targetPath+"modelsrcrc", KConfig::SimpleConfig );
 		KConfigGroup cGroup(&config, "");
 		cGroup.writeEntry("GrammarDate", getGrammarDate(sourcePath));
 		config.sync();
 	}
-		else kWarning() << "already grammar in " << targetPath+"model.grammar";
 
 	return true;
 }

@@ -404,7 +404,7 @@ bool ModelCompilationManager::generateDict()
 			int splitter = vocabEntry.indexOf('\t');
 			if (splitter == -1) continue;
 			
-			dict.write(QString(QString::number(nowId)+"\t["+vocabEntry.left(splitter)+"]\t"+vocabEntry.mid(splitter).trimmed()+'\n').toUtf8());
+			dict.write(QString(QString::number(nowId)+"\t["+vocabEntry.left(splitter)+"]\t"+vocabEntry.mid(splitter).trimmed()+'\n').toAscii());
 		}
 	}
 	
@@ -469,7 +469,7 @@ bool ModelCompilationManager::generateCodetrainScp()
 		mfcFile = pathToMFCs+'/'+fileBase+".mfc";
 
 		
-		scpFile.write(QString('"'+samplePath+'/'+fileBase + ".wav\" \"" + mfcFile +"\"\n").toUtf8());
+		scpFile.write(QString('"'+samplePath+'/'+fileBase + ".wav\" \"" + mfcFile +"\"\n").toLocal8Bit());
 		trainScpFile.write(mfcFile.toUtf8()+'\n');
 	}
 	promptsFile.close();
@@ -900,7 +900,7 @@ bool ModelCompilationManager::buildHMM8()
 
 bool ModelCompilationManager::realignHMM7()
 {
-	return execute('"'+hVite+"\" -A -D -T 1 -l *  -o SWT -b silence -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -H \""+tempDir+"/hmm7/macros\" -H \""+tempDir+"/hmm7/hmmdefs\" -i \""+tempDir+"/aligned.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+tempDir+"/words.mlf\" -S \""+tempDir+"/train.scp\" \""+tempDir+"/dict1\" \""+tempDir+"/monophones1\"");
+	return execute('"'+hVite+"\" -A -D -T 1 -l \"*\"  -o SWT -b silence -C \""+KStandardDirs::locate("appdata", "scripts/config")+"\" -H \""+tempDir+"/hmm7/macros\" -H \""+tempDir+"/hmm7/hmmdefs\" -i \""+tempDir+"/aligned.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+tempDir+"/words.mlf\" -S \""+tempDir+"/train.scp\" \""+tempDir+"/dict1\" \""+tempDir+"/monophones1\"");
 }
 
 bool ModelCompilationManager::makeDict1()
@@ -1111,7 +1111,7 @@ bool ModelCompilationManager::generateWlist()
 		return false;
 	for (int i=0; i < words.count(); i++)
 	{
-		wlistFile.write(words[i].toUtf8()+'\n');
+		wlistFile.write(words[i].toAscii()+'\n');
 	}
 	wlistFile.close();
 	return true;
@@ -1136,9 +1136,9 @@ bool ModelCompilationManager::generateMlf()
 		if (line.trimmed().isEmpty()) continue;
 		lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
 		QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\""; //ditch the file-id
-		mlf.write(labFile.toUtf8()+"\n");
+		mlf.write(labFile.toAscii()+"\n");
 		for (int i=0; i < lineWords.count(); i++)
-			mlf.write(lineWords[i].toUtf8()+"\n");
+			mlf.write(lineWords[i].toAscii()+"\n");
 		mlf.write(".\n");
 	}
 	promptsFile.close();

@@ -395,12 +395,16 @@ bool ModelManager::hasActiveContainer()
 QDateTime ModelManager::getSrcContainerModifiedTime()
 {
 	if (!hasWordList() || !hasTraining() || !hasGrammar() || !hasLanguageDescription())
+	{
 		return QDateTime();
+	}
 
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	QDateTime maxModifiedDate = qMax(cGroup.readEntry("WordListDate", QDateTime()),
 					 cGroup.readEntry("GrammarDate", QDateTime()));
 	maxModifiedDate = qMax(maxModifiedDate, cGroup.readEntry("LanguageDescriptionDate", QDateTime()));
-	return qMax(maxModifiedDate, cGroup.readEntry("TrainingDate", QDateTime()));
+	maxModifiedDate = qMax(maxModifiedDate, cGroup.readEntry("TrainingDate", QDateTime()));
+	return maxModifiedDate;
 }
+

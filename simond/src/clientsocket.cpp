@@ -172,7 +172,6 @@ void ClientSocket::processRequest()
 
 					synchronisationManager = new SynchronisationManager(username, this);
 					
-					kWarning() << "Sending Code";
 					sendCode(Simond::LoginSuccessful);
 				} else
 					sendCode(Simond::AuthenticationFailed);
@@ -285,6 +284,7 @@ void ClientSocket::processRequest()
 				synchronisationManager->setActiveModelSampleRate(sampleRate);
 				
 				sendCode(Simond::GetModelSrcDate);
+				break;
 			}
 
 			case Simond::ModelSrcDate:
@@ -293,19 +293,20 @@ void ClientSocket::processRequest()
 				QDateTime remoteModelDate;
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteModelDate;
-				kWarning() << "Received modelsrc date: " << remoteModelDate << synchronisationManager->getModelSrcDate();
+				QDateTime serverModelDate = synchronisationManager->getModelSrcDate();
+				kWarning() << "Received modelsrc date: " << remoteModelDate << serverModelDate ;
 				
 				Q_ASSERT(synchronisationManager);
-				if (remoteModelDate > synchronisationManager->getModelSrcDate())
+				if (remoteModelDate > serverModelDate)
 				{
 					modelSource = ClientSocket::Client;
 				} else {
-					if (remoteModelDate < synchronisationManager->getModelSrcDate())
+					if (remoteModelDate < serverModelDate)
 						modelSource = ClientSocket::Server;
 				}
 				kWarning() << modelSource;
 
-				if (remoteModelDate != synchronisationManager->getModelSrcDate())
+				if (remoteModelDate != serverModelDate)
 				{
 					sendCode(Simond::GetTrainingDate);
 				} else synchronisationComplete();
@@ -392,7 +393,8 @@ void ClientSocket::processRequest()
 				Q_ASSERT(synchronisationManager);
 				Q_ASSERT(modelSource != ClientSocket::Undefined);
 				
-				kDebug() << remoteWordListDate << synchronisationManager->getWordListDate();
+				kWarning() << "Wordlist: " << remoteWordListDate << synchronisationManager->getWordListDate();
+			
 				
 				if (remoteWordListDate != synchronisationManager->getWordListDate())
 				{
@@ -1083,7 +1085,6 @@ bool ClientSocket::sendTraining()
 
 void ClientSocket::sendAvailableModels()
 {
-	kWarning() << synchronisationManager;
 	QMap<QDateTime,QString> models = synchronisationManager->getModels();
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
@@ -1091,8 +1092,7 @@ void ClientSocket::sendAvailableModels()
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 
 	QList<QDateTime> dates = models.keys();
-//	foreach (const QDateTime& date, dates)
-		bodyStream << dates;
+	bodyStream << dates;
 	stream << (qint32) Simond::AvailableModels << (qint64) body.count();
 
 	write(toWrite);
