@@ -33,9 +33,9 @@
 
 
   <group name="Synchronisation">
-    <entry name="AskForSync" type="Bool">
-      <label>Should we not automatically start the synchronisation process when the model is changed?</label>
-      <default>false</default>
+    <entry name="SynchronizationMode" type="Int">
+      <label>if and how we should start the synchronization when the  model changed.</label>
+      <default>0</default>
     </entry>
   </group>
 

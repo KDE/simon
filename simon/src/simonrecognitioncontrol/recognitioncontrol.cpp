@@ -626,8 +626,21 @@ void RecognitionControl::sendSample(QString sampleName)
 
 void RecognitionControl::askStartSynchronisation()
 {
-	if (isConnected() && ((!RecognitionConfiguration::askForSync()) || KMessageBox::questionYesNo(0, i18n("The Speech Model changed.\n\nSynchronize it now?"))==KMessageBox::Yes))
-		startSynchronisation();
+	if (isConnected())
+	{
+		switch (RecognitionConfiguration::synchronizationMode())
+		{
+			case 0: //automatic
+				startSynchronisation();
+				break;
+			case 1: //semi-automatic
+				if (KMessageBox::questionYesNo(0, i18n("The Speech Model changed.\n\nSynchronize it now?"))==KMessageBox::Yes)
+					startSynchronisation();
+				break;
+			case 2: //manual
+				break;
+		}
+	}
 }
 
 
