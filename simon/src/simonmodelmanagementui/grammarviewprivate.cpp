@@ -18,7 +18,7 @@
  */
 
 
-#include "grammarsettings.h"
+#include "grammarviewprivate.h"
 #include "ImportGrammar/importgrammarwizard.h"
 #include "MergeTerminals/mergeterminalswizard.h"
 #include "RenameTerminal/renameterminalwizard.h"
@@ -28,11 +28,8 @@
 #include "grammarmanager.h"
 
 
-GrammarSettings::GrammarSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
+GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
 {
-	Q_UNUSED(args);
-
-	
 	ui.setupUi(this);
 	ui.pbImportTexts->setIcon(KIcon("document-open"));
 	ui.pbRename->setIcon(KIcon("document-properties"));
@@ -54,26 +51,29 @@ GrammarSettings::GrammarSettings(QWidget* parent, const QVariantList& args): KCM
 	connect(ui.pbImportTexts, SIGNAL(clicked()), this, SLOT(showImportWizard()));
 	connect(ui.pbMerge, SIGNAL(clicked()), this, SLOT(showMergeWizard()));
 
-	connect(mergeTerminalsWizard, SIGNAL(finished(int)), this, SLOT(load()));
-	connect(renameTerminalWizard, SIGNAL(finished(int)), this, SLOT(load()));
+	//should be covered by structuresChanged() from the grammarmanager
+// 	connect(mergeTerminalsWizard, SIGNAL(finished(int)), this, SLOT(load()));
+// 	connect(renameTerminalWizard, SIGNAL(finished(int)), this, SLOT(load()));
 
 	connect(ui.kcfg_GrammarStructures, SIGNAL(changed()), this, SLOT(slotChanged()));
 	
 	connect (ui.pbRename, SIGNAL(clicked()), this, SLOT(showRenameWizard()));
+	
+	load();
 }
 
-void GrammarSettings::askForSave()
+void GrammarViewPrivate::askForSave()
 {
 	if (KMessageBox::questionYesNo(this, i18n("You are about to starts a process that needs the grammar to be saved first.\n\nIf you want to keep the changes that you possibly made since the last time you stored your grammar, please save the grammar now.\n\nDo you want to save your grammar now?"), i18n("Save Grammar")) == KMessageBox::Yes)
 		save();
 }
 
-void GrammarSettings::slotChanged()
+void GrammarViewPrivate::slotChanged()
 {
-	emit changed(true);
+	save();
 }
 
-void GrammarSettings::showRenameWizard()
+void GrammarViewPrivate::showRenameWizard()
 {
 	askForSave();
 	this->renameTerminalWizard->restart();
@@ -82,27 +82,25 @@ void GrammarSettings::showRenameWizard()
 
 
 
-void GrammarSettings::load()
+void GrammarViewPrivate::load()
 {
 	ui.kcfg_GrammarStructures->setItems(GrammarManager::getInstance()->getStructures());
-	emit changed(false);
 }
 
-void GrammarSettings::save()
+void GrammarViewPrivate::save()
 {
 	GrammarManager::getInstance()->setStructures(ui.kcfg_GrammarStructures->items());
 	GrammarManager::getInstance()->save();
-	emit changed(false);
 }
 
-void GrammarSettings::defaults()
+void GrammarViewPrivate::defaults()
 {
 	ui.kcfg_GrammarStructures->clear();
 	save();
 }
 
 
-void GrammarSettings::mergeGrammar(QStringList grammar)
+void GrammarViewPrivate::mergeGrammar(QStringList grammar)
 {
 	QStringList toInsert;
 	
@@ -116,13 +114,13 @@ void GrammarSettings::mergeGrammar(QStringList grammar)
 }
 
 
-void GrammarSettings::showImportWizard()
+void GrammarViewPrivate::showImportWizard()
 {
 	importGrammarWizard->restart();
 	importGrammarWizard->show();
 }
 
-void GrammarSettings::showMergeWizard()
+void GrammarViewPrivate::showMergeWizard()
 {
 	askForSave();
 	mergeTerminalsWizard->restart();
@@ -130,7 +128,7 @@ void GrammarSettings::showMergeWizard()
 }
 
 
-GrammarSettings::~GrammarSettings()
+GrammarViewPrivate::~GrammarViewPrivate()
 {
     importGrammarWizard->deleteLater();
     renameTerminalWizard->deleteLater();

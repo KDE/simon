@@ -35,6 +35,7 @@
 #include <speechmodelmanagement/wordlistmanager.h>
 #include <simonmodelmanagementui/trainingview.h>
 #include <simonmodelmanagementui/wordlistview.h>
+#include <simonmodelmanagementui/grammarview.h>
 #include <simonmodelmanagementui/AddWord/addwordview.h>
 #include <simonactions/actionmanager.h>
 
@@ -93,7 +94,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	configDialog->addModule("simongeneralconfig", QStringList() << "");
 	configDialog->addModule("simonsoundconfig", QStringList() << "");
 	configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
-	configDialog->addModule("simongrammarconfig", QStringList() << "");
+// 	configDialog->addModule("simongrammarconfig", QStringList() << "");
 	configDialog->addModule("simonmodelinternetextensionconfig", QStringList() << "");
 	configDialog->addModule("simonrecognitionconfig", QStringList() << "");
 	configDialog->addModule("simonsynchronisationconfig", QStringList() << "");
@@ -136,6 +137,9 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	info->writeToSplash ( i18n ( "Loading \"Wordlist\"..." ) );
 	this->wordList = new WordListView(this);
+
+	info->writeToSplash ( i18n ( "Loading \"Grammar\"..." ) );
+	this->grammarView = new GrammarView(this);
 
 	info->writeToSplash ( i18n ( "Loading \"Run\"..." ) );
 	this->runDialog = new RunCommandView ( this );
@@ -231,6 +235,14 @@ void SimonView::setupActions()
 	actionCollection()->addAction("wordlist", wordlist);
 	connect(wordlist, SIGNAL(triggered(bool)),
 		this, SLOT(showWordListDialog()));
+	
+	KAction* grammar = new KAction(this);
+	grammar->setText(i18n("Grammar"));
+	grammar->setIcon(KIcon("applications-education-language"));
+	grammar->setShortcut(Qt::CTRL + Qt::Key_G);
+	actionCollection()->addAction("grammar", grammar);
+	connect(grammar, SIGNAL(triggered(bool)),
+		this, SLOT(showGrammarDialog()));
 	
 	KAction* recompile = new KAction(this);
 	recompile->setEnabled(control->getStatus() != SimonControl::Disconnected);
@@ -356,6 +368,16 @@ void SimonView::showTrainDialog ()
 void SimonView::showWordListDialog ()
 {
 	ui.inlineView->toggleDisplay(wordList);
+}
+
+/**
+ * @brief Shows a dialog to Control the Laguage Model
+ *
+ * @author Peter Grasch
+ */
+void SimonView::showGrammarDialog ()
+{
+	ui.inlineView->toggleDisplay(grammarView);
 }
 
 

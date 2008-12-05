@@ -6,7 +6,7 @@
 #include <kgenericfactory.h>
 
 K_PLUGIN_FACTORY( SpeechModelManagementUiFactory, 
-			registerPlugin< GrammarSettings >("GrammarSettings"); 
+// 			registerPlugin< GrammarSettings >("GrammarSettings"); 
 			registerPlugin< InternetExtensionSettings >("InternetExtensionSettings");
 		)
 

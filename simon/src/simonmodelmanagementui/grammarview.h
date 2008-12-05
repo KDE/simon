@@ -18,37 +18,27 @@
  */
 
 
-#ifndef WORDLISTVIEW_H
-#define WORDLISTVIEW_H
+#ifndef GRAMMARVIEW_H
+#define GRAMMARVIEW_H
 
-#include "inlinewidget.h"
 #include "simonmodelmanagementui_export.h"
-
-#include <speechmodelbase/word.h>
-
-
-class WordListViewPrivate;
+#include <speechgui/inlinewidget.h>
 
 /**
- *	@class WordListView
- *	@brief Frontend to the Wordlist
- *
- *	@version 0.1
- *	@date 23.01.2006
- *	@author Peter Grasch
- */
-class SIMONMODELMANAGEMENTUI_EXPORT WordListView : public InlineWidget {
-	Q_OBJECT
-private:
-	WordListViewPrivate *d;
+	@author Peter Grasch <bedahr@gmx.net>
+*/
+class GrammarViewPrivate;
 
-public slots:
-	void filterListbyPattern();
+class SIMONMODELMANAGEMENTUI_EXPORT GrammarView : public InlineWidget
+{
+Q_OBJECT
+private:
+	GrammarViewPrivate *d;
+
 
 public:
-	WordListView(QWidget *parent);
-	
-	~WordListView();
+    GrammarView(QWidget* parent=0);
+    ~GrammarView();
 
 };
 

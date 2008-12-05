@@ -18,38 +18,23 @@
  */
 
 
-#ifndef WORDLISTVIEW_H
-#define WORDLISTVIEW_H
-
-#include "inlinewidget.h"
-#include "simonmodelmanagementui_export.h"
-
-#include <speechmodelbase/word.h>
+#include "grammarview.h"
+#include <QVBoxLayout>
+#include "grammarviewprivate.h"
 
 
-class WordListViewPrivate;
+GrammarView::GrammarView(QWidget* parent) : InlineWidget(i18n("Grammar"), 
+	KIcon("applications-education-language"), 
+	i18n("View and modify the grammar."), parent)
+{
+	d = new GrammarViewPrivate(this);
+	QVBoxLayout *lay = new QVBoxLayout(this);
+	lay->addWidget(d);
+	hide();
+	guessChildTriggers(this);
+}
 
-/**
- *	@class WordListView
- *	@brief Frontend to the Wordlist
- *
- *	@version 0.1
- *	@date 23.01.2006
- *	@author Peter Grasch
- */
-class SIMONMODELMANAGEMENTUI_EXPORT WordListView : public InlineWidget {
-	Q_OBJECT
-private:
-	WordListViewPrivate *d;
 
-public slots:
-	void filterListbyPattern();
-
-public:
-	WordListView(QWidget *parent);
-	
-	~WordListView();
-
-};
-
-#endif
+GrammarView::~GrammarView()
+{
+}

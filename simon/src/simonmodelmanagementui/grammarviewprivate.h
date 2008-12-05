@@ -18,12 +18,10 @@
  */
 
 
-#ifndef GRAMMARSETTINGS_H
-#define GRAMMARSETTINGS_H
+#ifndef GRAMMARVIEWPRIVATE_H
+#define GRAMMARVIEWPRIVATE_H
 
-#include "ui_grammarsettingsdlg.h"
-#include <KCModule>
-#include <QVariantList>
+#include "ui_grammarview.h"
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -33,14 +31,14 @@ class ImportGrammarWizard;
 class MergeTerminalsWizard;
 class RenameTerminalWizard;
 
-class GrammarSettings : public KCModule
+class GrammarViewPrivate : public QWidget
 {
 Q_OBJECT
 private:
 	ImportGrammarWizard *importGrammarWizard;
 	RenameTerminalWizard *renameTerminalWizard;
 	MergeTerminalsWizard *mergeTerminalsWizard;
-	Ui::GrammarSettingsDlg ui;
+	Ui::GrammarView ui;
 
 private slots:
 	void showRenameWizard();
@@ -57,9 +55,9 @@ public slots:
 	void defaults();
 
 public:
-    GrammarSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    GrammarViewPrivate(QWidget* parent);
 
-    ~GrammarSettings();
+    ~GrammarViewPrivate();
 
 };
 
