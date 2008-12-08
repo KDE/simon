@@ -19,9 +19,7 @@
 
 #include "createshortcutcommandwidget.h"
 #include "shortcutcommand.h"
-#ifdef Q_OS_WIN
-#include <windows.h>
-#endif
+
 
 CreateShortcutCommandWidget::CreateShortcutCommandWidget(QWidget *parent) : CreateCommandWidget(parent)
 {
@@ -31,28 +29,24 @@ CreateShortcutCommandWidget::CreateShortcutCommandWidget(QWidget *parent) : Crea
 	ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
 #endif
 	ui.ksShortcut->setModifierlessAllowed(true);
-
 	setWindowIcon(ShortcutCommand::staticCategoryIcon());
 	setWindowTitle(ShortcutCommand::staticCategoryText());
 	
 	connect(ui.ksShortcut, SIGNAL(keySequenceChanged (const QKeySequence &)), this, SIGNAL(completeChanged()));
+	#ifndef Q_OS_WIN
+	ui.cbSpecialShortcut->hide();
+	ui.lbSpecialShortcut->hide();
+	ui.pbApplySpecialShortcut->hide();
+	#else
+	ui.pbApplySpecialShortcut->setIcon(KIcon("arrow-up"));
+	connect(ui.pbApplySpecialShortcut, SIGNAL(clicked()), this, SLOT(applySpecialShortcut()));
+	#endif
 }
 
 #ifdef Q_OS_WIN
-void CreateShortcutCommandWidget::grabKeyboard()
+void CreateShortcutCommandWidget::applySpecialShortcut()
 {
-	ui.ksShortcut->grabKeyboard();
-}
-
-void CreateShortcutCommandWidget::releaseKeyboard()
-{
-	ui.ksShortcut->releaseShortcut();
-}
-
-void CreateShortcutCommandWidget::toggleGrab(bool grab)
-{
-	if (grab) grabKeyboard();
-	else releaseKeyboard();
+	ui.ksShortcut->setKeySequence(QKeySequence(ui.cbSpecialShortcut->currentText()));
 }
 #endif
 

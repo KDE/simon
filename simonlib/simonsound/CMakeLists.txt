@@ -1,13 +1,19 @@
 include(FindQt4)
 include(FindPortaudio)
+include(FindJulius)
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR}
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR} ${JULIUS_INCLUDE_DIR}
 	../speechgui ../ )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
 set (QT_USE_QTMAIN true)
+
+
+IF(WIN32)
+	add_definitions(-D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
+ENDIF(WIN32)
 
 set( simonsound_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/wavrecorder.cpp

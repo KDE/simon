@@ -44,15 +44,6 @@ void XEvents::click(int x, int y)
 	d->click(x, y);
 }
 
-/**
- * \brief Overloaded function; Calls sendKey(unsigned int)
- * @param key The key will be casted to unsigned short and passed to sendKey
- */
-void XEvents::sendChar(char key)
-{
-	sendKey((unsigned int) key);
-}
-
 
 void XEvents::sendKey(unsigned int key)
 {

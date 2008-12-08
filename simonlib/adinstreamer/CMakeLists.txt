@@ -14,7 +14,7 @@ ENDIF(UNIX)
 IF(WIN32)
 	include(FindDirectSound)
 	find_package(DirectSound REQUIRED)
-	add_definitions(-D__INTERLOCKED_DECLARED -D__NO_ISOCEXT)
+	add_definitions(-D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
 ENDIF(WIN32)
 
 

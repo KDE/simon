@@ -42,7 +42,6 @@ private:
 
 public:
 	void click(int x, int y);
-	void sendChar(char key);
 	void sendKey(unsigned int key);
 	void setModifierKey(int virtualKey, bool once);
 	void unsetModifier(int virtualKey);

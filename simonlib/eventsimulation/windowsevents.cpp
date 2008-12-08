@@ -20,8 +20,31 @@
 
 #include "windowsevents.h"
 #include <QCoreApplication>
+#include <QChar>
+#include <KMessageBox>
 #include <ctype.h>
 
+#define VK_BROWSER_BACK	0xA6
+#define VK_BROWSER_FAVORITES	0xAB
+#define VK_BROWSER_FORWARD	0xA7
+#define VK_BROWSER_HOME	0xAC
+#define VK_BROWSER_REFRESH	0xA8
+#define VK_BROWSER_SEARCH	0xAA
+#define VK_BROWSER_STOP	0xA9
+
+#define VK_LAUNCH_APP1	0xB6	
+#define VK_LAUNCH_APP2	0xB7	
+#define VK_LAUNCH_MAIL	0xB4	
+#define VK_LAUNCH_MEDIA_SELECT	0xB5
+
+#define VK_MEDIA_NEXT_TRACK	0xB0	 
+#define VK_MEDIA_PLAY_PAUSE	0xB3	
+#define VK_MEDIA_PREV_TRACK	0xB1	
+#define VK_MEDIA_STOP	0xB2	
+
+#define VK_VOLUME_DOWN	0xAE	 
+#define VK_VOLUME_MUTE	0xAD	
+#define VK_VOLUME_UP	0xAF	
 
 /**
  * @brief Constructor
@@ -31,109 +54,21 @@
  */
 WindowsEvents::WindowsEvents() : CoreEvents()
 {
-	this->keycodes = new QHash <char, int>();
-	keycodes->insert('0',0x30);
-	keycodes->insert('1',0x31);
-	keycodes->insert('2',0x32);
-	keycodes->insert('3',0x33);
-	keycodes->insert('4',0x34);
-	keycodes->insert('5',0x35);
-	keycodes->insert('6',0x36);
-	keycodes->insert('7',0x37);
-	keycodes->insert('8',0x38);
-	keycodes->insert('9',0x39);
-	keycodes->insert('a',0x41);
-	keycodes->insert('b',0x42);
-	keycodes->insert('c',0x43);
-	keycodes->insert('d',0x44);
-	keycodes->insert('e',0x45);
-	keycodes->insert('f',0x46);
-	keycodes->insert('g',0x47);
-	keycodes->insert('h',0x48);
-	keycodes->insert('i',0x49);
-	keycodes->insert('j',0x4A);
-	keycodes->insert('k',0x4B);
-	keycodes->insert('l',0x4C);
-	keycodes->insert('m',0x4D);
-	keycodes->insert('n',0x4E);
-	keycodes->insert('o',0x4F),
-	keycodes->insert('p',0x50);
-	keycodes->insert('q',0x51);
-	keycodes->insert('r',0x52);
-	keycodes->insert('s',0x53);
-	keycodes->insert('t',0x54);
-	keycodes->insert('u',0x55);
-	keycodes->insert('v',0x56);
-	keycodes->insert('w',0x57);
-	keycodes->insert('x',0x58);
-	keycodes->insert('y',0x59);
-	keycodes->insert('z',0x5A);
+/*	
+	altgrcodes.insert('²','2');
+	altgrcodes.insert('³','3');
+	altgrcodes.insert('{','7');
+	altgrcodes.insert('[','8');
+	altgrcodes.insert(']','9');
+	altgrcodes.insert('}','0');
+	altgrcodes.insert('\\','ß');
+	altgrcodes.insert('@','q');
+	altgrcodes.insert('€','e');
+	altgrcodes.insert('~','+');
+	altgrcodes.insert('|','<');
+	altgrcodes.insert('µ','m');
 	
-	keycodes->insert(' ',0x20);
-	keycodes->insert('+',0xBB);
-	keycodes->insert(',',0xBC);
-	keycodes->insert('-',0xBD);
-	keycodes->insert('.',0xBE);
-	keycodes->insert('#',0xBF);
-	keycodes->insert('ü',0xBA);
-	keycodes->insert('ö',0xC0);
-	keycodes->insert('ä',0xDE);
-	keycodes->insert('´',0xDD);
-	keycodes->insert('^',0xDC);
-	keycodes->insert('ß',0xDB);
-	keycodes->insert('<',0xE2);
-	keycodes->insert('\n',0x0D);
-	keycodes->insert('\r',0x0D);
-	//keycodes->insert('\r\n',0x0D);
-	keycodes->insert('\t',0x09);
-
-
-	this->shiftcodes = new QHash <char, char>();
-	shiftcodes->insert('!','1');
-	shiftcodes->insert('\"','2');
-	shiftcodes->insert('§','3');
-	shiftcodes->insert('$','4');
-	shiftcodes->insert('%','5');
-	shiftcodes->insert('&','6');
-	shiftcodes->insert('/','7');
-	shiftcodes->insert('(','8');
-	shiftcodes->insert(')','9');
-	shiftcodes->insert('=','0');
-	shiftcodes->insert('?','ß');
-	shiftcodes->insert('?','/');
-	shiftcodes->insert('\'','#');
-	shiftcodes->insert(';',',');
-	shiftcodes->insert(':','.');
-	shiftcodes->insert('_','-');
-	shiftcodes->insert('*','+');
-	shiftcodes->insert('Ü','ü');
-	shiftcodes->insert('Ö','ö');
-	shiftcodes->insert('Ä','ä');
-	shiftcodes->insert('`','´');
-	shiftcodes->insert('°','^');
-	shiftcodes->insert('>','<');
-	
-	
-	
-	
-	this->altgrcodes = new QHash <char, char>();
-	altgrcodes->insert('²','2');
-	altgrcodes->insert('³','3');
-	altgrcodes->insert('{','7');
-	altgrcodes->insert('[','8');
-	altgrcodes->insert(']','9');
-	altgrcodes->insert('}','0');
-	altgrcodes->insert('\\','ß');
-	altgrcodes->insert('@','q');
-	altgrcodes->insert('€','e');
-	altgrcodes->insert('~','+');
-	altgrcodes->insert('|','<');
-	altgrcodes->insert('µ','m');
-	
-	this->specialcodes = new QHash <int,char>();
-	specialcodes->insert(8364,'e');
-	
-	this->modloger = 0;
+	altgrcodes.insert(8364,'e');*/
 }
 
 /**
@@ -163,106 +98,7 @@ void WindowsEvents::click(int x, int y)
 	mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
 }
 
-/**
- * @brief if it is a special character from an german keyboard, the parent key will be safed, and the modifier will be pressed
- *
- * @param unsigned shord key
- * unsigned shord key: the requested key as a unsigned int
- * 
- * @author Phillip Goriup
- */
-void WindowsEvents::sendKey(unsigned int key /*unicode representation*/)
-{
-	int keyint = key;
-	if (specialcodes->contains(keyint))
-	{
-		setModifierKey(VK_RMENU,false);
-		key = specialcodes->value(keyint);
-	}
-	sendChar(key);
-}
 
-/**
- * @brief 
- *
- * @param Shortcut shortcut
- * 
- * 
- * @author Phillip Goriup
- */
-// void WindowsEvents::sendShortcut(Shortcut shortcut)
-// {
-// 	int modifier = shortcut.getModifiers();
-// 	if (modifier & KeyShift)
-// 	{	
-// 		setModifierKey(VK_SHIFT, true);
-// 	}
-// 	if (modifier & KeyAlt)
-//  		setModifierKey(VK_MENU, true);
-//  	if (modifier & KeyStrg)
-// 	{
-//  		setModifierKey(VK_CONTROL, true);
-//  	}
-//  	if (modifier & KeySuper)
-//  		setModifierKey(VK_LWIN, true);
-//  	if (modifier & KeyCapsLock)
-//  		setModifierKey(VK_CAPITAL, true);
-//  	if (modifier & KeyAltGr)
-//  		setModifierKey(VK_RMENU, true);
-//  
-//  	
-//  	int action = shortcut.getActionKeys();
-//  	if (action & KeyBackspace)
-//  		sendKey(VK_BACK);
-//  	if (action & KeyEscape)
-//  		sendKey(VK_ESCAPE);
-//  	if (action & KeyClear)
-//  		sendKey(VK_OEM_CLEAR);
-//  	if (action & KeyPrintScr)
-//  		sendKey(VK_PRINT);
-//  	if (action & KeyPause)
-//  		sendKey(VK_PAUSE);
-//  	if (action & KeyEnter)
-//  		sendKey(VK_RETURN);
-//  
-//  	int movement = shortcut.getMovementKeys();
-//  	if (movement & KeyArrowLeft) 
-//  		sendKey(VK_LEFT);
-//  	if (movement & KeyArrowRight)
-//  		sendKey(VK_RIGHT);
-//  	if (movement & KeyArrowDown)
-//  		sendKey(VK_DOWN);
-//  	if (movement & KeyArrowUp)
-//  		sendKey(VK_UP);
-//  	if (movement & KeyPageUp)
-//  		sendKey(VK_PRIOR);
-//  	if (movement & KeyPageDown)
-//  		sendKey(VK_NEXT);
-//  	if (movement & KeyEnd)
-//  		sendKey(VK_END);
-//  	if (movement & KeyBegin)
-//  		sendKey(VK_HOME);
-//  	
-//  	int fkeys = shortcut.getFunctionKeys();
-//  	if (fkeys & KeyF1) sendKey(VK_F1);
-//  	if (fkeys & KeyF2) sendKey(VK_F2);
-//  	if (fkeys & KeyF3) sendKey(VK_F3);
-//  	if (fkeys & KeyF4) sendKey(VK_F4);
-//  	if (fkeys & KeyF5) sendKey(VK_F5);
-//  	if (fkeys & KeyF6) sendKey(VK_F6);
-//  	if (fkeys & KeyF7) sendKey(VK_F7);
-//  	if (fkeys & KeyF8) sendKey(VK_F8);
-//  	if (fkeys & KeyF9) sendKey(VK_F9);
-//  	if (fkeys & KeyF10) sendKey(VK_F10);
-//  	if (fkeys & KeyF11) sendKey(VK_F11);
-//  	if (fkeys & KeyF12) sendKey(VK_F12);
-//  	
-//  	char key = shortcut.getCharKey();
-//  	key = key + 32;
-//  	this->sendKey(this->keycodes->value(key));
-//  
-//  	unsetUnneededModifiers();
-// }
 
 /**
  * @brief
@@ -303,33 +139,239 @@ void WindowsEvents::setModifierKey(int virtualKey, bool once)
 		superSet=true;
 		superOnce=once;
 	}
+	Sleep(50);
 }
 
 /**
- * @brief 
+ * @brief if it is a special character from an german keyboard, the parent key will be safed, and the modifier will be pressed
  *
- * @param int virtualKey
- * 
+ * @param unsigned shord key
+ * unsigned shord key: the requested key as a unsigned int
  * 
  * @author Phillip Goriup
  */
-#include <KMessageBox>
-void WindowsEvents::sendChar(char key)
-{	
-	KMessageBox::information(0,  QString(key));
-	if (shiftcodes->contains(key))
-	{ 	
-		key = shiftcodes->value(key);
-		setModifierKey(VK_LSHIFT,false);
-	}
-	if (altgrcodes->contains(key))
+void WindowsEvents::sendKey(unsigned int key /*unicode representation*/)
+{
+	int modifiers=0;
+	BYTE virtualKey=0;
+	switch (key)
 	{
-		key = altgrcodes->value(key);
-		setModifierKey(VK_RMENU,false);
+		case 8364 /* Euro */:
+			modifiers = modifiers|Qt::CTRL|Qt::ALT;
+			key = (unsigned int) 'e';
+			break;
+		case Qt::Key_Backspace:
+			virtualKey = VK_BACK;
+			break;
+		case Qt::Key_Tab:
+			virtualKey = VK_TAB;
+			break;
+		case Qt::Key_Clear:
+			virtualKey = VK_CLEAR;
+			break;
+		case Qt::Key_Return:
+			virtualKey = VK_RETURN;
+			break;
+		case Qt::Key_PageUp:
+			virtualKey = VK_PRIOR;
+			break;
+		case Qt::Key_PageDown:
+			virtualKey = VK_NEXT;
+			break;
+		
+		case Qt::Key_End:
+			virtualKey = VK_END;
+			break;
+ 	
+		case Qt::Key_Home:
+			virtualKey = VK_HOME;
+			break;
+ 	
+		case Qt::Key_Left:
+			virtualKey = VK_LEFT;
+			break;
+		case Qt::Key_Up:
+			virtualKey = VK_UP;
+			break;
+		case Qt::Key_Right:
+			virtualKey = VK_RIGHT;
+			break;
+		case Qt::Key_Down:
+			virtualKey = VK_DOWN;
+			break;
+			
+		case Qt::Key_Select:
+			virtualKey = VK_SELECT;
+			break;
+		case Qt::Key_Print:
+			virtualKey = VK_PRINT;
+			break;
+		case Qt::Key_Execute:
+			virtualKey = VK_EXECUTE;
+			break;
+		case Qt::Key_Insert:
+			virtualKey = VK_INSERT;
+			break;
+		case Qt::Key_Delete:
+			virtualKey = VK_DELETE;
+			break;
+		case Qt::Key_Help:
+			virtualKey = VK_HELP;
+			break;
+		case Qt::Key_Sleep:
+			key = VK_SLEEP;
+			break;
+			
+			
+		case Qt::Key_F1:
+			virtualKey = VK_F1;
+			break;
+		case Qt::Key_F2:
+			virtualKey = VK_F2;
+			break;
+		case Qt::Key_F3:
+			virtualKey = VK_F3;
+			break;
+		case Qt::Key_F4:
+			virtualKey = VK_F4;
+			break;
+		case Qt::Key_F5:
+			virtualKey = VK_F5;
+			break;
+		case Qt::Key_F6:
+			virtualKey = VK_F6;
+			break;
+		case Qt::Key_F7:
+			virtualKey = VK_F7;
+			break;
+		case Qt::Key_F8:
+			virtualKey = VK_F8;
+			break;
+		case Qt::Key_F9:
+			virtualKey = VK_F9;
+			break;
+		case Qt::Key_F10:
+			virtualKey = VK_F10;
+			break;
+		case Qt::Key_F11:
+			virtualKey = VK_F11;
+			break;
+		case Qt::Key_F12:
+			virtualKey = VK_F12;
+			break;
+		case Qt::Key_F13:
+			virtualKey = VK_F13;
+			break;
+		case Qt::Key_F14:
+			virtualKey = VK_F14;
+			break;
+		case Qt::Key_F15:
+			virtualKey = VK_F15;
+			break;
+		case Qt::Key_F16:
+			virtualKey = VK_F16;
+			break;
+		case Qt::Key_F17:
+			virtualKey = VK_F17;
+			break;
+		case Qt::Key_F18:
+			virtualKey = VK_F18;
+			break;
+		case Qt::Key_F19:
+			virtualKey = VK_F19;
+			break;
+		case Qt::Key_F20:
+			virtualKey = VK_F20;
+			break;
+		case Qt::Key_F21:
+			virtualKey = VK_F21;
+			break;
+		case Qt::Key_F22:
+			virtualKey = VK_F22;
+			break;
+		case Qt::Key_F23:
+			virtualKey = VK_F23;
+			break;
+		case Qt::Key_F24:
+			virtualKey = VK_F24;
+			break;
+			
+		
+		case Qt::Key_Back:
+			virtualKey = VK_BROWSER_BACK;
+			break;
+		case Qt::Key_Forward:
+			virtualKey = VK_BROWSER_FORWARD;
+			break;
+		case Qt::Key_Refresh:
+			virtualKey = VK_BROWSER_REFRESH;
+			break;
+		case Qt::Key_Stop:
+			virtualKey = VK_BROWSER_STOP;
+			break;
+		case Qt::Key_Search:
+			virtualKey = VK_BROWSER_SEARCH;
+			break;
+		case Qt::Key_Favorites:
+			virtualKey = VK_BROWSER_FAVORITES;
+			break;
+		case Qt::Key_HomePage:
+			virtualKey = VK_BROWSER_HOME;
+			break;
+		case Qt::Key_VolumeMute:
+			virtualKey = VK_VOLUME_MUTE;
+			break;
+		case Qt::Key_VolumeDown:
+			virtualKey = VK_VOLUME_DOWN;
+			break;
+		case Qt::Key_VolumeUp:
+			virtualKey = VK_VOLUME_UP;
+			break;
+		case Qt::Key_MediaNext:
+			virtualKey = VK_MEDIA_NEXT_TRACK;
+			break;
+		case Qt::Key_MediaPrevious:
+			virtualKey = VK_MEDIA_PREV_TRACK;
+			break;
+		case Qt::Key_MediaStop:
+			virtualKey = VK_MEDIA_STOP;
+			break;
+		case Qt::Key_MediaPlay:
+			virtualKey = VK_MEDIA_PLAY_PAUSE;
+			break;
+		case Qt::Key_LaunchMail:
+			virtualKey = VK_LAUNCH_MAIL;
+			break;
+		case Qt::Key_LaunchMedia:
+			virtualKey = VK_LAUNCH_MEDIA_SELECT;
+			break;
+		case Qt::Key_Launch0:
+			virtualKey = VK_LAUNCH_APP1;
+			break;
+		case Qt::Key_Launch1:
+			virtualKey = VK_LAUNCH_APP2;
+			break;
 	}
-	this->sendKey(this->keycodes->value(key));
-	unsetModifier(VK_LSHIFT);
-	unsetModifier(VK_RMENU);
+	
+	if (virtualKey == 0)
+	{
+		SHORT result = VkKeyScan(key);
+		virtualKey = result % 256;	//virtual key code
+		BYTE high = result / 256; 	//shift state
+		
+		if (high & 1)
+			modifiers = modifiers|Qt::SHIFT;
+		if (high & 2)
+			modifiers = modifiers|Qt::CTRL;
+		if (high & 4)
+			modifiers = modifiers|Qt::ALT;
+	}
+	
+	Sleep(50);
+	setModifierKey(modifiers, true);
+	keybd_event(virtualKey,0,0,0);
+	
+	unsetUnneededModifiers();
 }
 
 /**
@@ -355,12 +397,37 @@ void WindowsEvents::unsetModifier(int virtualKey)
  */
 void WindowsEvents::unsetUnneededModifiers()
 {
-	unsetModifier(VK_SHIFT);
-	unsetModifier(VK_MENU);
-	unsetModifier(VK_CONTROL);
-	unsetModifier(VK_LWIN);
-	unsetModifier(VK_CAPITAL);
-	unsetModifier(VK_RMENU);
+	if (shiftSet && shiftOnce)
+	{
+		unsetModifier(VK_SHIFT);
+		shiftSet=false;
+		shiftOnce=false;
+	}
+	if (altSet && altOnce)
+	{
+		unsetModifier(VK_MENU);
+		altSet=false;
+		altOnce=false;
+	}
+	if (strgSet && strgOnce)
+	{
+		unsetModifier(VK_CONTROL);
+		strgSet=false;
+		strgOnce=false;
+	}
+	if (superSet && superOnce)
+	{
+		unsetModifier(VK_LWIN);
+		superSet=false;
+		superOnce=false;
+	}
+	if (altgrSet && altgrOnce)
+	{
+		unsetModifier(VK_RMENU);
+		altgrSet=false;
+		altgrOnce=false;
+	}
+	Sleep(50);
 }
 
 /**

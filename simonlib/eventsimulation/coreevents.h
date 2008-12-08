@@ -36,8 +36,6 @@ public:
 	bool shiftOnce, altgrOnce, altOnce, superOnce, strgOnce;
 public:
 	CoreEvents();
-	
-	virtual void sendChar(char key)=0;
 
 	virtual void click(int x, int y)=0;
 	virtual void sendKey(unsigned int key /*unicode representation*/)=0;

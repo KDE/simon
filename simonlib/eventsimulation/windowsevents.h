@@ -37,20 +37,17 @@
  *	@author Phillip Goriup
  */
 class WindowsEvents : public CoreEvents {
-private:
 
-	int modloger;
-	QHash <char, int> *keycodes; 
-	QHash <char, char> *shiftcodes;
-	QHash <char, char> *altgrcodes;
-	QHash <int, char> *specialcodes;
-
+/*private:
+	QHash <char, int> keycodes; 
+	QHash <char, char> shiftcodes;
+	QHash <int, char> altgrcodes;
+*/
 public:
 	WindowsEvents();
 	void click(int x, int y);
 	void sendKey(unsigned int key /*unicode representation*/);
 
-	inline void sendChar(char key);
 	inline void setModifierKey(int virtualKey, bool once);
 	inline void unsetModifier(int virtualKey);
 	void unsetUnneededModifiers();

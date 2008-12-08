@@ -52,6 +52,7 @@ public:
 	Command* newCommand();
 
 public slots:
+    void deleteLater();
 	void init(Command *command);
 	void commandSuggested(Command *command);
 };

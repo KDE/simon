@@ -45,10 +45,18 @@ NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
 	checkIfComplete();
 }
 
+void NewCommand::deleteLater()
+{
+	QObject::deleteLater();
+}
+
 bool NewCommand::registerCreators(QList<CreateCommandWidget*>* commandCreaters)
 {
 	if (this->commandCreaters)
+	{
+		qDeleteAll(*commandCreaters);
 		delete this->commandCreaters;
+	}
 	
 	foreach (CreateCommandWidget *widget, *commandCreaters)
 	{
@@ -133,5 +141,9 @@ Command* NewCommand::newCommand()
 
 NewCommand::~NewCommand()
 {
-	delete commandCreaters;
+	if (commandCreaters)
+	{
+		qDeleteAll(*commandCreaters);
+		delete commandCreaters;
+	}
 }

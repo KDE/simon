@@ -112,7 +112,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	
 	this->control = new SimonControl (this);
 	this->trayManager = new TrayIconManager( this);
-	this->trayManager->createIcon ( KIcon("simon"), i18n("simon"));
+	this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
 
 
 	shownDialogs = 0;
@@ -505,7 +505,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
 			
 			SimonInfo::showMessage ( i18n ( "simon has been deactivated" ), 2000 );
 				
-			this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "Simon - Deactivated" ) );
+			this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
 			repaint();
 			break; }
 		

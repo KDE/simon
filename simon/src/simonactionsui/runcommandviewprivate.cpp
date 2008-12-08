@@ -86,6 +86,8 @@ void RunCommandViewPrivate::addCommand()
 	{
 		ActionManager::getInstance()->addCommand(com);
 	}
+	
+	delete newCommand;
 }
 
 

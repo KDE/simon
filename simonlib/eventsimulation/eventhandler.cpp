@@ -23,6 +23,7 @@
 
 
 #include <QChar>
+#include <KMessageBox>
 
 #ifdef Q_OS_UNIX
 #include "xevents.h"
@@ -80,8 +81,10 @@ void EventHandler::click(int x, int y)
  */
 void EventHandler::sendWord(const QString& word) const
 {
+	KMessageBox::information(0, word);
 	for (int i=0; i < word.size();i++)
 	{
+		//KMessageBox::information(0, "sendWord sending key: "+word.at(i));
 		sendKey(word.at(i));
 	}
 }
@@ -110,15 +113,10 @@ void EventHandler::sendShortcut(const QKeySequence& shortcut) const
  */
 void EventHandler::sendKey(const QChar& key) const
 {
+	//KMessageBox::information(0, "sendKey receiving: "+QString(key)+" - unicode: "+QString::number(key.unicode()));
 	unsigned int c;
-#ifdef Q_OS_WIN	
-	if (key.isUpper()) {
-		coreEvents->setModifierKey(VK_LSHIFT,false);
-		c = key.toLower().unicode();
-	} else c = key.unicode();
-#else
 	c = key.unicode();
-#endif
+	//KMessageBox::information(0, "sendKey sending: "+QString(QChar(c)));
 	coreEvents->sendKey(c);
 }
 

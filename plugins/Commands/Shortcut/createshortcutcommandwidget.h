@@ -24,6 +24,7 @@
 #include <commandpluginbase/createcommandwidget.h>
 #include "ui_createshortcutcommandwidget.h"
 
+
 class Command;
 
 /**
@@ -39,25 +40,18 @@ Q_OBJECT
 
 private:
 	Ui::CreateShortcutCommandWidget ui;
-
-#ifdef Q_OS_WIN
-	void grabKeyboard();
-	void releaseKeyboard();
-#endif
-
-
-#ifdef Q_OS_WIN
-private slots:
-	void toggleGrab(bool grab);
-#endif
 	
-
+private slots:
+	#ifdef Q_OS_WIN
+	void applySpecialShortcut();
+	#endif
+	
 public:
 	Command* createCommand(const QString& name, const QString& iconSrc);
 
 	bool init(Command* command);
 	bool isComplete();
-
+	
 
 	/**
 	* @brief Constructor

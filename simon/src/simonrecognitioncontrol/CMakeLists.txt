@@ -1,13 +1,19 @@
 include(FindQt4)
 include(FindPortaudio)
+include(FindJulius)
 
 find_package(KDE4 REQUIRED)
 
 set (QT_USE_QTNETWORK true)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../speechgui
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${JULIUS_INCLUDE_DIR} ../speechgui
 	../../../simonlib/ ../ )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_RECOGNITIONCONTROL_LIB)
+
+
+IF(WIN32)
+	add_definitions(-D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
+ENDIF(WIN32)
 
 include(KDE4Defaults)
 
