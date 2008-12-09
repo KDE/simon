@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: simonlib_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge."
 "net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-12-02 16:35+0100\n"
-"PO-Revision-Date: 2008-12-02 16:38+0100\n"
+"POT-Creation-Date: 2008-12-09 09:09+0100\n"
+"PO-Revision-Date: 2008-12-09 09:10+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: adinstreamer/adinstreamer.cpp:453
+msgid ""
+"Couldn't open sound device.\n"
+"\n"
+"Please check your configuration."
+msgstr ""
+"Konnte Audiogerät \"%1\" nicht öffnen.\n"
+"\n"
+"Bitte überprüfen Sie seine Konfiguration."
 
 #: eventsimulation/xeventsprivate.cpp:55
 msgid ""
@@ -166,29 +176,29 @@ msgstr "Audiokonfiguration"
 msgid "Input Device:"
 msgstr "Aufnahmegerät:"
 
-#. i18n: file: simonsound/deviceconfiguration.ui:34
+#. i18n: file: simonsound/deviceconfiguration.ui:41
 #. i18n: ectx: property (text), widget (QLabel, lbOutDevice)
 #: po/rc.cpp:60 rc.cpp:60
 msgid "Output Device:"
 msgstr "Wiedergabegerät:"
 
-#. i18n: file: simonsound/deviceconfiguration.ui:47
+#. i18n: file: simonsound/deviceconfiguration.ui:61
 #. i18n: ectx: property (text), widget (QLabel, lbChannels)
 #: po/rc.cpp:63 rc.cpp:63
 msgid "Channels:"
 msgstr "Kanäle:"
 
-#. i18n: file: simonsound/deviceconfiguration.ui:81
+#. i18n: file: simonsound/deviceconfiguration.ui:95
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate)
 #: po/rc.cpp:66 rc.cpp:66
 msgid "Sample-Rate:"
 msgstr "Sample-Rate:"
 
-#. i18n: file: simonsound/deviceconfiguration.ui:116
+#. i18n: file: simonsound/deviceconfiguration.ui:130
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
 #. i18n: file: speechmodelmanagement/trainingsettings.ui:46
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
-#. i18n: file: simonsound/deviceconfiguration.ui:116
+#. i18n: file: simonsound/deviceconfiguration.ui:130
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
 #. i18n: file: speechmodelmanagement/trainingsettings.ui:46
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
@@ -196,13 +206,13 @@ msgstr "Sample-Rate:"
 msgid "Hz"
 msgstr "Hz"
 
-#. i18n: file: simonsound/deviceconfiguration.ui:145
+#. i18n: file: simonsound/deviceconfiguration.ui:159
 #. i18n: ectx: property (text), widget (KPushButton, pbReload)
 #: po/rc.cpp:72 simonlogging/logview.cpp:706 rc.cpp:72
 msgid "Reload"
 msgstr "Aktualisieren"
 
-#. i18n: file: simonsound/deviceconfiguration.ui:165
+#. i18n: file: simonsound/deviceconfiguration.ui:179
 #. i18n: ectx: property (text), widget (KPushButton, pbTest)
 #: po/rc.cpp:75 rc.cpp:75
 msgid "Test"
@@ -566,7 +576,7 @@ msgstr "Fertig"
 msgid "Details"
 msgstr "Details"
 
-#: simonsound/postprocessing.cpp:45 simonsound/soundsettings.cpp:81
+#: simonsound/postprocessing.cpp:45 simonsound/soundsettings.cpp:83
 msgid "Post-Processing"
 msgstr "Nachbearbeitung"
 
@@ -653,17 +663,17 @@ msgstr "Konnte die Datei %1 nicht entfernen"
 
 #: simonsound/soundcontrol.cpp:61
 msgid ""
-"Fehler beim Einlesen der Audio-Ausgabegeräte:\n"
+"Error requesting the sound output devices:\n"
 "\n"
 "Pa_CountDevices returned %1"
 msgstr ""
-"Fehler beim Einlesen der Audio-Eingabegeräte:\n"
+"Fehler beim Einlesen der Audio-Ausgabegeräte:\n"
 "\n"
 "Pa_CountDevices returned %1"
 
 #: simonsound/soundcontrol.cpp:136
 msgid ""
-"Fehler beim Einlesen der Audio-Eingabegeräte:\n"
+"Error requesting the sound input devices:\n"
 "\n"
 "Pa_CountDevices returned %1"
 msgstr ""
@@ -671,27 +681,27 @@ msgstr ""
 "\n"
 "Pa_CountDevices returned %1"
 
-#: simonsound/soundsettings.cpp:79
+#: simonsound/soundsettings.cpp:81
 msgid "Device Configuration"
 msgstr "Gerätekonfiguration"
 
-#: simonsound/soundsettings.cpp:80
+#: simonsound/soundsettings.cpp:82
 msgid "Prompt Font"
 msgstr "Vorleseschriftart"
 
-#: simonsound/soundsettings.cpp:92
+#: simonsound/soundsettings.cpp:94
 msgid "Recordings"
 msgstr "Aufnahmen"
 
-#: simonsound/soundsettings.cpp:93
+#: simonsound/soundsettings.cpp:95
 msgid "Configuration for the Recording and Playback of sounds"
 msgstr "Einstellungen für die Aufnahme und Wiedergabe von Sounds"
 
-#: simonsound/soundsettings.cpp:106
+#: simonsound/soundsettings.cpp:111
 msgid "The soundconfiguration has been tested successfully."
 msgstr "Die Soundkonfiguration wurde erfolgreich getestet."
 
-#: simonsound/soundsettings.cpp:149
+#: simonsound/soundsettings.cpp:161
 msgid ""
 "simon noticed that not all of the sound devices you selected to use "
 "previously are available.\n"
@@ -716,16 +726,16 @@ msgstr ""
 "Haben Sie kürzlich Soundkarten ein- oder ausgesteckt oder haben Sie ihr "
 "Sound-Setup anderweitig verändert?\n"
 "\n"
-"Wenn Sie hier \"Ja\" auswählen, können Sie die Konfiguration jetzt an die neuen "
-"Gegebenheiten anpassen (die alte Konfiguration wird verworfen). Wenn Sie "
-"\"Nein\" wählen, wird die Soundkonfiguration temporär deaktiviert um die zuvor "
-"getroffenen Einstellungen beizubehalten."
+"Wenn Sie hier \"Ja\" auswählen, können Sie die Konfiguration jetzt an die "
+"neuen Gegebenheiten anpassen (die alte Konfiguration wird verworfen). Wenn "
+"Sie \"Nein\" wählen, wird die Soundkonfiguration temporär deaktiviert um die "
+"zuvor getroffenen Einstellungen beizubehalten."
 
-#: simonsound/soundsettings.cpp:154
+#: simonsound/soundsettings.cpp:166
 msgid "Please adjust your soundconfiguration accordingly."
 msgstr "Bitte passen Sie ihre Konfiguration entsprechend an."
 
-#: simonsound/soundsettings.cpp:214
+#: simonsound/soundsettings.cpp:232
 msgid ""
 "The selected sound configuration is not supported by your hardware.\n"
 "\n"
@@ -1237,7 +1247,7 @@ msgstr "[INF] Verwendete Monophone des Modells: %1"
 msgid "[INF] Loading grammar from %1"
 msgstr "[INF] Lade Grammatik von %1"
 
-#: speechmodelmanagement/grammarmanager.cpp:257
+#: speechmodelmanagement/grammarmanager.cpp:256
 msgid "Loading grammar to %1"
 msgstr "[INF] Speichere Grammatik nach %1"
 
@@ -1246,27 +1256,27 @@ msgstr "[INF] Speichere Grammatik nach %1"
 msgid "Trainingsdata"
 msgstr "Trainingsdaten"
 
-#: speechmodelmanagement/trainingmanager.cpp:197
+#: speechmodelmanagement/trainingmanager.cpp:213
 msgid "[INF] Parsing prompts-file from %1"
 msgstr "[INF] Parse Promptsdatei von %1"
 
-#: speechmodelmanagement/trainingmanager.cpp:218
+#: speechmodelmanagement/trainingmanager.cpp:234
 msgid "[INF] %1 Prompts read"
 msgstr "[INF] %1 Prompts gelesen"
 
-#: speechmodelmanagement/trainingmanager.cpp:231
+#: speechmodelmanagement/trainingmanager.cpp:247
 msgid "[INF] Removing \"%1\" from \"%2\""
 msgstr "[INF] Löschen von \"%1\" von \"%2\""
 
-#: speechmodelmanagement/trainingmanager.cpp:243
+#: speechmodelmanagement/trainingmanager.cpp:260
 msgid "[INF] Reading the trainingstexts"
 msgstr "[INF] Lesen der Trainingtexte"
 
-#: speechmodelmanagement/trainingmanager.cpp:353
+#: speechmodelmanagement/trainingmanager.cpp:371
 msgid "[INF] Calculating relevance"
 msgstr "[INF] Berechne Nutzen des Textes "
 
-#: speechmodelmanagement/wordlistmanager.cpp:175
+#: speechmodelmanagement/wordlistmanager.cpp:176
 msgid ""
 "You are changing a temporary wordlist.\n"
 "\n"
@@ -1276,11 +1286,11 @@ msgstr ""
 "\n"
 "Die Änderungen werden NICHT gespeichert!"
 
-#: speechmodelmanagement/wordlistmanager.cpp:175
+#: speechmodelmanagement/wordlistmanager.cpp:176
 msgid "Temporary changes"
 msgstr "Temporäre Änderungen"
 
-#: speechmodelmanagement/wordlistmanager.cpp:180
+#: speechmodelmanagement/wordlistmanager.cpp:181
 msgid ""
 "Couldn't read all the nescessairy files for the wordlist.\n"
 "\n"
@@ -1293,64 +1303,64 @@ msgstr ""
 "Die Wortliste wird leer im RAM erstellt. Änderungen werden NICHT dauerhaft "
 "gespeichert."
 
-#: speechmodelmanagement/wordlistmanager.cpp:180
+#: speechmodelmanagement/wordlistmanager.cpp:181
 msgid "Read Error"
 msgstr "Lesefehler"
 
-#: speechmodelmanagement/wordlistmanager.cpp:198
+#: speechmodelmanagement/wordlistmanager.cpp:199
 msgid "Loading Shadow List"
 msgstr "Lade Schattenliste"
 
-#: speechmodelmanagement/wordlistmanager.cpp:198
+#: speechmodelmanagement/wordlistmanager.cpp:199
 msgid "Parsing..."
 msgstr "Parse..."
 
-#: speechmodelmanagement/wordlistmanager.cpp:228
+#: speechmodelmanagement/wordlistmanager.cpp:229
 msgid "[INF] Sorting a list of %1 words"
 msgstr "[INF] Sortiere eine Liste mit %1 Wörtern"
 
-#: speechmodelmanagement/wordlistmanager.cpp:273
+#: speechmodelmanagement/wordlistmanager.cpp:274
 msgid "[INF] Saving wordlist(s)"
 msgstr "[INF] Speichere Wörterliste(n)"
 
-#: speechmodelmanagement/wordlistmanager.cpp:326
+#: speechmodelmanagement/wordlistmanager.cpp:327
 msgid "[INF] Opening output file: %1"
 msgstr "[INF] Öffnen der Ausgabedatei: %1"
 
-#: speechmodelmanagement/wordlistmanager.cpp:335
-#: speechmodelmanagement/wordlistmanager.cpp:348
+#: speechmodelmanagement/wordlistmanager.cpp:336
+#: speechmodelmanagement/wordlistmanager.cpp:349
 msgid "[ERR] Could not open output file %1"
 msgstr "[ERR] Fehler beim Öffnen der Ausgabedatei %1"
 
-#: speechmodelmanagement/wordlistmanager.cpp:422
+#: speechmodelmanagement/wordlistmanager.cpp:423
 msgid "[INF] Closing output file"
 msgstr "[INF] Schießen der Ausgabedatei"
 
-#: speechmodelmanagement/wordlistmanager.cpp:551
+#: speechmodelmanagement/wordlistmanager.cpp:552
 msgid "[INF] Reading wordlist consisting of"
 msgstr "[INF] Lesen der Wörterliste bestehend aus "
 
-#: speechmodelmanagement/wordlistmanager.cpp:552
+#: speechmodelmanagement/wordlistmanager.cpp:553
 msgid "[INF] \t\tLexicon: %1,"
 msgstr "[INF] \t\tLexikon: %1,"
 
-#: speechmodelmanagement/wordlistmanager.cpp:553
+#: speechmodelmanagement/wordlistmanager.cpp:554
 msgid "[INF \t\tVocabulary: %1"
 msgstr "[INF] \t\tVocabular: %1,"
 
-#: speechmodelmanagement/wordlistmanager.cpp:562
+#: speechmodelmanagement/wordlistmanager.cpp:563
 msgid "[ERR] Erorr when openin the vocabulary file at \"%1\""
 msgstr "[ERR] Fehler beim Öffnen der Vokabulardatei %1"
 
-#: speechmodelmanagement/wordlistmanager.cpp:599
+#: speechmodelmanagement/wordlistmanager.cpp:600
 msgid "[INF] Wordlist created"
 msgstr "[INF] Wörterliste erstellt"
 
-#: speechmodelmanagement/wordlistmanager.cpp:660
+#: speechmodelmanagement/wordlistmanager.cpp:661
 msgid "[INF] Removing doubles"
 msgstr "[INF] Entfernen der doppelten Einträge"
 
-#: speechmodelmanagement/wordlistmanager.cpp:740
+#: speechmodelmanagement/wordlistmanager.cpp:741
 msgid ""
 "This word already exists in the shadow lexicon. It will not be inserted "
 "again."
@@ -1359,11 +1369,11 @@ msgstr ""
 "\n"
 "Es wird nicht nocheinmal eingefügt."
 
-#: speechmodelmanagement/wordlistmanager.cpp:1175
+#: speechmodelmanagement/wordlistmanager.cpp:1176
 msgid "[INF] Adding %1 words to the wordlist"
 msgstr "[INF] Hinzufügen von %1 Wörtern in die Wörterliste"
 
-#: speechmodelmanagement/wordlistmanager.cpp:1241
+#: speechmodelmanagement/wordlistmanager.cpp:1242
 msgid "[INF] The wordlist now contains %1 words"
 msgstr "[INF] Die Wortliste beinhaltet jetzt %1 Wörter"
 
@@ -1382,6 +1392,24 @@ msgstr "Kategorie"
 #: speechmodelmanagement/wordlistmodel.cpp:129
 msgid "Recognition Rate"
 msgstr "Erkennungsrate"
+
+#~ msgid ""
+#~ "Fehler beim Einlesen der Audio-Ausgabegeräte:\n"
+#~ "\n"
+#~ "Pa_CountDevices returned %1"
+#~ msgstr ""
+#~ "Fehler beim Einlesen der Audio-Eingabegeräte:\n"
+#~ "\n"
+#~ "Pa_CountDevices returned %1"
+
+#~ msgid ""
+#~ "Fehler beim Einlesen der Audio-Eingabegeräte:\n"
+#~ "\n"
+#~ "Pa_CountDevices returned %1"
+#~ msgstr ""
+#~ "Fehler beim Einlesen der Audio-Eingabegeräte:\n"
+#~ "\n"
+#~ "Pa_CountDevices returned %1"
 
 #, fuzzy
 #~ msgid "User:"
@@ -1470,18 +1498,6 @@ msgstr "Erkennungsrate"
 #, fuzzy
 #~ msgid "Configuration"
 #~ msgstr "Gerätekonfiguration"
-
-#, fuzzy
-#~ msgid ""
-#~ "Couldn't start simond.\n"
-#~ "\n"
-#~ "Please check your configuration.\n"
-#~ "\n"
-#~ "Command: \"%1\""
-#~ msgstr ""
-#~ "Konnte Kommandomanager \"%1\" nicht initialisieren.\n"
-#~ "\n"
-#~ "Bitte überprüfen Sie seine Konfiguration."
 
 #, fuzzy
 #~ msgid "(C) 2007 Peter Grasch"
@@ -1859,15 +1875,6 @@ msgstr "Erkennungsrate"
 #~ msgstr ""
 #~ "Konnte %1 nicht nach %2 kopieren. Bitte überprüfen Sie ihre "
 #~ "Berechtigungen auf den Zielort"
-
-#~ msgid ""
-#~ "Couldn't read list of Output-Devices:\n"
-#~ "\n"
-#~ "Pa_CountDevices returned %1"
-#~ msgstr ""
-#~ "Fehler beim Einlesen der Audio-Ausgabegeräte:\n"
-#~ "\n"
-#~ "Pa_CountDevices returned %1"
 
 #~ msgid ""
 #~ "The selected day does not exist in this month.\n"

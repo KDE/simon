@@ -9,13 +9,20 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-12-02 16:35+0100\n"
+"POT-Creation-Date: 2008-12-09 09:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: adinstreamer/adinstreamer.cpp:453
+msgid ""
+"Couldn't open sound device.\n"
+"\n"
+"Please check your configuration."
+msgstr ""
 
 #: eventsimulation/xeventsprivate.cpp:55
 msgid ""
@@ -161,29 +168,29 @@ msgstr ""
 msgid "Input Device:"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:34
+#. i18n: file: simonsound/deviceconfiguration.ui:41
 #. i18n: ectx: property (text), widget (QLabel, lbOutDevice)
 #: po/rc.cpp:60 rc.cpp:60
 msgid "Output Device:"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:47
+#. i18n: file: simonsound/deviceconfiguration.ui:61
 #. i18n: ectx: property (text), widget (QLabel, lbChannels)
 #: po/rc.cpp:63 rc.cpp:63
 msgid "Channels:"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:81
+#. i18n: file: simonsound/deviceconfiguration.ui:95
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate)
 #: po/rc.cpp:66 rc.cpp:66
 msgid "Sample-Rate:"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:116
+#. i18n: file: simonsound/deviceconfiguration.ui:130
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
 #. i18n: file: speechmodelmanagement/trainingsettings.ui:46
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
-#. i18n: file: simonsound/deviceconfiguration.ui:116
+#. i18n: file: simonsound/deviceconfiguration.ui:130
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
 #. i18n: file: speechmodelmanagement/trainingsettings.ui:46
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
@@ -191,13 +198,13 @@ msgstr ""
 msgid "Hz"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:145
+#. i18n: file: simonsound/deviceconfiguration.ui:159
 #. i18n: ectx: property (text), widget (KPushButton, pbReload)
 #: po/rc.cpp:72 simonlogging/logview.cpp:706 rc.cpp:72
 msgid "Reload"
 msgstr ""
 
-#. i18n: file: simonsound/deviceconfiguration.ui:165
+#. i18n: file: simonsound/deviceconfiguration.ui:179
 #. i18n: ectx: property (text), widget (KPushButton, pbTest)
 #: po/rc.cpp:75 rc.cpp:75
 msgid "Test"
@@ -554,7 +561,7 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: simonsound/postprocessing.cpp:45 simonsound/soundsettings.cpp:81
+#: simonsound/postprocessing.cpp:45 simonsound/soundsettings.cpp:83
 msgid "Post-Processing"
 msgstr ""
 
@@ -619,39 +626,39 @@ msgstr ""
 
 #: simonsound/soundcontrol.cpp:61
 msgid ""
-"Fehler beim Einlesen der Audio-Ausgabegeräte:\n"
+"Error requesting the sound output devices:\n"
 "\n"
 "Pa_CountDevices returned %1"
 msgstr ""
 
 #: simonsound/soundcontrol.cpp:136
 msgid ""
-"Fehler beim Einlesen der Audio-Eingabegeräte:\n"
+"Error requesting the sound input devices:\n"
 "\n"
 "Pa_CountDevices returned %1"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:79
+#: simonsound/soundsettings.cpp:81
 msgid "Device Configuration"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:80
+#: simonsound/soundsettings.cpp:82
 msgid "Prompt Font"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:92
+#: simonsound/soundsettings.cpp:94
 msgid "Recordings"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:93
+#: simonsound/soundsettings.cpp:95
 msgid "Configuration for the Recording and Playback of sounds"
 msgstr ""
 
-#: simonsound/soundsettings.cpp:106
+#: simonsound/soundsettings.cpp:111
 msgid "The soundconfiguration has been tested successfully."
 msgstr ""
 
-#: simonsound/soundsettings.cpp:149
+#: simonsound/soundsettings.cpp:161
 msgid ""
 "simon noticed that not all of the sound devices you selected to use "
 "previously are available.\n"
@@ -668,11 +675,11 @@ msgid ""
 "previous configuration from being overwritten."
 msgstr ""
 
-#: simonsound/soundsettings.cpp:154
+#: simonsound/soundsettings.cpp:166
 msgid "Please adjust your soundconfiguration accordingly."
 msgstr ""
 
-#: simonsound/soundsettings.cpp:214
+#: simonsound/soundsettings.cpp:232
 msgid ""
 "The selected sound configuration is not supported by your hardware.\n"
 "\n"
@@ -1088,7 +1095,7 @@ msgstr ""
 msgid "[INF] Loading grammar from %1"
 msgstr ""
 
-#: speechmodelmanagement/grammarmanager.cpp:257
+#: speechmodelmanagement/grammarmanager.cpp:256
 msgid "Loading grammar to %1"
 msgstr ""
 
@@ -1097,112 +1104,112 @@ msgstr ""
 msgid "Trainingsdata"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:197
+#: speechmodelmanagement/trainingmanager.cpp:213
 msgid "[INF] Parsing prompts-file from %1"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:218
+#: speechmodelmanagement/trainingmanager.cpp:234
 msgid "[INF] %1 Prompts read"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:231
+#: speechmodelmanagement/trainingmanager.cpp:247
 msgid "[INF] Removing \"%1\" from \"%2\""
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:243
+#: speechmodelmanagement/trainingmanager.cpp:260
 msgid "[INF] Reading the trainingstexts"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:353
+#: speechmodelmanagement/trainingmanager.cpp:371
 msgid "[INF] Calculating relevance"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:175
+#: speechmodelmanagement/wordlistmanager.cpp:176
 msgid ""
 "You are changing a temporary wordlist.\n"
 "\n"
 "Your changes will NOT be saved!"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:175
+#: speechmodelmanagement/wordlistmanager.cpp:176
 msgid "Temporary changes"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:180
+#: speechmodelmanagement/wordlistmanager.cpp:181
 msgid ""
 "Couldn't read all the nescessairy files for the wordlist.\n"
 "\n"
 "A temporary wordlist will be created. Your changes will NOT be saved!"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:180
+#: speechmodelmanagement/wordlistmanager.cpp:181
 msgid "Read Error"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:198
+#: speechmodelmanagement/wordlistmanager.cpp:199
 msgid "Loading Shadow List"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:198
+#: speechmodelmanagement/wordlistmanager.cpp:199
 msgid "Parsing..."
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:228
+#: speechmodelmanagement/wordlistmanager.cpp:229
 msgid "[INF] Sorting a list of %1 words"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:273
+#: speechmodelmanagement/wordlistmanager.cpp:274
 msgid "[INF] Saving wordlist(s)"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:326
+#: speechmodelmanagement/wordlistmanager.cpp:327
 msgid "[INF] Opening output file: %1"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:335
-#: speechmodelmanagement/wordlistmanager.cpp:348
+#: speechmodelmanagement/wordlistmanager.cpp:336
+#: speechmodelmanagement/wordlistmanager.cpp:349
 msgid "[ERR] Could not open output file %1"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:422
+#: speechmodelmanagement/wordlistmanager.cpp:423
 msgid "[INF] Closing output file"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:551
+#: speechmodelmanagement/wordlistmanager.cpp:552
 msgid "[INF] Reading wordlist consisting of"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:552
+#: speechmodelmanagement/wordlistmanager.cpp:553
 msgid "[INF] \t\tLexicon: %1,"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:553
+#: speechmodelmanagement/wordlistmanager.cpp:554
 msgid "[INF \t\tVocabulary: %1"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:562
+#: speechmodelmanagement/wordlistmanager.cpp:563
 msgid "[ERR] Erorr when openin the vocabulary file at \"%1\""
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:599
+#: speechmodelmanagement/wordlistmanager.cpp:600
 msgid "[INF] Wordlist created"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:660
+#: speechmodelmanagement/wordlistmanager.cpp:661
 msgid "[INF] Removing doubles"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:740
+#: speechmodelmanagement/wordlistmanager.cpp:741
 msgid ""
 "This word already exists in the shadow lexicon. It will not be inserted "
 "again."
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:1175
+#: speechmodelmanagement/wordlistmanager.cpp:1176
 msgid "[INF] Adding %1 words to the wordlist"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:1241
+#: speechmodelmanagement/wordlistmanager.cpp:1242
 msgid "[INF] The wordlist now contains %1 words"
 msgstr ""
 

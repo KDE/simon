@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonplacecommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 18:55+0100\n"
+"POT-Creation-Date: 2008-12-09 09:22+0100\n"
 "PO-Revision-Date: 2008-11-28 17:48+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -99,11 +99,11 @@ msgstr "Manuell"
 msgid "Configure the necessairy parameters manually"
 msgstr "Die notwendigen Parameter manuell konfigurieren"
 
-#. i18n: file: createplacecommandwidget.ui:45
+#. i18n: file: createplacecommandwidget.ui:47
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #. i18n: file: ImportPlace/selectplacedlg.ui:78
 #. i18n: ectx: property (text), widget (QLabel, lbRemoteUrl)
-#. i18n: file: createplacecommandwidget.ui:45
+#. i18n: file: createplacecommandwidget.ui:47
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #. i18n: file: ImportPlace/selectplacedlg.ui:78
 #. i18n: ectx: property (text), widget (QLabel, lbRemoteUrl)

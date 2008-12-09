@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ksimond\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 18:53+0100\n"
-"PO-Revision-Date: 2008-11-27 13:13+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2008-12-09 09:08+0100\n"
+"PO-Revision-Date: 2008-12-09 09:09+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -75,9 +75,8 @@ msgid "simond"
 msgstr "simond"
 
 #: src/ksimondview.cpp:44 src/ksimondview.cpp:71
-#, fuzzy
 msgid "Start simond"
-msgstr "Starte ksimond bei KDE Start"
+msgstr "Starte simond"
 
 #: src/ksimondview.cpp:51 src/ksimondview.cpp:72
 msgid "Restart simond"
@@ -143,8 +142,8 @@ msgid "ksimond"
 msgstr "ksimond"
 
 #: src/main.cpp:15
-msgid "(C) 2007 Peter Grasch"
-msgstr "(c) 2007 Peter Grasch"
+msgid "(C) 2008 Peter Grasch"
+msgstr "(C) 2008 Peter Grasch"
 
 #: src/main.cpp:16
 msgid "Peter Grasch"
@@ -239,3 +238,4 @@ msgstr "Peter Grasch"
 #, fuzzy
 #~ msgid "simon has been activated"
 #~ msgstr "simond gestartet"
+

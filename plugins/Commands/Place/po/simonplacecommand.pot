@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 18:55+0100\n"
+"POT-Creation-Date: 2008-12-09 09:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,11 +96,11 @@ msgstr ""
 msgid "Configure the necessairy parameters manually"
 msgstr ""
 
-#. i18n: file: createplacecommandwidget.ui:45
+#. i18n: file: createplacecommandwidget.ui:47
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #. i18n: file: ImportPlace/selectplacedlg.ui:78
 #. i18n: ectx: property (text), widget (QLabel, lbRemoteUrl)
-#. i18n: file: createplacecommandwidget.ui:45
+#. i18n: file: createplacecommandwidget.ui:47
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #. i18n: file: ImportPlace/selectplacedlg.ui:78
 #. i18n: ectx: property (text), widget (QLabel, lbRemoteUrl)
