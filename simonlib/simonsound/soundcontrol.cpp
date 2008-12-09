@@ -165,7 +165,7 @@ bool SoundControl::checkDeviceSupport(int inputDeviceId, int outputDeviceId, int
 	inputParameters.channelCount = channels;
 	inputParameters.device = inputDeviceId;
 	inputParameters.hostApiSpecificStreamInfo = NULL;
-	inputParameters.sampleFormat = paInt16;
+	inputParameters.sampleFormat = paFloat32;
 	inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputDeviceId)->defaultLowInputLatency ;
 	inputParameters.hostApiSpecificStreamInfo = NULL; //See you specific host's API docs for info on using this field
 	
@@ -174,8 +174,8 @@ bool SoundControl::checkDeviceSupport(int inputDeviceId, int outputDeviceId, int
 	outputParameters.channelCount = channels;
 	outputParameters.device = outputDeviceId;
 	outputParameters.hostApiSpecificStreamInfo = NULL;
-	outputParameters.sampleFormat = paInt16;
-	outputParameters.suggestedLatency = Pa_GetDeviceInfo(outputDeviceId)->defaultLowInputLatency ;
+	outputParameters.sampleFormat = paFloat32;
+	outputParameters.suggestedLatency = Pa_GetDeviceInfo(outputDeviceId)->defaultLowOutputLatency ;
 	outputParameters.hostApiSpecificStreamInfo = NULL; //See you specific host's API docs for info on using this field
 	
 	PaError err;

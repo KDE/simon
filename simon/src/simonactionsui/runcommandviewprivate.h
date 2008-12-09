@@ -21,6 +21,7 @@
 #define RUNCOMMANDVIEWPRIVATE_H
 
 #include "ui_rundialog.h"
+#include <commandpluginbase/command.h>
 
 class Command;
 class RunCommand;
@@ -39,12 +40,14 @@ class RunCommandViewPrivate : public QWidget {
 
 private:
 	Ui::RunDlg ui;
+	CommandPreviewWidget *commandPreviewWidget;
 	Command* getCommandToModify();
 
 private slots:
 	void addCommand();
 	void deleteCommand();
 	void editCommand();
+	void checkIfHidePreviewWidget(CommandList *list);
 	void reflectSelectionStatus(QModelIndex index);
 
 public slots:

@@ -23,6 +23,7 @@
 
 #include <QAbstractItemModel>
 #include <QStringList>
+#include <QMutex>
 #include <commandpluginbase/command.h>
 #include "actionlib_export.h"
 

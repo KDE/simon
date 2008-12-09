@@ -26,7 +26,7 @@
 class Command;
 class QModelIndex;
 
-class CommandPreviewWidget : public QScrollArea {
+class CommandPreviewWidget : public QWidget {
 
 Q_OBJECT
 

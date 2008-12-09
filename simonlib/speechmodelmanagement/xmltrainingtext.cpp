@@ -66,7 +66,6 @@ bool XMLTrainingText::save()
 	return true;
 }
 
-#include <KDebug>
 void XMLTrainingText::load(QString path)
 {
 	XMLDomReader::load(path);
@@ -85,7 +84,6 @@ void XMLTrainingText::load(QString path)
 		page = page.nextSiblingElement();
 	}
 	TrainingText::path=path;
-	kWarning() << "Loaded from " << path;
 }
 
 void XMLTrainingText::addPages(QStringList pages)

@@ -39,7 +39,7 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
 
-	CommandPreviewWidget *commandPreviewWidget = new CommandPreviewWidget(ui.cvCommands);
+	commandPreviewWidget = new CommandPreviewWidget(ui.cvCommands);
 	connect(ui.cvCommands, SIGNAL(updatePreviewWidget(QModelIndex)), commandPreviewWidget, SLOT(updateCommand(QModelIndex)));
 	ui.cvCommands->setPreviewWidget(commandPreviewWidget);
 
@@ -103,9 +103,18 @@ void RunCommandViewPrivate::loadCommands()
 	CommandModel *model = new CommandModel(ActionManager::getInstance()->getCommandList());
 	connect(ActionManager::getInstance(), SIGNAL(commandsChanged(CommandList*)), model, 
 			SLOT(updateCommands(CommandList*)));
+	connect(ActionManager::getInstance(), SIGNAL(commandsChanged(CommandList*)), this, 
+			SLOT(checkIfHidePreviewWidget(CommandList*)));
 	ui.cvCommands->setModel(model);
 }
 
+void RunCommandViewPrivate::checkIfHidePreviewWidget(CommandList *list)
+{
+	Q_ASSERT(list);
+	if (list->count() == 0)
+		commandPreviewWidget->hide();
+	else commandPreviewWidget->show();
+}
 
 
 Command* RunCommandViewPrivate::getCommandToModify()

@@ -139,7 +139,10 @@ void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 	}
 	
 	foreach (CommandManager *manager, *managers)
+	{
 		deleteManager(manager);
+		changed=true;
+	}
 	delete this->managers;
 	this->managers = newManagerList;
 	
@@ -184,6 +187,8 @@ bool ActionManager::askDeleteCommandByTrigger(QString trigger)
 		}
 	}
 	
+	delete list;
+
 	return allDeleted;
 }
 
@@ -229,8 +234,7 @@ bool ActionManager::deleteCommand(Command *command)
 		KMessageBox::error(0, i18n("Command could not be deleted."));
 	else emit commandsChanged(getCommandList());
 
-	command->deleteLater();
-	
+	//command will be deleted
 	return deleted;
 }
 

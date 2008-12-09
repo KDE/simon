@@ -20,8 +20,8 @@
 #include "commandmodel.h"
 #include <KLocalizedString>
 #include <KLocale>
+#include <QMutexLocker>
 
-//TODO: what if the backends delete their lists?
 
 CommandModel::CommandModel(CommandList *commands)
 {
@@ -31,6 +31,7 @@ CommandModel::CommandModel(CommandList *commands)
 
 void CommandModel::updateCommands(CommandList *commands)
 {
+	delete this->commands;
 	this->commands = commands;
 	reset();
 }
@@ -168,7 +169,6 @@ int CommandModel::rowCount(const QModelIndex &parent) const
 		int rowCount = getCategories(this->commands).count();
 		return rowCount;
 	} else {
-
 		QString strCat = parent.data(Qt::DisplayRole).toString();
 		int count=0;
 
@@ -182,10 +182,13 @@ int CommandModel::rowCount(const QModelIndex &parent) const
 
 const QStringList CommandModel::getCategories(const CommandList *commands) const
 {
+	Q_ASSERT(commands);
 	QStringList strCategories;
 	for (int i=0; i < commands->count(); i++)
-		if (!strCategories.contains(commands->at(i)->getCategoryText()))
+	{
+		if (commands->at(i) && !strCategories.contains(commands->at(i)->getCategoryText()))
 			strCategories << commands->at(i)->getCategoryText();
+	}
 	return strCategories;
 }
 

@@ -27,18 +27,18 @@
 
 #include <KIcon>
 #include <KIconLoader>
+#include <KMessageBox>
 
 
-CommandPreviewWidget::CommandPreviewWidget(QWidget *parent) : QScrollArea(parent)
+CommandPreviewWidget::CommandPreviewWidget(QWidget *parent) : QWidget(parent)
 {
 	command =0;
-	QWidget *w = new QWidget(this);
-	ui.setupUi(w);
-	setWidget(w);
+	ui.setupUi(this);
 	
 	connect(ui.pbTrigger, SIGNAL(clicked()), this, SLOT(trigger()));
 	hide();
 	
+	setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 }
 
 void CommandPreviewWidget::trigger()
@@ -55,7 +55,6 @@ void CommandPreviewWidget::updateCommand(const QModelIndex &commandIdx)
 	} else show();
 
 	ui.lbIcon->setPixmap(KIcon(command->getIcon()).pixmap(64,64));
-//	ui.lbIcon->setPixmap(KIconLoader().loadIcon(command->getIconSrc(), KIconLoader::NoGroup, KIconLoader::SizeEnormous));
 	ui.lbName->setText(command->getTrigger());
 
 	QLayoutItem *child;
@@ -90,6 +89,7 @@ void CommandPreviewWidget::updateCommand(const QModelIndex &commandIdx)
 		ui.flDetails->addRow(keys[i]+":", label);
 	}
 
+	//resize(sizeHint().height(), width());
 	this->command = command;
 }
 

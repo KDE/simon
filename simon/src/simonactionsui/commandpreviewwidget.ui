@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>273</width>
-    <height>397</height>
+    <width>254</width>
+    <height>393</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -46,6 +46,12 @@
      </item>
      <item>
       <widget class="QLabel" name="lbIcon" >
+       <property name="minimumSize" >
+        <size>
+         <width>64</width>
+         <height>64</height>
+        </size>
+       </property>
        <property name="text" >
         <string/>
        </property>
@@ -100,16 +106,7 @@
     </spacer>
    </item>
    <item>
-    <widget class="QGroupBox" name="gbDetails" >
-     <property name="title" >
-      <string>Details</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2" >
-      <item>
-       <layout class="QFormLayout" name="flDetails" />
-      </item>
-     </layout>
-    </widget>
+    <layout class="QFormLayout" name="flDetails" />
    </item>
    <item>
     <spacer name="verticalSpacer" >
