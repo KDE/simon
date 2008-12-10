@@ -445,6 +445,7 @@ int WordListManager::getWordIndex(WordList *list, bool &found, const QString& wo
 	}
 
 	QString realWord = word.toUpper();
+	kWarning() << realWord;
 	
 	int currentSearchStart = list->count()/2; //make use of integer division
 	//if count() == 1, currentSearchStart = 0,5 = 0 instead of 1 when using round
@@ -457,6 +458,9 @@ int WordListManager::getWordIndex(WordList *list, bool &found, const QString& wo
 	int modificator=0;
 	while (true)
 	{
+		kWarning() << "Min: " << currentMinValue;
+		kWarning() << "Start: " << currentSearchStart;
+		kWarning() << "Max: " << currentMaxValue;
 		currentWord = (Word*) &(list->at(currentSearchStart));
 		currentWordName = currentWord->getWord().toUpper();
 		currentWordPronunciation = currentWord->getPronunciation();
@@ -473,16 +477,20 @@ int WordListManager::getWordIndex(WordList *list, bool &found, const QString& wo
 			((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation < pronunciation)
 			|| (!terminal.isEmpty() && currentWordTerminal < terminal))))
 		{
+			kWarning() << "Setting currentMinValue to " << currentSearchStart;
 			currentMinValue = currentSearchStart;
-			modificator = (currentMaxValue - currentMinValue)/2;
+			modificator = (currentSearchStart - currentMinValue)/2;
 		} else if ((currentWordName > realWord) || 
 			((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation > pronunciation)
 			|| (!terminal.isEmpty() && currentWordTerminal > terminal))))
 		{
+			kWarning() << "Setting currentMaxValue to " << currentSearchStart;
 			currentMaxValue = currentSearchStart;
-			modificator = (currentMaxValue - currentMinValue)/(-2);
+			modificator = (currentSearchStart - currentMinValue)/(-2);
 		}
 		
+		kWarning() << "Modificator: " << modificator;
+		kWarning() << "-------------------";
 		
 		if ((modificator > -10 ) && (modificator < 10)) {
 			//stagnating search
