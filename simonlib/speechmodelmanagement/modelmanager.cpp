@@ -151,6 +151,13 @@ bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleR
 QByteArray ModelManager::getSample(const QString& sampleName)
 {
 	QFile f(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+sampleName.toUtf8());
+
+	QFileInfo fInfo(f);
+
+	//don't get tricked by /path/to/samples/../../../etc/passwd
+	if (!fInfo.absoluteFilePath().contains(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()))
+		return QByteArray(); 
+
 	if (!f.open(QIODevice::ReadOnly)) return QByteArray();
 	return f.readAll();
 }

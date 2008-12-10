@@ -376,9 +376,8 @@ bool WordListManager::saveWordList(WordList *list, const QString& vocabFilename,
 		Word w = (*i);
 		QString wordStr = w.getWord();
 		QString wordTerm = w.getTerminal();
-		//TODO: Test naming
 		if (!lexiconFilename.isEmpty()) {
-			QString upperWord = wordStr.toUpper();
+			QString upperWord = TrainingManager::getInstance()->htkify(w.getWord().toUpper());
 			QString wordPron = w.getPronunciation();
 	
 			if (!sentWritten && (upperWord >= "SENT-END"))
@@ -444,7 +443,7 @@ int WordListManager::getWordIndex(WordList *list, bool &found, const QString& wo
 		found = false;
 		return 0;
 	}
-	
+
 	QString realWord = word.toUpper();
 	
 	int currentSearchStart = list->count()/2; //make use of integer division
@@ -510,7 +509,9 @@ int WordListManager::getWordIndex(WordList *list, bool &found, const QString& wo
 							&& (terminal.isEmpty() || list->at(i).getTerminal() == terminal)))
 			{
 				found = true;
-			} else found = false;
+			} else {
+				found = false;
+			}
 			return i;
 		}
 		currentSearchStart += modificator;
@@ -697,6 +698,8 @@ Word* WordListManager::getWord(const QString& word, const QString& pronunciation
 	wordListLock.unlock();
 	if (w)
 		return w;
+	//FIXME: REMOVE ME!!!
+	return 0;
 
 	isShadowed = true;
 	shadowLock.lock();

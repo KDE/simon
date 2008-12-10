@@ -500,6 +500,9 @@ QByteArray SynchronisationManager::getSample(const QString& sampleName)
 {
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/");
 	QFile f(dirPath+"/"+sampleName.toUtf8());
+	QFileInfo fInfo(f);
+	if (!fInfo.absoluteFilePath().contains(dirPath)) return QByteArray(); //don't get tricked by /path/to/samples/../../../etc/passwd
+
 	kDebug() << "Retrieving " << dirPath+"/"+sampleName.toUtf8();
 	if (!f.open(QIODevice::ReadOnly)) return QByteArray();
 	QByteArray content = f.readAll();

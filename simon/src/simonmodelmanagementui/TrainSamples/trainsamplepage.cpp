@@ -36,7 +36,7 @@ TrainSamplePage::TrainSamplePage(const QString& prompt, int nowPage, int maxPage
 	setTitle(name+": "+title);
 
 
-	fileName = QString(prompt).replace(" ", "_")+"_S"+QString::number(nowPage)+"_"
+	fileName = TrainingManager::getInstance()->htkify(prompt).replace(" ", "_")+"_S"+QString::number(nowPage)+"_"
 				+QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss");
 
 	QVBoxLayout *lay = new QVBoxLayout(this);

@@ -22,6 +22,7 @@
 #define WORD_H
 #include <QString>
 #include <QList>
+#include <KLocalizedString>
 #include "speechmodelbase_export.h"
 
 /**
@@ -46,6 +47,7 @@ private:
 	QString word; //!< Saves the represented word
 	QString pronunciation; //!< Saves all valid pronunciations of the word in Sam-Pa
 	QString terminal; //!< Category of the word
+	QString lexiconWord;
 	int probability; //!< Probability
 	
 public:
@@ -69,6 +71,7 @@ public:
 	Word(const QString& word, const QString& pronunciation, const QString& terminal=NULL, int probability=NULL)
 	{
 		this->word = word;
+		this->lexiconWord = word.toUpper();
 		this->pronunciation = pronunciation;
 		this->terminal = terminal;
 		this->probability = probability;
@@ -89,6 +92,21 @@ public:
 		return this->word;
 	}
 	
+	/**
+	 * @brief Getter-Method: Lexiconword
+	 *
+	 * Returns the Word used for the lexicon itself
+	 *
+	 * @author Peter Grasch
+	 * @return QString Word
+	 * Returns the word
+	 * 
+	 */
+	QString getLexiconWord() const
+	{
+		return this->lexiconWord;
+	}
+
 	/**
 	 * @brief Getter-Method: Pronunciation
 	 *
@@ -135,7 +153,6 @@ public:
 	
 	/**
 	 * \brief Determines if a word is "smaller" than the other
-	 * This is a simple comparison of the two "word" values (retrieved by getWord())
 	 * used for sorting
 	 * \author Peter Grasch
 	 * \param const Word& w2
@@ -145,10 +162,9 @@ public:
 	 */
 	bool operator<(const Word& w2) const
 	{
-// 		kDebug() << word;
-		if (getWord().toUpper() < w2.getWord().toUpper())
+		if (getLexiconWord() < w2.getLexiconWord())
 			return true;
-		else return ((getWord().toUpper() == w2.getWord().toUpper()) && ((getPronunciation() < w2.getPronunciation()) || 
+		else return ((getLexiconWord() == w2.getLexiconWord()) && ((getPronunciation() < w2.getPronunciation()) || 
 							((getPronunciation() == w2.getPronunciation()) && (getTerminal() < w2.getTerminal()))));
 	}
 	
