@@ -256,12 +256,10 @@ void AdinStreamer::run()
 	Jconf *jconf;
 	int ret;
 
-#ifdef Q_OS_LINUX
 	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonsoundrc");
 	KConfigGroup group(config, "Devices");
-	QString alsaDevice = group.readEntry("SoundInputDeviceALSAName", "default");
-	setenv("ALSADEV", alsaDevice.toUtf8().data(), 1/*overwrite*/);
-#endif
+	QString device = group.readEntry("SoundInputDevice", "0");
+	setenv("SIMONDEV", device.toUtf8().data(), 1/*overwrite*/);
 
 	/* create instance */
 	recog = j_recog_new();
