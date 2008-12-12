@@ -17,30 +17,33 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "importdictbomppage.h"
 
+#ifndef IMPORTDICTPLSPAGE_H
+#define IMPORTDICTPLSPAGE_H
 
-/**
- * \brief Constructor - inits the GUI
- * \author Peter Grasch
- * @param parent Parent of the page
- */
-ImportDictBOMPPage::ImportDictBOMPPage(QWidget* parent): QWizardPage(parent)
-{
-	ui.setupUi(this);
-
-	ui.urFile->setMode(KFile::File|KFile::ExistingOnly);
-
-	registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
-	setTitle(i18n("Import HADIFIX Dictionary"));
-}
+#include <QWizardPage>
+#include "importdictview.h"
+#include "ui_importdictplspage.h"
+class QString;
 
 /**
- * \brief Destructor
+ * \class ImportDictPLSPage
+ * \brief WizardPage to select a PLS Dictionary
  * \author Peter Grasch
+ * \date 12.12.2008
+ * \version 0.1
  */
-ImportDictBOMPPage::~ImportDictBOMPPage()
+class ImportDictPLSPage : public QWizardPage
 {
-}
+Q_OBJECT
+private:
+	Ui::ImportPLSDlg ui;
+public:
+    ImportDictPLSPage(QWidget* parent);
+	int nextId() const { return ImportDictView::WorkingPage; }
 
+    ~ImportDictPLSPage();
 
+};
+
+#endif

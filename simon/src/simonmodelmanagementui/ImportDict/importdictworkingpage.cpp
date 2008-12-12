@@ -113,6 +113,16 @@ void ImportDictWorkingPage::importHADIFIX(QString path)
 	import->parseWordList(path, Dict::HadifixBOMP, true /* remove input file when done */);
 }
 
+void ImportDictWorkingPage::importPLS(QString path)
+{
+	if (path.isEmpty()) return;
+
+	displayStatus(i18n("Importing PLS-dictionary %1...", path));
+	
+	import->parseWordList(path, Dict::PLS, true /* remove input file when done */);
+}
+
+
 
 QString ImportDictWorkingPage::prepareDict(KUrl url)
 {
@@ -140,8 +150,10 @@ void ImportDictWorkingPage::initializePage()
 	if (field("hadifix").toBool())
 	{
 		importHADIFIX(prepareDict(field("bompFileName").value<KUrl>()));
-	} else
+	} else if (field("lexicon").toBool())
 		importLexicon(prepareDict(field("lexiconFilename").value<KUrl>()));
+	else
+		importPLS(prepareDict(field("plsFilename").value<KUrl>()));
 }
 
 

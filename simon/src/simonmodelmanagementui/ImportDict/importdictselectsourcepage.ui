@@ -43,6 +43,13 @@ Please select the type of dictionary you want to import now.</string>
      </property>
     </widget>
    </item>
+   <item>
+    <widget class="QRadioButton" name="rbPLS" >
+     <property name="text" >
+      <string>PLS Lexicon</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>

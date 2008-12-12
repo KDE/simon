@@ -36,6 +36,7 @@ ImportDictSelectSourcePage::ImportDictSelectSourcePage(QWidget* parent): QWizard
 	
 	registerField("hadifix", ui.rbHadifixBOMP, "checked", SIGNAL(toggled(bool)));
 	registerField("lexicon", ui.rbHTK, "checked", SIGNAL(toggled(bool)));
+	registerField("pls", ui.rbPLS, "checked", SIGNAL(toggled(bool)));
 }
 /**
  * \brief Returns the next id for the wizard (2 if we selected hadifix, else 3)
@@ -46,8 +47,10 @@ int ImportDictSelectSourcePage::nextId() const
 {
 	if (field("hadifix").toBool())
 		return ImportDictView::BompPage;
-	else
+	else if (field("lexicon").toBool())
 		return ImportDictView::LexiconPage;
+	else 
+		return ImportDictView::PLSPage;
 }
 
 /**

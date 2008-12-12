@@ -24,6 +24,7 @@
 #include "importdictselectsourcepage.h"
 #include "importdictbomppage.h"
 #include "importlexiconpage.h"
+#include "importdictplspage.h"
 #include <QLabel>
 #include <QVBoxLayout>
 #include <KStandardDirs>
@@ -43,6 +44,7 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 	addPage(createSelectSourcePage());
 	addPage(createImportBOMPPage());
 	addPage(createImportLexiconPage());
+	addPage(createImportPLSPage());
 	ImportDictWorkingPage *workingPage = createImportDictWorkingPage();
 	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SIGNAL(dictGenerated(WordList*)));
 	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SLOT(next()));
@@ -73,6 +75,17 @@ QWizardPage* ImportDictView::createImportLexiconPage()
 {
 	return new ImportLexiconPage(this);
 }
+
+/**
+ * \brief Creates the page to import a simon lexicon
+ * \author Peter Grasch
+ * @return The wizardpage
+ */
+QWizardPage* ImportDictView::createImportPLSPage()
+{
+	return new ImportDictPLSPage(this);
+}
+
 
 /**
  * \brief Creates the intro page

@@ -67,7 +67,8 @@ public:
 
 enum DictType {
 	HadifixBOMP=1,
-	HTKLexicon=2
+	HTKLexicon=2,
+	PLS=4
 };
 
     Dict(QObject *parent=0);

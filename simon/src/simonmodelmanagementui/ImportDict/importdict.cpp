@@ -22,6 +22,7 @@
 #include <simonlogging/logger.h>
 #include "bompdict.h"
 #include "lexicondict.h"
+#include "plsdict.h"
 #include <QFile>
 #include <KLocalizedString>
 
@@ -68,6 +69,9 @@ void ImportDict::run()
 			break;
 		case Dict::HTKLexicon:
 			dict = new LexiconDict(pathToDict);
+			break;
+		case Dict::PLS:
+			dict = new PLSDict(pathToDict);
 			break;
 		default:
 			return; //unknown type

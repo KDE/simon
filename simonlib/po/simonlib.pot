@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-12-09 09:09+0100\n"
+"POT-Creation-Date: 2008-12-12 11:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: adinstreamer/adinstreamer.cpp:453
+#: adinstreamer/adinstreamer.cpp:452
 msgid ""
 "Couldn't open sound device.\n"
 "\n"
@@ -480,22 +480,22 @@ msgid ""
 "Please check its configuration."
 msgstr ""
 
-#: simonactions/actionmanager.cpp:180
+#: simonactions/actionmanager.cpp:183
 msgid ""
 "The trigger \"%1\" is already assigned to another command.\n"
 "\n"
 "Do you want to delete the other command that uses the Trigger \"%1\"?"
 msgstr ""
 
-#: simonactions/actionmanager.cpp:209
+#: simonactions/actionmanager.cpp:214
 msgid "Couldn't add Command \"%1\"."
 msgstr ""
 
-#: simonactions/actionmanager.cpp:229
+#: simonactions/actionmanager.cpp:234
 msgid "Command could not be deleted."
 msgstr ""
 
-#: simonactions/commandmodel.cpp:95
+#: simonactions/commandmodel.cpp:96
 msgid "Command"
 msgstr ""
 
@@ -1124,6 +1124,46 @@ msgstr ""
 msgid "[INF] Calculating relevance"
 msgstr ""
 
+#: speechmodelmanagement/trainingmanager.cpp:447
+msgid "ZERO"
+msgstr ""
+
+#: speechmodelmanagement/trainingmanager.cpp:448
+msgid "ONE"
+msgstr ""
+
+#: speechmodelmanagement/trainingmanager.cpp:449
+msgid "TWO"
+msgstr ""
+
+#: speechmodelmanagement/trainingmanager.cpp:450
+msgid "THREE"
+msgstr ""
+
+#: speechmodelmanagement/trainingmanager.cpp:451
+msgid "FOUR"
+msgstr ""
+
+#: speechmodelmanagement/trainingmanager.cpp:452
+msgid "FIVE"
+msgstr ""
+
+#: speechmodelmanagement/trainingmanager.cpp:453
+msgid "SIX"
+msgstr ""
+
+#: speechmodelmanagement/trainingmanager.cpp:454
+msgid "SEVEN"
+msgstr ""
+
+#: speechmodelmanagement/trainingmanager.cpp:455
+msgid "EIGHT"
+msgstr ""
+
+#: speechmodelmanagement/trainingmanager.cpp:456
+msgid "NINE"
+msgstr ""
+
 #: speechmodelmanagement/wordlistmanager.cpp:176
 msgid ""
 "You are changing a temporary wordlist.\n"
@@ -1171,45 +1211,45 @@ msgstr ""
 msgid "[ERR] Could not open output file %1"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:423
+#: speechmodelmanagement/wordlistmanager.cpp:422
 msgid "[INF] Closing output file"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:552
+#: speechmodelmanagement/wordlistmanager.cpp:553
 msgid "[INF] Reading wordlist consisting of"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:553
+#: speechmodelmanagement/wordlistmanager.cpp:554
 msgid "[INF] \t\tLexicon: %1,"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:554
+#: speechmodelmanagement/wordlistmanager.cpp:555
 msgid "[INF \t\tVocabulary: %1"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:563
+#: speechmodelmanagement/wordlistmanager.cpp:564
 msgid "[ERR] Erorr when openin the vocabulary file at \"%1\""
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:600
+#: speechmodelmanagement/wordlistmanager.cpp:601
 msgid "[INF] Wordlist created"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:661
+#: speechmodelmanagement/wordlistmanager.cpp:662
 msgid "[INF] Removing doubles"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:741
+#: speechmodelmanagement/wordlistmanager.cpp:744
 msgid ""
 "This word already exists in the shadow lexicon. It will not be inserted "
 "again."
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:1176
+#: speechmodelmanagement/wordlistmanager.cpp:1179
 msgid "[INF] Adding %1 words to the wordlist"
 msgstr ""
 
-#: speechmodelmanagement/wordlistmanager.cpp:1242
+#: speechmodelmanagement/wordlistmanager.cpp:1245
 msgid "[INF] The wordlist now contains %1 words"
 msgstr ""
 

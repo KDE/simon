@@ -17,7 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "importdictbomppage.h"
+#include "importdictplspage.h"
 
 
 /**
@@ -25,21 +25,21 @@
  * \author Peter Grasch
  * @param parent Parent of the page
  */
-ImportDictBOMPPage::ImportDictBOMPPage(QWidget* parent): QWizardPage(parent)
+ImportDictPLSPage::ImportDictPLSPage(QWidget* parent): QWizardPage(parent)
 {
 	ui.setupUi(this);
 
-	ui.urFile->setMode(KFile::File|KFile::ExistingOnly);
+	ui.urPath->setMode(KFile::File|KFile::ExistingOnly);
 
-	registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
-	setTitle(i18n("Import HADIFIX Dictionary"));
+	registerField("plsFilename*", ui.urPath, "url", SIGNAL(textChanged (const QString &)));
+	setTitle(i18n("Import PLS Dictionary"));
 }
 
 /**
  * \brief Destructor
  * \author Peter Grasch
  */
-ImportDictBOMPPage::~ImportDictBOMPPage()
+ImportDictPLSPage::~ImportDictPLSPage()
 {
 }
 

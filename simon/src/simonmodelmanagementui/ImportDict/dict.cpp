@@ -322,6 +322,7 @@ QString Dict::adaptToSimonPhonemeSet(QString sampa)
 	out = out.remove("~");
 	out = out.remove("<");
 	out = out.remove("_");
+	out = out.remove("^");
 	out = out.remove("?");
 	return out.replace("9", "oe");
 }
@@ -373,7 +374,7 @@ QString Dict::ipaToXSampa(QString ipa)
 			out += translationLookup.value(ipa.at(i).unicode());
 		else out += modifiers.value(ipa.at(i).unicode());
 	}
-	return out;
+	return segmentSampa(adaptToSimonPhonemeSet(out.trimmed()));
 }
 
 /**

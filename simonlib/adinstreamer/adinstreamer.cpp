@@ -413,7 +413,8 @@ void AdinStreamer::stop()
 	if (recog && (recog->adin))
 	{
 	kWarning() << 2;
-		recog->adin->ad_end();
+//		recog->adin->ad_end();
+		adin_mic_end();
 	}
 	kWarning() << 3;
 	wait(1000);

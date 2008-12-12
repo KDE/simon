@@ -40,7 +40,9 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/bompdict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbomppage.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictplspage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/lexicondict.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/plsdict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/dict.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminals.cpp
@@ -86,6 +88,7 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/AddWord/addwordintropage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/AddWord/resolvewordpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbomppage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictplspage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictlexiconpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictselectsourcepage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/MergeTerminals/mergeterminalsworkingpage.ui

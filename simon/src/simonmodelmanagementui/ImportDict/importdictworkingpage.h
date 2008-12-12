@@ -59,6 +59,7 @@ public slots:
 	
 	void importHADIFIX(QString path);
 	void importLexicon(QString path);
+	void importPLS(QString path);
 
 	bool isComplete() const;
 
