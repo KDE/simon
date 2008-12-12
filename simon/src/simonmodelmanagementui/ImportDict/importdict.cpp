@@ -21,6 +21,7 @@
 #include "importdict.h"
 #include <simonlogging/logger.h>
 #include "bompdict.h"
+#include "sphinxdict.h"
 #include "lexicondict.h"
 #include "plsdict.h"
 #include <QFile>
@@ -72,6 +73,9 @@ void ImportDict::run()
 			break;
 		case Dict::PLS:
 			dict = new PLSDict(pathToDict);
+			break;
+		case Dict::SPHINX:
+			dict = new SPHINXDict(pathToDict);
 			break;
 		default:
 			return; //unknown type

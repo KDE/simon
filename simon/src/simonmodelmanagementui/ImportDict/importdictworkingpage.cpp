@@ -123,6 +123,16 @@ void ImportDictWorkingPage::importPLS(QString path)
 }
 
 
+void ImportDictWorkingPage::importSPHINX(QString path)
+{
+	if (path.isEmpty()) return;
+
+	displayStatus(i18n("Importing SPHINX-dictionary %1...", path));
+	
+	import->parseWordList(path, Dict::SPHINX, true /* remove input file when done */);
+}
+
+
 
 QString ImportDictWorkingPage::prepareDict(KUrl url)
 {
@@ -152,8 +162,10 @@ void ImportDictWorkingPage::initializePage()
 		importHADIFIX(prepareDict(field("bompFileName").value<KUrl>()));
 	} else if (field("lexicon").toBool())
 		importLexicon(prepareDict(field("lexiconFilename").value<KUrl>()));
-	else
+	else if (field("pls").toBool())
 		importPLS(prepareDict(field("plsFilename").value<KUrl>()));
+	else
+		importSPHINX(prepareDict(field("sphinxFilename").value<KUrl>()));
 }
 
 

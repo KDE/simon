@@ -138,7 +138,7 @@ bool PLSDict::endElement(const QString&, const QString&,
 		// add the found words to the word
 		foreach (const QString& phonemeDefinition, phonemeDefinitions)
 		{
-			words << currentWord;
+			words << currentWord.trimmed();
 			pronunciations << phonemeDefinition;
 			terminals << i18n("Unknown"); // no terminal info available
 		}
