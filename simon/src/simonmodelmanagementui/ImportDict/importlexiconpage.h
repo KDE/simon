@@ -23,6 +23,7 @@
 
 #include <QWizardPage>
 #include "ui_importdictlexiconpage.h"
+#include "importdictview.h"
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
@@ -33,6 +34,7 @@ private:
 	Ui::ImportDictLexiconPage ui;
 public:
     ImportLexiconPage(QWidget* parent);
+	int nextId() const { return ImportDictView::WorkingPage; }
 
     ~ImportLexiconPage();
 
