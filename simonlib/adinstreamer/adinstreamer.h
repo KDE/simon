@@ -69,7 +69,6 @@ private:
 	static AdinStreamer* instance;
 	QHostAddress address;
 	qint32 port;
-	bool shouldBeRunning;
         AdinStreamer(QObject* parent);
 
 private slots:

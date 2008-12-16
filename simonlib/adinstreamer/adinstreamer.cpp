@@ -44,7 +44,7 @@
 
 
 AdinStreamer* AdinStreamer::instance;
-
+static bool adin_shouldBeRunning = false;
 static int adinstreamer_rewind_msec = 0;
 static int adinstreamer_socketDescriptor = 0;
 static int adinstreamer_speechlen=0;
@@ -134,6 +134,8 @@ adin_send_end_of_segment()
 
 static int adinnet_check_command(Recog *)
 {
+	if (!adin_shouldBeRunning) return -10;
+
 //	fprintf(stderr, "O");
 	fd_set rfds;
 	struct timeval tv;
@@ -236,7 +238,7 @@ AdinStreamer::AdinStreamer(QObject* parent) : QThread(parent)
 {
 	recog = NULL;
 	shouldReStart=false;
-	shouldBeRunning=true;
+	adin_shouldBeRunning=true;
 	connect(this, SIGNAL(audioDeviceError()), this, SLOT(reportSoundDeviceError()));
 }
 
@@ -250,7 +252,7 @@ void AdinStreamer::init(const QHostAddress& address, qint32 port, qint32 sampleR
 void AdinStreamer::run()
 {
 	fprintf(stderr, "Running\n");
-	shouldBeRunning=true;
+	adin_shouldBeRunning=true;
 	adinstreamer_stop_at_next=false;
 
 	Jconf *jconf;
@@ -310,7 +312,7 @@ void AdinStreamer::run()
 	emit started();
 
 	kWarning() << "bin hier";
-	while(shouldBeRunning) {
+	while(adin_shouldBeRunning) {
 		/* begin A/D input of a stream */
 		ret = j_open_stream(recog, NULL);
 		switch(ret) {
@@ -365,7 +367,7 @@ void AdinStreamer::run()
 			
 			if (ret == -1) {
 				/* error in input device or callback function, so terminate program here */
-				shouldBeRunning=false;
+				adin_shouldBeRunning=false;
 				break;
 			}
 
@@ -389,7 +391,7 @@ void AdinStreamer::run()
 					j_recog_free(realRecog);
 					return;
 			}
-		} while ((shouldBeRunning) && (ret > 0 || ret == -2)); /* to the next segment in this input stream */
+		} while ((adin_shouldBeRunning) && (ret > 0 || ret == -2)); /* to the next segment in this input stream */
 	}
 
 	close(adinstreamer_socketDescriptor);
@@ -407,7 +409,7 @@ void AdinStreamer::run()
 void AdinStreamer::stop()
 {
 	shouldReStart=false;
-	shouldBeRunning=false;
+	adin_shouldBeRunning=false;
 	adinstreamer_stop_at_next=false;
 	kWarning() << 1;
 	if (recog && (recog->adin))
