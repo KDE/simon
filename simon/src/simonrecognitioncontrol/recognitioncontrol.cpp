@@ -93,6 +93,7 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 	adinStreamer=AdinStreamer::getInstance(this);
 	connect(adinStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
 	connect(adinStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
+	connect(adinStreamer, SIGNAL(audioDeviceError()), this, SLOT(adinAudioError()));
 
 	socket = new QSslSocket();
 	timeoutWatcher = new QTimer(this);
@@ -115,6 +116,7 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 	this->modelManager = new ModelManagerUiProxy(this);
 	connect(modelManager, SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
 }
+
 
 void RecognitionControl::streamStarted()
 {
