@@ -611,6 +611,10 @@ void ClientSocket::processRequest()
 			case Simond::ErrorRetrievingTrainingsSample:
 			{
 				Q_ASSERT(synchronisationManager);
+
+				//we can't continue without all the samples
+				synchronisationManager->abort();
+
 				synchronisationDone();
 				
 				break;
@@ -889,7 +893,7 @@ void ClientSocket::recompileModel()
 	kWarning() << synchronisationManager->getLexiconPath();
 	modelCompilationManager->startCompilation(KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
 				synchronisationManager->getLexiconPath(), synchronisationManager->getGrammarPath(),
-				synchronisationManager->getVocabPath(),	synchronisationManager->getPromptsPath(), 
+				synchronisationManager->getSimpleVocabPath(), synchronisationManager->getPromptsPath(), 
 				synchronisationManager->getTreeHedPath(), synchronisationManager->getWavConfigPath());
 }
 

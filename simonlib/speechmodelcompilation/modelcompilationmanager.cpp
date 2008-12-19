@@ -125,7 +125,11 @@ QString ModelCompilationManager::getGraphicBuildLog()
 QString ModelCompilationManager::getBuildLog()
 {
 	QString plainLog = buildLog;
-	plainLog.remove(QRegExp("<.*>"));
+	plainLog.remove("<p>");
+	plainLog.remove("</p>");
+	plainLog.remove("<span style=\"color:#aa0000;\">");
+	plainLog.remove("<span style=\"font-weight:bold; color:#00007f;\">");
+	plainLog.remove("</span>");
 	return plainLog;
 }
 
@@ -153,13 +157,16 @@ void ModelCompilationManager::analyseError(const QString& readableError)
  * \author Peter Grasch
  * @return If this is true we knew what to do; if this is false you'd better throw an error message
  */
+#include <KDebug>
 bool ModelCompilationManager::processError()
 {
 	QString err = getBuildLog().trimmed();
 
+	kWarning() << "I'm in processError()";
 	int startIndex=0;
 	if ((startIndex = err.indexOf("ERROR [+1232]")) != -1) //word missing
 	{
+		kWarning() << "Word missing";
 		//ERROR [+1232]  NumParts: Cannot find word DARAUFFOLGEND in dictionary
 		int wordstart = 45+startIndex;
 		QString word = err.mid(wordstart, err.indexOf(' ', wordstart)-wordstart);
@@ -171,15 +178,24 @@ bool ModelCompilationManager::processError()
 	}
 	if ((startIndex = err.indexOf("ERROR [+2662]")) != -1)
 	{
+		kWarning() << "Phoneme missing";
 // 		"ERROR [+2662]  FindProtoModel: no proto for E in hSet
-		QString phoneme = err.mid(44+startIndex,err.indexOf(' ', 44)-44);
+// 		 FindProtoModel: no proto for n
+		QString phoneme = err.mid(44+startIndex);
+		kWarning() << phoneme;
+		phoneme = phoneme.left(phoneme.indexOf(' '));
+		kWarning() << phoneme;
  		emit phonemeUndefined(phoneme);
 		return true;
 	}
-	if ((startIndex = err.indexOf("Error:       undefined class \"")) != -1)
+	if ((startIndex = err.indexOf("undefined class \"")) != -1)
+		               /*Error: undefined class "Schubi"*/
 	{
-		QString undefClass = err.mid(startIndex+30);
+		kWarning() << "class missing";
+		QString undefClass = err.mid(startIndex+17);
+		kWarning() << undefClass;
 		undefClass = undefClass.left(undefClass.indexOf('"'));
+		kWarning() << undefClass;
 		emit classUndefined(undefClass);
 		return true;
 	}
@@ -220,7 +236,7 @@ bool ModelCompilationManager::startCompilation(const QString& samplePath,
 void ModelCompilationManager::run()
 {
 	if (!createDirs())
-		emit error(i18n("Couldn't generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
+		analyseError(i18n("Couldn't generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
 
 
 	if (proc) proc->deleteLater();
@@ -254,7 +270,7 @@ bool ModelCompilationManager::compileGrammar()
 	emit status(i18n("Generating reverse grammar..."), 2000);
 	if (!generateReverseGrammar())
 	{
-		emit error(i18n("Couldn't create reverse grammar.\n\nDid you define a grammar?"));
+		analyseError(i18n("Couldn't create reverse grammar.\n\nDid you define a grammar?"));
 		return false;
 	}
 
@@ -262,7 +278,7 @@ bool ModelCompilationManager::compileGrammar()
 	emit status(i18n("Generating termporary vocabulary..."), 2100);
 	if (!makeTempVocab())
 	{
-		emit error(i18n("Couldn't create temporary vocabular."));
+		analyseError(i18n("Couldn't create temporary vocabular."));
 		return false;
 	}
 	
@@ -271,7 +287,7 @@ bool ModelCompilationManager::compileGrammar()
 	emit status(i18n("Generating DFA..."), 2250);
 	if (!makeDfa())
 	{
-		emit error(i18n("Couldn't generate dfa. Please check the paths to mkfa and daf_minimize (%1, %2).", mkfa, dfaMinimize));
+		analyseError(i18n("Couldn't generate dfa. Please check the paths to mkfa and daf_minimize (%1, %2).", mkfa, dfaMinimize));
 		return false;
 	}
 	
@@ -279,7 +295,7 @@ bool ModelCompilationManager::compileGrammar()
 	emit status(i18n("Generating grammar dictionary..."), 2299);
 	if (!generateDict())
 	{
-		emit error(i18n("Couldn't generate grammatical lexicon. Please check the output path (%1).", dictPath));
+		analyseError(i18n("Couldn't generate grammatical lexicon. Please check the output path (%1).", dictPath));
 		return false;
 	}
 	
@@ -421,7 +437,7 @@ bool ModelCompilationManager::codeAudioData()
 	//creating codetrain
 	if (!generateCodetrainScp())
 	{
-		emit error(i18n("Couldn't create codetrain-file."));
+		analyseError(i18n("Couldn't create codetrain-file."));
 		return false;
 	}
 
@@ -431,7 +447,7 @@ bool ModelCompilationManager::codeAudioData()
 	QString execStr = '"'+hCopy+"\" -A -D -T 1 -C \""+wavConfigPath+"\" -S \""+codetrainPath+'"';
 	if (!execute(execStr)) 
 	{
-		emit error(i18n("Error while coding the samples!\n\nPlease check the path to HCopy (%1) and the wav config (%2)", hCopy, wavConfigPath));
+		analyseError(i18n("Error while coding the samples!\n\nPlease check the path to HCopy (%1) and the wav config (%2)", hCopy, wavConfigPath));
 		return false;
 	}
 	return true;
@@ -485,7 +501,7 @@ bool ModelCompilationManager::generateInputFiles()
 	//wlist
 	if (!generateWlist())
 	{
-		emit error(i18n("Failed to create wordlist. Please check your permissions to the temporary path."));
+		analyseError(i18n("Failed to create wordlist. Please check your permissions to the temporary path."));
 		return false;
 	}
 
@@ -496,7 +512,7 @@ bool ModelCompilationManager::generateInputFiles()
 	
 	if (!makeMonophones())
 	{
-		emit error(i18n("Failed to generate monophones. Please check that you have installed the Program HDMan correctly and that the lexicon contains all words referenced by your trainings corpus."));
+		analyseError(i18n("Failed to generate monophones. Please check that you have installed the Program HDMan correctly and that the lexicon contains all words referenced by your trainings corpus."));
 		return false;
 	}
 
@@ -510,14 +526,14 @@ bool ModelCompilationManager::makeTranscriptions()
 	emit status(i18n("Generating Master Label File..."), 55);
 	if (!generateMlf())
 	{
-		emit error(i18n("Couldn't generate Master Label File. Please check your prompts file (%1).", promptsPath));
+		analyseError(i18n("Couldn't generate Master Label File. Please check your prompts file (%1).", promptsPath));
 		return false;
 	}
 	
 	
 	if (!execute('"'+hLEd+"\" -A -D -T 1 -l \"*\" -d \""+tempDir+"/dict\" -i \""+tempDir+"/phones0.mlf\" \""+KStandardDirs::locate("appdata", "scripts/mkphones0.led")+"\" \""+tempDir+"/words.mlf"+"\"") || !execute('"'+hLEd+"\" -A -D -T 1 -l \"*\" -d \""+tempDir+"/dict"+"\" -i \""+tempDir+"/phones1.mlf\" \""+KStandardDirs::locate("appdata", "scripts/mkphones1.led")+"\" \""+tempDir+"/words.mlf\""))
 	{
-		emit error(i18n("Generation of the transcription failed. Please check if you have correctly specified the paths to mkphones0.led and mkphons1.led. (%1, %2)", KStandardDirs::locate("appdata", "scripts/mkphones0.led"), KStandardDirs::locate("appdata", "scripts/mkphones1.led")));
+		analyseError(i18n("Generation of the transcription failed. Please check if you have correctly specified the paths to mkphones0.led and mkphons1.led. (%1, %2)", KStandardDirs::locate("appdata", "scripts/mkphones0.led"), KStandardDirs::locate("appdata", "scripts/mkphones1.led")));
 		return false;
 	}
 	return true;
@@ -529,28 +545,28 @@ bool ModelCompilationManager::createMonophones()
 	emit status(i18n("Generating hmm0..."), 550);
 	if (!buildHMM0())
 	{
-		emit error(i18n("Error when generating the HMM0.\n\nPlease check if there is enough training material and that the path tos HCompV(%1), the config (%2) and the phoneme prototype (%3) are correct.", hCompV, KStandardDirs::locate("appdata", "scripts/config"), KStandardDirs::locate("appdata", "scripts/proto")));
+		analyseError(i18n("Error when generating the HMM0.\n\nPlease check if there is enough training material and that the path tos HCompV(%1), the config (%2) and the phoneme prototype (%3) are correct.", hCompV, KStandardDirs::locate("appdata", "scripts/config"), KStandardDirs::locate("appdata", "scripts/proto")));
 		return false;
 	}
 	if (!keepGoing) return false;
 	emit status(i18n("Generating hmm1..."), 800);
 	if (!buildHMM1())
 	{
-		emit error(i18n("Could not generate the HMM1.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM1.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
 	if (!keepGoing) return false;
 	emit status(i18n("Generating hmm2..."), 850);
 	if (!buildHMM2())
 	{
-		emit error(i18n("Could not generate the HMM2.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM2.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
 	if (!keepGoing) return false;
 	emit status(i18n("Generating hmm3..."), 900);
 	if (!buildHMM3())
 	{
-		emit error(i18n("Could not generate the HMM3.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM3.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
 	return true;
@@ -562,7 +578,7 @@ bool ModelCompilationManager::fixSilenceModel()
 	emit status(i18n("Generating Pause-Model (hmm4)..."), 950);
 	if (!buildHMM4())
 	{
-		emit error(i18n("Could not generate HMM4.\n"
+		analyseError(i18n("Could not generate HMM4.\n"
 "\n"
 "Please check the HMM3."));
 		return false;
@@ -571,21 +587,21 @@ bool ModelCompilationManager::fixSilenceModel()
 	emit status(i18n("Generating hmm5..."), 1000);
 	if (!buildHMM5())
 	{
-		emit error(i18n("Could not generate HMM5. Please check the paths to HHEd (%1) and to the silence-model (%2).", hHEd, KStandardDirs::locate("appdata", "scripts/sil.hed")));
+		analyseError(i18n("Could not generate HMM5. Please check the paths to HHEd (%1) and to the silence-model (%2).", hHEd, KStandardDirs::locate("appdata", "scripts/sil.hed")));
 		return false;
 	}
 	if (!keepGoing) return false;
 	emit status(i18n("Generating hmm6..."), 1080);
 	if (!buildHMM6())
 	{
-		emit error(i18n("Could not generate the HMM6.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM6.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
 	if (!keepGoing) return false;
 	emit status(i18n("Generating hmm7..."), 1150);
 	if (!buildHMM7())
 	{
-		emit error(i18n("Could not generate the HMM6.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM6.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
 	
@@ -598,7 +614,7 @@ bool ModelCompilationManager::realign()
 	emit status(i18n("Generating dict1..."), 1160);
 	if (!makeDict1())
 	{
-		emit error(i18n("Could not generate the dict1"));
+		analyseError(i18n("Could not generate the dict1"));
 		return false;
 	}
 
@@ -606,7 +622,7 @@ bool ModelCompilationManager::realign()
 	emit status(i18n("Re-Aligning HMM7..."), 1160);
 	if (!realignHMM7())
 	{
-		emit error(i18n("Couldn't re-align hmm7. Please check your paths to HVite (%1), the config (%2) and to the HMM7.", hVite, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Couldn't re-align hmm7. Please check your paths to HVite (%1), the config (%2) and to the HMM7.", hVite, KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
 
@@ -614,7 +630,7 @@ bool ModelCompilationManager::realign()
 	emit status(i18n("Generating hmm8..."), 1230);
 	if (!buildHMM8())
 	{
-		emit error(i18n("Could not generate the HMM8.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM8.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
 
@@ -622,7 +638,7 @@ bool ModelCompilationManager::realign()
 	emit status(i18n("Generating hmm9..."),1300);
 	if (!buildHMM9())
 	{
-		emit error(i18n("Could not generate the HMM9.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM9.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
 	
@@ -636,7 +652,7 @@ bool ModelCompilationManager::tieStates()
 	
 	if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+tempDir+"/fulllist" +"\" -g \""+KStandardDirs::locate("appdata", "scripts/global.ded")+"\" \""+tempDir+"/dict-tri" +"\" \""+lexiconPath+'"'))
 	{
-		emit error(i18n("Couldn't bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, KStandardDirs::locate("appdata", "scripts/global.ded"), lexiconPath));
+		analyseError(i18n("Couldn't bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, KStandardDirs::locate("appdata", "scripts/global.ded"), lexiconPath));
 		return false;
 	}
 
@@ -644,14 +660,14 @@ bool ModelCompilationManager::tieStates()
 	emit status(i18n("Generating list of triphones..."),1705);
 	if (!makeFulllist())
 	{
-		emit error(i18n("Couldn't generate list of triphones."));
+		analyseError(i18n("Couldn't generate list of triphones."));
 		return false;
 	}
 	if (!keepGoing) return false;
 	emit status(i18n("Generating tree.hed..."), 1750);
 	if (!makeTreeHed())
 	{
-		emit error(i18n("Couldn't generate tree.hed."));
+		analyseError(i18n("Couldn't generate tree.hed."));
 		return false;
 	}
 	
@@ -659,7 +675,7 @@ bool ModelCompilationManager::tieStates()
 	emit status(i18n("Generating hmm13..."),1830);
 	if (!buildHMM13())
 	{
-		emit error(i18n("Could not generate HMM13.\n\nPlease check the path to HHEd (%1).", hHEd));
+		analyseError(i18n("Could not generate HMM13.\n\nPlease check the path to HHEd (%1).", hHEd));
 		return false;
 	}
 	
@@ -668,7 +684,7 @@ bool ModelCompilationManager::tieStates()
 	emit status(i18n("Generating hmm14..."),1900);
 	if (!buildHMM14())
 	{
-		emit error(i18n("Couldn't generate HMM14. Please check the paths to HERest (%1), the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("appdata", "scripts/config"), tempDir+"/stats"));
+		analyseError(i18n("Couldn't generate HMM14. Please check the paths to HERest (%1), the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("appdata", "scripts/config"), tempDir+"/stats"));
 		return false;
 	}
 	
@@ -676,7 +692,7 @@ bool ModelCompilationManager::tieStates()
 	emit status(i18n("Generating hmm15..."),1990);
 	if (!buildHMM15())
 	{
-		emit error(i18n("Could not generate the HMM15.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("appdata", "scripts/config"), tempDir+"/stats"));
+		analyseError(i18n("Could not generate the HMM15.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("appdata", "scripts/config"), tempDir+"/stats"));
 		return false;
 	}
 
@@ -804,7 +820,7 @@ bool ModelCompilationManager::makeTriphones()
 	emit status(i18n("Generating triphone..."),1380);
 	if (!execute('"'+hLEd+"\" -A -D -T 1 -n \""+tempDir+"/triphones1\" -l * -i \""+tempDir+"/wintri.mlf\" \""+KStandardDirs::locate("appdata", "scripts/mktri.led")+"\" \""+tempDir+"/aligned.mlf\""))
 	{
-		emit error(i18n("Could not generate triphones.\n\nPlease check your path to the files mktri.led and HLEd (%1, %2)", KStandardDirs::locate("appdata", "scripts/mktri.led"), hLEd));
+		analyseError(i18n("Could not generate triphones.\n\nPlease check your path to the files mktri.led and HLEd (%1, %2)", KStandardDirs::locate("appdata", "scripts/mktri.led"), hLEd));
 		return false;
 	}
 	
@@ -812,7 +828,7 @@ bool ModelCompilationManager::makeTriphones()
 	emit status(i18n("Generating mktri.hed..."),1400);
 	if (!makeMkTriHed())
 	{
-		emit error(i18n("Could not generate mktri.hed"));
+		analyseError(i18n("Could not generate mktri.hed"));
 		return false;
 	}
 	
@@ -820,7 +836,7 @@ bool ModelCompilationManager::makeTriphones()
 	emit status(i18n("Generating hmm10..."),1470);
 	if (!buildHMM10())
 	{
-		emit error(i18n("Could not generate HMM10. Please check th e path to HHEd (%1).", hHEd));
+		analyseError(i18n("Could not generate HMM10. Please check th e path to HHEd (%1).", hHEd));
 		return false;
 	}
 	
@@ -828,7 +844,7 @@ bool ModelCompilationManager::makeTriphones()
 	emit status(i18n("Generating hmm11..."),1550);
 	if (!buildHMM11())
 	{
-		emit error(i18n("Could not generate HMM11. Please check your paths to HERest (%1) and to the config (%2).", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate HMM11. Please check your paths to HERest (%1) and to the config (%2).", hERest, KStandardDirs::locate("appdata", "scripts/config")));
 		return false;
 	}
 	
@@ -836,7 +852,7 @@ bool ModelCompilationManager::makeTriphones()
 	emit status(i18n("Generating hmm12..."),1620);
 	if (!buildHMM12())
 	{
-		emit error(i18n("Could not generate the HMM12.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("appdata", "scripts/config"), tempDir+"/stats"));
+		analyseError(i18n("Could not generate the HMM12.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("appdata", "scripts/config"), tempDir+"/stats"));
 		return false;
 	}
 	

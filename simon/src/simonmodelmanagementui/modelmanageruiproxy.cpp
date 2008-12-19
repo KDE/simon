@@ -74,19 +74,20 @@ void ModelManagerUiProxy::sampleNotAvailable(const QString& sample)
 
 void ModelManagerUiProxy::wordUndefined(const QString& word)
 {
-	if (KMessageBox::questionYesNoCancel(0, i18n("The word \"%1\" is used in your trainings samples but is not phonetically "
-"defined. Do you want to add the word now?", word)) != KMessageBox::Yes)
+	if (KMessageBox::questionYesNoCancel(0, i18n("The word \"%1\" is used in your training-samples but is not contained "
+"in your wordlist.\n\nDo you want to add the word now?", word)) != KMessageBox::Yes)
 		return;
+	KMessageBox::information(0, i18n("Sorry this is not yet implemented"));
 }
 
 void ModelManagerUiProxy::classUndefined(const QString& undefClass)
 {
-	KMessageBox::sorry(0, i18n("Your wordlist uses the undefined class %1.\n\nPlease use it in at least one grammar structure.", undefClass));
+	KMessageBox::sorry(0, i18n("Your grammar uses the undefined terminal \"%1\".\n\nPlease add a word that uses this terminal or remove the structure(s) containing the terminal from your grammar.", undefClass));
 }
 
 void ModelManagerUiProxy::phonemeUndefined(const QString& phoneme)
 {
-	KMessageBox::sorry(0, i18n("The Phoneme %1 is unedfined. Please train at least one word that uses it.", phoneme));
+	KMessageBox::sorry(0, i18n("The Phoneme \"%1\" is undefined.\n\nPlease train at least one word that uses it.", phoneme));
 }
 
 

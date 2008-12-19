@@ -29,6 +29,7 @@ WordListModel::WordListModel(WordList *words)
 {
 	KLocale::setMainCatalog("simonlib");
 	this->words = words;
+	buildBrushes();
 }
 
 void WordListModel::buildBrushes()

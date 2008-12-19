@@ -105,6 +105,7 @@ class SynchronisationManager : public QObject
 		QString getLexiconPath();
 		QString getGrammarPath();
 		QString getVocabPath();
+		QString getSimpleVocabPath();
 		QString getPromptsPath();
 		QString getTreeHedPath();
 		QString getWavConfigPath();

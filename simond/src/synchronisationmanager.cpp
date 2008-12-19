@@ -968,6 +968,15 @@ QString SynchronisationManager::getVocabPath()
 	return dir+"model.voca";
 }
 
+QString SynchronisationManager::getSimpleVocabPath()
+{
+	QString dir = getLatestPath(getWordLists());
+	if (dir.isNull()) return QString();
+	
+	return dir+"simplevocab";
+}
+
+
 QString SynchronisationManager::getPromptsPath()
 {
 	QString dir = getLatestPath(getTrainingDatas());
