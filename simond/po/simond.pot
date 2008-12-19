@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-12-09 09:07+0100\n"
+"POT-Creation-Date: 2008-12-19 13:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -206,15 +206,15 @@ msgstr ""
 msgid "Couldn't start adin-thread"
 msgstr ""
 
-#: src/juliuscontrol.cpp:407
+#: src/juliuscontrol.cpp:409
 msgid "Unknown error"
 msgstr ""
 
-#: src/juliuscontrol.cpp:411
+#: src/juliuscontrol.cpp:413
 msgid "Couldn't initialize microphone"
 msgstr ""
 
-#: src/juliuscontrol.cpp:412
+#: src/juliuscontrol.cpp:414
 msgid "Error with the audio stream"
 msgstr ""
 

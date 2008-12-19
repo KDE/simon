@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simond\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-12-09 09:07+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2008-12-19 13:43+0100\n"
 "PO-Revision-Date: 2008-12-09 09:08+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -217,15 +217,15 @@ msgstr "Konnte Erkennung nicht starten"
 msgid "Couldn't start adin-thread"
 msgstr "Konnte adin-thread nicht starten."
 
-#: src/juliuscontrol.cpp:407
+#: src/juliuscontrol.cpp:409
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 
-#: src/juliuscontrol.cpp:411
+#: src/juliuscontrol.cpp:413
 msgid "Couldn't initialize microphone"
 msgstr "Konnte Mikrofon nicht initialisieren"
 
-#: src/juliuscontrol.cpp:412
+#: src/juliuscontrol.cpp:414
 msgid "Error with the audio stream"
 msgstr "Fehler mit dem Audio-Stream"
 
@@ -597,4 +597,3 @@ msgstr "Peter Grasch"
 
 #~ msgid "grasch@simon-listens.org"
 #~ msgstr "Your emails"
-
