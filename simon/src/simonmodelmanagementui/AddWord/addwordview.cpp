@@ -70,6 +70,37 @@ AddWordView::AddWordView(QWidget *parent)
 }
 
 
+
+void AddWordView::accept()
+{
+	QString word = field("wordName").toString();
+	
+	Logger::log(i18n("[INF] Adding the new Word to the Model..."));
+	Logger::log(i18n("[INF] New word: ")+word);
+	
+	listToAdd->append(Word(word, field("wordPronunciation").toString(),
+		     field("wordTerminal").toString(), 2 /* 2 recordings */));
+	promptsToAdd.insert(record1->getFileName(), record1->getPrompt().toUpper());
+	promptsToAdd.insert(record2->getFileName(), record2->getPrompt().toUpper());
+	
+	if (wordsToAdd.count() > 0)
+	{
+		//multiple words
+		createWord(wordsToAdd.takeAt(0));
+		show();
+	} else {
+		commitList();
+		restart();
+		QDialog::accept();
+	}
+
+
+	//cleaning up
+	Logger::log(i18n("[INF] Added Word: ")+word);
+	emit addedWord();
+}
+
+
 void AddWordView::cleanUp()
 {
 	wordsToAdd.clear();
@@ -138,41 +169,6 @@ QWizardPage* AddWordView::createFinishedPage()
 }
 
 
-/**
- * \brief Writes the word into the files and cleans up the wizard
- * 
- * \author Peter Grasch
- */
-void AddWordView::finish(int done)
-{
-	if (!done) return;
-	
-	QString word = field("wordName").toString();
-	
-	Logger::log(i18n("[INF] Adding the new Word to the Model..."));
-	Logger::log(i18n("[INF] New word: ")+word);
-	
-	listToAdd->append(Word(word, field("wordPronunciation").toString(),
-		     field("wordTerminal").toString(), 2 /* 2 recordings */));
-	promptsToAdd.insert(record1->getFileName(), record1->getPrompt().toUpper());
-	promptsToAdd.insert(record2->getFileName(), record2->getPrompt().toUpper());
-	
-	if (wordsToAdd.count() > 0)
-	{
-		//multiple words
-		createWord(wordsToAdd.takeAt(0));
-		show();
-	} else {
-		commitList();
-		restart();
-	}
-
-
-	//cleaning up
-	Logger::log(i18n("[INF] Added Word: ")+word);
-	emit addedWord();
-}
-
 
 /**
  * \brief Adds the list of words to the wordlistmanager
@@ -218,10 +214,6 @@ void AddWordView::addWords(QStringList words)
 	createWord(wordsToAdd.takeAt(0));
 }
 
-AddWordView::~AddWordView()
-{
-}
-
 /**
  * \brief Shows the addWordView with a given word
  *          this method is used in the trainingmanager
@@ -229,12 +221,12 @@ AddWordView::~AddWordView()
  */
 void AddWordView::createWord(QString word)
 {
-	if (isVisible())
-	{
-		if (KMessageBox::questionYesNoCancel(this, i18n("A word is currently being added.\n\nDo you want to abort this process?")) != KMessageBox::Yes)
-			return;
-	}
 	restart();
 	setField("wordNameIntro", word);
 	next(); //continue to page 2
 }
+
+AddWordView::~AddWordView()
+{
+}
+

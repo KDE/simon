@@ -70,13 +70,13 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 		void cleanUp();
 
 	public slots:
-		void finish(int done);
-
 		AddWordIntroPage* createWelcomePage();
 		AddWordRecordPage* createRecordPage(const QString& fieldName, int pageNr, int pageMax);
 		AddWordResolvePage* createResolvePage();
 		QWizardPage* createFinishedPage();
 		void addWords(QStringList words);
+
+		void accept();
 		
 	public:
 		AddWordView(QWidget *parent);

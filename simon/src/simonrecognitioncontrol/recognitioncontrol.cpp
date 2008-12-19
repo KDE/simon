@@ -125,7 +125,10 @@ void RecognitionControl::streamStarted()
 
 void RecognitionControl::streamStopped()
 {
-	emit recognitionStatusChanged(RecognitionControl::Ready);
+	if (isConnected())
+		emit recognitionStatusChanged(RecognitionControl::Ready);
+	//else don't emit anything; The stream could have been stopped
+	//by us, disconnecting; That doesn't mean that the recognition is ready, tough
 }
 
 

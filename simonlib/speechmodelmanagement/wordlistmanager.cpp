@@ -441,7 +441,7 @@ WordList::iterator WordListManager::getWordIndex(WordList *list, bool &found, co
 	if (!list || (list->count()==0))
 	{
 		found = false;
-		return 0;
+		return list->begin();
 	}
 	WordList::iterator i = qLowerBound(list->begin(), list->end(), Word(word.toUpper(), pronunciation, terminal));
 
