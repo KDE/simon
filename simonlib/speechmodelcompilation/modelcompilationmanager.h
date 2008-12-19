@@ -58,6 +58,7 @@ private:
 	QString buildLog;
 	QString lastOutput;
 
+	QString htkIfyPath(const QString& in);
 
 	QString userName;
 	QString samplePath;

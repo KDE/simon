@@ -12,8 +12,8 @@ IF(UNIX)
 	find_package(SoundFile REQUIRED)
 ENDIF(UNIX)
 IF(WIN32)
-	include(FindDirectSound)
-	find_package(DirectSound REQUIRED)
+#	include(FindDirectSound)
+#	find_package(DirectSound REQUIRED)
 	add_definitions(-D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
 ENDIF(WIN32)
 
@@ -41,7 +41,7 @@ ENDIF(UNIX)
 
 IF(WIN32)
 target_link_libraries( adinstreamer ${QT_LIBRARIES}
-	${KDE4_KDEUI_LIBS} ${PORTAUDIO_LIBRARIES} ${DIRECTSOUND_LIBRARY}
+	${KDE4_KDEUI_LIBS} ${PORTAUDIO_LIBRARIES}# ${DIRECTSOUND_LIBRARY}
 	${JULIUS_LIBRARIES} wsock32 dsound winmm )
 ENDIF(WIN32)
 

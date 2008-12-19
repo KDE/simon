@@ -139,7 +139,15 @@ bool TrainingManager::deletePrompt ( QString key )
 
 QString TrainingManager::getTrainingDir()
 {
-	return SpeechModelManagementConfiguration::modelTrainingsDataPath().path();
+	QString dir = SpeechModelManagementConfiguration::modelTrainingsDataPath().path();
+	if (!dir.endsWith("/") 
+	#ifdef Q_OS_WINDOWS
+			&& !dir.endsWith("\")
+	#endif
+			)
+		dir += QDir::separator();
+		
+	return dir;
 }
 
 /**
@@ -223,10 +231,16 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 	int labelend;
 	while ( !prompts->atEnd() ) //for each line that was successfully read
 	{
-		line = QString::fromUtf8(prompts->readLine ( 1024 ));
+		QByteArray rawLine = prompts->readLine ( 1024 );
+		line = QString::fromUtf8(rawLine);
 		if (line.trimmed().isEmpty()) continue;
 		labelend = line.indexOf ( " " );
+		#ifdef Q_OS_WIN
+		QString label = QString::fromLocal8Bit(rawLine);
+		label = label.left( labelend );
+		#else
 		label = line.left ( labelend );
+		#endif
 		prompt = line.mid ( labelend ).trimmed();
 
 		promptsTable->insert ( label, prompt );

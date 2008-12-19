@@ -209,16 +209,13 @@ bool WavRecorder::finish()
 		if( err != paNoError ) succ = false;
 	}
 	
-
 	stream = 0;
 	if (! wavData->writeFile()) succ = false;
-	
 
 	Pa_Sleep( 500 );
 	err = Pa_Terminate();
 
 	if( err != paNoError ) succ=false;
-	
 	
 	delete wavData;
 	wavData = 0;

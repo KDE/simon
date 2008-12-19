@@ -199,6 +199,10 @@ void WindowsEvents::sendKey(unsigned int key /*unicode representation*/)
 		case Qt::Key_Down:
 			virtualKey = VK_DOWN;
 			break;
+ 	
+		case Qt::Key_Escape:
+			key = VK_ESCAPE;
+			break;
 			
 		case Qt::Key_Select:
 			virtualKey = VK_SELECT;

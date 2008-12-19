@@ -8,14 +8,13 @@ IF(UNIX)
 	find_package(SoundFile REQUIRED)
 ENDIF(UNIX)
 IF(WIN32)
-	include(FindDirectSound)
-	find_package(DirectSound REQUIRED)
+#	include(FindDirectSound)
+#	find_package(DirectSound REQUIRED)
 	add_definitions(-D__INTERLOCKED_DECLARED -DMAKE_SIMOND -DKDEWIN_STRINGS_H)
-	
 ENDIF(WIN32)
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${JULIUS_INCLUDE_DIR}
-	../../simonlib )
+	../../simonlib ${PORTAUDIO_DEFINITIONS})
 
 set(simond_SRCS
    main.cpp
@@ -36,7 +35,7 @@ target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${PORTAUDIO_LIBRARIES} ${SOUND
 ${QT_LIBRARIES} ${JULIUS_LIBRARIES} speechmodelbase simonmodelcompilation simonddatabaseaccess)
 ENDIF(UNIX)
 IF(WIN32)
-target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${PORTAUDIO_LIBRARIES} ${DIRECTSOUND_LIBRARY}
+target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${PORTAUDIO_LIBRARIES}# ${DIRECTSOUND_LIBRARY}
 ${QT_LIBRARIES} ${JULIUS_LIBRARIES} speechmodelbase simonmodelcompilation simonddatabaseaccess wsock32 dsound winmm)
 ENDIF(WIN32)
 

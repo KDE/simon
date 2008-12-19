@@ -27,6 +27,7 @@
 
 class KProcess;
 class KAction;
+class QCloseEvent;
 /**
  * This is the main view class for ksimond.  Most of the non-menu,
  * non-toolbar, and non-statusbar (e.g., non frame) GUI code should go
@@ -61,6 +62,9 @@ private slots:
     void matchDisplayToState();
     void slotError(QProcess::ProcessError err);
 
+protected:
+	void closeEvent(QCloseEvent*);
+	
 private:
     TrayIconManager *trayIconMgr;
     KProcess *process;

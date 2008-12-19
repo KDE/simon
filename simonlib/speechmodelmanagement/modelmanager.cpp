@@ -106,8 +106,8 @@ qint32 ModelManager::getActiveModelSampleRate()
 
 QDateTime ModelManager::getActiveContainerModifiedTime()
 {
-	if (!hasActiveContainer()) return QDateTime();
-
+	if (!QFile::exists(KStandardDirs::locateLocal("appdata", "model/activemodelrc")))
+		return QDateTime();
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/activemodelrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("Date", QDateTime());
@@ -150,7 +150,15 @@ bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleR
 
 QByteArray ModelManager::getSample(const QString& sampleName)
 {
+#ifdef Q_OS_WIN
+	//#ifdef UNICODE
+	//QFile f(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+sampleName.toUtf8());
+	//#else
+	QFile f(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+sampleName);
+	//#endif
+#else
 	QFile f(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+sampleName.toUtf8());
+#endif
 
 	QFileInfo fInfo(f);
 
@@ -185,12 +193,19 @@ WordListContainer* ModelManager::getWordListContainer()
 
 QDateTime ModelManager::getWordListModifiedTime()
 {
-	if (!hasWordList()) return QDateTime();
+	if (!QFile::exists(KStandardDirs::locateLocal("appdata", "model/modelsrcrc")))
+		return QDateTime();
 	
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
+	
+	QDateTime wordListDate = cGroup.readEntry("WordListDate", QDateTime());
+	QDateTime grammarDate = cGroup.readEntry("GrammarDate", QDateTime());
+	
+	if (wordListDate.isNull() || grammarDate.isNull()) return QDateTime();
+	
 	/* grammar might effect the simpleVocab */
-	return qMax(cGroup.readEntry("WordListDate", QDateTime()), cGroup.readEntry("GrammarDate", QDateTime()));
+	return qMax(wordListDate, grammarDate);
 }
 
 
@@ -218,7 +233,9 @@ GrammarContainer* ModelManager::getGrammarContainer()
 
 QDateTime ModelManager::getGrammarModifiedTime()
 {
-	if (!hasGrammar()) return QDateTime();
+	if (!QFile::exists(KStandardDirs::locateLocal("appdata", "model/modelsrcrc")))
+		return QDateTime();
+		
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("GrammarDate", QDateTime());
@@ -227,7 +244,6 @@ QDateTime ModelManager::getGrammarModifiedTime()
 
 bool ModelManager::storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures)
 {
-	kWarning() << "storing...";
 	if (!GrammarManager::getInstance()->refreshFiles(grammarStructures)) return false;
 	
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
@@ -252,7 +268,8 @@ LanguageDescriptionContainer* ModelManager::getLanguageDescriptionContainer()
 
 QDateTime ModelManager::getLanguageDescriptionModifiedTime()
 {
-	if (!hasLanguageDescription()) return QDateTime();
+	if (!QFile::exists(KStandardDirs::locateLocal("appdata", "model/modelsrcrc")))
+		return QDateTime();
 	
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
@@ -302,7 +319,8 @@ TrainingContainer* ModelManager::getTrainingContainer()
 
 QDateTime ModelManager::getTrainingModifiedTime()
 {
-	if (!hasTraining()) return QDateTime();
+	if (!QFile::exists(KStandardDirs::locateLocal("appdata", "model/modelsrcrc")))
+		return QDateTime();
 
 	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
@@ -369,29 +387,34 @@ QString ModelManager::missingSample()
 
 bool ModelManager::hasWordList()
 {
-	return (QFile::exists(KStandardDirs::locate("appdata", "model/model.voca")) && 
-		  QFile::exists(KStandardDirs::locate("appdata", "model/lexicon")));
+	if (getWordListModifiedTime().isNull()) return false;
+	return (hasGrammar() && QFile::exists(KStandardDirs::locate("appdata", "model/model.voca"))
+			&& QFile::exists(KStandardDirs::locate("appdata", "model/lexicon")));
 }
 
 bool ModelManager::hasTraining()
 {
+	if (getTrainingModifiedTime().isNull()) return false;
 	return (QFile::exists(KStandardDirs::locate("appdata", "model/wav_config")) && 
 		  QFile::exists(KStandardDirs::locate("appdata", "model/prompts")));
 }
 
 bool ModelManager::hasGrammar()
 {
+	if (getGrammarModifiedTime().isNull()) return false;
 	return QFile::exists(KStandardDirs::locate("appdata", "model/model.grammar"));
 }
 
 bool ModelManager::hasLanguageDescription()
 {
+	if (getLanguageDescriptionModifiedTime().isNull()) return false;
 	return (QFile::exists(KStandardDirs::locate("appdata", "model/tree1.hed")) && 
 		  QFile::exists(KStandardDirs::locate("appdata", "model/shadow.voca")));
 }
 
 bool ModelManager::hasActiveContainer()
 {
+	if (getActiveContainerModifiedTime().isNull()) return false;
 	return (QFile::exists(KStandardDirs::locate("appdata", "model/hmmdefs")) && 
 		  QFile::exists(KStandardDirs::locate("appdata", "model/tiedlist")) &&
 		  QFile::exists(KStandardDirs::locate("appdata", "model/model.dict")) && 
@@ -401,6 +424,7 @@ bool ModelManager::hasActiveContainer()
 
 QDateTime ModelManager::getSrcContainerModifiedTime()
 {
+	kWarning() << "Getting src container modified time";
 	if (!hasWordList() || !hasTraining() || !hasGrammar() || !hasLanguageDescription())
 	{
 		return QDateTime();

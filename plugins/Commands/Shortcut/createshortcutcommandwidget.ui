@@ -49,11 +49,6 @@
          <string>Ctrl+Esc</string>
         </property>
        </item>
-       <item>
-        <property name="text" >
-         <string>Ctrl+Alt+Esc</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item>

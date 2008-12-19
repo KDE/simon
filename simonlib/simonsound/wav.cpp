@@ -184,6 +184,7 @@ int WAV::retrieveChannels()
  *	@param QString filename
  *	The filename - if omitted the filename (member) is used
  */
+ #include <KDebug>
 bool WAV::writeFile(QString filename)
 {
 	if (filename.isEmpty()) filename = this->filename;

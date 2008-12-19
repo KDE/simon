@@ -44,9 +44,9 @@ class SPEECHGUI_EXPORT TrayIconManager : public QObject
 private:
 	KSystemTrayIcon *icon; //!< The QSystemTrayIcon to display the icon itself
 
-
 	
 public:
+	void parentWidgetTrayClose();
 	void createIcon(const KIcon& icon, const QString& tooltip);
 	void addAction(const QString& name, KAction* action);
     TrayIconManager(QWidget *parent=0);

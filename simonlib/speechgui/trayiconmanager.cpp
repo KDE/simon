@@ -58,6 +58,11 @@ void TrayIconManager::createIcon(const KIcon& icon, const QString& tooltip)
 	this->icon->show();
 }
 
+void TrayIconManager::parentWidgetTrayClose()
+{
+	this->icon->parentWidgetTrayClose();
+}
+
 
 void TrayIconManager::addAction(const QString& name, KAction* action)
 {

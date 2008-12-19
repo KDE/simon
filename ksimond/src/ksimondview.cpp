@@ -189,8 +189,13 @@ void KSimondView::stopSimond()
 {
 	stopIntended=true;
 	process->terminate();
-	if (!process->waitForFinished())
+	if (!process->waitForFinished(2000))
 		process->kill();
+}
+
+void KSimondView::closeEvent(QCloseEvent*)
+{
+	trayIconMgr->parentWidgetTrayClose();
 }
 
 KSimondView::~KSimondView()

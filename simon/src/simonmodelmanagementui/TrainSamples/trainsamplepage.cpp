@@ -37,7 +37,7 @@ TrainSamplePage::TrainSamplePage(const QString& prompt, int nowPage, int maxPage
 
 
 	fileName = TrainingManager::getInstance()->htkify(prompt).replace(" ", "_")+"_S"+QString::number(nowPage)+"_"
-				+QDateTime::currentDateTime().toString("yyyy-MM-dd_hh:mm:ss");
+				+QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss");
 
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	QLabel *desc = new QLabel(i18n("Please record the Text below.\n\nEnsure that you speek clearly but naturally. "
@@ -46,7 +46,7 @@ TrainSamplePage::TrainSamplePage(const QString& prompt, int nowPage, int maxPage
 	desc->setWordWrap(true);
 	recorder = new RecWidget("", prompt, 
 				  TrainingManager::getInstance()->getTrainingDir()+
-					QDir::separator()+fileName+".wav", this);
+					fileName+".wav", this);
 	lay->addWidget(desc);
 	lay->addWidget(recorder);
 

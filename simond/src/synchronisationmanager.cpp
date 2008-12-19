@@ -481,7 +481,7 @@ void SynchronisationManager::buildMissingSamples()
 	{
 		while (!promptsFile.atEnd())
 		{
-			QString promptsLine = QString::fromUtf8(promptsFile.readLine());
+			QString promptsLine = QString::fromLatin1(promptsFile.readLine());
 			newList << promptsLine.left(promptsLine.indexOf(" "));
 		}
 		promptsFile.close();
@@ -499,7 +499,18 @@ void SynchronisationManager::buildMissingSamples()
 QByteArray SynchronisationManager::getSample(const QString& sampleName)
 {
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/");
+	
+	
+#ifdef Q_OS_WIN
+	#ifdef UNICODE
 	QFile f(dirPath+"/"+sampleName.toUtf8());
+	#else
+	QFile f(dirPath+"/"+sampleName.toAscii());
+	#endif
+#else
+	QFile f(dirPath+"/"+sampleName.toUtf8());
+#endif
+
 	QFileInfo fInfo(f);
 	if (!fInfo.absoluteFilePath().contains(dirPath)) return QByteArray(); //don't get tricked by /path/to/samples/../../../etc/passwd
 
@@ -621,7 +632,7 @@ bool SynchronisationManager::commit()
 		return cleanTemp(); // nothing to process
 	}
 
-	QString newSrcContainerPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/"+newSrcContainerTime.toString("yyyy-MM-dd_hh:mm:ss")+"/");
+	QString newSrcContainerPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/src/"+newSrcContainerTime.toString("yyyy-MM-dd_hh-mm-ss")+"/");
 
 	if (newSrcContainerPath.isEmpty()) return false;
 
@@ -663,7 +674,7 @@ QMap<QDateTime, QString> SynchronisationManager::getModels()
 	QStringList folders = modelSrcDir.entryList(QDir::Dirs|QDir::NoDotAndDotDot);
 	foreach (const QString folder, folders)
 	{
-		QDateTime folderDate = QDateTime::fromString(folder, "yyyy-MM-dd_hh:mm:ss");
+		QDateTime folderDate = QDateTime::fromString(folder, "yyyy-MM-dd_hh-mm-ss");
 		if (!folderDate.isValid()) continue;
 
 		models.insert(folderDate, modelSrcDir.absolutePath()+QDir::separator()+folder+QDir::separator());
