@@ -410,8 +410,13 @@ void SimonView::toggleActivation()
  */
 void SimonView::representState(SimonControl::SystemStatus status)
 {
+	guiUpdateMutex.lock();
+	kWarning() << status;
+//	return; //FIXME: remove
 	KToolBarPopupAction *connectActivate = dynamic_cast<KToolBarPopupAction*>(actionCollection()->action("connectActivate"));
-	actionCollection()->action("compileModel")->setEnabled(status != SimonControl::Disconnected);
+	QAction *compileAction = actionCollection()->action("compileModel");
+	if (compileAction) 
+		compileAction->setEnabled(status != SimonControl::Disconnected);
 	switch (status)
 	{
 		case SimonControl::Disconnected: {
@@ -506,7 +511,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
 			SimonInfo::showMessage ( i18n ( "simon has been deactivated" ), 2000 );
 				
 			this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
-			repaint();
+			//repaint();
 			break; }
 		
 		case SimonControl::ConnectedResuming: 
@@ -546,6 +551,7 @@ void SimonView::representState(SimonControl::SystemStatus status)
 			SimonInfo::showMessage ( i18n ( "simon has been activated" ), 2000 );
 			break; }
 	}
+	guiUpdateMutex.unlock();
 }
 
 

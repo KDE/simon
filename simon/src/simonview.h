@@ -40,6 +40,7 @@
 #include <simoncontrol.h>
 
 #include <QList>
+#include <QMutex>
 
 // #include "operation.h"
 
@@ -69,6 +70,8 @@ class SimonView : public SimonMainWindow    {
 
 
 private:
+	QMutex guiUpdateMutex;
+
 	bool settingsShown;
 	int shownDialogs;
 	QPoint currentPos;

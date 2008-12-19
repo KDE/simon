@@ -45,6 +45,7 @@
 
 AdinStreamer* AdinStreamer::instance;
 static bool adin_shouldBeRunning = false;
+static int adinstreamer_unknown_command_counter = 0;
 static int adinstreamer_rewind_msec = 0;
 static int adinstreamer_socketDescriptor = 0;
 static int adinstreamer_speechlen=0;
@@ -54,6 +55,8 @@ static bool adinstreamer_stop_at_next=false;
 
 static int adin_callback_adinnet(SP16 *now, int len, Recog *recog)
 {
+	if (!adin_shouldBeRunning) return -1;
+
 	int count;
 	int start, w;
 
@@ -118,6 +121,7 @@ static int adin_callback_adinnet(SP16 *now, int len, Recog *recog)
 static void
 adin_send_end_of_segment()
 {
+	if (!adin_shouldBeRunning) return;
 	char p;
 
 	if (wt(adinstreamer_socketDescriptor, &p,  0) < 0) {
@@ -125,6 +129,7 @@ adin_send_end_of_segment()
 		fprintf(stderr, "failed to send EOS to server\n");
 	}
 }
+
 
 
 /**********************************************************************/
@@ -151,6 +156,7 @@ static int adinnet_check_command(Recog *)
 	status = select(adinstreamer_socketDescriptor+1, &rfds, NULL, NULL, &tv);
 	if (status < 0) {           /* error */
 		fprintf(stderr, "adintool: cannot check command from adinnet server\n");
+		adin_shouldBeRunning=false;
 		return -2;                        /* error return */
 	}
 	if (status > 0) {           /* there are some data */
@@ -174,6 +180,12 @@ static int adinnet_check_command(Recog *)
 					break;
 				default:
 					fprintf(stderr, "adintool: unknown command adinnet_check_command: %d\n", com);
+					adinstreamer_unknown_command_counter++;
+					if (adinstreamer_unknown_command_counter > 10)
+					{
+						fprintf(stderr, "adintool: I've got enough");
+						adin_shouldBeRunning= false;
+					}
 					return -1;
 			}
 		}
@@ -189,6 +201,8 @@ static int adinnet_check_command(Recog *)
  */
 static int adinnet_wait_command()
 {
+	if (!adin_shouldBeRunning) return -1;
+
 	fd_set rfds;
 	int status;
 	int cnt, ret;
@@ -196,13 +210,14 @@ static int adinnet_wait_command()
 
 	fprintf(stderr, "<<< waiting RESUME >>>");
 
-	while(true) {
+	while(adin_shouldBeRunning) {
 		FD_ZERO(&rfds);
 		FD_SET(adinstreamer_socketDescriptor, &rfds);
 		
 		//ich glaub das blockt...
 		status = select(adinstreamer_socketDescriptor+1, &rfds, NULL, NULL, NULL); /* block when no command */
 		if (status < 0) {         /* error */
+			adin_shouldBeRunning= false;
 			fprintf(stderr, "adintool: cannot check command from adinnet server\n");
 			return -1;                      /* error return */
 		} else {                  /* there are some data */
@@ -238,7 +253,7 @@ AdinStreamer::AdinStreamer(QObject* parent) : QThread(parent)
 {
 	recog = NULL;
 	shouldReStart=false;
-	adin_shouldBeRunning=true;
+	adin_shouldBeRunning=false;
 	connect(this, SIGNAL(audioDeviceError()), this, SLOT(reportSoundDeviceError()));
 }
 
@@ -251,12 +266,13 @@ void AdinStreamer::init(const QHostAddress& address, qint32 port, qint32 sampleR
 
 void AdinStreamer::run()
 {
-	fprintf(stderr, "Running\n");
 	adin_shouldBeRunning=true;
 	adinstreamer_stop_at_next=false;
 
 	Jconf *jconf;
 	int ret;
+
+	adinstreamer_unknown_command_counter = 0;
 
 	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonsoundrc");
 	KConfigGroup group(config, "Devices");
@@ -293,7 +309,8 @@ void AdinStreamer::run()
 	jconf->input.framesize = jconf->am_root->analysis.para.framesize;
 
 	QByteArray addressByte = address.toString().toUtf8();
-	adinstreamer_socketDescriptor = make_connection(addressByte.data(), port);
+	if (adinstreamer_socketDescriptor == 0)
+		adinstreamer_socketDescriptor = make_connection(addressByte.data(), port);
 
 
 	if (j_adin_init(recog) == FALSE) {
@@ -312,7 +329,6 @@ void AdinStreamer::run()
 	emit started();
 
 	while(adin_shouldBeRunning) {
-		bool inputStreamOk=true;
 		/* begin A/D input of a stream */
 		ret = j_open_stream(recog, NULL);
 		switch(ret) {
@@ -322,121 +338,120 @@ void AdinStreamer::run()
 				/* go on to next input */
 				continue;
 			case -2:	/* end of recognition process */
-				//KMessageBox::sorry(0, i18n("Couldn't start input stream."));
-				fprintf(stderr, "failed to begin input stream");
-				/* exit recording */
-				inputStreamOk=false;
-				adin_shouldBeRunning=false;
+				adin_shouldBeRunning=false;		//KMessageBox::sorry(0, i18n("Couldn't start input stream."));
 				emit audioDeviceError();
+				fprintf(stderr, "failed to begin input stream\n");
+				/* exit recording */
 				break;
 		}
 		
-
-		if(inputStreamOk)
-		{
-			do {
-				/* process one segment with segmentation */
-				/* for incoming speech input, speech detection and segmentation are
-					performed and, adin_callback_* is called for speech output for each segment block.
-				*/
-				/* adin_go() return when input segmented by long silence, or input stream reached to the end */
-				adinstreamer_speechlen = 0;
-				adinstreamer_stop_at_next = FALSE;
-	// 			fprintf(stderr, "<<< please speak >>>");
-				ret = adin_go(adin_callback_adinnet, adinnet_check_command, recog);
-				/* return value of adin_go:
-					-2: input terminated by pause command from adinnet server
-					-1: input device read error or callback process error
-					0:  paused by input stream (end of file, etc..)
-					>0: detected end of speech segment:
-					by adin-cut, or by callback process
-					(or return value of ad_check (<0) (== not used in this program))*/
-					
-				/*	if PAUSE or TERMINATE command has been received while input,
-					adinstreamer_stop_at_next is TRUE here  */
-				switch(ret) {
-					case -2:	     /* terminated by terminate command from server */
-						fprintf(stderr, "[terminated by server]\n");
-						break;
-					case -1:		     /* device read error or callback error */
-						fprintf(stderr, "[error]\n");
-						break;
-					case 0:			/* reached to end of input */
-						fprintf(stderr, "[eof]\n");
-						break;
-					default:	  /* input segmented by silence or callback process */
-						fprintf(stderr, "[segmented]\n");
-						break;
-				}
+		if (!adin_shouldBeRunning) 
+			break;
+		do {
+			/* process one segment with segmentation */
+			/* for incoming speech input, speech detection and segmentation are
+				performed and, adin_callback_* is called for speech output for each segment block.
+			*/
+			/* adin_go() return when input segmented by long silence, or input stream reached to the end */
+			adinstreamer_speechlen = 0;
+			adinstreamer_stop_at_next = FALSE;
+// 			fprintf(stderr, "<<< please speak >>>");
+			ret = adin_go(adin_callback_adinnet, adinnet_check_command, recog);
+			/* return value of adin_go:
+				-2: input terminated by pause command from adinnet server
+				-1: input device read error or callback process error
+				0:  paused by input stream (end of file, etc..)
+				>0: detected end of speech segment:
+				by adin-cut, or by callback process
+				(or return value of ad_check (<0) (== not used in this program))
 				
-				if (ret == -1) {
-					/* error in input device or callback function, so terminate program here */
-					adin_shouldBeRunning=false;
+			if PAUSE or TERMINATE command has been received while input,
+				adinstreamer_stop_at_next is TRUE here  */
+			switch(ret) {
+				case -2:	     /* terminated by terminate command from server */
+					fprintf(stderr, "[terminated by server]\n");
 					break;
-				}
+				case -1:		     /* device read error or callback error */
+					fprintf(stderr, "[error]\n");
+					break;
+				case 0:			/* reached to end of input */
+					fprintf(stderr, "[eof]\n");
+					break;
+				default:	  /* input segmented by silence or callback process */
+					fprintf(stderr, "[segmented]\n");
+					break;
+			}
+			
+			if ((ret == -1)||/*(ret==-2)||*/(ret==0)) {
+				/* error in input device or callback function, so terminate program here */
+				adin_shouldBeRunning=false;
+				break;
+			}
 
-				if (adinstreamer_speechlen > 0) {
-					if (ret >= 0 || adinstreamer_stop_at_next) { /* segmented by adin-cut or end of stream or server-side command */
-						/* send end-of-segment ack to client */
-						adin_send_end_of_segment();
-					}
-					/* output info */
-					printf("sent: %d samples (%.2f sec.)\n", adinstreamer_speechlen, (float)adinstreamer_speechlen / (float)adinstreamer_sfreq);
+			if (adinstreamer_speechlen > 0) {
+				if (ret >= 0 || adinstreamer_stop_at_next) { /* segmented by adin-cut or end of stream or server-side command */
+					/* send end-of-segment ack to client */
+					adin_send_end_of_segment();
 				}
+				/* output info */
+				printf("sent: %d samples (%.2f sec.)\n", adinstreamer_speechlen, (float)adinstreamer_speechlen / (float)adinstreamer_sfreq);
+			}
 
-				/***************************************************/
-				/* with adinnet server, if terminated by           */
-				/* server-side PAUSE command, wait for RESUME here */
-				/***************************************************/
-				if ((adinstreamer_stop_at_next) && (adinnet_wait_command() < 0)) {
+			/***************************************************/
+			/* with adinnet server, if terminated by           */
+			/* server-side PAUSE command, wait for RESUME here */
+			/***************************************************/
+			if ((adinstreamer_stop_at_next) && (adinnet_wait_command() < 0)) {
 					/* command error: terminate program here */
 					Recog *realRecog = recog;
 					recog=NULL;
 					j_recog_free(realRecog);
 					return;
-				}
-			} while ((adin_shouldBeRunning) && (ret > 0 || ret == -2)); /* to the next segment in this input stream */
-		}
+			}
+		} while ((adin_shouldBeRunning) && (ret > 0 || ret == -2)); /* to the next segment in this input stream */
 	}
 
-	close(adinstreamer_socketDescriptor);
-
-	adinstreamer_socketDescriptor=0;
-	
 	Recog *realRecog = recog;
 	recog=NULL;
-
 	j_recog_free(realRecog);
+
+	fprintf(stderr, "CLOSING SOCKET!\n");
+	close(adinstreamer_socketDescriptor);
+	fprintf(stderr, "Socket closed\n");
+	adinstreamer_socketDescriptor=0;
+	
 	emit stopped();
 }
 
 
 void AdinStreamer::stop()
 {
-	shouldReStart=false;
 	adin_shouldBeRunning=false;
+	shouldReStart=false;
 	adinstreamer_stop_at_next=false;
+
 	if (recog && (recog->adin))
 	{
-//		recog->adin->ad_end();
-		if (!adin_mic_end())
-			kWarning() << "Could not stop adin-input";
+		recog->adin->ad_end();
+//		adin_mic_end();
 	}
-	wait(1000);
-
-	while (isRunning())
+	
+	int tries=0; 
+	while ((isRunning()) && (tries++ < 20))
+	{
+		wait(200);
+	}
+	if (isRunning()) //the recognition did not end - ugh...
 	{
 		terminate();
-		wait(500);
-	}
-	if (recog)
-	{
-		recog->adin->ad_end();
-		j_request_terminate(recog);
-		
-		j_recog_free(recog);
-		recog=NULL;
-		emit stopped();
+
+		if (recog)
+		{
+			j_request_terminate(recog);
+			j_recog_free(recog);
+			recog=NULL;
+			emit stopped();
+		}
 	}
 }
 
@@ -462,7 +477,6 @@ void AdinStreamer::restartSoundStream()
 {
 	if (shouldReStart)
 	{
-		kWarning() << "Restarting...";
 		start();
 	}
 }

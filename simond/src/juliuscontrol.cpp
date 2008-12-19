@@ -89,7 +89,7 @@ Jconf* JuliusControl::setupJconf()
 			"-gram", gram.data(),
 			 "-h", hmmDefs.data(),
 			 "-hlist", tiedList.data(),
-			 //"-input", "mic", //only for local input -.- 
+//			 "-input", "mic", //only for local input -.- 
 			 "-input", "adinnet", 
 			 "-adport", portChr, 
 			 "-smpFreq", smpFreq.data()};
@@ -399,32 +399,42 @@ void JuliusControl::run()
 	/* output system information to log */
 	j_recog_info(recog);
 	
-	 switch(j_open_stream(recog, NULL)) {
-		case 0:
-			emit recognitionStarted();
-			break;
-		case -1:
-			emit recognitionError(i18n("Unknown error"));
-			return;
-		case -2:
-			if (isLocal)
-				emit recognitionError(i18n("Couldn't initialize microphone"));
-			else emit recognitionError(i18n("Error with the audio stream"));
-			return;
-	}
-	
 	 while (shouldBeRunning)
 	 {
+		 switch(j_open_stream(recog, NULL)) {
+			case 0:
+				emit recognitionStarted();
+				break;
+			case -1:
+				emit recognitionError(i18n("Unknown error"));
+				return;
+			case -2:
+				if (isLocal)
+					emit recognitionError(i18n("Couldn't initialize microphone"));
+				else emit recognitionError(i18n("Error with the audio stream"));
+				return;
+		}
+	
 		/**********************/
 		/* Recognization Loop */
 		/**********************/
 		/* enter main loop to recognize the input stream */
 		/* finish after whole input has been processed and input reaches end */
-		if (j_recognize_stream(recog) == -1)
+		int ret = j_recognize_stream(recog);
+ 		switch (ret)
 		{
-			emit recognitionError("recognize_stream: -1");
+			case 0:
+				//client exited
+				//shouldBeRunning=false;
+				break;
+			case -1:
+				emit recognitionError("recognize_stream: -1");
+				shouldBeRunning=false;
+				break;
 		}
+		usleep(300);
 	 }
+	emit recognitionStopped();
 }
 
 void JuliusControl::stop()
@@ -440,10 +450,15 @@ void JuliusControl::stop()
 		recog->adin->ad_end();
 	j_request_terminate(recog);
 	quit();
+
 	if (!wait(1000))
+	{
 		kWarning() << "ARGH STILL RUNNING!";
-	else 
-		emit recognitionStopped();
+		do {
+			terminate();
+			wait(1000);
+		} while (isRunning());
+	}
 }
 
 
