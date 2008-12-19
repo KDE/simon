@@ -436,88 +436,30 @@ bool WordListManager::saveWordList(WordList *list, const QString& vocabFilename,
  * \note This is incredibly fast :)
  * \return The index of the found word; this is set to the nearest hit if the word is not found (see parameter: found)
  */
-int WordListManager::getWordIndex(WordList *list, bool &found, const QString& word, const QString& pronunciation, const QString& terminal)
+WordList::iterator WordListManager::getWordIndex(WordList *list, bool &found, const QString& word, const QString& pronunciation, const QString& terminal)
 {
 	if (!list || (list->count()==0))
 	{
 		found = false;
 		return 0;
 	}
+	WordList::iterator i = qLowerBound(list->begin(), list->end(), Word(word.toUpper(), pronunciation, terminal));
 
-	QString realWord = word.toUpper();
-	
-	int currentSearchStart = list->count()/2; //make use of integer division
-	//if count() == 1, currentSearchStart = 0,5 = 0 instead of 1 when using round
-	//(which would be out of bounds)
-	
-	int currentMinValue = 0;
-	int currentMaxValue = list->count()-1;
-	Word *currentWord;
-	QString currentWordName, currentWordPronunciation, currentWordTerminal;
-	int modificator=0;
-	while (true)
+	if (i == list->end())
 	{
-		currentWord = (Word*) &(list->at(currentSearchStart));
-		currentWordName = currentWord->getWord().toUpper();
-		currentWordPronunciation = currentWord->getPronunciation();
-		currentWordTerminal = currentWord->getTerminal();
-
-		if ((currentWordName==realWord)
-			&& ((pronunciation.isEmpty() || currentWordPronunciation == pronunciation)
-			&& (terminal.isEmpty() || currentWordTerminal == terminal)))
-		{
-			//we found the exact word
-			found = true;
-			return currentSearchStart;
-		} else if ((currentWordName < realWord) || 
-			((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation < pronunciation)
-			|| (!terminal.isEmpty() && currentWordTerminal < terminal))))
-		{
-			currentMinValue = currentSearchStart;
-			modificator = (currentSearchStart - currentMinValue)/2;
-		} else if ((currentWordName > realWord) || 
-			((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation > pronunciation)
-			|| (!terminal.isEmpty() && currentWordTerminal > terminal))))
-		{
-			currentMaxValue = currentSearchStart;
-			modificator = (currentSearchStart - currentMinValue)/(-2);
-		}
-		
-		
-		if ((modificator > -10 ) && (modificator < 10)) {
-			//stagnating search
-			//do a incremental search over the left over items
-			int i=qMax(currentMinValue,0);
-			currentWord = (Word*) &(list->at(i));
-			currentWordName = currentWord->getWord().toUpper();
-			currentWordPronunciation = currentWord->getPronunciation();
-			currentWordTerminal = currentWord->getTerminal();
-			while ((i <= currentMaxValue) && ((currentWordName < realWord) || 
-						     ((currentWordName == word) && ((!pronunciation.isEmpty() && currentWordPronunciation < pronunciation)
-						     || (!terminal.isEmpty() && currentWordTerminal < terminal)))))
-			{
-				currentWord = (Word*) &(list->at(i));
-				currentWordName = currentWord->getWord().toUpper();
-				currentWordPronunciation = currentWord->getPronunciation();
-				currentWordTerminal = currentWord->getTerminal();
-				i++;
-			}
-			if ((i != currentMaxValue) && (i>currentMinValue))
-				i--;
-			if ((i<=currentMaxValue) && (list->at(i).getWord().toUpper()==realWord)
-							&& ((pronunciation.isEmpty() || list->at(i).getPronunciation() == pronunciation)
-							&& (terminal.isEmpty() || list->at(i).getTerminal() == terminal)))
-			{
-				found = true;
-			} else {
-				found = false;
-			}
-			return i;
-		}
-		currentSearchStart += modificator;
+		found=false;
+		return --i;
 	}
-	found = false;
-	return currentSearchStart;
+
+	Word foundWord = *i;
+
+	if ((foundWord.getWord().toUpper() == word.toUpper()) && 
+			(pronunciation.isEmpty() || (pronunciation == foundWord.getPronunciation())) &&
+			(terminal.isEmpty() || (terminal == foundWord.getTerminal())))
+		found = true;
+	else found = false;
+
+	return i;
 }
 
 /**
@@ -690,24 +632,22 @@ Word* WordListManager::getWord(const QString& word, const QString& pronunciation
 	wordListLock.lock();
 	bool found;
 	WordList *wList = getWordList();
-	int wIndex = getWordIndex(wList, found, word, pronunciation, terminal);
+	WordList::iterator wIt = getWordIndex(wList, found, word, pronunciation, terminal);
 	if (found)
 	{
-		w = (Word*) &(wList->at(wIndex));
+		w = (Word*) &(*wIt);
 	}
 	wordListLock.unlock();
 	if (w)
 		return w;
-	//FIXME: REMOVE ME!!!
-	return 0;
 
 	isShadowed = true;
 	shadowLock.lock();
 	wList = getShadowList();
-	wIndex = getWordIndex(wList, found, word, pronunciation, terminal);
+	wIt = getWordIndex(wList, found, word, pronunciation, terminal);
 	if (found)
 	{
-		w = (Word*) &(wList->at(wIndex));
+		w = (Word*) &(*wIt);
 	}
 	shadowLock.unlock();
 
@@ -739,11 +679,11 @@ bool WordListManager::moveToShadow(Word *w)
 			Word w = wordlist->takeAt(i);
 			w.setProbability(0);
 			bool found;
-			int index = getWordIndex(shadowList, found, w.getWord(), w.getPronunciation(), w.getTerminal());
+			WordList::iterator iter = getWordIndex(shadowList, found, w.getWord(), w.getPronunciation(), w.getTerminal());
 			if (found) {
 				KMessageBox::information(0, i18n("This word already exists in the shadow lexicon. It will not be inserted again."));
 			} else
-				shadowList->insert(index, w);
+				shadowList->insert(iter, w);
 				
 			shadowDirty = mainDirty = true;
 			break;
@@ -971,10 +911,10 @@ WordList* WordListManager::mergeLists(WordList *a, WordList *b, bool keepDoubles
 	{
 		bool found;
 		Word currentWord = source->at(i);
-		int index = getWordIndex(target, found, currentWord.getWord(), currentWord.getPronunciation(),
+		WordList::iterator iter = getWordIndex(target, found, currentWord.getWord(), currentWord.getPronunciation(),
 					 currentWord.getTerminal());
 		if (keepDoubles || !found)
-			target->insert(index, currentWord);
+			target->insert(iter, currentWord);
 	}
 	
 	delete source;
@@ -1001,10 +941,16 @@ WordList* WordListManager::searchForWords(WordList *list, const QString& word, b
 	
 	if (!fuzzy)		// great! we can perform a binary search
 	{
-		int indexOfWord = getWordIndex(list, found, word);
+		WordList::iterator iteratorOfWord = getWordIndex(list, found, word, "", ""); //TODO: Test
 		if (!found) return out;
 		
-		//go up and down around the found index and add all matching words
+		while ((iteratorOfWord != list->end()) && (iteratorOfWord->getWord().toUpper() == word.toUpper()))
+		{
+			out->append(*iteratorOfWord);
+			iteratorOfWord++;
+		}
+		
+/*
 		int i=indexOfWord;
 		while ((i >= 0) && (list->at(i).getWord().toUpper() == word.toUpper()))
 		{
@@ -1016,7 +962,7 @@ WordList* WordListManager::searchForWords(WordList *list, const QString& word, b
 		{
 			out->append(list->at(i));
 			i++;
-		}
+		}*/
 	} else { //nope - incremental only :(
 		
 		WordList::const_iterator i = list->constBegin();

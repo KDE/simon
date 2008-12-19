@@ -106,7 +106,7 @@ public:
 	WordList* mergeLists(WordList *a, WordList *b, bool keepDoubles=true);
 
 	Word* getWord(const QString& word, const QString& pronunciation, const QString& terminal, bool &isShadowed);
-	int getWordIndex(WordList *list, bool &found, const QString& word, const QString& pronunciation="", const QString& terminal="");
+	WordList::iterator getWordIndex(WordList *list, bool &found, const QString& word, const QString& pronunciation, const QString& terminal);
 
 	WordList* getWordsByTerminal(const QString& terminal, bool includeShadow=false);
 	void addWords(WordList *list, bool isSorted=false, bool shadow=false);
