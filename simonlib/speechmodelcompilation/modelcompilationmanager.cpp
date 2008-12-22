@@ -188,16 +188,13 @@ void ModelCompilationManager::analyseError(const QString& readableError)
  * \author Peter Grasch
  * @return If this is true we knew what to do; if this is false you'd better throw an error message
  */
-#include <KDebug>
 bool ModelCompilationManager::processError()
 {
 	QString err = getBuildLog().trimmed();
 
-	kWarning() << "I'm in processError()";
 	int startIndex=0;
 	if ((startIndex = err.indexOf("ERROR [+1232]")) != -1) //word missing
 	{
-		kWarning() << "Word missing";
 		//ERROR [+1232]  NumParts: Cannot find word DARAUFFOLGEND in dictionary
 		int wordstart = 45+startIndex;
 		QString word = err.mid(wordstart, err.indexOf(' ', wordstart)-wordstart);
@@ -209,24 +206,18 @@ bool ModelCompilationManager::processError()
 	}
 	if ((startIndex = err.indexOf("ERROR [+2662]")) != -1)
 	{
-		kWarning() << "Phoneme missing";
 // 		"ERROR [+2662]  FindProtoModel: no proto for E in hSet
 // 		 FindProtoModel: no proto for n
 		QString phoneme = err.mid(44+startIndex);
-		kWarning() << phoneme;
 		phoneme = phoneme.left(phoneme.indexOf(' '));
-		kWarning() << phoneme;
  		emit phonemeUndefined(phoneme);
 		return true;
 	}
 	if ((startIndex = err.indexOf("undefined class \"")) != -1)
 		               /*Error: undefined class "Schubi"*/
 	{
-		kWarning() << "class missing";
 		QString undefClass = err.mid(startIndex+17);
-		kWarning() << undefClass;
 		undefClass = undefClass.left(undefClass.indexOf('"'));
-		kWarning() << undefClass;
 		emit classUndefined(undefClass);
 		return true;
 	}

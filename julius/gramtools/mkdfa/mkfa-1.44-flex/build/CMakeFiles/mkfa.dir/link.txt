@@ -1,0 +1,1 @@
+/usr/lib64/ccache/bin/gcc    -fPIC CMakeFiles/mkfa.dir/dfa.o CMakeFiles/mkfa.dir/main.o CMakeFiles/mkfa.dir/nfa.o CMakeFiles/mkfa.dir/triplet.o CMakeFiles/mkfa.dir/voca.o CMakeFiles/mkfa.dir/gram.tab.o  -o mkfa -rdynamic -lfl 

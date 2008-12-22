@@ -1,0 +1,286 @@
+In file included from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:34,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:48,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:28:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_defs.h:40: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_defs.h:68: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_defs.h:74: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_defs.h:81: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_defs.h:94: warning: data definition has no type or storage class
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_defs.h:94: warning: type defaults to ‘int’ in declaration of ‘OptionStr’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_defs.h:96: error: expected identifier or ‘(’ before ‘/’ token
+In file included from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:35,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:48,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:28:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:48: warning: data definition has no type or storage class
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:48: warning: type defaults to ‘int’ in declaration of ‘APATNODE’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:50: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:65: warning: data definition has no type or storage class
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:65: warning: type defaults to ‘int’ in declaration of ‘PATNODE’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:70: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:71: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:72: error: expected declaration specifiers or ‘...’ before ‘PATNODE’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:73: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:74: error: expected declaration specifiers or ‘...’ before ‘PATNODE’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:75: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:77: error: expected declaration specifiers or ‘...’ before ‘APATNODE’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:78: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:79: error: expected declaration specifiers or ‘...’ before ‘APATNODE’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:80: error: expected declaration specifiers or ‘...’ before ‘APATNODE’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:81: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:82: error: expected declaration specifiers or ‘...’ before ‘APATNODE’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/ptree.h:83: error: expected declaration specifiers or ‘...’ before ‘APATNODE’
+In file included from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:36,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:48,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:28:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:44: error: expected identifier or ‘(’ before ‘/’ token
+In file included from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:53,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:36,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:48,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:28:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:70:49: error: invalid suffix "ns" on integer constant
+In file included from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:53,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:36,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:48,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:28:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:73: warning: data definition has no type or storage class
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:73: warning: type defaults to ‘int’ in declaration of ‘HTK_Param_Header’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:75: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:80:49: error: too many decimal points in number
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:80:65: error: too many decimal points in number
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:84: warning: data definition has no type or storage class
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:84: warning: type defaults to ‘int’ in declaration of ‘HTK_Param’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:92: error: expected declaration specifiers or ‘...’ before ‘HTK_Param’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:93: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:94: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:99: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:100: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:102: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:103: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:104: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:108: error: expected declaration specifiers or ‘...’ before ‘HTK_Param_Header’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:110: error: expected declaration specifiers or ‘...’ before ‘HTK_Param’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_param.h:111: error: expected declaration specifiers or ‘...’ before ‘HTK_Param’
+In file included from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:36,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:48,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:28:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:75: error: expected identifier or ‘(’ before ‘/’ token
+In file included from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:36,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:48,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:28:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:77:44: error: invalid suffix "ns" on integer constant
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:104:25: error: invalid suffix "th" on integer constant
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:114: warning: data definition has no type or storage class
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:114: warning: type defaults to ‘int’ in declaration of ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:116: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:123:26: error: too many decimal points in number
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:124:30: error: too many decimal points in number
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:125:28: error: too many decimal points in number
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:126:26: error: too many decimal points in number
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:127:26: error: too many decimal points in number
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:128: warning: data definition has no type or storage class
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:128: warning: type defaults to ‘int’ in declaration of ‘FBankInfo’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:130: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:140: warning: data definition has no type or storage class
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:140: warning: type defaults to ‘int’ in declaration of ‘DeltaBuf’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:142: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:164: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:167: warning: data definition has no type or storage class
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:167: warning: type defaults to ‘int’ in declaration of ‘MFCCWork’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:174: error: expected specifier-qualifier-list before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:184: error: expected specifier-qualifier-list before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:203: error: expected specifier-qualifier-list before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:209: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:210: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:211: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:213: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:214: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:216: error: expected declaration specifiers or ‘...’ before ‘MFCCWork’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:222: error: expected declaration specifiers or ‘...’ before ‘MFCCWork’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:224: error: expected declaration specifiers or ‘...’ before ‘MFCCWork’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:224: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:226: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:226: error: expected declaration specifiers or ‘...’ before ‘MFCCWork’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:228: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:234: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:234: error: expected declaration specifiers or ‘...’ before ‘MFCCWork’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:238: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:238: error: expected declaration specifiers or ‘...’ before ‘MFCCWork’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:240: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:242: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:244: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:247: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:250: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:251: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:252: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:253: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:254: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:256: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:260: error: expected declaration specifiers or ‘...’ before ‘HTK_Param’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:265: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:266: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:271: error: expected declaration specifiers or ‘...’ before ‘MFCCWork’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:271: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:274: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:275: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:276: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:277: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:278: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:279: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/mfcc.h:280: error: expected declaration specifiers or ‘...’ before ‘Value’
+In file included from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:48,
+                 from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:28:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:37: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:67: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:68: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:195: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:197: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:201: warning: data definition has no type or storage class
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:201: warning: type defaults to ‘int’ in declaration of ‘GS_SET’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:244: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:244: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:245: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:271: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:296: error: expected specifier-qualifier-list before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:312: error: expected specifier-qualifier-list before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:322: error: expected specifier-qualifier-list before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:337: error: expected specifier-qualifier-list before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:337: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:346: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:351: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:353: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:358: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:368: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:373: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:376: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:381: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:413: error: stray ‘@’ in program
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:431: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_Trans’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:432: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:435: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:437: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:438: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_State’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:440: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_PDF’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:441: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:442: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:445: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:447: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:448: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_Dens’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:450: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:452: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_Var’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:454: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:456: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_StreamWeight’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:459: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:460: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_Data’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:462: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_PDF’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:463: error: expected declaration specifiers or ‘...’ before ‘GCODEBOOK’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:472: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_Trans’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:473: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_Var’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:474: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_Dens’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:475: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_PDF’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:476: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_State’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:477: error: expected declaration specifiers or ‘...’ before ‘HTK_HMM_Data’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:483: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:484: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:493: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:496: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:509: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:512: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:513: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:514: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:515: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:517: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:520: error: expected declaration specifiers or ‘...’ before ‘HTK_Param’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:521: error: expected declaration specifiers or ‘...’ before ‘HTK_Param’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:522: error: expected declaration specifiers or ‘...’ before ‘HTK_Param’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:526: error: expected declaration specifiers or ‘...’ before ‘Value’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/htk_hmm.h:527: error: expected declaration specifiers or ‘...’ before ‘Value’
+In file included from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:28:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:49: error: expected identifier or ‘(’ before ‘/’ token
+In file included from /home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:28:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:68:72: warning: character constant too long for its type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:70:63: error: too many decimal points in number
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:86: warning: data definition has no type or storage class
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:86: warning: type defaults to ‘int’ in declaration of ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:88: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:89: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:90: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:91: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:92: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:93: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:94: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:95: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:96: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:97: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:98: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:99: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:100: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:101: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:102: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:104: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:105: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:106: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:107: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:108: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:109: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:112: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:113: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:116: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/include/sent/vocabulary.h:120: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:46: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:47: error: expected identifier or ‘(’ before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c: In function ‘callback_list_error’:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:83: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c: At top level:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:91: error: expected ‘)’ before ‘*’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:114: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c: In function ‘voca_load_word_line’:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:118: error: ‘winfo’ undeclared (first use in this function)
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:118: error: (Each undeclared identifier is reported only once
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:118: error: for each function it appears in.)
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:121: error: implicit declaration of function ‘winfo_expand’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:123: warning: passing argument 5 of ‘voca_load_wordlist_line’ makes integer from pointer without a cast
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:123: error: too many arguments to function ‘voca_load_wordlist_line’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c: At top level:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:142: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c: In function ‘voca_load_wordlist’:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:146: error: implicit declaration of function ‘voca_load_start’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:146: error: ‘winfo’ undeclared (first use in this function)
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:148: warning: passing argument 3 of ‘voca_load_word_line’ from incompatible pointer type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:148: error: too many arguments to function ‘voca_load_word_line’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:150: error: implicit declaration of function ‘voca_load_end’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c: At top level:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:172: error: expected declaration specifiers or ‘...’ before ‘WORD_INFO’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c: In function ‘voca_load_wordlist_line’:
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:189: error: expected expression before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:194: error: ‘bufbak’ undeclared (first use in this function)
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:197: warning: passing argument 2 of ‘mystrtok_quote’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:198: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:199: error: ‘winfo’ undeclared (first use in this function)
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:209: warning: passing argument 2 of ‘mystrtok_movetonext’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:210: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:226: warning: passing argument 2 of ‘mystrtok’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:227: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:233: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:241: warning: passing argument 2 of ‘mystrtok’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:242: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:248: warning: passing argument 2 of ‘mystrtok_movetonext’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:249: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:265: warning: passing argument 2 of ‘mystrtok_quotation’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:268: warning: passing argument 2 of ‘mystrtok_quotation’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:276: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:303: warning: passing argument 1 of ‘cycle_triphone’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:305: warning: passing argument 2 of ‘mystrtok’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:306: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:315: warning: passing argument 2 of ‘mystrtok’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:324: warning: passing argument 1 of ‘cycle_triphone’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:338: warning: passing argument 2 of ‘mystrtok’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:380: error: expected expression before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:388: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:391: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:394: error: implicit declaration of function ‘add_to_error’
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:400: error: expected expression before ‘/’ token
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:409: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+/home/bedahr/Daten/simon/svn/trunk/julius/libsent/src/voca/voca_load_wordlist.c:415: warning: passing argument 1 of ‘jlog’ discards qualifiers from pointer target type
+make[2]: *** [CMakeFiles/sent.dir/src/voca/voca_load_wordlist.o] Error 1
+make[1]: *** [CMakeFiles/sent.dir/all] Error 2
+make: *** [all] Error 2

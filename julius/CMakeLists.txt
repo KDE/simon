@@ -1,0 +1,5 @@
+add_subdirectory(libsent)
+add_subdirectory(libjulius)
+add_subdirectory(julius)
+add_subdirectory(gramtools/dfa_minimize)
+add_subdirectory(gramtools/mkdfa/mkfa-1.44-flex)
