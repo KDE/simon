@@ -1,0 +1,1 @@
+This adds all required KDE files to the Windows build created by cpack.
