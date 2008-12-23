@@ -65,4 +65,4 @@ install( FILES ${speechgui_LIB_HDRS}
   COMPONENT Devel
 )
  
-install( TARGETS speechgui  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS speechgui  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simoncore )

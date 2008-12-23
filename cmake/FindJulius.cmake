@@ -14,28 +14,7 @@ IF (JULIUS_INCLUDE_DIR AND JULIUS_LIBRARIES)
     SET(Julius_FIND_QUIETLY TRUE)
 ENDIF (JULIUS_INCLUDE_DIR AND JULIUS_LIBRARIES)
 
-FIND_PATH(JULIUS_INCLUDE_DIR julius/julius.h PATHS
-		/usr/include
-		/usr/local/include
-		/home/bedahr/tmp/juliuspackage/usr/include
-		/opt/include
-		/opt/local/include
-		C:/Programme/Julius/include)
-
-FIND_LIBRARY(SENT_LIBRARY NAMES sent PATHS
-		/usr/lib
-		/usr/local/lib
-		/opt/lib
-		/home/bedahr/tmp/juliuspackage/usr/lib
-		/opt/local/lib
-		C:/Programme/Julius/lib)
-FIND_LIBRARY(JULIUS_LIBRARY NAMES julius PATHS
-		/usr/lib
-		/usr/local/lib
-		/opt/lib
-		/home/bedahr/tmp/juliuspackage/usr/lib
-		/opt/local/lib
-		C:/Programme/Julius/lib)
+set (JULIUS_INCLUDE_DIR  ../julius/libsent/include/sent/ ../julius/libjulius/include/julius/)
 
 # handle the QUIETLY and REQUIRED arguments and set Julius_FOUND to TRUE if 
 # all listed variables are TRUE

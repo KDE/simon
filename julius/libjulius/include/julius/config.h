@@ -40,10 +40,10 @@
 #define JULIUS_VERSION "4.1"
 
 /// Engine setting (value of "--enable-setup=...").
-#define JULIUS_SETUP "fast"
+#define JULIUS_SETUP "standard"
 
 /// Compilation host information 
-#define JULIUS_HOSTINFO "x86_64-unknown-linux"
+#define JULIUS_HOSTINFO "unknown"
 
 
 /* Define to empty if the keyword does not work.  */
@@ -56,7 +56,9 @@
 #define STDC_HEADERS 1
 
 /* Define if you have POSIX thread  */
+#ifdef linux
 #define HAVE_PTHREAD 1
+#endif
 
 /// For Julius, defined if using 1-gram factoringon the 1st pass instead of 2-gram factoring.
 #define UNIGRAM_FACTORING 1

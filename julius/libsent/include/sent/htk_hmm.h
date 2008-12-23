@@ -428,16 +428,16 @@ boolean set_global_opt(FILE *fp, HTK_HMM_INFO *hmm);
 char *get_cov_str(short covtype);
 char *get_dur_str(short durtype);
 /* rdhmmdef_trans.c */
-void trans_add(HTK_HMM_INFO *hmm, HTK_HMM_Trans *new);
+void trans_add(HTK_HMM_INFO *hmm, HTK_HMM_Trans *newParam);
 HTK_HMM_Trans *get_trans_data(FILE *, HTK_HMM_INFO *);
 void def_trans_macro(char *, FILE *, HTK_HMM_INFO *);
 /* rdhmmdef_state.c */
 HTK_HMM_State *get_state_data(FILE *, HTK_HMM_INFO *);
 void def_state_macro(char *, FILE *, HTK_HMM_INFO *);
 HTK_HMM_State *state_lookup(HTK_HMM_INFO *hmm, char *keyname);
-void state_add(HTK_HMM_INFO *hmm, HTK_HMM_State *new);
+void state_add(HTK_HMM_INFO *hmm, HTK_HMM_State *newParam);
 /* rdhmmdef_mpdf.c */
-void mpdf_add(HTK_HMM_INFO *hmm, HTK_HMM_PDF *new);
+void mpdf_add(HTK_HMM_INFO *hmm, HTK_HMM_PDF *newParam);
 HTK_HMM_PDF *mpdf_lookup(HTK_HMM_INFO *hmm, char *keyname);
 HTK_HMM_PDF *get_mpdf_data(FILE *fp, HTK_HMM_INFO *hmm, int mix_num, short stream_id);
 void def_mpdf_macro(char *name, FILE *fp, HTK_HMM_INFO *hmm);
@@ -445,22 +445,22 @@ void def_mpdf_macro(char *name, FILE *fp, HTK_HMM_INFO *hmm);
 HTK_HMM_Dens *get_dens_data(FILE *, HTK_HMM_INFO *);
 void def_dens_macro(char *, FILE *, HTK_HMM_INFO *);
 HTK_HMM_Dens *dens_lookup(HTK_HMM_INFO *hmm, char *keyname);
-void dens_add(HTK_HMM_INFO *hmm, HTK_HMM_Dens *new);
+void dens_add(HTK_HMM_INFO *hmm, HTK_HMM_Dens *newParam);
 /* rdhmmdef_var.c */
 HTK_HMM_Var *get_var_data(FILE *, HTK_HMM_INFO *);
 void def_var_macro(char *, FILE *, HTK_HMM_INFO *);
-void var_add(HTK_HMM_INFO *hmm, HTK_HMM_Var *new);
+void var_add(HTK_HMM_INFO *hmm, HTK_HMM_Var *newParam);
 /* rdhmmdef_streamweight.c */
 HTK_HMM_StreamWeight *get_streamweight_data(FILE *fp, HTK_HMM_INFO *hmm);
 void def_streamweight_macro(char *, FILE *, HTK_HMM_INFO *);
-void sw_add(HTK_HMM_INFO *hmm, HTK_HMM_StreamWeight *new);
+void sw_add(HTK_HMM_INFO *hmm, HTK_HMM_StreamWeight *newParam);
 /* rdhmmdef_data.c */
 void def_HMM(char *, FILE *, HTK_HMM_INFO *);
 HTK_HMM_Data *htk_hmmdata_new(HTK_HMM_INFO *);
-void htk_hmmdata_add(HTK_HMM_INFO *hmm, HTK_HMM_Data *new);
+void htk_hmmdata_add(HTK_HMM_INFO *hmm, HTK_HMM_Data *newParam);
 /* rdhmmdef_tiedmix.c */
 void tmix_read(FILE *fp, HTK_HMM_PDF *mpdf, HTK_HMM_INFO *hmm);
-void codebook_add(HTK_HMM_INFO *hmm, GCODEBOOK *new);
+void codebook_add(HTK_HMM_INFO *hmm, GCODEBOOK *newParam);
 /* rdhmmdef_regtree.c */
 void def_regtree_macro(char *name, FILE *fp, HTK_HMM_INFO *hmm);
 /* rdhmmdef_hmmlist.c */

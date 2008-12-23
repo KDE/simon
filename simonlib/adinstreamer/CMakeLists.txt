@@ -1,19 +1,15 @@
 include(FindQt4)
-include(FindJulius)
 find_package(KDE4 REQUIRED)
-find_package(Julius REQUIRED)
 set (QT_USE_QTNETWORK true)
 
 include(${QT_USE_FILE})
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${JULIUS_INCLUDE_DIR} ../ )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../julius/libsent/include/ ../../julius/libjulius/include/ ../ )
 
 IF(UNIX)
 	include(FindSoundFile)
 	find_package(SoundFile REQUIRED)
 ENDIF(UNIX)
 IF(WIN32)
-#	include(FindDirectSound)
-#	find_package(DirectSound REQUIRED)
 	add_definitions(-D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
 ENDIF(WIN32)
 
@@ -34,16 +30,8 @@ set( adinstreamer_LIB_HDRS
 
 kde4_add_library( adinstreamer  SHARED ${adinstreamer_LIB_SRCS} )
 
-IF(UNIX)
-target_link_libraries( adinstreamer ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${JULIUS_LIBRARIES}
-	${PORTAUDIO_LIBRARIES} ${SOUNDFILE_LIBRARY})
-ENDIF(UNIX)
-
-IF(WIN32)
 target_link_libraries( adinstreamer ${QT_LIBRARIES}
-	${KDE4_KDEUI_LIBS} ${PORTAUDIO_LIBRARIES}# ${DIRECTSOUND_LIBRARY}
-	${JULIUS_LIBRARIES} wsock32 dsound winmm )
-ENDIF(WIN32)
+	${KDE4_KDEUI_LIBS} ${PORTAUDIO_LIBRARIES} julius sent )
 
 
 set_target_properties( adinstreamer
@@ -52,7 +40,7 @@ set_target_properties( adinstreamer
 
 install( FILES ${adinstreamer_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/adinstreamer
-  COMPONENT Devel
+  COMPONENT simondevel
 )
  
-install( TARGETS adinstreamer  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS adinstreamer  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )

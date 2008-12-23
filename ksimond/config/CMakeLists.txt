@@ -26,5 +26,5 @@ set_target_properties( ksimondsettings
 )
 
  
-install( TARGETS ksimondsettings  ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( FILES ksimondconfiguration.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( TARGETS ksimondsettings  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT ksimond)
+install( FILES ksimondconfiguration.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT ksimond)

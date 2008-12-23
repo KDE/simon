@@ -1,1 +1,1 @@
-install( FILES simonprotocol.h  DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonprotocol )
+install( FILES simonprotocol.h  DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonprotocol COMPONENT simoncoredevel )

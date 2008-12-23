@@ -42,16 +42,22 @@
 #define LIBSENT_VERSION "4.1"
 
 /* Audio API name */
+#ifdef linux
 #define AUDIO_API_NAME "alsa"
+#define AUDIO_API_DESC "Advanced Linux Sound Architecture"
+#endif
+
+#ifdef __WIN32
+#define AUDIO_API_NAME "dsound"
+#define AUDIO_API_DESC "Direct Sound"
+#endif
 
 /* Audio API description */
-#define AUDIO_API_DESC "Advanced Linux Sound Architecture"
 
 /* Description of supported audio file formats */
-#define AUDIO_FORMAT_DESC "various formats by libsndfile ver.1"
+#define AUDIO_FORMAT_DESC "Raw WAV Files"
 
 /* Description of gzip file reading method */
-#define GZIP_READING_DESC "zlib library"
 
 /* Define to empty if the keyword does not work on your compiler. */
 /* #undef const */
@@ -69,10 +75,10 @@
 /* #undef USE_NETAUDIO */
 
 /* Define if libsndfile support is available */
-#define HAVE_LIBSNDFILE 1
+/*#define HAVE_LIBSNDFILE 1*/
 
 /* Define for libsndfile support (ver.1)  */
-#define HAVE_LIBSNDFILE_VER1 1
+/*#define HAVE_LIBSNDFILE_VER1 1*/
 
 /* Define if you have spaudio library  */
 /* #undef USE_SPLIB */
@@ -87,10 +93,12 @@
 /* #undef ZCAT */
 
 /* Define if you have socklen definition */
+#ifndef __WIN32
 #define HAVE_SOCKLEN_T 1
+#endif
 
 /* Define if you have the <sndfile.h> header file.   */
-#define HAVE_SNDFILE_H 1
+/*#define HAVE_SNDFILE_H 1*/
 
 /* Define if you have the <unistd.h> header file.   */
 #define HAVE_UNISTD_H 1
@@ -102,13 +110,11 @@
 /* #undef HAVE_LIBSOCKET */
 
 /* Define if you have zlib library (-lz).  */
-#define HAVE_ZLIB 1
+#define GZIP_READING_DESC "zlib library"
 
 /* Define if you have strcasecmp function  */
 #define HAVE_STRCASECMP 1
 
-/* Define if you have sleep function  */
-#define HAVE_SLEEP 1
 
 /* Define if you have iconv function */
 /* #undef HAVE_ICONV */
@@ -132,7 +138,9 @@
 /* #undef HAVE_MACHINE_SOUNDCARD_H */
 
 /* Define if <alsa/asoundlib.h> found */
+#ifdef linux
 #define HAVE_ALSA_ASOUNDLIB_H 1
+#endif
 
 /* Define if <sys/asoundlib.h> exist and <alsa/asoundlib.h> not exist */
 /* #undef HAVE_SYS_ASOUNDLIB_H */

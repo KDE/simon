@@ -33,11 +33,11 @@ set_target_properties( simoncommandpluginbase
 
 install( FILES ${simoncommandpluginbase_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/commandpluginbase
-  COMPONENT Devel
+  COMPONENT simondevel
 )
 
 install(FILES
 ${CMAKE_CURRENT_SOURCE_DIR}/simoncommandplugin.desktop DESTINATION
-${SERVICETYPES_INSTALL_DIR})
+${SERVICETYPES_INSTALL_DIR} COMPONENT simon)
  
-install( TARGETS simoncommandpluginbase  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS simoncommandpluginbase  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )

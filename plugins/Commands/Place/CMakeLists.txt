@@ -25,5 +25,5 @@ kde4_add_plugin(simonplacecommandplugin ${simonplacecommandplugin_SRCS})
 
 target_link_libraries(simonplacecommandplugin ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simoncommandpluginbase simonxml simonlogging)
 
-install(TARGETS simonplacecommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
-install( FILES simonplacecommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install(TARGETS simonplacecommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandplaceplugin )
+install( FILES simonplacecommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandplaceplugin )

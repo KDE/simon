@@ -1,12 +1,11 @@
 include(FindQt4)
 include(FindPortaudio)
-include(FindJulius)
 
 find_package(KDE4 REQUIRED)
 
 set (QT_USE_QTNETWORK true)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${JULIUS_INCLUDE_DIR} ../speechgui
-	../../../simonlib/ ../ )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../speechgui ../../../simonlib/ ../  ../../../julius/libjulius/include 
+ ../../../julius/libsent/include)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_RECOGNITIONCONTROL_LIB)
 
@@ -50,8 +49,8 @@ set_target_properties( simonrecognitioncontrol
 
 install( FILES ${simonrecognition_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/RecognitionControl
-  COMPONENT Devel
+  COMPONENT simondevel
 )
  
-install( TARGETS simonrecognitioncontrol  ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( FILES simonrecognitionconfig.desktop simonsynchronisationconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( TARGETS simonrecognitioncontrol  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )
+install( FILES simonrecognitionconfig.desktop simonsynchronisationconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

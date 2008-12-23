@@ -1,6 +1,14 @@
 #project(libsent)
-include(FindKDE4)
-include_directories(include)
+find_package(Portaudio REQUIRED)
+find_package(ZLIB REQUIRED)
+
+add_definitions(-DHAVE_ZLIB)
+
+if(UNIX)
+add_definitions(-DHAVE_SLEEP)
+endif(UNIX)
+
+include_directories(include ${PORTAUDIO_INCLUDE_DIRS} ${ZLIB_INCLUDE_DIR})
 set (libsent_SRCS
 ./src/voca/voca_load_wordlist.c
 ./src/voca/init_voca.c
@@ -114,7 +122,13 @@ set (libsent_SRCS
 FILE(GLOB libsent_LIB_HDRS ./include/sent/*.h) 
 
 add_library(sent SHARED ${libsent_SRCS})
-target_link_libraries(sent z portaudio)
+if(UNIX)
+target_link_libraries(sent ${PORTAUDIO_LIBRARY} ${ZLIB_LIBRARY})
+endif(UNIX)
+
+if(WIN32)
+target_link_libraries(sent ${ZLIB_LIBRARY} ${PORTAUDIO_LIBRARY} wsock32 winmm ws2_32)
+endif(WIN32)
 
 set_target_properties( sent
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
@@ -122,7 +136,7 @@ set_target_properties( sent
 
 install( FILES ${libsent_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/sent
-  COMPONENT Devel
+  COMPONENT juliusdevel
 )
  
-install( TARGETS sent  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS sent  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT julius	)

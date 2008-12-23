@@ -387,7 +387,9 @@ QString ModelManager::missingSample()
 
 bool ModelManager::hasWordList()
 {
+	kWarning() << getWordListModifiedTime();
 	if (getWordListModifiedTime().isNull()) return false;
+	kWarning() << "Still here";
 	return (hasGrammar() && QFile::exists(KStandardDirs::locate("appdata", "model/model.voca"))
 			&& QFile::exists(KStandardDirs::locate("appdata", "model/lexicon")));
 }

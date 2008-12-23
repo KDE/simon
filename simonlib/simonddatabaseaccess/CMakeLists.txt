@@ -31,7 +31,7 @@ set_target_properties( simonddatabaseaccess
 
 install( FILES ${simonddatabaseaccess_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simond/simonddatabaseaccess
-  COMPONENT Devel
+  COMPONENT simonddevel
 )
  
-install( TARGETS simonddatabaseaccess  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS simonddatabaseaccess  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simond )

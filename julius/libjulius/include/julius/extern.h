@@ -109,9 +109,9 @@ NODE *newnode(RecogProcess *r);
 void malloc_wordtrellis(RecogProcess *r);
 void free_wordtrellis(StackDecode *dwrk);
 void scan_word(NODE *now, HTK_Param *param, RecogProcess *r);
-void next_word(NODE *now, NODE *new, NEXTWORD *nword, HTK_Param *param, RecogProcess *r);
-void start_word(NODE *new, NEXTWORD *nword, HTK_Param *param, RecogProcess *r);
-void last_next_word(NODE *now, NODE *new, HTK_Param *param, RecogProcess *r);
+void next_word(NODE *now, NODE *newParam, NEXTWORD *nword, HTK_Param *param, RecogProcess *r);
+void start_word(NODE *newParam, NEXTWORD *nword, HTK_Param *param, RecogProcess *r);
+void last_next_word(NODE *now, NODE *newParam, HTK_Param *param, RecogProcess *r);
 
 /* wav2mfcc.c */
 boolean wav2mfcc(SP16 speech[], int speechlen, Recog *recog);

@@ -25,9 +25,9 @@ set_target_properties( simonmodelcompilation
 
 install( FILES ${simonmodelcompilation_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/speechmodelcompilation
-  COMPONENT Devel
+  COMPONENT simonddevel
 )
  
-install( TARGETS simonmodelcompilation  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS simonmodelcompilation  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simond )
 
 add_subdirectory(config)

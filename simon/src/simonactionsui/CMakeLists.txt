@@ -34,7 +34,7 @@ set_target_properties( simonactionsui
 
 install( FILES ${simonactionsui_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonactionsui
-  COMPONENT Devel
+  COMPONENT simondevel
 )
  
-install( TARGETS simonactionsui  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS simonactionsui  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )

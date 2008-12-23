@@ -32,8 +32,8 @@ set_target_properties( simonactions
 
 install( FILES ${simonactions_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonactions
-  COMPONENT Devel
+  COMPONENT simondevel
 )
  
 install( TARGETS simonactions  ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( FILES simonactionsconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( FILES simonactionsconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

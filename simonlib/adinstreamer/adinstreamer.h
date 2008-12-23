@@ -42,7 +42,7 @@
 #endif
 
 extern "C" {
-#include <julius/juliuslib.h>
+#include <julius/julius.h>
 #include <julius/jconf.h>
 #include <signal.h>
 }

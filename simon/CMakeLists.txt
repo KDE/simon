@@ -1,5 +1,6 @@
 project (simon)
 include(FindKDE4)
+
 find_package(KDE4 REQUIRED)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
@@ -13,5 +14,5 @@ add_subdirectory(conf)
 add_subdirectory(model)
 add_subdirectory(texts)
 
-install(FILES simon.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
-install(FILES simon_autostart.desktop DESTINATION ${AUTOSTART_INSTALL_DIR})
+install(FILES simon.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT simon)
+install(FILES simon_autostart.desktop DESTINATION ${AUTOSTART_INSTALL_DIR} COMPONENT simon)

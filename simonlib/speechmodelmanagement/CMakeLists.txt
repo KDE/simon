@@ -48,11 +48,11 @@ set_target_properties( simonmodelmanagement
 
 install( FILES ${simonmodelmanagement_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/speechmodelmanagement
-  COMPONENT Devel
+  COMPONENT simondevel
 )
  
-install( TARGETS simonmodelmanagement  ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( FILES simonspeechmodelmanagementconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
-install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagementconfiguration.kcfg DESTINATION  ${KCFG_INSTALL_DIR} )
+install( TARGETS simonmodelmanagement  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )
+install( FILES simonspeechmodelmanagementconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
+install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagementconfiguration.kcfg DESTINATION  ${KCFG_INSTALL_DIR} COMPONENT simon )
 
 	

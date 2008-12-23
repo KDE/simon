@@ -5,10 +5,6 @@ include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../ )
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
 
-#set (QT_USE_QTMAIN true)
-#set (QT_USE_XML true)
-#include(${QT_USE_FILE})
-
 set( simonxml_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/xmldomreader.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/xmlsaxreader.cpp
@@ -33,9 +29,9 @@ set_target_properties( simonxml
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 
-install( FILES ${simoninfo_LIB_HDRS}
+install( FILES ${simonxml_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonxml
-  COMPONENT Devel
+  COMPONENT simondevel
 )
  
-install( TARGETS simonxml ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS simonxml ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )

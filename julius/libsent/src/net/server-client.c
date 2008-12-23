@@ -22,6 +22,10 @@
  * All rights reserved
  */
 
+
+//#ifdef Q_OS_WIN
+#undef HAVE_SOCKLEN_T
+//#endif
 #include <sent/stddefs.h>
 #include <sent/tcpip.h>
 

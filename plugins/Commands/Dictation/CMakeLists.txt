@@ -16,6 +16,6 @@ kde4_add_plugin(simondictationcommandplugin ${simondictationcommandplugin_SRCS})
 
 target_link_libraries(simondictationcommandplugin ${KDE4_KDECORE_LIBS} simoncommandpluginbase eventsimulation)
 
-install(TARGETS simondictationcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
-install( FILES simondictationcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install(TARGETS simondictationcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommanddictationplugin )
+install( FILES simondictationcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommanddictationplugin )
 add_subdirectory(po)

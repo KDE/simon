@@ -29,8 +29,8 @@ set_target_properties( simonappcore
 
 install( FILES ${simonappcore_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/AppCore
-  COMPONENT Devel
+  COMPONENT simondevel
 )
  
-install( TARGETS simonappcore  ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( FILES simongeneralconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( TARGETS simonappcore  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )
+install( FILES simongeneralconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

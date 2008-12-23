@@ -37,7 +37,7 @@ set_target_properties( speechmodelbase
 
 install( FILES ${speechmodelbase_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/speechmodelbase
-  COMPONENT Devel
+  COMPONENT simoncoredevel
 )
  
-install( TARGETS speechmodelbase  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS speechmodelbase  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simoncore )

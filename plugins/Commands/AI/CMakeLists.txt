@@ -22,10 +22,10 @@ kde4_add_plugin(simonaiplugin ${simonaiplugin_SRCS})
 
 target_link_libraries(simonaiplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY} ${QT_LIBRARIES} simonlogging simoncommandpluginbase)
 
-install(TARGETS simonaiplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
-install( FILES simonaiplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
-install( FILES simonaipluginconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
-install( FILES bot.xml vars.xml substitutions.xml  DESTINATION ${DATA_INSTALL_DIR}/ai/util )
+install(TARGETS simonaiplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandaiplugin )
+install( FILES simonaiplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandaiplugin )
+install( FILES simonaipluginconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandaiplugin )
+install( FILES bot.xml vars.xml substitutions.xml  DESTINATION ${DATA_INSTALL_DIR}/ai/util COMPONENT simoncommandaiplugin )
 
 add_subdirectory(aimls)
 add_subdirectory(po)

@@ -16,4 +16,4 @@ ${CMAKE_CURRENT_SOURCE_DIR}/triplet.c
 ${CMAKE_CURRENT_SOURCE_DIR}/voca.c)
 
 add_executable(mkfa ${mkfa_SRCS} ${BISON_Gram_OUTPUTS})
-target_link_libraries(mkfa fl)
+target_link_libraries(mkfa ${FLEX_LIBRARIES})

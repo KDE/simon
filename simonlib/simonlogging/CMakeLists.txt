@@ -26,7 +26,7 @@ set_target_properties( simonlogging
 
 install( FILES ${simonlogging_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/logging
-  COMPONENT Devel
+  COMPONENT simoncoredevel
 )
  
-install( TARGETS simonlogging  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS simonlogging  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simoncore )

@@ -29,6 +29,6 @@ set_target_properties( simondsettings
 )
 
  
-install( TARGETS simondsettings  ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( FILES simondnetworkconfiguration.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
-install( FILES simonduserconfiguration.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( TARGETS simondsettings  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simond )
+install( FILES simondnetworkconfiguration.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simond )
+install( FILES simonduserconfiguration.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simond )

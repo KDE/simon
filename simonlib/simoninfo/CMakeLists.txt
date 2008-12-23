@@ -30,9 +30,9 @@ set_target_properties( simoninfo
 
 install( FILES ${simoninfo_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simoninfo
-  COMPONENT Devel
+  COMPONENT simoncore
 )
  
-install( TARGETS simoninfo  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS simoninfo  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simoncore )
 
 add_subdirectory(themes)

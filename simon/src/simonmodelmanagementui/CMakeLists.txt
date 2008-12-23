@@ -116,9 +116,9 @@ set_target_properties( simonmodelmanagementui
 
 install( FILES ${simonmodelmanagementui_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonmodelmanagementui
-  COMPONENT Devel
+  COMPONENT simondevel
 )
  
-install( TARGETS simonmodelmanagementui  ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( FILES simonmodelinternetextensionconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( TARGETS simonmodelmanagementui  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )
+install( FILES simonmodelinternetextensionconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
 # install( FILES simongrammarconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

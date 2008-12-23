@@ -30,7 +30,7 @@ kde4_add_ui_files( simonGeneralSources
 
 install( FILES ${simon_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon
-  COMPONENT Devel
+  COMPONENT simondevel
 )
 
 
@@ -43,5 +43,5 @@ ${QT_LIBRARIES} ${KDE4_KUTILS_LIBS} simonappcore simoninfo
 simonlogging simonxml speechgui simonsound simonmodelmanagementui 
 simonrecognitioncontrol simonactionsui simonprogresstracking)
 
-install (TARGETS simon DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
-install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR})
+install (TARGETS simon DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon)
+install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR} COMPONENT simon)

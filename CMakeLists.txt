@@ -1,4 +1,32 @@
 project(simon)
+INCLUDE(InstallRequiredSystemLibraries)
+
+SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Open-Source Speech Recognition")
+SET(CPACK_PACKAGE_VENDOR "Peter Grasch")
+#SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/ReadMe.txt")
+SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENCE.txt")
+set(CPACK_PACKAGE_VERSION "0.2-alpha-2")
+SET(CPACK_PACKAGE_VERSION_MAJOR "0")
+SET(CPACK_PACKAGE_VERSION_MINOR "2")
+SET(CPACK_PACKAGE_VERSION_PATCH "2")
+SET(CPACK_PACKAGE_INSTALL_DIRECTORY "simon ${CMake_VERSION_MAJOR}.${CMake_VERSION_MINOR}")
+SET(CPACK_STRIP_FILES TRUE)
+SET(CPACK_SOURCE_STRIP_FILES TRUE)
+IF(WIN32 AND NOT UNIX)
+  # There is a bug in NSI that does not handle full unix paths properly. Make
+  # sure there is at least one set of four (4) backlasshes.
+  SET(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\installbanner.bmp")
+  SET(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\simon.exe")
+  SET(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} simon")
+  SET(CPACK_NSIS_HELP_LINK "http:\\\\\\\\www.simon-listens.org/wiki")
+  SET(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\www.simon-listens.com")
+  SET(CPACK_NSIS_CONTACT "support@simon-listens.org")
+  SET(CPACK_NSIS_MODIFY_PATH ON)
+ENDIF(WIN32 AND NOT UNIX)
+
+SET(CPACK_PACKAGE_EXECUTABLES "simon" "simon")
+
+include(CPack)
 find_package(KDE4 REQUIRED)
 cmake_minimum_required(VERSION 2.6)
 

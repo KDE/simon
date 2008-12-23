@@ -1,5 +1,6 @@
 #project(julius)
 
+include_directories(../libsent/include ../libjulius/include)
 set (juliusexe_SRCS ./main.c
 ./output_stdout.c
 ./charconv.c
@@ -13,5 +14,5 @@ set (juliusexe_SRCS ./main.c
 ./record.c)
 
 add_executable(juliusexe ${juliusexe_SRCS})
-target_link_libraries(juliusexe julius sent z portaudio)
-install (TARGETS juliusexe DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
+target_link_libraries(juliusexe julius sent)
+install (TARGETS juliusexe DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT julius)

@@ -33,7 +33,7 @@ set_target_properties( simonprogresstracking
 
 install( FILES ${simonprogresstracking_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonprogresstracking
-  COMPONENT Devel
+  COMPONENT simondevel
 )
  
-install( TARGETS simonprogresstracking  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS simonprogresstracking  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )

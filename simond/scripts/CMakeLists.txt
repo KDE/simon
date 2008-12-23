@@ -9,4 +9,4 @@ set ( simon_model_scripts
 	)
 
 install( FILES ${simon_model_scripts}  DESTINATION
-${DATA_INSTALL_DIR}/simond/scripts )
+${DATA_INSTALL_DIR}/simond/scripts COMPONENT simond )

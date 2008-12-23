@@ -51,7 +51,7 @@ set_target_properties( eventsimulation
 
 install( FILES ${eventsimulation_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/eventhandler
-  COMPONENT Devel
+  COMPONENT simondevel
 )
  
-install( TARGETS eventsimulation  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS eventsimulation  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )

@@ -1,9 +1,8 @@
 include(FindQt4)
 include(FindPortaudio)
-include(FindJulius)
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR} ${JULIUS_INCLUDE_DIR}
-	../speechgui ../ )
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR}
+	../speechgui ../ ../../julius/libjulius/include ../ ../../julius/libsent/include )
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 include(KDE4Defaults)
@@ -52,8 +51,8 @@ set_target_properties( simonsound
 
 install( FILES ${simonsound_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/simonsound
-  COMPONENT Devel
+  COMPONENT simondevel
 )
  
-install( TARGETS simonsound  ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( FILES simonsoundconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+install( TARGETS simonsound  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )
+install( FILES simonsoundconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

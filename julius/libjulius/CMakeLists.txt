@@ -51,7 +51,7 @@ set_target_properties( julius
 
 install( FILES ${libjulius_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/julius
-  COMPONENT Devel
+  COMPONENT juliusdevel
 )
  
-install( TARGETS julius ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS julius ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT julius )
