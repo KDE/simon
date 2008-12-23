@@ -2,10 +2,10 @@
 find_package(Portaudio REQUIRED)
 find_package(ZLIB REQUIRED)
 
-add_definitions(-DHAVE_ZLIB)
+add_definitions(-DHAVE_ZLIB -lang-c-c++-comments -std=c99 )
 
 if(UNIX)
-add_definitions(-DHAVE_SLEEP)
+add_definitions(-DHAVE_SLEEP -Dlinux)
 endif(UNIX)
 
 include_directories(include ${PORTAUDIO_INCLUDE_DIRS} ${ZLIB_INCLUDE_DIR})
@@ -123,7 +123,7 @@ FILE(GLOB libsent_LIB_HDRS ./include/sent/*.h)
 
 add_library(sent SHARED ${libsent_SRCS})
 if(UNIX)
-target_link_libraries(sent ${PORTAUDIO_LIBRARY} ${ZLIB_LIBRARY})
+target_link_libraries(sent ${PORTAUDIO_LIBRARY} ${ZLIB_LIBRARY} m)
 endif(UNIX)
 
 if(WIN32)

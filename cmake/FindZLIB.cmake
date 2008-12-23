@@ -9,7 +9,7 @@
 #
 FIND_PATH(ZLIB_INCLUDE_DIR zlib.h /usr/include/zlib /usr/local/include/zlib)
 
-FIND_LIBRARY(ZLIB_LIBRARY NAMES zlib PATH /usr/lib /usr/local/lib) 
+FIND_LIBRARY(ZLIB_LIBRARY NAMES zlib z PATH /usr/lib /usr/local/lib) 
 
 IF (ZLIB_INCLUDE_DIR AND ZLIB_LIBRARY)
    SET(ZLIB_FOUND TRUE)

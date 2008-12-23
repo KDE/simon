@@ -41,129 +41,129 @@
 #ifndef __MFCC_H__
 #define __MFCC_H__
 
-/// DEBUG: define if you want to enable debug messages for sin/cos table operation
+/** DEBUG: define if you want to enable debug messages for sin/cos table operation */
 #undef MFCC_TABLE_DEBUG
 
-#define CPMAX 500		///< Maximum number of frames to store ceptral mean for realtime CMN update
-#define CPSTEP 5		///< allocate step of cmean list per sentence
+#define CPMAX 500		/**< Maximum number of frames to store ceptral mean for realtime CMN update */
+#define CPSTEP 5		/**< allocate step of cmean list per sentence */
 
 #include <sent/stddefs.h>
 #include <sent/htk_defs.h>
 #include <sent/htk_param.h>
 #include <ctype.h>
 
-#define DEF_SMPPERIOD   625	///< Default sampling period in 100ns (625 = 16kHz)
-#define DEF_FRAMESIZE   400	///< Default Window size in samples, similar to WINDOWSIZE in HTK (unit is different)
-#define DEF_FFTNUM      512	///< Number of FFT steps
-#define DEF_FRAMESHIFT  160	///< Default frame shift length in samples
-#define DEF_PREENPH     0.97	///< Default pre-emphasis coefficient, corresponds to PREEMCOEF in HTK
-#define DEF_MFCCDIM     12	///< Default number of MFCC dimension, corresponds to NUMCEPS in HTK
-#define DEF_CEPLIF      22	///< Default cepstral Liftering coefficient, corresponds to CEPLIFTER in HTK
-#define DEF_FBANK       24	///< Default number of filterbank channels, corresponds to NUMCHANS in HTK
-#define DEF_DELWIN      2	///< Default delta window size, corresponds to DELTAWINDOW in HTK
-#define DEF_ACCWIN      2	///< Default acceleration window size, corresponds to ACCWINDOW in HTK
-#define DEF_SILFLOOR    50.0	///< Default energy silence floor in dBs, corresponds to SILFLOOR in HTK
-#define DEF_ESCALE      1.0	///< Default scaling coefficient of log energy, corresponds to ESCALE in HTK
+#define DEF_SMPPERIOD   625	/**< Default sampling period in 100ns (625 = 16kHz) */
+#define DEF_FRAMESIZE   400	/**< Default Window size in samples, similar to WINDOWSIZE in HTK (unit is different) */
+#define DEF_FFTNUM      512	/**< Number of FFT steps */
+#define DEF_FRAMESHIFT  160	/**< Default frame shift length in samples */
+#define DEF_PREENPH     0.97	/**< Default pre-emphasis coefficient, corresponds to PREEMCOEF in HTK */
+#define DEF_MFCCDIM     12	/**< Default number of MFCC dimension, corresponds to NUMCEPS in HTK */
+#define DEF_CEPLIF      22	/**< Default cepstral Liftering coefficient, corresponds to CEPLIFTER in HTK */
+#define DEF_FBANK       24	/**< Default number of filterbank channels, corresponds to NUMCHANS in HTK */
+#define DEF_DELWIN      2	/**< Default delta window size, corresponds to DELTAWINDOW in HTK */
+#define DEF_ACCWIN      2	/**< Default acceleration window size, corresponds to ACCWINDOW in HTK */
+#define DEF_SILFLOOR    50.0	/**< Default energy silence floor in dBs, corresponds to SILFLOOR in HTK */
+#define DEF_ESCALE      1.0	/**< Default scaling coefficient of log energy, corresponds to ESCALE in HTK */
 
-#define DEF_SSALPHA     2.0	///< Default alpha coefficient for spectral subtraction
-#define DEF_SSFLOOR     0.5	///< Default flooring coefficient for spectral subtraction
+#define DEF_SSALPHA     2.0	/**< Default alpha coefficient for spectral subtraction */
+#define DEF_SSFLOOR     0.5	/**< Default flooring coefficient for spectral subtraction */
 
 /* version 2 ... ss_floor and ss_alpha removed */
 /* version 3 add usepower */
-#define VALUE_VERSION 3	///< Integer version number of Value, for embedding
+#define VALUE_VERSION 3	/**< Integer version number of Value, for embedding */
 
-/// mfcc configuration parameter values
+/** mfcc configuration parameter values */
 typedef struct {
-  long smp_period;      ///< Sampling period in 100ns units
-  long smp_freq;	///< Sampling frequency
-  int framesize;        ///< Window size in samples, similar to WINDOWSIZE in HTK (unit is different)
-  int frameshift;       ///< Frame shift length in samples
-  float preEmph;        ///< Pre-emphasis coefficient, corresponds to PREEMCOEF in HTK
-  int lifter;           ///< Cepstral liftering coefficient, corresponds to CEPLIFTER in HTK
-  int fbank_num;        ///< Number of filterbank channels, corresponds to NUMCHANS in HTK
-  int delWin;           ///< Delta window size, corresponds to DELTAWINDOW in HTK
-  int accWin;           ///< Acceleration window size, corresponds to ACCWINDOW in HTK
-  float silFloor;       ///< Energy silence floor in dBs, corresponds to SILFLOOR in HTK
-  float escale;         ///< Scaling coefficient of log energy, corresponds to ESCALE in HTK
-  int hipass;		///< High frequency cut-off in fbank analysis, -1 if disabled, corresponds to HIFREQ in HTK
-  int lopass;		///< Low frequency cut-off in fbank analysis, -1 if disabled, corresponds to LOFREQ in HTK
-  int enormal;          ///< 1 if normalise raw energy, 0 if disabled, corresponds to ENORMALISE in HTK
-  int raw_e;            ///< 1 if using raw energy, 0 if disabled, corresponds to RAWENERGY in HTK
-  int zmeanframe;	///< 1 if apply zero mean frame like ZMEANSOURCE in HTK
-  int usepower;		///< 1 if use power instead of magnitude in filterbank analysis
-  float vtln_alpha;	///< warping factor for VTLN, corresponds to WARPFREQ in HTK
-  float vtln_upper;	///< hi freq. cut off for VTLN, corresponds to WARPUCUTOFF in HTK
-  float vtln_lower;	///< low freq. cut off for VTLN, corresponds to WARPLCUTOFF in HTK
+  long smp_period;      /**< Sampling period in 100ns units */
+  long smp_freq;	/**< Sampling frequency */
+  int framesize;        /**< Window size in samples, similar to WINDOWSIZE in HTK (unit is different) */
+  int frameshift;       /**< Frame shift length in samples */
+  float preEmph;        /**< Pre-emphasis coefficient, corresponds to PREEMCOEF in HTK */
+  int lifter;           /**< Cepstral liftering coefficient, corresponds to CEPLIFTER in HTK */
+  int fbank_num;        /**< Number of filterbank channels, corresponds to NUMCHANS in HTK */
+  int delWin;           /**< Delta window size, corresponds to DELTAWINDOW in HTK */
+  int accWin;           /**< Acceleration window size, corresponds to ACCWINDOW in HTK */
+  float silFloor;       /**< Energy silence floor in dBs, corresponds to SILFLOOR in HTK */
+  float escale;         /**< Scaling coefficient of log energy, corresponds to ESCALE in HTK */
+  int hipass;		/**< High frequency cut-off in fbank analysis, -1 if disabled, corresponds to HIFREQ in HTK */
+  int lopass;		/**< Low frequency cut-off in fbank analysis, -1 if disabled, corresponds to LOFREQ in HTK */
+  int enormal;          /**< 1 if normalise raw energy, 0 if disabled, corresponds to ENORMALISE in HTK */
+  int raw_e;            /**< 1 if using raw energy, 0 if disabled, corresponds to RAWENERGY in HTK */
+  int zmeanframe;	/**< 1 if apply zero mean frame like ZMEANSOURCE in HTK */
+  int usepower;		/**< 1 if use power instead of magnitude in filterbank analysis */
+  float vtln_alpha;	/**< warping factor for VTLN, corresponds to WARPFREQ in HTK */
+  float vtln_upper;	/**< hi freq. cut off for VTLN, corresponds to WARPUCUTOFF in HTK */
+  float vtln_lower;	/**< low freq. cut off for VTLN, corresponds to WARPLCUTOFF in HTK */
 
   /* items below does not need to be embedded, because they can be
      detemined from the acoustic model header, or should be computed
      from run-time variables */
-  int delta;            ///< 1 if delta coef. needs to be computed
-  int acc;              ///< 1 if acceleration coef. needs to be computed
-  int energy;		///< 1 if energy coef. needs to be computed
-  int c0;		///< 1 if use 0th cepstral parameter, 0 if disabled, corresponds to _0 qualifier in HTK
-  int absesup;		///< 1 if absolute energy should be suppressed
-  int cmn;              ///< 1 if use Cepstrum Mean Normalization, 0 if disabled, corresponds to _Z qualifier in HTK
-  int cvn;		///< 1 if use cepstral variance normalization, else 0 */
-  int mfcc_dim;         ///< Number of MFCC dimensions
-  int baselen;		///< Number of base MFCC dimension with energies
-  int vecbuflen;	///< Vector length needed for computation
-  int veclen;		///< Resulting length of vector
+  int delta;            /**< 1 if delta coef. needs to be computed */
+  int acc;              /**< 1 if acceleration coef. needs to be computed */
+  int energy;		/**< 1 if energy coef. needs to be computed */
+  int c0;		/**< 1 if use 0th cepstral parameter, 0 if disabled, corresponds to _0 qualifier in HTK */
+  int absesup;		/**< 1 if absolute energy should be suppressed */
+  int cmn;              /**< 1 if use Cepstrum Mean Normalization, 0 if disabled, corresponds to _Z qualifier in HTK */
+  int cvn;		/**< 1 if use cepstral variance normalization, else 0 */
+  int mfcc_dim;         /**< Number of MFCC dimensions */
+  int baselen;		/**< Number of base MFCC dimension with energies */
+  int vecbuflen;	/**< Vector length needed for computation */
+  int veclen;		/**< Resulting length of vector */
 
-  int loaded;		///< 1 if these parameters were loaded from HTK config file or binhmm header
+  int loaded;		/**< 1 if these parameters were loaded from HTK config file or binhmm header */
 }Value;
 
-/// Workspace for filterbank analysis
+/** Workspace for filterbank analysis */
 typedef struct {
-   int fftN;            ///< Number of FFT point
-   int n;               ///< log2(fftN)
-   int klo;             ///< FFT indices of lopass cut-off
-   int khi;             ///< FFT indices of hipass cut-off
-   float fres;          ///< Scaled FFT resolution
-   float *cf;           ///< Array[1..pOrder+1] of centre freqs
-   short *loChan;       ///< Array[1..fftN/2] of loChan index
-   float *loWt;         ///< Array[1..fftN/2] of loChan weighting
-   float *Re;           ///< Array[1..fftN] of fftchans (real part)
-   float *Im;           ///< Array[1..fftN] of fftchans (imag part)
+   int fftN;            /**< Number of FFT point */
+   int n;               /**< log2(fftN) */
+   int klo;             /**< FFT indices of lopass cut-off */
+   int khi;             /**< FFT indices of hipass cut-off */
+   float fres;          /**< Scaled FFT resolution */
+   float *cf;           /**< Array[1..pOrder+1] of centre freqs */
+   short *loChan;       /**< Array[1..fftN/2] of loChan index */
+   float *loWt;         /**< Array[1..fftN/2] of loChan weighting */
+   float *Re;           /**< Array[1..fftN] of fftchans (real part) */
+   float *Im;           /**< Array[1..fftN] of fftchans (imag part) */
 } FBankInfo;
 
-/// Cycle buffer for delta computation
+/** Cycle buffer for delta computation */
 typedef struct {
-  float **mfcc;			///< MFCC buffer
-  int veclen;			///< Vector length of above
-  float *vec;			///< Points to the current MFCC
-  int win;			///< Delta window length
-  int len;			///< Length of the buffer (= win*2+1)
-  int store;			///< Current next storing point
-  boolean *is_on;		///< TRUE if data filled
-  int B;			///< B coef. for delta computation
+  float **mfcc;			/**< MFCC buffer */
+  int veclen;			/**< Vector length of above */
+  float *vec;			/**< Points to the current MFCC */
+  int win;			/**< Delta window length */
+  int len;			/**< Length of the buffer (= win*2+1) */
+  int store;			/**< Current next storing point */
+  boolean *is_on;		/**< TRUE if data filled */
+  int B;			/**< B coef. for delta computation */
 } DeltaBuf;
 
-/// Work area for MFCC computation
+/** Work area for MFCC computation */
 typedef struct {
-  float *bf;			///< Local buffer to hold windowed waveform 
-  double *fbank;   ///< Local buffer to hold filterbank
-  FBankInfo fb;	///< Local buffer to hold filterbank information
-  int bflen;			///< Length of above
+  float *bf;			/**< Local buffer to hold windowed waveform  */
+  double *fbank;   /**< Local buffer to hold filterbank */
+  FBankInfo fb;	/**< Local buffer to hold filterbank information */
+  int bflen;			/**< Length of above */
 #ifdef MFCC_SINCOS_TABLE
-  double *costbl_hamming; ///< Cos table for hamming window
-  int costbl_hamming_len; ///< Length of above
+  double *costbl_hamming; /**< Cos table for hamming window */
+  int costbl_hamming_len; /**< Length of above */
   /* cos/-sin table for FFT */
-  double *costbl_fft; ///< Cos table for FFT
-  double *sintbl_fft; ///< Sin table for FFT
-  int tbllen; ///< Length of above
+  double *costbl_fft; /**< Cos table for FFT */
+  double *sintbl_fft; /**< Sin table for FFT */
+  int tbllen; /**< Length of above */
   /* cos table for MakeMFCC */
-  double *costbl_makemfcc; ///< Cos table for DCT
-  int costbl_makemfcc_len; ///< Length of above
+  double *costbl_makemfcc; /**< Cos table for DCT */
+  int costbl_makemfcc_len; /**< Length of above */
   /* sin table for WeightCepstrum */
-  double *sintbl_wcep; ///< Sin table for cepstrum weighting
-  int sintbl_wcep_len; ///< Length of above
+  double *sintbl_wcep; /**< Sin table for cepstrum weighting */
+  int sintbl_wcep_len; /**< Length of above */
 #endif /* MFCC_SINCOS_TABLE */
-  float sqrt2var; ///< Work area that holds value of sqrt(2.0) / fbank_num
-  float *ssbuf;			///< Pointer to noise spectrum for SS
-  int ssbuflen;			///< length of @a ssbuf
-  float ss_floor;		///< flooring value for SS
-  float ss_alpha;		///< alpha scaling value for SS
+  float sqrt2var; /**< Work area that holds value of sqrt(2.0) / fbank_num */
+  float *ssbuf;			/**< Pointer to noise spectrum for SS */
+  int ssbuflen;			/**< length of @a ssbuf */
+  float ss_floor;		/**< flooring value for SS */
+  float ss_alpha;		/**< alpha scaling value for SS */
 } MFCCWork;
 
 /**
@@ -171,9 +171,9 @@ typedef struct {
  * 
  */
 typedef struct {
-  float *mfcc_sum;		///< Sum of MFCC parameters
-  float *mfcc_var;		///< Variance sum of MFCC parameters
-  int framenum;			///< summed number of frames
+  float *mfcc_sum;		/**< Sum of MFCC parameters */
+  float *mfcc_var;		/**< Variance sum of MFCC parameters */
+  int framenum;			/**< summed number of frames */
 } CMEAN;
 
 /**
@@ -181,18 +181,18 @@ typedef struct {
  * 
  */
 typedef struct {
-  CMEAN *clist;		///< List of MFCC sum for previous inputs
-  int clist_max;		///< Allocated number of CMEAN in clist
-  int clist_num;		///< Currentlly filled CMEAN in clist
-  float cweight;		///< Weight of initial cepstral mean
-  float *cmean_init;	///< Initial cepstral mean for each input
-  float *cvar_init;		///< Inisial cepstral standard deviation for each input
-  int mfcc_dim;			///< base MFCC dimension (to apply CMN)
-  int veclen;			///< full MFCC vector length
-  boolean mean;			///< TRUE if CMN is enabled
-  boolean var;			///< TRUE if CVN is enabled
-  boolean cmean_init_set;	///< TRUE if cmean_init (and cvar_init) was set
-  CMEAN now;		///< Work area to hold current cepstral mean
+  CMEAN *clist;		/**< List of MFCC sum for previous inputs */
+  int clist_max;		/**< Allocated number of CMEAN in clist */
+  int clist_num;		/**< Currentlly filled CMEAN in clist */
+  float cweight;		/**< Weight of initial cepstral mean */
+  float *cmean_init;	/**< Initial cepstral mean for each input */
+  float *cvar_init;		/**< Inisial cepstral standard deviation for each input */
+  int mfcc_dim;			/**< base MFCC dimension (to apply CMN) */
+  int veclen;			/**< full MFCC vector length */
+  boolean mean;			/**< TRUE if CMN is enabled */
+  boolean var;			/**< TRUE if CVN is enabled */
+  boolean cmean_init_set;	/**< TRUE if cmean_init (and cvar_init) was set */
+  CMEAN now;		/**< Work area to hold current cepstral mean */
 } CMNWork;
 
 /**
@@ -200,9 +200,9 @@ typedef struct {
  * 
  */
 typedef struct {
-  LOGPROB max_last;	///< Maximum energy value of last input
-  LOGPROB min_last;	///< Minimum floored energy value of last input
-  LOGPROB max;	///< Maximum energy value of current input
+  LOGPROB max_last;	/**< Maximum energy value of last input */
+  LOGPROB min_last;	/**< Minimum floored energy value of last input */
+  LOGPROB max;	/**< Maximum energy value of current input */
 } ENERGYWork;
 
 /**** mfcc-core.c ****/

@@ -46,43 +46,43 @@
 #include <sent/stddefs.h>
 #include <sent/htk_hmm.h>
 
-/// Default word string of beginning-of-sentence word
+/** Default word string of beginning-of-sentence word*/
 #define BEGIN_WORD_DEFAULT "<s>"
-/// Default word string of end-of-sentence word
+/** Default word string of end-of-sentence word*/
 #define END_WORD_DEFAULT "</s>"
 
-/// Memory allocation step in number of words when loading a word dictionary
+/** Memory allocation step in number of words when loading a word dictionary*/
 #define	MAXWSTEP 4000
 
-/// Word dictionary structure to hold vocabulary
+/** Word dictionary structure to hold vocabulary*/
 typedef struct {
-  WORD_ID	maxnum;		///< Allocated number of word space
-  WORD_ID	num;		///< Number of words
-  WORD_ID	errnum;		///< Number of error words that were skipped when reading dictionary
-  WORD_ID	linenum;	///< Current line number while loading
-  boolean	do_conv;	///< TRUE if needs conversion while loading
-  boolean	ok_flag;	///< FALSE if any error occur while loading
+  WORD_ID	maxnum;		/**< Allocated number of word space*/
+  WORD_ID	num;		/**< Number of words*/
+  WORD_ID	errnum;		/**< Number of error words that were skipped when reading dictionary*/
+  WORD_ID	linenum;	/**< Current line number while loading*/
+  boolean	do_conv;	/**< TRUE if needs conversion while loading*/
+  boolean	ok_flag;	/**< FALSE if any error occur while loading*/
 
-  unsigned char	*wlen;		///< Number of phonemes for each word [wid]
+  unsigned char	*wlen;		/**< Number of phonemes for each word [wid]*/
   
-  char		**wname;	///< Word name string for each word [wid].  With DFA, it's category ID.  With N-gram, it's N-gram entry name.
-  char		**woutput;	///< Word output string that will be output as recognition result for each word [wid]
-  HMM_Logical   ***wseq;	///< Phone sequence of each word [wid][0..wlen[wid]-1]
-  WORD_ID	*wton;		///< Reference to N-gram/category ID of each word ID [wid]
+  char		**wname;	/**< Word name string for each word [wid].  With DFA, it's category ID.  With N-gram, it's N-gram entry name.*/
+  char		**woutput;	/**< Word output string that will be output as recognition result for each word [wid]*/
+  HMM_Logical   ***wseq;	/**< Phone sequence of each word [wid][0..wlen[wid]-1]*/
+  WORD_ID	*wton;		/**< Reference to N-gram/category ID of each word ID [wid]*/
 #ifdef CLASS_NGRAM
-  LOGPROB	*cprob;		///< Class probability of each word [wid]
-  WORD_ID	cwnum;		///< Number of words whose class prob is specified (just for a statistic)
+  LOGPROB	*cprob;		/**< Class probability of each word [wid]*/
+  WORD_ID	cwnum;		/**< Number of words whose class prob is specified (just for a statistic)*/
 #endif
-  WORD_ID	head_silwid;	///< Word ID of beginning-of-sentence silence
-  WORD_ID	tail_silwid;	///< Word ID of end-of-sentence silence
-  short		maxwn;		///< Maximum number of %HMM states per word (statistic)
-  short         maxwlen;	///< Maximum number of phones in a word (statistic)
-  int		totalstatenum;  ///< Total number of HMM states
-  int		totalmodelnum;  ///< Total number of models (phonemes) 
-  int		totaltransnum;  ///< Total number of state transitions
-  boolean	*is_transparent; ///< TRUE if the word can be treated as transparent [wid]
-  APATNODE	*errph_root; ///< Root node of index tree for gathering error %HMM name appeared when reading the dictionary 
-  BMALLOC_BASE *mroot;		///< Pointer for block memory allocation
+  WORD_ID	head_silwid;	/**< Word ID of beginning-of-sentence silence*/
+  WORD_ID	tail_silwid;	/**< Word ID of end-of-sentence silence*/
+  short		maxwn;		/**< Maximum number of %HMM states per word (statistic)*/
+  short         maxwlen;	/**< Maximum number of phones in a word (statistic)*/
+  int		totalstatenum;  /**< Total number of HMM states*/
+  int		totalmodelnum;  /**< Total number of models (phonemes) */
+  int		totaltransnum;  /**< Total number of state transitions*/
+  boolean	*is_transparent; /**< TRUE if the word can be treated as transparent [wid]*/
+  APATNODE	*errph_root; /**< Root node of index tree for gathering error %HMM name appeared when reading the dictionary */
+  BMALLOC_BASE *mroot;		/**< Pointer for block memory allocation*/
 } WORD_INFO;
 
 WORD_INFO *word_info_new();

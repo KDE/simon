@@ -64,23 +64,23 @@
 #include <sent/stddefs.h>
 #include <sent/htk_defs.h>
 
-/// Parameter types and extraction conditions
+/** Parameter types and extraction conditions */
 typedef struct {
-  unsigned int samplenum;	///< Number of samples (or frames)
-  unsigned int wshift;		///< Window shift (unit: 100ns) 
-  unsigned short sampsize;	///< Bytes per sample 
-  short samptype;		///< Parameter type, see also htk_defs.h
+  unsigned int samplenum;	/**< Number of samples (or frames) */
+  unsigned int wshift;		/**< Window shift (unit: 100ns)  */
+  unsigned short sampsize;	/**< Bytes per sample  */
+  short samptype;		/**< Parameter type, see also htk_defs.h */
 } HTK_Param_Header;
 
-/// Input speech parameter
+/** Input speech parameter */
 typedef struct {
-  HTK_Param_Header header;	///< Parameter header information
-  unsigned int samplenum;	///< Number of sample (same in header.samplenum) 
-  short veclen;			///< Vector length of a sample
-  VECT **parvec;		///< Actual parameter vectors [0..samplenum-1][0..veclen-1]
-  short veclen_alloc;		///< Allocated vector length of a sample
-  unsigned int samplenum_alloc;	///< Alllocated number of samples
-  BMALLOC_BASE *mroot;		///< Pointer for block memory allocation
+  HTK_Param_Header header;	/**< Parameter header information */
+  unsigned int samplenum;	/**< Number of sample (same in header.samplenum)  */
+  short veclen;			/**< Vector length of a sample */
+  VECT **parvec;		/**< Actual parameter vectors [0..samplenum-1][0..veclen-1] */
+  short veclen_alloc;		/**< Allocated vector length of a sample */
+  unsigned int samplenum_alloc;	/**< Alllocated number of samples */
+  BMALLOC_BASE *mroot;		/**< Pointer for block memory allocation */
 } HTK_Param;
 
 /**

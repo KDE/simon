@@ -42,9 +42,9 @@
  *                 to express the pronunciation
  */
 
-#define PHONEMELEN_STEP  30	///< Memory allocation step for phoneme sequence
-static char buf[MAXLINELEN];	///< Local work area for input text processing
-static char bufbak[MAXLINELEN];	///< Local work area for debug message
+#define PHONEMELEN_STEP  30	/**< Memory allocation step for phoneme sequence */
+static char buf[MAXLINELEN];	/**< Local work area for input text processing */
+static char bufbak[MAXLINELEN];	/**< Local work area for debug message */
 
 /** 
  * Add a triphone name to the missing error list in WORD_INFO.
@@ -377,7 +377,7 @@ voca_load_wordlist_line(char *buf, WORD_ID *vnum_p, int linenum, WORD_INFO *winf
 	  }
 	}
       }
-      //printf("[[%s]]\n", p);
+      /*printf("[[%s]]\n", p);*/
 
       /* both defined/pseudo phone is allowed */
       tmplg = htk_hmmdata_lookup_logical(hmminfo, p);

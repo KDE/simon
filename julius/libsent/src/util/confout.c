@@ -27,6 +27,7 @@
 #include <sent/ngram2.h>
 #include <sent/speech.h>
 #include <sent/adin.h>
+#include <sent/config.h>
 
 /** 
  * Output version of this libsent library.

@@ -1,5 +1,6 @@
 #project(libjulius)
 include_directories(include ../libsent/include)
+add_definitions(-lang-c-c++-comments -std=c99 )
 
 set (libjulius_SRCS ./src/m_usage.c 
 ./src/realtime-1stpass.c 
@@ -41,13 +42,19 @@ set (libjulius_SRCS ./src/m_usage.c
 ./src/confnet.c)
 add_library(julius SHARED ${libjulius_SRCS})
 
+if(WIN32)
 target_link_libraries(julius sent)
+ENDIF(WIN32)
+if(UNIX)
+target_link_libraries(julius sent dl)
+ENDIF(UNIX)
 
 FILE(GLOB libjulius_LIB_HDRS ./include/julius/*.h) 
 
 set_target_properties( julius
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )
+
 
 install( FILES ${libjulius_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/julius

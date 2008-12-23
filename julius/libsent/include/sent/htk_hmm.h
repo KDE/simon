@@ -34,12 +34,12 @@
 #include <sent/ptree.h>
 #include <sent/mfcc.h>
 
-/// Macro to check whether the next token is "A"
+/** Macro to check whether the next token is "A" */
 #define currentis(A)  (!strcasecmp(A, rdhmmdef_token))
-/// Macro to jump to error if no token left
+/** Macro to jump to error if no token left */
 #define NoTokErr(S)      if (!rdhmmdef_token) rderr(S)
 
-/// Delimiter string for parsing %HMM definition file
+/** Delimiter string for parsing %HMM definition file */
 #define HMMDEF_DELM " \t\n<>"
 
 /**
@@ -64,85 +64,85 @@
  * </JA>
  *
  */
-//@{
-/// @ingroup hmminfo
+/*//@{*/
+/** @ingroup hmminfo */
 
-/// Possible maximum value of state ID (in unsigned short)
+/** Possible maximum value of state ID (in unsigned short) */
 #define MAX_STATE_NUM 2147483647
 
-/// Delimiter strings/characters to generate logical triphone names
-#define HMM_RC_DLIM "+"		///< Right context delimiter in string
-#define HMM_LC_DLIM "-"		///< Left context delimiter in string
-#define HMM_RC_DLIM_C '+'	///< Right context delimiter in character
-#define HMM_LC_DLIM_C '-'	///< Left context delimiter in character
+/** Delimiter strings/characters to generate logical triphone names */
+#define HMM_RC_DLIM "+"		/**< Right context delimiter in string */
+#define HMM_LC_DLIM "-"		/**< Left context delimiter in string */
+#define HMM_RC_DLIM_C '+'	/**< Right context delimiter in character */
+#define HMM_LC_DLIM_C '-'	/**< Left context delimiter in character */
 
-/// Default logical name of short pause model
+/** Default logical name of short pause model */
 #define SPMODEL_NAME_DEFAULT "sp"
 
-/// Length limit of HMM name (including ones generated in Julius)
+/** Length limit of HMM name (including ones generated in Julius) */
 #define MAX_HMMNAME_LEN 256
 
-/// Specify method of calculating approximated acoustic score at inter-word context pseudo phones on word edge
+/** Specify method of calculating approximated acoustic score at inter-word context pseudo phones on word edge */
 enum iwcd_type {
-  IWCD_UNDEF,			///< not specified explicitly
-  IWCD_MAX,			///< Use maximum score among context variants
-  IWCD_AVG,			///< Use average score among context variants
-  IWCD_NBEST			///< Use average of N-best scores among context variants
+  IWCD_UNDEF,			/**< not specified explicitly */
+  IWCD_MAX,			/**< Use maximum score among context variants */
+  IWCD_AVG,			/**< Use average score among context variants */
+  IWCD_NBEST			/**< Use average of N-best scores among context variants */
 };
 
 /* options info */
 
-/// Stream information (although current Julius supports only single stream)
+/** Stream information (although current Julius supports only single stream) */
 typedef struct {
-  short num;			///< Number of stream
-  short vsize[MAXSTREAMNUM];	///< Vector size for each stream
+  short num;			/**< Number of stream */
+  short vsize[MAXSTREAMNUM];	/**< Vector size for each stream */
 } HTK_HMM_StreamInfo;
 
-/// %HMM Option
+/** %HMM Option */
 typedef struct {
-  HTK_HMM_StreamInfo stream_info; ///< Stream information of this %HMM
-  short vec_size;		///< Size of parameter vector in number of dimension
-  short cov_type;		///< Type of covariance matrix , see also htk_defs.h
-  short dur_type;		///< Type of duration , see also htk_defs.h
-  short param_type;		///< Type of parameter , see also htk_defs.h
+  HTK_HMM_StreamInfo stream_info; /**< Stream information of this %HMM */
+  short vec_size;		/**< Size of parameter vector in number of dimension */
+  short cov_type;		/**< Type of covariance matrix , see also htk_defs.h */
+  short dur_type;		/**< Type of duration , see also htk_defs.h */
+  short param_type;		/**< Type of parameter , see also htk_defs.h */
 } HTK_HMM_Options;
 
-/// %HMM transition table
+/** %HMM transition table */
 typedef struct _HTK_HMM_trans {
-  char *name;			///< Name (NULL if not defined as Macro)
-  short statenum;		///< Number of state
-  PROB **a;			///< Matrix of transition probabilities
-  struct _HTK_HMM_trans *next;  ///< Pointer to next data, NULL if last
+  char *name;			/**< Name (NULL if not defined as Macro) */
+  short statenum;		/**< Number of state */
+  PROB **a;			/**< Matrix of transition probabilities */
+  struct _HTK_HMM_trans *next;  /**< Pointer to next data, NULL if last */
 } HTK_HMM_Trans;
 
-/// %HMM variance data
+/** %HMM variance data */
 typedef struct _HTK_HMM_variance {
-  char *name;			///< Name (NULL if not defined as Macro)
-  VECT *vec;			///< Covariance vector (diagonal)
-  short len;			///< Length of above
-  struct _HTK_HMM_variance *next; ///< Pointer to next data, NULL if last
+  char *name;			/**< Name (NULL if not defined as Macro) */
+  VECT *vec;			/**< Covariance vector (diagonal) */
+  short len;			/**< Length of above */
+  struct _HTK_HMM_variance *next; /**< Pointer to next data, NULL if last */
 } HTK_HMM_Var;
 
-/// %HMM Gaussian density (or mixture) data
+/** %HMM Gaussian density (or mixture) data */
 typedef struct _HTK_HMM_dens {
-  char *name;			///< Name (NULL if not defined as Macro)
-  VECT *mean;			///< Mean vector
-  short meanlen;		///< Length of above
-  HTK_HMM_Var *var;		///< Link to assigned variance vector
+  char *name;			/**< Name (NULL if not defined as Macro) */
+  VECT *mean;			/**< Mean vector */
+  short meanlen;		/**< Length of above */
+  HTK_HMM_Var *var;		/**< Link to assigned variance vector */
   /**
    * Constant value in log scale for calculating Gaussiann output probability.
    * @sa libsent/sec/hmminfo/rdhmmdef_dens.c
    */
   LOGPROB gconst;
-  struct _HTK_HMM_dens *next;	///< Pointer to next data, NULL if last
+  struct _HTK_HMM_dens *next;	/**< Pointer to next data, NULL if last */
 } HTK_HMM_Dens;
 
-/// %HMM stream weight definition
+/** %HMM stream weight definition */
 typedef struct _HTK_HMM_stream_weight {
-  char *name;			///< Name (NULL for in-line definition)
-  VECT *weight;			///< Weight of each stream in log scale
-  short len;			///< Length of above
-  struct _HTK_HMM_stream_weight *next; ///< Pointer to next data, NULL on last
+  char *name;			/**< Name (NULL for in-line definition) */
+  VECT *weight;			/**< Weight of each stream in log scale */
+  short len;			/**< Length of above */
+  struct _HTK_HMM_stream_weight *next; /**< Pointer to next data, NULL on last */
 } HTK_HMM_StreamWeight;
 
 /**
@@ -154,13 +154,13 @@ typedef struct _HTK_HMM_stream_weight {
  * 
  */
 typedef struct _HTK_HMM_PDF {
-  char *name;			///< Name (NULL for in-line definition)
-  boolean tmix;			///< TRUE if this is assigned to tied-mixture codebook
-  short stream_id;		///< Stream ID to which this pdf is assigned, begins from 0
-  short mix_num;		///< Number of densities (mixtures) assigned.
-  HTK_HMM_Dens **b;		///< Link array to assigned densities, or pointer to GCODEBOOK in tied-mixture model
-  PROB *bweight;		///< Weights corresponding to above
-  struct _HTK_HMM_PDF *next;	///< Pointer to next data, or NULL at last
+  char *name;			/**< Name (NULL for in-line definition) */
+  boolean tmix;			/**< TRUE if this is assigned to tied-mixture codebook */
+  short stream_id;		/**< Stream ID to which this pdf is assigned, begins from 0 */
+  short mix_num;		/**< Number of densities (mixtures) assigned. */
+  HTK_HMM_Dens **b;		/**< Link array to assigned densities, or pointer to GCODEBOOK in tied-mixture model */
+  PROB *bweight;		/**< Weights corresponding to above */
+  struct _HTK_HMM_PDF *next;	/**< Pointer to next data, or NULL at last */
 } HTK_HMM_PDF;
 
 /**
@@ -168,35 +168,35 @@ typedef struct _HTK_HMM_PDF {
  *
  */
 typedef struct _HTK_HMM_state {
-  char *name;			///< Name (NULL if not defined as Macro)
-  short nstream;		///< Num of stream
-  HTK_HMM_StreamWeight *w;	///< Pointer to stream weight data, or NULL is not specified
-  HTK_HMM_PDF **pdf;	        ///< Array of mixture PDFs for each stream
-  int id; 			///< Uniq state id starting from 0 for caching of output probability
-  struct _HTK_HMM_state *next;  ///< Pointer to next data, NULL if last
+  char *name;			/**< Name (NULL if not defined as Macro) */
+  short nstream;		/**< Num of stream */
+  HTK_HMM_StreamWeight *w;	/**< Pointer to stream weight data, or NULL is not specified */
+  HTK_HMM_PDF **pdf;	        /**< Array of mixture PDFs for each stream */
+  int id; 			/**< Uniq state id starting from 0 for caching of output probability */
+  struct _HTK_HMM_state *next;  /**< Pointer to next data, NULL if last */
 } HTK_HMM_State;
 
-/// Top %HMM model, corresponds to "~h" macro in hmmdefs
+/** Top %HMM model, corresponds to "~h" macro in hmmdefs */
 typedef struct _HTK_HMM_data {
-  char *name;			///< Name (NULL if not defined as Macro)
-  short state_num;		///< Number of states in this model
-  HTK_HMM_State **s;		///< Array of states in this model
-  HTK_HMM_Trans *tr;		///< Link to assigned transition matrix
-  struct _HTK_HMM_data *next;   ///< Pointer to next data, NULL if last
+  char *name;			/**< Name (NULL if not defined as Macro) */
+  short state_num;		/**< Number of states in this model */
+  HTK_HMM_State **s;		/**< Array of states in this model */
+  HTK_HMM_Trans *tr;		/**< Link to assigned transition matrix */
+  struct _HTK_HMM_data *next;   /**< Pointer to next data, NULL if last */
 } HTK_HMM_Data;
 
-/// Gaussian mixture codebook in tied-mixture model
+/** Gaussian mixture codebook in tied-mixture model */
 typedef struct {
-  char *name;			///< Codebook name (NULL if not defined as Macro)
-  int num;			///< Number of mixtures in this codebook
-  HTK_HMM_Dens **d;		///< Array of links to mixture instances
-  unsigned short id;            ///< Uniq id for caching of output probability
+  char *name;			/**< Codebook name (NULL if not defined as Macro) */
+  int num;			/**< Number of mixtures in this codebook */
+  HTK_HMM_Dens **d;		/**< Array of links to mixture instances */
+  unsigned short id;            /**< Uniq id for caching of output probability */
 } GCODEBOOK;
-//@}
+/*//@}*/
 
-/// Set of %HMM states for Gaussian Mixture Selection
+/** Set of %HMM states for Gaussian Mixture Selection */
 typedef struct {
-  HTK_HMM_State *state;		///< Pointer to %HMM states defined for GMS
+  HTK_HMM_State *state;		/**< Pointer to %HMM states defined for GMS */
   /* GCODEBOOK *book;*/		/* pointer to the corresponding codebook in hmminfo */
 } GS_SET;
 
@@ -241,16 +241,16 @@ typedef struct {
  * @sa libsent/src/hmminfo/guess_cdHMM.c
  *
  */
-//@{
-/// @ingroup cdset
+/*//@{*/
+/** @ingroup cdset */
 
-/// Context-dependent state set, equivalent to HTK_HMM_State, part of pseudo phone
+/** Context-dependent state set, equivalent to HTK_HMM_State, part of pseudo phone */
 typedef struct {
-  HTK_HMM_State **s;		///< Link Array to belonging states
-  unsigned short num;		///< Number of states
-  unsigned short maxnum;	///< Allocated number of above
+  HTK_HMM_State **s;		/**< Link Array to belonging states */
+  unsigned short num;		/**< Number of states */
+  unsigned short maxnum;	/**< Allocated number of above */
 } CD_State_Set;
-/**
+/** 
  * @brief Context-dependent %HMM set (called "pseudo") for a logical context
  * 
  * Context-dependent %HMM set for a logical context
@@ -258,17 +258,17 @@ typedef struct {
  * "a-k+*", "*-e+b", "*-e+*").
  */
 typedef struct _cd_set{
-  char *name;			///< Logical name of this %HMM set ("a-k", "e+b", "e", etc.)
-  CD_State_Set *stateset;	///< Array of state set for each state location
-  unsigned short state_num;	///< Number of state set
-  HTK_HMM_Trans *tr;		///< Transition matrix
-  struct _cd_set *next;         ///< Pointer to next data, NULL if last
+  char *name;			/**< Logical name of this %HMM set ("a-k", "e+b", "e", etc.) */
+  CD_State_Set *stateset;	/**< Array of state set for each state location */
+  unsigned short state_num;	/**< Number of state set */
+  HTK_HMM_Trans *tr;		/**< Transition matrix */
+  struct _cd_set *next;         /**< Pointer to next data, NULL if last */
 } CD_Set;
-/// Top structure to hold all the %HMM sets
+/** Top structure to hold all the %HMM sets */
 typedef struct {
-  APATNODE *cdtree;		///< Root of index tree for name lookup
+  APATNODE *cdtree;		/**< Root of index tree for name lookup */
 } HMM_CDSET_INFO;
-//@}
+/*//@}*/
 
 /**
  * @ingroup cdset
@@ -293,14 +293,14 @@ typedef struct {
  *
  */
 typedef struct _HMM_logical {
-  char *name;			///< Name string of this logical %HMM
-  boolean is_pseudo;		///< TRUE if this is mapped to pseudo %HMM
-  /// Actual body of state definition
+  char *name;			/**< Name string of this logical %HMM */
+  boolean is_pseudo;		/**< TRUE if this is mapped to pseudo %HMM */
+  /** Actual body of state definition */
   union {
-    HTK_HMM_Data *defined;	///< pointer to the mapped physical %HMM
-    CD_Set *pseudo;		///< pointer to the mapped pseudo %HMM
+    HTK_HMM_Data *defined;	/**< pointer to the mapped physical %HMM */
+    CD_Set *pseudo;		/**< pointer to the mapped pseudo %HMM */
   } body;
-  struct _HMM_logical *next;   ///< Pointer to next data, NULL if last
+  struct _HMM_logical *next;   /**< Pointer to next data, NULL if last */
 } HMM_Logical;
 
 /**
@@ -309,9 +309,9 @@ typedef struct _HMM_logical {
  * @brief Basephone information extracted from hmminfo
  */
 typedef struct {
-  char *name;			///< Base phone name
-  boolean bgnflag;		///< TRUE if it can appear on word beginning determined by word dictionary
-  boolean endflag;		///< TRUE if it can appear on word end determined by word dictionary
+  char *name;			/**< Base phone name */
+  boolean bgnflag;		/**< TRUE if it can appear on word beginning determined by word dictionary */
+  boolean endflag;		/**< TRUE if it can appear on word end determined by word dictionary */
 } BASEPHONE;
 /**
  * @ingroup hmminfo
@@ -319,10 +319,10 @@ typedef struct {
  * @brief List of all basephone in hmminfo
  */
 typedef struct {
-  int num;			///< Total number of base phone
-  int bgnnum;			///< Number of phones that can appear on word beginning
-  int endnum;			///< Number of phones that can appear on word end
-  APATNODE *root;		///< Root of index tree for name lookup
+  int num;			/**< Total number of base phone */
+  int bgnnum;			/**< Number of phones that can appear on word beginning */
+  int endnum;			/**< Number of phones that can appear on word end */
+  APATNODE *root;		/**< Root of index tree for name lookup */
 } HMM_basephone;
 
 /**
@@ -334,83 +334,83 @@ typedef struct {
   /**
    * @name %HMM definitions from hmmdefs
    */
-  //@{
-  HTK_HMM_Options opt;		///< Global option
-  HTK_HMM_Trans *trstart;	///< Root pointer to the list of transition matrixes
-  HTK_HMM_Var *vrstart;		///< Root pointer to the list of variance data
-  HTK_HMM_Dens *dnstart;	///< Root pointer to the list of density (mixture) data
-  HTK_HMM_PDF *pdfstart;	///< Root pointer to the list of mixture pdf data
-  HTK_HMM_StreamWeight *swstart; ///< Root pointer to the list of stream weight data
-  HTK_HMM_State *ststart;	///< Root pointer to the list of state data
-  HTK_HMM_Data *start;		///< Root pointer to the list of models
-  //@}
+  /*//@{*/
+  HTK_HMM_Options opt;		/**< Global option */
+  HTK_HMM_Trans *trstart;	/**< Root pointer to the list of transition matrixes */
+  HTK_HMM_Var *vrstart;		/**< Root pointer to the list of variance data */
+  HTK_HMM_Dens *dnstart;	/**< Root pointer to the list of density (mixture) data */
+  HTK_HMM_PDF *pdfstart;	/**< Root pointer to the list of mixture pdf data */
+  HTK_HMM_StreamWeight *swstart; /**< Root pointer to the list of stream weight data */
+  HTK_HMM_State *ststart;	/**< Root pointer to the list of state data */
+  HTK_HMM_Data *start;		/**< Root pointer to the list of models */
+/*  //@}*/
 
   /**
    * @name logical %HMM
    */
-  //@{
-  HMM_Logical *lgstart;		///< Root pointer to the list of Logical %HMMs
-  //@}
+/*  //@{*/
+  HMM_Logical *lgstart;		/**< Root pointer to the list of Logical %HMMs */
+  /*//@}*/
   
   /**
    * @name Root nodes of index tree for name lookup of %HMM instances
    */
-  //@{
-  APATNODE *tr_root;		///< Root index node for transition matrixes
-  APATNODE *vr_root;		///< Root index node for variance data
-  APATNODE *sw_root;		///< Root index node for stream weight data
-  APATNODE *dn_root;		///< Root index node for density data
-  APATNODE *pdf_root;		///< Root index node for mixture PDF
-  APATNODE *st_root;		///< Root index node for state data
-  APATNODE *physical_root;	///< Root index node for defined %HMM name
-  APATNODE *logical_root;	///< Root index node for logical %HMM name
-  APATNODE *codebook_root;	///< Root index node for Gaussian codebook of tied mixture %HMM
-  //@}
+  /*//@{*/
+  APATNODE *tr_root;		/**< Root index node for transition matrixes */
+  APATNODE *vr_root;		/**< Root index node for variance data */
+  APATNODE *sw_root;		/**< Root index node for stream weight data */
+  APATNODE *dn_root;		/**< Root index node for density data */
+  APATNODE *pdf_root;		/**< Root index node for mixture PDF */
+  APATNODE *st_root;		/**< Root index node for state data */
+  APATNODE *physical_root;	/**< Root index node for defined %HMM name */
+  APATNODE *logical_root;	/**< Root index node for logical %HMM name */
+  APATNODE *codebook_root;	/**< Root index node for Gaussian codebook of tied mixture %HMM */
+  /*//@}*/
 
   /**
    * @name Information extracted from %HMM instances
    */
-  //@{
-  HMM_basephone basephone;	///< Base phone names extracted from logical %HMM
-  HMM_CDSET_INFO cdset_info;	///< Context-dependent pseudo phone set
-  //@}
+  /*//@{*/
+  HMM_basephone basephone;	/**< Base phone names extracted from logical %HMM */
+  HMM_CDSET_INFO cdset_info;	/**< Context-dependent pseudo phone set */
+  /*//@}*/
   
   /**
    * @name Misc. model information
    */
-  //@{
-  boolean need_multipath; ///< TRUE if this model needs multipath handling
-  boolean multipath;		///< TRUE if this model is treated in multipath mode
-  boolean is_triphone;		///< TRUE if this is triphone model
-  boolean is_tied_mixture;	///< TRUE if this is tied-mixture model
-  short cdset_method;		///< Selected method of computing pseudo phones in iwcd_type
-  short cdmax_num;		///< Number of N-best states when IWCD_NBEST
-  HMM_Logical *sp;		///< Link to short pause model
-  LOGPROB iwsp_penalty;		///< Extra ransition penalty for interword skippable short pause insertion for multi-path mode
-  boolean variance_inversed;	///< TRUE if variances are inversed
+  /*//@{*/
+  boolean need_multipath; /**< TRUE if this model needs multipath handling */
+  boolean multipath;		/**< TRUE if this model is treated in multipath mode */
+  boolean is_triphone;		/**< TRUE if this is triphone model */
+  boolean is_tied_mixture;	/**< TRUE if this is tied-mixture model */
+  short cdset_method;		/**< Selected method of computing pseudo phones in iwcd_type */
+  short cdmax_num;		/**< Number of N-best states when IWCD_NBEST */
+  HMM_Logical *sp;		/**< Link to short pause model */
+  LOGPROB iwsp_penalty;		/**< Extra ransition penalty for interword skippable short pause insertion for multi-path mode */
+  boolean variance_inversed;	/**< TRUE if variances are inversed */
   
-  int totalmixnum;		///< Total number of defined mixtures
-  int totalstatenum;		///< Total number of states
-  int totalhmmnum;		///< Total number of physical %HMM
-  int totallogicalnum;		///< Total number of logical %HMM
-  int totalpseudonum;		///< Total number of pseudo %HMM
-  int totalpdfnum;		///< Total number of mixture PDF
-  int codebooknum;		///< Total number of codebook on tied-mixture model
-  int maxcodebooksize;		///< Maximum size of codebook on tied-mixture model
-  int maxmixturenum;		///< Maximum number of Gaussian per mixture
-  int maxstatenum;		///< Maximum number of state per model
+  int totalmixnum;		/**< Total number of defined mixtures */
+  int totalstatenum;		/**< Total number of states */
+  int totalhmmnum;		/**< Total number of physical %HMM */
+  int totallogicalnum;		/**< Total number of logical %HMM */
+  int totalpseudonum;		/**< Total number of pseudo %HMM */
+  int totalpdfnum;		/**< Total number of mixture PDF */
+  int codebooknum;		/**< Total number of codebook on tied-mixture model */
+  int maxcodebooksize;		/**< Maximum size of codebook on tied-mixture model */
+  int maxmixturenum;		/**< Maximum number of Gaussian per mixture */
+  int maxstatenum;		/**< Maximum number of state per model */
 
-  BMALLOC_BASE *mroot;		///< Pointer for block memory allocation
-  BMALLOC_BASE *lroot;		///< Pointer for block memory allocation for logical HMM
-  BMALLOC_BASE *cdset_root;		///< Pointer for block memory allocation for logical HMM
+  BMALLOC_BASE *mroot;		/**< Pointer for block memory allocation */
+  BMALLOC_BASE *lroot;		/**< Pointer for block memory allocation for logical HMM */
+  BMALLOC_BASE *cdset_root;		/**< Pointer for block memory allocation for logical HMM */
 
-  int *tmp_mixnum;		///< Work area for state reading
+  int *tmp_mixnum;		/**< Work area for state reading */
 
 #ifdef ENABLE_MSD
-  boolean has_msd;		///< TRUE if this model contains MSD part
+  boolean has_msd;		/**< TRUE if this model contains MSD part */
 #endif
 
-  //@}
+  /*//@}*/
 } HTK_HMM_INFO;
 
 /* init_phmm.c */

@@ -102,7 +102,7 @@ voca_lookup_wid(char *keyword, WORD_INFO *winfo)
 
 /* convert space-separated words string -> array of wid */
 /* return malloced array */
-#define WSSTEP 10 ///< Allocation step 
+#define WSSTEP 10 /**< Allocation step */
 
 /** 
  * Convert string of space-separated word strings to array of word ids.

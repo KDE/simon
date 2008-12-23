@@ -30,7 +30,7 @@
 #ifndef __PATRICIA_TREE_H__
 #define __PATRICIA_TREE_H__
 
-/// Patricia binary tree node, to search related pointer from string
+/** Patricia binary tree node, to search related pointer from string */
 typedef struct _apatnode {
   /**
    * @brief Node value
@@ -40,14 +40,14 @@ typedef struct _apatnode {
    * 
    */
   union {
-    void        *data;		///< Pointer address at leaf
-    int		thres_bit;	///< Threshold bit at branch
+    void        *data;		/**< Pointer address at leaf */
+    int		thres_bit;	/**< Threshold bit at branch */
   } value;
-  struct _apatnode *left0;	///< Link to left node (bit=0)
-  struct _apatnode *right1;	///< Link to right node (bit=1)
+  struct _apatnode *left0;	/**< Link to left node (bit=0) */
+  struct _apatnode *right1;	/**< Link to right node (bit=1) */
 } APATNODE;
 
-/// Another patricia binary tree node, to search integer value from string
+/** Another patricia binary tree node, to search integer value from string */
 typedef struct _patnode {
   /**
    * @brief Node value
@@ -57,11 +57,11 @@ typedef struct _patnode {
    * 
    */
   union {
-    int         data;		///< Integer value at leaf
-    int		thres_bit;	///< Threshold bit at branch
+    int         data;		/**< Integer value at leaf */
+    int		thres_bit;	/**< Threshold bit at branch */
   } value;
-  struct _patnode *left0;	///< Link to left node (bit=0)
-  struct _patnode *right1;	///< Link to right node (bit=1)
+  struct _patnode *left0;	/**< Link to left node (bit=0) */
+  struct _patnode *right1;	/**< Link to right node (bit=1) */
 } PATNODE;
 
 int testbit(char *str, int slen, int bitplace);

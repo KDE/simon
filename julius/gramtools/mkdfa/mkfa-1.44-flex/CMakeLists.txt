@@ -2,6 +2,7 @@
 FIND_PACKAGE(FLEX)
 FIND_PACKAGE(BISON)
 
+add_definitions(-lang-c-c++-comments -std=c99 )
 
 BISON_TARGET(Gram gram.y ${CMAKE_CURRENT_SOURCE_DIR}/gram.tab.c)
 FLEX_TARGET(Lex gram.l  ${CMAKE_CURRENT_SOURCE_DIR}/gram.lex.c)
