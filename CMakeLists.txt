@@ -13,6 +13,15 @@ SET(CPACK_PACKAGE_VERSION_PATCH "2")
 SET(CPACK_PACKAGE_INSTALL_DIRECTORY "simon ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}")
 SET(CPACK_STRIP_FILES TRUE)
 SET(CPACK_SOURCE_STRIP_FILES TRUE)
+
+set(CPACK_SOURCE_IGNORE_FILES
+"~$"
+"/.svn/"
+"/build/"
+"\\\\.svn\\\\"
+"\\\\build\\\\"
+)
+
 # Devel
 set(CPACK_COMPONENTS_ALL  kdecore julius juliusdevel ksimond ksimonddoc translations simoncommandaipluginaimlsalice
 		simoncommandaipluginaimlsgerman simoncommandaiplugin simoncommanddesktopgridplugin simoncommanddictationplugin

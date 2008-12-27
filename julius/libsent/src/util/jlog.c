@@ -77,7 +77,7 @@ jlog_get_fp()
  * 
  */
 void
-jlog(char *fmt, ...)
+jlog(const char *fmt, ...)
 {
   va_list ap;
 

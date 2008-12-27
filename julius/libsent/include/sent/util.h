@@ -90,7 +90,7 @@ void swap_bytes(char *buf, size_t unitbyte, size_t unitnum);
 /* j_printf.c */
 void jlog_set_output(FILE *fp);
 FILE *jlog_get_fp();
-void jlog(char *format, ...);
+void jlog(const char *format, ...);
 int jlog_flush();
 
 /* mystrtok.c */
