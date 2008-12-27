@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-12-19 13:43+0100\n"
+"POT-Creation-Date: 2008-12-27 19:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: adinstreamer/adinstreamer.cpp:464
+#: adinstreamer/adinstreamer.cpp:464 adinstreamer/backup/adinstreamer.cpp:548
 msgid ""
 "Couldn't open sound device.\n"
 "\n"
@@ -553,7 +553,7 @@ msgstr ""
 
 #: simonlogging/logview.cpp:703
 #: simonprogresstracking/compositeprogresswidget.cpp:85
-#: speechmodelcompilation/modelcompilationmanager.cpp:262
+#: speechmodelcompilation/modelcompilationmanager.cpp:284
 msgid "Finished"
 msgstr ""
 
@@ -750,119 +750,119 @@ msgstr ""
 msgid "External Programs"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:152
+#: speechmodelcompilation/modelcompilationmanager.cpp:183
 msgid "Aborted"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:239
+#: speechmodelcompilation/modelcompilationmanager.cpp:261
 msgid ""
 "Couldn't generate temporary folders.\n"
 "\n"
 "Please check your permissions for \"%1\"."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:249
+#: speechmodelcompilation/modelcompilationmanager.cpp:271
 msgid "[INF] Compiling model..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:250
+#: speechmodelcompilation/modelcompilationmanager.cpp:272
 msgid "Preperation"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:270
+#: speechmodelcompilation/modelcompilationmanager.cpp:292
 msgid "Generating reverse grammar..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:273
+#: speechmodelcompilation/modelcompilationmanager.cpp:295
 msgid ""
 "Couldn't create reverse grammar.\n"
 "\n"
 "Did you define a grammar?"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:278
+#: speechmodelcompilation/modelcompilationmanager.cpp:300
 msgid "Generating termporary vocabulary..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:281
+#: speechmodelcompilation/modelcompilationmanager.cpp:303
 msgid "Couldn't create temporary vocabular."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:287
+#: speechmodelcompilation/modelcompilationmanager.cpp:309
 msgid "Generating DFA..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:290
+#: speechmodelcompilation/modelcompilationmanager.cpp:312
 msgid ""
 "Couldn't generate dfa. Please check the paths to mkfa and daf_minimize (%1, %"
 "2)."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:295
+#: speechmodelcompilation/modelcompilationmanager.cpp:317
 msgid "Generating grammar dictionary..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:298
+#: speechmodelcompilation/modelcompilationmanager.cpp:320
 msgid ""
 "Couldn't generate grammatical lexicon. Please check the output path (%1)."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:435
+#: speechmodelcompilation/modelcompilationmanager.cpp:457
 msgid "Coding audio files..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:440
+#: speechmodelcompilation/modelcompilationmanager.cpp:462
 msgid "Couldn't create codetrain-file."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:450
+#: speechmodelcompilation/modelcompilationmanager.cpp:472
 msgid ""
 "Error while coding the samples!\n"
 "\n"
 "Please check the path to HCopy (%1) and the wav config (%2)"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:500
+#: speechmodelcompilation/modelcompilationmanager.cpp:530
 msgid "Generating wordlist..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:504
+#: speechmodelcompilation/modelcompilationmanager.cpp:534
 msgid ""
 "Failed to create wordlist. Please check your permissions to the temporary "
 "path."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:510
+#: speechmodelcompilation/modelcompilationmanager.cpp:540
 msgid "Creating monophones..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:515
+#: speechmodelcompilation/modelcompilationmanager.cpp:545
 msgid ""
 "Failed to generate monophones. Please check that you have installed the "
 "Program HDMan correctly and that the lexicon contains all words referenced "
 "by your trainings corpus."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:526
+#: speechmodelcompilation/modelcompilationmanager.cpp:556
 msgid "Generating Master Label File..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:529
+#: speechmodelcompilation/modelcompilationmanager.cpp:559
 msgid ""
 "Couldn't generate Master Label File. Please check your prompts file (%1)."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:536
+#: speechmodelcompilation/modelcompilationmanager.cpp:566
 msgid ""
 "Generation of the transcription failed. Please check if you have correctly "
 "specified the paths to mkphones0.led and mkphons1.led. (%1, %2)"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:545
+#: speechmodelcompilation/modelcompilationmanager.cpp:575
 msgid "Generating hmm0..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:548
+#: speechmodelcompilation/modelcompilationmanager.cpp:578
 msgid ""
 "Error when generating the HMM0.\n"
 "\n"
@@ -870,122 +870,122 @@ msgid ""
 "HCompV(%1), the config (%2) and the phoneme prototype (%3) are correct."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:552
+#: speechmodelcompilation/modelcompilationmanager.cpp:582
 msgid "Generating hmm1..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:555
+#: speechmodelcompilation/modelcompilationmanager.cpp:585
 msgid ""
 "Could not generate the HMM1.\n"
 "\n"
 "Please check the path to HERest (%1) and to the config (%2)"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:559
+#: speechmodelcompilation/modelcompilationmanager.cpp:589
 msgid "Generating hmm2..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:562
+#: speechmodelcompilation/modelcompilationmanager.cpp:592
 msgid ""
 "Could not generate the HMM2.\n"
 "\n"
 "Please check the path to HERest (%1) and to the config (%2)"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:566
+#: speechmodelcompilation/modelcompilationmanager.cpp:596
 msgid "Generating hmm3..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:569
+#: speechmodelcompilation/modelcompilationmanager.cpp:599
 msgid ""
 "Could not generate the HMM3.\n"
 "\n"
 "Please check the path to HERest (%1) and to the config (%2)"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:578
+#: speechmodelcompilation/modelcompilationmanager.cpp:608
 msgid "Generating Pause-Model (hmm4)..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:581
+#: speechmodelcompilation/modelcompilationmanager.cpp:611
 msgid ""
 "Could not generate HMM4.\n"
 "\n"
 "Please check the HMM3."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:587
+#: speechmodelcompilation/modelcompilationmanager.cpp:617
 msgid "Generating hmm5..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:590
+#: speechmodelcompilation/modelcompilationmanager.cpp:620
 msgid ""
 "Could not generate HMM5. Please check the paths to HHEd (%1) and to the "
 "silence-model (%2)."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:594
+#: speechmodelcompilation/modelcompilationmanager.cpp:624
 msgid "Generating hmm6..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:597
-#: speechmodelcompilation/modelcompilationmanager.cpp:604
+#: speechmodelcompilation/modelcompilationmanager.cpp:627
+#: speechmodelcompilation/modelcompilationmanager.cpp:634
 msgid ""
 "Could not generate the HMM6.\n"
 "\n"
 "Please check the path to HERest (%1) and to the config (%2)"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:601
+#: speechmodelcompilation/modelcompilationmanager.cpp:631
 msgid "Generating hmm7..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:614
+#: speechmodelcompilation/modelcompilationmanager.cpp:644
 msgid "Generating dict1..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:617
+#: speechmodelcompilation/modelcompilationmanager.cpp:647
 msgid "Could not generate the dict1"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:622
+#: speechmodelcompilation/modelcompilationmanager.cpp:652
 msgid "Re-Aligning HMM7..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:625
+#: speechmodelcompilation/modelcompilationmanager.cpp:655
 msgid ""
 "Couldn't re-align hmm7. Please check your paths to HVite (%1), the config (%"
 "2) and to the HMM7."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:630
+#: speechmodelcompilation/modelcompilationmanager.cpp:660
 msgid "Generating hmm8..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:633
+#: speechmodelcompilation/modelcompilationmanager.cpp:663
 msgid ""
 "Could not generate the HMM8.\n"
 "\n"
 "Please check the path to HERest (%1) and to the config (%2)"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:638
+#: speechmodelcompilation/modelcompilationmanager.cpp:668
 msgid "Generating hmm9..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:641
+#: speechmodelcompilation/modelcompilationmanager.cpp:671
 msgid ""
 "Could not generate the HMM9.\n"
 "\n"
 "Please check the path to HERest (%1) and to the config (%2)"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:651
-#: speechmodelcompilation/modelcompilationmanager.cpp:820
+#: speechmodelcompilation/modelcompilationmanager.cpp:681
+#: speechmodelcompilation/modelcompilationmanager.cpp:850
 msgid "Generating triphone..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:655
+#: speechmodelcompilation/modelcompilationmanager.cpp:685
 msgid ""
 "Couldn't bind triphones.\n"
 "\n"
@@ -993,48 +993,48 @@ msgid ""
 "3)."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:660
+#: speechmodelcompilation/modelcompilationmanager.cpp:690
 msgid "Generating list of triphones..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:663
+#: speechmodelcompilation/modelcompilationmanager.cpp:693
 msgid "Couldn't generate list of triphones."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:667
+#: speechmodelcompilation/modelcompilationmanager.cpp:697
 msgid "Generating tree.hed..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:670
+#: speechmodelcompilation/modelcompilationmanager.cpp:700
 msgid "Couldn't generate tree.hed."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:675
+#: speechmodelcompilation/modelcompilationmanager.cpp:705
 msgid "Generating hmm13..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:678
+#: speechmodelcompilation/modelcompilationmanager.cpp:708
 msgid ""
 "Could not generate HMM13.\n"
 "\n"
 "Please check the path to HHEd (%1)."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:684
+#: speechmodelcompilation/modelcompilationmanager.cpp:714
 msgid "Generating hmm14..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:687
+#: speechmodelcompilation/modelcompilationmanager.cpp:717
 msgid ""
 "Couldn't generate HMM14. Please check the paths to HERest (%1), the config (%"
 "2) and to the stats-file (%3)."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:692
+#: speechmodelcompilation/modelcompilationmanager.cpp:722
 msgid "Generating hmm15..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:695
+#: speechmodelcompilation/modelcompilationmanager.cpp:725
 msgid ""
 "Could not generate the HMM15.\n"
 "\n"
@@ -1042,44 +1042,44 @@ msgid ""
 "file (%3)."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:823
+#: speechmodelcompilation/modelcompilationmanager.cpp:853
 msgid ""
 "Could not generate triphones.\n"
 "\n"
 "Please check your path to the files mktri.led and HLEd (%1, %2)"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:828
+#: speechmodelcompilation/modelcompilationmanager.cpp:858
 msgid "Generating mktri.hed..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:831
+#: speechmodelcompilation/modelcompilationmanager.cpp:861
 msgid "Could not generate mktri.hed"
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:836
+#: speechmodelcompilation/modelcompilationmanager.cpp:866
 msgid "Generating hmm10..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:839
+#: speechmodelcompilation/modelcompilationmanager.cpp:869
 msgid "Could not generate HMM10. Please check th e path to HHEd (%1)."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:844
+#: speechmodelcompilation/modelcompilationmanager.cpp:874
 msgid "Generating hmm11..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:847
+#: speechmodelcompilation/modelcompilationmanager.cpp:877
 msgid ""
 "Could not generate HMM11. Please check your paths to HERest (%1) and to the "
 "config (%2)."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:852
+#: speechmodelcompilation/modelcompilationmanager.cpp:882
 msgid "Generating hmm12..."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:855
+#: speechmodelcompilation/modelcompilationmanager.cpp:885
 msgid ""
 "Could not generate the HMM12.\n"
 "\n"
@@ -1087,7 +1087,7 @@ msgid ""
 "file (%3)."
 msgstr ""
 
-#: speechmodelcompilation/modelcompilationmanager.cpp:1039
+#: speechmodelcompilation/modelcompilationmanager.cpp:1069
 msgid "[INF] Used Monophones of the model: %1"
 msgstr ""
 
@@ -1104,63 +1104,63 @@ msgstr ""
 msgid "Trainingsdata"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:213
+#: speechmodelmanagement/trainingmanager.cpp:221
 msgid "[INF] Parsing prompts-file from %1"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:234
+#: speechmodelmanagement/trainingmanager.cpp:248
 msgid "[INF] %1 Prompts read"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:247
+#: speechmodelmanagement/trainingmanager.cpp:261
 msgid "[INF] Removing \"%1\" from \"%2\""
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:260
+#: speechmodelmanagement/trainingmanager.cpp:274
 msgid "[INF] Reading the trainingstexts"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:371
+#: speechmodelmanagement/trainingmanager.cpp:385
 msgid "[INF] Calculating relevance"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:447
+#: speechmodelmanagement/trainingmanager.cpp:461
 msgid "ZERO"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:448
+#: speechmodelmanagement/trainingmanager.cpp:462
 msgid "ONE"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:449
+#: speechmodelmanagement/trainingmanager.cpp:463
 msgid "TWO"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:450
+#: speechmodelmanagement/trainingmanager.cpp:464
 msgid "THREE"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:451
+#: speechmodelmanagement/trainingmanager.cpp:465
 msgid "FOUR"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:452
+#: speechmodelmanagement/trainingmanager.cpp:466
 msgid "FIVE"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:453
+#: speechmodelmanagement/trainingmanager.cpp:467
 msgid "SIX"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:454
+#: speechmodelmanagement/trainingmanager.cpp:468
 msgid "SEVEN"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:455
+#: speechmodelmanagement/trainingmanager.cpp:469
 msgid "EIGHT"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:456
+#: speechmodelmanagement/trainingmanager.cpp:470
 msgid "NINE"
 msgstr ""
 

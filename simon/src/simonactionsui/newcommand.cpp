@@ -32,6 +32,9 @@ NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
 {
 	QWidget *widget = new QWidget( this );
 	ui.setupUi(widget);
+
+	ui.teDescription->hide();
+	ui.lbDescription->hide();
 	
 	ui.swCommandCreaters->removeWidget(ui.swCommandCreaters->currentWidget());
 	

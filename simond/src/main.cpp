@@ -31,7 +31,7 @@
 static const char description[] =
     I18N_NOOP("The simon recognition daemon");
 
-static const char version[] = "0.2-alpha-2";
+static const char version[] = "0.2-beta-1";
 
 int main(int argc, char **argv)
 {

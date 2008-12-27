@@ -1,12 +1,34 @@
 project(simon)
+
+if(WIN32)
+SET(CPACK_GENERATOR "NSIS;ZIP")
+endif(WIN32)
+if(UNIX)
+SET(DESTDIR "/usr")
+SET(CPACK_SET_DESTDIR "ON") 
+SET(CPACK_GENERATOR "DEB;STGZ")
+endif(UNIX)
+
 INCLUDE(InstallRequiredSystemLibraries)
 
+SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE i386)
+SET(CPACK_DEBIAN_PACKAGE_DEPENDS  "kdelibs5-dev, libasound2, libc6, libportaudio2, libqt4-sql-sqlite, flex")
 
+SET(CPACK_PACKAGE_CONTACT "Peter Grasch <grasch@simon-listens.org>")
+SET(DEBIAN_PACKAGE_SECTION "utils")
+SET(DEBIAN_PACKAGE_PRIORITY "optional")
+
+SET(CPACK_RPM_PACKAGE_ARCHITECTURE "i386")
+SET(CPACK_RPM_PACKAGE_LICENCE "GNU General Public License (GPL)")
+SET(CPACK_RPM_PACKAGE_GROUP " Productivity/Multimedia/Sound/Utilities")
+
+SET(CPACK_PACKAGE_NAME "simon")
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Open-Source Speech Recognition")
+SET(CPACK_PACKAGE_DESCRIPTION "simon provides an easy to use interface to the open-source speech recognizer julius (this package shipps it's own modified version of julius) and the HTK (has to be installed sperately).\n\nsimon does not include a speech model but provides the means to create it's own.\n\nWith the recognition results simon can type, open programs and places and more.")
 SET(CPACK_PACKAGE_VENDOR "Peter Grasch")
 #SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/ReadMe.txt")
 SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENCE.txt")
-set(CPACK_PACKAGE_VERSION "0.2-alpha-2")
+set(CPACK_PACKAGE_VERSION "0.2-beta-1")
 SET(CPACK_PACKAGE_VERSION_MAJOR "0")
 SET(CPACK_PACKAGE_VERSION_MINOR "2")
 SET(CPACK_PACKAGE_VERSION_PATCH "2")
