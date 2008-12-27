@@ -62,7 +62,6 @@ AddWordView::AddWordView(QWidget *parent)
 	
 	this->addPage(createFinishedPage());
 	
-	connect(this, SIGNAL(finished( int )), this, SLOT(finish( int )));
 	connect(this, SIGNAL(rejected()), this, SLOT(cleanUp()));
 
 	setWindowTitle(i18n("Add Word"));

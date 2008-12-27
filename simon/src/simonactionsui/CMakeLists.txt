@@ -1,4 +1,6 @@
 include(FindQt4)
+include(SimonDirs)
+
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. )
 
@@ -37,4 +39,4 @@ install( FILES ${simonactionsui_LIB_HDRS}
   COMPONENT simondevel
 )
  
-install( TARGETS simonactionsui  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )
+install( TARGETS simonactionsui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )

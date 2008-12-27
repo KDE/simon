@@ -1,4 +1,6 @@
 include(UseQt4)
+include(SimonDirs)
+
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../ )
 
@@ -34,4 +36,4 @@ install( FILES ${simonxml_LIB_HDRS}
   COMPONENT simondevel
 )
  
-install( TARGETS simonxml ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )
+install( TARGETS simonxml DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )

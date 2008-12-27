@@ -1,14 +1,16 @@
 include(FindQt4)
+include(SimonDirs)
+
 find_package(KDE4 REQUIRED)
 set (QT_USE_QTNETWORK true)
 
 include(${QT_USE_FILE})
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../julius/libsent/include/ ../../julius/libjulius/include/ ../ )
 
-IF(UNIX)
-	include(FindSoundFile)
-	find_package(SoundFile REQUIRED)
-ENDIF(UNIX)
+#IF(UNIX)
+#	include(FindSoundFile)
+#	find_package(SoundFile REQUIRED)
+#ENDIF(UNIX)
 IF(WIN32)
 	add_definitions(-D__INTERLOCKED_DECLARED -D__NO_ISOCEXT -DKDEWIN_STRINGS_H)
 ENDIF(WIN32)
@@ -43,4 +45,4 @@ install( FILES ${adinstreamer_LIB_HDRS}
   COMPONENT simondevel
 )
  
-install( TARGETS adinstreamer  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )
+install( TARGETS adinstreamer DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )

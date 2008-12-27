@@ -1,4 +1,6 @@
 include(FindQt4)
+include(SimonDirs)
+
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../)
 
@@ -40,4 +42,4 @@ install( FILES ${speechmodelbase_LIB_HDRS}
   COMPONENT simoncoredevel
 )
  
-install( TARGETS speechmodelbase  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simoncore )
+install( TARGETS speechmodelbase DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )

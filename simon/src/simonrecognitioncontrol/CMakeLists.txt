@@ -1,4 +1,6 @@
 include(FindQt4)
+include(SimonDirs)
+
 include(FindPortaudio)
 
 find_package(KDE4 REQUIRED)
@@ -52,5 +54,5 @@ install( FILES ${simonrecognition_LIB_HDRS}
   COMPONENT simondevel
 )
  
-install( TARGETS simonrecognitioncontrol  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )
+install( TARGETS simonrecognitioncontrol DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
 install( FILES simonrecognitionconfig.desktop simonsynchronisationconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

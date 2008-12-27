@@ -134,7 +134,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/config/kdebug.areas"
   "${KDE4_INSTALL_DIR}/share/config/kdebugrc"
   "${KDE4_INSTALL_DIR}/share/config/khotnewstuff.knsrc"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/config COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../config COMPONENT kdecore )
 
 
   install( FILES 
@@ -143,13 +143,13 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/config/colors/Rainbow.colors"
   "${KDE4_INSTALL_DIR}/share/config/colors/Royal.colors"
   "${KDE4_INSTALL_DIR}/share/config/colors/Web.colors"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/config/colors COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../config/colors COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/config/ui/ui_standards.rc"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/config/ui COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../config/ui COMPONENT kdecore )
 
 
 
@@ -185,13 +185,13 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.soprano.QueryResultIterator.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.soprano.Server.xml"
   "${KDE4_INSTALL_DIR}/share/dbus-1/interfaces/org.soprano.StatementIterator.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/dbus-1/interfaces COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../dbus-1/interfaces COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/dbus-1/services/org.kde.knotify.service"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/dbus-1/services COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../dbus-1/services COMPONENT kdecore )
 
 
 
@@ -200,14 +200,14 @@ install( FILES
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/index.theme"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor COMPONENT kdecore )
 
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/128x128/actions/preview.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/128x128/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/128x128/actions COMPONENT kdecore )
 
 
 
@@ -217,7 +217,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/128x128/apps/knetattach.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/128x128/apps/kompare.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/128x128/apps/konqueror.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/128x128/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/128x128/apps COMPONENT kdecore )
 
 
 
@@ -244,7 +244,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/16x16/actions/prevuntranslated.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/16x16/actions/search2msgstr.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/16x16/actions/transsearch.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/16x16/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/16x16/actions COMPONENT kdecore )
 
 
 
@@ -257,7 +257,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/16x16/apps/konqueror.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/16x16/apps/kuiviewer.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/16x16/apps/umbrello.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/16x16/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/16x16/apps COMPONENT kdecore )
 
 
 
@@ -287,7 +287,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/22x22/actions/prevuntranslated.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/22x22/actions/search2msgstr.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/22x22/actions/transsearch.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/22x22/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/22x22/actions COMPONENT kdecore )
 
 
 
@@ -298,7 +298,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/22x22/apps/knetattach.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/22x22/apps/kompare.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/22x22/apps/konqueror.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/22x22/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/22x22/apps COMPONENT kdecore )
 
 
 
@@ -328,7 +328,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/32x32/actions/prevuntranslated.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/32x32/actions/search2msgstr.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/32x32/actions/transsearch.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/32x32/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/32x32/actions COMPONENT kdecore )
 
 
 
@@ -339,7 +339,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/32x32/apps/kfind.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/32x32/apps/knetattach.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/32x32/apps/konqueror.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/32x32/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/32x32/apps COMPONENT kdecore )
 
 
 
@@ -352,7 +352,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/48x48/actions/presence_offline.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/48x48/actions/presence_online.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/48x48/actions/preview.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/48x48/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/48x48/actions COMPONENT kdecore )
 
 
 
@@ -366,7 +366,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/48x48/apps/konqueror.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/48x48/apps/ksimond.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/48x48/apps/kuiviewer.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/48x48/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/48x48/apps COMPONENT kdecore )
 
 
 
@@ -375,7 +375,7 @@ install( FILES
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/64x64/actions/preview.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/64x64/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/64x64/actions COMPONENT kdecore )
 
 
 
@@ -385,7 +385,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/64x64/apps/kfind.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/64x64/apps/knetattach.png"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/64x64/apps/konqueror.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/64x64/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/64x64/apps COMPONENT kdecore )
 
 
 
@@ -394,14 +394,14 @@ install( FILES
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/scalable/actions/approved.svgz"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/scalable/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/scalable/actions COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/scalable/apps/knetattach.svgz"
   "${KDE4_INSTALL_DIR}/share/icons/hicolor/scalable/apps/konqueror.svgz"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/hicolor/scalable/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/hicolor/scalable/apps COMPONENT kdecore )
 
 
 
@@ -428,7 +428,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/locolor/16x16/actions/prevuntranslated.png"
   "${KDE4_INSTALL_DIR}/share/icons/locolor/16x16/actions/search2msgstr.png"
   "${KDE4_INSTALL_DIR}/share/icons/locolor/16x16/actions/transsearch.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/locolor/16x16/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/locolor/16x16/actions COMPONENT kdecore )
 
 
 
@@ -452,7 +452,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/locolor/32x32/actions/prevuntranslated.png"
   "${KDE4_INSTALL_DIR}/share/icons/locolor/32x32/actions/search2msgstr.png"
   "${KDE4_INSTALL_DIR}/share/icons/locolor/32x32/actions/transsearch.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/locolor/32x32/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/locolor/32x32/actions COMPONENT kdecore )
 
 
 
@@ -460,7 +460,7 @@ install( FILES
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/index.theme"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen COMPONENT kdecore )
 
 
 
@@ -525,7 +525,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/zoom-fit-best.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/zoom-fit-height.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/zoom-fit-width.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/128x128/actions COMPONENT kdecore )
 
 
 
@@ -640,7 +640,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/apps/xfmail.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/apps/xmag.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/apps/xorg.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/128x128/apps COMPONENT kdecore )
 
 
 
@@ -670,7 +670,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/categories/preferences-system.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/categories/preferences-system-network.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/categories/system-help.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/categories COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/128x128/categories COMPONENT kdecore )
 
 
 
@@ -715,14 +715,14 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/devices/video-display.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/devices/video-projector.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/devices/video-television.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/devices COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/128x128/devices COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/emblems/emblem-mounted.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/emblems/emblem-symbolic-link.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/emblems COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/128x128/emblems COMPONENT kdecore )
 
 
 
@@ -738,7 +738,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/emotes/face-smile-big.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/emotes/face-surprise.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/emotes/face-uncertain.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/emotes COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/128x128/emotes COMPONENT kdecore )
 
 
 
@@ -985,7 +985,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/mimetypes/x-office-calendar.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/mimetypes/x-office-document.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/mimetypes/x-office-spreadsheet.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/mimetypes COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/128x128/mimetypes COMPONENT kdecore )
 
 
 
@@ -1024,7 +1024,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/places/user-desktop.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/places/user-home.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/places/user-trash.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/places COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/128x128/places COMPONENT kdecore )
 
 
 
@@ -1041,7 +1041,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/status/security-low.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/status/security-medium.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/status/user-trash-full.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/status COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/128x128/status COMPONENT kdecore )
 
 
 
@@ -1344,14 +1344,14 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/zoom-in.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/zoom-original.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/zoom-out.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/16x16/actions COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/animations/process-idle-kde.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/animations/process-working-kde.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/animations COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/16x16/animations COMPONENT kdecore )
 
 
 
@@ -1516,7 +1516,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/apps/xosview.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/apps/xpaint.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/apps/xv.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/16x16/apps COMPONENT kdecore )
 
 
 
@@ -1546,7 +1546,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/categories/preferences-system.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/categories/preferences-system-network.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/categories/system-help.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/categories COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/16x16/categories COMPONENT kdecore )
 
 
 
@@ -1591,7 +1591,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/devices/video-display.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/devices/video-projector.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/devices/video-television.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/devices COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/16x16/devices COMPONENT kdecore )
 
 
 
@@ -1600,7 +1600,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/emblems/emblem-important.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/emblems/emblem-mounted.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/emblems/emblem-symbolic-link.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/emblems COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/16x16/emblems COMPONENT kdecore )
 
 
 
@@ -1616,7 +1616,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/emotes/face-smile-big.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/emotes/face-surprise.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/emotes/face-uncertain.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/emotes COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/16x16/emotes COMPONENT kdecore )
 
 
 
@@ -1865,7 +1865,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/mimetypes/x-office-contact.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/mimetypes/x-office-document.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/mimetypes/x-office-spreadsheet.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/mimetypes COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/16x16/mimetypes COMPONENT kdecore )
 
 
 
@@ -1909,7 +1909,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/places/user-home.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/places/user-identity.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/places/user-trash.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/places COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/16x16/places COMPONENT kdecore )
 
 
 
@@ -1960,14 +1960,14 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/status/wallet-closed.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/status/wallet-open.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/status/window-suppressed.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/status COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/16x16/status COMPONENT kdecore )
 
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/view-table-of-contents-ltr.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22 COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/22x22 COMPONENT kdecore )
 
 
   install( FILES 
@@ -2265,7 +2265,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/zoom-in.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/zoom-original.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/zoom-out.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/22x22/actions COMPONENT kdecore )
 
 
 
@@ -2274,7 +2274,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/animations/process-idle-kde.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/animations/process-working.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/animations/process-working-kde.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/animations COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/22x22/animations COMPONENT kdecore )
 
 
 
@@ -2388,7 +2388,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/apps/utilities-terminal.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/apps/wine.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/apps/xorg.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/22x22/apps COMPONENT kdecore )
 
 
 
@@ -2418,7 +2418,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/categories/preferences-system.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/categories/preferences-system-network.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/categories/system-help.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/categories COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/22x22/categories COMPONENT kdecore )
 
 
 
@@ -2463,7 +2463,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/devices/video-display.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/devices/video-projector.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/devices/video-television.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/devices COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/22x22/devices COMPONENT kdecore )
 
 
 
@@ -2472,7 +2472,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/emblems/emblem-important.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/emblems/emblem-mounted.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/emblems/emblem-symbolic-link.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/emblems COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/22x22/emblems COMPONENT kdecore )
 
 
 
@@ -2497,7 +2497,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/emotes/face-surprise.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/emotes/face-uncertain.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/emotes/face-wink.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/emotes COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/22x22/emotes COMPONENT kdecore )
 
 
 
@@ -2748,7 +2748,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/mimetypes/x-office-contact.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/mimetypes/x-office-document.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/mimetypes/x-office-spreadsheet.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/mimetypes COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/22x22/mimetypes COMPONENT kdecore )
 
 
 
@@ -2792,7 +2792,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/places/user-home.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/places/user-identity.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/places/user-trash.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/places COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/22x22/places COMPONENT kdecore )
 
 
 
@@ -2847,14 +2847,14 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/status/wallet-closed.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/status/wallet-open.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/status/window-suppressed.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/status COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/22x22/status COMPONENT kdecore )
 
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/view-table-of-contents-ltr.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32 COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/32x32 COMPONENT kdecore )
 
 
   install( FILES 
@@ -3144,14 +3144,14 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/zoom-in.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/zoom-original.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/zoom-out.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/32x32/actions COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/animations/process-idle-kde.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/animations/process-working-kde.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/animations COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/32x32/animations COMPONENT kdecore )
 
 
 
@@ -3319,7 +3319,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/apps/xosview.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/apps/xpaint.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/apps/xv.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/32x32/apps COMPONENT kdecore )
 
 
 
@@ -3349,7 +3349,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/categories/preferences-system.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/categories/preferences-system-network.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/categories/system-help.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/categories COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/32x32/categories COMPONENT kdecore )
 
 
 
@@ -3394,7 +3394,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/devices/video-display.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/devices/video-projector.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/devices/video-television.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/devices COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/32x32/devices COMPONENT kdecore )
 
 
 
@@ -3403,7 +3403,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/emblems/emblem-important.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/emblems/emblem-mounted.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/emblems/emblem-symbolic-link.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/emblems COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/32x32/emblems COMPONENT kdecore )
 
 
 
@@ -3419,7 +3419,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/emotes/face-smile-big.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/emotes/face-surprise.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/emotes/face-uncertain.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/emotes COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/32x32/emotes COMPONENT kdecore )
 
 
 
@@ -3670,7 +3670,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/mimetypes/x-office-contact.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/mimetypes/x-office-document.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/mimetypes/x-office-spreadsheet.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/mimetypes COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/32x32/mimetypes COMPONENT kdecore )
 
 
 
@@ -3714,7 +3714,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/places/user-home.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/places/user-identity.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/places/user-trash.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/places COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/32x32/places COMPONENT kdecore )
 
 
 
@@ -3764,14 +3764,14 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/status/wallet-closed.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/status/wallet-open.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/status/window-suppressed.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/status COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/32x32/status COMPONENT kdecore )
 
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/view-table-of-contents-ltr.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48 COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/48x48 COMPONENT kdecore )
 
 
   install( FILES 
@@ -4057,14 +4057,14 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/zoom-in.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/zoom-original.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/zoom-out.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/48x48/actions COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/animations/process-idle-kde.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/animations/process-working-kde.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/animations COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/48x48/animations COMPONENT kdecore )
 
 
 
@@ -4215,7 +4215,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/apps/xmag.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/apps/xorg.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/apps/xv.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/48x48/apps COMPONENT kdecore )
 
 
 
@@ -4245,7 +4245,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/categories/preferences-system.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/categories/preferences-system-network.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/categories/system-help.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/categories COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/48x48/categories COMPONENT kdecore )
 
 
 
@@ -4290,7 +4290,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/devices/video-display.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/devices/video-projector.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/devices/video-television.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/devices COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/48x48/devices COMPONENT kdecore )
 
 
 
@@ -4299,7 +4299,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/emblems/emblem-important.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/emblems/emblem-mounted.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/emblems/emblem-symbolic-link.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/emblems COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/48x48/emblems COMPONENT kdecore )
 
 
 
@@ -4315,7 +4315,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/emotes/face-smile-big.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/emotes/face-surprise.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/emotes/face-uncertain.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/emotes COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/48x48/emotes COMPONENT kdecore )
 
 
 
@@ -4566,7 +4566,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/mimetypes/x-office-contact.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/mimetypes/x-office-document.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/mimetypes/x-office-spreadsheet.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/mimetypes COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/48x48/mimetypes COMPONENT kdecore )
 
 
 
@@ -4610,7 +4610,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/places/user-home.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/places/user-identity.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/places/user-trash.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/places COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/48x48/places COMPONENT kdecore )
 
 
 
@@ -4661,7 +4661,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/status/wallet-closed.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/status/wallet-open.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/status/window-suppressed.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/status COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/48x48/status COMPONENT kdecore )
 
 
 
@@ -4728,7 +4728,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/zoom-fit-best.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/zoom-fit-height.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/zoom-fit-width.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/64x64/actions COMPONENT kdecore )
 
 
 
@@ -4843,7 +4843,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/apps/xfmail.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/apps/xmag.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/apps/xorg.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/apps COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/64x64/apps COMPONENT kdecore )
 
 
 
@@ -4873,7 +4873,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/categories/preferences-system.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/categories/preferences-system-network.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/categories/system-help.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/categories COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/64x64/categories COMPONENT kdecore )
 
 
 
@@ -4918,7 +4918,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/devices/video-display.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/devices/video-projector.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/devices/video-television.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/devices COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/64x64/devices COMPONENT kdecore )
 
 
 
@@ -4926,7 +4926,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/emblems/emblem-important.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/emblems/emblem-mounted.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/emblems/emblem-symbolic-link.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/emblems COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/64x64/emblems COMPONENT kdecore )
 
 
 
@@ -4942,7 +4942,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/emotes/face-smile-big.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/emotes/face-surprise.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/emotes/face-uncertain.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/emotes COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/64x64/emotes COMPONENT kdecore )
 
 
 
@@ -5189,7 +5189,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/mimetypes/x-office-calendar.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/mimetypes/x-office-document.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/mimetypes/x-office-spreadsheet.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/mimetypes COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/64x64/mimetypes COMPONENT kdecore )
 
 
 
@@ -5228,7 +5228,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/places/user-desktop.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/places/user-home.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/places/user-trash.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/places COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/64x64/places COMPONENT kdecore )
 
 
 
@@ -5251,7 +5251,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/status/user-offline.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/status/user-online.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/status/user-trash-full.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/status COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/64x64/status COMPONENT kdecore )
 
 
 
@@ -5262,7 +5262,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/8x8/emblems/emblem-important.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/8x8/emblems/emblem-link.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/8x8/emblems/emblem-mounted.png"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/icons/oxygen/8x8/emblems COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/8x8/emblems COMPONENT kdecore )
 
 
 
@@ -5399,7 +5399,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/kde4/services/webdav.protocol"
   "${KDE4_INSTALL_DIR}/share/kde4/services/webdavs.protocol"
   "${KDE4_INSTALL_DIR}/share/kde4/services/zip.protocol"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/kde4/services COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services COMPONENT kdecore )
 
 
   install( FILES 
@@ -5411,14 +5411,14 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/kde4/services/kded/kssld.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kded/ktimezoned.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kded/remotedirnotify.desktop"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/kde4/services/kded COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kded COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc_manager.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal_manager.desktop"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/kde4/services/kresources COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kresources COMPONENT kdecore )
 
 
   install( FILES 
@@ -5426,7 +5426,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/file.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/ldapkio.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc/net.desktop"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kabc COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kresources/kabc COMPONENT kdecore )
 
 
 
@@ -5434,14 +5434,14 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal/bugzilla.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal/local.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal/localdir.desktop"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/kde4/services/kresources/kcal COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/kresources/kcal COMPONENT kdecore )
 
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/kde4/services/phononbackends/ds9.desktop"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/kde4/services/phononbackends COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/phononbackends COMPONENT kdecore )
 
 
 
@@ -5469,7 +5469,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/kde4/services/qimageioplugins/xcf.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/qimageioplugins/xpm.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/qimageioplugins/xv.desktop"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/kde4/services/qimageioplugins COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/qimageioplugins COMPONENT kdecore )
 
 
 
@@ -5568,7 +5568,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/kde4/services/searchproviders/wikipedia.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/searchproviders/wiktionary.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/searchproviders/wordref.desktop"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/kde4/services/searchproviders COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/searchproviders COMPONENT kdecore )
 
 
 
@@ -5597,7 +5597,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/kde4/services/useragentstrings/safari20.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/useragentstrings/w3moncurrent.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/useragentstrings/wgetoncurrent.desktop"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/kde4/services/useragentstrings COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/services/useragentstrings COMPONENT kdecore )
 
 
 
@@ -5642,7 +5642,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/kde4/servicetypes/searchprovider.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/servicetypes/sonnetspeller.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/servicetypes/uasprovider.desktop"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/kde4/services/uasprovider COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../kde4/servicetypes COMPONENT kdecore )
 
 
 
@@ -5650,12 +5650,12 @@ install( FILES
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/locale/all_languages"
   "${KDE4_INSTALL_DIR}/share/locale/locale.alias"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/locale COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../locale COMPONENT kdecore )
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/locale/de/entry.desktop"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/locale/de COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../locale/de COMPONENT kdecore )
 
 
   install( FILES 
@@ -5711,7 +5711,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kurifilter.mo"
   "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kuser.mo"
   "${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/lokalize.mo"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../locale/de/LC_MESSAGES COMPONENT kdecore )
 
 
 
@@ -5719,7 +5719,7 @@ install( FILES
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/locale/de/LC_SCRIPTS/kdelibs4/kdelibs4.js"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/locale/de/LC_MESSAGES/kdelibs4 COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../locale/de/LC_SCRIPTS/kdelibs4 COMPONENT kdecore )
 
 
 
@@ -5730,7 +5730,7 @@ install( FILES
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/locale/en@boldquot/LC_MESSAGES/gettext-runtime.mo"
   "${KDE4_INSTALL_DIR}/share/locale/en@boldquot/LC_MESSAGES/gettext-tools.mo"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/locale/en@boldquot/LC_MESSAGES COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../locale/en@boldquot/LC_MESSAGES COMPONENT kdecore )
 
 
 
@@ -5740,14 +5740,14 @@ install( FILES
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/locale/en@quot/LC_MESSAGES/gettext-runtime.mo"
   "${KDE4_INSTALL_DIR}/share/locale/en@quot/LC_MESSAGES/gettext-tools.mo"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/locale/en@quot/LC_MESSAGES COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../locale/en@quot/LC_MESSAGES COMPONENT kdecore )
 
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/locale/en_US/entry.desktop"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/locale/en_US COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../locale/en_US COMPONENT kdecore )
 
 
 
@@ -5764,13 +5764,13 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/mime/treemagic"
   "${KDE4_INSTALL_DIR}/share/mime/types"
   "${KDE4_INSTALL_DIR}/share/mime/XMLnamespaces"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime COMPONENT kdecore )
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/mime/all/all.xml"
   "${KDE4_INSTALL_DIR}/share/mime/all/allfiles.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/all COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/all COMPONENT kdecore )
 
 
 
@@ -6108,7 +6108,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/mime/application/x-zerosize.xml"
   "${KDE4_INSTALL_DIR}/share/mime/application/x-zoo.xml"
   "${KDE4_INSTALL_DIR}/share/mime/application/zip.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/application COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/application COMPONENT kdecore )
 
 
 
@@ -6161,13 +6161,13 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/mime/audio/x-xi.xml"
   "${KDE4_INSTALL_DIR}/share/mime/audio/x-xm.xml"
   "${KDE4_INSTALL_DIR}/share/mime/audio/x-xmf.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/audio COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/audio COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/mime/fonts/package.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/fonts COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/fonts COMPONENT kdecore )
 
 
 
@@ -6255,7 +6255,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/mime/image/x-xfig.xml"
   "${KDE4_INSTALL_DIR}/share/mime/image/x-xpixmap.xml"
   "${KDE4_INSTALL_DIR}/share/mime/image/x-xwindowdump.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/image COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/image COMPONENT kdecore )
 
 
 
@@ -6267,13 +6267,13 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/mime/inode/mount-point.xml"
   "${KDE4_INSTALL_DIR}/share/mime/inode/socket.xml"
   "${KDE4_INSTALL_DIR}/share/mime/inode/symlink.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/inode COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/inode COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/mime/interface/x-winamp-skin.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/interface COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/interface COMPONENT kdecore )
 
 
 
@@ -6285,13 +6285,13 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/mime/message/partial.xml"
   "${KDE4_INSTALL_DIR}/share/mime/message/rfc822.xml"
   "${KDE4_INSTALL_DIR}/share/mime/message/x-gnu-rmail.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/message COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/message COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/mime/model/vrml.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/model COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/model COMPONENT kdecore )
 
 
 
@@ -6305,14 +6305,14 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/mime/multipart/report.xml"
   "${KDE4_INSTALL_DIR}/share/mime/multipart/signed.xml"
   "${KDE4_INSTALL_DIR}/share/mime/multipart/x-mixed-replace.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/multipart COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/multipart COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/mime/packages/freedesktop.org.xml"
   "${KDE4_INSTALL_DIR}/share/mime/packages/kde.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/packages COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/packages COMPONENT kdecore )
 
 
 
@@ -6413,7 +6413,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/mime/text/x-vhdl.xml"
   "${KDE4_INSTALL_DIR}/share/mime/text/x-xmi.xml"
   "${KDE4_INSTALL_DIR}/share/mime/text/x-xslfo.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/text COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/text COMPONENT kdecore )
 
 
 
@@ -6424,7 +6424,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/mime/uri/pnm.xml"
   "${KDE4_INSTALL_DIR}/share/mime/uri/rtspt.xml"
   "${KDE4_INSTALL_DIR}/share/mime/uri/rtspu.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/uri COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/uri COMPONENT kdecore )
 
 
 
@@ -6451,7 +6451,7 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/mime/video/x-ogm+ogg.xml"
   "${KDE4_INSTALL_DIR}/share/mime/video/x-sgi-movie.xml"
   "${KDE4_INSTALL_DIR}/share/mime/video/x-theora+ogg.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/video COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/video COMPONENT kdecore )
 
 
 
@@ -6471,11 +6471,11 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/mime/x-content/video-hddvd.xml"
   "${KDE4_INSTALL_DIR}/share/mime/x-content/video-svcd.xml"
   "${KDE4_INSTALL_DIR}/share/mime/x-content/video-vcd.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/x-content COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/x-content COMPONENT kdecore )
 
 
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/mime/x-epoc/x-sisx-app.xml"
-		DESTINATION  ${KDE4_INSTALL_DIR}/share/mime/x-epoc COMPONENT kdecore )
+		DESTINATION  ${DATA_INSTALL_DIR}/../mime/x-epoc COMPONENT kdecore )
 ENDIF(WIN32)

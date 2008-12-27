@@ -1,4 +1,6 @@
 include(FindQt4)
+include(SimonDirs)
+
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../ )
 
@@ -62,7 +64,7 @@ set_target_properties( speechgui
 
 install( FILES ${speechgui_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/simon/speechgui
-  COMPONENT Devel
+  COMPONENT simoncoredevel
 )
  
-install( TARGETS speechgui  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simoncore )
+install( TARGETS speechgui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )

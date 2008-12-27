@@ -16,7 +16,7 @@ set(simond_SRCS
    juliuscontrol.cpp
  )
 
-kde4_add_app_icon(simonGeneralSources
+kde4_add_app_icon(simond_SRCS
 "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-simond.png")
 
 kde4_add_executable(simond ${simond_SRCS})
@@ -29,4 +29,4 @@ install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} COMPONENT simond )
 
 ########### install files ###############
 
-install( FILES simond.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} )
+install( FILES simond.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} COMPONENT simond )

@@ -1,4 +1,6 @@
 include(FindQt4)
+include(SimonDirs)
+
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} )
 
@@ -29,4 +31,4 @@ install( FILES ${simonlogging_LIB_HDRS}
   COMPONENT simoncoredevel
 )
  
-install( TARGETS simonlogging  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simoncore )
+install( TARGETS simonlogging DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )

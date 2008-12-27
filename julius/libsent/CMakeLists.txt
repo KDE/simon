@@ -2,11 +2,16 @@
 find_package(Portaudio REQUIRED)
 find_package(ZLIB REQUIRED)
 
+include(SimonDirs)
+
 add_definitions(-DHAVE_ZLIB -lang-c-c++-comments -std=c99 )
 
 if(UNIX)
 add_definitions(-DHAVE_SLEEP -Dlinux)
 endif(UNIX)
+if(WIN32)
+add_definitions(-D__WIN32)
+endif(WIN32)
 
 include_directories(include ${PORTAUDIO_INCLUDE_DIRS} ${ZLIB_INCLUDE_DIR})
 set (libsent_SRCS
@@ -139,4 +144,4 @@ install( FILES ${libsent_LIB_HDRS}
   COMPONENT juliusdevel
 )
  
-install( TARGETS sent  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT julius	)
+install( TARGETS sent DESTINATION  ${SIMON_LIB_INSTALL_DIR} COMPONENT julius	)

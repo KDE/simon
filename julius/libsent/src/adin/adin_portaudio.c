@@ -183,7 +183,9 @@ adin_mic_standby(int sfreq, void *dummy)
 boolean
 adin_mic_begin()
 {
-  if (adin_stream_sfreq == -1) return(FALSE);
+  if (adin_stream_sfreq == -1) {
+	  return(FALSE);
+  }
 
   PaError err;
   int frames_per_buffer, num_buffer;
@@ -222,8 +224,9 @@ adin_mic_begin()
   inputParameters.channelCount = 1;
   inputParameters.sampleFormat = paInt16;
   const PaDeviceInfo *info = Pa_GetDeviceInfo( inputParameters.device );
-  if (!info)
+  if (!info) {
     return (FALSE);
+  }
 
   inputParameters.suggestedLatency = info->defaultLowInputLatency;
   inputParameters.hostApiSpecificStreamInfo = NULL;
@@ -257,19 +260,23 @@ adin_mic_begin()
 boolean
 adin_mic_end()
 {
-  if (adin_is_stopped)
+  if (adin_is_stopped || (stream==NULL)) {
 	return(TRUE); // we have already stopped
+  }
 
+  PaStream *real_stream = stream;
+  stream=NULL;
+  
   adin_stream_should_be_running=FALSE;
   PaError err;
 
   /* stop stream */
-  err = Pa_StopStream(stream);
+  err = Pa_StopStream(real_stream);
   if (err != paNoError) {
     jlog("Error: adin_portaudio: failed to stop stream: %s\n", Pa_GetErrorText(err));
     return(FALSE);
   }
-  err = Pa_CloseStream(stream);
+  err = Pa_CloseStream(real_stream);
   if (err != paNoError) {
     jlog("Error: adin_portaudio: failed to close stream: %s\n", Pa_GetErrorText(err));
     return(FALSE);

@@ -48,14 +48,14 @@
 #endif
 
 #ifdef __WIN32
-#define AUDIO_API_NAME "dsound"
-#define AUDIO_API_DESC "Direct Sound"
+#define AUDIO_API_NAME "pa-winmm"
+#define AUDIO_API_DESC "PortAudio library (WinMM)"
 #endif
 
 /* Audio API description */
 
 /* Description of supported audio file formats */
-#define AUDIO_FORMAT_DESC "Raw WAV Files"
+#define AUDIO_FORMAT_DESC "RAW and WAV only"
 
 /* Description of gzip file reading method */
 
@@ -110,7 +110,7 @@
 /* #undef HAVE_LIBSOCKET */
 
 /* Define if you have zlib library (-lz).  */
-#define GZIP_READING_DESC "zlib library"
+#define GZIP_READING_DESC "gzip command"
 
 /* Define if you have strcasecmp function  */
 #define HAVE_STRCASECMP 1
@@ -132,7 +132,9 @@
 #define MFCC_SINCOS_TABLE 1
 
 /* Define if <sys/soundcard.h> found */
+#ifndef __WIN32
 #define HAVE_SYS_SOUNDCARD_H 1
+#endif
 
 /* Define if <machine/soundcard.h> found */
 /* #undef HAVE_MACHINE_SOUNDCARD_H */

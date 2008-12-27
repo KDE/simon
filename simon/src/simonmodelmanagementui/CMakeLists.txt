@@ -1,4 +1,6 @@
 include(FindQt4)
+include(SimonDirs)
+
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib/speechmodelmanagement ${KCFG_INSTALL_DIR} )
 
@@ -119,6 +121,6 @@ install( FILES ${simonmodelmanagementui_LIB_HDRS}
   COMPONENT simondevel
 )
  
-install( TARGETS simonmodelmanagementui  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )
+install( TARGETS simonmodelmanagementui DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
 install( FILES simonmodelinternetextensionconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )
 # install( FILES simongrammarconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

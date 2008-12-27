@@ -7,6 +7,8 @@ set(ksimond_SRCS
 
 kde4_add_kcfg_files(ksimond_SRCS ../config/ksimondconfiguration.kcfgc)
 
+kde4_add_app_icon(ksimond_SRCS
+"${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-ksimond.png")
 kde4_add_executable(ksimond ${ksimond_SRCS})
 
 target_link_libraries(ksimond ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS} speechgui simoninfo)

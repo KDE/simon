@@ -1,4 +1,6 @@
 include(FindQt4)
+include(SimonDirs)
+
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/.. )
 
@@ -40,4 +42,4 @@ install(FILES
 ${CMAKE_CURRENT_SOURCE_DIR}/simoncommandplugin.desktop DESTINATION
 ${SERVICETYPES_INSTALL_DIR} COMPONENT simon)
  
-install( TARGETS simoncommandpluginbase  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )
+install( TARGETS simoncommandpluginbase DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )

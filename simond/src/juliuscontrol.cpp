@@ -428,7 +428,7 @@ void JuliusControl::run()
 				//shouldBeRunning=false;
 				break;
 			case -1:
-				emit recognitionError("recognize_stream: -1");
+				//emit recognitionError("recognize_stream: -1");
 				shouldBeRunning=false;
 				break;
 		}

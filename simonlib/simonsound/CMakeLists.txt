@@ -1,4 +1,6 @@
 include(FindQt4)
+include(SimonDirs)
+
 include(FindPortaudio)
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${PORTAUDIO_INCLUDE_DIR}
@@ -54,5 +56,5 @@ install( FILES ${simonsound_LIB_HDRS}
   COMPONENT simondevel
 )
  
-install( TARGETS simonsound  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simon )
+install( TARGETS simonsound DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
 install( FILES simonsoundconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simon )

@@ -1,4 +1,6 @@
 include(FindQt4)
+include(SimonDirs)
+
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} )
 
@@ -33,6 +35,6 @@ install( FILES ${simoninfo_LIB_HDRS}
   COMPONENT simoncore
 )
  
-install( TARGETS simoninfo  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simoncore )
+install( TARGETS simoninfo DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simoncore )
 
 add_subdirectory(themes)

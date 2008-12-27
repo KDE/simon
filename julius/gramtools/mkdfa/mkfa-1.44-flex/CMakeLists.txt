@@ -18,3 +18,4 @@ ${CMAKE_CURRENT_SOURCE_DIR}/voca.c)
 
 add_executable(mkfa ${mkfa_SRCS} ${BISON_Gram_OUTPUTS})
 target_link_libraries(mkfa ${FLEX_LIBRARIES})
+install (TARGETS mkfa DESTINATION ${BIN_INSTALL_DIR} COMPONENT julius)

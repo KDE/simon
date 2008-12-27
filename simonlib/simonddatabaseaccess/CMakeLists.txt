@@ -1,4 +1,6 @@
 include(FindQt4)
+include(SimonDirs)
+
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} )
 
@@ -34,4 +36,4 @@ install( FILES ${simonddatabaseaccess_LIB_HDRS}
   COMPONENT simonddevel
 )
  
-install( TARGETS simonddatabaseaccess  ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT simond )
+install( TARGETS simonddatabaseaccess DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simond )

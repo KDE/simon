@@ -1,6 +1,7 @@
 project(simon)
 INCLUDE(InstallRequiredSystemLibraries)
 
+
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Open-Source Speech Recognition")
 SET(CPACK_PACKAGE_VENDOR "Peter Grasch")
 #SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/ReadMe.txt")
@@ -12,11 +13,13 @@ SET(CPACK_PACKAGE_VERSION_PATCH "2")
 SET(CPACK_PACKAGE_INSTALL_DIRECTORY "simon ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}")
 SET(CPACK_STRIP_FILES TRUE)
 SET(CPACK_SOURCE_STRIP_FILES TRUE)
-set(CPACK_COMPONENTS_ALL kdecore julius juliusdevel ksimond ksimonddoc translations simoncommandaipluginaimlsalice
+# Devel
+set(CPACK_COMPONENTS_ALL  kdecore julius juliusdevel ksimond ksimonddoc translations simoncommandaipluginaimlsalice
 		simoncommandaipluginaimlsgerman simoncommandaiplugin simoncommanddesktopgridplugin simoncommanddictationplugin
 		simoncommandexecutableplugin simoncommandplaceplugin simoncommandshortcutplugin simoncommandtextmacroplugin
 		simon simond simonddoc simoncore simoncoredevel simondevel simondoc simonddevel)
 
+#SET(CPACK_COMPONENT_DEVEL_DISPLAY_NAME "simon System Files")
 SET(CPACK_COMPONENT_KDECORE_DISPLAY_NAME "KDE System Files")
 SET(CPACK_COMPONENT_JULIUS_DISPLAY_NAME "Julius")
 SET(CPACK_COMPONENT_JULIUSDEVEL_DISPLAY_NAME "Julius Development Files")
@@ -43,6 +46,7 @@ SET(CPACK_COMPONENT_TRANSLATIONS_DISPLAY_NAME "Translations")
 
 
 
+#SET(CPACK_COMPONENT_DEVEL_DISPLAY_DESCRIPTION "Contains a needed set of libraries.")
 SET(CPACK_COMPONENT_KDECORE_DISPLAY_DESCRIPTION "This contains a subset of the kde system files needed to run simon / simond / ksimond.")
 SET(CPACK_COMPONENT_JULIUS_DISPLAY_DESCRIPTION "The Julius Recognition Engine")
 SET(CPACK_COMPONENT_JULIUSDEVEL_DISPLAY_DESCRIPTION "The Julius Recognition Engine Development Files")
@@ -81,10 +85,10 @@ set(CPACK_COMPONENT_SIMONCOMMANDTEXTMACROPLUGIN_DEPENDS simon)
 set(CPACK_COMPONENT_SIMON_DEPENDS simoncore)
 set(CPACK_COMPONENT_SIMOND_DEPENDS simoncore)
 set(CPACK_COMPONENT_KSIMOND_DEPENDS simoncore)
-set(CPACK_COMPONENT_SIMONCORE_DEPENDS kdecore)
+set(CPACK_COMPONENT_SIMONCORE_DEPENDS kdecore )#Devel
 
 
-
+#set(CPACK_COMPONENT_DEVEL_GROUP "Applications")
 set(CPACK_COMPONENT_KDECORE_GROUP "Applications")
 SET(CPACK_COMPONENT_JULIUS_GROUP "Applications")
 SET(CPACK_COMPONENT_JULIUSDEVEL_GROUP "Development")
@@ -124,6 +128,7 @@ set(CPACK_COMPONENT_GROUP_LOCALIZATION_DESCRIPTION
 set(CPACK_ALL_INSTALL_TYPES Full User Developer)
 
 
+#SET(CPACK_COMPONENT_DEVEL_INSTALL_TYPES Full User Developer)
 SET(CPACK_COMPONENT_KDECORE_INSTALL_TYPES Full User Developer)
 SET(CPACK_COMPONENT_JULIUS_INSTALL_TYPES Full User Developer)
 SET(CPACK_COMPONENT_JULIUSDEVEL_INSTALL_TYPES Developer)
@@ -148,6 +153,7 @@ SET(CPACK_COMPONENT_SIMONCORE_INSTALL_TYPES Full User Developer)
 SET(CPACK_COMPONENT_SIMONCOREDEVEL_INSTALL_TYPES Developer)
 SET(CPACK_COMPONENT_TRANSLATIONS_INSTALL_TYPES Full User)
 
+#SET(CPACK_COMPONENT_DEVEL_REQUIRED)
 SET(CPACK_COMPONENT_KDECORE_REQUIRED)
 SET(CPACK_COMPONENT_SIMONCORE_REQUIRED)
 SET(CPACK_COMPONENT_SIMONCOMMANDAIPLUGIN_DISABLED)
@@ -162,21 +168,22 @@ IF(WIN32 AND NOT UNIX)
   # sure there is at least one set of four (4) backlasshes.
   SET(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\installbanner.bmp")
   #SET(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\simon.exe")
+  SET(CPACK_NSIS_INSTALLER_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\simon.ico")
+  SET(CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\simon.ico")
+  SET(CPACK_NSIS_MUI_UNIICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\simon.ico")
+  SET(CPACK_NSIS_COMPRESSOR "/SOLID lzma")
+  
   SET(CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_INSTALL_DIRECTORY} simon")
   SET(CPACK_NSIS_HELP_LINK "http:\\\\\\\\www.simon-listens.org/wiki")
   SET(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\www.simon-listens.com")
   SET(CPACK_NSIS_CONTACT "support@simon-listens.org")
+  SET(CPACK_NSIS_MODIFY_PATH ON)
   
   SET(CPACK_NSIS_CREATE_ICONS_EXTRA "CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\simon.lnk\\\" \\\"$INSTDIR\\\\bin\\\\simon.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\simon.exe\\\" 0
   CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\simond.lnk\\\" \\\"$INSTDIR\\\\bin\\\\simond.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\simond.exe\\\" 0
   CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\ksimond.lnk\\\" \\\"$INSTDIR\\\\bin\\\\ksimond.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\ksimond.exe\\\" 0")
   
 
-    #set(CPACK_NSIS_CREATE_ICONS_EXTRA "CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\aten.lnk\\\" \\\"$INSTDIR\\\\bin\\\\aten.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\aten.ico\\\"
-#      StrCmp $INSTALL_DESKTOP \\\"1\\\" 0 +2
-#      CreateShortCut \\\"$DESKTOP\\\\aten.lnk\\\" \\\"$INSTDIR\\\\bin\\\\aten.exe\\\" \\\"\\\" \\\"$INSTDIR\\\\bin\\\\aten.ico\\\"
-#"
-#  )
   
 	  SET(CPACK_NSIS_DELETE_ICONS_EXTRA "
 	    !insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP

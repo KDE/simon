@@ -1,4 +1,6 @@
 #project(libjulius)
+include(SimonDirs)
+
 include_directories(include ../libsent/include)
 add_definitions(-lang-c-c++-comments -std=c99 )
 
@@ -60,5 +62,5 @@ install( FILES ${libjulius_LIB_HDRS}
   DESTINATION ${INCLUDE_INSTALL_DIR}/julius
   COMPONENT juliusdevel
 )
- 
-install( TARGETS julius ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT julius )
+
+install( TARGETS julius DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT julius )

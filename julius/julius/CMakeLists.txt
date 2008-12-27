@@ -16,4 +16,4 @@ set (juliusexe_SRCS ./main.c
 
 add_executable(juliusexe ${juliusexe_SRCS})
 target_link_libraries(juliusexe julius sent)
-install (TARGETS juliusexe DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS} COMPONENT julius)
+install (TARGETS juliusexe DESTINATION ${BIN_INSTALL_DIR} COMPONENT julius)
