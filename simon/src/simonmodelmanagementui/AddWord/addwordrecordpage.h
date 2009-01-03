@@ -46,9 +46,24 @@ private:
 	int pageNr, pageMax;
 	QString fieldName;
 
+	/// Normally a sample containing speech data of a different prompt than
+	/// The current prompt stored in the given fieldName will be deleted
+	/// when the page is shown (to prevent stale recordings when we go back
+	/// from the recording page to change the prompt after we already recorded
+	/// it).
+	/// However, when adding multiple words we have to keep the previously
+	/// recorded sample.
+	/// This is a flag to keep _any_ previously recorded sample - ONCE.
+	/// Setting this flag will disable the flag for the next check (where
+	/// it is then reset).
+	/// Use keepSample() set the flag;
+	bool stickSample;
+
 public:
 	QString getFileName();
 	QString getPrompt();
+	void keepSample() { stickSample = true; }
+	void cleanUp();
 
 public:
     void initializePage();

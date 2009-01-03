@@ -19,6 +19,7 @@
 
 
 #include "importtrainingdirectoryintropage.h"
+#include <QDir>
 
 /**
  * \brief Constructor
@@ -33,5 +34,15 @@ ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *pare
 	
 	setTitle(i18n("Import Trainings Samples from Folder"));
 	
+	connect(ui.urTrainingDataDirectory, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
 	registerField("directory*", ui.urTrainingDataDirectory, "url", SIGNAL(textChanged(QString)));
 }
+
+
+bool ImportTrainingDirectoryIntroPage::isComplete() const
+{
+	QString dir = ui.urTrainingDataDirectory->url().path();
+	return ((!dir.isEmpty()) && QDir(dir).exists());
+}
+
+

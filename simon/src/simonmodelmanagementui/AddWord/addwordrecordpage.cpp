@@ -41,6 +41,7 @@
 AddWordRecordPage::AddWordRecordPage(const QString& fieldName, int pageNr, int pageMax, QWidget *parent)
  : QWizardPage(parent)
 {
+	stickSample = false;
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	setLayout(lay);
 	page = 0;
@@ -75,7 +76,10 @@ void AddWordRecordPage::initializePage()
 	QString prompt = field(fieldName).toString();
 	if (page && (page->getPrompt() != prompt)) {
 		layout()->removeWidget(page);
-		page->cleanUp();
+
+		if (!stickSample)
+			page->cleanUp();
+
 		page->deleteLater();
 		page = 0;
 	}
@@ -85,13 +89,23 @@ void AddWordRecordPage::initializePage()
 	setTitle(page->title());
 	connect(page, SIGNAL(completeChanged()), this, SIGNAL(completeChanged()));
 	layout()->addWidget(page);
+
+	stickSample = false;
+}
+
+void AddWordRecordPage::cleanUp()
+{
+	if (!page) return;
+
+	if (!stickSample)
+		page->cleanUp();
+	stickSample=false;
 }
 
 
 /**
- * \brief Destructor; Calls cleanUp()
+ * \brief Destructor; 
  * \author Peter Grasch
- * \see cleanUp()
  */
 AddWordRecordPage::~AddWordRecordPage()
 {

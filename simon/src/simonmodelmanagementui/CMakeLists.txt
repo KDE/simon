@@ -108,7 +108,7 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 kde4_add_library( simonmodelmanagementui  SHARED ${simonmodelmanagementui_LIB_SRCS} )
 
 target_link_libraries( simonmodelmanagementui ${QT_LIBRARIES}
-${KDE4_KDEUI_LIBS} speechgui simonmodelmanagement simoninfo
+${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonlogging speechgui simonmodelmanagement simoninfo simonxml
 simonsound )
 
 

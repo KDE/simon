@@ -1,4 +1,5 @@
 include(FindQt4)
+include(SimonDirs)
 find_package(KDE4 REQUIRED)
 set (QT_USE_QTNETWORK true)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../../simonlib/ )
@@ -26,5 +27,5 @@ set_target_properties( ksimondsettings
 )
 
  
-install( TARGETS ksimondsettings DESTINATION ${BIN_INSTALL_DIR} COMPONENT ksimond)
+install( TARGETS ksimondsettings DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT ksimond)
 install( FILES ksimondconfiguration.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT ksimond)

@@ -38,8 +38,9 @@ Q_OBJECT
 		Ui::ImportTrainingTextLocalPage ui;
 	public:
 		ImportTrainingTextLocalPage(QWidget* parent);
+		bool isComplete() const;
 		int nextId() const {
-			return 4;
+			return 4; //working page
 		}
 };
 

@@ -19,6 +19,8 @@ ENDIF(WIN32)
 include(KDE4Defaults)
 
 set (QT_USE_QTMAIN true)
+set (QT_USE_QTNETWORK true)
+include(UseQt4)
 
 set( simonrecognition_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/recognitioncontrol.cpp
@@ -43,7 +45,7 @@ kde4_add_library( simonrecognitioncontrol  SHARED ${simonrecognition_LIB_SRCS} )
 
 target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES}
 	${KDE4_KDEUI_LIBS} speechgui speechmodelbase adinstreamer
-  simonmodelmanagementui ) # for building the modelcontainers for synchronisation
+  simonmodelmanagementui simonmodelmanagement simonprogresstracking ) # for building the modelcontainers for synchronisation
 
 set_target_properties( simonrecognitioncontrol
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

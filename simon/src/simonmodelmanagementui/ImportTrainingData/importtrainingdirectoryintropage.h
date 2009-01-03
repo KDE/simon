@@ -41,6 +41,7 @@ private:
 public:
 	ImportTrainingDirectoryIntroPage(QWidget *parent=0);
 	~ImportTrainingDirectoryIntroPage() {}
+	bool isComplete() const;
 
 };
 

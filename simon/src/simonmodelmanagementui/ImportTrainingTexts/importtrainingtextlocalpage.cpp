@@ -19,7 +19,7 @@
 
 
 #include "importtrainingtextlocalpage.h"
-
+#include <QFile>
 
 
 /**
@@ -36,5 +36,12 @@ ImportTrainingTextLocalPage::ImportTrainingTextLocalPage(QWidget *parent) : QWiz
 	registerField("importTrainingTextLFilename*", ui.urPath, "url", SIGNAL(textChanged(QString)));
 	registerField("importTrainingTextLTextname*", ui.leName);
 }
+
+
+bool ImportTrainingTextLocalPage::isComplete() const
+{
+	return QFile::exists(ui.urPath->url().path());
+}
+
 
 

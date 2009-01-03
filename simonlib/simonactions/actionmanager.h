@@ -46,10 +46,10 @@ private:
 	CommandSettings* commandSettings;
 
 	QList<CommandManager*> *managers;
+	QStringList trigger;
 	bool askDeleteCommandByTrigger(QString trigger);
 
 	void deleteManager(CommandManager *manager);
-	QStringList trigger;
 
 
 protected:

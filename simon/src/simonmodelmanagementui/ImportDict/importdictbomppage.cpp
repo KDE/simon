@@ -31,8 +31,15 @@ ImportDictBOMPPage::ImportDictBOMPPage(QWidget* parent): QWizardPage(parent)
 
 	ui.urFile->setMode(KFile::File|KFile::ExistingOnly);
 
+	connect(ui.urFile, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
 	registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
 	setTitle(i18n("Import HADIFIX Dictionary"));
+}
+
+
+bool ImportDictBOMPPage::isComplete() const
+{
+	return QFile::exists(ui.urFile->url().path());
 }
 
 /**

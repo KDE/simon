@@ -1,6 +1,9 @@
 #include "app.h"
 
 #include <stdarg.h>
+#include <stdio.h>
+#include <julius/jfunc.h>
+
 
 #define DEFAULT_MODULEPORT 10500
 

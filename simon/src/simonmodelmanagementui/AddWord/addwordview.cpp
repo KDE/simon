@@ -86,6 +86,8 @@ void AddWordView::accept()
 	{
 		//multiple words
 		createWord(wordsToAdd.takeAt(0));
+		record1->keepSample();
+		record2->keepSample();
 		show();
 	} else {
 		commitList();
@@ -113,6 +115,8 @@ void AddWordView::cleanUp()
 			promptsToAdd.clear();
 		}
 	}
+	record1->cleanUp();
+	record2->cleanUp();
 }
 
 

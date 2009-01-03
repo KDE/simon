@@ -262,7 +262,6 @@ void SimonControl::abortConnecting()
  */
 SimonControl::SystemStatus SimonControl::toggleActivition()
 {
-	kWarning() << "Hier kommt simoncontrolstatus: " << status;
 	if (status==SimonControl::ConnectedActivated)
 	{
 		deactivateSimon();

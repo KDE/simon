@@ -31,9 +31,17 @@ ImportDictPLSPage::ImportDictPLSPage(QWidget* parent): QWizardPage(parent)
 
 	ui.urPath->setMode(KFile::File|KFile::ExistingOnly);
 
+	connect(ui.urPath, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
 	registerField("plsFilename*", ui.urPath, "url", SIGNAL(textChanged (const QString &)));
 	setTitle(i18n("Import PLS Dictionary"));
 }
+
+
+bool ImportDictPLSPage::isComplete() const
+{
+	return QFile::exists(ui.urPath->url().path());
+}
+
 
 /**
  * \brief Destructor

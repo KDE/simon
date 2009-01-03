@@ -27,17 +27,11 @@
 	@author Peter Grasch <bedahr@gmx.net>
 */
 class GrammarManager;
-class ImportGrammarWizard;
-class MergeTerminalsWizard;
-class RenameTerminalWizard;
 
 class GrammarViewPrivate : public QWidget
 {
 Q_OBJECT
 private:
-	ImportGrammarWizard *importGrammarWizard;
-	RenameTerminalWizard *renameTerminalWizard;
-	MergeTerminalsWizard *mergeTerminalsWizard;
 	Ui::GrammarView ui;
 
 private slots:

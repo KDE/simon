@@ -35,6 +35,7 @@ private:
 public:
     ImportLexiconPage(QWidget* parent);
 	int nextId() const { return ImportDictView::WorkingPage; }
+	bool isComplete() const;
 
     ~ImportLexiconPage();
 

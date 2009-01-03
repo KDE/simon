@@ -397,7 +397,7 @@ void SimonView::toggleActivation()
 {
 	if (control->getStatus() == SimonControl::ConnectedDeactivatedNotReady)
 	{
-		KMessageBox::error(this, i18n("Couldn't start Recognition"));
+		KMessageBox::error(this, i18n("Couldn't start recognition because the system reports that the recognition is not ready.\n\nPlease check if you have defined a wordlist, an appropriate grammar and recorded a few trainings samples.\n\nThe system will then, upon synchronization, generate the model which will be used for the recognition."));
 		representState(control->getStatus());
 	} else
 		this->control->toggleActivition();

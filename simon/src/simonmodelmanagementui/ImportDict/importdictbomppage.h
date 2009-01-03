@@ -41,6 +41,7 @@ private:
 public:
     ImportDictBOMPPage(QWidget* parent);
 	int nextId() const { return ImportDictView::WorkingPage; }
+	bool isComplete() const;
 
     ~ImportDictBOMPPage();
 

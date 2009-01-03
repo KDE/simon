@@ -27,7 +27,14 @@ ImportLexiconPage::ImportLexiconPage(QWidget* parent): QWizardPage(parent)
 	ui.urPath->setMode(KFile::File|KFile::ExistingOnly);
 
 	setTitle(i18n("Import Lexicon"));
+	connect(ui.urPath, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
 	registerField("lexiconFilename", ui.urPath, "url", SIGNAL(textChanged(QString)));
+}
+
+
+bool ImportLexiconPage::isComplete() const
+{
+	return QFile::exists(ui.urPath->url().path());
 }
 
 

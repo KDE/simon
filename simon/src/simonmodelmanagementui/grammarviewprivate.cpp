@@ -38,22 +38,13 @@ GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
 
 	connect(GrammarManager::getInstance(), SIGNAL(structuresChanged()), this, SLOT(load()));
 
-	this->importGrammarWizard = new ImportGrammarWizard(this);
 
-	this->renameTerminalWizard = new RenameTerminalWizard(this);
 
-	connect(importGrammarWizard, SIGNAL(grammarCreated(QStringList)), this, SLOT(mergeGrammar(QStringList)));
-	connect(importGrammarWizard, SIGNAL(finished(int)), ui.pbImportTexts, SLOT(toggle()));
-	
-	
-	this->mergeTerminalsWizard = new MergeTerminalsWizard(this);
 	
 	connect(ui.pbImportTexts, SIGNAL(clicked()), this, SLOT(showImportWizard()));
 	connect(ui.pbMerge, SIGNAL(clicked()), this, SLOT(showMergeWizard()));
 
 	//should be covered by structuresChanged() from the grammarmanager
-// 	connect(mergeTerminalsWizard, SIGNAL(finished(int)), this, SLOT(load()));
-// 	connect(renameTerminalWizard, SIGNAL(finished(int)), this, SLOT(load()));
 
 	connect(ui.kcfg_GrammarStructures, SIGNAL(changed()), this, SLOT(slotChanged()));
 	
@@ -76,8 +67,11 @@ void GrammarViewPrivate::slotChanged()
 void GrammarViewPrivate::showRenameWizard()
 {
 	askForSave();
-	this->renameTerminalWizard->restart();
-	this->renameTerminalWizard->show();
+
+	RenameTerminalWizard *renameTerminalWizard = new RenameTerminalWizard(this);
+	renameTerminalWizard->restart();
+	renameTerminalWizard->exec();
+	renameTerminalWizard->deleteLater();
 }
 
 
@@ -116,21 +110,24 @@ void GrammarViewPrivate::mergeGrammar(QStringList grammar)
 
 void GrammarViewPrivate::showImportWizard()
 {
-	importGrammarWizard->restart();
-	importGrammarWizard->show();
+	ImportGrammarWizard *importGrammarWizard = new ImportGrammarWizard(this);
+	connect(importGrammarWizard, SIGNAL(grammarCreated(QStringList)), this, SLOT(mergeGrammar(QStringList)));
+	importGrammarWizard->exec();
+	importGrammarWizard->deleteLater();
+	save();
 }
 
 void GrammarViewPrivate::showMergeWizard()
 {
 	askForSave();
+
+	MergeTerminalsWizard *mergeTerminalsWizard = new MergeTerminalsWizard(this);
 	mergeTerminalsWizard->restart();
-	mergeTerminalsWizard->show();
+	mergeTerminalsWizard->exec();
+	mergeTerminalsWizard->deleteLater();
 }
 
 
 GrammarViewPrivate::~GrammarViewPrivate()
 {
-    importGrammarWizard->deleteLater();
-    renameTerminalWizard->deleteLater();
-    mergeTerminalsWizard->deleteLater();
 }
