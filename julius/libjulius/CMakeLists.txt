@@ -2,7 +2,7 @@
 include(SimonDirs)
 
 include_directories(include ../libsent/include)
-add_definitions(-lang-c-c++-comments -std=c99 )
+#add_definitions(-lang-c-c++-comments -std=c99 )
 
 set (libjulius_SRCS ./src/m_usage.c 
 ./src/realtime-1stpass.c 

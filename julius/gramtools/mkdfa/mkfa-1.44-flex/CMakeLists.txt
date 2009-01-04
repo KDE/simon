@@ -2,7 +2,7 @@
 FIND_PACKAGE(FLEX)
 FIND_PACKAGE(BISON)
 
-add_definitions(-lang-c-c++-comments -std=c99 )
+#add_definitions(-lang-c-c++-comments -std=c99 )
 
 FLEX_TARGET(Lex gram.l  ${CMAKE_CURRENT_SOURCE_DIR}/gram.lex.c)
 BISON_TARGET(Gram gram.y ${CMAKE_CURRENT_SOURCE_DIR}/gram.tab.c)
@@ -18,4 +18,4 @@ ${CMAKE_CURRENT_SOURCE_DIR}/voca.c)
 
 add_executable(mkfa ${mkfa_SRCS} ${BISON_Gram_OUTPUTS})
 target_link_libraries(mkfa ${FLEX_LIBRARIES})
-install (TARGETS mkfa DESTINATION ${BIN_INSTALL_DIR} COMPONENT julius)
+install (TARGETS mkfa DESTINATION bin COMPONENT julius)

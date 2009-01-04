@@ -1,6 +1,6 @@
 #project(julius)
 
-add_definitions(-lang-c-c++-comments -std=c99 )
+add_definitions(-lang-c-c++-comments -std=c99 -Uansi -Upendantic)
 include_directories(../libsent/include ../libjulius/include)
 set (juliusexe_SRCS ./main.c
 ./output_stdout.c
@@ -16,4 +16,4 @@ set (juliusexe_SRCS ./main.c
 
 add_executable(juliusexe ${juliusexe_SRCS})
 target_link_libraries(juliusexe julius sent)
-install (TARGETS juliusexe DESTINATION ${BIN_INSTALL_DIR} COMPONENT julius)
+install (TARGETS juliusexe DESTINATION bin COMPONENT julius)

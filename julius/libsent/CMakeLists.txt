@@ -4,7 +4,8 @@ find_package(ZLIB REQUIRED)
 
 include(SimonDirs)
 
-add_definitions(-DHAVE_ZLIB -lang-c-c++-comments -std=c99)
+add_definitions(-DHAVE_ZLIB)
+#add_definitions(-DHAVE_ZLIB -lang-c-c++-comments -std=c99)
 
 if(UNIX)
 add_definitions(-DHAVE_SLEEP -Dlinux)
