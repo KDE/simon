@@ -137,11 +137,11 @@ target_link_libraries(sent ${ZLIB_LIBRARY} ${PORTAUDIO_LIBRARY} wsock32 winmm ws
 endif(WIN32)
 
 set_target_properties( sent
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION 4 SOVERSION 1
 )
 
 install( FILES ${libsent_LIB_HDRS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/sent
+  DESTINATION include/sent
   COMPONENT juliusdevel
 )
  

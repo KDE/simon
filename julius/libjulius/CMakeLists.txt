@@ -54,12 +54,11 @@ ENDIF(UNIX)
 FILE(GLOB libjulius_LIB_HDRS ./include/julius/*.h) 
 
 set_target_properties( julius
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
-)
+  PROPERTIES VERSION 4 SOVERSION 1)
 
 
 install( FILES ${libjulius_LIB_HDRS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/julius
+  DESTINATION include/julius
   COMPONENT juliusdevel
 )
 
