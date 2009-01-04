@@ -70,6 +70,8 @@ boolean j_process_deactivate(Recog *recog, char *name);
 boolean j_process_deactivate_by_id(Recog *recog, int id);
 boolean j_process_activate(Recog *recog, char *name);
 boolean j_process_activate_by_id(Recog *recog, int id);
+boolean j_process_remove(Recog *recog, JCONF_SEARCH *sconf);
+boolean j_process_lm_remove(Recog *recog, JCONF_LM *lmconf);
 
 boolean j_process_add_lm(Recog *recog, JCONF_LM *lmconf, JCONF_SEARCH *sconf, char *name);
 boolean j_remove_search(Recog *recog, JCONF_SEARCH *sconf);
