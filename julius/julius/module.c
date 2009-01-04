@@ -1,5 +1,6 @@
 #include "app.h"
 
+#define	__USE_POSIX
 #include <stdarg.h>
 #include <stdio.h>
 #include <julius/jfunc.h>
