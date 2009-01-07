@@ -20,6 +20,7 @@
 
 #include "importgrammarselectfilespage.h"
 #include <KEditListBox>
+#include <kdeversion.h>
 
 //todo: document
 //ambiguous words and words with more than one meaning are still ignored when using the "Also include unknown constructs" option; This is not a bug!
@@ -28,7 +29,9 @@ ImportGrammarSelectFilesPage::ImportGrammarSelectFilesPage(QWidget* parent): QWi
 	setTitle(i18n("Input Files"));
 	ui.setupUi(this);
 
+#if KDE_IS_VERSION(4,0,80)
 	ui.elbFiles->setCustomEditor(*(new KEditListBox::CustomEditor(ui.urFileToAdd, ui.urFileToAdd->lineEdit())));
+#endif
 	
 	registerField("files*", ui.elbFiles, "items", SIGNAL(changed()));
 	registerField("includeUnknown", ui.cbIncludeUnknown);

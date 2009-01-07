@@ -1,4 +1,5 @@
 include(FindQt4)
+include(KDE4Macros)
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)

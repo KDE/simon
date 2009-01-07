@@ -119,7 +119,9 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	QMainWindow ( parent,flags );
 	qApp->setQuitOnLastWindowClosed(false);
 	ui.setupUi ( this );
+#if KDE_IS_VERSION(4,0,80)
 	ui.inlineView->setCloseButtonEnabled(true);
+#endif
 	
 	ui.tbWelcome->setWindowIcon(KIcon("simon"));
 	

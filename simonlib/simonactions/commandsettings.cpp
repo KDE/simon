@@ -69,7 +69,9 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 	KAboutData *about = new KAboutData(
 				"commandsettings", "", ki18n("Command Settings"),
 				"0.1", ki18n("Configuration about the Commands and the Selection of Plugins to use"), KAboutData::License_GPL);
+#if KDE_IS_VERSION(4,0,80)
 	about->setProgramIconName("fork");
+#endif
 	setAboutData( about );
 
 
@@ -135,9 +137,13 @@ void CommandSettings::registerPlugIn(KCModule *plugin)
 	Q_ASSERT(plugin->aboutData());
 
 	QString moduleName = plugin->aboutData()->programName();
+#if KDE_IS_VERSION(4,0,80)
 	QString moduleIcon = plugin->aboutData()->programIconName();
+#endif
 	KPageWidgetItem *newItem = pageWidget->addPage(plugin, moduleName);
+#if KDE_IS_VERSION(4,0,80)
 	newItem->setIcon(KIcon(moduleIcon));
+#endif
 	newItem->setHeader("");
 	moduleHash.insert(plugin, newItem);
 

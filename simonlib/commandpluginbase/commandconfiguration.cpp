@@ -36,7 +36,9 @@ CommandConfiguration::CommandConfiguration(const QByteArray& internalName, const
 	KAboutData *about = new KAboutData(
 				internalName, "", name,
 				version, desc, KAboutData::License_GPL);
+#if KDE_IS_VERSION(4,0,80)
 	about->setProgramIconName(iconName);
+#endif
 	setAboutData( about );
 }
 

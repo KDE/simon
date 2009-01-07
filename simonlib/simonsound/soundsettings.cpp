@@ -93,7 +93,9 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 	KAboutData *about = new KAboutData(
 				"soundsettings", "", ki18n("Recordings"),
 				"0.1", ki18n("Configuration for the Recording and Playback of sounds"), KAboutData::License_GPL);
+#if KDE_IS_VERSION(4,0,80)
 	about->setProgramIconName("preferences-desktop-sound");
+#endif
 	setAboutData( about );
 
 	this->sc= new SoundControl();
