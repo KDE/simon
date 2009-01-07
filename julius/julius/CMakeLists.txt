@@ -1,6 +1,6 @@
 #project(julius)
 
-add_definitions(-lang-c-c++-comments -std=c99 -Uansi -Upendantic)
+add_definitions(-lang-c-c++-comments -std=c99)
 include_directories(../libsent/include ../libjulius/include)
 set (juliusexe_SRCS ./main.c
 ./output_stdout.c

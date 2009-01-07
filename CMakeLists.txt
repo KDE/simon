@@ -169,10 +169,12 @@ set(CPACK_ALL_INSTALL_TYPES Full User Developer)
 
 #SET(CPACK_COMPONENT_DEVEL_INSTALL_TYPES Full User Devel
 cmake_minimum_required(VERSION 2.6)
-
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
-
 add_subdirectory(julius)
+
+find_package(KDE4 REQUIRED)
+
+
 add_subdirectory(simonlib)
 add_subdirectory(simon)
 add_subdirectory(simond)

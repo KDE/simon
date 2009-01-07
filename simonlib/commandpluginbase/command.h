@@ -28,6 +28,7 @@
 #include <KIcon>
 #include <QMap>
 
+
 /**
  *	@class Command
  *	@brief Ressamles one command with all the attributes

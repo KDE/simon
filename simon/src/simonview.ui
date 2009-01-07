@@ -37,9 +37,6 @@
       <property name="tabReorderingEnabled" >
        <bool>true</bool>
       </property>
-      <property name="closeButtonEnabled" >
-       <bool>true</bool>
-      </property>
       <widget class="QWidget" name="tbWelcome" >
        <attribute name="title" >
         <string>Start</string>

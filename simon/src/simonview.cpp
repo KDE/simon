@@ -119,6 +119,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	QMainWindow ( parent,flags );
 	qApp->setQuitOnLastWindowClosed(false);
 	ui.setupUi ( this );
+	ui.inlineView->setCloseButtonEnabled(true);
 	
 	ui.tbWelcome->setWindowIcon(KIcon("simon"));
 	

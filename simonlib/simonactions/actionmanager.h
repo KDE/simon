@@ -71,6 +71,8 @@ public:
 	KCModule* getConfigurationDialog() { return (KCModule*) commandSettings; }
 	void init();
 
+	bool triggerCommand(const QString& type, const QString& trigger);
+
 	void process(QString input);
 	bool addCommand(Command *command);
 	bool deleteCommand(Command *command);
@@ -84,6 +86,5 @@ public:
 
 };
 
-
-
 #endif
+

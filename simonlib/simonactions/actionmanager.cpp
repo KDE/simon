@@ -254,6 +254,23 @@ CommandList* ActionManager::getCommandList()
 	return out;
 }
 
+
+bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
+{
+	Q_ASSERT(managers);
+	
+	bool triggered=false;
+	foreach (CommandManager* manager, *managers)
+	{
+		if (manager->name() == type)
+		{
+			manager->trigger(trigger);
+			triggered = true;
+		}
+	}
+	return triggered;
+}
+
 void ActionManager::process(QString input)
 {
 	kWarning() << "Input: " << input;
