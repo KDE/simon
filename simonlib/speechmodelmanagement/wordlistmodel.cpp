@@ -138,6 +138,7 @@ QVariant WordListModel::headerData(int column, Qt::Orientation orientation,
 
 QModelIndex WordListModel::parent(const QModelIndex &index) const
 {
+	Q_UNUSED(index);
 	return QModelIndex();
 }
 

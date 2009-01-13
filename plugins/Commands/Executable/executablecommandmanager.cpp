@@ -51,6 +51,11 @@ const QString ExecutableCommandManager::name() const
 	return ExecutableCommand::staticCategoryText();
 }
 
+const KIcon ExecutableCommandManager::icon() const
+{
+	return ExecutableCommand::staticCategoryIcon();
+}
+
 
 CreateCommandWidget* ExecutableCommandManager::getCreateCommandWidget(QWidget *parent)
 {

@@ -37,6 +37,11 @@ ShortcutCommandManager::ShortcutCommandManager(QObject *parent, const QVariantLi
 	this->xmlShortcutCommand = new XMLShortcutCommand();
 }
 
+const QString ShortcutCommandManager::name() const
+{
+	return ShortcutCommand::staticCategoryText();
+}
+
 
 bool ShortcutCommandManager::addCommand(Command *command)
 {
@@ -53,9 +58,9 @@ CreateCommandWidget* ShortcutCommandManager::getCreateCommandWidget(QWidget *par
 	return new CreateShortcutCommandWidget(parent);
 }
 
-const QString ShortcutCommandManager::name() const
+const KIcon ShortcutCommandManager::icon() const
 {
-	return ShortcutCommand::staticCategoryText();
+	return ShortcutCommand::staticCategoryIcon();
 }
 
 bool ShortcutCommandManager::load()

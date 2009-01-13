@@ -25,6 +25,7 @@
 #include <QList>
 #include <commandpluginbase/command.h>
 #include "actionlib_export.h"
+#include <KIcon>
 
 class CommandManager;
 class CreateCommandWidget;
@@ -38,7 +39,9 @@ Q_OBJECT
 signals:
 	void commandExecuted(QString trigger);
 	void guiAction(QString trigger);
-	void commandsChanged(CommandList *commands);
+	void categoriesChanged(const QList<KIcon>& icons, const QStringList& names);
+	void commandAdded(Command*);
+	void commandRemoved(const QString& trigger, const QString& category);
 
 private:
 	static ActionManager* instance;
@@ -51,6 +54,8 @@ private:
 
 	void deleteManager(CommandManager *manager);
 
+	void triggerCommand();
+
 
 protected:
 	ActionManager(QObject *parent=0);
@@ -61,6 +66,7 @@ private slots:
 
 
 public:
+	void publishCategories();
 
 	static ActionManager* getInstance() {
 		if (!instance) instance = new ActionManager();
@@ -72,6 +78,9 @@ public:
 	void init();
 
 	bool triggerCommand(const QString& type, const QString& trigger);
+	Command* getCommand(const QString& category, const QString& trigger);
+	CommandList* getCommandsOfCategory(const QString& category);
+
 
 	void process(QString input);
 	bool addCommand(Command *command);

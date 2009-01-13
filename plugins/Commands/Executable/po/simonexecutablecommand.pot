@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 18:55+0100\n"
+"POT-Creation-Date: 2009-01-13 10:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,13 +101,13 @@ msgstr ""
 msgid "Configure the needed parameters manually"
 msgstr ""
 
-#. i18n: file: createexecutablecommandwidget.ui:45
+#. i18n: file: createexecutablecommandwidget.ui:47
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: po/rc.cpp:18 rc.cpp:18
 msgid "Executable:"
 msgstr ""
 
-#. i18n: file: createexecutablecommandwidget.ui:62
+#. i18n: file: createexecutablecommandwidget.ui:64
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: po/rc.cpp:21 rc.cpp:21
 msgid "Working Directory:"

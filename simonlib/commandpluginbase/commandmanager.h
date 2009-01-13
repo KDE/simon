@@ -25,6 +25,7 @@
 #include "command.h"
 #include <QList>
 #include <QObject>
+#include <KIcon>
 
 class CommandManager;
 class CreateCommandWidget;
@@ -49,6 +50,7 @@ protected:
 
 public:
 	virtual const QString name() const=0;
+	virtual const KIcon icon() const { return KIcon(); }
 	virtual bool load()=0;
 	virtual bool save()=0;
 	virtual bool addCommand(Command *command)=0;

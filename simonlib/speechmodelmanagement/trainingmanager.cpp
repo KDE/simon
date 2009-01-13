@@ -142,7 +142,7 @@ QString TrainingManager::getTrainingDir()
 	QString dir = SpeechModelManagementConfiguration::modelTrainingsDataPath().path();
 	if (!dir.endsWith("/") 
 	#ifdef Q_OS_WINDOWS
-			&& !dir.endsWith("\")
+			&& !dir.endsWith("\\")
 	#endif
 			)
 		dir += QDir::separator();

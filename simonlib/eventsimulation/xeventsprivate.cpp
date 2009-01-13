@@ -120,6 +120,10 @@ void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 	if (key=='\t') {
 		keyCode=XKeysymToKeycode(display, XStringToKeysym("Tab"));
 	} else
+	if (key == 16777216) 
+	{
+		keyCode=XKeysymToKeycode(display, XK_Escape);
+	} else
 		keyCode = XKeysymToKeycode(display, key);
 	
 	if (keyCode)

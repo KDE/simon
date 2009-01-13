@@ -9,6 +9,7 @@ include(KDE4Defaults)
 
 set( simonactions_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmodel.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/commandtablemodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/commandsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmanager.cpp
 )

@@ -37,6 +37,12 @@ PlaceCommandManager::PlaceCommandManager(QObject *parent, const QVariantList& ar
 }
 
 
+const KIcon PlaceCommandManager::icon() const
+{
+	return PlaceCommand::staticCategoryIcon();
+}
+
+
 CreateCommandWidget* PlaceCommandManager::getCreateCommandWidget(QWidget *parent)
 {
 	return new CreatePlaceCommandWidget(parent);

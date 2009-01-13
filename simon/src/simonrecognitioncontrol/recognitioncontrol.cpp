@@ -1201,7 +1201,7 @@ void RecognitionControl::messageReceived()
 				{
 					advanceStream(sizeof(qint32));
 
-					emit synchronisationError(i18n("Couldn't restore old Model"));
+					emit synchronisationError(i18n("Couldn't restore old model"));
 					break;
 				}
 				

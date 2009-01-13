@@ -127,8 +127,11 @@ void NewCommand::setWindowTitleToCommandName(QString name)
 	else setCaption(i18n("Kommando"));
 }
 
-Command* NewCommand::newCommand()
+Command* NewCommand::newCommand(const QString& preSelectedCategory)
 {
+	if (!preSelectedCategory.isNull())
+		ui.cbType->setCurrentIndex(ui.cbType->findText(preSelectedCategory));
+
 	if (KDialog::exec())
 	{
 		//creating

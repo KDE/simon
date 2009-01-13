@@ -132,7 +132,10 @@ void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 					KMessageBox::error(0, i18n("Couldn't initialize commandmanager \"%1\".\n\n"
 							"Please check its configuration.", currentManagerName));
 				else
+				{
 					if (commandSettings) commandSettings->registerPlugIn(man->getConfigurationPage());
+					changed=true;
+				}
 			} else
 				man->deleteLater();
 		}
@@ -146,7 +149,26 @@ void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 	delete this->managers;
 	this->managers = newManagerList;
 	
-	if (changed) emit commandsChanged(getCommandList());
+	//if (changed) emit commandsChanged(getCommandList());
+	if (changed) 
+		publishCategories();
+}
+
+void ActionManager::publishCategories()
+{
+	QList<KIcon> icons;
+	QStringList names;
+	foreach (CommandManager* man, *managers)
+	{
+		if ((!man->getCommands())
+				|| (man->getCommands()->count() == 0))
+			continue;
+
+		names << man->name();
+		icons << man->icon();
+	}
+	emit categoriesChanged(icons, names);
+
 }
 
 QList<CreateCommandWidget*>* ActionManager::getCreateCommandWidgets(QWidget *parent)
@@ -212,9 +234,31 @@ bool ActionManager::addCommand(Command *command)
 	}
 	if (!added)
 		KMessageBox::error(0, i18n("Couldn't add Command \"%1\".", command->getTrigger()));
-	else emit commandsChanged(getCommandList());
+	else {
+//		emit commandsChanged(getCommandList());
+		emit commandAdded(command);
+	}
 
 	return added;
+}
+
+Command* ActionManager::getCommand(const QString& category, const QString& trigger)
+{
+	foreach (CommandManager* manager, *managers)
+	{
+		if (manager->name() == category)
+		{
+			CommandList *list = manager->getCommands();
+			foreach (Command* com, *list)
+			{
+				if (com->getTrigger() == trigger)
+					return com;
+			}
+			break;
+		}
+	}
+	return NULL;
+
 }
 
 bool ActionManager::deleteCommand(Command *command)
@@ -223,6 +267,8 @@ bool ActionManager::deleteCommand(Command *command)
 	
 	if (!command) return false;
 	
+	QString trigger = command->getTrigger();
+	QString cat = command->getCategoryText();
 	bool deleted;
 	for (int i=0; i < managers->count(); i++)
 	{
@@ -232,7 +278,10 @@ bool ActionManager::deleteCommand(Command *command)
 	
 	if (!deleted)
 		KMessageBox::error(0, i18n("Command could not be deleted."));
-	else emit commandsChanged(getCommandList());
+	else {
+		//emit commandsChanged(getCommandList());
+		emit commandRemoved(trigger, cat);
+	}
 
 	//command will be deleted
 	return deleted;
@@ -255,20 +304,24 @@ CommandList* ActionManager::getCommandList()
 }
 
 
+
 bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
 {
 	Q_ASSERT(managers);
 	
-	bool triggered=false;
-	foreach (CommandManager* manager, *managers)
-	{
-		if (manager->name() == type)
-		{
-			manager->trigger(trigger);
-			triggered = true;
-		}
-	}
-	return triggered;
+	Command *com = getCommand(type, trigger);
+	if (com)
+		return com->trigger();
+	else return false;
+}
+
+CommandList* ActionManager::getCommandsOfCategory(const QString& category)
+{
+	foreach (CommandManager *man, *managers)
+		if (man->name() == category)
+			return man->getCommands();
+
+	return NULL;
 }
 
 void ActionManager::process(QString input)

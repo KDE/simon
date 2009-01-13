@@ -17,45 +17,43 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "delaycommand.h"
+#include <unistd.h>
+#include <QObject>
+#include <QVariant>
+#include <KIcon>
+#include <KLocalizedString>
 
-#ifndef PLACECOMMANDMANAGER_H
-#define PLACECOMMANDMANAGER_H
 
-#include <commandpluginbase/commandmanager.h>
+const QString DelayCommand::staticCategoryText()
+{
+	return i18n("Delay");
+}
 
-class XMLPlaceCommand;
-class CreateCommandWidget;
-/**
- *	@class PlaceCommandManager
- *	@brief Manager for the place-commands
- *
- *	@version 0.1
- *	@date 20.05.2008
- *	@author Peter Grasch
- */
-class PlaceCommandManager : public CommandManager{
-Q_OBJECT
-private:
-	XMLPlaceCommand* xmlPlaceCommand;
-public:
-	const QString name() const;
-	const KIcon icon() const;
-	bool load();
-	bool save();
-	bool addCommand(Command *command);
+const QString DelayCommand::getCategoryText() const
+{
+	return DelayCommand::staticCategoryText();
+}
 
-	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
+const KIcon DelayCommand::staticCategoryIcon()
+{
+	return KIcon("chronometer");
+}
 
-    /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
-    PlaceCommandManager(QObject *parent, const QVariantList& args);
+const KIcon DelayCommand::getCategoryIcon() const
+{
+	return DelayCommand::staticCategoryIcon();
+}
 
-    
-    ~PlaceCommandManager();
+const QMap<QString,QVariant> DelayCommand::getValueMapPrivate() const
+{
+	QMap<QString,QVariant> out;
+	out.insert(i18n("Delay"), delay);
+	return out;
+}
 
-};
-
-#endif
+bool DelayCommand::triggerPrivate()
+{
+	usleep(delay*1000);
+	return true;
+}

@@ -38,24 +38,26 @@
 RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
-
-	commandPreviewWidget = new CommandPreviewWidget(ui.cvCommands);
-	connect(ui.cvCommands, SIGNAL(updatePreviewWidget(QModelIndex)), commandPreviewWidget, SLOT(updateCommand(QModelIndex)));
-	ui.cvCommands->setPreviewWidget(commandPreviewWidget);
+	ui.frmCommandInfo->hide();
 
 	connect ( ui.pbNewCommand, SIGNAL(clicked()), this, SLOT(addCommand()));
 	connect ( ui.pbEditCommand, SIGNAL(clicked()), this, SLOT(editCommand()));
 	connect ( ui.pbDeleteCommand, SIGNAL(clicked()), this, SLOT(deleteCommand()));
 
-	connect(ui.cvCommands, SIGNAL(activated(QModelIndex)), this, SLOT(reflectSelectionStatus(QModelIndex)));
-	connect(ui.cvCommands, SIGNAL(clicked(QModelIndex)), this, SLOT(reflectSelectionStatus(QModelIndex)));
+	connect(ActionManager::getInstance(), SIGNAL(categoriesChanged(const QList<KIcon>&, const QStringList&)),
+			this, SLOT(categoriesChanged(const QList<KIcon>&, const QStringList&)));
+	connect(ActionManager::getInstance(), SIGNAL(commandAdded(Command*)), this, SLOT(commandAdded(Command*)));
+	connect(ActionManager::getInstance(), SIGNAL(commandRemoved(const QString&, const QString&)), 
+			this, SLOT(commandRemoved(const QString&, const QString&)));
 
-	QList<int> colWidths;
-	colWidths << 210 << 210 << 320;
-	ui.cvCommands->setColumnWidths(colWidths);
+	connect(ui.lwCommands, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(updateCommandDetail()));
+	connect(ui.lwCategories, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(fetchCommandsFromCategory()));
+	connect(ui.pbTrigger, SIGNAL(clicked()), this, SLOT(triggerCommand()));
 
-	this->loadCommands();
+	ActionManager::getInstance()->publishCategories();
 
+	ui.lwCategories->setIconSize(QSize(24,24));
+	ui.lwCommands->setIconSize(QSize(24,24));
 
 	ui.pbNewCommand->setIcon(KIcon("list-add"));
 	ui.pbImportActivities->setIcon(KIcon("document-import"));
@@ -64,16 +66,12 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 }
 
 
-void RunCommandViewPrivate::reflectSelectionStatus(QModelIndex index)
+void RunCommandViewPrivate::triggerCommand()
 {
-	bool commandSelected = false;
-	if (index.internalPointer()) //categories have a 0 pointer
-		commandSelected = true;
-
-	ui.pbEditCommand->setEnabled(commandSelected);
-	ui.pbDeleteCommand->setEnabled(commandSelected);
+	Command *com = getCurrentCommand();
+	if (com)
+		com->trigger();
 }
-
 
 
 void RunCommandViewPrivate::addCommand()
@@ -81,57 +79,142 @@ void RunCommandViewPrivate::addCommand()
 	NewCommand *newCommand = new NewCommand(this);
 	newCommand->registerCreators(ActionManager::getInstance()->getCreateCommandWidgets(newCommand));
 	
-	Command *com = newCommand->newCommand();
+	QListWidgetItem *catItem = ui.lwCategories->item(ui.lwCategories->currentRow());
+	Command *com=NULL;
+	if (catItem)
+		com = newCommand->newCommand(catItem->text());
+	else 
+		com = newCommand->newCommand();
 	if (com)
 	{
 		ActionManager::getInstance()->addCommand(com);
+		updateCommandDetail();
 	}
 	
 	delete newCommand;
 }
 
 
-
-
-/**
-*   \brief Loads and inserts the commandList by using the RunCommand backend
-*
-*   @author Peter Grasch
-*/
-void RunCommandViewPrivate::loadCommands()
+Command* RunCommandViewPrivate::getCurrentCommand()
 {
-	CommandModel *model = new CommandModel(ActionManager::getInstance()->getCommandList());
-	connect(ActionManager::getInstance(), SIGNAL(commandsChanged(CommandList*)), model, 
-			SLOT(updateCommands(CommandList*)));
-	connect(ActionManager::getInstance(), SIGNAL(commandsChanged(CommandList*)), this, 
-			SLOT(checkIfHidePreviewWidget(CommandList*)));
-	ui.cvCommands->setModel(model);
+	QListWidgetItem *catItem = ui.lwCategories->item(ui.lwCategories->currentRow());
+	QListWidgetItem *comItem = ui.lwCommands->item(ui.lwCommands->currentRow());
+	if (!catItem || !comItem)
+		return NULL;
+	return ActionManager::getInstance()->getCommand(catItem->text(),comItem->text());
+	
 }
 
-void RunCommandViewPrivate::checkIfHidePreviewWidget(CommandList *list)
+void RunCommandViewPrivate::fetchCommandsFromCategory()
 {
-	Q_ASSERT(list);
-	if (list->count() == 0)
-		commandPreviewWidget->hide();
-	else commandPreviewWidget->show();
-}
+	QListWidgetItem *catItem = ui.lwCategories->item(ui.lwCategories->currentRow());
+	if (!catItem) return;
 
+	CommandList* commands = ActionManager::getInstance()->getCommandsOfCategory(catItem->text());
+	if (!commands) return;
 
-Command* RunCommandViewPrivate::getCommandToModify()
-{
-	QModelIndex currentIndex = ui.cvCommands->currentIndex();
-	Command *command = static_cast<Command*>(currentIndex.internalPointer());
-	if (!command)
+	ui.frmCommandInfo->hide();
+	ui.lwCommands->clear();
+	foreach (Command* com, *commands)
 	{
-		KMessageBox::information(this, i18n("Please select a command from the List"), i18n("Select Command"));
-		return 0;
+		ui.lwCommands->addItem(new QListWidgetItem(com->getIcon(), com->getTrigger()));
 	}
-	return command;
 }
+
+void RunCommandViewPrivate::updateCommandDetail()
+{
+	Command *com = getCurrentCommand();
+	if (!com)
+	{
+		ui.frmCommandInfo->hide();
+		ui.pbEditCommand->setEnabled(false);
+		ui.pbDeleteCommand->setEnabled(false);
+	}
+	else 
+	{
+		ui.frmCommandInfo->show();
+		ui.pbEditCommand->setEnabled(true);
+		ui.pbDeleteCommand->setEnabled(true);
+		
+		ui.lbName->setText(com->getTrigger());
+		ui.lbIcon->setPixmap(KIcon(com->getIcon()).pixmap(64,64));
+
+		QLayoutItem *child;
+		while (ui.flDetails->count() > 0)
+		{
+			child = ui.flDetails->takeAt(0);
+			ui.flDetails->removeItem(child);
+
+			QWidget *widget = child->widget();
+			if (widget) widget->deleteLater();
+			if (child)
+				delete child;
+		}
+
+		QMap<QString,QVariant> details = com->getValueMap();
+		QStringList keys = details.keys();
+
+		for (int i=0; i < keys.count(); i++)
+		{
+			QLabel *label = new QLabel(this);
+			label->setOpenExternalLinks(true);
+			label->setWordWrap(true);
+			QVariant value = details.value(keys[i]);
+			
+			QString strValue;
+			if (value.type() == QVariant::Url)
+				strValue = QString("<a href=\"%1\">%1</a>").arg(value.toUrl().toString());
+			else strValue = value.toString();
+
+			label->setText(strValue);
+			
+			ui.flDetails->addRow(keys[i]+":", label);
+		}
+	}
+
+}
+
+void RunCommandViewPrivate::categoriesChanged(const QList<KIcon>& icons, const QStringList& names)
+{
+	Q_ASSERT(icons.count() == names.count());
+	ui.lwCategories->clear();
+	int i=0;
+	foreach (const QString& name, names)
+	{
+		ui.lwCategories->addItem(new QListWidgetItem(icons[i], name));
+		i++;
+	}
+}
+
+void RunCommandViewPrivate::commandAdded(Command* com)
+{
+	if ((!ui.lwCategories->item(ui.lwCategories->currentRow())) ||
+		(com->getCategoryText() != ui.lwCategories->item(ui.lwCategories->currentRow())->text()))
+	{
+		if (ui.lwCategories->findItems(com->getCategoryText(), Qt::MatchExactly).isEmpty())
+			ui.lwCategories->addItem(new QListWidgetItem(com->getCategoryIcon(), com->getCategoryText()));
+
+		return;
+	}
+
+	ui.lwCommands->addItem(new QListWidgetItem(com->getIcon(), com->getTrigger()));
+}
+
+void RunCommandViewPrivate::commandRemoved(const QString& trigger, const QString& category)
+{
+	if ((!ui.lwCategories->item(ui.lwCategories->currentRow())) ||
+		(category != ui.lwCategories->item(ui.lwCategories->currentRow())->text()))
+		return;
+
+	QList<QListWidgetItem*> items = ui.lwCommands->findItems(trigger, Qt::MatchExactly);
+	foreach (QListWidgetItem* item, items)
+		delete item;
+}
+
 
 void RunCommandViewPrivate::editCommand()
 {
-	Command *command = getCommandToModify();
+	Command *command = getCurrentCommand();
 	if (!command) return;
 
 	NewCommand *editCommand = new NewCommand(this);
@@ -143,16 +226,18 @@ void RunCommandViewPrivate::editCommand()
 		ActionManager::getInstance()->deleteCommand(command);
 		ActionManager::getInstance()->addCommand(newCommand);
 	}
+
 }
 
 void RunCommandViewPrivate::deleteCommand()
 {
-	Command *command = getCommandToModify();
+	Command *command = getCurrentCommand();
 	if (!command) return;
 	
 	if (KMessageBox::questionYesNoCancel(this, i18n("Are you sure that you want to irreversibly remove that command?"), i18n("Remove Command")) == KMessageBox::Yes)
 	{
 		ActionManager::getInstance()->deleteCommand(command);
+		updateCommandDetail();
 	}
 }
 

@@ -1,14 +1,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Peter Grasch <grasch@simon-listens.org>, 2008.
+# Peter Grasch <grasch@simon-listens.org>, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: simonexecutablecommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 18:55+0100\n"
-"PO-Revision-Date: 2008-11-28 17:37+0100\n"
+"POT-Creation-Date: 2009-01-13 10:15+0100\n"
+"PO-Revision-Date: 2009-01-13 10:15+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgstr ""
 "Dieser Assistent wird Ihnen helfen ein installiertes Programm mit einem "
 "Kommando zu verknüpfen um es mit simon starten zu können. \n"
 "\n"
-"Simon wird KDE nach einer Lsit von verfügbaren Applikationen fragen und Sie "
+"Simon wird KDE nach einer Liste von verfügbaren Applikationen fragen und Sie "
 "können aus dieser Liste dann ein Programm auswählen."
 
 #: ImportProgram/importprogramwizard.cpp:96
@@ -108,13 +108,13 @@ msgstr "Manuell"
 msgid "Configure the needed parameters manually"
 msgstr "Konfigurieren Sie die notwendigen Parameter selbst"
 
-#. i18n: file: createexecutablecommandwidget.ui:45
+#. i18n: file: createexecutablecommandwidget.ui:47
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: po/rc.cpp:18 rc.cpp:18
 msgid "Executable:"
 msgstr "Ausführbare Datei:"
 
-#. i18n: file: createexecutablecommandwidget.ui:62
+#. i18n: file: createexecutablecommandwidget.ui:64
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: po/rc.cpp:21 rc.cpp:21
 msgid "Working Directory:"

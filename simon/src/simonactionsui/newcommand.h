@@ -49,7 +49,7 @@ public:
 
 	bool registerCreators(QList<CreateCommandWidget*>* commandCreaters);
 
-	Command* newCommand();
+	Command* newCommand(const QString& preSelectedCategory=QString());
 
 public slots:
     void deleteLater();

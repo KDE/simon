@@ -71,21 +71,15 @@ void CoreEvents::unsetUnneededModifiers()
  * \author Peter Grasch
  * @param shortcut The shortcut to send
  */
- #include <KMessageBox>
 void CoreEvents::sendShortcut(const QKeySequence& shortcut)
 {
-	//KMessageBox::information(0, "Sending: "+shortcut.toString());
 	int key = shortcut[0] & ~(Qt::SHIFT | Qt::META | Qt::CTRL | Qt::ALT);
 
 	//make key lowercase
 	if ((key >= 65) && (key <= 90))
 		key += 32;
-		
-	
-	//KMessageBox::information(0, "Key: "+QString::number(key));
 
 	Qt::KeyboardModifiers mods = Qt::KeyboardModifiers(shortcut[0] & (Qt::SHIFT | Qt::META | Qt::CTRL | Qt::ALT));
-	//KMessageBox::information(0, "Modifiers: "+QString::number(mods));
 	setModifierKey(mods, true);
 	sendKey(key);
 	unsetUnneededModifiers();

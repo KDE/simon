@@ -17,34 +17,32 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
-#ifndef SHORTCUTCOMMANDMANAGER_H
-#define SHORTCUTCOMMANDMANAGER_H
+#ifndef COMPOSITECOMMANDMANAGER_H
+#define COMPOSITECOMMANDMANAGER_H
 
 #include <commandpluginbase/commandmanager.h>
+#include <QVariantList>
 
-
-class XMLShortcutCommand;
-class CreateCommandWidget;
-
+class XMLCompositeCommand;
+class CreateCompositeCommandWidget;
 /**
- *	@class ShortcutCommandManager 
- *	@brief Manager for the executable commands
+ *	@class CompositeCommandManager
+ *	@brief Manager for the composite commands
  *
  *	@version 0.1
- *	@date 22.05.2008
+ *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class ShortcutCommandManager : public CommandManager {
+class CompositeCommandManager : public CommandManager {
 Q_OBJECT
 private:
-	XMLShortcutCommand* xmlShortcutCommand;
+	XMLCompositeCommand* xmlCompositeCommand;
 public:
-	const QString name() const;
 	const KIcon icon() const;
+	bool addCommand(Command *command);
+	const QString name() const;
 	bool load();
 	bool save();
-	bool addCommand(Command *command);
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
     /**
@@ -52,10 +50,10 @@ public:
     * 
     *	@author Peter Grasch
     */
-    ShortcutCommandManager (QObject *parent, const QVariantList& args);
+    CompositeCommandManager(QObject *parent, const QVariantList& args);
 
     
-    ~ShortcutCommandManager ();
+    ~CompositeCommandManager();
 
 };
 

@@ -39,6 +39,7 @@ private:
 	XMLTextMacroCommand* xmlTextMacroCommand;
 public:
 	const QString name() const;
+	const KIcon icon() const;
 	bool load();
 	bool save();
 	bool addCommand(Command *command);

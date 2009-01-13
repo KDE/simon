@@ -49,7 +49,7 @@ void SimondNetworkConfiguration::load()
         QList<QSslCipher> ciphers = QSslSocket::supportedCiphers();
         QStringList cipherStrs;
         QString cipherName;
-	int selectedIndex;
+	int selectedIndex=0;
         for (int i=0; i < ciphers.count(); i++)
 	{
 		cipherName = ciphers[i].name();

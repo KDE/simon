@@ -1,0 +1,110 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-01-13 17:01+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: compositecommand.cpp:32
+msgid "Composite"
+msgstr ""
+
+#: compositecommand.cpp:53
+msgid "Commands"
+msgstr ""
+
+#: compositecommand.cpp:65 createcompositecommandwidget.cpp:121
+#: delaycommand.cpp:30 delaycommand.cpp:51
+msgid "Delay"
+msgstr ""
+
+#: compositecommandmanager.cpp:68
+msgid "[INF] Loading composite commands from %1"
+msgstr ""
+
+#: compositecommandmanager.cpp:78
+msgid "[INF] Saving composite commands to %1"
+msgstr ""
+
+#: createcompositecommandwidget.cpp:152
+msgid ""
+"Couldn't find all of the commands that make up this composited command.\n"
+"\n"
+"The missing commands are: %1."
+msgstr ""
+
+#. i18n: file: createcompositecommandwidget.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateCompositeCommandWidget)
+#: po/rc.cpp:3 rc.cpp:3
+msgid "Form"
+msgstr ""
+
+#. i18n: file: createcompositecommandwidget.ui:19
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "Command:"
+msgstr ""
+
+#. i18n: file: createcompositecommandwidget.ui:29
+#. i18n: ectx: property (text), widget (QPushButton, pbAddCommand)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Add Command"
+msgstr ""
+
+#. i18n: file: createcompositecommandwidget.ui:36
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Delay:"
+msgstr ""
+
+#. i18n: file: createcompositecommandwidget.ui:61
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "ms"
+msgstr ""
+
+#. i18n: file: createcompositecommandwidget.ui:70
+#. i18n: ectx: property (text), widget (QPushButton, pbAddDelay)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "Add Delay"
+msgstr ""
+
+#. i18n: file: createcompositecommandwidget.ui:92
+#. i18n: ectx: property (text), widget (QPushButton, pbRemove)
+#: po/rc.cpp:21 rc.cpp:21
+msgid "Remove"
+msgstr ""
+
+#. i18n: file: createcompositecommandwidget.ui:102
+#. i18n: ectx: property (text), widget (QPushButton, pbMoveUp)
+#: po/rc.cpp:24 rc.cpp:24
+msgid "Move Up"
+msgstr ""
+
+#. i18n: file: createcompositecommandwidget.ui:112
+#. i18n: ectx: property (text), widget (QPushButton, pbMoveDown)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "Move Down"
+msgstr ""
+
+#: po/rc.cpp:28 rc.cpp:28
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#: po/rc.cpp:29 rc.cpp:29
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""

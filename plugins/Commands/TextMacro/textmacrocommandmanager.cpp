@@ -37,6 +37,12 @@ TextMacroCommandManager::TextMacroCommandManager(QObject *parent, const QVariant
 	this->xmlTextMacroCommand = new XMLTextMacroCommand();
 }
 
+const QString TextMacroCommandManager::name() const
+{
+	return TextMacroCommand::staticCategoryText();
+}
+
+
 bool TextMacroCommandManager::addCommand(Command *command)
 {
 	if (dynamic_cast<TextMacroCommand*>(command))
@@ -47,9 +53,9 @@ bool TextMacroCommandManager::addCommand(Command *command)
 	return false;
 }
 
-const QString TextMacroCommandManager::name() const
+const KIcon TextMacroCommandManager::icon() const
 {
-	return TextMacroCommand::staticCategoryText();
+	return TextMacroCommand::staticCategoryIcon();
 }
 
 bool TextMacroCommandManager::load()

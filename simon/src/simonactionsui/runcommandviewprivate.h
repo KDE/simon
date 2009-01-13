@@ -22,6 +22,7 @@
 
 #include "ui_rundialog.h"
 #include <commandpluginbase/command.h>
+#include <KIcon>
 
 class Command;
 class RunCommand;
@@ -40,18 +41,24 @@ class RunCommandViewPrivate : public QWidget {
 
 private:
 	Ui::RunDlg ui;
+
+	QHash<QString, CommandList*> commands;
+
 	CommandPreviewWidget *commandPreviewWidget;
-	Command* getCommandToModify();
+	Command* getCurrentCommand();
 
 private slots:
 	void addCommand();
 	void deleteCommand();
 	void editCommand();
-	void checkIfHidePreviewWidget(CommandList *list);
-	void reflectSelectionStatus(QModelIndex index);
 
-public slots:
-	void loadCommands();
+	void triggerCommand();
+
+	void fetchCommandsFromCategory();
+	void updateCommandDetail();
+	void categoriesChanged(const QList<KIcon>& icons, const QStringList& names);
+	void commandAdded(Command* com);
+	void commandRemoved(const QString& trigger, const QString& category);
 
 public:
     RunCommandViewPrivate(QWidget *parent);

@@ -40,6 +40,7 @@ private:
 public:
 	bool addCommand(Command *command);
 	const QString name() const;
+	const KIcon icon() const;
 	bool load();
 	bool save();
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);

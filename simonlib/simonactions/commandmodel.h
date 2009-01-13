@@ -45,9 +45,6 @@ private:
 	QVariant headerData(int, Qt::Orientation orientation,
 				int role = Qt::DisplayRole) const;
 
-	QModelIndex index(int row, int column,
-			const QModelIndex &parent = QModelIndex()) const;
-
 	QModelIndex parent(const QModelIndex &index) const;
 
 	int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -55,6 +52,9 @@ private:
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 public:
+	QModelIndex index(int row, int column,
+			const QModelIndex &parent = QModelIndex()) const;
+
 	CommandModel(CommandList *commands);
 	~CommandModel();
 
