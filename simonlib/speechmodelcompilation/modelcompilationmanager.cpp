@@ -225,15 +225,22 @@ bool ModelCompilationManager::processError()
 	return false;
 }
 
+#include <KDebug>
 bool ModelCompilationManager::startCompilation(const QString& samplePath,
 			     const QString& lexiconPath, const QString& grammarPath, 
 			     const QString& vocabPath, const QString& promptsPath, 
 			     const QString& treeHedPath, const QString& wavConfigPath)
 {
+	kWarning() << "Entering startCompilation";
 	if (isRunning()) {
+		kWarning() << "Compilation already running";
 		keepGoing=false;
 		//terminate();
+		
+		kWarning() << "Waiting for old compilation to finish";
 		wait();
+		kWarning() << "Done";
+		emit activeModelCompilationAborted();
 	}
 
 	this->samplePath = samplePath;

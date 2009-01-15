@@ -49,6 +49,7 @@ signals:
  	void phonemeUndefined(const QString&);
 
 	void modelCompiled();
+	void activeModelCompilationAborted();
 
 private:
 	bool keepGoing;

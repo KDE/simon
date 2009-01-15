@@ -149,6 +149,7 @@ void ClientSocket::processRequest()
 					modelCompilationManager = new ModelCompilationManager(user, activeDir+"hmmdefs", activeDir+"tiedlist",
 											activeDir+"model.dict", activeDir+"model.dfa", this);
 					connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(activeModelCompiled()));
+					connect(modelCompilationManager, SIGNAL(modelCompilationAborted()), this, SLOT(activeModelCompilationAborted()));
 					connect(modelCompilationManager, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelCompilationStatus(const QString&, int, int)));
 					connect(modelCompilationManager, SIGNAL(error(const QString&)), this, SLOT(slotModelCompilationError(const QString&)));
 					connect(modelCompilationManager, SIGNAL(classUndefined(const QString&)), this, 
@@ -199,6 +200,7 @@ void ClientSocket::processRequest()
 
 			case Simond::ActiveModelDate:
 			{
+				kWarning() << "Received ActiveModelDate";
 				QDateTime remoteModelDate;
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteModelDate;
@@ -543,8 +545,8 @@ void ClientSocket::processRequest()
 				} else {
 					kWarning() << "Language desc u-t-d";
 					kDebug() << "LanguageDescription is up-to-date";
-					synchronizeSamples();
 				}
+				synchronizeSamples();
 				
 				break;
 			}
@@ -662,7 +664,7 @@ void ClientSocket::processRequest()
 				stream >> modelDate;
 				
 				if (synchronisationManager->switchToModel(modelDate))
-					startSynchronisation();
+					startSynchronisation(); //apply changes
 				else 
 					sendCode(Simond::SwitchToModelFailed);
 
@@ -714,13 +716,19 @@ void ClientSocket::processRequest()
 
 void ClientSocket::startSynchronisation()
 {
+	kWarning() << "Entering startSynchronisation";
 	if (synchronisationRunning) return;
 				
+	kWarning() << "Locking sync.";
 	synchronisationRunning = true;
 				
 	if (!synchronisationManager->startSynchronisation())
+	{
 		sendCode(Simond::SynchronisationAlreadyRunning);
-	else sendCode(Simond::GetActiveModelDate);
+	} else {
+		kWarning() << "Requesting ActiveModelDate";
+		sendCode(Simond::GetActiveModelDate);
+	}
 }
 
 void ClientSocket::activeModelCompiled()
@@ -730,9 +738,12 @@ void ClientSocket::activeModelCompiled()
 	sendCode(Simond::ModelCompilationCompleted);
 	startSynchronisation();
 	
-	//FIXME: should not reinitialize recognition if active model
-	//did not change and recog is already running
  	recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
+}
+
+void ClientSocket::activeModelCompilationAborted()
+{
+	sendCode(Simond::ModelCompilationAborted);
 }
 
 void ClientSocket::synchronizeSamples()
@@ -888,7 +899,7 @@ void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 void ClientSocket::recompileModel()
 {
 	sendCode(Simond::ModelCompilationStarted);
-	kDebug() << "Compiling model...";
+	kWarning() << "Compiling model...";
 	
 	kWarning() << synchronisationManager->getLexiconPath();
 	modelCompilationManager->startCompilation(KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
@@ -1042,6 +1053,7 @@ bool ClientSocket::sendGrammar()
 
 bool ClientSocket::sendLanguageDescription()
 {
+	kWarning() << "Sending Language Description";
 	Q_ASSERT(synchronisationManager);
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);

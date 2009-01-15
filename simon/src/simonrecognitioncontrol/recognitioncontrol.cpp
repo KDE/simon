@@ -1133,8 +1133,9 @@ void RecognitionControl::messageReceived()
 
 				case Simond::TrainingsSample:
 				{
-					synchronisationOperation->update(i18n("Synchronizing Trainings-Corpus"), 68);
 					checkIfSynchronisationIsAborting();
+					if (synchronisationOperation)
+						synchronisationOperation->update(i18n("Synchronizing Trainings-Corpus"), 68);
 
 					kDebug() << "Server sent Trainings-Sample";
 					
@@ -1212,6 +1213,8 @@ void RecognitionControl::messageReceived()
 
 				case Simond::ModelCompilationStarted: {
 					advanceStream(sizeof(qint32));
+					if (modelCompilationOperation)
+						modelCompilationOperation->canceled();
 					modelCompilationOperation = new Operation(thread(), i18n("Compiling Model"), i18n("Initializing..."));
 					break;
 				}
@@ -1258,6 +1261,17 @@ void RecognitionControl::messageReceived()
 						modelCompilationOperation=NULL;
 					}
 					emit compilationError(errorMsg, protocol);
+					break;
+				}
+
+				case Simond::ModelCompilationAborted: {
+					advanceStream(sizeof(qint32));
+	
+					if (modelCompilationOperation)
+					{
+						modelCompilationOperation->canceled();
+						modelCompilationOperation=NULL;
+					}
 					break;
 				}
 	

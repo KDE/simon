@@ -105,6 +105,7 @@ class ClientSocket : public QSslSocket
 		void sendSample(QString sampleName);
 		
 		void activeModelCompiled();
+		void activeModelCompilationAborted();
 
 	public:
 		ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, QObject *parent=0);
