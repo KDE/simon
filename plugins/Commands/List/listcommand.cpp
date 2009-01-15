@@ -18,13 +18,13 @@
  */
 
 #include "listcommand.h"
+#include "commandlistwidget.h"
 #include <simonactions/actionmanager.h>
 #include <unistd.h>
 #include <QObject>
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QObject>
-#include <QDesktopWidget>
 #include <QTableWidgetSelectionRange>
 #include <QHeaderView>
 #include <QApplication>
@@ -32,21 +32,20 @@
 #include <KIcon>
 #include <KLocalizedString>
 
+
 QStringList ListCommand::numberIdentifiers;
 
 ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QStringList& commands, 
 		const QStringList& iconSrcs, const QStringList& commandTypes) : Command(name, iconSrc)
 {
-	KLocale::setMainCatalog("simonlib");
 	this->iconsrcs = iconSrcs;
 	this->commands = commands;
 	this->commandTypes = commandTypes;
 	
-	w = new QTableWidget(0);
-	w->setColumnCount(2);
-	w->verticalHeader()->hide();
-	w->setWindowFlags(Qt::Dialog|Qt::WindowStaysOnTopHint);
-	connect(w, SIGNAL(itemActivated(QTableWidgetItem*)), this, SLOT(runCommand()));
+	clw = new CommandListWidget();
+	connect(clw, SIGNAL(canceled()), this, SLOT(cancel()));
+	connect(clw, SIGNAL(runRequest(int)), this, SLOT(runCommand(int)));
+	
 
 	if (numberIdentifiers.isEmpty())
 		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
@@ -54,25 +53,31 @@ ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QStr
 			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
 }
 
-void ListCommand::runCommand()
+void ListCommand::runCommand(int index)
 {
-	int row = w->currentRow();
-	if (row == -1)
-		return;
-
 	Q_ASSERT(commands.count() == commandTypes.count());
 
-	if (row > commands.count())
+	if (index > commands.count())
 		return;
 
-	ActionManager::getInstance()->triggerCommand(commandTypes[row], commands[row]);
-	w->close();
+	ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
+	clw->close();
+	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
+}
+
+void ListCommand::cancel()
+{
+	clw->close();
 	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
 }
 
 bool ListCommand::executeSelection(QString inputText)
 {
-	kWarning() << "ListCommand received input" << inputText;
+	if (inputText.toUpper() == i18n("Cancel").toUpper())
+	{
+		clw->close();
+		return true;
+	}
 
 	//setting correct index
 	int index = 0;
@@ -97,13 +102,8 @@ bool ListCommand::executeSelection(QString inputText)
 		if (index >= commands.count())
 			return false;
 
-		w->setRangeSelected(QTableWidgetSelectionRange(index, 0, index, 1), true);
-
-
-
+		clw->close();
 		usleep(300000);
-		w->close();
-		usleep(150000);
 		ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
 		ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
 	}
@@ -145,47 +145,11 @@ bool ListCommand::triggerPrivate()
 	Q_ASSERT(commands.count() == commandTypes.count());
 	//showing list
 
-	w->setWindowIcon(getIcon());
-	w->setWindowTitle(getTrigger());
-	w->clear();
-	w->setHorizontalHeaderItem(0, new QTableWidgetItem());
-	w->horizontalHeaderItem(0)->setText(i18n("Number"));
-	w->setHorizontalHeaderItem(1, new QTableWidgetItem());
-	w->horizontalHeaderItem(1)->setText(i18n("Command"));
-	w->setSelectionMode(QAbstractItemView::SingleSelection);
-	w->setSelectionBehavior(QAbstractItemView::SelectRows);
+	clw->setWindowIcon(KIcon(getIconSrc()));
+	clw->setWindowTitle(getTrigger());
+	clw->init(iconsrcs, commands);
+	clw->show();
 
-	w->setRowCount(commands.count());
-
-	for (int i=0; i<commands.count();i++)
-	{
-		QString type = commandTypes[i];
-		QString command = commands[i];
-		QString iconsrc = iconsrcs[i];
-
-		QTableWidgetItem *num = new QTableWidgetItem(QString::number(i+1));
-		num->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-		QTableWidgetItem *com = new QTableWidgetItem(KIcon(iconsrc), command);
-		com->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-		w->setItem(i, 0, num);
-		w->setItem(i, 1, com);
-	}
-	w->resizeColumnsToContents();
-
-	QHeaderView *vhview = w->verticalHeader();
-	QHeaderView *hhview = w->horizontalHeader();
-	w->resize(QSize(hhview->sectionSize(0)+hhview->sectionSize(1)+20, 
-				(commands.count()*vhview->sectionSize(0))+35));
-
-	//move to center of screen
-	QDesktopWidget* tmp = QApplication::desktop();
-	int x,y;
-	x=(tmp->width()/2) - (w->width()/2);
-	y=(tmp->height()/2)-(w->height()/2);
-	
-	w->move(x,y);
-
-	w->show();
 	ActionManager::getInstance()->registerPrompt(this, "executeSelection");
 
 	return true;
@@ -194,6 +158,6 @@ bool ListCommand::triggerPrivate()
 ListCommand::~ListCommand()
 {
 	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
-	w->deleteLater();
+	clw->deleteLater();
 }
 

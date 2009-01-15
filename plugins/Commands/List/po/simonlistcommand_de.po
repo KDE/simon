@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonlistcommand_de\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-01-15 10:39+0100\n"
-"PO-Revision-Date: 2009-01-15 09:33+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-01-15 17:09+0100\n"
+"PO-Revision-Date: 2009-01-15 17:09+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,61 +27,59 @@ msgstr ""
 "\n"
 "Die fehlenden Kommandos sind: %1."
 
-#: listcommand.cpp:52
+#: listcommand.cpp:51
 msgid "Zero"
 msgstr "Null"
 
-#: listcommand.cpp:52
+#: listcommand.cpp:51
 msgid "One"
 msgstr "Eins"
 
-#: listcommand.cpp:52
+#: listcommand.cpp:51
 msgid "Two"
 msgstr "Zwei"
 
-#: listcommand.cpp:53
+#: listcommand.cpp:52
 msgid "Three"
 msgstr "Drei"
 
-#: listcommand.cpp:53
+#: listcommand.cpp:52
 msgid "Four"
 msgstr "Vier"
 
-#: listcommand.cpp:53
+#: listcommand.cpp:52
 msgid "Five"
 msgstr "Fünf"
 
-#: listcommand.cpp:54
+#: listcommand.cpp:53
 msgid "Six"
 msgstr "Sechs"
 
-#: listcommand.cpp:54
+#: listcommand.cpp:53
 msgid "Seven"
 msgstr "Sieben"
 
-#: listcommand.cpp:54
+#: listcommand.cpp:53
 msgid "Eight"
 msgstr "Acht"
 
-#: listcommand.cpp:54
+#: listcommand.cpp:53
 msgid "Nine"
 msgstr "Neun"
 
-#: listcommand.cpp:115
+#. i18n: file: listcommand.ui:45
+#. i18n: ectx: property (text), widget (QPushButton, pbCancel)
+#: listcommand.cpp:76 po/rc.cpp:30 rc.cpp:30
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: listcommand.cpp:116
 msgid "List"
 msgstr "Liste"
 
-#: listcommand.cpp:136
+#: listcommand.cpp:137
 msgid "Commands"
 msgstr "Kommandos"
-
-#: listcommand.cpp:151
-msgid "Number"
-msgstr "Nummer"
-
-#: listcommand.cpp:153
-msgid "Command"
-msgstr "Kommando"
 
 #: listcommandmanager.cpp:68
 msgid "[INF] Loading list commands from %1"
@@ -133,18 +131,28 @@ msgstr "Nach oben"
 msgid "Move Down"
 msgstr "Nach unten"
 
-#. i18n: file: listcommand.ui:20
+#. i18n: file: listcommand.ui:32
 #. i18n: ectx: property (text), widget (QTableWidget, twCommands)
 #: po/rc.cpp:24 rc.cpp:24
-msgid "Kommando"
+msgid "Number"
+msgstr "Nummer"
+
+#. i18n: file: listcommand.ui:37
+#. i18n: ectx: property (text), widget (QTableWidget, twCommands)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "Command"
 msgstr "Kommando"
 
-#: po/rc.cpp:25 rc.cpp:25
+#: po/rc.cpp:31 rc.cpp:31
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Peter Grasch"
 
-#: po/rc.cpp:26 rc.cpp:26
+#: po/rc.cpp:32 rc.cpp:32
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
+
+#~ msgid "Kommando"
+#~ msgstr "Kommando"
+

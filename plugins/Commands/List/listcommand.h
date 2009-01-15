@@ -22,8 +22,8 @@
 
 #include <commandpluginbase/command.h>
 #include <QList>
-#include <QTableWidget>
 #include <KUrl>
+class CommandListWidget;
 
 /**
  *	@class ListCommand
@@ -36,7 +36,8 @@
 class ListCommand : public Command{
 Q_OBJECT
 private:
-	QTableWidget *w;
+	CommandListWidget *clw;
+
 	QStringList iconsrcs;
 	QStringList commands;
 	QStringList commandTypes;
@@ -48,7 +49,8 @@ protected:
 	bool triggerPrivate();
 
 private slots:
-	void runCommand();
+	void runCommand(int index);
+	void cancel();
 
 public slots:
 	bool executeSelection(QString inputText);

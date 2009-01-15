@@ -325,7 +325,8 @@ adin_mic_read(SP16 *buf, int sampnum)
     Pa_Sleep(30); /* wait till some input comes */
   }
 
-  if ((current == processed) || (adin_stream_should_be_running == FALSE)) return 0;
+  if (current == processed) return 0;
+  if (adin_stream_should_be_running == FALSE) return -1;
 
   current_local = current;
 
@@ -333,7 +334,7 @@ adin_mic_read(SP16 *buf, int sampnum)
   printf("process-1: processed=%d, current=%d\n", processed, current_local);
 #endif
   if (speech==NULL)
-	return -1; //TODO: testing
+	return -1; 
 
   if (processed < current_local) {
     avail = current_local - processed;
@@ -375,6 +376,7 @@ adin_mic_read(SP16 *buf, int sampnum)
 #ifdef DDEBUG
   printf("process-3: new processed: %d\n", processed);
 #endif
+  if (len == 0) return -1;
   return len;
 }
 

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-01-15 10:39+0100\n"
+"POT-Creation-Date: 2009-01-15 17:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,60 +24,58 @@ msgid ""
 "The missing commands are: %1."
 msgstr ""
 
-#: listcommand.cpp:52
+#: listcommand.cpp:51
 msgid "Zero"
 msgstr ""
 
-#: listcommand.cpp:52
+#: listcommand.cpp:51
 msgid "One"
 msgstr ""
 
-#: listcommand.cpp:52
+#: listcommand.cpp:51
 msgid "Two"
 msgstr ""
 
-#: listcommand.cpp:53
+#: listcommand.cpp:52
 msgid "Three"
 msgstr ""
 
-#: listcommand.cpp:53
+#: listcommand.cpp:52
 msgid "Four"
 msgstr ""
 
-#: listcommand.cpp:53
+#: listcommand.cpp:52
 msgid "Five"
 msgstr ""
 
-#: listcommand.cpp:54
+#: listcommand.cpp:53
 msgid "Six"
 msgstr ""
 
-#: listcommand.cpp:54
+#: listcommand.cpp:53
 msgid "Seven"
 msgstr ""
 
-#: listcommand.cpp:54
+#: listcommand.cpp:53
 msgid "Eight"
 msgstr ""
 
-#: listcommand.cpp:54
+#: listcommand.cpp:53
 msgid "Nine"
 msgstr ""
 
-#: listcommand.cpp:115
+#. i18n: file: listcommand.ui:45
+#. i18n: ectx: property (text), widget (QPushButton, pbCancel)
+#: listcommand.cpp:76 po/rc.cpp:30 rc.cpp:30
+msgid "Cancel"
+msgstr ""
+
+#: listcommand.cpp:116
 msgid "List"
 msgstr ""
 
-#: listcommand.cpp:136
+#: listcommand.cpp:137
 msgid "Commands"
-msgstr ""
-
-#: listcommand.cpp:151
-msgid "Number"
-msgstr ""
-
-#: listcommand.cpp:153
-msgid "Command"
 msgstr ""
 
 #: listcommandmanager.cpp:68
@@ -130,18 +128,24 @@ msgstr ""
 msgid "Move Down"
 msgstr ""
 
-#. i18n: file: listcommand.ui:20
+#. i18n: file: listcommand.ui:32
 #. i18n: ectx: property (text), widget (QTableWidget, twCommands)
 #: po/rc.cpp:24 rc.cpp:24
-msgid "Kommando"
+msgid "Number"
 msgstr ""
 
-#: po/rc.cpp:25 rc.cpp:25
+#. i18n: file: listcommand.ui:37
+#. i18n: ectx: property (text), widget (QTableWidget, twCommands)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "Command"
+msgstr ""
+
+#: po/rc.cpp:31 rc.cpp:31
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: po/rc.cpp:26 rc.cpp:26
+#: po/rc.cpp:32 rc.cpp:32
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
