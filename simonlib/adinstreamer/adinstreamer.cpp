@@ -179,7 +179,7 @@ static int adinnet_check_command(Recog *)
 					return -2;
 					break;
 				default:
-					fprintf(stderr, "adintool: unknown command adinnet_check_command: %d\n", com);
+//					fprintf(stderr, "adintool: unknown command adinnet_check_command: %d\n", com);
 					adinstreamer_unknown_command_counter++;
 					if (adinstreamer_unknown_command_counter > 10)
 					{

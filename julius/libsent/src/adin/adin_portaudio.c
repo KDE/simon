@@ -333,7 +333,7 @@ adin_mic_read(SP16 *buf, int sampnum)
   printf("process-1: processed=%d, current=%d\n", processed, current_local);
 #endif
   if (speech==NULL)
-	return 0;
+	return -1; //TODO: testing
 
   if (processed < current_local) {
     avail = current_local - processed;
