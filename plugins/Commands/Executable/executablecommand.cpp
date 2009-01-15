@@ -56,11 +56,15 @@ const QMap<QString,QVariant> ExecutableCommand::getValueMapPrivate() const
 bool ExecutableCommand::triggerPrivate()
 {
 	QStringList commands = exe.split(";");
+	KProcess proc;
 	for (int i=0; i < commands.count(); i++)
 	{
-		QString exe = commands[i].trimmed();
+		QString thisExe = commands[i].trimmed();
+		proc.setShellCommand(thisExe);
+		proc.setWorkingDirectory(workingDirectory.path());
+		proc.startDetached();
 
-		QString executable;
+/*		QString executable;
 		QStringList args;
 		if (exe.contains(" "))
 		{
@@ -71,8 +75,9 @@ bool ExecutableCommand::triggerPrivate()
 
 		KProcess proc;
 		proc.setWorkingDirectory(workingDirectory.path());
-		proc.startDetached  (executable, args );
-	}
+		proc.
+		proc.startDetached  (executable, args );*/
 
+	}
 	return true;
 }

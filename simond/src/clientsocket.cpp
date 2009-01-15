@@ -951,6 +951,7 @@ bool ClientSocket::sendActiveModel()
 
 void ClientSocket::synchronisationDone()
 {
+	kWarning() << "Synchronisation done";
 	synchronisationRunning=false;
 	//reset modelsource
 	modelSource = ClientSocket::Undefined;
@@ -968,6 +969,7 @@ void ClientSocket::synchronisationDone()
 //FIXME: commit will fail if we didn't even start the synchronisation (client has same model)
 void ClientSocket::synchronisationComplete()
 {
+	kWarning() << "Synchronisation complete";
 	if (!synchronisationManager->commit())
 	{
 		kWarning() << "Synchronisation commit failed";

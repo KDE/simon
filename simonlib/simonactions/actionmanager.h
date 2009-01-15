@@ -32,6 +32,18 @@ class CreateCommandWidget;
 class CommandSettings;
 class KCModule;
 
+class GreedyReceiver {
+	private:
+		QObject *m_receiver;
+		const char* m_slot;
+	public:
+		QObject* receiver() const { return m_receiver; }
+		const char* slot() const { return m_slot; }
+
+		GreedyReceiver(QObject *receiver, const char* slot) 
+			: m_receiver(receiver), m_slot(slot) {}
+};
+
 class SIMONACTIONS_EXPORT ActionManager : public QObject {
 
 Q_OBJECT
@@ -47,6 +59,7 @@ private:
 	static ActionManager* instance;
 
 	CommandSettings* commandSettings;
+	QList<GreedyReceiver> greedyReceivers;
 
 	QList<CommandManager*> *managers;
 	QStringList trigger;
@@ -90,6 +103,8 @@ public:
 
 	CommandList* getCommandList();
 
+	void deRegisterPrompt(QObject* receiver, const char* slot);
+	void registerPrompt(QObject* receiver, const char* slot);
 
 	~ActionManager();
 

@@ -292,10 +292,11 @@ adin_purge(ADIn *a, int from)
  *
  */
 static int
-adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Recog *recog)
+adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Recog **recog_p)
 {
   ADIn *a;
   ADIn **a_ptr;
+  Recog *recog = *recog_p;
   int i;
   int ad_process_ret;
   int imax, len, cnt;
@@ -375,8 +376,10 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
       } else {
 	cnt = (*(a->ad_read))(&(a->buffer[a->bp]), a->bpmax - a->bp);
       }
-      if ((*a_ptr) == NULL) // have we deleted the adin pointer? 
+      if (((*recog_p) == NULL) || ((*a_ptr) == NULL)) // have we deleted the adin pointer? 
+      {
         return 0;
+      }
       if (cnt < 0) {		/* end of stream / segment or error */
 	/* set the end status */
 	switch(cnt) {
@@ -947,7 +950,7 @@ adin_thread_input_main(Recog *recog)
 {
   int ret;
 
-  ret = adin_cut(adin_store_buffer, NULL, recog);
+  ret = adin_cut(adin_store_buffer, NULL, &recog);
 
   if (ret == -1) {		/* error */
     jlog("Error: adin thread exit with error\n");
@@ -1032,7 +1035,7 @@ adin_thread_create(Recog *recog)
  * input termination requested by ad_check().
  */
 static int
-adin_thread_process(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Recog *recog)
+adin_thread_process(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Recog **recog)
 {
   int prev_len, nowlen;
   int ad_process_ret;
@@ -1042,7 +1045,7 @@ adin_thread_process(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Rec
   boolean ended_p;
   ADIn *a;
 
-  a = recog->adin;
+  a = (*recog)->adin;
 
   /* reset storing buffer --- input while recognition will be ignored */
   pthread_mutex_lock(&(a->mutex));
@@ -1081,7 +1084,7 @@ adin_thread_process(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Rec
     }
     /* callback poll */
     if (ad_check != NULL) {
-      if ((i = (*(ad_check))(recog)) < 0) {
+      if ((i = (*(ad_check))(*recog)) < 0) {
 	if ((i == -1 && nowlen == 0) || i == -2) {
 	  pthread_mutex_lock(&(a->mutex));
 	  a->transfer_online = transfer_online_local = FALSE;
@@ -1103,7 +1106,7 @@ adin_thread_process(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Rec
        */
       /*jlog("DEBUG: main: read %d-%d\n", prev_len, nowlen);*/
       if (ad_process != NULL) {
-	ad_process_ret = (*ad_process)(&(a->speech[prev_len]), nowlen - prev_len, recog);
+	ad_process_ret = (*ad_process)(&(a->speech[prev_len]), nowlen - prev_len, *recog);
 #ifdef THREAD_DEBUG
 	jlog("DEBUG: ad_process_ret=%d\n", ad_process_ret);
 #endif
@@ -1196,16 +1199,16 @@ adin_thread_process(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Rec
  * 
  */
 int
-adin_go(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Recog *recog)
+adin_go(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Recog **recog_p)
 {
   /* output listening start message */
-  callback_exec(CALLBACK_EVENT_SPEECH_READY, recog);
+  callback_exec(CALLBACK_EVENT_SPEECH_READY, *recog_p);
 #ifdef HAVE_PTHREAD
-  if (recog->adin->enable_thread) {
-    return(adin_thread_process(ad_process, ad_check, recog));
+  if ((*recog_p)->adin->enable_thread) {
+    return(adin_thread_process(ad_process, ad_check, recog_p));
   }
 #endif
-  int ret = (adin_cut(ad_process, ad_check, recog));
+  int ret = (adin_cut(ad_process, ad_check, recog_p));
   return(ret);
 }
 

@@ -1,0 +1,155 @@
+# Dutch simon translations.
+# Daniël Heres (c) 2009
+# This file is distributed under the same license as the simon package.
+# Daniël Heres <danielheres@gmail.com>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: simonshortcutcommand_de\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2008-12-09 09:10+0100\n"
+"PO-Revision-Date: 2009-01-14 11:57+0100\n"
+"Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
+"Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. i18n: file: createshortcutcommandwidget.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateShortcutCommandWidget)
+#: po/rc.cpp:3
+#: rc.cpp:3
+msgid "Form"
+msgstr "Formulier"
+
+#. i18n: file: createshortcutcommandwidget.ui:19
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:6
+#: rc.cpp:6
+msgid "Shortcut:"
+msgstr "Snelkoppeling:"
+
+#. i18n: file: createshortcutcommandwidget.ui:29
+#. i18n: ectx: property (text), widget (QLabel, lbSpecialShortcut)
+#: po/rc.cpp:9
+#: rc.cpp:9
+msgid "Special Shortcut:"
+msgstr "Speciale snelkoppeling:"
+
+#. i18n: file: createshortcutcommandwidget.ui:39
+#. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
+#: po/rc.cpp:12
+#: rc.cpp:12
+msgid "Alt+Tab"
+msgstr "Alt+Tab"
+
+#. i18n: file: createshortcutcommandwidget.ui:44
+#. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
+#: po/rc.cpp:15
+#: rc.cpp:15
+msgid "Alt+F4"
+msgstr "Alt+F4"
+
+#. i18n: file: createshortcutcommandwidget.ui:49
+#. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
+#: po/rc.cpp:18
+#: rc.cpp:18
+msgid "Ctrl+Esc"
+msgstr "Ctrl+Esc"
+
+#. i18n: file: createshortcutcommandwidget.ui:54
+#. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
+#: po/rc.cpp:21
+#: rc.cpp:21
+msgid "Ctrl+Alt+Esc"
+msgstr "Ctrl+Alt+Esc"
+
+#. i18n: file: createshortcutcommandwidget.ui:62
+#. i18n: ectx: property (text), widget (KPushButton, pbApplySpecialShortcut)
+#: po/rc.cpp:24
+#: rc.cpp:24
+msgid "Apply"
+msgstr "Toepassen"
+
+#: po/rc.cpp:25
+#: rc.cpp:25
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Daniël Heres"
+
+#: po/rc.cpp:26
+#: rc.cpp:26
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "danielheres@gmail.com"
+
+#: shortcutcommand.cpp:28
+#: shortcutcommand.cpp:50
+msgid "Shortcut"
+msgstr "Snelkoppeling"
+
+#: shortcutcommandmanager.cpp:64
+msgid "[INF] Loading shortcuts from %1"
+msgstr "[INF] Snelkoppeling laden van %1"
+
+#: shortcutcommandmanager.cpp:74
+msgid "[INF] Saving Shortcuts to %1"
+msgstr "[INF] Snelkoppeling opslaan naar %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading executable commands from %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving executable commands to %1"
+#~ msgstr "[INF] Speichere Tastenkrzel nach %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading place commands from %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving place commands to %1"
+#~ msgstr "[INF] Speichere Tastenkrzel nach %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading text-macro commands from %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving text-macro commands to %1"
+#~ msgstr "[INF] Speichere Tastenkrzel nach %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading grammar from %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "[INF] Parsing prompts-file from %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "[INF] Removing \"%1\" from \"%2\""
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "[INF] Saving wordlist(s)"
+#~ msgstr "[INF] Speichere Tastenkrzel nach %1"
+
+#, fuzzy
+#~ msgid "[INF] Opening output file: %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "[INF] Closing output file"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "[INF] Starting remove import from \"%1\""
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+
+#, fuzzy
+#~ msgid "[INF] Loading List of Trainingstexts from %1"
+#~ msgstr "[INF] Lade Tastenkrzel von %1"
+

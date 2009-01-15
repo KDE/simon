@@ -264,7 +264,7 @@ boolean multigram_add_prefix_filelist(char *listfile, JCONF_LM *j, int lmvar);
 /* adin-cut.c */
 boolean adin_setup_param(ADIn *adin, Jconf *jconf);
 boolean adin_thread_create(Recog *recog);
-int adin_go(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Recog *recog);
+int adin_go(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Recog **recog);
 boolean adin_standby(ADIn *a, int freq, void *arg);
 boolean adin_begin(ADIn *a);
 boolean adin_end(ADIn *a);

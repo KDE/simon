@@ -20,6 +20,7 @@
 #include "createexecutablecommandwidget.h"
 #include "executablecommand.h"
 #include "ImportProgram/importprogramwizard.h"
+#include <KLineEdit>
 
 CreateExecutableCommandWidget::CreateExecutableCommandWidget(QWidget *parent) : CreateCommandWidget(parent)
 {
@@ -33,8 +34,16 @@ CreateExecutableCommandWidget::CreateExecutableCommandWidget(QWidget *parent) : 
 	setWindowTitle(ExecutableCommand::staticCategoryText());
 	
 	connect(ui.urExecutable, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+	connect(ui.urExecutable, SIGNAL(urlSelected(const KUrl&)), this, SLOT(urlSelected(const KUrl&)));
 	
 	connect(ui.cbImportProgram, SIGNAL(clicked()), this, SLOT(showImportWizard()));
+}
+
+void CreateExecutableCommandWidget::urlSelected(const KUrl& urlSelected)
+{
+	//wrap url in quotes
+	ui.urExecutable->lineEdit()->setText("\""+urlSelected.path()+"\"");
+
 }
 
 bool CreateExecutableCommandWidget::isComplete()

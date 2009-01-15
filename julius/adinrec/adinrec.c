@@ -297,7 +297,7 @@ main(int argc, char *argv[])
   speechlen = 0;
   sfreq = recog->jconf->input.sfreq;
   fprintf(stderr, "<<< please speak >>>"); /* moved from adin-cut.c */
-  adin_go(adin_callback_file, NULL, recog);
+  adin_go(adin_callback_file, NULL, &recog);
   /* close device */
   adin_end(recog->adin);
   /* close output file */

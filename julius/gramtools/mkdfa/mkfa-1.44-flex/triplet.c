@@ -150,7 +150,7 @@ FA *processTripletQueue( FA *fa )
     FAQ *newFAQ;
 
     if( fa != NULL ){
-	if( (newFAQ = malloc( sizeof(newFAQ) )) == NULL ){
+	if( (newFAQ = malloc( sizeof(FAQ) )) == NULL ){
 	    errMes( "Can't malloc queue for breadth-first search of triplet list" );
 	}
 	newFAQ->fa = fa;

@@ -24,6 +24,7 @@
 #include <commandpluginbase/createcommandwidget.h>
 
 #include <QFile>
+#include <QMetaObject>
 
 #include <KMessageBox>
 #include <KLocalizedString>
@@ -214,6 +215,23 @@ bool ActionManager::askDeleteCommandByTrigger(QString trigger)
 	return allDeleted;
 }
 
+
+void ActionManager::registerPrompt(QObject *receiver, const char* slot)
+{
+	greedyReceivers << GreedyReceiver(receiver, slot);
+}
+
+void ActionManager::deRegisterPrompt(QObject *d_receiver, const char* d_slot)
+{
+	for (int i=0; i < greedyReceivers.count(); i++)
+	{
+		if ((greedyReceivers[i].receiver() == d_receiver)
+				&& (greedyReceivers[i].slot() == d_slot))
+			greedyReceivers.removeAt(i--);
+	}
+
+}
+
 bool ActionManager::addCommand(Command *command)
 {
 	Q_ASSERT(managers);
@@ -234,10 +252,8 @@ bool ActionManager::addCommand(Command *command)
 	}
 	if (!added)
 		KMessageBox::error(0, i18n("Couldn't add Command \"%1\".", command->getTrigger()));
-	else {
-//		emit commandsChanged(getCommandList());
+	else 
 		emit commandAdded(command);
-	}
 
 	return added;
 }
@@ -327,6 +343,19 @@ CommandList* ActionManager::getCommandsOfCategory(const QString& category)
 void ActionManager::process(QString input)
 {
 	kWarning() << "Input: " << input;
+	if (!greedyReceivers.isEmpty())
+	{
+		kWarning() << "Executing hooks";
+		foreach (const GreedyReceiver& rec, greedyReceivers)
+		{
+			bool accepted;
+			QMetaObject::invokeMethod(rec.receiver(), rec.slot(), 
+					Qt::DirectConnection, Q_RETURN_ARG(bool, accepted), Q_ARG(QString, input));
+			if (accepted) return;
+		}
+		return;
+	}
+
 	Q_ASSERT(managers);
 	Q_ASSERT(commandSettings);
 

@@ -5,8 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simoncompositecommand\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-01-13 17:01+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-01-14 19:53+0100\n"
 "PO-Revision-Date: 2009-01-13 17:02+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -24,8 +25,9 @@ msgstr "Kombination"
 msgid "Commands"
 msgstr "Kommandos"
 
-#: compositecommand.cpp:65 createcompositecommandwidget.cpp:121
-#: delaycommand.cpp:30 delaycommand.cpp:51
+#: compositecommand.cpp:64 compositecommand.cpp:65
+#: createcompositecommandwidget.cpp:121 delaycommand.cpp:30
+#: delaycommand.cpp:51
 msgid "Delay"
 msgstr "Verzögerung"
 
@@ -110,4 +112,3 @@ msgstr "Peter Grasch"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
-

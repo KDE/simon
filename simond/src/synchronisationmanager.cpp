@@ -623,6 +623,11 @@ bool SynchronisationManager::commit()
 
 	KConfig config( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
+	kWarning() << cGroup.readEntry("WordListDate", QDateTime());
+	kWarning() << cGroup.readEntry("GrammarDate", QDateTime());
+	kWarning() << cGroup.readEntry("LanguageDescriptionDate", QDateTime());
+	kWarning() << cGroup.readEntry("TrainingDate", QDateTime());
+
 	QDateTime newSrcContainerTime = qMax(cGroup.readEntry("WordListDate", QDateTime()),
 					 cGroup.readEntry("GrammarDate", QDateTime()));
 	newSrcContainerTime = qMax(newSrcContainerTime, cGroup.readEntry("LanguageDescriptionDate", QDateTime()));
@@ -769,49 +774,34 @@ QMap<QDateTime, QString> SynchronisationManager::getLanguageDescriptions()
 
 bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 {
+	kWarning() << "Starting synchronization";
 	if (!startSynchronisation()) return false;
-
-	QDateTime newModelDate = QDateTime::currentDateTime();
-	KConfig config( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
-	KConfigGroup cGroup(&config, "");
-	cGroup.writeEntry("WordListDate", newModelDate);
-	cGroup.writeEntry("GrammarDate", newModelDate);
-	cGroup.writeEntry("TrainingDate", newModelDate);
-	cGroup.writeEntry("LanguageDescriptionDate", newModelDate);
-	config.sync();
-
+	kWarning() << "Finished Starting synchronization";
 	QString wordListPath, grammarPath, trainingPath, languageDescriptionPath;
 	QMap<QDateTime,QString> wordlistModels = getWordLists();
-	for (QMap<QDateTime,QString>::const_iterator i=wordlistModels.constBegin(); i != wordlistModels.constEnd(); i++)
-		if (i.key() >= modelDate)
-		{
+	for (QMap<QDateTime,QString>::const_iterator i=wordlistModels.constBegin(); 
+			(i != wordlistModels.constEnd()) && (i.key() <= modelDate); i++)
 			wordListPath = i.value();
-			break;
-		}
+
 	QMap<QDateTime,QString> grammarModels = getGrammars();
-	for (QMap<QDateTime,QString>::const_iterator i=grammarModels.constBegin(); i != grammarModels.constEnd(); i++)
-		if (i.key() >= modelDate)
-		{
-			grammarPath = i.value();
-			break;
-		}
+	for (QMap<QDateTime,QString>::const_iterator i=grammarModels.constBegin(); 
+			(i != grammarModels.constEnd()) && (i.key() <= modelDate); i++)
+		grammarPath = i.value();
+
 	QMap<QDateTime,QString> trainingModels = getTrainingDatas();
-	for (QMap<QDateTime,QString>::const_iterator i=trainingModels.constBegin(); i != trainingModels.constEnd(); i++)
-		if (i.key() >= modelDate)
-		{
-			trainingPath = i.value();
-			break;
-		}
+	for (QMap<QDateTime,QString>::const_iterator i=trainingModels.constBegin(); 
+			(i != trainingModels.constEnd()) && (i.key() <= modelDate); i++)
+		trainingPath = i.value();
+
 	QMap<QDateTime,QString> languageDescriptionModels = getLanguageDescriptions();
-	for (QMap<QDateTime,QString>::const_iterator i=languageDescriptionModels.constBegin(); i != languageDescriptionModels.constEnd(); i++)
-		if (i.key() >= modelDate)
-		{
-			languageDescriptionPath = i.value();
-			break;
-		}
+	for (QMap<QDateTime,QString>::const_iterator i=languageDescriptionModels.constBegin(); 
+			(i != languageDescriptionModels.constEnd()) && (i.key()<=modelDate); i++)
+		languageDescriptionPath = i.value();
 
 	if (wordListPath.isEmpty() || grammarPath.isEmpty() || trainingPath.isEmpty() || languageDescriptionPath.isEmpty()) {
 		abort();
+		kWarning() << "One of the paths is empty";
+		kWarning() << wordListPath << grammarPath << trainingPath << languageDescriptionPath;
 		return false;
 	}
 
@@ -824,9 +814,22 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 	if (!allCopied)
 	{
 		abort();
+		kWarning() << "Could not copy everything";
 		return false;
 	}
 
+	//updating date stamp
+	QDateTime newModelDate = QDateTime::currentDateTime();
+	KConfig config( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
+	KConfigGroup cGroup(&config, "");
+	cGroup.writeEntry("WordListDate", newModelDate);
+	cGroup.writeEntry("GrammarDate", newModelDate);
+	cGroup.writeEntry("TrainingDate", newModelDate);
+	cGroup.writeEntry("LanguageDescriptionDate", newModelDate);
+	config.sync();
+
+
+	kWarning() << "Committing";
 	return commit();
 }
 

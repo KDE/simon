@@ -356,7 +356,7 @@ void AdinStreamer::run()
 			adinstreamer_speechlen = 0;
 			adinstreamer_stop_at_next = FALSE;
 // 			fprintf(stderr, "<<< please speak >>>");
-			ret = adin_go(adin_callback_adinnet, adinnet_check_command, recog);
+			ret = adin_go(adin_callback_adinnet, adinnet_check_command, &recog);
 			/* return value of adin_go:
 				-2: input terminated by pause command from adinnet server
 				-1: input device read error or callback process error
@@ -415,7 +415,6 @@ void AdinStreamer::run()
 	recog=NULL;
 	j_recog_free(realRecog);
 
-	fprintf(stderr, "CLOSING SOCKET!\n");
 	close(adinstreamer_socketDescriptor);
 	fprintf(stderr, "Socket closed\n");
 	adinstreamer_socketDescriptor=0;

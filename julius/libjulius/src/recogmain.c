@@ -755,7 +755,7 @@ j_recognize_stream_core(Recog *recog)
 	  /* process the incoming input */
 	  if (jconf->input.type == INPUT_WAVEFORM) {
 	    /* get speech and process it on real-time */
-	    ret = adin_go(RealTimePipeLine, callback_check_in_adin, recog);
+	    ret = adin_go(RealTimePipeLine, callback_check_in_adin, &recog);
             fprintf(stderr, "759: adin_go returned: %d\n", ret);
 	  } else {
 	    /* get feature vector and process it */
@@ -799,7 +799,7 @@ j_recognize_stream_core(Recog *recog)
 	/* process the incoming input */
 	if (jconf->input.type == INPUT_WAVEFORM) {
 	  /* get speech and process it on real-time */
-	  ret = adin_go(RealTimePipeLine, callback_check_in_adin, recog);
+	  ret = adin_go(RealTimePipeLine, callback_check_in_adin, &recog);
           fprintf(stderr, "803: adin_go returned: %d\n", ret);
 	} else {
 	  /* get feature vector and process it */
@@ -915,7 +915,7 @@ j_recognize_stream_core(Recog *recog)
 	  /* end of this input will be determined by either end of stream
 	     (in case of file input), or silence detection by adin_go(), or
 	     'TERMINATE' command from module (if module mode) */
-	  ret = adin_go(adin_cut_callback_store_buffer, callback_check_in_adin, recog);
+	  ret = adin_go(adin_cut_callback_store_buffer, callback_check_in_adin, &recog);
           fprintf(stderr, "919: adin_go returned: %d\n", ret);
 	  if (ret < 0) {		/* error end in adin_go */
 	    if (ret == -2 || recog->process_want_terminate) {

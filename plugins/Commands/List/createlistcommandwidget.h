@@ -17,34 +17,40 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef CREATEEXECUTABLECOMMANDWIDGET_H
-#define CREATEEXECUTABLECOMMANDWIDGET_H
+#ifndef CREATELISTCOMMANDWIDGET_H
+#define CREATELISTCOMMANDWIDGET_H
 
 #include <QWidget>
 #include <commandpluginbase/createcommandwidget.h>
-#include "ui_createexecutablecommandwidget.h"
+#include <commandpluginbase/command.h>
+#include "ui_createlistcommandwidget.h"
 
 class Command;
+class CommandTableModel;
 class ImportProgramWizard;
 
 /**
- *	@class CreateExecutableCommandWidget
- *	@brief Provides a widget to modify the specific attributes of an ExecutableCommand
+ *	@class CreateListCommandWidget
+ *	@brief Provides a widget to modify the specific attributes of an ListCommand
  *
  *	@version 0.1
  *	@date 8.10.2008
  *	@author Peter Grasch
  */
-class CreateExecutableCommandWidget : public CreateCommandWidget{
+class CreateListCommandWidget : public CreateCommandWidget{
 Q_OBJECT
 
 private:
-	Ui::CreateExecutableCommandWidget ui;
-	ImportProgramWizard *importWizard;
+	CommandList* allCommands;
+	Ui::CreateListCommandWidget ui;
+	CommandTableModel *model;
 
 private slots:
-	void showImportWizard();
-	void urlSelected(const KUrl&);
+	void addCommand();
+	void removeCommand();
+	void moveUp();
+	void moveDown();
+	void enableButtons(const QModelIndex& index);
 
 public:
 	Command* createCommand(const QString& name, const QString& iconSrc);
@@ -57,10 +63,10 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateExecutableCommandWidget(QWidget *parent=0);
+	CreateListCommandWidget(QWidget *parent=0);
 
 
-	virtual ~CreateExecutableCommandWidget();
+	virtual ~CreateListCommandWidget();
 
 };
 

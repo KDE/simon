@@ -183,7 +183,7 @@ main(int argc, char *argv[])
   /* record mic input */
   fprintf(stderr, "%dHz recording for %.2f seconds of noise\n", sfreq, (float)slen /(float)1000);
   speechnum = 0;
-  adin_go(adin_callback, NULL, recog);
+  adin_go(adin_callback, NULL, &recog);
 
   /* close device */
   adin_end(recog->adin);

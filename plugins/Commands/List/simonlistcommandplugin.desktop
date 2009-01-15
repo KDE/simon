@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=system-run
+ServiceTypes=simon/CommandPlugin
+X-KDE-Library=simonlistcommandplugin
+Name=simon Composite Command Plugin
+Name[de]=simon Kombinations-Kommando Modul
+Comment=Combines multiple commands into one
+Comment[de]=Kombinierte mehrere Kommando zu einem Kommando
+
+X-KDE-PluginInfo-Author=Peter Grasch
+X-KDE-PluginInfo-Email=grasch@simon-listens.org
+X-KDE-PluginInfo-Name=simonlistcommandplugin
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://simon-listens.org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ParentApp=simon

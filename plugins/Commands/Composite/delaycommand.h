@@ -17,50 +17,56 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef CREATEEXECUTABLECOMMANDWIDGET_H
-#define CREATEEXECUTABLECOMMANDWIDGET_H
+#ifndef DELAYCOMMAND_H
+#define DELAYCOMMAND_H
 
-#include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
-#include "ui_createexecutablecommandwidget.h"
-
-class Command;
-class ImportProgramWizard;
+#include <commandpluginbase/command.h>
+#include <QList>
+#include <KUrl>
 
 /**
- *	@class CreateExecutableCommandWidget
- *	@brief Provides a widget to modify the specific attributes of an ExecutableCommand
- *
+ *	@class DelayCommand
+ *	@brief Describes a composite command; Consists of several other commands
+ *	
  *	@version 0.1
- *	@date 8.10.2008
+ *	@date 19.05.2008
  *	@author Peter Grasch
  */
-class CreateExecutableCommandWidget : public CreateCommandWidget{
+class DelayCommand : public Command{
 Q_OBJECT
-
 private:
-	Ui::CreateExecutableCommandWidget ui;
-	ImportProgramWizard *importWizard;
+	int delay;
 
-private slots:
-	void showImportWizard();
-	void urlSelected(const KUrl&);
+protected:
+	const QMap<QString,QVariant> getValueMapPrivate() const;
+	bool triggerPrivate();
 
 public:
-	Command* createCommand(const QString& name, const QString& iconSrc);
+	static const QString staticCategoryText();
+	static const KIcon staticCategoryIcon();
 
-	bool init(Command* command);
-	bool isComplete();
+	const KIcon getCategoryIcon() const;
+	const QString getCategoryText() const;
 
+	
 	/**
 	* @brief Constructor
 	* 
 	*	@author Peter Grasch
 	*/
-	CreateExecutableCommandWidget(QWidget *parent=0);
+	DelayCommand(int delay) : Command(QString::number(delay), "chronometer")
+	{
+		this->delay = delay;
+	}
 
 
-	virtual ~CreateExecutableCommandWidget();
+	void change(const QString& newName, const QString& newIconSrc, int delay)
+	{ 
+		this->delay = delay;
+		Command::change(newName, newIconSrc);
+	}
+
+    ~DelayCommand() {}
 
 };
 

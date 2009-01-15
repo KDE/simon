@@ -17,50 +17,43 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef CREATEEXECUTABLECOMMANDWIDGET_H
-#define CREATEEXECUTABLECOMMANDWIDGET_H
+#ifndef LISTCOMMANDMANAGER_H
+#define LISTCOMMANDMANAGER_H
 
-#include <QWidget>
-#include <commandpluginbase/createcommandwidget.h>
-#include "ui_createexecutablecommandwidget.h"
+#include <commandpluginbase/commandmanager.h>
+#include <QVariantList>
 
-class Command;
-class ImportProgramWizard;
-
+class XMLListCommand;
+class CreateListCommandWidget;
 /**
- *	@class CreateExecutableCommandWidget
- *	@brief Provides a widget to modify the specific attributes of an ExecutableCommand
+ *	@class ListCommandManager
+ *	@brief Manager for the list commands
  *
  *	@version 0.1
- *	@date 8.10.2008
+ *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class CreateExecutableCommandWidget : public CreateCommandWidget{
+class ListCommandManager : public CommandManager {
 Q_OBJECT
-
 private:
-	Ui::CreateExecutableCommandWidget ui;
-	ImportProgramWizard *importWizard;
-
-private slots:
-	void showImportWizard();
-	void urlSelected(const KUrl&);
-
+	XMLListCommand* xmlListCommand;
 public:
-	Command* createCommand(const QString& name, const QString& iconSrc);
+	const KIcon icon() const;
+	bool addCommand(Command *command);
+	const QString name() const;
+	bool load();
+	bool save();
+	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	bool init(Command* command);
-	bool isComplete();
+    /**
+    * @brief Constructor
+    * 
+    *	@author Peter Grasch
+    */
+    ListCommandManager(QObject *parent, const QVariantList& args);
 
-	/**
-	* @brief Constructor
-	* 
-	*	@author Peter Grasch
-	*/
-	CreateExecutableCommandWidget(QWidget *parent=0);
-
-
-	virtual ~CreateExecutableCommandWidget();
+    
+    ~ListCommandManager();
 
 };
 
