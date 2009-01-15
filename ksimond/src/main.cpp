@@ -7,7 +7,7 @@
 static const char description[] =
     I18N_NOOP("A KDE 4 frontend for simond");
 
-static const char version[] = "0.2-beta-2";
+static const char version[] = "0.2-beta-3";
 
 int main(int argc, char **argv)
 {
