@@ -93,12 +93,13 @@ bool ListCommand::executeSelection(QString inputText)
 		// if index==1, we want it to represent the _first_ entry in the list (index==0)
 		index--;
 
+		Q_ASSERT(commands.count() == commandTypes.count());
+		if (index >= commands.count())
+			return false;
+
 		w->setRangeSelected(QTableWidgetSelectionRange(index, 0, index, 1), true);
 
-		Q_ASSERT(commands.count() == commandTypes.count());
 
-		if (index > commands.count())
-			return false;
 
 		usleep(300000);
 		w->close();

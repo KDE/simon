@@ -1,0 +1,150 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Peter Grasch <grasch@simon-listens.org>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: simonlistcommand_de\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-01-15 10:39+0100\n"
+"PO-Revision-Date: 2009-01-15 09:33+0100\n"
+"Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
+"Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: createlistcommandwidget.cpp:140
+msgid ""
+"Couldn't find all of the commands that make up this list command.\n"
+"\n"
+"The missing commands are: %1."
+msgstr ""
+"Konnte nicht alle Kommandos finden die dieses Listen-Kommando ausmachen.\n"
+"\n"
+"Die fehlenden Kommandos sind: %1."
+
+#: listcommand.cpp:52
+msgid "Zero"
+msgstr "Null"
+
+#: listcommand.cpp:52
+msgid "One"
+msgstr "Eins"
+
+#: listcommand.cpp:52
+msgid "Two"
+msgstr "Zwei"
+
+#: listcommand.cpp:53
+msgid "Three"
+msgstr "Drei"
+
+#: listcommand.cpp:53
+msgid "Four"
+msgstr "Vier"
+
+#: listcommand.cpp:53
+msgid "Five"
+msgstr "Fünf"
+
+#: listcommand.cpp:54
+msgid "Six"
+msgstr "Sechs"
+
+#: listcommand.cpp:54
+msgid "Seven"
+msgstr "Sieben"
+
+#: listcommand.cpp:54
+msgid "Eight"
+msgstr "Acht"
+
+#: listcommand.cpp:54
+msgid "Nine"
+msgstr "Neun"
+
+#: listcommand.cpp:115
+msgid "List"
+msgstr "Liste"
+
+#: listcommand.cpp:136
+msgid "Commands"
+msgstr "Kommandos"
+
+#: listcommand.cpp:151
+msgid "Number"
+msgstr "Nummer"
+
+#: listcommand.cpp:153
+msgid "Command"
+msgstr "Kommando"
+
+#: listcommandmanager.cpp:68
+msgid "[INF] Loading list commands from %1"
+msgstr "[INF] Lade Listen-Kommandos von %1"
+
+#: listcommandmanager.cpp:78
+msgid "[INF] Saving list commands to %1"
+msgstr "[INF] Speichere Listen Kommandos nach %1"
+
+#. i18n: file: createlistcommandwidget.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateListCommandWidget)
+#. i18n: file: listcommand.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, ListCommandWidget)
+#. i18n: file: createlistcommandwidget.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateListCommandWidget)
+#. i18n: file: listcommand.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, ListCommandWidget)
+#: po/rc.cpp:3 po/rc.cpp:21 rc.cpp:3 rc.cpp:21
+msgid "Form"
+msgstr "Form"
+
+#. i18n: file: createlistcommandwidget.ui:19
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "Command:"
+msgstr "Kommando:"
+
+#. i18n: file: createlistcommandwidget.ui:29
+#. i18n: ectx: property (text), widget (QPushButton, pbAddCommand)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Add Command"
+msgstr "Kommando hinzufügen"
+
+#. i18n: file: createlistcommandwidget.ui:51
+#. i18n: ectx: property (text), widget (QPushButton, pbRemove)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Remove"
+msgstr "Löschen"
+
+#. i18n: file: createlistcommandwidget.ui:61
+#. i18n: ectx: property (text), widget (QPushButton, pbMoveUp)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "Move Up"
+msgstr "Nach oben"
+
+#. i18n: file: createlistcommandwidget.ui:71
+#. i18n: ectx: property (text), widget (QPushButton, pbMoveDown)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "Move Down"
+msgstr "Nach unten"
+
+#. i18n: file: listcommand.ui:20
+#. i18n: ectx: property (text), widget (QTableWidget, twCommands)
+#: po/rc.cpp:24 rc.cpp:24
+msgid "Kommando"
+msgstr "Kommando"
+
+#: po/rc.cpp:25 rc.cpp:25
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Peter Grasch"
+
+#: po/rc.cpp:26 rc.cpp:26
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "grasch@simon-listens.org"

@@ -1,0 +1,29 @@
+<ui version="4.0" >
+ <class>ListCommandWidget</class>
+ <widget class="QWidget" name="ListCommandWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>143</width>
+    <height>212</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <item>
+    <widget class="QTableWidget" name="twCommands" >
+     <column>
+      <property name="text" >
+       <string>Kommando</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

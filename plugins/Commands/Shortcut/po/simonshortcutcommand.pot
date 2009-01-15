@@ -1,0 +1,88 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2008-12-09 09:10+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. i18n: file: createshortcutcommandwidget.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreateShortcutCommandWidget)
+#: po/rc.cpp:3 rc.cpp:3
+msgid "Form"
+msgstr ""
+
+#. i18n: file: createshortcutcommandwidget.ui:19
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "Shortcut:"
+msgstr ""
+
+#. i18n: file: createshortcutcommandwidget.ui:29
+#. i18n: ectx: property (text), widget (QLabel, lbSpecialShortcut)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Special Shortcut:"
+msgstr ""
+
+#. i18n: file: createshortcutcommandwidget.ui:39
+#. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Alt+Tab"
+msgstr ""
+
+#. i18n: file: createshortcutcommandwidget.ui:44
+#. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "Alt+F4"
+msgstr ""
+
+#. i18n: file: createshortcutcommandwidget.ui:49
+#. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "Ctrl+Esc"
+msgstr ""
+
+#. i18n: file: createshortcutcommandwidget.ui:54
+#. i18n: ectx: property (text), item, widget (KComboBox, cbSpecialShortcut)
+#: po/rc.cpp:21 rc.cpp:21
+msgid "Ctrl+Alt+Esc"
+msgstr ""
+
+#. i18n: file: createshortcutcommandwidget.ui:62
+#. i18n: ectx: property (text), widget (KPushButton, pbApplySpecialShortcut)
+#: po/rc.cpp:24 rc.cpp:24
+msgid "Apply"
+msgstr ""
+
+#: po/rc.cpp:25 rc.cpp:25
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#: po/rc.cpp:26 rc.cpp:26
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+
+#: shortcutcommand.cpp:28 shortcutcommand.cpp:50
+msgid "Shortcut"
+msgstr ""
+
+#: shortcutcommandmanager.cpp:64
+msgid "[INF] Loading shortcuts from %1"
+msgstr ""
+
+#: shortcutcommandmanager.cpp:74
+msgid "[INF] Saving Shortcuts to %1"
+msgstr ""
