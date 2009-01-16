@@ -44,25 +44,55 @@ ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QStr
 	
 	clw = new CommandListWidget();
 	connect(clw, SIGNAL(canceled()), this, SLOT(cancel()));
-	connect(clw, SIGNAL(runRequest(int)), this, SLOT(runCommand(int)));
+	connect(clw, SIGNAL(runRequest(int)), this, SLOT(processRequest(int)));
 	
 
 	if (numberIdentifiers.isEmpty())
 		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
 			<< i18n("Three") << i18n("Four") << i18n("Five") <<
 			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
+	
+	startIndex=0;
 }
 
-void ListCommand::runCommand(int index)
+
+bool ListCommand::processRequest(int index)
 {
 	Q_ASSERT(commands.count() == commandTypes.count());
 
 	if (index > commands.count())
-		return;
+		return false;
 
-	ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
-	clw->close();
-	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
+	if (index == 0)
+	{
+		//go back
+		if (startIndex > 0)
+			startIndex -= 8;
+		listCurrentCommandSection();
+		return true;
+	} else if (index == 9)
+	{
+		//go forward
+		if (startIndex+8 < commands.count())
+			startIndex += 8;
+		listCurrentCommandSection();
+		return true;
+	} else {
+		//execute list entry
+		// if index==1, we want it to represent the _first_ entry in the list (index==0)
+		index--;
+		index += startIndex;
+
+		Q_ASSERT(commands.count() == commandTypes.count());
+		if (index >= commands.count())
+			return false;
+
+		clw->close();
+		usleep(300000);
+		ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
+		ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
+	}
+
 }
 
 void ListCommand::cancel()
@@ -84,29 +114,9 @@ bool ListCommand::executeSelection(QString inputText)
 	while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != inputText.toUpper()))
 		index++;
 
-	kWarning() << numberIdentifiers << inputText;
 	if (index == numberIdentifiers.count()) return false;
-	if (index == 0)
-	{
-		//go back
-	} else if (index == 9)
-	{
-		//go forward
 
-	} else {
-		//execute list entry
-		// if index==1, we want it to represent the _first_ entry in the list (index==0)
-		index--;
-
-		Q_ASSERT(commands.count() == commandTypes.count());
-		if (index >= commands.count())
-			return false;
-
-		clw->close();
-		usleep(300000);
-		ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
-		ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
-	}
+	return processRequest(index);
 
 	return true;
 }
@@ -138,6 +148,28 @@ const QMap<QString,QVariant> ListCommand::getValueMapPrivate() const
 	return out;
 }
 
+void ListCommand::listCurrentCommandSection()
+{
+	QStringList nowIconSrcs, nowCommands;
+	for (int i=startIndex; (i < commands.count()) && (i-startIndex < 8); i++)
+	{
+		nowIconSrcs << iconsrcs[i];
+		nowCommands << commands[i];
+	}
+	CommandListWidget::Flags flags;
+	if (startIndex > 0)
+	{
+		if (startIndex+8 < commands.count())
+			flags = CommandListWidget::HasNext|CommandListWidget::HasBack;
+		else 
+			flags = CommandListWidget::HasBack;
+	} else 
+		if (startIndex+8 < commands.count())
+			flags = CommandListWidget::HasNext;
+
+	clw->init(nowIconSrcs, nowCommands, flags);
+}
+
 bool ListCommand::triggerPrivate()
 {
 	if (commands.count() == 0) return false;
@@ -147,10 +179,12 @@ bool ListCommand::triggerPrivate()
 
 	clw->setWindowIcon(KIcon(getIconSrc()));
 	clw->setWindowTitle(getTrigger());
-	clw->init(iconsrcs, commands);
-	clw->show();
+
+	listCurrentCommandSection();
 
 	ActionManager::getInstance()->registerPrompt(this, "executeSelection");
+
+	clw->show();
 
 	return true;
 }

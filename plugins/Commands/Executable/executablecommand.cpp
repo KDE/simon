@@ -60,24 +60,36 @@ bool ExecutableCommand::triggerPrivate()
 	for (int i=0; i < commands.count(); i++)
 	{
 		QString thisExe = commands[i].trimmed();
-		proc.setShellCommand(thisExe);
-		proc.setWorkingDirectory(workingDirectory.path());
-		proc.startDetached();
 
-/*		QString executable;
-		QStringList args;
-		if (exe.contains(" "))
+		QStringList coms = thisExe.split(" ");
+		if (coms.isEmpty()) return false;
+		QStringList realSplitCommand;
+		QString currentItem;
+		bool isQuoted=false;
+		foreach (QString com, coms)
 		{
-			executable = exe.left(exe.indexOf(" "));
-			QString argumentStrs = exe.mid(executable.count());
-			args = argumentStrs.split(" ", QString::SkipEmptyParts);
-		} else executable = exe;
+			if ((com.startsWith("\"")) || (com.endsWith("\"")))
+			{
+				com.remove(QRegExp("^\""));
+				com.remove(QRegExp("\"$"));
 
-		KProcess proc;
+				currentItem+= " "+com;
+
+				if (isQuoted)
+				{
+					realSplitCommand << currentItem.trimmed();
+					currentItem="";
+					isQuoted=false;
+				} else isQuoted=true; //begin quote
+			} else {
+				if (isQuoted) currentItem += " "+com;
+				else realSplitCommand << com;
+			}
+		}
+
+		QString realExecutable = realSplitCommand.takeAt(0);
 		proc.setWorkingDirectory(workingDirectory.path());
-		proc.
-		proc.startDetached  (executable, args );*/
-
+		proc.startDetached(realExecutable, realSplitCommand);
 	}
 	return true;
 }

@@ -50,8 +50,8 @@ RunCommandViewPrivate::RunCommandViewPrivate(QWidget *parent) : QWidget(parent)
 	connect(ActionManager::getInstance(), SIGNAL(commandRemoved(const QString&, const QString&)), 
 			this, SLOT(commandRemoved(const QString&, const QString&)));
 
-	connect(ui.lwCommands, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(updateCommandDetail()));
-	connect(ui.lwCategories, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(fetchCommandsFromCategory()));
+	connect(ui.lwCommands, SIGNAL(currentRowChanged(int)), this, SLOT(updateCommandDetail()));
+	connect(ui.lwCategories, SIGNAL(currentRowChanged(int)), this, SLOT(fetchCommandsFromCategory()));
 	connect(ui.pbTrigger, SIGNAL(clicked()), this, SLOT(triggerCommand()));
 
 	ActionManager::getInstance()->publishCategories();

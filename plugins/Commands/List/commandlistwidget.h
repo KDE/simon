@@ -42,8 +42,6 @@ signals:
 	void runRequest(int index);
 	void canceled();
 
-private:
-	Ui::ListCommandWidget ui;
 
 private slots:
 	void runCommand();
@@ -52,6 +50,12 @@ protected:
 	void closeEvent(QCloseEvent *);
 
 public:
+	enum Flag {
+		HasBack=0x1,
+		HasNext=0x2
+	};
+
+	Q_DECLARE_FLAGS(Flags, Flag);
 	
 	/**
 	* @brief Constructor
@@ -60,10 +64,14 @@ public:
 	*/
 	CommandListWidget();
 	
-	void init(const QStringList& iconsrcs, const QStringList commands);
+	void init(const QStringList& iconsrcs, const QStringList commands, Flags flags);
 
     ~CommandListWidget();
 
+private:
+	Ui::ListCommandWidget ui;
+	Flags currentFlags;
 };
 
+Q_DECLARE_OPERATORS_FOR_FLAGS(CommandListWidget::Flags)
 #endif

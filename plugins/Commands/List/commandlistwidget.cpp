@@ -47,6 +47,11 @@ void CommandListWidget::runCommand()
 	if (row == -1)
 		return;
 
+	//even if we don't have a back-button the commands
+	//start at 0
+	if ((!(currentFlags & HasBack)))
+		row++;
+
 	emit runRequest(row);
 }
 
@@ -55,33 +60,65 @@ void CommandListWidget::closeEvent(QCloseEvent *)
 	emit canceled();
 }
 
-void CommandListWidget::init(const QStringList& iconsrcs, const QStringList commands)
+void CommandListWidget::init(const QStringList& iconsrcs, const QStringList commands, Flags flags)
 {
 	if (commands.count() == 0) return;
 
 	Q_ASSERT(commands.count() == iconsrcs.count());
 
-	//showing list
-	ui.twCommands->setRowCount(commands.count());
-
-	for (int i=0; i<commands.count();i++)
+	currentFlags = flags;
+	int rowCount = commands.count();
+	int rowInsertionModifier=0;
+	if (flags & HasNext)
+		rowCount++;
+	if (flags & HasBack)
 	{
-		QString command = commands[i];
-		QString iconsrc = iconsrcs[i];
+		rowCount++;
+		rowInsertionModifier=1;
+	}
+	//showing list
+	ui.twCommands->setRowCount(rowCount);
 
-		QTableWidgetItem *num = new QTableWidgetItem(QString::number(i+1));
+	if (flags & HasBack)
+	{
+		QTableWidgetItem *num = new QTableWidgetItem(QString::number(0));
+		num->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+		QTableWidgetItem *com = new QTableWidgetItem(KIcon("go-previous"), i18n("Back"));
+		com->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+		ui.twCommands->setItem(0, 0, num);
+		ui.twCommands->setItem(0, 1, com);
+
+	}
+
+	int i;
+	for (i=rowInsertionModifier; i-rowInsertionModifier<commands.count();i++)
+	{
+		QString command = commands[i-rowInsertionModifier];
+		QString iconsrc = iconsrcs[i-rowInsertionModifier];
+
+		QTableWidgetItem *num = new QTableWidgetItem(QString::number(i-rowInsertionModifier+1));
 		num->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 		QTableWidgetItem *com = new QTableWidgetItem(KIcon(iconsrc), command);
 		com->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 		ui.twCommands->setItem(i, 0, num);
 		ui.twCommands->setItem(i, 1, com);
 	}
+	if (flags & HasNext)
+	{
+		QTableWidgetItem *num = new QTableWidgetItem(QString::number(i-rowInsertionModifier+1));
+		num->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+		QTableWidgetItem *com = new QTableWidgetItem(KIcon("go-next"), i18n("Next"));
+		com->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+		ui.twCommands->setItem(i, 0, num);
+		ui.twCommands->setItem(i, 1, com);
+
+	}
 	ui.twCommands->resizeColumnsToContents();
 
 	QHeaderView *vhview = ui.twCommands->verticalHeader();
 	QHeaderView *hhview = ui.twCommands->horizontalHeader();
 	resize(QSize(hhview->sectionSize(0)+hhview->sectionSize(1)+25, 
-				(commands.count()*vhview->sectionSize(0))+ui.pbCancel->height()+40));
+				(rowCount*vhview->sectionSize(0))+ui.pbCancel->height()+40));
 
 	//move to center of screen
 	QDesktopWidget* tmp = QApplication::desktop();
@@ -90,8 +127,6 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
 	y=(tmp->height()/2)-(height()/2);
 	
 	move(x,y);
-
-	show();
 }
 
 CommandListWidget::~CommandListWidget()

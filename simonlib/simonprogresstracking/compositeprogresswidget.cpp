@@ -168,7 +168,7 @@ void CompositeProgressWidget::display(OperationList operations)
 	bar->setMaximum(max);
 }
 
-void CompositeProgressWidget::moveEvent(QMoveEvent *event)
+void CompositeProgressWidget::moveEvent(QMoveEvent *)
 {
 	if (togglePopup->isChecked())
 	{

@@ -38,18 +38,21 @@ Q_OBJECT
 private:
 	CommandListWidget *clw;
 
+	int startIndex;
+
 	QStringList iconsrcs;
 	QStringList commands;
 	QStringList commandTypes;
 
 	static QStringList numberIdentifiers;
+	void listCurrentCommandSection();
 
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate();
 
 private slots:
-	void runCommand(int index);
+	bool processRequest(int index);
 	void cancel();
 
 public slots:

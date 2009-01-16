@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>644</width>
-    <height>480</height>
+    <width>597</width>
+    <height>470</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -32,21 +32,21 @@
       </property>
       <property name="baseSize" >
        <size>
-        <width>230</width>
+        <width>180</width>
         <height>0</height>
        </size>
       </property>
      </widget>
      <widget class="KListWidget" name="lwCommands" >
       <property name="sizePolicy" >
-       <sizepolicy vsizetype="Expanding" hsizetype="Preferred" >
+       <sizepolicy vsizetype="Expanding" hsizetype="Maximum" >
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
       <property name="baseSize" >
        <size>
-        <width>250</width>
+        <width>180</width>
         <height>0</height>
        </size>
       </property>
@@ -63,9 +63,15 @@
      <widget class="QScrollArea" name="scrollArea" >
       <property name="sizePolicy" >
        <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
-        <horstretch>0</horstretch>
+        <horstretch>6</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="minimumSize" >
+       <size>
+        <width>260</width>
+        <height>0</height>
+       </size>
       </property>
       <property name="baseSize" >
        <size>
@@ -81,8 +87,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>173</width>
-         <height>436</height>
+         <width>254</width>
+         <height>426</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2" >
@@ -113,7 +119,7 @@
               <enum>Qt::Vertical</enum>
              </property>
              <property name="sizeType" >
-              <enum>QSizePolicy::Fixed</enum>
+              <enum>QSizePolicy::Preferred</enum>
              </property>
              <property name="sizeHint" stdset="0" >
               <size>
@@ -216,7 +222,7 @@
               <enum>Qt::Vertical</enum>
              </property>
              <property name="sizeType" >
-              <enum>QSizePolicy::Fixed</enum>
+              <enum>QSizePolicy::Preferred</enum>
              </property>
              <property name="sizeHint" stdset="0" >
               <size>
@@ -235,7 +241,7 @@
               <enum>Qt::Vertical</enum>
              </property>
              <property name="sizeType" >
-              <enum>QSizePolicy::Fixed</enum>
+              <enum>QSizePolicy::Preferred</enum>
              </property>
              <property name="sizeHint" stdset="0" >
               <size>
@@ -286,6 +292,9 @@
             <spacer name="verticalSpacer_2" >
              <property name="orientation" >
               <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType" >
+              <enum>QSizePolicy::Preferred</enum>
              </property>
              <property name="sizeHint" stdset="0" >
               <size>
