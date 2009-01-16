@@ -325,7 +325,7 @@ adin_mic_read(SP16 *buf, int sampnum)
     Pa_Sleep(30); /* wait till some input comes */
   }
 
-  if (current == processed) return 0;
+  if (current == processed) return -1;
   if (adin_stream_should_be_running == FALSE) return -1;
 
   current_local = current;

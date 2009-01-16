@@ -226,7 +226,6 @@ void RunCommandViewPrivate::editCommand()
 		ActionManager::getInstance()->deleteCommand(command);
 		ActionManager::getInstance()->addCommand(newCommand);
 	}
-
 }
 
 void RunCommandViewPrivate::deleteCommand()

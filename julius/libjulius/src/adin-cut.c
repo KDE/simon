@@ -376,7 +376,7 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
       } else {
 	cnt = (*(a->ad_read))(&(a->buffer[a->bp]), a->bpmax - a->bp);
       }
-//      fprintf(stderr, "%d", cnt);
+      //fprintf(stderr, "Count: %d, Recog: %d\n", cnt, *recog_p);
       if ((cnt == -1) || ((*recog_p) == NULL) || ((*a_ptr) == NULL)) // have we deleted the adin pointer? 
       {
         return 0;

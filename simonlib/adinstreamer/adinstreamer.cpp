@@ -411,6 +411,7 @@ void AdinStreamer::run()
 		} while ((adin_shouldBeRunning) && (ret > 0 || ret == -2)); /* to the next segment in this input stream */
 	}
 
+//	fprintf(stderr, "Recog-real: %d\n", recog);
 	Recog *realRecog = recog;
 	recog=NULL;
 	j_recog_free(realRecog);
