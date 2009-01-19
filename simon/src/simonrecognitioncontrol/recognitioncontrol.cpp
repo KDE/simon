@@ -605,6 +605,8 @@ void RecognitionControl::fetchMissingSamples()
 
 void RecognitionControl::sendSample(QString sampleName)
 {
+	kWarning() << sampleName;
+	checkIfSynchronisationIsAborting();
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
 	
@@ -615,7 +617,9 @@ void RecognitionControl::sendSample(QString sampleName)
 	if (sample.isNull())
 	{
 		sendRequest(Simond::ErrorRetrievingTrainingsSample);
-		synchronisationOperation->canceled();
+		if (synchronisationOperation)
+			synchronisationOperation->canceled();
+
 		synchronisationDone();
 		modelManager->sampleNotAvailable(sampleName);
 		return;
@@ -1127,6 +1131,7 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
 					kWarning() << "Server requested sampleNameByte";
 					
+					kWarning() << sampleNameByte;
 					sendSample(QString::fromUtf8(sampleNameByte));
 					break;
 				}

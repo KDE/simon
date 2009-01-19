@@ -481,7 +481,7 @@ void SynchronisationManager::buildMissingSamples()
 	{
 		while (!promptsFile.atEnd())
 		{
-			QString promptsLine = QString::fromLatin1(promptsFile.readLine());
+			QString promptsLine = QString::fromUtf8(promptsFile.readLine());
 			newList << promptsLine.left(promptsLine.indexOf(" "));
 		}
 		promptsFile.close();
@@ -505,7 +505,7 @@ QByteArray SynchronisationManager::getSample(const QString& sampleName)
 	#ifdef UNICODE
 	QFile f(dirPath+"/"+sampleName.toUtf8());
 	#else
-	QFile f(dirPath+"/"+sampleName.toAscii());
+	QFile f(dirPath+"/"+sampleName.toLatin1());
 	#endif
 #else
 	QFile f(dirPath+"/"+sampleName.toUtf8());

@@ -150,15 +150,7 @@ bool ModelManager::storeActiveModel(const QDateTime& changedTime, qint32 sampleR
 
 QByteArray ModelManager::getSample(const QString& sampleName)
 {
-#ifdef Q_OS_WIN
-	//#ifdef UNICODE
-	//QFile f(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+sampleName.toUtf8());
-	//#else
 	QFile f(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+sampleName);
-	//#endif
-#else
-	QFile f(SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+"/"+sampleName.toUtf8());
-#endif
 
 	QFileInfo fInfo(f);
 

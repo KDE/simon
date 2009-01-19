@@ -25,6 +25,7 @@
 #include <QObject>
 #include <QDataStream>
 #include <QFile>
+#include <KDebug>
 
 
 /**
@@ -43,6 +44,7 @@ WAV::WAV(QString filename, int channels, int samplerate)
 {
 	length = 0;
 	this->filename = filename;
+
 	this->channels = channels;
 	this->samplerate = samplerate; //the samplerate /has/ to be initialized - even if it is initialized with 0
 	// that way we know (for example in the retrieveSampleRate() function, that we have a new file and that the

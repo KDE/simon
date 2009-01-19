@@ -134,7 +134,7 @@ bool TrainingManager::deletePrompt ( QString key )
 	QMutexLocker lock(&promptsLock);
 	promptsTable->remove ( key );
 	//removes the sample
-	return QFile::remove ( path.toLocal8Bit() );
+	return QFile::remove ( path.toUtf8() );
 }
 
 QString TrainingManager::getTrainingDir()
@@ -189,7 +189,7 @@ bool TrainingManager::writePromptsFile(PromptsTable* prompts, QString path)
 	QStringList samples = this->promptsTable->keys();
 
 	for ( int i=0; i <samples.count(); i++ )
-		promptsFile.write ( samples[i].toLocal8Bit() +" "+prompts->value ( samples[i] ).toUtf8() +"\n" );
+		promptsFile.write ( samples[i].toUtf8() +" "+prompts->value ( samples[i] ).toUtf8() +"\n" );
 	promptsFile.close();
 	
 	kDebug() << "schreibe datum..." << QDateTime::currentDateTime();
@@ -235,12 +235,7 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 		line = QString::fromUtf8(rawLine);
 		if (line.trimmed().isEmpty()) continue;
 		labelend = line.indexOf ( " " );
-		#ifdef Q_OS_WIN
-		QString label = QString::fromLocal8Bit(rawLine);
-		label = label.left( labelend );
-		#else
 		label = line.left ( labelend );
-		#endif
 		prompt = line.mid ( labelend ).trimmed();
 
 		promptsTable->insert ( label, prompt );

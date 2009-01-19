@@ -58,7 +58,7 @@
 RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *parent) : QWidget(parent)
 {	
 	KLocale::setMainCatalog("simonlib");
-	this->filename = QFile::encodeName(filename);
+	this->filename = filename;
 	recordingProgress=0;
 	
 	rec = new WavRecorder(this);
@@ -73,7 +73,6 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 
 	QVBoxLayout *mainLay = new QVBoxLayout(this);
 	gbContainer = new QGroupBox(name, this);
-// 	gbContainer->setFlat(true);
 	mainLay->addWidget(gbContainer);
 
 	QVBoxLayout *lay = new QVBoxLayout(gbContainer);
