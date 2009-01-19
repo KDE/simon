@@ -44,5 +44,5 @@ ${QT_LIBRARIES} ${KDE4_KUTILS_LIBS} simonappcore simoninfo
 simonlogging simonxml speechgui simonsound simonmodelmanagementui 
 simonrecognitioncontrol simonactionsui simonprogresstracking)
 
-install (TARGETS simon DESTINATION bin) #${BIN_INSTALL_DIR} COMPONENT simon)
+install (TARGETS simon DESTINATION bin COMPONENT simon) #${BIN_INSTALL_DIR} COMPONENT simon)
 install(FILES simonui.rc simon.log DESTINATION ${DATA_INSTALL_DIR} COMPONENT simon)

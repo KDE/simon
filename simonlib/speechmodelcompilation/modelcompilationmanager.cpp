@@ -177,7 +177,7 @@ QString ModelCompilationManager::getBuildLog()
  */
 void ModelCompilationManager::analyseError(const QString& readableError)
 {
-	if (!processError())
+//	if (!processError())
 		emit error(readableError);
 	
 	emit status(i18n("Aborted"), 1, 1);
@@ -508,11 +508,7 @@ bool ModelCompilationManager::generateCodetrainScp()
 	
 	while (!promptsFile.atEnd())
 	{
-		#ifdef Q_OS_WIN
-		QString line = QString::fromLatin1(promptsFile.readLine());
-		#else
 		QString line = QString::fromUtf8(promptsFile.readLine());
-		#endif
 		
 		fileBase =  line.left(line.indexOf(' '));
 		mfcFile = htkIfyPath(pathToMFCs)+'/'+fileBase+".mfc";
@@ -687,7 +683,7 @@ bool ModelCompilationManager::tieStates()
 	if (!keepGoing) return false;
 	emit status(i18n("Generating triphone..."),1700);
 	
-	if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(lexiconPath+'"')))
+	if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(tempDir)+"/lexicon\""))
 	{
 		analyseError(i18n("Couldn't bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, KStandardDirs::locate("appdata", "scripts/global.ded"), lexiconPath));
 		return false;
@@ -1104,8 +1100,29 @@ bool ModelCompilationManager::buildHMM0()
 
 bool ModelCompilationManager::makeMonophones()
 {
+	QFile utfLexicon(lexiconPath);
+	QString latinLexiconpath = htkIfyPath(tempDir)+"/lexicon";
+	
+	if (QFile::exists(latinLexiconpath))
+		if (!QFile::remove(latinLexiconpath)) return false;
+		
+	QFile latinLexicon(latinLexiconpath);
+	if (!utfLexicon.open(QIODevice::ReadOnly) || !latinLexicon.open(QIODevice::WriteOnly))
+		return false;
+	
+	while (!utfLexicon.atEnd())
+	{
+		QByteArray utfByte = utfLexicon.readLine(3000);
+		QByteArray latinByte;
+		latinByte = (QString::fromUtf8(utfByte)).toLatin1();
+		latinLexicon.write(latinByte);
+	}
+	
+	utfLexicon.close();
+	latinLexicon.close();
+	
 	//make monophones1
-	QString execStr = '"'+hDMan+"\" -A -D -T 1 -m -w \""+htkIfyPath(tempDir)+"/wlist\" -g \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/global.ded"))+"\" -n \""+htkIfyPath(tempDir)+"/monophones1\" -i \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(lexiconPath)+'"';
+	QString execStr = '"'+hDMan+"\" -A -D -T 1 -m -w \""+htkIfyPath(tempDir)+"/wlist\" -g \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/global.ded"))+"\" -n \""+htkIfyPath(tempDir)+"/monophones1\" -i \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(tempDir)+"/lexicon\"";
 	if (!execute(execStr)) return false;
 
 	//make monophones0
@@ -1141,7 +1158,7 @@ bool ModelCompilationManager::generateWlist()
 	QString line;
 	while (!promptsFile.atEnd())
 	{
-		line = promptsFile.readLine(3000);
+		line = QString::fromUtf8(promptsFile.readLine(3000));
 		lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
 		lineWords.removeAt(0); //ditch the file-id
 		words << lineWords;
@@ -1164,7 +1181,7 @@ bool ModelCompilationManager::generateWlist()
 		return false;
 	for (int i=0; i < words.count(); i++)
 	{
-		wlistFile.write(words[i].toAscii()+'\n');
+		wlistFile.write(words[i].toLocal8Bit()+'\n');
 	}
 	wlistFile.close();
 	return true;
@@ -1185,13 +1202,13 @@ bool ModelCompilationManager::generateMlf()
 	QString line;
 	while (!promptsFile.atEnd())
 	{
-		line = promptsFile.readLine(3000);
+		line = QString::fromUtf8(promptsFile.readLine(3000));
 		if (line.trimmed().isEmpty()) continue;
 		lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
 		QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\""; //ditch the file-id
-		mlf.write(labFile.toAscii()+"\n");
+		mlf.write(labFile.toLatin1()+"\n");
 		for (int i=0; i < lineWords.count(); i++)
-			mlf.write(lineWords[i].toAscii()+"\n");
+			mlf.write(lineWords[i].toLatin1()+"\n");
 		mlf.write(".\n");
 	}
 	promptsFile.close();
