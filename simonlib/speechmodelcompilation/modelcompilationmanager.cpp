@@ -1100,11 +1100,11 @@ bool ModelCompilationManager::buildHMM0()
 
 bool ModelCompilationManager::makeMonophones()
 {
-	QFile utfLexicon(lexiconPath);
 	QString latinLexiconpath = htkIfyPath(tempDir)+"/lexicon";
-	
 	if (QFile::exists(latinLexiconpath))
 		if (!QFile::remove(latinLexiconpath)) return false;
+#ifdef Q_OS_WIN
+	QFile utfLexicon(lexiconPath);
 		
 	QFile latinLexicon(latinLexiconpath);
 	if (!utfLexicon.open(QIODevice::ReadOnly) || !latinLexicon.open(QIODevice::WriteOnly))
@@ -1120,6 +1120,9 @@ bool ModelCompilationManager::makeMonophones()
 	
 	utfLexicon.close();
 	latinLexicon.close();
+#else
+	if (!QFile::copy(lexiconPath, latinLexiconpath)) return false;
+#endif
 	
 	//make monophones1
 	QString execStr = '"'+hDMan+"\" -A -D -T 1 -m -w \""+htkIfyPath(tempDir)+"/wlist\" -g \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/global.ded"))+"\" -n \""+htkIfyPath(tempDir)+"/monophones1\" -i \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(tempDir)+"/lexicon\"";
@@ -1206,9 +1209,17 @@ bool ModelCompilationManager::generateMlf()
 		if (line.trimmed().isEmpty()) continue;
 		lineWords = line.split(QRegExp("( |\n)"), QString::SkipEmptyParts);
 		QString labFile = "\"*/"+lineWords.takeAt(0)+".lab\""; //ditch the file-id
+#ifdef Q_OS_WIN
 		mlf.write(labFile.toLatin1()+"\n");
+#else
+		mlf.write(labFile.toUtf8()+"\n");
+#endif
 		for (int i=0; i < lineWords.count(); i++)
+#ifdef Q_OS_WIN
 			mlf.write(lineWords[i].toLatin1()+"\n");
+#else
+			mlf.write(lineWords[i].toUtf8()+"\n");
+#endif
 		mlf.write(".\n");
 	}
 	promptsFile.close();
