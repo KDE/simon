@@ -20,7 +20,7 @@
 #
 
 sound_inc=""
-sound_libs=" -lwinmm  -lws2_32 -lz"
+sound_libs=" -lasound -lpthread  -lz -lsndfile"
 version="\
 Julius/Julian libsent library rev.4.1.1"
 info="\
@@ -28,8 +28,8 @@ info="\
 Julius/Julian libsent library rev.4.1.1:
 
 - Audio I/O
-    primary mic device API  : pa-winmm (PortAudio library (WinMM))
-    supported audio format  : RAW and WAV only
+    primary mic device API  : pa-oss (PortAudio library (Unix/OSS))
+    supported audio format  : various formats by libsndfile ver.1
     NetAudio support        : no
 - Language Modeling
     class N-gram support    : yes

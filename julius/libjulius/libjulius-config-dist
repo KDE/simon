@@ -43,7 +43,7 @@ while test $# -gt 0; do
 	    echo -I${prefix}/include 
 	    ;;
 	--libs)
-	    echo -L${exec_prefix}/lib -ljulius  
+	    echo -L${exec_prefix}/lib -ljulius  -ldl  -lpthread
 	    ;;
 	--version)
 	    echo "${version}"

@@ -130,7 +130,7 @@ src/wav2mfcc/wav2mfcc-buffer.o \
 src/wav2mfcc/wav2mfcc-pipe.o \
 src/wav2mfcc/mfcc-core.o \
 src/wav2mfcc/para.o \
-  src/adin/adin_mic_linux_oss.o src/adin/pa/pa_lib.o src/adin/pa/pa_convert.o src/adin/pa/pa_trace.o src/adin/pa/pablio.o src/adin/pa/ringbuffer.o src/adin/pa/pa_win_wmme.o src/adin/adin_portaudio.o
+  src/adin/adin_mic_linux_alsa.o src/adin/adin_mic_linux_oss.o src/adin/pa/pa_lib.o src/adin/pa/pa_convert.o src/adin/pa/pa_trace.o src/adin/pa/pablio.o src/adin/pa/ringbuffer.o src/adin/pa/pa_unix.o src/adin/pa/pa_unix_oss.o src/adin/adin_portaudio.o
 
 ############################################################
 

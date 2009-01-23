@@ -10,3 +10,4 @@ if [ "$1" = "configure" ]; then
 	ldconfig
 fi
 # End automatically added section
+kbuildsycoca4

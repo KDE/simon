@@ -24,6 +24,8 @@
 
 #include <julius/julius.h>
 
+#undef HAS_ALSA
+#undef HAS_OSS
 
 /** 
  * Set up device-specific parameters and functions to AD-in work area.

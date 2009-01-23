@@ -8,15 +8,12 @@ configure:742: checking whether the C compiler (gcc -O6 -fomit-frame-pointer ) w
 configure:758: gcc -o conftest -O6 -fomit-frame-pointer   conftest.c  1>&5
 configure:784: checking whether the C compiler (gcc -O6 -fomit-frame-pointer ) is a cross-compiler
 configure:789: checking whether we are using GNU C
-configure:798: gcc -E conftest.c
 configure:817: checking whether gcc accepts -g
 configure:849: checking how to run the C preprocessor
-configure:870: gcc -E  conftest.c >/dev/null 2>conftest.out
 configure:941: checking for a BSD compatible install
 configure:996: checking for rm
 configure:1326: checking for ANSI C header files
-configure:1339: gcc -E  conftest.c >/dev/null 2>conftest.out
-configure:1406: gcc -o conftest -O6 -fomit-frame-pointer   conftest.c  1>&5
 configure:1431: checking for working const
-configure:1485: gcc -c -O6 -fomit-frame-pointer  conftest.c 1>&5
 configure:1511: checking for charset conversion
+configure:1546: checking for iconv
+configure:1607: checking for iconv declaration

@@ -448,10 +448,11 @@ void JuliusControl::stop()
 	pauseMutex.unlock();
 	if (!isRunning()) return;
 
-	if (recog->adin)
-		recog->adin->ad_end();
-	j_request_terminate(recog);
-	quit();
+	if (recog)
+		j_close_stream(recog);
+	//	recog->adin->ad_end();
+	//j_request_terminate(recog);
+	//quit();
 
 	if (!wait(1000))
 	{

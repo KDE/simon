@@ -22,7 +22,7 @@ CPPFLAGS=-I. -I$(LIBJULIUS)/include -I$(LIBSENT)/include  `$(LIBSENT)/libsent-co
 LDFLAGS= -L$(LIBJULIUS) `$(LIBJULIUS)/libjulius-config --libs` -L$(LIBSENT) `$(LIBSENT)/libsent-config --libs`
 GTK_CFLAGS=
 GTK_LIBS=
-RM=/bin/rm -f
+RM=/usr/bin/rm -f
 
 ## install
 prefix=/usr/local
@@ -31,7 +31,7 @@ bindir=${exec_prefix}/bin
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 mandir=${prefix}/man
-INSTALL=/bin/install -c
+INSTALL=/usr/bin/install -c
 INSTALL_DATA=${INSTALL} -m 644
 INSTALL_PROGRAM=${INSTALL}
 
@@ -48,7 +48,7 @@ output_module.o \
 output_stdout.o \
 output_file.o \
 record.o \
-charconv.o charconv_win32.o charconv_libjcode.o libjcode/libjcode.o libjcode/detect.o
+charconv.o charconv_iconv.o
 
 ############################################################
 

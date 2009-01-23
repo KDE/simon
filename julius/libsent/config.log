@@ -20,35 +20,16 @@ configure:1362: checking whether byte ordering is bigendian
 configure:1452: checking for working const
 configure:1527: checking for socklen_t
 configure:1538: gcc -c -O6 -fomit-frame-pointer  conftest.c 1>&5
-configure:1531:24: sys/socket.h: No such file or directory
-configure: In function `main':
-configure:1534: error: `socklen_t' undeclared (first use in this function)
-configure:1534: error: (Each undeclared identifier is reported only once
-configure:1534: error: for each function it appears in.)
-configure:1534: error: syntax error before "dummy"
-configure: failed program was:
-#line 1529 "configure"
-#include "confdefs.h"
-#include <sys/types.h>
-#include <sys/socket.h>
-
-int main() {
-socklen_t dummy;
-; return 0; }
 configure:1554: checking for gethostbyname
 configure:1649: checking for connect
 configure:1746: checking for strcasecmp
 configure:1801: checking for sleep
 configure:1865: checking for alsa/asoundlib.h
-configure:1902: checking for sys/asoundlib.h
 configure:1949: checking for sys/soundcard.h
 configure:2033: checking for esd.h
-configure:2073: checking for input device type
-configure:2202: checking for main in -ldsound
-configure:2236: checking for DSound.h
 configure:2540: checking for DatLink/NetAudio support
 configure:2554: gcc -E  -Iauto/include conftest.c >/dev/null 2>conftest.out
-configure:2550:22: netaudio.h: No such file or directory
+configure:2550:22: error: netaudio.h: No such file or directory
 configure: failed program was:
 #line 2549 "configure"
 #include "confdefs.h"
@@ -56,4 +37,4 @@ configure: failed program was:
 configure:2579: checking for deflate in -lz
 configure:2617: checking for zlib.h
 configure:2719: checking for sf_open in -lsndfile
-configure:2809: checking for sf_open_read in -lsndfile
+configure:2757: checking for sndfile.h

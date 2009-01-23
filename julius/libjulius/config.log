@@ -18,17 +18,9 @@ configure:1516: checking for ANSI C header files
 configure:1621: checking for working const
 configure:1697: checking return type of signal handlers
 configure:1738: checking for dlopen
+configure:1784: checking for dlopen in -ldl
 configure:1870: checking for POSIX thread library in -lpthread
-configure:1881: gcc -o conftest -O6 -fomit-frame-pointer   conftest.c  -lpthread 1>&5
-configure:1875:21: pthread.h: No such file or directory
-configure: In function `main':
-configure:1877: error: `NULL' undeclared (first use in this function)
-configure:1877: error: (Each undeclared identifier is reported only once
-configure:1877: error: for each function it appears in.)
-configure: failed program was:
-#line 1874 "configure"
-#include "confdefs.h"
-#include <pthread.h>
-int main() {
-pthread_equal(NULL,NULL);
-; return 0; }
+configure:1881: gcc -o conftest -O6 -fomit-frame-pointer   conftest.c -ldl  -lpthread 1>&5
+configure: In function 'main':
+configure:1877: warning: passing argument 1 of 'pthread_equal' makes integer from pointer without a cast
+configure:1877: warning: passing argument 2 of 'pthread_equal' makes integer from pointer without a cast
