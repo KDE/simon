@@ -34,6 +34,7 @@
 #include <KConfig>
 #include <KDebug>
 #include <KConfigGroup>
+#include <locale.h>
 
 #ifdef FALSE
 #undef FALSE
@@ -71,9 +72,28 @@ Jconf* JuliusControl::setupJconf()
 	QString dirPath =  KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 	QByteArray jConfPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.jconf").toUtf8();
 	QByteArray gram = dirPath.toUtf8()+"model";
-	QByteArray hmmDefs = dirPath.toUtf8()+"hmmdefs";
 	QByteArray tiedList = dirPath.toUtf8()+"tiedlist";
+
+	//////BEGIN: Workaround
+	//convert "." in hmmdefs to its locale specific equivalent
+	lconv * localeConv = localeconv();
+	char *decimalPoint = localeConv->decimal_point;
+
+	QFile hmm(dirPath+"hmmdefs");
+	QFile hmmLoc(dirPath+"hmmdefs_loc");
+	if (!hmm.open(QIODevice::ReadOnly) || !hmmLoc.open(QIODevice::WriteOnly))
+		return NULL;
+
+	while (!hmm.atEnd())
+		hmmLoc.write(hmm.readLine(3000).replace(".", decimalPoint));
 	
+	hmm.close();
+	hmmLoc.close();
+	//////END: Workaround
+
+
+	QByteArray hmmDefs = dirPath.toUtf8()+"hmmdefs_loc";
+
 	QString configPath = dirPath+"activerc";
 	KConfig config( configPath, KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");

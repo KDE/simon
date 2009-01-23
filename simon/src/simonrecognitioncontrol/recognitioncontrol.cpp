@@ -1122,7 +1122,8 @@ void RecognitionControl::messageReceived()
 				{
 					checkIfSynchronisationIsAborting();
 
-					synchronisationOperation->update(i18n("Synchronizing Trainings-Corpus"), 68);
+					if (synchronisationOperation)
+						synchronisationOperation->update(i18n("Synchronizing Trainings-Corpus"), 68);
 					
 					parseLengthHeader();
 					
