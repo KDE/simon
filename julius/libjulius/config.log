@@ -1,0 +1,34 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:1011: checking host system type
+configure:1033: checking host-specific optimization flag
+configure:1049: checking for gcc
+configure:1162: checking whether the C compiler (gcc -O6 -fomit-frame-pointer ) works
+configure:1178: gcc -o conftest -O6 -fomit-frame-pointer   conftest.c  1>&5
+configure:1204: checking whether the C compiler (gcc -O6 -fomit-frame-pointer ) is a cross-compiler
+configure:1209: checking whether we are using GNU C
+configure:1237: checking whether gcc accepts -g
+configure:1269: checking how to run the C preprocessor
+configure:1361: checking for a BSD compatible install
+configure:1416: checking for rm
+configure:1451: checking for ar
+configure:1486: checking for ranlib
+configure:1516: checking for ANSI C header files
+configure:1621: checking for working const
+configure:1697: checking return type of signal handlers
+configure:1738: checking for dlopen
+configure:1870: checking for POSIX thread library in -lpthread
+configure:1881: gcc -o conftest -O6 -fomit-frame-pointer   conftest.c  -lpthread 1>&5
+configure:1875:21: pthread.h: No such file or directory
+configure: In function `main':
+configure:1877: error: `NULL' undeclared (first use in this function)
+configure:1877: error: (Each undeclared identifier is reported only once
+configure:1877: error: for each function it appears in.)
+configure: failed program was:
+#line 1874 "configure"
+#include "confdefs.h"
+#include <pthread.h>
+int main() {
+pthread_equal(NULL,NULL);
+; return 0; }
