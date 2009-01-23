@@ -85,7 +85,7 @@ public slots:
 	void finishPlayback();
 	
 	bool deleteSample();
-	void displayRecordingProgress(int msecs);
+	void displayRecordingProgress(int msecs, float level);
 	void displayPlaybackProgress(int msecs);
 	
 public:

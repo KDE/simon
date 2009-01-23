@@ -168,9 +168,9 @@ void RecWidget::setupSignalsSlots()
 	connect(pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
 	connect(pbDelete, SIGNAL(clicked()), this, SLOT(deleteSample()));
 	
-	connect(rec, SIGNAL(currentProgress(int)), this, SIGNAL(progress(int)));
+	connect(rec, SIGNAL(currentProgress(int, float)), this, SIGNAL(progress(int)));
 	connect(play, SIGNAL(currentProgress(int)), this, SIGNAL(progress(int)));
-	connect(rec, SIGNAL(currentProgress(int)), this, SLOT(displayRecordingProgress(int)));
+	connect(rec, SIGNAL(currentProgress(int, float)), this, SLOT(displayRecordingProgress(int, float)));
 	connect(play, SIGNAL(currentProgress(int)), this, SLOT(displayPlaybackProgress(int)));
 	
 	connect(play, SIGNAL(finished()), this, SLOT(finishPlayback()));
@@ -195,12 +195,13 @@ void RecWidget::setTitle(QString newTitle)
  * @param int msecs
  * How long have we been recording?
  */
-void RecWidget::displayRecordingProgress(int msecs)
+void RecWidget::displayRecordingProgress(int msecs, float level)
 {
  	QString textprog = QString("%1").arg((int) msecs/10, 4, 10, QChar('0'));
 	textprog.insert(textprog.length()-2, ':');
 	pbProgress->setFormat("00:00 / "+textprog);
 	this->recordingProgress = msecs;
+	pbProgress->setValue(100*level);
 }
 
 /**
@@ -246,7 +247,7 @@ void RecWidget::record()
 		disconnect(pbRecord, SIGNAL(clicked()), this, SLOT(record()));
 		connect(pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
 		
-		pbProgress->setMaximum(0);
+		pbProgress->setMaximum(100);
 	}
 	emit recording();
 }

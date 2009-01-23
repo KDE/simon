@@ -50,7 +50,7 @@ private:
 	QTimer timeWatcher;
 
 signals:
-	void currentProgress(int msecs);
+	void currentProgress(int msecs, float level);
 	
 private slots:
 	void publishTime();

@@ -27,12 +27,16 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #ifdef USE_WITH_SIMON
 #include <adinstreamer/adinstreamer.h>
 #endif
 
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
+
+float recording_level=0;
+int recording_level_counter=0;
 
 /**
  * \brief Constructor
@@ -62,20 +66,27 @@ int processInputData( const void *inputBuffer, void *outputBuffer, unsigned long
 
 	WAV *wav = rec->getWav();
 
-	float* audioData = (float*) inputBuffer;
+	qint16* audioData = (qint16*) inputBuffer;
+	qint16* audio_ptr = audioData;
+	wav->addData(audioData, framesPerBuffer);
+
+	/*float* audioData = (float*) inputBuffer;
 	short *converted = (short*) malloc(framesPerBuffer*sizeof(short));
 	if (!converted) return paAbort;
 
 	memset(converted, 0, framesPerBuffer*sizeof(short));
+	wav->addData(converted-framesPerBuffer, framesPerBuffer);*/
 
+	qint64 all=0;
 	for (unsigned long i=0; i<framesPerBuffer; i++)
 	{
-		*converted  = (int) (*audioData * 32768.0f);
-		audioData++;
-		converted++;
+		all += *audio_ptr;
+		audio_ptr++;
 	}
-
-	wav->addData(converted-framesPerBuffer, framesPerBuffer);
+	float diff = abs(((float)all / (float)framesPerBuffer));
+	if (diff > 25) 
+		recording_level += log(diff) / 10.0/* / 32767.f*/;
+	recording_level_counter++;
 
 
 	return paContinue;
@@ -128,10 +139,8 @@ bool WavRecorder::record(QString filename)
 	int sampleRate = SoundConfiguration::soundSampleRate();
 	inputParameters.device = SoundConfiguration::soundInputDevice();
 
-	kDebug() << inputParameters.device << SoundConfiguration::soundInputDevice() << channels << sampleRate;
-
 	inputParameters.channelCount = channels;
-	inputParameters.sampleFormat = paFloat32;
+	inputParameters.sampleFormat = paInt16;
 
 	const PaDeviceInfo *info = Pa_GetDeviceInfo( inputParameters.device );
 	if (!info)
@@ -187,7 +196,12 @@ bool WavRecorder::record(QString filename)
 
 void WavRecorder::publishTime()
 {
-	emit currentProgress((Pa_GetStreamTime(stream) - startTime)*1000);
+	if (recording_level_counter == 0) return;
+
+	float recording_diff = recording_level / (float) recording_level_counter;
+	emit currentProgress((Pa_GetStreamTime(stream) - startTime)*1000, recording_diff);
+	recording_level_counter=0;
+	recording_level=0;
 }
 
 /**
