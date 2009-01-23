@@ -32,6 +32,7 @@
 #include <KLocalizedString>
 #include <KStandardDirs>
 #include <KConfig>
+#include <KDebug>
 #include <KConfigGroup>
 
 #ifdef FALSE
@@ -42,7 +43,7 @@
 #endif
 
 #include <stdio.h>
-
+#include <KProcess>
 
 JuliusControl::JuliusControl(const QString& username, QObject *parent) : RecognitionControl(username, parent)
 {
@@ -89,7 +90,7 @@ Jconf* JuliusControl::setupJconf()
 			"-gram", gram.data(),
 			 "-h", hmmDefs.data(),
 			 "-hlist", tiedList.data(),
-//			 "-input", "mic", //only for local input -.- 
+			 //"-input", "mic", //only for local input -.- 
 			 "-input", "adinnet", 
 			 "-adport", portChr, 
 			 "-smpFreq", smpFreq.data()};
@@ -243,6 +244,7 @@ void outputResult(Recog *recog, void *control)
 			// 	  printf("grammar%d: %d\n", n+1, s->gram_id);
 			// 	}
 			//       }
+			kWarning() << "Recognized: " << result.trimmed();
 			jControl->recognized(result.trimmed(), sampa.trimmed(), sampaRaw.trimmed());
 		}
 	}
@@ -339,7 +341,7 @@ bool JuliusControl::initializeRecognition(bool isLocal)
 
  	FILE *fp;
 	QByteArray logPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/julius.log").toUtf8();
-	kDebug () << logPath.data();
+
  	fp = fopen(logPath.data(), "w");
  	if (fp == NULL) 
 		return false;
@@ -395,9 +397,9 @@ void JuliusControl::run()
 		return;
 	}
 
-	emit recognitionAwaitingStream(getPort(), this->sampleRate);
 	/* output system information to log */
 	j_recog_info(recog);
+	emit recognitionAwaitingStream(getPort(), this->sampleRate);
 	
 	 while (shouldBeRunning)
 	 {

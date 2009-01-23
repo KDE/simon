@@ -68,6 +68,12 @@ bool ExecutableCommand::triggerPrivate()
 		bool isQuoted=false;
 		foreach (QString com, coms)
 		{
+			if ((com.startsWith("\"")) && (com.endsWith("\"")))
+			{
+				com.remove(QRegExp("^\""));
+				com.remove(QRegExp("\"$"));
+				realSplitCommand << com;
+			} else
 			if ((com.startsWith("\"")) || (com.endsWith("\"")))
 			{
 				com.remove(QRegExp("^\""));
@@ -86,7 +92,8 @@ bool ExecutableCommand::triggerPrivate()
 				else realSplitCommand << com;
 			}
 		}
-
+		
+		if (realSplitCommand.isEmpty()) continue;
 		QString realExecutable = realSplitCommand.takeAt(0);
 		proc.setWorkingDirectory(workingDirectory.path());
 		proc.startDetached(realExecutable, realSplitCommand);

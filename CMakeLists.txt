@@ -250,5 +250,5 @@ add_subdirectory(ksimond)
 add_subdirectory(plugins)
 
 if(WIN32)
-add_subdirectory(KDE)
+#add_subdirectory(KDE)
 ENDIF(WIN32)

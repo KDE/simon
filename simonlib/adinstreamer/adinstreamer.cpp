@@ -262,6 +262,7 @@ void AdinStreamer::init(const QHostAddress& address, qint32 port, qint32 sampleR
 	this->address = address;
 	this->port = port;
 	adinstreamer_sfreq = sampleRate;
+	kWarning() << "Initing with: Address:" << address << " Port: " << port << " Freq: " << sampleRate;
 }
 
 void AdinStreamer::run()
@@ -356,7 +357,8 @@ void AdinStreamer::run()
 			adinstreamer_speechlen = 0;
 			adinstreamer_stop_at_next = FALSE;
 // 			fprintf(stderr, "<<< please speak >>>");
-			ret = adin_go(adin_callback_adinnet, adinnet_check_command, &recog);
+			//FIXME: &recog
+			ret = adin_go(adin_callback_adinnet, adinnet_check_command, recog);
 			/* return value of adin_go:
 				-2: input terminated by pause command from adinnet server
 				-1: input device read error or callback process error
@@ -430,9 +432,10 @@ void AdinStreamer::stop()
 	shouldReStart=false;
 	adinstreamer_stop_at_next=false;
 
-	if (recog && (recog->adin))
+	if (recog/* && (recog->adin)*/)
 	{
-		recog->adin->ad_end();
+		//recog->adin->ad_end();
+		j_close_stream(recog);
 //		adin_mic_end();
 	}
 	
@@ -447,9 +450,10 @@ void AdinStreamer::stop()
 
 		if (recog)
 		{
-			j_request_terminate(recog);
-			j_recog_free(recog);
+			Recog *real_recog = recog;
 			recog=NULL;
+			j_request_terminate(real_recog);
+			j_recog_free(real_recog);
 			emit stopped();
 		}
 	}
