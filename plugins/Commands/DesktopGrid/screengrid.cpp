@@ -29,8 +29,11 @@
 #include <QBrush>
 #include <QRect>
 #include <QColor>
-#include "eventsimulation/eventhandler.h"
+#include <eventsimulation/eventhandler.h>
+#include <simonactions/actionmanager.h>
 #include "desktopgridconfiguration.h"
+
+QStringList ScreenGrid::numberIdentifiers;
 
 ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent, 
 		Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint)
@@ -42,6 +45,11 @@ ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent,
 	QSize desksize = QDesktopWidget().screenGeometry().size();
 	this->resize(desksize);
 	short btnNr=1;
+
+	if (numberIdentifiers.isEmpty())
+		numberIdentifiers << i18n("One") << i18n("Two") 
+			<< i18n("Three") << i18n("Four") << i18n("Five") <<
+			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
 
 	QBrush transbrush(QColor(241,241,241,100));
 	for (int i=0; i < 3; i++)
@@ -60,6 +68,7 @@ ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent,
 			connect(btn, SIGNAL(clicked()), this, SLOT(regionSelected()));
 			buttons->addWidget(btn, i, j);
 			btnNr++;
+			btns << btn;
 		}
 	}
 
@@ -81,6 +90,8 @@ ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent,
 	
 	buttons->setMargin(0);
 	this->setLayout(buttons);
+	
+	ActionManager::getInstance()->registerPrompt(this, "selectStrRegion");
 }
 
 
@@ -94,8 +105,6 @@ void ScreenGrid::setButtonFontSize(KPushButton *btn)
 QPixmap ScreenGrid::makeFakeTransparency()
 {
 	return QPixmap::grabWindow(QApplication::desktop()->winId()).copy(geometry());
-	
-	
 }
 
 void ScreenGrid::regionSelected()
@@ -150,13 +159,40 @@ void ScreenGrid::regionSelected()
 void ScreenGrid::keyPressEvent(QKeyEvent *event)
 {
 	if (!event) return;
-	if (event->key()== Qt::Key_Escape) this->hide();
+	if (event->key()== Qt::Key_Escape) deleteLater();
 }
 
+bool ScreenGrid::selectStrRegion(QString input)
+{
+	if (input.toUpper() == i18n("Cancel").toUpper())
+	{
+		deleteLater();
+		return true;
+	}
+	bool ok=false;
+	int index = input.toInt(&ok);
+	if (!ok)
+	{
+		while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != input.toUpper()))
+			index++;
+
+		if (index == numberIdentifiers.count()) return false;
+	}
+	kWarning() << index;
+	if (index > btns.count()) return false;
+
+	KPushButton *btn = btns[index];
+	if (!btn) return false;
+	kWarning() << "noch hier";
+
+	btn->animateClick();
+	return true;
+}
 
 ScreenGrid::~ScreenGrid()
 {
 	buttons->deleteLater();
+	ActionManager::getInstance()->deRegisterPrompt(this, "selectStrRegion");
 
 	if (background) background->deleteLater();
 }

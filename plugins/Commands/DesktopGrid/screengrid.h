@@ -21,6 +21,7 @@
 #define SCREENGRID_H
 
 #include <QWidget>
+#include <QList>
 
 class KPushButton;
 class QGridLayout;
@@ -36,12 +37,17 @@ private slots:
 	void regionSelected();
 
 private:
+	QList<KPushButton*> btns;
 	QGridLayout *buttons;
 
 	QLabel *background;
 	QPixmap deskShot;
 
 	QPixmap makeFakeTransparency();
+	static QStringList numberIdentifiers;
+
+public slots:
+	bool selectStrRegion(QString input);
 
 
 public:

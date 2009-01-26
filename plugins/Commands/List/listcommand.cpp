@@ -173,7 +173,6 @@ void ListCommand::listCurrentCommandSection()
 
 bool ListCommand::triggerPrivate()
 {
-	kWarning() << "JUIIIIII";
 	if (commands.count() == 0) return false;
 
 	Q_ASSERT(commands.count() == commandTypes.count());
