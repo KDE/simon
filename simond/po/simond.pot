@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-12-19 13:43+0100\n"
+"POT-Creation-Date: 2009-01-26 16:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -194,27 +194,27 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: src/juliuscontrol.cpp:351
+#: src/juliuscontrol.cpp:373
 msgid "Internal Jconf error"
 msgstr ""
 
-#: src/juliuscontrol.cpp:360
+#: src/juliuscontrol.cpp:382
 msgid "Could not initialize recognition"
 msgstr ""
 
-#: src/juliuscontrol.cpp:394
+#: src/juliuscontrol.cpp:416
 msgid "Couldn't start adin-thread"
 msgstr ""
 
-#: src/juliuscontrol.cpp:409
+#: src/juliuscontrol.cpp:431
 msgid "Unknown error"
 msgstr ""
 
-#: src/juliuscontrol.cpp:413
+#: src/juliuscontrol.cpp:435
 msgid "Couldn't initialize microphone"
 msgstr ""
 
-#: src/juliuscontrol.cpp:414
+#: src/juliuscontrol.cpp:436
 msgid "Error with the audio stream"
 msgstr ""
 

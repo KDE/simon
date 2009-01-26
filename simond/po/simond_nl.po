@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-12-19 13:43+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-01-26 16:20+0100\n"
 "PO-Revision-Date: 2009-01-13 12:54+0100\n"
 "Last-Translator: Daniël <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -53,50 +54,43 @@ msgstr "kon wachtwoord niet veranderen"
 
 #. i18n: file: config/simondconfiguration.kcfg:7
 #. i18n: ectx: label, entry (Port), group (Network)
-#: po/rc.cpp:3
-#: rc.cpp:3
+#: po/rc.cpp:3 rc.cpp:3
 msgid "The port to use for the server."
 msgstr "De poort om voor de server te gebruikern"
 
 #. i18n: file: config/simondconfiguration.kcfg:11
 #. i18n: ectx: label, entry (BindTo), group (Network)
-#: po/rc.cpp:6
-#: rc.cpp:6
+#: po/rc.cpp:6 rc.cpp:6
 msgid "wether we want to restrict access to a certain IP."
 msgstr "of we de toegang naar een bepaald IP-adres willen beperken."
 
 #. i18n: file: config/simondconfiguration.kcfg:15
 #. i18n: ectx: label, entry (Host), group (Network)
-#: po/rc.cpp:9
-#: rc.cpp:9
+#: po/rc.cpp:9 rc.cpp:9
 msgid "The only host to allow to connect to the server."
 msgstr "De enige gastcomputer toestaan om met de server te verbinden"
 
 #. i18n: file: config/simondconfiguration.kcfg:20
 #. i18n: ectx: label, entry (UseEncryption), group (Network)
-#: po/rc.cpp:12
-#: rc.cpp:12
+#: po/rc.cpp:12 rc.cpp:12
 msgid "wether we want to encrypt the communication between simon and simond."
 msgstr "of we de communicatie tussen simon en simond kunnen beveiligen."
 
 #. i18n: file: config/simondconfiguration.kcfg:24
 #. i18n: ectx: label, entry (EncryptionMethod), group (Network)
-#: po/rc.cpp:15
-#: rc.cpp:15
+#: po/rc.cpp:15 rc.cpp:15
 msgid "The encryption method to use."
 msgstr "De encryptie-methode"
 
 #. i18n: file: config/simondconfiguration.kcfg:27
 #. i18n: ectx: label, entry (Certificate), group (Network)
-#: po/rc.cpp:18
-#: rc.cpp:18
+#: po/rc.cpp:18 rc.cpp:18
 msgid "the path to the SSL certificate."
 msgstr "de weg naar het SSL-certificaat"
 
 #. i18n: file: config/simondconfiguration.kcfg:33
 #. i18n: ectx: label, entry (DatabaseUrl), group (Database)
-#: po/rc.cpp:21
-#: rc.cpp:21
+#: po/rc.cpp:21 rc.cpp:21
 msgid "The path to the database."
 msgstr "De weg naar de database"
 
@@ -108,133 +102,130 @@ msgstr "De weg naar de database"
 #. i18n: ectx: property (windowTitle), widget (QWidget, NetworkConfiguration)
 #. i18n: file: config/simonduserconfiguration.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, UserConfiguration)
-#: po/rc.cpp:24
-#: po/rc.cpp:45
-#: rc.cpp:24
-#: rc.cpp:45
+#: po/rc.cpp:24 po/rc.cpp:45 rc.cpp:24 rc.cpp:45
 msgid "Form"
 msgstr "Formulier"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:21
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:27
-#: rc.cpp:27
+#: po/rc.cpp:27 rc.cpp:27
 msgid "Port:"
 msgstr "Poort:"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:41
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_BindTo)
-#: po/rc.cpp:30
-#: rc.cpp:30
+#: po/rc.cpp:30 rc.cpp:30
 msgid "Only allow connections from:"
 msgstr "Alleen verbindingen toestaan van:"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:57
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseEncryption)
-#: po/rc.cpp:33
-#: rc.cpp:33
+#: po/rc.cpp:33 rc.cpp:33
 msgid "Encryption"
 msgstr "Encryptie"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:66
 #. i18n: ectx: property (text), widget (QLabel, lbCipher)
-#: po/rc.cpp:36
-#: rc.cpp:36
+#: po/rc.cpp:36 rc.cpp:36
 msgid "Algorithm:"
 msgstr "Algoritme"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:76
 #. i18n: ectx: property (text), widget (QLabel, lbCert)
-#: po/rc.cpp:39
-#: rc.cpp:39
+#: po/rc.cpp:39 rc.cpp:39
 msgid "Certificate:"
 msgstr "Certificaat"
 
 #. i18n: file: config/simondnetworkconfiguration.ui:83
 #. i18n: ectx: property (filter), widget (KUrlComboRequester, kcfg_Certificate)
-#: po/rc.cpp:42
-#: rc.cpp:42
+#: po/rc.cpp:42 rc.cpp:42
 msgid "SSL-Certificate *.pem"
 msgstr "SSL-certificaat *.pem"
 
 #. i18n: file: config/simonduserconfiguration.ui:23
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:48
-#: rc.cpp:48
+#: po/rc.cpp:48 rc.cpp:48
 msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">WARNING:</span> All changes made here will be <span style=\" font-weight:600;\">applied</span> instantly.</p></body></html>"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">WARNING:</span> All changes made here will be <span style=\" "
+"font-weight:600;\">applied</span> instantly.</p></body></html>"
 msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">WARNING:</span> Alle veranderingen die hier gemaakt worden zullen worden <span style=\" font-weight:600;\">toegepast</span> instantly.</p></body></html>"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
+"weight:600;\">WARNING:</span> Alle veranderingen die hier gemaakt worden "
+"zullen worden <span style=\" font-weight:600;\">toegepast</span> instantly.</"
+"p></body></html>"
 
 #. i18n: file: config/simonduserconfiguration.ui:35
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:55
-#: rc.cpp:55
+#: po/rc.cpp:55 rc.cpp:55
 msgid "Database:"
 msgstr "Database"
 
 #. i18n: file: config/simonduserconfiguration.ui:65
 #. i18n: ectx: property (text), widget (KPushButton, pbAdd)
-#: po/rc.cpp:58
-#: rc.cpp:58
+#: po/rc.cpp:58 rc.cpp:58
 msgid "Add"
 msgstr "Toevoegen"
 
 #. i18n: file: config/simonduserconfiguration.ui:72
 #. i18n: ectx: property (text), widget (KPushButton, pbChangePassword)
-#: po/rc.cpp:61
-#: rc.cpp:61
+#: po/rc.cpp:61 rc.cpp:61
 msgid "Change Password"
 msgstr "Wachtwoord veranderen"
 
 #. i18n: file: config/simonduserconfiguration.ui:79
 #. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:64
-#: rc.cpp:64
+#: po/rc.cpp:64 rc.cpp:64
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: po/rc.cpp:65
-#: rc.cpp:65
+#: po/rc.cpp:65 rc.cpp:65
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Namen"
 
-#: po/rc.cpp:66
-#: rc.cpp:66
+#: po/rc.cpp:66 rc.cpp:66
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "E-mails"
 
-#: src/juliuscontrol.cpp:351
+#: src/juliuscontrol.cpp:373
 msgid "Internal Jconf error"
 msgstr "Interne Jconf-fout"
 
-#: src/juliuscontrol.cpp:360
+#: src/juliuscontrol.cpp:382
 msgid "Could not initialize recognition"
 msgstr "Kon herkenning niet initialiseren"
 
-#: src/juliuscontrol.cpp:394
+#: src/juliuscontrol.cpp:416
 msgid "Couldn't start adin-thread"
 msgstr "Kon adin-thread niet starten"
 
-#: src/juliuscontrol.cpp:409
+#: src/juliuscontrol.cpp:431
 msgid "Unknown error"
 msgstr "Onbekende fout"
 
-#: src/juliuscontrol.cpp:413
+#: src/juliuscontrol.cpp:435
 msgid "Couldn't initialize microphone"
 msgstr "Kon microfoon niet initialiseren"
 
-#: src/juliuscontrol.cpp:414
+#: src/juliuscontrol.cpp:436
 msgid "Error with the audio stream"
 msgstr "Fout in de audio-stream"
 
@@ -253,4 +244,3 @@ msgstr "(C) 2008 Peter Grasch"
 #: src/main.cpp:40
 msgid "Peter Grasch"
 msgstr "Peter Grasch"
-

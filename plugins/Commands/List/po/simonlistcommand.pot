@@ -9,13 +9,21 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-01-15 17:09+0100\n"
+"POT-Creation-Date: 2009-01-26 16:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: commandlistwidget.cpp:86
+msgid "Back"
+msgstr ""
+
+#: commandlistwidget.cpp:110
+msgid "Next"
+msgstr ""
 
 #: createlistcommandwidget.cpp:140
 msgid ""
@@ -66,15 +74,15 @@ msgstr ""
 
 #. i18n: file: listcommand.ui:45
 #. i18n: ectx: property (text), widget (QPushButton, pbCancel)
-#: listcommand.cpp:76 po/rc.cpp:30 rc.cpp:30
+#: listcommand.cpp:106 po/rc.cpp:30 rc.cpp:30
 msgid "Cancel"
 msgstr ""
 
-#: listcommand.cpp:116
+#: listcommand.cpp:127
 msgid "List"
 msgstr ""
 
-#: listcommand.cpp:137
+#: listcommand.cpp:148
 msgid "Commands"
 msgstr ""
 
