@@ -117,10 +117,6 @@ install( FILES
    "${KDE4_INSTALL_DIR}/etc/session.conf"
    "${KDE4_INSTALL_DIR}/etc/system.conf"
 		DESTINATION  ${SYSCONF_INSTALL_DIR} COMPONENT kdecore )
-
-  install( FILES 
-   "${KDE4_INSTALL_DIR}/etc/xdg/menus/applications.menu"
-		DESTINATION  ${SYSCONF_INSTALL_DIR}/xdg/menus COMPONENT kdecore )
   
 
 
@@ -480,13 +476,9 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/go-bottom.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/go-down.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/go-first.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/go-first-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/go-last.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/go-last-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/go-next.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/go-next-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/go-previous.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/go-previous-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/go-top.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/go-up.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/128x128/actions/insert-horizontal-rule.png"
@@ -1173,17 +1165,13 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-down.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-down-search.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-first.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-first-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-home.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-jump.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-jump-locationbar.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-jump-today.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-last.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-last-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-next.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-next-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-previous.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-previous-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-top.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-up.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/16x16/actions/go-up-search.png"
@@ -1965,9 +1953,6 @@ install( FILES
 
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/view-table-of-contents-ltr.png"
-		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/22x22 COMPONENT kdecore )
 
 
   install( FILES 
@@ -2094,17 +2079,13 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-down.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-down-search.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-first.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-first-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-home.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-jump.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-jump-locationbar.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-jump-today.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-last.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-last-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-next.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-next-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-previous.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-previous-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-top.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-up.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/22x22/actions/go-up-search.png"
@@ -2852,10 +2833,6 @@ install( FILES
 
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/view-table-of-contents-ltr.png"
-		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/32x32 COMPONENT kdecore )
-
 
   install( FILES 
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/address-book-new.png"
@@ -2981,17 +2958,13 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-down.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-down-search.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-first.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-first-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-home.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-jump.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-jump-locationbar.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-jump-today.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-last.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-last-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-next.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-next-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-previous.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-previous-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-top.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-up.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/32x32/actions/go-up-search.png"
@@ -3769,9 +3742,6 @@ install( FILES
 
 
 
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/view-table-of-contents-ltr.png"
-		DESTINATION  ${DATA_INSTALL_DIR}/../icons/oxygen/48x48 COMPONENT kdecore )
 
 
   install( FILES 
@@ -3898,17 +3868,13 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-down.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-down-search.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-first.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-first-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-home.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-jump.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-jump-locationbar.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-jump-today.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-last.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-last-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-next.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-next-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-previous.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-previous-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-top.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-up.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/48x48/actions/go-up-search.png"
@@ -4683,13 +4649,9 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/go-bottom.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/go-down.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/go-first.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/go-first-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/go-last.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/go-last-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/go-next.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/go-next-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/go-previous.png"
-  "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/go-previous-page.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/go-top.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/go-up.png"
   "${KDE4_INSTALL_DIR}/share/icons/oxygen/64x64/actions/insert-horizontal-rule.png"
@@ -5294,8 +5256,6 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/kde4/services/emoticonstheme_xmpp.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/file.protocol"
   "${KDE4_INSTALL_DIR}/share/kde4/services/filebehavior.desktop"
-  "${KDE4_INSTALL_DIR}/share/kde4/services/filebrowser.desktop"
-  "${KDE4_INSTALL_DIR}/share/kde4/services/filepreviews.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/filetypes.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/fixhosturifilter.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/ftp.protocol"
@@ -5324,7 +5284,6 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/kde4/services/kcm_mailtransport.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kcm_phonon.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kcmcgi.desktop"
-  "${KDE4_INSTALL_DIR}/share/kde4/services/kcmcss.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kcmdolphin.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kcmhistory.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/kcmkded.desktop"
@@ -5336,7 +5295,6 @@ install( FILES
   "${KDE4_INSTALL_DIR}/share/kde4/services/khtml.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/khtml_behavior.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/khtml_filter.desktop"
-  "${KDE4_INSTALL_DIR}/share/kde4/services/khtml_fonts.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/khtml_general.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/khtml_java_js.desktop"
   "${KDE4_INSTALL_DIR}/share/kde4/services/khtmladaptorpart.desktop"
