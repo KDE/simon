@@ -134,12 +134,17 @@ bool InputNumberCommandManager::executeSelection(QString inputText)
 		return true;
 	}
 
-	//setting correct index
-	int index = 0;
-	while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != inputText.toUpper()))
-		index++;
 
-	if (index == numberIdentifiers.count()) return false;
+	//setting correct index
+	bool ok=false;
+	int index = inputText.toInt(&ok);
+	if (!ok)
+	{
+		while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != inputText.toUpper()))
+			index++;
+
+		if (index == numberIdentifiers.count()) return false;
+	}
 
 	switch (index)
 	{
@@ -181,7 +186,10 @@ bool InputNumberCommandManager::executeSelection(QString inputText)
 
 bool InputNumberCommandManager::trigger(const QString& triggerName)
 {
-	if (triggerName != InputNumberConfiguration::getInstance()->trigger()) return false;
+	if (triggerName != InputNumberConfiguration::getInstance()->trigger()){
+		kWarning() << "Returning";
+		return false;
+	}
 
 	
 	ui.leNumber->clear();
@@ -189,7 +197,6 @@ bool InputNumberCommandManager::trigger(const QString& triggerName)
 	int x,y;
 	x=(tmp->width()/2) - (widget->width()/2);
 	y=(tmp->height()/2)-(widget->height()/2);
-	tmp->deleteLater();
 	widget->move(x, y);
 	widget->show();
 	ActionManager::getInstance()->registerPrompt(this, "executeSelection");

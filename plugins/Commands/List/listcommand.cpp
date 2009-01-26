@@ -109,16 +109,17 @@ bool ListCommand::executeSelection(QString inputText)
 		return true;
 	}
 
-	//setting correct index
-	int index = 0;
-	while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != inputText.toUpper()))
-		index++;
+	bool ok=false;
+	int index = inputText.toInt(&ok);
+	if (!ok)
+	{
+		while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != inputText.toUpper()))
+			index++;
 
-	if (index == numberIdentifiers.count()) return false;
+		if (index == numberIdentifiers.count()) return false;
+	}
 
 	return processRequest(index);
-
-	return true;
 }
 
 const QString ListCommand::staticCategoryText()
@@ -172,6 +173,7 @@ void ListCommand::listCurrentCommandSection()
 
 bool ListCommand::triggerPrivate()
 {
+	kWarning() << "JUIIIIII";
 	if (commands.count() == 0) return false;
 
 	Q_ASSERT(commands.count() == commandTypes.count());

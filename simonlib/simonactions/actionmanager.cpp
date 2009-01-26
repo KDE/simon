@@ -82,10 +82,9 @@ void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 {
 	Q_ASSERT(managers);
 
-	QList<CommandManager*> *newManagerList = new QList<CommandManager*>();
-	
 	bool changed=false;
 	
+	CommandManager* newManagerArray[pluginsToLoad.count()];
 	QHash<QString, int> pluginsToLoadPositions;
 	int i=0;
 	foreach (QString pluginToLoad, pluginsToLoad)
@@ -98,13 +97,13 @@ void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 				if (managers->indexOf(man) != i)
 					changed=true;
 				
-				newManagerList->append(man);
+				newManagerArray[i] = man;
 				managers->removeAll(man);
 				found=true;
 			}
 		}
 		if (!found)
-			pluginsToLoadPositions.insert(pluginToLoad, i+pluginsToLoadPositions.size());
+			pluginsToLoadPositions.insert(pluginToLoad, i);
 		i++;
 	}
 
@@ -114,6 +113,7 @@ void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 	KServiceTypeTrader* trader = KServiceTypeTrader::self();
 	services = trader->query("simon/CommandPlugin");
 	
+	i=0;
 	foreach (KService::Ptr service, services) {
 		KPluginFactory *factory = KPluginLoader(service->library()).factory();
  
@@ -127,7 +127,7 @@ void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 			QString currentManagerName = man->name();
 			if (pluginsToLoadPositions.contains(currentManagerName))
 			{
-				newManagerList->insert(pluginsToLoadPositions.value(currentManagerName), man);
+				newManagerArray[pluginsToLoadPositions.value(currentManagerName)] = man;
 				
 				if (!man->load())
 					KMessageBox::error(0, i18n("Couldn't initialize commandmanager \"%1\".\n\n"
@@ -147,8 +147,10 @@ void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 		deleteManager(manager);
 		changed=true;
 	}
-	delete this->managers;
-	this->managers = newManagerList;
+	for (i=0; i < pluginsToLoadPositions.count(); i++)
+	{
+		*(this->managers) << newManagerArray[i];
+	}
 	
 	//if (changed) emit commandsChanged(getCommandList());
 	if (changed) 
@@ -342,10 +344,8 @@ CommandList* ActionManager::getCommandsOfCategory(const QString& category)
 
 void ActionManager::process(QString input)
 {
-	kWarning() << "Input: " << input;
 	if (!greedyReceivers.isEmpty())
 	{
-		kWarning() << "Executing hooks";
 		foreach (const GreedyReceiver& rec, greedyReceivers)
 		{
 			bool accepted;
