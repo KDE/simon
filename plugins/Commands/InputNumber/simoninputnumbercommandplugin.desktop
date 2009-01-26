@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=system-run
+ServiceTypes=simon/CommandPlugin
+X-KDE-Library=simoninputnumbercommandplugin
+Name=simon Input Number Command Plugin
+Name[de]=simon Zahlen-Eingabe-Kommando Modul
+Comment=Provides an easy way to spell out any number
+Comment[de]=Bietet eine einfache Möglichkeit jede Zahl auszubuchstabieren
+
+X-KDE-PluginInfo-Author=Peter Grasch
+X-KDE-PluginInfo-Email=grasch@simon-listens.org
+X-KDE-PluginInfo-Name=simoninputnumbercommandplugin
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://simon-listens.org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ParentApp=simon

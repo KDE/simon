@@ -1,0 +1,143 @@
+<ui version="4.0" >
+ <class>InputNumberDlg</class>
+ <widget class="QWidget" name="InputNumberDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>242</width>
+    <height>228</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Input Number</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout" >
+   <item row="0" column="0" colspan="3" >
+    <widget class="KLineEdit" name="leNumber" >
+     <property name="inputMask" >
+      <string/>
+     </property>
+     <property name="text" >
+      <string/>
+     </property>
+     <property name="readOnly" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" >
+    <widget class="KPushButton" name="pb7" >
+     <property name="text" >
+      <string>7</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <widget class="KPushButton" name="pb8" >
+     <property name="text" >
+      <string>8</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2" >
+    <widget class="KPushButton" name="pb9" >
+     <property name="text" >
+      <string>9</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" >
+    <widget class="KPushButton" name="pb4" >
+     <property name="text" >
+      <string>4</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" >
+    <widget class="KPushButton" name="pb5" >
+     <property name="text" >
+      <string>5</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2" >
+    <widget class="KPushButton" name="pb6" >
+     <property name="text" >
+      <string>6</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" >
+    <widget class="KPushButton" name="pb1" >
+     <property name="text" >
+      <string>1</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" >
+    <widget class="KPushButton" name="pb2" >
+     <property name="text" >
+      <string>2</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2" >
+    <widget class="KPushButton" name="pb3" >
+     <property name="text" >
+      <string>3</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" >
+    <widget class="KPushButton" name="pb0" >
+     <property name="text" >
+      <string>0</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1" >
+    <widget class="KPushButton" name="pbComma" >
+     <property name="text" >
+      <string>.</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2" >
+    <widget class="KPushButton" name="pbBack" >
+     <property name="text" >
+      <string>Back</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="3" >
+    <widget class="KPushButton" name="pbOk" >
+     <property name="text" >
+      <string>Ok</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="3" >
+    <widget class="KPushButton" name="pbCancel" >
+     <property name="text" >
+      <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

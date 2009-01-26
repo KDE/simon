@@ -1,0 +1,190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-01-26 11:47+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: inputnumbercommandmanager.cpp:45
+msgid "Zero"
+msgstr ""
+
+#: inputnumbercommandmanager.cpp:45
+msgid "One"
+msgstr ""
+
+#: inputnumbercommandmanager.cpp:45
+msgid "Two"
+msgstr ""
+
+#: inputnumbercommandmanager.cpp:46
+msgid "Three"
+msgstr ""
+
+#: inputnumbercommandmanager.cpp:46
+msgid "Four"
+msgstr ""
+
+#: inputnumbercommandmanager.cpp:46
+msgid "Five"
+msgstr ""
+
+#: inputnumbercommandmanager.cpp:47
+msgid "Six"
+msgstr ""
+
+#: inputnumbercommandmanager.cpp:47
+msgid "Seven"
+msgstr ""
+
+#: inputnumbercommandmanager.cpp:47
+msgid "Eight"
+msgstr ""
+
+#: inputnumbercommandmanager.cpp:47
+msgid "Nine"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
+#: inputnumbercommandmanager.cpp:73 inputnumberconfiguration.cpp:33
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Input Number"
+msgstr ""
+
+#: inputnumbercommandmanager.cpp:79
+msgctxt "Decimal point"
+msgid "."
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:123
+#. i18n: ectx: property (text), widget (KPushButton, pbCancel)
+#: inputnumbercommandmanager.cpp:116 po/rc.cpp:51 rc.cpp:51
+msgid "Cancel"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:109
+#. i18n: ectx: property (text), widget (KPushButton, pbBack)
+#: inputnumbercommandmanager.cpp:121 po/rc.cpp:45 rc.cpp:45
+msgid "Back"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:116
+#. i18n: ectx: property (text), widget (KPushButton, pbOk)
+#: inputnumbercommandmanager.cpp:126 po/rc.cpp:48 rc.cpp:48
+msgid "Ok"
+msgstr ""
+
+#: inputnumbercommandmanager.cpp:131
+msgctxt "Name of the decimal seperator"
+msgid "Comma"
+msgstr ""
+
+#: inputnumberconfiguration.cpp:34
+msgid "Input numbers with ease"
+msgstr ""
+
+#: inputnumberconfiguration.cpp:51 inputnumberconfiguration.cpp:78
+#: inputnumberconfiguration.cpp:87
+msgid "Number"
+msgstr ""
+
+#. i18n: file: inputnumberconfigurationdlg.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberConfigurationDlg)
+#: po/rc.cpp:3 rc.cpp:3
+msgid "Form"
+msgstr ""
+
+#. i18n: file: inputnumberconfigurationdlg.ui:21
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "Trigger:"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:32
+#. i18n: ectx: property (text), widget (KPushButton, pb7)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "7"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:39
+#. i18n: ectx: property (text), widget (KPushButton, pb8)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "8"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:46
+#. i18n: ectx: property (text), widget (KPushButton, pb9)
+#: po/rc.cpp:18 rc.cpp:18
+msgid "9"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:53
+#. i18n: ectx: property (text), widget (KPushButton, pb4)
+#: po/rc.cpp:21 rc.cpp:21
+msgid "4"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:60
+#. i18n: ectx: property (text), widget (KPushButton, pb5)
+#: po/rc.cpp:24 rc.cpp:24
+msgid "5"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:67
+#. i18n: ectx: property (text), widget (KPushButton, pb6)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "6"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:74
+#. i18n: ectx: property (text), widget (KPushButton, pb1)
+#: po/rc.cpp:30 rc.cpp:30
+msgid "1"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:81
+#. i18n: ectx: property (text), widget (KPushButton, pb2)
+#: po/rc.cpp:33 rc.cpp:33
+msgid "2"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:88
+#. i18n: ectx: property (text), widget (KPushButton, pb3)
+#: po/rc.cpp:36 rc.cpp:36
+msgid "3"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:95
+#. i18n: ectx: property (text), widget (KPushButton, pb0)
+#: po/rc.cpp:39 rc.cpp:39
+msgid "0"
+msgstr ""
+
+#. i18n: file: inputnumberwidget.ui:102
+#. i18n: ectx: property (text), widget (KPushButton, pbComma)
+#: po/rc.cpp:42 rc.cpp:42
+msgid "."
+msgstr ""
+
+#: po/rc.cpp:52 rc.cpp:52
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#: po/rc.cpp:53 rc.cpp:53
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""

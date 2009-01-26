@@ -125,6 +125,7 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
 	int x,y;
 	x=(tmp->width()/2) - (width()/2);
 	y=(tmp->height()/2)-(height()/2);
+	tmp->deleteLater();
 	
 	move(x,y);
 }
