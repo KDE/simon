@@ -28,6 +28,7 @@
 class KProcess;
 class KAction;
 class QCloseEvent;
+class KCMultiDialog;
 /**
  * This is the main view class for ksimond.  Most of the non-menu,
  * non-toolbar, and non-statusbar (e.g., non frame) GUI code should go
@@ -67,6 +68,7 @@ protected:
 	
 private:
     TrayIconManager *trayIconMgr;
+	KCMultiDialog *configDialog;
     KProcess *process;
     KAction *startProcess, *restartProcess, *stopProcess, *configure;
     bool stopIntended;

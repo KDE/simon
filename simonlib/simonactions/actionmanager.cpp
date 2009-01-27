@@ -60,8 +60,13 @@ void ActionManager::init()
 void ActionManager::setConfigurationDialog(KCModule* commandSettings)
 {
 	this->commandSettings = dynamic_cast<CommandSettings*>(commandSettings);
+	if (!this->commandSettings) return;
+	
 	connect(commandSettings, SIGNAL(pluginSelectionChanged(const QStringList&)), this, SLOT(setupBackends(const QStringList&)));
 	connect(commandSettings, SIGNAL(triggerChanged(const QStringList&)), this, SLOT(setTrigger(const QStringList&)));
+	
+	foreach (CommandManager *man, *managers)
+		this->commandSettings->registerPlugIn(man->getConfigurationPage());
 }
 
 void ActionManager::setTrigger(const QStringList& trigger)
@@ -81,11 +86,10 @@ void ActionManager::deleteManager(CommandManager *manager)
 void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 {
 	Q_ASSERT(managers);
-
+    kWarning() << pluginsToLoad;
 	bool changed=false;
 	
 	CommandManager* newManagerArray[pluginsToLoad.count()];
-	QHash<QString, int> pluginsToLoadPositions;
 	int i=0;
 	foreach (QString pluginToLoad, pluginsToLoad)
 	{
@@ -103,11 +107,9 @@ void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 			}
 		}
 		if (!found)
-			pluginsToLoadPositions.insert(pluginToLoad, i);
+			changed=true;
 		i++;
 	}
-
-	if (pluginsToLoadPositions.size() > 0) changed=true;
 	
 	KService::List services;
 	KServiceTypeTrader* trader = KServiceTypeTrader::self();
@@ -125,9 +127,9 @@ void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 		if (man)
 		{
 			QString currentManagerName = man->name();
-			if (pluginsToLoadPositions.contains(currentManagerName))
+			if (pluginsToLoad.contains(currentManagerName))
 			{
-				newManagerArray[pluginsToLoadPositions.value(currentManagerName)] = man;
+				newManagerArray[pluginsToLoad.indexOf(currentManagerName)] = man;
 				
 				if (!man->load())
 					KMessageBox::error(0, i18n("Couldn't initialize commandmanager \"%1\".\n\n"
@@ -144,11 +146,13 @@ void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 	
 	foreach (CommandManager *manager, *managers)
 	{
+		kWarning() << "Deleting " << manager;
 		deleteManager(manager);
 		changed=true;
 	}
-	for (i=0; i < pluginsToLoadPositions.count(); i++)
+	for (i=0; i < pluginsToLoad.count(); i++)
 	{
+		kWarning() << newManagerArray[i];
 		*(this->managers) << newManagerArray[i];
 	}
 	

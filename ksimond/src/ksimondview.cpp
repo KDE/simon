@@ -37,7 +37,13 @@ KSimondView::KSimondView(QObject *parent):QObject(parent)
 {
 	stopIntended=false;
 	wantReload=false;
-	trayIconMgr = new TrayIconManager();
+	
+	configDialog = new KCMultiDialog(0);
+	configDialog->addModule("ksimondconfiguration");
+	configDialog->addModule("simonduserconfiguration");
+	configDialog->addModule("simondnetworkconfiguration");
+	
+	trayIconMgr = new TrayIconManager(configDialog);
 	trayIconMgr->createIcon(KIcon("simond"), i18n("simond"));
 	//add actions
 	startProcess = new KAction(0);
@@ -84,14 +90,10 @@ KSimondView::KSimondView(QObject *parent):QObject(parent)
 
 void KSimondView::showConfigurationDialog()
 {
-	KCMultiDialog *configDialog = new KCMultiDialog(0);
-	configDialog->addModule("ksimondconfiguration");
-	configDialog->addModule("simonduserconfiguration");
-	configDialog->addModule("simondnetworkconfiguration");
 	configDialog->show();
 
 	//destroy when done
-	connect(configDialog, SIGNAL(finished(int)), configDialog, SLOT(deleteLater()));
+	//connect(configDialog, SIGNAL(finished(int)), configDialog, SLOT(deleteLater()));
 }
 
 
@@ -189,7 +191,7 @@ void KSimondView::stopSimond()
 {
 	stopIntended=true;
 	process->terminate();
-	if (!process->waitForFinished(2000))
+	if (!process->waitForFinished(1000))
 		process->kill();
 }
 
@@ -206,4 +208,5 @@ KSimondView::~KSimondView()
 	startProcess->deleteLater();
 	stopProcess->deleteLater();
 	configure->deleteLater();
+	configDialog->deleteLater();
 }
