@@ -86,7 +86,6 @@ void ActionManager::deleteManager(CommandManager *manager)
 void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 {
 	Q_ASSERT(managers);
-    kWarning() << pluginsToLoad;
 	bool changed=false;
 	
 	CommandManager* newManagerArray[pluginsToLoad.count()];
@@ -146,13 +145,11 @@ void ActionManager::setupBackends(const QStringList& pluginsToLoad)
 	
 	foreach (CommandManager *manager, *managers)
 	{
-		kWarning() << "Deleting " << manager;
 		deleteManager(manager);
 		changed=true;
 	}
 	for (i=0; i < pluginsToLoad.count(); i++)
 	{
-		kWarning() << newManagerArray[i];
 		*(this->managers) << newManagerArray[i];
 	}
 	
