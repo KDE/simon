@@ -21,8 +21,9 @@
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
 #include <unistd.h>
-#include <KLocalizedString>
 #include <QDesktopWidget>
+#include <QDialog>
+#include <KLocalizedString>
 
 K_PLUGIN_FACTORY( InputNumberCommandPluginFactory, 
 			registerPlugin< InputNumberCommandManager >(); 
@@ -34,8 +35,9 @@ QStringList InputNumberCommandManager::numberIdentifiers;
 
 InputNumberCommandManager::InputNumberCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
 {
-	widget = new QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
+	widget = new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
 	widget->setWindowIcon(KIcon("accessories-calculator"));
+	connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
 	ui.setupUi(widget);
 	ui.pbOk->setIcon(KIcon("dialog-ok-apply"));
 	ui.pbCancel->setIcon(KIcon("dialog-cancel"));
@@ -46,6 +48,7 @@ InputNumberCommandManager::InputNumberCommandManager(QObject *parent, const QVar
 			<< i18n("Three") << i18n("Four") << i18n("Five") <<
 			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
 
+	connect(widget, SIGNAL(finished(int)), this, SLOT(deregister()));
 	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(cancel()));
 	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(back()));
 	connect(ui.pbOk, SIGNAL(clicked()), this, SLOT(ok()));
@@ -60,6 +63,11 @@ InputNumberCommandManager::InputNumberCommandManager(QObject *parent, const QVar
 	connect(ui.pb7, SIGNAL(clicked()), this, SLOT(send7()));
 	connect(ui.pb8, SIGNAL(clicked()), this, SLOT(send8()));
 	connect(ui.pb9, SIGNAL(clicked()), this, SLOT(send9()));
+}
+
+void InputNumberCommandManager::deregister()
+{
+	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
 }
 
 const KIcon InputNumberCommandManager::icon() const
@@ -91,9 +99,7 @@ void InputNumberCommandManager::back()
 
 void InputNumberCommandManager::cancel()
 {
-	widget->close();
-	ui.leNumber->clear();
-	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
+	widget->reject();
 }
 
 void InputNumberCommandManager::processRequest(int number)
@@ -105,8 +111,7 @@ void InputNumberCommandManager::processRequest(int number)
 
 void InputNumberCommandManager::ok()
 {
-	widget->close();
-	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
+	widget->accept();
 	usleep(300000);
 	EventHandler::getInstance()->sendWord(ui.leNumber->text());
 }

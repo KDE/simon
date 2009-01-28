@@ -113,18 +113,35 @@ void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 {
 	if (!display) return;
 	KeyCode keyCode;
+
+	kWarning() << key;
+
 	
-	if (key=='\n') {
-		keyCode=XKeysymToKeycode(display, XStringToKeysym("Return"));
-	} else 
-	if (key=='\t') {
-		keyCode=XKeysymToKeycode(display, XStringToKeysym("Tab"));
-	} else
-	if (key == 16777216) 
+	switch (key)
 	{
-		keyCode=XKeysymToKeycode(display, XK_Escape);
-	} else
-		keyCode = XKeysymToKeycode(display, key);
+		case 9: 
+			keyCode=XKeysymToKeycode(display, XStringToKeysym("Tab"));
+			break;
+		case 10:
+			keyCode=XKeysymToKeycode(display, XStringToKeysym("Return"));
+			break;
+		case 16777219:
+			kWarning() << XK_BackSpace;
+			keyCode=XKeysymToKeycode(display, XK_BackSpace);
+			kWarning() << "Hier: " << keyCode;
+			break;
+		case 16777216:
+			keyCode=XKeysymToKeycode(display, XK_Escape);
+			break;
+		case 16777238:
+			keyCode=XKeysymToKeycode(display, XK_Prior);
+			break;
+		case 16777239:
+			keyCode=XKeysymToKeycode(display, XK_Next);
+			break;
+		default:
+			keyCode = XKeysymToKeycode(display, key);
+	}
 	
 	if (keyCode)
 	{
@@ -135,8 +152,9 @@ void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 		KeySym altGrSym = keyToSendShifted[2];
 		
 		if (shiftSym == key)
+		{
 			setModifierKey(Qt::SHIFT);
-		else if (key!=altGrSym) {
+		} else if ((key!=altGrSym) && (key != 16777219)) {
 			setModifierKey(Qt::Key_AltGr);
 		}
 		
@@ -144,7 +162,7 @@ void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 		
 		if (shiftSym == key)
 			unsetModifier(Qt::SHIFT);
-		else if (key!=altGrSym)
+		else if ((key!=altGrSym) && (key != 16777219))
 			unsetModifier(Qt::Key_AltGr);
 	} else {
 		QKeySequence k(key); //do some magic

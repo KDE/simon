@@ -23,6 +23,7 @@
 #include <commandpluginbase/commandmanager.h>
 #include <QVariantList>
 #include "ui_inputnumberwidget.h"
+class QDialog;
 
 /**
  *	@class InputNumberCommandManager
@@ -36,10 +37,11 @@ class InputNumberCommandManager : public CommandManager {
 Q_OBJECT
 private:
 	Ui::InputNumberDlg ui;
-	QWidget *widget;
+	QDialog *widget;
 	static QStringList numberIdentifiers;
 
 private slots:
+	void deregister();
 	void ok();
 	void back();
 	void cancel();

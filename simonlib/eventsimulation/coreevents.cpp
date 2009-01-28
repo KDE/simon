@@ -79,8 +79,15 @@ void CoreEvents::sendShortcut(const QKeySequence& shortcut)
 	if ((key >= 65) && (key <= 90))
 		key += 32;
 
+		
 	Qt::KeyboardModifiers mods = Qt::KeyboardModifiers(shortcut[0] & (Qt::SHIFT | Qt::META | Qt::CTRL | Qt::ALT));
+	if (key == Qt::Key_Backtab)
+	{
+		key = Qt::Key_Tab;
+		mods |= Qt::ShiftModifier;
+	}
 	setModifierKey(mods, true);
 	sendKey(key);
 	unsetUnneededModifiers();
 }
+
