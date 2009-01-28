@@ -54,11 +54,13 @@ Model* SynchronisationManager::getActiveModel()
 
 	QString dirPath = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
 
-	QString configPath = dirPath+"activemodelrc";
+	QString configPath = dirPath+"activerc";
 	KConfig config( configPath, KConfig::SimpleConfig );
 	qint32 sampleRate;
 	KConfigGroup cGroup(&config, "");
-	sampleRate = cGroup.readEntry("SampleRate").toInt();
+	bool ok;
+	sampleRate = cGroup.readEntry("SampleRate").toInt(&ok);
+	if (!ok) return NULL;
 	
 	QFile hmmDefs(dirPath+"hmmdefs");
 	QFile tiedlist(dirPath+"tiedlist");
@@ -71,7 +73,7 @@ Model* SynchronisationManager::getActiveModel()
 		(!dfa.open(QIODevice::ReadOnly)))
 	{
 		kDebug() << "Failed to gather active model";
-		return false;
+		return NULL;
 	}
 
 	return new Model(sampleRate, hmmDefs.readAll(), tiedlist.readAll(), dict.readAll(), dfa.readAll());
