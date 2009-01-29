@@ -93,6 +93,7 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 	adinStreamer=AdinStreamer::getInstance(this);
 	connect(adinStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
 	connect(adinStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
+	connect(adinStreamer, SIGNAL(requestingPause()), this, SLOT(pauseRecognition()));
 
 	socket = new QSslSocket();
 	timeoutWatcher = new QTimer(this);
@@ -1498,13 +1499,16 @@ void RecognitionControl::stopRecognition()
 
 void RecognitionControl::pauseRecognition()
 {
-	sendRequest(Simond::PauseRecognition);
+	kWarning() << "Sending pause request";
+	adinStreamer->stop();
+//	sendRequest(Simond::PauseRecognition);
 }
 
 void RecognitionControl::resumeRecognition()
 {
 	kDebug() << "Sending resume request";
-	sendRequest(Simond::ResumeRecognition);
+	adinStreamer->start();
+//	sendRequest(Simond::ResumeRecognition);
 }
 
 /**

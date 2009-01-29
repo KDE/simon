@@ -45,6 +45,7 @@
 
 AdinStreamer* AdinStreamer::instance;
 static bool adin_shouldBeRunning = false;
+static bool adin_shouldBePaused = false;
 static int adinstreamer_unknown_command_counter = 0;
 static int adinstreamer_rewind_msec = 0;
 static int adinstreamer_socketDescriptor = 0;
@@ -207,6 +208,7 @@ static int adinnet_wait_command()
 	int status;
 	int cnt, ret;
 	char com;
+	adin_shouldBePaused = true;
 
 	fprintf(stderr, "<<< waiting RESUME >>>");
 
@@ -231,6 +233,7 @@ static int adinnet_wait_command()
 					case '1':                       /* resume */
 						/* do resume */
 						printf("Resume...");
+						adin_shouldBePaused = false;
 						return 1; // resume
 						break;
 					case '2':                       /* terminate */
@@ -239,6 +242,7 @@ static int adinnet_wait_command()
 						break;
 					default:
 						fprintf(stderr, "adintool: unknown command adinnet_wait_command: %d\n", com);
+						adin_shouldBePaused = false;
 						return 1;
 				}
 			}
@@ -328,6 +332,13 @@ void AdinStreamer::run()
 
 	printf("[start recording]");
 	emit started();
+
+	if (adin_shouldBePaused)
+	{
+		kWarning() << "Requesting pause";
+		emit requestingPause();
+	}
+
 
 	while(adin_shouldBeRunning) {
 		/* begin A/D input of a stream */

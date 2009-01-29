@@ -60,6 +60,7 @@ Q_OBJECT
 signals:
 	void connected();
 	void audioDeviceError();
+	void requestingPause();
 	void started();
 	void stopped();
 	
