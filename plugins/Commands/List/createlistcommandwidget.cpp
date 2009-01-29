@@ -50,7 +50,7 @@ CreateListCommandWidget::CreateListCommandWidget(QWidget *parent) : CreateComman
 	connect(ui.pbAddCommand, SIGNAL(clicked()), this, SLOT(addCommand()));
 	connect(ui.pbMoveUp, SIGNAL(clicked()), this, SLOT(moveUp()));
 	connect(ui.pbMoveDown, SIGNAL(clicked()), this, SLOT(moveDown()));
-	connect(ui.tvCommands, SIGNAL(activated(const QModelIndex&)), this, SLOT(enableButtons(const QModelIndex&)));
+	connect(ui.tvCommands, SIGNAL(clicked(const QModelIndex&)), this, SLOT(enableButtons(const QModelIndex&)));
 	enableButtons(ui.tvCommands->currentIndex());
 
 	ui.pbAddCommand->setIcon(KIcon("list-add"));
