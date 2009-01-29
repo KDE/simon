@@ -120,7 +120,7 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 
 void RecognitionControl::streamStarted()
 {
-	kWarning() << "Stream has been started";
+	kDebug() << "Stream has been started";
 	emit recognitionStatusChanged(RecognitionControl::Started);
 }
 
@@ -606,7 +606,7 @@ void RecognitionControl::fetchMissingSamples()
 
 void RecognitionControl::sendSample(QString sampleName)
 {
-	kWarning() << sampleName;
+	kDebug() << sampleName;
 	checkIfSynchronisationIsAborting();
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
@@ -664,9 +664,9 @@ void RecognitionControl::startSynchronisation()
 
 	synchronisationOperation = new Operation(thread(), i18n("Modell Synchronisation"), i18n("Initializing..."), 0, 100, false);
 
-	kWarning() << "Starting synchronisation";
+	kDebug() << "Starting synchronisation";
 	sendRequest(Simond::StartSynchronisation);
-	kWarning() << stillToProcess.count();
+	kDebug() << stillToProcess.count();
 }
 
 void RecognitionControl::synchronisationComplete()
@@ -1023,7 +1023,7 @@ void RecognitionControl::messageReceived()
 				{
 					checkIfSynchronisationIsAborting();
 
-					kWarning() << "Server sent grammar";
+					kDebug() << "Server sent grammar";
 					
 					parseLengthHeader();
 					
@@ -1131,9 +1131,9 @@ void RecognitionControl::messageReceived()
 					QByteArray sampleNameByte;
 					msg >> sampleNameByte;
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-					kWarning() << "Server requested sampleNameByte";
+					kDebug() << "Server requested sampleNameByte";
 					
-					kWarning() << sampleNameByte;
+					kDebug() << sampleNameByte;
 					sendSample(QString::fromUtf8(sampleNameByte));
 					break;
 				}
@@ -1363,7 +1363,7 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32)*3);
 					recognitionReady=true;
 
-					kWarning() << "adinnet server running on port " << port;
+					kDebug() << "adinnet server running on port " << port;
 					adinStreamer->init(socket->peerAddress(), port, sampleRate);
 					startRecognition();
 					break;
@@ -1484,7 +1484,7 @@ void RecognitionControl::startRecognition()
 {
 	if (recognitionReady)
 	{
-		kWarning() << "ole bin hier";
+		kDebug() << "ole bin hier";
 		adinStreamer->start();
 	} else
 		sendRequest(Simond::StartRecognition);
@@ -1499,7 +1499,7 @@ void RecognitionControl::stopRecognition()
 
 void RecognitionControl::pauseRecognition()
 {
-	kWarning() << "Sending pause request";
+	kDebug() << "Sending pause request";
 	adinStreamer->stop();
 //	sendRequest(Simond::PauseRecognition);
 }

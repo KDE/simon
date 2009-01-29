@@ -254,7 +254,7 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 bool TrainingManager::deleteText ( int index )
 {
 	Logger::log ( i18n ( "[INF] Removing \"%1\" from \"%2\"" ).arg ( trainingTexts->at ( index )->getName() ).arg ( trainingTexts->at ( index )->getPath() ) );
-	kWarning() << "removing " << trainingTexts->at ( index )->getPath().toAscii();
+	kDebug() << "removing " << trainingTexts->at ( index )->getPath().toAscii();
 	return QFile::remove( trainingTexts->at ( index )->getPath().toAscii() );
 }
 
@@ -282,7 +282,7 @@ TrainingList* TrainingManager::readTrainingTexts ()
 		QString path = textsrcs.at ( i );
 		XMLTrainingText *text = new XMLTrainingText ( path );
 		text->load ( path );
-		text->setRelevance ( calcRelevance ( text ) ); //FIXME: speed
+		text->setRelevance ( calcRelevance ( text ) ); //TODO: speed
 		trainingTexts->append ( text );
 	}
 	

@@ -231,15 +231,15 @@ bool ModelCompilationManager::startCompilation(const QString& samplePath,
 			     const QString& vocabPath, const QString& promptsPath, 
 			     const QString& treeHedPath, const QString& wavConfigPath)
 {
-	kWarning() << "Entering startCompilation";
+	kDebug() << "Entering startCompilation";
 	if (isRunning()) {
-		kWarning() << "Compilation already running";
+		kDebug() << "Compilation already running";
 		keepGoing=false;
 		//terminate();
 		
-		kWarning() << "Waiting for old compilation to finish";
+		kDebug() << "Waiting for old compilation to finish";
 		wait();
-		kWarning() << "Done";
+		kDebug() << "Done";
 		emit activeModelCompilationAborted();
 	}
 

@@ -33,7 +33,6 @@
 
 //A much faster replacement of regExp.exactMatch(str)
 //it also captures the words corresponding to the wildcards * & _
-//FIXME das stimmt net
 bool exactMatch(QString regExp, QString str, QStringList &capturedText)
 {
     QStringList regExpWords = regExp.split(' ');

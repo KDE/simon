@@ -61,14 +61,14 @@ bool CompositeCommand::triggerPrivate()
 	for (int i=0; i<commands.count();i++)
 	{
 		QString type = commandTypes[i];
-		kWarning() << type << i18n("Delay");
+		kDebug() << type << i18n("Delay");
 		if (type==i18n("Delay"))
 		{
 			bool ok=true;
-			kWarning() << commands[i];
+			kDebug() << commands[i];
 			int amount = commands[i].toInt(&ok)*1000;
-			if (!ok) {kWarning() << "Not ok"; continue;}
-			kWarning() << "Sleeping: " << amount;
+			if (!ok) {kDebug() << "Not ok"; continue;}
+			kDebug() << "Sleeping: " << amount;
 			usleep(amount);
 		} else 
 			ActionManager::getInstance()->triggerCommand(commandTypes[i], commands[i]);

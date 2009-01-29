@@ -264,7 +264,7 @@ void outputResult(Recog *recog, void *control)
 			// 	  printf("grammar%d: %d\n", n+1, s->gram_id);
 			// 	}
 			//       }
-			kWarning() << "Recognized: " << result.trimmed();
+			kDebug() << "Recognized: " << result.trimmed();
 			jControl->recognized(result.trimmed(), sampa.trimmed(), sampaRaw.trimmed());
 		}
 	}
@@ -476,7 +476,7 @@ void JuliusControl::stop()
 
 	if (!wait(1000))
 	{
-		kWarning() << "ARGH STILL RUNNING!";
+		kDebug() << "ARGH STILL RUNNING!";
 		do {
 			terminate();
 			wait(1000);

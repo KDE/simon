@@ -49,9 +49,6 @@ TrainingSettings::TrainingSettings(QWidget* parent, const QVariantList& args): K
 
 	trainingsData->setHeader("");
 
-	kWarning() <<  "HERE";
-	exit(0);
-	kWarning() << AcousticModelManagementConfiguration::modelSampleRate();
 	addConfig(AcousticModelManagementConfiguration::self(), this);
 }
 

@@ -114,7 +114,7 @@ void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 	if (!display) return;
 	KeyCode keyCode;
 
-	kWarning() << key;
+	kDebug() << key;
 
 	
 	switch (key)
@@ -126,9 +126,9 @@ void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 			keyCode=XKeysymToKeycode(display, XStringToKeysym("Return"));
 			break;
 		case 16777219:
-			kWarning() << XK_BackSpace;
+			kDebug() << XK_BackSpace;
 			keyCode=XKeysymToKeycode(display, XK_BackSpace);
-			kWarning() << "Hier: " << keyCode;
+			kDebug() << "Hier: " << keyCode;
 			break;
 		case 16777216:
 			keyCode=XKeysymToKeycode(display, XK_Escape);

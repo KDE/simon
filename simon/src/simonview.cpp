@@ -413,8 +413,6 @@ void SimonView::toggleActivation()
 void SimonView::representState(SimonControl::SystemStatus status)
 {
 	guiUpdateMutex.lock();
-	kWarning() << status;
-//	return; //FIXME: remove
 	KToolBarPopupAction *connectActivate = dynamic_cast<KToolBarPopupAction*>(actionCollection()->action("connectActivate"));
 	QAction *compileAction = actionCollection()->action("compileModel");
 	if (compileAction) 

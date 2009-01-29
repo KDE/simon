@@ -51,7 +51,7 @@ CommandConfiguration* DesktopGridCommandManager::getConfigurationPage()
 
 bool DesktopGridCommandManager::trigger(const QString& triggerName)
 {
-	kWarning() << triggerName << DesktopGridConfiguration::getInstance()->trigger();
+	kDebug() << triggerName << DesktopGridConfiguration::getInstance()->trigger();
 	if (triggerName != DesktopGridConfiguration::getInstance()->trigger()) return false;
 
 	Logger::log(i18n("[INF] Activating desktopgrid"));

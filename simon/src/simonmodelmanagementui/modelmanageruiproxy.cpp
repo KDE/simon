@@ -54,7 +54,7 @@ void ModelManagerUiProxy::sampleNotAvailable(const QString& sample)
 		//kick some poor samples ass
 		startGroup();
 		QString sampleBaseName = sample.left(sample.length()-4);
-		kWarning() << sampleBaseName;
+		kDebug() << sampleBaseName;
 		bool succ = TrainingManager::getInstance()->removeSample(sampleBaseName);
 		if (succ)
 			TrainingManager::getInstance()->savePrompts();

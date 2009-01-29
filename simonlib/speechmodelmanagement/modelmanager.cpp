@@ -379,9 +379,9 @@ QString ModelManager::missingSample()
 
 bool ModelManager::hasWordList()
 {
-	kWarning() << getWordListModifiedTime();
+	kDebug() << getWordListModifiedTime();
 	if (getWordListModifiedTime().isNull()) return false;
-	kWarning() << "Still here";
+	kDebug() << "Still here";
 	return (hasGrammar() && QFile::exists(KStandardDirs::locate("appdata", "model/model.voca"))
 			&& QFile::exists(KStandardDirs::locate("appdata", "model/lexicon")));
 }
@@ -418,7 +418,7 @@ bool ModelManager::hasActiveContainer()
 
 QDateTime ModelManager::getSrcContainerModifiedTime()
 {
-	kWarning() << "Getting src container modified time";
+	kDebug() << "Getting src container modified time";
 	if (!hasWordList() || !hasTraining() || !hasGrammar() || !hasLanguageDescription())
 	{
 		return QDateTime();

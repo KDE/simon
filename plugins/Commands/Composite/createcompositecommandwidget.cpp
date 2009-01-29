@@ -122,7 +122,6 @@ bool CreateCompositeCommandWidget::init(Command* command)
 		{
 			bool ok;
 			int delay = trigger.toInt(&ok);
-			kWarning() << delay;
 			if (ok)
 				model->selectCommand(new DelayCommand(delay));
 		} else {

@@ -266,7 +266,7 @@ void AdinStreamer::init(const QHostAddress& address, qint32 port, qint32 sampleR
 	this->address = address;
 	this->port = port;
 	adinstreamer_sfreq = sampleRate;
-	kWarning() << "Initing with: Address:" << address << " Port: " << port << " Freq: " << sampleRate;
+	kDebug() << "Initing with: Address:" << address << " Port: " << port << " Freq: " << sampleRate;
 }
 
 void AdinStreamer::run()
@@ -335,7 +335,6 @@ void AdinStreamer::run()
 
 	if (adin_shouldBePaused)
 	{
-		kWarning() << "Requesting pause";
 		emit requestingPause();
 	}
 
@@ -368,7 +367,6 @@ void AdinStreamer::run()
 			adinstreamer_speechlen = 0;
 			adinstreamer_stop_at_next = FALSE;
 // 			fprintf(stderr, "<<< please speak >>>");
-			//FIXME: &recog
 			ret = adin_go(adin_callback_adinnet, adinnet_check_command, recog);
 			/* return value of adin_go:
 				-2: input terminated by pause command from adinnet server

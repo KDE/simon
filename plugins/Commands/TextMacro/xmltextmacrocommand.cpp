@@ -59,7 +59,6 @@ bool XMLTextMacroCommand::save(CommandList *list, QString path)
 	
 	for (int i=0; i < list->size(); i++)
 	{
-		//FIXME: implement
 		TextMacroCommand *com = dynamic_cast<TextMacroCommand*>(list->at(i));
 		if (!com) continue;
 		

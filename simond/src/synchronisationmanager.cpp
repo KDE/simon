@@ -550,9 +550,9 @@ QDateTime SynchronisationManager::getCompileModelSrcDate()
 	QDateTime wordListDate = getWordListDate();
 	QDateTime grammarDate = getGrammarDate();
 	QDateTime trainingDate = getTrainingDate();
-	kWarning() << "WordList: " << wordListDate;
-	kWarning() << "Grammar: " << grammarDate;
-	kWarning() << "Training: " << trainingDate;
+	kDebug() << "WordList: " << wordListDate;
+	kDebug() << "Grammar: " << grammarDate;
+	kDebug() << "Training: " << trainingDate;
 
 	if (wordListDate.isNull() || grammarDate.isNull() || trainingDate.isNull())
 		return QDateTime();
@@ -572,7 +572,7 @@ QDateTime SynchronisationManager::getModelSrcDate()
 
 bool SynchronisationManager::hasModelSrc()
 {
-	kWarning() << hasWordList() << hasGrammar() << hasTraining();
+	kDebug() << hasWordList() << hasGrammar() << hasTraining();
 	return hasWordList() && hasGrammar() && hasTraining() && hasLanguageDescription();
 }
 
@@ -625,16 +625,16 @@ bool SynchronisationManager::commit()
 
 	KConfig config( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
-	kWarning() << cGroup.readEntry("WordListDate", QDateTime());
-	kWarning() << cGroup.readEntry("GrammarDate", QDateTime());
-	kWarning() << cGroup.readEntry("LanguageDescriptionDate", QDateTime());
-	kWarning() << cGroup.readEntry("TrainingDate", QDateTime());
+	kDebug() << cGroup.readEntry("WordListDate", QDateTime());
+	kDebug() << cGroup.readEntry("GrammarDate", QDateTime());
+	kDebug() << cGroup.readEntry("LanguageDescriptionDate", QDateTime());
+	kDebug() << cGroup.readEntry("TrainingDate", QDateTime());
 
 	QDateTime newSrcContainerTime = qMax(cGroup.readEntry("WordListDate", QDateTime()),
 					 cGroup.readEntry("GrammarDate", QDateTime()));
 	newSrcContainerTime = qMax(newSrcContainerTime, cGroup.readEntry("LanguageDescriptionDate", QDateTime()));
 	newSrcContainerTime = qMax(newSrcContainerTime, cGroup.readEntry("TrainingDate", QDateTime()));
-	kWarning() << "New container time: " << newSrcContainerTime;
+	kDebug() << "New container time: " << newSrcContainerTime;
 	if (newSrcContainerTime.isNull()) {
 		return cleanTemp(); // nothing to process
 	}
@@ -649,11 +649,11 @@ bool SynchronisationManager::commit()
 		if (!QFile::copy(srcContainerTempPath+file, newSrcContainerPath+file))
 		{
 			allCopied=false;
-			kWarning() << "Failed to copy " << srcContainerTempPath+file << "to" << newSrcContainerPath+file;
+			kDebug() << "Failed to copy " << srcContainerTempPath+file << "to" << newSrcContainerPath+file;
 		}
 	}
 	if (!allCopied) {
-		kWarning() << "Failed to copy all files. Aborting";
+		kDebug() << "Failed to copy all files. Aborting";
 		return false;
 	}*/
 
@@ -664,7 +664,7 @@ bool SynchronisationManager::commit()
 
 	if (!allCopied)
 	{
-		kWarning() << "Failed to copy all files. Aborting";
+		kDebug() << "Failed to copy all files. Aborting";
 		return false;
 	}
 
@@ -776,9 +776,9 @@ QMap<QDateTime, QString> SynchronisationManager::getLanguageDescriptions()
 
 bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 {
-	kWarning() << "Starting synchronization";
+	kDebug() << "Starting synchronization";
 	if (!startSynchronisation()) return false;
-	kWarning() << "Finished Starting synchronization";
+	kDebug() << "Finished Starting synchronization";
 	QString wordListPath, grammarPath, trainingPath, languageDescriptionPath;
 	QMap<QDateTime,QString> wordlistModels = getWordLists();
 	for (QMap<QDateTime,QString>::const_iterator i=wordlistModels.constBegin(); 
@@ -802,8 +802,8 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 
 	if (wordListPath.isEmpty() || grammarPath.isEmpty() || trainingPath.isEmpty() || languageDescriptionPath.isEmpty()) {
 		abort();
-		kWarning() << "One of the paths is empty";
-		kWarning() << wordListPath << grammarPath << trainingPath << languageDescriptionPath;
+		kDebug() << "One of the paths is empty";
+		kDebug() << wordListPath << grammarPath << trainingPath << languageDescriptionPath;
 		return false;
 	}
 
@@ -816,7 +816,7 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 	if (!allCopied)
 	{
 		abort();
-		kWarning() << "Could not copy everything";
+		kDebug() << "Could not copy everything";
 		return false;
 	}
 
@@ -831,7 +831,7 @@ bool SynchronisationManager::switchToModel(const QDateTime& modelDate)
 	config.sync();
 
 
-	kWarning() << "Committing";
+	kDebug() << "Committing";
 	return commit();
 }
 
@@ -945,7 +945,7 @@ bool SynchronisationManager::removeExcessModelBackups()
 		if (!allRemoved || !oldModelDir.rmdir(modelToRemovePath))
 			return false;
 
-		kWarning() << "Removed " << modelToRemovePath;
+		kDebug() << "Removed " << modelToRemovePath;
 		models.remove(models.keys().at(0));
 	}
 	

@@ -178,12 +178,12 @@ bool ScreenGrid::selectStrRegion(QString input)
 
 		if (index == numberIdentifiers.count()) return false;
 	}
-	kWarning() << index;
+	kDebug() << index;
 	if (index > btns.count()) return false;
 
 	KPushButton *btn = btns[index];
 	if (!btn) return false;
-	kWarning() << "noch hier";
+	kDebug() << "noch hier";
 
 	btn->animateClick();
 	return true;

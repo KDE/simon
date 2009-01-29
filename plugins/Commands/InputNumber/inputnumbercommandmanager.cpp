@@ -104,7 +104,7 @@ void InputNumberCommandManager::cancel()
 
 void InputNumberCommandManager::processRequest(int number)
 {
-	kWarning() << "Digit: " << number;
+	kDebug() << "Digit: " << number;
 
 	ui.leNumber->setText(ui.leNumber->text()+QString::number(number));
 }
@@ -192,7 +192,7 @@ bool InputNumberCommandManager::executeSelection(QString inputText)
 bool InputNumberCommandManager::trigger(const QString& triggerName)
 {
 	if (triggerName != InputNumberConfiguration::getInstance()->trigger()){
-		kWarning() << "Returning";
+		kDebug() << "Returning";
 		return false;
 	}
 

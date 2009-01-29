@@ -200,7 +200,7 @@ void ClientSocket::processRequest()
 
 			case Simond::ActiveModelDate:
 			{
-				kWarning() << "Received ActiveModelDate";
+				kDebug() << "Received ActiveModelDate";
 				QDateTime remoteModelDate;
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteModelDate;
@@ -265,7 +265,7 @@ void ClientSocket::processRequest()
 				
 				kDebug() << "Client reported error during the retrieving of the active model";
 				
-				kWarning() << "Requesting sample rate";
+				kDebug() << "Requesting sample rate";
 				
 				if (!sendActiveModel())
 				{
@@ -282,7 +282,7 @@ void ClientSocket::processRequest()
 				qint32 sampleRate;
 				waitForMessage(sizeof(qint32), stream, msg);
 				stream >> sampleRate;
-				kWarning() << "Got sample rate: " << sampleRate;
+				kDebug() << "Got sample rate: " << sampleRate;
 				synchronisationManager->setActiveModelSampleRate(sampleRate);
 				
 				sendCode(Simond::GetModelSrcDate);
@@ -296,7 +296,7 @@ void ClientSocket::processRequest()
 				waitForMessage(sizeof(QDateTime), stream, msg);
 				stream >> remoteModelDate;
 				QDateTime serverModelDate = synchronisationManager->getModelSrcDate();
-				kWarning() << "Received modelsrc date: " << remoteModelDate << serverModelDate ;
+				kDebug() << "Received modelsrc date: " << remoteModelDate << serverModelDate ;
 				
 				Q_ASSERT(synchronisationManager);
 				if (remoteModelDate > serverModelDate)
@@ -306,7 +306,7 @@ void ClientSocket::processRequest()
 					if (remoteModelDate < serverModelDate)
 						modelSource = ClientSocket::Server;
 				}
-				kWarning() << modelSource;
+				kDebug() << modelSource;
 
 				if (remoteModelDate != serverModelDate)
 				{
@@ -326,17 +326,17 @@ void ClientSocket::processRequest()
 				Q_ASSERT(synchronisationManager);
 				Q_ASSERT(modelSource != ClientSocket::Undefined);
 				
-//				kWarning() << "Received training date: " << remoteTrainingDate << synchronisationManager->getTrainingDate();
+//				kDebug() << "Received training date: " << remoteTrainingDate << synchronisationManager->getTrainingDate();
 				if (remoteTrainingDate != synchronisationManager->getTrainingDate())
 				{
 					//Training changed
 					if (modelSource == ClientSocket::Server)
 					{
-						kWarning() << "Sending training";
+						kDebug() << "Sending training";
 						if (!sendTraining())
 							sendCode(Simond::GetTraining);
 					} else {
-						kWarning() << "Retreiving training";
+						kDebug() << "Retreiving training";
 						sendCode(Simond::GetTraining);
 					}
 				} else {
@@ -395,7 +395,7 @@ void ClientSocket::processRequest()
 				Q_ASSERT(synchronisationManager);
 				Q_ASSERT(modelSource != ClientSocket::Undefined);
 				
-				kWarning() << "Wordlist: " << remoteWordListDate << synchronisationManager->getWordListDate();
+				kDebug() << "Wordlist: " << remoteWordListDate << synchronisationManager->getWordListDate();
 			
 				
 				if (remoteWordListDate != synchronisationManager->getWordListDate())
@@ -467,7 +467,7 @@ void ClientSocket::processRequest()
 				Q_ASSERT(synchronisationManager);
 				Q_ASSERT(modelSource != ClientSocket::Undefined);
 
-				kWarning() << "Grammar: " << remoteGrammarDate << synchronisationManager->getGrammarDate();
+				kDebug() << "Grammar: " << remoteGrammarDate << synchronisationManager->getGrammarDate();
 
 				if (remoteGrammarDate != synchronisationManager->getGrammarDate())
 				{
@@ -531,8 +531,8 @@ void ClientSocket::processRequest()
 				Q_ASSERT(synchronisationManager);
 				Q_ASSERT(modelSource != ClientSocket::Undefined);
 				
-				kWarning() << remoteLanguageDescriptionDate;
-				kWarning() << synchronisationManager->getLanguageDescriptionDate();
+				kDebug() << remoteLanguageDescriptionDate;
+				kDebug() << synchronisationManager->getLanguageDescriptionDate();
 				
 				if (remoteLanguageDescriptionDate != synchronisationManager->getLanguageDescriptionDate())
 				{
@@ -543,7 +543,7 @@ void ClientSocket::processRequest()
 							sendCode(Simond::GetLanguageDescription);
 					} else sendCode(Simond::GetLanguageDescription);
 				} else {
-					kWarning() << "Language desc u-t-d";
+					kDebug() << "Language desc u-t-d";
 					kDebug() << "LanguageDescription is up-to-date";
 				}
 				synchronizeSamples();
@@ -705,7 +705,7 @@ void ClientSocket::processRequest()
 			
 			default:
 			{
-				kWarning() << "Unknown request: " << msg;
+				kDebug() << "Unknown request: " << msg;
 			}
 		}
 		
@@ -716,17 +716,17 @@ void ClientSocket::processRequest()
 
 void ClientSocket::startSynchronisation()
 {
-	kWarning() << "Entering startSynchronisation";
+	kDebug() << "Entering startSynchronisation";
 	if (synchronisationRunning) return;
 				
-	kWarning() << "Locking sync.";
+	kDebug() << "Locking sync.";
 	synchronisationRunning = true;
 				
 	if (!synchronisationManager->startSynchronisation())
 	{
 		sendCode(Simond::SynchronisationAlreadyRunning);
 	} else {
-		kWarning() << "Requesting ActiveModelDate";
+		kDebug() << "Requesting ActiveModelDate";
 		sendCode(Simond::GetActiveModelDate);
 	}
 }
@@ -749,7 +749,7 @@ void ClientSocket::activeModelCompilationAborted()
 void ClientSocket::synchronizeSamples()
 {
 	Q_ASSERT(synchronisationManager);
-	kWarning() << "synchronisiere samples";
+	kDebug() << "synchronisiere samples";
 	synchronisationManager->buildMissingSamples();
 	fetchTrainingSample();
 }
@@ -761,14 +761,14 @@ void ClientSocket::fetchTrainingSample()
 	QString sample = synchronisationManager->missingSample();
 	if (sample.isNull())
 	{
-		kWarning() << "Done fetching samples";
+		kDebug() << "Done fetching samples";
 		synchronisationComplete();
 		return;
 	}
 	
 	QByteArray sampleByte = sample.toUtf8();
 	
-	kWarning() << "Fetching sample " << sample;
+	kDebug() << "Fetching sample " << sample;
 
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
@@ -899,9 +899,9 @@ void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 void ClientSocket::recompileModel()
 {
 	sendCode(Simond::ModelCompilationStarted);
-	kWarning() << "Compiling model...";
+	kDebug() << "Compiling model...";
 	
-	kWarning() << synchronisationManager->getLexiconPath();
+	kDebug() << synchronisationManager->getLexiconPath();
 	modelCompilationManager->startCompilation(KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
 				synchronisationManager->getLexiconPath(), synchronisationManager->getGrammarPath(),
 				synchronisationManager->getSimpleVocabPath(), synchronisationManager->getPromptsPath(), 
@@ -962,7 +962,7 @@ bool ClientSocket::sendActiveModel()
 
 void ClientSocket::synchronisationDone()
 {
-	kWarning() << "Synchronisation done";
+	kDebug() << "Synchronisation done";
 	synchronisationRunning=false;
 	//reset modelsource
 	modelSource = ClientSocket::Undefined;
@@ -980,17 +980,17 @@ void ClientSocket::synchronisationDone()
 //FIXME: commit will fail if we didn't even start the synchronisation (client has same model)
 void ClientSocket::synchronisationComplete()
 {
-	kWarning() << "Synchronisation complete";
+	kDebug() << "Synchronisation complete";
 	if (!synchronisationManager->commit())
 	{
-		kWarning() << "Synchronisation commit failed";
+		kDebug() << "Synchronisation commit failed";
 		sendCode(Simond::SynchronisationCommitFailed);
 	} else {
-		kWarning() << "Synchronisation succeded";
+		kDebug() << "Synchronisation succeded";
 		sendCode(Simond::SynchronisationComplete);
 	
-		kWarning() << "Src Date: " << synchronisationManager->getCompileModelSrcDate();
-		kWarning() << "Active Date: " << synchronisationManager->getActiveModelDate();
+		kDebug() << "Src Date: " << synchronisationManager->getCompileModelSrcDate();
+		kDebug() << "Active Date: " << synchronisationManager->getActiveModelDate();
 		if ((synchronisationManager->getActiveModelDate() < synchronisationManager->getCompileModelSrcDate()) && (synchronisationManager->hasModelSrc()))
 			recompileModel();
 	}
@@ -1028,7 +1028,7 @@ bool ClientSocket::sendWordList()
 
 bool ClientSocket::sendGrammar()
 {
-	kWarning() << "Sending grammar...";
+	kDebug() << "Sending grammar...";
 	Q_ASSERT(synchronisationManager);
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
@@ -1045,7 +1045,7 @@ bool ClientSocket::sendGrammar()
 	write(toWrite);
 	write(body);
 	
-	kWarning() << "Done";
+	kDebug() << "Done";
 	delete grammar;
 	return true;
 }
@@ -1053,7 +1053,7 @@ bool ClientSocket::sendGrammar()
 
 bool ClientSocket::sendLanguageDescription()
 {
-	kWarning() << "Sending Language Description";
+	kDebug() << "Sending Language Description";
 	Q_ASSERT(synchronisationManager);
 	QByteArray toWrite;
 	QDataStream out(&toWrite, QIODevice::WriteOnly);
@@ -1192,7 +1192,7 @@ void ClientSocket::sendRecognitionResult(const QString& data, const QString& sam
 
 ClientSocket::~ClientSocket()
 {
-	kWarning() << "Deleting client";
+	kDebug() << "Deleting client";
 	//leave databaseAccess alone since it is shared
 	if (recognitionControl) 
 		recognitionControl->deleteLater();
