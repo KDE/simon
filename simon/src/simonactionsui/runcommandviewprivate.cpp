@@ -184,6 +184,9 @@ void RunCommandViewPrivate::categoriesChanged(const QList<KIcon>& icons, const Q
 		ui.lwCategories->addItem(new QListWidgetItem(icons[i], name));
 		i++;
 	}
+	if (names.count() == 0)
+		ui.lwCommands->clear();
+	else ui.lwCategories->setCurrentRow(0);
 }
 
 void RunCommandViewPrivate::commandAdded(Command* com)
