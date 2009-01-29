@@ -38,11 +38,12 @@
  */
 class WindowsEvents : public CoreEvents {
 
-/*private:
-	QHash <char, int> keycodes; 
-	QHash <char, char> shiftcodes;
-	QHash <int, char> altgrcodes;
-*/
+private:
+	enum KeyPressMode {
+		Down=1,
+		Up=2
+	};
+	void pressVk(BYTE vK, KeyPressMode mode);
 public:
 	WindowsEvents();
 	void click(int x, int y);

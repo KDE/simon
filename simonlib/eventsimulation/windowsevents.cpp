@@ -91,11 +91,26 @@ void WindowsEvents::click(int x, int y)
 	//windows API divides the screen into 65535*65535
 	int clickx = x * 65535 / xsolution;
 	int clicky = y * 65535 / ysolution;
-	
-	mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE,clickx,clicky,0,0);
 
-	mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
-	mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
+
+
+	// Create our array of INPUT structure.
+	INPUT iClick[3];
+	memset(iClick, 0, sizeof(INPUT*3));
+	iClick[0].type = iClick[1].type = iClick[2].type = INPUT_MOUSE;
+
+	iClick[0].mi.dx = clickx;
+	iClick[0].mi.dy = clicky;
+	iClick[0].mi.dwFlags = MOUSEEVENTF_ABSOLUTE|MOUSEEVENTF_MOVE;
+
+	iClick[1].mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
+	iClick[2].mi.dwFlags = MOUSEEVENTF_LEFTUP;
+	SendInput(3, iClick, sizeof(INPUT)*3);
+	
+//	mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE,clickx,clicky,0,0);
+
+//	mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
+//	mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
 }
 
 
@@ -111,31 +126,36 @@ void WindowsEvents::setModifierKey(int virtualKey, bool once)
 {
 	if ((!shiftSet) && (virtualKey & Qt::SHIFT))
 	{
-		keybd_event(VK_SHIFT,0,0,0);
+		//keybd_event(VK_SHIFT,0,0,0);
+		pressVk(VK_SHIFT, Down);
 		shiftSet=true;
 		shiftOnce=once;
 	}
 	if ((!altgrSet) && (virtualKey & Qt::Key_AltGr))
 	{
-		keybd_event(VK_RMENU,0,0,0);
+		//keybd_event(VK_RMENU,0,0,0);
+		pressVk(VK_RMENU, Down);
 		altgrSet=true;
 		altgrOnce=once;
 	}
 	if ((!strgSet) && (virtualKey & Qt::CTRL))
 	{
-		keybd_event(VK_CONTROL,0,0,0);
+		//keybd_event(VK_CONTROL,0,0,0);
+		pressVk(VK_CONTROL, Down);
 		strgSet=true;
 		strgOnce=once;
 	}
 	if ((!altSet) && (virtualKey & Qt::ALT))
 	{
-		keybd_event(VK_MENU,0,0,0);
+		//keybd_event(VK_MENU,0,0,0);
+		pressVk(VK_MENU, Down);
 		altSet=true;
 		altOnce=once;
 	}
 	if ((!superSet) && (virtualKey & Qt::META))
 	{
-		keybd_event(VK_LWIN,0,0,0);
+		//keybd_event(VK_LWIN,0,0,0);
+		pressVk(VK_LWIN, Down);
 		superSet=true;
 		superOnce=once;
 	}
@@ -371,11 +391,35 @@ void WindowsEvents::sendKey(unsigned int key /*unicode representation*/)
 			modifiers = modifiers|Qt::ALT;
 	}
 	
-	Sleep(50);
+	Sleep(30);
 	setModifierKey(modifiers, true);
-	keybd_event(virtualKey,0,0,0);
+//	//keybd_event(virtualKey,0,0,0);
+	pressVk(virtualKey, Down|Up);
 	
 	unsetUnneededModifiers();
+}
+
+void WindowsEvents::pressVk(BYTE vK, KeyPressMode mode)
+{
+	INPUT *key = new INPUT;
+	key->type = INPUT_KEYBOARD;
+	key->ki.wVk = 41;
+	key->ki.dwFlags = 0;
+	key->ki.time = 0;
+	key->ki.wScan = 0;
+
+	if (mode & Down)
+	{
+		key->ki.dwExtraInfo = 0;
+		SendInput(1,key,sizeof(INPUT));
+	}
+	if (mode & Up)
+	{
+		key->ki.dwExtraInfo = KEYEVENTF_KEYUP;
+		SendInput(1,key,sizeof(INPUT));
+	}
+
+	delete key;
 }
 
 /**
@@ -388,7 +432,8 @@ void WindowsEvents::sendKey(unsigned int key /*unicode representation*/)
  */
 void WindowsEvents::unsetModifier(int virtualKey)
 {
-	keybd_event(virtualKey,0,KEYEVENTF_KEYUP,0);
+	//keybd_event(virtualKey,0,KEYEVENTF_KEYUP,0);
+	pressVk(virtualKey, Up);
 }
 
 /**
