@@ -39,11 +39,18 @@
 class WindowsEvents : public CoreEvents {
 
 private:
-	enum KeyPressMode {
+	enum PressMode {
 		Down=1,
-		Up=2
+		Up=2,
+		DownAndUp=3
 	};
-	void pressVk(BYTE vK, KeyPressMode mode);
+	enum MouseButton {
+		Left=1,
+		Right=2
+	};
+	void pressVk(BYTE vK, PressMode mode);
+	void moveMouse(int x, int y);
+	void activateMouseButton(MouseButton btn, PressMode mode);
 public:
 	WindowsEvents();
 	void click(int x, int y);

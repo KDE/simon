@@ -116,6 +116,7 @@ void ScreenGrid::regionSelected()
 	{
 		int x = this->x()+senderBtn->x()+(senderBtn->width()/2);
 		int y = this->y()+senderBtn->y()+(senderBtn->height()/2);
+		hide();
 		EventHandler::getInstance()->click(x,y); //click the region
 		deleteLater();
 		return;

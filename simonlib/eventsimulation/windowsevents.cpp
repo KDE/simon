@@ -23,6 +23,8 @@
 #include <QChar>
 #include <KMessageBox>
 #include <ctype.h>
+#include <windows.h>
+#include <winable.h>
 
 #define VK_BROWSER_BACK	0xA6
 #define VK_BROWSER_FAVORITES	0xAB
@@ -71,6 +73,48 @@ WindowsEvents::WindowsEvents() : CoreEvents()
 	altgrcodes.insert(8364,'e');*/
 }
 
+
+void WindowsEvents::moveMouse(int x, int y)
+{
+  double fScreenWidth    = ::GetSystemMetrics( SM_CXSCREEN )-1; 
+  double fScreenHeight  = ::GetSystemMetrics( SM_CYSCREEN )-1; 
+  double fx = x*(65535.0f/fScreenWidth);
+  double fy = y*(65535.0f/fScreenHeight);
+  INPUT  Input={0};
+  Input.type      = INPUT_MOUSE;
+  Input.mi.dwFlags  = MOUSEEVENTF_MOVE|MOUSEEVENTF_ABSOLUTE;
+  Input.mi.dx = fx;
+  Input.mi.dy = fy;
+  ::SendInput(1,&Input,sizeof(INPUT));
+}
+
+
+void WindowsEvents::activateMouseButton(MouseButton btn, PressMode mode)
+{
+	INPUT Input={0};
+	if (mode & Down)
+	{
+		Input.type      = INPUT_MOUSE;
+		if (btn == Left)
+		Input.mi.dwFlags  = MOUSEEVENTF_LEFTDOWN;
+		else Input.mi.dwFlags  = MOUSEEVENTF_RIGHTDOWN;
+		
+		::SendInput(1,&Input,sizeof(INPUT));
+	}
+
+	if (mode & Up)
+	{
+		::ZeroMemory(&Input,sizeof(INPUT));
+		Input.type      = INPUT_MOUSE;
+		if (btn == Left)
+		Input.mi.dwFlags  = MOUSEEVENTF_LEFTUP;
+		else Input.mi.dwFlags  = MOUSEEVENTF_RIGHTUP;
+		::SendInput(1,&Input,sizeof(INPUT));
+	}
+}
+
+
+
 /**
  * @brief simulates a mouseclick at the requested coordinates
  *
@@ -81,31 +125,11 @@ WindowsEvents::WindowsEvents() : CoreEvents()
  * 
  * @author Phillip Goriup
  */
+ #include <KDebug>
 void WindowsEvents::click(int x, int y)
 {	
-	const long nScreenWidth = ::GetSystemMetrics(SM_CXSCREEN);
-	const long nScreenHeight = ::GetSystemMetrics(SM_CYSCREEN);
-	int xsolution = nScreenWidth;
-	int ysolution = nScreenHeight;
-	
-	//windows API divides the screen into 65535*65535
-	int clickx = x * 65535 / xsolution;
-	int clicky = y * 65535 / ysolution;
-
-
-
-	// Create our array of INPUT structure.
-	INPUT iClick[3];
-	memset(iClick, 0, sizeof(INPUT*3));
-	iClick[0].type = iClick[1].type = iClick[2].type = INPUT_MOUSE;
-
-	iClick[0].mi.dx = clickx;
-	iClick[0].mi.dy = clicky;
-	iClick[0].mi.dwFlags = MOUSEEVENTF_ABSOLUTE|MOUSEEVENTF_MOVE;
-
-	iClick[1].mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
-	iClick[2].mi.dwFlags = MOUSEEVENTF_LEFTUP;
-	SendInput(3, iClick, sizeof(INPUT)*3);
+	moveMouse(x, y);
+	activateMouseButton(Left, DownAndUp);
 	
 //	mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE,clickx,clicky,0,0);
 
@@ -159,7 +183,6 @@ void WindowsEvents::setModifierKey(int virtualKey, bool once)
 		superSet=true;
 		superOnce=once;
 	}
-	Sleep(50);
 }
 
 /**
@@ -391,31 +414,33 @@ void WindowsEvents::sendKey(unsigned int key /*unicode representation*/)
 			modifiers = modifiers|Qt::ALT;
 	}
 	
-	Sleep(30);
 	setModifierKey(modifiers, true);
 //	//keybd_event(virtualKey,0,0,0);
-	pressVk(virtualKey, Down|Up);
+	pressVk(virtualKey, DownAndUp);
 	
 	unsetUnneededModifiers();
+	Sleep(40);
 }
 
-void WindowsEvents::pressVk(BYTE vK, KeyPressMode mode)
+
+
+void WindowsEvents::pressVk(BYTE vK, PressMode mode)
 {
 	INPUT *key = new INPUT;
 	key->type = INPUT_KEYBOARD;
-	key->ki.wVk = 41;
+	key->ki.wVk = vK;
 	key->ki.dwFlags = 0;
 	key->ki.time = 0;
 	key->ki.wScan = 0;
+	key->ki.dwExtraInfo = 0;
 
 	if (mode & Down)
 	{
-		key->ki.dwExtraInfo = 0;
 		SendInput(1,key,sizeof(INPUT));
 	}
 	if (mode & Up)
 	{
-		key->ki.dwExtraInfo = KEYEVENTF_KEYUP;
+		key->ki.dwFlags = KEYEVENTF_KEYUP;
 		SendInput(1,key,sizeof(INPUT));
 	}
 
@@ -476,7 +501,6 @@ void WindowsEvents::unsetUnneededModifiers()
 		altgrSet=false;
 		altgrOnce=false;
 	}
-	Sleep(50);
 }
 
 /**
