@@ -212,7 +212,9 @@ void WindowsEvents::sendKey(unsigned int key /*unicode representation*/)
 		case Qt::Key_Clear:
 			virtualKey = VK_CLEAR;
 			break;
+		case Qt::Key_Enter:
 		case Qt::Key_Return:
+		case '\n':
 			virtualKey = VK_RETURN;
 			break;
 		case Qt::Key_PageUp:
@@ -242,9 +244,9 @@ void WindowsEvents::sendKey(unsigned int key /*unicode representation*/)
 		case Qt::Key_Down:
 			virtualKey = VK_DOWN;
 			break;
- 	
+		
 		case Qt::Key_Escape:
-			key = VK_ESCAPE;
+			virtualKey = VK_ESCAPE;
 			break;
 			
 		case Qt::Key_Select:
@@ -266,7 +268,7 @@ void WindowsEvents::sendKey(unsigned int key /*unicode representation*/)
 			virtualKey = VK_HELP;
 			break;
 		case Qt::Key_Sleep:
-			key = VK_SLEEP;
+			virtualKey = VK_SLEEP;
 			break;
 			
 			
@@ -407,11 +409,13 @@ void WindowsEvents::sendKey(unsigned int key /*unicode representation*/)
 		BYTE high = result / 256; 	//shift state
 		
 		if (high & 1)
+		{
 			modifiers = modifiers|Qt::SHIFT;
-		if (high & 2)
+		} if (high & 2) {
 			modifiers = modifiers|Qt::CTRL;
-		if (high & 4)
+		} if (high & 4) {
 			modifiers = modifiers|Qt::ALT;
+		}
 	}
 	
 	setModifierKey(modifiers, true);
