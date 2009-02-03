@@ -278,7 +278,6 @@ TrainingList* TrainingManager::readTrainingTexts ()
 	trainingTexts = new TrainingList();
 	for ( int i=0; i < textsrcs.count(); i++ )
 	{
-		//TODO: check
 		QString path = textsrcs.at ( i );
 		XMLTrainingText *text = new XMLTrainingText ( path );
 		text->load ( path );

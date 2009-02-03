@@ -6,11 +6,11 @@
     <x>0</x>
     <y>0</y>
     <width>773</width>
-    <height>398</height>
+    <height>454</height>
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Wortlist</string>
+   <string>Wordlist</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2" >
    <item>
