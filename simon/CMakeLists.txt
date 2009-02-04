@@ -8,6 +8,7 @@ include(KDE4Defaults)
 
 add_subdirectory(src)
 add_subdirectory(po)
+#add_subdirectory(doc)
 add_subdirectory(icons)
 add_subdirectory(themes)
 add_subdirectory(conf)
