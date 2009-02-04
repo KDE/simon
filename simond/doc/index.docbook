@@ -170,21 +170,7 @@ patent issues. -->
 <sect1 id="kapp-features">
 <title>More &kmyapplication; features</title>
 
-<para>It slices! It dices! and it comes with a free toaster!</para>
-<para>
-The Squiggle Tool <guiicon><inlinemediaobject>
-	  <imageobject>
-	    <imagedata fileref="squiggle.png" format="PNG"/>
-	  </imageobject>
-	  <imageobject>
-	    <imagedata fileref="squiggle.eps" format="EPS"/>
-	  </imageobject>
-	  <textobject>
-	    <phrase>Squiggle</phrase>
-	  </textobject>
-</inlinemediaobject></guiicon> is used to draw squiggly lines all over
-the &kmyapplication; main window. It's not a bug, it's a feature!
-</para>
+
 
 </sect1>
 </chapter>
