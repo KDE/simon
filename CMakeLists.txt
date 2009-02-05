@@ -17,7 +17,7 @@ ELSEIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i686")
 	SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE i386)
 ENDIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
 
-SET(CPACK_DEBIAN_PACKAGE_DEPENDS  "kdelibs5, kdebase-runtime, libqtcore4 libqtgui4, libstdc++6, libasound2, zlib1g, libc6, libportaudio2, libqt4-sql-sqlite, flex")
+SET(CPACK_DEBIAN_PACKAGE_DEPENDS  "kdelibs5, kdebase-runtime, libqtcore4, libqtgui4, libstdc++6, libasound2, zlib1g, libc6, libportaudio2, libqt4-sql-sqlite, flex")
 SET(CPACK_DEBIAN_PACKAGE_CONFLICTS  "julius julius-simon")
 SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA 
 	"${CMAKE_CURRENT_SOURCE_DIR}/deb/postinst;${CMAKE_CURRENT_SOURCE_DIR}/deb/postrm")
