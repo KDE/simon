@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 18:55+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-02-02 11:23+0100\n"
 "PO-Revision-Date: 2009-01-14 12:04+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -15,15 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: desktopgridcommandmanager.cpp:44
-#: desktopgridconfiguration.cpp:33
-#: desktopgridconfiguration.cpp:55
-#: desktopgridconfiguration.cpp:88
+#: desktopgridcommandmanager.cpp:44 desktopgridconfiguration.cpp:33
+#: desktopgridconfiguration.cpp:55 desktopgridconfiguration.cpp:88
 #: desktopgridconfiguration.cpp:98
 msgid "Desktopgrid"
 msgstr "Bereaubladrooster"
 
-#: desktopgridcommandmanager.cpp:56
+#: desktopgridcommandmanager.cpp:57
 msgid "[INF] Activating desktopgrid"
 msgstr "[INF] Bureaubladrooster activeren"
 
@@ -33,34 +32,69 @@ msgstr "Spraakbestuurde muisklikken"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, DesktopGridConfigurationDlg)
-#: po/rc.cpp:3
-#: rc.cpp:3
+#: po/rc.cpp:3 rc.cpp:3
 msgid "Form"
 msgstr "Formulier"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:21
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:6
-#: rc.cpp:6
+#: po/rc.cpp:6 rc.cpp:6
 msgid "Trigger:"
 msgstr "Grenswaarde:"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:33
 #. i18n: ectx: property (text), widget (QCheckBox, cbUseRealTransparency)
-#: po/rc.cpp:9
-#: rc.cpp:9
+#: po/rc.cpp:9 rc.cpp:9
 msgid "Use real transparency"
 msgstr "Gebruik echte doorzichtigheid"
 
-#: po/rc.cpp:10
-#: rc.cpp:10
+#: po/rc.cpp:10 rc.cpp:10
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Daniël Heres"
 
-#: po/rc.cpp:11
-#: rc.cpp:11
+#: po/rc.cpp:11 rc.cpp:11
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "danielheres@gmail.com"
 
+#: screengrid.cpp:50
+msgid "One"
+msgstr ""
+
+#: screengrid.cpp:50
+msgid "Two"
+msgstr ""
+
+#: screengrid.cpp:51
+msgid "Three"
+msgstr ""
+
+#: screengrid.cpp:51
+#, fuzzy
+msgid "Four"
+msgstr "Formulier"
+
+#: screengrid.cpp:51
+msgid "Five"
+msgstr ""
+
+#: screengrid.cpp:52
+msgid "Six"
+msgstr ""
+
+#: screengrid.cpp:52
+msgid "Seven"
+msgstr ""
+
+#: screengrid.cpp:52
+msgid "Eight"
+msgstr ""
+
+#: screengrid.cpp:52
+msgid "Nine"
+msgstr ""
+
+#: screengrid.cpp:168
+msgid "Cancel"
+msgstr ""

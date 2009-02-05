@@ -1,14 +1,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Peter Grasch <grasch@simon-listens.org>, 2008.
+# Peter Grasch <grasch@simon-listens.org>, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: simondesktopgridcommand_de\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 18:55+0100\n"
-"PO-Revision-Date: 2008-11-28 17:26+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-02-02 11:23+0100\n"
+"PO-Revision-Date: 2009-02-02 11:24+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Desktopgrid"
 msgstr "Desktopgitter"
 
-#: desktopgridcommandmanager.cpp:56
+#: desktopgridcommandmanager.cpp:57
 msgid "[INF] Activating desktopgrid"
 msgstr "[INF] Aktiviere Desktopgitter"
 
@@ -41,7 +41,7 @@ msgstr "Form"
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:6 rc.cpp:6
 msgid "Trigger:"
-msgstr "Auslser:"
+msgstr "Auslöser:"
 
 #. i18n: file: desktopgridconfigurationdlg.ui:33
 #. i18n: ectx: property (text), widget (QCheckBox, cbUseRealTransparency)
@@ -59,6 +59,46 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
 
+#: screengrid.cpp:50
+msgid "One"
+msgstr "Eins"
+
+#: screengrid.cpp:50
+msgid "Two"
+msgstr "Zwei"
+
+#: screengrid.cpp:51
+msgid "Three"
+msgstr "Drei"
+
+#: screengrid.cpp:51
+msgid "Four"
+msgstr "Vier "
+
+#: screengrid.cpp:51
+msgid "Five"
+msgstr "Fünf"
+
+#: screengrid.cpp:52
+msgid "Six"
+msgstr "Sechs"
+
+#: screengrid.cpp:52
+msgid "Seven"
+msgstr "Sieben"
+
+#: screengrid.cpp:52
+msgid "Eight"
+msgstr "Acht"
+
+#: screengrid.cpp:52
+msgid "Nine"
+msgstr "Neun"
+
+#: screengrid.cpp:168
+msgid "Cancel"
+msgstr "Abbrechen"
+
 #, fuzzy
 #~ msgid "Trigger"
 #~ msgstr "Auslser:"
@@ -70,3 +110,4 @@ msgstr "grasch@simon-listens.org"
 #, fuzzy
 #~ msgid "Voice controlled chatbot"
 #~ msgstr "Sprachgesteuerte Mausklicks"
+

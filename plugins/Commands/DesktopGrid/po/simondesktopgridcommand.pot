@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-11-28 18:55+0100\n"
+"POT-Creation-Date: 2009-02-02 11:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Desktopgrid"
 msgstr ""
 
-#: desktopgridcommandmanager.cpp:56
+#: desktopgridcommandmanager.cpp:57
 msgid "[INF] Activating desktopgrid"
 msgstr ""
 
@@ -57,4 +57,44 @@ msgstr ""
 #: po/rc.cpp:11 rc.cpp:11
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
+msgstr ""
+
+#: screengrid.cpp:50
+msgid "One"
+msgstr ""
+
+#: screengrid.cpp:50
+msgid "Two"
+msgstr ""
+
+#: screengrid.cpp:51
+msgid "Three"
+msgstr ""
+
+#: screengrid.cpp:51
+msgid "Four"
+msgstr ""
+
+#: screengrid.cpp:51
+msgid "Five"
+msgstr ""
+
+#: screengrid.cpp:52
+msgid "Six"
+msgstr ""
+
+#: screengrid.cpp:52
+msgid "Seven"
+msgstr ""
+
+#: screengrid.cpp:52
+msgid "Eight"
+msgstr ""
+
+#: screengrid.cpp:52
+msgid "Nine"
+msgstr ""
+
+#: screengrid.cpp:168
+msgid "Cancel"
 msgstr ""

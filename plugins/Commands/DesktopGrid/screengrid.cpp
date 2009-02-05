@@ -184,7 +184,6 @@ bool ScreenGrid::selectStrRegion(QString input)
 
 	KPushButton *btn = btns[index];
 	if (!btn) return false;
-	kDebug() << "noch hier";
 
 	btn->animateClick();
 	return true;

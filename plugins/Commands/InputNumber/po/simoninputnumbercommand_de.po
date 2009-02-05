@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-01-26 16:17+0100\n"
-"PO-Revision-Date: 2009-01-26 11:47+0100\n"
+"PO-Revision-Date: 2009-02-02 11:22+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr "Sieben"
 
 #: inputnumbercommandmanager.cpp:47
 msgid "Eight"
-msgstr "Act"
+msgstr "Acht"
 
 #: inputnumbercommandmanager.cpp:47
 msgid "Nine"
@@ -189,3 +189,4 @@ msgstr "Peter Grasch"
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "grasch@simon-listens.org"
+
