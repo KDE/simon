@@ -63,7 +63,7 @@ as Authors, publish date, the abstract, and Keywords -->
 and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
  -->
 <personname>
-<firstname>George</firstname>
+<firstname>Peter</firstname>
 <othername>N.</othername>
 <surname>Ugnacious</surname>
 </personname>
