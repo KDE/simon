@@ -316,7 +316,7 @@ bool ModelCompilationManager::compileGrammar()
 	emit status(i18n("Generating DFA..."), 2250);
 	if (!makeDfa())
 	{
-		analyseError(i18n("Couldn't generate dfa. Please check the paths to mkfa and daf_minimize (%1, %2).", mkfa, dfaMinimize));
+		analyseError(i18n("Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, %2).", mkfa, dfaMinimize));
 		return false;
 	}
 	
