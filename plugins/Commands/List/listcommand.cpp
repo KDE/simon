@@ -92,7 +92,7 @@ bool ListCommand::processRequest(int index)
 		ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
 		ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
 	}
-
+	return false;
 }
 
 void ListCommand::cancel()

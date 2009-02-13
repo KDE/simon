@@ -21,7 +21,6 @@
 #include "importgrammarworkingpage.h"
 #include "importgrammar.h"
 #include <QFile>
-#include <QDebug>
 
 ImportGrammarWorkingPage::ImportGrammarWorkingPage(QWidget* parent): QWizardPage(parent)
 {
@@ -53,8 +52,6 @@ void ImportGrammarWorkingPage::displayWholeProgress(int progress, int max)
 
 void ImportGrammarWorkingPage::processCompletion()
 {
-	qDebug() << "test";
-	
 	this->completed = true;
 	emit completeChanged();
 	if (grammarImporter) {
@@ -76,7 +73,7 @@ void ImportGrammarWorkingPage::initializePage()
 	connect(grammarImporter, SIGNAL(terminated()), this, SLOT(processCompletion()));
 
 
-	QStringList files = field("files").toString().split("||");
+	QStringList files = field("files").toStringList();
 	
 	grammarImporter->setFiles(files);
 	grammarImporter->setIncludeUnknown(field("includeUnknown").toBool());

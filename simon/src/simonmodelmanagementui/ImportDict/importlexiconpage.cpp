@@ -19,6 +19,7 @@
 
 
 #include "importlexiconpage.h"
+#include <QTextCodec>
 
 ImportLexiconPage::ImportLexiconPage(QWidget* parent): QWizardPage(parent)
 {
@@ -28,7 +29,19 @@ ImportLexiconPage::ImportLexiconPage(QWidget* parent): QWizardPage(parent)
 
 	setTitle(i18n("Import Lexicon"));
 	connect(ui.urPath, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+	registerField("lexiconEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
 	registerField("lexiconFilename", ui.urPath, "url", SIGNAL(textChanged(QString)));
+}
+
+void ImportLexiconPage::initializePage()
+{
+	ui.cbEncoding->addItem(i18n("Automatic"));
+	QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
+	QStringList encodings;
+	foreach (const QByteArray& codec, availableCodecs)
+		encodings << codec;
+	encodings.sort();
+	ui.cbEncoding->addItems(encodings);
 }
 
 
@@ -37,9 +50,11 @@ bool ImportLexiconPage::isComplete() const
 	return QFile::exists(ui.urPath->url().path());
 }
 
-
+/**
+ * \brief Destructor
+ * \author Peter Grasch
+ */
 ImportLexiconPage::~ImportLexiconPage()
 {
 }
-
 

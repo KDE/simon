@@ -21,7 +21,6 @@
 #ifndef WORDLISTVIEWPRIVATE_H
 #define WORDLISTVIEWPRIVATE_H
 
-#define sImportDict 	32
 
 #include "ui_wordlist.h"
 
@@ -45,14 +44,10 @@ class WordListManager;
 class WordListViewPrivate : public QWidget {
 	Q_OBJECT
 private:
-	int shownDialogs;
-	QPoint importDictPos;
-	
 	bool abortVocabInsertion;
 	Ui::WordList ui;	//!< UI definition - made by uic from the QTDesigner .ui
 	WordList trainingwordlist;  //!< Holds all the words that are scheduled for training
 	WordListManager *wordListManager; //!< Concept class
-	ImportDictView *importDictView; //!< Provides the Interface to import a dictionary
 
 	void setDirty ( bool dirty );
 
@@ -67,8 +62,6 @@ public slots:
 	void trainList();
 	void importDict(WordList* list);
 	void filterListbyPattern(QString filter="");
-	void show();
-	void hide();
 	void showImportDictDialog();
 
 	WordListManager* getManager(){return wordListManager;}

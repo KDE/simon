@@ -34,6 +34,7 @@ GuiEvents::GuiEvents(QObject *parent) : QObject(parent)
 
 GuiEvents::~GuiEvents()
 {
+	qDeleteAll(*guiItems);
 	delete(guiItems);
 }
 

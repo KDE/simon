@@ -39,6 +39,7 @@ Q_OBJECT
 
 private:
 	QString pathToDict; //!< the path to the dictionary
+	QString encoding; //!< the encoding of the dictionary
 	int type;
 	Dict *dict;
 	bool deleteFileWhenDone;
@@ -55,7 +56,7 @@ public slots:
 public:
     ImportDict(QObject *parent=0);
     void run();
-    void parseWordList(QString pathToDict, int type, bool deleteFileWhenDone=false);
+    void parseWordList(QString pathToDict, QString encoding, int type, bool deleteFileWhenDone=false);
     ~ImportDict();
 
 };

@@ -37,6 +37,7 @@ QTextStream* Logger::init()
 	Logger::logF = new QFile(path);
 	if (!Logger::logF->open(QIODevice::WriteOnly|QIODevice::Append)) return 0;
 	Logger::logFile = new QTextStream(Logger::logF);
+	
 
 	return logFile;
 }
@@ -53,4 +54,5 @@ void Logger::close()
 {
 	(Logger::logFile)->flush();
 	delete (Logger::logFile);
+	delete (Logger::logF);
 }

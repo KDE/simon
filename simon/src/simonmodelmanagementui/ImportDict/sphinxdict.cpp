@@ -35,9 +35,8 @@
  * @param path Sets the path of the dictionary (member)
  * @param parent Parent of the object
  */
-SPHINXDict::SPHINXDict(QString path, QObject* parent): Dict(parent)
+SPHINXDict::SPHINXDict(QObject* parent): Dict(parent)
 {
-	this->path = path;
 }
 
 /**
@@ -49,7 +48,7 @@ SPHINXDict::SPHINXDict(QString path, QObject* parent): Dict(parent)
  * 
  * @param path If the path is empty the path set by the constructor is used
  */
-void SPHINXDict::load(QString path)
+void SPHINXDict::load(QString path, QString encodingName)
 {
 	if (path.isEmpty()) path = this->path;
 	emit progress(0);
@@ -73,7 +72,7 @@ void SPHINXDict::load(QString path)
 	int currentProg = 0;
 	
 	QTextStream *dictStream = new QTextStream(dict);
-	dictStream->setCodec("ISO-8859-1");
+	dictStream->setCodec(encodingName.toAscii());
 	emit loaded();
 	
 	QString line, word;
@@ -84,9 +83,13 @@ void SPHINXDict::load(QString path)
 	{
 		wordend = line.indexOf(" ");
 		QString word = line.left(wordend).remove(QRegExp("\\(([0-9])*\\)$"));
-		words << word;
-		terminals << i18n("Unknown");
-		pronunciations << line.mid(wordend+1).trimmed();
+		
+		if (!word.isEmpty())
+		{
+			words << word;
+			terminals << i18n("Unknown");
+			pronunciations << line.mid(wordend+1).trimmed();
+		}
 
 		if (maxProg != 0)
 		{

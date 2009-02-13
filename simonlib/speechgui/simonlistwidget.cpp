@@ -41,7 +41,7 @@ SimonListWidget::SimonListWidget( QWidget * parent ) : KListWidget(parent)
 
 SimonListWidget::~SimonListWidget()
 {
-	line->deleteLater();
+	delete line;
 }
 
 void SimonListWidget::showLineEdit()

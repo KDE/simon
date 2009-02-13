@@ -53,6 +53,9 @@
    </item>
    <item>
     <widget class="QGroupBox" name="kcfg_UseEncryption" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
      <property name="title" >
       <string>Encryption</string>
      </property>

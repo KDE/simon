@@ -1518,9 +1518,8 @@ void RecognitionControl::resumeRecognition()
  */
 RecognitionControl::~RecognitionControl()
 {
-    socket->deleteLater();
-    timeoutWatcher->deleteLater();
-    
+    delete socket;
+    delete timeoutWatcher;
     delete modelManager;
 }
 

@@ -27,8 +27,12 @@
 #include <KUrl>
 #include <KLocalizedString>
 #include <KStandardDirs>
+#include <KFilterDev>
+#include <KMimeType>
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
+#include <KEncodingProber>
+#include  <kencodingdetector.h>
 
 /**
  * \brief Constructor - inits the gui
@@ -64,7 +68,6 @@ ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent): QWizardPage(paren
 	connect(import, SIGNAL(finished(WordList*)), this, SLOT(setCompleted()));
 }
 
-
 /**
  * \brief Aborts the process
  * \author Peter Grasch
@@ -84,6 +87,31 @@ bool ImportDictWorkingPage::isComplete() const
 	return ready;
 }
 
+QString ImportDictWorkingPage::guessEncoding(const QString& path)
+{
+	//read first 5000 bytes and run encoding detection
+	//seek back to the beginning and parse file using the guessed encoding
+	QIODevice *dict = KFilterDev::deviceForFile(path,
+					KMimeType::findByFileContent(path)->name());
+	if ((!dict) || (!dict->open(QIODevice::ReadOnly)))
+		return "";
+	
+	QByteArray preview = dict->readAll();
+	dict->seek(0);
+	/*KEncodingProber prober(KEncodingProber::Universal);
+	prober.feed(preview);
+	kWarning() << "Data fed: " << preview.data();
+	kWarning() << "Codec: " << prober.encodingName();
+	kWarning() << "State: " << prober.state();
+	kWarning() << "Confidence: " << prober.confidence();
+	codec = QTextCodec::codecForName(prober.encodingName());*/
+
+	KEncodingDetector detector;
+	detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
+	QString out=detector.decode(preview);
+	//kWarning() << detector.encoding() << detector.encodingChoiceSource();
+	return detector.encoding();
+}
 
 
 /**
@@ -97,20 +125,29 @@ void ImportDictWorkingPage::importLexicon(QString path)
 
 	displayStatus(i18n("Importing HTK-Dictionary %1...", path));
 	
-	import->parseWordList(path, Dict::HTKLexicon, true /* remove input file when done */);
+	QString encoding = field("lexiconEncoding").toString();
+	if (encoding == i18n("Automatic"))
+		encoding = guessEncoding(path);
+	import->parseWordList(path, encoding, Dict::HTKLexicon, true /* remove input file when done */);
 }
 
 /**
  * \brief Tells the ImportDict class to imoprt the hadifix dict from the given path
  * @param path the path to the hadifix dict.
  */
+#include <KDebug>
 void ImportDictWorkingPage::importHADIFIX(QString path)
 {
 	if (path.isEmpty()) return;
 
 	displayStatus(i18n("Importing HADIFIX-dictionary %1...", path));
 	
-	import->parseWordList(path, Dict::HadifixBOMP, true /* remove input file when done */);
+	QString encoding = field("bompEncoding").toString();
+	kWarning() << "Encoding is now: " << encoding;
+	if (encoding == i18n("Automatic"))
+		encoding = guessEncoding(path);
+	kWarning() << "Encoding is now: " << encoding;
+	import->parseWordList(path, encoding, Dict::HadifixBOMP, true /* remove input file when done */);
 }
 
 void ImportDictWorkingPage::importPLS(QString path)
@@ -119,7 +156,7 @@ void ImportDictWorkingPage::importPLS(QString path)
 
 	displayStatus(i18n("Importing PLS-dictionary %1...", path));
 	
-	import->parseWordList(path, Dict::PLS, true /* remove input file when done */);
+	import->parseWordList(path, "" /*encoding is determined by SAX*/, Dict::PLS, true /* remove input file when done */);
 }
 
 
@@ -129,14 +166,17 @@ void ImportDictWorkingPage::importSPHINX(QString path)
 
 	displayStatus(i18n("Importing SPHINX-dictionary %1...", path));
 	
-	import->parseWordList(path, Dict::SPHINX, true /* remove input file when done */);
+	QString encoding = field("sphinxEncoding").toString();
+	if (encoding == i18n("Automatic"))
+		encoding = guessEncoding(path);
+	import->parseWordList(path, encoding, Dict::SPHINX, true /* remove input file when done */);
 }
 
 
 
 QString ImportDictWorkingPage::prepareDict(KUrl url)
 {
-	KIO::FileCopyJob *job = KIO::file_copy(url, KStandardDirs::locateLocal("tmp", url.fileName()));
+	KIO::FileCopyJob *job = KIO::file_copy(url, KStandardDirs::locateLocal("tmp", url.fileName()), -1, KIO::Overwrite);
 	
 	if (!job->exec()) {
 		job->ui()->showErrorMessage();

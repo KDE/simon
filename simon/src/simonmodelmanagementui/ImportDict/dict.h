@@ -74,11 +74,11 @@ enum DictType {
 
     Dict(QObject *parent=0);
 	QString ipaToXSampa(QString ipa);
-	virtual void load(QString path) = 0;
+	virtual void load(QString path, QString encodingName) = 0;
 	QStringList getWords() const { return words; }
 	QStringList getPronuncations() const { return pronunciations; }
 	QStringList getTerminals() const { return terminals; }
-    ~Dict();
+    virtual ~Dict();
 
 };
 

@@ -24,6 +24,7 @@
 // #include "coreconfiguration.h"
 #include <QDir>
 #include <QDate>
+#include <KStandardDirs>
 #include <QTime>
 #include <KLocalizedString>
 
@@ -38,7 +39,7 @@ void ImportTrainingData::run()
 	prog=0;
 	emit progress(0,0); //waiting...
 	emit status(i18n("Collecting files..."));
-	QString wavDestdir;// = CoreConfiguration::modelTrainingsDataPath().path()+"/";
+	QString wavDestdir=KStandardDirs::locateLocal("appdata", "model/training.data");// = CoreConfiguration::modelTrainingsDataPath().path()+"/";
 
 	QDir d(wavDestdir);
 	if (!d.exists())

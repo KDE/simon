@@ -240,6 +240,8 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 
 		promptsTable->insert ( label, prompt );
 	}
+	prompts->close();
+	delete prompts;
 	Logger::log ( i18n ( "[INF] %1 Prompts read" ).arg ( promptsTable->count() ) );
 	return promptsTable;
 }
@@ -514,6 +516,7 @@ bool TrainingManager::saveTrainingsText(const QString& name, const QStringList p
  */
 TrainingManager::~TrainingManager()
 {
+    qDeleteAll(*trainingTexts);
     delete trainingTexts;
 }
 

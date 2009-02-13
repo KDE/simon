@@ -41,8 +41,8 @@ signals:
 private:
 	QString path;
 public:
-    explicit SPHINXDict(QString path="", QObject* parent=0);
-    void load(QString path="");
+    explicit SPHINXDict(QObject* parent=0);
+    void load(QString path, QString encodingName);
 
     ~SPHINXDict();
 

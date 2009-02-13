@@ -53,12 +53,6 @@ GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
 	load();
 }
 
-void GrammarViewPrivate::askForSave()
-{
-	if (KMessageBox::questionYesNo(this, i18n("You are about to starts a process that needs the grammar to be saved first.\n\nIf you want to keep the changes that you possibly made since the last time you stored your grammar, please save the grammar now.\n\nDo you want to save your grammar now?"), i18n("Save Grammar")) == KMessageBox::Yes)
-		save();
-}
-
 void GrammarViewPrivate::slotChanged()
 {
 	save();
@@ -66,8 +60,6 @@ void GrammarViewPrivate::slotChanged()
 
 void GrammarViewPrivate::showRenameWizard()
 {
-	askForSave();
-
 	RenameTerminalWizard *renameTerminalWizard = new RenameTerminalWizard(this);
 	renameTerminalWizard->restart();
 	renameTerminalWizard->exec();
@@ -119,8 +111,6 @@ void GrammarViewPrivate::showImportWizard()
 
 void GrammarViewPrivate::showMergeWizard()
 {
-	askForSave();
-
 	MergeTerminalsWizard *mergeTerminalsWizard = new MergeTerminalsWizard(this);
 	mergeTerminalsWizard->restart();
 	mergeTerminalsWizard->exec();

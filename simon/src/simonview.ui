@@ -21,6 +21,9 @@
   <property name="toolButtonStyle" >
    <enum>Qt::ToolButtonTextUnderIcon</enum>
   </property>
+  <property name="dockOptions" >
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::VerticalTabs</set>
+  </property>
   <widget class="QWidget" name="centralwidget" >
    <layout class="QVBoxLayout" >
     <item>

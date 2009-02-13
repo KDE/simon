@@ -19,7 +19,8 @@
 
 
 #include "addwordresolvepage.h"
-#define  q_Ml if(KMessageBox::questionYesNo(this,i18n(
+#include <KDebug>
+#define  q_Ml if(KMessageBox::questionYesNo(this, 
 #include <speechmodelmanagement/grammarmanager.h>
 #include <speechmodelmanagement/wordlistmanager.h>
 #include <QtGlobal>
@@ -40,7 +41,7 @@
 AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
 {
 	setTitle(i18n("Define Word"));
-	ui.setupUi(this);
+	ui.setupUi(this); 
 	ui.twSuggestions->verticalHeader()->hide();
 	this->grammarManager = GrammarManager::getInstance();
 	this->wordListManager = WordListManager::getInstance();
@@ -62,15 +63,18 @@ AddWordResolvePage::AddWordResolvePage(QWidget* parent): QWizardPage(parent)
 
 	ui.tbAddTerminal->setIcon(KIcon("list-add"));
 	ui.pbReGuess->setIcon(KIcon("view-refresh"));
-	//ui.tbFetchSimilar->setIcon(KIcon("help-hint"));
 }
 
 bool AddWordResolvePage::validatePage()
 {
+	if (ui.leWord->text().trimmed().contains(" "))
+	{
+		KMessageBox::error(this, i18n("Words are not allowed to contain spaces"));
+		return false;
+	}
 	Word *search = new Word(ui.leWord->text(), ui.leSampa->text(), ui.cbType->currentText());
 	bool exists = WordListManager::getInstance()->mainWordListContains(search);
 	delete search;
-	
 	if (exists) {
 		KMessageBox::error(this, i18n("The Wordlist already contains this Word."));
 		return false;
@@ -103,7 +107,7 @@ void AddWordResolvePage::initializePage()
 	setUpdatesEnabled(false);
 	QString word = field("wordNameIntro").toString();
 
-	if(meCh7(MKW))q_Ml MKW),QString(MKW) +" deaktivieren?"dw3_ close;
+	if(meCh7(MKW))q_Ml MKW+i18n(" deaktivieren?") dw3_ close;
 
 	ui.cbType->clear();
 	ui.leSampa->clear();
@@ -121,6 +125,7 @@ void AddWordResolvePage::initializePage()
 
 void AddWordResolvePage::fetchSimilar()
 {
+	kWarning() << "Fetching similar words";
 	disconnect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
 	WordList* similar = wordListManager->getWords(ui.leWord->text(), true, ui.cbFuzzySearch->isChecked(), false);
 	displayWords(similar);
@@ -154,6 +159,7 @@ void AddWordResolvePage::fetchSimilar()
 void AddWordResolvePage::createExamples()
 {
 	if (ui.cbType->currentIndex() == -1) return;
+	if (ui.leWord->text() == wordLastUsedToGenerateExamples) return;
 	
 	QString terminal = ui.cbType->currentText();
 	QStringList examples = grammarManager->getExamples(ui.leWord->text(), terminal,2);
@@ -169,6 +175,7 @@ void AddWordResolvePage::createExamples()
 		ui.leExample1->setText(error);
 		ui.leExample2->setText(error);
 	}
+	wordLastUsedToGenerateExamples = ui.leWord->text();
 }
 
 /**

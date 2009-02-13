@@ -1199,6 +1199,8 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
  */
 WordListManager::~WordListManager()
 {
+	wordlist->clear();
+	shadowList->clear();
     delete wordlist;
     delete shadowList;
 }

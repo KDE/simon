@@ -41,7 +41,7 @@
     </widget>
    </item>
    <item>
-    <widget class="SimonListWidget" name="lwTerminal" />
+    <widget class="KListWidget" name="lwTerminal" />
    </item>
    <item>
     <widget class="QCheckBox" name="cbIncludeShadow" >
@@ -72,9 +72,9 @@
    <header>klineedit.h</header>
   </customwidget>
   <customwidget>
-   <class>SimonListWidget</class>
-   <extends>KListWidget</extends>
-   <header>simonlistwidget.h</header>
+   <class>KListWidget</class>
+   <extends>QListWidget</extends>
+   <header>klistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

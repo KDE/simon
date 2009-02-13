@@ -24,9 +24,10 @@
 #include <QTextStream>
 #include <QRegExp>
 #include <QFileInfo>
-#include <QDebug>
+#include <KDebug>
 #include <KMimeType>
 #include <KFilterDev>
+#include <QTextCodec>
 
 /**
  * \brief Constructor
@@ -34,24 +35,20 @@
  * @param path Sets the path of the dictionary (member)
  * @param parent Parent of the object
  */
-BOMPDict::BOMPDict(QString path, QObject* parent): Dict(parent)
+BOMPDict::BOMPDict(QObject* parent): Dict(parent)
 {
-	this->path = path;
 }
 
 /**
  * \brief Loads the file from the given path
  * \author Peter Grasch
  * 
- * \todo Document
- * WARNING: This function assumes the system-charset to be ISO-8859-1 and WILL destroy special characters if it isn't
+ * @fixme This function assumes the system-charset to be ISO-8859-1 and WILL destroy special characters if it isn't
  * 
  * @param path If the path is empty the path set by the constructor is used
  */
-void BOMPDict::load(QString path)
+void BOMPDict::load(QString path, QString encodingName)
 {
-	if (path.isEmpty()) path = this->path;
-	
 	emit progress(0);
 
 	QIODevice *dict = KFilterDev::deviceForFile(path,
@@ -71,9 +68,9 @@ void BOMPDict::load(QString path)
 	}
 
 	int currentProg = 0;
-	
+
 	QTextStream *dictStream = new QTextStream(dict);
-	dictStream->setCodec("ISO-8859-1");
+	dictStream->setCodec(QTextCodec::codecForName(encodingName.toAscii()));
 	emit loaded();
 	
 	QString line, xsp, terminal;
@@ -130,7 +127,8 @@ void BOMPDict::load(QString path)
 }
 
 
-
+#include <KDebug>
 BOMPDict::~BOMPDict()
 {
+	kWarning() << "BOMP deleting";
 }

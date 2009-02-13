@@ -39,12 +39,11 @@ class ImportDictWorkingPage;
 class ImportDictView : public QWizard {
 	Q_OBJECT
 private:
-	int prevId;
+	ImportDictWorkingPage *workingPage;
 	
 signals:
 	void dictGenerated(WordList*);
 public slots:
-	void show();
 	QWizardPage* createIntroPage();
 	ImportDictSelectSourcePage* 
 		createSelectSourcePage();

@@ -74,6 +74,7 @@ bool InlineWidget::isShown()
  */
 InlineWidget::~InlineWidget()
 {
+	delete guievents;
 }
 
 

@@ -25,7 +25,7 @@
 #include <KColorScheme>
 #include <KLocale>
 
-WordListModel::WordListModel(WordList *words)
+WordListModel::WordListModel(WordList *words, QObject *parent) : QAbstractItemModel(parent)
 {
 	KLocale::setMainCatalog("simonlib");
 	this->words = words;
@@ -46,7 +46,7 @@ void WordListModel::updateWordList(WordList *words)
 {
 	buildBrushes();
 	if (this->words)
-		delete this->words; //TODO remove this, once we work with the real data
+		delete this->words;
 	this->words = words;
 	reset();
 }
@@ -160,5 +160,5 @@ int WordListModel::columnCount(const QModelIndex &parent) const
 
 WordListModel::~WordListModel()
 {
-	//don't touch the commandlist as it's just a reference
+	
 }

@@ -33,11 +33,9 @@ class LexiconDict : public Dict
 signals:
 	void loaded();
 
-private:
-	QString path;
 public:
-    explicit LexiconDict(QString path, QObject* parent=0);
-    void load(QString path="");
+    explicit LexiconDict(QObject* parent=0);
+    void load(QString path, QString encodingName);
 
     ~LexiconDict();
 

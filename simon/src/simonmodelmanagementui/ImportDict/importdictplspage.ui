@@ -12,7 +12,7 @@
   <property name="windowTitle" >
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout" >
    <item>
     <widget class="QLabel" name="lbDesc" >
      <property name="text" >
@@ -42,18 +42,21 @@ Please keep in mind that those dictionaries don't provide information about term
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
-     <item>
-      <widget class="QLabel" name="lbFile" >
+    <layout class="QFormLayout" name="formLayout" >
+     <property name="fieldGrowthPolicy" >
+      <enum>QFormLayout::ExpandingFieldsGrow</enum>
+     </property>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="label" >
        <property name="text" >
         <string>File:</string>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="0" column="1" >
       <widget class="KUrlRequester" name="urPath" >
        <property name="filter" >
-        <string>*.xml *.xml.bz2 *.xml.gz | PLS Lexicon</string>
+        <string>*.txt *.txt.bz2 *.txt.gz | BOMP-Dictionaries (*.txt, *.txt.gz, *.txt.bz2)</string>
        </property>
       </widget>
      </item>

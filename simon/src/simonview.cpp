@@ -157,6 +157,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	//hiding splash again after loading
 	info->hideSplash();
+	delete info;
 
 	ui.lbWelcomeDesc->setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/welcomebanner.png")));
 	ui.lbWarning->setStyleSheet("background-image: url(\""+KStandardDirs::locate("appdata", "themes/default/releaseinfo.png")+"\"); padding-left:120px; padding-top:10px");
@@ -599,7 +600,7 @@ void SimonView::closeEvent ( QCloseEvent * event )
 SimonView::~SimonView()
 {
 	Logger::log ( i18n ( "[INF] Quitting..." ) );
-	trayManager->deleteLater();
-	control->deleteLater();
+	delete trayManager;
+	delete control;
 	Logger::close();
 }
