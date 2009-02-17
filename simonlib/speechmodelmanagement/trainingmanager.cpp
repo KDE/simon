@@ -339,7 +339,7 @@ QStringList TrainingManager::missingWords(const QStringList& prompts)
 			word.remove ( "]" );
 			word = word.trimmed();
 			
-			if (!WordListManager::getInstance()->mainWordListContainsStr(word))
+			if (!WordListManager::getInstance()->mainWordListContainsStr(word, Qt::CaseInsensitive))
 			{
 				if (!strListAllWords.contains(word))
 					strListAllWords.append ( word );

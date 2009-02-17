@@ -126,7 +126,6 @@ void ImportDictWorkingPage::importLexicon(QString path)
  * \brief Tells the ImportDict class to imoprt the hadifix dict from the given path
  * @param path the path to the hadifix dict.
  */
-#include <KDebug>
 void ImportDictWorkingPage::importHADIFIX(QString path)
 {
 	if (path.isEmpty()) return;
@@ -134,10 +133,8 @@ void ImportDictWorkingPage::importHADIFIX(QString path)
 	displayStatus(i18n("Importing HADIFIX-dictionary %1...", path));
 	
 	QString encoding = field("bompEncoding").toString();
-	kWarning() << "Encoding is now: " << encoding;
 	if (encoding == i18n("Automatic"))
 		encoding = guessEncoding(path);
-	kWarning() << "Encoding is now: " << encoding;
 	import->parseWordList(path, encoding, Dict::HadifixBOMP, true /* remove input file when done */);
 }
 

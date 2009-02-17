@@ -179,7 +179,7 @@ void TrainingViewPrivate::loadList()
 			ui.twTrainingWords->item ( i,j )->setToolTip(tooltip);
 		}
 	}
-	ui.twTrainingWords->resizeColumnToContents ( 0 );
+	ui.twTrainingWords->resizeColumnsToContents ( );
 	//list does not need to be deleted
 	//it is a member variable of the underlying concept class and will be scheduled for deletion ones we destroy it
 }

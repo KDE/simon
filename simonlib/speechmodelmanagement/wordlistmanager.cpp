@@ -1002,16 +1002,16 @@ bool WordListManager::extraListContains(Word *word)
 }
 
 
-bool WordListManager::mainWordListContainsStr(const QString& word)
+bool WordListManager::mainWordListContainsStr(const QString& word, Qt::CaseSensitivity cs)
 {
 	QMutexLocker m(&wordListLock);
-	return wordListContainsStr(getWordList(), word);
+	return wordListContainsStr(getWordList(), word, cs);
 }
 
-bool WordListManager::extraListContainsStr(const QString& word)
+bool WordListManager::extraListContainsStr(const QString& word, Qt::CaseSensitivity cs)
 {
 	QMutexLocker m(&shadowLock);
-	return wordListContainsStr(getShadowList(), word);
+	return wordListContainsStr(getShadowList(), word, cs);
 }
 
 bool WordListManager::wordListContains(WordList *list, Word *word)
@@ -1027,13 +1027,13 @@ bool WordListManager::wordListContains(WordList *list, Word *word)
 	return (i!=count) /*did we go all the way through?*/;
 }
 
-bool WordListManager::wordListContainsStr(WordList *list, const QString& word)
+bool WordListManager::wordListContainsStr(WordList *list, const QString& word, Qt::CaseSensitivity cs)
 {
 	Q_ASSERT(list);
 
 	int i=0;
 	int count = list->count();
-	while ((i<count) && (list->at(i).getWord() != word))
+	while ((i<count) && (QString::compare(list->at(i).getWord(),  word, cs) != 0))
 		i++;
 	
 	return (i!=count) /*did we go all the way through?*/;

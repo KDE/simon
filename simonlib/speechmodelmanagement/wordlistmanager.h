@@ -91,11 +91,11 @@ public:
 	QString getRandomWord(const QString& terminal, bool includeShadow=true);
 	
 	bool mainWordListContains(Word *word);
-	bool mainWordListContainsStr(const QString& word);
+	bool mainWordListContainsStr(const QString& word, Qt::CaseSensitivity cs=Qt::CaseSensitive);
 	bool extraListContains(Word *word);
-	bool extraListContainsStr(const QString& word);
+	bool extraListContainsStr(const QString& word, Qt::CaseSensitivity cs=Qt::CaseSensitive);
 	bool wordListContains(WordList *list, Word *word);
-	bool wordListContainsStr(WordList *list, const QString& word);
+	bool wordListContainsStr(WordList *list, const QString& word, Qt::CaseSensitivity cs);
 
 	WordList* getShadowedWords(const QString& word, bool fuzzy=false);
 	WordList* getMainstreamWords(const QString& word, bool fuzzy=false);
