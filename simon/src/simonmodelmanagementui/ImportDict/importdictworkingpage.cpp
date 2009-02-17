@@ -89,27 +89,18 @@ bool ImportDictWorkingPage::isComplete() const
 
 QString ImportDictWorkingPage::guessEncoding(const QString& path)
 {
-	//read first 5000 bytes and run encoding detection
-	//seek back to the beginning and parse file using the guessed encoding
 	QIODevice *dict = KFilterDev::deviceForFile(path,
 					KMimeType::findByFileContent(path)->name());
 	if ((!dict) || (!dict->open(QIODevice::ReadOnly)))
 		return "";
 	
 	QByteArray preview = dict->readAll();
-	dict->seek(0);
-	/*KEncodingProber prober(KEncodingProber::Universal);
-	prober.feed(preview);
-	kWarning() << "Data fed: " << preview.data();
-	kWarning() << "Codec: " << prober.encodingName();
-	kWarning() << "State: " << prober.state();
-	kWarning() << "Confidence: " << prober.confidence();
-	codec = QTextCodec::codecForName(prober.encodingName());*/
+	dict->close();
+	delete dict;
 
 	KEncodingDetector detector;
 	detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
 	QString out=detector.decode(preview);
-	//kWarning() << detector.encoding() << detector.encodingChoiceSource();
 	return detector.encoding();
 }
 

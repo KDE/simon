@@ -25,7 +25,8 @@
 #include <KFilterDev>
 #include <KMimeType>
 #include <QTextCodec>
-#include <KEncodingProber>
+//#include <KEncodingProber>
+#include <kencodingdetector.h>
 
 ImportGrammar::ImportGrammar(QObject* parent): QThread(parent)
 {
@@ -44,6 +45,7 @@ void ImportGrammar::run()
 				sentences << newSentences[j]; 	//add them to the list
 		}
 		emit allProgress(i+1, files.count());
+		QFile::remove(files[i]);
 	}
 	emit grammarCreated(sentences);
 }
@@ -59,13 +61,18 @@ QStringList ImportGrammar::readFile(QString path)
 	if ((!file) || (!file->open(QIODevice::ReadOnly)))
 		return structures;
 
-	//read first 5000 bytes and run encoding detection
-	//seek back to the beginning and parse file using the guessed encoding
 	QTextCodec *codec;
-	QByteArray preview = file->peek(5000);
-	KEncodingProber prober(KEncodingProber::Universal);
-	prober.feed(preview);
-	codec = QTextCodec::codecForName(prober.encodingName());
+	if (encoding == i18n("Automatic"))
+	{
+		//read first 5000 bytes and run encoding detection
+		//seek back to the beginning and parse file using the guessed encoding
+		QByteArray preview = file->peek(5000);
+		KEncodingDetector detector;
+		detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
+		QString out=detector.decode(preview);
+		codec = QTextCodec::codecForName(detector.encoding());
+	} else 
+		codec = QTextCodec::codecForName(encoding.toAscii());
 
 
 
@@ -92,7 +99,7 @@ QStringList ImportGrammar::readFile(QString path)
 // 		leftOvers="";
 		
 		while (!file->atEnd() && (!sentence.contains(sentenceStoppers)))
-			sentence += codec->toUnicode(file->readLine(4000))+"\n";
+			sentence += codec->toUnicode(file->readLine(4000).trimmed())+"\n";
 		
 		QStringList sentences = sentence.split(sentenceStoppers, QString::SkipEmptyParts);
 		for (int i=0; i < sentences.count();i++)

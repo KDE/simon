@@ -21,6 +21,9 @@
 #include "importgrammarworkingpage.h"
 #include "importgrammar.h"
 #include <QFile>
+#include <kio/job.h>
+#include <kio/jobuidelegate.h>
+#include <KStandardDirs>
 
 ImportGrammarWorkingPage::ImportGrammarWorkingPage(QWidget* parent): QWizardPage(parent)
 {
@@ -74,8 +77,26 @@ void ImportGrammarWorkingPage::initializePage()
 
 
 	QStringList files = field("files").toStringList();
+
+	int index=0;
+	QStringList tempFiles;
+	foreach (const QString& file, files)
+	{
+		KUrl srcUrl(file);
+		QString targetPath = KStandardDirs::locateLocal("tmp", "grammarImport/"+
+					QString::number(index)+"_"+srcUrl.fileName());
+		KIO::FileCopyJob *job = KIO::file_copy(srcUrl, targetPath, -1, KIO::Overwrite);
+		if (!job->exec()) {
+			job->ui()->showErrorMessage();
+			continue;
+		} else
+			tempFiles << targetPath;
+		index++;
+		delete job;
+	}
 	
-	grammarImporter->setFiles(files);
+	grammarImporter->setFiles(tempFiles);
+	grammarImporter->setEncoding(field("encoding").toString());
 	grammarImporter->setIncludeUnknown(field("includeUnknown").toBool());
 	grammarImporter->start();
 }

@@ -855,7 +855,7 @@ QString WordListManager::getRandomWord(const QString& terminal, bool includeShad
 	return ""; //we couldn't find a word - return what we got
 }
 	
-QStringList WordListManager::getTerminals(bool includeShadow)
+QStringList WordListManager::getTerminals(bool includeShadow, bool includeGrammar)
 {
 	QStringList terminals;
 	
@@ -871,6 +871,13 @@ QStringList WordListManager::getTerminals(bool includeShadow)
 		for (int i=0; i < shadowTerminals.count(); i++)
 			if (!terminals.contains(shadowTerminals.at(i)))
 				terminals.append(shadowTerminals.at(i));
+	}
+	if (includeGrammar)
+	{
+		QStringList grammarTerminals = GrammarManager::getInstance()->getTerminals();
+		for (int i=0; i < grammarTerminals.count(); i++)
+			if (!terminals.contains(grammarTerminals.at(i)))
+				terminals << grammarTerminals.at(i);
 	}
 	terminals.sort();
 

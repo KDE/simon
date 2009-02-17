@@ -32,8 +32,8 @@ SimonListWidget::SimonListWidget( QWidget * parent ) : KListWidget(parent)
 {
 	line = new KLineEdit(this);
 	line->hide();
-	this->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
-	this->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff);
+//	this->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
+//	this->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff);
 	this->redFlag = true;
 	connect(line,SIGNAL(textChanged(QString)),this,SLOT(filterEntries(QString)));
 	//connect(line,SIGNAL(returnPressed () ),this,SLOT(selectItem()));

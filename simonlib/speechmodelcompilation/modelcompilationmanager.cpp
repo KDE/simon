@@ -1103,7 +1103,9 @@ bool ModelCompilationManager::makeMonophones()
 	QString latinLexiconpath = htkIfyPath(tempDir)+"/lexicon";
 	if (QFile::exists(latinLexiconpath))
 		if (!QFile::remove(latinLexiconpath)) return false;
+
 #ifdef Q_OS_WIN
+	//TODO DEBUG!
 	QFile utfLexicon(lexiconPath);
 		
 	QFile latinLexicon(latinLexiconpath);

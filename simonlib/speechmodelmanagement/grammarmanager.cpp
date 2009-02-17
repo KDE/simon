@@ -101,16 +101,21 @@ void GrammarManager::renameTerminal(QString terminal, const QString& newName)
 	terminal.replace("^", "\\^");
 	terminal.replace("$", "\\$");
 
+	QStringList newStructures;
 	//replace using regex patterns
-	structures.replaceInStrings(QRegExp('^'+terminal+'$'), newName);
-	structures.replaceInStrings(QRegExp(' '+terminal+'$'), ' '+newName);
-	structures.replaceInStrings(QRegExp('^'+terminal+' '), newName+' ');
-	structures.replaceInStrings(QRegExp(' '+terminal+' '), ' '+newName+' ');
+	for (int j=0; j < structures.count(); j++)
+	{
+		QStringList currentStructure = structures.at(j).split(" ");
+		for (int i=0; i < currentStructure.count(); i++)
+		{
+			if (currentStructure[i] == terminal)
+				currentStructure.replace(i, newName);
+		}
+		structures.replace(j, currentStructure.join(" "));
+	}
 
 	save();
 // 	emit structuresChanged();
-	//this turned out to be faster than the "per-hand" approach
-	//...even if it looks a bit funny...
 }
 
 bool GrammarManager::refreshFiles(const QByteArray& grammarStructures)
@@ -202,7 +207,6 @@ QStringList GrammarManager::getTerminals()
 	QMutexLocker lock(&structuresLock);
 	QStringList out;
 	QStringList terminalsInStruct;
-// 	QStringList structures;// = CoreConfiguration::grammarStructures();
 	for (int i=0; i < structures.count(); i++)
 	{
 		terminalsInStruct.clear();

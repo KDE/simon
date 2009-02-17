@@ -86,7 +86,7 @@ public:
 
 	WordList* getWordList() { return this->wordlist; }
 	inline WordList* getShadowList();
-	QStringList getTerminals(bool includeShadow=true);
+	QStringList getTerminals(bool includeShadow=true, bool includeGrammar=true);
 
 	QString getRandomWord(const QString& terminal, bool includeShadow=true);
 	
