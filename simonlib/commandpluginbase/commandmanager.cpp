@@ -18,6 +18,7 @@
  */
 
 #include "commandmanager.h"
+#include <KLocalizedString>
 
 bool CommandManager::trigger(const QString& triggerName)
 {
@@ -68,6 +69,11 @@ CreateCommandWidget* CommandManager::getCreateCommandWidget(QWidget *parent)
 CommandConfiguration* CommandManager::getConfigurationPage()
 {
 	return 0;
+}
+
+const QString CommandManager::preferredTrigger() const
+{
+	return i18n("Computer");
 }
 
 bool CommandManager::deleteCommand(Command *command)

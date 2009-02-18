@@ -34,7 +34,6 @@
 #include <KAboutData>
 #include <KCmdLineArgs>
 
-
 int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "simon", "simon",
@@ -49,6 +48,7 @@ int main(int argc, char *argv[])
 			ki18n("Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
 	
 	KCmdLineArgs::init(argc, argv, &aboutData);
+
 #ifndef Q_OS_WIN32
 	KUniqueApplication app;
 #else

@@ -58,7 +58,7 @@ QString DesktopGridConfiguration::trigger()
 bool DesktopGridConfiguration::useRealTransparency()
 {
 	KConfigGroup cg(config, "");
-	return cg.readEntry("RealTransparency", false);
+	return cg.readEntry("RealTransparency", true);
 }
 
 void DesktopGridConfiguration::save()
@@ -86,7 +86,7 @@ void DesktopGridConfiguration::load()
 
 	KConfigGroup cg(config, "");
 	ui.leTrigger->setText(cg.readEntry("Trigger", i18n("Desktopgrid")));
-	ui.cbUseRealTransparency->setChecked(cg.readEntry("RealTransparency", false));
+	ui.cbUseRealTransparency->setChecked(cg.readEntry("RealTransparency", true));
 
 	cg.sync();
 	
@@ -96,7 +96,7 @@ void DesktopGridConfiguration::load()
 void DesktopGridConfiguration::defaults()
 {
 	ui.leTrigger->setText(i18n("Desktopgrid"));
-	ui.cbUseRealTransparency->setChecked(false);
+	ui.cbUseRealTransparency->setChecked(true);
  
 	save();
 }

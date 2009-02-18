@@ -44,7 +44,6 @@ ActionManager* ActionManager::instance;
 ActionManager::ActionManager(QObject *parent) : QObject(parent)
 {
 	KLocale::setMainCatalog("simonlib");
-	managers = new QList<CommandManager*>();
 	commandSettings=0;
 }
 
@@ -52,8 +51,7 @@ void ActionManager::init()
 {
 	if (commandSettings)
 	{
-		setupBackends(commandSettings->getPluginsToLoad());
-		setTrigger(commandSettings->getTrigger());
+		setupBackends(commandSettings->getActivePlugins());
 	}
 }
 
@@ -62,114 +60,131 @@ void ActionManager::setConfigurationDialog(KCModule* commandSettings)
 	this->commandSettings = dynamic_cast<CommandSettings*>(commandSettings);
 	if (!this->commandSettings) return;
 	
-	connect(commandSettings, SIGNAL(pluginSelectionChanged(const QStringList&)), this, SLOT(setupBackends(const QStringList&)));
-	connect(commandSettings, SIGNAL(triggerChanged(const QStringList&)), this, SLOT(setTrigger(const QStringList&)));
+	connect(commandSettings, SIGNAL(actionsChanged(QList<Action::Ptr>)), this, SLOT(setupBackends(QList<Action::Ptr>)));
 	
-	foreach (CommandManager *man, *managers)
-		this->commandSettings->registerPlugIn(man->getConfigurationPage());
-}
-
-void ActionManager::setTrigger(const QStringList& trigger)
-{
-	this->trigger = trigger;
+	foreach (Action::Ptr action, actions)
+		this->commandSettings->registerPlugIn(action->manager()->getConfigurationPage());
 }
 
 void ActionManager::deleteManager(CommandManager *manager)
 {
+	Q_ASSERT(manager);
+
 	if (commandSettings)
 		commandSettings->unregisterPlugIn(manager->getConfigurationPage());
-	manager->deleteLater();
-	managers->removeAll(manager);
+
+	foreach (Action::Ptr action, actions)
+	{
+		if (action->manager() == manager)
+		{
+			delete action;
+			actions.removeAll(action);
+		}
+	}
 }
 
 
-void ActionManager::setupBackends(const QStringList& pluginsToLoad)
+void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 {
-	Q_ASSERT(managers);
 	bool changed=false;
+
+	//iterate over all existing managers and find the ones we still use
+	//by comparing their source()'es;
+	//Change the trigger to the one given by the corresponding action in
+	//pluginsToLoad and copy it to the array of new managers
+	//Remove those already loaded commandmanagers from the pluginsToLoad
+	//list;
+	//
+	//Copy the remaining commandManagers from pluginsToLoad to the array
+	//retaining their positions
 	
-	CommandManager* newManagerArray[pluginsToLoad.count()];
+	int count = pluginsToLoad.count();
+	Action::Ptr newActionsArray[count];
+
 	int i=0;
-	foreach (QString pluginToLoad, pluginsToLoad)
+	while (pluginsToLoad.count() > 0)
 	{
-		bool found=false;
-		foreach (CommandManager *man, *managers)
-		{
-			if (man->name() == pluginToLoad)
-			{
-				if (managers->indexOf(man) != i)
+		Action *newAction = pluginsToLoad.takeAt(0);
+		QString source = newAction->source();
+
+		bool found = false;
+
+		//iterate over all loaded actions
+		//and try to find this one
+		for (int j=0; j < actions.count(); j++) {
+			if (!actions[j]) {
+				actions.removeAt(j--);
+				continue;
+			}
+			if (actions[j]->source() == source) {
+				//if found, move it with the appropriate spot
+				//in the array and apply the (possibly new)
+				//trigger
+				Action *alreadyLoadedAction = actions.takeAt(j);
+				if (newAction->trigger() != alreadyLoadedAction->trigger()) {
+					alreadyLoadedAction->setTrigger(newAction->trigger());
+					changed = true;
+				}
+				if (i != j) //position changed
 					changed=true;
-				
-				newManagerArray[i] = man;
-				managers->removeAll(man);
-				found=true;
+				newActionsArray[i] = alreadyLoadedAction;
+				found = true;
+				break;
 			}
 		}
-		if (!found)
+
+		if (!found) {
+			//if it was not found, copy it from pluginsToLoad
+			if (newAction->manager()) {
+				if (!newAction->manager()->load()) {
+					KMessageBox::error(0, i18n("Couldn't initialize commandmanager \"%1\".\n\n"
+							"Please check its configuration.", newAction->manager()->name()));
+				} else {
+					if (commandSettings) commandSettings->registerPlugIn(newAction->manager()->getConfigurationPage());
+				}
+				newActionsArray[i] = newAction;
+			}
 			changed=true;
+		}
 		i++;
 	}
-	
-	KService::List services;
-	KServiceTypeTrader* trader = KServiceTypeTrader::self();
-	services = trader->query("simon/CommandPlugin");
-	
-	i=0;
-	foreach (KService::Ptr service, services) {
-		KPluginFactory *factory = KPluginLoader(service->library()).factory();
- 
-		if (!factory)
-			continue;
-		
-		CommandManager *man = factory->create<CommandManager>(this);
-	
-		if (man)
-		{
-			QString currentManagerName = man->name();
-			if (pluginsToLoad.contains(currentManagerName))
-			{
-				newManagerArray[pluginsToLoad.indexOf(currentManagerName)] = man;
-				
-				if (!man->load())
-					KMessageBox::error(0, i18n("Couldn't initialize commandmanager \"%1\".\n\n"
-							"Please check its configuration.", currentManagerName));
-				else
-				{
-					if (commandSettings) commandSettings->registerPlugIn(man->getConfigurationPage());
-					changed=true;
-				}
-			} else
-				man->deleteLater();
-		}
-	}
-	
-	foreach (CommandManager *manager, *managers)
+
+	// delete the actions remaining in the member variable as they are not
+	// used any longer and copy the array there
+	foreach (Action::Ptr action, actions)
 	{
-		deleteManager(manager);
 		changed=true;
+
+		if (!action) {
+			continue;
+		}
+
+		if (action->manager() && commandSettings)
+			commandSettings->unregisterPlugIn(action->manager()->getConfigurationPage());
+		delete action;
 	}
-	for (i=0; i < pluginsToLoad.count(); i++)
-	{
-		*(this->managers) << newManagerArray[i];
+	actions.clear();
+	for (int i=0; i < count; i++) {
+		actions << newActionsArray[i];
 	}
-	
-	//if (changed) emit commandsChanged(getCommandList());
-	if (changed) 
+
+	if (changed) {
 		publishCategories();
+	}
 }
 
 void ActionManager::publishCategories()
 {
 	QList<KIcon> icons;
 	QStringList names;
-	foreach (CommandManager* man, *managers)
+	foreach (Action::Ptr action, actions)
 	{
-		if ((!man->getCommands())
-				|| (man->getCommands()->count() == 0))
+		if (!action || !action->manager() || (!action->manager()->getCommands())
+				|| (action->manager()->getCommands()->count() == 0))
 			continue;
 
-		names << man->name();
-		icons << man->icon();
+		names << action->manager()->name();
+		icons << action->manager()->icon();
 	}
 	emit categoriesChanged(icons, names);
 
@@ -179,9 +194,9 @@ QList<CreateCommandWidget*>* ActionManager::getCreateCommandWidgets(QWidget *par
 {
 	QList<CreateCommandWidget*> *out = new QList<CreateCommandWidget*>();
 	
-	foreach (CommandManager* manager, * this->managers)
+	foreach (Action::Ptr action, this->actions)
 	{
-		CreateCommandWidget* widget = (CreateCommandWidget*) manager->getCreateCommandWidget(parent);
+		CreateCommandWidget* widget = (CreateCommandWidget*) action->manager()->getCreateCommandWidget(parent);
 		if (widget)
 			*out << widget;
 	}
@@ -237,8 +252,6 @@ void ActionManager::deRegisterPrompt(QObject *d_receiver, const char* d_slot)
 
 bool ActionManager::addCommand(Command *command)
 {
-	Q_ASSERT(managers);
-	
 	if (!command) return false;
 	
 	if (!askDeleteCommandByTrigger(command->getTrigger())) 
@@ -247,9 +260,9 @@ bool ActionManager::addCommand(Command *command)
 	
 	int i=0;
 	bool added=false;
-	while (!added && (i< managers->count()))
+	while (!added && (i< actions.count()))
 	{
-		CommandManager *man = managers->at(i);
+		CommandManager *man = actions.at(i)->manager();
 		added = man->addCommand(command);
 		i++;
 	}
@@ -263,11 +276,11 @@ bool ActionManager::addCommand(Command *command)
 
 Command* ActionManager::getCommand(const QString& category, const QString& trigger)
 {
-	foreach (CommandManager* manager, *managers)
+	foreach (Action::Ptr action, actions)
 	{
-		if (manager->name() == category)
+		if (action->manager()->name() == category)
 		{
-			CommandList *list = manager->getCommands();
+			CommandList *list = action->manager()->getCommands();
 			foreach (Command* com, *list)
 			{
 				if (com->getTrigger() == trigger)
@@ -282,16 +295,14 @@ Command* ActionManager::getCommand(const QString& category, const QString& trigg
 
 bool ActionManager::deleteCommand(Command *command)
 {
-	Q_ASSERT(managers);
-	
 	if (!command) return false;
 	
 	QString trigger = command->getTrigger();
 	QString cat = command->getCategoryText();
 	bool deleted;
-	for (int i=0; i < managers->count(); i++)
+	for (int i=0; i < actions.count(); i++)
 	{
-		if (managers->at(i)->deleteCommand(command))
+		if (actions.at(i)->manager()->deleteCommand(command))
 			deleted = true;
 	}
 	
@@ -308,11 +319,10 @@ bool ActionManager::deleteCommand(Command *command)
 
 CommandList* ActionManager::getCommandList()
 {
-	CommandManager *manager;
 	CommandList *out = new CommandList();
-	foreach (manager, * this->managers)
+	foreach (Action::Ptr action, this->actions)
 	{
-		CommandList *cur = manager->getCommands();
+		CommandList *cur = action->manager()->getCommands();
 		
 		if (!cur) continue;
 		
@@ -326,8 +336,6 @@ CommandList* ActionManager::getCommandList()
 
 bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
 {
-	Q_ASSERT(managers);
-	
 	Command *com = getCommand(type, trigger);
 	if (com)
 		return com->trigger();
@@ -336,9 +344,9 @@ bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
 
 CommandList* ActionManager::getCommandsOfCategory(const QString& category)
 {
-	foreach (CommandManager *man, *managers)
-		if (man->name() == category)
-			return man->getCommands();
+	foreach (Action::Ptr action, actions)
+		if (action->manager()->name() == category)
+			return action->manager()->getCommands();
 
 	return NULL;
 }
@@ -357,26 +365,24 @@ void ActionManager::process(QString input)
 		return;
 	}
 
-	Q_ASSERT(managers);
 	Q_ASSERT(commandSettings);
 
 	if (input.isEmpty()) return;
-	if (trigger.count() != managers->count()) return;
 
 	int i=0;
 	bool commandFound=false;
 	QString currentTrigger;
 	QString realCommand;
-	while ((i<trigger.count()) && (!commandFound))
+	while ((i<actions.count()) && (!commandFound))
 	{
-		currentTrigger = trigger[i];
+		currentTrigger = actions[i]->trigger();
 		if (input.startsWith(currentTrigger))
 		{
 			if (!currentTrigger.isEmpty())
 				realCommand = input.mid(currentTrigger.count()+1);
 			else realCommand = input;
 
-			if(managers->at(i)->trigger(realCommand))
+			if(actions.at(i)->manager()->trigger(realCommand))
 				commandFound=true;
 		}
 		i++;

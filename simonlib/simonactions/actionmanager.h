@@ -26,11 +26,14 @@
 #include <commandpluginbase/command.h>
 #include "actionlib_export.h"
 #include <KIcon>
+#include "action.h"
 
 class CommandManager;
 class CreateCommandWidget;
 class CommandSettings;
 class KCModule;
+class Action;
+
 
 class GreedyReceiver {
 	private:
@@ -61,8 +64,8 @@ private:
 	CommandSettings* commandSettings;
 	QList<GreedyReceiver> greedyReceivers;
 
-	QList<CommandManager*> *managers;
-	QStringList trigger;
+	QList<Action::Ptr> actions;
+
 	bool askDeleteCommandByTrigger(QString trigger);
 
 	void deleteManager(CommandManager *manager);
@@ -74,8 +77,7 @@ protected:
 	ActionManager(QObject *parent=0);
 
 private slots:
-	void setupBackends(const QStringList& pluginsToLoad);
-	void setTrigger(const QStringList& trigger);
+	void setupBackends(QList<Action::Ptr> pluginsToLoad);
 
 
 public:

@@ -14,5 +14,5 @@ X-KDE-PluginInfo-Name=simondictationcommandplugin
 X-KDE-PluginInfo-Version=0.1
 X-KDE-PluginInfo-Website=http://simon-listens.org
 X-KDE-PluginInfo-License=GPL
-X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-PluginInfo-EnabledByDefault=false
 X-KDE-ParentApp=simon
