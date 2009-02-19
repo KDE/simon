@@ -42,8 +42,8 @@ KSimondSettings::KSimondSettings(QWidget* parent, const QVariantList& args)
 }
 
 
-
 KSimondSettings::~KSimondSettings()
 {
 	
 }
+

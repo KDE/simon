@@ -149,7 +149,11 @@ void KSimondView::matchDisplayToState()
 
 void KSimondView::simondFinished()
 {
-	if ((!stopIntended && KSimondConfiguration::autoReStartSimond()) || wantReload)
+	//using the kconfigxt way does not reflect changes on the fly
+	KConfig config(KStandardDirs::locate("config", "ksimondrc"));
+	KConfigGroup cGroup(&config, "KSimond");
+	bool crashRecovery = cGroup.readEntry("AutoReStartSimond", true);
+	if ((!stopIntended && crashRecovery) || wantReload)
 	{
 		startSimond();
 		stopIntended=false;

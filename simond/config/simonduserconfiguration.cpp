@@ -35,13 +35,12 @@ SimondUserConfiguration::SimondUserConfiguration(QWidget* parent, const QVariant
 	
 	ui.setupUi(this);
 	
-	addConfig(SimondConfiguration::self(), this);
+	//addConfig(SimondConfiguration::self(), this);
 
 	db = new DatabaseAccess(this);
 	connect (ui.pbAdd, SIGNAL(clicked()), this, SLOT(addUser()));
 	connect (ui.pbDelete, SIGNAL(clicked()), this, SLOT(deleteUser()));
 	connect (ui.pbChangePassword, SIGNAL(clicked()), this, SLOT(changePassword()));
-	connect (ui.urDatabaseUrl, SIGNAL(urlSelected(const KUrl&)), this, SLOT(slotChanged()));
 
 	ui.pbAdd->setIcon(KIcon("list-add"));
 	ui.pbDelete->setIcon(KIcon("edit-delete"));
@@ -73,10 +72,10 @@ void SimondUserConfiguration::initDb()
 		ui.tvUser->setModel(NULL); //empty table
 		KMessageBox::information(this, db->getDatabase());
 	} else {
+		kWarning() << "Db has been changed";
 		activateUserConfiguration(true);
 		ui.tvUser->setModel(db->getUsers());
 	}
-	storedDb = db->getDatabase();
 }
 
 void SimondUserConfiguration::addUser()
@@ -175,16 +174,12 @@ void SimondUserConfiguration::changePassword()
 void SimondUserConfiguration::load()
 {
 	initDb();
-	ui.urDatabaseUrl->setUrl(db->getDatabase());
 	KCModule::load();
 }
 
 void SimondUserConfiguration::save()
 {
 	KCModule::save();
-	if (storedDb != ui.urDatabaseUrl->url().path())
-		initDb(); // reinit
-	storedDb = db->getDatabase();
 }
 
 

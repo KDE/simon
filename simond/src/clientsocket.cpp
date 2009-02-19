@@ -545,8 +545,8 @@ void ClientSocket::processRequest()
 				} else {
 					kDebug() << "Language desc u-t-d";
 					kDebug() << "LanguageDescription is up-to-date";
+					synchronizeSamples();
 				}
-				synchronizeSamples();
 				
 				break;
 			}
@@ -613,6 +613,8 @@ void ClientSocket::processRequest()
 			case Simond::ErrorRetrievingTrainingsSample:
 			{
 				Q_ASSERT(synchronisationManager);
+
+				kDebug() << "Not all samples available; Aborting";
 
 				//we can't continue without all the samples
 				synchronisationManager->abort();

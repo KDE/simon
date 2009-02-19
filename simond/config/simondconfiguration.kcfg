@@ -31,6 +31,7 @@
   <group name="Database">
     <entry name="DatabaseUrl" type="Url">
       <label>The path to the database.</label>
+      <default>KUrl(KStandardDirs::locateLocal("data", "simond/simond.db"))</default>
     </entry>
   </group>
 

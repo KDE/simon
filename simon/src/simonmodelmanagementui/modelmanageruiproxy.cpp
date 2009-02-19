@@ -54,18 +54,15 @@ void ModelManagerUiProxy::sampleNotAvailable(const QString& sample)
 		//kick some poor samples ass
 		startGroup();
 		QString sampleBaseName = sample.left(sample.length()-4);
-		kDebug() << sampleBaseName;
+		kDebug() << "Deleting: " << sampleBaseName;
 		bool succ = TrainingManager::getInstance()->removeSample(sampleBaseName);
 		if (succ)
 			TrainingManager::getInstance()->savePrompts();
 
-		commitGroup(true /*silent*/);
+		commitGroup(false /*silent*/);
 
 		if (!succ)
 			KMessageBox::error(0, i18n("Couldn't remove Sample from the Trainingscorpus"));
-		else
-			// and _do_ _it_ _again_
-			emit recompileModel();
 	}
 }
 

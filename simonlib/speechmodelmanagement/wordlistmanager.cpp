@@ -243,21 +243,14 @@ inline WordList* WordListManager::getShadowList()
 {
 	//if the thread is still running we are obviously not ready to give out the shadowdict
 	//wait till we are finished
-	if (isRunning())
+	QMutexLocker lock(&shadowLock); //.lock();
+/*	while (isRunning())
 	{
-//FIXME: We can't show this directly!
-//	If this method is called by a different thread (this WILL happen),
-//	we would create the simonInfo object (which contains gui-widgets) in that
-//	threads context
-//	This will result in an async-error from xlib (you can't have different threads painting the gui)
-//	and therefore result in a crash;
-//	
 // 		SimonInfo::showMessage(i18n("Bitte warten Sie während das Schatten-Wörterbuch lädt..."),1000);
-//		this is actually bug-using as we just set any kind of timeout (the gui thread will be
-//		blocked until the importing is done anyway...
-// 		QCoreApplication::processEvents();
-		wait();
-	}
+ 		QCoreApplication::processEvents();
+		kWarning() << "hier";
+		wait(500);
+	}*/
 	
 	return shadowList;
 }

@@ -478,6 +478,7 @@ void SynchronisationManager::buildMissingSamples()
 	QDir samplesDir(KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"));
 	oldList = samplesDir.entryList(QStringList() << "*.wav");
 	
+	missingFiles.clear(); //rebuilding this...
 
 	if (promptsFile.open(QIODevice::ReadOnly))
 	{
