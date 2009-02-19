@@ -30,6 +30,7 @@
 #include <KIcon>
 #include <KPushButton>
 #include <KLocale>
+#include <KDebug>
 
 CompositeProgressWidget::CompositeProgressWidget(QWidget* parent): QWidget(parent)
 {

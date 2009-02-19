@@ -20,6 +20,7 @@
 #include "statusmanager.h"
 #include <QTimer>
 
+#include <KLocalizedString>
 
 Operation::Operation(QThread* thread, const QString& name, const QString& currentAction, int now, int max, bool isAtomic) : QObject(0)
 {
@@ -40,6 +41,20 @@ void Operation::registerWith(StatusManager *man)
 	man->registerOperation(this);
 }
 
+QString Operation::currentAction()
+{
+	switch (m_status)
+	{
+		case Finished:
+			return i18n("Finished");
+		case Aborted:
+			return i18n("Aborted");
+		case Aborting:
+			return i18n("Aborting...");
+		default:
+			return m_currentAction;
+	}
+}
 
 void Operation::update(const QString& currentAction, int newProgress, int newMaximum)
 {

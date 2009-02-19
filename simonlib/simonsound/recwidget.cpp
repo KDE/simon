@@ -279,13 +279,17 @@ void RecWidget::stopRecording()
 	if (processInternal)
 		fName += "_tmp";
 
-	if (!rec->finish())
-		KMessageBox::error(this, i18n("Could not finalize the Sample. The recording probably failed.\n\nTip: Check if you have the needed permissions to write to \"%1\"!", fName));
+	if (!rec->finish()) {
+		KMessageBox::error(this, i18n("Could not finalize the Sample. "
+					"The recording probably failed.\n\n"
+					"Tip: Check if you have the needed permissions to write to \"%1\"!", fName));
+	} else {
 		
-	if (processInternal)
-// 		if (!QFile::copy(fName, filename) || !QFile::remove(fName))
-		if (!postProc->process(fName, filename, true))
-			KMessageBox::error(this, i18n("Post-Processing failed"));
+		if (processInternal) {
+			if (!postProc->process(fName, filename, true))
+				KMessageBox::error(this, i18n("Post-Processing failed"));
+		}
+	}
 	
 	
 	pbProgress->setValue(0);

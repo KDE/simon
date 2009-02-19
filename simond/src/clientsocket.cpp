@@ -149,7 +149,7 @@ void ClientSocket::processRequest()
 					modelCompilationManager = new ModelCompilationManager(user, activeDir+"hmmdefs", activeDir+"tiedlist",
 											activeDir+"model.dict", activeDir+"model.dfa", this);
 					connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(activeModelCompiled()));
-					connect(modelCompilationManager, SIGNAL(modelCompilationAborted()), this, SLOT(activeModelCompilationAborted()));
+					connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted()), this, SLOT(activeModelCompilationAborted()));
 					connect(modelCompilationManager, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelCompilationStatus(const QString&, int, int)));
 					connect(modelCompilationManager, SIGNAL(error(const QString&)), this, SLOT(slotModelCompilationError(const QString&)));
 					connect(modelCompilationManager, SIGNAL(classUndefined(const QString&)), this, 
@@ -749,7 +749,6 @@ void ClientSocket::activeModelCompilationAborted()
 void ClientSocket::synchronizeSamples()
 {
 	Q_ASSERT(synchronisationManager);
-	kDebug() << "synchronisiere samples";
 	synchronisationManager->buildMissingSamples();
 	fetchTrainingSample();
 }

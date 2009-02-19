@@ -54,7 +54,7 @@
 					msg.device()->seek(currentPos);\
 					messageLocker.unlock();
 					
-#define checkIfSynchronisationIsAborting() if (synchronisationOperation && synchronisationOperation->aborting()) \
+#define checkIfSynchronisationIsAborting() if (synchronisationOperation && synchronisationOperation->isAborting()) \
 					{ \
 						sendRequest(Simond::AbortSynchronisation); \
 						synchronisationDone(); \
@@ -204,10 +204,9 @@ void RecognitionControl::connectTo(QString server, quint16 port)
 
 void RecognitionControl::errorOccured()
 {
-	if (socket->state()== QAbstractSocket::UnconnectedState) return;
 	if (timeoutWatcher->isActive())
 		timeoutWatcher->stop();
-	
+
 	QList<QSslError> errors = socket->sslErrors();
 	if ((errors.count() == 1) && (errors[0].error() == QSslError::SelfSignedCertificate) && (RecognitionConfiguration::juliusdEncrypted()))
 	{
@@ -270,13 +269,13 @@ void RecognitionControl::disconnectFromServer()
 	if (synchronisationOperation)
 	{
 		synchronisationOperation->canceled();
-		synchronisationOperation->deleteLater();
+//		synchronisationOperation->deleteLater();
 		synchronisationOperation=NULL;
 	}
 	if (modelCompilationOperation)
 	{
 		modelCompilationOperation->canceled();
-		modelCompilationOperation->deleteLater();
+//		modelCompilationOperation->deleteLater();
 		modelCompilationOperation=NULL;
 	}
 	serverConnectionsToTry.clear();
@@ -725,7 +724,17 @@ void RecognitionControl::messageReceived()
 				{
 					advanceStream(sizeof(qint32));
 					emit loggedIn();
-					startSynchronisation();
+					switch (RecognitionConfiguration::synchronizationMode())
+					{
+						case 0: //automatic
+							startSynchronisation();
+							break;
+						case 1: //semi-automatic
+							if (KMessageBox::questionYesNo(0, i18n("Your speech model might have changed while you were disconnected.\n\n"
+											"Do you want to start a synchronization now?"))==KMessageBox::Yes)
+								startSynchronisation();
+							break;
+					}
 					break;
 				}
 	

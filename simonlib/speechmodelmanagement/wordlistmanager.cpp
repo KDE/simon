@@ -194,25 +194,32 @@ WordListManager* WordListManager::getInstance()
  * \brief Starts the importing of the shadow-Model in a new thread
  * \author Peter Grasch
  */
+#include <QCoreApplication>
 void WordListManager::run()
 {
-	Operation op(thread(), i18n("Loading Shadow List"), i18n("Parsing..."), 0,0, true);
+	Operation *op = new Operation(thread(), i18n("Loading Shadow List"), i18n("Parsing..."), 0,0, true);
 	shadowLock.lock();
 	shadowDirty = false;
 	this->shadowList = readWordList(KStandardDirs::locate("appdata", "model/shadowlexicon"),
 					KStandardDirs::locate("appdata", "model/shadow.voca"),
 					this->shadowTerminals, true);
-	if (!shadowList)
-	{
+	if (!shadowList) {
 		this->shadowList = new WordList();
 		emit shadowListCouldntBeLoaded();
-		op.canceled();
-	} else
-	{
-		op.finished();
+		op->canceled();
+	} else {
+		op->finished();
 	}
 	
 	shadowLock.unlock();
+	/*while(true) {
+		kWarning() << "alive!";
+		QCoreApplication::processEvents();
+		exec();
+		sleep(1);
+	}*/
+	connect(op, SIGNAL(destroyed(QObject*)), this, SLOT(quit()));
+	exec();
 }
 
 

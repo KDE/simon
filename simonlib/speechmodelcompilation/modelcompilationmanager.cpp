@@ -177,10 +177,8 @@ QString ModelCompilationManager::getBuildLog()
  */
 void ModelCompilationManager::analyseError(const QString& readableError)
 {
-//	if (!processError())
+	if (!processError())
 		emit error(readableError);
-	
-	emit status(i18n("Aborted"), 1, 1);
 }
 
 /**
@@ -196,7 +194,7 @@ bool ModelCompilationManager::processError()
 	if ((startIndex = err.indexOf("ERROR [+1232]")) != -1) //word missing
 	{
 		//ERROR [+1232]  NumParts: Cannot find word DARAUFFOLGEND in dictionary
-		int wordstart = 45+startIndex;
+		int wordstart = 42+startIndex;
 		QString word = err.mid(wordstart, err.indexOf(' ', wordstart)-wordstart);
 		
 		//this error ONLY occurs when there are samples for the word but the word itself was not added
@@ -214,7 +212,7 @@ bool ModelCompilationManager::processError()
 		return true;
 	}
 	if ((startIndex = err.indexOf("undefined class \"")) != -1)
-		               /*Error: undefined class "Schubi"*/
+/*		Error:       undefined class "NOM"*/
 	{
 		QString undefClass = err.mid(startIndex+17);
 		undefClass = undefClass.left(undefClass.indexOf('"'));
