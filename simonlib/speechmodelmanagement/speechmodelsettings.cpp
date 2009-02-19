@@ -23,7 +23,7 @@
 #include <KMessageBox>
 #include <KGlobal>
 #include <KPageWidget>
-#include "grammarmanager.h"
+#include "modelmanager.h"
 #include <kgenericfactory.h>
 
 K_PLUGIN_FACTORY( SpeechModelSettingsFactory, 
@@ -44,16 +44,22 @@ SpeechModelSettings::SpeechModelSettings(QWidget* parent, const QVariantList& ar
 	QWidget *trainingsDataWidget = new QWidget(this);
 	uiTrainingsData.setupUi(trainingsDataWidget);
 	
-// 	KPageWidgetItem *grammar = pageWidget->addPage(grammarWidget, i18n("Grammatik"));
 	KPageWidgetItem *trainingsData = pageWidget->addPage(trainingsDataWidget, i18n("Trainingsdata"));
-
-// 	grammar->setIcon(KIcon("user-properties"));
 	trainingsData->setIcon(KIcon("view-pim-news"));
-
-// 	grammar->setHeader("");
 	trainingsData->setHeader("");
 	
 	addConfig(SpeechModelManagementConfiguration::self(), this);
+}
+
+
+void SpeechModelSettings::save()
+{
+	int smpFreq = SpeechModelManagementConfiguration::modelSampleRate();
+	KCModule::save();
+	if (smpFreq != SpeechModelManagementConfiguration::modelSampleRate()) {
+		//it changed
+		ModelManager::getInstance()->modelHasChanged();
+	}
 }
 
 SpeechModelSettings::~SpeechModelSettings()

@@ -50,8 +50,8 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
 		bool hasLanguageDescription();
 		bool hasActiveContainer();
 	
-	private slots:
-		void slotModelChanged();
+	public slots:
+		void modelHasChanged();
 
 	protected:
 		static ModelManager* instance;

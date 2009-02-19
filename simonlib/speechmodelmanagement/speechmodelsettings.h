@@ -35,13 +35,13 @@ class SpeechModelSettings : public KCModule
 Q_OBJECT
 private:
 	Ui::TrainingSettingsWidget uiTrainingsData;
-	
 
 signals:
 	void changed();
 
 public:
     SpeechModelSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    void save();
 
     ~SpeechModelSettings();
 

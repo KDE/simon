@@ -43,22 +43,22 @@ ModelManager::ModelManager(QObject *parent) : QObject(parent)
 	modelChangedFlag=false;
 	inGroup=false;
 	connect (WordListManager::getInstance(), SIGNAL(wordlistChanged()), 
-		  this, SLOT(slotModelChanged()));
+		  this, SLOT(modelHasChanged()));
 
 	connect (WordListManager::getInstance(), SIGNAL(shadowListChanged()), 
-		  this, SLOT(slotModelChanged()));
+		  this, SLOT(modelHasChanged()));
 	
 	connect (TrainingManager::getInstance(), SIGNAL(trainingDataChanged()),
-		  this, SLOT(slotModelChanged()));
+		  this, SLOT(modelHasChanged()));
 	
 	connect (TrainingManager::getInstance(), SIGNAL(trainingSettingsChanged()),
-		  this, SLOT(slotModelChanged()));
+		  this, SLOT(modelHasChanged()));
 	
 	connect (GrammarManager::getInstance(), SIGNAL(structuresChanged()), 
-		  this, SLOT(slotModelChanged()));
+		  this, SLOT(modelHasChanged()));
 }
 
-void ModelManager::slotModelChanged()
+void ModelManager::modelHasChanged()
 {
 	if (inGroup) 
 		modelChangedFlag=true;
