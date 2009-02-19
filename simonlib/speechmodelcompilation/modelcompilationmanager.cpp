@@ -117,6 +117,31 @@ bool ModelCompilationManager::parseConfiguration()
 	mkfa = programGroup.readEntry("mkfa", KUrl(KStandardDirs::findExe("mkfa"))).path();
 	dfaMinimize = programGroup.readEntry("dfa_minimize", KUrl(KStandardDirs::findExe("dfa_minimize"))).path();
 
+	if (!QFile::exists(hDMan) ||
+			!QFile::exists(hCopy) ||
+			!QFile::exists(hCompV) ||
+			!QFile::exists(hERest) ||
+			!QFile::exists(hVite))
+	{
+		//HTK not found
+		QString errorMsg = i18n("The HTK can not be found. Please make sure it is installed correctly.\n\n");
+#ifdef Q_OS_WIN32
+		errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows");
+#else
+		errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation");
+#endif
+		emit error(errorMsg);
+		return false;
+	}
+
+	if (!QFile::exists(mkfa) ||
+			!QFile::exists(dfaMinimize))
+	{
+		//julius grammar tools not found
+		emit error(i18n("The julius related grammar tools mkfa and dfa_minimize can not be found.\n\nA reinstallation of simon could solve this problem."));
+		return false;
+	}
+
 	return true;
 }
 
@@ -191,6 +216,12 @@ bool ModelCompilationManager::processError()
 	QString err = getBuildLog().trimmed();
 
 	int startIndex=0;
+	if (err.contains("ERROR [+2019]"))
+	{ // no trainings samples
+		
+		emit error(i18n("No training material available.\n\nPlease train your acoustic model by recording samples."));
+		return true;
+	}
 	if ((startIndex = err.indexOf("ERROR [+1232]")) != -1) //word missing
 	{
 		//ERROR [+1232]  NumParts: Cannot find word DARAUFFOLGEND in dictionary
@@ -252,10 +283,11 @@ bool ModelCompilationManager::startCompilation(const QString& samplePath,
 
 	keepGoing=true;
 
+	buildLog="";
+
 	if (!parseConfiguration())
 		return false;
 
-	buildLog="";
 	start();
 	return true;
 }
