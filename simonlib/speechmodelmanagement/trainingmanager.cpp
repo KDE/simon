@@ -146,6 +146,9 @@ QString TrainingManager::getTrainingDir()
 	#endif
 			)
 		dir += QDir::separator();
+
+	QDir d(dir);
+	if (!d.exists()) d.mkpath(dir);
 		
 	return dir;
 }

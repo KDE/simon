@@ -89,10 +89,12 @@ namespace Simond
 		TrainingStorageFailed=2067,
 		
 		
-		GetTrainingsSample=2071,
-		ErrorRetrievingTrainingsSample=2072,
-		TrainingsSample=2073,
-		TrainingsSampleStorageFailed=2074,
+		StartTrainingsSampleSynchronisation=2071,
+		GetTrainingsSample=2072,
+		ErrorRetrievingTrainingsSample=2073,
+		TrainingsSample=2074,
+		TrainingsSampleStorageFailed=2075,
+		TrainingsSampleSynchronisationComplete=2076,
 		
 		SynchronisationComplete=2101,
 		SynchronisationCommitFailed=2102,

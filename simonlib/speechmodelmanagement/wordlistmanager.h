@@ -62,7 +62,7 @@ private:
 
 	bool mainDirty, shadowDirty;
 	
-	WordList* removeDoubles(WordList *in);
+//	WordList* removeDoubles(WordList *in);
 	WordList* readWordList(const QString& lexiconpath, const QString& vocabpath, QStringList &terminals, bool isShadowlist=false);
 	QString* getTerminal(const QString& name, const QString& pronunciation, WordList *wlist);
 
@@ -75,6 +75,12 @@ protected:
 	WordListManager();
 
 public:
+	enum SearchType {
+		ExactMatch=1,
+		PartialMatch=2,
+		Fuzzy=3
+	};
+	
 	static WordListManager* getInstance();
 
 	void safelyInit();
@@ -97,11 +103,11 @@ public:
 	bool wordListContains(WordList *list, Word *word);
 	bool wordListContainsStr(WordList *list, const QString& word, Qt::CaseSensitivity cs);
 
-	WordList* getShadowedWords(const QString& word, bool fuzzy=false);
-	WordList* getMainstreamWords(const QString& word, bool fuzzy=false);
-	WordList* searchForWords(WordList *list, const QString& word, bool fuzzy=false);
+	WordList* getShadowedWords(const QString& word, SearchType searchType=ExactMatch);
+	WordList* getMainstreamWords(const QString& word, SearchType searchType=ExactMatch);
+	WordList* searchForWords(WordList *list, const QString& word, SearchType searchType=ExactMatch);
 	
-	WordList* getWords(const QString& word, bool includeShadow, bool fuzzy=false, bool keepDoubles=false);
+	WordList* getWords(const QString& word, bool includeShadow, SearchType searchType=ExactMatch, bool keepDoubles=false);
 
 	WordList* mergeLists(WordList *a, WordList *b, bool keepDoubles=true);
 

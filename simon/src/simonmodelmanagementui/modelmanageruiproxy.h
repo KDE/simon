@@ -55,6 +55,16 @@ public:
  	void phonemeUndefined(const QString&);
 	void displayCompilationProtocol(const QString& protocol);
 
+	bool storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
+				const QByteArray& activeVocab, const QByteArray& activeLexicon);
+	bool storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures);
+	bool storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, 
+				const QByteArray& treeHed);
+	bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
+				const QByteArray& prompts);
+	bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
+			const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
+	bool storeSample(const QByteArray& sample);
 	
 };
 

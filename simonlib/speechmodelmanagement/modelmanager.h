@@ -71,33 +71,33 @@ class MODELMANAGEMENT_EXPORT ModelManager : public QObject
 		
 		WordListContainer* getWordListContainer();
 		QDateTime getWordListModifiedTime();
-		bool storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
+		virtual bool storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
 					const QByteArray& activeVocab, const QByteArray& activeLexicon);
 		
 		GrammarContainer* getGrammarContainer();
 		QDateTime getGrammarModifiedTime();
-		bool storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures);
+		virtual bool storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures);
 		
 		LanguageDescriptionContainer* getLanguageDescriptionContainer();
 		QDateTime getLanguageDescriptionModifiedTime();
-		bool storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, 
+		virtual bool storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, 
 				        const QByteArray& treeHed);
 		
 		TrainingContainer* getTrainingContainer();
 		QDateTime getTrainingModifiedTime();
-		bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
+		virtual bool storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
 					const QByteArray& prompts);
 
 		Model* createActiveContainer();
 		qint32 getActiveModelSampleRate();
 		QDateTime getActiveContainerModifiedTime();
-		bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
+		virtual bool storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
 				const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa);
 				
 		void buildMissingSamplesList();
 		QByteArray getSample(const QString& sampleName);
 		QString missingSample();
-		bool storeSample(const QByteArray& sample);
+		virtual bool storeSample(const QByteArray& sample);
 
 		virtual ~ModelManager() {}
 		

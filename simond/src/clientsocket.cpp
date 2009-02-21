@@ -253,8 +253,10 @@ void ClientSocket::processRequest()
 				stream >> dict;
 				stream >> dfa;
 				
-				synchronisationManager->storeActiveModel( changedDate, sampleRate, hmmdefs,
-					tiedlist, dict, dfa);
+				if (!synchronisationManager->storeActiveModel( changedDate, sampleRate, hmmdefs,
+							tiedlist, dict, dfa)) {
+					sendCode(Simond::ActiveModelStorageFailed);
+				}
 				sendCode(Simond::GetModelSrcDate);
 				break;
 			}
@@ -511,8 +513,7 @@ void ClientSocket::processRequest()
 				stream >> grammar;
 				
 				
-				if (!synchronisationManager->storeGrammar(changedTime, grammar))
-				{
+				if (!synchronisationManager->storeGrammar(changedTime, grammar)) {
 					sendCode(Simond::GrammarStorageFailed);
 				}
 				
@@ -590,6 +591,11 @@ void ClientSocket::processRequest()
 				break;
 			}
 			
+			case Simond::StartTrainingsSampleSynchronisation:
+			{
+				synchronizeSamples();
+				break;
+			}
 
 			case Simond::GetTrainingsSample:
 			{
@@ -644,6 +650,12 @@ void ClientSocket::processRequest()
 				} else
 					fetchTrainingSample();
 				
+				break;
+			}
+
+			case Simond::TrainingsSampleSynchronisationComplete:
+			{
+				synchronisationComplete();
 				break;
 			}
 
@@ -763,7 +775,7 @@ void ClientSocket::fetchTrainingSample()
 	if (sample.isNull())
 	{
 		kDebug() << "Done fetching samples";
-		synchronisationComplete();
+		sendCode(Simond::TrainingsSampleSynchronisationComplete);
 		return;
 	}
 	
@@ -791,7 +803,10 @@ void ClientSocket::sendSample(QString sampleName)
 	
 	if (sample.isNull())
 	{
+		kWarning() << "Can not find sample! Sending error message";
 		sendCode(Simond::ErrorRetrievingTrainingsSample);
+		synchronisationManager->abort();
+		synchronisationDone();
 		return;
 	}
 

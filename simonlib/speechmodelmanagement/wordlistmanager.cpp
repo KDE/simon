@@ -45,6 +45,9 @@
 #include <KDebug>
 #include <KLocale>
 
+//sonnet speller
+#include <sonnet/speller.h>
+
 WordListManager* WordListManager::instance;
 
 /**
@@ -597,7 +600,7 @@ bool WordListManager::refreshShadowListFiles(const QByteArray& shadowVocab)
  * @param in 
  * @return 
  */
-WordList* WordListManager::removeDoubles(WordList *in)
+/*WordList* WordListManager::removeDoubles(WordList *in)
 {
 	if (!in) return NULL;
 	
@@ -614,7 +617,7 @@ WordList* WordListManager::removeDoubles(WordList *in)
 		}
 	}
 	return in;
-}
+}*/
 
 /**
  * \brief Gets the given word and returns a pointer to it (NULL if not found)
@@ -929,26 +932,26 @@ WordList* WordListManager::mergeLists(WordList *a, WordList *b, bool keepDoubles
 }
 
 
-WordList* WordListManager::getWords(const QString& word, bool includeShadow, bool fuzzy, bool keepDoubles)
+WordList* WordListManager::getWords(const QString& word, bool includeShadow, SearchType searchType, bool keepDoubles)
 {
 	WordList *out;
-	out = getMainstreamWords(word, fuzzy);
+	out = getMainstreamWords(word, searchType);
 	
 	if (!includeShadow) return out;
 
-	return this->mergeLists(getShadowedWords(word, fuzzy), out, keepDoubles);
+	return this->mergeLists(getShadowedWords(word, searchType), out, keepDoubles);
 }
 
 
-WordList* WordListManager::searchForWords(WordList *list, const QString& word, bool fuzzy)
+WordList* WordListManager::searchForWords(WordList *list, const QString& word, SearchType searchType)
 {
 	bool found;
 	WordList *out = new WordList();
 	if (!list || list->isEmpty()) return out;
 	
-	if (!fuzzy)		// great! we can perform a binary search
+	if (searchType==ExactMatch)		// great! we can perform a binary search
 	{
-		WordList::iterator iteratorOfWord = getWordIndex(list, found, word, "", ""); //TODO: Test
+		WordList::iterator iteratorOfWord = getWordIndex(list, found, word, "", "");
 		if (!found) return out;
 		
 		while ((iteratorOfWord != list->end()) && (iteratorOfWord->getWord().toUpper() == word.toUpper()))
@@ -956,33 +959,33 @@ WordList* WordListManager::searchForWords(WordList *list, const QString& word, b
 			out->append(*iteratorOfWord);
 			iteratorOfWord++;
 		}
-		
-/*
-		int i=indexOfWord;
-		while ((i >= 0) && (list->at(i).getWord().toUpper() == word.toUpper()))
-		{
-			out->append(list->at(i));
-			i--;
-		}
-		i=indexOfWord+1;
-		while ((i < list->count()) && (list->at(i).getWord().toUpper() == word.toUpper()))
-		{
-			out->append(list->at(i));
-			i++;
-		}*/
 	} else { //nope - incremental only :(
+		QStringList wordsToSearchFor;
+		wordsToSearchFor << word;
+		if (searchType == WordListManager::Fuzzy)
+		{
+			Sonnet::Speller spell;
+			wordsToSearchFor.append(spell.suggest(word));
+			kDebug() << wordsToSearchFor;
+		}
 		
 		WordList::const_iterator i = list->constBegin();
 		WordList::const_iterator end = list->constEnd();
-		
-		
+			
 		if (word.isEmpty()) { //copy everything
-			for ( ;i < end; i++)
+				for ( ;i < end; i++)
 				out->append(*i);
-		} else
-			for ( ; i < end; i++)
-				if ((*i).getWord().contains(word, Qt::CaseInsensitive))
-					out->append((*i));
+		} else {
+			for ( ; i < end; i++) {
+				foreach (const QString& wordToSearchFor, wordsToSearchFor) {
+					if ((*i).getWord().contains(wordToSearchFor, Qt::CaseInsensitive))
+					{
+						out->append((*i));
+						break;
+					}
+				}
+			}
+		}
 	}
 	
 	return out;
@@ -1039,18 +1042,18 @@ bool WordListManager::wordListContainsStr(WordList *list, const QString& word, Q
 	return (i!=count) /*did we go all the way through?*/;
 }
 
-WordList* WordListManager::getMainstreamWords(const QString& word, bool fuzzy)
+WordList* WordListManager::getMainstreamWords(const QString& word, SearchType searchType)
 {
 	wordListLock.lock();
-	WordList* found = searchForWords(getWordList(), word, fuzzy);
+	WordList* found = searchForWords(getWordList(), word, searchType);
 	wordListLock.unlock();
 	return found;
 }
 
-WordList* WordListManager::getShadowedWords(const QString& word, bool fuzzy)
+WordList* WordListManager::getShadowedWords(const QString& word, SearchType searchType)
 {
 	shadowLock.lock();
-	WordList* found = searchForWords(getShadowList(), word, fuzzy);
+	WordList* found = searchForWords(getShadowList(), word, searchType);
 	shadowLock.unlock();
 	return found;
 }

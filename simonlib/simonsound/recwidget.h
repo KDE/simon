@@ -31,6 +31,7 @@ class KPushButton;
 class QGroupBox;
 class QProgressBar;
 class QLabel;
+class KTextEdit;
 class QFont;
 
 /**
@@ -55,7 +56,8 @@ signals:
 
 private:
 	QGroupBox *gbContainer;
-	QLabel *toRecord;
+//	QLabel *toRecord;
+	KTextEdit *tePrompt;
 	KPushButton *pbRecord;
 	KPushButton *pbPlay;
 	KPushButton *pbDelete;
@@ -87,6 +89,7 @@ public slots:
 	bool deleteSample();
 	void displayRecordingProgress(int msecs, float level);
 	void displayPlaybackProgress(int msecs);
+	void resizePromptLabel();
 	
 public:
     RecWidget(QString name, QString text, QString filename, QWidget *parent=0);

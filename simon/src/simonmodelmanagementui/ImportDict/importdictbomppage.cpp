@@ -40,6 +40,8 @@ ImportDictBOMPPage::ImportDictBOMPPage(QWidget* parent): QWizardPage(parent)
 
 void ImportDictBOMPPage::initializePage()
 {
+	ui.cbEncoding->clear();
+	
 	ui.cbEncoding->addItem(i18n("Automatic"));
 	QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
 	QStringList encodings;
@@ -47,6 +49,8 @@ void ImportDictBOMPPage::initializePage()
 		encodings << codec;
 	encodings.sort();
 	ui.cbEncoding->addItems(encodings);
+
+//	ui.cbEncoding->setCurrentIndex(encodings.indexOf("ISO-8859-15")+1);
 }
 
 bool ImportDictBOMPPage::isComplete() const

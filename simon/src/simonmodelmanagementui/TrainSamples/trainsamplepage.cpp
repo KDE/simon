@@ -31,6 +31,7 @@
 
 TrainSamplePage::TrainSamplePage(const QString& prompt, int nowPage, int maxPage, const QString name, QWidget *parent) : QWizardPage(parent)
 {
+	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	this->prompt = prompt;
 	QString title = i18n("Page %1 of %2", nowPage, maxPage);
 	setTitle(name+": "+title);
@@ -40,7 +41,7 @@ TrainSamplePage::TrainSamplePage(const QString& prompt, int nowPage, int maxPage
 				+QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss");
 
 	QVBoxLayout *lay = new QVBoxLayout(this);
-	QLabel *desc = new QLabel(i18n("Please record the Text below.\n\nEnsure that you speek clearly but naturally. "
+	QLabel *desc = new QLabel(i18n("Please record the Text below."
 "\n\nTip: Leave about one to two seconds \"silence\" before and after you read "
 "the text for best results!\n"), this);
 	desc->setWordWrap(true);
@@ -53,6 +54,13 @@ TrainSamplePage::TrainSamplePage(const QString& prompt, int nowPage, int maxPage
 	
 	connect(recorder, SIGNAL(recordingFinished()), this, SIGNAL(completeChanged()));
 	connect(recorder, SIGNAL(sampleDeleted()), this, SIGNAL(completeChanged()));
+}
+
+
+//#include <QTimer>
+void TrainSamplePage::initializePage()
+{
+//	QTimer::singleShot(3000, recorder, SLOT(resizePromptLabel()));
 }
 
 bool TrainSamplePage::submit()

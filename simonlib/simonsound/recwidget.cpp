@@ -43,6 +43,7 @@
 
 #include <QFont>
 #include <KLocale>
+#include <KTextEdit>
 
 /**
  * \brief Constructor
@@ -77,10 +78,11 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 
 	QVBoxLayout *lay = new QVBoxLayout(gbContainer);
 
-	toRecord = new QLabel(text, this);
-	toRecord->setWordWrap(true);
-	toRecord->setFont(SoundConfiguration::promptFont());
-	lay->addWidget(toRecord);
+	tePrompt = new KTextEdit(this);
+	tePrompt->setCurrentFont(SoundConfiguration::promptFont());
+	tePrompt->setPlainText(text);
+	tePrompt->setReadOnly(true);
+	lay->addWidget(tePrompt);
 
 	QHBoxLayout *hBox = new QHBoxLayout();
 	pbRecord = new KPushButton(KIcon("media-record"),
@@ -131,12 +133,35 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 	
 	setupSignalsSlots();
 
+	resizePromptLabel();
 }
 
 
 void RecWidget::changePromptFont(const QFont& font)
 {
-	toRecord->setFont(font);
+	QString text = tePrompt->toPlainText();
+	tePrompt->setCurrentFont(font);
+	tePrompt->setPlainText(text);
+	resizePromptLabel();
+}
+
+
+/*#include <KDebug>
+#include <QTextLayout>
+#include <QTextDocument>
+#include <QRectF>
+#include <QPixmap>
+#include <QPainter>
+#include <QPoint>
+#include <QPlainTextDocumentLayout>
+#include <QTextFrame>
+#include <math.h>*/
+void RecWidget::resizePromptLabel()
+{
+//	QTextDocument *doc = tePrompt->document();
+//	kDebug() << doc->pageSize() << doc->size() << doc->idealWidth() << doc->textWidth();
+	//          QSizeF(331, -1)    QSizeF(331, 688)       315             331
+	return;
 }
 
 /**

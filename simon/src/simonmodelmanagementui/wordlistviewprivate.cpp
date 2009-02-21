@@ -153,7 +153,7 @@ void WordListViewPrivate::filterListbyPattern(QString filter)
 	if (filter.isEmpty()) filter = ui.leSearch->text().trimmed();
 	
 	WordList* limitedVocab = wordListManager->getWords(filter, ui.cbShowCompleteLexicon->isChecked(), 
-				true, false /* display words twice which are in the active AND the shadowdict*/);
+				WordListManager::PartialMatch, false /* display words twice which are in the active AND the shadowdict*/);
 	
 	WordListModel *model = dynamic_cast<WordListModel*>(ui.tvVocab->model());
 	if (!model)

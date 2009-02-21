@@ -588,7 +588,7 @@ void RecognitionControl::fetchMissingSamples()
 	if (sample.isNull())
 	{
 		kDebug() << "Done fetching samples";
-		synchronisationComplete();
+		sendRequest(Simond::TrainingsSampleSynchronisationComplete);
 		return;
 	}
 	
@@ -664,6 +664,7 @@ void RecognitionControl::startSynchronisation()
 	synchronisationOperation = new Operation(thread(), i18n("Modell Synchronisation"), i18n("Initializing..."), 0, 100, false);
 
 	kDebug() << "Starting synchronisation";
+	modelManager->startGroup();
 	sendRequest(Simond::StartSynchronisation);
 	kDebug() << stillToProcess.count();
 }
@@ -688,6 +689,8 @@ void RecognitionControl::synchronisationDone()
 		}
 		synchronisationOperation=NULL;
 	}
+
+	modelManager->commitGroup(true /*silent*/);
 }
 
 
@@ -855,7 +858,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 	
 					kDebug() << "Couldn't store active model on server";
-					emit synchronisationError(i18n("Couldn't update the Server-Model."));
+					emit synchronisationError(i18n("The server couldn't store the the active model."));
 					sendModelSrcModifiedDate();
 					
 					break;
@@ -935,6 +938,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 	
 					kDebug() << "Server could not store training";
+					emit synchronisationError(i18n("The server couldn't store the trainings corpus."));
 					sendWordListModifiedDate();
 					break;
 				}
@@ -1001,7 +1005,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "Server could not store wordlist";
-					emit synchronisationError(i18n("Couldn't store Wordlist on Server"));
+					emit synchronisationError(i18n("The server couldn't store the wordlist."));
 					sendGrammarModifiedDate();
 					break;
 				}
@@ -1064,6 +1068,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "Server could not store grammar";
+					emit synchronisationError(i18n("The server couldn't store the grammar."));
 					sendLanguageDescriptionModifiedDate();
 					break;
 				}
@@ -1094,6 +1099,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					parseLengthHeader();
+
 					kDebug() << "Server sent languagedescription";
 					
 					QByteArray treeHed, shadowVocab;
@@ -1103,8 +1109,8 @@ void RecognitionControl::messageReceived()
 					msg >> shadowVocab;
 					modelManager->storeLanguageDescription(changedTime,shadowVocab, treeHed);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-					
-					synchronizeSamples();
+
+					sendRequest(Simond::StartTrainingsSampleSynchronisation);
 					break;
 				}
 				
@@ -1113,8 +1119,8 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
 
-					kDebug() << "No languagedescription available";
-					synchronizeSamples();
+					emit synchronisationError(i18n("There seems to be no language description available."));
+					synchronisationDone();
 					break;
 				}
 				
@@ -1124,7 +1130,22 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "Server could not store languagedescription";
+					emit synchronisationError(i18n("The server couldn't store language description."));
+					break;
+				}
+
+				case Simond::TrainingsSampleSynchronisationComplete:
+				{
+					advanceStream(sizeof(qint32));
 					synchronizeSamples();
+					break;
+				}
+				
+				case Simond::ErrorRetrievingTrainingsSample:
+				{
+					advanceStream(sizeof(qint32));
+					modelManager->sampleNotAvailable(modelManager->missingSample());
+					synchronisationDone();
 					break;
 				}
 
@@ -1178,6 +1199,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "Server could not store trainings-sample";
+					emit synchronisationError(i18n("The server couldn't store trainings sample."));
 					synchronisationDone();
 					break;
 				}

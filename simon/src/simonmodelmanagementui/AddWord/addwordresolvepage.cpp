@@ -127,7 +127,8 @@ void AddWordResolvePage::fetchSimilar()
 {
 	kWarning() << "Fetching similar words";
 	disconnect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
-	WordList* similar = wordListManager->getWords(ui.leWord->text(), true, ui.cbFuzzySearch->isChecked(), false);
+	WordListManager::SearchType sType = (ui.cbFuzzySearch->isChecked()) ? WordListManager::Fuzzy : WordListManager::ExactMatch;
+	WordList* similar = wordListManager->getWords(ui.leWord->text(), true, sType, false);
 	displayWords(similar);
 
 	if (ui.twSuggestions->rowCount() > 0)
@@ -219,9 +220,11 @@ void AddWordResolvePage::displayWords(WordList *words)
 {
 	int i=0;
 	int limit=1000;
+	if (words->count() > limit)
+		KMessageBox::information(this, i18n("The search for similar words yielded more than 1000 results.\n\nOnly the first 1000 are shown."));
 	setUpdatesEnabled(false); //to prevent endless lookups
 	ui.twSuggestions->clearContents();
-	ui.twSuggestions->setRowCount(words->count());
+	ui.twSuggestions->setRowCount(qMin(words->count(), 1000));
 	while ((i < words->count()) && (i < limit))
 	{
 		ui.twSuggestions->setItem(i, 0, new QTableWidgetItem(words->at(i).getWord()));

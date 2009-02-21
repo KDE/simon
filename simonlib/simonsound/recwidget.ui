@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>RecWidgetUi</class>
- <widget class="QWidget" name="RecWidgetUi" >
-  <property name="geometry" >
+ <widget class="QWidget" name="RecWidgetUi">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,54 +10,51 @@
     <height>124</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Recording</string>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="margin" >
+  <layout class="QVBoxLayout">
+   <property name="margin">
     <number>0</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="gb" >
-     <property name="title" >
+    <widget class="QGroupBox" name="gb">
+     <property name="title">
       <string/>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout" >
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLabel" name="lbPrompt" >
-        <property name="text" >
-         <string/>
-        </property>
-        <property name="wordWrap" >
+       <widget class="KTextEdit" name="tePrompt">
+        <property name="readOnly">
          <bool>true</bool>
         </property>
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" >
+       <layout class="QHBoxLayout">
         <item>
-         <widget class="KPushButton" name="pbRecord" >
-          <property name="text" >
+         <widget class="KPushButton" name="pbRecord">
+          <property name="text">
            <string>Record</string>
           </property>
-          <property name="checkable" >
+          <property name="checkable">
            <bool>true</bool>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="KPushButton" name="pbPlay" >
-          <property name="text" >
+         <widget class="KPushButton" name="pbPlay">
+          <property name="text">
            <string>Play</string>
           </property>
-          <property name="checkable" >
+          <property name="checkable">
            <bool>true</bool>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="KPushButton" name="pbDelete" >
-          <property name="text" >
+         <widget class="KPushButton" name="pbDelete">
+          <property name="text">
            <string>Delete</string>
           </property>
          </widget>
@@ -64,11 +62,11 @@
        </layout>
       </item>
       <item>
-       <widget class="QProgressBar" name="pbProgress" >
-        <property name="value" >
+       <widget class="QProgressBar" name="pbProgress">
+        <property name="value">
          <number>0</number>
         </property>
-        <property name="format" >
+        <property name="format">
          <string>00:00 / 00:00</string>
         </property>
        </widget>
@@ -83,6 +81,11 @@
    <class>KPushButton</class>
    <extends>QPushButton</extends>
    <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>ktextedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

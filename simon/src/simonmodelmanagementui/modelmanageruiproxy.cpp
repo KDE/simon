@@ -20,6 +20,7 @@
 #include "modelmanageruiproxy.h"
 #include <KMessageBox>
 #include <KDebug>
+#include <KStandardDirs>
 #include <KLocalizedString>
 #include <speechmodelmanagement/trainingmanager.h>
 
@@ -86,6 +87,80 @@ void ModelManagerUiProxy::phonemeUndefined(const QString& phoneme)
 {
 	KMessageBox::sorry(0, i18n("The Phoneme \"%1\" is undefined.\n\nPlease train at least one word that uses it.", phoneme));
 }
+
+
+bool ModelManagerUiProxy::storeWordList(const QDateTime& changedTime, const QByteArray& simpleVocab,
+			const QByteArray& activeVocab, const QByteArray& activeLexicon)
+{
+	bool succ = ModelManager::storeWordList(changedTime, simpleVocab, activeVocab, activeLexicon);
+	if (!succ) {
+		KMessageBox::sorry(0, i18n("Could not store the wordlist received from the server."
+					"\n\nPlease check the permissions on the model folder: %1", 
+					KStandardDirs::locateLocal("appdata", "model")));
+	}
+	return succ;
+}
+
+bool ModelManagerUiProxy::storeGrammar(const QDateTime& changedTime, const QByteArray& grammarStructures)
+{
+	bool succ = ModelManager::storeGrammar(changedTime, grammarStructures);
+	if (!succ) {
+		KMessageBox::sorry(0, i18n("Could not store the grammar received from the server."
+					"\n\nPlease check the permissions on the model folder: %1", 
+					KStandardDirs::locateLocal("appdata", "model")));
+	}
+	return succ;
+}
+
+bool ModelManagerUiProxy::storeLanguageDescription(const QDateTime& changedTime, const QByteArray& shadowVocab, 
+			const QByteArray& treeHed)
+{
+	bool succ = ModelManager::storeLanguageDescription(changedTime, shadowVocab, treeHed);
+	if (!succ) {
+		KMessageBox::sorry(0, i18n("Could not store the language description received from the server."
+					"\n\nPlease check the permissions on the model folder: %1", 
+					KStandardDirs::locateLocal("appdata", "model")));
+	}
+	return succ;
+}
+
+bool ModelManagerUiProxy::storeTraining(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& wavConfig,
+			const QByteArray& prompts)
+{
+	bool succ = ModelManager::storeTraining(changedTime, sampleRate, wavConfig, prompts);
+	if (!succ) {
+		KMessageBox::sorry(0, i18n("Could not store the trainings corpus received from the server."
+					"\n\nPlease check the permissions on the model folder: %1", 
+					KStandardDirs::locateLocal("appdata", "model")));
+	}
+	return succ;
+}
+
+bool ModelManagerUiProxy::storeActiveModel(const QDateTime& changedTime, qint32 sampleRate, const QByteArray& hmmDefs,
+		const QByteArray& tiedList, const QByteArray& dict, const QByteArray& dfa)
+{
+	bool succ = ModelManager::storeActiveModel(changedTime, sampleRate, hmmDefs, tiedList, dict, dfa);
+	if (!succ) {
+		KMessageBox::sorry(0, i18n("Could not store the active model received from the server."
+					"\n\nPlease check the permissions on the model folder: %1", 
+					KStandardDirs::locateLocal("appdata", "model")));
+	}
+	return succ;
+}
+
+bool ModelManagerUiProxy::storeSample(const QByteArray& sample)
+{
+	bool succ = ModelManager::storeSample(sample);
+	if (!succ) {
+		KMessageBox::sorry(0, i18n("Could not store the sample %1 received from the server."
+					"\n\nPlease check the permissions on the sample folder: %2", 
+					missingSample(), TrainingManager::getInstance()->getTrainingDir()));
+	}
+	return succ;
+}
+
+
+
 
 
 ModelManagerUiProxy::~ModelManagerUiProxy()
