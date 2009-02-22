@@ -146,6 +146,9 @@ QString TrainingManager::getTrainingDir()
 	#endif
 			)
 		dir += QDir::separator();
+
+	QDir d(dir);
+	if (!d.exists()) d.mkpath(dir);
 		
 	return dir;
 }
@@ -240,6 +243,8 @@ PromptsTable* TrainingManager::readPrompts ( QString promptspath )
 
 		promptsTable->insert ( label, prompt );
 	}
+	prompts->close();
+	delete prompts;
 	Logger::log ( i18n ( "[INF] %1 Prompts read" ).arg ( promptsTable->count() ) );
 	return promptsTable;
 }
@@ -337,7 +342,7 @@ QStringList TrainingManager::missingWords(const QStringList& prompts)
 			word.remove ( "]" );
 			word = word.trimmed();
 			
-			if (!WordListManager::getInstance()->mainWordListContainsStr(word))
+			if (!WordListManager::getInstance()->mainWordListContainsStr(word, Qt::CaseInsensitive))
 			{
 				if (!strListAllWords.contains(word))
 					strListAllWords.append ( word );
@@ -514,6 +519,7 @@ bool TrainingManager::saveTrainingsText(const QString& name, const QStringList p
  */
 TrainingManager::~TrainingManager()
 {
+    qDeleteAll(*trainingTexts);
     delete trainingTexts;
 }
 

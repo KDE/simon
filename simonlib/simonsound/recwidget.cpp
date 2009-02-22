@@ -43,6 +43,7 @@
 
 #include <QFont>
 #include <KLocale>
+#include <KTextEdit>
 
 /**
  * \brief Constructor
@@ -77,10 +78,11 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 
 	QVBoxLayout *lay = new QVBoxLayout(gbContainer);
 
-	toRecord = new QLabel(text, this);
-	toRecord->setWordWrap(true);
-	toRecord->setFont(SoundConfiguration::promptFont());
-	lay->addWidget(toRecord);
+	tePrompt = new KTextEdit(this);
+	tePrompt->setCurrentFont(SoundConfiguration::promptFont());
+	tePrompt->setPlainText(text);
+	tePrompt->setReadOnly(true);
+	lay->addWidget(tePrompt);
 
 	QHBoxLayout *hBox = new QHBoxLayout();
 	pbRecord = new KPushButton(KIcon("media-record"),
@@ -131,12 +133,35 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 	
 	setupSignalsSlots();
 
+	resizePromptLabel();
 }
 
 
 void RecWidget::changePromptFont(const QFont& font)
 {
-	toRecord->setFont(font);
+	QString text = tePrompt->toPlainText();
+	tePrompt->setCurrentFont(font);
+	tePrompt->setPlainText(text);
+	resizePromptLabel();
+}
+
+
+/*#include <KDebug>
+#include <QTextLayout>
+#include <QTextDocument>
+#include <QRectF>
+#include <QPixmap>
+#include <QPainter>
+#include <QPoint>
+#include <QPlainTextDocumentLayout>
+#include <QTextFrame>
+#include <math.h>*/
+void RecWidget::resizePromptLabel()
+{
+//	QTextDocument *doc = tePrompt->document();
+//	kDebug() << doc->pageSize() << doc->size() << doc->idealWidth() << doc->textWidth();
+	//          QSizeF(331, -1)    QSizeF(331, 688)       315             331
+	return;
 }
 
 /**
@@ -156,13 +181,13 @@ bool RecWidget::hasRecordingReady()
 void RecWidget::setupSignalsSlots()
 {
 	//Enable / Disable
-	connect(pbRecord, SIGNAL(toggled(bool)), pbPlay, SLOT(setDisabled(bool)));
-	connect(pbRecord, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
-	connect(pbRecord, SIGNAL(toggled(bool)), pbRecord, SLOT(setEnabled(bool)));
-	connect(pbPlay, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
-	connect(pbDelete, SIGNAL(clicked(bool)), pbRecord, SLOT(setDisabled(bool)));
-	connect(pbDelete, SIGNAL(clicked(bool)), pbPlay, SLOT(setEnabled(bool)));
-	connect(pbDelete, SIGNAL(clicked(bool)), pbDelete, SLOT(setEnabled(bool)));
+//	connect(pbRecord, SIGNAL(toggled(bool)), pbPlay, SLOT(setDisabled(bool)));
+//	connect(pbRecord, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
+//	connect(pbRecord, SIGNAL(toggled(bool)), pbRecord, SLOT(setEnabled(bool)));
+//	connect(pbPlay, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
+//	connect(pbDelete, SIGNAL(clicked(bool)), pbRecord, SLOT(setDisabled(bool)));
+//	connect(pbDelete, SIGNAL(clicked(bool)), pbPlay, SLOT(setEnabled(bool)));
+//	connect(pbDelete, SIGNAL(clicked(bool)), pbDelete, SLOT(setEnabled(bool)));
 	
 	connect(pbRecord, SIGNAL(clicked()), this, SLOT(record()));
 	connect(pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
@@ -231,18 +256,10 @@ void RecWidget::record()
 		fName += "_tmp";
 	if (!rec->record(fName))
 	{
-		disconnect(pbRecord, SIGNAL(toggled(bool)), pbPlay, SLOT(setDisabled(bool)));
-		disconnect(pbRecord, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
-		disconnect(pbRecord, SIGNAL(toggled(bool)), pbRecord, SLOT(setEnabled(bool)));
-		
 		KMessageBox::error(this, i18n("Couldn't start recording.\n\n"
 						"The input device could not be initialized.\n\n"
 						"Please check your sound configuration and try again."));
 		pbRecord->toggle();
-		
-		connect(pbRecord, SIGNAL(toggled(bool)), pbPlay, SLOT(setDisabled(bool)));
-		connect(pbRecord, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
-		connect(pbRecord, SIGNAL(toggled(bool)), pbRecord, SLOT(setEnabled(bool)));
 	}else {
 		disconnect(pbRecord, SIGNAL(clicked()), this, SLOT(record()));
 		connect(pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
@@ -264,6 +281,8 @@ void RecWidget::finishPlayback()
 	connect(pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
 	emit playbackFinished();
 	
+	pbDelete->setEnabled(true);
+
 	displayPlaybackProgress(recordingProgress);
 }
 
@@ -279,13 +298,20 @@ void RecWidget::stopRecording()
 	if (processInternal)
 		fName += "_tmp";
 
-	if (!rec->finish())
-		KMessageBox::error(this, i18n("Could not finalize the Sample. The recording probably failed.\n\nTip: Check if you have the needed permissions to write to \"%1\"!", fName));
-		
-	if (processInternal)
-// 		if (!QFile::copy(fName, filename) || !QFile::remove(fName))
-		if (!postProc->process(fName, filename, true))
-			KMessageBox::error(this, i18n("Post-Processing failed"));
+	if (!rec->finish()) {
+		KMessageBox::error(this, i18n("Could not finalize the Sample. "
+					"The recording probably failed.\n\n"
+					"Tip: Check if you have the needed permissions to write to \"%1\"!", fName));
+	} else {
+		pbRecord->setEnabled(false);
+		pbPlay->setEnabled(true);
+		pbDelete->setEnabled(true);
+
+		if (processInternal) {
+			if (!postProc->process(fName, filename, true))
+				KMessageBox::error(this, i18n("Post-Processing failed"));
+		}
+	}
 	
 	
 	pbProgress->setValue(0);
@@ -317,6 +343,7 @@ void RecWidget::playback()
 		disconnect(pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
 		connect(pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
 		emit playing();
+		pbDelete->setEnabled(false);
 	} else {
 		KMessageBox::error(this, i18n("Couldn't start playback.\n\n"
 						"The output device could not be initialized.\n\n"
@@ -335,9 +362,9 @@ bool RecWidget::deleteSample()
 	{
 		pbProgress->setValue(0);
 		pbProgress->setFormat("00:00 / 00:00");
-		pbDelete->setEnabled(false);
 		pbRecord->setEnabled(true);
 		pbPlay->setEnabled(false);
+		pbDelete->setEnabled(false);
 		emit sampleDeleted();
 		return true;
 	} else {

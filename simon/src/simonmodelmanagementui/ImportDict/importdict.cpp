@@ -41,12 +41,13 @@ ImportDict::ImportDict(QObject *parent) : QThread(parent)
  * \brief Parses the wordlist of an existing dictionary
  * \author Peter Grasch
  */
-void ImportDict::parseWordList(QString pathToDict, int type, bool deleteFileWhenDone)
+void ImportDict::parseWordList(QString pathToDict, QString encoding, int type, bool deleteFileWhenDone)
 {
 	this->pathToDict = pathToDict;
 	this->type = type;
+	this->encoding = encoding;
 	this->deleteFileWhenDone = deleteFileWhenDone;
-	start(QThread::IdlePriority);
+	start(/*QThread::IdlePriority*/);
 }
 
 /**
@@ -66,16 +67,16 @@ void ImportDict::run()
 	switch (type)
 	{
 		case Dict::HadifixBOMP:
-			dict = new BOMPDict(pathToDict);
+			dict = new BOMPDict();
 			break;
 		case Dict::HTKLexicon:
-			dict = new LexiconDict(pathToDict);
+			dict = new LexiconDict();
 			break;
 		case Dict::PLS:
-			dict = new PLSDict(pathToDict);
+			dict = new PLSDict();
 			break;
 		case Dict::SPHINX:
-			dict = new SPHINXDict(pathToDict);
+			dict = new SPHINXDict();
 			break;
 		default:
 			return; //unknown type
@@ -86,7 +87,7 @@ void ImportDict::run()
 	
 	emit status(i18n("Processing Lexicon..."));
 	
-	dict->load(pathToDict);
+	dict->load(pathToDict, encoding);
 	emit status(i18n("Creating List..."));
 	QStringList words = dict->getWords();
 	QStringList terminals = dict->getTerminals();
@@ -102,6 +103,9 @@ void ImportDict::run()
 					terminals.at(i), 0 ) );
 		emit progress((int) ((((double) i)/((double)words.count())) *40+800));
 	}
+	words.clear();
+	pronunciations.clear();
+	terminals.clear();
 	if (type != Dict::HTKLexicon)
 	{
 		emit status(i18n("Sorting Dictionary..."));
@@ -145,7 +149,8 @@ void ImportDict::deleteDict()
 	if (isRunning()) terminate();
 	if (wait(2000))
 		if (dict) {
-			dict->deleteLater();
+			delete dict;
+			dict=NULL;
 		}
 }
 

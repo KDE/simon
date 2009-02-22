@@ -248,9 +248,15 @@ int SoundSettings::getSelectedOutputDeviceId()
 
 void SoundSettings::save()
 {
-	if (!enabled) return;
-	check();
+	//even when not enabled this call will be save
+	//The sound input / output devices are not affected by this
+	//and this way we store the configuration regarding the prompt font
+	//and the postprocessing commands
 	KCModule::save();
+
+	if (!enabled) return;
+
+	check();
 	SoundConfiguration::setSoundInputDevice(getSelectedInputDeviceId());
 	SoundConfiguration::setSoundOutputDevice(getSelectedOutputDeviceId());
 

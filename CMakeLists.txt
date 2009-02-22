@@ -22,7 +22,7 @@ SET(CPACK_DEBIAN_PACKAGE_CONFLICTS  "julius julius-simon")
 SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA 
 	"${CMAKE_CURRENT_SOURCE_DIR}/deb/postinst;${CMAKE_CURRENT_SOURCE_DIR}/deb/postrm")
 
-SET(CPACK_PACKAGE_CONTACT "Peter Grasch <grasch@simon-listens.org>")
+SET(CPACK_PACKAGE_CONTACT "SIMON listens <support@simon-listens.org>")
 SET(CPACK_DEBIAN_PACKAGE_SECTION "utils")
 SET(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 
@@ -33,7 +33,7 @@ SET(CPACK_RPM_PACKAGE_GROUP " Productivity/Multimedia/Sound/Utilities")
 SET(CPACK_PACKAGE_NAME "simon")
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Open-Source Speech Recognition")
 SET(CPACK_PACKAGE_DESCRIPTION "simon provides an easy to use interface to the open-source speech recognizer julius (this package shipps it's own modified version of julius) and the HTK (has to be installed sperately).\n\nsimon does not include a speech model but provides the means to create it's own.\n\nWith the recognition results simon can type, open programs and places and more.")
-SET(CPACK_PACKAGE_VENDOR "Peter Grasch")
+SET(CPACK_PACKAGE_VENDOR "SIMON listens e.V.")
 #SET(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/ReadMe.txt")
 SET(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENCE.txt")
 set(CPACK_PACKAGE_VERSION "0.2rc1")

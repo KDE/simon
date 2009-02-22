@@ -117,6 +117,31 @@ bool ModelCompilationManager::parseConfiguration()
 	mkfa = programGroup.readEntry("mkfa", KUrl(KStandardDirs::findExe("mkfa"))).path();
 	dfaMinimize = programGroup.readEntry("dfa_minimize", KUrl(KStandardDirs::findExe("dfa_minimize"))).path();
 
+	if (!QFile::exists(hDMan) ||
+			!QFile::exists(hCopy) ||
+			!QFile::exists(hCompV) ||
+			!QFile::exists(hERest) ||
+			!QFile::exists(hVite))
+	{
+		//HTK not found
+		QString errorMsg = i18n("The HTK can not be found. Please make sure it is installed correctly.\n\n");
+#ifdef Q_OS_WIN32
+		errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows");
+#else
+		errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#HTK_Installation");
+#endif
+		emit error(errorMsg);
+		return false;
+	}
+
+	if (!QFile::exists(mkfa) ||
+			!QFile::exists(dfaMinimize))
+	{
+		//julius grammar tools not found
+		emit error(i18n("The julius related grammar tools mkfa and dfa_minimize can not be found.\n\nA reinstallation of simon could solve this problem."));
+		return false;
+	}
+
 	return true;
 }
 
@@ -177,10 +202,8 @@ QString ModelCompilationManager::getBuildLog()
  */
 void ModelCompilationManager::analyseError(const QString& readableError)
 {
-//	if (!processError())
+	if (!processError())
 		emit error(readableError);
-	
-	emit status(i18n("Aborted"), 1, 1);
 }
 
 /**
@@ -193,10 +216,16 @@ bool ModelCompilationManager::processError()
 	QString err = getBuildLog().trimmed();
 
 	int startIndex=0;
+	if (err.contains("ERROR [+2019]"))
+	{ // no trainings samples
+		
+		emit error(i18n("No training material available.\n\nPlease train your acoustic model by recording samples."));
+		return true;
+	}
 	if ((startIndex = err.indexOf("ERROR [+1232]")) != -1) //word missing
 	{
 		//ERROR [+1232]  NumParts: Cannot find word DARAUFFOLGEND in dictionary
-		int wordstart = 45+startIndex;
+		int wordstart = 42+startIndex;
 		QString word = err.mid(wordstart, err.indexOf(' ', wordstart)-wordstart);
 		
 		//this error ONLY occurs when there are samples for the word but the word itself was not added
@@ -214,7 +243,7 @@ bool ModelCompilationManager::processError()
 		return true;
 	}
 	if ((startIndex = err.indexOf("undefined class \"")) != -1)
-		               /*Error: undefined class "Schubi"*/
+/*		Error:       undefined class "NOM"*/
 	{
 		QString undefClass = err.mid(startIndex+17);
 		undefClass = undefClass.left(undefClass.indexOf('"'));
@@ -254,10 +283,11 @@ bool ModelCompilationManager::startCompilation(const QString& samplePath,
 
 	keepGoing=true;
 
+	buildLog="";
+
 	if (!parseConfiguration())
 		return false;
 
-	buildLog="";
 	start();
 	return true;
 }
@@ -316,7 +346,7 @@ bool ModelCompilationManager::compileGrammar()
 	emit status(i18n("Generating DFA..."), 2250);
 	if (!makeDfa())
 	{
-		analyseError(i18n("Couldn't generate dfa. Please check the paths to mkfa and daf_minimize (%1, %2).", mkfa, dfaMinimize));
+		analyseError(i18n("Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, %2).", mkfa, dfaMinimize));
 		return false;
 	}
 	
@@ -1103,7 +1133,9 @@ bool ModelCompilationManager::makeMonophones()
 	QString latinLexiconpath = htkIfyPath(tempDir)+"/lexicon";
 	if (QFile::exists(latinLexiconpath))
 		if (!QFile::remove(latinLexiconpath)) return false;
+
 #ifdef Q_OS_WIN
+	//TODO DEBUG!
 	QFile utfLexicon(lexiconPath);
 		
 	QFile latinLexicon(latinLexiconpath);

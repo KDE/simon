@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>KSimondSettings</class>
- <widget class="QWidget" name="KSimondSettings" >
-  <property name="geometry" >
+ <widget class="QWidget" name="KSimondSettings">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,37 +10,37 @@
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QCheckBox" name="kcfg_AutoStart" >
-     <property name="text" >
-      <string>Start ksimond on KDE start</string>
+    <widget class="QCheckBox" name="kcfg_AutoStart">
+     <property name="text">
+      <string>Start ksimond when logging in</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="kcfg_AutoStartSimond" >
-     <property name="text" >
+    <widget class="QCheckBox" name="kcfg_AutoStartSimond">
+     <property name="text">
       <string>Start simond when ksimond starts</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="kcfg_AutoReStartSimond" >
-     <property name="text" >
+    <widget class="QCheckBox" name="kcfg_AutoReStartSimond">
+     <property name="text">
       <string>Restart simond if it quits unexpectedly</string>
      </property>
     </widget>
    </item>
    <item>
-    <spacer name="verticalSpacer" >
-     <property name="orientation" >
+    <spacer name="verticalSpacer">
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>

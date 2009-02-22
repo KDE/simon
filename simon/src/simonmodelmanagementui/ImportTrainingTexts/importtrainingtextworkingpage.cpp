@@ -29,12 +29,16 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QTextStream>
+#include <QTextCodec>
+#include <QTimer>
 
 #include <KUrl>
 #include <KMimeType>
 #include <KStandardDirs>
 #include <KMessageBox>
 #include <kio/job.h>
+#include <KFilterDev>
+#include <kencodingdetector.h>
 #include <kio/jobuidelegate.h>
 
 
@@ -100,7 +104,8 @@ void ImportTrainingTextWorkingPage::processText(QString path)
 	QFile::copy(path, KStandardDirs::locateLocal("appdata", "texts/")+"/"+fi.fileName());
 	QFile::remove(path);
 	
-	wizard()->next();
+	//wizard()->next();
+	QTimer::singleShot(500, wizard(), SLOT(next()));
 }
 
 /**
@@ -110,16 +115,41 @@ void ImportTrainingTextWorkingPage::processText(QString path)
  */
 void ImportTrainingTextWorkingPage::parseFile(QString path)
 {
-	ui.pbProgress->setMaximum(1);
+	ui.pbProgress->setMaximum(3);
 	ui.pbProgress->setValue(0);
-	QFile file(path);
-	if (!file.open(QIODevice::ReadOnly))
+
+	QString tmpPath = KStandardDirs::locateLocal("tmp", "simontrainingstextimport");
+	KIO::FileCopyJob *job = KIO::file_copy(path, tmpPath, -1, KIO::Overwrite);
+	if (!job->exec()) {
+		job->ui()->showErrorMessage();
 		return;
-	
+	}
+
+	ui.pbProgress->setValue(1);
+
+	QIODevice *file = KFilterDev::deviceForFile(tmpPath, KMimeType::findByFileContent(tmpPath)->name());
+	if ((!file) || (!file->open(QIODevice::ReadOnly)))
+		return;
+
+	//TODO: determine encoding
+	QTextStream ts(file);
+	QString encoding = field("importTrainingTextLEncoding").toString();
+	if (encoding == i18n("Automatic"))
+	{
+		//read first 5000 bytes and run encoding detection
+		//seek back to the beginning and parse file using the guessed encoding
+		QByteArray preview = file->peek(5000);
+		KEncodingDetector detector;
+		detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
+		QString out=detector.decode(preview);
+		ts.setCodec(QTextCodec::codecForName(detector.encoding()));
+	} else 
+		ts.setCodec(QTextCodec::codecForName(encoding.toAscii()));
+
+	ui.pbProgress->setValue(2);
 
 	QStringList sents;
 	QString tmp;
-	QTextStream ts(&file);
 	
 	int sentend;
 	QRegExp reg("(\\.|\\!|\\?)"); //TODO: maybe add an option to treat "\n" as sentence-stopper
@@ -162,11 +192,14 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 		
 		tmp = currentProcessQueue.mid(sentend).trimmed()+" ";
 	}
-	file.close();
-	QFileInfo fi = QFileInfo(path);
+	file->close();
+	delete file;
+
+	QFile::remove(KStandardDirs::locateLocal("tmp", "simontrainingstextimport"));
 
 	if (!TrainingManager::getInstance()->saveTrainingsText(field("importTrainingTextLTextname").toString(), sents))
 		KMessageBox::error(this, i18n("Couldn't store Trainingstext"));
-	ui.pbProgress->setValue(1);
+	ui.pbProgress->setValue(3);
+	QTimer::singleShot(500, wizard(), SLOT(next()));
 }
 

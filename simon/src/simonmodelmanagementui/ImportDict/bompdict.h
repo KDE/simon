@@ -38,11 +38,9 @@ class BOMPDict : public Dict
 
 signals:
 	void loaded();
-private:
-	QString path;
 public:
-    explicit BOMPDict(QString path="", QObject* parent=0);
-    void load(QString path="");
+    explicit BOMPDict(QObject* parent=0);
+    void load(QString path, QString encodingName);
 
     ~BOMPDict();
 

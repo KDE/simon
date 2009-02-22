@@ -322,6 +322,5 @@ void SimonControl::compileModel()
  */
 SimonControl::~SimonControl()
 {
-	recognitionControl->deleteLater();
-//     delete eventHandler;
+	delete recognitionControl;
 }

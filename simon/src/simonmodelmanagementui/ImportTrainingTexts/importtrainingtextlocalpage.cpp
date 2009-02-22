@@ -20,6 +20,7 @@
 
 #include "importtrainingtextlocalpage.h"
 #include <QFile>
+#include <QTextCodec>
 
 
 /**
@@ -35,7 +36,20 @@ ImportTrainingTextLocalPage::ImportTrainingTextLocalPage(QWidget *parent) : QWiz
 	
 	registerField("importTrainingTextLFilename*", ui.urPath, "url", SIGNAL(textChanged(QString)));
 	registerField("importTrainingTextLTextname*", ui.leName);
+	registerField("importTrainingTextLEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
 }
+
+void ImportTrainingTextLocalPage::initializePage()
+{
+	ui.cbEncoding->addItem(i18n("Automatic"));
+	QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
+	QStringList encodings;
+	foreach (const QByteArray& codec, availableCodecs)
+		encodings << codec;
+	encodings.sort();
+	ui.cbEncoding->addItems(encodings);
+}
+
 
 
 bool ImportTrainingTextLocalPage::isComplete() const

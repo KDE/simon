@@ -60,8 +60,8 @@ private:
 
 	
 public:
-	explicit PLSDict(QString path="", QObject *parent=0);
-	void load(QString path="");
+	explicit PLSDict(QObject *parent=0);
+	void load(QString path, QString encodingName);
 	
 	bool startElement(const QString &,
 			  const QString &,

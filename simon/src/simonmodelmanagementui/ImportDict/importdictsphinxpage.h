@@ -42,6 +42,7 @@ public:
     ImportDictSPHINXPage(QWidget* parent);
 	int nextId() const { return ImportDictView::WorkingPage; }
 	bool isComplete() const;
+	void initializePage();
 
     ~ImportDictSPHINXPage();
 

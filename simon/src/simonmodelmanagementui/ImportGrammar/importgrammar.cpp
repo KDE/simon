@@ -20,8 +20,13 @@
 
 #include "importgrammar.h"
 #include "wordlistmanager.h"
-#include <KLocalizedString>
 #include <QFile>
+#include <KLocalizedString>
+#include <KFilterDev>
+#include <KMimeType>
+#include <QTextCodec>
+//#include <KEncodingProber>
+#include <kencodingdetector.h>
 
 ImportGrammar::ImportGrammar(QObject* parent): QThread(parent)
 {
@@ -40,6 +45,7 @@ void ImportGrammar::run()
 				sentences << newSentences[j]; 	//add them to the list
 		}
 		emit allProgress(i+1, files.count());
+		QFile::remove(files[i]);
 	}
 	emit grammarCreated(sentences);
 }
@@ -50,9 +56,25 @@ QStringList ImportGrammar::readFile(QString path)
 {
 	emit status(i18n("Opening File..."));
 	QStringList structures;
-	QFile file(path);
-	if (!file.open(QIODevice::ReadOnly)) return structures;
-	
+
+	QIODevice *file = KFilterDev::deviceForFile(path, KMimeType::findByFileContent(path)->name());
+	if ((!file) || (!file->open(QIODevice::ReadOnly)))
+		return structures;
+
+	QTextCodec *codec;
+	if (encoding == i18n("Automatic"))
+	{
+		//read first 5000 bytes and run encoding detection
+		//seek back to the beginning and parse file using the guessed encoding
+		QByteArray preview = file->peek(5000);
+		KEncodingDetector detector;
+		detector.setAutoDetectLanguage(KEncodingDetector::WesternEuropean);
+		QString out=detector.decode(preview);
+		codec = QTextCodec::codecForName(detector.encoding());
+	} else 
+		codec = QTextCodec::codecForName(encoding.toAscii());
+
+
 
 	emit status(i18n("Reading File..."));
 	
@@ -65,19 +87,19 @@ QStringList ImportGrammar::readFile(QString path)
 	// this is a test?!...!
 	// this is a test - or is it? (is recognised as two separate sentences: this is a test; or is it)
 	// he said: Test
-	QRegExp sentenceStoppers = QRegExp("((\\.|\\?|\\!|:)(\\.|\\?|\\!)*| )-*( |$|\\n)");
+	QRegExp sentenceStoppers = QRegExp("((\\.|,|\\?|\\!|:)(\\.|\\?|\\!)*| )-*( |$|\\n|\\r\\n)");
 
 	QString leftOvers;
 	QString currentSentence;
-	while (!file.atEnd())
+	while (!file->atEnd())
 	{
 		QStringList realSentences;
 		
 		QString sentence;//=leftOvers;
 // 		leftOvers="";
 		
-		while (!file.atEnd() && (!sentence.contains(sentenceStoppers)))
-			sentence += file.readLine(4000)+"\n";
+		while (!file->atEnd() && (!sentence.contains(sentenceStoppers)))
+			sentence += codec->toUnicode(file->readLine(4000).trimmed())+"\n";
 		
 		QStringList sentences = sentence.split(sentenceStoppers, QString::SkipEmptyParts);
 		for (int i=0; i < sentences.count();i++)
@@ -94,6 +116,8 @@ QStringList ImportGrammar::readFile(QString path)
 		
 		structures << realSentences;
 	}
+	file->close();
+	delete file;
 	return structures;
 }
 

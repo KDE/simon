@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-01-26 16:22+0100\n"
+"POT-Creation-Date: 2009-02-06 11:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: adinstreamer/adinstreamer.cpp:468
+#: adinstreamer/adinstreamer.cpp:477
 msgid ""
 "Couldn't open sound device.\n"
 "\n"
@@ -485,25 +485,25 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: simonactions/actionmanager.cpp:133
+#: simonactions/actionmanager.cpp:134
 msgid ""
 "Couldn't initialize commandmanager \"%1\".\n"
 "\n"
 "Please check its configuration."
 msgstr ""
 
-#: simonactions/actionmanager.cpp:208
+#: simonactions/actionmanager.cpp:209
 msgid ""
 "The trigger \"%1\" is already assigned to another command.\n"
 "\n"
 "Do you want to delete the other command that uses the Trigger \"%1\"?"
 msgstr ""
 
-#: simonactions/actionmanager.cpp:256
+#: simonactions/actionmanager.cpp:257
 msgid "Couldn't add Command \"%1\"."
 msgstr ""
 
-#: simonactions/actionmanager.cpp:298
+#: simonactions/actionmanager.cpp:299
 msgid "Command could not be deleted."
 msgstr ""
 
@@ -819,7 +819,7 @@ msgstr ""
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:319
 msgid ""
-"Couldn't generate dfa. Please check the paths to mkfa and daf_minimize (%1, %"
+"Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, %"
 "2)."
 msgstr ""
 
@@ -1145,47 +1145,47 @@ msgstr ""
 msgid "[INF] Reading the trainingstexts"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:380
+#: speechmodelmanagement/trainingmanager.cpp:379
 msgid "[INF] Calculating relevance"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:456
+#: speechmodelmanagement/trainingmanager.cpp:455
 msgid "ZERO"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:457
+#: speechmodelmanagement/trainingmanager.cpp:456
 msgid "ONE"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:458
+#: speechmodelmanagement/trainingmanager.cpp:457
 msgid "TWO"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:459
+#: speechmodelmanagement/trainingmanager.cpp:458
 msgid "THREE"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:460
+#: speechmodelmanagement/trainingmanager.cpp:459
 msgid "FOUR"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:461
+#: speechmodelmanagement/trainingmanager.cpp:460
 msgid "FIVE"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:462
+#: speechmodelmanagement/trainingmanager.cpp:461
 msgid "SIX"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:463
+#: speechmodelmanagement/trainingmanager.cpp:462
 msgid "SEVEN"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:464
+#: speechmodelmanagement/trainingmanager.cpp:463
 msgid "EIGHT"
 msgstr ""
 
-#: speechmodelmanagement/trainingmanager.cpp:465
+#: speechmodelmanagement/trainingmanager.cpp:464
 msgid "NINE"
 msgstr ""
 

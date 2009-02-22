@@ -46,12 +46,10 @@
  */
 WordListViewPrivate::WordListViewPrivate(QWidget *parent) : QWidget(parent)
 {
-	shownDialogs = 0;
 	abortVocabInsertion = false;
 	
 	ui.setupUi(this);
 
-	importDictView = new ImportDictView(this);
 	connect(ui.pbAddToTraining, SIGNAL(clicked()), this, SLOT(copyWordToTrain()));
 	connect(ui.pbDeleteTrainingWord, SIGNAL(clicked()), this, SLOT(deleteTrainingWord()));
 	connect(ui.lwTrainingWords, SIGNAL(droppedText(QString)), this, SLOT(copyWordToTrain()));
@@ -74,7 +72,6 @@ WordListViewPrivate::WordListViewPrivate(QWidget *parent) : QWidget(parent)
 	
 	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(showImportDictDialog()));
-	connect(importDictView, SIGNAL(dictGenerated(WordList*)), this, SLOT(importDict(WordList*)));
 	
 	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(filterListbyPattern()));
 
@@ -112,8 +109,10 @@ void WordListViewPrivate::reloadShadowList()
 
 void WordListViewPrivate::showImportDictDialog()
 {
-	importDictView->restart();
-	importDictView->show();
+	ImportDictView *importDictView = new ImportDictView(this);
+	connect(importDictView, SIGNAL(dictGenerated(WordList*)), this, SLOT(importDict(WordList*)));
+	importDictView->exec();
+	importDictView->deleteLater();
 }
 
 /**
@@ -154,11 +153,11 @@ void WordListViewPrivate::filterListbyPattern(QString filter)
 	if (filter.isEmpty()) filter = ui.leSearch->text().trimmed();
 	
 	WordList* limitedVocab = wordListManager->getWords(filter, ui.cbShowCompleteLexicon->isChecked(), 
-				true, false /* display words twice which are in the active AND the shadowdict*/);
+				WordListManager::PartialMatch, false /* display words twice which are in the active AND the shadowdict*/);
 	
 	WordListModel *model = dynamic_cast<WordListModel*>(ui.tvVocab->model());
 	if (!model)
-		ui.tvVocab->setModel(new WordListModel(limitedVocab));
+		ui.tvVocab->setModel(new WordListModel(limitedVocab, ui.tvVocab));
 	else model->updateWordList(limitedVocab);
 }
 
@@ -208,31 +207,6 @@ void WordListViewPrivate::copyWordToTrain()
 	this->trainingwordlist.append(*w);
 	
 	ui.lwTrainingWords->addItem(w->getWord());
-}
-
-
-
-void WordListViewPrivate::show()
-{
-	if (sImportDict & shownDialogs)
-	{
-		importDictView->show();
-		importDictView->move(importDictPos);
-	}
-	QWidget::show();
-	shownDialogs = 0;
-}
-
-void WordListViewPrivate::hide()
-{
-	if (importDictView->isVisible())
-	{
-		shownDialogs = shownDialogs | sImportDict;
-		importDictPos = importDictView->pos();
-		importDictView->hide();
-	}
-	
-	QWidget::hide();
 }
 
 
@@ -311,7 +285,8 @@ void WordListViewPrivate::deleteTrainingWord()
 				ui.lwTrainingWords->takeItem(i--);
 			i++;
 		}
-	}
+	} else
+		KMessageBox::information(this, i18n("Please select a word scheduled for training first."));
 }
 
 
@@ -325,5 +300,4 @@ void WordListViewPrivate::deleteTrainingWord()
  */
 WordListViewPrivate::~WordListViewPrivate()
 {
-    importDictView->deleteLater();
 }

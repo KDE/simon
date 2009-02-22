@@ -26,10 +26,13 @@
 #endif
 #include <QTranslator>
 #include <QLocale>
+#ifndef Q_OS_WIN32
 #include <KUniqueApplication>
+#else
+#include <KApplication>
+#endif
 #include <KAboutData>
 #include <KCmdLineArgs>
-
 
 int main(int argc, char *argv[])
 {
@@ -45,12 +48,16 @@ int main(int argc, char *argv[])
 			ki18n("Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl") );
 	
 	KCmdLineArgs::init(argc, argv, &aboutData);
+
+#ifndef Q_OS_WIN32
 	KUniqueApplication app;
+#else
+	KApplication app;
+#endif
 	app.setWindowIcon(KIcon("simon"));
 	app.addLibraryPath(app.applicationDirPath()+"/plugins");
 
 	SimonView *pv = new SimonView();
-//	pv->show();
 	int ret= app.exec();
 	delete pv;
 	return ret;

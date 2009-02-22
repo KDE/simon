@@ -149,7 +149,7 @@ void ClientSocket::processRequest()
 					modelCompilationManager = new ModelCompilationManager(user, activeDir+"hmmdefs", activeDir+"tiedlist",
 											activeDir+"model.dict", activeDir+"model.dfa", this);
 					connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(activeModelCompiled()));
-					connect(modelCompilationManager, SIGNAL(modelCompilationAborted()), this, SLOT(activeModelCompilationAborted()));
+					connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted()), this, SLOT(activeModelCompilationAborted()));
 					connect(modelCompilationManager, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelCompilationStatus(const QString&, int, int)));
 					connect(modelCompilationManager, SIGNAL(error(const QString&)), this, SLOT(slotModelCompilationError(const QString&)));
 					connect(modelCompilationManager, SIGNAL(classUndefined(const QString&)), this, 
@@ -253,8 +253,10 @@ void ClientSocket::processRequest()
 				stream >> dict;
 				stream >> dfa;
 				
-				synchronisationManager->storeActiveModel( changedDate, sampleRate, hmmdefs,
-					tiedlist, dict, dfa);
+				if (!synchronisationManager->storeActiveModel( changedDate, sampleRate, hmmdefs,
+							tiedlist, dict, dfa)) {
+					sendCode(Simond::ActiveModelStorageFailed);
+				}
 				sendCode(Simond::GetModelSrcDate);
 				break;
 			}
@@ -511,8 +513,7 @@ void ClientSocket::processRequest()
 				stream >> grammar;
 				
 				
-				if (!synchronisationManager->storeGrammar(changedTime, grammar))
-				{
+				if (!synchronisationManager->storeGrammar(changedTime, grammar)) {
 					sendCode(Simond::GrammarStorageFailed);
 				}
 				
@@ -545,8 +546,8 @@ void ClientSocket::processRequest()
 				} else {
 					kDebug() << "Language desc u-t-d";
 					kDebug() << "LanguageDescription is up-to-date";
+					synchronizeSamples();
 				}
-				synchronizeSamples();
 				
 				break;
 			}
@@ -590,6 +591,11 @@ void ClientSocket::processRequest()
 				break;
 			}
 			
+			case Simond::StartTrainingsSampleSynchronisation:
+			{
+				synchronizeSamples();
+				break;
+			}
 
 			case Simond::GetTrainingsSample:
 			{
@@ -613,6 +619,8 @@ void ClientSocket::processRequest()
 			case Simond::ErrorRetrievingTrainingsSample:
 			{
 				Q_ASSERT(synchronisationManager);
+
+				kDebug() << "Not all samples available; Aborting";
 
 				//we can't continue without all the samples
 				synchronisationManager->abort();
@@ -642,6 +650,12 @@ void ClientSocket::processRequest()
 				} else
 					fetchTrainingSample();
 				
+				break;
+			}
+
+			case Simond::TrainingsSampleSynchronisationComplete:
+			{
+				synchronisationComplete();
 				break;
 			}
 
@@ -749,7 +763,6 @@ void ClientSocket::activeModelCompilationAborted()
 void ClientSocket::synchronizeSamples()
 {
 	Q_ASSERT(synchronisationManager);
-	kDebug() << "synchronisiere samples";
 	synchronisationManager->buildMissingSamples();
 	fetchTrainingSample();
 }
@@ -762,7 +775,7 @@ void ClientSocket::fetchTrainingSample()
 	if (sample.isNull())
 	{
 		kDebug() << "Done fetching samples";
-		synchronisationComplete();
+		sendCode(Simond::TrainingsSampleSynchronisationComplete);
 		return;
 	}
 	
@@ -790,7 +803,10 @@ void ClientSocket::sendSample(QString sampleName)
 	
 	if (sample.isNull())
 	{
+		kWarning() << "Can not find sample! Sending error message";
 		sendCode(Simond::ErrorRetrievingTrainingsSample);
+		synchronisationManager->abort();
+		synchronisationDone();
 		return;
 	}
 

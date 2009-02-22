@@ -38,7 +38,6 @@ private slots:
 	void showRenameWizard();
 	void showImportWizard();
 	void showMergeWizard();
-	void askForSave();
 	void slotChanged();
 
 public slots:

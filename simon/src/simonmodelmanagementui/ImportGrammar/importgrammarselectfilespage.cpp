@@ -21,9 +21,9 @@
 #include "importgrammarselectfilespage.h"
 #include <KEditListBox>
 #include <kdeversion.h>
+#include <QTextCodec>
+#include <QStringList>
 
-//todo: document
-//ambiguous words and words with more than one meaning are still ignored when using the "Also include unknown constructs" option; This is not a bug!
 ImportGrammarSelectFilesPage::ImportGrammarSelectFilesPage(QWidget* parent): QWizardPage(parent)
 {
 	setTitle(i18n("Input Files"));
@@ -34,8 +34,21 @@ ImportGrammarSelectFilesPage::ImportGrammarSelectFilesPage(QWidget* parent): QWi
 #endif
 	
 	registerField("files*", ui.elbFiles, "items", SIGNAL(changed()));
+	registerField("encoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
 	registerField("includeUnknown", ui.cbIncludeUnknown);
 }
+
+void ImportGrammarSelectFilesPage::initializePage()
+{
+	ui.cbEncoding->addItem(i18n("Automatic"));
+	QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
+	QStringList encodings;
+	foreach (const QByteArray& codec, availableCodecs)
+		encodings << codec;
+	encodings.sort();
+	ui.cbEncoding->addItems(encodings);
+}
+
 
 void ImportGrammarSelectFilesPage::cleanupPage()
 {

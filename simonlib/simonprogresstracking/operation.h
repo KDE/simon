@@ -81,10 +81,7 @@ class SIMONPROGRESSTRACKING_EXPORT Operation : public QObject {
 			return m_name;
 		}
 		
-		QString currentAction()
-		{
-			return m_currentAction;
-		}
+		QString currentAction();
 
 		bool isAtomic()
 		{
@@ -98,7 +95,7 @@ class SIMONPROGRESSTRACKING_EXPORT Operation : public QObject {
 		{
 			return m_status == Finished;
 		}
-		bool aborting()
+		bool isAborting()
 		{
 			return m_status == Aborting;
 		}

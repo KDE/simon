@@ -42,7 +42,7 @@ signals:
 	void status(const QString&, int progressNow, int progressTotal=2300);
 	void error(const QString&);
 
-	void userReadableError(const QString&);
+//	void userReadableError(const QString&);
 
 	void wordUndefined(const QString&);
 	void classUndefined(const QString&);

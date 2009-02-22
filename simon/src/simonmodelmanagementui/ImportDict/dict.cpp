@@ -383,6 +383,11 @@ QString Dict::ipaToXSampa(QString ipa)
  */
 Dict::~Dict()
 {
+	allowedPhonemes.clear();
+
+	words.clear();
+	pronunciations.clear();
+	terminals.clear();
 }
 
 

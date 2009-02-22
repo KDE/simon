@@ -40,6 +40,7 @@ TrainingsWizard::TrainingsWizard(QWidget *parent) : QWizard(parent)
 {
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/training.png")));
 	addPage(createIntroPage());
+	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 }
 
 bool TrainingsWizard::init(const QStringList& prompts)

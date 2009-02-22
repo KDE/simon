@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>GeneralSettingsDlg</class>
- <widget class="QWidget" name="GeneralSettingsDlg" >
-  <property name="geometry" >
+ <widget class="QWidget" name="GeneralSettingsDlg">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,36 +10,36 @@
     <height>384</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>General Settings</string>
   </property>
-  <layout class="QVBoxLayout" >
+  <layout class="QVBoxLayout">
    <item>
-    <widget class="QGroupBox" name="gbGeneral" >
-     <property name="title" >
+    <widget class="QGroupBox" name="gbGeneral">
+     <property name="title">
       <string>General</string>
      </property>
-     <property name="flat" >
+     <property name="flat">
       <bool>false</bool>
      </property>
-     <layout class="QGridLayout" >
-      <item row="2" column="0" >
-       <widget class="QCheckBox" name="kcfg_AskBeforeQuit" >
-        <property name="text" >
+     <layout class="QGridLayout">
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="kcfg_AskBeforeQuit">
+        <property name="text">
          <string>Ask before quitting</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0" >
-       <widget class="QCheckBox" name="kcfg_AutoStart" >
-        <property name="text" >
-         <string>Start simon on KDE-start</string>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="kcfg_AutoStart">
+        <property name="text">
+         <string>Start simon when logging in</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" >
-       <widget class="QCheckBox" name="kcfg_StartMinimized" >
-        <property name="text" >
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="kcfg_StartMinimized">
+        <property name="text">
          <string>Start simon minimized</string>
         </property>
        </widget>
@@ -48,10 +49,10 @@
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>481</width>
        <height>16</height>

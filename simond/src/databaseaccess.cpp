@@ -28,19 +28,26 @@
 
 DatabaseAccess::DatabaseAccess(QObject *parent) : QObject(parent)
 {
+	db = 0;
 }
 
 bool DatabaseAccess::init()
 {
+	if (db) {
+		db->close();
+		delete db;
+	}
 	db = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"));
 	
-	if (!QFile::exists(KStandardDirs::locateLocal("appdata", "simond.db")))
-	{
-		QFile::copy(KStandardDirs::locate("appdata", "simond.db"), 
-				KStandardDirs::locateLocal("appdata", "simond.db"));
+	KConfig config(KStandardDirs::locate("config", "simondrc"));
+	KConfigGroup cGroup(&config, "Database");
+	QString dbUrl = cGroup.readEntry("DatabaseUrl", KUrl(KStandardDirs::locateLocal("appdata", "simond.db"))).path();
+	
+	if (!QFile::exists(dbUrl)) {
+		QFile::copy(KStandardDirs::locate("appdata", "simond.db"), dbUrl);
 	}
 	
-	db->setDatabaseName(KStandardDirs::locateLocal("appdata", "simond.db"));
+	db->setDatabaseName(dbUrl);
 	
 	if (!db->open())	//open database
 	{

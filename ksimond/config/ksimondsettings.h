@@ -32,6 +32,7 @@ class KSimondSettings : public KCModule
 		Ui::KSimondSettings ui;
 	public:
 		KSimondSettings(QWidget* parent, const QVariantList& args=QVariantList());
+		void save();
 		~KSimondSettings();
 };
 

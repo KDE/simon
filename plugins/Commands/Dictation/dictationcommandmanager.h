@@ -35,6 +35,7 @@ class DictationCommandManager : public CommandManager {
 Q_OBJECT
 
 public:
+	virtual const QString preferredTrigger() const { return ""; }
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
 	bool trigger(const QString& triggerName);

@@ -37,6 +37,8 @@ class TrainSamplePage : public QWizardPage
 		TrainSamplePage(const QString& prompt, int nowPage, int maxPage, const QString name, QWidget *parent=0);
 		~TrainSamplePage();
 		bool isComplete() const;
+
+		void initializePage();
 		
 		QString getPrompt() { return prompt; }
 		QString getFileName() { return fileName; }

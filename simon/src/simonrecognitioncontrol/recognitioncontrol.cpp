@@ -54,7 +54,7 @@
 					msg.device()->seek(currentPos);\
 					messageLocker.unlock();
 					
-#define checkIfSynchronisationIsAborting() if (synchronisationOperation && synchronisationOperation->aborting()) \
+#define checkIfSynchronisationIsAborting() if (synchronisationOperation && synchronisationOperation->isAborting()) \
 					{ \
 						sendRequest(Simond::AbortSynchronisation); \
 						synchronisationDone(); \
@@ -204,10 +204,9 @@ void RecognitionControl::connectTo(QString server, quint16 port)
 
 void RecognitionControl::errorOccured()
 {
-	if (socket->state()== QAbstractSocket::UnconnectedState) return;
 	if (timeoutWatcher->isActive())
 		timeoutWatcher->stop();
-	
+
 	QList<QSslError> errors = socket->sslErrors();
 	if ((errors.count() == 1) && (errors[0].error() == QSslError::SelfSignedCertificate) && (RecognitionConfiguration::juliusdEncrypted()))
 	{
@@ -270,13 +269,13 @@ void RecognitionControl::disconnectFromServer()
 	if (synchronisationOperation)
 	{
 		synchronisationOperation->canceled();
-		synchronisationOperation->deleteLater();
+//		synchronisationOperation->deleteLater();
 		synchronisationOperation=NULL;
 	}
 	if (modelCompilationOperation)
 	{
 		modelCompilationOperation->canceled();
-		modelCompilationOperation->deleteLater();
+//		modelCompilationOperation->deleteLater();
 		modelCompilationOperation=NULL;
 	}
 	serverConnectionsToTry.clear();
@@ -589,7 +588,7 @@ void RecognitionControl::fetchMissingSamples()
 	if (sample.isNull())
 	{
 		kDebug() << "Done fetching samples";
-		synchronisationComplete();
+		sendRequest(Simond::TrainingsSampleSynchronisationComplete);
 		return;
 	}
 	
@@ -665,6 +664,7 @@ void RecognitionControl::startSynchronisation()
 	synchronisationOperation = new Operation(thread(), i18n("Modell Synchronisation"), i18n("Initializing..."), 0, 100, false);
 
 	kDebug() << "Starting synchronisation";
+	modelManager->startGroup();
 	sendRequest(Simond::StartSynchronisation);
 	kDebug() << stillToProcess.count();
 }
@@ -689,6 +689,8 @@ void RecognitionControl::synchronisationDone()
 		}
 		synchronisationOperation=NULL;
 	}
+
+	modelManager->commitGroup(true /*silent*/);
 }
 
 
@@ -725,7 +727,17 @@ void RecognitionControl::messageReceived()
 				{
 					advanceStream(sizeof(qint32));
 					emit loggedIn();
-					startSynchronisation();
+					switch (RecognitionConfiguration::synchronizationMode())
+					{
+						case 0: //automatic
+							startSynchronisation();
+							break;
+						case 1: //semi-automatic
+							if (KMessageBox::questionYesNo(0, i18n("Your speech model might have changed while you were disconnected.\n\n"
+											"Do you want to start a synchronization now?"))==KMessageBox::Yes)
+								startSynchronisation();
+							break;
+					}
 					break;
 				}
 	
@@ -846,7 +858,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 	
 					kDebug() << "Couldn't store active model on server";
-					emit synchronisationError(i18n("Couldn't update the Server-Model."));
+					emit synchronisationError(i18n("The server couldn't store the the active model."));
 					sendModelSrcModifiedDate();
 					
 					break;
@@ -926,6 +938,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 	
 					kDebug() << "Server could not store training";
+					emit synchronisationError(i18n("The server couldn't store the trainings corpus."));
 					sendWordListModifiedDate();
 					break;
 				}
@@ -992,7 +1005,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "Server could not store wordlist";
-					emit synchronisationError(i18n("Couldn't store Wordlist on Server"));
+					emit synchronisationError(i18n("The server couldn't store the wordlist."));
 					sendGrammarModifiedDate();
 					break;
 				}
@@ -1055,6 +1068,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "Server could not store grammar";
+					emit synchronisationError(i18n("The server couldn't store the grammar."));
 					sendLanguageDescriptionModifiedDate();
 					break;
 				}
@@ -1085,6 +1099,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					parseLengthHeader();
+
 					kDebug() << "Server sent languagedescription";
 					
 					QByteArray treeHed, shadowVocab;
@@ -1094,8 +1109,8 @@ void RecognitionControl::messageReceived()
 					msg >> shadowVocab;
 					modelManager->storeLanguageDescription(changedTime,shadowVocab, treeHed);
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-					
-					synchronizeSamples();
+
+					sendRequest(Simond::StartTrainingsSampleSynchronisation);
 					break;
 				}
 				
@@ -1104,8 +1119,8 @@ void RecognitionControl::messageReceived()
 					advanceStream(sizeof(qint32));
 					checkIfSynchronisationIsAborting();
 
-					kDebug() << "No languagedescription available";
-					synchronizeSamples();
+					emit synchronisationError(i18n("There seems to be no language description available."));
+					synchronisationDone();
 					break;
 				}
 				
@@ -1115,7 +1130,22 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "Server could not store languagedescription";
+					emit synchronisationError(i18n("The server couldn't store language description."));
+					break;
+				}
+
+				case Simond::TrainingsSampleSynchronisationComplete:
+				{
+					advanceStream(sizeof(qint32));
 					synchronizeSamples();
+					break;
+				}
+				
+				case Simond::ErrorRetrievingTrainingsSample:
+				{
+					advanceStream(sizeof(qint32));
+					modelManager->sampleNotAvailable(modelManager->missingSample());
+					synchronisationDone();
 					break;
 				}
 
@@ -1169,6 +1199,7 @@ void RecognitionControl::messageReceived()
 					checkIfSynchronisationIsAborting();
 
 					kDebug() << "Server could not store trainings-sample";
+					emit synchronisationError(i18n("The server couldn't store trainings sample."));
 					synchronisationDone();
 					break;
 				}
@@ -1518,9 +1549,8 @@ void RecognitionControl::resumeRecognition()
  */
 RecognitionControl::~RecognitionControl()
 {
-    socket->deleteLater();
-    timeoutWatcher->deleteLater();
-    
+    delete socket;
+    delete timeoutWatcher;
     delete modelManager;
 }
 

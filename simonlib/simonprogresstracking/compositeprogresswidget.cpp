@@ -30,6 +30,7 @@
 #include <KIcon>
 #include <KPushButton>
 #include <KLocale>
+#include <KDebug>
 
 CompositeProgressWidget::CompositeProgressWidget(QWidget* parent): QWidget(parent)
 {
@@ -163,6 +164,8 @@ void CompositeProgressWidget::display(OperationList operations)
 		togglePopup->setChecked(false);
 	}
 	
+	if (status.size() > 60)
+		status = "..."+status.right(60);
 	statusLabel->setText(status);
 	bar->setValue(now);
 	bar->setMaximum(max);

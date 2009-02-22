@@ -18,6 +18,7 @@
  */
 
 #include "importdictbomppage.h"
+#include <QTextCodec>
 
 
 /**
@@ -33,9 +34,24 @@ ImportDictBOMPPage::ImportDictBOMPPage(QWidget* parent): QWizardPage(parent)
 
 	connect(ui.urFile, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
 	registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
+	registerField("bompEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
 	setTitle(i18n("Import HADIFIX Dictionary"));
 }
 
+void ImportDictBOMPPage::initializePage()
+{
+	ui.cbEncoding->clear();
+	
+	ui.cbEncoding->addItem(i18n("Automatic"));
+	QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
+	QStringList encodings;
+	foreach (const QByteArray& codec, availableCodecs)
+		encodings << codec;
+	encodings.sort();
+	ui.cbEncoding->addItems(encodings);
+
+//	ui.cbEncoding->setCurrentIndex(encodings.indexOf("ISO-8859-15")+1);
+}
 
 bool ImportDictBOMPPage::isComplete() const
 {
@@ -49,5 +65,4 @@ bool ImportDictBOMPPage::isComplete() const
 ImportDictBOMPPage::~ImportDictBOMPPage()
 {
 }
-
 

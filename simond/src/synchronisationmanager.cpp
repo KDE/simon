@@ -478,6 +478,7 @@ void SynchronisationManager::buildMissingSamples()
 	QDir samplesDir(KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"));
 	oldList = samplesDir.entryList(QStringList() << "*.wav");
 	
+	missingFiles.clear(); //rebuilding this...
 
 	if (promptsFile.open(QIODevice::ReadOnly))
 	{
@@ -510,7 +511,7 @@ QByteArray SynchronisationManager::getSample(const QString& sampleName)
 	QFile f(dirPath+"/"+sampleName.toLatin1());
 	#endif
 #else
-	QFile f(dirPath+"/"+sampleName.toUtf8());
+	QFile f(dirPath+"/"+sampleName.toAscii());
 #endif
 
 	QFileInfo fInfo(f);
@@ -615,14 +616,6 @@ bool SynchronisationManager::commit()
 {
 	if (!QFile::exists(srcContainerTempPath+"lock")) return false; //ARGH! someone could have screwed with this model!
 
-/*	QDir tempDir(srcContainerTempPath);
-	QStringList files = tempDir.entryList(QDir::Files|QDir::NoDotAndDotDot);
-	files.removeAll("lock");
-	if (files.count() == 0) {
-		QFile::remove(srcContainerTempPath+"lock"); // unlock
-		return true; // nothing to do; "commit" done
-	}*/
-
 	KConfig config( srcContainerTempPath+"modelsrcrc", KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	kDebug() << cGroup.readEntry("WordListDate", QDateTime());
@@ -644,19 +637,6 @@ bool SynchronisationManager::commit()
 	if (newSrcContainerPath.isEmpty()) return false;
 
 	bool allCopied=true;
-	/*	foreach (const QString& file, files)
-	{
-		if (!QFile::copy(srcContainerTempPath+file, newSrcContainerPath+file))
-		{
-			allCopied=false;
-			kDebug() << "Failed to copy " << srcContainerTempPath+file << "to" << newSrcContainerPath+file;
-		}
-	}
-	if (!allCopied) {
-		kDebug() << "Failed to copy all files. Aborting";
-		return false;
-	}*/
-
 	if (hasWordList(srcContainerTempPath) && !copyWordList(srcContainerTempPath, newSrcContainerPath)) allCopied=false;
 	if (hasTraining(srcContainerTempPath) && !copyTrainingData(srcContainerTempPath, newSrcContainerPath)) allCopied=false;
 	if (hasGrammar(srcContainerTempPath) && !copyGrammar(srcContainerTempPath, newSrcContainerPath)) allCopied=false;
@@ -665,6 +645,7 @@ bool SynchronisationManager::commit()
 	if (!allCopied)
 	{
 		kDebug() << "Failed to copy all files. Aborting";
+		cleanTemp();
 		return false;
 	}
 

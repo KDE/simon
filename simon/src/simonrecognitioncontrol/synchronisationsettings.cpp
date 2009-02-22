@@ -123,7 +123,6 @@ void SynchronisationSettings::displayList(const QList<QDateTime>& models)
 	
 	ui.lwModels->setCurrentRow(models.count() -1);
 	ui.pbSelectModel->setEnabled(false); //current model is selected
-
 	ui.lwModels->setEnabled(models.count() > 1);
 }
 
@@ -138,7 +137,8 @@ void SynchronisationSettings::modelSelectionChanged()
 
 void SynchronisationSettings::showEvent(QShowEvent*)
 {
-	//loadList();
+	if (RecognitionControl::getInstance()->isConnected())
+		loadList();
 }
 
 void SynchronisationSettings::selectModel()

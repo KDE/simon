@@ -25,8 +25,8 @@
 #include <QString>
 #include <QFile>
 #include <QRegExp>
+#include <QTextCodec>
 #include <KLocalizedString>
-#include <KDebug>
 
 /**
  * \brief Constructor
@@ -34,10 +34,10 @@
  * \param QString path
  * The path to the dict
  */
-PLSDict::PLSDict(QString path, QObject* parent) :QXmlDefaultHandler(), Dict(parent)
+PLSDict::PLSDict(QObject* parent) :QXmlDefaultHandler(), Dict(parent)
 {
 	buildTranslationTables();
-	this->reader = new XMLSAXReader(path);
+	this->reader = 0;
 	pos=0;
 }
 
@@ -193,8 +193,13 @@ bool PLSDict::characters(const QString &str)
  * \param QString path
  * The path to the dict
  */
-void PLSDict::load(QString path)
+void PLSDict::load(QString path, QString encoding)
 {
+	Q_UNUSED(encoding);
+
+	if (reader) reader->deleteLater();
+
+	reader = new XMLSAXReader(path);
 	connect(reader, SIGNAL(loaded()), this, SIGNAL(loaded()));
 	this->maxpos = QFile(path).size();
 	reader->load(this, path);
@@ -207,7 +212,7 @@ void PLSDict::load(QString path)
  */
 PLSDict::~PLSDict()
 {
-	reader->deleteLater();
+	if (reader) reader->deleteLater();
 }
 
 

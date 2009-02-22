@@ -43,6 +43,7 @@ private:
 	
 public:
     GeneralSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    void save();
 
     ~GeneralSettings();
 

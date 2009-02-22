@@ -39,7 +39,6 @@
  */
 ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 {
-	prevId=0;
 	addPage(createIntroPage());
 
 	addPage(createSelectSourcePage());
@@ -47,7 +46,7 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 	addPage(createImportLexiconPage());
 	addPage(createImportPLSPage());
 	addPage(createImportSPHINXPage());
-	ImportDictWorkingPage *workingPage = createImportDictWorkingPage();
+	workingPage = createImportDictWorkingPage();
 	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SIGNAL(dictGenerated(WordList*)));
 	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SLOT(next()));
 	connect(workingPage, SIGNAL(failed()), this, SLOT(back()));
@@ -56,15 +55,6 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 	addPage(createFinishedPage());
 	setWindowTitle(i18n("Importing Dictionary"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importdict.png")));
-}
-
-/**
- * \brief Shows the Wizard
- * \author Peter Grasch
- */
-void ImportDictView::show()
-{
-	QWizard::show();
 }
 
 

@@ -32,6 +32,7 @@ Q_OBJECT
 private:
 	Ui::SelectFilesPage ui;
 public:
+	void initializePage();
     ImportGrammarSelectFilesPage(QWidget* parent);
 	void cleanupPage();
     ~ImportGrammarSelectFilesPage();

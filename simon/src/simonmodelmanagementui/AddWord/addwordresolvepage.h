@@ -38,7 +38,7 @@ class AddWordResolvePage : public QWizardPage
 {
 Q_OBJECT
 private:
-	QString suggestedSampa;
+	QString suggestedSampa, wordLastUsedToGenerateExamples;
 	bool terminalDirty;
 	Ui::ResolveWordPage ui;
 	bool alreadyTriedToConvinceAboutCapitalization;

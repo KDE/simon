@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-01-26 16:22+0100\n"
+"POT-Creation-Date: 2009-02-06 11:25+0100\n"
 "PO-Revision-Date: 2009-01-13 19:19+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: adinstreamer/adinstreamer.cpp:468
+#: adinstreamer/adinstreamer.cpp:477
 msgid ""
 "Couldn't open sound device.\n"
 "\n"
@@ -488,25 +488,25 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "E-mails"
 
-#: simonactions/actionmanager.cpp:133
+#: simonactions/actionmanager.cpp:134
 msgid ""
 "Couldn't initialize commandmanager \"%1\".\n"
 "\n"
 "Please check its configuration."
 msgstr ""
 
-#: simonactions/actionmanager.cpp:208
+#: simonactions/actionmanager.cpp:209
 msgid ""
 "The trigger \"%1\" is already assigned to another command.\n"
 "\n"
 "Do you want to delete the other command that uses the Trigger \"%1\"?"
 msgstr ""
 
-#: simonactions/actionmanager.cpp:256
+#: simonactions/actionmanager.cpp:257
 msgid "Couldn't add Command \"%1\"."
 msgstr "Kon commando \"%1\" niet toevoegen"
 
-#: simonactions/actionmanager.cpp:298
+#: simonactions/actionmanager.cpp:299
 msgid "Command could not be deleted."
 msgstr "Commando kon niet verwijderd worden."
 
@@ -851,8 +851,9 @@ msgid "Generating DFA..."
 msgstr "DFA genereren"
 
 #: speechmodelcompilation/modelcompilationmanager.cpp:319
+#, fuzzy
 msgid ""
-"Couldn't generate dfa. Please check the paths to mkfa and daf_minimize (%1, %"
+"Couldn't generate dfa. Please check the paths to mkfa and dfa_minimize (%1, %"
 "2)."
 msgstr ""
 "Kon dfa niet genereren. Controleer de wegen naar mkfa en daf_minimize(%1, %"
@@ -1224,47 +1225,47 @@ msgstr "[INF] \"%1\" uit \"%2\" verwijderen"
 msgid "[INF] Reading the trainingstexts"
 msgstr "[INF] De trainingsteksten lezen"
 
-#: speechmodelmanagement/trainingmanager.cpp:380
+#: speechmodelmanagement/trainingmanager.cpp:379
 msgid "[INF] Calculating relevance"
 msgstr "[INF] Relevantie berekenen"
 
-#: speechmodelmanagement/trainingmanager.cpp:456
+#: speechmodelmanagement/trainingmanager.cpp:455
 msgid "ZERO"
 msgstr "NUL"
 
-#: speechmodelmanagement/trainingmanager.cpp:457
+#: speechmodelmanagement/trainingmanager.cpp:456
 msgid "ONE"
 msgstr "EEN"
 
-#: speechmodelmanagement/trainingmanager.cpp:458
+#: speechmodelmanagement/trainingmanager.cpp:457
 msgid "TWO"
 msgstr "TWEE"
 
-#: speechmodelmanagement/trainingmanager.cpp:459
+#: speechmodelmanagement/trainingmanager.cpp:458
 msgid "THREE"
 msgstr "DRIE"
 
-#: speechmodelmanagement/trainingmanager.cpp:460
+#: speechmodelmanagement/trainingmanager.cpp:459
 msgid "FOUR"
 msgstr "VIER"
 
-#: speechmodelmanagement/trainingmanager.cpp:461
+#: speechmodelmanagement/trainingmanager.cpp:460
 msgid "FIVE"
 msgstr "VIJF"
 
-#: speechmodelmanagement/trainingmanager.cpp:462
+#: speechmodelmanagement/trainingmanager.cpp:461
 msgid "SIX"
 msgstr "ZES"
 
-#: speechmodelmanagement/trainingmanager.cpp:463
+#: speechmodelmanagement/trainingmanager.cpp:462
 msgid "SEVEN"
 msgstr "ZEVEN"
 
-#: speechmodelmanagement/trainingmanager.cpp:464
+#: speechmodelmanagement/trainingmanager.cpp:463
 msgid "EIGHT"
 msgstr "ACHT"
 
-#: speechmodelmanagement/trainingmanager.cpp:465
+#: speechmodelmanagement/trainingmanager.cpp:464
 msgid "NINE"
 msgstr "NEGEN"
 

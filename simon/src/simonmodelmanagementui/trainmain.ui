@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>TrainMain</class>
- <widget class="QWidget" name="TrainMain" >
-  <property name="geometry" >
+ <widget class="QWidget" name="TrainMain">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,65 +10,65 @@
     <height>443</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Training</string>
   </property>
-  <property name="windowIcon" >
+  <property name="windowIcon">
    <iconset>
     <normaloff/>
    </iconset>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="label" >
-     <property name="text" >
+    <widget class="QLabel" name="label">
+     <property name="text">
       <string>Available Trainings-Texts:</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QTableWidget" name="twTrainingWords" >
-     <property name="selectionMode" >
+    <widget class="QTableWidget" name="twTrainingWords">
+     <property name="selectionMode">
       <enum>QAbstractItemView::SingleSelection</enum>
      </property>
-     <property name="selectionBehavior" >
+     <property name="selectionBehavior">
       <enum>QAbstractItemView::SelectRows</enum>
      </property>
      <column>
-      <property name="text" >
+      <property name="text">
        <string>Name</string>
       </property>
      </column>
      <column>
-      <property name="text" >
+      <property name="text">
        <string>Pages</string>
       </property>
      </column>
      <column>
-      <property name="text" >
-       <string>Relevance</string>
+      <property name="text">
+       <string>Recognition Rate</string>
       </property>
      </column>
     </widget>
    </item>
    <item>
-    <widget class="KPushButton" name="pbTrainText" >
-     <property name="font" >
+    <widget class="KPushButton" name="pbTrainText">
+     <property name="font">
       <font>
        <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
-     <property name="toolTip" >
+     <property name="toolTip">
       <string>Starts the training of the selected text</string>
      </property>
-     <property name="layoutDirection" >
+     <property name="layoutDirection">
       <enum>Qt::RightToLeft</enum>
      </property>
-     <property name="text" >
+     <property name="text">
       <string>Start Training</string>
      </property>
-     <property name="iconSize" >
+     <property name="iconSize">
       <size>
        <width>20</width>
        <height>20</height>
@@ -76,33 +77,33 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" >
+    <layout class="QHBoxLayout">
      <item>
-      <widget class="KPushButton" name="pbDelText" >
-       <property name="toolTip" >
+      <widget class="KPushButton" name="pbDelText">
+       <property name="toolTip">
         <string>Removes the selected text from the system</string>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Delete selected Text</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbImportText" >
-       <property name="toolTip" >
+      <widget class="KPushButton" name="pbImportText">
+       <property name="toolTip">
         <string>Import new texts from local files or form an oline repository</string>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Import Text</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbImportDir" >
-       <property name="toolTip" >
+      <widget class="KPushButton" name="pbImportDir">
+       <property name="toolTip">
         <string>Import Trainings-Corpuses from other simon versions</string>
        </property>
-       <property name="text" >
+       <property name="text">
         <string>Import Trainingsdata</string>
        </property>
       </widget>

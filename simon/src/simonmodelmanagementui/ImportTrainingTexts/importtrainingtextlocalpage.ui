@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>ImportTrainingTextLocalPage</class>
- <widget class="QWidget" name="ImportTrainingTextLocalPage" >
-  <property name="geometry" >
+ <widget class="QWidget" name="ImportTrainingTextLocalPage">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,28 +10,28 @@
     <height>310</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="lbDesc" >
-     <property name="text" >
+    <widget class="QLabel" name="lbDesc">
+     <property name="text">
       <string>Here you can import text files to use them as trainingtexts.
 
 Please ensure that the file you import is a plain text document (.txt).</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>
@@ -39,35 +40,45 @@ Please ensure that the file you import is a plain text document (.txt).</string>
     </spacer>
    </item>
    <item>
-    <layout class="QFormLayout" name="formLayout" >
-     <item row="0" column="0" >
-      <widget class="QLabel" name="label_2" >
-       <property name="text" >
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
         <string>Name:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="KLineEdit" name="leName" />
+     <item row="0" column="1">
+      <widget class="KLineEdit" name="leName"/>
      </item>
-     <item row="1" column="0" >
-      <widget class="QLabel" name="label" >
-       <property name="text" >
+     <item row="1" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
         <string>File:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1" >
-      <widget class="KUrlRequester" name="urPath" />
+     <item row="1" column="1">
+      <widget class="KUrlRequester" name="urPath"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Encoding:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="KComboBox" name="cbEncoding"/>
      </item>
     </layout>
    </item>
    <item>
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
        <height>40</height>
@@ -78,6 +89,11 @@ Please ensure that the file you import is a plain text document (.txt).</string>
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>

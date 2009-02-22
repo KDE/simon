@@ -27,7 +27,7 @@ SimonMainWindow::SimonMainWindow(QWidget *parent, Qt::WFlags flags) : KXmlGuiWin
 
 SimonMainWindow::~SimonMainWindow()
 {
-	
+	delete guievents;
 }
 
 

@@ -22,9 +22,11 @@
 
 #include <QListWidget>
 #include <QVariant>
+#include <QPointer>
 #include <QListWidgetItem>
 
 #include <KAboutData>
+#include <KMessageBox>
 #include <KService>
 #include <KServiceTypeTrader>
 #include <KPageWidget>
@@ -50,6 +52,8 @@ CommandSettings* CommandSettings::instance;
 CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
 {
 	Q_UNUSED(args)
+
+	forceChangeFlag = false;
 
 	QWidget *baseWidget = new QWidget(this);
 	ui.setupUi(baseWidget);
@@ -89,6 +93,8 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 	
 	QObject::connect(ui.asCommandPlugins->selectedListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
 			  this, SLOT(activePluginSelectionChanged(QListWidgetItem*)));
+	QObject::connect(ui.asCommandPlugins->availableListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
+			  this, SLOT(availablePluginSelectionChanged(QListWidgetItem*)));
 
 	load();
 	isChanged=false;
@@ -100,19 +106,18 @@ void CommandSettings::updatePluginListWidgetItem(QListWidgetItem *item, const QS
 {
 	if (!item) return;
 	QString displayName = item->data(Qt::UserRole).toString();
-	kDebug() << displayName;
 	
 	if (!trigger.isEmpty())
 		displayName += " ("+trigger+")";
 
-	item->setData(Qt::UserRole+1, trigger);
+	item->setData(Qt::UserRole+2, trigger);
 	item->setText(displayName);
 }
 
 void CommandSettings::initPluginListWidgetItem(QListWidgetItem *item)
 {
 	if (!item) return;
-	updatePluginListWidgetItem(item, item->data(Qt::UserRole+1).toString());
+	updatePluginListWidgetItem(item, item->data(Qt::UserRole+2).toString());
 }
 
 void CommandSettings::currentTriggerChanged(const QString& newTrigger)
@@ -157,6 +162,8 @@ void CommandSettings::pluginChanged(bool isChanged)
 
 void CommandSettings::activePluginSelectionChanged(QListWidgetItem* activePluginItem)
 {
+	ui.asCommandPlugins->setButtonsEnabled();
+
 	if (!activePluginItem)
 	{
 		ui.lbTrigger->setEnabled(false);
@@ -169,8 +176,14 @@ void CommandSettings::activePluginSelectionChanged(QListWidgetItem* activePlugin
 	ui.lbTrigger->setEnabled(true);
 	ui.leTrigger->setEnabled(true);
 	
-	QString trigger = activePluginItem->data(Qt::UserRole+1).toString();
+	QString trigger = activePluginItem->data(Qt::UserRole+2).toString();
 	ui.leTrigger->setText(trigger);
+}
+
+void CommandSettings::availablePluginSelectionChanged(QListWidgetItem* availablePluginItem)
+{
+	Q_UNUSED(availablePluginItem);
+	ui.asCommandPlugins->setButtonsEnabled();
 }
 
 void CommandSettings::unregisterPlugIn(KCModule *plugin)
@@ -180,26 +193,19 @@ void CommandSettings::unregisterPlugIn(KCModule *plugin)
 	moduleHash.remove(plugin);
 }
 
-QStringList CommandSettings::availableCommandManagers()
+QList<Action::Ptr> CommandSettings::availableCommandManagers()
 {
-	QStringList commandManagers;
+	QList<Action::Ptr> actions;
 	
 	KService::List services;
 	KServiceTypeTrader* trader = KServiceTypeTrader::self();
 
 	services = trader->query("simon/CommandPlugin");
 	
-	foreach (KService::Ptr service, services) {
-		KPluginFactory *factory = KPluginLoader(service->library()).factory();
-		if (!factory) continue;
-		
-		CommandManager *man = factory->create<CommandManager>(this);
-		if (man) {
-			commandManagers << man->name();
-			man->deleteLater();
-		}
-	}
-	return commandManagers;
+	foreach (KService::Ptr service, services)
+		actions.append(QPointer<Action>(new Action(service->storageId())));
+
+	return actions;
 }
 
 void CommandSettings::save()
@@ -210,8 +216,8 @@ void CommandSettings::save()
 	QStringList newTrigger;
 	for (int i=0; i < selected->count(); i++)
 	{
-		pluginsToLoad << selected->item(i)->data(Qt::UserRole).toString();
-		newTrigger << selected->item(i)->data(Qt::UserRole+1).toString();
+		pluginsToLoad << selected->item(i)->data(Qt::UserRole+1).toString();
+		newTrigger << selected->item(i)->data(Qt::UserRole+2).toString();
 	}
 	
 
@@ -220,24 +226,86 @@ void CommandSettings::save()
 		module->save();
 	}
 
+	bool isChanged=false;
+	QStringList storedTrigger = cg.readEntry("Trigger", QStringList());
+	QStringList storedPluginsToLoad = cg.readEntry("SelectedPlugins", QStringList());
 	if (newTrigger != storedTrigger)
 	{
 		cg.writeEntry("Trigger", newTrigger);
-		emit triggerChanged(newTrigger);
-		this->storedTrigger = newTrigger;
+		isChanged=true;
 	}
 	
-	if (pluginsToLoad != this->pluginsToLoad)
+	if (pluginsToLoad != storedPluginsToLoad)
 	{
 		cg.writeEntry("SelectedPlugins", pluginsToLoad);
-		emit pluginSelectionChanged(pluginsToLoad);
-		this->pluginsToLoad = pluginsToLoad;
+		isChanged=true;
 	}
+
+	if (forceChangeFlag) isChanged = true;
+
+	QList<Action::Ptr> newActions;
+	if (isChanged)
+	{
+		//build action list
+		for (int i=0; i < pluginsToLoad.count(); i++) {
+			bool found = false;
+			for (int j=0; (j<actions.count()) && (!found); j++) {
+				if (actions[j]->source() == pluginsToLoad[i]) {
+					Action::Ptr action = actions.takeAt(j);
+					action->setTrigger(newTrigger[i]);
+					newActions << action;
+					found=true;
+				}
+			}
+			if (!found) {
+				newActions <<  QPointer<Action>(new Action(pluginsToLoad[i], newTrigger[i]));
+			}
+		}
+	}
+	//cleaning de-selected actions
+	qDeleteAll(actions);
+	actions.clear();
+
+	actions = newActions;
+	emit actionsChanged(actions);
 
 	cg.sync();
 
-	emit changed(false);
 	KCModule::save();
+	emit changed(false);
+}
+
+void CommandSettings::displayList(QListWidget *listWidget, QList<Action::Ptr> actions)
+{
+	if (!listWidget) return;
+	listWidget->clear();
+	foreach (Action::Ptr action, actions)
+	{
+		if (!action || !action->manager()) continue;
+
+		QString decorativeName;
+		if (!action->trigger().isEmpty()) {
+			decorativeName = action->manager()->name()+" ("+action->trigger()+")";
+		} else {
+			decorativeName = action->manager()->name();
+		}
+
+		QListWidgetItem *newItem = new QListWidgetItem(decorativeName);
+		newItem->setData(Qt::UserRole, action->manager()->name());
+		newItem->setData(Qt::UserRole+1, action->source());
+		newItem->setData(Qt::UserRole+2, action->trigger());
+		listWidget->addItem(newItem);
+	}
+}
+
+QStringList CommandSettings::findDefaultPlugins(const QList<Action::Ptr>& actions)
+{
+	QStringList defaultPluginList;
+	foreach (Action::Ptr action, actions) {
+		if (action && action->enabledByDefault())
+			defaultPluginList << action->source();
+	}
+	return defaultPluginList;
 }
 
 void CommandSettings::load()
@@ -246,77 +314,63 @@ void CommandSettings::load()
 
 	KConfigGroup cg(config, "");
 
+	QList<Action::Ptr> allPlugins = availableCommandManagers();
+	
 	QStringList trigger = cg.readEntry("Trigger", QStringList());
 
-	QListWidget* available = ui.asCommandPlugins->availableListWidget();
-	available->clear();
-	QListWidget* selected = ui.asCommandPlugins->selectedListWidget();
-	selected->clear();
-	
-	QStringList allPlugins = availableCommandManagers();
-	QStringList notSelectedPlugins = allPlugins;
-	
-	QStringList pluginsToLoad = cg.readEntry("SelectedPlugins", QStringList());
-	foreach (const QString& pluginName, pluginsToLoad)
-	{
-		if (!allPlugins.contains(pluginName))
-		{
-			int index = pluginsToLoad.indexOf(pluginName);
-			while (index != -1)
-			{
-				pluginsToLoad.removeAt(index);
-				if (trigger.count() > index)
-					trigger.removeAt(index);
-				index = pluginsToLoad.indexOf(pluginName);
-			}
-			pluginsToLoad.removeAll(pluginName);
-			continue;
-		}
-		
-		notSelectedPlugins.removeAll(pluginName);
-	}
-	foreach (const QString pluginName, notSelectedPlugins)
-	{
-		QListWidgetItem *newItem = new QListWidgetItem(pluginName);
-		newItem->setData(Qt::UserRole, pluginName);
-		newItem->setData(Qt::UserRole+1, i18n("Computer"));
-		available->addItem(newItem);
-	}
+	QStringList defaultPluginList=findDefaultPlugins(allPlugins);
+	QStringList pluginsToLoad = cg.readEntry("SelectedPlugins", defaultPluginList);
 
 	// ensure that trigger has the same amount of elements
 	// as pluginsToLoad
-	if (trigger.count() != pluginsToLoad.count())
-	{
-		for (int i=0; trigger.count() < pluginsToLoad.count(); i++)
-			trigger << i18n("Computer");
+	while (trigger.count() < pluginsToLoad.count())
+		trigger << QString();
+	while (trigger.count() > pluginsToLoad.count())
+		trigger.removeAt(trigger.count()-1);
 
-		while (trigger.count() > pluginsToLoad.count())
-			trigger.removeAt(trigger.count()-1);
-	}
-	storedTrigger = trigger;
-	
-	int i=0;
-	foreach (QString pluginToLoad, pluginsToLoad)
+	QList<Action::Ptr> notSelectedPlugins;
+	QList<Action::Ptr> selectedPlugins;
+	Action::Ptr selectedPluginsArr[pluginsToLoad.count()];
+
+	int loadedCount=0;
+	while (!allPlugins.isEmpty())
 	{
-		QString name;
-		if (trigger[i].isEmpty())
-			name = pluginToLoad;
-		else name = pluginToLoad+" ("+trigger[i]+")";
-		
-		QListWidgetItem *newItem = new QListWidgetItem(name);
-		newItem->setData(Qt::UserRole, pluginToLoad);
-		newItem->setData(Qt::UserRole+1, trigger[i]);
-		selected->addItem(newItem);
-		i++;
+		Action *currentAction = allPlugins.takeAt(0); //take the first
+
+		//skip if faulty
+		//if the manager could not be loaded from the given storageid it is set to NULL
+		if (!currentAction)
+			continue;
+
+		if (pluginsToLoad.contains(currentAction->source())) { 
+			//if this is in the list to load or we never started before and the
+		        //load-by-default flag is set for this plugin
+			
+			int indexInList;
+
+			indexInList = pluginsToLoad.indexOf(currentAction->source());
+			if (!trigger[indexInList].isNull()) {
+				currentAction->setTrigger(trigger[indexInList]);
+			}
+			selectedPluginsArr[indexInList] = currentAction;
+			loadedCount++;
+		} else {
+			notSelectedPlugins.append(currentAction);
+		}
 	}
-	
-	this->pluginsToLoad = pluginsToLoad;
+
+	for (int i=0; i < loadedCount; i++) {
+		selectedPlugins << selectedPluginsArr[i];
+	}
+
+	displayList(ui.asCommandPlugins->availableListWidget(), notSelectedPlugins);
+	displayList(ui.asCommandPlugins->selectedListWidget(), selectedPlugins);
+
+	this->actions = selectedPlugins;
 	
 	cg.sync();
-	
 
-	foreach (KCModule *module, moduleHash.keys())
-	{
+	foreach (KCModule *module, moduleHash.keys()) {
 		module->load();
 	}
 
@@ -324,36 +378,32 @@ void CommandSettings::load()
 	KCModule::load();
 }
 
-QStringList CommandSettings::getPluginsToLoad()
+QList<Action::Ptr> CommandSettings::getActivePlugins()
 {
-	return pluginsToLoad;
+	return actions;
 }
 
-QStringList CommandSettings::getTrigger()
-{
-	return storedTrigger;
-}
 
 void CommandSettings::defaults()
 {
-	QListWidget* available = ui.asCommandPlugins->availableListWidget();
-	available->clear();
-	available->addItems(availableCommandManagers());
-	ui.asCommandPlugins->selectedListWidget()->clear();
-
-
-	foreach (KCModule *module, moduleHash.keys())
-	{
+	foreach (KCModule *module, moduleHash.keys()) {
 		module->defaults();
 	}
-
-	save();
 	KCModule::defaults();
+
+	KConfigGroup cg(config, "");
+	cg.writeEntry("Trigger", QStringList());
+	cg.writeEntry("SelectedPlugins", findDefaultPlugins(availableCommandManagers()));
+	cg.sync();
+	load();
+	forceChangeFlag = true;
+	save();
 }
 
 
 void CommandSettings::slotChanged()
 {
+	ui.asCommandPlugins->setButtonsEnabled();
 	emit changed(true);
 }
 

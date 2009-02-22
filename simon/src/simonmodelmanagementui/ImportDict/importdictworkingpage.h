@@ -51,6 +51,7 @@ private:
 
 private slots:
 	void setCompleted() { ready=true; emit completeChanged(); }
+	QString guessEncoding(const QString& path);
 
 public slots:
 	void abort();

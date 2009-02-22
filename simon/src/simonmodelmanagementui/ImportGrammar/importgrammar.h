@@ -41,6 +41,7 @@ signals:
 	void grammarCreated(QStringList grammar);
 private:
 	QStringList files;
+	QString encoding;
 	bool includeUnknown;
 	QStringList importFile(QString path);
 	QStringList terminals(WordList *in);
@@ -51,6 +52,7 @@ public:
 
 	void run();
 	void setFiles(QStringList files) { this->files = files; }
+	void setEncoding(const QString& encoding) { this->encoding = encoding; }
 	void setIncludeUnknown(bool include) { this->includeUnknown = include; }
 
     ~ImportGrammar();

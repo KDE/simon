@@ -45,6 +45,9 @@
 #include <KDebug>
 #include <KLocale>
 
+//sonnet speller
+#include <sonnet/speller.h>
+
 WordListManager* WordListManager::instance;
 
 /**
@@ -194,25 +197,32 @@ WordListManager* WordListManager::getInstance()
  * \brief Starts the importing of the shadow-Model in a new thread
  * \author Peter Grasch
  */
+#include <QCoreApplication>
 void WordListManager::run()
 {
-	Operation op(thread(), i18n("Loading Shadow List"), i18n("Parsing..."), 0,0, true);
+	Operation *op = new Operation(thread(), i18n("Loading Shadow List"), i18n("Parsing..."), 0,0, true);
 	shadowLock.lock();
 	shadowDirty = false;
 	this->shadowList = readWordList(KStandardDirs::locate("appdata", "model/shadowlexicon"),
 					KStandardDirs::locate("appdata", "model/shadow.voca"),
 					this->shadowTerminals, true);
-	if (!shadowList)
-	{
+	if (!shadowList) {
 		this->shadowList = new WordList();
 		emit shadowListCouldntBeLoaded();
-		op.canceled();
-	} else
-	{
-		op.finished();
+		op->canceled();
+	} else {
+		op->finished();
 	}
 	
 	shadowLock.unlock();
+	/*while(true) {
+		kWarning() << "alive!";
+		QCoreApplication::processEvents();
+		exec();
+		sleep(1);
+	}*/
+	connect(op, SIGNAL(destroyed(QObject*)), this, SLOT(quit()));
+	exec();
 }
 
 
@@ -236,21 +246,14 @@ inline WordList* WordListManager::getShadowList()
 {
 	//if the thread is still running we are obviously not ready to give out the shadowdict
 	//wait till we are finished
-	if (isRunning())
+	QMutexLocker lock(&shadowLock); //.lock();
+/*	while (isRunning())
 	{
-//FIXME: We can't show this directly!
-//	If this method is called by a different thread (this WILL happen),
-//	we would create the simonInfo object (which contains gui-widgets) in that
-//	threads context
-//	This will result in an async-error from xlib (you can't have different threads painting the gui)
-//	and therefore result in a crash;
-//	
 // 		SimonInfo::showMessage(i18n("Bitte warten Sie während das Schatten-Wörterbuch lädt..."),1000);
-//		this is actually bug-using as we just set any kind of timeout (the gui thread will be
-//		blocked until the importing is done anyway...
-// 		QCoreApplication::processEvents();
-		wait();
-	}
+ 		QCoreApplication::processEvents();
+		kWarning() << "hier";
+		wait(500);
+	}*/
 	
 	return shadowList;
 }
@@ -597,7 +600,7 @@ bool WordListManager::refreshShadowListFiles(const QByteArray& shadowVocab)
  * @param in 
  * @return 
  */
-WordList* WordListManager::removeDoubles(WordList *in)
+/*WordList* WordListManager::removeDoubles(WordList *in)
 {
 	if (!in) return NULL;
 	
@@ -614,7 +617,7 @@ WordList* WordListManager::removeDoubles(WordList *in)
 		}
 	}
 	return in;
-}
+}*/
 
 /**
  * \brief Gets the given word and returns a pointer to it (NULL if not found)
@@ -855,7 +858,7 @@ QString WordListManager::getRandomWord(const QString& terminal, bool includeShad
 	return ""; //we couldn't find a word - return what we got
 }
 	
-QStringList WordListManager::getTerminals(bool includeShadow)
+QStringList WordListManager::getTerminals(bool includeShadow, bool includeGrammar)
 {
 	QStringList terminals;
 	
@@ -871,6 +874,13 @@ QStringList WordListManager::getTerminals(bool includeShadow)
 		for (int i=0; i < shadowTerminals.count(); i++)
 			if (!terminals.contains(shadowTerminals.at(i)))
 				terminals.append(shadowTerminals.at(i));
+	}
+	if (includeGrammar)
+	{
+		QStringList grammarTerminals = GrammarManager::getInstance()->getTerminals();
+		for (int i=0; i < grammarTerminals.count(); i++)
+			if (!terminals.contains(grammarTerminals.at(i)))
+				terminals << grammarTerminals.at(i);
 	}
 	terminals.sort();
 
@@ -922,26 +932,26 @@ WordList* WordListManager::mergeLists(WordList *a, WordList *b, bool keepDoubles
 }
 
 
-WordList* WordListManager::getWords(const QString& word, bool includeShadow, bool fuzzy, bool keepDoubles)
+WordList* WordListManager::getWords(const QString& word, bool includeShadow, SearchType searchType, bool keepDoubles)
 {
 	WordList *out;
-	out = getMainstreamWords(word, fuzzy);
+	out = getMainstreamWords(word, searchType);
 	
 	if (!includeShadow) return out;
 
-	return this->mergeLists(getShadowedWords(word, fuzzy), out, keepDoubles);
+	return this->mergeLists(getShadowedWords(word, searchType), out, keepDoubles);
 }
 
 
-WordList* WordListManager::searchForWords(WordList *list, const QString& word, bool fuzzy)
+WordList* WordListManager::searchForWords(WordList *list, const QString& word, SearchType searchType)
 {
 	bool found;
 	WordList *out = new WordList();
 	if (!list || list->isEmpty()) return out;
 	
-	if (!fuzzy)		// great! we can perform a binary search
+	if (searchType==ExactMatch)		// great! we can perform a binary search
 	{
-		WordList::iterator iteratorOfWord = getWordIndex(list, found, word, "", ""); //TODO: Test
+		WordList::iterator iteratorOfWord = getWordIndex(list, found, word, "", "");
 		if (!found) return out;
 		
 		while ((iteratorOfWord != list->end()) && (iteratorOfWord->getWord().toUpper() == word.toUpper()))
@@ -949,33 +959,33 @@ WordList* WordListManager::searchForWords(WordList *list, const QString& word, b
 			out->append(*iteratorOfWord);
 			iteratorOfWord++;
 		}
-		
-/*
-		int i=indexOfWord;
-		while ((i >= 0) && (list->at(i).getWord().toUpper() == word.toUpper()))
-		{
-			out->append(list->at(i));
-			i--;
-		}
-		i=indexOfWord+1;
-		while ((i < list->count()) && (list->at(i).getWord().toUpper() == word.toUpper()))
-		{
-			out->append(list->at(i));
-			i++;
-		}*/
 	} else { //nope - incremental only :(
+		QStringList wordsToSearchFor;
+		wordsToSearchFor << word;
+		if (searchType == WordListManager::Fuzzy)
+		{
+			Sonnet::Speller spell;
+			wordsToSearchFor.append(spell.suggest(word));
+			kDebug() << wordsToSearchFor;
+		}
 		
 		WordList::const_iterator i = list->constBegin();
 		WordList::const_iterator end = list->constEnd();
-		
-		
+			
 		if (word.isEmpty()) { //copy everything
-			for ( ;i < end; i++)
+				for ( ;i < end; i++)
 				out->append(*i);
-		} else
-			for ( ; i < end; i++)
-				if ((*i).getWord().contains(word, Qt::CaseInsensitive))
-					out->append((*i));
+		} else {
+			for ( ; i < end; i++) {
+				foreach (const QString& wordToSearchFor, wordsToSearchFor) {
+					if ((*i).getWord().contains(wordToSearchFor, Qt::CaseInsensitive))
+					{
+						out->append((*i));
+						break;
+					}
+				}
+			}
+		}
 	}
 	
 	return out;
@@ -995,16 +1005,16 @@ bool WordListManager::extraListContains(Word *word)
 }
 
 
-bool WordListManager::mainWordListContainsStr(const QString& word)
+bool WordListManager::mainWordListContainsStr(const QString& word, Qt::CaseSensitivity cs)
 {
 	QMutexLocker m(&wordListLock);
-	return wordListContainsStr(getWordList(), word);
+	return wordListContainsStr(getWordList(), word, cs);
 }
 
-bool WordListManager::extraListContainsStr(const QString& word)
+bool WordListManager::extraListContainsStr(const QString& word, Qt::CaseSensitivity cs)
 {
 	QMutexLocker m(&shadowLock);
-	return wordListContainsStr(getShadowList(), word);
+	return wordListContainsStr(getShadowList(), word, cs);
 }
 
 bool WordListManager::wordListContains(WordList *list, Word *word)
@@ -1020,30 +1030,30 @@ bool WordListManager::wordListContains(WordList *list, Word *word)
 	return (i!=count) /*did we go all the way through?*/;
 }
 
-bool WordListManager::wordListContainsStr(WordList *list, const QString& word)
+bool WordListManager::wordListContainsStr(WordList *list, const QString& word, Qt::CaseSensitivity cs)
 {
 	Q_ASSERT(list);
 
 	int i=0;
 	int count = list->count();
-	while ((i<count) && (list->at(i).getWord() != word))
+	while ((i<count) && (QString::compare(list->at(i).getWord(),  word, cs) != 0))
 		i++;
 	
 	return (i!=count) /*did we go all the way through?*/;
 }
 
-WordList* WordListManager::getMainstreamWords(const QString& word, bool fuzzy)
+WordList* WordListManager::getMainstreamWords(const QString& word, SearchType searchType)
 {
 	wordListLock.lock();
-	WordList* found = searchForWords(getWordList(), word, fuzzy);
+	WordList* found = searchForWords(getWordList(), word, searchType);
 	wordListLock.unlock();
 	return found;
 }
 
-WordList* WordListManager::getShadowedWords(const QString& word, bool fuzzy)
+WordList* WordListManager::getShadowedWords(const QString& word, SearchType searchType)
 {
 	shadowLock.lock();
-	WordList* found = searchForWords(getShadowList(), word, fuzzy);
+	WordList* found = searchForWords(getShadowList(), word, searchType);
 	shadowLock.unlock();
 	return found;
 }
@@ -1199,6 +1209,8 @@ void WordListManager::addWords(WordList *list, bool isSorted, bool shadow)
  */
 WordListManager::~WordListManager()
 {
+	wordlist->clear();
+	shadowList->clear();
     delete wordlist;
     delete shadowList;
 }

@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>SelectFilesPage</class>
- <widget class="QWidget" name="SelectFilesPage" >
-  <property name="geometry" >
+ <widget class="QWidget" name="SelectFilesPage">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,40 +10,54 @@
     <height>387</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" >
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="lbUnknownDesc" >
-     <property name="text" >
+    <widget class="QLabel" name="lbUnknownDesc">
+     <property name="text">
       <string>If you check the following field, sentences containing words with unknown terminals will also be imported (words with more than one terminal will still cause the sentence to be ignored).</string>
      </property>
-     <property name="wordWrap" >
+     <property name="wordWrap">
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="cbIncludeUnknown" >
-     <property name="text" >
+    <widget class="QCheckBox" name="cbIncludeUnknown">
+     <property name="text">
       <string>Also import unknown sentences</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="KUrlRequester" name="urFileToAdd" >
-     <property name="filter" >
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="lbEncoding">
+       <property name="text">
+        <string>Encoding:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KComboBox" name="cbEncoding"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="KUrlRequester" name="urFileToAdd">
+     <property name="filter">
       <string>Textfiles *.txt</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="KEditListBox" name="elbFiles" >
-     <property name="title" >
+    <widget class="KEditListBox" name="elbFiles">
+     <property name="title">
       <string>Files to import</string>
      </property>
-     <property name="buttons" >
+     <property name="buttons">
       <set>KEditListBox::Add|KEditListBox::Remove</set>
      </property>
     </widget>
@@ -50,6 +65,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
   <customwidget>
    <class>KEditListBox</class>
    <extends>QGroupBox</extends>

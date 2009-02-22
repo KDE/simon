@@ -56,7 +56,7 @@ private:
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 public:
-	WordListModel(WordList *words);
+	WordListModel(WordList *words, QObject *parent=0);
 	~WordListModel();
 
 };

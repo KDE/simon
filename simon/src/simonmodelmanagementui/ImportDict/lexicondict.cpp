@@ -27,9 +27,8 @@
 #include <KMimeType>
 #include <KFilterDev>
 
-LexiconDict::LexiconDict(QString path, QObject* parent): Dict(parent)
+LexiconDict::LexiconDict(QObject* parent): Dict(parent)
 {
-	this->path = path;
 }
 
 
@@ -37,16 +36,11 @@ LexiconDict::LexiconDict(QString path, QObject* parent): Dict(parent)
  * \brief Loads the file from the given path
  * \author Peter Grasch
  * 
- * \todo Document
- * WARNING: This function assumes the system-charset to be ISO-8859-1 and WILL destroy special characters if it isn't
- * 
  * @param path If the path is empty the path set by the constructor is used
+ * @param encoding The encoding to use for the dictionary
  */
-void LexiconDict::load(QString path)
+void LexiconDict::load(QString path, QString encoding)
 {
-	if (path.isEmpty()) path = this->path;
-	if (path.isEmpty()) return;
-
 	QString unknownStr = i18n("Unknown");
 
 	emit progress(0);
@@ -71,7 +65,7 @@ void LexiconDict::load(QString path)
 	int currentProg = 0;
 	
 	QTextStream *dictStream = new QTextStream(dict);
-	dictStream->setCodec("UTF-8");
+	dictStream->setCodec(encoding.toAscii());
 	emit loaded();
 	
 	QString line, word, xsp;

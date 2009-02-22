@@ -18,7 +18,7 @@
  */
 
 #include "importdictsphinxpage.h"
-
+#include <QTextCodec>
 
 /**
  * \brief Constructor - inits the GUI
@@ -35,6 +35,19 @@ ImportDictSPHINXPage::ImportDictSPHINXPage(QWidget* parent): QWizardPage(parent)
 	registerField("sphinxFilename*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
 	setTitle(i18n("Import SPHINX Dictionary"));
 }
+
+void ImportDictSPHINXPage::initializePage()
+{
+	ui.cbEncoding->clear();
+	ui.cbEncoding->addItem(i18n("Automatic"));
+	QList<QByteArray> availableCodecs = QTextCodec::availableCodecs();
+	QStringList encodings;
+	foreach (const QByteArray& codec, availableCodecs)
+		encodings << codec;
+	encodings.sort();
+	ui.cbEncoding->addItems(encodings);
+}
+
 
 
 bool ImportDictSPHINXPage::isComplete() const

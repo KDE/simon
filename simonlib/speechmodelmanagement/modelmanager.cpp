@@ -43,22 +43,22 @@ ModelManager::ModelManager(QObject *parent) : QObject(parent)
 	modelChangedFlag=false;
 	inGroup=false;
 	connect (WordListManager::getInstance(), SIGNAL(wordlistChanged()), 
-		  this, SLOT(slotModelChanged()));
+		  this, SLOT(modelHasChanged()));
 
 	connect (WordListManager::getInstance(), SIGNAL(shadowListChanged()), 
-		  this, SLOT(slotModelChanged()));
+		  this, SLOT(modelHasChanged()));
 	
 	connect (TrainingManager::getInstance(), SIGNAL(trainingDataChanged()),
-		  this, SLOT(slotModelChanged()));
+		  this, SLOT(modelHasChanged()));
 	
 	connect (TrainingManager::getInstance(), SIGNAL(trainingSettingsChanged()),
-		  this, SLOT(slotModelChanged()));
+		  this, SLOT(modelHasChanged()));
 	
 	connect (GrammarManager::getInstance(), SIGNAL(structuresChanged()), 
-		  this, SLOT(slotModelChanged()));
+		  this, SLOT(modelHasChanged()));
 }
 
-void ModelManager::slotModelChanged()
+void ModelManager::modelHasChanged()
 {
 	if (inGroup) 
 		modelChangedFlag=true;
@@ -260,10 +260,14 @@ LanguageDescriptionContainer* ModelManager::getLanguageDescriptionContainer()
 
 QDateTime ModelManager::getLanguageDescriptionModifiedTime()
 {
-	if (!QFile::exists(KStandardDirs::locateLocal("appdata", "model/modelsrcrc")))
-		return QDateTime();
+	QString configPath = KStandardDirs::locateLocal("appdata", "model/modelsrcrc");
+	if (!QFile::exists(configPath)) {
+		configPath = KStandardDirs::locate("appdata", "model/modelsrcrc");
+		if (!QFile::exists(configPath))
+			return QDateTime();
+	}
 	
-	KConfig config( KStandardDirs::locateLocal("appdata", "model/modelsrcrc"), KConfig::SimpleConfig );
+	KConfig config( configPath, KConfig::SimpleConfig );
 	KConfigGroup cGroup(&config, "");
 	return cGroup.readEntry("LanguageDescriptionDate", QDateTime());
 }
@@ -358,7 +362,7 @@ bool ModelManager::storeSample(const QByteArray& sample)
 {
 	if (missingFiles.isEmpty()) return false;
 
-	QString dirPath = SpeechModelManagementConfiguration::modelTrainingsDataPath().path()+'/';
+	QString dirPath = TrainingManager::getInstance()->getTrainingDir()+'/';
 
 	QFile f(dirPath+missingFiles.at(0)+".wav");
 	if (!f.open(QIODevice::WriteOnly)) return false;
@@ -428,7 +432,7 @@ QDateTime ModelManager::getSrcContainerModifiedTime()
 	KConfigGroup cGroup(&config, "");
 	QDateTime maxModifiedDate = qMax(cGroup.readEntry("WordListDate", QDateTime()),
 					 cGroup.readEntry("GrammarDate", QDateTime()));
-	maxModifiedDate = qMax(maxModifiedDate, cGroup.readEntry("LanguageDescriptionDate", QDateTime()));
+	maxModifiedDate = qMax(maxModifiedDate, getLanguageDescriptionModifiedTime());
 	maxModifiedDate = qMax(maxModifiedDate, cGroup.readEntry("TrainingDate", QDateTime()));
 	return maxModifiedDate;
 }

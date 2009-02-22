@@ -25,10 +25,12 @@
 #include <QStringList>
 #include <QVariantList>
 #include <QHash>
+#include "action.h"
 
 class QListWidgetItem;
 class KPageWidget;
 class KPageWidgetItem;
+class Action;
 /**
  * \class CommandSettings
  * \author Peter Grasch
@@ -41,10 +43,10 @@ class CommandSettings : public KCModule
 Q_OBJECT
 
 signals:
-	void pluginSelectionChanged(const QStringList& pluginsToLoad);
-	void triggerChanged(const QStringList& triggers);
+	void actionsChanged(QList<Action::Ptr> actions);
 
 private:
+	bool forceChangeFlag;
 	static CommandSettings* instance;
 
 	Ui::CommandSettingsDlg ui;
@@ -54,12 +56,15 @@ private:
 	KPageWidget *pageWidget;
 	QHash<KCModule*, KPageWidgetItem*> moduleHash;
 
-	QStringList pluginsToLoad;
-	QStringList storedTrigger;
+	QList<Action::Ptr> actions;
 
-	QStringList availableCommandManagers();
+	QList<Action::Ptr> availableCommandManagers();
+
+	QStringList findDefaultPlugins(const QList<Action::Ptr>& actions);
+	
 	void updatePluginListWidgetItem(QListWidgetItem *item, const QString& trigger);
 
+	void displayList(QListWidget *listWidget, QList<Action::Ptr> actions);
 
 public slots:
 	virtual void save();
@@ -70,6 +75,7 @@ private slots:
 	void slotChanged();
 	void pluginChanged(bool isChanged);
 	void activePluginSelectionChanged(QListWidgetItem* activePluginItem);
+	void availablePluginSelectionChanged(QListWidgetItem* availablePluginItem);
 	void currentTriggerChanged(const QString& newTrigger);
 	void applyToAllClicked();
 	void initPluginListWidgetItem(QListWidgetItem* item);
@@ -82,8 +88,7 @@ public:
 	}
 
 	CommandSettings(QWidget* parent=0, const QVariantList& args=QVariantList());
-	QStringList getPluginsToLoad();
-	QStringList getTrigger();
+	QList<Action::Ptr> getActivePlugins();
 	
 	void registerPlugIn(KCModule *plugin);
 	void unregisterPlugIn(KCModule *plugin);

@@ -39,6 +39,7 @@ Q_OBJECT
 	public:
 		ImportTrainingTextLocalPage(QWidget* parent);
 		bool isComplete() const;
+		void initializePage();
 		int nextId() const {
 			return 4; //working page
 		}

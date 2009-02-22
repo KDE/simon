@@ -24,6 +24,10 @@
 #include <QSslCipher>
 #include <kgenericfactory.h>
 
+#ifdef Q_OS_WIN32
+#include <QSettings>
+#endif
+
 K_PLUGIN_FACTORY( KSimondSettingsFactory, 
 			registerPlugin< KSimondSettings >(); 
 		)
@@ -42,8 +46,30 @@ KSimondSettings::KSimondSettings(QWidget* parent, const QVariantList& args)
 }
 
 
+void KSimondSettings::save()
+{
+	KCModule::save();
+
+#ifdef Q_OS_WIN32
+	//TODO: Test
+	if (KSimondConfiguration::autoStart()) {
+		QSettings settings;
+		settings.setPath("Microsoft", "Windows", QSettings::UserScope);
+		if (ui.cbStartSimonOnBoot->isChecked()) {
+			// Want to start on boot up
+			QString appPath = qApp->applicationFilePath();
+			settings.writeEntry("/CurrentVersion/Run/ksimond.exe", appPath);
+		} else {
+			// Do not want to start on boot up
+			settings.removeEntry("/CurrentVersion/Run/ksimond.exe");
+		}
+	}
+#endif
+}
+
 
 KSimondSettings::~KSimondSettings()
 {
 	
 }
+

@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,34 +17,35 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#ifndef ACTION_H
+#define ACTION_H
 
-#ifndef SPHINXDICT_H
-#define SPHINXDICT_H
+#include <QString>
+#include <QObject>
+#include <QPointer>
+#include <QIcon>
+#include <KLocalizedString>
+class CommandManager;
 
-#include "dict.h"
-
-class QString;
-
-/**
- \class SPHINXDict
- \author Peter Grasch
- \version 0.1
- \date 10.08.2007
- \brief Represetnts a SPHINX dictionary
- */
-class SPHINXDict : public Dict
-{
+class Action : public QObject {
 	Q_OBJECT
+	private:
+		QString m_source;
+		QString m_trigger;
+		CommandManager* m_manager;
+		bool m_enabledByDefault;
+	public:
+		typedef QPointer<Action> Ptr;
+		Action(const QString& source, const QString& trigger=QString());
+		bool enabledByDefault() { return m_enabledByDefault; }
+		QString source() { return m_source; }
+		QString trigger() { return m_trigger; }
 
-signals:
-	void loaded();
-private:
-	QString path;
-public:
-    explicit SPHINXDict(QObject* parent=0);
-    void load(QString path, QString encodingName);
+		QIcon icon();
+		CommandManager* manager() { return m_manager; }
+		void setTrigger(const QString& newTrigger) { m_trigger=newTrigger; }
 
-    ~SPHINXDict();
+		~Action();
 
 };
 
