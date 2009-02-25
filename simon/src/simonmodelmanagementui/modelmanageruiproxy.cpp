@@ -18,6 +18,7 @@
  */
 
 #include "modelmanageruiproxy.h"
+#include "AddWord/addwordview.h"
 #include <KMessageBox>
 #include <KDebug>
 #include <KStandardDirs>
@@ -75,7 +76,12 @@ void ModelManagerUiProxy::wordUndefined(const QString& word)
 	if (KMessageBox::questionYesNoCancel(0, i18n("The word \"%1\" is used in your training-samples but is not contained "
 "in your wordlist.\n\nDo you want to add the word now?", word)) != KMessageBox::Yes)
 		return;
-	KMessageBox::information(0, i18n("Sorry this is not yet implemented"));
+//	KMessageBox::information(0, i18n("Sorry this is not yet implemented"));
+
+	AddWordView *addWordView = new AddWordView(0);
+	addWordView->createWord(word);
+	addWordView->show();
+	connect(addWordView, SIGNAL(finished(int)), addWordView, SLOT(deleteLater()));
 }
 
 void ModelManagerUiProxy::classUndefined(const QString& undefClass)

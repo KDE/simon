@@ -718,7 +718,6 @@ void RecognitionControl::messageReceived()
 			messageNotYetFinished=false;
 			msg >> type;
 			request = (Simond::Request) type;
-			kDebug() << type;
 			switch (request)
 			{
 				////////////////////    LOGIN    //////////////////////////////////////
@@ -1174,14 +1173,13 @@ void RecognitionControl::messageReceived()
 					if (synchronisationOperation)
 						synchronisationOperation->update(i18n("Synchronizing Trainings-Corpus"), 68);
 
-					kDebug() << "Server sent Trainings-Sample";
-					
 					parseLengthHeader();
 					
 					QByteArray sample;
 					msg >> sample;
 
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
+					kDebug() << "Server sent Trainings-Sample";
 					
 					if (!modelManager->storeSample(sample))
 					{
@@ -1321,7 +1319,7 @@ void RecognitionControl::messageReceived()
 					
 					modelCompilationOperation->canceled();
 					modelCompilationOperation=NULL;
-					modelManager->wordUndefined(word);
+					modelManager->wordUndefined(QString::fromUtf8(word));
 					break;
 				}	
 				case Simond::ModelCompilationClassUndefined: {
@@ -1332,7 +1330,7 @@ void RecognitionControl::messageReceived()
 					
 					modelCompilationOperation->canceled();
 					modelCompilationOperation=NULL;
-					modelManager->classUndefined(undefClass);
+					modelManager->classUndefined(QString::fromUtf8(undefClass));
 					break;
 				}	
 				case Simond::ModelCompilationPhonemeUndefined: {
@@ -1343,7 +1341,7 @@ void RecognitionControl::messageReceived()
 					
 					modelCompilationOperation->canceled();
 					modelCompilationOperation=NULL;
-					modelManager->phonemeUndefined(phoneme);
+					modelManager->phonemeUndefined(QString::fromUtf8(phoneme));
 					break;
 				}
 

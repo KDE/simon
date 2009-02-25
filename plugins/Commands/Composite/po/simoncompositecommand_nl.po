@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-01-26 16:16+0100\n"
+"POT-Creation-Date: 2009-02-22 16:34+0100\n"
 "PO-Revision-Date: 2009-01-14 12:04+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -38,7 +38,7 @@ msgstr "[INF] Laden samengestelde commando's van %1"
 msgid "[INF] Saving composite commands to %1"
 msgstr "[INF] Opslaan samengestelde commando's naar %1"
 
-#: createcompositecommandwidget.cpp:152
+#: createcompositecommandwidget.cpp:151
 msgid ""
 "Couldn't find all of the commands that make up this composited command.\n"
 "\n"

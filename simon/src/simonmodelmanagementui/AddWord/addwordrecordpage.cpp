@@ -51,10 +51,15 @@ AddWordRecordPage::AddWordRecordPage(const QString& fieldName, int pageNr, int p
 	this->fieldName = fieldName;
 }
 
-bool AddWordRecordPage::isComplete() const
+bool AddWordRecordPage::hasSample() const
 {
 	Q_ASSERT(page);
 	return page->isComplete();
+}
+
+bool AddWordRecordPage::isComplete() const
+{
+	return true;
 }
 
 QString AddWordRecordPage::getFileName()

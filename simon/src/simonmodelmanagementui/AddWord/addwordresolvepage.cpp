@@ -127,6 +127,7 @@ void AddWordResolvePage::fetchSimilar()
 {
 	kWarning() << "Fetching similar words";
 	disconnect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
+	disconnect(ui.twSuggestions, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(suggest()));
 	WordListManager::SearchType sType = (ui.cbFuzzySearch->isChecked()) ? WordListManager::Fuzzy : WordListManager::ExactMatch;
 	WordList* similar = wordListManager->getWords(ui.leWord->text(), true, sType, false);
 	displayWords(similar);
@@ -150,6 +151,7 @@ void AddWordResolvePage::fetchSimilar()
 		}
 	}
 	connect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
+	connect(ui.twSuggestions, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(suggest()));
 	delete similar;
 	
 }
@@ -209,6 +211,7 @@ void AddWordResolvePage::suggest()
 
 	ui.cbType->setCurrentIndex(ui.cbType->findText(terminal));
 	terminalDirty=false;
+	createExamples();
 }
 
 /**

@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-12-09 09:22+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-02-22 16:36+0100\n"
 "PO-Revision-Date: 2009-01-14 12:02+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -53,11 +54,11 @@ msgstr "Locatie"
 msgid "URL"
 msgstr "Link"
 
-#: placecommandmanager.cpp:63
+#: placecommandmanager.cpp:69
 msgid "[INF] Loading place commands from %1"
 msgstr "[INF] Locatie-commando's van %1 laden"
 
-#: placecommandmanager.cpp:73
+#: placecommandmanager.cpp:79
 msgid "[INF] Saving place commands to %1"
 msgstr "[INF] Locatie-commando's naar %1 opslaan"
 
@@ -69,38 +70,31 @@ msgstr "[INF] Locatie-commando's naar %1 opslaan"
 #. i18n: ectx: property (windowTitle), widget (QWidget, CreatePlaceCommandWidget)
 #. i18n: file: ImportPlace/selectplacedlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, SelectPlaceDlg)
-#: po/rc.cpp:3
-#: po/rc.cpp:21
-#: rc.cpp:3
-#: rc.cpp:21
+#: po/rc.cpp:3 po/rc.cpp:21 rc.cpp:3 rc.cpp:21
 msgid "Form"
 msgstr "Formulier"
 
 #. i18n: file: createplacecommandwidget.ui:19
 #. i18n: ectx: property (text), widget (QCommandLinkButton, cbImportPlace)
-#: po/rc.cpp:6
-#: rc.cpp:6
+#: po/rc.cpp:6 rc.cpp:6
 msgid "Import Place"
 msgstr "Locatie importeren"
 
 #. i18n: file: createplacecommandwidget.ui:22
 #. i18n: ectx: property (description), widget (QCommandLinkButton, cbImportPlace)
-#: po/rc.cpp:9
-#: rc.cpp:9
+#: po/rc.cpp:9 rc.cpp:9
 msgid "Using this wizard, you can import local and remote places easily."
 msgstr "Met deze wizard kunt u locaties locaal en op afstand importeren."
 
 #. i18n: file: createplacecommandwidget.ui:29
 #. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_3)
-#: po/rc.cpp:12
-#: rc.cpp:12
+#: po/rc.cpp:12 rc.cpp:12
 msgid "Manual"
 msgstr "Handmatig"
 
 #. i18n: file: createplacecommandwidget.ui:35
 #. i18n: ectx: property (description), widget (QCommandLinkButton, commandLinkButton_3)
-#: po/rc.cpp:15
-#: rc.cpp:15
+#: po/rc.cpp:15 rc.cpp:15
 msgid "Configure the necessairy parameters manually"
 msgstr "Configureer de benodigde parameters handmatig"
 
@@ -112,120 +106,100 @@ msgstr "Configureer de benodigde parameters handmatig"
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #. i18n: file: ImportPlace/selectplacedlg.ui:78
 #. i18n: ectx: property (text), widget (QLabel, lbRemoteUrl)
-#: po/rc.cpp:18
-#: po/rc.cpp:30
-#: rc.cpp:18
-#: rc.cpp:30
+#: po/rc.cpp:18 po/rc.cpp:30 rc.cpp:18 rc.cpp:30
 msgid "URL:"
 msgstr "Link:"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:19
 #. i18n: ectx: property (text), widget (QRadioButton, rbLocalPlace)
-#: po/rc.cpp:24
-#: rc.cpp:24
+#: po/rc.cpp:24 rc.cpp:24
 msgid "Local Place"
 msgstr "Locale locatie"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:49
 #. i18n: ectx: property (text), widget (QRadioButton, rbRemotePlace)
-#: po/rc.cpp:27
-#: rc.cpp:27
+#: po/rc.cpp:27 rc.cpp:27
 msgid "Remote URL"
 msgstr "Link op afstand"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:94
 #. i18n: ectx: property (title), widget (QGroupBox, gbRemoteHelp)
-#: po/rc.cpp:33
-#: rc.cpp:33
+#: po/rc.cpp:33 rc.cpp:33
 msgid "Help"
 msgstr "Help"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:109
 #. i18n: ectx: property (text), widget (QLabel, lbProtocol)
-#: po/rc.cpp:36
-#: rc.cpp:36
+#: po/rc.cpp:36 rc.cpp:36
 msgid "Protocol:"
 msgstr "Protocol:"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:120
 #. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
-#: po/rc.cpp:39
-#: rc.cpp:39
+#: po/rc.cpp:39 rc.cpp:39
 msgid "http"
 msgstr "http"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:125
 #. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
-#: po/rc.cpp:42
-#: rc.cpp:42
+#: po/rc.cpp:42 rc.cpp:42
 msgid "https"
 msgstr "https"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:130
 #. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
-#: po/rc.cpp:45
-#: rc.cpp:45
+#: po/rc.cpp:45 rc.cpp:45
 msgid "ftp"
 msgstr "ftp"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:135
 #. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
-#: po/rc.cpp:48
-#: rc.cpp:48
+#: po/rc.cpp:48 rc.cpp:48
 msgid "sftp"
 msgstr "sftp"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:140
 #. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
-#: po/rc.cpp:51
-#: rc.cpp:51
+#: po/rc.cpp:51 rc.cpp:51
 msgid "smb"
 msgstr "smb"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:148
 #. i18n: ectx: property (text), widget (QCheckBox, cbAuthentification)
-#: po/rc.cpp:54
-#: rc.cpp:54
+#: po/rc.cpp:54 rc.cpp:54
 msgid "Use Authentication"
 msgstr "Authenticatie gebruiken"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:158
 #. i18n: ectx: property (text), widget (QLabel, lbUser)
-#: po/rc.cpp:57
-#: rc.cpp:57
+#: po/rc.cpp:57 rc.cpp:57
 msgid "User:"
 msgstr "Gebruiker"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:175
 #. i18n: ectx: property (text), widget (QLabel, lbPassword)
-#: po/rc.cpp:60
-#: rc.cpp:60
+#: po/rc.cpp:60 rc.cpp:60
 msgid "Pass:"
 msgstr "Doorgave:"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:192
 #. i18n: ectx: property (text), widget (QLabel, lbHost)
-#: po/rc.cpp:63
-#: rc.cpp:63
+#: po/rc.cpp:63 rc.cpp:63
 msgid "Host:"
 msgstr "Computer:"
 
 #. i18n: file: ImportPlace/selectplacedlg.ui:202
 #. i18n: ectx: property (text), widget (QLabel, lbPath)
-#: po/rc.cpp:66
-#: rc.cpp:66
+#: po/rc.cpp:66 rc.cpp:66
 msgid "Path:"
 msgstr "Pad:"
 
-#: po/rc.cpp:67
-#: rc.cpp:67
+#: po/rc.cpp:67 rc.cpp:67
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Daniël Heres"
 
-#: po/rc.cpp:68
-#: rc.cpp:68
+#: po/rc.cpp:68 rc.cpp:68
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "danielheres@gmail.com"
-

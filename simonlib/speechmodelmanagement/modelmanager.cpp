@@ -350,11 +350,11 @@ void ModelManager::buildMissingSamplesList()
 	QDir samplesDir(SpeechModelManagementConfiguration::modelTrainingsDataPath().path());
 	QStringList oldList = samplesDir.entryList(QStringList() << "*.wav");
 	
-	foreach (QString fileName, newList)
-	{
-		if ((!oldList.contains(fileName)) && (!this->missingFiles.contains(fileName)))
+	foreach (QString fileName, newList) {
+		if ((!oldList.contains(fileName+".wav")) && (!this->missingFiles.contains(fileName)))
 			missingFiles << fileName;
 	}
+	kDebug() << "Missing samples: " << missingFiles;
 }
 
 

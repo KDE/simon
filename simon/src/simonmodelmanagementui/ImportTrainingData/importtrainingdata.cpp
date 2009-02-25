@@ -19,6 +19,7 @@
 
 
 #include "importtrainingdata.h"
+#include <KDebug>
 #include <simonsound/postprocessing.h>
 #include <speechmodelmanagement/trainingmanager.h>
 // #include "coreconfiguration.h"
@@ -39,14 +40,12 @@ void ImportTrainingData::run()
 	prog=0;
 	emit progress(0,0); //waiting...
 	emit status(i18n("Collecting files..."));
-	QString wavDestdir=KStandardDirs::locateLocal("appdata", "model/training.data");// = CoreConfiguration::modelTrainingsDataPath().path()+"/";
+	QString wavDestDir=TrainingManager::getInstance()->getTrainingDir();
 
-	QDir d(wavDestdir);
+	QDir d(wavDestDir);
 	if (!d.exists())
-		if (!d.mkpath(wavDestdir))
-	{
-		emit error(i18n("Couldn't create output folder %1", wavDestdir));
-	}
+		if (!d.mkpath(wavDestDir))
+			emit error(i18n("Couldn't create output folder %1", wavDestDir));
 	
 	QStringList *dataFiles = this->searchDir(directory);
 	if (!dataFiles) return;
@@ -54,8 +53,9 @@ void ImportTrainingData::run()
 
 	emit progress(0, dataFiles->count());
 	emit status(i18n("Importing %1 Files...", dataFiles->count()));
+	kDebug() << "Sent status";
 
-	dataFiles = processSounds(*dataFiles, wavDestdir);
+	dataFiles = processSounds(*dataFiles, wavDestDir);
 	
 	if (!dataFiles) return;
 	
@@ -136,6 +136,7 @@ bool ImportTrainingData::createPrompts(QStringList dataFiles)
 		said = extractSaid(fileName);
 		train->addSample(fileName.left(fileName.lastIndexOf(".")), said.toUpper());
 	}
+	train->savePrompts();
 	return true;
 }
 
@@ -155,6 +156,7 @@ QString ImportTrainingData::extractSaid(QString source)
 	QString said = source.left(source.lastIndexOf("."));
 	said.remove(QRegExp("([0-9]|\\.|\\(|\\)|\\[|\\]|\\-)"));
 	said.replace("_", " ");
+	said.remove(QRegExp(" S$"));
 	return said.trimmed();
 }
 
@@ -171,18 +173,22 @@ QString ImportTrainingData::extractSaid(QString source)
 QStringList* ImportTrainingData::processSounds(QStringList dataFiles, 
 		QString destDir)
 {
+	kDebug() << "Entering processSounds()";
 	QString newFileName;
 	QFileInfo fInfo;
 	QStringList *newFiles = new QStringList();
 	
+	kDebug() << "Hier" << dataFiles.count();
 	for (int i=0; i < dataFiles.count(); i++)
 	{
+		kDebug() << "Importing" << i;
 		fInfo.setFile(dataFiles[i]);
 		QString dateTime = QDate::currentDate().toString ( "yyyy-MM-dd" ) +"_"+QTime::currentTime().toString("hh-mm-ss");
-		newFileName = destDir+"/"+fInfo.fileName().left(fInfo.fileName().lastIndexOf(".")).replace(" ", "_")+"_"+dateTime+".wav";
+		newFileName = destDir+"/"+fInfo.fileName().left(fInfo.fileName().lastIndexOf(".")).replace(" ", "_")+"_"+QString::number(i)+"_"+dateTime+".wav";
 
 
-		if (!pp->process(dataFiles[i], newFileName))
+		if (!pp->process(dataFiles[i], newFileName, false /*don't delete input*/,
+					true /*silent*/))
 		{
 			emit error(i18n("Couldn't process soundfiles"));
 			return NULL;
@@ -190,6 +196,7 @@ QStringList* ImportTrainingData::processSounds(QStringList dataFiles,
 		newFiles->append(newFileName);
 		emit progress(++prog);
 	}
+	kDebug() << "Files processed" << newFiles->count();
 	
 	return newFiles;
 }

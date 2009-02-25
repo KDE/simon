@@ -36,7 +36,7 @@ class SIMONSOUND_EXPORT PostProcessing{
 public:
     PostProcessing();
 
-	bool process(const QString& in, const QString& out, bool deleteIn=false);
+	bool process(const QString& in, const QString& out, bool deleteIn=false, bool silent=false);
 
     ~PostProcessing();
 
