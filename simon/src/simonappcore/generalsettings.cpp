@@ -57,15 +57,14 @@ void GeneralSettings::save()
 #ifdef Q_OS_WIN32
 	//TODO: Test
 	if (CoreConfiguration::autoStart()) {
-		QSettings settings;
-		settings.setPath("Microsoft", "Windows", QSettings::UserScope);
-		if (ui.cbStartSimonOnBoot->isChecked()) {
+		QSettings settings(QSettings::UserScope, "Microsoft", "Windows");
+		if (ui.kcfg_AutoStart->isChecked()) {
 			// Want to start on boot up
 			QString appPath = qApp->applicationFilePath();
-			settings.writeEntry("/CurrentVersion/Run/simon.exe", appPath);
+			settings.setValue("/CurrentVersion/Run/simon", appPath);
 		} else {
 			// Do not want to start on boot up
-			settings.removeEntry("/CurrentVersion/Run/simon.exe");
+			settings.remove("/CurrentVersion/Run/simon");
 		}
 	}
 #endif
