@@ -42,3 +42,4 @@ install( FILES ${adinstreamer_LIB_HDRS}
 )
  
 install( TARGETS adinstreamer DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simon )
+install( FILES adin.jconf DESTINATION ${DATA_INSTALL_DIR}/simon COMPONENT simon )
