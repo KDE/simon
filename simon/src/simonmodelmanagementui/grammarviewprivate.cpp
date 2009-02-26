@@ -39,6 +39,7 @@ GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
 	connect(GrammarManager::getInstance(), SIGNAL(structuresChanged()), this, SLOT(load()));
 
 
+	connect(&autoSaveTimer, SIGNAL(timeout()), this, SLOT(save()));
 
 	
 	connect(ui.pbImportTexts, SIGNAL(clicked()), this, SLOT(showImportWizard()));
@@ -55,7 +56,8 @@ GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)
 
 void GrammarViewPrivate::slotChanged()
 {
-	save();
+	autoSaveTimer.start(5000);
+	//save();
 }
 
 void GrammarViewPrivate::showRenameWizard()
@@ -75,6 +77,7 @@ void GrammarViewPrivate::load()
 
 void GrammarViewPrivate::save()
 {
+	autoSaveTimer.stop();
 	GrammarManager::getInstance()->setStructures(ui.kcfg_GrammarStructures->items());
 	GrammarManager::getInstance()->save();
 }

@@ -22,6 +22,7 @@
 #define GRAMMARVIEWPRIVATE_H
 
 #include "ui_grammarview.h"
+#include <QTimer>
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>
@@ -33,6 +34,7 @@ class GrammarViewPrivate : public QWidget
 Q_OBJECT
 private:
 	Ui::GrammarView ui;
+	QTimer autoSaveTimer;
 
 private slots:
 	void showRenameWizard();

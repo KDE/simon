@@ -5,9 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ksimond\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:29+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-02-26 12:02+0100\n"
 "PO-Revision-Date: 2009-02-22 16:29+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-de@lists.kde.org>\n"
@@ -241,4 +241,3 @@ msgstr "Peter Grasch"
 #, fuzzy
 #~ msgid "simon has been activated"
 #~ msgstr "simond gestartet"
-
