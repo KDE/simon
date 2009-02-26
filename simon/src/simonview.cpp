@@ -336,9 +336,6 @@ void SimonView::showRunDialog ()
 void SimonView::showAddWordDialog ( )
 {
 	AddWordView *addWordView = new AddWordView(this);
-	connect ( addWordView, SIGNAL ( addedWord() ), wordList,
-          SLOT ( filterListbyPattern() ) );
-		  
 	addWordView->show();
 }
 

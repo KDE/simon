@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simoncompositecommand\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-01-26 16:16+0100\n"
+"POT-Creation-Date: 2009-02-22 16:34+0100\n"
 "PO-Revision-Date: 2009-01-13 17:02+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -39,7 +39,7 @@ msgstr "[INF] Lade Kombinations-Kommandos von %1"
 msgid "[INF] Saving composite commands to %1"
 msgstr "[INF] Speichere Kombinations-Kommandos nach %1"
 
-#: createcompositecommandwidget.cpp:152
+#: createcompositecommandwidget.cpp:151
 msgid ""
 "Couldn't find all of the commands that make up this composited command.\n"
 "\n"

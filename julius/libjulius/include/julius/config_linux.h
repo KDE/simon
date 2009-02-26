@@ -4,12 +4,12 @@
  * @file   acconfig.h
  * 
  * <JA>
- * @brief  config.h.in ¤ò configure.in ¤«¤éÀ¸À®¤¹¤ë¤¿¤á¤Î autoconf ÍÑ¥Ø¥Ã¥À
+ * @brief  config.h.in ï¿½ï¿½ configure.in ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¤¿ï¿½ï¿½ï¿½ï¿½ autoconf ï¿½Ñ¥Ø¥Ã¥ï¿½
  *
- * ¤³¤Î¥Õ¥¡¥¤¥ë¤Ï¥½¡¼¥¹¤«¤é¥¤¥ó¥¯¥ë¡¼¥É¤µ¤ì¤ë¤³¤È¤Ï¤¢¤ê¤Þ¤»¤ó. 
- * ¼ÂºÝ¤Ë¤Ï¤³¤ÎÆâÍÆ¤Ï config.h.in ¤ËËä¤á¹þ¤Þ¤ì¤Æ¤ª¤ê¡¤
- * configure ¤Ë¤è¤Ã¤Æ config.h.in ¤«¤éÀ¸À®¤µ¤ì¤¿ config.h ¤¬
- * ¥×¥í¥°¥é¥à¤Ë¤è¤Ã¤Æ»ÈÍÑ¤µ¤ì¤Þ¤¹. 
+ * ï¿½ï¿½ï¿½Î¥Õ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é¥¤ï¿½ó¥¯¥ë¡¼ï¿½É¤ï¿½ï¿½ï¿½ï¿½ë¤³ï¿½È¤Ï¤ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½. 
+ * ï¿½ÂºÝ¤Ë¤Ï¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¤ï¿½ config.h.in ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½Æ¤ï¿½ï¿½ê¡¤
+ * configure ï¿½Ë¤ï¿½ï¿½Ã¤ï¿½ config.h.in ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì¤¿ config.h ï¿½ï¿½
+ * ï¿½×¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¤ï¿½ï¿½Ã¤Æ»ï¿½ï¿½Ñ¤ï¿½ï¿½ï¿½ï¿½Þ¤ï¿½. 
  *
  * @sa config.h, config.h.in, configure, configure.in
  * </JA>
@@ -76,7 +76,7 @@
  * a cost of LM cache area on word head.
  * 
  */
-#define LOWMEM2 1
+/* #undef LOWMEM2 */
 
 /**
  * If defined, use word-pair approximation on the 1st pass instead of
@@ -133,7 +133,7 @@
  * increasing acoustic matching cost.
  * 
  */
-/* #undef PASS2_STRICT_IWCD */
+#define PASS2_STRICT_IWCD 1
 
 /**
  * Enable score envelope beaming on the hypothesis scoring in the 2nd pass.
@@ -143,10 +143,10 @@
 #define SCAN_BEAM 1
 
 /// Set the default method of Gaussian pruning for tied-mixture model to safe algorithm
-/* #undef GPRUNE_DEFAULT_SAFE */
+#define GPRUNE_DEFAULT_SAFE 1
 
 /// Set the default method of Gaussian pruning for tied-mixture model to beam algorithm
-#define GPRUNE_DEFAULT_BEAM 1
+/* #undef GPRUNE_DEFAULT_BEAM */
 
 /**
  * Enables confidence scoring for the output words.  This will be defined

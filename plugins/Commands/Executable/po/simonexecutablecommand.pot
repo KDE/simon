@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-01-13 10:15+0100\n"
+"POT-Creation-Date: 2009-02-22 16:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,11 +29,11 @@ msgstr ""
 msgid "Working directory"
 msgstr ""
 
-#: executablecommandmanager.cpp:63
+#: executablecommandmanager.cpp:68
 msgid "[INF] Loading executable commands from %1"
 msgstr ""
 
-#: executablecommandmanager.cpp:73
+#: executablecommandmanager.cpp:78
 msgid "[INF] Saving executable commands to %1"
 msgstr ""
 

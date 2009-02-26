@@ -40,9 +40,13 @@ PostProcessing::PostProcessing()
  * @param out Where to save it to
  * @return success
  */
-bool PostProcessing::process(const QString& in, const QString& out, bool deleteIn)
+bool PostProcessing::process(const QString& in, const QString& out, bool deleteIn, bool silent)
 {
-	KProgressDialog *progDialog = new KProgressDialog(0, i18n("Post-Processing"), i18n("Filter a being applied..."));
+	KProgressDialog *progDialog;
+	if (!silent) {
+		progDialog = new KProgressDialog(0, i18n("Post-Processing"), 
+				i18n("Filter a being applied..."));
+	}
 	if (QFile::exists(out) && (!QFile::remove(out)))
 	{
 		KMessageBox::error(0, i18n("Couldn't overwrite %1.\n\nPlease check if you have the needed permissons.", out));
@@ -51,8 +55,10 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
 	
  	QStringList filters = SoundConfiguration::processingFilters();
 	QString filter;
-	progDialog->progressBar()->setMaximum(filter.count()+1);
-	QCoreApplication::processEvents();
+	if (!silent) {
+		progDialog->progressBar()->setMaximum(filter.count()+1);
+		QCoreApplication::processEvents();
+	}
 	for (int j=0; j < filters.count(); j++)
 	{
 		QString execStr = filters.at(j);
@@ -67,12 +73,13 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
 			KMessageBox::error(0, i18n("Couldn't process \"%1\" to \"%2\". Please check if the command:\n\"%4\". (Return value: %3)", in, out, ret, execStr));
 			return NULL;
 		}
-		progDialog->progressBar()->setValue(j+1);
-		QCoreApplication::processEvents();
+		if (!silent) {
+			progDialog->progressBar()->setValue(j+1);
+			QCoreApplication::processEvents();
+		}
 	}
 
-	if (!QFile::exists(out)) //if there are no filters or they don't copy it to the output
-	{
+	if (!QFile::exists(out)) { //if there are no filters or they don't copy it to the output
 		if (!QFile::copy(in, out))
 		{
 			KMessageBox::error(0, i18n("Couldn't copy %1 to %2. Please check if you have all the needed permissions.", in, out));
@@ -80,16 +87,18 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
 		}
 	}
 
-	if (deleteIn)
-		if (!QFile::remove(in))
-		{
+	if (deleteIn) {
+		if (!QFile::remove(in)) {
 			KMessageBox::error(0, i18n("Couldn't remove %1", in));
 		}
+	}
 
-	QCoreApplication::processEvents();
-	progDialog->progressBar()->setValue(progDialog->progressBar()->maximum());
-	progDialog->close();
-	progDialog->deleteLater();
+	if (!silent) {
+		QCoreApplication::processEvents();
+		progDialog->progressBar()->setValue(progDialog->progressBar()->maximum());
+		progDialog->close();
+		progDialog->deleteLater();
+	}
 
 	return true;
 }

@@ -77,10 +77,17 @@ void AddWordView::accept()
 	Logger::log(i18n("[INF] Adding the new Word to the Model..."));
 	Logger::log(i18n("[INF] New word: ")+word);
 	
+	int recordingCount=0;
+	if (record1->hasSample()) {
+		promptsToAdd.insert(record1->getFileName(), record1->getPrompt().toUpper());
+		recordingCount++;
+	}
+	if (record2->hasSample()) {
+		promptsToAdd.insert(record2->getFileName(), record2->getPrompt().toUpper());
+		recordingCount++;
+	}
 	listToAdd->append(Word(word, field("wordPronunciation").toString(),
-		     field("wordTerminal").toString(), 2 /* 2 recordings */));
-	promptsToAdd.insert(record1->getFileName(), record1->getPrompt().toUpper());
-	promptsToAdd.insert(record2->getFileName(), record2->getPrompt().toUpper());
+		     field("wordTerminal").toString(), recordingCount));
 	
 	if (wordsToAdd.count() > 0)
 	{
@@ -190,6 +197,13 @@ void AddWordView::commitList()
 		KMessageBox::error(this, i18n("Couldn't save prompts"));
 		
 	promptsToAdd.clear();
+
+	for (int i=0; i < listToAdd->count(); i++)
+	{
+		Word w = listToAdd->takeAt(i);
+		w.setProbability(TrainingManager::getInstance()->getProbability(w.getWord()));
+		listToAdd->insert(i, w);
+	}
 
 	WordListManager::getInstance()->addWords(listToAdd, false /*sorted*/, false /*shadowed*/);
 	listToAdd = new WordList();

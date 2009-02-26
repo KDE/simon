@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-12-09 09:08+0100\n"
+"POT-Creation-Date: 2009-02-22 16:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,25 +36,25 @@ msgid ""
 "wether we want to start simond automatically after it quit unexpectedly."
 msgstr ""
 
-#. i18n: file: config/ksimondconfiguration.ui:13
+#. i18n: file: config/ksimondconfiguration.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, KSimondSettings)
 #: po/rc.cpp:12 rc.cpp:12
 msgid "Form"
 msgstr ""
 
-#. i18n: file: config/ksimondconfiguration.ui:19
+#. i18n: file: config/ksimondconfiguration.ui:20
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoStart)
 #: po/rc.cpp:15 rc.cpp:15
-msgid "Start ksimond on KDE start"
+msgid "Start ksimond when logging in"
 msgstr ""
 
-#. i18n: file: config/ksimondconfiguration.ui:26
+#. i18n: file: config/ksimondconfiguration.ui:27
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoStartSimond)
 #: po/rc.cpp:18 rc.cpp:18
 msgid "Start simond when ksimond starts"
 msgstr ""
 
-#. i18n: file: config/ksimondconfiguration.ui:33
+#. i18n: file: config/ksimondconfiguration.ui:34
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoReStartSimond)
 #: po/rc.cpp:21 rc.cpp:21
 msgid "Restart simond if it quits unexpectedly"
@@ -70,39 +70,39 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: src/ksimondview.cpp:41
+#: src/ksimondview.cpp:47
 msgid "simond"
 msgstr ""
 
-#: src/ksimondview.cpp:44 src/ksimondview.cpp:71
+#: src/ksimondview.cpp:50 src/ksimondview.cpp:77
 msgid "Start simond"
 msgstr ""
 
-#: src/ksimondview.cpp:51 src/ksimondview.cpp:72
+#: src/ksimondview.cpp:57 src/ksimondview.cpp:78
 msgid "Restart simond"
 msgstr ""
 
-#: src/ksimondview.cpp:59 src/ksimondview.cpp:73
+#: src/ksimondview.cpp:65 src/ksimondview.cpp:79
 msgid "Stop simond"
 msgstr ""
 
-#: src/ksimondview.cpp:66 src/ksimondview.cpp:74
+#: src/ksimondview.cpp:72 src/ksimondview.cpp:80
 msgid "Configuration"
 msgstr ""
 
-#: src/ksimondview.cpp:102
+#: src/ksimondview.cpp:104
 msgid "simond is already running"
 msgstr ""
 
-#: src/ksimondview.cpp:123
+#: src/ksimondview.cpp:125
 msgid "simond stopped"
 msgstr ""
 
-#: src/ksimondview.cpp:138
+#: src/ksimondview.cpp:140
 msgid "simond started"
 msgstr ""
 
-#: src/ksimondview.cpp:165
+#: src/ksimondview.cpp:171
 msgid ""
 "Couldn't start simond.\n"
 "\n"
@@ -111,23 +111,23 @@ msgid ""
 "Command: \"%1\""
 msgstr ""
 
-#: src/ksimondview.cpp:169
+#: src/ksimondview.cpp:175
 msgid "simond crashed. (Status: %1)"
 msgstr ""
 
-#: src/ksimondview.cpp:173
+#: src/ksimondview.cpp:179
 msgid "Timeout."
 msgstr ""
 
-#: src/ksimondview.cpp:176
+#: src/ksimondview.cpp:182
 msgid "Couldn't communicate with simond: Write failed."
 msgstr ""
 
-#: src/ksimondview.cpp:179
+#: src/ksimondview.cpp:185
 msgid "Couldn't communicate with simond: Read failed."
 msgstr ""
 
-#: src/ksimondview.cpp:182
+#: src/ksimondview.cpp:188
 msgid "Unknown Error"
 msgstr ""
 

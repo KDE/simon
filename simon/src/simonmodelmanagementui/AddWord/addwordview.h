@@ -82,7 +82,7 @@ class SIMONMODELMANAGEMENTUI_EXPORT AddWordView : public QWizard
 		AddWordView(QWidget *parent);
 		~AddWordView();
     
-        void createWord(QString word);
+		void createWord(QString word);
 };
 
 #endif

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: simonplacecommand_de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2008-12-09 09:22+0100\n"
+"POT-Creation-Date: 2009-02-22 16:36+0100\n"
 "PO-Revision-Date: 2008-11-28 17:48+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -55,11 +55,11 @@ msgstr "Ort"
 msgid "URL"
 msgstr "URL"
 
-#: placecommandmanager.cpp:63
+#: placecommandmanager.cpp:69
 msgid "[INF] Loading place commands from %1"
 msgstr "[INF] Lade Ort Kommandos von %1"
 
-#: placecommandmanager.cpp:73
+#: placecommandmanager.cpp:79
 msgid "[INF] Saving place commands to %1"
 msgstr "[INF] Speichere Ort Kommandos zu %1"
 

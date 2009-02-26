@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.2\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-01-13 10:15+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-02-22 16:35+0100\n"
 "PO-Revision-Date: 2009-01-14 12:03+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -27,11 +28,11 @@ msgstr "Uitvoerbaar bestand"
 msgid "Working directory"
 msgstr "Werkmap"
 
-#: executablecommandmanager.cpp:63
+#: executablecommandmanager.cpp:68
 msgid "[INF] Loading executable commands from %1"
 msgstr "[INF] Uitvoerbare commando's laden van %1"
 
-#: executablecommandmanager.cpp:73
+#: executablecommandmanager.cpp:78
 msgid "[INF] Saving executable commands to %1"
 msgstr "[INF] Uitvoerbare commando's opslaan naar %1"
 
@@ -47,11 +48,14 @@ msgstr "Programma importeren"
 msgid ""
 "This wizard will guide you through the process of adding a new program.\n"
 "\n"
-"Simon will query KDE for a list of installed programs and you will then be able to choose the program you want to assign a command to from this list."
+"Simon will query KDE for a list of installed programs and you will then be "
+"able to choose the program you want to assign a command to from this list."
 msgstr ""
 "Deze wizard helpt u met het toevoegen van een nieuw programma.\n"
 "\n"
-"Simon zal KDE vragen voor een lijst van geïnstalleerde programma's en dan kunt u een programma kiezen die u wilt gebruiken voor een commando uit de lijst."
+"Simon zal KDE vragen voor een lijst van geïnstalleerde programma's en dan "
+"kunt u een programma kiezen die u wilt gebruiken voor een commando uit de "
+"lijst."
 
 #: ImportProgram/importprogramwizard.cpp:96
 msgid "Added the new Program"
@@ -73,64 +77,54 @@ msgstr "%1 (%2)"
 #. i18n: ectx: property (windowTitle), widget (QWidget, CreateExecutableCommandWidget)
 #. i18n: file: ImportProgram/selectprogramdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, SelectProgramDlg)
-#: po/rc.cpp:3
-#: po/rc.cpp:24
-#: rc.cpp:3
-#: rc.cpp:24
+#: po/rc.cpp:3 po/rc.cpp:24 rc.cpp:3 rc.cpp:24
 msgid "Form"
 msgstr "Formulier"
 
 #. i18n: file: createexecutablecommandwidget.ui:19
 #. i18n: ectx: property (text), widget (QCommandLinkButton, cbImportProgram)
-#: po/rc.cpp:6
-#: rc.cpp:6
+#: po/rc.cpp:6 rc.cpp:6
 msgid "Import Program"
 msgstr "Programma importeren"
 
 #. i18n: file: createexecutablecommandwidget.ui:22
 #. i18n: ectx: property (description), widget (QCommandLinkButton, cbImportProgram)
-#: po/rc.cpp:9
-#: rc.cpp:9
+#: po/rc.cpp:9 rc.cpp:9
 msgid "This wizard will help you to add commands for installed programs easily"
-msgstr "Deze wizard zal helpen om commando's toe te voegen voor geïnstalleerde programma's"
+msgstr ""
+"Deze wizard zal helpen om commando's toe te voegen voor geïnstalleerde "
+"programma's"
 
 #. i18n: file: createexecutablecommandwidget.ui:29
 #. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_2)
-#: po/rc.cpp:12
-#: rc.cpp:12
+#: po/rc.cpp:12 rc.cpp:12
 msgid "Manual"
 msgstr "Handmatig"
 
 #. i18n: file: createexecutablecommandwidget.ui:35
 #. i18n: ectx: property (description), widget (QCommandLinkButton, commandLinkButton_2)
-#: po/rc.cpp:15
-#: rc.cpp:15
+#: po/rc.cpp:15 rc.cpp:15
 msgid "Configure the needed parameters manually"
 msgstr "Configureer de benodigde parameters handmatig"
 
 #. i18n: file: createexecutablecommandwidget.ui:47
 #. i18n: ectx: property (text), widget (QLabel, label_12)
-#: po/rc.cpp:18
-#: rc.cpp:18
+#: po/rc.cpp:18 rc.cpp:18
 msgid "Executable:"
 msgstr "Uitvoerbaar bestand:"
 
 #. i18n: file: createexecutablecommandwidget.ui:64
 #. i18n: ectx: property (text), widget (QLabel, label_13)
-#: po/rc.cpp:21
-#: rc.cpp:21
+#: po/rc.cpp:21 rc.cpp:21
 msgid "Working Directory:"
 msgstr "Werkmap:"
 
-#: po/rc.cpp:25
-#: rc.cpp:25
+#: po/rc.cpp:25 rc.cpp:25
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Daniël Heres"
 
-#: po/rc.cpp:26
-#: rc.cpp:26
+#: po/rc.cpp:26 rc.cpp:26
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "danielheres@gmail.com"
-
