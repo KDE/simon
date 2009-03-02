@@ -161,8 +161,6 @@ void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
 
 	if (status != SimonControl::ConnectedActivated) return;
 	
-	kDebug() << "Recognized: " << word;
-	
 	word = word.remove("<s>");
 	word = word.remove("</s>");
 	ActionManager::getInstance()->process(word.trimmed());
@@ -181,7 +179,6 @@ void SimonControl::recognitionStatusChanged(RecognitionControl::RecognitionStatu
 		
 		case RecognitionControl::Started:
 		{
-			kDebug() << "Recognitioncontrol reports that it has been started";
 			setStatus(SimonControl::ConnectedActivated);
 			break;
 		}
@@ -194,7 +191,6 @@ void SimonControl::recognitionStatusChanged(RecognitionControl::RecognitionStatu
 		
 		case RecognitionControl::Resumed:
 		{
-			kDebug() << "Recognitioncontrol reports that it has been resumed";
 			setStatus(SimonControl::ConnectedActivated);
 			break;
 		}

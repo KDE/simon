@@ -72,7 +72,7 @@ void SimondUserConfiguration::initDb()
 		ui.tvUser->setModel(NULL); //empty table
 		KMessageBox::information(this, db->getDatabase());
 	} else {
-		kWarning() << "Db has been changed";
+		kDebug() << "Db has been changed";
 		activateUserConfiguration(true);
 		ui.tvUser->setModel(db->getUsers());
 	}

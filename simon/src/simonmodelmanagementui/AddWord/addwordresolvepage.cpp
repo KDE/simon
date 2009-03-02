@@ -125,7 +125,7 @@ void AddWordResolvePage::initializePage()
 
 void AddWordResolvePage::fetchSimilar()
 {
-	kWarning() << "Fetching similar words";
+	kDebug() << "Fetching similar words";
 	disconnect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
 	disconnect(ui.twSuggestions, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(suggest()));
 	WordListManager::SearchType sType = (ui.cbFuzzySearch->isChecked()) ? WordListManager::Fuzzy : WordListManager::ExactMatch;

@@ -806,7 +806,7 @@ void ClientSocket::sendSample(QString sampleName)
 	
 	if (sample.isNull())
 	{
-		kWarning() << "Can not find sample! Sending error message";
+		kDebug() << "Can not find sample! Sending error message";
 		sendCode(Simond::ErrorRetrievingTrainingsSample);
 		synchronisationManager->abort();
 		synchronisationDone();

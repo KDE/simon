@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-26 12:02+0100\n"
+"POT-Creation-Date: 2009-03-02 08:55+0100\n"
 "PO-Revision-Date: 2009-01-13 13:03+0100\n"
 "Last-Translator: Daniël <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -1529,32 +1529,32 @@ msgstr "Herkenning: %1"
 msgid "Modelmanagement: %1"
 msgstr "Modelbeheer: %1"
 
-#: src/simonappcore/simoncontrol.cpp:228
+#: src/simonappcore/simoncontrol.cpp:224
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:123
 msgid "[INF]"
 msgstr "[INF]"
 
-#: src/simonappcore/simoncontrol.cpp:228
+#: src/simonappcore/simoncontrol.cpp:224
 msgid "Connected to the Server"
 msgstr "Verbonden met de server"
 
-#: src/simonappcore/simoncontrol.cpp:242
+#: src/simonappcore/simoncontrol.cpp:238
 msgid "[INF] Connection lost"
 msgstr "[INF] Verbinding verbroken"
 
-#: src/simonappcore/simoncontrol.cpp:252
+#: src/simonappcore/simoncontrol.cpp:248
 msgid "[INF] Connecting aborted"
 msgstr "[INF] Verbinding afgebroken"
 
-#: src/simonappcore/simoncontrol.cpp:283
+#: src/simonappcore/simoncontrol.cpp:279
 msgid "[INF] simon activated"
 msgstr "[INF] simon geactiveerd"
 
-#: src/simonappcore/simoncontrol.cpp:289
+#: src/simonappcore/simoncontrol.cpp:285
 msgid "[INF] Continuing recognition"
 msgstr "[INF] Voortgezette herkenning"
 
-#: src/simonappcore/simoncontrol.cpp:307
+#: src/simonappcore/simoncontrol.cpp:303
 msgid "[INF] simon deactivated"
 msgstr "[INF] simon gedeactiveerd"
 
@@ -2510,7 +2510,7 @@ msgstr "[INF] Configuratie-modules laden..."
 msgid "Loading program..."
 msgstr "Programma laden..."
 
-#: src/simonview.cpp:114 src/simonview.cpp:511
+#: src/simonview.cpp:114 src/simonview.cpp:509
 msgid "simon - Deactivated"
 msgstr "simon - Gedeactiveerd"
 
@@ -2542,13 +2542,13 @@ msgstr "\"Uitvoeren\" laden"
 msgid "Loading Interface..."
 msgstr "Interface laden..."
 
-#: src/simonview.cpp:178 src/simonview.cpp:202 src/simonview.cpp:424
-#: src/simonview.cpp:442
+#: src/simonview.cpp:178 src/simonview.cpp:202 src/simonview.cpp:422
+#: src/simonview.cpp:440
 msgid "Connect"
 msgstr "Verbinden"
 
-#: src/simonview.cpp:187 src/simonview.cpp:438 src/simonview.cpp:487
-#: src/simonview.cpp:501
+#: src/simonview.cpp:187 src/simonview.cpp:436 src/simonview.cpp:485
+#: src/simonview.cpp:499
 msgid "Activate"
 msgstr "Activeren"
 
@@ -2560,7 +2560,7 @@ msgstr "Verbinding verbreken"
 msgid "Synchronize"
 msgstr "Synchroniseren"
 
-#: src/simonview.cpp:400
+#: src/simonview.cpp:398
 msgid ""
 "Couldn't start recognition because the system reports that the recognition "
 "is not ready.\n"
@@ -2572,55 +2572,55 @@ msgid ""
 "used for the recognition."
 msgstr ""
 
-#: src/simonview.cpp:421
+#: src/simonview.cpp:419
 msgid "Disconnected"
 msgstr "Verbinding verbroken"
 
-#: src/simonview.cpp:435
+#: src/simonview.cpp:433
 msgid "Connection to server lost"
 msgstr "Verbinding met server verloren"
 
-#: src/simonview.cpp:448
+#: src/simonview.cpp:446
 msgid "Connecting..."
 msgstr "Verbinden..."
 
-#: src/simonview.cpp:470
+#: src/simonview.cpp:468
 msgid "Connected: Deactivating..."
 msgstr "Verbonden; deactiveren..."
 
-#: src/simonview.cpp:472
+#: src/simonview.cpp:470
 msgid "Deactivating..."
 msgstr "Deactiveren..."
 
-#: src/simonview.cpp:484
+#: src/simonview.cpp:482
 msgid "Connected but Deactivated"
 msgstr "Verbonden maar gedeactiveerd"
 
-#: src/simonview.cpp:509
+#: src/simonview.cpp:507
 msgid "simon has been deactivated"
 msgstr "simon is gedeactiveerd"
 
-#: src/simonview.cpp:517
+#: src/simonview.cpp:515
 msgid "Connected; Activating..."
 msgstr "Verbonden; Activeren"
 
-#: src/simonview.cpp:519 src/simonview.cpp:522
+#: src/simonview.cpp:517 src/simonview.cpp:520
 msgid "Activating..."
 msgstr "Activeren"
 
-#: src/simonview.cpp:527
+#: src/simonview.cpp:525
 msgid "Connected and Activated"
 msgstr "Verbonden en geactiveerd"
 
-#: src/simonview.cpp:531 src/simonview.cpp:543
+#: src/simonview.cpp:529 src/simonview.cpp:541
 msgid "Activated"
 msgstr "Geactiveerd"
 
-#: src/simonview.cpp:549
+#: src/simonview.cpp:547
 msgid "simon has been activated"
 msgstr "simon is geactiveerd"
 
-#: src/simonview.cpp:567
+#: src/simonview.cpp:565
 msgid ""
 "If you quit the application the connection to the server will be closed and "
 "you will no longer be able to dictate texts or use command.\n"
@@ -2633,7 +2633,7 @@ msgstr ""
 "\n"
 "Afsluiten?"
 
-#: src/simonview.cpp:599
+#: src/simonview.cpp:597
 msgid "[INF] Quitting..."
 msgstr "[INF] Afsluiten..."
 
