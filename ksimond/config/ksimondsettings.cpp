@@ -51,7 +51,6 @@ void KSimondSettings::save()
 	KCModule::save();
 
 #ifdef Q_OS_WIN32
-	//TODO: Test
 	QSettings settings(QSettings::UserScope, "Microsoft", "Windows");
 	if (ui.kcfg_AutoStart->isChecked()) {
 		// Want to start on boot up
@@ -61,6 +60,7 @@ void KSimondSettings::save()
 		// Do not want to start on boot up
 		settings.remove("/CurrentVersion/Run/ksimond");
 	}
+	settings.sync();
 #endif
 }
 

@@ -82,7 +82,6 @@ void GeneralSettings::save()
 	config->sync();
 
 #ifdef Q_OS_WIN32
-	//TODO: Test
 	QSettings settings(QSettings::UserScope, "Microsoft", "Windows");
 	if (ui.kcfg_AutoStart->isChecked()) {
 		// Want to start on boot up
