@@ -1,0 +1,42 @@
+# Copyright (c) 1991-2005 Kawahara Lab., Kyoto University
+# Copyright (c) 2000-2005 Shikano Lab., Nara Institute of Science and Technology
+# Copyright (c) 2005      Julius project team, Nagoya Institute of Technology
+# All rights reserved
+#
+# Example of Runtime Configuration File for Julian rev.3.5
+#
+# 1) NOTICE: relative paths must be relative to THIS FILE.
+#	     Current working directory does not affect.
+# 2) Blank lines and comments after '#' are ignored.
+#    Use `\#' to specify `#' in an argument, 
+# 3) Each line should be shorter than 512 bytes.
+# 4) Syntax of each arguments are same as corresponding command options.
+# 5) The commented-out values in this file are default values in Julian.
+#
+
+######################################################################
+#### Speech Input Source
+######################################################################
+#-nostrip		# switch OFF dropping of invalid input segment.
+                        # (default: strip off invalid segment (0 sequence etc.)
+#-zmean			# enable DC offset removal (invalid for mfcfile input)
+
+######################################################################
+#### Speech Detection
+######################################################################
+#-nosegment		# turn off speech detection by level and zero-cross
+			# (default: on for mic or adinnet, off for file)
+#-lv 2000		# threshold of input level (0-32767)
+#-headmargin 300	# head margin of input segment (msec)
+#-tailmargin 400	# tail margin of input segment (msec)
+#-zc 60			# threshold of number of zero-cross in a second
+
+######################################################################
+#### Acoustic Analysis
+######################################################################
+#-48			# Record input with 48kHz sampling, and 
+			# down-sample it to 16kHz on-the-fly. 
+			# This option is valid for 16kHz model only.
+
+# See adintool manpage for more
+# EOF

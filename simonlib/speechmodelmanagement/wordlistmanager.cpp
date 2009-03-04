@@ -965,8 +965,9 @@ WordList* WordListManager::searchForWords(WordList *list, const QString& word, S
 		if (searchType == WordListManager::Fuzzy)
 		{
 			Sonnet::Speller spell;
-			wordsToSearchFor.append(spell.suggest(word));
-			kDebug() << wordsToSearchFor;
+			QStringList suggestions = spell.suggest(word);
+			foreach (const QString& suggestion, suggestions)
+      			wordsToSearchFor.append(suggestion);
 		}
 		
 		WordList::const_iterator i = list->constBegin();

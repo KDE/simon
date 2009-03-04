@@ -1,5 +1,6 @@
 include(FindQt4)
 include(KDE4Macros)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../cmake ${CMAKE_MODULE_PATH})
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)

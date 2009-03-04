@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:10+0100\n"
+"POT-Creation-Date: 2009-03-02 08:55+0100\n"
 "PO-Revision-Date: 2009-01-13 13:03+0100\n"
 "Last-Translator: Daniël <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -904,7 +904,7 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, TrainMain)
-#: po/rc.cpp:441 src/simonmodelmanagementui/AddWord/addwordrecordpage.cpp:87
+#: po/rc.cpp:441 src/simonmodelmanagementui/AddWord/addwordrecordpage.cpp:92
 #: src/simonmodelmanagementui/trainingview.cpp:25
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:48
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:155
@@ -1529,32 +1529,32 @@ msgstr "Herkenning: %1"
 msgid "Modelmanagement: %1"
 msgstr "Modelbeheer: %1"
 
-#: src/simonappcore/simoncontrol.cpp:228
+#: src/simonappcore/simoncontrol.cpp:224
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:123
 msgid "[INF]"
 msgstr "[INF]"
 
-#: src/simonappcore/simoncontrol.cpp:228
+#: src/simonappcore/simoncontrol.cpp:224
 msgid "Connected to the Server"
 msgstr "Verbonden met de server"
 
-#: src/simonappcore/simoncontrol.cpp:242
+#: src/simonappcore/simoncontrol.cpp:238
 msgid "[INF] Connection lost"
 msgstr "[INF] Verbinding verbroken"
 
-#: src/simonappcore/simoncontrol.cpp:252
+#: src/simonappcore/simoncontrol.cpp:248
 msgid "[INF] Connecting aborted"
 msgstr "[INF] Verbinding afgebroken"
 
-#: src/simonappcore/simoncontrol.cpp:283
+#: src/simonappcore/simoncontrol.cpp:279
 msgid "[INF] simon activated"
 msgstr "[INF] simon geactiveerd"
 
-#: src/simonappcore/simoncontrol.cpp:289
+#: src/simonappcore/simoncontrol.cpp:285
 msgid "[INF] Continuing recognition"
 msgstr "[INF] Voortgezette herkenning"
 
-#: src/simonappcore/simoncontrol.cpp:307
+#: src/simonappcore/simoncontrol.cpp:303
 msgid "[INF] simon deactivated"
 msgstr "[INF] simon gedeactiveerd"
 
@@ -1589,7 +1589,7 @@ msgstr ""
 msgid " deaktivieren?"
 msgstr ""
 
-#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:224
+#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:227
 msgid ""
 "The search for similar words yielded more than 1000 results.\n"
 "\n"
@@ -1608,36 +1608,36 @@ msgstr "[INF] Het woord aan model toevoegen..."
 msgid "[INF] New word: "
 msgstr "[INF] Nieuw woord: "
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:100
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:107
 msgid "[INF] Added Word: "
 msgstr "[INF] Toegevoegd woord: "
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:110
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:117
 msgid ""
 "Do you want to add the words that have been completely described up until "
 "now?"
 msgstr ""
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:163
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:170
 msgid "Word Added"
 msgstr "Woord toegevoegd"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:166
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:173
 msgid ""
 "The needed data has been collected.\n"
 "\n"
 "Simon can now \"learn\" the new word."
 msgstr ""
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:186
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:193
 msgid "Couldn't add %1 to the Prompts-Table"
 msgstr "Kon %1 niet aan aanvraag-tabel toevoegen"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:190
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:197
 msgid "Couldn't save prompts"
 msgstr "Aanvragen niet opgeslagen"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:201
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:215
 msgid ""
 "The word \"%1\" appears to be missing in your language model.\n"
 "\n"
@@ -1861,7 +1861,7 @@ msgstr ""
 msgid "Analysis running..."
 msgstr "Analyseren..."
 
-#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:41
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:42
 msgid "Collecting files..."
 msgstr "Bestanden verzamelen..."
 
@@ -1869,7 +1869,7 @@ msgstr "Bestanden verzamelen..."
 msgid "Couldn't create output folder %1"
 msgstr "Kon uitvoermap %1 niet aanmaken"
 
-#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:56
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:55
 msgid "Importing %1 Files..."
 msgstr "%1 bestanden importeren..."
 
@@ -1877,7 +1877,7 @@ msgstr "%1 bestanden importeren..."
 msgid "Creating automatic transcriptions..."
 msgstr "Automatische transcripties aanmaken..."
 
-#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:187
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:193
 msgid "Couldn't process soundfiles"
 msgstr "Geluidsbestanden konden niet verwerkt worden"
 
@@ -2012,11 +2012,11 @@ msgstr ""
 msgid "Merging..."
 msgstr "Samenvoegen..."
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:47
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:48
 msgid "Protocol:"
 msgstr "Protocol:"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:52
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:53
 msgid ""
 "The sample \"%1\" could not be found neither on the local computer nor the "
 "server.\n"
@@ -2026,11 +2026,11 @@ msgstr ""
 "Het voorbeeld \"%1\" kon niet worden gevonden op de locale computer en ook "
 "niet op de server.\\nVan de trainings-database verwijderen?"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:66
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:67
 msgid "Couldn't remove Sample from the Trainingscorpus"
 msgstr "Kon voorbeeld niet verwijderen uit trainings-corpus"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:75
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:76
 msgid ""
 "The word \"%1\" is used in your training-samples but is not contained in "
 "your wordlist.\n"
@@ -2042,11 +2042,7 @@ msgstr ""
 "\n"
 "Woord nu toevoegen?"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:78
-msgid "Sorry this is not yet implemented"
-msgstr "Excuses - dit is nog niet geïmplementeerd"
-
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:83
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:89
 msgid ""
 "Your grammar uses the undefined terminal \"%1\".\n"
 "\n"
@@ -2058,7 +2054,7 @@ msgstr ""
 "Voeg het woord toe dat deze terminal gebruikt of verwijder de structu(u)r"
 "(en) met de terminal uit je grammatica."
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:88
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:94
 msgid ""
 "The Phoneme \"%1\" is undefined.\n"
 "\n"
@@ -2068,42 +2064,42 @@ msgstr ""
 "\n"
 "Train tenminste een woord dat het gebruikt."
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:97
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:103
 msgid ""
 "Could not store the wordlist received from the server.\n"
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:108
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:114
 msgid ""
 "Could not store the grammar received from the server.\n"
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:120
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:126
 msgid ""
 "Could not store the language description received from the server.\n"
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:132
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:138
 msgid ""
 "Could not store the trainings corpus received from the server.\n"
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:144
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:150
 msgid ""
 "Could not store the active model received from the server.\n"
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:155
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:161
 msgid ""
 "Could not store the sample %1 received from the server.\n"
 "\n"
@@ -2318,139 +2314,139 @@ msgstr ""
 "\vNu synchroniseren?"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:664
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:787
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:786
 msgid "Modell Synchronisation"
 msgstr "Modelsynchronisatie"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:664
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1256
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1254
 msgid "Initializing..."
 msgstr "Initialiseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:736
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:735
 msgid ""
 "Your speech model might have changed while you were disconnected.\n"
 "\n"
 "Do you want to start a synchronization now?"
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:747
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:746
 msgid "Version not supported"
 msgstr "Niet ondersteunde versie"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:754
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:753
 msgid "Wrong username or password."
 msgstr "Verkeerde gebruikersnaam of wachtwoord"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:762
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:761
 msgid "Access Denied."
 msgstr "Toegang afgewezen."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:772
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:771
 msgid "Synchronization already running"
 msgstr "Synchronisatie al bezig"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:780
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:779
 msgid "Couldn't abort synchronization."
 msgstr "Kon synchronisatie niet onderbreken"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:787
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:791
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:786
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:790
 msgid "Synchronizing acitve Model"
 msgstr "Actief model synchroniseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:849
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:848
 msgid "No Speech Model available: Recognition deactivated"
 msgstr "Geen spraakmodel beschikbaar: herkenning gedeactiveerd"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:861
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:860
 msgid "The server couldn't store the the active model."
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:872
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:871
 msgid "Checking Source"
 msgstr "Bron controleren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:883
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:882
 msgid "Synchronizing Training"
 msgstr "Training synchroniseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:892
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:891
 msgid "Sending Training-Corpus"
 msgstr "Training-corpus verzenden"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:903
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:902
 msgid "Loading Training"
 msgstr "Training laden"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:920
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:952
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:919
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:951
 msgid "Synchronizing Wordlist"
 msgstr "Woordenlijst synchroniseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:941
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:940
 #, fuzzy
 msgid "The server couldn't store the trainings corpus."
 msgstr "Kon voorbeeld niet verwijderen uit trainings-corpus"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:986
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1018
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:985
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1017
 msgid "Synchronizing Grammar"
 msgstr "Grammatica synchroniseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:997
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:996
 msgid "No Wordlist available"
 msgstr "Geen woordenlijst beschikbaar"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1008
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1007
 msgid "The server couldn't store the wordlist."
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1071
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1070
 msgid "The server couldn't store the grammar."
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1080
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1079
 msgid "Synchronizing Language Description"
 msgstr "Taalbeschrijving synchroniseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1122
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1121
 msgid "There seems to be no language description available."
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1133
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1132
 msgid "The server couldn't store language description."
 msgstr ""
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1157
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1175
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1156
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1174
 msgid "Synchronizing Trainings-Corpus"
 msgstr "Training-corpus synchroniseren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1202
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1200
 #, fuzzy
 msgid "The server couldn't store trainings sample."
 msgstr "Trainingstekst kon niet worden opgeslagen"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1211
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1209
 msgid "Couldn't complete Synchronization"
 msgstr "Synchronisatie incompleet"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1243
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1241
 #, fuzzy
 msgid "Couldn't restore old model"
 msgstr "Kon oude model niet herstellen"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1256
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1275
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1254
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1273
 msgid "Compiling Model"
 msgstr "Model compileren"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1277
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1275
 msgid "Model: %1"
 msgstr "Model: %1"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1360
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1358
 msgid "Couldn't retrieve Model-Compilation-Protocol"
 msgstr ""
 
@@ -2514,7 +2510,7 @@ msgstr "[INF] Configuratie-modules laden..."
 msgid "Loading program..."
 msgstr "Programma laden..."
 
-#: src/simonview.cpp:114 src/simonview.cpp:514
+#: src/simonview.cpp:114 src/simonview.cpp:509
 msgid "simon - Deactivated"
 msgstr "simon - Gedeactiveerd"
 
@@ -2546,13 +2542,13 @@ msgstr "\"Uitvoeren\" laden"
 msgid "Loading Interface..."
 msgstr "Interface laden..."
 
-#: src/simonview.cpp:178 src/simonview.cpp:202 src/simonview.cpp:427
-#: src/simonview.cpp:445
+#: src/simonview.cpp:178 src/simonview.cpp:202 src/simonview.cpp:422
+#: src/simonview.cpp:440
 msgid "Connect"
 msgstr "Verbinden"
 
-#: src/simonview.cpp:187 src/simonview.cpp:441 src/simonview.cpp:490
-#: src/simonview.cpp:504
+#: src/simonview.cpp:187 src/simonview.cpp:436 src/simonview.cpp:485
+#: src/simonview.cpp:499
 msgid "Activate"
 msgstr "Activeren"
 
@@ -2564,7 +2560,7 @@ msgstr "Verbinding verbreken"
 msgid "Synchronize"
 msgstr "Synchroniseren"
 
-#: src/simonview.cpp:403
+#: src/simonview.cpp:398
 msgid ""
 "Couldn't start recognition because the system reports that the recognition "
 "is not ready.\n"
@@ -2576,55 +2572,55 @@ msgid ""
 "used for the recognition."
 msgstr ""
 
-#: src/simonview.cpp:424
+#: src/simonview.cpp:419
 msgid "Disconnected"
 msgstr "Verbinding verbroken"
 
-#: src/simonview.cpp:438
+#: src/simonview.cpp:433
 msgid "Connection to server lost"
 msgstr "Verbinding met server verloren"
 
-#: src/simonview.cpp:451
+#: src/simonview.cpp:446
 msgid "Connecting..."
 msgstr "Verbinden..."
 
-#: src/simonview.cpp:473
+#: src/simonview.cpp:468
 msgid "Connected: Deactivating..."
 msgstr "Verbonden; deactiveren..."
 
-#: src/simonview.cpp:475
+#: src/simonview.cpp:470
 msgid "Deactivating..."
 msgstr "Deactiveren..."
 
-#: src/simonview.cpp:487
+#: src/simonview.cpp:482
 msgid "Connected but Deactivated"
 msgstr "Verbonden maar gedeactiveerd"
 
-#: src/simonview.cpp:512
+#: src/simonview.cpp:507
 msgid "simon has been deactivated"
 msgstr "simon is gedeactiveerd"
 
-#: src/simonview.cpp:520
+#: src/simonview.cpp:515
 msgid "Connected; Activating..."
 msgstr "Verbonden; Activeren"
 
-#: src/simonview.cpp:522 src/simonview.cpp:525
+#: src/simonview.cpp:517 src/simonview.cpp:520
 msgid "Activating..."
 msgstr "Activeren"
 
-#: src/simonview.cpp:530
+#: src/simonview.cpp:525
 msgid "Connected and Activated"
 msgstr "Verbonden en geactiveerd"
 
-#: src/simonview.cpp:534 src/simonview.cpp:546
+#: src/simonview.cpp:529 src/simonview.cpp:541
 msgid "Activated"
 msgstr "Geactiveerd"
 
-#: src/simonview.cpp:552
+#: src/simonview.cpp:547
 msgid "simon has been activated"
 msgstr "simon is geactiveerd"
 
-#: src/simonview.cpp:570
+#: src/simonview.cpp:565
 msgid ""
 "If you quit the application the connection to the server will be closed and "
 "you will no longer be able to dictate texts or use command.\n"
@@ -2637,9 +2633,12 @@ msgstr ""
 "\n"
 "Afsluiten?"
 
-#: src/simonview.cpp:602
+#: src/simonview.cpp:597
 msgid "[INF] Quitting..."
 msgstr "[INF] Afsluiten..."
+
+#~ msgid "Sorry this is not yet implemented"
+#~ msgstr "Excuses - dit is nog niet geïmplementeerd"
 
 #~ msgid "Start simon on KDE-start"
 #~ msgstr "Simon starten als KDE start"

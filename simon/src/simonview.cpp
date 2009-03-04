@@ -289,8 +289,6 @@ void SimonView::displayConnectionStatus(const QString &status)
 void SimonView::toggleConnection()
 {
 	SimonControl::SystemStatus status = control->getStatus();
-// 	kDebug() << "hier" << status;
-// 	KMessageBox::information(this, QString::number((int) status));
 	
 	if (status==SimonControl::Disconnected) 
 	{

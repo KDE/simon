@@ -1,5 +1,8 @@
 project(simon)
 
+cmake_minimum_required(VERSION 2.6)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+
 if(WIN32)
 SET(CPACK_GENERATOR "NSIS")
 endif(WIN32)
@@ -251,8 +254,6 @@ SET(CPACK_PACKAGE_EXECUTABLES "simon" "simon")
 
 include(CPack)
 
-cmake_minimum_required(VERSION 2.6)
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 add_subdirectory(julius)
 
 find_package(KDE4 REQUIRED)

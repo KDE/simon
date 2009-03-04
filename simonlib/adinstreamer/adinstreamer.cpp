@@ -38,6 +38,7 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 #include <KConfigGroup>
+#include <KStandardDirs>
 #include <KMessageBox>
 
 
@@ -286,7 +287,12 @@ void AdinStreamer::run()
 
 	/* create instance */
 	recog = j_recog_new();
-	jconf = j_jconf_new();
+
+	QByteArray jConfPath = KStandardDirs::locate("appdata", "adin.jconf").toUtf8();
+	jconf =  j_config_load_file_new(jConfPath.data());
+
+	if (!jconf) return;
+
 	recog->jconf = jconf;
 	
 

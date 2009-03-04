@@ -127,8 +127,6 @@ void BOMPDict::load(QString path, QString encodingName)
 }
 
 
-#include <KDebug>
 BOMPDict::~BOMPDict()
 {
-	kWarning() << "BOMP deleting";
 }

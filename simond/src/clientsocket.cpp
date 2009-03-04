@@ -174,6 +174,9 @@ void ClientSocket::processRequest()
 					synchronisationManager = new SynchronisationManager(username, this);
 					
 					sendCode(Simond::LoginSuccessful);
+
+					if (synchronisationManager->hasActiveModel())
+						recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 				} else
 					sendCode(Simond::AuthenticationFailed);
 				
@@ -803,7 +806,7 @@ void ClientSocket::sendSample(QString sampleName)
 	
 	if (sample.isNull())
 	{
-		kWarning() << "Can not find sample! Sending error message";
+		kDebug() << "Can not find sample! Sending error message";
 		sendCode(Simond::ErrorRetrievingTrainingsSample);
 		synchronisationManager->abort();
 		synchronisationDone();
@@ -868,8 +871,6 @@ void ClientSocket::slotModelCompilationError(const QString& error)
 		<< (qint64) body.count();
 	write(toWrite);
 	write(body);
-	if (!recognitionControl->isInitialized() && synchronisationManager->hasActiveModel())
-		recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 }
 
 
@@ -985,15 +986,12 @@ void ClientSocket::synchronisationDone()
 	
 	Q_ASSERT(recognitionControl);
 	
-	//FIXME: should not reinitialize recognition if active model
-	//did not change and recog is already running
 	if (!recognitionControl->isInitialized() && !modelCompilationManager->isRunning() && 
 			synchronisationManager->hasActiveModel())
 		recognitionControl->initializeRecognition(peerAddress() == QHostAddress::LocalHost);
 }
 
 
-//FIXME: commit will fail if we didn't even start the synchronisation (client has same model)
 void ClientSocket::synchronisationComplete()
 {
 	kDebug() << "Synchronisation complete";
