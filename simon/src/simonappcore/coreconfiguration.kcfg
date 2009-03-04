@@ -12,9 +12,5 @@
       <label>If we should automatically minimize simon to the tray on startup.</label>
       <default>false</default>
     </entry>
-   <entry name="AskBeforeQuit" type="Bool">
-      <label>If we should ask the user before quitting simon.</label>
-      <default>true</default>
-    </entry>
   </group>
 </kcfg>

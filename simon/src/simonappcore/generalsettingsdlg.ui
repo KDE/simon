@@ -24,7 +24,7 @@
      </property>
      <layout class="QGridLayout">
       <item row="2" column="0">
-       <widget class="QCheckBox" name="kcfg_AskBeforeQuit">
+       <widget class="QCheckBox" name="cbAskBeforeQuit">
         <property name="text">
          <string>Ask before quitting</string>
         </property>

@@ -77,7 +77,6 @@ public:
 	bool passwordProtected();
 	bool startMinimized();
 	QString adminPassword();
-	bool askBeforeQuit();
 	
 signals:
 	void guiAction(const QString& action);
