@@ -125,7 +125,6 @@ void AddWordResolvePage::initializePage()
 
 void AddWordResolvePage::fetchSimilar()
 {
-	kDebug() << "Fetching similar words";
 	disconnect(ui.twSuggestions, SIGNAL(itemSelectionChanged()), this, SLOT(suggest()));
 	disconnect(ui.twSuggestions, SIGNAL(itemDoubleClicked(QTableWidgetItem*)), this, SLOT(suggest()));
 	WordListManager::SearchType sType = (ui.cbFuzzySearch->isChecked()) ? WordListManager::Fuzzy : WordListManager::ExactMatch;
@@ -162,7 +161,8 @@ void AddWordResolvePage::fetchSimilar()
 void AddWordResolvePage::createExamples()
 {
 	if (ui.cbType->currentIndex() == -1) return;
-	if (ui.leWord->text() == wordLastUsedToGenerateExamples) return;
+	if ((ui.leWord->text() == wordLastUsedToGenerateExamples)&&
+			(sender() != ui.pbReGuess)) return;
 	
 	QString terminal = ui.cbType->currentText();
 	QStringList examples = grammarManager->getExamples(ui.leWord->text(), terminal,2);

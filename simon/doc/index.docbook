@@ -259,7 +259,7 @@ Example vocabulary (please note that the terminals here are deliberately set to 
 </table>
 </para>
 
-<sect4>
+<sect4 id="shadow_dictionary">
 <title>Shadow Dictionary</title>
 <para>
 As said above, the user should keep his vocabulary / dictionary as lean as possible. However, as a word in your vocabulary has to also have information about it's pronunciation, it would also be good to have large dictionary where you could look up the pronunciation and other characteristics of the words.
@@ -456,6 +456,21 @@ To train the acoustic model (in other words to tell him how you pronounce the ph
 
 </chapter>
 
+<chapter id="guidelines">
+<title>Guidelines</title>
+<para>This chapter lists some general guidelines that are relevant for different parts of simon.</para>
+
+<sect1 id="recording">
+<title>Recordings</title>
+<para>simon builds it's acoustic model based on transcribed samples of the users voice. Because of this, the recorded samples are of vital importance for the recognition.</para>
+
+<sect2 id="volume">
+<title>Volume</title>
+<para></para>
+</sect2>
+
+</sect1>
+</chapter>
 
 
 <chapter id="using-simon">
@@ -497,15 +512,169 @@ patent issues. -->
 <sect3 id="add_word_define">
 <title>Defining the Word</title>
 <para>
+Firstly, the user is asked which word he wants to add.
 
+<screenshot>
+<screeninfo>Select the word to add</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="add_word_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
 </para>
+
+<para>
+When the user proceeds to the next page, simon automatically tries to find as much information about the word in the <link linkend="shadow_dictionary">shadow dictionary</link> as possible.
+</para>
+
+<para>
+If the word is listed in the shadow dictionary, simon automatically fills out all the needed fields (Terminal and Pronunciation).
+
+<screenshot>
+<screeninfo>Fields automatically filled out by the Shadow Dictionary</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="add_word_2.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para> All suggestions from the shadow dictionary are listed in the table "Similar words". Per default only exact word matches are shown. However, this can be changed by checking the "Also show non-perfect matches" checkbox below the suggestion table. Using similar words you can quickly deduce the correct pronunciation of the word you are actually trying to add. See <link linkend="manual_transcription">below</link> for details.</para>
+
+<para>
+Of course this really depends on your shadow dictionary. If the shadow dictionary does not contain the word you are trying to add, the required fields have to be filled out manually.</para>
+
+<para>
+Some dictionaries that can be imported with simon (SPHINX, HTK) to not differentiate between upper and lower case. Suggestions based on those dictionaries will always be uppercase. You are of course free to change these suggestions to the correct case.
+</para>
+
+<para>Some dictionaries that can be imported with simon (SPHINX, PLS and HTK) provide no grammatical information at all. These will assign all the words to the terminal "Unknown". You should change this to something appropriate when adding those words.
+</para>
+
+<sect4>
+<title>Manually Selecting a Terminal</title>
+<para>
+The terminal of the word is defined as the grammatical category the word belongs to. This might be "Noun", "Verb" or completely new categories like "Command". For more information see the <link linkend="grammar">grammar section</link>.</para>
+<para>
+The list contains all terminals used in both your active and your shadow lexicon and in your grammar.
+</para>
+<para>
+You can add new terminals to the drop-down menu by using the green plus sign next to it.
+</para>
+</sect4>
+
+<sect4 id="manual_transcription">
+<title>Manually Providing the Phonetic Transcription</title>
+<para>
+The pronunciation is a bit trickier. simon does not need a certain type of phonetics so you are free to use any method as long as it uses only ASCII characters and no numbers. However, if you want to use a shadow dictionary and want to use it to it's full potential you should use the same phonetics as the shadow dictionary.
+</para>
+
+<para>
+If you don't know how to transcribe a word yourself you can easily use your shadow dictionary to help you with the transcription - even if the word is not listed in it. Let's say we want to add the word "Firefox" (to launch firefox) which is of course not listed in our shadow dictionary.
+</para>
+
+<para>
+(I imported the English voxforge HTK lexicon available from <ulink url="http://voxforge.org/home/downloads">voxforge</ulink> as a shadow dictionary.)
+</para>
+
+<para>
+"Firefox" is not listed in our shadow dictionary so we don't get any suggestion at all.
+<screenshot>
+<screeninfo>Adding an unknown word</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="add_word_2_2.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+However, we know that firefox sounds like "fire" and "fox" put together. So let's just open the wordlist (you can keep the wizard open) by selecting "Wordlist" from your simon main toolbar.
+</para>
+<para>
+Check the "Include unused words from the shadow lexicon" checkbox beneath the list and simon will display both active and shadow dictionary.
+</para>
+<para>
+Use the "Filter"-Box above the list to search for "Fire":
+
+<screenshot>
+<screeninfo>Adding an unknown word: Search for the Pronunciation</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="add_word_2_3.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+We can see, that the word "Fire" is transcribed as "f ay r". Now filter for "fox" instead of "Fire" and we can see that "Fox" is transcribed as "f ao k s". We can assume, that firefox should be transcribed as "f ay r f ao k s".
+</para>
+
+<para>
+Using this approach of deducing the pronunciation from parts of the word has the distinct advantage that we not only get a high quality transcription but also automatically use the same phoneme set as the other words which were correctly pulled out of the shadow dictionary.
+</para>
+
+<para>
+We can now enter the pronunciation and change the terminal to something appropriate.
+<screenshot>
+<screeninfo>Completely defined word</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="add_word_2_4.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+</sect4>
+
 </sect3>
 
 <sect3 id="add_word_record">
 <title>Training the Word</title>
 <para>
-
+To complete the wizard we need to train the word twice. (Note: If you are really sure what you are doing you can skip this)
 </para>
+<para>
+simon will try to prompt you for real-world examples. To do that, simon will automatically fetch grammar structures using the terminal of the word and substitute the generic terminals with example words from your active lexicon.
+</para>
+<para>
+For example: You have the grammar structure "Trigger Command" and have the word "Computer" of the terminal "Trigger" in your wordlist. You then add a new word "Firefox" of the terminal "Command". simon will now automatically prompt you for "Computer Firefox" as it is - according to your grammar - a valid sentence.
+</para>
+<para>
+If simon is unable to find appropriate sentences using the word (i.e.: No grammar, not enough words in your active lexicon, etc.) it will just prompt you for the word alone.
+</para>
+<para>
+Altough simon ensures that the automatically generated examples are valid, you can always override it's suggestion. Just switch to the "Examples" tab on the "Define Word" page.
+<screenshot>
+<screeninfo>Editing word examples</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="add_word_3.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+You are free to change those examples to anything you like. You can even go so far and use words that are not yet in your active lexicon as long as you add them before you synchronize the model, altough this is not recommended.
+</para>
+
+<para>
+All that is left is to record the examples.
+<screenshot>
+<screeninfo>Recording</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="add_word_4.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para>Make sure you follow the guidelines listed in the <link linkend="recording">recording section</link>.</para>
 </sect3>
 
 </sect2>
