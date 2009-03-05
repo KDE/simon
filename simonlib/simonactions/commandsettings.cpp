@@ -220,6 +220,7 @@ void CommandSettings::save()
 		newTrigger << selected->item(i)->data(Qt::UserRole+2).toString();
 	}
 	
+	kDebug() << "Selected the following plugins: " << pluginsToLoad;
 
 	foreach (KCModule *module, moduleHash.keys())
 	{
@@ -261,16 +262,15 @@ void CommandSettings::save()
 				newActions <<  QPointer<Action>(new Action(pluginsToLoad[i], newTrigger[i]));
 			}
 		}
-	}
-	//cleaning de-selected actions
-	qDeleteAll(actions);
-	actions.clear();
+		//cleaning de-selected actions
+		qDeleteAll(actions);
+		actions.clear();
 
-	actions = newActions;
-	emit actionsChanged(actions);
+		actions = newActions;
+		emit actionsChanged(actions);
+	}
 
 	cg.sync();
-
 	KCModule::save();
 	emit changed(false);
 }
@@ -320,6 +320,8 @@ void CommandSettings::load()
 
 	QStringList defaultPluginList=findDefaultPlugins(allPlugins);
 	QStringList pluginsToLoad = cg.readEntry("SelectedPlugins", defaultPluginList);
+	kDebug() << "Default list: " << defaultPluginList;
+	kDebug() << "We are loading: " << pluginsToLoad;
 
 	// ensure that trigger has the same amount of elements
 	// as pluginsToLoad
