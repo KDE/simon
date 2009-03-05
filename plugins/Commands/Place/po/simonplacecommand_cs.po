@@ -1,0 +1,207 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Pavel Fric <pavelfric@seznam.cz>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: simonplacecommand\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-02-22 16:36+0100\n"
+"PO-Revision-Date: 2009-03-03 20:18+0100\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
+"Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: ImportPlace/importplacewizard.cpp:42
+msgid "Add Place"
+msgstr "Přidat umístění"
+
+#: ImportPlace/importplacewizard.cpp:82
+msgid "Add a new Place"
+msgstr "Přidat nové umístění"
+
+#: ImportPlace/importplacewizard.cpp:86
+msgid ""
+"With this wizard you can assoziate places with commands.\n"
+"\n"
+"Both local and remote places are supported."
+msgstr ""
+"S pomocí tohoto kouzelníka můžete asociovat umístění s příkazy.\n"
+"\n"
+"Jsou podporována jak místní tak vzdálená umístění."
+
+#: ImportPlace/importplacewizard.cpp:105
+msgid "Place added"
+msgstr "Bylo přidáno umístění"
+
+#: ImportPlace/importplacewizard.cpp:108
+msgid "Press Finish to complete this wizard."
+msgstr "Stiskněte \"Dokončit\" pro dokončení tohoto kouzelníka."
+
+#: ImportPlace/selectplacepage.cpp:30
+msgid "Select Place"
+msgstr "Vybrat umístění"
+
+#: placecommand.cpp:29
+msgid "Place"
+msgstr "Umístění"
+
+#: placecommand.cpp:50
+msgid "URL"
+msgstr "Internetová adresa"
+
+#: placecommandmanager.cpp:69
+msgid "[INF] Loading place commands from %1"
+msgstr "[INF] Nahrává příkazy spojené s umístěními z %1"
+
+#: placecommandmanager.cpp:79
+msgid "[INF] Saving place commands to %1"
+msgstr "[INF] Ukládá příkazy spojené s umístěními do %1"
+
+#. i18n: file: createplacecommandwidget.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreatePlaceCommandWidget)
+#. i18n: file: ImportPlace/selectplacedlg.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, SelectPlaceDlg)
+#. i18n: file: createplacecommandwidget.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, CreatePlaceCommandWidget)
+#. i18n: file: ImportPlace/selectplacedlg.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, SelectPlaceDlg)
+#: po/rc.cpp:3 po/rc.cpp:21 rc.cpp:3 rc.cpp:21
+msgid "Form"
+msgstr "Formulář"
+
+#. i18n: file: createplacecommandwidget.ui:19
+#. i18n: ectx: property (text), widget (QCommandLinkButton, cbImportPlace)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "Import Place"
+msgstr "Zavést umístění"
+
+#. i18n: file: createplacecommandwidget.ui:22
+#. i18n: ectx: property (description), widget (QCommandLinkButton, cbImportPlace)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Using this wizard, you can import local and remote places easily."
+msgstr "S pomocí tohoto kouzelníka můžete jednoduše zavést místní a vzdálená umístění."
+
+#. i18n: file: createplacecommandwidget.ui:29
+#. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_3)
+#: po/rc.cpp:12 rc.cpp:12
+msgid "Manual"
+msgstr "Ruční"
+
+#. i18n: file: createplacecommandwidget.ui:35
+#. i18n: ectx: property (description), widget (QCommandLinkButton, commandLinkButton_3)
+#: po/rc.cpp:15 rc.cpp:15
+msgid "Configure the necessairy parameters manually"
+msgstr "Nezbytné proměnné nastavit ručně"
+
+#. i18n: file: createplacecommandwidget.ui:47
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#. i18n: file: ImportPlace/selectplacedlg.ui:78
+#. i18n: ectx: property (text), widget (QLabel, lbRemoteUrl)
+#. i18n: file: createplacecommandwidget.ui:47
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#. i18n: file: ImportPlace/selectplacedlg.ui:78
+#. i18n: ectx: property (text), widget (QLabel, lbRemoteUrl)
+#: po/rc.cpp:18 po/rc.cpp:30 rc.cpp:18 rc.cpp:30
+msgid "URL:"
+msgstr "Internetová adresa:"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:19
+#. i18n: ectx: property (text), widget (QRadioButton, rbLocalPlace)
+#: po/rc.cpp:24 rc.cpp:24
+msgid "Local Place"
+msgstr "Místní umístění"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:49
+#. i18n: ectx: property (text), widget (QRadioButton, rbRemotePlace)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "Remote URL"
+msgstr "Vzdálená internetová adresa"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:94
+#. i18n: ectx: property (title), widget (QGroupBox, gbRemoteHelp)
+#: po/rc.cpp:33 rc.cpp:33
+msgid "Help"
+msgstr "Nápověda"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:109
+#. i18n: ectx: property (text), widget (QLabel, lbProtocol)
+#: po/rc.cpp:36 rc.cpp:36
+msgid "Protocol:"
+msgstr "Zpráva:"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:120
+#. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
+#: po/rc.cpp:39 rc.cpp:39
+msgid "http"
+msgstr "http"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:125
+#. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
+#: po/rc.cpp:42 rc.cpp:42
+msgid "https"
+msgstr "https"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:130
+#. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
+#: po/rc.cpp:45 rc.cpp:45
+msgid "ftp"
+msgstr "ftp"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:135
+#. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
+#: po/rc.cpp:48 rc.cpp:48
+msgid "sftp"
+msgstr "sftp"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:140
+#. i18n: ectx: property (text), item, widget (QComboBox, cbProtocol)
+#: po/rc.cpp:51 rc.cpp:51
+msgid "smb"
+msgstr "smb"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:148
+#. i18n: ectx: property (text), widget (QCheckBox, cbAuthentification)
+#: po/rc.cpp:54 rc.cpp:54
+msgid "Use Authentication"
+msgstr "Použít potvrzení pravosti"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:158
+#. i18n: ectx: property (text), widget (QLabel, lbUser)
+#: po/rc.cpp:57 rc.cpp:57
+msgid "User:"
+msgstr "Uživatel:"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:175
+#. i18n: ectx: property (text), widget (QLabel, lbPassword)
+#: po/rc.cpp:60 rc.cpp:60
+msgid "Pass:"
+msgstr "Propustnost:"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:192
+#. i18n: ectx: property (text), widget (QLabel, lbHost)
+#: po/rc.cpp:63 rc.cpp:63
+msgid "Host:"
+msgstr "Hostitelský počítač"
+
+#. i18n: file: ImportPlace/selectplacedlg.ui:202
+#. i18n: ectx: property (text), widget (QLabel, lbPath)
+#: po/rc.cpp:66 rc.cpp:66
+msgid "Path:"
+msgstr "Cesta:"
+
+#: po/rc.cpp:67 rc.cpp:67
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Pavel Fric"
+
+#: po/rc.cpp:68 rc.cpp:68
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "pavelfric@seznam.cz"
+
+

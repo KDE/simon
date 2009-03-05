@@ -65,9 +65,6 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 bool SimonControl::startMinimized()
 { return CoreConfiguration::startMinimized(); }
 
-bool SimonControl::askBeforeQuit()
-{ return CoreConfiguration::askBeforeQuit(); }
-
 void SimonControl::loggedIn()
 {
 	SimonInfo::showMessage(i18n("User athenticated"), 1500);

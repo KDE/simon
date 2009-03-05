@@ -41,8 +41,12 @@ Q_OBJECT
 private:
 	Ui::GeneralSettingsDlg ui; //!< UI definition - made by uic from the QTDesigner .ui
 	
+private slots:
+	void slotChanged();
+
 public:
     GeneralSettings(QWidget* parent, const QVariantList& args=QVariantList());
+    void load();
     void save();
 
     ~GeneralSettings();

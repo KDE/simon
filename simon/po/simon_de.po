@@ -5,10 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simon\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-03-02 08:55+0100\n"
-"PO-Revision-Date: 2009-02-22 16:24+0100\n"
+"PO-Revision-Date: 2009-03-05 09:31+0100\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-de@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -468,10 +467,8 @@ msgstr "Datei:"
 #. i18n: ectx: property (filter), widget (KUrlRequester, urFile)
 #: po/rc.cpp:150 po/rc.cpp:167 po/rc.cpp:184 po/rc.cpp:222 rc.cpp:150
 #: rc.cpp:167 rc.cpp:184 rc.cpp:222
-msgid ""
-"*.txt *.txt.bz2 *.txt.gz | BOMP-Dictionaries (*.txt, *.txt.gz, *.txt.bz2)"
-msgstr ""
-"*.txt *.txt.bz2 *.txt.gz | BOMP-Wörterbücher (*.txt, *.txt.gz, *.txt.bz2)"
+msgid "*.txt *.txt.bz2 *.txt.gz | BOMP-Dictionaries (*.txt, *.txt.gz, *.txt.bz2)"
+msgstr "*.txt *.txt.bz2 *.txt.gz | BOMP-Wörterbücher (*.txt, *.txt.gz, *.txt.bz2)"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:52
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -932,8 +929,7 @@ msgstr "Das Wort komplett löschen"
 #. i18n: ectx: property (text), widget (QLabel, lbDeleteDesc)
 #: po/rc.cpp:412 rc.cpp:412
 msgid "This will remove the word from both active and shadow vocabulary."
-msgstr ""
-"Das Wort wird sowohl vom Aktiven- als auch vom Schattenlexikon entfernt."
+msgstr "Das Wort wird sowohl vom Aktiven- als auch vom Schattenlexikon entfernt."
 
 #. i18n: file: src/simonmodelmanagementui/RenameTerminal/renameterminalselectparameterspage.ui:37
 #. i18n: ectx: property (text), widget (QLabel, lbTerminal)
@@ -1035,7 +1031,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (KPushButton, pbImportText)
 #: po/rc.cpp:471 rc.cpp:471
 msgid "Import Text"
-msgstr "Import Text"
+msgstr "Importiere Text"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:104
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbImportDir)
@@ -1182,8 +1178,7 @@ msgstr "Ob wir automatisch zum simond verbinden sollen"
 msgid ""
 "If we should automatically activate the recognition once we get the ready-"
 "signal"
-msgstr ""
-"Ob wir automatisch die Erkennung starten sollten sobald diese verfügbar ist."
+msgstr "Ob wir automatisch die Erkennung starten sollten sobald diese verfügbar ist."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:15
 #. i18n: ectx: label, entry (JuliusdUsername), group (Recognition)
@@ -1213,15 +1208,13 @@ msgstr "Das Timeout für die Verbindung zu simond."
 #. i18n: ectx: label, entry (JuliusdServers), group (Recognition)
 #: po/rc.cpp:561 rc.cpp:561
 msgid "The Addresses to all known simond servers in order of preference."
-msgstr ""
-"Die Adressen zu allen bekannten simond Servern in Reihung von Priorität."
+msgstr "Die Adressen zu allen bekannten simond Servern in Reihung von Priorität."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:37
 #. i18n: ectx: label, entry (SynchronizationMode), group (Synchronisation)
 #: po/rc.cpp:564 rc.cpp:564
 msgid "if and how we should start the synchronization when the  model changed."
-msgstr ""
-"Ob und wie die Synchronistaion starten soll, wenn das Modell geändert wurde."
+msgstr "Ob und wie die Synchronistaion starten soll, wenn das Modell geändert wurde."
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:21
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -3691,3 +3684,4 @@ msgstr "[INF] Beenden..."
 #~ "Maximal gleichzeitig angezeigte Wörter:\n"
 #~ "(Wortliste)"
 #~ msgstr "Maximal concurrently shown words: (Wordlist)"
+

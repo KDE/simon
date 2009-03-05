@@ -220,7 +220,6 @@ void CommandSettings::save()
 		newTrigger << selected->item(i)->data(Qt::UserRole+2).toString();
 	}
 	
-
 	foreach (KCModule *module, moduleHash.keys())
 	{
 		module->save();
@@ -261,16 +260,15 @@ void CommandSettings::save()
 				newActions <<  QPointer<Action>(new Action(pluginsToLoad[i], newTrigger[i]));
 			}
 		}
-	}
-	//cleaning de-selected actions
-	qDeleteAll(actions);
-	actions.clear();
+		//cleaning de-selected actions
+		qDeleteAll(actions);
+		actions.clear();
 
-	actions = newActions;
-	emit actionsChanged(actions);
+		actions = newActions;
+		emit actionsChanged(actions);
+	}
 
 	cg.sync();
-
 	KCModule::save();
 	emit changed(false);
 }

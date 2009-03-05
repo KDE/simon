@@ -560,11 +560,16 @@ void SimonView::representState(SimonControl::SystemStatus status)
  * @author Peter Grasch
  *
 */
+#include <KDebug>
 void SimonView::closeSimon()
 {
-	if ( ( !control->askBeforeQuit() ) || ( KMessageBox::questionYesNo ( this, i18n ( "If you quit the application the connection to the server will be closed and "
+//	kWarning() << KMessageBox::questionYesNoCancel ( this, i18n ( "If you quit the application the connection to the server will be closed and "
+//"you will no longer be able to dictate texts or use command.\n\nDo you want to "
+//"quit?"), QString(), KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(), "askForQuitSimonMainWindow" );
+
+	if ( KMessageBox::questionYesNoCancel ( this, i18n ( "If you quit the application the connection to the server will be closed and "
 "you will no longer be able to dictate texts or use command.\n\nDo you want to "
-"quit?" )) == KMessageBox::Yes ) )
+"quit?"), QString(), KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(), "askForQuitSimonMainWindow" ) == KMessageBox::Yes )
 	{
 		close();
 		qApp->quit();

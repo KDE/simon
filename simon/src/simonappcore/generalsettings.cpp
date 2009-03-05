@@ -47,6 +47,23 @@ GeneralSettings::GeneralSettings(QWidget* parent, const QVariantList& args):
 	ui.setupUi(this);
 
 	addConfig(CoreConfiguration::self(), this);
+
+	connect(ui.cbAskBeforeQuit, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+}
+
+void GeneralSettings::slotChanged()
+{
+	emit changed(true);
+}
+
+
+void GeneralSettings::load()
+{
+	KCModule::load();
+
+	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonrc");
+	KConfigGroup group(config, "Notification Messages");
+	ui.cbAskBeforeQuit->setChecked(!group.readEntry("askForQuitSimonMainWindow", false));
 }
 
 
@@ -54,19 +71,28 @@ void GeneralSettings::save()
 {
 	KCModule::save();
 
+	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonrc");
+	KConfigGroup group(config, "Notification Messages");
+
+	if (ui.cbAskBeforeQuit->isChecked())
+		group.deleteEntry("askForQuitSimonMainWindow");
+	else
+		group.writeEntry("askForQuitSimonMainWindow", true);
+
+	config->sync();
+
 #ifdef Q_OS_WIN32
 	//TODO: Test
-	if (CoreConfiguration::autoStart()) {
-		QSettings settings(QSettings::UserScope, "Microsoft", "Windows");
-		if (ui.kcfg_AutoStart->isChecked()) {
-			// Want to start on boot up
-			QString appPath = qApp->applicationFilePath();
-			settings.setValue("/CurrentVersion/Run/simon", appPath);
-		} else {
-			// Do not want to start on boot up
-			settings.remove("/CurrentVersion/Run/simon");
-		}
+	QSettings settings(QSettings::UserScope, "Microsoft", "Windows");
+	if (ui.kcfg_AutoStart->isChecked()) {
+		// Want to start on boot up
+		QString appPath = qApp->applicationFilePath();
+		settings.setValue("/CurrentVersion/Run/simon.exe", appPath);
+	} else {
+		// Do not want to start on boot up
+		settings.remove("/CurrentVersion/Run/simon.exe");
 	}
+	settings.sync();
 #endif
 }
 

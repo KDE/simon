@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Pavel Fric <pavel@seznam.cz>, 2009.
+# Pavel Fric <pavelfric@seznam.cz>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: simon\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-03-02 08:55+0100\n"
-"PO-Revision-Date: 2009-02-28 09:09+0100\n"
-"Last-Translator: Pavel Fric <pavel@seznam.cz>\n"
+"PO-Revision-Date: 2009-03-02 21:28+0100\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -238,9 +238,8 @@ msgstr "Zeptat se před ukončením"
 #. i18n: file: src/simonappcore/generalsettingsdlg.ui:36
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoStart)
 #: po/rc.cpp:60 rc.cpp:60
-#, fuzzy
 msgid "Start simon when logging in"
-msgstr "Spustit Simona minimalizovaného"
+msgstr "Spustit Simona při přihlášení"
 
 #. i18n: file: src/simonappcore/generalsettingsdlg.ui:43
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StartMinimized)
@@ -471,8 +470,7 @@ msgstr "Soubor:"
 #. i18n: ectx: property (filter), widget (KUrlRequester, urFile)
 #: po/rc.cpp:150 po/rc.cpp:167 po/rc.cpp:184 po/rc.cpp:222 rc.cpp:150
 #: rc.cpp:167 rc.cpp:184 rc.cpp:222
-msgid ""
-"*.txt *.txt.bz2 *.txt.gz | BOMP-Dictionaries (*.txt, *.txt.gz, *.txt.bz2)"
+msgid "*.txt *.txt.bz2 *.txt.gz | BOMP-Dictionaries (*.txt, *.txt.gz, *.txt.bz2)"
 msgstr "*.txt *.txt.bz2 *.txt.gz | BOMP-Slovníky (*.txt, *.txt.gz, *.txt.bz2)"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:52
@@ -498,7 +496,7 @@ msgstr "*.txt *.txt.bz2 *.txt.gz | BOMP-Slovníky (*.txt, *.txt.gz, *.txt.bz2)"
 #: po/rc.cpp:153 po/rc.cpp:170 po/rc.cpp:225 po/rc.cpp:254 po/rc.cpp:295
 #: rc.cpp:153 rc.cpp:170 rc.cpp:225 rc.cpp:254 rc.cpp:295
 msgid "Encoding:"
-msgstr ""
+msgstr "Kódování:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictlexiconpage.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
@@ -1043,8 +1041,7 @@ msgstr "Smazat vybraný text"
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbImportText)
 #: po/rc.cpp:468 rc.cpp:468
 msgid "Import new texts from local files or form an oline repository"
-msgstr ""
-"Zavést nové texty z místních souborů nebo ze zdroje připojeného k internetu"
+msgstr "Zavést nové texty z místních souborů nebo ze zdroje připojeného k internetu"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:97
 #. i18n: ectx: property (text), widget (KPushButton, pbImportText)
@@ -1056,8 +1053,7 @@ msgstr "Zavést text"
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbImportDir)
 #: po/rc.cpp:474 rc.cpp:474
 msgid "Import Trainings-Corpuses from other simon versions"
-msgstr ""
-"Zavést velké soubory textů na procvičování z jiných verzí programu Simon"
+msgstr "Zavést velké soubory textů na procvičování z jiných verzí programu Simon"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:107
 #. i18n: ectx: property (text), widget (KPushButton, pbImportDir)
@@ -1659,7 +1655,7 @@ msgstr "Popsat význam slova"
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:72
 msgid "Words are not allowed to contain spaces"
-msgstr ""
+msgstr "Není povoleno, aby slova obsahovala mezery"
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:79
 msgid "The Wordlist already contains this Word."
@@ -1681,7 +1677,7 @@ msgstr ""
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:110
 msgid " deaktivieren?"
-msgstr ""
+msgstr "Ukončit?"
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:227
 msgid ""
@@ -1689,6 +1685,9 @@ msgid ""
 "\n"
 "Only the first 1000 are shown."
 msgstr ""
+"Hledání podobných slov přineslo více než tisíc výsledků.\n"
+"\n"
+"Bude ukázáno jen prvních tisíc."
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:67 src/simonview.cpp:211
 msgid "Add Word"
@@ -1728,7 +1727,9 @@ msgstr ""
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:193
 msgid "Couldn't add %1 to the Prompts-Table"
-msgstr "Nelze přidat %1 do tabulky výzev"
+msgstr ""
+"Nelze přidat %1 do tabulky výzev (tabulka obsahující název souborů wav "
+"a jejich přepis)"
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:197
 msgid "Couldn't save prompts"
@@ -1775,7 +1776,7 @@ msgstr "Zavést slovník HADIFIX"
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.cpp:44
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:137
 msgid "Automatic"
-msgstr ""
+msgstr "Automatický"
 
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:61
 msgid "[INF] Opening Lexicon"
@@ -2213,6 +2214,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
+"Seznam slov přijatý od serveru nešel uložit.\n"
+"\n"
+"Zkontrolujte, prosím, oprávnění ke složce s modelem: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:114
 msgid ""
@@ -2220,6 +2224,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
+"Mluvnice přijatá od serveru nešla uložit.\n"
+"\n"
+"Zkontrolujte, prosím, oprávnění ke složce s modelem: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:126
 msgid ""
@@ -2227,6 +2234,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
+"Popis jazyka přijatý od serveru nešel uložit.\n"
+"\n"
+"Zkontrolujte, prosím, oprávnění ke složce s modelem: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:138
 msgid ""
@@ -2234,6 +2244,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
+"Soubor textů na procvičování přijatý od serveru nešel uložit.\n"
+"\n"
+"Zkontrolujte, prosím, oprávnění ke složce s modelem: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:150
 msgid ""
@@ -2241,6 +2254,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
+"Aktivní model přijatý od serveru nešel uložit.\n"
+"\n"
+"Zkontrolujte, prosím, oprávnění ke složce s modelem: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:161
 msgid ""
@@ -2248,6 +2264,9 @@ msgid ""
 "\n"
 "Please check the permissions on the sample folder: %2"
 msgstr ""
+"Ukázka %1 přijatá od serveru nešla uložit.\n"
+"\n"
+"Zkontrolujte, prosím, oprávnění ke složce s modelem: %1"
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:31
 msgid "Rename terminal"
@@ -2367,7 +2386,6 @@ msgid "Page %1 of %2"
 msgstr "Strana  %1 z %2"
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:44
-#, fuzzy
 msgid ""
 "Please record the Text below.\n"
 "\n"
@@ -2376,10 +2394,8 @@ msgid ""
 msgstr ""
 "Nahrajte, prosím, text uvedený níže.\n"
 "\n"
-"Ujistěte se, že mluvíte jasně, avšak přirozeně.\n"
-"\n"
 "Tip: Před a po přečtení textu ponechejte něco mezi jednou a dvěma sekundami "
-"ticha. Takto dosáhnete těch nejlepších výsledků!"
+"ticha. Takto dosáhnete těch nejlepších výsledků!\n"
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:71
 msgid ""
@@ -2427,9 +2443,8 @@ msgid "The word could not be completely removed."
 msgstr "Slovo nelze úplně odstranit."
 
 #: src/simonmodelmanagementui/wordlistviewprivate.cpp:289
-#, fuzzy
 msgid "Please select a word scheduled for training first."
-msgstr "Nejprve, prosím, vyberte nějaké slovo."
+msgstr "Nejprve, prosím, vyberte slovo, které je plánováno pro procvičování."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:213
 msgid ""
@@ -2449,7 +2464,7 @@ msgstr "Potvrzení podepsané jím samotným"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:258
 msgid "Request timed out (%1 ms)"
-msgstr "Žádost pozastavena (%1 ms)"
+msgstr "Čas poskytnutý serveru pro reakci na žádost vypršel (%1 ms)"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:339
 msgid "Please enter your Authentication Details for the simond below"
@@ -2485,6 +2500,9 @@ msgid ""
 "\n"
 "Do you want to start a synchronization now?"
 msgstr ""
+"Zatímco jste byl odpojen, se váš model řeči mohl změnit.\n"
+"\n"
+"Chcete nyní začít seřizování?"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:746
 msgid "Version not supported"
@@ -2517,7 +2535,7 @@ msgstr "Není dostupný žádný model řeči: Rozpoznávání bylo zastaveno"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:860
 msgid "The server couldn't store the the active model."
-msgstr ""
+msgstr "Server nemohl uložit aktivní model."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:871
 msgid "Checking Source"
@@ -2541,9 +2559,8 @@ msgid "Synchronizing Wordlist"
 msgstr "Seřizuje se seznam slov"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:940
-#, fuzzy
 msgid "The server couldn't store the trainings corpus."
-msgstr "Ukázku nelze odstranit ze souboru textů na procvičování"
+msgstr "Server nemohl uložit soubor textů na procvičování."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:985
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1017
@@ -2556,23 +2573,23 @@ msgstr "Seznam slov není dostupný"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1007
 msgid "The server couldn't store the wordlist."
-msgstr ""
+msgstr "Server nemohl uložit seznam slov."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1070
 msgid "The server couldn't store the grammar."
-msgstr ""
+msgstr "Server nemohl uložit mluvnici."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1079
 msgid "Synchronizing Language Description"
-msgstr "Seřizuje se jazykový popis"
+msgstr "Seřizuje se popis jazyka"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1121
 msgid "There seems to be no language description available."
-msgstr ""
+msgstr "Zdá se, že není dostupný žádný popis jazyka."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1132
 msgid "The server couldn't store language description."
-msgstr ""
+msgstr "Server nemohl uložit popis jazyka."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1156
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1174
@@ -2580,9 +2597,8 @@ msgid "Synchronizing Trainings-Corpus"
 msgstr "Seřizuje se soubor textů na procvičování"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1200
-#, fuzzy
 msgid "The server couldn't store trainings sample."
-msgstr "Nelze uložit text na procvičování"
+msgstr "Server nemohl uložit ukázku na procvičování."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1209
 msgid "Couldn't complete Synchronization"

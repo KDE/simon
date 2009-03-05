@@ -1,0 +1,101 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Pavel Fric <pavelfric@seznam.cz>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: simondesktopgridcommand\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-02-22 16:34+0100\n"
+"PO-Revision-Date: 2009-03-02 21:18+0100\n"
+"Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
+"Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: desktopgridcommandmanager.cpp:44 desktopgridconfiguration.cpp:33
+#: desktopgridconfiguration.cpp:55 desktopgridconfiguration.cpp:88
+#: desktopgridconfiguration.cpp:98
+msgid "Desktopgrid"
+msgstr "Mřížka plochy"
+
+#: desktopgridcommandmanager.cpp:57
+msgid "[INF] Activating desktopgrid"
+msgstr "[INF] Spouští se mřížka plochy"
+
+#: desktopgridconfiguration.cpp:34
+msgid "Voice controlled mouse clicks"
+msgstr "Klepnutí myší ovládané hlasem"
+
+#. i18n: file: desktopgridconfigurationdlg.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, DesktopGridConfigurationDlg)
+#: po/rc.cpp:3 rc.cpp:3
+msgid "Form"
+msgstr "Formulář"
+
+#. i18n: file: desktopgridconfigurationdlg.ui:21
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:6 rc.cpp:6
+msgid "Trigger:"
+msgstr "Spoušť:"
+
+#. i18n: file: desktopgridconfigurationdlg.ui:33
+#. i18n: ectx: property (text), widget (QCheckBox, cbUseRealTransparency)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Use real transparency"
+msgstr "Použít skutečnou průhlednost"
+
+#: po/rc.cpp:10 rc.cpp:10
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Pavel Fric"
+
+#: po/rc.cpp:11 rc.cpp:11
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "pavelfric@seznam.cz"
+
+#: screengrid.cpp:50
+msgid "One"
+msgstr "Jeden"
+
+#: screengrid.cpp:50
+msgid "Two"
+msgstr "Dva"
+
+#: screengrid.cpp:51
+msgid "Three"
+msgstr "Tři"
+
+#: screengrid.cpp:51
+msgid "Four"
+msgstr "Čtyři"
+
+#: screengrid.cpp:51
+msgid "Five"
+msgstr "Pět"
+
+#: screengrid.cpp:52
+msgid "Six"
+msgstr "Šest"
+
+#: screengrid.cpp:52
+msgid "Seven"
+msgstr "Sedm"
+
+#: screengrid.cpp:52
+msgid "Eight"
+msgstr "Osm"
+
+#: screengrid.cpp:52
+msgid "Nine"
+msgstr "Devět"
+
+#: screengrid.cpp:168
+msgid "Cancel"
+msgstr "Zrušit"
+
