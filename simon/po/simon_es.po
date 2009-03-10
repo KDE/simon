@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge."
 "net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-03-02 08:55+0100\n"
-"PO-Revision-Date: 2009-03-10 13:21+0000\n"
+"PO-Revision-Date: 2009-03-10 21:59+0000\n"
 "Last-Translator: Neumeister Dominik <neudob06@edvhtl.at>\n"
 "Language-Team: American English <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -242,7 +242,7 @@ msgstr "Preguntar antes de dejar de fumar"
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutoStart)
 #: po/rc.cpp:60 rc.cpp:60
 msgid "Start simon when logging in"
-msgstr "Simon de inicio al acceder"
+msgstr "simon de inicio al acceder"
 
 #. i18n: file: src/simonappcore/generalsettingsdlg.ui:43
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_StartMinimized)
@@ -550,10 +550,10 @@ msgid ""
 "\n"
 "Please select the type of dictionary you want to import now."
 msgstr ""
-"simon es capaz de importar cuatro diferentes tipos de diccionarios: \ n"
+"simon es capaz de importar cuatro diferentes tipos de diccionarios: \n"
 "HADIFIX diccionarios, HTK compatibles diccionarios, léxicos SPHINX y PLS"
-"diccionarios. \ n"
-"\ n"
+"diccionarios. \n"
+"\n"
 "Seleccione el tipo de diccionario que desea importar ahora, por favor."
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:32
@@ -800,8 +800,7 @@ msgid ""
 "new, combined terminal."
 msgstr ""
 "Por favor, seleccione las dos terminales de las listas de abajo y asignar un "
-"nombre para el"
-"nuevos, junto terminal."
+"nombre para el nuevos, junto terminal."
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectpage.ui:31
 #. i18n: ectx: property (text), widget (QLabel, lbNewTerminal)
@@ -1051,104 +1050,105 @@ msgstr "Inicio Capacitación"
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbDelText)
 #: po/rc.cpp:462 rc.cpp:462
 msgid "Removes the selected text from the system"
-msgstr ""
+msgstr "Elimina el texto seleccionado desde el sistema"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:87
 #. i18n: ectx: property (text), widget (KPushButton, pbDelText)
 #: po/rc.cpp:465 rc.cpp:465
 msgid "Delete selected Text"
-msgstr ""
+msgstr "Eliminar texto seleccionado"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:94
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbImportText)
 #: po/rc.cpp:468 rc.cpp:468
 msgid "Import new texts from local files or form an oline repository"
 msgstr ""
+"Importe los nuevos textos de archivos locales o desde un repositorio en línea"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:97
 #. i18n: ectx: property (text), widget (KPushButton, pbImportText)
 #: po/rc.cpp:471 rc.cpp:471
 msgid "Import Text"
-msgstr ""
+msgstr "Texto de la importación"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:104
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbImportDir)
 #: po/rc.cpp:474 rc.cpp:474
 msgid "Import Trainings-Corpuses from other simon versions"
-msgstr ""
+msgstr "Importe los entrenamiento-recopilaciones de otros versiones de simon"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:107
 #. i18n: ectx: property (text), widget (KPushButton, pbImportDir)
 #: po/rc.cpp:477 rc.cpp:477
 msgid "Import Trainingsdata"
-msgstr ""
+msgstr "Importe los datos del entrenamientos"
 
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, WordList)
 #: po/rc.cpp:480 src/simonview.cpp:235 rc.cpp:480
 msgid "Wordlist"
-msgstr ""
+msgstr "Lista de palabras"
 
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:34
 #. i18n: ectx: property (text), widget (QLabel, lbVocab)
 #: po/rc.cpp:483 rc.cpp:483
 msgid "Vocabulary:"
-msgstr ""
+msgstr "Vocabulario:"
 
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:54
 #. i18n: ectx: property (clickMessage), widget (KLineEdit, leSearch)
 #: po/rc.cpp:486 rc.cpp:486
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:100
 #. i18n: ectx: property (text), widget (QCheckBox, cbShowCompleteLexicon)
 #: po/rc.cpp:489 rc.cpp:489
 msgid "Include unused Words from the Shadow Lexicon"
-msgstr ""
+msgstr "Incluir las palabras inusitadas del léxico de la sombra"
 
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:119
 #. i18n: ectx: property (text), widget (KPushButton, pbImport)
 #: po/rc.cpp:492 src/simonmodelmanagementui/ImportDict/importdictview.cpp:103
 #: rc.cpp:492
 msgid "Import Dictionary"
-msgstr ""
+msgstr "Importe el diccionario"
 
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:139
 #. i18n: ectx: property (text), widget (KPushButton, pbRemoveWord)
 #: po/rc.cpp:495 rc.cpp:495
 msgid "Remove Selected Word"
-msgstr ""
+msgstr "Eliminar palabra seleccionada"
 
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:174
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: po/rc.cpp:498 rc.cpp:498
 msgid "Train Words:"
-msgstr ""
+msgstr "Entrena las palabras:"
 
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:203
 #. i18n: ectx: property (text), widget (KPushButton, pbAddToTraining)
 #: po/rc.cpp:501 rc.cpp:501
 msgid "Add to Training"
-msgstr ""
+msgstr "Agregue al entrenamiento"
 
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:210
 #. i18n: ectx: property (text), widget (KPushButton, pbDeleteTrainingWord)
 #: po/rc.cpp:504 rc.cpp:504
 msgid "Remove Word from Training"
-msgstr ""
+msgstr "Eliminar palabra del entrenamiento"
 
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:217
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbTrainList)
 #: po/rc.cpp:507 rc.cpp:507
 msgid "Starts the Training of the selected Words"
-msgstr ""
+msgstr "Comienza el entrenamiento de las palabras seleccionadas"
 
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:220
 #. i18n: ectx: property (text), widget (KPushButton, pbTrainList)
 #: po/rc.cpp:510 rc.cpp:510
 msgid "Train selected Words"
-msgstr ""
+msgstr "Entrena las palabras seleccionadas"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, NetworkSettingsDlg)
@@ -1160,55 +1160,55 @@ msgstr ""
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: po/rc.cpp:513 po/rc.cpp:531 rc.cpp:513 rc.cpp:531
 msgid "Network"
-msgstr ""
+msgstr "Red"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:34
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_JuliusdAutoConnect)
 #: po/rc.cpp:519 rc.cpp:519
 msgid "Connect automatically on simon start"
-msgstr ""
+msgstr "Conecte automáticamente al iniciar simon"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:44
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticallyEnableRecognition)
 #: po/rc.cpp:522 rc.cpp:522
 msgid "Start Recognition immediately once available"
-msgstr ""
+msgstr "Comience el reconocimiento inmediatamente una vez disponible"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:53
 #. i18n: ectx: property (text), widget (QLabel, lbUsername)
 #: po/rc.cpp:525 rc.cpp:525
 msgid "Username:"
-msgstr ""
+msgstr "Su nombre de usuario:"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:66
 #. i18n: ectx: property (text), widget (QLabel, lbPassword)
 #: po/rc.cpp:528 rc.cpp:528
 msgid "Password:"
-msgstr ""
+msgstr "Contraseña:"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:108
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_JuliusdEncrypted)
 #: po/rc.cpp:534 rc.cpp:534
 msgid "Use Encryption"
-msgstr ""
+msgstr "Uso la encripción"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:117
 #. i18n: ectx: property (text), widget (QLabel, lbTimeout)
 #: po/rc.cpp:537 rc.cpp:537
 msgid "Timeout (Milliseconds):"
-msgstr ""
+msgstr "Retraso (milisegundos):"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:139
 #. i18n: ectx: property (title), widget (KEditListBox, kcfg_JuliusdServers)
 #: po/rc.cpp:540 rc.cpp:540
 msgid "Hosts"
-msgstr ""
+msgstr "Anfitriónes"
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:7
 #. i18n: ectx: label, entry (JuliusdAutoConnect), group (Recognition)
 #: po/rc.cpp:543 rc.cpp:543
 msgid "If we should automatically connect to the Juliusd."
-msgstr ""
+msgstr "Si tenemos que se conecte automáticamente con el Juliusd."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:11
 #. i18n: ectx: label, entry (AutomaticallyEnableRecognition), group (Recognition)
@@ -1217,36 +1217,40 @@ msgid ""
 "If we should automatically activate the recognition once we get the ready-"
 "signal"
 msgstr ""
+"Si activamos automáticamente el reconocimiento una vez conseguimos la "
+"listo-señal"
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:15
 #. i18n: ectx: label, entry (JuliusdUsername), group (Recognition)
 #: po/rc.cpp:549 rc.cpp:549
 msgid "The Username for simond."
-msgstr ""
+msgstr "El nombre de usuario para simond."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:18
 #. i18n: ectx: label, entry (JuliusdPassword), group (Recognition)
 #: po/rc.cpp:552 rc.cpp:552
 msgid "The Password for simond."
-msgstr ""
+msgstr "La contraseña para simond."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:21
 #. i18n: ectx: label, entry (JuliusdEncrypted), group (Recognition)
 #: po/rc.cpp:555 rc.cpp:555
 msgid "If the Connection to the simond should be encrypted."
-msgstr ""
+msgstr "Si la conexión a la simond debe ser encriptada."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:25
 #. i18n: ectx: label, entry (JuliusdConnectionTimeout), group (Recognition)
 #: po/rc.cpp:558 rc.cpp:558
 msgid "The Timeout for the connection to the simond."
-msgstr ""
+msgstr "El retraso para la conexción del simond."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:29
 #. i18n: ectx: label, entry (JuliusdServers), group (Recognition)
 #: po/rc.cpp:561 rc.cpp:561
 msgid "The Addresses to all known simond servers in order of preference."
 msgstr ""
+"Las direcciones a todos los servidores sabidos del simond en la orden de la "
+"preferencia."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:37
 #. i18n: ectx: label, entry (SynchronizationMode), group (Synchronisation)
