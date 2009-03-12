@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
 "net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-03-02 08:55+0100\n"
-"PO-Revision-Date: 2009-03-10 22:25+0000\n"
+"PO-Revision-Date: 2009-03-12 11:32+0000\n"
 "Last-Translator: Neumeister Dominik <neudob06@edvhtl.at>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -714,7 +714,7 @@ msgid ""
 "Please ensure that the file you import is a plain text document (.txt)."
 msgstr ""
 "Aquí usted puede importar archivos de texto para utilizarlos como "
-"trainingtexts. \n"
+"texto de instrucción. \n"
 "\n"
 "Por favor, asegúrese de que el archivo que la importación es un documento de "
 "texto sin formato (.txt)."
@@ -741,7 +741,7 @@ msgid ""
 "Once the list is loaded, please select the text to download and proceed to "
 "the next step."
 msgstr ""
-"Por favor, espere un segundo, mientras que la lista de trainingstexts está "
+"Por favor, espere un segundo, mientras que la lista de texto de instrucción está "
 "cargado"
 "de Internet. \n"
 "\n"
@@ -756,9 +756,9 @@ msgid ""
 "You can import trainingstexts from local text files or download predefined "
 "trainingstext from an online repository."
 msgstr ""
-"Puede importar trainingstexts desde el local o descargar archivos de texto "
+"Puede importar texto de instrucción desde el local o descargar archivos de texto "
 "predefinido"
-"trainingstext de un repositorio en línea."
+"texto de instrucción de un repositorio en línea."
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextselectsourcepage.ui:45
 #. i18n: ectx: property (text), widget (QRadioButton, rbLocal)
@@ -1001,7 +1001,8 @@ msgstr ""
 #. i18n: ectx: label, entry (TextOnlineUpdate), group (Extension)
 #: po/rc.cpp:438 rc.cpp:438
 msgid "The url to the online text-list to get new trainingstexts."
-msgstr "La URL a la lista de textos en línea para obtener nuevos trainingstexts."
+msgstr ""
+"La URL a la lista de textos en línea para obtener nuevos texto de instrucción."
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, TrainMain)
@@ -1325,13 +1326,13 @@ msgstr "Módulo"
 #. i18n: ectx: Menu (actions)
 #: po/rc.cpp:603 rc.cpp:603
 msgid "Actions"
-msgstr ""
+msgstr "Acciones"
 
 #. i18n: file: src/simonui.rc:37
 #. i18n: ectx: Menu (settings)
 #: po/rc.cpp:606 rc.cpp:606
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencias"
 
 #. i18n: file: src/simonview.ui:13
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
@@ -1343,24 +1344,23 @@ msgstr ""
 #. i18n: ectx: property (accessibleName), widget (QMainWindow, MainWindow)
 #: po/rc.cpp:609 po/rc.cpp:612 src/main.cpp:40 rc.cpp:609 rc.cpp:612
 msgid "simon"
-msgstr ""
+msgstr "simon"
 
 #. i18n: file: src/simonview.ui:19
 #. i18n: ectx: property (accessibleDescription), widget (QMainWindow, MainWindow)
 #: po/rc.cpp:615 rc.cpp:615
 msgid "simon Main Window"
-msgstr ""
+msgstr "Ventana principal de simon"
 
 #. i18n: file: src/simonview.ui:45
 #. i18n: ectx: attribute (title), widget (QWidget, tbWelcome)
 #: po/rc.cpp:618 rc.cpp:618
 msgid "Start"
-msgstr ""
+msgstr "Arrancar"
 
 #. i18n: file: src/simonview.ui:152
 #. i18n: ectx: property (text), widget (QLabel, lbWarning)
 #: po/rc.cpp:621 rc.cpp:621
-#, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -1379,13 +1379,30 @@ msgid ""
 "please consider <a href=\"http://kde-apps.org/content/donate.php?"
 "content=73815\"><span style=\" text-decoration: underline; color:#0000ff;"
 "\">a small donation</span></a>.</p></body></html>"
-msgstr "???"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:10pt; "
+"font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; font-"
+"size:11pt;\"><span style=\" font-size:9pt;\">Ésta es una versión de lanzamiento "
+"de han probado a simon y extensivamente.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; font-"
+"size:9pt;\">Si usted quiere apoyar simon y asegurar el desarrollo adicional "
+"considera por favor <a href=\"http://kde-apps.org/content/donate.php?"
+"content=73815\"><span style=\" text-decoration: underline; color:#0000ff;"
+"\">una pequeña donación</span></a>.</p></body></html>"
 
 #. i18n: file: src/simonview.ui:226
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: po/rc.cpp:629 rc.cpp:629
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #. i18n: file: src/simonview.ui:265
 #. i18n: ectx: property (text), widget (QLabel, label_6)
@@ -1403,6 +1420,17 @@ msgid ""
 "support@simon-listens.org\"><span style=\" text-decoration: underline; color:"
 "#0000ff;\">Direct Mail-Support</span></a> </p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:"
+"support@simon-listens.org\"><span style=\" text-decoration: underline; color:"
+"#0000ff;\">Dirija Correo-Apoyan</span></a> </p></body></html>"
 
 #. i18n: file: src/simonview.ui:279
 #. i18n: ectx: property (text), widget (QLabel, label_8)
@@ -1420,12 +1448,23 @@ msgid ""
 "sourceforge.net/forum/?group_id=190872\"><span style=\" text-decoration: "
 "underline; color:#0000ff;\">Community Forums</span></a></p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://"
+"sourceforge.net/forum/?group_id=190872\"><span style=\" text-decoration: "
+"underline; color:#0000ff;\">Foros de la comunidad</span></a></p></body></html>"
 
 #. i18n: file: src/simonview.ui:323
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
 #: po/rc.cpp:646 rc.cpp:646
 msgid "Documentation"
-msgstr ""
+msgstr "Documentación"
 
 #. i18n: file: src/simonview.ui:362
 #. i18n: ectx: property (text), widget (QLabel, label_14)
@@ -1443,6 +1482,17 @@ msgid ""
 "listens.org\"><span style=\" text-decoration: underline; color:#0000ff;"
 "\">Official Homepage</span></a> </p></body></html>"
 msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"http://www.simon-"
+"listens.org\"><span style=\" text-decoration: underline; color:#0000ff;"
+"\">Homepage del funcionario</span></a> </p></body></html>"
 
 #. i18n: file: src/simonview.ui:377
 #. i18n: ectx: property (text), widget (QLabel, label_10)
@@ -1456,16 +1506,23 @@ msgid ""
 "</body>\n"
 "</html>"
 msgstr ""
+"<html>\n"
+"<head />\n"
+"<body>\n"
+"<a href=\"http://www.cyber-byte.at/wiki/index.php/Main_Page\">Online Wiki</"
+"a>\n"
+"</body>\n"
+"</html>"
 
 #: po/rc.cpp:662 rc.cpp:662
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Su nombres"
 
 #: po/rc.cpp:663 rc.cpp:663
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "Sus emails"
 
 #: src/main.cpp:41
 msgid ""
@@ -1477,20 +1534,29 @@ msgid ""
 "Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Michael "
 "Stieger<li>Ralf Herzog</ul> \t\t\t\t\t      </body></html>"
 msgstr ""
+"<html><head /><body>\t\t\t\t\t      <h2>Desarrollo y distribución</h2>\t\t"
+"\t\t\t      <p>Convertido y distribuido por la mutualidad <a href="
+"\"http://simon-listens.org\">simon listens e.V.</a> en cooperación con <a "
+"href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\t\t\t\t"
+"\t      <h3>Gracias especiales a</h3> \t\t\t\t\t      <ul><li>Franz "
+"Stieger<li>Mathias Stieger<li>Phillip Theussl<li>Moacyr Prado<li>Michael "
+"Stieger<li>Ralf Herzog</ul> \t\t\t\t\t      </body></html>"
 
 #: src/main.cpp:48
 msgid ""
 "Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina "
 "Sturmann, Martin Gigerl"
 msgstr ""
+"Copyright (c) 2008 Peter Grasch, Phillip Goriup, Tschernegg Susanne, Bettina "
+"Sturmann, Martin Gigerl"
 
 #: src/simonactionsui/newcommand.cpp:104
 msgid "Couldn't determine Command Type"
-msgstr ""
+msgstr "No podía determinar el tipo del comando"
 
 #: src/simonactionsui/newcommand.cpp:126
 msgid "Command: %1"
-msgstr ""
+msgstr "Comando: %1"
 
 #: src/simonactionsui/newcommand.cpp:127
 msgid "Kommando"
@@ -1498,118 +1564,128 @@ msgstr ""
 
 #: src/simonactionsui/runcommandview.cpp:30 src/simonview.cpp:227
 msgid "Commands"
-msgstr ""
+msgstr "Mandos"
 
 #: src/simonactionsui/runcommandview.cpp:30
 msgid "Direct Execution of simon Commands"
-msgstr ""
+msgstr "Ejecución directa de los comandos de simon"
 
 #: src/simonactionsui/runcommandviewprivate.cpp:239
 msgid "Are you sure that you want to irreversibly remove that command?"
-msgstr ""
+msgstr "¿Está usted seguro que usted quiere irreversible quitar ese comando?"
 
 #: src/simonactionsui/runcommandviewprivate.cpp:239
 msgid "Remove Command"
-msgstr ""
+msgstr "Eliminar comando"
 
 #: src/simonappcore/simoncontrol.cpp:73
 msgid "User athenticated"
-msgstr ""
+msgstr "Usuario"
 
 #: src/simonappcore/simoncontrol.cpp:78
 msgid ""
 "Connection Error: \n"
 "%1"
 msgstr ""
+"Error de la conexión: \n"
+"%1"
 
 #: src/simonappcore/simoncontrol.cpp:84
 msgid ""
 "The Recognition Server returned the following fatal error: \n"
 "%1"
 msgstr ""
+"El servidor del reconocimiento volvió el error no recuperable siguiente: \n"
+"%1"
 
 #: src/simonappcore/simoncontrol.cpp:89
 msgid ""
 "The model synchronization reported the following error: \n"
 "%1"
 msgstr ""
+"La sincronización modelo divulgó el error siguiente: \n"
+"%1"
 
 #: src/simonappcore/simoncontrol.cpp:94
 msgid ""
 "The Recognition reported the following error: \n"
 "%1"
 msgstr ""
+"El reconocimiento divulgó el error siguiente: \n"
+"%1"
 
 #: src/simonappcore/simoncontrol.cpp:99
 msgid ""
 "As the server compiled the model the following error occured:\n"
 "%1"
 msgstr ""
+"Pues el servidor compiló el modelo el error siguiente ocurrió:\n"
+"%1"
 
 #: src/simonappcore/simoncontrol.cpp:105
 msgid "simond: %1"
-msgstr ""
+msgstr "simond: %1"
 
 #: src/simonappcore/simoncontrol.cpp:110
 msgid "Model Synchronisation %1"
-msgstr ""
+msgstr "Sincronización modelo %1"
 
 #: src/simonappcore/simoncontrol.cpp:115
 msgid "Recognition: %1"
-msgstr ""
+msgstr "Reconocimiento: %1"
 
 #: src/simonappcore/simoncontrol.cpp:120
 msgid "Modelmanagement: %1"
-msgstr ""
+msgstr "Gerencia modelo: %1"
 
 #: src/simonappcore/simoncontrol.cpp:224
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:123
 msgid "[INF]"
-msgstr ""
+msgstr "[INF]"
 
 #: src/simonappcore/simoncontrol.cpp:224
 msgid "Connected to the Server"
-msgstr ""
+msgstr "Conectado con el servidor"
 
 #: src/simonappcore/simoncontrol.cpp:238
 msgid "[INF] Connection lost"
-msgstr ""
+msgstr "[INF] La conexión perdió"
 
 #: src/simonappcore/simoncontrol.cpp:248
 msgid "[INF] Connecting aborted"
-msgstr ""
+msgstr "[INF] Conexión abortada"
 
 #: src/simonappcore/simoncontrol.cpp:279
 msgid "[INF] simon activated"
-msgstr ""
+msgstr "[INF] simon activado"
 
 #: src/simonappcore/simoncontrol.cpp:285
 msgid "[INF] Continuing recognition"
-msgstr ""
+msgstr "[INF] Reconocimiento de continuación"
 
 #: src/simonappcore/simoncontrol.cpp:303
 msgid "[INF] simon deactivated"
-msgstr ""
+msgstr "[INF] simon desactivado"
 
 #: src/simonmodelmanagementui/AddWord/addwordintropage.cpp:33
 msgid "Add a new Word"
-msgstr ""
+msgstr "Añadir la nueva palabra"
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:43
 msgid "Define Word"
-msgstr ""
+msgstr "Define la palabra"
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:72
 msgid "Words are not allowed to contain spaces"
-msgstr ""
+msgstr "Las palabras no se permiten contener espacios"
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:79
 msgid "The Wordlist already contains this Word."
-msgstr ""
+msgstr "La lista de palabras contiene ya esta palabra."
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:91
 msgid "Add Terminal"
-msgstr ""
+msgstr "Añadir la terminal"
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:91
 msgid ""
@@ -1617,10 +1693,13 @@ msgid ""
 "\n"
 "Please enter the name of this new terminal:"
 msgstr ""
+"Usted está a punto de agregar un nuevo terminal.\n"
+"\n"
+"Incorpore por favor el nombre de este nuevo terminal:"
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:110
 msgid " deaktivieren?"
-msgstr ""
+msgstr "¿Desactivar?"
 
 #: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:227
 msgid ""
@@ -1628,32 +1707,36 @@ msgid ""
 "\n"
 "Only the first 1000 are shown."
 msgstr ""
+"La búsqueda para las palabras similares rindió más de 1000 resultados.\n"
+"\n"
+"Solamente el primeros se demuestran 1000."
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:67 src/simonview.cpp:211
 msgid "Add Word"
-msgstr ""
+msgstr "Añadir la palabra"
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:77
 msgid "[INF] Adding the new Word to the Model..."
-msgstr ""
+msgstr "[INF] Agregando la nueva palabra al modelo…"
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:78
 msgid "[INF] New word: "
-msgstr ""
+msgstr "[INF] Nueva palabra:"
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:107
 msgid "[INF] Added Word: "
-msgstr ""
+msgstr "[INF] He añadado la palabra:"
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:117
 msgid ""
 "Do you want to add the words that have been completely described up until "
 "now?"
 msgstr ""
+"¿Usted quiere agregar las palabras que se han descrito totalmente hasta ahora?"
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:170
 msgid "Word Added"
-msgstr ""
+msgstr "Añade la palabra"
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:173
 msgid ""
@@ -1661,14 +1744,17 @@ msgid ""
 "\n"
 "Simon can now \"learn\" the new word."
 msgstr ""
+"Se han recogido los datos necesarios.\n"
+"\n"
+"simon puede ahora \"aprenda\" la nueva palabra."
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:193
 msgid "Couldn't add %1 to the Prompts-Table"
-msgstr ""
+msgstr "No podía agregar %1 a la Incitar-Tabla"
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:197
 msgid "Couldn't save prompts"
-msgstr ""
+msgstr "No podía ahorrar avisos"
 
 #: src/simonmodelmanagementui/AddWord/addwordview.cpp:215
 msgid ""
@@ -1676,26 +1762,29 @@ msgid ""
 "\n"
 "Do you want to add it now?"
 msgstr ""
+"La palabra \"%1\" aparece faltar en su modelo de la lengua.\n"
+"\n"
+"¿Usted quiere ahora agregarlo?"
 
 #: src/simonmodelmanagementui/deleteworddialog.cpp:36
 msgid "Remove Word"
-msgstr ""
+msgstr "Eliminar la palabra"
 
 #: src/simonmodelmanagementui/dragtableview.cpp:112
 msgid "Drag the Word to the List on the right to train it"
-msgstr ""
+msgstr "Arrastre la palabra a la lista a la derecha de entrenarle"
 
 #: src/simonmodelmanagementui/grammarview.cpp:26 src/simonview.cpp:243
 msgid "Grammar"
-msgstr ""
+msgstr "Gramática"
 
 #: src/simonmodelmanagementui/grammarview.cpp:28
 msgid "View and modify the grammar."
-msgstr ""
+msgstr "Vea y modifique la gramática."
 
 #: src/simonmodelmanagementui/ImportDict/importdictbomppage.cpp:38
 msgid "Import HADIFIX Dictionary"
-msgstr ""
+msgstr "Importar el diccionario de HADIFIX"
 
 #: src/simonmodelmanagementui/ImportDict/importdictbomppage.cpp:45
 #: src/simonmodelmanagementui/ImportDict/importdictsphinxpage.cpp:42
@@ -1708,63 +1797,63 @@ msgstr ""
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.cpp:44
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:137
 msgid "Automatic"
-msgstr ""
+msgstr "Automática"
 
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:61
 msgid "[INF] Opening Lexicon"
-msgstr ""
+msgstr "[INF] Abre Léxico"
 
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:62
 msgid "Opening Lexicon..."
-msgstr ""
+msgstr "Abre léxico..."
 
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:88
 msgid "Processing Lexicon..."
-msgstr ""
+msgstr "Elabore léxico..."
 
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:91
 msgid "Creating List..."
-msgstr ""
+msgstr "El crear la lista..."
 
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:111
 msgid "Sorting Dictionary..."
-msgstr ""
+msgstr "Clasifice diccionario..."
 
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:117
 msgid "Storing Dictionary..."
-msgstr ""
+msgstr "Almacenando el diccionario…"
 
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:119
 msgid "[UPD]"
-msgstr ""
+msgstr "[UPD]"
 
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:119
 msgid "Words from the Lexicon"
-msgstr ""
+msgstr "Palabras de la léxico"
 
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:119
 msgid " imported"
-msgstr ""
+msgstr "he importado"
 
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:123
 msgid "Deleting Input-File"
-msgstr ""
+msgstr "Supresión del Entrada-Archivo"
 
 #: src/simonmodelmanagementui/ImportDict/importdictplspage.cpp:36
 msgid "Import PLS Dictionary"
-msgstr ""
+msgstr "Importe el diccionario de PLS"
 
 #: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.cpp:34
 msgid "Select the Type of Dictionary"
-msgstr ""
+msgstr "Seleccione el tipo de diccionario"
 
 #: src/simonmodelmanagementui/ImportDict/importdictsphinxpage.cpp:36
 msgid "Import SPHINX Dictionary"
-msgstr ""
+msgstr "Importe el diccionario de SPHINX"
 
 #: src/simonmodelmanagementui/ImportDict/importdictview.cpp:56
 msgid "Importing Dictionary"
-msgstr ""
+msgstr "Importe diccionario"
 
 #: src/simonmodelmanagementui/ImportDict/importdictview.cpp:106
 msgid ""
@@ -1780,10 +1869,21 @@ msgid ""
 "We suggest that you use the Voxforge English Dictionary which is a HTK "
 "compatible lexicon and of very high quality."
 msgstr ""
+"Este ayudante le ayudará a importar un nuevo diccionario.\n"
+"\n"
+"Un diccionario contiene la información sobre las palabras sabidas como "
+"cómo se escriben y cómo son pronunciados.\n"
+"\n"
+"El diccionario es un corazón-componente esencial de su modelo de la "
+"lengua. Asegúrese por favor de que cada diccionario que usted importa esté "
+"de alta calidad pues massivly afectará su funcionamiento del reconocimiento.\n"
+"\n"
+"Sugerimos que usted utilice el diccionario inglés de Voxforge que es un "
+"léxico compatible de HTK y mismo de la alta calidad."
 
 #: src/simonmodelmanagementui/ImportDict/importdictview.cpp:163
 msgid "Dictionary imported"
-msgstr ""
+msgstr "Importado diccionario"
 
 #: src/simonmodelmanagementui/ImportDict/importdictview.cpp:165
 msgid ""
@@ -1791,36 +1891,41 @@ msgid ""
 "\n"
 "Thank you for improving simon."
 msgstr ""
+"El diccionario se ha importado con éxito.\n"
+"\n"
+"Gracias por mejorar a simon."
 
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:46
 msgid "Importing dictionary..."
-msgstr ""
+msgstr "Importe el diccionario..."
 
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:49
 msgid ""
 "Importing the dictionary... Depending on its type and size this can take a "
 "while. Please be patient...\n"
 msgstr ""
+"Importando el diccionario… Dependiendo de su tipo y clasifique esto "
+"puede tardar un rato. Sea paciente, por favor…\n"
 
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:117
 msgid "Importing HTK-Dictionary %1..."
-msgstr ""
+msgstr "Importe el diccionario de HTK %1..."
 
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:133
 msgid "Importing HADIFIX-dictionary %1..."
-msgstr ""
+msgstr "Importe el diccionario de HADIFIX %1..."
 
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:145
 msgid "Importing PLS-dictionary %1..."
-msgstr ""
+msgstr "Importe el diccionario de PLS %1..."
 
 #: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:155
 msgid "Importing SPHINX-dictionary %1..."
-msgstr ""
+msgstr "Importe el diccionario de SPHINX %1..."
 
 #: src/simonmodelmanagementui/ImportDict/importlexiconpage.cpp:30
 msgid "Import Lexicon"
-msgstr ""
+msgstr "Importe el léxico"
 
 #: src/simonmodelmanagementui/ImportDict/lexicondict.cpp:44
 #: src/simonmodelmanagementui/ImportDict/plsdict.cpp:143
@@ -1828,37 +1933,37 @@ msgstr ""
 #: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:170
 #: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:213
 msgid "Unknown"
-msgstr ""
+msgstr "Desconocido"
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:57
 msgid "Opening File..."
-msgstr ""
+msgstr "Abre fichero..."
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:79
 msgid "Reading File..."
-msgstr ""
+msgstr "Leer fichero..."
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:132
 msgid "Processing..."
-msgstr ""
+msgstr "Elabore..."
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:200
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:65
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:55
 msgid "Finished"
-msgstr ""
+msgstr "Acabado"
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarselectfilespage.cpp:29
 msgid "Input Files"
-msgstr ""
+msgstr "Ficheros de entrada"
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarwizard.cpp:31
 msgid "Import Sentence Structures"
-msgstr ""
+msgstr "Estructuras de oración de la importación"
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarwizard.cpp:48
 msgid "Welcome to the Import of your Grammar"
-msgstr ""
+msgstr "Recepción a la importación de su gramática"
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarwizard.cpp:49
 msgid ""
@@ -1872,11 +1977,21 @@ msgid ""
 "\n"
 "This process requires a large shadow-lexicon or targeted input material."
 msgstr ""
+"Este mago permitirá que usted seleccione los archivos de texto "
+"que entonces crearán su perfil personal de la gramática.\n"
+"\n"
+"Para hacer este cada uno de los archivos será leído por un programa de "
+"análisis de la gramática que mire para arriba cada sola palabra en su "
+"diccionario-recopilación. Si se encuentra la palabra su terminal será "
+"agregado a la oración. Esta manera los programas de análisis encontrará "
+"oraciones gramaticales válidas en nivel terminal.\n"
+"\n"
+"Este proceso requiere un sombra-léxico grande o un material apuntado de la entrada."
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarwizard.cpp:84
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminalswizard.cpp:77
 msgid "Import completed"
-msgstr ""
+msgstr "Importe acabado"
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarwizard.cpp:85
 msgid ""
@@ -1886,38 +2001,43 @@ msgid ""
 "\n"
 "Thank you for improving simon!"
 msgstr ""
+"Se han importado los archivos.\n"
+"\n"
+"Compruebe por favor las estructuras para saber si hay errores.\n"
+"\n"
+"¡Gracias por mejorar a simon!"
 
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarworkingpage.cpp:32
 msgid "Analysis running..."
-msgstr ""
+msgstr "Funcionamiento del análisis…"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:42
 msgid "Collecting files..."
-msgstr ""
+msgstr "Coleccionar ficheros..."
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:48
 msgid "Couldn't create output folder %1"
-msgstr ""
+msgstr "Couldn' t crea la carpeta %1 de la salida"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:55
 msgid "Importing %1 Files..."
-msgstr ""
+msgstr "Importe %1 ficheros..."
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:62
 msgid "Creating automatic transcriptions..."
-msgstr ""
+msgstr "Creando transcripciones automáticas…"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:193
 msgid "Couldn't process soundfiles"
-msgstr ""
+msgstr "No podía procesar archivos de los sonidos"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectory.cpp:43
 msgid "Importing Traingin Samples from Folder"
-msgstr ""
+msgstr "Importación de muestras del entrenamiento de carpeta"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectory.cpp:84
 msgid "Importing of the Folder completed"
-msgstr ""
+msgstr "La importación de la carpeta terminó"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectory.cpp:86
 msgid ""
@@ -1925,26 +2045,29 @@ msgid ""
 "\n"
 "Thank you for improving simon!"
 msgstr ""
+"Los archivos encontraron en la carpeta dada ahora se están importando.\n"
+"\n"
+"¡Gracias por mejorar a simon!"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectoryintropage.cpp:35
 msgid "Import Trainings Samples from Folder"
-msgstr ""
+msgstr "Muestras de los entrenamientos de la importación de la carpeta"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectoryworkingpage.cpp:39
 msgid "Processing folder..."
-msgstr ""
+msgstr "Elabore clasificador..."
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.cpp:35
 msgid "Import Textfile"
-msgstr ""
+msgstr "Importos textos"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextremotepage.cpp:39
 msgid "Import from the Internet"
-msgstr ""
+msgstr "Importe de la red"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextremotepage.cpp:50
 msgid "[INF] Retrieving List of available Texts"
-msgstr ""
+msgstr "[INF] Recuperación de la lista de textos disponibles"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextremotepage.cpp:71
 msgid ""
@@ -1952,14 +2075,17 @@ msgid ""
 "\n"
 "Please check if the URL is correctly configured."
 msgstr ""
+"Couldn' lista abierta de t de textos disponibles.\n"
+"\n"
+"Compruebe por favor si el URL se configura correctamente."
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:59
 msgid "Importing Trainingstext"
-msgstr ""
+msgstr "Importe el texto de instrucción"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:93
 msgid "Import a new Trainingstext"
-msgstr ""
+msgstr "Importe el nuevo texto de instrucción"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:96
 msgid ""
@@ -1968,10 +2094,14 @@ msgid ""
 "\n"
 "That way the training of simon will never get boring!"
 msgstr ""
+"Usando este ayudante usted puede importar nuevo Trainingstexts del red "
+"o de los archivos locales.\n"
+"\n"
+"¡Esa manera el entrenamiento de simon nunca conseguirá el taladro!"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:164
 msgid "Text added"
-msgstr ""
+msgstr "Agrege la palabra"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:167
 msgid ""
@@ -1979,43 +2109,46 @@ msgid ""
 "\n"
 "Thank you for improving simon!"
 msgstr ""
+"Usted ahora ha agregado un nuevo texto.\n"
+"\n"
+"¡Gracias por mejorar a simon!"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextselectsourcepage.cpp:33
 msgid "Choose your Source"
-msgstr ""
+msgstr "Elija su fuente"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:52
 msgid "Text is being added"
-msgstr ""
+msgstr "Se está agregando el texto"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:65
 msgid "[INF] Starting remove import from \"%1\""
-msgstr ""
+msgstr "[INF] El comenzar quita la importación de \"%1\""
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:201
 msgid "Couldn't store Trainingstext"
-msgstr ""
+msgstr "No podía almacenar el texto de los entrenamientos"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/xmltrainingtextlist.cpp:48
 msgid "[INF] Loading List of Trainingstexts from %1"
-msgstr ""
+msgstr "[INF] Cargando lista de texto de los entrenamientos desde %1"
 
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:33
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:41
 msgid "Processing Words of Terminal %1"
-msgstr ""
+msgstr "Elaborar las palabras de la terminal %1"
 
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:48
 msgid "Adapting Grammar"
-msgstr ""
+msgstr "Adaptar la gramática"
 
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectterminalspage.cpp:27
 msgid "Choose Terminals"
-msgstr ""
+msgstr "Elegir la terminal"
 
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminalswizard.cpp:48
 msgid "Welcome to the Merging of Terminals"
-msgstr ""
+msgstr "Bienvenido a la fusión de los terminales"
 
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminalswizard.cpp:49
 msgid ""
@@ -2024,6 +2157,10 @@ msgid ""
 "Using this procedure you can keep your grammar structures to a needed minmum "
 "and improve the readability of both your grammar and your wordlist."
 msgstr ""
+"Este asistente le guiará a través del proceso de la fusión de dos terminales.\n"
+"\n"
+"El uso de este procedimiento se puede mantener sus estructuras gramaticales "
+"necesarias para una minmum y mejorar la legibilidad de su gramática y sus palabras."
 
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminalswizard.cpp:78
 msgid ""
@@ -2031,14 +2168,17 @@ msgid ""
 "\n"
 "Thank you for improving simon."
 msgstr ""
+"Los terminales se han fusionado.\n"
+"\n"
+"Gracias por la mejora de simon."
 
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminalsworkingpage.cpp:34
 msgid "Merging..."
-msgstr ""
+msgstr "La fusión..."
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:48
 msgid "Protocol:"
-msgstr ""
+msgstr "Acta:"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:53
 msgid ""
@@ -2047,10 +2187,14 @@ msgid ""
 "\n"
 "Do you want to remove it from the Trainings-Database?"
 msgstr ""
+"La muestra %1 no se pudo encontrar ni en el equipo local ni el"
+"servidor.\n"
+"\n"
+"¿Desea eliminarlo de la base de datos-Formaciónes?"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:67
 msgid "Couldn't remove Sample from the Trainingscorpus"
-msgstr ""
+msgstr "No es posible eliminar la Muestra de Formación"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:76
 msgid ""
@@ -2059,6 +2203,10 @@ msgid ""
 "\n"
 "Do you want to add the word now?"
 msgstr ""
+"La palabra \"%1\" se utiliza en su formación-las muestras pero no está contenido en"
+"sus palabras.\n"
+"\n"
+"¿Quieres añadir la palabra ahora?"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:89
 msgid ""
@@ -2119,7 +2267,7 @@ msgstr ""
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:31
 msgid "Rename terminal"
-msgstr ""
+msgstr "Cambiar el nombre de la terminal"
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:62
 msgid "Welcome to the renaming of a terminal"
@@ -2131,7 +2279,7 @@ msgstr ""
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:77
 msgid "Renaming complete"
-msgstr ""
+msgstr "Cambiar el nombre acabado"
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:78
 msgid ""
@@ -2142,7 +2290,7 @@ msgstr ""
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalworkingpage.cpp:32
 msgid "Renaming terminal..."
-msgstr ""
+msgstr "Cambiar el nombre a la terminal..."
 
 #: src/simonmodelmanagementui/trainingview.cpp:26
 msgid "Train the Acoustic Model"
@@ -2171,11 +2319,11 @@ msgstr ""
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:172
 msgid "Preview: %1..."
-msgstr ""
+msgstr "Avance: %1..."
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:173
 msgid "Empty"
-msgstr ""
+msgstr "Vacío"
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:111
 msgid "Special Training"
@@ -2215,7 +2363,7 @@ msgstr ""
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:36
 msgid "Page %1 of %2"
-msgstr ""
+msgstr "Pagina %1 de %2"
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:44
 msgid ""
@@ -2238,7 +2386,7 @@ msgstr ""
 
 #: src/simonmodelmanagementui/wordlistview.cpp:33
 msgid "Wortlist"
-msgstr ""
+msgstr "Lista de palabras"
 
 #: src/simonmodelmanagementui/wordlistview.cpp:35
 msgid "View and modify the wordlist."
