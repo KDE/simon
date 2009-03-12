@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
 "net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-03-02 08:55+0100\n"
-"PO-Revision-Date: 2009-03-12 11:32+0000\n"
+"PO-Revision-Date: 2009-03-12 22:06+0000\n"
 "Last-Translator: Neumeister Dominik <neudob06@edvhtl.at>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -2215,6 +2215,10 @@ msgid ""
 "Please add a word that uses this terminal or remove the structure(s) "
 "containing the terminal from your grammar."
 msgstr ""
+"Su gramática utiliza el \"%1\" terminal es indefinido.\n"
+"\n"
+"Agregue por favor una palabra que utilice este terminal o quite "
+"las estructura(s) que contienen el terminal de su gramática."
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:94
 msgid ""
@@ -2222,6 +2226,9 @@ msgid ""
 "\n"
 "Please train at least one word that uses it."
 msgstr ""
+"El \"%1\" del fonema es indefinido.\n"
+"\n"
+"Entrene por favor por lo menos a una palabra que las aplicaciones él."
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:103
 msgid ""
@@ -2229,6 +2236,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
+"No podía almacenar la lista de palabras recibida del servidor.\n"
+"\n"
+"Compruebe por favor los permisos en la carpeta modelo: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:114
 msgid ""
@@ -2236,6 +2246,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
+"No podía almacenar la gramática recibida del servidor.\n"
+"\n"
+"Compruebe por favor los permisos en la carpeta modelo: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:126
 msgid ""
@@ -2243,6 +2256,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
+"No podía almacenar el descripción de lengua recibida del servidor.\n"
+"\n"
+"Compruebe por favor los permisos en la carpeta modelo: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:138
 msgid ""
@@ -2250,6 +2266,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
+"No podía almacenar el recopilación de los entrenamientos recibida del servidor.\n"
+"\n"
+"Compruebe por favor los permisos en la carpeta modelo: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:150
 msgid ""
@@ -2257,6 +2276,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
+"No podía almacenar el modelo activo recibida del servidor.\n"
+"\n"
+"Compruebe por favor los permisos en la carpeta modelo: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:161
 msgid ""
@@ -2264,6 +2286,9 @@ msgid ""
 "\n"
 "Please check the permissions on the sample folder: %2"
 msgstr ""
+"No podía almacenar la muestra %1 recibida del servidor.\n"
+"\n"
+"Compruebe por favor los permisos en la carpeta modelo: %2"
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:31
 msgid "Rename terminal"
@@ -2271,11 +2296,11 @@ msgstr "Cambiar el nombre de la terminal"
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:62
 msgid "Welcome to the renaming of a terminal"
-msgstr ""
+msgstr "Recepción a la retitulación de un terminal"
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:63
 msgid "This assistant will allow you to rename an existing terminal. "
-msgstr ""
+msgstr "Este ayudante permitirá que usted retitule un terminal existente."
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:77
 msgid "Renaming complete"
@@ -2287,6 +2312,9 @@ msgid ""
 "\n"
 "Thank you for improving simon."
 msgstr ""
+"Se ha retitulado el terminal.\n"
+"\n"
+"Gracias por mejorar a simon."
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalworkingpage.cpp:32
 msgid "Renaming terminal..."
@@ -2294,12 +2322,12 @@ msgstr "Cambiar el nombre a la terminal..."
 
 #: src/simonmodelmanagementui/trainingview.cpp:26
 msgid "Train the Acoustic Model"
-msgstr ""
+msgstr "Entrene al modelo acústico"
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:83
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:105
 msgid "Please select a text from the list."
-msgstr ""
+msgstr "Seleccione por favor un texto de la lista."
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:88
 msgid ""
@@ -2308,14 +2336,19 @@ msgid ""
 "\n"
 "Do you want to continue?"
 msgstr ""
+"Si usted confirma este diálogo, el texto seleccionado será "
+"quitado totalmente de su impulsión dura.\n"
+"\n"
+"¿Usted quiere continuar?"
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:91
 msgid "Couldn't delete Trainingstext. Do you have enough permissions?"
 msgstr ""
+"No podía suprimir el texto del entrenamiento. ¿Usted tiene bastantes permisos?"
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:111
 msgid "Couldn't start Training"
-msgstr ""
+msgstr "No podía comenzar a entrenar"
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:172
 msgid "Preview: %1..."
@@ -2327,7 +2360,7 @@ msgstr "Vacío"
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:111
 msgid "Special Training"
-msgstr ""
+msgstr "Entrenamiento especial"
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:124
 msgid ""
@@ -2337,22 +2370,31 @@ msgid ""
 "\n"
 "Do you want to add them now?"
 msgstr ""
+"Su vocabulario no define todas las palabras usadas en este texto. "
+"Estas palabras faltan:\n"
+"%1\n"
+"\n"
+"¿Usted quiere ahora agregarlos?"
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:158
 msgid ""
 "This wizard will help you to improve the recognition rate based on "
 "recordings of your voice."
 msgstr ""
+"Este mago le ayudará a mejorar la tarifa de reconocimiento basada "
+"en grabaciones de su voz."
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:171
 msgid "Training completed"
-msgstr ""
+msgstr "El entrenamiento terminó"
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:173
 msgid ""
 "The training has now been completed. The changes are being applied in the "
 "background."
 msgstr ""
+"El entrenamiento ahora se ha terminado. Los cambios se están aplicando "
+"en el fondo."
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:198
 msgid ""
@@ -2360,6 +2402,9 @@ msgid ""
 "\n"
 "Please restart simon."
 msgstr ""
+"No podía ahorrar cambios a la recopilación de los entrenamientos.\n"
+"\n"
+"Recomience simon, por favor."
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:36
 msgid "Page %1 of %2"
@@ -2372,6 +2417,9 @@ msgid ""
 "Tip: Leave about one to two seconds \"silence\" before and after you read "
 "the text for best results!\n"
 msgstr ""
+"Grabe el texto abajo, por favor.\n"
+"\nExtremidad: ¡Deje cerca de un a dos segundos \"silencio\" antes y después "
+"de usted lea el texto para los mejores resultados!\n"
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:71
 msgid ""
