@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
 "net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-03-02 08:55+0100\n"
-"PO-Revision-Date: 2009-03-12 22:06+0000\n"
+"PO-Revision-Date: 2009-03-12 23:19+0000\n"
 "Last-Translator: Neumeister Dominik <neudob06@edvhtl.at>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -2418,7 +2418,8 @@ msgid ""
 "the text for best results!\n"
 msgstr ""
 "Grabe el texto abajo, por favor.\n"
-"\nExtremidad: ¡Deje cerca de un a dos segundos \"silencio\" antes y después "
+"\n"
+"Extremidad: ¡Deje cerca de un a dos segundos \"silencio\" antes y después "
 "de usted lea el texto para los mejores resultados!\n"
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:71
@@ -2427,10 +2428,13 @@ msgid ""
 "\n"
 "This indicates internal data corruption."
 msgstr ""
+"No podía agregar muestras a la recopilación.\n"
+"\n"
+"Esto indica la corrupción de datos internos."
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:85
 msgid "Couldn't remove sample \"%1\"."
-msgstr ""
+msgstr "No podía quitar el \"%1\" de la muestra."
 
 #: src/simonmodelmanagementui/wordlistview.cpp:33
 msgid "Wortlist"
@@ -2438,7 +2442,7 @@ msgstr "Lista de palabras"
 
 #: src/simonmodelmanagementui/wordlistview.cpp:35
 msgid "View and modify the wordlist."
-msgstr ""
+msgstr "Vea y modifique la lista de palabras."
 
 #: src/simonmodelmanagementui/wordlistviewprivate.cpp:174
 msgid ""
@@ -2448,19 +2452,25 @@ msgid ""
 "If you just want to train your model using generic texts use the \"Training"
 "\" option in the Toolbar."
 msgstr ""
+"Seleccione por favor algunas palabras para el entrenamiento especial "
+"arrastrándolas "
+"de la lista en su izquierda a la lista arriba.\n"
+"\n"
+"Si usted apenas quiere entrenar a su modelo usando los textos genéricos "
+"utilice \"Entrenamiento\" opción en la barra de herramientas."
 
 #: src/simonmodelmanagementui/wordlistviewprivate.cpp:201
 #: src/simonmodelmanagementui/wordlistviewprivate.cpp:225
 msgid "Please select a word first"
-msgstr ""
+msgstr "Seleccione una palabra primero, por favor"
 
 #: src/simonmodelmanagementui/wordlistviewprivate.cpp:255
 msgid "The word could not be completely removed."
-msgstr ""
+msgstr "La palabra no podía ser quitada totalmente."
 
 #: src/simonmodelmanagementui/wordlistviewprivate.cpp:289
 msgid "Please select a word scheduled for training first."
-msgstr ""
+msgstr "Seleccione por favor una palabra programada para el entrenamiento primero."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:213
 msgid ""
@@ -2469,22 +2479,26 @@ msgid ""
 "\n"
 "Do you still want to continue?"
 msgstr ""
+"El certificado del anfitrión alejado uno mismo-se firma y así no digno "
+"de confianza.\n"
+"\n"
+"¿Usted sin embargo quiere continuar?"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:214
 msgid "Self-Signed Certificate"
-msgstr ""
+msgstr "Certificado uno mismo-firmado"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:258
 msgid "Request timed out (%1 ms)"
-msgstr ""
+msgstr "La petición midió el tiempo hacia fuera (%1 ms)"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:339
 msgid "Please enter your Authentication Details for the simond below"
-msgstr ""
+msgstr "Incorpore por favor sus detalles de la autentificación para el simond abajo"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:388
 msgid "Couldn't create model container"
-msgstr ""
+msgstr "No podía crear el envase modelo"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:645
 msgid ""
@@ -2492,16 +2506,19 @@ msgid ""
 "\n"
 "Synchronize it now?"
 msgstr ""
+"El modelo del discurso cambiado\n"
+"\n"
+"¿Ahora sincronícelo?"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:664
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:786
 msgid "Modell Synchronisation"
-msgstr ""
+msgstr "Sincronización modelo"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:664
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1254
 msgid "Initializing..."
-msgstr ""
+msgstr "Incialización…"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:735
 msgid ""
@@ -2509,26 +2526,29 @@ msgid ""
 "\n"
 "Do you want to start a synchronization now?"
 msgstr ""
+"Su modelo del discurso pudo haber cambiado mientras que usted era desconectado.\n"
+"\n"
+"¿Usted quiere ahora comenzar una sincronización?"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:746
 msgid "Version not supported"
-msgstr ""
+msgstr "Versión no apoyada"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:753
 msgid "Wrong username or password."
-msgstr ""
+msgstr "Nombre de usuario o contraseña incorrecto."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:761
 msgid "Access Denied."
-msgstr ""
+msgstr "El acceso negó."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:771
 msgid "Synchronization already running"
-msgstr ""
+msgstr "Sincronización que funciona ya"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:779
 msgid "Couldn't abort synchronization."
-msgstr ""
+msgstr "No podía abortar la sincronización."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:786
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:790
