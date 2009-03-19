@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
 "net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-03-02 08:55+0100\n"
-"PO-Revision-Date: 2009-03-12 23:19+0000\n"
+"PO-Revision-Date: 2009-03-19 13:27+0000\n"
 "Last-Translator: Neumeister Dominik <neudob06@edvhtl.at>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1560,7 +1560,7 @@ msgstr "Comando: %1"
 
 #: src/simonactionsui/newcommand.cpp:127
 msgid "Kommando"
-msgstr ""
+msgstr "Comando"
 
 #: src/simonactionsui/runcommandview.cpp:30 src/simonview.cpp:227
 msgid "Commands"
@@ -2553,132 +2553,133 @@ msgstr "No podía abortar la sincronización."
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:786
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:790
 msgid "Synchronizing acitve Model"
-msgstr ""
+msgstr "Sincronización del modelo del acitve"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:848
 msgid "No Speech Model available: Recognition deactivated"
-msgstr ""
+msgstr "Discurso Modelo no disponible: Reconocimiento desactivado"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:860
 msgid "The server couldn't store the the active model."
-msgstr ""
+msgstr "El servidor no podía almacenar el modelo activo."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:871
 msgid "Checking Source"
-msgstr ""
+msgstr "Fuente de comprobación"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:882
 msgid "Synchronizing Training"
-msgstr ""
+msgstr "Sincronización del entrenamiento"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:891
 msgid "Sending Training-Corpus"
-msgstr ""
+msgstr "Envío de la Entrenamiento-Recopilación"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:902
 msgid "Loading Training"
-msgstr ""
+msgstr "Entrenamiento del cargamento"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:919
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:951
 msgid "Synchronizing Wordlist"
-msgstr ""
+msgstr "Sincronización de la lista de palabras"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:940
 msgid "The server couldn't store the trainings corpus."
-msgstr ""
+msgstr "El servidor no podía almacenar la recopilación de los entrenamientos."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:985
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1017
 msgid "Synchronizing Grammar"
-msgstr ""
+msgstr "Sincronización de la gramática"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:996
 msgid "No Wordlist available"
-msgstr ""
+msgstr "Lista de palabras no disponible"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1007
 msgid "The server couldn't store the wordlist."
-msgstr ""
+msgstr "El servidor no podía almacenar la lista de palabras."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1070
 msgid "The server couldn't store the grammar."
-msgstr ""
+msgstr "El servidor no podía almacenar la gramática."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1079
 msgid "Synchronizing Language Description"
-msgstr ""
+msgstr "Sincronización de la descripción de lengua"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1121
 msgid "There seems to be no language description available."
-msgstr ""
+msgstr "No parece haber descripción de lengua disponible."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1132
 msgid "The server couldn't store language description."
-msgstr ""
+msgstr "El servidor no podía almacenar la descripción de lengua."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1156
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1174
 msgid "Synchronizing Trainings-Corpus"
-msgstr ""
+msgstr "Sincronización de la Entrenamiento-Recopilación"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1200
 msgid "The server couldn't store trainings sample."
-msgstr ""
+msgstr "El servidor no podía almacenar la muestra de los entrenamientos."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1209
 msgid "Couldn't complete Synchronization"
-msgstr ""
+msgstr "No podía terminar la sincronización"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1241
 msgid "Couldn't restore old model"
-msgstr ""
+msgstr "No podía restaurar el viejo modelo"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1254
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1273
 msgid "Compiling Model"
-msgstr ""
+msgstr "Modelo de compilación"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1275
 msgid "Model: %1"
-msgstr ""
+msgstr "Modelo: %1"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1358
 msgid "Couldn't retrieve Model-Compilation-Protocol"
-msgstr ""
+msgstr "No podía recuperar Modelo-Compilación-Protocolo"
 
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:75
 msgid "Not connected to the server"
-msgstr ""
+msgstr "No conectado con el servidor"
 
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:83
 msgid "Loading available Models"
-msgstr ""
+msgstr "Modelos disponibles cargados"
 
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:83
 msgid "Loading list of available Models"
-msgstr ""
+msgstr "Lista de carga de modelos disponibles"
 
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:92
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:164
 msgid "Couldn't send Request to Server"
-msgstr ""
+msgstr "No podía enviar la petición al servidor"
 
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:112
 msgid "No Models found"
-msgstr ""
+msgstr "Ningunos modelos encontrados"
 
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:147
 msgid "Please select a Model from the List"
-msgstr ""
+msgstr "Seleccione por favor un modelo de la lista"
 
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:151
 msgid "Do you really want to revert all changes made since this Model?"
 msgstr ""
+"¿Usted quiere realmente invertir todos los cambios realizados desde este modelo?"
 
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:156
 msgid "This model has no valid date."
-msgstr ""
+msgstr "Este modelo no tiene ninguna fecha válida."
 
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:161
 msgid ""
@@ -2686,72 +2687,75 @@ msgid ""
 "\n"
 "Please track the process of the synchronization in simons main window."
 msgstr ""
+"La petición ha sido envía al servidor.\n"
+"\n"
+"Siga por favor el proceso de la sincronización en ventana principal de simon."
 
 #: src/simonview.cpp:83
 msgid "[INF] Starting simon..."
-msgstr ""
+msgstr "[INF] Comenzando a simon…"
 
 #: src/simonview.cpp:88
 msgid "[INF] Displaying Splashscreen..."
-msgstr ""
+msgstr "[INF] Exhibiendo la pantalla del chapoteo…"
 
 #: src/simonview.cpp:91
 msgid "[INF] Loading configuration modules..."
-msgstr ""
+msgstr "[INF] Módulos de la configuración del cargamento…"
 
 #: src/simonview.cpp:110
 msgid "Loading program..."
-msgstr ""
+msgstr "Programa de cargamento…"
 
 #: src/simonview.cpp:114 src/simonview.cpp:509
 msgid "simon - Deactivated"
-msgstr ""
+msgstr "simon - Desactivado"
 
 #: src/simonview.cpp:127
 msgid "Welcome"
-msgstr ""
+msgstr "Recepción"
 
 #: src/simonview.cpp:129
 msgid "Not connected"
-msgstr ""
+msgstr "No conectado"
 
 #: src/simonview.cpp:137
 msgid "Loading \"Training\"..."
-msgstr ""
+msgstr "Carga \"Entrenamiento\"…"
 
 #: src/simonview.cpp:140
 msgid "Loading \"Wordlist\"..."
-msgstr ""
+msgstr "Carga \"Lista de palabras\"…"
 
 #: src/simonview.cpp:143
 msgid "Loading \"Grammar\"..."
-msgstr ""
+msgstr "Carga \"Gramática\"…"
 
 #: src/simonview.cpp:146
 msgid "Loading \"Run\"..."
-msgstr ""
+msgstr "Carga \"Funcionamiento\"…"
 
 #: src/simonview.cpp:150
 msgid "Loading Interface..."
-msgstr ""
+msgstr "Interfaz del cargamento…"
 
 #: src/simonview.cpp:178 src/simonview.cpp:202 src/simonview.cpp:422
 #: src/simonview.cpp:440
 msgid "Connect"
-msgstr ""
+msgstr "Conecte"
 
 #: src/simonview.cpp:187 src/simonview.cpp:436 src/simonview.cpp:485
 #: src/simonview.cpp:499
 msgid "Activate"
-msgstr ""
+msgstr "Active"
 
 #: src/simonview.cpp:197
 msgid "Disconnect"
-msgstr ""
+msgstr "Desconexión"
 
 #: src/simonview.cpp:252
 msgid "Synchronize"
-msgstr ""
+msgstr "Sincronice"
 
 #: src/simonview.cpp:398
 msgid ""
@@ -2764,54 +2768,62 @@ msgid ""
 "The system will then, upon synchronization, generate the model which will be "
 "used for the recognition."
 msgstr ""
+"No podría comenzar el reconocimiento porque el sistema divulga "
+"que el reconocimiento no está listo.\n"
+"\n"
+"Compruebe por favor si usted ha definido una lista de palabras, una gramática "
+"apropiada y ha registrado algunas muestras de los entrenamientos.\n"
+"\n"
+"El sistema entonces, sobre la sincronización, generar el modelo "
+"que será utilizado para el reconocimiento."
 
 #: src/simonview.cpp:419
 msgid "Disconnected"
-msgstr ""
+msgstr "Desconectado"
 
 #: src/simonview.cpp:433
 msgid "Connection to server lost"
-msgstr ""
+msgstr "La conexión al servidor perdió"
 
 #: src/simonview.cpp:446
 msgid "Connecting..."
-msgstr ""
+msgstr "Conexión…"
 
 #: src/simonview.cpp:468
 msgid "Connected: Deactivating..."
-msgstr ""
+msgstr "Conectado: Desactivación…"
 
 #: src/simonview.cpp:470
 msgid "Deactivating..."
-msgstr ""
+msgstr "Desactivación…"
 
 #: src/simonview.cpp:482
 msgid "Connected but Deactivated"
-msgstr ""
+msgstr "Conectado pero desactivado"
 
 #: src/simonview.cpp:507
 msgid "simon has been deactivated"
-msgstr ""
+msgstr "han desactivado a simon"
 
 #: src/simonview.cpp:515
 msgid "Connected; Activating..."
-msgstr ""
+msgstr "Conectado; El activar…"
 
 #: src/simonview.cpp:517 src/simonview.cpp:520
 msgid "Activating..."
-msgstr ""
+msgstr "El activar…"
 
 #: src/simonview.cpp:525
 msgid "Connected and Activated"
-msgstr ""
+msgstr "Conectado y activado"
 
 #: src/simonview.cpp:529 src/simonview.cpp:541
 msgid "Activated"
-msgstr ""
+msgstr "Activado"
 
 #: src/simonview.cpp:547
 msgid "simon has been activated"
-msgstr ""
+msgstr "han activado a simon"
 
 #: src/simonview.cpp:565
 msgid ""
@@ -2820,10 +2832,14 @@ msgid ""
 "\n"
 "Do you want to quit?"
 msgstr ""
+"Si usted para el uso que la conexión al servidor será cerrada y usted podrá "
+"no más dictar los textos o utilizar comando.\n"
+"\n"
+"¿Usted quiere parar?"
 
 #: src/simonview.cpp:597
 msgid "[INF] Quitting..."
-msgstr ""
+msgstr "[INF] Abandono..."
 
 #~ msgid "Start simon on KDE-start"
 #~ msgstr "???"
