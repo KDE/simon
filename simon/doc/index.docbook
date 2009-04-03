@@ -154,9 +154,11 @@ Because of it's architecture, the same version of simon can be used with all lan
 </chapter>
 
 
-<chapter id="architecture">
-<title>Architecture</title>
+<chapter id="overview">
+<title>Overview</title>
 
+<sect1 id="architecture">
+<title>Architecture</title>
 <para>
 The simon consits of three applications.
 <itemizedlist>
@@ -170,8 +172,17 @@ The simon consits of three applications.
 simon (the solution as a whole) is a server / client solution. That means that there is one server (simond) for one or more clients (&kmyapplication;; This application). KSimond is just a front-end for simond which means it adds no functionality to the system but rather provides a way to interact with simond.
 </para>
 
-<sect1 id="component_overview">
-<title>Overview of the involved applications</title>
+<para>
+<screenshot>
+<screeninfo>Architecture</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="architecture.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
 <para>&kmyapplication; is used to create and maintain a representation of your pronunciation and language. This representation is then sent to the server simond which compiles it into a usable speech model.</para>
 <para>&kmyapplication; then records sound from the microphone and transmits it to the server which runs the recognition on the received input stream. simond sends the recognition result back to the client (&kmyapplication;).</para>
 <para>&kmyapplication; then uses this recognition result to execute commands like opening programs, following links, etc.</para>
@@ -179,7 +190,7 @@ simon (the solution as a whole) is a server / client solution. That means that t
 
 
 <sect1 id="speech_model">
-<title>The Speech Model</title>
+<title>Speech Recognition: Background</title>
 
 <para>
 Speech recognition systems take voice input (often from a microphone) and try to translate it into written text. To do that, they rely on statistical representations of human voice. To put it into simple terms: The computer learns how words - or more correctly the sounds that make up those words - sound.
@@ -197,198 +208,14 @@ A speech model consists of two distinct parts:
 <title>Language Model</title>
 
 <para>The language model defines the vocabulary and the grammar you want to use.</para>
-
-<sect3 id="vocabulary">
-<title>Vocabulary</title>
-<para>
-The vocabulary defines what words the recognition process should recognize. Every word you want to be able to use with simon should be contained in your vocabulary. The vocabulary is also called "wordlist".
-</para>
-<para>
-One entry in the vocabulary defines exactly one "word". In contrast to common use of the word "word", in simon "word" means one unique combination of the following:
-<itemizedlist>
-  <listitem><para>Wordname</para><para>(The written word itself)</para></listitem>
-  <listitem><para>Terminal</para><para>(Grammatical category; For example: "Noun", "Verb", etc.)</para></listitem>
-  <listitem><para>Pronunciation</para><para>(How the word is pronounced; simon accepts any kind of phonetic as long as it does not use special characters or numbers)</para></listitem>
-</itemizedlist>
-
-That means that plurals or even different cases are different "words" to simon.
-This is an important design decicion to allow more control when using a sophisticated grammar.
-</para>
-
-<para>
-In general, it is advisable to keep your vocabulary as sleek as possible. The more words, the higher the chance that simon might misunderstand you.
-</para>
-
-<para>
-Example vocabulary (please note that the terminals here are deliberately set to Noun / Verb to help the understanding; Please to refer to the <link linkend="grammar">grammar section</link> why this might not be the best idea):
-<table frame='all'><title>Sample Vocabulary</title>
-<tgroup cols='3' align='left' colsep='1' rowsep='1'>
-<colspec colname='c1'/>
-<colspec colname='c2'/>
-<colspec colname='c3'/>
-<thead>
-<row>
-  <entry>Word</entry>
-  <entry>Terminal</entry>
-  <entry>Pronunciation</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry>Computer</entry>
-  <entry>Noun</entry>
-  <entry>k ax m p y uw t er</entry>
-</row>
-<row>
-  <entry>Internet</entry>
-  <entry>Noun</entry>
-  <entry>ih n t er n eh t</entry>
-</row>
-<row>
-  <entry>Mail</entry>
-  <entry>Noun</entry>
-  <entry>m ey l</entry>
-</row>
-<row>
-  <entry>close</entry>
-  <entry>Verb</entry>
-  <entry>k l ow s</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-</para>
-
-<sect4 id="shadow_dictionary">
-<title>Shadow Dictionary</title>
-<para>
-As said above, the user should keep his vocabulary / dictionary as lean as possible. However, as a word in your vocabulary has to also have information about it's pronunciation, it would also be good to have large dictionary where you could look up the pronunciation and other characteristics of the words.
-</para>
-<para>
-simon provides this functionality. We refer to this large reference dictionary as "shadow dictionary". This shadow dictionary is not created by the user but can be imported from various sources.
-</para>
-<para>
-As simon is a multi-language solution we do not ship shadow dictionaries with simon. However, it is very easy to import them yourself using the import dictionary wizard. This is described in the <link linkend="import_dictionary">Import Dictionary section</link>.
-</para>
-</sect4>
-
-</sect3>
-
-<sect3 id="grammar">
-<title>Grammar</title>
-<para>
-The grammar defines which combinations of words are correct.
-</para>
-<para>
-Let's look at an example: You want to use simon to launch programs and close those windows when you are done. You would like to use the following commands:
-<itemizedlist>
-  <listitem><para>"Computer, Internet" to open a browser</para></listitem>
-  <listitem><para>"Computer, Mail"</para><para>To open a mail client</para></listitem>
-  <listitem><para>"Computer, close"</para><para>To close the current window</para></listitem>
-</itemizedlist>
-</para>
-<para>
-Following english grammar, your vocabulary would contain the following:
-
-<table frame='all'><title>Sample Vocabulary</title>
-<tgroup cols='2' align='left' colsep='1' rowsep='1'>
-<colspec colname='c1'/>
-<colspec colname='c2'/>
-<thead>
-<row>
-  <entry>Word</entry>
-  <entry>Terminal</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry>Computer</entry>
-  <entry>Noun</entry>
-</row>
-<row>
-  <entry>Internet</entry>
-  <entry>Noun</entry>
-</row>
-<row>
-  <entry>Mail</entry>
-  <entry>Noun</entry>
-</row>
-<row>
-  <entry>close</entry>
-  <entry>Verb</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-</para>
-
-<para>
-To allow the sentences defined above simon would need the following grammar:
-<itemizedlist>
-  <listitem><para>"Noun Noun" for sentences like "Computer Internet"</para></listitem>
-  <listitem><para>"Noun Verb" for sentences like "Computer close"</para></listitem>
-</itemizedlist>
-</para>
-<para>
-While this would work, it would also allow the combinations "Computer Computer", "Internet Computer", "Internet Internet", etc. which are obviously bogus.
-To improve the recognition accuracy, we can try to create a grammar that better reflects what we are trying to do with simon.
-</para>
-
-<para>
-It is important to remember that you define your own "language" when using simon. That means that you are not bound to grammar rules that exist in whatever language you want to use simon with. For a simple command and control use-case it would for example be advisable to invent new grammatical rules to eliminate the differences between different commands imposed by grammatical information not relevant for this use case.
-</para>
-
-<para>
-In the example above it is for example not relevant that "close" is a verb or that "Computer" and "Internet" are nouns. Instead, why not define them as something that better reflects what we want them to be:
-
-<table frame='all'><title>Improved Sample Vocabulary</title>
-<tgroup cols='2' align='left' colsep='1' rowsep='1'>
-<colspec colname='c1'/>
-<colspec colname='c2'/>
-<thead>
-<row>
-  <entry>Word</entry>
-  <entry>Terminal</entry>
-</row>
-</thead>
-<tbody>
-<row>
-  <entry>Computer</entry>
-  <entry>Trigger</entry>
-</row>
-<row>
-  <entry>Internet</entry>
-  <entry>Command</entry>
-</row>
-<row>
-  <entry>Mail</entry>
-  <entry>Command</entry>
-</row>
-<row>
-  <entry>close</entry>
-  <entry>Command</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-</para>
-
-<para>
-Now we change the grammar to the following:
-<itemizedlist>
-  <listitem><para>"Trigger Command"</para></listitem>
-</itemizedlist>
-
-This allows all the combinations described above. However, it also limits the possibilities to exactly those three sentences. Especially in larger models a well thought grammar and vocabulary can mean a huge difference in recognition results.
-</para>
-</sect3>
+<para>For more information see the <link linkend="wordlist">vocabulary section</link> and the <link linkend="grammar">grammar section</link>.</para>
 </sect2>
 
 <sect2 id="acoustic_model">
 <title>Acoustic Model</title>
 <para>The acoustic model represents your pronunciation in a machine readable format.</para>
 
-<para>Let's get back to our sample vocabulary from above:
+<para>Let's look at the following sample vocabulary:
 <table frame='all'><title>Sample Vocabulary</title>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1'/>
@@ -449,22 +276,79 @@ That means if you add the word "clothes" to the language model, your acoustic mo
 <para>
 To train the acoustic model (in other words to tell him how you pronounce the phonemes) you have to "train" words from your language model. That means that simon displays a word which you read out loud. Because the word is listed in your vocabulary, simon already knows what phonemes it contains and can thus "learn" from your pronunciation of your word.
 </para>
+</sect2>
+</sect1>
+</chapter>
+
+<chapter id="guidelines">
+<title>Guidelines</title>
+<para>This chapter lists some general guidelines that are relevant for different parts of simon.</para>
+
+<sect1 id="recording">
+<title>Recordings</title>
+<para>simon builds it's acoustic model based on transcribed samples of the users voice. Because of this, the recorded samples are of vital importance for the recognition.</para>
+
+<sect2 id="volume">
+<title>Volume</title>
+<para>It is important that you check your microphone volume before recording any samples.</para>
+<para>A simple way to ensure that your microphone is configured correctly is to use an audio editing tool like the free <ulink url="http://audacity.sourceforge.net">Audacity</ulink>.</para>
+
+<para>Open the program and start the recording. Say a few words. Don't yell but don't be so quiet either. Take into account that you should generally use the same volume setting for all your training and for the recognition too. You might speak a little bit louder (unconsiously) when you are upset or at another time of the day so try to raise your voice a little bit to anticipate this. It is much better to have a little quieter samples than to start clipping.</para>
+
+
+<para>
+Too quiet:
+<screenshot>
+<screeninfo>Volume: Too quiet</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="too_quiet.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+Too loud:
+<screenshot>
+<screeninfo>Volume: Too loud</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="too_loud.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+Perfect volume:
+<screenshot>
+<screeninfo>Perfect volume</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="volume_perfect.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
 
 </sect2>
 
+<sect2 id="silence">
+<title>Silence</title>
+<para>To help simon with the automatic segmentation it is recommended to leave about one or two seconds of silence on the recording before and after reading the prompted text.</para>
+</sect2>
 </sect1>
-
 </chapter>
-
 
 
 <chapter id="using-simon">
 <title>Using &kmyapplication;</title>
 
+<sect1 id="using_overview">
+<title></title>
 <para>
-<!-- Note that all graphics should be in .png format. Do not use gifs because of
-patent issues. -->
-
+The following chapter will provide an overview over the usage of simon.
 <screenshot>
 <screeninfo>A screenshot of &kmyapplication;</screeninfo>
 	<mediaobject>
@@ -477,16 +361,138 @@ patent issues. -->
 	</mediaobject>
 </screenshot>
 </para>
-
+</sect1>
 
 
 <sect1 id="wordlist">
 <title>Wordlist</title>
-<para>The wordlist lets the user manage the <link linkend="vocabulary">vocabulary</link>.</para>
+<para>The wordlist lets the user manage the vocabulary.</para>
+
+<sect2 id="wordlist_theory">
+<title>General</title>
+<para>
+The vocabulary defines what words the recognition process should recognize. Every word you want to be able to use with simon should be contained in your vocabulary.
+</para>
+<para>
+One entry in the vocabulary defines exactly one "word". In contrast to common use of the word "word", in simon "word" means one unique combination of the following:
+<itemizedlist>
+  <listitem><para>Wordname</para><para>(The written word itself)</para></listitem>
+  <listitem><para>Terminal</para><para>(Grammatical category; For example: "Noun", "Verb", etc.)</para></listitem>
+  <listitem><para>Pronunciation</para><para>(How the word is pronounced; simon accepts any kind of phonetic as long as it does not use special characters or numbers)</para></listitem>
+</itemizedlist>
+
+That means that plurals or even different cases are different "words" to simon.
+This is an important design decicion to allow more control when using a sophisticated grammar.
+</para>
+
+<para>
+In general, it is advisable to keep your vocabulary as sleek as possible. The more words, the higher the chance that simon might misunderstand you.
+</para>
+
+<para>
+Example vocabulary (please note that the terminals here are deliberately set to Noun / Verb to help the understanding; Please to refer to the <link linkend="grammar">grammar section</link> why this might not be the best idea):
+<table frame='all'><title>Sample Vocabulary</title>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<colspec colname='c3'/>
+<thead>
+<row>
+  <entry>Word</entry>
+  <entry>Terminal</entry>
+  <entry>Pronunciation</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>Computer</entry>
+  <entry>Noun</entry>
+  <entry>k ax m p y uw t er</entry>
+</row>
+<row>
+  <entry>Internet</entry>
+  <entry>Noun</entry>
+  <entry>ih n t er n eh t</entry>
+</row>
+<row>
+  <entry>Mail</entry>
+  <entry>Noun</entry>
+  <entry>m ey l</entry>
+</row>
+<row>
+  <entry>close</entry>
+  <entry>Verb</entry>
+  <entry>k l ow s</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+
+<sect3 id="active_dictionary">
+<title>Active Dictionary</title>
+<para>The vocabulary used for the recognition is referred to as active dictionary or active vocabulary.</para>
+</sect3>
+
+<sect3 id="shadow_dictionary">
+<title>Shadow Dictionary</title>
+<para>
+As said above, the user should keep his vocabulary / dictionary as lean as possible. However, as a word in your vocabulary has to also have information about it's pronunciation, it would also be good to have large dictionary where you could look up the pronunciation and other characteristics of the words.
+</para>
+<para>
+simon provides this functionality. We refer to this large reference dictionary as "shadow dictionary". This shadow dictionary is not created by the user but can be imported from various sources.
+</para>
+<para>
+As simon is a multi-language solution we do not ship shadow dictionaries with simon. However, it is very easy to import them yourself using the import dictionary wizard. This is described in the <link linkend="import_dictionary">Import Dictionary section</link>.
+</para>
+</sect3>
+</sect2>
+
+
+
+<sect2>
+<title>Maintaining the Wordlist</title>
+<para>
+simon provides a "Wordlist" menu which lists the current vocabulary.
+
+<screenshot>
+<screeninfo>simons Wordlist</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="wordlist.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>Per default, only the active vocabulary is shown. Only after you tick the "Include unused Words from the Shadow Lexicon" checkbox the shadow lexicon is also shown.</para>
+
+<para>
+Every word states it "recognition rate" which at the moment is just a counter of how often the word has been recorded (alone or together with other words).
+</para>
+<para>
+When this number is only one or zero the word entry is colored red (1: light red; 0: dark red). This is a visual warning. When a word contains a phoneme combination that is not covered by any other word and the word with this unusual phoneme combination is never recorded (recognition rate = 0), the model <emphasis>will</emphasis> fail to compile. However, simon will display an appropriate error message when the compilation of the model fails because of such an issue. In general it is a good idea to record each word at least once or twice (at best when <link linkend="add_word_record">adding the word</link>) to avoid such problems.
+</para>
+<para>Because the shadow dictionary is not used for the recognition there are of course no trainings samples for words in the shadow dictionary. So don't be alarmed if all the entries in the shadow dictionary are colored dark red - this is perfectly normal.
+
+<screenshot>
+<screeninfo>Shadow Wordlist</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="wordlist1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+
+
+</para>
+
+</sect2>
+
 
 <sect2 id="add_word">
-<title>Add Word</title>
-<para>To add new words to the model, use the add word wizard.</para>
+<title>Adding Words</title>
+<para>To add new words to the active vocabulary, use the add word wizard.</para>
 <para>Adding words to simon is basically a two step procedure:
 <itemizedlist>
 <listitem><para>Defining the word</para></listitem>
@@ -638,23 +644,67 @@ Altough simon ensures that the automatically generated examples are valid, you c
 <screeninfo>Editing word examples</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="add_word_2_3.png" format="PNG"/>
+      <imagedata fileref="add_word_3.png" format="PNG"/>
     </imageobject>
   </mediaobject>
 </screenshot>
 </para>
 
 <para>
-
+You are free to change those examples to anything you like. You can even go so far and use words that are not yet in your active lexicon as long as you add them before you synchronize the model, altough this is not recommended.
 </para>
+
+<para>
+All that is left is to record the examples.
+<screenshot>
+<screeninfo>Recording</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="add_word_4.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para>Make sure you follow the guidelines listed in the <link linkend="recording">recording section</link>.</para>
 </sect3>
 
 </sect2>
 
+
+<sect2 id="remove_word">
+<title>Removing a word</title>
+
+<para>To remove a word from your language model, select it in the wordlist view and click on "Remove selected word".
+
+<screenshot>
+<screeninfo>Recording</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="delete_word.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot></para>
+
+<para>
+As you can see, the dialog offers two choices:
+<itemizedlist>
+  <listitem>
+    <para>Move the word to the shadow lexicon</para>
+    <para>This will remove the selected word from the active lexicon (and thus from the recognition) but will keep a copy in the shadow vocabulary. All the recordings containing the word will still be lost.</para>
+  </listitem>
+  <listitem><para>Remove the word completely</para>
+    <para>Just remove the word. All the recordings containing the word will of course be removed too.</para></listitem>
+</itemizedlist>
+</para>
+
+</sect2>
+
+
+
 <sect2 id="import_dictionary">
 <title>Importing a Dictionary</title>
 <para>
-simon provides the functionality to import large dictionaries as a reference. This reference dictionary is called "shadow dictionary".
+simon provides the functionality to import large dictionaries as a reference. This reference dictionary is called <link linkend="shadow_dictionary">shadow dictionary</link>.
 </para>
 <para>
 When the user <link linkend="add_word">adds a new word</link> to the model, he has to define the following characteristics to define this word:
@@ -680,30 +730,54 @@ simon is able to import four different types of dictionaries:
 
 
 <sect3 id="import_dict_hadifix">
-<title>Import a HADIFIX Dictionary</title>
+<title>HADIFIX Dictionary</title>
 <para>
-
+simon can import HADIFIX dictionaries.
+</para>
+<para>
+One example of a HADIFIX dictionary is the German <ulink url="http://www.ifk.uni-bonn.de/forschung/abteilung-sprache-und-kommunikation/phonetik/sprachsynthese/bomp/bomp-1">HADIFIX BOMP</ulink>.
+</para>
+<para>
+Hadifix dictionaries provide both terminals and pronunciation.
 </para>
 </sect3>
 
 <sect3 id="import_dict_htk">
-<title>Import a HTK Dictionary</title>
+<title>HTK Dictionary</title>
 <para>
-
+simon can import HTK lexica.
+</para>
+<para>
+One example of a HTK lexicon is the English <ulink url="http://www.repository.voxforge1.org/downloads/SpeechCorpus/Trunk/Lexicon/">Voxforge dictionary</ulink>.
+</para>
+<para>
+Hadifix dictionaries provide pronunciation information but no terminals. All words will be assigned to the terminal "Unknown".
 </para>
 </sect3>
 
 <sect3 id="import_dict_pls">
-<title>Import a PLS Dictionary</title>
+<title>PLS Dictionary</title>
 <para>
-
+simon can import PLS dictionaries.
+</para>
+<para>
+One example of a PLS dictionary is the <ulink url="http://www.repository.voxforge1.org/downloads/de/Trunk/Lexicon/">German GPL dictionary from Voxforge</ulink>.
+</para>
+<para>
+PLS dictionaries provide pronunciation information but no terminals. All words will be assigned to the terminal "Unknown".
 </para>
 </sect3>
 
 <sect3 id="import_dict_sphinx">
-<title>Import a SPHINX Dictionary</title>
+<title>SPHINX Dictionary</title>
 <para>
-
+simon can import SPHINX dictionaries.
+</para>
+<para>
+One example of a SPHINX dictionary is this <ulink url="http://speech.mty.itesm.mx/~jnolazco/proyectos.htm">dictionary for Mexican Spanish</ulink>.
+</para>
+<para>
+SPHINX dictionaries provide pronunciation information but no terminals. All words will be assigned to the terminal "Unknown".
 </para>
 </sect3>
 
@@ -712,8 +786,352 @@ simon is able to import four different types of dictionaries:
 </sect1> <!-- End Wordlist -->
 
 
-<sect1 id="jconfs">
+<sect1 id="grammar">
+<title>Grammar</title>
+<para>
+The grammar defines which combinations of words are correct.
+</para>
 
+<sect2 id="grammar_general">
+<title>General</title>
+<para>
+Let's look at an example: You want to use simon to launch programs and close those windows when you are done. You would like to use the following commands:
+<itemizedlist>
+  <listitem><para>"Computer, Internet" to open a browser</para></listitem>
+  <listitem><para>"Computer, Mail"</para><para>To open a mail client</para></listitem>
+  <listitem><para>"Computer, close"</para><para>To close the current window</para></listitem>
+</itemizedlist>
+</para>
+<para>
+Following english grammar, your vocabulary would contain the following:
+
+<table frame='all'><title>Sample Vocabulary</title>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<thead>
+<row>
+  <entry>Word</entry>
+  <entry>Terminal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>Computer</entry>
+  <entry>Noun</entry>
+</row>
+<row>
+  <entry>Internet</entry>
+  <entry>Noun</entry>
+</row>
+<row>
+  <entry>Mail</entry>
+  <entry>Noun</entry>
+</row>
+<row>
+  <entry>close</entry>
+  <entry>Verb</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+
+<para>
+To allow the sentences defined above simon would need the following grammar:
+<itemizedlist>
+  <listitem><para>"Noun Noun" for sentences like "Computer Internet"</para></listitem>
+  <listitem><para>"Noun Verb" for sentences like "Computer close"</para></listitem>
+</itemizedlist>
+</para>
+<para>
+While this would work, it would also allow the combinations "Computer Computer", "Internet Computer", "Internet Internet", etc. which are obviously bogus.
+To improve the recognition accuracy, we can try to create a grammar that better reflects what we are trying to do with simon.
+</para>
+
+<para>
+It is important to remember that you define your own "language" when using simon. That means that you are not bound to grammar rules that exist in whatever language you want to use simon with. For a simple command and control use-case it would for example be advisable to invent new grammatical rules to eliminate the differences between different commands imposed by grammatical information not relevant for this use case.
+</para>
+
+<para>
+In the example above it is for example not relevant that "close" is a verb or that "Computer" and "Internet" are nouns. Instead, why not define them as something that better reflects what we want them to be:
+
+<table frame='all'><title>Improved Sample Vocabulary</title>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<thead>
+<row>
+  <entry>Word</entry>
+  <entry>Terminal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>Computer</entry>
+  <entry>Trigger</entry>
+</row>
+<row>
+  <entry>Internet</entry>
+  <entry>Command</entry>
+</row>
+<row>
+  <entry>Mail</entry>
+  <entry>Command</entry>
+</row>
+<row>
+  <entry>close</entry>
+  <entry>Command</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+
+<para>
+Now we change the grammar to the following:
+<itemizedlist>
+  <listitem><para>"Trigger Command"</para></listitem>
+</itemizedlist>
+
+This allows all the combinations described above. However, it also limits the possibilities to exactly those three sentences. Especially in larger models a well thought grammar and vocabulary can mean a huge difference in recognition results.
+</para>
+</sect2>
+
+<sect2>
+<title>Defining your Grammar</title>
+<para> 
+simon provides an easy to use text based interface to change the grammar. You can simply list all the allowed sentences (without any punctuation marks, obviously) like described above.
+
+<screenshot>
+<screeninfo>Grammar</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="grammar.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+</sect2>
+
+<sect2>
+<title>Import a Grammar</title>
+<para>Additionally to simply entering your desired grammar sentence by sentence, simon is able to automatically deduce allowed grammar structures by reading plaintext using the Import Grammar wizard.
+
+
+<screenshot>
+<screeninfo>Import Grammar</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="import_grammar.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>Say we have a vocabulary like in the general section above: 
+
+<table frame='all'><title>Improved Sample Vocabulary</title>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<thead>
+<row>
+  <entry>Word</entry>
+  <entry>Terminal</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>Computer</entry>
+  <entry>Trigger</entry>
+</row>
+<row>
+  <entry>Internet</entry>
+  <entry>Command</entry>
+</row>
+<row>
+  <entry>Mail</entry>
+  <entry>Command</entry>
+</row>
+<row>
+  <entry>close</entry>
+  <entry>Command</entry>
+</row>
+</tbody>
+</tgroup>
+</table></para>
+
+<para>We want simon to recognize the sentence "Computer Internet!". So we create a simple text file with this content "Computer Internet!" (any punctuation mark would work) and save it as "simongrammar.txt".
+
+<screenshot>
+<screeninfo>Import Grammar: Text</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="import_grammar2.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+
+<screenshot>
+<screeninfo>Import Grammar: Select files</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="import_grammar1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>simon will then read all the given text files (in this case the only given text file is "simongrammar.txt") and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its terminal.</para>
+<para>In our example this would mean that he would find the sentence "Computer Internet". simon would find out that "Computer" is of the terminal "Trigger" and "Internet" of the terminal "Command". Because of this simon would "learn" that "Trigger Command" is a valid sentence and add it to its grammar.</para>
+<para>The import automatically segments the input text files by punctuation marks (".", " - ", "!", etc.) so any natural text should work. The importer will automatically merge duplicate sentence structures (even accross different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
+<para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the "Also import unknown sentences" checkbox in which case those words are replaced with "Unknown".</para> 
+
+</sect2>
+
+
+
+
+
+<sect2>
+<title>Renaming Terminals</title>
+<para>The rename terminal wizard allows you to rename terminals in both your active vocabulary, your shadow dictionary and the grammar.
+
+<screenshot>
+<screeninfo>Rename Terminal</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="rename_terminal.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+</sect2>
+
+<sect2>
+<title>Merging Terminals</title>
+<para>The merge terminal wizard allows you to merge two terminals into one new terminal in both your active vocabulary, your shadow dictionary and the grammar.
+
+<screenshot>
+<screeninfo>Merge Terminal</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="merge_terminal.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para>This functionality is especially useful if you want to simplify your grammar structures.</para>
+</sect2>
+
+
+</sect1>
+
+
+
+<sect1 id="training">
+<title>Training</title>
+
+<para>Info about the training
+
+<screenshot>
+<screeninfo>Training</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="training.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<sect2 id="import_texts">
+<title>Importing Texts</title>
+<para> </para>
+</sect2>
+
+<sect2 id="import_trainingsdata">
+<title>Importing Trainingsdata</title>
+<para> </para>
+</sect2>
+
+</sect1>
+
+
+<sect1 id="commands">
+<title>Commands</title>
+<para>Info about the commands</para>
+
+<sect2 id="executable_commands">
+<title>Executable Commands</title>
+<para> </para>
+</sect2>
+
+<sect2 id="place_commands">
+<title>Place Commands</title>
+<para> </para>
+</sect2>
+
+<sect2 id="shortcut_commands">
+<title>Shortcut Commands</title>
+<para> </para>
+</sect2>
+
+<sect2 id="text_macro_commands">
+<title>Text-Macro Commands</title>
+<para> </para>
+</sect2>
+
+<sect2 id="list_command">
+<title>List Commands</title>
+<para> </para>
+</sect2>
+
+<sect2 id="composite_commands">
+<title>Composite Commands</title>
+<para> </para>
+</sect2>
+
+<sect2 id="desktopgrid">
+<title>Desktop Grid</title>
+<para> </para>
+</sect2>
+
+<sect2 id="input_number">
+<title>Input Number</title>
+<para> </para>
+</sect2>
+
+<sect2 id="dictation_command_plugin">
+<title>Dictation</title>
+<para> </para>
+</sect2>
+</sect1>
+
+
+<sect1 id="simond">
+<title>simond</title>
+<para> </para>
+
+<sect2 id="multiple_simond">
+<title>Using simon with multiple simonds</title>
+<para> </para>
+</sect2>
+
+<sect2 id="model_backup">
+<title>Using the automatic model backup</title>
+<para> </para>
+</sect2>
+
+</sect1>
+
+
+<sect1 id="recordings">
+<title>Configuring Recordings</title>
+<para> </para>
+</sect1>
+
+<sect1 id="jconfs">
 <title>Adjusting the recognition parameters manually</title>
 
 <para>
@@ -724,7 +1142,6 @@ In special cases (severe speech impairments for example), special configuration 
 </para>
 
 </sect1>
-
 
 
 </chapter>
