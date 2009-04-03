@@ -368,6 +368,8 @@ The following chapter will provide an overview over the usage of simon.
 <title>Wordlist</title>
 <para>The wordlist lets the user manage the vocabulary.</para>
 
+<sect2 id="wordlist_theory">
+<title>General</title>
 <para>
 The vocabulary defines what words the recognition process should recognize. Every word you want to be able to use with simon should be contained in your vocabulary.
 </para>
@@ -427,12 +429,12 @@ Example vocabulary (please note that the terminals here are deliberately set to 
 </table>
 </para>
 
-<sect2 id="active_dictionary">
+<sect3 id="active_dictionary">
 <title>Active Dictionary</title>
 <para>The vocabulary used for the recognition is referred to as active dictionary or active vocabulary.</para>
-</sect2>
+</sect3>
 
-<sect2 id="shadow_dictionary">
+<sect3 id="shadow_dictionary">
 <title>Shadow Dictionary</title>
 <para>
 As said above, the user should keep his vocabulary / dictionary as lean as possible. However, as a word in your vocabulary has to also have information about it's pronunciation, it would also be good to have large dictionary where you could look up the pronunciation and other characteristics of the words.
@@ -443,10 +445,53 @@ simon provides this functionality. We refer to this large reference dictionary a
 <para>
 As simon is a multi-language solution we do not ship shadow dictionaries with simon. However, it is very easy to import them yourself using the import dictionary wizard. This is described in the <link linkend="import_dictionary">Import Dictionary section</link>.
 </para>
+</sect3>
 </sect2>
 
+
+
+<sect2>
+<title>Maintaining the Wordlist</title>
+<para>
+simon provides a "Wordlist" menu which lists the current vocabulary.
+
+<screenshot>
+<screeninfo>simons Wordlist</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="wordlist.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>Per default, only the active vocabulary is shown. Only after you tick the "Include unused Words from the Shadow Lexicon" checkbox the shadow lexicon is also shown.</para>
+
+<para>
+Every word states it "recognition rate" which at the moment is just a counter of how often the word has been recorded (alone or together with other words).
+</para>
+<para>
+When this number is only one or zero the word entry is colored red (1: light red; 0: dark red). This is a visual warning. When a word contains a phoneme combination that is not covered by any other word and the word with this unusual phoneme combination is never recorded (recognition rate = 0), the model <emphasis>will</emphasis> fail to compile. However, simon will display an appropriate error message when the compilation of the model fails because of such an issue. In general it is a good idea to record each word at least once or twice (at best when <link linkend="add_word_record">adding the word</link>) to avoid such problems.
+</para>
+<para>Because the shadow dictionary is not used for the recognition there are of course no trainings samples for words in the shadow dictionary. So don't be alarmed if all the entries in the shadow dictionary are colored dark red - this is perfectly normal.
+
+<screenshot>
+<screeninfo>Shadow Wordlist</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="wordlist1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+
+
+</para>
+
+</sect2>
+
+
 <sect2 id="add_word">
-<title>Add Word</title>
+<title>Adding Words</title>
 <para>To add new words to the active vocabulary, use the add word wizard.</para>
 <para>Adding words to simon is basically a two step procedure:
 <itemizedlist>
@@ -624,6 +669,37 @@ All that is left is to record the examples.
 </sect3>
 
 </sect2>
+
+
+<sect2 id="remove_word">
+<title>Removing a word</title>
+
+<para>To remove a word from your language model, select it in the wordlist view and click on "Remove selected word".
+
+<screenshot>
+<screeninfo>Recording</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="delete_word.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot></para>
+
+<para>
+As you can see, the dialog offers two choices:
+<itemizedlist>
+  <listitem>
+    <para>Move the word to the shadow lexicon</para>
+    <para>This will remove the selected word from the active lexicon (and thus from the recognition) but will keep a copy in the shadow vocabulary. All the recordings containing the word will still be lost.</para>
+  </listitem>
+  <listitem><para>Remove the word completely</para>
+    <para>Just remove the word. All the recordings containing the word will of course be removed too.</para></listitem>
+</itemizedlist>
+</para>
+
+</sect2>
+
+
 
 <sect2 id="import_dictionary">
 <title>Importing a Dictionary</title>
