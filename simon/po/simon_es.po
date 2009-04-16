@@ -620,8 +620,8 @@ msgid ""
 "\n"
 "This can take a few minutes..."
 msgstr ""
-"Textos se analizan ... \ n"
-"\ n"
+"Textos se analizan ... \n"
+"\n"
 "Esto puede tardar unos minutos ..."
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/importgrammarworkingpage.ui:44
