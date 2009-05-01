@@ -106,6 +106,7 @@
  */
 
 #include <julius/julius.h>
+#include <julius/private_globals.h>
 #ifdef HAVE_PTHREAD
 #include <pthread.h>
 #endif
@@ -306,6 +307,7 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
   int zc;		/* count of zero cross */
 
   a = recog->adin;
+  adin_cut_should_run = TRUE;
 
   /*
    * there are 3 buffers:
@@ -373,6 +375,14 @@ adin_cut(int (*ad_process)(SP16 *, int, Recog *), int (*ad_check)(Recog *), Reco
       } else {
 	cnt = (*(a->ad_read))(&(a->buffer[a->bp]), a->bpmax - a->bp);
       }
+      if (adin_cut_should_run == FALSE)
+      {
+	//Stop this madness...
+	//Madness? THIS IS SPARTA!!!
+	fprintf(stderr, "THIS IS SPARTAAAAAAAAAAAAA!");
+	return -2;
+      }
+
       if (cnt < 0) {		/* end of stream / segment or error */
 	/* set the end status */
 	switch(cnt) {
@@ -1021,7 +1031,7 @@ adin_thread_cancel(Recog *recog)
   ADIn *a;
   int ret;
 
-  if (recog->adin->adinthread_ended) return TRUE;
+  if ((adin_cut_should_run == FALSE) || recog->adin->adinthread_ended) return TRUE;
 
   ret = pthread_cancel(recog->adin->adin_thread);
   if (ret == 0) {

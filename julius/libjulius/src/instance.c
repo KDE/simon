@@ -23,6 +23,7 @@
  */
 
 #include <julius/juliuslib.h>
+#include <julius/private_globals.h>
 
 /** 
  * <EN>
@@ -800,6 +801,8 @@ j_recog_new()
 void
 j_recog_free(Recog *recog)
 {
+  adin_cut_should_run = FALSE;
+
   if (recog->gmm) hmminfo_free(recog->gmm);
 
   if (recog->speech) free(recog->speech);

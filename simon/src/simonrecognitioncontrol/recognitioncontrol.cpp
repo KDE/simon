@@ -1528,7 +1528,7 @@ void RecognitionControl::stopRecognition()
 
 void RecognitionControl::pauseRecognition()
 {
-	kDebug() << "Sending pause request";
+//	kDebug() << "Sending pause request";
 	adinStreamer->stop();
 //	sendRequest(Simond::PauseRecognition);
 }
