@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?atid=935103&group_id=190872\n"
 "net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-03-02 08:55+0100\n"
-"PO-Revision-Date: 2009-03-26 16:26+0000\n"
+"PO-Revision-Date: 2009-04-23 15:48+0000\n"
 "Last-Translator: Neumeister Dominik <neudob06@edvhtl.at>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -2085,10 +2085,11 @@ msgid ""
 "\n"
 "That way the training of simon will never get boring!"
 msgstr ""
-"Usando este ayudante usted puede importar nuevo Trainingstexts del red "
+"Usando este ayudante usted puede importar nuevos textos de entrenamiento del "
+"internet "
 "o de los archivos locales.\n"
 "\n"
-"¡Esa manera el entrenamiento de simon nunca conseguirá el taladro!"
+"¡En esta manera el entrenamiento de simon nunca llegarar a ser aburrida!"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:164
 msgid "Text added"
@@ -2110,15 +2111,15 @@ msgstr "Elija su fuente"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:52
 msgid "Text is being added"
-msgstr "Se está agregando el texto"
+msgstr "Se está agregando un texto"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:65
 msgid "[INF] Starting remove import from \"%1\""
-msgstr "[INF] El comenzar quita la importación de \"%1\""
+msgstr "[INF] Comenzando quita la importación de \"%1\""
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:201
 msgid "Couldn't store Trainingstext"
-msgstr "No podía almacenar el texto de los entrenamientos"
+msgstr "No podía guardar el texto de los entrenamientos"
 
 #: src/simonmodelmanagementui/ImportTrainingTexts/xmltrainingtextlist.cpp:48
 msgid "[INF] Loading List of Trainingstexts from %1"
@@ -2127,7 +2128,7 @@ msgstr "[INF] Cargando lista de texto de los entrenamientos desde %1"
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:33
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:41
 msgid "Processing Words of Terminal %1"
-msgstr "Elaborar las palabras de la terminal %1"
+msgstr "Procesando las palabras de la terminal %1"
 
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:48
 msgid "Adapting Grammar"
@@ -2148,10 +2149,11 @@ msgid ""
 "Using this procedure you can keep your grammar structures to a needed minmum "
 "and improve the readability of both your grammar and your wordlist."
 msgstr ""
-"Este asistente le guiará a través del proceso de la fusión de dos terminales.\n"
+"Este asistente se le guiará a través del proceso de la fusión de dos terminales.\n"
 "\n"
-"El uso de este procedimiento se puede mantener sus estructuras gramaticales "
-"necesarias para una minmum y mejorar la legibilidad de su gramática y sus palabras."
+"Con el uso de este procedimiento se puede mantener al minimo sus estructuras "
+"gramaticales "
+"necesarias y mejorar la legibilidad de su gramática y sus palabras."
 
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminalswizard.cpp:78
 msgid ""
@@ -2161,7 +2163,7 @@ msgid ""
 msgstr ""
 "Los terminales se han fusionado.\n"
 "\n"
-"Gracias por la mejora de simon."
+"Gracias por mejorar a simon."
 
 #: src/simonmodelmanagementui/MergeTerminals/mergeterminalsworkingpage.cpp:34
 msgid "Merging..."
@@ -2169,7 +2171,7 @@ msgstr "La fusión..."
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:48
 msgid "Protocol:"
-msgstr "Acta:"
+msgstr "Protocolo:"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:53
 msgid ""
@@ -2178,14 +2180,14 @@ msgid ""
 "\n"
 "Do you want to remove it from the Trainings-Database?"
 msgstr ""
-"La muestra %1 no se pudo encontrar ni en el equipo local ni el"
+"La muestra \"%1\" no se pudo encontrar ni en el equipo local ni en el"
 "servidor.\n"
 "\n"
-"¿Desea eliminarlo de la base de datos-Formaciónes?"
+"¿Desea eliminarlo de la base de datos del entrenamiento?"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:67
 msgid "Couldn't remove Sample from the Trainingscorpus"
-msgstr "No es posible eliminar la Muestra de Formación"
+msgstr "No es posible eliminar la muestra de entrenamiento"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:76
 msgid ""
@@ -2194,8 +2196,8 @@ msgid ""
 "\n"
 "Do you want to add the word now?"
 msgstr ""
-"La palabra \"%1\" se utiliza en su formación-las muestras pero no está contenido en"
-"sus palabras.\n"
+"La palabra \"%1\" se utiliza en su muestras de entrenamiento pero no existe en"
+"su lista de palabras.\n"
 "\n"
 "¿Quieres añadir la palabra ahora?"
 
@@ -2206,7 +2208,7 @@ msgid ""
 "Please add a word that uses this terminal or remove the structure(s) "
 "containing the terminal from your grammar."
 msgstr ""
-"Su gramática utiliza el \"%1\" terminal es indefinido.\n"
+"Su gramática utiliza el \"%1\" terminal indefinido.\n"
 "\n"
 "Agregue por favor una palabra que utilice este terminal o quite "
 "las estructura(s) que contienen el terminal de su gramática."
@@ -2217,9 +2219,9 @@ msgid ""
 "\n"
 "Please train at least one word that uses it."
 msgstr ""
-"El \"%1\" del fonema es indefinido.\n"
+"El fonema \"%1\" es indefinido.\n"
 "\n"
-"Entrene por favor por lo menos a una palabra que las aplicaciones él."
+"Entrene por favor por lo menos a una palabra que usa el mismo."
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:103
 msgid ""
@@ -2227,9 +2229,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
-"No podía almacenar la lista de palabras recibida del servidor.\n"
+"No podía guardar la lista de palabras recibida del servidor.\n"
 "\n"
-"Compruebe por favor los permisos en la carpeta modelo: %1"
+"Compruebe por favor los permisos en la carpeta del modelo: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:114
 msgid ""
@@ -2237,9 +2239,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
-"No podía almacenar la gramática recibida del servidor.\n"
+"No podía guardar la gramática recibida del servidor.\n"
 "\n"
-"Compruebe por favor los permisos en la carpeta modelo: %1"
+"Compruebe por favor los permisos en la carpeta del modelo: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:126
 msgid ""
@@ -2247,9 +2249,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
-"No podía almacenar el descripción de lengua recibida del servidor.\n"
+"No podía guardar la descripción de lenguaje recibida del servidor.\n"
 "\n"
-"Compruebe por favor los permisos en la carpeta modelo: %1"
+"Compruebe por favor los permisos en la carpeta del modelo: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:138
 msgid ""
@@ -2257,9 +2259,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
-"No podía almacenar el recopilación de los entrenamientos recibida del servidor.\n"
+"No podía guardar la recopilación de los entrenamientos recibida del servidor.\n"
 "\n"
-"Compruebe por favor los permisos en la carpeta modelo: %1"
+"Compruebe por favor los permisos en la carpeta del modelo: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:150
 msgid ""
@@ -2267,9 +2269,9 @@ msgid ""
 "\n"
 "Please check the permissions on the model folder: %1"
 msgstr ""
-"No podía almacenar el modelo activo recibida del servidor.\n"
+"No podía guardar el modelo activo recibida del servidor.\n"
 "\n"
-"Compruebe por favor los permisos en la carpeta modelo: %1"
+"Compruebe por favor los permisos en la carpeta del modelo: %1"
 
 #: src/simonmodelmanagementui/modelmanageruiproxy.cpp:161
 msgid ""
@@ -2277,9 +2279,9 @@ msgid ""
 "\n"
 "Please check the permissions on the sample folder: %2"
 msgstr ""
-"No podía almacenar la muestra %1 recibida del servidor.\n"
+"No podía guardar la muestra %1 recibida del servidor.\n"
 "\n"
-"Compruebe por favor los permisos en la carpeta modelo: %2"
+"Compruebe por favor los permisos en la carpeta del modelo: %2"
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:31
 msgid "Rename terminal"
@@ -2287,7 +2289,7 @@ msgstr "Cambiar el nombre de la terminal"
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:62
 msgid "Welcome to the renaming of a terminal"
-msgstr "Recepción a la retitulación de un terminal"
+msgstr "Bienvenido a la retitulación de un terminal"
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:63
 msgid "This assistant will allow you to rename an existing terminal. "
@@ -2295,7 +2297,7 @@ msgstr "Este ayudante permitirá que usted retitule un terminal existente."
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:77
 msgid "Renaming complete"
-msgstr "Cambiar el nombre acabado"
+msgstr "Retitulación finalizado"
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalwizard.cpp:78
 msgid ""
@@ -2309,11 +2311,11 @@ msgstr ""
 
 #: src/simonmodelmanagementui/RenameTerminal/renameterminalworkingpage.cpp:32
 msgid "Renaming terminal..."
-msgstr "Cambiar el nombre a la terminal..."
+msgstr "Retitulando la terminal..."
 
 #: src/simonmodelmanagementui/trainingview.cpp:26
 msgid "Train the Acoustic Model"
-msgstr "Entrene al modelo acústico"
+msgstr "Entrenando el modelo acústico"
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:83
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:105
@@ -2328,18 +2330,17 @@ msgid ""
 "Do you want to continue?"
 msgstr ""
 "Si usted confirma este diálogo, el texto seleccionado será "
-"quitado totalmente de su impulsión dura.\n"
+"quitado totalmente de su disco duro.\n"
 "\n"
 "¿Usted quiere continuar?"
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:91
 msgid "Couldn't delete Trainingstext. Do you have enough permissions?"
-msgstr ""
-"No podía suprimir el texto del entrenamiento. ¿Usted tiene bastantes permisos?"
+msgstr "No podía borrar el texto del entrenamiento. ¿Tiene usted bastantes permisos?"
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:111
 msgid "Couldn't start Training"
-msgstr "No podía comenzar a entrenar"
+msgstr "No podía comenzar el entrenamiento"
 
 #: src/simonmodelmanagementui/trainingviewprivate.cpp:172
 msgid "Preview: %1..."
@@ -2365,7 +2366,7 @@ msgstr ""
 "Estas palabras faltan:\n"
 "%1\n"
 "\n"
-"¿Usted quiere ahora agregarlos?"
+"¿Usted quiere ahora agregarlas?"
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:158
 msgid ""
@@ -2377,14 +2378,14 @@ msgstr ""
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:171
 msgid "Training completed"
-msgstr "El entrenamiento terminó"
+msgstr "El entrenamiento esta finalizado"
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:173
 msgid ""
 "The training has now been completed. The changes are being applied in the "
 "background."
 msgstr ""
-"El entrenamiento ahora se ha terminado. Los cambios se están aplicando "
+"El entrenamiento ahora esta finalizado. Los cambios se están aplicando "
 "en el fondo."
 
 #: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:198
@@ -2393,9 +2394,9 @@ msgid ""
 "\n"
 "Please restart simon."
 msgstr ""
-"No podía ahorrar cambios a la recopilación de los entrenamientos.\n"
+"No podía guardar cambios a la recopilación de los entrenamientos.\n"
 "\n"
-"Recomience simon, por favor."
+"Reinicie simon, por favor."
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:36
 msgid "Page %1 of %2"
@@ -2410,8 +2411,8 @@ msgid ""
 msgstr ""
 "Grabe el texto abajo, por favor.\n"
 "\n"
-"Extremidad: ¡Deje cerca de un a dos segundos \"silencio\" antes y después "
-"de usted lea el texto para los mejores resultados!\n"
+"Sugerencia: ¡Deje cerca uno o dos segundos \"silencio\" antes y después "
+"que usted lea el texto, para dar mejores resultados!\n"
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:71
 msgid ""
@@ -2421,11 +2422,11 @@ msgid ""
 msgstr ""
 "No podía agregar muestras a la recopilación.\n"
 "\n"
-"Esto indica la corrupción de datos internos."
+"Esto indica un error de los datos internos."
 
 #: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:85
 msgid "Couldn't remove sample \"%1\"."
-msgstr "No podía quitar el \"%1\" de la muestra."
+msgstr "No podía borrar el \"%1\" de la muestra."
 
 #: src/simonmodelmanagementui/wordlistview.cpp:33
 msgid "Wortlist"
@@ -2444,10 +2445,9 @@ msgid ""
 "\" option in the Toolbar."
 msgstr ""
 "Seleccione por favor algunas palabras para el entrenamiento especial "
-"arrastrándolas "
-"de la lista en su izquierda a la lista arriba.\n"
+"arrastrándolas de la lista en su izquierda a la lista arriba.\n"
 "\n"
-"Si usted apenas quiere entrenar a su modelo usando los textos genéricos "
+"Si usted quiere entrenar a su modelo usando los textos genéricos "
 "utilice \"Entrenamiento\" opción en la barra de herramientas."
 
 #: src/simonmodelmanagementui/wordlistviewprivate.cpp:201
@@ -2457,11 +2457,11 @@ msgstr "Seleccione una palabra primero, por favor"
 
 #: src/simonmodelmanagementui/wordlistviewprivate.cpp:255
 msgid "The word could not be completely removed."
-msgstr "La palabra no podía ser quitada totalmente."
+msgstr "La palabra no podía ser borrado totalmente."
 
 #: src/simonmodelmanagementui/wordlistviewprivate.cpp:289
 msgid "Please select a word scheduled for training first."
-msgstr "Seleccione por favor una palabra programada para el entrenamiento primero."
+msgstr "Por favor seleccione primero una palabra programada para el entrenamiento."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:213
 msgid ""
@@ -2470,26 +2470,26 @@ msgid ""
 "\n"
 "Do you still want to continue?"
 msgstr ""
-"El certificado del anfitrión alejado uno mismo-se firma y así no digno "
-"de confianza.\n"
+"El certificado del anfitrión alejado estar autofirmado y por lo tanto no confiable."
+"\n"
 "\n"
 "¿Usted sin embargo quiere continuar?"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:214
 msgid "Self-Signed Certificate"
-msgstr "Certificado uno mismo-firmado"
+msgstr "Certificado auto-firmado"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:258
 msgid "Request timed out (%1 ms)"
-msgstr "La petición midió el tiempo hacia fuera (%1 ms)"
+msgstr "La demanda esta fuera del tiempo (%1 ms)"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:339
 msgid "Please enter your Authentication Details for the simond below"
-msgstr "Incorpore por favor sus detalles de la autentificación para el simond abajo"
+msgstr "Por favor, incorpore sus detalles de la autentificación para el simond abajo"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:388
 msgid "Couldn't create model container"
-msgstr "No podía crear el envase modelo"
+msgstr "No podía crear el contenedor del modelo"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:645
 msgid ""
@@ -2497,19 +2497,19 @@ msgid ""
 "\n"
 "Synchronize it now?"
 msgstr ""
-"El modelo del discurso cambiado\n"
+"El modelo de lenguaje se ha modificado\n"
 "\n"
 "¿Ahora sincronícelo?"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:664
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:786
 msgid "Modell Synchronisation"
-msgstr "Sincronización modelo"
+msgstr "Sincronización del modelo"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:664
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1254
 msgid "Initializing..."
-msgstr "Incialización…"
+msgstr "Inicialización…"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:735
 msgid ""
@@ -2517,9 +2517,10 @@ msgid ""
 "\n"
 "Do you want to start a synchronization now?"
 msgstr ""
-"Su modelo del discurso pudo haber cambiado mientras que usted era desconectado.\n"
+"Su modelo del lenguaje probablemente se ha cambiado mientras usted estaba "
+"desconectado.\n"
 "\n"
-"¿Usted quiere ahora comenzar una sincronización?"
+"¿Quiere usted comenzar una sincronización?"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:746
 msgid "Version not supported"
@@ -2531,28 +2532,28 @@ msgstr "Nombre de usuario o contraseña incorrecto."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:761
 msgid "Access Denied."
-msgstr "El acceso negó."
+msgstr "El acceso negado."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:771
 msgid "Synchronization already running"
-msgstr "Sincronización que funciona ya"
+msgstr "Sincronización ya funciona"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:779
 msgid "Couldn't abort synchronization."
-msgstr "No podía abortar la sincronización."
+msgstr "No podía romper la sincronización."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:786
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:790
 msgid "Synchronizing acitve Model"
-msgstr "Sincronización del modelo del acitve"
+msgstr "Sincronización del modelo activo"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:848
 msgid "No Speech Model available: Recognition deactivated"
-msgstr "Discurso Modelo no disponible: Reconocimiento desactivado"
+msgstr "Ningun modelo de lenguaje disponible: Reconocimiento desactivado"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:860
 msgid "The server couldn't store the the active model."
-msgstr "El servidor no podía almacenar el modelo activo."
+msgstr "El servidor no podía guardar el modelo activo."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:871
 msgid "Checking Source"
@@ -2564,11 +2565,11 @@ msgstr "Sincronización del entrenamiento"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:891
 msgid "Sending Training-Corpus"
-msgstr "Envío de la Entrenamiento-Recopilación"
+msgstr "Enviando de la recopilación del entrenamiento"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:902
 msgid "Loading Training"
-msgstr "Entrenamiento del cargamento"
+msgstr "Cargando el entrenamiento"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:919
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:951
@@ -2577,7 +2578,7 @@ msgstr "Sincronización de la lista de palabras"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:940
 msgid "The server couldn't store the trainings corpus."
-msgstr "El servidor no podía almacenar la recopilación de los entrenamientos."
+msgstr "El servidor no podía guardar la recopilación de los entrenamientos."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:985
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1017
@@ -2586,36 +2587,36 @@ msgstr "Sincronización de la gramática"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:996
 msgid "No Wordlist available"
-msgstr "Lista de palabras no disponible"
+msgstr "Ningun lista de palabras disponible"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1007
 msgid "The server couldn't store the wordlist."
-msgstr "El servidor no podía almacenar la lista de palabras."
+msgstr "El servidor no podía guardar la lista de palabras."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1070
 msgid "The server couldn't store the grammar."
-msgstr "El servidor no podía almacenar la gramática."
+msgstr "El servidor no podía guardar la gramática."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1079
 msgid "Synchronizing Language Description"
-msgstr "Sincronización de la descripción de lengua"
+msgstr "Sincronización de la descripción del lenguaje"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1121
 msgid "There seems to be no language description available."
-msgstr "No parece haber descripción de lengua disponible."
+msgstr "No esta disponible una descripción del lenguaje."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1132
 msgid "The server couldn't store language description."
-msgstr "El servidor no podía almacenar la descripción de lengua."
+msgstr "El servidor no podía guardar la descripción del lenguaje."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1156
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1174
 msgid "Synchronizing Trainings-Corpus"
-msgstr "Sincronización de la Entrenamiento-Recopilación"
+msgstr "Sincronización de la recopilación del entrenamiento"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1200
 msgid "The server couldn't store trainings sample."
-msgstr "El servidor no podía almacenar la muestra de los entrenamientos."
+msgstr "El servidor no podía guardar las muestras de los entrenamientos."
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1209
 msgid "Couldn't complete Synchronization"
@@ -2623,7 +2624,7 @@ msgstr "No podía terminar la sincronización"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1241
 msgid "Couldn't restore old model"
-msgstr "No podía restaurar el viejo modelo"
+msgstr "No podía reconstruir el viejo modelo"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1254
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1273
@@ -2636,7 +2637,7 @@ msgstr "Modelo: %1"
 
 #: src/simonrecognitioncontrol/recognitioncontrol.cpp:1358
 msgid "Couldn't retrieve Model-Compilation-Protocol"
-msgstr "No podía recuperar Modelo-Compilación-Protocolo"
+msgstr "No podía recuperar el protocolo de la compilacion del modelo"
 
 #: src/simonrecognitioncontrol/synchronisationsettings.cpp:75
 msgid "Not connected to the server"
