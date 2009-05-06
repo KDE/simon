@@ -1238,16 +1238,125 @@ When importing the sound files, all configured <link linkend="soundconfiguration
 
 <sect1 id="commands">
 <title>Commands</title>
-<para>Info about the commands</para>
+<para>When simon is active and recognizes something, the recognition result is given to the loaded command plug-ins (in order) for processing.</para>
+
+<para>The command system can be compared with a group of factory workers. Each one of them knows how to perform one task (e.g. "Karl" knows how to start a program and "Joe" knows how to open a folder, etc.). Whenever simon recognizes something it is given to "Karl" who then checks if this instruction is meant for him. If he doesn't know what to do with it, it is handed over to "Joe" and so on. If none of the loaded plugins know how to process the input it is ignored. The order in which the recognition result is given to the individual commands (people) is configurable in the command options (<guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>Actions</guimenuitem>).</para>
+
+
+<screenshot>
+<screeninfo>simons Action Configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_actions_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+
+<para>
+Each plugin can be associated with a "trigger". Usings triggers, the responsibility of each plugin can be easily be divided.
+</para>
+<para>Using the factory workers abstraction from above it could be compared to stating the name of who you mean to process your request. So instead of "Open my home folder" you say "Joe, open my home folder" and "Joe" (the plugin responsible for opening folders) will instantly know that the request is meant for him.</para>
+<para>In practice you could have commands like the executable command "Firefox" to open the popular browser and the place command "Google" to open the web search engine. If you assign the trigger "Start" to the executable plugin and the trigger "Open" to the place command you would have to say "Start Firefox" (instead of just "Firefox" if you don't use a trigger for the executable plugin) and "Open Google" to open the search engine (instead of just "Google").</para>
+<para>Triggers are of course no requirement and you can easily use simon without defining any triggers (altough many plugins come with a default trigger of "Computer" set which you would have to remove). But even if you use just on trigger for all your commands (like "Computer" to say "Computer, Firefox" and "Computer, Google" like) it has the advantage of greatly limiting the false-positives.</para>
+
+<para>
+Each Command has a name (which will trigger its invokation), an icon and more fields depending on the type of the plugin (see below).
+</para>
+
 
 <sect2 id="executable_commands">
 <title>Executable Commands</title>
-<para> </para>
+
+<para>Executable commands are accociated with an executable file ("Program") which is started when the command is invoked.</para>
+
+<screenshot>
+<screeninfo>Executable Commands</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_program.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+
+<para>Arguments to the commands are supported. If either path to the executable or the parameters contain spaces they <emphasis>must</emphasis> be wrapped in quotes.</para>
+
+<para>Given the executable file <filename>C:\Programme\Mozilla Firefox\firefox.exe</filename> the local html file <filename>C:\test file.html</filename> the correct line for the "Executable" would be: <filename>"C:\Programme\Mozilla Firefox\firefox.exe" "C:\test file.html"</filename>.</para>
+
+<para>The working directory defines where the process should be launched from. Given the working directory <filename>C:\folder</filename>, the command <filename>"C:\Programme\Mozilla Firefox\firefox.exe" file.html</filename> would cause firefox to search for the file <filename>C:\folder\file.html</filename>.</para>
+
+<para>The working directory does not normally need to be set and can be left blank most of the time.</para>
+
+<sect3 id="importing_executable_commands">
+<title>Importing Programs</title>
+<para>For even easier configuration simon provides an import wizard which allows you to select programs directly from the KDE menu.</para>
+
+<screenshot>
+<screeninfo>Import Programs</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_program_import_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+
+<para>The wizard will list all programs that have an entry in your KDE menu in their respective category.</para>
+
+<para>Sub-Categories are not supported and are thus listed on the same level as top-level categories.</para>
+
+<para>Just select the program you wish to start with simon and complete the wizard. The correct values for the executable and the working directory will automatically be filled out for you.</para>
+
+</sect3>
+
 </sect2>
 
 <sect2 id="place_commands">
 <title>Place Commands</title>
-<para> </para>
+<para>With place commands you can allow simo to open any given URL. Because simon just hands the address over to the plattforms URL handler, special Protocols like "remote:/" (on Linux/KDE) or even KDEs "Web-Shortcuts" are supported.</para>
+<para>Instead of folders, files can also be set as the commands URL which will cause the file to be opened with the application which is associated with it when the command is invoked.</para>
+
+<screenshot>
+<screeninfo>Places</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_place.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+
+<para>To associate a specific URL with the command you can manually enter it in the URL field (select "Manual" first) or import it with the import place wizard.</para>
+
+
+<sect3 id="importing_place_commands">
+<title>Importing Places</title>
+
+<para>The import place wizard allows you to easily create the correct URL for the command.</para>
+
+<para>To add a local folder, select "Local Place" and choose the folder or file with the file selector.
+
+<screenshot>
+<screeninfo>Import Places: Local</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_place_import_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>To add a remote URL (HTTP, FTP, etc.) choose "Remote URL".
+
+<screenshot>
+<screeninfo>Import Places: Remote</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_place_import_2.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+
+Please note that for URLs with authentication information the password will be stored in clear text.</para>
+
+</sect3>
 </sect2>
 
 <sect2 id="shortcut_commands">
