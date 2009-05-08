@@ -49,7 +49,7 @@ const QMap<QString,QVariant> ExecutableCommand::getValueMapPrivate() const
 {
 	QMap<QString,QVariant> out;
 	out.insert(i18n("Executable"), getExecutable());
-	out.insert(i18n("Working directory"), getWorkingDirectory());
+	out.insert(i18n("Working directory"), QVariant(getWorkingDirectory()));
 	return out;
 }
 
@@ -96,8 +96,9 @@ bool ExecutableCommand::triggerPrivate()
 		if (realSplitCommand.isEmpty()) continue;
 		QString realExecutable = realSplitCommand.takeAt(0);
 		proc.setWorkingDirectory(workingDirectory.path());
+		proc.setProgram(realExecutable, realSplitCommand);
 		kWarning() << "Setting wd: " << workingDirectory.path();
-		proc.startDetached(realExecutable, realSplitCommand);
+		proc.startDetached(/*realExecutable, realSplitCommand*/);
 	}
 	return true;
 }

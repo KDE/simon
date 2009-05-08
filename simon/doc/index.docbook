@@ -1361,17 +1361,44 @@ Please note that for URLs with authentication information the password will be s
 
 <sect2 id="shortcut_commands">
 <title>Shortcut Commands</title>
-<para> </para>
+<para>Using shortcut commands the user can associate commands with key-combinations.</para>
+
+<para>The command will simulate keyboard input to "press" shortcuts like "Ctrl+C" or "Alt+F4".
+
+<screenshot>
+<screeninfo>Defining Shortcut Commands</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_shortcut.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>To select the shortcut you wish to simulate just toggle the shortcut button and press the keycombination on your keyboard.</para>
+<para>simon will capture the shortcut and associate it with the command.</para>
+<para>Due to technical limitations there are several shortcuts on Microsoft Windows that can not be captured by simon (this includes e.g. Ctrl+Alt+Del and Alt+F4). These special shortcuts can be selected from a list below the aforementioned shortcut button. (Note: This selection box is not visible in the screenshot above as the list is only displayed in the Microsoft Windows version of simon.)</para>
 </sect2>
 
 <sect2 id="text_macro_commands">
 <title>Text-Macro Commands</title>
-<para> </para>
+<para>Using text-macro commands, the user can associate text with a command. When the command is invoked, the associated text will be "written" by simulating keystrokes.</para>
+
+<para>
+<screenshot>
+<screeninfo>Defining Shortcut Commands</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_shortcut.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
 </sect2>
 
 <sect2 id="list_command">
 <title>List Commands</title>
-<para> </para>
+<para></para>
 </sect2>
 
 <sect2 id="composite_commands">
