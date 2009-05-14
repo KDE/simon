@@ -1386,10 +1386,10 @@ Please note that for URLs with authentication information the password will be s
 
 <para>
 <screenshot>
-<screeninfo>Defining Shortcut Commands</screeninfo>
+<screeninfo>Defining Text-Macro Commands</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="command_shortcut.png" format="PNG"/>
+      <imagedata fileref="command_text-macro.png" format="PNG"/>
     </imageobject>
   </mediaobject>
 </screenshot>
@@ -1398,27 +1398,290 @@ Please note that for URLs with authentication information the password will be s
 
 <sect2 id="list_command">
 <title>List Commands</title>
-<para></para>
+<para>The list command is designed to combine multiple commands (all types of commands are supported) into one list. The user can then select the n-th entry by saying the associated number (1-9).</para>
+
+<para>This is very useful to limit the amount of training required and provides the possibility to keep the vocabulary to a minimum.</para>
+
+
+<para>
+<screenshot>
+<screeninfo>Defining List Commands</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_list_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>List commands are especially useful when using commands with difficult triggers or commands that can be grouped under a general theme. A typical example would be a command "Startmenu" to present a list of programs to launch. That way the specific executable commands can still retain very descriptive names (like "OpenOffice.org Writer 3.1") without the user having to include these words in his vocabulary and consider them in the grammar just to trigger them.</para>
+
+<para>Commands of different types can of course be mixed.</para>
+
+
+<para>
+When invoked, the command will display the list centered on the screen. The list will automatically expand to accompany its items.
+<screenshot>
+<screeninfo>Defining List Commands</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_list_2.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+The user can invoke the commands contained in the list by simply saying their associated number (In this example: "One" to launch Mozilla Firefox).
+</para>
+
+<para>
+While a list command is active (displayed), all input that is not directed at the list itself (other commands, etc.) will be rejected. The process can be canceled by pressing the "Cancel" button or by saying "Cancel".</para>
+
+<para>
+If there are more than 9 items simon will add "Next" and "Back" options to the list ("Zero" will be associated with "Back" and "Nine" with "Next").
+
+<screenshot>
+<screeninfo>List Command with many entries</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_list_3.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+To use list commands to their full potential, make sure that your language and acoustic model contains and allows for the following "sentences":
+<itemizedlist>
+<listitem><para>"Zero"</para></listitem>
+<listitem><para>"One"</para></listitem>
+<listitem><para>"Two"</para></listitem>
+<listitem><para>"Three"</para></listitem>
+<listitem><para>"Four"</para></listitem>
+<listitem><para>"Five"</para></listitem>
+<listitem><para>"Six"</para></listitem>
+<listitem><para>"Seven"</para></listitem>
+<listitem><para>"Eight"</para></listitem>
+<listitem><para>"Nine"</para></listitem>
+<listitem><para>"Cancel"</para></listitem>
+</itemizedlist>
+</para>
+
 </sect2>
 
 <sect2 id="composite_commands">
 <title>Composite Commands</title>
-<para> </para>
+<para>Composite commands allow the user to group multiple commands into a sequence.</para>
+
+<para>When invoked the commands will be executed in order. Delays between commands can be inserted.
+
+<screenshot>
+<screeninfo>Defining Composite Commands</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_composite_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+Using the composite command the user can compose complex "macros". The screenshot above - for example - does the following:
+<itemizedlist>
+<listitem><para>Start Kopete (Executable Command)</para></listitem>
+<listitem><para>Wait 2000ms for Kopete do be started</para></listitem>
+<listitem><para>Type "Mathias" (Text-Macro Command) which will select Mathias in my contact list</para></listitem>
+<listitem><para>Press Enter (Shortcut Command)</para></listitem>
+<listitem><para>Wait 1000ms for the chat window to appear</para></listitem>
+<listitem><para>Write "Hi!" (Text-Macro Command); The text associated to this command contains a newline at the end so that the message will be send.</para></listitem>
+<listitem><para>Press Alt+F4 (Shortcut Command) to close the chat window</para></listitem>
+<listitem><para>Press Alt+F4 (Shortcut Command) to close the kopete main window</para></listitem>
+</itemizedlist>
+</para>
+
 </sect2>
 
 <sect2 id="desktopgrid">
-<title>Desktop Grid</title>
-<para> </para>
+<title>Desktopgrid</title>
+<para>The desktopgrid allows the user to control his mouse with his voice.</para>
+
+<para>
+<screenshot>
+<screeninfo>The Desktopgrid</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_desktopgrid.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+The desktopgrid divides the screen into nine parts which are numbered from 1-9. Saying one of these numbers will again divide the selected field into 9 fields again numbered from 1-9, etc. This is repeated 3 times. After the fourth time the desktopgrid will be closed and simon will click in the middle of the selected area.</para>
+
+<para>
+While the desktopgrid is active (displayed), all input that is not directed at the desktopgrid itself (other commands, etc.) will be rejected. Say "Cancel" at any time to abort the process.
+</para>
+
+<para>As there can no command instances be created of this plugin it is not listed in the "New Command" dialog. However, the desktopgrid plugin registers a configuration screen right in the command configuration when it is loaded.</para>
+
+<para>
+<screenshot>
+<screeninfo>Configuring the Desktopgrid</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="desktopgrid_configure.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+The trigger that invokes the desktopgrid is of course completely configurable. Moreover the user can use "real" or "fake" transparency. If your graphical environment allows for compositing effects ("desktop effects") then you can safely use "real" transparency which will make the desktogrid transparent. If your plattform does not support compositing will simulate transparency by taking a screenshot of the screen before displaying the desktopgrid and display that picture behind the desktopgrid.
+</para>
+
+<para>If the desktopgrid is configured to use real transparency and the system does not support compositing it will display a solid gray background.</para>
+
+<para>
+However, nearly all up-to-date systems will support compositing (real transparency).
+</para>
+<para>This includes:
+<itemizedlist>
+<listitem><para>Microsoft Windows 2000 or higher (XP, Vista, 7)</para></listitem>
+<listitem><para>GNU/Linux using a composite manager like Compiz, KWin4, xcompmgr, etc.</para></listitem>
+</itemizedlist>
+</para>
+
+
+<para>
+To use the desktopgrid, make sure that your language and acoustic model contains and allows for the following "sentences":
+<itemizedlist>
+<listitem><para>"One"</para></listitem>
+<listitem><para>"Two"</para></listitem>
+<listitem><para>"Three"</para></listitem>
+<listitem><para>"Four"</para></listitem>
+<listitem><para>"Five"</para></listitem>
+<listitem><para>"Six"</para></listitem>
+<listitem><para>"Seven"</para></listitem>
+<listitem><para>"Eight"</para></listitem>
+<listitem><para>"Nine"</para></listitem>
+<listitem><para>"Cancel"</para></listitem>
+</itemizedlist>
+</para>
+
 </sect2>
 
 <sect2 id="input_number">
 <title>Input Number</title>
-<para> </para>
+<para>Using the input-number plugin the user can input large numbers easily.</para>
+
+
+<para>Using the Dictation or the Text-Macro plugin one could associate the numbers with their digits and use that as input method. however, to input larger numbers there are two ways that both have significant disadvantages:
+
+<itemizedlist>
+<listitem><para><emphasis>Adding the words "eleven, "twelve", etc.</emphasis></para>
+<para>While this seems like the most elegant solution as it would enable the user to say "fivehundredseventytwo" we can easily see that it would be quite a problem to add all these words - let alone train them. What about "twothousnadninehundredtwo"? Where to stop?</para></listitem>
+<listitem><para><emphasis>Spell out the number using the individual digits</emphasis></para>
+<para>While this is not as elegant as stating the complete number it is much more practical.</para>
+<para>However, many applications (like the great mouseless browsing firefox addon) rely on the user to input large numbers without too much time passing between the individual keystrokes (mouselss browsing for example will wait exactly 500ms per default before it considers the input of the number complete). So if you want to enter 52 you would first say "Five (pause) Two". Because of the needed pause, the application (like the mouseless browsing plugin) would consider the input of "Five" complete.</para></listitem>
+</itemizedlist>
+</para>
+
+<para>
+The input number plugin - when triggered - presents a calculator-like interface for inputting a number. The input can be corrected by saying "Back". It features a decimal point accessible by saying "Comma". When saying "Ok" the number will be typed out. As all the voice-input and the correction is handled by the plugin itself the application that finally receive the input will only get couple of milliseconds between the individual digits.
+
+<screenshot>
+<screeninfo>Input Number Plugin</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_input_number.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+While the input number plugin is active (the user currently inputs a number), all input that is not directed at the input number plugin (other commands, etc.) will be rejected. Say "Cancel" at any time to abort the process.
+</para>
+
+<para>As there can no command instances be created of this plugin it is not listed in the "New Command" dialog. However, the input number plugin registers a configuration screen right in the command configuration when it is loaded.
+
+<screenshot>
+<screeninfo>Input Number Plugin</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="input_number_configure.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+
+The trigger defines what word or phrase that will trigger the display of the interface.
+</para>
+
+
+<para>
+To use the input number plugin, make sure that your language and acoustic model contains and allows for the following "sentences":
+<itemizedlist>
+<listitem><para>"Zero"</para></listitem>
+<listitem><para>"One"</para></listitem>
+<listitem><para>"Two"</para></listitem>
+<listitem><para>"Three"</para></listitem>
+<listitem><para>"Four"</para></listitem>
+<listitem><para>"Five"</para></listitem>
+<listitem><para>"Six"</para></listitem>
+<listitem><para>"Seven"</para></listitem>
+<listitem><para>"Eight"</para></listitem>
+<listitem><para>"Nine"</para></listitem>
+<listitem><para>"Back"</para></listitem>
+<listitem><para>"Comma"</para></listitem>
+<listitem><para>"Ok"</para></listitem>
+<listitem><para>"Cancel"</para></listitem>
+</itemizedlist>
+</para>
 </sect2>
 
 <sect2 id="dictation_command_plugin">
 <title>Dictation</title>
-<para> </para>
+<para>The dictation plugin writes the recognition result it gets using simulated keystrokes.</para>
+
+<para>Assuming you didn't define a trigger for the dictation plugin it will accept all recognition results and just write them out. The written input will be considered as "processed input" and thus not be relayed to other plugins. This means that if you loaded the dictation plugin and defined no trigger for it, all plugins <emphasis>below it</emphasis> in the "Selected Plug-Ins" list in the command configuration will never receive any input.</para>
+
+<para>As there can no command instances be created of this plugin it is not listed in the "New Command" dialog.</para>
+</sect2>
+
+<sect2 id="ai_command_plugin">
+<title>Artificial Intelligence</title>
+<para>The Artificial Intelligence is a just-for-fun plugin that emulates a human conversation.</para>
+
+<para>Using the festival text to speech technology the computer can "talk" with the user and answer question or chat about the weather.</para>
+
+<para>The plugin uses AIMLs for the actual "intelligence". Most AIML sets should be supported. The popular <ulink url="http://www.pandorabots.com/pandora/talk?botid=f5d922d97e345aa1">A. L. I. C. E. bot</ulink> and a German version work and are shipped with the plugin.
+
+<screenshot>
+<screeninfo>AI Plugin</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="ai_configure.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+
+The plugin registers a configuration screen in the command configuration menu where you can choose which AIML set to load.
+</para>
+
+<para>simon will look for AIML sets in the following directory: 
+<itemizedlist>
+<listitem><para>GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/aimls/</filename></para></listitem> 
+<listitem><para>Microsoft Windows: <filename>[installation folder (C:\Programme\simon 0.2\ by default)]\share\apps\ai\aimls\</filename></para></listitem>
+</itemizedlist>
+To add a new set just create a new directory with a descriptive name and copy the .aiml files into it.
+</para>
+
+<para>
+To adjust your bots personality have a look at the bot.xml and vars.xml files in the following directory:
+<itemizedlist>
+<listitem><para>GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/util/</filename></para></listitem> 
+<listitem><para>Microsoft Windows: <filename>[installation folder (C:\Programme\simon 0.2\ by default)]\share\apps\ai\util\</filename></para></listitem>
+</itemizedlist>
+</para>
+
+<para>The plugin will use <ulink url="http://tcts.fpms.ac.be/synthesis/mbrola.html">mbrola voices</ulink> if they are installed.</para>
+
+<para>As there can no command instances be created of this plugin it is not listed in the "New Command" dialog.</para>
+
+<para>It is recommended to not use any trigger for this plugin to provide a more natural "feel" for the conversation. The AI plugin <emphasis>will</emphasis> pass any input through to the other plugins, even tough it will react on any input given. This makes it possible to add a "conversation" to the command &amp; controll use-case by developing custom AIMLs sets (e.g.: User: "Computer, open Firefox"; Computer: "Certainly, Sir! Starting Firefox..."; Firefox opens).</para>
 </sect2>
 </sect1>
 
