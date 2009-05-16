@@ -345,10 +345,11 @@ Perfect volume:
 <chapter id="using-simon">
 <title>Using &kmyapplication;</title>
 
-<sect1 id="using_overview">
-<title></title>
+<para>The following sections will describe how to use simon.</para>
+
+<sect1 id="main_window">
+<title>The simon Main Window</title>
 <para>
-The following chapter will provide an overview over the usage of simon.
 <screenshot>
 <screeninfo>A screenshot of &kmyapplication;</screeninfo>
 	<mediaobject>
@@ -360,9 +361,72 @@ The following chapter will provide an overview over the usage of simon.
 	  </textobject>
 	</mediaobject>
 </screenshot>
-</para>
-</sect1>
 
+The simon main window provides quick access to most of its features through the main toolbar.
+</para>
+
+<para>There are 7 main actions listed:
+<itemizedlist>
+<listitem>
+<para>simond connection</para>
+<para>This is the only complex menu item. It has several states:
+<itemizedlist>
+<listitem><para>Connect</para>
+<para>When simon is not connected to simond the option says "Connect". When activated, simon will start to connect to simond and change to the "Connecting" state.</para>
+</listitem>
+<listitem><para>Connecting</para>
+<para>When simon is currently connecting to the configured simond server(s) the option says "Connecting" and is pressed down. When activated, simon will stop trying to connect to simond and go back to the "Connect" state.</para>
+</listitem>
+<listitem><para>Activate</para>
+<para>When simon established a connection to the server the option will say "Activate" and will not be pressed down. When activated (or automatically when simon is configured to automatically start the recognition when it is available) simon will try to start the recognition.</para>
+<para>An option to close the connection to simond ("Disconnect") is available through the small down-arrow next to it.</para>
+</listitem>
+<listitem><para>Activated</para>
+<para>When simon established a connection to the server and has successfully started the recognition the option will say "Activated" and will be pressed down. When activated simon will deactivate the recognition but not close the connection to simond - it changes back to the previous "Activate" state.</para>
+<para>An option to close the connection to simond ("Disconnect") is available through the small down-arrow next to it.</para>
+</listitem>
+</itemizedlist>
+</para>
+</listitem>
+
+
+<listitem>
+<para>Add Word</para>
+<para>Displays the <link linkend="add_word">add word wizard</link>.</para>
+</listitem>
+
+<listitem>
+<para>Wordlist</para>
+<para>Displays the <link linkend="wordlist">wordlist</link>.</para>
+</listitem>
+
+<listitem>
+<para>Grammar</para>
+<para>Displays the <link linkend="grammar">grammar</link>.</para>
+</listitem>
+
+<listitem>
+<para>Training</para>
+<para>Displays the <link linkend="training">training</link>.</para>
+</listitem>
+
+<listitem>
+<para>Commands</para>
+<para>Displays the <link linkend="commands">commands</link>.</para>
+</listitem>
+
+<listitem>
+<para>Synchronize</para>
+<para>When connected to the simond, this option will be available.</para>
+<para>simon creates the speech input files which are then compiled and used by the simond server (see the <link linkend="architecture">section architecture for more details</link>).</para>
+<para>The process of sending the speech input files, compiling them and receiving the compiled versions is called "synchronization". By default, simon will initiate a synchronization immidiatly after the connection has been established and whenever the model changes (please see the <link linkend="configure_synchronization">configure synchronization section</link> for information on how to change that).</para>
+<para>Using this menu option the synchronization can be triggered manually at any time.</para>
+</listitem>
+
+</itemizedlist>
+</para>
+
+</sect1>
 
 <sect1 id="wordlist">
 <title>Wordlist</title>
@@ -1720,25 +1784,30 @@ simon was designed with high configurability in mind.
 <para>
 </para>
 <sect3 id="soundconfiguration_general">
-<title></title>
+<title>General</title>
 <para>
 
 </para>
 </sect3>
 <sect3 id="soundconfiguration_font">
-<title></title>
+<title>Font</title>
 <para>
 
 </para>
 </sect3>
 <sect3 id="soundconfiguration_postprocessing">
-<title></title>
+<title>Postprocessing</title>
 <para>
 
 </para>
 </sect3>
 </sect2>
 
+
+<sect2 id="configure_synchronization">
+<title>Synchronization</title>
+<para> </para>
+</sect2>
 
 <sect2 id="jconfs">
 <title>Adjusting the recognition parameters manually</title>
@@ -1810,18 +1879,9 @@ distribution. -->
 <para>
 Program copyright 2006-2009 Peter Grasch <email>grasch@simon-listens.org</email>, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl
 </para>
-<para>
-Contributors:
-<itemizedlist>
-<listitem><para>Konqui the KDE Dragon <email>konqui@kde.org</email></para>
-</listitem>
-<listitem><para>Tux the Linux Penguin <email>tux@linux.org</email></para>
-</listitem>
-</itemizedlist>
-</para>
 
 <para>
-Documentation Copyright &copy; 2008 George N. Ugnacious <email>gnu@kde.org</email>
+Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens.org</email>
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
@@ -1835,9 +1895,6 @@ Documentation Copyright &copy; 2008 George N. Ugnacious <email>gnu@kde.org</emai
      regardless of what license the application uses) -->
 
 &underGPL;        	 <!-- GPL License -->
-&underBSDLicense;        <!-- BSD License -->
-&underArtisticLicense;   <!-- BSD Artistic License -->
-&underX11License;        <!-- X11 License  -->
 
 </chapter>
 
