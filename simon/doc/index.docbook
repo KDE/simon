@@ -426,6 +426,9 @@ The simon main window provides quick access to most of its features through the 
 </itemizedlist>
 </para>
 
+<para>
+The simon main window can be hidden at any time by clicking on the simon logo in the system tray (usually next to the system clock in the task bar) which will minimize simon to the tray. Click it again to show the main window again.</para>
+
 </sect1>
 
 <sect1 id="wordlist">
@@ -1750,7 +1753,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 </sect1>
 
 
-<sect1 id="simond">
+<!--<sect1 id="simond">
 <title>simond</title>
 <para> </para>
 
@@ -1764,7 +1767,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 <para> </para>
 </sect2>
 
-</sect1>
+</sect1>-->
 
 
 <sect1 id="configuration">
@@ -1775,39 +1778,157 @@ simon was designed with high configurability in mind.
 
 <sect2 id="configuration_general">
 <title>General Configuration</title>
+<para>The general configuration page lists some basic settings.</para>
 <para>
+<screenshot>
+<screeninfo>General Configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_general.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para>
+Please note that the option to start simon at login will work on both Microsoft Windows and when you are using KDE on Linux. Support for other desktop environments like Gnome, XFCE, etc. might require manually placing simon in the session autostart (please refer to the respective manuals of your desktop environment).
+</para>
+<para>
+When the option to start simon minimized is selected, simon will minimize to the system tray immidiatly after starting.
 </para>
 </sect2>
 
 <sect2 id="soundconfiguration">
 <title>Sound Configuration</title>
 <para>
+simon uses <ulink url="http://www.portaudio.com">portaudio</ulink> to record and play sound. Portaudio is also used to gather data from the microphone which is then sent to the simond server for recognition.
 </para>
-<sect3 id="soundconfiguration_general">
-<title>General</title>
-<para>
 
+<sect3 id="soundconfiguration_device">
+<title>Device Configuration</title>
+<para>The sound device configuration allows you to choose which sound device to use, how many channels to use and at which samplerate to record.</para>
+<para>
+Most of the time you will want to use 1 channel and 16kHz (which is also the default) because the recognition only works on mono input and works best at 16kHz (8kHz being the other option).</para>
+
+<para>However, some low-cost sound cards might not support this particular mode in which case simon can in many cases work around this limitation by using post-processing chains and 3rd party software. Please see the <link linkend="soundconfiguration_postprocessing">postprocessing section</link> for more details.</para>
+
+<para>Bottom line: Only change the channel and the samplerate if you really know what you are doing. Otherwise the recognition will <emphasis>most likely</emphasis> not work.</para>
+
+<para>
+<screenshot>
+<screeninfo>Sound Configuration: General</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_sound_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
 </para>
+
+<para>Use the selection boxes to change the device. Use the reload button if you have changed the sound configuration since you started simon. Due to portaudio limitations this might not always work. If you device just wont show up, try restarting simon.</para>
 </sect3>
+
 <sect3 id="soundconfiguration_font">
 <title>Font</title>
+<para>The text that is recorded to train the acoustic model (through explicit training or when adding a word) is displayed in a configurable font. This font can be changed here.</para>
 <para>
-
+<screenshot>
+<screeninfo>Sound Configuration: Font</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_sound_2.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
 </para>
+
+<para>This option has been introduced after we have worked with a few clients suffering spastic disability. While we used the mouse to control simon during the training, they had to read what was on the screen. At first this was very problematic as the regular font size is relatively small and they had trouble making out what to read. This is why we made the font and the font size of the recording prompt configurable.</para>
 </sect3>
+
 <sect3 id="soundconfiguration_postprocessing">
 <title>Postprocessing</title>
+<para>All recorded (training) and imported (through the import training data) samples can be processed using a series of postprocessing commands. Postprocessing chains are an advanced feature and shouldn't be needed by the average user.</para>
+
+<para>
+<screenshot>
+<screeninfo>Sound Configuration: Postprocessing</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_sound_3.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>The postprocessing commands can be seen as a chain of filters through which the recordings have to pass through. Using these "filters" one could define commands to surpress background noise in the training data or normalize the recordings.</para>
+
+<para>Given the program "process_audio" which takes the input- and output files as its arguments (e.g.: "process_audio in.wav out.wav") the postprocessing command would be: "process_audio %1 %2". The two placeholders %1 and %2 will be replaced by the input filename and the output filename respectively.</para>
+
+<para>The switch to "apply filters to recordings recorded with simon" enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocesing commands are only applied to imported samples (through the <link linkend="import_trainingsdata">import trainingsdata wizard</link>).</para>
+
+<para>One common use-case of postprocessing chains would be the resampling of audio because of hardware limitations. Given a soundcard that does not support mono 16kHz recordings but only supports 44100Hz stereo ("CD") recordings, one could use the free command line sound processing utility <ulink url="http://sox.sourceforge.net">SoX</ulink> to resample the recorded files after the recording.</para>
+<para>This example would require the following postprocessing command:
+<itemizedlist>
+<listitem><para><filename>sox -c 1 -r 16000 %1 %2</filename></para></listitem>
+</itemizedlist>
+</para>
+
+<para>Using this command you can safely record in 44100Hz and 2 channels and - assuming the option to apply the filters to recordings recorded with simon is selected - simon will automatically downsample them to 16000Hz and 1 channel automatically after recording them. Make sure to adjust your <link linkend="soundconfiguration_device">sound device configuration</link> accordingly.</para>
+
+</sect3>
+</sect2>
+
+<sect2 id="configuration_speechmodel">
+<title>Speech Model</title>
+<para>
+<screenshot>
+<screeninfo>Speech Model Configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_speech_model.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+</sect2>
+
+<sect2 id="configuration_model_extensions">
+<title>Model Extensions</title>
 <para>
 
+<screenshot>
+<screeninfo>Model Extensions</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_model_extensions.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot> 
 </para>
-</sect3>
 </sect2>
 
 
 <sect2 id="configure_synchronization">
-<title>Synchronization</title>
-<para> </para>
+<title>Synchronization and Model Backup</title>
+<para>
+
+<screenshot>
+<screeninfo>Synchronization and Model Backup</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_synchronization.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
 </sect2>
+
+
+
+<sect2 id="configure_actions">
+<title>Actions</title>
+<para>Please see the <link linkend="commands">command section</link>.</para>
+</sect2>
+
 
 <sect2 id="jconfs">
 <title>Adjusting the recognition parameters manually</title>
@@ -1817,6 +1938,57 @@ simon is targeted towards end-users. It's interface is designed to allow even us
 </para>
 <para>
 In special cases (severe speech impairments for example), special configuration might be needed. This is why the raw configuration files for the recognition are also respected by simon and can of course be modified to suit your needs.
+</para>
+
+<para>There are basically to parts of the Julius configuration that can be adjusted:
+<itemizedlist>
+<listitem><para>adin.jconf</para><para>This is the configuration of the simon client of the Soundstream sent from simon to the simond. This file is directly read by the adinstreamer.</para>
+<para>simon ships with a default adin.jconf without any special parameters. You can change this system wide configuration which will affect all users if there are different user accounts on your machine who all use simon. To just change the configuration of one of those users copy the file to the user path (see below) and edit this copy.</para>
+</listitem>
+<listitem><para>julius.jconf</para><para>This is a configuration of the simond server and directly influences the recognition. This file is parsed by libjulius and libsent directly.</para>
+<para>simond ships with a default julius.jconf. Whenever there is a new user added to the simond database, simond will automatically copy this system wide configuration to the new user. After that the user is of course free to change it but it won't affect the other users. This way the "template" (the system wide configuration) can be changed without affecting other users.</para>
+</listitem>
+</itemizedlist>
+</para>
+
+<para>The path to the Julius configuration files will depend on your plattform:
+
+<table frame='all'><title>Julius Configuration Files</title>
+<tgroup cols='3' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<colspec colname='c3'/>
+<thead>
+<row>
+  <entry>File</entry>
+  <entry>Microsoft Windows</entry>
+  <entry>GNU/Linux</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry>adin.jconf (system)</entry>
+  <entry>(installation path)\share\apps\simon\adin.jconf</entry>
+  <entry>`kde4-config --prefix`/share/apps/simon/adin.jconf</entry>
+</row>
+<row>
+  <entry>adin.jconf (user)</entry>
+  <entry>%appdata%\.kde\share\apps\simon\adin.jconf</entry>
+  <entry>~/.kde/share/apps/simon/adin.jconf</entry>
+</row>
+<row>
+  <entry>julius.jconf (template)</entry>
+  <entry>(installation path)\share\apps\simond\default.jconf</entry>
+  <entry>`kde4-config --prefix`/share/apps/simond/default.jconf</entry>
+</row>
+<row>
+  <entry>julius.jconf (user)</entry>
+  <entry>%appdata%\.kde\share\apps\simond\models\(user)\active\julius.jconf</entry>
+  <entry>~/.kde/share/apps/simond/models/(user)/active/julius.jconf</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 </para>
 
 </sect2>
@@ -1900,63 +2072,7 @@ Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens.org
 
 <appendix id="installation">
 <title>Installation</title>
-
-<sect1 id="getting-kapp">
-<title>How to obtain &kmyapplication;</title>
-
-<!-- This first entity contains boiler plate for applications that are
-part of KDE CVS.  You should remove it if you are releasing your
-application -->
-
-&install.intro.documentation;
-
-</sect1>
-
-<sect1 id="requirements">
-<title>Requirements</title>
-
-<!--
-List any special requirements for your application here. This should include:
-.Libraries or other software that is not included in kdesupport,
-kdelibs, or kdebase.
-.Hardware requirements like amount of RAM, disk space, graphics card
-capabilities, screen resolution, special expansion cards, etc.
-.Operating systems the app will run on. If your app is designed only for a
-specific OS, (you wrote a graphical LILO configurator for example) put this
-information here.
--->
-
-<para>
-In order to successfully use &kmyapplication;, you need &kde; 1.1. Foobar.lib is
-required in order to support the advanced &kmyapplication; features. &kmyapplication; uses
-about 5 megs of memory to run, but this may vary depending on your
-platform and configuration.
-</para>
-
-<para>
-All required libraries as well as &kmyapplication; itself can be found
-on <ulink url="ftp://ftp.kapp.org">The &kmyapplication; home page</ulink>.
-</para>
-
-<!-- For a list of updates, you may refer to the application web site
-or the ChangeLog file, or ... -->
-<para>
-You can find a list of changes at <ulink
-url="http://apps.kde.org/kapp">http://apps.kde.org/kapp</ulink>.
-</para>
-</sect1>
-
-<sect1 id="compilation">
-<title>Compilation and Installation</title>
-
-<!-- This entity contains the boilerplate text for standard -->
-<!-- compilation instructions.  If your application requires any -->
-<!-- special handling, remove it, and replace with your own text. -->
-
-&install.compile.documentation;
-
-</sect1>
-
+<para>Please see our <ulink url="http://simon-listens.org/wiki">wiki</ulink> for details.</para>
 
 </appendix>
 
