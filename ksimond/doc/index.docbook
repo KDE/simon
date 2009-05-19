@@ -189,7 +189,7 @@ ksimond has the ability to launch automatically when KDE starts and to handle un
 </para>
 
 <para>
-Alongside the ksimond configuration the simond configuration modules are listed (also available through systemsettings). See the simond manual for details.
+Alongside the ksimond configuration the simond configuration modules are listed (also available through systemsettings). See the <ulink url="help:/simond">simond manual</ulink> for details.
 
 <screenshot>
 <screeninfo>screenshot of the simond user configuration</screeninfo>
@@ -232,7 +232,7 @@ distribution. -->
 &kappname;
 </para>
 <para>
-Program copyright 2008 Peter Grasch <email>grasch@simon-listens.org</email>
+Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</email>
 </para>
 <!--<para>
 Contributors:

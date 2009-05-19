@@ -187,7 +187,7 @@ simon (the solution as a whole) is a server / client solution. That means that t
 <para>&kmyapplication; then records sound from the microphone and transmits it to the server which runs the recognition on the received input stream. simond sends the recognition result back to the client (&kmyapplication;).</para>
 <para>&kmyapplication; then uses this recognition result to execute commands like opening programs, following links, etc.</para>
 
-<para>simond identifies its connections with a user / password combination which is completely independant from the underlying operating system and its users (which means you have to set up at least one user for simond to use it; see the simond manual for details). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model. Every user maintains his own speech model but may use it from different computers (different, physical simon instances) simply by accessing the same simond. One simond instance can of course serve multiple users.</para>
+<para>simond identifies its connections with a user / password combination which is completely independant from the underlying operating system and its users (which means you have to set up at least one user for simond to use it; see the <ulink url="help:/simond">simond manual</ulink> for details). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model. Every user maintains his own speech model but may use it from different computers (different, physical simon instances) simply by accessing the same simond. One simond instance can of course serve multiple users.</para>
 
 </sect1>
 
@@ -376,7 +376,7 @@ The simon main window provides quick access to most of its features through the 
 <itemizedlist>
 <listitem><para>Connect</para>
 <para>When simon is not connected to simond the option says "Connect". When activated, simon will start to connect to simond and change to the "Connecting" state.</para>
-<para>Upon connecting to the server from simon for the first time, you might be prompted for a username and a password. If you haven't done so already, set up a user for simond (see the simond manual for details) before continuing and enter the same username and corresponding password in the login dialog from simon. If you choose to store the password, you can still change it in the <link linkend="configure_server_general">server configuration</link> at any time.</para>
+<para>Upon connecting to the server from simon for the first time, you might be prompted for a username and a password. If you haven't done so already, set up a user for simond (see the <ulink url="help:/simond">simond manual</ulink> for details) before continuing and enter the same username and corresponding password in the login dialog from simon. If you choose to store the password, you can still change it in the <link linkend="configure_server_general">server configuration</link> at any time.</para>
 </listitem>
 <listitem><para>Connecting</para>
 <para>When simon is currently connecting to the configured simond server(s) the option says "Connecting" and is pressed down. When activated, simon will stop trying to connect to simond and go back to the "Connect" state.</para>
@@ -1987,7 +1987,7 @@ The simon main application connects to the simond server (see the <link linkend=
 </para>
 
 <para>
-To identify individual users of the system (one simond server can of course serve multiple simon clients), simon and simond use users. Every user has his own speech model. The username / password combination given here is used to log in to simond. If simond does not know the username or the password is incorrect, the connection will fail. See the simond manual on how to setup users for simond.</para>
+To identify individual users of the system (one simond server can of course serve multiple simon clients), simon and simond use users. Every user has his own speech model. The username / password combination given here is used to log in to simond. If simond does not know the username or the password is incorrect, the connection will fail. See the <ulink url="help:/simond">simond manual</ulink> on how to setup users for simond.</para>
 
 <para>The recognition itself - which is done by the server - might not be available at all times. For example it would not be possible to start the recognition as long as the user does not have a compiled acoustic and language model which has to be created first (during synchronization when all the ingredients - wordlist, grammar, training - are present). Using the option to start the recognition automatically once it is available, simon will request to start the recognition when it receives the information that it is ready (acoustic and language model is available).</para>
 

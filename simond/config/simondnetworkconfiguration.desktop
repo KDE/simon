@@ -4,7 +4,7 @@ Icon=network-disconnect
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=libsimondsettings
 
-X-DocPath=help:/simond/using-kapp.html
+X-DocPath=help:/simond/network_configuration.html
 
 X-KDE-FactoryName=simondsettingsfactory
 X-KDE-ParentComponents=libsimondsettings

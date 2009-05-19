@@ -212,8 +212,8 @@ revision history. (see installation appendix comment) -->
 
 <sect1 id="network_configuration">
 <title>Network Configuration</title>
+<para>Using the network configuration, the user can change the port used by the server and restrict access to a specific IP.</para>
 <para>
-
 <screenshot>
 <screeninfo>screenshot of the simond network configuration</screeninfo>
   <mediaobject>
@@ -226,6 +226,15 @@ revision history. (see installation appendix comment) -->
   </mediaobject>
 </screenshot>
 </para>
+
+<para>The port can be changed freely. The default of 4444 is however not occupied by any major application or protocol and thus recommended. If you adjust the port here, make sure you also make the necessary adjustments on your simon clients.</para>
+
+<para>Using the option to "Only allow connections from" you can restrict the access to your server from anywhere but the given IP address. By default this is configured to only allow (simon) connections from the local host which only allows for local simon clients to connect to the server.</para>
+<para>This is simply a security meassure because it effectively blocks connections from anywhere else (even if the attacker nows your simon username and password). To allow connections from other hosts simply uncheck the checkbox.</para>
+
+<para><emphasis>If you don't know what hosts, ports or IPs are it is very likely that the default values are just fine.</emphasis></para>
+
+<para>Protocol encryption is not yet implemented.</para>
 </sect1>
 
 <!-- This chapter should tell the user how to use your app. You should use as
@@ -276,7 +285,7 @@ distribution. -->
 &kmyapplication;
 </para>
 <para>
-Program copyright 2006-2009 Peter Grasch <email>grasch@simon-listens.org</email>, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl
+Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</email>
 </para>
 
 <para>
