@@ -4,6 +4,9 @@ Icon=simond
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=libsimonrecognitioncontrol
 
+
+X-DocPath=help:/simon/configuration.html#configure_server
+
 X-KDE-FactoryName=serversettingsfactory
 X-KDE-ParentComponents=libsimonrecognitioncontrol
 
