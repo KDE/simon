@@ -189,7 +189,7 @@ ksimond has the ability to launch automatically when KDE starts and to handle un
 </para>
 
 <para>
-Alongside the ksimond configuration the simond configuration modules are listed (also available through systemsettings).
+Alongside the ksimond configuration the simond configuration modules are listed (also available through systemsettings). See the simond manual for details.
 
 <screenshot>
 <screeninfo>screenshot of the simond user configuration</screeninfo>

@@ -186,6 +186,9 @@ simon (the solution as a whole) is a server / client solution. That means that t
 <para>&kmyapplication; is used to create and maintain a representation of your pronunciation and language. This representation is then sent to the server simond which compiles it into a usable speech model.</para>
 <para>&kmyapplication; then records sound from the microphone and transmits it to the server which runs the recognition on the received input stream. simond sends the recognition result back to the client (&kmyapplication;).</para>
 <para>&kmyapplication; then uses this recognition result to execute commands like opening programs, following links, etc.</para>
+
+<para>simond identifies its connections with a user / password combination which is completely independant from the underlying operating system and its users (which means you have to set up at least one user for simond to use it; see the simond manual for details). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model. Every user maintains his own speech model but may use it from different computers (different, physical simon instances) simply by accessing the same simond. One simond instance can of course serve multiple users.</para>
+
 </sect1>
 
 
@@ -373,6 +376,7 @@ The simon main window provides quick access to most of its features through the 
 <itemizedlist>
 <listitem><para>Connect</para>
 <para>When simon is not connected to simond the option says "Connect". When activated, simon will start to connect to simond and change to the "Connecting" state.</para>
+<para>Upon connecting to the server from simon for the first time, you might be prompted for a username and a password. If you haven't done so already, set up a user for simond (see the simond manual for details) before continuing and enter the same username and corresponding password in the login dialog from simon. If you choose to store the password, you can still change it in the <link linkend="configure_server_general">server configuration</link> at any time.</para>
 </listitem>
 <listitem><para>Connecting</para>
 <para>When simon is currently connecting to the configured simond server(s) the option says "Connecting" and is pressed down. When activated, simon will stop trying to connect to simond and go back to the "Connect" state.</para>
@@ -526,7 +530,7 @@ simon provides a "Wordlist" menu which lists the current vocabulary.
 <screeninfo>simons Wordlist</screeninfo>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="wordlist.png" format="PNG"/>
+      <imagedata fileref="wordlist.png"   format="PNG"/>
     </imageobject>
   </mediaobject>
 </screenshot>
@@ -540,7 +544,7 @@ Every word states it "recognition rate" which at the moment is just a counter of
 <para>
 When this number is only one or zero the word entry is colored red (1: light red; 0: dark red). This is a visual warning. When a word contains a phoneme combination that is not covered by any other word and the word with this unusual phoneme combination is never recorded (recognition rate = 0), the model <emphasis>will</emphasis> fail to compile. However, simon will display an appropriate error message when the compilation of the model fails because of such an issue. In general it is a good idea to record each word at least once or twice (at best when <link linkend="add_word_record">adding the word</link>) to avoid such problems.
 </para>
-<para>Because the shadow dictionary is not used for the recognition there are of course no trainings samples for words in the shadow dictionary. So don't be alarmed if all the entries in the shadow dictionary are colored dark red - this is perfectly normal.
+<para>Because the shadow dictionary is not used for the recognition there are of course no trainings-samples for words in the shadow dictionary. So don't be alarmed if all the entries in the shadow dictionary are colored dark red - this is perfectly normal.
 
 <screenshot>
 <screeninfo>Shadow Wordlist</screeninfo>
@@ -764,6 +768,11 @@ As you can see, the dialog offers two choices:
 </itemizedlist>
 </para>
 
+</sect2>
+
+<sect2 id="special_training_stub">
+<title>Special Training</title>
+<para>Please see the <link linkend="special_training">special training section in the training section</link>.</para>
 </sect2>
 
 
@@ -1103,11 +1112,11 @@ simon provides an easy to use text based interface to change the grammar. You ca
 <para>Using the Training-module, you can improve your <link linkend="acoustic_model">acoustic model</link>. </para>
 
 <para>
-The interface lists all installed trainingstexts in a table consisting of three columns:
+The interface lists all installed trainings-texts in a table consisting of three columns:
 <itemizedlist>
 <listitem><para>Name</para><para>A descriptive name for the text.</para></listitem>
 <listitem><para>Pages</para><para>The number of "pages" the text consists of. Each page represents one recording.</para></listitem>
-<listitem><para>Recognition Rate</para><para>Analogue to the wordlist represents how likely simon will recognize the words. The recognition rate of the trainingstext is the median recognition rate of all the words in the text.</para></listitem>
+<listitem><para>Recognition Rate</para><para>Analogue to the wordlist represents how likely simon will recognize the words. The recognition rate of the trainings-text is the average recognition rate of all the words in the text.</para></listitem>
 </itemizedlist>
 
 <screenshot>
@@ -1121,14 +1130,14 @@ The interface lists all installed trainingstexts in a table consisting of three 
 </para>
 
 <para>
-To improve the acoustic model - and thus the recognition rate - you have to record trainingstexts. This means that simon gets essentially two needed parts: 
+To improve the acoustic model - and thus the recognition rate - you have to record trainings-texts. This means that simon gets essentially two needed parts: 
 
 <itemizedlist>
   <listitem><para>Samples of your speech</para></listitem>
   <listitem><para>Transcriptions of those samples</para></listitem>
 </itemizedlist>
 
-The active dictionary is used to transcribe the words (mapping them from the actual word to its phonetic transcription) that make up the text so every word contained in the trainingstext you want to read (train) has to be contained in your active dictionary. simon will warn you if this is not the case and provide you with the possibility to add all the missing words in one go.
+The active dictionary is used to transcribe the words (mapping them from the actual word to its phonetic transcription) that make up the text so every word contained in the trainings-text you want to read (train) has to be contained in your active dictionary. simon will warn you if this is not the case and provide you with the possibility to add all the missing words in one go.
 
 <screenshot>
 <screeninfo>Training: Warning about missing words</screeninfo>
@@ -1143,7 +1152,7 @@ The procedure is the same as if you would <link linkend="add_word">add a single 
 </para>
 
 <para>
-The training (reading) of the trainingstext works exactly the same as the intial training when adding a new word.</para>
+The training (reading) of the trainings-text works exactly the same as the intial training when adding a new word.</para>
 
 <para>Make sure you follow the guidelines listed in the <link linkend="recording">recording section</link>.</para>
 <para>
@@ -1162,7 +1171,7 @@ The training (reading) of the trainingstext works exactly the same as the intial
 <sect2 id="training_storage">
 <title>Storage Directories</title>
 <para>
-Trainingstexts are stored at two different locations:
+Trainings-texts are stored at two different locations:
 <itemizedlist>
   <listitem><para>Linux: <filename>~/.kde/share/apps/simon/texts</filename></para>
             <para>Windows: <filename>%appdata%\.kde\share\apps\simon\texts</filename></para>
@@ -1170,7 +1179,7 @@ Trainingstexts are stored at two different locations:
   <listitem><para>Linux: <filename>`kde4-config --prefix`/share/apps/simon/texts</filename></para>
             <para>Windows: <filename>(install directory)\share\apps\simon\texts</filename></para>
           <para>System wide texts. They will appear on every user account using simon on this machine and can not be deleted from within simon because of the obvious permission restrictions on system wide files.</para>
-          <para>This folder can be used by system administrators to provide a common set of trainingstexts for all the users on one system.</para>
+          <para>This folder can be used by system administrators to provide a common set of trainings-texts for all the users on one system.</para>
           </listitem>
 </itemizedlist>
 </para>
@@ -1182,7 +1191,7 @@ Trainingstexts are stored at two different locations:
 <title>Importing Texts</title>
 <para>
 <screenshot>
-<screeninfo>Import-trainingstexts-wizard</screeninfo>
+<screeninfo>Import-trainings-texts-wizard</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="import_text_1.png" format="PNG"/>
@@ -1190,22 +1199,22 @@ Trainingstexts are stored at two different locations:
   </mediaobject>
 </screenshot>
 
-The import texts wizard provides a simple way to add new trainingstexts to simon.
+The import texts wizard provides a simple way to add new trainings-texts to simon.
 </para>
 
 <para>
-simon supports two different sources for new trainingstexts:
+simon supports two different sources for new trainings-texts:
 
 <itemizedlist>
   <listitem><para>Local text files</para>
-          <para>simon can import normal text files to use them as trainingstexts.</para></listitem>
+          <para>simon can import normal text files to use them as trainings-texts.</para></listitem>
   <listitem><para>Remote list of texts</para>
             <para>The other option is to load a pre-segmented text from an online repository.</para>
           </listitem>
 </itemizedlist>
 
 <screenshot>
-<screeninfo>Import-trainingstexts-wizard: Select source</screeninfo>
+<screeninfo>Import-trainings-texts-wizard: Select source</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="import_text_2.png" format="PNG"/>
@@ -1221,7 +1230,7 @@ simon supports two different sources for new trainingstexts:
 <para>When importing text files, simon will automatically try to recognize individual sentences and split the text into appropriate "pages" (recordings). The algorithm treats text between "normal" punctation (".", "!", "?", "...", """,...) and line breaks as "sentences". Each "sentence" will be on its own page.
 
 <screenshot>
-<screeninfo>Import-trainingstexts-wizard: Local text files</screeninfo>
+<screeninfo>Import-trainings-texts-wizard: Local text files</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="import_text_3.png" format="PNG"/>
@@ -1237,13 +1246,13 @@ simon supports two different sources for new trainingstexts:
 
 <para>When downloading text from and online repository, simon will first download a list of available texts from a specific URL. This URL defaults to a test repository on a server controlled by the official simon team but can easily be changed in the simon configuration (<guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>Modell Extensions</guimenuitem>).</para>
 
-<para>Currently, there are only a few examples available, but users are very welcome to send us their most useful trainingstexts per mail.</para>
+<para>Currently, there are only a few examples available, but users are very welcome to send us their most useful trainings-texts per mail.</para>
 <para>To do that, just send the xml file (to be found in your <link linkend="training_storage">local storage directory</link>) to <ulink url="mailto:support@simon-listens.org">support@simon-listens.org</ulink> and we will add your text to the online repository. Please keep in mind that books or other copyrighted source material can not be accepted.</para>
 
 
 <para>
 <screenshot>
-<screeninfo>Import-trainingstexts-wizard: Remote import</screeninfo>
+<screeninfo>Import-trainings-texts-wizard: Remote import</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="import_text_4.png" format="PNG"/>
@@ -1257,10 +1266,47 @@ simon supports two different sources for new trainingstexts:
 </sect3>
 </sect2>
 
-<sect2 id="import_trainingsdata">
-<title>Importing Trainingsdata</title>
+<sect2 id="special_training">
+<title>On The Fly Training</title>
+<para>Additionally to trainings-texts, simon also allows to train individual words or word combinations from your dictionary on-the-fly.</para>
+
+<para>This feature is located in the wordlist-menu of simon.</para>
+
+<para>
+<screenshot>
+<screeninfo>Special Training: Selecting the Words</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="special_training.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>Select the words to train from the wordlist on the left and simply drag them to the selection list to the right (you could also select them in the table on the left and add them by clicking "Add to Training".</para>
+
+<para>Start the training by selecting "Train selected words". The training itself is exactly the same as if it were a pre-composed trainings-text.</para>
+
+<para>
+<screenshot>
+<screeninfo>Special Training: Training the Words</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="special_training_2.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>If there are more than 9 words to train simon will automatically split the text evenly across multiple pages.</para>
+
+<para>Of course you are free to add words from the shadow lexicon to the list of words to train but simon will prompt you to add the words before the training starts just like he would if you would train a text that contains unknown words (see above).</para>
+</sect2>
+
+<sect2 id="import_trainings-data">
+<title>Importing Trainings-data</title>
 <para> 
-Using the import trainingsdata field one can import previously gathered trainingssamples from previous simon versions without copying the whole dictionary.</para>
+Using the import trainings-data field one can import previously gathered trainings-samples from previous simon versions without copying the whole dictionary.</para>
 
 <para>
 This feature is very specific. Please use it with caution and make sure that you know exactly what you are doing before you continue.
@@ -1278,10 +1324,10 @@ The files and their transcription are then added to the trainings corpus.
 
 
 <para>
-To import a directory containing trainingssamples just select the folder to import.
+To import a directory containing trainings-samples just select the folder to import.
 
 <screenshot>
-<screeninfo>Import-trainingsdata-wizard</screeninfo>
+<screeninfo>Import-trainings-data-wizard</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="import_training_data_1.png" format="PNG"/>
@@ -1863,7 +1909,7 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 
 <para>Given the program "process_audio" which takes the input- and output files as its arguments (e.g.: "process_audio in.wav out.wav") the postprocessing command would be: "process_audio %1 %2". The two placeholders %1 and %2 will be replaced by the input filename and the output filename respectively.</para>
 
-<para>The switch to "apply filters to recordings recorded with simon" enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocesing commands are only applied to imported samples (through the <link linkend="import_trainingsdata">import trainingsdata wizard</link>).</para>
+<para>The switch to "apply filters to recordings recorded with simon" enables the postprocessing chains for samples recorded during the training (including the initial training while adding the word). If you don't select this switch the postprocesing commands are only applied to imported samples (through the <link linkend="import_trainings-data">import trainings-data wizard</link>).</para>
 
 <para>One common use-case of postprocessing chains would be the resampling of audio because of hardware limitations. Given a soundcard that does not support mono 16kHz recordings but only supports 44100Hz stereo ("CD") recordings, one could use the free command line sound processing utility <ulink url="http://sox.sourceforge.net">SoX</ulink> to resample the recorded files after the recording.</para>
 <para>This example would require the following postprocessing command:
@@ -1873,12 +1919,13 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
 </para>
 
 <para>Using this command you can safely record in 44100Hz and 2 channels and - assuming the option to apply the filters to recordings recorded with simon is selected - simon will automatically downsample them to 16000Hz and 1 channel automatically after recording them. Make sure to adjust your <link linkend="soundconfiguration_device">sound device configuration</link> accordingly.</para>
-
 </sect3>
 </sect2>
 
 <sect2 id="configuration_speechmodel">
 <title>Speech Model</title>
+<para>Here you can adjust the parameters of the speech model.</para>
+
 <para>
 <screenshot>
 <screeninfo>Speech Model Configuration</screeninfo>
@@ -1889,12 +1936,19 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
   </mediaobject>
 </screenshot>
 </para>
+<para>The samplerate set here is the target samplerate of the acoustic model. It has nothing to do with the recording samplerate and it is the responsibility of the user to ensure that the samples are actually made available in that format (usually by recording in that exact samplerate or by defining postprocessing commands that resample the files; see the <link linkend="soundconfiguration">sound configuration section</link> for more details).</para>
+
+<para>Usually either 16kHz or 8kHz models are built / used. 16kHz models will have higher accuracy over 8kHz models. Going higher than 16kHz is not recommended as it is very cpu-intensive and in practice probably wont result in higher recognition rates.</para>
+
+<para>Moreover, the path to the trainings-samples can be adjusted. However, be sure that the previously gathered trainings-samples are also moved to the new location. If you use automatic synchronization the simond would alternatively also provide simon with the missing sample but copying them manually is still recommended for performance reasons.</para>
+
 </sect2>
 
 <sect2 id="configuration_model_extensions">
 <title>Model Extensions</title>
-<para>
 
+<para>Using the model (internet) extensions simon can fetch additional resources around your speech model from the internet. At the moment only the download of trainings-texts is supported but more features are planned for the future.</para>
+<para>
 <screenshot>
 <screeninfo>Model Extensions</screeninfo>
   <mediaobject>
@@ -1902,15 +1956,77 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
       <imagedata fileref="configure_model_extensions.png" format="PNG"/>
     </imageobject>
   </mediaobject>
-</screenshot> 
+</screenshot>
 </para>
+<para>
+simon provides the feature to <link linkend="import_texts_remote">download new texts directly off of the internet</link>. This is based on a central repository. The URL to this repository can be changed here. The default configuration points to a sample repository hosted by the simon team.
+</para>
+
+</sect2>
+
+
+<sect2 id="configure_server">
+<title>Server Configuration</title>
+<para>Using the server configuration you can set parameters of the connection to simond.</para>
+
+<sect3 id="configure_server_general">
+<title>General</title>
+<para>
+The simon main application connects to the simond server (see the <link linkend="architecture">architecture section</link> for more information).
+</para>
+
+<para>
+<screenshot>
+<screeninfo>Configure Server: General</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_simond_1.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>
+To identify individual users of the system (one simond server can of course serve multiple simon clients), simon and simond use users. Every user has his own speech model. The username / password combination given here is used to log in to simond. If simond does not know the username or the password is incorrect, the connection will fail. See the simond manual on how to setup users for simond.</para>
+
+<para>The recognition itself - which is done by the server - might not be available at all times. For example it would not be possible to start the recognition as long as the user does not have a compiled acoustic and language model which has to be created first (during synchronization when all the ingredients - wordlist, grammar, training - are present). Using the option to start the recognition automatically once it is available, simon will request to start the recognition when it receives the information that it is ready (acoustic and language model is available).</para>
+
+<para>Using the "Connect automatically on simon start" option, simon will automatically start the connection to the configured simond servers after it has finished loading the user interface.</para>
+</sect3>
+
+<sect3 id="configure_server_network">
+<title>Network</title>
+<para>simon connects to simond using TCP/IP.</para>
+
+<para>
+<screenshot>
+<screeninfo>Configure Server: Network</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="configure_simond_2.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para>
+As of yet (simon 0.2), encryption is not yet supported.
+</para>
+<para>
+The timeout setting specifies, how long simon will wait for a first reply when contacting the hosts. If you are on a very, very slow network and/or use "connect on start" on a very slow machine, you may want to increase this value if you keep getting timeout errors and can resolve them by trying again repeatedly.
+</para>
+<para>simon supports to be configured to use more than one simond. This is very useful if you for example are going to use simon on a laptop which connects to a different server depending where you are. You could for example add the server you use when you are home and the server used when you are at work. When connecting, simon will try to connect to each of the servers (in order) until it finds one server that accepts the connection.</para>
+
+<para>To add a server, just enter the hostname or IP and the port (seperated by ":") or use the dialog that appears when you select the blue arrow next to the input field.</para>
+
+</sect3>
 </sect2>
 
 
 <sect2 id="configure_synchronization">
 <title>Synchronization and Model Backup</title>
-<para>
+<para>Here you can configure the model synchronization and restore older versions of your speech model.</para>
 
+<para>
 <screenshot>
 <screeninfo>Synchronization and Model Backup</screeninfo>
   <mediaobject>
@@ -1920,6 +2036,20 @@ Most of the time you will want to use 1 channel and 16kHz (which is also the def
   </mediaobject>
 </screenshot>
 </para>
+
+<para>
+Only after the speech model is synchronized the changes take effect and a new restore point is set. This is why per default simon will always synchronize the model with the server when it changes. This is called "Automatic Synchornization" and is the recommended setting. 
+</para>
+<para>
+However, if you want more control you can instruct simon to ask you before starting the synchronization after the model has changed or to rely on manual synchronization all together. When selecting the manual synchronization you have to manually use the "Synchronization" menu item of the simon main window (also see the section <link linkend="main_window">simon main window</link>) every time you want to compile the speech model.
+</para>
+
+<para>The simon server will maintain a copy of the last five iterations of model files. However, this only includes the "source files" (the wordlist, grammar, etc.) - <emphasis>not the compiled model</emphasis>. However, the compiled model will be regenerated from the restored source files automatically.</para>
+
+<para>After you have connected to the server, you can select one of the available models and restore it by clicking on "Restore Model".</para>
+
+<para>Please note that the synchronization will only accept complete source models (containing a wordlist, a grammar and some trainingssamples) so incomplete models will not be stored on the server and thus not be backupped.</para>
+
 </sect2>
 
 
@@ -2002,20 +2132,11 @@ In special cases (severe speech impairments for example), special configuration 
 <chapter id="faq">
 <title>Questions and Answers</title>
 
-<!-- (OPTIONAL but recommended) This chapter should include all of the silly
-(and not-so-silly) newbie questions that fill up your mailbox. This chapter
-should be reserved for BRIEF questions and answers! If one question uses more
-than a page or so then it should probably be part of the
-"Using this Application" chapter instead. You should use links to
-cross-reference questions to the parts of your documentation that answer them.
-This is also a great place to provide pointers to other FAQ's if your users
-must do some complicated configuration on other programs in order for your
-application work. -->
+<para>
+In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
+</para>
 
-&reporting.bugs;
-&updating.documentation;
-
-<qandaset id="faqlist">
+<!--<qandaset id="faqlist">
 <qandaentry>
 <question>
 <para>My Mouse doesn't work. How do I quit &kmyapplication;?</para>
@@ -2033,7 +2154,7 @@ application work. -->
 installed.</para>
 </answer>
 </qandaentry>
-</qandaset>
+</qandaset>-->
 </chapter>
 
 <chapter id="credits">
@@ -2072,7 +2193,7 @@ Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens.org
 
 <appendix id="installation">
 <title>Installation</title>
-<para>Please see our <ulink url="http://simon-listens.org/wiki">wiki</ulink> for details.</para>
+<para>Please see our <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
 
 </appendix>
 
