@@ -58,6 +58,10 @@ private slots:
 	void send8() { processRequest(8); }
 	void send9() { processRequest(9); }
 	void sendPlus();
+	void sendMinus();
+	void sendMultiply();
+	void sendDivide();
+	void sendEquals();
 
 public slots:
 	bool executeSelection(QString inputText);

@@ -64,6 +64,10 @@ CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVaria
 	connect(ui.pb8, SIGNAL(clicked()), this, SLOT(send8()));
 	connect(ui.pb9, SIGNAL(clicked()), this, SLOT(send9()));
 	connect(ui.pbPlus, SIGNAL(clicked()), this, SLOT(sendPlus()));
+	connect(ui.pbMinus, SIGNAL(clicked()), this, SLOT(sendMinus()));
+	connect(ui.pbMultiply, SIGNAL(clicked()), this, SLOT(sendMultiply()));
+	connect(ui.pbDivide, SIGNAL(clicked()), this, SLOT(sendDivide()));
+	connect(ui.pbEquals, SIGNAL(clicked()), this, SLOT(sendEquals()));
 }
 
 void CalculatorCommandManager::deregister()
@@ -91,6 +95,27 @@ void CalculatorCommandManager::sendComma()
 void CalculatorCommandManager::sendPlus()
 {
 	ui.leNumber->setText(ui.leNumber->text()+"+");
+}
+
+void CalculatorCommandManager::sendMinus()
+{
+	ui.leNumber->setText(ui.leNumber->text()+"-");
+}
+
+void CalculatorCommandManager::sendMultiply()
+{
+	ui.leNumber->setText(ui.leNumber->text()+"*");
+}
+
+void CalculatorCommandManager::sendDivide()
+{
+	ui.leNumber->setText(ui.leNumber->text()+"/");
+}
+
+void CalculatorCommandManager::sendEquals()
+{
+	ui.leNumber->setText(ui.leNumber->text()+"=");
+	//ui.leNumber->setText(//Calculate Result);
 }
 
 void CalculatorCommandManager::back()
@@ -147,6 +172,26 @@ bool CalculatorCommandManager::executeSelection(QString inputText)
 	if(inputText.toUpper() == i18n("Plus").toUpper())
 	{
 		ui.pbPlus->animateClick();
+		return true;
+	}
+	if(inputText.toUpper() == i18n("Minus").toUpper())
+	{
+		ui.pbMinus->animateClick();
+		return true;
+	}
+	if(inputText.toUpper() == i18n("Multiply").toUpper())
+	{
+		ui.pbMultiply->animateClick();
+		return true;
+	}
+	if(inputText.toUpper() == i18n("Divide").toUpper())
+	{
+		ui.pbDivide->animateClick();
+		return true;
+	}
+	if(inputText.toUpper() == i18n("Equals").toUpper())
+	{
+		ui.pbEquals->animateClick();
 		return true;
 	}
 
@@ -209,7 +254,7 @@ bool CalculatorCommandManager::trigger(const QString& triggerName)
 	ui.leNumber->clear();
 	QDesktopWidget* tmp = QApplication::desktop();
 	int x,y;
-	x=(tmp->width()/2) - (widget->width()/2);
+	x=(tmp->width()/2)-(widget->width()/2);
 	y=(tmp->height()/2)-(widget->height()/2);
 	widget->move(x, y);
 	widget->show();
