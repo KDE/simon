@@ -77,7 +77,7 @@ void RunCommandViewPrivate::triggerCommand()
 void RunCommandViewPrivate::addCommand()
 {
 	NewCommand *newCommand = new NewCommand(this);
-	newCommand->registerCreators(ActionManager::getInstance()->getCreateCommandWidgets(newCommand));
+	newCommand->registerCreators(ActionManager::getInstance()->getCreateCommandWidgets(NULL/*newCommand*/));
 	
 	QListWidgetItem *catItem = ui.lwCategories->item(ui.lwCategories->currentRow());
 	Command *com=NULL;
@@ -221,7 +221,7 @@ void RunCommandViewPrivate::editCommand()
 	if (!command) return;
 
 	NewCommand *editCommand = new NewCommand(this);
-	editCommand->registerCreators(ActionManager::getInstance()->getCreateCommandWidgets(editCommand));
+	editCommand->registerCreators(ActionManager::getInstance()->getCreateCommandWidgets(NULL/*editCommand*/));
 	editCommand->init(command);
 	Command *newCommand = editCommand->newCommand();
 	if (newCommand)

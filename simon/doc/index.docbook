@@ -1353,6 +1353,17 @@ When importing the sound files, all configured <link linkend="soundconfiguration
 <title>Commands</title>
 <para>When simon is active and recognizes something, the recognition result is given to the loaded command plug-ins (in order) for processing.</para>
 
+<para>
+<screenshot>
+<screeninfo>simons Command Dialog</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="command_main.png" format="PNG"/>
+    </imageobject>
+  </mediaobject>
+</screenshot>
+</para>
+
 <para>The command system can be compared with a group of factory workers. Each one of them knows how to perform one task (e.g. "Karl" knows how to start a program and "Joe" knows how to open a folder, etc.). Whenever simon recognizes something it is given to "Karl" who then checks if this instruction is meant for him. If he doesn't know what to do with it, it is handed over to "Joe" and so on. If none of the loaded plugins know how to process the input it is ignored. The order in which the recognition result is given to the individual commands (people) is configurable in the command options (<guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>Actions</guimenuitem>).</para>
 
 
