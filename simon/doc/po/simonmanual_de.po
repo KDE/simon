@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2009-05-22 09:09+0000\n"
-"PO-Revision-Date: 2009-05-21 20:00+0000\n"
+"PO-Revision-Date: 2009-05-24 12:54+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,90 +28,93 @@ msgid ""
 "<surname>Grasch</surname> </personname> <email>grasch@simon-listens.org</"
 "email>"
 msgstr ""
+"<personname> <firstname>Peter</firstname> <othername>H.</othername> "
+"<surname>Grasch</surname> </personname> <email>grasch@simon-listens.org</"
+"email>"
 
 #. Tag: trans_comment
 #: index.docbook:74
 #, no-c-format
 msgid "ROLES_OF_TRANSLATORS"
-msgstr ""
+msgstr "ROLES_OF_TRANSLATORS"
 
 #. Tag: holder
 #: index.docbook:78
 #, no-c-format
 msgid "Peter Grasch"
-msgstr ""
+msgstr "Peter Grasch"
 
 #. Tag: para
 #: index.docbook:98
 #, no-c-format
 msgid "&kmyapplication; is an open source speech recognition solution."
-msgstr ""
+msgstr "&kmyapplication; ist eine Open-Source Spracherkennungslösung."
 
 #. Tag: keyword
 #: index.docbook:108
 #, no-c-format
 msgid "<keyword>KDE</keyword>"
-msgstr ""
+msgstr "<keyword>KDE</keyword>"
 
 #. Tag: keyword
 #: index.docbook:109
 #, no-c-format
 msgid "kdeutils"
-msgstr ""
+msgstr "kdeutils"
 
 #. Tag: keyword
 #: index.docbook:110
 #, no-c-format
 msgid "Kapp"
-msgstr ""
+msgstr "Kapp"
 
 #. Tag: keyword
 #: index.docbook:111
 #, no-c-format
 msgid "simon"
-msgstr ""
+msgstr "simon"
 
 #. Tag: keyword
 #: index.docbook:112
 #, no-c-format
 msgid "recognition"
-msgstr ""
+msgstr "Spracherkennung"
 
 #. Tag: keyword
 #: index.docbook:113
 #, no-c-format
 msgid "speech"
-msgstr ""
+msgstr "Sprache"
 
 #. Tag: keyword
 #: index.docbook:114
 #, no-c-format
 msgid "voice"
-msgstr ""
+msgstr "Sprecher"
 
 #. Tag: keyword
 #: index.docbook:115
 #, no-c-format
 msgid "command"
-msgstr ""
+msgstr "Kommando"
 
 #. Tag: keyword
 #: index.docbook:116
 #, no-c-format
 msgid "control"
-msgstr ""
+msgstr "Kontrolle"
 
 #. Tag: keyword
 #: index.docbook:117
 #, no-c-format
 msgid "accessibility"
-msgstr ""
+msgstr "accessibility"
 
 #. Tag: title
 #: index.docbook:132
 #, no-c-format
 msgid "Introduction"
-msgstr ""
+msgstr "Einleitung"
 
 #. Tag: para
 #: index.docbook:139
@@ -122,7 +125,11 @@ msgid ""
 "interface for managing the speech model and the commands. Moreover, simon "
 "can execute all sorts of commands based on the input it receives from the "
 "server: simond."
-msgstr ""
+msgstr "&kmyapplication; ist das Haupt-Frontend zu der simon Open-Source "
+"Spracherkennungslösung. Es ist ein simond Client und bietet ein grafisches "
+"Interface um das Sprachmodell und die Kommandos zu verwalten. Außerdem kann "
+"simon mit einer Vielzahl von Kommandos auf das Erkennungsergebnis reagieren, "
+"das er vom Server (simond) erhält."
 
 #. Tag: para
 #: index.docbook:145
@@ -136,7 +143,15 @@ msgid ""
 "control solutions especially suitable for the disabled. However, because of "
 "the amount of training necessary, continuous, free dictation is neither "
 "supported nor reasonable with current versions of simon."
-msgstr ""
+msgstr "Im Gegensatz zu existierenden kommerzieller Software bietet simon einen "
+"einzigartigen do-it-yourself Ansatz für Spracherkennung. Statt vordefinierten, "
+"bereits trainierten Sprachmodellen wird simon mit keinem Sprachmodell ausgeliefert. "
+"Stattdessen bietet es eine einfache Benutzeroberfläche für Endbenutzer um das Sprach- "
+"und Akustikmodell selbst zu erstellen. Die aktuelle Version kann dazu benutzt werden, "
+"um Command & Control Lösungen zu verwirklichen, die besonders bei der körperlich "
+"eingeschränkte Zielgruppe Anwendungen finden dürfte. Eine freie Diktation ist "
+"aufgrund der großen Menge an dafür notwendigen Trainingsdaten in der derzeitigen "
+"Version nicht vorgesehen."
 
 #. Tag: para
 #: index.docbook:151
@@ -145,67 +160,69 @@ msgid ""
 "Because of it's architecture, the same version of simon can be used with all "
 "languages and dialects. One can even mix languages within one model if "
 "necessary."
-msgstr ""
+msgstr "Wegen simons Architektur kann die selbe Version für alle Sprachen und "
+"Dialekte verwendet werden. Der Benutzer kann sogar verschiedene Sprachen innerhalb "
+"eines Modells mixen, sollte dies gewünscht sein."
 
 #. Tag: title
 #: index.docbook:158
 #, no-c-format
 msgid "Overview"
-msgstr ""
+msgstr "Übersicht"
 
 #. Tag: title
 #: index.docbook:161
 #, no-c-format
 msgid "<title>Architecture</title>"
-msgstr ""
+msgstr "<title>Architketur</title>"
 
 #. Tag: para
 #: index.docbook:162
 #, no-c-format
 msgid "The simon architecture consits of three applications."
-msgstr ""
+msgstr "Die simon Architektur besteht aus drei Anwendungen."
 
 #. Tag: para
 #: index.docbook:165 index.docbook:2182
 #, no-c-format
 msgid "&kmyapplication;"
-msgstr ""
+msgstr "&kmyapplication;"
 
 #. Tag: para
 #: index.docbook:165
 #, no-c-format
 msgid "This is the main graphical interface."
-msgstr ""
+msgstr "Das grafische Interface."
 
 #. Tag: para
 #: index.docbook:165
 #, no-c-format
 msgid "It acts as a client to the simond server."
-msgstr ""
+msgstr "Es argiert als Client zum simond server."
 
 #. Tag: para
 #: index.docbook:166
 #, no-c-format
 msgid "simond"
-msgstr ""
+msgstr "simond"
 
 #. Tag: para
 #: index.docbook:166
 #, no-c-format
 msgid "The recognition server."
-msgstr ""
+msgstr "Der Erkennungsserver."
 
 #. Tag: para
 #: index.docbook:167
 #, no-c-format
 msgid "ksimond"
-msgstr ""
+msgstr "ksimond"
 
 #. Tag: para
 #: index.docbook:167
 #, no-c-format
 msgid "A graphical front-end for simond."
-msgstr ""
+msgstr "Das grafische Frontend für simond"
 
 #. Tag: para
 #: index.docbook:171
@@ -217,12 +234,18 @@ msgid ""
 "adds no functionality to the system but rather provides a way to interact "
 "with simond graphically."
 msgstr ""
+"simon (die Gesamtlösung) ist eine Server / Client Anwendug. Das bedeutet, "
+"dass ein Server (simond) mehrere Clients (&kmyapplication;; "
+"Diese Anwendung) bedient, welche über das Netzwerk angebunden sind. "
+"KSimond ist nur ein Frontend für simond was bedeutet, dass es keine zusätzliche "
+"Funktionalität zum System einbringt aber einen Weg bietet mit simond über eine "
+"grafische Benutzeroberfläche zu interagieren."
 
 #. Tag: screeninfo
 #: index.docbook:177
 #, no-c-format
 msgid "<screeninfo>Architecture</screeninfo>"
-msgstr ""
+msgstr "<screeninfo>Architecture</screeninfo>"
 
 #. Tag: para
 #: index.docbook:186
@@ -232,6 +255,10 @@ msgid ""
 "pronunciation and language. This representation is then sent to the server "
 "simond which compiles it into a usable speech model."
 msgstr ""
+"&kmyapplication; wird verwendet um eine Repräesentation Ihrer Aussprache und "
+"Ihres Wortschatzes zu verwalten. Diese Repräesentation wird dann an den Server "
+"simond geschickt, welcher sie in ein benutzbares Sprachmodell übersetzt "
+"(\"kompiliert\")."
 
 #. Tag: para
 #: index.docbook:187
@@ -241,6 +268,9 @@ msgid ""
 "the server which runs the recognition on the received input stream. simond "
 "sends the recognition result back to the client (&kmyapplication;)."
 msgstr ""
+"&kmyapplication; nimmt mit Hilfe von einem Mikrofon dann Ihre Stimme auf und "
+"sendet diese Aufnahme an den Server welcher die Erkennung auf diesen Datenstrom ausführt. "
+"simond sendet dieses Erkennungsergebnis dann zurück an den Client (&kmyapplication;)."
 
 #. Tag: para
 #: index.docbook:188
@@ -249,6 +279,8 @@ msgid ""
 "&kmyapplication; then uses this recognition result to execute commands like "
 "opening programs, following links, etc."
 msgstr ""
+"&kmyapplication; benutzt dieses Erkennungsergebnis dann um Kommandos auszuführen "
+"wie beispielsweise das Öffnen von Programmen oder URLs."
 
 #. Tag: para
 #: index.docbook:190
@@ -269,7 +301,7 @@ msgstr ""
 #: index.docbook:196
 #, no-c-format
 msgid "Speech Recognition: Background"
-msgstr ""
+msgstr "Spracherkennung: Hintergrundwissen"
 
 #. Tag: para
 #: index.docbook:198
@@ -281,18 +313,23 @@ msgid ""
 "learns how words - or more correctly the sounds that make up those words - "
 "sound."
 msgstr ""
+"Spracherkennugnssysteme verwandeln Spracheingabe (von einem Mikrofon) und "
+"versuchen diese in einen geschriebenen Text umzuwandeln. Um das zu erreichen, "
+"benutzen sie eine statistische Repräsentation der gesprochenen Sprache. "
+"Um es einfach auszudrücken: Der Computer lernt wie die Wörter - oder besser gesagt "
+"die Laute die die Wörter ausmachen - klingen."
 
 #. Tag: para
 #: index.docbook:202
 #, no-c-format
 msgid "A speech model consists of two distinct parts:"
-msgstr ""
+msgstr "Ein Sprachmodell besteht aus zwei Teilen:"
 
 #. Tag: para
 #: index.docbook:205
 #, no-c-format
 msgid "<para>Language Model</para>"
-msgstr ""
+msgstr "<para>Sprachmodell</para>"
 
 #. Tag: para
 #: index.docbook:206
