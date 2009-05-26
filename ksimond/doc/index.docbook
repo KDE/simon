@@ -2,8 +2,8 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
   <!-- Define an entity for your application if it is not part of KDE
        CVS -->
-  <!ENTITY ksimond "<application>ksimond</application>">
-  <!ENTITY kappname "&ksimond;"><!-- replace kmyapplication here
+  <!ENTITY kmyapplication "<application>ksimond</application>">
+  <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
                                             do *not* replace kappname-->
   <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
                                      this unchanged if your
@@ -52,7 +52,54 @@ thanks ;-).
 as Authors, publish date, the abstract, and Keywords -->
 
 <bookinfo>
-<title>The &kappname; Handbook</title>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+
+<!-- Date and version information of the application
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (YYYY-MM-DD) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>2008-03-04</date>
+<releaseinfo>0.2</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>
+&kmyapplication; is a frontend for the simond server component of the simon speech recognition suite.
+</para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdeutils</keyword>
+<keyword>Kapp</keyword>
+<keyword>simon</keyword>
+<keyword>recognition</keyword>
+<keyword>speech</keyword>
+<keyword>voice</keyword>
+<keyword>command</keyword>
+<keyword>control</keyword>
+<keyword>accessibility</keyword>
+</keywordset>
+
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>&FDLNotice;</legalnotice>
+
+<copyright>
+<year>2009</year>
+<holder>Peter Grasch</holder>
+</copyright>
 
 <authorgroup>
 <author>
@@ -71,51 +118,8 @@ and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
 </author>
 </authorgroup>
 
-<!-- TRANS:ROLES_OF_TRANSLATORS -->
 
-<copyright>
-<year>2008</year>
-<holder>Peter Grasch</holder>
-</copyright>
-<!-- Translators: put here the copyright notice of the translation -->
-<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
-     and in the FDL itself on how to use it. -->
-<legalnotice>&FDLNotice;</legalnotice>
-
-<!-- Date and version information of the application
-Don't forget to include this last date and this last revision number, we
-need them for translation coordination !
-Please respect the format of the date (YYYY-MM-DD) and of the version
-(V.MM.LL), it could be used by automation scripts.
-Do NOT change these in the translation. -->
-
-<date>2008-02-04</date>
-<releaseinfo>0.02.04</releaseinfo>
-
-<!-- Abstract about this handbook -->
-
-<abstract>
-<para>
-&kappname; is a minimal graphical front-end for simond.
-</para>
-</abstract>
-
-<!-- This is a set of Keywords for indexing by search engines.
-Please at least include KDE, the KDE package it is in, the name
- of your application, and a few relevant keywords. -->
-
-<keywordset>
-<keyword>KDE</keyword>
-<keyword>kdeutils</keyword>
-<keyword>Kapp</keyword>
-<keyword>simond</keyword>
-<keyword>simon</keyword>
-<keyword>speech</keyword>
-<keyword>recognition</keyword>
-<keyword>server</keyword>
-<keyword>voice</keyword>
-</keywordset>
-
+<title>The &kmyapplication; Handbook</title>
 </bookinfo>
 
 <!-- The contents of the documentation begin here.  Label

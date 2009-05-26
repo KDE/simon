@@ -60,7 +60,9 @@
 /* sound header */
 /*#include "pa/portaudio.h"*/
 #include <portaudio.h>
+#ifdef linux
 #include <pthread.h>
+#endif
 
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
 
@@ -85,7 +87,7 @@ static boolean adin_stream_should_be_running = FALSE;
 static boolean adin_is_stopped = TRUE;
 static int adin_stream_sfreq = -1;
 
-static pthread_mutex_t adin_mutex;
+/*static pthread_mutex_t adin_mutex;*/
 
 
 /** 
@@ -133,7 +135,7 @@ Callback(const void *inbuf, void *outbuf, unsigned long len, const PaStreamCallb
     len = avail;
   }
 
-  pthread_mutex_lock(&adin_mutex);
+  /*pthread_mutex_lock(&adin_mutex);*/
   /* store to buffer */
   if (current + len <= cycle_buffer_len) {
     memcpy(&(speech[current]), now, len * sizeof(SP16));
@@ -158,7 +160,7 @@ Callback(const void *inbuf, void *outbuf, unsigned long len, const PaStreamCallb
 #endif
 
 
-  pthread_mutex_unlock(&adin_mutex);
+  /*pthread_mutex_unlock(&adin_mutex);*/
 
   if (adin_stream_should_be_running==TRUE)
 	return paContinue;
@@ -197,7 +199,7 @@ adin_mic_begin()
 
 
   /* initialize mutex */
-  pthread_mutex_init (&adin_mutex, NULL);
+  /*pthread_mutex_init (&adin_mutex, NULL);*/
 
   PaError err;
   int frames_per_buffer, num_buffer;
@@ -277,7 +279,7 @@ adin_mic_end()
 	return(TRUE); // we have already stopped
   }
 
-  pthread_mutex_lock(&adin_mutex);
+  /*pthread_mutex_lock(&adin_mutex);*/
 
   PaStream *real_stream = stream;
   stream=NULL;
@@ -304,10 +306,10 @@ adin_mic_end()
   current = processed = 0;
   adin_is_stopped = TRUE;
 
-  pthread_mutex_unlock(&adin_mutex);
+  /*pthread_mutex_unlock(&adin_mutex);*/
 
   /* destroy the mutex and unallocate any memory associated to it */
-  pthread_mutex_destroy (&adin_mutex);
+  /*pthread_mutex_destroy (&adin_mutex);*/
 
   return TRUE;
 }
@@ -346,13 +348,13 @@ adin_mic_read(SP16 *buf, int sampnum)
     Pa_Sleep(30); /* wait till some input comes */
   }
 
-  pthread_mutex_lock(&adin_mutex); /* lock the mutex */
+  /*pthread_mutex_lock(&adin_mutex);*/ /* lock the mutex */
 
   if ((current == processed)
 	|| (adin_stream_should_be_running == FALSE)
         || (speech==NULL)) {
     /* any of these conditions mean that we have stopped recording */
-    pthread_mutex_unlock(&adin_mutex);
+    /*pthread_mutex_unlock(&adin_mutex);*/
     return -1;
   }
 
@@ -402,7 +404,7 @@ adin_mic_read(SP16 *buf, int sampnum)
 #ifdef DDEBUG
   printf("process-3: new processed: %d\n", processed);
 #endif
-  pthread_mutex_unlock(&adin_mutex); /* unlock mutex */
+  /*pthread_mutex_unlock(&adin_mutex);*/ /* unlock mutex */
   if (len == 0) return -1;
   return len;
 }
