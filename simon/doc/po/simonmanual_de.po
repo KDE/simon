@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2009-05-22 09:09+0000\n"
-"PO-Revision-Date: 2009-05-26 13:59+0200\n"
+"PO-Revision-Date: 2009-05-26 20:32+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -2335,12 +2335,15 @@ msgid ""
 "words (higher is better). The recognition rate of the trainings-text is the "
 "average recognition rate of all the words in the text."
 msgstr ""
+"Analog zur Wortliste; Zeigt an wie wahrscheinlich es ist, dass simon die "
+"Wörter die der Text beinhaltet korrekt erkennt (höher ist besser). Der Wert "
+"ist dabei einfach ein Mittelwert der Erkennungsraten aller Wörter im Text."
 
 #. Tag: screeninfo
 #: index.docbook:1123
 #, no-c-format
 msgid "<screeninfo>Training</screeninfo>"
-msgstr ""
+msgstr "<screeninfo>Training</screeninfo>"
 
 #. Tag: para
 #: index.docbook:1132
@@ -2367,6 +2370,26 @@ msgid ""
 "missing) the changes to the active dictionary / vocabulary are saved and the "
 "training of the previously selected text starts automatically."
 msgstr ""
+"Um das Akustikmodell zu verbessern - und damit die Erkennungsrate müssen Sie "
+"Trainingstexte aufnehmen. Trainingsdaten bestehen im Allgemeinen aus zwei "
+"Teilen: <itemizedlist><listitem><para>Sprachaufnahmen Ihrer Stimme</para></listitem>"
+"<listitem><para>Transkriptionen dieser Aufnahmen</para></listitem></itemizedlist>"
+"Das aktive Wörterbuch wird verwendet um die Wörter zu transkripieren ("
+"die Worte in ihre Phoneme aufschlüsseln) aus denen der Text besteht den "
+"Sie vorlesen (trainieren). Deshalb muss jedes Wort, dass in dem Text "
+"verwendet wird auch in Ihrem aktiven Vokabular vorkommen. Ist das nicht "
+"der Fall, wird simon Sie warnen und die Möglichkeit anbieten die fehlenden "
+"Wörter hinzuzufügen. <screenshot> <screeninfo>Training: Warnen über "
+"fehlende Wörter</screeninfo> <mediaobject> <imageobject> <imagedata fileref="
+"\"training_warning.png\" format=\"PNG\"/> </imageobject> </mediaobject> </"
+"screenshot>Das Hinzufügen ist ganz gleich als würden Sie ein <link linkend="
+"\"add_word\">neues Wort hinzufügen</link> aber der Assistent wird automatisch "
+"mehrmals durchlaufen um die Information über alle fehlende Wörter zu sammeln."
+"Dieser Vorgang kann natürlich jederzeit abgebrochen werden. Sollten Sie das "
+"machen, wird simon Sie fragen ob er die bisher fertig definierten Wörter "
+"hinzufügen soll oder ob alle Änderungen rückgängig gemacht werden sollen. "
+"Wenn Sie alle Wörter hinzugefügt haben werden die Änderungen gespeichert "
+"und das Training des zuvor ausgewählten Textes startet automatisch."
 
 #. Tag: para
 #: index.docbook:1154
@@ -2375,30 +2398,32 @@ msgid ""
 "The training (reading) of the trainings-text works exactly the same as the "
 "intial training when adding a new word."
 msgstr ""
+"Das Training (vorlesen) eines Trainingstexts funktioniert exakt gleich "
+"wie das erste Training beim Hinzufügen eines neuen Wortes."
 
 #. Tag: screeninfo
 #: index.docbook:1160
 #, no-c-format
 msgid "Training in progress"
-msgstr ""
+msgstr "Training"
 
 #. Tag: title
 #: index.docbook:1172
 #, no-c-format
 msgid "Storage Directories"
-msgstr ""
+msgstr "Speicherorte"
 
 #. Tag: para
 #: index.docbook:1173
 #, no-c-format
 msgid "Trainings-texts are stored at two different locations:"
-msgstr ""
+msgstr "Trainingstexte sind an zwei Stellen gespeichert:"
 
 #. Tag: para
 #: index.docbook:1176
 #, no-c-format
 msgid "Linux: <filename>~/.kde/share/apps/simon/texts</filename>"
-msgstr ""
+msgstr "Linux: <filename>~/.kde/share/apps/simon/texts</filename>"
 
 #. Tag: para
 #: index.docbook:1177
@@ -2406,6 +2431,7 @@ msgstr ""
 msgid ""
 "Windows: <filename>%appdata%\\.kde\\share\\apps\\simon\\texts</filename>"
 msgstr ""
+"Windows: <filename>%appdata%\\.kde\\share\\apps\\simon\\texts</filename>"
 
 #. Tag: para
 #: index.docbook:1178
@@ -2414,6 +2440,8 @@ msgid ""
 "The texts of the current user. Can be deleted and added with simon (see "
 "below)."
 msgstr ""
+"Die Texte des aktuellen Benutzers. Können mit simon gelöscht und "
+"hinzugefügt werden (siehe unten)."
 
 #. Tag: para
 #: index.docbook:1179
@@ -2421,6 +2449,7 @@ msgstr ""
 msgid ""
 "Linux: <filename>`kde4-config --prefix`/share/apps/simon/texts</filename>"
 msgstr ""
+"Linux: <filename>`kde4-config --prefix`/share/apps/simon/texts</filename>"
 
 #. Tag: para
 #: index.docbook:1180
@@ -2428,6 +2457,7 @@ msgstr ""
 msgid ""
 "Windows: <filename>(install directory)\\share\\apps\\simon\\texts</filename>"
 msgstr ""
+"Windows: <filename>(install directory)\\share\\apps\\simon\\texts</filename>"
 
 #. Tag: para
 #: index.docbook:1181
@@ -2437,6 +2467,9 @@ msgid ""
 "this machine and can not be deleted from within simon because of the obvious "
 "permission restrictions on system wide files."
 msgstr ""
+"Systemweite Texte. Sie werden bei jedem (Betriebssytem-) Benutzer auf dem "
+"System angezeigt und können innerhalb von simon je nach Betriebssystemsberechtigung "
+"höchstwahrscheinlich nicht gelöscht werden."
 
 #. Tag: para
 #: index.docbook:1182
@@ -2445,6 +2478,8 @@ msgid ""
 "This folder can be used by system administrators to provide a common set of "
 "trainings-texts for all the users on one system."
 msgstr ""
+"Dieser Ordner eignet sich besonders gut für Systemadministratoren die allen "
+"Benutzern ein gemeinsames Set an Trainingsdaten geben wollen."
 
 #. Tag: para
 #: index.docbook:1186
@@ -2453,18 +2488,21 @@ msgid ""
 "The XML files (one for each text) can just be moved from one location to the "
 "other but this will most likely require admin privileges."
 msgstr ""
+"Die XML Dateien (eine für jeden Text) können von einem Speicherort zum anderen "
+"verschoben werden. Abhängig von den zugrundeliegenden Betriebssystemberechtigungen "
+"wird dies aber wahrscheinlich Administratorenrechte benötigen."
 
 #. Tag: title
 #: index.docbook:1191
 #, no-c-format
 msgid "Importing Texts"
-msgstr ""
+msgstr "Texte importieren"
 
 #. Tag: screeninfo
 #: index.docbook:1194
 #, no-c-format
 msgid "Import-trainings-texts-wizard"
-msgstr ""
+msgstr "Trainingstexte Importieren Assistent"
 
 #. Tag: para
 #: index.docbook:1200
@@ -2473,30 +2511,32 @@ msgid ""
 "The import texts wizard provides a simple way to add new trainings-texts to "
 "simon."
 msgstr ""
+"Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte "
+"zu simon hinzuzufügen."
 
 #. Tag: para
 #: index.docbook:1205
 #, no-c-format
 msgid "simon supports two different sources for new trainings-texts:"
-msgstr ""
+msgstr "simon unterstützt zwei Quellen für neue Trainingstexte:"
 
 #. Tag: para
 #: index.docbook:1209
 #, no-c-format
 msgid "Local text files"
-msgstr ""
+msgstr "Lokale Textdateien"
 
 #. Tag: para
 #: index.docbook:1210
 #, no-c-format
 msgid "simon can import normal text files to use them as trainings-texts."
-msgstr ""
+msgstr "simon kann herkömmliche Textdateien importieren um Sie für das Training zu verwenden."
 
 #. Tag: para
 #: index.docbook:1211
 #, no-c-format
 msgid "Remote list of texts"
-msgstr ""
+msgstr "Text aus dem Internet laden"
 
 #. Tag: para
 #: index.docbook:1212
@@ -2504,18 +2544,20 @@ msgstr ""
 msgid ""
 "The other option is to load a pre-segmented text from an online repository."
 msgstr ""
+"Die andere Option ist es, fertige Trainingstexte aus einer Onlinesammlung "
+"herunterzuladen."
 
 #. Tag: screeninfo
 #: index.docbook:1217
 #, no-c-format
 msgid "Import-trainings-texts-wizard: Select source"
-msgstr ""
+msgstr "Trainingstexte Importieren Assistent: Quelle auswählen"
 
 #. Tag: title
 #: index.docbook:1228
 #, no-c-format
 msgid "Local Text Files"
-msgstr ""
+msgstr "Lokale Textdateien"
 
 #. Tag: para
 #: index.docbook:1230
@@ -2527,18 +2569,24 @@ msgid ""
 "\", \"!\", \"?\", \"...\", \"\"\",...) and line breaks as \"sentences\". "
 "Each \"sentence\" will be on its own page."
 msgstr ""
+"Wenn lokale Textdateien importiert werden, wrid simon automatisch versuchen "
+"einzelne Sätze aufzuspalten um Sie beim Training eigenen \"Seiten\" (Aufnahmen) "
+"zuzuordnen. Der Algorithmus behandelt zwischen normalen Satzzeichen (\".\", "
+"\"!\, \"?\", \"...\", \"\"\",...) und Absätzen als \"Sätze\". Jeder \"Satz\""
+" wird im Trainingstext auf einer Seite und somit auf einer eigenen Aufnahme "
+"sein."
 
 #. Tag: screeninfo
 #: index.docbook:1233
 #, no-c-format
 msgid "Import-trainings-texts-wizard: Local text files"
-msgstr ""
+msgstr "Trainingstext importieren Assistent: Lokale Textdateien"
 
 #. Tag: title
 #: index.docbook:1245
 #, no-c-format
 msgid "Texts from the Online Repository"
-msgstr ""
+msgstr "Texte von einem online Repositorium"
 
 #. Tag: para
 #: index.docbook:1247
@@ -2551,6 +2599,12 @@ msgid ""
 "<guimenuitem>Configure simon</guimenuitem> > <guimenuitem>Modell Extensions</"
 "guimenuitem>)."
 msgstr ""
+"Wenn Texte vom online Repositorium heruntergeladen werden, wird simon zuerst "
+"eine Liste von verfügbaren Texten von einer konfigurierbaren Quelle herunter"
+"laden. Die Quell-URL zeigt per Default auf einen vom offiziellen simon Team "
+"kontrollierten Server aber kann jederzeit in der simon Konfiguration ("
+"<guimenu>Einstellungen</guimenu > <guimenuitem>simon einrichten...</guimenuitem>"
+" > <guimenuitem>Modell Erweiterungen</guimenuitem>) geändert werden."
 
 #. Tag: para
 #: index.docbook:1249
@@ -2559,6 +2613,8 @@ msgid ""
 "Currently, there are only a few examples available, but users are very "
 "welcome to send us their most useful trainings-texts per mail."
 msgstr ""
+"Derzeit sind nur ein paar Beispieltexte verfügbar aber Sie sind herzlich "
+"eingeladen uns Ihre besten Trainingstexte per e-Mail weiterzuleiten."
 
 #. Tag: para
 #: index.docbook:1250
@@ -2570,12 +2626,17 @@ msgid ""
 "add your text to the online repository. Please keep in mind that books or "
 "other copyrighted source material can not be accepted."
 msgstr ""
+"Dafür senden Sie uns am besten die XML Datei (zu finden in Ihrem <link linkend="
+"\"training_storage\">lokalen Speicherordner</link) an <ulink url=\"mailto:"
+"support@simon-listens.org\">support@simon-listens.org</ulink> und wir werden "
+"Ihren Text zum online Repositorium hinzufügen. Bitte beachten Sie, dass wir "
+"Bücher oder andere urheberrechtlich geschützte Bücher nicht akzeptieren können."
 
 #. Tag: screeninfo
 #: index.docbook:1255
 #, no-c-format
 msgid "Import-trainings-texts-wizard: Remote import"
-msgstr ""
+msgstr "Trainingstexte importieren Assistent: Online Import"
 
 #. Tag: para
 #: index.docbook:1264
@@ -2584,12 +2645,15 @@ msgid ""
 "To download a text just select it and click on Next. It will be "
 "automatically added to your local repository."
 msgstr ""
+"Um einen Text herunterzuladen wählen Sie ihn in der Liste einfach aus "
+"und fahren Sie mit \"Weiter\" fort. Der Text wird nun automatisch zu "
+"ihrer lokalen Sammlung hinzugefügt."
 
 #. Tag: title
 #: index.docbook:1270
 #, no-c-format
 msgid "On The Fly Training"
-msgstr ""
+msgstr "Spezialtraining"
 
 #. Tag: para
 #: index.docbook:1271
@@ -2598,18 +2662,20 @@ msgid ""
 "Additionally to trainings-texts, simon also allows to train individual words "
 "or word combinations from your dictionary on-the-fly."
 msgstr ""
+"Zusätzlich zu den Trainingstexten erlabut simon es auch inidividuelle Wörter "
+"oder Wortkombinationen aus Ihrem Lexikon direkt zu trainieren."
 
 #. Tag: para
 #: index.docbook:1273
 #, no-c-format
 msgid "This feature is located in the wordlist-menu of simon."
-msgstr ""
+msgstr "Diese Funktion befindet sich im Wortlisten Menü von simon."
 
 #. Tag: screeninfo
 #: index.docbook:1277
 #, no-c-format
 msgid "Special Training: Selecting the Words"
-msgstr ""
+msgstr "Spezialtraining: Wörter auswählen"
 
 #. Tag: para
 #: index.docbook:1286
@@ -2619,6 +2685,9 @@ msgid ""
 "to the selection list to the right (you could also select them in the table "
 "on the left and add them by clicking \"Add to Training\"."
 msgstr ""
+"Wählen Sie die Wörter zum Trainieren aus der Wortliste links aus und ziehen "
+"Sie sie mit gedrückter Maustaste zur Liste rechts (Sie können das Wort auch "
+"in der Tabelle auswählen und dann auf \"Zum Training hinzufügen\" klicken)."
 
 #. Tag: para
 #: index.docbook:1288
@@ -2627,12 +2696,15 @@ msgid ""
 "Start the training by selecting \"Train selected words\". The training "
 "itself is exactly the same as if it were a pre-composed trainings-text."
 msgstr ""
+"Starten Sie das Training in dem Sie \"Trainiert die ausgewählten Wörter\""
+" auswählen. Das Training selbst ist das gleiche wie bei gespeicherten "
+"Trainingstexten."
 
 #. Tag: screeninfo
 #: index.docbook:1292
 #, no-c-format
 msgid "Special Training: Training the Words"
-msgstr ""
+msgstr "Spezialtraining: Wörter trainieren"
 
 #. Tag: para
 #: index.docbook:1301
@@ -2641,6 +2713,8 @@ msgid ""
 "If there are more than 9 words to train simon will automatically split the "
 "text evenly across multiple pages."
 msgstr ""
+"Wenn mehr als neun Wörter zu trainieren sind, wird simon automatisch den Text "
+"gleichmäßig auf mehr als eine \"Seite\" (Aufnahme) aufteilen."
 
 #. Tag: para
 #: index.docbook:1303
@@ -2651,12 +2725,16 @@ msgid ""
 "training starts just like he would if you would train a text that contains "
 "unknown words (see above)."
 msgstr ""
+"Natürlich können Sie auch Wörter aus Ihrem Schattenlexikon zur Liste der "
+"zu trainierenden Wörter hinzufügen. Bevor das Training dann gestartet werden "
+"kann, müssen Sie aber auch hier alle Wörter zum aktiven Lexikon hinzufügen "
+"(siehe oben)."
 
 #. Tag: title
 #: index.docbook:1307
 #, no-c-format
 msgid "Importing Trainings-data"
-msgstr ""
+msgstr "Trainingsdaten importieren"
 
 #. Tag: para
 #: index.docbook:1308
@@ -2666,6 +2744,9 @@ msgid ""
 "trainings-samples from previous simon versions without copying the whole "
 "dictionary."
 msgstr ""
+"Mit der Trainingsdaten importieren Funktion können Sie zuvor gesammelte "
+"Trainingsdaten von früheren Versionen von simon importieren ohne das komplette "
+"Wörterbuch mitzuübernehmen."
 
 #. Tag: para
 #: index.docbook:1311
@@ -2674,6 +2755,8 @@ msgid ""
 "This feature is very specific. Please use it with caution and make sure that "
 "you know exactly what you are doing before you continue."
 msgstr ""
+"Diese Funktion ist sehr speziell. Bitte benutzen Sie sie nur wenn Sie sich "
+"sicher sind, dass Sie wissen was Sie tun."
 
 #. Tag: para
 #: index.docbook:1315
@@ -2685,6 +2768,12 @@ msgid ""
 "Numbers and special charecters (\".\", \"-\",...) in the filename are "
 "ignored and stripped."
 msgstr ""
+"Der Assistent wird die Transkription aus den gefunden Trainingsdaten "
+"anhand der <emphasis>Dateinamen</emphasis> auslesen. Eine Datei die "
+"<filename>das_ist_ein_Text.wav</filename> genannt ist, <emphasis>"
+"muss</emphasis> die Worte \"das ist ein Test\" beinhalten und nichts "
+"anderes. Satzzeichen wie (\".\", \"-\",...) in den Dateinamen werden "
+"ignoriert."
 
 #. Tag: para
 #: index.docbook:1319
@@ -2692,6 +2781,8 @@ msgstr ""
 msgid ""
 "The files and their transcription are then added to the trainings corpus."
 msgstr ""
+"Die Dateien und Ihre Transkription werden dann zum Trainingskorpus "
+"hinzugefügt."
 
 #. Tag: para
 #: index.docbook:1323
@@ -2704,6 +2795,12 @@ msgid ""
 "can rename or remove those files if you still want to use this wizard with "
 "those files)."
 msgstr ""
+"Dateien die mit simon 0.2 augenommen werden, werden automatisch dieser "
+"Namensgebung folgen sodass Sie sie ohne Probleme importieren können sollten. "
+"Dateien Die von vorigen Versionen von simon aufgenommen wurden sollten nicht "
+"importiert werden (sie nannten Spezialtrainingsaufnahmen \"Spezialtraining...\""
+" und nicht nach Ihrem Inhalt. Sie können diese Aufnahmen natürlich entsprechend "
+"umbenennen oder entfernen wenn Sie die Import Funktionalität verwenden wollen)."
 
 #. Tag: para
 #: index.docbook:1326
@@ -2712,12 +2809,14 @@ msgid ""
 "To import a directory containing trainings-samples just select the folder to "
 "import."
 msgstr ""
+"Um einen Ordner zu importieren der die Trainingsdateien beinhaltet wählen Sie "
+"ihn im Assistenten aus."
 
 #. Tag: screeninfo
 #: index.docbook:1330
 #, no-c-format
 msgid "Import-trainings-data-wizard"
-msgstr ""
+msgstr "Trainingsdaten importieren Assistent"
 
 #. Tag: para
 #: index.docbook:1339
@@ -2727,6 +2826,9 @@ msgid ""
 "folder and all its subfolders will be searched for .wav files. All files "
 "found will be imported."
 msgstr ""
+"Der Ordner wird dann rekursiv durchsucht. Das heißt, dass der angegebene "
+"Ordner und all seine Unterordner nach <filename>.wav</filename> Dateien "
+"durchsucht wird. Alle Dateien die gefunden wurden, werden importiert."
 
 #. Tag: para
 #: index.docbook:1343
@@ -2736,12 +2838,15 @@ msgid ""
 "\"soundconfiguration_postprocessing\">post processing filters</link> are "
 "applied."
 msgstr ""
+"Wenn Trainingsdaten importiert werden, werden alle konfigurierten "
+"<link linkend=\"soundconfiguration_postprocessing\">"
+"Nachbearbeitungsfilter</link> angewandt."
 
 #. Tag: title
 #: index.docbook:1353
 #, no-c-format
 msgid "<title>Commands</title>"
-msgstr ""
+msgstr "<title>Kommandos</title>"
 
 #. Tag: para
 #: index.docbook:1354
@@ -2750,12 +2855,15 @@ msgid ""
 "When simon is active and recognizes something, the recognition result is "
 "given to the loaded command plug-ins (in order) for processing."
 msgstr ""
+"Wenn simon aktiviert ist und es erkennt etwas wird das Erkennungsergebnis "
+"den geladenen Kommando Plug-Ins (der Reihe nach) für die weitere Verarbeitung "
+"übergeben."
 
 #. Tag: screeninfo
 #: index.docbook:1358
 #, no-c-format
 msgid "simons Command Dialog"
-msgstr ""
+msgstr "simons Kommando Dialog"
 
 #. Tag: para
 #: index.docbook:1367
@@ -2772,12 +2880,24 @@ msgid ""
 "options (<guimenu>Settings</guimenu> > <guimenuitem>Configure simon</"
 "guimenuitem> > <guimenuitem>Actions</guimenuitem>)."
 msgstr ""
+"Das Kommandosystem kann mit einer Gruppe von Fabriksarbeitern verglichen werden."
+" Jeder von Ihnen weiß, wie er genau eine Aufgabe bewältigt (z.B. Weiß \"Karl\" "
+"wie man Programme startet und \"Hans\" weiß wie Ordner geöffnet werden, etc.). "
+"Wenn simon jetzt etwas erkennt wird dieses Erkennungsergebnis zuerst an \"Karl\" "
+"übergeben, der sich das einmal ansieht. Ist die Anweisung für ihn gedacht, "
+"handelt er danach (und startet in diesem Beispiel ein Program). Ansonsten gibt "
+"er die Anweisung weiter an \"Hans\", usw. Wenn keiner der geladenen Plug-Ins weiß "
+"was zu tun ist, wird das Erkennungsergebnis verworfen. Die Abfolge in der "
+"das Erkennungsergebnis zu den einzelnen Plug-Ins übergeben wird ist konfigurierbar "
+"in der Kommandokonfiguration (<guimenu>Einstellungen</guimenu> > <guimenuitem>"
+"simon einrichten...</guimenuitem> > <guimenuitem>Aktionen</guimenuitem>)."
+
 
 #. Tag: screeninfo
 #: index.docbook:1371
 #, no-c-format
 msgid "simons Action Configuration"
-msgstr ""
+msgstr "simons Aktionenkonfiguration"
 
 #. Tag: para
 #: index.docbook:1379
@@ -2786,6 +2906,8 @@ msgid ""
 "Each plugin can be associated with a \"trigger\". Usings triggers, the "
 "responsibility of each plugin can be easily be divided."
 msgstr ""
+"Jedes Plug-In kann mit einem \"Auslöser\" verbunden werden. Mit Auslösern "
+"kann die Verantwortung der einzelnen Plug-Ins besser aufgeteilt werden."
 
 #. Tag: para
 #: index.docbook:1382
@@ -2797,6 +2919,11 @@ msgid ""
 "\" (the plugin responsible for opening folders) will instantly know that the "
 "request is meant for him."
 msgstr ""
+"Wenn wir wieder zu unseren Fabriksarbeitern zurückgehen könnten wir es "
+"vergleichen mit dem expliziten sagen des Namens der zuständigen Person. "
+"Statt \"Öffne meine eigenen Dateien\" sagen wir jetzt \"Hans, öffne meine "
+"eigenen Dateien!\" und \"Hans\" (das Plug-In das zuständig ist für "
+"das Öffnen der Ordner) weiß sofort, dass diese Anfrage für ihn ist."
 
 #. Tag: para
 #: index.docbook:1383
@@ -2810,6 +2937,13 @@ msgid ""
 "executable plugin) and \"Open Google\" to open the search engine (instead of "
 "just \"Google\")."
 msgstr ""
+"In der Praxis bedeutet dass, z.B. dass wenn Sie ein Program-Kommando \"Firefox\" haben um "
+"den Webbrowser zu öffnen und ein Ort-Kommando \"Google\" um die Websuche "
+"zu öffnen und die Auslöser \"Starte\" für das \"Program\" Plug-In "
+"und \"Öffne\" für das \"Ort\" Plug-In vergeben, müssten Sie \"Starte Firefox\""
+" sagen um Firefox zu starten - statt einfach \"Firefox\" (den Namen des Kommandos)"
+" wenn Sie keinen Auslöser verwenden würden. Analog dazu müssten Sie \"Öffne Google\""
+" sagen statt nur \"Google\" ohne Auslöser."
 
 #. Tag: para
 #: index.docbook:1384
@@ -2822,6 +2956,13 @@ msgid ""
 "Firefox\" and \"Computer, Google\" like) it has the advantage of greatly "
 "limiting the false-positives."
 msgstr ""
+"Trigger sind natürlich keine Vorraussetzung und Sie können simon natürlich "
+"auch ohne Trigger verwenden (manche Kommandos haben aber per Default den Auslöser "
+"\"Computer\" den Sie in diesem Fall entfernen müssten). Aber sogar wenn Sie "
+"nur einen einzelnen Auslöser für all Ihre Plug-Ins verwenden (wie etwa "
+"den allgemeinen Trigger \"Computer\" um z.B. \"Computer, Firefox\" und "
+"\"Computer Google\" zu sagen) hat dies den großen Vorteil die versehentlichen "
+"Kommandoaufrufe zu minimieren."
 
 #. Tag: para
 #: index.docbook:1386
@@ -2830,12 +2971,15 @@ msgid ""
 "Each Command has a name (which will trigger its invokation), an icon and "
 "more fields depending on the type of the plugin (see below)."
 msgstr ""
+"Jedes Kommando hat einen Namen (der das Kommando - mit einem etwaigen "
+"Plug-In Auslöser verbunden - auslöst), ein Symbol und mehrere Felder "
+"die vom Typ des Kommandos abhängen (siehe unten)."
 
 #. Tag: title
 #: index.docbook:1392
 #, no-c-format
 msgid "<title>Executable Commands</title>"
-msgstr ""
+msgstr "<title>Programm-Kommandos</title>"
 
 #. Tag: para
 #: index.docbook:1394
@@ -2844,12 +2988,14 @@ msgid ""
 "Executable commands are accociated with an executable file (\"Program\") "
 "which is started when the command is invoked."
 msgstr ""
+"Programm-Kommandos sind assoziert mit einer ausführbaren Datei (\"Programm\") "
+"welches gestartet wird wenn das Kommando ausgelöst wird."
 
 #. Tag: screeninfo
 #: index.docbook:1397
 #, no-c-format
 msgid "<screeninfo>Executable Commands</screeninfo>"
-msgstr ""
+msgstr "<screeninfo>Programm-Kommandos</screeninfo>"
 
 #. Tag: para
 #: index.docbook:1405
@@ -2859,6 +3005,9 @@ msgid ""
 "the parameters contain spaces they <emphasis>must</emphasis> be wrapped in "
 "quotes."
 msgstr ""
+"Argumente zu den ausführbaren Dateien werden unterstützt und an das Programm "
+"übergeben. Wenn der Pfad zur ausführbaren Datei oder die Argumente Leerzeichen "
+"beinhalten, <emphasis>müssen</emphasis> sie aber von Anführungszeichen umgeben werden."
 
 #. Tag: para
 #: index.docbook:1407
@@ -2868,7 +3017,11 @@ msgid ""
 "exe</filename> the local html file <filename>C:\\test file.html</filename> "
 "the correct line for the \"Executable\" would be: <filename>\"C:\\Programme"
 "\\Mozilla Firefox\\firefox.exe\" \"C:\\test file.html\"</filename>."
-msgstr ""
+msgstr "Nehmen wir die ausführbare Datei <filename>C:\\Programme\\Mozilla "
+"Firefox\\firefox.exe\" \"C:\\test datei.html\"</filename> an, wäre die korrekte "
+"Eingabe für das Feld \"Ausführbare Datei\" folgendes: <filename>\"C:\\Programme"
+"\\Mozilla Firefox\\firefox.exe\" \"C:\\test datei.html\"</filename>."
+
 
 #. Tag: para
 #: index.docbook:1409
@@ -2880,6 +3033,11 @@ msgid ""
 "filename> would cause firefox to search for the file <filename>C:\\folder"
 "\\file.html</filename>."
 msgstr ""
+"Der Arbeitsordner bestimmt in von welchem Ordner aus der Prozess gestartet "
+"wird. Wenn der Arbeitsordner <filename>C:\\folder</filname> ist und das "
+"Kommando <filename>\"C:\\Programme\\Mozilla Firefox\\firefox.exe\" file.html</"
+"filename> gestartet wrid, würde Firefox für die Datei <filename>C:\\folder"
+"\\file.html</filename> suchen."
 
 #. Tag: para
 #: index.docbook:1411
@@ -2888,12 +3046,14 @@ msgid ""
 "The working directory does not normally need to be set and can be left blank "
 "most of the time."
 msgstr ""
+"Der Arbeitsordner muss normalerweise nicht explizit gesetzt werden und kann "
+"leer geleassen werden."
 
 #. Tag: title
 #: index.docbook:1414
 #, no-c-format
 msgid "Importing Programs"
-msgstr ""
+msgstr "Programme importieren"
 
 #. Tag: para
 #: index.docbook:1415
@@ -2902,12 +3062,14 @@ msgid ""
 "For even easier configuration simon provides an import wizard which allows "
 "you to select programs directly from the KDE menu."
 msgstr ""
+"simon bietet einen Assistenten mit dem Sie Programme auch direkt aus dem KDE "
+"Menü auswählen können."
 
 #. Tag: screeninfo
 #: index.docbook:1418
 #, no-c-format
 msgid "Import Programs"
-msgstr ""
+msgstr "Programme Importieren"
 
 #. Tag: para
 #: index.docbook:1426
@@ -2915,7 +3077,8 @@ msgstr ""
 msgid ""
 "The wizard will list all programs that have an entry in your KDE menu in "
 "their respective category."
-msgstr ""
+msgstr "Der Assistent wird alle Programme aus dem KDE Menü in ihrer entsprechenden "
+"Kategorie anzeigen."
 
 #. Tag: para
 #: index.docbook:1428
@@ -2924,6 +3087,8 @@ msgid ""
 "Sub-Categories are not supported and are thus listed on the same level as "
 "top-level categories."
 msgstr ""
+"Unterkategorien werden nicht unterstützt und werden auf der selben Ebene wie "
+"ihre übergeordneten Kategorien angezeigt."
 
 #. Tag: para
 #: index.docbook:1430
@@ -2933,12 +3098,15 @@ msgid ""
 "wizard. The correct values for the executable and the working directory will "
 "automatically be filled out for you."
 msgstr ""
+"Wählen Sie einfach das Programm aus, das Sie importieren wollen und "
+"schließen Sie den Assistenten ab. Die korrekten Werte für die Ausführbare Datei "
+"und für den Arbeitsordner werden automatisch ausgefüllt."
 
 #. Tag: title
 #: index.docbook:1437
 #, no-c-format
 msgid "Place Commands"
-msgstr ""
+msgstr "Ort-Kommandos"
 
 #. Tag: para
 #: index.docbook:1438
@@ -2949,6 +3117,10 @@ msgid ""
 "like \"remote:/\" (on Linux/KDE) or even KDEs \"Web-Shortcuts\" are "
 "supported."
 msgstr ""
+"Mit Ort Kommandos kann simon einen beliebigen URL öffnen. Weil simon die Adresse "
+"einfach an den zugrundeliegenden URL-Handler der jeweiligen Plattform weitergibt "
+"werden alle von diesem Unterstützten Protokolle wie \"remote:/\" (Linux/KDE "
+"spezifisch) oder sogar KDEs \"Web-Shortcuts\" unterstützt."
 
 #. Tag: para
 #: index.docbook:1439
@@ -2958,12 +3130,15 @@ msgid ""
 "cause the file to be opened with the application which is associated with it "
 "when the command is invoked."
 msgstr ""
+"Neben herkömmlichen Ordnern können aber auch Dateien angegeben werden die dann "
+"mit dem mit ihnen standardmäßig assozierten Programm geöffnet werden wenn "
+"das Kommando ausgelöst wird."
 
 #. Tag: screeninfo
 #: index.docbook:1442
 #, no-c-format
 msgid "Places"
-msgstr ""
+msgstr "Orte"
 
 #. Tag: para
 #: index.docbook:1450
@@ -2973,12 +3148,15 @@ msgid ""
 "the URL field (select \"Manual\" first) or import it with the import place "
 "wizard."
 msgstr ""
+"Um einen URL mit einem Kommando zu verbinden können Sie den URL entweder manuell "
+"in das URL-Feld eingeben (wählen Sie \"Manuell\") oder ihn mit dem Ort importieren "
+"Assistent auswählen."
 
 #. Tag: title
 #: index.docbook:1454
 #, no-c-format
 msgid "Importing Places"
-msgstr ""
+msgstr "Orte importieren"
 
 #. Tag: para
 #: index.docbook:1456
@@ -2987,6 +3165,7 @@ msgid ""
 "The import place wizard allows you to easily create the correct URL for the "
 "command."
 msgstr ""
+"Der Ort importieren Assistent erleichtert es eine korrekte URL anzugeben."
 
 #. Tag: para
 #: index.docbook:1458
@@ -2995,12 +3174,14 @@ msgid ""
 "To add a local folder, select \"Local Place\" and choose the folder or file "
 "with the file selector."
 msgstr ""
+"Um einen lokalen Ordner oder eine lokale Datei anzugeben, wählen Sie \"Lokaler"
+" Ort\" und wählen Sie den Ordner oder die Datei mit dem Feld aus."
 
 #. Tag: screeninfo
 #: index.docbook:1461
 #, no-c-format
 msgid "Import Places: Local"
-msgstr ""
+msgstr "Lokale Orte importieren"
 
 #. Tag: para
 #: index.docbook:1470
@@ -3012,12 +3193,19 @@ msgid ""
 "imageobject> </mediaobject> </screenshot> Please note that for URLs with "
 "authentication information the password will be stored in clear text."
 msgstr ""
+"Um einen entfernten URL (HTTP, FTP, etc.) anzugeben wählen Sie \"URL\". "
+"<screenshot> "
+"<screeninfo>Entfernte Orte importieren</screeninfo> <mediaobject> <imageobject> "
+"<imagedata fileref=\"command_place_import_2.png\" format=\"PNG\"/> </"
+"imageobject> </mediaobject> </screenshot> Bitte beachten Sie, dass URLs "
+"mit Authentifizierungsinformation im Klartext gespeichert "
+"werden und das Passwort also unverschlüsselt vorliegt."
 
 #. Tag: title
 #: index.docbook:1487
 #, no-c-format
 msgid "Shortcut Commands"
-msgstr ""
+msgstr "Tastenkürzel-Kommandos"
 
 #. Tag: para
 #: index.docbook:1488
@@ -3025,7 +3213,8 @@ msgstr ""
 msgid ""
 "Using shortcut commands the user can associate commands with key-"
 "combinations."
-msgstr ""
+msgstr "Mit den Tastenkürzel-Kommandos kann ein Benutzer Kommandos mit "
+"Tastenkombinationen verbinden."
 
 #. Tag: para
 #: index.docbook:1490
@@ -3034,12 +3223,14 @@ msgid ""
 "The command will simulate keyboard input to \"press\" shortcuts like \"Ctrl+C"
 "\" or \"Alt+F4\"."
 msgstr ""
+"Das Kommando kann Tasteneingaben simmulieren um Tastenkürzel wie \"Strg+C\""
+"oder \"Alt-F4\" auszulösen."
 
 #. Tag: screeninfo
 #: index.docbook:1493
 #, no-c-format
 msgid "Defining Shortcut Commands"
-msgstr ""
+msgstr "Tastenkürzel Kommandos definieren"
 
 #. Tag: para
 #: index.docbook:1502
@@ -3048,12 +3239,15 @@ msgid ""
 "To select the shortcut you wish to simulate just toggle the shortcut button "
 "and press the keycombination on your keyboard."
 msgstr ""
+"Um ein Tastenkürzel auszuwählen, klicken Sie einfach auf den Tastenkürzel-"
+"Knopf und drücken anschließend ebenjene Kombination die Sie mit dem Kommando "
+"assozieren möchten auf Ihrer Tastatur."
 
 #. Tag: para
 #: index.docbook:1503
 #, no-c-format
 msgid "simon will capture the shortcut and associate it with the command."
-msgstr ""
+msgstr "simon wird das Tastenkürzel abfangen und mit dem Kommando assozieren."
 
 #. Tag: para
 #: index.docbook:1504
@@ -3066,12 +3260,17 @@ msgid ""
 "the screenshot above as the list is only displayed in the Microsoft Windows "
 "version of simon.)"
 msgstr ""
+"Wegen technischen Einschränkungen gibt es unter Microsoft Windows einige "
+"Tastenkürzel die sich nicht ohne weiteres abfangen lassen mit simon (z.B. "
+"Strg+Alt+Entf und Alt+F4). Diese speziellen Tastenkombinationen können mit "
+"eigenen Liste ausgewählt werden die nur in der Windows Version vorhanden "
+"ist und deshalb auf dem Bildschirmfoto nicht zu sehen ist."
 
 #. Tag: title
 #: index.docbook:1508
 #, no-c-format
 msgid "Text-Macro Commands"
-msgstr ""
+msgstr "Text-Makro-Kommandos"
 
 #. Tag: para
 #: index.docbook:1509
@@ -3081,18 +3280,21 @@ msgid ""
 "the command is invoked, the associated text will be \"written\" by "
 "simulating keystrokes."
 msgstr ""
+"Mit Text-Makro-Kommandos kann der Benutzer Text mit Kommandos assozieren. "
+"Wenn ein Text-Makro-Kommando ausgelöst wird, wird der Text mit dem das "
+"Kommando verbunden ist über simmulierte Tastendrücke \"geschrieben\"."
 
 #. Tag: screeninfo
 #: index.docbook:1513
 #, no-c-format
 msgid "Defining Text-Macro Commands"
-msgstr ""
+msgstr "Text-Makro-Kommandos definieren"
 
 #. Tag: title
 #: index.docbook:1524
 #, no-c-format
 msgid "List Commands"
-msgstr ""
+msgstr "List-Kommandos"
 
 #. Tag: para
 #: index.docbook:1525
@@ -3101,7 +3303,10 @@ msgid ""
 "The list command is designed to combine multiple commands (all types of "
 "commands are supported) into one list. The user can then select the n-th "
 "entry by saying the associated number (1-9)."
-msgstr ""
+msgstr "List-Kommandos kombinieren mehrere Kommandos (alle Typen von "
+"Kommandos werden unterstützt) in eine einzelne Liste. Der Benutzer kann "
+"dann einen Eintrag der Liste auswählen indem er dessen Nummer (1-9) sagt "
+"und damit dieses Kommando auslösen."
 
 #. Tag: para
 #: index.docbook:1527
@@ -3110,12 +3315,14 @@ msgid ""
 "This is very useful to limit the amount of training required and provides "
 "the possibility to keep the vocabulary to a minimum."
 msgstr ""
+"List-Kommandos sind sehr hilfreich um die Menge an Wörter im Vokabular und "
+"damit die Menge der benötigten Trainingsdaten gering zu halten."
 
 #. Tag: screeninfo
 #: index.docbook:1532
 #, no-c-format
 msgid "Defining List Commands"
-msgstr ""
+msgstr "List-Kommandos definieren"
 
 #. Tag: para
 #: index.docbook:1541
@@ -3129,12 +3336,19 @@ msgid ""
 "having to include these words in his vocabulary and consider them in the "
 "grammar just to trigger them."
 msgstr ""
+"List-Kommandos sind vor allem dasnn nütlich wenn Kommandos schwierig "
+"auszusprechende Trigger haben oder mehrere Kommandos logisch gruppiert "
+"werden können. Ein typisches Beispiel wäre ein Kommando \"Startmenü\" das "
+"eine Liste von Programmen (Program-Kommandos) auflistet. So können diese "
+"Program-Kommandos sehr komplexe aber beschreibende Namen besitzen ("
+"wie z.B.: \"OpenOffice.org Writer 3.1\") ohne dass simon diese "
+"Wörter jemals erkennen muss um das Kommando auszulösen."
 
 #. Tag: para
 #: index.docbook:1543
 #, no-c-format
 msgid "Commands of different types can of course be mixed."
-msgstr ""
+msgstr "Kommandos unterschiedlicher Typen können in einer Liste gemischt werden."
 
 #. Tag: para
 #: index.docbook:1546
@@ -3148,6 +3362,15 @@ msgid ""
 "list by simply saying their associated number (In this example: \"One\" to "
 "launch Mozilla Firefox)."
 msgstr ""
+"Wenn ein List-Kommando ausgelöst wird, wird eine Liste in der Mitte des "
+"Bildschirmes angezeigt. Diese Liste wird automatisch größer und kleiner um "
+"alle Elemente anzeigen zu können. <screenshot> "
+"<screeninfo>List-Kommandos</screeninfo> <mediaobject> <imageobject> "
+"<imagedata fileref=\"command_list_2.png\" format=\"PNG\"/> </imageobject> </"
+"mediaobject> </screenshot>Der Benutzer kann dann die Kommandos auslösen "
+"in dem er die Nummer sagt die mit dem Kommando verbunden ist, dass er "
+"auslösen möchte (In diesem Beispiel: \"Eins\" um Mozilla Firefox "
+"aufzurufen)."
 
 #. Tag: para
 #: index.docbook:1559
@@ -3157,6 +3380,10 @@ msgid ""
 "at the list itself (other commands, etc.) will be rejected. The process can "
 "be canceled by pressing the \"Cancel\" button or by saying \"Cancel\"."
 msgstr ""
+"Während eine Liste aktiv ist (sie wird angezeigt) wird jedes Erkennungsergebnis "
+"das nicht die Liste selbst betrifft (andere Kommandos, etc.) verworfen. Der "
+"Auswahlprozess kann jederzeit abgebrochen werden durch sagen von \"Abbrechen\""
+"oder durch klicken auf das \"Abbrechen\" Feld."
 
 #. Tag: para
 #: index.docbook:1562
@@ -3166,12 +3393,16 @@ msgid ""
 "to the list (\"Zero\" will be associated with \"Back\" and \"Nine\" with "
 "\"Next\")."
 msgstr ""
+"Wenn mehr als 9 Kommandos mit der Liste assoziert sind, werden automatisch "
+"\Weiter\" und \"Zurück\" Elemente angezeigt die ebenfalls mit Nummern "
+"versehen sind (\"Null\" wird mit \"Zurück\" und \"Neun\" wird mit \"Weiter\""
+" verbunden)."
 
 #. Tag: screeninfo
 #: index.docbook:1566
 #, no-c-format
 msgid "List Command with many entries"
-msgstr ""
+msgstr "List-Kommando mit vielen Einträgen"
 
 #. Tag: para
 #: index.docbook:1575
@@ -3180,85 +3411,88 @@ msgid ""
 "To use list commands to their full potential, make sure that your language "
 "and acoustic model contains and allows for the following \"sentences\":"
 msgstr ""
+"Um List-Kommandos zu ihrem vollen Potential zu benutzen, stellen Sie sicher, "
+"dass Ihr Sprachmodell die folgenden \"Sätze\" kennt und erlaubt:"
 
 #. Tag: para
 #: index.docbook:1578 index.docbook:1741
 #, no-c-format
 msgid "\"Zero\""
-msgstr ""
+msgstr "\"Null\""
 
 #. Tag: para
 #: index.docbook:1579 index.docbook:1675 index.docbook:1742
 #, no-c-format
 msgid "\"One\""
-msgstr ""
+msgstr "\"Eins\""
 
 #. Tag: para
 #: index.docbook:1580 index.docbook:1676 index.docbook:1743
 #, no-c-format
 msgid "\"Two\""
-msgstr ""
+msgstr "\"Zwei\""
 
 #. Tag: para
 #: index.docbook:1581 index.docbook:1677 index.docbook:1744
 #, no-c-format
 msgid "\"Three\""
-msgstr ""
+msgstr "\"Drei\""
 
 #. Tag: para
 #: index.docbook:1582 index.docbook:1678 index.docbook:1745
 #, no-c-format
 msgid "\"Four\""
-msgstr ""
+msgstr "\"Vier\""
 
 #. Tag: para
 #: index.docbook:1583 index.docbook:1679 index.docbook:1746
 #, no-c-format
 msgid "\"Five\""
-msgstr ""
+msgstr "\"Fünf\""
 
 #. Tag: para
 #: index.docbook:1584 index.docbook:1680 index.docbook:1747
 #, no-c-format
 msgid "\"Six\""
-msgstr ""
+msgstr "\"Sechs\""
 
 #. Tag: para
 #: index.docbook:1585 index.docbook:1681 index.docbook:1748
 #, no-c-format
 msgid "\"Seven\""
-msgstr ""
+msgstr "\"Sieben\""
 
 #. Tag: para
 #: index.docbook:1586 index.docbook:1682 index.docbook:1749
 #, no-c-format
 msgid "\"Eight\""
-msgstr ""
+msgstr "\"Acht\""
 
 #. Tag: para
 #: index.docbook:1587 index.docbook:1683 index.docbook:1750
 #, no-c-format
 msgid "\"Nine\""
-msgstr ""
+msgstr "\"Neun\""
 
 #. Tag: para
 #: index.docbook:1588 index.docbook:1684 index.docbook:1754
 #, no-c-format
 msgid "\"Cancel\""
-msgstr ""
+msgstr "\"Abbrechen\""
 
 #. Tag: title
 #: index.docbook:1595
 #, no-c-format
 msgid "Composite Commands"
-msgstr ""
+msgstr "Kombination-Kommandos"
 
 #. Tag: para
 #: index.docbook:1596
 #, no-c-format
 msgid ""
 "Composite commands allow the user to group multiple commands into a sequence."
-msgstr ""
+msgstr "Kombination-Kommandos erlauben dem Benutzer mehrere Kommandos automatisch "
+"hintereinander ablaufen lassen."
 
 #. Tag: para
 #: index.docbook:1598
@@ -3267,12 +3501,15 @@ msgid ""
 "When invoked the commands will be executed in order. Delays between commands "
 "can be inserted."
 msgstr ""
+"Wenn ein Kombinationskommando ausgelöst werden, werden alle mit ihm assozierten "
+"Kommandos in einer Reihenfolge die der Benutzer festelgt ausgeführt. Es können "
+"auch Wartezeiten zwischen Kommando-Aufrufen eingefügt werden."
 
 #. Tag: screeninfo
 #: index.docbook:1601
 #, no-c-format
 msgid "Defining Composite Commands"
-msgstr ""
+msgstr "Kombination-Kommandos dfinieren"
 
 #. Tag: para
 #: index.docbook:1610
@@ -3281,18 +3518,20 @@ msgid ""
 "Using the composite command the user can compose complex \"macros\". The "
 "screenshot above - for example - does the following:"
 msgstr ""
+"Mit Kombination-Kommandos kann der Benutzer komplexe Arbeitsabläufe "
+"in ein einzelnes Kommando packen. Zum Beispiel: "
 
 #. Tag: para
 #: index.docbook:1613
 #, no-c-format
 msgid "Start Kopete (Executable Command)"
-msgstr ""
+msgstr "Sarte Kopete (Program Kommando)"
 
 #. Tag: para
 #: index.docbook:1614
 #, no-c-format
 msgid "Wait 2000ms for Kopete do be started"
-msgstr ""
+msgstr "Warte 2000ms bis Kopete gestartet ist"
 
 #. Tag: para
 #: index.docbook:1615
@@ -3301,18 +3540,20 @@ msgid ""
 "Type \"Mathias\" (Text-Macro Command) which will select Mathias in my "
 "contact list"
 msgstr ""
+"Schreibe \"Mathias\" (Text-Makro-Kommando); Dies wirt den Kontakt \"Mathias\""
+"in meiner Kontaktliste auswählen"
 
 #. Tag: para
 #: index.docbook:1616
 #, no-c-format
 msgid "Press Enter (Shortcut Command)"
-msgstr ""
+msgstr "Drücke Eingabe (Tastenkürzel-Kommando)"
 
 #. Tag: para
 #: index.docbook:1617
 #, no-c-format
 msgid "Wait 1000ms for the chat window to appear"
-msgstr ""
+msgstr "Warte 1000ms bis Kopete das Chatfenster öffnet"
 
 #. Tag: para
 #: index.docbook:1618
@@ -3321,36 +3562,38 @@ msgid ""
 "Write \"Hi!\" (Text-Macro Command); The text associated to this command "
 "contains a newline at the end so that the message will be send."
 msgstr ""
+"Schreibe \"Hallo\" (Text-Makro-Kommando) und drücke Eingabe (Tastenkürzel"
+"-Kommando) um die Nachricht zu senden."
 
 #. Tag: para
 #: index.docbook:1619
 #, no-c-format
 msgid "Press Alt+F4 (Shortcut Command) to close the chat window"
-msgstr ""
+msgstr "Drücke Alt+F4 (Tastenkürzel-Kommando) um das Chatfenster zu schließen."
 
 #. Tag: para
 #: index.docbook:1620
 #, no-c-format
 msgid "Press Alt+F4 (Shortcut Command) to close the kopete main window"
-msgstr ""
+msgstr "Drücke Alt+F4 (Tastenkürzel-Kommando) um das Kopete Hauptfenster zu schließen."
 
 #. Tag: title
 #: index.docbook:1627
 #, no-c-format
 msgid "Desktopgrid"
-msgstr ""
+msgstr "Desktopgitter"
 
 #. Tag: para
 #: index.docbook:1628
 #, no-c-format
 msgid "The desktopgrid allows the user to control his mouse with his voice."
-msgstr ""
+msgstr "Das Desktopgitter erlaubt dem Benutzer die Maus mit der Sprache zu steuern."
 
 #. Tag: screeninfo
 #: index.docbook:1632
 #, no-c-format
 msgid "The Desktopgrid"
-msgstr ""
+msgstr "Das Desktopgitter"
 
 #. Tag: para
 #: index.docbook:1638
@@ -3362,6 +3605,13 @@ msgid ""
 "fourth time the desktopgrid will be closed and simon will click in the "
 "middle of the selected area."
 msgstr ""
+"Das Desktopgitter teilt den Bildschirm in neun Teile die von 1-9 durchnummeriert "
+"werden. Wenn eine der neun Nummer ausgesprochen wird, wird das Feld das mit dieser "
+"Nummer verbunden war in neun weitere Felder zerteilt die wieder von 1-9 "
+"durchnummeriert werden, etc. Dies wird insgesamt drei Mal gemacht. Nach "
+"der vierten Auswahl einer Zahl (der immer kleiner werdenden Teile des "
+"Bildschirms) wird in die Mitte des verleibenden Vierecks geklickt (mit der "
+"linken Maustaste)."
 
 #. Tag: para
 #: index.docbook:1641
@@ -3371,6 +3621,9 @@ msgid ""
 "at the desktopgrid itself (other commands, etc.) will be rejected. Say "
 "\"Cancel\" at any time to abort the process."
 msgstr ""
+"Während das Desktopgitter aktiv ist (es wird angezeigt) wird jedes Erkennungsergebnis "
+"das nicht das Desktopgitter selbst betrifft (andere Kommandos, etc.) verworfen. Der "
+"Auswahlprozess kann jederzeit abgebrochen werden durch sagen von \"Abbrechen\"."
 
 #. Tag: para
 #: index.docbook:1645
@@ -3380,12 +3633,15 @@ msgid ""
 "in the \"New Command\" dialog. However, the desktopgrid plugin registers a "
 "configuration screen right in the command configuration when it is loaded."
 msgstr ""
+"Weil keine Kommandos vom Typ \"Desktopgitter\" erzeugt werden können, wird "
+"dieses Plug-In nicht im \"Neues Kommando\" Dialog aufscheinen. Allerdings "
+"registriet das Plug-In eine Konfigurationsseite in der Kommandokonfiguration."
 
 #. Tag: screeninfo
 #: index.docbook:1649
 #, no-c-format
 msgid "Configuring the Desktopgrid"
-msgstr ""
+msgstr "Konfiguration des Desktopgrids"
 
 #. Tag: para
 #: index.docbook:1655
@@ -3399,6 +3655,15 @@ msgid ""
 "will simulate transparency by taking a screenshot of the screen before "
 "displaying the desktopgrid and display that picture behind the desktopgrid."
 msgstr ""
+"Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich "
+"frei konfigurierbar. Außerdem kann der Benutzer zwischen \"echter\" und "
+"\"falscher\" Transparenz unterscheiden. Wenn Ihre grafische Oberfläche "
+"Compositing Effekte erlaubt, kann simon \"echte\" Transparenz verwenden. "
+"Sollte echte Transparenz nicht möglich sein, wird simon mit \"falscher\" "
+"Transparenz arbeiten: Dabei schießt simon eine Momentanaufnahme des aktuellen "
+"Bildschirmes bevor das Desktopgitter angezeigt wird und setzt dieses "
+"Bild als Hintergrundbild des Desktopgitters. Wenn verfügbar, sollte immer "
+"die \"echte\" Transparenz verwendet werden."
 
 #. Tag: para
 #: index.docbook:1659
@@ -3407,6 +3672,9 @@ msgid ""
 "If the desktopgrid is configured to use real transparency and the system "
 "does not support compositing it will display a solid gray background."
 msgstr ""
+"Wenn das Desktopgitter konfiguriert wurde echte Transparenz zu verwenden und "
+"das System unterstützt keine Compositing Effekte wird der Hintergrund "
+"des Gitters undurchsichtig und grau sein."
 
 #. Tag: para
 #: index.docbook:1661
@@ -3415,24 +3683,26 @@ msgid ""
 "However, nearly all up-to-date systems will support compositing (real "
 "transparency)."
 msgstr ""
+"Beinahe alle aktuellen Systeme werden aber Compositing per Default "
+"unterstützen."
 
 #. Tag: para
 #: index.docbook:1664
 #, no-c-format
 msgid "This includes:"
-msgstr ""
+msgstr "Das beinhaltet zum Beispiel:"
 
 #. Tag: para
 #: index.docbook:1666
 #, no-c-format
 msgid "Microsoft Windows 2000 or higher (XP, Vista, 7)"
-msgstr ""
+msgstr "Microsoft Windows 2000 oder höher (XP, Vista, 7)"
 
 #. Tag: para
 #: index.docbook:1667
 #, no-c-format
 msgid "GNU/Linux using a composite manager like Compiz, KWin4, xcompmgr, etc."
-msgstr ""
+msgstr "GNU/Linux mit einem Composite Manager wie Compiz, KWin4, xcompgrc, etc."
 
 #. Tag: para
 #: index.docbook:1672
@@ -3441,18 +3711,21 @@ msgid ""
 "To use the desktopgrid, make sure that your language and acoustic model "
 "contains and allows for the following \"sentences\":"
 msgstr ""
+"Um das Desktopgitter zu benutzen stellen Sie sicher, dass Ihr Sprachmodell "
+"folgende \"Sätze\" ermöglicht:"
 
 #. Tag: title
 #: index.docbook:1691
 #, no-c-format
 msgid "Input Number"
-msgstr ""
+msgstr "Nummer eingeben"
 
 #. Tag: para
 #: index.docbook:1692
 #, no-c-format
 msgid "Using the input-number plugin the user can input large numbers easily."
-msgstr ""
+msgstr "Mit dem Nummer eingeben Plug-In kann der Benutzer leicht Nummern beliebiger "
+"Größe eingeben."
 
 #. Tag: para
 #: index.docbook:1695
@@ -3462,12 +3735,16 @@ msgid ""
 "with their digits and use that as input method. however, to input larger "
 "numbers there are two ways that both have significant disadvantages:"
 msgstr ""
+"Mit dem Diktations- oder Text-Makro-Plug-In könnte man eigentlich leicht "
+"Nummern Ihren Ziffern zuweisen und das als Eingabemethode verwenden. "
+"Um höhere Nummern einzugeben gibt es dann zwei Möglichkeiten - jeweils "
+"mit entsprechenden Nachteilen:"
 
 #. Tag: emphasis
 #: index.docbook:1698
 #, no-c-format
 msgid "Adding the words \"eleven, \"twelve\", etc."
-msgstr ""
+msgstr "Die vollen Wörter hinzufügen: \"Elf\", \"Zwölf\", etc."
 
 #. Tag: para
 #: index.docbook:1699
@@ -3478,12 +3755,16 @@ msgid ""
 "problem to add all these words - let alone train them. What about "
 "\"twothousandninehundredtwo\"? Where to stop?"
 msgstr ""
+"Obwohl das als die eleganteste Lösung erscheint (weil sie es ermöglicht "
+"z.B.: \"fünfhundertzweiundsiebzig\" zu sagen) können wir leicht sehen "
+"das es ein enormer Aufnwand wäre all diese Wörter hinzuzufügen - und "
+"sie dann auch noch zu trainieren. Und wo hören wir auf?"
 
 #. Tag: emphasis
 #: index.docbook:1700
 #, no-c-format
 msgid "Spell out the number using the individual digits"
-msgstr ""
+msgstr "Die Nummern mit Ihren einzelnen Ziffern buchstabieren"
 
 #. Tag: para
 #: index.docbook:1701
@@ -3492,6 +3773,8 @@ msgid ""
 "While this is not as elegant as stating the complete number it is much more "
 "practical."
 msgstr ""
+"Obwohl das nicht ganz so elegant scheint wie die erste Lösung ist das natürlich "
+"viel praktikabler."
 
 #. Tag: para
 #: index.docbook:1702
@@ -3505,6 +3788,14 @@ msgid ""
 "\". Because of the needed pause, the application (like the mouseless "
 "browsing plugin) would consider the input of \"Five\" complete."
 msgstr ""
+"Leider erwarten einige Applikationen (wie z.B. das hervorragende mousless "
+"browsing firefox addon), dass der Benutzer eine Zahl zwar über die Tastatur "
+"ziffernweise eintippt aber dabei nur kurze Pausen zwischen den einzelnen Ziffern "
+"macht (das mouseless browsing Addon bspw. wird per Default maximal 500ms also "
+"eine halbe Sekunde zwischen den einzelnen Tastendrücken warten. Wenn Sie "
+"also bspw. 52 eingeben wollten würden Sie folgendes sagen: \"Fünf (Pause) Zwei\""
+". Weil die Pause benötigt wird um den Satz zu beenden würde eine zeitgesteuerte "
+"Anwendung die Eingabe von \"Fünf\" als bereits vollständig interpretieren."
 
 #. Tag: para
 #: index.docbook:1706
@@ -3518,12 +3809,20 @@ msgid ""
 "receive the input will only get couple of milliseconds between the "
 "individual digits."
 msgstr ""
+"Das Nummer eingeben Plug-In - wenn ausgelöst - zeigt eine Taschenrechner "
+"ähnliche Oberfläche um eine Zahl einzugeben. Die Eingabe kann jederzeit "
+"korrigiert werden indem der Benutzer \"Zurück\" sagt. Ein Dezimal-Komma "
+"kann eingefügt werden indem der Benutzer \"Komma\" sagt. Wenn \"Ok\" gesagt "
+"wird, wird die Zahl eingetippt. Da die tatsächliche Eingabe innerhalb "
+"des Plug-Ins stattfindet erhält die Applikation schlußendlich nur noch "
+"eine Serie von schnell hintereinander simulierten Tastendrücken die nur "
+"noch Millisekunden außeinanderliegen."
 
 #. Tag: screeninfo
 #: index.docbook:1710
 #, no-c-format
 msgid "Input Number Plugin"
-msgstr ""
+msgstr "Nummer eingeben Plug-In"
 
 #. Tag: para
 #: index.docbook:1719
@@ -3534,6 +3833,12 @@ msgid ""
 "commands, etc.) will be rejected. Say \"Cancel\" at any time to abort the "
 "process."
 msgstr ""
+"Während das Nummer eingeben Plug-In aktiv ist (es wird angezeigt) wird jedes Erkennungsergebnis "
+"das nicht da Nummer eingeben Plug-In selbst betrifft (andere Kommandos, etc.) verworfen. Die "
+"Eingabe kann jederzeit abgebrochen werden durch sagen von \"Abbrechen\""
+"oder durch klicken auf das \"Abbrechen\" Feld."
+
+
 
 #. Tag: para
 #: index.docbook:1723
@@ -3547,6 +3852,15 @@ msgid ""
 "\"/> </imageobject> </mediaobject> </screenshot> The trigger defines what "
 "word or phrase that will trigger the display of the interface."
 msgstr ""
+"Weil keine Kommandos vom Typ \"Nummer eingeben\" angelegt werden können, "
+"ist dieses Plug-In auch nicht im \"Neues Kommando\" Dialog aufgeführt. "
+"Das Nummer eingeben Plug-In registriert aber eine Konfigurationsseite in "
+"der Kommandokonfiguration."
+"<screenshot> <screeninfo>Nummer eingeben Plug-In</screeninfo> <mediaobject> "
+"<imageobject> <imagedata fileref=\"input_number_configure.png\" format=\"PNG"
+"\"/> </imageobject> </mediaobject> </screenshot> Der Auslöser defineirt "
+"welches Wort oder welche Phrase die Oberfläche zum Eingeben der Nummer "
+"anzeigen wird."
 
 #. Tag: para
 #: index.docbook:1738
@@ -3555,30 +3869,32 @@ msgid ""
 "To use the input number plugin, make sure that your language and acoustic "
 "model contains and allows for the following \"sentences\":"
 msgstr ""
+"Um das Nummer eingeben Plug-In komplett zu verwenden, stellen Sie bitte sicher, "
+"dass Ihr Sprachmodell folgende Sätze ermöglicht:"
 
 #. Tag: para
 #: index.docbook:1751
 #, no-c-format
 msgid "\"Back\""
-msgstr ""
+msgstr "\"Zurück\""
 
 #. Tag: para
 #: index.docbook:1752
 #, no-c-format
 msgid "\"Comma\""
-msgstr ""
+msgstr "\"Komma\""
 
 #. Tag: para
 #: index.docbook:1753
 #, no-c-format
 msgid "\"Ok\""
-msgstr ""
+msgstr "\"Ok\""
 
 #. Tag: title
 #: index.docbook:1760
 #, no-c-format
 msgid "Dictation"
-msgstr ""
+msgstr "Diktation"
 
 #. Tag: para
 #: index.docbook:1761
