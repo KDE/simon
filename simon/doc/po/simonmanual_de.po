@@ -1,5 +1,5 @@
-# SOME DESCRIPTIVE TITLE.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# simon manual: German translation.
+# Grasch Peter <grasch@simon-listens.org>, 2009.
 #
 #, fuzzy
 msgid ""
@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2009-05-22 09:09+0000\n"
-"PO-Revision-Date: 2009-05-24 12:54+0200\n"
+"PO-Revision-Date: 2009-05-26 13:59+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -323,7 +323,7 @@ msgstr ""
 #: index.docbook:202
 #, no-c-format
 msgid "A speech model consists of two distinct parts:"
-msgstr "Ein Sprachmodell besteht aus zwei Teilen:"
+msgstr "Ein Sprachmodell besteht aus zwei Teilen (im Deutschen wird leider nicht zwischen \"Sprache\" im Sinne von \"Sprechweise\" und der \"Sprache\" im Sinne von Deutsch, Englisch, etc. unterschieden; Deshalb besteht das Sprachmodell (\"speech model\") aus einem Sprachmodell (\"language model\") und einem Akustikmodell (\"acoustic model\")):"
 
 #. Tag: para
 #: index.docbook:205
@@ -335,13 +335,13 @@ msgstr "<para>Sprachmodell</para>"
 #: index.docbook:206
 #, no-c-format
 msgid "<para>Acoustic Model</para>"
-msgstr ""
+msgstr "<para>Aksutikmodell</para>"
 
 #. Tag: title
 #: index.docbook:211
 #, no-c-format
 msgid "<title>Language Model</title>"
-msgstr ""
+msgstr "<title>Sprachmodell</title>"
 
 #. Tag: para
 #: index.docbook:213
@@ -349,6 +349,7 @@ msgstr ""
 msgid ""
 "The language model defines the vocabulary and the grammar you want to use."
 msgstr ""
+"Das Sprachmodell definiert das Vokabular und die Grammatik die verwendet wird."
 
 #. Tag: para
 #: index.docbook:214
@@ -357,12 +358,14 @@ msgid ""
 "For more information see the <link linkend=\"wordlist\">vocabulary section</"
 "link> and the <link linkend=\"grammar\">grammar section</link>."
 msgstr ""
+"Für mehr Information sehen Sie bitte die <link linkend=\"wordlist\">Wortlisten-Sektion</link>"
+" und die <link linkend=\"grammar\">Grammatik-Sektion</link>."
 
 #. Tag: title
 #: index.docbook:218
 #, no-c-format
 msgid "<title>Acoustic Model</title>"
-msgstr ""
+msgstr "<title>Akustikmodell</title>"
 
 #. Tag: para
 #: index.docbook:219
@@ -370,46 +373,46 @@ msgstr ""
 msgid ""
 "The acoustic model represents your pronunciation in a machine readable "
 "format."
-msgstr ""
+msgstr "Das Akustikmodell repräsentiert die Aussprache in einem maschinenlesbaren Format."
 
 #. Tag: para
 #: index.docbook:221
 #, no-c-format
 msgid "Let's look at the following sample vocabulary:"
-msgstr ""
+msgstr "Betrachten wir das folgende Beispiels-Vokabular:"
 
 #. Tag: title
 #: index.docbook:222 index.docbook:465 index.docbook:884
 #, no-c-format
 msgid "Sample Vocabulary"
-msgstr ""
+msgstr "Beispiels-Vokabular"
 
 #. Tag: entry
 #: index.docbook:229 index.docbook:472 index.docbook:890 index.docbook:941
 #: index.docbook:1016
 #, no-c-format
 msgid "Word"
-msgstr ""
+msgstr "Wort"
 
 #. Tag: entry
 #: index.docbook:230 index.docbook:473 index.docbook:891 index.docbook:942
 #: index.docbook:1017
 #, no-c-format
 msgid "<entry>Terminal</entry>"
-msgstr ""
+msgstr "<entry>Terminal</entry>"
 
 #. Tag: entry
 #: index.docbook:231 index.docbook:474
 #, no-c-format
 msgid "Pronunciation"
-msgstr ""
+msgstr "Aussprache"
 
 #. Tag: entry
 #: index.docbook:236 index.docbook:479 index.docbook:896 index.docbook:947
 #: index.docbook:1022
 #, no-c-format
 msgid "Computer"
-msgstr ""
+msgstr "Computer"
 
 #. Tag: entry
 #: index.docbook:237 index.docbook:242 index.docbook:247 index.docbook:480
@@ -417,58 +420,58 @@ msgstr ""
 #: index.docbook:905
 #, no-c-format
 msgid "Noun"
-msgstr ""
+msgstr "Nomen"
 
 #. Tag: entry
 #: index.docbook:238 index.docbook:481
 #, no-c-format
 msgid "k ax m p y uw t er"
-msgstr ""
+msgstr "k O m p j u: t @ r"
 
 #. Tag: entry
 #: index.docbook:241 index.docbook:484 index.docbook:900 index.docbook:951
 #: index.docbook:1026
 #, no-c-format
 msgid "Internet"
-msgstr ""
+msgstr "Internet"
 
 #. Tag: entry
 #: index.docbook:243 index.docbook:486
 #, no-c-format
 msgid "ih n t er n eh t"
-msgstr ""
+msgstr "I n t @ r n E t"
 
 #. Tag: entry
 #: index.docbook:246 index.docbook:489 index.docbook:904 index.docbook:955
 #: index.docbook:1030
 #, no-c-format
 msgid "Mail"
-msgstr ""
+msgstr "Mail"
 
 #. Tag: entry
 #: index.docbook:248 index.docbook:491
 #, no-c-format
 msgid "m ey l"
-msgstr ""
+msgstr "m E I l"
 
 #. Tag: entry
 #: index.docbook:251 index.docbook:494 index.docbook:908 index.docbook:959
 #: index.docbook:1034
 #, no-c-format
 msgid "close"
-msgstr ""
+msgstr "schließen"
 
 #. Tag: entry
 #: index.docbook:252 index.docbook:495 index.docbook:909
 #, no-c-format
 msgid "Verb"
-msgstr ""
+msgstr "Verb"
 
 #. Tag: entry
 #: index.docbook:253 index.docbook:496
 #, no-c-format
 msgid "k l ow s"
-msgstr ""
+msgstr "S l i: s @ n"
 
 #. Tag: para
 #: index.docbook:260
@@ -483,7 +486,13 @@ msgid ""
 "are composed of letters. Using this knowledge, we can segment words into "
 "sounds (represented by the pronunciation) and assemble them back when "
 "recognizing. These building blocks are called \"phonemes\"."
-msgstr ""
+msgstr "Die Aussprache jedes Wortes besteht aus einzelnen Lauten die mit "
+"Leerzeichen getrennt sind. Das Wort \"schließen\" besteht bspw. aus den "
+"folgenden lauten: <itemizedlist><lititem><para>S</para></listitem><lititem><para>l</para></listitem><lititem><para>i:</para></listitem><lititem><para>s</para></listitem><lititem><para>@</para></listitem><lititem><para>n</para></listitem></itemizedlist> "
+"Das Akustikmodell nutzt die Tatsache, dass gesprochene Wörter genauso aus Lauten "
+"bestehen wie geschriebene Wörter aus Buchstaben bestehen. Darauf aufbauend "
+"können wir Wörter in einzelne Laute zerlegen und sie bei der Erkennung wieder 
+"\"zusammenbauen\". Diese Bausteine nennt man \"Phoneme\"."
 
 #. Tag: para
 #: index.docbook:273
@@ -493,6 +502,9 @@ msgid ""
 "the words, trainings material is shared among all words that use the same "
 "phonemes."
 msgstr ""
+"Das Akustikmodel beinhaltet Daten wie die einzelnen Phoneme und nicht ganze Wörter  vom Anwender "
+"ausgesprochen werden. Das Trainingsmaterial eines Wortes beeinflusst deshalb auch "
+"die Erkennungsrate ähnlicher Worte positiv."
 
 #. Tag: para
 #: index.docbook:276
@@ -502,6 +514,14 @@ msgid ""
 "acoustic model already has an idea how the \"clo\" part is going to sound as "
 "they share the same phonemes (\"k\", \"l\", \"ow\") at the beginning."
 msgstr ""
+"Das bedeutet, dass wenn zum obigen Beispielvokabular nun noch das Wort \"Mailing\" "
+"hinzugefügt wird, weiß das Akustikmodell bereits ungefähr wie es klingen wird weil "
+"das Wort aus den Phonemen \"m\", \"E\", \"I\", \"l\", \"I\", \"N\" besteht und wir "
+"die Phonemkombination \"m\", \"E\", \"I\", \"l\" ja bereits für \"Mail\" trainiert "
+"haben. Wird jetzt eines der beiden Wörter trainiert, verbessert sich die Erkennung "
+"beider Wörter. Natürlich müssen aber auch die Phoneme \"I\" und \"N\" trainiert "
+"werden weshalb ein alleiniges Training vom Wort \"Mail\" nicht ausreicht um \"Mailing\" "
+"zu erkennen."
 
 #. Tag: para
 #: index.docbook:279
@@ -513,12 +533,18 @@ msgid ""
 "is listed in your vocabulary, simon already knows what phonemes it contains "
 "and can thus \"learn\" from your pronunciation of the word."
 msgstr ""
+"Um das Akustikmodell zu trainieren (in anderen Worten, dem Computer zu erklären "
+"wie die Phoneme von Ihnen ausgesprochen werden) müssen Wörter aus Ihrem Sprachmodell "
+"\"trainiert\" werden. Das bedeutet, dass simon das Wort anzeigt und Sie dieses laut "
+"vorlesen. Weil simon das Wort aus seinem Vokabular bereits kennt, weiß er aus "
+"welchen Phonemen es besteht. Damit kann er dann Ihre persönliche Aussprache dieser "
+"Phoneme \"erlernen\"."
 
 #. Tag: title
 #: index.docbook:287
 #, no-c-format
 msgid "Guidelines"
-msgstr ""
+msgstr "Richtlinien"
 
 #. Tag: para
 #: index.docbook:288
@@ -526,13 +552,14 @@ msgstr ""
 msgid ""
 "This chapter lists some general guidelines that are relevant for different "
 "parts of simon."
-msgstr ""
+msgstr "Dieses Kapitel listet ein paar grundlegende Richtlinien die in unterschiedlichen "
+"Teilen von simon relevant sind."
 
 #. Tag: title
 #: index.docbook:291
 #, no-c-format
 msgid "Recordings"
-msgstr ""
+msgstr "Aufnahmen"
 
 #. Tag: para
 #: index.docbook:292
@@ -542,12 +569,15 @@ msgid ""
 "voice. Because of this, the recorded samples are of vital importance for the "
 "recognition."
 msgstr ""
+"simon baut sein Akustikmodell basierend auf transkripierten Sprachaufnahmen "
+"von der Stimme des Benutzers auf. Deswegen ist die Qualität der "
+"aufgenommenen Trainingsdaten entscheidend für die Erkennungsrate."
 
 #. Tag: title
 #: index.docbook:295
 #, no-c-format
 msgid "Volume"
-msgstr ""
+msgstr "Lautstärke"
 
 #. Tag: para
 #: index.docbook:296
@@ -555,7 +585,7 @@ msgstr ""
 msgid ""
 "It is important that you check your microphone volume before recording any "
 "samples."
-msgstr ""
+msgstr "Es ist wichtig, dass Sie vor der Aufnahme die Lautstärke Ihres Mikrofons kontrollieren."
 
 #. Tag: para
 #: index.docbook:297
@@ -565,6 +595,9 @@ msgid ""
 "use an audio editing tool like the free <ulink url=\"http://audacity."
 "sourceforge.net\">Audacity</ulink>."
 msgstr ""
+"Ein einfacher Weg um sicherzustellen, dass die Lautstärke richtig eingestellt "
+"ist, ist ein Audio Tool wie das freie <ulink url=\"http://audacity.sf.net\">Audacity</ulink>"
+" zu benutzen."
 
 #. Tag: para
 #: index.docbook:299
@@ -578,48 +611,56 @@ msgid ""
 "anticipate this. It is much better to have a little quieter samples than to "
 "start clipping."
 msgstr ""
+"Öffnen Sie das Programm Ihrer Wahl und starten Sie die Aufnahme. Sagen "
+"Sie ein paar Worte. Bitte "
+"bedenken Sie, dass Sie die besten Ergebnisse erzielen wenn alle Aufnahmen "
+"ungefähr gleich laut sind und Sie auch während der Erkennung gleich laut "
+"sprechen. Möglicherweise könnten Sie zu anderen Tageszeiten oder einer anderen "
+"Stimmung lauter sprechen also sprechen Sie in diesem Test lieber etwas lauter "
+"um diese Möglichkeit einzukalkulieren. Grundsätzlich sind zu leise Aufnahmen "
+"viel besser als zu laute, da es dann zu Verzerrungen kommt."
 
 #. Tag: para
 #: index.docbook:302
 #, no-c-format
 msgid "Too quiet:"
-msgstr ""
+msgstr "Zu leise:"
 
 #. Tag: screeninfo
 #: index.docbook:305
 #, no-c-format
 msgid "Volume: Too quiet"
-msgstr ""
+msgstr "Lautstärke: Zu leise"
 
 #. Tag: para
 #: index.docbook:314
 #, no-c-format
 msgid "Too loud:"
-msgstr ""
+msgstr "Zu laut:"
 
 #. Tag: screeninfo
 #: index.docbook:317
 #, no-c-format
 msgid "Volume: Too loud"
-msgstr ""
+msgstr "Lautstärke: Zu laut"
 
 #. Tag: para
 #: index.docbook:326
 #, no-c-format
 msgid "Perfect volume:"
-msgstr ""
+msgstr "Optimale Lautstärke:"
 
 #. Tag: screeninfo
 #: index.docbook:329
 #, no-c-format
 msgid "Perfect volume"
-msgstr ""
+msgstr "Optimale Lautstärke:"
 
 #. Tag: title
 #: index.docbook:341
 #, no-c-format
 msgid "Silence"
-msgstr ""
+msgstr "Stille"
 
 #. Tag: para
 #: index.docbook:342
@@ -629,36 +670,38 @@ msgid ""
 "about one or two seconds of silence on the recording before and after "
 "reading the prompted text."
 msgstr ""
+"Um simon mit der automatischen Segmentierung zwischen den Wörtern zu helfen, "
+"empfeheln wir vor und nach dem Sprechen ca. ein bis zwei Sekunden \"Stille\" aufzunehmen."
 
 #. Tag: title
 #: index.docbook:349
 #, no-c-format
 msgid "Using &kmyapplication;"
-msgstr ""
+msgstr "&kmyapplication; benutzen"
 
 #. Tag: para
 #: index.docbook:351
 #, no-c-format
 msgid "The following sections will describe how to use simon."
-msgstr ""
+msgstr "Die folgende Sektion wird die \"normale\" Benutzung von simon beschreiben."
 
 #. Tag: title
 #: index.docbook:354
 #, no-c-format
 msgid "The simon Main Window"
-msgstr ""
+msgstr "Das simon Hauptfenster"
 
 #. Tag: screeninfo
 #: index.docbook:357
 #, no-c-format
 msgid "A screenshot of &kmyapplication;"
-msgstr ""
+msgstr "Ein Screenshot von &kmyapplication;"
 
 #. Tag: phrase
 #: index.docbook:363
 #, no-c-format
 msgid "Screenshot"
-msgstr ""
+msgstr "Screenshot"
 
 #. Tag: para
 #: index.docbook:366
@@ -667,30 +710,32 @@ msgid ""
 "The simon main window provides quick access to most of its features through "
 "the main toolbar."
 msgstr ""
+"Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen "
+"durch die Haupt-Werkzeugleiste."
 
 #. Tag: para
 #: index.docbook:371
 #, no-c-format
 msgid "There are 7 main actions listed:"
-msgstr ""
+msgstr "Es existieren 7 Aktionen in der Toolbar:"
 
 #. Tag: para
 #: index.docbook:374
 #, no-c-format
 msgid "simond connection"
-msgstr ""
+msgstr "simond Verbindung"
 
 #. Tag: para
 #: index.docbook:375
 #, no-c-format
 msgid "This is the only complex menu item. It has several states:"
-msgstr ""
+msgstr "Dies ist das einzige nicht-triviale Menüobjekt. Es hat verschiedene Stadien:"
 
 #. Tag: para
 #: index.docbook:377
 #, no-c-format
 msgid "Connect"
-msgstr ""
+msgstr "Verbinden"
 
 #. Tag: para
 #: index.docbook:378
@@ -700,6 +745,9 @@ msgid ""
 "activated, simon will start to connect to simond and change to the "
 "\"Connecting\" state."
 msgstr ""
+"Wenn simon nicht zum simond verbunden ist, ist die Option mit \"Verbinden\" "
+"beschriftet. Wenn die Option aktiviert wird, wird simon eine Verbindung zum simond "
+"aufbauen und die Option wechselt in den \"Verbinde\"-Status."
 
 #. Tag: para
 #: index.docbook:379
@@ -713,12 +761,21 @@ msgid ""
 "store the password, you can still change it in the <link linkend="
 "\"configure_server_general\">server configuration</link> at any time."
 msgstr ""
+"Wenn dies das erste Mal ist, das eine Verbindung zum simond Server aufgebaut wird, "
+"kann es sein, dass simon Sie nach einem Benutzername und einem Passwort fragt. "
+"Wenn Sie noch keinen simond Benutzer angelegt haben, sollten Sie das jetzt machen "
+"(sehen Sie das <ulink url=\"help:/simond\">simond Handbuch</ulink> für Details) "
+"bevor Sie fortfahren. Haben Sie bereits einen Benutzer in simond angelegt, geben Sie "
+"seine Daten bitte in das Anmeldefenster ein. Wenn Sie auswählen, das Passwort zu "
+"speichern wird Sie simon beim nächsten Verbindungsaufbau nicht mehr nach den Anmeldedaten "
+"fragen. Sie können sie aber natürlich jederzeit in der <link linkend\"configure_server_general\">Server "
+"Konfiguration</link> ändern."
 
 #. Tag: para
 #: index.docbook:381
 #, no-c-format
 msgid "Connecting"
-msgstr ""
+msgstr "Verbinde"
 
 #. Tag: para
 #: index.docbook:382
@@ -727,13 +784,16 @@ msgid ""
 "When simon is currently connecting to the configured simond server(s) the "
 "option says \"Connecting\" and is pressed down. When activated, simon will "
 "stop trying to connect to simond and go back to the \"Connect\" state."
-msgstr ""
+msgstr "Wenn simon gerade eine Verbindung zum simond aufbaut, ändert sich der "
+"Text in \"Verbinde\" und der Knopf ist heruntergedrückt. Wenn die Option dann "
+"ausgewählt wird, wird der Verbindungsaufbau abgebrochen und die Option wechselt "
+"zurück in den \"Verbinden\"-Status."
 
 #. Tag: para
 #: index.docbook:384
 #, no-c-format
 msgid "Activate"
-msgstr ""
+msgstr "Aktivieren"
 
 #. Tag: para
 #: index.docbook:385
@@ -744,6 +804,11 @@ msgid ""
 "when simon is configured to automatically start the recognition when it is "
 "available) simon will try to start the recognition."
 msgstr ""
+"Wenn simon eine Verbindung mit einem simond hergestellt hat, wird sich der Text "
+"in \"Aktivieren\" ändern und wird nicht heruntergedrückt sein. Wenn die Option "
+"aktiviert wird (was automatisch passiert wenn die Erkennung verfügbar ist und die "
+"Option \"Erkennung automatisch starten sobald verfügbar\" aktiviert ist) wird simon "
+"versuchen die Erkennung zu starten."
 
 #. Tag: para
 #: index.docbook:386 index.docbook:390
@@ -752,12 +817,14 @@ msgid ""
 "An option to close the connection to simond (\"Disconnect\") is available "
 "through the small down-arrow next to it."
 msgstr ""
+"Eine Option, die Verbindung zum simond zu trennen (\"Verbindung trennen\") "
+"ist verfügbar über das kleine Häckchen neben der Option."
 
 #. Tag: para
 #: index.docbook:388
 #, no-c-format
 msgid "Activated"
-msgstr ""
+msgstr "Aktiviert"
 
 #. Tag: para
 #: index.docbook:389
@@ -769,78 +836,83 @@ msgid ""
 "close the connection to simond - it changes back to the previous \"Activate"
 "\" state."
 msgstr ""
+"Wenn simon eine Verbindung zum Server aufgebaut hat und die Erkennung starten "
+"konnte, wird die Option mit \"Aktiviert\" beschriftet und heruntergedrückt sein. "
+"Wenn die Option jetzt aktiviert wird, wird simon die Erkennung stoppen und somit "
+"in den \"Aktivieren\"-Status zurückfallen. Die Verbindung zum Server wird dadurch "
+"aber nicht getrennt."
 
 #. Tag: para
 #: index.docbook:398
 #, no-c-format
 msgid "Add Word"
-msgstr ""
+msgstr "Wort hinzufügen"
 
 #. Tag: para
 #: index.docbook:399
 #, no-c-format
 msgid "Displays the <link linkend=\"add_word\">add word wizard</link>."
-msgstr ""
+msgstr "Zeigt den <link linkend=\"add_word\">Wort Hinzufügen Assistenten</link> an."
 
 #. Tag: para
 #: index.docbook:403
 #, no-c-format
 msgid "<para>Wordlist</para>"
-msgstr ""
+msgstr "<para>Wortliste</para>"
 
 #. Tag: para
 #: index.docbook:404
 #, no-c-format
 msgid "Displays the <link linkend=\"wordlist\">wordlist</link>."
-msgstr ""
+msgstr "Zeigt die <link linkend=\"wordlist\">Wortliste</link> an."
 
 #. Tag: para
 #: index.docbook:408
 #, no-c-format
 msgid "<para>Grammar</para>"
-msgstr ""
+msgstr "<para>Grammatik</para>"
 
 #. Tag: para
 #: index.docbook:409
 #, no-c-format
 msgid "Displays the <link linkend=\"grammar\">grammar</link>."
-msgstr ""
+msgstr "Zeigt die <link linkend=\"grammar\">Grammatik</link> an."
 
 #. Tag: para
 #: index.docbook:413
 #, no-c-format
 msgid "<para>Training</para>"
-msgstr ""
+msgstr "<para>Training</para>"
 
 #. Tag: para
 #: index.docbook:414
 #, no-c-format
 msgid "Displays the <link linkend=\"training\">training</link>."
-msgstr ""
+msgstr "Zeigt das <link linkend=\"training\">Training</link> an."
 
 #. Tag: para
 #: index.docbook:418
 #, no-c-format
 msgid "<para>Commands</para>"
-msgstr ""
+msgstr "<para>Kommandos</para>"
 
 #. Tag: para
 #: index.docbook:419
 #, no-c-format
 msgid "Displays the <link linkend=\"commands\">commands</link>."
-msgstr ""
+msgstr "Zeigt die <link linkend=\"commands\">Komamndos</link> an."
 
 #. Tag: para
 #: index.docbook:423
 #, no-c-format
 msgid "Synchronize"
-msgstr ""
+msgstr "Synchronisieren"
 
 #. Tag: para
 #: index.docbook:424
 #, no-c-format
 msgid "When connected to the simond, this option will be available."
-msgstr ""
+msgstr "Wenn simon zum simond verbunden ist, ist diese Option verfügbar."
 
 #. Tag: para
 #: index.docbook:425
@@ -850,6 +922,9 @@ msgid ""
 "simond server (see the <link linkend=\"architecture\">section architecture "
 "for more details</link>)."
 msgstr ""
+"simon erstellt die Eingabedateien für das Sprachmodell welche dann kompiliert "
+"und vom simond server für die Erkennung verwendet werden (siehe auch das Kapitel "
+"<link linkend=\"architecture\">Architektur</link> für mehr Details)."
 
 #. Tag: para
 #: index.docbook:426
@@ -862,6 +937,12 @@ msgid ""
 "\"configure_synchronization\">configure synchronization section</link> for "
 "information on how to change that)."
 msgstr ""
+"Der Prozess des sendens der Ausgabedaten, kompilieren dieser und erhalten des "
+"fertigen Sprachmodells wird \"Synchronisation\" genannt. Per default wird simon "
+"eine Synchronisation automatisch einleiten wenn er sich zum Server verbindet und "
+"jedes Mal, wenn sich die Eingabedateien für das Sprachmodell lokal ändern. Bitte "
+"sehen Sie die Sektion <link linkend=\"configure_synchronization\">Synchronisation "
+"konfigurieren</link> wenn Sie diese Einstellung ändern wollen."
 
 #. Tag: para
 #: index.docbook:427
@@ -870,6 +951,7 @@ msgid ""
 "Using this menu option the synchronization can be triggered manually at any "
 "time."
 msgstr ""
+"Mit dieser Menüoption können Sie die Synchronisation jederzeit manuell auslösen."
 
 #. Tag: para
 #: index.docbook:433
@@ -880,24 +962,28 @@ msgid ""
 "which will minimize simon to the tray. Click it again to show the main "
 "window again."
 msgstr ""
+"Das simon Hauptfenster kann jederzeit versteckt werden indem man auf das "
+"simon Logo im Systemabschnitt der Taskleiste (normalerweise der Bereich "
+"neben der Uhr) klickt. Wird das Symbol erneut gedrückt, wird simon wieder "
+"angezeigt."
 
 #. Tag: title
 #: index.docbook:439
 #, no-c-format
 msgid "<title>Wordlist</title>"
-msgstr ""
+msgstr "<title>Wortliste</title>"
 
 #. Tag: para
 #: index.docbook:440
 #, no-c-format
 msgid "The wordlist lets the user manage the vocabulary."
-msgstr ""
+msgstr "Die Wortliste ermöglicht es dem User, das Vokabular zu verwalten."
 
 #. Tag: title
 #: index.docbook:443 index.docbook:872 index.docbook:1986
 #, no-c-format
 msgid "General"
-msgstr ""
+msgstr "Allgemein"
 
 #. Tag: para
 #: index.docbook:444
@@ -907,6 +993,8 @@ msgid ""
 "Every word you want to be able to use with simon should be contained in your "
 "vocabulary."
 msgstr ""
+"Das Vokabular definiert, welche Wörter der Erkennungsprozess erkennen sollte. "
+"Jedes Wort, dass simon erkennen können soll muss in der Wortliste vorkommen."
 
 #. Tag: para
 #: index.docbook:447
@@ -924,6 +1012,16 @@ msgid ""
 "different \"words\" to simon. This is an important design decicion to allow "
 "more control when using a sophisticated grammar."
 msgstr ""
+"Ein einzelner Eintrag in der Wortliste definiert exakt ein \"Wort\". "
+"Ein \"Wort\" bedeutet in simon eine einzigartige Kombination aus: "
+"<itemizedlist><listitem><para>Wordname</para><para>(Das geschriebene "
+"Wort selbst)</para></lititem><listitem><para>Terminal</para><para>"
+"(Grammatik-Kategorie; Z.B.: \"Nomen\", \"Verb\", etc.)</para></listitem>"
+"<listitem><para>Ausprache</para><para>(Wie das Wort ausgesprochen wird; "
+"simon akzeptiert alle Formen von Lautschrift solange Sie weder Zahlen "
+"noch Sonderzeichen beinhaltet)</para></lisitem></itemizedlist> Das bedeutet, "
+"dass Mehrzahlformen oder Unterschiede in Groß- / Kleinschreibung als unterschiedliche "
+"wörter behandelt werden. Dadurch erlaubt eine ausgefeilte Grammatik noch mehr Kontrolle."
 
 #. Tag: para
 #: index.docbook:459
@@ -932,6 +1030,9 @@ msgid ""
 "In general, it is advisable to keep your vocabulary as sleek as possible. "
 "The more words, the higher the chance that simon might misunderstand you."
 msgstr ""
+"Generell ist es empfohlen das Vokabular so klein wie möglich zu halten. "
+"Je mehr Wörter die Wortliste umfasst, desto wahrscheinlicher ist es, dass simon "
+"etwas falsches erkennt."
 
 #. Tag: para
 #: index.docbook:463
@@ -942,12 +1043,15 @@ msgid ""
 "linkend=\"grammar\">grammar section</link> why this might not be the best "
 "idea):"
 msgstr ""
+"Beispiel Vokabular (bitte beachten Sie, dass die Terminale auf Nomen / Verb "
+"gesetzt sind um das Verständnis zu erleichtern; Bitte sehen Sie die <link "
+"linkend=\"grammar\">Grammatik Sektion</link> warum dies nicht optimal ist):"
 
 #. Tag: title
 #: index.docbook:504
 #, no-c-format
 msgid "Active Dictionary"
-msgstr ""
+msgstr "Aktives Vokabular"
 
 #. Tag: para
 #: index.docbook:505
@@ -956,12 +1060,13 @@ msgid ""
 "The vocabulary used for the recognition is referred to as active dictionary "
 "or active vocabulary."
 msgstr ""
+"Das Vokabular, dass für die Erkennung verwendet wird, wird als aktives Vokabular bezeichnet."
 
 #. Tag: title
 #: index.docbook:509
 #, no-c-format
 msgid "Shadow Dictionary"
-msgstr ""
+msgstr "Schattenlexikon"
 
 #. Tag: para
 #: index.docbook:510
@@ -973,6 +1078,9 @@ msgid ""
 "where you could look up the pronunciation and other characteristics of the "
 "words."
 msgstr ""
+"Wie bereits gesagt, sollte der Benutzer sein Vokabular so klein wie möglich "
+"zu halten. Anderseits sollte es Informationen über die Aussprache von möglichst "
+"vielen Wörter beinhalten um das hinzufügen neuer Wörter zu erleichtern."
 
 #. Tag: para
 #: index.docbook:513
@@ -981,7 +1089,11 @@ msgid ""
 "simon provides this functionality. We refer to this large reference "
 "dictionary as \"shadow dictionary\". This shadow dictionary is not created "
 "by the user but can be imported from various sources."
-msgstr ""
+msgstr "simon bietet deshalb ein Referenzwörterbuch das \"Schattenlexikon\" "
+"genannt wird. Das Schattenlexikon ist ein zweites Vokabular, welches nicht "
+"für die Erkennung verwendet wird. Es kann mit fertigen Wörterbüchern gefüllt werden."
+" Der Benutzer kann dann beim hinzufügen von neuen Wörtern von den Informationen aus dem "
+"Schattenlexikon profitieren."
 
 #. Tag: para
 #: index.docbook:516
@@ -992,24 +1104,28 @@ msgid ""
 "import dictionary wizard. This is described in the <link linkend="
 "\"import_dictionary\">Import Dictionary section</link>."
 msgstr ""
+"Weil simon eine internationale Lösung ist, wird simon nicht mit einem "
+"Schattenlexikon ausgeliefert. Allerdings ist es sehr einfach Lexika "
+"über den <link linkend=\"import_dictionary\">Wörterbuch Importieren Assistenten</link>"
+" zu importieren."
 
 #. Tag: title
 #: index.docbook:525
 #, no-c-format
 msgid "Maintaining the Wordlist"
-msgstr ""
+msgstr "Verwalten der Wortliste"
 
 #. Tag: para
 #: index.docbook:526
 #, no-c-format
 msgid "simon provides a \"Wordlist\" menu which lists the current vocabulary."
-msgstr ""
+msgstr "simon bietet ein \"Wortlist\" Menü welches das Vokabular anzeigt."
 
 #. Tag: screeninfo
 #: index.docbook:530
 #, no-c-format
 msgid "simons Wordlist"
-msgstr ""
+msgstr "simons Wortliste"
 
 #. Tag: para
 #: index.docbook:539
@@ -1019,6 +1135,9 @@ msgid ""
 "\"Include unused Words from the Shadow Lexicon\" checkbox the shadow lexicon "
 "is also shown."
 msgstr ""
+"Per Default wird das aktive Vokabular angezeigt. Nur nachdem Sie das Häckchen "
+"\"Zeige auch unverwendete Wörter an (Schattenlexikon)\" setzen, werden auch die "
+"Einträge des Schattenlexikons angezeigt."
 
 #. Tag: para
 #: index.docbook:541
@@ -1028,6 +1147,9 @@ msgid ""
 "counter of how often the word has been recorded (alone or together with "
 "other words)."
 msgstr ""
+"Für jedes Wort wird eine \"Erkennungsrate\" angezeigt. Die Erkennungsrate "
+"zeigt an wie oft ein Wort aufgenommen worde (alleine oder zusammen mit anderen "
+"Wörtern)."
 
 #. Tag: para
 #: index.docbook:544
@@ -1042,7 +1164,14 @@ msgid ""
 "of such an issue. In general it is a good idea to record each word at least "
 "once or twice (at best when <link linkend=\"add_word_record\">adding the "
 "word</link>) to avoid such problems."
-msgstr ""
+msgstr "Wenn diese Nummer nur Null oder Eins ist, wird der Eintrag in der Wortliste "
+"rot markiert (1: Hellrot; 0: Dunkelrot). Das ist eine Warnung. Wenn ein Wort eine "
+"Phonemkombination beinhaltet, welche nie trainiert wurde (Erkennungrate 0) kann das "
+"Modell <emphasis>nicht</emphasis> kompiliert werden. Allerdings wird simon einen "
+"entsprechende Fehlermeldung anzeigen sollte dieses Problem eintreten. Allgemein ist es "
+"eine gute Idee jedes Wort mindestens ein oder zweimal aufzunehmen (am besten "
+"währen das <link linkend="add_word_record">Wort hinzugefügt</link> wird) um diesen Problem "
+"grundsätzlich aus dem Weg zu gehen."
 
 #. Tag: para
 #: index.docbook:547
@@ -1053,60 +1182,63 @@ msgid ""
 "alarmed if all the entries in the shadow dictionary are colored dark red - "
 "this is perfectly normal."
 msgstr ""
+"Weil das Schattenlexikon ja nicht für die Erkennung benutzt wird, werden seine "
+"Wörter auch niemals aufgenommen. Deshalb sind natürlich auch alle Einträge "
+"dunkelrot markiert. Das ist normal und kein Grund zur Besorgnis."
 
 #. Tag: screeninfo
 #: index.docbook:550
 #, no-c-format
 msgid "Shadow Wordlist"
-msgstr ""
+msgstr "Schattenlexikon"
 
 #. Tag: title
 #: index.docbook:565
 #, no-c-format
 msgid "Adding Words"
-msgstr ""
+msgstr "Wörter hinzufügen"
 
 #. Tag: para
 #: index.docbook:566
 #, no-c-format
 msgid "To add new words to the active vocabulary, use the add word wizard."
-msgstr ""
+msgstr "Um neue Wörter zum aktiven Vokabular hinzuzufügen, benutzen Sie bitte den Wort Hinzufügen Assistenten."
 
 #. Tag: para
 #: index.docbook:567
 #, no-c-format
 msgid "Adding words to simon is basically a two step procedure:"
-msgstr ""
+msgstr "Wörter hinzuzufügen besteht im Prinzip aus zwei Schritten:"
 
 #. Tag: para
 #: index.docbook:569
 #, no-c-format
 msgid "Defining the word"
-msgstr ""
+msgstr "Das Wort definieren"
 
 #. Tag: para
 #: index.docbook:570
 #, no-c-format
 msgid "Initial training"
-msgstr ""
+msgstr "Initiales Training"
 
 #. Tag: title
 #: index.docbook:575
 #, no-c-format
 msgid "Defining the Word"
-msgstr ""
+msgstr "Definition des Wortes"
 
 #. Tag: para
 #: index.docbook:576
 #, no-c-format
 msgid "Firstly, the user is asked which word he wants to add."
-msgstr ""
+msgstr "Zuerst wird der Benutzer gefragt, welches Wort hinzugefügt werden soll."
 
 #. Tag: screeninfo
 #: index.docbook:580
 #, no-c-format
 msgid "Select the word to add"
-msgstr ""
+msgstr "Wählen Sie das Wort das hinzugefügt werden soll"
 
 #. Tag: para
 #: index.docbook:589
@@ -1116,6 +1248,9 @@ msgid ""
 "as much information about the word in the <link linkend=\"shadow_dictionary"
 "\">shadow dictionary</link> as possible."
 msgstr ""
+"Wenn der Benutzer fortfährt wird simon automatisch versuchen so viel Information "
+"wie möglich über das hinzuzufügende Wort im <link linkend=\"shadow_dictionary">"
+"Schattenlexikon</link> zu finden."
 
 #. Tag: para
 #: index.docbook:593
@@ -1124,12 +1259,14 @@ msgid ""
 "If the word is listed in the shadow dictionary, simon automatically fills "
 "out all the needed fields (Terminal and Pronunciation)."
 msgstr ""
+"Wenn das Wort im Schattenlexikon vorkommt wird simon automatisch alle benötigten "
+"Felder ausfüllen (Terminal und Aussprache)."
 
 #. Tag: screeninfo
 #: index.docbook:597
 #, no-c-format
 msgid "Fields automatically filled out by the Shadow Dictionary"
-msgstr ""
+msgstr "Felder mit Hilfe des Schattenlexikon automatisch ausgefüllt"
 
 #. Tag: para
 #: index.docbook:605
@@ -1142,6 +1279,11 @@ msgid ""
 "pronunciation of the word you are actually trying to add. See <link linkend="
 "\"manual_transcription\">below</link> for details."
 msgstr ""
+"Alle Vorschläge vom Schattenlexikon sind in der Tabelle \"Ähnliche Wörter\" "
+"aufgelistet. Per Default werden nur exakte Treffer angezeigt. Allerdings kann "
+"dies geändert werden, wenn das Häckchen bei der Option \"Zeige verwandte Wörter\" "
+"gesetzt wird. Da die meisten Lautschriften relativ leicht zu lesen sind, "
+"kann dann leicht aus ähnlichen Wörtern die Korrekte Aussprache abgeleitet werden."
 
 #. Tag: para
 #: index.docbook:607
@@ -1151,6 +1293,9 @@ msgid ""
 "dictionary does not contain the word you are trying to add, the required "
 "fields have to be filled out manually."
 msgstr ""
+"Das hängt natürlich von Ihrem Schattenlexikon ab. Wenn das Schattenlexikon "
+"die Wörter die Sie hinzufügen wollen nicht beinhaltet, müssen die notwendigen "
+"Felder manuell ausgefüllt werden."
 
 #. Tag: para
 #: index.docbook:610
@@ -1161,6 +1306,10 @@ msgid ""
 "dictionaries will always be uppercase. You are of course free to change "
 "these suggestions to the correct case."
 msgstr ""
+"Manche Wörterbücher die von simon importiert werden können (SPHINX, HTK) "
+"unterscheiden nicht zwischen Groß- und Kleinschreibung und beinhalten "
+"alle Wörter in Großbuchstaben. Natürlich kann die Schreibweise beim "
+"Hinzufügen frei geändert werden."
 
 #. Tag: para
 #: index.docbook:614
@@ -1171,12 +1320,17 @@ msgid ""
 "to the terminal \"Unknown\". You should change this to something appropriate "
 "when adding those words."
 msgstr ""
+"Einige Wörterbücher die von simon importiert werden können (SPHINX, PLS und HTK) "
+"beinhalten keine grammatikalische Information. Da alle Wörter in simon einen Terminal "
+"besitzen müssen, werden sie dem Terminal \"Unbekannt\" zugewiesen wenn Sie importiert "
+"werden. Sie sollten beim Hinzufügen der Wörter zum aktiven Lexikon dann den Terminal "
+"entsprechende ändern."
 
 #. Tag: title
 #: index.docbook:618
 #, no-c-format
 msgid "Manually Selecting a Terminal"
-msgstr ""
+msgstr "Manuell einen Terminal auswählen"
 
 #. Tag: para
 #: index.docbook:619
@@ -1187,6 +1341,11 @@ msgid ""
 "like \"Command\". For more information see the <link linkend=\"grammar"
 "\">grammar section</link>."
 msgstr ""
+"Der Terminal des Wortes ist definiert als die grammatikalische Kategorie des "
+"Wortes. Das kann im Sinne der deutschen Grammatik \"Nomen\", \"Verb\" oder "
+"etwas komplett anderes wie erfundene Kategorien wie \"Kommando\" sein. Für "
+"mehr Information sehen Sie bitte die <link linkend=\"grammar\">Grammatik "
+"Sektion</link>."
 
 #. Tag: para
 #: index.docbook:621
@@ -1195,6 +1354,8 @@ msgid ""
 "The list contains all terminals used in both your active and your shadow "
 "lexicon and in your grammar."
 msgstr ""
+"Die Liste beinhaltet alle Terminale die bis jetzt in Ihrem aktiven und "
+"Schattenlexikon sowie in Ihrer Grammatik verwendet wurden."
 
 #. Tag: para
 #: index.docbook:624
@@ -1203,12 +1364,14 @@ msgid ""
 "You can add new terminals to the drop-down menu by using the green plus sign "
 "next to it."
 msgstr ""
+"Sie können neue Terminale zu der Liste hinzufügen indem Sie das grüne Plus "
+"verwenden."
 
 #. Tag: title
 #: index.docbook:630
 #, no-c-format
 msgid "Manually Providing the Phonetic Transcription"
-msgstr ""
+msgstr "Phonetische Transkription manuell angeben"
 
 #. Tag: para
 #: index.docbook:631
@@ -1220,6 +1383,10 @@ msgid ""
 "and want to use it to it's full potential you should use the same phonetics "
 "as the shadow dictionary."
 msgstr ""
+"Die Aussprache ist etwas komplizierter. simon benötigt zwar keine bestimmten "
+"Lautschriftstandard solange er nur aus Buchstaben (keine Zahlen und Sonderzeichen) "
+"besteht. Allerdings ist es empfehlenswert die Lautschrift und das Phonemset des Schattenlexikons "
+"zu übernehmen."
 
 #. Tag: para
 #: index.docbook:635
@@ -1230,6 +1397,11 @@ msgid ""
 "not listed in it. Let's say we want to add the word \"Firefox\" (to launch "
 "firefox) which is of course not listed in our shadow dictionary."
 msgstr ""
+"Wenn Sie nicht wissen wie ein Wort transkripiert wird, können Sie das "
+"die Informationen aus dem Schattenlexikon verwenden - sogar wenn das Wort "
+"dort nicht vorkommt. Wenn wir zum Beispiel das Wort \"Firefox\" hinzufügen "
+"wollen um den Webbrowser Firefox zu starten ist dieses Wort höchstwahrscheinlich "
+"nicht in unserem Schattenlexikon vorhanden."
 
 #. Tag: para
 #: index.docbook:639
@@ -1238,7 +1410,7 @@ msgid ""
 "(I imported the English voxforge HTK lexicon available from <ulink url="
 "\"http://voxforge.org/home/downloads\">voxforge</ulink> as a shadow "
 "dictionary.)"
-msgstr ""
+msgstr "(Ich verwende das HADIFIX-BOMP als mein Schattenlexikon)"
 
 #. Tag: para
 #: index.docbook:643
@@ -1247,12 +1419,14 @@ msgid ""
 "\"Firefox\" is not listed in our shadow dictionary so we don't get any "
 "suggestion at all."
 msgstr ""
+"\"Firefox\" ist nicht in unserem Schattenlexikon enthalten. Deshalb schlägt "
+"simon keine Werte vor."
 
 #. Tag: screeninfo
 #: index.docbook:646
 #, no-c-format
 msgid "Adding an unknown word"
-msgstr ""
+msgstr "Ein unbekanntes Wort hinzufügen"
 
 #. Tag: para
 #: index.docbook:655
@@ -1262,6 +1436,8 @@ msgid ""
 "So let's just open the wordlist (you can keep the wizard open) by selecting "
 "\"Wordlist\" from your simon main toolbar."
 msgstr ""
+"Wir wissen aber, dass das Wort Firefox gleich ausgesprochen wird wie die Wörter "
+"\"Feier\" (Fest) und \"Fox\" (Tanz) welche beide im BOMP Lexikon vorkommen."
 
 #. Tag: para
 #: index.docbook:658
@@ -1270,18 +1446,20 @@ msgid ""
 "Check the \"Include unused words from the shadow lexicon\" checkbox beneath "
 "the list and simon will display both active and shadow dictionary."
 msgstr ""
+"Wählen wir also die Option \"Zeige auch unbekannte Wörter an (Schattenlexikon)\""
+" um das Schattenlexikon anzuzeigen."
 
 #. Tag: para
 #: index.docbook:661
 #, no-c-format
 msgid "Use the \"Filter\"-Box above the list to search for \"Fire\":"
-msgstr ""
+msgstr "Suchen wir mit der \"Filter\"-Box über der Liste nach \"Feier\":"
 
 #. Tag: screeninfo
 #: index.docbook:665
 #, no-c-format
 msgid "Adding an unknown word: Search for the Pronunciation"
-msgstr ""
+msgstr "Ein unbekanntes Wort hinzufügen: Suchen für die Betonung"
 
 #. Tag: para
 #: index.docbook:674
@@ -1292,6 +1470,11 @@ msgid ""
 "as \"f ao k s\". We can assume, that firefox should be transcribed as \"f ay "
 "r f ao k s\"."
 msgstr ""
+"Wir können sehen, dass das Wort \"Feier\" mit \"f aI @ r\" transkripiert wurde. "
+"Filtern wir jetzt nach \"Fox\" statt \"Feier\" und wir sehen, dass \"Fox\" "
+"\"f O k s\" ausgesprochen wird. Daraus können wir ohne Probleme ableiten, dass "
+"das Englische \"Firefox\" wie ein Deutsches \"Feierfox\" also \"f aI @ r f O k s\""
+" ausgesprochen und transkripiert wird."
 
 #. Tag: para
 #: index.docbook:678
@@ -1302,6 +1485,12 @@ msgid ""
 "also automatically use the same phoneme set as the other words which were "
 "correctly pulled out of the shadow dictionary."
 msgstr ""
+"So können Sie die Betonung von ähnlich ausgesprochenen Wörtern ableiten. "
+"Diese Strategie hat auch den Vorteil, dass selbst Laien mit einem guten "
+"Schattenlexikon sehr gute Transkriptionen finden können und dabei auch "
+"die gleichen Phoneme verwenden die im Schattenlexikon vorkommen und somit automatisch "
+"für Wörter verwendet werden, die im Schattenlexikon gefunden wurden und nur ins "
+"aktive Lexikon übernommen worden sind."
 
 #. Tag: para
 #: index.docbook:682
@@ -1310,18 +1499,19 @@ msgid ""
 "We can now enter the pronunciation and change the terminal to something "
 "appropriate."
 msgstr ""
+"Wir können jetzt die korrekte Aussprache angeben und den Terminal ändern."
 
 #. Tag: screeninfo
 #: index.docbook:685
 #, no-c-format
 msgid "Completely defined word"
-msgstr ""
+msgstr "Komplett definiertes Wort"
 
 #. Tag: title
 #: index.docbook:699
 #, no-c-format
 msgid "Training the Word"
-msgstr ""
+msgstr "Trainieren des Wortes"
 
 #. Tag: para
 #: index.docbook:700
@@ -1330,6 +1520,9 @@ msgid ""
 "To complete the wizard we need to train the word twice. (Note: If you are "
 "really sure what you are doing you can skip this)"
 msgstr ""
+"Um den Assistenten abzuschließen, müssen wir das Wort zweimal trainieren. "
+"Anmerkung: Wenn Sie sich wirklich sicher sind, können Sie diesen Schritt "
+"überspringen."
 
 #. Tag: para
 #: index.docbook:703
@@ -1339,6 +1532,10 @@ msgid ""
 "automatically fetch grammar structures using the terminal of the word and "
 "substitute the generic terminals with example words from your active lexicon."
 msgstr ""
+"simon wird automatisch versuchen Sie beim Training nach Sätzen statt einzelnen "
+"Wörtern zu fragen. Dazu wird simon Ihre Gramatik durchforsten nach Satzstrukturen "
+"die den Terminal des neuen Wortes beinhalten und dann anhand der Terminale der "
+"anderen Wörter in ihrem aktiven Lexikon einen gültigen Satz bilden."
 
 #. Tag: para
 #: index.docbook:706
@@ -1350,6 +1547,11 @@ msgid ""
 "automatically prompt you for \"Computer Firefox\" as it is - according to "
 "your grammar - a valid sentence."
 msgstr ""
+"Zum Beispiel: Sie haben eine Grammatikstruktur \"Trigger Kommando\" und haben "
+"das Wort \"Computer\" vom Terminal \"Trigger\" in Ihrer Wortliste. Sie fügen "
+"dann ein Wort \"Firefox\" vom Terminal \"Kommando\" hinzu. simon wird dann "
+"automatisch den Satz \"Computer Firefox\" bilden und diesen für das erste Training "
+"des Wortes verwenden weil es laut der Grammatik ein gültiger Satz ist."
 
 #. Tag: para
 #: index.docbook:709
@@ -1359,6 +1561,9 @@ msgid ""
 "grammar, not enough words in your active lexicon, etc.) it will just prompt "
 "you for the word alone."
 msgstr ""
+"Wenn simon keinen gültigen Satz bilden kann (z.B. wenn der Terminal (noch) nicht in "
+"ihrer Grammatik vorkommt oder Sie keine Grammatik definiert haben), wird simon "
+"Sie einfach nur nach dem einzelnen Wort fragen."
 
 #. Tag: para
 #: index.docbook:712
@@ -1368,12 +1573,15 @@ msgid ""
 "you can always override it's suggestion. Just switch to the \"Examples\" tab "
 "on the \"Define Word\" page."
 msgstr ""
+"simon stellt sicher, dass die Beispiele für das erste Training korrekt sind, "
+"aber Sie können die Vorschläge jederzeit ändern. Wechseln Sie dazu zum \"Beispiel\" Reiter "
+"in der \"Definiere Wort\" Seite des Assistenten."
 
 #. Tag: screeninfo
 #: index.docbook:715
 #, no-c-format
 msgid "Editing word examples"
-msgstr ""
+msgstr "Wortbeispiele ändern"
 
 #. Tag: para
 #: index.docbook:724
@@ -1383,18 +1591,21 @@ msgid ""
 "so far and use words that are not yet in your active lexicon as long as you "
 "add them before you synchronize the model, altough this is not recommended."
 msgstr ""
+"Sie können die Beispiele frei editieren. Sie können sogar Wörter verwenden "
+"die noch nicht in Ihrem aktivem Lexikon vorkommen solange Sie sie hinzufügen "
+"bevor Sie das nächste mal das Modell synchronisieren obwohl das nicht empfohlen ist."
 
 #. Tag: para
 #: index.docbook:728
 #, no-c-format
 msgid "All that is left is to record the examples."
-msgstr ""
+msgstr "Nun bleibt nur noch das Wort aufzunehmen."
 
 #. Tag: screeninfo
 #: index.docbook:731 index.docbook:751
 #, no-c-format
 msgid "Recording"
-msgstr ""
+msgstr "Aufnahme"
 
 #. Tag: para
 #: index.docbook:739 index.docbook:1157
@@ -1402,13 +1613,14 @@ msgstr ""
 msgid ""
 "Make sure you follow the guidelines listed in the <link linkend=\"recording"
 "\">recording section</link>."
-msgstr ""
+msgstr "Stellen Sie sicher den Richtlinien der <link linkend=\"recording\">"
+"Aufnahme Sektion</link> zu folgen."
 
 #. Tag: title
 #: index.docbook:746
 #, no-c-format
 msgid "Removing a word"
-msgstr ""
+msgstr "Ein Wort entfernen"
 
 #. Tag: para
 #: index.docbook:748
@@ -1417,18 +1629,20 @@ msgid ""
 "To remove a word from your language model, select it in the wordlist view "
 "and click on \"Remove selected word\"."
 msgstr ""
+"Um ein Wort aus dem Sprachmodell zu entfernen, wählen Sie es in der Wortliste aus "
+"und wählen Sie \"Ausgewähltes Wort löschen\"."
 
 #. Tag: para
 #: index.docbook:759
 #, no-c-format
 msgid "As you can see, the dialog offers two choices:"
-msgstr ""
+msgstr "Wie Sie sehen, bietet der Dialog zwei Auswahlmöglichkeiten:"
 
 #. Tag: para
 #: index.docbook:763
 #, no-c-format
 msgid "Move the word to the shadow lexicon"
-msgstr ""
+msgstr "Entferne das Wort vom aktiven Vokabular"
 
 #. Tag: para
 #: index.docbook:764
@@ -1437,13 +1651,18 @@ msgid ""
 "This will remove the selected word from the active lexicon (and thus from "
 "the recognition) but will keep a copy in the shadow vocabulary. All the "
 "recordings containing the word will still be lost."
-msgstr ""
+msgstr "Diese Option wird das ausgewählte Wort vom aktiven Lexikon (und damit "
+"von der Erkennung) entfernen aber wird das Wort im Schattenlexikon weiterführen"
+"(sollte das Schattenlexikon das selbe Wort bereits beinhalten, wird es nicht "
+"noch einmal eingefügt). "
+"Alle Aufnahmen (Trainingsdaten) die das Wort beinhalten müssen trotzdem "
+"gelöscht werden."
 
 #. Tag: para
 #: index.docbook:766
 #, no-c-format
 msgid "Remove the word completely"
-msgstr ""
+msgstr "Das Wort komplett löschen"
 
 #. Tag: para
 #: index.docbook:767
@@ -1452,12 +1671,13 @@ msgid ""
 "Just remove the word. All the recordings containing the word will of course "
 "be removed too."
 msgstr ""
+"Entfernt das Wort. Alle Aufnahmen die das Wort beinhalten werden ebenfalls entfernt."
 
 #. Tag: title
 #: index.docbook:774
 #, no-c-format
 msgid "Special Training"
-msgstr ""
+msgstr "Spezialtraining"
 
 #. Tag: para
 #: index.docbook:775
@@ -1465,13 +1685,14 @@ msgstr ""
 msgid ""
 "Please see the <link linkend=\"special_training\">special training section "
 "in the training section</link>."
-msgstr ""
+msgstr "Bitte sehen Sie die <link linkend=\"special_training\">Sektion "
+"Spezialtraining im Trainingskapitel</link>."
 
 #. Tag: title
 #: index.docbook:781
 #, no-c-format
 msgid "Importing a Dictionary"
-msgstr ""
+msgstr "Wörterbuch Importieren"
 
 #. Tag: para
 #: index.docbook:782
@@ -1481,6 +1702,9 @@ msgid ""
 "reference. This reference dictionary is called <link linkend="
 "\"shadow_dictionary\">shadow dictionary</link>."
 msgstr ""
+"simon bietet die Möglichkeit große Wörterbücher als Nachschlagewerk "
+"zu importieren. Dieses Nachschlagewerk wird "
+"<link linkend=\"shadow_dictionary>Schattenlexikon</link> genannt."
 
 #. Tag: para
 #: index.docbook:785
@@ -1489,24 +1713,26 @@ msgid ""
 "When the user <link linkend=\"add_word\">adds a new word</link> to the "
 "model, he has to define the following characteristics to define this word:"
 msgstr ""
+"Wenn der Benutzer <link linkend=\"add_word\">ein neues Wort hinzufügt</link>"
+" muss er die folgenden Charakteristika des Wortes angeben:"
 
 #. Tag: para
 #: index.docbook:788
 #, no-c-format
 msgid "Wordname"
-msgstr ""
+msgstr "Wortname"
 
 #. Tag: para
 #: index.docbook:789
 #, no-c-format
 msgid "<para>Terminal</para>"
-msgstr ""
+msgstr "<para>Terminal</para>"
 
 #. Tag: para
 #: index.docbook:790
 #, no-c-format
 msgid "Phonetic definition"
-msgstr ""
+msgstr "Phonetische Transkription"
 
 #. Tag: para
 #: index.docbook:793
@@ -1518,48 +1744,53 @@ msgid ""
 "phoneme set or - in many cases - even let him forget a the phonetic "
 "transcription is needed at all."
 msgstr ""
+"Diese Charakteristika werden automatisch aus dem Schattenlexikon genommen wenn "
+"das Schattenlexikon ein Wort mit dem selben Wortnamen führt. Ein großes, hochqualitatives "
+"Schattenlexikon kann deshalb sehr hilfreich sein beim Hinzufügen neuer Wörter "
+"weil der Benutzer sich in den meisten Fällen kaum mit den Details wie dem Phonemset "
+"auseinander setzen muss."
 
 #. Tag: para
 #: index.docbook:797
 #, no-c-format
 msgid "simon is able to import four different types of dictionaries:"
-msgstr ""
+msgstr "simon kann derzeit mit vier verschiedenen Wörterbuchformaten umgehen:"
 
 #. Tag: para
 #: index.docbook:800
 #, no-c-format
 msgid "HADIFIX"
-msgstr ""
+msgstr "HADIFIX"
 
 #. Tag: para
 #: index.docbook:801
 #, no-c-format
 msgid "<para>HTK</para>"
-msgstr ""
+msgstr "<para>HTK</para>"
 
 #. Tag: para
 #: index.docbook:802
 #, no-c-format
 msgid "<para>PLS</para>"
-msgstr ""
+msgstr "<para>PLS</para>"
 
 #. Tag: para
 #: index.docbook:803
 #, no-c-format
 msgid "SPHINX"
-msgstr ""
+msgstr "SPHINX"
 
 #. Tag: title
 #: index.docbook:809
 #, no-c-format
 msgid "HADIFIX Dictionary"
-msgstr ""
+msgstr "HADIFIX Wörterbuch"
 
 #. Tag: para
 #: index.docbook:810
 #, no-c-format
 msgid "simon can import HADIFIX dictionaries."
-msgstr ""
+msgstr "simon kann HADIFIX Wörterbücher importieren"
 
 #. Tag: para
 #: index.docbook:813
@@ -1569,24 +1800,27 @@ msgid ""
 "ifk.uni-bonn.de/forschung/abteilung-sprache-und-kommunikation/phonetik/"
 "sprachsynthese/bomp/bomp-1\">HADIFIX BOMP</ulink>."
 msgstr ""
+"Ein Beispiel eines HADIFIX Wörterbuches ist das Deutsche <ulink url="
+"http://www.ifk.uni-bonn.de/forschung/abteilung-sprache-und-kommunikation/"
+"phonetik/sprachsynthese/bomp/bomp-1\">HADIFIX BOMP</ulink>."
 
 #. Tag: para
 #: index.docbook:816
 #, no-c-format
 msgid "Hadifix dictionaries provide both terminals and pronunciation."
-msgstr ""
+msgstr "Hadifix Wörterbücher bieten sowohl Terminal- als auch Ausspracheinformationen."
 
 #. Tag: title
 #: index.docbook:822
 #, no-c-format
 msgid "HTK Dictionary"
-msgstr ""
+msgstr "HTK Dictionary"
 
 #. Tag: para
 #: index.docbook:823
 #, no-c-format
 msgid "simon can import HTK lexica."
-msgstr ""
+msgstr "simon kann HTK Wörterbücher importieren"
 
 #. Tag: para
 #: index.docbook:826
@@ -1596,6 +1830,9 @@ msgid ""
 "repository.voxforge1.org/downloads/SpeechCorpus/Trunk/Lexicon/\">Voxforge "
 "dictionary</ulink>."
 msgstr ""
+"Ein Beispiel eines HTK Wörterbuchs ist das Englische <ulink url=\"http://"
+"www.repository.voxforge1.org/downloads/SpeechCorpus/Trunk/Lexicon/\">Voxforge "
+"Wörterbuch</ulink>."
 
 #. Tag: para
 #: index.docbook:829
@@ -1604,18 +1841,20 @@ msgid ""
 "Hadifix dictionaries provide pronunciation information but no terminals. All "
 "words will be assigned to the terminal \"Unknown\"."
 msgstr ""
+"HTK Wörterbücher bieten Ausspracheinformationen aber keine Terminale. Alle Wörter "
+"werden dem Terminal \"Unbekannt\" zugewiesen."
 
 #. Tag: title
 #: index.docbook:835
 #, no-c-format
 msgid "PLS Dictionary"
-msgstr ""
+msgstr "PLS Dictionary"
 
 #. Tag: para
 #: index.docbook:836
 #, no-c-format
 msgid "simon can import PLS dictionaries."
-msgstr ""
+msgstr "simon kann PLS Wörterbücher importieren."
 
 #. Tag: para
 #: index.docbook:839
@@ -1625,6 +1864,9 @@ msgid ""
 "voxforge1.org/downloads/de/Trunk/Lexicon/\">German GPL dictionary from "
 "Voxforge</ulink>."
 msgstr ""
+"Ein Beispiel eines PLS Wörterbuches ist das <ulink url=\"http://www.repository."
+"voxforge1.org/downloads/de/Trunk/Lexicon/\">Deutsche GPL Wörterbuch von Voxforge"
+"</ulink>."
 
 #. Tag: para
 #: index.docbook:842
@@ -1633,18 +1875,21 @@ msgid ""
 "PLS dictionaries provide pronunciation information but no terminals. All "
 "words will be assigned to the terminal \"Unknown\"."
 msgstr ""
+"PLS Wörterbücher bieten Ausspracheinformationen aber keine Terminale. Alle Wörter "
+"werden dem Terminal \"Unbekannt\" zugewiesen."
+
 
 #. Tag: title
 #: index.docbook:848
 #, no-c-format
 msgid "SPHINX Dictionary"
-msgstr ""
+msgstr "SPHINX Dictionary"
 
 #. Tag: para
 #: index.docbook:849
 #, no-c-format
 msgid "simon can import SPHINX dictionaries."
-msgstr ""
+msgstr "simon kann SPHINX Wörterbücher importieren."
 
 #. Tag: para
 #: index.docbook:852
@@ -1652,7 +1897,8 @@ msgstr ""
 msgid ""
 "One example of a SPHINX dictionary is this <ulink url=\"http://speech.mty."
 "itesm.mx/~jnolazco/proyectos.htm\">dictionary for Mexican Spanish</ulink>."
-msgstr ""
+msgstr "Ein Beispiel eines SPHINX Wörterbuches ist das <ulink url=\"http://speech.mty."
+"itesm.mx/~jnolazco/proyectos.htm\">Wörterbuch für Mexikanisches Spanisch</ulink>."
 
 #. Tag: para
 #: index.docbook:855
@@ -1661,18 +1907,21 @@ msgid ""
 "SPHINX dictionaries provide pronunciation information but no terminals. All "
 "words will be assigned to the terminal \"Unknown\"."
 msgstr ""
+"SPHINX Wörterbücher bieten Ausspracheinformationen aber keine Terminale. Alle Wörter "
+"werden dem Terminal \"Unbekannt\" zugewiesen."
+
 
 #. Tag: title
 #: index.docbook:866
 #, no-c-format
 msgid "<title>Grammar</title>"
-msgstr ""
+msgstr "<title>Grammatik</title>"
 
 #. Tag: para
 #: index.docbook:867
 #, no-c-format
 msgid "The grammar defines which combinations of words are correct."
-msgstr ""
+msgstr "Die Grammatik definiert, welche Wortkombinationen korrekt sind."
 
 #. Tag: para
 #: index.docbook:873
@@ -1682,42 +1931,45 @@ msgid ""
 "those windows when you are done. You would like to use the following "
 "commands:"
 msgstr ""
+"Beispiel: Sie wollen simon benutzen um Programme zu starten und die Programmfenster "
+"zu schließen wenn Sie fertig sind. Sie würden gerne die folgenden Kmmandos verwenden:"
 
 #. Tag: para
 #: index.docbook:876
 #, no-c-format
 msgid "\"Computer, Internet\" to open a browser"
-msgstr ""
+msgstr "\"Computer, Internet\" um einen Browser zu öffnen"
 
 #. Tag: para
 #: index.docbook:877
 #, no-c-format
 msgid "\"Computer, Mail\""
-msgstr ""
+msgstr "\"Computer, Mail\""
 
 #. Tag: para
 #: index.docbook:877
 #, no-c-format
 msgid "To open a mail client"
-msgstr ""
+msgstr "Um einen Mail Client zu öffnen"
 
 #. Tag: para
 #: index.docbook:878
 #, no-c-format
 msgid "\"Computer, close\""
-msgstr ""
+msgstr "\"Computer, schließen\""
 
 #. Tag: para
 #: index.docbook:878
 #, no-c-format
 msgid "To close the current window"
-msgstr ""
+msgstr "Um das aktuelle Fenster zu schließen."
 
 #. Tag: para
 #: index.docbook:881
 #, no-c-format
 msgid "Following english grammar, your vocabulary would contain the following:"
-msgstr ""
+msgstr "Wenn wir der deutschen Grammatik folgen, würde die Grammatik die "
+"folgenden Einträge beinhalten:"
 
 #. Tag: para
 #: index.docbook:916
@@ -1725,18 +1977,19 @@ msgstr ""
 msgid ""
 "To allow the sentences defined above simon would need the following grammar:"
 msgstr ""
+"Um die oben definierten Sätze zu erlauben würde wir folgende Grammatik verwenden:"
 
 #. Tag: para
 #: index.docbook:919
 #, no-c-format
 msgid "\"Noun Noun\" for sentences like \"Computer Internet\""
-msgstr ""
+msgstr "\"Nomen Nomen\" für Sätze wie \"Computer Internet\""
 
 #. Tag: para
 #: index.docbook:920
 #, no-c-format
 msgid "\"Noun Verb\" for sentences like \"Computer close\""
-msgstr ""
+msgstr "\"Nomen Verb\" für Sätze wie \"Computer schließen\""
 
 #. Tag: para
 #: index.docbook:923
@@ -1747,6 +2000,10 @@ msgid ""
 "obviously bogus. To improve the recognition accuracy, we can try to create a "
 "grammar that better reflects what we are trying to do with simon."
 msgstr ""
+"Das würde zwar funktionieren, aber würde auch Kombinationen wie \"Computer"
+" Computer\", \"Internet Computer\", \"Internet Internet\", etc. erlauben "
+"die alle nicht wirklich sinnvoll sind. Um die Erkennungsgenauigkeit zu "
+"erhöhhen, können wir unsere Grammatik optimieren."
 
 #. Tag: para
 #: index.docbook:928
@@ -1759,6 +2016,13 @@ msgid ""
 "rules to eliminate the differences between different commands imposed by "
 "grammatical information not relevant for this use case."
 msgstr ""
+"Es ist wichtig im Hinterkopf zu halten, dass jeder Benutzer mit simon seine "
+"eigene \"Sprache\" definiert. Das bedeutet, dass Sie in keiner Weise an die "
+"Grammatikregeln der zugrundeliegenden \"echten\" Sprache (Deutsch, Englisch, "
+"etc.) gebunden sind. Für simple Steuerung des Computers ist es sogar "
+"empfehlenswert eigene Grammatikregeln zu erfinden um grammatikalische "
+"Unterschiede die für den Anwendungsfall nicht wichtig sind zu eliminieren und "
+"unsinnige Sätze zu verbieten."
 
 #. Tag: para
 #: index.docbook:932
@@ -1768,25 +2032,29 @@ msgid ""
 "or that \"Computer\" and \"Internet\" are nouns. Instead, why not define "
 "them as something that better reflects what we want them to be:"
 msgstr ""
+"In dem Beispiel oben ist es beispielsweise nicht relevant, dass \"schließen\" "
+"ein Verb ist oder das \"Computer\" und \"Internet\" Nomen sind. Stattdessen "
+"können wir sie als etwas deklarieren das besser reflektiert was sie in unserem "
+"Szenario sein sollen:"
 
 #. Tag: title
 #: index.docbook:935 index.docbook:1010
 #, no-c-format
 msgid "Improved Sample Vocabulary"
-msgstr ""
+msgstr "Verbessertes Beispielvokabular"
 
 #. Tag: entry
 #: index.docbook:948 index.docbook:1023
 #, no-c-format
 msgid "Trigger"
-msgstr ""
+msgstr "Trigger"
 
 #. Tag: entry
 #: index.docbook:952 index.docbook:956 index.docbook:960 index.docbook:1027
 #: index.docbook:1031 index.docbook:1035
 #, no-c-format
 msgid "Command"
-msgstr ""
+msgstr "Kommando"
 
 #. Tag: para
 #: index.docbook:967
@@ -1798,12 +2066,18 @@ msgid ""
 "exactly those three sentences. Especially in larger models a well thought "
 "grammar and vocabulary can mean a huge difference in recognition results."
 msgstr ""
+"Jetzt ändern wir die Grammatik zu folgendem: <itemizedlist><listitem><para>"
+"\"Trigger Kommando\"</para></listitem></itemizedlist> Dies erlaubt simon alle "
+"gewünschten Kombinationen zu erkennen. Aber es limitiert die Erkennugsergebnisse "
+"auch auf exakt diese drei möglichen Sätze. Vor allem in größeren Modellen "
+"kann eine clevere Grammatik und ein dazupassendes Vokabular große Unterschiede "
+"in der Erkennungsrate bewirken."
 
 #. Tag: title
 #: index.docbook:978
 #, no-c-format
 msgid "Defining your Grammar"
-msgstr ""
+msgstr "Die Grammatik definieren"
 
 #. Tag: para
 #: index.docbook:979
@@ -1813,18 +2087,21 @@ msgid ""
 "You can simply list all the allowed sentences (without any punctuation "
 "marks, obviously) like described above."
 msgstr ""
+"simon bietet eine einfache, Text basierte Oberfläche um die Grammatik zu "
+"definieren. Sie können einfach alle erlabuten Sätze (ohne Satzzeichen) wie "
+"oben beschrieben eingeben."
 
 #. Tag: screeninfo
 #: index.docbook:983
 #, no-c-format
 msgid "<screeninfo>Grammar</screeninfo>"
-msgstr ""
+msgstr "<screeninfo>Grammatik</screeninfo>"
 
 #. Tag: title
 #: index.docbook:994
 #, no-c-format
 msgid "Import a Grammar"
-msgstr ""
+msgstr "Eine Grammatik importieren"
 
 #. Tag: para
 #: index.docbook:995
@@ -1834,18 +2111,20 @@ msgid ""
 "simon is able to automatically deduce allowed grammar structures by reading "
 "plaintext using the Import Grammar wizard."
 msgstr ""
+"Zusätzlich zum Eingeben der Grammatik Satz bei Satz kann simon auch Satzstrukturen "
+"von Textdateien \"erlernen\"."
 
 #. Tag: screeninfo
 #: index.docbook:999
 #, no-c-format
 msgid "Import Grammar"
-msgstr ""
+msgstr "Grammatik Importieren"
 
 #. Tag: para
 #: index.docbook:1008
 #, no-c-format
 msgid "Say we have a vocabulary like in the general section above:"
-msgstr ""
+msgstr "Wenn wir bspw. ein Vokabular wie vorhin in der allgemeinen Sektion haben:"
 
 #. Tag: para
 #: index.docbook:1041
@@ -1855,18 +2134,21 @@ msgid ""
 "a simple text file with this content \"Computer Internet!\" (any punctuation "
 "mark would work) and save it as \"simongrammar.txt\"."
 msgstr ""
+"Wir wollen also ein System haben, dass den Satz \"Computer Internet!\" erkennt."
+" Also erstellen wir eine Textdatei mit dem Inhalt \"Computer Internet!\" (jedes"
+" Satzzeichen würde funktionieren) und speichern es als \"simongrammar.txt\"."
 
 #. Tag: screeninfo
 #: index.docbook:1044
 #, no-c-format
 msgid "Import Grammar: Text"
-msgstr ""
+msgstr "Importiere Grammatik: Text"
 
 #. Tag: screeninfo
 #: index.docbook:1053
 #, no-c-format
 msgid "Import Grammar: Select files"
-msgstr ""
+msgstr "Importiere Grammatik: Dateien auswählen"
 
 #. Tag: para
 #: index.docbook:1062
@@ -1878,6 +2160,11 @@ msgid ""
 "more importance if the word is available in both). It will then replace the "
 "word with its terminal."
 msgstr ""
+"simon wird dann all die angegebenen Textdateien einlesen (in diesem Fall nur "
+"die Datei \"simongrammar.txt\") und jedes einzelne Wort in sowonl dem aktiven "
+"als auch dem Schattenlexikon nachschlagen (die Defintion im aktiven Lexikon "
+"hat Vorrang über eventuelle Definitionen im Schattenlexikon). Es wird dann "
+"das Wort mit dem entsprechenden Terminal ersetzten."
 
 #. Tag: para
 #: index.docbook:1063
@@ -1889,6 +2176,11 @@ msgid ""
 "simon would \"learn\" that \"Trigger Command\" is a valid sentence and add "
 "it to its grammar."
 msgstr ""
+"In unserem Beispiel würde das bedeuten, dass werden Satz \"Computer Internet\""
+" finden würde. simon würde dann erkennen, dass \"Computer\" vom Terminal \"Trigger\""
+" und \"Internet\" vom Terminal \"Kommando\" ist. Deswegen würde simon \"lernen\","
+" dass \"Trigger Kommando\" offensichtlich ein gültiger Satz ist und ihn automatisch "
+"zur Grammatik hinzufügen."
 
 #. Tag: para
 #: index.docbook:1064
@@ -1900,6 +2192,12 @@ msgid ""
 "different files) and add multiple sentence (all possible combinations) when "
 "a word has multiple terminals assigned to it."
 msgstr ""
+"Der Import segmentiert die Eingabedateien automatisch nach Satzzeichen "
+"(\".\", ,\" - \", \"!\", etc.) also jeder natürliche Text sollte funktionieren. "
+"Der Import wird automatisch alle doppelt vorkommenden Satzstrukturen zusammenfügen "
+" (sogar über verschiedene Dateien verstreut) und wird alle möglichen grammatikalischen "
+"Satzstrukturen hinzufügen wenn Sätze Wörter verwenden die mit mehr als einem "
+"Terminal assoziert sind."
 
 #. Tag: para
 #: index.docbook:1065
@@ -1909,12 +2207,16 @@ msgid ""
 "in the language model unless you tick the \"Also import unknown sentences\" "
 "checkbox in which case those words are replaced with \"Unknown\"."
 msgstr ""
+"Der Import wird alle Sätze ignorieren die ein oder mehrere Wörter beinhalten "
+"die im Sprachmodell nicht gefunden werden konnten außer die Option \"Auch "
+"unbekannte Wörter akzeptieren\" wurde aktiviert. In diesem Fall werden "
+"unbekannte Wörter mit dem generischen Terminal \"Unbekannt\" ersetzt."
 
 #. Tag: title
 #: index.docbook:1074
 #, no-c-format
 msgid "Renaming Terminals"
-msgstr ""
+msgstr "Terminale umbenennen"
 
 #. Tag: para
 #: index.docbook:1075
@@ -1923,18 +2225,20 @@ msgid ""
 "The rename terminal wizard allows you to rename terminals in both your "
 "active vocabulary, your shadow dictionary and the grammar."
 msgstr ""
+"Der Terminal umbenennen Assistent erlaubt es dem Benutzer einzelne Terminale "
+"im aktiven Vokabular, dem Schattenlexikon und in der Grammatik umzubenennen."
 
 #. Tag: screeninfo
 #: index.docbook:1078
 #, no-c-format
 msgid "Rename Terminal"
-msgstr ""
+msgstr "Terminal umbenennen"
 
 #. Tag: title
 #: index.docbook:1089
 #, no-c-format
 msgid "Merging Terminals"
-msgstr ""
+msgstr "Terminale verbinden"
 
 #. Tag: para
 #: index.docbook:1090
@@ -1944,12 +2248,15 @@ msgid ""
 "terminal in both your active vocabulary, your shadow dictionary and the "
 "grammar."
 msgstr ""
+"Der Terminal verbinden Assistent erlaubt es zwei Terminale in einen neuen "
+"zusammenzuführen. Er ändert dabei das aktive Lexikon und auf Wunsch auch "
+"das Schattenlexikon und die Grammatik."
 
 #. Tag: screeninfo
 #: index.docbook:1093
 #, no-c-format
 msgid "Merge Terminal"
-msgstr ""
+msgstr "Terminale verbinden"
 
 #. Tag: para
 #: index.docbook:1101
@@ -1957,13 +2264,14 @@ msgstr ""
 msgid ""
 "This functionality is especially useful if you want to simplify your grammar "
 "structures."
-msgstr ""
+msgstr "Diese Funktion is besonders nutzvoll wenn Sie Ihre Grammatikstrukturen "
+"vereinfachen wollen."
 
 #. Tag: title
 #: index.docbook:1110
 #, no-c-format
 msgid "<title>Training</title>"
-msgstr ""
+msgstr "<title>Training</title>"
 
 #. Tag: para
 #: index.docbook:1112
@@ -1972,6 +2280,8 @@ msgid ""
 "Using the Training-module, you can improve your <link linkend="
 "\"acoustic_model\">acoustic model</link>."
 msgstr ""
+"Mit dem Trainingsmodul können Sie Ihr <link linkend=\"acoustic_model\">"
+"Akustikmodell</link> und damit die Erkennungsrate verbessern."
 
 #. Tag: para
 #: index.docbook:1114
@@ -1980,24 +2290,26 @@ msgid ""
 "The interface lists all installed trainings-texts in a table consisting of "
 "three columns:"
 msgstr ""
+"Die Oberfläche listet alle installierten Trainingstexte in einer Tabelle mit "
+"drei Spalten:"
 
 #. Tag: para
 #: index.docbook:1117
 #, no-c-format
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #. Tag: para
 #: index.docbook:1117
 #, no-c-format
 msgid "A descriptive name for the text."
-msgstr ""
+msgstr "Ein beschreibender Name für den Text."
 
 #. Tag: para
 #: index.docbook:1118
 #, no-c-format
 msgid "Pages"
-msgstr ""
+msgstr "Seiten"
 
 #. Tag: para
 #: index.docbook:1118
@@ -2006,12 +2318,14 @@ msgid ""
 "The number of \"pages\" the text consists of. Each page represents one "
 "recording."
 msgstr ""
+"Die Anzahl von \"Seiten\" aus der der Text besteht. Jede Seite repräsentiert "
+"eine Aufnahme."
 
 #. Tag: para
 #: index.docbook:1119
 #, no-c-format
 msgid "Recognition Rate"
-msgstr ""
+msgstr "Erkennungsrate"
 
 #. Tag: para
 #: index.docbook:1119
