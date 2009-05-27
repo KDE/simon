@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2009-05-22 09:09+0000\n"
-"PO-Revision-Date: 2009-05-26 20:32+0200\n"
+"PO-Revision-Date: 2009-05-27 18:41+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -3903,6 +3903,8 @@ msgid ""
 "The dictation plugin writes the recognition result it gets using simulated "
 "keystrokes."
 msgstr ""
+"Das Diktationsplug-in schreibt das Erkennungsergebnis mit simulierten "
+"Tastendrücken hin."
 
 #. Tag: para
 #: index.docbook:1763
@@ -3915,6 +3917,11 @@ msgid ""
 "for it, all plugins <emphasis>below it</emphasis> in the \"Selected Plug-Ins"
 "\" list in the command configuration will never receive any input."
 msgstr ""
+"Wenn das Diktationsplug-in ohne Auslöser verwendet wird, wird das Plug-In "
+"alle Erkennungsergebnisse akzeptieren die es bekommt und diese einfach "
+"hinschreiben. Das heißt, dass alle Plug-Ins die <emphasis>unter</emphasis>"
+"einem Diktationsplug-in ohne Auslöser gereiht sind werden dadurch nie ein "
+"Erkennungsergebnis erhalten."
 
 #. Tag: para
 #: index.docbook:1765 index.docbook:1806
@@ -3923,12 +3930,14 @@ msgid ""
 "As there can no command instances be created of this plugin it is not listed "
 "in the \"New Command\" dialog."
 msgstr ""
+"Weil keine Kommandos vom Typ \"Diktation\" angelegt werden können, scheint das "
+"Diktationsplug-in nicht im \"Neues Kommand\" Dialog auf."
 
 #. Tag: title
 #: index.docbook:1769
 #, no-c-format
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "Künstliche Intelligenz"
 
 #. Tag: para
 #: index.docbook:1770
@@ -3937,6 +3946,8 @@ msgid ""
 "The Artificial Intelligence is a just-for-fun plugin that emulates a human "
 "conversation."
 msgstr ""
+"Das künstliche Intelligenz Plugin ist ein Plug-In, dass eine menschliche "
+"Kommunikation simmuliert."
 
 #. Tag: para
 #: index.docbook:1772
@@ -3945,6 +3956,9 @@ msgid ""
 "Using the festival text to speech technology the computer can \"talk\" with "
 "the user and answer question or chat about the weather."
 msgstr ""
+"Die KI (künstliche Intelligenz) verwendet das festival text to speech um "
+"Sprache auszugeben und somit mit dem Benutzer zu \"sprechen\" (Fragen "
+"beantworten oder z.B. über das Wetter tratschen)."
 
 #. Tag: para
 #: index.docbook:1774
@@ -3959,6 +3973,16 @@ msgid ""
 "screenshot> The plugin registers a configuration screen in the command "
 "configuration menu where you can choose which AIML set to load."
 msgstr ""
+"Das Plug-In benutzt AIMLs für die \"Intelligenz\". Der Großteil der AIML "
+"sets sollten unterstützt sein. Der bekannte <ulink url=\"http://www."
+"pandorabots.com/pandora/talk?botid=f5d922d97e345aa1\">A. L. I. C. E. Bot</ulink>"
+" und eine deutsche Version wurden getestet, funktionieren und werden "
+"mitausgeliefert. <screenshot> <screeninfo>KI "
+"Plug-In</screeninfo> <mediaobject> <imageobject> <imagedata fileref="
+"\"ai_configure.png\" format=\"PNG\"/> </imageobject> </mediaobject> </"
+"screenshot> Das Plug-In registriert eine Konfigurationsseite in der "
+"Kommandokonfiguration in der Sie das zu verwendende AIML Set auswählen "
+"können."
 
 #. Tag: para
 #: index.docbook:1788
@@ -3972,6 +3996,11 @@ msgid ""
 "add a new set just create a new directory with a descriptive name and copy "
 "the .aiml files into it."
 msgstr ""
+"simon wird die AIML sets in den folgenden Ordnern suchen: <itemizedlist>"
+"<listitem><para>GNU/LINUX: <filename>`kde4-config --prefix`/share/apps/ai/"
+"aimls/</filename></para></listitem> <listitem><para>Microsoft Windows: "
+"<filename>[Installation Ordner (C:\\Programme\\simon 0.2\\ per Default)]"
+"\\share\\apps\\ai\\aimls\\</filename></para></listitem> </itemizedlist>"
 
 #. Tag: para
 #: index.docbook:1796
@@ -3980,6 +4009,8 @@ msgid ""
 "To adjust your bots personality have a look at the bot.xml and vars.xml "
 "files in the following directory:"
 msgstr ""
+"Um die Persönlichkeit der Bots anzupassen, bearbeiten Sie bitte die Dateien "
+"bot.xml und vars.xml in den folgenden Ordnern:"
 
 #. Tag: para
 #: index.docbook:1799
@@ -3987,6 +4018,7 @@ msgstr ""
 msgid ""
 "GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/util/</filename>"
 msgstr ""
+"GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/util/</filename>"
 
 #. Tag: para
 #: index.docbook:1800
@@ -3995,6 +4027,8 @@ msgid ""
 "Microsoft Windows: <filename>[installation folder (C:\\Programme\\simon 0.2"
 "\\ by default)]\\share\\apps\\ai\\util\\</filename>"
 msgstr ""
+"Microsoft Windows: <filename>[Installationsordner (C:\\Programme\\simon 0.2"
+"\\ by default)]\\share\\apps\\ai\\util\\</filename>"
 
 #. Tag: para
 #: index.docbook:1804
@@ -4003,6 +4037,8 @@ msgid ""
 "The plugin will use <ulink url=\"http://tcts.fpms.ac.be/synthesis/mbrola.html"
 "\">mbrola voices</ulink> if they are installed."
 msgstr ""
+"Das Plug-In wird die <ulink url=\"http://tcts.fpms.ac.be/synthesis/mbrola.html"
+"\">mbrola Stimmen</ulink> verwenden wenn diese installiert sind."
 
 #. Tag: para
 #: index.docbook:1808
@@ -4016,6 +4052,15 @@ msgid ""
 "g.: User: \"Computer, open Firefox\"; Computer: \"Certainly, Sir! Starting "
 "Firefox...\"; Firefox opens)."
 msgstr ""
+"Es wird empfohlen keinen Trigger für dieses Plug_in zu verwenden um die "
+"Gespräche \"natürlicher\" zu machen. Das AI plugin wird auf jedes Erkennungsergebnis "
+"in irgendeiner Form reagieren aber gleichzeitig - im Gegensatz zur Diktation - "
+"das Erkennungsergebnis an die anderen Plug-Ins weitergeben. Das ermöglicht es, "
+"mit speziellen AIML Sets Kommandos in eine natürliche Konversation einzubauen. "
+"Zum Beispiel könnte das KI Plugini instriert werden auf ein Erkennungsergebnis wie "
+"\"Computer, Firefox\" zu antworten mit \"Firefox wird gestartet!\"; da das "
+"Erkennungsergebnis ja aber zu den anderen Plugins weitergegeben wird, wird auch "
+"ein mögliches Firefox-Kommando ausgeführt und der Browser tatsächlich gestartet."
 
 #. Tag: para
 #: index.docbook:1810
@@ -4024,36 +4069,39 @@ msgid ""
 "Please keep in mind that the AI plugin will only work if festival is "
 "installed, set-up correctly and lies in your system path."
 msgstr ""
+"Bitte beachten Sie, dass dieses Plug-In nur funktionieren wird, wenn "
+"festival installiert und konfiguriert ist und in Ihrem Systempfad liegt."
 
 #. Tag: title
 #: index.docbook:1833
 #, no-c-format
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguration"
 
 #. Tag: para
 #: index.docbook:1834
 #, no-c-format
 msgid "simon was designed with high configurability in mind."
 msgstr ""
+"simon ist auf extrem hohe Konfigurabilität ausgelegt."
 
 #. Tag: title
 #: index.docbook:1839
 #, no-c-format
 msgid "<title>General Configuration</title>"
-msgstr ""
+msgstr "<title>Allgemein</title>"
 
 #. Tag: para
 #: index.docbook:1840
 #, no-c-format
 msgid "The general configuration page lists some basic settings."
-msgstr ""
+msgstr "Die allgemeine Konfiguration bietet einige basische Optionen."
 
 #. Tag: screeninfo
 #: index.docbook:1843
 #, no-c-format
 msgid "<screeninfo>General Configuration</screeninfo>"
-msgstr ""
+msgstr "<screeninfo>Allgemeine Konfiguration</screeninfo>"
 
 #. Tag: para
 #: index.docbook:1851
@@ -4065,6 +4113,11 @@ msgid ""
 "simon in the session autostart (please refer to the respective manuals of "
 "your desktop environment)."
 msgstr ""
+"Die Option simon beim Anmelden zu starten wird sowohl unter Microsoft "
+"Windows als auch unter KDE unter GNU/Linux funktionieren. Um andere "
+"Desktopumgebungen wie GNOME, XFCE, etc. zu unterstützen müssen Sie aber "
+"simon wahrscheinlich manuell im Sitzungs-Autostart platzieren (bitte "
+"sehen Sie die Handbücher Ihrer Desktopumgebung für mehr Informationen)."
 
 #. Tag: para
 #: index.docbook:1854
@@ -4073,12 +4126,15 @@ msgid ""
 "When the option to start simon minimized is selected, simon will minimize to "
 "the system tray immidiatly after starting."
 msgstr ""
+"Wenn die Option zum minimiert Starten von simon gesetzt ist, wird das simon "
+"Hauptfenster beim simon start nicht angezeigt sondern sofort in den "
+"Systembereich der Taskleiste minimiert."
 
 #. Tag: title
 #: index.docbook:1860
 #, no-c-format
 msgid "Sound Configuration"
-msgstr ""
+msgstr "Aufnahmen"
 
 #. Tag: para
 #: index.docbook:1861
@@ -4088,12 +4144,14 @@ msgid ""
 "record and play sound. Portaudio is also used to gather data from the "
 "microphone which is then sent to the simond server for recognition."
 msgstr ""
+"simon benutzt das <ulink url=\"http://www.portaudio.com\">Portaudio</ulink>"
+" um Trainingsdaten aufzunehmen und wiederzugeben."
 
 #. Tag: title
 #: index.docbook:1866
 #, no-c-format
 msgid "Device Configuration"
-msgstr ""
+msgstr "Gerätekonfiguration"
 
 #. Tag: para
 #: index.docbook:1867
@@ -4102,6 +4160,10 @@ msgid ""
 "The sound device configuration allows you to choose which sound device to "
 "use, how many channels to use and at which samplerate to record."
 msgstr ""
+"Die Gerätekonfiguration erlaubt Ihnen das jeweilige Audiogerät auszuwählen das Sie "
+"für die Aufnahme und Wiedergabe in ganz simon verwenden möchten. Außerdem können "
+"sie auch angeben, in wievielen Kanälen und bei weilcher Samplerate Sie aufnehmen "
+"wollen."
 
 #. Tag: para
 #: index.docbook:1868
@@ -4111,6 +4173,10 @@ msgid ""
 "default) because the recognition only works on mono input and works best at "
 "16kHz (8kHz being the other option)."
 msgstr ""
+"Der Defaultwert von einem Kanal und einer Samplerate von 16kHz sind normalerweise "
+"korrekt und müssen nicht geändert werden. Die Erkennung funktioniert nur "
+"mit Mono Aufnahmen und funktioniert besser mit 16kHz Aufnahmen (8kHz wäre die "
+"Alternative)."
 
 #. Tag: para
 #: index.docbook:1871
@@ -4122,6 +4188,12 @@ msgid ""
 "\"soundconfiguration_postprocessing\">postprocessing section</link> for more "
 "details."
 msgstr ""
+"Allerdings gibt es einige billige Audioadapter die diesen speziellen "
+"Aufnahmemodus möglicherweise nicht unterstützen. In diesem Fall kann "
+"simon mit Nachbearbeitungsketten und Software von Drittanbietern um "
+"diese Limitation herumarbeiten. Sehen Sie die <link linkend="
+"\"soundconfiguration_postprocessing\">Nachbearbeitungssektion</link>"
+" für mehr Informationen."
 
 #. Tag: para
 #: index.docbook:1873
@@ -4131,12 +4203,15 @@ msgid ""
 "what you are doing. Otherwise the recognition will <emphasis>most likely</"
 "emphasis> not work."
 msgstr ""
+"Grundsätzlich gilt: Ändern Sie die Kanäle und die Samplerate nur wenn Sie "
+"sich sicher sind was Sie tun. Sonst wird die Erkennung <emphasis>"
+"höchst wahrscheinlich</emphasis> nicht funktionieren."
 
 #. Tag: screeninfo
 #: index.docbook:1877
 #, no-c-format
 msgid "Sound Configuration: General"
-msgstr ""
+msgstr "Aufnahmen konfigurieren: Allgemein"
 
 #. Tag: para
 #: index.docbook:1886
@@ -4147,12 +4222,18 @@ msgid ""
 "portaudio limitations this might not always work. If you device just wont "
 "show up, try restarting simon."
 msgstr ""
+"Verwenden Sie die Auswahllisten um die Geräte auszuwählen. Mit dem Knopf "
+"\"Aktualisieren\" können Sie simon veranlassen erneut nach Geräten zu suchen. "
+"Aufgrund technischer Einschränkungen in Portaudio kann es vorkommen, dass "
+"neue Geräte trotzdem nicht erkannt werden. Wenn das gewünschte Gerät nicht in der Liste "
+"aufgeführt wird versuchen Sie simon neu zu starten."
+
 
 #. Tag: title
 #: index.docbook:1890
 #, no-c-format
 msgid "Font"
-msgstr ""
+msgstr "Vorleseschriftart"
 
 #. Tag: para
 #: index.docbook:1891
@@ -4162,12 +4243,15 @@ msgid ""
 "training or when adding a word) is displayed in a configurable font. This "
 "font can be changed here."
 msgstr ""
+"Der Text der aufgenommen werden soll um das Akustikmodell zu trainieren "
+"wird in einer konfigurierbaren Schriftart angezeigt. Die zu verwendende "
+"Schriftart und vor allem die Größe können hier geändert werden."
 
 #. Tag: screeninfo
 #: index.docbook:1894
 #, no-c-format
 msgid "Sound Configuration: Font"
-msgstr ""
+msgstr "Aufnahmen konfigurieren: Vorleseschriftart"
 
 #. Tag: para
 #: index.docbook:1903
@@ -4180,12 +4264,22 @@ msgid ""
 "had trouble making out what to read. This is why we made the font and the "
 "font size of the recording prompt configurable."
 msgstr ""
+"Diese Option wurde eingeführt, nachdem wir mit einigen Kunden Tests durchgeführt "
+"haben die unter infantiler Zerebralparese (\"Spastische Lähmung\") leiden."
+" Während wir mit der Maus simon bedienten um sie durch das Training zu führen, "
+"mussten Sie im Rahmen des Trainings vorlesen was am Bildschirm geschrieben "
+"stand. Im Laufe des Tests fanden wir heraus, dass es unseren Probanden "
+"teilweise schwer fiel die kleine Schrift zu entziffern. Deshalb führten "
+"wir eine eigene Konfigurationsoption ein mit der eben jener Text der von "
+"den Probanden vorgelesen werden muss größer als der restliche Programtext "
+"gemacht werden kann ohne den Rest des Programmes zu beeinflussen. Dies half "
+"außerdem um die Aufmerksamkeit direkt auf den vorzulesenden Text zu lenken."
 
 #. Tag: title
 #: index.docbook:1907
 #, no-c-format
 msgid "Postprocessing"
-msgstr ""
+msgstr "Nachbearbeitung"
 
 #. Tag: para
 #: index.docbook:1908
@@ -4196,12 +4290,17 @@ msgid ""
 "Postprocessing chains are an advanced feature and shouldn't be needed by the "
 "average user."
 msgstr ""
+"Alle aufgenommenen Sprachdaten (Training) und importierte Aufnahmen "
+"(mithilfe der Funktion \"Trainingsdaten importieren\") können mit einer "
+"Reihe von Nachbearbeitungskommandos bearbeitet werden. Nachbearbeitungs"
+"ketten sind eine fortgeschrittene Funktionalität von simon die vom "
+"durchschnittlichen simon Anwender wohl nicht benötigt werden."
 
 #. Tag: screeninfo
 #: index.docbook:1912
 #, no-c-format
 msgid "Sound Configuration: Postprocessing"
-msgstr ""
+msgstr "Aufnahmen konfigurieren: Nachbearbeitung"
 
 #. Tag: para
 #: index.docbook:1921
@@ -4212,6 +4311,9 @@ msgid ""
 "define commands to suppress background noise in the training data or "
 "normalize the recordings."
 msgstr ""
+"Die Nachbearbeitungskommandos sind wie eine Serie von Filtern durch die "
+"die Aufnahmen durchmüssen. Mit diesen \"Filtern\" könnte man zum Beispiel Hintergrund"
+"rauschen entfernen oder die Aufnahmen normalisieren."
 
 #. Tag: para
 #: index.docbook:1923
@@ -4222,6 +4324,11 @@ msgid ""
 "command would be: \"process_audio %1 %2\". The two placeholders %1 and %2 "
 "will be replaced by the input filename and the output filename respectively."
 msgstr ""
+"Nehmen wir als Beispiel ein Programm namens \"audio_verarbeiten\" das die "
+"Eingabe- und Ausgabedatei als Argumente nimmt (z.B.: \"audio verarbeiten "
+"%1 %2\". Die beiden Platzhalter %1 und %2 werden dann von simon bei jedem "
+"Aufruf mit den jeweiligen tatsächlichen Werten für den Eingabedateinamen "
+"und den Ausgabedateinamen (respektiv) ersetzt."
 
 #. Tag: para
 #: index.docbook:1925
@@ -4234,6 +4341,11 @@ msgid ""
 "(through the <link linkend=\"import_trainings-data\">import trainings-data "
 "wizard</link>)."
 msgstr ""
+"Die Option \"Filter auch für Dateien anwenden die mit simon aufgenommen "
+"werden\" definiert ob die konfigurierten filter auch für mit simon "
+"erstellte Aufnahmen angewandt werden soll oder nur für Sprachaten die mit "
+"der Funktion <link linkend=\"import_trainings-data\">\"Trainingsdaten "
+"importieren\"</link> importiert wurden."
 
 #. Tag: para
 #: index.docbook:1927
@@ -4246,18 +4358,24 @@ msgid ""
 "<ulink url=\"http://sox.sourceforge.net\">SoX</ulink> to resample the "
 "recorded files after the recording."
 msgstr ""
+"Eine Beispielanwendung für Nachbearbeitungsketten wäre das Resampling "
+"von Aufnahmen auf Grund von Hardwareeinschränkungen. Nehmen wir eine "
+"Soundkarte an, die keine 16kHz mono Aufnahmen unterstützt sondern nur "
+"44100Hz stereo (\"CD\") Aufnahmen, können wir das freie Kommandozeilen"
+"tool <ulink url=\"http://sox.sourceforge.net\">SoX</ulink> verwenden "
+"um die Aufnahmen automatisch auf ein entsprechendes Format zu resamplen."
 
 #. Tag: para
 #: index.docbook:1928
 #, no-c-format
 msgid "This example would require the following postprocessing command:"
-msgstr ""
+msgstr "Dieses Beispiel würde das folgende Nachbearbeitungskommando verwenden:"
 
 #. Tag: filename
 #: index.docbook:1930
 #, no-c-format
 msgid "sox -c 1 -r 16000 %1 %2"
-msgstr ""
+msgstr "sox -c 1 -r 16000 %1 %2"
 
 #. Tag: para
 #: index.docbook:1934
@@ -4270,24 +4388,28 @@ msgid ""
 "linkend=\"soundconfiguration_device\">sound device configuration</link> "
 "accordingly."
 msgstr ""
+"Mit diesem Kommando können wir jetzt ohne Probleme mit 44100Hz und 2 Kanälen "
+"aufnehmen wenn die Option gesetzt ist, die Filter auch für Aufnahmen in simon "
+"anzuwenden weil simon dann die Aufgenommenen Dateien automatisch in brauchbare "
+"16kHz mono Aufnahmen umwandeln wird wenn die Aufnahme abgeschlossen wird."
 
 #. Tag: title
 #: index.docbook:1939
 #, no-c-format
 msgid "Speech Model"
-msgstr ""
+msgstr "Sprachmodell"
 
 #. Tag: para
 #: index.docbook:1940
 #, no-c-format
 msgid "Here you can adjust the parameters of the speech model."
-msgstr ""
+msgstr "Hier können Sie die Parameter des Sprachmodells anpassen."
 
 #. Tag: screeninfo
 #: index.docbook:1944
 #, no-c-format
 msgid "Speech Model Configuration"
-msgstr ""
+msgstr "Sprachmodell Konfiguration"
 
 #. Tag: para
 #: index.docbook:1952
@@ -4300,6 +4422,14 @@ msgid ""
 "postprocessing commands that resample the files; see the <link linkend="
 "\"soundconfiguration\">sound configuration section</link> for more details)."
 msgstr ""
+"Die Samplerate die hier gesetzt wird ist die Ziel-Samplerate des Akustikmodells. "
+"Sie hat nichts damit zu tun in welcher Samplerate die Sprachdaten von simon "
+"aufgenommen werden. Es liegt in der Verantwortung des Benutzers, dass die "
+"Sprachdaten schlussendlich für die generierung des Modells auch in diesem "
+"Format vorliegen. Normalerweise wird das einfach erreicht, indem die Werte "
+"gleichgesetzt werden. Sollte dies nicht möglich sein, kann mit den "
+"Nachbearbeitungsketten nachgeholfen werden. Sehen Sie die Sektion <link "
+"linkend=\"soundconfiguration\">Aufnahmen</link> für mehr Details."
 
 #. Tag: para
 #: index.docbook:1954
@@ -4310,6 +4440,11 @@ msgid ""
 "as it is very cpu-intensive and in practice probably wont result in higher "
 "recognition rates."
 msgstr ""
+"In den meisten Fällen werden entweder 16kHz oder 8kHz Modelle verwendet. "
+"16kHz Modelle haben eine bessere Erkennungsrate als 8kHz Modelle und 8kHz "
+"Modelle sind weniger aufwändig (weniger Prozessorlastig) als 16kHz Modelle. "
+"Modelle mit mehr als 16kHz werden nicht empfohlen weil Sie sehr CPU-intensiv "
+"werden und in der Praxis kaum eine bessere Erkennungsrate erzielen."
 
 #. Tag: para
 #: index.docbook:1956
@@ -4321,12 +4456,18 @@ msgid ""
 "alternatively also provide simon with the missing sample but copying them "
 "manually is still recommended for performance reasons."
 msgstr ""
+"Hier kann außerdem der Pfad zu den Trainingsdaten geändert werden. "
+"Sie müssen allerdings selbst sicherstellen, dass die bisher gesammelten "
+"Sprachaufnahmen auch in das neue Ziel verschoben werden. Alternativ würde "
+"simond die bereits synchronisierten Daten aus seiner Kopie wiederherstellen. "
+"Ein manuelles verschieben zum neuen Speicherort ist also nicht zwingend "
+"notwendig solange zuvor synchronisiert wird, aber es ist empfohlen."
 
 #. Tag: title
 #: index.docbook:1961
 #, no-c-format
 msgid "<title>Model Extensions</title>"
-msgstr ""
+msgstr "<title>Modellerweiterungen</title>"
 
 #. Tag: para
 #: index.docbook:1963
@@ -4336,12 +4477,15 @@ msgid ""
 "around your speech model from the internet. At the moment only the download "
 "of trainings-texts is supported but more features are planned for the future."
 msgstr ""
+"Mit den Internet-Erweiterungen kann simon zusätzliche resourcen rund um das "
+"Sprachmodell aus dem Internet nachladen. Im Moment wird nur der Download von "
+"Trainingstexten unterstützt aber mehr Funktionen sind für die Zukunft geplant."
 
 #. Tag: screeninfo
 #: index.docbook:1966
 #, no-c-format
 msgid "<screeninfo>Model Extensions</screeninfo>"
-msgstr ""
+msgstr "<screeninfo>Modellerweiterungen</screeninfo>"
 
 #. Tag: para
 #: index.docbook:1974
@@ -4352,12 +4496,17 @@ msgid ""
 "repository. The URL to this repository can be changed here. The default "
 "configuration points to a sample repository hosted by the simon team."
 msgstr ""
+"simon bietet eine Funktion um <link linkend=\"import_texts_remote\">Texte "
+"aus dem Internet zu laden</link>. Dies basiert auf einer zentralen Sammlung "
+"der Texte auf einer Internetadresse. Der URL dieser Sammlung kann hier "
+"geändert werden. Der Standardwert zeigt auf eine Sammlung die vom offiziellen "
+"simon Team verwaltet wird."
 
 #. Tag: title
 #: index.docbook:1982
 #, no-c-format
 msgid "Server Configuration"
-msgstr ""
+msgstr "Serverkonfiguration"
 
 #. Tag: para
 #: index.docbook:1983
@@ -4366,6 +4515,8 @@ msgid ""
 "Using the server configuration you can set parameters of the connection to "
 "simond."
 msgstr ""
+"Mit der Serverkonfiguration kann die Verbindung zum simond Server angepasst "
+"werden."
 
 #. Tag: para
 #: index.docbook:1987
@@ -4374,12 +4525,14 @@ msgid ""
 "The simon main application connects to the simond server (see the <link "
 "linkend=\"architecture\">architecture section</link> for more information)."
 msgstr ""
+"Die simon Hauptapplikation verbindet zum simond Server (siehe die <link "
+"linkend=\"architecture\">Architektur Sektion</link> für mehr Informationen)."
 
 #. Tag: screeninfo
 #: index.docbook:1993
 #, no-c-format
 msgid "Configure Server: General"
-msgstr ""
+msgstr "Konfiguriere Server: Allgemein"
 
 #. Tag: para
 #: index.docbook:2002
@@ -4392,6 +4545,14 @@ msgid ""
 "incorrect, the connection will fail. See the <ulink url=\"help:/simond"
 "\">simond manual</ulink> on how to setup users for simond."
 msgstr ""
+"Um die einzelnen Anwender des Systems (ein simond Server kann natürlich mehrere "
+"simon clients bedienen) zu identifizieren, führt simon Benutzer ein. "
+"Jeder Benutzer hat sein eigenes Sprachmodell. Die Benutzername / Passwort "
+"Kombination die hier angegeben werden kann, wird verwendet um sich damit "
+"bei simond anzumelden. Wenn der simond diesen Benutzernamen nicht kennt oder "
+"das Passwort nicht stimmt, wird die Verbindung abgebrochen werden. Sehen Sie "
+"das <ulink url=\"help:/simond\">simond Handbuch</ulink> für mehr Information "
+"über das Einrichten der Benutzer auf dem simond Server."
 
 #. Tag: para
 #: index.docbook:2005
@@ -4406,6 +4567,12 @@ msgid ""
 "will request to start the recognition when it receives the information that "
 "it is ready (acoustic and language model is available)."
 msgstr ""
+"Die Erkennung selbst - die ja vom Server übernommen wird - ist nicht immer "
+"verfügbar. Beispielsweise ist es nicht möglich die Erkennung zu starten bis "
+"der Benutzer sein Akustikmodell das erste mal erzeugt (was automatisch "
+"gemacht wird wenn bei der Synchronisation alle \"Zutaten\" vorliegen: "
+"Wortliste, Grammatik und Trainingsdaten). Per Default wird simon die "
+"Erkennung sofort starten sobald Sie verfügbar ist. Dies kann hier geändert werden."
 
 #. Tag: para
 #: index.docbook:2007
@@ -4415,30 +4582,32 @@ msgid ""
 "automatically start the connection to the configured simond servers after it "
 "has finished loading the user interface."
 msgstr ""
+"Mit der Option \"Bei simon-Start automatisch verbinden\" wird simon "
+"automatisch zum simond verbinden sobald die Applikation gestartet wurde."
 
 #. Tag: title
 #: index.docbook:2011
 #, no-c-format
 msgid "Network"
-msgstr ""
+msgstr "Netzwerk"
 
 #. Tag: para
 #: index.docbook:2012
 #, no-c-format
 msgid "simon connects to simond using TCP/IP."
-msgstr ""
+msgstr "simon verbindet zum simond über TCP/IP."
 
 #. Tag: screeninfo
 #: index.docbook:2016
 #, no-c-format
 msgid "Configure Server: Network"
-msgstr ""
+msgstr "Server konfigurieren: Netzwerk"
 
 #. Tag: para
 #: index.docbook:2024
 #, no-c-format
 msgid "As of yet (simon 0.2), encryption is not yet supported."
-msgstr ""
+msgstr "Derzeit (simon 0.2) ist Protokollverschlüsselung nicht unterstützt."
 
 #. Tag: para
 #: index.docbook:2027
@@ -4450,6 +4619,12 @@ msgid ""
 "this value if you keep getting timeout errors and can resolve them by trying "
 "again repeatedly."
 msgstr ""
+"Der angegebene Timeout Wert gibt an wie lange simon auf eine Antwort der "
+"Gegenstelle wartet. Wenn Sie eine sehr, sehr langsame Netzwerkverbindung "
+"besitzen und/oder die \"Beim simon-Start automatisch verbinden\" Option "
+"verwenden und einen sehr langsamen Rechner verwenden erhöhen Sie diese "
+"Option wenn Sie Timeout Fehler beim Verbinden mit dem simond Server "
+"erhalten die durch erneutes Aufbauen der Verbindung behoben werden können."
 
 #. Tag: para
 #: index.docbook:2030
@@ -4462,6 +4637,12 @@ msgid ""
 "When connecting, simon will try to connect to each of the servers (in order) "
 "until it finds one server that accepts the connection."
 msgstr ""
+"simon unterstützt Konfigurationen bei denen mehr als ein simond angegeben wird. "
+"Das kann verwendet werden wenn Sie bspw. einen Laptop besitzen der unterschiedliche "
+"Server verwendet wenn er zu Hause oder bei der Arbeit verwendet wird. In diesem "
+"Fall können Sie beide Server hier angeben. Wenn simon verbindet, wird er die hier "
+"konfigurierten Server der Reihe nach durchprobieren bis er einen Server findet "
+"der auf seine Anfrage im gesetzten Timeout antwortet."
 
 #. Tag: para
 #: index.docbook:2032
@@ -4471,12 +4652,16 @@ msgid ""
 "\") or use the dialog that appears when you select the blue arrow next to "
 "the input field."
 msgstr ""
+"Um einen Server hinzuzufügen, geben Sie einfach seinen Hostnamen oder IP "
+"und den Port (mit \":\" getrennt) ein oder verwenden Sie den Dialog der "
+"erscheint wenn Sie den blauen Pfeil neben dem Eingabefeld anklicken "
+"und wählen Sie \"Hinzufügen\"."
 
 #. Tag: title
 #: index.docbook:2039
 #, no-c-format
 msgid "<title>Synchronization and Model Backup</title>"
-msgstr ""
+msgstr "<title>Synchronisation und Modell Backup</title>"
 
 #. Tag: para
 #: index.docbook:2040
@@ -4485,12 +4670,14 @@ msgid ""
 "Here you can configure the model synchronization and restore older versions "
 "of your speech model."
 msgstr ""
+"Hier können Sie die Modellsynchronisation konfigurieren und wenn nötig ältere "
+"Versionen Ihres Sprachmodells wiederherstellen."
 
 #. Tag: screeninfo
 #: index.docbook:2044
 #, no-c-format
 msgid "<screeninfo>Synchronization and Model Backup</screeninfo>"
-msgstr ""
+msgstr "<screeninfo>Synchronisation und Modell Backup</screeninfo>"
 
 #. Tag: para
 #: index.docbook:2053
@@ -4501,6 +4688,12 @@ msgid ""
 "synchronize the model with the server when it changes. This is called "
 "\"Automatic Synchornization\" and is the recommended setting."
 msgstr ""
+"Erst nachdem ein Sprachmodell synchronisiert wurde werden alle Änderungen "
+"angewendet. Zusätzlich wird dabei auch ein neuer Wiederherstellungspunkt "
+"angelegt. Per Default wird simon nach jeder Änderung an den Modelldateien "
+"eine Synchronisation einleiten um die Änderungen zu übernehmen. Das nennen "
+"wir \"automatische Synchronisation\". Die automatische Synchronisation ist "
+"die empfohlene Einstellung."
 
 #. Tag: para
 #: index.docbook:2056
@@ -4513,6 +4706,12 @@ msgid ""
 "of the simon main window (also see the section <link linkend=\"main_window"
 "\">simon main window</link>) every time you want to compile the speech model."
 msgstr ""
+"Wenn Sei jedoch mehr Kontrolle über die Synchronisation wünschen, können "
+"Sie simon anweisen vor jeder Synchronisation nachzufragen oder die komplett "
+"manuelle Synchronisation auswählen bei der simon die Synchronisation nie "
+"automatisch einleiten wird - stattdessen müssen Sie den Menüpunkt "
+"\"Synchronisation\" verwenden (siehe Sektion <link linkend=\"main_window\">"
+"das simon Hauptfenster</link>) wenn Sie das Sprachmodell synchronisieren wollen."
 
 #. Tag: para
 #: index.docbook:2060
@@ -4524,6 +4723,10 @@ msgid ""
 "compiled model will be regenerated from the restored source files "
 "automatically."
 msgstr ""
+"Der simond Server wird eine Kopie der letzten fünf Versionen von den Modell-"
+"Eingabedateien (Wortliste, Grammatik, etc.) aufbehalten. Das fertige, erstellte "
+"Modell wird dabei nicht aufbehalten. Wenn Sie eine frühere Version einspielen "
+"wird aber das Modell anhand dieser Quelldateien automatisch neu generiert."
 
 #. Tag: para
 #: index.docbook:2062
@@ -4532,6 +4735,8 @@ msgid ""
 "After you have connected to the server, you can select one of the available "
 "models and restore it by clicking on \"Restore Model\"."
 msgstr ""
+"Wählen Sie dazu - wenn Sie mit dem Server verbunden sind - einen der verfügbaren "
+"Modelle aus und stellen Sie es mit einem Klick auf \"Modell auswählen\" wieder her."
 
 #. Tag: para
 #: index.docbook:2064
@@ -4541,24 +4746,29 @@ msgid ""
 "(containing a wordlist, a grammar and some trainingssamples) so incomplete "
 "models will not be stored on the server and thus not be backupped."
 msgstr ""
+"Bitte beachten Sie, dass die Synchronisation generell nur komplette Quell-Modelle "
+"akzeptieren wird (eine Modellquelle ist komplett wenn Sie eine Wortliste, eine "
+"Grammatik und ein paar Trainingssamples besitzt) sodass nicht komplette Modelle "
+"nie auf dem Server gespeichert werden. Unvollständige Quellmodelle obliegen damit "
+"auch nicht dem automatischen Backup."
 
 #. Tag: title
 #: index.docbook:2071
 #, no-c-format
 msgid "Actions"
-msgstr ""
+msgstr "Aktionen"
 
 #. Tag: para
 #: index.docbook:2072
 #, no-c-format
 msgid "Please see the <link linkend=\"commands\">command section</link>."
-msgstr ""
+msgstr "Bitte sehen Sie die <link linkend=\"commands\">Kommando Sektion</link>."
 
 #. Tag: title
 #: index.docbook:2077
 #, no-c-format
 msgid "Adjusting the recognition parameters manually"
-msgstr ""
+msgstr "Aufnahmeparameter manuell anpassen"
 
 #. Tag: para
 #: index.docbook:2079
@@ -4569,6 +4779,10 @@ msgid ""
 "language and acoustic models by providing reasonable default values for "
 "simple uses."
 msgstr ""
+"simon ist auf Endbenutzer ausgelegt. Das Benutzerinterface ist darauf "
+"ausgelegt, es sogar Endbenutzern ohne Hintergrund in Spracherkennung zu "
+"ermöglichen eigene Sprach- und Akustikmodelle zu designen indem viele Default-Werte "
+"bereits beim ersten Öffnen der Applikation festgelegt wurden."
 
 #. Tag: para
 #: index.docbook:2082
@@ -4579,6 +4793,11 @@ msgid ""
 "the recognition are also respected by simon and can of course be modified to "
 "suit your needs."
 msgstr ""
+"In speziellen Fällen (zum Beispiel schwere Sprachstörungen) kann es "
+"notwendig werden, einge tiefgreifende Parameter anzupassen. Deshalb "
+"respektiert simon auch die gesetzten Werte in den Konfigurationsdateien "
+"für die Erkennung. Diese Konfigurationsdateien können natürlich frei "
+"angepasst werden als würde man direkt mit Julius arbeiten."
 
 #. Tag: para
 #: index.docbook:2086
@@ -4587,12 +4806,13 @@ msgid ""
 "There are basically to parts of the Julius configuration that can be "
 "adjusted:"
 msgstr ""
+"Es gibt zwei Teile der Julius Konfiguration die angepasst werden können: "
 
 #. Tag: para
 #: index.docbook:2088
 #, no-c-format
 msgid "adin.jconf"
-msgstr ""
+msgstr "adin.jconf"
 
 #. Tag: para
 #: index.docbook:2088
@@ -4600,7 +4820,8 @@ msgstr ""
 msgid ""
 "This is the configuration of the simon client of the Soundstream sent from "
 "simon to the simond. This file is directly read by the adinstreamer."
-msgstr ""
+msgstr "Das ist die Konfiguration die den Soundstream vom simon client "
+"zum simond server steuert. Die Datei wird direkt vom adinstreamer gelesen."
 
 #. Tag: para
 #: index.docbook:2089
@@ -4612,12 +4833,17 @@ msgid ""
 "change the configuration of one of those users copy the file to the user "
 "path (see below) and edit this copy."
 msgstr ""
+"simon liefert eine Defaultdatei aus ohne spezielle Parameter. Sie können die "
+"Systemweite Konfiguration anpssen die alle Benutzer betrifft wenn Sie mehr "
+"als einen simon Benutzer auf Ihrem physischen System haben. Wenn Sie die Konfiguration "
+"nur für einen speziellen Benutzer anpassen wollen, kopieren Sie die Konfiguration "
+"zum Benutzerpfad und passen Sie die Kopie an."
 
 #. Tag: para
 #: index.docbook:2091
 #, no-c-format
 msgid "julius.jconf"
-msgstr ""
+msgstr "julius.jconf"
 
 #. Tag: para
 #: index.docbook:2091
@@ -4626,6 +4852,8 @@ msgid ""
 "This is a configuration of the simond server and directly influences the "
 "recognition. This file is parsed by libjulius and libsent directly."
 msgstr ""
+"Das ist die Konfiguration vom simond Server die direkt die Erkennung beeinflusst."
+" Die Datei wird direkt von libjulius und libsent gelesen."
 
 #. Tag: para
 #: index.docbook:2092
@@ -4638,6 +4866,14 @@ msgid ""
 "\" (the system wide configuration) can be changed without affecting other "
 "users."
 msgstr ""
+"simond wird auch mit einer Default <filename>julius.jconf</filename> ausgeliefert. "
+"Immer wenn ein "
+"neuer Benutzer zur simond Datenbank hinzugefügt wird, wird simond automatisch "
+"eine Kopie der Systemweiten <filename>julius.jconf</filename> anlegen und "
+"sie in den Ordner des neuen Benutzers kopieren. Sie können die einzelnen "
+"Dateien der jeweiligen simond Benutzer natürlich frei anpassen. Die Änderungen "
+"am systemweiten \"Template\" beeinflussen dadurch aber keine bereits angelegten "
+"Benutzer."
 
 #. Tag: para
 #: index.docbook:2097
@@ -4645,90 +4881,91 @@ msgstr ""
 msgid ""
 "The path to the Julius configuration files will depend on your plattform:"
 msgstr ""
+"Der Pfad zu den Julius Konfigurationsdateien wird von der verwendeten Plattform abhängen:"
 
 #. Tag: title
 #: index.docbook:2099
 #, no-c-format
 msgid "Julius Configuration Files"
-msgstr ""
+msgstr "Julius Konfigurationsdateien"
 
 #. Tag: entry
 #: index.docbook:2106
 #, no-c-format
 msgid "File"
-msgstr ""
+msgstr "Datei"
 
 #. Tag: entry
 #: index.docbook:2107
 #, no-c-format
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. Tag: entry
 #: index.docbook:2108
 #, no-c-format
 msgid "GNU/Linux"
-msgstr ""
+msgstr "GNU/Linux"
 
 #. Tag: entry
 #: index.docbook:2113
 #, no-c-format
 msgid "adin.jconf (system)"
-msgstr ""
+msgstr "adin.jconf (System)"
 
 #. Tag: entry
 #: index.docbook:2114
 #, no-c-format
 msgid "(installation path)\\share\\apps\\simon\\adin.jconf"
-msgstr ""
+msgstr "(Installationspfad)\\share\\apps\\simon\\adin.jconf"
 
 #. Tag: entry
 #: index.docbook:2115
 #, no-c-format
 msgid "`kde4-config --prefix`/share/apps/simon/adin.jconf"
-msgstr ""
+msgstr "`kde4-config --prefix`/share/apps/simon/adin.jconf"
 
 #. Tag: entry
 #: index.docbook:2118
 #, no-c-format
 msgid "adin.jconf (user)"
-msgstr ""
+msgstr "adin.jconf (Benutzer)"
 
 #. Tag: entry
 #: index.docbook:2119
 #, no-c-format
 msgid "%appdata%\\.kde\\share\\apps\\simon\\adin.jconf"
-msgstr ""
+msgstr "%appdata%\\.kde\\share\\apps\\simon\\adin.jconf"
 
 #. Tag: entry
 #: index.docbook:2120
 #, no-c-format
 msgid "~/.kde/share/apps/simon/adin.jconf"
-msgstr ""
+msgstr "~/.kde/share/apps/simon/adin.jconf"
 
 #. Tag: entry
 #: index.docbook:2123
 #, no-c-format
 msgid "julius.jconf (template)"
-msgstr ""
+msgstr "julius.jconf (Template)"
 
 #. Tag: entry
 #: index.docbook:2124
 #, no-c-format
 msgid "(installation path)\\share\\apps\\simond\\default.jconf"
-msgstr ""
+msgstr "(Installationspfad)\\share\\apps\\simond\\default.jconf"
 
 #. Tag: entry
 #: index.docbook:2125
 #, no-c-format
 msgid "`kde4-config --prefix`/share/apps/simond/default.jconf"
-msgstr ""
+msgstr "`kde4-config --prefix`/share/apps/simond/default.jconf"
 
 #. Tag: entry
 #: index.docbook:2128
 #, no-c-format
 msgid "julius.jconf (user)"
-msgstr ""
+msgstr "julius.jconf (Benutzer)"
 
 #. Tag: entry
 #: index.docbook:2129
@@ -4736,18 +4973,19 @@ msgstr ""
 msgid ""
 "%appdata%\\.kde\\share\\apps\\simond\\models\\(user)\\active\\julius.jconf"
 msgstr ""
+"%appdata%\\.kde\\share\\apps\\simond\\models\\(Benutzer)\\active\\julius.jconf"
 
 #. Tag: entry
 #: index.docbook:2130
 #, no-c-format
 msgid "~/.kde/share/apps/simond/models/(user)/active/julius.jconf"
-msgstr ""
+msgstr "~/.kde/share/apps/simond/models/(user)/active/julius.jconf"
 
 #. Tag: title
 #: index.docbook:2146
 #, no-c-format
 msgid "Questions and Answers"
-msgstr ""
+msgstr "Fragen und Antworten"
 
 #. Tag: para
 #: index.docbook:2148
@@ -4757,12 +4995,15 @@ msgid ""
 "<ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting"
 "\">online wiki</ulink>."
 msgstr ""
+"Um diese Sektion immer aktuell zu halten, wird dieser Teil des Handbuches in "
+"unserem <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting"
+"\">online Wiki</ulink> und somit für alle editierbar verwaltet."
 
 #. Tag: title
 #: index.docbook:2180
 #, no-c-format
 msgid "Credits and License"
-msgstr ""
+msgstr "Danksagungen und Lizenz"
 
 #. Tag: para
 #: index.docbook:2185
@@ -4771,6 +5012,8 @@ msgid ""
 "Program copyright 2006-2009 Peter Grasch <email>grasch@simon-listens.org</"
 "email>, Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl"
 msgstr ""
+"Programm Copyright 2006-2009 Peter Grasch <email>grasch@simon-listens.org</email>, "
+"Phillip Goriup, Tschernegg Susanne, Bettina Sturmann, Martin Gigerl"
 
 #. Tag: para
 #: index.docbook:2189
@@ -4779,24 +5022,26 @@ msgid ""
 "Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens."
 "org</email>"
 msgstr ""
+"Dokumentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens."
+"org</email>"
 
 #. Tag: trans_comment
 #: index.docbook:2193
 #, no-c-format
 msgid "CREDIT_FOR_TRANSLATORS"
-msgstr ""
+msgstr "Übersetzung Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens.org</email>"
 
 #. Tag: chapter
 #: index.docbook:2193
 #, no-c-format
 msgid "&underFDL; &underGPL;"
-msgstr ""
+msgstr "&underFDL; &underGPL;"
 
 #. Tag: title
 #: index.docbook:2208
 #, no-c-format
 msgid "Installation"
-msgstr ""
+msgstr "Installation"
 
 #. Tag: para
 #: index.docbook:2209
@@ -4805,3 +5050,6 @@ msgid ""
 "Please see our <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:"
 "_Setup\">wiki</ulink> for install instructions."
 msgstr ""
+"Bitte sehen Sie unser <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:"
+"_Setup\">online Wiki</ulink> for eine detailierte Installationsanleitung."
+"
