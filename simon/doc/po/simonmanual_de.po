@@ -1,13 +1,12 @@
 # simon manual: German translation.
 # Grasch Peter <grasch@simon-listens.org>, 2009.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
 "POT-Creation-Date: 2009-05-22 09:09+0000\n"
-"PO-Revision-Date: 2009-05-27 18:41+0200\n"
+"PO-Revision-Date: 2009-05-27 20:29+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +35,9 @@ msgstr ""
 #: index.docbook:74
 #, no-c-format
 msgid "ROLES_OF_TRANSLATORS"
-msgstr "ROLES_OF_TRANSLATORS"
+msgstr "<othercredit role=\"translator\"><firstname>Peter</firstname><surname>Grasch</surname>"
+"<affiliation><address><email>grasch@simon-listens.org</email></address></affiliation>"
+"<contrib>Deutsche Übersetzung</contrib></othercredit>"
 
 #. Tag: holder
 #: index.docbook:78
@@ -148,7 +149,7 @@ msgstr "Im Gegensatz zu existierenden kommerzieller Software bietet simon einen 
 "bereits trainierten Sprachmodellen wird simon mit keinem Sprachmodell ausgeliefert. "
 "Stattdessen bietet es eine einfache Benutzeroberfläche für Endbenutzer um das Sprach- "
 "und Akustikmodell selbst zu erstellen. Die aktuelle Version kann dazu benutzt werden, "
-"um Command & Control Lösungen zu verwirklichen, die besonders bei der körperlich "
+"um Command &amp; Control Lösungen zu verwirklichen, die besonders bei der körperlich "
 "eingeschränkte Zielgruppe Anwendungen finden dürfte. Eine freie Diktation ist "
 "aufgrund der großen Menge an dafür notwendigen Trainingsdaten in der derzeitigen "
 "Version nicht vorgesehen."
@@ -488,10 +489,10 @@ msgid ""
 "recognizing. These building blocks are called \"phonemes\"."
 msgstr "Die Aussprache jedes Wortes besteht aus einzelnen Lauten die mit "
 "Leerzeichen getrennt sind. Das Wort \"schließen\" besteht bspw. aus den "
-"folgenden lauten: <itemizedlist><lititem><para>S</para></listitem><lititem><para>l</para></listitem><lititem><para>i:</para></listitem><lititem><para>s</para></listitem><lititem><para>@</para></listitem><lititem><para>n</para></listitem></itemizedlist> "
+"folgenden lauten: <itemizedlist><listitem><para>S</para></listitem><listitem><para>l</para></listitem><listitem><para>i:</para></listitem><listitem><para>s</para></listitem><listitem><para>@</para></listitem><listitem><para>n</para></listitem></itemizedlist> "
 "Das Akustikmodell nutzt die Tatsache, dass gesprochene Wörter genauso aus Lauten "
 "bestehen wie geschriebene Wörter aus Buchstaben bestehen. Darauf aufbauend "
-"können wir Wörter in einzelne Laute zerlegen und sie bei der Erkennung wieder 
+"können wir Wörter in einzelne Laute zerlegen und sie bei der Erkennung wieder "
 "\"zusammenbauen\". Diese Bausteine nennt man \"Phoneme\"."
 
 #. Tag: para
@@ -768,7 +769,7 @@ msgstr ""
 "bevor Sie fortfahren. Haben Sie bereits einen Benutzer in simond angelegt, geben Sie "
 "seine Daten bitte in das Anmeldefenster ein. Wenn Sie auswählen, das Passwort zu "
 "speichern wird Sie simon beim nächsten Verbindungsaufbau nicht mehr nach den Anmeldedaten "
-"fragen. Sie können sie aber natürlich jederzeit in der <link linkend\"configure_server_general\">Server "
+"fragen. Sie können sie aber natürlich jederzeit in der <link linkend=\"configure_server_general\">Server "
 "Konfiguration</link> ändern."
 
 #. Tag: para
@@ -1015,11 +1016,11 @@ msgstr ""
 "Ein einzelner Eintrag in der Wortliste definiert exakt ein \"Wort\". "
 "Ein \"Wort\" bedeutet in simon eine einzigartige Kombination aus: "
 "<itemizedlist><listitem><para>Wordname</para><para>(Das geschriebene "
-"Wort selbst)</para></lititem><listitem><para>Terminal</para><para>"
+"Wort selbst)</para></listitem><listitem><para>Terminal</para><para>"
 "(Grammatik-Kategorie; Z.B.: \"Nomen\", \"Verb\", etc.)</para></listitem>"
 "<listitem><para>Ausprache</para><para>(Wie das Wort ausgesprochen wird; "
 "simon akzeptiert alle Formen von Lautschrift solange Sie weder Zahlen "
-"noch Sonderzeichen beinhaltet)</para></lisitem></itemizedlist> Das bedeutet, "
+"noch Sonderzeichen beinhaltet)</para></listitem></itemizedlist> Das bedeutet, "
 "dass Mehrzahlformen oder Unterschiede in Groß- / Kleinschreibung als unterschiedliche "
 "wörter behandelt werden. Dadurch erlaubt eine ausgefeilte Grammatik noch mehr Kontrolle."
 
@@ -1170,8 +1171,8 @@ msgstr "Wenn diese Nummer nur Null oder Eins ist, wird der Eintrag in der Wortli
 "Modell <emphasis>nicht</emphasis> kompiliert werden. Allerdings wird simon einen "
 "entsprechende Fehlermeldung anzeigen sollte dieses Problem eintreten. Allgemein ist es "
 "eine gute Idee jedes Wort mindestens ein oder zweimal aufzunehmen (am besten "
-"währen das <link linkend="add_word_record">Wort hinzugefügt</link> wird) um diesen Problem "
-"grundsätzlich aus dem Weg zu gehen."
+"währen das <link linkend=\"add_word_record\">Wort hinzugefügt</link> wird) um "
+"diesen Problem grundsätzlich aus dem Weg zu gehen."
 
 #. Tag: para
 #: index.docbook:547
@@ -1249,7 +1250,7 @@ msgid ""
 "\">shadow dictionary</link> as possible."
 msgstr ""
 "Wenn der Benutzer fortfährt wird simon automatisch versuchen so viel Information "
-"wie möglich über das hinzuzufügende Wort im <link linkend=\"shadow_dictionary">"
+"wie möglich über das hinzuzufügende Wort im <link linkend=\"shadow_dictionary\">"
 "Schattenlexikon</link> zu finden."
 
 #. Tag: para
@@ -1704,7 +1705,7 @@ msgid ""
 msgstr ""
 "simon bietet die Möglichkeit große Wörterbücher als Nachschlagewerk "
 "zu importieren. Dieses Nachschlagewerk wird "
-"<link linkend=\"shadow_dictionary>Schattenlexikon</link> genannt."
+"<link linkend=\"shadow_dictionary\">Schattenlexikon</link> genannt."
 
 #. Tag: para
 #: index.docbook:785
@@ -1801,7 +1802,7 @@ msgid ""
 "sprachsynthese/bomp/bomp-1\">HADIFIX BOMP</ulink>."
 msgstr ""
 "Ein Beispiel eines HADIFIX Wörterbuches ist das Deutsche <ulink url="
-"http://www.ifk.uni-bonn.de/forschung/abteilung-sprache-und-kommunikation/"
+"\"http://www.ifk.uni-bonn.de/forschung/abteilung-sprache-und-kommunikation/"
 "phonetik/sprachsynthese/bomp/bomp-1\">HADIFIX BOMP</ulink>."
 
 #. Tag: para
@@ -2572,7 +2573,7 @@ msgstr ""
 "Wenn lokale Textdateien importiert werden, wrid simon automatisch versuchen "
 "einzelne Sätze aufzuspalten um Sie beim Training eigenen \"Seiten\" (Aufnahmen) "
 "zuzuordnen. Der Algorithmus behandelt zwischen normalen Satzzeichen (\".\", "
-"\"!\, \"?\", \"...\", \"\"\",...) und Absätzen als \"Sätze\". Jeder \"Satz\""
+"\"!\", \"?\", \"...\", \"\"\",...) und Absätzen als \"Sätze\". Jeder \"Satz\""
 " wird im Trainingstext auf einer Seite und somit auf einer eigenen Aufnahme "
 "sein."
 
@@ -2627,7 +2628,7 @@ msgid ""
 "other copyrighted source material can not be accepted."
 msgstr ""
 "Dafür senden Sie uns am besten die XML Datei (zu finden in Ihrem <link linkend="
-"\"training_storage\">lokalen Speicherordner</link) an <ulink url=\"mailto:"
+"\"training_storage\">lokalen Speicherordner</link>) an <ulink url=\"mailto:"
 "support@simon-listens.org\">support@simon-listens.org</ulink> und wir werden "
 "Ihren Text zum online Repositorium hinzufügen. Bitte beachten Sie, dass wir "
 "Bücher oder andere urheberrechtlich geschützte Bücher nicht akzeptieren können."
@@ -3034,7 +3035,7 @@ msgid ""
 "\\file.html</filename>."
 msgstr ""
 "Der Arbeitsordner bestimmt in von welchem Ordner aus der Prozess gestartet "
-"wird. Wenn der Arbeitsordner <filename>C:\\folder</filname> ist und das "
+"wird. Wenn der Arbeitsordner <filename>C:\\folder</filename> ist und das "
 "Kommando <filename>\"C:\\Programme\\Mozilla Firefox\\firefox.exe\" file.html</"
 "filename> gestartet wrid, würde Firefox für die Datei <filename>C:\\folder"
 "\\file.html</filename> suchen."
@@ -3394,7 +3395,7 @@ msgid ""
 "\"Next\")."
 msgstr ""
 "Wenn mehr als 9 Kommandos mit der Liste assoziert sind, werden automatisch "
-"\Weiter\" und \"Zurück\" Elemente angezeigt die ebenfalls mit Nummern "
+"\"Weiter\" und \"Zurück\" Elemente angezeigt die ebenfalls mit Nummern "
 "versehen sind (\"Null\" wird mit \"Zurück\" und \"Neun\" wird mit \"Weiter\""
 " verbunden)."
 
@@ -5029,7 +5030,8 @@ msgstr ""
 #: index.docbook:2193
 #, no-c-format
 msgid "CREDIT_FOR_TRANSLATORS"
-msgstr "Übersetzung Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens.org</email>"
+msgstr "<para>Übersetzung Copyright &copy; 2009 Peter Grasch "
+"<email>grasch@simon-listens.org</email></para>"
 
 #. Tag: chapter
 #: index.docbook:2193
@@ -5052,4 +5054,4 @@ msgid ""
 msgstr ""
 "Bitte sehen Sie unser <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:"
 "_Setup\">online Wiki</ulink> for eine detailierte Installationsanleitung."
-"
+

@@ -54,6 +54,28 @@ as Authors, publish date, the abstract, and Keywords -->
 <bookinfo>
 <title>The &kmyapplication; Handbook</title>
 
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+<copyright>
+<year>2008</year>
+<holder>Peter Grasch</holder>
+</copyright>
+
+<!-- Date and version information of the application
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (YYYY-MM-DD) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>2008-05-27</date>
+<releaseinfo>0.2</releaseinfo>
+
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>&FDLNotice;</legalnotice>
+
 <authorgroup>
 <author>
 <!-- This is just put in as an example.  For real documentation, please
@@ -70,27 +92,6 @@ and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
 <email>grasch@simon-listens.org</email>
 </author>
 </authorgroup>
-
-<!-- TRANS:ROLES_OF_TRANSLATORS -->
-
-<copyright>
-<year>2008</year>
-<holder>Peter Grasch</holder>
-</copyright>
-<!-- Translators: put here the copyright notice of the translation -->
-<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
-     and in the FDL itself on how to use it. -->
-<legalnotice>&FDLNotice;</legalnotice>
-
-<!-- Date and version information of the application
-Don't forget to include this last date and this last revision number, we
-need them for translation coordination !
-Please respect the format of the date (YYYY-MM-DD) and of the version
-(V.MM.LL), it could be used by automation scripts.
-Do NOT change these in the translation. -->
-
-<date>2008-03-04</date>
-<releaseinfo>0.2</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
@@ -1812,22 +1813,6 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 </sect1>
 
 
-<!--<sect1 id="simond">
-<title>simond</title>
-<para> </para>
-
-<sect2 id="multiple_simond">
-<title>Using simon with multiple simonds</title>
-<para> </para>
-</sect2>
-
-<sect2 id="model_backup">
-<title>Using the automatic model backup</title>
-<para> </para>
-</sect2>
-
-</sect1>-->
-
 
 <sect1 id="configuration">
 <title>Configuration</title>
@@ -2149,25 +2134,6 @@ In special cases (severe speech impairments for example), special configuration 
 In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
 </para>
 
-<!--<qandaset id="faqlist">
-<qandaentry>
-<question>
-<para>My Mouse doesn't work. How do I quit &kmyapplication;?</para>
-</question>
-<answer>
-<para>You silly goose! Check out the <link linkend="using-simon">Using &kmyapplication;</link> for the answer.</para>
-</answer>
-</qandaentry>
-<qandaentry>
-<question>
-<para>Why can't I twiddle my documents?</para>
-</question>
-<answer>
-<para>You can only twiddle your documents if you have the foobar.lib
-installed.</para>
-</answer>
-</qandaentry>
-</qandaset>-->
 </chapter>
 
 <chapter id="credits">
