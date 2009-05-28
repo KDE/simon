@@ -68,7 +68,7 @@
 /* Copy the first part of user declarations.  */
 
 /* Line 189 of yacc.c  */
-#line 1 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 1 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
 
 /*
  * Copyright (c) 1991-2005 Kawahara Lab., Kyoto University
@@ -114,7 +114,7 @@ static int GramModifyNum = 0;
 
 
 /* Line 189 of yacc.c  */
-#line 118 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.tab.c"
+#line 118 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -169,7 +169,7 @@ typedef int YYSTYPE;
 
 
 /* Line 264 of yacc.c  */
-#line 173 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.tab.c"
+#line 173 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.tab.c"
 
 #ifdef short
 # undef short
@@ -1389,7 +1389,7 @@ yyreduce:
         case 8:
 
 /* Line 1455 of yacc.c  */
-#line 62 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 62 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
     {
     yyerrok;
 ;}
@@ -1398,7 +1398,7 @@ yyreduce:
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 69 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 69 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
     {
     BlockReverseSw = 0;
     if( ModeAssignAccptFlag ) outputHeader( (yyvsp[(1) - (1)]) );
@@ -1408,7 +1408,7 @@ yyreduce:
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 74 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 74 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
     {
     BlockReverseSw = 1;
     if( !ModeAssignAccptFlag ) outputHeader( (yyvsp[(2) - (2)]) );
@@ -1418,7 +1418,7 @@ yyreduce:
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 82 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 82 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
     {
     appendNonTerm( HeadName, ModeAssignAccptFlag ^ BlockReverseSw );
 ;}
@@ -1427,7 +1427,7 @@ yyreduce:
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 86 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 86 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
     {
     entryNonTerm( HeadName, NULL, ModeAssignAccptFlag ^ BlockReverseSw, 0, 1, 0 ); /*空登録*/
 ;}
@@ -1436,7 +1436,7 @@ yyreduce:
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 92 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 92 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
     {
     appendNonTerm( HeadName, ModeAssignAccptFlag );
 ;}
@@ -1445,7 +1445,7 @@ yyreduce:
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 96 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 96 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
     {
     appendNonTerm( HeadName, !ModeAssignAccptFlag );
 ;}
@@ -1454,7 +1454,7 @@ yyreduce:
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 105 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 105 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
     {
     strcpy( HeadName, (yyvsp[(1) - (1)]) );
 ;}
@@ -1463,7 +1463,7 @@ yyreduce:
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 109 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 109 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
     {
     StartFlag = 1;
     strcpy( HeadName, (yyvsp[(2) - (2)]) );
@@ -1473,7 +1473,7 @@ yyreduce:
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 115 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 115 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
     {
     strcpy( BodyName[ BodyNo++ ], (yyvsp[(1) - (1)]) );
 ;}
@@ -1482,7 +1482,7 @@ yyreduce:
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 120 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 120 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
     {
     ModeAssignAccptFlag = 1;
 ;}
@@ -1491,7 +1491,7 @@ yyreduce:
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 124 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 124 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
     {
     ModeAssignAccptFlag = 0;
 ;}
@@ -1500,7 +1500,7 @@ yyreduce:
 
 
 /* Line 1455 of yacc.c  */
-#line 1504 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.tab.c"
+#line 1504 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1712,7 +1712,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 130 "/home/bedahr/Daten/simon/svn/trunk/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
+#line 130 "C:/Programme/simonsource/julius/gramtools/mkdfa/mkfa-1.44-flex/gram.y"
 
 #include "lex.yy.c"
 void appendNonTerm( char *name, int modeAssign )
