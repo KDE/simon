@@ -1,0 +1,330 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE
+       CVS -->
+  <!ENTITY kmyapplication "<application>simond</application>">
+  <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
+                                            do *not* replace kappname-->
+  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
+                                     this unchanged if your
+                                     application is not maintained in KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"> <!-- ONLY If you are writing non-English
+                                     original documentation, change
+                                     the language here -->
+
+  <!-- Do not define any other entities; instead, use the entities
+       from entities/general.entities and $LANG/user.entities. -->
+]>
+<!-- kdoctemplate v0.9 January 10 2003
+     Changes to comments to clarify entity usage January 10 2003
+     Minor update to "Credits and Licenses" section on August 24, 2000
+     Removed "Revision history" section on 22 January 2001
+     Changed to Installation/Help menu entities 18 October 2001
+     Other minor cleanup and changes 18 October 2001
+     FPI change and minor changes November 2002 -->
+
+<!--
+This template was designed by: David Rugge davidrugge@mindspring.com
+with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
+and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
+of the KDE DocBook team.
+
+You may freely use this template for writing any sort of KDE documentation.
+If you have any changes or improvements, please let us know.
+
+Remember:
+- in XML, the case of the <tags> and attributes is relevant ;
+- also, quote all attributes.
+
+Please don't forget to remove all these comments in your final documentation,
+thanks ;-).
+-->
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+<!-- If you are writing original documentation in a language other -->
+<!-- than English, change the language above ONLY, not here -->
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+
+<!-- Date and version information of the application
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (YYYY-MM-DD) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>2008-03-04</date>
+<releaseinfo>0.2</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>
+&kmyapplication; is the server component of the simon speech recognition suite.
+</para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdeutils</keyword>
+<keyword>Kapp</keyword>
+<keyword>simon</keyword>
+<keyword>recognition</keyword>
+<keyword>speech</keyword>
+<keyword>voice</keyword>
+<keyword>command</keyword>
+<keyword>control</keyword>
+<keyword>accessibility</keyword>
+</keywordset>
+
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>&FDLNotice;</legalnotice>
+
+<copyright>
+<year>2009</year>
+<holder>Peter Grasch</holder>
+</copyright>
+
+<authorgroup>
+<author>
+<!-- This is just put in as an example.  For real documentation, please
+     define a general entity in entities/contributor.entities, e.g.
+<!ENTITY George.N.Ugnacious "<personname><firstname>George</firstname><othername>N.</othername><surname>Ugnacious</surname></personname>">
+<!ENTITY George.N.Ugnacious.mail "<email>gnu@kde.org</email>">
+and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
+ -->
+<personname>
+<firstname>Peter</firstname>
+<othername>H.</othername>
+<surname>Grasch</surname>
+</personname>
+<email>grasch@simon-listens.org</email>
+</author>
+</authorgroup>
+
+
+<title>The &kmyapplication; Handbook</title>
+</bookinfo>
+
+<!-- The contents of the documentation begin here.  Label
+each chapter so with the id attribute. This is necessary for two reasons: it
+allows you to easily reference the chapter from other chapters of your
+document, and if there is no ID, the name of the generated HTML files will vary
+from time to time making it hard to manage for maintainers and for the CVS
+system. Any chapter labelled (OPTIONAL) may be left out at the author's
+discretion. Other chapters should not be left out in order to maintain a
+consistent documentation style across all KDE apps. -->
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<!-- The introduction chapter contains a brief introduction for the
+application that explains what it does and where to report
+problems. Basically a long version of the abstract.  Don't include a
+revision history. (see installation appendix comment) -->
+
+<para>
+&kmyapplication; is the server component of the simon speech recognition suite. It handels the recognition and the model compilation and receives it input from the simon client(s) which connect to the server using TCP/IP.
+</para>
+<para>For more information please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>.</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title>Using &kmyapplication;</title>
+
+<para>simond is a command line application which does not have any user interface. There are no special launch parameters.</para>
+
+<para>However, simond installs two KCMs that are listed in KDEs systemsettings and can also be accessed directly using the <command>kcmshell4</command>:
+<itemizedlist>
+<listitem><para><command>kcmshell4 simonduserconfiguration</command></para></listitem>
+<listitem><para><command>kcmshell4 simondnetworkconfiguration</command></para></listitem>
+</itemizedlist>
+</para>
+
+<para>When used from within a graphical environment (if you don't know what this is you are most likely using one), it is recommended to use the graphical frontend called <command>ksimond</command> which also provides access to the configuration modules through its configuration dialog. See the ksimond manual for details.</para>
+
+
+<sect1 id="user_configuration">
+<title>User Configuration</title>
+
+<para>Using the user configuration you can define, edit and remove users and their models from the server.</para>
+
+<para>
+<screenshot>
+<screeninfo>screenshot of the simond user configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="simond_user_config.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>simond user configuration</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>simond identifies its connections with a user / password combination which is completely independant from the underlying operating system and its users (which means you have to set up at least one user for simond to use it). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model.</para>
+<para>The users are stored in a sqlite database that is managed through the <command>simonduserconfiguration</command> KCM.</para>
+
+<para>This database is stored depending on your operating system:
+
+<table frame='all'><title>simond user database storage</title>
+<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+<colspec colname='c1'/>
+<colspec colname='c2'/>
+<thead>
+<row>
+  <entry>Microsoft Windows</entry>
+  <entry>GNU/Linux</entry>
+</row>
+</thead>
+<tbody>
+<row>
+  <entry><filename>%appdata%\.kde\share\apps\simond\simond.db</filename></entry>
+  <entry><filename>~/.kde/share/apps/simond/simond.db</filename></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</para>
+
+<para>simond does not come with a default user so you have to add one user before you can connect simon to the simond server.</para>
+
+<para>The password of the users will be hashed and can not be shown in clear-text. When a user forgets his or her password there is no way to retreive his original password from the simond database but you can reset it using the "Change Password" button.</para>
+
+<para>When remove a user from the database which already also has a speech model associated with him, you will be prompted if you also want to remove the model. If you select no and add a user with the same name later on, he will start off with this speech model.</para>
+</sect1>
+
+<sect1 id="network_configuration">
+<title>Network Configuration</title>
+<para>Using the network configuration, the user can change the port used by the server and restrict access to a specific IP.</para>
+
+<para><emphasis>If you don't know what hosts, ports or IPs are it is very likely that the default values are just fine.</emphasis></para>
+<para>
+<screenshot>
+<screeninfo>screenshot of the simond network configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="simond_network_config.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>simond network configuration</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+<para>The port can be changed freely. The default of 4444 is however not occupied by any major application or protocol and thus recommended. If you adjust the port here, make sure you also make the necessary adjustments on your simon clients.</para>
+
+<para>Using the option to "Only allow connections from" you can restrict the access to your server from anywhere but the given IP address. By default this is configured to only allow (simon) connections from the local host which only allows for local simon clients to connect to the server.</para>
+<para>This is simply a security meassure because it effectively blocks connections from anywhere else (even if the attacker knows your simon username and password). To allow connections from other hosts simply uncheck the checkbox.</para>
+
+<para>Protocol encryption is not yet implemented.</para>
+</sect1>
+
+<!-- This chapter should tell the user how to use your app. You should use as
+many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
+your application. -->
+
+</chapter>
+
+
+<chapter id="faq">
+<title>Questions and Answers</title>
+
+<para>
+In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
+</para>
+
+<!--<qandaset id="faqlist">
+<qandaentry>
+<question>
+<para>My Mouse doesn't work. How do I quit &kmyapplication;?</para>
+</question>
+<answer>
+<para>You silly goose! Check out the <link linkend="using-simon">Using &kmyapplication;</link> for the answer.</para>
+</answer>
+</qandaentry>
+<qandaentry>
+<question>
+<para>Why can't I twiddle my documents?</para>
+</question>
+<answer>
+<para>You can only twiddle your documents if you have the foobar.lib
+installed.</para>
+</answer>
+</qandaentry>
+</qandaset>-->
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title>Credits and License</title>
+
+<para>
+&kmyapplication;
+</para>
+<para>
+Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</email>
+</para>
+
+<para>
+Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens.org</email>
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;               <!-- FDL: do not remove -->
+
+<!-- Determine which license your application is licensed under,
+     and delete all the remaining licenses below:
+
+     (NOTE:  All documentation are licensed under the FDL,
+     regardless of what license the application uses) -->
+
+&underGPL;           <!-- GPL License -->
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+<para>Please see our <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
+
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->
