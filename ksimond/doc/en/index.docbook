@@ -194,9 +194,6 @@ ksimond has the ability to launch automatically when KDE starts and to handle un
 <para>
 Please note that the option to start ksimond at login will work on both Microsoft Windows and when you are using KDE on Linux. Support for other desktop environments like Gnome, XFCE, etc. might require manually placing ksimond in the session autostart (please refer to the respective manuals of your desktop environment).
 </para>
-<para>
-When the option to start ksimond minimized is selected, ksimond will minimize to the system tray immidiatly after starting.
-</para>
 
 <para>
 Alongside the ksimond configuration the simond configuration modules are listed (also available through systemsettings). See the <ulink url="help:/simond">simond manual</ulink> for details.

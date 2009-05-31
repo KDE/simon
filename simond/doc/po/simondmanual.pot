@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-28 21:05+0000\n"
+"POT-Creation-Date: 2009-05-29 19:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
@@ -260,7 +260,7 @@ msgstr ""
 msgid "Using the network configuration, the user can change the port used by the server and restrict access to a specific IP."
 msgstr ""
 
-#. Tag: emphasis
+#. Tag: warning
 #: index.docbook:218
 #, no-c-format
 msgid "If you don't know what hosts, ports or IPs are it is very likely that the default values are just fine."

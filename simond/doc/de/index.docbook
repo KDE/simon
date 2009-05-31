@@ -2,14 +2,19 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
   <!-- Define an entity for your application if it is not part of KDE
        CVS -->
-  <!ENTITY kmyapplication "<application>simond</application>">
-  <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
+  <!ENTITY kmyapplication "<application
+>simond</application
+>">
+  <!ENTITY kappname "&kmyapplication;"
+><!-- replace kmyapplication here
                                             do *not* replace kappname-->
-  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
+  <!ENTITY package "kde-module"
+><!-- kdebase, kdeadmin, etc.  Leave
                                      this unchanged if your
                                      application is not maintained in KDE CVS -->
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"> <!-- ONLY If you are writing non-English
+  <!ENTITY % English "INCLUDE"
+> <!-- ONLY If you are writing non-English
                                      original documentation, change
                                      the language here -->
 
@@ -34,7 +39,8 @@ You may freely use this template for writing any sort of KDE documentation.
 If you have any changes or improvements, please let us know.
 
 Remember:
-- in XML, the case of the <tags> and attributes is relevant ;
+- in XML, the case of the <tags
+> and attributes is relevant ;
 - also, quote all attributes.
 
 Please don't forget to remove all these comments in your final documentation,
@@ -53,7 +59,21 @@ as Authors, publish date, the abstract, and Keywords -->
 
 <bookinfo>
 
-<!-- TRANS:ROLES_OF_TRANSLATORS -->
+<othercredit role="translator"
+><firstname
+>Peter</firstname
+><surname
+>Grasch</surname
+><affiliation
+><address
+><email
+>grasch@simon-listens.org</email
+></address
+></affiliation
+><contrib
+>Deutsche Übersetzung</contrib
+></othercredit
+> 
 
 
 <!-- Date and version information of the application
@@ -63,15 +83,16 @@ Please respect the format of the date (YYYY-MM-DD) and of the version
 (V.MM.LL), it could be used by automation scripts.
 Do NOT change these in the translation. -->
 
-<date>2008-03-04</date>
-<releaseinfo>0.2</releaseinfo>
+<date
+>2008-03-04</date>
+<releaseinfo
+>0.2</releaseinfo>
 
 <!-- Abstract about this handbook -->
 
 <abstract>
-<para>
-&kmyapplication; is the server component of the simon speech recognition suite.
-</para>
+<para
+>&kmyapplication; ist die Serverkomponente der simon Spracherkennungslösung. </para>
 </abstract>
 
 <!-- This is a set of Keywords for indexing by search engines.
@@ -79,47 +100,59 @@ Please at least include KDE, the KDE package it is in, the name
  of your application, and a few relevant keywords. -->
 
 <keywordset>
-<keyword>KDE</keyword>
-<keyword>kdeutils</keyword>
-<keyword>Kapp</keyword>
-<keyword>simon</keyword>
-<keyword>recognition</keyword>
-<keyword>speech</keyword>
-<keyword>voice</keyword>
-<keyword>command</keyword>
-<keyword>control</keyword>
-<keyword>accessibility</keyword>
+<keyword
+>KDE</keyword>
+<keyword
+>kdeutils</keyword>
+<keyword
+>Kapp</keyword>
+<keyword
+>simon</keyword>
+<keyword
+>Erkennung</keyword>
+<keyword
+>Sprache</keyword>
+<keyword
+>Sprecher</keyword>
+<keyword
+>Kommando</keyword>
+<keyword
+>Kontrolle</keyword>
+<keyword
+>Zugangshilfe</keyword>
 </keywordset>
 
 <!-- Translators: put here the copyright notice of the translation -->
 <!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
      and in the FDL itself on how to use it. -->
-<legalnotice>&FDLNotice;</legalnotice>
+<legalnotice
+>&FDLNotice;</legalnotice>
 
 <copyright>
-<year>2009</year>
-<holder>Peter Grasch</holder>
+<year
+>2009</year>
+<holder
+>Peter Grasch</holder>
 </copyright>
 
 <authorgroup>
-<author>
-<!-- This is just put in as an example.  For real documentation, please
-     define a general entity in entities/contributor.entities, e.g.
-<!ENTITY George.N.Ugnacious "<personname><firstname>George</firstname><othername>N.</othername><surname>Ugnacious</surname></personname>">
-<!ENTITY George.N.Ugnacious.mail "<email>gnu@kde.org</email>">
-and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
- -->
-<personname>
-<firstname>Peter</firstname>
-<othername>H.</othername>
-<surname>Grasch</surname>
-</personname>
-<email>grasch@simon-listens.org</email>
-</author>
+<author
+><personname
+> <firstname
+>Peter</firstname
+> <othername
+>H.</othername
+> <surname
+>Grasch</surname
+> </personname
+> <email
+>grasch@simon-listens.org</email
+> </author>
 </authorgroup>
 
 
-<title>The &kmyapplication; Handbook</title>
+<title
+>Das &kmyapplication; handbuch</title>
 </bookinfo>
 
 <!-- The contents of the documentation begin here.  Label
@@ -132,110 +165,161 @@ discretion. Other chapters should not be left out in order to maintain a
 consistent documentation style across all KDE apps. -->
 
 <chapter id="introduction">
-<title>Introduction</title>
+<title
+>Einleitung</title>
 
 <!-- The introduction chapter contains a brief introduction for the
 application that explains what it does and where to report
 problems. Basically a long version of the abstract.  Don't include a
 revision history. (see installation appendix comment) -->
 
-<para>
-&kmyapplication; is the server component of the simon speech recognition suite. It handels the recognition and the model compilation and receives it input from the simon client(s) which connect to the server using TCP/IP.
-</para>
-<para>For more information please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>.</para>
+<para
+>&kmyapplication; ist die Serverkomponente der simon Spracherkennungslösung. Es ist für die eigentliche Erkennung und für die Erzeugung des Modells zuständig. Es erhält die Eingabedateien und die Daten vom Mikrofon von den simon Client(s) über das Netzwerk (TCP/IP). </para>
+<para
+>Für weitere Informationen sehen Sie bitte das <ulink url="help:/simon/overview.html#architecture"
+>simon Handbuch</ulink
+>.</para>
 </chapter>
 
 <chapter id="using-kapp">
-<title>Using &kmyapplication;</title>
+<title
+>&kmyapplication; benutzen</title>
 
-<para>simond is a command line application which does not have any user interface. There are no special launch parameters.</para>
+<para
+>simond ist eine Kommandozeilenapplikation die keine Benutzerinteraktion bietet. Es gibt auch keine speziellen Kommandozeilenparameter.</para>
 
-<para>However, simond installs two KCMs that are listed in KDEs systemsettings and can also be accessed directly using the <command>kcmshell4</command>:
-<itemizedlist>
-<listitem><para><command>kcmshell4 simonduserconfiguration</command></para></listitem>
-<listitem><para><command>kcmshell4 simondnetworkconfiguration</command></para></listitem>
+<para
+>Allerdings installiert simond zwei KCModule die in KDEs "systemsettings" gelistet werden und auch direkt mit <command
+>kcmshell4</command
+> angezeigt werden können: <itemizedlist>
+<listitem
+><para
+><command
+>kcmshell4 simonduserconfiguration</command
+></para
+></listitem>
+<listitem
+><para
+><command
+>kcmshell4 simondnetworkconfiguration</command
+></para
+></listitem>
 </itemizedlist>
 </para>
 
-<para>When used from within a graphical environment (if you don't know what this is you are most likely using one), it is recommended to use the graphical frontend called <command>ksimond</command> which also provides access to the configuration modules through its configuration dialog. See the ksimond manual for details.</para>
+<para
+>Wenn simond innerhalb einer grafischen Benutzerumgebung ausgeführt wird (wenn Sie nicht wissen sollten was eine "grafische Benutzerumgebung" ist, verwenden Sie wahrscheinlich eine), ist es empfohlen simon über das grafische Frontend <command
+>ksimond</command
+> zu benutzen. ksimond bietet Zugriff auf die Konfigurationsmodule über sein Konfigurationsmenü. Sehen Sie das ksimond Handbuch für Details.</para>
 
 
 <sect1 id="user_configuration">
-<title>User Configuration</title>
+<title
+>Benutzerkonfiguration</title>
 
-<para>Using the user configuration you can define, edit and remove users and their models from the server.</para>
+<para
+>Mit der Benutzerkonfiguration können Sie die neue Benutzer anlegen, vorhandene bearbeiten und - auf Wunsch inklusive deren Modell - vom Server entfernen.</para>
 
 <para>
 <screenshot>
-<screeninfo>screenshot of the simond user configuration</screeninfo>
+<screeninfo
+>Screenshot der simond Benutzerkonfiguration</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="simond_user_config.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>simond user configuration</phrase>
+      <phrase
+>simond Benutzerkonfiguration</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 
-<para>simond identifies its connections with a user / password combination which is completely independant from the underlying operating system and its users (which means you have to set up at least one user for simond to use it). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model.</para>
-<para>The users are stored in a sqlite database that is managed through the <command>simonduserconfiguration</command> KCM.</para>
+<para
+>simond identifiziert seine Verbindungen mit einer Benutzername / Passwort Kombination die komplett unabhängig ist vom zugrunde liegenden Betriebssystem.</para>
+<para
+>Die Benutzer werden in einer SQLite Datenbank gespeichert die durch das <command
+>simonduserconfiguration</command
+> KCM verwaltet werden.</para>
 
-<para>This database is stored depending on your operating system:
-
-<table frame='all'><title>simond user database storage</title>
+<para
+>Der Speicherort der Datenbank hängt vom Betriebssystem ab: <table frame='all'
+><title
+>simond Benutzerdatenbank</title>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
 <colspec colname='c1'/>
 <colspec colname='c2'/>
 <thead>
 <row>
-  <entry>Microsoft Windows</entry>
-  <entry>GNU/Linux</entry>
+  <entry
+>Microsoft Windows</entry>
+  <entry
+>GNU/Linux</entry>
 </row>
 </thead>
 <tbody>
 <row>
-  <entry><filename>%appdata%\.kde\share\apps\simond\simond.db</filename></entry>
-  <entry><filename>~/.kde/share/apps/simond/simond.db</filename></entry>
+  <entry
+><filename
+>%appdata%\.kde\share\apps\simond\simond.db</filename
+></entry>
+  <entry
+><filename
+>~/.kde/share/apps/simond/simond.db</filename
+></entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 </para>
 
-<para>simond does not come with a default user so you have to add one user before you can connect simon to the simond server.</para>
+<para
+>simond liefert keinen Defaultbenutzer mit aus also müssen Sie einen anlegen bevor Sie simon zum simond Server verbinden können.</para>
 
-<para>The password of the users will be hashed and can not be shown in clear-text. When a user forgets his or her password there is no way to retreive his original password from the simond database but you can reset it using the "Change Password" button.</para>
+<para
+>Das Passwort der Benutzer wird "gehashed" und kann deshalb nicht im Klartext angezeigt werden. Wenn ein Benutzer sein Passwort verliert existiert kein weg das verwendete Passwort von der simond Datenbank zu rekonstruieren. Sie können aber ein neues Passwort mit dem "Passwort ändern" Knopf vergeben.</para>
 
-<para>When remove a user from the database which already also has a speech model associated with him, you will be prompted if you also want to remove the model. If you select no and add a user with the same name later on, he will start off with this speech model.</para>
+<para
+>Wenn ein Benutzer von der Datenbank entfernt wird, der bereits ein Sprachmodell generiert und gespeichert hat wird der Benutzer gefragt ob er neben dem Benutzer-Eintrag in der Datenbank auch das gespeicherte Modell entfernen möchte. Wenn Sie das Sprachmodell gespeichert lassen (mit "Nein" antworten), wird der nächste Benutzer mit dem gleichen Benutzernamen das Modell "erben".</para>
 </sect1>
 
 <sect1 id="network_configuration">
-<title>Network Configuration</title>
-<para>Using the network configuration, the user can change the port used by the server and restrict access to a specific IP.</para>
+<title
+>Netzwerkkonfiguration</title>
+<para
+>Mit der Netzwerkkonfiguration können Sie den Port ändern auf dem der Server hört und die Zugriffe auf eine spezielle IP Adresse limitieren.</para>
 
-<para><emphasis>If you don't know what hosts, ports or IPs are it is very likely that the default values are just fine.</emphasis></para>
+<warning
+><para
+>Wenn Sie nicht wissen, was "Hosts", "Ports" oder "IPs" sind, dann werden die Standardwerte höchstwahrscheinlich ausreichen.</para
+></warning>
 <para>
 <screenshot>
-<screeninfo>screenshot of the simond network configuration</screeninfo>
+<screeninfo
+>Screenshot der simond Netzwerkkonfiguration</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="simond_network_config.png" format="PNG"/>
     </imageobject>
     <textobject>
-      <phrase>simond network configuration</phrase>
+      <phrase
+>simond Netzwerkkonfiguration</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 
-<para>The port can be changed freely. The default of 4444 is however not occupied by any major application or protocol and thus recommended. If you adjust the port here, make sure you also make the necessary adjustments on your simon clients.</para>
+<para
+>Der Port kann natürlich frei geändert werden. Der Standardport (4444) ist allerdings von keiner anderen bekannten Applikation verwendet und deshalb empfohlen. Wenn Sie den Port hier ändern, müssen Sie ihn natürlich auch auf allen simon clients entsprechend anpassen.</para>
 
-<para>Using the option to "Only allow connections from" you can restrict the access to your server from anywhere but the given IP address. By default this is configured to only allow (simon) connections from the local host which only allows for local simon clients to connect to the server.</para>
-<para>This is simply a security meassure because it effectively blocks connections from anywhere else (even if the attacker knows your simon username and password). To allow connections from other hosts simply uncheck the checkbox.</para>
+<para
+>Mit der Option "Nur Verbindungen erlauben von" können Sie den kompletten Zugriff auf den Server auf die angegebene IP Adresse beschärnken. Per Default ist simond aus Sicherheitsgründen so konfiguriert, dass er nur auf simon Verbindungen vom lokalen Host reagiert. Es können per Default also nur lokale simon Benutzer auf den Server zugreifen.</para>
+<para
+>Das ist nur eine Maßnahme zur Erhöhung der Sicherheit, da Sie auf einem sehr niedrigen Level sicherstellt, dass selbst ein potentieller Angreifer der Benutzername und Passwort Ihrerer simon Installation kennt nicht über das Netzwerk (im schlimmsten Fall über das Internet) auf Ihren simond zugreifen kann. Um Netzwerkzugriff zu erlauben, deaktivieren Sie einfach die Option "Nur Verbindungen erlauben von".</para>
 
-<para>Protocol encryption is not yet implemented.</para>
+<para
+>Protokollverschlüsselung ist derzeit noch nicht implmentiert.</para>
 </sect1>
 
 <!-- This chapter should tell the user how to use your app. You should use as
@@ -246,31 +330,40 @@ your application. -->
 
 
 <chapter id="faq">
-<title>Questions and Answers</title>
+<title
+>Fragen und Antworten</title>
 
-<para>
-In an effort to keep this section always up-to-date it is available at our <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting">online wiki</ulink>.
-</para>
+<para
+>Um diese Sektion immer aktuell zu halten, wird dieser Teil des Handbuches in unserem <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting"
+>online Wiki</ulink
+> und somit für alle editierbar verwaltet. </para>
 
 <!--<qandaset id="faqlist">
 <qandaentry>
 <question>
-<para>My Mouse doesn't work. How do I quit &kmyapplication;?</para>
+<para
+>My Mouse doesn't work. How do I quit &kmyapplication;?</para>
 </question>
 <answer>
-<para>You silly goose! Check out the <link linkend="using-simon">Using &kmyapplication;</link> for the answer.</para>
+<para
+>You silly goose! Check out the <link linkend="using-simon"
+>Using &kmyapplication;</link
+> for the answer.</para>
 </answer>
 </qandaentry>
 <qandaentry>
 <question>
-<para>Why can't I twiddle my documents?</para>
+<para
+>Why can't I twiddle my documents?</para>
 </question>
 <answer>
-<para>You can only twiddle your documents if you have the foobar.lib
+<para
+>You can only twiddle your documents if you have the foobar.lib
 installed.</para>
 </answer>
 </qandaentry>
-</qandaset>-->
+</qandaset
+>-->
 </chapter>
 
 <chapter id="credits">
@@ -280,36 +373,35 @@ contributors here. The license for your software should then be included below
 the credits with a reference to the appropriate license file included in the KDE
 distribution. -->
 
-<title>Credits and License</title>
+<title
+>Danksagungen und Lizenz</title>
 
-<para>
-&kmyapplication;
-</para>
-<para>
-Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</email>
-</para>
+<para
+>&kmyapplication; </para>
+<para
+>Program copyright 2008-2009 Peter Grasch <email
+>grasch@simon-listens.org</email
+> </para>
 
-<para>
-Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens.org</email>
-</para>
+<para
+>Documentation Copyright &copy; 2009 Peter Grasch <email
+>grasch@simon-listens.org</email
+> </para>
 
-<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
-
-&underFDL;               <!-- FDL: do not remove -->
-
-<!-- Determine which license your application is licensed under,
-     and delete all the remaining licenses below:
-
-     (NOTE:  All documentation are licensed under the FDL,
-     regardless of what license the application uses) -->
-
-&underGPL;           <!-- GPL License -->
-
-</chapter>
+<para
+>Übersetzung Copyright &copy; 2009 Peter Grasch <email
+>grasch@simon-listens.org</email
+></para
+> 
+&underFDL; &underGPL; </chapter>
 
 <appendix id="installation">
-<title>Installation</title>
-<para>Please see our <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Setup">wiki</ulink> for install instructions.</para>
+<title
+>Installation</title>
+<para
+>Bitte sehen Sie unser <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Setup"
+>online Wiki</ulink
+> for eine detailierte Installationsanleitung.</para>
 
 </appendix>
 

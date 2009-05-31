@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-28 20:57+0000\n"
+"POT-Creation-Date: 2009-05-30 13:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
@@ -177,121 +177,115 @@ msgid "Please note that the option to start ksimond at login will work on both M
 msgstr ""
 
 #. Tag: para
-#: index.docbook:197
-#, no-c-format
-msgid "When the option to start ksimond minimized is selected, ksimond will minimize to the system tray immidiatly after starting."
-msgstr ""
-
-#. Tag: para
-#: index.docbook:201
+#: index.docbook:198
 #, no-c-format
 msgid "Alongside the ksimond configuration the simond configuration modules are listed (also available through systemsettings). See the <ulink url=\"help:/simond\">simond manual</ulink> for details."
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:205
+#: index.docbook:202
 #, no-c-format
 msgid "screenshot of the simond user configuration"
 msgstr ""
 
 #. Tag: phrase
-#: index.docbook:211
+#: index.docbook:208
 #, no-c-format
 msgid "simond user configuration"
 msgstr ""
 
 #. Tag: screeninfo
-#: index.docbook:217
+#: index.docbook:214
 #, no-c-format
 msgid "screenshot of the simond network configuration"
 msgstr ""
 
 #. Tag: phrase
-#: index.docbook:223
+#: index.docbook:220
 #, no-c-format
 msgid "simond network configuration"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:239
+#: index.docbook:236
 #, no-c-format
 msgid "Credits and License"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:241
+#: index.docbook:238
 #, no-c-format
 msgid "&kappname;"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:244
+#: index.docbook:241
 #, no-c-format
 msgid "Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</email>"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:257
+#: index.docbook:254
 #, no-c-format
 msgid "Documentation Copyright &copy; 2008 Peter Grasch <email>grasch@simon-listens.org</email>"
 msgstr ""
 
 #. Tag: trans_comment
-#: index.docbook:261
+#: index.docbook:258
 #, no-c-format
 msgid "CREDIT_FOR_TRANSLATORS"
 msgstr ""
 
 #. Tag: chapter
-#: index.docbook:261
+#: index.docbook:258
 #, no-c-format
 msgid "&underFDL; &underGPL;"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:271
+#: index.docbook:268
 #, no-c-format
 msgid "Installation"
 msgstr ""
 
 #. Tag: title
-#: index.docbook:274
+#: index.docbook:271
 #, no-c-format
 msgid "How to obtain &kappname;"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:276
+#: index.docbook:273
 #, no-c-format
 msgid "Download the latest version of ksimond using the simon-bundle avaible from <ulink url=\"http://sourceforge.net/project/showfiles.php?group_id=190872&amp;package_id=224125\">sourceforge</ulink>."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:285
+#: index.docbook:282
 #, no-c-format
 msgid "Requirements"
 msgstr ""
 
 #. Tag: para
-#: index.docbook:298
+#: index.docbook:295
 #, no-c-format
 msgid "In order to successfully use &kappname;, you need &kde; 4. simond is obviously also required."
 msgstr ""
 
 #. Tag: para
-#: index.docbook:303
+#: index.docbook:300
 #, no-c-format
 msgid "simon and simond itself can be found on <ulink url=\"http://sourceforge.net/project/showfiles.php?group_id=190872&amp;package_id=224125\">the simon sourceforge page</ulink>."
 msgstr ""
 
 #. Tag: title
-#: index.docbook:310
+#: index.docbook:307
 #, no-c-format
 msgid "Compilation and Installation"
 msgstr ""
 
 #. Tag: sect1
-#: index.docbook:310
+#: index.docbook:307
 #, no-c-format
 msgid "&install.compile.documentation;"
 msgstr ""
