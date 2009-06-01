@@ -23,7 +23,7 @@ ENDIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
 SET(CPACK_DEBIAN_PACKAGE_DEPENDS  "kdelibs5 (>=4.2.0-0ubuntu2), kdebase-runtime, libqtcore4, libqtgui4, libstdc++6, libasound2, zlib1g, libc6, libportaudio2, libqt4-sql-sqlite, flex")
 SET(CPACK_DEBIAN_PACKAGE_CONFLICTS  "julius julius-simon")
 SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA 
-	"${CMAKE_CURRENT_SOURCE_DIR}/deb/postinst;${CMAKE_CURRENT_SOURCE_DIR}/deb/postrm")
+	"${CMAKE_CURRENT_SOURCE_DIR}/package/deb/postinst;${CMAKE_CURRENT_SOURCE_DIR}/package/deb/postrm")
 
 SET(CPACK_PACKAGE_CONTACT "SIMON listens <support@simon-listens.org>")
 SET(CPACK_DEBIAN_PACKAGE_SECTION "utils")
@@ -266,5 +266,5 @@ add_subdirectory(ksimond)
 add_subdirectory(plugins)
 
 if(WIN32)
-add_subdirectory(KDE)
+add_subdirectory(package/KDE)
 ENDIF(WIN32)
