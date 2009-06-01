@@ -33,11 +33,12 @@
 #endif
 #include <KAboutData>
 #include <KCmdLineArgs>
+#include "../../version.h"
 
 int main(int argc, char *argv[])
 {
 	KAboutData aboutData( "simon", "simon",
-			ki18n("simon"), "0.2rc1",
+			ki18n("simon"), simon_version,
 			      ki18n("<html><head /><body>\
 					      <h2>Development and Distribution</h2>\
 					      <p>Developed and distributed by the friendly society <a href=\"http://simon-listens.org\">simon listens e.V.</a> in cooperation with <a href=\"http://cyber-byte.at\">Cyber-Byte EDV Services</a>.</p>\
