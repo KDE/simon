@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-29 19:04+0000\n"
+"POT-Creation-Date: 2009-06-02 16:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
@@ -113,7 +113,7 @@ msgstr ""
 #. Tag: para
 #: index.docbook:142
 #, no-c-format
-msgid "&kmyapplication; is the server component of the simon speech recognition suite. It handels the recognition and the model compilation and receives it input from the simon client(s) which connect to the server using TCP/IP."
+msgid "&kmyapplication; is the server component of the simon speech recognition suite. It handles the recognition and the model compilation and receives it input from the simon client(s) which connect to the server using TCP/IP."
 msgstr ""
 
 #. Tag: para
@@ -185,7 +185,7 @@ msgstr ""
 #. Tag: para
 #: index.docbook:182
 #, no-c-format
-msgid "simond identifies its connections with a user / password combination which is completely independant from the underlying operating system and its users (which means you have to set up at least one user for simond to use it). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model."
+msgid "simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users (which means you have to set up at least one user for simond to use it). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model."
 msgstr ""
 
 #. Tag: para
@@ -239,7 +239,7 @@ msgstr ""
 #. Tag: para
 #: index.docbook:209
 #, no-c-format
-msgid "The password of the users will be hashed and can not be shown in clear-text. When a user forgets his or her password there is no way to retreive his original password from the simond database but you can reset it using the \"Change Password\" button."
+msgid "The password of the users will be hashed and can not be shown in clear-text. When a user forgets his or her password there is no way to retrieve his original password from the simond database but you can reset it using the \"Change Password\" button."
 msgstr ""
 
 #. Tag: para
@@ -260,7 +260,7 @@ msgstr ""
 msgid "Using the network configuration, the user can change the port used by the server and restrict access to a specific IP."
 msgstr ""
 
-#. Tag: warning
+#. Tag: para
 #: index.docbook:218
 #, no-c-format
 msgid "If you don't know what hosts, ports or IPs are it is very likely that the default values are just fine."
@@ -293,7 +293,7 @@ msgstr ""
 #. Tag: para
 #: index.docbook:236
 #, no-c-format
-msgid "This is simply a security meassure because it effectively blocks connections from anywhere else (even if the attacker knows your simon username and password). To allow connections from other hosts simply uncheck the checkbox."
+msgid "This is simply a security measure because it effectively blocks connections from anywhere else (even if the attacker knows your simon username and password). To allow connections from other hosts simply uncheck the checkbox."
 msgstr ""
 
 #. Tag: para

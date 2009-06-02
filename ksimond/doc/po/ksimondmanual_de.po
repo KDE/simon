@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-30 13:23+0000\n"
-"PO-Revision-Date: 2009-05-30 15:28+0200\n"
+"POT-Creation-Date: 2009-06-02 16:10+0000\n"
+"PO-Revision-Date: 2009-06-02 18:15+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org\n"
 "Language-Team: DE <grasch@simon-listens.org>\n"
 "MIME-Version: 1.0\n"
@@ -129,7 +129,7 @@ msgstr "Einleitung"
 msgid ""
 "&kappname; is a simple graphical front-end to simond. It creates and "
 "displays a tray-icon from which you can start and stop the simond server. "
-"Moreover it provides a configuration dialog in which it embedds the simond "
+"Moreover it provides a configuration dialog in which it embeds the simond "
 "configuration."
 msgstr ""
 "&kappname; ist ein einfaches, grafisches Frontend von simond. Es zeigt ein "
@@ -169,7 +169,7 @@ msgid ""
 "you can start and stop simond and also open the configuration."
 msgstr ""
 "&kappname; hat kein Applikationsfenster. Stattdessen erzeugt es ein Symbol "
-"im Kontrollleistenbereich der Taskleiste. Über das Kontextmenü des Symbols "
+"im Systembereich der Taskleiste. Über das Kontextmenü des Symbols "
 "kann simond gestartet und gestoppt werden und die Konfiguration angezeigt "
 "werden."
 
@@ -219,7 +219,7 @@ msgid ""
 msgstr ""
 "Die Option ksimond beim Anmelden zu starten wird unter Microsoft Windows und "
 "KDE unter Linux funktionieren. Andere Desktopumgebungen wie GNOME, XFCE, "
-"etc. werden wahrscheinlich manuelle Platzierung von ksimond im jweiligen "
+"etc. werden wahrscheinlich manuelle Platzierung von ksimond im jeweiligen "
 "Sitzungsautostart benötigen (bitte sehen Sie das jeweilige Handbuch der "
 "Desktopumgebung)."
 
@@ -325,16 +325,15 @@ msgid ""
 "<ulink url=\"http://sourceforge.net/project/showfiles.php?"
 "group_id=190872&amp;package_id=224125\">sourceforge</ulink>."
 msgstr ""
-"Laden Sie die letzte Version von ksimond im simon-Paket von "
-"<ulink url=\"http://sourceforge.net/project/showfiles.php?"
-"group_id=190872&amp;package_id=224125\">Sourceforge</ulink>."
-"herunter "
+"Laden Sie die letzte Version von ksimond im simon-Paket von <ulink url="
+"\"http://sourceforge.net/project/showfiles.php?group_id=190872&amp;"
+"package_id=224125\">Sourceforge</ulink>.herunter "
 
 #. Tag: title
 #: index.docbook:282
 #, no-c-format
 msgid "Requirements"
-msgstr "Vorraussetzungen"
+msgstr "Voraussetzungen"
 
 #. Tag: para
 #: index.docbook:295
@@ -342,8 +341,7 @@ msgstr "Vorraussetzungen"
 msgid ""
 "In order to successfully use &kappname;, you need &kde; 4. simond is "
 "obviously also required."
-msgstr ""
-"Um &kappname; zu benutzen benötigen Sie &kde; 4 und simond."
+msgstr "Um &kappname; zu benutzen benötigen Sie &kde; 4 und simond."
 
 #. Tag: para
 #: index.docbook:300
@@ -353,15 +351,15 @@ msgid ""
 "project/showfiles.php?group_id=190872&amp;package_id=224125\">the simon "
 "sourceforge page</ulink>."
 msgstr ""
-"simon und simond können auf der <ulink url=\"http://sourceforge.net/"
-"project/showfiles.php?group_id=190872&amp;package_id=224125\">simon "
-"Sourceforge Seite</ulink> finden."
+"simon und simond können auf der <ulink url=\"http://sourceforge.net/project/"
+"showfiles.php?group_id=190872&amp;package_id=224125\">simon Sourceforge "
+"Seite</ulink> finden."
 
 #. Tag: title
 #: index.docbook:307
 #, no-c-format
 msgid "Compilation and Installation"
-msgstr "Kompillierung und Installation"
+msgstr "Kompilierung und Installation"
 
 #. Tag: sect1
 #: index.docbook:307

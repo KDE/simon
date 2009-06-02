@@ -188,7 +188,7 @@ revision history. (see installation appendix comment) -->
 
 <sect1 id="architecture">
 <title
->Architketur</title>
+>Architektur</title>
 <para
 >Die simon Architektur besteht aus drei Anwendungen. <itemizedlist>
   <listitem
@@ -197,7 +197,7 @@ revision history. (see installation appendix comment) -->
 ><para
 >Das grafische Interface.</para
 ><para
->Es argiert als Client zum simond server.</para
+>Es agiert als Client zum simond Server.</para
 ></listitem>
   <listitem
 ><para
@@ -215,7 +215,7 @@ revision history. (see installation appendix comment) -->
 </para>
 
 <para
->simon (die Gesamtlösung) ist eine Server / Client Anwendug. Das bedeutet, dass ein Server (simond) mehrere Clients (&kmyapplication;; Diese Anwendung) bedient, welche über das Netzwerk angebunden sind. KSimond ist nur ein Frontend für simond was bedeutet, dass es keine zusätzliche Funktionalität zum System einbringt aber einen Weg bietet mit simond über eine grafische Benutzeroberfläche zu interagieren. </para>
+>simon (die Gesamtlösung) ist eine Server / Client Anwendung. Das bedeutet, dass ein Server (simond) mehrere Clients (&kmyapplication;; Diese Anwendung) bedient, welche über das Netzwerk angebunden sind. KSimond ist nur ein Frontend für simond was bedeutet, dass es keine zusätzliche Funktionalität zum System einbringt aber einen Weg bietet mit simond über eine grafische Benutzeroberfläche zu interagieren. </para>
 
 <para>
 <screenshot>
@@ -230,16 +230,16 @@ revision history. (see installation appendix comment) -->
 </para>
 
 <para
->&kmyapplication; wird verwendet um eine Repräesentation Ihrer Aussprache und Ihres Wortschatzes zu verwalten. Diese Repräesentation wird dann an den Server simond geschickt, welcher sie in ein benutzbares Sprachmodell übersetzt ("kompiliert").</para>
+>&kmyapplication; wird verwendet um eine RepräsentationIhrer Aussprache und Ihres Wortschatzes zu verwalten. Diese Repräsentationwird dann an den Server simond geschickt, welcher sie in ein benutzbares Sprachmodell übersetzt ("kompiliert").</para>
 <para
 >&kmyapplication; nimmt mit Hilfe von einem Mikrofon dann Ihre Stimme auf und sendet diese Aufnahme an den Server welcher die Erkennung auf diesen Datenstrom ausführt. simond sendet dieses Erkennungsergebnis dann zurück an den Client (&kmyapplication;).</para>
 <para
 >&kmyapplication; benutzt dieses Erkennungsergebnis dann um Kommandos auszuführen wie beispielsweise das Öffnen von Programmen oder URLs.</para>
 
 <para
->simond identifies its connections with a user / password combination which is completely independant from the underlying operating system and its users (which means you have to set up at least one user for simond to use it; see the <ulink url="help:/simond"
->simond manual</ulink
-> for details). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model. Every user maintains his own speech model but may use it from different computers (different, physical simon instances) simply by accessing the same simond server. One simond instance can of course also serve multiple users.</para>
+>Der simond Server identifiziert seine Verbindungen mit einer Benutzername / Passwort Kombination die komplett unabhängig ist vom zugrunde liegenden Betriebssystem. Das bedeutet, dass Sie zumindest einen Benutzer in simond anlegen müssen; sehen Sie das <ulink url="help:/simond"
+>simond Handbuch</ulink
+> für Details. Jeder simon Client meldet sich auf dem Server mit einer Benutzernamen / Passwort Kombination an, die den einzelnen Benutzer (die physische Person) identifiziert und Ihn damit einem eindeutigen, personalisierten Sprachmodell zuordnet. Jeder Benutzer verwaltet sein eigenes Sprachmodell aber kann auf dieses natürlich von unterschiedlichen Computern aus verwenden indem er sich einfach mit dem gleichen Benutzer am gleichen Server anmeldet. Eine simond Instanz kann natürlich auch von mehreren Benutzern genutzt werden.</para>
 
 </sect1>
 
@@ -249,7 +249,7 @@ revision history. (see installation appendix comment) -->
 >Spracherkennung: Hintergrundwissen</title>
 
 <para
->Spracherkennugnssysteme verwandeln Spracheingabe (von einem Mikrofon) und versuchen diese in einen geschriebenen Text umzuwandeln. Um das zu erreichen, benutzen sie eine statistische Repräsentation der gesprochenen Sprache. Um es einfach auszudrücken: Der Computer lernt wie die Wörter - oder besser gesagt die Laute die die Wörter ausmachen - klingen. </para>
+>Spracherkennungssysteme verwandeln Spracheingabe (von einem Mikrofon) und versuchen diese in einen geschriebenen Text umzuwandeln. Um das zu erreichen, benutzen sie eine statistische Repräsentation der gesprochenen Sprache. Um es einfach auszudrücken: Der Computer lernt wie die Wörter - oder besser gesagt die Laute die die Wörter ausmachen - klingen. </para>
 
 <para
 >Ein Sprachmodell besteht aus zwei Teilen (im Deutschen wird leider nicht zwischen "Sprache" im Sinne von "Sprechweise" und der "Sprache" im Sinne von Deutsch, Englisch, etc. unterschieden; Deshalb besteht das Sprachmodell ("speech model") aus einem Sprachmodell ("language model") und einem Akustikmodell ("acoustic model")): <itemizedlist>
@@ -259,7 +259,7 @@ revision history. (see installation appendix comment) -->
 ></listitem>
   <listitem
 ><para
->Aksutikmodell</para
+>Akustikmodell</para
 ></listitem>
 </itemizedlist>
 </para>
@@ -370,7 +370,7 @@ revision history. (see installation appendix comment) -->
 > Das Akustikmodell nutzt die Tatsache, dass gesprochene Wörter genauso aus Lauten bestehen wie geschriebene Wörter aus Buchstaben bestehen. Darauf aufbauend können wir Wörter in einzelne Laute zerlegen und sie bei der Erkennung wieder "zusammenbauen". Diese Bausteine nennt man "Phoneme". </para>
 
 <para
->Das Akustikmodel beinhaltet Daten wie die einzelnen Phoneme und nicht ganze Wörter  vom Anwender ausgesprochen werden. Das Trainingsmaterial eines Wortes beeinflusst deshalb auch die Erkennungsrate ähnlicher Worte positiv. </para>
+>Das Akustikmodell beinhaltet Daten wie die einzelnen Phoneme und nicht ganze Wörter  vom Anwender ausgesprochen werden. Das Trainingsmaterial eines Wortes beeinflusst deshalb auch die Erkennungsrate ähnlicher Worte positiv. </para>
 <para
 >Das bedeutet, dass wenn zum obigen Beispielvokabular nun noch das Wort "Mailing" hinzugefügt wird, weiß das Akustikmodell bereits ungefähr wie es klingen wird weil das Wort aus den Phonemen "m", "E", "I", "l", "I", "N" besteht und wir die Phonemkombination "m", "E", "I", "l" ja bereits für "Mail" trainiert haben. Wird jetzt eines der beiden Wörter trainiert, verbessert sich die Erkennung beider Wörter. Natürlich müssen aber auch die Phoneme "I" und "N" trainiert werden weshalb ein alleiniges Training vom Wort "Mail" nicht ausreicht um "Mailing" zu erkennen. </para>
 <para
@@ -447,7 +447,7 @@ revision history. (see installation appendix comment) -->
 <title
 >Stille</title>
 <para
->Um simon mit der automatischen Segmentierung zwischen den Wörtern zu helfen, empfeheln wir vor und nach dem Sprechen ca. ein bis zwei Sekunden "Stille" aufzunehmen.</para>
+>Um simon mit der automatischen Segmentierung zwischen den Wörtern zu helfen, empfehlen wir vor und nach dem Sprechen ca. ein bis zwei Sekunden "Stille" aufzunehmen.</para>
 </sect2>
 </sect1>
 </chapter>
@@ -510,7 +510,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <para
 >Wenn simon eine Verbindung mit einem simond hergestellt hat, wird sich der Text in "Aktivieren" ändern und wird nicht heruntergedrückt sein. Wenn die Option aktiviert wird (was automatisch passiert wenn die Erkennung verfügbar ist und die Option "Erkennung automatisch starten sobald verfügbar" aktiviert ist) wird simon versuchen die Erkennung zu starten.</para>
 <para
->Eine Option, die Verbindung zum simond zu trennen ("Verbindung trennen") ist verfügbar über das kleine Häckchen neben der Option.</para>
+>Eine Option, die Verbindung zum simond zu trennen ("Verbindung trennen") ist verfügbar über das kleine Häkchen neben der Option.</para>
 </listitem>
 <listitem
 ><para
@@ -518,7 +518,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <para
 >Wenn simon eine Verbindung zum Server aufgebaut hat und die Erkennung starten konnte, wird die Option mit "Aktiviert" beschriftet und heruntergedrückt sein. Wenn die Option jetzt aktiviert wird, wird simon die Erkennung stoppen und somit in den "Aktivieren"-Status zurückfallen. Die Verbindung zum Server wird dadurch aber nicht getrennt.</para>
 <para
->Eine Option, die Verbindung zum simond zu trennen ("Verbindung trennen") ist verfügbar über das kleine Häckchen neben der Option.</para>
+>Eine Option, die Verbindung zum simond zu trennen ("Verbindung trennen") ist verfügbar über das kleine Häkchen neben der Option.</para>
 </listitem>
 </itemizedlist>
 </para>
@@ -576,11 +576,11 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <para
 >Wenn simon zum simond verbunden ist, ist diese Option verfügbar.</para>
 <para
->simon erstellt die Eingabedateien für das Sprachmodell welche dann kompiliert und vom simond server für die Erkennung verwendet werden (siehe auch das Kapitel <link linkend="architecture"
+>simon erstellt die Eingabedateien für das Sprachmodell welche dann kompiliert und vom simond Server für die Erkennung verwendet werden (siehe auch das Kapitel <link linkend="architecture"
 >Architektur</link
 > für mehr Details).</para>
 <para
->Der Prozess des sendens der Ausgabedaten, kompilieren dieser und erhalten des fertigen Sprachmodells wird "Synchronisation" genannt. Per default wird simon eine Synchronisation automatisch einleiten wenn er sich zum Server verbindet und jedes Mal, wenn sich die Eingabedateien für das Sprachmodell lokal ändern. Bitte sehen Sie die Sektion <link linkend="configure_synchronization"
+>Der Prozess des sendens der Ausgabedaten, kompilieren dieser und erhalten des fertigen Sprachmodells wird "Synchronisation" genannt. Per Default wird simon eine Synchronisation automatisch einleiten wenn er sich zum Server verbindet und jedes Mal, wenn sich die Eingabedateien für das Sprachmodell lokal ändern. Bitte sehen Sie die Sektion <link linkend="configure_synchronization"
 >Synchronisation konfigurieren</link
 > wenn Sie diese Einstellung ändern wollen.</para>
 <para
@@ -622,12 +622,12 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 ></listitem
 ><listitem
 ><para
->Ausprache</para
+>Aussprache</para
 ><para
 >(Wie das Wort ausgesprochen wird; simon akzeptiert alle Formen von Lautschrift solange Sie weder Zahlen noch Sonderzeichen beinhaltet)</para
 ></listitem
 ></itemizedlist
-> Das bedeutet, dass Mehrzahlformen oder Unterschiede in Groß- / Kleinschreibung als unterschiedliche wörter behandelt werden. Dadurch erlaubt eine ausgefeilte Grammatik noch mehr Kontrolle. </para>
+> Das bedeutet, dass Mehrzahlformen oder Unterschiede in Groß- / Kleinschreibung als unterschiedliche Wörter behandelt werden. Dadurch erlaubt eine ausgefeilte Grammatik noch mehr Kontrolle. </para>
 
 <para
 >Generell ist es empfohlen das Vokabular so klein wie möglich zu halten. Je mehr Wörter die Wortliste umfasst, desto wahrscheinlicher ist es, dass simon etwas falsches erkennt. </para>
@@ -729,10 +729,10 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->Per Default wird das aktive Vokabular angezeigt. Nur nachdem Sie das Häckchen "Zeige auch unverwendete Wörter an (Schattenlexikon)" setzen, werden auch die Einträge des Schattenlexikons angezeigt.</para>
+>Per Default wird das aktive Vokabular angezeigt. Nur nachdem Sie das Häkchen "Zeige auch unverwendete Wörter an (Schattenlexikon)" setzen, werden auch die Einträge des Schattenlexikons angezeigt.</para>
 
 <para
->Für jedes Wort wird eine "Erkennungsrate" angezeigt. Die Erkennungsrate zeigt an wie oft ein Wort aufgenommen worde (alleine oder zusammen mit anderen Wörtern). </para>
+>Für jedes Wort wird eine "Erkennungsrate" angezeigt. Die Erkennungsrate zeigt an wie oft ein Wort aufgenommen wurde (alleine oder zusammen mit anderen Wörtern). </para>
 <para
 >Wenn diese Nummer nur Null oder Eins ist, wird der Eintrag in der Wortliste rot markiert (1: Hellrot; 0: Dunkelrot). Das ist eine Warnung. Wenn ein Wort eine Phonemkombination beinhaltet, welche nie trainiert wurde (Erkennungrate 0) kann das Modell <emphasis
 >nicht</emphasis
@@ -806,7 +806,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </screenshot>
 </para>
 <para
->Alle Vorschläge vom Schattenlexikon sind in der Tabelle "Ähnliche Wörter" aufgelistet. Per Default werden nur exakte Treffer angezeigt. Allerdings kann dies geändert werden, wenn das Häckchen bei der Option "Zeige verwandte Wörter" gesetzt wird. Da die meisten Lautschriften relativ leicht zu lesen sind, kann dann leicht aus ähnlichen Wörtern die Korrekte Aussprache abgeleitet werden.</para>
+>Alle Vorschläge vom Schattenlexikon sind in der Tabelle "Ähnliche Wörter" aufgelistet. Per Default werden nur exakte Treffer angezeigt. Allerdings kann dies geändert werden, wenn das Häkchen bei der Option "Zeige verwandte Wörter" gesetzt wird. Da die meisten Lautschriften relativ leicht zu lesen sind, kann dann leicht aus ähnlichen Wörtern die Korrekte Aussprache abgeleitet werden.</para>
 
 <para
 >Das hängt natürlich von Ihrem Schattenlexikon ab. Wenn das Schattenlexikon die Wörter die Sie hinzufügen wollen nicht beinhaltet, müssen die notwendigen Felder manuell ausgefüllt werden.</para>
@@ -898,7 +898,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <para
 >Um den Assistenten abzuschließen, müssen wir das Wort zweimal trainieren. Anmerkung: Wenn Sie sich wirklich sicher sind, können Sie diesen Schritt überspringen. </para>
 <para
->simon wird automatisch versuchen Sie beim Training nach Sätzen statt einzelnen Wörtern zu fragen. Dazu wird simon Ihre Gramatik durchforsten nach Satzstrukturen die den Terminal des neuen Wortes beinhalten und dann anhand der Terminale der anderen Wörter in ihrem aktiven Lexikon einen gültigen Satz bilden. </para>
+>simon wird automatisch versuchen Sie beim Training nach Sätzen statt einzelnen Wörtern zu fragen. Dazu wird simon Ihre Grammatik durchforsten nach Satzstrukturen die den Terminal des neuen Wortes beinhalten und dann anhand der Terminale der anderen Wörter in ihrem aktiven Lexikon einen gültigen Satz bilden. </para>
 <para
 >Zum Beispiel: Sie haben eine Grammatikstruktur "Trigger Kommando" und haben das Wort "Computer" vom Terminal "Trigger" in Ihrer Wortliste. Sie fügen dann ein Wort "Firefox" vom Terminal "Kommando" hinzu. simon wird dann automatisch den Satz "Computer Firefox" bilden und diesen für das erste Training des Wortes verwenden weil es laut der Grammatik ein gültiger Satz ist. </para>
 <para
@@ -1049,7 +1049,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 
 <sect3 id="import_dict_htk">
 <title
->HTK Dictionary</title>
+>HTK Wörterbuch</title>
 <para
 >simon kann HTK Wörterbücher importieren </para>
 <para
@@ -1062,7 +1062,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 
 <sect3 id="import_dict_pls">
 <title
->PLS Dictionary</title>
+>PLS Wörterbuch</title>
 <para
 >simon kann PLS Wörterbücher importieren. </para>
 <para
@@ -1075,7 +1075,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 
 <sect3 id="import_dict_sphinx">
 <title
->SPHINX Dictionary</title>
+>SPHINX Wörterbuch</title>
 <para
 >simon kann SPHINX Wörterbücher importieren. </para>
 <para
@@ -1180,10 +1180,10 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </itemizedlist>
 </para>
 <para
->Das würde zwar funktionieren, aber würde auch Kombinationen wie "Computer Computer", "Internet Computer", "Internet Internet", etc. erlauben die alle nicht wirklich sinnvoll sind. Um die Erkennungsgenauigkeit zu erhöhhen, können wir unsere Grammatik optimieren. </para>
+>Das würde zwar funktionieren, aber würde auch Kombinationen wie "Computer Computer", "Internet Computer", "Internet Internet", etc. erlauben die alle nicht wirklich sinnvoll sind. Um die Erkennungsgenauigkeit zu erhöhen, können wir unsere Grammatik optimieren. </para>
 
 <para
->Es ist wichtig im Hinterkopf zu halten, dass jeder Benutzer mit simon seine eigene "Sprache" definiert. Das bedeutet, dass Sie in keiner Weise an die Grammatikregeln der zugrundeliegenden "echten" Sprache (Deutsch, Englisch, etc.) gebunden sind. Für simple Steuerung des Computers ist es sogar empfehlenswert eigene Grammatikregeln zu erfinden um grammatikalische Unterschiede die für den Anwendungsfall nicht wichtig sind zu eliminieren und unsinnige Sätze zu verbieten. </para>
+>Es ist wichtig im Hinterkopf zu halten, dass jeder Benutzer mit simon seine eigene "Sprache" definiert. Das bedeutet, dass Sie in keiner Weise an die Grammatikregeln der zugrunde liegenden "echten" Sprache (Deutsch, Englisch, etc.) gebunden sind. Für simple Steuerung des Computers ist es sogar empfehlenswert eigene Grammatikregeln zu erfinden um grammatikalische Unterschiede die für den Anwendungsfall nicht wichtig sind zu eliminieren und unsinnige Sätze zu verbieten. </para>
 
 <para
 >In dem Beispiel oben ist es beispielsweise nicht relevant, dass "schließen" ein Verb ist oder das "Computer" und "Internet" Nomen sind. Stattdessen können wir sie als etwas deklarieren das besser reflektiert was sie in unserem Szenario sein sollen: <table frame='all'
@@ -1244,7 +1244,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 <title
 >Die Grammatik definieren</title>
 <para
->simon bietet eine einfache, Text basierte Oberfläche um die Grammatik zu definieren. Sie können einfach alle erlabuten Sätze (ohne Satzzeichen) wie oben beschrieben eingeben. <screenshot>
+>simon bietet eine einfache, Text basierte Oberfläche um die Grammatik zu definieren. Sie können einfach alle erlaubten Sätze (ohne Satzzeichen) wie oben beschrieben eingeben. <screenshot>
 <screeninfo
 >Grammatik</screeninfo>
   <mediaobject>
@@ -1339,11 +1339,11 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </para>
 
 <para
->simon wird dann all die angegebenen Textdateien einlesen (in diesem Fall nur die Datei "simongrammar.txt") und jedes einzelne Wort in sowonl dem aktiven als auch dem Schattenlexikon nachschlagen (die Defintion im aktiven Lexikon hat Vorrang über eventuelle Definitionen im Schattenlexikon). Es wird dann das Wort mit dem entsprechenden Terminal ersetzten.</para>
+>simon wird dann all die angegebenen Textdateien einlesen (in diesem Fall nur die Datei "simongrammar.txt") und jedes einzelne Wort in sowohl dem aktiven als auch dem Schattenlexikon nachschlagen (die Definition im aktiven Lexikon hat Vorrang über eventuelle Definitionen im Schattenlexikon). Es wird dann das Wort mit dem entsprechenden Terminal ersetzten.</para>
 <para
 >In unserem Beispiel würde das bedeuten, dass werden Satz "Computer Internet" finden würde. simon würde dann erkennen, dass "Computer" vom Terminal "Trigger" und "Internet" vom Terminal "Kommando" ist. Deswegen würde simon "lernen", dass "Trigger Kommando" offensichtlich ein gültiger Satz ist und ihn automatisch zur Grammatik hinzufügen.</para>
 <para
->Der Import segmentiert die Eingabedateien automatisch nach Satzzeichen (".", ," - ", "!", etc.) also jeder natürliche Text sollte funktionieren. Der Import wird automatisch alle doppelt vorkommenden Satzstrukturen zusammenfügen  (sogar über verschiedene Dateien verstreut) und wird alle möglichen grammatikalischen Satzstrukturen hinzufügen wenn Sätze Wörter verwenden die mit mehr als einem Terminal assoziert sind.</para>
+>Der Import segmentiert die Eingabedateien automatisch nach Satzzeichen (".", ," - ", "!", etc.) also jeder natürliche Text sollte funktionieren. Der Import wird automatisch alle doppelt vorkommenden Satzstrukturen zusammenfügen  (sogar über verschiedene Dateien verstreut) und wird alle möglichen grammatikalischen Satzstrukturen hinzufügen wenn Sätze Wörter verwenden die mit mehr als einem Terminal assoziiert sind.</para>
 <para
 >Der Import wird alle Sätze ignorieren die ein oder mehrere Wörter beinhalten die im Sprachmodell nicht gefunden werden konnten außer die Option "Auch unbekannte Wörter akzeptieren" wurde aktiviert. In diesem Fall werden unbekannte Wörter mit dem generischen Terminal "Unbekannt" ersetzt.</para
 > 
@@ -1385,7 +1385,7 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 </screenshot>
 </para>
 <para
->Diese Funktion is besonders nutzvoll wenn Sie Ihre Grammatikstrukturen vereinfachen wollen.</para>
+>Diese Funktion ist besonders nutzvoll wenn Sie Ihre Grammatikstrukturen vereinfachen wollen.</para>
 </sect2>
 
 
@@ -1503,17 +1503,17 @@ Das simon Hauptfenster bietet schnellen Zugriff auf die wichtigsten Funktionen d
 ></para>
             <para
 >Windows: <filename
->(install directory)\share\apps\simon\texts</filename
+>(Installationsordner)\share\apps\simon\texts</filename
 ></para>
           <para
->Systemweite Texte. Sie werden bei jedem (Betriebssytem-) Benutzer auf dem System angezeigt und können innerhalb von simon je nach Betriebssystemsberechtigung höchstwahrscheinlich nicht gelöscht werden.</para>
+>Systemweite Texte. Sie werden bei jedem (Betriebssytem-) Benutzer auf dem System angezeigt und können innerhalb von simon je nach Betriebssystemberechtigung höchstwahrscheinlich nicht gelöscht werden.</para>
           <para
 >Dieser Ordner eignet sich besonders gut für Systemadministratoren die allen Benutzern ein gemeinsames Set an Trainingsdaten geben wollen.</para>
           </listitem>
 </itemizedlist>
 </para>
 <para
->Die XML Dateien (eine für jeden Text) können von einem Speicherort zum anderen verschoben werden. Abhängig von den zugrundeliegenden Betriebssystemberechtigungen wird dies aber wahrscheinlich Administratorenrechte benötigen.</para>
+>Die XML Dateien (eine für jeden Text) können von einem Speicherort zum anderen verschoben werden. Abhängig von den zugrunde liegenden Betriebssystemberechtigungen wird dies aber wahrscheinlich Administratorenrechte benötigen.</para>
 </sect2>
 
 
@@ -1565,7 +1565,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 >Lokale Textdateien</title>
 
 <para
->Wenn lokale Textdateien importiert werden, wrid simon automatisch versuchen einzelne Sätze aufzuspalten um Sie beim Training eigenen "Seiten" (Aufnahmen) zuzuordnen. Der Algorithmus behandelt zwischen normalen Satzzeichen (".", "!", "?", "...", """,...) und Absätzen als "Sätze". Jeder "Satz" wird im Trainingstext auf einer Seite und somit auf einer eigenen Aufnahme sein. <screenshot>
+>Wenn lokale Textdateien importiert werden, wird simon automatisch versuchen einzelne Sätze aufzuspalten um Sie beim Training eigenen "Seiten" (Aufnahmen) zuzuordnen. Der Algorithmus behandelt zwischen normalen Satzzeichen (".", "!", "?", "...", """,...) und Absätzen als "Sätze". Jeder "Satz" wird im Trainingstext auf einer Seite und somit auf einer eigenen Aufnahme sein. <screenshot>
 <screeninfo
 >Trainingstext importieren Assistent: Lokale Textdateien</screeninfo>
   <mediaobject>
@@ -1624,7 +1624,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 <title
 >Spezialtraining</title>
 <para
->Zusätzlich zu den Trainingstexten erlabut simon es auch inidividuelle Wörter oder Wortkombinationen aus Ihrem Lexikon direkt zu trainieren.</para>
+>Zusätzlich zu den Trainingstexten erlaubt simon es auch individuelle Wörter oder Wortkombinationen aus Ihrem Lexikon direkt zu trainieren.</para>
 
 <para
 >Diese Funktion befindet sich im Wortlisten Menü von simon.</para>
@@ -1688,7 +1688,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 >Die Dateien und Ihre Transkription werden dann zum Trainingskorpus hinzugefügt. </para>
 
 <para
->Dateien die mit simon 0.2 augenommen werden, werden automatisch dieser Namensgebung folgen sodass Sie sie ohne Probleme importieren können sollten. Dateien Die von vorigen Versionen von simon aufgenommen wurden sollten nicht importiert werden (sie nannten Spezialtrainingsaufnahmen "Spezialtraining..." und nicht nach Ihrem Inhalt. Sie können diese Aufnahmen natürlich entsprechend umbenennen oder entfernen wenn Sie die Import Funktionalität verwenden wollen).</para>
+>Dateien die mit simon 0.2 aufgenommen werden, werden automatisch dieser Namensgebung folgen sodass Sie sie ohne Probleme importieren können sollten. Dateien Die von vorigen Versionen von simon aufgenommen wurden sollten nicht importiert werden (sie nannten Spezialtrainingsaufnahmen "Spezialtraining..." und nicht nach Ihrem Inhalt. Sie können diese Aufnahmen natürlich entsprechend umbenennen oder entfernen wenn Sie die Import Funktionalität verwenden wollen).</para>
 
 
 <para
@@ -1737,7 +1737,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 </para>
 
 <para
->Das Kommandosystem kann mit einer Gruppe von Fabriksarbeitern verglichen werden. Jeder von Ihnen weiß, wie er genau eine Aufgabe bewältigt (z.B. Weiß "Karl" wie man Programme startet und "Hans" weiß wie Ordner geöffnet werden, etc.). Wenn simon jetzt etwas erkennt wird dieses Erkennungsergebnis zuerst an "Karl" übergeben, der sich das einmal ansieht. Ist die Anweisung für ihn gedacht, handelt er danach (und startet in diesem Beispiel ein Program). Ansonsten gibt er die Anweisung weiter an "Hans", usw. Wenn keiner der geladenen Plug-Ins weiß was zu tun ist, wird das Erkennungsergebnis verworfen. Die Abfolge in der das Erkennungsergebnis zu den einzelnen Plug-Ins übergeben wird ist konfigurierbar in der Kommandokonfiguration (<guimenu
+>Das Kommandosystem kann mit einer Gruppe von Fabrikarbeitern verglichen werden. Jeder von Ihnen weiß, wie er genau eine Aufgabe bewältigt (z.B. Weiß "Karl" wie man Programme startet und "Hans" weiß wie Ordner geöffnet werden, etc.). Wenn simon jetzt etwas erkennt wird dieses Erkennungsergebnis zuerst an "Karl" übergeben, der sich das einmal ansieht. Ist die Anweisung für ihn gedacht, handelt er danach (und startet in diesem Beispiel ein Programm). Ansonsten gibt er die Anweisung weiter an "Hans", usw. Wenn keiner der geladenen Plug-Ins weiß was zu tun ist, wird das Erkennungsergebnis verworfen. Die Abfolge in der das Erkennungsergebnis zu den einzelnen Plug-Ins übergeben wird ist konfigurierbar in der Kommandokonfiguration (<guimenu
 >Einstellungen</guimenu
 > 
 > <guimenuitem
@@ -1761,11 +1761,11 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 <para
 >Jedes Plug-In kann mit einem "Auslöser" verbunden werden. Mit Auslösern kann die Verantwortung der einzelnen Plug-Ins besser aufgeteilt werden. </para>
 <para
->Wenn wir wieder zu unseren Fabriksarbeitern zurückgehen könnten wir es vergleichen mit dem expliziten sagen des Namens der zuständigen Person. Statt "Öffne meine eigenen Dateien" sagen wir jetzt "Hans, öffne meine eigenen Dateien!" und "Hans" (das Plug-In das zuständig ist für das Öffnen der Ordner) weiß sofort, dass diese Anfrage für ihn ist.</para>
+>Wenn wir wieder zu unseren Fabrikarbeitern zurückgehen könnten wir es vergleichen mit dem expliziten sagen des Namens der zuständigen Person. Statt "Öffne meine eigenen Dateien" sagen wir jetzt "Hans, öffne meine eigenen Dateien!" und "Hans" (das Plug-In das zuständig ist für das Öffnen der Ordner) weiß sofort, dass diese Anfrage für ihn ist.</para>
 <para
->In der Praxis bedeutet dass, z.B. dass wenn Sie ein Program-Kommando "Firefox" haben um den Webbrowser zu öffnen und ein Ort-Kommando "Google" um die Websuche zu öffnen und die Auslöser "Starte" für das "Program" Plug-In und "Öffne" für das "Ort" Plug-In vergeben, müssten Sie "Starte Firefox" sagen um Firefox zu starten - statt einfach "Firefox" (den Namen des Kommandos) wenn Sie keinen Auslöser verwenden würden. Analog dazu müssten Sie "Öffne Google" sagen statt nur "Google" ohne Auslöser.</para>
+>In der Praxis bedeutet dass, z.B. dass wenn Sie ein Programm-Kommando "Firefox" haben um den Webbrowser zu öffnen und ein Ort-Kommando "Google" um die Websuche zu öffnen und die Auslöser "Starte" für das "Program" Plug-In und "Öffne" für das "Ort" Plug-In vergeben, müssten Sie "Starte Firefox" sagen um Firefox zu starten - statt einfach "Firefox" (den Namen des Kommandos) wenn Sie keinen Auslöser verwenden würden. Analog dazu müssten Sie "Öffne Google" sagen statt nur "Google" ohne Auslöser.</para>
 <para
->Trigger sind natürlich keine Vorraussetzung und Sie können simon natürlich auch ohne Trigger verwenden (manche Kommandos haben aber per Default den Auslöser "Computer" den Sie in diesem Fall entfernen müssten). Aber sogar wenn Sie nur einen einzelnen Auslöser für all Ihre Plug-Ins verwenden (wie etwa den allgemeinen Trigger "Computer" um z.B. "Computer, Firefox" und "Computer Google" zu sagen) hat dies den großen Vorteil die versehentlichen Kommandoaufrufe zu minimieren.</para>
+>Trigger sind natürlich keine Voraussetzung und Sie können simon natürlich auch ohne Trigger verwenden (manche Kommandos haben aber per Default den Auslöser "Computer" den Sie in diesem Fall entfernen müssten). Aber sogar wenn Sie nur einen einzelnen Auslöser für all Ihre Plug-Ins verwenden (wie etwa den allgemeinen Trigger "Computer" um z.B. "Computer, Firefox" und "Computer Google" zu sagen) hat dies den großen Vorteil die versehentlichen Kommandoaufrufe zu minimieren.</para>
 
 <para
 >Jedes Kommando hat einen Namen (der das Kommando - mit einem etwaigen Plug-In Auslöser verbunden - auslöst), ein Symbol und mehrere Felder die vom Typ des Kommandos abhängen (siehe unten). </para>
@@ -1776,7 +1776,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 >Programm-Kommandos</title>
 
 <para
->Programm-Kommandos sind assoziert mit einer ausführbaren Datei ("Programm") welches gestartet wird wenn das Kommando ausgelöst wird.</para>
+>Programm-Kommandos sind assoziiert mit einer ausführbaren Datei ("Programm") welches gestartet wird wenn das Kommando ausgelöst wird.</para>
 
 <screenshot>
 <screeninfo
@@ -1810,7 +1810,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 > suchen.</para>
 
 <para
->Der Arbeitsordner muss normalerweise nicht explizit gesetzt werden und kann leer geleassen werden.</para>
+>Der Arbeitsordner muss normalerweise nicht explizit gesetzt werden und kann leer gelassen werden.</para>
 
 <sect3 id="importing_executable_commands">
 <title
@@ -1845,9 +1845,9 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 <title
 >Ort-Kommandos</title>
 <para
->Mit Ort Kommandos kann simon einen beliebigen URL öffnen. Weil simon die Adresse einfach an den zugrundeliegenden URL-Handler der jeweiligen Plattform weitergibt werden alle von diesem Unterstützten Protokolle wie "remote:/" (Linux/KDE spezifisch) oder sogar KDEs "Web-Shortcuts" unterstützt.</para>
+>Mit Ort Kommandos kann simon einen beliebigen URL öffnen. Weil simon die Adresse einfach an den zugrunde liegenden URL-Handler der jeweiligen Plattform weitergibt werden alle von diesem Unterstützten Protokolle wie "remote:/" (Linux/KDE spezifisch) oder sogar KDEs "Web-Shortcuts" unterstützt.</para>
 <para
->Neben herkömmlichen Ordnern können aber auch Dateien angegeben werden die dann mit dem mit ihnen standardmäßig assozierten Programm geöffnet werden wenn das Kommando ausgelöst wird.</para>
+>Neben herkömmlichen Ordnern können aber auch Dateien angegeben werden die dann mit dem mit ihnen standardmäßig assoziierten Programm geöffnet werden wenn das Kommando ausgelöst wird.</para>
 
 <screenshot>
 <screeninfo
@@ -1903,7 +1903,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 >Mit den Tastenkürzel-Kommandos kann ein Benutzer Kommandos mit Tastenkombinationen verbinden.</para>
 
 <para
->Das Kommando kann Tasteneingaben simmulieren um Tastenkürzel wie "Strg+C"oder "Alt-F4" auszulösen. <screenshot>
+>Das Kommando kann Tasteneingaben simulieren um Tastenkürzel wie "Strg+C"oder "Alt-F4" auszulösen. <screenshot>
 <screeninfo
 >Tastenkürzel Kommandos definieren</screeninfo>
   <mediaobject>
@@ -1915,7 +1915,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 </para>
 
 <para
->Um ein Tastenkürzel auszuwählen, klicken Sie einfach auf den Tastenkürzel-Knopf und drücken anschließend ebenjene Kombination die Sie mit dem Kommando assozieren möchten auf Ihrer Tastatur.</para>
+>Um ein Tastenkürzel auszuwählen, klicken Sie einfach auf den Tastenkürzel-Knopf und drücken anschließend eben jene Kombination die Sie mit dem Kommando assozieren möchten auf Ihrer Tastatur.</para>
 <para
 >simon wird das Tastenkürzel abfangen und mit dem Kommando assozieren.</para>
 <para
@@ -1926,7 +1926,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 <title
 >Text-Makro-Kommandos</title>
 <para
->Mit Text-Makro-Kommandos kann der Benutzer Text mit Kommandos assozieren. Wenn ein Text-Makro-Kommando ausgelöst wird, wird der Text mit dem das Kommando verbunden ist über simmulierte Tastendrücke "geschrieben".</para>
+>Mit Text-Makro-Kommandos kann der Benutzer Text mit Kommandos assozieren. Wenn ein Text-Makro-Kommando ausgelöst wird, wird der Text mit dem das Kommando verbunden ist über simulierte Tastendrücke "geschrieben".</para>
 
 <para>
 <screenshot>
@@ -1964,7 +1964,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 </para>
 
 <para
->List-Kommandos sind vor allem dasnn nütlich wenn Kommandos schwierig auszusprechende Trigger haben oder mehrere Kommandos logisch gruppiert werden können. Ein typisches Beispiel wäre ein Kommando "Startmenü" das eine Liste von Programmen (Program-Kommandos) auflistet. So können diese Program-Kommandos sehr komplexe aber beschreibende Namen besitzen (wie z.B.: "OpenOffice.org Writer 3.1") ohne dass simon diese Wörter jemals erkennen muss um das Kommando auszulösen.</para>
+>List-Kommandos sind vor allem dann nützlich wenn Kommandos schwierig auszusprechende Trigger haben oder mehrere Kommandos logisch gruppiert werden können. Ein typisches Beispiel wäre ein Kommando "Startmenü" das eine Liste von Programmen (Program-Kommandos) auflistet. So können diese Program-Kommandos sehr komplexe aber beschreibende Namen besitzen (wie z.B.: "OpenOffice.org Writer 3.1") ohne dass simon diese Wörter jemals erkennen muss um das Kommando auszulösen.</para>
 
 <para
 >Kommandos unterschiedlicher Typen können in einer Liste gemischt werden.</para>
@@ -1985,7 +1985,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 >Während eine Liste aktiv ist (sie wird angezeigt) wird jedes Erkennungsergebnis das nicht die Liste selbst betrifft (andere Kommandos, etc.) verworfen. Der Auswahlprozess kann jederzeit abgebrochen werden durch sagen von "Abbrechen"oder durch klicken auf das "Abbrechen" Feld.</para>
 
 <para
->Wenn mehr als 9 Kommandos mit der Liste assoziert sind, werden automatisch "Weiter" und "Zurück" Elemente angezeigt die ebenfalls mit Nummern versehen sind ("Null" wird mit "Zurück" und "Neun" wird mit "Weiter" verbunden). <screenshot>
+>Wenn mehr als 9 Kommandos mit der Liste assoziiert sind, werden automatisch "Weiter" und "Zurück" Elemente angezeigt die ebenfalls mit Nummern versehen sind ("Null" wird mit "Zurück" und "Neun" wird mit "Weiter" verbunden). <screenshot>
 <screeninfo
 >List-Kommando mit vielen Einträgen</screeninfo>
   <mediaobject>
@@ -2054,7 +2054,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 >Kombination-Kommandos erlauben dem Benutzer mehrere Kommandos automatisch hintereinander ablaufen lassen.</para>
 
 <para
->Wenn ein Kombinationskommando ausgelöst werden, werden alle mit ihm assozierten Kommandos in einer Reihenfolge die der Benutzer festelgt ausgeführt. Es können auch Wartezeiten zwischen Kommando-Aufrufen eingefügt werden. <screenshot>
+>Wenn ein Kombinationskommando ausgelöst werden, werden alle mit ihm assoziierten Kommandos in einer Reihenfolge die der Benutzer festlegt ausgeführt. Es können auch Wartezeiten zwischen Kommando-Aufrufen eingefügt werden. <screenshot>
 <screeninfo
 >Kombination-Kommandos dfinieren</screeninfo>
   <mediaobject>
@@ -2069,7 +2069,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 >Mit Kombination-Kommandos kann der Benutzer komplexe Arbeitsabläufe in ein einzelnes Kommando packen. Zum Beispiel:  <itemizedlist>
 <listitem
 ><para
->Sarte Kopete (Program Kommando)</para
+>Starte Kopete (Program Kommando)</para
 ></listitem>
 <listitem
 ><para
@@ -2077,7 +2077,7 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
 ></listitem>
 <listitem
 ><para
->Schreibe "Mathias" (Text-Makro-Kommando); Dies wirt den Kontakt "Mathias"in meiner Kontaktliste auswählen</para
+>Schreibe "Mathias" (Text-Makro-Kommando); Dies wird den Kontakt "Mathias"in meiner Kontaktliste auswählen</para
 ></listitem>
 <listitem
 ><para
@@ -2120,13 +2120,13 @@ Der Trainingstexte importieren Assistent bietet einen einfachen Weg neue Texte z
     </imageobject>
   </mediaobject>
 </screenshot>
-Das Desktopgitter teilt den Bildschirm in neun Teile die von 1-9 durchnummeriert werden. Wenn eine der neun Nummer ausgesprochen wird, wird das Feld das mit dieser Nummer verbunden war in neun weitere Felder zerteilt die wieder von 1-9 durchnummeriert werden, etc. Dies wird insgesamt drei Mal gemacht. Nach der vierten Auswahl einer Zahl (der immer kleiner werdenden Teile des Bildschirms) wird in die Mitte des verleibenden Vierecks geklickt (mit der linken Maustaste).</para>
+Das Desktopgitter teilt den Bildschirm in neun Teile die von 1-9 durchnummeriert werden. Wenn eine der neun Nummer ausgesprochen wird, wird das Feld das mit dieser Nummer verbunden war in neun weitere Felder zerteilt die wieder von 1-9 durchnummeriert werden, etc. Dies wird insgesamt drei Mal gemacht. Nach der vierten Auswahl einer Zahl (der immer kleiner werdenden Teile des Bildschirms) wird in die Mitte des verbleibenden Vierecks geklickt (mit der linken Maustaste).</para>
 
 <para
 >Während das Desktopgitter aktiv ist (es wird angezeigt) wird jedes Erkennungsergebnis das nicht das Desktopgitter selbst betrifft (andere Kommandos, etc.) verworfen. Der Auswahlprozess kann jederzeit abgebrochen werden durch sagen von "Abbrechen". </para>
 
 <para
->Weil keine Kommandos vom Typ "Desktopgitter" erzeugt werden können, wird dieses Plug-In nicht im "Neues Kommando" Dialog aufscheinen. Allerdings registriet das Plug-In eine Konfigurationsseite in der Kommandokonfiguration.</para>
+>Weil keine Kommandos vom Typ "Desktopgitter" erzeugt werden können, wird dieses Plug-In nicht im "Neues Kommando" Dialog aufscheinen. Allerdings registriert das Plug-In eine Konfigurationsseite in der Kommandokonfiguration.</para>
 
 <para>
 <screenshot>
@@ -2138,7 +2138,7 @@ Das Desktopgitter teilt den Bildschirm in neun Teile die von 1-9 durchnummeriert
     </imageobject>
   </mediaobject>
 </screenshot>
-Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei konfigurierbar. Außerdem kann der Benutzer zwischen "echter" und "falscher" Transparenz unterscheiden. Wenn Ihre grafische Oberfläche Compositing Effekte erlaubt, kann simon "echte" Transparenz verwenden. Sollte echte Transparenz nicht möglich sein, wird simon mit "falscher" Transparenz arbeiten: Dabei schießt simon eine Momentanaufnahme des aktuellen Bildschirmes bevor das Desktopgitter angezeigt wird und setzt dieses Bild als Hintergrundbild des Desktopgitters. Wenn verfügbar, sollte immer die "echte" Transparenz verwendet werden. </para>
+Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei konfigurierbar. Außerdem kann der Benutzer zwischen "echter" und "falscher" Transparenz unterscheiden. Wenn Ihre grafische Oberfläche Compositing Effekte erlaubt, kann simon "echte" Transparenz verwenden. Sollte echte Transparenz nicht möglich sein, wird simon mit "falscher" Transparenz arbeiten: Dabei schießt simon eine Momentaufnahme des aktuellen Bildschirmes bevor das Desktopgitter angezeigt wird und setzt dieses Bild als Hintergrundbild des Desktopgitters. Wenn verfügbar, sollte immer die "echte" Transparenz verwendet werden. </para>
 
 <para
 >Wenn das Desktopgitter konfiguriert wurde echte Transparenz zu verwenden und das System unterstützt keine Compositing Effekte wird der Hintergrund des Gitters undurchsichtig und grau sein.</para>
@@ -2221,7 +2221,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 >Die vollen Wörter hinzufügen: "Elf", "Zwölf", etc.</emphasis
 ></para>
 <para
->Obwohl das als die eleganteste Lösung erscheint (weil sie es ermöglicht z.B.: "fünfhundertzweiundsiebzig" zu sagen) können wir leicht sehen das es ein enormer Aufnwand wäre all diese Wörter hinzuzufügen - und sie dann auch noch zu trainieren. Und wo hören wir auf?</para
+>Obwohl das als die eleganteste Lösung erscheint (weil sie es ermöglicht z.B.: "fünfhundertzweiundsiebzig" zu sagen) können wir leicht sehen das es ein enormer Aufwand wäre all diese Wörter hinzuzufügen - und sie dann auch noch zu trainieren. Und wo hören wir auf?</para
 ></listitem>
 <listitem
 ><para
@@ -2237,7 +2237,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 </para>
 
 <para
->Das Nummer eingeben Plug-In - wenn ausgelöst - zeigt eine Taschenrechner ähnliche Oberfläche um eine Zahl einzugeben. Die Eingabe kann jederzeit korrigiert werden indem der Benutzer "Zurück" sagt. Ein Dezimal-Komma kann eingefügt werden indem der Benutzer "Komma" sagt. Wenn "Ok" gesagt wird, wird die Zahl eingetippt. Da die tatsächliche Eingabe innerhalb des Plug-Ins stattfindet erhält die Applikation schlußendlich nur noch eine Serie von schnell hintereinander simulierten Tastendrücken die nur noch Millisekunden außeinanderliegen. <screenshot>
+>Das Nummer eingeben Plug-In - wenn ausgelöst - zeigt eine Taschenrechner ähnliche Oberfläche um eine Zahl einzugeben. Die Eingabe kann jederzeit korrigiert werden indem der Benutzer "Zurück" sagt. Ein Dezimal-Komma kann eingefügt werden indem der Benutzer "Komma" sagt. Wenn "Ok" gesagt wird, wird die Zahl eingetippt. Da die tatsächliche Eingabe innerhalb des Plug-Ins stattfindet erhält die Applikation schlussendlich nur noch eine Serie von schnell hintereinander simulierten Tastendrücken die nur noch Millisekunden auseinanderliegen. <screenshot>
 <screeninfo
 >Nummer eingeben Plug-In</screeninfo>
   <mediaobject>
@@ -2260,7 +2260,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 > <imagedata fileref="input_number_configure.png" format="PNG"/> </imageobject
 > </mediaobject
 > </screenshot
-> Der Auslöser defineirt welches Wort oder welche Phrase die Oberfläche zum Eingeben der Nummer anzeigen wird. </para>
+> Der Auslöser definiert welches Wort oder welche Phrase die Oberfläche zum Eingeben der Nummer anzeigen wird. </para>
 
 
 <para
@@ -2334,25 +2334,25 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 <para
 >Wenn das Diktationsplug-in ohne Auslöser verwendet wird, wird das Plug-In alle Erkennungsergebnisse akzeptieren die es bekommt und diese einfach hinschreiben. Das heißt, dass alle Plug-Ins die <emphasis
 >unter</emphasis
->einem Diktationsplug-in ohne Auslöser gereiht sind werden dadurch nie ein Erkennungsergebnis erhalten.</para>
+> einem Diktationsplug-in ohne Auslöser gereiht sind werden dadurch nie ein Erkennungsergebnis erhalten.</para>
 
 <para
->Weil keine Kommandos vom Typ "Diktation" angelegt werden können, scheint das Diktationsplug-in nicht im "Neues Kommand" Dialog auf.</para>
+>Weil keine Kommandos vom Typ "Diktation" angelegt werden können, scheint das Diktationsplug-in nicht im "Neues Kommando" Dialog auf.</para>
 </sect2>
 
 <sect2 id="ai_command_plugin">
 <title
 >Künstliche Intelligenz</title>
 <para
->Das künstliche Intelligenz Plugin ist ein Plug-In, dass eine menschliche Kommunikation simmuliert.</para>
+>Das künstliche Intelligenz Plug-In ist ein Plug-In, dass eine menschliche Kommunikation simuliert.</para>
 
 <para
 >Die KI (künstliche Intelligenz) verwendet das festival text to speech um Sprache auszugeben und somit mit dem Benutzer zu "sprechen" (Fragen beantworten oder z.B. über das Wetter tratschen).</para>
 
 <para
->Das Plug-In benutzt AIMLs für die "Intelligenz". Der Großteil der AIML sets sollten unterstützt sein. Der bekannte <ulink url="http://www.pandorabots.com/pandora/talk?botid=f5d922d97e345aa1"
+>Das Plug-In benutzt AIMLs für die "Intelligenz". Der Großteil der AIML Sets sollten unterstützt sein. Der bekannte <ulink url="http://www.pandorabots.com/pandora/talk?botid=f5d922d97e345aa1"
 >A. L. I. C. E. Bot</ulink
-> und eine deutsche Version wurden getestet, funktionieren und werden mitausgeliefert. <screenshot
+> und eine deutsche Version wurden getestet, funktionieren und werden mit ausgeliefert. <screenshot
 > <screeninfo
 >KI Plug-In</screeninfo
 > <mediaobject
@@ -2363,7 +2363,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 > Das Plug-In registriert eine Konfigurationsseite in der Kommandokonfiguration in der Sie das zu verwendende AIML Set auswählen können. </para>
 
 <para
->simon wird die AIML sets in den folgenden Ordnern suchen: <itemizedlist
+>simon wird die AIML Sets in den folgenden Ordnern suchen: <itemizedlist
 ><listitem
 ><para
 >GNU/LINUX: <filename
@@ -2391,7 +2391,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 <listitem
 ><para
 >Microsoft Windows: <filename
->[Installationsordner (C:\Programme\simon 0.2\ by default)]\share\apps\ai\util\</filename
+>[Installationsordner (C:\Programme\simon 0.2\ per default)]\share\apps\ai\util\</filename
 ></para
 ></listitem>
 </itemizedlist>
@@ -2403,10 +2403,10 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 > verwenden wenn diese installiert sind.</para>
 
 <para
->Weil keine Kommandos vom Typ "Diktation" angelegt werden können, scheint das Diktationsplug-in nicht im "Neues Kommand" Dialog auf.</para>
+>Weil keine Kommandos vom Typ "Diktation" angelegt werden können, scheint das Diktationsplug-in nicht im "Neues Kommando" Dialog auf.</para>
 
 <para
->Es wird empfohlen keinen Trigger für dieses Plug_in zu verwenden um die Gespräche "natürlicher" zu machen. Das AI plugin wird auf jedes Erkennungsergebnis in irgendeiner Form reagieren aber gleichzeitig - im Gegensatz zur Diktation - das Erkennungsergebnis an die anderen Plug-Ins weitergeben. Das ermöglicht es, mit speziellen AIML Sets Kommandos in eine natürliche Konversation einzubauen. Zum Beispiel könnte das KI Plugini instriert werden auf ein Erkennungsergebnis wie "Computer, Firefox" zu antworten mit "Firefox wird gestartet!"; da das Erkennungsergebnis ja aber zu den anderen Plugins weitergegeben wird, wird auch ein mögliches Firefox-Kommando ausgeführt und der Browser tatsächlich gestartet.</para>
+>Es wird empfohlen keinen Trigger für dieses Plug_in zu verwenden um die Gespräche "natürlicher" zu machen. Das AI plugin wird auf jedes Erkennungsergebnis in irgendeiner Form reagieren aber gleichzeitig - im Gegensatz zur Diktation - das Erkennungsergebnis an die anderen Plug-Ins weitergeben. Das ermöglicht es, mit speziellen AIML Sets Kommandos in eine natürliche Konversation einzubauen. Zum Beispiel könnte das KI Plug-In instruiert werden auf ein Erkennungsergebnis wie "Computer, Firefox" zu antworten mit "Firefox wird gestartet!"; da das Erkennungsergebnis ja aber zu den anderen Plug-Ins weitergegeben wird, wird auch ein mögliches Firefox-Kommando ausgeführt und der Browser tatsächlich gestartet.</para>
 
 <para
 >Bitte beachten Sie, dass dieses Plug-In nur funktionieren wird, wenn festival installiert und konfiguriert ist und in Ihrem Systempfad liegt.</para>
@@ -2440,7 +2440,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 <para
 >Die Option simon beim Anmelden zu starten wird sowohl unter Microsoft Windows als auch unter KDE unter GNU/Linux funktionieren. Um andere Desktopumgebungen wie GNOME, XFCE, etc. zu unterstützen müssen Sie aber simon wahrscheinlich manuell im Sitzungs-Autostart platzieren (bitte sehen Sie die Handbücher Ihrer Desktopumgebung für mehr Informationen). </para>
 <para
->Wenn die Option zum minimiert Starten von simon gesetzt ist, wird das simon Hauptfenster beim simon start nicht angezeigt sondern sofort in den Systembereich der Taskleiste minimiert. </para>
+>Wenn die Option zum minimiert Starten von simon gesetzt ist, wird das simon Hauptfenster beim simon Start nicht angezeigt sondern sofort in den Systembereich der Taskleiste minimiert. </para>
 </sect2>
 
 <sect2 id="soundconfiguration">
@@ -2455,9 +2455,9 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 <title
 >Gerätekonfiguration</title>
 <para
->Die Gerätekonfiguration erlaubt Ihnen das jeweilige Audiogerät auszuwählen das Sie für die Aufnahme und Wiedergabe in ganz simon verwenden möchten. Außerdem können sie auch angeben, in wievielen Kanälen und bei weilcher Samplerate Sie aufnehmen wollen.</para>
+>Die Gerätekonfiguration erlaubt Ihnen das jeweilige Audiogerät auszuwählen das Sie für die Aufnahme und Wiedergabe in ganz simon verwenden möchten. Außerdem können sie auch angeben, in wievielen Kanälen und bei welcher Samplerate Sie aufnehmen wollen.</para>
 <para
->Der Defaultwert von einem Kanal und einer Samplerate von 16kHz sind normalerweise korrekt und müssen nicht geändert werden. Die Erkennung funktioniert nur mit Mono Aufnahmen und funktioniert besser mit 16kHz Aufnahmen (8kHz wäre die Alternative).</para>
+>Der Defaultwert von einem Kanal und einer Samplerate von 16kHz sind normalerweise korrekt und müssen nicht geändert werden. Die Erkennung funktioniert nur mit mono Aufnahmen und funktioniert besser mit 16kHz Aufnahmen (8kHz wäre die Alternative).</para>
 
 <para
 >Allerdings gibt es einige billige Audioadapter die diesen speziellen Aufnahmemodus möglicherweise nicht unterstützen. In diesem Fall kann simon mit Nachbearbeitungsketten und Software von Drittanbietern um diese Limitation herumarbeiten. Sehen Sie die <link linkend="soundconfiguration_postprocessing"
@@ -2503,7 +2503,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 </para>
 
 <para
->Diese Option wurde eingeführt, nachdem wir mit einigen Kunden Tests durchgeführt haben die unter infantiler Zerebralparese ("Spastische Lähmung") leiden. Während wir mit der Maus simon bedienten um sie durch das Training zu führen, mussten Sie im Rahmen des Trainings vorlesen was am Bildschirm geschrieben stand. Im Laufe des Tests fanden wir heraus, dass es unseren Probanden teilweise schwer fiel die kleine Schrift zu entziffern. Deshalb führten wir eine eigene Konfigurationsoption ein mit der eben jener Text der von den Probanden vorgelesen werden muss größer als der restliche Programtext gemacht werden kann ohne den Rest des Programmes zu beeinflussen. Dies half außerdem um die Aufmerksamkeit direkt auf den vorzulesenden Text zu lenken.</para>
+>Diese Option wurde eingeführt, nachdem wir mit einigen Kunden Tests durchgeführt haben die unter infantiler Zerebralparese ("Spastische Lähmung") leiden. Während wir mit der Maus simon bedienten um sie durch das Training zu führen, mussten Sie im Rahmen des Trainings vorlesen was am Bildschirm geschrieben stand. Im Laufe des Tests fanden wir heraus, dass es unseren Probanden teilweise schwer fiel die kleine Schrift zu entziffern. Deshalb führten wir eine eigene Konfigurationsoption ein mit der eben jener Text der von den Probanden vorgelesen werden muss größer als der restliche Programmtext gemacht werden kann ohne den Rest des Programmes zu beeinflussen. Dies half außerdem um die Aufmerksamkeit direkt auf den vorzulesenden Text zu lenken.</para>
 </sect3>
 
 <sect3 id="soundconfiguration_postprocessing">
@@ -2525,20 +2525,20 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 </para>
 
 <para
->Die Nachbearbeitungskommandos sind wie eine Serie von Filtern durch die die Aufnahmen durchmüssen. Mit diesen "Filtern" könnte man zum Beispiel Hintergrundrauschen entfernen oder die Aufnahmen normalisieren.</para>
+>Die Nachbearbeitungskommandos sind wie eine Serie von Filtern durch die die Aufnahmen durch müssen. Mit diesen "Filtern" könnte man zum Beispiel Hintergrundrauschen entfernen oder die Aufnahmen normalisieren.</para>
 
 <para
->Nehmen wir als Beispiel ein Programm namens "audio_verarbeiten" das die Eingabe- und Ausgabedatei als Argumente nimmt (z.B.: "audio verarbeiten %1 %2". Die beiden Platzhalter %1 und %2 werden dann von simon bei jedem Aufruf mit den jeweiligen tatsächlichen Werten für den Eingabedateinamen und den Ausgabedateinamen (respektiv) ersetzt.</para>
+>Nehmen wir als Beispiel ein Programm namens "audio_verarbeiten" das die Eingabe- und Ausgabedatei als Argumente nimmt (z.B.: "audio verarbeiten %1 %2". Die beiden Platzhalter %1 und %2 werden dann von simon bei jedem Aufruf mit den jeweiligen tatsächlichen Werten für den Eingabedateinamen und den Ausgabedateinamen (respektive) ersetzt.</para>
 
 <para
->Die Option "Filter auch für Dateien anwenden die mit simon aufgenommen werden" definiert ob die konfigurierten filter auch für mit simon erstellte Aufnahmen angewandt werden soll oder nur für Sprachaten die mit der Funktion <link linkend="import_trainings-data"
+>Die Option "Filter auch für Dateien anwenden die mit simon aufgenommen werden" definiert ob die konfigurierten Filter auch für mit simon erstellte Aufnahmen angewandt werden soll oder nur für Sprachdaten die mit der Funktion <link linkend="import_trainings-data"
 >"Trainingsdaten importieren"</link
 > importiert wurden.</para>
 
 <para
 >Eine Beispielanwendung für Nachbearbeitungsketten wäre das Resampling von Aufnahmen auf Grund von Hardwareeinschränkungen. Nehmen wir eine Soundkarte an, die keine 16kHz mono Aufnahmen unterstützt sondern nur 44100Hz stereo ("CD") Aufnahmen, können wir das freie Kommandozeilentool <ulink url="http://sox.sourceforge.net"
 >SoX</ulink
-> verwenden um die Aufnahmen automatisch auf ein entsprechendes Format zu resamplen.</para>
+> verwenden um die Aufnahmen automatisch auf ein entsprechendes Format zu resampeln.</para>
 <para
 >Dieses Beispiel würde das folgende Nachbearbeitungskommando verwenden: <itemizedlist
 > <listitem
@@ -2573,12 +2573,12 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 </screenshot>
 </para>
 <para
->Die Samplerate die hier gesetzt wird ist die Ziel-Samplerate des Akustikmodells. Sie hat nichts damit zu tun in welcher Samplerate die Sprachdaten von simon aufgenommen werden. Es liegt in der Verantwortung des Benutzers, dass die Sprachdaten schlussendlich für die generierung des Modells auch in diesem Format vorliegen. Normalerweise wird das einfach erreicht, indem die Werte gleichgesetzt werden. Sollte dies nicht möglich sein, kann mit den Nachbearbeitungsketten nachgeholfen werden. Sehen Sie die Sektion <link linkend="soundconfiguration"
+>Die Samplerate die hier gesetzt wird ist die Ziel-Samplerate des Akustikmodells. Sie hat nichts damit zu tun in welcher Samplerate die Sprachdaten von simon aufgenommen werden. Es liegt in der Verantwortung des Benutzers, dass die Sprachdaten schlussendlich für die Generierung des Modells auch in diesem Format vorliegen. Normalerweise wird das einfach erreicht, indem die Werte gleichgesetzt werden. Sollte dies nicht möglich sein, kann mit den Nachbearbeitungsketten nachgeholfen werden. Sehen Sie die Sektion <link linkend="soundconfiguration"
 >Aufnahmen</link
 > für mehr Details.</para>
 
 <para
->In den meisten Fällen werden entweder 16kHz oder 8kHz Modelle verwendet. 16kHz Modelle haben eine bessere Erkennungsrate als 8kHz Modelle und 8kHz Modelle sind weniger aufwändig (weniger Prozessorlastig) als 16kHz Modelle. Modelle mit mehr als 16kHz werden nicht empfohlen weil Sie sehr CPU-intensiv werden und in der Praxis kaum eine bessere Erkennungsrate erzielen.</para>
+>In den meisten Fällen werden entweder 16kHz oder 8kHz Modelle verwendet. 16kHz Modelle haben eine bessere Erkennungsrate als 8kHz Modelle und 8kHz Modelle sind weniger aufwändig (weniger Prozessor lastig) als 16kHz Modelle. Modelle mit mehr als 16kHz werden nicht empfohlen weil Sie sehr CPU-intensiv werden und in der Praxis kaum eine bessere Erkennungsrate erzielen.</para>
 
 <para
 >Hier kann außerdem der Pfad zu den Trainingsdaten geändert werden. Sie müssen allerdings selbst sicherstellen, dass die bisher gesammelten Sprachaufnahmen auch in das neue Ziel verschoben werden. Alternativ würde simond die bereits synchronisierten Daten aus seiner Kopie wiederherstellen. Ein manuelles verschieben zum neuen Speicherort ist also nicht zwingend notwendig solange zuvor synchronisiert wird, aber es ist empfohlen.</para>
@@ -2590,7 +2590,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 >Modellerweiterungen</title>
 
 <para
->Mit den Internet-Erweiterungen kann simon zusätzliche resourcen rund um das Sprachmodell aus dem Internet nachladen. Im Moment wird nur der Download von Trainingstexten unterstützt aber mehr Funktionen sind für die Zukunft geplant.</para>
+>Mit den Internet-Erweiterungen kann simon zusätzliche Ressourcen rund um das Sprachmodell aus dem Internet nachladen. Im Moment wird nur der Download von Trainingstexten unterstützt aber mehr Funktionen sind für die Zukunft geplant.</para>
 <para>
 <screenshot>
 <screeninfo
@@ -2637,7 +2637,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 </para>
 
 <para
->Um die einzelnen Anwender des Systems (ein simond Server kann natürlich mehrere simon clients bedienen) zu identifizieren, führt simon Benutzer ein. Jeder Benutzer hat sein eigenes Sprachmodell. Die Benutzername / Passwort Kombination die hier angegeben werden kann, wird verwendet um sich damit bei simond anzumelden. Wenn der simond diesen Benutzernamen nicht kennt oder das Passwort nicht stimmt, wird die Verbindung abgebrochen werden. Sehen Sie das <ulink url="help:/simond"
+>Um die einzelnen Anwender des Systems (ein simond Server kann natürlich mehrere simon Clients bedienen) zu identifizieren, führt simon Benutzer ein. Jeder Benutzer hat sein eigenes Sprachmodell. Die Benutzername / Passwort Kombination die hier angegeben werden kann, wird verwendet um sich damit bei simond anzumelden. Wenn der simond diesen Benutzernamen nicht kennt oder das Passwort nicht stimmt, wird die Verbindung abgebrochen werden. Sehen Sie das <ulink url="help:/simond"
 >simond Handbuch</ulink
 > für mehr Information über das Einrichten der Benutzer auf dem simond Server.</para>
 
@@ -2734,7 +2734,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 <para
 >simon ist auf Endbenutzer ausgelegt. Das Benutzerinterface ist darauf ausgelegt, es sogar Endbenutzern ohne Hintergrund in Spracherkennung zu ermöglichen eigene Sprach- und Akustikmodelle zu designen indem viele Default-Werte bereits beim ersten Öffnen der Applikation festgelegt wurden. </para>
 <para
->In speziellen Fällen (zum Beispiel schwere Sprachstörungen) kann es notwendig werden, einge tiefgreifende Parameter anzupassen. Deshalb respektiert simon auch die gesetzten Werte in den Konfigurationsdateien für die Erkennung. Diese Konfigurationsdateien können natürlich frei angepasst werden als würde man direkt mit Julius arbeiten. </para>
+>In speziellen Fällen (zum Beispiel schwere Sprachstörungen) kann es notwendig werden, einige tiefgreifende Parameter anzupassen. Deshalb respektiert simon auch die gesetzten Werte in den Konfigurationsdateien für die Erkennung. Diese Konfigurationsdateien können natürlich frei angepasst werden als würde man direkt mit Julius arbeiten. </para>
 
 <para
 >Es gibt zwei Teile der Julius Konfiguration die angepasst werden können:  <itemizedlist>
@@ -2742,9 +2742,9 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
 ><para
 >adin.jconf</para
 ><para
->Das ist die Konfiguration die den Soundstream vom simon client zum simond server steuert. Die Datei wird direkt vom adinstreamer gelesen.</para>
+>Das ist die Konfiguration die den Soundstream vom simon Client zum simond server steuert. Die Datei wird direkt vom adinstreamer gelesen.</para>
 <para
->simon liefert eine Defaultdatei aus ohne spezielle Parameter. Sie können die Systemweite Konfiguration anpssen die alle Benutzer betrifft wenn Sie mehr als einen simon Benutzer auf Ihrem physischen System haben. Wenn Sie die Konfiguration nur für einen speziellen Benutzer anpassen wollen, kopieren Sie die Konfiguration zum Benutzerpfad und passen Sie die Kopie an.</para>
+>simon liefert eine Defaultdatei aus ohne spezielle Parameter. Sie können die Systemweite Konfiguration anpassen die alle Benutzer betrifft wenn Sie mehr als einen simon Benutzer auf Ihrem physischen System haben. Wenn Sie die Konfiguration nur für einen speziellen Benutzer anpassen wollen, kopieren Sie die Konfiguration zum Benutzerpfad und passen Sie die Kopie an.</para>
 </listitem>
 <listitem
 ><para
@@ -2810,7 +2810,7 @@ Der Auslöser, der das Desktopgitter aktiviert (anzeigt) ist natürlich frei kon
   <entry
 >%appdata%\.kde\share\apps\simond\models\(Benutzer)\active\julius.jconf</entry>
   <entry
->~/.kde/share/apps/simond/models/(user)/active/julius.jconf</entry>
+>~/.kde/share/apps/simond/models/(Benutzer)/active/julius.jconf</entry>
 </row>
 </tbody>
 </tgroup>
@@ -2871,7 +2871,7 @@ distribution. -->
 <para
 >Bitte sehen Sie unser <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Setup"
 >online Wiki</ulink
-> for eine detailierte Installationsanleitung.</para>
+> for eine detaillierte Installationsanleitung.</para>
 
 </appendix>
 

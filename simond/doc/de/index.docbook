@@ -152,7 +152,7 @@ Please at least include KDE, the KDE package it is in, the name
 
 
 <title
->Das &kmyapplication; handbuch</title>
+>Das &kmyapplication; Handbuch</title>
 </bookinfo>
 
 <!-- The contents of the documentation begin here.  Label
@@ -237,7 +237,7 @@ revision history. (see installation appendix comment) -->
 </para>
 
 <para
->simond identifiziert seine Verbindungen mit einer Benutzername / Passwort Kombination die komplett unabhängig ist vom zugrunde liegenden Betriebssystem.</para>
+>simond identifiziert seine Verbindungen mit einer Benutzername / Passwort Kombination die komplett unabhängig ist vom zugrunde liegenden Betriebssystem. Das bedeutet, dass Sie mindestens einen simond Benutzer anlegen müssen, um simond zu verwenden. Jeder simon Client meldet sich mit einer Benutzername / Passwort Kombination an die einen einzelnen Benutzer und damit sein persönliches Sprachmodell identifiziert.</para>
 <para
 >Die Benutzer werden in einer SQLite Datenbank gespeichert die durch das <command
 >simonduserconfiguration</command
@@ -311,15 +311,15 @@ revision history. (see installation appendix comment) -->
 </para>
 
 <para
->Der Port kann natürlich frei geändert werden. Der Standardport (4444) ist allerdings von keiner anderen bekannten Applikation verwendet und deshalb empfohlen. Wenn Sie den Port hier ändern, müssen Sie ihn natürlich auch auf allen simon clients entsprechend anpassen.</para>
+>Der Port kann natürlich frei geändert werden. Der Standardport (4444) ist allerdings von keiner anderen bekannten Applikation verwendet und deshalb empfohlen. Wenn Sie den Port hier ändern, müssen Sie ihn natürlich auch auf allen simon Clients entsprechend anpassen.</para>
 
 <para
->Mit der Option "Nur Verbindungen erlauben von" können Sie den kompletten Zugriff auf den Server auf die angegebene IP Adresse beschärnken. Per Default ist simond aus Sicherheitsgründen so konfiguriert, dass er nur auf simon Verbindungen vom lokalen Host reagiert. Es können per Default also nur lokale simon Benutzer auf den Server zugreifen.</para>
+>Mit der Option "Nur Verbindungen erlauben von" können Sie den kompletten Zugriff auf den Server auf die angegebene IP Adresse beschränken. Per Default ist simond aus Sicherheitsgründen so konfiguriert, dass er nur auf simon Verbindungen vom lokalen Host reagiert. Es können per Default also nur lokale simon Benutzer auf den Server zugreifen.</para>
 <para
->Das ist nur eine Maßnahme zur Erhöhung der Sicherheit, da Sie auf einem sehr niedrigen Level sicherstellt, dass selbst ein potentieller Angreifer der Benutzername und Passwort Ihrerer simon Installation kennt nicht über das Netzwerk (im schlimmsten Fall über das Internet) auf Ihren simond zugreifen kann. Um Netzwerkzugriff zu erlauben, deaktivieren Sie einfach die Option "Nur Verbindungen erlauben von".</para>
+>Das ist nur eine Maßnahme zur Erhöhung der Sicherheit, da Sie auf einem sehr niedrigen Level sicherstellt, dass selbst ein potentieller Angreifer der Benutzername und Passwort Ihrer simon Installation kennt nicht über das Netzwerk (im schlimmsten Fall über das Internet) auf Ihren simond zugreifen kann. Um Netzwerkzugriff zu erlauben, deaktivieren Sie einfach die Option "Nur Verbindungen erlauben von".</para>
 
 <para
->Protokollverschlüsselung ist derzeit noch nicht implmentiert.</para>
+>Protokollverschlüsselung ist derzeit noch nicht implementiert.</para>
 </sect1>
 
 <!-- This chapter should tell the user how to use your app. You should use as
@@ -401,7 +401,7 @@ distribution. -->
 <para
 >Bitte sehen Sie unser <ulink url="http://www.cyber-byte.at/wiki/index.php/English:_Setup"
 >online Wiki</ulink
-> for eine detailierte Installationsanleitung.</para>
+> for eine detaillierte Installationsanleitung.</para>
 
 </appendix>
 

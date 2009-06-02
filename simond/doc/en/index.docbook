@@ -140,7 +140,7 @@ problems. Basically a long version of the abstract.  Don't include a
 revision history. (see installation appendix comment) -->
 
 <para>
-&kmyapplication; is the server component of the simon speech recognition suite. It handels the recognition and the model compilation and receives it input from the simon client(s) which connect to the server using TCP/IP.
+&kmyapplication; is the server component of the simon speech recognition suite. It handles the recognition and the model compilation and receives it input from the simon client(s) which connect to the server using TCP/IP.
 </para>
 <para>For more information please see the <ulink url="help:/simon/overview.html#architecture">simon manual</ulink>.</para>
 </chapter>
@@ -179,7 +179,7 @@ revision history. (see installation appendix comment) -->
 </screenshot>
 </para>
 
-<para>simond identifies its connections with a user / password combination which is completely independant from the underlying operating system and its users (which means you have to set up at least one user for simond to use it). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model.</para>
+<para>simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users (which means you have to set up at least one user for simond to use it). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model.</para>
 <para>The users are stored in a sqlite database that is managed through the <command>simonduserconfiguration</command> KCM.</para>
 
 <para>This database is stored depending on your operating system:
@@ -206,7 +206,7 @@ revision history. (see installation appendix comment) -->
 
 <para>simond does not come with a default user so you have to add one user before you can connect simon to the simond server.</para>
 
-<para>The password of the users will be hashed and can not be shown in clear-text. When a user forgets his or her password there is no way to retreive his original password from the simond database but you can reset it using the "Change Password" button.</para>
+<para>The password of the users will be hashed and can not be shown in clear-text. When a user forgets his or her password there is no way to retrieve his original password from the simond database but you can reset it using the "Change Password" button.</para>
 
 <para>When remove a user from the database which already also has a speech model associated with him, you will be prompted if you also want to remove the model. If you select no and add a user with the same name later on, he will start off with this speech model.</para>
 </sect1>
@@ -233,7 +233,7 @@ revision history. (see installation appendix comment) -->
 <para>The port can be changed freely. The default of 4444 is however not occupied by any major application or protocol and thus recommended. If you adjust the port here, make sure you also make the necessary adjustments on your simon clients.</para>
 
 <para>Using the option to "Only allow connections from" you can restrict the access to your server from anywhere but the given IP address. By default this is configured to only allow (simon) connections from the local host which only allows for local simon clients to connect to the server.</para>
-<para>This is simply a security meassure because it effectively blocks connections from anywhere else (even if the attacker knows your simon username and password). To allow connections from other hosts simply uncheck the checkbox.</para>
+<para>This is simply a security measure because it effectively blocks connections from anywhere else (even if the attacker knows your simon username and password). To allow connections from other hosts simply uncheck the checkbox.</para>
 
 <para>Protocol encryption is not yet implemented.</para>
 </sect1>

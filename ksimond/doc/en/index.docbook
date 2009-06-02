@@ -141,7 +141,7 @@ revision history. (see installation appendix comment) -->
 
 <para>
 &kappname; is a simple graphical front-end to simond. It creates and displays a tray-icon from which you can start and stop the simond server.
-Moreover it provides a configuration dialog in which it embedds the simond configuration.
+Moreover it provides a configuration dialog in which it embeds the simond configuration.
 </para>
 <para>
 KSimond can be configured to be started on KDE start.

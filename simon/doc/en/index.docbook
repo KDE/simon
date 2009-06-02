@@ -144,7 +144,7 @@ It is a simond client and provides a graphical user interface for managing the s
 </para>
 
 <para>
-In contrast to existing commercial offerings, simon provides a unique do-it-yourself approach to speech recognition. Instead of pre-defined, pre-trained speech models, simon does not ship with any model whatsoever. Instead, it provides an easy to use end-user interface to create language and acoustic models from scratch.
+In contrast to existing commercial offerings, simon provides a unique do-it-yourself approach to speech recognition. Instead of predefined, pre-trained speech models, simon does not ship with any model whatsoever. Instead, it provides an easy to use end-user interface to create language and acoustic models from scratch.
 
 The current release can be used to set up command-and-control solutions especially suitable for the disabled. However, because of the amount of training necessary, continuous, free dictation is neither supported nor reasonable with current versions of simon.
 </para>
@@ -188,7 +188,7 @@ simon (the solution as a whole) is a server / client solution. That means that t
 <para>&kmyapplication; then records sound from the microphone and transmits it to the server which runs the recognition on the received input stream. simond sends the recognition result back to the client (&kmyapplication;).</para>
 <para>&kmyapplication; then uses this recognition result to execute commands like opening programs, following links, etc.</para>
 
-<para>simond identifies its connections with a user / password combination which is completely independant from the underlying operating system and its users (which means you have to set up at least one user for simond to use it; see the <ulink url="help:/simond">simond manual</ulink> for details). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model. Every user maintains his own speech model but may use it from different computers (different, physical simon instances) simply by accessing the same simond server. One simond instance can of course also serve multiple users.</para>
+<para>simond identifies its connections with a user / password combination which is completely independent from the underlying operating system and its users (which means you have to set up at least one user for simond to use it; see the <ulink url="help:/simond">simond manual</ulink> for details). Every simon client logs onto the server with a user / password combination which identifies a unique user and thus a unique speech model. Every user maintains his own speech model but may use it from different computers (different, physical simon instances) simply by accessing the same simond server. One simond instance can of course also serve multiple users.</para>
 
 </sect1>
 
@@ -297,7 +297,7 @@ To train the acoustic model (in other words to tell him how you pronounce the ph
 <para>It is important that you check your microphone volume before recording any samples.</para>
 <para>A simple way to ensure that your microphone is configured correctly is to use an audio editing tool like the free <ulink url="http://audacity.sourceforge.net">Audacity</ulink>.</para>
 
-<para>Open the program and start the recording. Say a few words. Don't yell but don't be overly quiet either. Take into account that you should generally use the same volume setting for all your training and for the recognition too. You might speak a little bit louder (unconsiously) when you are upset or at another time of the day so try to raise your voice a little bit to anticipate this. It is much better to have a little quieter samples than to start clipping.</para>
+<para>Open the program and start the recording. Say a few words. Don't yell but don't be overly quiet either. Take into account that you should generally use the same volume setting for all your training and for the recognition too. You might speak a little bit louder (unconsciously) when you are upset or at another time of the day so try to raise your voice a little bit to anticipate this. It is much better to have a little quieter samples than to start clipping.</para>
 
 
 <para>
@@ -424,7 +424,7 @@ The simon main window provides quick access to most of its features through the 
 <para>Synchronize</para>
 <para>When connected to the simond, this option will be available.</para>
 <para>simon creates the speech input files which are then compiled and used by the simond server (see the <link linkend="architecture">section architecture for more details</link>).</para>
-<para>The process of sending the speech input files, compiling them and receiving the compiled versions is called "synchronization". By default, simon will initiate a synchronization immidiatly after the connection has been established and whenever the model changes (please see the <link linkend="configure_synchronization">configure synchronization section</link> for information on how to change that).</para>
+<para>The process of sending the speech input files, compiling them and receiving the compiled versions is called "synchronization". By default, simon will initiate a synchronization immediately after the connection has been established and whenever the model changes (please see the <link linkend="configure_synchronization">configure synchronization section</link> for information on how to change that).</para>
 <para>Using this menu option the synchronization can be triggered manually at any time.</para>
 </listitem>
 
@@ -454,7 +454,7 @@ One entry in the vocabulary defines exactly one "word". In contrast to the commo
 </itemizedlist>
 
 That means that plurals or even different cases are different "words" to simon.
-This is an important design decicion to allow more control when using a sophisticated grammar.
+This is an important design decision to allow more control when using a sophisticated grammar.
 </para>
 
 <para>
@@ -711,7 +711,7 @@ For example: You have the grammar structure "Trigger Command" and have the word 
 If simon is unable to find appropriate sentences using the word (i.e.: No grammar, not enough words in your active lexicon, etc.) it will just prompt you for the word alone.
 </para>
 <para>
-Altough simon ensures that the automatically generated examples are valid, you can always override it's suggestion. Just switch to the "Examples" tab on the "Define Word" page.
+Although simon ensures that the automatically generated examples are valid, you can always override it's suggestion. Just switch to the "Examples" tab on the "Define Word" page.
 <screenshot>
 <screeninfo>Editing word examples</screeninfo>
   <mediaobject>
@@ -723,7 +723,7 @@ Altough simon ensures that the automatically generated examples are valid, you c
 </para>
 
 <para>
-You are free to change those examples to anything you like. You can even go so far and use words that are not yet in your active lexicon as long as you add them before you synchronize the model, altough this is not recommended.
+You are free to change those examples to anything you like. You can even go so far and use words that are not yet in your active lexicon as long as you add them before you synchronize the model, although this is not recommended.
 </para>
 
 <para>
@@ -880,7 +880,7 @@ Let's look at an example: You want to use simon to launch programs and close tho
 </itemizedlist>
 </para>
 <para>
-Following english grammar, your vocabulary would contain the following:
+Following English grammar, your vocabulary would contain the following:
 
 <table frame='all'><title>Sample Vocabulary</title>
 <tgroup cols='2' align='left' colsep='1' rowsep='1'>
@@ -993,7 +993,7 @@ simon provides an easy to use text based interface to change the grammar. You ca
 
 <sect2>
 <title>Import a Grammar</title>
-<para>Additionally to simply entering your desired grammar sentence by sentence, simon is able to automatically deduce allowed grammar structures by reading plaintext using the Import Grammar wizard.
+<para>Additionally to simply entering your desired grammar sentence by sentence, simon is able to automatically deduce allowed grammar structures by reading plain text using the Import Grammar wizard.
 
 
 <screenshot>
@@ -1062,7 +1062,7 @@ simon provides an easy to use text based interface to change the grammar. You ca
 
 <para>simon will then read all the given text files (in this case the only given text file is "simongrammar.txt") and look up every single word in both active and shadow dictionary (the definition in the active dictionary has more importance if the word is available in both). It will then replace the word with its terminal.</para>
 <para>In our example this would mean that he would find the sentence "Computer Internet". simon would find out that "Computer" is of the terminal "Trigger" and "Internet" of the terminal "Command". Because of this simon would "learn" that "Trigger Command" is a valid sentence and add it to its grammar.</para>
-<para>The import automatically segments the input text files by punctuation marks (".", " - ", "!", etc.) so any natural text should work. The importer will automatically merge duplicate sentence structures (even accross different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
+<para>The import automatically segments the input text files by punctuation marks (".", " - ", "!", etc.) so any natural text should work. The importer will automatically merge duplicate sentence structures (even across different files) and add multiple sentence (all possible combinations) when a word has multiple terminals assigned to it.</para>
 <para>The import will ignore sentences where one or more words could not be found in the language model unless you tick the "Also import unknown sentences" checkbox in which case those words are replaced with "Unknown".</para> 
 
 </sect2>
@@ -1153,7 +1153,7 @@ The procedure is the same as if you would <link linkend="add_word">add a single 
 </para>
 
 <para>
-The training (reading) of the trainings-text works exactly the same as the intial training when adding a new word.</para>
+The training (reading) of the trainings-text works exactly the same as the initial training when adding a new word.</para>
 
 <para>Make sure you follow the guidelines listed in the <link linkend="recording">recording section</link>.</para>
 <para>
@@ -1228,7 +1228,7 @@ simon supports two different sources for new trainings-texts:
 <sect3 id="import_texts_local">
 <title>Local Text Files</title>
 
-<para>When importing text files, simon will automatically try to recognize individual sentences and split the text into appropriate "pages" (recordings). The algorithm treats text between "normal" punctation (".", "!", "?", "...", """,...) and line breaks as "sentences". Each "sentence" will be on its own page.
+<para>When importing text files, simon will automatically try to recognize individual sentences and split the text into appropriate "pages" (recordings). The algorithm treats text between "normal" punctuation (".", "!", "?", "...", """,...) and line breaks as "sentences". Each "sentence" will be on its own page.
 
 <screenshot>
 <screeninfo>Import-trainings-texts-wizard: Local text files</screeninfo>
@@ -1245,10 +1245,10 @@ simon supports two different sources for new trainings-texts:
 <sect3 id="import_texts_remote">
 <title>Texts from the Online Repository</title>
 
-<para>When downloading text from and online repository, simon will first download a list of available texts from a specific URL. This URL defaults to a test repository on a server controlled by the official simon team but can easily be changed in the simon configuration (<guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>Modell Extensions</guimenuitem>).</para>
+<para>When downloading text from and online repository, simon will first download a list of available texts from a specific URL. This URL defaults to a test repository on a server controlled by the official simon team but can easily be changed in the simon configuration (<guimenu>Settings</guimenu> > <guimenuitem>Configure simon</guimenuitem> > <guimenuitem>Model Extensions</guimenuitem>).</para>
 
 <para>Currently, there are only a few examples available, but users are very welcome to send us their most useful trainings-texts per mail.</para>
-<para>To do that, just send the xml file (to be found in your <link linkend="training_storage">local storage directory</link>) to <ulink url="mailto:support@simon-listens.org">support@simon-listens.org</ulink> and we will add your text to the online repository. Please keep in mind that books or other copyrighted source material can not be accepted.</para>
+<para>To do that, just send the XML file (to be found in your <link linkend="training_storage">local storage directory</link>) to <ulink url="mailto:support@simon-listens.org">support@simon-listens.org</ulink> and we will add your text to the online repository. Please keep in mind that books or other copyrighted source material can not be accepted.</para>
 
 
 <para>
@@ -1314,7 +1314,7 @@ This feature is very specific. Please use it with caution and make sure that you
 </para>
 
 <para>
-This wizard will extract the trancription of the given files from their <emphasis>filenames</emphasis>. A file called this_is_a_test.wav <emphasis>must</emphasis> contain "This is a test" and nothing else. Numbers and special charecters (".", "-",...) in the filename are ignored and stripped.
+This wizard will extract the transcription of the given files from their <emphasis>filenames</emphasis>. A file called this_is_a_test.wav <emphasis>must</emphasis> contain "This is a test" and nothing else. Numbers and special characters (".", "-",...) in the filename are ignored and stripped.
 </para>
 
 <para>
@@ -1378,21 +1378,21 @@ When importing the sound files, all configured <link linkend="soundconfiguration
 </screenshot>
 
 <para>
-Each plugin can be associated with a "trigger". Usings triggers, the responsibility of each plugin can be easily be divided.
+Each plugin can be associated with a "trigger". Using triggers, the responsibility of each plugin can be easily be divided.
 </para>
 <para>Using the factory workers abstraction from above it could be compared to stating the name of who you mean to process your request. So instead of "Open my home folder" you say "Joe, open my home folder" and "Joe" (the plugin responsible for opening folders) will instantly know that the request is meant for him.</para>
 <para>In practice you could have commands like the executable command "Firefox" to open the popular browser and the place command "Google" to open the web search engine. If you assign the trigger "Start" to the executable plugin and the trigger "Open" to the place command you would have to say "Start Firefox" (instead of just "Firefox" if you don't use a trigger for the executable plugin) and "Open Google" to open the search engine (instead of just "Google").</para>
-<para>Triggers are of course no requirement and you can easily use simon without defining any triggers (altough many plugins come with a default trigger of "Computer" set which you would have to remove). But even if you use just on trigger for all your commands (like "Computer" to say "Computer, Firefox" and "Computer, Google" like) it has the advantage of greatly limiting the false-positives.</para>
+<para>Triggers are of course no requirement and you can easily use simon without defining any triggers (although many plugins come with a default trigger of "Computer" set which you would have to remove). But even if you use just on trigger for all your commands (like "Computer" to say "Computer, Firefox" and "Computer, Google" like) it has the advantage of greatly limiting the false-positives.</para>
 
 <para>
-Each Command has a name (which will trigger its invokation), an icon and more fields depending on the type of the plugin (see below).
+Each Command has a name (which will trigger its invocation), an icon and more fields depending on the type of the plugin (see below).
 </para>
 
 
 <sect2 id="executable_commands">
 <title>Executable Commands</title>
 
-<para>Executable commands are accociated with an executable file ("Program") which is started when the command is invoked.</para>
+<para>Executable commands are associated with an executable file ("Program") which is started when the command is invoked.</para>
 
 <screenshot>
 <screeninfo>Executable Commands</screeninfo>
@@ -1405,9 +1405,9 @@ Each Command has a name (which will trigger its invokation), an icon and more fi
 
 <para>Arguments to the commands are supported. If either path to the executable or the parameters contain spaces they <emphasis>must</emphasis> be wrapped in quotes.</para>
 
-<para>Given the executable file <filename>C:\Programme\Mozilla Firefox\firefox.exe</filename> the local html file <filename>C:\test file.html</filename> the correct line for the "Executable" would be: <filename>"C:\Programme\Mozilla Firefox\firefox.exe" "C:\test file.html"</filename>.</para>
+<para>Given the executable file <filename>C:\Program Files\Mozilla Firefox\firefox.exe</filename> the local html file <filename>C:\test file.html</filename> the correct line for the "Executable" would be: <filename>"C:\Program Files\Mozilla Firefox\firefox.exe" "C:\test file.html"</filename>.</para>
 
-<para>The working directory defines where the process should be launched from. Given the working directory <filename>C:\folder</filename>, the command <filename>"C:\Programme\Mozilla Firefox\firefox.exe" file.html</filename> would cause firefox to search for the file <filename>C:\folder\file.html</filename>.</para>
+<para>The working directory defines where the process should be launched from. Given the working directory <filename>C:\folder</filename>, the command <filename>"C:\Program Files\Mozilla Firefox\firefox.exe" file.html</filename> would cause firefox to search for the file <filename>C:\folder\file.html</filename>.</para>
 
 <para>The working directory does not normally need to be set and can be left blank most of the time.</para>
 
@@ -1436,7 +1436,7 @@ Each Command has a name (which will trigger its invokation), an icon and more fi
 
 <sect2 id="place_commands">
 <title>Place Commands</title>
-<para>With place commands you can allow simo to open any given URL. Because simon just hands the address over to the plattforms URL handler, special Protocols like "remote:/" (on Linux/KDE) or even KDEs "Web-Shortcuts" are supported.</para>
+<para>With place commands you can allow simon to open any given URL. Because simon just hands the address over to the platforms URL handler, special Protocols like "remote:/" (on Linux/KDE) or even KDEs "Web-Shortcuts" are supported.</para>
 <para>Instead of folders, files can also be set as the commands URL which will cause the file to be opened with the application which is associated with it when the command is invoked.</para>
 
 <screenshot>
@@ -1500,7 +1500,7 @@ Please note that for URLs with authentication information the password will be s
 </screenshot>
 </para>
 
-<para>To select the shortcut you wish to simulate just toggle the shortcut button and press the keycombination on your keyboard.</para>
+<para>To select the shortcut you wish to simulate just toggle the shortcut button and press the key combination on your keyboard.</para>
 <para>simon will capture the shortcut and associate it with the command.</para>
 <para>Due to technical limitations there are several shortcuts on Microsoft Windows that can not be captured by simon (this includes e.g. Ctrl+Alt+Del and Alt+F4). These special shortcuts can be selected from a list below the aforementioned shortcut button. (Note: This selection box is not visible in the screenshot above as the list is only displayed in the Microsoft Windows version of simon.)</para>
 </sect2>
@@ -1654,7 +1654,7 @@ While the desktopgrid is active (displayed), all input that is not directed at t
     </imageobject>
   </mediaobject>
 </screenshot>
-The trigger that invokes the desktopgrid is of course completely configurable. Moreover the user can use "real" or "fake" transparency. If your graphical environment allows for compositing effects ("desktop effects") then you can safely use "real" transparency which will make the desktogrid transparent. If your plattform does not support compositing simon will simulate transparency by taking a screenshot of the screen before displaying the desktopgrid and display that picture behind the desktopgrid.
+The trigger that invokes the desktopgrid is of course completely configurable. Moreover the user can use "real" or "fake" transparency. If your graphical environment allows for compositing effects ("desktop effects") then you can safely use "real" transparency which will make the desktogrid transparent. If your platform does not support compositing simon will simulate transparency by taking a screenshot of the screen before displaying the desktopgrid and display that picture behind the desktopgrid.
 </para>
 
 <para>If the desktopgrid is configured to use real transparency and the system does not support compositing it will display a solid gray background.</para>
@@ -1789,7 +1789,7 @@ The plugin registers a configuration screen in the command configuration menu wh
 <para>simon will look for AIML sets in the following directory: 
 <itemizedlist>
 <listitem><para>GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/aimls/</filename></para></listitem> 
-<listitem><para>Microsoft Windows: <filename>[installation folder (C:\Programme\simon 0.2\ by default)]\share\apps\ai\aimls\</filename></para></listitem>
+<listitem><para>Microsoft Windows: <filename>[installation folder (C:\Program Files\simon 0.2\ by default)]\share\apps\ai\aimls\</filename></para></listitem>
 </itemizedlist>
 To add a new set just create a new directory with a descriptive name and copy the .aiml files into it.
 </para>
@@ -1798,7 +1798,7 @@ To add a new set just create a new directory with a descriptive name and copy th
 To adjust your bots personality have a look at the bot.xml and vars.xml files in the following directory:
 <itemizedlist>
 <listitem><para>GNU/Linux: <filename>`kde4-config --prefix`/share/apps/ai/util/</filename></para></listitem> 
-<listitem><para>Microsoft Windows: <filename>[installation folder (C:\Programme\simon 0.2\ by default)]\share\apps\ai\util\</filename></para></listitem>
+<listitem><para>Microsoft Windows: <filename>[installation folder (C:\Program Files\simon 0.2\ by default)]\share\apps\ai\util\</filename></para></listitem>
 </itemizedlist>
 </para>
 
@@ -1806,7 +1806,7 @@ To adjust your bots personality have a look at the bot.xml and vars.xml files in
 
 <para>As there can no command instances be created of this plugin it is not listed in the "New Command" dialog.</para>
 
-<para>It is recommended to not use any trigger for this plugin to provide a more natural "feel" for the conversation. The AI plugin <emphasis>will</emphasis> pass any input through to the other plugins, even tough it will react on any input given. This makes it possible to add a "conversation" to the command &amp; controll use-case by developing custom AIMLs sets (e.g.: User: "Computer, open Firefox"; Computer: "Certainly, Sir! Starting Firefox..."; Firefox opens).</para>
+<para>It is recommended to not use any trigger for this plugin to provide a more natural "feel" for the conversation. The AI plugin <emphasis>will</emphasis> pass any input through to the other plugins, even tough it will react on any input given. This makes it possible to add a "conversation" to the command &amp; control use-case by developing custom AIMLs sets (e.g.: User: "Computer, open Firefox"; Computer: "Certainly, Sir! Starting Firefox..."; Firefox opens).</para>
 
 <para>Please keep in mind that the AI plugin will only work if festival is installed, set-up correctly and lies in your system path.</para>
 </sect2>
@@ -1837,7 +1837,7 @@ simon was designed with high configurability in mind.
 Please note that the option to start simon at login will work on both Microsoft Windows and when you are using KDE on Linux. Support for other desktop environments like Gnome, XFCE, etc. might require manually placing simon in the session autostart (please refer to the respective manuals of your desktop environment).
 </para>
 <para>
-When the option to start simon minimized is selected, simon will minimize to the system tray immidiatly after starting.
+When the option to start simon minimized is selected, simon will minimize to the system tray immediately after starting.
 </para>
 </sect2>
 
@@ -2036,7 +2036,7 @@ The timeout setting specifies, how long simon will wait for a first reply when c
 </para>
 
 <para>
-Only after the speech model is synchronized the changes take effect and a new restore point is set. This is why per default simon will always synchronize the model with the server when it changes. This is called "Automatic Synchornization" and is the recommended setting. 
+Only after the speech model is synchronized the changes take effect and a new restore point is set. This is why per default simon will always synchronize the model with the server when it changes. This is called "Automatic Synchronization" and is the recommended setting. 
 </para>
 <para>
 However, if you want more control you can instruct simon to ask you before starting the synchronization after the model has changed or to rely on manual synchronization all together. When selecting the manual synchronization you have to manually use the "Synchronization" menu item of the simon main window (also see the section <link linkend="main_window">simon main window</link>) every time you want to compile the speech model.
@@ -2079,7 +2079,7 @@ In special cases (severe speech impairments for example), special configuration 
 </itemizedlist>
 </para>
 
-<para>The path to the Julius configuration files will depend on your plattform:
+<para>The path to the Julius configuration files will depend on your platform:
 
 <table frame='all'><title>Julius Configuration Files</title>
 <tgroup cols='3' align='left' colsep='1' rowsep='1'>

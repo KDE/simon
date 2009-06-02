@@ -192,7 +192,7 @@ many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
 your application. -->
 
 <para
->&kappname; hat kein Applikationsfenster. Stattdessen erzeugt es ein Symbol im Kontrollleistenbereich der Taskleiste. Über das Kontextmenü des Symbols kann simond gestartet und gestoppt werden und die Konfiguration angezeigt werden. <screenshot>
+>&kappname; hat kein Applikationsfenster. Stattdessen erzeugt es ein Symbol im Systembereich der Taskleiste. Über das Kontextmenü des Symbols kann simond gestartet und gestoppt werden und die Konfiguration angezeigt werden. <screenshot>
 <screeninfo
 >Screenshot von &kappname;</screeninfo>
 	<mediaobject>
@@ -223,7 +223,7 @@ your application. -->
 </screenshot>
 </para>
 <para
->Die Option ksimond beim Anmelden zu starten wird unter Microsoft Windows und KDE unter Linux funktionieren. Andere Desktopumgebungen wie GNOME, XFCE, etc. werden wahrscheinlich manuelle Platzierung von ksimond im jweiligen Sitzungsautostart benötigen (bitte sehen Sie das jeweilige Handbuch der Desktopumgebung). </para>
+>Die Option ksimond beim Anmelden zu starten wird unter Microsoft Windows und KDE unter Linux funktionieren. Andere Desktopumgebungen wie GNOME, XFCE, etc. werden wahrscheinlich manuelle Platzierung von ksimond im jeweiligen Sitzungsautostart benötigen (bitte sehen Sie das jeweilige Handbuch der Desktopumgebung). </para>
 
 <para
 >Neben der ksimond Konfiguration werden auch die simond Konfigurationsmodule angezeigt (diese sind z.B. auch über KDEs systemsettings verfügbar). Sehen Sie das <ulink url="help:/simond"
@@ -323,7 +323,7 @@ Contributors:
 
 <sect1 id="requirements">
 <title
->Vorraussetzungen</title>
+>Voraussetzungen</title>
 
 <!--
 List any special requirements for your application here. This should include:
@@ -348,7 +348,7 @@ information here.
 
 <sect1 id="compilation">
 <title
->Kompillierung und Installation</title>
+>Kompilierung und Installation</title>
 &install.compile.documentation; </sect1>
 
 </appendix>

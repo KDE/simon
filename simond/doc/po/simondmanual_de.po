@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-05-29 19:04+0000\n"
-"PO-Revision-Date: 2009-05-29 21:01+0200\n"
+"POT-Creation-Date: 2009-06-02 16:40+0000\n"
+"PO-Revision-Date: 2009-06-02 18:45+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: DE <grasch@simon-listens.org>\n"
 "MIME-Version: 1.0\n"
@@ -114,7 +114,7 @@ msgstr ""
 #: index.docbook:122
 #, no-c-format
 msgid "The &kmyapplication; Handbook"
-msgstr "Das &kmyapplication; handbuch"
+msgstr "Das &kmyapplication; Handbuch"
 
 #. Tag: title
 #: index.docbook:135
@@ -127,7 +127,7 @@ msgstr "Einleitung"
 #, no-c-format
 msgid ""
 "&kmyapplication; is the server component of the simon speech recognition "
-"suite. It handels the recognition and the model compilation and receives it "
+"suite. It handles the recognition and the model compilation and receives it "
 "input from the simon client(s) which connect to the server using TCP/IP."
 msgstr ""
 "&kmyapplication; ist die Serverkomponente der simon Spracherkennungslösung. "
@@ -235,14 +235,17 @@ msgstr "simond Benutzerkonfiguration"
 #, no-c-format
 msgid ""
 "simond identifies its connections with a user / password combination which "
-"is completely independant from the underlying operating system and its users "
+"is completely independent from the underlying operating system and its users "
 "(which means you have to set up at least one user for simond to use it). "
 "Every simon client logs onto the server with a user / password combination "
 "which identifies a unique user and thus a unique speech model."
 msgstr ""
 "simond identifiziert seine Verbindungen mit einer Benutzername / Passwort "
 "Kombination die komplett unabhängig ist vom zugrunde liegenden "
-"Betriebssystem."
+"Betriebssystem. Das bedeutet, dass Sie mindestens einen simond Benutzer "
+"anlegen müssen, um simond zu verwenden. Jeder simon Client meldet sich mit "
+"einer Benutzername / Passwort Kombination an die einen einzelnen Benutzer und "
+"damit sein persönliches Sprachmodell identifiziert."
 
 #. Tag: para
 #: index.docbook:183
@@ -305,7 +308,7 @@ msgstr ""
 #, no-c-format
 msgid ""
 "The password of the users will be hashed and can not be shown in clear-text. "
-"When a user forgets his or her password there is no way to retreive his "
+"When a user forgets his or her password there is no way to retrieve his "
 "original password from the simond database but you can reset it using the "
 "\"Change Password\" button."
 msgstr ""
@@ -347,7 +350,7 @@ msgstr ""
 "Mit der Netzwerkkonfiguration können Sie den Port ändern auf dem der Server "
 "hört und die Zugriffe auf eine spezielle IP Adresse limitieren."
 
-#. Tag: warning
+#. Tag: para
 #: index.docbook:218
 #, no-c-format
 msgid ""
@@ -381,7 +384,7 @@ msgstr ""
 "Der Port kann natürlich frei geändert werden. Der Standardport (4444) ist "
 "allerdings von keiner anderen bekannten Applikation verwendet und deshalb "
 "empfohlen. Wenn Sie den Port hier ändern, müssen Sie ihn natürlich auch auf "
-"allen simon clients entsprechend anpassen."
+"allen simon Clients entsprechend anpassen."
 
 #. Tag: para
 #: index.docbook:235
@@ -393,7 +396,7 @@ msgid ""
 "which only allows for local simon clients to connect to the server."
 msgstr ""
 "Mit der Option \"Nur Verbindungen erlauben von\" können Sie den kompletten "
-"Zugriff auf den Server auf die angegebene IP Adresse beschärnken. Per "
+"Zugriff auf den Server auf die angegebene IP Adresse beschränken. Per "
 "Default ist simond aus Sicherheitsgründen so konfiguriert, dass er nur auf "
 "simon Verbindungen vom lokalen Host reagiert. Es können per Default also nur "
 "lokale simon Benutzer auf den Server zugreifen."
@@ -402,13 +405,13 @@ msgstr ""
 #: index.docbook:236
 #, no-c-format
 msgid ""
-"This is simply a security meassure because it effectively blocks connections "
+"This is simply a security measure because it effectively blocks connections "
 "from anywhere else (even if the attacker knows your simon username and "
 "password). To allow connections from other hosts simply uncheck the checkbox."
 msgstr ""
 "Das ist nur eine Maßnahme zur Erhöhung der Sicherheit, da Sie auf einem sehr "
 "niedrigen Level sicherstellt, dass selbst ein potentieller Angreifer der "
-"Benutzername und Passwort Ihrerer simon Installation kennt nicht über das "
+"Benutzername und Passwort Ihrer simon Installation kennt nicht über das "
 "Netzwerk (im schlimmsten Fall über das Internet) auf Ihren simond zugreifen "
 "kann. Um Netzwerkzugriff zu erlauben, deaktivieren Sie einfach die Option "
 "\"Nur Verbindungen erlauben von\"."
@@ -417,7 +420,7 @@ msgstr ""
 #: index.docbook:238
 #, no-c-format
 msgid "Protocol encryption is not yet implemented."
-msgstr "Protokollverschlüsselung ist derzeit noch nicht implmentiert."
+msgstr "Protokollverschlüsselung ist derzeit noch nicht implementiert."
 
 #. Tag: title
 #: index.docbook:249
@@ -498,5 +501,5 @@ msgid ""
 "_Setup\">wiki</ulink> for install instructions."
 msgstr ""
 "Bitte sehen Sie unser <ulink url=\"http://www.cyber-byte.at/wiki/index.php/"
-"English:_Setup\">online Wiki</ulink> for eine detailierte "
+"English:_Setup\">online Wiki</ulink> for eine detaillierte "
 "Installationsanleitung."
