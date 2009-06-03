@@ -10,17 +10,20 @@ if(UNIX)
 SET(DESTDIR "/usr")
 SET(CPACK_SET_DESTDIR "ON") 
 SET(CPACK_GENERATOR "DEB;STGZ")
+#SET(CPACK_GENERATOR "RPM")
 endif(UNIX)
 
 INCLUDE(InstallRequiredSystemLibraries)
 
 IF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
 	SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE amd64)
+	SET(CPACK_RPM_PACKAGE_ARCHITECTURE "x86_64")
 ELSEIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "i686")
 	SET(CPACK_DEBIAN_PACKAGE_ARCHITECTURE i386)
+	SET(CPACK_RPM_PACKAGE_ARCHITECTURE "i386")
 ENDIF(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "x86_64")
 
-SET(CPACK_DEBIAN_PACKAGE_DEPENDS  "kdelibs5 (>=4.2.0-0ubuntu2), kdebase-runtime, libqtcore4, libqtgui4, libstdc++6, libasound2, zlib1g, libc6, libportaudio2, libqt4-sql-sqlite, flex")
+SET(CPACK_DEBIAN_PACKAGE_DEPENDS  "kdelibs5 (>=4.1.4-0ubuntu1), kdebase-runtime, libqtcore4, libqtgui4, libstdc++6, libasound2, zlib1g, libc6, libportaudio2, libqt4-sql-sqlite, flex")
 SET(CPACK_DEBIAN_PACKAGE_CONFLICTS  "julius julius-simon")
 SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA 
 	"${CMAKE_CURRENT_SOURCE_DIR}/package/deb/postinst;${CMAKE_CURRENT_SOURCE_DIR}/package/deb/postrm")
@@ -29,9 +32,9 @@ SET(CPACK_PACKAGE_CONTACT "SIMON listens <support@simon-listens.org>")
 SET(CPACK_DEBIAN_PACKAGE_SECTION "utils")
 SET(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
 
-SET(CPACK_RPM_PACKAGE_ARCHITECTURE "i386")
 SET(CPACK_RPM_PACKAGE_LICENCE "GNU General Public License (GPL)")
 SET(CPACK_RPM_PACKAGE_GROUP " Productivity/Multimedia/Sound/Utilities")
+SET(CPACK_RPM_PACKAGE_REQUIRES "kdelibs4 >= 4.1.0, kdebase4-runtime, libasound2, zlib, portaudio, libqt4-sql, libqt4-sql-sqlite, libqt4-x11, libqt4")
 
 SET(CPACK_PACKAGE_NAME "simon")
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Open-Source Speech Recognition")
