@@ -27,15 +27,14 @@
 #include <KGlobal>
 #include <KComponentData>
 #include <QApplication>
+#include "../../version.h"
 
 static const char description[] =
     I18N_NOOP("The simon recognition daemon");
 
-static const char version[] = "0.2rc1";
-
 int main(int argc, char **argv)
 {
-	KAboutData about("simond", 0, ki18n("simond"), version, ki18n(description),
+	KAboutData about("simond", 0, ki18n("simond"), simon_version, ki18n(description),
 			KAboutData::License_GPL, ki18n("(C) 2008 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
 	about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
 

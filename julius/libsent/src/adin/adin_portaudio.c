@@ -2,22 +2,22 @@
  * @file   adin_portaudio.c
  * 
  * <JA>
- * @brief  ¥Þ¥¤¥¯ÆþÎÏ (portaudio¥é¥¤¥Ö¥é¥ê)
+ * @brief  ï¿½Þ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (portaudioï¿½é¥¤ï¿½Ö¥ï¿½ï¿½ï¿½)
  *
- * portaudioo¥é¥¤¥Ö¥é¥ê¤ò»ÈÍÑ¤·¤¿¥Þ¥¤¥¯ÆþÎÏ¤Î¤¿¤á¤ÎÄã¥ì¥Ù¥ë´Ø¿ô¤Ç¤¹¡¥
- * »ÈÍÑ¤¹¤ë¤Ë¤Ï configure »þ¤Ë "--with-mictype=portaudio" ¤ò»ØÄê¤·¤Æ²¼¤µ¤¤¡¥
- * Linux ¤ª¤è¤Ó Win32 ¤Ç»ÈÍÑ²ÄÇ½¤Ç¤¹¡¥Win32¥â¡¼¥É¤Ç¤Ï¤³¤ì¤¬
- * ¥Ç¥Õ¥©¥ë¥È¤È¤Ê¤ê¤Þ¤¹¡¥
+ * portaudiooï¿½é¥¤ï¿½Ö¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¤ï¿½ï¿½ï¿½ï¿½Þ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¤Î¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¥ï¿½ï¿½Ø¿ï¿½ï¿½Ç¤ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ï¿½Ñ¤ï¿½ï¿½ï¿½ï¿½Ë¤ï¿½ configure ï¿½ï¿½ï¿½ï¿½ "--with-mictype=portaudio" ï¿½ï¿½ï¿½ï¿½ï¿½ê¤·ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * Linux ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Win32 ï¿½Ç»ï¿½ï¿½Ñ²ï¿½Ç½ï¿½Ç¤ï¿½ï¿½ï¿½Win32ï¿½â¡¼ï¿½É¤Ç¤Ï¤ï¿½ï¿½ì¤¬
+ * ï¿½Ç¥Õ¥ï¿½ï¿½ï¿½ï¿½È¤È¤Ê¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½
  *
- * Julius¤Ï¥ß¥­¥µ¡¼¥Ç¥Ð¥¤¥¹¤ÎÀßÄê¤ò°ìÀÚ¹Ô¤¤¤Þ¤»¤ó¡¥Ï¿²»¥Ç¥Ð¥¤¥¹¤Î
- * ÁªÂò¡Ê¥Þ¥¤¥¯/¥é¥¤¥ó¡Ë¤äÏ¿²»¥Ü¥ê¥å¡¼¥à¤ÎÄ´Àá¤ÏWindows¤Î
- * ¡Ö¥Ü¥ê¥å¡¼¥à¥³¥ó¥È¥í¡¼¥ë¡× ¤ä Linux ¤Î xmixer ¤Ê¤É¡¤Â¾¤Î¥Ä¡¼¥ë¤Ç
- * ¹Ô¤Ê¤Ã¤Æ²¼¤µ¤¤¡¥
+ * Juliusï¿½Ï¥ß¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¥Ð¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¹Ô¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½Ç¥Ð¥ï¿½ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ï¿½ï¿½Ê¥Þ¥ï¿½ï¿½ï¿½/ï¿½é¥¤ï¿½ï¿½ï¿½Ë¤ï¿½Ï¿ï¿½ï¿½ï¿½Ü¥ï¿½ï¿½å¡¼ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½Windowsï¿½ï¿½
+ * ï¿½Ö¥Ü¥ï¿½ï¿½å¡¼ï¿½à¥³ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Linux ï¿½ï¿½ xmixer ï¿½Ê¤É¡ï¿½Â¾ï¿½Î¥Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½
+ * ï¿½Ô¤Ê¤Ã¤Æ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  *
- * portaudio ¤Ï¥Õ¥ê¡¼¤Ç¥¯¥í¥¹¥×¥é¥Ã¥È¥Û¡¼¥à¤Î¥ª¡¼¥Ç¥£¥ªÆþ½ÐÎÏ¥é¥¤¥Ö¥é¥ê
- * ¤Ç¤¹¡¥¥½¡¼¥¹¤Ï libsent/src/adin/pa/ ¤Ë´Þ¤Þ¤ì¤Æ¤¤¤Þ¤¹¡¥¤³¤Î¥×¥í¥°¥é¥à¤Ç¤Ï
- * ¥¹¥ì¥Ã¥É¤òÍøÍÑ¤·¤¿callback ¤òÍøÍÑ¤·¤ÆÆþÎÏ²»À¼¤ò¥ê¥ó¥°¥Ð¥Ã¥Õ¥¡¤Ë¼è¤ê¹þ¤ó¤Ç
- * ¤¤¤Þ¤¹¡¥
+ * portaudio ï¿½Ï¥Õ¥ê¡¼ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½Ã¥È¥Û¡ï¿½ï¿½ï¿½ï¿½Î¥ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¥é¥¤ï¿½Ö¥ï¿½ï¿½ï¿½d
+ * ï¿½Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ libsent/src/adin/pa/ ï¿½Ë´Þ¤Þ¤ï¿½ï¿½Æ¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¥×¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¤ï¿½
+ * ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥É¤ï¿½ï¿½ï¿½ï¿½Ñ¤ï¿½ï¿½ï¿½callback ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó¥°¥Ð¥Ã¥Õ¥ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½
  *
  * @sa http://www.portaudio.com/
  * </JA>
@@ -60,6 +60,9 @@
 /* sound header */
 /*#include "pa/portaudio.h"*/
 #include <portaudio.h>
+#ifdef linux
+#include <pthread.h>
+#endif
 
 #define bzero(b,len) (memset((b), '\0', (len)), (void) 0)
 
@@ -83,6 +86,9 @@ static int cycle_buffer_len;	///< length of cycle buffer based on INPUT_DELAY_SE
 static boolean adin_stream_should_be_running = FALSE;
 static boolean adin_is_stopped = TRUE;
 static int adin_stream_sfreq = -1;
+
+/*static pthread_mutex_t adin_mutex;*/
+
 
 /** 
  * PortAudio callback to store the incoming speech data into the cycle
@@ -129,6 +135,7 @@ Callback(const void *inbuf, void *outbuf, unsigned long len, const PaStreamCallb
     len = avail;
   }
 
+  /*pthread_mutex_lock(&adin_mutex);*/
   /* store to buffer */
   if (current + len <= cycle_buffer_len) {
     memcpy(&(speech[current]), now, len * sizeof(SP16));
@@ -151,6 +158,9 @@ Callback(const void *inbuf, void *outbuf, unsigned long len, const PaStreamCallb
 #ifdef DDEBUG
   printf("callback-3: new current: %d\n", current);
 #endif
+
+
+  /*pthread_mutex_unlock(&adin_mutex);*/
 
   if (adin_stream_should_be_running==TRUE)
 	return paContinue;
@@ -186,6 +196,10 @@ adin_mic_begin()
   if (adin_stream_sfreq == -1) {
 	  return(FALSE);
   }
+
+
+  /* initialize mutex */
+  /*pthread_mutex_init (&adin_mutex, NULL);*/
 
   PaError err;
   int frames_per_buffer, num_buffer;
@@ -260,10 +274,12 @@ adin_mic_begin()
 boolean
 adin_mic_end()
 {
-  fprintf(stderr, "Hier");
+  fprintf(stderr, "\nadin_mic_end()\n");
   if (adin_is_stopped || (stream==NULL)) {
 	return(TRUE); // we have already stopped
   }
+
+  /*pthread_mutex_lock(&adin_mutex);*/
 
   PaStream *real_stream = stream;
   stream=NULL;
@@ -289,6 +305,12 @@ adin_mic_end()
   }
   current = processed = 0;
   adin_is_stopped = TRUE;
+
+  /*pthread_mutex_unlock(&adin_mutex);*/
+
+  /* destroy the mutex and unallocate any memory associated to it */
+  /*pthread_mutex_destroy (&adin_mutex);*/
+
   return TRUE;
 }
 
@@ -326,16 +348,21 @@ adin_mic_read(SP16 *buf, int sampnum)
     Pa_Sleep(30); /* wait till some input comes */
   }
 
-  if (current == processed) return -1;
-  if (adin_stream_should_be_running == FALSE) return -1;
+  /*pthread_mutex_lock(&adin_mutex);*/ /* lock the mutex */
+
+  if ((current == processed)
+	|| (adin_stream_should_be_running == FALSE)
+        || (speech==NULL)) {
+    /* any of these conditions mean that we have stopped recording */
+    /*pthread_mutex_unlock(&adin_mutex);*/
+    return -1;
+  }
 
   current_local = current;
 
 #ifdef DDEBUG
   printf("process-1: processed=%d, current=%d\n", processed, current_local);
 #endif
-  if (speech==NULL)
-	return -1; 
 
   if (processed < current_local) {
     avail = current_local - processed;
@@ -377,6 +404,7 @@ adin_mic_read(SP16 *buf, int sampnum)
 #ifdef DDEBUG
   printf("process-3: new processed: %d\n", processed);
 #endif
+  /*pthread_mutex_unlock(&adin_mutex);*/ /* unlock mutex */
   if (len == 0) return -1;
   return len;
 }

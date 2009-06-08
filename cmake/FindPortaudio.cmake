@@ -30,8 +30,11 @@ else (PORTAUDIO_LIBRARIES AND PORTAUDIO_INCLUDE_DIRS)
 
   find_library(PORTAUDIO_LIBRARY
     NAMES
-      portaudio
       libportaudio-2.dll
+      portaudio_x86.dll
+      portaudio.dll
+      libportaudio.so.2
+      portaudio
     PATHS
       /usr/lib
       /usr/local/lib

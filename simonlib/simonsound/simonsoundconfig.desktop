@@ -4,6 +4,8 @@ Icon=preferences-desktop-sound
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=libsimonsound
 
+X-DocPath=help:/simon/configuration.html#soundconfiguration
+
 X-KDE-FactoryName=soundsettingsfactory
 X-KDE-ParentComponents=libsimonsound
 

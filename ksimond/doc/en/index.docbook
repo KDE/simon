@@ -1,0 +1,333 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE
+       CVS -->
+  <!ENTITY kmyapplication "<application>ksimond</application>">
+  <!ENTITY kappname "&kmyapplication;"><!-- replace kmyapplication here
+                                            do *not* replace kappname-->
+  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
+                                     this unchanged if your
+                                     application is not maintained in KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"> <!-- ONLY If you are writing non-English
+                                     original documentation, change
+                                     the language here -->
+
+  <!-- Do not define any other entities; instead, use the entities
+       from entities/general.entities and $LANG/user.entities. -->
+]>
+<!-- kdoctemplate v0.9 January 10 2003
+     Changes to comments to clarify entity usage January 10 2003
+     Minor update to "Credits and Licenses" section on August 24, 2000
+     Removed "Revision history" section on 22 January 2001
+     Changed to Installation/Help menu entities 18 October 2001
+     Other minor cleanup and changes 18 October 2001
+     FPI change and minor changes November 2002 -->
+
+<!--
+This template was designed by: David Rugge davidrugge@mindspring.com
+with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
+and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
+of the KDE DocBook team.
+
+You may freely use this template for writing any sort of KDE documentation.
+If you have any changes or improvements, please let us know.
+
+Remember:
+- in XML, the case of the <tags> and attributes is relevant ;
+- also, quote all attributes.
+
+Please don't forget to remove all these comments in your final documentation,
+thanks ;-).
+-->
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+<!-- If you are writing original documentation in a language other -->
+<!-- than English, change the language above ONLY, not here -->
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+
+<!-- Date and version information of the application
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (YYYY-MM-DD) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>2008-03-04</date>
+<releaseinfo>0.2</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>
+&kmyapplication; is a frontend for the simond server component of the simon speech recognition suite.
+</para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdeutils</keyword>
+<keyword>Kapp</keyword>
+<keyword>simon</keyword>
+<keyword>recognition</keyword>
+<keyword>speech</keyword>
+<keyword>voice</keyword>
+<keyword>command</keyword>
+<keyword>control</keyword>
+<keyword>accessibility</keyword>
+</keywordset>
+
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>&FDLNotice;</legalnotice>
+
+<copyright>
+<year>2009</year>
+<holder>Peter Grasch</holder>
+</copyright>
+
+<authorgroup>
+<author>
+<!-- This is just put in as an example.  For real documentation, please
+     define a general entity in entities/contributor.entities, e.g.
+<!ENTITY George.N.Ugnacious "<personname><firstname>George</firstname><othername>N.</othername><surname>Ugnacious</surname></personname>">
+<!ENTITY George.N.Ugnacious.mail "<email>gnu@kde.org</email>">
+and use `&George.N.Ugnacious; &George.N.Ugnacious.mail;' in the author element.
+ -->
+<personname>
+<firstname>Peter</firstname>
+<othername>H.</othername>
+<surname>Grasch</surname>
+</personname>
+<email>grasch@simon-listens.org</email>
+</author>
+</authorgroup>
+
+
+<title>The &kmyapplication; Handbook</title>
+</bookinfo>
+
+<!-- The contents of the documentation begin here.  Label
+each chapter so with the id attribute. This is necessary for two reasons: it
+allows you to easily reference the chapter from other chapters of your
+document, and if there is no ID, the name of the generated HTML files will vary
+from time to time making it hard to manage for maintainers and for the CVS
+system. Any chapter labelled (OPTIONAL) may be left out at the author's
+discretion. Other chapters should not be left out in order to maintain a
+consistent documentation style across all KDE apps. -->
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<!-- The introduction chapter contains a brief introduction for the
+application that explains what it does and where to report
+problems. Basically a long version of the abstract.  Don't include a
+revision history. (see installation appendix comment) -->
+
+<para>
+&kappname; is a simple graphical front-end to simond. It creates and displays a tray-icon from which you can start and stop the simond server.
+Moreover it provides a configuration dialog in which it embeds the simond configuration.
+</para>
+<para>
+KSimond can be configured to be started on KDE start.
+</para>
+<para>
+Please report any problems or feature requests to <ulink url="http://sourceforge.net/tracker/?group_id=190872">our bug tracker</ulink>.
+</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title>Using &kappname;</title>
+
+<!-- This chapter should tell the user how to use your app. You should use as
+many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
+your application. -->
+
+<para>
+<!-- Note that all graphics should be in .png format. Do not use gifs because of
+patent issues. -->
+Due to it's minimalistic nature ksimond itself doesn't even have an application window. However, it the tray icon has a context menu from where you can start and stop simond and also open the configuration.
+
+<screenshot>
+<screeninfo>screenshot of &kappname;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="ksimond.png" format="PNG"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>ksimond "screenshot"</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+<para>
+ksimond has the ability to launch automatically when KDE starts and to handle unexpected simond-crashes.
+
+<screenshot>
+<screeninfo>screenshot of the &kappname;-configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="ksimond_config.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>ksimond configuration</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para>
+Please note that the option to start ksimond at login will work on both Microsoft Windows and when you are using KDE on Linux. Support for other desktop environments like Gnome, XFCE, etc. might require manually placing ksimond in the session autostart (please refer to the respective manuals of your desktop environment).
+</para>
+
+<para>
+Alongside the ksimond configuration the simond configuration modules are listed (also available through systemsettings). See the <ulink url="help:/simond">simond manual</ulink> for details.
+
+<screenshot>
+<screeninfo>screenshot of the simond user configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="simond_user_config.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>simond user configuration</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+
+<screenshot>
+<screeninfo>screenshot of the simond network configuration</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="simond_network_config.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>simond network configuration</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+
+</chapter>
+
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title>Credits and License</title>
+
+<para>
+&kappname;
+</para>
+<para>
+Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</email>
+</para>
+<!--<para>
+Contributors:
+<itemizedlist>
+<listitem><para>Konqui the KDE Dragon <email>konqui@kde.org</email></para>
+</listitem>
+<listitem><para>Tux the Linux Penguin <email>tux@linux.org</email></para>
+</listitem>
+</itemizedlist>
+</para>-->
+
+<para>
+Documentation Copyright &copy; 2008 Peter Grasch <email>grasch@simon-listens.org</email>
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;               <!-- FDL: do not remove -->
+
+
+&underGPL;        	 <!-- GPL License -->
+
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="getting-kapp">
+<title>How to obtain &kappname;</title>
+
+<para>
+<!-- This first entity contains boiler plate for applications that are
+part of KDE CVS.  You should remove it if you are releasing your
+application -->
+Download the latest version of ksimond using the simon-bundle avaible from <ulink url="http://sourceforge.net/project/showfiles.php?group_id=190872&amp;package_id=224125">sourceforge</ulink>.
+</para>
+</sect1>
+
+<sect1 id="requirements">
+<title>Requirements</title>
+
+<!--
+List any special requirements for your application here. This should include:
+.Libraries or other software that is not included in kdesupport,
+kdelibs, or kdebase.
+.Hardware requirements like amount of RAM, disk space, graphics card
+capabilities, screen resolution, special expansion cards, etc.
+.Operating systems the app will run on. If your app is designed only for a
+specific OS, (you wrote a graphical LILO configurator for example) put this
+information here.
+-->
+
+<para>
+In order to successfully use &kappname;, you need &kde; 4. simond is obviously also
+required.
+</para>
+
+<para>
+simon and simond itself can be found on <ulink url="http://sourceforge.net/project/showfiles.php?group_id=190872&amp;package_id=224125">the simon sourceforge page</ulink>.
+</para>
+
+</sect1>
+
+<sect1 id="compilation">
+<title>Compilation and Installation</title>
+
+<!-- This entity contains the boilerplate text for standard -->
+<!-- compilation instructions.  If your application requires any -->
+<!-- special handling, remove it, and replace with your own text. -->
+
+&install.compile.documentation;
+
+</sect1>
+
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->

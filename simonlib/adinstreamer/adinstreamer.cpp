@@ -30,6 +30,7 @@
 #include "adinstreamer.h"
 
 #include <simonsound/soundcontrol.h>
+#include <signal.h>
 
 #include <QString>
 #include <QByteArray>
@@ -94,6 +95,7 @@ static int adin_callback_adinnet(SP16 *now, int len, Recog *recog)
 	#ifdef WORDS_BIGENDIAN
 		swap_sample_bytes(&(now[start]), len);
 	#endif
+	if (!adin_shouldBeRunning) return -1;
 	count = wt(adinstreamer_socketDescriptor, (char *)&(now[start]), len * sizeof(SP16));
 	if (count < 0) {
 		perror("adintool: cannot write");
@@ -183,11 +185,12 @@ static int adinnet_check_command(Recog *)
 				default:
 //					fprintf(stderr, "adintool: unknown command adinnet_check_command: %d\n", com);
 					adinstreamer_unknown_command_counter++;
-					if (adinstreamer_unknown_command_counter > 10)
-					{
-						fprintf(stderr, "adintool: I've got enough");
+					/* Test: Abort on first unknown command */
+//					if (adinstreamer_unknown_command_counter > 10)
+//					{
+//						fprintf(stderr, "adintool: I've got enough");
 						adin_shouldBeRunning= false;
-					}
+//					}
 					return -1;
 			}
 		}
@@ -253,12 +256,18 @@ static int adinnet_wait_command()
 } 
 
 
+void adinstreamer_pipe_handler(int arg)
+{
+	AdinStreamer::getInstance()->stop();
+	fprintf(stderr, "HIER: %d", arg);
+}
 
 AdinStreamer::AdinStreamer(QObject* parent) : QThread(parent)
 {
 	recog = NULL;
 	shouldReStart=false;
 	adin_shouldBeRunning=false;
+	signal(SIGPIPE, adinstreamer_pipe_handler);
 	connect(this, SIGNAL(audioDeviceError()), this, SLOT(reportSoundDeviceError()));
 }
 
@@ -272,12 +281,13 @@ void AdinStreamer::init(const QHostAddress& address, qint32 port, qint32 sampleR
 
 void AdinStreamer::run()
 {
+        fprintf(stderr, "AdinStreamer::run() #0");
 	adin_shouldBeRunning=true;
 	adinstreamer_stop_at_next=false;
 
 	Jconf *jconf;
-	int ret;
-
+	int ret=0;
+        fprintf(stderr, "AdinStreamer::run() #1");
 	adinstreamer_unknown_command_counter = 0;
 
 	KSharedConfig::Ptr config = KSharedConfig::openConfig("simonsoundrc");
@@ -294,6 +304,7 @@ void AdinStreamer::run()
 	if (!jconf) return;
 
 	recog->jconf = jconf;
+        fprintf(stderr, "AdinStreamer::run() #2");
 	
 
 	/* register additional options */
@@ -312,6 +323,7 @@ void AdinStreamer::run()
 		return;
 	}
 
+        fprintf(stderr, "AdinStreamer::run() #3");
 	apply_para(&(jconf->am_root->analysis.para), &(jconf->am_root->analysis.para_default));
 
 	jconf->input.sfreq = jconf->am_root->analysis.para.smp_freq;
@@ -323,6 +335,7 @@ void AdinStreamer::run()
 	if (adinstreamer_socketDescriptor == 0)
 		adinstreamer_socketDescriptor = make_connection(addressByte.data(), port);
 
+        fprintf(stderr, "AdinStreamer::run() #3.5");
 
 	if (j_adin_init(recog) == FALSE) {
 		Recog *realRecog = recog;
@@ -333,6 +346,7 @@ void AdinStreamer::run()
 		emit audioDeviceError();
 		return;
 	}
+        fprintf(stderr, "AdinStreamer::run() #3.7");
 
 	// put_status(recog);
 
@@ -344,6 +358,7 @@ void AdinStreamer::run()
 		emit requestingPause();
 	}
 
+        fprintf(stderr, "AdinStreamer::run() #4");
 
 	while(adin_shouldBeRunning) {
 		/* begin A/D input of a stream */
@@ -399,7 +414,7 @@ void AdinStreamer::run()
 					break;
 			}
 			
-			if ((ret == -1)||/*(ret==-2)||*/(ret==0)) {
+			if ((ret == -1)||(ret==-2)||(ret==0)) {
 				/* error in input device or callback function, so terminate program here */
 				adin_shouldBeRunning=false;
 				break;
@@ -420,22 +435,34 @@ void AdinStreamer::run()
 			/***************************************************/
 			if ((adinstreamer_stop_at_next) && (adinnet_wait_command() < 0)) {
 					/* command error: terminate program here */
+                                        fprintf(stderr, "Bin im sehr seltsamen outpfad");
 					Recog *realRecog = recog;
 					recog=NULL;
 					j_recog_free(realRecog);
 					return;
 			}
-		} while ((adin_shouldBeRunning) && (ret > 0 || ret == -2)); /* to the next segment in this input stream */
+		} while ((adin_shouldBeRunning) && (ret > 0 /*|| ret == -2*/)); /* to the next segment in this input stream */
 	}
 
 //	fprintf(stderr, "Recog-real: %d\n", recog);
 	Recog *realRecog = recog;
 	recog=NULL;
+	if ((ret == -2)||(ret-1)) 
+	{
+		//then we need to stop the stream first
+		//Otherwise it will already be closed:
+		//Called by stop() when the user wants us to stop
+		//So when the server closed the connection unexpectedly
+		//is the only time when we need to call this here
+		j_close_stream(realRecog);
+	}
+//       adin_mic_end();
 	j_recog_free(realRecog);
 
-	close(adinstreamer_socketDescriptor);
-	fprintf(stderr, "Socket closed\n");
-	adinstreamer_socketDescriptor=0;
+	int real_descriptor = adinstreamer_socketDescriptor;
+        adinstreamer_socketDescriptor=0;
+	close(real_descriptor);
+        fprintf(stderr, "Socket closed\n");
 	
 	emit stopped();
 }
@@ -447,7 +474,7 @@ void AdinStreamer::stop()
 	shouldReStart=false;
 	adinstreamer_stop_at_next=false;
 
-	if (recog/* && (recog->adin)*/)
+        if (recog/* && (recog->adin)*/)
 	{
 		//recog->adin->ad_end();
 		j_close_stream(recog);

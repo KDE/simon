@@ -4,6 +4,8 @@ Icon=ksimond
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=libksimondsettings
 
+X-DocPath=help:/ksimond/using-kapp.html
+
 X-KDE-FactoryName=ksimondsettingsfactory
 X-KDE-ParentComponents=libksimondsettings
 

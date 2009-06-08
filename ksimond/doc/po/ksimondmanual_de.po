@@ -1,0 +1,368 @@
+# ksimond manual.
+# Peter Grasch <grasch@simon-listens.org>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.2\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2009-06-02 16:10+0000\n"
+"PO-Revision-Date: 2009-06-02 18:15+0200\n"
+"Last-Translator: Peter Grasch <grasch@simon-listens.org\n"
+"Language-Team: DE <grasch@simon-listens.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: application/x-xml2pot; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Tag: trans_comment
+#: index.docbook:56
+#, no-c-format
+msgid "ROLES_OF_TRANSLATORS"
+msgstr ""
+"<othercredit role=\"translator\"><firstname>Peter</"
+"firstname><surname>Grasch</surname><affiliation><address><email>grasch@simon-"
+"listens.org</email></address></affiliation><contrib>Deutsche Übersetzung</"
+"contrib></othercredit>"
+
+#. Tag: para
+#: index.docbook:72
+#, no-c-format
+msgid ""
+"&kmyapplication; is a frontend for the simond server component of the simon "
+"speech recognition suite."
+msgstr ""
+"&kmyapplication; ist ein Frontend für die Serverkomponente simond der simon "
+"Spracherkennungslösung"
+
+#. Tag: keyword
+#: index.docbook:82
+#, no-c-format
+msgid "<keyword>KDE</keyword>"
+msgstr "<keyword>KDE</keyword>"
+
+#. Tag: keyword
+#: index.docbook:83
+#, no-c-format
+msgid "kdeutils"
+msgstr "kdeutils"
+
+#. Tag: keyword
+#: index.docbook:84
+#, no-c-format
+msgid "Kapp"
+msgstr "Kapp"
+
+#. Tag: keyword
+#: index.docbook:85
+#, no-c-format
+msgid "simon"
+msgstr "simon"
+
+#. Tag: keyword
+#: index.docbook:86
+#, no-c-format
+msgid "recognition"
+msgstr "Erkennung"
+
+#. Tag: keyword
+#: index.docbook:87
+#, no-c-format
+msgid "speech"
+msgstr "Sprache"
+
+#. Tag: keyword
+#: index.docbook:88
+#, no-c-format
+msgid "voice"
+msgstr "Sprecher"
+
+#. Tag: keyword
+#: index.docbook:89
+#, no-c-format
+msgid "command"
+msgstr "Kommando"
+
+#. Tag: keyword
+#: index.docbook:90
+#, no-c-format
+msgid "control"
+msgstr "Kontrolle"
+
+#. Tag: keyword
+#: index.docbook:91
+#, no-c-format
+msgid "accessibility"
+msgstr "Zugangshilfe"
+
+#. Tag: holder
+#: index.docbook:101
+#, no-c-format
+msgid "Peter Grasch"
+msgstr "Peter Grasch"
+
+#. Tag: author
+#: index.docbook:105
+#, no-c-format
+msgid ""
+"<personname> <firstname>Peter</firstname> <othername>H.</othername> "
+"<surname>Grasch</surname> </personname> <email>grasch@simon-listens.org</"
+"email>"
+msgstr ""
+"<personname> <firstname>Peter</firstname> <othername>H.</othername> "
+"<surname>Grasch</surname> </personname> <email>grasch@simon-listens.org</"
+"email>"
+
+#. Tag: title
+#: index.docbook:122
+#, no-c-format
+msgid "The &kmyapplication; Handbook"
+msgstr "Das &kmyapplication; Handbuch"
+
+#. Tag: title
+#: index.docbook:135
+#, no-c-format
+msgid "Introduction"
+msgstr "Einleitung"
+
+#. Tag: para
+#: index.docbook:142
+#, no-c-format
+msgid ""
+"&kappname; is a simple graphical front-end to simond. It creates and "
+"displays a tray-icon from which you can start and stop the simond server. "
+"Moreover it provides a configuration dialog in which it embeds the simond "
+"configuration."
+msgstr ""
+"&kappname; ist ein einfaches, grafisches Frontend von simond. Es zeigt ein "
+"Symbol im Systembereich der Taskleiste an, von dem aus man den simond Server "
+"starten, stoppen und konfigurieren kann. Im Konfigurationsdialog von ksimond "
+"werden auch die simond Konfigurationselement angezeigt."
+
+#. Tag: para
+#: index.docbook:146
+#, no-c-format
+msgid "KSimond can be configured to be started on KDE start."
+msgstr ""
+"KSimond kann so konfiguriert werden, dass es beim Start des Systems startet."
+
+#. Tag: para
+#: index.docbook:149
+#, no-c-format
+msgid ""
+"Please report any problems or feature requests to <ulink url=\"http://"
+"sourceforge.net/tracker/?group_id=190872\">our bug tracker</ulink>."
+msgstr ""
+"Bitte melden Sie Probleme oder Funktionsanfragen auf unserem <ulink url="
+"\"http://sourceforge.net/tracker/?group_id=190872\">Bug Tracker</ulink>."
+
+#. Tag: title
+#: index.docbook:155
+#, no-c-format
+msgid "Using &kappname;"
+msgstr "&kappname; benutzen"
+
+#. Tag: para
+#: index.docbook:161
+#, no-c-format
+msgid ""
+"Due to it's minimalistic nature ksimond itself doesn't even have an "
+"application window. However, it the tray icon has a context menu from where "
+"you can start and stop simond and also open the configuration."
+msgstr ""
+"&kappname; hat kein Applikationsfenster. Stattdessen erzeugt es ein Symbol "
+"im Systembereich der Taskleiste. Über das Kontextmenü des Symbols "
+"kann simond gestartet und gestoppt werden und die Konfiguration angezeigt "
+"werden."
+
+#. Tag: screeninfo
+#: index.docbook:167
+#, no-c-format
+msgid "screenshot of &kappname;"
+msgstr "Screenshot von &kappname;"
+
+#. Tag: phrase
+#: index.docbook:173
+#, no-c-format
+msgid "ksimond \"screenshot\""
+msgstr "&kappname; \"Screenshot\""
+
+#. Tag: para
+#: index.docbook:179
+#, no-c-format
+msgid ""
+"ksimond has the ability to launch automatically when KDE starts and to "
+"handle unexpected simond-crashes."
+msgstr ""
+"ksimond kann konfiguriert werden um automatisch zu starten wenn KDE startet "
+"und auf simond Abstürze zu reagieren."
+
+#. Tag: screeninfo
+#: index.docbook:183
+#, no-c-format
+msgid "screenshot of the &kappname;-configuration"
+msgstr "Screenshot von der &kappname;-Konfiguration"
+
+#. Tag: phrase
+#: index.docbook:189
+#, no-c-format
+msgid "ksimond configuration"
+msgstr "ksimond Konfiguration"
+
+#. Tag: para
+#: index.docbook:194
+#, no-c-format
+msgid ""
+"Please note that the option to start ksimond at login will work on both "
+"Microsoft Windows and when you are using KDE on Linux. Support for other "
+"desktop environments like Gnome, XFCE, etc. might require manually placing "
+"ksimond in the session autostart (please refer to the respective manuals of "
+"your desktop environment)."
+msgstr ""
+"Die Option ksimond beim Anmelden zu starten wird unter Microsoft Windows und "
+"KDE unter Linux funktionieren. Andere Desktopumgebungen wie GNOME, XFCE, "
+"etc. werden wahrscheinlich manuelle Platzierung von ksimond im jeweiligen "
+"Sitzungsautostart benötigen (bitte sehen Sie das jeweilige Handbuch der "
+"Desktopumgebung)."
+
+#. Tag: para
+#: index.docbook:198
+#, no-c-format
+msgid ""
+"Alongside the ksimond configuration the simond configuration modules are "
+"listed (also available through systemsettings). See the <ulink url=\"help:/"
+"simond\">simond manual</ulink> for details."
+msgstr ""
+"Neben der ksimond Konfiguration werden auch die simond Konfigurationsmodule "
+"angezeigt (diese sind z.B. auch über KDEs systemsettings verfügbar). Sehen "
+"Sie das <ulink url=\"help:/simond\">simond</ulink> Handbuch für Details."
+
+#. Tag: screeninfo
+#: index.docbook:202
+#, no-c-format
+msgid "screenshot of the simond user configuration"
+msgstr "Screenshot der simond Benutzerkonfiguration"
+
+#. Tag: phrase
+#: index.docbook:208
+#, no-c-format
+msgid "simond user configuration"
+msgstr "simond Benutzerkonfiguration"
+
+#. Tag: screeninfo
+#: index.docbook:214
+#, no-c-format
+msgid "screenshot of the simond network configuration"
+msgstr "Screenshot der simond Netzwerkkonfiguration"
+
+#. Tag: phrase
+#: index.docbook:220
+#, no-c-format
+msgid "simond network configuration"
+msgstr "simond Netzwerkkonfiguration"
+
+#. Tag: title
+#: index.docbook:236
+#, no-c-format
+msgid "Credits and License"
+msgstr "Danksagungen und Lizenz"
+
+#. Tag: para
+#: index.docbook:238
+#, no-c-format
+msgid "&kappname;"
+msgstr "&kappname;"
+
+#. Tag: para
+#: index.docbook:241
+#, no-c-format
+msgid ""
+"Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</"
+"email>"
+msgstr ""
+"Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</"
+"email>"
+
+#. Tag: para
+#: index.docbook:254
+#, no-c-format
+msgid ""
+"Documentation Copyright &copy; 2008 Peter Grasch <email>grasch@simon-listens."
+"org</email>"
+msgstr ""
+"Documentation Copyright &copy; 2008 Peter Grasch <email>grasch@simon-listens."
+"org</email>"
+
+#. Tag: trans_comment
+#: index.docbook:258
+#, no-c-format
+msgid "CREDIT_FOR_TRANSLATORS"
+msgstr ""
+"<para>Übersetzung Copyright &copy; 2009 Peter Grasch <email>grasch@simon-"
+"listens.org</email></para>"
+
+#. Tag: chapter
+#: index.docbook:258
+#, no-c-format
+msgid "&underFDL; &underGPL;"
+msgstr "&underFDL; &underGPL;"
+
+#. Tag: title
+#: index.docbook:268
+#, no-c-format
+msgid "Installation"
+msgstr "Installation"
+
+#. Tag: title
+#: index.docbook:271
+#, no-c-format
+msgid "How to obtain &kappname;"
+msgstr "&kappname; herunterladen"
+
+#. Tag: para
+#: index.docbook:273
+#, no-c-format
+msgid ""
+"Download the latest version of ksimond using the simon-bundle avaible from "
+"<ulink url=\"http://sourceforge.net/project/showfiles.php?"
+"group_id=190872&amp;package_id=224125\">sourceforge</ulink>."
+msgstr ""
+"Laden Sie die letzte Version von ksimond im simon-Paket von <ulink url="
+"\"http://sourceforge.net/project/showfiles.php?group_id=190872&amp;"
+"package_id=224125\">Sourceforge</ulink>.herunter "
+
+#. Tag: title
+#: index.docbook:282
+#, no-c-format
+msgid "Requirements"
+msgstr "Voraussetzungen"
+
+#. Tag: para
+#: index.docbook:295
+#, no-c-format
+msgid ""
+"In order to successfully use &kappname;, you need &kde; 4. simond is "
+"obviously also required."
+msgstr "Um &kappname; zu benutzen benötigen Sie &kde; 4 und simond."
+
+#. Tag: para
+#: index.docbook:300
+#, no-c-format
+msgid ""
+"simon and simond itself can be found on <ulink url=\"http://sourceforge.net/"
+"project/showfiles.php?group_id=190872&amp;package_id=224125\">the simon "
+"sourceforge page</ulink>."
+msgstr ""
+"simon und simond können auf der <ulink url=\"http://sourceforge.net/project/"
+"showfiles.php?group_id=190872&amp;package_id=224125\">simon Sourceforge "
+"Seite</ulink> finden."
+
+#. Tag: title
+#: index.docbook:307
+#, no-c-format
+msgid "Compilation and Installation"
+msgstr "Kompilierung und Installation"
+
+#. Tag: sect1
+#: index.docbook:307
+#, no-c-format
+msgid "&install.compile.documentation;"
+msgstr "&install.compile.documentation;"

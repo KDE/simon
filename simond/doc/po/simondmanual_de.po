@@ -1,0 +1,505 @@
+# simond documentation German translation.
+# Peter Grasch <grasch@simon-listens.org>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.2\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2009-06-02 16:40+0000\n"
+"PO-Revision-Date: 2009-06-02 18:45+0200\n"
+"Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
+"Language-Team: DE <grasch@simon-listens.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: application/x-xml2pot; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Tag: trans_comment
+#: index.docbook:56
+#, no-c-format
+msgid "ROLES_OF_TRANSLATORS"
+msgstr ""
+"<othercredit role=\"translator\"><firstname>Peter</"
+"firstname><surname>Grasch</surname><affiliation><address><email>grasch@simon-"
+"listens.org</email></address></affiliation><contrib>Deutsche Übersetzung</"
+"contrib></othercredit>"
+
+#. Tag: para
+#: index.docbook:72
+#, no-c-format
+msgid ""
+"&kmyapplication; is the server component of the simon speech recognition "
+"suite."
+msgstr ""
+"&kmyapplication; ist die Serverkomponente der simon Spracherkennungslösung."
+
+#. Tag: keyword
+#: index.docbook:82
+#, no-c-format
+msgid "<keyword>KDE</keyword>"
+msgstr "<keyword>KDE</keyword>"
+
+#. Tag: keyword
+#: index.docbook:83
+#, no-c-format
+msgid "kdeutils"
+msgstr "kdeutils"
+
+#. Tag: keyword
+#: index.docbook:84
+#, no-c-format
+msgid "Kapp"
+msgstr "Kapp"
+
+#. Tag: keyword
+#: index.docbook:85
+#, no-c-format
+msgid "simon"
+msgstr "simon"
+
+#. Tag: keyword
+#: index.docbook:86
+#, no-c-format
+msgid "recognition"
+msgstr "Erkennung"
+
+#. Tag: keyword
+#: index.docbook:87
+#, no-c-format
+msgid "speech"
+msgstr "Sprache"
+
+#. Tag: keyword
+#: index.docbook:88
+#, no-c-format
+msgid "voice"
+msgstr "Sprecher"
+
+#. Tag: keyword
+#: index.docbook:89
+#, no-c-format
+msgid "command"
+msgstr "Kommando"
+
+#. Tag: keyword
+#: index.docbook:90
+#, no-c-format
+msgid "control"
+msgstr "Kontrolle"
+
+#. Tag: keyword
+#: index.docbook:91
+#, no-c-format
+msgid "accessibility"
+msgstr "Zugangshilfe"
+
+#. Tag: holder
+#: index.docbook:101
+#, no-c-format
+msgid "Peter Grasch"
+msgstr "Peter Grasch"
+
+#. Tag: author
+#: index.docbook:105
+#, no-c-format
+msgid ""
+"<personname> <firstname>Peter</firstname> <othername>H.</othername> "
+"<surname>Grasch</surname> </personname> <email>grasch@simon-listens.org</"
+"email>"
+msgstr ""
+"<personname> <firstname>Peter</firstname> <othername>H.</othername> "
+"<surname>Grasch</surname> </personname> <email>grasch@simon-listens.org</"
+"email>"
+
+#. Tag: title
+#: index.docbook:122
+#, no-c-format
+msgid "The &kmyapplication; Handbook"
+msgstr "Das &kmyapplication; Handbuch"
+
+#. Tag: title
+#: index.docbook:135
+#, no-c-format
+msgid "Introduction"
+msgstr "Einleitung"
+
+#. Tag: para
+#: index.docbook:142
+#, no-c-format
+msgid ""
+"&kmyapplication; is the server component of the simon speech recognition "
+"suite. It handles the recognition and the model compilation and receives it "
+"input from the simon client(s) which connect to the server using TCP/IP."
+msgstr ""
+"&kmyapplication; ist die Serverkomponente der simon Spracherkennungslösung. "
+"Es ist für die eigentliche Erkennung und für die Erzeugung des Modells "
+"zuständig. Es erhält die Eingabedateien und die Daten vom Mikrofon von den "
+"simon Client(s) über das Netzwerk (TCP/IP)."
+
+#. Tag: para
+#: index.docbook:145
+#, no-c-format
+msgid ""
+"For more information please see the <ulink url=\"help:/simon/overview."
+"html#architecture\">simon manual</ulink>."
+msgstr ""
+"Für weitere Informationen sehen Sie bitte das <ulink url=\"help:/simon/"
+"overview.html#architecture\">simon Handbuch</ulink>."
+
+#. Tag: title
+#: index.docbook:149
+#, no-c-format
+msgid "Using &kmyapplication;"
+msgstr "&kmyapplication; benutzen"
+
+#. Tag: para
+#: index.docbook:151
+#, no-c-format
+msgid ""
+"simond is a command line application which does not have any user interface. "
+"There are no special launch parameters."
+msgstr ""
+"simond ist eine Kommandozeilenapplikation die keine Benutzerinteraktion "
+"bietet. Es gibt auch keine speziellen Kommandozeilenparameter."
+
+#. Tag: para
+#: index.docbook:153
+#, no-c-format
+msgid ""
+"However, simond installs two KCMs that are listed in KDEs systemsettings and "
+"can also be accessed directly using the <command>kcmshell4</command>:"
+msgstr ""
+"Allerdings installiert simond zwei KCModule die in KDEs \"systemsettings\" "
+"gelistet werden und auch direkt mit <command>kcmshell4</command> angezeigt "
+"werden können:"
+
+#. Tag: command
+#: index.docbook:155
+#, no-c-format
+msgid "kcmshell4 simonduserconfiguration"
+msgstr "kcmshell4 simonduserconfiguration"
+
+#. Tag: command
+#: index.docbook:156
+#, no-c-format
+msgid "kcmshell4 simondnetworkconfiguration"
+msgstr "kcmshell4 simondnetworkconfiguration"
+
+#. Tag: para
+#: index.docbook:160
+#, no-c-format
+msgid ""
+"When used from within a graphical environment (if you don't know what this "
+"is you are most likely using one), it is recommended to use the graphical "
+"frontend called <command>ksimond</command> which also provides access to the "
+"configuration modules through its configuration dialog. See the ksimond "
+"manual for details."
+msgstr ""
+"Wenn simond innerhalb einer grafischen Benutzerumgebung ausgeführt wird "
+"(wenn Sie nicht wissen sollten was eine \"grafische Benutzerumgebung\" ist, "
+"verwenden Sie wahrscheinlich eine), ist es empfohlen simon über das "
+"grafische Frontend <command>ksimond</command> zu benutzen. ksimond bietet "
+"Zugriff auf die Konfigurationsmodule über sein Konfigurationsmenü. Sehen Sie "
+"das ksimond Handbuch für Details."
+
+#. Tag: title
+#: index.docbook:164
+#, no-c-format
+msgid "User Configuration"
+msgstr "Benutzerkonfiguration"
+
+#. Tag: para
+#: index.docbook:166
+#, no-c-format
+msgid ""
+"Using the user configuration you can define, edit and remove users and their "
+"models from the server."
+msgstr ""
+"Mit der Benutzerkonfiguration können Sie die neue Benutzer anlegen, "
+"vorhandene bearbeiten und - auf Wunsch inklusive deren Modell - vom Server "
+"entfernen."
+
+#. Tag: screeninfo
+#: index.docbook:170
+#, no-c-format
+msgid "screenshot of the simond user configuration"
+msgstr "Screenshot der simond Benutzerkonfiguration"
+
+#. Tag: phrase
+#: index.docbook:176
+#, no-c-format
+msgid "simond user configuration"
+msgstr "simond Benutzerkonfiguration"
+
+#. Tag: para
+#: index.docbook:182
+#, no-c-format
+msgid ""
+"simond identifies its connections with a user / password combination which "
+"is completely independent from the underlying operating system and its users "
+"(which means you have to set up at least one user for simond to use it). "
+"Every simon client logs onto the server with a user / password combination "
+"which identifies a unique user and thus a unique speech model."
+msgstr ""
+"simond identifiziert seine Verbindungen mit einer Benutzername / Passwort "
+"Kombination die komplett unabhängig ist vom zugrunde liegenden "
+"Betriebssystem. Das bedeutet, dass Sie mindestens einen simond Benutzer "
+"anlegen müssen, um simond zu verwenden. Jeder simon Client meldet sich mit "
+"einer Benutzername / Passwort Kombination an die einen einzelnen Benutzer und "
+"damit sein persönliches Sprachmodell identifiziert."
+
+#. Tag: para
+#: index.docbook:183
+#, no-c-format
+msgid ""
+"The users are stored in a sqlite database that is managed through the "
+"<command>simonduserconfiguration</command> KCM."
+msgstr ""
+"Die Benutzer werden in einer SQLite Datenbank gespeichert die durch das "
+"<command>simonduserconfiguration</command> KCM verwaltet werden."
+
+#. Tag: para
+#: index.docbook:185
+#, no-c-format
+msgid "This database is stored depending on your operating system:"
+msgstr "Der Speicherort der Datenbank hängt vom Betriebssystem ab:"
+
+#. Tag: title
+#: index.docbook:187
+#, no-c-format
+msgid "simond user database storage"
+msgstr "simond Benutzerdatenbank"
+
+#. Tag: entry
+#: index.docbook:193
+#, no-c-format
+msgid "Microsoft Windows"
+msgstr "Microsoft Windows"
+
+#. Tag: entry
+#: index.docbook:194
+#, no-c-format
+msgid "GNU/Linux"
+msgstr "GNU/Linux"
+
+#. Tag: filename
+#: index.docbook:199
+#, no-c-format
+msgid "%appdata%\\.kde\\share\\apps\\simond\\simond.db"
+msgstr "%appdata%\\.kde\\share\\apps\\simond\\simond.db"
+
+#. Tag: filename
+#: index.docbook:200
+#, no-c-format
+msgid "~/.kde/share/apps/simond/simond.db"
+msgstr "~/.kde/share/apps/simond/simond.db"
+
+#. Tag: para
+#: index.docbook:207
+#, no-c-format
+msgid ""
+"simond does not come with a default user so you have to add one user before "
+"you can connect simon to the simond server."
+msgstr ""
+"simond liefert keinen Defaultbenutzer mit aus also müssen Sie einen anlegen "
+"bevor Sie simon zum simond Server verbinden können."
+
+#. Tag: para
+#: index.docbook:209
+#, no-c-format
+msgid ""
+"The password of the users will be hashed and can not be shown in clear-text. "
+"When a user forgets his or her password there is no way to retrieve his "
+"original password from the simond database but you can reset it using the "
+"\"Change Password\" button."
+msgstr ""
+"Das Passwort der Benutzer wird \"gehashed\" und kann deshalb nicht im "
+"Klartext angezeigt werden. Wenn ein Benutzer sein Passwort verliert "
+"existiert kein weg das verwendete Passwort von der simond Datenbank zu "
+"rekonstruieren. Sie können aber ein neues Passwort mit dem \"Passwort ändern"
+"\" Knopf vergeben."
+
+#. Tag: para
+#: index.docbook:211
+#, no-c-format
+msgid ""
+"When remove a user from the database which already also has a speech model "
+"associated with him, you will be prompted if you also want to remove the "
+"model. If you select no and add a user with the same name later on, he will "
+"start off with this speech model."
+msgstr ""
+"Wenn ein Benutzer von der Datenbank entfernt wird, der bereits ein "
+"Sprachmodell generiert und gespeichert hat wird der Benutzer gefragt ob er "
+"neben dem Benutzer-Eintrag in der Datenbank auch das gespeicherte Modell "
+"entfernen möchte. Wenn Sie das Sprachmodell gespeichert lassen (mit \"Nein\" "
+"antworten), wird der nächste Benutzer mit dem gleichen Benutzernamen das "
+"Modell \"erben\"."
+
+#. Tag: title
+#: index.docbook:215
+#, no-c-format
+msgid "Network Configuration"
+msgstr "Netzwerkkonfiguration"
+
+#. Tag: para
+#: index.docbook:216
+#, no-c-format
+msgid ""
+"Using the network configuration, the user can change the port used by the "
+"server and restrict access to a specific IP."
+msgstr ""
+"Mit der Netzwerkkonfiguration können Sie den Port ändern auf dem der Server "
+"hört und die Zugriffe auf eine spezielle IP Adresse limitieren."
+
+#. Tag: para
+#: index.docbook:218
+#, no-c-format
+msgid ""
+"If you don't know what hosts, ports or IPs are it is very likely that the "
+"default values are just fine."
+msgstr ""
+"Wenn Sie nicht wissen, was \"Hosts\", \"Ports\" oder \"IPs\" sind, dann "
+"werden die Standardwerte höchstwahrscheinlich ausreichen."
+
+#. Tag: screeninfo
+#: index.docbook:221
+#, no-c-format
+msgid "screenshot of the simond network configuration"
+msgstr "Screenshot der simond Netzwerkkonfiguration"
+
+#. Tag: phrase
+#: index.docbook:227
+#, no-c-format
+msgid "simond network configuration"
+msgstr "simond Netzwerkkonfiguration"
+
+#. Tag: para
+#: index.docbook:233
+#, no-c-format
+msgid ""
+"The port can be changed freely. The default of 4444 is however not occupied "
+"by any major application or protocol and thus recommended. If you adjust the "
+"port here, make sure you also make the necessary adjustments on your simon "
+"clients."
+msgstr ""
+"Der Port kann natürlich frei geändert werden. Der Standardport (4444) ist "
+"allerdings von keiner anderen bekannten Applikation verwendet und deshalb "
+"empfohlen. Wenn Sie den Port hier ändern, müssen Sie ihn natürlich auch auf "
+"allen simon Clients entsprechend anpassen."
+
+#. Tag: para
+#: index.docbook:235
+#, no-c-format
+msgid ""
+"Using the option to \"Only allow connections from\" you can restrict the "
+"access to your server from anywhere but the given IP address. By default "
+"this is configured to only allow (simon) connections from the local host "
+"which only allows for local simon clients to connect to the server."
+msgstr ""
+"Mit der Option \"Nur Verbindungen erlauben von\" können Sie den kompletten "
+"Zugriff auf den Server auf die angegebene IP Adresse beschränken. Per "
+"Default ist simond aus Sicherheitsgründen so konfiguriert, dass er nur auf "
+"simon Verbindungen vom lokalen Host reagiert. Es können per Default also nur "
+"lokale simon Benutzer auf den Server zugreifen."
+
+#. Tag: para
+#: index.docbook:236
+#, no-c-format
+msgid ""
+"This is simply a security measure because it effectively blocks connections "
+"from anywhere else (even if the attacker knows your simon username and "
+"password). To allow connections from other hosts simply uncheck the checkbox."
+msgstr ""
+"Das ist nur eine Maßnahme zur Erhöhung der Sicherheit, da Sie auf einem sehr "
+"niedrigen Level sicherstellt, dass selbst ein potentieller Angreifer der "
+"Benutzername und Passwort Ihrer simon Installation kennt nicht über das "
+"Netzwerk (im schlimmsten Fall über das Internet) auf Ihren simond zugreifen "
+"kann. Um Netzwerkzugriff zu erlauben, deaktivieren Sie einfach die Option "
+"\"Nur Verbindungen erlauben von\"."
+
+#. Tag: para
+#: index.docbook:238
+#, no-c-format
+msgid "Protocol encryption is not yet implemented."
+msgstr "Protokollverschlüsselung ist derzeit noch nicht implementiert."
+
+#. Tag: title
+#: index.docbook:249
+#, no-c-format
+msgid "Questions and Answers"
+msgstr "Fragen und Antworten"
+
+#. Tag: para
+#: index.docbook:251
+#, no-c-format
+msgid ""
+"In an effort to keep this section always up-to-date it is available at our "
+"<ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:_Troubleshooting"
+"\">online wiki</ulink>."
+msgstr ""
+"Um diese Sektion immer aktuell zu halten, wird dieser Teil des Handbuches in "
+"unserem <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:"
+"_Troubleshooting\">online Wiki</ulink> und somit für alle editierbar "
+"verwaltet."
+
+#. Tag: title
+#: index.docbook:283
+#, no-c-format
+msgid "Credits and License"
+msgstr "Danksagungen und Lizenz"
+
+#. Tag: para
+#: index.docbook:285
+#, no-c-format
+msgid "&kmyapplication;"
+msgstr "&kmyapplication;"
+
+#. Tag: para
+#: index.docbook:288
+#, no-c-format
+msgid ""
+"Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</"
+"email>"
+msgstr ""
+"Program copyright 2008-2009 Peter Grasch <email>grasch@simon-listens.org</"
+"email>"
+
+#. Tag: para
+#: index.docbook:292
+#, no-c-format
+msgid ""
+"Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens."
+"org</email>"
+msgstr ""
+"Documentation Copyright &copy; 2009 Peter Grasch <email>grasch@simon-listens."
+"org</email>"
+
+#. Tag: trans_comment
+#: index.docbook:296
+#, no-c-format
+msgid "CREDIT_FOR_TRANSLATORS"
+msgstr ""
+"<para>Übersetzung Copyright &copy; 2009 Peter Grasch <email>grasch@simon-"
+"listens.org</email></para>"
+
+#. Tag: chapter
+#: index.docbook:296
+#, no-c-format
+msgid "&underFDL; &underGPL;"
+msgstr "&underFDL; &underGPL;"
+
+#. Tag: title
+#: index.docbook:311
+#, no-c-format
+msgid "Installation"
+msgstr "Installation"
+
+#. Tag: para
+#: index.docbook:312
+#, no-c-format
+msgid ""
+"Please see our <ulink url=\"http://www.cyber-byte.at/wiki/index.php/English:"
+"_Setup\">wiki</ulink> for install instructions."
+msgstr ""
+"Bitte sehen Sie unser <ulink url=\"http://www.cyber-byte.at/wiki/index.php/"
+"English:_Setup\">online Wiki</ulink> for eine detaillierte "
+"Installationsanleitung."

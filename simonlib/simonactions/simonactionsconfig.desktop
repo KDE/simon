@@ -4,6 +4,8 @@ Icon=fork
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=libsimonactions
 
+X-DocPath=help:/simon/commands.html
+
 X-KDE-FactoryName=commandsettingsfactory
 X-KDE-ParentComponents=libsimonactions
 

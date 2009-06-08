@@ -25,7 +25,6 @@
 #include <KFilterDev>
 #include <KMimeType>
 #include <QTextCodec>
-//#include <KEncodingProber>
 #include <kencodingdetector.h>
 
 ImportGrammar::ImportGrammar(QObject* parent): QThread(parent)

@@ -11,7 +11,7 @@ if(UNIX)
 add_definitions(-DHAVE_SLEEP -Dlinux)
 endif(UNIX)
 if(WIN32)
-add_definitions(-D__WIN32)
+add_definitions(-D__WIN32 -D__NO_ISOCEXT)
 endif(WIN32)
 
 include_directories(include ${PORTAUDIO_INCLUDE_DIRS} ${ZLIB_INCLUDE_DIR})

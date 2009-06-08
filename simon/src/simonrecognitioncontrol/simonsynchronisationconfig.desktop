@@ -4,6 +4,10 @@ Icon=view-refresh
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=libsimonrecognitioncontrol
 
+
+
+X-DocPath=help:/simon/configuration.html#configure_synchronization
+
 X-KDE-FactoryName=serversettingsfactory
 X-KDE-ParentComponents=libsimonrecognitioncontrol
 

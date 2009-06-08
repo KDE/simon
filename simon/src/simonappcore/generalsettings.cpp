@@ -82,11 +82,11 @@ void GeneralSettings::save()
 	config->sync();
 
 #ifdef Q_OS_WIN32
-	//TODO: Test
 	QSettings settings(QSettings::UserScope, "Microsoft", "Windows");
 	if (ui.kcfg_AutoStart->isChecked()) {
 		// Want to start on boot up
 		QString appPath = qApp->applicationFilePath();
+		appPath.replace("/", "\\");
 		settings.setValue("/CurrentVersion/Run/simon.exe", appPath);
 	} else {
 		// Do not want to start on boot up

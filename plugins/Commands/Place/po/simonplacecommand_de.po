@@ -1,5 +1,5 @@
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) 2009 Peter Grasch
+# This file is distributed under the same license as the simon package.
 #
 # Peter Grasch <grasch@simon-listens.org>, 2008.
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-02-22 16:36+0100\n"
-"PO-Revision-Date: 2008-11-28 17:48+0100\n"
+"PO-Revision-Date: 2009-05-25 14:23+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: ImportPlace/importplacewizard.cpp:42
 msgid "Add Place"
-msgstr "Ort hinzufgen"
+msgstr "Ort hinzufügen"
 
 #: ImportPlace/importplacewizard.cpp:82
 msgid "Add a new Place"
-msgstr "Neuen Ort hinzufgen"
+msgstr "Neuen Ort hinzufügen"
 
 #: ImportPlace/importplacewizard.cpp:86
 msgid ""
@@ -31,21 +31,21 @@ msgid ""
 "\n"
 "Both local and remote places are supported."
 msgstr ""
-"Mit diesem Assistenten knnen Sie Orte mit Kommandos ffnen.\n"
+"Mit diesem Assistenten können Sie Orte mit Kommandos öffnen.\n"
 "\n"
-"Sowohl lokale als auch entfernte Orte sind untersttzt."
+"Sowohl lokale als auch entfernte Orte werden unterstützt."
 
 #: ImportPlace/importplacewizard.cpp:105
 msgid "Place added"
-msgstr "Ort hinzugefgt"
+msgstr "Ort hinzugefügt"
 
 #: ImportPlace/importplacewizard.cpp:108
 msgid "Press Finish to complete this wizard."
-msgstr "Klicken Sie auf \"Fertigstellen\" um den Assistenten abzuschlieen."
+msgstr "Klicken Sie auf \"Fertigstellen\" um den Assistenten abzuschließen."
 
 #: ImportPlace/selectplacepage.cpp:30
 msgid "Select Place"
-msgstr "Ort auswhlen"
+msgstr "Ort auswählen"
 
 #: placecommand.cpp:29
 msgid "Place"
@@ -85,7 +85,7 @@ msgstr "Ort importieren"
 #. i18n: ectx: property (description), widget (QCommandLinkButton, cbImportPlace)
 #: po/rc.cpp:9 rc.cpp:9
 msgid "Using this wizard, you can import local and remote places easily."
-msgstr "Mit diesem Assitenten knnen Sie lokale und entfernte Orte importieren."
+msgstr "Mit diesem Assitenten können Sie lokale und entfernte Orte importieren."
 
 #. i18n: file: createplacecommandwidget.ui:29
 #. i18n: ectx: property (text), widget (QCommandLinkButton, commandLinkButton_3)
@@ -267,7 +267,7 @@ msgstr "grasch@simon-listens.org"
 
 #, fuzzy
 #~ msgid "Added the new Program"
-#~ msgstr "Neuen Ort hinzufgen"
+#~ msgstr "Neuen Ort hinzufügen"
 
 #, fuzzy
 #~ msgid "Press \"Finish\" to complete the wizard."
@@ -295,7 +295,7 @@ msgstr "grasch@simon-listens.org"
 
 #, fuzzy
 #~ msgid "Add a new user"
-#~ msgstr "Neuen Ort hinzufgen"
+#~ msgstr "Neuen Ort hinzufügen"
 
 #, fuzzy
 #~ msgid "Username"
@@ -319,7 +319,7 @@ msgstr "grasch@simon-listens.org"
 
 #, fuzzy
 #~ msgid "Add a new Word"
-#~ msgstr "Neuen Ort hinzufgen"
+#~ msgstr "Neuen Ort hinzufügen"
 
 #, fuzzy
 #~ msgid "Import completed"

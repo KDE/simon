@@ -4,6 +4,8 @@ Icon=user-properties
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=libsimondsettings
 
+X-DocPath=help:/simond/using-kapp.html
+
 X-KDE-FactoryName=simondsettingsfactory
 X-KDE-ParentComponents=libsimondsettings
 

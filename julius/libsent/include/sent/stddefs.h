@@ -57,7 +57,9 @@
 #if !defined(_WIN32) || defined(__CYGWIN32__) || defined(__MINGW32__)
 /* unixen */
 #ifdef HAVE_UNISTD_H
+#ifndef WIN32
 #include <unistd.h>
+#endif
 #endif
 #include <strings.h>
 #include <sys/time.h>

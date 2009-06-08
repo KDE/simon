@@ -31,7 +31,6 @@
 #include <KMimeType>
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
-#include <KEncodingProber>
 #include  <kencodingdetector.h>
 
 /**

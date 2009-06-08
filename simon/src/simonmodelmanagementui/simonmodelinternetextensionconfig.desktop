@@ -4,6 +4,8 @@ Icon=view-web-browser-dom-tree
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=libsimonmodelmanagementui
 
+X-DocPath=help:/simon/configuration.html#configuration_model_extensions
+
 X-KDE-FactoryName=speechmodelmanagementuifactory
 X-KDE-ParentComponents=libsimonmodelmanagementui
 

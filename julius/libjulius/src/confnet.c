@@ -355,7 +355,7 @@ cn_build_wordlist(CN_CLUSTER *c, WORD_INFO *winfo)
   if (c->words) {
     free(c->words);
   }
-  c->words = (WORD_ID *)mymalloc(sizeof(WORD_ID) * c->wgnum + 1);
+  c->words = (WORD_ID *)mymalloc(sizeof(WORD_ID) * (c->wgnum + 1));
   c->wordsnum = 0;
   for(i=0;i<c->wgnum;i++) {
     for(j=0;j<c->wordsnum;j++) {

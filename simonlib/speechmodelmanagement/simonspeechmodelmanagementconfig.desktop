@@ -4,6 +4,8 @@ Icon=view-pim-news
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=libsimonmodelmanagement
 
+X-DocPath=help:/simon/configuration.html#configuration_speechmodel
+
 X-KDE-FactoryName=speechmodelsettingsfactory
 X-KDE-ParentComponents=libsimonmodelmanagement
 

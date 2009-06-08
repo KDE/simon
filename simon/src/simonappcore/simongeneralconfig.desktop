@@ -4,6 +4,8 @@ Icon=computer
 X-KDE-ServiceTypes=KCModule
 X-KDE-Library=libsimonappcore
 
+X-DocPath=help:/simon/configuration.html#configuration_general
+
 X-KDE-FactoryName=generalsettingsfactory
 X-KDE-ParentComponents=libsimonappcore
 
