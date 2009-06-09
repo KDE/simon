@@ -5,8 +5,10 @@ ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simondictationcommandplugin
 Name=simon Dictation Plugin
 Name[de]=simon Diktation Modul
+Name[fr]=Module de dictée de simon
 Comment=Dictate Texts
 Comment[de]=Diktiere Texte
+Comment[fr]=Dicter un texte
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org

@@ -18,6 +18,9 @@ X-KDE-PluginKeyword=SynchronisationSettings
 
 Name=Synchronisation
 Name[de]=Synchronisation
+Name[fr]=Synchronisation
 
 Comment=Configuration of the Model-Synchronisation
 Comment[de]=Konfiguration der Modellsynchronisation
+Comment[fr]=Configuration de la synchronisation du modèle
+

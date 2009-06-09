@@ -16,6 +16,8 @@ X-KDE-System-Settings-Parent-Category=simond
 
 Name=KSimond
 Name[de]=KSimond
+Name[fr]=KSimond
 
 Comment=Configuration of the KDE simond front-end
 Comment[de]=Konfiguration des KDE simond Front-Ends
+Comment[fr]=Configuration de l'interface graphique KDE de simond

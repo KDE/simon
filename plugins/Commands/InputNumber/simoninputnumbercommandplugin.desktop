@@ -5,8 +5,10 @@ ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simoninputnumbercommandplugin
 Name=simon Input Number Command Plugin
 Name[de]=simon Zahlen-Eingabe-Kommando Modul
+Name[fr]=Module de saisie de nombres de simon
 Comment=Provides an easy way to spell out any number
 Comment[de]=Bietet eine einfache Möglichkeit jede Zahl auszubuchstabieren
+Comment[fr]=Fourni un moyen simple de saisir n'importe quel nombre
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org
