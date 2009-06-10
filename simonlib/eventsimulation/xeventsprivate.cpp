@@ -66,8 +66,6 @@ Display* XEventsPrivate::openDisplay(char* displayName)
 	}
 
 
-	//The following should be logged somewhere... Interresting for debugging purposes...
-	//We'll do that once we have the logging classes...
 // 	Logger::log(i18n("[INF] XTest für Server \"%1\" ist Version %2.%3", QString(DisplayString(display)), Major, Minor));
 
 // 	Logger::log(i18n("[INF] Aufnahme der Display-Kontrolle"));
@@ -109,14 +107,11 @@ void XEventsPrivate::sendKeySymString(const QString& keysymString)
  * \author Peter Grasch
  * @param key The key to send
  */
-void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
+void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 {
 	if (!display) return;
 	KeyCode keyCode;
 
-	kDebug() << key;
-
-	
 	switch (key)
 	{
 		case 9: 
@@ -126,9 +121,7 @@ void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 			keyCode=XKeysymToKeycode(display, XStringToKeysym("Return"));
 			break;
 		case 16777219:
-			kDebug() << XK_BackSpace;
 			keyCode=XKeysymToKeycode(display, XK_BackSpace);
-			kDebug() << "Hier: " << keyCode;
 			break;
 		case 16777216:
 			keyCode=XKeysymToKeycode(display, XK_Escape);
@@ -139,6 +132,26 @@ void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 		case 16777239:
 			keyCode=XKeysymToKeycode(display, XK_Next);
 			break;
+			
+		/* BEGIN DEADKEYS */
+		case 94:
+			keyCode=XKeysymToKeycode(display, XK_dead_circumflex);
+			break;
+		case 96:
+			keyCode=XKeysymToKeycode(display, XK_dead_acute);
+			break;
+		case 180:
+			keyCode=XKeysymToKeycode(display, XK_dead_grave);
+			break;
+
+		case 184:
+			keyCode=XKeysymToKeycode(display, XK_dead_cedilla);
+			break;
+		case 126:
+			keyCode=XKeysymToKeycode(display, XK_dead_tilde);
+			break;
+		/* END DEADKEYS */
+		
 		default:
 			keyCode = XKeysymToKeycode(display, key);
 	}
@@ -151,16 +164,18 @@ void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 		KeySym shiftSym = XKeycodeToKeysym(display, keyCode, 1);
 		KeySym altGrSym = keyToSendShifted[2];
 		
-		if (shiftSym == key)
+		if ((shiftSym == key) ||  (key == 96))
 		{
 			setModifierKey(Qt::SHIFT);
-		} else if ((key!=altGrSym) && (key != 16777219)) {
+		} else if ((key!=altGrSym) && (key != 16777219)
+				&& (key != 94) && (key != 96)
+				&& (key != 180)) {
 			setModifierKey(Qt::Key_AltGr);
 		}
 		
 		pressKeyCode(keyCode);
 		
-		if (shiftSym == key)
+		if ((shiftSym == key) ||  (key == 96))
 			unsetModifier(Qt::SHIFT);
 		else if ((key!=altGrSym) && (key != 16777219))
 			unsetModifier(Qt::Key_AltGr);

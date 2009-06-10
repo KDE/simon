@@ -54,7 +54,7 @@ private:
 public:
 	WindowsEvents();
 	void click(int x, int y);
-	void sendKey(unsigned int key /*unicode representation*/);
+	void sendKeyPrivate(unsigned int key /*unicode representation*/);
 
 	inline void setModifierKey(int virtualKey, bool once);
 	inline void unsetModifier(int virtualKey);

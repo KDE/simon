@@ -20,7 +20,26 @@
 #ifndef COREEVENTS_H
 #define COREEVENTS_H
 
+#include <QHash>
+
 class QKeySequence;
+
+class DeadKey {
+	private:
+		unsigned int m_deadKey;
+		unsigned int m_baseKey;
+	public:
+		DeadKey(unsigned int deadKey, unsigned int baseKey)
+		{
+			m_deadKey = deadKey;
+			m_baseKey = baseKey;
+		}
+		
+		unsigned int deadKey() { return m_deadKey; }
+		unsigned int baseKey() { return m_baseKey; }
+};
+
+
 /**
  *	@class CoreEvents
  *	@brief Abstract class defining the methods that a EventBackend has to support
@@ -31,14 +50,19 @@ class QKeySequence;
  */
 class CoreEvents {
 	
-public:
+protected:
+	QHash<unsigned int /*unicode char*/, DeadKey*> deadKeys;
+	
 	bool shiftSet, altgrSet, altSet, superSet, strgSet;
 	bool shiftOnce, altgrOnce, altOnce, superOnce, strgOnce;
 public:
 	CoreEvents();
 
 	virtual void click(int x, int y)=0;
-	virtual void sendKey(unsigned int key /*unicode representation*/)=0;
+	
+	void sendKey(unsigned int key /*unicode representation*/);
+	virtual void sendKeyPrivate(unsigned int key /*unicode representation*/)=0;
+	
 	
 	void unsetUnneededModifiers();
 	void sendShortcut(const QKeySequence& shortcut);

@@ -47,7 +47,7 @@ private:
 	void sendKeySymString(const QString& keysymString);
 public:
 	void click(int x, int y);
-	void sendKey(unsigned int key);
+	void sendKeyPrivate(unsigned int key);
 
 	void setModifierKey(int virtualKey);
 
