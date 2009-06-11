@@ -169,7 +169,278 @@ CoreEvents::CoreEvents()
 	deadKeys.insert(7928, new DeadKey('~', 'Y'));
 	deadKeys.insert(7804, new DeadKey('~', 'V'));
 	deadKeys.insert(209, new DeadKey('~', 'N'));
+	
+	
+	// ẉẹṛṭẓụịọạṣḍḥḳḷỵṿḅṇ
+	deadKeys.insert(7817, new DeadKey(803 /*combining dot below*/, 'w'));
+	deadKeys.insert(7865, new DeadKey(803 /*combining dot below*/, 'e'));
+	deadKeys.insert(7771, new DeadKey(803 /*combining dot below*/, 'r'));
+	deadKeys.insert(7789, new DeadKey(803 /*combining dot below*/, 't'));
+	deadKeys.insert(7827, new DeadKey(803 /*combining dot below*/, 'z'));
+	deadKeys.insert(7909, new DeadKey(803 /*combining dot below*/, 'u'));
+	deadKeys.insert(7883, new DeadKey(803 /*combining dot below*/, 'i'));
+	deadKeys.insert(7885, new DeadKey(803 /*combining dot below*/, 'o'));
+	deadKeys.insert(7841, new DeadKey(803 /*combining dot below*/, 'a'));
+	deadKeys.insert(7779, new DeadKey(803 /*combining dot below*/, 's'));
+	deadKeys.insert(7693, new DeadKey(803 /*combining dot below*/, 'd'));
+	deadKeys.insert(7717, new DeadKey(803 /*combining dot below*/, 'h'));
+	deadKeys.insert(7731, new DeadKey(803 /*combining dot below*/, 'k'));
+	deadKeys.insert(7735, new DeadKey(803 /*combining dot below*/, 'l'));
+	deadKeys.insert(7925, new DeadKey(803 /*combining dot below*/, 'y'));
+	deadKeys.insert(7807, new DeadKey(803 /*combining dot below*/, 'v'));
+	deadKeys.insert(7685, new DeadKey(803 /*combining dot below*/, 'b'));
+	deadKeys.insert(7751, new DeadKey(803 /*combining dot below*/, 'n'));
+
+
+
+
+	// ẈẸṚṬẒỤỊỌẠṢḌḤḲḶỴṾḄṆṂ
+	deadKeys.insert(7816, new DeadKey(803 /*combining dot below*/, 'W'));
+	deadKeys.insert(7864, new DeadKey(803 /*combining dot below*/, 'E'));
+	deadKeys.insert(7770, new DeadKey(803 /*combining dot below*/, 'R'));
+	deadKeys.insert(7788, new DeadKey(803 /*combining dot below*/, 'T'));
+	deadKeys.insert(7826, new DeadKey(803 /*combining dot below*/, 'Z'));
+	deadKeys.insert(7908, new DeadKey(803 /*combining dot below*/, 'U'));
+	deadKeys.insert(7882, new DeadKey(803 /*combining dot below*/, 'I'));
+	deadKeys.insert(7884, new DeadKey(803 /*combining dot below*/, 'O'));
+	deadKeys.insert(7840, new DeadKey(803 /*combining dot below*/, 'A'));
+	deadKeys.insert(7778, new DeadKey(803 /*combining dot below*/, 'S'));
+	deadKeys.insert(7692, new DeadKey(803 /*combining dot below*/, 'D'));
+	deadKeys.insert(7716, new DeadKey(803 /*combining dot below*/, 'H'));
+	deadKeys.insert(7730, new DeadKey(803 /*combining dot below*/, 'K'));
+	deadKeys.insert(7734, new DeadKey(803 /*combining dot below*/, 'L'));
+	deadKeys.insert(7924, new DeadKey(803 /*combining dot below*/, 'Y'));
+	deadKeys.insert(7806, new DeadKey(803 /*combining dot below*/, 'V'));
+	deadKeys.insert(7684, new DeadKey(803 /*combining dot below*/, 'B'));
+	deadKeys.insert(7750, new DeadKey(803 /*combining dot below*/, 'N'));
+	deadKeys.insert(7746, new DeadKey(803 /*combining dot below*/, 'M'));
+
+
+
+
+
+
+
+
+
+	// ẇėṙṫżıȯṗȧṡḋḟġḣẏẋċḃṅṁ
+	deadKeys.insert(7815, new DeadKey(775 /* dot above*/, 'w'));
+	deadKeys.insert(279, new DeadKey(775 /* dot above*/, 'e')); 
+	deadKeys.insert(7769, new DeadKey(775 /* dot above*/, 'r'));
+	deadKeys.insert(7787, new DeadKey(775 /* dot above*/, 't'));
+	deadKeys.insert(380, new DeadKey(775 /* dot above*/, 'z')); 
+	deadKeys.insert(305, new DeadKey(775 /* dot above*/, 'i')); 
+	deadKeys.insert(559, new DeadKey(775 /* dot above*/, 'o')); 
+	deadKeys.insert(7767, new DeadKey(775 /* dot above*/, 'p'));
+	deadKeys.insert(551, new DeadKey(775 /* dot above*/, 'a')); 
+	deadKeys.insert(7777, new DeadKey(775 /* dot above*/, 's'));
+	deadKeys.insert(7691, new DeadKey(775 /* dot above*/, 'd'));
+	deadKeys.insert(7711, new DeadKey(775 /* dot above*/, 'f'));
+	deadKeys.insert(289, new DeadKey(775 /* dot above*/, 'g')); 
+	deadKeys.insert(7715, new DeadKey(775 /* dot above*/, 'h'));
+	deadKeys.insert(7823, new DeadKey(775 /* dot above*/, 'y'));
+	deadKeys.insert(7819, new DeadKey(775 /* dot above*/, 'x'));
+	deadKeys.insert(267, new DeadKey(775 /* dot above*/, 'c')); 
+	deadKeys.insert(7683, new DeadKey(775 /* dot above*/, 'b'));
+	deadKeys.insert(7749, new DeadKey(775 /* dot above*/, 'n'));
+	deadKeys.insert(7745, new DeadKey(775 /* dot above*/, 'm'));
+
+
+
+
+	// ẆĖṘṪŻȮṖȦṠḊḞĠḢẎẊĊḂṄṀ
+	deadKeys.insert(7814, new DeadKey(775 /* dot above*/, 'W'));
+	deadKeys.insert(278, new DeadKey(775 /* dot above*/, 'E')); 
+	deadKeys.insert(7768, new DeadKey(775 /* dot above*/, 'R'));
+	deadKeys.insert(7786, new DeadKey(775 /* dot above*/, 'T'));
+	deadKeys.insert(379, new DeadKey(775 /* dot above*/, 'Z')); 
+	deadKeys.insert(558, new DeadKey(775 /* dot above*/, 'O')); 
+	deadKeys.insert(7766, new DeadKey(775 /* dot above*/, 'P'));
+	deadKeys.insert(550, new DeadKey(775 /* dot above*/, 'A')); 
+	deadKeys.insert(7776, new DeadKey(775 /* dot above*/, 'S'));
+	deadKeys.insert(7690, new DeadKey(775 /* dot above*/, 'D'));
+	deadKeys.insert(7710, new DeadKey(775 /* dot above*/, 'F'));
+	deadKeys.insert(288, new DeadKey(775 /* dot above*/, 'G')); 
+	deadKeys.insert(7714, new DeadKey(775 /* dot above*/, 'H'));
+	deadKeys.insert(7822, new DeadKey(775 /* dot above*/, 'Y'));
+	deadKeys.insert(7818, new DeadKey(775 /* dot above*/, 'X'));
+	deadKeys.insert(266, new DeadKey(775 /* dot above*/, 'C')); 
+	deadKeys.insert(7682, new DeadKey(775 /* dot above*/, 'B'));
+	deadKeys.insert(7748, new DeadKey(775 /* dot above*/, 'N'));
+	deadKeys.insert(7744, new DeadKey(775 /* dot above*/, 'M'));
+
+
+	
+
+	deadKeys.insert(7813, new DeadKey(776 /* diaeresis above*/, 'w'));
+	deadKeys.insert(235, new DeadKey(776 /* diaeresis above*/, 'e')); 
+	deadKeys.insert(7831, new DeadKey(776 /* diaeresis above*/, 't'));
+	deadKeys.insert(239, new DeadKey(776 /* diaeresis above*/, 'i')); 
+	deadKeys.insert(7719, new DeadKey(776 /* diaeresis above*/, 'h'));
+	deadKeys.insert(255, new DeadKey(776 /* diaeresis above*/, 'y')); 
+	deadKeys.insert(7821, new DeadKey(776 /* diaeresis above*/, 'x'));
+
+
+
+
+	deadKeys.insert(7812, new DeadKey(776 /* diaeresis above*/, 'W'));
+	deadKeys.insert(203, new DeadKey(776 /* diaeresis above*/, 'E')); 
+	deadKeys.insert(776, new DeadKey(776 /* diaeresis above*/, 'T')); 
+	deadKeys.insert(207, new DeadKey(776 /* diaeresis above*/, 'I')); 
+	deadKeys.insert(7718, new DeadKey(776 /* diaeresis above*/, 'H'));
+	deadKeys.insert(376, new DeadKey(776 /* diaeresis above*/, 'Y')); 
+	deadKeys.insert(7820, new DeadKey(776 /* diaeresis above*/, 'X'));
+
+
+
+
+
+
+	
+
+
+	// ẘůåẙ
+	deadKeys.insert(7832, new DeadKey(778 /* ring above*/, 'w'));
+	deadKeys.insert(367, new DeadKey(778 /* ring above*/, 'u')); 
+	deadKeys.insert(229, new DeadKey(778 /* ring above*/, 'a')); 
+	deadKeys.insert(7833, new DeadKey(778 /* ring above*/, 'y'));
+
+
+
+
+	// W̊ŮÅY̊
+	deadKeys.insert(778, new DeadKey(778 /* ring above*/, 'W'));
+	deadKeys.insert(366, new DeadKey(778 /* ring above*/, 'U'));
+	deadKeys.insert(197, new DeadKey(778 /* ring above*/, 'A'));
+	deadKeys.insert(778, new DeadKey(778 /* ring above*/, 'Y'));
+
+
+
+
+
+
+
+
+
+	// ēūīōǖāḡȫǟȳ
+	deadKeys.insert(275, new DeadKey(772 /* macron */, 'e'));
+	deadKeys.insert(363, new DeadKey(772 /* macron */, 'u'));
+	deadKeys.insert(299, new DeadKey(772 /* macron */, 'i'));
+	deadKeys.insert(333, new DeadKey(772 /* macron */, 'o'));
+	deadKeys.insert(470, new DeadKey(772 /* macron */, 252 /*ü*/));
+	deadKeys.insert(257, new DeadKey(772 /* macron */, 'a'));
+	deadKeys.insert(7713, new DeadKey(772 /* macron */, 'g'));
+	deadKeys.insert(555, new DeadKey(772 /* macron */, 246 /*ö*/)); 
+	deadKeys.insert(479, new DeadKey(772 /* macron */, 231 /*ä*/)); 
+	deadKeys.insert(563, new DeadKey(772 /* macron */, 'y')); 
+
+
+
+
+	// ĒŪĪŌǕĀḠȪǞȲ
+	deadKeys.insert(274, new DeadKey(772 /* macron */, 'E'));
+	deadKeys.insert(362, new DeadKey(772 /* macron */, 'U'));
+	deadKeys.insert(298, new DeadKey(772 /* macron */, 'I'));
+	deadKeys.insert(332, new DeadKey(772 /* macron */, 'O'));
+	deadKeys.insert(469, new DeadKey(772 /* macron */, 220 /*Ü*/));
+	deadKeys.insert(256, new DeadKey(772 /* macron */, 'A'));
+	deadKeys.insert(7712, new DeadKey(772 /* macron */, 'G'));
+	deadKeys.insert(554, new DeadKey(772 /* macron */, 214 /*Ö*/)); 
+	deadKeys.insert(478, new DeadKey(772 /* macron */, 196 /*Ä*/)); 
+	deadKeys.insert(562, new DeadKey(772 /* macron */, 'Y')); 
+
+
+
+
+
+
+
+	// ěřťžǔǐǒǚǎšďȟǰǩľčň
+	deadKeys.insert(283, new DeadKey(780 /* caron */, 'e'));
+	deadKeys.insert(345, new DeadKey(780 /* caron */, 'r'));
+	deadKeys.insert(357, new DeadKey(780 /* caron */, 't'));
+	deadKeys.insert(382, new DeadKey(780 /* caron */, 'z'));
+	deadKeys.insert(468, new DeadKey(780 /* caron */, 'u'));
+	deadKeys.insert(464, new DeadKey(780 /* caron */, 'i'));
+	deadKeys.insert(466, new DeadKey(780 /* caron */, 'o'));
+	deadKeys.insert(474, new DeadKey(780 /* caron */, 252 /*ü*/));
+	deadKeys.insert(462, new DeadKey(780 /* caron */, 'a'));
+	deadKeys.insert(353, new DeadKey(780 /* caron */, 's'));
+	deadKeys.insert(271, new DeadKey(780 /* caron */, 'd'));
+	deadKeys.insert(543, new DeadKey(780 /* caron */, 'h'));
+	deadKeys.insert(496, new DeadKey(780 /* caron */, 'j'));
+	deadKeys.insert(489, new DeadKey(780 /* caron */, 'k'));
+	deadKeys.insert(318, new DeadKey(780 /* caron */, 'l'));
+	deadKeys.insert(269, new DeadKey(780 /* caron */, 'c'));
+	deadKeys.insert(328, new DeadKey(780 /* caron */, 'n'));
+
+
+
+
+	// ĚŘŤŽǓǏǑǙǍŠĎȞJ̌ǨĽČŇ
+	deadKeys.insert(282, new DeadKey(780 /* caron */, 'E'));
+	deadKeys.insert(344, new DeadKey(780 /* caron */, 'R'));
+	deadKeys.insert(356, new DeadKey(780 /* caron */, 'T'));
+	deadKeys.insert(381, new DeadKey(780 /* caron */, 'Z'));
+	deadKeys.insert(467, new DeadKey(780 /* caron */, 'U'));
+	deadKeys.insert(463, new DeadKey(780 /* caron */, 'I'));
+	deadKeys.insert(465, new DeadKey(780 /* caron */, 'O'));
+	deadKeys.insert(473, new DeadKey(780 /* caron */, 220 /*Ü*/));
+	deadKeys.insert(461, new DeadKey(780 /* caron */, 'A'));
+	deadKeys.insert(352, new DeadKey(780 /* caron */, 'S'));
+	deadKeys.insert(270, new DeadKey(780 /* caron */, 'D'));
+	deadKeys.insert(542, new DeadKey(780 /* caron */, 'H'));
+	deadKeys.insert(780, new DeadKey(780 /* caron */, 'J'));
+	deadKeys.insert(488, new DeadKey(780 /* caron */, 'K'));
+	deadKeys.insert(317, new DeadKey(780 /* caron */, 'L'));
+	deadKeys.insert(268, new DeadKey(780 /* caron */, 'C'));
+	deadKeys.insert(327, new DeadKey(780 /* caron */, 'N'));
+
+
+
+
+
+
+
+
+
+	// űő
+	deadKeys.insert(369, new DeadKey(779 /* double acute */, 'u'));
+	deadKeys.insert(337, new DeadKey(779 /* double acute */, 'o'));
+
+
+
+
+	// ŰŐ
+	deadKeys.insert(368, new DeadKey(779 /* double acute */, 'U'));
+	deadKeys.insert(336, new DeadKey(779 /* double acute */, 'O'));
+
+
+
+
+
+
+
+
+
+	// ęųįǫą
+	deadKeys.insert(281, new DeadKey(808 /* ogonek */, 'e'));
+	deadKeys.insert(371, new DeadKey(808 /* ogonek */, 'u'));
+	deadKeys.insert(303, new DeadKey(808 /* ogonek */, 'i'));
+	deadKeys.insert(491, new DeadKey(808 /* ogonek */, 'o'));
+	deadKeys.insert(261, new DeadKey(808 /* ogonek */, 'a'));
+
+
+
+
+	// ĘŲĮǪĄ
+	deadKeys.insert(280, new DeadKey(808 /* ogonek */, 'E'));
+	deadKeys.insert(370, new DeadKey(808 /* ogonek */, 'U'));
+	deadKeys.insert(302, new DeadKey(808 /* ogonek */, 'I'));
+	deadKeys.insert(490, new DeadKey(808 /* ogonek */, 'O'));
+	deadKeys.insert(260, new DeadKey(808 /* ogonek */, 'A'));
 }
+
 
 void CoreEvents::sendKey(unsigned int key /*unicode representation*/)
 {
