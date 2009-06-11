@@ -39,6 +39,15 @@ install( FILES
   "${KDE4_BIN_INSTALL_DIR}/libintl3.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkdecore.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkdeui.dll"
+  
+  "${KDE4_BIN_INSTALL_DIR}/libkde3support.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libkhtml.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libkjs.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libpcre.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libktexteditor.dll"
+  "${KDE4_BIN_INSTALL_DIR}/giflib4.dll"
+  "${KDE4_BIN_INSTALL_DIR}/libphonon.dll"
+  
   "${KDE4_BIN_INSTALL_DIR}/libkdewin32.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkfile.dll"
   "${KDE4_BIN_INSTALL_DIR}/libkio.dll"
