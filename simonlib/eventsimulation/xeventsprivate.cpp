@@ -66,8 +66,6 @@ Display* XEventsPrivate::openDisplay(char* displayName)
 	}
 
 
-	//The following should be logged somewhere... Interresting for debugging purposes...
-	//We'll do that once we have the logging classes...
 // 	Logger::log(i18n("[INF] XTest für Server \"%1\" ist Version %2.%3", QString(DisplayString(display)), Major, Minor));
 
 // 	Logger::log(i18n("[INF] Aufnahme der Display-Kontrolle"));
@@ -109,60 +107,109 @@ void XEventsPrivate::sendKeySymString(const QString& keysymString)
  * \author Peter Grasch
  * @param key The key to send
  */
-void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
+void XEventsPrivate::sendKeyPrivate(unsigned int key /*unicode*/)
 {
 	if (!display) return;
 	KeyCode keyCode;
-
-	kDebug() << key;
-
 	
 	switch (key)
 	{
 		case 9: 
-			keyCode=XKeysymToKeycode(display, XStringToKeysym("Tab"));
+			key = XK_Tab;
 			break;
 		case 10:
-			keyCode=XKeysymToKeycode(display, XStringToKeysym("Return"));
+			key = XK_Return;
 			break;
 		case 16777219:
-			kDebug() << XK_BackSpace;
-			keyCode=XKeysymToKeycode(display, XK_BackSpace);
-			kDebug() << "Hier: " << keyCode;
+			key = XK_BackSpace;
 			break;
 		case 16777216:
-			keyCode=XKeysymToKeycode(display, XK_Escape);
+			key = XK_Escape;
 			break;
 		case 16777238:
-			keyCode=XKeysymToKeycode(display, XK_Prior);
+			key = XK_Prior;
 			break;
 		case 16777239:
-			keyCode=XKeysymToKeycode(display, XK_Next);
+			key = XK_Next;
 			break;
-		default:
-			keyCode = XKeysymToKeycode(display, key);
+		case 16777223:
+			key = XK_Delete;
+			break;
+			
+		/* BEGIN DEADKEYS */
+		case 94:
+			key = XK_dead_circumflex;
+			break;
+		case 180:
+			key = XK_dead_acute;
+			break;
+		case 96:
+			key = XK_dead_grave;
+			break;
+
+		case 184:
+			key = XK_dead_cedilla;
+			break;
+		case 126:
+			key = XK_dead_tilde;
+			break;
+		case 803:
+			key = XK_dead_belowdot;
+			break;
+		case 775:
+			key = XK_dead_abovedot;
+			break;
+		case 776:
+			key = XK_dead_diaeresis;
+			break;
+		case 778:
+			key = XK_dead_abovering;
+			break;
+		case 772:
+			key = XK_dead_macron;
+			break;
+		case 780:
+			key = XK_dead_caron;
+			break;
+		case 779:
+			key = XK_dead_doubleacute;
+			break;
+		case 808:
+			key = XK_dead_ogonek;
+			break;
+		/* END DEADKEYS */
 	}
+	
+	keyCode = XKeysymToKeycode(display, key);
 	
 	if (keyCode)
 	{
 		int syms;
 		KeySym *keyToSendShifted=XGetKeyboardMapping(display, keyCode, 1, &syms);
 		if (!keyToSendShifted) return;
-		KeySym shiftSym = XKeycodeToKeysym(display, keyCode, 1);
-		KeySym altGrSym = keyToSendShifted[2];
+		KeySym shiftSym = keyToSendShifted[1]; //XKeycodeToKeysym(display, keyCode, 1);
+		KeySym altGrSym = 0;
+		KeySym altGrShiftSym = 0;
+		if (syms >= 4)
+			altGrSym = keyToSendShifted[4];
+		if (syms >= 5)
+			altGrShiftSym = keyToSendShifted[5];
 		
-		if (shiftSym == key)
+		XFree(keyToSendShifted);
+		
+		if (((shiftSym == key) || (altGrShiftSym == key)) && (key < 0xff08))
 		{
 			setModifierKey(Qt::SHIFT);
-		} else if ((key!=altGrSym) && (key != 16777219)) {
+		}
+		if (((key==altGrSym) || (altGrShiftSym == key)) && (key < 0xff08)) {
 			setModifierKey(Qt::Key_AltGr);
 		}
 		
 		pressKeyCode(keyCode);
 		
-		if (shiftSym == key)
+		if (((shiftSym == key) || (altGrShiftSym == key)) && (key < 0xff08))
 			unsetModifier(Qt::SHIFT);
-		else if ((key!=altGrSym) && (key != 16777219))
+		if (((key==altGrSym) || (altGrShiftSym == key)) && (key < 0xff08))
 			unsetModifier(Qt::Key_AltGr);
 	} else {
 		QKeySequence k(key); //do some magic
@@ -182,10 +229,6 @@ void XEventsPrivate::sendKey(unsigned int key /*unicode*/)
 			XTestFakeKeyEvent(display, shortcutCode, False, 15);
 		
 		XFlush ( display );
-		
-// 		pressKey(XStringToKeysym("Ctrl+l"));
-		
-// 		pressKey(XStringToKeysym(k.toString().toLatin1().data())); //this was: toLatin1(); TEST THIS!
 	}
 }
 
@@ -278,6 +321,6 @@ void XEventsPrivate::unsetModifier(int virtualKey)
 XEventsPrivate::~XEventsPrivate()
 {
 	XCloseDisplay(display);
-	delete display;
+	XFree(display);
 }
 

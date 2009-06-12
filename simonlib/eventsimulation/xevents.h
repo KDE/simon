@@ -42,7 +42,7 @@ private:
 
 public:
 	void click(int x, int y);
-	void sendKey(unsigned int key);
+	void sendKeyPrivate(unsigned int key);
 	void setModifierKey(int virtualKey, bool once);
 	void unsetModifier(int virtualKey);
 	XEvents(char* displayName=":0.0");

@@ -5,8 +5,10 @@ ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonaiplugin
 Name=simon AI Plugin
 Name[de]=simon Künstliche Intelligenz Modul
+Name[fr]=Module d'intelligence artificielle de simon
 Comment=Voicecontrolled Chatbot with Festival based speech output
 Comment[de]=Sprachgesteuerter Chatbot mit Festival basierender Sprachausgabe
+Comment[fr]=Agent conversationnel contrôlé par la voix utilisant la synthèse vocale Festival
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org

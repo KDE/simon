@@ -5,8 +5,10 @@ ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simonplacecommandplugin
 Name=simon PlaceCommand Plugin
 Name[de]=simon Orte Modul
+Name[fr]=Module d'emplacement de simon
 Comment=Open places
 Comment[de]=Öffne Orte
+Comment[fr]=Ouvrir un emplacement
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org

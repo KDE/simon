@@ -56,21 +56,6 @@
  */
 WindowsEvents::WindowsEvents() : CoreEvents()
 {
-/*	
-	altgrcodes.insert('²','2');
-	altgrcodes.insert('³','3');
-	altgrcodes.insert('{','7');
-	altgrcodes.insert('[','8');
-	altgrcodes.insert(']','9');
-	altgrcodes.insert('}','0');
-	altgrcodes.insert('\\','ß');
-	altgrcodes.insert('@','q');
-	altgrcodes.insert('€','e');
-	altgrcodes.insert('~','+');
-	altgrcodes.insert('|','<');
-	altgrcodes.insert('µ','m');
-	
-	altgrcodes.insert(8364,'e');*/
 }
 
 
@@ -125,16 +110,10 @@ void WindowsEvents::activateMouseButton(MouseButton btn, PressMode mode)
  * 
  * @author Phillip Goriup
  */
- #include <KDebug>
 void WindowsEvents::click(int x, int y)
 {	
 	moveMouse(x, y);
 	activateMouseButton(Left, DownAndUp);
-	
-//	mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE,clickx,clicky,0,0);
-
-//	mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
-//	mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
 }
 
 
@@ -150,35 +129,30 @@ void WindowsEvents::setModifierKey(int virtualKey, bool once)
 {
 	if ((!shiftSet) && (virtualKey & Qt::SHIFT))
 	{
-		//keybd_event(VK_SHIFT,0,0,0);
 		pressVk(VK_SHIFT, Down);
 		shiftSet=true;
 		shiftOnce=once;
 	}
 	if ((!altgrSet) && (virtualKey & Qt::Key_AltGr))
 	{
-		//keybd_event(VK_RMENU,0,0,0);
 		pressVk(VK_RMENU, Down);
 		altgrSet=true;
 		altgrOnce=once;
 	}
 	if ((!strgSet) && (virtualKey & Qt::CTRL))
 	{
-		//keybd_event(VK_CONTROL,0,0,0);
 		pressVk(VK_CONTROL, Down);
 		strgSet=true;
 		strgOnce=once;
 	}
 	if ((!altSet) && (virtualKey & Qt::ALT))
 	{
-		//keybd_event(VK_MENU,0,0,0);
 		pressVk(VK_MENU, Down);
 		altSet=true;
 		altOnce=once;
 	}
 	if ((!superSet) && (virtualKey & Qt::META))
 	{
-		//keybd_event(VK_LWIN,0,0,0);
 		pressVk(VK_LWIN, Down);
 		superSet=true;
 		superOnce=once;
@@ -193,7 +167,7 @@ void WindowsEvents::setModifierKey(int virtualKey, bool once)
  * 
  * @author Phillip Goriup
  */
-void WindowsEvents::sendKey(unsigned int key /*unicode representation*/)
+void WindowsEvents::sendKeyPrivate(unsigned int key /*unicode representation*/)
 {
 	int modifiers=0;
 	BYTE virtualKey=0;

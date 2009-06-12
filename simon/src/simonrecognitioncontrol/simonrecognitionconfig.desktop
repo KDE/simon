@@ -17,6 +17,8 @@ X-KDE-PluginKeyword=NetworkSettings
 
 Name=Server
 Name[de]=Server
+Name[fr]=Serveur
 
 Comment=Configuration of the Recognition-Server
 Comment[de]=Konfiguration des Erkennungsservers
+Comment[fr]=Configuration du serveur de reconnaissance vocale

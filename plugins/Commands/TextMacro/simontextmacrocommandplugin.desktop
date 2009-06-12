@@ -5,8 +5,10 @@ ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simontextmacrocommandplugin
 Name=simon TextMacro Plugin
 Name[de]=simon Text-Makro Modul
+Name[fr]=Module de macro textuelle de simon
 Comment=Writes prerecorded sequences
 Comment[de]=Schreibt zuvor definierte Textstücke
+Comment[fr]=Écrire des phrases pré-enregistrées
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org

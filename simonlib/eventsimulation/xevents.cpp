@@ -45,9 +45,9 @@ void XEvents::click(int x, int y)
 }
 
 
-void XEvents::sendKey(unsigned int key)
+void XEvents::sendKeyPrivate(unsigned int key)
 {
-	d->sendKey(key);
+	d->sendKeyPrivate(key);
 	unsetUnneededModifiers();
 }
 
