@@ -252,10 +252,6 @@ install ( FILES
   "${KDE4_INSTALL_DIR}/share/apps/khtml/css/quirks.css"
 		DESTINATION  ${DATA_INSTALL_DIR}/../apps/khtml/css COMPONENT kdecore )
 		
-  install( FILES 
-  "${KDE4_INSTALL_DIR}/share/apps/khtml/kpartplugins/khtmlkttsd.desktop"
-  "${KDE4_INSTALL_DIR}/share/apps/khtml/kpartplugins/khtmlkttsd.rc"
-		DESTINATION  ${DATA_INSTALL_DIR}/../apps/khtml/kpartplugins COMPONENT kdecore )
 
 		
 		
