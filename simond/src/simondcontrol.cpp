@@ -128,4 +128,5 @@ void SimondControl::sendString(const QString& data)
 SimondControl::~SimondControl()
 {
 	stopServer();
+	db->deleteLater();
 }

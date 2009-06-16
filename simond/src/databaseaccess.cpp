@@ -124,6 +124,8 @@ bool DatabaseAccess::authenticateUser(const QString& user, const QString& passwo
 
 DatabaseAccess::~DatabaseAccess()
 {
-	db->close();
-	delete db;
+	if (db) {
+		db->close();
+		delete db;
+	}
 }

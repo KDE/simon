@@ -160,6 +160,9 @@ void ClientSocket::processRequest()
 							SLOT(slotModelCompilationPhonemeUndefined(const QString&)));
 					
 					
+					if (recognitionControl) 
+						recognitionControl->deleteLater();
+
 					recognitionControl = new JuliusControl(username, this);
 					connect(recognitionControl, SIGNAL(recognitionReady()), this, SLOT(recognitionReady()));
 					connect(recognitionControl, SIGNAL(recognitionError(const QString&)), this, SLOT(recognitionError(const QString&)));
@@ -170,6 +173,9 @@ void ClientSocket::processRequest()
 					connect(recognitionControl, SIGNAL(recognitionPaused()), this, SLOT(recognitionPaused()));
 					connect(recognitionControl, SIGNAL(recognitionResumed()), this, SLOT(recognitionResumed()));
 					connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const QString&, const QString&)), this, SLOT(sendRecognitionResult(const QString&, const QString&, const QString&)));
+
+					if (synchronisationManager ) 
+						synchronisationManager->deleteLater();
 
 					synchronisationManager = new SynchronisationManager(username, this);
 					
