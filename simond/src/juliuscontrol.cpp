@@ -474,13 +474,24 @@ void JuliusControl::stop()
 	//j_request_terminate(recog);
 	//quit();
 
-	if (!wait(1000))
-	{
+	if (!wait(1000)) {
 		kDebug() << "ARGH STILL RUNNING!";
-		do {
+
+		//making connection because accept()
+		//is blocking
+		int tempSocket = make_connection("127.0.0.1", reservedPort);
+		//waiting till the socket is accepted
+		wait(300);
+		//and take it away
+		close(tempSocket);
+
+		//wait for the thread event loop to finish
+		wait(1000);
+		
+		while (isRunning()) {
 			terminate();
-			wait(1000);
-		} while (isRunning());
+			wait(500);
+		}
 	}
 }
 

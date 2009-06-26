@@ -125,10 +125,12 @@ adin_tcpip_begin()
     }
 #else  /* ~FORK_ADINNET */
     jlog("Stat: adin_tcpip: waiting connection...\n");
+    /* fprintf(stderr, "Accepting...\n"); */
     if ((adinnet_asd = accept_from(adinnet_sd)) < 0) {
       return FALSE;
     }
     jlog("Stat: adin_tcpip: connected\n");
+    /* fprintf(stderr, "Accepted!\n"); */
 #endif /* FORK_ADINNET */
 
   return TRUE;
