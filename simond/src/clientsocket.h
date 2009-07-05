@@ -110,7 +110,7 @@ class ClientSocket : public QSslSocket
 	public:
 		ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, QObject *parent=0);
 			       
-		~ClientSocket();
+		virtual ~ClientSocket();
 		
 };
 

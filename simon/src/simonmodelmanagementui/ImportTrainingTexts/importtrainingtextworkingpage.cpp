@@ -180,10 +180,10 @@ void ImportTrainingTextWorkingPage::parseFile(QString path)
 		sentence.remove(",");
 		sentence.remove(".");
 		sentence.remove("#");
-		sentence.remove("'");
 		sentence.remove("`");
 		sentence.remove("!");
 		sentence.remove("?");
+		sentence.replace(QRegExp("( |^)'"), " ");
 		sentence.remove(".");
 		sentence.replace("-", " ");
 		sentence.replace("\n", " ");
