@@ -51,6 +51,8 @@
 
 ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, QObject *parent) : QSslSocket(parent)
 {
+	qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
+
 	username ="";
 	synchronisationRunning = false;
 
@@ -172,7 +174,7 @@ void ClientSocket::processRequest()
 					connect(recognitionControl, SIGNAL(recognitionStopped()), this, SLOT(recognitionStopped()));
 					connect(recognitionControl, SIGNAL(recognitionPaused()), this, SLOT(recognitionPaused()));
 					connect(recognitionControl, SIGNAL(recognitionResumed()), this, SLOT(recognitionResumed()));
-					connect(recognitionControl, SIGNAL(recognitionResult(const QString&, const QString&, const QString&)), this, SLOT(sendRecognitionResult(const QString&, const QString&, const QString&)));
+					connect(recognitionControl, SIGNAL(recognitionResult(const RecognitionResultList&)), this, SLOT(sendRecognitionResult(const RecognitionResultList&)));
 
 					if (synchronisationManager ) 
 						synchronisationManager->deleteLater();
@@ -1192,18 +1194,24 @@ void ClientSocket::recognitionResumed()
 }
 
 
-void ClientSocket::sendRecognitionResult(const QString& data, const QString& sampa, const QString& samparaw)
+void ClientSocket::sendRecognitionResult(const RecognitionResultList& recognitionResults)
 {
 	QByteArray toWrite;
 	QDataStream stream(&toWrite, QIODevice::WriteOnly);
 	QByteArray body;
 	QDataStream bodyStream(&body, QIODevice::WriteOnly);
 	
-	QByteArray dataByte = data.toUtf8();
-	QByteArray sampaByte = sampa.toUtf8();
-	QByteArray sampaRawByte = samparaw.toUtf8();
+	qint8 recognitionCount = recognitionResults.count();
+	bodyStream << recognitionCount;
 	
-	bodyStream << dataByte << sampaByte << sampaRawByte;
+	for (int i=0; i < recognitionResults.count(); i++)
+	{
+		bodyStream << recognitionResults[i].sentence().toUtf8() 
+			<< recognitionResults[i].sampa().toUtf8()
+			<< recognitionResults[i].sampaRaw().toUtf8()
+			<< recognitionResults[i].confidenceScores();
+	}
+
 	stream << (qint32) Simond::RecognitionResult << (qint64) body.count();
 	write(toWrite);
 	write(body);

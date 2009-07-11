@@ -22,7 +22,8 @@ kde4_add_app_icon(simond_SRCS
 kde4_add_executable(simond ${simond_SRCS})
 
 target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${PORTAUDIO_LIBRARIES}
-${QT_LIBRARIES} speechmodelbase simonmodelcompilation simonddatabaseaccess julius sent)
+${QT_LIBRARIES} speechmodelbase simonmodelcompilation simonddatabaseaccess
+simonrecognitionresult julius sent)
 
 install(TARGETS simond DESTINATION ${BIN_INSTALL_DIR} COMPONENT simond )
 

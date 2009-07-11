@@ -28,6 +28,7 @@
 #include <KLocalizedString>
 #include <simonlogging/logger.h>
 #include <simoninfo/simoninfo.h>
+#include <simonrecognitionresult/recognitionresult.h>
 
 /**
  * @brief Constructor
@@ -58,7 +59,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 
 	QObject::connect(recognitionControl, SIGNAL(loggedIn()), this, SLOT(loggedIn()));
 	
-	QObject::connect(recognitionControl, SIGNAL(recognised(const QString&,const QString&,const QString&)), this, SLOT(wordRecognised(QString,QString,QString)));
+	QObject::connect(recognitionControl, SIGNAL(recognised(const RecognitionResultList&)), this, SLOT(wordRecognised(const RecognitionResultList&)));
 	QObject::connect(recognitionControl, SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
 }
 
@@ -148,19 +149,12 @@ void SimonControl::disconnectFromServer()
  * usually called when the server recognised a word
  *
  *	@author Peter Grasch
- *	@param QString word
- *	the recognised word
  */
-void SimonControl::wordRecognised(QString word,QString sampa, QString samparaw)
+void SimonControl::wordRecognised(const RecognitionResultList& recognitionResults)
 {
-	Q_UNUSED(sampa);
-	Q_UNUSED(samparaw);
-
 	if (status != SimonControl::ConnectedActivated) return;
-	
-	word = word.remove("<s>");
-	word = word.remove("</s>");
-	ActionManager::getInstance()->process(word.trimmed());
+
+	ActionManager::getInstance()->process(recognitionResults);
 }
 
 

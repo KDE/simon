@@ -446,14 +446,14 @@ int TrainingManager::getProbability ( QString wordname )
 	
 	while ( i<promptscount )
 	{
-		prob += prompts.at ( i ).count(QRegExp(QString("( |^)%1( |$)").arg(wordname)));
+		//prob += prompts.at ( i ).count(QRegExp(QString("( |^)%1( |$)").arg(wordname)));
 		
 		//work around some strange problem in my qt version...
-		/*QString prompt = prompts.at(i);
+		QString prompt = prompts.at(i);
 		prob += prompt.count(" "+wordname+" ");
 		if (prompt == wordname) prob++;
 		else if (prompt.startsWith(wordname+" ")) prob++;
-		else if (prompt.endsWith(" "+wordname)) prob++;*/
+		else if (prompt.endsWith(" "+wordname)) prob++;
 
 		i++;
 	}

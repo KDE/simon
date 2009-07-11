@@ -116,14 +116,6 @@ void SimondControl::connectionClosing(QAbstractSocket::SocketState state)
 
 
 
-//debug
-void SimondControl::sendString(const QString& data)
-{
-	foreach (ClientSocket *client, clients)
-		client->sendRecognitionResult(data, "" /*sampa*/, "" /*samparaw*/);
-}
-
-
 
 SimondControl::~SimondControl()
 {

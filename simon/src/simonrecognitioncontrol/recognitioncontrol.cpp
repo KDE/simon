@@ -31,6 +31,7 @@
 #include <speechmodelbase/trainingcontainer.h>
 #include <speechmodelbase/model.h>
 #include <simonprogresstracking/operation.h>
+#include <simonrecognitionresult/recognitionresult.h>
 
 #include <stdio.h>
 
@@ -1459,13 +1460,25 @@ void RecognitionControl::messageReceived()
 				case Simond::RecognitionResult:
 				{
 					parseLengthHeader();
-					
-					QByteArray word, sampa, samparaw;
-					msg >> word;
-					msg >> sampa;
-					msg >> samparaw;
+
+					qint8 sentenceCount;
+					msg >> sentenceCount;
+
+					RecognitionResultList recognitionResults;
+
+					for (int i=0; i < sentenceCount; i++) {
+						QByteArray word, sampa, samparaw;
+						QList<float> confidenceScores;
+						msg >> word;
+						msg >> sampa;
+						msg >> samparaw;
+						msg >> confidenceScores;
+						recognitionResults << RecognitionResult(word, sampa, samparaw, confidenceScores);
+					}
+
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
-					emit recognised(QString::fromUtf8(word), QString::fromUtf8(sampa), QString::fromUtf8(samparaw));
+					
+					emit recognised(recognitionResults);
 					break;
 				}
 				

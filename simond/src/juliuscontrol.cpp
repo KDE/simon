@@ -223,6 +223,8 @@ void outputResult(Recog *recog, void *control)
 		/* output results for all the obtained sentences */
 		winfo = r->lm->winfo;
 
+		QList<RecognitionResult> recognitionResults;
+
 		for(n = 0; n < r->result.sentnum; n++) { /* for all sentences */
 			QString result, sampa, sampaRaw;
 			s = &(r->result.sent[n]);
@@ -235,6 +237,8 @@ void outputResult(Recog *recog, void *control)
 				result += " ";
 				result += QString::fromUtf8(winfo->woutput[seq[i]]);// printf(" %s", );
 			}
+			result.remove("<s> ");
+			result.remove(" </s>");
 			//       printf("\n");
 
 			/* LM entry sequence */
@@ -249,7 +253,11 @@ void outputResult(Recog *recog, void *control)
 			
 			/* confidence scores */
 			//       printf("cmscore%d:", n+1);
-			//       for (i=0;i<seqnum; i++) printf(" %5.3f", s->confidence[i]);
+			QList<float> confidenceScores;
+
+			for (i=1;i<seqnum-1; i++) {
+				confidenceScores << s->confidence[i];
+			}
 			//       printf("\n");
 			//       /* AM and LM scores */
 			//       printf("score%d: %f", n+1, s->score);
@@ -265,8 +273,12 @@ void outputResult(Recog *recog, void *control)
 			// 	}
 			//       }
 			kDebug() << "Recognized: " << result.trimmed();
-			jControl->recognized(result.trimmed(), sampa.trimmed(), sampaRaw.trimmed());
+
+			recognitionResults.append(RecognitionResult(result.trimmed(),
+							sampa.trimmed(),
+							sampaRaw.trimmed(), confidenceScores));
 		}
+		jControl->recognized(recognitionResults);
 	}
 }
 
@@ -496,9 +508,9 @@ void JuliusControl::stop()
 }
 
 
-void JuliusControl::recognized(const QString& sequence, const QString& sampa, const QString& samparaw)
+void JuliusControl::recognized(const QList<RecognitionResult>& recognitionResults)
 {
-	emit recognitionResult(sequence, sampa, samparaw);
+	emit recognitionResult(recognitionResults);
 }
 
 void JuliusControl::pause()

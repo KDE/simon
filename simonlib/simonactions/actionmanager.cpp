@@ -38,6 +38,7 @@
 #include "commandsettings.h"
 
 
+
 ActionManager* ActionManager::instance;
 
 
@@ -351,12 +352,42 @@ CommandList* ActionManager::getCommandsOfCategory(const QString& category)
 	return NULL;
 }
 
-void ActionManager::process(QString input)
+void ActionManager::process(const RecognitionResultList& recognitionResults /*QString input*/)
 {
-	if (!greedyReceivers.isEmpty())
-	{
-		foreach (const GreedyReceiver& rec, greedyReceivers)
+	if (recognitionResults.isEmpty())
+		return;
+
+	RecognitionResultList selectedRecognitionResults;
+
+	foreach (const RecognitionResult& result, recognitionResults) {
+		//if the recognition result has:
+		//	* One word that has a score of 0
+		//	* An average score of below 0.65
+		//it will be not be included in the list of results
+		
+		QList<float> confidenceScores = result.confidenceScores();
+
+		//calc average
+		float avg=0;
+		foreach (float score, confidenceScores)
 		{
+			avg += score;
+		}
+		avg /= ((float) confidenceScores.count());
+
+
+		if (!confidenceScores.contains(0) && (avg > 0.65))
+			selectedRecognitionResults << result;
+	}
+
+	fprintf(stderr, "Viable recognition results: %d\n", selectedRecognitionResults.count());
+
+	if (selectedRecognitionResults.count() == 0) return;
+	
+	QString input = selectedRecognitionResults[0].sentence();
+
+	if (!greedyReceivers.isEmpty()) {
+		foreach (const GreedyReceiver& rec, greedyReceivers) {
 			bool accepted;
 			QMetaObject::invokeMethod(rec.receiver(), rec.slot(), 
 					Qt::DirectConnection, Q_RETURN_ARG(bool, accepted), Q_ARG(QString, input));

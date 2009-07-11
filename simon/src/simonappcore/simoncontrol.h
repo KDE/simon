@@ -96,7 +96,7 @@ public slots:
 	void disconnectFromServer();
 	void connectedToServer();
 	void disconnectedFromServer();
-	void wordRecognised(QString word,QString sampa,QString samparaw);
+	void wordRecognised(const RecognitionResultList& recognitionResults);
 	void abortConnecting();
 
 	void compileModel();

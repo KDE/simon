@@ -46,8 +46,6 @@ class SimondControl : public QTcpServer
 		
 		void connectionClosing(QAbstractSocket::SocketState state);
 		
-		//debug
-		void sendString(const QString& data);
 
 	public:
 		SimondControl(QObject *parent=0);

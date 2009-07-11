@@ -23,12 +23,12 @@
 #include <QSslSocket>
 #include <QList>
 #include <QMutex>
-#include "clientsocket.h"
+#include "recognitioncontrol.h"
 #include <simonddatabaseaccess/databaseaccess.h>
 #include <simonprotocol/simonprotocol.h>
 
 
-const qint8 protocolVersion=1;
+const qint8 protocolVersion=2;
 
 class DatabaseAccess;
 class RecognitionControl;
@@ -60,7 +60,7 @@ class ClientSocket : public QSslSocket
 		void waitForMessage(qint64 length, QDataStream& stream, QByteArray& message);
 
 	public slots:
-		void sendRecognitionResult(const QString& data, const QString& sampa, const QString& samparaw);
+		void sendRecognitionResult(const RecognitionResultList& recognitionResults);
 
 
 	private slots:

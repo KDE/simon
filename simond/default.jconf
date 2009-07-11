@@ -84,8 +84,8 @@
 ## (PTM/triphone) switch computation method of IWCD on 1st pass
 ##
 #-iwcd1 best N	# assign average of N-best likelihood of the same context
--iwcd1 max	# assign maximum likelihood of the same context
-#-iwcd1 avg	# assign average likelihood of the same context (default)
+#-iwcd1 max	# assign maximum likelihood of the same context
+-iwcd1 avg	# assign average likelihood of the same context (default)
 
 ######################################################################
 #### Gaussian Pruning
@@ -120,9 +120,9 @@
 #-s 500                 # hypotheses stack size on 2nd pass (#hypo)
 #-m 2000                # hypotheses overflow threshold (#hypo)
 #-lookuprange 5         # lookup range for word expansion (#frame)
-#-n 1                   # num of sentences to find (#sentence)
+-n 10                   # num of sentences to find (#sentence)
 #-n 10                  #   (default for 'standard' configuration)
-#-output 1              # num of found sentences to output (#sentence)
+-output 10              # num of found sentences to output (#sentence)
 #-looktrellis		# search within only backtrellis words
 
 ######################################################################

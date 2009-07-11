@@ -22,6 +22,9 @@
 
 #include <QObject>
 #include <QThread>
+#include <QList>
+#include <QMetaType>
+#include <simonrecognitionresult/recognitionresult.h>
 
 class RecognitionControl : public QThread
 {
@@ -36,7 +39,7 @@ class RecognitionControl : public QThread
 		void recognitionStopped();
 		void recognitionPaused();
 		void recognitionResumed();
-		void recognitionResult(const QString& result, const QString& sampa, const QString& samparaw);
+		void recognitionResult(const RecognitionResultList& recognitionResults);
 
 	protected:
 		QString username;

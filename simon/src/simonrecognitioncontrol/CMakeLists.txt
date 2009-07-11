@@ -46,7 +46,7 @@ kde4_add_library( simonrecognitioncontrol  SHARED ${simonrecognition_LIB_SRCS} )
 
 target_link_libraries( simonrecognitioncontrol ${QT_LIBRARIES}
 	${KDE4_KDEUI_LIBS} speechgui speechmodelbase adinstreamer
-  simonmodelmanagementui simonmodelmanagement simonprogresstracking ) # for building the modelcontainers for synchronisation
+  simonmodelmanagementui simonmodelmanagement simonrecognitionresult simonprogresstracking ) # for building the modelcontainers for synchronisation
 
 set_target_properties( simonrecognitioncontrol
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

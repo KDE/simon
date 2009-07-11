@@ -73,7 +73,7 @@ class JuliusControl : public RecognitionControl
 		bool isStopping() { return stopping; }
 		
 		void waitForResumed();
-		void recognized(const QString& sequence, const QString& sampa, const QString& samparaw);
+		void recognized(const QList<RecognitionResult>& recognitionResults);
 		JuliusControl::Request popNextRequest();
 		
 

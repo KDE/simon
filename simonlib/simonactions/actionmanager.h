@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QList>
+#include <simonrecognitionresult/recognitionresult.h>
 #include <commandpluginbase/command.h>
 #include "actionlib_export.h"
 #include <KIcon>
@@ -97,7 +98,7 @@ public:
 	CommandList* getCommandsOfCategory(const QString& category);
 
 
-	void process(QString input);
+	void process(const RecognitionResultList& recognitionResults);
 	bool addCommand(Command *command);
 	bool deleteCommand(Command *command);
 

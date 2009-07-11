@@ -22,6 +22,7 @@
 #define RECOGNITIONCONTROL_H
 
 #include "recognitioncontrol_export.h"
+#include <simonrecognitionresult/recognitionresult.h>
 #include <QObject>
 #include <QStringList>
 #include <QMutex>
@@ -31,7 +32,7 @@ class QTimer;
 class ModelManagerUiProxy;
 class Operation;
 
-const qint8 protocolVersion=1;
+const qint8 protocolVersion=2;
 
 class AdinStreamer;
 class QDateTime;
@@ -110,7 +111,7 @@ signals:
 	void loggedIn();
 
 	void recognitionStatusChanged(RecognitionControl::RecognitionStatus);
-	void recognised(const QString&, const QString& sampa, const QString& samparaw);
+	void recognised(const RecognitionResultList& recognitionResults);
 
 	void modelsAvailable(const QList<QDateTime>& models);
 	
