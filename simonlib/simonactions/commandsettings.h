@@ -89,6 +89,8 @@ public:
 
 	CommandSettings(QWidget* parent=0, const QVariantList& args=QVariantList());
 	QList<Action::Ptr> getActivePlugins();
+
+	float getMinimumConfidence();
 	
 	void registerPlugIn(KCModule *plugin);
 	void unregisterPlugIn(KCModule *plugin);

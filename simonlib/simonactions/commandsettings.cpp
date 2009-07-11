@@ -220,8 +220,7 @@ void CommandSettings::save()
 		newTrigger << selected->item(i)->data(Qt::UserRole+2).toString();
 	}
 	
-	foreach (KCModule *module, moduleHash.keys())
-	{
+	foreach (KCModule *module, moduleHash.keys()) {
 		module->save();
 	}
 
@@ -267,6 +266,8 @@ void CommandSettings::save()
 		actions = newActions;
 		emit actionsChanged(actions);
 	}
+	
+	cg.writeEntry("MinimumConfidence", ui.sbMinimumConfidence->value());
 
 	cg.sync();
 	KCModule::save();
@@ -318,6 +319,9 @@ void CommandSettings::load()
 
 	QStringList defaultPluginList=findDefaultPlugins(allPlugins);
 	QStringList pluginsToLoad = cg.readEntry("SelectedPlugins", defaultPluginList);
+
+	float minimumConfidence = cg.readEntry("MinimumConfidence", 0.7f);
+	ui.sbMinimumConfidence->setValue(minimumConfidence);
 
 	// ensure that trigger has the same amount of elements
 	// as pluginsToLoad
@@ -376,6 +380,11 @@ void CommandSettings::load()
 	KCModule::load();
 }
 
+float CommandSettings::getMinimumConfidence()
+{
+	return 0.7;
+}
+
 QList<Action::Ptr> CommandSettings::getActivePlugins()
 {
 	return actions;
@@ -392,6 +401,7 @@ void CommandSettings::defaults()
 	KConfigGroup cg(config, "");
 	cg.writeEntry("Trigger", QStringList());
 	cg.writeEntry("SelectedPlugins", findDefaultPlugins(availableCommandManagers()));
+	cg.writeEntry("MinimumConfidence", 0.7f);
 	cg.sync();
 	load();
 	forceChangeFlag = true;

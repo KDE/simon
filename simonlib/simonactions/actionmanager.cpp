@@ -357,12 +357,14 @@ void ActionManager::process(const RecognitionResultList& recognitionResults /*QS
 	if (recognitionResults.isEmpty())
 		return;
 
+	Q_ASSERT(commandSettings);
+
 	RecognitionResultList selectedRecognitionResults;
 
 	foreach (const RecognitionResult& result, recognitionResults) {
 		//if the recognition result has:
 		//	* One word that has a score of 0
-		//	* An average score of below 0.65
+		//	* An average score of below the minimum confidence
 		//it will be not be included in the list of results
 		
 		QList<float> confidenceScores = result.confidenceScores();
@@ -370,13 +372,10 @@ void ActionManager::process(const RecognitionResultList& recognitionResults /*QS
 		//calc average
 		float avg=0;
 		foreach (float score, confidenceScores)
-		{
 			avg += score;
-		}
 		avg /= ((float) confidenceScores.count());
 
-
-		if (!confidenceScores.contains(0) && (avg > 0.65))
+		if (!confidenceScores.contains(0) && (avg > commandSettings->getMinimumConfidence()))
 			selectedRecognitionResults << result;
 	}
 
@@ -395,8 +394,6 @@ void ActionManager::process(const RecognitionResultList& recognitionResults /*QS
 		}
 		return;
 	}
-
-	Q_ASSERT(commandSettings);
 
 	if (input.isEmpty()) return;
 

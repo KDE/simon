@@ -1473,7 +1473,10 @@ void RecognitionControl::messageReceived()
 						msg >> sampa;
 						msg >> samparaw;
 						msg >> confidenceScores;
-						recognitionResults << RecognitionResult(word, sampa, samparaw, confidenceScores);
+						recognitionResults << RecognitionResult(QString::fromUtf8(word), 
+									QString::fromUtf8(sampa), 
+									QString::fromUtf8(samparaw), 
+									confidenceScores);
 					}
 
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);
