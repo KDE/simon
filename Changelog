@@ -1,0 +1,5 @@
+* simond now sends 10 found sentences from Julius to simon; Also, confidence
+scores have been added
+
+* simon can now ignore recognition results beneath a configurable confidence
+threshold

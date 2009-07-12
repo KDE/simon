@@ -143,15 +143,16 @@
             <property name="frameShape" >
              <enum>QFrame::StyledPanel</enum>
             </property>
-            <property name="text" >
-             <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+
+	    <property name="text" >
+	      <string>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
 &lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
 p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'DejaVu Sans'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; font-size:11pt;">&lt;span style=" font-size:9pt;">This is a release version of simon and has been tested extensively.&lt;/span>&lt;/p>
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; font-size:9pt;">If you want to support simon and ensure further development please consider &lt;a href="http://kde-apps.org/content/donate.php?content=73815">&lt;span style=" text-decoration: underline; color:#0000ff;">a small donation&lt;/span>&lt;/a>.&lt;/p>&lt;/body>&lt;/html></string>
-            </property>
-            <property name="wordWrap" >
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Bitstream Vera Sans'; font-size:10pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Verdana'; font-size:11pt;">&lt;span style=" font-size:9pt;">This early development version is not yet suited for productive use. Should you encounter bugs, please contact the developers to help us improve simon.&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+	    </property>
+
+	    <property name="wordWrap" >
              <bool>true</bool>
             </property>
             <property name="openExternalLinks" >

@@ -160,7 +160,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	delete info;
 
 	ui.lbWelcomeDesc->setPixmap(QPixmap(KStandardDirs::locate("appdata", "themes/default/welcomebanner.png")));
-	ui.lbWarning->setStyleSheet("background-image: url(\""+KStandardDirs::locate("appdata", "themes/default/releaseinfo.png")+"\"); padding-left:120px; padding-top:10px");
+	ui.lbWarning->setStyleSheet("background-image: url(\""+KStandardDirs::locate("appdata", "themes/default/alphawarning.png")+"\"); padding-left:120px; padding-top:10px");
 
 	ui.label_5->setPixmap(KIcon("mail-message-new").pixmap(QSize(24,24)));
 	ui.label_7->setPixmap(KIcon("applications-internet").pixmap(QSize(24,24)));
