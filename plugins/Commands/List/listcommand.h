@@ -21,6 +21,7 @@
 #define LISTCOMMAND_H
 
 #include <commandpluginbase/command.h>
+#include <commandpluginbase/greedyreceiver.h>
 #include <QList>
 #include <KUrl>
 class CommandListWidget;
@@ -33,7 +34,7 @@ class CommandListWidget;
  *	@date 19.05.2008
  *	@author Peter Grasch
  */
-class ListCommand : public Command{
+class ListCommand : public Command, public GreedyReceiver{
 Q_OBJECT
 private:
 	CommandListWidget *clw;
@@ -56,7 +57,7 @@ private slots:
 	void cancel();
 
 public slots:
-	bool executeSelection(QString inputText);
+	bool greedyTrigger(const QString& inputText);
 
 public:
 	static const QString staticCategoryText();

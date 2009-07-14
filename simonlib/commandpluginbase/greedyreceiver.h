@@ -17,42 +17,27 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef DICTATIONCOMMANDMANAGER_H
-#define DICTATIONCOMMANDMANAGER_H
+#ifndef GREEDYRECEIVER_H
+#define GREEDYRECEIVER_H
 
-#include <commandpluginbase/commandmanager.h>
-#include <QVariantList>
+#include "simoncommandpluginbase_export.h"
 
-/**
- *	@class DictationCommandManager
- *	@brief Manager for the dictation
- *
- *	@version 0.1
- *	@date 16.10.2008
- *	@author Peter Grasch
- */
-class DictationCommandManager : public CommandManager {
-Q_OBJECT
+#include <simonrecognitionresult/recognitionresult.h>
 
-protected:
-	bool trigger(const QString& triggerName);
+#include <QString>
+
+
+class SIMONCOMMANDPLUGINBASE_EXPORT GreedyReceiver {
 
 public:
-	virtual const QString preferredTrigger() const { return ""; }
-	bool addCommand(Command *) { return false; }
-	const QString name() const;
-	bool load();
-	bool save();
+	virtual bool greedyTriggerRawList(const RecognitionResultList&);
+	virtual bool greedyTriggerRaw(const RecognitionResult&);
+	virtual bool greedyTrigger(const QString&);
+	
+	GreedyReceiver()
+	{ }
 
-    /**
-    * @brief Constructor
-    * 
-    *	@author Peter Grasch
-    */
-    DictationCommandManager(QObject *parent, const QVariantList& args);
-
-    
-    ~DictationCommandManager();
+	virtual ~GreedyReceiver() {}
 
 };
 

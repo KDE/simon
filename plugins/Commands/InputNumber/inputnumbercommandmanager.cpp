@@ -67,7 +67,7 @@ InputNumberCommandManager::InputNumberCommandManager(QObject *parent, const QVar
 
 void InputNumberCommandManager::deregister()
 {
-	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
+	ActionManager::getInstance()->deRegisterGreedyReceiver(this);
 }
 
 const KIcon InputNumberCommandManager::icon() const
@@ -116,7 +116,7 @@ void InputNumberCommandManager::ok()
 	EventHandler::getInstance()->sendWord(ui.leNumber->text());
 }
 
-bool InputNumberCommandManager::executeSelection(QString inputText)
+bool InputNumberCommandManager::greedyTrigger(const QString& inputText)
 {
 	if (inputText.toUpper() == i18n("Cancel").toUpper())
 	{
@@ -204,7 +204,7 @@ bool InputNumberCommandManager::trigger(const QString& triggerName)
 	y=(tmp->height()/2)-(widget->height()/2);
 	widget->move(x, y);
 	widget->show();
-	ActionManager::getInstance()->registerPrompt(this, "executeSelection");
+	ActionManager::getInstance()->registerGreedyReceiver(this);
 
 	return true;
 }

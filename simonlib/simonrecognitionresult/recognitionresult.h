@@ -45,6 +45,18 @@ class RecognitionResult
 		QString sampa() const { return m_sampa; }
 		QString sampaRaw() const { return m_sampaRaw; }
 		QList<float> confidenceScores() const { return m_confidenceScores; }
+
+		bool matchesTrigger(const QString& trigger)
+		{
+			if (trigger.isEmpty()) return true;
+
+			return m_sentence.startsWith(trigger+" ");
+		}
+
+		void removeTrigger(const QString& trigger)
+		{ 
+			m_sentence.remove(0, trigger.count()+1);
+		}
 };
 
 typedef QList<RecognitionResult> RecognitionResultList;

@@ -90,7 +90,7 @@ bool ListCommand::processRequest(int index)
 		clw->close();
 		usleep(300000);
 		ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
-		ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
+		ActionManager::getInstance()->deRegisterGreedyReceiver(this);
 	}
 	return false;
 }
@@ -98,10 +98,10 @@ bool ListCommand::processRequest(int index)
 void ListCommand::cancel()
 {
 	clw->close();
-	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
+	ActionManager::getInstance()->deRegisterGreedyReceiver(this);
 }
 
-bool ListCommand::executeSelection(QString inputText)
+bool ListCommand::greedyTrigger(const QString& inputText)
 {
 	if (inputText.toUpper() == i18n("Cancel").toUpper())
 	{
@@ -183,7 +183,7 @@ bool ListCommand::triggerPrivate()
 
 	listCurrentCommandSection();
 
-	ActionManager::getInstance()->registerPrompt(this, "executeSelection");
+	ActionManager::getInstance()->registerGreedyReceiver(this);
 
 	clw->show();
 
@@ -192,7 +192,7 @@ bool ListCommand::triggerPrivate()
 
 ListCommand::~ListCommand()
 {
-	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
+	ActionManager::getInstance()->deRegisterGreedyReceiver(this);
 	clw->deleteLater();
 }
 

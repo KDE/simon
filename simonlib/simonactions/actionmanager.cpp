@@ -235,19 +235,14 @@ bool ActionManager::askDeleteCommandByTrigger(QString trigger)
 }
 
 
-void ActionManager::registerPrompt(QObject *receiver, const char* slot)
+void ActionManager::registerGreedyReceiver(GreedyReceiver *receiver)
 {
-	greedyReceivers << GreedyReceiver(receiver, slot);
+	greedyReceivers << receiver;
 }
 
-void ActionManager::deRegisterPrompt(QObject *d_receiver, const char* d_slot)
+void ActionManager::deRegisterGreedyReceiver(GreedyReceiver *receiver)
 {
-	for (int i=0; i < greedyReceivers.count(); i++)
-	{
-		if ((greedyReceivers[i].receiver() == d_receiver)
-				&& (greedyReceivers[i].slot() == d_slot))
-			greedyReceivers.removeAt(i--);
-	}
+	greedyReceivers.removeAll(receiver);
 
 }
 
@@ -359,6 +354,14 @@ void ActionManager::process(const RecognitionResultList& recognitionResults /*QS
 
 	Q_ASSERT(commandSettings);
 
+	if (!greedyReceivers.isEmpty()) {
+		foreach (GreedyReceiver* rec, greedyReceivers) {
+			if (rec->greedyTriggerRawList(recognitionResults))
+				return;
+		}
+		return;
+	}
+
 	RecognitionResultList selectedRecognitionResults;
 
 	foreach (const RecognitionResult& result, recognitionResults) {
@@ -383,19 +386,7 @@ void ActionManager::process(const RecognitionResultList& recognitionResults /*QS
 
 	if (selectedRecognitionResults.count() == 0) return;
 	
-	QString input = selectedRecognitionResults[0].sentence();
-
-	if (!greedyReceivers.isEmpty()) {
-		foreach (const GreedyReceiver& rec, greedyReceivers) {
-			bool accepted;
-			QMetaObject::invokeMethod(rec.receiver(), rec.slot(), 
-					Qt::DirectConnection, Q_RETURN_ARG(bool, accepted), Q_ARG(QString, input));
-			if (accepted) return;
-		}
-		return;
-	}
-
-	if (input.isEmpty()) return;
+	RecognitionResult finalResult  = selectedRecognitionResults[0];
 
 	int i=0;
 	bool commandFound=false;
@@ -404,19 +395,16 @@ void ActionManager::process(const RecognitionResultList& recognitionResults /*QS
 	while ((i<actions.count()) && (!commandFound))
 	{
 		currentTrigger = actions[i]->trigger();
-		if (input.startsWith(currentTrigger))
-		{
-			if (!currentTrigger.isEmpty())
-				realCommand = input.mid(currentTrigger.count()+1);
-			else realCommand = input;
+		if (finalResult.matchesTrigger(currentTrigger)) {
+			finalResult.removeTrigger(currentTrigger);
 
-			if(actions.at(i)->manager()->trigger(realCommand))
+			if(actions.at(i)->manager()->processResult(finalResult))
 				commandFound=true;
 		}
 		i++;
 	}
-	if (!commandFound)
-		emit guiAction(input);
+/*	if (!commandFound)
+		emit guiAction(finalResult.sentence());*/
 }
 
 

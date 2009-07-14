@@ -42,6 +42,12 @@ bool CommandManager::trigger(const QString& triggerName)
 	return done;
 }
 
+
+bool CommandManager::processResult(const RecognitionResult& recognitionResult)
+{
+	return trigger(recognitionResult.sentence());
+}
+
 /**
  * \brief Returns the CreateCommandWidget used for configuring a new/existing command
  * \author Peter Grasch

@@ -21,6 +21,7 @@
 #define INPUTNUMBERCOMMANDMANAGER_H
 
 #include <commandpluginbase/commandmanager.h>
+#include <commandpluginbase/greedyreceiver.h>
 #include <QVariantList>
 #include "ui_inputnumberwidget.h"
 class QDialog;
@@ -33,7 +34,7 @@ class QDialog;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class InputNumberCommandManager : public CommandManager {
+class InputNumberCommandManager : public CommandManager, public GreedyReceiver {
 Q_OBJECT
 private:
 	Ui::InputNumberDlg ui;
@@ -58,8 +59,11 @@ private slots:
 	void send8() { processRequest(8); }
 	void send9() { processRequest(9); }
 
+protected:
+	bool trigger(const QString& triggerName);
+
 public slots:
-	bool executeSelection(QString inputText);
+	bool greedyTrigger(const QString& inputText);
 
 public:
 	const KIcon icon() const;
@@ -67,7 +71,6 @@ public:
 	const QString name() const;
 	bool load();
 	bool save();
-	bool trigger(const QString& triggerName);
 	CommandConfiguration* getConfigurationPage();
 
     /**

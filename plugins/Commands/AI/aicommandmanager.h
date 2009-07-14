@@ -42,12 +42,14 @@ private:
 	AIMLParser *parser;
 	KProcess *festivalProc;
 
+protected:
+	bool trigger(const QString& triggerName);
+
 public:
 	const QString name() const;
 	bool load();
 	bool setupParser();
 	bool save();
-	bool trigger(const QString& triggerName);
 	bool addCommand(Command *) { return false; }
 
 	CommandConfiguration* getConfigurationPage();

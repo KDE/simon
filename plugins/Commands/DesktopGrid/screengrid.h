@@ -22,6 +22,7 @@
 
 #include <QWidget>
 #include <QList>
+#include <commandpluginbase/greedyreceiver.h>
 
 class KPushButton;
 class QGridLayout;
@@ -29,7 +30,7 @@ class QLabel;
 /**
 	@author Peter Grasch <bedahr@gmx.net>
 */
-class ScreenGrid : public QWidget
+class ScreenGrid : public QWidget, public GreedyReceiver
 {
 Q_OBJECT
 
@@ -47,7 +48,7 @@ private:
 	static QStringList numberIdentifiers;
 
 public slots:
-	bool selectStrRegion(QString input);
+	bool greedyTrigger(const QString& input);
 
 
 public:

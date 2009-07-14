@@ -23,6 +23,7 @@
 #include "simoncommandpluginbase_export.h"
 
 #include "command.h"
+#include <simonrecognitionresult/recognitionresult.h>
 #include <QList>
 #include <QObject>
 #include <KIcon>
@@ -47,6 +48,7 @@ signals:
 
 protected:
 	CommandList *commands;
+	virtual bool trigger(const QString& triggerName);
 
 public:
 	virtual const QString name() const=0;
@@ -63,7 +65,8 @@ public:
 	virtual CommandConfiguration* getConfigurationPage();
 	virtual CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	virtual bool trigger(const QString& triggerName);
+	virtual bool processResult(const RecognitionResult& recognitionResult);
+
 	/**
 	* @brief Constructor
 	* 

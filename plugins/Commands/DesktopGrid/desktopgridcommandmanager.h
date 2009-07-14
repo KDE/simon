@@ -35,11 +35,13 @@
 class DesktopGridCommandManager : public CommandManager{
 Q_OBJECT
 
+protected:
+	bool trigger(const QString& triggerName);
+
 public:
 	const QString name() const;
 	bool load();
 	bool save();
-	bool trigger(const QString& triggerName);
 	bool addCommand(Command *) { return false; }
 
 	CommandConfiguration* getConfigurationPage();

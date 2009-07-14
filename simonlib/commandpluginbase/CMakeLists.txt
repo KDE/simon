@@ -14,6 +14,7 @@ set( simoncommandpluginbase_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/command.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/commandconfiguration.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/createcommandwidget.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/greedyreceiver.cpp
 )
 
 set( simoncommandpluginbase_LIB_HDRS
@@ -22,11 +23,13 @@ set( simoncommandpluginbase_LIB_HDRS
   commandmanager.h
   commandconfiguration.h
   createcommandwidget.h
+  greedyreceiver.h
 )
 
 
-kde4_add_library( simoncommandpluginbase  SHARED ${simoncommandpluginbase_LIB_SRCS} )
-target_link_libraries( simoncommandpluginbase ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} simoninfo )
+kde4_add_library( simoncommandpluginbase  SHARED
+	${simoncommandpluginbase_LIB_SRCS} )
+target_link_libraries( simoncommandpluginbase ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} simoninfo simonrecognitionresult )
 
 
 set_target_properties( simoncommandpluginbase

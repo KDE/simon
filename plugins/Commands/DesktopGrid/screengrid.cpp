@@ -91,7 +91,7 @@ ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent,
 	buttons->setMargin(0);
 	this->setLayout(buttons);
 	
-	ActionManager::getInstance()->registerPrompt(this, "selectStrRegion");
+	ActionManager::getInstance()->registerGreedyReceiver(this);
 }
 
 
@@ -163,7 +163,7 @@ void ScreenGrid::keyPressEvent(QKeyEvent *event)
 	if (event->key()== Qt::Key_Escape) deleteLater();
 }
 
-bool ScreenGrid::selectStrRegion(QString input)
+bool ScreenGrid::greedyTrigger(const QString& input)
 {
 	if (input.toUpper() == i18n("Cancel").toUpper())
 	{
@@ -192,7 +192,7 @@ bool ScreenGrid::selectStrRegion(QString input)
 ScreenGrid::~ScreenGrid()
 {
 	buttons->deleteLater();
-	ActionManager::getInstance()->deRegisterPrompt(this, "selectStrRegion");
+	ActionManager::getInstance()->deRegisterGreedyReceiver(this);
 
 	if (background) background->deleteLater();
 }

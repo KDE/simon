@@ -63,6 +63,9 @@ private slots:
 	void sendDivide();
 	void sendEquals();
 
+protected:
+	bool trigger(const QString& triggerName);
+
 public slots:
 	bool executeSelection(QString inputText);
 
@@ -72,7 +75,6 @@ public:
 	const QString name() const;
 	bool load();
 	bool save();
-	bool trigger(const QString& triggerName);
 	CommandConfiguration* getConfigurationPage();
 
     /**

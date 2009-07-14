@@ -203,7 +203,13 @@ QList<Action::Ptr> CommandSettings::availableCommandManagers()
 	services = trader->query("simon/CommandPlugin");
 	
 	foreach (KService::Ptr service, services)
-		actions.append(QPointer<Action>(new Action(service->storageId())));
+	{
+		fprintf(stderr, "Found service: %s\n", service->storageId().toUtf8().data());
+		Action::Ptr action = new Action(service->storageId());
+		fprintf(stderr, "Trigger: %s\n", action->trigger().toUtf8().data());
+		fprintf(stderr, "Manager name: %s\n", action->manager()->name().toUtf8().data());
+		actions.append(action);
+	}
 
 	return actions;
 }
@@ -284,7 +290,8 @@ void CommandSettings::displayList(QListWidget *listWidget, QList<Action::Ptr> ac
 
 		QString decorativeName;
 		if (!action->trigger().isEmpty()) {
-			decorativeName = action->manager()->name()+" ("+action->trigger()+")";
+			//decorativeName = "huhu";
+			decorativeName = QString("%1 (%2)").arg(action->manager()->name()).arg(action->trigger());
 		} else {
 			decorativeName = action->manager()->name();
 		}
