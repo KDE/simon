@@ -17,23 +17,29 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "greedyreceiver.h"
+#ifndef GREEDYRECEIVER_H
+#define GREEDYRECEIVER_H
 
-bool GreedyReceiver::greedyTriggerRawList(const RecognitionResultList& resultList)
-{
-	if (resultList.count() == 0)
-		return false;
+#include "actionlib_export.h"
+#include <simonrecognitionresult/recognitionresult.h>
+#include <QString>
+
+
+class SIMONACTIONS_EXPORT GreedyReceiver {
+
+public:
+	virtual bool greedyTriggerRawList(const RecognitionResultList&);
+	virtual bool greedyTriggerRaw(const RecognitionResult&);
+	virtual bool greedyTrigger(const QString&);
+
+	virtual void startGreedy();
+	virtual void stopGreedy();
 	
-	return greedyTriggerRaw(resultList[0]);
-}
+	GreedyReceiver()
+	{ }
 
-bool GreedyReceiver::greedyTriggerRaw(const RecognitionResult& result)
-{
-	return greedyTrigger(result.sentence());
-}
+	virtual ~GreedyReceiver() {}
 
-bool GreedyReceiver::greedyTrigger(const QString&)
-{
-	return false;
-}
+};
 
+#endif

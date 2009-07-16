@@ -22,7 +22,7 @@
 
 #include <QWidget>
 #include <QList>
-#include <commandpluginbase/greedyreceiver.h>
+#include <simonactions/greedyreceiver.h>
 
 class KPushButton;
 class QGridLayout;

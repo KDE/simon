@@ -34,6 +34,9 @@
 #include <KDesktopFile>
 #include <KDebug>
 #include <KLocale>
+#include <KXmlGuiWindow>
+#include <KXMLGUIClient>
+#include <KXMLGUIFactory>
 
 #include "commandsettings.h"
 
@@ -46,6 +49,7 @@ ActionManager::ActionManager(QObject *parent) : QObject(parent)
 {
 	KLocale::setMainCatalog("simonlib");
 	commandSettings=0;
+	mainWindow=0;
 }
 
 void ActionManager::init()
@@ -54,6 +58,11 @@ void ActionManager::init()
 	{
 		setupBackends(commandSettings->getActivePlugins());
 	}
+}
+
+void ActionManager::setMainWindow(KXMLGUIClient *window)
+{
+	this->mainWindow = window;
 }
 
 void ActionManager::setConfigurationDialog(KCModule* commandSettings)
@@ -142,6 +151,9 @@ void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 							"Please check its configuration.", newAction->manager()->name()));
 				} else {
 					if (commandSettings) commandSettings->registerPlugIn(newAction->manager()->getConfigurationPage());
+					KXMLGUIClient *guiClient = dynamic_cast<KXMLGUIClient*>(newAction->manager());
+					if (mainWindow && guiClient)
+						mainWindow->insertChildClient(guiClient);
 				}
 				newActionsArray[i] = newAction;
 			}
@@ -347,7 +359,30 @@ CommandList* ActionManager::getCommandsOfCategory(const QString& category)
 	return NULL;
 }
 
-void ActionManager::process(const RecognitionResultList& recognitionResults /*QString input*/)
+
+void ActionManager::processResult(RecognitionResult recognitionResult)
+{
+	int i=0;
+	bool commandFound=false;
+	QString currentTrigger;
+	QString realCommand;
+	while ((i<actions.count()) && (!commandFound))
+	{
+		currentTrigger = actions[i]->trigger();
+		if (recognitionResult.matchesTrigger(currentTrigger)) {
+			recognitionResult.removeTrigger(currentTrigger);
+
+			if(actions.at(i)->manager()->processResult(recognitionResult))
+				commandFound=true;
+		}
+		i++;
+	}
+
+/*	if (!commandFound)
+		emit guiAction(finalResult.sentence());*/
+}
+
+void ActionManager::processRawResults(const RecognitionResultList& recognitionResults)
 {
 	if (recognitionResults.isEmpty())
 		return;
@@ -384,27 +419,23 @@ void ActionManager::process(const RecognitionResultList& recognitionResults /*QS
 
 	fprintf(stderr, "Viable recognition results: %d\n", selectedRecognitionResults.count());
 
-	if (selectedRecognitionResults.count() == 0) return;
-	
-	RecognitionResult finalResult  = selectedRecognitionResults[0];
-
-	int i=0;
-	bool commandFound=false;
-	QString currentTrigger;
-	QString realCommand;
-	while ((i<actions.count()) && (!commandFound))
+	switch (selectedRecognitionResults.count())
 	{
-		currentTrigger = actions[i]->trigger();
-		if (finalResult.matchesTrigger(currentTrigger)) {
-			finalResult.removeTrigger(currentTrigger);
-
-			if(actions.at(i)->manager()->processResult(finalResult))
-				commandFound=true;
-		}
-		i++;
+		case 0:
+			return;
+		case 1:
+			processResult(selectedRecognitionResults[0]);
+			break;
+		default:
+			presentUserWithResults(selectedRecognitionResults);
+			break;
 	}
-/*	if (!commandFound)
-		emit guiAction(finalResult.sentence());*/
+}
+
+void ActionManager::presentUserWithResults(const RecognitionResultList& recognitionResults)
+{
+	fprintf(stderr, "More than one possible recognition result ... should display list!\n");
+	processResult(recognitionResults[0]);
 }
 
 

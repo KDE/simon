@@ -29,6 +29,9 @@
 			<Action name="train" />
 			<Action name="commands" />
 		</Menu>
+		<Menu name="commands">
+			<text>Commands</text>
+		</Menu>
 		<Menu name="actions">
 			<text>Actions</text>
 			<Action name="compileModel" />

@@ -8,22 +8,23 @@ ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../../simo
 
 set (simonlistcommandplugin_SRCS 
 	createlistcommandwidget.cpp 
-	listcommand.cpp 
-	commandlistwidget.cpp 
+#	listcommand.cpp 
+#	commandlistwidget.cpp 
 	listcommandmanager.cpp 
 	xmllistcommand.cpp 
     )
 
 kde4_add_ui_files(simonlistcommandplugin_SRCS 
 	createlistcommandwidget.ui
-	listcommand.ui
+#	listcommand.ui
     )
 
 kde4_add_plugin(simonlistcommandplugin ${simonlistcommandplugin_SRCS})
 
 
 target_link_libraries(simonlistcommandplugin ${KDE4_KDEUI_LIBS}
-	${KDE4_KIO_LIBS} simoncommandpluginbase simonxml simonactions simonlogging)
+	${KDE4_KIO_LIBS} simoncommandpluginbase simonxml simonlistcommand
+	simonlogging simonactions)
 
 install( FILES lists.xml  DESTINATION ${DATA_INSTALL_DIR}/simon/conf COMPONENT simoncommandlistplugin  )
 install(TARGETS simonlistcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandlistplugin )

@@ -204,10 +204,10 @@ QList<Action::Ptr> CommandSettings::availableCommandManagers()
 	
 	foreach (KService::Ptr service, services)
 	{
-		fprintf(stderr, "Found service: %s\n", service->storageId().toUtf8().data());
+		/*fprintf(stderr, "Found service: %s\n", service->storageId().toUtf8().data());*/
 		Action::Ptr action = new Action(service->storageId());
-		fprintf(stderr, "Trigger: %s\n", action->trigger().toUtf8().data());
-		fprintf(stderr, "Manager name: %s\n", action->manager()->name().toUtf8().data());
+		/*fprintf(stderr, "Trigger: %s\n", action->trigger().toUtf8().data());
+		fprintf(stderr, "Manager name: %s\n", action->manager()->name().toUtf8().data());*/
 		actions.append(action);
 	}
 

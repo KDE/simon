@@ -103,6 +103,7 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	{
 		KCModuleProxy *proxy = static_cast<KCModuleProxy*>(commandSettingsItem->widget());
 		ActionManager::getInstance()->setConfigurationDialog(proxy->realModule());
+		ActionManager::getInstance()->setMainWindow(this);
 		ActionManager::getInstance()->init();
 	}
 

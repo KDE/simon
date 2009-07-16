@@ -18,7 +18,7 @@
  */
 
 #include "createlistcommandwidget.h"
-#include "listcommand.h"
+#include <simonlistcommand/listcommand.h>
 
 #include <simonactions/actionmanager.h>
 #include <simonactions/commandtablemodel.h>

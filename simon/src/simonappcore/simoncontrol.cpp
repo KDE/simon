@@ -154,7 +154,7 @@ void SimonControl::wordRecognised(const RecognitionResultList& recognitionResult
 {
 	if (status != SimonControl::ConnectedActivated) return;
 
-	ActionManager::getInstance()->process(recognitionResults);
+	ActionManager::getInstance()->processRawResults(recognitionResults);
 }
 
 

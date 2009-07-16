@@ -18,7 +18,7 @@
  */
 #include "listcommandmanager.h"
 #include "xmllistcommand.h"
-#include "listcommand.h"
+#include <simonlistcommand/listcommand.h>
 #include "createlistcommandwidget.h"
 #include <simonlogging/logger.h>
 #include <KLocalizedString>

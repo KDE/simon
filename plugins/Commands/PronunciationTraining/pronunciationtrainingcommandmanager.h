@@ -17,60 +17,36 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef INPUTNUMBERCOMMANDMANAGER_H
-#define INPUTNUMBERCOMMANDMANAGER_H
+#ifndef PRONUNCIATIONTRAININGCOMMANDMANAGER_H
+#define PRONUNCIATIONTRAININGCOMMANDMANAGER_H
 
 #include <commandpluginbase/commandmanager.h>
-#include <simonactions/greedyreceiver.h>
+
 #include <QVariantList>
-#include "ui_inputnumberwidget.h"
-class QDialog;
+#include <KXMLGUIClient>
 
 /**
- *	@class InputNumberCommandManager
- *	@brief Manager for the inputnumber commands
+ *	@class PronunciationTrainingCommandManager
  *
  *	@version 0.1
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class InputNumberCommandManager : public CommandManager, public GreedyReceiver {
+class PronunciationTrainingCommandManager : public CommandManager, public KXMLGUIClient {
 Q_OBJECT
-private:
-	Ui::InputNumberDlg ui;
-	QDialog *widget;
-	static QStringList numberIdentifiers;
-
-private slots:
-	void deregister();
-	void ok();
-	void back();
-	void cancel();
-	void processRequest(int number);
-	void sendComma();
-	void send0() { processRequest(0); }
-	void send1() { processRequest(1); }
-	void send2() { processRequest(2); }
-	void send3() { processRequest(3); }
-	void send4() { processRequest(4); }
-	void send5() { processRequest(5); }
-	void send6() { processRequest(6); }
-	void send7() { processRequest(7); }
-	void send8() { processRequest(8); }
-	void send9() { processRequest(9); }
 
 protected:
 	bool trigger(const QString& triggerName);
 
 public slots:
-	bool greedyTrigger(const QString& inputText);
 
+	void activateTraining();
 public:
-	const KIcon icon() const;
-	bool addCommand(Command *) { return false; }
 	const QString name() const;
 	bool load();
 	bool save();
+	bool addCommand(Command *) { return false; }
+
 	CommandConfiguration* getConfigurationPage();
 
     /**
@@ -78,10 +54,10 @@ public:
     * 
     *	@author Peter Grasch
     */
-    InputNumberCommandManager(QObject *parent, const QVariantList& args);
+    PronunciationTrainingCommandManager(QObject *parent, const QVariantList& args);
 
     
-    ~InputNumberCommandManager();
+    ~PronunciationTrainingCommandManager();
 
 };
 

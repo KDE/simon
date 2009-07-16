@@ -1,0 +1,19 @@
+[Desktop Entry]
+Type=Service
+Icon=games-config-board
+X-KDE-ServiceTypes=KCModule
+X-KDE-Library=simonpronunciationtrainingplugin
+
+X-KDE-PluginKeyword=simonpronunciationtrainingpluginconfig
+X-KDE-FactoryName=simonpronunciationtrainingpluginconfig
+X-KDE-ParentComponents=simonpronunciationtrainingplugin
+
+X-KDE-ParentApp=simon
+X-KDE-System-Settings-Parent-Category=simon
+
+
+Name=Pronunciation Training
+Name[de]=Aussprachetraining
+
+Comment=Configuration of simons pronunciationtraining-plugin
+Comment[de]=Konfiguration des Aussprache-Trainings-Plug-Ins von simon

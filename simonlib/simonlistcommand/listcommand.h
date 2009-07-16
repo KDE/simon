@@ -21,7 +21,8 @@
 #define LISTCOMMAND_H
 
 #include <commandpluginbase/command.h>
-#include <commandpluginbase/greedyreceiver.h>
+#include <simonactions/greedyreceiver.h>
+#include "simonlistcommand_export.h"
 #include <QList>
 #include <KUrl>
 class CommandListWidget;
@@ -34,7 +35,7 @@ class CommandListWidget;
  *	@date 19.05.2008
  *	@author Peter Grasch
  */
-class ListCommand : public Command, public GreedyReceiver{
+class SIMONLISTCOMMAND_EXPORT ListCommand : public Command, public GreedyReceiver{
 Q_OBJECT
 private:
 	CommandListWidget *clw;

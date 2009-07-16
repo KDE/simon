@@ -25,7 +25,7 @@
 #include <QList>
 #include <simonrecognitionresult/recognitionresult.h>
 #include <commandpluginbase/command.h>
-#include <commandpluginbase/greedyreceiver.h>
+#include <simonactions/greedyreceiver.h>
 #include "actionlib_export.h"
 #include <KIcon>
 #include "action.h"
@@ -35,6 +35,7 @@ class CreateCommandWidget;
 class CommandSettings;
 class KCModule;
 class Action;
+class KXMLGUIClient;
 
 
 /*
@@ -63,6 +64,7 @@ signals:
 
 private:
 	static ActionManager* instance;
+	KXMLGUIClient *mainWindow;
 
 	CommandSettings* commandSettings;
 	QList<GreedyReceiver*> greedyReceivers;
@@ -91,6 +93,7 @@ public:
 		return instance;
 	}
 
+	void setMainWindow(KXMLGUIClient *window);
 	void setConfigurationDialog(KCModule*);
 	KCModule* getConfigurationDialog() { return (KCModule*) commandSettings; }
 	void init();
@@ -100,7 +103,10 @@ public:
 	CommandList* getCommandsOfCategory(const QString& category);
 
 
-	void process(const RecognitionResultList& recognitionResults);
+	void processRawResults(const RecognitionResultList& recognitionResults);
+	void processResult(RecognitionResult recognitionResult);
+	void presentUserWithResults(const RecognitionResultList& recognitionResults);
+
 	bool addCommand(Command *command);
 	bool deleteCommand(Command *command);
 
