@@ -50,4 +50,13 @@ class TrainingsWizard : public QWizard
 
 };
 
+
+class TrainingsIntroPage : public QWizardPage
+{
+
+	public:
+		TrainingsIntroPage(QWidget *parent=0);
+		~TrainingsIntroPage() {}
+};
+
 #endif

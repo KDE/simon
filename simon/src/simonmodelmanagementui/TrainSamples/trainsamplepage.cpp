@@ -24,6 +24,7 @@
 #include <QDir>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QVariant>
 
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -57,10 +58,20 @@ TrainSamplePage::TrainSamplePage(const QString& prompt, int nowPage, int maxPage
 }
 
 
-//#include <QTimer>
 void TrainSamplePage::initializePage()
 {
+	if (field("powerRecording").toBool())
+		recorder->record();
+
 //	QTimer::singleShot(3000, recorder, SLOT(resizePromptLabel()));
+}
+
+bool TrainSamplePage::validatePage()
+{
+	if (field("powerRecording").toBool())
+		recorder->stopRecording();
+
+	return true;
 }
 
 bool TrainSamplePage::submit()
@@ -92,7 +103,10 @@ bool TrainSamplePage::isComplete() const
 {
 	Q_ASSERT(recorder);
 
-	return recorder->hasRecordingReady();
+	if (field("powerRecording").toBool())
+		return true;
+	else
+		return recorder->hasRecordingReady();
 }
 
 TrainSamplePage::~TrainSamplePage()

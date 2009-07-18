@@ -21,6 +21,7 @@
 #define CALCULATORCOMMANDMANAGER_H
 
 #include <commandpluginbase/commandmanager.h>
+#include <simonactions/greedyreceiver.h>
 #include <QVariantList>
 #include "ui_calculatorwidget.h"
 class QDialog;
@@ -33,7 +34,7 @@ class QDialog;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class CalculatorCommandManager : public CommandManager {
+class CalculatorCommandManager : public CommandManager, public GreedyReceiver {
 Q_OBJECT
 private:
 	Ui::CalculatorDlg ui;
@@ -67,7 +68,7 @@ protected:
 	bool trigger(const QString& triggerName);
 
 public slots:
-	bool executeSelection(QString inputText);
+	bool greedyTrigger(const QString&);
 
 public:
 	const KIcon icon() const;

@@ -1,6 +1,6 @@
 add_subdirectory(AI)
 #add_subdirectory(ATIntegration)
-#add_subdirectory(Calculator)
+add_subdirectory(Calculator)
 add_subdirectory(Composite)
 add_subdirectory(DesktopGrid)
 add_subdirectory(Dictation)

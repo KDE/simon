@@ -22,8 +22,8 @@
 #include "screengrid.h"
 #include <KLocalizedString>
 #include <KGenericFactory>
-#include <KMessageBox>
-#include <QDebug>
+#include <KAction>
+#include <KActionCollection>
 #include "desktopgridconfiguration.h"
 
 K_PLUGIN_FACTORY( DesktopGridPluginFactory, 
@@ -37,6 +37,13 @@ K_EXPORT_PLUGIN( DesktopGridPluginFactory("simondesktopgridcommand") )
 
 DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
 {
+	setXMLFile("simondesktopgridpluginui.rc");
+	activateAction = new KAction(this);
+	activateAction->setText(i18n("Activate Desktopgrid"));
+	activateAction->setIcon(KIcon("games-config-board"));
+	connect(activateAction, SIGNAL(triggered(bool)),
+		this, SLOT(activate()));
+	actionCollection()->addAction("simondesktopgridplugin", activateAction);
 }
 
 const QString DesktopGridCommandManager::name() const
@@ -54,10 +61,15 @@ bool DesktopGridCommandManager::trigger(const QString& triggerName)
 	kDebug() << triggerName << DesktopGridConfiguration::getInstance()->trigger();
 	if (triggerName != DesktopGridConfiguration::getInstance()->trigger()) return false;
 
+	activate();
+	return true;
+}
+
+void DesktopGridCommandManager::activate()
+{
 	Logger::log(i18n("[INF] Activating desktopgrid"));
 	ScreenGrid *screenGrid = new ScreenGrid();
 	screenGrid->show();
-	return true;
 }
  
 bool DesktopGridCommandManager::load()
@@ -73,5 +85,6 @@ bool DesktopGridCommandManager::save()
 
 DesktopGridCommandManager::~DesktopGridCommandManager()
 {
+	activateAction->deleteLater();
 // 	DesktopGridConfiguration::getInstance()->destroy();
 }

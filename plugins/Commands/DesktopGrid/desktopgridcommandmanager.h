@@ -23,6 +23,9 @@
 #include <commandpluginbase/commandmanager.h>
 
 #include <QVariantList>
+#include <KXMLGUIClient>
+
+class KAction;
 
 /**
  *	@class DesktopGridCommandManager
@@ -32,17 +35,20 @@
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class DesktopGridCommandManager : public CommandManager{
+class DesktopGridCommandManager : public CommandManager, public KXMLGUIClient{
 Q_OBJECT
 
 protected:
 	bool trigger(const QString& triggerName);
 
+public slots:
+	void activate();
 public:
 	const QString name() const;
 	bool load();
 	bool save();
 	bool addCommand(Command *) { return false; }
+
 
 	CommandConfiguration* getConfigurationPage();
 
@@ -55,6 +61,9 @@ public:
 
     
     ~DesktopGridCommandManager();
+
+private:
+    KAction *activateAction;
 
 };
 

@@ -19,7 +19,7 @@
 
 #include "listcommand.h"
 #include "commandlistwidget.h"
-#include <simonactions/actionmanager.h>
+#include "actionmanager.h"
 #include <unistd.h>
 #include <QObject>
 #include <QTableWidget>
@@ -87,10 +87,12 @@ bool ListCommand::processRequest(int index)
 		if (index >= commands.count())
 			return false;
 
+		clw->runRequestSent();
 		clw->close();
+		stopGreedy();
 		usleep(300000);
 		ActionManager::getInstance()->triggerCommand(commandTypes[index], commands[index]);
-		ActionManager::getInstance()->deRegisterGreedyReceiver(this);
+		emit entrySelected();
 	}
 	return false;
 }
@@ -98,7 +100,8 @@ bool ListCommand::processRequest(int index)
 void ListCommand::cancel()
 {
 	clw->close();
-	ActionManager::getInstance()->deRegisterGreedyReceiver(this);
+	stopGreedy();
+	emit canceled();
 }
 
 bool ListCommand::greedyTrigger(const QString& inputText)
@@ -183,7 +186,7 @@ bool ListCommand::triggerPrivate()
 
 	listCurrentCommandSection();
 
-	ActionManager::getInstance()->registerGreedyReceiver(this);
+	startGreedy();
 
 	clw->show();
 
@@ -192,7 +195,7 @@ bool ListCommand::triggerPrivate()
 
 ListCommand::~ListCommand()
 {
-	ActionManager::getInstance()->deRegisterGreedyReceiver(this);
+	stopGreedy();
 	clw->deleteLater();
 }
 

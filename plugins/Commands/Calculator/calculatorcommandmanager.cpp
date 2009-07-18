@@ -72,7 +72,8 @@ CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVaria
 
 void CalculatorCommandManager::deregister()
 {
-	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
+//	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
+	stopGreedy();
 }
 
 const KIcon CalculatorCommandManager::icon() const
@@ -147,7 +148,7 @@ void CalculatorCommandManager::ok()
 	EventHandler::getInstance()->sendWord(ui.leNumber->text());
 }
 
-bool CalculatorCommandManager::executeSelection(QString inputText)
+bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
 {
 	if (inputText.toUpper() == i18n("Cancel").toUpper())
 	{
@@ -258,7 +259,8 @@ bool CalculatorCommandManager::trigger(const QString& triggerName)
 	y=(tmp->height()/2)-(widget->height()/2);
 	widget->move(x, y);
 	widget->show();
-	ActionManager::getInstance()->registerPrompt(this, "executeSelection");
+	startGreedy();
+	//ActionManager::getInstance()->registerPrompt(this, "executeSelection");
 
 	return true;
 }

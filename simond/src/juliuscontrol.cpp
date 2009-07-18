@@ -477,7 +477,8 @@ void JuliusControl::stop()
 
 	shouldBeRunning=false;
 	
-	pauseMutex.unlock();
+	//FIXME: can't be unlocked from a different thread
+/*	pauseMutex.unlock();*/
 	if (!isRunning()) return;
 
 	if (recog)

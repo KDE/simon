@@ -39,6 +39,12 @@ CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOn
 	ui.twCommands->verticalHeader()->hide();
 	connect(ui.twCommands, SIGNAL(itemActivated(QTableWidgetItem*)), this, SLOT(runCommand()));
 	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(close()));
+	runRequestEmitted = false;
+}
+
+void CommandListWidget::runRequestSent()
+{
+	runRequestEmitted = true;
 }
 
 void CommandListWidget::runCommand()
@@ -52,12 +58,16 @@ void CommandListWidget::runCommand()
 	if ((!(currentFlags & HasBack)))
 		row++;
 
+	runRequestEmitted = true;
 	emit runRequest(row);
 }
 
 void CommandListWidget::closeEvent(QCloseEvent *)
 {
-	emit canceled();
+	if (!runRequestEmitted) {
+		fprintf(stderr, "Emitting cancel...\n");
+		emit canceled();
+	}
 }
 
 void CommandListWidget::init(const QStringList& iconsrcs, const QStringList commands, Flags flags)
@@ -127,6 +137,8 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
 	y=(tmp->height()/2)-(height()/2);
 	
 	move(x,y);
+
+	runRequestEmitted = false;
 }
 
 CommandListWidget::~CommandListWidget()

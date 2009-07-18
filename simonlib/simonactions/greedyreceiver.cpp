@@ -22,10 +22,14 @@
 
 bool GreedyReceiver::greedyTriggerRawList(const RecognitionResultList& resultList)
 {
-	if (resultList.count() == 0)
-		return false;
-	
-	return greedyTriggerRaw(resultList[0]);
+	if (resultList.isEmpty()) return false;
+
+	if (resultList.count() > 1) {
+		ActionManager::getInstance()->presentUserWithResults(resultList);
+		return true;
+	} else {
+		return greedyTriggerRaw(resultList[0]);
+	}
 }
 
 bool GreedyReceiver::greedyTriggerRaw(const RecognitionResult& result)

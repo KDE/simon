@@ -66,11 +66,14 @@ public:
 	
 	void init(const QStringList& iconsrcs, const QStringList commands, Flags flags);
 
+	void runRequestSent();
+
     ~CommandListWidget();
 
 private:
 	Ui::ListCommandWidget ui;
 	Flags currentFlags;
+	bool runRequestEmitted;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(CommandListWidget::Flags)

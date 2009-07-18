@@ -39,6 +39,7 @@ class TrainSamplePage : public QWizardPage
 		bool isComplete() const;
 
 		void initializePage();
+		bool validatePage();
 		
 		QString getPrompt() { return prompt; }
 		QString getFileName() { return fileName; }

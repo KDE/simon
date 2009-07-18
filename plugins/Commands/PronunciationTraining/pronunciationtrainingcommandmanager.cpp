@@ -38,7 +38,7 @@ K_EXPORT_PLUGIN( PronunciationTrainingPluginFactory("simonpronunciationtrainingc
 PronunciationTrainingCommandManager::PronunciationTrainingCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
 {
 	setXMLFile("simonpronunciationtrainingpluginui.rc");
-	KAction *activateAction = new KAction(this);
+	activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Pronunciation Training"));
 	activateAction->setIcon(KIcon("go-right"));
 	connect(activateAction, SIGNAL(triggered(bool)),
@@ -83,4 +83,5 @@ bool PronunciationTrainingCommandManager::save()
 
 PronunciationTrainingCommandManager::~PronunciationTrainingCommandManager()
 {
+	activateAction->deleteLater();
 }

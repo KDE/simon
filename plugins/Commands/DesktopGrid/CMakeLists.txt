@@ -24,3 +24,6 @@ install(TARGETS simondesktopgridplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONE
 install( FILES simondesktopgridplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommanddesktopgridplugin )
 install( FILES simondesktopgridpluginconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommanddesktopgridplugin )
 add_subdirectory(po)
+
+install(FILES simondesktopgridpluginui.rc DESTINATION
+	${DATA_INSTALL_DIR} COMPONENT simoncommanddesktopgridplugin)

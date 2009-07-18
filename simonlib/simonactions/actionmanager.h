@@ -63,6 +63,8 @@ signals:
 	void commandRemoved(const QString& trigger, const QString& category);
 
 private:
+	RecognitionResultList currentlyPromptedListOfResults;
+
 	static ActionManager* instance;
 	KXMLGUIClient *mainWindow;
 
@@ -83,6 +85,7 @@ protected:
 
 private slots:
 	void setupBackends(QList<Action::Ptr> pluginsToLoad);
+	void resultSelectionDone();
 
 
 public:
@@ -103,7 +106,7 @@ public:
 	CommandList* getCommandsOfCategory(const QString& category);
 
 
-	void processRawResults(const RecognitionResultList& recognitionResults);
+	void processRawResults(RecognitionResultList recognitionResults);
 	void processResult(RecognitionResult recognitionResult);
 	void presentUserWithResults(const RecognitionResultList& recognitionResults);
 

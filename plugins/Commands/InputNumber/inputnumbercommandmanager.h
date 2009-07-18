@@ -23,8 +23,10 @@
 #include <commandpluginbase/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
+#include <KXMLGUIClient>
 #include "ui_inputnumberwidget.h"
 class QDialog;
+class KAction;
 
 /**
  *	@class InputNumberCommandManager
@@ -34,12 +36,13 @@ class QDialog;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class InputNumberCommandManager : public CommandManager, public GreedyReceiver {
+class InputNumberCommandManager : public CommandManager, public GreedyReceiver, public KXMLGUIClient {
 Q_OBJECT
 private:
 	Ui::InputNumberDlg ui;
 	QDialog *widget;
 	static QStringList numberIdentifiers;
+	KAction *activateAction;
 
 private slots:
 	void deregister();
@@ -64,6 +67,7 @@ protected:
 
 public slots:
 	bool greedyTrigger(const QString& inputText);
+	void activate();
 
 public:
 	const KIcon icon() const;

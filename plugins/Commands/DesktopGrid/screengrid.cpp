@@ -91,7 +91,7 @@ ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent,
 	buttons->setMargin(0);
 	this->setLayout(buttons);
 	
-	ActionManager::getInstance()->registerGreedyReceiver(this);
+	startGreedy();
 }
 
 
@@ -192,7 +192,7 @@ bool ScreenGrid::greedyTrigger(const QString& input)
 ScreenGrid::~ScreenGrid()
 {
 	buttons->deleteLater();
-	ActionManager::getInstance()->deRegisterGreedyReceiver(this);
+	stopGreedy();
 
 	if (background) background->deleteLater();
 }

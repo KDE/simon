@@ -61,6 +61,8 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 	KLocale::setMainCatalog("simonlib");
 	this->filename = filename;
 	recordingProgress=0;
+
+	isRecording = false;
 	
 	rec = new WavRecorder(this);
 	play = new WavPlayer(this);
@@ -265,6 +267,9 @@ void RecWidget::record()
 		connect(pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
 		
 		pbProgress->setMaximum(100);
+		isRecording = true;
+		
+		pbRecord->setChecked(true);
 	}
 	emit recording();
 }
@@ -292,6 +297,8 @@ void RecWidget::finishPlayback()
  */
 void RecWidget::stopRecording()
 {
+	if (!isRecording) return;
+
 	QString fName = this->filename;
 	bool processInternal = SoundConfiguration::processInternal();
 	

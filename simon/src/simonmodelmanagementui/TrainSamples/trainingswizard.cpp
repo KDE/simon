@@ -29,6 +29,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QTimer>
+#include <QCheckBox>
 
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -149,19 +150,30 @@ bool TrainingsWizard::init(const QStringList& prompts, const QString& name)
 	return true;
 }
 
-QWizardPage* TrainingsWizard::createIntroPage()
+TrainingsIntroPage::TrainingsIntroPage(QWidget *parent) : QWizardPage(parent)
 {
-	QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle(i18n("Training"));
-	QLabel *lbIntro = new QLabel(intro);
+	setTitle(i18n("Training"));
+
+	QVBoxLayout *lay = new QVBoxLayout(this);
+
+	QLabel *lbIntro = new QLabel(this);
 	lbIntro->setWordWrap(true);
 	lbIntro->setText(i18n("This wizard will help you to improve the recognition rate based on "
 "recordings of your voice."));
 
-	QVBoxLayout *lay = new QVBoxLayout(intro);
+	QCheckBox *cbPowerRecording = new QCheckBox(i18n("Power Training"), this);
+
 	lay->addWidget(lbIntro);
-	intro->setLayout(lay);
-	return intro;
+	lay->addWidget(cbPowerRecording);
+
+	this->registerField("powerRecording", cbPowerRecording);
+
+	setLayout(lay);
+}
+
+QWizardPage* TrainingsWizard::createIntroPage()
+{
+	return new TrainingsIntroPage(this);
 }
 
 

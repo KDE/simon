@@ -18,6 +18,10 @@
  */
 
 #include "actionmanager.h"
+
+#include "commandsettings.h"
+#include "listcommand.h"
+
 #include <simoninfo/simoninfo.h>
 #include <commandpluginbase/commandconfiguration.h>
 #include <commandpluginbase/commandmanager.h>
@@ -37,8 +41,6 @@
 #include <KXmlGuiWindow>
 #include <KXMLGUIClient>
 #include <KXMLGUIFactory>
-
-#include "commandsettings.h"
 
 
 
@@ -254,8 +256,11 @@ void ActionManager::registerGreedyReceiver(GreedyReceiver *receiver)
 
 void ActionManager::deRegisterGreedyReceiver(GreedyReceiver *receiver)
 {
+	fprintf(stderr, "GreedyReciever has NOT been removed. Count: %d\n", greedyReceivers.count());
 	greedyReceivers.removeAll(receiver);
-
+	fprintf(stderr, "GreedyReciever has been removed... Count: %d\n", greedyReceivers.count());
+/*	if (greedyReceivers.isEmpty())
+		greedyReceivers = QList<GreedyReceiver*>();*/
 }
 
 bool ActionManager::addCommand(Command *command)
@@ -298,7 +303,6 @@ Command* ActionManager::getCommand(const QString& category, const QString& trigg
 		}
 	}
 	return NULL;
-
 }
 
 bool ActionManager::deleteCommand(Command *command)
@@ -344,6 +348,24 @@ CommandList* ActionManager::getCommandList()
 
 bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
 {
+	fprintf(stderr, "triggerCommand()\n");
+	if (type == "simonrecognitionresult") {
+		fprintf(stderr, "Triggering simonrecognitionresult: %d\n", currentlyPromptedListOfResults.count());
+		//result from a did-you-mean popup
+		foreach (RecognitionResult result, currentlyPromptedListOfResults) {
+			if (result.sentence() == trigger) {
+				fprintf(stderr, "Found the result!\n");
+				currentlyPromptedListOfResults.clear();
+//				currentlyPromptedListOfResults = RecognitionResultList();
+				RecognitionResultList list;
+				list << result;
+				processRawResults(list);
+				return true;
+			}
+		}
+
+	}
+
 	Command *com = getCommand(type, trigger);
 	if (com)
 		return com->trigger();
@@ -362,6 +384,8 @@ CommandList* ActionManager::getCommandsOfCategory(const QString& category)
 
 void ActionManager::processResult(RecognitionResult recognitionResult)
 {
+	fprintf(stderr, "processResult()\n");
+	fprintf(stderr, "Verarbeite Ergebnis: %s\n", recognitionResult.sentence().toUtf8().data());
 	int i=0;
 	bool commandFound=false;
 	QString currentTrigger;
@@ -382,60 +406,102 @@ void ActionManager::processResult(RecognitionResult recognitionResult)
 		emit guiAction(finalResult.sentence());*/
 }
 
-void ActionManager::processRawResults(const RecognitionResultList& recognitionResults)
+void ActionManager::processRawResults(RecognitionResultList recognitionResults)
 {
+	fprintf(stderr, "processRawResults()\n");
 	if (recognitionResults.isEmpty())
 		return;
 
 	Q_ASSERT(commandSettings);
 
+	RecognitionResultList selectedRecognitionResults;
+
+	fprintf(stderr, "Vor erstem Kontakt mit der Liste\n");
+
+	if (currentlyPromptedListOfResults.isEmpty()) {
+		fprintf(stderr, "currentlyPromptedListOfResults is empty\n");
+		foreach (const RecognitionResult& result, recognitionResults) {
+			//if the recognition result has:
+			//	* One word that has a score of 0
+			//	* An average score of below the minimum confidence
+			//it will be not be included in the list of results
+			
+			QList<float> confidenceScores = result.confidenceScores();
+
+			//calc average
+			float avg=0;
+			foreach (float score, confidenceScores)
+				avg += score;
+			avg /= ((float) confidenceScores.count());
+
+			/*if (!confidenceScores.contains(0) && (avg > commandSettings->getMinimumConfidence()))*/
+				selectedRecognitionResults << result;
+		}
+
+		fprintf(stderr, "Viable recognition results: %d\n", selectedRecognitionResults.count());
+
+		if (selectedRecognitionResults.count() == 0) return;
+	} else {
+		fprintf(stderr, "currentlyPromptedListOfResults is NOT empty\n");
+		//we are already asking...
+		selectedRecognitionResults << recognitionResults[0];
+		fprintf(stderr, "Selecting result from list...");
+	}
+
+	fprintf(stderr, "Greedy Recievers: %d\n", greedyReceivers.count());
+
 	if (!greedyReceivers.isEmpty()) {
 		foreach (GreedyReceiver* rec, greedyReceivers) {
-			if (rec->greedyTriggerRawList(recognitionResults))
+			if (rec->greedyTriggerRawList(selectedRecognitionResults))
 				return;
 		}
 		return;
 	}
 
-	RecognitionResultList selectedRecognitionResults;
-
-	foreach (const RecognitionResult& result, recognitionResults) {
-		//if the recognition result has:
-		//	* One word that has a score of 0
-		//	* An average score of below the minimum confidence
-		//it will be not be included in the list of results
-		
-		QList<float> confidenceScores = result.confidenceScores();
-
-		//calc average
-		float avg=0;
-		foreach (float score, confidenceScores)
-			avg += score;
-		avg /= ((float) confidenceScores.count());
-
-		if (!confidenceScores.contains(0) && (avg > commandSettings->getMinimumConfidence()))
-			selectedRecognitionResults << result;
+	if (selectedRecognitionResults.count() == 1) {
+		processResult(selectedRecognitionResults[0]);
+	} else {
+		presentUserWithResults(selectedRecognitionResults);
 	}
+}
 
-	fprintf(stderr, "Viable recognition results: %d\n", selectedRecognitionResults.count());
-
-	switch (selectedRecognitionResults.count())
-	{
-		case 0:
-			return;
-		case 1:
-			processResult(selectedRecognitionResults[0]);
-			break;
-		default:
-			presentUserWithResults(selectedRecognitionResults);
-			break;
-	}
+void ActionManager::resultSelectionDone()
+{
+	fprintf(stderr, "resultSelectionDone()\n");
+	currentlyPromptedListOfResults.clear();
+//	currentlyPromptedListOfResults = RecognitionResultList();
 }
 
 void ActionManager::presentUserWithResults(const RecognitionResultList& recognitionResults)
 {
+	fprintf(stderr, "presentUserWithResults()\n");
+
 	fprintf(stderr, "More than one possible recognition result ... should display list!\n");
-	processResult(recognitionResults[0]);
+	if (!currentlyPromptedListOfResults.isEmpty())
+	{
+		//no double did-you-means...
+		processResult(recognitionResults[0]);
+		return;
+	}
+
+	currentlyPromptedListOfResults.clear();
+//	currentlyPromptedListOfResults = RecognitionResultList();
+	
+	QStringList sentences;
+	QStringList trigger;
+	QStringList iconSrcs;
+	foreach (const RecognitionResult& result, recognitionResults) {
+		sentences << result.sentence();
+		iconSrcs << "";
+		trigger << "simonrecognitionresult";
+		currentlyPromptedListOfResults << result;
+
+	}
+	ListCommand *list = new ListCommand(i18n("Did you mean ...?"), "help-hint", sentences, iconSrcs, trigger);
+	connect(list, SIGNAL(canceled()), this, SLOT(deleteLater()));
+	connect(list, SIGNAL(canceled()), this, SLOT(resultSelectionDone()));
+	connect(list, SIGNAL(entrySelected()), this, SLOT(deleteLater()));
+	list->trigger();
 }
 
 

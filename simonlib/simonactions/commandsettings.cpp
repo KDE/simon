@@ -87,6 +87,7 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 	QObject::connect(ui.asCommandPlugins, SIGNAL(removed(QListWidgetItem*)), this, SLOT(slotChanged()));
 	QObject::connect(ui.asCommandPlugins, SIGNAL(movedUp(QListWidgetItem*)), this, SLOT(slotChanged()));
 	QObject::connect(ui.asCommandPlugins, SIGNAL(movedDown(QListWidgetItem*)), this, SLOT(slotChanged()));
+	QObject::connect(ui.sbMinimumConfidence, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
 	QObject::connect(ui.leTrigger, SIGNAL(textChanged(const QString&)), this, SLOT(currentTriggerChanged(const QString&)));
 	QObject::connect(ui.leTrigger, SIGNAL(textChanged(const QString&)), this, SLOT(slotChanged()));
 	QObject::connect(ui.pbApplyToAll, SIGNAL(clicked()), this, SLOT(applyToAllClicked()));

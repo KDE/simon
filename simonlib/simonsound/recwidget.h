@@ -70,6 +70,8 @@ private:
 	PostProcessing *postProc;
 
 	int recordingProgress;
+
+	bool isRecording;
 	
 	void setupSignalsSlots();
 

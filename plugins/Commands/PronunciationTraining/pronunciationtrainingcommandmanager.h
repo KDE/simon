@@ -25,6 +25,8 @@
 #include <QVariantList>
 #include <KXMLGUIClient>
 
+class KAction;
+
 /**
  *	@class PronunciationTrainingCommandManager
  *
@@ -58,6 +60,9 @@ public:
 
     
     ~PronunciationTrainingCommandManager();
+
+private:
+    KAction *activateAction;
 
 };
 

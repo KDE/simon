@@ -24,6 +24,8 @@
 #include <QDesktopWidget>
 #include <QDialog>
 #include <KLocalizedString>
+#include <KAction>
+#include <KActionCollection>
 
 K_PLUGIN_FACTORY( InputNumberCommandPluginFactory, 
 			registerPlugin< InputNumberCommandManager >(); 
@@ -42,6 +44,14 @@ InputNumberCommandManager::InputNumberCommandManager(QObject *parent, const QVar
 	ui.pbOk->setIcon(KIcon("dialog-ok-apply"));
 	ui.pbCancel->setIcon(KIcon("dialog-cancel"));
 	widget->hide();
+
+	setXMLFile("simoninputnumberpluginui.rc");
+	activateAction = new KAction(this);
+	activateAction->setText(i18n("Activate Number Input"));
+	activateAction->setIcon(KIcon("accessories-calculator"));
+	connect(activateAction, SIGNAL(triggered(bool)),
+		this, SLOT(activate()));
+	actionCollection()->addAction("simoninputnumberplugin", activateAction);
 
 	if (numberIdentifiers.isEmpty())
 		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
@@ -65,9 +75,21 @@ InputNumberCommandManager::InputNumberCommandManager(QObject *parent, const QVar
 	connect(ui.pb9, SIGNAL(clicked()), this, SLOT(send9()));
 }
 
+void InputNumberCommandManager::activate()
+{
+	ui.leNumber->clear();
+	QDesktopWidget* tmp = QApplication::desktop();
+	int x,y;
+	x=(tmp->width()/2) - (widget->width()/2);
+	y=(tmp->height()/2)-(widget->height()/2);
+	widget->move(x, y);
+	widget->show();
+	startGreedy();
+}
+
 void InputNumberCommandManager::deregister()
 {
-	ActionManager::getInstance()->deRegisterGreedyReceiver(this);
+	stopGreedy();
 }
 
 const KIcon InputNumberCommandManager::icon() const
@@ -192,20 +214,10 @@ bool InputNumberCommandManager::greedyTrigger(const QString& inputText)
 bool InputNumberCommandManager::trigger(const QString& triggerName)
 {
 	if (triggerName != InputNumberConfiguration::getInstance()->trigger()){
-		kDebug() << "Returning";
 		return false;
 	}
 
-	
-	ui.leNumber->clear();
-	QDesktopWidget* tmp = QApplication::desktop();
-	int x,y;
-	x=(tmp->width()/2) - (widget->width()/2);
-	y=(tmp->height()/2)-(widget->height()/2);
-	widget->move(x, y);
-	widget->show();
-	ActionManager::getInstance()->registerGreedyReceiver(this);
-
+	activate();
 	return true;
 }
 
@@ -228,4 +240,5 @@ bool InputNumberCommandManager::save()
 InputNumberCommandManager::~InputNumberCommandManager()
 {
 	widget->deleteLater();
+	activateAction->deleteLater();
 }

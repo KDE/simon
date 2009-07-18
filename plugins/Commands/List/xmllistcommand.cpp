@@ -18,7 +18,7 @@
  */
 
 #include "xmllistcommand.h"
-#include "listcommand.h"
+#include <simonactions/listcommand.h>
 
 #include <QString>
 #include <QList>
