@@ -63,20 +63,17 @@ signals:
 	void commandRemoved(const QString& trigger, const QString& category);
 
 private:
-	RecognitionResultList currentlyPromptedListOfResults;
-
 	static ActionManager* instance;
 	KXMLGUIClient *mainWindow;
-
 	CommandSettings* commandSettings;
-	QList<GreedyReceiver*> greedyReceivers;
 
 	QList<Action::Ptr> actions;
 
+	RecognitionResultList *currentlyPromptedListOfResults;
+	QList<GreedyReceiver*> *greedyReceivers;
+
 	bool askDeleteCommandByTrigger(QString trigger);
-
 	void deleteManager(CommandManager *manager);
-
 	void triggerCommand();
 
 
@@ -106,9 +103,9 @@ public:
 	CommandList* getCommandsOfCategory(const QString& category);
 
 
-	void processRawResults(RecognitionResultList recognitionResults);
+	void processRawResults(RecognitionResultList* recognitionResults);
+	void presentUserWithResults(RecognitionResultList* recognitionResults);
 	void processResult(RecognitionResult recognitionResult);
-	void presentUserWithResults(const RecognitionResultList& recognitionResults);
 
 	bool addCommand(Command *command);
 	bool deleteCommand(Command *command);

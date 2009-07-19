@@ -1459,12 +1459,13 @@ void RecognitionControl::messageReceived()
 
 				case Simond::RecognitionResult:
 				{
+					fprintf(stderr, "Simond::RecognitionResult\n");
 					parseLengthHeader();
 
 					qint8 sentenceCount;
 					msg >> sentenceCount;
 
-					RecognitionResultList recognitionResults;
+					RecognitionResultList* recognitionResults = new RecognitionResultList();
 
 					for (int i=0; i < sentenceCount; i++) {
 						QByteArray word, sampa, samparaw;
@@ -1473,10 +1474,10 @@ void RecognitionControl::messageReceived()
 						msg >> sampa;
 						msg >> samparaw;
 						msg >> confidenceScores;
-						recognitionResults << RecognitionResult(QString::fromUtf8(word), 
+						recognitionResults->append(RecognitionResult(QString::fromUtf8(word), 
 									QString::fromUtf8(sampa), 
 									QString::fromUtf8(samparaw), 
-									confidenceScores);
+									confidenceScores));
 					}
 
 					advanceStream(sizeof(qint32)+sizeof(qint64)+length);

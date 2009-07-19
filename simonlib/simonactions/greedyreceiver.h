@@ -28,7 +28,7 @@
 class SIMONACTIONS_EXPORT GreedyReceiver {
 
 public:
-	virtual bool greedyTriggerRawList(const RecognitionResultList&);
+	virtual bool greedyTriggerRawList(RecognitionResultList*);
 	virtual bool greedyTriggerRaw(const RecognitionResult&);
 	virtual bool greedyTrigger(const QString&);
 

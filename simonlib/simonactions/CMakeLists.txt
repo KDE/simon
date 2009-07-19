@@ -35,7 +35,7 @@ kde4_add_library( simonactions  SHARED ${simonactions_LIB_SRCS} )
 
 target_link_libraries( simonactions ${QT_LIBRARIES}
 ${KDE4_KDEUI_LIBS} speechgui simoncommandpluginbase simonrecognitionresult
-simonlistcommand
+
 )
 
 

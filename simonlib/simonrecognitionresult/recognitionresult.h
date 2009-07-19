@@ -55,7 +55,8 @@ class RecognitionResult
 
 		void removeTrigger(const QString& trigger)
 		{ 
-			m_sentence.remove(0, trigger.count()+1);
+			if (!trigger.isEmpty())
+				m_sentence.remove(0, trigger.count()+1);
 		}
 };
 

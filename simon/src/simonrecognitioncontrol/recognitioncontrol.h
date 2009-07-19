@@ -111,7 +111,7 @@ signals:
 	void loggedIn();
 
 	void recognitionStatusChanged(RecognitionControl::RecognitionStatus);
-	void recognised(const RecognitionResultList& recognitionResults);
+	void recognised(RecognitionResultList* recognitionResults);
 
 	void modelsAvailable(const QList<QDateTime>& models);
 	

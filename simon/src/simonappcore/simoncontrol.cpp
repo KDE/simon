@@ -59,7 +59,7 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 
 	QObject::connect(recognitionControl, SIGNAL(loggedIn()), this, SLOT(loggedIn()));
 	
-	QObject::connect(recognitionControl, SIGNAL(recognised(const RecognitionResultList&)), this, SLOT(wordRecognised(const RecognitionResultList&)));
+	QObject::connect(recognitionControl, SIGNAL(recognised(RecognitionResultList*)), this, SLOT(wordRecognised(RecognitionResultList*)));
 	QObject::connect(recognitionControl, SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
 }
 
@@ -150,8 +150,9 @@ void SimonControl::disconnectFromServer()
  *
  *	@author Peter Grasch
  */
-void SimonControl::wordRecognised(const RecognitionResultList& recognitionResults)
+void SimonControl::wordRecognised(RecognitionResultList* recognitionResults)
 {
+	fprintf(stderr, "wordRecognised()\n");
 	if (status != SimonControl::ConnectedActivated) return;
 
 	ActionManager::getInstance()->processRawResults(recognitionResults);

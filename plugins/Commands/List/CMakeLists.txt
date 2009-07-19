@@ -23,7 +23,7 @@ kde4_add_plugin(simonlistcommandplugin ${simonlistcommandplugin_SRCS})
 
 
 target_link_libraries(simonlistcommandplugin ${KDE4_KDEUI_LIBS}
-	${KDE4_KIO_LIBS} simoncommandpluginbase simonxml simonlistcommand
+	${KDE4_KIO_LIBS} simoncommandpluginbase simonxml 
 	simonlogging simonactions)
 
 install( FILES lists.xml  DESTINATION ${DATA_INSTALL_DIR}/simon/conf COMPONENT simoncommandlistplugin  )

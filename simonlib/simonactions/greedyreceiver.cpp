@@ -20,15 +20,15 @@
 #include "greedyreceiver.h"
 #include <simonactions/actionmanager.h>
 
-bool GreedyReceiver::greedyTriggerRawList(const RecognitionResultList& resultList)
+bool GreedyReceiver::greedyTriggerRawList(RecognitionResultList* resultList)
 {
-	if (resultList.isEmpty()) return false;
+	if (resultList->isEmpty()) return false;
 
-	if (resultList.count() > 1) {
+	if (resultList->count() > 1) {
 		ActionManager::getInstance()->presentUserWithResults(resultList);
 		return true;
 	} else {
-		return greedyTriggerRaw(resultList[0]);
+		return greedyTriggerRaw(resultList->at(0));
 	}
 }
 
