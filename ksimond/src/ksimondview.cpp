@@ -52,6 +52,12 @@ KSimondView::KSimondView(QObject *parent):QObject(parent)
 	connect(startProcess, SIGNAL(triggered(bool)),
 			this, SLOT(startSimond()));
 
+	startSimonAction = new KAction(0);
+	startSimonAction->setText(i18n("Start simon"));
+	startSimonAction->setIcon(KIcon("simon"));
+	connect(startSimonAction, SIGNAL(triggered(bool)),
+			this, SLOT(startSimon()));
+
 
 	restartProcess = new KAction(0);
 	restartProcess->setText(i18n("Restart simond"));
@@ -74,6 +80,7 @@ KSimondView::KSimondView(QObject *parent):QObject(parent)
 	connect(configure, SIGNAL(triggered(bool)),
 			this, SLOT(showConfigurationDialog()));
 
+	trayIconMgr->addAction(i18n("Start simon"), startSimonAction);
 	trayIconMgr->addAction(i18n("Start simond"), startProcess);
 	trayIconMgr->addAction(i18n("Restart simond"), restartProcess);
 	trayIconMgr->addAction(i18n("Stop simond"), stopProcess);
@@ -94,6 +101,12 @@ void KSimondView::showConfigurationDialog()
 
 	//destroy when done
 	//connect(configDialog, SIGNAL(finished(int)), configDialog, SLOT(deleteLater()));
+}
+
+
+void KSimondView::startSimon()
+{
+	QProcess::startDetached(KStandardDirs::findExe("simon"));
 }
 
 

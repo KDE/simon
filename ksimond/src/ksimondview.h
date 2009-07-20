@@ -55,6 +55,7 @@ public:
 
 private slots:
     void showConfigurationDialog();
+    void startSimon();
     void startSimond();
     void restartSimond();
     void stopSimond();
@@ -70,7 +71,7 @@ private:
     TrayIconManager *trayIconMgr;
 	KCMultiDialog *configDialog;
     KProcess *process;
-    KAction *startProcess, *restartProcess, *stopProcess, *configure;
+    KAction *startSimonAction, *startProcess, *restartProcess, *stopProcess, *configure;
     bool stopIntended;
     bool wantReload;
 };

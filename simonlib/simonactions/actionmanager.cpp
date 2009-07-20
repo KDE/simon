@@ -359,8 +359,6 @@ bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
 		for (int i=0; i< currentlyPromptedListOfResults->count(); i++)
 		{
 			QString sentence = currentlyPromptedListOfResults->at(i).sentence();
-			fprintf(stderr, "Sentence: %s\n", sentence.toUtf8().data());
-			fprintf(stderr, "Trigger: %s\n", selectedSentence.toUtf8().data());
 			if (sentence == selectedSentence) {
 				fprintf(stderr, "Found the result!\n");
 				RecognitionResultList *list = new RecognitionResultList();
@@ -441,7 +439,7 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 				avg += score;
 			avg /= ((float) confidenceScores.count());
 
-			/*if (!confidenceScores.contains(0) && (avg > commandSettings->getMinimumConfidence()))*/
+			if (!confidenceScores.contains(0) && (avg > commandSettings->getMinimumConfidence()))
 				selectedRecognitionResults->append(recognitionResults->at(i));
 		}
 
