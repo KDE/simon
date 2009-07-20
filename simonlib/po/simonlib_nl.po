@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:24+0100\n"
+"POT-Creation-Date: 2009-07-20 18:56+0200\n"
 "PO-Revision-Date: 2009-01-13 19:19+0100\n"
 "Last-Translator: Daniël Heres <danielheres@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: adinstreamer/adinstreamer.cpp:477
+#: adinstreamer/adinstreamer.cpp:510
 msgid ""
 "Couldn't open sound device.\n"
 "\n"
@@ -26,7 +26,7 @@ msgstr ""
 "\n"
 "Controleer de configuratie."
 
-#: commandpluginbase/commandmanager.cpp:76
+#: commandpluginbase/commandmanager.cpp:82
 msgid "Computer"
 msgstr "Computer"
 
@@ -42,6 +42,8 @@ msgstr "X-server ondersteund de XTest-extensie niet. Installeer dit."
 
 #. i18n: file: simonactions/commandsettingsdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, CommandSettingsDlg)
+#. i18n: file: simonactions/listcommand.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, ListCommandWidget)
 #. i18n: file: simonsound/postprocessing.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, PostProcessing)
 #. i18n: file: simonsound/prompt.ui:13
@@ -52,6 +54,8 @@ msgstr "X-server ondersteund de XTest-extensie niet. Installeer dit."
 #. i18n: ectx: property (windowTitle), widget (QWidget, TrainingSettingsWidget)
 #. i18n: file: simonactions/commandsettingsdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, CommandSettingsDlg)
+#. i18n: file: simonactions/listcommand.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, ListCommandWidget)
 #. i18n: file: simonsound/postprocessing.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, PostProcessing)
 #. i18n: file: simonsound/prompt.ui:13
@@ -60,50 +64,89 @@ msgstr "X-server ondersteund de XTest-extensie niet. Installeer dit."
 #. i18n: ectx: property (windowTitle), widget (QWidget, ExternalProgramsWidget)
 #. i18n: file: speechmodelmanagement/trainingsettings.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, TrainingSettingsWidget)
-#: po/rc.cpp:3 po/rc.cpp:84 po/rc.cpp:97 po/rc.cpp:145 po/rc.cpp:214 rc.cpp:3
-#: rc.cpp:84 rc.cpp:97 rc.cpp:145 rc.cpp:214
+#: po/rc.cpp:3 po/rc.cpp:24 po/rc.cpp:102 po/rc.cpp:115 po/rc.cpp:163
+#: po/rc.cpp:232 rc.cpp:3 rc.cpp:24 rc.cpp:102 rc.cpp:115 rc.cpp:163
+#: rc.cpp:232
 msgid "Form"
 msgstr "Formulier"
 
-#. i18n: file: simonactions/commandsettingsdlg.ui:24
-#. i18n: ectx: property (text), widget (QLabel, lbTrigger)
+#. i18n: file: simonactions/commandsettingsdlg.ui:21
+#. i18n: ectx: property (text), widget (QLabel, lbMinimumConfidence)
 #: po/rc.cpp:6 rc.cpp:6
+msgid "Minimum Confidence:"
+msgstr ""
+
+#. i18n: file: simonactions/commandsettingsdlg.ui:46
+#. i18n: ectx: property (text), widget (QCheckBox, cbUseDYM)
+#: po/rc.cpp:9 rc.cpp:9
+msgid "Display selection popup for ambiguous results"
+msgstr ""
+
+#. i18n: file: simonactions/commandsettingsdlg.ui:58
+#. i18n: ectx: property (text), widget (QLabel, lbTrigger)
+#: po/rc.cpp:12 rc.cpp:12
 msgid "Trigger:"
 msgstr ""
 
-#. i18n: file: simonactions/commandsettingsdlg.ui:44
+#. i18n: file: simonactions/commandsettingsdlg.ui:78
 #. i18n: ectx: property (text), widget (QPushButton, pbApplyToAll)
-#: po/rc.cpp:9 rc.cpp:9
+#: po/rc.cpp:15 rc.cpp:15
 msgid "Apply to all Plugins"
 msgstr "Bij alle plug-ins toepassen"
 
-#. i18n: file: simonactions/commandsettingsdlg.ui:53
+#. i18n: file: simonactions/commandsettingsdlg.ui:87
 #. i18n: ectx: property (availableLabel), widget (KActionSelector, asCommandPlugins)
-#: po/rc.cpp:12 rc.cpp:12
+#: po/rc.cpp:18 rc.cpp:18
 msgid "&Available Plug-Ins:"
 msgstr ""
 
-#. i18n: file: simonactions/commandsettingsdlg.ui:56
+#. i18n: file: simonactions/commandsettingsdlg.ui:90
 #. i18n: ectx: property (selectedLabel), widget (KActionSelector, asCommandPlugins)
-#: po/rc.cpp:15 rc.cpp:15
+#: po/rc.cpp:21 rc.cpp:21
 msgid "&Selected Plug-Ins:"
 msgstr ""
 
+#. i18n: file: simonactions/listcommand.ui:32
+#. i18n: ectx: property (text), widget (QTableWidget, twCommands)
+#: po/rc.cpp:27 rc.cpp:27
+msgid "Number"
+msgstr ""
+
+#. i18n: file: simonactions/listcommand.ui:37
+#. i18n: ectx: property (text), widget (QTableWidget, twCommands)
+#: po/rc.cpp:30 simonactions/commandmodel.cpp:96 rc.cpp:30
+msgid "Command"
+msgstr "Commando"
+
+#. i18n: file: simonactions/listcommand.ui:45
+#. i18n: ectx: property (text), widget (QPushButton, pbCancel)
+#. i18n: file: simonlogging/logmanagerdlg.ui:156
+#. i18n: ectx: property (text), widget (KPushButton, pbAbort)
+#. i18n: file: simonactions/listcommand.ui:45
+#. i18n: ectx: property (text), widget (QPushButton, pbCancel)
+#. i18n: file: simonlogging/logmanagerdlg.ui:156
+#. i18n: ectx: property (text), widget (KPushButton, pbAbort)
+#: po/rc.cpp:33 po/rc.cpp:69 simonactions/listcommand.cpp:109
+#: simonlogging/logview.cpp:691 simonprogresstracking/progresswidget.cpp:48
+#: rc.cpp:33 rc.cpp:69
+msgid "Cancel"
+msgstr "Annuleren"
+
 #. i18n: file: simonlogging/logmanagerdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, LogManagerDlg)
-#: po/rc.cpp:18 rc.cpp:18
+#: po/rc.cpp:36 rc.cpp:36
 msgid "Log Manager"
 msgstr "Logboek-beheer"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:20
 #. i18n: ectx: property (text), widget (QTreeWidget, twLogEntries)
-#: po/rc.cpp:21 rc.cpp:21
+#: po/rc.cpp:39 rc.cpp:39
 msgid "Date"
 msgstr "Datum"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:25
 #. i18n: ectx: property (text), widget (QTreeWidget, twLogEntries)
-#: po/rc.cpp:24 rc.cpp:24
+#: po/rc.cpp:42 rc.cpp:42
 msgid "Message"
 msgstr "Bericht"
 
@@ -115,92 +158,85 @@ msgstr "Bericht"
 #. i18n: ectx: property (title), widget (QGroupBox, gwSearchInLogs)
 #. i18n: file: simonlogging/logmanagerdlg.ui:90
 #. i18n: ectx: property (text), widget (KPushButton, pbLogSearch)
-#: po/rc.cpp:27 po/rc.cpp:36 rc.cpp:27 rc.cpp:36
+#: po/rc.cpp:45 po/rc.cpp:54 rc.cpp:45 rc.cpp:54
 msgid "Search"
 msgstr "Zoekn"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:58
 #. i18n: ectx: property (text), widget (QLabel, lbSearchLogsFor)
-#: po/rc.cpp:30 rc.cpp:30
+#: po/rc.cpp:48 rc.cpp:48
 msgid "Search:"
 msgstr "Zoeken:"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:83
 #. i18n: ectx: property (text), widget (KPushButton, pbClearSearch)
-#: po/rc.cpp:33 rc.cpp:33
+#: po/rc.cpp:51 rc.cpp:51
 msgid "&x"
 msgstr "&x"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:105
 #. i18n: ectx: property (text), widget (QCheckBox, cbLogError)
-#: po/rc.cpp:39 rc.cpp:39
+#: po/rc.cpp:57 rc.cpp:57
 msgid "Error"
 msgstr "Fout"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:112
 #. i18n: ectx: property (text), widget (QCheckBox, cbLogUpdate)
-#: po/rc.cpp:42 rc.cpp:42
+#: po/rc.cpp:60 rc.cpp:60
 msgid "Update"
 msgstr "Vernieuwen"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:125
 #. i18n: ectx: property (text), widget (QCheckBox, cbLogInfo)
-#: po/rc.cpp:45 rc.cpp:45
+#: po/rc.cpp:63 rc.cpp:63
 msgid "Infos"
 msgstr "Informatie"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:132
 #. i18n: ectx: property (text), widget (QCheckBox, cbLogSettings)
-#: po/rc.cpp:48 rc.cpp:48
+#: po/rc.cpp:66 rc.cpp:66
 msgid "Settings"
 msgstr "Instellingen"
 
-#. i18n: file: simonlogging/logmanagerdlg.ui:156
-#. i18n: ectx: property (text), widget (KPushButton, pbAbort)
-#: po/rc.cpp:51 simonlogging/logview.cpp:691
-#: simonprogresstracking/progresswidget.cpp:48 rc.cpp:51
-msgid "Cancel"
-msgstr "Annuleren"
-
 #. i18n: file: simonlogging/logmanagerdlg.ui:165
 #. i18n: ectx: property (title), widget (SimonGroupBox, gbOnlyDay)
-#: po/rc.cpp:54 rc.cpp:54
+#: po/rc.cpp:72 rc.cpp:72
 msgid "Only of day"
 msgstr "Alleen dag"
 
 #. i18n: file: simonlogging/logmanagerdlg.ui:180
 #. i18n: ectx: property (text), widget (QLabel, lbCalendar)
-#: po/rc.cpp:57 rc.cpp:57
+#: po/rc.cpp:75 rc.cpp:75
 msgid "Calendar"
 msgstr "Kalender"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, DeviceConfiguration)
-#: po/rc.cpp:60 rc.cpp:60
+#: po/rc.cpp:78 rc.cpp:78
 msgid "Soundsettings"
 msgstr "Geluidsinstellingen"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbInDevice)
-#: po/rc.cpp:63 rc.cpp:63
+#: po/rc.cpp:81 rc.cpp:81
 msgid "Input Device:"
 msgstr "Invoer-apparaat"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:41
 #. i18n: ectx: property (text), widget (QLabel, lbOutDevice)
-#: po/rc.cpp:66 rc.cpp:66
+#: po/rc.cpp:84 rc.cpp:84
 msgid "Output Device:"
 msgstr "Uitvoer-apparaat"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:61
 #. i18n: ectx: property (text), widget (QLabel, lbChannels)
-#: po/rc.cpp:69 rc.cpp:69
+#: po/rc.cpp:87 rc.cpp:87
 msgid "Channels:"
 msgstr "Kanalen"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:95
 #. i18n: ectx: property (text), widget (QLabel, lbSamplerate)
-#: po/rc.cpp:72 rc.cpp:72
+#: po/rc.cpp:90 rc.cpp:90
 msgid "Sample-Rate:"
 msgstr "Sample-rate:"
 
@@ -212,311 +248,319 @@ msgstr "Sample-rate:"
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
 #. i18n: file: speechmodelmanagement/trainingsettings.ui:46
 #. i18n: ectx: property (text), widget (QLabel, lbHz)
-#: po/rc.cpp:75 po/rc.cpp:220 rc.cpp:75 rc.cpp:220
+#: po/rc.cpp:93 po/rc.cpp:238 rc.cpp:93 rc.cpp:238
 msgid "Hz"
 msgstr "Hz"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:159
 #. i18n: ectx: property (text), widget (KPushButton, pbReload)
-#: po/rc.cpp:78 simonlogging/logview.cpp:706 rc.cpp:78
+#: po/rc.cpp:96 simonlogging/logview.cpp:706 rc.cpp:96
 msgid "Reload"
 msgstr "Vernieuwen"
 
 #. i18n: file: simonsound/deviceconfiguration.ui:179
 #. i18n: ectx: property (text), widget (KPushButton, pbTest)
-#: po/rc.cpp:81 rc.cpp:81
+#: po/rc.cpp:99 rc.cpp:99
 msgid "Test"
 msgstr "Testen"
 
 #. i18n: file: simonsound/postprocessing.ui:19
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ProcessInternal)
-#: po/rc.cpp:87 rc.cpp:87
+#: po/rc.cpp:105 rc.cpp:105
 msgid "Apply filters to recordings recorded with simon"
 msgstr "Filters aan opnames opgenomen met simon toepassen"
 
 #. i18n: file: simonsound/postprocessing.ui:26
 #. i18n: ectx: property (title), widget (KEditListBox, kcfg_ProcessingFilters)
-#: po/rc.cpp:90 rc.cpp:90
+#: po/rc.cpp:108 rc.cpp:108
 msgid "Post-Processing Commands"
 msgstr ""
 
 #. i18n: file: simonsound/postprocessing.ui:33
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:94 rc.cpp:94
+#: po/rc.cpp:112 rc.cpp:112
 #, no-c-format
 msgid "Legend: %1........Inputfile, %2........Outputfile"
 msgstr ""
 
 #. i18n: file: simonsound/recwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, RecWidgetUi)
-#: po/rc.cpp:100 rc.cpp:100
+#: po/rc.cpp:118 rc.cpp:118
 msgid "Recording"
 msgstr "Opnemen"
 
 #. i18n: file: simonsound/recwidget.ui:38
 #. i18n: ectx: property (text), widget (KPushButton, pbRecord)
-#: po/rc.cpp:103 simonsound/recwidget.cpp:89 rc.cpp:103
+#: po/rc.cpp:121 simonsound/recwidget.cpp:91 rc.cpp:121
 msgid "Record"
 msgstr "Opnemen"
 
 #. i18n: file: simonsound/recwidget.ui:48
 #. i18n: ectx: property (text), widget (KPushButton, pbPlay)
-#: po/rc.cpp:106 simonsound/recwidget.cpp:95 rc.cpp:106
+#: po/rc.cpp:124 simonsound/recwidget.cpp:97 rc.cpp:124
 msgid "Play"
 msgstr "Afspelen"
 
 #. i18n: file: simonsound/recwidget.ui:58
 #. i18n: ectx: property (text), widget (KPushButton, pbDelete)
-#: po/rc.cpp:109 simonsound/recwidget.cpp:101 rc.cpp:109
+#: po/rc.cpp:127 simonsound/recwidget.cpp:103 rc.cpp:127
 msgid "Delete"
 msgstr "Verwijderen"
 
 #. i18n: file: simonsound/recwidget.ui:70
 #. i18n: ectx: property (format), widget (QProgressBar, pbProgress)
-#: po/rc.cpp:112 rc.cpp:112
+#: po/rc.cpp:130 rc.cpp:130
 msgid "00:00 / 00:00"
 msgstr "00:00 / 00:00"
 
 #. i18n: file: simonsound/soundconfig.kcfg:8
 #. i18n: ectx: label, entry (SoundInputDevice), group (Devices)
-#: po/rc.cpp:115 rc.cpp:115
+#: po/rc.cpp:133 rc.cpp:133
 msgid "The sounddevice used for recording."
 msgstr "Het geluidsapparaat gebruikt voor opname."
 
 #. i18n: file: simonsound/soundconfig.kcfg:12
 #. i18n: ectx: label, entry (SoundOutputDevice), group (Devices)
-#: po/rc.cpp:118 rc.cpp:118
+#: po/rc.cpp:136 rc.cpp:136
 msgid "The sounddevice used for playback."
 msgstr "Het geluidsapparaat gebruikt voor afspelen."
 
 #. i18n: file: simonsound/soundconfig.kcfg:16
 #. i18n: ectx: label, entry (SoundChannels), group (Devices)
-#: po/rc.cpp:121 rc.cpp:121
+#: po/rc.cpp:139 rc.cpp:139
 msgid "How many channels should the samples be recorded with."
 msgstr "Met hoeveel kanalen zouden de samples moeten worden opgenomen."
 
 #. i18n: file: simonsound/soundconfig.kcfg:20
 #. i18n: ectx: label, entry (SoundSampleRate), group (Devices)
-#: po/rc.cpp:124 rc.cpp:124
+#: po/rc.cpp:142 rc.cpp:142
 msgid "The samplerate used for recording."
 msgstr "De samplerate gebruikt voor opname."
 
 #. i18n: file: simonsound/soundconfig.kcfg:27
 #. i18n: ectx: label, entry (PromptFont), group (Prompt)
-#: po/rc.cpp:127 rc.cpp:127
+#: po/rc.cpp:145 rc.cpp:145
 msgid "The font to use for all the promtps in simon."
 msgstr "Het lettertype in gebruik voor al de prompts in simon."
 
 #. i18n: file: simonsound/soundconfig.kcfg:33
 #. i18n: ectx: label, entry (ProcessInternal), group (PostProcessing)
-#: po/rc.cpp:130 rc.cpp:130
+#: po/rc.cpp:148 rc.cpp:148
 msgid "If samples recorded with simon should be processed at all."
 msgstr ""
 "Of samples worden opgenomen met simon überhaupt verwerkt moeten worden."
 
 #. i18n: file: simonsound/soundconfig.kcfg:37
 #. i18n: ectx: label, entry (ProcessingFilters), group (PostProcessing)
-#: po/rc.cpp:133 rc.cpp:133
+#: po/rc.cpp:151 rc.cpp:151
 msgid "The filters (commands) to apply to the samples."
 msgstr "De filters (commando's) toe te passen aan de samples."
 
 #. i18n: file: speechgui/addserverconnectiondlg.ui:18
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:136 speechgui/addserverconnection.cpp:42 rc.cpp:136
+#: po/rc.cpp:154 speechgui/addserverconnection.cpp:42 rc.cpp:154
 msgid "Address:"
 msgstr "Adres:"
 
 #. i18n: file: speechgui/addserverconnectiondlg.ui:25
 #. i18n: ectx: property (text), widget (KLineEdit, leAddress)
-#: po/rc.cpp:139 rc.cpp:139
+#: po/rc.cpp:157 rc.cpp:157
 msgid "localhost"
 msgstr "localhost"
 
 #. i18n: file: speechgui/addserverconnectiondlg.ui:32
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:142 speechgui/addserverconnection.cpp:43 rc.cpp:142
+#: po/rc.cpp:160 speechgui/addserverconnection.cpp:43 rc.cpp:160
 msgid "Port:"
 msgstr "Poort:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:19
 #. i18n: ectx: property (title), widget (QGroupBox, gbHTK)
-#: po/rc.cpp:148 rc.cpp:148
+#: po/rc.cpp:166 rc.cpp:166
 msgid "HTK Programme"
 msgstr "HTP-programma"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:34
 #. i18n: ectx: property (text), widget (QLabel, lbHDMan)
-#: po/rc.cpp:151 rc.cpp:151
+#: po/rc.cpp:169 rc.cpp:169
 msgid "HDMan:"
 msgstr "HDMan:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:41
 #. i18n: ectx: property (text), widget (QLabel, lbHLEd)
-#: po/rc.cpp:154 rc.cpp:154
+#: po/rc.cpp:172 rc.cpp:172
 msgid "HLEd:"
 msgstr "HLEd:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:48
 #. i18n: ectx: property (text), widget (QLabel, lbHCopy)
-#: po/rc.cpp:157 rc.cpp:157
+#: po/rc.cpp:175 rc.cpp:175
 msgid "HCopy:"
 msgstr "HCopy:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:55
 #. i18n: ectx: property (text), widget (QLabel, lbHCompV)
-#: po/rc.cpp:160 rc.cpp:160
+#: po/rc.cpp:178 rc.cpp:178
 msgid "HCompV:"
 msgstr "HCompV:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:103
 #. i18n: ectx: property (text), widget (QLabel, lbHERest)
-#: po/rc.cpp:163 rc.cpp:163
+#: po/rc.cpp:181 rc.cpp:181
 msgid "HERest:"
 msgstr "HERest:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:110
 #. i18n: ectx: property (text), widget (QLabel, lbHHEd)
-#: po/rc.cpp:166 rc.cpp:166
+#: po/rc.cpp:184 rc.cpp:184
 msgid "HHEd:"
 msgstr "HHEd:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:117
 #. i18n: ectx: property (text), widget (QLabel, lbHVite)
-#: po/rc.cpp:169 rc.cpp:169
+#: po/rc.cpp:187 rc.cpp:187
 msgid "HVite:"
 msgstr "HVite:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:159
 #. i18n: ectx: property (title), widget (QGroupBox, gbJulius)
-#: po/rc.cpp:172 rc.cpp:172
+#: po/rc.cpp:190 rc.cpp:190
 msgid "Julius"
 msgstr "Julius"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:168
 #. i18n: ectx: property (text), widget (QLabel, lbMkfa)
-#: po/rc.cpp:175 rc.cpp:175
+#: po/rc.cpp:193 rc.cpp:193
 msgid "mkfa:"
 msgstr "mkfa:"
 
 #. i18n: file: speechmodelcompilation/config/externalprograms.ui:175
 #. i18n: ectx: property (text), widget (QLabel, lbDfaMinimize)
-#: po/rc.cpp:178 rc.cpp:178
+#: po/rc.cpp:196 rc.cpp:196
 msgid "dfa_minimize:"
 msgstr "dfa_minimize:"
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:7
 #. i18n: ectx: label, entry (HDMan), group (Programs)
-#: po/rc.cpp:181 rc.cpp:181
+#: po/rc.cpp:199 rc.cpp:199
 msgid "The path to the HDMan executable."
 msgstr "De weg naar het uitvoerbare bestand van HDMan."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:11
 #. i18n: ectx: label, entry (HLEd), group (Programs)
-#: po/rc.cpp:184 rc.cpp:184
+#: po/rc.cpp:202 rc.cpp:202
 msgid "The path to the HLEd executable."
 msgstr "De weg naar het uitvoerbare bestand van HLEd."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:15
 #. i18n: ectx: label, entry (HCopy), group (Programs)
-#: po/rc.cpp:187 rc.cpp:187
+#: po/rc.cpp:205 rc.cpp:205
 msgid "The path to the HCopy executable."
 msgstr "De weg naar het uitvoerbare bestand van HCopy."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:19
 #. i18n: ectx: label, entry (HCompV), group (Programs)
-#: po/rc.cpp:190 rc.cpp:190
+#: po/rc.cpp:208 rc.cpp:208
 msgid "The path to the HCompV executable."
 msgstr "De weg naar het uitvoerbare bestand van HCompV."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:23
 #. i18n: ectx: label, entry (HERest), group (Programs)
-#: po/rc.cpp:193 rc.cpp:193
+#: po/rc.cpp:211 rc.cpp:211
 msgid "The path to the HERest executable."
 msgstr "De weg naar het uitvoerbare bestand van HERest."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:27
 #. i18n: ectx: label, entry (HHEd), group (Programs)
-#: po/rc.cpp:196 rc.cpp:196
+#: po/rc.cpp:214 rc.cpp:214
 msgid "The path to the HHEd executable."
 msgstr "De weg naar het uitvoerbare bestand van HHED."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:31
 #. i18n: ectx: label, entry (HVite), group (Programs)
-#: po/rc.cpp:199 rc.cpp:199
+#: po/rc.cpp:217 rc.cpp:217
 msgid "The path to the HVite executable."
 msgstr "De weg naar het uitvoerbare bestand van HVite."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:35
 #. i18n: ectx: label, entry (mkfa), group (Programs)
-#: po/rc.cpp:202 rc.cpp:202
+#: po/rc.cpp:220 rc.cpp:220
 msgid "The path to the mkfa executable."
 msgstr "De weg naar het uitvoerbare bestand van mkfa."
 
 #. i18n: file: speechmodelcompilation/config/modelcompilationconfiguration.kcfg:39
 #. i18n: ectx: label, entry (dfa_minimize), group (Programs)
-#: po/rc.cpp:205 rc.cpp:205
+#: po/rc.cpp:223 rc.cpp:223
 msgid "The path to the dfa_minimize executable."
 msgstr "De weg naar het uitvoerbare bestand van dfa_minimize."
 
 #. i18n: file: speechmodelmanagement/speechmodelmanagementconfiguration.kcfg:7
 #. i18n: ectx: label, entry (ModelSampleRate), group (Model)
-#: po/rc.cpp:208 rc.cpp:208
+#: po/rc.cpp:226 rc.cpp:226
 msgid "What samplerate the trainings samples should be recorded in."
 msgstr ""
 
 #. i18n: file: speechmodelmanagement/speechmodelmanagementconfiguration.kcfg:11
 #. i18n: ectx: label, entry (ModelTrainingsDataPath), group (Model)
-#: po/rc.cpp:211 rc.cpp:211
+#: po/rc.cpp:229 rc.cpp:229
 msgid "Where to save the trainings samples."
 msgstr ""
 
 #. i18n: file: speechmodelmanagement/trainingsettings.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbSampleRate)
-#: po/rc.cpp:217 rc.cpp:217
+#: po/rc.cpp:235 rc.cpp:235
 msgid "Samplerate:"
 msgstr "Samplerate:"
 
 #. i18n: file: speechmodelmanagement/trainingsettings.ui:55
 #. i18n: ectx: property (text), widget (QLabel, lbSamplePath)
-#: po/rc.cpp:223 rc.cpp:223
+#: po/rc.cpp:241 rc.cpp:241
 msgid "Path to the Trainingssamples:"
 msgstr ""
 
-#: po/rc.cpp:224 rc.cpp:224
+#: po/rc.cpp:242 rc.cpp:242
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Namen"
 
-#: po/rc.cpp:225 rc.cpp:225
+#: po/rc.cpp:243 rc.cpp:243
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "E-mails"
 
-#: simonactions/actionmanager.cpp:140
+#: simonactions/actionmanager.cpp:161
 msgid ""
 "Couldn't initialize commandmanager \"%1\".\n"
 "\n"
 "Please check its configuration."
 msgstr ""
 
-#: simonactions/actionmanager.cpp:224
+#: simonactions/actionmanager.cpp:248
 msgid ""
 "The trigger \"%1\" is already assigned to another command.\n"
 "\n"
 "Do you want to delete the other command that uses the Trigger \"%1\"?"
 msgstr ""
 
-#: simonactions/actionmanager.cpp:270
+#: simonactions/actionmanager.cpp:292
 msgid "Couldn't add Command \"%1\"."
 msgstr "Kon commando \"%1\" niet toevoegen"
 
-#: simonactions/actionmanager.cpp:310
+#: simonactions/actionmanager.cpp:331
 msgid "Command could not be deleted."
 msgstr "Commando kon niet verwijderd worden."
 
-#: simonactions/commandmodel.cpp:96
-msgid "Command"
-msgstr "Commando"
+#: simonactions/actionmanager.cpp:525
+msgid "Did you mean ...?"
+msgstr ""
+
+#: simonactions/commandlistwidget.cpp:96
+msgid "Back"
+msgstr ""
+
+#: simonactions/commandlistwidget.cpp:120
+msgid "Next"
+msgstr ""
 
 #: simonactions/commandsettings.cpp:69
 msgid "General"
@@ -543,6 +587,56 @@ msgstr ""
 #: speechmodelmanagement/wordlistmodel.cpp:128
 msgid "Category"
 msgstr "Categorie"
+
+#: simonactions/listcommand.cpp:51
+msgid "Zero"
+msgstr ""
+
+#: simonactions/listcommand.cpp:51
+msgid "One"
+msgstr ""
+
+#: simonactions/listcommand.cpp:51
+msgid "Two"
+msgstr ""
+
+#: simonactions/listcommand.cpp:52
+msgid "Three"
+msgstr ""
+
+#: simonactions/listcommand.cpp:52
+#, fuzzy
+msgid "Four"
+msgstr "Formulier"
+
+#: simonactions/listcommand.cpp:52
+msgid "Five"
+msgstr ""
+
+#: simonactions/listcommand.cpp:53
+msgid "Six"
+msgstr ""
+
+#: simonactions/listcommand.cpp:53
+msgid "Seven"
+msgstr ""
+
+#: simonactions/listcommand.cpp:53
+msgid "Eight"
+msgstr ""
+
+#: simonactions/listcommand.cpp:53
+msgid "Nine"
+msgstr ""
+
+#: simonactions/listcommand.cpp:130
+msgid "List"
+msgstr ""
+
+#: simonactions/listcommand.cpp:151
+#, fuzzy
+msgid "Commands"
+msgstr "Commando"
 
 #: simonddatabaseaccess/databaseaccess.cpp:168
 msgid "Username"
@@ -600,15 +694,15 @@ msgstr "Afgebroken"
 msgid "Aborting..."
 msgstr "Verwerken..."
 
-#: simonsound/postprocessing.cpp:45 simonsound/soundsettings.cpp:83
+#: simonsound/postprocessing.cpp:47 simonsound/soundsettings.cpp:83
 msgid "Post-Processing"
 msgstr ""
 
-#: simonsound/postprocessing.cpp:45
+#: simonsound/postprocessing.cpp:48
 msgid "Filter a being applied..."
 msgstr "Filter wordt toegepast..."
 
-#: simonsound/postprocessing.cpp:48
+#: simonsound/postprocessing.cpp:52
 msgid ""
 "Couldn't overwrite %1.\n"
 "\n"
@@ -618,7 +712,7 @@ msgstr ""
 "\n"
 "Controleer of u de benodigde toestemming heeft.."
 
-#: simonsound/postprocessing.cpp:67
+#: simonsound/postprocessing.cpp:73
 msgid ""
 "Couldn't process \"%1\" to \"%2\". Please check if the command:\n"
 "\"%4\". (Return value: %3)"
@@ -626,17 +720,17 @@ msgstr ""
 "Kon \"%1\" niet naar \"%2\" verwerken. Controleer of het commando:\n"
 "\"%4\". (Geef de waarde %3 in)"
 
-#: simonsound/postprocessing.cpp:78
+#: simonsound/postprocessing.cpp:85
 msgid ""
 "Couldn't copy %1 to %2. Please check if you have all the needed permissions."
 msgstr ""
 "Kon %1 niet naar %2 kopiëren. Controleer of u de benodigde toestemming heeft."
 
-#: simonsound/postprocessing.cpp:86
+#: simonsound/postprocessing.cpp:92
 msgid "Couldn't remove %1"
 msgstr "Kon %1 niet verwijderen"
 
-#: simonsound/recwidget.cpp:259
+#: simonsound/recwidget.cpp:261
 msgid ""
 "Couldn't start recording.\n"
 "\n"
@@ -645,7 +739,7 @@ msgid ""
 "Please check your sound configuration and try again."
 msgstr ""
 
-#: simonsound/recwidget.cpp:302
+#: simonsound/recwidget.cpp:309
 msgid ""
 "Could not finalize the Sample. The recording probably failed.\n"
 "\n"
@@ -656,11 +750,11 @@ msgstr ""
 "Tip: Controleer of u de benodigde toestemming hebt om naar \"%1\" te "
 "schrijven!"
 
-#: simonsound/recwidget.cpp:312
+#: simonsound/recwidget.cpp:319
 msgid "Post-Processing failed"
 msgstr ""
 
-#: simonsound/recwidget.cpp:348
+#: simonsound/recwidget.cpp:355
 msgid ""
 "Couldn't start playback.\n"
 "\n"
@@ -674,7 +768,7 @@ msgstr ""
 "\n"
 "Controleer de geluidsconfiguratie en probeer opnieuw."
 
-#: simonsound/recwidget.cpp:374
+#: simonsound/recwidget.cpp:381
 msgid "Couldn't remove file %1"
 msgstr "Kon bestand %1 niet verwijderen"
 
@@ -1267,43 +1361,43 @@ msgstr "[INF] De trainingsteksten lezen"
 msgid "[INF] Calculating relevance"
 msgstr "[INF] Relevantie berekenen"
 
-#: speechmodelmanagement/trainingmanager.cpp:460
+#: speechmodelmanagement/trainingmanager.cpp:468
 msgid "ZERO"
 msgstr "NUL"
 
-#: speechmodelmanagement/trainingmanager.cpp:461
+#: speechmodelmanagement/trainingmanager.cpp:469
 msgid "ONE"
 msgstr "EEN"
 
-#: speechmodelmanagement/trainingmanager.cpp:462
+#: speechmodelmanagement/trainingmanager.cpp:470
 msgid "TWO"
 msgstr "TWEE"
 
-#: speechmodelmanagement/trainingmanager.cpp:463
+#: speechmodelmanagement/trainingmanager.cpp:471
 msgid "THREE"
 msgstr "DRIE"
 
-#: speechmodelmanagement/trainingmanager.cpp:464
+#: speechmodelmanagement/trainingmanager.cpp:472
 msgid "FOUR"
 msgstr "VIER"
 
-#: speechmodelmanagement/trainingmanager.cpp:465
+#: speechmodelmanagement/trainingmanager.cpp:473
 msgid "FIVE"
 msgstr "VIJF"
 
-#: speechmodelmanagement/trainingmanager.cpp:466
+#: speechmodelmanagement/trainingmanager.cpp:474
 msgid "SIX"
 msgstr "ZES"
 
-#: speechmodelmanagement/trainingmanager.cpp:467
+#: speechmodelmanagement/trainingmanager.cpp:475
 msgid "SEVEN"
 msgstr "ZEVEN"
 
-#: speechmodelmanagement/trainingmanager.cpp:468
+#: speechmodelmanagement/trainingmanager.cpp:476
 msgid "EIGHT"
 msgstr "ACHT"
 
-#: speechmodelmanagement/trainingmanager.cpp:469
+#: speechmodelmanagement/trainingmanager.cpp:477
 msgid "NINE"
 msgstr "NEGEN"
 
@@ -1393,11 +1487,11 @@ msgstr ""
 "Dit woord bestaat al reeds in het schaduw-woordenboek. Het zal niet opnieuw "
 "worden ingevoegd."
 
-#: speechmodelmanagement/wordlistmanager.cpp:1135
+#: speechmodelmanagement/wordlistmanager.cpp:1136
 msgid "[INF] Adding %1 words to the wordlist"
 msgstr "[INF] %1 woorden aan de woordenlijst toevoegen"
 
-#: speechmodelmanagement/wordlistmanager.cpp:1201
+#: speechmodelmanagement/wordlistmanager.cpp:1202
 msgid "[INF] The wordlist now contains %1 words"
 msgstr "[INF] De woordenlijst bevat nu %1 woorden"
 

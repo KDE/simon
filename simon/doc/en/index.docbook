@@ -812,7 +812,7 @@ simon is able to import four different types of dictionaries:
 simon can import HADIFIX dictionaries.
 </para>
 <para>
-One example of a HADIFIX dictionary is the German <ulink url="http://www.ifk.uni-bonn.de/forschung/abteilung-sprache-und-kommunikation/phonetik/sprachsynthese/bomp/bomp-1">HADIFIX BOMP</ulink>.
+One example of a HADIFIX dictionary is the German <ulink url="http://www.sk.uni-bonn.de/forschung/phonetik/sprachsynthese/bomp">HADIFIX BOMP</ulink>.
 </para>
 <para>
 Hadifix dictionaries provide both terminals and pronunciation.

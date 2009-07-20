@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2009-06-03 13:22+0000\n"
-"PO-Revision-Date: 2009-06-03 15:22+0200\n"
+"POT-Creation-Date: 2009-07-20 16:53+0000\n"
+"PO-Revision-Date: 2009-07-20 18:54+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1860,13 +1860,12 @@ msgstr "simon kann HADIFIX Wörterbücher importieren"
 #: index.docbook:814
 #, no-c-format
 msgid ""
-"One example of a HADIFIX dictionary is the German <ulink url=\"http://www."
-"ifk.uni-bonn.de/forschung/abteilung-sprache-und-kommunikation/phonetik/"
-"sprachsynthese/bomp/bomp-1\">HADIFIX BOMP</ulink>."
+"One example of a HADIFIX dictionary is the German <ulink url=\"http://www.sk."
+"uni-bonn.de/forschung/phonetik/sprachsynthese/bomp\">HADIFIX BOMP</ulink>."
 msgstr ""
 "Ein Beispiel eines HADIFIX Wörterbuches ist das Deutsche <ulink url=\"http://"
-"www.ifk.uni-bonn.de/forschung/abteilung-sprache-und-kommunikation/phonetik/"
-"sprachsynthese/bomp/bomp-1\">HADIFIX BOMP</ulink>."
+"www.sk.uni-bonn.de/forschung/phonetik/sprachsynthese/bomp"
+"\">HADIFIX BOMP</ulink>."
 
 #. Tag: para
 #: index.docbook:817
