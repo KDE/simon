@@ -90,6 +90,7 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 	QObject::connect(ui.sbMinimumConfidence, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
 	QObject::connect(ui.leTrigger, SIGNAL(textChanged(const QString&)), this, SLOT(currentTriggerChanged(const QString&)));
 	QObject::connect(ui.leTrigger, SIGNAL(textChanged(const QString&)), this, SLOT(slotChanged()));
+	QObject::connect(ui.cbUseDYM, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	QObject::connect(ui.pbApplyToAll, SIGNAL(clicked()), this, SLOT(applyToAllClicked()));
 	
 	QObject::connect(ui.asCommandPlugins->selectedListWidget(), SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)),
@@ -275,10 +276,12 @@ void CommandSettings::save()
 	}
 	
 	cg.writeEntry("MinimumConfidence", ui.sbMinimumConfidence->value());
+	cg.writeEntry("UseDYM", ui.cbUseDYM->isChecked());
 
 	cg.sync();
 	KCModule::save();
 	emit changed(false);
+	emit recognitionResultsFilterParametersChanged();
 }
 
 void CommandSettings::displayList(QListWidget *listWidget, QList<Action::Ptr> actions)
@@ -330,6 +333,8 @@ void CommandSettings::load()
 
 	float minimumConfidence = cg.readEntry("MinimumConfidence", 0.7f);
 	ui.sbMinimumConfidence->setValue(minimumConfidence);
+
+	ui.cbUseDYM->setChecked(cg.readEntry("UseDYM", true));
 
 	// ensure that trigger has the same amount of elements
 	// as pluginsToLoad
@@ -390,7 +395,12 @@ void CommandSettings::load()
 
 float CommandSettings::getMinimumConfidence()
 {
-	return 0.7;
+	return ui.sbMinimumConfidence->value();
+}
+
+bool CommandSettings::useDYM()
+{
+	return ui.cbUseDYM->isChecked();
 }
 
 QList<Action::Ptr> CommandSettings::getActivePlugins()
@@ -410,6 +420,7 @@ void CommandSettings::defaults()
 	cg.writeEntry("Trigger", QStringList());
 	cg.writeEntry("SelectedPlugins", findDefaultPlugins(availableCommandManagers()));
 	cg.writeEntry("MinimumConfidence", 0.7f);
+	cg.writeEntry("UseDYM", true);
 	cg.sync();
 	load();
 	forceChangeFlag = true;

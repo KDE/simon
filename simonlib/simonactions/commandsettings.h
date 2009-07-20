@@ -44,6 +44,7 @@ Q_OBJECT
 
 signals:
 	void actionsChanged(QList<Action::Ptr> actions);
+	void recognitionResultsFilterParametersChanged();
 
 private:
 	bool forceChangeFlag;
@@ -91,6 +92,7 @@ public:
 	QList<Action::Ptr> getActivePlugins();
 
 	float getMinimumConfidence();
+	bool useDYM();
 	
 	void registerPlugIn(KCModule *plugin);
 	void unregisterPlugIn(KCModule *plugin);

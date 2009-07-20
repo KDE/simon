@@ -76,6 +76,9 @@ private:
 	void deleteManager(CommandManager *manager);
 	void triggerCommand();
 
+	float minimumConfidenceThreshold;
+	bool useDYM;
+
 
 protected:
 	ActionManager(QObject *parent=0);
@@ -83,6 +86,7 @@ protected:
 private slots:
 	void setupBackends(QList<Action::Ptr> pluginsToLoad);
 	void resultSelectionDone();
+	void retrieveRecognitionResultFilteringParameters();
 
 
 public:

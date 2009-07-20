@@ -33,9 +33,19 @@
 			   <property name="value" >
 			    <double>0.7</double>
 			   </property>
+			   <property name="singleStep" >
+			    <double>0.1</double>
+			   </property>
 		     </widget>
 	     </item>
      </layout>
+   </item>
+   <item>
+     <widget class="QCheckBox" name="cbUseDYM" >
+	<property name="text" >
+		<string>Display selection popup for ambiguous results</string>
+	   </property>
+     </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout" >

@@ -55,6 +55,10 @@ ActionManager::ActionManager(QObject *parent) : QObject(parent)
 
 	greedyReceivers = new QList<GreedyReceiver*>();
 	currentlyPromptedListOfResults = 0;
+
+	//defaults
+	useDYM = true;
+	minimumConfidenceThreshold = 0.7;
 }
 
 void ActionManager::init()
@@ -62,6 +66,7 @@ void ActionManager::init()
 	if (commandSettings)
 	{
 		setupBackends(commandSettings->getActivePlugins());
+		retrieveRecognitionResultFilteringParameters();
 	}
 }
 
@@ -76,6 +81,7 @@ void ActionManager::setConfigurationDialog(KCModule* commandSettings)
 	if (!this->commandSettings) return;
 	
 	connect(commandSettings, SIGNAL(actionsChanged(QList<Action::Ptr>)), this, SLOT(setupBackends(QList<Action::Ptr>)));
+	connect(commandSettings, SIGNAL(recognitionResultsFilterParametersChanged()), this, SLOT(retrieveRecognitionResultFilteringParameters()));
 	
 	foreach (Action::Ptr action, actions)
 		this->commandSettings->registerPlugIn(action->manager()->getConfigurationPage());
@@ -254,7 +260,7 @@ bool ActionManager::askDeleteCommandByTrigger(QString trigger)
 
 void ActionManager::registerGreedyReceiver(GreedyReceiver *receiver)
 {
-	greedyReceivers->append(receiver);
+	greedyReceivers->insert(0, receiver);
 }
 
 void ActionManager::deRegisterGreedyReceiver(GreedyReceiver *receiver)
@@ -414,12 +420,16 @@ void ActionManager::processResult(RecognitionResult recognitionResult)
 		emit guiAction(finalResult.sentence());*/
 }
 
+void ActionManager::retrieveRecognitionResultFilteringParameters()
+{
+	useDYM = commandSettings->useDYM();
+	minimumConfidenceThreshold = commandSettings->getMinimumConfidence();
+}
+
 void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 {
 	if (recognitionResults->isEmpty())
 		return;
-
-/*	Q_ASSERT(commandSettings);*/
 
 	RecognitionResultList *selectedRecognitionResults = new RecognitionResultList();
 
@@ -439,7 +449,7 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 				avg += score;
 			avg /= ((float) confidenceScores.count());
 
-			if (!confidenceScores.contains(0) && (avg > commandSettings->getMinimumConfidence()))
+			if (!confidenceScores.contains(0) && (avg > minimumConfidenceThreshold))
 				selectedRecognitionResults->append(recognitionResults->at(i));
 		}
 
@@ -464,10 +474,10 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 
 	if (selectedRecognitionResults->count() == 1) {
 		processResult(selectedRecognitionResults->at(0));
-		delete selectedRecognitionResults;
 	} else {
 		presentUserWithResults(selectedRecognitionResults);
 	}
+	delete selectedRecognitionResults;
 }
 
 void ActionManager::resultSelectionDone()
@@ -479,14 +489,12 @@ void ActionManager::resultSelectionDone()
 
 void ActionManager::presentUserWithResults(RecognitionResultList* recognitionResults)
 {
-	fprintf(stderr, "presentUserWithResults()\n");
-
 	fprintf(stderr, "More than one possible recognition result ... should display list!\n");
-	if (currentlyPromptedListOfResults && !currentlyPromptedListOfResults->isEmpty())
+	if (!useDYM || (currentlyPromptedListOfResults && 
+				!currentlyPromptedListOfResults->isEmpty()))
 	{
 		//no double did-you-means...
 		processResult(recognitionResults->at(0));
-		delete recognitionResults;
 		return;
 	}
 
@@ -513,7 +521,6 @@ void ActionManager::presentUserWithResults(RecognitionResultList* recognitionRes
 		currentlyPromptedListOfResults->append(recognitionResults->at(i));
 
 	}
-	delete recognitionResults;
 
 	ListCommand *list = new ListCommand(i18n("Did you mean ...?"), "help-hint", sentences, iconSrcs, trigger);
 	connect(list, SIGNAL(canceled()), list, SLOT(deleteLater()));
