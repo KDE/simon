@@ -27,6 +27,8 @@
 #include <QThread>
 #include <QMutex>
 #include <QStringList>
+#include "wordlisttype.h"
+
 /**
  *	@class WordListManager
  *	@brief Manages the Wordlist, the grammar definitions and the vocabulary data

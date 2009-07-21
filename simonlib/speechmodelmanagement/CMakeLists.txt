@@ -19,6 +19,7 @@ set( simonmodelmanagement_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlistmodel.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.cpp
 )
 
 
@@ -28,6 +29,7 @@ set( simonmodelmanagement_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/wordlistmodel.h
   ${CMAKE_CURRENT_SOURCE_DIR}/wordlistmanager.h
   ${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.h
 )
 
 

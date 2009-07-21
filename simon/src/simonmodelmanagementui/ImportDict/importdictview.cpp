@@ -20,12 +20,14 @@
 
 #include "importdictview.h"
 
+#include "importdictintropage.h"
 #include "importdictworkingpage.h"
 #include "importdictselectsourcepage.h"
 #include "importdictbomppage.h"
 #include "importlexiconpage.h"
 #include "importdictplspage.h"
 #include "importdictsphinxpage.h"
+
 #include <QLabel>
 #include <QVBoxLayout>
 #include <KStandardDirs>
@@ -47,7 +49,7 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 	addPage(createImportPLSPage());
 	addPage(createImportSPHINXPage());
 	workingPage = createImportDictWorkingPage();
-	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SIGNAL(dictGenerated(WordList*)));
+	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SLOT(dictReady(WordList*)));
 	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SLOT(next()));
 	connect(workingPage, SIGNAL(failed()), this, SLOT(back()));
 	addPage(workingPage);
@@ -57,6 +59,11 @@ ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importdict.png")));
 }
 
+
+void ImportDictView::dictReady(WordList * list)
+{
+	emit dictGenerated(list, (WordListTarget::WordListType) field("targetType").toInt());
+}
 
 /**
  * \brief Creates the page to import a simon lexicon
@@ -99,22 +106,7 @@ QWizardPage* ImportDictView::createImportSPHINXPage()
  */
 QWizardPage* ImportDictView::createIntroPage()
 {
-	QWizardPage *intro = new QWizardPage(this);
-	intro->setTitle(i18n("Import Dictionary"));
-	QLabel *lbIntro = new QLabel(intro);
-	lbIntro->setWordWrap(true);
-	lbIntro->setText(i18n("This assistant will help you to import a new dictionary.\n\nA dictionary "
-"contains information about the known words like how they are written and how "
-"they are pronounced.\n\nThe dictionary is an essential core-component of your "
-"language model. Please ensure that every dictionary that you import is of "
-"high quality as it will massivly impact your recognition performance.\n\nWe "
-"suggest that you use the Voxforge English Dictionary which is a HTK "
-"compatible lexicon and of very high quality."));
-
-	QVBoxLayout *lay = new QVBoxLayout(intro);
-	lay->addWidget(lbIntro);
-	intro->setLayout(lay);
-	return intro;
+	return new ImportDictIntroPage(this);
 }
 
 

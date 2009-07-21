@@ -25,6 +25,7 @@
 #include "ui_wordlist.h"
 
 #include <speechmodelbase/word.h>
+#include <speechmodelmanagement/wordlisttype.h>
 
 
 class QPoint;
@@ -60,7 +61,7 @@ public slots:
 	void deleteTrainingWord();
 	void deleteSelectedWord();
 	void trainList();
-	void importDict(WordList* list);
+	void importDict(WordList* list, WordListTarget::WordListType type);
 	void filterListbyPattern(QString filter="");
 	void showImportDictDialog();
 

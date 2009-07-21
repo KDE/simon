@@ -40,6 +40,7 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictselectsourcepage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importlexiconpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdict.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictintropage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictworkingpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/bompdict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/sphinxdict.cpp

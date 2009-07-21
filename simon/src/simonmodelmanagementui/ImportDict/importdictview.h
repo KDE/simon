@@ -25,6 +25,8 @@
 #include <QWizard>
 #include <speechmodelbase/word.h>
 
+#include <speechmodelmanagement/wordlisttype.h>
+
 /**
  * \class ImportDictView
  * \brief Provides a dialog for importing dictonaries
@@ -42,7 +44,11 @@ private:
 	ImportDictWorkingPage *workingPage;
 	
 signals:
-	void dictGenerated(WordList*);
+	void dictGenerated(WordList*, WordListTarget::WordListType type);
+
+private slots:
+	void dictReady(WordList * list);
+
 public slots:
 	QWizardPage* createIntroPage();
 	ImportDictSelectSourcePage* 

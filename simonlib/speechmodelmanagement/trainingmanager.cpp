@@ -116,7 +116,6 @@ bool TrainingManager::deleteWord ( Word *w )
 			if (!deletePrompt(filename)) succ = false;
 		}
 	}
-	promptsLock.unlock();
 	return (savePrompts() && succ);
 }
 

@@ -110,7 +110,7 @@ void WordListViewPrivate::reloadShadowList()
 void WordListViewPrivate::showImportDictDialog()
 {
 	ImportDictView *importDictView = new ImportDictView(this);
-	connect(importDictView, SIGNAL(dictGenerated(WordList*)), this, SLOT(importDict(WordList*)));
+	connect(importDictView, SIGNAL(dictGenerated(WordList*, WordListTarget::WordListType)), this, SLOT(importDict(WordList*, WordListTarget::WordListType)));
 	importDictView->exec();
 	importDictView->deleteLater();
 }
@@ -119,11 +119,10 @@ void WordListViewPrivate::showImportDictDialog()
  * \brief Import an existing dictionary
  * \author Peter Grasch
  */
-void WordListViewPrivate::importDict(WordList* list)
+void WordListViewPrivate::importDict(WordList* list, WordListTarget::WordListType type)
 {
-	if (list)
-	{
-		wordListManager->addWords(list, true,true);
+	if (list) {
+		wordListManager->addWords(list, true, ((type == WordListTarget::ShadowList) ? true : false));
 	}
 }
 
