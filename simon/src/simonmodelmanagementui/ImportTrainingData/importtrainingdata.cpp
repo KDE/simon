@@ -48,7 +48,10 @@ void ImportTrainingData::run()
 			emit error(i18n("Couldn't create output folder %1", wavDestDir));
 	
 	QStringList *dataFiles = this->searchDir(directory);
-	if (!dataFiles) return;
+	if (!dataFiles) {
+		delete dataFiles;
+		return;
+	}
 	
 
 	emit progress(0, dataFiles->count());
@@ -57,13 +60,20 @@ void ImportTrainingData::run()
 
 	dataFiles = processSounds(*dataFiles, wavDestDir);
 	
-	if (!dataFiles) return;
+	if (!dataFiles) {
+		delete dataFiles;
+		return;
+	}
 	
 	emit status(i18n("Creating automatic transcriptions..."));
 	
-	if (!createPrompts(*dataFiles)) return;
+	if (!createPrompts(*dataFiles)) {
+		delete dataFiles;
+		return;
+	}
 	emit status(i18n("Finished"));
 	emit done();
+	delete dataFiles;
 }
 
 bool ImportTrainingData::import(QString directory)
