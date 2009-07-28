@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>sam</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="KTabWidget" name="twMain">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="Seite">
+       <attribute name="title">
+        <string>Create model</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>Input files</string>
+            </property>
+            <layout class="QFormLayout" name="formLayout">
+             <item row="1" column="0">
+              <widget class="QLabel" name="lbLexicon">
+               <property name="text">
+                <string>Lexicon:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="KUrlRequester" name="urLexicon"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="lbGrammar">
+               <property name="text">
+                <string>Grammar:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="KUrlRequester" name="urGrammar"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="lbVocabulary">
+               <property name="text">
+                <string>Vocabulary:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="KUrlRequester" name="urVocabulary"/>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="lbPrompts">
+               <property name="text">
+                <string>Prompts:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="KUrlRequester" name="urPrompts"/>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="lbPromptsBasePath">
+               <property name="text">
+                <string>Prompts base path:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="KUrlRequester" name="urPromptsBasePath"/>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="lbTreeHed">
+               <property name="text">
+                <string>Tree.hed:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="KUrlRequester" name="urTreeHed"/>
+             </item>
+             <item row="7" column="0">
+              <widget class="QLabel" name="lbWavConfig">
+               <property name="text">
+                <string>Wav-Config:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="KUrlRequester" name="urWavConfig"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>Output files</string>
+            </property>
+            <layout class="QFormLayout" name="formLayout_2">
+             <item row="1" column="0">
+              <widget class="QLabel" name="lbHmmdefs">
+               <property name="text">
+                <string>HMM-Definitions:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="KUrlRequester" name="kurlrequester"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="lbTiedlist">
+               <property name="text">
+                <string>Tiedlist:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="KUrlRequester" name="kurlrequester_2"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="lbDict">
+               <property name="text">
+                <string>Dict:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="lbDFA">
+               <property name="text">
+                <string>DFA:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="KUrlRequester" name="kurlrequester_4"/>
+             </item>
+             <item row="3" column="1">
+              <widget class="KUrlRequester" name="kurlrequester_3"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lbTempPath">
+               <property name="text">
+                <string>Temporary path:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="KUrlRequester" name="urTemporaryPath"/>
+             </item>
+             <item row="6" column="1">
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="KPushButton" name="pbCompileModel">
+            <property name="text">
+             <string>Compile model</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="lbBuildLog">
+            <property name="text">
+             <string>Build log:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="KTextBrowser" name="tbBuildLog"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="Seite_2">
+       <attribute name="title">
+        <string>Test model</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>ktabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KTextBrowser</class>
+   <extends>QTextBrowser</extends>
+   <header>ktextbrowser.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
