@@ -106,12 +106,30 @@ void BOMPDict::load(QString path, QString encodingName)
 				termend-wordend).trimmed();
 
 		QStringList currentTerminals = currentTerminal.split(":", QString::SkipEmptyParts);
-		for (int k=0; k < currentTerminals.count(); k++)
+		QStringList currentTerminalsUnique;
+
+		QString currentTerminalStr = currentTerminals[0];
+		currentTerminalsUnique << currentTerminalStr;
+		words << currentWord;
+		terminals << currentTerminalStr;
+		pronunciations << currentFinalXsp;
+
+		for (int k=1; k < currentTerminals.count(); k++) {
+			currentTerminalStr = currentTerminals[k];
+			if (!currentTerminalsUnique.contains(currentTerminalStr)) {
+				currentTerminalsUnique << currentTerminalStr;
+
+				words << currentWord;
+				terminals << currentTerminalStr;
+				pronunciations << currentFinalXsp;
+			}
+		}
+/*		for (int k=0; k < currentTerminals.count(); k++)
 		{
 			words << currentWord;
 			terminals << currentTerminals[k];
 			pronunciations << currentFinalXsp;
-		}
+		}*/
 
 		currentProg += line.length();
 

@@ -39,46 +39,64 @@ void ImportTrainingData::run()
 {
 	prog=0;
 	emit progress(0,0); //waiting...
-	emit status(i18n("Collecting files..."));
 	QString wavDestDir=TrainingManager::getInstance()->getTrainingDir();
 
-	QDir d(wavDestDir);
-	if (!d.exists())
-		if (!d.mkpath(wavDestDir))
-			emit error(i18n("Couldn't create output folder %1", wavDestDir));
-	
-	QStringList *dataFiles = this->searchDir(directory);
-	if (!dataFiles) {
-		delete dataFiles;
-		return;
-	}
-	
+	if (isPrompts) {
+		emit status(i18n("Reading prompts file..."));
+		PromptsTable *prompts = TrainingManager::getInstance()->readPrompts(promptsPath);
+		if (!prompts) {
+			emit error(i18n("Couldn't parse input prompts: %1", promptsPath));
+			return;
+		}
 
-	emit progress(0, dataFiles->count());
-	emit status(i18n("Importing %1 Files...", dataFiles->count()));
-	kDebug() << "Sent status";
+		emit progress(0, prompts->count());
+		emit status(i18n("Importing %1 Files...", prompts->count()));
+		for (int i=0; i < prompts->count(); i++) {
+			
 
-	dataFiles = processSounds(*dataFiles, wavDestDir);
-	
-	if (!dataFiles) {
+		}
+
+		delete prompts;
+
+
+
+	} else {
+		emit status(i18n("Collecting files..."));
+		QDir d(wavDestDir);
+		if (!d.exists())
+			if (!d.mkpath(wavDestDir))
+				emit error(i18n("Couldn't create output folder %1", wavDestDir));
+		
+		QStringList *dataFiles = this->searchDir(directory);
+		if (!dataFiles) return;
+
+		emit progress(0, dataFiles->count());
+		emit status(i18n("Importing %1 Files...", dataFiles->count()));
+
+		QStringList *newFiles = processSounds(*dataFiles, wavDestDir);
 		delete dataFiles;
-		return;
-	}
-	
-	emit status(i18n("Creating automatic transcriptions..."));
-	
-	if (!createPrompts(*dataFiles)) {
-		delete dataFiles;
-		return;
+
+		if (!newFiles) return;
+
+		emit status(i18n("Creating transcriptions..."));
+		if (!createPrompts(*newFiles)) return;
+
+		delete newFiles;
 	}
 	emit status(i18n("Finished"));
 	emit done();
-	delete dataFiles;
 }
 
-bool ImportTrainingData::import(QString directory)
+bool ImportTrainingData::import(bool isPrompts, QString path, QString basePath)
 {
-	this->directory = directory;
+	if (isPrompts) {
+		this->promptsPath = path;
+		this->basePath = basePath;
+	} else {
+		this->directory = path;
+	}
+	this->isPrompts = isPrompts;
+
 	start();
 	return true;
 }
@@ -183,7 +201,6 @@ QString ImportTrainingData::extractSaid(QString source)
 QStringList* ImportTrainingData::processSounds(QStringList dataFiles, 
 		QString destDir)
 {
-	kDebug() << "Entering processSounds()";
 	QString newFileName;
 	QFileInfo fInfo;
 	QStringList *newFiles = new QStringList();

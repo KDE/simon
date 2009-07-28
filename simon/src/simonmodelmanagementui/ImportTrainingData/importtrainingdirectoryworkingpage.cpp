@@ -24,7 +24,6 @@
 #include <QFileInfo>
 #include <QVariant>
 #include "importtrainingdata.h"
-// #include <speechmodelmanagement/modelmanager.h>
 
 /**
  * \brief Constructor - creates the GUI
@@ -67,8 +66,6 @@ void ImportTrainingDirectoryWorkingPage::setComplete()
 	completed = true;
 	emit completeChanged();
 
-// 	if (KMessageBox::questionYesNoCancel(this, i18n("Soll das Sprachmodell mit diesen neuen Daten neu kompiliert werden?"), i18n("Änderungen anwenden")) == KMessageBox::Yes)
-// 		ModelManager::compileModel();
 	emit done();
 }
 
@@ -83,5 +80,14 @@ void ImportTrainingDirectoryWorkingPage::initializePage()
 	emit completeChanged();
 	
 	//reading
-	importer->import(field("directory").value<KUrl>().path());
+	bool importPrompts = field("importPrompts").toBool();
+	QString path, basePath; 
+	if (importPrompts) {
+		path = field("prompts").value<KUrl>().path();
+		basePath = field("promptsBaseDirectory").value<KUrl>().path();
+	} else {
+		path = field("directory").value<KUrl>().path();
+	}
+	importer->import(importPrompts, path, basePath);
 }
+

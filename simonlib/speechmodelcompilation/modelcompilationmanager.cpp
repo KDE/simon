@@ -52,7 +52,6 @@ ModelCompilationManager::ModelCompilationManager(const QString& userName,
 	this->dictPath = dictPath;
 	this->dfaPath = dfaPath;
 
-	proc=0;
 }
 
 QString ModelCompilationManager::htkIfyPath(const QString& in)
@@ -147,13 +146,15 @@ bool ModelCompilationManager::parseConfiguration()
 
 bool ModelCompilationManager::execute(const QString& command)
 {
-	proc->start(command);
+	QProcess proc;
+	proc.setWorkingDirectory(QCoreApplication::applicationDirPath());
+	proc.start(command);
 	
 	buildLog += "<p><span style=\"font-weight:bold; color:#00007f;\">"+command+"</span></p>";
-	proc->waitForFinished(-1);
+	proc.waitForFinished(-1);
 	
-	QString err = QString::fromLocal8Bit(proc->readAllStandardError());
-	QString out = QString::fromLocal8Bit(proc->readAllStandardOutput());
+	QString err = QString::fromLocal8Bit(proc.readAllStandardError());
+	QString out = QString::fromLocal8Bit(proc.readAllStandardOutput());
 	
 	if (!out.isEmpty())
 		buildLog += "<p>"+out+"</p>";
@@ -161,7 +162,7 @@ bool ModelCompilationManager::execute(const QString& command)
 	if (!err.isEmpty())
 		buildLog += "<p><span style=\"color:#aa0000;\">"+err+"</span></p>";
 	
-	if (proc->exitCode() != 0) 
+	if (proc.exitCode() != 0) 
 		return false;
 	else return true;
 }
@@ -297,12 +298,6 @@ void ModelCompilationManager::run()
 	if (!createDirs())
 		analyseError(i18n("Couldn't generate temporary folders.\n\nPlease check your permissions for \"%1\".", tempDir));
 
-
-	if (proc) proc->deleteLater();
-	
-	proc = new QProcess();
-	proc->setWorkingDirectory(QCoreApplication::applicationDirPath());
-	connect(this, SIGNAL(finished()), proc, SLOT(deleteLater()));
 
 	if (!keepGoing) return;
 	Logger::log(i18n("[INF] Compiling model..."));
@@ -1261,6 +1256,5 @@ bool ModelCompilationManager::generateMlf()
 
 ModelCompilationManager::~ModelCompilationManager()
 {
-	proc->deleteLater();
 }
 

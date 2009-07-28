@@ -22,8 +22,8 @@
 #define MODELCOMPILATIONMANAGER_H
 
 #include <QThread>
+#include <QProcess>
 #include "simonmodelcompilationmanagement_export.h"
-class QProcess;
 
 /**
  *	@class ModelManager
@@ -55,7 +55,7 @@ private:
 	bool keepGoing;
 	QString currentStatus;
 	
-	QProcess *proc;
+//	QProcess proc;
 	QString buildLog;
 	QString lastOutput;
 

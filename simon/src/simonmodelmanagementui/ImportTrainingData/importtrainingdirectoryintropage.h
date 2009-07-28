@@ -38,6 +38,10 @@ class ImportTrainingDirectoryIntroPage : public QWizardPage{
 
 private:
 	Ui::ImportTrainingDataIntroDlg ui;
+
+private slots:
+	void promptsPathChanged();
+
 public:
 	ImportTrainingDirectoryIntroPage(QWidget *parent=0);
 	~ImportTrainingDirectoryIntroPage() {}

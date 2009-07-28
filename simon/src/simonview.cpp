@@ -156,6 +156,8 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	setupSignalSlots();
 
+	control->actOnAutoConnect();
+
 	//hiding splash again after loading
 	info->hideSplash();
 	delete info;
@@ -561,7 +563,6 @@ void SimonView::representState(SimonControl::SystemStatus status)
  * @author Peter Grasch
  *
 */
-#include <KDebug>
 void SimonView::closeSimon()
 {
 //	kWarning() << KMessageBox::questionYesNoCancel ( this, i18n ( "If you quit the application the connection to the server will be closed and "

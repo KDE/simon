@@ -40,7 +40,7 @@
  */
 ImportTrainingDirectory::ImportTrainingDirectory(QWidget *parent) : QWizard(parent)
 {
-	setWindowTitle(i18n("Importing Traingin Samples from Folder"));
+	setWindowTitle(i18n("Importing Training Samples"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importfolder.png")));
 
  	addPage(createIntroPage());
@@ -83,7 +83,7 @@ QWizardPage* ImportTrainingDirectory::createFinishedPage()
 	QWizardPage *intro = new QWizardPage(this);
 	intro->setTitle(i18n("Importing of the Folder completed"));
 	QLabel *label = new QLabel(intro);
-	label->setText(i18n("The files found in the given folder are now being imported.\n\nThank you for "
+	label->setText(i18n("The files have been imported.\n\nThank you for "
 		"improving simon!"));
 	QVBoxLayout *layout = new QVBoxLayout(intro);
 	layout->addWidget(label);

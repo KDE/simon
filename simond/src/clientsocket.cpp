@@ -142,6 +142,9 @@ void ClientSocket::processRequest()
 
 				if (databaseAccess->authenticateUser(user, pass))
 				{
+					//fprintf(stderr, "hier: %s\n", i18n("Test").toAscii().data());
+					i18n("");
+
 					//store authentication data
 					this->username = user;
 					

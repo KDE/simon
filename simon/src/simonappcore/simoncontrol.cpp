@@ -40,9 +40,9 @@
 SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 {
 	setStatus(SimonControl::Disconnected);
-	this->recognitionControl = RecognitionControl::getInstance(parent);
 	QObject::connect(ActionManager::getInstance(), SIGNAL(guiAction(QString)), this, SIGNAL(guiAction(QString)));
 	
+	this->recognitionControl = RecognitionControl::getInstance(parent);
 	QObject::connect(recognitionControl, SIGNAL(connected()), this, SLOT(connectedToServer()));
 	QObject::connect(recognitionControl, SIGNAL(disconnected()), this, SLOT(disconnectedFromServer()));
 	
@@ -61,6 +61,12 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	
 	QObject::connect(recognitionControl, SIGNAL(recognised(RecognitionResultList*)), this, SLOT(wordRecognised(RecognitionResultList*)));
 	QObject::connect(recognitionControl, SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
+
+}
+
+void SimonControl::actOnAutoConnect()
+{
+	recognitionControl->actOnAutoConnect();
 }
 
 bool SimonControl::startMinimized()

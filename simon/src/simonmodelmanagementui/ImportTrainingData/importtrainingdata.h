@@ -37,7 +37,8 @@ signals:
 	void status(QString);
 private:
 	PostProcessing *pp;
-	QString directory;
+	QString directory, promptsPath, basePath;
+	bool isPrompts;
 	int prog;
 	
 	QString extractSaid(QString source);
@@ -51,7 +52,7 @@ public slots:
 public:
 	ImportTrainingData(QObject* parent);
 
-	bool import(QString directory);
+	bool import(bool isPrompts, QString path, QString basePath);
 
     ~ImportTrainingData();
 

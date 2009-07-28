@@ -259,6 +259,7 @@ add_subdirectory(simon)
 add_subdirectory(simond)
 add_subdirectory(ksimond)
 add_subdirectory(plugins)
+add_subdirectory(sam)
 
 if(WIN32)
 add_subdirectory(package/KDE)

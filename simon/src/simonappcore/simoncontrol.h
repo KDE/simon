@@ -92,6 +92,8 @@ signals:
 
 	
 public slots:
+	void actOnAutoConnect();
+
 	void connectToServer();
 	void disconnectFromServer();
 	void connectedToServer();

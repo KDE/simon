@@ -119,6 +119,8 @@ signals:
 
 	
 public slots:
+	void actOnAutoConnect();
+
 	void disconnectFromServer();
 	void startConnecting();
 

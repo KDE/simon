@@ -110,14 +110,16 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 	
 	connect(this, SIGNAL(simondSystemError(const QString&)), this, SLOT(disconnectFromServer()));
 
-
-	if ( RecognitionConfiguration::juliusdAutoConnect() )
-		startConnecting();
 	
 	this->modelManager = new ModelManagerUiProxy(this);
 	connect(modelManager, SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
 }
 
+void RecognitionControl::actOnAutoConnect()
+{
+	if ( RecognitionConfiguration::juliusdAutoConnect() )
+		startConnecting();
+}
 
 void RecognitionControl::streamStarted()
 {
