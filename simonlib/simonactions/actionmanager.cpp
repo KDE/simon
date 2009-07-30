@@ -407,10 +407,11 @@ void ActionManager::processResult(RecognitionResult recognitionResult)
 	{
 		currentTrigger = actions[i]->trigger();
 		fprintf(stderr, "CurrentTrigger: %s\n", currentTrigger.toUtf8().data());
-		if (recognitionResult.matchesTrigger(currentTrigger)) {
-			recognitionResult.removeTrigger(currentTrigger);
+		RecognitionResult tempResult = recognitionResult;
+		if (tempResult.matchesTrigger(currentTrigger)) {
+			tempResult.removeTrigger(currentTrigger);
 
-			if(actions.at(i)->manager()->processResult(recognitionResult))
+			if(actions.at(i)->manager()->processResult(tempResult))
 				commandFound=true;
 		}
 		i++;

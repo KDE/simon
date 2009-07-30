@@ -69,7 +69,7 @@ void ImportTrainingData::run()
 			QString content = prompts->value(file);
 			QString filename = newFiles->at(i);
 			filename = filename.left(filename.lastIndexOf("."));
-			filename = filename.mid(filename.indexOf(QDir::separator()));
+			filename = filename.mid(filename.lastIndexOf(QDir::separator())+1);
 
 			TrainingManager::getInstance()->addSample(filename, content.toUpper());
 			i++;
