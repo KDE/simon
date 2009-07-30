@@ -21,6 +21,7 @@
 #include "importtrainingdirectoryworkingpage.h"
 #include <KMessageBox>
 #include <KUrl>
+#include <KMessageBox>
 #include <QFileInfo>
 #include <QVariant>
 #include "importtrainingdata.h"
@@ -42,7 +43,10 @@ ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *
 	connect(importer, SIGNAL(done()), this, SLOT(setComplete()));
 	connect(importer, SIGNAL(progress(int, int)), this, SLOT(displayProgress(int, int)));
 	connect(importer, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
+	connect(importer, SIGNAL(error(QString)), this, SLOT(displayError(QString)));
 }
+
+
 
 void ImportTrainingDirectoryWorkingPage::displayProgress(int now, int max)
 {

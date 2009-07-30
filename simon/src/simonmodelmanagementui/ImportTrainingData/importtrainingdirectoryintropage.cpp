@@ -31,6 +31,7 @@ ImportTrainingDirectoryIntroPage::ImportTrainingDirectoryIntroPage(QWidget *pare
 	ui.setupUi(this);
 	
 	ui.urPrompts->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
+	ui.urBaseDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 	ui.urTrainingDataDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 	
 	setTitle(i18n("Import Training Samples"));
@@ -65,7 +66,9 @@ void ImportTrainingDirectoryIntroPage::promptsPathChanged()
 bool ImportTrainingDirectoryIntroPage::isComplete() const
 {
 	if (ui.rbPrompts->isChecked()) {
-		return QFile::exists(ui.urPrompts->url().path());
+		QString dir = ui.urBaseDirectory->url().path();
+		return QFile::exists(ui.urPrompts->url().path()) &&
+			((!dir.isEmpty()) && QDir(dir).exists());
 	} else {
 		QString dir = ui.urTrainingDataDirectory->url().path();
 		return ((!dir.isEmpty()) && QDir(dir).exists());

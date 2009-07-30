@@ -77,6 +77,7 @@ private:
 
 private slots:
 	void changePromptFont(const QFont& font);
+	void displayError(const QString& error);
 
 public slots:
 	void record();

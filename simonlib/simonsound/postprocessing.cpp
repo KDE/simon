@@ -20,7 +20,6 @@
 
 #include "postprocessing.h"
 #include <QProcess>
-#include <KMessageBox>
 #include <QFile>
 #include <KProgressDialog>
 #include <QCoreApplication>
@@ -29,7 +28,7 @@
 #include <KLocale>
 #include "soundconfig.h"
 
-PostProcessing::PostProcessing()
+PostProcessing::PostProcessing(QObject *parent) : QObject(parent)
 {
 	KLocale::setMainCatalog("simonlib");
 }
@@ -49,7 +48,7 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
 	}
 	if (QFile::exists(out) && (!QFile::remove(out)))
 	{
-		KMessageBox::error(0, i18n("Couldn't overwrite %1.\n\nPlease check if you have the needed permissons.", out));
+		emit error(i18n("Couldn't overwrite %1.\n\nPlease check if you have the needed permissons.", out));
 		return false;
 	}
 	
@@ -70,7 +69,7 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
 		if (ret)
 		{
 			//something went wrong
-			KMessageBox::error(0, i18n("Couldn't process \"%1\" to \"%2\". Please check if the command:\n\"%4\". (Return value: %3)", in, out, ret, execStr));
+			emit error(i18n("Couldn't process \"%1\" to \"%2\". Please check if the command:\n\"%4\". (Return value: %3)", in, out, ret, execStr));
 			return NULL;
 		}
 		if (!silent) {
@@ -82,14 +81,14 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
 	if (!QFile::exists(out)) { //if there are no filters or they don't copy it to the output
 		if (!QFile::copy(in, out))
 		{
-			KMessageBox::error(0, i18n("Couldn't copy %1 to %2. Please check if you have all the needed permissions.", in, out));
+			emit error(i18n("Couldn't copy %1 to %2. Please check if you have all the needed permissions.", in, out));
 			return false;
 		}
 	}
 
 	if (deleteIn) {
 		if (!QFile::remove(in)) {
-			KMessageBox::error(0, i18n("Couldn't remove %1", in));
+			emit error(i18n("Couldn't remove %1", in));
 		}
 	}
 

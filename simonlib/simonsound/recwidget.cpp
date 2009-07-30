@@ -67,6 +67,7 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 	rec = new WavRecorder(this);
 	play = new WavPlayer(this);
 	postProc = new PostProcessing();
+	connect(postProc, SIGNAL(error(const QString&)), this, SLOT(displayError(const QString&)));
 
 	//////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////
@@ -138,6 +139,10 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 	resizePromptLabel();
 }
 
+void RecWidget::displayError(const QString& error)
+{
+	KMessageBox::error(this, error);
+}
 
 void RecWidget::changePromptFont(const QFont& font)
 {

@@ -22,6 +22,7 @@
 #define POSTPROCESSING_H
 
 #include "simonsound_export.h"
+#include <QObject>
 
 class QString;
 
@@ -32,9 +33,13 @@ class QString;
  \date 19.2.2008
  \brief Applies the specified postprocessing stack to the given filenames
 */
-class SIMONSOUND_EXPORT PostProcessing{
+class SIMONSOUND_EXPORT PostProcessing : public QObject{
+	Q_OBJECT
+signals:
+	void error(const QString& error);
+
 public:
-    PostProcessing();
+    PostProcessing(QObject *parent=0);
 
 	bool process(const QString& in, const QString& out, bool deleteIn=false, bool silent=false);
 

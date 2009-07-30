@@ -45,7 +45,7 @@ private:
 	QStringList* processSounds(QStringList files, QString destDir);
 	bool createPrompts(QStringList dataFiles);
 	QStringList* searchDir(QString dir);
-	
+
 public slots:
 	void run();
 	
