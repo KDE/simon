@@ -1,5 +1,38 @@
+Recognition
+===========
+
 * simond now sends 10 found sentences from Julius to simon; Also, confidence
 scores have been added
 
 * simon can now ignore recognition results beneath a configurable confidence
-threshold
+  threshold
+
+Wordlist
+========
+
+* Better phoneme segmentation during the import process
+
+* simon can now import lexica to both the active- and the shadowlexicon 
+  (selectable during the import process)
+
+* Updating the URL to the BOMP download
+
+Training
+========
+
+* simon can now import prompts files
+
+* A new "power training" mode speeds up the training process through 
+  automatically starting and stopping the recordings
+
+ksimond
+=======
+
+* simon can now be started through the ksimond context menu
+
+sam
+===
+
+* Adding a new application to the simon suite: sam; The simon acoustic
+  modeller is targeted towards power users who want to manually tweak
+  their model
