@@ -20,14 +20,25 @@
 
 #include "samview.h"
 #include <KStandardAction>
+#include <KActionCollection>
+#include <KAction>
+#include <KIcon>
 
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags)
 {
 	ui.setupUi(this);
 
-	//KStandardAction::quit(this, SLOT(closeSimon()),
-	//		      actionCollection());
+	KAction* recompile = new KAction(this);
+	recompile->setText(i18n("Build Model"));
+	recompile->setIcon(KIcon("view-refresh"));
+	recompile->setShortcut(Qt::CTRL + Qt::Key_F5);
+	actionCollection()->addAction("compileModel", recompile);
+	connect(recompile, SIGNAL(triggered(bool)),
+		this, SLOT(compileModel()));
+	
+	KStandardAction::quit(this, SLOT(close()),
+			      actionCollection());
 
 	setupGUI();
 }

@@ -62,6 +62,16 @@ bool AddWordRecordPage::isComplete() const
 	return true;
 }
 
+void AddWordRecordPage::cleanupPage()
+{
+	page->cleanupPage();
+}
+
+bool AddWordRecordPage::validatePage()
+{
+	return page->validatePage();
+}
+
 QString AddWordRecordPage::getFileName()
 {
 	return page->getFileName();

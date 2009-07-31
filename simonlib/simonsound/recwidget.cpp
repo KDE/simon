@@ -63,6 +63,7 @@ RecWidget::RecWidget(QString name, QString text, QString filename, QWidget *pare
 	recordingProgress=0;
 
 	isRecording = false;
+	isPlaying = false;
 	
 	rec = new WavRecorder(this);
 	play = new WavPlayer(this);
@@ -187,15 +188,6 @@ bool RecWidget::hasRecordingReady()
  */
 void RecWidget::setupSignalsSlots()
 {
-	//Enable / Disable
-//	connect(pbRecord, SIGNAL(toggled(bool)), pbPlay, SLOT(setDisabled(bool)));
-//	connect(pbRecord, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
-//	connect(pbRecord, SIGNAL(toggled(bool)), pbRecord, SLOT(setEnabled(bool)));
-//	connect(pbPlay, SIGNAL(toggled(bool)), pbDelete, SLOT(setDisabled(bool)));
-//	connect(pbDelete, SIGNAL(clicked(bool)), pbRecord, SLOT(setDisabled(bool)));
-//	connect(pbDelete, SIGNAL(clicked(bool)), pbPlay, SLOT(setEnabled(bool)));
-//	connect(pbDelete, SIGNAL(clicked(bool)), pbDelete, SLOT(setEnabled(bool)));
-	
 	connect(pbRecord, SIGNAL(clicked()), this, SLOT(record()));
 	connect(pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
 	connect(pbDelete, SIGNAL(clicked()), this, SLOT(deleteSample()));
@@ -261,12 +253,17 @@ void RecWidget::record()
 	QString fName = this->filename;
 	if (SoundConfiguration::processInternal())
 		fName += "_tmp";
+
+	pbRecord->setEnabled(true);
+	pbPlay->setEnabled(false);
+	pbDelete->setEnabled(false);
+
 	if (!rec->record(fName))
 	{
 		KMessageBox::error(this, i18n("Couldn't start recording.\n\n"
 						"The input device could not be initialized.\n\n"
 						"Please check your sound configuration and try again."));
-		pbRecord->toggle();
+		pbRecord->setChecked(false);
 	}else {
 		disconnect(pbRecord, SIGNAL(clicked()), this, SLOT(record()));
 		connect(pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
@@ -294,6 +291,8 @@ void RecWidget::finishPlayback()
 	pbDelete->setEnabled(true);
 
 	displayPlaybackProgress(recordingProgress);
+
+	isPlaying = false;
 }
 
 /**
@@ -328,10 +327,13 @@ void RecWidget::stopRecording()
 	
 	pbProgress->setValue(0);
 	pbProgress->setMaximum(1);
+	pbRecord->setChecked(false);
 	
 	disconnect(pbRecord, SIGNAL(clicked()), this, SLOT(stopRecording()));
 	connect(pbRecord, SIGNAL(clicked()), this, SLOT(record()));
 	emit recordingFinished();
+
+	isRecording = false;
 }
 
 /**
@@ -340,7 +342,10 @@ void RecWidget::stopRecording()
  */
 void RecWidget::stopPlayback()
 {
+	if (!isPlaying) return;
+
 	play->stop();
+	isPlaying = false;
 }
 
 /**
@@ -356,6 +361,7 @@ void RecWidget::playback()
 		connect(pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
 		emit playing();
 		pbDelete->setEnabled(false);
+		isPlaying = true;
 	} else {
 		KMessageBox::error(this, i18n("Couldn't start playback.\n\n"
 						"The output device could not be initialized.\n\n"

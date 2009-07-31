@@ -7,6 +7,9 @@ scores have been added
 * simon can now ignore recognition results beneath a configurable confidence
   threshold
 
+* simon can now display a "did-you-mean...?"-popup if there are more than one 
+  possible recognition results
+
 Wordlist
 ========
 

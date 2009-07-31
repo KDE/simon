@@ -72,6 +72,7 @@ private:
 	int recordingProgress;
 
 	bool isRecording;
+	bool isPlaying;
 	
 	void setupSignalsSlots();
 

@@ -64,7 +64,10 @@ public:
 	QString getPrompt();
 	void keepSample() { stickSample = true; }
 	void cleanUp();
+	void cleanupPage();
 	bool hasSample() const;
+
+	bool validatePage();
 
     void initializePage();
     AddWordRecordPage(const QString& fieldName, int pageNr, int pageMax, QWidget *parent=0);

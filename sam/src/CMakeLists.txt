@@ -25,3 +25,4 @@ install(TARGETS sam DESTINATION ${BIN_INSTALL_DIR}  COMPONENT sam)
 ########### install files ###############
 
 install( FILES sam.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR}  COMPONENT sam)
+install(FILES samui.rc DESTINATION ${DATA_INSTALL_DIR} COMPONENT sam)

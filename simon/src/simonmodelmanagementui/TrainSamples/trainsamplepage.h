@@ -40,6 +40,7 @@ class TrainSamplePage : public QWizardPage
 
 		void initializePage();
 		bool validatePage();
+		void cleanupPage();
 		
 		QString getPrompt() { return prompt; }
 		QString getFileName() { return fileName; }

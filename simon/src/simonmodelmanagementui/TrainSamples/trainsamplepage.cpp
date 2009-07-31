@@ -60,16 +60,18 @@ TrainSamplePage::TrainSamplePage(const QString& prompt, int nowPage, int maxPage
 
 void TrainSamplePage::initializePage()
 {
-	if (field("powerRecording").toBool())
-		recorder->record();
+	if (field("powerRecording").toBool()) {
+		if (!recorder->hasRecordingReady())
+			recorder->record();
+	}
 
 //	QTimer::singleShot(3000, recorder, SLOT(resizePromptLabel()));
 }
 
 bool TrainSamplePage::validatePage()
 {
-	if (field("powerRecording").toBool())
-		recorder->stopRecording();
+	recorder->stopRecording();
+	recorder->stopPlayback();
 
 	return true;
 }
@@ -84,6 +86,12 @@ bool TrainSamplePage::submit()
 	}
 	
 	return succ;
+}
+
+void TrainSamplePage::cleanupPage()
+{
+	recorder->stopRecording();
+	recorder->stopPlayback();
 }
 
 bool TrainSamplePage::cleanUp()
