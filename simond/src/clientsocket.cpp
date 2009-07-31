@@ -150,9 +150,7 @@ void ClientSocket::processRequest()
 					
 					if (modelCompilationManager) modelCompilationManager->deleteLater();
 					
-					QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+user+"/active/");
-					modelCompilationManager = new ModelCompilationManager(user, activeDir+"hmmdefs", activeDir+"tiedlist",
-											activeDir+"model.dict", activeDir+"model.dfa", this);
+					modelCompilationManager = new ModelCompilationManager(user, this);
 					connect(modelCompilationManager, SIGNAL(modelCompiled()), this, SLOT(activeModelCompiled()));
 					connect(modelCompilationManager, SIGNAL(activeModelCompilationAborted()), this, SLOT(activeModelCompilationAborted()));
 					connect(modelCompilationManager, SIGNAL(status(const QString&, int, int)), this, SLOT(slotModelCompilationStatus(const QString&, int, int)));
@@ -927,10 +925,14 @@ void ClientSocket::slotModelCompilationPhonemeUndefined(const QString& phoneme)
 void ClientSocket::recompileModel()
 {
 	sendCode(Simond::ModelCompilationStarted);
-	kDebug() << "Compiling model...";
 	
-	kDebug() << synchronisationManager->getLexiconPath();
-	modelCompilationManager->startCompilation(KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
+	QString activeDir = KStandardDirs::locateLocal("appdata", "models/"+username+"/active/");
+									 
+
+
+	modelCompilationManager->startCompilation(activeDir+"hmmdefs", activeDir+"tiedlist",
+				activeDir+"model.dict", activeDir+"model.dfa",
+				KStandardDirs::locateLocal("appdata", "models/"+username+"/samples/"),
 				synchronisationManager->getLexiconPath(), synchronisationManager->getGrammarPath(),
 				synchronisationManager->getSimpleVocabPath(), synchronisationManager->getPromptsPath(), 
 				synchronisationManager->getTreeHedPath(), synchronisationManager->getWavConfigPath());

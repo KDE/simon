@@ -8,5 +8,4 @@ set ( simon_model_scripts
 		${CMAKE_CURRENT_SOURCE_DIR}/sil.hed
 	)
 
-install( FILES ${simon_model_scripts}  DESTINATION
-${DATA_INSTALL_DIR}/simond/scripts COMPONENT simond )
+install( FILES ${simon_model_scripts}  DESTINATION ${DATA_INSTALL_DIR}/simon/scripts COMPONENT simond )

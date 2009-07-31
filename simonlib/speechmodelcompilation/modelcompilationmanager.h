@@ -128,13 +128,17 @@ private:
 		bool makeDfa();
 		bool generateDict();
 	
+private slots:
+	void addStatusToLog(const QString&);
+
 public:
-    ModelCompilationManager(const QString& userName, const QString& hmmDefsPath, const QString& tiedListPath,
-			     const QString& dictPath, const QString& dfaPath,
+    ModelCompilationManager(const QString& userName, 
 			     QObject *parent=0);
 
 	void run();
-	bool startCompilation(const QString& samplePath,
+	bool startCompilation(const QString& hmmDefsPath, const QString& tiedListPath,
+			     const QString& dictPath, const QString& dfaPath,
+			     const QString& samplePath,
 			     const QString& lexiconPath, const QString& grammarPath, 
 			     const QString& vocabPath, const QString& promptsPath, 
 			     const QString& treeHedPath, const QString& wavConfigPath);

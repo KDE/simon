@@ -112,55 +112,45 @@
              <string>Output files</string>
             </property>
             <layout class="QFormLayout" name="formLayout_2">
-             <item row="1" column="0">
+             <item row="0" column="0">
               <widget class="QLabel" name="lbHmmdefs">
                <property name="text">
                 <string>HMM-Definitions:</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="KUrlRequester" name="kurlrequester"/>
+             <item row="0" column="1">
+              <widget class="KUrlRequester" name="urHmmDefs"/>
              </item>
-             <item row="2" column="0">
+             <item row="1" column="0">
               <widget class="QLabel" name="lbTiedlist">
                <property name="text">
                 <string>Tiedlist:</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="1">
-              <widget class="KUrlRequester" name="kurlrequester_2"/>
+             <item row="1" column="1">
+              <widget class="KUrlRequester" name="urTiedlist"/>
              </item>
-             <item row="3" column="0">
+             <item row="2" column="0">
               <widget class="QLabel" name="lbDict">
                <property name="text">
                 <string>Dict:</string>
                </property>
               </widget>
              </item>
-             <item row="5" column="0">
+             <item row="3" column="0">
               <widget class="QLabel" name="lbDFA">
                <property name="text">
                 <string>DFA:</string>
                </property>
               </widget>
              </item>
-             <item row="5" column="1">
-              <widget class="KUrlRequester" name="kurlrequester_4"/>
+             <item row="2" column="1">
+              <widget class="KUrlRequester" name="urDict"/>
              </item>
              <item row="3" column="1">
-              <widget class="KUrlRequester" name="kurlrequester_3"/>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="lbTempPath">
-               <property name="text">
-                <string>Temporary path:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="KUrlRequester" name="urTemporaryPath"/>
+              <widget class="KUrlRequester" name="urDFA"/>
              </item>
              <item row="6" column="1">
               <spacer name="verticalSpacer">
@@ -183,17 +173,14 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
+	    <widget class="QProgressBar" name="pbBuildProgress" >
+	     <property name="maximum" >
+	      <number>1</number>
+	     </property>
+	     <property name="value" >
+	      <number>0</number>
+	     </property>
+	    </widget>
           </item>
           <item>
            <widget class="KPushButton" name="pbCompileModel">
@@ -214,7 +201,7 @@
            </widget>
           </item>
           <item>
-           <widget class="KTextBrowser" name="tbBuildLog"/>
+           <widget class="KTextEdit" name="teBuildLog"/>
           </item>
          </layout>
         </item>

@@ -41,16 +41,10 @@
 
 
 ModelCompilationManager::ModelCompilationManager(const QString& userName,  
-			     const QString& hmmDefsPath, const QString& tiedListPath,
-			     const QString& dictPath, const QString& dfaPath, QObject *parent) : QThread(parent)
+			     QObject *parent) : QThread(parent)
 {
 	KLocale::setMainCatalog("simonlib");
 	this->userName = userName;
-
-	this->hmmDefsPath = hmmDefsPath;
-	this->tiedListPath = tiedListPath;
-	this->dictPath = dictPath;
-	this->dfaPath = dfaPath;
 
 }
 
@@ -167,6 +161,12 @@ bool ModelCompilationManager::execute(const QString& command)
 	else return true;
 }
 
+void ModelCompilationManager::addStatusToLog(const QString& status)
+{
+	buildLog += "<p><span style=\"font-weight:bold; color:#358914;\">"+status+"</span></p>";
+
+}
+
 bool ModelCompilationManager::hasBuildLog()
 {
 	return (buildLog.count() > 0);
@@ -255,23 +255,25 @@ bool ModelCompilationManager::processError()
 	return false;
 }
 
-#include <KDebug>
-bool ModelCompilationManager::startCompilation(const QString& samplePath,
+bool ModelCompilationManager::startCompilation(const QString& hmmDefsPath, const QString& tiedListPath,
+			     const QString& dictPath, const QString& dfaPath, const QString& samplePath,
 			     const QString& lexiconPath, const QString& grammarPath, 
 			     const QString& vocabPath, const QString& promptsPath, 
 			     const QString& treeHedPath, const QString& wavConfigPath)
 {
-	kDebug() << "Entering startCompilation";
 	if (isRunning()) {
-		kDebug() << "Compilation already running";
 		keepGoing=false;
+
 		//terminate();
-		
-		kDebug() << "Waiting for old compilation to finish";
+
 		wait();
-		kDebug() << "Done";
 		emit activeModelCompilationAborted();
 	}
+
+	this->hmmDefsPath = hmmDefsPath;
+	this->tiedListPath = tiedListPath;
+	this->dictPath = dictPath;
+	this->dfaPath = dfaPath;
 
 	this->samplePath = samplePath;
 
@@ -289,6 +291,7 @@ bool ModelCompilationManager::startCompilation(const QString& samplePath,
 	if (!parseConfiguration())
 		return false;
 
+	connect(this, SIGNAL(status(const QString&)), this, SLOT(addStatusToLog(const QString&)));
 	start();
 	return true;
 }
@@ -589,9 +592,9 @@ bool ModelCompilationManager::makeTranscriptions()
 	}
 	
 	
-	if (!execute('"'+hLEd+"\" -A -D -T 1 -l \"*\" -d \""+htkIfyPath(tempDir)+"/dict\" -i \""+htkIfyPath(tempDir)+"/phones0.mlf\" \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/mkphones0.led"))+"\" \""+htkIfyPath(tempDir)+"/words.mlf"+"\"") || !execute('"'+hLEd+"\" -A -D -T 1 -l \"*\" -d \""+htkIfyPath(tempDir)+"/dict"+"\" -i \""+htkIfyPath(tempDir)+"/phones1.mlf\" \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/mkphones1.led"))+"\" \""+htkIfyPath(tempDir)+"/words.mlf\""))
+	if (!execute('"'+hLEd+"\" -A -D -T 1 -l \"*\" -d \""+htkIfyPath(tempDir)+"/dict\" -i \""+htkIfyPath(tempDir)+"/phones0.mlf\" \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/mkphones0.led"))+"\" \""+htkIfyPath(tempDir)+"/words.mlf"+"\"") || !execute('"'+hLEd+"\" -A -D -T 1 -l \"*\" -d \""+htkIfyPath(tempDir)+"/dict"+"\" -i \""+htkIfyPath(tempDir)+"/phones1.mlf\" \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/mkphones1.led"))+"\" \""+htkIfyPath(tempDir)+"/words.mlf\""))
 	{
-		analyseError(i18n("Generation of the transcription failed. Please check if you have correctly specified the paths to mkphones0.led and mkphons1.led. (%1, %2)", KStandardDirs::locate("appdata", "scripts/mkphones0.led"), KStandardDirs::locate("appdata", "scripts/mkphones1.led")));
+		analyseError(i18n("Generation of the transcription failed. Please check if you have correctly specified the paths to mkphones0.led and mkphons1.led. (%1, %2)", KStandardDirs::locate("data", "simon/scripts/mkphones0.led"), KStandardDirs::locate("data", "simon/scripts/mkphones1.led")));
 		return false;
 	}
 	return true;
@@ -603,28 +606,28 @@ bool ModelCompilationManager::createMonophones()
 	emit status(i18n("Generating hmm0..."), 550);
 	if (!buildHMM0())
 	{
-		analyseError(i18n("Error when generating the HMM0.\n\nPlease check if there is enough training material and that the path tos HCompV(%1), the config (%2) and the phoneme prototype (%3) are correct.", hCompV, KStandardDirs::locate("appdata", "scripts/config"), KStandardDirs::locate("appdata", "scripts/proto")));
+		analyseError(i18n("Error when generating the HMM0.\n\nPlease check if there is enough training material and that the path tos HCompV(%1), the config (%2) and the phoneme prototype (%3) are correct.", hCompV, KStandardDirs::locate("data", "simon/scripts/config"), KStandardDirs::locate("data", "simon/scripts/proto")));
 		return false;
 	}
 	if (!keepGoing) return false;
 	emit status(i18n("Generating hmm1..."), 800);
 	if (!buildHMM1())
 	{
-		analyseError(i18n("Could not generate the HMM1.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM1.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("data", "simon/scripts/config")));
 		return false;
 	}
 	if (!keepGoing) return false;
 	emit status(i18n("Generating hmm2..."), 850);
 	if (!buildHMM2())
 	{
-		analyseError(i18n("Could not generate the HMM2.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM2.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("data", "simon/scripts/config")));
 		return false;
 	}
 	if (!keepGoing) return false;
 	emit status(i18n("Generating hmm3..."), 900);
 	if (!buildHMM3())
 	{
-		analyseError(i18n("Could not generate the HMM3.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM3.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("data", "simon/scripts/config")));
 		return false;
 	}
 	return true;
@@ -645,21 +648,21 @@ bool ModelCompilationManager::fixSilenceModel()
 	emit status(i18n("Generating hmm5..."), 1000);
 	if (!buildHMM5())
 	{
-		analyseError(i18n("Could not generate HMM5. Please check the paths to HHEd (%1) and to the silence-model (%2).", hHEd, KStandardDirs::locate("appdata", "scripts/sil.hed")));
+		analyseError(i18n("Could not generate HMM5. Please check the paths to HHEd (%1) and to the silence-model (%2).", hHEd, KStandardDirs::locate("data", "simon/scripts/sil.hed")));
 		return false;
 	}
 	if (!keepGoing) return false;
 	emit status(i18n("Generating hmm6..."), 1080);
 	if (!buildHMM6())
 	{
-		analyseError(i18n("Could not generate the HMM6.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM6.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("data", "simon/scripts/config")));
 		return false;
 	}
 	if (!keepGoing) return false;
 	emit status(i18n("Generating hmm7..."), 1150);
 	if (!buildHMM7())
 	{
-		analyseError(i18n("Could not generate the HMM6.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM6.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("data", "simon/scripts/config")));
 		return false;
 	}
 	
@@ -680,7 +683,7 @@ bool ModelCompilationManager::realign()
 	emit status(i18n("Re-Aligning HMM7..."), 1160);
 	if (!realignHMM7())
 	{
-		analyseError(i18n("Couldn't re-align hmm7. Please check your paths to HVite (%1), the config (%2) and to the HMM7.", hVite, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Couldn't re-align hmm7. Please check your paths to HVite (%1), the config (%2) and to the HMM7.", hVite, KStandardDirs::locate("data", "simon/scripts/config")));
 		return false;
 	}
 
@@ -688,7 +691,7 @@ bool ModelCompilationManager::realign()
 	emit status(i18n("Generating hmm8..."), 1230);
 	if (!buildHMM8())
 	{
-		analyseError(i18n("Could not generate the HMM8.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM8.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("data", "simon/scripts/config")));
 		return false;
 	}
 
@@ -696,7 +699,7 @@ bool ModelCompilationManager::realign()
 	emit status(i18n("Generating hmm9..."),1300);
 	if (!buildHMM9())
 	{
-		analyseError(i18n("Could not generate the HMM9.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate the HMM9.\n\nPlease check the path to HERest (%1) and to the config (%2)", hERest, KStandardDirs::locate("data", "simon/scripts/config")));
 		return false;
 	}
 	
@@ -708,9 +711,9 @@ bool ModelCompilationManager::tieStates()
 	if (!keepGoing) return false;
 	emit status(i18n("Generating triphone..."),1700);
 	
-	if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(tempDir)+"/lexicon\""))
+	if (!execute('"'+hDMan+"\" -A -D -T 1 -b sp -n \""+htkIfyPath(tempDir)+"/fulllist" +"\" -g \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/global.ded"))+"\" \""+htkIfyPath(tempDir)+"/dict-tri\" \""+htkIfyPath(tempDir)+"/lexicon\""))
 	{
-		analyseError(i18n("Couldn't bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, KStandardDirs::locate("appdata", "scripts/global.ded"), lexiconPath));
+		analyseError(i18n("Couldn't bind triphones.\n\nPlease check the paths to HDMan (%1), global.ded (%2) and to the lexicon (%3).", hDMan, KStandardDirs::locate("data", "simon/scripts/global.ded"), lexiconPath));
 		return false;
 	}
 
@@ -742,7 +745,7 @@ bool ModelCompilationManager::tieStates()
 	emit status(i18n("Generating hmm14..."),1900);
 	if (!buildHMM14())
 	{
-		analyseError(i18n("Couldn't generate HMM14. Please check the paths to HERest (%1), the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("appdata", "scripts/config"), tempDir+"/stats"));
+		analyseError(i18n("Couldn't generate HMM14. Please check the paths to HERest (%1), the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("data", "simon/scripts/config"), tempDir+"/stats"));
 		return false;
 	}
 	
@@ -750,7 +753,7 @@ bool ModelCompilationManager::tieStates()
 	emit status(i18n("Generating hmm15..."),1990);
 	if (!buildHMM15())
 	{
-		analyseError(i18n("Could not generate the HMM15.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("appdata", "scripts/config"), tempDir+"/stats"));
+		analyseError(i18n("Could not generate the HMM15.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("data", "simon/scripts/config"), tempDir+"/stats"));
 		return false;
 	}
 
@@ -767,13 +770,13 @@ bool ModelCompilationManager::buildHMM13()
 
 bool ModelCompilationManager::buildHMM14()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm13/macros\" -H \""+htkIfyPath(tempDir)+"/hmm13/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm14/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm13/macros\" -H \""+htkIfyPath(tempDir)+"/hmm13/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm14/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
 
 bool ModelCompilationManager::buildHMM15()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm14/macros\" -H \""+htkIfyPath(tempDir)+"/hmm14/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm15/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm14/macros\" -H \""+htkIfyPath(tempDir)+"/hmm14/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm15/\" \""+htkIfyPath(tempDir)+"/tiedlist\"");
 }
 
 bool ModelCompilationManager::makeFulllist()
@@ -876,9 +879,9 @@ bool ModelCompilationManager::makeTriphones()
 {
 	if (!keepGoing) return false;
 	emit status(i18n("Generating triphone..."),1380);
-	if (!execute('"'+hLEd+"\" -A -D -T 1 -n \""+htkIfyPath(tempDir)+"/triphones1\" -l * -i \""+htkIfyPath(tempDir)+"/wintri.mlf\" \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/mktri.led"))+"\" \""+htkIfyPath(tempDir)+"/aligned.mlf\""))
+	if (!execute('"'+hLEd+"\" -A -D -T 1 -n \""+htkIfyPath(tempDir)+"/triphones1\" -l * -i \""+htkIfyPath(tempDir)+"/wintri.mlf\" \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/mktri.led"))+"\" \""+htkIfyPath(tempDir)+"/aligned.mlf\""))
 	{
-		analyseError(i18n("Could not generate triphones.\n\nPlease check your path to the files mktri.led and HLEd (%1, %2)", KStandardDirs::locate("appdata", "scripts/mktri.led"), hLEd));
+		analyseError(i18n("Could not generate triphones.\n\nPlease check your path to the files mktri.led and HLEd (%1, %2)", KStandardDirs::locate("data", "simon/scripts/mktri.led"), hLEd));
 		return false;
 	}
 	
@@ -902,7 +905,7 @@ bool ModelCompilationManager::makeTriphones()
 	emit status(i18n("Generating hmm11..."),1550);
 	if (!buildHMM11())
 	{
-		analyseError(i18n("Could not generate HMM11. Please check your paths to HERest (%1) and to the config (%2).", hERest, KStandardDirs::locate("appdata", "scripts/config")));
+		analyseError(i18n("Could not generate HMM11. Please check your paths to HERest (%1) and to the config (%2).", hERest, KStandardDirs::locate("data", "simon/scripts/config")));
 		return false;
 	}
 	
@@ -910,7 +913,7 @@ bool ModelCompilationManager::makeTriphones()
 	emit status(i18n("Generating hmm12..."),1620);
 	if (!buildHMM12())
 	{
-		analyseError(i18n("Could not generate the HMM12.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("appdata", "scripts/config"), tempDir+"/stats"));
+		analyseError(i18n("Could not generate the HMM12.\n\nPlease check the path to HERest (%1), to the config (%2) and to the stats-file (%3).", hERest, KStandardDirs::locate("data", "simon/scripts/config"), tempDir+"/stats"));
 		return false;
 	}
 	
@@ -920,13 +923,13 @@ bool ModelCompilationManager::makeTriphones()
 
 bool ModelCompilationManager::buildHMM12()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm11/macros\" -H \""+htkIfyPath(tempDir)+"/hmm11/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm12/"+"\" \""+htkIfyPath(tempDir)+"/triphones1"+"\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -s \""+htkIfyPath(tempDir)+"/stats\" -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm11/macros\" -H \""+htkIfyPath(tempDir)+"/hmm11/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm12/"+"\" \""+htkIfyPath(tempDir)+"/triphones1"+"\"");
 }
 
 
 bool ModelCompilationManager::buildHMM11()
 {
-	QString execStr = '"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm10/macros\" -H \""+htkIfyPath(tempDir)+"/hmm10/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm11/\" \""+htkIfyPath(tempDir)+"/triphones1\"";
+	QString execStr = '"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/wintri.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm10/macros\" -H \""+htkIfyPath(tempDir)+"/hmm10/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm11/\" \""+htkIfyPath(tempDir)+"/triphones1\"";
 	return execute(execStr);
 }
 
@@ -963,18 +966,18 @@ bool ModelCompilationManager::makeMkTriHed()
 
 bool ModelCompilationManager::buildHMM9()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/aligned.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm8/macros\" -H \""+htkIfyPath(tempDir)+"/hmm8/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm9/"+"\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/aligned.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm8/macros\" -H \""+htkIfyPath(tempDir)+"/hmm8/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm9/"+"\" \""+htkIfyPath(tempDir)+"/monophones1\"");
 }
 
 
 bool ModelCompilationManager::buildHMM8()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/aligned.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm7/macros\" -H \""+htkIfyPath(tempDir)+"/hmm7/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm8/\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/aligned.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm7/macros\" -H \""+htkIfyPath(tempDir)+"/hmm7/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm8/\" \""+htkIfyPath(tempDir)+"/monophones1\"");
 }
 
 bool ModelCompilationManager::realignHMM7()
 {
-	return execute('"'+hVite+"\" -A -D -T 1 -l \"*\"  -o SWT -b silence -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -H \""+htkIfyPath(tempDir)+"/hmm7/macros\" -H \""+htkIfyPath(tempDir)+"/hmm7/hmmdefs\" -i \""+htkIfyPath(tempDir)+"/aligned.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+htkIfyPath(tempDir)+"/words.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" \""+htkIfyPath(tempDir)+"/dict1\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+	return execute('"'+hVite+"\" -A -D -T 1 -l \"*\"  -o SWT -b silence -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -H \""+htkIfyPath(tempDir)+"/hmm7/macros\" -H \""+htkIfyPath(tempDir)+"/hmm7/hmmdefs\" -i \""+htkIfyPath(tempDir)+"/aligned.mlf\" -m -t 250.0 150.0 1000.0 -y lab -a -I \""+htkIfyPath(tempDir)+"/words.mlf\" -S \""+htkIfyPath(tempDir)+"/train.scp\" \""+htkIfyPath(tempDir)+"/dict1\" \""+htkIfyPath(tempDir)+"/monophones1\"");
 }
 
 bool ModelCompilationManager::makeDict1()
@@ -991,17 +994,17 @@ bool ModelCompilationManager::makeDict1()
 
 bool ModelCompilationManager::buildHMM7()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones1.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm6/macros\" -H \""+htkIfyPath(tempDir)+"/hmm6/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm7/\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones1.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm6/macros\" -H \""+htkIfyPath(tempDir)+"/hmm6/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm7/\" \""+htkIfyPath(tempDir)+"/monophones1\"");
 }
 
 bool ModelCompilationManager::buildHMM6()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones1.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm5/macros\" -H \""+htkIfyPath(tempDir)+"/hmm5/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm6/\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones1.mlf\" -t 250.0 150.0 3000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm5/macros\" -H \""+htkIfyPath(tempDir)+"/hmm5/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm6/\" \""+htkIfyPath(tempDir)+"/monophones1\"");
 }
 
 bool ModelCompilationManager::buildHMM5()
 {
-	return execute('"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm4/macros\" -H \""+htkIfyPath(tempDir)+"/hmm4/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm5/\" \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/sil.hed"))+"\" \""+htkIfyPath(tempDir)+"/monophones1\"");
+	return execute('"'+hHEd+"\" -A -D -T 1 -H \""+htkIfyPath(tempDir)+"/hmm4/macros\" -H \""+htkIfyPath(tempDir)+"/hmm4/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm5/\" \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/sil.hed"))+"\" \""+htkIfyPath(tempDir)+"/monophones1\"");
 }
 
 bool ModelCompilationManager::buildHMM4()
@@ -1049,23 +1052,23 @@ bool ModelCompilationManager::buildHMM4()
 
 bool ModelCompilationManager::buildHMM3()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones0.mlf\" -t 250.0 150.0 1000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm2/macros\" -H \""+htkIfyPath(tempDir)+"/hmm2/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm3/\" \""+htkIfyPath(tempDir)+"/monophones0\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones0.mlf\" -t 250.0 150.0 1000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm2/macros\" -H \""+htkIfyPath(tempDir)+"/hmm2/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm3/\" \""+htkIfyPath(tempDir)+"/monophones0\"");
 }
 
 bool ModelCompilationManager::buildHMM2()
 {
-	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones0.mlf\" -t 250.0 150.0 1000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm1/macros\" -H \""+htkIfyPath(tempDir)+"/hmm1/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm2/\" \""+htkIfyPath(tempDir)+"/monophones0\"");
+	return execute('"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones0.mlf\" -t 250.0 150.0 1000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm1/macros\" -H \""+htkIfyPath(tempDir)+"/hmm1/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm2/\" \""+htkIfyPath(tempDir)+"/monophones0\"");
 }
 
 bool ModelCompilationManager::buildHMM1()
 {
-	QString execStr = '"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones0.mlf\" -t 250.0 150.0 1000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm0/macros\" -H \""+htkIfyPath(tempDir)+"/hmm0/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm1/\" \""+htkIfyPath(tempDir)+"/monophones0\"";
+	QString execStr = '"'+hERest+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -I \""+htkIfyPath(tempDir)+"/phones0.mlf\" -t 250.0 150.0 1000.0 -S \""+htkIfyPath(tempDir)+"/train.scp\" -H \""+htkIfyPath(tempDir)+"/hmm0/macros\" -H \""+htkIfyPath(tempDir)+"/hmm0/hmmdefs\" -M \""+htkIfyPath(tempDir)+"/hmm1/\" \""+htkIfyPath(tempDir)+"/monophones0\"";
 	return execute(execStr);
 }
 
 bool ModelCompilationManager::buildHMM0()
 {
-	if (!execute('"'+hCompV+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/config"))+"\" -f 0.01 -m -S \""+htkIfyPath(tempDir)+"/train.scp\" -M \""+htkIfyPath(tempDir)+"/hmm0/\" \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/proto"))+'"'))
+	if (!execute('"'+hCompV+"\" -A -D -T 1 -C \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/config"))+"\" -f 0.01 -m -S \""+htkIfyPath(tempDir)+"/train.scp\" -M \""+htkIfyPath(tempDir)+"/hmm0/\" \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/proto"))+'"'))
 		return false;
 
 	QString protoBody="";
@@ -1130,7 +1133,6 @@ bool ModelCompilationManager::makeMonophones()
 		if (!QFile::remove(latinLexiconpath)) return false;
 
 #ifdef Q_OS_WIN
-	//TODO DEBUG!
 	QFile utfLexicon(lexiconPath);
 		
 	QFile latinLexicon(latinLexiconpath);
@@ -1152,7 +1154,7 @@ bool ModelCompilationManager::makeMonophones()
 #endif
 	
 	//make monophones1
-	QString execStr = '"'+hDMan+"\" -A -D -T 1 -m -w \""+htkIfyPath(tempDir)+"/wlist\" -g \""+htkIfyPath(KStandardDirs::locate("appdata", "scripts/global.ded"))+"\" -n \""+htkIfyPath(tempDir)+"/monophones1\" -i \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(tempDir)+"/lexicon\"";
+	QString execStr = '"'+hDMan+"\" -A -D -T 1 -m -w \""+htkIfyPath(tempDir)+"/wlist\" -g \""+htkIfyPath(KStandardDirs::locate("data", "simon/scripts/global.ded"))+"\" -n \""+htkIfyPath(tempDir)+"/monophones1\" -i \""+htkIfyPath(tempDir)+"/dict\" \""+htkIfyPath(tempDir)+"/lexicon\"";
 	if (!execute(execStr)) return false;
 
 	//make monophones0
