@@ -1,0 +1,22 @@
+/adin_esd.c/1.5/Thu Jul  2 17:05:20 2009//
+/adin_file.c/1.7/Thu Jul  2 17:05:20 2009//
+/adin_mic_darwin_coreaudio.c/1.4/Thu Jul  2 17:05:20 2009//
+/adin_mic_freebsd.c/1.6/Thu Jul  2 17:05:20 2009//
+/adin_mic_linux.c/1.4/Thu Jul  2 17:05:20 2009//
+/adin_mic_linux_alsa.c/1.11/Thu Jul  2 17:05:20 2009//
+/adin_mic_linux_oss.c/1.7/Thu Jul  2 17:05:20 2009//
+/adin_mic_o2.c/1.4/Thu Jul  2 17:05:20 2009//
+/adin_mic_sol2.c/1.4/Thu Jul  2 17:05:20 2009//
+/adin_mic_sp.c/1.4/Thu Jul  2 17:05:20 2009//
+/adin_mic_sun4.c/1.4/Thu Jul  2 17:05:20 2009//
+/adin_na.c/1.2/Tue Dec 18 08:45:50 2007//
+/adin_netaudio.c/1.4/Thu Jul  2 17:05:20 2009//
+/adin_portaudio.c/1.4/Thu Jul  2 17:05:20 2009//
+/adin_sndfile.c/1.4/Thu Jul  2 17:05:20 2009//
+/adin_tcpip.c/1.5/Thu Jul  2 17:05:20 2009//
+/ds48to16.c/1.2/Tue Dec 18 08:45:50 2007//
+/lpfcoef_2to1.h/1.1.1.1/Fri Sep 28 02:50:55 2007//
+/lpfcoef_3to4.h/1.1.1.1/Fri Sep 28 02:50:55 2007//
+/zc-e.c/1.2/Tue Dec 18 08:45:50 2007//
+/zmean.c/1.2/Tue Dec 18 08:45:50 2007//
+D

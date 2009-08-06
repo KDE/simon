@@ -32,6 +32,7 @@ class KAction;
 class QCloseEvent;
 class KCMultiDialog;
 class ModelCompilationManager;
+class ModelTest;
 /**
  * This is the main view class for sam.  Most of the non-menu,
  * non-toolbar, and non-statusbar (e.g., non frame) GUI code should go
@@ -60,7 +61,10 @@ private slots:
     void compileModel();
     void getBuildPathsFromSimon();
 
+    void testModel();
+
     void retrieveCompleteBuildLog();
+    void retrieveCompleteTestLog();
 
     void slotModelCompilationStatus(const QString& status, int now, int max);
     void slotModelCompilationError(const QString& error);
@@ -68,9 +72,17 @@ private slots:
     void slotModelCompilationWordUndefined(const QString&);
     void slotModelCompilationPhonemeUndefined(const QString&);
 
+    void slotModelTestStatus(const QString& status, int now, int max);
+    void slotModelTestRecognitionInfo(const QString& status);
+    void slotModelTestError(const QString& error);
+    void switchToTestResults();
+
+    void analyzeTestOutput();
+
 private:
     Ui::MainWindow ui;
     ModelCompilationManager *modelCompilationManager;
+    ModelTest *modelTest;
 };
 
 #endif // samVIEW_H

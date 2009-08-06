@@ -45,7 +45,7 @@ ModelCompilationManager::ModelCompilationManager(const QString& userName,
 {
 	KLocale::setMainCatalog("simonlib");
 	this->userName = userName;
-
+	connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
 }
 
 QString ModelCompilationManager::htkIfyPath(const QString& in)
@@ -186,6 +186,7 @@ QString ModelCompilationManager::getBuildLog()
 	plainLog.remove("</p>");
 	plainLog.remove("<span style=\"color:#aa0000;\">");
 	plainLog.remove("<span style=\"font-weight:bold; color:#00007f;\">");
+	plainLog.remove("<span style=\"font-weight:bold; color:#358914;\">");
 	plainLog.remove("</span>");
 	return plainLog;
 }
@@ -291,7 +292,6 @@ bool ModelCompilationManager::startCompilation(const QString& hmmDefsPath, const
 	if (!parseConfiguration())
 		return false;
 
-	connect(this, SIGNAL(status(const QString&)), this, SLOT(addStatusToLog(const QString&)));
 	start();
 	return true;
 }

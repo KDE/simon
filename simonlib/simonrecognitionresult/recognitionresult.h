@@ -25,6 +25,26 @@
 #include <QMetaType>
 
 
+/*class WordStatistic
+{
+	private:
+		QString m_word;
+		QList<float> m_recognitionRates;
+
+	public:
+		WordStatistic(const QString& word) {
+			m_word = word;
+		}
+
+		void recognized(float recognitionRate) {
+			m_recognitionRates << recognitionRate;
+		}
+
+		void notRecognized() {
+			m_recognitionRates << 0.0f;
+		}
+};*/
+
 class RecognitionResult
 {
 	private:
@@ -45,6 +65,14 @@ class RecognitionResult
 		QString sampa() const { return m_sampa; }
 		QString sampaRaw() const { return m_sampaRaw; }
 		QList<float> confidenceScores() const { return m_confidenceScores; }
+
+		float averageConfidenceScore() const {
+			float avg=0;
+			foreach (float score, m_confidenceScores)
+				avg += score;
+			avg /= ((float) m_confidenceScores.count());
+			return avg;
+		}
 
 		bool matchesTrigger(const QString& trigger)
 		{

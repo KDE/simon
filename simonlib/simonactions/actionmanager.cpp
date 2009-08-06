@@ -445,10 +445,7 @@ void ActionManager::processRawResults(RecognitionResultList* recognitionResults)
 			QList<float> confidenceScores = recognitionResults->at(i).confidenceScores();
 
 			//calc average
-			float avg=0;
-			foreach (float score, confidenceScores)
-				avg += score;
-			avg /= ((float) confidenceScores.count());
+			float avg= recognitionResults->at(i).averageConfidenceScore();
 
 			if (!confidenceScores.contains(0) && (avg > minimumConfidenceThreshold))
 				selectedRecognitionResults->append(recognitionResults->at(i));
@@ -509,10 +506,7 @@ void ActionManager::presentUserWithResults(RecognitionResultList* recognitionRes
 
 		QList<float> confidenceScores = recognitionResults->at(i).confidenceScores();
 
-		float avg=0;
-		foreach (float score, confidenceScores)
-			avg += score;
-		avg /= ((float) confidenceScores.count());
+		float avg = recognitionResults->at(i).averageConfidenceScore();
 		avg *= 100;
 
 
