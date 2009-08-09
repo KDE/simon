@@ -3,9 +3,9 @@ include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}
-	../
-	../../julius/libjulius/include
-	../../julius/libsent/include)
+	${CMAKE_CURRENT_SOURCE_DIR}/../
+	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libjulius/include
+	${CMAKE_CURRENT_SOURCE_DIR}/../../julius/libsent/include)
 
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -D__INTERLOCKED_DECLARED)
 include(KDE4Defaults)
