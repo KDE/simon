@@ -3,6 +3,7 @@ include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}
+	../
 	../../julius/libjulius/include
 	../../julius/libsent/include)
 
