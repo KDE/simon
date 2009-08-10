@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<gui name="sam" version="1">
+	<ToolBar name="mainToolBar" >
+		<text>Main Actions</text>
+		<Action name="getPathsFromSimon" />
+		<Action name="compileModel" />
+		<Action name="testModel" />
+		<Action name="testResults" />
+	</ToolBar>
+	
+	<MenuBar>
+		<Menu name="build">
+			<text>Build</text>
+			<Action name="getPathsFromSimon" />
+			<Action name="compileModel" />
+		</Menu>
+			
+		<Menu name="test" >
+			<text>Test</text>
+			<Action name="testModel" />
+			<Action name="testResults" />
+		</Menu>
+	</MenuBar>
+</gui>
