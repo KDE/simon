@@ -5,12 +5,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonlib_de\n"
-"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
-"atid=935103&group_id=190872\n"
+"Report-Msgid-Bugs-To: http://sourceforge."
+"net/tracker/?atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-07-20 18:56+0200\n"
-"PO-Revision-Date: 2009-07-20 18:58+0200\n"
-"Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
-"Language-Team: American English <kde-i18n-de@lists.kde.org>\n"
+"PO-Revision-Date: 2009-08-10 13:48+0200\n"
+"Last-Translator: \n"
+"Language-Team: en_US <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -335,7 +335,7 @@ msgstr "Das Gerät, dass für die Wiedergabe benutzt wird"
 #. i18n: ectx: label, entry (SoundChannels), group (Devices)
 #: po/rc.cpp:139 rc.cpp:139
 msgid "How many channels should the samples be recorded with."
-msgstr "mit wievielen Kanälen sollen wir aufnehmen?"
+msgstr "Mit wievielen Kanälen sollen wir aufnehmen?"
 
 #. i18n: file: simonsound/soundconfig.kcfg:20
 #. i18n: ectx: label, entry (SoundSampleRate), group (Devices)

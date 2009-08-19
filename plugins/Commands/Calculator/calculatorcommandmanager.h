@@ -23,7 +23,11 @@
 #include <commandpluginbase/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
+#include <QList>
+#include <QStack>
 #include "ui_calculatorwidget.h"
+#include "token.h"
+
 class QDialog;
 
 /**
@@ -40,6 +44,10 @@ private:
 	Ui::CalculatorDlg ui;
 	QDialog *widget;
 	static QStringList numberIdentifiers;
+	QList<Token *> * parseString(QString calc);
+	QList<Token *> toPostfix(QList<Token *> *calcList);
+	double calculate(QList<Token *> postList);
+	
 
 private slots:
 	void deregister();

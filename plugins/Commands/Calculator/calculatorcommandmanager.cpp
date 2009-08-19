@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-calculatorens.org>
+ *   Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -24,6 +24,8 @@
 #include <QDesktopWidget>
 #include <QDialog>
 #include <KLocalizedString>
+#include <stdlib.h>
+#include <QList>
 
 K_PLUGIN_FACTORY( CalculatorCommandPluginFactory, 
 			registerPlugin< CalculatorCommandManager >(); 
@@ -115,8 +117,163 @@ void CalculatorCommandManager::sendDivide()
 
 void CalculatorCommandManager::sendEquals()
 {
-	ui.leNumber->setText(ui.leNumber->text()+"=");
-	//ui.leNumber->setText(//Calculate Result);
+	ui.leNumber->setText(QString("%1").arg(calculate(toPostfix(parseString(ui.leNumber->text()))),0,'f',4));
+}
+
+QList<Token *> * CalculatorCommandManager::parseString(QString calc)
+{
+	QList<Token *> *list=new QList<Token *>();
+	//status: Explains the status from the parser. 0=start, 1=number, 2=comma, 3=arithmetic operator, -1=fail
+	int status=0;
+	double number=0.0;
+
+	for(int i=0;i<calc.size();i++)
+	{
+	    if(calc.at(i)>=48 && calc.at(i)<=57)
+	    {
+		switch(status)
+		{
+		    case -1: ui.leNumber->setText(i18n("Not a legal expression!"));
+			     break;
+		    case 2: number=(number*10+calc.at(i).digitValue())/10;
+			    status=1;
+			    break;
+		    case 3: number=calc.at(i).digitValue();
+			    status=1;
+			    break;
+		    default: number=number*10+calc.at(i).digitValue();
+			     status=1;
+			     break;
+		}
+		if((i+1)==calc.size())
+		{
+		    list->append(new Token(number));
+		    return list;
+		}
+	    }
+	    else if(status==1)
+	    {
+		if((i+1)!=calc.size())
+		{
+		    switch(calc.at(i).toAscii())
+		    {
+			case 46: status=2;
+				 break;
+			case 43: list->append(new Token(number));
+				 list->append(new Token('+', 1));
+				 status=3;
+				 break;
+			case 45: list->append(new Token(number));
+				 list->append(new Token('-',1));
+				 status=3;
+				 break;
+			case 42: list->append(new Token(number));
+				 list->append(new Token('*',2));
+				 status=3;
+				 break;
+			case 47: list->append(new Token(number));
+				 list->append(new Token('/',2));
+				 status=3;
+				 break;
+		    }
+		}
+		else
+		{
+		    status=-1;
+		    ui.leNumber->setText(i18n("Not a legal expression!"));
+		}
+	    }
+	    else
+	    {
+		status=-1;
+		ui.leNumber->setText(i18n("Not a legal expression!"));
+	    }
+	}
+
+	list->append(new Token(number));
+
+	return list;
+}
+
+QList<Token *> CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
+{
+    QStack<Token *> *arOperatoren=new QStack<Token *>();
+    QList<Token *> *list=new QList<Token *>();
+
+    for(int i=0;i<calcList->size();i++)
+    {
+	if(calcList->at(i)->getType()==0)
+	{
+	    list->append(calcList[i]);
+	}
+
+	else if(calcList->at(i)->getType()==1)
+	{
+	    while(!arOperatoren->isEmpty())
+	    {
+		list->append(arOperatoren->pop());
+	    }
+	    arOperatoren->push(calcList->at(i));
+	}
+
+	else if(calcList->at(i)->getType()==2)
+	{
+	    if(!arOperatoren->isEmpty() && arOperatoren->top()->getType()==2) //if there are more then 2 types, exchange the if with a while-loop
+	    {
+		list->append(arOperatoren->pop());
+	    }
+	    arOperatoren->push(calcList->at(i));
+	}
+
+	else
+	{
+	    ui.leNumber->setText(i18n("Error in function: toPostfix()"));
+	}
+    }
+
+    while(!arOperatoren->isEmpty())
+    {
+	list->append(arOperatoren->pop());
+    }
+
+    delete arOperatoren;
+    delete calcList;
+    return *list;
+}
+
+double CalculatorCommandManager::calculate(QList<Token *> postList)
+{
+    int i;
+    QStack<Token *> calc;
+    Token *t;
+
+    for(i=0;i<postList.size();i++)
+    {
+	t=postList.takeFirst();
+
+	if(t->getType()==0)
+	{
+	    calc.push(t);
+	}
+	else
+	{
+	    switch(t->getArOperator())
+	    {
+		case 43: calc.push(new Token(calc.pop()->getNumber()+calc.pop()->getNumber()));
+			 break;
+		case 45: calc.push(new Token(calc.pop()->getNumber()-calc.pop()->getNumber()));
+			 break;
+		case 42: calc.push(new Token(calc.pop()->getNumber()*calc.pop()->getNumber()));
+			 break;
+		case 47: calc.push(new Token(calc.pop()->getNumber()/calc.pop()->getNumber()));
+			 break;
+	    }
+	}
+
+    }
+
+    //delete postList;
+    return calc.pop()->getNumber();
 }
 
 void CalculatorCommandManager::back()
