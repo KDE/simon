@@ -20,10 +20,13 @@
 #include "calculatorconfiguration.h"
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
+#include <simoninfo/simoninfo.h>
 #include <unistd.h>
 #include <QDesktopWidget>
 #include <QDialog>
 #include <KLocalizedString>
+#include <KAction>
+#include <KActionCollection>
 #include <stdlib.h>
 #include <QList>
 
@@ -37,6 +40,15 @@ QStringList CalculatorCommandManager::numberIdentifiers;
 
 CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
 {
+	setXMLFile("simoncalculatorpluginui.rc");
+	KAction *activateAction = new KAction(this);
+	activateAction->setText(i18n("Activate Calculator"));
+	activateAction->setIcon(KIcon("accessories-calculator"));
+	connect(activateAction, SIGNAL(triggered(bool)),
+		this, SLOT(activate()));
+	actionCollection()->addAction("simoncalculatorplugin", activateAction);
+
+
 	widget = new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
 	widget->setWindowIcon(KIcon("accessories-calculator"));
 	connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
@@ -117,7 +129,18 @@ void CalculatorCommandManager::sendDivide()
 
 void CalculatorCommandManager::sendEquals()
 {
-	ui.leNumber->setText(QString("%1").arg(calculate(toPostfix(parseString(ui.leNumber->text()))),0,'f',4));
+	QList<Token*> *parsedInput = parseString(ui.leNumber->text());
+	QList<Token*> *postfixedInput =  toPostfix(parsedInput);
+
+	foreach (Token* t, *postfixedInput) {
+		kDebug() << "Type: " << t->getType();
+		kDebug() << "Operator: " << t->getArOperator();
+		kDebug() << "Number: " << t->getNumber();
+		kDebug() << "==================";
+	}
+	double output = calculate(postfixedInput);
+	//ui.leNumber->setText(QString("%1").arg(output,0,'f',4));
+	ui.leNumber->setText(QString::number(output));
 }
 
 QList<Token *> * CalculatorCommandManager::parseString(QString calc)
@@ -195,7 +218,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 	return list;
 }
 
-QList<Token *> CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
+QList<Token *>* CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
 {
     QStack<Token *> *arOperatoren=new QStack<Token *>();
     QList<Token *> *list=new QList<Token *>();
@@ -204,7 +227,7 @@ QList<Token *> CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
     {
 	if(calcList->at(i)->getType()==0)
 	{
-	    list->append(calcList[i]);
+	    list->append((*calcList)[i]);
 	}
 
 	else if(calcList->at(i)->getType()==1)
@@ -238,18 +261,18 @@ QList<Token *> CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
 
     delete arOperatoren;
     delete calcList;
-    return *list;
+    return list;
 }
 
-double CalculatorCommandManager::calculate(QList<Token *> postList)
+double CalculatorCommandManager::calculate(QList<Token *>* postList)
 {
     int i;
     QStack<Token *> calc;
     Token *t;
 
-    for(i=0;i<postList.size();i++)
+    for(i=0;i<postList->size();i++)
     {
-	t=postList.takeFirst();
+	t=postList->at(i);
 
 	if(t->getType()==0)
 	{
@@ -259,20 +282,41 @@ double CalculatorCommandManager::calculate(QList<Token *> postList)
 	{
 	    switch(t->getArOperator())
 	    {
-		case 43: calc.push(new Token(calc.pop()->getNumber()+calc.pop()->getNumber()));
+		case '+':  {
+			double op1, op2;
+			op1 = calc.pop()->getNumber();
+			op2 = calc.pop()->getNumber();
+			kDebug() << " Adding: " << op1 << op2 << " = " << (op1 + op2);
+			calc.push(new Token(op1+op2));
 			 break;
-		case 45: calc.push(new Token(calc.pop()->getNumber()-calc.pop()->getNumber()));
+			}
+		case '-':  {
+			double op1, op2;
+			op2 = calc.pop()->getNumber();
+			op1 = calc.pop()->getNumber();
+			 calc.push(new Token(op1-op2));
 			 break;
-		case 42: calc.push(new Token(calc.pop()->getNumber()*calc.pop()->getNumber()));
+			}
+		case '*': 
+			 calc.push(new Token(calc.pop()->getNumber()*calc.pop()->getNumber()));
 			 break;
-		case 47: calc.push(new Token(calc.pop()->getNumber()/calc.pop()->getNumber()));
-			 break;
+		case '/':  {
+			double op1, op2;
+			op2 = calc.pop()->getNumber();
+			op1 = calc.pop()->getNumber();
+			if (op2 == 0) {
+				SimonInfo::showMessage(i18n("Can't divide through 0"), 3000, new KIcon("accessories-calculator"));
+				calc.push(new Token(0));
+			} else 
+				calc.push(new Token(op1/op2));
+			break;
+		        }
 	    }
 	}
 
     }
 
-    //delete postList;
+    delete postList;
     return calc.pop()->getNumber();
 }
 
@@ -401,7 +445,6 @@ bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
 }
 
 
-#include <KMessageBox>
 bool CalculatorCommandManager::trigger(const QString& triggerName)
 {
 	if (triggerName != CalculatorConfiguration::getInstance()->trigger()){
@@ -409,16 +452,7 @@ bool CalculatorCommandManager::trigger(const QString& triggerName)
 		return false;
 	}
 	
-	ui.leNumber->clear();
-	QDesktopWidget* tmp = QApplication::desktop();
-	int x,y;
-	x=(tmp->width()/2)-(widget->width()/2);
-	y=(tmp->height()/2)-(widget->height()/2);
-	widget->move(x, y);
-	widget->show();
-	startGreedy();
-	//ActionManager::getInstance()->registerPrompt(this, "executeSelection");
-
+	activate();
 	return true;
 }
 
@@ -436,6 +470,18 @@ bool CalculatorCommandManager::load()
 bool CalculatorCommandManager::save()
 {
 	return true;
+}
+
+void CalculatorCommandManager::activate()
+{
+	ui.leNumber->clear();
+	QDesktopWidget* tmp = QApplication::desktop();
+	int x,y;
+	x=(tmp->width()/2)-(widget->width()/2);
+	y=(tmp->height()/2)-(widget->height()/2);
+	widget->move(x, y);
+	widget->show();
+	startGreedy();
 }
 
 CalculatorCommandManager::~CalculatorCommandManager()

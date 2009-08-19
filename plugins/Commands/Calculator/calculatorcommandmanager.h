@@ -25,6 +25,7 @@
 #include <QVariantList>
 #include <QList>
 #include <QStack>
+#include <KXMLGUIClient>
 #include "ui_calculatorwidget.h"
 #include "token.h"
 
@@ -38,15 +39,15 @@ class QDialog;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class CalculatorCommandManager : public CommandManager, public GreedyReceiver {
+class CalculatorCommandManager : public CommandManager, public GreedyReceiver, public KXMLGUIClient {
 Q_OBJECT
 private:
 	Ui::CalculatorDlg ui;
 	QDialog *widget;
 	static QStringList numberIdentifiers;
 	QList<Token *> * parseString(QString calc);
-	QList<Token *> toPostfix(QList<Token *> *calcList);
-	double calculate(QList<Token *> postList);
+	QList<Token *> * toPostfix(QList<Token *> *calcList);
+	double calculate(QList<Token *>* postList);
 	
 
 private slots:
@@ -77,6 +78,7 @@ protected:
 
 public slots:
 	bool greedyTrigger(const QString&);
+	void activate();
 
 public:
 	const KIcon icon() const;

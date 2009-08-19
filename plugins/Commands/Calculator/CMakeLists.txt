@@ -18,9 +18,13 @@ kde4_add_plugin(simoncalculatorplugin ${simoncalculatorplugin_SRCS})
 
 
 target_link_libraries(simoncalculatorplugin ${KDE4_KDEUI_LIBS}
-	eventsimulation simonlogging simoncommandpluginbase simonactions)
+	eventsimulation simonlogging simoncommandpluginbase simonactions
+	simoninfo)
 
 install(TARGETS simoncalculatorplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandcalculatorplugin )
 install( FILES simoncalculatorcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandcalculatorplugin )
 install( FILES simoncalculatorpluginconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandcalculatorplugin )
 add_subdirectory(po)
+
+install(FILES simoncalculatorpluginui.rc DESTINATION
+	${DATA_INSTALL_DIR} COMPONENT simoncalculatorplugin)
