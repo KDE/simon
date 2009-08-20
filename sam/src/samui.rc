@@ -3,6 +3,8 @@
 <gui name="sam" version="1">
 	<ToolBar name="mainToolBar" >
 		<text>Main Actions</text>
+		<Action name="save" />
+		<Action name="load" />
 		<Action name="getPathsFromSimon" />
 		<Action name="compileModel" />
 		<Action name="testModel" />

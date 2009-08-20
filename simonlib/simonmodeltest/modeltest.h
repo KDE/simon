@@ -81,6 +81,8 @@ private:
 	QHash<QString /*filename*/, RecognitionResultList /*recognitionresults*/> fileResults;
 	QHash<QString, FloatList> wordRates;
 	QHash<QString, FloatList> sentenceRates;
+
+	QHash<QString, QString> recodedSamples;
 	
 	bool createDirs();
 
@@ -123,6 +125,30 @@ public:
 
 	QHash<QString, FloatList> getSentenceRates() {
 		return this->sentenceRates;
+	}
+
+	QHash<QString, QString> getPrompts() {
+		return this->promptsTable;
+	}
+
+	QHash<QString, RecognitionResultList> getFileResults() {
+		return this->fileResults;
+	}
+
+	QString getFileNameByIndex(int index) {
+		return fileResults.keys().at(index);
+	}
+
+	RecognitionResultList getFileResults(const QString& fileName) {
+		return fileResults.value(fileName);
+	}
+
+	QString getPromptOfFile(const QString& fileName) {
+		return promptsTable.value(fileName);
+	}
+
+	QString getOriginalFilePath(const QString& fileName) {
+		return recodedSamples.value(fileName);
 	}
 
 	~ModelTest();

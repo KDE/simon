@@ -22,15 +22,21 @@
 #include "accuracydisplay.h"
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <simonmodeltest/modeltest.h>
+#include <simonmodeltest/fileresultmodel.h>
+#include <simonsound/recwidget.h>
 #include <QHash>
 #include <KStandardAction>
 #include <KActionCollection>
 #include <KAction>
+#include <KDialog>
 #include <KIcon>
 #include <KStandardDirs>
+#include <KAboutData>
 #include <KConfig>
 #include <KConfigGroup>
+#include <KCMultiDialog>
 #include <KMessageBox>
+#include <KFileDialog>
 
 
 SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags)
@@ -73,8 +79,12 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 	connect(ui.pbCompileModel, SIGNAL(clicked()), this, SLOT(compileModel()));
 	connect(ui.pbTestModel, SIGNAL(clicked()), this, SLOT(testModel()));
 
-	KStandardAction::quit(this, SLOT(close()),
-			      actionCollection());
+	KStandardAction::openNew(this, SLOT(newProject()), actionCollection());
+	KStandardAction::save(this, SLOT(save()), actionCollection());
+	KStandardAction::saveAs(this, SLOT(saveAs()), actionCollection());
+	KStandardAction::open(this, SLOT(load()), actionCollection());
+	KStandardAction::preferences(this, SLOT(showConfig()), actionCollection());
+	KStandardAction::quit(this, SLOT(close()), actionCollection());
 
 	setupGUI();
 
@@ -115,6 +125,136 @@ SamView::SamView(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flag
 	connect(modelTest, SIGNAL(recognitionInfo(const QString&)), this, SLOT(slotModelTestRecognitionInfo(const QString&)));
 	connect(modelTest, SIGNAL(error(const QString&)), this, SLOT(slotModelTestError(const QString&)));
 	connect(modelTest, SIGNAL(testComplete()), this, SLOT(switchToTestResults()));
+
+	ui.tvFiles->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+	connect(ui.tvFiles, SIGNAL(pressed(QModelIndex)), this, SLOT(slotFileResultSelected(QModelIndex)));
+	connect(ui.pbEditSample, SIGNAL(clicked()), this, SLOT(slotEditSelectedSample()));
+}
+
+void SamView::showConfig()
+{
+	KCMultiDialog *configDialog = new KCMultiDialog(this);
+	configDialog->addModule("simonsoundconfig", QStringList() << "");
+	configDialog->exec();
+	configDialog->deleteLater();
+}
+
+void SamView::newProject()
+{
+	m_filename = "";
+	updateWindowTitle();
+
+	ui.urHmmDefs->setUrl(KUrl());
+	ui.urTiedlist->setUrl(KUrl());
+	ui.urDict->setUrl(KUrl());
+	ui.urDFA->setUrl(KUrl());
+	ui.urPromptsBasePath->setUrl(KUrl());
+	ui.urTestPromptsBasePath->setUrl(KUrl());
+	ui.urLexicon->setUrl(KUrl());
+	ui.urGrammar->setUrl(KUrl());
+	ui.urVocabulary->setUrl(KUrl());
+	ui.urPrompts->setUrl(KUrl());
+	ui.urTestPrompts->setUrl(KUrl());
+	ui.urTreeHed->setUrl(KUrl());
+	ui.urWavConfig->setUrl(KUrl());
+	ui.sbSampleRate->setValue(16000 /* default*/);
+	ui.urJConf->setUrl(KUrl());
+
+	ui.twMain->setCurrentIndex(0);
+}
+
+void SamView::load()
+{
+	QString filename = KFileDialog::getOpenFileName(KUrl(), i18n("sam projects *.sam"), this);
+	if (filename.isEmpty()) return;
+
+	m_filename = filename;
+	parseFile();
+}
+
+void SamView::save()
+{
+	if (m_filename.isEmpty()) {
+		saveAs();
+		return;
+	}
+
+	storeFile();
+}
+
+void SamView::saveAs()
+{
+	QString filename = KFileDialog::getSaveFileName(KUrl(), i18n("sam projects *.sam"), this);
+	if (filename.isEmpty())
+		return;
+
+	m_filename = filename;
+	storeFile();
+}
+
+
+void SamView::updateWindowTitle()
+{
+	QString decoFile = m_filename;
+	if (m_filename.isEmpty())
+		decoFile = i18n("Untitled");
+
+	setWindowTitle(i18n("sam - %1", decoFile));
+}
+
+void SamView::parseFile()
+{
+	//read from m_filename
+	QFile f(m_filename);
+	if (!f.open(QIODevice::ReadOnly)) {
+		KMessageBox::error(this, i18n("Cannot open file: %1", m_filename));
+	}
+
+	ui.urHmmDefs->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urTiedlist->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urDict->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urDFA->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urPromptsBasePath->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urTestPromptsBasePath->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urLexicon->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urGrammar->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urVocabulary->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urPrompts->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urTestPrompts->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urTreeHed->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.urWavConfig->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+	ui.sbSampleRate->setValue(QString::fromUtf8(f.readLine()).trimmed().toInt());
+	ui.urJConf->setUrl(KUrl(QString::fromUtf8(f.readLine()).trimmed()));
+
+	updateWindowTitle();
+}
+
+void SamView::storeFile()
+{
+	//store to m_filename
+	QFile f(m_filename);
+	if (!f.open(QIODevice::WriteOnly)) {
+		KMessageBox::error(this, i18n("Cannot open file: %1", m_filename));
+	}
+
+	f.write(ui.urHmmDefs->url().path().toUtf8()+"\n");
+	f.write(ui.urTiedlist->url().path().toUtf8()+"\n");
+	f.write(ui.urDict->url().path().toUtf8()+"\n");
+	f.write(ui.urDFA->url().path().toUtf8()+"\n");
+	f.write(ui.urPromptsBasePath->url().path().toUtf8()+"\n");
+	f.write(ui.urTestPromptsBasePath->url().path().toUtf8()+"\n");
+	f.write(ui.urLexicon->url().path().toUtf8()+"\n");
+	f.write(ui.urGrammar->url().path().toUtf8()+"\n");
+	f.write(ui.urVocabulary->url().path().toUtf8()+"\n");
+	f.write(ui.urPrompts->url().path().toUtf8()+"\n");
+	f.write(ui.urTestPrompts->url().path().toUtf8()+"\n");
+	f.write(ui.urTreeHed->url().path().toUtf8()+"\n");
+	f.write(ui.urWavConfig->url().path().toUtf8()+"\n");
+	f.write(QString::number(ui.sbSampleRate->value()).toUtf8()+"\n");
+	f.write(ui.urJConf->url().path().toUtf8()+"\n");
+
+	updateWindowTitle();
 }
 
 void SamView::getBuildPathsFromSimon()
@@ -167,7 +307,6 @@ void SamView::compileModel()
 			ui.urTreeHed->url().path(),
 			ui.urWavConfig->url().path()
 			);
-
 }
 
 void SamView::slotModelCompilationStatus(const QString& status, int now, int max)
@@ -272,12 +411,10 @@ void SamView::analyzeTestOutput()
 	float sentenceRecognitionRate = 0;
 
 	QObjectList accs = ui.wgWordResultDetails->children();
-	foreach (QObject *acc, accs) {
-		if (dynamic_cast<AccuracyDisplay*>(acc)) {
+	foreach (QObject *acc, accs) 
+		if (dynamic_cast<AccuracyDisplay*>(acc)) 
 			acc->deleteLater();
-			fprintf(stderr, "deleted accuracy display\n");
-		}
-	}
+	
 	accs = ui.wgSentenceResultDetails->children();
 	foreach (QObject *acc, accs)
 		if (dynamic_cast<AccuracyDisplay*>(acc))
@@ -295,16 +432,12 @@ void SamView::analyzeTestOutput()
 		}
 		avg /= (float) rates.count();
 
-		fprintf(stderr, "Recognition rate of \"%s\": %f\nRecognition count: %d\n\n", word.toLocal8Bit().data(), avg, rates.count());
-
 		wordRecognitionRate += avg;
 
 		AccuracyDisplay *acc = new AccuracyDisplay(word, rates.count(), rateCorrect, avg, ui.wgWordResultDetails);
 		ui.vbWordResultDetails->addWidget(acc);
 	}
 	wordRecognitionRate /= (float) wordList.count();
-
-	fprintf(stderr, "--------------------------------------------------------\n");
 
 	foreach (const QString& sentence, sentenceList) {
 		FloatList rates = sentenceRates.value(sentence);
@@ -317,7 +450,6 @@ void SamView::analyzeTestOutput()
 		}
 		avg /= (float) rates.count();
 
-		fprintf(stderr, "Recognition rate of \"%s\": %f\nRecognition count: %d\n\n", sentence.toLocal8Bit().data(), avg, rates.count());
 		sentenceRecognitionRate += avg;
 
 		AccuracyDisplay *acc = new AccuracyDisplay(sentence, rates.count(), rateCorrect, avg, ui.wgSentenceResultDetails);
@@ -329,10 +461,97 @@ void SamView::analyzeTestOutput()
 
 	ui.pbRecognitionRate->setValue(round(overallRecognitionRate*100.0f));
 	ui.pbRecognitionRate->setFormat(QString::number(overallRecognitionRate*100.0f)+" %");
+
+	QAbstractItemModel *m = ui.tvFiles->model();
+	if (m) m->deleteLater();
+	ui.tvFiles->setModel(new FileResultModel(modelTest->getFileResults(), modelTest->getPrompts(), this));
 }
 
 
+void SamView::slotFileResultSelected(QModelIndex index)
+{
+	QString fileName = modelTest->getFileNameByIndex(index.row());
+	RecognitionResultList results = modelTest->getFileResults(fileName);
+	
+	QString resultInfo="";
+	int i=1;
+	foreach (const RecognitionResult& result, results) {
+		resultInfo += i18n("Result %1 of %2\n=====================\n", i, results.count());
+		resultInfo += result.toString();
+		resultInfo += "\n\n";
+		i++;
+	}
 
+	ui.teResultDetails->clear();
+	ui.teResultDetails->append(resultInfo);
+}
+
+void SamView::slotEditSelectedSample()
+{
+	QModelIndex index = ui.tvFiles->currentIndex();
+	if (!index.isValid())
+		return;
+
+	QString fileName = modelTest->getFileNameByIndex(index.row());
+	QString originalFileName = modelTest->getOriginalFilePath(fileName);
+	//copy to temp
+	QString justFileName = originalFileName.mid(originalFileName.lastIndexOf(QDir::separator())+1);
+	QString tempFileName = KStandardDirs::locateLocal("tmp", 
+					"sam/internalsamuser/edit/"+justFileName);
+
+	//if file could not be copied this is not a reason to display an error or to abort
+	//because we could have already deleted the file
+	QFile::copy(originalFileName, tempFileName);
+
+	KDialog *d = new KDialog(0);
+	RecWidget *rec = new RecWidget(i18n("Modify sample"), 
+			modelTest->getPromptOfFile(fileName), tempFileName, d);
+	d->setMainWidget(rec);
+	if (d->exec()) {
+		if (!QFile::exists(tempFileName)) {
+			//sample has been deleted
+			//removing file from prompts
+			//TODO: re-add the file if it ius re-recorded
+			QFile prompts(ui.urPrompts->url().path());
+			QString tempPromptsPath = KStandardDirs::locateLocal("tmp", "sam/internalsamuser/edit/prompts");
+			QFile temp(tempPromptsPath);
+			if ((!prompts.open(QIODevice::ReadOnly)) ||
+					(!temp.open(QIODevice::WriteOnly))){
+				KMessageBox::error(this, i18n("Couldn't modify prompts file"));
+			}
+
+			while (!prompts.atEnd()) {
+				QString line = QString::fromUtf8(prompts.readLine());
+				if (!line.startsWith(justFileName.left(justFileName.lastIndexOf("."))+" ")) {
+					temp.write(line.toUtf8());
+				}
+			}
+
+			if ((!QFile::remove(ui.urPrompts->url().path())) ||
+					(!QFile::copy(tempPromptsPath, ui.urPrompts->url().path()))) {
+				KMessageBox::error(this, i18n("Couldn't overwrite prompts file"));
+			}
+
+			if (!QFile::remove(originalFileName)) {
+				KMessageBox::error(this, i18n("Couldn't remove original sample:  %1.", originalFileName));
+			}
+		} else {
+			//copy sample back
+			if (!QFile::copy(tempFileName, originalFileName)) {
+				KMessageBox::error(this, i18n("Couldn't copy sample from temporary path %1 to %2.", 
+							tempFileName, originalFileName));
+			}
+			if (!QFile::remove(originalFileName)) {
+				KMessageBox::error(this, i18n("Couldn't remove original sample:  %1.", originalFileName));
+			}
+		}
+	}
+	
+	//remove temp sample
+	QFile::remove(tempFileName);
+
+	d->deleteLater();
+}
 
 SamView::~SamView()
 {

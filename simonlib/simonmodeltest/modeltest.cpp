@@ -307,6 +307,8 @@ bool ModelTest::recodeAudio()
 		wavListF.write(targetPath.toUtf8()+"\n");
 
 		promptsTable.insert(targetPath, prompt);
+
+		recodedSamples.insert(targetPath, fullPath);
 	}
 
 	promptsF.close();
@@ -369,9 +371,11 @@ void processRecognitionResult(Recog *recog, void *test)
 	ModelTest *modelTest = (ModelTest*) test;
 	Q_ASSERT(modelTest);
 
+
 	/* all recognition results are stored at each recognition process
 	instance */
 	for(r=recog->process_list;r;r=r->next) {
+		bool searchFailed=false;
 		/* skip the process if the process is not alive */
 		if (! r->live) continue;
 
@@ -398,7 +402,7 @@ void processRecognitionResult(Recog *recog, void *test)
 					break;
 				case J_RESULT_STATUS_FAIL:
 					printf("<search failed>\n");
-					modelTest->searchFailed();
+					searchFailed=true;
 					break;
 			}
 			/* continue to next process instance */
@@ -438,7 +442,10 @@ void processRecognitionResult(Recog *recog, void *test)
 							sampa.trimmed(),
 							sampaRaw.trimmed(), confidenceScores));
 		}
-		modelTest->recognized(recognitionResults);
+		if (recognitionResults.isEmpty() && searchFailed)
+			modelTest->searchFailed();
+		else 
+			modelTest->recognized(recognitionResults);
 	}
 }
 
@@ -688,14 +695,6 @@ bool ModelTest::analyzeResults()
 {
 	emit status(i18n("Analyzing recognition results..."), 90, 100);
 
-	//Open the file: tempDir+juliusOutput
-	//Search for:
-	//	### read waveform input
-	//	Stat: adin_file: input speechfile: /tmp/kde-bedahr/sam/internalsamuser/test/samples/Acht_S9_2009-04-23_12-39-47_45_2009-07-30_16-46-21.wav
-	//
-	//
-	
-	
 	return true;
 }
 

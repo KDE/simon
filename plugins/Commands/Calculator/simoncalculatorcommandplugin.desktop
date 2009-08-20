@@ -1,20 +1,18 @@
-
 [Desktop Entry]
 Type=Service
-Icon=system-run
+Icon=accessories-calculator
 ServiceTypes=simon/CommandPlugin
 X-KDE-Library=simoncalculatorcommandplugin
 Name=simon Calculator Command Plugin
-Name[de]=simon Taschenrechner-Kommando Modul
-Comment=Provides an easy way to calculate basic calculations
-Comment[de]=Bietet die Möglichkeit einfache Rechnungen durchzuführen
+Name[de]=simon Taschenrechner Modul
+Comment=Provides a voice controllable user interface
+Comment[de]=Bietet eine einfache Möglichkeit jede Zahl auszubuchstabieren
 
 X-KDE-PluginInfo-Author=Dominik Neumeister
-X-KDE-PluginInfo-Email=neudob06@edvhtl.at
+X-KDE-PluginInfo-Email=domar@gmx.at
 X-KDE-PluginInfo-Name=simoncalculatorcommandplugin
 X-KDE-PluginInfo-Version=0.1
 X-KDE-PluginInfo-Website=http://simon-listens.org
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-ParentApp=simon
-Name[de_AT]=simon Taschenrechner-Kommando Modul

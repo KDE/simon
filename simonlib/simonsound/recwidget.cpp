@@ -154,16 +154,6 @@ void RecWidget::changePromptFont(const QFont& font)
 }
 
 
-/*#include <KDebug>
-#include <QTextLayout>
-#include <QTextDocument>
-#include <QRectF>
-#include <QPixmap>
-#include <QPainter>
-#include <QPoint>
-#include <QPlainTextDocumentLayout>
-#include <QTextFrame>
-#include <math.h>*/
 void RecWidget::resizePromptLabel()
 {
 //	QTextDocument *doc = tePrompt->document();
@@ -356,7 +346,7 @@ void RecWidget::playback()
 {
 	if (play->play(this->filename))
 	{	
-		pbProgress->setMaximum(recordingProgress);
+		pbProgress->setMaximum((recordingProgress) ? recordingProgress : 1);
 		disconnect(pbPlay, SIGNAL(clicked()), this, SLOT(playback()));
 		connect(pbPlay, SIGNAL(clicked()), this, SLOT(stopPlayback()));
 		emit playing();

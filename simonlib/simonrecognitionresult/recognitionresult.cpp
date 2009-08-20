@@ -18,4 +18,40 @@
  */
 
 #include "recognitionresult.h"
+#include <KLocalizedString>
+
+QString RecognitionResult::toString() const
+{
+	//QString m_sentence;
+	//QString m_sampa;
+	//QString m_sampaRaw;
+	//QList<float> m_confidenceScores;
+
+	QString out;
+	out += i18n("Sentence: %1\n"
+			"SAMPA: %2\n"
+			"Raw SAMPA: %3\n"
+			"Average Confidence: %4\n",
+			m_sentence, m_sampa, m_sampaRaw, 
+			averageConfidenceScore()*100.0f);
+
+	out += i18n("Confidence Scores: ");
+	foreach (float score, m_confidenceScores) {
+		out += QString::number(score*100.0f)+" ";
+	}
+
+	out += "\n";
+	return out;
+}
+
+float RecognitionResult::averageConfidenceScore() const
+{
+	float avg=0;
+	foreach (float score, m_confidenceScores)
+		avg += score;
+	avg /= ((float) m_confidenceScores.count());
+	return avg;
+}
+
+
 

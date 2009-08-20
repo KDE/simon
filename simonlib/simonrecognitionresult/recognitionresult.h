@@ -23,29 +23,10 @@
 #include <QList>
 #include <QString>
 #include <QMetaType>
+#include "simonrecognitionresult_export.h"
 
 
-/*class WordStatistic
-{
-	private:
-		QString m_word;
-		QList<float> m_recognitionRates;
-
-	public:
-		WordStatistic(const QString& word) {
-			m_word = word;
-		}
-
-		void recognized(float recognitionRate) {
-			m_recognitionRates << recognitionRate;
-		}
-
-		void notRecognized() {
-			m_recognitionRates << 0.0f;
-		}
-};*/
-
-class RecognitionResult
+class SIMONRECOGNITIONRESULT_EXPORT RecognitionResult
 {
 	private:
 		QString m_sentence;
@@ -66,13 +47,9 @@ class RecognitionResult
 		QString sampaRaw() const { return m_sampaRaw; }
 		QList<float> confidenceScores() const { return m_confidenceScores; }
 
-		float averageConfidenceScore() const {
-			float avg=0;
-			foreach (float score, m_confidenceScores)
-				avg += score;
-			avg /= ((float) m_confidenceScores.count());
-			return avg;
-		}
+		float averageConfidenceScore() const;
+
+		QString toString() const;
 
 		bool matchesTrigger(const QString& trigger)
 		{

@@ -23,6 +23,7 @@
 
 #include <QWidget>
 #include <QProcess>
+#include <QModelIndex>
 #include <kxmlguiwindow.h>
 
 #include "ui_main.h"
@@ -58,6 +59,18 @@ public:
     virtual ~SamView();
 
 private slots:
+    void showConfig();
+
+    void newProject();
+    void load();
+    void saveAs();
+    void save();
+
+    void updateWindowTitle();
+
+    void parseFile();
+    void storeFile();
+
     void compileModel();
     void getBuildPathsFromSimon();
 
@@ -79,7 +92,11 @@ private slots:
 
     void analyzeTestOutput();
 
+    void slotFileResultSelected(QModelIndex index);
+    void slotEditSelectedSample();
+
 private:
+    QString m_filename;
     Ui::MainWindow ui;
     ModelCompilationManager *modelCompilationManager;
     ModelTest *modelTest;

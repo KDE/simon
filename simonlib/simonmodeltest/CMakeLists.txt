@@ -12,17 +12,19 @@ include(KDE4Defaults)
 
 set( simonmodeltest_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/modeltest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/fileresultmodel.cpp
 )
 
 
 set( simonmodeltest_LIB_HDRS
   simonmodeltest_export.h
   modeltest.h
+  fileresultmodel.h
 )
 
 kde4_add_library( simonmodeltest  SHARED ${simonmodeltest_LIB_SRCS} )
-target_link_libraries( simonmodeltest ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} simonlogging 
-	julius sent)
+target_link_libraries( simonmodeltest ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} simonlogging 
+	julius sent simonrecognitionresult)
 
 
 set_target_properties( simonmodeltest
