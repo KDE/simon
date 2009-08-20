@@ -55,6 +55,7 @@ private slots:
 	void ok();
 	void back();
 	void cancel();
+	void clear();
 	void processRequest(int number);
 	void sendComma();
 	void send0() { processRequest(0); }

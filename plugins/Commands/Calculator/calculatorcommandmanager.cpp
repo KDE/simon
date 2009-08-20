@@ -66,6 +66,7 @@ CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVaria
 	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(cancel()));
 	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(back()));
 	connect(ui.pbOk, SIGNAL(clicked()), this, SLOT(ok()));
+	connect(ui.pbClear, SIGNAL(clicked()), this, SLOT(clear()));
 	connect(ui.pbComma, SIGNAL(clicked()), this, SLOT(sendComma()));
 	connect(ui.pb0, SIGNAL(clicked()), this, SLOT(send0()));
 	connect(ui.pb1, SIGNAL(clicked()), this, SLOT(send1()));
@@ -130,17 +131,16 @@ void CalculatorCommandManager::sendDivide()
 void CalculatorCommandManager::sendEquals()
 {
 	QList<Token*> *parsedInput = parseString(ui.leNumber->text());
-	QList<Token*> *postfixedInput =  toPostfix(parsedInput);
+	if(parsedInput!=NULL)
+	{
+	    QList<Token*> *postfixedInput =  toPostfix(parsedInput);
 
-	foreach (Token* t, *postfixedInput) {
-		kDebug() << "Type: " << t->getType();
-		kDebug() << "Operator: " << t->getArOperator();
-		kDebug() << "Number: " << t->getNumber();
-		kDebug() << "==================";
+	    double output = calculate(postfixedInput);
+	    //ui.leNumber->setText(QString("%1").arg(output,0,'f',4));
+	    ui.leNumber->setText(QString::number(output));
 	}
-	double output = calculate(postfixedInput);
-	//ui.leNumber->setText(QString("%1").arg(output,0,'f',4));
-	ui.leNumber->setText(QString::number(output));
+	else
+	    ui.leNumber->setText("");
 }
 
 QList<Token *> * CalculatorCommandManager::parseString(QString calc)
@@ -217,6 +217,8 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 	}
 
 	list->append(new Token(number));
+	if(status==-1)
+		return (list=NULL);
 
 	return list;
 }
@@ -332,6 +334,11 @@ void CalculatorCommandManager::back()
 
 	text = text.left(text.count()-1);
 	ui.leNumber->setText(text);
+}
+
+void CalculatorCommandManager::clear()
+{
+	ui.leNumber->setText("");
 }
 
 
