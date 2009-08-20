@@ -156,7 +156,8 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 	    {
 		switch(status)
 		{
-		    case -1: ui.leNumber->setText(i18n("Not a legal expression!"));
+		    case -1: ui.leNumber->setText("");
+			     SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 			     break;
 		    case 2: number=(number*10+calc.at(i).digitValue())/10;
 			    status=1;
@@ -203,13 +204,15 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		else
 		{
 		    status=-1;
-		    ui.leNumber->setText(i18n("Not a legal expression!"));
+		    ui.leNumber->setText("");
+		    SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 		}
 	    }
 	    else
 	    {
 		status=-1;
-		ui.leNumber->setText(i18n("Not a legal expression!"));
+		ui.leNumber->setText("");
+		SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 	    }
 	}
 
@@ -294,8 +297,8 @@ double CalculatorCommandManager::calculate(QList<Token *>* postList)
 			double op1, op2;
 			op2 = calc.pop()->getNumber();
 			op1 = calc.pop()->getNumber();
-			 calc.push(new Token(op1-op2));
-			 break;
+			calc.push(new Token(op1-op2));
+			break;
 			}
 		case '*': 
 			 calc.push(new Token(calc.pop()->getNumber()*calc.pop()->getNumber()));
@@ -304,13 +307,15 @@ double CalculatorCommandManager::calculate(QList<Token *>* postList)
 			double op1, op2;
 			op2 = calc.pop()->getNumber();
 			op1 = calc.pop()->getNumber();
-			if (op2 == 0) {
-				SimonInfo::showMessage(i18n("Can't divide through 0"), 3000, new KIcon("accessories-calculator"));
-				calc.push(new Token(0));
-			} else 
-				calc.push(new Token(op1/op2));
+			if (op2 == 0)
+			{
+			    SimonInfo::showMessage(i18n("Can't divide through 0"), 3000, new KIcon("accessories-calculator"));
+			    calc.push(new Token(0));
+			} 
+			else 
+			    calc.push(new Token(op1/op2));
 			break;
-		        }
+			}
 	    }
 	}
 
