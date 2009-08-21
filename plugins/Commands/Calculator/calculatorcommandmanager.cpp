@@ -149,6 +149,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 	//status: Explains the status from the parser. 0=start, 1=number, 2=comma, 3=arithmetic operator, -1=fail
 	int status=0;
 	double number=0.0;
+	bool isFloat=false;	
 
 	for(int i=0;i<calc.size();i++)
 	{
@@ -159,7 +160,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		    case -1: ui.leNumber->setText("");
 			     SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 			     break;
-		    case 2: number=(number*10+calc.at(i).digitValue())/10;
+		    case 2: number=number+(calc.at(i).digitValue()/10.0f);
 			    status=1;
 			    break;
 		    case 3: number=calc.at(i).digitValue();
@@ -181,24 +182,42 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		{
 		    switch(calc.at(i).toAscii())
 		    {
-			case 46: status=2;
-				 break;
-			case 43: list->append(new Token(number));
-				 list->append(new Token('+', 1));
-				 status=3;
-				 break;
-			case 45: list->append(new Token(number));
-				 list->append(new Token('-',1));
-				 status=3;
-				 break;
-			case 42: list->append(new Token(number));
-				 list->append(new Token('*',2));
-				 status=3;
-				 break;
-			case 47: list->append(new Token(number));
-				 list->append(new Token('/',2));
-				 status=3;
-				 break;
+			case '.': if(!isFloat)
+				  {
+				      status=2;
+				      isFloat=true;
+				  }
+				  else
+				      status=-1;
+				  break;
+			case ',': if(!isFloat)
+				  {
+				      status=2;
+				      isFloat=true;
+				  }
+				  else
+				      status=-1;
+				  break;
+			case '+': list->append(new Token(number));
+				  list->append(new Token('+', 1));
+				  isFloat=false;
+				  status=3;
+				  break;
+			case '-': list->append(new Token(number));
+				  list->append(new Token('-',1));
+				  isFloat=false;
+				  status=3;
+				  break;
+			case '*': list->append(new Token(number));
+				  list->append(new Token('*',2));
+				  isFloat=false;
+				  status=3;
+				  break;
+			case '/': list->append(new Token(number));
+				  list->append(new Token('/',2));
+				  isFloat=false;
+				  status=3;
+				  break;
 		    }
 		}
 		else

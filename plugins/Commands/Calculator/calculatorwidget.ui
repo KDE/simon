@@ -272,6 +272,12 @@
    </item>
    <item row="6" column="1">
     <widget class="KPushButton" name="pbClear">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string>Clear</string>
      </property>
