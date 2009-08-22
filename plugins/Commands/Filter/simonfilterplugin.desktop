@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=view-filter
+ServiceTypes=simon/CommandPlugin
+X-KDE-Library=simonfilterplugin
+Name=simon Filter Plugin
+Name[de]=simon Filter Modul
+Comment=Filters recognition results
+Comment[de]=Filtert Erkennungsergebnisse
+
+X-KDE-PluginInfo-Author=Peter Grasch
+X-KDE-PluginInfo-Email=grasch@simon-listens.org
+X-KDE-PluginInfo-Name=simoncommandfilter
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://simon-listens.org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=false
+X-KDE-ParentApp=simon
