@@ -23,6 +23,3 @@ install(TARGETS simonfilterplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT si
 install( FILES simonfilterplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandfilterplugin )
 install( FILES simonfilterpluginconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandfilterplugin )
 add_subdirectory(po)
-
-install(FILES simonfilterpluginui.rc DESTINATION
-	${DATA_INSTALL_DIR} COMPONENT simoncommandfilterplugin)

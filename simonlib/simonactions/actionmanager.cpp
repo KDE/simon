@@ -108,6 +108,7 @@ void ActionManager::deleteManager(CommandManager *manager)
 void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 {
 	bool changed=false;
+	mainWindow->unplugActionList("command_actionlist");
 
 	//iterate over all existing managers and find the ones we still use
 	//by comparing their source()'es;
@@ -123,6 +124,7 @@ void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 	Action::Ptr newActionsArray[count];
 
 	int i=0;
+
 	while (pluginsToLoad.count() > 0)
 	{
 		Action *newAction = pluginsToLoad.takeAt(0);
@@ -162,9 +164,6 @@ void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 							"Please check its configuration.", newAction->manager()->name()));
 				} else {
 					if (commandSettings) commandSettings->registerPlugIn(newAction->manager()->getConfigurationPage());
-					KXMLGUIClient *guiClient = dynamic_cast<KXMLGUIClient*>(newAction->manager());
-					if (mainWindow && guiClient)
-						mainWindow->insertChildClient(guiClient);
 				}
 				newActionsArray[i] = newAction;
 			}
@@ -172,7 +171,6 @@ void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 		}
 		i++;
 	}
-
 	// delete the actions remaining in the member variable as they are not
 	// used any longer and copy the array there
 	foreach (Action::Ptr action, actions)
@@ -188,13 +186,17 @@ void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 		delete action;
 	}
 	actions.clear();
+	QList<QAction*> guiActions;
 	for (int i=0; i < count; i++) {
+		guiActions << newActionsArray[i]->manager()->getGuiActions();
 		actions << newActionsArray[i];
 	}
 
 	if (changed) {
 		publishCategories();
 	}
+
+	mainWindow->plugActionList("command_actionlist", guiActions);
 }
 
 void ActionManager::publishCategories()

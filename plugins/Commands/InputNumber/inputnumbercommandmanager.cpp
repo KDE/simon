@@ -25,7 +25,6 @@
 #include <QDialog>
 #include <KLocalizedString>
 #include <KAction>
-#include <KActionCollection>
 
 K_PLUGIN_FACTORY( InputNumberCommandPluginFactory, 
 			registerPlugin< InputNumberCommandManager >(); 
@@ -45,13 +44,12 @@ InputNumberCommandManager::InputNumberCommandManager(QObject *parent, const QVar
 	ui.pbCancel->setIcon(KIcon("dialog-cancel"));
 	widget->hide();
 
-	setXMLFile("simoninputnumberpluginui.rc");
 	activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Number Input"));
 	activateAction->setIcon(KIcon("accessories-calculator"));
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(activate()));
-	actionCollection()->addAction("simoninputnumberplugin", activateAction);
+	guiActions << activateAction;
 
 	if (numberIdentifiers.isEmpty())
 		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
@@ -240,5 +238,4 @@ bool InputNumberCommandManager::save()
 InputNumberCommandManager::~InputNumberCommandManager()
 {
 	widget->deleteLater();
-	activateAction->deleteLater();
 }

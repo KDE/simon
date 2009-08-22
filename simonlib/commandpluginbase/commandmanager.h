@@ -31,6 +31,7 @@
 class CommandManager;
 class CreateCommandWidget;
 class KCModule;
+class QAction;
 class CommandConfiguration;
 
 /**
@@ -47,6 +48,7 @@ signals:
 	void commandsFound(CommandList*);
 
 protected:
+	QList<QAction*> guiActions;
 	CommandList *commands;
 	virtual bool trigger(const QString& triggerName);
 
@@ -57,6 +59,8 @@ public:
 	virtual bool load()=0;
 	virtual bool save()=0;
 	virtual bool addCommand(Command *command)=0;
+
+	virtual QList<QAction*> getGuiActions();
 
 	virtual CommandList* getCommands() const { return commands; }
 

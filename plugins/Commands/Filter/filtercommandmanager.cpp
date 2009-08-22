@@ -38,13 +38,13 @@ FilterCommandManager::FilterCommandManager(QObject *parent, const QVariantList& 
 {
 	isActive = false;
 
-	setXMLFile("simonfilterpluginui.rc");
 	activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Filter"));
 	activateAction->setIcon(KIcon("view-filter"));
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(toggle()));
-	actionCollection()->addAction("simonfilterplugin", activateAction);
+
+	guiActions << activateAction;
 }
 
 const QString FilterCommandManager::name() const
@@ -106,6 +106,5 @@ bool FilterCommandManager::save()
 
 FilterCommandManager::~FilterCommandManager()
 {
-	activateAction->deleteLater();
 // 	FilterConfiguration::getInstance()->destroy();
 }

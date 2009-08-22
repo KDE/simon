@@ -23,7 +23,6 @@
 #include <KGenericFactory>
 #include <KMessageBox>
 #include <KAction>
-#include <KActionCollection>
 #include "pronunciationtrainingconfiguration.h"
 
 K_PLUGIN_FACTORY( PronunciationTrainingPluginFactory, 
@@ -37,13 +36,12 @@ K_EXPORT_PLUGIN( PronunciationTrainingPluginFactory("simonpronunciationtrainingc
 
 PronunciationTrainingCommandManager::PronunciationTrainingCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
 {
-	setXMLFile("simonpronunciationtrainingpluginui.rc");
 	activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Pronunciation Training"));
 	activateAction->setIcon(KIcon("go-right"));
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(activateTraining()));
-	actionCollection()->addAction("simonpronunciationtrainingplugin", activateAction);
+	guiActions << activateAction;
 }
 
 const QString PronunciationTrainingCommandManager::name() const
@@ -83,5 +81,4 @@ bool PronunciationTrainingCommandManager::save()
 
 PronunciationTrainingCommandManager::~PronunciationTrainingCommandManager()
 {
-	activateAction->deleteLater();
 }

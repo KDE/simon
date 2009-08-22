@@ -18,7 +18,9 @@
  */
 
 #include "commandmanager.h"
+#include "commandconfiguration.h"
 #include <KLocalizedString>
+#include <QAction>
 
 bool CommandManager::trigger(const QString& triggerName)
 {
@@ -42,6 +44,10 @@ bool CommandManager::trigger(const QString& triggerName)
 	return done;
 }
 
+QList<QAction*> CommandManager::getGuiActions()
+{
+	return guiActions;
+}
 
 bool CommandManager::processResult(const RecognitionResult& recognitionResult)
 {
@@ -96,4 +102,11 @@ CommandManager::~CommandManager()
 {
 	if (commands)
 		qDeleteAll(*commands);
+
+	foreach (QAction* action, guiActions) {
+		action->deleteLater();
+	}
+
+//	if (getConfigurationPage())
+//		getConfigurationPage()->destroy();
 }

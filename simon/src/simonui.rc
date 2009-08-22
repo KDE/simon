@@ -18,7 +18,6 @@
 		<Menu name="simond">
 			<text>Recognition</text>
 			<Action name="connect" />
-			<Action name="activate" />
 		</Menu>
 			
 		<Menu name="modules" >
@@ -31,6 +30,8 @@
 		</Menu>
 		<Menu name="commands">
 			<text>Commands</text>
+			<Action name="activate" />
+			<ActionList name="command_actionlist" />
 		</Menu>
 		<Menu name="actions">
 			<text>Actions</text>

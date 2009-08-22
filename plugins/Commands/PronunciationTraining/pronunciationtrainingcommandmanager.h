@@ -23,7 +23,6 @@
 #include <commandpluginbase/commandmanager.h>
 
 #include <QVariantList>
-#include <KXMLGUIClient>
 
 class KAction;
 
@@ -34,7 +33,7 @@ class KAction;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class PronunciationTrainingCommandManager : public CommandManager, public KXMLGUIClient {
+class PronunciationTrainingCommandManager : public CommandManager{
 Q_OBJECT
 
 protected:

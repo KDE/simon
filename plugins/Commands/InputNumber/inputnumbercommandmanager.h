@@ -23,7 +23,6 @@
 #include <commandpluginbase/commandmanager.h>
 #include <simonactions/greedyreceiver.h>
 #include <QVariantList>
-#include <KXMLGUIClient>
 #include "ui_inputnumberwidget.h"
 class QDialog;
 class KAction;
@@ -36,7 +35,7 @@ class KAction;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class InputNumberCommandManager : public CommandManager, public GreedyReceiver, public KXMLGUIClient {
+class InputNumberCommandManager : public CommandManager, public GreedyReceiver {
 Q_OBJECT
 private:
 	Ui::InputNumberDlg ui;

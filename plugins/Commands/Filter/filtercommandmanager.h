@@ -23,7 +23,6 @@
 #include <commandpluginbase/commandmanager.h>
 
 #include <QVariantList>
-#include <KXMLGUIClient>
 
 class KAction;
 
@@ -35,7 +34,7 @@ class KAction;
  *	@date 22.08.2009
  *	@author Peter Grasch
  */
-class FilterCommandManager : public CommandManager, public KXMLGUIClient{
+class FilterCommandManager : public CommandManager {
 Q_OBJECT
 
 protected:

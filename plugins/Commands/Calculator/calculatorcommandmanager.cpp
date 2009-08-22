@@ -26,7 +26,6 @@
 #include <QDialog>
 #include <KLocalizedString>
 #include <KAction>
-#include <KActionCollection>
 #include <stdlib.h>
 #include <QList>
 
@@ -40,13 +39,12 @@ QStringList CalculatorCommandManager::numberIdentifiers;
 
 CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
 {
-	setXMLFile("simoncalculatorpluginui.rc");
 	KAction *activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Calculator"));
 	activateAction->setIcon(KIcon("accessories-calculator"));
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(activate()));
-	actionCollection()->addAction("simoncalculatorplugin", activateAction);
+	guiActions<<activateAction;
 
 
 	widget = new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);

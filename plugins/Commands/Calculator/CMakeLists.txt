@@ -25,6 +25,3 @@ install(TARGETS simoncalculatorplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONEN
 install( FILES simoncalculatorcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandcalculatorplugin )
 install( FILES simoncalculatorpluginconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandcalculatorplugin )
 add_subdirectory(po)
-
-install(FILES simoncalculatorpluginui.rc DESTINATION
-	${DATA_INSTALL_DIR} COMPONENT simoncalculatorplugin)

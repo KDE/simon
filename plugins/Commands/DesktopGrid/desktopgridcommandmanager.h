@@ -23,7 +23,6 @@
 #include <commandpluginbase/commandmanager.h>
 
 #include <QVariantList>
-#include <KXMLGUIClient>
 
 class KAction;
 
@@ -35,7 +34,7 @@ class KAction;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class DesktopGridCommandManager : public CommandManager, public KXMLGUIClient{
+class DesktopGridCommandManager : public CommandManager{
 Q_OBJECT
 
 protected:

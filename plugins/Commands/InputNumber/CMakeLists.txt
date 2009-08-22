@@ -25,6 +25,3 @@ target_link_libraries(simoninputnumbercommandplugin ${KDE4_KDEUI_LIBS}
 install(TARGETS simoninputnumbercommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandinputnumberplugin )
 install( FILES simoninputnumbercommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandinputnumberplugin )
 add_subdirectory(po)
-
-install(FILES simoninputnumberpluginui.rc DESTINATION
-	${DATA_INSTALL_DIR} COMPONENT simoncommandinputnumberplugin)

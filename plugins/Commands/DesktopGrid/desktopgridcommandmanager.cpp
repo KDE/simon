@@ -23,7 +23,6 @@
 #include <KLocalizedString>
 #include <KGenericFactory>
 #include <KAction>
-#include <KActionCollection>
 #include "desktopgridconfiguration.h"
 
 K_PLUGIN_FACTORY( DesktopGridPluginFactory, 
@@ -37,13 +36,12 @@ K_EXPORT_PLUGIN( DesktopGridPluginFactory("simondesktopgridcommand") )
 
 DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
 {
-	setXMLFile("simondesktopgridpluginui.rc");
 	activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Desktopgrid"));
 	activateAction->setIcon(KIcon("games-config-board"));
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(activate()));
-	actionCollection()->addAction("simondesktopgridplugin", activateAction);
+	guiActions << activateAction;
 }
 
 const QString DesktopGridCommandManager::name() const
@@ -85,6 +83,5 @@ bool DesktopGridCommandManager::save()
 
 DesktopGridCommandManager::~DesktopGridCommandManager()
 {
-	activateAction->deleteLater();
 // 	DesktopGridConfiguration::getInstance()->destroy();
 }

@@ -23,5 +23,3 @@ install(TARGETS simonpronunciationtrainingplugin DESTINATION ${PLUGIN_INSTALL_DI
 install( FILES simonpronunciationtrainingplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandpronunciationtrainingplugin )
 install( FILES simonpronunciationtrainingpluginconfig.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandpronunciationtrainingplugin )
 add_subdirectory(po)
-install(FILES simonpronunciationtrainingpluginui.rc DESTINATION
-	${DATA_INSTALL_DIR} COMPONENT simoncommandpronunciationtrainingplugin)
