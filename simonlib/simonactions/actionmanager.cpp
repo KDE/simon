@@ -186,14 +186,27 @@ void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 		delete action;
 	}
 	actions.clear();
-	QList<QAction*> guiActions;
+
 	for (int i=0; i < count; i++) {
-		guiActions << newActionsArray[i]->manager()->getGuiActions();
 		actions << newActionsArray[i];
 	}
 
 	if (changed) {
 		publishCategories();
+	}
+
+	publishGuiActions();
+}
+
+
+void ActionManager::publishGuiActions()
+{
+	mainWindow->unplugActionList("command_actionlist");
+
+	QList<QAction*> guiActions;
+	foreach (Action::Ptr a, actions) {
+		if (!a) continue;
+		guiActions << a->manager()->getGuiActions();
 	}
 
 	mainWindow->plugActionList("command_actionlist", guiActions);
@@ -205,9 +218,10 @@ void ActionManager::publishCategories()
 	QStringList names;
 	foreach (Action::Ptr action, actions)
 	{
-		if (!action || !action->manager() || (!action->manager()->getCommands())
-				|| (action->manager()->getCommands()->count() == 0))
-			continue;
+		if (!action || !action->manager())
+			if ((!action->manager()->getCommands()))
+				if ((action->manager()->getCommands()->count() == 0))
+					continue;
 
 		names << action->manager()->name();
 		icons << action->manager()->icon();

@@ -121,6 +121,8 @@ public:
 	void deRegisterGreedyReceiver(GreedyReceiver *);
 	void registerGreedyReceiver(GreedyReceiver *);
 
+	void publishGuiActions();
+
 	~ActionManager();
 
 };

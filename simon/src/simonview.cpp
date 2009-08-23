@@ -266,6 +266,8 @@ void SimonView::setupActions()
 			      actionCollection());
 	
 	setupGUI();
+
+	ActionManager::getInstance()->publishGuiActions();
 }
 
 /**
