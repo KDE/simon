@@ -267,11 +267,7 @@ void ActionManager::registerGreedyReceiver(GreedyReceiver *receiver)
 
 void ActionManager::deRegisterGreedyReceiver(GreedyReceiver *receiver)
 {
-	fprintf(stderr, "GreedyReciever has NOT been removed. Count: %d\n", greedyReceivers->count());
 	greedyReceivers->removeAll(receiver);
-	fprintf(stderr, "GreedyReciever has been removed... Count: %d\n", greedyReceivers->count());
-/*	if (greedyReceivers.isEmpty())
-		greedyReceivers = QList<GreedyReceiver*>();*/
 }
 
 bool ActionManager::addCommand(Command *command)
@@ -359,7 +355,6 @@ CommandList* ActionManager::getCommandList()
 
 bool ActionManager::triggerCommand(const QString& type, const QString& trigger)
 {
-	fprintf(stderr, "triggerCommand()\n");
 	if (type == "simonrecognitionresult" && currentlyPromptedListOfResults) {
 		//result from a did-you-mean popup
 		QString selectedSentence = trigger;

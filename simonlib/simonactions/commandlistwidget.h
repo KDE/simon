@@ -20,6 +20,7 @@
 #ifndef COMMANDLISTWIDGET_H
 #define COMMANDLISTWIDGET_H
 
+#include "actionlib_export.h"
 #include <commandpluginbase/command.h>
 #include <QList>
 #include <QTableWidget>
@@ -36,7 +37,7 @@ class QCloseEvent;
  *	@date 19.05.2008
  *	@author Peter Grasch
  */
-class CommandListWidget : public QWidget {
+class SIMONACTIONS_EXPORT CommandListWidget : public QWidget {
 Q_OBJECT
 signals:
 	void runRequest(int index);
