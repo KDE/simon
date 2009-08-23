@@ -20,7 +20,7 @@
 #ifndef WORDLISTMODEL_H
 #define WORDLISTMODEL_H
 
-
+#include "testresult.h"
 #include <QAbstractItemModel>
 #include <QHash>
 #include <QBrush>
@@ -35,8 +35,10 @@ Q_OBJECT
 private:
 	QBrush recogWrong;
 
-	QHash<QString, RecognitionResultList> m_results;
-	QHash<QString, QString> m_prompts;
+	//QHash<QString, RecognitionResultList> m_results;
+	//QHash<QString, QString> m_prompts;
+
+	QHash<QString /*filename*/, TestResult*> m_testResults;
 
 	QVariant data(const QModelIndex &index, int role) const;
 	Qt::ItemFlags flags(const QModelIndex &index) const;
@@ -53,7 +55,7 @@ private:
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 public:
-	FileResultModel(QHash<QString, RecognitionResultList> results, QHash<QString, QString> prompts, QObject *parent=0);
+	FileResultModel(QHash<QString /*filename*/, TestResult*> testResults, QObject *parent=0);
 	~FileResultModel();
 
 };

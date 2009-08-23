@@ -42,6 +42,8 @@ extern "C" {
 	#include <julius/julius.h>
 }
 
+class TestResult;
+
 typedef QList<float> FloatList;
 
 class MODELTEST_EXPORT ModelTest : public QThread{
@@ -79,6 +81,7 @@ private:
 	QHash<QString, QString> promptsTable;
 
 	QHash<QString /*filename*/, RecognitionResultList /*recognitionresults*/> fileResults;
+	QHash<QString /*filename*/, TestResult*> testResults;
 	QHash<QString, FloatList> wordRates;
 	QHash<QString, FloatList> sentenceRates;
 
@@ -118,7 +121,6 @@ public:
 	void recognized(RecognitionResultList);
 	void searchFailed();
 
-
 	QHash<QString, FloatList> getWordRates() {
 		return this->wordRates;
 	}
@@ -127,25 +129,34 @@ public:
 		return this->sentenceRates;
 	}
 
-	QHash<QString, QString> getPrompts() {
-		return this->promptsTable;
+	TestResult* getTestResult(const QString& fileName) {
+		return testResults.value(fileName);
 	}
 
-	QHash<QString, RecognitionResultList> getFileResults() {
-		return this->fileResults;
+	QHash<QString,TestResult*> getTestResults() {
+		return testResults;
 	}
 
-	QString getFileNameByIndex(int index) {
-		return fileResults.keys().at(index);
-	}
+//	QHash<QString, QString> getPrompts() {
+//		return this->promptsTable;
+//	}
 
-	RecognitionResultList getFileResults(const QString& fileName) {
-		return fileResults.value(fileName);
-	}
+//	QHash<QString, RecognitionResultList> getFileResults() {
+//		return this->fileResults;
+//	}
 
-	QString getPromptOfFile(const QString& fileName) {
-		return promptsTable.value(fileName);
-	}
+//	QString getFileNameByIndex(int index) {
+//		return fileResults.keys().at(index);
+//	}
+
+//	RecognitionResultList getFileResults(const QString& fileName) {
+//		return fileResults.value(fileName);
+//	}
+
+
+//	QString getPromptOfFile(const QString& fileName) {
+//		return promptsTable.value(fileName);
+//	}
 
 	QString getOriginalFilePath(const QString& fileName) {
 		return recodedSamples.value(fileName);

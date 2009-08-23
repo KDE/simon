@@ -12,6 +12,7 @@ include(KDE4Defaults)
 
 set( simonmodeltest_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/modeltest.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/testresult.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/fileresultmodel.cpp
 )
 
@@ -20,6 +21,7 @@ set( simonmodeltest_LIB_HDRS
   simonmodeltest_export.h
   modeltest.h
   fileresultmodel.h
+  testresult.h
 )
 
 kde4_add_library( simonmodeltest  SHARED ${simonmodeltest_LIB_SRCS} )

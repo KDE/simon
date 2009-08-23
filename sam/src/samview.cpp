@@ -23,6 +23,7 @@
 #include <speechmodelcompilation/modelcompilationmanager.h>
 #include <simonmodeltest/modeltest.h>
 #include <simonmodeltest/fileresultmodel.h>
+#include <simonmodeltest/testresult.h>
 #include <simonsound/recwidget.h>
 #include <QHash>
 #include <KStandardAction>
@@ -464,14 +465,18 @@ void SamView::analyzeTestOutput()
 
 	QAbstractItemModel *m = ui.tvFiles->model();
 	if (m) m->deleteLater();
-	ui.tvFiles->setModel(new FileResultModel(modelTest->getFileResults(), modelTest->getPrompts(), this));
+	ui.tvFiles->setModel(new FileResultModel(modelTest->getTestResults(), this));
 }
 
 
 void SamView::slotFileResultSelected(QModelIndex index)
 {
-	QString fileName = modelTest->getFileNameByIndex(index.row());
-	RecognitionResultList results = modelTest->getFileResults(fileName);
+	QString fileName = ui.tvFiles->model()->data(index, Qt::UserRole).toString();
+	TestResult *t = modelTest->getTestResult(fileName);
+
+	if (!t) return;
+
+	RecognitionResultList results = t->getResults();
 	
 	QString resultInfo="";
 	int i=1;
@@ -492,7 +497,11 @@ void SamView::slotEditSelectedSample()
 	if (!index.isValid())
 		return;
 
-	QString fileName = modelTest->getFileNameByIndex(index.row());
+	QString fileName = ui.tvFiles->model()->data(index, Qt::UserRole).toString();
+	TestResult *t = modelTest->getTestResult(fileName);
+
+	if (!t) return;
+
 	QString originalFileName = modelTest->getOriginalFilePath(fileName);
 	//copy to temp
 	QString justFileName = originalFileName.mid(originalFileName.lastIndexOf(QDir::separator())+1);
@@ -505,13 +514,13 @@ void SamView::slotEditSelectedSample()
 
 	KDialog *d = new KDialog(0);
 	RecWidget *rec = new RecWidget(i18n("Modify sample"), 
-			modelTest->getPromptOfFile(fileName), tempFileName, d);
+			t->getPrompt(), tempFileName, d);
 	d->setMainWidget(rec);
 	if (d->exec()) {
 		if (!QFile::exists(tempFileName)) {
 			//sample has been deleted
 			//removing file from prompts
-			//TODO: re-add the file if it ius re-recorded
+			//TODO: re-add the file if it is re-recorded
 			QFile prompts(ui.urPrompts->url().path());
 			QString tempPromptsPath = KStandardDirs::locateLocal("tmp", "sam/internalsamuser/edit/prompts");
 			QFile temp(tempPromptsPath);

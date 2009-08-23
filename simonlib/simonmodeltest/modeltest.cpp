@@ -18,6 +18,7 @@
  */
 
 #include "modeltest.h"
+#include "testresult.h"
 
 #include <simonlogging/logger.h>
 

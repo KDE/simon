@@ -26,12 +26,13 @@
 #include <KLocale>
 #include <KColorScheme>
 
-FileResultModel::FileResultModel(QHash<QString, RecognitionResultList> results, QHash<QString, QString> prompts, QObject *parent) : QAbstractItemModel(parent)
+FileResultModel::FileResultModel(QHash<QString /*filename*/, TestResult*> testResults, QObject *parent) : QAbstractItemModel(parent)
 {
 	KLocale::setMainCatalog("simonlib");
 
-	m_results = results;
-	m_prompts = prompts;
+	m_testResults = testResults;
+//	m_results = results;
+//	m_prompts = prompts;
 
 	KColorScheme colorScheme(QPalette::Active);
 	QColor negative = colorScheme.background(KColorScheme::NegativeBackground).color();
@@ -44,9 +45,8 @@ QVariant FileResultModel::data(const QModelIndex &index, int role) const
 
 	int row = index.row();
 
-	QString path = m_results.keys().at(row);
-
-	RecognitionResultList results = m_results.value(path);
+	QString path = m_testResults.keys().at(row);
+	TestResult *t = m_testResults.value(path);
 
 	if (role == Qt::DisplayRole) 
 	{
@@ -55,18 +55,20 @@ QVariant FileResultModel::data(const QModelIndex &index, int role) const
 			case 0:
 				return path.mid(path.lastIndexOf(QDir::separator())+1);
 			case 1:
-				return m_prompts.value(path);
+				return t->getPrompt();
 			case 2:
-				if (results.isEmpty()) return "";
-				return results.at(0).sentence();
+				if (t->getResults().isEmpty()) return "";
+				return t->getResults().at(0).sentence();
 			case 3:
-				if (results.isEmpty()) return "";
-				return QString("%1 \%").arg(results.at(0).averageConfidenceScore()*100.0f);
+				if (t->getResults().isEmpty()) return "";
+				return QString("%1 \%").arg(t->getResults().at(0).averageConfidenceScore()*100.0f);
 		}
 	} else if (role == Qt::BackgroundRole) {
-		if (results.isEmpty() || 
-				(results.at(0).sentence().toUpper() != m_prompts.value(path)))
+		if (t->getResults().isEmpty() || 
+				(t->getResults().at(0).sentence().toUpper() != t->getPrompt()))
 			return recogWrong;
+	} else if (role == Qt::UserRole) {
+		return path;
 	}
 	
 	return QVariant();
@@ -127,7 +129,7 @@ QModelIndex FileResultModel::parent(const QModelIndex &index) const
 int FileResultModel::rowCount(const QModelIndex &parent) const
 {
 	if (!parent.isValid())
-		return m_results.keys().count();
+		return m_testResults.keys().count();
 	else return 0;
 }
 
@@ -140,6 +142,5 @@ int FileResultModel::columnCount(const QModelIndex &parent) const
 
 FileResultModel::~FileResultModel()
 {
-	
 }
 
