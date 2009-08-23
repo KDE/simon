@@ -28,6 +28,8 @@
 #include <KAction>
 #include <stdlib.h>
 #include <QList>
+#include <klocale.h>
+#include <kglobal.h>
 
 K_PLUGIN_FACTORY( CalculatorCommandPluginFactory, 
 			registerPlugin< CalculatorCommandManager >(); 
@@ -103,7 +105,7 @@ const QString CalculatorCommandManager::name() const
 
 void CalculatorCommandManager::sendComma()
 {
-	ui.leNumber->setText(ui.leNumber->text()+i18nc("Decimal point", "."));
+	ui.leNumber->setText(ui.leNumber->text()+KGlobal::locale()->decimalSymbol());
 }
 
 void CalculatorCommandManager::sendPlus()
@@ -141,13 +143,17 @@ void CalculatorCommandManager::sendEquals()
 	    ui.leNumber->setText("");
 }
 
+/*
+KLocale.decimalsymbol
+*/
 QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 {
 	QList<Token *> *list=new QList<Token *>();
 	//status: Explains the status from the parser. 0=start, 1=number, 2=comma, 3=arithmetic operator, -1=fail
 	int status=0;
 	double number=0.0;
-	bool isFloat=false;	
+	bool isFloat=false;
+	QString decimal = KGlobal::locale()->decimalSymbol();
 
 	for(int i=0;i<calc.size();i++)
 	{
@@ -178,24 +184,22 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 	    {
 		if((i+1)!=calc.size())
 		{
+
+		    if(calc.at(i).toAscii() == decimal.at(0).toAscii())
+		    {
+			if(!isFloat)
+			 {
+			  status=2;
+			  isFloat=true;
+			 }
+			else
+			status=-1;
+		    }
+
+
 		    switch(calc.at(i).toAscii())
 		    {
-			case '.': if(!isFloat)
-				  {
-				      status=2;
-				      isFloat=true;
-				  }
-				  else
-				      status=-1;
-				  break;
-			case ',': if(!isFloat)
-				  {
-				      status=2;
-				      isFloat=true;
-				  }
-				  else
-				      status=-1;
-				  break;
+			
 			case '+': list->append(new Token(number));
 				  list->append(new Token('+', 1));
 				  isFloat=false;
