@@ -142,10 +142,10 @@ void CalculatorCommandManager::sendDivide()
 	ui.leNumber->setText(ui.leNumber->text()+"/");
 }
 
-void CalculatorCommandManager::sendPercent()
-{
-        ui.leNumber->setText(ui.leNumber->text()+"%");
-}
+//void CalculatorCommandManager::sendPercent()
+//{
+//        ui.leNumber->setText(ui.leNumber->text()+"%");
+//}
 
 void CalculatorCommandManager::sendEquals()
 {
@@ -550,7 +550,7 @@ void CalculatorCommandManager::activate()
 	widget->move(x, y);
 	widget->show();
 	startGreedy();
-}
+
 
 CalculatorCommandManager::~CalculatorCommandManager()
 {
