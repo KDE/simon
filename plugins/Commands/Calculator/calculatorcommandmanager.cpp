@@ -84,6 +84,7 @@ CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVaria
 	connect(ui.pbMultiply, SIGNAL(clicked()), this, SLOT(sendMultiply()));
 	connect(ui.pbDivide, SIGNAL(clicked()), this, SLOT(sendDivide()));
 	connect(ui.pbEquals, SIGNAL(clicked()), this, SLOT(sendEquals()));
+        connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
 
 	commandListWidget = new CommandListWidget();
 	commandListWidget->init(QStringList() << "go-next" << "go-back", QStringList() << "huhu" << "Yeah", 0); //Add Elements for the list
@@ -139,6 +140,11 @@ void CalculatorCommandManager::sendMultiply()
 void CalculatorCommandManager::sendDivide()
 {
 	ui.leNumber->setText(ui.leNumber->text()+"/");
+}
+
+void CalculatorCommandManager::sendPercent()
+{
+        ui.leNumber->setText(ui.leNumber->text()+"%");
 }
 
 void CalculatorCommandManager::sendEquals()
@@ -497,6 +503,11 @@ bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
 		ui.pbEquals->animateClick();
 		return true;
 	}
+        if(inputText.toUpper() == i18n("Percent").toUpper())
+        {
+                ui.pbPercent->animateClick();
+                return true;
+        }
 
 	return true;
 }
