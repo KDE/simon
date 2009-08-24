@@ -74,7 +74,7 @@ private slots:
 	void sendMultiply();
 	void sendDivide();
 	void sendEquals();
-        void sendPercent();
+//        void sendPercent();
 	void writeoutRequestReceived(int index);
 
 protected:
