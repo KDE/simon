@@ -74,7 +74,7 @@ private slots:
 	void sendMultiply();
 	void sendDivide();
 	void sendEquals();
-//        void sendPercent();
+        void sendPercent();
 	void writeoutRequestReceived(int index);
 
 protected:
@@ -91,7 +91,7 @@ public:
 	bool load();
 	bool save();
 	CommandConfiguration* getConfigurationPage();
-        ~CalculatorCommandManager();
+
     /**
     * @brief Constructor
     * 
@@ -100,7 +100,7 @@ public:
     CalculatorCommandManager(QObject *parent, const QVariantList& args);
 
     
-
+    ~CalculatorCommandManager();
 
 };
 
