@@ -520,39 +520,50 @@ void SamView::slotEditSelectedSample()
 		if (!QFile::exists(tempFileName)) {
 			//sample has been deleted
 			//removing file from prompts
-			//TODO: re-add the file if it is re-recorded
 			QFile prompts(ui.urPrompts->url().path());
 			QString tempPromptsPath = KStandardDirs::locateLocal("tmp", "sam/internalsamuser/edit/prompts");
 			QFile temp(tempPromptsPath);
 			if ((!prompts.open(QIODevice::ReadOnly)) ||
 					(!temp.open(QIODevice::WriteOnly))){
 				KMessageBox::error(this, i18n("Couldn't modify prompts file"));
-			}
+			} else {
+				while (!prompts.atEnd()) {
+					QString line = QString::fromUtf8(prompts.readLine());
+					if (!line.startsWith(justFileName.left(justFileName.lastIndexOf("."))+" ")) {
+						temp.write(line.toUtf8());
+					}
+				}
 
-			while (!prompts.atEnd()) {
-				QString line = QString::fromUtf8(prompts.readLine());
-				if (!line.startsWith(justFileName.left(justFileName.lastIndexOf("."))+" ")) {
-					temp.write(line.toUtf8());
+				if ((!QFile::remove(ui.urPrompts->url().path())) ||
+						(!QFile::copy(tempPromptsPath, ui.urPrompts->url().path()))) {
+					KMessageBox::error(this, i18n("Couldn't overwrite prompts file"));
+				}
+				
+
+				if (!QFile::remove(originalFileName)) {
+					KMessageBox::error(this, i18n("Couldn't remove original sample:  %1.", originalFileName));
 				}
 			}
-
-			if ((!QFile::remove(ui.urPrompts->url().path())) ||
-					(!QFile::copy(tempPromptsPath, ui.urPrompts->url().path()))) {
-				KMessageBox::error(this, i18n("Couldn't overwrite prompts file"));
-			}
-
-			if (!QFile::remove(originalFileName)) {
+		} else {
+			if (!QFile::exists(originalFileName)) {
+				//we have to re-add this to the prompts
+				QFile prompts(ui.urPrompts->url().path());
+				if (!prompts.open(QIODevice::WriteOnly|QIODevice::Append)) {
+					KMessageBox::error(this, i18n("Couldn't modify prompts file"));
+				} else {
+					prompts.write(QString("%1 %2").arg(justFileName).arg(t->getPrompt()).toUtf8());
+				}
+			} else if (!QFile::remove(originalFileName)) {
 				KMessageBox::error(this, i18n("Couldn't remove original sample:  %1.", originalFileName));
 			}
-		} else {
+
 			//copy sample back
 			if (!QFile::copy(tempFileName, originalFileName)) {
 				KMessageBox::error(this, i18n("Couldn't copy sample from temporary path %1 to %2.", 
 							tempFileName, originalFileName));
 			}
-			if (!QFile::remove(originalFileName)) {
-				KMessageBox::error(this, i18n("Couldn't remove original sample:  %1.", originalFileName));
-			}
+		
+			
 		}
 	}
 	
