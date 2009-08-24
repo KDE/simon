@@ -28,12 +28,9 @@
 #include <KAction>
 #include <stdlib.h>
 #include <QList>
-<<<<<<< .mine
 #include <simonactions/commandlistwidget.h>
-=======
 #include <klocale.h>
 #include <kglobal.h>
->>>>>>> .r914
 
 K_PLUGIN_FACTORY( CalculatorCommandPluginFactory, 
 			registerPlugin< CalculatorCommandManager >(); 
@@ -412,7 +409,7 @@ bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
 	}
 
 	if (index < numberIdentifiers.count()) {
-		if (commandListWidget->isShown()) {
+		if (commandListWidget->isVisible()) {
 			writeoutRequestReceived(index);
 			return true;
 		}
