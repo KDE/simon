@@ -162,9 +162,6 @@ void CalculatorCommandManager::sendEquals()
 	    ui.leNumber->clear();
 }
 
-/*
-KLocale.decimalsymbol
-*/
 QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 {
 	QList<Token *> *list=new QList<Token *>();
@@ -550,7 +547,7 @@ void CalculatorCommandManager::activate()
 	widget->move(x, y);
 	widget->show();
 	startGreedy();
-
+    
 
 CalculatorCommandManager::~CalculatorCommandManager()
 {

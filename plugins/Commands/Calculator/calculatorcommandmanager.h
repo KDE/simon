@@ -91,7 +91,7 @@ public:
 	bool load();
 	bool save();
 	CommandConfiguration* getConfigurationPage();
-
+        ~CalculatorCommandManager();
     /**
     * @brief Constructor
     * 
@@ -100,7 +100,7 @@ public:
     CalculatorCommandManager(QObject *parent, const QVariantList& args);
 
     
-    ~CalculatorCommandManager();
+
 
 };
 
