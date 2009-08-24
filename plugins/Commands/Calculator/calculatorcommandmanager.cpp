@@ -84,7 +84,7 @@ CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVaria
 	connect(ui.pbMultiply, SIGNAL(clicked()), this, SLOT(sendMultiply()));
 	connect(ui.pbDivide, SIGNAL(clicked()), this, SLOT(sendDivide()));
 	connect(ui.pbEquals, SIGNAL(clicked()), this, SLOT(sendEquals()));
-        connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
+//        connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
 
 	commandListWidget = new CommandListWidget();
 	commandListWidget->init(QStringList() << "go-next" << "go-back", QStringList() << "huhu" << "Yeah", 0); //Add Elements for the list
@@ -240,8 +240,8 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 				      isFloat=false;
 				      status=3;
 				      break;
-                            case '%': list->append(new Token(list->at(list->size()-1)->getNumber()/100*number));
-                                      break;
+//                            case '%': list->append(new Token(list->at(list->size()-1)->getNumber()/100*number));
+//                                      break;
 			}
 		    }
 		}
@@ -503,11 +503,11 @@ bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
 		ui.pbEquals->animateClick();
 		return true;
 	}
-        if(inputText.toUpper() == i18n("Percent").toUpper())
-        {
-                ui.pbPercent->animateClick();
-                return true;
-        }
+//        if(inputText.toUpper() == i18n("Percent").toUpper())
+//        {
+//                ui.pbPercent->animateClick();
+//                return true;
+//        }
 
 	return true;
 }
