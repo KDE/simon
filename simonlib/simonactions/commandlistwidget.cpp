@@ -19,6 +19,8 @@
 
 #include "commandlistwidget.h"
 #include <QObject>
+#include <KPushButton>
+#include <QVBoxLayout>
 #include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QObject>
@@ -33,12 +35,37 @@
 
 CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint)
 {
-	ui.setupUi(this);
+	QVBoxLayout *lay = new QVBoxLayout(this);
 
-	ui.pbCancel->setIcon(KIcon("dialog-cancel"));
-	ui.twCommands->verticalHeader()->hide();
-	connect(ui.twCommands, SIGNAL(itemActivated(QTableWidgetItem*)), this, SLOT(runCommand()));
-	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(close()));
+	lay->setMargin(0);
+	lay->setSpacing(0);
+
+	pbCancel = new KPushButton(this);
+	pbCancel->setText(i18n("Cancel"));
+	pbCancel->setIcon(KIcon("dialog-cancel"));
+	twCommands = new QTableWidget(this);
+	twCommands->verticalHeader()->hide();
+	if (twCommands->columnCount() < 2)
+		twCommands->setColumnCount(2);
+	QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+	twCommands->setHorizontalHeaderItem(0, __qtablewidgetitem);
+	QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+	twCommands->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+	twCommands->setObjectName(QString::fromUtf8("twCommands"));
+	twCommands->setSelectionMode(QAbstractItemView::SingleSelection);
+	twCommands->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+	QTableWidgetItem *___qtablewidgetitem = twCommands->horizontalHeaderItem(0);
+	___qtablewidgetitem->setText(tr2i18n("Number", 0));
+	QTableWidgetItem *___qtablewidgetitem1 = twCommands->horizontalHeaderItem(1);
+	___qtablewidgetitem1->setText(tr2i18n("Command", 0));
+
+	lay->addWidget(twCommands);
+	lay->addWidget(pbCancel);
+	setLayout(lay);
+
+	connect(twCommands, SIGNAL(itemActivated(QTableWidgetItem*)), this, SLOT(runCommand()));
+	connect(pbCancel, SIGNAL(clicked()), this, SLOT(close()));
 	runRequestEmitted = false;
 }
 
@@ -49,7 +76,7 @@ void CommandListWidget::runRequestSent()
 
 void CommandListWidget::runCommand()
 {
-	int row = ui.twCommands->currentRow();
+	int row = twCommands->currentRow();
 	if (row == -1)
 		return;
 
@@ -87,7 +114,7 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
 		rowInsertionModifier=1;
 	}
 	//showing list
-	ui.twCommands->setRowCount(rowCount);
+	twCommands->setRowCount(rowCount);
 
 	if (flags & HasBack)
 	{
@@ -95,8 +122,8 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
 		num->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 		QTableWidgetItem *com = new QTableWidgetItem(KIcon("go-previous"), i18n("Back"));
 		com->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-		ui.twCommands->setItem(0, 0, num);
-		ui.twCommands->setItem(0, 1, com);
+		twCommands->setItem(0, 0, num);
+		twCommands->setItem(0, 1, com);
 
 	}
 
@@ -110,8 +137,8 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
 		num->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 		QTableWidgetItem *com = new QTableWidgetItem(KIcon(iconsrc), command);
 		com->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-		ui.twCommands->setItem(i, 0, num);
-		ui.twCommands->setItem(i, 1, com);
+		twCommands->setItem(i, 0, num);
+		twCommands->setItem(i, 1, com);
 	}
 	if (flags & HasNext)
 	{
@@ -119,16 +146,16 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
 		num->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
 		QTableWidgetItem *com = new QTableWidgetItem(KIcon("go-next"), i18n("Next"));
 		com->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
-		ui.twCommands->setItem(i, 0, num);
-		ui.twCommands->setItem(i, 1, com);
+		twCommands->setItem(i, 0, num);
+		twCommands->setItem(i, 1, com);
 
 	}
-	ui.twCommands->resizeColumnsToContents();
+	twCommands->resizeColumnsToContents();
 
-	QHeaderView *vhview = ui.twCommands->verticalHeader();
-	QHeaderView *hhview = ui.twCommands->horizontalHeader();
+	QHeaderView *vhview = twCommands->verticalHeader();
+	QHeaderView *hhview = twCommands->horizontalHeader();
 	resize(QSize(hhview->sectionSize(0)+hhview->sectionSize(1)+25, 
-				(rowCount*vhview->sectionSize(0))+ui.pbCancel->height()+40));
+				(rowCount*vhview->sectionSize(0))+pbCancel->height()+40));
 
 	//move to center of screen
 	QDesktopWidget* tmp = QApplication::desktop();

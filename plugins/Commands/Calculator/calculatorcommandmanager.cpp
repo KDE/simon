@@ -28,8 +28,12 @@
 #include <KAction>
 #include <stdlib.h>
 #include <QList>
+<<<<<<< .mine
+#include <simonactions/commandlistwidget.h>
+=======
 #include <klocale.h>
 #include <kglobal.h>
+>>>>>>> .r914
 
 K_PLUGIN_FACTORY( CalculatorCommandPluginFactory, 
 			registerPlugin< CalculatorCommandManager >(); 
@@ -83,6 +87,18 @@ CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVaria
 	connect(ui.pbMultiply, SIGNAL(clicked()), this, SLOT(sendMultiply()));
 	connect(ui.pbDivide, SIGNAL(clicked()), this, SLOT(sendDivide()));
 	connect(ui.pbEquals, SIGNAL(clicked()), this, SLOT(sendEquals()));
+
+	commandListWidget = new CommandListWidget();
+	commandListWidget->init(QStringList() << "go-next" << "go-back", QStringList() << "huhu" << "Yeah", 0); //Add Elements for the list
+	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(writeoutRequestReceived(int)));
+}
+
+void CalculatorCommandManager::writeoutRequestReceived(int index)
+{
+	commandListWidget->hide();
+
+	//Process Elements
+	
 }
 
 void CalculatorCommandManager::deregister()
@@ -140,7 +156,7 @@ void CalculatorCommandManager::sendEquals()
 	    ui.leNumber->setText(QString::number(output));
 	}
 	else
-	    ui.leNumber->setText("");
+	    ui.leNumber->clear();
 }
 
 /*
@@ -161,7 +177,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 	    {
 		switch(status)
 		{
-		    case -1: ui.leNumber->setText("");
+		    case -1: ui.leNumber->clear();
 			     SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 			     break;
 		    case 2: number=number+(calc.at(i).digitValue()/10.0f);
@@ -196,50 +212,52 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 			status=-1;
 		    }
 
-
-		    switch(calc.at(i).toAscii())
+		    else
 		    {
+			switch(calc.at(i).toAscii())
+			{
 			
-			case '+': list->append(new Token(number));
-				  list->append(new Token('+', 1));
-				  isFloat=false;
-				  status=3;
-				  break;
-			case '-': list->append(new Token(number));
-				  list->append(new Token('-',1));
-				  isFloat=false;
-				  status=3;
-				  break;
-			case '*': list->append(new Token(number));
-				  list->append(new Token('*',2));
-				  isFloat=false;
-				  status=3;
-				  break;
-			case '/': list->append(new Token(number));
-				  list->append(new Token('/',2));
-				  isFloat=false;
-				  status=3;
-				  break;
+			    case '+': list->append(new Token(number));
+				      list->append(new Token('+', 1));
+				      isFloat=false;
+				      status=3;
+				      break;
+			    case '-': list->append(new Token(number));
+				      list->append(new Token('-',1));
+				      isFloat=false;
+				      status=3;
+				      break;
+			    case '*': list->append(new Token(number));
+				      list->append(new Token('*',2));
+				      isFloat=false;
+				      status=3;
+				      break;
+			    case '/': list->append(new Token(number));
+				      list->append(new Token('/',2));
+				      isFloat=false;
+				      status=3;
+				      break;
+			}
 		    }
 		}
 		else
 		{
 		    status=-1;
-		    ui.leNumber->setText("");
+		    ui.leNumber->clear();
 		    SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 		}
 	    }
 	    else
 	    {
 		status=-1;
-		ui.leNumber->setText("");
+		ui.leNumber->clear();
 		SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 	    }
 	}
 
 	list->append(new Token(number));
 	if(status==-1)
-		return (list=NULL);
+		return NULL;
 
 	return list;
 }
@@ -359,7 +377,7 @@ void CalculatorCommandManager::back()
 
 void CalculatorCommandManager::clear()
 {
-	ui.leNumber->setText("");
+	ui.leNumber->clear();
 }
 
 
@@ -377,13 +395,64 @@ void CalculatorCommandManager::processRequest(int number)
 
 void CalculatorCommandManager::ok()
 {
-	widget->accept();
-	usleep(300000);
-	EventHandler::getInstance()->sendWord(ui.leNumber->text());
+	commandListWidget->show();
+	//widget->accept();
+	//usleep(300000);
+	//EventHandler::getInstance()->sendWord(ui.leNumber->text());
 }
 
 bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
 {
+	//setting correct index
+	bool ok=false;
+	int index = inputText.toInt(&ok);
+	if (!ok){
+		while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != inputText.toUpper()))
+			index++;
+	}
+
+	if (index < numberIdentifiers.count()) {
+		if (commandListWidget->isShown()) {
+			writeoutRequestReceived(index);
+			return true;
+		}
+
+		switch (index)
+		{
+			case 0:
+				ui.pb0->animateClick();
+				break;
+			case 1:
+				ui.pb1->animateClick();
+				break;
+			case 2:
+				ui.pb2->animateClick();
+				break;
+			case 3:
+				ui.pb3->animateClick();
+				break;
+			case 4:
+				ui.pb4->animateClick();
+				break;
+			case 5:
+				ui.pb5->animateClick();
+				break;
+			case 6:
+				ui.pb6->animateClick();
+				break;
+			case 7:
+				ui.pb7->animateClick();
+				break;
+			case 8:
+				ui.pb8->animateClick();
+				break;
+			case 9:
+				ui.pb9->animateClick();
+				break;
+		}
+		return true;
+	}
+
 	if (inputText.toUpper() == i18n("Cancel").toUpper())
 	{
 		ui.pbCancel->animateClick();
@@ -430,50 +499,6 @@ bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
 		return true;
 	}
 
-	//setting correct index
-	bool ok=false;
-	int index = inputText.toInt(&ok);
-	if (!ok)
-	{
-		while ((index < numberIdentifiers.count()) && (numberIdentifiers.at(index).toUpper() != inputText.toUpper()))
-			index++;
-
-		if (index == numberIdentifiers.count()) return false;
-	}
-
-	switch (index)
-	{
-		case 0:
-			ui.pb0->animateClick();
-			break;
-		case 1:
-			ui.pb1->animateClick();
-			break;
-		case 2:
-			ui.pb2->animateClick();
-			break;
-		case 3:
-			ui.pb3->animateClick();
-			break;
-		case 4:
-			ui.pb4->animateClick();
-			break;
-		case 5:
-			ui.pb5->animateClick();
-			break;
-		case 6:
-			ui.pb6->animateClick();
-			break;
-		case 7:
-			ui.pb7->animateClick();
-			break;
-		case 8:
-			ui.pb8->animateClick();
-			break;
-		case 9:
-			ui.pb9->animateClick();
-			break;
-	}
 	return true;
 }
 

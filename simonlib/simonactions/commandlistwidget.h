@@ -25,9 +25,11 @@
 #include <QList>
 #include <QTableWidget>
 #include <KUrl>
-#include "ui_listcommand.h"
+//#include "ui_listcommand.h"
 
 class QCloseEvent;
+class KPushButton;
+class QTableWidget;
 
 /**
  *	@class CommandListWidget
@@ -48,6 +50,9 @@ private slots:
 	void runCommand();
 
 protected:
+	KPushButton *pbCancel;
+	QTableWidget *twCommands;
+	
 	void closeEvent(QCloseEvent *);
 
 public:
@@ -72,7 +77,6 @@ public:
     ~CommandListWidget();
 
 private:
-	Ui::ListCommandWidget ui;
 	Flags currentFlags;
 	bool runRequestEmitted;
 };

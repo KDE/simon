@@ -29,6 +29,7 @@
 #include "token.h"
 
 class QDialog;
+class CommandListWidget;
 
 /**
  *	@class CalculatorCommandManager
@@ -47,6 +48,7 @@ private:
 	QList<Token *> * parseString(QString calc);
 	QList<Token *> * toPostfix(QList<Token *> *calcList);
 	double calculate(QList<Token *>* postList);
+	CommandListWidget *commandListWidget;
 	
 
 private slots:
@@ -72,6 +74,7 @@ private slots:
 	void sendMultiply();
 	void sendDivide();
 	void sendEquals();
+	void writeoutRequestReceived(int index);
 
 protected:
 	bool trigger(const QString& triggerName);

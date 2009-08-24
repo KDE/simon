@@ -28,7 +28,6 @@ set( simonactions_LIB_HDRS
 
 kde4_add_ui_files( simonactions_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandsettingsdlg.ui
-	listcommand.ui
 )
 
 kde4_add_library( simonactions  SHARED ${simonactions_LIB_SRCS} )
