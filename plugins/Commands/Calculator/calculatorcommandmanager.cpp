@@ -87,16 +87,14 @@ CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVaria
 //        connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
 
 	commandListWidget = new CommandListWidget();
-	commandListWidget->init(QStringList() << "go-next" << "go-back", QStringList() << "huhu" << "Yeah", 0); //Add Elements for the list
+	commandListWidget->init(QStringList() << "go-next" << "go-next" << "go-next" << "go-next", QStringList() << "ergebnis" << "rechnung&ergebnis" << "ergebis_formatiert" << "rechnung&ergebnis_formatiert", 0); //Add Elements for the list
 	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(writeoutRequestReceived(int)));
 }
 
 void CalculatorCommandManager::writeoutRequestReceived(int index)
 {
 	commandListWidget->hide();
-
-	//Process Elements
-	
+	//Take the index and do what you want
 }
 
 void CalculatorCommandManager::deregister()
