@@ -33,7 +33,7 @@ class Token
     private:
 	char arOperator;
 	double number;
-	//@ type: 0=number; 1=+,-; 2=*,/
+	//@ type: -1=(,); 0=number; 1=+,-; 2=*,/
 	short type;
 };
 

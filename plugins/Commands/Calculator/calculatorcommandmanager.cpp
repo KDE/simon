@@ -83,6 +83,8 @@ CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVaria
 	connect(ui.pbMinus, SIGNAL(clicked()), this, SLOT(sendMinus()));
 	connect(ui.pbMultiply, SIGNAL(clicked()), this, SLOT(sendMultiply()));
 	connect(ui.pbDivide, SIGNAL(clicked()), this, SLOT(sendDivide()));
+	connect(ui.pbBracketOpen, SIGNAL(clicked()), this, SLOT(sendBracketOpen()));
+	connect(ui.pbBracketClose, SIGNAL(clicked()), this, SLOT(sendBracketClose()));
 	connect(ui.pbEquals, SIGNAL(clicked()), this, SLOT(sendEquals()));
 //        connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
 
@@ -140,6 +142,16 @@ void CalculatorCommandManager::sendDivide()
 	ui.leNumber->setText(ui.leNumber->text()+"/");
 }
 
+void CalculatorCommandManager::sendBracketOpen()
+{
+	ui.leNumber->setText(ui.leNumber->text()+"(");
+}
+
+void CalculatorCommandManager::sendBracketClose()
+{
+	ui.leNumber->setText(ui.leNumber->text()+")");
+}
+
 //void CalculatorCommandManager::sendPercent()
 //{
 //        ui.leNumber->setText(ui.leNumber->text()+"%");
@@ -193,6 +205,15 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		    list->append(new Token(number));
 		    return list;
 		}
+	    }
+	    else if(calc.at(i)=='(' && (status==3 || status==0))
+	    {
+		list->append(new Token('(', -1));
+		status=3;
+	    }
+	    else if(calc.at(i)==')' && status==1)
+	    {
+		list->append(new Token(')', -1));
 	    }
 	    else if(status==1)
 	    {
@@ -269,7 +290,26 @@ QList<Token *>* CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
 
     for(int i=0;i<calcList->size();i++)
     {
-	if(calcList->at(i)->getType()==0)
+	if(calcList->at(i)->getType()==-1)
+	{
+	    if(calcList->at(i)->getArOperator()=='(')
+	    {
+		arOperatoren->push(calcList->at(i));
+	    }
+	    if(calcList->at(i)->getArOperator()==')')
+	    {
+		while(!arOperatoren->isEmpty())
+		{
+		    if(arOperatoren->top()->getType()!=-1)
+		    {
+			list->append(arOperatoren->pop());
+		    }
+		    else
+			break;
+		}
+	    }
+	}
+	else if(calcList->at(i)->getType()==0)
 	{
 	    list->append((*calcList)[i]);
 	}

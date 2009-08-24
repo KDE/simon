@@ -73,6 +73,8 @@ private slots:
 	void sendMinus();
 	void sendMultiply();
 	void sendDivide();
+	void sendBracketOpen();
+	void sendBracketClose();
 	void sendEquals();
 //        void sendPercent();
 	void writeoutRequestReceived(int index);
