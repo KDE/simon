@@ -234,6 +234,8 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 				      isFloat=false;
 				      status=3;
 				      break;
+                            case '%': list->append(new Token(list->at(list->size()-1)->getNumber()/100*number));
+                                      break;
 			}
 		    }
 		}
