@@ -45,7 +45,7 @@ KeyboardCommandManager::KeyboardCommandManager(QObject *parent, const QVariantLi
 
 	setXMLFile("simonkeyboardpluginui.rc");
 	activateAction = new KAction(this);
-	activateAction->setText(i18n("Activate Number Input"));
+	activateAction->setText(i18n("Activate Keyboard"));
 	activateAction->setIcon(KIcon("accessories-calculator"));
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(activate()));
