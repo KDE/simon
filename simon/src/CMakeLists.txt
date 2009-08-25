@@ -29,11 +29,6 @@ kde4_add_ui_files( simonGeneralSources
 )
 
 
-install( FILES ${simon_LIB_HDRS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/simon
-  COMPONENT simondevel
-)
-
 
 kde4_add_app_icon(simonGeneralSources "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-simon.png")
 

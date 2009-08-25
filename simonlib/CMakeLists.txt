@@ -14,10 +14,20 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonmodeltest)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonsound)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonprotocol)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonrecognitionresult)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagement)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelcompilation)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelbase)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonprogresstracking)
 
 #install( FILES settings-simon.desktop  DESTINATION  ${SERVICES_INSTALL_DIR}  COMPONENT simon)
 install( FILES settings-simond.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simond )
+
+
+
+if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+message(STATUS "Enabling simons experimental scenario support.")
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenariobase)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelbase_scenario)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagement_scenario)
+else (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelbase)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagement)
+endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})

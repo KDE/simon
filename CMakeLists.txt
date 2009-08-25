@@ -261,6 +261,13 @@ add_subdirectory(ksimond)
 add_subdirectory(plugins)
 add_subdirectory(sam)
 
+
+install( FILES ${CMAKE_CURRENT_SOURCE_DIR}/version.h
+  DESTINATION ${INCLUDE_INSTALL_DIR}/simon
+  COMPONENT simondevel
+)
+
+
 if(WIN32)
 add_subdirectory(package/KDE)
 ENDIF(WIN32)

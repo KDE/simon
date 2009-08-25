@@ -30,6 +30,11 @@
 #include <simoninfo/simoninfo.h>
 #include <simonrecognitionresult/recognitionresult.h>
 
+#ifdef SIMON_SCENARIOS
+#include <KDebug>
+#include <simonscenariobase/scenario.h>
+#endif
+
 /**
  * @brief Constructor
  * 
@@ -62,6 +67,14 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	QObject::connect(recognitionControl, SIGNAL(recognised(RecognitionResultList*)), this, SLOT(wordRecognised(RecognitionResultList*)));
 	QObject::connect(recognitionControl, SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
 
+
+#ifdef SIMON_SCENARIOS
+	kDebug() << "Creating scenario";
+	Scenario *s = new Scenario("webbrowsing");
+	kDebug() << "Initializing scenario";
+	s->init();
+	delete s;
+#endif
 }
 
 void SimonControl::actOnAutoConnect()

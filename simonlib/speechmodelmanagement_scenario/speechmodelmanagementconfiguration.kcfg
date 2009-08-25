@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
+<kcfg> <kcfgfile  name="speechmodelmanagementrc" />
+  <include>KStandardDirs</include>
+  <group name="Model">
+    <entry name="ModelSampleRate" type="Int">
+      <label>What samplerate the trainings samples should be recorded in.</label>
+      <default>16000</default>
+    </entry>
+    <entry name="ModelTrainingsDataPath" type="Url">
+      <label>Where to save the trainings samples.</label>
+      <default code="true">KStandardDirs::locateLocal("appdata", "model/training.data/")</default>
+    </entry>
+  </group>
+</kcfg>

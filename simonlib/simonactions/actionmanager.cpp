@@ -218,9 +218,7 @@ void ActionManager::publishCategories()
 	QStringList names;
 	foreach (Action::Ptr action, actions)
 	{
-		if (!action || !action->manager())
-			if ((!action->manager()->getCommands()))
-				if ((action->manager()->getCommands()->count() == 0))
+		if (!action || !action->manager() || (!action->manager()->getCommands()) || (action->manager()->getCommands()->count() == 0))
 					continue;
 
 		names << action->manager()->name();

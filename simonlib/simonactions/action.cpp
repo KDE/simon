@@ -20,6 +20,7 @@
 #include "action.h"
 #include <KService>
 #include <KPluginInfo>
+#include <KDebug>
 #include <commandpluginbase/commandmanager.h>
 
 Action::Action(const QString& source, const QString& trigger) : m_source(source)
@@ -33,6 +34,10 @@ Action::Action(const QString& source, const QString& trigger) : m_source(source)
 
 	if (factory) {
 		m_manager = factory->create<CommandManager>();
+		if (m_manager == NULL) {
+			kWarning() << "Failed to create instance of " << source;
+			return;
+		}
 		if (trigger.isNull()) {
 			m_trigger = m_manager->preferredTrigger();
 		}

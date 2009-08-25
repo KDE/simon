@@ -60,33 +60,6 @@ ModelTest::ModelTest(const QString& userName,
 	fileResults.clear();
 }
 
-QString ModelTest::htkIfyPath(const QString& in)
-{
-	QString out = in;
-	#ifdef Q_OS_WIN
-	const char *in_data = out.toUtf8().constData();
-	
-	long length = 0;
-	length = GetShortPathName(in_data, NULL, 0);
-	if (length ==0) return QString();
-	
-	char *out_data = new TCHAR[length];
-	length = GetShortPathName(in_data, out_data, length);
-	if (length ==0) return QString();
-	
-
-	#ifdef UNICODE
-	out = QString::fromUtf16((ushort*)out_data);
-	#else
-	out = QString::fromLocal8Bit(out_data);
-	#endif
-	
-	delete[] out_data;
-	#endif
-	
-	return out;
-}
-
 bool ModelTest::createDirs()
 {
 	tempDir = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+"/"+userName+"/test/");
@@ -116,8 +89,7 @@ bool ModelTest::parseConfiguration()
 			!QFile::exists(julius) ||
 			!QFile::exists(hResults))
 	{
-		//HTK not found
-		QString errorMsg = i18n("The HTK, SOX or Julius can not be found. Please make sure it is installed correctly.\n\n");
+		QString errorMsg = i18n("SOX or Julius can not be found. Please make sure it is installed correctly.\n\n");
 #ifdef Q_OS_WIN32
 		errorMsg += i18n("More information: http://www.cyber-byte.at/wiki/index.php/English:_Setup#Windows");
 #else
