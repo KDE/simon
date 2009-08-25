@@ -58,6 +58,27 @@ QString KeyboardConfiguration::trigger()
 	return cg.readEntry("Trigger", i18n("Keyboard"));
 }
 
+void KeyboardConfiguration::addSet()
+{
+}
+void KeyboardConfiguration::deleteSet()
+{
+}
+void KeyboardConfiguration::addTab()
+{
+}
+void KeyboardConfiguration::deleteTab()
+{
+}
+void KeyboardConfiguration::addButton()
+{
+}
+void KeyboardConfiguration::editButton()
+{
+}
+void KeyboardConfiguration::deleteButton()
+{
+}
 
 void KeyboardConfiguration::save()
 {
