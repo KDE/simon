@@ -32,6 +32,15 @@ class KeyboardConfiguration : public CommandConfiguration
 	private:
 		Ui::KeyboardConfigurationDlg ui;
 		static QPointer<KeyboardConfiguration> instance;
+
+        private slots:
+                void addSet();
+                void deleteSet();
+                void addTab();
+                void deleteTab();
+                void addButton();
+                void editButton();
+                void deleteButton();
  
 	public slots:
 		virtual void save();

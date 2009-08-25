@@ -43,6 +43,13 @@ InputNumberConfiguration::InputNumberConfiguration(QWidget *parent, const QVaria
 					"inputnumberrc");
 
 	QObject::connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+        connect(ui.tbAddSet, SIGNAL(clicked()), this, SLOT(addSet()));
+        connect(ui.tbDeleteSet, SIGNAL(clicked()), this, SLOT(deleteSet()));
+        connect(ui.tbAddTab, SIGNAL(clicked()), this, SLOT(addTab()));
+        connect(ui.tbDeleteTab, SIGNAL(clicked()), this, SLOT(deleteTab()));
+        connect(ui.pbAddButton, SIGNAL(clicked()), this, SLOT(addButton()));
+        connect(ui.pbEditButton, SIGNAL(clicked()), this, SLOT(editButton()));
+        connect(ui.pbDeleteButton, SIGNAL(clicked()), this, SLOT(deleteButton()));
 }
 
 QString InputNumberConfiguration::trigger()
