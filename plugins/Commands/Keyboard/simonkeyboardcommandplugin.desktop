@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Service
+Icon=system-run
+ServiceTypes=simon/CommandPlugin
+X-KDE-Library=simonkeyboardcommandplugin
+Name=simon Keyboard Command Plugin
+Name[de]=simon Tastatur-Kommando Modul
+Comment=Provides a full keyboard functionality
+Comment[de]=Bietet eine volle Tastaturfunktionalität
+
+X-KDE-PluginInfo-Author=Neumeister Dominik und Strametz Mario
+X-KDE-PluginInfo-Email=neudob06@edvhtl.at
+X-KDE-PluginInfo-Name=simonkeyboardcommandplugin
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://simon-listens.org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
+X-KDE-ParentApp=simon

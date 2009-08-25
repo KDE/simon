@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<gui name="simonkeyboardplugin" version="1">
+	<MenuBar>
+		<Menu name="commands">
+			<text>Commands</text>
+			<Action name="simonkeyboardplugin" />
+		</Menu>
+	</MenuBar>
+</gui>
