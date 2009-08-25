@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Mario Strametz strmam06@htl-kaindorf.ac.at
+ *   Copyright (C) 2009 Mario Strametz <strmam06@htl-kaindorf.ac.at>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -22,25 +22,25 @@
 			/* @para  triggerShown, triggerReal, valueType, value  **/
 KeyboardButton::KeyboardButton(QString triggerS, QString triggerR, short vType, QString v)
 {
-triggerShown = triggerS;
-triggerReal = triggerR;
-valueType = vType;
-value = v;
+	triggerShown = triggerS;
+	triggerReal = triggerR;
+	valueType = vType;
+	value = v;
 }
 
 QString KeyboardButton::getTriggerReal()
 {
-return triggerReal;
+	return triggerReal;
 }
 
 QString KeyboardButton::getValue()
 {
-return value;
+	return value;
 }
 
 short KeyboardButton::getValueType()
 {
-return valueType;
+	return valueType;
 }
 
 

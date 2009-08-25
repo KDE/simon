@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Mario Strametz strmam06@htl-kaindorf.ac.at
+ *   Copyright (C) 2009 Mario Strametz <strmam06@htl-kaindorf.ac.at>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -25,17 +25,17 @@
 
 class KeyboardButton : public KPushButton
 {
-private:
-QString triggerShown;
-QString triggerReal;
-short valueType; // 0 = text; 1 = shortcut; no bool cause scaleability
-QString value;
+	private:
+		QString triggerShown;
+		QString triggerReal;
+		short valueType; // 0 = text; 1 = shortcut; no bool cause scaleability
+		QString value;
 
-public:
-KeyboardButton(QString triggerShown, QString triggerReal, short valueType, QString value);
-QString getTriggerReal();
-short getValueType();
-QString getValue();
+	public:
+		KeyboardButton(QString triggerShown, QString triggerReal, short valueType, QString value);
+		QString getTriggerReal();
+		short getValueType();
+		QString getValue();
 };
 
 #endif

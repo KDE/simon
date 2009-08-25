@@ -7,8 +7,10 @@ include_directories(${KDE4_INCLUDE_DIRS} ${KDE4_INCLUDE_DIR}
 ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib)
 
 set (simonkeyboardcommandplugin_SRCS 
-	keyboardcommandmanager.cpp 
-	keyboardconfiguration.cpp 
+	#keyboardcommandmanager.cpp 
+	#keyboardconfiguration.cpp
+	keyboardtab.cpp
+	keyboardset.cpp
     )
 
 kde4_add_ui_files(simonkeyboardcommandplugin_SRCS 
