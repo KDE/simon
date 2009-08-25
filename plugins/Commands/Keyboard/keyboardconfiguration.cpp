@@ -17,30 +17,30 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#include "inputnumberconfiguration.h"
-#include "inputnumbercommandmanager.h"
+#include "keyboardconfiguration.h"
+#include "keyboardcommandmanager.h"
 #include <QVariantList>
 #include <kgenericfactory.h>
 #include <KAboutData>
 #include <KMessageBox>
 
-K_PLUGIN_FACTORY_DECLARATION(InputNumberCommandPluginFactory)
+K_PLUGIN_FACTORY_DECLARATION(KeyboardCommandPluginFactory)
 
-QPointer<InputNumberConfiguration> InputNumberConfiguration::instance;
+QPointer<KeyboardConfiguration> KeyboardConfiguration::instance;
 
 
-InputNumberConfiguration::InputNumberConfiguration(QWidget *parent, const QVariantList &args)
-		: CommandConfiguration("inputnumber", ki18n( "Input Number" ),
-				      "0.1", ki18n("Input numbers with ease"),
+KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList &args)
+		: CommandConfiguration("keyboard", ki18n( "Keyboard" ),
+				      "0.1", ki18n("Input signes with ease"),
 				      "accessories-calculator",
-				      InputNumberCommandPluginFactory::componentData(),
+				      KeyboardCommandPluginFactory::componentData(),
 				      parent)
 {
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
-	config = KSharedConfig::openConfig(InputNumberCommandPluginFactory::componentData(),
-					"inputnumberrc");
+	config = KSharedConfig::openConfig(KeyboardCommandPluginFactory::componentData(),
+					"keyboardrc");
 
 	QObject::connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
         connect(ui.tbAddSet, SIGNAL(clicked()), this, SLOT(addSet()));
@@ -52,14 +52,14 @@ InputNumberConfiguration::InputNumberConfiguration(QWidget *parent, const QVaria
         connect(ui.pbDeleteButton, SIGNAL(clicked()), this, SLOT(deleteButton()));
 }
 
-QString InputNumberConfiguration::trigger()
+QString KeyboardConfiguration::trigger()
 {
 	KConfigGroup cg(config, "");
-	return cg.readEntry("Trigger", i18n("Number"));
+	return cg.readEntry("Trigger", i18n("Keyboard"));
 }
 
 
-void InputNumberConfiguration::save()
+void KeyboardConfiguration::save()
 {
 	Q_ASSERT(config);
 	
@@ -71,31 +71,31 @@ void InputNumberConfiguration::save()
 	emit changed(false);
 }
 
-void InputNumberConfiguration::destroy()
+void KeyboardConfiguration::destroy()
 {
 	deleteLater();
 	instance=0;
 }
  
-void InputNumberConfiguration::load()
+void KeyboardConfiguration::load()
 {
 	Q_ASSERT(config);
 
 	KConfigGroup cg(config, "");
-	ui.leTrigger->setText(cg.readEntry("Trigger", i18n("Number")));
+	ui.leTrigger->setText(cg.readEntry("Trigger", i18n("Keyboard")));
 
 	cg.sync();
 	
 	emit changed(false);
 }
  
-void InputNumberConfiguration::defaults()
+void KeyboardConfiguration::defaults()
 {
-	ui.leTrigger->setText(i18n("Number"));
+	ui.leTrigger->setText(i18n("Keyboard"));
 	save();
 }
 
-InputNumberConfiguration::~InputNumberConfiguration()
+KeyboardConfiguration::~KeyboardConfiguration()
 {
 	
 }

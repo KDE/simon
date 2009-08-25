@@ -40,9 +40,7 @@ KeyboardCommandManager::KeyboardCommandManager(QObject *parent, const QVariantLi
 	widget = new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
 	widget->setWindowIcon(KIcon("accessories-calculator"));
 	connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
-	ui.setupUi(widget);
-	ui.pbOk->setIcon(KIcon("dialog-ok-apply"));
-	ui.pbCancel->setIcon(KIcon("dialog-cancel"));
+        ui.setupUi(widget);
 	widget->hide();
 
 	setXMLFile("simonkeyboardpluginui.rc");
@@ -58,21 +56,7 @@ KeyboardCommandManager::KeyboardCommandManager(QObject *parent, const QVariantLi
 			<< i18n("Three") << i18n("Four") << i18n("Five") <<
 			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
 
-	connect(widget, SIGNAL(finished(int)), this, SLOT(deregister()));
-	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(cancel()));
-	connect(ui.pbBack, SIGNAL(clicked()), this, SLOT(back()));
-	connect(ui.pbOk, SIGNAL(clicked()), this, SLOT(ok()));
-	connect(ui.pbComma, SIGNAL(clicked()), this, SLOT(sendComma()));
-	connect(ui.pb0, SIGNAL(clicked()), this, SLOT(send0()));
-	connect(ui.pb1, SIGNAL(clicked()), this, SLOT(send1()));
-	connect(ui.pb2, SIGNAL(clicked()), this, SLOT(send2()));
-	connect(ui.pb3, SIGNAL(clicked()), this, SLOT(send3()));
-	connect(ui.pb4, SIGNAL(clicked()), this, SLOT(send4()));
-	connect(ui.pb5, SIGNAL(clicked()), this, SLOT(send5()));
-	connect(ui.pb6, SIGNAL(clicked()), this, SLOT(send6()));
-	connect(ui.pb7, SIGNAL(clicked()), this, SLOT(send7()));
-	connect(ui.pb8, SIGNAL(clicked()), this, SLOT(send8()));
-	connect(ui.pb9, SIGNAL(clicked()), this, SLOT(send9()));
+        //Connect to Slots
 }
 
 void KeyboardCommandManager::activate()
@@ -140,17 +124,7 @@ void KeyboardCommandManager::ok()
 
 bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 {
-	if (inputText.toUpper() == i18n("Cancel").toUpper())
-	{
-		ui.pbCancel->animateClick();
-		return true;
-	}
-	if (inputText.toUpper() == i18n("Back").toUpper())
-	{
-		ui.pbBack->animateClick();
-		return true;
-	}
-	if (inputText.toUpper() == i18n("Ok").toUpper())
+        if (inputText.toUpper() == i18n("Ok").toUpper())
 	{
 		ui.pbOk->animateClick();
 		return true;
@@ -173,39 +147,38 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 		if (index == numberIdentifiers.count()) return false;
 	}
 
-	switch (index)
-	{
-		case 0:
-			ui.pb0->animateClick();
-			break;
-		case 1:
-			ui.pb1->animateClick();
-			break;
-		case 2:
-			ui.pb2->animateClick();
-			break;
-		case 3:
-			ui.pb3->animateClick();
-			break;
-		case 4:
-			ui.pb4->animateClick();
-			break;
-		case 5:
-			ui.pb5->animateClick();
-			break;
-		case 6:
-			ui.pb6->animateClick();
-			break;
-		case 7:
-			ui.pb7->animateClick();
-			break;
-		case 8:
-			ui.pb8->animateClick();
-			break;
-		case 9:
-			ui.pb9->animateClick();
-			break;
-	}
+//	switch (index)
+//	{
+//		case 0:
+//			ui.pb0->animateClick();
+//			break;
+//		case 1:
+//			ui.pb1->animateClick();
+//			break;
+//		case 2:
+//			ui.pb2->animateClick();
+//			break;
+//		case 3:
+//			ui.pb3->animateClick();
+//			break;
+//		case 4:
+//			ui.pb4->animateClick();
+//			break;
+//		case 5:
+//			ui.pb5->animateClick();
+//			break;
+//		case 6:
+//			ui.pb6->animateClick();
+//			break;
+//		case 7:
+//			ui.pb7->animateClick();
+//			break;
+//		case 8:
+//			ui.pb8->animateClick();
+//			break;
+//			ui.pb9->animateClick();
+//			break;
+//	}
 	return true;
 }
 
