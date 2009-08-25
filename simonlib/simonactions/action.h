@@ -32,7 +32,7 @@ class Action : public QObject {
 	private:
 		QString m_source;
 		QString m_trigger;
-		CommandManager* m_manager;
+		QPointer<CommandManager> m_manager;
 		bool m_enabledByDefault;
 	public:
 		typedef QPointer<Action> Ptr;
@@ -42,7 +42,7 @@ class Action : public QObject {
 		QString trigger() { return m_trigger; }
 
 		QIcon icon();
-		CommandManager* manager() { return m_manager; }
+		QPointer<CommandManager> manager() { return m_manager; }
 		void setTrigger(const QString& newTrigger) { m_trigger=newTrigger; }
 
 		~Action();

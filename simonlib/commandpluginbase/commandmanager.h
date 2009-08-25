@@ -27,6 +27,7 @@
 #include <QList>
 #include <QObject>
 #include <KIcon>
+#include <KDebug>
 
 class CommandManager;
 class CreateCommandWidget;
@@ -62,14 +63,17 @@ public:
 
 	virtual QList<QAction*> getGuiActions();
 
-	virtual CommandList* getCommands() const { return commands; }
-
-	virtual bool deleteCommand(Command *command);
+	virtual CommandList* getCommands() const { 
+		kWarning() << "Getting commands...";
+		return commands; 
+	}
 
 	virtual CommandConfiguration* getConfigurationPage();
 	virtual CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
 	virtual bool processResult(const RecognitionResult& recognitionResult);
+
+	virtual bool deleteCommand(Command *command);
 
 	/**
 	* @brief Constructor

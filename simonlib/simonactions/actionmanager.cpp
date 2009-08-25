@@ -128,6 +128,10 @@ void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 	while (pluginsToLoad.count() > 0)
 	{
 		Action *newAction = pluginsToLoad.takeAt(0);
+		if (!newAction) {
+			fprintf(stderr, "ACTION IS NULL");
+			continue;
+		}
 		QString source = newAction->source();
 
 		bool found = false;
@@ -218,6 +222,19 @@ void ActionManager::publishCategories()
 	QStringList names;
 	foreach (Action::Ptr action, actions)
 	{
+		kDebug() << "------------------------";
+		kDebug() << "Action: " << (!action);
+		if (action) {
+			kDebug() << "Source: " << action->source();
+			kDebug() << "Manager: " << (!action->manager());
+			if (action->manager()) {
+				//that crashes...
+				kDebug() << "Get commands: " << (!action->manager()->getCommands()) ;
+				if (action->manager()->getCommands())
+					kDebug() << "Commands count " << (action->manager()->getCommands()->count() == 0);
+			}
+		}
+		kDebug() << "------------------------";
 		if (!action || !action->manager() || (!action->manager()->getCommands()) || (action->manager()->getCommands()->count() == 0))
 					continue;
 
