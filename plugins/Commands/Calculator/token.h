@@ -21,8 +21,7 @@
 
 class Token
 {
-    
-
+   
     public:
 	Token(char arOp, short type);
         Token(double num);
