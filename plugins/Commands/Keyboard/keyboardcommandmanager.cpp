@@ -84,7 +84,7 @@ const KIcon KeyboardCommandManager::icon() const
 
 const QString KeyboardCommandManager::name() const
 {
-	return i18n("Input Number");
+	return i18n("Keyboard");
 }
 
 
