@@ -23,7 +23,7 @@ set( simonddatabaseaccess_LIB_HDRS
 
 
 kde4_add_library( simonddatabaseaccess  SHARED ${simonddatabaseaccess_LIB_SRCS} )
-target_link_libraries( simonddatabaseaccess ${KDE4_KDECORE_LIBS}
+target_link_libraries( simonddatabaseaccess ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBS}
 	${QT_LIBRARIES} )
 
 

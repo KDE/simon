@@ -36,7 +36,6 @@ class SIMONDDATABASEACCESS_EXPORT DatabaseAccess : public QObject
 		QSqlDatabase *db;
 		QSqlTableModel *userModel;
 		QString m_database;
-		bool executeQuery(const QString& query);
 
 	public:
 		DatabaseAccess(QObject *parent=0);   

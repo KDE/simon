@@ -53,38 +53,25 @@ bool DatabaseAccess::init()
 	{
 		emit error(db->lastError().text());
 		
-		kDebug() << "Could not open db";
-		
 		return false;
 	}
 	
 	if (db->tables().isEmpty()) //create tables
 	{
-		kDebug() << "Creating tables";
-		return executeQuery("CREATE TABLE `User` ( "
+		QSqlQuery q("CREATE TABLE `User` ( "
 				    "UserID integer PRIMARY KEY AUTOINCREMENT, "
 				    "Name varchar(150) NOT NULL, "
 				    "Password varchar(250) not null"
 				    ");");
+		if (!q.exec()) {
+			emit error(db->lastError().text());
+			return false;
+		}
+		return true;
 	}
 	return true;
 }
 
-
-
-bool DatabaseAccess::executeQuery(const QString& query)
-{
-	kDebug() << "Executing query " << query;
-	
-	QSqlQuery q;
-	q.exec(query);
-	if (!q.isActive())
-	{
-		kDebug() << "Query failed";
-		emit error(db->lastError().text());
-		return false;
-	} else return true;
-}
 
 
 void DatabaseAccess::closeConnection()
@@ -99,18 +86,23 @@ bool DatabaseAccess::addUser(const QString& user, const QString& password)
 {
 	QString query = "INSERT INTO User (Name, Password) VALUES ('"+user+"', '"+password+"')";
 	QSqlQuery q;
-	return executeQuery(query);
+	q.prepare("INSERT INTO User (Name, Password) VALUES (:user, :password)");
+	q.bindValue(":user", user);
+	q.bindValue(":password", password);
+	if (!q.exec()) {
+		emit error(db->lastError().text());
+		return false;
+	}
+
+	return true;
 }
 
 bool DatabaseAccess::authenticateUser(const QString& user, const QString& password)
 {
-	QString cleanedPass = password;
-	cleanedPass = cleanedPass.replace("'", "\\'");
-	QString cleanedUser = user;
-	cleanedUser = cleanedUser.replace("'", "\\'");
-	QString query = "SELECT Name FROM User WHERE Name='"+cleanedUser+"' AND Password='"+cleanedPass+"'";
-	kDebug() << query;
 	QSqlQuery q;
+	q.prepare("SELECT Name FROM User WHERE Name=':user' AND Password=':pass'");
+	q.bindValue(":user", user);
+	q.bindValue(":password", password);
 
 	if (q.exec(query)) 
 	{

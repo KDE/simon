@@ -32,7 +32,6 @@ class DatabaseAccess : public QObject
 
 	private:
 		QSqlDatabase *db;
-		bool executeQuery(const QString& query);
 
 	public:
 		DatabaseAccess(QObject *parent=0);   

@@ -79,99 +79,111 @@ bool DatabaseAccess::init()
 	
 	if (db->tables().isEmpty()) //create tables
 	{
-		kDebug() << "Creating tables";
-		return executeQuery("CREATE TABLE `User` ( "
+		QSqlQuery q("CREATE TABLE `User` ( "
 				    "UserID integer PRIMARY KEY AUTOINCREMENT, "
 				    "Name varchar(150) NOT NULL, "
 				    "Password varchar(250) not null"
-				    ");");
+				    ");", *db);
+		if (!q.exec()) {
+			emit error(db->lastError().text());
+			return false;
+		}
+		return true;
 	}
 	return true;
 }
 
 
 
-bool DatabaseAccess::executeQuery(const QString& query)
-{
-	if (!db) return false;
-
-	kDebug() << "Executing query " << query;
-	
-	QSqlQuery q(*db);
-	q.exec(query);
-	if (!q.isActive())
-	{
-		kDebug() << "Query failed";
-		emit error(db->lastError().text());
-		return false;
-	} else {
-		if(userModel) userModel->select();
-		return true;
-	}
-}
-
 void DatabaseAccess::closeConnection()
 {
 	db->close();
 }
 
-//#include <KMessageBox>
+#include <KMessageBox>
 
 //USER
 bool DatabaseAccess::addUser(const QString& user, const QString& password)
 {
-	QString query = "INSERT INTO User (Name, Password) VALUES ('"+user+"', '"+password+"');";
-	//KMessageBox::information(0, query);
-	return executeQuery(query);
+	QSqlQuery q(*db);
+	q.prepare("INSERT INTO User (Name, Password) VALUES (:user, :password)");
+	q.bindValue(":user", user);
+	q.bindValue(":password", password);
+	
+	if (!q.exec()) {
+		KMessageBox::information(0, q.lastError().text());
+		KMessageBox::information(0, q.lastQuery());
+		emit error(q.lastError().text());
+		return false;
+	}
+
+
+	if (userModel) userModel->select();
+	return true;
 }
 
 bool DatabaseAccess::authenticateUser(const QString& user, const QString& password)
 {
-	QString cleanedPass = password;
-	cleanedPass = cleanedPass.replace("'", "\\'");
-	QString cleanedUser = user;
-	cleanedUser = cleanedUser.replace("'", "\\'");
-	QString query = "SELECT Name FROM User WHERE Name='"+cleanedUser+"' AND Password='"+cleanedPass+"'";
-	kDebug() << query;
 	QSqlQuery q(*db);
+	q.prepare("SELECT Name FROM User WHERE Name=:user AND Password=:pass");
+	q.bindValue(":user", user);
+	q.bindValue(":password", password);
 
-	if (q.exec(query)) 
-	{
+	if (q.exec()) 
 		return q.first();
-	} else
-	{
-		emit error(db->lastError().text());
-		return false;
-	}
+
+	emit error(db->lastError().text());
+	return false;
 }
 
 bool DatabaseAccess::setPassword(const QString& username, const QString& password)
 {
-	QString query = "UPDATE User SET Password='"+password+"' WHERE Name='"+username+"';";
-	return executeQuery(query);
+	QSqlQuery q(*db);
+	q.prepare("UPDATE User SET Password=:password WHERE Name=:user");
+	q.bindValue(":user", username);
+	q.bindValue(":password", password);
+
+	if (!q.exec())  {
+		emit error(db->lastError().text());
+		return false;
+	}
+
+
+	if (userModel) userModel->select();
+	return true;
 }
 
 
 bool DatabaseAccess::deleteUser(const QString& username)
 {
-	QString query = "DELETE FROM User WHERE Name='"+username+"';";
-	return executeQuery(query);
+	QSqlQuery q(*db);
+	q.prepare("DELETE FROM User WHERE Name=:user");
+	q.bindValue(":user", username);
+
+	if (!q.exec())  {
+		emit error(db->lastError().text());
+		return false;
+	}
+
+	if (userModel) userModel->select();
+	return true;
 }
 
 QSqlTableModel* DatabaseAccess::getUsers()
 {
-	if (userModel) return userModel;
+	if (userModel) {
+		userModel->select();
+		return userModel;
+	}
 
-	QSqlTableModel *user= new QSqlTableModel(this, *db);
-	user->setTable("User");
-	user->removeColumn(0); //skip id
-	user->setHeaderData(0, Qt::Horizontal, i18n("Username"));
-	user->setHeaderData(1, Qt::Horizontal, i18n("Encrypted Password"));
-	user->select();
+	userModel = new QSqlTableModel(this, *db);
+	userModel->setTable("User");
+	userModel->removeColumn(0); //skip id
+	userModel->setHeaderData(0, Qt::Horizontal, i18n("Username"));
+	userModel->setHeaderData(1, Qt::Horizontal, i18n("Encrypted Password"));
+	userModel->select();
 
-	this->userModel = user;
-
-	return user;
+	return userModel;
 }
 
 DatabaseAccess::~DatabaseAccess()
