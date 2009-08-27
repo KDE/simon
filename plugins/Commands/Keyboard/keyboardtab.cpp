@@ -30,7 +30,7 @@ KeyboardTab::KeyboardTab(QString name)
 KeyboardTab::KeyboardTab(QString name, QList<KeyboardButton *>* bList)
 {
 	tabName = name;
-	buttonList = bList;
+	buttonList = &bList;
 }
 
 void KeyboardTab::addButton(KeyboardButton* b)
