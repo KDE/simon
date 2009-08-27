@@ -43,7 +43,7 @@ short KeyboardButton::getValueType()
 	return valueType;
 }
 
-QString KeyboardButton::getTrigger()
+QString KeyboardButton::getTriggerShown()
 {
-	return trigger;
+	return triggerShown;
 }
