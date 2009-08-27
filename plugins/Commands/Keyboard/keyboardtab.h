@@ -37,6 +37,8 @@ class KeyboardTab
 	public:
 		KeyboardTab(QString name);
 		QString getTabName();
+		QList<KeyboardButton *> getButtonList();
+
 };
 
 #endif

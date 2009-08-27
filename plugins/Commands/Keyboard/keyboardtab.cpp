@@ -51,3 +51,8 @@ QString KeyboardTab::getTabName()
 {
 	return tabName;
 }
+
+QList<KeyboardButton *> KeyboardSet::getButtonList()
+{
+	return buttonList;
+}
