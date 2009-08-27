@@ -37,7 +37,7 @@ class KeyboardSet
 	public:
 		KeyboardSet(QString name);
 		QString getSetName();
-		QList<KeyboardTab *> getTabList();
+		QList<KeyboardTab *>* getTabList();
 };
 
 #endif

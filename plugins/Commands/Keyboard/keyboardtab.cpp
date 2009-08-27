@@ -52,7 +52,7 @@ QString KeyboardTab::getTabName()
 	return tabName;
 }
 
-QList<KeyboardButton *> KeyboardTab::getButtonList()
+QList<KeyboardButton *>* KeyboardTab::getButtonList()
 {
-	return buttonList;
+	return &buttonList;
 }

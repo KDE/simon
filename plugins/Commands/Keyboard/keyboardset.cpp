@@ -52,7 +52,7 @@ QString KeyboardSet::getSetName()
 	return setName;
 }
 
-QList<KeyboardTab *> KeyboardSet::getTabList()
+QList<KeyboardTab *>* KeyboardSet::getTabList()
 {
-	return tabList;
+	return &tabList;
 }
