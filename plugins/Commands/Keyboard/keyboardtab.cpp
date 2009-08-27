@@ -46,3 +46,8 @@ void KeyboardTab::buttonRight(int index)
 {
 	buttonList.insert((index+1),buttonList.takeAt(index));
 }
+
+QString KeyboardTab::getTabName()
+{
+	return tabName;
+}

@@ -46,3 +46,8 @@ void KeyboardSet::tabRight(int index)
 {
 	tabList.insert((index+1),tabList.takeAt(index));
 }
+
+QString KeyboardSet::getSetName()
+{
+	return setName;
+}

@@ -36,6 +36,7 @@ class KeyboardTab
 		
 	public:
 		KeyboardTab(QString name);
+		QString getTabName();
 };
 
 #endif

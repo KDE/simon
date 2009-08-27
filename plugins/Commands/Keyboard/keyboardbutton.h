@@ -36,6 +36,7 @@ class KeyboardButton : public KPushButton
 		QString getTriggerReal();
 		short getValueType();
 		QString getValue();
+		QString getTrigger();
 };
 
 #endif

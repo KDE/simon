@@ -36,6 +36,7 @@ class KeyboardSet
 		
 	public:
 		KeyboardSet(QString name);
+		QString getSetName();
 };
 
 #endif
