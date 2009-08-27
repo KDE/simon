@@ -35,6 +35,7 @@ class KeyboardSet
 		void delTab(int index);
 		
 	public:
+		KeyboardSet(QString name, QList<KeyboardTab *>* tList);
 		KeyboardSet(QString name);
 		QString getSetName();
 		QList<KeyboardTab *>* getTabList();

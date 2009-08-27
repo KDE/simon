@@ -27,6 +27,12 @@ KeyboardTab::KeyboardTab(QString name)
 	tabName = name;
 }
 
+KeyboardTab::KeyboardTab(QString name, QList<KeyboardButton *>* bList)
+{
+	tabName = name;
+	buttonList = bList;
+}
+
 void KeyboardTab::addButton(KeyboardButton* b)
 {
 	buttonList.append(b);

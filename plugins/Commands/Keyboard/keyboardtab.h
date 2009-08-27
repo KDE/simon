@@ -31,13 +31,15 @@ class KeyboardTab
 		QString tabName;
 		void addButton(KeyboardButton* b);
 		void delButton(int index);
-		void buttonLeft(int index);
-		void buttonRight(int index);
+		
 		
 	public:
+		KeyboardTab(QString name, QList<KeyboardButton *>* bList);
 		KeyboardTab(QString name);
 		QString getTabName();
 		QList<KeyboardButton *>* getButtonList();
+		void buttonLeft(int index);
+		void buttonRight(int index);
 
 };
 
