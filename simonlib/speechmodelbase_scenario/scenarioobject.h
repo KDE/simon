@@ -22,11 +22,11 @@
 #define SCENARIOOBJECT_H
 #include <QString>
 #include <QDomElement>
-#include "simonscenariobase_export.h"
+#include "speechmodelbase_export.h"
 
-class SCENARIOBASE_EXPORT ScenarioObject{
+class SPEECHMODELBASE_EXPORT ScenarioObject{
 
-private:
+protected:
 	QString scenarioId;
 public:
 	

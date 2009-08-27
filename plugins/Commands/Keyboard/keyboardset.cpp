@@ -27,10 +27,10 @@ KeyboardSet::KeyboardSet(QString name)
 	setName = name;
 }
 
-KeyboardTab(QString name, QList<KeyboardButton *>* tList)
+KeyboardSet::KeyboardSet(QString name, QList<KeyboardTab *>* tList)
 {
 	setName = name;
-	tabList = tList;
+	tabList = *tList;
 }
 
 void KeyboardSet::addTab(KeyboardTab* t)

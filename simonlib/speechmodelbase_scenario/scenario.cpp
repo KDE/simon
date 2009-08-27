@@ -21,12 +21,17 @@
 #include "scenarioobject.h"
 #include "author.h"
 #include "versionnumber.h"
+#include "vocabulary.h"
+#include "grammar.h"
+
+#include "version.h"
+
+
 #include <KStandardDirs>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QFile>
 #include <KDebug>
-#include "version.h"
 
 
 Scenario::Scenario(const QString& scenarioId)
@@ -46,6 +51,7 @@ Scenario::Scenario(const QString& scenarioId)
  */
 bool Scenario::init(QString path)
 {
+	kDebug() << "Hi";
 	if (path.isNull())
 		path = KStandardDirs::locate("appdata", "scenarios/"+scenarioId);
 
@@ -124,12 +130,25 @@ bool Scenario::init(QString path)
 
 	//  Vocab
 	//************************************************/
+	kDebug() << "About to create the vocabulay...";
 	QDomElement vocabElem = docElem.firstChildElement("vocabulary");
+	vocabulary = Vocabulary::createVocabulary(scenarioId, vocabElem);
+	if (!vocabulary) {
+		kWarning() << "Vocabulary could not be loaded!";
+		return false;
+	}
+	kDebug() << vocabulary->wordCount() << " words loaded";
 
 
 	//  Grammar
 	//************************************************/
 	QDomElement gramamrElem = docElem.firstChildElement("grammar");
+	grammar = Grammar::createGrammar(scenarioId, gramamrElem);
+	if (!grammar) {
+		kWarning() << "Grammar could not be loaded!";
+		return false;
+	}
+	kDebug() << grammar->structureCount() << " structurs loaded";
 
 
 	//  Actions

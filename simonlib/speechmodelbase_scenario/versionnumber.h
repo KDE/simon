@@ -20,11 +20,11 @@
 #ifndef VERSIONNUMBER_H
 #define VERSIONNUMBER_H
 #include <QString>
-#include "simonscenariobase_export.h"
+#include "speechmodelbase_export.h"
 #include "scenarioobject.h"
 
 
-class SCENARIOBASE_EXPORT VersionNumber: public ScenarioObject{
+class SPEECHMODELBASE_EXPORT VersionNumber: public ScenarioObject{
 
 private:
 	int m_majorNumber;

@@ -17,32 +17,42 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef AUTHOR_H
-#define AUTHOR_H
 
-#include "simonscenariobase_export.h"
-#include "scenarioobject.h"
+#ifndef SCENARIO_H
+#define SCENARIO_H
 #include <QString>
+#include <QList>
+#include "speechmodelbase_export.h"
 
-class SCENARIOBASE_EXPORT Author: public ScenarioObject{
+class ScenarioObject;
+class Author;
+class VersionNumber;
+class Grammar;
+class Vocabulary;
+
+class SPEECHMODELBASE_EXPORT Scenario{
 
 private:
-	QString m_name;
-	QString m_contact;
+	QString scenarioId;
 
-protected:
-	Author(const QString& scenarioId);
+	int version;
+
+	QString name;
+	QString licence;
+	QList<Author*> authors;
+	VersionNumber *simonMinVersion, *simonMaxVersion;
+	Vocabulary *vocabulary;
+	Grammar *grammar;
+	//actions?
 
 public:
-	Author(const QString& scenarioId, const QString& name, const QString& contact);
+	Scenario(const QString& scenarioId);
 
-	QString name() const { return m_name; }
-	QString contact() const { return m_contact; }
+	bool init(QString path=QString());
+	bool save(QString path=QString());
 
-	static Author* createAuthor(const QString& scenarioId, const QDomElement&);
+	~Scenario();
 
-	bool deSerialize(const QDomElement&);
-	QDomElement serialize(QDomDocument *doc);
 };
 
 #endif

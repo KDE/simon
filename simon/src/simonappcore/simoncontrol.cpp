@@ -32,7 +32,7 @@
 
 #ifdef SIMON_SCENARIOS
 #include <KDebug>
-#include <simonscenariobase/scenario.h>
+#include <speechmodelbase_scenario/scenario.h>
 #endif
 
 /**
@@ -72,7 +72,8 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	kDebug() << "Creating scenario";
 	Scenario *s = new Scenario("webbrowsing");
 	kDebug() << "Initializing scenario";
-	s->init();
+	if (!s->init())
+		KMessageBox::error(0, "Failed to initialize scenario");
 	delete s;
 #endif
 }
