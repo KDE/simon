@@ -70,7 +70,7 @@ bool KeyboardsetXMLReader::save(QList<KeyboardSet *> * setList, const QString &p
                         QDomElement realtrigger = doc->createElement("realtrigger");
                         realtrigger.appendChild(doc->createTextNode(kbb->getTriggerReal()));
                         QDomElement valuetype = doc->createElement("valuetype");
-                        valuetype.appendChild(doc->createTextNode(kbb->getValueType));
+                        valuetype.appendChild(doc->createTextNode(QString::number(kbb->getValueType())));
                         QDomElement value = doc->createElement("value");
                         value.appendChild(doc->createTextNode(kbb->getValue()));
 
@@ -104,34 +104,31 @@ QList<KeyboardSet *> * KeyboardsetXMLReader::load(bool &ok, const QString &path)
 
         while(!root.isNull())
         {
-                QList<Keyboardtab *> *tabList = new QList<Keyboardtab *>();
+                QList<KeyboardTab *> *tabList = new QList<KeyboardTab *>();
                 QDomElement setname = set.firstChildElement();
-                QDomElement tab = set.nextSilbingElement();
+                QDomElement tab = set.nextSiblingElement();
 
                 while(!set.isNull())
                 {
-                    QList<Keyboardbutton *> *buttonList = new QList<Keyboardbutton *>();
+                    QList<KeyboardButton *> *buttonList = new QList<KeyboardButton *>();
                     QDomElement tabname = tab.firstChildElement();
-                    QDomElement button = tab.nextSilbingElement();
+                    QDomElement button = tab.nextSiblingElement();
 
-                    while(!tabNull())
+                    while(!tab.isNull())
                     {
                         QDomElement triggershown = button.firstChildElement();
-                        QDomElement realtrigger = triggershown.nextSilbingElement();
-                        QDomElement valuetype = realtrigger.nextSilbingElement();
-                        QDomElement value = valuetype.nextSilbingElement();
+                        QDomElement realtrigger = triggershown.nextSiblingElement();
+                        QDomElement valuetype = realtrigger.nextSiblingElement();
+                        QDomElement value = valuetype.nextSiblingElement();
 
-                        buttonList->append(&(new KeyboardButton(triggershown.text(), realtrigger.text(), valuetype.text().toShort(), value.text())));
-                        button = button.nextSilbingElement();
+                        buttonList->append(new KeyboardButton(triggershown.text(), realtrigger.text(), valuetype.text().toShort(), value.text()));
+                        button = button.nextSiblingElement();
                     }
-                    tabList->append(new KeyboardTab(tabname, buttonList));
-                    tab = tab.nextSilbingElement();
+                    tabList->append(new KeyboardTab(tabname.text(), buttonList));
+                    tab = tab.nextSiblingElement();
                 }
-                setList->append(new KeyboardSet(setname, tabList));
-                set = set.nextSilbingElement();
-
-
-                list->append(new ExecutableCommand(name.text(), icon.text(), executable.text(), workingDir.text()));
+                setList->append(new KeyboardSet(setname.text(), tabList));
+                set = set.nextSiblingElement();
         }
         ok = true;
         return setList;
@@ -139,4 +136,5 @@ QList<KeyboardSet *> * KeyboardsetXMLReader::load(bool &ok, const QString &path)
 
 KeyboardsetXMLReader::~KeyboardsetXMLReader()
 {
+
 }

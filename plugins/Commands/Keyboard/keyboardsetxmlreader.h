@@ -35,6 +35,6 @@ class KeyboardsetXMLReader : public XMLDomReader
         QList<KeyboardSet *> * load(bool &ok, const QString& path);
 
         ~KeyboardsetXMLReader();
-}
+};
 
 #endif
