@@ -100,6 +100,8 @@ bool CommandManager::deleteCommand(Command *command)
 
 CommandManager::~CommandManager()
 {
+	kDebug() << "DELETING COMMAND MANAGER";
+
 	if (commands)
 		qDeleteAll(*commands);
 

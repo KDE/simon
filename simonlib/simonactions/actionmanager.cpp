@@ -129,9 +129,10 @@ void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 	{
 		Action *newAction = pluginsToLoad.takeAt(0);
 		if (!newAction) {
-			fprintf(stderr, "ACTION IS NULL");
+			count--;
 			continue;
 		}
+		
 		QString source = newAction->source();
 
 		bool found = false;
@@ -175,6 +176,7 @@ void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 		}
 		i++;
 	}
+
 	// delete the actions remaining in the member variable as they are not
 	// used any longer and copy the array there
 	foreach (Action::Ptr action, actions)
@@ -220,26 +222,13 @@ void ActionManager::publishCategories()
 {
 	QList<KIcon> icons;
 	QStringList names;
-	foreach (Action::Ptr action, actions)
+	for (int i=0; i < actions.count(); i++)
 	{
-		kDebug() << "------------------------";
-		kDebug() << "Action: " << (!action);
-		if (action) {
-			kDebug() << "Source: " << action->source();
-			kDebug() << "Manager: " << (!action->manager());
-			if (action->manager()) {
-				//that crashes...
-				kDebug() << "Get commands: " << (!action->manager()->getCommands()) ;
-				if (action->manager()->getCommands())
-					kDebug() << "Commands count " << (action->manager()->getCommands()->count() == 0);
-			}
-		}
-		kDebug() << "------------------------";
-		if (!action || !action->manager() || (!action->manager()->getCommands()) || (action->manager()->getCommands()->count() == 0))
+		if (!actions[i] || !actions[i]->manager() || (!actions[i]->manager()->hasCommands()))
 					continue;
 
-		names << action->manager()->name();
-		icons << action->manager()->icon();
+		names << actions[i]->manager()->name();
+		icons << actions[i]->manager()->icon();
 	}
 	emit categoriesChanged(icons, names);
 

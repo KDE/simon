@@ -22,17 +22,18 @@
 
 #include "ui_keyboardaddbuttondlg.h"
 
-class KeyboardAddButtonDLG : public QWidget
+class KeyboardAddButtonDLG : public KDialog
 {
 	private:
 		Ui::KeyboardAddButtonDLG ui;
 		
 	public:
-		KeyboardAddButtonDLG();
+		KeyboardAddButtonDLG(QWidget *parent=0);
 		QString getName();
 		QString getTrigger();
 		QString getValue();
 		short getValueType();
+		~KeyboardAddButtonDLG();
 		
 };
 

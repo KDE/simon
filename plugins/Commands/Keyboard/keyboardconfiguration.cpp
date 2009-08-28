@@ -62,7 +62,6 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
 	connect(ui.pbUpButton, SIGNAL(clicked()), this, SLOT(buttonUp()));
 	connect(ui.pbDownButton, SIGNAL(clicked()), this, SLOT(buttonDown()));
 	
-	setList = NULL;//temp
 	//KeyboardsetXMLReader *reader = new KeyboardsetXMLReader("path");
 	//setList = reader->load("path");
 }
@@ -78,14 +77,14 @@ void KeyboardConfiguration::addSet()
 	bool ok;
 	QString inputText = QInputDialog::getText(this, "simon input", "Enter the name of the new set:", QLineEdit::Normal, QString(), &ok);
 	if(ok && !inputText.isEmpty())
-	setList->append(new KeyboardSet(inputText));
+	setList.append(new KeyboardSet(inputText));
 	else
 	SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
 }
 void KeyboardConfiguration::deleteSet()
 {	
 	int indexOfSet = ui.cbSets->currentIndex();
-	setList->removeAt(indexOfSet);
+	setList.removeAt(indexOfSet);
 }
 void KeyboardConfiguration::addTab()
 {	
@@ -93,7 +92,7 @@ void KeyboardConfiguration::addTab()
 	bool ok;
 	QString inputText = QInputDialog::getText(this, "simon input","Enter the name of the new Tab:", QLineEdit::Normal, QString(), &ok);
 	if(ok && !inputText.isEmpty())
-	setList->at(indexOfSet)->getTabList()->append(new KeyboardTab(inputText));
+	setList.at(indexOfSet)->getTabList()->append(new KeyboardTab(inputText));
 	else
 	SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
 }
@@ -101,7 +100,7 @@ void KeyboardConfiguration::deleteTab()
 {	
 	int indexOfSet = ui.cbSets->currentIndex();
 	int indexOfTab = ui.cbTabs->currentIndex();
-	setList->at(indexOfSet)->getTabList()->removeAt(indexOfTab);
+	setList.at(indexOfSet)->getTabList()->removeAt(indexOfTab);
 }
 void KeyboardConfiguration::addButton()
 {
@@ -109,7 +108,7 @@ void KeyboardConfiguration::addButton()
 	int indexOfTab = ui.cbTabs->currentIndex();
 	KeyboardAddButtonDLG *kab = new KeyboardAddButtonDLG();
 	kab->show();
-	//setList->at(indexOfSet)->gettabList->at(indexOfTab)->append(new KeyboardButton());//this shit is mf freaking me out
+	//setList.at(indexOfSet)->gettabList->at(indexOfTab)->append(new KeyboardButton());//this shit is mf freaking me out
 }
 void KeyboardConfiguration::deleteButton()
 {
@@ -117,7 +116,7 @@ void KeyboardConfiguration::deleteButton()
 	int indexOfTab = ui.cbTabs->currentIndex();
 	int indexOfButton = 0;//temp
 	//TODO:get button index,... initiate qtablemodel for tvTabContent
-	setList->at(indexOfSet)->getTabList()->at(indexOfTab)->getButtonList()->removeAt(indexOfButton);
+	setList.at(indexOfSet)->getTabList()->at(indexOfTab)->getButtonList()->removeAt(indexOfButton);
 }
 void KeyboardConfiguration::buttonUp()
 {
@@ -126,7 +125,7 @@ void KeyboardConfiguration::buttonUp()
 	int indexOfButton = 0;//temp
 	
 	//TODO:get button index,... initiate qtablemodel for tvTabContent
-	setList->at(indexOfSet)->getTabList()->at(indexOfTab)->buttonLeft(indexOfButton);
+	setList.at(indexOfSet)->getTabList()->at(indexOfTab)->buttonLeft(indexOfButton);
 }
 void KeyboardConfiguration::buttonDown()
 {
@@ -134,7 +133,7 @@ void KeyboardConfiguration::buttonDown()
 	int indexOfTab = ui.cbTabs->currentIndex();
 	int indexOfButton = 0;//temp
 	//TODO:get button index,... initiate qtablemodel for tvTabContent
-	setList->at(indexOfSet)->getTabList()->at(indexOfTab)->buttonRight(indexOfButton);
+	setList.at(indexOfSet)->getTabList()->at(indexOfTab)->buttonRight(indexOfButton);
 }
 
 

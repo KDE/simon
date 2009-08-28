@@ -92,7 +92,14 @@ public:
 	const QString name() const;
 	bool load();
 	bool save();
+//	bool deleteCommand(Command*) { return false; }
 	CommandConfiguration* getConfigurationPage();
+
+	CommandList* getCommands() const { 
+		kWarning() << "Calc: Getting commands...";
+		return NULL; 
+	}
+
 
     /**
     * @brief Constructor

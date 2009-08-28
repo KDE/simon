@@ -41,7 +41,10 @@ Action::Action(const QString& source, const QString& trigger) : m_source(source)
 		if (trigger.isNull()) {
 			m_trigger = m_manager->preferredTrigger();
 		}
-	} else m_manager = NULL;
+	} else {
+		kWarning() << "Factory not found!";
+		m_manager = NULL;
+	}
 }
 
 QIcon Action::icon()

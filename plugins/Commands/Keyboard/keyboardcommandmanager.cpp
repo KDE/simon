@@ -38,7 +38,7 @@ QStringList KeyboardCommandManager::numberIdentifiers;
 KeyboardCommandManager::KeyboardCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
 {
 	widget = new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
-	widget->setWindowIcon(KIcon("accessories-calculator"));
+	widget->setWindowIcon(KIcon("input-keyboard"));
 	connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
         ui.setupUi(widget);
 	widget->hide();
@@ -46,10 +46,10 @@ KeyboardCommandManager::KeyboardCommandManager(QObject *parent, const QVariantLi
 	setXMLFile("simonkeyboardpluginui.rc");
 	activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Keyboard"));
-	activateAction->setIcon(KIcon("accessories-calculator"));
+	activateAction->setIcon(KIcon("input-keyboard"));
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(activate()));
-	actionCollection()->addAction("simonkeyboardplugin", activateAction);
+	guiActions<<activateAction;
 
 	if (numberIdentifiers.isEmpty())
 		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
@@ -78,7 +78,7 @@ void KeyboardCommandManager::deregister()
 
 const KIcon KeyboardCommandManager::icon() const
 {
-	return KIcon("accessories-calculator");
+	return KIcon("input-keyboard");
 }
 
 

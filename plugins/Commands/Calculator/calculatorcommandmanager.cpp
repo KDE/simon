@@ -31,6 +31,7 @@
 #include <simonactions/commandlistwidget.h>
 #include <klocale.h>
 #include <kglobal.h>
+#include <KDebug>
 
 K_PLUGIN_FACTORY( CalculatorCommandPluginFactory, 
 			registerPlugin< CalculatorCommandManager >(); 
@@ -89,7 +90,11 @@ CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVaria
 //        connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
 
 	commandListWidget = new CommandListWidget();
-	commandListWidget->init(QStringList() << "go-next" << "go-next" << "go-next" << "go-next", QStringList() << "ergebnis" << "rechnung&ergebnis" << "ergebis_formatiert" << "rechnung&ergebnis_formatiert", 0); //Add Elements for the list
+	commandListWidget->init(QStringList() << "go-next" << "go-next" << "go-next" << "go-next", 
+			QStringList() << i18n("Result") << 
+			i18n("Calculation & result") << 
+			i18n("Formatted result") <<
+			i18n("Formatted calculation and result"), 0); //Add Elements for the list
 	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(writeoutRequestReceived(int)));
 }
 
@@ -567,6 +572,7 @@ CommandConfiguration* CalculatorCommandManager::getConfigurationPage()
 
 bool CalculatorCommandManager::load()
 {
+	kDebug() << "Loading calc manager " << this;
 	return true;
 }
 

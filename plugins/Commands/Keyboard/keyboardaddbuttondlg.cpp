@@ -18,10 +18,13 @@
  */
 
 #include "keyboardaddbuttondlg.h"
+#include <QWidget>
 
-KeyboardAddButtonDLG::KeyboardAddButtonDLG()
+KeyboardAddButtonDLG::KeyboardAddButtonDLG(QWidget *parent) : KDialog(parent)
 {
+	QWidget *w = new QWidget(this);
 	ui.setupUi(this);
+	setMainWidget( w );
 }
 
 QString KeyboardAddButtonDLG::getName()
@@ -47,7 +50,7 @@ short KeyboardAddButtonDLG::getValueType()
 }
 
 
-KeyboardConfiguration::~KeyboardConfiguration()
+KeyboardAddButtonDLG::~KeyboardAddButtonDLG()
 {
 }
 

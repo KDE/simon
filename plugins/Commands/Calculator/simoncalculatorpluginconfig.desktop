@@ -1,18 +1,23 @@
 [Desktop Entry]
 Type=Service
 Icon=games-config-board
-ServiceTypes=simon/CommandPlugin
+X-KDE-ServiceTypes=KCModule
 X-KDE-Library=simoncalculatorplugin
 Name=simon Calculator Plugin
 Name[de]=simon Taschenrechner Modul
-Comment=calculator
+Comment=Calculator
 Comment[de]=Taschenrechner
+
+X-KDE-PluginKeyword=simoncalculatorpluginconfig
+X-KDE-FactoryName=simoncalculatorpluginconfig
+X-KDE-ParentComponents=simoncalculatorplugin
 
 X-KDE-PluginInfo-Author=Peter Grasch
 X-KDE-PluginInfo-Email=grasch@simon-listens.org
-X-KDE-PluginInfo-Name=simoncommanddesktopgrid
+X-KDE-PluginInfo-Name=simoncalculatorplugin
 X-KDE-PluginInfo-Version=0.1
 X-KDE-PluginInfo-Website=http://simon-listens.org
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-EnabledByDefault=true
 X-KDE-ParentApp=simon
+X-KDE-System-Settings-Parent-Category=simon

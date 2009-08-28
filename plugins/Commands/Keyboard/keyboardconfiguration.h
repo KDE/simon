@@ -35,7 +35,7 @@ class KeyboardConfiguration : public CommandConfiguration
 	private:
 		Ui::KeyboardConfigurationDlg ui;
 		static QPointer<KeyboardConfiguration> instance;
-		QList<KeyboardSet *>* setList;
+		QList<KeyboardSet *> setList;
 
         private slots:
                 void addSet();

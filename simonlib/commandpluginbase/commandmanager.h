@@ -64,8 +64,11 @@ public:
 	virtual QList<QAction*> getGuiActions();
 
 	virtual CommandList* getCommands() const { 
-		kWarning() << "Getting commands...";
 		return commands; 
+	}
+
+	bool hasCommands() const {
+		return (commands && !commands->isEmpty());
 	}
 
 	virtual CommandConfiguration* getConfigurationPage();
@@ -88,6 +91,7 @@ public:
 
 
 	virtual ~CommandManager();
+	
 
 };
 
