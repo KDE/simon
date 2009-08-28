@@ -93,7 +93,6 @@ QList<KeyboardSet *> * KeyboardsetXMLReader::load(QString path)
 {
         if (!XMLDomReader::load(path) || !this->doc)
         {
-                ok = false;
                 return 0;
         }
 
@@ -130,7 +129,6 @@ QList<KeyboardSet *> * KeyboardsetXMLReader::load(QString path)
                 setList->append(new KeyboardSet(setname.text(), tabList));
                 set = set.nextSiblingElement();
         }
-        ok = true;
         return setList;
 }
 
