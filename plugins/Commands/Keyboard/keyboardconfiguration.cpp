@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Dominik Neumeister <neudob06@edvhtl.at>
+ *   Copyright (C) 2009 Dominik Neumeister & Mario Strametz <neudob06@edvhtl.at> <strmam06@htl-kaindorf.ac.at>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -19,15 +19,26 @@
 
 #include "keyboardconfiguration.h"
 #include "keyboardcommandmanager.h"
+#include "keyboardbutton.h"
+#include "keyboardtab.h"
+#include "keyboardset.h"
+#include "keyboardsetxmlreader.h"
+#include "ui_keyboardaddbuttondlg.h"
 #include <QVariantList>
 #include <kgenericfactory.h>
+#include <QList>
 #include <KAboutData>
 #include <KMessageBox>
+#include <QString>
+#include <QDialog>
+#include <qinputdialog.h>
+#include <simoninfo/simoninfo.h>
+#include <QTableView>
+
 
 K_PLUGIN_FACTORY_DECLARATION(KeyboardCommandPluginFactory)
 
 QPointer<KeyboardConfiguration> KeyboardConfiguration::instance;
-
 
 KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList &args)
 		: CommandConfiguration("keyboard", ki18n( "Keyboard" ),
@@ -39,17 +50,21 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
-	config = KSharedConfig::openConfig(KeyboardCommandPluginFactory::componentData(),
-					"keyboardrc");
+	config = KSharedConfig::openConfig(KeyboardCommandPluginFactory::componentData(),"keyboardrc");
 
 	QObject::connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
         connect(ui.tbAddSet, SIGNAL(clicked()), this, SLOT(addSet()));
-        connect(ui.tbDeleteSet, SIGNAL(clicked()), this, SLOT(deleteSet()));
-        connect(ui.tbAddTab, SIGNAL(clicked()), this, SLOT(addTab()));
-        connect(ui.tbDeleteTab, SIGNAL(clicked()), this, SLOT(deleteTab()));
+	connect(ui.tbDeleteSet, SIGNAL(clicked()), this, SLOT(deleteSet()));
+	connect(ui.tbAddTab, SIGNAL(clicked()), this, SLOT(addTab()));
+	connect(ui.tbDeleteTab, SIGNAL(clicked()), this, SLOT(deleteTab()));
         connect(ui.pbAddButton, SIGNAL(clicked()), this, SLOT(addButton()));
-        connect(ui.pbEditButton, SIGNAL(clicked()), this, SLOT(editButton()));
-        connect(ui.pbDeleteButton, SIGNAL(clicked()), this, SLOT(deleteButton()));
+	connect(ui.pbDeleteButton, SIGNAL(clicked()), this, SLOT(deleteButton()));
+	connect(ui.pbUpButton, SIGNAL(clicked()), this, SLOT(buttonUp()));
+	connect(ui.pbDownButton, SIGNAL(clicked()), this, SLOT(buttonDown()));
+	
+	setList = NULL;//temp
+	//KeyboardsetXMLReader *reader = new KeyboardsetXMLReader("gaylord");
+	//setList = reader->load("gaylordpfadfake");
 }
 
 QString KeyboardConfiguration::trigger()
@@ -59,26 +74,67 @@ QString KeyboardConfiguration::trigger()
 }
 
 void KeyboardConfiguration::addSet()
-{
+{	
+	bool ok;
+	QString inputText = QInputDialog::getText(this, "simon input", "Enter the name of the new set:", QLineEdit::Normal, QString(), &ok);
+	if(ok && !inputText.isEmpty())
+	setList->append(new KeyboardSet(inputText));
+	else
+	SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
 }
 void KeyboardConfiguration::deleteSet()
-{
+{	
+	int indexOfSet = ui.cbSets->currentIndex();
+	setList->removeAt(indexOfSet);
 }
 void KeyboardConfiguration::addTab()
-{
+{	
+	int indexOfSet = ui.cbSets->currentIndex();
+	bool ok;
+	QString inputText = QInputDialog::getText(this, "simon input","Enter the name of the new Tab:", QLineEdit::Normal, QString(), &ok);
+	if(ok && !inputText.isEmpty())
+	setList->at(indexOfSet)->getTabList()->append(new KeyboardTab(inputText));
+	else
+	SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
 }
 void KeyboardConfiguration::deleteTab()
-{
+{	
+	int indexOfSet = ui.cbSets->currentIndex();
+	int indexOfTab = ui.cbTabs->currentIndex();
+	setList->at(indexOfSet)->getTabList()->removeAt(indexOfTab);
 }
 void KeyboardConfiguration::addButton()
 {
-}
-void KeyboardConfiguration::editButton()
-{
+	int indexOfSet = ui.cbSets->currentIndex();
+	int indexOfTab = ui.cbTabs->currentIndex();
+ 	
+	//setList->at(indexOfSet)->gettabList->at(indexOfTab)->append(new KeyboardButton());//this shit is mf freaking me out
 }
 void KeyboardConfiguration::deleteButton()
 {
+	int indexOfSet = ui.cbSets->currentIndex();
+	int indexOfTab = ui.cbTabs->currentIndex();
+	int indexOfButton = 0;//temp
+	//TODO:get button index,... initiate qtablemodel for tvTabContent
+	setList->at(indexOfSet)->getTabList()->at(indexOfTab)->getButtonList()->removeAt(indexOfButton);
 }
+void KeyboardConfiguration::buttonUp()
+{
+	int indexOfSet = ui.cbSets->currentIndex();
+	int indexOfTab = ui.cbTabs->currentIndex();
+	int indexOfButton = 0;//temp
+	//TODO:get button index,... initiate qtablemodel for tvTabContent
+	setList->at(indexOfSet)->getTabList()->at(indexOfTab)->buttonLeft(indexOfButton);
+}
+void KeyboardConfiguration::buttonDown()
+{
+	int indexOfSet = ui.cbSets->currentIndex();
+	int indexOfTab = ui.cbTabs->currentIndex();
+	int indexOfButton = 0;//temp
+	//TODO:get button index,... initiate qtablemodel for tvTabContent
+	setList->at(indexOfSet)->getTabList()->at(indexOfTab)->buttonRight(indexOfButton);
+}
+
 
 void KeyboardConfiguration::save()
 {

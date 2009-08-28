@@ -30,7 +30,7 @@
 K_PLUGIN_FACTORY( KeyboardCommandPluginFactory, 
 			registerPlugin< KeyboardCommandManager >(); 
 		)
-        
+
 K_EXPORT_PLUGIN( KeyboardCommandPluginFactory("simonkeyboardcommand") )
 
 QStringList KeyboardCommandManager::numberIdentifiers;

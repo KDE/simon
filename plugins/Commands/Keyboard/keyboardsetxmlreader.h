@@ -32,7 +32,7 @@ class KeyboardsetXMLReader : public XMLDomReader
 
         bool save(QList<KeyboardSet *> *list, const QString& path="");
 
-        QList<KeyboardSet *> * load(bool &ok, const QString& path);
+        QList<KeyboardSet *> * load(QString path);
 
         ~KeyboardsetXMLReader();
 };

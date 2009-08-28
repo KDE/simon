@@ -161,7 +161,7 @@
     </layout>
    </item>
    <item row="7" column="0" colspan="4">
-    <widget class="QTableView" name="tvSetContent">
+    <widget class="QTableView" name="tvTabContent">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -180,16 +180,23 @@
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbEditButton">
+      <widget class="KPushButton" name="pbDeleteButton">
        <property name="text">
-        <string>Edit</string>
+        <string>Delete</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="KPushButton" name="pbDeleteButton">
+      <widget class="KPushButton" name="pbUpButton">
        <property name="text">
-        <string>Delete</string>
+        <string>Up</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KPushButton" name="pbDownButton">
+       <property name="text">
+        <string>Down</string>
        </property>
       </widget>
      </item>
@@ -208,19 +215,6 @@
      </item>
     </layout>
    </item>
-   <item row="8" column="0" colspan="2">
-    <widget class="QCheckBox" name="cbShowNumpad">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Show Numpad</string>
-     </property>
-    </widget>
-   </item>
    <item row="10" column="0">
     <spacer name="verticalSpacer_4">
      <property name="orientation">
@@ -233,6 +227,19 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="8" column="0" colspan="2">
+    <widget class="QCheckBox" name="cbShowNumpad">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Show Numpad</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
@@ -256,9 +263,8 @@
   <tabstop>cbTabs</tabstop>
   <tabstop>tbAddTab</tabstop>
   <tabstop>tbDeleteTab</tabstop>
-  <tabstop>tvSetContent</tabstop>
+  <tabstop>tvTabContent</tabstop>
   <tabstop>pbAddButton</tabstop>
-  <tabstop>pbEditButton</tabstop>
   <tabstop>pbDeleteButton</tabstop>
   <tabstop>cbShowNumpad</tabstop>
  </tabstops>

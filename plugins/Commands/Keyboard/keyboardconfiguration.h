@@ -20,10 +20,12 @@
 #ifndef KEYBOARDCONFIGURATION_H
 #define KEYBOARDCONFIGURATION_H
 
+#include "keyboardset.h"
 #include <commandpluginbase/commandconfiguration.h>
 #include "ui_keyboardconfigurationdlg.h"
 #include <KSharedConfig>
 #include <QPointer>
+#include <QList>
 
 class KeyboardConfiguration : public CommandConfiguration
 {
@@ -32,15 +34,17 @@ class KeyboardConfiguration : public CommandConfiguration
 	private:
 		Ui::KeyboardConfigurationDlg ui;
 		static QPointer<KeyboardConfiguration> instance;
+		QList<KeyboardSet *>* setList;
 
         private slots:
                 void addSet();
-                void deleteSet();
-                void addTab();
-                void deleteTab();
-                void addButton();
-                void editButton();
-                void deleteButton();
+		void deleteSet();
+		void addTab();
+		void deleteTab();
+		void addButton();
+		void deleteButton();
+		void buttonUp();
+		void buttonDown();
  
 	public slots:
 		virtual void save();

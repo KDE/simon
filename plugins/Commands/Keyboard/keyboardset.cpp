@@ -27,6 +27,7 @@ KeyboardSet::KeyboardSet(QString name)
 	setName = name;
 }
 
+
 KeyboardSet::KeyboardSet(QString name, QList<KeyboardTab *>* tList)
 {
 	setName = name;

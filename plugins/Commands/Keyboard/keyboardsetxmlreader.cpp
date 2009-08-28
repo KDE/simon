@@ -89,7 +89,7 @@ bool KeyboardsetXMLReader::save(QList<KeyboardSet *> * setList, const QString &p
         return XMLDomReader::save(path);
 }
 
-QList<KeyboardSet *> * KeyboardsetXMLReader::load(bool &ok, const QString &path)
+QList<KeyboardSet *> * KeyboardsetXMLReader::load(QString path)
 {
         if (!XMLDomReader::load(path) || !this->doc)
         {

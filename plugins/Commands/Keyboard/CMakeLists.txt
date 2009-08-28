@@ -18,6 +18,7 @@ set (simonkeyboardcommandplugin_SRCS
 kde4_add_ui_files(simonkeyboardcommandplugin_SRCS 
 	keyboardwidget.ui
 	keyboardconfigurationdlg.ui
+	keyboardaddbuttondlg.ui
     )
 
 kde4_add_plugin(simonkeyboardcommandplugin ${simonkeyboardcommandplugin_SRCS})
