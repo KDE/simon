@@ -43,7 +43,7 @@ QString KeyboardAddButtonDLG::getValue()
 
 short KeyboardAddButtonDLG::getValueType()
 {
-	return ui.cbValueType->currentIndex(); // 0 and 1 can be returned ,... 0 is text 1 is shortcut
+	return ui.cbValueType->currentIndex(); // 0 and 1 can be returned ,... 0 is text; 1 is shortcut
 }
 
 

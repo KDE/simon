@@ -63,8 +63,8 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
 	connect(ui.pbDownButton, SIGNAL(clicked()), this, SLOT(buttonDown()));
 	
 	setList = NULL;//temp
-	//KeyboardsetXMLReader *reader = new KeyboardsetXMLReader("gaylord");
-	//setList = reader->load("gaylordpfadfake");
+	//KeyboardsetXMLReader *reader = new KeyboardsetXMLReader("path");
+	//setList = reader->load("path");
 }
 
 QString KeyboardConfiguration::trigger()

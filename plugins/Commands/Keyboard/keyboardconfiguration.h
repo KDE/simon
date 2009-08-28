@@ -27,6 +27,7 @@
 #include <QPointer>
 #include <QList>
 
+
 class KeyboardConfiguration : public CommandConfiguration
 {
 	Q_OBJECT
