@@ -23,7 +23,7 @@
 #include "keyboardtab.h"
 #include "keyboardset.h"
 #include "keyboardsetxmlreader.h"
-#include "ui_keyboardaddbuttondlg.h"
+#include "keyboardaddbuttondlg.h"
 #include <QVariantList>
 #include <kgenericfactory.h>
 #include <QList>
@@ -107,7 +107,8 @@ void KeyboardConfiguration::addButton()
 {
 	int indexOfSet = ui.cbSets->currentIndex();
 	int indexOfTab = ui.cbTabs->currentIndex();
- 	
+	KeyboardAddButtonDLG *kab = new KeyboardAddButtonDLG();
+	kab->show();
 	//setList->at(indexOfSet)->gettabList->at(indexOfTab)->append(new KeyboardButton());//this shit is mf freaking me out
 }
 void KeyboardConfiguration::deleteButton()
@@ -123,6 +124,7 @@ void KeyboardConfiguration::buttonUp()
 	int indexOfSet = ui.cbSets->currentIndex();
 	int indexOfTab = ui.cbTabs->currentIndex();
 	int indexOfButton = 0;//temp
+	
 	//TODO:get button index,... initiate qtablemodel for tvTabContent
 	setList->at(indexOfSet)->getTabList()->at(indexOfTab)->buttonLeft(indexOfButton);
 }

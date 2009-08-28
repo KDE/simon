@@ -13,6 +13,7 @@ set (simonkeyboardcommandplugin_SRCS
 	keyboardset.cpp
 	keyboardbutton.cpp
 	keyboardsetxmlreader.cpp
+	keyboardaddbuttondlg.cpp
     )
 
 kde4_add_ui_files(simonkeyboardcommandplugin_SRCS 
