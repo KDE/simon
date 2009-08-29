@@ -20,6 +20,8 @@
 #include "command.h"
 #include <simoninfo/simoninfo.h>
 #include <QVariant>
+#include <QDomElement>
+#include <QDomDocument>
 
 bool Command::trigger()
 {
@@ -34,6 +36,17 @@ const QMap<QString,QVariant> Command::getValueMap() const
 // 	out.insert(i18n("Name"), getTrigger());
 // 	out.insert(i18n("Icon"), getIcon());
 	return out;
+}
+
+bool Command::deSerialize(const QDomElement& elem)
+{
+	Q_UNUSED(elem);
+	return true;
+}
+
+QDomElement Command::serialize(QDomDocument *doc)
+{
+	return doc->createElement("command");
 }
 
 

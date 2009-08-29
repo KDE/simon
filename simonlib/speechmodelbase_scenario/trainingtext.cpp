@@ -22,6 +22,7 @@
 // #include "xmltrainingtext.h"
 
 /**
+ * TODO: Remove me!
  * @brief Constructor
  *
  *	@author Peter Grasch
@@ -32,11 +33,58 @@
  * \param float relevance
  * The relevance of the text - the higher the better it'd be to train the text
  */
-TrainingText::TrainingText( QString name, QString path, QStringList pages )
+TrainingText::TrainingText( QString name, QString path, QStringList pages ) : ScenarioObject("")
 {
 	this->name = name;
 	this->path = path;
 	this->pages = pages;
+}
+
+TrainingText::TrainingText( const QString& scenarioId ) : ScenarioObject(scenarioId)
+{
+}
+
+
+TrainingText* TrainingText::createTrainingText(const QString& scenarioId, const QDomElement& elem)
+{
+	TrainingText *t = new TrainingText(scenarioId);
+	if (!t->deSerialize(elem)) {
+		delete t;
+		t=NULL;
+	}
+	return t;
+}
+
+bool TrainingText::deSerialize(const QDomElement& elem)
+{
+	if (elem.isNull()) return false;
+
+	this->name = elem.attribute("name");
+
+	QDomElement pageElem = elem.firstChildElement();
+	pages.clear();
+	while (!pageElem.isNull()) {
+		pages << pageElem.text().trimmed();
+		pageElem = pageElem.nextSiblingElement();
+	}
+
+	//TODO: remove path...
+	this->path=QString();
+	return true;
+}
+
+QDomElement TrainingText::serialize(QDomDocument *doc)
+{
+	//TODO: Implement
+	QDomElement textElem = doc->createElement("trainingstexts");
+	textElem.setAttribute("name", name);
+	foreach (const QString& page, pages) {
+		QDomElement pageElem = doc->createElement("page");
+		pageElem.appendChild(doc->createTextNode(page));
+		textElem.appendChild(pageElem);
+	}
+
+	return textElem;
 }
 
 // bool TrainingText::save()

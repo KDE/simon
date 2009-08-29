@@ -22,15 +22,61 @@
 #include <KPluginInfo>
 #include <KDebug>
 #include <commandpluginbase/commandmanager.h>
+#include <simonscenariobase/versionnumber.h>
 
-Action::Action(const QString& source, const QString& trigger) : m_source(source)
+Action::Action(const QString& scenarioId, const QString& source, const QString& trigger) : ScenarioObject(scenarioId), m_source(source)
+{
+	pluginMinVersion = NULL;
+	pluginMaxVersion = NULL;
+	init(source, trigger);
+}
+
+/**
+ * Deprecated constructor kept for compatibility reasons for now
+ * FIXME: Remove it
+ */
+Action::Action(const QString& source, const QString& trigger) : ScenarioObject(""), m_source(source)
+{
+	pluginMinVersion = NULL;
+	pluginMaxVersion = NULL;
+	init(source, trigger);
+}
+
+
+Action* Action::createAction(const QString& scenarioId, const QDomElement& pluginElem)
+{
+	QString pluginSource = pluginElem.attribute("name");
+	QString pluginTrigger = pluginElem.attribute("trigger");
+
+	kDebug() << "Loading plugin " << pluginSource << 
+			" with trigger " << pluginTrigger;
+
+	Action *a = new Action(scenarioId, pluginSource, pluginTrigger);
+
+	if (!a->deSerialize(pluginElem)) {
+		delete a;
+		a = NULL;
+	}
+
+	return a;
+}
+
+void Action::init(const QString& source, const QString& trigger)
 {
 	KService::Ptr service = KService::serviceByStorageId(source);
+	if (!service) {
+		kWarning() << "Service not found!";
+		m_manager=NULL;
+		return;
+	}
+
 	KPluginInfo pluginInfo(service);
 	m_enabledByDefault = pluginInfo.isPluginEnabledByDefault();
 	KPluginFactory *factory = KPluginLoader(service->library()).factory();
  
 	m_trigger = trigger;
+
+	m_version = pluginInfo.version();
 
 	if (factory) {
 		m_manager = factory->create<CommandManager>();
@@ -45,6 +91,67 @@ Action::Action(const QString& source, const QString& trigger) : m_source(source)
 		kWarning() << "Factory not found!";
 		m_manager = NULL;
 	}
+}
+
+bool Action::deSerialize(const QDomElement& pluginElem)
+{
+	QDomElement pluginCompatibilityElem = pluginElem.firstChildElement("pluginCompatibility");
+	QDomElement pluginMinVersionElem = pluginCompatibilityElem.firstChildElement();
+
+	pluginMinVersion = VersionNumber::createVersionNumber(scenarioId, pluginMinVersionElem);
+	pluginMaxVersion = VersionNumber::createVersionNumber(scenarioId, pluginMinVersionElem.nextSiblingElement());
+
+	if (!pluginMinVersion) {
+		kDebug() << "Couldn't parse version requirements of plugin";
+		return false;
+	} else {
+		VersionNumber pluginCurVersion(scenarioId, getPluginVersion());
+		if ((!pluginMinVersion->isValid()) || (pluginCurVersion < *pluginMinVersion) || 
+			(pluginMaxVersion && pluginMaxVersion->isValid() && (!(pluginCurVersion <= *pluginMaxVersion)))) {
+			kDebug() << "Scenario not compatible with this version of the plugin ";
+			return false;
+		}
+	}
+	
+	QDomElement configElem = pluginElem.firstChildElement("config");
+	if (!m_manager->deSerializeConfig(configElem, scenarioId)) {
+		kDebug() << "Couldn't load config of plugin";
+		return false;
+	}
+	QDomElement commandsElem = pluginElem.firstChildElement("commands");
+	if (!m_manager->deSerializeCommands(commandsElem, scenarioId)) {
+		kDebug() << "Couldn't load commands of plugin";
+		return false;
+	}
+
+	return true;
+}
+
+QDomElement Action::serialize(QDomDocument *doc)
+{
+	QDomElement pluginElem = doc->createElement("plugin");
+	pluginElem.setAttribute("name", m_source);
+	pluginElem.setAttribute("trigger", m_trigger);
+	QDomElement pluginCompatibilityElem = doc->createElement("pluginCompatibility");
+
+	QDomElement minimumVersionElem = doc->createElement("minimumVersion");
+	minimumVersionElem.appendChild(pluginMinVersion->serialize(doc));
+	pluginCompatibilityElem.appendChild(minimumVersionElem);
+
+	QDomElement maximumVersionElem = doc->createElement("maximumVersion");
+	if (pluginMaxVersion)
+		maximumVersionElem.appendChild(pluginMaxVersion->serialize(doc));
+	pluginCompatibilityElem.appendChild(maximumVersionElem);
+
+	pluginElem.appendChild(pluginCompatibilityElem);
+
+	//TODO: config elem is empty;
+	pluginElem.appendChild(m_manager->serializeConfig(doc, scenarioId));
+
+	//TODO: command elem is empty
+	pluginElem.appendChild(m_manager->serializeCommands(doc, scenarioId));
+
+	return pluginElem;
 }
 
 QIcon Action::icon()

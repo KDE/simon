@@ -16,10 +16,7 @@ set( speechmodelbase_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/word.h
 	${CMAKE_CURRENT_SOURCE_DIR}/vocabulary.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/scenarioobject.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/scenario.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/author.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/versionnumber.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammar.cpp
 )
 
@@ -34,16 +31,14 @@ set( speechmodelbase_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/model.h
   ${CMAKE_CURRENT_SOURCE_DIR}/trainingtext.h
   ${CMAKE_CURRENT_SOURCE_DIR}/vocabulary.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/simonscenariobase_export.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/scenarioobject.h
   ${CMAKE_CURRENT_SOURCE_DIR}/scenario.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/author.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/versionnumber.h
   ${CMAKE_CURRENT_SOURCE_DIR}/grammar.h
 )
 
 kde4_add_library( speechmodelbase  SHARED ${speechmodelbase_LIB_SRCS} )
-target_link_libraries( speechmodelbase ${QT_LIBRARIES} ${QT_QTXML_LIBRARY} ${KDE4_KDECORE_LIBS} )
+
+#TODO: Remove simoncommandpluginbase; It's just for testing
+target_link_libraries( speechmodelbase ${QT_LIBRARIES} ${QT_QTXML_LIBRARY} ${KDE4_KDECORE_LIBS} simonactions simonscenariobase simoncommandpluginbase )
 
 
 set_target_properties( speechmodelbase

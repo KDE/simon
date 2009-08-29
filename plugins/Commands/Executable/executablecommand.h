@@ -20,8 +20,10 @@
 #ifndef EXECUTABLECOMMAND_H
 #define EXECUTABLECOMMAND_H
 
-#include <KUrl>
 #include <commandpluginbase/command.h>
+#include <QDomElement>
+#include <KUrl>
+class QDomDocument;
 
 /**
  *	@class ExecutableCommand
@@ -40,6 +42,7 @@ private:
 protected:
 	const QMap<QString,QVariant> getValueMapPrivate() const;
 	bool triggerPrivate();
+	ExecutableCommand();
 
 public:
 	static const QString staticCategoryText();
@@ -48,9 +51,14 @@ public:
 	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
 
+	bool deSerialize(const QDomElement& elem);
+	QDomElement serialize(QDomDocument *doc);
 	
+	static ExecutableCommand* createCommand(const QDomElement& elem);			
+
     /**
     * @brief Constructor
+    * @TODO: Remove!
     * 
     *	@author Peter Grasch
     */

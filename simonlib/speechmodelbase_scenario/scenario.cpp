@@ -18,11 +18,17 @@
  */
 
 #include "scenario.h"
-#include "scenarioobject.h"
-#include "author.h"
-#include "versionnumber.h"
+#include <simonscenariobase/scenarioobject.h>
+#include <simonscenariobase/author.h>
+#include <simonscenariobase/versionnumber.h>
 #include "vocabulary.h"
 #include "grammar.h"
+#include "trainingtext.h"
+
+#include <simonactions/action.h>
+
+//Just for testing of the actions
+#include <commandpluginbase/commandmanager.h>
 
 #include "version.h"
 
@@ -37,6 +43,11 @@
 Scenario::Scenario(const QString& scenarioId)
 {
 	this->scenarioId = scenarioId;
+
+	grammar = NULL;
+	vocabulary = NULL;
+	simonMinVersion = NULL;
+	simonMaxVersion = NULL;
 }
 
 /**
@@ -51,7 +62,6 @@ Scenario::Scenario(const QString& scenarioId)
  */
 bool Scenario::init(QString path)
 {
-	kDebug() << "Hi";
 	if (path.isNull())
 		path = KStandardDirs::locate("appdata", "scenarios/"+scenarioId);
 
@@ -89,15 +99,15 @@ bool Scenario::init(QString path)
 	simonMinVersion = VersionNumber::createVersionNumber(scenarioId, simonMinVersionElem);
 	simonMaxVersion = VersionNumber::createVersionNumber(scenarioId, simonMinVersionElem.nextSiblingElement());
 
-	if (!simonMinVersion || !simonMaxVersion) {
-		kWarning() << "Couldn't parse simon requirements!";
+	if (!simonMinVersion) {
+		kDebug() << "Couldn't parse simon requirements!";
 		return false;
 	}
 
 	VersionNumber simonCurVersion(scenarioId, simon_version);
 	if ((!simonMinVersion->isValid()) || (simonCurVersion < *simonMinVersion) || 
-		(simonMaxVersion->isValid() && (!(simonCurVersion <= *simonMaxVersion)))) {
-		kWarning() << "Scenario not compatible with this simon version";
+		(simonMaxVersion && simonMaxVersion->isValid() && (!(simonCurVersion <= *simonMaxVersion)))) {
+		kDebug() << "Scenario not compatible with this simon version";
 		return false;
 	}
 
@@ -112,7 +122,7 @@ bool Scenario::init(QString path)
 	while (!authorElem.isNull()) {
 		Author *a = Author::createAuthor(scenarioId, authorElem);
 		if (!a) {
-			kWarning() << "Author information could not be parsed!";
+			kDebug() << "Author information could not be parsed!";
 			continue;
 		}
 
@@ -134,7 +144,7 @@ bool Scenario::init(QString path)
 	QDomElement vocabElem = docElem.firstChildElement("vocabulary");
 	vocabulary = Vocabulary::createVocabulary(scenarioId, vocabElem);
 	if (!vocabulary) {
-		kWarning() << "Vocabulary could not be loaded!";
+		kDebug() << "Vocabulary could not be loaded!";
 		return false;
 	}
 	kDebug() << vocabulary->wordCount() << " words loaded";
@@ -142,10 +152,10 @@ bool Scenario::init(QString path)
 
 	//  Grammar
 	//************************************************/
-	QDomElement gramamrElem = docElem.firstChildElement("grammar");
-	grammar = Grammar::createGrammar(scenarioId, gramamrElem);
+	QDomElement grammarElem = docElem.firstChildElement("grammar");
+	grammar = Grammar::createGrammar(scenarioId, grammarElem);
 	if (!grammar) {
-		kWarning() << "Grammar could not be loaded!";
+		kDebug() << "Grammar could not be loaded!";
 		return false;
 	}
 	kDebug() << grammar->structureCount() << " structurs loaded";
@@ -154,6 +164,39 @@ bool Scenario::init(QString path)
 	//  Actions
 	//************************************************/
 	QDomElement actionsElem = docElem.firstChildElement("actions");
+	QDomElement pluginElem = actionsElem.firstChildElement();
+	while (!pluginElem.isNull()) {
+		Action *a = Action::createAction(scenarioId, pluginElem);
+		if (!a) {
+			kDebug() << "Couldn't load action";
+		} else {
+			actions << a;
+
+			//begin test
+			RecognitionResult r("Nummer eingeben", "sdofij", "sdofij", QList<float>() << 1.0f);
+			a->manager()->processResult(r);
+			//end test
+		}
+
+		pluginElem = pluginElem.nextSiblingElement();
+	}
+
+
+
+	//  Trainingstexts
+	//************************************************/
+	QDomElement textsElem = docElem.firstChildElement("trainingstexts");
+	QDomElement textElem = textsElem.firstChildElement();
+	while (!textElem.isNull()) {
+		TrainingText *t = TrainingText::createTrainingText(scenarioId, textElem);
+		if (!t) {
+			kDebug() << "Couldn't load trainingtext";
+		} else {
+			texts << t;
+			kDebug() << "Trainingtext loaded: " << t->getName();
+		}
+		textElem = textElem.nextSiblingElement();
+	}
 
 
 	return true;
@@ -171,10 +214,90 @@ bool Scenario::save(QString path)
 	if (path.isNull())
 		path = KStandardDirs::locateLocal("appdata", "scenarios/"+scenarioId);
 	
-	return false;
+	QDomDocument doc("scenario");
+	QFile file(path);
+	if (!file.open(QIODevice::WriteOnly))
+		return false;
+
+	QDomElement rootElem = doc.createElement("scenario");
+	rootElem.setAttribute("name", name);
+	rootElem.setAttribute("version", version);
+
+	//  simon compatibility 
+	//************************************************/
+
+	QDomElement compatibilityElem = doc.createElement("simonCompatibility");
+	QDomElement simonMinVersionElem = doc.createElement("minimumVersion");
+	//QDomText simonMinVersionElemText = doc.createTextNode(simonMinVersion->toString());
+	simonMinVersionElem.appendChild(simonMinVersion->serialize(&doc));
+	compatibilityElem.appendChild(simonMinVersionElem);
+	if (simonMaxVersion->isValid()) {
+		QDomElement simonMaxVersionElem = doc.createElement("maximumVersion");
+		//QDomText simonMaxVersionElemText = doc.createTextNode(simonMaxVersion->toString());
+		simonMaxVersionElem.appendChild(simonMaxVersion->serialize(&doc));
+		compatibilityElem.appendChild(simonMaxVersionElem);
+	}
+
+	rootElem.appendChild(compatibilityElem);
+
+	//  Authors
+	//************************************************/
+	QDomElement authorsElem = doc.createElement("authors");
+	foreach (Author *a, authors) {
+		authorsElem.appendChild(a->serialize(&doc));
+	}
+	rootElem.appendChild(authorsElem);
+
+
+	//  Licence
+	//************************************************/
+	QDomElement licenceElem = doc.createElement("licence");
+	QDomText licenceElemText = doc.createTextNode(licence);
+	licenceElem.appendChild(licenceElemText);
+	rootElem.appendChild(licenceElem);
+		
+
+	//  Vocab
+	//************************************************/
+	rootElem.appendChild(vocabulary->serialize(&doc));
+
+
+	//  Grammar
+	//************************************************/
+	rootElem.appendChild(grammar->serialize(&doc));
+
+
+	//  Actions
+	//************************************************/
+	QDomElement actionsElem = doc.createElement("actions");
+	foreach (Action *a, actions) {
+		actionsElem.appendChild(a->serialize(&doc));
+	}
+	rootElem.appendChild(actionsElem);
+
+
+	//  Trainingstexts
+	//************************************************/
+	QDomElement textsElem = doc.createElement("texts");
+	foreach (TrainingText *t, texts) {
+		textsElem.appendChild(t->serialize(&doc));
+	}
+	rootElem.appendChild(textsElem);
+
+	doc.appendChild(rootElem);
+	file.write(doc.toString().toUtf8());
+
+	return true;
 }
 
 Scenario::~Scenario()
 {
+	qDeleteAll(authors);
+	qDeleteAll(actions);
+	qDeleteAll(texts);
+	delete grammar;
+	delete vocabulary;
+	delete simonMinVersion;
+	delete simonMaxVersion;
 }
 

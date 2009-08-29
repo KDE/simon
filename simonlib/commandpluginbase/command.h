@@ -27,6 +27,8 @@
 #include <QString>
 #include <KIcon>
 #include <QMap>
+class QDomElement;
+class QDomDocument;
 
 
 /**
@@ -50,7 +52,9 @@ class SIMONCOMMANDPLUGINBASE_EXPORT Command : public QObject{
 
 Q_OBJECT
 
-private:
+//FIXME: make private again
+//private:
+protected:
 	QString triggerName; //!< The name of the command - this is used to call the command and is unique
 	QString iconSrc; //!< The icon of a command.
 
@@ -115,7 +119,10 @@ public:
 		return thisIcon;
 	else return getCategoryIcon();
    }
-    
+ 
+   virtual bool deSerialize(const QDomElement& elem);
+   virtual QDomElement serialize(QDomDocument *doc);
+
     /**
     * @brief Returns the Icon of this command.
     *

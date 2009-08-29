@@ -25,25 +25,44 @@
 #include <QPointer>
 #include <QIcon>
 #include <KLocalizedString>
+#include <QDomElement>
+#include <simonscenariobase/scenarioobject.h>
+#include "actionlib_export.h"
 class CommandManager;
+class VersionNumber;
 
-class Action : public QObject {
+class SIMONACTIONS_EXPORT Action : public QObject, public ScenarioObject {
 	Q_OBJECT
 	private:
 		QString m_source;
 		QString m_trigger;
+		QString m_version;
+		VersionNumber *pluginMinVersion;
+		VersionNumber *pluginMaxVersion;
 		QPointer<CommandManager> m_manager;
 		bool m_enabledByDefault;
+
+		void init(const QString& source, const QString& trigger=QString());
+		Action(const QString& scenarioId, const QString& source, const QString& trigger);
 	public:
-		typedef QPointer<Action> Ptr;
 		Action(const QString& source, const QString& trigger=QString());
+		typedef QPointer<Action> Ptr;
+
+		static Action* createAction(const QString& scenarioId, const QDomElement& elem);
+
 		bool enabledByDefault() { return m_enabledByDefault; }
 		QString source() { return m_source; }
 		QString trigger() { return m_trigger; }
 
+		QString getPluginVersion() { return m_version; }
+
 		QIcon icon();
 		QPointer<CommandManager> manager() { return m_manager; }
 		void setTrigger(const QString& newTrigger) { m_trigger=newTrigger; }
+
+
+		bool deSerialize(const QDomElement&);
+		QDomElement serialize(QDomDocument *doc);
 
 		~Action();
 

@@ -23,6 +23,8 @@
 
 #include <QStringList>
 #include "speechmodelbase_export.h"
+#include <simonscenariobase/scenarioobject.h>
+
 /**
  *	@class TrainingText
  *	@brief Convenient class to be used as a container to hold all theinformation for one text
@@ -33,13 +35,20 @@
  */
 class TrainingText;
 
-class SPEECHMODELBASE_EXPORT TrainingText{
+class SPEECHMODELBASE_EXPORT TrainingText : public ScenarioObject {
 protected:
 	QString name;
 	QString path;
 	QStringList pages;
 	float relevance;
+	TrainingText( const QString& scenarioId );
 public:
+
+	static TrainingText* createTrainingText(const QString& scenarioId, const QDomElement& elem);
+
+	bool deSerialize(const QDomElement&);
+	QDomElement serialize(QDomDocument *doc);
+
 	/**
 	 * \brief Returns the name of the text
 	 * \author Peter Grasch

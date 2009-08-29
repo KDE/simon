@@ -33,7 +33,7 @@ K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("simonexecutablecommand") )
 
 ExecutableCommandManager::ExecutableCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
 {
-	this->xmlExecutableCommand = new XMLExecutableCommand();
+	//this->xmlExecutableCommand = new XMLExecutableCommand();
 }
 
 bool ExecutableCommandManager::addCommand(Command *command)
@@ -62,13 +62,35 @@ CreateCommandWidget* ExecutableCommandManager::getCreateCommandWidget(QWidget *p
 	return new CreateExecutableCommandWidget(parent);
 }
 
+
+bool ExecutableCommandManager::deSerializeCommands(const QDomElement& elem, const QString& scenarioId)
+{
+	Q_UNUSED(scenarioId);
+
+	if (commands)
+		qDeleteAll(*commands);
+	commands = new CommandList();
+
+	if (elem.isNull()) return false;
+
+	QDomElement commandElem = elem.firstChildElement();
+	while(!commandElem.isNull())
+	{
+		commands->append(ExecutableCommand::createCommand(commandElem));
+		commandElem = commandElem.nextSiblingElement();
+	}
+
+	return true;
+}
+
+
 bool ExecutableCommandManager::load()
 {
 	QString commandPath = KStandardDirs::locate("appdata", "conf/executables.xml");
 	Logger::log(i18n("[INF] Loading executable commands from %1", commandPath));
 
 	bool ok = false;
-	this->commands = xmlExecutableCommand->load(ok, commandPath);
+//	this->commands = xmlExecutableCommand->load(ok, commandPath);
 	return ok;
 }
 
@@ -76,10 +98,12 @@ bool ExecutableCommandManager::save()
 {
 	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/executables.xml");
 	Logger::log(i18n("[INF] Saving executable commands to %1", commandPath));
-	return xmlExecutableCommand->save(commands, commandPath);
+//	return xmlExecutableCommand->save(commands, commandPath);
+	return true;
 }
 
 ExecutableCommandManager::~ExecutableCommandManager()
 {
-	if (xmlExecutableCommand) xmlExecutableCommand->deleteLater();
+//	if (xmlExecutableCommand) xmlExecutableCommand->deleteLater();
 }
+

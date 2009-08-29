@@ -8,19 +8,16 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS} -DMAKE_SCENARIOBASE_LIB)
 include(KDE4Defaults)
 
 set( simonscenariobase_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/scenarioobject.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/scenario.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/author.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/versionnumber.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/scenarioobject.cpp
 )
 
 
 set( simonscenariobase_LIB_HDRS
-  ${CMAKE_CURRENT_SOURCE_DIR}/simonscenariobase_export.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/scenarioobject.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/scenario.h
   ${CMAKE_CURRENT_SOURCE_DIR}/author.h
   ${CMAKE_CURRENT_SOURCE_DIR}/versionnumber.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/scenarioobject.h
 )
 
 kde4_add_library( simonscenariobase  SHARED ${simonscenariobase_LIB_SRCS} )

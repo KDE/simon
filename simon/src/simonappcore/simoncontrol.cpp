@@ -74,6 +74,8 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	kDebug() << "Initializing scenario";
 	if (!s->init())
 		KMessageBox::error(0, "Failed to initialize scenario");
+	if (!s->save("/home/bedahr/simonout.xml"))
+		KMessageBox::error(0, "Couldn't save scenario");
 	delete s;
 #endif
 }

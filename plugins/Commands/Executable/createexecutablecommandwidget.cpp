@@ -70,7 +70,7 @@ bool CreateExecutableCommandWidget::init(Command* command)
 	ExecutableCommand *execCommand = dynamic_cast<ExecutableCommand*>(command);
 	if (!execCommand) return false;
 	
-	ui.urExecutable->setPath(execCommand->getExecutable());
+	ui.urExecutable->setUrl(KUrl(execCommand->getExecutable()));
 	ui.urWorkingDirectory->setUrl(execCommand->getWorkingDirectory());
 	return true;
 }

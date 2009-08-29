@@ -26,9 +26,11 @@
 
 class ScenarioObject;
 class Author;
+class Action;
 class VersionNumber;
 class Grammar;
 class Vocabulary;
+class TrainingText;
 
 class SPEECHMODELBASE_EXPORT Scenario{
 
@@ -43,7 +45,8 @@ private:
 	VersionNumber *simonMinVersion, *simonMaxVersion;
 	Vocabulary *vocabulary;
 	Grammar *grammar;
-	//actions?
+	QList<Action*> actions;
+	QList<TrainingText*> texts;
 
 public:
 	Scenario(const QString& scenarioId);

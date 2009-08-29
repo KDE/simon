@@ -19,11 +19,25 @@
 
 #include "executablecommand.h"
 #include <QObject>
+#include <QDomDocument>
 #include <QVariant>
 #include <KIcon>
 #include <KProcess>
 #include <KLocalizedString>
 
+ExecutableCommand::ExecutableCommand() : Command("", "")
+{
+}
+
+ExecutableCommand* ExecutableCommand::createCommand(const QDomElement& elem)
+{
+	ExecutableCommand *e = new ExecutableCommand();
+	if (!e->deSerialize(elem)) {
+		delete e;
+		e = NULL;
+	}
+	return e;
+}
 
 const QString ExecutableCommand::staticCategoryText()
 {
@@ -97,8 +111,44 @@ bool ExecutableCommand::triggerPrivate()
 		QString realExecutable = realSplitCommand.takeAt(0);
 		proc.setWorkingDirectory(workingDirectory.path());
 		proc.setProgram(realExecutable, realSplitCommand);
-		kWarning() << "Setting wd: " << workingDirectory.path();
-		proc.startDetached(/*realExecutable, realSplitCommand*/);
+		proc.startDetached();
 	}
 	return true;
 }
+
+
+bool ExecutableCommand::deSerialize(const QDomElement& elem)
+{
+	if (elem.isNull()) return false;
+
+	QDomElement name = elem.firstChildElement();
+	QDomElement icon = name.nextSiblingElement();
+	QDomElement workingDir = icon.nextSiblingElement();
+	QDomElement executable = workingDir.nextSiblingElement();
+	this->triggerName = name.text();
+	this->iconSrc = icon.text();
+	this->workingDirectory = workingDir.text();
+	this->exe = executable.text();
+	return true;
+}
+
+QDomElement ExecutableCommand::serialize(QDomDocument *doc)
+{
+	QDomElement command = doc->createElement("command");
+	QDomElement name = doc->createElement("name");
+	name.appendChild(doc->createTextNode(getTrigger()));
+	QDomElement icon = doc->createElement("icon");
+	icon.appendChild(doc->createTextNode(getIconSrc()));
+	QDomElement workingDir = doc->createElement("workingdirectory");
+	workingDir.appendChild(doc->createTextNode(getWorkingDirectory().url()));
+	QDomElement executable = doc->createElement("executable");
+	executable.appendChild(doc->createTextNode(getExecutable()));
+	
+	command.appendChild(name);
+	command.appendChild(icon);
+	command.appendChild(workingDir);
+	command.appendChild(executable);
+		
+	return command;
+}
+

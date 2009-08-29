@@ -43,6 +43,38 @@ bool CommandManager::trigger(const QString& triggerName)
 	}
 	return done;
 }
+	
+bool CommandManager::deSerializeConfig(const QDomElement& elem, const QString& scenarioId)
+{
+	Q_UNUSED(elem);
+	Q_UNUSED(scenarioId);
+	return true;
+}
+
+QDomElement CommandManager::serializeConfig(QDomDocument *doc, const QString& scenarioId)
+{
+	Q_UNUSED(scenarioId);
+	return doc->createElement("config");
+}
+
+bool CommandManager::deSerializeCommands(const QDomElement& elem, const QString& scenarioId)
+{
+	Q_UNUSED(elem);
+	Q_UNUSED(scenarioId);
+	return true;
+}
+
+QDomElement CommandManager::serializeCommands(QDomDocument *doc, const QString& scenarioId)
+{
+	Q_UNUSED(scenarioId);
+	QDomElement commandsElem = doc->createElement("commands");
+	if (commands) {
+		foreach (Command *c, *commands)
+			commandsElem.appendChild(c->serialize(doc));
+	}
+
+	return commandsElem;
+}
 
 QList<QAction*> CommandManager::getGuiActions()
 {
@@ -97,6 +129,7 @@ bool CommandManager::deleteCommand(Command *command)
 
 	return false;
 }
+
 
 CommandManager::~CommandManager()
 {
