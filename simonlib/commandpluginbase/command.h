@@ -38,6 +38,9 @@ class QDomDocument;
  *	@version 0.1
  *	@date 23.01.2006
  *	@author Peter Grasch
+ *
+ * 	@TODO: For all plugins:
+ * 		* Add methods serialize()
  */
 class Command;
 
@@ -52,9 +55,7 @@ class SIMONCOMMANDPLUGINBASE_EXPORT Command : public QObject{
 
 Q_OBJECT
 
-//FIXME: make private again
-//private:
-protected:
+private:
 	QString triggerName; //!< The name of the command - this is used to call the command and is unique
 	QString iconSrc; //!< The icon of a command.
 
@@ -65,6 +66,9 @@ signals:
 protected:
 	virtual bool triggerPrivate()=0;
 	virtual const QMap<QString,QVariant> getValueMapPrivate() const=0;
+
+	//TODO: make this pure virtual
+	virtual QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 
 public:
 	static const QString staticCategoryText() {return "";}
@@ -120,8 +124,7 @@ public:
 	else return getCategoryIcon();
    }
  
-   virtual bool deSerialize(const QDomElement& elem);
-   virtual QDomElement serialize(QDomDocument *doc);
+   QDomElement serialize(QDomDocument *doc);
 
     /**
     * @brief Returns the Icon of this command.

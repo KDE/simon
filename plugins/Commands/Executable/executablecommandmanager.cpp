@@ -76,7 +76,12 @@ bool ExecutableCommandManager::deSerializeCommands(const QDomElement& elem, cons
 	QDomElement commandElem = elem.firstChildElement();
 	while(!commandElem.isNull())
 	{
-		commands->append(ExecutableCommand::createCommand(commandElem));
+		QDomElement name = commandElem.firstChildElement();
+		QDomElement icon = name.nextSiblingElement();
+		QDomElement workingDir = icon.nextSiblingElement();
+		QDomElement executable = workingDir.nextSiblingElement();
+		commands->append(new ExecutableCommand(name.text(), icon.text(), 
+						executable.text(), workingDir.text()));
 		commandElem = commandElem.nextSiblingElement();
 	}
 
@@ -89,9 +94,10 @@ bool ExecutableCommandManager::load()
 	QString commandPath = KStandardDirs::locate("appdata", "conf/executables.xml");
 	Logger::log(i18n("[INF] Loading executable commands from %1", commandPath));
 
-	bool ok = false;
+//	bool ok = false;
 //	this->commands = xmlExecutableCommand->load(ok, commandPath);
-	return ok;
+//	return ok;
+	return true;
 }
 
 bool ExecutableCommandManager::save()

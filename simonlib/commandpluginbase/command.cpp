@@ -22,6 +22,7 @@
 #include <QVariant>
 #include <QDomElement>
 #include <QDomDocument>
+#include <KDebug>
 
 bool Command::trigger()
 {
@@ -38,15 +39,24 @@ const QMap<QString,QVariant> Command::getValueMap() const
 	return out;
 }
 
-bool Command::deSerialize(const QDomElement& elem)
-{
-	Q_UNUSED(elem);
-	return true;
-}
-
 QDomElement Command::serialize(QDomDocument *doc)
 {
-	return doc->createElement("command");
+	QDomElement commandElem = doc->createElement("command");
+
+	QDomElement name = doc->createElement("name");
+	name.appendChild(doc->createTextNode(triggerName));
+	QDomElement icon = doc->createElement("icon");
+	icon.appendChild(doc->createTextNode(iconSrc));
+
+	commandElem.appendChild(name);
+	commandElem.appendChild(icon);
+
+	return serializePrivate(doc, commandElem);
+}
+
+QDomElement Command::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
+{
+	return commandElem;
 }
 
 

@@ -51,10 +51,7 @@ public:
 	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
 
-	bool deSerialize(const QDomElement& elem);
-	QDomElement serialize(QDomDocument *doc);
-	
-	static ExecutableCommand* createCommand(const QDomElement& elem);			
+	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 
     /**
     * @brief Constructor
