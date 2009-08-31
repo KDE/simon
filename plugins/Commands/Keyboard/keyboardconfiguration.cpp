@@ -74,16 +74,22 @@ QString KeyboardConfiguration::trigger()
 
 void KeyboardConfiguration::addSet()
 {	
-	bool ok;
-	QString inputText = QInputDialog::getText(this, "simon input", "Enter the name of the new set:", QLineEdit::Normal, QString(), &ok);
-	if(ok && !inputText.isEmpty())
-	setList.append(new KeyboardSet(inputText));
-	else
-	SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
+        bool ok;
+        QString inputText = "abs";//QInputDialog::getText(this, "simon input", "Enter the name of the new set:", QLineEdit::Normal, QString(), &ok);
+        exit 0;
+        if(ok && !inputText.isEmpty())
+        {
+            setList.append(new KeyboardSet(inputText));
+            ui.cbSets->addItem(inputText);
+        }
+        else
+            SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
 }
 void KeyboardConfiguration::deleteSet()
 {	
-        setList.removeAt(ui.cbSets->currentIndex());
+        int setIndex = ui.cbSets->currentIndex();
+        setList.removeAt(setIndex);
+        ui.cbSets->removeItem(setIndex);
 }
 void KeyboardConfiguration::addTab()
 {	
