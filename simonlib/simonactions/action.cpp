@@ -24,25 +24,30 @@
 #include <commandpluginbase/commandmanager.h>
 #include <simonscenariobase/versionnumber.h>
 
-Action::Action(const QString& scenarioId, const QString& source, const QString& trigger) : ScenarioObject(scenarioId), m_source(source)
+/**Action::Action(const QString& scenarioId, const QString& source, const QString& trigger) : ScenarioObject(scenarioId), m_source(source)
 {
 	pluginMinVersion = NULL;
 	pluginMaxVersion = NULL;
 	init(source, trigger);
-}
+}*/
 
 /**
  * Deprecated constructor kept for compatibility reasons for now
  * FIXME: Remove it
  */
+
+#ifdef SIMON_SCENARIOS
 Action::Action(const QString& source, const QString& trigger) : ScenarioObject(""), m_source(source)
+#else
+Action::Action(const QString& source, const QString& trigger): m_source(source)
+#endif
 {
 	pluginMinVersion = NULL;
 	pluginMaxVersion = NULL;
 	init(source, trigger);
 }
 
-
+#ifdef SIMON_SCENARIOS
 Action* Action::createAction(const QString& scenarioId, const QDomElement& pluginElem)
 {
 	QString pluginSource = pluginElem.attribute("name");
@@ -60,6 +65,7 @@ Action* Action::createAction(const QString& scenarioId, const QDomElement& plugi
 
 	return a;
 }
+#endif
 
 void Action::init(const QString& source, const QString& trigger)
 {
@@ -93,6 +99,7 @@ void Action::init(const QString& source, const QString& trigger)
 	}
 }
 
+#ifdef SIMON_SCENARIOS
 bool Action::deSerialize(const QDomElement& pluginElem)
 {
 	QDomElement pluginCompatibilityElem = pluginElem.firstChildElement("pluginCompatibility");
@@ -126,7 +133,9 @@ bool Action::deSerialize(const QDomElement& pluginElem)
 
 	return true;
 }
+#endif
 
+#ifdef SIMON_SCENARIOS
 QDomElement Action::serialize(QDomDocument *doc)
 {
 	QDomElement pluginElem = doc->createElement("plugin");
@@ -153,6 +162,7 @@ QDomElement Action::serialize(QDomDocument *doc)
 
 	return pluginElem;
 }
+#endif
 
 QIcon Action::icon()
 {

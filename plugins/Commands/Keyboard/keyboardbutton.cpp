@@ -19,7 +19,8 @@
 
 #include "keyboardbutton.h"
 #include <QString>
-			/* @para  triggerShown, triggerReal, valueType, value  **/
+
+/* @param  triggerShown, triggerReal, valueType, value  **/
 KeyboardButton::KeyboardButton(QString triggerS, QString triggerR, short vType, QString v)
 {
 	triggerShown = triggerS;
