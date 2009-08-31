@@ -75,8 +75,7 @@ QString KeyboardConfiguration::trigger()
 void KeyboardConfiguration::addSet()
 {	
         bool ok;
-        QString inputText = "abs";//QInputDialog::getText(this, "simon input", "Enter the name of the new set:", QLineEdit::Normal, QString(), &ok);
-        exit 0;
+        QString inputText = QInputDialog::getText(this, "simon input", "Enter the name of the new set:", QLineEdit::Normal, QString(), &ok);
         if(ok && !inputText.isEmpty())
         {
             setList.append(new KeyboardSet(inputText));
