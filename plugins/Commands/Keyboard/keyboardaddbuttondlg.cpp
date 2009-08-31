@@ -27,6 +27,17 @@ KeyboardAddButtonDLG::KeyboardAddButtonDLG(QWidget *parent) : KDialog(parent)
 	setMainWidget( w );
 }
 
+KeyboardAddButtonDLG::KeyboardAddButtonDLG(QWidget *parent, bool *ok) : KDialog(parent)
+{
+	QWidget *w = new QWidget(this);
+	ui.setupUi(this);
+	setMainWidget( w );
+	addOk = ok;
+	
+	connect(ui.pbOK, SIGNAL(clicked()), this, SLOT(ok()));
+	connect(ui.pbAbbort, SIGNAL(clicked()), this, SLOT(abbort()));
+}
+
 QString KeyboardAddButtonDLG::getName()
 {
 	return ui.leName->text();
@@ -49,6 +60,19 @@ short KeyboardAddButtonDLG::getValueType()
 	return ui.cbValueType->currentIndex(); // 0 and 1 can be returned ,... 0 is text; 1 is shortcut
 }
 
+
+void KeyboardAddButtonDLG::ok()
+{
+	ui.hide();
+	addOk = true;
+}
+
+
+void KeyboardAddButtonDLG::abbort()
+{
+	ui.hide();
+	addOk = false;
+}
 
 KeyboardAddButtonDLG::~KeyboardAddButtonDLG()
 {

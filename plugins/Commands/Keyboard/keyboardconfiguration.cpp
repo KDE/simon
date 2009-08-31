@@ -44,8 +44,7 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
 		: CommandConfiguration("keyboard", ki18n( "Keyboard" ),
 				      "0.1", ki18n("Input signes with ease"),
 				      "accessories-calculator",
-				      KeyboardCommandPluginFactory::componentData(),
-				      parent)
+				      KeyboardCommandPluginFactory::componentData(),parent)
 {
 	Q_UNUSED(args);
 	ui.setupUi(this);
@@ -127,9 +126,13 @@ void KeyboardConfiguration::refreshCbTabs()
 
 void KeyboardConfiguration::addButton()
 {
-	KeyboardAddButtonDLG *kab = new KeyboardAddButtonDLG();
+	bool ok;
+	KeyboardAddButtonDLG *kab = new KeyboardAddButtonDLG(0,&ok);
 	kab->show();
-        //setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->append(new KeyboardButton(/*name, realtrigger, valueType, value*/));
+	if(ok)
+	{
+		setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(new KeyboardButton(kab->getName(), kab->getTrigger(), kab->getValueType(), kab->getValue()));
+	}
 }
 void KeyboardConfiguration::deleteButton()
 {

@@ -26,9 +26,15 @@ class KeyboardAddButtonDLG : public KDialog
 {
 	private:
 		Ui::KeyboardAddButtonDLG ui;
+		bool *addOk;
+		
+	private slots:
+		void ok();
+		void abbort();
 		
 	public:
 		KeyboardAddButtonDLG(QWidget *parent=0);
+		KeyboardAddButtonDLG(QWidget *parent=0, bool *ok=false);
 		QString getName();
 		QString getTrigger();
 		QString getValue();

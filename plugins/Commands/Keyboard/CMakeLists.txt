@@ -15,7 +15,7 @@ set (simonkeyboardcommandplugin_SRCS
 	keyboardsetxmlreader.cpp
 	keyboardaddbuttondlg.cpp
     )
-
+i man dei mama oida XD -.- suxx
 kde4_add_ui_files(simonkeyboardcommandplugin_SRCS 
 	keyboardwidget.ui
 	keyboardconfigurationdlg.ui
