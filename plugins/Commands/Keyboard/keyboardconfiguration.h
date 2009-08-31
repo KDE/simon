@@ -46,6 +46,7 @@ class KeyboardConfiguration : public CommandConfiguration
 		void deleteButton();
 		void buttonUp();
 		void buttonDown();
+                void cbSetsIndexChanged();
  
 	public slots:
 		virtual void save();
@@ -59,6 +60,8 @@ class KeyboardConfiguration : public CommandConfiguration
 		}
 		KeyboardConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
 		~KeyboardConfiguration();
+
+                void refreshCbTabs();
 		
 		void destroy();
 		

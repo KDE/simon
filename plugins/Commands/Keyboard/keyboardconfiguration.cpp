@@ -61,6 +61,7 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
 	connect(ui.pbDeleteButton, SIGNAL(clicked()), this, SLOT(deleteButton()));
 	connect(ui.pbUpButton, SIGNAL(clicked()), this, SLOT(buttonUp()));
 	connect(ui.pbDownButton, SIGNAL(clicked()), this, SLOT(buttonDown()));
+        connect(ui.cbSets, SIGNAL(currentIndexChanged()), this, SLOT(cbSetsIndexChanged()));
 	
 	//KeyboardsetXMLReader *reader = new KeyboardsetXMLReader("path");
 	//setList = reader->load("path");
@@ -80,6 +81,7 @@ void KeyboardConfiguration::addSet()
         {
             setList.append(new KeyboardSet(inputText));
             ui.cbSets->addItem(inputText);
+            refreshCbTabs();
         }
         else
             SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
@@ -89,20 +91,40 @@ void KeyboardConfiguration::deleteSet()
         int setIndex = ui.cbSets->currentIndex();
         setList.removeAt(setIndex);
         ui.cbSets->removeItem(setIndex);
+        refreshCbTabs();
 }
 void KeyboardConfiguration::addTab()
 {	
 	bool ok;
 	QString inputText = QInputDialog::getText(this, "simon input","Enter the name of the new Tab:", QLineEdit::Normal, QString(), &ok);
         if(ok && !inputText.isEmpty() && !setList.isEmpty())
-        setList.at(ui.cbSets->currentIndex())->getTabList()->append(new KeyboardTab(inputText));
-	else
-	SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
+        {
+            setList.at(ui.cbSets->currentIndex())->getTabList()->append(new KeyboardTab(inputText));
+            refreshCbTabs();
+        }
+        else
+            SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
 }
 void KeyboardConfiguration::deleteTab()
 {	
-        setList.at(ui.cbSets->currentIndex())->getTabList()->removeAt(ui.cbTabs->currentIndex());
+        int tabIndex = ui.cbTabs->currentIndex();
+        setList.at(ui.cbSets->currentIndex())->getTabList()->removeAt(tabIndex);
+        ui.cbTabs->removeItem(tabIndex);
 }
+
+void KeyboardConfiguration::cbSetsIndexChanged()
+{
+    refreshCbTabs();
+}
+void KeyboardConfiguration::refreshCbTabs()
+{
+    ui.cbTabs->clear();
+    for(int i=0; i<setList.at(ui.cbSets->currentIndex())->getTabList()->size(); i++)
+    {
+        ui.cbTabs->addItem(setList.at(ui.cbSets->currentIndex())->getTabList()->at(i)->getTabName());
+    }
+}
+
 void KeyboardConfiguration::addButton()
 {
 	KeyboardAddButtonDLG *kab = new KeyboardAddButtonDLG();
