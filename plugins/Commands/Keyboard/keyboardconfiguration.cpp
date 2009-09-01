@@ -35,6 +35,8 @@
 #include <simoninfo/simoninfo.h>
 #include <QTableView>
 
+#include "buttontablemodel.h"
+
 
 K_PLUGIN_FACTORY_DECLARATION(KeyboardCommandPluginFactory)
 
@@ -63,7 +65,10 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
         connect(ui.cbSets, SIGNAL(currentIndexChanged()), this, SLOT(cbSetsIndexChanged()));
 	
 	//KeyboardsetXMLReader *reader = new KeyboardsetXMLReader("path");
-	//setList = reader->load("path");
+        //setList = reader->load("path");
+
+	//ButtonTableModel btm=new ButtonTableModel(&setList, ui.cbSets, ui.cbTabs, this);
+	//ui.tvTabContent->setModel(&btm);
 }
 
 QString KeyboardConfiguration::trigger()
