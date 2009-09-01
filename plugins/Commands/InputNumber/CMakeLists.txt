@@ -8,12 +8,10 @@ ${KDE4_INCLUDE_DIR}/KDE ${QT_INCLUDES} ${CMAKE_CURRENT_SOURCE_DIR}/../../../simo
 
 set (simoninputnumbercommandplugin_SRCS 
 	inputnumbercommandmanager.cpp 
-	inputnumberconfiguration.cpp 
     )
 
 kde4_add_ui_files(simoninputnumbercommandplugin_SRCS 
 	inputnumberwidget.ui
-	inputnumberconfigurationdlg.ui
     )
 
 kde4_add_plugin(simoninputnumbercommandplugin ${simoninputnumbercommandplugin_SRCS})

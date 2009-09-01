@@ -21,6 +21,7 @@ set( simonactions_LIB_SRCS
 set( simonactions_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/commandmodel.h
 	${CMAKE_CURRENT_SOURCE_DIR}/actionmanager.h
+	${CMAKE_CURRENT_SOURCE_DIR}/action.h
 	${CMAKE_CURRENT_SOURCE_DIR}/greedyreceiver.h
   	${CMAKE_CURRENT_SOURCE_DIR}/listcommand.h
 	${CMAKE_CURRENT_SOURCE_DIR}/commandlistwidget.h
@@ -33,10 +34,10 @@ kde4_add_ui_files( simonactions_LIB_SRCS
 kde4_add_library( simonactions  SHARED ${simonactions_LIB_SRCS} )
 
 if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+add_definitions(-DSIMON_SCENARIOS)
 target_link_libraries( simonactions ${QT_LIBRARIES} ${QT_QTXML_LIBRARY}
 ${KDE4_KDEUI_LIBS} speechgui simoncommandpluginbase simonrecognitionresult
 simonscenariobase)
-_definitions(-DSIMON_SCENARIOS)
 else (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
 target_link_libraries( simonactions ${QT_LIBRARIES} ${QT_QTXML_LIBRARY}
 ${KDE4_KDEUI_LIBS} speechgui simoncommandpluginbase simonrecognitionresult

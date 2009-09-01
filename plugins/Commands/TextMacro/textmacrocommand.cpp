@@ -21,6 +21,8 @@
 #include <QObject>
 #include <QCoreApplication>
 #include <QVariant>
+#include <QDomDocument>
+#include <QDomElement>
 #include <KLocalizedString>
 #include <eventsimulation/eventhandler.h>
 
@@ -59,3 +61,14 @@ bool TextMacroCommand::triggerPrivate()
 	EventHandler::getInstance()->sendWord(getText());
 	return true;
 }
+
+QDomElement TextMacroCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
+{
+	QDomElement textElem = doc->createElement("text");
+	textElem.appendChild(doc->createTextNode(getText()));
+
+	commandElem.appendChild(textElem);
+		
+	return commandElem;
+}
+

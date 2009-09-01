@@ -49,7 +49,6 @@ class DesktopGridConfiguration : public CommandConfiguration
 		void destroy();
 		
 		//configuration options
-		QString trigger();
 		bool useRealTransparency();
 };
 

@@ -21,6 +21,8 @@
 #include <QObject>
 #include <QDesktopServices>
 #include <QVariant>
+#include <QDomDocument>
+#include <QDomElement>
 #include <KLocalizedString>
 
 
@@ -49,6 +51,16 @@ const QMap<QString,QVariant> PlaceCommand::getValueMapPrivate() const
 	QMap<QString,QVariant> out;
 	out.insert(i18n("URL"), getURL().prettyUrl());
 	return out;
+}
+
+QDomElement PlaceCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
+{
+	QDomElement urlElem = doc->createElement("url");
+	urlElem.appendChild(doc->createTextNode(url.path()));
+
+	commandElem.appendChild(urlElem);
+		
+	return commandElem;
 }
 
 bool PlaceCommand::triggerPrivate()

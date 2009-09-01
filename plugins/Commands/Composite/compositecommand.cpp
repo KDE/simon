@@ -54,6 +54,31 @@ const QMap<QString,QVariant> CompositeCommand::getValueMapPrivate() const
 	return out;
 }
 
+
+QDomElement CompositeCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
+{
+	Q_ASSERT(commands.count() == commandTypes.count());
+
+	QDomElement childCommandsElement = doc->createElement("childCommands");
+
+	for (int i=0; i < commands.count(); i++) {
+		QDomElement childComElement = doc->createElement("childCommand");
+		QDomElement childTriggerElem = doc->createElement("trigger");
+		QDomElement childCategoryElem = doc->createElement("category");
+
+		childTriggerElem.appendChild(doc->createTextNode(commands[i]));
+		childCategoryElem.appendChild(doc->createTextNode(commandTypes[i]));
+
+		childComElement.appendChild(childTriggerElem);
+		childComElement.appendChild(childCategoryElem);
+		childCommandsElement.appendChild(childComElement);
+	}
+	commandElem.appendChild(childCommandsElement);
+		
+	return commandElem;
+}
+
+
 bool CompositeCommand::triggerPrivate()
 {
 	Q_ASSERT(commands.count() == commandTypes.count());

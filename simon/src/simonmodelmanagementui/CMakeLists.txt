@@ -108,12 +108,15 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarview.ui
 )
 
+if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+add_definitions(-DSIMON_SCENARIOS)
+endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+
 kde4_add_library( simonmodelmanagementui  SHARED ${simonmodelmanagementui_LIB_SRCS} )
 
 target_link_libraries( simonmodelmanagementui ${QT_LIBRARIES}
 ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonlogging speechgui simonmodelmanagement simoninfo simonxml
 simonsound )
-
 
 set_target_properties( simonmodelmanagementui
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

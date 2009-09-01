@@ -19,9 +19,15 @@
 #include "trainingswizard.h"
 #include "trainsamplepage.h"
 #include "../AddWord/addwordview.h"
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/trainingmanager.h>
+#include <speechmodelmanagement_scenario/wordlistmanager.h>
+#include <speechmodelbase_scenario/trainingtext.h>
+#else
 #include <speechmodelmanagement/trainingmanager.h>
 #include <speechmodelmanagement/wordlistmanager.h>
 #include <speechmodelbase/trainingtext.h>
+#endif
 
 #include <QWizardPage>
 #include <QStringList>

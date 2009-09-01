@@ -72,6 +72,44 @@ bool ListCommandManager::load()
 	return ok;
 }
 
+bool ListCommandManager::deSerializeCommands(const QDomElement& elem, const QString& scenarioId)
+{
+	Q_UNUSED(scenarioId);
+
+	if (commands)
+		qDeleteAll(*commands);
+	commands = new CommandList();
+
+	if (elem.isNull()) return false;
+
+	QDomElement commandElem = elem.firstChildElement();
+	while(!commandElem.isNull())
+	{
+		QDomElement name = commandElem.firstChildElement();
+		QDomElement icon = name.nextSiblingElement();
+		QDomElement childCommandsElem = icon.nextSiblingElement();
+		QDomElement childCommandElem = childCommandsElem.firstChildElement();
+		QStringList childCommandTrigger;
+		QStringList childCommandIcons;
+		QStringList childCommandCategory;
+		while (!childCommandsElem.isNull()) {
+			QDomElement childCommandTriggerElem = childCommandsElem.firstChildElement();
+			QDomElement childCommandIconElem = childCommandTriggerElem.nextSiblingElement();
+			QDomElement childCommandCategoryElem = childCommandIconElem.nextSiblingElement();
+			childCommandTrigger << childCommandTriggerElem.text();
+			childCommandIcons << childCommandIconElem.text();
+			childCommandCategory << childCommandCategoryElem.text();
+		}
+
+		commands->append(new ListCommand(name.text(), icon.text(), 
+						childCommandTrigger, childCommandIcons, childCommandCategory));
+		commandElem = commandElem.nextSiblingElement();
+	}
+
+
+	return true;
+}
+
 bool ListCommandManager::save()
 {
 	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/lists.xml");

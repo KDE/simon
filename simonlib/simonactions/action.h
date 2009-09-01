@@ -50,7 +50,9 @@ class SIMONACTIONS_EXPORT Action : public QObject
 		bool m_enabledByDefault;
 
 		void init(const QString& source, const QString& trigger=QString());
-		//Action(const QString& scenarioId, const QString& source, const QString& trigger);
+		#ifdef SIMON_SCENARIOS
+		Action(const QString& scenarioId, const QString& source, const QString& trigger);
+		#endif
 	public:
 		Action(const QString& source, const QString& trigger=QString());
 		typedef QPointer<Action> Ptr;

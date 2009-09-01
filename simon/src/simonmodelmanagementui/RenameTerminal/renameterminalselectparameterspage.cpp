@@ -19,7 +19,11 @@
 
 
 #include "renameterminalselectparameterspage.h"
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/wordlistmanager.h>
+#else
 #include <speechmodelmanagement/wordlistmanager.h>
+#endif
 
 RenameTerminalSelectParametersPage::RenameTerminalSelectParametersPage(QWidget *parent)
  : QWizardPage(parent)

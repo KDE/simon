@@ -24,12 +24,14 @@
 #include <commandpluginbase/commandmanager.h>
 #include <simonscenariobase/versionnumber.h>
 
-/**Action::Action(const QString& scenarioId, const QString& source, const QString& trigger) : ScenarioObject(scenarioId), m_source(source)
+#ifdef SIMON_SCENARIOS
+Action::Action(const QString& scenarioId, const QString& source, const QString& trigger) : ScenarioObject(scenarioId),  m_source(source)
 {
 	pluginMinVersion = NULL;
 	pluginMaxVersion = NULL;
 	init(source, trigger);
-}*/
+}
+#endif
 
 /**
  * Deprecated constructor kept for compatibility reasons for now
@@ -52,9 +54,6 @@ Action* Action::createAction(const QString& scenarioId, const QDomElement& plugi
 {
 	QString pluginSource = pluginElem.attribute("name");
 	QString pluginTrigger = pluginElem.attribute("trigger");
-
-	kDebug() << "Loading plugin " << pluginSource << 
-			" with trigger " << pluginTrigger;
 
 	Action *a = new Action(scenarioId, pluginSource, pluginTrigger);
 
@@ -105,14 +104,14 @@ bool Action::deSerialize(const QDomElement& pluginElem)
 	QDomElement pluginCompatibilityElem = pluginElem.firstChildElement("pluginCompatibility");
 	QDomElement pluginMinVersionElem = pluginCompatibilityElem.firstChildElement();
 
-	pluginMinVersion = VersionNumber::createVersionNumber(scenarioId, pluginMinVersionElem);
-	pluginMaxVersion = VersionNumber::createVersionNumber(scenarioId, pluginMinVersionElem.nextSiblingElement());
+	pluginMinVersion = VersionNumber::createVersionNumber("scenarioId", pluginMinVersionElem);
+	pluginMaxVersion = VersionNumber::createVersionNumber("scenarioId", pluginMinVersionElem.nextSiblingElement());
 
 	if (!pluginMinVersion) {
 		kDebug() << "Couldn't parse version requirements of plugin";
 		return false;
 	} else {
-		VersionNumber pluginCurVersion(scenarioId, getPluginVersion());
+		VersionNumber pluginCurVersion("scenarioId", getPluginVersion());
 		if ((!pluginMinVersion->isValid()) || (pluginCurVersion < *pluginMinVersion) || 
 			(pluginMaxVersion && pluginMaxVersion->isValid() && (!(pluginCurVersion <= *pluginMaxVersion)))) {
 			kDebug() << "Scenario not compatible with this version of the plugin ";
@@ -121,12 +120,12 @@ bool Action::deSerialize(const QDomElement& pluginElem)
 	}
 	
 	QDomElement configElem = pluginElem.firstChildElement("config");
-	if (!m_manager->deSerializeConfig(configElem, scenarioId)) {
+	if (!m_manager->deSerializeConfig(configElem, "scenarioId")) {
 		kDebug() << "Couldn't load config of plugin";
 		return false;
 	}
 	QDomElement commandsElem = pluginElem.firstChildElement("commands");
-	if (!m_manager->deSerializeCommands(commandsElem, scenarioId)) {
+	if (!m_manager->deSerializeCommands(commandsElem, "scenarioId")) {
 		kDebug() << "Couldn't load commands of plugin";
 		return false;
 	}
@@ -155,10 +154,10 @@ QDomElement Action::serialize(QDomDocument *doc)
 	pluginElem.appendChild(pluginCompatibilityElem);
 
 	//TODO: config elem is empty;
-	pluginElem.appendChild(m_manager->serializeConfig(doc, scenarioId));
+	pluginElem.appendChild(m_manager->serializeConfig(doc, "scenarioId"));
 
 	//TODO: command elem is empty
-	pluginElem.appendChild(m_manager->serializeCommands(doc, scenarioId));
+	pluginElem.appendChild(m_manager->serializeCommands(doc, "scenarioId"));
 
 	return pluginElem;
 }

@@ -22,7 +22,7 @@
 #define WORDLISTMANAGER_H
 
 
-#include <speechmodelbase/word.h>
+#include <speechmodelbase_scenario/word.h>
 #include "simonmodelmanagement_export.h"
 #include <QThread>
 #include <QMutex>

@@ -25,7 +25,11 @@
 
 #include <KMessageBox>
 #include <KGlobal>
-#include "grammarmanager.h"
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/grammarmanager.h>
+#else
+#include <speechmodelmanagement/grammarmanager.h>
+#endif
 
 
 GrammarViewPrivate::GrammarViewPrivate(QWidget* parent): QWidget( parent)

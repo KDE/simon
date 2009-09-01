@@ -31,6 +31,7 @@
 #include <simonrecognitionresult/recognitionresult.h>
 
 #ifdef SIMON_SCENARIOS
+#include <QFileInfo>
 #include <KDebug>
 #include <speechmodelbase_scenario/scenario.h>
 #endif
@@ -69,16 +70,42 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 
 
 #ifdef SIMON_SCENARIOS
+	setupScenarios();
+#endif
+}
+
+#ifdef SIMON_SCENARIOS
+void SimonControl::setupScenarios()
+{
+	kDebug() << "Setting up scenarios...";
+	QStringList scenarioSrcs = KGlobal::dirs()->findAllResources("appdata", "scenarios/");
+	QStringList scenarioIds;
+
+	foreach (const QString& src, scenarioSrcs) {
+		QFileInfo f(src);
+		QString idToBe = f.fileName();
+		if (!scenarioIds.contains(idToBe)) 
+			scenarioIds << idToBe;
+	}
+
+
+	foreach (const QString& id, scenarioIds) {
+		Scenario *s = new Scenario(id);
+		kDebug() << "Initializing scenario" << id;
+		if (!s->init())
+			KMessageBox::error(0, i18n("Failed to initialize scenario \"%1\"").arg(id));
+		else
+			scenarios << s;
+	}
+
+	kDebug() << "Found scenarios: " << scenarioSrcs;
 	kDebug() << "Creating scenario";
 	Scenario *s = new Scenario("webbrowsing");
 	kDebug() << "Initializing scenario";
 	if (!s->init())
 		KMessageBox::error(0, "Failed to initialize scenario");
-	if (!s->save("/home/bedahr/simonout.xml"))
-		KMessageBox::error(0, "Couldn't save scenario");
-	delete s;
-#endif
 }
+#endif
 
 void SimonControl::actOnAutoConnect()
 {
@@ -332,5 +359,8 @@ void SimonControl::compileModel()
  */
 SimonControl::~SimonControl()
 {
+#ifdef SIMON_SCENARIOS
+	qDeleteAll(scenarios);
+#endif
 	delete recognitionControl;
 }

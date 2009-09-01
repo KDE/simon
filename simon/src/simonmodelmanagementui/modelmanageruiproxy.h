@@ -20,7 +20,12 @@
 #ifndef MODELMANAGERUIPROXY_H
 #define MODELMANAGERUIPROXY_H
 
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/modelmanager.h>
+#else
 #include <speechmodelmanagement/modelmanager.h>
+#endif
+
 #include "simonmodelmanagementui_export.h"
 
 /**

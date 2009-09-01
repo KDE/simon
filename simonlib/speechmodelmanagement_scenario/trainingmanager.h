@@ -21,8 +21,8 @@
 #ifndef TRAININGMANAGER_H
 #define TRAININGMANAGER_H
 
-#include <speechmodelbase/word.h>
-#include <speechmodelbase/trainingtext.h>
+#include <speechmodelbase_scenario/word.h>
+#include <speechmodelbase_scenario/trainingtext.h>
 #include <QHash>
 #include <QMutex>
 #include <QList>
@@ -40,6 +40,8 @@
 
 typedef QHash<QString, QString> PromptsTable;
 typedef  QList<TrainingText*> TrainingList;
+
+class TrainingManager;
 
 class MODELMANAGEMENT_EXPORT TrainingManager : public QObject
 {

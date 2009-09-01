@@ -53,23 +53,12 @@ public:
 
 	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 
-    /**
-    * @brief Constructor
-    * @TODO: Remove!
-    * 
-    *	@author Peter Grasch
-    */
     ExecutableCommand(const QString& name, const QString& iconSrc, const QString& exe, const KUrl& workingDirectory) : Command(name, iconSrc)
     {
         this->exe = exe;
         this->workingDirectory = workingDirectory;
     }
 
-    /**
-    * @brief Returns the executable
-    * 
-    *	@author Peter Grasch
-    */
     const QString getExecutable() const { return this->exe; }
     
     /**

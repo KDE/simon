@@ -51,18 +51,9 @@ class SIMONRECOGNITIONRESULT_EXPORT RecognitionResult
 
 		QString toString() const;
 
-		bool matchesTrigger(const QString& trigger)
-		{
-			if (trigger.isEmpty()) return true;
+		bool matchesTrigger(const QString& trigger);
 
-			return m_sentence.startsWith(trigger+" ");
-		}
-
-		void removeTrigger(const QString& trigger)
-		{ 
-			if (!trigger.isEmpty())
-				m_sentence.remove(0, trigger.count()+1);
-		}
+		void removeTrigger(const QString& trigger);
 };
 
 typedef QList<RecognitionResult> RecognitionResultList;

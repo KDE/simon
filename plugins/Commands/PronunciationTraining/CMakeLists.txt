@@ -15,6 +15,9 @@ kde4_add_ui_files(simonpronunciationtrainingplugin_SRCS pronunciationtrainingcon
 
 kde4_add_plugin(simonpronunciationtrainingplugin ${simonpronunciationtrainingplugin_SRCS})
 
+if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+add_definitions(-DSIMON_SCENARIOS)
+endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
 
 target_link_libraries(simonpronunciationtrainingplugin ${KDE4_KDEUI_LIBS}
 	simonlogging simoncommandpluginbase simonactions simonmodelmanagement)

@@ -19,11 +19,19 @@
 
 #include "synchronisationmanager.h"
 
+#ifdef SIMON_SCENARIOS
+#include <speechmodelbase_scenario/model.h>
+#include <speechmodelbase_scenario/wordlistcontainer.h>
+#include <speechmodelbase_scenario/grammarcontainer.h>
+#include <speechmodelbase_scenario/languagedescriptioncontainer.h>
+#include <speechmodelbase_scenario/trainingcontainer.h>
+#else
 #include <speechmodelbase/model.h>
 #include <speechmodelbase/wordlistcontainer.h>
 #include <speechmodelbase/grammarcontainer.h>
 #include <speechmodelbase/languagedescriptioncontainer.h>
 #include <speechmodelbase/trainingcontainer.h>
+#endif
 
 #include <QString>
 #include <QFileInfo>

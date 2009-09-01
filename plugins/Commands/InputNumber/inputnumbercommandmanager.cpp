@@ -17,7 +17,6 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "inputnumbercommandmanager.h"
-#include "inputnumberconfiguration.h"
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
 #include <unistd.h>
@@ -71,6 +70,12 @@ InputNumberCommandManager::InputNumberCommandManager(QObject *parent, const QVar
 	connect(ui.pb7, SIGNAL(clicked()), this, SLOT(send7()));
 	connect(ui.pb8, SIGNAL(clicked()), this, SLOT(send8()));
 	connect(ui.pb9, SIGNAL(clicked()), this, SLOT(send9()));
+}
+
+
+const QString InputNumberCommandManager::preferredTrigger() const
+{
+	return i18n("Number");
 }
 
 void InputNumberCommandManager::activate()
@@ -211,19 +216,13 @@ bool InputNumberCommandManager::greedyTrigger(const QString& inputText)
 
 bool InputNumberCommandManager::trigger(const QString& triggerName)
 {
-	if (triggerName != InputNumberConfiguration::getInstance()->trigger()){
+	if (!triggerName.isEmpty())
 		return false;
-	}
 
 	activate();
 	return true;
 }
 
-
-CommandConfiguration* InputNumberCommandManager::getConfigurationPage()
-{
-	return InputNumberConfiguration::getInstance();
-}
 
 bool InputNumberCommandManager::load()
 {

@@ -24,7 +24,11 @@
 #include "xmltrainingtextlist.h"
 
 #include <simonlogging/logger.h>
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/trainingmanager.h>
+#else
 #include <speechmodelmanagement/trainingmanager.h>
+#endif
 
 #include <QFile>
 #include <QFileInfo>

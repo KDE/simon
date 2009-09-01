@@ -24,6 +24,7 @@
 #include <QStringList>
 #include "speechmodelbase_export.h"
 #include <simonscenariobase/scenarioobject.h>
+#include <KDebug>
 
 /**
  *	@class TrainingText
@@ -87,7 +88,8 @@ public:
 	 * \return 
 	 * page
 	 */
-	QString getPage( int page ) const { return pages.at(page); }
+	QString getPage( int page ) const { return pages.at(page); 
+	}
 	
 	
 	/**

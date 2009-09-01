@@ -51,6 +51,8 @@ public:
 	const KIcon getCategoryIcon() const;
 	const QString getCategoryText() const;
 	
+	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
+
     /**
     * @brief Constructor
     * 

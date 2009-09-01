@@ -22,6 +22,7 @@
 #define SCENARIO_H
 #include <QString>
 #include <QList>
+#include <KIcon>
 #include "speechmodelbase_export.h"
 
 class ScenarioObject;
@@ -35,21 +36,26 @@ class TrainingText;
 class SPEECHMODELBASE_EXPORT Scenario{
 
 private:
-	QString scenarioId;
+	QString m_scenarioId;
 
-	int version;
+	int m_version;
 
-	QString name;
-	QString licence;
-	QList<Author*> authors;
-	VersionNumber *simonMinVersion, *simonMaxVersion;
-	Vocabulary *vocabulary;
-	Grammar *grammar;
-	QList<Action*> actions;
-	QList<TrainingText*> texts;
+	QString m_name;
+	QString m_iconSrc;
+	QString m_licence;
+	QList<Author*> m_authors;
+	VersionNumber *m_simonMinVersion, *m_simonMaxVersion;
+	Vocabulary *m_vocabulary;
+	Grammar *m_grammar;
+	QList<Action*> m_actions;
+	QList<TrainingText*> m_texts;
 
 public:
 	Scenario(const QString& scenarioId);
+
+	KIcon icon() { return KIcon(m_iconSrc); }
+	QString name() { return m_name; }
+	QString id() { return m_scenarioId; }
 
 	bool init(QString path=QString());
 	bool save(QString path=QString());

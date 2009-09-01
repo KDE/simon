@@ -33,7 +33,9 @@ K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("simonexecutablecommand") )
 
 ExecutableCommandManager::ExecutableCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
 {
-	//this->xmlExecutableCommand = new XMLExecutableCommand();
+#ifndef SIMON_SCENARIOS
+	this->xmlExecutableCommand = new XMLExecutableCommand();
+#endif
 }
 
 bool ExecutableCommandManager::addCommand(Command *command)
@@ -94,22 +96,30 @@ bool ExecutableCommandManager::load()
 	QString commandPath = KStandardDirs::locate("appdata", "conf/executables.xml");
 	Logger::log(i18n("[INF] Loading executable commands from %1", commandPath));
 
-//	bool ok = false;
-//	this->commands = xmlExecutableCommand->load(ok, commandPath);
-//	return ok;
+#ifndef SIMON_SCENARIOS
+	bool ok = false;
+	this->commands = xmlExecutableCommand->load(ok, commandPath);
+	return ok;
+#else
 	return true;
+#endif
 }
 
 bool ExecutableCommandManager::save()
 {
 	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/executables.xml");
 	Logger::log(i18n("[INF] Saving executable commands to %1", commandPath));
-//	return xmlExecutableCommand->save(commands, commandPath);
+#ifndef SIMON_SCENARIOS
+	return xmlExecutableCommand->save(commands, commandPath);
+#else
 	return true;
+#endif
 }
 
 ExecutableCommandManager::~ExecutableCommandManager()
 {
-//	if (xmlExecutableCommand) xmlExecutableCommand->deleteLater();
+#ifndef SIMON_SCENARIOS
+	if (xmlExecutableCommand) xmlExecutableCommand->deleteLater();
+#endif
 }
 

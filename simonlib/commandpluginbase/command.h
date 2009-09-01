@@ -67,8 +67,7 @@ protected:
 	virtual bool triggerPrivate()=0;
 	virtual const QMap<QString,QVariant> getValueMapPrivate() const=0;
 
-	//TODO: make this pure virtual
-	virtual QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
+	virtual QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem)=0;
 
 public:
 	static const QString staticCategoryText() {return "";}

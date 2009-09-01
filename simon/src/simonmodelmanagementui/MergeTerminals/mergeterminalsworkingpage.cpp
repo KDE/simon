@@ -20,7 +20,14 @@
 
 #include "mergeterminalsworkingpage.h"
 #include "mergeterminals.h"
-#include "grammarmanager.h"
+
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/grammarmanager.h>
+#else
+#include <speechmodelmanagement/grammarmanager.h>
+#endif
+
+
 
 MergeTerminalsWorkingPage::MergeTerminalsWorkingPage (QWidget* parent ) : QWizardPage ( parent )
 {

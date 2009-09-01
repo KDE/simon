@@ -19,7 +19,12 @@
 
 
 #include "mergeterminalsselectterminalspage.h"
-#include "wordlistmanager.h"
+
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/wordlistmanager.h>
+#else
+#include <speechmodelmanagement/wordlistmanager.h>
+#endif
 
 MergeTerminalsSelectTerminalsPage::MergeTerminalsSelectTerminalsPage(QWidget* parent): QWizardPage(parent)
 {

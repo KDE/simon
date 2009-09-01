@@ -33,7 +33,9 @@ K_EXPORT_PLUGIN( CompositeCommandPluginFactory("simoncompositecommand") )
 
 CompositeCommandManager::CompositeCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
 {
+#ifndef SIMON_SCENARIOS
 	this->xmlCompositeCommand = new XMLCompositeCommand();
+#endif
 }
 
 const KIcon CompositeCommandManager::icon() const
@@ -62,24 +64,68 @@ CreateCommandWidget* CompositeCommandManager::getCreateCommandWidget(QWidget *pa
 	return new CreateCompositeCommandWidget(parent);
 }
 
+bool CompositeCommandManager::deSerializeCommands(const QDomElement& elem, const QString& scenarioId)
+{
+	Q_UNUSED(scenarioId);
+
+	if (commands)
+		qDeleteAll(*commands);
+	commands = new CommandList();
+
+	if (elem.isNull()) return false;
+
+	QDomElement commandElem = elem.firstChildElement();
+	while(!commandElem.isNull())
+	{
+		QDomElement name = commandElem.firstChildElement();
+		QDomElement icon = name.nextSiblingElement();
+		QDomElement childCommandsElem = icon.nextSiblingElement();
+		QDomElement childCommandElem = childCommandsElem.firstChildElement();
+		QStringList childCommandTrigger;
+		QStringList childCommandCategory;
+		while (!childCommandsElem.isNull()) {
+			QDomElement childCommandTriggerElem = childCommandsElem.firstChildElement();
+			QDomElement childCommandCategoryElem = childCommandTriggerElem.nextSiblingElement();
+			childCommandTrigger << childCommandTriggerElem.text();
+			childCommandCategory << childCommandCategoryElem.text();
+		}
+
+		commands->append(new CompositeCommand(name.text(), icon.text(), 
+						childCommandTrigger, childCommandCategory));
+		commandElem = commandElem.nextSiblingElement();
+	}
+
+	return true;
+}
+
 bool CompositeCommandManager::load()
 {
 	QString commandPath = KStandardDirs::locate("appdata", "conf/composites.xml");
 	Logger::log(i18n("[INF] Loading composite commands from %1", commandPath));
 
 	bool ok = false;
+#ifndef SIMON_SCENARIOS
 	this->commands = xmlCompositeCommand->load(ok, commandPath);
 	return ok;
+#else
+	return true;
+#endif
 }
 
 bool CompositeCommandManager::save()
 {
 	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/composites.xml");
 	Logger::log(i18n("[INF] Saving composite commands to %1", commandPath));
+#ifndef SIMON_SCENARIOS
 	return xmlCompositeCommand->save(commands, commandPath);
+#else
+	return true;
+#endif
 }
 
 CompositeCommandManager::~CompositeCommandManager()
 {
+#ifndef SIMON_SCENARIOS
 	if (xmlCompositeCommand) xmlCompositeCommand->deleteLater();
+#endif
 }

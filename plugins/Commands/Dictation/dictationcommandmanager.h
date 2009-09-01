@@ -38,7 +38,7 @@ protected:
 	bool trigger(const QString& triggerName);
 
 public:
-	virtual const QString preferredTrigger() const { return ""; }
+	const QString preferredTrigger() const { return ""; }
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
 	bool load();

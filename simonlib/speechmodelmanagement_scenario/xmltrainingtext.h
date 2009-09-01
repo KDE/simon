@@ -22,7 +22,7 @@
 
 #include <QStringList>
 #include <simonxml/xmldomreader.h>
-#include <speechmodelbase/trainingtext.h>
+#include <speechmodelbase_scenario/trainingtext.h>
 
 /**
  *  @class XMLTrainingText
@@ -42,6 +42,7 @@ public:
 	virtual bool save();
 
 	void load(QString path="");
+	static XMLTrainingText* createTrainingText(const QString& path);
 
 	void addPages(QStringList pages);
 	

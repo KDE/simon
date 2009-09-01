@@ -53,5 +53,15 @@ float RecognitionResult::averageConfidenceScore() const
 	return avg;
 }
 
+bool RecognitionResult::matchesTrigger(const QString& trigger)
+{
+	if (trigger.isEmpty()) return true;
+	return m_sentence.contains(QRegExp("^"+trigger+"( |$)"));
+}
 
+void RecognitionResult::removeTrigger(const QString& trigger)
+{ 
+	if (!trigger.isEmpty())
+		m_sentence.remove(QRegExp("^"+trigger+"( |$)"));
+}
 

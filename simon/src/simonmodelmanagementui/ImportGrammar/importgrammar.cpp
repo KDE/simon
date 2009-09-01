@@ -19,7 +19,11 @@
 
 
 #include "importgrammar.h"
-#include "wordlistmanager.h"
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/wordlistmanager.h>
+#else
+#include <speechmodelmanagement/wordlistmanager.h>
+#endif
 #include <QFile>
 #include <KLocalizedString>
 #include <KFilterDev>

@@ -19,6 +19,8 @@
 
 #include "xmltrainingtext.h"
 #include <QDomDocument>
+#include <QDomElement>
+#include <QFile>
 
 
 
@@ -30,6 +32,7 @@ XMLTrainingText::XMLTrainingText( QString name, QString path, QStringList pages 
 XMLTrainingText::XMLTrainingText( QString path ) : XMLDomReader(path), TrainingText("", path, QStringList())
 {
 }
+
 
 void XMLTrainingText::save(QString path)
 {
@@ -66,8 +69,40 @@ bool XMLTrainingText::save()
 	return true;
 }
 
+#include <KDebug>
+XMLTrainingText* XMLTrainingText::createTrainingText(const QString& path)
+{
+	QStringList pages;
+	QFile f(path);
+	if (!f.open(QIODevice::ReadOnly)) {
+		kDebug() << "Couldn't open file for reading: " << path;
+		return NULL;
+	}
+
+	QDomDocument doc;
+	doc.setContent(f.readAll());
+
+	QDomElement root = doc.documentElement();
+	QString name = root.attribute("title");
+	
+	QDomElement newnode = root.firstChildElement();
+	
+	QDomElement page = root.firstChild().toElement();
+	while(!page.isNull()) 
+	{
+		QDomElement text = page.firstChildElement();
+		
+		QString textcontent =text.text();
+		pages.append(textcontent.trimmed());
+		page = page.nextSiblingElement();
+	}
+
+	return new XMLTrainingText(name, path, pages);
+}
+
 void XMLTrainingText::load(QString path)
 {
+	pages.clear();
 	XMLDomReader::load(path);
 	QDomElement root = doc->documentElement();
 	this->name = root.attribute("title");

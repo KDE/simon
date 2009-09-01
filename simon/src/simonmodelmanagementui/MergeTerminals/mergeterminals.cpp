@@ -21,8 +21,13 @@
 #include "mergeterminals.h"
 #include <KLocalizedString>
 
-#include "wordlistmanager.h"
-#include "grammarmanager.h"
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/wordlistmanager.h>
+#include <speechmodelmanagement_scenario/grammarmanager.h>
+#else
+#include <speechmodelmanagement/wordlistmanager.h>
+#include <speechmodelmanagement/grammarmanager.h>
+#endif
 
 MergeTerminals::MergeTerminals(QObject* parent): QThread(parent)
 {

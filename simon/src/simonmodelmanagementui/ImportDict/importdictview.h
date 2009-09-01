@@ -23,9 +23,14 @@
 
 
 #include <QWizard>
+#ifdef SIMON_SCENARIOS
+#include <speechmodelbase_scenario/word.h>
+#include <speechmodelmanagement_scenario/wordlisttype.h>
+#else
 #include <speechmodelbase/word.h>
-
 #include <speechmodelmanagement/wordlisttype.h>
+#endif
+
 
 /**
  * \class ImportDictView

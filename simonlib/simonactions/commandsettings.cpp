@@ -207,9 +207,7 @@ QList<Action::Ptr> CommandSettings::availableCommandManagers()
 	foreach (KService::Ptr service, services)
 	{
 		/*fprintf(stderr, "Found service: %s\n", service->storageId().toUtf8().data());*/
-		kDebug() << "Loading plugin " << service->storageId();
 		Action::Ptr action = new Action(service->storageId());
-		kDebug() << "Command manager: " << action->manager();
 		/*fprintf(stderr, "Trigger: %s\n", action->trigger().toUtf8().data());
 		fprintf(stderr, "Manager name: %s\n", action->manager()->name().toUtf8().data());*/
 		actions.append(action);

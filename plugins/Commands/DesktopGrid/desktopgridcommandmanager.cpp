@@ -44,6 +44,12 @@ DesktopGridCommandManager::DesktopGridCommandManager(QObject *parent, const QVar
 	guiActions << activateAction;
 }
 
+
+const QString DesktopGridCommandManager::preferredTrigger() const
+{
+	return i18n("Desktopgrid");
+}
+
 const QString DesktopGridCommandManager::name() const
 {
 	return i18n("Desktopgrid");
@@ -56,8 +62,7 @@ CommandConfiguration* DesktopGridCommandManager::getConfigurationPage()
 
 bool DesktopGridCommandManager::trigger(const QString& triggerName)
 {
-	kDebug() << triggerName << DesktopGridConfiguration::getInstance()->trigger();
-	if (triggerName != DesktopGridConfiguration::getInstance()->trigger()) return false;
+	if (!triggerName.isEmpty()) return false;
 
 	activate();
 	return true;
@@ -75,6 +80,8 @@ bool DesktopGridCommandManager::load()
 	DesktopGridConfiguration::getInstance(dynamic_cast<QWidget*>(parent()), QVariantList())->load();
 	return true;
 }
+
+
 
 bool DesktopGridCommandManager::save()
 {

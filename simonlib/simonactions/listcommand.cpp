@@ -56,6 +56,34 @@ ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QStr
 }
 
 
+QDomElement ListCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
+{
+	Q_ASSERT(commands.count() == commandTypes.count());
+	Q_ASSERT(commandTypes.count() == iconsrcs.count());
+
+	QDomElement childCommandsElement = doc->createElement("childCommands");
+
+	for (int i=0; i < commands.count(); i++) {
+		QDomElement childComElement = doc->createElement("childCommand");
+		QDomElement childTriggerElem = doc->createElement("trigger");
+		QDomElement childIconElem = doc->createElement("icon");
+		QDomElement childCategoryElem = doc->createElement("category");
+
+		childTriggerElem.appendChild(doc->createTextNode(commands[i]));
+		childIconElem.appendChild(doc->createTextNode(iconsrcs[i]));
+		childCategoryElem.appendChild(doc->createTextNode(commandTypes[i]));
+
+		childComElement.appendChild(childTriggerElem);
+		childComElement.appendChild(childIconElem);
+		childComElement.appendChild(childCategoryElem);
+		childCommandsElement.appendChild(childComElement);
+	}
+	commandElem.appendChild(childCommandsElement);
+
+	return commandElem;
+}
+
+
 bool ListCommand::processRequest(int index)
 {
 	Q_ASSERT(commands.count() == commandTypes.count());

@@ -20,6 +20,7 @@
 #include "executablecommand.h"
 #include <QObject>
 #include <QDomDocument>
+#include <QDomElement>
 #include <QVariant>
 #include <KIcon>
 #include <KProcess>

@@ -572,7 +572,6 @@ CommandConfiguration* CalculatorCommandManager::getConfigurationPage()
 
 bool CalculatorCommandManager::load()
 {
-	kDebug() << "Loading calc manager " << this;
 	return true;
 }
 

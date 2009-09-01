@@ -52,6 +52,10 @@ set( speechgui_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/trayiconmanager.h
 )
 
+if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+add_definitions(-DSIMON_SCENARIOS)
+endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+
 
 kde4_add_library( speechgui  SHARED ${speechgui_LIB_SRCS} )
 

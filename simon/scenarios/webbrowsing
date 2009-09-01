@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scenario name="Webbrowsing" version="1" changed="2009,8,1,15,23,41">
+<scenario name="Webbrowsing" icon="internet-web-browser" version="1" changed="2009,8,1,15,23,41">
   <simonCompatibility>
     <!-- Minimum simon version to use this scenario -->
     <minimumVersion>

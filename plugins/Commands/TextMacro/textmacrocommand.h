@@ -41,6 +41,7 @@ private:
 protected:
 	bool triggerPrivate();
 	const QMap<QString,QVariant> getValueMapPrivate() const;
+	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 
 public:
 	static const QString staticCategoryText();

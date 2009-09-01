@@ -23,7 +23,11 @@
 
 #include <QWizardPage>
 #include "ui_resolvewordpage.h"
+#ifdef SIMON_SCENARIOS
+#include <speechmodelbase_scenario/word.h>
+#else
 #include <speechmodelbase/word.h>
+#endif
 /**
 	\class AddWordResolvePage
 	\version 0.1

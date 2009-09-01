@@ -19,7 +19,6 @@
 
 
 #include "trainingtext.h"
-// #include "xmltrainingtext.h"
 
 /**
  * TODO: Remove me!

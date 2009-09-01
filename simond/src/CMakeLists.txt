@@ -21,6 +21,10 @@ kde4_add_app_icon(simond_SRCS
 
 kde4_add_executable(simond ${simond_SRCS})
 
+if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+add_definitions(-DSIMON_SCENARIOS)
+endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+
 target_link_libraries(simond ${KDE4_KDECORE_LIBS} ${PORTAUDIO_LIBRARIES}
 ${QT_LIBRARIES} speechmodelbase simonmodelcompilation simonddatabaseaccess
 simonrecognitionresult julius sent)

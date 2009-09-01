@@ -30,7 +30,7 @@ protected:
 	QString scenarioId;
 public:
 	
-	ScenarioObject(const QString& scenarioId)
+	ScenarioObject(QString scenarioId)
 	{
 		this->scenarioId = scenarioId;
 	}

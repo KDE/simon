@@ -51,7 +51,7 @@ TrainingManager* TrainingManager::instance;
 TrainingManager::TrainingManager(QObject *parent) : QObject(parent), promptsLock(QMutex::Recursive)
 {
 	KLocale::setMainCatalog("simonlib");
-	trainingTexts = 0;
+	trainingTexts = new TrainingList();
 	promptsTable=0;
 	dirty=false;
 }
@@ -274,18 +274,12 @@ TrainingList* TrainingManager::readTrainingTexts ()
 
 	QStringList textsrcs = KGlobal::dirs()->findAllResources("appdata", "texts/");
 
-	if (trainingTexts) {
-		delete trainingTexts;
-		trainingTexts=0;
-	}
-	
-	trainingTexts = new TrainingList();
 	for ( int i=0; i < textsrcs.count(); i++ )
 	{
 		QString path = textsrcs.at ( i );
 		XMLTrainingText *text = new XMLTrainingText ( path );
 		text->load ( path );
-		text->setRelevance ( calcRelevance ( text ) ); //TODO: speed
+		text->setRelevance ( calcRelevance ( text ) ); //TODO: speed*/
 		trainingTexts->append ( text );
 	}
 	
@@ -361,8 +355,6 @@ QStringList TrainingManager::missingWords(const QStringList& prompts)
  */
 TrainingText* TrainingManager::getText ( int i )
 {
-	if (!this->trainingTexts) readTrainingTexts();
-	
 	if ( this->trainingTexts && (trainingTexts->count() > i))
 	{
 		return this->trainingTexts->at ( i );

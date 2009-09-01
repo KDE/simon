@@ -62,6 +62,9 @@ class KCMultiDialog;
 class KAction;
 class Operation;
 class QThread;
+#ifdef SIMON_SCENARIOS
+class QComboBox;
+#endif
 
 
 class SimonView : public SimonMainWindow    {
@@ -90,9 +93,17 @@ private:
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
 	KCMultiDialog *configDialog;
 
+#ifdef SIMON_SCENARIOS
+	QComboBox *cbCurrentScenario;
+#endif
+
 	void setupSignalSlots();
 	void setupActions();
 
+private slots:
+#ifdef SIMON_SCENARIOS
+	void manageScenarios();
+#endif
 
 public slots:
 	void displayConnectionStatus(const QString &status);

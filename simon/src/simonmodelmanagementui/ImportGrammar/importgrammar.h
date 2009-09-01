@@ -23,7 +23,11 @@
 
 #include <QThread>
 #include <QStringList>
+#ifdef SIMON_SCENARIOS
+#include <speechmodelbase_scenario/word.h>
+#else
 #include <speechmodelbase/word.h>
+#endif
 
 /**
 	@author Peter Grasch <bedahr@gmx.net>

@@ -25,8 +25,13 @@
 #include "addwordresolvepage.h"
 #include "../modelmanageruiproxy.h"
 
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/wordlistmanager.h>
+#include <speechmodelmanagement_scenario/trainingmanager.h>
+#else
 #include <speechmodelmanagement/wordlistmanager.h>
 #include <speechmodelmanagement/trainingmanager.h>
+#endif
 
 #include <QWizardPage>
 #include <KMessageBox>
@@ -86,8 +91,13 @@ void AddWordView::accept()
 		promptsToAdd.insert(record2->getFileName(), record2->getPrompt().toUpper());
 		recordingCount++;
 	}
+#ifdef SIMON_SCENARIOS
+	listToAdd->append(Word("scenarioNotSet", word, field("wordPronunciation").toString(),
+		     field("wordTerminal").toString(), recordingCount));
+#else
 	listToAdd->append(Word(word, field("wordPronunciation").toString(),
 		     field("wordTerminal").toString(), recordingCount));
+#endif
 	
 	if (wordsToAdd.count() > 0)
 	{

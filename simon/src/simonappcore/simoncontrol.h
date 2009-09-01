@@ -36,6 +36,7 @@
 
 #include <QObject>
 #include <QStringList>
+#include <QList>
 #include <simonrecognitioncontrol/recognitioncontrol.h>
 #include "simonappcore_export.h"
 
@@ -43,6 +44,10 @@ class QSettings;
 class QVariant;
 class RecognitionControl;
 class ActionManager;
+
+#ifdef SIMON_SCENARIOS
+class Scenario;
+#endif
 
 class SIMONAPPCORE_EXPORT SimonControl : public QObject {
 	Q_OBJECT
@@ -77,6 +82,10 @@ public:
 	bool passwordProtected();
 	bool startMinimized();
 	QString adminPassword();
+
+#ifdef SIMON_SCENARIOS
+	QList<Scenario*> getScenarios() { return scenarios; }
+#endif
 	
 signals:
 	void guiAction(const QString& action);
@@ -122,6 +131,11 @@ private:
 	SimonControl::SystemStatus status;
 	
 	RecognitionControl *recognitionControl; //!< Julius Backend
+
+#ifdef SIMON_SCENARIOS
+	QList<Scenario*> scenarios;
+	void setupScenarios();
+#endif
 	
 	
 

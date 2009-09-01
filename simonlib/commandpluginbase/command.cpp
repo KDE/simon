@@ -54,10 +54,3 @@ QDomElement Command::serialize(QDomDocument *doc)
 	return serializePrivate(doc, commandElem);
 }
 
-QDomElement Command::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
-{
-	return commandElem;
-}
-
-
-#include "command.moc"

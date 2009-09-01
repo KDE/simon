@@ -42,6 +42,7 @@ protected:
 	bool triggerPrivate();
 
 public:
+	QDomElement serializePrivate(QDomDocument *doc, QDomElement& commandElem);
 	static const QString staticCategoryText();
 	static const KIcon staticCategoryIcon();
 

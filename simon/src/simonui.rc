@@ -2,7 +2,7 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
 <gui name="simon" version="3">
 	<ToolBar name="mainToolBar" >
-		<text>Main Actions</text>
+		<text>Main actions</text>
 		<Action name="connectActivate" />
 		<Separator/>
 		<Action name="addword" />
@@ -12,6 +12,12 @@
 		<Action name="commands" />
 		<Separator/>
 		<Action name="compileModel" />
+	</ToolBar>
+	<ToolBar name="scenario" >
+		<text>Scenario selection</text>
+		<Action name="scenarioLabel" />
+		<Action name="selectScenario" />
+		<Action name="manageScenarios" />
 	</ToolBar>
 	
 	<MenuBar>

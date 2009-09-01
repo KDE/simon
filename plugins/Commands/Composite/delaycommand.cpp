@@ -21,6 +21,8 @@
 #include <unistd.h>
 #include <QObject>
 #include <QVariant>
+#include <QDomDocument>
+#include <QDomElement>
 #include <KIcon>
 #include <KLocalizedString>
 
@@ -56,4 +58,14 @@ bool DelayCommand::triggerPrivate()
 {
 	usleep(delay*1000);
 	return true;
+}
+
+QDomElement DelayCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
+{
+	QDomElement delayElem = doc->createElement("delay");
+	delayElem.appendChild(doc->createTextNode(QString::number(delay)));
+	
+	commandElem.appendChild(delayElem);
+		
+	return commandElem;
 }

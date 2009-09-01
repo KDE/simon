@@ -19,7 +19,11 @@
 
 #include "pronunciationtrainingconfiguration.h"
 #include "pronunciationtrainingcommandmanager.h"
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/grammarmanager.h>
+#else
 #include <speechmodelmanagement/grammarmanager.h>
+#endif
 #include <QVariantList>
 #include <kgenericfactory.h>
 #include <KAboutData>

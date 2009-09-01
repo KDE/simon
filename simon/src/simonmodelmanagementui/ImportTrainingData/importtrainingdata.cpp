@@ -21,8 +21,11 @@
 #include "importtrainingdata.h"
 #include <KDebug>
 #include <simonsound/postprocessing.h>
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/trainingmanager.h>
+#else
 #include <speechmodelmanagement/trainingmanager.h>
-// #include "coreconfiguration.h"
+#endif
 #include <QDir>
 #include <QDate>
 #include <KStandardDirs>

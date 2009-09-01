@@ -20,6 +20,8 @@
 #include "shortcutcommand.h"
 #include <QObject>
 #include <QVariant>
+#include <QDomDocument>
+#include <QDomElement>
 #include <KLocalizedString>
 #include <eventsimulation/eventhandler.h>
 
@@ -56,3 +58,14 @@ bool ShortcutCommand::triggerPrivate()
 	EventHandler::getInstance()->sendShortcut(getShortcut());
 	return true;
 }
+
+QDomElement ShortcutCommand::serializePrivate(QDomDocument *doc, QDomElement& commandElem)
+{
+	QDomElement shortcutElem = doc->createElement("shortcut");
+	shortcutElem.appendChild(doc->createTextNode(shortcut.toString()));
+
+	commandElem.appendChild(shortcutElem);
+		
+	return commandElem;
+}
+

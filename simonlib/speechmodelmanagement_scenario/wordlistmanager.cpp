@@ -532,7 +532,7 @@ WordList* WordListManager::readWordList ( const QString& lexiconpath, const QStr
 			word = line.left(splitter).trimmed();
 			if (word.isEmpty()) continue;
 			pronunciation = line.mid(splitter).trimmed();
-			wordlist->append(Word(word, pronunciation, term, (isShadowlist) ? 0 : trainManager->getProbability(word.toUpper())));
+			wordlist->append(Word("", word, pronunciation, term, (isShadowlist) ? 0 : trainManager->getProbability(word.toUpper())));
 		} else
 		{
 			//its a new terminal!

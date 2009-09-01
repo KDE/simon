@@ -34,7 +34,9 @@ K_EXPORT_PLUGIN( ShortcutCommandPluginFactory("simonshortcutcommand") )
 
 ShortcutCommandManager::ShortcutCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
 {
+#ifndef SIMON_SCENARIOS
 	this->xmlShortcutCommand = new XMLShortcutCommand();
+#endif
 }
 
 const QString ShortcutCommandManager::name() const
@@ -69,19 +71,55 @@ bool ShortcutCommandManager::load()
 	Logger::log(i18n("[INF] Loading shortcuts from %1", commandPath));
 
 	bool ok = false;
+#ifndef SIMON_SCENARIOS
 	this->commands = xmlShortcutCommand->load(ok, commandPath);
 	return ok;
+#else
+	return true;
+#endif
 }
+
+bool ShortcutCommandManager::deSerializeCommands(const QDomElement& elem, const QString& scenarioId)
+{
+	Q_UNUSED(scenarioId);
+
+	if (commands)
+		qDeleteAll(*commands);
+	commands = new CommandList();
+
+	if (elem.isNull()) return false;
+
+	QDomElement commandElem = elem.firstChildElement();
+	while(!commandElem.isNull())
+	{
+		QDomElement name = commandElem.firstChildElement();
+		QDomElement icon = name.nextSiblingElement();
+		QDomElement shortcut = icon.nextSiblingElement();
+		commands->append(new ShortcutCommand(name.text(), icon.text(), 
+						shortcut.text()));
+		commandElem = commandElem.nextSiblingElement();
+	}
+
+	return true;
+}
+
+
 
 bool ShortcutCommandManager::save()
 {
 	QString commandPath = KStandardDirs::locateLocal("appdata", "conf/shortcuts.xml");
 	Logger::log(i18n("[INF] Saving Shortcuts to %1", commandPath));
+#ifndef SIMON_SCENARIOS
 	return xmlShortcutCommand->save(commands, commandPath);
+#else
+	return true;
+#endif
 }
 
 
 ShortcutCommandManager::~ShortcutCommandManager ()
 {
+#ifndef SIMON_SCENARIOS
 	if (xmlShortcutCommand) xmlShortcutCommand->deleteLater();
+#endif
 }

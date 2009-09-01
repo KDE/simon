@@ -68,6 +68,30 @@ bool TextMacroCommandManager::load()
 	return ok;
 }
 
+bool TextMacroCommandManager::deSerializeCommands(const QDomElement& elem, const QString& scenarioId)
+{
+	Q_UNUSED(scenarioId);
+
+	if (commands)
+		qDeleteAll(*commands);
+	commands = new CommandList();
+
+	if (elem.isNull()) return false;
+
+	QDomElement commandElem = elem.firstChildElement();
+	while(!commandElem.isNull())
+	{
+		QDomElement name = commandElem.firstChildElement();
+		QDomElement icon = name.nextSiblingElement();
+		QDomElement textElem = icon.nextSiblingElement();
+		commands->append(new TextMacroCommand(name.text(), icon.text(), 
+						textElem.text()));
+		commandElem = commandElem.nextSiblingElement();
+	}
+
+	return true;
+}
+
 CreateCommandWidget* TextMacroCommandManager::getCreateCommandWidget(QWidget *parent)
 {
 	return new CreateTextMacroCommandWidget(parent);

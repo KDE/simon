@@ -43,6 +43,7 @@ protected:
 public slots:
 	void activate();
 public:
+	const QString preferredTrigger() const;
 	const QString name() const;
 	bool load();
 	bool save();

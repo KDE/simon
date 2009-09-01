@@ -42,17 +42,10 @@ DesktopGridConfiguration::DesktopGridConfiguration(QWidget *parent, const QVaria
 	config = KSharedConfig::openConfig(DesktopGridPluginFactory::componentData(),
 					"desktopgridrc");
 
-	QObject::connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	QObject::connect(ui.cbUseRealTransparency, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	
 // 	if (instance) instance->deleteLater();
 // 	instance = this;
-}
-
-QString DesktopGridConfiguration::trigger()
-{
-	KConfigGroup cg(config, "");
-	return cg.readEntry("Trigger", i18n("Desktopgrid"));
 }
 
 bool DesktopGridConfiguration::useRealTransparency()
@@ -66,7 +59,6 @@ void DesktopGridConfiguration::save()
 	Q_ASSERT(config);
 	
 	KConfigGroup cg(config, "");
-	cg.writeEntry("Trigger", ui.leTrigger->text());
 	cg.writeEntry("RealTransparency", ui.cbUseRealTransparency->isChecked());
 
 	cg.sync();
@@ -85,7 +77,6 @@ void DesktopGridConfiguration::load()
 	Q_ASSERT(config);
 
 	KConfigGroup cg(config, "");
-	ui.leTrigger->setText(cg.readEntry("Trigger", i18n("Desktopgrid")));
 	ui.cbUseRealTransparency->setChecked(cg.readEntry("RealTransparency", true));
 
 	cg.sync();
@@ -95,7 +86,6 @@ void DesktopGridConfiguration::load()
  
 void DesktopGridConfiguration::defaults()
 {
-	ui.leTrigger->setText(i18n("Desktopgrid"));
 	ui.cbUseRealTransparency->setChecked(true);
  
 	save();

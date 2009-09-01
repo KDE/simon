@@ -129,6 +129,29 @@ bool AICommandManager::load()
  	festivalProc->write("(voice_us2_mbrola)\n");
 	return true;
 }
+	
+bool AICommandManager::deSerializeConfig(const QDomElement& elem, const QString& scenarioId)
+{
+	Q_UNUSED(elem);
+	Q_UNUSED(scenarioId);
+	if (parser) return true;
+	
+	AIConfiguration::getInstance(dynamic_cast<QWidget*>(parent()));
+	AIConfiguration::getInstance()->setManager(this);
+	AIConfiguration::getInstance()->load();
+	
+	if (!setupParser()) return false;
+
+	
+	festivalProc = new KProcess(this);
+	festivalProc->setProgram(KStandardDirs::findExe("festival"));
+	festivalProc->start();
+	if (!festivalProc->waitForStarted(1000))
+		return false;
+	
+ 	festivalProc->write("(voice_us2_mbrola)\n");
+	return true;
+}
 
 bool AICommandManager::save()
 {

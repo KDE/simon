@@ -23,7 +23,11 @@
 
 
 #include "dict.h"
+#ifdef SIMON_SCENARIOS
+#include <speechmodelbase_scenario/word.h>
+#else
 #include <speechmodelbase/word.h>
+#endif
 #include <QThread>
 
 class Dict;

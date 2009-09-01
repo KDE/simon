@@ -32,13 +32,18 @@
 #include <simonprogresstracking/statusmanager.h>
 #include <simonprogresstracking/compositeprogresswidget.h>
 
+#ifdef SIMON_SCENARIOS
+#include <speechmodelmanagement_scenario/wordlistmanager.h>
+#include <speechmodelbase_scenario/scenario.h>
+#else
 #include <speechmodelmanagement/wordlistmanager.h>
+#endif
+
 #include <simonmodelmanagementui/trainingview.h>
 #include <simonmodelmanagementui/wordlistview.h>
 #include <simonmodelmanagementui/grammarview.h>
 #include <simonmodelmanagementui/AddWord/addwordview.h>
 #include <simonactions/actionmanager.h>
-
 
 #include <QTimer>
 #include <QPixmap>
@@ -46,6 +51,10 @@
 #include <QCloseEvent>
 #include <QMenu>
 #include <QThread>
+#include <KToolBar>
+#include <QLabel>
+#include <QHBoxLayout>
+#include <QComboBox>
 
 
 #include <KMessageBox>
@@ -151,6 +160,14 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 	info->writeToSplash ( i18n ( "Loading Interface..." ) );
 	
 	settingsShown=false;
+
+#ifdef SIMON_SCENARIOS
+	cbCurrentScenario = new QComboBox(this);
+	QList<Scenario*> scenarioList = control->getScenarios();
+	foreach (Scenario* s, scenarioList) {
+		cbCurrentScenario->addItem(s->icon(), s->name(), s->id());
+	}
+#endif
 	
 	setupActions();
 
@@ -259,16 +276,45 @@ void SimonView::setupActions()
 	connect(recompile, SIGNAL(triggered(bool)),
 		control, SLOT(compileModel()));
 	
+#ifdef SIMON_SCENARIOS
+	//QLabel *lbDesc = new QLabel(i18n("Scenario: "), this);
+	KAction* scenarioLabel = new KAction(this);
+	scenarioLabel->setText(i18n("Scenario:"));
+	actionCollection()->addAction("scenarioLabel", scenarioLabel);
+
+
+	KAction* currentScenarioAction = new KAction(this);
+	currentScenarioAction->setText(i18n("Synchronize"));
+	currentScenarioAction->setDefaultWidget(cbCurrentScenario);
+	actionCollection()->addAction("selectScenario", currentScenarioAction);
+
+
+	KAction* manageScenariosAction = new KAction(this);
+	manageScenariosAction->setText(i18n("Manage scenarios"));
+	manageScenariosAction->setIcon(KIcon("view-choose"));
+	actionCollection()->addAction("manageScenarios", manageScenariosAction);
+	connect(manageScenariosAction, SIGNAL(triggered(bool)),
+		control, SLOT(manageScenarios()));
+#endif
+
+	
 	actionCollection()->addAction(KStandardAction::Preferences, "configuration",
                                this, SLOT(showSystemDialog()));
 
 	KStandardAction::quit(this, SLOT(closeSimon()),
 			      actionCollection());
-	
+
 	setupGUI();
 
-	ActionManager::getInstance()->publishGuiActions();
+	//ActionManager::getInstance()->publishGuiActions();
 }
+
+#ifdef SIMON_SCENARIOS
+void SimonView::manageScenarios()
+{
+	KMessageBox::information(this, i18n("This is not yet implemented, sorry!"));
+}
+#endif
 
 /**
  * \brief Sets up the signal/slot connections
