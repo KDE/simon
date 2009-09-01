@@ -31,7 +31,7 @@ KeyboardAddButtonDLG::KeyboardAddButtonDLG(QWidget *parent) : KDialog(parent)
 KeyboardButton* KeyboardAddButtonDLG::addButton()
 {
 	exec();
-	return &(new KeyboardButton(leName->text(), leTrigger->text(), cbValueType->currentIndex(), leValue->text()));
+	return (new KeyboardButton(leName->text(), leTrigger->text(), cbValueType->currentIndex(), leValue->text()));
 }
 
 void KeyboardAddButtonDLG::exec()
