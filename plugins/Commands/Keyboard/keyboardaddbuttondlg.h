@@ -31,7 +31,7 @@ class KeyboardAddButtonDLG : public KDialog
 	private:
 		Ui::AddButtonDlg ui;
                 bool *addOk;
-                void exec();
+                int exec();
 		
 	public:
                 KeyboardAddButtonDLG(QWidget *parent=0);

@@ -83,57 +83,76 @@ void KeyboardConfiguration::addSet()
             refreshCbTabs();
         }
         else
-            SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
+        	SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
 }
 void KeyboardConfiguration::deleteSet()
 {	
-        int setIndex = ui.cbSets->currentIndex();
-        setList.removeAt(setIndex);
-        ui.cbSets->removeItem(setIndex);
-        refreshCbTabs();
+        if(ui.cbSets->currentIndex() != -1)
+	{
+		int setIndex = ui.cbSets->currentIndex();
+		setList.removeAt(setIndex);
+        	ui.cbSets->removeItem(setIndex);
+        	refreshCbTabs();
+	}
+	else
+		SimonInfo::showMessage(i18n("Please choose a Set to be deleted"), 3000, new KIcon("accessories-calculator"));
 }
 void KeyboardConfiguration::addTab()
 {	
-	bool ok;
-	QString inputText = QInputDialog::getText(this, "simon input","Enter the name of the new Tab:", QLineEdit::Normal, QString(), &ok);
-        if(ok && !inputText.isEmpty() && !setList.isEmpty())
-        {
-            setList.at(ui.cbSets->currentIndex())->getTabList()->append(new KeyboardTab(inputText));
-            refreshCbTabs();
-        }
-        else
-            SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
+	if(ui.cbSets->currentIndex() != -1)
+	{
+		bool ok;
+		QString inputText = QInputDialog::getText(this, "simon input","Enter the name of the new Tab:", QLineEdit::Normal, QString(), &ok);
+        	if(ok && !inputText.isEmpty())
+        	{
+        		setList.at(ui.cbSets->currentIndex())->getTabList()->append(new KeyboardTab(inputText));
+        		refreshCbTabs();
+        	}
+        	else
+        		SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
+	}
+	else
+		SimonInfo::showMessage(i18n("Please choose a Set in which you want to add a Tab"), 3000, new KIcon("accessories-calculator"));
 }
 void KeyboardConfiguration::deleteTab()
 {	
-        int tabIndex = ui.cbTabs->currentIndex();
-        setList.at(ui.cbSets->currentIndex())->getTabList()->removeAt(tabIndex);
-        ui.cbTabs->removeItem(tabIndex);
-}
-
-void KeyboardConfiguration::cbSetsIndexChanged()
-{
-    refreshCbTabs();
-}
-void KeyboardConfiguration::refreshCbTabs()
-{
-    ui.cbTabs->clear();
-    for(int i=0; i<setList.at(ui.cbSets->currentIndex())->getTabList()->size(); i++)
-    {
-        ui.cbTabs->addItem(setList.at(ui.cbSets->currentIndex())->getTabList()->at(i)->getTabName());
-    }
+	if(ui.cbSets->currentIndex() != -1)
+	{
+		if(ui.cbTabs->currentIndex() != -1)
+		{
+			int tabIndex = ui.cbTabs->currentIndex();
+        		setList.at(ui.cbSets->currentIndex())->getTabList()->removeAt(tabIndex);
+        		ui.cbTabs->removeItem(tabIndex);
+		}
+		else
+			SimonInfo::showMessage(i18n("Please choose a Tab to be deleted"), 3000, new KIcon("accessories-calculator"));
+	}
+	else
+		SimonInfo::showMessage(i18n("Please choose a Set from which you want to delet a Tab"), 3000, new KIcon("accessories-calculator"));
 }
 
 void KeyboardConfiguration::addButton()
 {
-        KeyboardAddButtonDLG *kab = new KeyboardAddButtonDLG(this);
-        KeyboardButton *kbb =  kab->addButton();
-	if(kbb!=NULL)
+	if(ui.cbSets->currentIndex() != -1)
 	{
-		SimonInfo::showMessage(kbb->getTriggerShown(), 3000, new KIcon("accessories-calculator"));
+		if(ui.cbTabs->currentIndex() != -1)
+		{
+        		KeyboardAddButtonDLG *kab = new KeyboardAddButtonDLG(this);
+      			KeyboardButton *kbb =  kab->addButton();
+			if(kbb!=NULL)
+			{
+				SimonInfo::showMessage(kbb->getTriggerShown(), 3000, new KIcon("accessories-calculator"));
 
-		//setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(new KeyboardButton(kab->getName(), kab->getTrigger(), kab->getValueType(), kab->getValue()));
+				//setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(new KeyboardButton(kab->getName(), kab->getTrigger(), kab->getValueType(), kab->getValue()));
+			}
+			else
+				SimonInfo::showMessage(i18n("Sorry wrong input or just canceled"), 3000, new KIcon("accessories-calculator"));
+		}
+		else
+			SimonInfo::showMessage(i18n("Please choose a Tab in which you want to add a Button"), 3000, new KIcon("accessories-calculator"));
 	}
+	else
+		SimonInfo::showMessage(i18n("Please choose a Set in which Tab you want to add a Button"), 3000, new KIcon("accessories-calculator"));
 }
 void KeyboardConfiguration::deleteButton()
 {
@@ -155,6 +174,19 @@ void KeyboardConfiguration::buttonDown()
         setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->buttonRight(indexOfButton);
 }
 
+void KeyboardConfiguration::cbSetsIndexChanged()
+{
+	refreshCbTabs();
+}
+
+void KeyboardConfiguration::refreshCbTabs()
+{
+	ui.cbTabs->clear();
+	for(int i=0; i<setList.at(ui.cbSets->currentIndex())->getTabList()->size(); i++)
+	{
+		ui.cbTabs->addItem(setList.at(ui.cbSets->currentIndex())->getTabList()->at(i)->getTabName());
+	}
+}
 
 void KeyboardConfiguration::save()
 {

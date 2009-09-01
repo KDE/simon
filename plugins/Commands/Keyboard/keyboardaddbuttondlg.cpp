@@ -18,6 +18,7 @@
  */
 
 #include "keyboardaddbuttondlg.h"
+#include <simoninfo/simoninfo.h>
 #include <QWidget>
 
 KeyboardAddButtonDLG::KeyboardAddButtonDLG(QWidget *parent) : KDialog(parent)
@@ -30,13 +31,25 @@ KeyboardAddButtonDLG::KeyboardAddButtonDLG(QWidget *parent) : KDialog(parent)
 
 KeyboardButton* KeyboardAddButtonDLG::addButton()
 {
-	exec();
-	return (new KeyboardButton(ui.leName->text(), ui.leTrigger->text(), ui.cbValueType->currentIndex(), ui.leValue->text()));
+	if(exec() == 1)
+	{
+		if(ui.leName->text() != "" && ui.leTrigger->text() != "" && ui.leValue->text() != "")
+		{
+	   		return (new KeyboardButton(ui.leName->text(), ui.leTrigger->text(), ui.cbValueType->currentIndex(), ui.leValue->text()));
+		}
+		else
+		{
+			SimonInfo::showMessage(i18n("Please fill out the add-button-dialog correctly"), 3000, new KIcon("accessories-calculator"));
+			return NULL;
+		}
+	}
+	else
+		return NULL;
 }
 
-void KeyboardAddButtonDLG::exec()
+int KeyboardAddButtonDLG::exec()
 {
-	KDialog::exec();
+	return KDialog::exec();
 }
 
 KeyboardAddButtonDLG::~KeyboardAddButtonDLG()
