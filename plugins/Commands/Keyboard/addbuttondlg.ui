@@ -63,32 +63,6 @@
     </property>
    </item>
   </widget>
-  <widget class="KPushButton" name="pbCancel">
-   <property name="geometry">
-    <rect>
-     <x>161</x>
-     <y>234</y>
-     <width>85</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Cancel</string>
-   </property>
-  </widget>
-  <widget class="KPushButton" name="pbOk">
-   <property name="geometry">
-    <rect>
-     <x>161</x>
-     <y>268</y>
-     <width>85</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Ok</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -142,13 +116,6 @@
    </property>
   </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

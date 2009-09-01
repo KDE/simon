@@ -21,6 +21,7 @@
 #define KEYBOARDADDBUTTONDLG_H
 
 #include <KDialog>
+#include "keyboardbutton.h"
 #include "ui_addbuttondlg.h"
 
 class KeyboardAddButtonDLG : public KDialog
@@ -29,19 +30,12 @@ class KeyboardAddButtonDLG : public KDialog
 			
 	private:
 		Ui::AddButtonDlg ui;
-		bool *addOk;
-		
-	private slots:
-		void ok();
-		void cancel();
+                bool *addOk;
+                void exec();
 		
 	public:
-		KeyboardAddButtonDLG(QWidget *parent=0);
-		KeyboardAddButtonDLG(QWidget *parent=0, bool *ok=false);
-		QString getName();
-		QString getTrigger();
-		QString getValue();
-		short getValueType();
+                KeyboardAddButtonDLG(QWidget *parent=0);
+                KeyboardButton *addButton();
 		~KeyboardAddButtonDLG();
 		
 };

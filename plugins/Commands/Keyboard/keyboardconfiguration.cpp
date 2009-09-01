@@ -127,9 +127,8 @@ void KeyboardConfiguration::refreshCbTabs()
 void KeyboardConfiguration::addButton()
 {
 	bool ok;
-	KeyboardAddButtonDLG *kab = new KeyboardAddButtonDLG(0,&ok);
-	kab->show();
-	kab->hide();
+        KeyboardAddButtonDLG *kab = new KeyboardAddButtonDLG(this);
+        kab->addButton();
 	if(ok)
 	{
 		//setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(new KeyboardButton(kab->getName(), kab->getTrigger(), kab->getValueType(), kab->getValue()));
