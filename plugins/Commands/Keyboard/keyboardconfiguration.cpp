@@ -129,9 +129,10 @@ void KeyboardConfiguration::addButton()
 	bool ok;
 	KeyboardAddButtonDLG *kab = new KeyboardAddButtonDLG(0,&ok);
 	kab->show();
+	kab->hide();
 	if(ok)
 	{
-		setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(new KeyboardButton(kab->getName(), kab->getTrigger(), kab->getValueType(), kab->getValue()));
+		//setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(new KeyboardButton(kab->getName(), kab->getTrigger(), kab->getValueType(), kab->getValue()));
 	}
 }
 void KeyboardConfiguration::deleteButton()

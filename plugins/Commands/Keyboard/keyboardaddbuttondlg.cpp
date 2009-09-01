@@ -34,8 +34,8 @@ KeyboardAddButtonDLG::KeyboardAddButtonDLG(QWidget *parent, bool *ok) : KDialog(
 	setMainWidget( w );
 	addOk = ok;
 	
-	connect(ui.pbOK, SIGNAL(clicked()), this, SLOT(ok()));
-	connect(ui.pbAbbort, SIGNAL(clicked()), this, SLOT(abbort()));
+	connect(ui.pbOk, SIGNAL(clicked()), this, SLOT(ok()));
+	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(cancel()));
 }
 
 QString KeyboardAddButtonDLG::getName()
@@ -63,15 +63,15 @@ short KeyboardAddButtonDLG::getValueType()
 
 void KeyboardAddButtonDLG::ok()
 {
-	ui.hide();
-	addOk = true;
+	*addOk = true;
+	return;
 }
 
 
-void KeyboardAddButtonDLG::abbort()
+void KeyboardAddButtonDLG::cancel()
 {
-	ui.hide();
-	addOk = false;
+	*addOk = false;
+	return;
 }
 
 KeyboardAddButtonDLG::~KeyboardAddButtonDLG()

@@ -20,17 +20,20 @@
 #ifndef KEYBOARDADDBUTTONDLG_H
 #define KEYBOARDADDBUTTONDLG_H
 
-#include "ui_keyboardaddbuttondlg.h"
+#include <KDialog>
+#include "ui_addbuttondlg.h"
 
 class KeyboardAddButtonDLG : public KDialog
 {
+	Q_OBJECT
+			
 	private:
-		Ui::KeyboardAddButtonDLG ui;
+		Ui::AddButtonDlg ui;
 		bool *addOk;
 		
 	private slots:
 		void ok();
-		void abbort();
+		void cancel();
 		
 	public:
 		KeyboardAddButtonDLG(QWidget *parent=0);
