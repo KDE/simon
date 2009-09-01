@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Dominik Neumeister && Mario Strametz <neudob06@edvhtl.at> & <strmam06@htl-kaindorf.ac.at>
+ *   Copyright (C) 2009 Mario Strametz <strmam06@htl-kaindorf.ac.at>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -25,54 +25,17 @@ KeyboardAddButtonDLG::KeyboardAddButtonDLG(QWidget *parent) : KDialog(parent)
 	QWidget *w = new QWidget(this);
 	ui.setupUi(this);
 	setMainWidget( w );
-}
-
-KeyboardAddButtonDLG::KeyboardAddButtonDLG(QWidget *parent, bool *ok) : KDialog(parent)
-{
-	QWidget *w = new QWidget(this);
-	ui.setupUi(this);
-	setMainWidget( w );
-	addOk = ok;
 	
-	connect(ui.pbOk, SIGNAL(clicked()), this, SLOT(ok()));
-	connect(ui.pbCancel, SIGNAL(clicked()), this, SLOT(cancel()));
 }
 
-QString KeyboardAddButtonDLG::getName()
+Keyboardbutton* KeyboardAddButtonDLG::addButton()
 {
-	return ui.leName->text();
+	exec();
+	return &(new KeyboardButton(leName->text(), leTrigger->text(), cbValueType->currentIndex(), leValue->text()));
 }
 
-
-QString KeyboardAddButtonDLG::getTrigger()
-{
-	return ui.leTrigger->text();
-}
-
-QString KeyboardAddButtonDLG::getValue()
-{
-	return ui.leValue->text();
-}
-
-
-short KeyboardAddButtonDLG::getValueType()
-{
-	return ui.cbValueType->currentIndex(); // 0 and 1 can be returned ,... 0 is text; 1 is shortcut
-}
-
-
-void KeyboardAddButtonDLG::ok()
-{
-	*addOk = true;
-	return;
-}
-
-
-void KeyboardAddButtonDLG::cancel()
-{
-	*addOk = false;
-	return;
-}
+void KeyboardAddButtonDLG::exec()
+{}
 
 KeyboardAddButtonDLG::~KeyboardAddButtonDLG()
 {
