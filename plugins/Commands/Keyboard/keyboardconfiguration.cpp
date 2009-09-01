@@ -141,9 +141,7 @@ void KeyboardConfiguration::addButton()
       			KeyboardButton *kbb =  kab->addButton();
 			if(kbb!=NULL)
 			{
-				SimonInfo::showMessage(kbb->getTriggerShown(), 3000, new KIcon("accessories-calculator"));
-
-				//setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(new KeyboardButton(kab->getName(), kab->getTrigger(), kab->getValueType(), kab->getValue()));
+				setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(kbb);
 			}
 			else
 				SimonInfo::showMessage(i18n("Sorry wrong input or just canceled"), 3000, new KIcon("accessories-calculator"));
