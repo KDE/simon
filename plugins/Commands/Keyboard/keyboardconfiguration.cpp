@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Dominik Neumeister & Mario Strametz <neudob06@edvhtl.at> & <strmam06@htl-kaindorf.ac.at>
+ *   Copyright (C) 2009 Dominik Neumeister & Mario Strametz <neudob06@edvhtl.at>  <strmam06@htl-kaindorf.ac.at>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
