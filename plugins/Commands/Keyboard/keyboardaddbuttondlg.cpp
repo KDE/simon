@@ -35,7 +35,9 @@ KeyboardButton* KeyboardAddButtonDLG::addButton()
 }
 
 void KeyboardAddButtonDLG::exec()
-{}
+{
+	KDialog::exec();
+}
 
 KeyboardAddButtonDLG::~KeyboardAddButtonDLG()
 {
