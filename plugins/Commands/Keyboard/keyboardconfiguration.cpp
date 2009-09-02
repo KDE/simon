@@ -64,8 +64,8 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
 	connect(ui.pbDownButton, SIGNAL(clicked()), this, SLOT(buttonDown()));
         connect(ui.cbSets, SIGNAL(currentIndexChanged(int)), this, SLOT(cbSetsIndexChanged()));
 	
-// 	ButtonTableModel btm=new ButtonTableModel(&setList, ui.cbSets, ui.cbTabs, this);
-// 	ui.tvTabContent->setModel(&btm);
+        ButtonTableModel *btm=new ButtonTableModel(&setList, ui.cbSets, ui.cbTabs, this);
+        ui.tvTabContent->setModel(btm);
 }
 
 QString KeyboardConfiguration::trigger()

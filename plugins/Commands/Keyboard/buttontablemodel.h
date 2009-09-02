@@ -25,7 +25,7 @@
 #include <QComboBox>
 #include "keyboardset.h"
 
-class ButtonTableModel : QAbstractTableModel
+class ButtonTableModel : public QAbstractTableModel
 {
 	private:
 		QList<KeyboardSet *> *list;

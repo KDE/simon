@@ -158,6 +158,6 @@ Qt::ItemFlags ButtonTableModel::flags(const QModelIndex &index) const
 
 QList<KeyboardSet *> ButtonTableModel::getList()
 {
-    return list;
+    return *list;
 }
 

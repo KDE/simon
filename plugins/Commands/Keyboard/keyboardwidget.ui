@@ -14,435 +14,6 @@
    <string>Keyboard</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="5" column="2">
-    <widget class="KPushButton" name="pbY">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Y</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="KPushButton" name="pbA">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Apfel</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="KPushButton" name="pbB">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Buch</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="4">
-    <widget class="KPushButton" name="pbE">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>E</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="3">
-    <widget class="KPushButton" name="pbD">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>D</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="2">
-    <widget class="KPushButton" name="pbC">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>C</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="5">
-    <widget class="KPushButton" name="pbF">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>F</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="3">
-    <widget class="KPushButton" name="pbO">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>O</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="8">
-    <widget class="KPushButton" name="pbI">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>I</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="4">
-    <widget class="KPushButton" name="pbP">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>P</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="9">
-    <widget class="KPushButton" name="pbJ">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>J</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="10">
-    <widget class="KPushButton" name="pbK">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>K</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="KPushButton" name="pbL">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>L</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="7">
-    <widget class="KPushButton" name="pbH">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>H</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="6">
-    <widget class="KPushButton" name="pbG">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>G</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="KPushButton" name="pbM">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>M</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="2">
-    <widget class="KPushButton" name="pbN">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>N</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="5">
-    <widget class="KPushButton" name="pbQ">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Q</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="6">
-    <widget class="KPushButton" name="pbR">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>R</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="7">
-    <widget class="KPushButton" name="pbS">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>S</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="8">
-    <widget class="KPushButton" name="pbT">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>T</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="9">
-    <widget class="KPushButton" name="pbU">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>U</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="10">
-    <widget class="KPushButton" name="pbV">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>V</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="KPushButton" name="pbW">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>W</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="KPushButton" name="pbX">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>X</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="3">
-    <widget class="KPushButton" name="pbZ">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Z</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="4">
-    <widget class="KPushButton" name="pbAE">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Ä</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="5">
-    <widget class="KPushButton" name="pbOE">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Ö</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="6">
-    <widget class="KPushButton" name="pbUE">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Ü</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="8">
-    <widget class="KPushButton" name="pbComma">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>,   ;</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="9">
-    <widget class="KPushButton" name="pbPoint">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>.   :</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="10">
-    <widget class="KPushButton" name="pbMinus">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>-   _</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="7">
-    <widget class="KPushButton" name="pbSpace">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0" colspan="2">
     <widget class="KLineEdit" name="leNumber">
      <property name="sizePolicy">
@@ -468,7 +39,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="3" colspan="7">
+   <item row="0" column="3" colspan="5">
     <widget class="KLineEdit" name="leText">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
@@ -488,14 +59,14 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="10">
+   <item row="0" column="8">
     <widget class="KPushButton" name="pbDeleteRight">
      <property name="text">
       <string>LöschenR</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="10">
+   <item row="4" column="8">
     <widget class="KPushButton" name="pbOk">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -508,28 +79,28 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="0">
+   <item row="4" column="0">
     <widget class="KPushButton" name="pbShift">
      <property name="text">
       <string>Umschalt</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="1">
+   <item row="4" column="1">
     <widget class="KPushButton" name="pbCapslock">
      <property name="text">
       <string>Feststell</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="6">
+   <item row="4" column="6">
     <widget class="KPushButton" name="pbNextPage">
      <property name="text">
       <string>&gt;</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="5">
+   <item row="4" column="5">
     <widget class="QLabel" name="lbPage">
      <property name="enabled">
       <bool>true</bool>
@@ -542,12 +113,15 @@
      </property>
     </widget>
    </item>
-   <item row="6" column="4">
+   <item row="4" column="4">
     <widget class="KPushButton" name="pbPreviousPage">
      <property name="text">
       <string>&lt;</string>
      </property>
     </widget>
+   </item>
+   <item row="3" column="0" colspan="9">
+    <layout class="QGridLayout" name="glButtonForm"/>
    </item>
   </layout>
  </widget>

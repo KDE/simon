@@ -129,12 +129,6 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 		ui.pbOk->animateClick();
 		return true;
 	}
-	if (inputText.toUpper() == i18nc("Name of the decimal seperator", "Comma").toUpper())
-	{
-		ui.pbComma->animateClick();
-		return true;
-	}
-
 
 	//setting correct index
 	bool ok=false;
