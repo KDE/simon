@@ -32,13 +32,13 @@ ButtonTableModel::ButtonTableModel(QList<KeyboardSet *> *setList, QComboBox *cbS
 
 int ButtonTableModel::rowCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
+    //Q_UNUSED(parent);
     return list->size();
 }
 
 int ButtonTableModel::columnCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
+    //Q_UNUSED(parent);
     return 4;
 }
 
@@ -94,8 +94,8 @@ QVariant ButtonTableModel::headerData(int section, Qt::Orientation orientation, 
     return QVariant();
 }
 
-bool ButtonTableModel::insertRows(int position, int rows, const QModelIndex &index)
-{
+//bool ButtonTableModel::insertRows(int position, int rows, const QModelIndex &index)
+//{
 //    Q_UNUSED(index);
 //    beginInsertRows(QModelIndex(), position, position+rows-1);
 
@@ -106,11 +106,11 @@ bool ButtonTableModel::insertRows(int position, int rows, const QModelIndex &ind
 //    }
 
 //    endInsertRows();
-    return true;
-}
+//    return true;
+//}
 
-bool ButtonTableModel::removeRows(int position, int rows, const QModelIndex &index)
-{
+//bool ButtonTableModel::removeRows(int position, int rows, const QModelIndex &index)
+//{
 //    Q_UNUSED(index);
 //    beginRemoveRows(QModelIndex(), position, position+rows-1);
 //
@@ -120,11 +120,11 @@ bool ButtonTableModel::removeRows(int position, int rows, const QModelIndex &ind
 //    }
 
 //    endRemoveRows();
-    return true;
-}
+//    return true;
+//}
 
-bool ButtonTableModel::setData(const QModelIndex &index, const QVariant &value, int role)
-{
+//bool ButtonTableModel::setData(const QModelIndex &index, const QVariant &value, int role)
+//{
 //        if(index.isValid() && role == Qt::EditRole) 
 //	{
 //                int row = index.row();
@@ -145,19 +145,19 @@ bool ButtonTableModel::setData(const QModelIndex &index, const QVariant &value, 
 //        }
 
 //        return false;
-	return true;
-}
+//	return true;
+//}
 
-Qt::ItemFlags ButtonTableModel::flags(const QModelIndex &index) const
-{
-    if(!index.isValid())
-        return Qt::ItemIsEnabled;
+//Qt::ItemFlags ButtonTableModel::flags(const QModelIndex &index) const
+//{
+//    if(!index.isValid())
+//        return Qt::ItemIsEnabled;
 
-    return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
-}
+//    return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+//}
 
-QList<KeyboardSet *> ButtonTableModel::getList()
-{
-    return *list;
-}
+//QList<KeyboardSet *> ButtonTableModel::getList()
+//{
+//    return *list;
+//}
 

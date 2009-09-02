@@ -147,6 +147,7 @@ void KeyboardConfiguration::addButton()
 			{
 				SimonInfo::showMessage(i18n("button inserted: ") + kbb->getTriggerShown(), 3000, new KIcon("accessories-calculator"));
 				setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(kbb);
+                                ui.tvTabContent->update();
 			}
 			else
 				SimonInfo::showMessage(i18n("Canceled"), 3000, new KIcon("accessories-calculator"));
