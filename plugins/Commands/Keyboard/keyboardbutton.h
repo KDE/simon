@@ -22,7 +22,6 @@
 
 #include <QString>
 #include <KPushButton>
-#include <QStandardItem>
 
 class KeyboardButton : public KPushButton
 {

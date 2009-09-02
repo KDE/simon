@@ -26,10 +26,9 @@ KeyboardAddButtonDLG::KeyboardAddButtonDLG(QWidget *parent) : KDialog(parent)
 	QWidget *w = new QWidget(this);
 	ui.setupUi(this);
 	setMainWidget( w );
-	
 }
 
-KeyboardButton* KeyboardAddButtonDLG::addButton()
+KeyboardButton* KeyboardAddButtonDLG::addButton(bool *canceled)
 {
 	if(exec() == 1)
 	{
@@ -44,7 +43,10 @@ KeyboardButton* KeyboardAddButtonDLG::addButton()
 		}
 	}
 	else
+	{	
+		*canceled = true;
 		return NULL;
+	}
 }
 
 int KeyboardAddButtonDLG::exec()

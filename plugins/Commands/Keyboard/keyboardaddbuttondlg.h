@@ -35,7 +35,7 @@ class KeyboardAddButtonDLG : public KDialog
 		
 	public:
                 KeyboardAddButtonDLG(QWidget *parent=0);
-                KeyboardButton *addButton();
+                KeyboardButton *addButton(bool *canceled);
 		~KeyboardAddButtonDLG();
 		
 };
