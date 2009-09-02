@@ -143,15 +143,10 @@ void KeyboardConfiguration::addButton()
 			bool canceled = false;
         		KeyboardAddButtonDLG *kab = new KeyboardAddButtonDLG(this);
       			KeyboardButton *kbb =  kab->addButton(&canceled);
-			if(!canceled)
+			if(!canceled && kbb!=NULL)
 			{
-				if(kbb!=NULL)
-				{
-					SimonInfo::showMessage(i18n("button inserted: ") + kbb->getTriggerShown(), 3000, new KIcon("accessories-calculator"));
-					setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(kbb);
-				}
-				else
-					SimonInfo::showMessage(i18n("Sorry wrong input"), 3000, new KIcon("accessories-calculator"));
+				SimonInfo::showMessage(i18n("button inserted: ") + kbb->getTriggerShown(), 3000, new KIcon("accessories-calculator"));
+				setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(kbb);
 			}
 			else
 				SimonInfo::showMessage(i18n("Canceled"), 3000, new KIcon("accessories-calculator"));
