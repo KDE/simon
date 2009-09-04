@@ -160,22 +160,22 @@ void KeyboardConfiguration::addButton()
 }
 void KeyboardConfiguration::deleteButton()
 {
-	int indexOfButton = 0;//temp
+// 	int indexOfButton = 0;//temp
 	//TODO:get button index,... initiate qtablemodel for tvTabContent
-        setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->removeAt(indexOfButton);
+// 	setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->removeAt(indexOfButton);
 }
 void KeyboardConfiguration::buttonUp()
 {
-	int indexOfButton = 0;//temp
+// 	int indexOfButton = 0;//temp
 	
 	//TODO:get button index,... initiate qtablemodel for tvTabContent
-        setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->buttonLeft(indexOfButton);
+// 	setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->buttonLeft(indexOfButton);
 }
 void KeyboardConfiguration::buttonDown()
 {
-	int indexOfButton = 0;//temp
+// 	int indexOfButton = 0;//temp
 	//TODO:get button index,... initiate qtablemodel for tvTabContent
-        setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->buttonRight(indexOfButton);
+// 	setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->buttonRight(indexOfButton);
 }
 
 void KeyboardConfiguration::cbSetsIndexChanged()
