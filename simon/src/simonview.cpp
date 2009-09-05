@@ -35,12 +35,13 @@
 #ifdef SIMON_SCENARIOS
 #include <speechmodelmanagement_scenario/wordlistmanager.h>
 #include <speechmodelbase_scenario/scenario.h>
+#include <simonmodelmanagementui/vocabularyview.h>
 #else
 #include <speechmodelmanagement/wordlistmanager.h>
+#include <simonmodelmanagementui/wordlistview.h>
 #endif
 
 #include <simonmodelmanagementui/trainingview.h>
-#include <simonmodelmanagementui/wordlistview.h>
 #include <simonmodelmanagementui/grammarview.h>
 #include <simonmodelmanagementui/AddWord/addwordview.h>
 #include <simonactions/actionmanager.h>
@@ -148,7 +149,11 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	this->trainDialog = new TrainingView(this);
 
 	info->writeToSplash ( i18n ( "Loading \"Wordlist\"..." ) );
+#ifdef SIMON_SCENARIOS
+	vocabularyView = new VocabularyView(this);
+#else
 	this->wordList = new WordListView(this);
+#endif
 
 	info->writeToSplash ( i18n ( "Loading \"Grammar\"..." ) );
 	this->grammarView = new GrammarView(this);
@@ -416,7 +421,11 @@ void SimonView::showTrainDialog ()
  */
 void SimonView::showWordListDialog ()
 {
+#ifdef SIMON_SCENARIOS
+	ui.inlineView->toggleDisplay(vocabularyView);
+#else
 	ui.inlineView->toggleDisplay(wordList);
+#endif
 }
 
 /**

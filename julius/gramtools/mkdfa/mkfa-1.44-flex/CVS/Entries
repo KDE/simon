@@ -1,15 +1,15 @@
-/Makefile.in/1.2/Tue Dec 18 08:45:47 2007//
-/dfa.c/1.3/Thu Jun 19 15:33:03 2008//
-/dfa.h/1.2/Tue Dec 18 08:45:47 2007//
-/gram.l/1.1.1.1/Fri Sep 28 02:50:55 2007//
 /gram.tab.c/1.1.1.1/Fri Sep 28 02:50:55 2007//
-/gram.y/1.1.1.1/Fri Sep 28 02:50:55 2007//
-/lex.yy.c/1.3/Fri Dec  5 06:45:36 2008//
-/main.c/1.2/Tue Dec 18 08:45:47 2007//
-/mkfa.h/1.2/Tue Dec 18 08:45:47 2007//
-/nfa.c/1.2/Tue Dec 18 08:45:47 2007//
-/nfa.h/1.2/Tue Dec 18 08:45:47 2007//
-/triplet.c/1.3/Thu Nov 13 17:20:05 2008//
-/triplet.h/1.2/Tue Dec 18 08:45:47 2007//
-/voca.c/1.2/Tue Dec 18 08:45:47 2007//
-D
+D/doc////
+/Makefile.in/1.2/Sun Aug  2 15:24:38 2009//
+/dfa.c/1.3/Sun Aug  2 15:24:38 2009//
+/dfa.h/1.2/Sun Aug  2 15:24:38 2009//
+/gram.l/1.1.1.1/Sun Aug  2 15:24:38 2009//
+/gram.y/1.1.1.1/Sun Aug  2 15:24:38 2009//
+/lex.yy.c/1.3/Sun Aug  2 15:24:38 2009//
+/main.c/1.2/Sun Aug  2 15:24:38 2009//
+/mkfa.h/1.2/Sun Aug  2 15:24:38 2009//
+/nfa.c/1.2/Sun Aug  2 15:24:38 2009//
+/nfa.h/1.2/Sun Aug  2 15:24:38 2009//
+/triplet.c/1.3/Sun Aug  2 15:24:38 2009//
+/triplet.h/1.2/Sun Aug  2 15:24:38 2009//
+/voca.c/1.2/Sun Aug  2 15:24:38 2009//

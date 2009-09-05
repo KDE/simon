@@ -20,8 +20,6 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/internetextensionsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/trainingviewprivate.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/wordlistview.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/wordlistviewprivate.cpp
 
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/xmltrainingtextlist.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextremotepage.cpp
@@ -66,20 +64,9 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminal.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/TrainSamples/trainingswizard.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/TrainSamples/trainsamplepage.cpp
-# 	${CMAKE_CURRENT_SOURCE_DIR}/grammarsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarviewprivate.cpp
 )
-
-set( simonmodelmanagementui_LIB_HDRS
-	${CMAKE_CURRENT_SOURCE_DIR}/wordlistview.h
-	${CMAKE_CURRENT_SOURCE_DIR}/trainingview.h
-	${CMAKE_CURRENT_SOURCE_DIR}/grammarview.h
-	${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui_export.h
-)
-
- kde4_add_kcfg_files(simonmodelmanagementui_LIB_SRCS
- 	  speechmodelmanagementuiconfiguration.kcfgc)
 
 kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/internetextensiondlg.ui
@@ -107,6 +94,46 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/RenameTerminal/renameterminalworkingpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/grammarview.ui
 )
+
+set( simonmodelmanagementui_LIB_HDRS
+	${CMAKE_CURRENT_SOURCE_DIR}/trainingview.h
+	${CMAKE_CURRENT_SOURCE_DIR}/grammarview.h
+	${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui_export.h
+)
+
+######################################################
+if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+set( simonmodelmanagementui_LIB_SRCS
+	${simonmodelmanagementui_LIB_SRCS}
+	${CMAKE_CURRENT_SOURCE_DIR}/vocabularyview.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/vocabularyviewprivate.cpp
+	)
+set( simonmodelmanagementui_LIB_HDRS
+	${simonmodelmanagementui_LIB_HDRS}
+	${CMAKE_CURRENT_SOURCE_DIR}/vocabularyview.h
+	)
+kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/vocabulary.ui)
+
+else (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+
+set( simonmodelmanagementui_LIB_SRCS
+	${simonmodelmanagementui_LIB_SRCS}
+	${CMAKE_CURRENT_SOURCE_DIR}/wordlistview.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/wordlistviewprivate.cpp
+	)
+set( simonmodelmanagementui_LIB_HDRS
+	${simonmodelmanagementui_LIB_HDRS}
+	${CMAKE_CURRENT_SOURCE_DIR}/wordlistview.h
+	)
+kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
+	${CMAKE_CURRENT_SOURCE_DIR}/wordlist.ui)
+endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+######################################################
+
+ kde4_add_kcfg_files(simonmodelmanagementui_LIB_SRCS
+ 	  speechmodelmanagementuiconfiguration.kcfgc)
+
 
 if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
 add_definitions(-DSIMON_SCENARIOS)
