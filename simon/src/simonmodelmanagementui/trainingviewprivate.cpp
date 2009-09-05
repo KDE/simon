@@ -48,7 +48,8 @@
  * @param parent The parent of the widget
  */
 TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
-		: QWidget(parent)
+	: QWidget(parent),
+	import(new ImportTrainingTexts())
 {
 	TrainingManager::getInstance()->init();
 
@@ -61,7 +62,6 @@ TrainingViewPrivate::TrainingViewPrivate ( QWidget *parent )
 	connect ( ui.pbDelText, SIGNAL ( clicked() ), this, SLOT ( deleteSelected() ) );
 	connect ( ui.pbImportDir, SIGNAL ( clicked() ), this, SLOT ( importDirectory() ) );
 
-	import = new ImportTrainingTexts();
 	connect(TrainingManager::getInstance(), SIGNAL(trainingDataChanged()), this, SLOT(loadList()));
 	loadList();
 

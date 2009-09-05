@@ -95,10 +95,10 @@ public:
     *	@param trigger 
     *	@param icon
     */
-    Command(const QString& name, const QString& iconSrc)
+    Command(const QString& name, const QString& icon)
+        : triggerName(name),
+        iconSrc(icon)
     {
-        this->triggerName = name;
-        this->iconSrc = iconSrc;
     }
 
     /**

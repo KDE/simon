@@ -35,11 +35,11 @@ class SIMONRECOGNITIONRESULT_EXPORT RecognitionResult
 		QList<float> m_confidenceScores;
 	public:
 		RecognitionResult(QString sentence, QString sampa, QString sampaRaw, QList<float> confidenceScores)
+			: m_sentence(sentence),
+			m_sampa(sampa),
+			m_sampaRaw(sampaRaw),
+			m_confidenceScores(confidenceScores)
 		{
-			m_sentence = sentence;
-			m_sampa = sampa;
-			m_sampaRaw = sampaRaw;
-			m_confidenceScores = confidenceScores;
 		}
 
 		QString sentence() const { return m_sentence; }

@@ -50,11 +50,11 @@ K_EXPORT_PLUGIN( SoundSettingsFactory("simonlib") )
  * @param parent the parent of the widget
  */
 SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
-		KCModule(KGlobal::mainComponent(), parent)
+		KCModule(KGlobal::mainComponent(), parent),
+	sc(new SoundControl()),
+	enabled(true)
 {
 	Q_UNUSED(args);
-
-	enabled=true;
 
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	KPageWidget *pageWidget = new KPageWidget(this);
@@ -97,8 +97,6 @@ SoundSettings::SoundSettings(QWidget* parent, const QVariantList& args):
 	about->setProgramIconName("preferences-desktop-sound");
 #endif
 	setAboutData( about );
-
-	this->sc= new SoundControl();
 
 	addConfig(SoundConfiguration::self(), this);
 

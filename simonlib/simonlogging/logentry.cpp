@@ -22,12 +22,12 @@
 
 
 
-LogEntry::LogEntry(QDate date, QTime time, QByteArray message, short type)
+LogEntry::LogEntry(QDate d, QTime t, QByteArray message_, short type_)
+	: time(t),
+	date(d),
+	message(message_),
+	type(type_)
 {
-	this->time = time;
-	this->date = date;
-	this->message = message;
-	this->type = type;
 }
 
 

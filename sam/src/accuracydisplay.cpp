@@ -25,20 +25,18 @@
 #include <math.h>
 
 
-AccuracyDisplay::AccuracyDisplay(const QString& name, int count, int correct, float accuracy, QWidget *parent) : QWidget(parent)
+AccuracyDisplay::AccuracyDisplay(const QString& name, int count, int correct, float accuracy, QWidget* parent) : QWidget(parent),
+	lbName(new QLabel(this)),
+	lbBreakdown(new QLabel(this)),
+	pbAccuracy(new QProgressBar(this))
 {
 	QHBoxLayout *lay = new QHBoxLayout(this);
 
-	lbName = new QLabel(this);
 	lbName->setText(name);
 
-	lbBreakdown = new QLabel(this);
 	lbBreakdown->setText(QString("Recognized %1 of %2: Recognition rate:").arg(correct).arg(count));
 
-	pbAccuracy = new QProgressBar(this);
-
 	pbAccuracy->setMaximumWidth(200);
-
 	pbAccuracy->setMaximum(100);
 	pbAccuracy->setValue(round(accuracy*100.0f));
 

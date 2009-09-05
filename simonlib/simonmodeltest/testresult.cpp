@@ -21,9 +21,9 @@
 #include "testresult.h"
 
 
-TestResult::TestResult(const QString& prompt, const RecognitionResultList& results)
+TestResult::TestResult(const QString& prompt_, const RecognitionResultList& RRL)
+	: prompt(prompt_),
+	results(RRL)
 {
-	this->prompt = prompt;
-	this->results = results;
 }
 

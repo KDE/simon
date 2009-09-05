@@ -23,10 +23,10 @@
 #include <QMutexLocker>
 
 
-CommandModel::CommandModel(CommandList *commands)
+CommandModel::CommandModel(CommandList* CL)
+	: commands(CL)
 {
 	KLocale::setMainCatalog("simonlib");
-	this->commands = commands;
 }
 
 void CommandModel::updateCommands(CommandList *commands)

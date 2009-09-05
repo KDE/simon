@@ -23,9 +23,11 @@
 #include <kmessagebox.h>
 
 ATObject::ATObject ( ATObject* parent, const QString& nam, const QString& cName, const QString& desc ) :
-			QWidget(parent),className(cName), name(nam)
+	QWidget(parent),
+	className(cName),
+	name(nam),
+	description(desc)
 {
-	this->description=desc;
 }
 
 void ATObject::addMenu(ATOMenu* menu)

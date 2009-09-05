@@ -23,15 +23,15 @@
 
 
 KeyboardSet::KeyboardSet(QString name)
+	: setName(name)
 {
-	setName = name;
 }
 
 
 KeyboardSet::KeyboardSet(QString name, QList<KeyboardTab *>* tList)
+	: tabList(*tList),
+	setName(name)
 {
-	setName = name;
-	tabList = *tList;
 }
 
 void KeyboardSet::addTab(KeyboardTab* t)

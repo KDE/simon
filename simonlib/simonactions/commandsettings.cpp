@@ -49,17 +49,17 @@ CommandSettings* CommandSettings::instance;
  * \author Peter Grasch
  * @param parent The parent of the widget
  */
-CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent)
+CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCModule(KGlobal::mainComponent(), parent),
+	forceChangeFlag(false),
+	isChanged(false),
+	pageWidget(new KPageWidget(this))
 {
 	Q_UNUSED(args)
-
-	forceChangeFlag = false;
 
 	QWidget *baseWidget = new QWidget(this);
 	ui.setupUi(baseWidget);
 
 	QVBoxLayout *lay=new QVBoxLayout(this);
-	pageWidget = new KPageWidget(this);
 	lay->addWidget(pageWidget);
 
 
@@ -99,7 +99,6 @@ CommandSettings::CommandSettings(QWidget* parent, const QVariantList& args): KCM
 			  this, SLOT(availablePluginSelectionChanged(QListWidgetItem*)));
 
 	load();
-	isChanged=false;
 
 	ActionManager::getInstance()->setConfigurationDialog(this);
 }

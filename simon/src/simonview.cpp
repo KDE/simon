@@ -86,8 +86,12 @@
  * The flags which are also passed on to the QMainWindow constructor - as before: Default: NULL
  *
 */
-SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
-		:SimonMainWindow ( parent, flags )
+SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
+		: SimonMainWindow(parent, flags),
+	shownDialogs(0),
+	control(new SimonControl(this)),
+	trayManager(new TrayIconManager(this)),
+	configDialog(new KCMultiDialog(this))
 {
 	Logger::log ( i18n ( "[INF] Starting simon..." ) );
 
@@ -99,7 +103,6 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	Logger::log ( i18n ( "[INF] Loading configuration modules..." ) );
 
-	configDialog = new KCMultiDialog(this);
 	configDialog->addModule("simongeneralconfig", QStringList() << "");
 	configDialog->addModule("simonsoundconfig", QStringList() << "");
 	configDialog->addModule("simonspeechmodelmanagementconfig", QStringList() << "");
@@ -119,12 +122,9 @@ SimonView::SimonView ( QWidget *parent, Qt::WFlags flags )
 
 	info->writeToSplash ( i18n ( "Loading program..." ) );
 	
-	this->control = new SimonControl (this);
-	this->trayManager = new TrayIconManager( this);
 	this->trayManager->createIcon ( KIcon ( KIconLoader().loadIcon("simon", KIconLoader::Panel, KIconLoader::SizeMedium, KIconLoader::DisabledState) ), i18n ( "simon - Deactivated" ) );
 
 
-	shownDialogs = 0;
 	QMainWindow ( parent,flags );
 	qApp->setQuitOnLastWindowClosed(false);
 	ui.setupUi ( this );

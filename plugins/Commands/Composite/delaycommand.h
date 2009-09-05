@@ -55,9 +55,9 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	DelayCommand(int delay) : Command(QString::number(delay), "chronometer")
+	DelayCommand(int delay_) : Command(QString::number(delay_), "chronometer"),
+		delay(delay_)
 	{
-		this->delay = delay;
 	}
 
 

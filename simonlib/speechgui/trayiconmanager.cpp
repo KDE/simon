@@ -34,9 +34,9 @@
  * 
  */
 TrayIconManager::TrayIconManager(QWidget *parent)
- : QObject()
+ : QObject(),
+	icon(new KSystemTrayIcon(parent))
 {
-	this->icon = new KSystemTrayIcon(parent);
 }
 
 /**

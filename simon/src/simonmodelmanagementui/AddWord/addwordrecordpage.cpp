@@ -42,17 +42,16 @@
  * @param parent
  * The parent of the widget
  */
-AddWordRecordPage::AddWordRecordPage(const QString& fieldName, int pageNr, int pageMax, QWidget *parent)
- : QWizardPage(parent)
+AddWordRecordPage::AddWordRecordPage(const QString& fieldName_, int pageNr_, int pageMax_, QWidget* parent)
+ : QWizardPage(parent),
+	page(0),
+	pageNr(pageNr_),
+	pageMax(pageMax_),
+	fieldName(fieldName_),
+	stickSample(false)
 {
-	stickSample = false;
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	setLayout(lay);
-	page = 0;
-	this->pageNr = pageNr;
-	this->pageMax = pageMax;
-	
-	this->fieldName = fieldName;
 }
 
 bool AddWordRecordPage::hasSample() const

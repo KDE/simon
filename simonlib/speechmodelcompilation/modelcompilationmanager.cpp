@@ -40,11 +40,11 @@
 #endif
 
 
-ModelCompilationManager::ModelCompilationManager(const QString& userName,  
-			     QObject *parent) : QThread(parent)
+ModelCompilationManager::ModelCompilationManager(const QString& user_name,
+			     QObject* parent) : QThread(parent),
+	userName(user_name)
 {
 	KLocale::setMainCatalog("simonlib");
-	this->userName = userName;
 	connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
 }
 

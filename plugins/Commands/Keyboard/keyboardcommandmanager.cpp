@@ -35,16 +35,17 @@ K_EXPORT_PLUGIN( KeyboardCommandPluginFactory("simonkeyboardcommand") )
 
 QStringList KeyboardCommandManager::numberIdentifiers;
 
-KeyboardCommandManager::KeyboardCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
+KeyboardCommandManager::KeyboardCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+	widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
+	activateAction(new KAction(this))
 {
-	widget = new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
 	widget->setWindowIcon(KIcon("input-keyboard"));
 	connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
         ui.setupUi(widget);
 	widget->hide();
 
 	setXMLFile("simonkeyboardpluginui.rc");
-	activateAction = new KAction(this);
+
 	activateAction->setText(i18n("Activate Keyboard"));
 	activateAction->setIcon(KIcon("input-keyboard"));
 	connect(activateAction, SIGNAL(triggered(bool)),

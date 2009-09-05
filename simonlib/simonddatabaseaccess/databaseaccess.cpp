@@ -31,11 +31,11 @@
 #include <KUrl>
 #include <KLocale>
 
-DatabaseAccess::DatabaseAccess(QObject *parent) : QObject(parent)
+DatabaseAccess::DatabaseAccess(QObject* parent) : QObject(parent),
+	db(0),
+	userModel(0)
 {
 	KLocale::setMainCatalog("simonlib");
-	db=NULL;
-	userModel=NULL;
 }
 
 bool DatabaseAccess::init()

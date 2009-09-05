@@ -26,11 +26,11 @@
 #include <KLocale>
 #include <KColorScheme>
 
-FileResultModel::FileResultModel(QHash<QString /*filename*/, TestResult*> testResults, QObject *parent) : QAbstractItemModel(parent)
+FileResultModel::FileResultModel(QHash<QString /*filename*/, TestResult*> testResults, QObject *parent) : QAbstractItemModel(parent),
+	m_testResults(testResults)
 {
 	KLocale::setMainCatalog("simonlib");
 
-	m_testResults = testResults;
 //	m_results = results;
 //	m_prompts = prompts;
 

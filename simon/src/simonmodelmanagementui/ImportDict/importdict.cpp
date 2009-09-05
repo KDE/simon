@@ -31,10 +31,10 @@
  * \brief Constructor
  * \author Peter Grasch
  */
-ImportDict::ImportDict(QObject *parent) : QThread(parent)
+ImportDict::ImportDict(QObject* parent) : QThread(parent),
+	dict(0),
+	deleteFileWhenDone(false)
 {
-	dict=0;
-	deleteFileWhenDone=false;
 }
 
 /**

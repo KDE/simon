@@ -25,9 +25,9 @@
 
 GrammarView::GrammarView(QWidget* parent) : InlineWidget(i18n("Grammar"), 
 	KIcon("applications-education-language"), 
-	i18n("View and modify the grammar."), parent)
+	i18n("View and modify the grammar."), parent),
+	d(new GrammarViewPrivate(this))
 {
-	d = new GrammarViewPrivate(this);
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	lay->addWidget(d);
 	hide();

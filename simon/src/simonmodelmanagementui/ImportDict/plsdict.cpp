@@ -34,11 +34,12 @@
  * \param QString path
  * The path to the dict
  */
-PLSDict::PLSDict(QObject* parent) :QXmlDefaultHandler(), Dict(parent)
+PLSDict::PLSDict(QObject* parent) : QXmlDefaultHandler(),
+	Dict(parent),
+	reader(0),
+	pos(0)
 {
 	buildTranslationTables();
-	this->reader = 0;
-	pos=0;
 }
 
 

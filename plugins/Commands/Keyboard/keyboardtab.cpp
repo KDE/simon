@@ -23,14 +23,14 @@
 #include <stdlib.h>
 
 KeyboardTab::KeyboardTab(QString name)
+	: tabName(name)
 {
-	tabName = name;
 }
 
 KeyboardTab::KeyboardTab(QString name, QList<KeyboardButton *>* bList)
+	: buttonList(*bList),
+	tabName(name)
 {
-	tabName = name;
-	buttonList = *bList;
 }
 
 void KeyboardTab::addButton(KeyboardButton* b)

@@ -19,9 +19,9 @@
 
 #include "simonmainwindow.h"
 
-SimonMainWindow::SimonMainWindow(QWidget *parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags)
+SimonMainWindow::SimonMainWindow(QWidget* parent, Qt::WFlags flags) : KXmlGuiWindow(parent, flags),
+	guievents(new GuiEvents)
 {
-	guievents = new GuiEvents;
 }
 
 

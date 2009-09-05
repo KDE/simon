@@ -48,12 +48,13 @@
  *
  * @author Peter Grasch
  */
-OSD::OSD(QString message, int timeout, KIcon *icon)
-	: QLabel(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint)
+OSD::OSD(QString message_, int timeout, KIcon* icon_)
+	: QLabel(0, Qt::WindowStaysOnTopHint|Qt::ToolTip|Qt::FramelessWindowHint),
+	timer(new QTimer()),
+	message(new QLabel(this)),
+	icon(new QLabel(this))
 {
 	setPixmap(QPixmap(KStandardDirs::locate("data", "simoninfo/themes/default/osd.png")));
-	
-	this->timer = new QTimer();
 	
 	QDesktopWidget* tmp = QApplication::desktop();
 
@@ -69,23 +70,23 @@ OSD::OSD(QString message, int timeout, KIcon *icon)
 	pal.setColor(QPalette::WindowText, QColor(255, 255, 255, 255));
 	setPalette(pal);
 	
-	this->message = new QLabel(this);
 	this->message->setGeometry(86, 10, 255, 60);
 	this->message->setAlignment(Qt::AlignCenter | Qt::AlignLeft);
-	this->message->setText(message);
+	this->message->setText(message_);
 	this->message->setWordWrap(true);
 	this->message->show();
 	
 	this->timer->start(timeout);
 
-	this->icon = new QLabel(this);
 	this->icon->setGeometry(16, 16, 48, 48);
-	if (!icon)
+
+	if (icon_)
+	{
+		this->icon->setPixmap(icon_->pixmap(48));
+	}
+	else
 	{
 		this->icon->setPixmap(KIcon("simon").pixmap(QSize(48,48)));
-	}
-	else {
-		this->icon->setPixmap(icon->pixmap(48));
 	}
 	
 	show();

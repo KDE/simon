@@ -262,10 +262,10 @@ void adinstreamer_pipe_handler(int arg)
 	fprintf(stderr, "HIER: %d", arg);
 }
 
-AdinStreamer::AdinStreamer(QObject* parent) : QThread(parent)
+AdinStreamer::AdinStreamer(QObject* parent) : QThread(parent),
+	recog(0),
+	shouldReStart(false)
 {
-	recog = NULL;
-	shouldReStart=false;
 	adin_shouldBeRunning=false;
 	signal(SIGPIPE, adinstreamer_pipe_handler);
 	connect(this, SIGNAL(audioDeviceError()), this, SLOT(reportSoundDeviceError()));

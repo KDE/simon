@@ -32,9 +32,9 @@
  */
 WordListView::WordListView(QWidget *parent) : InlineWidget(i18n("Wortlist"), 
 	KIcon("format-justify-fill"), 
-	i18n("View and modify the wordlist."), parent)
+	i18n("View and modify the wordlist."), parent),
+	d(new WordListViewPrivate(this))
 {
-	d = new WordListViewPrivate(this);
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	lay->addWidget(d);
 	

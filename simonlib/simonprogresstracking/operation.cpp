@@ -22,15 +22,15 @@
 
 #include <KLocalizedString>
 
-Operation::Operation(QThread* thread, const QString& name, const QString& currentAction, int now, int max, bool isAtomic) : QObject(0)
+Operation::Operation(QThread* thread, const QString& name, const QString& currentAction, int now, int max, bool isAtomic) : QObject(0),
+	m_thread(thread),
+	m_name(name),
+	m_currentAction(currentAction),
+	m_now(now),
+	m_max(max),
+	m_isAtomic(isAtomic),
+	m_status(Operation::Running)
 {
-	m_thread = thread;
-	m_name = name;
-	m_currentAction = currentAction;
-	m_now = now;
-	m_max = max;
-	m_status = Operation::Running;
-	m_isAtomic = isAtomic;
 	registerWith(StatusManager::global());
 }
 

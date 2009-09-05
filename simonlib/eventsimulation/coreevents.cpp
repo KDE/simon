@@ -21,19 +21,17 @@
 #include <QKeySequence>
 
 CoreEvents::CoreEvents()
+	: shiftSet(false),
+	altgrSet(false),
+	altSet(false),
+	superSet(false),
+	strgSet(false),
+	shiftOnce(false),
+	altgrOnce(false),
+	altOnce(false),
+	superOnce(false),
+	strgOnce(false)
 {
-	strgSet=false;
-	shiftSet=false;
-	altgrSet=false;
-	altSet=false;
-	superSet=false;
-
-	strgOnce=false;
-	shiftOnce=false;
-	altgrOnce=false;
-	altOnce=false;
-	superOnce=false;
-	
 	deadKeys.insert(373, new DeadKey('^', 'w'));
 	deadKeys.insert(234, new DeadKey('^', 'e'));
 	deadKeys.insert(7825, new DeadKey('^', 'z'));

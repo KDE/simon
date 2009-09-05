@@ -32,10 +32,10 @@ K_EXPORT_PLUGIN( ExecutableCommandPluginFactory("simonexecutablecommand") )
 
 
 ExecutableCommandManager::ExecutableCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
-{
 #ifndef SIMON_SCENARIOS
-	this->xmlExecutableCommand = new XMLExecutableCommand();
+	, xmlExecutableCommand(new XMLExecutableCommand())
 #endif
+{
 }
 
 bool ExecutableCommandManager::addCommand(Command *command)

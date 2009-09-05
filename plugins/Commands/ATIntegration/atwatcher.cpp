@@ -34,16 +34,17 @@
 ATWatcher* ATWatcher::instance;
 
 
-ATWatcher::ATWatcher ( QObject* parent ) : QObject ( parent )
+ATWatcher::ATWatcher(QObject* parent) : QObject(parent),
+	focusedWindow(0)
+#ifdef Q_OS_UNIX
+	, backend(new DBusBackend(this))
+#else
+#ifdef Q_OS_WIN
+	, backend(new MSAABackend(this))
+#endif
+#endif
 {
 // 	currentObjectTree=0;
-	focusedWindow=0;
-#ifdef Q_OS_UNIX
-	backend = new DBusBackend(this);
-#endif
-#ifdef Q_OS_WIN
-	backend = new MSAABackend(this);
-#endif
 	
 	connect(backend, SIGNAL(objectFound(ATObject*)), this, SLOT(addObject(ATObject*)));
 	connect(backend, SIGNAL(objectFocused(ATObject*)), this, SLOT(translateFocusToWindow(ATObject*)));

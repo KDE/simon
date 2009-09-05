@@ -33,12 +33,18 @@
 #include <KStandardDirs>
 #include <simoninfo/simoninfo.h>
 
-KSimondView::KSimondView(QObject *parent):QObject(parent)
+KSimondView::KSimondView(QObject* parent) : QObject(parent),
+	trayIconMgr(0),
+	configDialog(new KCMultiDialog(0)),
+	process(new KProcess()),
+	startSimonAction(new KAction(0)),
+	startProcess(new KAction(0)),
+	restartProcess(new KAction(0)),
+	stopProcess(new KAction(0)),
+	configure(new KAction(0)),
+	stopIntended(false),
+	wantReload(false)
 {
-	stopIntended=false;
-	wantReload=false;
-	
-	configDialog = new KCMultiDialog(0);
 	configDialog->addModule("ksimondconfiguration");
 	configDialog->addModule("simonduserconfiguration");
 	configDialog->addModule("simondnetworkconfiguration");
@@ -46,35 +52,29 @@ KSimondView::KSimondView(QObject *parent):QObject(parent)
 	trayIconMgr = new TrayIconManager(configDialog);
 	trayIconMgr->createIcon(KIcon("simond"), i18n("simond"));
 	//add actions
-	startProcess = new KAction(0);
+
 	startProcess->setText(i18n("Start simond"));
 	startProcess->setIcon(KIcon("media-playback-start"));
 	connect(startProcess, SIGNAL(triggered(bool)),
 			this, SLOT(startSimond()));
 
-	startSimonAction = new KAction(0);
 	startSimonAction->setText(i18n("Start simon"));
 	startSimonAction->setIcon(KIcon("simon"));
 	connect(startSimonAction, SIGNAL(triggered(bool)),
 			this, SLOT(startSimon()));
 
-
-	restartProcess = new KAction(0);
 	restartProcess->setText(i18n("Restart simond"));
 	restartProcess->setIcon(KIcon("view-refresh"));
 	restartProcess->setEnabled(false);
 	connect(restartProcess, SIGNAL(triggered(bool)),
 			this, SLOT(restartSimond()));
 
-
-	stopProcess = new KAction(0);
 	stopProcess->setText(i18n("Stop simond"));
 	stopProcess->setIcon(KIcon("process-stop"));
 	stopProcess->setEnabled(false);
 	connect(stopProcess, SIGNAL(triggered(bool)),
 			this, SLOT(stopSimond()));
 
-	configure = new KAction(0);
 	configure->setText(i18n("Configuration"));
 	configure->setIcon(KIcon("configure"));
 	connect(configure, SIGNAL(triggered(bool)),
@@ -86,7 +86,6 @@ KSimondView::KSimondView(QObject *parent):QObject(parent)
 	trayIconMgr->addAction(i18n("Stop simond"), stopProcess);
 	trayIconMgr->addAction(i18n("Configuration"), configure);
 
-	process = new KProcess();
 	connect(process, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(matchDisplayToState()));
 	connect(process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(slotError(QProcess::ProcessError)));
 	connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(simondFinished()));

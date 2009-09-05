@@ -25,10 +25,10 @@
 #include <KColorScheme>
 #include <KLocale>
 
-WordListModel::WordListModel(WordList *words, QObject *parent) : QAbstractItemModel(parent)
+WordListModel::WordListModel(WordList* WL, QObject* parent) : QAbstractItemModel(parent),
+	words(WL)
 {
 	KLocale::setMainCatalog("simonlib");
-	this->words = words;
 	buildBrushes();
 }
 

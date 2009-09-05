@@ -53,18 +53,15 @@
 */
 
 AddWordView::AddWordView(QWidget *parent)
-	: QWizard (parent)
+	: QWizard(parent),
+	listToAdd(new WordList()),
+	record1(createRecordPage("wordExample1", 1, 2)),
+	record2(createRecordPage("wordExample2", 2, 2))
 {
-	listToAdd = new WordList();
 	this->addPage(createWelcomePage());
 	this->addPage(createResolvePage());
-
-	record1 = createRecordPage("wordExample1", 1, 2);
-	record2 = createRecordPage("wordExample2", 2, 2);
-	
 	this->addPage(record1);
 	this->addPage(record2);
-	
 	this->addPage(createFinishedPage());
 	
 	connect(this, SIGNAL(rejected()), this, SLOT(cleanUp()));

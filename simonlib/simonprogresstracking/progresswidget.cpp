@@ -28,10 +28,10 @@
 #include <KLocalizedString>
 #include <KLocale>
 
-ProgressWidget::ProgressWidget(QPointer<Operation> op, QWidget* parent): QWidget(parent)
+ProgressWidget::ProgressWidget(QPointer<Operation> O, QWidget* parent) : QWidget(parent),
+	op(O)
 {
 	KLocale::setMainCatalog("simonlib");
-	this->op = op;
 
 	if (op)
 	{

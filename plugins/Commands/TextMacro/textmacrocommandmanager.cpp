@@ -32,9 +32,9 @@ K_PLUGIN_FACTORY( TextMacroCommandPluginFactory,
 K_EXPORT_PLUGIN( TextMacroCommandPluginFactory("simontextmacrocommand") )
 
 
-TextMacroCommandManager::TextMacroCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
+TextMacroCommandManager::TextMacroCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+	xmlTextMacroCommand(new XMLTextMacroCommand())
 {
-	this->xmlTextMacroCommand = new XMLTextMacroCommand();
 }
 
 const QString TextMacroCommandManager::name() const

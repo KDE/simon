@@ -25,10 +25,10 @@
 #include <kio/jobuidelegate.h>
 #include <KStandardDirs>
 
-ImportGrammarWorkingPage::ImportGrammarWorkingPage(QWidget* parent): QWizardPage(parent)
+ImportGrammarWorkingPage::ImportGrammarWorkingPage(QWidget* parent): QWizardPage(parent),
+	completed(false),
+	grammarImporter(0)
 {
-	grammarImporter=0;
-	completed=false;
 	setTitle(i18n("Analysis running..."));
 	ui.setupUi(this);
 }

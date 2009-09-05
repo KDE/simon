@@ -21,11 +21,11 @@
 #include "renameterminalworkingpage.h"
 #include "renameterminal.h"
 
-RenameTerminalWorkingPage::RenameTerminalWorkingPage(QWidget *parent)
- : QWizardPage(parent)
+RenameTerminalWorkingPage::RenameTerminalWorkingPage(QWidget* parent)
+ : QWizardPage(parent),
+	complete(false),
+	renameTerminal(new RenameTerminal(this))
 {
-	complete = false;
-	renameTerminal = new RenameTerminal(this);
 	connect(renameTerminal, SIGNAL(progress(int)), this, SLOT(displayProgress(int)));
 	connect(renameTerminal, SIGNAL(done()), this, SLOT(finish()));
 	ui.setupUi(this);

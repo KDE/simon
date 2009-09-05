@@ -22,9 +22,9 @@
 qint32 RecognitionControl::portNum=5000;
 
 
-RecognitionControl::RecognitionControl(const QString& username, QObject *parent) : QThread(parent)
+RecognitionControl::RecognitionControl(const QString& user_name, QObject* parent) : QThread(parent),
+	username(user_name)
 {
-	this->username = username;
 }
 
 RecognitionControl::~RecognitionControl()

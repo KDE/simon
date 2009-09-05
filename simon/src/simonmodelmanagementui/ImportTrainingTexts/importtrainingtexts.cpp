@@ -41,7 +41,8 @@
  * \brief Constructor
  * \author Peter Grasch
  */
-ImportTrainingTexts::ImportTrainingTexts(QWidget *parent) : QWizard(parent)
+ImportTrainingTexts::ImportTrainingTexts(QWidget* parent) : QWizard(parent),
+	prevId(0)
 {
 	this->addPage(createIntroPage());
 	
@@ -58,7 +59,6 @@ ImportTrainingTexts::ImportTrainingTexts(QWidget *parent) : QWizard(parent)
 	this->addPage(createFinishedPage());
 	setWindowTitle(i18n("Importing Trainingstext"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importtexts.png")));
-	prevId = 0;
 	
 }
 

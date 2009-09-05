@@ -39,21 +39,20 @@
  * \param parent
  * The parent of the window.
  */
-ImportDictView::ImportDictView(QWidget *parent) : QWizard(parent)
+ImportDictView::ImportDictView(QWidget* parent) : QWizard(parent),
+	workingPage(createImportDictWorkingPage())
 {
 	addPage(createIntroPage());
-
 	addPage(createSelectSourcePage());
 	addPage(createImportBOMPPage());
 	addPage(createImportLexiconPage());
 	addPage(createImportPLSPage());
 	addPage(createImportSPHINXPage());
-	workingPage = createImportDictWorkingPage();
+
 	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SLOT(dictReady(WordList*)));
 	connect(workingPage, SIGNAL(wordListImported(WordList*)), this, SLOT(next()));
 	connect(workingPage, SIGNAL(failed()), this, SLOT(back()));
 	addPage(workingPage);
-
 	addPage(createFinishedPage());
 	setWindowTitle(i18n("Importing Dictionary"));
 	setPixmap(QWizard::WatermarkPixmap, QPixmap(KStandardDirs::locate("appdata", "themes/default/importdict.png")));

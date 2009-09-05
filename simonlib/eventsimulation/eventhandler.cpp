@@ -46,13 +46,14 @@ EventHandler* EventHandler::instance;
  * @author Peter Grasch 
  */
 EventHandler::EventHandler()
-{
 #ifdef Q_OS_UNIX
-	coreEvents = new XEvents();
-#endif
+	: coreEvents(new XEvents())
+#else
 #ifdef Q_OS_WIN
-	coreEvents = (CoreEvents*) new WindowsEvents();
+	: coreEvents( (CoreEvents*) new WindowsEvents())
 #endif
+#endif
+{
 }
 
 /**

@@ -38,18 +38,18 @@
  * \author Peter Grasch
  * @param parent the parent of the page
  */
-ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent): QWizardPage(parent)
+ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent) : QWizardPage(parent),
+	pbMain(new QProgressBar(this)),
+	import(new ImportDict(this)),
+	lbStatus(new QLabel(this)),
+	ready(false)
 {
-	ready = false;
 	
 	setTitle(i18n("Importing dictionary..."));
 	QLabel *desc = new QLabel(this);
 	desc->setWordWrap(true);
 	desc->setText(i18n("Importing the dictionary... Depending on its type and size this can take a "
 "while. Please be patient...\n"));
-	lbStatus = new QLabel(this);
-	
-	pbMain = new QProgressBar(this);
 	
 	pbMain->setMaximum(0);
 	
@@ -59,7 +59,6 @@ ImportDictWorkingPage::ImportDictWorkingPage(QWidget* parent): QWizardPage(paren
 	lay->addWidget(lbStatus);
 	setLayout(lay);
 	
-	import = new ImportDict(this);
 	connect(import, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));
 	connect(import, SIGNAL(progress(int)), this, SLOT(displayProgress(int)));
 	connect(import, SIGNAL(finished(WordList*)), this, SIGNAL(wordListImported(WordList*)));

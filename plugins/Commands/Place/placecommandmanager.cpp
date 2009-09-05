@@ -32,10 +32,10 @@ K_PLUGIN_FACTORY( PlaceCommandPluginFactory,
 K_EXPORT_PLUGIN( PlaceCommandPluginFactory("simonplacecommand") )
 
 PlaceCommandManager::PlaceCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
-{
 #ifndef SIMON_SCENARIOS
-	this->xmlPlaceCommand = new XMLPlaceCommand();
+	, xmlPlaceCommand(new XMLPlaceCommand())
 #endif
+{
 }
 
 

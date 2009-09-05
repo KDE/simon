@@ -29,13 +29,13 @@
  * @param desc A short description (mainly used as tooltip)
  * @param parent the parent of the widget
  */
-InlineWidget::InlineWidget(QString title, KIcon icon, QString desc, QWidget* parent) 
-	: QWidget(parent)
+InlineWidget::InlineWidget(QString title_, KIcon icon_, QString desc_, QWidget* parent)
+	: QWidget(parent),
+	title(title_),
+	desc(desc_),
+	icon(icon_),
+	guievents(new GuiEvents)
 {
-	this->title = title;
-	this->icon = icon;
-	this->desc = desc;
-	guievents = new GuiEvents;
 }
 
 

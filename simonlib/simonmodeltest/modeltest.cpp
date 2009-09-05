@@ -44,15 +44,14 @@
 
 
 
-ModelTest::ModelTest(const QString& userName,  
-			     QObject *parent) : QThread(parent)
+ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent),
+	recog(0),
+	userName(user_name)
 {
 	KLocale::setMainCatalog("simonlib");
-	this->userName = userName;
+
 	connect(this, SIGNAL(status(const QString&, int, int)), this, SLOT(addStatusToLog(const QString&)));
 	connect(this, SIGNAL(recognitionInfo(const QString&)), this, SLOT(addRecognitionInfoToLog(const QString&)));
-
-	recog = NULL;
 
 	promptsTable.clear();
 	wordRates.clear();

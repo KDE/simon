@@ -35,11 +35,11 @@
  * \brief Constructor
  * \author Peter Grasch
  */
-WavPlayer::WavPlayer(QObject *parent) : QObject(parent)
+WavPlayer::WavPlayer(QObject* parent) : QObject(parent),
+	stream(0),
+	wav(0),
+	data(0)
 {
-	stream = 0;
-	wav= 0;
-	data = 0;
 	connect(&timeWatcher, SIGNAL(timeout()), this, SLOT(publishTime()));
 }
 

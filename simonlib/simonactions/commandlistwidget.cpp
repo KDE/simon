@@ -33,17 +33,18 @@
 #include <KLocalizedString>
 
 
-CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint)
+CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint),
+	pbCancel(new KPushButton(this)),
+	twCommands(new QTableWidget(this))
 {
 	QVBoxLayout *lay = new QVBoxLayout(this);
 
 	lay->setMargin(0);
 	lay->setSpacing(0);
 
-	pbCancel = new KPushButton(this);
 	pbCancel->setText(i18n("Cancel"));
 	pbCancel->setIcon(KIcon("dialog-cancel"));
-	twCommands = new QTableWidget(this);
+
 	twCommands->verticalHeader()->hide();
 	if (twCommands->columnCount() < 2)
 		twCommands->setColumnCount(2);

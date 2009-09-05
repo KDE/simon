@@ -30,9 +30,9 @@ protected:
 	QString scenarioId;
 public:
 	
-	ScenarioObject(QString scenarioId)
+	ScenarioObject(QString scenario_ID)
+		: scenarioId(scenario_ID)
 	{
-		this->scenarioId = scenarioId;
 	}
 
 	virtual bool deSerialize(const QDomElement&)=0;

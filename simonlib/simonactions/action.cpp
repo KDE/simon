@@ -25,10 +25,11 @@
 #include <simonscenariobase/versionnumber.h>
 
 #ifdef SIMON_SCENARIOS
-Action::Action(const QString& scenarioId, const QString& source, const QString& trigger) : ScenarioObject(scenarioId),  m_source(source)
+Action::Action(const QString& scenarioId, const QString& source, const QString& trigger) : ScenarioObject(scenarioId),
+	m_source(source),
+	pluginMinVersion(0),
+	pluginMaxVersion(0)
 {
-	pluginMinVersion = NULL;
-	pluginMaxVersion = NULL;
 	init(source, trigger);
 }
 #endif
@@ -39,13 +40,13 @@ Action::Action(const QString& scenarioId, const QString& source, const QString& 
  */
 
 #ifdef SIMON_SCENARIOS
-Action::Action(const QString& source, const QString& trigger) : ScenarioObject(""), m_source(source)
+Action::Action(const QString& source, const QString& trigger) : ScenarioObject(""), m_source(source),
 #else
-Action::Action(const QString& source, const QString& trigger): m_source(source)
+Action::Action(const QString& source, const QString& trigger): m_source(source),
 #endif
+	pluginMinVersion(0),
+	pluginMaxVersion(0)
 {
-	pluginMinVersion = NULL;
-	pluginMaxVersion = NULL;
 	init(source, trigger);
 }
 

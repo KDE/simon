@@ -23,11 +23,11 @@ ButtonTableModel::ButtonTableModel(QObject *parent) : QAbstractTableModel(parent
 {
 }
 
-ButtonTableModel::ButtonTableModel(QList<KeyboardSet *> *setList, QComboBox *cbSets, QComboBox *cbTabs, QObject *parent) : QAbstractTableModel(parent)
+ButtonTableModel::ButtonTableModel(QList<KeyboardSet *> * setList, QComboBox* cbSets, QComboBox* cbTabs, QObject* parent) : QAbstractTableModel(parent),
+    list(setList),
+    cbSet(cbSets),
+    cbTab(cbTabs)
 {
-    list=setList;
-    cbSet=cbSets;
-    cbTab=cbTabs;
 }
 
 int ButtonTableModel::rowCount(const QModelIndex &parent) const

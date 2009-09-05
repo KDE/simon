@@ -56,9 +56,9 @@ public:
     * 
     *	@author Peter Grasch
     */
-    TextMacroCommand(const QString& name, const QString& iconSrc, const QString& text) : Command(name, iconSrc)
+    TextMacroCommand(const QString& name, const QString& iconSrc, const QString& text_) : Command(name, iconSrc),
+        text(text_)
     {
-        this->text = text;
     }
 
     /**

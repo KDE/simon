@@ -40,21 +40,20 @@
  *	The samplerate of the file - this has to be specified when we create a new file; When we want to open an existing file, we can omit the pramater and it will be read from the file at <filename>
  *	
  */
-WAV::WAV(QString filename, int channels, int samplerate)
-{
-	length = 0;
-	this->filename = filename;
-
-	this->channels = channels;
-	this->samplerate = samplerate; //the samplerate /has/ to be initialized - even if it is initialized with 0
+WAV::WAV(QString file_name, int channels_, int samplerate_)
+	: length(0),
+	samplerate(samplerate_), //the samplerate /has/ to be initialized - even if it is initialized with 0
 	// that way we know (for example in the retrieveSampleRate() function, that we have a new file and that the
 	// file at <filename> may not be current/even existing
+	channels(channels_),
+	filename(file_name)
+{
 	
 // 	waveData = new short();
     
 	if (samplerate == 0)
 	{
-		this->importDataFromFile(filename);
+		this->importDataFromFile(file_name);
 		this->samplerate = this->retrieveSampleRate();
 		this->channels = this->retrieveChannels();
 	}

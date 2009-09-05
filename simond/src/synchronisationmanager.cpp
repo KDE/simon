@@ -49,10 +49,10 @@
 
 
 
-SynchronisationManager::SynchronisationManager(const QString& username, QObject *parent) : QObject(parent)
+SynchronisationManager::SynchronisationManager(const QString& user_name, QObject* parent) : QObject(parent),
+	username(user_name),
+	srcContainerTempPath(KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName() + "/" + user_name + "/sync/"))
 {
-	this->username = username;
-	srcContainerTempPath = KStandardDirs::locateLocal("tmp", KGlobal::mainComponent().aboutData()->appName()+"/"+username+"/sync/");
 }
 
 

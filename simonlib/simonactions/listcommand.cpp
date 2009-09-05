@@ -35,14 +35,14 @@
 
 QStringList ListCommand::numberIdentifiers;
 
-ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QStringList& commands, 
-		const QStringList& iconSrcs, const QStringList& commandTypes) : Command(name, iconSrc)
+ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QStringList& commands_,
+		const QStringList& iconSrcs_, const QStringList& commandTypes_) : Command(name, iconSrc),
+	clw(new CommandListWidget()),
+	startIndex(0),
+	iconsrcs(iconSrcs_),
+	commands(commands_),
+	commandTypes(commandTypes_)
 {
-	this->iconsrcs = iconSrcs;
-	this->commands = commands;
-	this->commandTypes = commandTypes;
-	
-	clw = new CommandListWidget();
 	connect(clw, SIGNAL(canceled()), this, SLOT(cancel()));
 	connect(clw, SIGNAL(runRequest(int)), this, SLOT(processRequest(int)));
 	
@@ -51,8 +51,6 @@ ListCommand::ListCommand(const QString& name, const QString& iconSrc, const QStr
 		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
 			<< i18n("Three") << i18n("Four") << i18n("Five") <<
 			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
-	
-	startIndex=0;
 }
 
 

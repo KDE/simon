@@ -47,12 +47,11 @@
 
 
 
-SimonTableWidget::SimonTableWidget( QWidget * parent) : QTableWidget(parent)
+SimonTableWidget::SimonTableWidget(QWidget* parent) : QTableWidget(parent),
+	redFlag(true)
 {
 	this->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
 	this->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff);
-	this->redFlag = true;
-
 }
 
 SimonTableWidget::~SimonTableWidget()

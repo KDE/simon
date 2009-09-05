@@ -48,12 +48,13 @@ TrainingManager* TrainingManager::instance;
  *
  *	@author Peter Grasch
  */
-TrainingManager::TrainingManager(QObject *parent) : QObject(parent), promptsLock(QMutex::Recursive)
+TrainingManager::TrainingManager(QObject* parent) : QObject(parent),
+	dirty(false),
+	trainingTexts(new TrainingList()),
+	promptsLock(QMutex::Recursive),
+	promptsTable(0)
 {
 	KLocale::setMainCatalog("simonlib");
-	trainingTexts = new TrainingList();
-	promptsTable=0;
-	dirty=false;
 }
 
 bool TrainingManager::init()

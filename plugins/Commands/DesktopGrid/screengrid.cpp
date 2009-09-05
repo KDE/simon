@@ -36,10 +36,10 @@
 QStringList ScreenGrid::numberIdentifiers;
 
 ScreenGrid::ScreenGrid(QWidget* parent): QWidget(parent, 
-		Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint)
+		Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint),
+	buttons(new QGridLayout(this)),
+	background(0)
 {
-	background = 0;
-	buttons = new QGridLayout(this);
 	this->setContentsMargins(0,0,0,0);
 	buttons->setSpacing(0);
 	QSize desksize = QDesktopWidget().screenGeometry().size();

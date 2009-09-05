@@ -35,9 +35,9 @@
  * \param QObject* parent
  * The parent of the object
  */
-XMLDomReader::XMLDomReader(QString path, QObject* parent) : XMLReader(path, parent)
+XMLDomReader::XMLDomReader(QString path, QObject* parent) : XMLReader(path, parent),
+	doc(0)
 {
-	this->doc = 0;
 }
 
 /**

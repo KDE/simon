@@ -58,9 +58,9 @@ public:
     * 
     *	@author Peter Grasch
     */
-    ShortcutCommand(const QString& name, const QString& iconSrc, const QKeySequence &shortcut) : Command(name, iconSrc)
+    ShortcutCommand(const QString& name, const QString& iconSrc, const QKeySequence& shortcut_) : Command(name, iconSrc),
+        shortcut(shortcut_)
     {
-        this->shortcut = shortcut;
     }
 
 

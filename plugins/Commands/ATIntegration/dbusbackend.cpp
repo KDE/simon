@@ -36,15 +36,13 @@
 #include <KLocalizedString>
 #include "atobject.h"
 
-DBusBackend::DBusBackend(QObject* parent): ATBackend(parent)
+DBusBackend::DBusBackend(QObject* parent) : ATBackend(parent),
+	iface(0),
+	currentWindow(0),
+	finalClasses(buildFinalClasses())
 {
 	qDBusRegisterMetaType<ATOLocation>();
 	qDBusRegisterMetaType<ATOPosition>();
-
-	iface =0;
-	currentWindow=0;
-	
-	this->finalClasses = buildFinalClasses();
 }
 
 void DBusBackend::startMonitoring()

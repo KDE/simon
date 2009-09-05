@@ -28,9 +28,9 @@
 
 
 
-SimonListWidget::SimonListWidget( QWidget * parent ) : KListWidget(parent)
+SimonListWidget::SimonListWidget(QWidget* parent) : KListWidget(parent),
+	line(new KLineEdit(this))
 {
-	line = new KLineEdit(this);
 	line->hide();
 //	this->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
 //	this->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff);

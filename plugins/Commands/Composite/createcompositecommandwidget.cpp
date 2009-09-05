@@ -29,14 +29,15 @@
 #include <KMessageBox>
 #include <QStringList>
 
-CreateCompositeCommandWidget::CreateCompositeCommandWidget(QWidget *parent) : CreateCommandWidget(parent)
+CreateCompositeCommandWidget::CreateCompositeCommandWidget(QWidget* parent) : CreateCommandWidget(parent),
+	allCommands(ActionManager::getInstance()->getCommandList()),
+	model(new CommandTableModel())
 {
 	ui.setupUi(this);
 	
 	setWindowIcon(CompositeCommand::staticCategoryIcon());
 	setWindowTitle(CompositeCommand::staticCategoryText());
 	
-	allCommands = ActionManager::getInstance()->getCommandList();
 	foreach (const Command* com, *allCommands)
 	{
 		QString name = com->getTrigger();
@@ -44,7 +45,6 @@ CreateCompositeCommandWidget::CreateCompositeCommandWidget(QWidget *parent) : Cr
 		ui.cbCommands->addItem(com->getIcon(), name+" ("+category+")");
 	}
 
-	model = new CommandTableModel();
 	ui.tvCommands->setModel(model);
 
 	connect(ui.pbRemove, SIGNAL(clicked()), this, SLOT(removeCommand()));

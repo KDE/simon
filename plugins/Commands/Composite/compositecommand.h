@@ -56,10 +56,10 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CompositeCommand(const QString& name, const QString& iconSrc, const QStringList& commands, const QStringList& commandTypes) : Command(name, iconSrc)
+	CompositeCommand(const QString& name, const QString& iconSrc, const QStringList& commands_, const QStringList& commandTypes_) : Command(name, iconSrc),
+		commands(commands_),
+		commandTypes(commandTypes_)
 	{
-		this->commands = commands;
-		this->commandTypes = commandTypes;
 	}
 
 	/**

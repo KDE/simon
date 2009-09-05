@@ -41,11 +41,10 @@ int recording_level_counter=0;
 /**
  * \brief Constructor
  */
-WavRecorder::WavRecorder(QObject *parent) : QObject(parent)
+WavRecorder::WavRecorder(QObject* parent) : QObject(parent),
+	stream(0),
+	wavData(0)
 {
-	wavData=0;
-	stream =0;
-	
 	connect(&timeWatcher, SIGNAL(timeout()), this, SLOT(publishTime()));
 }
 

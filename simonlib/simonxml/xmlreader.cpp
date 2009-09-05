@@ -25,9 +25,9 @@
  *  \brief Constructor
  *  \author Martin Gigerl
  */
-XMLReader::XMLReader(QString path, QObject *parent) : QObject(parent)
+XMLReader::XMLReader(QString path_, QObject* parent) : QObject(parent),
+	path(path_)
 {
-	this->path=path;
 }
 
 

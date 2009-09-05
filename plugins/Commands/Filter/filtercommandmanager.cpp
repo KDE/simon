@@ -34,11 +34,10 @@ K_EXPORT_PLUGIN( FilterPluginFactory("simonfiltercommand") )
 
 
 
-FilterCommandManager::FilterCommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
+FilterCommandManager::FilterCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+	isActive(false),
+	activateAction(new KAction(this))
 {
-	isActive = false;
-
-	activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Filter"));
 	activateAction->setIcon(KIcon("view-filter"));
 	connect(activateAction, SIGNAL(triggered(bool)),

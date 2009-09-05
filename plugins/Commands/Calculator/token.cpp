@@ -20,10 +20,11 @@
 #include "token.h"
 
 Token::Token(char arOp, short priority)
+    : arOperator(arOp),
+    type(priority)
 {
-    arOperator=arOp;
-    type=priority;
 }
+
 Token::Token(double num)
 {
     number=num;

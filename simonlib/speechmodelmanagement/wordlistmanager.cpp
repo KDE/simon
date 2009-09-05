@@ -59,10 +59,12 @@ WordListManager* WordListManager::instance;
  * @param QString path
  * Sets the path (member) to the given string
  */
-WordListManager::WordListManager () : QThread(), wordListLock(QMutex::Recursive), shadowLock(QMutex::Recursive)
+WordListManager::WordListManager () : QThread(),
+	isTemp(false),
+	wordListLock(QMutex::Recursive),
+	shadowLock(QMutex::Recursive)
 {
 	KLocale::setMainCatalog("simonlib");
-	isTemp = false;
 	connect(this, SIGNAL(wordListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
 	connect(this, SIGNAL(shadowListCouldntBeLoaded()), this, SLOT(complainAboutPaths()));
 	connect(this, SIGNAL(tempWarning()), this, SLOT(warnAboutTempWordList()));

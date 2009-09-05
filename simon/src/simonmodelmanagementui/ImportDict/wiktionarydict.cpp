@@ -32,12 +32,13 @@
  * \param QString path
  * The path to the dict
  */
-WiktionaryDict::WiktionaryDict(QString path, QObject* parent) :QXmlDefaultHandler(), Dict(parent)
+WiktionaryDict::WiktionaryDict(QString path, QObject* parent) : QXmlDefaultHandler(),
+	Dict(parent),
+	allowedChars("-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890äÄüÜöÖ"),
+	reader(new XMLSAXReader(path)),
+	pos(0)
 {
 	buildTranslationTables();
-	allowedChars = "-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890äÄüÜöÖ";
-	this->reader = new XMLSAXReader(path);
-	pos=0;
 }
 
 

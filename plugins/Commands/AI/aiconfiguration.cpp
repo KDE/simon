@@ -35,13 +35,12 @@ AIConfiguration::AIConfiguration(QWidget *parent, const QVariantList &args)
 				      "0.1", ki18n("Voice controlled chatbot"),
 				      "view-media-artist",
 				      AIPluginFactory::componentData(),
-				      parent)
+				      parent),
+	manager(0)
 {
 	Q_UNUSED(args);
 	ui.setupUi(this);
 
-	manager = 0;
-	
 	config = KSharedConfig::openConfig(AIPluginFactory::componentData(),
 					"airc");
 

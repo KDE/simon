@@ -25,9 +25,9 @@
 #include <KStandardDirs>
 #include <KDebug>
 
-SimondControl::SimondControl(QObject *parent) : QTcpServer(parent)
+SimondControl::SimondControl(QObject* parent) : QTcpServer(parent),
+	db(new DatabaseAccess(this))
 {
-	db = new DatabaseAccess(this);
 	connect (db, SIGNAL(error(const QString&)), this, SLOT(handleError(const QString&)));
 }
 

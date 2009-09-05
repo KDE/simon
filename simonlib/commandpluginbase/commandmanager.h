@@ -90,10 +90,10 @@ public:
 	* 
 	*	@author Peter Grasch
 	*/
-	CommandManager(QObject *parent, const QVariantList& args) : QObject(parent)
+	CommandManager(QObject* parent, const QVariantList& args) : QObject(parent),
+		commands(0)
 	{
 		Q_UNUSED(args);
-		commands=0;
 	}
 
 

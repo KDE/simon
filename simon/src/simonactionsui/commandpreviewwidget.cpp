@@ -30,9 +30,9 @@
 #include <KMessageBox>
 
 
-CommandPreviewWidget::CommandPreviewWidget(QWidget *parent) : QWidget(parent)
+CommandPreviewWidget::CommandPreviewWidget(QWidget* parent) : QWidget(parent),
+	command(0)
 {
-	command =0;
 	ui.setupUi(this);
 	
 	connect(ui.pbTrigger, SIGNAL(clicked()), this, SLOT(trigger()));

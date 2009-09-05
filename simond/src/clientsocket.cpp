@@ -59,23 +59,17 @@
 #include <KConfig>
 
 
-ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess *databaseAccess, QObject *parent) : QSslSocket(parent)
+ClientSocket::ClientSocket(int socketDescriptor, DatabaseAccess* databaseAccess, QObject *parent) : QSslSocket(parent),
+	synchronisationRunning(false),
+	modelSource(ClientSocket::Undefined),
+	recognitionControl(0),
+	synchronisationManager(0),
+	modelCompilationManager(0)
 {
 	qRegisterMetaType<RecognitionResultList>("RecognitionResultList");
 
-	username ="";
-	synchronisationRunning = false;
-
 	Q_ASSERT(databaseAccess);
-
 	this->databaseAccess = databaseAccess;
-
-	synchronisationManager = 0;
-	modelSource = ClientSocket::Undefined;
-	
-	modelCompilationManager=0;
-	recognitionControl=0;
-	
 
 	kDebug() << "Created ClientSocket with Descriptor " << socketDescriptor;
 

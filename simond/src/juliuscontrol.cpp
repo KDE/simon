@@ -46,12 +46,12 @@
 #include <stdio.h>
 #include <KProcess>
 
-JuliusControl::JuliusControl(const QString& username, QObject *parent) : RecognitionControl(username, parent)
+JuliusControl::JuliusControl(const QString& username, QObject* parent) : RecognitionControl(username, parent),
+	recog(0),
+	jconf(0),
+	isLocal(false),
+	m_initialized(false)
 {
-	recog=0;
-	jconf=0;
-	isLocal=false;
-	m_initialized=false;
 }
 
 qint32 JuliusControl::getPort() 

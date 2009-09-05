@@ -27,13 +27,13 @@
 
 
 
-SimonCalendarWidget::SimonCalendarWidget( QWidget * parent ) : QCalendarWidget(parent)
-{
-	KLocale::setMainCatalog("simonlib");
+SimonCalendarWidget::SimonCalendarWidget(QWidget* parent) : QCalendarWidget(parent),
 	//whatis = 1 Day received
 	//whatis = 2 Month received
 	//whatis = 3 Year received
-	this->whatis = 0;
+	whatis(0)
+{
+	KLocale::setMainCatalog("simonlib");
 }
 
 

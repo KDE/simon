@@ -49,9 +49,10 @@
  *
  * @author Peter Grasch
  */
-WordListViewPrivate::WordListViewPrivate(QWidget *parent) : QWidget(parent)
+WordListViewPrivate::WordListViewPrivate(QWidget* parent) : QWidget(parent),
+	abortVocabInsertion(false),
+	wordListManager(WordListManager::getInstance())
 {
-	abortVocabInsertion = false;
 	
 	ui.setupUi(this);
 
@@ -80,7 +81,6 @@ WordListViewPrivate::WordListViewPrivate(QWidget *parent) : QWidget(parent)
 	
 	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(filterListbyPattern()));
 
-	this->wordListManager = WordListManager::getInstance();
 	connect(this->wordListManager, SIGNAL(wordlistChanged()), this, SLOT(filterListbyPattern()));
 	
 	connect(this->wordListManager, SIGNAL(shadowListChanged()), this, SLOT(reloadShadowList()));

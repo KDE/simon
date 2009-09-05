@@ -32,10 +32,10 @@
  * \author Peter Grasch
  */
 LogManager::LogManager()
+	: entries(new LogEntryList()),
+	killMe(false),
+	finishedLoading(false)
 {
-	this->finishedLoading = false;
-	entries = new LogEntryList();
-	killMe=false;
 	connect(this, SIGNAL(finished()), this, SLOT(resetKillFlag()));
 	connect(this, SIGNAL(terminated()), this, SLOT(resetKillFlag()));
 }

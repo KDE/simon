@@ -21,9 +21,9 @@
 #include "placecommand.h"
 #include "ImportPlace/importplacewizard.h"
 
-CreatePlaceCommandWidget::CreatePlaceCommandWidget(QWidget *parent) : CreateCommandWidget(parent)
+CreatePlaceCommandWidget::CreatePlaceCommandWidget(QWidget* parent) : CreateCommandWidget(parent),
+	importWizard(0)
 {
-	importWizard=0;
 	ui.setupUi(this);
 	ui.urUrl->setMode(KFile::Directory | KFile::File | KFile::ExistingOnly);
 	setWindowIcon(PlaceCommand::staticCategoryIcon());

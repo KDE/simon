@@ -33,9 +33,9 @@
  * 
  * @author Peter Grasch
  */
-XEvents::XEvents(char* displayName) : CoreEvents()
+XEvents::XEvents(char* displayName) : CoreEvents(),
+	d(new XEventsPrivate(displayName))
 {
-	d = new XEventsPrivate(displayName);
 }
 
 

@@ -95,19 +95,19 @@ RecognitionControl* RecognitionControl::instance;
  *	@param qint16 port
  *	Port the Server should listen to
  */
-RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
+RecognitionControl::RecognitionControl(QWidget* parent) : QObject(parent),
+	adinStreamer(AdinStreamer::getInstance(this)),
+	recognitionReady(false),
+	socket(new QSslSocket()),
+	synchronisationOperation(0),
+	modelCompilationOperation(0),
+	timeoutWatcher(new QTimer(this)),
+	modelManager(new ModelManagerUiProxy(this))
 {
-	recognitionReady=false;
-
-	synchronisationOperation=NULL;
-	modelCompilationOperation=NULL;
-	adinStreamer=AdinStreamer::getInstance(this);
 	connect(adinStreamer, SIGNAL(started()), this, SLOT(streamStarted()));
 	connect(adinStreamer, SIGNAL(stopped()), this, SLOT(streamStopped()));
 	connect(adinStreamer, SIGNAL(requestingPause()), this, SLOT(pauseRecognition()));
 
-	socket = new QSslSocket();
-	timeoutWatcher = new QTimer(this);
 	connect(timeoutWatcher, SIGNAL(timeout()), this, SLOT(timeoutReached()));
 			
 	connect(socket, SIGNAL(readyRead()), this, SLOT(messageReceived()));
@@ -120,8 +120,6 @@ RecognitionControl::RecognitionControl(QWidget *parent) : QObject(parent)
 	
 	connect(this, SIGNAL(simondSystemError(const QString&)), this, SLOT(disconnectFromServer()));
 
-	
-	this->modelManager = new ModelManagerUiProxy(this);
 	connect(modelManager, SIGNAL(recompileModel()), this, SLOT(askStartSynchronisation()));
 }
 

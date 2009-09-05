@@ -32,11 +32,11 @@ K_PLUGIN_FACTORY( ShortcutCommandPluginFactory,
 K_EXPORT_PLUGIN( ShortcutCommandPluginFactory("simonshortcutcommand") )
 
 
-ShortcutCommandManager::ShortcutCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
-{
+ShortcutCommandManager::ShortcutCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
 #ifndef SIMON_SCENARIOS
-	this->xmlShortcutCommand = new XMLShortcutCommand();
+	xmlShortcutCommand(new XMLShortcutCommand())
 #endif
+{
 }
 
 const QString ShortcutCommandManager::name() const

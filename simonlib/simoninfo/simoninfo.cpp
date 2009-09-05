@@ -34,10 +34,10 @@
  * 
 */
 
-SimonInfo::SimonInfo(QWidget *parent)
+SimonInfo::SimonInfo(QWidget* parent_)
+	: splash(0),
+	parent(parent_)
 {
-	this->parent = parent;
-	this->splash=0;
 }
 
 

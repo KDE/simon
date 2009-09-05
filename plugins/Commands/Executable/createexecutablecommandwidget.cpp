@@ -22,10 +22,9 @@
 #include "ImportProgram/importprogramwizard.h"
 #include <KLineEdit>
 
-CreateExecutableCommandWidget::CreateExecutableCommandWidget(QWidget *parent) : CreateCommandWidget(parent)
+CreateExecutableCommandWidget::CreateExecutableCommandWidget(QWidget* parent) : CreateCommandWidget(parent),
+	importWizard(0)
 {
-	importWizard=0;
-	
 	ui.setupUi(this);
 	
 	ui.urWorkingDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);

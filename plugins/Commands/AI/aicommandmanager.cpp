@@ -37,10 +37,10 @@ K_EXPORT_PLUGIN( AIPluginFactory("simonaicommand") )
 
 
 
-AICommandManager::AICommandManager(QObject *parent, const QVariantList& args) : CommandManager(parent, args)
+AICommandManager::AICommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+	parser(0),
+	festivalProc(0)
 {
-	parser=0;
-	festivalProc=0;
 }
 
 const QString AICommandManager::name() const

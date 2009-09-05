@@ -32,9 +32,9 @@
 #include <QTime>
 #include <KLocalizedString>
 
-ImportTrainingData::ImportTrainingData(QObject* parent): QThread(parent)
+ImportTrainingData::ImportTrainingData(QObject* parent) : QThread(parent),
+	pp(new PostProcessing())
 {
-	this->pp = new PostProcessing();
 	connect(pp, SIGNAL(error(const QString&)), this, SIGNAL(error(QString)));
 }
 

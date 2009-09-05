@@ -105,12 +105,10 @@ QList<QDomNode> elementsByTagName(QDomNode *node, const QString& tagName)
 
 Leaf::Leaf()
 {
-    topic = that = "";
 }
 
 Node::Node()
 {
-    word = "";
 }
 
 bool Node::match(QStringList::const_iterator input, const QStringList &inputWords,
@@ -237,9 +235,10 @@ void AIMLParser::normalizeString(QString &str)
     str = newStr;
 }
 
-AIMLParser::AIMLParser(QTextStream* logStream): logStream(logStream)
+AIMLParser::AIMLParser(QTextStream* logStream_)
+    : indent(0),
+    logStream(logStream_)
 {
-    indent = 0;
     root.parent = NULL;
     QTime currentTime = QTime::currentTime();
     int val = currentTime.msec() + currentTime.second() + currentTime.minute();

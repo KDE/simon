@@ -69,14 +69,14 @@ public:
 	* Recognition probability
 	* 
 	*/
-	Word(const QString& scenarioId, const QString& word, const QString& pronunciation, const QString& terminal=NULL, int probability=-1)
+	Word(const QString& scenarioId_, const QString& word_, const QString& pronunciation_, const QString& terminal_ = NULL, int probability_ = -1)
+		: scenarioId(scenarioId_),
+		word(word_),
+		pronunciation(pronunciation_),
+		terminal(terminal_),
+		lexiconWord(word_.toUpper()),
+		probability(probability_)
 	{
-		this->word = word;
-		this->lexiconWord = word.toUpper();
-		this->pronunciation = pronunciation;
-		this->terminal = terminal;
-		this->probability = probability;
-		this->scenarioId = scenarioId;
 	}
 
 	/**

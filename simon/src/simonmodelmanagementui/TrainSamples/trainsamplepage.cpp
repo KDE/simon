@@ -34,16 +34,17 @@
 #include <KMessageBox>
 
 
-TrainSamplePage::TrainSamplePage(const QString& prompt, int nowPage, int maxPage, const QString name, QWidget *parent) : QWizardPage(parent)
+TrainSamplePage::TrainSamplePage(const QString& prompt_, int nowPage, int maxPage, const QString name, QWidget* parent) : QWizardPage(parent),
+	prompt(prompt_),
+	fileName( TrainingManager::getInstance()->htkify(prompt_).replace(" ", "_")
+		+ "_S"
+		+ QString::number(nowPage)
+		+ "_"
+		+ QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") )
 {
 	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-	this->prompt = prompt;
 	QString title = i18n("Page %1 of %2", nowPage, maxPage);
 	setTitle(name+": "+title);
-
-
-	fileName = TrainingManager::getInstance()->htkify(prompt).replace(" ", "_")+"_S"+QString::number(nowPage)+"_"
-				+QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss");
 
 	QVBoxLayout *lay = new QVBoxLayout(this);
 	QLabel *desc = new QLabel(i18n("Please record the Text below."

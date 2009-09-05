@@ -58,9 +58,9 @@ public:
     * 
     *	@author Peter Grasch
     */
-    PlaceCommand(const QString& name, const QString& iconSrc, const KUrl& url) : Command(name, iconSrc)
+    PlaceCommand(const QString& name, const QString& iconSrc, const KUrl& url_) : Command(name, iconSrc),
+        url(url_)
     {
-        this->url = url;
     }
 
 	void change(const QString& newName, const QString& newIconSrc, const KUrl& newUrl) { 

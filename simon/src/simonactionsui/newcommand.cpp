@@ -28,7 +28,8 @@
 #include <KKeySequenceWidget>
 #include <KDialogButtonBox>
 
-NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
+NewCommand::NewCommand(QWidget* parent) : KDialog(parent),
+	commandCreaters(0)
 {
 	QWidget *widget = new QWidget( this );
 	ui.setupUi(widget);
@@ -44,7 +45,6 @@ NewCommand::NewCommand(QWidget *parent) : KDialog(parent)
 	connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(setWindowTitleToCommandName(QString)));
 	connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(checkIfComplete()));
 	
-	commandCreaters=0;
 	checkIfComplete();
 }
 

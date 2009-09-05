@@ -29,11 +29,11 @@
 
 
 
-MergeTerminalsWorkingPage::MergeTerminalsWorkingPage (QWidget* parent ) : QWizardPage ( parent )
+MergeTerminalsWorkingPage::MergeTerminalsWorkingPage(QWidget* parent) : QWizardPage(parent),
+	mergeTerminals(new MergeTerminals(this))
 {
 	ui.setupUi ( this );
 
-	this->mergeTerminals = new MergeTerminals ( this );
 	connect ( mergeTerminals, SIGNAL ( status ( QString ) ), this, SLOT ( displayStatus ( QString ) ) );
 	connect ( mergeTerminals, SIGNAL ( done() ), this, SLOT ( finished() ) );
 	connect ( mergeTerminals, SIGNAL ( progress ( int, int ) ), this, SLOT ( displayProgress ( int, int ) ) );

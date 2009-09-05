@@ -32,14 +32,14 @@
  * @param parent 
  * Parent of the widget
  */
-ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget *parent) : QWizardPage(parent)
+ImportTrainingDirectoryWorkingPage::ImportTrainingDirectoryWorkingPage(QWidget* parent) : QWizardPage(parent),
+	importer(new ImportTrainingData(this)),
+	completed(false)
 {
 	ui.setupUi(this);
 	
 	setTitle(i18n("Processing folder..."));
-	completed = false;
 	
-	importer = new ImportTrainingData(this);
 	connect(importer, SIGNAL(done()), this, SLOT(setComplete()));
 	connect(importer, SIGNAL(progress(int, int)), this, SLOT(displayProgress(int, int)));
 	connect(importer, SIGNAL(status(QString)), this, SLOT(displayStatus(QString)));

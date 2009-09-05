@@ -40,13 +40,12 @@
 #include <KDebug>
 
 
-Scenario::Scenario(const QString& scenarioId) : m_scenarioId(scenarioId)
+Scenario::Scenario(const QString& scenarioId) : m_scenarioId(scenarioId),
+	m_simonMinVersion(NULL),
+	m_simonMaxVersion(NULL),
+	m_vocabulary(NULL),
+	m_grammar(NULL)
 {
-	m_grammar = NULL;
-	m_vocabulary = NULL;
-	m_simonMinVersion = NULL;
-	m_simonMaxVersion = NULL;
-
 }
 
 /**

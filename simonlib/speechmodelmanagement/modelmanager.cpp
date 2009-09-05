@@ -38,10 +38,10 @@
 
 ModelManager* ModelManager::instance;
 
-ModelManager::ModelManager(QObject *parent) : QObject(parent)
+ModelManager::ModelManager(QObject* parent) : QObject(parent),
+	inGroup(false),
+	modelChangedFlag(false)
 {
-	modelChangedFlag=false;
-	inGroup=false;
 	connect (WordListManager::getInstance(), SIGNAL(wordlistChanged()), 
 		  this, SLOT(modelHasChanged()));
 

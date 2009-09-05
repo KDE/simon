@@ -21,9 +21,11 @@
 #include <QRegExp>
 #include <QStringList>
 
-VersionNumber::VersionNumber(const QString& scenarioId) : ScenarioObject(scenarioId)
+VersionNumber::VersionNumber(const QString& scenarioId) : ScenarioObject(scenarioId),
+	m_majorNumber(-1),
+	m_minorNumber(-1),
+	m_patchLevel(-1)
 {
-	m_majorNumber = m_minorNumber = m_patchLevel = -1;
 }
 
 VersionNumber::VersionNumber(const QString& scenarioId, const QString& version) : ScenarioObject(scenarioId)

@@ -41,7 +41,9 @@ K_EXPORT_PLUGIN( CalculatorCommandPluginFactory("simoncalculatorcommand") )
 
 QStringList CalculatorCommandManager::numberIdentifiers;
 
-CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
+CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+	widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
+	commandListWidget(new CommandListWidget())
 {
 	KAction *activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Calculator"));
@@ -50,8 +52,6 @@ CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVaria
 		this, SLOT(activate()));
 	guiActions<<activateAction;
 
-
-	widget = new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
 	widget->setWindowIcon(KIcon("accessories-calculator"));
 	connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
 	ui.setupUi(widget);
@@ -89,7 +89,6 @@ CalculatorCommandManager::CalculatorCommandManager(QObject *parent, const QVaria
 	connect(ui.pbEquals, SIGNAL(clicked()), this, SLOT(sendEquals()));
 //        connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
 
-	commandListWidget = new CommandListWidget();
 	commandListWidget->init(QStringList() << "go-next" << "go-next" << "go-next" << "go-next", 
 			QStringList() << i18n("Result") << 
 			i18n("Calculation & result") << 

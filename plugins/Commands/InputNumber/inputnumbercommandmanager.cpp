@@ -33,9 +33,10 @@ K_EXPORT_PLUGIN( InputNumberCommandPluginFactory("simoninputnumbercommand") )
 
 QStringList InputNumberCommandManager::numberIdentifiers;
 
-InputNumberCommandManager::InputNumberCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
+InputNumberCommandManager::InputNumberCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
+	widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
+	activateAction(new KAction(this))
 {
-	widget = new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint);
 	widget->setWindowIcon(KIcon("accessories-calculator"));
 	connect(widget, SIGNAL(rejected()), this, SLOT(deregister()));
 	ui.setupUi(widget);
@@ -43,7 +44,6 @@ InputNumberCommandManager::InputNumberCommandManager(QObject *parent, const QVar
 	ui.pbCancel->setIcon(KIcon("dialog-cancel"));
 	widget->hide();
 
-	activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Number Input"));
 	activateAction->setIcon(KIcon("accessories-calculator"));
 	connect(activateAction, SIGNAL(triggered(bool)),

@@ -47,18 +47,15 @@
 ActionManager* ActionManager::instance;
 
 
-ActionManager::ActionManager(QObject *parent) : QObject(parent)
+ActionManager::ActionManager(QObject* parent) : QObject(parent),
+	mainWindow(0),
+	commandSettings(0),
+	currentlyPromptedListOfResults(0),
+	greedyReceivers(new QList<GreedyReceiver*>()),
+	minimumConfidenceThreshold(0.7),
+	useDYM(true)
 {
 	KLocale::setMainCatalog("simonlib");
-	commandSettings=0;
-	mainWindow=0;
-
-	greedyReceivers = new QList<GreedyReceiver*>();
-	currentlyPromptedListOfResults = 0;
-
-	//defaults
-	useDYM = true;
-	minimumConfidenceThreshold = 0.7;
 }
 
 void ActionManager::init()

@@ -32,10 +32,10 @@ K_EXPORT_PLUGIN( CompositeCommandPluginFactory("simoncompositecommand") )
 
 
 CompositeCommandManager::CompositeCommandManager(QObject *parent, const QVariantList& args) :CommandManager(parent, args)  
-{
 #ifndef SIMON_SCENARIOS
-	this->xmlCompositeCommand = new XMLCompositeCommand();
+	, xmlCompositeCommand(new XMLCompositeCommand())
 #endif
+{
 }
 
 const KIcon CompositeCommandManager::icon() const

@@ -22,11 +22,11 @@
 
 /* @param  triggerShown, triggerReal, valueType, value  **/
 KeyboardButton::KeyboardButton(QString triggerS, QString triggerR, short vType, QString v)
+	: triggerShown(triggerS),
+	triggerReal(triggerR),
+	valueType(vType),
+	value(v)
 {
-	triggerShown = triggerS;
-	triggerReal = triggerR;
-	valueType = vType;
-	value = v;
 }
 
 QString KeyboardButton::getTriggerReal()
