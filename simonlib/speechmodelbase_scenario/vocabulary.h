@@ -35,10 +35,10 @@ private:
 	QList<Word*> m_words;
 
 protected:
-	Vocabulary(const QString& scenarioId);
+	Vocabulary(Scenario *parent);
 
 public:
-	static Vocabulary* createVocabulary(const QString& scenarioId, const QDomElement&);
+	static Vocabulary* createVocabulary(Scenario *parent, const QDomElement&);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
 

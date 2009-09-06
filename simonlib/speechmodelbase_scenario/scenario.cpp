@@ -95,15 +95,15 @@ bool Scenario::init(QString path)
 	QDomElement compatibilityElem = docElem.firstChildElement("simonCompatibility");
 	QDomElement simonMinVersionElem = compatibilityElem.firstChildElement();
 
-	m_simonMinVersion = VersionNumber::createVersionNumber(m_scenarioId, simonMinVersionElem);
-	m_simonMaxVersion = VersionNumber::createVersionNumber(m_scenarioId, simonMinVersionElem.nextSiblingElement());
+	m_simonMinVersion = VersionNumber::createVersionNumber(this, simonMinVersionElem);
+	m_simonMaxVersion = VersionNumber::createVersionNumber(this, simonMinVersionElem.nextSiblingElement());
 
 	if (!m_simonMinVersion) {
 		kDebug() << "Couldn't parse simon requirements!";
 		return false;
 	}
 
-	VersionNumber simonCurVersion(m_scenarioId, simon_version);
+	VersionNumber simonCurVersion(this, simon_version);
 	if ((!m_simonMinVersion->isValid()) || (simonCurVersion < *m_simonMinVersion) || 
 		(m_simonMaxVersion && m_simonMaxVersion->isValid() && (!(simonCurVersion <= *m_simonMaxVersion)))) {
 		kDebug() << "Scenario not compatible with this simon version";
@@ -119,7 +119,7 @@ bool Scenario::init(QString path)
 	QDomElement authorsElem = docElem.firstChildElement("authors");
 	QDomElement authorElem = authorsElem.firstChildElement();
 	while (!authorElem.isNull()) {
-		Author *a = Author::createAuthor(m_scenarioId, authorElem);
+		Author *a = Author::createAuthor(this, authorElem);
 		if (!a) {
 			kDebug() << "Author information could not be parsed!";
 			continue;
@@ -141,7 +141,7 @@ bool Scenario::init(QString path)
 	//************************************************/
 	kDebug() << "About to create the vocabulay...";
 	QDomElement vocabElem = docElem.firstChildElement("vocabulary");
-	m_vocabulary = Vocabulary::createVocabulary(m_scenarioId, vocabElem);
+	m_vocabulary = Vocabulary::createVocabulary(this, vocabElem);
 	if (!m_vocabulary) {
 		kDebug() << "Vocabulary could not be loaded!";
 		return false;
@@ -152,7 +152,7 @@ bool Scenario::init(QString path)
 	//  Grammar
 	//************************************************/
 	QDomElement grammarElem = docElem.firstChildElement("grammar");
-	m_grammar = Grammar::createGrammar(m_scenarioId, grammarElem);
+	m_grammar = Grammar::createGrammar(this, grammarElem);
 	if (!m_grammar) {
 		kDebug() << "Grammar could not be loaded!";
 		return false;
@@ -165,7 +165,7 @@ bool Scenario::init(QString path)
 	QDomElement actionsElem = docElem.firstChildElement("actions");
 	QDomElement pluginElem = actionsElem.firstChildElement();
 	while (!pluginElem.isNull()) {
-		Action *a = Action::createAction(m_scenarioId, pluginElem);
+		Action *a = Action::createAction(this, pluginElem);
 		if (!a) {
 			kDebug() << "Couldn't load action";
 		} else {
@@ -187,7 +187,7 @@ bool Scenario::init(QString path)
 	QDomElement textsElem = docElem.firstChildElement("trainingstexts");
 	QDomElement textElem = textsElem.firstChildElement();
 	while (!textElem.isNull()) {
-		TrainingText *t = TrainingText::createTrainingText(m_scenarioId, textElem);
+		TrainingText *t = TrainingText::createTrainingText(this, textElem);
 		if (!t) {
 			kDebug() << "Couldn't load trainingtext";
 		} else {

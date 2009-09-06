@@ -130,10 +130,10 @@ bool AICommandManager::load()
 	return true;
 }
 	
-bool AICommandManager::deSerializeConfig(const QDomElement& elem, const QString& scenarioId)
+bool AICommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parentScenario)
 {
 	Q_UNUSED(elem);
-	Q_UNUSED(scenarioId);
+	Q_UNUSED(parentScenario);
 	if (parser) return true;
 	
 	AIConfiguration::getInstance(dynamic_cast<QWidget*>(parent()));

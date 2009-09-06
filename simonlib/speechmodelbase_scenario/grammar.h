@@ -24,6 +24,8 @@
 #include "speechmodelbase_export.h"
 #include <simonscenariobase/scenarioobject.h>
 
+class Scenario;
+
 class SPEECHMODELBASE_EXPORT Grammar : public ScenarioObject
 {
 
@@ -31,10 +33,10 @@ private:
 	QStringList m_structures;
 
 protected:
-	Grammar(const QString& scenarioId);
+	Grammar(Scenario *parent);
 
 public:
-	static Grammar* createGrammar(const QString& scenarioId, const QDomElement&);
+	static Grammar* createGrammar(Scenario *parent, const QDomElement&);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
 

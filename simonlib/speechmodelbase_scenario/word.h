@@ -41,10 +41,9 @@ class Word;
 
 typedef QList<Word> WordList; //!< QList from Word
 
-class SPEECHMODELBASE_EXPORT Word{
+class SPEECHMODELBASE_EXPORT Word {
 
 private:
-	QString scenarioId;
 	QString word; //!< Saves the represented word
 	QString pronunciation; //!< Saves all valid pronunciations of the word in Sam-Pa
 	QString terminal; //!< Category of the word
@@ -69,9 +68,8 @@ public:
 	* Recognition probability
 	* 
 	*/
-	Word(const QString& scenarioId_, const QString& word_, const QString& pronunciation_, const QString& terminal_ = NULL, int probability_ = -1)
-		: scenarioId(scenarioId_),
-		word(word_),
+	Word(const QString& word_, const QString& pronunciation_, const QString& terminal_ = NULL, int probability_ = -1)
+		: word(word_),
 		pronunciation(pronunciation_),
 		terminal(terminal_),
 		lexiconWord(word_.toUpper()),
@@ -192,6 +190,7 @@ public:
 	{
 		return this->probability;
 	}
+
 
 	/**
 	* @brief Destructor

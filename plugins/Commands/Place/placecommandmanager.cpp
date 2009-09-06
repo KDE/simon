@@ -80,9 +80,9 @@ bool PlaceCommandManager::load()
 }
 
 
-bool PlaceCommandManager::deSerializeCommands(const QDomElement& elem, const QString& scenarioId)
+bool PlaceCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *parent)
 {
-	Q_UNUSED(scenarioId);
+	Q_UNUSED(parent);
 
 	if (commands)
 		qDeleteAll(*commands);

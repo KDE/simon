@@ -22,14 +22,14 @@
 /**
  * Empty, private constructor
  */
-Author::Author(const QString& scenarioId) : ScenarioObject(scenarioId)
+Author::Author(Scenario *parent) : ScenarioObject(parent)
 {
 }
 
 /**
  * Full, public constructor
  */
-Author::Author(const QString& scenarioId, const QString& name, const QString& contact) : ScenarioObject(scenarioId)
+Author::Author(Scenario *parent, const QString& name, const QString& contact) : ScenarioObject(parent)
 {
 	m_name = name;
 	m_contact = contact;
@@ -39,9 +39,9 @@ Author::Author(const QString& scenarioId, const QString& name, const QString& co
  * Factory function
  * \author Peter Grasch
  */
-Author* Author::createAuthor(const QString& scenarioId, const QDomElement& elem)
+Author* Author::createAuthor(Scenario *parent, const QDomElement& elem)
 {
-	Author *a = new Author(scenarioId);
+	Author *a = new Author(parent);
 	if (!a->deSerialize(elem)) {
 		delete a;
 		a=NULL;

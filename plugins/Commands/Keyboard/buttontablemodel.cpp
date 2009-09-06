@@ -18,6 +18,7 @@
 
 #include "buttontablemodel.h"
 #include "keyboardbutton.h"
+#include <KDebug>
 
 ButtonTableModel::ButtonTableModel(QObject *parent) : QAbstractTableModel(parent)
 {
@@ -30,15 +31,34 @@ ButtonTableModel::ButtonTableModel(QList<KeyboardSet *> * setList, QComboBox* cb
 {
 }
 
+void ButtonTableModel::addButton(int setId, int tabId, KeyboardButton* b)
+{
+	int oldSize = list->at(setId)->getTabList()->at(tabId)->getButtonList()->size();
+	beginInsertRows(QModelIndex(), oldSize, 1);
+	list->at(setId)->getTabList()->at(tabId)->getButtonList()->append(b);
+
+	kDebug() << "Button has been added";
+	int newSize = list->at(setId)->getTabList()->at(tabId)->getButtonList()->size();
+
+	kDebug() << oldSize << newSize;
+	endInsertRows();
+
+	emit dataChanged(index(oldSize, 0), index(newSize, columnCount()));
+}
+
 int ButtonTableModel::rowCount(const QModelIndex &parent) const
 {
-    //Q_UNUSED(parent);
-    return list->size();
+    Q_UNUSED(parent)
+    int setId = cbSet->currentIndex();
+    int tabId = cbTab->currentIndex();
+    if ((setId == -1) || (tabId == -1)) return 0;
+
+    return list->at(setId)->getTabList()->at(tabId)->getButtonList()->count();
 }
 
 int ButtonTableModel::columnCount(const QModelIndex &parent) const
 {
-    //Q_UNUSED(parent);
+    Q_UNUSED(parent)
     return 4;
 }
 

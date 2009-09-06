@@ -22,7 +22,7 @@
 /**
  * Empty, private constructor
  */
-Grammar::Grammar(const QString& scenarioId) : ScenarioObject(scenarioId)
+Grammar::Grammar(Scenario *parent) : ScenarioObject(parent)
 {
 }
 
@@ -30,9 +30,9 @@ Grammar::Grammar(const QString& scenarioId) : ScenarioObject(scenarioId)
  * Factory function
  * \author Peter Grasch
  */
-Grammar* Grammar::createGrammar(const QString& scenarioId, const QDomElement& elem)
+Grammar* Grammar::createGrammar(Scenario *parent, const QDomElement& elem)
 {
-	Grammar *g = new Grammar(scenarioId);
+	Grammar *g = new Grammar(parent);
 	if (!g->deSerialize(elem)) {
 		delete g;
 		g=NULL;

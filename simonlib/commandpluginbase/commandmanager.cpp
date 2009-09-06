@@ -44,29 +44,29 @@ bool CommandManager::trigger(const QString& triggerName)
 	return done;
 }
 	
-bool CommandManager::deSerializeConfig(const QDomElement& elem, const QString& scenarioId)
+bool CommandManager::deSerializeConfig(const QDomElement& elem, Scenario *parent)
 {
 	Q_UNUSED(elem);
-	Q_UNUSED(scenarioId);
+	Q_UNUSED(parent);
 	return true;
 }
 
-QDomElement CommandManager::serializeConfig(QDomDocument *doc, const QString& scenarioId)
+QDomElement CommandManager::serializeConfig(QDomDocument *doc, Scenario *parent)
 {
-	Q_UNUSED(scenarioId);
+	Q_UNUSED(parent);
 	return doc->createElement("config");
 }
 
-bool CommandManager::deSerializeCommands(const QDomElement& elem, const QString& scenarioId)
+bool CommandManager::deSerializeCommands(const QDomElement& elem, Scenario *parent)
 {
 	Q_UNUSED(elem);
-	Q_UNUSED(scenarioId);
+	Q_UNUSED(parent);
 	return true;
 }
 
-QDomElement CommandManager::serializeCommands(QDomDocument *doc, const QString& scenarioId)
+QDomElement CommandManager::serializeCommands(QDomDocument *doc, Scenario *parent)
 {
-	Q_UNUSED(scenarioId);
+	Q_UNUSED(parent);
 	QDomElement commandsElem = doc->createElement("commands");
 	if (commands) {
 		foreach (Command *c, *commands)

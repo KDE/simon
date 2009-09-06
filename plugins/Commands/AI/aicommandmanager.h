@@ -46,7 +46,7 @@ protected:
 	bool trigger(const QString& triggerName);
 
 public:
-	bool deSerializeConfig(const QDomElement& elem, const QString& scenarioId);
+	bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
 	const QString name() const;
 	bool load();
 	bool setupParser();

@@ -299,7 +299,7 @@ void SimonView::setupActions()
 	manageScenariosAction->setIcon(KIcon("view-choose"));
 	actionCollection()->addAction("manageScenarios", manageScenariosAction);
 	connect(manageScenariosAction, SIGNAL(triggered(bool)),
-		control, SLOT(manageScenarios()));
+		this, SLOT(manageScenarios()));
 #endif
 
 	

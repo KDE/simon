@@ -45,7 +45,7 @@ public:
 	bool save();
 	CreateCommandWidget* getCreateCommandWidget(QWidget *parent);
 
-	bool deSerializeCommands(const QDomElement& elem, const QString& scenarioId);
+	bool deSerializeCommands(const QDomElement& elem, Scenario *parent);
 
     /**
     * @brief Constructor

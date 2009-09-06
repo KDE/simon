@@ -88,13 +88,8 @@ void AddWordView::accept()
 		promptsToAdd.insert(record2->getFileName(), record2->getPrompt().toUpper());
 		recordingCount++;
 	}
-#ifdef SIMON_SCENARIOS
-	listToAdd->append(Word("scenarioNotSet", word, field("wordPronunciation").toString(),
-		     field("wordTerminal").toString(), recordingCount));
-#else
 	listToAdd->append(Word(word, field("wordPronunciation").toString(),
 		     field("wordTerminal").toString(), recordingCount));
-#endif
 	
 	if (wordsToAdd.count() > 0)
 	{

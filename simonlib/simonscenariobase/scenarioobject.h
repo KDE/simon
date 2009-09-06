@@ -24,14 +24,16 @@
 #include <QDomElement>
 #include "simonscenariobase_export.h"
 
+class Scenario;
+
 class SCENARIOBASE_EXPORT ScenarioObject{
 
 protected:
-	QString scenarioId;
+	Scenario *parentScenario;
 public:
 	
-	ScenarioObject(QString scenario_ID)
-		: scenarioId(scenario_ID)
+	ScenarioObject(Scenario *parentScenario)
+		: parentScenario(parentScenario)
 	{
 	}
 

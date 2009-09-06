@@ -24,6 +24,8 @@
 #include "scenarioobject.h"
 #include <QString>
 
+class Scenario;
+
 class SCENARIOBASE_EXPORT Author: public ScenarioObject{
 
 private:
@@ -31,15 +33,15 @@ private:
 	QString m_contact;
 
 protected:
-	Author(const QString& scenarioId);
+	Author(Scenario *parent);
 
 public:
-	Author(const QString& scenarioId, const QString& name, const QString& contact);
+	Author(Scenario *parent, const QString& name, const QString& contact);
 
 	QString name() const { return m_name; }
 	QString contact() const { return m_contact; }
 
-	static Author* createAuthor(const QString& scenarioId, const QDomElement&);
+	static Author* createAuthor(Scenario *parent, const QDomElement&);
 
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);

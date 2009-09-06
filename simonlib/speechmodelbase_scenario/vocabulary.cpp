@@ -22,7 +22,7 @@
 /**
  * Empty, private constructor
  */
-Vocabulary::Vocabulary(const QString& scenarioId) : ScenarioObject(scenarioId)
+Vocabulary::Vocabulary(Scenario *parent) : ScenarioObject(parent)
 {
 }
 
@@ -30,9 +30,9 @@ Vocabulary::Vocabulary(const QString& scenarioId) : ScenarioObject(scenarioId)
  * Factory function
  * \author Peter Grasch
  */
-Vocabulary* Vocabulary::createVocabulary(const QString& scenarioId, const QDomElement& elem)
+Vocabulary* Vocabulary::createVocabulary(Scenario *parent, const QDomElement& elem)
 {
-	Vocabulary *v = new Vocabulary(scenarioId);
+	Vocabulary *v = new Vocabulary(parent);
 	if (!v->deSerialize(elem)) {
 		delete v;
 		v=NULL;
@@ -59,7 +59,7 @@ bool Vocabulary::deSerialize(const QDomElement& vocabularyElem)
 		QString pronunciation = pronunciationElem.text();
 		QString terminal = terminalElem.text();
 
-		m_words << new Word(scenarioId, name, pronunciation, terminal);
+		m_words << new Word(name, pronunciation, terminal);
 
 		wordElem = wordElem.nextSiblingElement();
 	}

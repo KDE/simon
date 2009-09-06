@@ -34,7 +34,7 @@
  *	@date 23.01.2006
  *	@author Peter Grasch
  */
-class TrainingText;
+class Scenario;
 
 class SPEECHMODELBASE_EXPORT TrainingText : public ScenarioObject {
 protected:
@@ -42,10 +42,10 @@ protected:
 	QString path;
 	QStringList pages;
 	float relevance;
-	TrainingText( const QString& scenarioId );
+	TrainingText( Scenario *parent );
 public:
 
-	static TrainingText* createTrainingText(const QString& scenarioId, const QDomElement& elem);
+	static TrainingText* createTrainingText(Scenario *parent, const QDomElement& elem);
 
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);

@@ -72,9 +72,9 @@ bool ListCommandManager::load()
 	return ok;
 }
 
-bool ListCommandManager::deSerializeCommands(const QDomElement& elem, const QString& scenarioId)
+bool ListCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *parent)
 {
-	Q_UNUSED(scenarioId);
+	Q_UNUSED(parent);
 
 	if (commands)
 		qDeleteAll(*commands);

@@ -79,9 +79,9 @@ bool ShortcutCommandManager::load()
 #endif
 }
 
-bool ShortcutCommandManager::deSerializeCommands(const QDomElement& elem, const QString& scenarioId)
+bool ShortcutCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *scenario)
 {
-	Q_UNUSED(scenarioId);
+	Q_UNUSED(scenario);
 
 	if (commands)
 		qDeleteAll(*commands);

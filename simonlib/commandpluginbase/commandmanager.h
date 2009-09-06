@@ -35,6 +35,7 @@ class KCModule;
 class QAction;
 class CommandConfiguration;
 class QDomDocument;
+class Scenario;
 
 /**
  *	@class CommandManager
@@ -79,11 +80,11 @@ public:
 
 	virtual bool deleteCommand(Command *command);
 
-	virtual bool deSerializeConfig(const QDomElement& elem, const QString& scenarioId);
-	virtual QDomElement serializeConfig(QDomDocument *doc, const QString& scenarioId);
+	virtual bool deSerializeConfig(const QDomElement& elem, Scenario *parent);
+	virtual QDomElement serializeConfig(QDomDocument *doc, Scenario *parent);
 
-	virtual bool deSerializeCommands(const QDomElement& elem, const QString& scenarioId);
-	virtual QDomElement serializeCommands(QDomDocument *doc, const QString& scenarioId);
+	virtual bool deSerializeCommands(const QDomElement& elem, Scenario *parent);
+	virtual QDomElement serializeCommands(QDomDocument *doc, Scenario *parent);
 
 	/**
 	* @brief Constructor

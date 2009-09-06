@@ -21,14 +21,14 @@
 #include <QRegExp>
 #include <QStringList>
 
-VersionNumber::VersionNumber(const QString& scenarioId) : ScenarioObject(scenarioId),
+VersionNumber::VersionNumber(Scenario *parent) : ScenarioObject(parent),
 	m_majorNumber(-1),
 	m_minorNumber(-1),
 	m_patchLevel(-1)
 {
 }
 
-VersionNumber::VersionNumber(const QString& scenarioId, const QString& version) : ScenarioObject(scenarioId)
+VersionNumber::VersionNumber(Scenario *parent, const QString& version) : ScenarioObject(parent)
 {
 	parseString(version);
 }
@@ -130,9 +130,9 @@ QString VersionNumber::toString()
  * Factory function
  * \author Peter Grasch
  */
-VersionNumber* VersionNumber::createVersionNumber(const QString& scenarioId, const QDomElement& elem)
+VersionNumber* VersionNumber::createVersionNumber(Scenario *parent, const QDomElement& elem)
 {
-	VersionNumber *v = new VersionNumber(scenarioId);
+	VersionNumber *v = new VersionNumber(parent);
 	if (!v->deSerialize(elem)) {
 		delete v;
 		v=NULL;

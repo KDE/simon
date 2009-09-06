@@ -32,21 +32,21 @@
  * \param float relevance
  * The relevance of the text - the higher the better it'd be to train the text
  */
-TrainingText::TrainingText(QString name_, QString path_, QStringList pages_) : ScenarioObject(""),
+TrainingText::TrainingText(QString name_, QString path_, QStringList pages_) : ScenarioObject(NULL),
 	name(name_),
 	path(path_),
 	pages(pages_)
 {
 }
 
-TrainingText::TrainingText( const QString& scenarioId ) : ScenarioObject(scenarioId)
+TrainingText::TrainingText( Scenario *parent ) : ScenarioObject(parent)
 {
 }
 
 
-TrainingText* TrainingText::createTrainingText(const QString& scenarioId, const QDomElement& elem)
+TrainingText* TrainingText::createTrainingText(Scenario *parent, const QDomElement& elem)
 {
-	TrainingText *t = new TrainingText(scenarioId);
+	TrainingText *t = new TrainingText(parent);
 	if (!t->deSerialize(elem)) {
 		delete t;
 		t=NULL;

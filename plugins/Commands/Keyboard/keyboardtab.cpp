@@ -21,6 +21,7 @@
 #include <QString>
 #include <QList>
 #include <stdlib.h>
+#include <KDebug>
 
 KeyboardTab::KeyboardTab(QString name)
 	: tabName(name)
@@ -35,6 +36,7 @@ KeyboardTab::KeyboardTab(QString name, QList<KeyboardButton *>* bList)
 
 void KeyboardTab::addButton(KeyboardButton* b)
 {
+	kDebug() << "Adding button";
 	buttonList.append(b);
 }
 

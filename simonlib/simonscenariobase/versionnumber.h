@@ -23,6 +23,7 @@
 #include "simonscenariobase_export.h"
 #include "scenarioobject.h"
 
+class Scenario;
 
 class SCENARIOBASE_EXPORT VersionNumber: public ScenarioObject{
 
@@ -32,11 +33,11 @@ private:
 	int m_patchLevel;
 
 protected:
-	VersionNumber(const QString& scenarioId);
+	VersionNumber(Scenario *parent);
 	bool parseString(const QString& version);
 
 public:
-	VersionNumber(const QString& scenarioId, const QString& version);
+	VersionNumber(Scenario *parent, const QString& version);
 
 	bool isValid();
 	QString toString();
@@ -50,7 +51,7 @@ public:
 	bool operator==(const VersionNumber& v2) const;
 	bool operator>=(const VersionNumber& v2) const;
 
-	static VersionNumber* createVersionNumber(const QString& scenarioId, const QDomElement&);
+	static VersionNumber* createVersionNumber(Scenario* parent, const QDomElement&);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
 };

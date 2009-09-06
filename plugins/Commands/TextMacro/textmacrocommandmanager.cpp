@@ -68,9 +68,9 @@ bool TextMacroCommandManager::load()
 	return ok;
 }
 
-bool TextMacroCommandManager::deSerializeCommands(const QDomElement& elem, const QString& scenarioId)
+bool TextMacroCommandManager::deSerializeCommands(const QDomElement& elem, Scenario *scenario)
 {
-	Q_UNUSED(scenarioId);
+	Q_UNUSED(scenario);
 
 	if (commands)
 		qDeleteAll(*commands);

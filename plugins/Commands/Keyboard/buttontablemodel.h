@@ -35,10 +35,13 @@ class ButtonTableModel : public QAbstractTableModel
 	public:
 		ButtonTableModel(QObject *parent);
 		ButtonTableModel(QList<KeyboardSet *> *setList, QComboBox *cbSets, QComboBox *cbTabs, QObject *parent);
-		int rowCount(const QModelIndex &parent) const;
-		int columnCount(const QModelIndex &parent) const;
+		int rowCount(const QModelIndex &parent=QModelIndex()) const;
+		int columnCount(const QModelIndex &parent=QModelIndex()) const;
 		QVariant data(const QModelIndex &index, int role) const;
                 QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+		
+		void addButton(int setId, int tabId, KeyboardButton* b);
+
         //	bool insertRows(int position, int rows, const QModelIndex &index);
         //	bool removeRows(int position, int rows, const QModelIndex &index);
         //	bool setData(const QModelIndex &index, const QVariant &value, int role);

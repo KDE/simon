@@ -146,8 +146,14 @@ void KeyboardConfiguration::addButton()
 			if(!canceled && kbb!=NULL)
 			{
 				SimonInfo::showMessage(i18n("button inserted: ") + kbb->getTriggerShown(), 3000, new KIcon("accessories-calculator"));
-				setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(kbb);
-                                ui.tvTabContent->update();
+//                                ui.tvTabContent->update();
+				ButtonTableModel *model = dynamic_cast<ButtonTableModel*>(ui.tvTabContent->model());
+				kDebug() << "Is model model?";
+				if (!model) return;
+				kDebug() << "Yeah it is";
+
+	//list.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(kbb);
+				model->addButton(ui.cbSets->currentIndex(), ui.cbTabs->currentIndex(), kbb);
 			}
 			else
 				SimonInfo::showMessage(i18n("Canceled"), 3000, new KIcon("accessories-calculator"));
