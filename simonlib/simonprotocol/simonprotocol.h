@@ -131,6 +131,6 @@ namespace Simond
 		RecognitionResumed=4012,
 		RecognitionResult=4013
 	};
-};
+}
 
 #endif

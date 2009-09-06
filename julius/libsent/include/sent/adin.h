@@ -68,7 +68,7 @@ enum {
   SP_INPUT_DEFAULT,
   SP_INPUT_ALSA,
   SP_INPUT_OSS,
-  SP_INPUT_ESD,
+  SP_INPUT_ESD
 };
 
 /// Default unit size of speech input segment in bytes

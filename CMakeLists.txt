@@ -252,6 +252,7 @@ include(CPack)
 add_subdirectory(julius)
 
 find_package(KDE4 REQUIRED)
+add_definitions(-pedantic-errors -std=c++98)
 
 
 add_subdirectory(simonlib)

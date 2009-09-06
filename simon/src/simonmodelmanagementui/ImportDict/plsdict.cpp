@@ -181,6 +181,9 @@ bool PLSDict::characters(const QString &str)
 		case PLSDict::Phoneme:
 			currentPhonemeDefinition += str;
 			break;
+		default:
+			//yeah there is nothing to see here, mr. compiler
+			break;
 	}
 
 	pos += str.count();

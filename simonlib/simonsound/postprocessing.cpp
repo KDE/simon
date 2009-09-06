@@ -41,7 +41,7 @@ PostProcessing::PostProcessing(QObject *parent) : QObject(parent)
  */
 bool PostProcessing::process(const QString& in, const QString& out, bool deleteIn, bool silent)
 {
-	KProgressDialog *progDialog;
+	KProgressDialog *progDialog=NULL;
 	if (!silent) {
 		progDialog = new KProgressDialog(0, i18n("Post-Processing"), 
 				i18n("Filter a being applied..."));
@@ -61,8 +61,8 @@ bool PostProcessing::process(const QString& in, const QString& out, bool deleteI
 	for (int j=0; j < filters.count(); j++)
 	{
 		QString execStr = filters.at(j);
-		execStr.replace("\%1", in);
-		execStr.replace("\%2", out);
+		execStr.replace("%1", in);
+		execStr.replace("%2", out);
 // 		execStr.replace("\%3", QString::number(CoreConfiguration::modelSampleRate()));
 // 		execStr.replace("\%4", QString::number(CoreConfiguration::modelChannels()));
 		int ret = QProcess::execute(execStr);

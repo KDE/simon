@@ -344,7 +344,8 @@ void CommandSettings::load()
 
 	QList<Action::Ptr> notSelectedPlugins;
 	QList<Action::Ptr> selectedPlugins;
-	Action::Ptr selectedPluginsArr[pluginsToLoad.count()];
+//	Action::Ptr selectedPluginsArr[pluginsToLoad.count()];
+	Action::Ptr *selectedPluginsArr = new Action::Ptr[pluginsToLoad.count()];
 
 	int loadedCount=0;
 	while (!allPlugins.isEmpty())

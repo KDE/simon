@@ -61,7 +61,7 @@ public:
 		HasNext=0x2
 	};
 
-	Q_DECLARE_FLAGS(Flags, Flag);
+	Q_DECLARE_FLAGS(Flags, Flag)
 	
 	/**
 	* @brief Constructor

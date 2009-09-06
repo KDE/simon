@@ -118,7 +118,8 @@ void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 	//retaining their positions
 	
 	int count = pluginsToLoad.count();
-	Action::Ptr newActionsArray[count];
+	//Action::Ptr newActionsArray[count];
+	Action::Ptr *newActionsArray = new Action::Ptr[count];
 
 	int i=0;
 
