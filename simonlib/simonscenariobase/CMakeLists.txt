@@ -11,13 +11,14 @@ set( simonscenariobase_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/author.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/versionnumber.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/scenarioobject.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.cpp
 )
 
 
 set( simonscenariobase_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/author.h
   ${CMAKE_CURRENT_SOURCE_DIR}/versionnumber.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/scenarioobject.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/scenariodisplay.h
 )
 
 kde4_add_library( simonscenariobase  SHARED ${simonscenariobase_LIB_SRCS} )

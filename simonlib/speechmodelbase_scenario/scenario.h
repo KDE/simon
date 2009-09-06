@@ -22,6 +22,7 @@
 #define SCENARIO_H
 #include <QString>
 #include <QList>
+#include <QObject>
 #include <KIcon>
 #include "speechmodelbase_export.h"
 
@@ -33,7 +34,10 @@ class Grammar;
 class Vocabulary;
 class TrainingText;
 
-class SPEECHMODELBASE_EXPORT Scenario{
+class SPEECHMODELBASE_EXPORT Scenario : public QObject {
+
+signals:
+	void changed(Scenario*);
 
 private:
 	QString m_scenarioId;

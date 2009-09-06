@@ -27,10 +27,17 @@ kde4_add_kcfg_files(simonappcore_LIB_SRCS coreconfiguration.kcfgc)
 kde4_add_library( simonappcore  SHARED ${simonappcore_LIB_SRCS} )
 
 
+if(${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
+target_link_libraries( simonappcore ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
+simoninfo simonlogging speechgui simonrecognitioncontrol simonactions
+simonmodelmanagementui simonmodelmanagement simonrecognitionresult
+speechmodelbase simonscenariobase)
+else (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
 target_link_libraries( simonappcore ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS}
 simoninfo simonlogging speechgui simonrecognitioncontrol simonactions
 simonmodelmanagementui simonmodelmanagement simonrecognitionresult
 speechmodelbase)
+endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
 
 
 set_target_properties( simonappcore

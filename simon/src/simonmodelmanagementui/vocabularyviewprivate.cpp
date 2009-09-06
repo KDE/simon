@@ -25,6 +25,9 @@
 
 #include <speechmodelmanagement_scenario/wordlistmanager.h>
 #include <speechmodelmanagement_scenario/wordlistmodel.h>
+
+#include <speechmodelbase_scenario/scenario.h>
+
 #include <simonlogging/logger.h>
 
 #include <QTableWidget>
@@ -35,6 +38,7 @@
 #include <QCoreApplication>
 #include <KIcon>
 #include <KColorScheme>
+#include <KDebug>
 
 /**
  * @brief Constructor
@@ -90,6 +94,11 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 	ui.tvVocab->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
+void VocabularyViewPrivate::displayScenarioPrivate(Scenario *scenario)
+{
+	kDebug() << "Displaying scenario " << scenario->name();
+
+}
 
 
 /**

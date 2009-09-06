@@ -151,6 +151,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	info->writeToSplash ( i18n ( "Loading \"Wordlist\"..." ) );
 #ifdef SIMON_SCENARIOS
 	vocabularyView = new VocabularyView(this);
+	control->registerScenarioDisplay(vocabularyView);
 #else
 	this->wordList = new WordListView(this);
 #endif
@@ -172,6 +173,8 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	foreach (Scenario* s, scenarioList) {
 		cbCurrentScenario->addItem(s->icon(), s->name(), s->id());
 	}
+
+	updateScenarioDisplays();
 #endif
 	
 	setupActions();
@@ -196,6 +199,24 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 		show();
 }
 
+#ifdef SIMON_SCENARIOS
+void SimonView::updateScenarioDisplays()
+{
+	//a scenario has been selected from the list of loaded scenarios
+	int currentIndex = cbCurrentScenario->currentIndex();
+	kDebug() << currentIndex;
+	if (currentIndex == -1) return;
+
+	QString currentId = cbCurrentScenario->itemData(currentIndex).toString();
+	Scenario *scenario = control->getScenario(currentId);
+	kDebug() << "Scenario " << scenario;
+	if (!scenario) {
+		KMessageBox::error(this, i18n("Couldn't retrieve Scenario \"%1\"", currentId));
+		return;
+	}
+	control->updateDisplays(scenario, true);
+}
+#endif
 
 void SimonView::setupActions()
 {
@@ -334,6 +355,9 @@ void SimonView::setupSignalSlots()
 	connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
 
 	connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
+#ifdef SIMON_SCENARIOS
+	connect(cbCurrentScenario, SIGNAL(currentIndexChanged(int)), this, SLOT(updateScenarioDisplays()));
+#endif
 }
 
 void SimonView::displayConnectionStatus(const QString &status)

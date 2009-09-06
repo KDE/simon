@@ -34,6 +34,7 @@
 #include <QFileInfo>
 #include <KDebug>
 #include <speechmodelbase_scenario/scenario.h>
+#include <simonscenariobase/scenariodisplay.h>
 #endif
 
 /**
@@ -75,9 +76,31 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 }
 
 #ifdef SIMON_SCENARIOS
+// If force is true, every registered display will switch to this scenario
+// if not, only displays that already display the scenario will be updated
+void SimonControl::updateDisplays(Scenario* scenario, bool force)
+{
+	foreach (ScenarioDisplay* display, scenarioDisplays) {
+		if (force || (display->currentScenario() ==  scenario)) {
+			display->displayScenario(scenario);
+		}
+	}
+}
+
+Scenario* SimonControl::getScenario(const QString& id)
+{
+	foreach (Scenario *scenario, scenarios) {
+		if (scenario->id() == id)
+			return scenario;
+	}
+	return NULL;
+}
+
 void SimonControl::setupScenarios()
 {
 	kDebug() << "Setting up scenarios...";
+	//Currently loads all scenarios
+	//Should be replaced with "only selected ones" through the manage scenario action
 	QStringList scenarioSrcs = KGlobal::dirs()->findAllResources("appdata", "scenarios/");
 	QStringList scenarioIds;
 
@@ -92,10 +115,12 @@ void SimonControl::setupScenarios()
 	foreach (const QString& id, scenarioIds) {
 		Scenario *s = new Scenario(id);
 		kDebug() << "Initializing scenario" << id;
-		if (!s->init())
+		if (!s->init()) {
 			KMessageBox::error(0, i18n("Failed to initialize scenario \"%1\"").arg(id));
-		else
+		} else {
+			connect(s, SIGNAL(changed(Scenario*)), this, SLOT(updateDisplays(Scenario*)));
 			scenarios << s;
+		}
 	}
 
 	kDebug() << "Found scenarios: " << scenarioSrcs;

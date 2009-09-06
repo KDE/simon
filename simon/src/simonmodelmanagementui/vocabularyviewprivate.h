@@ -27,6 +27,7 @@
 #include <speechmodelbase_scenario/word.h>
 #include <speechmodelbase_scenario/vocabulary.h>
 #include <speechmodelmanagement_scenario/wordlisttype.h>
+#include <simonscenariobase/scenariodisplay.h>
 
 
 class QPoint;
@@ -43,7 +44,7 @@ class VocabularyManager;
  */
 
 
-class VocabularyViewPrivate : public QWidget {
+class VocabularyViewPrivate : public QWidget, public ScenarioDisplay {
 	Q_OBJECT
 private:
 	bool abortVocabInsertion;
@@ -63,6 +64,7 @@ public slots:
 	void importDict(WordList* list, WordListTarget::WordListType type);
 	void filterListbyPattern(QString filter="");
 	void showImportDictDialog();
+	void displayScenarioPrivate(Scenario *scenario);
 
 public:
 	VocabularyViewPrivate(QWidget *parent);

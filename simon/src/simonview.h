@@ -109,6 +109,7 @@ private:
 private slots:
 #ifdef SIMON_SCENARIOS
 	void manageScenarios();
+	void updateScenarioDisplays();
 #endif
 
 public slots:

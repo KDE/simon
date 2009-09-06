@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2008 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -18,42 +18,30 @@
  */
 
 
-#ifndef VOCABULARYVIEW_H
-#define VOCABULARYVIEW_H
+#ifndef SCENARIODISPLAY_H
+#define SCENARIODISPLAY_H
+#include <QString>
+#include <QDomElement>
+#include "simonscenariobase_export.h"
 
-#include "inlinewidget.h"
-#include "simonmodelmanagementui_export.h"
+class Scenario;
 
-//#include <speechmodelbase_scenario/vocabulary.h>
-#include <simonscenariobase/scenariodisplay.h>
-
-
-class VocabularyViewPrivate;
-
-/**
- *	@class VocabularyView
- *	@brief Frontend to the Wordlist
- *
- *	@version 0.1
- *	@date 23.01.2006
- *	@author Peter Grasch
- */
-class SIMONMODELMANAGEMENTUI_EXPORT VocabularyView : public InlineWidget, public ScenarioDisplay {
-	Q_OBJECT
-private:
-	VocabularyViewPrivate *d;
+class SCENARIOBASE_EXPORT ScenarioDisplay{
 
 protected:
-	void displayScenarioPrivate(Scenario *scenario);
-
-public slots:
-	void filterListbyPattern();
-
+	Scenario *scenario;
+	virtual void displayScenarioPrivate(Scenario *scenario)=0;
 public:
-	VocabularyView(QWidget *parent);
-	
-	~VocabularyView();
+	ScenarioDisplay() : scenario(NULL)
+	{}
+
+	void displayScenario(Scenario *scenario);
+
+	Scenario* currentScenario() { return scenario; }
+
+	virtual ~ScenarioDisplay() {}
 
 };
 
 #endif
+
