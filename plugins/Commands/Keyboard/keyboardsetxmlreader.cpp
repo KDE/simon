@@ -25,6 +25,9 @@
 #include <QStringList>
 #include <QDomNode>
 #include <QDomDocument>
+#include <KFilterDev>
+#include <QDebug>
+#include <QDir>
 
 
 KeyboardsetXMLReader::KeyboardsetXMLReader(const QString& path):XMLDomReader(path)
@@ -86,19 +89,102 @@ bool KeyboardsetXMLReader::save(QList<KeyboardSet *> * setList, const QString &p
                 root.appendChild(set);
         }
 
-        return XMLDomReader::save(path);
+        //return XMLDomReader::save(path);
+
+        QIODevice *file = KFilterDev::deviceForFile("/home/domar/domarstest.xml","text/plain");
+qDebug() << "nach QIODevice";
+        if(!file->open(QIODevice::WriteOnly))
+        {
+qDebug() << "in da ersten if" << file->errorString();
+            return false;
+        }
+qDebug() << "vor QTextStream";
+        QTextStream ts(file);
+        qDebug() << "nach QTextStream";
+        ts.setCodec("UTF-8");
+        ts << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+        ts << doc->toString();
+        qDebug() << "vor emit(written)";
+        emit(written());
+        file->close();
+qDebug() << "saved!" << path << doc;
+        return true;
 }
 
 QList<KeyboardSet *> * KeyboardsetXMLReader::load(QString path)
 {
-        if (!XMLDomReader::load(path) || !this->doc)
-        {
-                return 0;
-        }
+        if(doc)
+            delete doc;
+        doc= new QDomDocument();
+
+        QIODevice *file = KFilterDev::deviceForFile("/home/domar/domarstest.xml", "text/plain");
+
+        if(!file->open(QIODevice::ReadOnly))
+                return false;
+
+        if (!doc->setContent(file))
+                return false;
+
+        file->close();
+        file->deleteLater();
+
+        emit (loaded());
 
         QList<KeyboardSet *> *setList = new QList<KeyboardSet *>();
 
         QDomElement root = this->doc->documentElement();
+        if(!root.isNull())
+        {
+            QDomElement set = root.firstChildElement();
+            QDomElement setname = set.firstChildElement();
+            QList<KeyboardTab *> *tabList = new QList<KeyboardTab *>();
+            while(!set.isNull())
+            {
+                QDomElement tab = set.nextSiblingElement();
+                QDomElement tabname = tab.firstChildElement();
+                QList<KeyboardButton *> *buttonList = new QList<KeyboardButton *>();
+                while(!tab.isNull())
+                {
+                    QDomElement button = tab.nextSiblingElement();
+                    QDomElement triggershown = button.firstChildElement();
+                    QDomElement realtrigger = button.nextSiblingElement();
+                    QDomElement valuetype = button.nextSiblingElement();
+                    QDomElement value = button.nextSiblingElement();
+
+                    buttonList->append(new KeyboardButton(triggershown.text(), realtrigger.text(), valuetype.text().toShort(), value.text()));
+                }
+                tabList->append(new KeyboardTab(tabname.text(), buttonList));//TODO: write weiter here!
+            }
+            setList->append(new KeyboardSet(setname.text(), tabList));
+
+            while(!root.isNull())
+            {
+                set = root.nextSiblingElement();
+                setname = set.firstChildElement();
+                QList<KeyboardTab *> *tabList = new QList<KeyboardTab *>();
+                while(!set.isNull())
+                {
+                    QDomElement tab = set.nextSiblingElement();
+                    QDomElement tabname = tab.firstChildElement();
+                    QList<KeyboardButton *> *buttonList = new QList<KeyboardButton *>();
+
+                    while(!tab.isNull())
+                    {
+                        QDomElement button = tab.nextSiblingElement();
+                        QDomElement triggershown = button.firstChildElement();
+                        QDomElement realtrigger = button.nextSiblingElement();
+                        QDomElement valuetype = button.nextSiblingElement();
+                        QDomElement value = button.nextSiblingElement();
+
+                        buttonList->append(new KeyboardButton(triggershown.text(), realtrigger.text(), valuetype.text().toShort(), value.text()));
+                    }
+                    tabList->append(new KeyboardTab(tabname.text(), buttonList));//TODO: write weiter here!
+                }
+                setList->append(new KeyboardSet(setname.text(), tabList));
+            }
+        }
+
+/*        QDomElement root = this->doc->documentElement();
         QDomElement set = root.firstChildElement();
 
         while(!root.isNull())
@@ -116,9 +202,9 @@ QList<KeyboardSet *> * KeyboardsetXMLReader::load(QString path)
                     while(!tab.isNull())
                     {
                         QDomElement triggershown = button.firstChildElement();
-                        QDomElement realtrigger = triggershown.nextSiblingElement();
-                        QDomElement valuetype = realtrigger.nextSiblingElement();
-                        QDomElement value = valuetype.nextSiblingElement();
+                        QDomElement realtrigger = button.nextSiblingElement();
+                        QDomElement valuetype = button.nextSiblingElement();
+                        QDomElement value = button.nextSiblingElement();
 
                         buttonList->append(new KeyboardButton(triggershown.text(), realtrigger.text(), valuetype.text().toShort(), value.text()));
                         button = button.nextSiblingElement();
@@ -128,7 +214,7 @@ QList<KeyboardSet *> * KeyboardsetXMLReader::load(QString path)
                 }
                 setList->append(new KeyboardSet(setname.text(), tabList));
                 set = set.nextSiblingElement();
-        }
+        }*/
         return setList;
 }
 

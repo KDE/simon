@@ -34,6 +34,7 @@
 #include <qinputdialog.h>
 #include <simoninfo/simoninfo.h>
 #include <QTableView>
+#include <QDebug>
 
 #include "buttontablemodel.h"
 
@@ -64,7 +65,7 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
 	connect(ui.pbDownButton, SIGNAL(clicked()), this, SLOT(buttonDown()));
         connect(ui.cbSets, SIGNAL(currentIndexChanged(int)), this, SLOT(cbSetsIndexChanged()));
 	
-        ButtonTableModel *btm=new ButtonTableModel(&setList, ui.cbSets, ui.cbTabs, this);
+        btm=new ButtonTableModel(&setList, ui.cbSets, ui.cbTabs, this);
         ui.tvTabContent->setModel(btm);
 }
 
@@ -208,7 +209,10 @@ void KeyboardConfiguration::save()
 	KConfigGroup cg(config, "");
 	cg.writeEntry("Trigger", ui.leTrigger->text());
 
-	cg.sync();
+        cg.sync();
+        const QString path("./Keyboard/keyboardsets.xml");
+        KeyboardsetXMLReader kbXMLreader(path);
+        kbXMLreader.save(&setList,path);
 	
 	emit changed(false);
 }
@@ -221,13 +225,16 @@ void KeyboardConfiguration::destroy()
  
 void KeyboardConfiguration::load()
 {
-	Q_ASSERT(config);
-
+        Q_ASSERT(config);
 	KConfigGroup cg(config, "");
 	ui.leTrigger->setText(cg.readEntry("Trigger", i18n("Keyboard")));
 
 	cg.sync();
 	
+        const QString path("./Keyboard/keyboardsets.xml");
+        KeyboardsetXMLReader kbXMLreader(path);
+        setList = *kbXMLreader.load(path);
+
 	emit changed(false);
 }
  

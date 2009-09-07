@@ -21,6 +21,7 @@
 #define KEYBOARDCONFIGURATION_H
 
 #include "keyboardset.h"
+#include "buttontablemodel.h"
 #include <commandpluginbase/commandconfiguration.h>
 #include "ui_keyboardconfigurationdlg.h"
 #include <KSharedConfig>
@@ -36,6 +37,7 @@ class KeyboardConfiguration : public CommandConfiguration
 		Ui::KeyboardConfigurationDlg ui;
 		static QPointer<KeyboardConfiguration> instance;
 		QList<KeyboardSet *> setList;
+                ButtonTableModel *btm;
 
         private slots:
                 void addSet();

@@ -116,6 +116,12 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>leName</tabstop>
+  <tabstop>leTrigger</tabstop>
+  <tabstop>leValue</tabstop>
+  <tabstop>cbValueType</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

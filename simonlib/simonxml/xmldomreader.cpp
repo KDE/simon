@@ -26,6 +26,7 @@
 #include <QTextCodec>
 #include <KFilterDev>
 #include <KMimeType>
+#include <QDebug>
 
 /**
  * \brief Constructor
@@ -54,7 +55,7 @@ bool XMLDomReader::save(QString path)
 	QIODevice *file = KFilterDev::deviceForFile(path,
 							KMimeType::findByFileContent(path)->name());
 	if((!file) || (!file->open(QIODevice::WriteOnly)))
-	{
+        {qDebug() << "Hier is falsch";
 		return false;
 	}
 
