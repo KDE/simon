@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Dominik Neumeister <neudob06@edvhtl.at>
+ *   Copyright (C) 2009 Mario Strametz <strmam06@htl-kaindorf.ac.at>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,24 +17,27 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef KEYBOARDSETXMLREADER_H
-#define KEYBOARDSETXMLREADER_H
+#ifndef KEYBOARDADDBUTTONDIALOG_H
+#define KEYBOARDADDBUTTONDIALOG_H
 
-#include <simonxml/xmldomreader.h>
-#include <QList>
-#include "keyboardset.h"
+#include <KDialog>
+#include "keyboardbutton.h"
+#include "ui_addbuttondlg.h"
 
-
-class KeyboardsetXMLReader : public XMLDomReader
+class KeyboardAddButtonDialog : public KDialog
 {
-    public:
-        KeyboardsetXMLReader(const QString& path="");
-
-        bool save(QList<KeyboardSet *> *list, const QString& path=QString());
-
-        QList<KeyboardSet *> * load(QString path=QString());
-
-        ~KeyboardsetXMLReader();
+	Q_OBJECT
+			
+	private:
+		Ui::AddButtonDlg ui;
+                bool *addOk;
+                int exec();
+		
+	public:
+                KeyboardAddButtonDialog(QWidget *parent=0);
+                KeyboardButton *addButton();
+		~KeyboardAddButtonDialog();
+		
 };
 
 #endif

@@ -35,7 +35,7 @@ KeyboardsetXMLReader::KeyboardsetXMLReader(const QString& path):XMLDomReader(pat
 
 bool KeyboardsetXMLReader::save(QList<KeyboardSet *> * setList, const QString &path)
 {
-        if (this->doc)
+       /* if (this->doc)
                 this->doc->clear();
         else doc = new QDomDocument ();
 
@@ -87,50 +87,17 @@ bool KeyboardsetXMLReader::save(QList<KeyboardSet *> * setList, const QString &p
                     set.appendChild(tab);
                 }
                 root.appendChild(set);
-        }
+        }*/
 
-        //return XMLDomReader::save(path);
-
-        QIODevice *file = KFilterDev::deviceForFile("/home/domar/domarstest.xml","text/plain");
-qDebug() << "nach QIODevice";
-        if(!file->open(QIODevice::WriteOnly))
-        {
-qDebug() << "in da ersten if" << file->errorString();
-            return false;
-        }
-qDebug() << "vor QTextStream";
-        QTextStream ts(file);
-        qDebug() << "nach QTextStream";
-        ts.setCodec("UTF-8");
-        ts << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-        ts << doc->toString();
-        qDebug() << "vor emit(written)";
-        emit(written());
-        file->close();
-qDebug() << "saved!" << path << doc;
-        return true;
+        return XMLDomReader::save(path);
 }
 
 QList<KeyboardSet *> * KeyboardsetXMLReader::load(QString path)
 {
-        if(doc)
-            delete doc;
-        doc= new QDomDocument();
+	if (!XMLDomReader::load(path))
+		return NULL;
 
-        QIODevice *file = KFilterDev::deviceForFile("/home/domar/domarstest.xml", "text/plain");
-
-        if(!file->open(QIODevice::ReadOnly))
-                return false;
-
-        if (!doc->setContent(file))
-                return false;
-
-        file->close();
-        file->deleteLater();
-
-        emit (loaded());
-
-        QList<KeyboardSet *> *setList = new QList<KeyboardSet *>();
+/*        QList<KeyboardSet *> *setList = new QList<KeyboardSet *>();
 
         QDomElement root = this->doc->documentElement();
         if(root.isNull())
@@ -166,38 +133,8 @@ QList<KeyboardSet *> * KeyboardsetXMLReader::load(QString path)
 		set = set.nextSiblingElement();
 	}
 
-/*        QDomElement root = this->doc->documentElement();
-        QDomElement set = root.firstChildElement();
-
-        while(!root.isNull())
-        {
-                QList<KeyboardTab *> *tabList = new QList<KeyboardTab *>();
-                QDomElement setname = set.firstChildElement();
-                QDomElement tab = set.nextSiblingElement();
-
-                while(!set.isNull())
-                {
-                    QList<KeyboardButton *> *buttonList = new QList<KeyboardButton *>();
-                    QDomElement tabname = tab.firstChildElement();
-                    QDomElement button = tab.nextSiblingElement();
-
-                    while(!tab.isNull())
-                    {
-                        QDomElement triggershown = button.firstChildElement();
-                        QDomElement realtrigger = button.nextSiblingElement();
-                        QDomElement valuetype = button.nextSiblingElement();
-                        QDomElement value = button.nextSiblingElement();
-
-                        buttonList->append(new KeyboardButton(triggershown.text(), realtrigger.text(), valuetype.text().toShort(), value.text()));
-                        button = button.nextSiblingElement();
-                    }
-                    tabList->append(new KeyboardTab(tabname.text(), buttonList));
-                    tab = tab.nextSiblingElement();
-                }
-                setList->append(new KeyboardSet(setname.text(), tabList));
-                set = set.nextSiblingElement();
-        }*/
-        return setList;
+        return setList;*/
+	return NULL;
 }
 
 KeyboardsetXMLReader::~KeyboardsetXMLReader()

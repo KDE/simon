@@ -6,122 +6,107 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>372</width>
-    <height>319</height>
+    <width>438</width>
+    <height>139</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add new Button</string>
+   <string>Add button</string>
   </property>
-  <widget class="QLineEdit" name="leName">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>33</y>
-     <width>146</width>
-     <height>24</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="leTrigger">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>89</y>
-     <width>146</width>
-     <height>24</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="leValue">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>145</y>
-     <width>146</width>
-     <height>24</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="cbValueType">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>201</y>
-     <width>83</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>Text</string>
-    </property>
+  <layout class="QFormLayout" name="formLayout_3">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Name:</string>
+     </property>
+    </widget>
    </item>
-   <item>
-    <property name="text">
-     <string>Shortcut</string>
-    </property>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="leName"/>
    </item>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>177</y>
-     <width>70</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>ValueType:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>121</y>
-     <width>40</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Value:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>65</y>
-     <width>48</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Trigger:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>9</y>
-     <width>43</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Name:</string>
-   </property>
-  </widget>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Trigger:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLineEdit" name="leTrigger"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>ValueType:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="cbValueType">
+     <item>
+      <property name="text">
+       <string>Text</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Shortcut</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="page">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLineEdit" name="leTextValue"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_2">
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="KKeySequenceWidget" name="ksShortcut"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KKeySequenceWidget</class>
+   <extends>QWidget</extends>
+   <header>kkeysequencewidget.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>leName</tabstop>
   <tabstop>leTrigger</tabstop>
-  <tabstop>leValue</tabstop>
   <tabstop>cbValueType</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>cbValueType</sender>
+   <signal>activated(int)</signal>
+   <receiver>stackedWidget</receiver>
+   <slot>setCurrentIndex(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>106</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>132</x>
+     <y>94</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

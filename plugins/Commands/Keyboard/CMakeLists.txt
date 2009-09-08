@@ -11,10 +11,10 @@ set (simonkeyboardcommandplugin_SRCS
 	keyboardconfiguration.cpp
 	keyboardtab.cpp
 	keyboardset.cpp
+	keyboardsetcontainer.cpp
 	keyboardbutton.cpp
-	keyboardaddbuttondlg.cpp
-	keyboardsetxmlreader.cpp
-	buttontablemodel.cpp
+	keyboardaddbuttondialog.cpp
+	flowlayout.cpp
     )
 
 kde4_add_ui_files(simonkeyboardcommandplugin_SRCS 
@@ -27,11 +27,11 @@ kde4_add_plugin(simonkeyboardcommandplugin ${simonkeyboardcommandplugin_SRCS})
 
 
 target_link_libraries(simonkeyboardcommandplugin ${KDE4_KDEUI_LIBS} ${QT_QTXML_LIBRARY}
-	simoncommandpluginbase simonactions eventsimulation simoninfo simonxml)
+	simoncommandpluginbase simonactions eventsimulation )
 
 install(TARGETS simonkeyboardcommandplugin DESTINATION ${PLUGIN_INSTALL_DIR} COMPONENT simoncommandkeyboardplugin )
 install( FILES simonkeyboardcommandplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COMPONENT simoncommandkeyboardplugin )
 add_subdirectory(po)
 
-install(FILES simonkeyboardpluginui.rc DESTINATION
-	${DATA_INSTALL_DIR} COMPONENT simoncommandkeyboardplugin)
+install(FILES keyboardsets.xml DESTINATION
+	${DATA_INSTALL_DIR}/simon/conf COMPONENT simoncommandkeyboardplugin)

@@ -23,10 +23,17 @@
 #include "keyboardbutton.h"
 #include <QList>
 #include <QString>
+#include <QAbstractItemModel>
+#include <QDomElement>
 
-class KeyboardTab
+
+class QDomDocument;
+
+class KeyboardTab : public QAbstractItemModel
 {
 	private:
+		bool m_isNull;
+
 		QList<KeyboardButton *> buttonList;
 		QString tabName;
 		void addButton(KeyboardButton* b);
@@ -34,12 +41,34 @@ class KeyboardTab
 		
 		
 	public:
-		KeyboardTab(QString name, QList<KeyboardButton *>* bList);
-		KeyboardTab(QString name);
+		bool isNull() { return m_isNull; }
+
+		KeyboardTab(QString name, QList<KeyboardButton *> bList=QList<KeyboardButton*>());
+		KeyboardTab(const QDomElement& elem);
+
 		QString getTabName();
-		QList<KeyboardButton *>* getButtonList();
+		//QList<KeyboardButton *>* getButtonList();
 		void buttonLeft(int index);
 		void buttonRight(int index);
+
+		//Model stuff
+		QVariant data(const QModelIndex &index, int role) const;
+		Qt::ItemFlags flags(const QModelIndex &index) const;
+		QVariant headerData(int, Qt::Orientation orientation,
+					int role = Qt::DisplayRole) const;
+
+		QModelIndex index(int row, int column,
+				const QModelIndex &parent = QModelIndex()) const;
+
+		QModelIndex parent(const QModelIndex &index) const;
+
+		int rowCount(const QModelIndex &parent = QModelIndex()) const;
+
+		int columnCount(const QModelIndex &parent = QModelIndex()) const;
+
+		QDomElement serialize(QDomDocument *doc);
+		~KeyboardTab();
+
 
 };
 

@@ -21,12 +21,12 @@
 #define KEYBOARDCONFIGURATION_H
 
 #include "keyboardset.h"
-#include "buttontablemodel.h"
 #include <commandpluginbase/commandconfiguration.h>
 #include "ui_keyboardconfigurationdlg.h"
 #include <KSharedConfig>
 #include <QPointer>
-#include <QList>
+
+class KeyboardSetContainer;
 
 
 class KeyboardConfiguration : public CommandConfiguration
@@ -36,8 +36,8 @@ class KeyboardConfiguration : public CommandConfiguration
 	private:
 		Ui::KeyboardConfigurationDlg ui;
 		static QPointer<KeyboardConfiguration> instance;
-		QList<KeyboardSet *> setList;
-                ButtonTableModel *btm;
+
+		KeyboardSetContainer *setContainer;
 
         private slots:
                 void addSet();
@@ -49,6 +49,9 @@ class KeyboardConfiguration : public CommandConfiguration
 		void buttonUp();
 		void buttonDown();
                 void cbSetsIndexChanged();
+                void refreshCbSets();
+                void refreshCbTabs();
+                void refreshTabDetail();
  
 	public slots:
 		virtual void save();
@@ -63,8 +66,6 @@ class KeyboardConfiguration : public CommandConfiguration
 		KeyboardConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
 		~KeyboardConfiguration();
 
-                void refreshCbSets();
-                void refreshCbTabs();
 		
 		void destroy();
 		

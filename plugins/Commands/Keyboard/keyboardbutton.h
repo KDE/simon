@@ -21,22 +21,40 @@
 #define KEYBOARDBUTTON_H
 
 #include <QString>
+#include <QDomElement>
 #include <KPushButton>
+
+class QDomDocument;
+
+namespace Keyboard {
+	enum ButtonType{
+		NullButton=0,
+		TextButton=1,
+		ShortcutButton=2
+	};
+}
 
 class KeyboardButton : public KPushButton
 {
 	private:
+		bool m_isNull;
 		QString triggerShown;
 		QString triggerReal;
-		short valueType; // 0 = text; 1 = shortcut; no bool cause scaleability
+		Keyboard::ButtonType valueType;
 		QString value;
 
 	public:
-		KeyboardButton(QString triggerShown, QString triggerReal, short valueType, QString value);
+		bool isNull() { return m_isNull; }
+
+		KeyboardButton(QString triggerShown, QString triggerReal, Keyboard::ButtonType valueType, QString value);
+		KeyboardButton(const QDomElement& elem);
+
 		QString getTriggerReal();
-		short getValueType();
+		Keyboard::ButtonType getValueType();
 		QString getValue();
 		QString getTriggerShown();
+		
+		QDomElement serialize(QDomDocument *doc);
 };
 
 #endif

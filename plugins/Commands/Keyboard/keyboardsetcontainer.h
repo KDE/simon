@@ -17,27 +17,40 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef KEYBOARDADDBUTTONDLG_H
-#define KEYBOARDADDBUTTONDLG_H
+#ifndef KEYBOARDSETCONTAINER_H
+#define KEYBOARDSETCONTAINER_H
 
-#include <KDialog>
-#include "keyboardbutton.h"
-#include "ui_addbuttondlg.h"
+#include "keyboardset.h"
+#include <QList>
+#include <QString>
+#include <QStringList>
+#include <QDomElement>
 
-class KeyboardAddButtonDLG : public KDialog
+class KeyboardSetContainer
 {
-	Q_OBJECT
-			
 	private:
-		Ui::AddButtonDlg ui;
-                bool *addOk;
-                int exec();
-		
+		QList<KeyboardSet *> setList;
+		KeyboardSet* findSet(const QString& setName);
+
 	public:
-                KeyboardAddButtonDLG(QWidget *parent=0);
-                KeyboardButton *addButton(bool *canceled);
-		~KeyboardAddButtonDLG();
-		
+		KeyboardSetContainer();
+
+		QStringList getAvailableSets();
+		QStringList getAvailableTabs(const QString& set);
+		KeyboardTab* getTab(const QString& set, const QString& tab);
+
+		void clear();
+
+		bool createSet(const QString& name);
+		bool deleteSet(const QString& name);
+
+		bool createTab(const QString& set, const QString& name);
+		bool deleteTab(const QString& set, const QString& name);
+
+		bool load();
+		bool save();
+		~KeyboardSetContainer();
+
 };
 
 #endif

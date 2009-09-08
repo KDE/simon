@@ -24,23 +24,40 @@
 #include <QList>
 #include <QString>
 #include <QStringList>
+#include <QDomElement>
+
+class QDomDocument;
 
 class KeyboardSet
 {
 	private:
+
 		QList<KeyboardTab *> tabList;
 		QString setName;
+		bool m_isNull;
+
+		KeyboardTab* findTab(const QString& tabName);
+
 		void tabLeft(int index);
 		void tabRight(int index);
 		void addTab(KeyboardTab* t);
 		void delTab(int index);
 		
 	public:
-		KeyboardSet(QString name, QList<KeyboardTab *>* tList);
-		KeyboardSet(QString name);
+		bool isNull() { return m_isNull; }
+		KeyboardSet(const QDomElement& elem);
+		KeyboardSet(QString name, QList<KeyboardTab *> tList=QList<KeyboardTab*>());
+
+		QStringList getAvailableTabs();
+
+		KeyboardTab* getTab(const QString tabName);
+		bool createTab(const QString& name);
+		bool deleteTab(const QString& name);
+
 		QString getSetName();
-		QList<KeyboardTab *>* getTabList();
-		QStringList getTabHeaders();
+
+		QDomElement serialize(QDomDocument* doc);
+		~KeyboardSet();
 };
 
 #endif

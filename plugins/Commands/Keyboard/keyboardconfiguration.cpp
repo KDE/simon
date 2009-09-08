@@ -19,24 +19,21 @@
 
 #include "keyboardconfiguration.h"
 #include "keyboardcommandmanager.h"
-#include "keyboardbutton.h"
 #include "keyboardtab.h"
-#include "keyboardset.h"
-#include "keyboardsetxmlreader.h"
-#include "keyboardaddbuttondlg.h"
+#include "keyboardsetcontainer.h"
+#include "keyboardaddbuttondialog.h"
+
 #include <QVariantList>
 #include <kgenericfactory.h>
 #include <QList>
 #include <KAboutData>
 #include <KMessageBox>
+#include <KStandardDirs>
 #include <QString>
 #include <QDialog>
 #include <qinputdialog.h>
-#include <simoninfo/simoninfo.h>
 #include <QTableView>
 #include <QDebug>
-
-#include "buttontablemodel.h"
 
 
 K_PLUGIN_FACTORY_DECLARATION(KeyboardCommandPluginFactory)
@@ -64,9 +61,10 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
 	connect(ui.pbUpButton, SIGNAL(clicked()), this, SLOT(buttonUp()));
 	connect(ui.pbDownButton, SIGNAL(clicked()), this, SLOT(buttonDown()));
         connect(ui.cbSets, SIGNAL(currentIndexChanged(int)), this, SLOT(cbSetsIndexChanged()));
-	
-        btm=new ButtonTableModel(&setList, ui.cbSets, ui.cbTabs, this);
-        ui.tvTabContent->setModel(btm);
+        connect(ui.cbSets, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+        connect(ui.cbTabs, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshTabDetail()));
+
+	setContainer = new KeyboardSetContainer();
 }
 
 QString KeyboardConfiguration::trigger()
@@ -78,61 +76,61 @@ QString KeyboardConfiguration::trigger()
 void KeyboardConfiguration::addSet()
 {	
         bool ok;
-        QString inputText = QInputDialog::getText(this, "simon input", "Enter the name of the new set:", QLineEdit::Normal, QString(), &ok);
-        if(ok && !inputText.isEmpty())
-        {
-            setList.append(new KeyboardSet(inputText));
-            ui.cbSets->addItem(inputText);
-            refreshCbTabs();
-        }
-        else
-        	SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
+        QString inputText = QInputDialog::getText(this, "Add keyboard set", "Please enter the name of the new set:", QLineEdit::Normal, QString(), &ok);
+	if (!inputText.isEmpty()) {
+		if (!setContainer->createSet(inputText))
+			KMessageBox::sorry(this, i18n("Failed to add set"));
+		refreshCbSets();
+		emit changed(true);
+	}
 }
 void KeyboardConfiguration::deleteSet()
 {	
-        if(ui.cbSets->currentIndex() != -1)
-	{
-		int setIndex = ui.cbSets->currentIndex();
-		setList.removeAt(setIndex);
-		ui.cbSets->removeItem(setIndex);
-		ui.cbSets->removeItem(setIndex);
-        	refreshCbTabs();
+        if(ui.cbSets->currentIndex() == -1) {
+		KMessageBox::information(this, i18n("Please choose a set to be deleted"));
+		return;
 	}
-	else
-		SimonInfo::showMessage(i18n("Please choose a Set to be deleted"), 3000, new KIcon("accessories-calculator"));
+	if (!setContainer->deleteSet(ui.cbSets->currentText()))
+		KMessageBox::sorry(this, i18n("Couldn't delete set"));
+	
+	refreshCbSets();
+	emit changed(true); //when the delete failed we should still write the internal structure
 }
+
 void KeyboardConfiguration::addTab()
 {	
-	if(ui.cbSets->currentIndex() != -1)
-	{
-		bool ok;
-		QString inputText = QInputDialog::getText(this, "simon input","Enter the name of the new Tab:", QLineEdit::Normal, QString(), &ok);
-        	if(ok && !inputText.isEmpty())
-        	{
-        		setList.at(ui.cbSets->currentIndex())->getTabList()->append(new KeyboardTab(inputText));
-        		refreshCbTabs();
-        	}
-        	else
-        		SimonInfo::showMessage(i18n("Sorry, wrong Input"), 3000, new KIcon("accessories-calculator"));
+	if(ui.cbSets->currentIndex() == -1)  {
+		KMessageBox::information(this, i18n("Please insert or select a set first"));
+		return;
 	}
-	else
-		SimonInfo::showMessage(i18n("Please choose a Set in which you want to add a Tab"), 3000, new KIcon("accessories-calculator"));
+
+	QString inputText = QInputDialog::getText(this, "Add keyboard tab","Please enter the name of the new tab:");
+
+	if(!inputText.isEmpty()) {
+		if (!setContainer->createTab(ui.cbSets->currentText(), inputText))
+			KMessageBox::sorry(this, i18n("Failed to add tab"));
+	}
+
+	refreshCbTabs();
+	emit changed(true);
 }
 void KeyboardConfiguration::deleteTab()
 {	
-	if(ui.cbSets->currentIndex() != -1)
-	{
-		if(ui.cbTabs->currentIndex() != -1)
-		{
-			int tabIndex = ui.cbTabs->currentIndex();
-        		setList.at(ui.cbSets->currentIndex())->getTabList()->removeAt(tabIndex);
-        		ui.cbTabs->removeItem(tabIndex);
-		}
-		else
-			SimonInfo::showMessage(i18n("Please choose a Tab to be deleted"), 3000, new KIcon("accessories-calculator"));
+	if(ui.cbSets->currentIndex() == -1)  {
+		KMessageBox::information(this, i18n("Please select a set first"));
+		return;
 	}
-	else
-		SimonInfo::showMessage(i18n("Please choose a Set from which you want to delet a Tab"), 3000, new KIcon("accessories-calculator"));
+	QString tab = ui.cbTabs->currentText();
+	if (tab.isEmpty()) {
+		KMessageBox::information(this, i18n("Please select the tab to be deleted"));
+		return;
+	}
+
+	if (!setContainer->deleteTab(ui.cbSets->currentText(), tab))
+		KMessageBox::sorry(this, i18n("Failed to delete tab"));
+
+	refreshCbTabs();
+	emit changed(true);
 }
 
 void KeyboardConfiguration::addButton()
@@ -141,48 +139,34 @@ void KeyboardConfiguration::addButton()
 	{
 		if(ui.cbTabs->currentIndex() != -1)
 		{
-			bool canceled = false;
-        		KeyboardAddButtonDLG *kab = new KeyboardAddButtonDLG(this);
-      			KeyboardButton *kbb =  kab->addButton(&canceled);
-			if(!canceled && kbb!=NULL)
+        		KeyboardAddButtonDialog *kab = new KeyboardAddButtonDialog(this);
+      			KeyboardButton *kbb =  kab->addButton();
+			if(kbb!=NULL)
 			{
-				SimonInfo::showMessage(i18n("button inserted: ") + kbb->getTriggerShown(), 3000, new KIcon("accessories-calculator"));
-//                                ui.tvTabContent->update();
-				ButtonTableModel *model = dynamic_cast<ButtonTableModel*>(ui.tvTabContent->model());
+				/*ButtonTableModel *model = dynamic_cast<ButtonTableModel*>(ui.tvTabContent->model());
 				kDebug() << "Is model model?";
 				if (!model) return;
 				kDebug() << "Yeah it is";
-
-	//list.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->append(kbb);
-				model->addButton(ui.cbSets->currentIndex(), ui.cbTabs->currentIndex(), kbb);
+				model->addButton(ui.cbSets->currentIndex(), ui.cbTabs->currentIndex(), kbb);*/
 			}
-			else
-				SimonInfo::showMessage(i18n("Canceled"), 3000, new KIcon("accessories-calculator"));
 		}
 		else
-			SimonInfo::showMessage(i18n("Please choose a Tab in which you want to add a Button"), 3000, new KIcon("accessories-calculator"));
+			KMessageBox::information(this, i18n("Please select a tab to which to add the new button"));
 	}
 	else
-		SimonInfo::showMessage(i18n("Please choose a Set in which Tab you want to add a Button"), 3000, new KIcon("accessories-calculator"));
+		KMessageBox::information(this, i18n("Please select a set to which to add the new button"));
 }
+
 void KeyboardConfiguration::deleteButton()
 {
-// 	int indexOfButton = 0;//temp
-	//TODO:get button index,... initiate qtablemodel for tvTabContent
-// 	setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->getButtonList()->removeAt(indexOfButton);
 }
+
 void KeyboardConfiguration::buttonUp()
 {
-// 	int indexOfButton = 0;//temp
-	
-	//TODO:get button index,... initiate qtablemodel for tvTabContent
-// 	setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->buttonLeft(indexOfButton);
 }
+
 void KeyboardConfiguration::buttonDown()
 {
-// 	int indexOfButton = 0;//temp
-	//TODO:get button index,... initiate qtablemodel for tvTabContent
-// 	setList.at(ui.cbSets->currentIndex())->getTabList()->at(ui.cbTabs->currentIndex())->buttonRight(indexOfButton);
 }
 
 void KeyboardConfiguration::cbSetsIndexChanged()
@@ -190,31 +174,39 @@ void KeyboardConfiguration::cbSetsIndexChanged()
 	refreshCbTabs();
 }
 
+
+void KeyboardConfiguration::refreshCbSets()
+{
+	ui.cbSets->clear();
+
+	ui.cbSets->addItems(setContainer->getAvailableSets());
+
+	refreshCbTabs();
+}
+
 void KeyboardConfiguration::refreshCbTabs()
 {
 	ui.cbTabs->clear();
-	int currentSelectedset = ui.cbSets->currentIndex();
-	kDebug() << currentSelectedset;
-	if ((currentSelectedset < 0) || (setList.count() < currentSelectedset-1)) {
-		kDebug() << "WAHHHHHHHHH";
+	if (ui.cbSets->currentIndex() == -1) {
 		return;
 	}
 
-	KeyboardSet *s = setList.at(ui.cbSets->currentIndex());
-	if (!s) return;
-	ui.cbTabs->addItems(s->getTabHeaders());
+	QString currentSet = ui.cbSets->currentText();
+
+	ui.cbTabs->addItems(setContainer->getAvailableTabs(currentSet));
+	refreshTabDetail();
 }
-void KeyboardConfiguration::refreshCbSets()
+
+void KeyboardConfiguration::refreshTabDetail()
 {
-    ui.cbSets->clear();
-    if(!setList.isEmpty())
-    {
-        for(int i=0; i<setList.size(); i++)
-        {
-            ui.cbSets->addItem(setList.at(i)->getSetName());
-        }
-    }
-    refreshCbTabs();
+	if ((ui.cbSets->currentIndex() == -1) || (ui.cbTabs->currentIndex() == -1)) {
+		ui.tvTabContent->setModel(NULL);
+		return;
+	}
+
+	QString currentSet = ui.cbSets->currentText();
+	QString currentTab = ui.cbTabs->currentText();
+	ui.tvTabContent->setModel(setContainer->getTab(currentSet, currentTab));
 }
 
 void KeyboardConfiguration::save()
@@ -225,10 +217,12 @@ void KeyboardConfiguration::save()
 	cg.writeEntry("Trigger", ui.leTrigger->text());
 
         cg.sync();
-        const QString path("./Keyboard/keyboardsets.xml");
-        KeyboardsetXMLReader kbXMLreader(path);
-        kbXMLreader.save(&setList,path);
-	
+	if (!setContainer->save()) {
+		KMessageBox::sorry(this, i18n("Failed to save keyboard sets"));
+		return;
+	}
+
+
 	emit changed(false);
 }
 
@@ -245,12 +239,17 @@ void KeyboardConfiguration::load()
 	ui.leTrigger->setText(cg.readEntry("Trigger", i18n("Keyboard")));
 
 	cg.sync();
-	
-        const QString path("./Keyboard/keyboardsets.xml");
-        KeyboardsetXMLReader kbXMLreader(path);
-        setList = *kbXMLreader.load(path);
-        refreshCbSets();
 
+	setContainer->clear();
+	if (!setContainer->load()) {
+		KMessageBox::sorry(this, i18n("Failed to load keyboard sets from storage"));
+		return;
+	}
+
+	refreshCbSets();
+
+	
+	
 	emit changed(false);
 }
  
@@ -262,5 +261,5 @@ void KeyboardConfiguration::defaults()
 
 KeyboardConfiguration::~KeyboardConfiguration()
 {
-	
+	delete setContainer;
 }

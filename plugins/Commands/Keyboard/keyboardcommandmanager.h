@@ -36,7 +36,7 @@ class KAction;
  *	@date 20.05.2008
  *	@author Peter Grasch
  */
-class KeyboardCommandManager : public CommandManager, public GreedyReceiver, public KXMLGUIClient {
+class KeyboardCommandManager : public CommandManager, public GreedyReceiver {
 Q_OBJECT
 private:
 	Ui::KeyboardDlg ui;
@@ -47,10 +47,8 @@ private:
 private slots:
 	void deregister();
 	void ok();
-	void back();
 	void cancel();
 	void processRequest(int number);
-	void sendComma();
 	void send0() { processRequest(0); }
 	void send1() { processRequest(1); }
 	void send2() { processRequest(2); }

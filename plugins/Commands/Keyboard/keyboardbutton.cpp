@@ -19,32 +19,86 @@
 
 #include "keyboardbutton.h"
 #include <QString>
+#include <QDomDocument>
+
+KeyboardButton::KeyboardButton(const QDomElement& element) : m_isNull(false)
+{
+	if (element.isNull()) m_isNull = true;
+	else {
+		QDomElement triggerShownElem = element.firstChildElement();
+		QDomElement triggerElem = triggerShownElem.nextSiblingElement();
+		QDomElement typeElem = triggerElem.nextSiblingElement();
+		QDomElement valueElem = typeElem.nextSiblingElement();
+		if (triggerShownElem.isNull() || triggerElem.isNull() || 
+			    valueElem.isNull() || typeElem.isNull()) {
+			m_isNull = true;
+		} else {
+			triggerShown = triggerShownElem.text();
+			triggerReal = triggerElem.text();
+			bool ok;
+			valueType = (Keyboard::ButtonType) typeElem.text().toInt(&ok);
+			value = valueElem.text();
+			if (!ok) m_isNull = true;
+		}
+	}
+}
 
 /* @param  triggerShown, triggerReal, valueType, value  **/
-KeyboardButton::KeyboardButton(QString triggerS, QString triggerR, short vType, QString v)
+KeyboardButton::KeyboardButton(QString triggerS, QString triggerR, Keyboard::ButtonType vType, QString v)
 	: triggerShown(triggerS),
 	triggerReal(triggerR),
 	valueType(vType),
-	value(v)
+	value(v),
+	m_isNull(false)
 {
 }
 
 QString KeyboardButton::getTriggerReal()
 {
+	if (m_isNull) return QString();
 	return triggerReal;
 }
 
 QString KeyboardButton::getValue()
 {
+	if (m_isNull) return QString();
 	return value;
 }
 
-short KeyboardButton::getValueType()
+Keyboard::ButtonType KeyboardButton::getValueType()
 {
+	if (m_isNull) return Keyboard::NullButton;
+
 	return valueType;
 }
 
 QString KeyboardButton::getTriggerShown()
 {
+	if (m_isNull) return QString();
 	return triggerShown;
 }
+
+
+QDomElement KeyboardButton::serialize(QDomDocument *doc)
+{
+	QDomElement buttonElement = doc->createElement("button");
+	QDomElement triggerShownElem = doc->createElement("triggerShown");
+	triggerShownElem.appendChild(doc->createTextNode(triggerShown));
+
+	QDomElement triggerElem = doc->createElement("trigger");
+	triggerElem.appendChild(doc->createTextNode(triggerReal));
+
+	QDomElement typeElem = doc->createElement("type");
+	typeElem.appendChild(doc->createTextNode(QString::number((int) valueType)));
+
+	QDomElement valueElem = doc->createElement("value");
+	valueElem.appendChild(doc->createTextNode(value));
+
+	buttonElement.appendChild(triggerShownElem);
+	buttonElement.appendChild(triggerElem);
+	buttonElement.appendChild(typeElem);
+	buttonElement.appendChild(valueElem);
+
+	return buttonElement;
+}
+
