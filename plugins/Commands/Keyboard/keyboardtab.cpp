@@ -50,6 +50,8 @@ KeyboardTab::KeyboardTab(QString name, QList<KeyboardButton *> bList)
 
 KeyboardButton* KeyboardTab::findButton(const QString& name)
 {
+	if (m_isNull) return NULL;
+
 	foreach (KeyboardButton *btn, buttonList) {
 		if (btn->getTriggerReal() == name)
 			return btn;
@@ -85,25 +87,49 @@ bool KeyboardTab::deleteButton(KeyboardButton* b)
 			found = true;
 			i--;
 		}
-
 	}
 
 	return found;
 }
 
-void KeyboardTab::buttonLeft(int index)
+bool KeyboardTab::moveButtonUp(KeyboardButton *button)
 {
-	if (m_isNull) return;
+	if (m_isNull) return false;
 
-	buttonList.insert((index-1),buttonList.takeAt(index));
+	if (!button || !buttonList.contains(button)) 
+		return false;
+
+	int buttonIndex = buttonList.indexOf(button);
+	if (buttonIndex == 0) 
+		//already first
+		return false;
+
+	buttonList.takeAt(buttonIndex);
+	buttonList.insert(buttonIndex-1, button);
+
+	emit dataChanged(index(buttonIndex-1, 0), index(buttonIndex, columnCount()));
+	return true;
 }
 
-void KeyboardTab::buttonRight(int index)
+bool KeyboardTab::moveButtonDown(KeyboardButton *button)
 {
-	if (m_isNull) return;
+	if (m_isNull) return false;
 
-	buttonList.insert((index+1),buttonList.takeAt(index));
+	if (!button || !buttonList.contains(button)) 
+		return false;
+
+	int buttonIndex = buttonList.indexOf(button);
+	if (buttonIndex == buttonList.count()-1) 
+		//already last
+		return false;
+
+	buttonList.takeAt(buttonIndex);
+	buttonList.insert(buttonIndex+1, button);
+
+	emit dataChanged(index(buttonIndex, 0), index(buttonIndex+1, columnCount()));
+	return true;
 }
+
 
 QString KeyboardTab::getTabName()
 {

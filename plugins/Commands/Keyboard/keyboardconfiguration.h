@@ -47,6 +47,8 @@ class KeyboardConfiguration : public CommandConfiguration
 		void deleteTab();
 		void addButton();
 		void deleteButton();
+		void tabUp();
+		void tabDown();
 		void buttonUp();
 		void buttonDown();
                 void cbSetsIndexChanged();

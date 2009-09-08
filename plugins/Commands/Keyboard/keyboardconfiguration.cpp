@@ -64,6 +64,8 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
         connect(ui.cbSets, SIGNAL(currentIndexChanged(int)), this, SLOT(cbSetsIndexChanged()));
         connect(ui.cbSets, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
         connect(ui.cbTabs, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshTabDetail()));
+	connect(ui.pbTabUp, SIGNAL(clicked()), this, SLOT(tabUp()));
+	connect(ui.pbTabDown, SIGNAL(clicked()), this, SLOT(tabDown()));
 
 	setContainer = new KeyboardSetContainer();
 
@@ -206,12 +208,80 @@ void KeyboardConfiguration::deleteButton()
 
 }
 
+void KeyboardConfiguration::tabUp()
+{
+	QString tab = ui.cbTabs->currentText();
+	if (tab.isEmpty()) {
+		KMessageBox::information(this, i18n("Please select the tab to be moved"));
+		return;
+	}
+
+
+	if (!setContainer->moveTabUp(ui.cbSets->currentText(), tab)) {
+		KMessageBox::sorry(this, i18n("Failed to move tab up. Maybe it is already at the top?"));
+		return;
+	}
+
+	int cur = ui.cbTabs->currentIndex();
+	refreshCbTabs();
+	ui.cbTabs->setCurrentIndex(cur-1);
+	refreshTabDetail();
+	emit changed(true);
+}
+
+void KeyboardConfiguration::tabDown()
+{
+	QString tab = ui.cbTabs->currentText();
+	if (tab.isEmpty()) {
+		KMessageBox::information(this, i18n("Please select the tab to be moved"));
+		return;
+	}
+
+	if (!setContainer->moveTabDown(ui.cbSets->currentText(), tab)) {
+		KMessageBox::sorry(this, i18n("Failed to move tab down. Maybe it is already at the bottom?"));
+		return;
+	}
+
+	int cur = ui.cbTabs->currentIndex();
+	refreshCbTabs();
+	ui.cbTabs->setCurrentIndex(cur+1);
+	refreshTabDetail();
+	emit changed(true);
+}
+
+
 void KeyboardConfiguration::buttonUp()
 {
+	KeyboardButton *button = static_cast<KeyboardButton*>(ui.tvTabContent->currentIndex().internalPointer());
+	if (!button)  {
+		KMessageBox::information(this, i18n("Please select a button to delete from the list"));
+		return;
+	}
+
+	int row = ui.tvTabContent->currentIndex().row();
+	if (!setContainer->moveButtonUp(ui.cbSets->currentText(), ui.cbTabs->currentText(), button)) {
+		KMessageBox::sorry(this, i18n("Button could not be moved up. Is it already at the top?"));
+	} else {
+		ui.tvTabContent->selectRow(row-1);
+		emit changed(true);
+	}
 }
 
 void KeyboardConfiguration::buttonDown()
 {
+	KeyboardButton *button = static_cast<KeyboardButton*>(ui.tvTabContent->currentIndex().internalPointer());
+	if (!button)  {
+		KMessageBox::information(this, i18n("Please select a button to delete from the list"));
+		return;
+	}
+
+	int row = ui.tvTabContent->currentIndex().row();
+	if (!setContainer->moveButtonDown(ui.cbSets->currentText(), ui.cbTabs->currentText(), button)) {
+		KMessageBox::sorry(this, i18n("Button could not be moved down. Is it already at the bottom?"));
+	} else {
+		ui.tvTabContent->selectRow(row+1);
+		emit changed(true);
+	}
 }
 
 void KeyboardConfiguration::cbSetsIndexChanged()
@@ -292,8 +362,6 @@ void KeyboardConfiguration::load()
 	}
 
 	refreshCbSets();
-
-	
 	
 	emit changed(false);
 }

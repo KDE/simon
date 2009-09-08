@@ -33,7 +33,6 @@ QStringList KeyboardSetContainer::getAvailableSets()
 	QStringList sets;
 	foreach (KeyboardSet *set, setList)
 		sets << set->getSetName();
-	kDebug() << sets.count() << " sets found";
 	return sets;
 }
 
@@ -96,7 +95,6 @@ bool KeyboardSetContainer::load()
 			setList << set;
 		setElem = setElem.nextSiblingElement();
 	}
-	kDebug() << setList.count() << " keyboardsets loaded";
 	return true;
 }
 
@@ -107,9 +105,6 @@ bool KeyboardSetContainer::save()
 
 	foreach (KeyboardSet *set, setList) {
 		QDomElement setElem = set->serialize(&doc);
-		if (setElem.isNull())
-			kDebug() << "Serialization of set " << set->getSetName() << " returned empty element";
-
 		setsElem.appendChild(setElem);
 	}
 
@@ -162,6 +157,22 @@ bool KeyboardSetContainer::deleteTab(const QString& setName, const QString& name
 	return set->deleteTab(name);
 }
 
+bool KeyboardSetContainer::moveTabUp(const QString& setName, const QString& tabName)
+{
+	KeyboardSet *set = findSet(setName);
+	if (!set) return false;
+
+	return set->moveTabUp(tabName);
+}
+
+bool KeyboardSetContainer::moveTabDown(const QString& setName, const QString& tabName)
+{
+	KeyboardSet *set = findSet(setName);
+	if (!set) return false;
+
+	return set->moveTabDown(tabName);
+}
+
 bool KeyboardSetContainer::addButton(const QString& setName, const QString& tab, KeyboardButton *button)
 {
 	KeyboardSet *set = findSet(setName);
@@ -178,6 +189,23 @@ bool KeyboardSetContainer::deleteButton(const QString& setName, const QString& t
 	return set->deleteButton(tab, button);
 
 }
+
+bool KeyboardSetContainer::moveButtonUp(const QString& setName, const QString& tab, KeyboardButton *button)
+{
+	KeyboardSet *set = findSet(setName);
+	if (!set) return false;
+
+	return set->moveButtonUp(tab, button);
+}
+
+bool KeyboardSetContainer::moveButtonDown(const QString& setName, const QString& tab, KeyboardButton *button)
+{
+	KeyboardSet *set = findSet(setName);
+	if (!set) return false;
+
+	return set->moveButtonDown(tab, button);
+}
+
 
 KeyboardSetContainer::~KeyboardSetContainer()
 {

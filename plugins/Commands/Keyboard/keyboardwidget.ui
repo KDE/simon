@@ -29,6 +29,12 @@
      <property name="text">
       <string>Caps Lock</string>
      </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item row="1" column="2">
@@ -73,5 +79,22 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pbOk</sender>
+   <signal>clicked()</signal>
+   <receiver>KeyboardDlg</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>572</x>
+     <y>213</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>601</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

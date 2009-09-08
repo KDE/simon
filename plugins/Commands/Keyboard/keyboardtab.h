@@ -51,8 +51,8 @@ class KeyboardTab : public QAbstractItemModel
 		bool addButton(KeyboardButton *button);
 		bool deleteButton(KeyboardButton *button);
 
-		void buttonLeft(int index);
-		void buttonRight(int index);
+		bool moveButtonUp(KeyboardButton *button);
+		bool moveButtonDown(KeyboardButton *button);
 
 		//Model stuff
 		QVariant data(const QModelIndex &index, int role) const;

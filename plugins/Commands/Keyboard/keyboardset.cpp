@@ -107,6 +107,8 @@ QString KeyboardSet::getSetName()
 
 QDomElement KeyboardSet::serialize(QDomDocument* doc)
 {
+	if (m_isNull) return QDomElement();
+
 	QDomElement setElem = doc->createElement("set");
 	setElem.setAttribute("name", setName);
 
@@ -128,6 +130,8 @@ KeyboardTab* KeyboardSet::findTab(const QString& tabName)
 
 bool KeyboardSet::createTab(const QString& name)
 {
+	if (m_isNull) return false;
+
 	if (findTab(name)) return false; //make sure the name is unique
 
 	tabList.append(new KeyboardTab(name));
@@ -136,6 +140,8 @@ bool KeyboardSet::createTab(const QString& name)
 
 bool KeyboardSet::deleteTab(const QString& name)
 {
+	if (m_isNull) return false;
+
 	KeyboardTab *tab = findTab(name);
 	if (!tab) return false;
 
@@ -144,8 +150,44 @@ bool KeyboardSet::deleteTab(const QString& name)
 	return true;
 }
 
+bool KeyboardSet::moveTabUp(const QString& tabName)
+{
+	if (m_isNull) return false;
+
+	KeyboardTab *tab = findTab(tabName);
+	if (!tab) return false;
+
+	int tabIndex = tabList.indexOf(tab);
+	if (tabIndex == 0) 
+		//already first
+		return false;
+
+	tabList.takeAt(tabIndex);
+	tabList.insert(tabIndex-1, tab);
+	return true;
+}
+
+bool KeyboardSet::moveTabDown(const QString& tabName)
+{
+	if (m_isNull) return false;
+
+	KeyboardTab *tab = findTab(tabName);
+	if (!tab) return false;
+
+	int tabIndex = tabList.indexOf(tab);
+	if (tabIndex == tabList.count()-1) 
+		//already last
+		return false;
+
+	tabList.takeAt(tabIndex);
+	tabList.insert(tabIndex+1, tab);
+	return true;
+}
+
 bool KeyboardSet::addButton(const QString& tabName, KeyboardButton *button)
 {
+	if (m_isNull) return false;
+
 	KeyboardTab *tab = findTab(tabName);
 	if (!tab) return false;
 
@@ -154,12 +196,33 @@ bool KeyboardSet::addButton(const QString& tabName, KeyboardButton *button)
 
 bool KeyboardSet::deleteButton(const QString& tabName, KeyboardButton *button)
 {
+	if (m_isNull) return false;
+
 	KeyboardTab *tab = findTab(tabName);
 	if (!tab) return false;
 
 	return tab->deleteButton(button);
 }
 
+bool KeyboardSet::moveButtonUp(const QString& tabName, KeyboardButton *button)
+{
+	if (m_isNull) return false;
+
+	KeyboardTab *tab = findTab(tabName);
+	if (!tab) return false;
+
+	return tab->moveButtonUp(button);
+}
+
+bool KeyboardSet::moveButtonDown(const QString& tabName, KeyboardButton *button)
+{
+	if (m_isNull) return false;
+
+	KeyboardTab *tab = findTab(tabName);
+	if (!tab) return false;
+
+	return tab->moveButtonDown(button);
+}
 
 KeyboardSet::~KeyboardSet()
 {

@@ -46,9 +46,13 @@ class KeyboardSetContainer
 
 		bool createTab(const QString& set, const QString& name);
 		bool deleteTab(const QString& set, const QString& name);
+		bool moveTabUp(const QString& set, const QString& tabName);
+		bool moveTabDown(const QString& set, const QString& tabName);
 
 		bool addButton(const QString& set, const QString& tab, KeyboardButton *button);
 		bool deleteButton(const QString& set, const QString& tab, KeyboardButton *button);
+		bool moveButtonUp(const QString& set, const QString& tab, KeyboardButton *button);
+		bool moveButtonDown(const QString& set, const QString& tab, KeyboardButton *button);
 
 
 		bool load();

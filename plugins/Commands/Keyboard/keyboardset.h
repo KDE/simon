@@ -54,8 +54,13 @@ class KeyboardSet
 		KeyboardTab* getTab(const QString tabName);
 		bool createTab(const QString& name);
 		bool deleteTab(const QString& name);
+		bool moveTabUp(const QString& tabName);
+		bool moveTabDown(const QString& tabName);
+
 		bool addButton(const QString& tabName, KeyboardButton *button);
 		bool deleteButton(const QString& tabName, KeyboardButton *button);
+		bool moveButtonUp(const QString& tab, KeyboardButton *button);
+		bool moveButtonDown(const QString& tab, KeyboardButton *button);
 
 		QString getSetName();
 
