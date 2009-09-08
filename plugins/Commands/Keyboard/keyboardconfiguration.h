@@ -33,8 +33,12 @@ class KeyboardSetContainer;
 class KeyboardConfiguration : public CommandConfiguration
 {
 	Q_OBJECT
+
+	signals:
+		void currentSetChanged();
 	
 	private:
+		KeyboardSet *storedSet;
 		Ui::KeyboardConfigurationDlg ui;
 		static QPointer<KeyboardConfiguration> instance;
 
@@ -69,6 +73,7 @@ class KeyboardConfiguration : public CommandConfiguration
 		KeyboardConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
 		~KeyboardConfiguration();
 
+		KeyboardSet *getStoredKeyboardSet() { return storedSet; }
 		
 		void destroy();
 		

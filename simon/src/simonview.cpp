@@ -332,7 +332,7 @@ void SimonView::setupActions()
 
 	setupGUI();
 
-	//ActionManager::getInstance()->publishGuiActions();
+	ActionManager::getInstance()->publishGuiActions();
 }
 
 #ifdef SIMON_SCENARIOS

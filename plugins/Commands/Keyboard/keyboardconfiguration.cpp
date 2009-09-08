@@ -44,13 +44,14 @@ QPointer<KeyboardConfiguration> KeyboardConfiguration::instance;
 KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList &args)
 		: CommandConfiguration("keyboard", ki18n( "Keyboard" ),
 				      "0.1", ki18n("Input signes with ease"),
-				      "accessories-calculator",
-				      KeyboardCommandPluginFactory::componentData(),parent)
+				      "input-keyboard",
+				      KeyboardCommandPluginFactory::componentData(),parent),
+				      storedSet(NULL)
 {
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
-	config = KSharedConfig::openConfig(KeyboardCommandPluginFactory::componentData(),"keyboardrc");
+	config = KSharedConfig::openConfig(KeyboardCommandPluginFactory::componentData(),"simonkeyboardrc");
 
 	QObject::connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
         connect(ui.pbAddSet, SIGNAL(clicked()), this, SLOT(addSet()));
@@ -330,6 +331,7 @@ void KeyboardConfiguration::save()
 	
 	KConfigGroup cg(config, "");
 	cg.writeEntry("Trigger", ui.leTrigger->text());
+	cg.writeEntry("SelectedSet", ui.cbSets->currentText());
 
         cg.sync();
 	if (!setContainer->save()) {
@@ -337,6 +339,11 @@ void KeyboardConfiguration::save()
 		return;
 	}
 
+	if (!ui.cbSets->currentText().isEmpty()) {
+		KeyboardSet *s = setContainer->findSet(ui.cbSets->currentText());
+		storedSet = s;
+		emit currentSetChanged();
+	}
 
 	emit changed(false);
 }
@@ -352,6 +359,7 @@ void KeyboardConfiguration::load()
         Q_ASSERT(config);
 	KConfigGroup cg(config, "");
 	ui.leTrigger->setText(cg.readEntry("Trigger", i18n("Keyboard")));
+	QString selectedSet = cg.readEntry("SelectedSet", "Basic");
 
 	cg.sync();
 
@@ -362,7 +370,21 @@ void KeyboardConfiguration::load()
 	}
 
 	refreshCbSets();
+
+
+	int index = ui.cbSets->findText(selectedSet);
+	if (index != -1) {
+		ui.cbSets->setCurrentIndex(index);
+		refreshCbTabs();
+	}
 	
+	KeyboardSet *newStoredSet = setContainer->findSet(selectedSet);
+	
+	if (newStoredSet != storedSet) {
+		storedSet = newStoredSet;
+		emit currentSetChanged();
+	}
+
 	emit changed(false);
 }
  

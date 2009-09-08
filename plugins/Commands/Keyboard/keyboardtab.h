@@ -43,6 +43,8 @@ class KeyboardTab : public QAbstractItemModel
 	public:
 		bool isNull() { return m_isNull; }
 
+		bool triggerButton(const QString& trigger);
+
 		KeyboardTab(QString name, QList<KeyboardButton *> bList=QList<KeyboardButton*>());
 		KeyboardTab(const QDomElement& elem);
 
@@ -53,6 +55,8 @@ class KeyboardTab : public QAbstractItemModel
 
 		bool moveButtonUp(KeyboardButton *button);
 		bool moveButtonDown(KeyboardButton *button);
+
+		QList<KeyboardButton*> getTabButtons() { return buttonList; }
 
 		//Model stuff
 		QVariant data(const QModelIndex &index, int role) const;

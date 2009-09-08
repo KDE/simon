@@ -214,9 +214,6 @@ bool Scenario::save(QString path)
 		path = KStandardDirs::locateLocal("appdata", "scenarios/"+m_scenarioId);
 	
 	QDomDocument doc("scenario");
-	QFile file(path);
-	if (!file.open(QIODevice::WriteOnly))
-		return false;
 
 	QDomElement rootElem = doc.createElement("scenario");
 	rootElem.setAttribute("name", m_name);
@@ -284,6 +281,11 @@ bool Scenario::save(QString path)
 	rootElem.appendChild(textsElem);
 
 	doc.appendChild(rootElem);
+
+	QFile file(path);
+	if (!file.open(QIODevice::WriteOnly))
+		return false;
+
 	file.write(doc.toString().toUtf8());
 
 	return true;

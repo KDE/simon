@@ -84,10 +84,15 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 	connect(ui.pbMinus, SIGNAL(clicked()), this, SLOT(sendMinus()));
 	connect(ui.pbMultiply, SIGNAL(clicked()), this, SLOT(sendMultiply()));
 	connect(ui.pbDivide, SIGNAL(clicked()), this, SLOT(sendDivide()));
-	connect(ui.pbBracketOpen, SIGNAL(clicked()), this, SLOT(sendBracketOpen()));
-	connect(ui.pbBracketClose, SIGNAL(clicked()), this, SLOT(sendBracketClose()));
+//	connect(ui.pbBracketOpen, SIGNAL(clicked()), this, SLOT(sendBracketOpen()));
+//	connect(ui.pbBracketClose, SIGNAL(clicked()), this, SLOT(sendBracketClose()));
 	connect(ui.pbEquals, SIGNAL(clicked()), this, SLOT(sendEquals()));
 //        connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
+
+	//TODO: implement brackets and percentages
+	ui.pbBracketClose->hide();
+	ui.pbBracketOpen->hide();
+	ui.pbPercent->hide();
 
 	commandListWidget->init(QStringList() << "go-next" << "go-next" << "go-next" << "go-next", 
 			QStringList() << i18n("Result") << 

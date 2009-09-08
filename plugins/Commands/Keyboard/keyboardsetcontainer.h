@@ -30,7 +30,6 @@ class KeyboardSetContainer
 {
 	private:
 		QList<KeyboardSet *> setList;
-		KeyboardSet* findSet(const QString& setName);
 
 	public:
 		KeyboardSetContainer();
@@ -54,6 +53,7 @@ class KeyboardSetContainer
 		bool moveButtonUp(const QString& set, const QString& tab, KeyboardButton *button);
 		bool moveButtonDown(const QString& set, const QString& tab, KeyboardButton *button);
 
+		KeyboardSet* findSet(const QString& setName);
 
 		bool load();
 		bool save();

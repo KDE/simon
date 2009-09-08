@@ -130,6 +130,16 @@ bool KeyboardTab::moveButtonDown(KeyboardButton *button)
 	return true;
 }
 
+bool KeyboardTab::triggerButton(const QString& trigger)
+{
+	if (m_isNull) return false;
+	KeyboardButton *b = findButton(trigger);
+	if (!b) return false;
+
+	return b->trigger();
+}
+
+
 
 QString KeyboardTab::getTabName()
 {
@@ -241,9 +251,7 @@ QDomElement KeyboardTab::serialize(QDomDocument *doc)
 	}
 	
 	return tabElem;
-
 }
-
 
 KeyboardTab::~KeyboardTab()
 {

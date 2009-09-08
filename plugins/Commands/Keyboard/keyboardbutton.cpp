@@ -19,10 +19,12 @@
  */
 
 #include "keyboardbutton.h"
+#include <eventsimulation/eventhandler.h>
 #include <QString>
+#include <QKeySequence>
 #include <QDomDocument>
 
-KeyboardButton::KeyboardButton(const QDomElement& element) : m_isNull(false)
+KeyboardButton::KeyboardButton(const QDomElement& element) : KPushButton(0), m_isNull(false)
 {
 	if (element.isNull()) m_isNull = true;
 	else {
@@ -42,16 +44,25 @@ KeyboardButton::KeyboardButton(const QDomElement& element) : m_isNull(false)
 			if (!ok) m_isNull = true;
 		}
 	}
+	setupGUI();
 }
 
 /* @param  triggerShown, triggerReal, valueType, value  **/
 KeyboardButton::KeyboardButton(QString triggerS, QString triggerR, Keyboard::ButtonType vType, QString v)
-	: triggerShown(triggerS),
+	: KPushButton(0), triggerShown(triggerS),
 	triggerReal(triggerR),
 	valueType(vType),
 	value(v),
 	m_isNull(false)
 {
+	setupGUI();
+}
+
+void KeyboardButton::setupGUI()
+{
+	setText(triggerShown);
+	setToolTip(triggerReal);
+//	connect(this, SIGNAL(clicked()), this, SLOT(trigger()));
 }
 
 QString KeyboardButton::getTriggerReal()
@@ -79,6 +90,26 @@ QString KeyboardButton::getTriggerShown()
 	return triggerShown;
 }
 
+bool KeyboardButton::trigger()
+{
+	if (m_isNull) return false;
+
+	animateClick();
+
+	switch (valueType) {
+		case Keyboard::TextButton:
+			EventHandler::getInstance()->sendWord(value);
+			break;
+		case Keyboard::ShortcutButton:
+			EventHandler::getInstance()->sendShortcut(QKeySequence(value));
+			break;
+		default:
+			//nothing to do
+			return false;
+			break;
+	}
+	return true;
+}
 
 QDomElement KeyboardButton::serialize(QDomDocument *doc)
 {

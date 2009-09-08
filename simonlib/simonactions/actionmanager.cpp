@@ -105,7 +105,6 @@ void ActionManager::deleteManager(CommandManager *manager)
 void ActionManager::setupBackends(QList<Action::Ptr> pluginsToLoad)
 {
 	bool changed=false;
-	mainWindow->unplugActionList("command_actionlist");
 
 	//iterate over all existing managers and find the ones we still use
 	//by comparing their source()'es;

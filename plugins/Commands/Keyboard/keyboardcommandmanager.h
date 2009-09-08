@@ -27,6 +27,8 @@
 #include "ui_keyboardwidget.h"
 class QDialog;
 class KAction;
+class KeyboardConfiguration;
+class KeyboardSet;
 
 /**
  *	@class KeyboardCommandManager
@@ -44,7 +46,11 @@ private:
 	static QStringList numberIdentifiers;
 	KAction *activateAction;
 
+	KeyboardSet *keyboardSet;
+
 private slots:
+	void rebuildGui();
+
 	void deregister();
 	void ok();
 	void cancel();

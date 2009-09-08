@@ -37,12 +37,18 @@ namespace Keyboard {
 
 class KeyboardButton : public KPushButton
 {
+	Q_OBJECT
+
 	private:
 		bool m_isNull;
 		QString triggerShown;
 		QString triggerReal;
 		Keyboard::ButtonType valueType;
 		QString value;
+		void setupGUI();
+	
+	public slots:
+		bool trigger();
 
 	public:
 		bool isNull() { return m_isNull; }

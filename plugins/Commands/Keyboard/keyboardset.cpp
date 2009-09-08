@@ -224,6 +224,27 @@ bool KeyboardSet::moveButtonDown(const QString& tabName, KeyboardButton *button)
 	return tab->moveButtonDown(button);
 }
 
+bool KeyboardSet::triggerButton(const QString& tabName, const QString& trigger)
+{
+	if (m_isNull) return false;
+
+	KeyboardTab *tab = findTab(tabName);
+	if (!tab) return false;
+
+	return tab->triggerButton(trigger);
+}
+
+
+QList<KeyboardButton*> KeyboardSet::getTabButtons(const QString& tabName)
+{
+	if (m_isNull) return QList<KeyboardButton*>();
+
+	KeyboardTab *tab = findTab(tabName);
+	if (!tab) return QList<KeyboardButton*>();
+
+	return tab->getTabButtons();
+}
+
 KeyboardSet::~KeyboardSet()
 {
 	qDeleteAll(tabList);

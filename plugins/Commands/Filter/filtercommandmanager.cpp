@@ -19,6 +19,7 @@
 
 #include "filtercommandmanager.h"
 #include <simonlogging/logger.h>
+#include <simoninfo/simoninfo.h>
 #include <KLocalizedString>
 #include <KGenericFactory>
 #include <KAction>
@@ -55,8 +56,10 @@ const QString FilterCommandManager::name() const
 void FilterCommandManager::updateAction()
 {
 	if (!isActive) {
+		SimonInfo::showMessage(i18n("Filter deactivated"), 2500, new KIcon("view-filter"));
 		activateAction->setText(i18n("Activate Filter"));
 	} else {
+		SimonInfo::showMessage(i18n("Filter activated"), 2500, new KIcon("view-filter"));
 		activateAction->setText(i18n("Deactivate Filter"));
 	}
 }
