@@ -1,4 +1,5 @@
 /*
+ *   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
  *   Copyright (C) 2009 Mario Strametz <strmam06@htl-kaindorf.ac.at>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -141,6 +142,22 @@ bool KeyboardSet::deleteTab(const QString& name)
 	tabList.removeAll(tab);
 	delete tab;
 	return true;
+}
+
+bool KeyboardSet::addButton(const QString& tabName, KeyboardButton *button)
+{
+	KeyboardTab *tab = findTab(tabName);
+	if (!tab) return false;
+
+	return tab->addButton(button);
+}
+
+bool KeyboardSet::deleteButton(const QString& tabName, KeyboardButton *button)
+{
+	KeyboardTab *tab = findTab(tabName);
+	if (!tab) return false;
+
+	return tab->deleteButton(button);
 }
 
 

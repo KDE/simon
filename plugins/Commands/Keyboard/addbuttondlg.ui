@@ -6,14 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>438</width>
-    <height>139</height>
+    <width>357</width>
+    <height>220</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Add button</string>
   </property>
   <layout class="QFormLayout" name="formLayout_3">
+   <property name="fieldGrowthPolicy">
+    <enum>QFormLayout::ExpandingFieldsGrow</enum>
+   </property>
    <item row="0" column="0">
     <widget class="QLabel" name="label_4">
      <property name="text">

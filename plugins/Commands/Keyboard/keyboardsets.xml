@@ -1,0 +1,60 @@
+<keyboardsets>
+<set name="Schule">
+  <tab name="Tasten">
+    <button>
+      <triggerShown>[A]pfel</triggerShown>
+      <trigger>Apfel</trigger>
+      <type>1</type>
+      <value>A</value>
+    </button>
+    <button>
+      <triggerShown>[B]anane</triggerShown>
+      <trigger>Banane</trigger>
+      <type>1</type>
+      <value>B</value>
+    </button>
+  </tab>
+  <tab name="Aktionen">
+    <button>
+      <triggerShown>Alles markieren</triggerShown>
+      <trigger>Alles markieren</trigger>
+      <type>2</type>
+      <value>Ctrl+A</value>
+    </button>
+    <button>
+      <triggerShown>Kopieren</triggerShown>
+      <trigger>Kopieren</trigger>
+      <type>2</type>
+      <value>Ctrl+C</value>
+    </button>
+    <button>
+      <triggerShown>Einfügen</triggerShown>
+      <trigger>Einfügen</trigger>
+      <type>2</type>
+      <value>Ctrl+V</value>
+    </button>
+  </tab>
+</set>
+<set name="Basic">
+  <tab name="Tasten">
+    <button>
+      <triggerShown>A</triggerShown>
+      <trigger>A</trigger>
+      <type>1</type>
+      <value>A</value>
+    </button>
+    <button>
+      <triggerShown>B</triggerShown>
+      <trigger>B</trigger>
+      <type>1</type>
+      <value>B</value>
+    </button>
+    <button>
+      <triggerShown>C</triggerShown>
+      <trigger>C</trigger>
+      <type>1</type>
+      <value>C</value>
+    </button>
+  </tab>
+</set>
+</keyboardsets>

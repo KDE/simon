@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2009 Mario Strametz <strmam06@htl-kaindorf.ac.at>
+ *   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -26,8 +27,12 @@
 KeyboardAddButtonDialog::KeyboardAddButtonDialog(QWidget *parent) : KDialog(parent)
 {
 	QWidget *w = new QWidget(this);
-	ui.setupUi(this);
+	ui.setupUi(w);
+	
 	setMainWidget( w );
+
+	setCaption(i18n("Add key"));
+
 #if KDE_IS_VERSION(4,1,60)
 	ui.ksShortcut->setCheckForConflictsAgainst(KKeySequenceWidget::None);
 #endif
@@ -43,7 +48,9 @@ KeyboardButton* KeyboardAddButtonDialog::addButton()
 			switch (ui.cbValueType->currentIndex())
 			{
 				case 0: type = Keyboard::TextButton;
+					break;
 				case 1: type = Keyboard::ShortcutButton;
+					break;
 				default: return NULL; //error
 			}
 
@@ -51,8 +58,10 @@ KeyboardButton* KeyboardAddButtonDialog::addButton()
 			switch (type) {
 				case Keyboard::TextButton:
 					value = ui.leTextValue->text();
+						break;
 				case Keyboard::ShortcutButton:
 					value = ui.ksShortcut->keySequence().toString();
+						break;
 				default: return NULL; //error
 			}
 

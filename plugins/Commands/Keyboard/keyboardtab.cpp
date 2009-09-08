@@ -1,4 +1,5 @@
 /*
+ *   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
  *   Copyright (C) 2009 Mario Strametz <strmam06@htl-kaindorf.ac.at>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -47,19 +48,47 @@ KeyboardTab::KeyboardTab(QString name, QList<KeyboardButton *> bList)
 {
 }
 
-void KeyboardTab::addButton(KeyboardButton* b)
+KeyboardButton* KeyboardTab::findButton(const QString& name)
 {
-	if (m_isNull) return;
-
-	kDebug() << "Adding button";
-	buttonList.append(b);
+	foreach (KeyboardButton *btn, buttonList) {
+		if (btn->getTriggerReal() == name)
+			return btn;
+	}
+	return NULL;
 }
 
-void KeyboardTab::delButton(int index)
+bool KeyboardTab::addButton(KeyboardButton* b)
 {
-	if (m_isNull) return;
+	if (!b || m_isNull) return false;
 
-	buttonList.removeAt(index);
+	if (findButton(b->getTriggerReal()))
+		return false;
+
+	kDebug() << "Adding button";
+	beginInsertRows(QModelIndex(), rowCount(), rowCount());
+	buttonList.append(b);
+	endInsertRows();
+	return true;
+}
+
+bool KeyboardTab::deleteButton(KeyboardButton* b)
+{
+	if (m_isNull) return false;
+
+	bool found=false;
+	for (int i=0; i<buttonList.count(); i++)
+	{
+		if (buttonList[i] == b) {
+			beginRemoveRows(QModelIndex(), i, i);
+			buttonList.removeAt(i);
+			endRemoveRows();
+			found = true;
+			i--;
+		}
+
+	}
+
+	return found;
 }
 
 void KeyboardTab::buttonLeft(int index)

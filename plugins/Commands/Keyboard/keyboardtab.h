@@ -1,4 +1,5 @@
 /*
+ *   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
  *   Copyright (C) 2009 Mario Strametz <strmam06@htl-kaindorf.ac.at>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -32,12 +33,11 @@ class QDomDocument;
 class KeyboardTab : public QAbstractItemModel
 {
 	private:
+		QString tabName;
 		bool m_isNull;
 
 		QList<KeyboardButton *> buttonList;
-		QString tabName;
-		void addButton(KeyboardButton* b);
-		void delButton(int index);
+		KeyboardButton* findButton(const QString& name);
 		
 		
 	public:
@@ -47,7 +47,10 @@ class KeyboardTab : public QAbstractItemModel
 		KeyboardTab(const QDomElement& elem);
 
 		QString getTabName();
-		//QList<KeyboardButton *>* getButtonList();
+
+		bool addButton(KeyboardButton *button);
+		bool deleteButton(KeyboardButton *button);
+
 		void buttonLeft(int index);
 		void buttonRight(int index);
 

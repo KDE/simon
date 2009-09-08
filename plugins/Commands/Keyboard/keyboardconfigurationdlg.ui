@@ -91,38 +91,6 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
-      <widget class="QToolButton" name="tbAddSet">
-       <property name="minimumSize">
-        <size>
-         <width>25</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>+</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="3">
-      <widget class="QToolButton" name="tbDeleteSet">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>25</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>-</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
@@ -133,29 +101,45 @@
      <item row="1" column="1">
       <widget class="QComboBox" name="cbTabs"/>
      </item>
-     <item row="1" column="2">
-      <widget class="QToolButton" name="tbAddTab">
-       <property name="minimumSize">
-        <size>
-         <width>25</width>
-         <height>0</height>
-        </size>
-       </property>
+     <item row="0" column="2">
+      <widget class="KPushButton" name="pbAddSet">
        <property name="text">
-        <string>+</string>
+        <string>Add</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="KPushButton" name="pbAddTab">
+       <property name="text">
+        <string>Add</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="KPushButton" name="pbDeleteSet">
+       <property name="text">
+        <string>Delete</string>
        </property>
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="QToolButton" name="tbDeleteTab">
-       <property name="minimumSize">
-        <size>
-         <width>25</width>
-         <height>0</height>
-        </size>
-       </property>
+      <widget class="KPushButton" name="pbDeleteTab">
        <property name="text">
-        <string>-</string>
+        <string>Delete</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="KPushButton" name="pbTabUp">
+       <property name="text">
+        <string>Up</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="KPushButton" name="pbTabDown">
+       <property name="text">
+        <string>Down</string>
        </property>
       </widget>
      </item>
@@ -263,11 +247,7 @@
  <tabstops>
   <tabstop>leTrigger</tabstop>
   <tabstop>cbSets</tabstop>
-  <tabstop>tbAddSet</tabstop>
-  <tabstop>tbDeleteSet</tabstop>
   <tabstop>cbTabs</tabstop>
-  <tabstop>tbAddTab</tabstop>
-  <tabstop>tbDeleteTab</tabstop>
   <tabstop>tvTabContent</tabstop>
   <tabstop>pbAddButton</tabstop>
   <tabstop>pbDeleteButton</tabstop>

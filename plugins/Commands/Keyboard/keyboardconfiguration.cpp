@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2009 Dominik Neumeister & Mario Strametz <neudob06@edvhtl.at>  <strmam06@htl-kaindorf.ac.at>
+ *   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -52,10 +53,10 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
 	config = KSharedConfig::openConfig(KeyboardCommandPluginFactory::componentData(),"keyboardrc");
 
 	QObject::connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
-        connect(ui.tbAddSet, SIGNAL(clicked()), this, SLOT(addSet()));
-	connect(ui.tbDeleteSet, SIGNAL(clicked()), this, SLOT(deleteSet()));
-	connect(ui.tbAddTab, SIGNAL(clicked()), this, SLOT(addTab()));
-	connect(ui.tbDeleteTab, SIGNAL(clicked()), this, SLOT(deleteTab()));
+        connect(ui.pbAddSet, SIGNAL(clicked()), this, SLOT(addSet()));
+	connect(ui.pbDeleteSet, SIGNAL(clicked()), this, SLOT(deleteSet()));
+	connect(ui.pbAddTab, SIGNAL(clicked()), this, SLOT(addTab()));
+	connect(ui.pbDeleteTab, SIGNAL(clicked()), this, SLOT(deleteTab()));
         connect(ui.pbAddButton, SIGNAL(clicked()), this, SLOT(addButton()));
 	connect(ui.pbDeleteButton, SIGNAL(clicked()), this, SLOT(deleteButton()));
 	connect(ui.pbUpButton, SIGNAL(clicked()), this, SLOT(buttonUp()));
@@ -65,6 +66,19 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
         connect(ui.cbTabs, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshTabDetail()));
 
 	setContainer = new KeyboardSetContainer();
+
+	ui.pbAddSet->setIcon(KIcon("list-add"));
+	ui.pbAddTab->setIcon(KIcon("list-add"));
+	ui.pbAddButton->setIcon(KIcon("list-add"));
+
+	ui.pbDeleteSet->setIcon(KIcon("list-remove"));
+	ui.pbDeleteTab->setIcon(KIcon("list-remove"));
+	ui.pbDeleteButton->setIcon(KIcon("list-remove"));
+
+	ui.pbTabUp->setIcon(KIcon("arrow-up"));
+	ui.pbUpButton->setIcon(KIcon("arrow-up"));
+	ui.pbTabDown->setIcon(KIcon("arrow-down"));
+	ui.pbDownButton->setIcon(KIcon("arrow-down"));
 }
 
 QString KeyboardConfiguration::trigger()
@@ -81,6 +95,9 @@ void KeyboardConfiguration::addSet()
 		if (!setContainer->createSet(inputText))
 			KMessageBox::sorry(this, i18n("Failed to add set"));
 		refreshCbSets();
+		//switch to new set
+		ui.cbSets->setCurrentIndex(ui.cbSets->count()-1);
+		refreshCbTabs();
 		emit changed(true);
 	}
 }
@@ -90,6 +107,8 @@ void KeyboardConfiguration::deleteSet()
 		KMessageBox::information(this, i18n("Please choose a set to be deleted"));
 		return;
 	}
+	if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to delete the selected set?")) != KMessageBox::Yes)
+		return;
 	if (!setContainer->deleteSet(ui.cbSets->currentText()))
 		KMessageBox::sorry(this, i18n("Couldn't delete set"));
 	
@@ -112,6 +131,9 @@ void KeyboardConfiguration::addTab()
 	}
 
 	refreshCbTabs();
+	//switch to new tab
+	ui.cbTabs->setCurrentIndex(ui.cbTabs->count()-1);
+	refreshTabDetail();
 	emit changed(true);
 }
 void KeyboardConfiguration::deleteTab()
@@ -126,6 +148,8 @@ void KeyboardConfiguration::deleteTab()
 		return;
 	}
 
+	if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to delete the selected tab?")) != KMessageBox::Yes)
+		return;
 	if (!setContainer->deleteTab(ui.cbSets->currentText(), tab))
 		KMessageBox::sorry(this, i18n("Failed to delete tab"));
 
@@ -135,30 +159,51 @@ void KeyboardConfiguration::deleteTab()
 
 void KeyboardConfiguration::addButton()
 {
-	if(ui.cbSets->currentIndex() != -1)
-	{
-		if(ui.cbTabs->currentIndex() != -1)
-		{
-        		KeyboardAddButtonDialog *kab = new KeyboardAddButtonDialog(this);
-      			KeyboardButton *kbb =  kab->addButton();
-			if(kbb!=NULL)
-			{
-				/*ButtonTableModel *model = dynamic_cast<ButtonTableModel*>(ui.tvTabContent->model());
-				kDebug() << "Is model model?";
-				if (!model) return;
-				kDebug() << "Yeah it is";
-				model->addButton(ui.cbSets->currentIndex(), ui.cbTabs->currentIndex(), kbb);*/
-			}
-		}
-		else
-			KMessageBox::information(this, i18n("Please select a tab to which to add the new button"));
-	}
-	else
+	if(ui.cbSets->currentIndex() == -1) {
 		KMessageBox::information(this, i18n("Please select a set to which to add the new button"));
+		return;
+	}
+	if(ui.cbTabs->currentIndex() == -1) {
+		KMessageBox::information(this, i18n("Please select a tab to which to add the new button"));
+		return;
+	}
+	KeyboardAddButtonDialog *kab = new KeyboardAddButtonDialog(this);
+	KeyboardButton *kbb =  kab->addButton();
+	if(kbb!=NULL)
+	{
+		if (!setContainer->addButton(ui.cbSets->currentText(),
+						ui.cbTabs->currentText(), kbb))
+			KMessageBox::sorry(this, i18n("Failed to add button"));
+
+		emit changed(true);
+	}
 }
 
 void KeyboardConfiguration::deleteButton()
 {
+	if(ui.cbSets->currentIndex() == -1) {
+		KMessageBox::information(this, i18n("Please select a set to which to add the new button"));
+		return;
+	}
+	if(ui.cbTabs->currentIndex() == -1) {
+		KMessageBox::information(this, i18n("Please select a tab to which to add the new button"));
+		return;
+	}
+
+	KeyboardButton *button = static_cast<KeyboardButton*>(ui.tvTabContent->currentIndex().internalPointer());
+	if (!button)  {
+		KMessageBox::information(this, i18n("Please select a button to delete from the list"));
+		return;
+	}
+
+	if (KMessageBox::questionYesNoCancel(this, i18n("Do you really want to delete the selected button?")) != KMessageBox::Yes)
+		return;
+
+	if (!setContainer->deleteButton(ui.cbSets->currentText(), ui.cbTabs->currentText(), button))
+			KMessageBox::sorry(this, i18n("Failed to delete button"));
+
+	emit changed(true);
+
 }
 
 void KeyboardConfiguration::buttonUp()

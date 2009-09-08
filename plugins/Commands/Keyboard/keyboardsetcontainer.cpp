@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2009 Mario Strametz <strmam06@htl-kaindorf.ac.at>
+ *   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -162,6 +162,22 @@ bool KeyboardSetContainer::deleteTab(const QString& setName, const QString& name
 	return set->deleteTab(name);
 }
 
+bool KeyboardSetContainer::addButton(const QString& setName, const QString& tab, KeyboardButton *button)
+{
+	KeyboardSet *set = findSet(setName);
+	if (!set) return false;
+
+	return set->addButton(tab, button);
+}
+
+bool KeyboardSetContainer::deleteButton(const QString& setName, const QString& tab, KeyboardButton *button)
+{
+	KeyboardSet *set = findSet(setName);
+	if (!set) return false;
+
+	return set->deleteButton(tab, button);
+
+}
 
 KeyboardSetContainer::~KeyboardSetContainer()
 {

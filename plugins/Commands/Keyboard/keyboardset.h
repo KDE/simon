@@ -1,4 +1,5 @@
 /*
+ *   Copyright (C) 2009 Grasch Peter <grasch@simon-listens.org>
  *   Copyright (C) 2009 Mario Strametz <strmam06@htl-kaindorf.ac.at>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -53,6 +54,8 @@ class KeyboardSet
 		KeyboardTab* getTab(const QString tabName);
 		bool createTab(const QString& name);
 		bool deleteTab(const QString& name);
+		bool addButton(const QString& tabName, KeyboardButton *button);
+		bool deleteButton(const QString& tabName, KeyboardButton *button);
 
 		QString getSetName();
 
