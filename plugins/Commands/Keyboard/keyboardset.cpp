@@ -27,6 +27,14 @@ KeyboardSet::KeyboardSet(QString name)
 {
 }
 
+QStringList KeyboardSet::getTabHeaders()
+{
+	QStringList headers;
+	foreach (KeyboardTab *t, tabList) {
+		headers << t->getTabName();
+	}
+	return headers;
+}
 
 KeyboardSet::KeyboardSet(QString name, QList<KeyboardTab *>* tList)
 	: tabList(*tList),

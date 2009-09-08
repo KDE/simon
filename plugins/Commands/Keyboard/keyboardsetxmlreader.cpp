@@ -133,56 +133,38 @@ QList<KeyboardSet *> * KeyboardsetXMLReader::load(QString path)
         QList<KeyboardSet *> *setList = new QList<KeyboardSet *>();
 
         QDomElement root = this->doc->documentElement();
-        if(!root.isNull())
-        {
-            QDomElement set = root.firstChildElement();
-            QDomElement setname = set.firstChildElement();
-            QList<KeyboardTab *> *tabList = new QList<KeyboardTab *>();
-            while(!set.isNull())
-            {
-                QDomElement tab = set.nextSiblingElement();
-                QDomElement tabname = tab.firstChildElement();
-                QList<KeyboardButton *> *buttonList = new QList<KeyboardButton *>();
-                while(!tab.isNull())
-                {
-                    QDomElement button = tab.nextSiblingElement();
-                    QDomElement triggershown = button.firstChildElement();
-                    QDomElement realtrigger = button.nextSiblingElement();
-                    QDomElement valuetype = button.nextSiblingElement();
-                    QDomElement value = button.nextSiblingElement();
+        if(root.isNull())
+		return setList;
+        
+	QDomElement set = root.firstChildElement();
+	QDomElement setname = set.firstChildElement();
+	QList<KeyboardTab *> *tabList = new QList<KeyboardTab *>();
+	while(!set.isNull())
+	{
+		QDomElement tab = set.nextSiblingElement();
+		while(!tab.isNull())
+		{
+		    QDomElement tabname = tab.firstChildElement();
+		    QList<KeyboardButton *> *buttonList = new QList<KeyboardButton *>();
 
-                    buttonList->append(new KeyboardButton(triggershown.text(), realtrigger.text(), valuetype.text().toShort(), value.text()));
-                }
-                tabList->append(new KeyboardTab(tabname.text(), buttonList));//TODO: write weiter here!
-            }
-            setList->append(new KeyboardSet(setname.text(), tabList));
+		    QDomElement button = tabname.nextSiblingElement();
 
-            while(!root.isNull())
-            {
-                set = root.nextSiblingElement();
-                setname = set.firstChildElement();
-                QList<KeyboardTab *> *tabList = new QList<KeyboardTab *>();
-                while(!set.isNull())
-                {
-                    QDomElement tab = set.nextSiblingElement();
-                    QDomElement tabname = tab.firstChildElement();
-                    QList<KeyboardButton *> *buttonList = new QList<KeyboardButton *>();
+		    while(!button.isNull())
+		    {
+			    QDomElement triggershown = button.firstChildElement();
+			    QDomElement realtrigger = triggershown.nextSiblingElement();
+			    QDomElement valuetype = realtrigger.nextSiblingElement();
+			    QDomElement value = valuetype.nextSiblingElement();
+			    button = button.nextSiblingElement();
+		    	    buttonList->append(new KeyboardButton(triggershown.text(), realtrigger.text(), valuetype.text().toShort(), value.text()));
+		    }
 
-                    while(!tab.isNull())
-                    {
-                        QDomElement button = tab.nextSiblingElement();
-                        QDomElement triggershown = button.firstChildElement();
-                        QDomElement realtrigger = button.nextSiblingElement();
-                        QDomElement valuetype = button.nextSiblingElement();
-                        QDomElement value = button.nextSiblingElement();
-
-                        buttonList->append(new KeyboardButton(triggershown.text(), realtrigger.text(), valuetype.text().toShort(), value.text()));
-                    }
-                    tabList->append(new KeyboardTab(tabname.text(), buttonList));//TODO: write weiter here!
-                }
-                setList->append(new KeyboardSet(setname.text(), tabList));
-            }
-        }
+		    tab = tab.nextSiblingElement();
+		    tabList->append(new KeyboardTab(tabname.text(), buttonList));
+		}
+		setList->append(new KeyboardSet(setname.text(), tabList));
+		set = set.nextSiblingElement();
+	}
 
 /*        QDomElement root = this->doc->documentElement();
         QDomElement set = root.firstChildElement();

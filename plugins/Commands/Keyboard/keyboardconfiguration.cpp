@@ -193,13 +193,28 @@ void KeyboardConfiguration::cbSetsIndexChanged()
 void KeyboardConfiguration::refreshCbTabs()
 {
 	ui.cbTabs->clear();
-	if(!setList.isEmpty())
-	{
-		for(int i=0; i<setList.at(ui.cbSets->currentIndex())->getTabList()->size(); i++)
-		{
-			ui.cbTabs->addItem(setList.at(ui.cbSets->currentIndex())->getTabList()->at(i)->getTabName());
-		}
+	int currentSelectedset = ui.cbSets->currentIndex();
+	kDebug() << currentSelectedset;
+	if ((currentSelectedset < 0) || (setList.count() < currentSelectedset-1)) {
+		kDebug() << "WAHHHHHHHHH";
+		return;
 	}
+
+	KeyboardSet *s = setList.at(ui.cbSets->currentIndex());
+	if (!s) return;
+	ui.cbTabs->addItems(s->getTabHeaders());
+}
+void KeyboardConfiguration::refreshCbSets()
+{
+    ui.cbSets->clear();
+    if(!setList.isEmpty())
+    {
+        for(int i=0; i<setList.size(); i++)
+        {
+            ui.cbSets->addItem(setList.at(i)->getSetName());
+        }
+    }
+    refreshCbTabs();
 }
 
 void KeyboardConfiguration::save()
@@ -234,6 +249,7 @@ void KeyboardConfiguration::load()
         const QString path("./Keyboard/keyboardsets.xml");
         KeyboardsetXMLReader kbXMLreader(path);
         setList = *kbXMLreader.load(path);
+        refreshCbSets();
 
 	emit changed(false);
 }

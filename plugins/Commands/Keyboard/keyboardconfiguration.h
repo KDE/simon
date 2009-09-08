@@ -63,6 +63,7 @@ class KeyboardConfiguration : public CommandConfiguration
 		KeyboardConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
 		~KeyboardConfiguration();
 
+                void refreshCbSets();
                 void refreshCbTabs();
 		
 		void destroy();

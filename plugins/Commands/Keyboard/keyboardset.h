@@ -23,6 +23,7 @@
 #include "keyboardtab.h"
 #include <QList>
 #include <QString>
+#include <QStringList>
 
 class KeyboardSet
 {
@@ -39,6 +40,7 @@ class KeyboardSet
 		KeyboardSet(QString name);
 		QString getSetName();
 		QList<KeyboardTab *>* getTabList();
+		QStringList getTabHeaders();
 };
 
 #endif
