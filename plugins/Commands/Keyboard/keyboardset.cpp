@@ -21,6 +21,7 @@
 #include "keyboardset.h"
 #include <QString>
 #include <QList>
+#include <KDebug>
 
 KeyboardSet::KeyboardSet(const QDomElement& elem)
 	: m_isNull(false)
@@ -224,14 +225,14 @@ bool KeyboardSet::moveButtonDown(const QString& tabName, KeyboardButton *button)
 	return tab->moveButtonDown(button);
 }
 
-bool KeyboardSet::triggerButton(const QString& tabName, const QString& trigger)
+bool KeyboardSet::triggerButton(const QString& tabName, const QString& trigger, bool caseSensitive)
 {
 	if (m_isNull) return false;
 
 	KeyboardTab *tab = findTab(tabName);
 	if (!tab) return false;
 
-	return tab->triggerButton(trigger);
+	return tab->triggerButton(trigger, caseSensitive);
 }
 
 
@@ -247,6 +248,7 @@ QList<KeyboardButton*> KeyboardSet::getTabButtons(const QString& tabName)
 
 KeyboardSet::~KeyboardSet()
 {
+	kDebug() << "Deleting keyboardset";
 	qDeleteAll(tabList);
 }
 

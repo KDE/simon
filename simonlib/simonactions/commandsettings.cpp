@@ -194,6 +194,14 @@ void CommandSettings::unregisterPlugIn(KCModule *plugin)
 	moduleHash.remove(plugin);
 }
 
+//clears all modules but doesn't delete them
+void CommandSettings::clear()
+{
+	QList<KCModule*> modules = moduleHash.keys();
+	foreach (KCModule *m, modules)
+		unregisterPlugIn(m);
+}
+
 QList<Action::Ptr> CommandSettings::availableCommandManagers()
 {
 	QList<Action::Ptr> actions;
@@ -440,6 +448,8 @@ void CommandSettings::slotChanged()
  */
 CommandSettings::~CommandSettings()
 {
+//	kDebug() << "Clearing command settings";
+//	clear();
 }
 
 

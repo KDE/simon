@@ -65,8 +65,10 @@ KeyboardTab* KeyboardSetContainer::getTab(const QString& setName, const QString&
 
 void KeyboardSetContainer::clear()
 {
+	kDebug() << "Clearing container";
 	qDeleteAll(setList);
 	setList.clear();
+	kDebug() << "Done clearing container";
 }
 
 bool KeyboardSetContainer::load()
@@ -209,6 +211,7 @@ bool KeyboardSetContainer::moveButtonDown(const QString& setName, const QString&
 
 KeyboardSetContainer::~KeyboardSetContainer()
 {
+	kDebug() << "Deleting keyboardsetcontainer";
 	qDeleteAll(setList);
 }
 

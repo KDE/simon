@@ -73,6 +73,7 @@ public slots:
 	virtual void defaults();
  
 private slots:
+	void clear();
 	void slotChanged();
 	void pluginChanged(bool isChanged);
 	void activePluginSelectionChanged(QListWidgetItem* activePluginItem);

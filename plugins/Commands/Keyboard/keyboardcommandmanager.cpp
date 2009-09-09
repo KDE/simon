@@ -19,6 +19,7 @@
 #include "keyboardcommandmanager.h"
 #include "keyboardconfiguration.h"
 #include "keyboardset.h"
+#include "keyboardsetcontainer.h"
 #include "flowlayout.h"
 #include <eventsimulation/eventhandler.h>
 #include <simonactions/actionmanager.h>
@@ -38,41 +39,32 @@ K_EXPORT_PLUGIN( KeyboardCommandPluginFactory("simonkeyboardcommand") )
 QStringList KeyboardCommandManager::numberIdentifiers;
 
 KeyboardCommandManager::KeyboardCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
-	widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
+	keyboardWidget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
 	activateAction(new KAction(this)),
 	keyboardSet(NULL)
 {
-	widget->setWindowIcon(KIcon("input-keyboard"));
-	connect(widget, SIGNAL(finished(int)), this, SLOT(deregister()));
-        ui.setupUi(widget);
-	widget->hide();
+	setContainer = new KeyboardSetContainer();
+
+	keyboardWidget->setWindowIcon(KIcon("input-keyboard"));
+	connect(keyboardWidget, SIGNAL(finished(int)), this, SLOT(deregister()));
+        ui.setupUi(keyboardWidget);
+	keyboardWidget->hide();
 
 	activateAction->setText(i18n("Activate Keyboard"));
 	activateAction->setIcon(KIcon("input-keyboard"));
 	connect(activateAction, SIGNAL(triggered(bool)),
 		this, SLOT(activate()));
 	guiActions<<activateAction;
-
-	if (numberIdentifiers.isEmpty())
-		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
-			<< i18n("Three") << i18n("Four") << i18n("Five") <<
-			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
-
-	rebuildGui();
-
-        //Connect to Slots
-	connect(KeyboardConfiguration::getInstance(), SIGNAL(currentSetChanged()), this, SLOT(rebuildGui()));
-	KeyboardConfiguration::getInstance()->load();
 }
 
 void KeyboardCommandManager::activate()
 {
 	QDesktopWidget* tmp = QApplication::desktop();
 	int x,y;
-	x=(tmp->width()/2) - (widget->width()/2);
-	y=((tmp->height()*3)/4)-(widget->height()/2);
-	widget->move(x, y);
-	widget->show();
+	x=(tmp->width()/2) - (keyboardWidget->width()/2);
+	y=((tmp->height()*3)/4)-(keyboardWidget->height()/2);
+	keyboardWidget->move(x, y);
+	keyboardWidget->show();
 	startGreedy();
 }
 
@@ -96,7 +88,7 @@ const QString KeyboardCommandManager::name() const
 
 void KeyboardCommandManager::cancel()
 {
-	widget->reject();
+	keyboardWidget->reject();
 }
 
 void KeyboardCommandManager::processRequest(int number)
@@ -108,7 +100,7 @@ void KeyboardCommandManager::processRequest(int number)
 
 void KeyboardCommandManager::ok()
 {
-	widget->accept();
+	keyboardWidget->accept();
 	//usleep(300000);
 	//EventHandler::getInstance()->sendWord(ui.leNumber->text());
 }
@@ -144,7 +136,8 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 		}
 	}
 
-	return keyboardSet->triggerButton(tabNames[ui.twTabs->currentIndex()], inputText);
+	return keyboardSet->triggerButton(tabNames[ui.twTabs->currentIndex()], inputText, 
+			KeyboardConfiguration::getInstance(setContainer)->caseSensitive());
 
 	//setting correct index
 /*	bool ok=false;
@@ -163,40 +156,60 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 
 void KeyboardCommandManager::rebuildGui()
 {
-	keyboardSet = KeyboardConfiguration::getInstance()->getStoredKeyboardSet();
+	keyboardSet = KeyboardConfiguration::getInstance(setContainer)->getStoredKeyboardSet();
 	if (!keyboardSet) return;
 
-	kDebug() << "Building gui according to selected set: " << keyboardSet->getSetName();
-	widget->setWindowTitle(keyboardSet->getSetName());
-
+	keyboardWidget->setWindowTitle(keyboardSet->getSetName());
 	
 	// clear tab
-	int i=0;
-	for (QWidget *w = ui.twTabs->widget(i); i < ui.twTabs->count(); ) {
-		ui.twTabs->removeTab(i);
+	while(ui.twTabs->count() > 0) {
+		QWidget *w = ui.twTabs->widget(0);
+		ui.twTabs->removeTab(0);
+		QLayout *lay = w->layout();
+		//remove all the buttons so they won't be deleted when deleting the widget
+		if (lay) {
+			while (lay->count() > 0) {
+				QLayoutItem *item = lay->takeAt(0);
+				QWidget *itemWidget = item->widget();
+				if (itemWidget)  itemWidget->setParent(0);
+				delete item; //leaves the widget intact)
+			}
+			delete lay;
+		}
 		w->deleteLater();
 	}
 
 	QStringList tabs = keyboardSet->getAvailableTabs();
 	foreach (const QString& tabName, tabs) {
-		QWidget *w = new QWidget(widget);
+		QWidget *w = new QWidget(ui.twTabs);
 		FlowLayout *flow = new FlowLayout(w);
+		//QHBoxLayout *flow = new QHBoxLayout(w);
 
 		QList<KeyboardButton*> buttons = keyboardSet->getTabButtons(tabName);
 		foreach (KeyboardButton* button, buttons) {
 			flow->addWidget(button);
+			button->show();
 		}
 		w->setLayout(flow);
 
 		ui.twTabs->addTab(w, tabName);
 	}
+
+	if (KeyboardConfiguration::getInstance(setContainer)->showNumpad()) {
+		kDebug() << "Showing numpad...";
+
+	}
+}
+
+const QString KeyboardCommandManager::preferredTrigger() const
+{
+	return i18n("Keyboard");
 }
 
 bool KeyboardCommandManager::trigger(const QString& triggerName)
 {
-	if (triggerName != KeyboardConfiguration::getInstance()->trigger()){
+	if (!triggerName.isEmpty())
 		return false;
-	}
 
 	activate();
 	return true;
@@ -205,13 +218,22 @@ bool KeyboardCommandManager::trigger(const QString& triggerName)
 
 CommandConfiguration* KeyboardCommandManager::getConfigurationPage()
 {
-	disconnect(KeyboardConfiguration::getInstance(), SIGNAL(currentSetChanged()), this, SLOT(rebuildGui()));
-	connect(KeyboardConfiguration::getInstance(), SIGNAL(currentSetChanged()), this, SLOT(rebuildGui()));
-	return KeyboardConfiguration::getInstance();
+	disconnect(KeyboardConfiguration::getInstance(setContainer), SIGNAL(currentSetChanged()), this, SLOT(rebuildGui()));
+	connect(KeyboardConfiguration::getInstance(setContainer), SIGNAL(currentSetChanged()), this, SLOT(rebuildGui()));
+	return KeyboardConfiguration::getInstance(setContainer);
 }
 
 bool KeyboardCommandManager::load()
 {
+
+	if (numberIdentifiers.isEmpty())
+		numberIdentifiers << i18n("Zero") << i18n("One") << i18n("Two") 
+			<< i18n("Three") << i18n("Four") << i18n("Five") <<
+			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
+
+	//Connect to Slots
+	connect(KeyboardConfiguration::getInstance(setContainer), SIGNAL(currentSetChanged()), this, SLOT(rebuildGui()));
+	rebuildGui();
 	return true;
 }
 
@@ -222,6 +244,7 @@ bool KeyboardCommandManager::save()
 
 KeyboardCommandManager::~KeyboardCommandManager()
 {
-	widget->deleteLater();
+	keyboardWidget->deleteLater();
 	activateAction->deleteLater();
+	delete setContainer;
 }

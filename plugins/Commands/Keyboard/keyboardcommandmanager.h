@@ -29,6 +29,7 @@ class QDialog;
 class KAction;
 class KeyboardConfiguration;
 class KeyboardSet;
+class KeyboardSetContainer;
 
 /**
  *	@class KeyboardCommandManager
@@ -42,11 +43,12 @@ class KeyboardCommandManager : public CommandManager, public GreedyReceiver {
 Q_OBJECT
 private:
 	Ui::KeyboardDlg ui;
-	QDialog *widget;
+	QDialog *keyboardWidget;
 	static QStringList numberIdentifiers;
 	KAction *activateAction;
 
 	KeyboardSet *keyboardSet;
+	KeyboardSetContainer *setContainer;
 
 private slots:
 	void rebuildGui();
@@ -74,6 +76,7 @@ public slots:
 	void activate();
 
 public:
+	const QString preferredTrigger() const;
 	const KIcon icon() const;
 	bool addCommand(Command *) { return false; }
 	const QString name() const;

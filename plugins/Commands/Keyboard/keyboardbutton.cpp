@@ -134,3 +134,10 @@ QDomElement KeyboardButton::serialize(QDomDocument *doc)
 	return buttonElement;
 }
 
+
+#include <KDebug>
+KeyboardButton::~KeyboardButton()
+{
+	kDebug() << "Deleting keyboardbutton";
+}
+

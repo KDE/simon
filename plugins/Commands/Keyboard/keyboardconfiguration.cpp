@@ -41,19 +41,21 @@ K_PLUGIN_FACTORY_DECLARATION(KeyboardCommandPluginFactory)
 
 QPointer<KeyboardConfiguration> KeyboardConfiguration::instance;
 
-KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList &args)
-		: CommandConfiguration("keyboard", ki18n( "Keyboard" ),
+KeyboardConfiguration::KeyboardConfiguration(KeyboardSetContainer* _setContainer, QWidget *parent, const QVariantList &args)
+		: CommandConfiguration("keyboard", ki18n( "Keyboard" ), 
 				      "0.1", ki18n("Input signes with ease"),
 				      "input-keyboard",
 				      KeyboardCommandPluginFactory::componentData(),parent),
-				      storedSet(NULL)
+				      storedSet(NULL),
+				      setContainer(_setContainer)
 {
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
 	config = KSharedConfig::openConfig(KeyboardCommandPluginFactory::componentData(),"simonkeyboardrc");
 
-	QObject::connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	QObject::connect(ui.cbShowNumpad, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	QObject::connect(ui.cbCaseSensitivity, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
         connect(ui.pbAddSet, SIGNAL(clicked()), this, SLOT(addSet()));
 	connect(ui.pbDeleteSet, SIGNAL(clicked()), this, SLOT(deleteSet()));
 	connect(ui.pbAddTab, SIGNAL(clicked()), this, SLOT(addTab()));
@@ -68,7 +70,6 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
 	connect(ui.pbTabUp, SIGNAL(clicked()), this, SLOT(tabUp()));
 	connect(ui.pbTabDown, SIGNAL(clicked()), this, SLOT(tabDown()));
 
-	setContainer = new KeyboardSetContainer();
 
 	ui.pbAddSet->setIcon(KIcon("list-add"));
 	ui.pbAddTab->setIcon(KIcon("list-add"));
@@ -82,12 +83,19 @@ KeyboardConfiguration::KeyboardConfiguration(QWidget *parent, const QVariantList
 	ui.pbUpButton->setIcon(KIcon("arrow-up"));
 	ui.pbTabDown->setIcon(KIcon("arrow-down"));
 	ui.pbDownButton->setIcon(KIcon("arrow-down"));
+	load();
 }
 
-QString KeyboardConfiguration::trigger()
+bool KeyboardConfiguration::showNumpad()
 {
 	KConfigGroup cg(config, "");
-	return cg.readEntry("Trigger", i18n("Keyboard"));
+	return cg.readEntry("Numpad", false);
+}
+
+bool KeyboardConfiguration::caseSensitive()
+{
+	KConfigGroup cg(config, "");
+	return cg.readEntry("CaseSensitivity", false);
 }
 
 void KeyboardConfiguration::addSet()
@@ -330,7 +338,8 @@ void KeyboardConfiguration::save()
 	Q_ASSERT(config);
 	
 	KConfigGroup cg(config, "");
-	cg.writeEntry("Trigger", ui.leTrigger->text());
+	cg.writeEntry("CaseSensitivity", ui.cbCaseSensitivity->isChecked());
+	cg.writeEntry("Numpad", ui.cbShowNumpad->isChecked());
 	cg.writeEntry("SelectedSet", ui.cbSets->currentText());
 
         cg.sync();
@@ -358,7 +367,9 @@ void KeyboardConfiguration::load()
 {
         Q_ASSERT(config);
 	KConfigGroup cg(config, "");
-	ui.leTrigger->setText(cg.readEntry("Trigger", i18n("Keyboard")));
+	ui.cbCaseSensitivity->setChecked(cg.readEntry("CaseSensitivity", false));
+	ui.cbShowNumpad->setChecked(cg.readEntry("Numpad", false));
+
 	QString selectedSet = cg.readEntry("SelectedSet", "Basic");
 
 	cg.sync();
@@ -390,11 +401,13 @@ void KeyboardConfiguration::load()
  
 void KeyboardConfiguration::defaults()
 {
-	ui.leTrigger->setText(i18n("Keyboard"));
+	ui.cbCaseSensitivity->setChecked(false);
+	ui.cbShowNumpad->setChecked(false);
 	save();
 }
 
 KeyboardConfiguration::~KeyboardConfiguration()
 {
-	delete setContainer;
+	kDebug() << "Deleting keyboardconfiguration";
+	//setContainer managed by manager
 }

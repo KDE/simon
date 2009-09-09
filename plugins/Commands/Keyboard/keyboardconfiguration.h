@@ -66,11 +66,11 @@ class KeyboardConfiguration : public CommandConfiguration
 		virtual void defaults();
 	
 	public:
-		static KeyboardConfiguration *getInstance(QWidget *parent=0, const QVariantList &args = QVariantList()) {
-			if (!instance) instance = new KeyboardConfiguration(parent, args);
+		static KeyboardConfiguration *getInstance(KeyboardSetContainer* setContainer, QWidget *parent=0, const QVariantList &args = QVariantList()) {
+			if (!instance) instance = new KeyboardConfiguration(setContainer, parent, args);
 			return instance;
 		}
-		KeyboardConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
+		KeyboardConfiguration(KeyboardSetContainer* _setContainer, QWidget *parent=0, const QVariantList &args = QVariantList());
 		~KeyboardConfiguration();
 
 		KeyboardSet *getStoredKeyboardSet() { return storedSet; }
@@ -78,8 +78,8 @@ class KeyboardConfiguration : public CommandConfiguration
 		void destroy();
 		
 		//configuration options
-		QString trigger();
-		bool useRealTransparency();
+		bool showNumpad();
+		bool caseSensitive();
 };
 
 #endif

@@ -55,6 +55,7 @@ class KeyboardButton : public KPushButton
 
 		KeyboardButton(QString triggerShown, QString triggerReal, Keyboard::ButtonType valueType, QString value);
 		KeyboardButton(const QDomElement& elem);
+		~KeyboardButton();
 
 		QString getTriggerReal();
 		Keyboard::ButtonType getValueType();

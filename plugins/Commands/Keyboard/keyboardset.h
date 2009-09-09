@@ -61,7 +61,7 @@ class KeyboardSet
 		bool deleteButton(const QString& tabName, KeyboardButton *button);
 		bool moveButtonUp(const QString& tab, KeyboardButton *button);
 		bool moveButtonDown(const QString& tab, KeyboardButton *button);
-		bool triggerButton(const QString& tabName, const QString& trigger);
+		bool triggerButton(const QString& tabName, const QString& trigger, bool caseSensitive=true);
 
 
 		QList<KeyboardButton*> getTabButtons(const QString& tabName);

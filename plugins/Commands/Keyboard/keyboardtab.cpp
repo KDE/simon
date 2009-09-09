@@ -48,12 +48,12 @@ KeyboardTab::KeyboardTab(QString name, QList<KeyboardButton *> bList)
 {
 }
 
-KeyboardButton* KeyboardTab::findButton(const QString& name)
+KeyboardButton* KeyboardTab::findButton(const QString& name, bool caseSensitive)
 {
 	if (m_isNull) return NULL;
 
 	foreach (KeyboardButton *btn, buttonList) {
-		if (btn->getTriggerReal() == name)
+		if (btn->getTriggerReal().compare(name, (caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive))==0)
 			return btn;
 	}
 	return NULL;
@@ -130,10 +130,10 @@ bool KeyboardTab::moveButtonDown(KeyboardButton *button)
 	return true;
 }
 
-bool KeyboardTab::triggerButton(const QString& trigger)
+bool KeyboardTab::triggerButton(const QString& trigger, bool caseSensitive)
 {
 	if (m_isNull) return false;
-	KeyboardButton *b = findButton(trigger);
+	KeyboardButton *b = findButton(trigger, caseSensitive);
 	if (!b) return false;
 
 	return b->trigger();
@@ -253,8 +253,10 @@ QDomElement KeyboardTab::serialize(QDomDocument *doc)
 	return tabElem;
 }
 
+#include <KDebug>
 KeyboardTab::~KeyboardTab()
 {
+	kDebug() << "Deleting keyboardtab";
 	qDeleteAll(buttonList);
 }
 

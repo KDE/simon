@@ -37,13 +37,13 @@ class KeyboardTab : public QAbstractItemModel
 		bool m_isNull;
 
 		QList<KeyboardButton *> buttonList;
-		KeyboardButton* findButton(const QString& name);
+		KeyboardButton* findButton(const QString& name, bool caseSensitive=true);
 		
 		
 	public:
 		bool isNull() { return m_isNull; }
 
-		bool triggerButton(const QString& trigger);
+		bool triggerButton(const QString& trigger, bool caseSensitive);
 
 		KeyboardTab(QString name, QList<KeyboardButton *> bList=QList<KeyboardButton*>());
 		KeyboardTab(const QDomElement& elem);

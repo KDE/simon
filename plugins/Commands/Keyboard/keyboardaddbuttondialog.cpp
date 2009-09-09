@@ -40,6 +40,7 @@ KeyboardAddButtonDialog::KeyboardAddButtonDialog(QWidget *parent) : KDialog(pare
 
 KeyboardButton* KeyboardAddButtonDialog::addButton()
 {
+	ui.leName->setFocus();
 	if(exec())
 	{
 		if(!ui.leName->text().isEmpty() && !ui.leTrigger->text().isEmpty() && !ui.leTextValue->text().isEmpty())
