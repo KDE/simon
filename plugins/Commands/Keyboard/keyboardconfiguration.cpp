@@ -69,6 +69,20 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardSetContainer* _setContainer
         connect(ui.cbTabs, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshTabDetail()));
 	connect(ui.pbTabUp, SIGNAL(clicked()), this, SLOT(tabUp()));
 	connect(ui.pbTabDown, SIGNAL(clicked()), this, SLOT(tabDown()));
+	connect(ui.cbShowNumpad, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbEnableNumberBasedSelection, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbEnableNumberWriteOut, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbShift, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbCapsLock, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbControl, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbBackspace, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.leNumberBackspaceTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	connect(ui.leNumberBasedSelectionTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	connect(ui.leNumberWriteOutTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	connect(ui.leShiftTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	connect(ui.leCapsLockTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	connect(ui.leControlTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	connect(ui.leBackspaceTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 
 
 	ui.pbAddSet->setIcon(KIcon("list-add"));
@@ -88,14 +102,113 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardSetContainer* _setContainer
 
 bool KeyboardConfiguration::showNumpad()
 {
-	KConfigGroup cg(config, "");
-	return cg.readEntry("Numpad", false);
+	KConfigGroup cg(config, "NumPad");
+	return cg.readEntry("NumPad", false);
 }
 
 bool KeyboardConfiguration::caseSensitive()
 {
 	KConfigGroup cg(config, "");
 	return cg.readEntry("CaseSensitivity", false);
+}
+
+bool KeyboardConfiguration::enableNumberBasedSelection()
+{
+	KConfigGroup cg(config, "NumPad");
+	return cg.readEntry("EnableNumberBasedSelection", false);
+}
+
+QString KeyboardConfiguration::numberBasedSelectionTrigger()
+{
+	KConfigGroup cg(config, "NumPad");
+	return cg.readEntry("NumberBasedSelectionTrigger", i18n("Select number"));
+}
+
+bool KeyboardConfiguration::enableNumberWriteOut()
+{
+	KConfigGroup cg(config, "NumPad");
+	return cg.readEntry("EnableNumberWriteOut", true);
+}
+
+
+QString KeyboardConfiguration::numberBackspaceTrigger()
+{
+	KConfigGroup cg(config, "NumPad");
+	return cg.readEntry("NumberBackspace", i18n("Number backspace"));
+}
+
+QString KeyboardConfiguration::numberWriteOutTrigger()
+{
+	KConfigGroup cg(config, "NumPad");
+	return cg.readEntry("NumberWriteOutTrigger", i18n("Write out number"));
+}
+
+bool KeyboardConfiguration::capsLock()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("CapsLock", false);
+}
+
+bool KeyboardConfiguration::shift()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("Shift", true);
+}
+
+QString KeyboardConfiguration::shiftTrigger()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("ShiftTrigger", i18n("Shift"));
+}
+
+QString KeyboardConfiguration::capsLockTrigger()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("CapsLockTrigger", i18n("Caps lock"));
+}
+
+bool KeyboardConfiguration::backspace()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("Backspace", true);
+}
+
+QString KeyboardConfiguration::backspaceTrigger()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("BackspaceTrigger", i18n("Backspace"));
+}
+
+bool KeyboardConfiguration::control()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("Control", true);
+}
+
+QString KeyboardConfiguration::controlTrigger()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("ControlTrigger", i18n("Control"));
+}
+
+QPoint KeyboardConfiguration::keyboardPosition()
+{
+	KConfigGroup cg(config, "KeyboardGeometry");
+	return cg.readEntry("Position", QPoint());
+}
+
+QSize KeyboardConfiguration::keyboardSize()
+{
+	KConfigGroup cg(config, "KeyboardGeometry");
+	return cg.readEntry("Size", QSize());
+}
+
+void KeyboardConfiguration::saveKeyboardGeometry(const QPoint& position, const QSize& size)
+{
+	KConfigGroup cg(config, "KeyboardGeometry");
+	cg.writeEntry("Position", position);
+	cg.writeEntry("Size", size);
+	cg.sync();
 }
 
 void KeyboardConfiguration::addSet()
@@ -339,20 +452,38 @@ void KeyboardConfiguration::save()
 	
 	KConfigGroup cg(config, "");
 	cg.writeEntry("CaseSensitivity", ui.cbCaseSensitivity->isChecked());
-	cg.writeEntry("Numpad", ui.cbShowNumpad->isChecked());
 	cg.writeEntry("SelectedSet", ui.cbSets->currentText());
-
         cg.sync();
+
+	KConfigGroup cgNumPad(config, "NumPad");
+	cgNumPad.writeEntry("NumPad", ui.cbShowNumpad->isChecked());
+	cgNumPad.writeEntry("NumberBackspace", ui.leNumberBackspaceTrigger->text());
+	cgNumPad.writeEntry("EnableNumberBasedSelection", ui.cbEnableNumberBasedSelection->isChecked());
+	cgNumPad.writeEntry("NumberBasedSelectionTrigger", ui.leNumberBasedSelectionTrigger->text());
+	cgNumPad.writeEntry("EnableNumberWriteOut", ui.cbEnableNumberWriteOut->isChecked());
+	cgNumPad.writeEntry("NumberWriteOutTrigger", ui.leNumberWriteOutTrigger->text());
+	cgNumPad.sync();
+
+	KConfigGroup cgSpecialKeys(config, "SpecialKeys");
+	cgSpecialKeys.writeEntry("Shift", ui.cbShift->isChecked());
+	cgSpecialKeys.writeEntry("ShiftTrigger", ui.leShiftTrigger->text());
+	cgSpecialKeys.writeEntry("Backspace", ui.cbBackspace->isChecked());
+	cgSpecialKeys.writeEntry("BackspaceTrigger", ui.leBackspaceTrigger->text());
+	cgSpecialKeys.writeEntry("Control", ui.cbControl->isChecked());
+	cgSpecialKeys.writeEntry("ControlTrigger", ui.leControlTrigger->text());
+	cgSpecialKeys.writeEntry("CapsLock", ui.cbCapsLock->isChecked());
+	cgSpecialKeys.writeEntry("CapsLockTrigger", ui.leCapsLockTrigger->text());
+	cgSpecialKeys.sync();
+
 	if (!setContainer->save()) {
 		KMessageBox::sorry(this, i18n("Failed to save keyboard sets"));
 		return;
 	}
 
-	if (!ui.cbSets->currentText().isEmpty()) {
-		KeyboardSet *s = setContainer->findSet(ui.cbSets->currentText());
+	if (!ui.cbSets->currentText().isEmpty()) { KeyboardSet *s = setContainer->findSet(ui.cbSets->currentText());
 		storedSet = s;
-		emit currentSetChanged();
 	}
+	emit currentSetChanged();
 
 	emit changed(false);
 }
@@ -368,10 +499,27 @@ void KeyboardConfiguration::load()
         Q_ASSERT(config);
 	KConfigGroup cg(config, "");
 	ui.cbCaseSensitivity->setChecked(cg.readEntry("CaseSensitivity", false));
-	ui.cbShowNumpad->setChecked(cg.readEntry("Numpad", false));
+
+	KConfigGroup cgNumPad(config, "NumPad");
+	ui.cbShowNumpad->setChecked(cgNumPad.readEntry("NumPad", false));
+	ui.leNumberBackspaceTrigger->setText(cgNumPad.readEntry("NumberBackspace", i18n("Number Backspace")));
+	ui.cbEnableNumberBasedSelection->setChecked(cgNumPad.readEntry("EnableNumberBasedSelection", false));
+	ui.leNumberBasedSelectionTrigger->setText(cgNumPad.readEntry("NumberBasedSelectionTrigger", i18n("Select number")));
+	ui.cbEnableNumberWriteOut->setChecked(cg.readEntry("EnableNumberWriteOut", true));
+	ui.leNumberWriteOutTrigger->setText(cgNumPad.readEntry("NumberWriteOutTrigger", i18n("Write number")));
+
+	KConfigGroup cgSpecialKeys(config, "SpecialKeys");
+	ui.cbShift->setChecked(cgSpecialKeys.readEntry("Shift", true));
+	ui.leShiftTrigger->setText(cgSpecialKeys.readEntry("ShiftTrigger", i18n("Shift")));
+	ui.cbBackspace->setChecked(cgSpecialKeys.readEntry("Backspace", true));
+	ui.leBackspaceTrigger->setText(cgSpecialKeys.readEntry("BackspaceTrigger", i18n("Backspace")));
+	ui.cbCapsLock->setChecked(cgSpecialKeys.readEntry("CapsLock", false));
+	ui.leCapsLockTrigger->setText(cgSpecialKeys.readEntry("CapsLockTrigger", i18n("CapsLock")));
+	ui.cbControl->setChecked(cgSpecialKeys.readEntry("Control", true));
+	ui.leControlTrigger->setText(cgSpecialKeys.readEntry("ControlTrigger", i18n("Control")));
+
 
 	QString selectedSet = cg.readEntry("SelectedSet", "Basic");
-
 	cg.sync();
 
 	setContainer->clear();
@@ -391,10 +539,8 @@ void KeyboardConfiguration::load()
 	
 	KeyboardSet *newStoredSet = setContainer->findSet(selectedSet);
 	
-	if (newStoredSet != storedSet) {
-		storedSet = newStoredSet;
-		emit currentSetChanged();
-	}
+	storedSet = newStoredSet;
+	emit currentSetChanged();
 
 	emit changed(false);
 }
@@ -403,6 +549,22 @@ void KeyboardConfiguration::defaults()
 {
 	ui.cbCaseSensitivity->setChecked(false);
 	ui.cbShowNumpad->setChecked(false);
+
+	ui.leNumberBackspaceTrigger->setText(i18n("Number Backspace"));
+	ui.cbEnableNumberBasedSelection->setChecked(false);
+	ui.leNumberBasedSelectionTrigger->setText( i18n("Select number"));
+	ui.cbEnableNumberWriteOut->setChecked(true);
+	ui.leNumberWriteOutTrigger->setText(i18n("Write number"));
+
+	ui.cbShift->setChecked(true);
+	ui.leShiftTrigger->setText(i18n("Shift"));
+	ui.cbBackspace->setChecked(true);
+	ui.leBackspaceTrigger->setText(i18n("Backspace"));
+	ui.cbCapsLock->setChecked(false);
+	ui.leCapsLockTrigger->setText(i18n("CapsLock"));
+	ui.cbControl->setChecked(true);
+	ui.leControlTrigger->setText(i18n("Control"));
+
 	save();
 }
 

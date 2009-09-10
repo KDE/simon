@@ -25,7 +25,7 @@
 #include <QVariantList>
 #include <KXMLGUIClient>
 #include "ui_keyboardwidget.h"
-class QDialog;
+class QWidget;
 class KAction;
 class KeyboardConfiguration;
 class KeyboardSet;
@@ -43,7 +43,7 @@ class KeyboardCommandManager : public CommandManager, public GreedyReceiver {
 Q_OBJECT
 private:
 	Ui::KeyboardDlg ui;
-	QDialog *keyboardWidget;
+	QWidget *keyboardWidget;
 	static QStringList numberIdentifiers;
 	KAction *activateAction;
 
@@ -52,6 +52,15 @@ private:
 
 private slots:
 	void rebuildGui();
+
+	void selectNumber();
+	void writeOutNumber();
+	void numberBackSpace();
+
+	void shift();
+	void capsLock();
+	void control();
+	void backSpace();
 
 	void deregister();
 	void ok();

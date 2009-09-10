@@ -6,28 +6,187 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
-    <height>233</height>
+    <width>646</width>
+    <height>291</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Keyboard</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="4">
-    <widget class="KTabWidget" name="twTabs"/>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0" colspan="6">
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="KTabWidget" name="twTabs"/>
+     <widget class="QGroupBox" name="gbNumPad">
+      <property name="maximumSize">
+       <size>
+        <width>280</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="title">
+       <string>Num pad</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0" colspan="3">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="KLineEdit" name="leNumber">
+           <property name="inputMask">
+            <string/>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KPushButton" name="pbNumberBackspace">
+           <property name="text">
+            <string>Number Backspace</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <widget class="KPushButton" name="pb7">
+         <property name="text">
+          <string>7</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="KPushButton" name="pb8">
+         <property name="text">
+          <string>8</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="KPushButton" name="pb9">
+         <property name="text">
+          <string>9</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="KPushButton" name="pb4">
+         <property name="text">
+          <string>4</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="KPushButton" name="pb5">
+         <property name="text">
+          <string>5</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="KPushButton" name="pb6">
+         <property name="text">
+          <string>6</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="KPushButton" name="pb1">
+         <property name="text">
+          <string>1</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="KPushButton" name="pb2">
+         <property name="text">
+          <string>2</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="KPushButton" name="pb3">
+         <property name="text">
+          <string>3</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="KPushButton" name="pb0">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="KPushButton" name="pbDecimalSeparator">
+         <property name="text">
+          <string>.</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="3">
+        <widget class="KPushButton" name="pbSelectNumber">
+         <property name="text">
+          <string>Select number</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="3">
+        <widget class="KPushButton" name="pbWriteOutNumber">
+         <property name="text">
+          <string>Write number</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </item>
    <item row="1" column="0">
-    <widget class="KPushButton" name="pbShift">
+    <widget class="KPushButton" name="pbControl">
      <property name="text">
-      <string>Shift</string>
+      <string>Control</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
    <item row="1" column="1">
+    <widget class="KPushButton" name="pbShift">
+     <property name="text">
+      <string>Shift</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
     <widget class="KPushButton" name="pbCapsLock">
      <property name="text">
-      <string>Caps Lock</string>
+      <string>Caps lock</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -37,7 +196,14 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="2">
+   <item row="1" column="3">
+    <widget class="KPushButton" name="pbBackspace">
+     <property name="text">
+      <string>Backspace</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="4">
     <spacer name="horizontalSpacer">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -50,7 +216,7 @@
      </property>
     </spacer>
    </item>
-   <item row="1" column="3">
+   <item row="1" column="5">
     <widget class="KPushButton" name="pbOk">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -72,6 +238,11 @@
    <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
    <class>KTabWidget</class>
    <extends>QTabWidget</extends>
    <header>ktabwidget.h</header>
@@ -79,22 +250,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>pbOk</sender>
-   <signal>clicked()</signal>
-   <receiver>KeyboardDlg</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>572</x>
-     <y>213</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>601</x>
-     <y>207</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

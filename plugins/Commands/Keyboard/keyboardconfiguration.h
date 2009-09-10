@@ -26,6 +26,8 @@
 #include "ui_keyboardconfigurationdlg.h"
 #include <KSharedConfig>
 #include <QPointer>
+#include <QPoint>
+#include <QSize>
 
 class KeyboardSetContainer;
 
@@ -78,8 +80,27 @@ class KeyboardConfiguration : public CommandConfiguration
 		void destroy();
 		
 		//configuration options
-		bool showNumpad();
 		bool caseSensitive();
+
+		QPoint keyboardPosition();
+		QSize keyboardSize();
+		void saveKeyboardGeometry(const QPoint& position, const QSize& size);
+
+		bool showNumpad();
+		QString numberBackspaceTrigger();
+		bool enableNumberBasedSelection();
+		QString numberBasedSelectionTrigger();
+		bool enableNumberWriteOut();
+		QString numberWriteOutTrigger();
+
+		bool shift();
+		QString shiftTrigger();
+		bool capsLock();
+		QString capsLockTrigger();
+		bool backspace();
+		QString backspaceTrigger();
+		bool control();
+		QString controlTrigger();
 };
 
 #endif
