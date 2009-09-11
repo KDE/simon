@@ -256,7 +256,6 @@ QDomElement KeyboardTab::serialize(QDomDocument *doc)
 #include <KDebug>
 KeyboardTab::~KeyboardTab()
 {
-	kDebug() << "Deleting keyboardtab";
 	qDeleteAll(buttonList);
 }
 

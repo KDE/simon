@@ -49,9 +49,10 @@ private:
 
 	KeyboardSet *keyboardSet;
 	KeyboardSetContainer *setContainer;
+	bool switchToTab(const QString& tabName, bool caseSensitivity);
+	QString getCurrentTabName();
 
 private slots:
-	void rebuildGui();
 
 	void selectNumber();
 	void writeOutNumber();
@@ -61,6 +62,7 @@ private slots:
 	void capsLock();
 	void control();
 	void backSpace();
+	void returnPressed();
 
 	void deregister();
 	void ok();
@@ -77,14 +79,18 @@ private slots:
 	void send8() { processRequest(8); }
 	void send9() { processRequest(9); }
 
+	KeyboardConfiguration* getKeyboardConfiguration();
+
 protected:
 	bool trigger(const QString& triggerName);
 
 public slots:
 	bool greedyTrigger(const QString& inputText);
 	void activate();
+	void rebuildGui();
 
 public:
+	KeyboardSetContainer* getKeyboardSetContainer() { return setContainer;}
 	const QString preferredTrigger() const;
 	const KIcon icon() const;
 	bool addCommand(Command *) { return false; }

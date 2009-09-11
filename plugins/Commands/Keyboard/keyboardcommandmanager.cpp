@@ -62,8 +62,8 @@ void KeyboardCommandManager::activate()
 {
 	QDesktopWidget* tmp = QApplication::desktop();
 
-	QPoint pos =KeyboardConfiguration::getInstance(setContainer)->keyboardPosition();
-	QSize size = KeyboardConfiguration::getInstance(setContainer)->keyboardSize();
+	QPoint pos =getKeyboardConfiguration()->keyboardPosition();
+	QSize size = getKeyboardConfiguration()->keyboardSize();
 
 	if (!pos.isNull() && !size.isNull()) {
 		keyboardWidget->move(pos);
@@ -82,7 +82,7 @@ void KeyboardCommandManager::activate()
 void KeyboardCommandManager::deregister()
 {
 	kDebug() << "deregister begin";
-	KeyboardConfiguration::getInstance(setContainer)->saveKeyboardGeometry(keyboardWidget->pos(),
+	getKeyboardConfiguration()->saveKeyboardGeometry(keyboardWidget->pos(),
 										keyboardWidget->size());
 	stopGreedy();
 	kDebug() << "deregister end";
@@ -122,7 +122,7 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 {
 	kDebug() << "Processing " << inputText;
 
-	bool caseSensitivityBool = KeyboardConfiguration::getInstance(setContainer)->caseSensitive();
+	bool caseSensitivityBool = getKeyboardConfiguration()->caseSensitive();
 	Qt::CaseSensitivity caseSensitivity = caseSensitivityBool ? Qt::CaseSensitive : Qt::CaseInsensitive;
         if (QString::compare(inputText, ui.pbOk->text(), caseSensitivity)==0) {
 		ui.pbOk->animateClick();
@@ -132,29 +132,38 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 	kDebug() << "About to process special keys " << inputText;
 
 	//special keys
-        if (ui.pbShift->isVisible() && QString::compare(inputText, ui.pbShift->text(), caseSensitivity)==0) {
+	kDebug() << ui.pbShift->text() << inputText << QString::compare(inputText, ui.pbShift->text(), caseSensitivity);
+        if (ui.pbShift->isVisible() && (QString::compare(inputText, ui.pbShift->text(), caseSensitivity)==0)) {
 		ui.pbShift->animateClick();
 		return true;
 	}
-        if (ui.pbCapsLock->isVisible() && QString::compare(inputText, ui.pbCapsLock->text(), caseSensitivity)==0) {
+        if (ui.pbCapsLock->isVisible() && (QString::compare(inputText, ui.pbCapsLock->text(), caseSensitivity)==0)) {
 		ui.pbCapsLock->animateClick();
 		return true;
 	}
-        if (ui.pbControl->isVisible() && QString::compare(inputText, ui.pbControl->text(), caseSensitivity)==0) {
+        if (ui.pbControl->isVisible() && (QString::compare(inputText, ui.pbControl->text(), caseSensitivity)==0)) {
 		ui.pbControl->animateClick();
 		return true;
 	}
-        if (ui.pbBackspace->isVisible() && QString::compare(inputText, ui.pbBackspace->text(), caseSensitivity)==0) {
+        if (ui.pbBackspace->isVisible() && (QString::compare(inputText, ui.pbBackspace->text(), caseSensitivity)==0)) {
 		ui.pbBackspace->animateClick();
+		return true;
+	}
+        if (ui.pbReturn->isVisible() && (QString::compare(inputText, ui.pbReturn->text(), caseSensitivity)==0)) {
+		ui.pbReturn->animateClick();
 		return true;
 	}
 
 	kDebug() << "About to process numpad " << inputText;
 
 	//numpad?
-	if (KeyboardConfiguration::getInstance(setContainer)->showNumpad()) {
-		if (QString::compare(inputText, ui.pbSelectNumber->text(), caseSensitivity)==0) {
-			ui.pbDecimalSeparator->animateClick();
+	if (getKeyboardConfiguration()->showNumpad()) {
+		if (ui.pbSelectNumber->isVisible() && (QString::compare(inputText, ui.pbSelectNumber->text(), caseSensitivity)==0)) {
+			ui.pbSelectNumber->animateClick();
+			return true;
+		}
+		if (ui.pbWriteOutNumber->isVisible() && (QString::compare(inputText, ui.pbWriteOutNumber->text(), caseSensitivity)==0)) {
+			ui.pbWriteOutNumber->animateClick();
 			return true;
 		}
 		if (QString::compare(inputText, ui.pbDecimalSeparator->text(), caseSensitivity)==0) {
@@ -191,30 +200,49 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 	}
 
 	//no widgets?
+	if (switchToTab(inputText, caseSensitivityBool))
+		return true;
+
+	QString currentTabName = getCurrentTabName();
+	if (currentTabName.isNull())
+		return false;
+
+	return keyboardSet->triggerButton(currentTabName, inputText);
+}
+
+bool KeyboardCommandManager::switchToTab(const QString& tabName, bool caseSensitivity)
+{
 	if (ui.twTabs->currentIndex() == -1) return false;
+
+	Qt::CaseSensitivity caseS = (caseSensitivity ? Qt::CaseSensitive : Qt::CaseInsensitive);
 
 	QStringList tabNames = keyboardSet->getAvailableTabs();
 	for (int i=0; i < tabNames.count(); i++) {
-		if (tabNames[i].toUpper() == inputText.toUpper()) {
+		if (QString::compare(tabNames[i], tabName, caseS) == 0) {
 			ui.twTabs->setCurrentIndex(i);
 			return true;
 		}
 	}
-	
-	kDebug() << "Available tabs: " << tabNames << " of set " << keyboardSet->getSetName();
-	kDebug() << "Get tab: " << ui.twTabs->currentIndex();
-	return keyboardSet->triggerButton(tabNames[ui.twTabs->currentIndex()], inputText, 
-			caseSensitivityBool);
+	return false;
 }
 
+QString KeyboardCommandManager::getCurrentTabName()
+{
+	int currentIndex = ui.twTabs->currentIndex();
+	if (currentIndex == -1) return QString();
+
+	QStringList tabNames = keyboardSet->getAvailableTabs();
+	return tabNames[currentIndex];
+}
 
 void KeyboardCommandManager::rebuildGui()
 {
-	keyboardSet = KeyboardConfiguration::getInstance(setContainer)->getStoredKeyboardSet();
+	keyboardSet = getKeyboardConfiguration()->getStoredKeyboardSet();
 	if (!keyboardSet) return;
 
 	keyboardWidget->setWindowTitle(keyboardSet->getSetName());
 	
+	QString currentTab = getCurrentTabName();
 	// clear tab
 	while(ui.twTabs->count() > 0) {
 		QWidget *w = ui.twTabs->widget(0);
@@ -248,26 +276,28 @@ void KeyboardCommandManager::rebuildGui()
 
 		ui.twTabs->addTab(w, tabName);
 	}
+	if (!currentTab.isNull())
+		switchToTab(currentTab, getKeyboardConfiguration()->caseSensitive());
 
 	//special keys
-	ui.pbControl->setVisible(KeyboardConfiguration::getInstance(setContainer)->control());
-	ui.pbControl->setText(KeyboardConfiguration::getInstance(setContainer)->controlTrigger());
-	ui.pbShift->setVisible(KeyboardConfiguration::getInstance(setContainer)->shift());
-	ui.pbShift->setText(KeyboardConfiguration::getInstance(setContainer)->shiftTrigger());
-	ui.pbCapsLock->setVisible(KeyboardConfiguration::getInstance(setContainer)->capsLock());
-	ui.pbCapsLock->setText(KeyboardConfiguration::getInstance(setContainer)->capsLockTrigger());
-	ui.pbBackspace->setVisible(KeyboardConfiguration::getInstance(setContainer)->backspace());
-	ui.pbBackspace->setText(KeyboardConfiguration::getInstance(setContainer)->backspaceTrigger());
+	ui.pbControl->setVisible(getKeyboardConfiguration()->control());
+	ui.pbControl->setText(getKeyboardConfiguration()->controlTrigger());
+	ui.pbShift->setVisible(getKeyboardConfiguration()->shift());
+	ui.pbShift->setText(getKeyboardConfiguration()->shiftTrigger());
+	ui.pbCapsLock->setVisible(getKeyboardConfiguration()->capsLock());
+	ui.pbCapsLock->setText(getKeyboardConfiguration()->capsLockTrigger());
+	ui.pbBackspace->setVisible(getKeyboardConfiguration()->backspace());
+	ui.pbBackspace->setText(getKeyboardConfiguration()->backspaceTrigger());
 
 	//characters
-	if (KeyboardConfiguration::getInstance(setContainer)->showNumpad()) {
+	if (getKeyboardConfiguration()->showNumpad()) {
 		kDebug() << "Showing numpad...";
 		ui.gbNumPad->show();
-		ui.pbNumberBackspace->setText(KeyboardConfiguration::getInstance(setContainer)->numberBackspaceTrigger());
-		ui.pbSelectNumber->setVisible(KeyboardConfiguration::getInstance(setContainer)->enableNumberBasedSelection());
-		ui.pbSelectNumber->setText(KeyboardConfiguration::getInstance(setContainer)->numberBasedSelectionTrigger());
-		ui.pbWriteOutNumber->setVisible(KeyboardConfiguration::getInstance(setContainer)->enableNumberWriteOut());
-		ui.pbWriteOutNumber->setText(KeyboardConfiguration::getInstance(setContainer)->numberWriteOutTrigger());
+		ui.pbNumberBackspace->setText(getKeyboardConfiguration()->numberBackspaceTrigger());
+		ui.pbSelectNumber->setVisible(getKeyboardConfiguration()->enableNumberBasedSelection());
+		ui.pbSelectNumber->setText(getKeyboardConfiguration()->numberBasedSelectionTrigger());
+		ui.pbWriteOutNumber->setVisible(getKeyboardConfiguration()->enableNumberWriteOut());
+		ui.pbWriteOutNumber->setText(getKeyboardConfiguration()->numberWriteOutTrigger());
 	} else
 		ui.gbNumPad->hide();
 }
@@ -289,11 +319,13 @@ bool KeyboardCommandManager::trigger(const QString& triggerName)
 
 CommandConfiguration* KeyboardCommandManager::getConfigurationPage()
 {
-	disconnect(KeyboardConfiguration::getInstance(setContainer), SIGNAL(currentSetChanged()), this, SLOT(rebuildGui()));
-	connect(KeyboardConfiguration::getInstance(setContainer), SIGNAL(currentSetChanged()), this, SLOT(rebuildGui()));
-	return KeyboardConfiguration::getInstance(setContainer);
+	return KeyboardConfiguration::getInstance(this);
 }
 
+KeyboardConfiguration* KeyboardCommandManager::getKeyboardConfiguration()
+{
+	return static_cast<KeyboardConfiguration*>(getConfigurationPage());
+}
 
 void KeyboardCommandManager::selectNumber()
 {
@@ -324,6 +356,12 @@ void KeyboardCommandManager::shift()
 	kDebug() << "Shift";
 
 }
+void KeyboardCommandManager::returnPressed()
+{
+	kDebug() << "Return";
+	EventHandler::getInstance()->sendShortcut(QKeySequence("Return"));
+
+}
 
 void KeyboardCommandManager::capsLock()
 {
@@ -340,7 +378,7 @@ void KeyboardCommandManager::control()
 void KeyboardCommandManager::backSpace()
 {
 	kDebug() << "BackSpace";
-
+	EventHandler::getInstance()->sendShortcut(QKeySequence("Backspace"));
 }
 
 
@@ -353,7 +391,6 @@ bool KeyboardCommandManager::load()
 			i18n("Six") << i18n("Seven") << i18n("Eight") << i18n("Nine");
 
 	//Connect to Slots
-	connect(KeyboardConfiguration::getInstance(setContainer), SIGNAL(currentSetChanged()), this, SLOT(rebuildGui()));
 	connect(ui.pbOk, SIGNAL(clicked()), keyboardWidget, SLOT(hide()));
 	connect(ui.pbOk, SIGNAL(clicked()), this, SLOT(deregister()));
 	connect(ui.pb0, SIGNAL(clicked()), this, SLOT(send0()));

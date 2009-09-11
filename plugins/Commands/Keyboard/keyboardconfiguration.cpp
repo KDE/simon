@@ -41,14 +41,16 @@ K_PLUGIN_FACTORY_DECLARATION(KeyboardCommandPluginFactory)
 
 QPointer<KeyboardConfiguration> KeyboardConfiguration::instance;
 
-KeyboardConfiguration::KeyboardConfiguration(KeyboardSetContainer* _setContainer, QWidget *parent, const QVariantList &args)
+KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandManager, QWidget *parent, const QVariantList &args)
 		: CommandConfiguration("keyboard", ki18n( "Keyboard" ), 
 				      "0.1", ki18n("Input signes with ease"),
 				      "input-keyboard",
 				      KeyboardCommandPluginFactory::componentData(),parent),
 				      storedSet(NULL),
-				      setContainer(_setContainer)
+				      commandManager(_commandManager),
+				      setContainer(_commandManager->getKeyboardSetContainer())
 {
+	kDebug() << "Constructor";
 	Q_UNUSED(args);
 	ui.setupUi(this);
 	
@@ -76,6 +78,7 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardSetContainer* _setContainer
 	connect(ui.cbCapsLock, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	connect(ui.cbControl, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	connect(ui.cbBackspace, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbReturn, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	connect(ui.leNumberBackspaceTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	connect(ui.leNumberBasedSelectionTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	connect(ui.leNumberWriteOutTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
@@ -83,6 +86,7 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardSetContainer* _setContainer
 	connect(ui.leCapsLockTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	connect(ui.leControlTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	connect(ui.leBackspaceTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	connect(ui.leReturnTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 
 
 	ui.pbAddSet->setIcon(KIcon("list-add"));
@@ -97,7 +101,6 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardSetContainer* _setContainer
 	ui.pbUpButton->setIcon(KIcon("arrow-up"));
 	ui.pbTabDown->setIcon(KIcon("arrow-down"));
 	ui.pbDownButton->setIcon(KIcon("arrow-down"));
-	load();
 }
 
 bool KeyboardConfiguration::showNumpad()
@@ -171,6 +174,18 @@ bool KeyboardConfiguration::backspace()
 {
 	KConfigGroup cg(config, "SpecialKeys");
 	return cg.readEntry("Backspace", true);
+}
+
+bool KeyboardConfiguration::returnKey()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("Return", true);
+}
+
+QString KeyboardConfiguration::returnKeyTrigger()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("ReturnTrigger", i18n("Return"));
 }
 
 QString KeyboardConfiguration::backspaceTrigger()
@@ -448,6 +463,7 @@ void KeyboardConfiguration::refreshTabDetail()
 
 void KeyboardConfiguration::save()
 {
+	kDebug() << "Save";
 	Q_ASSERT(config);
 	
 	KConfigGroup cg(config, "");
@@ -473,6 +489,8 @@ void KeyboardConfiguration::save()
 	cgSpecialKeys.writeEntry("ControlTrigger", ui.leControlTrigger->text());
 	cgSpecialKeys.writeEntry("CapsLock", ui.cbCapsLock->isChecked());
 	cgSpecialKeys.writeEntry("CapsLockTrigger", ui.leCapsLockTrigger->text());
+	cgSpecialKeys.writeEntry("Return", ui.cbReturn->isChecked());
+	cgSpecialKeys.writeEntry("ReturnTrigger", ui.leReturnTrigger->text());
 	cgSpecialKeys.sync();
 
 	if (!setContainer->save()) {
@@ -483,7 +501,7 @@ void KeyboardConfiguration::save()
 	if (!ui.cbSets->currentText().isEmpty()) { KeyboardSet *s = setContainer->findSet(ui.cbSets->currentText());
 		storedSet = s;
 	}
-	emit currentSetChanged();
+	commandManager->rebuildGui();
 
 	emit changed(false);
 }
@@ -496,6 +514,7 @@ void KeyboardConfiguration::destroy()
  
 void KeyboardConfiguration::load()
 {
+	kDebug() << "Load";
         Q_ASSERT(config);
 	KConfigGroup cg(config, "");
 	ui.cbCaseSensitivity->setChecked(cg.readEntry("CaseSensitivity", false));
@@ -517,6 +536,8 @@ void KeyboardConfiguration::load()
 	ui.leCapsLockTrigger->setText(cgSpecialKeys.readEntry("CapsLockTrigger", i18n("CapsLock")));
 	ui.cbControl->setChecked(cgSpecialKeys.readEntry("Control", true));
 	ui.leControlTrigger->setText(cgSpecialKeys.readEntry("ControlTrigger", i18n("Control")));
+	ui.cbReturn->setChecked(cgSpecialKeys.readEntry("Return", true));
+	ui.leReturnTrigger->setText(cgSpecialKeys.readEntry("ReturnTrigger", i18n("Return")));
 
 
 	QString selectedSet = cg.readEntry("SelectedSet", "Basic");
@@ -540,7 +561,7 @@ void KeyboardConfiguration::load()
 	KeyboardSet *newStoredSet = setContainer->findSet(selectedSet);
 	
 	storedSet = newStoredSet;
-	emit currentSetChanged();
+	commandManager->rebuildGui();
 
 	emit changed(false);
 }
@@ -564,12 +585,17 @@ void KeyboardConfiguration::defaults()
 	ui.leCapsLockTrigger->setText(i18n("CapsLock"));
 	ui.cbControl->setChecked(true);
 	ui.leControlTrigger->setText(i18n("Control"));
+	ui.cbReturn->setChecked(true);
+	ui.leReturnTrigger->setText(i18n("Return"));
 
 	save();
 }
 
 KeyboardConfiguration::~KeyboardConfiguration()
 {
+	//don't delete my precious!
+	ui.tvTabContent->setModel(NULL);
+
 	kDebug() << "Deleting keyboardconfiguration";
 	//setContainer managed by manager
 }

@@ -30,7 +30,7 @@
    <item>
     <widget class="KTabWidget" name="ktabwidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="Seite">
       <attribute name="title">
@@ -539,6 +539,57 @@
            </item>
            <item row="0" column="1">
             <widget class="KLineEdit" name="leControlTrigger">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbReturn">
+         <property name="text">
+          <string>Return</string>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>25</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QFormLayout" name="formLayout_8">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_10">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Trigger:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="KLineEdit" name="leReturnTrigger">
              <property name="enabled">
               <bool>true</bool>
              </property>

@@ -31,16 +31,17 @@ KeyboardButton::KeyboardButton(const QDomElement& element) : KPushButton(0), m_i
 		QDomElement triggerShownElem = element.firstChildElement();
 		QDomElement triggerElem = triggerShownElem.nextSiblingElement();
 		QDomElement typeElem = triggerElem.nextSiblingElement();
-		QDomElement valueElem = typeElem.nextSiblingElement();
+		//QDomElement valueElem = typeElem.nextSiblingElement();
 		if (triggerShownElem.isNull() || triggerElem.isNull() || 
-			    valueElem.isNull() || typeElem.isNull()) {
+			    typeElem.isNull()) {
 			m_isNull = true;
 		} else {
 			triggerShown = triggerShownElem.text();
 			triggerReal = triggerElem.text();
 			bool ok;
 			valueType = (Keyboard::ButtonType) typeElem.text().toInt(&ok);
-			value = valueElem.text();
+			value = typeElem.attribute("value");
+			//value= valueElem.text();
 			if (!ok) m_isNull = true;
 		}
 	}
@@ -123,13 +124,11 @@ QDomElement KeyboardButton::serialize(QDomDocument *doc)
 	QDomElement typeElem = doc->createElement("type");
 	typeElem.appendChild(doc->createTextNode(QString::number((int) valueType)));
 
-	QDomElement valueElem = doc->createElement("value");
-	valueElem.appendChild(doc->createTextNode(value));
+	typeElem.setAttribute("value", value); // to retain whitespaces
 
 	buttonElement.appendChild(triggerShownElem);
 	buttonElement.appendChild(triggerElem);
 	buttonElement.appendChild(typeElem);
-	buttonElement.appendChild(valueElem);
 
 	return buttonElement;
 }
@@ -138,6 +137,5 @@ QDomElement KeyboardButton::serialize(QDomDocument *doc)
 #include <KDebug>
 KeyboardButton::~KeyboardButton()
 {
-	kDebug() << "Deleting keyboardbutton";
 }
 

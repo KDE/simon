@@ -30,21 +30,21 @@
 #include <QSize>
 
 class KeyboardSetContainer;
+class KeyboardCommandManager;
 
 
 class KeyboardConfiguration : public CommandConfiguration
 {
 	Q_OBJECT
 
-	signals:
-		void currentSetChanged();
-	
 	private:
 		KeyboardSet *storedSet;
 		Ui::KeyboardConfigurationDlg ui;
 		static QPointer<KeyboardConfiguration> instance;
 
+		KeyboardCommandManager *commandManager;
 		KeyboardSetContainer *setContainer;
+		KeyboardConfiguration(KeyboardCommandManager* _commandManager, QWidget *parent=0, const QVariantList &args = QVariantList());
 
         private slots:
                 void addSet();
@@ -68,11 +68,14 @@ class KeyboardConfiguration : public CommandConfiguration
 		virtual void defaults();
 	
 	public:
-		static KeyboardConfiguration *getInstance(KeyboardSetContainer* setContainer, QWidget *parent=0, const QVariantList &args = QVariantList()) {
-			if (!instance) instance = new KeyboardConfiguration(setContainer, parent, args);
+		static KeyboardConfiguration *getInstance(KeyboardCommandManager* commandManager, QWidget *parent=0, const QVariantList &args = QVariantList()) {
+			if (!instance) {
+				instance = new KeyboardConfiguration(commandManager, parent, args);
+				instance->load();
+			}
+
 			return instance;
 		}
-		KeyboardConfiguration(KeyboardSetContainer* _setContainer, QWidget *parent=0, const QVariantList &args = QVariantList());
 		~KeyboardConfiguration();
 
 		KeyboardSet *getStoredKeyboardSet() { return storedSet; }
@@ -101,6 +104,8 @@ class KeyboardConfiguration : public CommandConfiguration
 		QString backspaceTrigger();
 		bool control();
 		QString controlTrigger();
+		bool returnKey();
+		QString returnKeyTrigger();
 };
 
 #endif
