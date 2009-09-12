@@ -351,9 +351,13 @@ void KeyboardCommandManager::numberBackSpace()
 	ui.leNumber->setText(text);
 }
 
-void KeyboardCommandManager::shift()
+void KeyboardCommandManager::shift(bool down)
 {
 	kDebug() << "Shift";
+	if (down)
+		EventHandler::getInstance()->setModifier((int) Qt::SHIFT, true /*once*/);
+	else 
+		EventHandler::getInstance()->unsetModifier((int) Qt::SHIFT);
 
 }
 void KeyboardCommandManager::returnPressed()
@@ -363,16 +367,23 @@ void KeyboardCommandManager::returnPressed()
 
 }
 
-void KeyboardCommandManager::capsLock()
+void KeyboardCommandManager::capsLock(bool down)
 {
 	kDebug() << "CapsLock";
+	if (down)
+		EventHandler::getInstance()->setModifier((int) Qt::SHIFT);
+	else
+		EventHandler::getInstance()->unsetModifier((int) Qt::SHIFT);
 
 }
 
-void KeyboardCommandManager::control()
+void KeyboardCommandManager::control(bool down)
 {
 	kDebug() << "Control";
-
+	if (down)
+		EventHandler::getInstance()->setModifier((int) Qt::CTRL);
+	else 
+		EventHandler::getInstance()->unsetModifier((int) Qt::CTRL);
 }
 
 void KeyboardCommandManager::backSpace()
@@ -406,9 +417,9 @@ bool KeyboardCommandManager::load()
 	connect(ui.pbSelectNumber, SIGNAL(clicked()), this, SLOT(selectNumber()));
 	connect(ui.pbWriteOutNumber, SIGNAL(clicked()), this, SLOT(writeOutNumber()));
 	connect(ui.pbNumberBackspace, SIGNAL(clicked()), this, SLOT(numberBackSpace()));
-	connect(ui.pbCapsLock, SIGNAL(clicked()), this, SLOT(capsLock()));
-	connect(ui.pbShift, SIGNAL(clicked()), this, SLOT(shift()));
-	connect(ui.pbControl, SIGNAL(clicked()), this, SLOT(control()));
+	connect(ui.pbCapsLock, SIGNAL(toggled(bool)), this, SLOT(capsLock(bool)));
+	connect(ui.pbShift, SIGNAL(toggled(bool)), this, SLOT(shift(bool)));
+	connect(ui.pbControl, SIGNAL(toggled(bool)), this, SLOT(control(bool)));
 	connect(ui.pbBackspace, SIGNAL(clicked()), this, SLOT(backSpace()));
 	rebuildGui();
 	return true;

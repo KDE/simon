@@ -54,6 +54,9 @@ public:
 	void click(int x, int y);
 	void sendWord(const QString& word) const;
 	void sendShortcut(const QKeySequence& shortcut) const;
+
+	void setModifier(int virtualKey, bool once=false) const;
+	void unsetModifier(int virtualKey) const;
 };
 
 #endif

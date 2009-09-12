@@ -58,9 +58,9 @@ private slots:
 	void writeOutNumber();
 	void numberBackSpace();
 
-	void shift();
-	void capsLock();
-	void control();
+	void shift(bool down);
+	void capsLock(bool down);
+	void control(bool down);
 	void backSpace();
 	void returnPressed();
 

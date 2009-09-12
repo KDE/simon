@@ -116,6 +116,17 @@ void EventHandler::sendKey(const QChar& key) const
 	coreEvents->sendKey(c);
 }
 
+void EventHandler::setModifier(int virtualKey, bool once) const
+{
+	coreEvents->setModifierKey(virtualKey, once);
+}
+
+void EventHandler::unsetModifier(int virtualKey) const
+{
+	coreEvents->unsetModifier(virtualKey);
+}
+
+
 EventHandler::~EventHandler()
 {
     delete coreEvents;

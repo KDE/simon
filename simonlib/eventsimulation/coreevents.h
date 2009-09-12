@@ -49,6 +49,10 @@ class DeadKey {
  *	@author Peter Grasch
  */
 class CoreEvents {
+
+enum KeyEvent {
+	KeyDown=1,
+	KeyUp=2 };
 	
 protected:
 	QHash<unsigned int /*unicode char*/, DeadKey*> deadKeys;
@@ -67,7 +71,7 @@ public:
 	void unsetUnneededModifiers();
 	void sendShortcut(const QKeySequence& shortcut);
 
-	virtual void setModifierKey(int virtualKey, bool once)=0;
+	virtual void setModifierKey(int virtualKey, bool once=false)=0;
 	virtual void unsetModifier(int virtualKey)=0;
 	virtual ~CoreEvents() {}
 };
