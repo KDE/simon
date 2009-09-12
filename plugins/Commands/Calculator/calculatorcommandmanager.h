@@ -57,6 +57,7 @@ private:
 	void sendBracket(const QString bracketStr);
 	void sendNumber(const QString bracketStr);
 	void resetInput();
+	QString formatOutput(double in);
 	
 private slots:
 	void deregister();

@@ -113,7 +113,8 @@ void CalculatorCommandManager::writeoutRequestReceived(int index)
 	switch (index) {
 		case 1:
 			//result
-			output = QString::number(currentResult);
+			if (resultCurrentlyDisplayed)
+				output = formatOutput(currentResult);
 			break;
 		case 2:
 			//calculation & result
@@ -121,13 +122,36 @@ void CalculatorCommandManager::writeoutRequestReceived(int index)
 			break;
 		case 3:
 			//formatted result
-			//TODO: format output
-			output = QString::number(currentResult);
+			if (resultCurrentlyDisplayed)
+				output = KGlobal::locale()->formatNumber(currentResult);
 			break;
 		case 4:
 			//formatted calculation & result
 			//TODO: format output
-			output = ui.leNumber->text();
+			QString input = ui.leNumber->text();
+			if (input.contains("="))
+				input = input.left(input.indexOf("="));
+			QList<Token*> *parsedString = parseString(input);
+			if (!parsedString) {
+				SimonInfo::showMessage(i18n("Error in output"), 3000);
+				return;
+			}
+
+			foreach (Token* t, *parsedString) {
+				//format number / operator
+				switch (t->getType()) {
+					case -1: output += ",";
+						break;
+					case 0: output += KGlobal::locale()->formatNumber(t->getNumber());
+						break;
+					case 1:
+					case 2:
+						output += t->getArOperator();
+						break;
+				}
+			}
+			if (resultCurrentlyDisplayed)
+				output += "="+KGlobal::locale()->formatNumber(currentResult);
 			break;
 	}
 
@@ -156,7 +180,7 @@ const QString CalculatorCommandManager::name() const
 void CalculatorCommandManager::sendOperator(const QString operatorStr)
 {
 	if (resultCurrentlyDisplayed) {
-		ui.leNumber->setText(QString::number(currentResult));
+		ui.leNumber->setText(formatOutput(currentResult));
 		resultCurrentlyDisplayed = false;
 	}
 
@@ -233,40 +257,57 @@ void CalculatorCommandManager::resetInput()
 
 void CalculatorCommandManager::sendEquals()
 {
-	QList<Token*> *parsedInput = parseString(ui.leNumber->text());
+	QString input = ui.leNumber->text();
+	if (input.contains("="))
+		input = input.left(input.indexOf("="));
+	QList<Token*> *parsedInput = parseString(input);
 	if(parsedInput!=NULL)
 	{
 	    QList<Token*> *postfixedInput =  toPostfix(parsedInput);
 
 	    currentResult = calculate(postfixedInput);
 	    //ui.leNumber->setText(QString("%1").arg(output,0,'f',4));
-	    ui.leNumber->setText(ui.leNumber->text()+"="+QString::number(currentResult));
+	    ui.leNumber->setText(ui.leNumber->text()+"="+formatOutput(currentResult));
 	    resultCurrentlyDisplayed = true;
 	}
 	else
 		resetInput();
 }
 
+QString CalculatorCommandManager::formatOutput(double in)
+{
+	QString out = QString::number(in);
+	out.replace(".", KGlobal::locale()->decimalSymbol());
+	return out;
+}
+
 QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 {
 	QList<Token *> *list=new QList<Token *>();
-	//status: Explains the status from the parser. 0=start, 1=number, 2=comma, 3=arithmetic operator, -1=fail
+	//status: Explains the status from the parser. 0=start, 1=number, 2=comma, 3=arithmetic operator, 4=commanumber, -1=fail
 	int status=0;
 	double number=0.0;
 	bool isFloat=false;
+	float decimalMultiplier =  10.0f;
 	QString decimal = KGlobal::locale()->decimalSymbol();
 
 	for(int i=0;i<calc.size();i++)
 	{
+	    kDebug() << calc.at(i) << status;
 	    if(calc.at(i)>=48 && calc.at(i)<=57)
 	    {
 		switch(status)
 		{
 		    case -1: resetInput();
+			     kDebug() << "Error in 1";
 			     SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 			     break;
-		    case 2: number=number+(calc.at(i).digitValue()/10.0f);
-			    status=1;
+		    case 2: number=number+(calc.at(i).digitValue()/decimalMultiplier);
+			    decimalMultiplier*=10;
+			    status=4;
+			    break;
+		    case 4: number=number+(calc.at(i).digitValue()/decimalMultiplier);
+			    decimalMultiplier*=10;
 			    break;
 		    case 3: number=calc.at(i).digitValue();
 			    status=1;
@@ -286,24 +327,24 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		list->append(new Token('(', -1));
 		status=3;
 	    }
-	    else if(calc.at(i)==')' && status==1)
+	    else if(calc.at(i)==')' && ((status==1)||(status==4)))
 	    {
 		list->append(new Token(')', -1));
 	    }
-	    else if(status==1)
+	    else if((status==1) || (status==4))
 	    {
 		if((i+1)!=calc.size())
 		{
-
 		    if(calc.at(i).toAscii() == decimal.at(0).toAscii())
 		    {
 			if(!isFloat)
 			 {
 			  status=2;
 			  isFloat=true;
+			  decimalMultiplier = 10.0f;
 			 }
 			else
-			status=-1;
+			  status=-1;
 		    }
 
 		    else
@@ -340,6 +381,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		{
 		    status=-1;
 		    resetInput();
+		     kDebug() << "Error in 2";
 		    SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 		}
 	    }
@@ -347,6 +389,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 	    {
 		status=-1;
 		resetInput();
+	     kDebug() << "Error in 3";
 		SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 	    }
 	}
@@ -503,7 +546,8 @@ void CalculatorCommandManager::cancel()
 
 void CalculatorCommandManager::processRequest(int number)
 {
-	kDebug() << "Digit: " << number;
+	if (resultCurrentlyDisplayed) 
+		resetInput();
 
 	ui.leNumber->setText(ui.leNumber->text()+QString::number(number));
 }
