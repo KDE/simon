@@ -2,7 +2,7 @@ include(FindQt4)
 include(SimonDirs)
 
 find_package(KDE4 REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES}
+include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ../../
 			${CMAKE_CURRENT_SOURCE_DIR}/..
 			${CMAKE_CURRENT_SOURCE_DIR}/../speechmodelbase_scenario
 			${CMAKE_CURRENT_SOURCE_DIR}/../speechgui
@@ -20,6 +20,8 @@ set( simonmodelmanagement_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/speechmodelsettings.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlistmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/vocabulary.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/scenario.cpp
 )
 
 
@@ -29,6 +31,8 @@ set( simonmodelmanagement_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/wordlistmodel.h
   ${CMAKE_CURRENT_SOURCE_DIR}/wordlistmanager.h
   ${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/scenario.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/vocabulary.h
   ${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.h
 )
 
@@ -43,7 +47,9 @@ kde4_add_kcfg_files(simonmodelmanagement_LIB_SRCS
 )
 
 kde4_add_library( simonmodelmanagement SHARED ${simonmodelmanagement_LIB_SRCS} )
-target_link_libraries( simonmodelmanagement ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} simonxml simonlogging speechgui speechmodelbase simonprogresstracking )
+target_link_libraries( simonmodelmanagement ${QT_LIBRARIES} ${KDE4_KDECORE_LIBS} ${KDE4_KIO_LIBS} 
+	simonxml simonlogging speechgui speechmodelbase simonprogresstracking  simonactions 
+	simonscenariobase simoncommandpluginbase )
 
 
 set_target_properties( simonmodelmanagement

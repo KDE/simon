@@ -212,9 +212,8 @@ bool Scenario::save(QString path)
 {
 	if (path.isNull())
 		path = KStandardDirs::locateLocal("appdata", "scenarios/"+m_scenarioId);
-	
-	QDomDocument doc("scenario");
 
+	QDomDocument doc("scenario");
 	QDomElement rootElem = doc.createElement("scenario");
 	rootElem.setAttribute("name", m_name);
 	rootElem.setAttribute("version", m_version);
@@ -227,12 +226,11 @@ bool Scenario::save(QString path)
 	QDomElement simonMinVersionElem = doc.createElement("minimumVersion");
 	simonMinVersionElem.appendChild(m_simonMinVersion->serialize(&doc));
 	compatibilityElem.appendChild(simonMinVersionElem);
-	if (m_simonMaxVersion->isValid()) {
-		QDomElement simonMaxVersionElem = doc.createElement("maximumVersion");
-		//QDomText simonMaxVersionElemText = doc.createTextNode(simonMaxVersion->toString());
+	QDomElement simonMaxVersionElem = doc.createElement("maximumVersion");
+	if (m_simonMaxVersion && m_simonMaxVersion->isValid()) {
 		simonMaxVersionElem.appendChild(m_simonMaxVersion->serialize(&doc));
-		compatibilityElem.appendChild(simonMaxVersionElem);
 	}
+	compatibilityElem.appendChild(simonMaxVersionElem);
 
 	rootElem.appendChild(compatibilityElem);
 
@@ -281,7 +279,7 @@ bool Scenario::save(QString path)
 	rootElem.appendChild(textsElem);
 
 	doc.appendChild(rootElem);
-
+	
 	QFile file(path);
 	if (!file.open(QIODevice::WriteOnly))
 		return false;

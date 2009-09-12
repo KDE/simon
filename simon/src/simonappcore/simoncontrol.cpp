@@ -33,7 +33,7 @@
 #ifdef SIMON_SCENARIOS
 #include <QFileInfo>
 #include <KDebug>
-#include <speechmodelbase_scenario/scenario.h>
+#include <speechmodelmanagement_scenario/scenario.h>
 #include <simonscenariobase/scenariodisplay.h>
 #endif
 
@@ -111,6 +111,7 @@ void SimonControl::setupScenarios()
 			scenarioIds << idToBe;
 	}
 
+	kDebug() << "Found scenarios: " << scenarioIds;
 
 	foreach (const QString& id, scenarioIds) {
 		Scenario *s = new Scenario(id);
@@ -123,7 +124,6 @@ void SimonControl::setupScenarios()
 		}
 	}
 
-	kDebug() << "Found scenarios: " << scenarioSrcs;
 	kDebug() << "Creating scenario";
 	Scenario *s = new Scenario("webbrowsing");
 	kDebug() << "Initializing scenario";

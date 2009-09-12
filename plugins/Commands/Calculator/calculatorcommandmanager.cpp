@@ -43,7 +43,9 @@ QStringList CalculatorCommandManager::numberIdentifiers;
 
 CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVariantList& args) : CommandManager(parent, args),
 	widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
-	commandListWidget(new CommandListWidget())
+	commandListWidget(new CommandListWidget()),
+	currentResult(0),
+	resultCurrentlyDisplayed(false)
 {
 	KAction *activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Calculator"));
@@ -106,6 +108,32 @@ void CalculatorCommandManager::writeoutRequestReceived(int index)
 {
 	commandListWidget->hide();
 	//Take the index and do what you want
+	
+	QString output;
+	switch (index) {
+		case 1:
+			//result
+			output = QString::number(currentResult);
+			break;
+		case 2:
+			//calculation & result
+			output = ui.leNumber->text();
+			break;
+		case 3:
+			//formatted result
+			//TODO: format output
+			output = QString::number(currentResult);
+			break;
+		case 4:
+			//formatted calculation & result
+			//TODO: format output
+			output = ui.leNumber->text();
+			break;
+	}
+
+	widget->accept();
+	usleep(300000);
+	EventHandler::getInstance()->sendWord(output);
 }
 
 void CalculatorCommandManager::deregister()
@@ -125,46 +153,83 @@ const QString CalculatorCommandManager::name() const
 	return i18n("Calculator");
 }
 
+void CalculatorCommandManager::sendOperator(const QString operatorStr)
+{
+	if (resultCurrentlyDisplayed) {
+		ui.leNumber->setText(QString::number(currentResult));
+		resultCurrentlyDisplayed = false;
+	}
+
+	ui.leNumber->setText(ui.leNumber->text()+operatorStr);
+}
+
+void CalculatorCommandManager::sendBracket(const QString bracketStr)
+{
+	if (resultCurrentlyDisplayed) 
+		resetInput();
+
+	ui.leNumber->setText(ui.leNumber->text()+bracketStr);
+}
+
+void CalculatorCommandManager::sendNumber(const QString bracketStr)
+{
+	if (resultCurrentlyDisplayed) 
+		resetInput();
+
+	ui.leNumber->setText(ui.leNumber->text()+bracketStr);
+}
 
 void CalculatorCommandManager::sendComma()
 {
+	if (resultCurrentlyDisplayed) {
+		ui.leNumber->setText("0");
+		resultCurrentlyDisplayed = false;
+	}
+
 	ui.leNumber->setText(ui.leNumber->text()+KGlobal::locale()->decimalSymbol());
 }
 
 void CalculatorCommandManager::sendPlus()
 {
-	ui.leNumber->setText(ui.leNumber->text()+"+");
+	sendOperator("+");
 }
 
 void CalculatorCommandManager::sendMinus()
 {
-	ui.leNumber->setText(ui.leNumber->text()+"-");
+	sendOperator("-");
 }
 
 void CalculatorCommandManager::sendMultiply()
 {
-	ui.leNumber->setText(ui.leNumber->text()+"*");
+	sendOperator("*");
 }
 
 void CalculatorCommandManager::sendDivide()
 {
-	ui.leNumber->setText(ui.leNumber->text()+"/");
+	sendOperator("/");
 }
 
 void CalculatorCommandManager::sendBracketOpen()
 {
-	ui.leNumber->setText(ui.leNumber->text()+"(");
+	sendBracket("(");
 }
 
 void CalculatorCommandManager::sendBracketClose()
 {
-	ui.leNumber->setText(ui.leNumber->text()+")");
+	sendBracket(")");
 }
 
 //void CalculatorCommandManager::sendPercent()
 //{
+//	sendOperator("%");
 //        ui.leNumber->setText(ui.leNumber->text()+"%");
 //}
+
+void CalculatorCommandManager::resetInput()
+{
+	ui.leNumber->clear();
+	resultCurrentlyDisplayed = false;
+}
 
 void CalculatorCommandManager::sendEquals()
 {
@@ -173,12 +238,13 @@ void CalculatorCommandManager::sendEquals()
 	{
 	    QList<Token*> *postfixedInput =  toPostfix(parsedInput);
 
-	    double output = calculate(postfixedInput);
+	    currentResult = calculate(postfixedInput);
 	    //ui.leNumber->setText(QString("%1").arg(output,0,'f',4));
-	    ui.leNumber->setText(QString::number(output));
+	    ui.leNumber->setText(ui.leNumber->text()+"="+QString::number(currentResult));
+	    resultCurrentlyDisplayed = true;
 	}
 	else
-	    ui.leNumber->clear();
+		resetInput();
 }
 
 QList<Token *> * CalculatorCommandManager::parseString(QString calc)
@@ -196,7 +262,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 	    {
 		switch(status)
 		{
-		    case -1: ui.leNumber->clear();
+		    case -1: resetInput();
 			     SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 			     break;
 		    case 2: number=number+(calc.at(i).digitValue()/10.0f);
@@ -273,14 +339,14 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		else
 		{
 		    status=-1;
-		    ui.leNumber->clear();
+		    resetInput();
 		    SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 		}
 	    }
 	    else
 	    {
 		status=-1;
-		ui.leNumber->clear();
+		resetInput();
 		SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 	    }
 	}
@@ -343,7 +409,7 @@ QList<Token *>* CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
 
 	else
 	{
-	    ui.leNumber->setText(i18n("Error in function: toPostfix()"));
+		kWarning() << "Error in function: toPostfix()";
 	}
     }
 
@@ -445,9 +511,6 @@ void CalculatorCommandManager::processRequest(int number)
 void CalculatorCommandManager::ok()
 {
 	commandListWidget->show();
-	//widget->accept();
-	//usleep(300000);
-	//EventHandler::getInstance()->sendWord(ui.leNumber->text());
 }
 
 bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
@@ -586,7 +649,7 @@ bool CalculatorCommandManager::save()
 
 void CalculatorCommandManager::activate()
 {
-	ui.leNumber->clear();
+	resetInput();
 	QDesktopWidget* tmp = QApplication::desktop();
 	int x,y;
 	x=(tmp->width()/2)-(widget->width()/2);

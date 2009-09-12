@@ -34,7 +34,7 @@
 
 #ifdef SIMON_SCENARIOS
 #include <speechmodelmanagement_scenario/wordlistmanager.h>
-#include <speechmodelbase_scenario/scenario.h>
+#include <speechmodelmanagement_scenario/scenario.h>
 #include <simonmodelmanagementui/vocabularyview.h>
 #else
 #include <speechmodelmanagement/wordlistmanager.h>

@@ -22,17 +22,35 @@
 #define VOCABULARY_H
 #include <QString>
 #include <QList>
+#include <QBrush>
+#include <QAbstractItemModel>
 
-#include "word.h"
+#include "simonmodelmanagement_export.h"
 
-#include "speechmodelbase_export.h"
+#include <speechmodelbase_scenario/word.h>
 #include <simonscenariobase/scenarioobject.h>
 
-class SPEECHMODELBASE_EXPORT Vocabulary : public ScenarioObject
+class MODELMANAGEMENT_EXPORT Vocabulary : public ScenarioObject, public QAbstractItemModel
 {
 
 private:
+	QBrush recogWeak, recogNone;
 	QList<Word*> m_words;
+
+
+	void buildBrushes();
+
+	//Model methods
+	QVariant data(const QModelIndex &index, int role) const;
+	Qt::ItemFlags flags(const QModelIndex &index) const;
+	QVariant headerData(int, Qt::Orientation orientation,
+				int role = Qt::DisplayRole) const;
+	QModelIndex index(int row, int column,
+			const QModelIndex &parent = QModelIndex()) const;
+	QModelIndex parent(const QModelIndex &index) const;
+	int rowCount(const QModelIndex &parent = QModelIndex()) const;
+	int columnCount(const QModelIndex &parent = QModelIndex()) const;
+
 
 protected:
 	Vocabulary(Scenario *parent);
@@ -41,6 +59,8 @@ public:
 	static Vocabulary* createVocabulary(Scenario *parent, const QDomElement&);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
+
+	bool removeWord(Word* w);
 
 	int wordCount() { return m_words.count(); }
 };

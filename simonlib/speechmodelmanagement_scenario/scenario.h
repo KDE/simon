@@ -24,7 +24,7 @@
 #include <QList>
 #include <QObject>
 #include <KIcon>
-#include "speechmodelbase_export.h"
+#include "simonmodelmanagement_export.h"
 
 class ScenarioObject;
 class Author;
@@ -34,7 +34,7 @@ class Grammar;
 class Vocabulary;
 class TrainingText;
 
-class SPEECHMODELBASE_EXPORT Scenario : public QObject {
+class MODELMANAGEMENT_EXPORT Scenario : public QObject {
 
 signals:
 	void changed(Scenario*);
@@ -60,6 +60,8 @@ public:
 	KIcon icon() { return KIcon(m_iconSrc); }
 	QString name() { return m_name; }
 	QString id() { return m_scenarioId; }
+
+	Vocabulary* vocabulary() { return m_vocabulary; }
 
 	bool init(QString path=QString());
 	bool save(QString path=QString());

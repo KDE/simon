@@ -30,12 +30,12 @@
   <vocabulary>
     <word>
       <name>Computer</name>
-      <pronunciation>a b c d</pronunciation>
+      <pronunciation>k O m p j u: t @ r</pronunciation>
       <terminal>Trigger</terminal>
     </word>
     <word>
       <name>Internet</name>
-      <pronunciation>a b c d</pronunciation>
+      <pronunciation>I n t @ r n E t</pronunciation>
       <terminal>Command</terminal>
     </word>
   </vocabulary>

@@ -80,7 +80,7 @@ Q_OBJECT
 
 		bool init();
 
-		int getProbability ( QString name, PromptsTable *promptsTable );
+//		int getProbability ( QString name, PromptsTable *promptsTable );
 		TrainingList* readTrainingTexts ();
 
 		int getProbability ( QString name );

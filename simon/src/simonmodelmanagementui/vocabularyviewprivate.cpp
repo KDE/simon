@@ -26,7 +26,7 @@
 #include <speechmodelmanagement_scenario/wordlistmanager.h>
 #include <speechmodelmanagement_scenario/wordlistmodel.h>
 
-#include <speechmodelbase_scenario/scenario.h>
+#include <speechmodelmanagement_scenario/scenario.h>
 
 #include <simonlogging/logger.h>
 
@@ -98,6 +98,8 @@ void VocabularyViewPrivate::displayScenarioPrivate(Scenario *scenario)
 {
 	kDebug() << "Displaying scenario " << scenario->name();
 
+	kDebug() << "Scenario contains: " << scenario->vocabulary()->wordCount() << " words";
+	ui.tvVocab->setModel(scenario->vocabulary());
 }
 
 
@@ -228,42 +230,34 @@ void VocabularyViewPrivate::copyWordToTrain()
  */
 void VocabularyViewPrivate::deleteSelectedWord()
 {
-/*	if (!ui.tvVocab->currentIndex().isValid())
-	{
-		KMessageBox::information(this,i18n("Please select a word first"));
+	if (!scenario) return;
+
+	QModelIndex selectedIndex = ui.tvVocab->currentIndex();
+	if (!selectedIndex.isValid()) {
+		KMessageBox::information(this, i18n("Please select a word first"));
 		return;
 	}
-	
-	Word *wordTemp = static_cast<Word*>(ui.tvVocab->currentIndex().internalPointer());
-	
+
+	Word *w = static_cast<Word*>(ui.tvVocab->currentIndex().internalPointer());
 	DeleteWordDialog *del = new DeleteWordDialog(this);
 
-	bool isShadowed=false;
-	bool success = true;
+	//TODO: shadow list display is not supported yet so this is always false
+	bool isShadowed = false;
 
-	Word *w = this->wordListManager->getWord(wordTemp->getWord(), wordTemp->getPronunciation(), wordTemp->getTerminal(), isShadowed);
-	if (!w)
-	{
-		return; //word not found?!
-	}
-	
 	if (del->exec(*w, isShadowed))
 	{
 		//delete the word
-		if (del->getDeletionType() == DeleteWordDialog::MoveToShadow)
-		{
-			success = wordListManager->moveToShadow(w);
+		if (del->getDeletionType() == DeleteWordDialog::MoveToShadow) {
+			KMessageBox::information(this, i18n("Not yet supported"));
+			//scenario->vocabulary()->removeWord(w);
+			//success = wordListManager->moveToShadow(w);
 		}
-		if (del->getDeletionType() == DeleteWordDialog::RemoveCompletely)
-		{
-			success = wordListManager->deleteCompletely(w, isShadowed);
+		if (del->getDeletionType() == DeleteWordDialog::RemoveCompletely) {
+			scenario->vocabulary()->removeWord(w);
+			delete w;
 		}
-		
-		if (!success)
-			KMessageBox::error(this, i18n("The word could not be completely removed."));
 	}
-	//do not delete w as it is a pointer to its vocabularymanager-representation
-	del->deleteLater();*/
+	del->deleteLater();
 }
 
 /**

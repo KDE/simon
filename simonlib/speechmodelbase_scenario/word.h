@@ -68,7 +68,7 @@ public:
 	* Recognition probability
 	* 
 	*/
-	Word(const QString& word_, const QString& pronunciation_, const QString& terminal_ = NULL, int probability_ = -1)
+	Word(QString word_, QString pronunciation_, QString terminal_, int probability_ = -1)
 		: word(word_),
 		pronunciation(pronunciation_),
 		terminal(terminal_),
@@ -146,7 +146,7 @@ public:
 	 * \author Peter Grasch
 	 * @param terminal The (new) terminal of the word
 	 */
-	void setTerminal(const QString& terminal)
+	void setTerminal(QString terminal)
 	{
 		this->terminal = terminal;
 	}

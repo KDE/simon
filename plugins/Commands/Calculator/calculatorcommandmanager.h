@@ -48,9 +48,16 @@ private:
 	QList<Token *> * parseString(QString calc);
 	QList<Token *> * toPostfix(QList<Token *> *calcList);
 	double calculate(QList<Token *>* postList);
-	CommandListWidget *commandListWidget;
-	
 
+	double currentResult;
+	bool resultCurrentlyDisplayed;
+
+	CommandListWidget *commandListWidget;
+	void sendOperator(const QString operatorStr);
+	void sendBracket(const QString bracketStr);
+	void sendNumber(const QString bracketStr);
+	void resetInput();
+	
 private slots:
 	void deregister();
 	void ok();
