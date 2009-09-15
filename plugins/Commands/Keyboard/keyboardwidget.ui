@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>646</width>
-    <height>291</height>
+    <width>673</width>
+    <height>289</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Keyboard</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="0" column="0" colspan="7">
+   <item row="0" column="0" colspan="10">
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -203,7 +203,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="5">
+   <item row="1" column="8">
     <spacer name="horizontalSpacer">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -216,7 +216,7 @@
      </property>
     </spacer>
    </item>
-   <item row="1" column="6">
+   <item row="1" column="9">
     <widget class="KPushButton" name="pbOk">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -233,6 +233,36 @@
     <widget class="KPushButton" name="pbReturn">
      <property name="text">
       <string>Return</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="5">
+    <widget class="KPushButton" name="pbAlt">
+     <property name="text">
+      <string>Alt</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="6">
+    <widget class="KPushButton" name="pbAltGr">
+     <property name="text">
+      <string>AltGr</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="7">
+    <widget class="KPushButton" name="pbSuper">
+     <property name="text">
+      <string>Super</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

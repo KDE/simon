@@ -106,6 +106,13 @@ class KeyboardConfiguration : public CommandConfiguration
 		QString controlTrigger();
 		bool returnKey();
 		QString returnKeyTrigger();
+
+		bool alt();
+		QString altTrigger();
+		bool altGr();
+		QString altGrTrigger();
+		bool super();
+		QString superTrigger();
 };
 
 #endif

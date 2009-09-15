@@ -43,7 +43,9 @@ KeyboardButton* KeyboardAddButtonDialog::addButton()
 	ui.leName->setFocus();
 	if(exec())
 	{
-		if(!ui.leName->text().isEmpty() && !ui.leTrigger->text().isEmpty() && !ui.leTextValue->text().isEmpty())
+		if(!ui.leName->text().isEmpty() && !ui.leTrigger->text().isEmpty() && 
+			(((ui.cbValueType->currentIndex() == 0) && !ui.leTextValue->text().isEmpty()) ||
+			((ui.cbValueType->currentIndex() == 1) && (!ui.ksShortcut->keySequence().isEmpty()))))
 		{
 			Keyboard::ButtonType type;
 			switch (ui.cbValueType->currentIndex())

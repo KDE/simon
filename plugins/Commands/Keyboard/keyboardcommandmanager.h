@@ -61,6 +61,9 @@ private slots:
 	void shift(bool down);
 	void capsLock(bool down);
 	void control(bool down);
+	void alt(bool down);
+	void altGr(bool down);
+	void super(bool down);
 	void backSpace();
 	void returnPressed();
 

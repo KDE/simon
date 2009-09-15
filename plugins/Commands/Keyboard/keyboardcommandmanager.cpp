@@ -289,6 +289,13 @@ void KeyboardCommandManager::rebuildGui()
 	ui.pbBackspace->setVisible(getKeyboardConfiguration()->backspace());
 	ui.pbBackspace->setText(getKeyboardConfiguration()->backspaceTrigger());
 
+	ui.pbAlt->setVisible(getKeyboardConfiguration()->alt());
+	ui.pbAlt->setText(getKeyboardConfiguration()->altTrigger());
+	ui.pbAltGr->setVisible(getKeyboardConfiguration()->altGr());
+	ui.pbAltGr->setText(getKeyboardConfiguration()->altGrTrigger());
+	ui.pbSuper->setVisible(getKeyboardConfiguration()->super());
+	ui.pbSuper->setText(getKeyboardConfiguration()->superTrigger());
+
 	//characters
 	if (getKeyboardConfiguration()->showNumpad()) {
 		kDebug() << "Showing numpad...";
@@ -379,11 +386,34 @@ void KeyboardCommandManager::capsLock(bool down)
 
 void KeyboardCommandManager::control(bool down)
 {
-	kDebug() << "Control";
 	if (down)
 		EventHandler::getInstance()->setModifier((int) Qt::CTRL);
 	else 
 		EventHandler::getInstance()->unsetModifier((int) Qt::CTRL);
+}
+
+void KeyboardCommandManager::alt(bool down)
+{
+	if (down)
+		EventHandler::getInstance()->setModifier((int) Qt::ALT);
+	else 
+		EventHandler::getInstance()->unsetModifier((int) Qt::ALT);
+}
+
+void KeyboardCommandManager::altGr(bool down)
+{
+	if (down)
+		EventHandler::getInstance()->setModifier((int) Qt::Key_AltGr);
+	else 
+		EventHandler::getInstance()->unsetModifier((int) Qt::Key_AltGr);
+}
+
+void KeyboardCommandManager::super(bool down)
+{
+	if (down)
+		EventHandler::getInstance()->setModifier((int) Qt::META);
+	else 
+		EventHandler::getInstance()->unsetModifier((int) Qt::META);
 }
 
 void KeyboardCommandManager::backSpace()
@@ -421,6 +451,11 @@ bool KeyboardCommandManager::load()
 	connect(ui.pbShift, SIGNAL(toggled(bool)), this, SLOT(shift(bool)));
 	connect(ui.pbControl, SIGNAL(toggled(bool)), this, SLOT(control(bool)));
 	connect(ui.pbBackspace, SIGNAL(clicked()), this, SLOT(backSpace()));
+	connect(ui.pbReturn, SIGNAL(clicked()), this, SLOT(returnPressed()));
+
+	connect(ui.pbAlt, SIGNAL(toggled(bool)), this, SLOT(alt(bool)));
+	connect(ui.pbAltGr, SIGNAL(toggled(bool)), this, SLOT(altGr(bool)));
+	connect(ui.pbSuper, SIGNAL(toggled(bool)), this, SLOT(super(bool)));
 	rebuildGui();
 	return true;
 }

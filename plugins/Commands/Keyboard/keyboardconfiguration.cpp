@@ -79,6 +79,9 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandMan
 	connect(ui.cbControl, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	connect(ui.cbBackspace, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	connect(ui.cbReturn, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbAlt, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbAltGr, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbSuper, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	connect(ui.leNumberBackspaceTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	connect(ui.leNumberBasedSelectionTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	connect(ui.leNumberWriteOutTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
@@ -87,6 +90,9 @@ KeyboardConfiguration::KeyboardConfiguration(KeyboardCommandManager* _commandMan
 	connect(ui.leControlTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	connect(ui.leBackspaceTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 	connect(ui.leReturnTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	connect(ui.leAltTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	connect(ui.leAltGrTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+	connect(ui.leSuperTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
 
 
 	ui.pbAddSet->setIcon(KIcon("list-add"));
@@ -204,6 +210,42 @@ QString KeyboardConfiguration::controlTrigger()
 {
 	KConfigGroup cg(config, "SpecialKeys");
 	return cg.readEntry("ControlTrigger", i18n("Control"));
+}
+
+bool KeyboardConfiguration::alt()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("Alt", false);
+}
+
+QString KeyboardConfiguration::altTrigger()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("AltTrigger", i18n("Alternate"));
+}
+
+bool KeyboardConfiguration::altGr()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("AltGr", false);
+}
+
+QString KeyboardConfiguration::altGrTrigger()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("AltGrTrigger", i18n("Alternate Graphics"));
+}
+
+bool KeyboardConfiguration::super()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("Super", false);
+}
+
+QString KeyboardConfiguration::superTrigger()
+{
+	KConfigGroup cg(config, "SpecialKeys");
+	return cg.readEntry("SuperTrigger", i18n("Super"));
 }
 
 QPoint KeyboardConfiguration::keyboardPosition()
@@ -491,6 +533,13 @@ void KeyboardConfiguration::save()
 	cgSpecialKeys.writeEntry("CapsLockTrigger", ui.leCapsLockTrigger->text());
 	cgSpecialKeys.writeEntry("Return", ui.cbReturn->isChecked());
 	cgSpecialKeys.writeEntry("ReturnTrigger", ui.leReturnTrigger->text());
+
+	cgSpecialKeys.writeEntry("Alt", ui.cbAlt->isChecked());
+	cgSpecialKeys.writeEntry("AltTrigger", ui.leAltTrigger->text());
+	cgSpecialKeys.writeEntry("AltGr", ui.cbAltGr->isChecked());
+	cgSpecialKeys.writeEntry("AltGrTrigger", ui.leAltGrTrigger->text());
+	cgSpecialKeys.writeEntry("Super", ui.cbSuper->isChecked());
+	cgSpecialKeys.writeEntry("SuperTrigger", ui.leSuperTrigger->text());
 	cgSpecialKeys.sync();
 
 	if (!setContainer->save()) {
@@ -538,7 +587,12 @@ void KeyboardConfiguration::load()
 	ui.leControlTrigger->setText(cgSpecialKeys.readEntry("ControlTrigger", i18n("Control")));
 	ui.cbReturn->setChecked(cgSpecialKeys.readEntry("Return", true));
 	ui.leReturnTrigger->setText(cgSpecialKeys.readEntry("ReturnTrigger", i18n("Return")));
-
+	ui.cbAlt->setChecked(cgSpecialKeys.readEntry("Alt", false));
+	ui.leAltTrigger->setText(cgSpecialKeys.readEntry("AltTrigger", i18n("Alternate")));
+	ui.cbAltGr->setChecked(cgSpecialKeys.readEntry("AltGr", false));
+	ui.leAltGrTrigger->setText(cgSpecialKeys.readEntry("AltGrTrigger", i18n("Alternate Graphic")));
+	ui.cbSuper->setChecked(cgSpecialKeys.readEntry("Super", false));
+	ui.leSuperTrigger->setText(cgSpecialKeys.readEntry("SuperTrigger", i18n("Super")));
 
 	QString selectedSet = cg.readEntry("SelectedSet", "Basic");
 	cg.sync();
@@ -587,6 +641,12 @@ void KeyboardConfiguration::defaults()
 	ui.leControlTrigger->setText(i18n("Control"));
 	ui.cbReturn->setChecked(true);
 	ui.leReturnTrigger->setText(i18n("Return"));
+	ui.cbAlt->setChecked(false);
+	ui.leAltTrigger->setText(i18n("Alternate"));
+	ui.cbAltGr->setChecked(false);
+	ui.leAltGrTrigger->setText(i18n("Alternate Graphic"));
+	ui.cbSuper->setChecked(false);
+	ui.leSuperTrigger->setText(i18n("Super"));
 
 	save();
 }
