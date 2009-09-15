@@ -37,7 +37,7 @@ class ImportTrainingTextWorkingPage : public QWizardPage {
 
 	public slots:
 		void startImport(KUrl path);
-		void processText(QString path);
+		void processText(QString path, bool removeInput);
 		void parseFile(QString path);
 
 		void initializePage();

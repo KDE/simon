@@ -78,7 +78,7 @@ private:
 
 	QHash<QString, QString> promptsTable;
 
-	QHash<QString /*filename*/, RecognitionResultList /*recognitionresults*/> fileResults;
+	//QHash<QString /*filename*/, RecognitionResultList /*recognitionresults*/> fileResults;
 	QHash<QString /*filename*/, TestResult*> testResults;
 	QHash<QString, FloatList> wordRates;
 	QHash<QString, FloatList> sentenceRates;

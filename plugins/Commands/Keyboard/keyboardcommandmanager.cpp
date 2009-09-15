@@ -288,6 +288,8 @@ void KeyboardCommandManager::rebuildGui()
 	ui.pbCapsLock->setText(getKeyboardConfiguration()->capsLockTrigger());
 	ui.pbBackspace->setVisible(getKeyboardConfiguration()->backspace());
 	ui.pbBackspace->setText(getKeyboardConfiguration()->backspaceTrigger());
+	ui.pbReturn->setVisible(getKeyboardConfiguration()->returnKey());
+	ui.pbReturn->setText(getKeyboardConfiguration()->returnKeyTrigger());
 
 	ui.pbAlt->setVisible(getKeyboardConfiguration()->alt());
 	ui.pbAlt->setText(getKeyboardConfiguration()->altTrigger());
@@ -370,7 +372,7 @@ void KeyboardCommandManager::shift(bool down)
 void KeyboardCommandManager::returnPressed()
 {
 	kDebug() << "Return";
-	EventHandler::getInstance()->sendShortcut(QKeySequence("Return"));
+	EventHandler::getInstance()->sendWord("\n");
 
 }
 

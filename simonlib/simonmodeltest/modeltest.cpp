@@ -56,7 +56,8 @@ ModelTest::ModelTest(const QString& user_name, QObject* parent) : QThread(parent
 	promptsTable.clear();
 	wordRates.clear();
 	sentenceRates.clear();
-	fileResults.clear();
+	testResults.clear();
+	//fileResults.clear();
 }
 
 bool ModelTest::createDirs()
@@ -230,7 +231,7 @@ void ModelTest::run()
 	promptsTable.clear();
 	wordRates.clear();
 	sentenceRates.clear();
-	fileResults.clear();
+	testResults.clear();
 
 	if (!keepGoing) return;
 	Logger::log(i18n("[INF] Testing model..."));
@@ -567,7 +568,7 @@ void ModelTest::searchFailed()
 {
 	QString fileName = QString::fromUtf8(QByteArray(j_get_current_filename(recog)));
 
-	fileResults.insert(fileName, RecognitionResultList());
+	//fileResults.insert(fileName, RecognitionResultList());
 
 	emit recognitionInfo(i18n("Search failed for: %1", fileName));
 
@@ -581,15 +582,18 @@ void ModelTest::searchFailed()
 		FloatList list2 = wordRates.value(word);
 		wordRates.insert(word, list2 << 0.0f);
 	}
+
+	testResults.insert(fileName, new TestResult(prompt, RecognitionResultList()));
 }
 
 void ModelTest::recognized(RecognitionResultList results)
 {
 	QString fileName = QString::fromUtf8(QByteArray(j_get_current_filename(recog)));
 
-	fileResults.insert(fileName, results);
+	//fileResults.insert(fileName, results);
 
 	QString prompt = promptsTable.value(fileName);
+	testResults.insert(fileName, new TestResult(prompt, results));
 
 	emit recognitionInfo(i18n("Prompts entry: %1", prompt));
 	emit recognitionInfo(i18n("Received recognition result for: %1: %2", fileName, results.at(0).sentence()));

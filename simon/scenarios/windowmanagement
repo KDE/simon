@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scenario name="Window Management" icon="window-duplicate" version="1" changed="2009,9,6,21,3,31">
+  <simonCompatibility>
+    <minimumVersion>
+      <version>0.2</version>
+    </minimumVersion>
+    <maximumVersion />
+  </simonCompatibility>
+  
+  <authors>
+    <author>
+      <name>Peter Grasch</name>
+      <contact>grasch@simon-listens.org</contact>
+    </author>
+  </authors>
+  
+  <licence>GPL</licence>
+  
+  <vocabulary>
+    <word>
+      <name>Fenster</name>
+      <pronunciation>f E n s t @ r</pronunciation>
+      <terminal>Object</terminal>
+    </word>
+    <word>
+      <name>Nächstes</name>
+      <pronunciation>n E: C s t @ s</pronunciation>
+      <terminal>Operation</terminal>
+   </word>
+   <word>
+      <name>schließen</name>
+      <pronunciation>S l i: s @ n</pronunciation>
+      <terminal>Command</terminal>
+    </word>
+    <word>
+      <name>Vorheriges</name>
+      <pronunciation>f o: r h e: r I g @ s</pronunciation>
+      <terminal>Operation</terminal>
+   </word>
+  </vocabulary>
+  
+  <grammar>
+    <structure>Object Command</structure>
+    <structure>Operation Object</structure>
+  </grammar>
+  
+  <actions>
+    <plugin name="simonshortcutcommandplugin.desktop" trigger="">
+      <pluginCompatibility>
+	<minimumVersion><version>0.1</version></minimumVersion>
+	<maximumVersion><version/></maximumVersion>
+      </pluginCompatibility>
+      <config/>
+      <commands>
+        <command>
+	  <name>Fenster schließen</name>
+	  <icon>window-close</icon>
+	  <shortcut>Ctrl+F4</shortcut>
+	</command>
+        <command>
+	  <name>Nächstes Fenster</name>
+	  <icon>go-next-view</icon>
+	  <shortcut>Alt+Tab</shortcut>
+	</command>
+        <command>
+	  <name>Vorheriges Fenster</name>
+	  <icon>go-previous-view</icon>
+	  <shortcut>Alt+Shift+Tab</shortcut>
+	</command>
+      </commands>
+    </plugin>
+  </actions>
+  
+  <trainingstexts>
+    <text name="Window management">
+      <page>Fenster schließen</page>
+      <page>Nächstes Fenster</page>
+      <page>Vorheriges Fenster</page>
+    </text>
+  </trainingstexts>
+</scenario>

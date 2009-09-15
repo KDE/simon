@@ -64,6 +64,7 @@ ImportTrainingTextWorkingPage::ImportTrainingTextWorkingPage(QWidget *parent) : 
  */
 void ImportTrainingTextWorkingPage::startImport(KUrl path)
 {
+	bool removeInput=false;
 	if (!path.isLocalFile())
 	{
 		Logger::log(i18n("[INF] Starting remove import from \"%1\"", path.prettyUrl()));
@@ -80,9 +81,10 @@ void ImportTrainingTextWorkingPage::startImport(KUrl path)
 		}
 
 		path = tmpPath;
+		removeInput=true;
 	}
 	if (KMimeType::findByFileContent(path.path())->is("application/xml"))
-		processText(path.path());
+		processText(path.path(), removeInput);
 	else parseFile(path.path());
 	
 }
@@ -102,11 +104,13 @@ void ImportTrainingTextWorkingPage::initializePage()
  * \author Peter Grasch
  * @param path the path to the new text
  */
-void ImportTrainingTextWorkingPage::processText(QString path)
+void ImportTrainingTextWorkingPage::processText(QString path, bool removeInput)
 {
 	QFileInfo fi = QFileInfo(path);
 	QFile::copy(path, KStandardDirs::locateLocal("appdata", "texts/")+"/"+fi.fileName());
-	QFile::remove(path);
+
+	if (removeInput)
+		QFile::remove(path);
 	
 	//wizard()->next();
 	QTimer::singleShot(500, wizard(), SLOT(next()));

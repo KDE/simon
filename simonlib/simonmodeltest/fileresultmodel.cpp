@@ -61,7 +61,16 @@ QVariant FileResultModel::data(const QModelIndex &index, int role) const
 				return t->getResults().at(0).sentence();
 			case 3:
 				if (t->getResults().isEmpty()) return "";
-				return QString("%1 %").arg(t->getResults().at(0).averageConfidenceScore()*100.0f);
+
+				RecognitionResultList recogList = t->getResults();
+				float confidenceScore = 0;
+				foreach (RecognitionResult recog, recogList) {
+					if (recog.sentence().toUpper() == t->getPrompt()) {
+						confidenceScore = recog.averageConfidenceScore();
+						break;
+					}
+				}
+				return QString("%1 %").arg(confidenceScore*100.0f);
 		}
 	} else if (role == Qt::BackgroundRole) {
 		if (t->getResults().isEmpty() || 
