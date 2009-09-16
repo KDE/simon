@@ -41,6 +41,7 @@
 class QWizardPage;
 class ImportDictSelectSourcePage;
 class ImportDictBOMPPage;
+class ImportDictBOMPDownloadPage;
 class ImportDictWorkingPage;
 
 class ImportDictView : public QWizard {
@@ -59,6 +60,7 @@ public slots:
 	ImportDictSelectSourcePage* 
 		createSelectSourcePage();
 	ImportDictBOMPPage* createImportBOMPPage();
+	ImportDictBOMPDownloadPage* createImportBOMPDownloadPage();
 
 	QWizardPage* createImportLexiconPage();
 	QWizardPage* createImportPLSPage();
@@ -72,11 +74,12 @@ public:
 		IntroPage=0,
 		SelectTypePage=1,
 		BompPage=2,
-		LexiconPage=3,
-		PLSPage=4,
-		SPHINXPage=5,
-		WorkingPage=6,
-		FinishedPage=7
+		BompDownloadPage=3,
+		LexiconPage=4,
+		PLSPage=5,
+		SPHINXPage=6,
+		WorkingPage=7,
+		FinishedPage=8
 	};
     ImportDictView(QWidget *parent=0);
     ~ImportDictView();

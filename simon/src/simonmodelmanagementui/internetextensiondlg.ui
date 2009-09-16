@@ -31,6 +31,16 @@
         <item row="0" column="1" >
          <widget class="KLineEdit" name="kcfg_TextOnlineUpdate" />
         </item>
+        <item row="1" column="0" >
+         <widget class="QLabel" name="lbBompDownloadBase" >
+          <property name="text" >
+           <string>BOMP Basis-URL:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" >
+         <widget class="KLineEdit" name="kcfg_BompDownloadBase" />
+        </item>
        </layout>
       </item>
      </layout>

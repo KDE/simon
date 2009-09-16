@@ -24,6 +24,7 @@
 #include "importdictworkingpage.h"
 #include "importdictselectsourcepage.h"
 #include "importdictbomppage.h"
+#include "importdictbompdownloadpage.h"
 #include "importlexiconpage.h"
 #include "importdictplspage.h"
 #include "importdictsphinxpage.h"
@@ -45,6 +46,7 @@ ImportDictView::ImportDictView(QWidget* parent) : QWizard(parent),
 	addPage(createIntroPage());
 	addPage(createSelectSourcePage());
 	addPage(createImportBOMPPage());
+	addPage(createImportBOMPDownloadPage());
 	addPage(createImportLexiconPage());
 	addPage(createImportPLSPage());
 	addPage(createImportSPHINXPage());
@@ -128,6 +130,16 @@ ImportDictSelectSourcePage* ImportDictView::createSelectSourcePage()
 ImportDictBOMPPage* ImportDictView::createImportBOMPPage() 
 {
 	return new ImportDictBOMPPage(this);
+}
+
+/**
+ * \brief Creates a new ImportBOMDownloadPPage and returns it
+ * \author Peter Grasch
+ * @return the created page
+ */
+ImportDictBOMPDownloadPage* ImportDictView::createImportBOMPDownloadPage() 
+{
+	return new ImportDictBOMPDownloadPage(this);
 }
 
 

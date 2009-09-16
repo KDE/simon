@@ -18,34 +18,37 @@
  */
 
 
-#ifndef IMPORTDICTBOMPPAGE_H
-#define IMPORTDICTBOMPPAGE_H
+#ifndef IMPORTDICTBOMPDOWNLOADPAGE_H
+#define IMPORTDICTBOMPDOWNLOADPAGE_H
 
 #include <QWizardPage>
 #include "importdictview.h"
-#include "ui_importdictbomppage.h"
+#include "ui_importdictbompdownloadpage.h"
 class QString;
 
 /**
- * \class ImportDictBOMPPage
+ * \class ImportDictBOMPDownloadPage
  * \brief WizardPage to select a BOMP Dictionary
  * \author Peter Grasch
- * \date 10.8.2007
+ * \date 16.9.2009
  * \version 0.1
  */
-class ImportDictBOMPPage : public QWizardPage
+class ImportDictBOMPDownloadPage : public QWizardPage
 {
 Q_OBJECT
 private:
-	Ui::ImportBOMPDlg ui;
+	Ui::ImportBOMPDownloadDlg ui;
+	QString bompUrl;
+	QString acceptTag;
 public:
-    ImportDictBOMPPage(QWidget* parent);
-	int nextId() const;
-	bool isComplete() const;
+    ImportDictBOMPDownloadPage(QWidget* parent);
+	int nextId() const { return ImportDictView::WorkingPage; }
 	void initializePage();
+	bool validatePage();
 
-    ~ImportDictBOMPPage();
+    ~ImportDictBOMPDownloadPage();
 
 };
 
 #endif
+

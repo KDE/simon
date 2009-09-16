@@ -66,26 +66,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" native="1" name="widget" >
-     <layout class="QVBoxLayout" name="verticalLayout" >
-      <item>
-       <widget class="QTextEdit" name="teLicence" >
-        <property name="readOnly" >
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="checkBox" >
-        <property name="text" >
-         <string>I read, understood and accept this licence agreement</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
     <spacer name="verticalSpacer" >
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -114,38 +94,4 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>rbAutomatic</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>wgManual</receiver>
-   <slot>setHidden(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>151</x>
-     <y>104</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>101</x>
-     <y>72</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>rbAutomatic</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>widget</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>44</x>
-     <y>111</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>36</x>
-     <y>125</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
 </ui>

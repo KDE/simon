@@ -44,6 +44,7 @@ set( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/sphinxdict.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictview.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbomppage.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbompdownloadpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictsphinxpage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictplspage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/lexicondict.cpp
@@ -82,6 +83,7 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/AddWord/addwordintropage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/AddWord/resolvewordpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbomppage.ui
+	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictbompdownloadpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictsphinxpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictplspage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportDict/importdictlexiconpage.ui

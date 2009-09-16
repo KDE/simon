@@ -33,9 +33,20 @@ ImportDictBOMPPage::ImportDictBOMPPage(QWidget* parent): QWizardPage(parent)
 	ui.urFile->setMode(KFile::File|KFile::ExistingOnly);
 
 	connect(ui.urFile, SIGNAL(textChanged(const QString&)), this, SIGNAL(completeChanged()));
+	connect(ui.rbAutomatic, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
+	connect(ui.rbManual, SIGNAL(toggled(bool)), this, SIGNAL(completeChanged()));
+	registerField("bompSource", ui.rbManual);
 	registerField("bompFileName*", ui.urFile, "url", SIGNAL(textChanged (const QString &)));
 	registerField("bompEncoding*", ui.cbEncoding, "currentText", SIGNAL(currentIndexChanged(int)));
 	setTitle(i18n("Import HADIFIX Dictionary"));
+}
+
+int ImportDictBOMPPage::nextId() const 
+{
+	if (ui.rbAutomatic->isChecked())
+		return ImportDictView::BompDownloadPage;
+	else
+		return ImportDictView::WorkingPage;
 }
 
 void ImportDictBOMPPage::initializePage()
@@ -55,7 +66,10 @@ void ImportDictBOMPPage::initializePage()
 
 bool ImportDictBOMPPage::isComplete() const
 {
-	return QFile::exists(ui.urFile->url().path());
+	if (ui.rbAutomatic->isChecked())
+		return true;
+	else
+		return QFile::exists(ui.urFile->url().path());
 }
 
 /**

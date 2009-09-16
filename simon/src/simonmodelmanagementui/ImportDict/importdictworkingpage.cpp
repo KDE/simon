@@ -130,9 +130,13 @@ void ImportDictWorkingPage::importHADIFIX(QString path)
 
 	displayStatus(i18n("Importing HADIFIX-dictionary %1...", path));
 	
-	QString encoding = field("bompEncoding").toString();
-	if (encoding == i18n("Automatic"))
-		encoding = guessEncoding(path);
+	QString encoding;
+	if (field("bompSource").toBool()) { //true means a manual import
+		encoding = field("bompEncoding").toString();
+		if (encoding == i18n("Automatic"))
+			encoding = guessEncoding(path);
+	} else encoding = "UTF-8"; //download is always UTF-8
+
 	import->parseWordList(path, encoding, Dict::HadifixBOMP, true /* remove input file when done */);
 }
 
@@ -185,7 +189,10 @@ void ImportDictWorkingPage::initializePage()
 
 	if (field("hadifix").toBool())
 	{
-		importHADIFIX(prepareDict(field("bompFileName").value<KUrl>()));
+		if (field("bompSource").toBool()) //true means a manual import
+			importHADIFIX(prepareDict(field("bompFileName").value<KUrl>()));
+		else 
+			importHADIFIX(KStandardDirs::locateLocal("tmp", "bomp"));
 	} else if (field("lexicon").toBool())
 		importLexicon(prepareDict(field("lexiconFilename").value<KUrl>()));
 	else if (field("pls").toBool())
