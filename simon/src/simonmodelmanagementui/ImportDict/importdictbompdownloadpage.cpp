@@ -58,6 +58,7 @@ void ImportDictBOMPDownloadPage::initializePage()
 	QString localLicencePath = KStandardDirs::locateLocal("tmp", "bomp_licence");
 	KIO::FileCopyJob *job = KIO::file_copy(KUrl(bompBaseUrl+"bomp_licence.php"), 
 				localLicencePath, -1, KIO::Overwrite);
+	job->ui()->setWindow(this);
 	
 	if (!job->exec()) {
 		job->ui()->showErrorMessage();
@@ -92,6 +93,7 @@ bool ImportDictBOMPDownloadPage::validatePage()
 	fullUrl.addQueryItem("mail", ui.leMail->text());
 	KIO::FileCopyJob *job = KIO::file_copy(fullUrl, 
 				tempBompPath, -1, KIO::Overwrite);
+	job->ui()->setWindow(this);
 	
 	if (!job->exec()) {
 		job->ui()->showErrorMessage();
