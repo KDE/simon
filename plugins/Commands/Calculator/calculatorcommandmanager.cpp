@@ -1,4 +1,5 @@
 /*
+ *   Copyright (C) 2009 Dominik Neumeister <neudob06@edvhtl.at>
  *   Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -267,8 +268,10 @@ void CalculatorCommandManager::sendEquals()
 		    kDebug() << t->getType() << t->getNumber() << t->getArOperator();
 	    }
 	    kDebug() << "end parsed input";
+
 	    QList<Token*> *postfixedInput =  toPostfix(parsedInput);
-		kDebug() << "postfixed input";
+
+                kDebug() << "postfixed input";
 	    foreach (Token* t, *postfixedInput) {
 		    kDebug() << t->getType() << t->getNumber() << t->getArOperator();
 	    }
@@ -318,7 +321,10 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		    case 4: number=number+(calc.at(i).digitValue()/decimalMultiplier);
 			    decimalMultiplier*=10;
 			    break;
-		    case 5:
+                    case 5: status=-1;
+                            kDebug() << "Error in 1";
+                            SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
+                            break;
 		    case 3: number=calc.at(i).digitValue();
 			    status=1;
 			    break;
@@ -470,6 +476,8 @@ QList<Token *>* CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
 	    }
 	    arOperatoren->push(calcList->at(i));
 	}
+
+          // %
 	else if (calcList->at(i)->getType() == 3) {
 		list->append(calcList->at(i));
 	}
@@ -540,11 +548,22 @@ double CalculatorCommandManager::calculate(QList<Token *>* postList)
 			}
 		case '%':  {
 			double op1;
+                        double op2;
 			op1 = calc.pop()->getNumber()/100.0f;
-		        calc.push(new Token(op1));
-			kDebug() << "Pushing percenticed number: " << op1;
+                        if(!calc.isEmpty())
+                        {
+                            op2=calc.pop()->getNumber();
+                            calc.push(new Token(op2));
+                            calc.push(new Token(op2*op1));
+                        }
+                        else
+                        {
+                            SimonInfo::showMessage(i18n("You must not take the % statement on the first position"), 3000, new KIcon("accessories-calculator"));
+                            calc.push(new Token(0));
+                        }
+                        kDebug() << "Percent: " << op1 << " Pushing percenticed number: " << op2;
 			break;
-			}
+                  }
 	    }
 	}
 
