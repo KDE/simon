@@ -425,6 +425,130 @@
     <type value=" " >1</type>
    </button>
   </tab>
+  <tab name="Sonderzeichen" >
+   <button>
+    <triggerShown>. : [1]</triggerShown>
+    <trigger>1</trigger>
+    <type value="." >1</type>
+   </button>
+   <button>
+    <triggerShown>, ; [2]</triggerShown>
+    <trigger>2</trigger>
+    <type value="," >1</type>
+   </button>
+   <button>
+    <triggerShown>- _ [3]</triggerShown>
+    <trigger>3</trigger>
+    <type value="-" >1</type>
+   </button>
+   <button>
+    <triggerShown>! [4]</triggerShown>
+    <trigger>4</trigger>
+    <type value="!" >1</type>
+   </button>
+   <button>
+    <triggerShown>" [5]</triggerShown>
+    <trigger>5</trigger>
+    <type value="&quot;" >1</type>
+   </button>
+   <button>
+    <triggerShown>§ [6]</triggerShown>
+    <trigger>6</trigger>
+    <type value="§" >1</type>
+   </button>
+   <button>
+    <triggerShown>$ [7]</triggerShown>
+    <trigger>7</trigger>
+    <type value="$" >1</type>
+   </button>
+   <button>
+    <triggerShown>% [8]</triggerShown>
+    <trigger>8</trigger>
+    <type value="%" >1</type>
+   </button>
+   <button>
+    <triggerShown>&amp; [9]</triggerShown>
+    <trigger>9</trigger>
+    <type value="&amp;" >1</type>
+   </button>
+   <button>
+    <triggerShown>/ [10]</triggerShown>
+    <trigger>10</trigger>
+    <type value="/" >1</type>
+   </button>
+   <button>
+    <triggerShown>( [11]</triggerShown>
+    <trigger>11</trigger>
+    <type value="(" >1</type>
+   </button>
+   <button>
+    <triggerShown>) [12]</triggerShown>
+    <trigger>12</trigger>
+    <type value=")" >1</type>
+   </button>
+   <button>
+    <triggerShown>= [13]</triggerShown>
+    <trigger>13</trigger>
+    <type value="=" >1</type>
+   </button>
+   <button>
+    <triggerShown>ß ? [14]</triggerShown>
+    <trigger>14</trigger>
+    <type value="ß" >1</type>
+   </button>
+   <button>
+    <triggerShown>´ ` [15]</triggerShown>
+    <trigger>15</trigger>
+    <type value="´" >1</type>
+   </button>
+   <button>
+    <triggerShown>^ ° [16]</triggerShown>
+    <trigger>16</trigger>
+    <type value="^" >1</type>
+   </button>
+   <button>
+    <triggerShown>{ [17]</triggerShown>
+    <trigger>17</trigger>
+    <type value="{" >1</type>
+   </button>
+   <button>
+    <triggerShown>[ [18]</triggerShown>
+    <trigger>18</trigger>
+    <type value="[" >1</type>
+   </button>
+   <button>
+    <triggerShown>] [19]</triggerShown>
+    <trigger>19</trigger>
+    <type value="]" >1</type>
+   </button>
+   <button>
+    <triggerShown>} [20]</triggerShown>
+    <trigger>20</trigger>
+    <type value="}" >1</type>
+   </button>
+   <button>
+    <triggerShown>&lt; > [21]</triggerShown>
+    <trigger>21</trigger>
+    <type value="&lt;" >1</type>
+   </button>
+   <button>
+    <triggerShown># ' [22]</triggerShown>
+    <trigger>22</trigger>
+    <type value="#" >1</type>
+   </button>
+   <button>
+    <triggerShown>+ * [23]</triggerShown>
+    <trigger>23</trigger>
+    <type value="+" >1</type>
+   </button>
+  </tab>
+  <tab name="Textschnipsel" >
+   <button>
+    <triggerShown>Test [1]</triggerShown>
+    <trigger>1</trigger>
+    <type value="Hier kommt der Test" >1</type>
+   </button>
+  </tab>
   <tab name="Aktionen" >
    <button>
     <triggerShown>Kopieren</triggerShown>
@@ -500,6 +624,326 @@
     <triggerShown>F12 [12]</triggerShown>
     <trigger>12</trigger>
     <type value="F12" >2</type>
+   </button>
+  </tab>
+ </set>
+ <set name="Nummernbasiert" >
+  <tab name="Tasten" >
+   <button>
+    <triggerShown>A [1]</triggerShown>
+    <trigger>1</trigger>
+    <type value="a" >1</type>
+   </button>
+   <button>
+    <triggerShown>B [2]</triggerShown>
+    <trigger>2</trigger>
+    <type value="b" >1</type>
+   </button>
+   <button>
+    <triggerShown>C [3]</triggerShown>
+    <trigger>3</trigger>
+    <type value="c" >1</type>
+   </button>
+   <button>
+    <triggerShown>D [4]</triggerShown>
+    <trigger>4</trigger>
+    <type value="d" >1</type>
+   </button>
+   <button>
+    <triggerShown>E [5]</triggerShown>
+    <trigger>5</trigger>
+    <type value="e" >1</type>
+   </button>
+   <button>
+    <triggerShown>F [6]</triggerShown>
+    <trigger>6</trigger>
+    <type value="f" >1</type>
+   </button>
+   <button>
+    <triggerShown>G [7]</triggerShown>
+    <trigger>7</trigger>
+    <type value="g" >1</type>
+   </button>
+   <button>
+    <triggerShown>H [8]</triggerShown>
+    <trigger>8</trigger>
+    <type value="h" >1</type>
+   </button>
+   <button>
+    <triggerShown>I [9]</triggerShown>
+    <trigger>9</trigger>
+    <type value="i" >1</type>
+   </button>
+   <button>
+    <triggerShown>J [10]</triggerShown>
+    <trigger>10</trigger>
+    <type value="j" >1</type>
+   </button>
+   <button>
+    <triggerShown>K [11]</triggerShown>
+    <trigger>11</trigger>
+    <type value="k" >1</type>
+   </button>
+   <button>
+    <triggerShown>L [12]</triggerShown>
+    <trigger>12</trigger>
+    <type value="l" >1</type>
+   </button>
+   <button>
+    <triggerShown>M [13]</triggerShown>
+    <trigger>13</trigger>
+    <type value="m" >1</type>
+   </button>
+   <button>
+    <triggerShown>N [14]</triggerShown>
+    <trigger>14</trigger>
+    <type value="n" >1</type>
+   </button>
+   <button>
+    <triggerShown>O [15]</triggerShown>
+    <trigger>15</trigger>
+    <type value="o" >1</type>
+   </button>
+   <button>
+    <triggerShown>P [16]</triggerShown>
+    <trigger>16</trigger>
+    <type value="p" >1</type>
+   </button>
+   <button>
+    <triggerShown>Q [17]</triggerShown>
+    <trigger>17</trigger>
+    <type value="q" >1</type>
+   </button>
+   <button>
+    <triggerShown>R [18]</triggerShown>
+    <trigger>18</trigger>
+    <type value="r" >1</type>
+   </button>
+   <button>
+    <triggerShown>S [19]</triggerShown>
+    <trigger>19</trigger>
+    <type value="s" >1</type>
+   </button>
+   <button>
+    <triggerShown>T [20]</triggerShown>
+    <trigger>20</trigger>
+    <type value="t" >1</type>
+   </button>
+   <button>
+    <triggerShown>U [21]</triggerShown>
+    <trigger>21</trigger>
+    <type value="u" >1</type>
+   </button>
+   <button>
+    <triggerShown>V [22]</triggerShown>
+    <trigger>22</trigger>
+    <type value="v" >1</type>
+   </button>
+   <button>
+    <triggerShown>W [23]</triggerShown>
+    <trigger>23</trigger>
+    <type value="w" >1</type>
+   </button>
+   <button>
+    <triggerShown>X [24]</triggerShown>
+    <trigger>24</trigger>
+    <type value="x" >1</type>
+   </button>
+   <button>
+    <triggerShown>Y [25]</triggerShown>
+    <trigger>25</trigger>
+    <type value="y" >1</type>
+   </button>
+   <button>
+    <triggerShown>Z [26]</triggerShown>
+    <trigger>26</trigger>
+    <type value="z" >1</type>
+   </button>
+  </tab>
+  <tab name="Sonderzeichen" >
+   <button>
+    <triggerShown>. : [1]</triggerShown>
+    <trigger>1</trigger>
+    <type value="." >1</type>
+   </button>
+   <button>
+    <triggerShown>, ; [2]</triggerShown>
+    <trigger>2</trigger>
+    <type value="," >1</type>
+   </button>
+   <button>
+    <triggerShown>- _ [3]</triggerShown>
+    <trigger>3</trigger>
+    <type value="-" >1</type>
+   </button>
+   <button>
+    <triggerShown>! [4]</triggerShown>
+    <trigger>4</trigger>
+    <type value="!" >1</type>
+   </button>
+   <button>
+    <triggerShown>" [5]</triggerShown>
+    <trigger>5</trigger>
+    <type value="&quot;" >1</type>
+   </button>
+   <button>
+    <triggerShown>§ [6]</triggerShown>
+    <trigger>6</trigger>
+    <type value="§" >1</type>
+   </button>
+   <button>
+    <triggerShown>$ [7]</triggerShown>
+    <trigger>7</trigger>
+    <type value="$" >1</type>
+   </button>
+   <button>
+    <triggerShown>% [8]</triggerShown>
+    <trigger>8</trigger>
+    <type value="%" >1</type>
+   </button>
+   <button>
+    <triggerShown>&amp; [9]</triggerShown>
+    <trigger>9</trigger>
+    <type value="&amp;" >1</type>
+   </button>
+   <button>
+    <triggerShown>/ [10]</triggerShown>
+    <trigger>10</trigger>
+    <type value="/" >1</type>
+   </button>
+   <button>
+    <triggerShown>( [11]</triggerShown>
+    <trigger>11</trigger>
+    <type value="(" >1</type>
+   </button>
+   <button>
+    <triggerShown>) [12]</triggerShown>
+    <trigger>12</trigger>
+    <type value=")" >1</type>
+   </button>
+   <button>
+    <triggerShown>= [13]</triggerShown>
+    <trigger>13</trigger>
+    <type value="=" >1</type>
+   </button>
+   <button>
+    <triggerShown>ß ? [14]</triggerShown>
+    <trigger>14</trigger>
+    <type value="ß" >1</type>
+   </button>
+   <button>
+    <triggerShown>´ ` [15]</triggerShown>
+    <trigger>15</trigger>
+    <type value="´" >1</type>
+   </button>
+   <button>
+    <triggerShown>^ ° [16]</triggerShown>
+    <trigger>16</trigger>
+    <type value="^" >1</type>
+   </button>
+   <button>
+    <triggerShown>{ [17]</triggerShown>
+    <trigger>17</trigger>
+    <type value="{" >1</type>
+   </button>
+   <button>
+    <triggerShown>[ [18]</triggerShown>
+    <trigger>18</trigger>
+    <type value="[" >1</type>
+   </button>
+   <button>
+    <triggerShown>] [19]</triggerShown>
+    <trigger>19</trigger>
+    <type value="]" >1</type>
+   </button>
+   <button>
+    <triggerShown>} [20]</triggerShown>
+    <trigger>20</trigger>
+    <type value="}" >1</type>
+   </button>
+   <button>
+    <triggerShown>&lt; > [21]</triggerShown>
+    <trigger>21</trigger>
+    <type value="&lt;" >1</type>
+   </button>
+   <button>
+    <triggerShown># ' [22]</triggerShown>
+    <trigger>22</trigger>
+    <type value="#" >1</type>
+   </button>
+   <button>
+    <triggerShown>+ * [23]</triggerShown>
+    <trigger>23</trigger>
+    <type value="+" >1</type>
+   </button>
+  </tab>
+  <tab name="Funktionstasten" >
+   <button>
+    <triggerShown>F1 [1]</triggerShown>
+    <trigger>1</trigger>
+    <type value="F1" >2</type>
+   </button>
+   <button>
+    <triggerShown>F2 [2]</triggerShown>
+    <trigger>2</trigger>
+    <type value="F2" >2</type>
+   </button>
+   <button>
+    <triggerShown>F3 [3]</triggerShown>
+    <trigger>3</trigger>
+    <type value="F3" >2</type>
+   </button>
+   <button>
+    <triggerShown>F4 [4]</triggerShown>
+    <trigger>4</trigger>
+    <type value="F4" >2</type>
+   </button>
+   <button>
+    <triggerShown>F5 [5]</triggerShown>
+    <trigger>5</trigger>
+    <type value="F5" >2</type>
+   </button>
+   <button>
+    <triggerShown>F6 [6]</triggerShown>
+    <trigger>6</trigger>
+    <type value="F6" >2</type>
+   </button>
+   <button>
+    <triggerShown>F7 [7]</triggerShown>
+    <trigger>7</trigger>
+    <type value="F7" >2</type>
+   </button>
+   <button>
+    <triggerShown>F8 [8]</triggerShown>
+    <trigger>8</trigger>
+    <type value="F8" >2</type>
+   </button>
+   <button>
+    <triggerShown>F9 [9]</triggerShown>
+    <trigger>9</trigger>
+    <type value="F9" >2</type>
+   </button>
+   <button>
+    <triggerShown>F10 [10]</triggerShown>
+    <trigger>10</trigger>
+    <type value="F10" >2</type>
+   </button>
+   <button>
+    <triggerShown>F11 [11]</triggerShown>
+    <trigger>11</trigger>
+    <type value="F11" >2</type>
+   </button>
+   <button>
+    <triggerShown>F12 [12]</triggerShown>
+    <trigger>12</trigger>
+    <type value="F12" >2</type>
+   </button>
+  </tab>
+  <tab name="Textschnipsel" >
+   <button>
+    <triggerShown>Test [1]</triggerShown>
+    <trigger>1</trigger>
+    <type value="Hier kommt der Test" >1</type>
    </button>
   </tab>
  </set>

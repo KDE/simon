@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simonkeyboardcommand_de\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-09-15 18:22+0200\n"
-"PO-Revision-Date: 2009-09-15 18:40+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-09-19 18:51+0200\n"
+"PO-Revision-Date: 2009-09-19 18:51+0200\n"
 "Last-Translator: Peter Grasch <grasch@simon-listens.org>\n"
 "Language-Team: German <kde-i18n-de@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -259,7 +259,8 @@ msgstr "Bitte wählen Sie einen Tab aus der verschoben werden soll"
 #: keyboardconfiguration.cpp:400
 msgid "Failed to move tab up. Maybe it is already at the top?"
 msgstr ""
-"Konnte den Tab nicht nach oben verschieben. Vielleicht ist er schon ganz oben?"
+"Konnte den Tab nicht nach oben verschieben. Vielleicht ist er schon ganz "
+"oben?"
 
 #: keyboardconfiguration.cpp:420
 msgid "Failed to move tab down. Maybe it is already at the bottom?"
@@ -648,4 +649,3 @@ msgstr "grasch@simon-listens.org"
 
 #~ msgid "Input Number"
 #~ msgstr "Nummer eingeben"
-

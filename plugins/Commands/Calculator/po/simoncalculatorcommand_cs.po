@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simoninputnumbercommand_cs\n"
-"Report-Msgid-Bugs-To: http://sourceforge."
-"net/tracker/?atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-02-22 16:35+0100\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"atid=935103&group_id=190872\n"
+"POT-Creation-Date: 2009-09-19 18:51+0200\n"
 "PO-Revision-Date: 2009-03-03 19:36+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
@@ -18,295 +18,291 @@ msgstr ""
 "X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: backup/inputnumbercommandmanager.cpp:43 backup/inputnumberwidget.cpp:41
-#: inputnumbercommandmanager.cpp:47
+#: calculatorcommandmanager.cpp:51
+msgid "Activate Calculator"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:65
 msgid "Zero"
 msgstr "Nula"
 
-#: backup/inputnumbercommandmanager.cpp:43 backup/inputnumberwidget.cpp:41
-#: inputnumbercommandmanager.cpp:47
+#: calculatorcommandmanager.cpp:65
 msgid "One"
 msgstr "Jeden"
 
-#: backup/inputnumbercommandmanager.cpp:43 backup/inputnumberwidget.cpp:41
-#: inputnumbercommandmanager.cpp:47
+#: calculatorcommandmanager.cpp:65
 msgid "Two"
 msgstr "Dva"
 
-#: backup/inputnumbercommandmanager.cpp:44 backup/inputnumberwidget.cpp:42
-#: inputnumbercommandmanager.cpp:48
+#: calculatorcommandmanager.cpp:66
 msgid "Three"
 msgstr "Tři"
 
-#: backup/inputnumbercommandmanager.cpp:44 backup/inputnumberwidget.cpp:42
-#: inputnumbercommandmanager.cpp:48
+#: calculatorcommandmanager.cpp:66
 msgid "Four"
 msgstr "Čtyři"
 
-#: backup/inputnumbercommandmanager.cpp:44 backup/inputnumberwidget.cpp:42
-#: inputnumbercommandmanager.cpp:48
+#: calculatorcommandmanager.cpp:66
 msgid "Five"
 msgstr "Pět"
 
-#: backup/inputnumbercommandmanager.cpp:45 backup/inputnumberwidget.cpp:43
-#: inputnumbercommandmanager.cpp:49
+#: calculatorcommandmanager.cpp:67
 msgid "Six"
 msgstr "Šest"
 
-#: backup/inputnumbercommandmanager.cpp:45 backup/inputnumberwidget.cpp:43
-#: inputnumbercommandmanager.cpp:49
+#: calculatorcommandmanager.cpp:67
 msgid "Seven"
 msgstr "Sedm"
 
-#: backup/inputnumbercommandmanager.cpp:45 backup/inputnumberwidget.cpp:43
-#: inputnumbercommandmanager.cpp:49
+#: calculatorcommandmanager.cpp:67
 msgid "Eight"
 msgstr "Osm"
 
-#: backup/inputnumbercommandmanager.cpp:45 backup/inputnumberwidget.cpp:43
-#: inputnumbercommandmanager.cpp:49
+#: calculatorcommandmanager.cpp:67
 msgid "Nine"
 msgstr "Devět"
 
-#. i18n: file: backup/inputnumberwidget.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
-#. i18n: file: inputnumberwidget.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
-#. i18n: file: backup/inputnumberwidget.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
-#. i18n: file: inputnumberwidget.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberDlg)
-#: backup/inputnumbercommandmanager.cpp:56
-#: backup/inputnumberconfiguration.cpp:33 backup/inputnumberwidget.cpp:69
-#: inputnumbercommandmanager.cpp:81 inputnumberconfiguration.cpp:33
-#: po/rc.cpp:9 po/rc.cpp:60 rc.cpp:9 rc.cpp:60
-msgid "Input Number"
-msgstr "Vstupní číslo"
+#: calculatorcommandmanager.cpp:100
+msgid "Result"
+msgstr ""
 
-#: backup/inputnumberconfiguration.cpp:34 inputnumberconfiguration.cpp:34
-msgid "Input numbers with ease"
-msgstr "Vstupní čísla s lehkostí"
+#: calculatorcommandmanager.cpp:101
+msgid "Calculation & result"
+msgstr ""
 
-#: backup/inputnumberconfiguration.cpp:51
-#: backup/inputnumberconfiguration.cpp:78
-#: backup/inputnumberconfiguration.cpp:87 inputnumberconfiguration.cpp:51
-#: inputnumberconfiguration.cpp:78 inputnumberconfiguration.cpp:87
-msgid "Number"
-msgstr "Číslo"
+#: calculatorcommandmanager.cpp:102
+msgid "Formatted result"
+msgstr ""
 
-#: backup/inputnumberwidget.cpp:75 inputnumbercommandmanager.cpp:87
-msgctxt "Decimal point"
-msgid "."
-msgstr ","
+#: calculatorcommandmanager.cpp:103
+msgid "Formatted calculation and result"
+msgstr ""
 
-#. i18n: file: backup/inputnumberwidget.ui:123
+#: calculatorcommandmanager.cpp:136
+msgid "Error in output"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CalculatorDlg)
+#: calculatorcommandmanager.cpp:176 calculatorconfiguration.cpp:33
+#: calculatorconfiguration.cpp:51 calculatorconfiguration.cpp:78
+#: calculatorconfiguration.cpp:87 po/rc.cpp:9 rc.cpp:9
+msgid "Calculator"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:311 calculatorcommandmanager.cpp:399
+#: calculatorcommandmanager.cpp:408
+msgid "Not a legal expression!"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:533
+msgid "Can't divide through 0"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:326
 #. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#. i18n: file: inputnumberwidget.ui:123
-#. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#. i18n: file: backup/inputnumberwidget.ui:123
-#. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#. i18n: file: inputnumberwidget.ui:123
-#. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#: backup/inputnumberwidget.cpp:102 inputnumbercommandmanager.cpp:121
-#: po/rc.cpp:51 po/rc.cpp:102 rc.cpp:51 rc.cpp:102
+#: calculatorcommandmanager.cpp:644 po/rc.cpp:79 rc.cpp:79
 msgid "Cancel"
 msgstr "Zrušit"
 
-#. i18n: file: backup/inputnumberwidget.ui:109
+#. i18n: file: calculatorwidget.ui:283
 #. i18n: ectx: property (text), widget (KPushButton, pbBack)
-#. i18n: file: inputnumberwidget.ui:109
-#. i18n: ectx: property (text), widget (KPushButton, pbBack)
-#. i18n: file: backup/inputnumberwidget.ui:109
-#. i18n: ectx: property (text), widget (KPushButton, pbBack)
-#. i18n: file: inputnumberwidget.ui:109
-#. i18n: ectx: property (text), widget (KPushButton, pbBack)
-#: backup/inputnumberwidget.cpp:107 inputnumbercommandmanager.cpp:126
-#: po/rc.cpp:45 po/rc.cpp:96 rc.cpp:45 rc.cpp:96
+#: calculatorcommandmanager.cpp:649 po/rc.cpp:70 rc.cpp:70
 msgid "Back"
 msgstr "Zpět"
 
-#. i18n: file: backup/inputnumberwidget.ui:116
+#. i18n: file: calculatorwidget.ui:313
 #. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#. i18n: file: inputnumberwidget.ui:116
-#. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#. i18n: file: backup/inputnumberwidget.ui:116
-#. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#. i18n: file: inputnumberwidget.ui:116
-#. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#: backup/inputnumberwidget.cpp:112 inputnumbercommandmanager.cpp:131
-#: po/rc.cpp:48 po/rc.cpp:99 rc.cpp:48 rc.cpp:99
+#: calculatorcommandmanager.cpp:654 po/rc.cpp:76 rc.cpp:76
 msgid "Ok"
 msgstr "OK"
 
-#: backup/inputnumberwidget.cpp:117 inputnumbercommandmanager.cpp:136
+#: calculatorcommandmanager.cpp:659
 msgctxt "Name of the decimal seperator"
 msgid "Comma"
 msgstr "Čárka"
 
-#. i18n: file: backup/inputnumberconfigurationdlg.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberConfigurationDlg)
-#. i18n: file: inputnumberconfigurationdlg.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberConfigurationDlg)
-#. i18n: file: backup/inputnumberconfigurationdlg.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberConfigurationDlg)
-#. i18n: file: inputnumberconfigurationdlg.ui:13
-#. i18n: ectx: property (windowTitle), widget (QWidget, InputNumberConfigurationDlg)
-#: po/rc.cpp:3 po/rc.cpp:54 rc.cpp:3 rc.cpp:54
+#: calculatorcommandmanager.cpp:664
+msgid "Plus"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:669
+msgid "Minus"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:674
+msgid "Multiply"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:679
+#, fuzzy
+msgid "Divide"
+msgstr "Pět"
+
+#: calculatorcommandmanager.cpp:684
+msgid "Equals"
+msgstr ""
+
+#: calculatorcommandmanager.cpp:689
+msgid "Percent"
+msgstr ""
+
+#: calculatorconfiguration.cpp:34
+msgid "Calculate with your voice"
+msgstr ""
+
+#. i18n: file: calculatorconfigurationdlg.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, CalculatorConfigurationDlg)
+#: po/rc.cpp:3 rc.cpp:3
 msgid "Form"
 msgstr "Formulář"
 
-#. i18n: file: backup/inputnumberconfigurationdlg.ui:21
+#. i18n: file: calculatorconfigurationdlg.ui:22
 #. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: inputnumberconfigurationdlg.ui:21
-#. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: backup/inputnumberconfigurationdlg.ui:21
-#. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: inputnumberconfigurationdlg.ui:21
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:6 po/rc.cpp:57 rc.cpp:6 rc.cpp:57
+#: po/rc.cpp:6 rc.cpp:6
 msgid "Trigger:"
 msgstr "Spoušť:"
 
-#. i18n: file: backup/inputnumberwidget.ui:32
+#. i18n: file: calculatorwidget.ui:50
 #. i18n: ectx: property (text), widget (KPushButton, pb7)
-#. i18n: file: inputnumberwidget.ui:32
-#. i18n: ectx: property (text), widget (KPushButton, pb7)
-#. i18n: file: backup/inputnumberwidget.ui:32
-#. i18n: ectx: property (text), widget (KPushButton, pb7)
-#. i18n: file: inputnumberwidget.ui:32
-#. i18n: ectx: property (text), widget (KPushButton, pb7)
-#: po/rc.cpp:12 po/rc.cpp:63 rc.cpp:12 rc.cpp:63
+#: po/rc.cpp:12 rc.cpp:12
 msgid "7"
 msgstr "7"
 
-#. i18n: file: backup/inputnumberwidget.ui:39
+#. i18n: file: calculatorwidget.ui:63
 #. i18n: ectx: property (text), widget (KPushButton, pb8)
-#. i18n: file: inputnumberwidget.ui:39
-#. i18n: ectx: property (text), widget (KPushButton, pb8)
-#. i18n: file: backup/inputnumberwidget.ui:39
-#. i18n: ectx: property (text), widget (KPushButton, pb8)
-#. i18n: file: inputnumberwidget.ui:39
-#. i18n: ectx: property (text), widget (KPushButton, pb8)
-#: po/rc.cpp:15 po/rc.cpp:66 rc.cpp:15 rc.cpp:66
+#: po/rc.cpp:15 rc.cpp:15
 msgid "8"
 msgstr "8"
 
-#. i18n: file: backup/inputnumberwidget.ui:46
+#. i18n: file: calculatorwidget.ui:76
 #. i18n: ectx: property (text), widget (KPushButton, pb9)
-#. i18n: file: inputnumberwidget.ui:46
-#. i18n: ectx: property (text), widget (KPushButton, pb9)
-#. i18n: file: backup/inputnumberwidget.ui:46
-#. i18n: ectx: property (text), widget (KPushButton, pb9)
-#. i18n: file: inputnumberwidget.ui:46
-#. i18n: ectx: property (text), widget (KPushButton, pb9)
-#: po/rc.cpp:18 po/rc.cpp:69 rc.cpp:18 rc.cpp:69
+#: po/rc.cpp:18 rc.cpp:18
 msgid "9"
 msgstr "9"
 
-#. i18n: file: backup/inputnumberwidget.ui:53
+#. i18n: file: calculatorwidget.ui:89
+#. i18n: ectx: property (text), widget (KPushButton, pbPlus)
+#: po/rc.cpp:21 rc.cpp:21
+msgid "+"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:102
 #. i18n: ectx: property (text), widget (KPushButton, pb4)
-#. i18n: file: inputnumberwidget.ui:53
-#. i18n: ectx: property (text), widget (KPushButton, pb4)
-#. i18n: file: backup/inputnumberwidget.ui:53
-#. i18n: ectx: property (text), widget (KPushButton, pb4)
-#. i18n: file: inputnumberwidget.ui:53
-#. i18n: ectx: property (text), widget (KPushButton, pb4)
-#: po/rc.cpp:21 po/rc.cpp:72 rc.cpp:21 rc.cpp:72
+#: po/rc.cpp:24 rc.cpp:24
 msgid "4"
 msgstr "4"
 
-#. i18n: file: backup/inputnumberwidget.ui:60
+#. i18n: file: calculatorwidget.ui:115
 #. i18n: ectx: property (text), widget (KPushButton, pb5)
-#. i18n: file: inputnumberwidget.ui:60
-#. i18n: ectx: property (text), widget (KPushButton, pb5)
-#. i18n: file: backup/inputnumberwidget.ui:60
-#. i18n: ectx: property (text), widget (KPushButton, pb5)
-#. i18n: file: inputnumberwidget.ui:60
-#. i18n: ectx: property (text), widget (KPushButton, pb5)
-#: po/rc.cpp:24 po/rc.cpp:75 rc.cpp:24 rc.cpp:75
+#: po/rc.cpp:27 rc.cpp:27
 msgid "5"
 msgstr "5"
 
-#. i18n: file: backup/inputnumberwidget.ui:67
+#. i18n: file: calculatorwidget.ui:128
 #. i18n: ectx: property (text), widget (KPushButton, pb6)
-#. i18n: file: inputnumberwidget.ui:67
-#. i18n: ectx: property (text), widget (KPushButton, pb6)
-#. i18n: file: backup/inputnumberwidget.ui:67
-#. i18n: ectx: property (text), widget (KPushButton, pb6)
-#. i18n: file: inputnumberwidget.ui:67
-#. i18n: ectx: property (text), widget (KPushButton, pb6)
-#: po/rc.cpp:27 po/rc.cpp:78 rc.cpp:27 rc.cpp:78
+#: po/rc.cpp:30 rc.cpp:30
 msgid "6"
 msgstr "6"
 
-#. i18n: file: backup/inputnumberwidget.ui:74
+#. i18n: file: calculatorwidget.ui:141
+#. i18n: ectx: property (text), widget (KPushButton, pbMinus)
+#: po/rc.cpp:33 rc.cpp:33
+msgid "-"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:154
 #. i18n: ectx: property (text), widget (KPushButton, pb1)
-#. i18n: file: inputnumberwidget.ui:74
-#. i18n: ectx: property (text), widget (KPushButton, pb1)
-#. i18n: file: backup/inputnumberwidget.ui:74
-#. i18n: ectx: property (text), widget (KPushButton, pb1)
-#. i18n: file: inputnumberwidget.ui:74
-#. i18n: ectx: property (text), widget (KPushButton, pb1)
-#: po/rc.cpp:30 po/rc.cpp:81 rc.cpp:30 rc.cpp:81
+#: po/rc.cpp:36 rc.cpp:36
 msgid "1"
 msgstr "1"
 
-#. i18n: file: backup/inputnumberwidget.ui:81
+#. i18n: file: calculatorwidget.ui:167
 #. i18n: ectx: property (text), widget (KPushButton, pb2)
-#. i18n: file: inputnumberwidget.ui:81
-#. i18n: ectx: property (text), widget (KPushButton, pb2)
-#. i18n: file: backup/inputnumberwidget.ui:81
-#. i18n: ectx: property (text), widget (KPushButton, pb2)
-#. i18n: file: inputnumberwidget.ui:81
-#. i18n: ectx: property (text), widget (KPushButton, pb2)
-#: po/rc.cpp:33 po/rc.cpp:84 rc.cpp:33 rc.cpp:84
+#: po/rc.cpp:39 rc.cpp:39
 msgid "2"
 msgstr "2"
 
-#. i18n: file: backup/inputnumberwidget.ui:88
+#. i18n: file: calculatorwidget.ui:180
 #. i18n: ectx: property (text), widget (KPushButton, pb3)
-#. i18n: file: inputnumberwidget.ui:88
-#. i18n: ectx: property (text), widget (KPushButton, pb3)
-#. i18n: file: backup/inputnumberwidget.ui:88
-#. i18n: ectx: property (text), widget (KPushButton, pb3)
-#. i18n: file: inputnumberwidget.ui:88
-#. i18n: ectx: property (text), widget (KPushButton, pb3)
-#: po/rc.cpp:36 po/rc.cpp:87 rc.cpp:36 rc.cpp:87
+#: po/rc.cpp:42 rc.cpp:42
 msgid "3"
 msgstr "3"
 
-#. i18n: file: backup/inputnumberwidget.ui:95
+#. i18n: file: calculatorwidget.ui:193
+#. i18n: ectx: property (text), widget (KPushButton, pbMultiply)
+#: po/rc.cpp:45 rc.cpp:45
+msgid "*"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:206
 #. i18n: ectx: property (text), widget (KPushButton, pb0)
-#. i18n: file: inputnumberwidget.ui:95
-#. i18n: ectx: property (text), widget (KPushButton, pb0)
-#. i18n: file: backup/inputnumberwidget.ui:95
-#. i18n: ectx: property (text), widget (KPushButton, pb0)
-#. i18n: file: inputnumberwidget.ui:95
-#. i18n: ectx: property (text), widget (KPushButton, pb0)
-#: po/rc.cpp:39 po/rc.cpp:90 rc.cpp:39 rc.cpp:90
+#: po/rc.cpp:48 rc.cpp:48
 msgid "0"
 msgstr "0"
 
-#. i18n: file: backup/inputnumberwidget.ui:102
+#. i18n: file: calculatorwidget.ui:219
 #. i18n: ectx: property (text), widget (KPushButton, pbComma)
-#. i18n: file: inputnumberwidget.ui:102
-#. i18n: ectx: property (text), widget (KPushButton, pbComma)
-#. i18n: file: backup/inputnumberwidget.ui:102
-#. i18n: ectx: property (text), widget (KPushButton, pbComma)
-#. i18n: file: inputnumberwidget.ui:102
-#. i18n: ectx: property (text), widget (KPushButton, pbComma)
-#: po/rc.cpp:42 po/rc.cpp:93 rc.cpp:42 rc.cpp:93
+#: po/rc.cpp:51 rc.cpp:51
 msgid "."
 msgstr ","
 
-#: po/rc.cpp:103 rc.cpp:103
+#. i18n: file: calculatorwidget.ui:232
+#. i18n: ectx: property (text), widget (KPushButton, pbDivide)
+#: po/rc.cpp:54 rc.cpp:54
+msgid "/"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:239
+#. i18n: ectx: property (text), widget (KPushButton, pbBracketOpen)
+#: po/rc.cpp:57 rc.cpp:57
+msgid "("
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:246
+#. i18n: ectx: property (text), widget (KPushButton, pbBracketClose)
+#: po/rc.cpp:60 rc.cpp:60
+msgid ")"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:259
+#. i18n: ectx: property (text), widget (KPushButton, pbEquals)
+#: po/rc.cpp:63 rc.cpp:63
+msgid "="
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:266
+#. i18n: ectx: property (text), widget (KPushButton, pbPercent)
+#: po/rc.cpp:67 rc.cpp:67
+#, no-c-format
+msgid "%"
+msgstr ""
+
+#. i18n: file: calculatorwidget.ui:296
+#. i18n: ectx: property (text), widget (KPushButton, pbClear)
+#: po/rc.cpp:73 rc.cpp:73
+msgid "Clear"
+msgstr ""
+
+#: po/rc.cpp:80 rc.cpp:80
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: po/rc.cpp:104 rc.cpp:104
+#: po/rc.cpp:81 rc.cpp:81
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
 
+#~ msgid "Input Number"
+#~ msgstr "Vstupní číslo"
 
+#~ msgid "Input numbers with ease"
+#~ msgstr "Vstupní čísla s lehkostí"
+
+#~ msgid "Number"
+#~ msgstr "Číslo"
+
+#~ msgctxt "Decimal point"
+#~ msgid "."
+#~ msgstr ","
