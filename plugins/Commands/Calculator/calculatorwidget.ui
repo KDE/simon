@@ -280,7 +280,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Back</string>
+        <string>Delete</string>
        </property>
       </widget>
      </item>
