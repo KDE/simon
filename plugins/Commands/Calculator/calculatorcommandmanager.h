@@ -84,7 +84,7 @@ private slots:
 	void sendBracketOpen();
 	void sendBracketClose();
 	void sendEquals();
-//        void sendPercent();
+        void sendPercent();
 	void writeoutRequestReceived(int index);
 
 protected:

@@ -21,14 +21,13 @@
 
 Token::Token(char arOp, short priority)
     : arOperator(arOp),
-    type(priority)
+    type(priority),
+    number(0)
 {
 }
 
-Token::Token(double num)
+Token::Token(double num) : number(num), type(0), arOperator(' ')
 {
-    number=num;
-    type=0;
 }
 short Token::getType()
 {

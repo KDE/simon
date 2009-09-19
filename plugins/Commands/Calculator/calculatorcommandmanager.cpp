@@ -89,12 +89,12 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 //	connect(ui.pbBracketOpen, SIGNAL(clicked()), this, SLOT(sendBracketOpen()));
 //	connect(ui.pbBracketClose, SIGNAL(clicked()), this, SLOT(sendBracketClose()));
 	connect(ui.pbEquals, SIGNAL(clicked()), this, SLOT(sendEquals()));
-//        connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
+        connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
 
 	//TODO: implement brackets and percentages
 	ui.pbBracketClose->hide();
 	ui.pbBracketOpen->hide();
-	ui.pbPercent->hide();
+//	ui.pbPercent->hide();
 
 	commandListWidget->init(QStringList() << "go-next" << "go-next" << "go-next" << "go-next", 
 			QStringList() << i18n("Result") << 
@@ -162,7 +162,6 @@ void CalculatorCommandManager::writeoutRequestReceived(int index)
 
 void CalculatorCommandManager::deregister()
 {
-//	ActionManager::getInstance()->deRegisterPrompt(this, "executeSelection");
 	stopGreedy();
 }
 
@@ -243,11 +242,10 @@ void CalculatorCommandManager::sendBracketClose()
 	sendBracket(")");
 }
 
-//void CalculatorCommandManager::sendPercent()
-//{
-//	sendOperator("%");
-//        ui.leNumber->setText(ui.leNumber->text()+"%");
-//}
+void CalculatorCommandManager::sendPercent()
+{
+	sendOperator("%");
+}
 
 void CalculatorCommandManager::resetInput()
 {
@@ -263,7 +261,17 @@ void CalculatorCommandManager::sendEquals()
 	QList<Token*> *parsedInput = parseString(input);
 	if(parsedInput!=NULL)
 	{
+		kDebug() << "parsed input";
+	    foreach (Token* t, *parsedInput) {
+		    kDebug() << t->getType() << t->getNumber() << t->getArOperator();
+	    }
+	    kDebug() << "end parsed input";
 	    QList<Token*> *postfixedInput =  toPostfix(parsedInput);
+		kDebug() << "postfixed input";
+	    foreach (Token* t, *postfixedInput) {
+		    kDebug() << t->getType() << t->getNumber() << t->getArOperator();
+	    }
+	    kDebug() << "end postfixed input";
 
 	    currentResult = calculate(postfixedInput);
 	    //ui.leNumber->setText(QString("%1").arg(output,0,'f',4));
@@ -284,7 +292,7 @@ QString CalculatorCommandManager::formatOutput(double in)
 QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 {
 	QList<Token *> *list=new QList<Token *>();
-	//status: Explains the status from the parser. 0=start, 1=number, 2=comma, 3=arithmetic operator, 4=commanumber, -1=fail
+	//status: Explains the status from the parser. 0=start, 1=number, 2=comma, 3=arithmetic operator, 4=commanumber, 5=percent, -1=fail
 	int status=0;
 	double number=0.0;
 	bool isFloat=false;
@@ -294,7 +302,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 	for(int i=0;i<calc.size();i++)
 	{
 	    kDebug() << calc.at(i) << status;
-	    if(calc.at(i)>=48 && calc.at(i)<=57)
+	    if(calc.at(i)>=48 && calc.at(i)<=57) // digit
 	    {
 		switch(status)
 		{
@@ -309,6 +317,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		    case 4: number=number+(calc.at(i).digitValue()/decimalMultiplier);
 			    decimalMultiplier*=10;
 			    break;
+		    case 5:
 		    case 3: number=calc.at(i).digitValue();
 			    status=1;
 			    break;
@@ -322,16 +331,16 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		    return list;
 		}
 	    }
-	    else if(calc.at(i)=='(' && (status==3 || status==0))
+	    else if(calc.at(i)=='(' && (status==3 || status==5 || status==0))
 	    {
 		list->append(new Token('(', -1));
 		status=3;
 	    }
-	    else if(calc.at(i)==')' && ((status==1)||(status==4)))
+	    else if(calc.at(i)==')' && ((status==1)||status==5 || (status==4)))
 	    {
 		list->append(new Token(')', -1));
 	    }
-	    else if((status==1) || (status==4))
+	    else if((status==1) || (status==4) || (status == 5))
 	    {
 		if((i+1)!=calc.size())
 		{
@@ -352,37 +361,43 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 			switch(calc.at(i).toAscii())
 			{
 			
-			    case '+': list->append(new Token(number));
+			    case '+': if (status != 5) list->append(new Token(number));
 				      list->append(new Token('+', 1));
 				      isFloat=false;
 				      status=3;
 				      break;
-			    case '-': list->append(new Token(number));
+			    case '-': if (status != 5) list->append(new Token(number));
 				      list->append(new Token('-',1));
 				      isFloat=false;
 				      status=3;
 				      break;
-			    case '*': list->append(new Token(number));
+			    case '*': if (status != 5) list->append(new Token(number));
 				      list->append(new Token('*',2));
 				      isFloat=false;
 				      status=3;
 				      break;
-			    case '/': list->append(new Token(number));
+			    case '/': if (status != 5) list->append(new Token(number));
 				      list->append(new Token('/',2));
 				      isFloat=false;
 				      status=3;
 				      break;
-//                            case '%': list->append(new Token(list->at(list->size()-1)->getNumber()/100*number));
-//                                      break;
+//                            case '%': //list->append(new Token(list->at(list->size()-1)->getNumber()/100*number));
+ //                                     break;
 			}
 		    }
 		}
-		else
-		{
-		    status=-1;
-		    resetInput();
-		     kDebug() << "Error in 2";
-		    SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
+		if (calc.at(i).toAscii() == '%') {
+		      list->append(new Token(number));
+		      list->append(new Token('%', 3));
+		      isFloat=false;
+		      status=5;
+		} else {
+			if (i+1 == calc.size()) {
+			    status=-1;
+			    resetInput();
+			     kDebug() << "Error in 2";
+			    SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
+			}
 		}
 	    }
 	    else
@@ -393,8 +408,9 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 	    }
 	}
-
-	list->append(new Token(number));
+	
+	if (status != 5)
+		list->append(new Token(number));
 	if(status==-1)
 		return NULL;
 
@@ -408,6 +424,7 @@ QList<Token *>* CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
 
     for(int i=0;i<calcList->size();i++)
     {
+	    //brackets
 	if(calcList->at(i)->getType()==-1)
 	{
 	    if(calcList->at(i)->getArOperator()=='(')
@@ -427,11 +444,13 @@ QList<Token *>* CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
 		}
 	    }
 	}
+	    //number
 	else if(calcList->at(i)->getType()==0)
 	{
 	    list->append((*calcList)[i]);
 	}
 
+	    //+, -
 	else if(calcList->at(i)->getType()==1)
 	{
 	    while(!arOperatoren->isEmpty())
@@ -441,6 +460,7 @@ QList<Token *>* CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
 	    arOperatoren->push(calcList->at(i));
 	}
 
+	    //*, /
 	else if(calcList->at(i)->getType()==2)
 	{
 	    if(!arOperatoren->isEmpty() && arOperatoren->top()->getType()==2) //if there are more then 2 types, exchange the if with a while-loop
@@ -449,7 +469,9 @@ QList<Token *>* CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
 	    }
 	    arOperatoren->push(calcList->at(i));
 	}
-
+	else if (calcList->at(i)->getType() == 3) {
+		list->append(calcList->at(i));
+	}
 	else
 	{
 		kWarning() << "Error in function: toPostfix()";
@@ -515,13 +537,23 @@ double CalculatorCommandManager::calculate(QList<Token *>* postList)
 			    calc.push(new Token(op1/op2));
 			break;
 			}
+		case '%':  {
+			double op1;
+			op1 = calc.pop()->getNumber()/100.0f;
+		        calc.push(new Token(op1));
+			kDebug() << "Pushing percenticed number: " << op1;
+			break;
+			}
 	    }
 	}
 
     }
 
     delete postList;
-    return calc.pop()->getNumber();
+
+    double result = calc.pop()->getNumber();
+    kDebug() << "result";
+    return result;
 }
 
 void CalculatorCommandManager::back()
@@ -654,11 +686,11 @@ bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
 		ui.pbEquals->animateClick();
 		return true;
 	}
-//        if(inputText.toUpper() == i18n("Percent").toUpper())
-//        {
-//                ui.pbPercent->animateClick();
-//                return true;
-//        }
+        if(inputText.toUpper() == i18n("Percent").toUpper())
+        {
+                ui.pbPercent->animateClick();
+                return true;
+        }
 
 	return true;
 }
