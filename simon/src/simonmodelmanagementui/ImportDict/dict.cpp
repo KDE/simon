@@ -72,7 +72,7 @@ void Dict::buildTranslationTables()
 	translationLookup.insert(0x01AD, "t_<");
 	translationLookup.insert(0x01BB, "dz)");
 	translationLookup.insert(0x01C3, "!");
-	translationLookup.insert(0x0250, "@ r");
+	translationLookup.insert(0x0250, "ah");
 	translationLookup.insert(0x0251, "A");
 	translationLookup.insert(0x0252, "Q");
 	translationLookup.insert(0x0253, "b_<");
@@ -317,14 +317,17 @@ void Dict::buildAllowedPhonemes()
 
 QString Dict::adaptToSimonPhonemeSet(QString sampa)
 {
-	QString out = sampa.replace("6", "@ r");
+	QString out = sampa.replace("6", "ah");
 	out = out.replace("2", "oeh");
-	out = out.remove("~");
-	out = out.remove("<");
+	//out = out.remove("~");
+	//out = out.remove("<");
+	out = out.replace("~", "nas");
+	out = out.replace("<", "nsb");
 	out = out.remove("_");
 	out = out.remove("^");
 	out = out.remove("?");
-	return out.replace("9", "oe");
+	out = out.replace("9", "oe");
+	return out;
 }
 
 QString Dict::segmentSampa(const QString& sampa)
