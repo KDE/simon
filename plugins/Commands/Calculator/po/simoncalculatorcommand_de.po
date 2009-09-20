@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-09-19 23:36+0200\n"
-"PO-Revision-Date: 2009-09-19 23:36+0200\n"
+"POT-Creation-Date: 2009-09-20 01:56+0200\n"
+"PO-Revision-Date: 2009-09-20 01:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -61,85 +61,94 @@ msgstr "Acht"
 msgid "Nine"
 msgstr "Neun"
 
-#: calculatorcommandmanager.cpp:100
+#: calculatorcommandmanager.cpp:101
 msgid "Result"
 msgstr "Ergebnis"
 
-#: calculatorcommandmanager.cpp:101
+#: calculatorcommandmanager.cpp:102
 msgid "Calculation & result"
 msgstr "Rechnung & Ergebnis"
 
-#: calculatorcommandmanager.cpp:102
+#: calculatorcommandmanager.cpp:103
 msgid "Formatted result"
 msgstr "Formatiertes Ergebnis"
 
-#: calculatorcommandmanager.cpp:103
+#: calculatorcommandmanager.cpp:104
 msgid "Formatted calculation and result"
 msgstr "Formatierte Rechnung & Ergebnis"
 
-#: calculatorcommandmanager.cpp:136
+#: calculatorcommandmanager.cpp:105
+msgid "Format result as money"
+msgstr "Formatiertes Ergebnis (Geld)"
+
+#: calculatorcommandmanager.cpp:106
+#, fuzzy
+msgid "Format calculation and result as money"
+msgstr "Formatierte Rechnung & Ergebnis (Geld)"
+
+#: calculatorcommandmanager.cpp:168
 msgid "Error in output"
 msgstr "Fehler in der Ausgabe"
 
 #. i18n: file: calculatorwidget.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, CalculatorDlg)
-#: calculatorcommandmanager.cpp:176 calculatorconfiguration.cpp:33
+#: calculatorcommandmanager.cpp:238 calculatorconfiguration.cpp:33
 #: calculatorconfiguration.cpp:51 calculatorconfiguration.cpp:78
 #: calculatorconfiguration.cpp:87 po/rc.cpp:9 rc.cpp:9
 msgid "Calculator"
 msgstr "Taschenrechner"
 
-#: calculatorcommandmanager.cpp:311 calculatorcommandmanager.cpp:399
-#: calculatorcommandmanager.cpp:408
+#: calculatorcommandmanager.cpp:373 calculatorcommandmanager.cpp:461
+#: calculatorcommandmanager.cpp:470
 msgid "Not a legal expression!"
 msgstr "Keine legale Eingabe!"
 
-#: calculatorcommandmanager.cpp:533
+#: calculatorcommandmanager.cpp:595
 msgid "Can't divide through 0"
 msgstr "Kann nicht durch 0 dividieren"
 
 #. i18n: file: calculatorwidget.ui:326
 #. i18n: ectx: property (text), widget (KPushButton, pbCancel)
-#: calculatorcommandmanager.cpp:644 po/rc.cpp:79 rc.cpp:79
+#: calculatorcommandmanager.cpp:706 po/rc.cpp:79 rc.cpp:79
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: calculatorcommandmanager.cpp:649
+#: calculatorcommandmanager.cpp:711
 msgid "Back"
 msgstr "Zurück"
 
 #. i18n: file: calculatorwidget.ui:313
 #. i18n: ectx: property (text), widget (KPushButton, pbOk)
-#: calculatorcommandmanager.cpp:654 po/rc.cpp:76 rc.cpp:76
+#: calculatorcommandmanager.cpp:716 po/rc.cpp:76 rc.cpp:76
 msgid "Ok"
 msgstr "Ok"
 
-#: calculatorcommandmanager.cpp:659
+#: calculatorcommandmanager.cpp:721
 msgctxt "Name of the decimal seperator"
 msgid "Comma"
 msgstr "Komma"
 
-#: calculatorcommandmanager.cpp:664
+#: calculatorcommandmanager.cpp:726
 msgid "Plus"
 msgstr "Plus"
 
-#: calculatorcommandmanager.cpp:669
+#: calculatorcommandmanager.cpp:731
 msgid "Minus"
 msgstr "Minus"
 
-#: calculatorcommandmanager.cpp:674
+#: calculatorcommandmanager.cpp:736
 msgid "Multiply"
 msgstr "Multiplizieren"
 
-#: calculatorcommandmanager.cpp:679
+#: calculatorcommandmanager.cpp:741
 msgid "Divide"
 msgstr "Dividieren"
 
-#: calculatorcommandmanager.cpp:684
+#: calculatorcommandmanager.cpp:746
 msgid "Equals"
 msgstr "Ist"
 
-#: calculatorcommandmanager.cpp:689
+#: calculatorcommandmanager.cpp:751
 msgid "Percent"
 msgstr "Prozent"
 

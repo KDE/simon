@@ -1,6 +1,6 @@
 /*
- *   Copyright (C) 2009 Dominik Neumeister <neudob06@edvhtl.at>
  *   Copyright (C) 2009 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2009 Dominik Neumeister <neudob06@edvhtl.at>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -46,7 +46,7 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 	widget(new QDialog(0, Qt::Dialog|Qt::WindowStaysOnTopHint)),
 	commandListWidget(new CommandListWidget()),
 	currentResult(0),
-	resultCurrentlyDisplayed(false)
+	resultCurrentlyDisplayed(true)
 {
 	KAction *activateAction = new KAction(this);
 	activateAction->setText(i18n("Activate Calculator"));
@@ -97,11 +97,14 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 	ui.pbBracketOpen->hide();
 //	ui.pbPercent->hide();
 
-	commandListWidget->init(QStringList() << "go-next" << "go-next" << "go-next" << "go-next", 
+	commandListWidget->init(QStringList() << "go-next" << "go-next" << "go-next" << "go-next" <<
+			"go-next" << "go-next", 
 			QStringList() << i18n("Result") << 
 			i18n("Calculation & result") << 
 			i18n("Formatted result") <<
-			i18n("Formatted calculation and result"), 0); //Add Elements for the list
+			i18n("Formatted calculation and result") <<
+			i18n("Format result as money") << 
+			i18n("Format calculation and result as money"), 0); //Add Elements for the list
 	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(writeoutRequestReceived(int)));
 }
 
@@ -115,7 +118,7 @@ void CalculatorCommandManager::writeoutRequestReceived(int index)
 		case 1:
 			//result
 			if (resultCurrentlyDisplayed)
-				output = formatOutput(currentResult);
+				output = toString(currentResult);
 			break;
 		case 2:
 			//calculation & result
@@ -123,37 +126,19 @@ void CalculatorCommandManager::writeoutRequestReceived(int index)
 			break;
 		case 3:
 			//formatted result
-			if (resultCurrentlyDisplayed)
-				output = KGlobal::locale()->formatNumber(currentResult);
+			output = formatOutput(CalculatorCommandManager::Default);
 			break;
 		case 4:
 			//formatted calculation & result
-			//TODO: format output
-			QString input = ui.leNumber->text();
-			if (input.contains("="))
-				input = input.left(input.indexOf("="));
-			QList<Token*> *parsedString = parseString(input);
-			if (!parsedString) {
-				SimonInfo::showMessage(i18n("Error in output"), 3000);
-				return;
-			}
-
-			foreach (Token* t, *parsedString) {
-				//format number / operator
-				switch (t->getType()) {
-					case -1: output += ",";
-						break;
-					case 0: output += KGlobal::locale()->formatNumber(t->getNumber());
-						break;
-					case 1:
-					case 2:
-					case 3:
-						output += t->getArOperator();
-						break;
-				}
-			}
-			if (resultCurrentlyDisplayed)
-				output += "="+KGlobal::locale()->formatNumber(currentResult);
+			output = formatCalculation(CalculatorCommandManager::Default);
+			break;
+		case 5:
+			//formatted money result
+			output = formatOutput(CalculatorCommandManager::Money);
+			break;
+		case 6:
+			//formatted money calculation & money result
+			output = formatCalculation(CalculatorCommandManager::Money);
 			break;
 	}
 
@@ -161,6 +146,82 @@ void CalculatorCommandManager::writeoutRequestReceived(int index)
 	usleep(300000);
 	EventHandler::getInstance()->sendWord(output);
 }
+
+
+QString CalculatorCommandManager::formatCalculation(CalculatorCommandManager::NumberType type)
+{
+	QString output = formatInput(type);
+
+	if (resultCurrentlyDisplayed)
+		output += "="+formatOutput(type);
+
+	return output;
+}
+
+
+QString CalculatorCommandManager::formatInput(CalculatorCommandManager::NumberType type)
+{
+	QString input = ui.leNumber->text();
+	if (input.contains("="))
+		input = input.left(input.indexOf("="));
+	QList<Token*> *parsedString = parseString(input);
+	if (!parsedString) {
+		SimonInfo::showMessage(i18n("Error in output"), 3000);
+		return QString();
+	}
+
+	QString output;
+
+	for (int i=0; i < parsedString->count(); i++) {
+		Token *t = parsedString->at(i);
+
+		//format number / operator
+		switch (t->getType()) {
+			case -1: output += ",";
+				break;
+			case 0:
+				 
+				switch (type) {
+					case CalculatorCommandManager::Default:
+						 output += KGlobal::locale()->formatNumber(t->getNumber());
+						 break;
+					case CalculatorCommandManager::Money:
+						 if ((i+1 < parsedString->count()) && (parsedString->at(i+1)->getType() == 3))
+							 //percentage coming up so don't format it as money
+							 output += KGlobal::locale()->formatNumber(t->getNumber());
+						 else 
+							 output += KGlobal::locale()->formatMoney(t->getNumber());
+						 break;
+				}
+				break;
+			case 1:
+			case 2:
+			case 3:
+				output += t->getArOperator();
+				break;
+		}
+	}
+	return output;
+
+}
+
+QString CalculatorCommandManager::formatOutput(CalculatorCommandManager::NumberType type)
+{
+	if (!resultCurrentlyDisplayed) return QString();
+
+	QString output;
+
+	switch (type) {
+		case CalculatorCommandManager::Default:
+			output = KGlobal::locale()->formatNumber(currentResult);
+			break;
+		case CalculatorCommandManager::Money:
+			output = KGlobal::locale()->formatMoney(currentResult);
+			break;
+	}
+	return output;
+}
+
 
 void CalculatorCommandManager::deregister()
 {
@@ -181,7 +242,7 @@ const QString CalculatorCommandManager::name() const
 void CalculatorCommandManager::sendOperator(const QString operatorStr)
 {
 	if (resultCurrentlyDisplayed) {
-		ui.leNumber->setText(formatOutput(currentResult));
+		ui.leNumber->setText(toString(currentResult));
 		resultCurrentlyDisplayed = false;
 	}
 
@@ -206,12 +267,13 @@ void CalculatorCommandManager::sendNumber(const QString bracketStr)
 
 void CalculatorCommandManager::sendComma()
 {
-	if (resultCurrentlyDisplayed) {
-		ui.leNumber->setText("0");
+/*	if (resultCurrentlyDisplayed) {
+		clear();
 		resultCurrentlyDisplayed = false;
 	}
 
-	ui.leNumber->setText(ui.leNumber->text()+KGlobal::locale()->decimalSymbol());
+	ui.leNumber->setText(ui.leNumber->text()+KGlobal::locale()->decimalSymbol());*/
+	sendOperator(KGlobal::locale()->decimalSymbol());
 }
 
 void CalculatorCommandManager::sendPlus()
@@ -249,10 +311,11 @@ void CalculatorCommandManager::sendPercent()
 	sendOperator("%");
 }
 
+
 void CalculatorCommandManager::resetInput()
 {
 	ui.leNumber->clear();
-	resultCurrentlyDisplayed = false;
+	resultCurrentlyDisplayed=false;
 }
 
 void CalculatorCommandManager::sendEquals()
@@ -268,10 +331,8 @@ void CalculatorCommandManager::sendEquals()
 		    kDebug() << t->getType() << t->getNumber() << t->getArOperator();
 	    }
 	    kDebug() << "end parsed input";
-
 	    QList<Token*> *postfixedInput =  toPostfix(parsedInput);
-
-                kDebug() << "postfixed input";
+		kDebug() << "postfixed input";
 	    foreach (Token* t, *postfixedInput) {
 		    kDebug() << t->getType() << t->getNumber() << t->getArOperator();
 	    }
@@ -279,14 +340,14 @@ void CalculatorCommandManager::sendEquals()
 
 	    currentResult = calculate(postfixedInput);
 	    //ui.leNumber->setText(QString("%1").arg(output,0,'f',4));
-	    ui.leNumber->setText(ui.leNumber->text()+"="+formatOutput(currentResult));
+	    ui.leNumber->setText(ui.leNumber->text()+"="+toString(currentResult));
 	    resultCurrentlyDisplayed = true;
 	}
 	else
 		resetInput();
 }
 
-QString CalculatorCommandManager::formatOutput(double in)
+QString CalculatorCommandManager::toString(double in)
 {
 	QString out = QString::number(in);
 	out.replace(".", KGlobal::locale()->decimalSymbol());
@@ -310,7 +371,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 	    {
 		switch(status)
 		{
-		    case -1: resetInput();
+		    case -1: clear();
 			     kDebug() << "Error in 1";
 			     SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 			     break;
@@ -321,10 +382,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		    case 4: number=number+(calc.at(i).digitValue()/decimalMultiplier);
 			    decimalMultiplier*=10;
 			    break;
-                    case 5: status=-1;
-                            kDebug() << "Error in 1";
-                            SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
-                            break;
+		    case 5:
 		    case 3: number=calc.at(i).digitValue();
 			    status=1;
 			    break;
@@ -401,7 +459,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 		} else {
 			if (i+1 == calc.size()) {
 			    status=-1;
-			    resetInput();
+			    clear();
 			     kDebug() << "Error in 2";
 			    SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 			}
@@ -410,7 +468,7 @@ QList<Token *> * CalculatorCommandManager::parseString(QString calc)
 	    else
 	    {
 		status=-1;
-		resetInput();
+		clear();
 	     kDebug() << "Error in 3";
 		SimonInfo::showMessage(i18n("Not a legal expression!"), 3000, new KIcon("accessories-calculator"));
 	    }
@@ -476,8 +534,6 @@ QList<Token *>* CalculatorCommandManager::toPostfix(QList<Token *> *calcList)
 	    }
 	    arOperatoren->push(calcList->at(i));
 	}
-
-          // %
 	else if (calcList->at(i)->getType() == 3) {
 		list->append(calcList->at(i));
 	}
@@ -548,22 +604,11 @@ double CalculatorCommandManager::calculate(QList<Token *>* postList)
 			}
 		case '%':  {
 			double op1;
-                        double op2;
 			op1 = calc.pop()->getNumber()/100.0f;
-                        if(!calc.isEmpty())
-                        {
-                            op2=calc.pop()->getNumber();
-                            calc.push(new Token(op2));
-                            calc.push(new Token(op2*op1));
-                        }
-                        else
-                        {
-                            SimonInfo::showMessage(i18n("You must not take the % statement on the first position"), 3000, new KIcon("accessories-calculator"));
-                            calc.push(new Token(0));
-                        }
-                        kDebug() << "Percent: " << op1 << " Pushing percenticed number: " << op2;
+		        calc.push(new Token(op1));
+			kDebug() << "Pushing percenticed number: " << op1;
 			break;
-                  }
+			}
 	    }
 	}
 
@@ -582,12 +627,16 @@ void CalculatorCommandManager::back()
 	if (text.count() == 0) return;
 
 	text = text.left(text.count()-1);
-	ui.leNumber->setText(text);
+
+	if (text.count() == 0) clear();
+	else ui.leNumber->setText(text);
 }
 
 void CalculatorCommandManager::clear()
 {
-	ui.leNumber->clear();
+	ui.leNumber->setText("0");
+	resultCurrentlyDisplayed = true;
+	currentResult=0;
 }
 
 
@@ -745,7 +794,7 @@ bool CalculatorCommandManager::save()
 
 void CalculatorCommandManager::activate()
 {
-	resetInput();
+	clear();
 	QDesktopWidget* tmp = QApplication::desktop();
 	int x,y;
 	x=(tmp->width()/2)-(widget->width()/2);

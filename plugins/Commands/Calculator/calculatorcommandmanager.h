@@ -42,6 +42,11 @@ class CommandListWidget;
 class CalculatorCommandManager : public CommandManager, public GreedyReceiver {
 Q_OBJECT
 private:
+	enum NumberType {
+		Default=1,
+		Money=2
+	};
+
 	Ui::CalculatorDlg ui;
 	QDialog *widget;
 	static QStringList numberIdentifiers;
@@ -57,7 +62,11 @@ private:
 	void sendBracket(const QString bracketStr);
 	void sendNumber(const QString bracketStr);
 	void resetInput();
-	QString formatOutput(double in);
+	QString toString(double in);
+
+	QString formatCalculation(CalculatorCommandManager::NumberType type);
+	QString formatInput(CalculatorCommandManager::NumberType type);
+	QString formatOutput(CalculatorCommandManager::NumberType type);
 	
 private slots:
 	void deregister();
