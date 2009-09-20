@@ -1,5 +1,5 @@
 #!/bin/sh
-BASEDIR="../"   # root of translatable sources
+BASEDIR="../src"   # root of translatable sources
 PROJECT="sam"  # project name
 BUGADDR="http://sourceforge.net/tracker/?atid=935103&group_id=190872"      # MSGID-Bugs
 WDIR=`pwd`          # working dir

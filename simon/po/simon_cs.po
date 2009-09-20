@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simon\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
-"POT-Creation-Date: 2009-07-20 18:55+0200\n"
+"POT-Creation-Date: 2009-09-20 13:03+0200\n"
 "PO-Revision-Date: 2009-03-02 21:28+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@lists.kde.org>\n"
@@ -24,6 +24,8 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QWidget, AddWordIntroPage)
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, ResolveWordPage)
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, ImportBOMPDlg)
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImportBOMPDlg)
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictlexiconpage.ui:14
@@ -70,6 +72,8 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QWidget, AddWordIntroPage)
 #. i18n: file: src/simonmodelmanagementui/AddWord/resolvewordpage.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, ResolveWordPage)
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, ImportBOMPDlg)
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, ImportBOMPDlg)
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictlexiconpage.ui:14
@@ -110,15 +114,15 @@ msgstr ""
 #. i18n: ectx: property (windowTitle), widget (QWidget, RenameTerminalWorkingPage)
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, SynchronisationSettingsDlg)
-#: po/rc.cpp:3 po/rc.cpp:63 po/rc.cpp:74 po/rc.cpp:134 po/rc.cpp:153
-#: po/rc.cpp:167 po/rc.cpp:181 po/rc.cpp:202 po/rc.cpp:219 po/rc.cpp:236
-#: po/rc.cpp:254 po/rc.cpp:264 po/rc.cpp:272 po/rc.cpp:289 po/rc.cpp:297
-#: po/rc.cpp:309 po/rc.cpp:315 po/rc.cpp:324 po/rc.cpp:345 po/rc.cpp:356
-#: po/rc.cpp:406 po/rc.cpp:421 po/rc.cpp:558 rc.cpp:3 rc.cpp:63 rc.cpp:74
-#: rc.cpp:134 rc.cpp:153 rc.cpp:167 rc.cpp:181 rc.cpp:202 rc.cpp:219
-#: rc.cpp:236 rc.cpp:254 rc.cpp:264 rc.cpp:272 rc.cpp:289 rc.cpp:297
-#: rc.cpp:309 rc.cpp:315 rc.cpp:324 rc.cpp:345 rc.cpp:356 rc.cpp:406
-#: rc.cpp:421 rc.cpp:558
+#: po/rc.cpp:3 po/rc.cpp:63 po/rc.cpp:74 po/rc.cpp:134 po/rc.cpp:149
+#: po/rc.cpp:167 po/rc.cpp:181 po/rc.cpp:195 po/rc.cpp:216 po/rc.cpp:233
+#: po/rc.cpp:250 po/rc.cpp:268 po/rc.cpp:291 po/rc.cpp:299 po/rc.cpp:316
+#: po/rc.cpp:324 po/rc.cpp:336 po/rc.cpp:342 po/rc.cpp:354 po/rc.cpp:375
+#: po/rc.cpp:386 po/rc.cpp:436 po/rc.cpp:451 po/rc.cpp:624 rc.cpp:3 rc.cpp:63
+#: rc.cpp:74 rc.cpp:134 rc.cpp:149 rc.cpp:167 rc.cpp:181 rc.cpp:195 rc.cpp:216
+#: rc.cpp:233 rc.cpp:250 rc.cpp:268 rc.cpp:291 rc.cpp:299 rc.cpp:316
+#: rc.cpp:324 rc.cpp:336 rc.cpp:342 rc.cpp:354 rc.cpp:375 rc.cpp:386
+#: rc.cpp:436 rc.cpp:451 rc.cpp:624
 msgid "Form"
 msgstr "Formulář"
 
@@ -136,7 +140,7 @@ msgstr "Spoušť"
 
 #. i18n: file: src/simonactionsui/modifycommands.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, DlgModifyCommands)
-#: po/rc.cpp:9 src/simonactionsui/newcommand.cpp:42 rc.cpp:9
+#: po/rc.cpp:9 src/simonactionsui/newcommand.cpp:43 rc.cpp:9
 msgid "Command"
 msgstr "Příkaz"
 
@@ -220,7 +224,7 @@ msgstr "Obecná nastavení"
 #. i18n: ectx: property (title), widget (QGroupBox, gbGeneral)
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:28
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
-#: po/rc.cpp:51 po/rc.cpp:507 rc.cpp:51 rc.cpp:507
+#: po/rc.cpp:51 po/rc.cpp:573 rc.cpp:51 rc.cpp:573
 msgid "General"
 msgstr "Obecné"
 
@@ -277,7 +281,7 @@ msgstr "Slovo:"
 #. i18n: ectx: property (text), widget (QLabel, lbTypeDesc)
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:130
 #. i18n: ectx: property (text), widget (QLabel, lbTerminalD)
-#: po/rc.cpp:80 po/rc.cpp:376 rc.cpp:80 rc.cpp:376
+#: po/rc.cpp:80 po/rc.cpp:406 rc.cpp:80 rc.cpp:406
 msgid "Terminal:"
 msgstr "Zakončení:"
 
@@ -325,7 +329,7 @@ msgstr "Typ"
 #. i18n: ectx: property (text), widget (QTableWidget, twSuggestions)
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:49
 #. i18n: ectx: property (text), widget (QTableWidget, twTrainingWords)
-#: po/rc.cpp:101 po/rc.cpp:444 rc.cpp:101 rc.cpp:444
+#: po/rc.cpp:101 po/rc.cpp:477 rc.cpp:101 rc.cpp:477
 msgid "Recognition Rate"
 msgstr "Míra rozpoznávání"
 
@@ -391,33 +395,40 @@ msgstr "Přejmenovat zakončení"
 msgid "Merge Terminals"
 msgstr "Sloučit zakončení"
 
-#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:23
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
 #: po/rc.cpp:137 rc.cpp:137
 msgid ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\">If you have have a HADIFIX "
-"dictionary please provide the file below:<br /></p></body></html>"
+"The university of BONN uses this data strictly for statistic purposes. "
+"Please refer to their privacy agreement."
 msgstr ""
-"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-"REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
-"\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
-"size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\">Pokud máte HADIFIX "
-"slovník, poskytněte, prosím, soubor níže:<br /></p></body></html>"
 
-#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:38
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:32
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#: po/rc.cpp:140 rc.cpp:140
+#, fuzzy
+msgid "Your name:"
+msgstr "Pavel Fric"
+
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:43
+#. i18n: ectx: property (text), widget (QLabel, label_15)
+#: po/rc.cpp:143 rc.cpp:143
+msgid "e-Mail:"
+msgstr ""
+
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.ui:66
+#. i18n: ectx: property (text), widget (QCheckBox, cbUnderstoodLicence)
+#: po/rc.cpp:146 rc.cpp:146
+msgid "I read, understood and accept this licence agreement"
+msgstr ""
+
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:19
+#. i18n: ectx: property (text), widget (QRadioButton, rbManual)
+#: po/rc.cpp:152 rc.cpp:152
+msgid "Select file manually"
+msgstr ""
+
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:35
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictlexiconpage.ui:34
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -429,7 +440,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.ui:57
 #. i18n: ectx: property (text), widget (QLabel, label)
-#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:38
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:35
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictlexiconpage.ui:34
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -441,20 +452,20 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.ui:57
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:144 po/rc.cpp:161 po/rc.cpp:175 po/rc.cpp:213 po/rc.cpp:230
-#: po/rc.cpp:283 rc.cpp:144 rc.cpp:161 rc.cpp:175 rc.cpp:213 rc.cpp:230
-#: rc.cpp:283
+#: po/rc.cpp:155 po/rc.cpp:175 po/rc.cpp:189 po/rc.cpp:227 po/rc.cpp:244
+#: po/rc.cpp:310 rc.cpp:155 rc.cpp:175 rc.cpp:189 rc.cpp:227 rc.cpp:244
+#: rc.cpp:310
 msgid "File:"
 msgstr "Soubor:"
 
-#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:45
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:42
 #. i18n: ectx: property (filter), widget (KUrlRequester, urFile)
-#: po/rc.cpp:147 rc.cpp:147
+#: po/rc.cpp:158 rc.cpp:158
 msgid ""
 "*.txt *.txt.bz2 *.txt.gz | BOMP-Dictionaries (*.txt, *.txt.gz, *.txt.bz2)"
 msgstr "*.txt *.txt.bz2 *.txt.gz | BOMP-Slovníky (*.txt, *.txt.gz, *.txt.bz2)"
 
-#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:52
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:49
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictlexiconpage.ui:48
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -464,7 +475,7 @@ msgstr "*.txt *.txt.bz2 *.txt.gz | BOMP-Slovníky (*.txt, *.txt.gz, *.txt.bz2)"
 #. i18n: ectx: property (text), widget (QLabel, lbEncoding)
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.ui:67
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:52
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:49
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictlexiconpage.ui:48
 #. i18n: ectx: property (text), widget (QLabel, label_2)
@@ -474,14 +485,20 @@ msgstr "*.txt *.txt.bz2 *.txt.gz | BOMP-Slovníky (*.txt, *.txt.gz, *.txt.bz2)"
 #. i18n: ectx: property (text), widget (QLabel, lbEncoding)
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.ui:67
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: po/rc.cpp:150 po/rc.cpp:164 po/rc.cpp:216 po/rc.cpp:245 po/rc.cpp:286
-#: rc.cpp:150 rc.cpp:164 rc.cpp:216 rc.cpp:245 rc.cpp:286
+#: po/rc.cpp:161 po/rc.cpp:178 po/rc.cpp:230 po/rc.cpp:259 po/rc.cpp:313
+#: rc.cpp:161 rc.cpp:178 rc.cpp:230 rc.cpp:259 rc.cpp:313
 msgid "Encoding:"
 msgstr "Kódování:"
 
+#. i18n: file: src/simonmodelmanagementui/ImportDict/importdictbomppage.ui:64
+#. i18n: ectx: property (text), widget (QRadioButton, rbAutomatic)
+#: po/rc.cpp:164 rc.cpp:164
+msgid "Automatically download and install the HADIFIX BOMP"
+msgstr ""
+
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictlexiconpage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:156 rc.cpp:156
+#: po/rc.cpp:170 rc.cpp:170
 msgid ""
 "To import a HTK compatible lexicon (like the voxforge dictionary) please "
 "provide the file below.\n"
@@ -497,7 +514,7 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictplspage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:170 rc.cpp:170
+#: po/rc.cpp:184 rc.cpp:184
 msgid ""
 "To import a PLS lexicon (like the german gpl dictionary) please provide the "
 "downloaded XML-file below.\n"
@@ -513,7 +530,7 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictplspage.ui:60
 #. i18n: ectx: property (filter), widget (KUrlRequester, urPath)
-#: po/rc.cpp:178 rc.cpp:178
+#: po/rc.cpp:192 rc.cpp:192
 #, fuzzy
 msgid ""
 "*.xml *.xml.bz2 *.xml.gz | PLS-Dictionaries (*.xml, *.xml.bz2, *.xml.gz)"
@@ -521,7 +538,7 @@ msgstr "*.txt *.txt.bz2 *.txt.gz | BOMP-Slovníky (*.txt, *.txt.gz, *.txt.bz2)"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:184 rc.cpp:184
+#: po/rc.cpp:198 rc.cpp:198
 msgid ""
 "simon is able to import four different types of dictionaries:\n"
 "HADIFIX dictionaries, HTK compatible dictionaries, SPHINX Lexicons and PLS "
@@ -537,31 +554,31 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:32
 #. i18n: ectx: property (text), widget (QRadioButton, rbHadifixBOMP)
-#: po/rc.cpp:190 rc.cpp:190
+#: po/rc.cpp:204 rc.cpp:204
 msgid "HADIFIX"
 msgstr "HADIFIX"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:42
 #. i18n: ectx: property (text), widget (QRadioButton, rbHTK)
-#: po/rc.cpp:193 rc.cpp:193
+#: po/rc.cpp:207 rc.cpp:207
 msgid "HTK Lexicon"
 msgstr "HTK slovníček"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:49
 #. i18n: ectx: property (text), widget (QRadioButton, rbPLS)
-#: po/rc.cpp:196 rc.cpp:196
+#: po/rc.cpp:210 rc.cpp:210
 msgid "PLS Lexicon"
 msgstr "PLS slovníček"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.ui:56
 #. i18n: ectx: property (text), widget (QRadioButton, rbSPHINX)
-#: po/rc.cpp:199 rc.cpp:199
+#: po/rc.cpp:213 rc.cpp:213
 msgid "SPHINX Lexicon"
 msgstr "SPHINX slovníček"
 
 #. i18n: file: src/simonmodelmanagementui/ImportDict/importdictsphinxpage.ui:25
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:205 rc.cpp:205
+#: po/rc.cpp:219 rc.cpp:219
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -593,7 +610,7 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/importgrammarworkingpage.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbDescription)
-#: po/rc.cpp:222 rc.cpp:222
+#: po/rc.cpp:236 rc.cpp:236
 msgid ""
 "Texts are being analyzed...\n"
 "\n"
@@ -605,19 +622,19 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/importgrammarworkingpage.ui:44
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:227 rc.cpp:227
+#: po/rc.cpp:241 rc.cpp:241
 msgid "Overall:"
 msgstr "Celkem:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/importgrammarworkingpage.ui:77
 #. i18n: ectx: property (text), widget (QLabel, lbCurrentAction)
-#: po/rc.cpp:233 rc.cpp:233
+#: po/rc.cpp:247 rc.cpp:247
 msgid "Waiting..."
 msgstr "Čeká..."
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/selectfilestoreadpage.ui:20
 #. i18n: ectx: property (text), widget (QLabel, lbUnknownDesc)
-#: po/rc.cpp:239 rc.cpp:239
+#: po/rc.cpp:253 rc.cpp:253
 msgid ""
 "If you check the following field, sentences containing words with unknown "
 "terminals will also be imported (words with more than one terminal will "
@@ -629,33 +646,31 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/selectfilestoreadpage.ui:30
 #. i18n: ectx: property (text), widget (QCheckBox, cbIncludeUnknown)
-#: po/rc.cpp:242 rc.cpp:242
+#: po/rc.cpp:256 rc.cpp:256
 msgid "Also import unknown sentences"
 msgstr "Zavést rovněž neznámé věty"
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/selectfilestoreadpage.ui:51
 #. i18n: ectx: property (filter), widget (KUrlRequester, urFileToAdd)
-#: po/rc.cpp:248 rc.cpp:248
+#: po/rc.cpp:262 rc.cpp:262
 msgid "Textfiles *.txt"
 msgstr "Textové soubory *.txt"
 
 #. i18n: file: src/simonmodelmanagementui/ImportGrammar/selectfilestoreadpage.ui:58
 #. i18n: ectx: property (title), widget (KEditListBox, elbFiles)
-#: po/rc.cpp:251 rc.cpp:251
+#: po/rc.cpp:265 rc.cpp:265
 msgid "Files to import"
 msgstr "Soubory k zavedení"
 
-#. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:23
+#. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:21
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:257 rc.cpp:257
+#: po/rc.cpp:271 rc.cpp:271
+#, fuzzy
 msgid ""
 "Welcome to the import of existing training data.\n"
 "\n"
 "Using this wizard you can import training data collected e.g. by previous "
-"simon installations.\n"
-"\n"
-"Please choose the folder which contains the data (it will be searched "
-"recursively):"
+"simon installations."
 msgstr ""
 "Vítejte při zavádění stávajících .\n"
 "\n"
@@ -665,9 +680,41 @@ msgstr ""
 "Vyberte, prosím, složku, která obsahuje tato data (bude prohledávána "
 "opakovaně):"
 
+#. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:44
+#. i18n: ectx: property (text), widget (QRadioButton, rbPrompts)
+#: po/rc.cpp:276 rc.cpp:276
+#, fuzzy
+msgid "Import Prompts"
+msgstr "Zavedení je dokončeno"
+
+#. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:56
+#. i18n: ectx: property (text), widget (QLabel, lbPrompts)
+#: po/rc.cpp:279 rc.cpp:279
+msgid "Prompts:"
+msgstr ""
+
+#. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:70
+#. i18n: ectx: property (text), widget (QLabel, lbBaseDirectory)
+#: po/rc.cpp:282 rc.cpp:282
+msgid "Base directory:"
+msgstr ""
+
+#. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:97
+#. i18n: ectx: property (text), widget (QRadioButton, rbFolder)
+#: po/rc.cpp:285 rc.cpp:285
+#, fuzzy
+msgid "Import Folder"
+msgstr "Zavedení je dokončeno"
+
+#. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataintrodlg.ui:109
+#. i18n: ectx: property (text), widget (QLabel, lbFolder)
+#: po/rc.cpp:288 rc.cpp:288
+msgid "Directory:"
+msgstr ""
+
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingData/importtrainingdataworkingdlg.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbMain)
-#: po/rc.cpp:267 rc.cpp:267
+#: po/rc.cpp:294 rc.cpp:294
 msgid ""
 "The selected folder is being processed.\n"
 "\n"
@@ -679,7 +726,7 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:275 rc.cpp:275
+#: po/rc.cpp:302 rc.cpp:302
 msgid ""
 "Here you can import text files to use them as trainingtexts.\n"
 "\n"
@@ -699,13 +746,13 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:116
 #. i18n: ectx: property (text), widget (QLabel, lbNameD)
-#: po/rc.cpp:280 po/rc.cpp:370 rc.cpp:280 rc.cpp:370
+#: po/rc.cpp:307 po/rc.cpp:400 rc.cpp:307 rc.cpp:400
 msgid "Name:"
 msgstr "Název:"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextremotepage.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:292 rc.cpp:292
+#: po/rc.cpp:319 rc.cpp:319
 msgid ""
 "Please wait a second while the list of available trainingstexts is loaded "
 "from the internet.\n"
@@ -721,7 +768,7 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextselectsourcepage.ui:19
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:300 rc.cpp:300
+#: po/rc.cpp:327 rc.cpp:327
 msgid ""
 "You can import trainingstexts from local text files or download predefined "
 "trainingstext from an online repository."
@@ -732,37 +779,43 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextselectsourcepage.ui:45
 #. i18n: ectx: property (text), widget (QRadioButton, rbLocal)
-#: po/rc.cpp:303 rc.cpp:303
+#: po/rc.cpp:330 rc.cpp:330
 msgid "Local text file"
 msgstr "Místní textový soubor"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextselectsourcepage.ui:55
 #. i18n: ectx: property (text), widget (QRadioButton, rbRemote)
-#: po/rc.cpp:306 rc.cpp:306
+#: po/rc.cpp:333 rc.cpp:333
 msgid "Download text from online repository"
 msgstr "Stáhnout text ze zdroje připojeného k internetu"
 
 #. i18n: file: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.ui:42
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:312 rc.cpp:312
+#: po/rc.cpp:339 rc.cpp:339
 msgid "The text is being processed...."
 msgstr "Text je právě zpracováván..."
 
 #. i18n: file: src/simonmodelmanagementui/internetextensiondlg.ui:19
 #. i18n: ectx: property (title), widget (QGroupBox, gbTexts)
-#: po/rc.cpp:318 rc.cpp:318
+#: po/rc.cpp:345 rc.cpp:345
 msgid "Texts"
 msgstr "Texty"
 
 #. i18n: file: src/simonmodelmanagementui/internetextensiondlg.ui:27
 #. i18n: ectx: property (text), widget (QLabel, lbTextDownloadURL)
-#: po/rc.cpp:321 rc.cpp:321
+#: po/rc.cpp:348 rc.cpp:348
 msgid "Textdownload-URL:"
 msgstr "URL stahovaného textu:"
 
+#. i18n: file: src/simonmodelmanagementui/internetextensiondlg.ui:37
+#. i18n: ectx: property (text), widget (QLabel, lbBompDownloadBase)
+#: po/rc.cpp:351 rc.cpp:351
+msgid "BOMP Basis-URL:"
+msgstr ""
+
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectpage.ui:19
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:327 rc.cpp:327
+#: po/rc.cpp:357 rc.cpp:357
 msgid ""
 "Please select both terminals from the lists below and assign a name for the "
 "new, combined terminal."
@@ -778,37 +831,37 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lbNewTerminal)
 #. i18n: file: src/simonmodelmanagementui/RenameTerminal/renameterminalselectparameterspage.ui:22
 #. i18n: ectx: property (text), widget (QLabel, lbNewName)
-#: po/rc.cpp:330 po/rc.cpp:409 rc.cpp:330 rc.cpp:409
+#: po/rc.cpp:360 po/rc.cpp:439 rc.cpp:360 rc.cpp:439
 msgid "New Name:"
 msgstr "Nový název:"
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectpage.ui:50
 #. i18n: ectx: property (text), widget (QLabel, lbTerminalA)
-#: po/rc.cpp:333 rc.cpp:333
+#: po/rc.cpp:363 rc.cpp:363
 msgid "Terminal A:"
 msgstr "Zakončení A:"
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectpage.ui:67
 #. i18n: ectx: property (text), widget (QLabel, lbTerminalB)
-#: po/rc.cpp:336 rc.cpp:336
+#: po/rc.cpp:366 rc.cpp:366
 msgid "Terminal B:"
 msgstr "Zakončení B:"
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectpage.ui:84
 #. i18n: ectx: property (text), widget (QCheckBox, cbIncludeShadow)
-#: po/rc.cpp:339 rc.cpp:339
+#: po/rc.cpp:369 rc.cpp:369
 msgid "Change shadow vocabulary"
 msgstr "Změnit stínovou slovní zásobu"
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectpage.ui:94
 #. i18n: ectx: property (text), widget (QCheckBox, cbIncludeGrammar)
-#: po/rc.cpp:342 rc.cpp:342
+#: po/rc.cpp:372 rc.cpp:372
 msgid "Change grammar"
 msgstr "Změnit mluvnici"
 
 #. i18n: file: src/simonmodelmanagementui/MergeTerminals/mergeterminalsworkingpage.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:348 rc.cpp:348
+#: po/rc.cpp:378 rc.cpp:378
 msgid ""
 "The selected terminals will be now merged to a new one.\n"
 "\n"
@@ -838,14 +891,14 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, lbTerminal)
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:165
 #. i18n: ectx: property (text), widget (QLabel, lbRecognitionRate)
-#: po/rc.cpp:353 po/rc.cpp:382 po/rc.cpp:385 po/rc.cpp:388 po/rc.cpp:391
-#: rc.cpp:353 rc.cpp:382 rc.cpp:385 rc.cpp:388 rc.cpp:391
+#: po/rc.cpp:383 po/rc.cpp:412 po/rc.cpp:415 po/rc.cpp:418 po/rc.cpp:421
+#: rc.cpp:383 rc.cpp:412 rc.cpp:415 rc.cpp:418 rc.cpp:421
 msgid "TextLabel"
 msgstr "Textový štítek"
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:35
 #. i18n: ectx: property (text), widget (QLabel, lbDeleteWord)
-#: po/rc.cpp:359 rc.cpp:359
+#: po/rc.cpp:389 rc.cpp:389
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -898,25 +951,25 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:123
 #. i18n: ectx: property (text), widget (QLabel, lbPronunciationD)
-#: po/rc.cpp:373 rc.cpp:373
+#: po/rc.cpp:403 rc.cpp:403
 msgid "Pronunciation:"
 msgstr "Výslovnost:"
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:137
 #. i18n: ectx: property (text), widget (QLabel, lbRecognitionRateD)
-#: po/rc.cpp:379 rc.cpp:379
+#: po/rc.cpp:409 rc.cpp:409
 msgid "Recognition Rate:"
 msgstr "Míra rozpoznávání:"
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:190
 #. i18n: ectx: property (text), widget (QRadioButton, rbShadow)
-#: po/rc.cpp:394 rc.cpp:394
+#: po/rc.cpp:424 rc.cpp:424
 msgid "Remove the word from the active vocabulary"
 msgstr "Odstranit slovo z aktivní slovní zásoby"
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:218
 #. i18n: ectx: property (text), widget (QLabel, lbShadowDesc)
-#: po/rc.cpp:397 rc.cpp:397
+#: po/rc.cpp:427 rc.cpp:427
 msgid ""
 "The word will stay saved, but it will be moved to the shadow lexicon and "
 "thus no longer considered for recognition."
@@ -926,37 +979,37 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:230
 #. i18n: ectx: property (text), widget (QRadioButton, rbDelete)
-#: po/rc.cpp:400 rc.cpp:400
+#: po/rc.cpp:430 rc.cpp:430
 msgid "Completely remove the word"
 msgstr "Slovo zcela odstranit"
 
 #. i18n: file: src/simonmodelmanagementui/removeword.ui:255
 #. i18n: ectx: property (text), widget (QLabel, lbDeleteDesc)
-#: po/rc.cpp:403 rc.cpp:403
+#: po/rc.cpp:433 rc.cpp:433
 msgid "This will remove the word from both active and shadow vocabulary."
 msgstr "Toto odstraní slovo jak z aktivní tak ze stínové slovní zásoby."
 
 #. i18n: file: src/simonmodelmanagementui/RenameTerminal/renameterminalselectparameterspage.ui:37
 #. i18n: ectx: property (text), widget (QLabel, lbTerminal)
-#: po/rc.cpp:412 rc.cpp:412
+#: po/rc.cpp:442 rc.cpp:442
 msgid "Old Terminal:"
 msgstr "Staré zakončení:"
 
 #. i18n: file: src/simonmodelmanagementui/RenameTerminal/renameterminalselectparameterspage.ui:50
 #. i18n: ectx: property (text), widget (QCheckBox, cbIncludeShadow)
-#: po/rc.cpp:415 rc.cpp:415
+#: po/rc.cpp:445 rc.cpp:445
 msgid "Change shadow lexicon"
 msgstr "Změnit stínový slovníček"
 
 #. i18n: file: src/simonmodelmanagementui/RenameTerminal/renameterminalselectparameterspage.ui:60
 #. i18n: ectx: property (text), widget (QCheckBox, cbIncludeGrammar)
-#: po/rc.cpp:418 rc.cpp:418
+#: po/rc.cpp:448 rc.cpp:448
 msgid "Adapt grammar"
 msgstr "Upravit mluvnici"
 
 #. i18n: file: src/simonmodelmanagementui/RenameTerminal/renameterminalworkingpage.ui:21
 #. i18n: ectx: property (text), widget (QLabel, lbDesc)
-#: po/rc.cpp:424 rc.cpp:424
+#: po/rc.cpp:454 rc.cpp:454
 msgid ""
 "The terminal is now being renamed.\n"
 "\n"
@@ -968,7 +1021,13 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/speechmodelmanagementuiconfiguration.kcfg:8
 #. i18n: ectx: label, entry (TextOnlineUpdate), group (Extension)
-#: po/rc.cpp:429 rc.cpp:429
+#. i18n: file: src/simonmodelmanagementui/speechmodelmanagementuiconfiguration.kcfg:12
+#. i18n: ectx: label, entry (BompDownloadBase), group (Extension)
+#. i18n: file: src/simonmodelmanagementui/speechmodelmanagementuiconfiguration.kcfg:8
+#. i18n: ectx: label, entry (TextOnlineUpdate), group (Extension)
+#. i18n: file: src/simonmodelmanagementui/speechmodelmanagementuiconfiguration.kcfg:12
+#. i18n: ectx: label, entry (BompDownloadBase), group (Extension)
+#: po/rc.cpp:459 po/rc.cpp:462 rc.cpp:459 rc.cpp:462
 msgid "The url to the online text-list to get new trainingstexts."
 msgstr ""
 "Internetová adresa k seznamu textů na internetu kvůli získání nových textů "
@@ -976,148 +1035,216 @@ msgstr ""
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, TrainMain)
-#: po/rc.cpp:432 src/simonmodelmanagementui/AddWord/addwordrecordpage.cpp:92
+#: po/rc.cpp:465 src/simonmodelmanagementui/AddWord/addwordrecordpage.cpp:105
 #: src/simonmodelmanagementui/trainingview.cpp:25
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:49
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:155
-#: src/simonview.cpp:220 rc.cpp:432
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:58
+#: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:36
+#: src/simonview.cpp:265 rc.cpp:465
 msgid "Training"
 msgstr "Procvičování"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:25
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:435 rc.cpp:435
+#: po/rc.cpp:468 rc.cpp:468
 msgid "Available Trainings-Texts:"
 msgstr "Dostupné texty na procvičování:"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:39
 #. i18n: ectx: property (text), widget (QTableWidget, twTrainingWords)
-#: po/rc.cpp:438 rc.cpp:438
+#: po/rc.cpp:471 rc.cpp:471
 msgid "Name"
 msgstr "Název"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:44
 #. i18n: ectx: property (text), widget (QTableWidget, twTrainingWords)
-#: po/rc.cpp:441 rc.cpp:441
+#: po/rc.cpp:474 rc.cpp:474
 msgid "Pages"
 msgstr "Strany"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:63
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbTrainText)
-#: po/rc.cpp:447 rc.cpp:447
+#: po/rc.cpp:480 rc.cpp:480
 msgid "Starts the training of the selected text"
 msgstr "Začne procvičování vybraného textu"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:69
 #. i18n: ectx: property (text), widget (KPushButton, pbTrainText)
-#: po/rc.cpp:450 rc.cpp:450
+#: po/rc.cpp:483 rc.cpp:483
 msgid "Start Training"
 msgstr "Začít procvičování"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:84
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbDelText)
-#: po/rc.cpp:453 rc.cpp:453
+#: po/rc.cpp:486 rc.cpp:486
 msgid "Removes the selected text from the system"
 msgstr "Odstraní vybraný text ze systému"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:87
 #. i18n: ectx: property (text), widget (KPushButton, pbDelText)
-#: po/rc.cpp:456 rc.cpp:456
+#: po/rc.cpp:489 rc.cpp:489
 msgid "Delete selected Text"
 msgstr "Smazat vybraný text"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:94
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbImportText)
-#: po/rc.cpp:459 rc.cpp:459
+#: po/rc.cpp:492 rc.cpp:492
 msgid "Import new texts from local files or form an oline repository"
 msgstr ""
 "Zavést nové texty z místních souborů nebo ze zdroje připojeného k internetu"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:97
 #. i18n: ectx: property (text), widget (KPushButton, pbImportText)
-#: po/rc.cpp:462 rc.cpp:462
+#: po/rc.cpp:495 rc.cpp:495
 msgid "Import Text"
 msgstr "Zavést text"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:104
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbImportDir)
-#: po/rc.cpp:465 rc.cpp:465
+#: po/rc.cpp:498 rc.cpp:498
 msgid "Import Trainings-Corpuses from other simon versions"
 msgstr ""
 "Zavést velké soubory textů na procvičování z jiných verzí programu Simon"
 
 #. i18n: file: src/simonmodelmanagementui/trainmain.ui:107
 #. i18n: ectx: property (text), widget (KPushButton, pbImportDir)
-#: po/rc.cpp:468 rc.cpp:468
+#: po/rc.cpp:501 rc.cpp:501
 msgid "Import Trainingsdata"
 msgstr "Zavést data na procvičování"
 
-#. i18n: file: src/simonmodelmanagementui/wordlist.ui:13
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, WordList)
-#: po/rc.cpp:471 src/simonview.cpp:236 rc.cpp:471
-msgid "Wordlist"
-msgstr "Seznam slov"
+#: po/rc.cpp:504 rc.cpp:504
+#, fuzzy
+msgid "Vocabulary"
+msgstr "Slovní zásoba"
 
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:34
+#. i18n: ectx: property (text), widget (QLabel, lbVocab)
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:34
 #. i18n: ectx: property (text), widget (QLabel, lbVocab)
-#: po/rc.cpp:474 rc.cpp:474
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:34
+#. i18n: ectx: property (text), widget (QLabel, lbVocab)
+#. i18n: file: src/simonmodelmanagementui/wordlist.ui:34
+#. i18n: ectx: property (text), widget (QLabel, lbVocab)
+#: po/rc.cpp:507 po/rc.cpp:540 rc.cpp:507 rc.cpp:540
 msgid "Vocabulary:"
 msgstr "Slovní zásoba"
 
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:54
+#. i18n: ectx: property (clickMessage), widget (KLineEdit, leSearch)
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:54
 #. i18n: ectx: property (clickMessage), widget (KLineEdit, leSearch)
-#: po/rc.cpp:477 rc.cpp:477
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:54
+#. i18n: ectx: property (clickMessage), widget (KLineEdit, leSearch)
+#. i18n: file: src/simonmodelmanagementui/wordlist.ui:54
+#. i18n: ectx: property (clickMessage), widget (KLineEdit, leSearch)
+#: po/rc.cpp:510 po/rc.cpp:543 rc.cpp:510 rc.cpp:543
 msgid "Filter"
 msgstr "Filtr"
 
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:100
+#. i18n: ectx: property (text), widget (QCheckBox, cbShowCompleteLexicon)
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:100
 #. i18n: ectx: property (text), widget (QCheckBox, cbShowCompleteLexicon)
-#: po/rc.cpp:480 rc.cpp:480
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:100
+#. i18n: ectx: property (text), widget (QCheckBox, cbShowCompleteLexicon)
+#. i18n: file: src/simonmodelmanagementui/wordlist.ui:100
+#. i18n: ectx: property (text), widget (QCheckBox, cbShowCompleteLexicon)
+#: po/rc.cpp:513 po/rc.cpp:546 rc.cpp:513 rc.cpp:546
 msgid "Include unused Words from the Shadow Lexicon"
 msgstr "Zahrnout nepoužívaná slova ze stínového slovníčku"
 
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:119
+#. i18n: ectx: property (text), widget (KPushButton, pbImport)
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:119
 #. i18n: ectx: property (text), widget (KPushButton, pbImport)
-#: po/rc.cpp:483 src/simonmodelmanagementui/ImportDict/importdictview.cpp:103
-#: rc.cpp:483
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:119
+#. i18n: ectx: property (text), widget (KPushButton, pbImport)
+#. i18n: file: src/simonmodelmanagementui/wordlist.ui:119
+#. i18n: ectx: property (text), widget (KPushButton, pbImport)
+#: po/rc.cpp:516 po/rc.cpp:549
+#: src/simonmodelmanagementui/ImportDict/importdictintropage.cpp:35 rc.cpp:516
+#: rc.cpp:549
 msgid "Import Dictionary"
 msgstr "Zavést slovník"
 
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:139
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveWord)
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:139
 #. i18n: ectx: property (text), widget (KPushButton, pbRemoveWord)
-#: po/rc.cpp:486 rc.cpp:486
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:139
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveWord)
+#. i18n: file: src/simonmodelmanagementui/wordlist.ui:139
+#. i18n: ectx: property (text), widget (KPushButton, pbRemoveWord)
+#: po/rc.cpp:519 po/rc.cpp:552 rc.cpp:519 rc.cpp:552
 msgid "Remove Selected Word"
 msgstr "Odstranit vybrané slovo"
 
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:174
+#. i18n: ectx: property (text), widget (QLabel, label)
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:174
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:489 rc.cpp:489
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:174
+#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: src/simonmodelmanagementui/wordlist.ui:174
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: po/rc.cpp:522 po/rc.cpp:555 rc.cpp:522 rc.cpp:555
 msgid "Train Words:"
 msgstr "Procvičovat slova:"
 
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:203
+#. i18n: ectx: property (text), widget (KPushButton, pbAddToTraining)
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:203
 #. i18n: ectx: property (text), widget (KPushButton, pbAddToTraining)
-#: po/rc.cpp:492 rc.cpp:492
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:203
+#. i18n: ectx: property (text), widget (KPushButton, pbAddToTraining)
+#. i18n: file: src/simonmodelmanagementui/wordlist.ui:203
+#. i18n: ectx: property (text), widget (KPushButton, pbAddToTraining)
+#: po/rc.cpp:525 po/rc.cpp:558 rc.cpp:525 rc.cpp:558
 msgid "Add to Training"
 msgstr "Přidat k procvičování"
 
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:210
+#. i18n: ectx: property (text), widget (KPushButton, pbDeleteTrainingWord)
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:210
 #. i18n: ectx: property (text), widget (KPushButton, pbDeleteTrainingWord)
-#: po/rc.cpp:495 rc.cpp:495
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:210
+#. i18n: ectx: property (text), widget (KPushButton, pbDeleteTrainingWord)
+#. i18n: file: src/simonmodelmanagementui/wordlist.ui:210
+#. i18n: ectx: property (text), widget (KPushButton, pbDeleteTrainingWord)
+#: po/rc.cpp:528 po/rc.cpp:561 rc.cpp:528 rc.cpp:561
 msgid "Remove Word from Training"
 msgstr "Odstranit slovo z procvičování"
 
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:217
+#. i18n: ectx: property (toolTip), widget (KPushButton, pbTrainList)
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:217
 #. i18n: ectx: property (toolTip), widget (KPushButton, pbTrainList)
-#: po/rc.cpp:498 rc.cpp:498
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:217
+#. i18n: ectx: property (toolTip), widget (KPushButton, pbTrainList)
+#. i18n: file: src/simonmodelmanagementui/wordlist.ui:217
+#. i18n: ectx: property (toolTip), widget (KPushButton, pbTrainList)
+#: po/rc.cpp:531 po/rc.cpp:564 rc.cpp:531 rc.cpp:564
 msgid "Starts the Training of the selected Words"
 msgstr "Začne procvičování vybraných slov"
 
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:220
+#. i18n: ectx: property (text), widget (KPushButton, pbTrainList)
 #. i18n: file: src/simonmodelmanagementui/wordlist.ui:220
 #. i18n: ectx: property (text), widget (KPushButton, pbTrainList)
-#: po/rc.cpp:501 rc.cpp:501
+#. i18n: file: src/simonmodelmanagementui/vocabulary.ui:220
+#. i18n: ectx: property (text), widget (KPushButton, pbTrainList)
+#. i18n: file: src/simonmodelmanagementui/wordlist.ui:220
+#. i18n: ectx: property (text), widget (KPushButton, pbTrainList)
+#: po/rc.cpp:534 po/rc.cpp:567 rc.cpp:534 rc.cpp:567
 msgid "Train selected Words"
 msgstr "Procvičovat vybraná slova"
+
+#. i18n: file: src/simonmodelmanagementui/wordlist.ui:13
+#. i18n: ectx: property (windowTitle), widget (QWidget, WordList)
+#: po/rc.cpp:537 src/simonview.cpp:281 rc.cpp:537
+msgid "Wordlist"
+msgstr "Seznam slov"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:13
 #. i18n: ectx: property (windowTitle), widget (QWidget, NetworkSettingsDlg)
@@ -1127,61 +1254,61 @@ msgstr "Procvičovat vybraná slova"
 #. i18n: ectx: property (windowTitle), widget (QWidget, NetworkSettingsDlg)
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:99
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: po/rc.cpp:504 po/rc.cpp:522 rc.cpp:504 rc.cpp:522
+#: po/rc.cpp:570 po/rc.cpp:588 rc.cpp:570 rc.cpp:588
 msgid "Network"
 msgstr "Síť"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:34
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_JuliusdAutoConnect)
-#: po/rc.cpp:510 rc.cpp:510
+#: po/rc.cpp:576 rc.cpp:576
 msgid "Connect automatically on simon start"
 msgstr "Automaticky připojit při spuštění programu Simon"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:44
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_AutomaticallyEnableRecognition)
-#: po/rc.cpp:513 rc.cpp:513
+#: po/rc.cpp:579 rc.cpp:579
 msgid "Start Recognition immediately once available"
 msgstr "Začít rozpoznávání okamžitě, když je dostupné"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:53
 #. i18n: ectx: property (text), widget (QLabel, lbUsername)
-#: po/rc.cpp:516 rc.cpp:516
+#: po/rc.cpp:582 rc.cpp:582
 msgid "Username:"
 msgstr "Uživatelské jméno:"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:66
 #. i18n: ectx: property (text), widget (QLabel, lbPassword)
-#: po/rc.cpp:519 rc.cpp:519
+#: po/rc.cpp:585 rc.cpp:585
 msgid "Password:"
 msgstr "Heslo:"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:108
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_JuliusdEncrypted)
-#: po/rc.cpp:525 rc.cpp:525
+#: po/rc.cpp:591 rc.cpp:591
 msgid "Use Encryption"
 msgstr "Použít zašifrování"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:117
 #. i18n: ectx: property (text), widget (QLabel, lbTimeout)
-#: po/rc.cpp:528 rc.cpp:528
+#: po/rc.cpp:594 rc.cpp:594
 msgid "Timeout (Milliseconds):"
 msgstr "Přerušení (milisekundy):"
 
 #. i18n: file: src/simonrecognitioncontrol/networksettingsdlg.ui:139
 #. i18n: ectx: property (title), widget (KEditListBox, kcfg_JuliusdServers)
-#: po/rc.cpp:531 rc.cpp:531
+#: po/rc.cpp:597 rc.cpp:597
 msgid "Hosts"
 msgstr "Hostitelé"
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:7
 #. i18n: ectx: label, entry (JuliusdAutoConnect), group (Recognition)
-#: po/rc.cpp:534 rc.cpp:534
+#: po/rc.cpp:600 rc.cpp:600
 msgid "If we should automatically connect to the Juliusd."
 msgstr "Zda se máme automaticky připojit k Juliusd."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:11
 #. i18n: ectx: label, entry (AutomaticallyEnableRecognition), group (Recognition)
-#: po/rc.cpp:537 rc.cpp:537
+#: po/rc.cpp:603 rc.cpp:603
 msgid ""
 "If we should automatically activate the recognition once we get the ready-"
 "signal"
@@ -1191,122 +1318,129 @@ msgstr ""
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:15
 #. i18n: ectx: label, entry (JuliusdUsername), group (Recognition)
-#: po/rc.cpp:540 rc.cpp:540
+#: po/rc.cpp:606 rc.cpp:606
 msgid "The Username for simond."
 msgstr "Uživatelské jméno pro simond."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:18
 #. i18n: ectx: label, entry (JuliusdPassword), group (Recognition)
-#: po/rc.cpp:543 rc.cpp:543
+#: po/rc.cpp:609 rc.cpp:609
 msgid "The Password for simond."
 msgstr "Heslo pro simond."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:21
 #. i18n: ectx: label, entry (JuliusdEncrypted), group (Recognition)
-#: po/rc.cpp:546 rc.cpp:546
+#: po/rc.cpp:612 rc.cpp:612
 msgid "If the Connection to the simond should be encrypted."
 msgstr "Zda má být připojení k simond zašifrováno."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:25
 #. i18n: ectx: label, entry (JuliusdConnectionTimeout), group (Recognition)
-#: po/rc.cpp:549 rc.cpp:549
+#: po/rc.cpp:615 rc.cpp:615
 msgid "The Timeout for the connection to the simond."
 msgstr "Přerušení pro připojení k simond."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:29
 #. i18n: ectx: label, entry (JuliusdServers), group (Recognition)
-#: po/rc.cpp:552 rc.cpp:552
+#: po/rc.cpp:618 rc.cpp:618
 msgid "The Addresses to all known simond servers in order of preference."
 msgstr "Adresy ke všem známým serverům simond podle volby."
 
 #. i18n: file: src/simonrecognitioncontrol/recognitionconfiguration.kcfg:37
 #. i18n: ectx: label, entry (SynchronizationMode), group (Synchronisation)
-#: po/rc.cpp:555 rc.cpp:555
+#: po/rc.cpp:621 rc.cpp:621
 msgid "if and how we should start the synchronization when the  model changed."
 msgstr "Zda a jak máme začít seřizování, když se změnil model."
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:21
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: po/rc.cpp:561 rc.cpp:561
+#: po/rc.cpp:627 rc.cpp:627
 msgid "Synchronization mode:"
 msgstr "Režim seřizování:"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:35
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_SynchronizationMode)
-#: po/rc.cpp:564 rc.cpp:564
+#: po/rc.cpp:630 rc.cpp:630
 msgid "Automatic Synchronisation"
 msgstr "Samočinné seřizování"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:40
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_SynchronizationMode)
-#: po/rc.cpp:567 rc.cpp:567
+#: po/rc.cpp:633 rc.cpp:633
 msgid "Ask for Synchronisation"
 msgstr "Požádat o seřízení"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:45
 #. i18n: ectx: property (text), item, widget (KComboBox, kcfg_SynchronizationMode)
-#: po/rc.cpp:570 rc.cpp:570
+#: po/rc.cpp:636 rc.cpp:636
 msgid "Manual Synchronisation only"
 msgstr "Pouze ruční seřízení"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:58
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: po/rc.cpp:573 rc.cpp:573
+#: po/rc.cpp:639 rc.cpp:639
 msgid "Available Speech Models"
 msgstr "Dostupné řečové modely"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:64
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: po/rc.cpp:576 rc.cpp:576
+#: po/rc.cpp:642 rc.cpp:642
 msgid "Here you can revert back to old model versions."
 msgstr "Zde se můžete vrátit zpět ke starým verzím modelů"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:83
 #. i18n: ectx: property (text), widget (KPushButton, pbLoadList)
-#: po/rc.cpp:579 rc.cpp:579
+#: po/rc.cpp:645 rc.cpp:645
 msgid "List available Models"
 msgstr "Sestavit seznam dostupných modelů"
 
 #. i18n: file: src/simonrecognitioncontrol/synchronisationsettings.ui:106
 #. i18n: ectx: property (text), widget (KPushButton, pbSelectModel)
-#: po/rc.cpp:582 rc.cpp:582
+#: po/rc.cpp:648 rc.cpp:648
 msgid "Choose Model"
 msgstr "Vybrat model"
 
 #. i18n: file: src/simonui.rc:5
 #. i18n: ectx: ToolBar (mainToolBar)
-#: po/rc.cpp:585 rc.cpp:585
-msgid "Main Actions"
+#: po/rc.cpp:651 rc.cpp:651
+#, fuzzy
+msgid "Main actions"
 msgstr "Hlavní akce"
 
-#. i18n: file: src/simonui.rc:19
+#. i18n: file: src/simonui.rc:17
+#. i18n: ectx: ToolBar (scenario)
+#: po/rc.cpp:654 rc.cpp:654
+msgid "Scenario selection"
+msgstr ""
+
+#. i18n: file: src/simonui.rc:25
 #. i18n: ectx: Menu (simond)
-#: po/rc.cpp:588 rc.cpp:588
+#: po/rc.cpp:657 rc.cpp:657
 msgid "Recognition"
 msgstr "Rozpoznávání"
 
-#. i18n: file: src/simonui.rc:25
+#. i18n: file: src/simonui.rc:30
 #. i18n: ectx: Menu (modules)
-#: po/rc.cpp:591 rc.cpp:591
+#: po/rc.cpp:660 rc.cpp:660
 msgid "Module"
 msgstr "Modul"
 
-#. i18n: file: src/simonui.rc:33
+#. i18n: file: src/simonui.rc:38
 #. i18n: ectx: Menu (commands)
-#: po/rc.cpp:594 src/simonactionsui/runcommandview.cpp:30
-#: src/simonview.cpp:228 rc.cpp:594
+#: po/rc.cpp:663 src/simonactionsui/runcommandview.cpp:31
+#: src/simonview.cpp:273 rc.cpp:663
 msgid "Commands"
 msgstr "Příkazy"
 
-#. i18n: file: src/simonui.rc:36
+#. i18n: file: src/simonui.rc:43
 #. i18n: ectx: Menu (actions)
-#: po/rc.cpp:597 rc.cpp:597
+#: po/rc.cpp:666 rc.cpp:666
 msgid "Actions"
 msgstr "Akce"
 
-#. i18n: file: src/simonui.rc:40
+#. i18n: file: src/simonui.rc:47
 #. i18n: ectx: Menu (settings)
-#: po/rc.cpp:600 rc.cpp:600
+#: po/rc.cpp:669 rc.cpp:669
 msgid "Preferences"
 msgstr "Volby"
 
@@ -1318,25 +1452,25 @@ msgstr "Volby"
 #. i18n: ectx: property (windowTitle), widget (QMainWindow, MainWindow)
 #. i18n: file: src/simonview.ui:16
 #. i18n: ectx: property (accessibleName), widget (QMainWindow, MainWindow)
-#: po/rc.cpp:603 po/rc.cpp:606 src/main.cpp:41 rc.cpp:603 rc.cpp:606
+#: po/rc.cpp:672 po/rc.cpp:675 src/main.cpp:41 rc.cpp:672 rc.cpp:675
 msgid "simon"
 msgstr "Simon"
 
 #. i18n: file: src/simonview.ui:19
 #. i18n: ectx: property (accessibleDescription), widget (QMainWindow, MainWindow)
-#: po/rc.cpp:609 rc.cpp:609
+#: po/rc.cpp:678 rc.cpp:678
 msgid "simon Main Window"
 msgstr "Hlavní okno programu Simon"
 
 #. i18n: file: src/simonview.ui:45
 #. i18n: ectx: attribute (title), widget (QWidget, tbWelcome)
-#: po/rc.cpp:612 rc.cpp:612
+#: po/rc.cpp:681 rc.cpp:681
 msgid "Start"
 msgstr "Začít"
 
 #. i18n: file: src/simonview.ui:152
 #. i18n: ectx: property (text), widget (QLabel, lbWarning)
-#: po/rc.cpp:615 rc.cpp:615
+#: po/rc.cpp:684 rc.cpp:684
 #, fuzzy
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
@@ -1365,13 +1499,13 @@ msgstr ""
 
 #. i18n: file: src/simonview.ui:227
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: po/rc.cpp:622 rc.cpp:622
+#: po/rc.cpp:691 rc.cpp:691
 msgid "Contact"
 msgstr "Kontakt"
 
 #. i18n: file: src/simonview.ui:266
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: po/rc.cpp:625 rc.cpp:625
+#: po/rc.cpp:694 rc.cpp:694
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -1399,7 +1533,7 @@ msgstr ""
 
 #. i18n: file: src/simonview.ui:280
 #. i18n: ectx: property (text), widget (QLabel, label_8)
-#: po/rc.cpp:632 rc.cpp:632
+#: po/rc.cpp:701 rc.cpp:701
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -1427,13 +1561,13 @@ msgstr ""
 
 #. i18n: file: src/simonview.ui:324
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
-#: po/rc.cpp:639 rc.cpp:639
+#: po/rc.cpp:708 rc.cpp:708
 msgid "Documentation"
 msgstr "Dokumentace"
 
 #. i18n: file: src/simonview.ui:363
 #. i18n: ectx: property (text), widget (QLabel, label_14)
-#: po/rc.cpp:642 rc.cpp:642
+#: po/rc.cpp:711 rc.cpp:711
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -1461,7 +1595,7 @@ msgstr ""
 
 #. i18n: file: src/simonview.ui:378
 #. i18n: ectx: property (text), widget (QLabel, label_10)
-#: po/rc.cpp:649 rc.cpp:649
+#: po/rc.cpp:718 rc.cpp:718
 msgid ""
 "<html>\n"
 "<head />\n"
@@ -1479,12 +1613,12 @@ msgstr ""
 "</body>\n"
 "</html>"
 
-#: po/rc.cpp:655 rc.cpp:655
+#: po/rc.cpp:724 rc.cpp:724
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr "Pavel Fric"
 
-#: po/rc.cpp:656 rc.cpp:656
+#: po/rc.cpp:725 rc.cpp:725
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "pavelfric@seznam.cz"
@@ -1527,7 +1661,7 @@ msgstr "Příkaz: %1"
 msgid "Kommando"
 msgstr "Komando"
 
-#: src/simonactionsui/runcommandview.cpp:30
+#: src/simonactionsui/runcommandview.cpp:33
 msgid "Direct Execution of simon Commands"
 msgstr "Přímé vykonání příkazů programu Simon"
 
@@ -1539,11 +1673,15 @@ msgstr "Jste si jistý, že chcete, aby byl tento příkaz nevratně odstraněn?
 msgid "Remove Command"
 msgstr "Odstranit příkaz"
 
-#: src/simonappcore/simoncontrol.cpp:71
+#: src/simonappcore/simoncontrol.cpp:120
+msgid "Failed to initialize scenario \"%1\""
+msgstr ""
+
+#: src/simonappcore/simoncontrol.cpp:145
 msgid "User athenticated"
 msgstr "Uživatel byl ověřen"
 
-#: src/simonappcore/simoncontrol.cpp:76
+#: src/simonappcore/simoncontrol.cpp:150
 msgid ""
 "Connection Error: \n"
 "%1"
@@ -1551,7 +1689,7 @@ msgstr ""
 "Chyba spojení: \n"
 "%1"
 
-#: src/simonappcore/simoncontrol.cpp:82
+#: src/simonappcore/simoncontrol.cpp:156
 msgid ""
 "The Recognition Server returned the following fatal error: \n"
 "%1"
@@ -1559,7 +1697,7 @@ msgstr ""
 "Rozpoznávací server oznámil následující osudnou chybu: \n"
 "%1"
 
-#: src/simonappcore/simoncontrol.cpp:87
+#: src/simonappcore/simoncontrol.cpp:161
 msgid ""
 "The model synchronization reported the following error: \n"
 "%1"
@@ -1567,7 +1705,7 @@ msgstr ""
 "Při seřizování modelu byla nahlášena následující chyba: \n"
 "%1"
 
-#: src/simonappcore/simoncontrol.cpp:92
+#: src/simonappcore/simoncontrol.cpp:166
 msgid ""
 "The Recognition reported the following error: \n"
 "%1"
@@ -1575,7 +1713,7 @@ msgstr ""
 "Rozpoznávání nahlásilo následující chybu: \n"
 "%1"
 
-#: src/simonappcore/simoncontrol.cpp:97
+#: src/simonappcore/simoncontrol.cpp:171
 msgid ""
 "As the server compiled the model the following error occured:\n"
 "%1"
@@ -1583,48 +1721,48 @@ msgstr ""
 "Při kompilaci modelu serverem se vyskytla následující chyba: \n"
 "%1"
 
-#: src/simonappcore/simoncontrol.cpp:103
+#: src/simonappcore/simoncontrol.cpp:177
 msgid "simond: %1"
 msgstr "Simond: %1"
 
-#: src/simonappcore/simoncontrol.cpp:108
+#: src/simonappcore/simoncontrol.cpp:182
 msgid "Model Synchronisation %1"
 msgstr "Seřízení modelu %1"
 
-#: src/simonappcore/simoncontrol.cpp:113
+#: src/simonappcore/simoncontrol.cpp:187
 msgid "Recognition: %1"
 msgstr "Rozpoznávání: %1"
 
-#: src/simonappcore/simoncontrol.cpp:118
+#: src/simonappcore/simoncontrol.cpp:192
 msgid "Modelmanagement: %1"
 msgstr "Správa modelu: %1"
 
-#: src/simonappcore/simoncontrol.cpp:216
+#: src/simonappcore/simoncontrol.cpp:290
 #: src/simonmodelmanagementui/ImportDict/importdict.cpp:123
 msgid "[INF]"
 msgstr "[INF]"
 
-#: src/simonappcore/simoncontrol.cpp:216
+#: src/simonappcore/simoncontrol.cpp:290
 msgid "Connected to the Server"
 msgstr "Připojeno k serveru"
 
-#: src/simonappcore/simoncontrol.cpp:230
+#: src/simonappcore/simoncontrol.cpp:304
 msgid "[INF] Connection lost"
 msgstr "[INF] Spojení ztraceno"
 
-#: src/simonappcore/simoncontrol.cpp:240
+#: src/simonappcore/simoncontrol.cpp:314
 msgid "[INF] Connecting aborted"
 msgstr "[INF] Připojování zrušeno"
 
-#: src/simonappcore/simoncontrol.cpp:271
+#: src/simonappcore/simoncontrol.cpp:345
 msgid "[INF] simon activated"
 msgstr "[INF] Simon spuštěn"
 
-#: src/simonappcore/simoncontrol.cpp:277
+#: src/simonappcore/simoncontrol.cpp:351
 msgid "[INF] Continuing recognition"
 msgstr "[INF] Rozpoznávání pokračuje"
 
-#: src/simonappcore/simoncontrol.cpp:295
+#: src/simonappcore/simoncontrol.cpp:369
 msgid "[INF] simon deactivated"
 msgstr "[INF] Simon ukončen"
 
@@ -1632,23 +1770,23 @@ msgstr "[INF] Simon ukončen"
 msgid "Add a new Word"
 msgstr "Přidat nové slovo"
 
-#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:43
+#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:48
 msgid "Define Word"
 msgstr "Popsat význam slova"
 
-#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:72
+#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:77
 msgid "Words are not allowed to contain spaces"
 msgstr "Není povoleno, aby slova obsahovala mezery"
 
-#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:79
+#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:84
 msgid "The Wordlist already contains this Word."
 msgstr "Seznam slov toto slovo již obsahuje"
 
-#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:91
+#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:96
 msgid "Add Terminal"
 msgstr "Přidat zakončení"
 
-#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:91
+#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:96
 msgid ""
 "You are about to add a new terminal.\n"
 "\n"
@@ -1658,11 +1796,11 @@ msgstr ""
 "\n"
 "Zadejte, prosím, název tohoto nového zakončení:"
 
-#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:110
+#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:115
 msgid " deaktivieren?"
 msgstr "Ukončit?"
 
-#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:227
+#: src/simonmodelmanagementui/AddWord/addwordresolvepage.cpp:232
 msgid ""
 "The search for similar words yielded more than 1000 results.\n"
 "\n"
@@ -1672,33 +1810,33 @@ msgstr ""
 "\n"
 "Bude ukázáno jen prvních tisíc."
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:67 src/simonview.cpp:212
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:69 src/simonview.cpp:257
 msgid "Add Word"
 msgstr "Přidat slovo"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:77
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:79
 msgid "[INF] Adding the new Word to the Model..."
 msgstr "[INF] Přidává nové slovo do modelu..."
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:78
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:80
 msgid "[INF] New word: "
 msgstr "[INF] Nové slovo:"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:107
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:109
 msgid "[INF] Added Word: "
 msgstr "[INF] Přidané slovo:"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:117
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:119
 msgid ""
 "Do you want to add the words that have been completely described up until "
 "now?"
 msgstr "Chcete, aby byla přidána slova, která byla úplně popsána až do teď?"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:170
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:172
 msgid "Word Added"
 msgstr "Slovo přidáno"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:173
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:175
 msgid ""
 "The needed data has been collected.\n"
 "\n"
@@ -1708,17 +1846,17 @@ msgstr ""
 "\n"
 "Simon se nyní může nové slovo \"naučit\"."
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:193
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:195
 msgid "Couldn't add %1 to the Prompts-Table"
 msgstr ""
 "Nelze přidat %1 do tabulky výzev (tabulka obsahující název souborů wav a "
 "jejich přepis)"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:197
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:199
 msgid "Couldn't save prompts"
 msgstr "Výzvy nelze uložit"
 
-#: src/simonmodelmanagementui/AddWord/addwordview.cpp:215
+#: src/simonmodelmanagementui/AddWord/addwordview.cpp:217
 msgid ""
 "The word \"%1\" appears to be missing in your language model.\n"
 "\n"
@@ -1728,15 +1866,15 @@ msgstr ""
 "\n"
 "Chcete je přidat nyní?"
 
-#: src/simonmodelmanagementui/deleteworddialog.cpp:36
+#: src/simonmodelmanagementui/deleteworddialog.cpp:40
 msgid "Remove Word"
 msgstr "Odstranit slovo"
 
-#: src/simonmodelmanagementui/dragtableview.cpp:112
+#: src/simonmodelmanagementui/dragtableview.cpp:116
 msgid "Drag the Word to the List on the right to train it"
 msgstr "Přetáhněto slovo do seznamu vpravo, aby bylo procvičováno"
 
-#: src/simonmodelmanagementui/grammarview.cpp:26 src/simonview.cpp:244
+#: src/simonmodelmanagementui/grammarview.cpp:26 src/simonview.cpp:289
 msgid "Grammar"
 msgstr "Mluvnice"
 
@@ -1744,20 +1882,28 @@ msgstr "Mluvnice"
 msgid "View and modify the grammar."
 msgstr "Prohlédněte si a upravujte mluvnici."
 
-#: src/simonmodelmanagementui/ImportDict/importdictbomppage.cpp:38
+#: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.cpp:51
+msgid "Download HADIFIX BOMP"
+msgstr ""
+
+#: src/simonmodelmanagementui/ImportDict/importdictbompdownloadpage.cpp:71
+msgid "Could not retrieve BOMP licence terms."
+msgstr ""
+
+#: src/simonmodelmanagementui/ImportDict/importdictbomppage.cpp:41
 msgid "Import HADIFIX Dictionary"
 msgstr "Zavést slovník HADIFIX"
 
-#: src/simonmodelmanagementui/ImportDict/importdictbomppage.cpp:45
+#: src/simonmodelmanagementui/ImportDict/importdictbomppage.cpp:56
 #: src/simonmodelmanagementui/ImportDict/importdictsphinxpage.cpp:42
-#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:119
-#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:135
-#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:157
+#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:118
+#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:136
+#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:160
 #: src/simonmodelmanagementui/ImportDict/importlexiconpage.cpp:39
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:64
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:68
 #: src/simonmodelmanagementui/ImportGrammar/importgrammarselectfilespage.cpp:43
 #: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextlocalpage.cpp:44
-#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:137
+#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:145
 msgid "Automatic"
 msgstr "Automatický"
 
@@ -1801,23 +1947,7 @@ msgstr "Zavedeno"
 msgid "Deleting Input-File"
 msgstr "Maže vstupní soubor"
 
-#: src/simonmodelmanagementui/ImportDict/importdictplspage.cpp:36
-msgid "Import PLS Dictionary"
-msgstr "Zavést slovník PLS"
-
-#: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.cpp:34
-msgid "Select the Type of Dictionary"
-msgstr "Vybrat druh slovníku"
-
-#: src/simonmodelmanagementui/ImportDict/importdictsphinxpage.cpp:36
-msgid "Import SPHINX Dictionary"
-msgstr "Zavést slovník SPHINX "
-
-#: src/simonmodelmanagementui/ImportDict/importdictview.cpp:56
-msgid "Importing Dictionary"
-msgstr "Zavádí slovník"
-
-#: src/simonmodelmanagementui/ImportDict/importdictview.cpp:106
+#: src/simonmodelmanagementui/ImportDict/importdictintropage.cpp:39
 msgid ""
 "This assistant will help you to import a new dictionary.\n"
 "\n"
@@ -1843,11 +1973,41 @@ msgstr ""
 "Navrhujeme, abyste používal anglický slovník Voxforge, což je slovník "
 "slučitelný s HTK a s velmi vysokou kvalitou."
 
-#: src/simonmodelmanagementui/ImportDict/importdictview.cpp:163
+#: src/simonmodelmanagementui/ImportDict/importdictintropage.cpp:48
+msgid "Target:"
+msgstr ""
+
+#: src/simonmodelmanagementui/ImportDict/importdictintropage.cpp:51
+#, fuzzy
+msgid "Shadow Dictionary"
+msgstr "Zavést slovník"
+
+#: src/simonmodelmanagementui/ImportDict/importdictintropage.cpp:52
+#, fuzzy
+msgid "Active Dictionary"
+msgstr "Zavést slovník"
+
+#: src/simonmodelmanagementui/ImportDict/importdictplspage.cpp:36
+msgid "Import PLS Dictionary"
+msgstr "Zavést slovník PLS"
+
+#: src/simonmodelmanagementui/ImportDict/importdictselectsourcepage.cpp:34
+msgid "Select the Type of Dictionary"
+msgstr "Vybrat druh slovníku"
+
+#: src/simonmodelmanagementui/ImportDict/importdictsphinxpage.cpp:36
+msgid "Import SPHINX Dictionary"
+msgstr "Zavést slovník SPHINX "
+
+#: src/simonmodelmanagementui/ImportDict/importdictview.cpp:59
+msgid "Importing Dictionary"
+msgstr "Zavádí slovník"
+
+#: src/simonmodelmanagementui/ImportDict/importdictview.cpp:166
 msgid "Dictionary imported"
 msgstr "Slovník zaveden"
 
-#: src/simonmodelmanagementui/ImportDict/importdictview.cpp:165
+#: src/simonmodelmanagementui/ImportDict/importdictview.cpp:168
 msgid ""
 "The dictionary has been imported successfully.\n"
 "\n"
@@ -1857,11 +2017,11 @@ msgstr ""
 "\n"
 "Děkujeme vám za vylepšení programu Simon."
 
-#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:45
+#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:48
 msgid "Importing dictionary..."
 msgstr "Zavádí slovník..."
 
-#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:48
+#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:51
 msgid ""
 "Importing the dictionary... Depending on its type and size this can take a "
 "while. Please be patient...\n"
@@ -1869,19 +2029,19 @@ msgstr ""
 "Zavádí slovník...Podle typu a velikosti tohoto slovníku může celý proces "
 "nějakou dobu trvat. Buďte, prosím, trpělivý...\n"
 
-#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:116
+#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:115
 msgid "Importing HTK-Dictionary %1..."
 msgstr "Zavádí slovník HTK %1..."
 
-#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:132
+#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:131
 msgid "Importing HADIFIX-dictionary %1..."
 msgstr "Zavádí slovník HADIFIX %1..."
 
-#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:144
+#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:147
 msgid "Importing PLS-dictionary %1..."
 msgstr "Zavádí slovník PLS %1..."
 
-#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:154
+#: src/simonmodelmanagementui/ImportDict/importdictworkingpage.cpp:157
 msgid "Importing SPHINX-dictionary %1..."
 msgstr "Zavádí slovník SPHINX %1..."
 
@@ -1890,28 +2050,28 @@ msgid "Import Lexicon"
 msgstr "Zavést slovníček"
 
 #: src/simonmodelmanagementui/ImportDict/lexicondict.cpp:44
-#: src/simonmodelmanagementui/ImportDict/plsdict.cpp:143
+#: src/simonmodelmanagementui/ImportDict/plsdict.cpp:144
 #: src/simonmodelmanagementui/ImportDict/sphinxdict.cpp:90
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:169
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:212
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:173
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:216
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:56
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:60
 msgid "Opening File..."
 msgstr "Otevírá soubor..."
 
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:78
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:82
 msgid "Reading File..."
 msgstr "Čte soubor"
 
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:131
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:135
 msgid "Processing..."
 msgstr "Zpracovává..."
 
-#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:199
-#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:65
-#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:55
+#: src/simonmodelmanagementui/ImportGrammar/importgrammar.cpp:203
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:104
+#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:60
 msgid "Finished"
 msgstr "Hotovo"
 
@@ -1973,28 +2133,37 @@ msgstr ""
 msgid "Analysis running..."
 msgstr "Běží rozbor..."
 
-#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:42
-msgid "Collecting files..."
-msgstr "Sbírá soubory..."
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:49
+#, fuzzy
+msgid "Reading prompts file..."
+msgstr "Čte soubor"
 
-#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:48
-msgid "Couldn't create output folder %1"
-msgstr "Nelze vytvořit výstupní soubor %1"
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:52
+#, fuzzy
+msgid "Couldn't parse input prompts: %1"
+msgstr "Výzvy nelze uložit"
 
-#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:55
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:57
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:92
 msgid "Importing %1 Files..."
 msgstr "Zavádí  %1 soubory..."
 
-#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:62
-msgid "Creating automatic transcriptions..."
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:86
+msgid "Collecting files..."
+msgstr "Sbírá soubory..."
+
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:99
+#, fuzzy
+msgid "Creating transcriptions..."
 msgstr "Vytváří automatické přepisy..."
 
-#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:193
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdata.cpp:236
 msgid "Couldn't process soundfiles"
 msgstr "Nelze zpracovat zvukové soubory"
 
-#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectory.cpp:43
-msgid "Importing Traingin Samples from Folder"
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectory.cpp:44
+#, fuzzy
+msgid "Importing Training Samples"
 msgstr "Zavádí ukázky na procvičování ze složky"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectory.cpp:84
@@ -2002,20 +2171,22 @@ msgid "Importing of the Folder completed"
 msgstr "Zavedení složky je dokončeno"
 
 #: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectory.cpp:86
+#, fuzzy
 msgid ""
-"The files found in the given folder are now being imported.\n"
+"The files have been imported.\n"
 "\n"
 "Thank you for improving simon!"
 msgstr ""
-"Soubory, které byly nalezeny ve stanovené složce, jsou nyní zaváděny.\n"
+"Zakončení byla sloučena.\n"
 "\n"
-"Děkujeme vám za to, že vylepšujete program Simon!"
+"Děkujeme vám za to, že vylepšujete program Simon."
 
-#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectoryintropage.cpp:35
-msgid "Import Trainings Samples from Folder"
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectoryintropage.cpp:37
+#, fuzzy
+msgid "Import Training Samples"
 msgstr "Zavést ukázky na procvičování ze složky"
 
-#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectoryworkingpage.cpp:39
+#: src/simonmodelmanagementui/ImportTrainingData/importtrainingdirectoryworkingpage.cpp:41
 msgid "Processing folder..."
 msgstr "Zpracovává složku..."
 
@@ -2041,7 +2212,7 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, zda je internetová adresa správně nastavena."
 
-#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:59
+#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtexts.cpp:60
 msgid "Importing Trainingstext"
 msgstr "Zavádí text na procvičování"
 
@@ -2079,15 +2250,15 @@ msgstr ""
 msgid "Choose your Source"
 msgstr "Vyberte zdroj"
 
-#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:52
+#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:56
 msgid "Text is being added"
 msgstr "Text je přidáván"
 
-#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:65
+#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:70
 msgid "[INF] Starting remove import from \"%1\""
 msgstr "[INF] Začíná s odstraněním zavedení z \"%1\""
 
-#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:201
+#: src/simonmodelmanagementui/ImportTrainingTexts/importtrainingtextworkingpage.cpp:209
 msgid "Couldn't store Trainingstext"
 msgstr "Nelze uložit text na procvičování"
 
@@ -2095,16 +2266,16 @@ msgstr "Nelze uložit text na procvičování"
 msgid "[INF] Loading List of Trainingstexts from %1"
 msgstr "[INF] Nahrává  seznam textů na procvičování z %1"
 
-#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:33
-#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:41
+#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:38
+#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:46
 msgid "Processing Words of Terminal %1"
 msgstr "Zpracovává slova ze zakončení %1"
 
-#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:48
+#: src/simonmodelmanagementui/MergeTerminals/mergeterminals.cpp:53
 msgid "Adapting Grammar"
 msgstr "Zpracovává mluvnici"
 
-#: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectterminalspage.cpp:27
+#: src/simonmodelmanagementui/MergeTerminals/mergeterminalsselectterminalspage.cpp:32
 msgid "Choose Terminals"
 msgstr "Vybrat zakončení"
 
@@ -2134,15 +2305,15 @@ msgstr ""
 "\n"
 "Děkujeme vám za to, že vylepšujete program Simon."
 
-#: src/simonmodelmanagementui/MergeTerminals/mergeterminalsworkingpage.cpp:34
+#: src/simonmodelmanagementui/MergeTerminals/mergeterminalsworkingpage.cpp:41
 msgid "Merging..."
 msgstr "Slučuje..."
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:48
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:52
 msgid "Protocol:"
 msgstr "Zpráva:"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:53
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:57
 msgid ""
 "The sample \"%1\" could not be found neither on the local computer nor the "
 "server.\n"
@@ -2153,11 +2324,11 @@ msgstr ""
 "\n"
 "Chcete ji odstranit z procvičovací databáze?"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:67
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:71
 msgid "Couldn't remove Sample from the Trainingscorpus"
 msgstr "Ukázku nelze odstranit ze souboru textů na procvičování"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:76
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:80
 msgid ""
 "The word \"%1\" is used in your training-samples but is not contained in "
 "your wordlist.\n"
@@ -2169,7 +2340,7 @@ msgstr ""
 "\n"
 "Chcete toto slovo přidat nyní?"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:89
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:93
 msgid ""
 "Your grammar uses the undefined terminal \"%1\".\n"
 "\n"
@@ -2181,7 +2352,7 @@ msgstr ""
 "Přidejte, prosím, slovo, které používá toto zakončení, nebo odstraňte "
 "skladbu obsahující zakončení z vaší mluvnice."
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:94
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:98
 msgid ""
 "The Phoneme \"%1\" is undefined.\n"
 "\n"
@@ -2191,7 +2362,7 @@ msgstr ""
 "\n"
 "Procvičte, prosím, alespoň jedno slovo, které jej používá."
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:103
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:107
 msgid ""
 "Could not store the wordlist received from the server.\n"
 "\n"
@@ -2201,7 +2372,7 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, oprávnění ke složce s modelem: %1"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:114
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:118
 msgid ""
 "Could not store the grammar received from the server.\n"
 "\n"
@@ -2211,7 +2382,7 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, oprávnění ke složce s modelem: %1"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:126
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:130
 msgid ""
 "Could not store the language description received from the server.\n"
 "\n"
@@ -2221,7 +2392,7 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, oprávnění ke složce s modelem: %1"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:138
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:142
 msgid ""
 "Could not store the trainings corpus received from the server.\n"
 "\n"
@@ -2231,7 +2402,7 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, oprávnění ke složce s modelem: %1"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:150
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:154
 msgid ""
 "Could not store the active model received from the server.\n"
 "\n"
@@ -2241,7 +2412,7 @@ msgstr ""
 "\n"
 "Zkontrolujte, prosím, oprávnění ke složce s modelem: %1"
 
-#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:161
+#: src/simonmodelmanagementui/modelmanageruiproxy.cpp:165
 msgid ""
 "Could not store the sample %1 received from the server.\n"
 "\n"
@@ -2285,12 +2456,12 @@ msgstr "Přejmenovává zakončení..."
 msgid "Train the Acoustic Model"
 msgstr "Procvičit zvukový model"
 
-#: src/simonmodelmanagementui/trainingviewprivate.cpp:83
-#: src/simonmodelmanagementui/trainingviewprivate.cpp:105
+#: src/simonmodelmanagementui/trainingviewprivate.cpp:87
+#: src/simonmodelmanagementui/trainingviewprivate.cpp:109
 msgid "Please select a text from the list."
 msgstr "Vyberte, prosím, text ze seznamu."
 
-#: src/simonmodelmanagementui/trainingviewprivate.cpp:88
+#: src/simonmodelmanagementui/trainingviewprivate.cpp:92
 msgid ""
 "If you confirm this dialog, the selected Text will be completely removed "
 "from your hard drive.\n"
@@ -2302,27 +2473,27 @@ msgstr ""
 "\n"
 "Chcete pokračovat?"
 
-#: src/simonmodelmanagementui/trainingviewprivate.cpp:91
+#: src/simonmodelmanagementui/trainingviewprivate.cpp:95
 msgid "Couldn't delete Trainingstext. Do you have enough permissions?"
 msgstr "Text na procvičování nelze smazat. Máte dostatečná oprávnění?"
 
-#: src/simonmodelmanagementui/trainingviewprivate.cpp:111
+#: src/simonmodelmanagementui/trainingviewprivate.cpp:115
 msgid "Couldn't start Training"
 msgstr "Procvičování nelze začít"
 
-#: src/simonmodelmanagementui/trainingviewprivate.cpp:172
+#: src/simonmodelmanagementui/trainingviewprivate.cpp:176
 msgid "Preview: %1..."
 msgstr "Náhled: %1..."
 
-#: src/simonmodelmanagementui/trainingviewprivate.cpp:173
+#: src/simonmodelmanagementui/trainingviewprivate.cpp:177
 msgid "Empty"
 msgstr "Prázdný"
 
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:112
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:121
 msgid "Special Training"
 msgstr "Zvláštní procvičování"
 
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:125
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:134
 msgid ""
 "Your vocabulary does not define all words used in this text. These words are "
 "missing:\n"
@@ -2336,30 +2507,17 @@ msgstr ""
 "\n"
 "Chcete je přidat nyní?"
 
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:161
-msgid ""
-"This wizard will help you to improve the recognition rate based on "
-"recordings of your voice."
-msgstr ""
-"Tento kouzelník vám pomůže s vylepšením míry rozpoznání založeného na "
-"nahrávkách vašeho hlasu."
-
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:164
-#, fuzzy
-msgid "Power Training"
-msgstr "Procvičování"
-
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:183
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:173
 msgid "Training completed"
 msgstr "Procvičování je dokončeno"
 
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:185
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:175
 msgid ""
 "The training has now been completed. The changes are being applied in the "
 "background."
 msgstr "Procvičování bylo  dokončeno. Změny se používají na pozadí"
 
-#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:210
+#: src/simonmodelmanagementui/TrainSamples/trainingswizard.cpp:200
 msgid ""
 "Couldn't save changes to the trainings corpus.\n"
 "\n"
@@ -2369,11 +2527,24 @@ msgstr ""
 "\n"
 "Spusťte, prosím, program Simon znovu."
 
-#: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:37
+#: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:42
+msgid ""
+"This wizard will help you to improve the recognition rate based on "
+"recordings of your voice."
+msgstr ""
+"Tento kouzelník vám pomůže s vylepšením míry rozpoznání založeného na "
+"nahrávkách vašeho hlasu."
+
+#: src/simonmodelmanagementui/TrainSamples/trainsampleintropage.cpp:45
+#, fuzzy
+msgid "Power Training"
+msgstr "Procvičování"
+
+#: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:46
 msgid "Page %1 of %2"
 msgstr "Strana  %1 z %2"
 
-#: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:45
+#: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:50
 msgid ""
 "Please record the Text below.\n"
 "\n"
@@ -2385,7 +2556,7 @@ msgstr ""
 "Tip: Před a po přečtení textu ponechejte něco mezi jednou a dvěma sekundami "
 "ticha. Takto dosáhnete těch nejlepších výsledků!\n"
 
-#: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:82
+#: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:89
 msgid ""
 "Couldn't add samples to the corpus.\n"
 "\n"
@@ -2395,19 +2566,36 @@ msgstr ""
 "\n"
 "Je to známkou toho, že data jsou poškozena."
 
-#: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:96
+#: src/simonmodelmanagementui/TrainSamples/trainsamplepage.cpp:109
 msgid "Couldn't remove sample \"%1\"."
 msgstr "Ukázku nelze odstranit \"%1\"."
 
+#: src/simonmodelmanagementui/vocabularyview.cpp:33
 #: src/simonmodelmanagementui/wordlistview.cpp:33
 msgid "Wortlist"
 msgstr "Seznam slov"
+
+#: src/simonmodelmanagementui/vocabularyview.cpp:35
+#, fuzzy
+msgid "View and modify the vocabulary."
+msgstr "Prohlédněte si a upravujte mluvnici."
+
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:237
+#: src/simonmodelmanagementui/wordlistviewprivate.cpp:205
+#: src/simonmodelmanagementui/wordlistviewprivate.cpp:229
+msgid "Please select a word first"
+msgstr "Nejprve, prosím, vyberte nějaké slovo."
+
+#: src/simonmodelmanagementui/vocabularyviewprivate.cpp:251
+#, fuzzy
+msgid "Not yet supported"
+msgstr "Verze není podporována"
 
 #: src/simonmodelmanagementui/wordlistview.cpp:35
 msgid "View and modify the wordlist."
 msgstr "Prohlédněte si a upravujte seznam slov."
 
-#: src/simonmodelmanagementui/wordlistviewprivate.cpp:174
+#: src/simonmodelmanagementui/wordlistviewprivate.cpp:178
 msgid ""
 "Please select a few words for the special training by dragging them from the "
 "list on your left to the list above.\n"
@@ -2421,20 +2609,15 @@ msgstr ""
 "Jestliže chcete pouze procvičovat svůj model a používat k tomu obecné texty, "
 "použijte volbu \"Procvičování\", která se nachází v nástrojové liště."
 
-#: src/simonmodelmanagementui/wordlistviewprivate.cpp:201
-#: src/simonmodelmanagementui/wordlistviewprivate.cpp:225
-msgid "Please select a word first"
-msgstr "Nejprve, prosím, vyberte nějaké slovo."
-
-#: src/simonmodelmanagementui/wordlistviewprivate.cpp:255
+#: src/simonmodelmanagementui/wordlistviewprivate.cpp:259
 msgid "The word could not be completely removed."
 msgstr "Slovo nelze úplně odstranit."
 
-#: src/simonmodelmanagementui/wordlistviewprivate.cpp:289
+#: src/simonmodelmanagementui/wordlistviewprivate.cpp:293
 msgid "Please select a word scheduled for training first."
 msgstr "Nejprve, prosím, vyberte slovo, které je plánováno pro procvičování."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:214
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:224
 msgid ""
 "The certificate of the remote host is self-signed and thus not "
 "trustworthy. \n"
@@ -2446,23 +2629,23 @@ msgstr ""
 "\n"
 "Stále ještě chcete pokračovat?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:215
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:225
 msgid "Self-Signed Certificate"
 msgstr "Potvrzení podepsané jím samotným"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:259
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:269
 msgid "Request timed out (%1 ms)"
 msgstr "Čas poskytnutý serveru pro reakci na žádost vypršel (%1 ms)"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:340
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:350
 msgid "Please enter your Authentication Details for the simond below"
 msgstr "Zadejte, prosím, níže pro simond podrobnosti kvůli ověření pravosti"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:389
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:399
 msgid "Couldn't create model container"
 msgstr "Nelze vytvořit schránku modelu"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:646
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:656
 msgid ""
 "The Speech Model changed.\n"
 "\n"
@@ -2472,17 +2655,17 @@ msgstr ""
 "\n"
 "Seřídit jej nyní?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:665
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:787
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:675
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:797
 msgid "Modell Synchronisation"
 msgstr "Seřízení modelu"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:665
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1255
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:675
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1265
 msgid "Initializing..."
 msgstr "Inicializuje..."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:736
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:746
 msgid ""
 "Your speech model might have changed while you were disconnected.\n"
 "\n"
@@ -2492,120 +2675,120 @@ msgstr ""
 "\n"
 "Chcete nyní začít seřizování?"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:747
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:757
 msgid "Version not supported"
 msgstr "Verze není podporována"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:754
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:764
 msgid "Wrong username or password."
 msgstr "Chybně zadané uživatelovo jméno nebo heslo."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:762
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:772
 msgid "Access Denied."
 msgstr "Přístup odmítnut."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:772
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:782
 msgid "Synchronization already running"
 msgstr "Seřizování již běží"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:780
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:790
 msgid "Couldn't abort synchronization."
 msgstr "Seřizování nelze přerušit."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:787
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:791
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:797
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:801
 msgid "Synchronizing acitve Model"
 msgstr "Aktivní model je právě seřizován"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:849
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:859
 msgid "No Speech Model available: Recognition deactivated"
 msgstr "Není dostupný žádný model řeči: Rozpoznávání bylo zastaveno"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:861
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:871
 msgid "The server couldn't store the the active model."
 msgstr "Server nemohl uložit aktivní model."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:872
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:882
 msgid "Checking Source"
 msgstr "Kontroluje se zdroj"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:883
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:893
 msgid "Synchronizing Training"
 msgstr "Seřizuje se procvičování"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:892
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:902
 msgid "Sending Training-Corpus"
 msgstr "Posílá se soubor textů na procvičování"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:903
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:913
 msgid "Loading Training"
 msgstr "Nahrává se procvičování"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:920
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:952
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:930
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:962
 msgid "Synchronizing Wordlist"
 msgstr "Seřizuje se seznam slov"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:941
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:951
 msgid "The server couldn't store the trainings corpus."
 msgstr "Server nemohl uložit soubor textů na procvičování."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:986
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1018
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:996
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1028
 msgid "Synchronizing Grammar"
 msgstr "Seřizuje se mluvnice"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:997
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1007
 msgid "No Wordlist available"
 msgstr "Seznam slov není dostupný"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1008
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1018
 msgid "The server couldn't store the wordlist."
 msgstr "Server nemohl uložit seznam slov."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1071
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1081
 msgid "The server couldn't store the grammar."
 msgstr "Server nemohl uložit mluvnici."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1080
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1090
 msgid "Synchronizing Language Description"
 msgstr "Seřizuje se popis jazyka"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1122
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1132
 msgid "There seems to be no language description available."
 msgstr "Zdá se, že není dostupný žádný popis jazyka."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1133
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1143
 msgid "The server couldn't store language description."
 msgstr "Server nemohl uložit popis jazyka."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1157
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1175
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1167
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1185
 msgid "Synchronizing Trainings-Corpus"
 msgstr "Seřizuje se soubor textů na procvičování"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1201
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1211
 msgid "The server couldn't store trainings sample."
 msgstr "Server nemohl uložit ukázku na procvičování."
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1210
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1220
 msgid "Couldn't complete Synchronization"
 msgstr "Seřizování nelze dokončit"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1242
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1252
 msgid "Couldn't restore old model"
 msgstr "Starý model nelze obnovit"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1255
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1274
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1265
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1284
 msgid "Compiling Model"
 msgstr "Sestavuje se model"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1276
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1286
 msgid "Model: %1"
 msgstr "Model: %1"
 
-#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1359
+#: src/simonrecognitioncontrol/recognitioncontrol.cpp:1369
 msgid "Couldn't retrieve Model-Compilation-Protocol"
 msgstr "Zápis o sestavení modelu nelze získat"
 
@@ -2654,73 +2837,91 @@ msgstr ""
 "\n"
 "Sledujte, prosím, průběh seřizování v hlavním okně programu Simon."
 
-#: src/simonview.cpp:83
+#: src/simonview.cpp:97
 msgid "[INF] Starting simon..."
 msgstr "[INF] Spouští se Simon..."
 
-#: src/simonview.cpp:88
+#: src/simonview.cpp:102
 msgid "[INF] Displaying Splashscreen..."
 msgstr "[INF] Zobrazuje se úvodní obrazovka..."
 
-#: src/simonview.cpp:91
+#: src/simonview.cpp:105
 msgid "[INF] Loading configuration modules..."
 msgstr "[INF] Nahrávají se moduly nastavení..."
 
-#: src/simonview.cpp:111
+#: src/simonview.cpp:124
 msgid "Loading program..."
 msgstr "Nahrává se program..."
 
-#: src/simonview.cpp:115 src/simonview.cpp:510
+#: src/simonview.cpp:126 src/simonview.cpp:593
 msgid "simon - Deactivated"
 msgstr "Simon ukončen"
 
-#: src/simonview.cpp:128
+#: src/simonview.cpp:138
 msgid "Welcome"
 msgstr "Vítejte"
 
-#: src/simonview.cpp:130
+#: src/simonview.cpp:140
 msgid "Not connected"
 msgstr "Není připojeno"
 
-#: src/simonview.cpp:138
+#: src/simonview.cpp:148
 msgid "Loading \"Training\"..."
 msgstr "Nahrává se \"Procvičování\"..."
 
-#: src/simonview.cpp:141
+#: src/simonview.cpp:151
 msgid "Loading \"Wordlist\"..."
 msgstr "Nahrává se \"Seznam slov\"..."
 
-#: src/simonview.cpp:144
+#: src/simonview.cpp:159
 msgid "Loading \"Grammar\"..."
 msgstr "Nahrává se \"Mluvnice\"..."
 
-#: src/simonview.cpp:147
+#: src/simonview.cpp:162
 msgid "Loading \"Run\"..."
 msgstr "Nahrává se \"Běh\"..."
 
-#: src/simonview.cpp:151
+#: src/simonview.cpp:166
 msgid "Loading Interface..."
 msgstr "Nahrává se uživatelské rozhraní..."
 
-#: src/simonview.cpp:179 src/simonview.cpp:203 src/simonview.cpp:423
-#: src/simonview.cpp:441
+#: src/simonview.cpp:214
+#, fuzzy
+msgid "Couldn't retrieve Scenario \"%1\""
+msgstr "Ukázku nelze odstranit \"%1\"."
+
+#: src/simonview.cpp:224 src/simonview.cpp:248 src/simonview.cpp:506
+#: src/simonview.cpp:524
 msgid "Connect"
 msgstr "Připojit"
 
-#: src/simonview.cpp:188 src/simonview.cpp:437 src/simonview.cpp:486
-#: src/simonview.cpp:500
+#: src/simonview.cpp:233 src/simonview.cpp:520 src/simonview.cpp:569
+#: src/simonview.cpp:583
 msgid "Activate"
 msgstr "Spustit"
 
-#: src/simonview.cpp:198
+#: src/simonview.cpp:243
 msgid "Disconnect"
 msgstr "Odpojit"
 
-#: src/simonview.cpp:253
+#: src/simonview.cpp:298 src/simonview.cpp:313
 msgid "Synchronize"
 msgstr "Seřídit"
 
-#: src/simonview.cpp:399
+#: src/simonview.cpp:308
+msgid "Scenario:"
+msgstr ""
+
+#: src/simonview.cpp:319
+msgid "Manage scenarios"
+msgstr ""
+
+#: src/simonview.cpp:341
+#, fuzzy
+msgid "This is not yet implemented, sorry!"
+msgstr "Promiňte, ale toto ještě není provedeno"
+
+#: src/simonview.cpp:482
 msgid ""
 "Couldn't start recognition because the system reports that the recognition "
 "is not ready.\n"
@@ -2740,55 +2941,55 @@ msgstr ""
 "Systém potom, ihned po seřízení, vytvoří model, který se bude používat při "
 "rozpoznávání."
 
-#: src/simonview.cpp:420
+#: src/simonview.cpp:503
 msgid "Disconnected"
 msgstr "Odpojen"
 
-#: src/simonview.cpp:434
+#: src/simonview.cpp:517
 msgid "Connection to server lost"
 msgstr "Spojení se serverem ztraceno"
 
-#: src/simonview.cpp:447
+#: src/simonview.cpp:530
 msgid "Connecting..."
 msgstr "Připojuje se..."
 
-#: src/simonview.cpp:469
+#: src/simonview.cpp:552
 msgid "Connected: Deactivating..."
 msgstr "Připojen: Ukončuje se..."
 
-#: src/simonview.cpp:471
+#: src/simonview.cpp:554
 msgid "Deactivating..."
 msgstr "Ukončuje se..."
 
-#: src/simonview.cpp:483
+#: src/simonview.cpp:566
 msgid "Connected but Deactivated"
 msgstr "Připojen ale ukončen"
 
-#: src/simonview.cpp:508
+#: src/simonview.cpp:591
 msgid "simon has been deactivated"
 msgstr "Simon byl ukončen"
 
-#: src/simonview.cpp:516
+#: src/simonview.cpp:599
 msgid "Connected; Activating..."
 msgstr "Připojen: Spouští se..."
 
-#: src/simonview.cpp:518 src/simonview.cpp:521
+#: src/simonview.cpp:601 src/simonview.cpp:604
 msgid "Activating..."
 msgstr "Spouští se..."
 
-#: src/simonview.cpp:526
+#: src/simonview.cpp:609
 msgid "Connected and Activated"
 msgstr "Připojen a spuštěn"
 
-#: src/simonview.cpp:530 src/simonview.cpp:542
+#: src/simonview.cpp:613 src/simonview.cpp:625
 msgid "Activated"
 msgstr "Spuštěn"
 
-#: src/simonview.cpp:548
+#: src/simonview.cpp:631
 msgid "simon has been activated"
 msgstr "Simon byl spuštěn"
 
-#: src/simonview.cpp:571
+#: src/simonview.cpp:653
 msgid ""
 "If you quit the application the connection to the server will be closed and "
 "you will no longer be able to dictate texts or use command.\n"
@@ -2800,9 +3001,44 @@ msgstr ""
 "\n"
 "Chcete skončit?"
 
-#: src/simonview.cpp:603
+#: src/simonview.cpp:685
 msgid "[INF] Quitting..."
 msgstr "[INF] Ukončuje se..."
+
+#~ msgid ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">If you have have a "
+#~ "HADIFIX dictionary please provide the file below:<br /></p></body></html>"
+#~ msgstr ""
+#~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+#~ "REC-html40/strict.dtd\">\n"
+#~ "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
+#~ "css\">\n"
+#~ "p, li { white-space: pre-wrap; }\n"
+#~ "</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+#~ "size:8pt; font-weight:400; font-style:normal;\">\n"
+#~ "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-"
+#~ "right:0px; -qt-block-indent:0; text-indent:0px;\">Pokud máte HADIFIX "
+#~ "slovník, poskytněte, prosím, soubor níže:<br /></p></body></html>"
+
+#~ msgid "Couldn't create output folder %1"
+#~ msgstr "Nelze vytvořit výstupní soubor %1"
+
+#~ msgid ""
+#~ "The files found in the given folder are now being imported.\n"
+#~ "\n"
+#~ "Thank you for improving simon!"
+#~ msgstr ""
+#~ "Soubory, které byly nalezeny ve stanovené složce, jsou nyní zaváděny.\n"
+#~ "\n"
+#~ "Děkujeme vám za to, že vylepšujete program Simon!"
 
 #~ msgid ""
 #~ "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
@@ -2885,9 +3121,6 @@ msgstr "[INF] Ukončuje se..."
 
 #~ msgid "Save Grammar"
 #~ msgstr "Uložit mluvnici"
-
-#~ msgid "Sorry this is not yet implemented"
-#~ msgstr "Promiňte, ale toto ještě není provedeno"
 
 #~ msgid "Couldn't update the Server-Model."
 #~ msgstr "Nelze aktualizovat serverový model."
