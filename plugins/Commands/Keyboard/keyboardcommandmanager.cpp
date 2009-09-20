@@ -153,6 +153,18 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 		ui.pbReturn->animateClick();
 		return true;
 	}
+        if (ui.pbAlt->isVisible() && (QString::compare(inputText, ui.pbAlt->text(), caseSensitivity)==0)) {
+		ui.pbAlt->animateClick();
+		return true;
+	}
+        if (ui.pbAltGr->isVisible() && (QString::compare(inputText, ui.pbAltGr->text(), caseSensitivity)==0)) {
+		ui.pbAltGr->animateClick();
+		return true;
+	}
+        if (ui.pbSuper->isVisible() && (QString::compare(inputText, ui.pbSuper->text(), caseSensitivity)==0)) {
+		ui.pbSuper->animateClick();
+		return true;
+	}
 
 	kDebug() << "About to process numpad " << inputText;
 
@@ -164,6 +176,10 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 		}
 		if (ui.pbWriteOutNumber->isVisible() && (QString::compare(inputText, ui.pbWriteOutNumber->text(), caseSensitivity)==0)) {
 			ui.pbWriteOutNumber->animateClick();
+			return true;
+		}
+		if (QString::compare(inputText, ui.pbNumberBackspace->text(), caseSensitivity)==0) {
+			ui.pbNumberBackspace->animateClick();
 			return true;
 		}
 		if (QString::compare(inputText, ui.pbDecimalSeparator->text(), caseSensitivity)==0) {

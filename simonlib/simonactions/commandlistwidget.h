@@ -85,7 +85,9 @@ public:
 	void init(const QStringList& iconsrcs, const QStringList commands, Flags flags);
 
 	void runRequestSent();
+
 	void selectAfterTimeout(int index, int timeout /* in ms */);
+	void abortTimeoutSelection();
 
     	virtual ~CommandListWidget();
 

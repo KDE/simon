@@ -217,6 +217,14 @@ void CommandListWidget::selectAfterTimeoutIndex(bool select)
 		twCommands->setCurrentCell(-1, -1);
 }
 
+void CommandListWidget::abortTimeoutSelection()
+{
+	toggleAfterTimeoutTimer.stop();
+	blinkTimer.stop();
+	indexToSelectAfterTimeout = -1;
+	pbAutomaticSelection->hide();
+}
+
 void CommandListWidget::selectAfterTimeout(int index, int timeout /* in ms */)
 {
 	if ((!(currentFlags & HasBack)))

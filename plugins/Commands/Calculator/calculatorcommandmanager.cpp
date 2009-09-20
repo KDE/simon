@@ -117,6 +117,7 @@ void CalculatorCommandManager::writeoutRequestReceived(int index)
 {
 	kDebug() << "write request received";
 	commandListWidget->hide();
+	commandListWidget->abortTimeoutSelection();
 	
 	QString output;
 
@@ -727,7 +728,12 @@ bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
 
 	if (inputText.toUpper() == i18n("Cancel").toUpper())
 	{
-		ui.pbCancel->animateClick();
+		if (commandListWidget->isVisible()) {
+			commandListWidget->hide();
+			commandListWidget->abortTimeoutSelection();
+		} else {
+			ui.pbCancel->animateClick();
+		}
 		return true;
 	}
 	if (inputText.toUpper() == i18n("Back").toUpper())
@@ -773,6 +779,14 @@ bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
         if(inputText.toUpper() == i18n("Percent").toUpper())
         {
                 ui.pbPercent->animateClick();
+                return true;
+        }
+        if(inputText.toUpper() == ui.pbBack->text().toUpper()) {
+                ui.pbBack->animateClick();
+                return true;
+        }
+        if(inputText.toUpper() == ui.pbClear->text().toUpper()) {
+                ui.pbClear->animateClick();
                 return true;
         }
 
