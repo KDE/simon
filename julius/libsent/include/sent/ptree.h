@@ -17,7 +17,7 @@
  * @author Akinobu LEE
  * @date   Fri Feb 11 17:27:24 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.5 $
  * 
  */
 /*
@@ -64,6 +64,11 @@ typedef struct _patnode {
   struct _patnode *right1;	///< Link to right node (bit=1)
 } PATNODE;
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int testbit(char *str, int slen, int bitplace);
 int testbit_max(char *str, int bitplace, int maxbitplace);
 int where_the_bit_differ(char *str1, char *str2);
@@ -82,5 +87,9 @@ void aptree_remove_entry(char *str, APATNODE **rootnode);
 void aptree_traverse_and_do(APATNODE *node, void (*callback)(void *));
 boolean aptree_write(FILE *fp, APATNODE *root, boolean (*save_data_func)(void *, FILE *fp));
 boolean aptree_read(FILE *fp, APATNODE **root, BMALLOC_BASE **mroot, void *data, boolean (*load_data_func)(void **, void *, FILE *fp));
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __PATRICIA_TREE_H__ */

@@ -11,7 +11,7 @@
  * @author Akinobu LEE
  * @date   Sat Feb 12 12:26:15 2005
  *
- * $Revision: 1.2 $
+ * $Revision: 1.3 $
  * 
  */
 /*
@@ -53,6 +53,11 @@
 /// Interval time between retry in seconds
 #define		CONNECTION_RETRY_INTERVAL 2 /* sec. */
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* net/rdwt.c */
 int rd(int fd, char *data, int *len, int maxlen);
 int wt(int fd, char *data, int len);
@@ -63,5 +68,9 @@ int make_connection(char *hostname, int port_num);
 int make_connection_unix(char *address);
 int close_socket(int sd);
 void cleanup_socket();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __SENT_SPEECH_TCPIP__ */

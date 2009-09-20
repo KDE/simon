@@ -12,7 +12,7 @@
  * @author Akinobu LEE
  * @date   Mon Mar  7 23:19:14 2005
  *
- * $Revision: 1.15 $
+ * $Revision: 1.16 $
  * 
  */
 /*
@@ -23,6 +23,10 @@
  */
 
 /* should be included after all include files */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* backtrellis.c */
 void bt_init(BACKTRELLIS *bt);
@@ -321,3 +325,7 @@ boolean mfc_module_begin(MFCCCalc *mfcc);
 boolean mfc_module_end(MFCCCalc *mfcc);
 int mfc_module_read(MFCCCalc *mfcc, int *new_t);
 char *mfc_module_input_name(MFCCCalc *mfcc);
+
+#ifdef __cplusplus
+}
+#endif

@@ -21,7 +21,7 @@
  * @author Akinobu LEE
  * @date   Thu Feb 10 14:54:06 2005
  *
- * $Revision: 1.2 $
+ * $Revision: 1.3 $
  *
  */
 /*
@@ -98,6 +98,10 @@ typedef struct _seg_token {
   struct _seg_token *list;	///< Link to next token, NULL if last
 } SEGTOKEN;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* mkwhmm.c */
 HMM *new_make_word_hmm(HTK_HMM_INFO *, HMM_Logical  **, int, boolean *);
 HMM *new_make_word_hmm_with_lm(HTK_HMM_INFO *, HMM_Logical  **, int, boolean *, LOGPROB *);
@@ -111,5 +115,9 @@ LOGPROB outprob(HMMWork *wrk, int t, HMM_STATE *hmmstate, HTK_Param *param);
 void put_hmm_arc(FILE *fp, HMM *d);
 void put_hmm_outprob(FILE *fp, HMM *d);
 void put_hmm(FILE *fp, HMM *d);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __SENT_HMM_NEW2_H__ */

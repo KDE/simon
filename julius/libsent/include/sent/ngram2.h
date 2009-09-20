@@ -95,7 +95,7 @@
  * @author Akinobu LEE
  * @date   Fri Feb 11 15:04:02 2005
  *
- * $Revision: 1.7 $
+ * $Revision: 1.8 $
  * 
  */
 /*
@@ -215,6 +215,11 @@ typedef struct __ngram_info__ {
 #define BINGRAM_NATURAL_BYTEORDER "LE"
 #endif
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* function declaration */
 NNID search_ngram(NGRAM_INFO *ndata, int n, WORD_ID *w);
 LOGPROB ngram_prob(NGRAM_INFO *ndata, int n, WORD_ID *w);
@@ -244,5 +249,9 @@ void print_ngram_info(FILE *fp, NGRAM_INFO *ndata);
 #include <sent/vocabulary.h>
 boolean make_voca_ref(NGRAM_INFO *ndata, WORD_INFO *winfo);
 void fix_uniprob_srilm(NGRAM_INFO *ndata, WORD_INFO *winfo);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __SENT_NGRAM2_H__ */

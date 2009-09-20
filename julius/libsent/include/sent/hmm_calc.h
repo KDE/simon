@@ -13,7 +13,7 @@
  * @author Akinobu LEE
  * @date   Thu Feb 10 14:54:06 2005
  *
- * $Revision: 1.6 $
+ * $Revision: 1.7 $
  *
  */
 /*
@@ -157,6 +157,10 @@ typedef struct __hmmwork__{
 } HMMWork;  
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* addlog.c */
 void make_log_tbl();
 LOGPROB addlog(LOGPROB x, LOGPROB y);
@@ -218,5 +222,10 @@ void gprune_heu(HMMWork *wrk, HTK_HMM_Dens **g, int gnum, int *last_id, int lnum
 boolean gprune_beam_init(HMMWork *wrk);
 void gprune_beam_free(HMMWork *wrk);
 void gprune_beam(HMMWork *wrk, HTK_HMM_Dens **g, int gnum, int *last_id, int lnum);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __SENT_HMM_CALC_H__ */

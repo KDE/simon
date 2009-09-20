@@ -23,7 +23,7 @@
  * @author Akinobu LEE
  * @date   Sat Feb 12 11:16:41 2005
  *
- * $Revision: 1.2 $
+ * $Revision: 1.3 $
  * 
  */
 /*
@@ -97,6 +97,11 @@
  */
 #define OUTPROB_CACHE_PERIOD 100
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /// Macro to convert smpPeriod (100nsec unit) to frequency (Hz)
 #define period2freq(A)  (10000000.0 / (float)(A))
 /// Macro to convert sampling frequency (Hz) to smpPeriod (100nsec unit)
@@ -112,5 +117,9 @@ boolean wrwav_close(FILE *fp);
 
 /* for an;z/strip.c */
 int strip_zero(SP16 a[], int len);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __SENT_SPEECH__ */

@@ -37,7 +37,7 @@
  * @author Akinobu Lee
  * @date   Thu May 12 14:16:18 2005
  *
- * $Revision: 1.5 $
+ * $Revision: 1.6 $
  * 
  */
 /*
@@ -381,8 +381,8 @@ config_file_parse(char *conffile, Jconf *jconf)
   char **c_argv;
   FILE *fp;
   int maxnum, step;
-  static const int len = 512;
-  char buf[len], cpy[len];
+#define BUFLEN 512
+  char buf[BUFLEN], cpy[BUFLEN];
   char *p, *dst, *dst_from;
   char *cdir;
   int i;
@@ -402,7 +402,7 @@ config_file_parse(char *conffile, Jconf *jconf)
   c_argv = (char **)mymalloc(sizeof(char *) * maxnum);
   c_argv[0] = strcpy((char *)mymalloc(strlen(conffile)+1), conffile);
   c_argc = 1;
-  while (fgets_jconf(buf, len, fp) != NULL) {
+  while (fgets_jconf(buf, BUFLEN, fp) != NULL) {
     if (buf[0] == '\0') continue;
     p = buf; dst = cpy;
     while (1) {

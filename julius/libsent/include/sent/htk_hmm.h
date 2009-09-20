@@ -16,7 +16,7 @@
  * @author Akinobu LEE
  * @date   Thu Feb 10 19:36:47 2005
  *
- * $Revision: 1.6 $
+ * $Revision: 1.7 $
  * 
  */
 /*
@@ -413,6 +413,11 @@ typedef struct {
   //@}
 } HTK_HMM_INFO;
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* init_phmm.c */
 void htk_hmm_set_pause_model(HTK_HMM_INFO *hmminfo, char *spmodel_name);
 /* rdhmmdef.c */
@@ -525,5 +530,10 @@ int param_check_and_adjust(HTK_HMM_INFO *hmm, HTK_Param *pinfo, boolean vflag);
 /* binary format */
 boolean write_binhmm(FILE *fp, HTK_HMM_INFO *hmm, Value *para);
 boolean read_binhmm(FILE *fp, HTK_HMM_INFO *hmm, boolean gzfile_p, Value *para);
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* __SENT_HTK_HMM_2_H__ */

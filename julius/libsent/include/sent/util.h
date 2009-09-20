@@ -21,7 +21,7 @@
  * @author Akinobu LEE
  * @date   Sat Feb 12 12:30:40 2005
  *
- * $Revision: 1.6 $
+ * $Revision: 1.7 $
  * 
  */
 /*
@@ -56,6 +56,11 @@ typedef struct _bmalloc_base {
   char *end;		    ///< End Pointer of Currently assigned area
   struct _bmalloc_base *next;	///< Link to next data, NULL if no more
 } BMALLOC_BASE;
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* readfile.c */
 char *getl(char *, int, FILE *);
@@ -112,5 +117,8 @@ void confout_process(FILE *strm);
 /* qsort.c */
 void qsort_reentrant(void *base, int count, int size, int (*compare)(const void *, const void *, void *), void *pointer);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __SENT_UTIL_H__ */

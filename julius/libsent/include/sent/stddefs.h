@@ -29,7 +29,7 @@
  * @author Akinobu LEE
  * @date   Sat Feb 12 11:49:37 2005
  *
- * $Revision: 1.3 $
+ * $Revision: 1.4 $
  * 
  */
 /*
@@ -44,14 +44,13 @@
 
 /* load site-dependent configuration by configure script */
 #if defined(_WIN32) && !defined(__CYGWIN32__) && !defined(__MINGW32__)
-#include <sent/config-win.h>
+#include <config-msvc-libsent.h>
 #else
 #include <sent/config.h>
 #endif
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <strings.h>
 #include <string.h>
 #include <math.h>
 #if !defined(_WIN32) || defined(__CYGWIN32__) || defined(__MINGW32__)

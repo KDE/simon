@@ -12,7 +12,7 @@
  * @author Akinobu Lee
  * @date   Tue Nov  6 22:41:00 2007
  * 
- * $Revision: 1.6 $
+ * $Revision: 1.7 $
  * 
  */
 /*
@@ -27,6 +27,10 @@
 
 #ifndef __J_JFUNC_H__
 #define __J_JFUNC_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* recogmain.c */
 int j_open_stream(Recog *recog, char *file_or_dev_name);
@@ -103,5 +107,9 @@ Jconf *j_jconf_new();
 void j_jconf_free(Jconf *jconf);
 Recog *j_recog_new();
 void j_recog_free(Recog *recog);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __J_JFUNC_H__ */

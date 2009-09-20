@@ -12,7 +12,7 @@
  * @author Akinobu Lee
  * @date   Sat Aug  2 09:46:09 2008
  * 
- * $Revision: 1.2 $
+ * $Revision: 1.3 $
  * 
  */
 /*
@@ -26,7 +26,11 @@
 
 #ifdef ENABLE_PLUGIN
 
+#if defined(_WIN32) && !defined(__CYGWIN32__) && !defined(__MINGW32__)
+#include <windows.h>
+#else
 #include <dirent.h>
+#endif
 #include <stdarg.h>
 
 /**
@@ -234,6 +238,33 @@ plugin_load_file(char *file)
 boolean
 plugin_load_dir(char *dir)
 {
+#if defined(_WIN32) && !defined(__CYGWIN32__) && !defined(__MINGW32__)
+
+  WIN32_FIND_DATA FindFileData;
+  HANDLE hFind;
+  static char buf[512];
+  int cnt;
+
+  strncpy(buf, dir, 505);
+  strcat(buf, "\\*.dll");
+  if ((hFind = FindFirstFile(buf, &FindFileData)) == INVALID_HANDLE_VALUE) {
+    jlog("ERROR: plugin_load: cannot open plugins dir \"%s\"\n", dir);
+    return FALSE;
+  }
+
+  cnt = 0;
+  do {
+    jlog("STAT: file: %-23s ", FindFileData.cFileName);
+    if (plugin_load_file(buf)) cnt++;
+  } while (FindNextFile(hFind, &FindFileData));
+
+  FindClose(hFind);
+  jlog("STAT: %d files loaded\n", cnt);
+
+  return TRUE;
+  
+#else
+  
   DIR *d;
   struct dirent *f;
   static char buf[512];
@@ -255,6 +286,8 @@ plugin_load_dir(char *dir)
   jlog("STAT: %d files loaded\n", cnt);
 
   return TRUE;
+
+#endif
 }
 
 /** 

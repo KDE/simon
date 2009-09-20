@@ -21,7 +21,7 @@
  * @author Akinobu LEE
  * @date   Fri Feb 11 03:38:31 2005
  *
- * $Revision: 1.2 $
+ * $Revision: 1.3 $
  * 
  */
 /*
@@ -37,8 +37,14 @@
 #include <sent/stddefs.h>
 
 #ifndef HAVE_STRCASECMP
+#ifdef __cplusplus
+extern "C" {
+#endif
 int strcasecmp(char *s1, char *s2);
 int strncasecmp(char *s1, char *s2, size_t n);
+#ifdef __cplusplus
+}
+#endif
 #endif
 
 #endif /* __SENT_MACHINES_H__ */

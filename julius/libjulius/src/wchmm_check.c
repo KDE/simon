@@ -24,7 +24,7 @@
  * @author Akinobu Lee
  * @date   Sat Sep 24 15:45:06 2005
  *
- * $Revision: 1.2 $
+ * $Revision: 1.3 $
  * 
  */
 /*
@@ -327,8 +327,8 @@ print_ngraminfo(NGRAM_INFO *ngram, int nid)
 void
 wchmm_check_interactive(WCHMM_INFO *wchmm) /* interactive check */
 {
-  static const int len = 24;
-  char buf[len], *name;
+#define MAXNAMELEN 24
+  char buf[MAXNAMELEN], *name;
   int arg, newline;
   WORD_ID argw;
   boolean endflag;
@@ -341,7 +341,7 @@ wchmm_check_interactive(WCHMM_INFO *wchmm) /* interactive check */
 
   for (endflag = FALSE; endflag == FALSE;) {
     printf("===== syntax: command arg (\"H\" for help) > ");
-    if (fgets(buf, len, stdin) == NULL) break;
+    if (fgets(buf, MAXNAMELEN, stdin) == NULL) break;
     name = "";
     arg = 0;
     if (isalpha(buf[0]) != 0 && buf[1] == ' ') {

@@ -30,7 +30,7 @@
  * @author Akinobu LEE
  * @date   Sat Feb 12 12:38:13 2005
  *
- * $Revision: 1.5 $
+ * $Revision: 1.6 $
  * 
  */
 /*
@@ -80,6 +80,10 @@ typedef struct {
   BMALLOC_BASE *mroot;		///< Pointer for block memory allocation
 } WORD_INFO;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 WORD_INFO *word_info_new();
 void word_info_free(WORD_INFO *winfo);
 void winfo_init(WORD_INFO *winfo);
@@ -114,5 +118,9 @@ void print_phone_info(FILE *fp, HTK_HMM_INFO *hmminfo);
 void print_all_basephone_detail(HMM_basephone *base);
 void print_all_basephone_name(HMM_basephone *base);
 void test_interword_triphone(HTK_HMM_INFO *hmminfo, WORD_INFO *winfo);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __SENT_VOCA_H__ */

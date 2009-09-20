@@ -12,7 +12,7 @@
  * @author Akinobu Lee
  * @date   Wed Aug  8 14:53:53 2007
  *
- * $Revision: 1.13 $
+ * $Revision: 1.14 $
  * 
  */
 
@@ -581,10 +581,18 @@ j_close_stream(Recog *recog)
   if (jconf->input.type == INPUT_WAVEFORM) {
 #ifdef HAVE_PTHREAD
     /* close A/D-in thread here */
-    if (recog->adin->enable_thread && ! recog->adin->input_side_segment) {
-      if (adin_thread_cancel(recog) == FALSE) {
-	return -2;
+    if (! recog->adin->input_side_segment) {
+      if (recog->adin->enable_thread) {
+	if (adin_thread_cancel(recog) == FALSE) {
+	  return -2;
+	}
+      } else {
+	recog->adin->end_of_stream = TRUE;
       }
+    }
+#else
+    if (! recog->adin->input_side_segment) {
+      recog->adin->end_of_stream = TRUE;
     }
 #endif
     /* end A/D input */

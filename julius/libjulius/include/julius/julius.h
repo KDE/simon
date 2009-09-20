@@ -12,7 +12,7 @@
  * @author Akinobu LEE
  * @date   Thu Mar 17 21:08:21 2005
  *
- * $Revision: 1.3 $
+ * $Revision: 1.4 $
  * 
  */
 /*
@@ -35,12 +35,13 @@
 # ifdef BUILD_JULIAN
 # include <julius/config-win-julian.h>
 # else
-# include <julius/config-win-julius.h>
+# include <julius/config-msvc-libjulius.h>
+# include <julius/config-msvc-libsent.h>
 # endif
 #else
 #include <julius/config.h>
-#endif
 #include <sent/config.h>
+#endif
 /* read built-in definitions */
 #include <julius/define.h>
 

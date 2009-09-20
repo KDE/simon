@@ -27,7 +27,7 @@
  * @author Akinobu LEE
  * @date   Fri Feb 11 03:40:52 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.5 $
  * 
  */
 
@@ -205,6 +205,11 @@ typedef struct {
   LOGPROB max;	///< Maximum energy value of current input
 } ENERGYWork;
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**** mfcc-core.c ****/
 MFCCWork *WMP_work_new(Value *para);
 void WMP_calc(MFCCWork *w, float *mfcc, Value *para);
@@ -279,5 +284,8 @@ boolean htk_config_file_parse(char *HTKconffile, Value *para);
 void calc_para_from_header(Value *para, short param_type, short vec_size);
 void put_para(FILE *fp, Value *para);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __MFCC_H__ */

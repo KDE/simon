@@ -48,7 +48,7 @@
  * @author Akinobu LEE
  * @date   Fri Feb 11 02:52:52 2005
  *
- * $Revision: 1.2 $
+ * $Revision: 1.3 $
  * 
  */
 /*
@@ -89,6 +89,10 @@ typedef struct {
  */
 #define HTK_PARAM_INCREMENT_STEP_FRAME 200
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 boolean rdparam(char *, HTK_Param *);
 HTK_Param *new_param();
 void free_param(HTK_Param *);
@@ -109,5 +113,9 @@ void put_param_head(FILE *fp, HTK_Param_Header *h);
 void put_vec(FILE *fp, VECT **p, int num, short veclen);
 void put_param(FILE *fp, HTK_Param *pinfo);
 void put_param_info(FILE *fp, HTK_Param *pinfo);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __SENT_HTK_PARAM_H__ */

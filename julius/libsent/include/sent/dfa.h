@@ -29,7 +29,7 @@
  * @author Akinobu LEE
  * @date   Thu Feb 10 18:21:27 2005
  *
- * $Revision: 1.4 $
+ * $Revision: 1.5 $
  * 
  */
 /*
@@ -93,6 +93,10 @@ typedef struct {
   WORD_ID sp_id;		///< Word ID of short pause word
 } DFA_INFO;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 DFA_INFO *dfa_info_new();
 void dfa_info_free(DFA_INFO *dfa);
 void dfa_state_init(DFA_INFO *dinfo);
@@ -130,5 +134,9 @@ void terminfo_append(TERM_INFO *dst, TERM_INFO *src, int coffset, int woffset);
 #include <sent/htk_hmm.h>
 void dfa_find_pause_word(DFA_INFO *dfa, WORD_INFO *winfo, HTK_HMM_INFO *hmminfo);
 boolean dfa_pause_word_append(DFA_INFO *dst, DFA_INFO *src, int coffset);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __SENT_DFA_H__ */

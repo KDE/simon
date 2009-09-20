@@ -19,7 +19,7 @@
  * @author Akinobu LEE
  * @date   Thu Feb 10 17:22:36 2005
  *
- * $Revision: 1.6 $ 
+ * $Revision: 1.7 $ 
  */
 /*
  * Copyright (c) 1991-2007 Kawahara Lab., Kyoto University
@@ -144,6 +144,11 @@ typedef struct {
 #define ZC_POSITIVE 1		///< Positive mark used for zerocross
 #define ZC_NEGATIVE -1		///< Negative mark used for zerocross
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* adin/adin_mic_*.c */
 boolean adin_mic_standby(int freq, void *arg);
 boolean adin_mic_begin(char *pathname);
@@ -224,5 +229,10 @@ void sub_zmean(SP16 *speech, int samplenum);
 DS_BUFFER *ds48to16_new();
 void ds48to16_free(DS_BUFFER *ds);
 int ds48to16(SP16 *dst, SP16 *src, int srclen, int maxdstlen, DS_BUFFER *ds);
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* __SENT_ADIN__ */
