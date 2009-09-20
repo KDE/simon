@@ -120,6 +120,9 @@ Q_OBJECT
 
 		void trainingSettingsSaved();
 
+
+		bool defaultToPowerTrain();
+
 		~TrainingManager();
 
 };

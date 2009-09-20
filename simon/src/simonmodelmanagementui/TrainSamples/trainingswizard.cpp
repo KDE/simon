@@ -18,7 +18,10 @@
  */
 #include "trainingswizard.h"
 #include "trainsamplepage.h"
+#include "trainsampleintropage.h"
+
 #include "../AddWord/addwordview.h"
+
 #ifdef SIMON_SCENARIOS
 #include <speechmodelmanagement_scenario/trainingmanager.h>
 #include <speechmodelmanagement_scenario/wordlistmanager.h>
@@ -156,30 +159,11 @@ bool TrainingsWizard::init(const QStringList& prompts, const QString& name)
 	return true;
 }
 
-TrainingsIntroPage::TrainingsIntroPage(QWidget *parent) : QWizardPage(parent)
-{
-	setTitle(i18n("Training"));
 
-	QVBoxLayout *lay = new QVBoxLayout(this);
-
-	QLabel *lbIntro = new QLabel(this);
-	lbIntro->setWordWrap(true);
-	lbIntro->setText(i18n("This wizard will help you to improve the recognition rate based on "
-"recordings of your voice."));
-
-	QCheckBox *cbPowerRecording = new QCheckBox(i18n("Power Training"), this);
-
-	lay->addWidget(lbIntro);
-	lay->addWidget(cbPowerRecording);
-
-	this->registerField("powerRecording", cbPowerRecording);
-
-	setLayout(lay);
-}
 
 QWizardPage* TrainingsWizard::createIntroPage()
 {
-	return new TrainingsIntroPage(this);
+	return new TrainSampleIntroPage(this);
 }
 
 

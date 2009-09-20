@@ -520,6 +520,11 @@ bool TrainingManager::saveTrainingsText(const QString& name, const QStringList p
 	return succ;
 }
 
+bool TrainingManager::defaultToPowerTrain()
+{
+	return SpeechModelManagementConfiguration::defaultToPowerTrain();
+}
+
 /**
  * @brief Destructor
  *
