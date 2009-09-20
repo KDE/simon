@@ -37,20 +37,38 @@ class CalculatorConfiguration : public CommandConfiguration
 		virtual void save();
 		virtual void load();
 		virtual void defaults();
+
+	private slots:
+		void slotChanged();
 	
 	public:
+		enum OutputModeSelection {
+			AlwaysAsk=1,
+			UseDefault=2,
+			AskButDefaultAfterTimeout=3
+		};
+
+		enum OutputMode {
+			Result=1,
+			CalculationAndResult=2,
+			FormattedResult=3,
+			FormattedCalculationAndResult=4,
+			FormattedMoneyResult=5,
+			FormattedMoneyCalculationAndResult=6
+		};
+
+
 		static CalculatorConfiguration *getInstance(QWidget *parent=0, const QVariantList &args = QVariantList()) {
 			if (!instance) instance = new CalculatorConfiguration(parent, args);
 			return instance;
 		}
 		CalculatorConfiguration(QWidget *parent=0, const QVariantList &args = QVariantList());
 		~CalculatorConfiguration();
+
 		
-		void destroy();
-		
-		//configuration options
-		QString trigger();
-		bool useRealTransparency();
+		int askTimeout();
+		OutputModeSelection outputModeSelection();
+		OutputMode outputMode();
 };
 
 #endif

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>475</width>
+    <height>382</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,16 +15,105 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QFormLayout" name="formLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Output mode selection:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbOutputAsk">
+     <property name="text">
+      <string>Always ask</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="rbOutputDefault">
+     <property name="text">
+      <string>Use default without asking</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QRadioButton" name="rbAskAndDefault">
        <property name="text">
-        <string>Trigger:</string>
+        <string>Ask, but select default user idles for:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="KLineEdit" name="leTrigger"/>
+     <item>
+      <widget class="QDoubleSpinBox" name="sbOutputDefaultTimeout">
+       <property name="minimum">
+        <double>0.100000000000000</double>
+       </property>
+       <property name="value">
+        <double>12.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>seconds</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Default mode:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KComboBox" name="cbDefaultOutputMode">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string>Result</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Calculation and result</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Formatted result</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Formatted calculation and result</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Formatted result (money)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Formatted calculation and result (money)</string>
+        </property>
+       </item>
+      </widget>
      </item>
     </layout>
    </item>
@@ -45,11 +134,44 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>rbOutputAsk</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>label_3</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>76</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>69</x>
+     <y>125</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rbOutputAsk</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>cbDefaultOutputMode</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>126</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>285</x>
+     <y>113</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -28,6 +28,7 @@
 #include <QHeaderView>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QProgressBar>
 #include <QVariant>
 #include <KIcon>
 #include <KLocalizedString>
@@ -35,7 +36,9 @@
 
 CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOnTopHint),
 	pbCancel(new KPushButton(this)),
-	twCommands(new QTableWidget(this))
+	indexToSelectAfterTimeout(-1),
+	twCommands(new QTableWidget(this)),
+	pbAutomaticSelection(new QProgressBar(this))
 {
 	QVBoxLayout *lay = new QVBoxLayout(this);
 
@@ -62,12 +65,18 @@ CommandListWidget::CommandListWidget() : QWidget(0, Qt::Dialog|Qt::WindowStaysOn
 	___qtablewidgetitem1->setText(tr2i18n("Command", 0));
 
 	lay->addWidget(twCommands);
+	lay->addWidget(pbAutomaticSelection);
 	lay->addWidget(pbCancel);
 	setLayout(lay);
 
 	connect(twCommands, SIGNAL(itemActivated(QTableWidgetItem*)), this, SLOT(runCommand()));
 	connect(pbCancel, SIGNAL(clicked()), this, SLOT(close()));
+
+	connect(&toggleAfterTimeoutTimer, SIGNAL(timeout()), this, SLOT(timeoutReached()));
+	connect(&blinkTimer, SIGNAL(timeout()), this, SLOT(blink()));
 	runRequestEmitted = false;
+	pbAutomaticSelection->setFormat(i18n("Automatic selection"));
+	pbAutomaticSelection->hide();
 }
 
 void CommandListWidget::runRequestSent()
@@ -77,17 +86,36 @@ void CommandListWidget::runRequestSent()
 
 void CommandListWidget::runCommand()
 {
-	int row = twCommands->currentRow();
-	if (row == -1)
-		return;
+	kDebug() << "hei";
+	toggleAfterTimeoutTimer.stop();
+	blinkTimer.stop();
+
+	int row;
+//	if (indexToSelectAfterTimeout != -1) {
+//		row = indexToSelectAfterTimeout;
+//		indexToSelectAfterTimeout = -1;
+//	} else {
+		row = twCommands->currentRow();
+
+		if (row == -1) {
+			kDebug() << "no row selected";
+			return;
+		}
+//	}
 
 	//even if we don't have a back-button the commands
 	//start at 0
 	if ((!(currentFlags & HasBack)))
 		row++;
-
+	
 	runRequestEmitted = true;
 	emit runRequest(row);
+	pbAutomaticSelection->hide();
+}
+
+void CommandListWidget::showEvent(QShowEvent *)
+{
+	pbAutomaticSelection->hide();
 }
 
 void CommandListWidget::closeEvent(QCloseEvent *)
@@ -96,6 +124,9 @@ void CommandListWidget::closeEvent(QCloseEvent *)
 		fprintf(stderr, "Emitting cancel...\n");
 		emit canceled();
 	}
+	toggleAfterTimeoutTimer.stop();
+	blinkTimer.stop();
+	indexToSelectAfterTimeout = -1;
 }
 
 void CommandListWidget::init(const QStringList& iconsrcs, const QStringList commands, Flags flags)
@@ -156,7 +187,7 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
 	QHeaderView *vhview = twCommands->verticalHeader();
 	QHeaderView *hhview = twCommands->horizontalHeader();
 	resize(QSize(hhview->sectionSize(0)+hhview->sectionSize(1)+25, 
-				(rowCount*vhview->sectionSize(0))+pbCancel->height()+40));
+				(rowCount*vhview->sectionSize(0))+pbCancel->height()+pbAutomaticSelection->height()+40));
 
 	//move to center of screen
 	QDesktopWidget* tmp = QApplication::desktop();
@@ -167,6 +198,44 @@ void CommandListWidget::init(const QStringList& iconsrcs, const QStringList comm
 	move(x,y);
 
 	runRequestEmitted = false;
+}
+
+
+void CommandListWidget::blink()
+{
+	int selectionValue = pbAutomaticSelection->value();
+	if ((selectionValue % 15) == 0)
+		selectAfterTimeoutIndex(twCommands->currentRow() != indexToSelectAfterTimeout);
+	pbAutomaticSelection->setValue(selectionValue+1);
+}
+
+void CommandListWidget::selectAfterTimeoutIndex(bool select)
+{
+	if (select)
+		twCommands->setCurrentCell(indexToSelectAfterTimeout, 0);
+	else 
+		twCommands->setCurrentCell(-1, -1);
+}
+
+void CommandListWidget::selectAfterTimeout(int index, int timeout /* in ms */)
+{
+	if ((!(currentFlags & HasBack)))
+		index--;
+
+	indexToSelectAfterTimeout = index;
+	toggleAfterTimeoutTimer.start(timeout);
+	selectAfterTimeoutIndex(true);
+	blinkTimer.start(50);
+
+	pbAutomaticSelection->setMaximum(qRound(((double)timeout) / 50.0f));
+	pbAutomaticSelection->setValue(0);
+	pbAutomaticSelection->show();
+}
+
+void CommandListWidget::timeoutReached()
+{
+	selectAfterTimeoutIndex(true);
+	runCommand();
 }
 
 CommandListWidget::~CommandListWidget()

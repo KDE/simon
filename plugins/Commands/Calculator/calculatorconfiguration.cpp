@@ -40,42 +40,61 @@ CalculatorConfiguration::CalculatorConfiguration(QWidget *parent, const QVariant
 	ui.setupUi(this);
 	
 	config = KSharedConfig::openConfig(CalculatorCommandPluginFactory::componentData(),
-					"calculatorrc");
-
-	QObject::connect(ui.leTrigger, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()));
+					"simoncalculatorrc");
+	connect(ui.rbOutputAsk, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.rbOutputDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.rbAskAndDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect(ui.cbDefaultOutputMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
+	connect(ui.sbOutputDefaultTimeout, SIGNAL(valueChanged(double)), this, SLOT(slotChanged()));
+	load();
 }
 
-QString CalculatorConfiguration::trigger()
+
+void CalculatorConfiguration::slotChanged()
 {
-	KConfigGroup cg(config, "");
-	return cg.readEntry("Trigger", i18n("Calculator"));
+	emit changed(true);
 }
-
 
 void CalculatorConfiguration::save()
 {
 	Q_ASSERT(config);
 	
 	KConfigGroup cg(config, "");
-	cg.writeEntry("Trigger", ui.leTrigger->text());
-
+	cg.writeEntry("OutputModeSelection", (int) outputModeSelection());
+	cg.writeEntry("DefaultOutputMode", ((int) outputMode())-1);
+	cg.writeEntry("AskTimeout", ui.sbOutputDefaultTimeout->value());
 	cg.sync();
 	
 	emit changed(false);
 }
 
-void CalculatorConfiguration::destroy()
+/*void CalculatorConfiguration::destroy()
 {
 	deleteLater();
 	instance=0;
-}
+}*/
  
 void CalculatorConfiguration::load()
 {
 	Q_ASSERT(config);
 
 	KConfigGroup cg(config, "");
-	ui.leTrigger->setText(cg.readEntry("Trigger", i18n("Calculator")));
+	CalculatorConfiguration::OutputModeSelection modeSelection = 
+			(CalculatorConfiguration::OutputModeSelection) cg.readEntry("OutputModeSelection", 0);
+	switch (modeSelection) {
+		case CalculatorConfiguration::AlwaysAsk:
+			ui.rbOutputAsk->setChecked(true);
+			break;
+		case CalculatorConfiguration::UseDefault:
+			ui.rbOutputDefault->setChecked(true);
+			break;
+		case CalculatorConfiguration::AskButDefaultAfterTimeout:
+			ui.rbAskAndDefault->setChecked(true);
+			break;
+	}
+
+	ui.cbDefaultOutputMode->setCurrentIndex(cg.readEntry("DefaultOutputMode", 0));
+	ui.sbOutputDefaultTimeout->setValue(cg.readEntry("AskTimeout", 12));
 
 	cg.sync();
 	
@@ -84,9 +103,37 @@ void CalculatorConfiguration::load()
  
 void CalculatorConfiguration::defaults()
 {
-	ui.leTrigger->setText(i18n("Calculator"));
+	ui.rbOutputAsk->animateClick();
+	ui.sbOutputDefaultTimeout->setValue(12);
+	ui.cbDefaultOutputMode->setCurrentIndex(0);
 	save();
 }
+
+/**
+ * \return timeout in milliseconds
+ */
+int CalculatorConfiguration::askTimeout()
+{
+	double timeoutD = ui.sbOutputDefaultTimeout->value();
+	return qRound(timeoutD*1000.0f);
+}
+
+CalculatorConfiguration::OutputModeSelection CalculatorConfiguration::outputModeSelection()
+{
+	if (ui.rbOutputAsk->isChecked())
+		return CalculatorConfiguration::AlwaysAsk;
+	else if (ui.rbOutputDefault->isChecked())
+		return CalculatorConfiguration::UseDefault;
+	else 
+		return CalculatorConfiguration::AskButDefaultAfterTimeout;
+}
+
+
+CalculatorConfiguration::OutputMode CalculatorConfiguration::outputMode()
+{
+	return (CalculatorConfiguration::OutputMode) (ui.cbDefaultOutputMode->currentIndex()+1);
+}
+
 
 CalculatorConfiguration::~CalculatorConfiguration()
 {

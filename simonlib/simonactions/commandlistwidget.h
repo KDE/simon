@@ -23,13 +23,15 @@
 #include "actionlib_export.h"
 #include <commandpluginbase/command.h>
 #include <QList>
-#include <QTableWidget>
+#include <QTimer>
+#include <QWidget>
 #include <KUrl>
-//#include "ui_listcommand.h"
 
 class QCloseEvent;
 class KPushButton;
 class QTableWidget;
+class QProgressBar;
+class QShowEvent;
 
 /**
  *	@class CommandListWidget
@@ -41,19 +43,29 @@ class QTableWidget;
  */
 class SIMONACTIONS_EXPORT CommandListWidget : public QWidget {
 Q_OBJECT
+
 signals:
 	void runRequest(int index);
 	void canceled();
 
+private:
+	QTimer toggleAfterTimeoutTimer;
+	QTimer blinkTimer;
+	int indexToSelectAfterTimeout;
+	void selectAfterTimeoutIndex(bool);
 
 private slots:
 	void runCommand();
+	void blink();
+	void timeoutReached();
 
 protected:
 	KPushButton *pbCancel;
 	QTableWidget *twCommands;
+	QProgressBar *pbAutomaticSelection;
 	
 	void closeEvent(QCloseEvent *);
+	void showEvent(QShowEvent *);
 
 public:
 	enum Flag {
@@ -73,8 +85,9 @@ public:
 	void init(const QStringList& iconsrcs, const QStringList commands, Flags flags);
 
 	void runRequestSent();
+	void selectAfterTimeout(int index, int timeout /* in ms */);
 
-    ~CommandListWidget();
+    	virtual ~CommandListWidget();
 
 private:
 	Flags currentFlags;

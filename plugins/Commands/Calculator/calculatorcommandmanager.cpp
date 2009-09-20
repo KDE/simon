@@ -92,7 +92,7 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 	connect(ui.pbEquals, SIGNAL(clicked()), this, SLOT(sendEquals()));
         connect(ui.pbPercent, SIGNAL(clicked()), this, SLOT(sendPercent()));
 
-	//TODO: implement brackets and percentages
+	//TODO: implement brackets
 	ui.pbBracketClose->hide();
 	ui.pbBracketOpen->hide();
 //	ui.pbPercent->hide();
@@ -108,36 +108,36 @@ CalculatorCommandManager::CalculatorCommandManager(QObject* parent, const QVaria
 	connect(commandListWidget, SIGNAL(runRequest(int)), this, SLOT(writeoutRequestReceived(int)));
 }
 
+const QString CalculatorCommandManager::preferredTrigger() const
+{
+	return i18n("Calculator");
+}
+
 void CalculatorCommandManager::writeoutRequestReceived(int index)
 {
+	kDebug() << "write request received";
 	commandListWidget->hide();
-	//Take the index and do what you want
 	
 	QString output;
+
 	switch (index) {
-		case 1:
-			//result
+		case CalculatorConfiguration::Result:
 			if (resultCurrentlyDisplayed)
 				output = toString(currentResult);
 			break;
-		case 2:
-			//calculation & result
+		case CalculatorConfiguration::CalculationAndResult:
 			output = ui.leNumber->text();
 			break;
-		case 3:
-			//formatted result
+		case CalculatorConfiguration::FormattedResult:
 			output = formatOutput(CalculatorCommandManager::Default);
 			break;
-		case 4:
-			//formatted calculation & result
+		case CalculatorConfiguration::FormattedCalculationAndResult:
 			output = formatCalculation(CalculatorCommandManager::Default);
 			break;
-		case 5:
-			//formatted money result
+		case CalculatorConfiguration::FormattedMoneyResult:
 			output = formatOutput(CalculatorCommandManager::Money);
 			break;
-		case 6:
-			//formatted money calculation & money result
+		case CalculatorConfiguration::FormattedMoneyCalculationAndResult:
 			output = formatCalculation(CalculatorCommandManager::Money);
 			break;
 	}
@@ -655,7 +655,22 @@ void CalculatorCommandManager::processRequest(int number)
 
 void CalculatorCommandManager::ok()
 {
-	commandListWidget->show();
+	CalculatorConfiguration::OutputModeSelection modeSelection= CalculatorConfiguration::getInstance()->outputModeSelection();
+	CalculatorConfiguration::OutputMode mode = CalculatorConfiguration::getInstance()->outputMode();
+	kDebug() << modeSelection << mode;
+
+	switch (modeSelection) {
+		case CalculatorConfiguration::AlwaysAsk:
+			commandListWidget->show();
+			break;
+		case CalculatorConfiguration::UseDefault:
+			writeoutRequestReceived((int) mode);
+			break;
+		case CalculatorConfiguration::AskButDefaultAfterTimeout:
+			commandListWidget->show();
+			commandListWidget->selectAfterTimeout((int) mode, CalculatorConfiguration::getInstance()->askTimeout());
+			break;
+	}
 }
 
 bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
@@ -767,7 +782,7 @@ bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
 
 bool CalculatorCommandManager::trigger(const QString& triggerName)
 {
-	if (triggerName != CalculatorConfiguration::getInstance()->trigger()){
+	if (!triggerName.isEmpty()){
 		kDebug() << triggerName << "Returning";
 		return false;
 	}

@@ -104,6 +104,7 @@ public slots:
 	void activate();
 
 public:
+	const QString preferredTrigger() const;
 	const KIcon icon() const;
 	bool addCommand(Command *) { return false; }
 	const QString name() const;
