@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "atid=935103&group_id=190872\n"
 "POT-Creation-Date: 2009-09-20 13:03+0200\n"
-"PO-Revision-Date: 2009-09-20 13:14+0200\n"
+"PO-Revision-Date: 2009-09-20 13:19+0200\n"
 "Last-Translator: \n"
 "Language-Team: en_US <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1957,7 +1957,7 @@ msgstr ""
 
 #: src/simonmodelmanagementui/ImportDict/importdictintropage.cpp:48
 msgid "Target:"
-msgstr "Auslöser\:"
+msgstr "Auslöser:"
 
 #: src/simonmodelmanagementui/ImportDict/importdictintropage.cpp:51
 msgid "Shadow Dictionary"
