@@ -13,3 +13,4 @@
 
 /* Define if you use libjcode */
 /* #undef USE_LIBJCODE */
+/*#define USE_LIBJCODE 1*/

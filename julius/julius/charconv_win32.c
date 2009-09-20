@@ -207,6 +207,7 @@ charconv_win32(char *instr, char *outstr, int maxoutlen)
   char *srcbuf;
   
   srcbuf = instr;
+  #ifdef USE_LIBJCODE
   if (euctosjis == TRUE) {
     /* euc->sjis conversion */
     //toStringSJIS(instr, outstr, maxoutlen);
@@ -216,6 +217,7 @@ charconv_win32(char *instr, char *outstr, int maxoutlen)
       return(outstr);
     }
   }
+  #endif
   
   /* get length of unicode string */
   unilen = MultiByteToWideChar(from_cp, 0, srcbuf, -1, NULL, 0);

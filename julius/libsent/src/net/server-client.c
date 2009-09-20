@@ -25,6 +25,10 @@
 #include <sent/stddefs.h>
 #include <sent/tcpip.h>
 
+#ifdef __WIN32
+#define sleep Sleep
+#endif
+
 #ifdef WINSOCK
 boolean winsock_initialized = FALSE; ///< TRUE if once initialized
 #endif

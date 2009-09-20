@@ -38,6 +38,6 @@ install( FILES ${simonmodeltest_LIB_HDRS}
   COMPONENT simonddevel
 )
  
-install( TARGETS simonmodeltest DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT simond )
+install( TARGETS simonmodeltest DESTINATION ${SIMON_LIB_INSTALL_DIR} COMPONENT sam  )
 
 #add_subdirectory(config)

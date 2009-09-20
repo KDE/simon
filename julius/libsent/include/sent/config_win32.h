@@ -115,6 +115,7 @@
 
 /* Define if you use libjcode */
 /* #undef USE_LIBJCODE */
+/*#define USE_LIBJCODE 1*/
 
 /* Define if you allow class N-gram  */
 #define CLASS_NGRAM 1

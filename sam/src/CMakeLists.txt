@@ -20,8 +20,8 @@ kde4_add_app_icon(sam_SRCS
 "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-sam.png")
 kde4_add_executable(sam ${sam_SRCS})
 
-target_link_libraries(sam ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS}
-	simonmodelcompilation simonmodeltest simonsound)
+target_link_libraries(sam ${QT_LIBRARIES} ${KDE4_KDEUI_LIBS} ${KDE4_KUTILS_LIBS}
+	${KDE4_KIO_LIBS} simonmodelcompilation simonmodeltest simonsound simonrecognitionresult)
 
 install(TARGETS sam DESTINATION ${BIN_INSTALL_DIR}  COMPONENT sam)
 
