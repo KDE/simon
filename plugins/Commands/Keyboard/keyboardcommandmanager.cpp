@@ -124,7 +124,7 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 
 	bool caseSensitivityBool = getKeyboardConfiguration()->caseSensitive();
 	Qt::CaseSensitivity caseSensitivity = caseSensitivityBool ? Qt::CaseSensitive : Qt::CaseInsensitive;
-        if (QString::compare(inputText, ui.pbOk->text(), caseSensitivity)==0) {
+        if (QString::compare(inputText, ui.pbOk->text().remove("&"), caseSensitivity)==0) {
 		ui.pbOk->animateClick();
 		return true;
 	}
@@ -132,36 +132,37 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 	kDebug() << "About to process special keys " << inputText;
 
 	//special keys
-	kDebug() << ui.pbShift->text() << inputText << QString::compare(inputText, ui.pbShift->text(), caseSensitivity);
-        if (ui.pbShift->isVisible() && (QString::compare(inputText, ui.pbShift->text(), caseSensitivity)==0)) {
+	kDebug() << ui.pbShift->text().remove("&") << inputText << QString::compare(inputText, ui.pbShift->text().remove("&"), caseSensitivity);
+        if (ui.pbShift->isVisible() && (QString::compare(inputText, ui.pbShift->text().remove("&"), caseSensitivity)==0)) {
 		ui.pbShift->animateClick();
 		return true;
 	}
-        if (ui.pbCapsLock->isVisible() && (QString::compare(inputText, ui.pbCapsLock->text(), caseSensitivity)==0)) {
+	kDebug()  << ui.pbCapsLock->isVisible() << inputText << ui.pbCapsLock->text().remove("&") << QString::compare(inputText, ui.pbCapsLock->text().remove("&"), caseSensitivity);
+        if (ui.pbCapsLock->isVisible() && (QString::compare(inputText, ui.pbCapsLock->text().remove("&"), caseSensitivity)==0)) {
 		ui.pbCapsLock->animateClick();
 		return true;
 	}
-        if (ui.pbControl->isVisible() && (QString::compare(inputText, ui.pbControl->text(), caseSensitivity)==0)) {
+        if (ui.pbControl->isVisible() && (QString::compare(inputText, ui.pbControl->text().remove("&"), caseSensitivity)==0)) {
 		ui.pbControl->animateClick();
 		return true;
 	}
-        if (ui.pbBackspace->isVisible() && (QString::compare(inputText, ui.pbBackspace->text(), caseSensitivity)==0)) {
+        if (ui.pbBackspace->isVisible() && (QString::compare(inputText, ui.pbBackspace->text().remove("&"), caseSensitivity)==0)) {
 		ui.pbBackspace->animateClick();
 		return true;
 	}
-        if (ui.pbReturn->isVisible() && (QString::compare(inputText, ui.pbReturn->text(), caseSensitivity)==0)) {
+        if (ui.pbReturn->isVisible() && (QString::compare(inputText, ui.pbReturn->text().remove("&"), caseSensitivity)==0)) {
 		ui.pbReturn->animateClick();
 		return true;
 	}
-        if (ui.pbAlt->isVisible() && (QString::compare(inputText, ui.pbAlt->text(), caseSensitivity)==0)) {
+        if (ui.pbAlt->isVisible() && (QString::compare(inputText, ui.pbAlt->text().remove("&"), caseSensitivity)==0)) {
 		ui.pbAlt->animateClick();
 		return true;
 	}
-        if (ui.pbAltGr->isVisible() && (QString::compare(inputText, ui.pbAltGr->text(), caseSensitivity)==0)) {
+        if (ui.pbAltGr->isVisible() && (QString::compare(inputText, ui.pbAltGr->text().remove("&"), caseSensitivity)==0)) {
 		ui.pbAltGr->animateClick();
 		return true;
 	}
-        if (ui.pbSuper->isVisible() && (QString::compare(inputText, ui.pbSuper->text(), caseSensitivity)==0)) {
+        if (ui.pbSuper->isVisible() && (QString::compare(inputText, ui.pbSuper->text().remove("&"), caseSensitivity)==0)) {
 		ui.pbSuper->animateClick();
 		return true;
 	}
@@ -170,19 +171,19 @@ bool KeyboardCommandManager::greedyTrigger(const QString& inputText)
 
 	//numpad?
 	if (getKeyboardConfiguration()->showNumpad()) {
-		if (ui.pbSelectNumber->isVisible() && (QString::compare(inputText, ui.pbSelectNumber->text(), caseSensitivity)==0)) {
+		if (ui.pbSelectNumber->isVisible() && (QString::compare(inputText, ui.pbSelectNumber->text().remove("&"), caseSensitivity)==0)) {
 			ui.pbSelectNumber->animateClick();
 			return true;
 		}
-		if (ui.pbWriteOutNumber->isVisible() && (QString::compare(inputText, ui.pbWriteOutNumber->text(), caseSensitivity)==0)) {
+		if (ui.pbWriteOutNumber->isVisible() && (QString::compare(inputText, ui.pbWriteOutNumber->text().remove("&"), caseSensitivity)==0)) {
 			ui.pbWriteOutNumber->animateClick();
 			return true;
 		}
-		if (QString::compare(inputText, ui.pbNumberBackspace->text(), caseSensitivity)==0) {
+		if (QString::compare(inputText, ui.pbNumberBackspace->text().remove("&"), caseSensitivity)==0) {
 			ui.pbNumberBackspace->animateClick();
 			return true;
 		}
-		if (QString::compare(inputText, ui.pbDecimalSeparator->text(), caseSensitivity)==0) {
+		if (QString::compare(inputText, ui.pbDecimalSeparator->text().remove("&"), caseSensitivity)==0) {
 			ui.pbDecimalSeparator->animateClick();
 			return true;
 		}
