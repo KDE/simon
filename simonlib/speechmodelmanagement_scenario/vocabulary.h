@@ -22,7 +22,6 @@
 #define VOCABULARY_H
 #include <QString>
 #include <QList>
-#include <QBrush>
 #include <QAbstractItemModel>
 
 #include "simonmodelmanagement_export.h"
@@ -34,14 +33,6 @@ class MODELMANAGEMENT_EXPORT Vocabulary : public ScenarioObject, public QAbstrac
 {
 
 private:
-	QBrush recogWeak, recogNone;
-	QList<Word*> m_words;
-
-
-	void buildBrushes();
-
-	//Model methods
-	QVariant data(const QModelIndex &index, int role) const;
 	Qt::ItemFlags flags(const QModelIndex &index) const;
 	QVariant headerData(int, Qt::Orientation orientation,
 				int role = Qt::DisplayRole) const;
@@ -54,6 +45,8 @@ private:
 
 protected:
 	Vocabulary(Scenario *parent);
+	QList<Word*> m_words;
+	virtual QVariant data(const QModelIndex &index, int role) const;
 
 public:
 	static Vocabulary* createVocabulary(Scenario *parent, const QDomElement&);
@@ -63,6 +56,7 @@ public:
 	bool removeWord(Word* w);
 
 	int wordCount() { return m_words.count(); }
+	virtual ~Vocabulary() {}
 };
 
 #endif

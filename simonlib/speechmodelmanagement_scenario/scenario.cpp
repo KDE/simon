@@ -21,7 +21,7 @@
 #include <simonscenariobase/scenarioobject.h>
 #include <simonscenariobase/author.h>
 #include <simonscenariobase/versionnumber.h>
-#include "vocabulary.h"
+#include "activevocabulary.h"
 #include "grammar.h"
 #include "trainingtext.h"
 
@@ -115,6 +115,7 @@ bool Scenario::init(QString path)
 	
 	//clear authors
 	qDeleteAll(m_authors);
+	kDebug() << "hi";
 
 	QDomElement authorsElem = docElem.firstChildElement("authors");
 	QDomElement authorElem = authorsElem.firstChildElement();
@@ -141,7 +142,7 @@ bool Scenario::init(QString path)
 	//************************************************/
 	kDebug() << "About to create the vocabulay...";
 	QDomElement vocabElem = docElem.firstChildElement("vocabulary");
-	m_vocabulary = Vocabulary::createVocabulary(this, vocabElem);
+	m_vocabulary = ActiveVocabulary::createVocabulary(this, vocabElem);
 	if (!m_vocabulary) {
 		kDebug() << "Vocabulary could not be loaded!";
 		return false;

@@ -27,7 +27,6 @@
  */
 Vocabulary::Vocabulary(Scenario *parent) : ScenarioObject(parent)
 {
-	buildBrushes();
 }
 
 /**
@@ -114,15 +113,6 @@ bool Vocabulary::removeWord(Word* w)
 	return false;
 }
 
-void Vocabulary::buildBrushes()
-{
-	KColorScheme colorScheme(QPalette::Active);
-	QColor negative = colorScheme.background(KColorScheme::NegativeBackground).color();
-
-	recogNone = KColorScheme::shade(negative, KColorScheme::DarkShade);
-	recogWeak = KColorScheme::shade(negative, KColorScheme::MidShade);
-
-}
 
 QVariant Vocabulary::data(const QModelIndex &index, int role) const
 {
@@ -146,18 +136,8 @@ QVariant Vocabulary::data(const QModelIndex &index, int role) const
 			case 3:
 				return word->getPropability();
 		}
-	} else if (role == Qt::BackgroundRole)
-	{
-		int propab = word->getPropability();
-		switch (propab)
-		{
-			case 0:
-				return recogNone;
-			case 1:
-				return recogWeak;
-		}
 	}
-	
+
 	return QVariant();
 }
 
