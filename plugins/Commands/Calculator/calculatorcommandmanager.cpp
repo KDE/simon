@@ -781,11 +781,11 @@ bool CalculatorCommandManager::greedyTrigger(const QString& inputText)
                 ui.pbPercent->animateClick();
                 return true;
         }
-        if(inputText.toUpper() == ui.pbBack->text().toUpper()) {
+        if(inputText.toUpper() == ui.pbBack->text().remove("&").toUpper()) {
                 ui.pbBack->animateClick();
                 return true;
         }
-        if(inputText.toUpper() == ui.pbClear->text().toUpper()) {
+        if(inputText.toUpper() == ui.pbClear->text().remove("&").toUpper()) {
                 ui.pbClear->animateClick();
                 return true;
         }

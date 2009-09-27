@@ -21,6 +21,7 @@ set( simonmodelmanagement_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlistmodel.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/vocabulary.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/scenario.cpp
 )
 
@@ -32,7 +33,7 @@ set( simonmodelmanagement_LIB_HDRS
   ${CMAKE_CURRENT_SOURCE_DIR}/wordlistmanager.h
   ${CMAKE_CURRENT_SOURCE_DIR}/modelmanager.h
   ${CMAKE_CURRENT_SOURCE_DIR}/scenario.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/vocabulary.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/activevocabulary.h
   ${CMAKE_CURRENT_SOURCE_DIR}/wordlisttype.h
 )
 

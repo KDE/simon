@@ -31,7 +31,7 @@ class Author;
 class Action;
 class VersionNumber;
 class Grammar;
-class Vocabulary;
+class ActiveVocabulary;
 class TrainingText;
 
 class MODELMANAGEMENT_EXPORT Scenario : public QObject {
@@ -49,7 +49,7 @@ private:
 	QString m_licence;
 	QList<Author*> m_authors;
 	VersionNumber *m_simonMinVersion, *m_simonMaxVersion;
-	Vocabulary *m_vocabulary;
+	ActiveVocabulary *m_vocabulary;
 	Grammar *m_grammar;
 	QList<Action*> m_actions;
 	QList<TrainingText*> m_texts;
@@ -61,7 +61,7 @@ public:
 	QString name() { return m_name; }
 	QString id() { return m_scenarioId; }
 
-	Vocabulary* vocabulary() { return m_vocabulary; }
+	ActiveVocabulary* vocabulary() { return m_vocabulary; }
 
 	bool init(QString path=QString());
 	bool save(QString path=QString());

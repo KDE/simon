@@ -26,6 +26,7 @@
 
 #include <speechmodelbase_scenario/word.h>
 #include <speechmodelmanagement_scenario/vocabulary.h>
+#include <speechmodelmanagement_scenario/activevocabulary.h>
 #include <speechmodelmanagement_scenario/wordlisttype.h>
 #include <simonscenariobase/scenariodisplay.h>
 
@@ -55,7 +56,6 @@ private:
 
 public slots:
 	void abortInsertion() { abortVocabInsertion = true; }
-	void reloadShadowList();
 	void markWordToTrain( Word word );
 	void copyWordToTrain();
 	void deleteTrainingWord();

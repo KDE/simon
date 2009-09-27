@@ -62,28 +62,10 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 	connect(ui.leSearch, SIGNAL(returnPressed()), this, SLOT(filterListbyPattern()));
 	connect(ui.leSearch, SIGNAL(clearButtonClicked()), this, SLOT(filterListbyPattern()));
 	
-// 	connect(ui.leSearch, SIGNAL(editingFinished()), this, SLOT(filterListbyPattern()));
-	//we can't filter on editingFinished() LineEdit because that would cause simon to
-	//run in the following infinite loop:
-	//	1. We press return in the LineEdit which activates the returnPressed() signal which
-	//	   in turn activates filterListbyPattern()
-	//	2. filterListbyPattern() displays a progressdialog while filtering the vocabulary
-	//	   which of course gets the focus.
-	//	3. This means we get a hit on editingFinished() which starts to filter the Wordlist again
-	//	4. Which shows the progressdialog again
-	//	5. Which, when shown will activate editingFinished() again, etc.
-	// so we just use returnPressed() for now, which makes more sense anyways
-	
 	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(showImportDictDialog()));
 	
 	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(filterListbyPattern()));
-
-	//this->wordListManager = WordListManager::getInstance();
-	//connect(this->wordListManager, SIGNAL(vocabularyChanged()), this, SLOT(filterListbyPattern()));
-	
-	//connect(this->wordListManager, SIGNAL(shadowListChanged()), this, SLOT(reloadShadowList()));
-	this->filterListbyPattern();
 
 	ui.pbImport->setIcon(KIcon("document-import"));
 	ui.pbRemoveWord->setIcon(KIcon("edit-delete"));
@@ -92,6 +74,8 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 	ui.pbTrainList->setIcon(KIcon("go-next"));
 
 	ui.tvVocab->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+	filterListbyPattern();
 }
 
 void VocabularyViewPrivate::displayScenarioPrivate(Scenario *scenario)
@@ -102,21 +86,6 @@ void VocabularyViewPrivate::displayScenarioPrivate(Scenario *scenario)
 	ui.tvVocab->setModel(scenario->vocabulary());
 }
 
-
-/**
- * \brief Reloads the vocabulary if the shadowlist is displayed
- * \author Peter Grasch
- * \note Respects filters (by calling filterListbyPattern())
- */
-void VocabularyViewPrivate::reloadShadowList()
-{
-	//if the shadowlist is not even shown - why bother?
-	if (!ui.cbShowCompleteLexicon->isChecked()) return;
-
-	//else, reload
-	filterListbyPattern(); //this will take care of the currently active filter
-	// if there is none set, we will just load the list with loadList
-}
 
 void VocabularyViewPrivate::showImportDictDialog()
 {
@@ -136,6 +105,47 @@ void VocabularyViewPrivate::importDict(WordList* list, WordListTarget::WordListT
 	//	wordListManager->addWords(list, true, ((type == VocabularyTarget::ShadowList) ? true : false));
 	//}
 }
+
+/**
+ * \brief Displays a dialog to ask the user what to do
+ * \author Peter Grasch
+ * 
+ * Available options: 
+ * 	Remove completely
+ * 	Move to shadow list
+ */
+void VocabularyViewPrivate::deleteSelectedWord()
+{
+	if (!scenario) return;
+
+	QModelIndex selectedIndex = ui.tvVocab->currentIndex();
+	if (!selectedIndex.isValid()) {
+		KMessageBox::information(this, i18n("Please select a word first"));
+		return;
+	}
+
+	Word *w = static_cast<Word*>(ui.tvVocab->currentIndex().internalPointer());
+	DeleteWordDialog *del = new DeleteWordDialog(this);
+
+	//TODO: shadow list display is not supported yet so this is always false
+	bool isShadowed = false;
+
+	if (del->exec(*w, isShadowed))
+	{
+		//delete the word
+		if (del->getDeletionType() == DeleteWordDialog::MoveToShadow) {
+			KMessageBox::information(this, i18n("Not yet supported"));
+			//scenario->vocabulary()->removeWord(w);
+			//success = wordListManager->moveToShadow(w);
+		}
+		if (del->getDeletionType() == DeleteWordDialog::RemoveCompletely) {
+			scenario->vocabulary()->removeWord(w);
+			delete w;
+		}
+	}
+	del->deleteLater();
+}
+
 
 
 /**
@@ -220,45 +230,8 @@ void VocabularyViewPrivate::copyWordToTrain()
 }
 
 
-/**
- * \brief Displays a dialog to ask the user what to do
- * \author Peter Grasch
- * 
- * Available options: 
- * 	Remove completely
- * 	Move to shadow list
- */
-void VocabularyViewPrivate::deleteSelectedWord()
-{
-	if (!scenario) return;
 
-	QModelIndex selectedIndex = ui.tvVocab->currentIndex();
-	if (!selectedIndex.isValid()) {
-		KMessageBox::information(this, i18n("Please select a word first"));
-		return;
-	}
 
-	Word *w = static_cast<Word*>(ui.tvVocab->currentIndex().internalPointer());
-	DeleteWordDialog *del = new DeleteWordDialog(this);
-
-	//TODO: shadow list display is not supported yet so this is always false
-	bool isShadowed = false;
-
-	if (del->exec(*w, isShadowed))
-	{
-		//delete the word
-		if (del->getDeletionType() == DeleteWordDialog::MoveToShadow) {
-			KMessageBox::information(this, i18n("Not yet supported"));
-			//scenario->vocabulary()->removeWord(w);
-			//success = wordListManager->moveToShadow(w);
-		}
-		if (del->getDeletionType() == DeleteWordDialog::RemoveCompletely) {
-			scenario->vocabulary()->removeWord(w);
-			delete w;
-		}
-	}
-	del->deleteLater();
-}
 
 /**
  * @brief Deletes the selected word from the Training-List
