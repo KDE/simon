@@ -23,8 +23,7 @@ install( FILES settings-simond.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} COM
 
 
 message(STATUS "Enabling simons experimental scenario support.")
-add_definitions(-DSIMON_SCENARIOS)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelbase_scenario)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagement_scenario)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelbase)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/speechmodelmanagement)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/simonscenariobase)
 

@@ -74,7 +74,6 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/internetextensiondlg.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/removeword.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/trainmain.ui
-	${CMAKE_CURRENT_SOURCE_DIR}/wordlist.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextlocalpage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextremotepage.ui
 	${CMAKE_CURRENT_SOURCE_DIR}/ImportTrainingTexts/importtrainingtextworkingpage.ui
@@ -121,21 +120,11 @@ kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
  	  speechmodelmanagementuiconfiguration.kcfgc)
 
 
-if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-add_definitions(-DSIMON_SCENARIOS)
-endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-
 kde4_add_library( simonmodelmanagementui  SHARED ${simonmodelmanagementui_LIB_SRCS} )
 
-if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
 target_link_libraries( simonmodelmanagementui ${QT_LIBRARIES}
 ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonlogging speechgui simonmodelmanagement simoninfo simonxml
 simonsound simonscenariobase )
-else (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-target_link_libraries( simonmodelmanagementui ${QT_LIBRARIES}
-${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} simonlogging speechgui simonmodelmanagement simoninfo simonxml
-simonsound )
-endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
 
 set_target_properties( simonmodelmanagementui
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

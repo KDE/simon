@@ -22,7 +22,7 @@
 
 #include <QStringList>
 #include <simonxml/xmldomreader.h>
-#include <speechmodelbase_scenario/trainingtext.h>
+#include <speechmodelbase/trainingtext.h>
 
 /**
  *  @class XMLTrainingText

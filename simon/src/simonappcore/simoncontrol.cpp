@@ -32,7 +32,7 @@
 
 #include <QFileInfo>
 #include <KDebug>
-#include <speechmodelmanagement_scenario/scenario.h>
+#include <speechmodelmanagement/scenario.h>
 #include <simonscenariobase/scenariodisplay.h>
 
 /**

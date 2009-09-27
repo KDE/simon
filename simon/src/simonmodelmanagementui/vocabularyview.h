@@ -24,7 +24,6 @@
 #include "inlinewidget.h"
 #include "simonmodelmanagementui_export.h"
 
-//#include <speechmodelbase_scenario/vocabulary.h>
 #include <simonscenariobase/scenariodisplay.h>
 
 

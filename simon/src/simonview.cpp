@@ -38,6 +38,7 @@
 #include <simonmodelmanagementui/grammarview.h>
 #include <simonmodelmanagementui/AddWord/addwordview.h>
 #include <simonactions/actionmanager.h>
+#include <speechmodelmanagement/scenario.h>
 
 #include <QTimer>
 #include <QPixmap>

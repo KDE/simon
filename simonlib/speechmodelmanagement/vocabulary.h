@@ -26,7 +26,7 @@
 
 #include "simonmodelmanagement_export.h"
 
-#include <speechmodelbase_scenario/word.h>
+#include <speechmodelbase/word.h>
 #include <simonscenariobase/scenarioobject.h>
 
 class MODELMANAGEMENT_EXPORT Vocabulary : public ScenarioObject, public QAbstractItemModel

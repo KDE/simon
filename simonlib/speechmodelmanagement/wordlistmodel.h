@@ -24,7 +24,7 @@
 #include <QAbstractItemModel>
 #include <QStringList>
 #include <QBrush>
-#include <speechmodelbase_scenario/word.h>
+#include <speechmodelbase/word.h>
 #include "simonmodelmanagement_export.h"
 
 

@@ -24,10 +24,10 @@
 
 #include "ui_vocabulary.h"
 
-#include <speechmodelbase_scenario/word.h>
-#include <speechmodelmanagement_scenario/vocabulary.h>
-#include <speechmodelmanagement_scenario/activevocabulary.h>
-#include <speechmodelmanagement_scenario/wordlisttype.h>
+#include <speechmodelbase/word.h>
+#include <speechmodelmanagement/vocabulary.h>
+#include <speechmodelmanagement/activevocabulary.h>
+#include <speechmodelmanagement/wordlisttype.h>
 #include <simonscenariobase/scenariodisplay.h>
 
 

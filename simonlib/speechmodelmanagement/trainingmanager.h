@@ -21,8 +21,8 @@
 #ifndef TRAININGMANAGER_H
 #define TRAININGMANAGER_H
 
-#include <speechmodelbase_scenario/word.h>
-#include <speechmodelbase_scenario/trainingtext.h>
+#include <speechmodelbase/word.h>
+#include <speechmodelbase/trainingtext.h>
 #include <QHash>
 #include <QMutex>
 #include <QList>
