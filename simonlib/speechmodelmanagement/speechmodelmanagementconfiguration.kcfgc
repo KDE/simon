@@ -1,4 +1,0 @@
-File=speechmodelmanagementconfiguration.kcfg
-ClassName=SpeechModelManagementConfiguration
-Singleton=true
-Mutators=true

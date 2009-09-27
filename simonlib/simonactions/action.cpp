@@ -24,7 +24,6 @@
 #include <commandpluginbase/commandmanager.h>
 #include <simonscenariobase/versionnumber.h>
 
-#ifdef SIMON_SCENARIOS
 Action::Action(Scenario *parent, const QString& source, const QString& trigger) : ScenarioObject(parent),
 	m_source(source),
 	pluginMinVersion(0),
@@ -32,25 +31,19 @@ Action::Action(Scenario *parent, const QString& source, const QString& trigger) 
 {
 	init(source, trigger);
 }
-#endif
 
 /**
  * Deprecated constructor kept for compatibility reasons for now
  * FIXME: Remove it
  */
 
-#ifdef SIMON_SCENARIOS
 Action::Action(const QString& source, const QString& trigger) : ScenarioObject(NULL), m_source(source),
-#else
-Action::Action(const QString& source, const QString& trigger): m_source(source),
-#endif
 	pluginMinVersion(0),
 	pluginMaxVersion(0)
 {
 	init(source, trigger);
 }
 
-#ifdef SIMON_SCENARIOS
 Action* Action::createAction(Scenario *parent, const QDomElement& pluginElem)
 {
 	QString pluginSource = pluginElem.attribute("name");
@@ -65,7 +58,6 @@ Action* Action::createAction(Scenario *parent, const QDomElement& pluginElem)
 
 	return a;
 }
-#endif
 
 void Action::init(const QString& source, const QString& trigger)
 {
@@ -99,7 +91,6 @@ void Action::init(const QString& source, const QString& trigger)
 	}
 }
 
-#ifdef SIMON_SCENARIOS
 bool Action::deSerialize(const QDomElement& pluginElem)
 {
 	QDomElement pluginCompatibilityElem = pluginElem.firstChildElement("pluginCompatibility");
@@ -133,9 +124,7 @@ bool Action::deSerialize(const QDomElement& pluginElem)
 
 	return true;
 }
-#endif
 
-#ifdef SIMON_SCENARIOS
 QDomElement Action::serialize(QDomDocument *doc)
 {
 	QDomElement pluginElem = doc->createElement("plugin");
@@ -154,15 +143,12 @@ QDomElement Action::serialize(QDomDocument *doc)
 
 	pluginElem.appendChild(pluginCompatibilityElem);
 
-	//TODO: config elem is empty;
 	pluginElem.appendChild(m_manager->serializeConfig(doc, parentScenario));
 
-	//TODO: command elem is empty
 	pluginElem.appendChild(m_manager->serializeCommands(doc, parentScenario));
 
 	return pluginElem;
 }
-#endif
 
 QIcon Action::icon()
 {

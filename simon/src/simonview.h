@@ -61,12 +61,8 @@ class KCMultiDialog;
 class KAction;
 class Operation;
 class QThread;
-#ifdef SIMON_SCENARIOS
 class VocabularyView;
 class QComboBox;
-#else
-class WordListView;
-#endif
 
 
 class SimonView : public SimonMainWindow    {
@@ -89,28 +85,20 @@ private:
 	SimonControl *control; //!< Pointer to the main concept class
 	TrayIconManager *trayManager; //!< Handles the TrayIcon
 	AddWordView *addWordView; //!< Pointer on the Dialog "Add Word to Language model"
-#ifdef SIMON_SCENARIOS
 	VocabularyView *vocabularyView;
-#else
-	WordListView *wordList; 
-#endif
 	GrammarView *grammarView; //!< Pointer on the Dialog "WordList"
 	RunCommandView *runDialog; //!< Pointer on the Dialog "RunCommand"
 	TrainingView *trainDialog; //!< Pointer on the Dialog "Training"
 	KCMultiDialog *configDialog;
 
-#ifdef SIMON_SCENARIOS
 	QComboBox *cbCurrentScenario;
-#endif
 
 	void setupSignalSlots();
 	void setupActions();
 
 private slots:
-#ifdef SIMON_SCENARIOS
 	void manageScenarios();
 	void updateScenarioDisplays();
-#endif
 
 public slots:
 	void displayConnectionStatus(const QString &status);

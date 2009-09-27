@@ -26,18 +26,12 @@
 #include <QIcon>
 #include <KLocalizedString>
 #include <QDomElement>
-#ifdef SIMON_SCENARIOS
 #include <simonscenariobase/scenarioobject.h>
-#endif
 #include "actionlib_export.h"
 class CommandManager;
 class VersionNumber;
 
-#ifdef SIMON_SCENARIOS
 class SIMONACTIONS_EXPORT Action : public QObject, public ScenarioObject
-#else
-class SIMONACTIONS_EXPORT Action : public QObject
-#endif
 {
 	Q_OBJECT
 	private:
@@ -50,16 +44,12 @@ class SIMONACTIONS_EXPORT Action : public QObject
 		bool m_enabledByDefault;
 
 		void init(const QString& source, const QString& trigger=QString());
-		#ifdef SIMON_SCENARIOS
 		Action(Scenario *parent, const QString& source, const QString& trigger);
-		#endif
 	public:
 		Action(const QString& source, const QString& trigger=QString());
 		typedef QPointer<Action> Ptr;
 
-		#ifdef SIMON_SCENARIOS
 		static Action* createAction(Scenario *parent, const QDomElement& elem);
-		#endif
 
 		bool enabledByDefault() { return m_enabledByDefault; }
 		QString source() { return m_source; }
@@ -71,10 +61,8 @@ class SIMONACTIONS_EXPORT Action : public QObject
 		QPointer<CommandManager> manager() { return m_manager; }
 		void setTrigger(const QString& newTrigger) { m_trigger=newTrigger; }
 
-		#ifdef SIMON_SCENARIOS
 		bool deSerialize(const QDomElement&);
 		QDomElement serialize(QDomDocument *doc);
-		#endif
 
 		~Action();
 

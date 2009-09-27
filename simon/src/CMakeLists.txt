@@ -28,10 +28,6 @@ kde4_add_ui_files( simonGeneralSources
 	${CMAKE_CURRENT_SOURCE_DIR}/simonview.ui
 )
 
-if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-add_definitions(-DSIMON_SCENARIOS)
-endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-
 
 
 kde4_add_app_icon(simonGeneralSources "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-simon.png")

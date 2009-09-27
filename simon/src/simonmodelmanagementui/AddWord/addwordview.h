@@ -37,11 +37,7 @@
 #include <QWizard>
 #include <QStringList>
 #include <QHash>
-#ifdef SIMON_SCENARIOS
-#include <speechmodelbase_scenario/word.h>
-#else
 #include <speechmodelbase/word.h>
-#endif
 #include "../simonmodelmanagementui_export.h"
 
 class QWizardPage;
