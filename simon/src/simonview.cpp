@@ -32,14 +32,8 @@
 #include <simonprogresstracking/statusmanager.h>
 #include <simonprogresstracking/compositeprogresswidget.h>
 
-#ifdef SIMON_SCENARIOS
-#include <speechmodelmanagement_scenario/wordlistmanager.h>
-#include <speechmodelmanagement_scenario/scenario.h>
-#include <simonmodelmanagementui/vocabularyview.h>
-#else
 #include <speechmodelmanagement/wordlistmanager.h>
 #include <simonmodelmanagementui/wordlistview.h>
-#endif
 
 #include <simonmodelmanagementui/trainingview.h>
 #include <simonmodelmanagementui/grammarview.h>
@@ -149,12 +143,7 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	this->trainDialog = new TrainingView(this);
 
 	info->writeToSplash ( i18n ( "Loading \"Wordlist\"..." ) );
-#ifdef SIMON_SCENARIOS
-	vocabularyView = new VocabularyView(this);
-	control->registerScenarioDisplay(vocabularyView);
-#else
 	this->wordList = new WordListView(this);
-#endif
 
 	info->writeToSplash ( i18n ( "Loading \"Grammar\"..." ) );
 	this->grammarView = new GrammarView(this);
@@ -167,16 +156,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	
 	settingsShown=false;
 
-#ifdef SIMON_SCENARIOS
-	cbCurrentScenario = new QComboBox(this);
-	QList<Scenario*> scenarioList = control->getScenarios();
-	foreach (Scenario* s, scenarioList) {
-		cbCurrentScenario->addItem(s->icon(), s->name(), s->id());
-	}
-
-	updateScenarioDisplays();
-#endif
-	
 	setupActions();
 
 	setupSignalSlots();
@@ -198,25 +177,6 @@ SimonView::SimonView(QWidget* parent, Qt::WFlags flags)
 	if (!control->startMinimized())
 		show();
 }
-
-#ifdef SIMON_SCENARIOS
-void SimonView::updateScenarioDisplays()
-{
-	//a scenario has been selected from the list of loaded scenarios
-	int currentIndex = cbCurrentScenario->currentIndex();
-	kDebug() << currentIndex;
-	if (currentIndex == -1) return;
-
-	QString currentId = cbCurrentScenario->itemData(currentIndex).toString();
-	Scenario *scenario = control->getScenario(currentId);
-	kDebug() << "Scenario " << scenario;
-	if (!scenario) {
-		KMessageBox::error(this, i18n("Couldn't retrieve Scenario \"%1\"", currentId));
-		return;
-	}
-	control->updateDisplays(scenario, true);
-}
-#endif
 
 void SimonView::setupActions()
 {
@@ -302,28 +262,6 @@ void SimonView::setupActions()
 	connect(recompile, SIGNAL(triggered(bool)),
 		control, SLOT(compileModel()));
 	
-#ifdef SIMON_SCENARIOS
-	//QLabel *lbDesc = new QLabel(i18n("Scenario: "), this);
-	KAction* scenarioLabel = new KAction(this);
-	scenarioLabel->setText(i18n("Scenario:"));
-	actionCollection()->addAction("scenarioLabel", scenarioLabel);
-
-
-	KAction* currentScenarioAction = new KAction(this);
-	currentScenarioAction->setText(i18n("Synchronize"));
-	currentScenarioAction->setDefaultWidget(cbCurrentScenario);
-	actionCollection()->addAction("selectScenario", currentScenarioAction);
-
-
-	KAction* manageScenariosAction = new KAction(this);
-	manageScenariosAction->setText(i18n("Manage scenarios"));
-	manageScenariosAction->setIcon(KIcon("view-choose"));
-	actionCollection()->addAction("manageScenarios", manageScenariosAction);
-	connect(manageScenariosAction, SIGNAL(triggered(bool)),
-		this, SLOT(manageScenarios()));
-#endif
-
-	
 	actionCollection()->addAction(KStandardAction::Preferences, "configuration",
                                this, SLOT(showSystemDialog()));
 
@@ -334,13 +272,6 @@ void SimonView::setupActions()
 
 	ActionManager::getInstance()->publishGuiActions();
 }
-
-#ifdef SIMON_SCENARIOS
-void SimonView::manageScenarios()
-{
-	KMessageBox::information(this, i18n("This is not yet implemented, sorry!"));
-}
-#endif
 
 /**
  * \brief Sets up the signal/slot connections
@@ -355,9 +286,6 @@ void SimonView::setupSignalSlots()
 	connect ( control, SIGNAL(systemStatusChanged(SimonControl::SystemStatus)), this, SLOT(representState(SimonControl::SystemStatus)));
 
 	connect(trainDialog, SIGNAL(execd()), this, SLOT(showTrainDialog()));
-#ifdef SIMON_SCENARIOS
-	connect(cbCurrentScenario, SIGNAL(currentIndexChanged(int)), this, SLOT(updateScenarioDisplays()));
-#endif
 }
 
 void SimonView::displayConnectionStatus(const QString &status)
@@ -445,11 +373,7 @@ void SimonView::showTrainDialog ()
  */
 void SimonView::showWordListDialog ()
 {
-#ifdef SIMON_SCENARIOS
-	ui.inlineView->toggleDisplay(vocabularyView);
-#else
 	ui.inlineView->toggleDisplay(wordList);
-#endif
 }
 
 /**

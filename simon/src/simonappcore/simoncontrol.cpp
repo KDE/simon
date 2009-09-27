@@ -30,13 +30,6 @@
 #include <simoninfo/simoninfo.h>
 #include <simonrecognitionresult/recognitionresult.h>
 
-#ifdef SIMON_SCENARIOS
-#include <QFileInfo>
-#include <KDebug>
-#include <speechmodelmanagement_scenario/scenario.h>
-#include <simonscenariobase/scenariodisplay.h>
-#endif
-
 /**
  * @brief Constructor
  * 
@@ -68,69 +61,8 @@ SimonControl::SimonControl(QWidget *parent) : QObject (parent)
 	
 	QObject::connect(recognitionControl, SIGNAL(recognised(RecognitionResultList*)), this, SLOT(wordRecognised(RecognitionResultList*)));
 	QObject::connect(recognitionControl, SIGNAL(recognitionStatusChanged(RecognitionControl::RecognitionStatus)), this, SLOT(recognitionStatusChanged(RecognitionControl::RecognitionStatus)));
-
-
-#ifdef SIMON_SCENARIOS
-	setupScenarios();
-#endif
 }
 
-#ifdef SIMON_SCENARIOS
-// If force is true, every registered display will switch to this scenario
-// if not, only displays that already display the scenario will be updated
-void SimonControl::updateDisplays(Scenario* scenario, bool force)
-{
-	foreach (ScenarioDisplay* display, scenarioDisplays) {
-		if (force || (display->currentScenario() ==  scenario)) {
-			display->displayScenario(scenario);
-		}
-	}
-}
-
-Scenario* SimonControl::getScenario(const QString& id)
-{
-	foreach (Scenario *scenario, scenarios) {
-		if (scenario->id() == id)
-			return scenario;
-	}
-	return NULL;
-}
-
-void SimonControl::setupScenarios()
-{
-	kDebug() << "Setting up scenarios...";
-	//Currently loads all scenarios
-	//Should be replaced with "only selected ones" through the manage scenario action
-	QStringList scenarioSrcs = KGlobal::dirs()->findAllResources("appdata", "scenarios/");
-	QStringList scenarioIds;
-
-	foreach (const QString& src, scenarioSrcs) {
-		QFileInfo f(src);
-		QString idToBe = f.fileName();
-		if (!scenarioIds.contains(idToBe)) 
-			scenarioIds << idToBe;
-	}
-
-	kDebug() << "Found scenarios: " << scenarioIds;
-
-	foreach (const QString& id, scenarioIds) {
-		Scenario *s = new Scenario(id);
-		kDebug() << "Initializing scenario" << id;
-		if (!s->init()) {
-			KMessageBox::error(0, i18n("Failed to initialize scenario \"%1\"").arg(id));
-		} else {
-			connect(s, SIGNAL(changed(Scenario*)), this, SLOT(updateDisplays(Scenario*)));
-			scenarios << s;
-		}
-	}
-
-	kDebug() << "Creating scenario";
-	Scenario *s = new Scenario("webbrowsing");
-	kDebug() << "Initializing scenario";
-	if (!s->init())
-		KMessageBox::error(0, "Failed to initialize scenario");
-}
-#endif
 
 void SimonControl::actOnAutoConnect()
 {
@@ -384,8 +316,5 @@ void SimonControl::compileModel()
  */
 SimonControl::~SimonControl()
 {
-#ifdef SIMON_SCENARIOS
-	qDeleteAll(scenarios);
-#endif
 	delete recognitionControl;
 }

@@ -45,10 +45,8 @@ class QVariant;
 class RecognitionControl;
 class ActionManager;
 
-#ifdef SIMON_SCENARIOS
 class Scenario;
 class ScenarioDisplay;
-#endif
 
 class SIMONAPPCORE_EXPORT SimonControl : public QObject {
 	Q_OBJECT
@@ -84,14 +82,6 @@ public:
 	bool startMinimized();
 	QString adminPassword();
 
-#ifdef SIMON_SCENARIOS
-	QList<Scenario*> getScenarios() { return scenarios; }
-	void registerScenarioDisplay(ScenarioDisplay *display) {
-		scenarioDisplays.append(display);
-	}
-	Scenario *getScenario(const QString& id);
-#endif
-	
 signals:
 	void guiAction(const QString& action);
 	void systemStatusChanged(SimonControl::SystemStatus);
@@ -116,11 +106,6 @@ public slots:
 	void abortConnecting();
 
 	void compileModel();
-#ifdef SIMON_SCENARIOS
-	// If force is true, every registered display will switch to this scenario
-	// if not, only displays that already display the scenario will be updated
-	void updateDisplays(Scenario* scenario, bool force=false);
-#endif
 
 private slots:
 	void slotConnectionError(const QString& err);
@@ -142,14 +127,9 @@ private:
 	
 	RecognitionControl *recognitionControl; //!< Julius Backend
 
-#ifdef SIMON_SCENARIOS
 	QList<Scenario*> scenarios;
 	QList<ScenarioDisplay*> scenarioDisplays;
 	void setupScenarios();
-#endif
-	
-	
-
 };
 
 #endif

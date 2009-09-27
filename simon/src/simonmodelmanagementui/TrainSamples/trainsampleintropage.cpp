@@ -18,11 +18,7 @@
  */
 #include "trainsampleintropage.h"
 
-#ifdef SIMON_SCENARIOS
-#include <speechmodelmanagement_scenario/trainingmanager.h>
-#else
 #include <speechmodelmanagement/trainingmanager.h>
-#endif
 
 #include <QVBoxLayout>
 #include <QLabel>

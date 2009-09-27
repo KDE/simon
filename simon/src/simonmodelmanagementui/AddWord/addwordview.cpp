@@ -25,13 +25,8 @@
 #include "addwordresolvepage.h"
 #include "../modelmanageruiproxy.h"
 
-#ifdef SIMON_SCENARIOS
-#include <speechmodelmanagement_scenario/wordlistmanager.h>
-#include <speechmodelmanagement_scenario/trainingmanager.h>
-#else
 #include <speechmodelmanagement/wordlistmanager.h>
 #include <speechmodelmanagement/trainingmanager.h>
-#endif
 
 #include <QWizardPage>
 #include <KMessageBox>

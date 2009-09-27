@@ -23,13 +23,8 @@
 #include "ImportDict/importdictview.h"
 #include "TrainSamples/trainingswizard.h"
 
-#ifdef SIMON_SCENARIOS
-#include <speechmodelmanagement_scenario/wordlistmanager.h>
-#include <speechmodelmanagement_scenario/wordlistmodel.h>
-#else
 #include <speechmodelmanagement/wordlistmanager.h>
 #include <speechmodelmanagement/wordlistmodel.h>
-#endif
 #include <simonlogging/logger.h>
 
 #include <QTableWidget>

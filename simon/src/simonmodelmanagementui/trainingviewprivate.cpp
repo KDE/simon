@@ -21,11 +21,7 @@
 
 
 #include "ImportTrainingData/importtrainingdirectory.h"
-#ifdef SIMON_SCENARIOS
-#include <speechmodelmanagement_scenario/trainingmanager.h>
-#else
 #include <speechmodelmanagement/trainingmanager.h>
-#endif
 #include "ImportTrainingTexts/importtrainingtexts.h"
 #include "TrainSamples/trainingswizard.h"
 

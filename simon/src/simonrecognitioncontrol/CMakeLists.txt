@@ -41,10 +41,6 @@ kde4_add_ui_files( simonrecognition_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/synchronisationsettings.ui
 )
 
-if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-add_definitions(-DSIMON_SCENARIOS)
-endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-
 kde4_add_library( simonrecognitioncontrol  SHARED ${simonrecognition_LIB_SRCS} )
 
 

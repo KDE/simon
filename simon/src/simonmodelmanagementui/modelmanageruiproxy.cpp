@@ -23,11 +23,7 @@
 #include <KDebug>
 #include <KStandardDirs>
 #include <KLocalizedString>
-#ifdef SIMON_SCENARIOS
-#include <speechmodelmanagement_scenario/trainingmanager.h>
-#else
 #include <speechmodelmanagement/trainingmanager.h>
-#endif
 
 
 ModelManagerUiProxy::ModelManagerUiProxy(QObject *parent) : ModelManager(parent)

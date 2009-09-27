@@ -33,16 +33,9 @@ kde4_add_ui_files( simonactions_LIB_SRCS
 
 kde4_add_library( simonactions  SHARED ${simonactions_LIB_SRCS} )
 
-if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-add_definitions(-DSIMON_SCENARIOS)
-target_link_libraries( simonactions ${QT_LIBRARIES} ${QT_QTXML_LIBRARY}
-${KDE4_KDEUI_LIBS} speechgui simoncommandpluginbase simonrecognitionresult
-simonscenariobase)
-else (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
 target_link_libraries( simonactions ${QT_LIBRARIES} ${QT_QTXML_LIBRARY}
 ${KDE4_KDEUI_LIBS} speechgui simoncommandpluginbase simonrecognitionresult
 )
-endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
 
 set_target_properties( simonactions
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

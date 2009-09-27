@@ -104,22 +104,6 @@ set( simonmodelmanagementui_LIB_HDRS
 	${CMAKE_CURRENT_SOURCE_DIR}/simonmodelmanagementui_export.h
 )
 
-######################################################
-if (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-set( simonmodelmanagementui_LIB_SRCS
-	${simonmodelmanagementui_LIB_SRCS}
-	${CMAKE_CURRENT_SOURCE_DIR}/vocabularyview.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/vocabularyviewprivate.cpp
-	)
-set( simonmodelmanagementui_LIB_HDRS
-	${simonmodelmanagementui_LIB_HDRS}
-	${CMAKE_CURRENT_SOURCE_DIR}/vocabularyview.h
-	)
-kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
-	${CMAKE_CURRENT_SOURCE_DIR}/vocabulary.ui)
-
-else (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-
 set( simonmodelmanagementui_LIB_SRCS
 	${simonmodelmanagementui_LIB_SRCS}
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlistview.cpp
@@ -131,8 +115,6 @@ set( simonmodelmanagementui_LIB_HDRS
 	)
 kde4_add_ui_files( simonmodelmanagementui_LIB_SRCS
 	${CMAKE_CURRENT_SOURCE_DIR}/wordlist.ui)
-endif (${SIMON_EXPERIMENTAL_SCENARIO_SUPPORT})
-######################################################
 
  kde4_add_kcfg_files(simonmodelmanagementui_LIB_SRCS
  	  speechmodelmanagementuiconfiguration.kcfgc)
