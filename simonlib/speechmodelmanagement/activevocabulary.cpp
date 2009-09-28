@@ -19,12 +19,13 @@
 
 #include "activevocabulary.h"
 #include "trainingmanager.h"
+#include "scenario.h"
 #include <KColorScheme>
 
 /**
  * Empty, private constructor
  */
-ActiveVocabulary::ActiveVocabulary(Scenario *parent) : Vocabulary(parent)
+ActiveVocabulary::ActiveVocabulary(Scenario *parent) : Vocabulary(), ScenarioObject(parent)
 {
 	buildBrushes();
 }
@@ -73,6 +74,26 @@ QVariant ActiveVocabulary::data(const QModelIndex &index, int role) const
 	}
 	
 	return Vocabulary::data(index, role);
+}
+
+bool ActiveVocabulary::removeWord(Word* w)
+{
+	if (Vocabulary::removeWord(w)) {
+		return parentScenario->save();
+//		return true;
+	}
+	return false;
+}
+
+
+bool ActiveVocabulary::deSerialize(const QDomElement& elem)
+{
+	return Vocabulary::deSerialize(elem);
+}
+
+QDomElement ActiveVocabulary::serialize(QDomDocument *doc)
+{
+	return Vocabulary::serialize(doc);
 }
 
 

@@ -45,9 +45,6 @@ private:
 protected:
 	void displayScenarioPrivate(Scenario *scenario);
 
-public slots:
-	void filterListbyPattern();
-
 public:
 	VocabularyView(QWidget *parent);
 	

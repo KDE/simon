@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WordList</class>
- <widget class="QWidget" name="WordList">
+ <class>VocabularyView</class>
+ <widget class="QWidget" name="VocabularyView">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -54,7 +54,7 @@
               </spacer>
              </item>
              <item>
-              <widget class="KLineEdit" name="lbActiveVocabSearch">
+              <widget class="KLineEdit" name="leActiveVocabSearch">
                <property name="clickMessage">
                 <string>Filter</string>
                </property>

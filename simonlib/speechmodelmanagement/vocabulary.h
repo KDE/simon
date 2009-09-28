@@ -27,9 +27,11 @@
 #include "simonmodelmanagement_export.h"
 
 #include <speechmodelbase/word.h>
-#include <simonscenariobase/scenarioobject.h>
 
-class MODELMANAGEMENT_EXPORT Vocabulary : public ScenarioObject, public QAbstractItemModel
+class QDomElement;
+class QDomDocument;
+
+class MODELMANAGEMENT_EXPORT Vocabulary : public QAbstractItemModel
 {
 
 private:
@@ -40,16 +42,15 @@ private:
 			const QModelIndex &parent = QModelIndex()) const;
 	QModelIndex parent(const QModelIndex &index) const;
 	int rowCount(const QModelIndex &parent = QModelIndex()) const;
-	int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
 
 protected:
-	Vocabulary(Scenario *parent);
 	QList<Word*> m_words;
 	virtual QVariant data(const QModelIndex &index, int role) const;
+	virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
+	Vocabulary();
 
 public:
-	static Vocabulary* createVocabulary(Scenario *parent, const QDomElement&);
 	bool deSerialize(const QDomElement&);
 	QDomElement serialize(QDomDocument *doc);
 

@@ -31,9 +31,8 @@
 #include <simonscenariobase/scenariodisplay.h>
 
 
-class QPoint;
-class ImportDictView;
-class VocabularyManager;
+class ShadowVocabulary;
+class QSortFilterProxyModel;
 
 /**
  *	@class VocabularyViewPrivate
@@ -48,8 +47,12 @@ class VocabularyManager;
 class VocabularyViewPrivate : public QWidget, public ScenarioDisplay {
 	Q_OBJECT
 private:
+	ShadowVocabulary *shadowVocab;
+	QSortFilterProxyModel *activeProxy;
+	QSortFilterProxyModel *shadowProxy;
+
 	bool abortVocabInsertion;
-	Ui::Vocabulary ui;	//!< UI definition - made by uic from the QTDesigner .ui
+	Ui::VocabularyView ui;
 
 	void setDirty ( bool dirty );
 
@@ -62,7 +65,8 @@ public slots:
 	void deleteSelectedWord();
 	void trainList();
 	void importDict(WordList* list, WordListTarget::WordListType type);
-	void filterListbyPattern(QString filter="");
+	void refreshActiveView();
+	void refreshShadowView();
 	void showImportDictDialog();
 	void displayScenarioPrivate(Scenario *scenario);
 

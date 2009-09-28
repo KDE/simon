@@ -23,22 +23,21 @@
 #include "ImportDict/importdictview.h"
 #include "TrainSamples/trainingswizard.h"
 
-#include <speechmodelmanagement/wordlistmanager.h>
-#include <speechmodelmanagement/wordlistmodel.h>
+#include <speechmodelmanagement/activevocabulary.h>
+#include <speechmodelmanagement/shadowvocabulary.h>
 
 #include <speechmodelmanagement/scenario.h>
 
 #include <simonlogging/logger.h>
 
-#include <QTableWidget>
-#include <QHeaderView>
 #include <QString>
 #include <KMessageBox>
 #include <KProgressDialog>
 #include <QCoreApplication>
 #include <KIcon>
-#include <KColorScheme>
+#include <KStandardDirs>
 #include <KDebug>
+#include <QSortFilterProxyModel>
 
 /**
  * @brief Constructor
@@ -59,23 +58,50 @@ VocabularyViewPrivate::VocabularyViewPrivate(QWidget *parent) : QWidget(parent)
 	connect(ui.lwTrainingWords, SIGNAL(droppedText(QString)), this, SLOT(copyWordToTrain()));
 	
 	connect(ui.pbRemoveWord, SIGNAL(clicked()), this, SLOT(deleteSelectedWord()));
-	connect(ui.leSearch, SIGNAL(returnPressed()), this, SLOT(filterListbyPattern()));
-	connect(ui.leSearch, SIGNAL(clearButtonClicked()), this, SLOT(filterListbyPattern()));
+	connect(ui.leActiveVocabSearch, SIGNAL(returnPressed()), this, SLOT(refreshActiveView()));
+	connect(ui.leShadowVocabSearch, SIGNAL(returnPressed()), this, SLOT(refreshShadowView()));
+	connect(ui.leActiveVocabSearch, SIGNAL(clearButtonClicked()), this, SLOT(refreshActiveView()));
+	connect(ui.leShadowVocabSearch, SIGNAL(clearButtonClicked()), this, SLOT(refreshShadowView()));
 	
 	connect (ui.pbTrainList, SIGNAL(clicked()), this, SLOT(trainList()));
 	connect(ui.pbImport, SIGNAL(clicked()), this, SLOT(showImportDictDialog()));
 	
-	connect(ui.cbShowCompleteLexicon, SIGNAL(toggled(bool)), this, SLOT(filterListbyPattern()));
-
 	ui.pbImport->setIcon(KIcon("document-import"));
 	ui.pbRemoveWord->setIcon(KIcon("edit-delete"));
 	ui.pbAddToTraining->setIcon(KIcon("list-add"));
 	ui.pbDeleteTrainingWord->setIcon(KIcon("list-remove"));
 	ui.pbTrainList->setIcon(KIcon("go-next"));
 
-	ui.tvVocab->setSelectionBehavior(QAbstractItemView::SelectRows);
+	ui.tvActiveVocab->setSelectionBehavior(QAbstractItemView::SelectRows);
+	ui.tvActiveVocab->setSortingEnabled(true);
+	ui.tvShadowVocab->setSelectionBehavior(QAbstractItemView::SelectRows);
+	ui.tvShadowVocab->setSortingEnabled(true);
 
-	filterListbyPattern();
+	activeProxy = new QSortFilterProxyModel(this);
+	activeProxy->setFilterKeyColumn(0);
+	ui.tvActiveVocab->setModel(activeProxy);
+	
+	shadowVocab = ShadowVocabulary::createVocabulary(KStandardDirs::locate("appdata", "shadowvocabulary.xml"));
+	shadowProxy = new QSortFilterProxyModel(this);
+	shadowProxy->setFilterKeyColumn(0);
+	shadowProxy->setSourceModel(shadowVocab);
+	ui.tvShadowVocab->setModel(shadowProxy);
+}
+
+void VocabularyViewPrivate::refreshActiveView()
+{
+	kDebug() << "Refreshing view with filter: " << ui.leActiveVocabSearch->text();
+
+	activeProxy->setFilterRegExp(ui.leActiveVocabSearch->text());
+	activeProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
+}
+
+void VocabularyViewPrivate::refreshShadowView()
+{
+	kDebug() << "Refreshing view with filter: " << ui.leShadowVocabSearch->text();
+
+	shadowProxy->setFilterRegExp(ui.leShadowVocabSearch->text());
+	shadowProxy->setFilterCaseSensitivity(Qt::CaseInsensitive);
 }
 
 void VocabularyViewPrivate::displayScenarioPrivate(Scenario *scenario)
@@ -83,7 +109,7 @@ void VocabularyViewPrivate::displayScenarioPrivate(Scenario *scenario)
 	kDebug() << "Displaying scenario " << scenario->name();
 
 	kDebug() << "Scenario contains: " << scenario->vocabulary()->wordCount() << " words";
-	ui.tvVocab->setModel(scenario->vocabulary());
+	activeProxy->setSourceModel(scenario->vocabulary());
 }
 
 
@@ -118,13 +144,13 @@ void VocabularyViewPrivate::deleteSelectedWord()
 {
 	if (!scenario) return;
 
-	QModelIndex selectedIndex = ui.tvVocab->currentIndex();
+	QModelIndex selectedIndex = ui.tvActiveVocab->currentIndex();
 	if (!selectedIndex.isValid()) {
 		KMessageBox::information(this, i18n("Please select a word first"));
 		return;
 	}
 
-	Word *w = static_cast<Word*>(ui.tvVocab->currentIndex().internalPointer());
+	Word *w = static_cast<Word*>(ui.tvActiveVocab->currentIndex().internalPointer());
 	DeleteWordDialog *del = new DeleteWordDialog(this);
 
 	//TODO: shadow list display is not supported yet so this is always false
@@ -168,18 +194,18 @@ void VocabularyViewPrivate::markWordToTrain(Word word)
  * The pattern which the Vocablist is matched against
  * @author Peter Grasch
  */
-void VocabularyViewPrivate::filterListbyPattern(QString filter)
-{
+//void VocabularyViewPrivate::filterListbyPattern(QString filter)
+//{
 	//if (filter.isEmpty()) filter = ui.leSearch->text().trimmed();
 	
 	//Vocabulary* limitedVocab = wordListManager->getWords(filter, ui.cbShowCompleteLexicon->isChecked(), 
 	//			WordListManager::PartialMatch, false /* display words twice which are in the active AND the shadowdict*/);
 	
-	//VocabularyModel *model = dynamic_cast<VocabularyModel*>(ui.tvVocab->model());
+	//VocabularyModel *model = dynamic_cast<VocabularyModel*>(ui.tvActiveVocab->model());
 	//if (!model)
-//		ui.tvVocab->setModel(new VocabularyModel(limitedVocab, ui.tvVocab));
+//		ui.tvActiveVocab->setModel(new VocabularyModel(limitedVocab, ui.tvActiveVocab));
 //	else model->updateVocabulary(limitedVocab);
-}
+//}
 
 /**
  * \brief Trains the list of words to train
@@ -209,19 +235,19 @@ void VocabularyViewPrivate::trainList()
 /**
  * @brief Copies a word to the Traininglist
  *
- * Copies the currently selected word from the tvVocab to the
+ * Copies the currently selected word from the tvActiveVocab to the
  * lwTrainingWords (member)
  *
  * @author Peter Grasch
  */
 void VocabularyViewPrivate::copyWordToTrain()
 {
-/*	if (!ui.tvVocab->currentIndex().isValid())
+/*	if (!ui.tvActiveVocab->currentIndex().isValid())
 	{
 		KMessageBox::information(this,i18n("Please select a word first"));
 		return;
 	}
-	Word *w = static_cast<Word*>(ui.tvVocab->currentIndex().internalPointer());
+	Word *w = static_cast<Word*>(ui.tvActiveVocab->currentIndex().internalPointer());
 	if (!w) return;
 	
 	this->trainingvocabulary.append(*w);
@@ -277,4 +303,6 @@ void VocabularyViewPrivate::deleteTrainingWord()
  */
 VocabularyViewPrivate::~VocabularyViewPrivate()
 {
+	delete shadowVocab;
 }
+

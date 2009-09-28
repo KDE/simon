@@ -19,28 +19,15 @@
 
 #include "vocabulary.h"
 #include "trainingmanager.h"
-#include "scenario.h"
 #include <KColorScheme>
+#include <QDomDocument>
+#include <QDomElement>
 
 /**
  * Empty, private constructor
  */
-Vocabulary::Vocabulary(Scenario *parent) : ScenarioObject(parent)
+Vocabulary::Vocabulary()
 {
-}
-
-/**
- * Factory function
- * \author Peter Grasch
- */
-Vocabulary* Vocabulary::createVocabulary(Scenario *parent, const QDomElement& elem)
-{
-	Vocabulary *v = new Vocabulary(parent);
-	if (!v->deSerialize(elem)) {
-		delete v;
-		v=NULL;
-	} 
-	return v;
 }
 
 bool Vocabulary::deSerialize(const QDomElement& vocabularyElem)
@@ -104,9 +91,6 @@ bool Vocabulary::removeWord(Word* w)
 			beginRemoveRows(QModelIndex(), i, i);
 			m_words.removeAt(i);
 			endRemoveRows();
-			
-			//make changes permanent
-			parentScenario->save();
 			return true;
 		}
 	}

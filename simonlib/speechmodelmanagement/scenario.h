@@ -35,6 +35,7 @@ class ActiveVocabulary;
 class TrainingText;
 
 class MODELMANAGEMENT_EXPORT Scenario : public QObject {
+	Q_OBJECT
 
 signals:
 	void changed(Scenario*);

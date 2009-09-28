@@ -24,9 +24,10 @@
 #include "simonmodelmanagement_export.h"
 #include "vocabulary.h"
 #include <QBrush>
+#include <simonscenariobase/scenarioobject.h>
 
 
-class MODELMANAGEMENT_EXPORT ActiveVocabulary : public Vocabulary
+class MODELMANAGEMENT_EXPORT ActiveVocabulary : public Vocabulary, public ScenarioObject
 {
 
 private:
@@ -44,6 +45,9 @@ protected:
 
 public:
 	static ActiveVocabulary* createVocabulary(Scenario *parent, const QDomElement&);
+	bool removeWord(Word* w);
+	bool deSerialize(const QDomElement&);
+	QDomElement serialize(QDomDocument *doc);
 };
 
 #endif
