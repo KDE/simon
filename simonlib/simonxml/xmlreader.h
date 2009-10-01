@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef XMLREADER_H
-#define XMLREADER_H
+#ifndef SIMON_XMLREADER_H_3B791E4EBA1B4537945A9F5C4019898D
+#define SIMON_XMLREADER_H_3B791E4EBA1B4537945A9F5C4019898D
 #include <QObject>
 
 #include "simonxml_export.h"

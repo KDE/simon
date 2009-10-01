@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef WORDLISTMODEL_H
-#define WORDLISTMODEL_H
+#ifndef SIMON_WORDLISTMODEL_H_0DEE6E6A8DE94694AD4E805FA16CF886
+#define SIMON_WORDLISTMODEL_H_0DEE6E6A8DE94694AD4E805FA16CF886
 
 #include "testresult.h"
 #include <QAbstractItemModel>

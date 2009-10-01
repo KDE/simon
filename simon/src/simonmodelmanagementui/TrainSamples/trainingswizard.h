@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef TRAININGSWIZARD_H
-#define TRAININGSWIZARD_H
+#ifndef SIMON_TRAININGSWIZARD_H_81DBD07A9C9E4223823558E55A8BAF3E
+#define SIMON_TRAININGSWIZARD_H_81DBD07A9C9E4223823558E55A8BAF3E
 
 #include <QWizard>
 #include <speechmodelbase/word.h>

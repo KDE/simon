@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef CALCULATORCOMMANDMANAGER_H
-#define CALCULATORCOMMANDMANAGER_H
+#ifndef SIMON_CALCULATORCOMMANDMANAGER_H_69F8482CCD434513BBC89310A2B529BE
+#define SIMON_CALCULATORCOMMANDMANAGER_H_69F8482CCD434513BBC89310A2B529BE
 
 #include <commandpluginbase/commandmanager.h>
 #include <simonactions/greedyreceiver.h>

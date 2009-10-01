@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef DATABASEACCESS_H
-#define DATABASEACCESS_H
+#ifndef SIMON_DATABASEACCESS_H_AC44723DF6984B64B25AFB4B64838A57
+#define SIMON_DATABASEACCESS_H_AC44723DF6984B64B25AFB4B64838A57
 
 #include "simonddatabaseaccess_export.h"
 #include <QObject>

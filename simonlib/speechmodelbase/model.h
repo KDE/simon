@@ -18,8 +18,8 @@
  */
 
 
-#ifndef MODEL_H
-#define MODEL_H
+#ifndef SIMON_MODEL_H_1E5152AFBDAF46B091681DC4996FB8A9
+#define SIMON_MODEL_H_1E5152AFBDAF46B091681DC4996FB8A9
 
 
 #include "speechmodelbase_export.h"

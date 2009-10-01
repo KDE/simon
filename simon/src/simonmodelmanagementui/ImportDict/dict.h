@@ -18,8 +18,8 @@
  */
 
 
-#ifndef DICT_H
-#define DICT_H
+#ifndef SIMON_DICT_H_3242C8BA5338485898083584C232BC90
+#define SIMON_DICT_H_3242C8BA5338485898083584C232BC90
 
 #include <QObject>
 #include <QString>

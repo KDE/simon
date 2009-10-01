@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef XMLEXECUTABLECOMMAND_H
-#define XMLEXECUTABLECOMMAND_H
+#ifndef SIMON_XMLEXECUTABLECOMMAND_H_50811FFE903E44AC9F9C8DF67A9CF8EB
+#define SIMON_XMLEXECUTABLECOMMAND_H_50811FFE903E44AC9F9C8DF67A9CF8EB
 #include <commandpluginbase/command.h>
 #include <simonxml/xmldomreader.h>
 

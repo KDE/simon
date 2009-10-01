@@ -16,8 +16,8 @@
  *   Free Software Foundation, Inc.,
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef XMLPLACECOMMAND_H
-#define XMLPLACECOMMAND_H
+#ifndef SIMON_XMLPLACECOMMAND_H_E094E09252784C7C92323BEB255E9A11
+#define SIMON_XMLPLACECOMMAND_H_E094E09252784C7C92323BEB255E9A11
 #include <commandpluginbase/command.h>
 #include <simonxml/xmldomreader.h>
 

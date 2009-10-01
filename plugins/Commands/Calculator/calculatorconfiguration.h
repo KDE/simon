@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef CALCULATORCONFIGURATION_H
-#define CALCULATORCONFIGURATION_H
+#ifndef SIMON_CALCULATORCONFIGURATION_H_2E45638A02CF487A8B39BFA49677F4F8
+#define SIMON_CALCULATORCONFIGURATION_H_2E45638A02CF487A8B39BFA49677F4F8
 
 #include <commandpluginbase/commandconfiguration.h>
 #include "ui_calculatorconfigurationdlg.h"

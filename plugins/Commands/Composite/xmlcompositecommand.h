@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef XMLCOMPOSITECOMMAND_H
-#define XMLCOMPOSITECOMMAND_H
+#ifndef SIMON_XMLCOMPOSITECOMMAND_H_72E19E7BDA5C4950BF19F4698F0F7F03
+#define SIMON_XMLCOMPOSITECOMMAND_H_72E19E7BDA5C4950BF19F4698F0F7F03
 #include <commandpluginbase/command.h>
 #include <simonxml/xmldomreader.h>
 

@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef LISTCOMMAND_H
-#define LISTCOMMAND_H
+#ifndef SIMON_LISTCOMMAND_H_B003A824E4CE4D008341F2E92534890A
+#define SIMON_LISTCOMMAND_H_B003A824E4CE4D008341F2E92534890A
 
 #include <commandpluginbase/command.h>
 #include "greedyreceiver.h"

@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef DELAYCOMMAND_H
-#define DELAYCOMMAND_H
+#ifndef SIMON_DELAYCOMMAND_H_F5A3CC93AA8147729EE9C50D4454725E
+#define SIMON_DELAYCOMMAND_H_F5A3CC93AA8147729EE9C50D4454725E
 
 #include <commandpluginbase/command.h>
 #include <QList>

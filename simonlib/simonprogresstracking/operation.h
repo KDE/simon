@@ -18,8 +18,8 @@
  */
 
 
-#ifndef OPERATION_H
-#define OPERATION_H
+#ifndef SIMON_OPERATION_H_BAAA53DD6BCE43FE9F6A6528C2D8A3AD
+#define SIMON_OPERATION_H_BAAA53DD6BCE43FE9F6A6528C2D8A3AD
 
 #include "simonprogresstracking_export.h"
 #include <QObject>

@@ -17,8 +17,8 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef COMMANDMANAGER_H
-#define COMMANDMANAGER_H
+#ifndef SIMON_COMMANDMANAGER_H_2F454002938E485C96B18A5C98BD350F
+#define SIMON_COMMANDMANAGER_H_2F454002938E485C96B18A5C98BD350F
 
 #include "simoncommandpluginbase_export.h"
 

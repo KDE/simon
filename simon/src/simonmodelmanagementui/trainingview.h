@@ -18,8 +18,8 @@
  */
 
 
-#ifndef TRAININGVIEW_H
-#define TRAININGVIEW_H
+#ifndef SIMON_TRAININGVIEW_H_D78BDCAA9F5047CF97304EFC17A139C4
+#define SIMON_TRAININGVIEW_H_D78BDCAA9F5047CF97304EFC17A139C4
 #include "inlinewidget.h"
 #include <speechmodelbase/word.h>
 #include "simonmodelmanagementui_export.h"

@@ -18,8 +18,8 @@
  */
 
 
-#ifndef WORDLISTVIEW_H
-#define WORDLISTVIEW_H
+#ifndef SIMON_WORDLISTVIEW_H_0932B938C92C4130A5D857523F482769
+#define SIMON_WORDLISTVIEW_H_0932B938C92C4130A5D857523F482769
 
 #include "inlinewidget.h"
 #include "simonmodelmanagementui_export.h"

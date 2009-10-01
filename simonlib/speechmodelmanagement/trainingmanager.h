@@ -18,8 +18,8 @@
  */
 
 
-#ifndef TRAININGMANAGER_H
-#define TRAININGMANAGER_H
+#ifndef SIMON_TRAININGMANAGER_H_9FD6D492DF0F4C22BCCDF8C60B24A99E
+#define SIMON_TRAININGMANAGER_H_9FD6D492DF0F4C22BCCDF8C60B24A99E
 
 #include <speechmodelbase/word.h>
 #include <speechmodelbase/trainingtext.h>

@@ -18,8 +18,8 @@
  */
 
 
-#ifndef WORD_H
-#define WORD_H
+#ifndef SIMON_WORD_H_F5AC17D9BAA445EEB71D3A360DCC5122
+#define SIMON_WORD_H_F5AC17D9BAA445EEB71D3A360DCC5122
 #include <QString>
 #include <QList>
 #include <KLocalizedString>

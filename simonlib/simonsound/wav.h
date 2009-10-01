@@ -18,8 +18,8 @@
  */
 
 
-#ifndef WAV_H
-#define WAV_H
+#ifndef SIMON_WAV_H_E9CC980F82B347F2B4677268B81B9D1F
+#define SIMON_WAV_H_E9CC980F82B347F2B4677268B81B9D1F
 
 #include <QString>
 #include <QBuffer>
